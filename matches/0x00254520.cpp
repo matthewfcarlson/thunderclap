@@ -1,3 +1,6 @@
+#include "decls/data/engine/audio.h"
+// data: gPool_254520 = DAT_004e7200
+
 #include "compat/ptr.h"
 #include "gen/audio.h"
 
@@ -19,10 +22,9 @@ class Stream_254520 {
     Sub_254520 sub;
 };
 extern void* Alloc(void*);
-extern int gPool_254520;
 
 void* audio::SeqEventStreamType::vfunc_3() {
-    Stream_254520* p = (Stream_254520*)Alloc(&gPool_254520);
+    Stream_254520* p = (Stream_254520*)Alloc(((int*)&DAT_004e7200));
     if (p) {
         p->BaseInit();
         Sub_254520* s = &p->sub;

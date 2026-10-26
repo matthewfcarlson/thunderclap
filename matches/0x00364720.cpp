@@ -1,9 +1,11 @@
+#include "decls/data/engine/audio.h"
+// data: g_obj_364720 = DAT_004e7ac0
+
 class A_364720 {
   public:
     void Run();
 };
 
-extern A_364720 g_obj_364720;
 void __fastcall FUN_00364720() {
-    g_obj_364720.Run();
+    (*(A_364720*)&DAT_004e7ac0).Run();
 }

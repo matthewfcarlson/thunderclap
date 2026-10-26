@@ -1,5 +1,6 @@
+#include "decls/data/game/global.h"
+
 extern "C" unsigned char __cdecl Find(void*);
-extern int gOne, gTwo;
 class Parent {
   public:
     virtual void invoke();
@@ -18,8 +19,8 @@ class Closure1_bfe10 : public Parent {
 };
 Closure1_bfe10::Closure1_bfe10(void* p, void* q) : Parent(p, 1) {
     ptr = q;
-    b = Find(&gOne);
-    a = Find(&gTwo);
+    b = Find(((int*)&DAT_0048e100));
+    a = Find(((int*)&DAT_0049cad8));
 }
 class Closure1 : public Closure1_bfe10 {
   public:

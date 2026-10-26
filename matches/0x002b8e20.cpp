@@ -1,4 +1,6 @@
-extern const float oneThird;
+#include "decls/data/game/global.h"
+// data: oneThird = DAT_003f32dc
+
 void FUN(float* out, int mode, float* range, float value) {
     *out = 1.0f;
     if (mode == 1) {
@@ -7,7 +9,7 @@ void FUN(float* out, int mode, float* range, float value) {
             return;
         }
         if (value < range[1]) {
-            *out = oneThird - (value - range[0]) / (range[1] - range[0]);
+            *out = DAT_003f32dc - (value - range[0]) / (range[1] - range[0]);
             return;
         }
         *out = 0.0f;

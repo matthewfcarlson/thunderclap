@@ -1,6 +1,8 @@
+#include "decls/data/engine/core.h"
+// data: globalValue = DAT_004cdbb0
+
 typedef unsigned char u8_269560;
 extern void __cdecl release(int, void*);
-extern int globalValue;
 class ControllerSystemXBox {
   public:
     void cleanup();
@@ -21,6 +23,6 @@ class ControllerSystemXBox {
 ControllerSystemXBox* ControllerSystemXBox::f2(u8_269560 flag) {
     cleanup();
     if (flag & 1)
-        release(globalValue, this);
+        release(DAT_004cdbb0, this);
     return this;
 }

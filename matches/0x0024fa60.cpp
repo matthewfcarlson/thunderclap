@@ -1,3 +1,6 @@
+#include "decls/data/engine/audio.h"
+// data: gData_24fa60 = DAT_004e6800
+
 #include "compat/ptr.h"
 namespace audio {
 class SeqAction {
@@ -23,10 +26,9 @@ class SeqActionChannelSends : public SeqAction {
     virtual void vfunc_6();
 };
 } // namespace audio
-extern char gData_24fa60[];
 audio::SeqActionChannelSends* audio::SeqActionChannelSends::vfunc_0(int x) {
     *(hulk_ulongptr*)this = (hulk_ulongptr)&baseVtable;
     if (x & 1)
-        Init(gData_24fa60, this);
+        Init(((char*)&DAT_004e6800), this);
     return this;
 }

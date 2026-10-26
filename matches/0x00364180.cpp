@@ -1,8 +1,9 @@
+#include "decls/data/engine/unknown.h"
+
 class T_364180 {
   public:
     void Fn();
 };
-extern T_364180 g_364180;
 void FUN_00364180() {
-    g_364180.Fn();
+    (*(T_364180*)((char*)&DAT_004e5df8 + 72)).Fn();
 }

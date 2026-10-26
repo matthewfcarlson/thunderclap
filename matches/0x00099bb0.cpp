@@ -1,4 +1,6 @@
-extern const float gConstant;
+#include "decls/data/game/hulkfight.h"
+// data: gConstant = DAT_003f3388
+
 class Sub_99bb0 {
   public:
     float Fn();
@@ -12,5 +14,5 @@ class Obj_99bb0 {
 float Obj_99bb0::Fn() {
     if (mSub)
         return mSub->Fn();
-    return gConstant;
+    return DAT_003f3388;
 }

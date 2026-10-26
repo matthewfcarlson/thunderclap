@@ -1,3 +1,5 @@
+#include "decls/data/game/unknown.h"
+
 struct CasterA {
     CasterA() {}
     virtual void Cast();
@@ -6,8 +8,6 @@ struct CasterB {
     CasterB() {}
     virtual void Cast();
 };
-extern const char DAT_0041c1b0[];
-extern const char DAT_0041c1a0[];
 extern "C" void* __cdecl FUN_002343e0(const char*, void*);
 class Registry {
   public:

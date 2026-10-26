@@ -1,8 +1,9 @@
+#include "decls/data/platform/xbox/core.h"
+
 extern "C" void f1();
 extern "C" void f2();
-extern "C" unsigned char g_26dab0;
 void target() {
     f1();
     f2();
-    g_26dab0 = 0;
+    (*(unsigned char*)&DAT_0052a184) = 0;
 }

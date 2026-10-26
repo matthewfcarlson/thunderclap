@@ -1,10 +1,10 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 class CWorldCollisionManager;
 struct CtorV_001d0480 {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
-extern int g1, g2;
 class Function_2030c0 : public CtorV_001d0480 {
   public:
     Function_2030c0(const char* s) : CtorV_001d0480(s, 1) { }
@@ -20,8 +20,8 @@ class Method1 : public Function_2030c0 {
     CWorldCollisionManager* obj;
     Method1(const char* s, CWorldCollisionManager* o) : Function_2030c0(s) {
         obj = o;
-        b18 = FUN_001d04d0(&g1);
-        b10 = FUN_001d04d0(&g2);
+        b18 = FUN_001d04d0(((int*)&DAT_0048e100));
+        b10 = FUN_001d04d0(((int*)&DAT_0048e0f0));
     }
 };
 class Closure1 : public Method1 {

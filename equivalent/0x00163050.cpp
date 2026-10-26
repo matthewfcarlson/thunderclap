@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 34/34)
 // FUN_00163050 @ 0x00163050
+#include "decls/data/game/hulkfight/motion.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -92,14 +94,12 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_4e1190;
-extern int DAT_4e1194;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_00163050()
 {
-    if (DAT_4e1194 == 0) {
+    if ((*(int*)&DAT_004e1194) == 0) {
         void* params[16];
         void* mem;
         mem = FUN_0008d690(0x18);
@@ -166,7 +166,7 @@ void FUN_00163050()
         params[15] = 0;
         if (mem)
             params[15] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::LocomotionSteerTrack>("blendOutTime", &hulkfight::motion::LocomotionSteerTrack::FUN_0015b4d0);
-        FUN_002347b0(&DAT_4e1190, params, 16);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1190), params, 16);
     }
-    DAT_4e1194++;
+    (*(int*)&DAT_004e1194)++;
 }

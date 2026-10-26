@@ -1,6 +1,7 @@
+#include "decls/data/game/global.h"
+// data: labelA = DAT_0048e100, labelB = DAT_0048e134
+
 extern "C" unsigned char __cdecl getFlag(const char*);
-extern char labelA[];
-extern char labelB[];
 class Function_1ce060 {
   public:
     virtual void f();
@@ -25,8 +26,8 @@ class Closure1 : public Method1 {
 };
 inline Method1::Method1(void* p, int x, int y) : Function_1ce060(p, 1) {
     m1c = y;
-    m18 = getFlag(labelA);
-    m10 = getFlag(labelB);
+    m18 = getFlag(((char*)&DAT_0048e100));
+    m10 = getFlag(((char*)&DAT_0048e134));
 }
 Closure1::Closure1(void* p, int x, int y) : Method1(p, x, y) {
     m20 = x;

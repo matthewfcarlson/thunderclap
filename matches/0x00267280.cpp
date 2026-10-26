@@ -1,35 +1,34 @@
+#include "decls/data/engine/content.h"
+#include "decls/data/engine/core.h"
+#include "decls/data/engine/unknown.h"
+// data: tbl = DAT_00527c60
+
 struct Ent_267280 {
     void* p;
     int a, b, c;
 };
-extern Ent_267280 tbl[];
 extern void* vt_267280;
-extern void* g40;
-extern int g44, g48, g4c;
-extern void* g50;
-extern void* g58;
-extern unsigned char g5c;
 extern char Vftable[];
 extern void InitA();
 extern void InitB();
 extern void Tail();
 void Target() {
-    g5c = 1;
+    (*(unsigned char*)&DAT_00527f5c) = 1;
     InitA();
-    g50 = Vftable;
+    (*(void**)&DAT_00527f50) = Vftable;
     InitB();
-    g58 = &g50;
-    g40 = &g50;
-    g44 = 0;
-    g48 = 0;
-    g4c = 0;
+    (*(void**)&DAT_00527f58) = ((void**)&DAT_00527f50);
+    (*(void**)&DAT_00527f40) = ((void**)&DAT_00527f50);
+    (*(int*)&DAT_00527f44) = 0;
+    (*(int*)&DAT_00527f48) = 0;
+    (*(int*)&DAT_00527f4c) = 0;
     unsigned i = 0;
     do {
-        Ent_267280* e = (Ent_267280*)((char*)tbl + i);
+        Ent_267280* e = (Ent_267280*)((char*)((Ent_267280*)((char*)&DAT_00527c58 + 8)) + i);
         e->a = 0;
         e->c = 0;
         e->b = 0;
-        e->p = &g50;
+        e->p = ((void**)&DAT_00527f50);
         i += 0x10;
     } while (i < 0x2e0);
     Tail();

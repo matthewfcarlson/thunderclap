@@ -1,6 +1,8 @@
+#include "decls/data/engine/audio.h"
+// data: g_bss = DAT_004e7410
+
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_255060[];
-extern char g_bss[];
 void Free(void*, void*);
 class SeqCommandLogicOr_255060 {
   public:
@@ -11,6 +13,6 @@ SeqCommandLogicOr_255060* SeqCommandLogicOr_255060::f2(unsigned char flags) {
     vptr = g_vftable_255060;
 
     if (flags & 1)
-        Free(g_bss, this);
+        Free(((char*)&DAT_004e7410), this);
     return this;
 }

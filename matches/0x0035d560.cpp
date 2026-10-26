@@ -1,5 +1,6 @@
+#include "decls/data/game/global.h"
+
 extern "C" unsigned __int64 __cdecl hash(const char*);
-extern "C" unsigned __int64 value;
 void init() {
-    value = hash("golfBall_golfBall");
+    (*(unsigned __int64*)&DAT_004dde90) = hash("golfBall_golfBall");
 }

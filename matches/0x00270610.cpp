@@ -1,4 +1,6 @@
 // cl-flags: /O2 /GR /GX
+#include "decls/data/engine/core.h"
+// data: g_Global_4CDBB0 = DAT_004cdbb0
 
 class IRefCount {
   public:
@@ -25,7 +27,6 @@ class ControllerBuffer : public IRefCount, public BaseObject {
 };
 
 extern "C" void __cdecl FUN_00266f00(int, int);
-extern int g_Global_4CDBB0;
 
 ControllerBuffer::~ControllerBuffer() throw() {
     int a = mUnk10;
@@ -36,5 +37,5 @@ ControllerBuffer::~ControllerBuffer() throw() {
     int d = mUnk28;
     FUN_00266f00(d, c);
 
-    g_Global_4CDBB0 = mUnk8;
+    DAT_004cdbb0 = mUnk8;
 }

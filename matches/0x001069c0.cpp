@@ -1,9 +1,10 @@
+#include "decls/data/game/global.h"
+
 class Function_1069c0 {
   public:
     virtual void f();
     Function_1069c0(const char*, int);
 };
-extern const char s1_1069c0[], s2[], s3[];
 extern unsigned char __cdecl get(const char*);
 class Method3 : public Function_1069c0 {
   public:
@@ -18,8 +19,8 @@ class Method3 : public Function_1069c0 {
 };
 Method3::Method3(const char* p, int v) : Function_1069c0(p, 3) {
     value = v;
-    d = get(s1_1069c0);
-    a = get(s2);
-    b = get(s1_1069c0);
-    c = get(s3);
+    d = get(((const char*)&DAT_0048e0e4));
+    a = get(((const char*)&DAT_0048e0f0));
+    b = get(((const char*)&DAT_0048e0e4));
+    c = get(((const char*)&DAT_0048e134));
 }

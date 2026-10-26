@@ -1,4 +1,6 @@
-extern int gValue_327d00;
+#include "decls/data/engine/pure3d.h"
+// data: gValue_327d00 = DAT_004d40d8
+
 class Target_327d00 {
   public:
     virtual void f0();
@@ -18,7 +20,7 @@ class Target_327d00 {
     int TargetFunction();
 };
 int Target_327d00::TargetFunction() {
-    if (value == gValue_327d00) {
+    if (value == DAT_004d40d8) {
         if (Check() == 1)
             return 1;
     }

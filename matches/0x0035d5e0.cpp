@@ -1,5 +1,7 @@
+#include "decls/data/game/global.h"
+// data: result = DAT_004ddf60
+
 extern __int64 parse(const char*);
-extern __int64 result;
 void FUN_0035d5e0() {
-    result = parse("$MACRO_DEFINE");
+    (*(__int64*)&DAT_004ddf60) = parse("$MACRO_DEFINE");
 }

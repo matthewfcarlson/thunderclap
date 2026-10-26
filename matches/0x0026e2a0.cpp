@@ -1,4 +1,5 @@
-extern int gId_26e2a0;
+#include "decls/data/engine/core.h"
+
 void Hook();
 void PoolInit(void* pool, int a, int b, int c, int d, const char* name, int e);
 
@@ -37,7 +38,7 @@ class ConsoleClient : public ConsoleClient_26e2a0, public RefC {
 ConsoleClient_26e2a0::ConsoleClient_26e2a0() {}
 void ConsoleClient_26e2a0::f0() {}
 Obj_26e2a0::Obj_26e2a0() {
-    mId = gId_26e2a0;
+    mId = DAT_004cdbb0;
     Hook();
 }
 void Obj_26e2a0::g0() {}

@@ -1,6 +1,7 @@
+#include "decls/data/game/global.h"
+// data: keyA = DAT_0048e100, keyB = DAT_0048e0f0
+
 extern "C" unsigned char __cdecl Lookup(const char*);
-extern const char keyA[];
-extern const char keyB[];
 class Function_1ea3b0 {
   public:
     virtual void Invoke(const char*);
@@ -17,8 +18,8 @@ class Method1 : public Function_1ea3b0 {
     virtual void Invoke(const char*);
     Method1(const char* s, void* p) : Function_1ea3b0(s, 1) {
         member = p;
-        flagA = Lookup(keyA);
-        flagB = Lookup(keyB);
+        flagA = Lookup(((const char*)&DAT_0048e100));
+        flagB = Lookup(((const char*)&DAT_0048e0f0));
     }
 };
 class Closure1 : public Method1 {

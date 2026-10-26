@@ -1,8 +1,9 @@
 // Same code shape as 0x00363af0 (propagated; names are from that function)
+#include "decls/data/engine/audio.h"
+
 struct MetaType_3642c0 {
     void f();
 };
-extern MetaType_3642c0 g_3642c0;
 void wrapper() {
-    g_3642c0.f();
+    (*(MetaType_3642c0*)&DAT_004e6394).f();
 }

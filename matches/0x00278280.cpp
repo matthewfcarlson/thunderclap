@@ -1,5 +1,5 @@
-extern int gA_278280;
-extern int gB_278280;
+#include "decls/data/platform/xbox/core.h"
+
 void __stdcall cleanup(int);
 class XboxSaveDrive {
   public:
@@ -30,8 +30,8 @@ class XboxSaveDrive {
 };
 int XboxSaveDrive::f10(int a, int b) {
     f11(a, b);
-    if (gA_278280 == a)
-        gB_278280 = 0;
+    if ((*(int*)((char*)&DAT_0052c270 + 4)) == a)
+        (*(int*)((char*)&DAT_0052c270 + 12)) = 0;
     cleanup(a);
     refs = refs - 1;
     return 1;

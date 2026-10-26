@@ -1,7 +1,8 @@
+#include "decls/data/game/global.h"
+
 struct Item {
     int x;
 };
-extern Item g1, g2;
 extern "C" unsigned char check(Item*);
 class Function_1ce6a0 {
   public:
@@ -21,8 +22,8 @@ class Method1_1ce6a0 : public Function_1ce6a0 {
 };
 inline Method1_1ce6a0::Method1_1ce6a0(const char* name, void* a) : Function_1ce6a0(name, 1) {
     target = a;
-    f18 = check(&g1);
-    f10 = check(&g2);
+    f18 = check(((Item*)&DAT_0048e100));
+    f10 = check(((Item*)&DAT_0048e0f0));
 }
 class Closure1_1ce6a0 : public Method1_1ce6a0 {
   public:

@@ -1,7 +1,8 @@
 #include "decls/address.h"
-extern unsigned int g_hash0, g_hash1;
+#include "decls/data/game/global.h"
+// data: g_hash0 = DAT_004ddf28, g_hash1 = DAT_004ddf2c
 extern "C" void __cdecl FUN_0035d520() throw() {
     unsigned long long r = FUN_0027b020("$MACRO_DEFINE");
-    g_hash0 = (unsigned int)r;
-    g_hash1 = (unsigned int)(r >> 32);
+    (*(unsigned int*)&DAT_004ddf28) = (unsigned int)r;
+    (*(unsigned int*)&DAT_004ddf2c) = (unsigned int)(r >> 32);
 }

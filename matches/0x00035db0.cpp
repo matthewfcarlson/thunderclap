@@ -1,6 +1,8 @@
-extern "C" unsigned char gState_35db0;
+#include "decls/data/game/hulkfight.h"
+// data: gState_35db0 = DAT_004dc290
+
 extern "C" unsigned char __cdecl FUN_00035db0(unsigned char value) {
-    unsigned char old = gState_35db0;
-    gState_35db0 = value;
+    unsigned char old = (*(unsigned char*)&DAT_004dc290);
+    (*(unsigned char*)&DAT_004dc290) = value;
     return old;
 }

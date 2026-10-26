@@ -1,9 +1,11 @@
+#include "decls/data/game/global.h"
+// data: gZero = DAT_003f32e0
+
 struct Manager {
     char pad[0x2c];
     void* item;
 };
 extern Manager* gManager;
-extern const float gZero;
 class Active {
   public:
     float check();
@@ -30,7 +32,7 @@ void Obj::Run() {
             if (!ptr)
                 return;
         }
-        if (active->check() == gZero) {
+        if (active->check() == DAT_003f32e0) {
             a = 0;
             b = 0;
             c = 0;

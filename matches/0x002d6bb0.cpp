@@ -1,5 +1,6 @@
+#include "decls/data/engine/pure3d.h"
+
 extern "C" int memcmp(const void*, const void*, unsigned int);
-extern unsigned char data[8];
 int FUN_002d6bb0(const char* p, unsigned int offset, unsigned int count) {
     if (count > 8)
         count = 8;
@@ -9,5 +10,5 @@ int FUN_002d6bb0(const char* p, unsigned int offset, unsigned int count) {
         return 0;
     if (offset + count > 8)
         count = 8 - offset;
-    return memcmp(p + offset, data + offset, count);
+    return memcmp(p + offset, ((unsigned char*)&DAT_004d102c) + offset, count);
 }

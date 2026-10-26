@@ -1,4 +1,7 @@
 // Same code shape as 0x00293c80 (propagated; names are from that function)
+#include "decls/data/engine/global.h"
+// data: glob_293da0 = DAT_0052c2d8
+
 #include "compat/ptr.h"
 struct V {
     virtual void x0();
@@ -28,9 +31,8 @@ struct T_293da0 {
     V* p;
     void f(int, int, int);
 };
-extern G_293da0 glob_293da0;
 void T_293da0::f(int a, int b, int c) {
-    glob_293da0.a();
-    glob_293da0.b(a, b, c);
-    p->x17(0, (hulk_intptr)&glob_293da0);
+    (*(G_293da0*)&DAT_0052c2d8).a();
+    (*(G_293da0*)&DAT_0052c2d8).b(a, b, c);
+    p->x17(0, (hulk_intptr)&(*(G_293da0*)&DAT_0052c2d8));
 }

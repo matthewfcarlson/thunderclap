@@ -1,4 +1,7 @@
 // Same code shape as 0x000fc1e0 (propagated; names are from that function)
+#include "decls/data/game/global.h"
+// data: g_flag_fc200 = DAT_004e0a68, g_obj_fc200 = DAT_004e0a60
+
 struct Inner_fc200 {
     void run(unsigned int, unsigned int);
 };
@@ -6,9 +9,7 @@ struct Obj_fc200 {
     int pad;
     Inner_fc200* field;
 };
-extern Obj_fc200* g_obj_fc200;
-extern unsigned char g_flag_fc200;
 void FUN_000fc200(unsigned int a, unsigned int b) {
-    g_obj_fc200->field->run(a, b);
-    g_flag_fc200 = 1;
+    (*(Obj_fc200**)&DAT_004e0a60)->field->run(a, b);
+    (*(unsigned char*)&DAT_004e0a68) = 1;
 }

@@ -1,3 +1,6 @@
+#include "decls/data/engine/fight.h"
+// data: gHolder = DAT_004e5af8
+
 class Obj {
   public:
     virtual void a();
@@ -12,8 +15,7 @@ struct Holder {
         }
     }
 };
-extern Holder* gHolder;
 void shutdown() {
-    delete gHolder;
-    gHolder = 0;
+    delete (*(Holder**)&DAT_004e5af8);
+    (*(Holder**)&DAT_004e5af8) = 0;
 }

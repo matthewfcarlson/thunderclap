@@ -1,3 +1,6 @@
+#include "decls/data/engine/core.h"
+// data: gLock_274be0 = DAT_0052a1c8, gManager_274be0 = DAT_0052a1e4
+
 class Request {
   public:
     virtual void f0();
@@ -18,8 +21,6 @@ class Manager_274be0 {
 };
 extern void FUN_0026d850(void*);
 extern void FUN_0026d840(void*);
-extern Manager_274be0* gManager_274be0;
-extern char gLock_274be0;
 extern int gCompletionVtable;
 extern int gRequestVtable;
 namespace core { class CompletionEventRequest {
@@ -34,9 +35,9 @@ void* core::CompletionEventRequest::vfunc_0(unsigned char param) {
     mRequest->f1();
     vptr = &gRequestVtable;
     if (param & 1) {
-        FUN_0026d850(&gLock_274be0);
-        gManager_274be0->f4(this);
-        FUN_0026d840(&gLock_274be0);
+        FUN_0026d850(((char*)&DAT_0052a1c8));
+        (*(Manager_274be0**)&DAT_0052a1e4)->f4(this);
+        FUN_0026d840(((char*)&DAT_0052a1c8));
     }
     return this;
 }

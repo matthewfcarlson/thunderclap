@@ -1,3 +1,8 @@
+#include "decls/data/engine/physics.h"
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/global.h"
+// data: gEnabled_2eccd0 = DAT_00554c0c, kScale_2eccd0 = DAT_004d287c
+
 struct Sub2_2eccd0 {
     void Do();
 };
@@ -16,10 +21,6 @@ struct PB {
     Sub2_2eccd0 s;
 };
 
-extern char gEnabled_2eccd0;
-extern PA* gPA;
-extern PB* gPB;
-extern const float kScale_2eccd0;
 
 class Cls_2eccd0 {
   public:
@@ -31,14 +32,14 @@ class Cls_2eccd0 {
 
 void Cls_2eccd0::Set(float f) {
     a = f;
-    if (!gEnabled_2eccd0)
+    if (!DAT_00554c0c)
         return;
-    b = kScale_2eccd0 * f;
-    if (gPA) {
-        gPA->s.Do();
-        gPA->f38 = b;
-    } else if (gPB) {
-        gPB->s.Do();
-        gPB->f80 = b;
+    b = (*(const float*)&DAT_004d287c) * f;
+    if ((*(PA**)&DAT_0055547c)) {
+        (*(PA**)&DAT_0055547c)->s.Do();
+        (*(PA**)&DAT_0055547c)->f38 = b;
+    } else if ((*(PB**)&DAT_00554c14)) {
+        (*(PB**)&DAT_00554c14)->s.Do();
+        (*(PB**)&DAT_00554c14)->f80 = b;
     }
 }

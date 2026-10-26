@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: flag = DAT_004e222c
+
 struct Event {
     char data[32];
     Event(const char*);
@@ -10,9 +13,8 @@ struct Global {
     Receiver* rec;
 };
 extern Global* g;
-extern unsigned char flag;
 void target() {
     Event e("JumpMarkerSelectionCancelled");
     g->rec->Send(&e);
-    flag = 1;
+    (*(unsigned char*)&DAT_004e222c) = 1;
 }

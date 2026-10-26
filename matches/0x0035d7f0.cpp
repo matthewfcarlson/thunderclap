@@ -1,6 +1,7 @@
-extern const int value;
+#include "decls/data/game/global.h"
+// data: result = DAT_004de620
+
 extern __int64 __cdecl called(const int*);
-extern __int64 result;
 void FUN_0035d7f0() {
-    result = called(&value);
+    (*(__int64*)&DAT_004de620) = called(((const int*)&DAT_00400488));
 }

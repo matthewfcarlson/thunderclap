@@ -1,3 +1,6 @@
+#include "decls/data/engine/audio.h"
+// data: bss = DAT_004e70a0
+
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* p) {
     return p;
@@ -30,9 +33,8 @@ class SeqEventVarPitchRand : public SeqEvent {
     virtual void v2(Ctx*);
 };
 } // namespace audio
-extern char bss[];
 extern "C" void* alloc(void*);
 void audio::SeqEventVarPitchRand::v2(Ctx* ctx) {
-    void* p = alloc(bss);
+    void* p = alloc(DAT_004e70a0);
     ctx->Add(p ? new (p) SeqActionVarPitchRand(this) : 0);
 }

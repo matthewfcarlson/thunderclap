@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gmgr = DAT_0052c2b0
+
 struct Buf_294500 {
     char pad[12];
     void put(void* p, unsigned int v);
@@ -8,7 +11,6 @@ struct Sub_294500 {
 struct Mgr_294500 {
     Sub_294500* sub;
 };
-extern Mgr_294500* gmgr;
 struct Obj_294500 {
     virtual void v0();
     virtual void v1();
@@ -33,7 +35,7 @@ class Target_294500 {
 };
 void Target_294500::run(int a, int b, int c, Buf_294500* out) {
     Buf_294500 local;
-    local.put(&a, gmgr->sub->getval());
+    local.put(&a, (*(Mgr_294500**)&DAT_0052c2b0)->sub->getval());
     if (obj) {
         unsigned int v = obj->get();
         out->put(&local, v);

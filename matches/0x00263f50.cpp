@@ -1,8 +1,9 @@
+#include "decls/data/engine/content.h"
+
 class Service_263f50 {
   public:
     int Get();
 };
-extern Service_263f50* g_263f50;
 class LoadStream_263f50 {
   public:
     char p[8];
@@ -31,7 +32,7 @@ void LoadStream_263f50::Init() {
     c[9] = 0;
     c[10] = 0;
     c[11] = 0;
-    unsigned int x = g_263f50->Get();
+    unsigned int x = (*(Service_263f50**)&DAT_00527c58)->Get();
     e = 0;
     d = x / 1000;
 }

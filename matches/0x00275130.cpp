@@ -1,3 +1,6 @@
+#include "decls/data/engine/core.h"
+// data: g_frlloc_275130 = DAT_0052a1e4, g_pool_275130 = DAT_0052a1c8
+
 struct Lock_275130 {
     virtual void lock();
     virtual void unlock();
@@ -16,8 +19,6 @@ struct Alloc_275130 {
     virtual void d();
     virtual void free(void*);
 };
-extern char g_pool_275130;
-extern Alloc_275130* g_frlloc_275130;
 extern void* g_fr[];
 extern void* g_rq[];
 void __cdecl Lk(void*);
@@ -37,9 +38,9 @@ FileCloseRequest_275130* FileCloseRequest_275130::f0(unsigned char flags) {
     drive->release();
     vptr = g_rq;
     if (flags & 1) {
-        Lk(&g_pool_275130);
-        g_frlloc_275130->free(this);
-        Ulk(&g_pool_275130);
+        Lk(((char*)&DAT_0052a1c8));
+        (*(Alloc_275130**)&DAT_0052a1e4)->free(this);
+        Ulk(((char*)&DAT_0052a1c8));
     }
     return this;
 }

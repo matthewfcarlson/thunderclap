@@ -5,6 +5,8 @@
 // is always the head (item is derived from the head), so the search never runs and prev is always 0.
 // equiv-conv: FUN_0025e230 edi
 // equiv-dead: +0x16 not taken, +0x1e taken, +0x1e not taken, +0x22 taken, +0x22 not taken: node is always the head
+#include "decls/data/engine/audio.h"
+
 struct Link {
     Link* next;
 };
@@ -15,7 +17,6 @@ struct Item {
 };
 
 struct Pool;
-extern Pool DAT_004e7970;
 void FUN_00247550(Pool* pool, Item* item);
 
 struct Owner {
@@ -36,6 +37,6 @@ void FUN_0025e230(Owner* owner)
         owner->head = node->next;
         if (node->next == 0)
             owner->tail = 0;
-        FUN_00247550(&DAT_004e7970, item);
+        FUN_00247550(((Pool*)((char*)&DAT_004e78e0 + 144)), item);
     }
 }

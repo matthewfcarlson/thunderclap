@@ -1,10 +1,9 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct CtorV_001d0480 {
     CtorV_001d0480(int, int);
     virtual void v_001d0480();
 };
-extern const char g1[];
-extern const char g2[];
 class Function_205ff0 : public CtorV_001d0480 {
   public:
     Function_205ff0(int x) : CtorV_001d0480(x, 1) { }
@@ -20,8 +19,8 @@ class Method1 : public Function_205ff0 {
     int c;
     Method1(int x, int y) : Function_205ff0(x) {
         c = y;
-        b = FUN_001d04d0(g1);
-        a = FUN_001d04d0(g2);
+        b = FUN_001d04d0(((const char*)&DAT_0048e0e4));
+        a = FUN_001d04d0(((const char*)&DAT_0048e134));
     }
 };
 class Closure1 : public Method1 {

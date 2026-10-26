@@ -1,6 +1,7 @@
 #include "gen/global.h"
+#include "decls/data/game/global.h"
+// data: alphabet = DAT_004a0d38
 
-extern const char alphabet[];
 
 bool FETextInput::FUN_000dca40() {
     int i = 0;
@@ -8,7 +9,7 @@ bool FETextInput::FUN_000dca40() {
         do {
             int value = (*(int * *)&this->f_16c)[i];
             if (value >= 0)
-                (*(char * *)&this->f_158)[i] = alphabet[value];
+                (*(char * *)&this->f_158)[i] = ((const char*)&DAT_004a0d38)[value];
             else
                 (*(char * *)&this->f_158)[i] = 0;
             ++i;

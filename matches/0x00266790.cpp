@@ -1,3 +1,6 @@
+#include "decls/data/engine/pure3d/scenegraph.h"
+// data: one = DAT_004c9f38
+
 #include "compat/ptr.h"
 class Sub_266790 {
   public:
@@ -13,7 +16,6 @@ class Obj_266790 {
   public:
     hulk_freg run();
 };
-extern const float one;
 extern const float zero_266790;
 extern const float fix;
 hulk_freg Obj_266790::run() {

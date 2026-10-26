@@ -1,3 +1,5 @@
+#include "decls/data/game/Render/Canvas.h"
+
 struct R_1c1e90 {
     virtual void A();
     virtual void Rel();
@@ -6,7 +8,6 @@ struct Sub_1c1e90 {
     void Cleanup();
     char pad[0xb0];
 };
-extern R_1c1e90* gR;
 struct C_1c1e90 {
     virtual void V();
     R_1c1e90* m4;
@@ -43,9 +44,9 @@ void C_1c1e90::Shutdown() {
         m8->Rel();
         m8 = 0;
     }
-    if (gR) {
-        gR->Rel();
-        gR = 0;
+    if ((*(R_1c1e90**)&DAT_004e2314)) {
+        (*(R_1c1e90**)&DAT_004e2314)->Rel();
+        (*(R_1c1e90**)&DAT_004e2314) = 0;
     }
     sub.Cleanup();
 }

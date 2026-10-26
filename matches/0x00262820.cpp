@@ -1,4 +1,5 @@
-extern const char* const table_262820[];
+#include "decls/data/engine/unknown.h"
+
 const char* FUN_00262820(int param_1) {
-    return table_262820[param_1 * 3];
+    return ((const char* const*)&DAT_0042ab5c)[param_1 * 3];
 }

@@ -1,6 +1,8 @@
+#include "decls/data/engine/audio.h"
+#include "decls/data/game/global.h"
+// data: gPointer = DAT_004cc02c, gZero_240110 = DAT_003f335c
+
 extern "C" void* memcpy(void*, const void*, unsigned int);
-extern char* gPointer;
-extern char gZero_240110;
 class Obj_240110 {
   public:
     void consume(const char*);
@@ -21,8 +23,8 @@ void __cdecl FUN_00240110(Obj_240110* obj, Source_240110* src, unsigned int n) {
         offset = len - n + 1;
     }
     char* data = src->data;
-    if (data == gPointer)
-        data = &gZero_240110;
+    if (data == (*(char**)&DAT_004cc02c))
+        data = ((char*)&DAT_003f335c);
     memcpy(local, data + offset, n);
     obj->consume(local);
 }

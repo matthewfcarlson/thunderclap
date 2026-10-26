@@ -1,11 +1,13 @@
+#include "decls/data/engine/core.h"
+// data: g_value_334010 = DAT_004cdbb0
+
 #include "compat/ptr.h"
 extern "C" void* __cdecl FUN_00266e00(void*, hulk_intptr);
 struct Obj_334010 {
     int FUN_00333f10();
 };
-extern void* g_value_334010;
 extern "C" int __cdecl FUN_00334010(void* p) {
-    g_value_334010 = p;
+    (*(void**)&DAT_004cdbb0) = p;
     Obj_334010* q = (Obj_334010*)FUN_00266e00(p, 0x1dc);
     if (q)
         return q->FUN_00333f10();

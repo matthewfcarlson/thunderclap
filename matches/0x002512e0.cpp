@@ -1,3 +1,6 @@
+#include "decls/data/engine/audio.h"
+// data: bss = DAT_004e6a68
+
 namespace audio {
 class SeqEvent {
   public:
@@ -26,11 +29,10 @@ class SeqEventStopTrack : public SeqEvent {
     virtual void vfunc_2(void*);
 };
 } // namespace audio
-extern char bss;
 extern "C" void* __cdecl FUN_00247530(void*);
 inline void* operator new(unsigned int, char* p) {
     return FUN_00247530(p);
 }
 void audio::SeqEventStopTrack::vfunc_2(void* p) {
-    ((Track*)p)->action(new (&bss) SeqActionStopTrack(this));
+    ((Track*)p)->action(new (((char*)((char*)&DAT_004e6a60 + 8))) SeqActionStopTrack(this));
 }

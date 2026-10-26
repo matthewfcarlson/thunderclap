@@ -1,4 +1,6 @@
-extern char metalanim[];
+#include "decls/data/game/unknown.h"
+// data: metalanim = DAT_00407b08
+
 class Item {
   public:
     void Use(const char*, void*);
@@ -22,6 +24,6 @@ int X::Fn(int type, void** p) {
         return -1;
     void* v = *p;
     if (v)
-        q->item->Use(metalanim, v);
+        q->item->Use(((char*)&DAT_00407b08), v);
     return 0;
 }

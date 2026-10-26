@@ -1,4 +1,5 @@
-extern "C" int* g_g_23f1a0;
+#include "decls/data/engine/fight.h"
+
 extern "C" int* FUN_0023f1a0() {
-    return g_g_23f1a0;
+    return (*(int**)&DAT_004e5c94);
 }

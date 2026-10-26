@@ -1,3 +1,6 @@
+#include "decls/data/engine/core.h"
+// data: global_3340b0 = DAT_004cdbb0
+
 #include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042af64[];
@@ -16,7 +19,6 @@ struct X_3340b0 {
     char pad[0x20];
     V* q;
 };
-extern int global_3340b0;
 void __fastcall FUN_003340b0(X_3340b0* x) {
     x->v = (void**)((hulk_intptr)DAT_004342c4);
     x->a = (int)((hulk_intptr)DAT_004342bc);
@@ -28,7 +30,7 @@ void __fastcall FUN_003340b0(X_3340b0* x) {
         x->q->g();
         x->q = 0;
     }
-    global_3340b0 = x->b;
+    DAT_004cdbb0 = x->b;
     x->a = (int)((hulk_intptr)DAT_0042af64);
     x->v = (void**)((hulk_intptr)DAT_003f6098);
 }

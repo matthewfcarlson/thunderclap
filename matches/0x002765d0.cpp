@@ -1,3 +1,6 @@
+#include "decls/data/engine/core.h"
+// data: gLock_2765d0 = DAT_0052a1e8
+
 #include "compat/ptr.h"
 struct Mgr_2765d0 {
     virtual void m0();
@@ -11,8 +14,6 @@ struct Obj_2765d0 {
     virtual void Rel();
 };
 struct Lock;
-extern Lock gLock_2765d0;
-extern Mgr_2765d0* gMgr_2765d0;
 extern int vt0_2765d0, vt4, vtR;
 void __cdecl Enter(Lock*);
 void __cdecl Leave(Lock*);
@@ -35,9 +36,9 @@ File* File::Fn(unsigned char f) {
     sub.Dtor();
     *(hulk_intptr*)this = (hulk_intptr)&vtR;
     if (f & 1) {
-        Enter(&gLock_2765d0);
-        gMgr_2765d0->Free(this);
-        Leave(&gLock_2765d0);
+        Enter(((Lock*)&DAT_0052a1e8));
+        (*(Mgr_2765d0**)&DAT_0052a204)->Free(this);
+        Leave(((Lock*)&DAT_0052a1e8));
     }
     return this;
 }

@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gFallback_1b56a0 = DAT_004e2160
+
 typedef unsigned short ushort;
 struct Node {
     char pad[8];
@@ -12,7 +15,6 @@ struct Entry_1b56a0 {
 struct Result_1b56a0 {
     char pad[0x0c];
 };
-extern char gFallback_1b56a0;
 struct Owner_1b56a0 {
     Entry_1b56a0** entries;
     Result_1b56a0* Lookup(int key, int index);
@@ -25,5 +27,5 @@ Result_1b56a0* Owner_1b56a0::Lookup(int key, int index) {
         ushort v = *(ushort*)((char*)n->records + 0x10 + (index + low * 12) * 2);
         return (Result_1b56a0*)((char*)n->items + v * 12);
     }
-    return (Result_1b56a0*)&gFallback_1b56a0;
+    return (Result_1b56a0*)&(*(char*)((char*)&DAT_004e215c + 4));
 }

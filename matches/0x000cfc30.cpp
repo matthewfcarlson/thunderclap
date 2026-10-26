@@ -1,4 +1,6 @@
-extern char gA_cfc30[];
+#include "decls/data/game/global.h"
+// data: gA_cfc30 = DAT_0048e134
+
 extern char gB_cfc30[];
 extern "C" char Get(char const*);
 class Function_cfc30 {
@@ -26,8 +28,8 @@ class Closure2 : public Method2 {
 };
 inline Method2::Method2(int a, int c) : Function_cfc30(a, 2) {
     value = c;
-    z = Get(gA_cfc30);
-    x = Get(gA_cfc30);
+    z = Get(((char*)&DAT_0048e134));
+    x = Get(((char*)&DAT_0048e134));
     y = Get(gB_cfc30);
 }
 Closure2::Closure2(int a, int b, int c) : Method2(a, c) {

@@ -1,6 +1,6 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 class CSPManager;
-extern const char s1[], s2[];
 struct Function_1e1f40 {
     virtual void run();
     char pad[0x0c];
@@ -15,8 +15,8 @@ struct Method1 : Function_1e1f40 {
     virtual void run();
     Method1(const char* x, const char* z) : Function_1e1f40(x, 1) {
         name = z;
-        b = FUN_001d04d0(s1);
-        a = FUN_001d04d0(s2);
+        b = FUN_001d04d0(((const char*)&DAT_0048e0e4));
+        a = FUN_001d04d0(((const char*)&DAT_0048e0f0));
     }
 };
 struct Closure1 : Method1 {

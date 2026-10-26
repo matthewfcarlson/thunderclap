@@ -1,11 +1,13 @@
+#include "decls/data/game/global.h"
+// data: g_pairs = DAT_004e2788
+
 struct Pair_1e9bc0 {
     int a;
     int b;
 };
-extern Pair_1e9bc0* g_pairs;
 bool FUN_001e9bc0(int a, int b) {
     for (int i = 0; i < 28; ++i) {
-        if (a == g_pairs[i].a && b == g_pairs[i].b)
+        if (a == (*(Pair_1e9bc0**)&DAT_004e2788)[i].a && b == (*(Pair_1e9bc0**)&DAT_004e2788)[i].b)
             return true;
     }
     return false;

@@ -1,8 +1,9 @@
+#include "decls/data/game/global.h"
+// data: g_hashHi = DAT_004dceec, g_hashLo = DAT_004dcee8
+
 extern "C" unsigned long long __cdecl Hash64(const char*);
-extern unsigned int g_hashLo;
-extern unsigned int g_hashHi;
 void FUN_0035caf0() {
     unsigned long long h = Hash64("climbing");
-    g_hashLo = (unsigned int)h;
-    g_hashHi = (unsigned int)(h >> 32);
+    (*(unsigned int*)&DAT_004dcee8) = (unsigned int)h;
+    (*(unsigned int*)&DAT_004dceec) = (unsigned int)(h >> 32);
 }

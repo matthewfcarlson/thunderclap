@@ -1,5 +1,5 @@
 #include "decls/address.h"
-extern const char DAT_0048e100[];
+#include "decls/data/game/global.h"
 extern const char DAT_0048e10c[];
 class Function_cfb90 {
   public:
@@ -11,7 +11,7 @@ class Method1 : public Function_cfb90 {
   public:
     Method1(void* a, void* c) : Function_cfb90(a, 1) {
         p = c;
-        flag2 = FUN_001d04d0(DAT_0048e100);
+        flag2 = FUN_001d04d0(((const char*)&DAT_0048e100));
         flag1 = FUN_001d04d0(DAT_0048e10c);
     }
     virtual void g();

@@ -1,5 +1,5 @@
 #include "decls/address.h"
-extern char DAT_0048e0f0[];
+#include "decls/data/game/global.h"
 extern char DAT_0048e10c[];
 class Function_2f290 {
   public:
@@ -17,7 +17,7 @@ class Method1_2f290 : public Function_2f290 {
     int c;
     Method1_2f290(const char* s, int x) : Function_2f290(s, 1) {
         c = x;
-        b = FUN_001d04d0(DAT_0048e0f0);
+        b = FUN_001d04d0(((char*)&DAT_0048e0f0));
         a = FUN_001d04d0(DAT_0048e10c);
     }
 };

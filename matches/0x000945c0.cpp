@@ -1,3 +1,5 @@
+#include "decls/data/game/global.h"
+
 class Parent {
   public:
     Parent(int, int);
@@ -21,11 +23,10 @@ class Closure1 : public Closure1_945c0 {
     int m;
 };
 extern char Get(const char*);
-extern const char s1[], s2[];
 Closure1_945c0::Closure1_945c0(int a, int b) : Parent(a, 1) {
     n = b;
-    y = Get(s1);
-    x = Get(s2);
+    y = Get(((const char*)&DAT_0048e0e4));
+    x = Get(((const char*)&DAT_0048e134));
 }
 Closure1::Closure1(int a, int b, int c) : Closure1_945c0(a, c) {
     m = b;

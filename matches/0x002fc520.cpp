@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: global_2fc520 = DAT_00554c14
+
 #include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_00431898[];
@@ -23,10 +26,9 @@ class Global_2fc520 {
   public:
     void call(int);
 };
-extern Global_2fc520* global_2fc520;
 void PhysicsInstance_2fc520::Destroy() {
     vptr = (void*)((hulk_intptr)DAT_00431898);
-    global_2fc520->call(*(int*)((char*)obj + 0x74));
+    (*(Global_2fc520**)&DAT_00554c14)->call(*(int*)((char*)obj + 0x74));
     if (ref)
         ref->Release();
     obj->Release();

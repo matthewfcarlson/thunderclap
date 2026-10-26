@@ -1,8 +1,9 @@
+#include "decls/data/engine/choreo2.h"
+// data: gCount_225da0 = DAT_004e5ab4
+
 #include "compat/ptr.h"
 extern "C" char DAT_00427368[];
 extern "C" void* __cdecl alloc(hulk_uintptr);
-int gCount_225da0;
-int gMax_225da0;
 struct AnimationDriver_225da0 {
     hulk_intptr v;
     void InitA(void*);
@@ -17,9 +18,9 @@ AnimationDriver_225da0* Factory_225da0::Make() {
         p->InitA(this);
         p->v = ((hulk_intptr)DAT_00427368);
         p->InitB(this);
-        ++gCount_225da0;
-        if (gCount_225da0 > gMax_225da0)
-            gMax_225da0 = gCount_225da0;
+        ++DAT_004e5ab4;
+        if (DAT_004e5ab4 > DAT_004e5ab8)
+            DAT_004e5ab8 = DAT_004e5ab4;
         return p;
     }
     return 0;

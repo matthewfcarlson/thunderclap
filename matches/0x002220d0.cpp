@@ -1,8 +1,9 @@
+#include "decls/data/engine/unknown.h"
+
 #include "compat/ptr.h"
 struct Result {
     char data[12];
 };
-extern float DAT_004c9d60;
 float __cdecl FUN_00224f10(Result*);
 struct Sub {
     char data[16];
@@ -20,10 +21,10 @@ hulk_freg Obj::FUN_002220d0() {
     switch (mode) {
     case 0:
     case 2:
-        FUN_0022c3b0(&DAT_004c9d60, &result);
+        FUN_0022c3b0(((float*)&DAT_004c9d60), &result);
         break;
     case 1:
-        sub.FUN_0022b4d0(&DAT_004c9d60, &result);
+        sub.FUN_0022b4d0(((float*)&DAT_004c9d60), &result);
         break;
     }
     return FUN_00224f10(&result);

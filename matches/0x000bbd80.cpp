@@ -1,4 +1,6 @@
-unsigned char gFlag;
+#include "decls/data/game/unknown.h"
+// data: gFlag = DAT_004dd83a
+
 class Obj {
   public:
     char pad[4];
@@ -7,5 +9,5 @@ class Obj {
 };
 void Obj::Set(void* p) {
     if (ptr)
-        gFlag = (p == 0);
+        (*(unsigned char*)&DAT_004dd83a) = (p == 0);
 }

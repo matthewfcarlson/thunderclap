@@ -1,4 +1,6 @@
-extern int gCount_2321b0;
+#include "decls/data/engine/fight.h"
+// data: gCount_2321b0 = DAT_004e5ae8
+
 class Item_2321b0 {
   public:
     virtual void f0();
@@ -25,7 +27,7 @@ void Obj_2321b0::run() {
         bool b = ((i->flags >> 2) & 1) != 0;
         if (b) {
             i->f4();
-            --gCount_2321b0;
+            --DAT_004e5ae8;
             i->cleanup(8, 1);
         }
     }

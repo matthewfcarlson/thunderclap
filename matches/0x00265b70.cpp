@@ -1,3 +1,6 @@
+#include "decls/data/engine/content.h"
+// data: g_obj_265b70 = DAT_00527c58
+
 struct Params {
     int a, b, c, d;
 };
@@ -5,7 +8,6 @@ struct Obj_265b70 {
     Obj_265b70* Init(Params* p);
 };
 void* FUN_0008d690(int size);
-Obj_265b70* g_obj_265b70;
 
 void FUN_00265b70(Params* p) {
     if (!p) {
@@ -16,16 +18,16 @@ void FUN_00265b70(Params* p) {
         def.d = 0x10000;
         Obj_265b70* o = (Obj_265b70*)FUN_0008d690(0x3c);
         if (o) {
-            g_obj_265b70 = o->Init(&def);
+            (*(Obj_265b70**)&DAT_00527c58) = o->Init(&def);
             return;
         }
-        g_obj_265b70 = 0;
+        (*(Obj_265b70**)&DAT_00527c58) = 0;
         return;
     }
     Obj_265b70* o = (Obj_265b70*)FUN_0008d690(0x3c);
     if (o) {
-        g_obj_265b70 = o->Init(p);
+        (*(Obj_265b70**)&DAT_00527c58) = o->Init(p);
         return;
     }
-    g_obj_265b70 = 0;
+    (*(Obj_265b70**)&DAT_00527c58) = 0;
 }

@@ -1,8 +1,9 @@
+#include "decls/data/engine/pure3d.h"
+
 class G_361810 {
   public:
     void Set(int);
 };
-extern G_361810 gG_361810;
 void FUN_00361810() {
-    gG_361810.Set(0);
+    (*(G_361810*)&DAT_00554bfc).Set(0);
 }

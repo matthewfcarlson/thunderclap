@@ -1,5 +1,7 @@
+#include "decls/data/game/global.h"
+// data: zero_b0810 = DAT_003f335c
+
 #include "compat/ptr.h"
-extern char zero_b0810;
 class Obj_b0810 {
   public:
     char pad[0x110];
@@ -11,8 +13,8 @@ class Obj_b0810 {
 };
 char* Obj_b0810::get(int a, int b) {
     if (a < 0 || a >= 11)
-        return &zero_b0810;
+        return ((char*)&DAT_003f335c);
     if (b >= 0 && b < e[a].count)
         return (char*)e[a].base + b * 32;
-    return &zero_b0810;
+    return ((char*)&DAT_003f335c);
 }

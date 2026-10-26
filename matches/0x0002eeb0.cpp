@@ -1,5 +1,6 @@
-extern char textA[];
-extern char textB[];
+#include "decls/data/game/global.h"
+// data: textA = DAT_0048e0f0, textB = DAT_0048e134
+
 extern "C" unsigned char __cdecl getFlag(const char*);
 class Function_2eeb0 {
   public:
@@ -11,8 +12,8 @@ class Method1 : public Function_2eeb0 {
   public:
     Method1(const char* p, int x) : Function_2eeb0(p, 1) {
         value = x;
-        flagA = getFlag(textA);
-        flagB = getFlag(textB);
+        flagA = getFlag(((char*)&DAT_0048e0f0));
+        flagB = getFlag(((char*)&DAT_0048e134));
     }
     virtual void f();
     unsigned char flagB;

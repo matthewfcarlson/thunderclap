@@ -1,4 +1,6 @@
-extern const float factor;
+#include "decls/data/engine/pure3d.h"
+// data: factor = DAT_004d0ed4
+
 struct Obj_2d1850 {
     float pos[3];
     char a[0x14];
@@ -15,7 +17,7 @@ struct Ctx_2d1850 {
 };
 void step(float dt, Ctx_2d1850* c, Obj_2d1850* o) {
     float g = c->gravity;
-    o->x += (float)o->s * c->scale * factor * dt;
+    o->x += (float)o->s * c->scale * (*(const float*)&DAT_004d0ed4) * dt;
     o->pos[0] += g * o->vel[0] * dt;
     o->pos[1] += g * (o->vel[1] + o->x) * dt;
     o->pos[2] += g * o->vel[2] * dt;

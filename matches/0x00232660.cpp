@@ -1,5 +1,5 @@
-extern int gCount_232660;
-extern int gMax_232660;
+#include "decls/data/engine/fight.h"
+// data: gCount_232660 = DAT_004e5af0
 
 class Action {
   public:
@@ -20,7 +20,7 @@ Action::Action() {
     d = 0;
     e = 0;
     f = 0;
-    ++gCount_232660;
-    if (gCount_232660 > gMax_232660)
-        gMax_232660 = gCount_232660;
+    ++DAT_004e5af0;
+    if (DAT_004e5af0 > (*(int*)&DAT_004e5af4))
+        (*(int*)&DAT_004e5af4) = DAT_004e5af0;
 }

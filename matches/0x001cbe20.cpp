@@ -1,6 +1,7 @@
+#include "decls/data/game/global.h"
+// data: flagA = DAT_0048e100, flagB = DAT_0048e0e4
+
 extern "C" char __cdecl getFlag(const char*);
-extern const char flagA[];
-extern const char flagB[];
 class Function_1cbe20 {
   public:
     Function_1cbe20(void*, int);
@@ -17,8 +18,8 @@ class Method1_1cbe20 : public Function_1cbe20 {
     virtual void f1();
     Method1_1cbe20(void* p, void* h) : Function_1cbe20(p, 1) {
         handler = h;
-        b = getFlag(flagA);
-        a = getFlag(flagB);
+        b = getFlag(((const char*)&DAT_0048e100));
+        a = getFlag(((const char*)&DAT_0048e0e4));
     }
 };
 class Closure1_1cbe20 : public Method1_1cbe20 {

@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20030 inputs, branch coverage 20/20)
 // FUN_0007e740 @ 0x0007e740
 // cl-flags: /GS
+#include "decls/data/game/global.h"
+
 #include "compat/ptr.h"
 extern "C" double sin(double);
 extern "C" double cos(double);
 
-extern int DAT_004dd074;
-extern float DAT_003f32e0;
-extern float DAT_003feed8;  // 80
-extern float DAT_003fef48;  // 10
-extern float DAT_003f7548;  // 0.8
-extern float DAT_0049b8ac;  // -1
-extern float DAT_0049b8b0;  // 3
-extern float DAT_0049b8b4;  // 9
+  // 80
+  // 10
+  // 0.8
+  // -1
+  // 3
+  // 9
 
 struct V3_7e740 {
     float x, y, z;
@@ -95,7 +95,7 @@ void Game_7e740::FUN_0007e740()
     Player_7e740 *pl = mgr->zone->player;
     pl->f10->FUN_00059a50(&f.p);
     pl->FUN_00035660(&f.q);
-    if (f.q.x == DAT_003f32e0 && f.q.z == DAT_003f32e0)
+    if (f.q.x == (*(float*)&DAT_003f32e0) && f.q.z == (*(float*)&DAT_003f32e0))
         pl->FUN_00035550(&f.q);
     f.q.y = 0.0f;
     f.q.FUN_0022d110();
@@ -103,9 +103,9 @@ void Game_7e740::FUN_0007e740()
     FUN_00224d70(f.ang, &f.q);
 
     // the original keeps the x and y products unrounded until the sum is stored; z's is stored first
-    hulk_freg sx = f.q.x * DAT_003feed8;
-    hulk_freg sy = f.q.y * DAT_003feed8;
-    volatile float sz = f.q.z * DAT_003feed8;
+    hulk_freg sx = f.q.x * (*(float*)&DAT_003feed8);
+    hulk_freg sy = f.q.y * (*(float*)&DAT_003feed8);
+    volatile float sz = f.q.z * (*(float*)&DAT_003feed8);
     f.q.x = f.p.x + sx;
     f.q.y = f.p.y + sy;
     f.q.z = f.p.z + sz;
@@ -113,9 +113,9 @@ void Game_7e740::FUN_0007e740()
     Cells *grid = mgr->grid->FUN_000862a0();
     int idx = grid->FUN_00204200(f.q);
     if (cells[idx].flag) {
-        f.q.y = f.q.y + DAT_003fef48;
+        f.q.y = f.q.y + (*(float*)&DAT_003fef48);
         if (FUN_00202560(&f.q, 20.0f, 0, &f.r2, &f.r1, 0, 0, 0)) {
-            if (!(f.r1.y < DAT_003f7548) && !(f.r2.y < DAT_0049b8ac) && !(f.r2.y > DAT_0049b8b0)) {
+            if (!(f.r1.y < (*(float*)&DAT_003f7548)) && !(f.r2.y < DAT_0049b8ac) && !(f.r2.y > DAT_0049b8b0)) {
                 f.q.y = f.r2.y;
                 bool blocked = false;
                 for (int i = count - 1; i >= 0; i--) {

@@ -1,6 +1,7 @@
 #include "gen/global.h"
+#include "decls/data/game/global.h"
+// data: kZeroF = DAT_003f335c
 
-extern float kZeroF;
 struct A_17a30 {
     char pad[8];
     A_17a30(const float& f);
@@ -23,7 +24,7 @@ void CAIHintAction::vfunc_4() {
     T_17a30* a = (T_17a30*)(*(void * *)&this->f_1c);
     U_17a30* b = (U_17a30*)a->first();
     Base_17a30* o = b->second();
-    A_17a30 local(kZeroF);
+    A_17a30 local((*(float*)&DAT_003f335c));
     ((Obj_17a30*)((char*)o + 0x1b50))->use(&local);
     local.done();
 }

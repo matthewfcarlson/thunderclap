@@ -1,3 +1,6 @@
+#include "decls/data/engine/core.h"
+// data: g_buf = DAT_0052a1c8, g_holder = DAT_0052a1e4
+
 extern void* g_vfFile[];
 extern void* g_vfReq[];
 class Sub_275460 {
@@ -21,8 +24,6 @@ class Holder_275460 {
     virtual void d();
     virtual void e(void*);
 };
-extern Holder_275460* g_holder;
-extern char g_buf;
 void Init(void*);
 void Fini(void*);
 class FileGetPositionRequest_275460 {
@@ -40,9 +41,9 @@ FileGetPositionRequest_275460* FileGetPositionRequest_275460::f0(unsigned char f
     ((Sub_275460*)file)->f1();
     vptr = g_vfReq;
     if (flags & 1) {
-        Init(&g_buf);
-        g_holder->e(this);
-        Fini(&g_buf);
+        Init(((char*)&DAT_0052a1c8));
+        (*(Holder_275460**)&DAT_0052a1e4)->e(this);
+        Fini(((char*)&DAT_0052a1c8));
     }
     return this;
 }

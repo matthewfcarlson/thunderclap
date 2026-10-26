@@ -1,5 +1,6 @@
 // Same code shape as 0x0024fee0 (propagated; names are from that function)
 #include "gen/audio.h"
+#include "decls/data/engine/audio.h"
 class SeqEvent_2515e0 {
   public:
     char pad[0x14];
@@ -21,11 +22,10 @@ struct SeqEventPlayTrack_nv_2515e0 {
     void f();
 };
 void __cdecl f47550(void*, SeqEventPlayTrack_2515e0*);
-extern char gBss_2515e0;
 SeqEventPlayTrack_2515e0* SeqEventPlayTrack_2515e0::vfunc_4(unsigned char flag) {
     ((A_2515e0*)((char*)this + 0x14))->f();
     ((SeqEventPlayTrack_nv_2515e0*)(((audio::SeqEventPlayTrack*)this)))->f();
     if (flag & 1)
-        f47550(&gBss_2515e0, this);
+        f47550(((char*)((char*)&DAT_004e6bc8 + 176)), this);
     return this;
 }

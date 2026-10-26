@@ -1,5 +1,7 @@
+#include "decls/data/game/global.h"
+// data: gFlag_1b8110 = DAT_004e222c
+
 extern "C" int __cdecl GetValue();
-extern "C" unsigned char gFlag_1b8110;
 class Sub_1b8110 {
   public:
     virtual void v0();
@@ -33,7 +35,7 @@ void Obj_1b8110::target(int x) {
         active = 0;
         sub->v8();
         value = GetValue() + x;
-        gFlag_1b8110 = 1;
+        (*(unsigned char*)&DAT_004e222c) = 1;
         if (pending && sub) {
             sub->v10(arg);
             pending = 0;

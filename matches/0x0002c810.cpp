@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 #include "compat/ptr.h"
 extern "C" char DAT_003f408c[];
 typedef unsigned char u8;
@@ -6,10 +9,6 @@ struct ThisCall_001d0480 {
     void setup(void*, int);
 };
 u8 __cdecl getval(const void*);
-extern char g1_2c810[];
-extern char g2_2c810[];
-extern char g3_2c810[];
-extern char g4_2c810[];
 class Method3 {
   public:
     hulk_uintptr vf;
@@ -25,9 +24,9 @@ Method3* Method3::target(void* a, u32_2c810 c) {
     ((ThisCall_001d0480*)(this))->setup(a, 3);
     vf = ((hulk_intptr)DAT_003f408c);
     value = c;
-    b18 = getval(g1_2c810);
-    b10 = getval(g2_2c810);
-    b11 = getval(g3_2c810);
-    b12 = getval(g4_2c810);
+    b18 = getval(((char*)&DAT_0048e100));
+    b10 = getval(((char*)&DAT_0048e0f0));
+    b11 = getval(((char*)&DAT_0048e128));
+    b12 = getval(((char*)&DAT_0048e0e4));
     return this;
 }

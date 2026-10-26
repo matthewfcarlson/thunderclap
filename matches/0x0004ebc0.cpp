@@ -1,5 +1,7 @@
 // Same code shape as 0x0004df50 (propagated; names are from that function)
 #include "gen/fight.h"
+#include "decls/data/game/global.h"
+// data: zeroCondition = DAT_003f335c
 
 class CStageCondition_4ebc0 {};
 class ParamValue_4ebc0 {
@@ -14,10 +16,9 @@ class ParamValueEnum_4ebc0 : public ParamValue_4ebc0 {
   public:
     virtual void f();
 };
-extern CStageCondition_4ebc0 zeroCondition;
 
 template <> void* fight::ParamEnumConstList<CCollisionPushbackVelocityCondition>::vfunc_6(int , int index) {
     if (index >= 0 && index < this->f_14)
         return (void*)((*(CStageCondition_4ebc0 ** *)&this->f_10)[index]);
-    return (void*)(&zeroCondition);
+    return (void*)(((CStageCondition_4ebc0*)&DAT_003f335c));
 }

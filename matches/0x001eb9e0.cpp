@@ -1,5 +1,6 @@
-extern const float g_zero_1eb9e0;
-extern const float g_limit_1eb9e0;
+#include "decls/data/game/global.h"
+// data: g_limit_1eb9e0 = DAT_003f32d8, g_zero_1eb9e0 = DAT_003f32e0
+
 struct Chain_1eb9e0 {
     void Continue(float);
 };
@@ -13,7 +14,7 @@ struct Obj_1eb9e0 {
     void UpdateValue(float x);
 };
 void Obj_1eb9e0::UpdateValue(float x) {
-    if (x < g_zero_1eb9e0 || x > g_limit_1eb9e0)
+    if (x < DAT_003f32e0 || x > DAT_003f32d8)
         return;
     value = x;
     next->inner->Continue(x);

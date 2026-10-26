@@ -1,7 +1,8 @@
+#include "decls/data/engine/audio.h"
+
 struct Obj {
     void Fn();
 };
-extern Obj gObj;
 void FUN_00364500() {
-    gObj.Fn();
+    (*(Obj*)&DAT_004e6ff0).Fn();
 }

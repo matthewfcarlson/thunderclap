@@ -1,3 +1,6 @@
+#include "decls/data/engine/choreo2.h"
+// data: gCount_224be0 = DAT_004e5aac
+
 class Driver_224be0 {
   public:
     Driver_224be0();
@@ -24,15 +27,13 @@ class JointDriver : public Driver_224be0 {
     int m14;
     Sub_224be0 m18;
 };
-extern int gCount_224be0;
-extern int gMax_224be0;
 JointDriver::JointDriver(Arg_224be0* p) {
     m10 = p->a;
     m14 = p->b;
     m18.Init((char*)p + 0x18);
-    int n = gCount_224be0 + 1;
-    gCount_224be0 = n;
-    if (n > gMax_224be0)
-        gMax_224be0 = n;
+    int n = (*(int*)&DAT_004e5aac) + 1;
+    (*(int*)&DAT_004e5aac) = n;
+    if (n > (*(int*)&DAT_004e5ab0))
+        (*(int*)&DAT_004e5ab0) = n;
 }
 void JointDriver::f() {}

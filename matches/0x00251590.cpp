@@ -1,4 +1,6 @@
 #include "gen/audio.h"
+#include "decls/data/engine/audio.h"
+// data: heap = DAT_004e6c78
 
 typedef unsigned int size_t;
 namespace audio {
@@ -28,7 +30,6 @@ class SeqEventPlayTrack_251590 : public SeqEvent_251590 {
     virtual void d();
 };
 } // namespace audio
-extern char heap;
 extern void* alloc(char*);
 inline void* operator new(size_t n, char* h) {
     return alloc(h);
@@ -40,5 +41,5 @@ audio::SeqEventPlayTrack_251590::SeqEventPlayTrack_251590() {
     field.init("MySeqTrack", 2);
 }
 void* audio::SeqEventPlayTrackType::vfunc_3() {
-    return (void*)(new (&heap) audio::SeqEventPlayTrack_251590);
+    return (void*)(new (((char*)((char*)&DAT_004e6bc8 + 176))) audio::SeqEventPlayTrack_251590);
 }

@@ -1,4 +1,6 @@
 #include "gen/global.h"
+#include "decls/data/game/global.h"
+// data: zeroValue_14900 = DAT_003f32e0
 
 struct CProceduralDurationAnimationAction_14900 {
     char pad[0x1c];
@@ -14,11 +16,10 @@ struct Result_14900 {
     char pad[0x58];
     float value;
 };
-extern const float zeroValue_14900;
 
 hulk_freg CHitAnimationAction::vfunc_9() {
     Result_14900* p = (Result_14900*)((Queried*)(*(void * *)&this->f_1c))->get();
     if (!p)
-        return zeroValue_14900;
+        return DAT_003f32e0;
     return p->value;
 }

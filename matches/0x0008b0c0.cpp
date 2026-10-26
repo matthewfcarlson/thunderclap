@@ -1,4 +1,5 @@
-extern int g1, g2;
+#include "decls/data/game/global.h"
+
 int GetValue(int*);
 class Base {
   public:
@@ -24,8 +25,8 @@ class Closure1_8b0c0 : public Method {
 };
 Method::Method(const char* name, int v) : Base(name, 1) {
     value = v;
-    b = GetValue(&g1);
-    a = GetValue(&g2);
+    b = GetValue(((int*)&DAT_0048e100));
+    a = GetValue(((int*)&DAT_0048e0f0));
 }
 Closure1_8b0c0::Closure1_8b0c0(const char* name, int v, int w) : Method(name, w) {
     extra = v;

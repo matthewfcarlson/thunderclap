@@ -1,5 +1,6 @@
 #include "decls/address.h"
-extern int a_9ce20, b, c;
+#include "decls/data/game/global.h"
+extern int b;
 class Function_9ce20 {
   public:
     Function_9ce20(int, int) throw();
@@ -16,9 +17,9 @@ class Method2 : public Function_9ce20 {
   public:
     Method2(int arg1, int arg3) throw() : Function_9ce20(arg1, 2) {
         p = arg3;
-        z = FUN_001d04d0(&a_9ce20);
+        z = FUN_001d04d0(((int*)&DAT_0048e100));
         x = FUN_001d04d0(&b);
-        y = FUN_001d04d0(&c);
+        y = FUN_001d04d0(((int*)&DAT_0048e0e4));
     }
     virtual void f();
 };

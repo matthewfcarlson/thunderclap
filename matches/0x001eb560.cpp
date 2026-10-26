@@ -1,5 +1,5 @@
-extern const char s1_1eb560[];
-extern const char s2_00424200[];
+#include "decls/data/game/global.h"
+
 struct Temp_1eb560 {
     char pad[0x48];
     void Init();
@@ -23,8 +23,8 @@ struct C_1eb560 {
 void C_1eb560::Fn(int t) {
     Temp_1eb560 a;
     a.Init();
-    a.SetName(s1_1eb560);
-    a.SetName(s2_00424200);
+    a.SetName(DAT_00424208);
+    a.SetName(DAT_00424200);
     Obj_1eb560* o = m4->Get();
     if (o)
         Build(o, &a);

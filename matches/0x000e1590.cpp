@@ -1,4 +1,5 @@
 #include "gen/global.h"
+#include "decls/data/game/global.h"
 
 struct Obj_e1590 {
     virtual void a0();
@@ -26,13 +27,12 @@ struct FEAnimation_e1590 {
     virtual void a6();
     char pad[8];
 };
-extern volatile float g_e1590;
 
 hulk_freg FEPoseAnimation::vfunc_5() {
     char* base = (char*)this;
     Obj_e1590* p = *(Obj_e1590**)(base + 0x0c);
     Obj_e1590* m = *(Obj_e1590**)((char*)p + 0x4c);
-    float r = g_e1590;
+    float r = (*(volatile float*)&DAT_003f32e0);
     if (m)
         return m->f();
     return r;

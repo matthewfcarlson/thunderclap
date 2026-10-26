@@ -1,5 +1,6 @@
 #include "decls/address.h"
-extern unsigned __int64 g_macro_value;
+#include "decls/data/game/DollyScript.h"
+// data: g_macro_value = DAT_004e0a20
 void FUN_0035e0c0() {
-    g_macro_value = FUN_0027b020("$MACRO_INSERT");
+    (*(unsigned __int64*)&DAT_004e0a20) = FUN_0027b020("$MACRO_INSERT");
 }

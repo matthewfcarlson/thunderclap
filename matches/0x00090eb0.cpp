@@ -1,8 +1,7 @@
+#include "decls/data/game/global.h"
+
 extern void* VT_Method2[2];
 extern void* VT_Closure2[2];
-extern void* TAB_48e100;
-extern void* TAB_48e0f0;
-extern void* TAB_48e134;
 
 struct Ctor_001d0480 {
     Ctor_001d0480(void* a1, int b);
@@ -27,9 +26,9 @@ class Closure2 : public Ctor_001d0480 {
 Closure2::Closure2(void* a1, int a2, int a3) : Ctor_001d0480(a1, 2) {
     vfptr = (void*)VT_Method2;
     mA3 = a3;
-    mFlag18 = LookupFlag(&TAB_48e100);
-    mFlag10 = LookupFlag(&TAB_48e0f0);
-    mFlag11 = LookupFlag(&TAB_48e134);
+    mFlag18 = LookupFlag(((void**)&DAT_0048e100));
+    mFlag10 = LookupFlag(((void**)&DAT_0048e0f0));
+    mFlag11 = LookupFlag(((void**)&DAT_0048e134));
     vfptr = (void*)VT_Closure2;
     mA2 = a2;
 }

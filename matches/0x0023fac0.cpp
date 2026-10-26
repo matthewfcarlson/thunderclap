@@ -1,7 +1,9 @@
+#include "decls/data/engine/audio.h"
+// data: gData = DAT_004cc02c
+
 struct Buf {
     short count;
 };
-extern char* gData;
 class X {
   public:
     X();
@@ -11,8 +13,8 @@ class X {
     short value;
 };
 X::X() {
-    ptr = gData;
-    ++((short*)gData)[-2];
+    ptr = (*(char**)&DAT_004cc02c);
+    ++((short*)(*(char**)&DAT_004cc02c))[-2];
     value = 0;
     mode = 2;
 }

@@ -1,5 +1,5 @@
 #include "decls/address.h"
-unsigned __int64 g_id_35e200;
+#include "decls/data/game/hulkfight/ai.h"
 void __cdecl FUN_0035e200() {
-    g_id_35e200 = FUN_0027b020("golfBall_golfBall");
+    (*(unsigned __int64*)&DAT_004e0ba8) = FUN_0027b020("golfBall_golfBall");
 }

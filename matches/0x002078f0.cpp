@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gFlag_2078f0 = DAT_004c91da
+
 class Sub_2078f0 {
   public:
     int Check();
@@ -12,7 +15,6 @@ class Obj_2078f0 {
     void Do(Sub_2078f0*);
     char Finish();
 };
-extern char gFlag_2078f0;
 char Obj_2078f0::Run(char b) {
     if (!m)
         return 0;
@@ -22,7 +24,7 @@ char Obj_2078f0::Run(char b) {
         if (b)
             Do(m);
         else {
-            if (gFlag_2078f0) {
+            if ((*(char*)&DAT_004c91da)) {
                 m->Other();
                 return 0;
             }

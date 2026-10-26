@@ -1,7 +1,9 @@
+#include "decls/data/engine/audio.h"
+// data: gGlobal_364150 = DAT_004e5d68
+
 struct G_364150 {
     int F();
 };
-extern G_364150 gGlobal_364150;
 int __cdecl FUN_00364150() {
-    return gGlobal_364150.F();
+    return (*(G_364150*)((char*)&DAT_004e5cf8 + 112)).F();
 }

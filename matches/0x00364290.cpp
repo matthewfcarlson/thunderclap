@@ -1,8 +1,9 @@
+#include "decls/data/engine/audio.h"
+
 class G_364290 {
   public:
     void Target();
 };
-extern G_364290 gObj_364290;
 void FUN_00364290() {
-    gObj_364290.Target();
+    (*(G_364290*)((char*)&DAT_004e6208 + 72)).Target();
 }

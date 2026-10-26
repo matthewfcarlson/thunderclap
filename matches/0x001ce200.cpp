@@ -1,11 +1,11 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 class Function_1ce200 {
   public:
     virtual void Invoke(float);
     Function_1ce200(void*, int);
 };
-extern const char DAT_0048e100[];
-extern const char DAT_0048e128[];
 class Method1 : public Function_1ce200 {
   public:
     virtual void Invoke(float);
@@ -17,8 +17,8 @@ class Method1 : public Function_1ce200 {
     void* obj;
     Method1(void* p, void* q) : Function_1ce200(p, 1) {
         obj = q;
-        y = FUN_001d04d0(DAT_0048e100);
-        x = FUN_001d04d0(DAT_0048e128);
+        y = FUN_001d04d0(((const char*)&DAT_0048e100));
+        x = FUN_001d04d0(((const char*)&DAT_0048e128));
     }
 };
 class Closure1 : public Method1 {

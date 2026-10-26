@@ -1,10 +1,10 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 class Base {
   public:
     virtual void invoke();
     Base(const char*, int);
 };
-extern const char a[], b[];
 class Closure1_cf840 : public Base {
   public:
     virtual void invoke();
@@ -27,6 +27,6 @@ Closure1::Closure1(const char* s, void* obj, void* p) : Closure1_cf840(s, obj, p
 }
 Closure1_cf840::Closure1_cf840(const char* s, void* obj, void* p) : Base(s, 1) {
     object = p;
-    v2 = FUN_001d04d0(a);
-    v1 = FUN_001d04d0(b);
+    v2 = FUN_001d04d0(((const char*)&DAT_0048e100));
+    v1 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
 }

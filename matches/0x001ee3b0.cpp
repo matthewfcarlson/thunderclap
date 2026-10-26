@@ -1,6 +1,5 @@
 #include "decls/address.h"
-extern char g1[];
-extern char g2[];
+#include "decls/data/game/global.h"
 struct CtorV_001d0480 {
     CtorV_001d0480(void*, int);
     virtual void v_001d0480();
@@ -31,6 +30,6 @@ Closure1::Closure1(void* x, void* y, void* z) : Closure1_1ee3b0(x, y, z) {
 }
 Closure1_1ee3b0::Closure1_1ee3b0(void* x, void* y, void* z) : Base(x) {
     p = z;
-    b = FUN_001d04d0(g1);
-    a = FUN_001d04d0(g2);
+    b = FUN_001d04d0(((char*)&DAT_0048e100));
+    a = FUN_001d04d0(((char*)&DAT_0049cad8));
 }

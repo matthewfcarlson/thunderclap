@@ -1,8 +1,9 @@
 // Same code shape as 0x00363af0 (propagated; names are from that function)
+#include "decls/data/engine/pure3d.h"
+
 struct ImageConverter_3647b0 {
     void f();
 };
-extern ImageConverter_3647b0 g_3647b0;
 void wrapper() {
-    g_3647b0.f();
+    (*(ImageConverter_3647b0*)&DAT_00554bd0).f();
 }

@@ -1,3 +1,6 @@
+#include "decls/data/game/DollyScript.h"
+// data: g_val = DAT_004e0a08
+
 struct Result_f9ef0 {
     virtual void pad();
     virtual long long Get();
@@ -15,7 +18,6 @@ struct Owner_f9ef0 {
     char pad[8];
     Head_f9ef0* head;
 };
-extern long long g_val;
 bool __fastcall FUN_000f9ef0(Owner_f9ef0* self) {
     Head_f9ef0* h = self->head;
     if (h) {
@@ -23,7 +25,7 @@ bool __fastcall FUN_000f9ef0(Owner_f9ef0* self) {
         while (n) {
             if (n->count <= 1) {
                 long long v = ((Result_f9ef0*)n)->Get();
-                if (v == g_val)
+                if (v == (*(long long*)&DAT_004e0a08))
                     return true;
                 return false;
             }

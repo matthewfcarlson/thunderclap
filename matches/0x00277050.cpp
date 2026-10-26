@@ -1,4 +1,6 @@
 // Same code shape as 0x00274af0 (propagated; names are from that function)
+#include "decls/data/engine/core.h"
+
 struct Obj_277050 {
     virtual void f0();
     virtual void f1();
@@ -16,13 +18,11 @@ struct Obj_277050 {
     virtual void f13();
     virtual void f14(void*, void*, void*);
 };
-extern Obj_277050* DAT_0052a224;
-extern char DAT_0052a208[];
 void FUN_0026d830(void*);
 void target() {
     char a[4], b[4], c[4];
     FUN_0026d830(DAT_0052a208);
-    DAT_0052a224->f14(a, b, c);
-    DAT_0052a224->f1();
-    DAT_0052a224 = 0;
+    (*(Obj_277050**)&DAT_0052a224)->f14(a, b, c);
+    (*(Obj_277050**)&DAT_0052a224)->f1();
+    (*(Obj_277050**)&DAT_0052a224) = 0;
 }

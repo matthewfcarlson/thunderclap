@@ -1,9 +1,9 @@
-extern int gCount;
-extern int gValues[8];
-extern unsigned char gReady;
+#include "decls/data/engine/unknown.h"
+// data: gCount = DAT_004dbf6c, gReady = DAT_0056f020, gValues = DAT_0056f000
+
 void FUN_0035a660() {
-    gCount = 0x45;
+    DAT_004dbf6c = 0x45;
     for (int i = 0; i < 8; ++i)
-        gValues[i] = 0;
-    gReady = 1;
+        ((int*)&DAT_0056f000)[i] = 0;
+    (*(unsigned char*)&DAT_0056f020) = 1;
 }

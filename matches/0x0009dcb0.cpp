@@ -1,3 +1,5 @@
+#include "decls/data/game/unknown.h"
+
 void* operator new(unsigned int) throw();
 struct Function_9dcb0 {
     Function_9dcb0(int a, int b) throw();
@@ -15,7 +17,6 @@ struct Closure0_9dcb0 : Method0_9dcb0 {
     Closure0_9dcb0(int id, int a, int b) throw();
     virtual void h();
 };
-extern char gg[];
 char GetFlag(void*) throw();
 struct Owner_9dcb0 {
     void Set(int, Closure0_9dcb0*) throw();
@@ -23,7 +24,7 @@ struct Owner_9dcb0 {
 };
 Method0_9dcb0::Method0_9dcb0(int id, int x, int y) throw() : Function_9dcb0(id, 0) {
     this->a = y;
-    c = GetFlag(gg);
+    c = GetFlag(((char*)&DAT_0048e128));
     b = x;
 }
 Closure0_9dcb0::Closure0_9dcb0(int id, int x, int y) throw() : Method0_9dcb0(id, x, y) {}

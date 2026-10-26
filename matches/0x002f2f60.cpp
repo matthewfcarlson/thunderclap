@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: one = DAT_003f32dc
+
 #include "compat/ptr.h"
 class Vec_2f2f60 {
   public:
@@ -29,13 +32,12 @@ class CollisionCylinder {
     void base(float);
     void vfunc_7(float);
 };
-extern const float one;
 void CollisionCylinder::vfunc_7(float p) {
     x50 = p * x7c;
     x54 = p * x80;
     Vec_2f2f60* q = &v;
     q->normalize();
-    hulk_freg f = one / p;
+    hulk_freg f = DAT_003f32dc / p;
     q->x = f * q->x;
     q->y = f * q->y;
     q->z = f * q->z;

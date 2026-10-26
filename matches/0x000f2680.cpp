@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gLoader = DAT_004dd9cc
+
 typedef unsigned __int64 U64;
 struct FEPoseAnimation_f2680 {
     virtual void v0();
@@ -21,14 +24,13 @@ struct Loader {
         return Get(&caster, id);
     }
 };
-extern Loader* gLoader;
 extern U64 __cdecl Find(int);
 struct FEParticleAnimation : FEPoseAnimation_f2680 {
     virtual void v0();
     FEParticleAnimation(int a, int b, int c);
 };
 FEParticleAnimation::FEParticleAnimation(int a, int b, int c) : FEPoseAnimation_f2680(a, b) {
-    Loader* l = gLoader;
+    Loader* l = (*(Loader**)&DAT_004dd9cc);
     U64 id = Find(b);
     particle = l->Fetch(id);
     if (particle)

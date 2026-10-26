@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gFlag = DAT_004e222c, msg = DAT_00407974
+
 class Event {
   public:
     Event(const char*);
@@ -14,8 +17,6 @@ class Root {
     Receiver* recv;
 };
 extern Root* gRoot;
-extern char gFlag;
-extern char msg[];
 class Obj {
   public:
     void* v;
@@ -25,8 +26,8 @@ class Obj {
 int Obj::Cancel(int a, int b) {
     if (!p)
         return -1;
-    Event e(msg);
+    Event e(((char*)&DAT_00407974));
     gRoot->recv->Fire(&e);
-    gFlag = 1;
+    DAT_004e222c = 1;
     return 0;
 }

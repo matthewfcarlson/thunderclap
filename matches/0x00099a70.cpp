@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gZero = DAT_003f335c
+
 class Result;
 class Item {
   public:
@@ -13,9 +16,8 @@ class Host {
     Item* item;
     float* Fun();
 };
-extern float gZero;
 float* Host::Fun() {
-    float* p = &gZero;
+    float* p = ((float*)&DAT_003f335c);
     Item* x = item;
     if (x) {
         Result* r = x->Get();

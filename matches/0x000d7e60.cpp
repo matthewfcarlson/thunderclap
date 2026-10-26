@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: name_d7e60 = DAT_004a0c7c
+
 class Manager_d7e60 {
   public:
     virtual void f0();
@@ -47,7 +50,6 @@ class Manager_d7e60 {
     virtual int f44();
 };
 Manager_d7e60* getManager();
-extern char* name_d7e60;
 class Field_d7e60 {
   public:
     int val;
@@ -85,7 +87,7 @@ void FEMemCardControl::vfunc_3() {
     x1d0 = 0;
     x18 = 0;
     Manager_d7e60* m = getManager();
-    field.set(name_d7e60, m->f44(), 1);
+    field.set((*(char**)&DAT_004a0c7c), m->f44(), 1);
     field.val = 0;
     x220 = 0;
     x25c = 0;

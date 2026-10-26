@@ -1,4 +1,6 @@
-extern const float zero_a2c60;
+#include "decls/data/game/global.h"
+// data: zero_a2c60 = DAT_003f32e0
+
 class CChaseCamera_a2c60 {
     char pad[0x450];
     float oldVal;
@@ -13,7 +15,7 @@ void CChaseCamera_a2c60::Set(float value, float time) {
     target = value;
     speed = 0.0f;
     if (oldVal != value) {
-        if (time <= zero_a2c60) {
+        if (time <= DAT_003f32e0) {
             helper(value);
             return;
         }

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3059 inputs, branch coverage 38/38)
 // FUN_002e8f80 @ 0x002e8f80
+#include "decls/data/engine/core.h"
+
 extern "C" double fabs(double);
 
 struct png_struct {
@@ -19,7 +21,6 @@ struct png_info {
     float blueX, blueY;
 };
 
-extern char DAT_004d9a30[];
 
 void __cdecl FUN_002e69a0(png_struct *png_ptr, const char *msg);
 void __cdecl FUN_002e69d0(png_struct *png_ptr, const char *msg);

@@ -1,7 +1,8 @@
+#include "decls/data/engine/audio.h"
+
 #include "compat/ptr.h"
 extern "C" char DAT_004298fc[];
 extern int SeqActionVftable;
-extern int gBss_253a10;
 extern void __cdecl FUN_00247550(void*, void*);
 class SeqAction {
   public:
@@ -15,6 +16,6 @@ SeqAction* SeqActionVarPitch::vfunc_0(int flag) {
     SeqAction* self = this;
     vptr = (int*)((hulk_intptr)DAT_004298fc);
     if (flag & 1)
-        FUN_00247550(&gBss_253a10, self);
+        FUN_00247550(((int*)((char*)&DAT_004e70e8 + 104)), self);
     return self;
 }

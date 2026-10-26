@@ -1,10 +1,12 @@
+#include "decls/data/game/global.h"
+// data: gGlobal_35cb10 = DAT_004dcf00
+
 extern "C" int __cdecl _atexit(void (*)());
 struct Global {
     void Init();
 };
-extern Global gGlobal_35cb10;
 void Cleanup();
 void FUN_0035cb10() {
-    gGlobal_35cb10.Init();
+    (*(Global*)&DAT_004dcf00).Init();
     _atexit(Cleanup);
 }

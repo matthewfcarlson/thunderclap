@@ -1,10 +1,12 @@
 // cl-flags: /O2 /GR /GX
+#include "decls/data/game/global.h"
+// data: g_str1 = DAT_0048e100, g_str2 = DAT_0048e0f0, g_str3 = DAT_0048e134
 
 extern "C" bool __cdecl CheckString(const char** ppStr);
 
-extern const char* g_str1; // 0x48e100
-extern const char* g_str2; // 0x48e0f0
-extern const char* g_str3; // 0x48e134
+ // 0x48e100
+ // 0x48e0f0
+ // 0x48e134
 
 class Function_94000 {
   public:
@@ -33,11 +35,11 @@ class Method6_94000 : public Function_94000 {
 
 Method6_94000::Method6_94000(const char* name, int data) : Function_94000(name, 6) {
     m_data = data;
-    m_flag7 = CheckString(&g_str1);
-    m_flag1 = CheckString(&g_str2);
-    m_flag2 = CheckString(&g_str3);
-    m_flag3 = CheckString(&g_str2);
-    m_flag4 = CheckString(&g_str2);
-    m_flag5 = CheckString(&g_str2);
-    m_flag6 = CheckString(&g_str2);
+    m_flag7 = CheckString(((const char**)&DAT_0048e100));
+    m_flag1 = CheckString(((const char**)&DAT_0048e0f0));
+    m_flag2 = CheckString(((const char**)&DAT_0048e134));
+    m_flag3 = CheckString(((const char**)&DAT_0048e0f0));
+    m_flag4 = CheckString(((const char**)&DAT_0048e0f0));
+    m_flag5 = CheckString(((const char**)&DAT_0048e0f0));
+    m_flag6 = CheckString(((const char**)&DAT_0048e0f0));
 }

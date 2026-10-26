@@ -1,10 +1,12 @@
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+// data: textA = DAT_0048e128, textB = DAT_0048e0f0
+
 struct CtorV_001d0480 {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
 extern "C" char __cdecl Check(const char*);
-extern const char textA[];
-extern const char textB[];
 class Base : public CtorV_001d0480 {
   public:
     Base(const char* x) : CtorV_001d0480(x, 1) { }
@@ -31,6 +33,6 @@ Closure1_2e790::Closure1_2e790(const char* x, float y, const char* z) : Method(x
 }
 Method::Method(const char* x, float y, const char* z) : Base(x) {
     name = z;
-    b = Check(textA);
-    a = Check(textB);
+    b = Check(((const char*)&DAT_0048e128));
+    a = Check(((const char*)&DAT_0048e0f0));
 }

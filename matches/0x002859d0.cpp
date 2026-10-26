@@ -1,7 +1,7 @@
 #include "gen/pure3d.h"
+#include "decls/data/game/global.h"
+// data: gZero_2859d0 = DAT_003f32e0
 
-extern const float gOne_2859d0;
-extern const float gZero_2859d0;
 
 void pure3d::SimpleFrameController::vfunc_23() {
     (*(unsigned long *)&this->f_20) = 0;
@@ -9,11 +9,11 @@ void pure3d::SimpleFrameController::vfunc_23() {
     (*(unsigned long *)&this->f_2c) = 0;
     float f;
     if ((*(void * *)&this->f_3c) == 0)
-        f = gZero_2859d0;
+        f = DAT_003f32e0;
     else {
-        f = *(float*)((char*)(*(void * *)&this->f_3c) + 0x10) - gOne_2859d0;
-        if (f < gZero_2859d0)
-            f = gZero_2859d0;
+        f = *(float*)((char*)(*(void * *)&this->f_3c) + 0x10) - DAT_003f32dc;
+        if (f < DAT_003f32e0)
+            f = DAT_003f32e0;
     }
     (*(float *)&this->f_30) = f;
     (*(unsigned long *)&this->f_34) = 0;

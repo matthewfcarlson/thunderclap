@@ -1,3 +1,6 @@
+#include "decls/data/engine/physics.h"
+// data: g_counter_2fe640 = DAT_00555478
+
 #include "compat/ptr.h"
 struct SimulatedObject {
     hulk_intptr vptr;
@@ -13,7 +16,6 @@ struct SimulatedObject {
     void Init();
     SimulatedObject();
 };
-extern int g_counter_2fe640;
 extern int physics_vftable;
 SimulatedObject::SimulatedObject() {
     Init();
@@ -23,6 +25,6 @@ SimulatedObject::SimulatedObject() {
     vptr = (hulk_intptr)&physics_vftable;
     field20 = 1;
     field24 = 3;
-    field28 = g_counter_2fe640;
-    ++g_counter_2fe640;
+    field28 = (*(int*)&DAT_00555478);
+    ++(*(int*)&DAT_00555478);
 }

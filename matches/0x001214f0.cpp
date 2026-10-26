@@ -1,3 +1,6 @@
+#include "decls/data/game/hulkfight/ai.h"
+// data: counter = DAT_004e0ccc, registry_1214f0 = DAT_004e0cc8
+
 #include "compat/ptr.h"
 extern "C" void __cdecl FUN_0011bd30();
 extern "C" void __cdecl FUN_0011bd40();
@@ -15,10 +18,8 @@ struct Param {
     void Init(const char*);
 };
 void __cdecl register_params(void*, Param**, int);
-extern int counter;
-extern void* registry_1214f0;
 void target() {
-    if (counter == 0) {
+    if ((*(int*)&DAT_004e0ccc) == 0) {
         Param* list[7];
         Param* p;
         p = (Param*)alloc(0x18);
@@ -77,7 +78,7 @@ void target() {
             list[6] = p;
         } else
             list[6] = 0;
-        register_params(&registry_1214f0, list, 7);
+        register_params(((void**)&DAT_004e0cc8), list, 7);
     }
-    ++counter;
+    ++(*(int*)&DAT_004e0ccc);
 }

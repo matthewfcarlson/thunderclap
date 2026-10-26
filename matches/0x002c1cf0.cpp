@@ -1,3 +1,6 @@
+#include "decls/data/engine/pure3d/prop.h"
+// data: gFactory_2c1cf0 = DAT_0052c2a0
+
 struct Request {
     int x[8];
     char a;
@@ -20,7 +23,6 @@ class Factory_2c1cf0 {
     virtual void f8();
     virtual Result_2c1cf0* Create(Request*);
 };
-Factory_2c1cf0* gFactory_2c1cf0;
 class Owner_2c1cf0 {
   public:
     char pad[0x10];
@@ -39,7 +41,7 @@ bool Owner_2c1cf0::Run(int a, int b, int c, int d, int e, int f, int g, int h) {
     request.x[6] = g;
     request.x[7] = h;
     request.a = 1;
-    result = gFactory_2c1cf0->Create(&request);
+    result = (*(Factory_2c1cf0**)&DAT_0052c2a0)->Create(&request);
     if (!result)
         return false;
     result->Finish();

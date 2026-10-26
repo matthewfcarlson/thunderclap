@@ -1,6 +1,7 @@
-extern "C" char* pwB;
+#include "decls/data/engine/fight.h"
+// data: result = DAT_004e5b88
+
 extern "C" __int64 __cdecl FUN_002672f0(const char*, int, int);
-extern "C" __int64 result;
 void FUN_0035f250() {
-    result = FUN_002672f0(pwB, 0, 0);
+    (*(__int64*)&DAT_004e5b88) = FUN_002672f0((*(char**)&DAT_004ca29c), 0, 0);
 }

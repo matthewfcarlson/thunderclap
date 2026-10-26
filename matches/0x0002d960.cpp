@@ -1,12 +1,12 @@
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 #include "compat/ptr.h"
 extern "C" char DAT_003f423c[];
 struct ThisCall_001d0480 {
     void Init(void*, int);
 };
 extern "C" unsigned char __cdecl Get(void*);
-extern char gA_2d960;
-extern char gB_2d960;
-extern char gC_2d960;
 class Method5 {
   public:
     virtual void Dummy();
@@ -26,11 +26,11 @@ Method5* Method5::Build(void* p2, int p3) {
     ((ThisCall_001d0480*)(this))->Init(p2, 5);
     *(void**)this = (void*)((hulk_intptr)DAT_003f423c);
     arg = p3;
-    x18 = Get(&gA_2d960);
-    x10 = Get(&gB_2d960);
-    x11 = Get(&gB_2d960);
-    x12 = Get(&gC_2d960);
-    x13 = Get(&gC_2d960);
-    x14 = Get(&gC_2d960);
+    x18 = Get(((char*)&DAT_0048e100));
+    x10 = Get(((char*)&DAT_0048e0f0));
+    x11 = Get(((char*)&DAT_0048e0f0));
+    x12 = Get(((char*)&DAT_0048e128));
+    x13 = Get(((char*)&DAT_0048e128));
+    x14 = Get(((char*)&DAT_0048e128));
     return this;
 }

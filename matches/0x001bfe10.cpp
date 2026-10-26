@@ -1,7 +1,8 @@
+#include "decls/data/game/global.h"
+// data: firstName = DAT_0048e100, secondName = DAT_0048e0e4
+
 typedef unsigned int uint;
 extern "C" unsigned char __cdecl lookup(const char*);
-extern char firstName[];
-extern char secondName[];
 class Function_1bfe10 {
   public:
     Function_1bfe10(void*, int);
@@ -17,8 +18,8 @@ class Method1 : public Function_1bfe10 {
   public:
     Method1(void* x, void* z) : Function_1bfe10(x, 1) {
         p = z;
-        b = lookup(firstName);
-        a = lookup(secondName);
+        b = lookup(((char*)&DAT_0048e100));
+        a = lookup(((char*)&DAT_0048e0e4));
     }
     virtual void v0();
 };

@@ -1,7 +1,9 @@
 // Same code shape as 0x00269560 (propagated; names are from that function)
+#include "decls/data/engine/core.h"
+// data: globalValue = DAT_004cdbb0
+
 typedef unsigned char u8_277b10;
 extern void __cdecl release(int, void*);
-extern int globalValue;
 class CementLibrary_277b10 {
   public:
     void cleanup();
@@ -22,6 +24,6 @@ class CementLibrary_277b10 {
 CementLibrary_277b10* CementLibrary_277b10::f2(u8_277b10 flag) {
     cleanup();
     if (flag & 1)
-        release(globalValue, this);
+        release(DAT_004cdbb0, this);
     return this;
 }

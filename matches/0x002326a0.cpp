@@ -1,3 +1,6 @@
+#include "decls/data/engine/fight.h"
+// data: g_count_2326a0 = DAT_004e5af0
+
 #include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_004276ec[];
@@ -6,7 +9,6 @@ struct Ref_2326a0 {
     virtual void A();
     virtual void Release();
 };
-extern int g_count_2326a0;
 struct Action {
     void* vptr;
     int pad;
@@ -21,6 +23,6 @@ void Action::Cleanup() {
         m->Release();
         member = 0;
     }
-    --g_count_2326a0;
+    --DAT_004e5af0;
     vptr = (void*)((hulk_intptr)DAT_003f6098);
 }

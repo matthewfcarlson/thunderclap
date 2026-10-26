@@ -1,4 +1,6 @@
-extern const float scale;
+#include "decls/data/game/global.h"
+// data: scale = DAT_003ffaa4
+
 class Clock {
     char pad[16];
 
@@ -7,5 +9,5 @@ class Clock {
     double Get();
 };
 double Clock::Get() {
-    return (double)count * scale;
+    return (double)count * DAT_003ffaa4;
 }

@@ -1,10 +1,11 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 class CCameraManager;
 struct CtorV_001d0480 {
     CtorV_001d0480(void*, int);
     virtual void v_001d0480();
 };
-extern int g1_9ca30, g2;
+extern int g2;
 class Base_9ca30 : public CtorV_001d0480 {
   public:
     Base_9ca30(void* a) : CtorV_001d0480(a, 2) { }
@@ -22,7 +23,7 @@ class Closure2_9ca30 : public Base_9ca30 {
 };
 Closure2_9ca30::Closure2_9ca30(void* a, void* p, CCameraManager* m) : Base_9ca30(a) {
     mgr = m;
-    b3 = FUN_001d04d0(&g1_9ca30);
+    b3 = FUN_001d04d0(((int*)&DAT_0048e100));
     b1 = FUN_001d04d0(&g2);
     b2 = FUN_001d04d0(&g2);
 }

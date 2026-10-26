@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gInventory = DAT_004dd9cc
+
 class Drawable {
   public:
     virtual void fn();
@@ -13,7 +16,6 @@ class Inventory {
     virtual void c();
     virtual Drawable* Find(DynamicCaster_f24d0*, unsigned __int64);
 };
-extern Inventory* gInventory;
 extern unsigned __int64 __cdecl Hash(const char*);
 class FEAnimation_f24d0 {
   public:
@@ -28,7 +30,7 @@ class FEPoseAnimationInvisible : public FEAnimation_f24d0 {
     FEPoseAnimationInvisible(int, const char*);
 };
 FEPoseAnimationInvisible::FEPoseAnimationInvisible(int a, const char* name) : FEAnimation_f24d0(a, name) {
-    Inventory* inv = gInventory;
+    Inventory* inv = (*(Inventory**)&DAT_004dd9cc);
     unsigned __int64 h = Hash(name);
     Drawable* p = inv->Find(&DynamicCaster_f24d0(), h);
     if (p) {

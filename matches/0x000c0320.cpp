@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: str1 = DAT_0048e100, str2 = DAT_0048e134
+
 class Function_c0320 {
   public:
     Function_c0320(int, int);
@@ -10,14 +13,12 @@ class Function_c0320 {
     int x1c;
 };
 extern "C" int check(const char*);
-extern const char str1[];
-extern const char str2[];
 class Method1 : public Function_c0320 {
   public:
     Method1(int a, int c) : Function_c0320(a, 1) {
         x1c = c;
-        b18 = (char)check(str1);
-        b10 = (char)check(str2);
+        b18 = (char)check(((const char*)&DAT_0048e100));
+        b10 = (char)check(((const char*)&DAT_0048e134));
     }
     virtual void f();
 };

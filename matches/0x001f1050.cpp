@@ -1,5 +1,6 @@
 #include "decls/address.h"
-extern char DAT_0048e100[], DAT_0049cad8[], DAT_0048e128[];
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 class Function_1f1050 {
   public:
     Function_1f1050(int, int);
@@ -17,8 +18,8 @@ class Method3_1f1050 : public Function_1f1050 {
 };
 Method3_1f1050::Method3_1f1050(int a, int c) : Function_1f1050(a, 3) {
     m1c = c;
-    b18 = FUN_001d04d0(DAT_0048e100);
-    b10 = FUN_001d04d0(DAT_0049cad8);
-    b11 = FUN_001d04d0(DAT_0048e128);
-    b12 = FUN_001d04d0(DAT_0048e128);
+    b18 = FUN_001d04d0(((char*)&DAT_0048e100));
+    b10 = FUN_001d04d0(((char*)&DAT_0049cad8));
+    b11 = FUN_001d04d0(((char*)&DAT_0048e128));
+    b12 = FUN_001d04d0(((char*)&DAT_0048e128));
 }

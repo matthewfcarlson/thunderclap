@@ -1,9 +1,10 @@
+#include "decls/data/game/global.h"
+
 struct CtorV_001d0480 {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
 extern "C" unsigned char lookup(const void*);
-extern int a, b;
 class Base : public CtorV_001d0480 {
   public:
     Base(const char* n) : CtorV_001d0480(n, 1) { }
@@ -27,8 +28,8 @@ class Closure1 : public Closure1_bffa0 {
 };
 Closure1_bffa0::Closure1_bffa0(const char* n, const char* s) : Base(n) {
     name = s;
-    y = lookup(&a);
-    x = lookup(&b);
+    y = lookup(((int*)&DAT_0048e100));
+    x = lookup(((int*)&DAT_0048e0f0));
 }
 Closure1::Closure1(const char* n, void* v, const char* s) : Closure1_bffa0(n, s) {
     p = v;

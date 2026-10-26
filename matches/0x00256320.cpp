@@ -1,3 +1,6 @@
+#include "decls/data/engine/audio.h"
+// data: bss = DAT_004e7570
+
 namespace audio {
 class SeqEvent {
   public:
@@ -27,10 +30,9 @@ class Target {
     void set(SeqActionClip*);
 };
 } // namespace audio
-extern char bss[];
 extern "C" void* alloc(void*);
 inline audio::SeqActionClip* create(audio::SeqEventClip* p) {
-    audio::SeqActionClip* a = (audio::SeqActionClip*)alloc(bss);
+    audio::SeqActionClip* a = (audio::SeqActionClip*)alloc(((char*)((char*)&DAT_004e7508 + 104)));
     if (a) {
         a->audio::SeqActionClip::SeqActionClip(p);
         return a;

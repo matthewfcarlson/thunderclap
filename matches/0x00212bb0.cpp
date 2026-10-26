@@ -1,3 +1,5 @@
+#include "decls/data/engine/unknown.h"
+
 struct Item_212bb0 {
     char pad[7];
     unsigned char count;
@@ -10,13 +12,12 @@ struct Obj_212bb0 {
     char* other;
     char pad2[44];
 };
-extern char DAT_00426824;
 extern "C" char* __fastcall FUN_00212bb0(int n, Obj_212bb0* o) {
     if (n > 0) {
         char* p = o->last + n * 8 - 8;
         if (p < o->first)
             return p;
-        return &DAT_00426824;
+        return ((char*)&DAT_00426824);
     }
     if (n > -10000)
         return o->first + n * 8;
@@ -25,7 +26,7 @@ extern "C" char* __fastcall FUN_00212bb0(int n, Obj_212bb0* o) {
             Item_212bb0* a = *(Item_212bb0**)(o->last - 4);
             int i = -10001 - n;
             char* p = (char*)a + i * 8 + 8;
-            return i <= a->count ? p : &DAT_00426824;
+            return i <= a->count ? p : ((char*)&DAT_00426824);
         }
         return o->other + 0x54;
     }

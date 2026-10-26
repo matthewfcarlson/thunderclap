@@ -1,3 +1,7 @@
+#include "decls/data/engine/content.h"
+#include "decls/data/engine/unknown.h"
+// data: gContext = DAT_00527f68, gItems_266e00 = DAT_00527c60
+
 class Item_266e00 {
   public:
     virtual void v0();
@@ -9,12 +13,10 @@ struct Entry_266e00 {
     Item_266e00* p;
     char pad[12];
 };
-extern Entry_266e00 gItems_266e00[4];
 extern int(__cdecl* gCallback_266e00)(int, int, int, int);
-extern int gContext;
 int FUN_00266e00(int a, int b) {
-    int r = gItems_266e00[a].p->Get(b);
+    int r = ((Entry_266e00*)((char*)&DAT_00527c58 + 8))[a].p->Get(b);
     if (!r && gCallback_266e00)
-        gCallback_266e00(gContext, a, b, 1);
+        gCallback_266e00((*(int*)&DAT_00527f68), a, b, 1);
     return r;
 }

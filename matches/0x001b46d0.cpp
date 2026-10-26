@@ -1,8 +1,9 @@
+#include "decls/data/game/global.h"
+
 class OtherClass {
   public:
     void Other(int a, float b, float c);
 };
-extern OtherClass* g;
 class Target {
   public:
     char pad[0x5a8];
@@ -11,5 +12,5 @@ class Target {
 };
 void Target::Fn(int a, float b, float c) {
     value = b;
-    g->Other(a, b, c);
+    (*(OtherClass**)&DAT_00554c10)->Other(a, b, c);
 }

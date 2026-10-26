@@ -1,6 +1,8 @@
+#include "decls/data/platform/xbox/pure3d.h"
+// data: gCount_31bcf0 = DAT_004d367c
+
 #include "compat/ptr.h"
 extern "C" char DAT_00432578[];
-extern int gCount_31bcf0;
 extern void __stdcall ReleaseResource(void*);
 extern void __cdecl FreeArray(void*);
 
@@ -14,11 +16,11 @@ class d3dPrimStream {
 void __fastcall FUN_0031bcf0(d3dPrimStream* self) {
     self->vtable = ((hulk_intptr)DAT_00432578);
     int i = 0;
-    if (gCount_31bcf0 > 0) {
+    if (DAT_004d367c > 0) {
         do {
             ReleaseResource(self->resources[i]);
             ++i;
-        } while (i < gCount_31bcf0);
+        } while (i < DAT_004d367c);
     }
     FreeArray(self->resources);
 }

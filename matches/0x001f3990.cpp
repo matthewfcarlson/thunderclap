@@ -1,5 +1,7 @@
+#include "decls/data/game/global.h"
+// data: gHundred = DAT_004c7df4
+
 #include "compat/ptr.h"
-extern float gHundred;
 void Apply(int, float);
 class Thing_1f3990 {
   public:
@@ -10,7 +12,7 @@ class Thing_1f3990 {
     void Set(float);
 };
 void Thing_1f3990::Set(float x) {
-    gHundred = x;
+    DAT_004c7df4 = x;
     if (mA && !mB) {
         int v = *(int*)(mA + 4);
         if (v)

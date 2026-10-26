@@ -1,6 +1,8 @@
+#include "decls/data/engine/core.h"
+// data: g_code = DAT_004cdcaa
+
 typedef unsigned char byte_272240;
 typedef unsigned int uint_272240;
-extern unsigned short g_code;
 extern "C" bool __cdecl FUN_00272240(byte_272240* p, uint_272240* count, uint_272240* value) {
     byte_272240 b = *p;
     uint_272240 v;
@@ -13,7 +15,7 @@ extern "C" bool __cdecl FUN_00272240(byte_272240* p, uint_272240* count, uint_27
         n = 1;
     } else if (((b >= 0x81 && b <= 0x9f) || (b >= 0xe0 && b <= 0xfc)) && p[1] >= 0x40 && p[1] <= 0xfc &&
                p[1] != 0x7f) {
-        v = g_code;
+        v = (*(unsigned short*)&DAT_004cdcaa);
         n = 2;
     } else
         return false;

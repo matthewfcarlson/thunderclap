@@ -1,3 +1,6 @@
+#include "decls/data/game/unknown.h"
+// data: gCheckObj = DAT_004dd830
+
 extern void __cdecl Scan(unsigned int, const char*, ...);
 extern void __cdecl Fmt(char*, int, const char*, ...);
 extern int __stdcall Check(void*);
@@ -5,7 +8,6 @@ struct CO {
     int pad;
     int val;
 };
-extern CO gCheckObj;
 extern void __cdecl StopMsg(const char*);
 struct Res_88fe0 {
     void Done(unsigned int);
@@ -29,7 +31,7 @@ void Obj_88fe0::target(unsigned int arg) {
     Fmt(buf, 32, "c%02dm%02d", a, b);
     gGlob_88fe0->svc->Run()->Done(arg);
     if (a > 1) {
-        if (Check(&gCheckObj) != gCheckObj.val) {
+        if (Check(((CO*)&DAT_004dd830)) != (*(CO*)&DAT_004dd830).val) {
             do {
                 StopMsg("TBS_STOP_PIRATING");
             } while (1);

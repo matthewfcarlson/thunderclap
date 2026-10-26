@@ -1,5 +1,7 @@
+#include "decls/data/game/unknown.h"
+// data: hulk_at_0048e128 = DAT_0048e128
+
 #include "compat/ptr.h"
-extern "C" char hulk_at_0048e128[];
 class Function_9b9f0 {
   public:
     Function_9b9f0(int, int);
@@ -17,5 +19,5 @@ class Method0_9b9f0 : public Function_9b9f0 {
 unsigned char __cdecl fun2(hulk_intptr);
 Method0_9b9f0::Method0_9b9f0(int a, int b) : Function_9b9f0(a, 0) {
     value = b;
-    flag = fun2(((hulk_intptr)hulk_at_0048e128));
+    flag = fun2(((hulk_intptr)((char*)&DAT_0048e128)));
 }

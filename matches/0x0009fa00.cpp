@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gFlag_9fa00 = DAT_004e222c
+
 struct St_9fa00 {
     int a;
     char p1[8];
@@ -26,7 +29,6 @@ struct Glob_9fa00 {
     Sys_9fa00* sys;
 };
 extern Glob_9fa00* gGlob_9fa00;
-extern char gFlag_9fa00;
 bool Fn() {
     Mgr_9fa00* m = gGlob_9fa00->sys->Get();
     int i = 0;
@@ -35,7 +37,7 @@ bool Fn() {
         Dev_9fa00* d = m->F(i);
         d->G(&s);
         if (s.a == 1 || s.c == 1 || s.b == 1 || s.d == 1) {
-            gFlag_9fa00 = 1;
+            DAT_004e222c = 1;
             return true;
         }
         i++;

@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gFallback_1b5760 = DAT_004e216c
+
 struct Inner_1b5760 {
     char pad[0x18];
 };
@@ -5,7 +8,6 @@ struct Item_1b5760 {
     char pad[0x44];
     Inner_1b5760* p;
 };
-extern char gFallback_1b5760;
 struct Table_1b5760 {
     void** slots;
     void* Get(unsigned int key);
@@ -16,5 +18,5 @@ void* Table_1b5760::Get(unsigned int key) {
         unsigned short lo = (unsigned short)key;
         return (char*)(*(void**)((char*)item->p + 0x18)) + lo * 24;
     }
-    return &gFallback_1b5760;
+    return ((char*)((char*)&DAT_004e215c + 16));
 }

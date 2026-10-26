@@ -1,10 +1,11 @@
 #include "gen/pure3d.h"
+#include "decls/data/engine/pure3d.h"
+#include "decls/data/platform/xbox/pure3d.h"
+// data: skin_toon = DAT_00433818, toon = DAT_00433648
 
-extern const char toon[];
-extern const char skin_toon[];
 
 void* pure3d::d3dToonVertexShader::vfunc_23() {
     if ((*(char (*)[122])&this->f_04)[0x79])
-        return (void*)(skin_toon);
-    return (void*)(toon);
+        return (void*)(DAT_00433818);
+    return (void*)(DAT_00433648);
 }

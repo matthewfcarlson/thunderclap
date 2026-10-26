@@ -1,9 +1,11 @@
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 #include "compat/ptr.h"
 #include "decls/address.h"
 struct Ctor_001d0480 {
     Ctor_001d0480(void*, int);
 };
-extern char G0, G1, G2, G3;
 extern const int Function4_vftable;
 class Function4 : public Ctor_001d0480 {
   public:
@@ -19,9 +21,9 @@ class Function4 : public Ctor_001d0480 {
 Function4::Function4(void* a, int b) : Ctor_001d0480(a, 4) {
     vf = (hulk_intptr)&Function4_vftable;
     m1c = b;
-    m18 = FUN_001d04d0(&G0);
-    m10 = FUN_001d04d0(&G1);
-    m11 = FUN_001d04d0(&G2);
-    m12 = FUN_001d04d0(&G2);
-    m13 = FUN_001d04d0(&G3);
+    m18 = FUN_001d04d0(((char*)&DAT_0048e100));
+    m10 = FUN_001d04d0(((char*)&DAT_0048e134));
+    m11 = FUN_001d04d0(((char*)&DAT_0048e0f0));
+    m12 = FUN_001d04d0(((char*)&DAT_0048e0f0));
+    m13 = FUN_001d04d0(((char*)&DAT_0048e128));
 }

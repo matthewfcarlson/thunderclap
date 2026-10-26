@@ -1,5 +1,5 @@
-extern const char s1_1eb6c0[];
-extern const char s2_1eb6c0[];
+#include "decls/data/game/global.h"
+
 struct Temp_1eb6c0 {
     char pad[0x48];
     void Init();
@@ -23,8 +23,8 @@ struct C_1eb6c0 {
 void C_1eb6c0::Fn(int t) {
     Temp_1eb6c0 a;
     a.Init();
-    a.SetName(s1_1eb6c0);
-    a.SetName(s2_1eb6c0);
+    a.SetName(DAT_00424208);
+    a.SetName(DAT_00424214);
     Obj_1eb6c0* o = m4->Get();
     if (o)
         Build(o, &a);

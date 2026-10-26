@@ -1,4 +1,6 @@
-extern const char name1[], name2[];
+#include "decls/data/engine/audio.h"
+// data: name1 = DAT_00429aec, name2 = DAT_00429ae4
+
 extern __int64 __cdecl MakeKey(const char*, int, int) throw();
 class Temp {
     char pad[12];
@@ -20,4 +22,4 @@ class SeqEventConditionType : public Base {
 };
 } // namespace audio
 audio::SeqEventConditionType::SeqEventConditionType() throw()
-    : Base(Temp().Init(name2, 0), &(__int64 const&)MakeKey(name1, 0, 0), 32, 4) {}
+    : Base(Temp().Init(DAT_00429ae4, 0), &(__int64 const&)MakeKey(DAT_00429aec, 0, 0), 32, 4) {}

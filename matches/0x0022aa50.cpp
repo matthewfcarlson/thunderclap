@@ -1,3 +1,6 @@
+#include "decls/data/engine/choreo2.h"
+// data: gCount_22aa50 = DAT_004e5ac4
+
 #include "compat/ptr.h"
 extern "C" char DAT_00427534[];
 struct LocomotionDriver {
@@ -9,16 +12,14 @@ struct LocomotionDriver {
     void InitB(LocomotionDriver*);
     LocomotionDriver* Copy(LocomotionDriver*);
 };
-extern int gCount_22aa50;
-extern int gMax_22aa50;
 LocomotionDriver* LocomotionDriver::Copy(LocomotionDriver* src) {
     InitA(src);
     vf = (void*)((hulk_intptr)DAT_00427534);
     InitB(src);
     a = src->a;
     b = src->b;
-    ++gCount_22aa50;
-    if (gCount_22aa50 > gMax_22aa50)
-        gMax_22aa50 = gCount_22aa50;
+    ++(*(int*)&DAT_004e5ac4);
+    if ((*(int*)&DAT_004e5ac4) > (*(int*)&DAT_004e5ac8))
+        (*(int*)&DAT_004e5ac8) = (*(int*)&DAT_004e5ac4);
     return this;
 }

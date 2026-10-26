@@ -1,9 +1,10 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+// data: label = DAT_0048e134
 struct CtorV_001d0480 {
     CtorV_001d0480(int, int);
     virtual void v_001d0480();
 };
-extern int label;
 class Function_1ffd00 : public CtorV_001d0480 {
   public:
     Function_1ffd00(int a) : CtorV_001d0480(a, 0) { }
@@ -17,7 +18,7 @@ class Method0 : public Function_1ffd00 {
     int value;
     Method0(int a, int c) : Function_1ffd00(a) {
         value = c;
-        flag = FUN_001d04d0(&label);
+        flag = FUN_001d04d0(((int*)&DAT_0048e134));
     }
 };
 class Closure0 : public Method0 {

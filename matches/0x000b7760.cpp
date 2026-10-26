@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: key = DAT_004080a8
+
 class Mgr_b7760 {
   public:
     char Check(int);
@@ -15,10 +18,9 @@ struct Button_b7760 {
 };
 extern "C" void* __cdecl Find(const char*);
 extern "C" Button_b7760* __cdecl Convert(void*, int, void*, void*, int);
-extern const char key[];
 extern int type1_b7760, type2;
 void Obj_b7760::Run() {
-    Button_b7760* b = Convert(Find(key), 0, &type1_b7760, &type2, 0);
+    Button_b7760* b = Convert(Find(DAT_004080a8), 0, &type1_b7760, &type2, 0);
     if (b) {
         int count = 0;
         for (int i = 0x266; i <= 0x2c9; ++i)

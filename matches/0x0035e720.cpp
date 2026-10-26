@@ -1,6 +1,7 @@
+#include "decls/data/game/global.h"
+// data: input = DAT_00400488, result = DAT_004e2290
+
 extern "C" __int64 parse(const char*);
-extern "C" char input[];
-extern "C" __int64 result;
 void FUN_0035e720() {
-    result = parse(input);
+    (*(__int64*)&DAT_004e2290) = parse(((char*)&DAT_00400488));
 }

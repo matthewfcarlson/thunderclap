@@ -1,3 +1,6 @@
+#include "decls/data/engine/audio.h"
+// data: gdata = DAT_004e6d98
+
 #include "compat/ptr.h"
 extern "C" char DAT_0042991c[];
 namespace audio {
@@ -16,10 +19,9 @@ class ChannelVolumeFadeBehaviour : public DynBehaviour {
 };
 } // namespace audio
 extern void __cdecl FUN_00247550(void*, void*);
-extern int gdata;
 audio::ChannelVolumeFadeBehaviour* audio::ChannelVolumeFadeBehaviour::vfunc_0(int x) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0042991c);
     if (x & 1)
-        FUN_00247550(&gdata, this);
+        FUN_00247550(((int*)&DAT_004e6d98), this);
     return this;
 }

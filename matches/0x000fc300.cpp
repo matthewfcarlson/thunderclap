@@ -1,3 +1,5 @@
+#include "decls/data/game/global.h"
+
 struct Obj_fc300 {
     virtual void f0();
     virtual void f1();
@@ -24,7 +26,6 @@ struct Obj_fc300 {
     virtual void f22();
     virtual void f23();
 };
-extern Obj_fc300* gObj_fc300;
 void target() {
-    gObj_fc300->f23();
+    (*(Obj_fc300**)&DAT_004e0a60)->f23();
 }

@@ -1,8 +1,9 @@
+#include "decls/data/game/global.h"
+
 typedef unsigned char byte_19e8e0;
 struct Alloc_19e8e0 {
     void f(void*, unsigned int);
 };
-extern Alloc_19e8e0 g_4e2210;
 namespace hulkfight { namespace motion { class ProjectileMissile {
   public:
     void tick();
@@ -17,6 +18,6 @@ namespace hulkfight { namespace motion { class ProjectileMissile {
 hulkfight::motion::ProjectileMissile* hulkfight::motion::ProjectileMissile::vfunc_2(byte_19e8e0 param_2) {
     tick();
     if (param_2 & 1)
-        g_4e2210.f(this, 0xdc);
+        (*(Alloc_19e8e0*)&DAT_004e2210).f(this, 0xdc);
     return this;
 }

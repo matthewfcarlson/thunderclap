@@ -1,3 +1,6 @@
+#include "decls/data/engine/physics.h"
+// data: gHalf = DAT_004d3188
+
 class Thing_309b80 {
   public:
     virtual void a();
@@ -12,13 +15,12 @@ class Thing_309b80 {
     virtual void j();
     virtual void Apply(int);
 };
-extern float gHalf;
 extern void Helper(int*, int, float);
 void Thing_309b80::Apply(int x) {
     int local[3];
     if (!Check()) {
         Get(&local[0]);
-        Helper(&local[0], x, gHalf);
+        Helper(&local[0], x, (*(float*)&DAT_004d3188));
         Apply(x);
     }
 }

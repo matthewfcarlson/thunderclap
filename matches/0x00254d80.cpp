@@ -1,10 +1,11 @@
 #include "gen/audio.h"
+#include "decls/data/engine/audio.h"
+// data: gPool_254d80 = DAT_004e73a8
 
 extern "C" void _ReadWriteBarrier();
 inline void* operator new(unsigned int, void* p) {
     return p;
 }
-extern char gPool_254d80[];
 void* __cdecl PoolAlloc(void*);
 struct SeqEventContainer_254d80 {
     virtual void f0();
@@ -28,7 +29,7 @@ struct SeqEventLogicRepeat_254d80 : SeqEventContainer_254d80, Init_254d80 {
 };
 
 void* audio::SeqEventLogicRepeatType::vfunc_3() {
-    SeqEventLogicRepeat_254d80* r = (SeqEventLogicRepeat_254d80*)PoolAlloc(gPool_254d80);
+    SeqEventLogicRepeat_254d80* r = (SeqEventLogicRepeat_254d80*)PoolAlloc(((char*)&DAT_004e73a8));
     if (r)
         return (void*)(new (r) SeqEventLogicRepeat_254d80);
     return (void*)(0);

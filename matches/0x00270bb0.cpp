@@ -1,4 +1,5 @@
-extern int g_270bb0;
+#include "decls/data/engine/unknown.h"
+
 void __cdecl FUN_00270bb0(int value) {
-    g_270bb0 = value;
+    DAT_004cdc00 = value;
 }

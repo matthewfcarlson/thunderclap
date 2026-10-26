@@ -1,3 +1,5 @@
+#include "decls/data/game/global.h"
+
 struct Source {
     virtual void f0();
     virtual void f1();
@@ -46,7 +48,6 @@ struct Source {
     virtual int Get();
 };
 extern Source* __cdecl fetch();
-extern int table[];
 struct Item {
     int value;
     char rest[0x34];
@@ -64,5 +65,5 @@ void Owner::Run(int index, int unused) {
     int v = s->Get();
     Item* p = &items[index];
     p->value = 0;
-    p->action(table[index], v, 1);
+    p->action(((int*)&DAT_004a0c64)[index], v, 1);
 }

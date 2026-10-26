@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: zero_2b1d90 = DAT_003f32e0
+
 namespace pure3d {
 class MultiController {
   public:
@@ -34,7 +37,6 @@ class MultiController {
     MultiController** items;
 };
 } // namespace pure3d
-extern const float zero_2b1d90;
 bool pure3d::MultiController::f22() {
     if (flag == 0) {
         unsigned i = 0;
@@ -47,5 +49,5 @@ bool pure3d::MultiController::f22() {
         }
         return true;
     }
-    return value == zero_2b1d90;
+    return value == DAT_003f32e0;
 }

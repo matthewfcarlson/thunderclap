@@ -1,11 +1,12 @@
+#include "decls/data/game/global.h"
+
 #include "compat/ptr.h"
 extern "C" void __cdecl freeItem(void*);
 struct Pair {
     int a, b;
 };
-extern Pair DAT_004ddab4;
 void FUN_00363d50() {
-    Pair* p = &DAT_004ddab4;
+    Pair* p = ((Pair*)((char*)&DAT_004ddab0 + 4));
     int n = 13;
     do {
         --p;

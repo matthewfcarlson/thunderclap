@@ -1,5 +1,7 @@
+#include "decls/data/platform/xbox/core.h"
+// data: gSpecial = DAT_0052a138
+
 extern void __stdcall DeleteFiber(void*);
-extern int gSpecial;
 struct Node {
     char pad[8];
     Node* parent;
@@ -8,7 +10,7 @@ struct Node {
     void* fiber;
 };
 void __cdecl unlinkNode(Node* p) {
-    if (p != (Node*)&gSpecial && p != (Node*)((char*)p->parent + 8))
+    if (p != (Node*)&(*(int*)((char*)&DAT_0052a130 + 8)) && p != (Node*)((char*)p->parent + 8))
         DeleteFiber(p->fiber);
     Node* parent = p->parent;
     if (p->next == 0)

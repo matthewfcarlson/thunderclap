@@ -1,5 +1,6 @@
-extern char gOne[];
-extern char gTwo[];
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 extern "C" char __cdecl ReadFlag(const char*);
 class Function_1bf710 {
   public:
@@ -19,8 +20,8 @@ class Method3 : public Function_1bf710 {
 };
 Method3::Method3(int a, int b) : Function_1bf710(a, 3) {
     field = b;
-    f18 = ReadFlag(gOne);
-    f10 = ReadFlag(gTwo);
-    f11 = ReadFlag(gTwo);
-    f12 = ReadFlag(gTwo);
+    f18 = ReadFlag(((char*)&DAT_0048e100));
+    f10 = ReadFlag(((char*)&DAT_0048e128));
+    f11 = ReadFlag(((char*)&DAT_0048e128));
+    f12 = ReadFlag(((char*)&DAT_0048e128));
 }

@@ -1,3 +1,6 @@
+#include "decls/data/platform/xbox/audio.h"
+// data: bss = DAT_004e7778
+
 struct Elem {
     void clean();
     char pad[12];
@@ -10,7 +13,6 @@ struct Obj {
 };
 void prep(void*, Obj*);
 void freeobj(void*, Obj*);
-extern char bss;
 void __cdecl target(void* p, Obj* o) {
     prep(p, o);
     if (o) {
@@ -22,6 +24,6 @@ void __cdecl target(void* p, Obj* o) {
         } while (--n);
         o->b.clean();
         o->a.clean();
-        freeobj(&bss, o);
+        freeobj(((char*)((char*)&DAT_004e76e8 + 144)), o);
     }
 }

@@ -1,14 +1,14 @@
+#include "decls/data/engine/unknown.h"
+// data: fmt1 = DAT_00426708, fmt2 = DAT_00426728, types = DAT_00426948
+
 extern "C" int logmsg(void*, const char*, ...);
-extern const char fmt1[];
-extern const char fmt2[];
-extern const char* types[];
 int compare_error(void* p, int* a, int* b) {
-    const char* x = types[*a];
-    const char* y = types[*b];
+    const char* x = ((const char**)&DAT_00426948)[*a];
+    const char* y = ((const char**)&DAT_00426948)[*b];
     if (x[2] == y[2]) {
-        logmsg(p, fmt2, x);
+        logmsg(p, DAT_00426728, x);
         return 0;
     }
-    logmsg(p, fmt1, x, y);
+    logmsg(p, DAT_00426708, x, y);
     return 0;
 }

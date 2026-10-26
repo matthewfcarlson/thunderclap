@@ -1,12 +1,12 @@
-extern float thresholds[5];
-extern float results[5];
-extern const float fallback;
+#include "decls/data/game/global.h"
+// data: fallback = DAT_00405e5c, results = DAT_004dda14, thresholds = DAT_004dda28
+
 float __cdecl target(float x) {
     int i = 4;
     do {
-        if (thresholds[i] <= x)
-            return results[i];
+        if (((float*)&DAT_004dda28)[i] <= x)
+            return ((float*)&DAT_004dda14)[i];
         --i;
     } while (i >= 0);
-    return fallback;
+    return DAT_00405e5c;
 }

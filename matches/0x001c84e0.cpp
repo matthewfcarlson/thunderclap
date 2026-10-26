@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: g_mgr_1c84e0 = DAT_004dd6e8
+
 class Node {
   public:
     char pad0[0x14];
@@ -15,7 +18,6 @@ struct Mgr_1c84e0 {
     char Test(const char* s, int a, int b);
 };
 
-extern Mgr_1c84e0* g_mgr_1c84e0;
 
 class Obj_1c84e0 {
   public:
@@ -29,7 +31,7 @@ void Obj_1c84e0::Fn(int x, Node* n, int y) {
         return;
     if (n->mHidden)
         return;
-    if (!g_mgr_1c84e0->Test("Compute Shadows", 0x73, 1))
+    if (!(*(Mgr_1c84e0**)&DAT_004dd6e8)->Test("Compute Shadows", 0x73, 1))
         return;
     if (n->mFlag) {
         float f = 0.6f;

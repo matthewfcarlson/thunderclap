@@ -1,8 +1,9 @@
 // Same code shape as 0x00363af0 (propagated; names are from that function)
+#include "decls/data/game/global.h"
+
 struct Obj_3640c0 {
     void f();
 };
-extern Obj_3640c0 g_3640c0;
 void wrapper() {
-    g_3640c0.f();
+    (*(Obj_3640c0*)&DAT_004e36f0).f();
 }

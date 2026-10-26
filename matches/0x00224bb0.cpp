@@ -1,7 +1,9 @@
+#include "decls/data/engine/choreo2.h"
+// data: g_refCount = DAT_004e5aac
+
 #include "compat/ptr.h"
 extern "C" char DAT_004272f0[];
 typedef unsigned char byte_224bb0;
-extern int g_refCount;
 namespace choreo2 {
 class JointDriver {
   public:
@@ -28,7 +30,7 @@ class JointDriver_224bb0 {
 extern void thunk_FUN_00267090(choreo2::JointDriver*);
 choreo2::JointDriver* choreo2::JointDriver::vfunc_2(byte_224bb0 param) {
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_004272f0);
-    --g_refCount;
+    --(*(int*)&DAT_004e5aac);
     ((JointDriver_224bb0*)this)->call();
     if (param & 1)
         thunk_FUN_00267090(this);

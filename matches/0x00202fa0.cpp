@@ -1,6 +1,8 @@
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+// data: key1 = DAT_0048e100, key2 = DAT_0048e128
+
 extern "C" unsigned char __cdecl Check(const char*);
-extern char key1[];
-extern char key2[];
 class Function_202fa0 {
   public:
     Function_202fa0(int, int);
@@ -16,8 +18,8 @@ class Method1 : public Function_202fa0 {
   public:
     Method1(int p, int x) : Function_202fa0(p, 1) {
         this->x = x;
-        b = Check(key1);
-        a = Check(key2);
+        b = Check(((char*)&DAT_0048e100));
+        a = Check(((char*)&DAT_0048e128));
     }
     virtual void f();
 };

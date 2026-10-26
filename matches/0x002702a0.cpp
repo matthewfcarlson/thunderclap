@@ -1,6 +1,7 @@
+#include "decls/data/engine/core.h"
+
 #include "compat/ptr.h"
 extern "C" hulk_intptr FUN_00266e00(hulk_intptr, int);
-extern "C" int DAT_004cdbb0;
 class Obj_2702a0 {
   public:
     virtual void Finish();

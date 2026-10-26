@@ -1,7 +1,8 @@
 #include "gen/hulkfight.h"
+#include "decls/data/game/global.h"
+// data: gZero_14e140 = DAT_003f32e0
 
-extern const float gZero_14e140;
 
 hulk_freg hulkfight::motion::ClearFightParamsHitRecordTrack::vfunc_7() {
-    return gZero_14e140;
+    return DAT_003f32e0;
 }

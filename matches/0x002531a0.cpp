@@ -1,4 +1,6 @@
 #include "gen/audio.h"
+#include "decls/data/engine/audio.h"
+// data: heap = DAT_004e7038
 
 namespace audio {
 class Base {
@@ -15,9 +17,8 @@ class SeqEventVarPosDist_2531a0 : public Base {
 };
 } // namespace audio
 extern void* alloc(void*);
-extern char heap;
 void* audio::SeqEventVarPosDistType::vfunc_3() {
-    void* p = alloc(&heap);
+    void* p = alloc(((char*)((char*)&DAT_004e6ff0 + 72)));
     audio::SeqEventVarPosDist_2531a0* q;
     if (p)
         q = new (p) audio::SeqEventVarPosDist_2531a0;

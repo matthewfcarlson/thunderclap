@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: zeroData = DAT_003f335c
+
 #include "compat/ptr.h"
 typedef unsigned int u32_262090;
 extern int vtable_262090;
@@ -5,7 +8,6 @@ struct SeqEventLogicRepeat_262090 {
     void init();
 };
 extern u32_262090 __cdecl makeobj(const char*, int);
-extern int zeroData;
 struct Obj_262090 {
     hulk_uintptr vt;
     char pad[0x18];
@@ -20,7 +22,7 @@ Obj_262090* __fastcall FUN_00262090(Obj_262090* p) {
     p->vt = (hulk_uintptr)&vtable_262090;
     p->s.init();
     p->a = makeobj("MySeqTrack", 0);
-    p->b = makeobj((const char*)&zeroData, 0);
+    p->b = makeobj((const char*)&(*(int*)&DAT_003f335c), 0);
     p->c[0] &= 0xfc;
     p->flags = (p->flags & 0xfffffc01) | 1;
     return p;

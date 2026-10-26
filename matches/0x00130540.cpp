@@ -1,5 +1,7 @@
 // Same code shape as 0x0004df50 (propagated; names are from that function)
 #include "gen/fight.h"
+#include "decls/data/game/global.h"
+// data: zeroCondition = DAT_003f335c
 
 class CStageCondition_130540 {};
 class ParamValue_130540 {
@@ -14,10 +16,9 @@ class ParamValueEnum_130540 : public ParamValue_130540 {
   public:
     virtual void f();
 };
-extern CStageCondition_130540 zeroCondition;
 
 template <> void* fight::ParamEnumConstList<hulkfight::GameStateCondition>::vfunc_6(int , int index) {
     if (index >= 0 && index < this->f_14)
         return (void*)((*(CStageCondition_130540 ** *)&this->f_10)[index]);
-    return (void*)(&zeroCondition);
+    return (void*)(((CStageCondition_130540*)&DAT_003f335c));
 }

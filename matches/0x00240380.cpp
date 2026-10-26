@@ -1,6 +1,8 @@
+#include "decls/data/engine/audio.h"
+#include "decls/data/game/global.h"
+// data: gEmpty_240380 = DAT_003f335c, gSentinel_240380 = DAT_004cc02c
+
 extern "C" int strcmp(const char*, const char*);
-extern char* gSentinel_240380;
-extern char gEmpty_240380[];
 class StringLike {
   public:
     char* mData;
@@ -9,8 +11,8 @@ class StringLike {
 char StringLike::Compare(const char* other) {
     char* p = mData;
     if (other == 0)
-        return p == gSentinel_240380;
-    if (p == gSentinel_240380)
-        p = gEmpty_240380;
+        return p == (*(char**)&DAT_004cc02c);
+    if (p == (*(char**)&DAT_004cc02c))
+        p = ((char*)&DAT_003f335c);
     return strcmp(p, other) == 0;
 }

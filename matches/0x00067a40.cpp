@@ -1,9 +1,10 @@
-extern const float zero;
+#include "decls/data/game/global.h"
+// data: globalV = DAT_004dcf00, zero = DAT_003f335c
+
 struct V {
     int value;
     void set(const float*);
 };
-extern V globalV;
 struct Elem {
     int a, b, c, d, e;
     char pad[4];
@@ -17,7 +18,7 @@ struct X {
     void run();
 };
 void X::run() {
-    globalV.set(&zero);
+    (*(V*)&DAT_004dcf00).set(&DAT_003f335c);
     int* p = first;
     volatile int* q = &elems[0].c;
     int n = 64;
@@ -28,7 +29,7 @@ void X::run() {
         q[0] = 0;
         q[-1] = 0;
         q[2] = 0;
-        ((V*)(q + 4))->set(&zero);
+        ((V*)(q + 4))->set(&DAT_003f335c);
         ++p;
         q += 8;
     } while (--n);

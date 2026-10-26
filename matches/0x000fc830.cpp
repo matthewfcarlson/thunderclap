@@ -1,4 +1,6 @@
-extern const float gZero_fc830;
+#include "decls/data/game/global.h"
+// data: gZero_fc830 = DAT_003f32e0
+
 class C_fc830 {
   public:
     char pad[0x12];
@@ -9,6 +11,6 @@ class C_fc830 {
 };
 float C_fc830::Get() {
     if (flag)
-        return gZero_fc830;
+        return DAT_003f32e0;
     return value;
 }

@@ -1,3 +1,5 @@
+#include "decls/data/platform/xbox/pure3d.h"
+
 namespace pure3d {
 class pddiBaseContext {
   public:
@@ -68,10 +70,9 @@ class d3dContext : public pddiBaseContext {
     void vfunc_54(int);
 };
 } // namespace pure3d
-extern "C" int DAT_004d3a48[4];
 void __stdcall D3DDevice_SetRenderState_CullMode(int);
 void pure3d::d3dContext::vfunc_54(int x) {
     pddiBaseContext::vfunc_54(x);
     if (!state->flag)
-        D3DDevice_SetRenderState_CullMode(DAT_004d3a48[x]);
+        D3DDevice_SetRenderState_CullMode(((int*)&DAT_004d3a48)[x]);
 }

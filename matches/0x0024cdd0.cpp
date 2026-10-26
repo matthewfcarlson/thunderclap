@@ -1,9 +1,10 @@
+#include "decls/data/game/global.h"
+// data: gOne_24cdd0 = DAT_003f32dc, gZero_24cdd0 = DAT_003f32e0
+
 #include "compat/ptr.h"
 extern "C" double sqrt(double);
 extern "C" double pow(double, double);
 extern "C" void _ReadWriteBarrier();
-extern const float gOne_24cdd0;
-extern const float gZero_24cdd0;
 hulk_freg FUN_0024cdd0(float* a, float* b) {
     hulk_freg x = a[0] - b[0];
     hulk_freg y = a[1] - b[1];
@@ -11,9 +12,9 @@ hulk_freg FUN_0024cdd0(float* a, float* b) {
     double s = sqrt(y * y + z * z + x * x);  // the listing's order (MSVC 7.1 reassociates; clang does not)
     float d = (float)s;
     if ((float)s <= b[15])
-        return gOne_24cdd0;
+        return DAT_003f32dc;
     if (d >= b[16])
-        return gZero_24cdd0;
+        return DAT_003f32e0;
     hulk_freg r = pow(b[17], (d - b[15]) / (b[16] - b[15]));     // x87: the original returns __CIpow's st0 unrounded
     _ReadWriteBarrier();
     return r;

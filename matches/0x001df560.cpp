@@ -1,5 +1,6 @@
 #include "decls/address.h"
-extern char g100_1df560[], g0f0[], g128[];
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 class Function_1df560 {
   public:
     Function_1df560(const char*, int);
@@ -14,10 +15,10 @@ class Function5_1df560 : public Function_1df560 {
 };
 Function5_1df560::Function5_1df560(const char* p, int x) : Function_1df560(p, 5) {
     m1c = x;
-    c18 = FUN_001d04d0(g100_1df560);
-    c10 = FUN_001d04d0(g0f0);
-    c11 = FUN_001d04d0(g128);
-    c12 = FUN_001d04d0(g128);
-    c13 = FUN_001d04d0(g128);
-    c14 = FUN_001d04d0(g128);
+    c18 = FUN_001d04d0(((char*)&DAT_0048e100));
+    c10 = FUN_001d04d0(((char*)&DAT_0048e0f0));
+    c11 = FUN_001d04d0(((char*)&DAT_0048e128));
+    c12 = FUN_001d04d0(((char*)&DAT_0048e128));
+    c13 = FUN_001d04d0(((char*)&DAT_0048e128));
+    c14 = FUN_001d04d0(((char*)&DAT_0048e128));
 }

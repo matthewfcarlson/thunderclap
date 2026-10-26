@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/core.h"
+// data: glob_275970 = DAT_0052a1e4
 
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b9bc[];
@@ -29,7 +30,6 @@ namespace core { struct DriveDestroyDirectoryRequest {
 }; }
 extern void FUN_0026d850(void*);
 extern void FUN_0026d840(void*);
-extern O_275970* glob_275970;
 core::DriveDestroyDirectoryRequest* core::DriveDestroyDirectoryRequest::vfunc_0(byte_275970 flag) {
     *(void**)this = (void*)((hulk_intptr)DAT_0042b9bc);
     ((O_275970*)((char*)field8 + 4))->a();
@@ -39,7 +39,7 @@ core::DriveDestroyDirectoryRequest* core::DriveDestroyDirectoryRequest::vfunc_0(
     *(void**)this = (void*)((hulk_intptr)DAT_0042b914);
     if (flag & 1) {
         FUN_0026d850((void*)((hulk_intptr)((char*)&DAT_0052a1c8)));
-        glob_275970->e(this);
+        (*(O_275970**)&DAT_0052a1e4)->e(this);
         FUN_0026d840((void*)((hulk_intptr)((char*)&DAT_0052a1c8)));
     }
     return this;

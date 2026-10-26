@@ -1,7 +1,9 @@
+#include "decls/data/engine/core.h"
+// data: g_unknown_26d1b0 = DAT_004cdbb0
+
 #include "compat/ptr.h"
 extern "C" char DAT_0042afa8[];
 extern "C" char DAT_0042b3a4[];
-extern int g_unknown_26d1b0;
 void Init();
 class RefCount {
   public:
@@ -12,7 +14,7 @@ class RefCount {
 };
 RefCount::RefCount(int x) {
     vftable = (void*)((hulk_intptr)DAT_0042afa8);
-    mRef = g_unknown_26d1b0;
+    mRef = DAT_004cdbb0;
     Init();
     vftable = (void*)((hulk_intptr)DAT_0042b3a4);
     mParam = (void*)x;

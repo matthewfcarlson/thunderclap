@@ -1,3 +1,6 @@
+#include "decls/data/engine/pure3d.h"
+// data: gSentinel_327d20 = DAT_004d40d8
+
 typedef unsigned int u32_327d20;
 class Obj_327d20 {
   public:
@@ -18,16 +21,14 @@ class Obj_327d20 {
     virtual void o(u32_327d20);
     void target(u32_327d20);
 };
-extern u32_327d20 gSentinel_327d20;
-extern Obj_327d20* gObj_327d20;
 void Obj_327d20::target(u32_327d20 arg) {
-    if (*(u32_327d20*)((char*)this + 12) != gSentinel_327d20) {
-        if (gObj_327d20)
-            gObj_327d20->n();
-        gSentinel_327d20 = *(u32_327d20*)((char*)this + 12);
+    if (*(u32_327d20*)((char*)this + 12) != (*(u32_327d20*)&DAT_004d40d8)) {
+        if ((*(Obj_327d20**)&DAT_005555bc))
+            (*(Obj_327d20**)&DAT_005555bc)->n();
+        (*(u32_327d20*)&DAT_004d40d8) = *(u32_327d20*)((char*)this + 12);
         m();
         o(arg);
-        gObj_327d20 = this;
+        (*(Obj_327d20**)&DAT_005555bc) = this;
     } else if (l() != 1)
         o(arg);
 }

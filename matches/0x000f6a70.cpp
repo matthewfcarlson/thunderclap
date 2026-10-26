@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gService = DAT_0052c2a4
+
 #include "compat/ptr.h"
 struct Input_f6a70 {
     char p0[0x10];
@@ -29,7 +32,6 @@ class Service_f6a70 {
     virtual void v15();
     virtual float Get();
 };
-extern Service_f6a70* gService;
 extern "C" double tan(double);
 hulk_freg __cdecl Calc(Input_f6a70* a, Camera* b, void* c) {
     if (!a || !c)
@@ -38,7 +40,7 @@ hulk_freg __cdecl Calc(Input_f6a70* a, Camera* b, void* c) {
     float d = a->value;
     pad[3] = d;
     pad[0] = a->angle;
-    hulk_freg y = gService->Get();
+    hulk_freg y = (*(Service_f6a70**)&DAT_0052c2a4)->Get();
     float z = b->value - pad[3];
     int bits = *(int*)&z;
     bits &= 0x7fffffff;

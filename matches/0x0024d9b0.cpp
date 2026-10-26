@@ -1,3 +1,5 @@
+#include "decls/data/engine/audio.h"
+
 namespace audio { class ListenerEffectGc {
   public:
     virtual void f0();
@@ -14,10 +16,9 @@ struct ThisCall_00244f70 {
     void FUN_00244f70();
 };
 extern void FUN_00247550(void*, void*);
-char g_4e64d8;
 audio::ListenerEffectGc* audio::ListenerEffectGc::vfunc_2(int flags) {
     ((ThisCall_00244f70*)(this))->FUN_00244f70();
     if (flags & 1)
-        FUN_00247550(&g_4e64d8, this);
+        FUN_00247550(((char*)&DAT_004e64d8), this);
     return this;
 }

@@ -1,5 +1,6 @@
-extern const float DAT_00427350;
-extern const float DAT_003f3388;
+#include "decls/data/engine/choreo2.h"
+#include "decls/data/game/hulkfight.h"
+
 union Bits_225ab0 {
     float f;
     unsigned long u;

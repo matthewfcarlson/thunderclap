@@ -1,3 +1,6 @@
+#include "decls/data/engine/pure3d/prop.h"
+// data: gRoot_1c2650 = DAT_0052c2ac
+
 #include "compat/ptr.h"
 class Item_1c2650 {
   public:
@@ -34,7 +37,6 @@ class Mgr_1c2650 {
 struct Root_1c2650 {
     Mgr_1c2650* m;
 };
-extern Root_1c2650* gRoot_1c2650;
 class Target_1c2650 {
     char pad[0xbc];
     Item_1c2650* member;
@@ -45,9 +47,9 @@ class Target_1c2650 {
 };
 void Target_1c2650::fn(Item_1c2650* p, int x, int y) {
     if (p) {
-        gRoot_1c2650->m->p(0);
+        (*(Root_1c2650**)&DAT_0052c2ac)->m->p(0);
         helper(p, y);
         p->i((hulk_intptr)member, x);
-        gRoot_1c2650->m->q(0);
+        (*(Root_1c2650**)&DAT_0052c2ac)->m->q(0);
     }
 }

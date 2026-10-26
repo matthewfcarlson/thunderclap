@@ -1,4 +1,5 @@
-extern const float gOne_2ef420;
+#include "decls/data/game/global.h"
+
 struct Inner_2ef420 {
     char pad[0x34];
     float value;
@@ -14,5 +15,5 @@ struct Obj_2ef420 {
 float __fastcall FUN_002ef420(Obj_2ef420* self) {
     if (self->holder)
         return self->holder->inner->value;
-    return gOne_2ef420;
+    return DAT_003f32dc;
 }

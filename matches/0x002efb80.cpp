@@ -1,5 +1,7 @@
 // Same code shape as 0x00078c40 (propagated; names are from that function)
-extern char gWaypoint[];
+#include "decls/data/engine/physics.h"
+// data: gWaypoint = DAT_004d29a8
+
 class CDHGameObjectCreator {
     char a[4];
 };
@@ -17,5 +19,5 @@ class CAmbientsManager : public CDHGameObjectCreator, public DataHandler::Object
     virtual const char* vfunc_3(void*);
 };
 const char* CAmbientsManager::vfunc_3(void*) {
-    return gWaypoint;
+    return DAT_004d29a8;
 }

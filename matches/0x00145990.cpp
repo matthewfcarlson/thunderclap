@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
+// data: gCounter_145990 = DAT_004e0fa4
 
 extern "C" void __cdecl FUN_00143610();
 extern "C" void __cdecl FUN_00143630();
@@ -8,7 +9,6 @@ extern "C" void __cdecl FUN_00143670();
 extern "C" void __cdecl FUN_00143690();
 extern "C" void __cdecl FUN_001436b0();
 extern "C" char DAT_0041324c[];
-extern int gCounter_145990;
 extern int gArray_145990;
 extern "C" void* Alloc(hulk_uintptr);
 struct Obj_145990 {
@@ -21,7 +21,7 @@ struct Obj_145990 {
 extern "C" void Register(void*, Obj_145990**, int);
 
 void FUN_00145990() {
-    if (gCounter_145990 == 0) {
+    if ((*(int*)&DAT_004e0fa4) == 0) {
         Obj_145990* a[6];
         Obj_145990* p;
         p = (Obj_145990*)Alloc(24);
@@ -74,5 +74,5 @@ void FUN_00145990() {
             a[5] = 0;
         Register((void*)((hulk_intptr)DAT_004e0fa0), a, 6);
     }
-    ++gCounter_145990;
+    ++(*(int*)&DAT_004e0fa4);
 }

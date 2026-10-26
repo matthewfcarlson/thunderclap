@@ -1,12 +1,14 @@
+#include "decls/data/game/global.h"
+// data: gObj_2eccb0 = DAT_00554c10
+
 class RefCounted {
   public:
     virtual void AddRef();
     virtual void Release();
 };
 
-extern RefCounted* gObj_2eccb0;
 
 void __cdecl FUN_002eccb0() {
-    gObj_2eccb0->Release();
-    gObj_2eccb0 = 0;
+    (*(RefCounted**)&DAT_00554c10)->Release();
+    (*(RefCounted**)&DAT_00554c10) = 0;
 }

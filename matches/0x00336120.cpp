@@ -1,3 +1,6 @@
+#include "decls/data/engine/movie.h"
+// data: gHeap = DAT_0055dbb0
+
 #include "compat/ptr.h"
 extern "C" unsigned strlen(const char*);
 inline void copy(char* d, const char* s) {
@@ -17,12 +20,11 @@ class Heap {
   public:
     void* Allocate(hulk_uintptr, unsigned);
 };
-extern Heap gHeap;
 bool __stdcall Get(char** out, Source* src, int b, int c) {
     char* s = src->Lookup();
     if (!s)
         return false;
-    char* d = (char*)gHeap.Allocate(strlen(s) + 1, 4);
+    char* d = (char*)(*(Heap*)&DAT_0055dbb0).Allocate(strlen(s) + 1, 4);
     *out = d;
     copy(d, s);
     return true;

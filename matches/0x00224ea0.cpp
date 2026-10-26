@@ -1,8 +1,9 @@
+#include "decls/data/engine/choreo2.h"
+#include "decls/data/game/global.h"
+// data: kZero_224ea0 = DAT_003f32e0
+
 #include "compat/ptr.h"
 extern "C" double atan2(double, double);
-extern const float kEps;
-extern const float kZero_224ea0;
-extern const float kTwoPi;
 union FU_224ea0 {
     float f;
     unsigned u;
@@ -14,10 +15,10 @@ __forceinline float Abs(float x) {
     return t.f;
 }
 hulk_freg Angle(float a, float b) {
-    if (Abs(a) <= kEps && Abs(b) <= kEps)
-        return kZero_224ea0;
+    if (Abs(a) <= DAT_00427334 && Abs(b) <= DAT_00427334)
+        return DAT_003f32e0;
     hulk_freg r = (hulk_freg)atan2(-a, -b);
-    if (r < kZero_224ea0)
-        r += kTwoPi;
+    if (r < DAT_003f32e0)
+        r += DAT_0042732c;
     return r;
 }

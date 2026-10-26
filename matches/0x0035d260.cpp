@@ -1,8 +1,7 @@
 #include "decls/address.h"
-extern int g4dda00;
-extern int g4dda04;
+#include "decls/data/game/global.h"
 void FUN_0035d260() {
     unsigned long long r = FUN_0027b020("golfBall_golfBall");
-    g4dda00 = (int)r;
-    g4dda04 = (int)(r >> 32);
+    (*(int*)&DAT_004dda00) = (int)r;
+    (*(int*)&DAT_004dda04) = (int)(r >> 32);
 }

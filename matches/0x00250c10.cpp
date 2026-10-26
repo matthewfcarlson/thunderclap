@@ -1,12 +1,12 @@
+#include "decls/data/engine/audio.h"
+// data: sClose = DAT_004298dc, sName_00429b00 = DAT_00429b00, sOpen = DAT_004298f4
+
 struct Stm_250c10 {
     char pad[0x24];
     int depth;
 };
 extern bool Match(Stm_250c10*, const char*);
 extern bool ReadTrack(Stm_250c10**, const char*, void*);
-extern const char sOpen[];
-extern const char sName_00429b00[];
-extern const char sClose[];
 class SeqEvent {
   public:
     virtual void v0();
@@ -24,12 +24,12 @@ class SeqEventExpression_250c10 : public SeqEvent {
 };
 int SeqEventExpression_250c10::vfunc_1(Stm_250c10** p) {
     if (SeqEvent::v1(p)) {
-        if (Match(*p, sOpen)) {
+        if (Match(*p, DAT_004298f4)) {
             (*p)->depth++;
-            if (ReadTrack(p, sName_00429b00, (char*)this + 8)) {
+            if (ReadTrack(p, DAT_00429b00, (char*)this + 8)) {
                 (*p)->depth--;
                 Stm_250c10* s = *p;
-                if (Match(s, sClose))
+                if (Match(s, DAT_004298dc))
                     return 1;
             }
         }

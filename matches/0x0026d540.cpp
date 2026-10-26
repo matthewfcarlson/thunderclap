@@ -1,3 +1,5 @@
+#include "decls/data/engine/core.h"
+
 #include "compat/ptr.h"
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* p) {
@@ -16,9 +18,8 @@ struct MemoryTwoWayAllocator_26d540 {
 };
 extern "C" void* __cdecl Alloc(hulk_intptr, int);
 extern "C" void __cdecl Other();
-extern int g;
 MemoryTwoWayAllocator_26d540* __cdecl Make(int n, int heap) {
-    g = heap;
+    DAT_004cdbb0 = heap;
     void* p = Alloc(heap, 44);
     MemoryTwoWayAllocator_26d540* o = new (p) MemoryTwoWayAllocator_26d540;
     Other();

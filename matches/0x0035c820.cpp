@@ -1,7 +1,9 @@
+#include "decls/data/game/unknown.h"
+// data: gHash_35c820 = DAT_004dc050
+
 extern "C" unsigned long long Hash(const char*);
-unsigned int gHash_35c820[2];
 void FUN_0035c820() {
     unsigned long long h = Hash("harrier");
-    gHash_35c820[0] = (unsigned int)h;
-    gHash_35c820[1] = (unsigned int)(h >> 32);
+    ((unsigned int*)&DAT_004dc050)[0] = (unsigned int)h;
+    ((unsigned int*)&DAT_004dc050)[1] = (unsigned int)(h >> 32);
 }

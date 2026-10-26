@@ -1,5 +1,6 @@
 #include "decls/address.h"
-extern const char DAT_0048e100[], DAT_0048e0f0[], DAT_0048e128[];
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 class Function_7e4d0 {
   public:
     virtual void fn();
@@ -17,9 +18,9 @@ class Method2 : public Function_7e4d0 {
     virtual void fn();
     Method2(int p, int r) : Function_7e4d0(p, 2) {
         u = r;
-        z = FUN_001d04d0(DAT_0048e100);
-        x = FUN_001d04d0(DAT_0048e0f0);
-        y = FUN_001d04d0(DAT_0048e128);
+        z = FUN_001d04d0(((const char*)&DAT_0048e100));
+        x = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+        y = FUN_001d04d0(((const char*)&DAT_0048e128));
     }
 };
 class Closure2 : public Method2 {

@@ -1,3 +1,7 @@
+#include "decls/data/engine/content.h"
+#include "decls/data/engine/core.h"
+// data: gEntries_2670b0 = DAT_00527c60, gFallback_2670b0 = DAT_00527f40
+
 #include "compat/ptr.h"
 typedef unsigned int U_2670b0;
 struct Obj_2670b0 {
@@ -9,17 +13,15 @@ struct Entry_2670b0 {
     hulk_uintptr field8;
     Entry_2670b0* next;
 };
-extern Entry_2670b0 gEntries_2670b0[45];
-extern Entry_2670b0 gFallback_2670b0;
 void FUN_002670b0(int a, int b, Obj_2670b0* obj) {
-    Entry_2670b0* dest = &gEntries_2670b0[a];
+    Entry_2670b0* dest = &((Entry_2670b0*)((char*)&DAT_00527c58 + 8))[a];
     Entry_2670b0* list;
     if (b == 45)
-        list = &gFallback_2670b0;
+        list = ((Entry_2670b0*)&DAT_00527f40);
     else {
-        list = &gEntries_2670b0[b];
+        list = &((Entry_2670b0*)((char*)&DAT_00527c58 + 8))[b];
         if (list->next == 0)
-            list = &gFallback_2670b0;
+            list = ((Entry_2670b0*)&DAT_00527f40);
     }
     obj->F();
     dest->object = obj;

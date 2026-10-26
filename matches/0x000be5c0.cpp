@@ -1,5 +1,5 @@
 #include "decls/address.h"
-extern char g100_be5c0[], g0f0[], g134[];
+#include "decls/data/game/global.h"
 class Function_be5c0 {
   public:
     Function_be5c0(const char*, int);
@@ -14,11 +14,11 @@ class Method6_be5c0 : public Function_be5c0 {
 };
 Method6_be5c0::Method6_be5c0(const char* p, int x) : Function_be5c0(p, 6) {
     m1c = x;
-    c18 = FUN_001d04d0(g100_be5c0);
-    c10 = FUN_001d04d0(g0f0);
-    c11 = FUN_001d04d0(g0f0);
-    c12 = FUN_001d04d0(g0f0);
-    c13 = FUN_001d04d0(g0f0);
-    c14 = FUN_001d04d0(g134);
-    c15 = FUN_001d04d0(g134);
+    c18 = FUN_001d04d0(((char*)&DAT_0048e100));
+    c10 = FUN_001d04d0(((char*)&DAT_0048e0f0));
+    c11 = FUN_001d04d0(((char*)&DAT_0048e0f0));
+    c12 = FUN_001d04d0(((char*)&DAT_0048e0f0));
+    c13 = FUN_001d04d0(((char*)&DAT_0048e0f0));
+    c14 = FUN_001d04d0(((char*)&DAT_0048e134));
+    c15 = FUN_001d04d0(((char*)&DAT_0048e134));
 }

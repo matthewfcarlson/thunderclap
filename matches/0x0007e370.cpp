@@ -1,6 +1,7 @@
+#include "decls/data/game/global.h"
+// data: keyA = DAT_0048e100, keyB = DAT_0048e0e4
+
 extern "C" unsigned char __cdecl Query(const void*);
-extern int keyA;
-extern int keyB;
 class Function_7e370 {
   public:
     Function_7e370(int, int);
@@ -17,8 +18,8 @@ class Method1 : public Function_7e370 {
   public:
     Method1(int n, int xx) : Function_7e370(n, 1) {
         x = xx;
-        a = Query(&keyA);
-        b = Query(&keyB);
+        a = Query(((int*)&DAT_0048e100));
+        b = Query(((int*)&DAT_0048e0e4));
     }
     virtual void f();
 };

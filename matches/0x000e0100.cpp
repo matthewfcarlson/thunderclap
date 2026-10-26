@@ -1,4 +1,6 @@
-extern const float negativeOne;
+#include "decls/data/game/hulkfight.h"
+// data: negativeOne = DAT_003f3388
+
 class Obj {
   public:
     char pad[0x3c];
@@ -10,7 +12,7 @@ class Obj {
     void update();
 };
 void Obj::update() {
-    if (a > negativeOne && b > negativeOne) {
+    if (a > DAT_003f3388 && b > DAT_003f3388) {
         flag = a <= b ? 1 : 0;
     }
 }

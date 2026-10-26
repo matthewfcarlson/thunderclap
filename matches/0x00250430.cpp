@@ -1,3 +1,6 @@
+#include "decls/data/engine/audio.h"
+// data: global_bss = DAT_004e6960
+
 #include "compat/ptr.h"
 extern "C" char DAT_004298fc[];
 namespace audio {
@@ -17,11 +20,10 @@ class SeqActionWait : public SeqAction {
 };
 } // namespace audio
 extern void __cdecl FUN_00247550(void*, void*);
-extern int global_bss;
 audio::SeqActionWait* audio::SeqActionWait::vfunc_0(int x) {
     SeqActionWait* p = this;
     *(void**)p = (void*)((hulk_intptr)DAT_004298fc);
     if (x & 1)
-        FUN_00247550(&global_bss, this);
+        FUN_00247550(((int*)((char*)&DAT_004e68f8 + 104)), this);
     return this;
 }

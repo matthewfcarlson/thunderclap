@@ -1,4 +1,6 @@
 #include "gen/global.h"
+#include "decls/data/engine/pure3d/prop.h"
+// data: gHolder_e8420 = DAT_0052c2ac
 
 class M_e8420 {
   public:
@@ -39,16 +41,15 @@ struct Holder_e8420 {
     M_e8420* m;
     void exec(float, float, float);
 };
-extern Holder_e8420* gHolder_e8420;
 
 void FEThingsBase::vfunc_10() {
     if ((*(Item_e8420 * *)&this->f_1760)) {
         if (this->f_1830) {
-            gHolder_e8420->m->start(0);
-            gHolder_e8420->exec((*(float *)&this->f_1834), (*(float *)&this->f_1834), (*(float *)&this->f_1834));
+            (*(Holder_e8420**)&DAT_0052c2ac)->m->start(0);
+            (*(Holder_e8420**)&DAT_0052c2ac)->exec((*(float *)&this->f_1834), (*(float *)&this->f_1834), (*(float *)&this->f_1834));
         }
         (*(Item_e8420 * *)&this->f_1760)->run();
         if (this->f_1830)
-            gHolder_e8420->m->end(0);
+            (*(Holder_e8420**)&DAT_0052c2ac)->m->end(0);
     }
 }

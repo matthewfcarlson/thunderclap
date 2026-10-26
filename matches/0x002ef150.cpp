@@ -1,3 +1,5 @@
+#include "decls/data/game/global.h"
+
 class CollisionDetector_2ef150 {
   public:
     void f();
@@ -20,10 +22,9 @@ class Obj {
     ImpulseBasedCollisionSolver_2ef150 b;
     C c;
 };
-extern Obj* gObj;
 extern "C" void __cdecl freeObj(void*);
 void destroyObj() {
-    Obj* p = gObj;
+    Obj* p = (*(Obj**)&DAT_00554c14);
     if (p) {
         p->c.f();
         p->b.f();
@@ -31,5 +32,5 @@ void destroyObj() {
         p->clean();
         freeObj(p);
     }
-    gObj = 0;
+    (*(Obj**)&DAT_00554c14) = 0;
 }

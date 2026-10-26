@@ -1,3 +1,6 @@
+#include "decls/data/engine/fight.h"
+// data: gManager_235650 = DAT_004e5bb8
+
 class ParamValueInventoryEntity_235650 {
   public:
     virtual void f0();
@@ -13,7 +16,6 @@ struct Manager_235650 {
     char pad[12];
     int value;
 };
-extern Manager_235650* gManager_235650;
 class Iter_235650 {
   public:
     int pad[3];
@@ -24,7 +26,7 @@ class Iter_235650 {
 int ParamValueInventoryEntity_235650::f7(int wanted, int limit) {
     if (limit <= 0)
         return 0;
-    Manager_235650* m = gManager_235650;
+    Manager_235650* m = (*(Manager_235650**)&DAT_004e5bb8);
     if (!m)
         return 0;
     int n = 1;

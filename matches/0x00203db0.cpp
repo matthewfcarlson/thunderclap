@@ -1,4 +1,6 @@
-extern unsigned char g_flag_203db0;
+#include "decls/data/game/global.h"
+// data: g_flag_203db0 = DAT_004c91d9
+
 class Obj_203db0 {
   public:
     char pad[0x530];
@@ -9,7 +11,7 @@ class Obj_203db0 {
 };
 int Obj_203db0::target(int key) {
     int result = 0;
-    if (g_flag_203db0) {
+    if ((*(unsigned char*)((char*)&DAT_004c91d8 + 1))) {
         int i;
         for (i = 0; i < 2; ++i) {
             if (keys[i] == key) {

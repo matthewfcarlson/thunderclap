@@ -1,3 +1,5 @@
+#include "decls/data/game/global.h"
+
 #include "compat/ptr.h"
 class PrimGroupOptimized_2e0110 {
   public:
@@ -30,7 +32,6 @@ class Manager_2e0110 {
   public:
     PrimGroupOptimized_2e0110* get();
 };
-extern Manager_2e0110* gMgr_2e0110;
 class PrimGroupSkinnedOptimized_2e0110 : public PrimGroupOptimized_2e0110 {
   public:
     char pad[0x3c];
@@ -43,7 +44,7 @@ class PrimGroupSkinnedOptimized_2e0110 : public PrimGroupOptimized_2e0110 {
     void f6();
 };
 void PrimGroupSkinnedOptimized_2e0110::f6() {
-    PrimGroupOptimized_2e0110* s = gMgr_2e0110->get();
+    PrimGroupOptimized_2e0110* s = (*(Manager_2e0110**)&DAT_0052c2b4)->get();
     s->f2();
     Vec_2e0110* vv = &p64->v;
     unsigned n = vv->size();

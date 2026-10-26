@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: g_dat_f2560 = DAT_004dd9cc
+
 struct Result_f2560 {
   public:
     virtual void method0();
@@ -11,7 +14,6 @@ struct Obj_f2560 {
     virtual Result_f2560* cast(void* caster, __int64 val);
 };
 
-extern Obj_f2560* g_dat_f2560;
 
 __int64 __cdecl fun_p2(int p);
 
@@ -33,7 +35,7 @@ struct FEShaderAnimation : FEAnimation_f2560 {
 };
 
 FEShaderAnimation::FEShaderAnimation(int p1, int p2) : FEAnimation_f2560(p1, p2) {
-    Obj_f2560* obj = g_dat_f2560;
+    Obj_f2560* obj = (*(Obj_f2560**)&DAT_004dd9cc);
     __int64 v = fun_p2(p2);
     m_c = obj->cast(&DynamicCaster(), v);
     if (m_c) {

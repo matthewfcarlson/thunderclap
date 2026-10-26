@@ -1,5 +1,5 @@
 #include "decls/address.h"
-extern const char g[];
+#include "decls/data/game/global.h"
 class Function_86f50 {
   public:
     virtual void f();
@@ -18,7 +18,7 @@ class Function2 : public Function_86f50 {
 };
 Function2::Function2(const char* s, int v) : Function_86f50(s, 2) {
     d = v;
-    c = FUN_001d04d0(g);
-    a = FUN_001d04d0(g);
-    b = FUN_001d04d0(g);
+    c = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    a = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    b = FUN_001d04d0(((const char*)&DAT_0048e0f0));
 }

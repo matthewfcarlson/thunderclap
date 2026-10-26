@@ -1,3 +1,6 @@
+#include "decls/data/engine/pure3d.h"
+// data: g_flag_2c3230 = DAT_00554bdc, g_slot_2c3230 = DAT_00554bd8
+
 #include "compat/ptr.h"
 extern "C" char DAT_0042ed30[];
 struct Caller_2c3230 {
@@ -16,13 +19,11 @@ struct Caller_2c3230 {
     virtual void m();
     virtual void n(void* p);
 };
-extern unsigned int g_flag_2c3230;
-extern unsigned int g_slot_2c3230;
 void target(Caller_2c3230* p) {
     unsigned int one = 1;
-    if ((((unsigned char)g_flag_2c3230) & one) == 0) {
-        g_flag_2c3230 |= one;
-        g_slot_2c3230 = ((hulk_intptr)DAT_0042ed30);
+    if ((((unsigned char)(*(unsigned int*)&DAT_00554bdc)) & one) == 0) {
+        (*(unsigned int*)&DAT_00554bdc) |= one;
+        (*(unsigned int*)&DAT_00554bd8) = ((hulk_intptr)DAT_0042ed30);
     }
-    p->n((void*)&g_slot_2c3230);
+    p->n((void*)&(*(unsigned int*)&DAT_00554bd8));
 }

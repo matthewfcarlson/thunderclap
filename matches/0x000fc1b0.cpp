@@ -1,3 +1,5 @@
+#include "decls/data/game/global.h"
+
 class A_fc1b0 {
   public:
     virtual void f0();
@@ -178,7 +180,6 @@ class A_fc1b0 {
     virtual void f175();
     virtual void f176();
 };
-A_fc1b0* DAT_004e0a60;
 int FUN_000fc1b0() {
-    return DAT_004e0a60->f44();
+    return (*(A_fc1b0**)&DAT_004e0a60)->f44();
 }

@@ -1,4 +1,5 @@
-extern "C" const void* gVtbl[];
+#include "decls/data/engine/movie.h"
+// data: gVtbl = DAT_00434574
 
 struct PtrObj {
   public:
@@ -23,7 +24,7 @@ class Big_337630 {
 };
 
 void Big_337630::Destroy() {
-    slot0 = gVtbl;
+    slot0 = ((const void**)&DAT_00434574);
     PtrObj* p = mPtr;
     if (p) {
         p->f(1);

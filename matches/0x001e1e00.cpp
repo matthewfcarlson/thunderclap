@@ -1,6 +1,8 @@
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+// data: str1 = DAT_0048e128, str2 = DAT_0048e0f0
+
 extern "C" unsigned char __cdecl fn(const char*);
-extern const char str1[];
-extern const char str2[];
 class Base {
   public:
     Base(const char*, int);
@@ -25,8 +27,8 @@ class Closure1 : public Closure1_1e1e00 {
 };
 Closure1_1e1e00::Closure1_1e1e00(const char* s, void* p) : Base(s, 1) {
     c = p;
-    b = fn(str1);
-    a = fn(str2);
+    b = fn(((const char*)&DAT_0048e128));
+    a = fn(((const char*)&DAT_0048e0f0));
 }
 Closure1::Closure1(const char* s, void* p, void* q) : Closure1_1e1e00(s, q) {
     d = p;

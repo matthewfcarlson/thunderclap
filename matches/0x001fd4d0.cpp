@@ -1,4 +1,6 @@
-extern int g_value_1fd4d0;
+#include "decls/data/game/unknown.h"
+// data: g_value_1fd4d0 = DAT_004c83ec
+
 void __stdcall Set(int value) {
-    g_value_1fd4d0 = value;
+    (*(int*)&DAT_004c83ec) = value;
 }

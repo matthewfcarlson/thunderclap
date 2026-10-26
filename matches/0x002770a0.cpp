@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/core.h"
+// data: g_obj_2770a0 = DAT_0052a224
 
 struct Drive {
     virtual void v0();
@@ -15,7 +16,6 @@ struct Obj_2770a0 {
 };
 extern void f850(void*);
 extern void f840(void*);
-extern Obj_2770a0* g_obj_2770a0;
 extern void* vtmain;
 extern void* vtbase;
 extern void* vtref;
@@ -72,7 +72,7 @@ InstanceDrive* InstanceDrive::vfunc_2(unsigned char flag) {
     *(void**)this = &vtref;
     if (flag & 1) {
         f850((void*)((hulk_intptr)DAT_0052a208));
-        g_obj_2770a0->x4(this);
+        (*(Obj_2770a0**)&DAT_0052a224)->x4(this);
         f840((void*)((hulk_intptr)DAT_0052a208));
     }
     return this;

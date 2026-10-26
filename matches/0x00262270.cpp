@@ -1,6 +1,8 @@
-extern const float minimum;
+#include "decls/data/engine/unknown.h"
+// data: minimum = DAT_0042ab50
+
 int convert(float x) {
-    if (x < minimum)
+    if (x < DAT_0042ab50)
         x = -100.0f;
     int n = (int)(x * 100.0f);
     if (n > 0)

@@ -1,4 +1,5 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 class CActorManager;
 class Function_2f5b0 {
   public:
@@ -6,7 +7,6 @@ class Function_2f5b0 {
     char pad[12];
     Function_2f5b0(CActorManager*, int);
 };
-extern char DAT_0048e0e4, DAT_0048e134;
 class Method1 : public Function_2f5b0 {
   public:
     virtual void v();
@@ -18,7 +18,7 @@ class Method1 : public Function_2f5b0 {
     __forceinline Method1(CActorManager* m, int x) : Function_2f5b0(m, 1) {
         n = x;
         flag2 = FUN_001d04d0(&DAT_0048e0e4);
-        flag1 = FUN_001d04d0(&DAT_0048e134);
+        flag1 = FUN_001d04d0(((char*)&DAT_0048e134));
     }
 };
 class Closure1 : public Method1 {

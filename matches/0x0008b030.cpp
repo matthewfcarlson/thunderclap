@@ -1,6 +1,7 @@
+#include "decls/data/game/global.h"
+// data: key1 = DAT_0048e100, key2 = DAT_0048e134
+
 extern "C" unsigned char __cdecl getFlag(const char*);
-extern const char key1[];
-extern const char key2[];
 class CGameFlowManager;
 class Base {
   public:
@@ -26,8 +27,8 @@ class Closure1 : public Closure1_8b030 {
 };
 Closure1_8b030::Closure1_8b030(CGameFlowManager* p, int x) : Base(p, 1) {
     val = x;
-    a = getFlag(key1);
-    b = getFlag(key2);
+    a = getFlag(((const char*)&DAT_0048e100));
+    b = getFlag(((const char*)&DAT_0048e134));
 }
 Closure1::Closure1(CGameFlowManager* p, int x, int y) : Closure1_8b030(p, y) {
     extra = x;

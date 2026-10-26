@@ -1,4 +1,6 @@
-extern int gCounter_327e00;
+#include "decls/data/engine/pure3d.h"
+// data: gCounter_327e00 = DAT_005555b8
+
 class pddiShader_327e00 {
   public:
     pddiShader_327e00();
@@ -11,5 +13,5 @@ class pddiBaseShader_327e00 : public pddiShader_327e00 {
     int id;
 };
 pddiBaseShader_327e00::pddiBaseShader_327e00() {
-    id = gCounter_327e00++;
+    id = (*(int*)&DAT_005555b8)++;
 }

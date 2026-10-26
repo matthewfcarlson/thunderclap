@@ -1,4 +1,6 @@
-extern const float zero;
+#include "decls/data/game/global.h"
+// data: zero = DAT_003f32e0
+
 class Obj {
   public:
     char pad[0x7d0];
@@ -6,6 +8,6 @@ class Obj {
     void Set(float x);
 };
 void Obj::Set(float x) {
-    if (x >= zero)
+    if (x >= DAT_003f32e0)
         value = x;
 }

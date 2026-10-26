@@ -1,7 +1,8 @@
+#include "decls/data/engine/audio.h"
+// data: gCount_260950 = DAT_004e7a2c, gSource = DAT_004cd380
+
 #include "compat/ptr.h"
 extern "C" char DAT_0042aa7c[];
-extern void* gSource;
-extern int gCount_260950;
 void InitSeq(void*, void*);
 void DestroySeq(void*);
 class Sub_260950 {
@@ -23,10 +24,10 @@ class SeqEventType : public Type {
     SeqEventType* vfunc2(unsigned int flags);
 };
 SeqEventType* SeqEventType::vfunc2(unsigned int flags) {
-    void* p = gSource;
+    void* p = (*(void**)&DAT_004cd380);
     *(void**)this = (void*)((hulk_intptr)DAT_0042aa7c);
     InitSeq(p, this);
-    --gCount_260950;
+    --(*(int*)&DAT_004e7a2c);
     sub.Clean();
     Finish();
     if (flags & 1)

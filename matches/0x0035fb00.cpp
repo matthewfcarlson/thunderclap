@@ -1,10 +1,11 @@
+#include "decls/data/engine/audio.h"
+
 extern "C" int atexit(void (*)());
 struct ListenerEffectPs2Type_35fb00 {
     void Init();
 };
-extern ListenerEffectPs2Type_35fb00 gCfg;
 extern void Cleanup();
 void FUN_0035fb00() {
-    gCfg.Init();
+    (*(ListenerEffectPs2Type_35fb00*)&DAT_004e6548).Init();
     atexit(Cleanup);
 }

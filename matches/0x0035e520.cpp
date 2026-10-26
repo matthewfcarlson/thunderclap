@@ -1,10 +1,9 @@
 #include "decls/address.h"
-extern unsigned int gA_35e520;
-extern unsigned int gB_35e520;
+#include "decls/data/game/hulkfight/scenario.h"
 
 
 void FUN_0035e520() {
     unsigned long long h = FUN_0027b020("golfBall_golfBall");
-    gA_35e520 = (unsigned int)h;
-    gB_35e520 = (unsigned int)(h >> 32);
+    (*(unsigned int*)&DAT_004e1778) = (unsigned int)h;
+    (*(unsigned int*)&DAT_004e177c) = (unsigned int)(h >> 32);
 }

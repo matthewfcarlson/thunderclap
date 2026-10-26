@@ -1,3 +1,6 @@
+#include "decls/data/engine/pure3d.h"
+// data: counter = DAT_005555b8
+
 class Callback_327bc0 {
   public:
     void Dummy();
@@ -10,7 +13,6 @@ struct Item_327bc0 {
     int adj;
     int pad[2];
 };
-extern int counter;
 struct pddiBaseShader {
     virtual void f0();
     virtual void f1();
@@ -45,11 +47,11 @@ bool pddiBaseShader::v10(int key, int arg) {
             if (k == key) {
                 Callback_327bc0* cb = (Callback_327bc0*)((char*)this + p->adj);
                 (cb->*(p->fn))(arg);
-                counter++;
-                if (counter == -1)
-                    counter = 0;
-                id = counter;
-                counter++;
+                (*(int*)&DAT_005555b8)++;
+                if ((*(int*)&DAT_005555b8) == -1)
+                    (*(int*)&DAT_005555b8) = 0;
+                id = (*(int*)&DAT_005555b8);
+                (*(int*)&DAT_005555b8)++;
                 return true;
             }
             p++;

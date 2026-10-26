@@ -1,5 +1,6 @@
-extern char nameA[];
-extern char nameB[];
+#include "decls/data/game/global.h"
+// data: nameA = DAT_0048e100, nameB = DAT_0048e0f0
+
 extern char __cdecl lookup(const char*);
 class Function_9cd10 {
   public:
@@ -16,8 +17,8 @@ class Method1 : public Function_9cd10 {
   public:
     Method1(const char* n, int p) : Function_9cd10(n, 1) {
         this->p = p;
-        b = lookup(nameA);
-        a = lookup(nameB);
+        b = lookup(((char*)&DAT_0048e100));
+        a = lookup(((char*)&DAT_0048e0f0));
     }
     virtual void f();
 };

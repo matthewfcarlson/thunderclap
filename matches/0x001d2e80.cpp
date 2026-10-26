@@ -1,3 +1,5 @@
+#include "decls/data/game/unknown.h"
+
 struct Obj_1d2e80 {
     char pad[8];
     void* m;
@@ -9,7 +11,6 @@ extern void __cdecl FUN_00213380(void*, const char*, int);
 extern void __cdecl FUN_00213600(void*, int);
 extern int __cdecl FUN_00212f00(void*, int);
 extern int __cdecl FUN_00212d80(void*, int);
-extern const char DAT_003f8eb0[];
 bool Obj_1d2e80::target() {
     int v = FUN_00212d70(m);
     F1d1cb0();

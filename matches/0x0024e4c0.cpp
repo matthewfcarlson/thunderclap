@@ -1,4 +1,6 @@
-extern char g1, g2;
+#include "decls/data/engine/unknown.h"
+
+extern char g2;
 class Type_24e4c0 {
   public:
     virtual void vf();
@@ -8,7 +10,7 @@ class Type_24e4c0 {
 class TypeT_24e4c0 : public Type_24e4c0 {
   public:
     virtual void vf();
-    TypeT_24e4c0() throw() : Type_24e4c0(&g2, &g1, 0x1c, 4) {}
+    TypeT_24e4c0() throw() : Type_24e4c0(&g2, ((char*)&DAT_004e6350), 0x1c, 4) {}
     ~TypeT_24e4c0() throw();
 };
 extern void process(TypeT_24e4c0*, void*) throw();

@@ -1,3 +1,5 @@
+#include "decls/data/engine/audio.h"
+
 class Elem_250350 {
   public:
     void Init();
@@ -23,11 +25,10 @@ class SeqEventWait : public SeqEvent {
     void Finish();
 };
 extern void __cdecl FUN_00247550(void*, void*);
-extern int g_4e69b0;
 SeqEventWait* SeqEventWait::f4(int flags) {
     sub.Init();
     Finish();
     if (flags & 1)
-        FUN_00247550(&g_4e69b0, this);
+        FUN_00247550(((int*)&DAT_004e69b0), this);
     return this;
 }

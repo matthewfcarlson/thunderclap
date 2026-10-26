@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gThing_fc340 = DAT_004e0a60
+
 class GlobalThing_fc340 {
   public:
     virtual void v0();
@@ -28,7 +31,6 @@ class GlobalThing_fc340 {
     virtual void v25();
     virtual void v26(int);
 };
-extern GlobalThing_fc340* gThing_fc340;
 void wrapper(int a) {
-    gThing_fc340->v26(a);
+    (*(GlobalThing_fc340**)&DAT_004e0a60)->v26(a);
 }

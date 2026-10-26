@@ -1,5 +1,7 @@
+#include "decls/data/engine/audio.h"
+// data: seqActionBss = DAT_004e6b80
+
 extern void* seqActionVtable;
-extern char seqActionBss;
 extern void __cdecl FUN_00247550(void*, void*);
 class SeqAction {
   public:
@@ -26,6 +28,6 @@ class SeqActionStopTrack : public SeqAction {
 SeqAction* audio::SeqActionStopTrack::vfunc_0(int flags) {
     *(void**)this = &seqActionVtable;
     if (flags & 1)
-        FUN_00247550(&seqActionBss, this);
+        FUN_00247550(((char*)&DAT_004e6b80), this);
     return this;
 }

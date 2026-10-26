@@ -1,3 +1,5 @@
+#include "decls/data/platform/xbox/core.h"
+
 class X_2684c0 {
   public:
     virtual void a();
@@ -15,8 +17,7 @@ class X_2684c0 {
     virtual void m();
     virtual void n();
 };
-X_2684c0* gp;
 void FUN_002684c0() {
-    if (gp)
-        gp->m();
+    if ((*(X_2684c0**)&DAT_00528398))
+        (*(X_2684c0**)&DAT_00528398)->m();
 }

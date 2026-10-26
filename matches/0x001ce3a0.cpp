@@ -1,5 +1,6 @@
 #include "decls/address.h"
-extern int DAT_0048e128, DAT_0048e134;
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 class Function_1ce3a0 {
   public:
     Function_1ce3a0(int, int);
@@ -16,8 +17,8 @@ class Method1 : public Function_1ce3a0 {
   public:
     Method1(int a, int c) : Function_1ce3a0(a, 1) {
         x = c;
-        b = FUN_001d04d0(&DAT_0048e128);
-        this->a = FUN_001d04d0(&DAT_0048e134);
+        b = FUN_001d04d0(((int*)&DAT_0048e128));
+        this->a = FUN_001d04d0(((int*)&DAT_0048e134));
     }
     virtual void f();
 };

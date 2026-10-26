@@ -1,6 +1,7 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 struct MessageOverlay;
-extern int g1, g2;
 struct Function_d6290 {
     virtual void f();
     Function_d6290(void*, int);
@@ -22,8 +23,8 @@ struct Closure1 : Method1 {
 };
 inline Method1::Method1(void* x, void* y) : Function_d6290(x, 1) {
     p = y;
-    a = FUN_001d04d0(&g1);
-    b = FUN_001d04d0(&g2);
+    a = FUN_001d04d0(((int*)&DAT_0048e100));
+    b = FUN_001d04d0(((int*)&DAT_0048e128));
 }
 Closure1::Closure1(void* a, void* b, void* c) : Method1(a, c) {
     q = b;

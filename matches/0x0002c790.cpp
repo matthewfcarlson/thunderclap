@@ -1,10 +1,10 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+// data: name1 = DAT_0048e0e4, name2 = DAT_0048e0f0
 struct CtorV_001d0480 {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
-extern const char name1[];
-extern const char name2[];
 class Function_2c790 : public CtorV_001d0480 {
   public:
     Function_2c790(const char* s) : CtorV_001d0480(s, 1) { }
@@ -22,6 +22,6 @@ class Method1 : public Function_2c790 {
 };
 Method1::Method1(const char* s, int v) : Function_2c790(s) {
     c = v;
-    b = FUN_001d04d0(name1);
-    a = FUN_001d04d0(name2);
+    b = FUN_001d04d0(((const char*)&DAT_0048e0e4));
+    a = FUN_001d04d0(((const char*)&DAT_0048e0f0));
 }

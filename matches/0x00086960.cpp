@@ -1,4 +1,6 @@
-extern unsigned char gFlag_86960;
+#include "decls/data/game/global.h"
+// data: gFlag_86960 = DAT_004dd6f0
+
 class Other_86960 {
   public:
     void First();
@@ -12,7 +14,7 @@ class Thing_86960 {
     void Run();
 };
 void Thing_86960::Run() {
-    gFlag_86960 = 1;
+    (*(unsigned char*)&DAT_004dd6f0) = 1;
     a->First();
     b->Second();
 }

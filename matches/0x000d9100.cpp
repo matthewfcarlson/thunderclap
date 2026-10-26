@@ -1,3 +1,7 @@
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+// data: kZero_d9100 = DAT_003f335c
+
 struct Mgr_d9100 {
     char pad[0x1bc8];
     char flag;
@@ -6,10 +10,6 @@ struct Mgr2_d9100 {
     Mgr_d9100* Get();
 };
 extern Mgr2_d9100* g_mgr_d9100;
-extern const char* g_a_d9100;
-extern const char* g_b_d9100;
-extern const char* g_c_d9100;
-extern const char* g_d_004a0c98;
 
 struct Menu_d9100 {
     void Show(const char* a, const char* b, const char* f1, const char* f2, const char* ok, int n,
@@ -27,8 +27,6 @@ struct FEMemCardControl_d9100 {
     void Run(int a, int b);
 };
 
-extern const char kZero_d9100[];
-extern const char kOk[];
 
 void FEMemCardControl_d9100::Run(int a, int b) {
     Menu_d9100* m = GetMenu();
@@ -36,13 +34,13 @@ void FEMemCardControl_d9100::Run(int a, int b) {
     if (!f3eb) {
         Mgr_d9100* g = g_mgr_d9100->Get();
         if (g->flag)
-            s = g_b_d9100;
+            s = DAT_004a0ce4;
         else
-            s = g_a_d9100;
+            s = DAT_004a0ce0;
     } else {
-        s = g_c_d9100;
+        s = DAT_004a0ce8;
     }
-    m->Show(s, g_d_004a0c98, kZero_d9100, kZero_d9100, kOk, 2, kZero_d9100, kZero_d9100);
+    m->Show(s, DAT_004a0c98, ((const char*)&DAT_003f335c), ((const char*)&DAT_003f335c), DAT_00408ee8, 2, ((const char*)&DAT_003f335c), ((const char*)&DAT_003f335c));
     f3b0 = 1;
     v21c = 0;
 }

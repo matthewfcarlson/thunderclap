@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: marker = DAT_00422518
+
 typedef unsigned int size_t;
 struct File {
     char pad[12];
@@ -9,12 +12,11 @@ struct Buf {
     char data[512];
 };
 extern "C" size_t __cdecl fread(void*, size_t, size_t, File*);
-extern char marker;
 char* __cdecl FUN_00339770(int unused, Buf* b, size_t* count) {
     if (b->pending) {
         b->pending = 0;
         *count = 1;
-        return &marker;
+        return ((char*)&DAT_00422518);
     }
     File* f = b->file;
     if (f->flags & 16)

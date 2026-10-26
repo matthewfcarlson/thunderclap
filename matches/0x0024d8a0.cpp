@@ -1,3 +1,5 @@
+#include "decls/data/engine/unknown.h"
+
 class MetaEntity {
   public:
     virtual void a();
@@ -26,10 +28,9 @@ class ListenerEffectXBox : public MetaEntity_24d8a0, public IRefCount {
     virtual void v8();
 };
 extern void __cdecl FUN_00247550(void*, void*);
-extern char g_4e6468[];
 ListenerEffectXBox* ListenerEffectXBox::vfunc_2(int flag) {
     cleanup();
     if (flag & 1)
-        FUN_00247550(g_4e6468, this);
+        FUN_00247550(DAT_004e6468, this);
     return this;
 }

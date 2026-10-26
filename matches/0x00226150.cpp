@@ -1,4 +1,5 @@
-extern int gA_226150, gB, gC;
+#include "decls/data/engine/choreo2.h"
+
 struct V3_226150 {
     int a, b, c;
 };
@@ -10,9 +11,9 @@ struct Obj_226150 {
 void Transform(int, V3_226150*);
 V3_226150 Obj_226150::Get() {
     V3_226150 t;
-    t.a = gA_226150;
-    t.b = gB;
-    t.c = gC;
+    t.a = DAT_004c9e74;
+    t.b = DAT_004c9e78;
+    t.c = DAT_004c9e7c;
     Transform(value, &t);
     return t;
 }

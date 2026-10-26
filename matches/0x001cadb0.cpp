@@ -1,5 +1,6 @@
 // Same code shape as 0x001ca090 (propagated; names are from that function)
-extern const char DAT_00421ca8[];
+#include "decls/data/game/global.h"
+
 class Thing_1cadb0 {
   public:
     bool ready();

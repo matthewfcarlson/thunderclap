@@ -1,3 +1,6 @@
+#include "decls/data/engine/pure3d.h"
+// data: g_obj_327d80 = DAT_005555bc
+
 int g_current = -1;
 class Target_327d80 {
   public:
@@ -20,14 +23,13 @@ class Target_327d80 {
     int key;
     void run(int, char);
 };
-Target_327d80* g_obj_327d80;
 void Target_327d80::run(int arg, char flag) {
     if (key != g_current) {
-        if (g_obj_327d80)
-            g_obj_327d80->v13();
+        if ((*(Target_327d80**)&DAT_005555bc))
+            (*(Target_327d80**)&DAT_005555bc)->v13();
         g_current = key;
         v12();
-        g_obj_327d80 = this;
+        (*(Target_327d80**)&DAT_005555bc) = this;
     }
     if (flag)
         v14(arg);

@@ -1,4 +1,6 @@
 #include "gen/global.h"
+#include "decls/data/game/global.h"
+// data: gFlag_208820 = DAT_004c91da
 
 class Subject_208820 {
   public:
@@ -15,7 +17,6 @@ struct CWorldStreamManager_nv_208820 {
     void Step5();
     void Step6();
 };
-extern "C" unsigned char gFlag_208820;
 
 void CWorldStreamManager::FUN_00208820() {
     if ((*(Subject_208820 * *)&this->f_aec)) {
@@ -23,7 +24,7 @@ void CWorldStreamManager::FUN_00208820() {
         this->f_af0 = 1;
         if (r == 3)
             ((CWorldStreamManager_nv_208820*)this)->OnState();
-        else if (gFlag_208820)
+        else if (DAT_004c91da)
             (*(Subject_208820 * *)&this->f_aec)->OnGlobal();
         else
             ((CWorldStreamManager_nv_208820*)this)->OnOther((*(Subject_208820 * *)&this->f_aec));

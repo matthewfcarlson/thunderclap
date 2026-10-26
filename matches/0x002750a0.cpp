@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/core.h"
+// data: g_mgr_2750a0 = DAT_0052a1e4
 
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b99c[];
@@ -22,7 +23,6 @@ struct Manager_2750a0 {
     virtual void q();
     virtual void add(void*);
 };
-extern Manager_2750a0* g_mgr_2750a0;
 namespace core { class SaveGameOpenRequest {
   public:
     void* vt;
@@ -40,7 +40,7 @@ core::SaveGameOpenRequest* core::SaveGameOpenRequest::vfunc_0(int flags) {
     *(void**)this = (void*)((hulk_intptr)DAT_0042b914);
     if (flags & 1) {
         FUN_0026d850((void*)((hulk_intptr)((char*)&DAT_0052a1c8)));
-        g_mgr_2750a0->add(this);
+        (*(Manager_2750a0**)&DAT_0052a1e4)->add(this);
         FUN_0026d840((void*)((hulk_intptr)((char*)&DAT_0052a1c8)));
     }
     return this;

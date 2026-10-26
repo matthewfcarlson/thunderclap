@@ -1,6 +1,7 @@
+#include "decls/data/engine/core.h"
+
 typedef unsigned char u8_335160;
 extern char refvt_335160, basevt;
-extern int g_335160;
 void __cdecl cleanup(int, void*);
 namespace movie { class BinkCallback {
   public:
@@ -16,9 +17,9 @@ movie::BinkCallback* movie::BinkCallback::vfunc_0(u8_335160 flag) {
     else
         p = (movie::BinkCallback*)0;
     p->vptr = &refvt_335160;
-    g_335160 = m;
+    DAT_004cdbb0 = m;
     vptr = &basevt;
     if (flag & 1)
-        cleanup(g_335160, this);
+        cleanup(DAT_004cdbb0, this);
     return this;
 }

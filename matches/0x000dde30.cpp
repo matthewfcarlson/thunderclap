@@ -1,4 +1,6 @@
-extern float gDelta;
+#include "decls/data/game/unknown.h"
+// data: gDelta = DAT_004a0e14
+
 class Thing_dde30 {
   public:
     virtual void f0();
@@ -14,7 +16,7 @@ class Thing_dde30 {
     void Set(float x);
 };
 void Thing_dde30::Set(float x) {
-    gDelta = x;
+    DAT_004a0e14 = x;
     First();
     Second();
 }

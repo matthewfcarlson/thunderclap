@@ -1,7 +1,9 @@
+#include "decls/data/game/global.h"
+
 struct Vector {
     float x, y, z;
 };
-extern int a, b, c;
+extern int c;
 unsigned char __cdecl lookup(const void*);
 class Function_1b3790 {
   public:
@@ -21,7 +23,7 @@ class Function2 : public Function_1b3790 {
 };
 Function2::Function2(int arg, int v) : Function_1b3790(arg, 2) {
     val = v;
-    z = lookup(&a);
-    x = lookup(&b);
+    z = lookup(((int*)&DAT_0048e100));
+    x = lookup(((int*)&DAT_0048e134));
     y = lookup(&c);
 }

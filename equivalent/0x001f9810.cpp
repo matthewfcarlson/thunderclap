@@ -2,6 +2,8 @@
 // FUN_001f9810 @ 0x001f9810
 // cl-flags: /GS
 // equiv-map: ___security_cookie = 0x004d9968
+#include "decls/data/game/unknown.h"
+
 #include "compat/ptr.h"
 #include "decls/address.h"
 typedef unsigned __int64 u64;
@@ -144,9 +146,8 @@ struct World {
     char pad34[0x44 - 0x34];
     X *f44;
 };
-extern float DAT_004e58e0;
-extern float DAT_004c83e8;   // tvm_SetSpawnDistanceOffCamera (FUN_001fd4c0), 20 at load
-extern float DAT_004c83ec;   // tvm_SetSpawnDistanceOnCamera (FUN_001fd4d0), 70 at load
+   // tvm_SetSpawnDistanceOffCamera (FUN_001fd4c0), 20 at load
+   // tvm_SetSpawnDistanceOnCamera (FUN_001fd4d0), 70 at load
 
 struct Hold2 {
     int FUN_001c59d0(Name *n);
@@ -328,7 +329,7 @@ void Self::FUN_001f9810(float dt)
                             if (a == 0 && r3 == 0)
                                 break;
                         }
-                        float ang = DAT_004e58e0;
+                        float ang = (*(float*)&DAT_004e58e0);
                         f.tmp.x = 2.0f;
                         f.tmp.y = 0.0f;
                         f.tmp.z = 0.0f;
@@ -336,8 +337,8 @@ void Self::FUN_001f9810(float dt)
                         f.tmp.x = f.tmp.x + f.v40.x;
                         f.tmp.y = f.tmp.y + f.v40.y;
                         f.tmp.z = f.tmp.z + f.v40.z;
-                        DAT_004e58e0 = DAT_004e58e0 + 1.7453293f;
-                        DAT_004e58e0 = FUN_0004af40(0.0f, 6.2831855f, DAT_004e58e0);
+                        (*(float*)&DAT_004e58e0) = (*(float*)&DAT_004e58e0) + 1.7453293f;
+                        (*(float*)&DAT_004e58e0) = FUN_0004af40(0.0f, 6.2831855f, (*(float*)&DAT_004e58e0));
                         if (!f.W->FUN_0002bf80(E->obj->FUN_00044360(), f.tmp, f.rr, name, "none", 0, f.buf2))
                             continue;
                         if (s > 0)

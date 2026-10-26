@@ -1,5 +1,8 @@
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+// data: g_mgr_bc4d0 = DAT_004dd9cc
+
 struct Obj_bc4d0;
-extern void* g_a_bc4d0;
 extern void* g_b_bc4d0;
 void __cdecl Fa(void*);
 void __cdecl Release(void*);
@@ -18,7 +21,6 @@ struct Dev_bc4d0 {
     void Fg(int);
 };
 
-extern Mgr_bc4d0* g_mgr_bc4d0;
 
 struct Main_bc4d0 {
     char pad0[0x10];
@@ -37,7 +39,7 @@ struct Main_bc4d0 {
 };
 
 void Main_bc4d0::Run() {
-    Fa(g_a_bc4d0);
+    Fa((*(void**)&DAT_0049f3b0));
     int i;
     for (i = 0; i < 0x80; i++) {
         if (!a[i])
@@ -57,7 +59,7 @@ void Main_bc4d0::Run() {
         o->Fd();
     if (sub)
         sub->Fe();
-    g_mgr_bc4d0->Ff();
+    (*(Mgr_bc4d0**)&DAT_004dd9cc)->Ff();
     dev->Fg(arg);
     state = 3;
     flag = 0;

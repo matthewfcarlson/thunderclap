@@ -1,10 +1,12 @@
+#include "decls/data/game/DollyScript.h"
+#include "decls/data/game/global.h"
+// data: g_guid = DAT_004e0a10, hulk_at_0040048c = DAT_0040048c
+
 #include "compat/ptr.h"
 #include "decls/address.h"
-extern "C" char hulk_at_0040048c[];
 struct G {
     __int64 v;
 };
-extern G g_guid;
 void FUN_0035e000() {
-    g_guid.v = FUN_0027b020((const char*)((hulk_intptr)hulk_at_0040048c));
+    (*(G*)&DAT_004e0a10).v = FUN_0027b020((const char*)((hulk_intptr)((char*)&DAT_0040048c)));
 }

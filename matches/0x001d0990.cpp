@@ -1,5 +1,7 @@
+#include "decls/data/game/global.h"
+// data: g_heap = DAT_004c5cfc
+
 extern "C" void* memcpy(void*, const void*, unsigned);
-extern int g_heap;
 void* Alloc(int, unsigned);
 void Free(void*);
 void* Realloc(int unused, void* p, unsigned oldSize, unsigned newSize) {
@@ -8,7 +10,7 @@ void* Realloc(int unused, void* p, unsigned oldSize, unsigned newSize) {
             Free(p);
         return 0;
     }
-    void* n = Alloc(g_heap, newSize);
+    void* n = Alloc(DAT_004c5cfc, newSize);
     if (!n)
         return 0;
     if (p) {

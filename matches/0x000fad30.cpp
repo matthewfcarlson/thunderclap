@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: zeroVal_fad30 = DAT_003f32e0
+
 struct Node {
     char pad[4];
     Node* next;
@@ -9,7 +12,6 @@ struct Type {
 extern Type tokType;
 extern Type floatType;
 Node* __cdecl GetToken(Node*, int, Type*, Type*, int);
-extern float zeroVal_fad30;
 class Obj_fad30 {
   public:
     char pad0[8];
@@ -22,7 +24,7 @@ class Obj_fad30 {
 float Obj_fad30::run() {
     Node* ed = root;
     if (!ed)
-        return zeroVal_fad30;
+        return (*(float*)&DAT_003f32e0);
     Node* eax;
     if (done == 1) {
         eax = 0;

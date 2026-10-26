@@ -1,3 +1,6 @@
+#include "decls/data/engine/content.h"
+// data: gThing_2640f0 = DAT_00527c58
+
 class Inner_2640f0 {
   public:
     virtual void f0();
@@ -27,7 +30,6 @@ class Manager_2640f0 {
   public:
     void update();
 };
-extern Manager_2640f0* gThing_2640f0;
 extern int getThing();
 class Target_2640f0 {
   public:
@@ -46,7 +48,7 @@ void Target_2640f0::run() {
             return;
         }
         while (!obj->f20()) {
-            gThing_2640f0->update();
+            (*(Manager_2640f0**)&DAT_00527c58)->update();
             result = getThing();
         }
     }

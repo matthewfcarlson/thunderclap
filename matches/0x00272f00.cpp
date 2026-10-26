@@ -1,5 +1,7 @@
+#include "decls/data/engine/core.h"
+// data: g_last = DAT_004cdbb0
+
 extern char vtA[], vtB[], vtC[], vtD[], vtE[], vtF[];
-extern int g_last;
 void A(void*);
 void B(void*);
 void C(void*);
@@ -29,7 +31,7 @@ void DriveThread_272f00::Fn() {
     D(&b);
     int** q = &vc;
     *q = (int*)vtD;
-    g_last = f8;
+    DAT_004cdbb0 = f8;
     int** q2 = &v4;
     *q2 = (int*)vtE;
     v0 = (int*)vtF;

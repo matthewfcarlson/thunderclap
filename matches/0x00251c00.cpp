@@ -1,3 +1,5 @@
+#include "decls/data/engine/audio.h"
+
 class SeqEvent {
   public:
     virtual void f0();
@@ -13,10 +15,9 @@ class SeqEventChannelVolumes : public SeqEvent {
     virtual SeqEventChannelVolumes* f4(int);
 };
 extern void __cdecl FUN_00247550(void*, void*);
-extern char g_4e6d30[];
 SeqEventChannelVolumes* SeqEventChannelVolumes::f4(int flag) {
     Base();
     if (flag & 1)
-        FUN_00247550(g_4e6d30, this);
+        FUN_00247550(((char*)((char*)&DAT_004e6d28 + 8)), this);
     return this;
 }

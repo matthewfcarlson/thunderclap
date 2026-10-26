@@ -3,6 +3,8 @@
 // The original searches for the node's predecessor by walking from the head, but the node it removes
 // is always the head (item is derived from list->head), so the search never runs and prev is always 0.
 // equiv-dead: +0x1a not taken, +0x26 taken, +0x26 not taken, +0x2a taken, +0x2a not taken: node is always the head
+#include "decls/data/engine/audio.h"
+
 struct Link {
     Link* next;
 };
@@ -18,7 +20,6 @@ struct List {
 };
 
 struct Pool;
-extern Pool DAT_004e7a30;
 void FUN_00247550(Pool* pool, Item* item);
 
 void FUN_00261d10(List* list)
@@ -33,6 +34,6 @@ void FUN_00261d10(List* list)
         list->head = node->next;
         if (node->next == 0)
             list->tail = 0;
-        FUN_00247550(&DAT_004e7a30, item);
+        FUN_00247550(((Pool*)((char*)&DAT_004e7a2c + 4)), item);
     }
 }

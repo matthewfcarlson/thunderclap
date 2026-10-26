@@ -1,3 +1,6 @@
+#include "decls/data/engine/audio.h"
+// data: g_bss = DAT_004e6848
+
 class SeqEvent {
   public:
     virtual void v0();
@@ -17,10 +20,9 @@ class SeqEventChannelSends : public SeqEvent {
     virtual SeqEventChannelSends* v4(int);
 };
 extern void __cdecl cleanup(void*, void*);
-extern char g_bss[];
 SeqEventChannelSends* SeqEventChannelSends::v4(int a) {
     helper();
     if (a & 1)
-        cleanup(g_bss, this);
+        cleanup(((char*)((char*)&DAT_004e6800 + 72)), this);
     return this;
 }

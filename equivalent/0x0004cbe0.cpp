@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 19/19)
 // CSmartPropCSMableCondition::vfunc_7 @ 0x0004cbe0
+#include "decls/data/game/global.h"
+
 struct V3 {
     float x, y, z;
 };
@@ -9,7 +11,6 @@ struct Mat {
     void FUN_0022c3b0(const V3 *in, V3 *out);
 };
 
-extern V3 DAT_0048fa24;
 
 float __cdecl FUN_00224ea0(float a, float b);
 float __cdecl FUN_00224fc0(float a, float b);
@@ -96,7 +97,7 @@ char CSmartPropCSMableCondition::vfunc_7(void *owner)
         return 1;
     case 10:
     case 12:
-        node->v15()->FUN_0022c3b0(&DAT_0048fa24, &f.l);
+        node->v15()->FUN_0022c3b0(((V3*)&DAT_0048fa24), &f.l);
         f.y = FUN_00224ea0(f.l.x, f.l.z);
         if (k == 10)
             f.y = f.y + 1.57079637f;

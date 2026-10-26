@@ -1,4 +1,6 @@
-extern char a[], b[];
+#include "decls/data/game/global.h"
+
+extern char b[];
 char __cdecl check(const char*);
 class Function_1ff9a0 {
   public:
@@ -10,7 +12,7 @@ class Method1_1ff9a0 : public Function_1ff9a0 {
     inline Method1_1ff9a0(const char* n, void* ctx) : Function_1ff9a0(n, 1) {
         v = ctx;
         y = check(b);
-        x = check(a);
+        x = check(((char*)&DAT_0048e0f0));
     }
     virtual void h();
     char pad[0x0c];

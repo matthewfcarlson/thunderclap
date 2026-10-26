@@ -1,4 +1,5 @@
-extern char g1, g2;
+#include "decls/data/game/global.h"
+
 extern "C" unsigned char __cdecl Check(const void*);
 class Function_8e750 {
   public:
@@ -12,8 +13,8 @@ class Method1_8e750 : public Function_8e750 {
   public:
     Method1_8e750(const char* s, void* p) : Function_8e750(s, 1) {
         value = p;
-        flag2 = Check(&g1);
-        flag = Check(&g2);
+        flag2 = Check(((char*)&DAT_0048e100));
+        flag = Check(((char*)&DAT_0048e0f0));
     }
     virtual void fn();
     unsigned char flag2;

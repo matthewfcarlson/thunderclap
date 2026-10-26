@@ -1,9 +1,11 @@
+#include "decls/data/game/hulkfight/motion.h"
+// data: gName_16afa0 = DAT_0041722c
+
 #include "compat/ptr.h"
 extern "C" void __cdecl FUN_001653d0();
 extern "C" char DAT_00416a88[];
 extern "C" int gCount_16afa0 = 0;
 extern "C" void* gSlot_16afa0 = 0;
-extern const char gName_16afa0[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Init_16afa0 {
     void InitName(const char*);
@@ -22,7 +24,7 @@ void FUN_0016afa0() {
     }
     Param* p = (Param*)FUN_0008d690(0x18);
     if (p) {
-        ((Init_16afa0*)p)->InitName(gName_16afa0);
+        ((Init_16afa0*)p)->InitName(DAT_0041722c);
         p->vptr = (void*)((hulk_intptr)DAT_00416a88);
         p->field10 = (void*)((hulk_intptr)(void (__cdecl*)())&FUN_001653d0);
         local = p;

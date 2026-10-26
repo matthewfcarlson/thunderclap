@@ -1,7 +1,6 @@
-extern int g_cur_264d20;
-extern int g_a_264d20;
-extern int g_b_264d20;
-extern char g_obj_264d20[];
+#include "decls/data/engine/audio.h"
+#include "decls/data/engine/content.h"
+// data: g_cur_264d20 = DAT_00527c4c, g_obj_264d20 = DAT_00527c28
 
 int GetId();
 int Conv(int);
@@ -21,7 +20,7 @@ class Q_264d20 {
 };
 
 void Q_264d20::Fn() {
-    if (GetId() == g_cur_264d20) {
+    if (GetId() == (*(int*)&DAT_00527c4c)) {
         unsigned s = m14;
         unsigned e = m18;
         int n;
@@ -31,11 +30,11 @@ void Q_264d20::Fn() {
             n = ((int)(e - m1c) >> 3) + ((int)(m20 - s) >> 3);
         }
         if ((unsigned)n > 0 || m8 != 0) {
-            g_b_264d20 = Conv(g_a_264d20);
-            Use2(g_obj_264d20);
+            (*(int*)&DAT_00527c54) = Conv((*(int*)&DAT_00527c50));
+            Use2(((char*)((char*)&DAT_0051de40 + 40424)));
         }
     } else {
-        g_a_264d20 = Conv(g_b_264d20);
-        Use(g_cur_264d20);
+        (*(int*)&DAT_00527c50) = Conv((*(int*)&DAT_00527c54));
+        Use((*(int*)&DAT_00527c4c));
     }
 }

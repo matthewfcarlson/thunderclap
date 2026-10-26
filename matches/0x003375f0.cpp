@@ -1,5 +1,7 @@
+#include "decls/data/engine/movie.h"
+// data: g_vtbl = DAT_00434574
+
 #include "compat/ptr.h"
-extern char g_vtbl[];
 
 class Elem_3375f0 {
   public:
@@ -18,7 +20,7 @@ class Container_3375f0 {
 };
 
 Container_3375f0* Container_3375f0::Init() {
-    *(hulk_intptr*)this = (hulk_intptr)g_vtbl;
+    *(hulk_intptr*)this = (hulk_intptr)((char*)&DAT_00434574);
     char* p = elems;
     for (int i = 0x20; i != 0; --i) {
         ((Elem_3375f0*)p)->Init();

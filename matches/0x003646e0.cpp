@@ -1,8 +1,9 @@
+#include "decls/data/engine/audio.h"
+
 struct Obj_3646e0 {
     void Init();
 };
-extern Obj_3646e0 gObj_3646e0;
 
 void FUN_003646e0() {
-    gObj_3646e0.Init();
+    (*(Obj_3646e0*)((char*)&DAT_004e78e0 + 144)).Init();
 }

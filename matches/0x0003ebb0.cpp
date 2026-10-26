@@ -1,5 +1,5 @@
-extern const float gZero_3ebb0;
-extern const float gOne_3ebb0;
+#include "decls/data/game/global.h"
+// data: gOne_3ebb0 = DAT_003f32dc, gZero_3ebb0 = DAT_003f32e0
 
 class ClampOwner {
   public:
@@ -12,10 +12,10 @@ class ClampOwner {
 float ClampOwner::Get(int key) {
     float value = mValue;
     if (key != mKey)
-        return gZero_3ebb0;
-    if (value >= gZero_3ebb0 && value <= gOne_3ebb0)
+        return DAT_003f32e0;
+    if (value >= DAT_003f32e0 && value <= DAT_003f32dc)
         return value;
-    if (value > gOne_3ebb0)
-        return gOne_3ebb0;
-    return gZero_3ebb0;
+    if (value > DAT_003f32dc)
+        return DAT_003f32dc;
+    return DAT_003f32e0;
 }

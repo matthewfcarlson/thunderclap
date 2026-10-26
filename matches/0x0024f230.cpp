@@ -1,8 +1,9 @@
+#include "decls/data/engine/audio.h"
+
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* p) {
     return p;
 }
-extern char DAT_004e6700;
 void* __cdecl FUN_00247530(void*);
 struct SeqActionChannelSendVolumes_24f230 {
     virtual void f0();
@@ -26,7 +27,7 @@ struct SeqEventChannelSendVolumes {
     virtual void f5();
 };
 void SeqEventChannelSendVolumes::vfunc_2(int arg) {
-    void* memory = FUN_00247530(&DAT_004e6700);
+    void* memory = FUN_00247530(((char*)&DAT_004e6700));
     SeqActionChannelSendVolumes_24f230* action = memory ? new (memory) SeqActionChannelSendVolumes_24f230(this) : 0;
     ((Channel*)arg)->FUN_0025dc20(action);
 }

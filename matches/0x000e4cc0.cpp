@@ -1,4 +1,6 @@
 #include "gen/global.h"
+#include "decls/data/game/global.h"
+// data: globalx = DAT_004de94c
 
 struct V {
     virtual void f0();
@@ -51,7 +53,6 @@ struct V {
     virtual void f47();
     virtual void f48(int);
 };
-extern int globalx;
 
 void FEContainer::vfunc_52(void* __p0, int y) { void * x = (void *)__p0;
 
@@ -66,6 +67,6 @@ void FEContainer::vfunc_52(void* __p0, int y) { void * x = (void *)__p0;
             ((V*)x)->f8(y);
             (*(V * *)&this->f_48)->f10(2);
         }
-        globalx = 0;
+        DAT_004de94c = 0;
     }
 }

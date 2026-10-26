@@ -1,3 +1,5 @@
+#include "decls/data/game/global.h"
+
 class C_fc160 {
   public:
     virtual void a();
@@ -6,7 +8,6 @@ class C_fc160 {
     virtual void d();
     virtual void e();
 };
-C_fc160* g_fc160;
 void f() {
-    g_fc160->e();
+    (*(C_fc160**)&DAT_004e0a60)->e();
 }

@@ -1,5 +1,6 @@
-extern const float Zero_1eba80;
-extern const float Limit;
+#include "decls/data/game/global.h"
+// data: Limit = DAT_003f32d8, Zero_1eba80 = DAT_003f32e0
+
 class Inner_1eba80 {
   public:
     void Set(float);
@@ -15,7 +16,7 @@ class C_1eba80 {
     void F(float x);
 };
 void C_1eba80::F(float x) {
-    if (!(x < Zero_1eba80) && !(x > Limit)) {
+    if (!(x < DAT_003f32e0) && !(x > DAT_003f32d8)) {
         holder->obj->Set(x);
         value = x;
     }

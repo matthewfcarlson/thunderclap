@@ -1,4 +1,6 @@
-int gCounter_362f0;
+#include "decls/data/game/hulkfight.h"
+// data: gCounter_362f0 = DAT_004dc2a8
+
 class Obj_362f0 {
     char pad0[0x398];
 
@@ -12,7 +14,7 @@ class Obj_362f0 {
 };
 void Obj_362f0::Update() {
     if (enabled) {
-        int n = ++gCounter_362f0;
+        int n = ++(*(int*)&DAT_004dc2a8);
         flag = (n % 2 == 0);
         if (n % 3 == 1)
             mode = 0;

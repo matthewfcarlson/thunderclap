@@ -1,5 +1,6 @@
-extern const char gName1[];
-extern const char gName2[];
+#include "decls/data/game/global.h"
+// data: gName1 = DAT_0048e0e4, gName2 = DAT_0048e0f0
+
 unsigned char Find(const char*);
 class Function_8b280 {
   public:
@@ -18,8 +19,8 @@ class Method1_8b280 : public Function_8b280 {
     virtual void Invoke();
     Method1_8b280(const char* n, void* m) : Function_8b280(n, 1) {
         target = m;
-        flag1 = Find(gName1);
-        flag2 = Find(gName2);
+        flag1 = Find(((const char*)&DAT_0048e0e4));
+        flag2 = Find(((const char*)&DAT_0048e0f0));
     }
 };
 class Closure1_8b280 : public Method1_8b280 {

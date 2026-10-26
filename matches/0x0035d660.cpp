@@ -1,9 +1,11 @@
+#include "decls/data/game/global.h"
+// data: result = DAT_004ddf58
+
 struct Pair {
     int a;
     int b;
 };
 extern Pair __cdecl lookup(const char*);
-extern Pair result;
 void FUN_0035d660() {
-    result = lookup("AddTextInput");
+    (*(Pair*)&DAT_004ddf58) = lookup("AddTextInput");
 }

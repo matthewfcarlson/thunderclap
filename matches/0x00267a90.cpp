@@ -1,4 +1,5 @@
-int g_267a90;
+#include "decls/data/engine/unknown.h"
+
 void FUN_00267a90() {
-    --g_267a90;
+    --(*(int*)&DAT_00528378);
 }

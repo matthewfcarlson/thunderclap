@@ -1,4 +1,6 @@
 #include "gen/audio.h"
+#include "decls/data/game/unknown.h"
+// data: gRandom = DAT_004e5acc
 
 namespace audio {
 struct Range {
@@ -29,7 +31,6 @@ class Random {
   public:
     float Get(float, float);
 };
-extern Random* gRandom;
 inline float keep(float x, volatile float& v) {
     v = x;
     return x;
@@ -40,6 +41,6 @@ void audio::SeqActionVarVolumeRand::vfunc_1(void* __p0) { Context_2526b0 * ctx =
     Range* r = (*(Range * *)&this->f_08);
     float hi = r->b, lo = r->a;
     Target* tgt = ctx->target;
-    tgt->volume = gRandom->Get(keep(lo, a), keep(hi, b));
+    tgt->volume = (*(Random**)&DAT_004e5acc)->Get(keep(lo, a), keep(hi, b));
     this->f_0c = 0;
 }

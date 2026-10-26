@@ -1,3 +1,6 @@
+#include "decls/data/engine/pure3d/prop.h"
+// data: gValue_27fee0 = DAT_0052c29c
+
 class Ref_27fee0 {
   public:
     virtual void A();
@@ -13,7 +16,6 @@ class Owner_27fee0 {
     Ref_27fee0* e;
     void Clear();
 };
-extern int gValue_27fee0;
 void Owner_27fee0::Clear() {
     if (a) {
         a->Release();
@@ -35,5 +37,5 @@ void Owner_27fee0::Clear() {
         e->Release();
         e = 0;
     }
-    gValue_27fee0 = 0;
+    (*(int*)&DAT_0052c29c) = 0;
 }

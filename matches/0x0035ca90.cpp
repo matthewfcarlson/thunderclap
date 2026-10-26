@@ -1,5 +1,6 @@
+#include "decls/data/game/global.h"
+
 extern "C" __int64 __cdecl FUN_0027b020(const char*);
-extern __int64 g;
 void FUN_0035ca90() {
-    g = FUN_0027b020("running");
+    (*(__int64*)&DAT_004dced8) = FUN_0027b020("running");
 }

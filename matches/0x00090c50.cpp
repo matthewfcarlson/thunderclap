@@ -1,7 +1,6 @@
-extern char str1_90c50[];
-extern char str2_90c50[];
-extern char str3[];
-extern char str4[];
+#include "decls/data/game/global.h"
+// data: str1_90c50 = DAT_0048e100, str2_90c50 = DAT_0049cad8, str3 = DAT_0049cad8, str4 = DAT_0048e134
+
 char convert(const char*);
 class Function_90c50 {
   public:
@@ -23,8 +22,8 @@ class Method3 : public Function_90c50 {
 };
 Method3::Method3(char* arg, char* n) : Function_90c50(arg, 3) {
     name = n;
-    d = convert(str1_90c50);
-    a = convert(str2_90c50);
-    b = convert(str3);
-    c = convert(str4);
+    d = convert(((char*)&DAT_0048e100));
+    a = convert(((char*)&DAT_0049cad8));
+    b = convert(((char*)&DAT_0049cad8));
+    c = convert(((char*)&DAT_0048e134));
 }

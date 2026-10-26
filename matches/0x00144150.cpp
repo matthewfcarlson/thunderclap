@@ -1,5 +1,5 @@
-extern const float DAT_003f3358;
-extern const float DAT_003f32dc;
+#include "decls/data/game/global.h"
+
 struct MotionSource {
     virtual void vfunc_0();
     virtual void vfunc_1();

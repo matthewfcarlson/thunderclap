@@ -1,5 +1,6 @@
+#include "decls/data/game/global.h"
+
 extern "C" unsigned __int64 __cdecl FUN_00267f40();
-extern "C" const float DAT_003ffaa4;
 struct Bits {
     unsigned lo;
     unsigned hi;

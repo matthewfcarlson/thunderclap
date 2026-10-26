@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20046 inputs, branch coverage 38/38)
 // CTriggerVolumeManager::vfunc_1 @ 0x001ff770
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" int __cdecl strcmp(const char *a, const char *b);
 extern "C" int __cdecl strncmp(const char *a, const char *b, unsigned n);
 void *__cdecl FUN_00263ea0(unsigned int size);
-extern int DAT_00425168[];
 
 struct Tag_1ff770 {
     char pad0[4];
@@ -119,7 +119,7 @@ bool CTriggerVolumeManager::v1(Elem_1ff770 *e)
             if (idx == -1)
                 idx = 0;
             Bucket_1ff770 *b = &buckets[idx][curBucket];
-            if (b->count >= DAT_00425168[idx])
+            if (b->count >= ((int*)&DAT_00425168)[idx])
                 return true;
             item = (CTriggerVolume_1ff770 *)(b->buf + b->count * 64);
             b->count++;

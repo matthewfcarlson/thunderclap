@@ -1,4 +1,6 @@
-extern const float zero_35cf0;
+#include "decls/data/game/global.h"
+// data: zero_35cf0 = DAT_003f32e0
+
 class Item_35cf0 {
     char pad[0x190];
 
@@ -28,7 +30,7 @@ int Obj_35cf0::FUN() {
     x += add;
     if (thing)
         x += thing->Method();
-    if (f <= zero_35cf0 && x > 0)
+    if (f <= DAT_003f32e0 && x > 0)
         return 0;
     return x;
 }

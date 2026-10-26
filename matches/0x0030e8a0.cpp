@@ -1,4 +1,6 @@
-extern const float threshold_30e8a0;
+#include "decls/data/engine/physics.h"
+// data: threshold_30e8a0 = DAT_004d2fb8
+
 class Obj_30e8a0 {
   public:
     char pad[0x38];
@@ -10,21 +12,21 @@ class Obj_30e8a0 {
 };
 void Obj_30e8a0::Update() {
     state = 0;
-    if (a > threshold_30e8a0) {
+    if (a > (*(const float*)&DAT_004d2fb8)) {
         state = 2;
         a = 1.0f;
         c = 0.0f;
         b = 0.0f;
         return;
     }
-    if (b > threshold_30e8a0) {
+    if (b > (*(const float*)&DAT_004d2fb8)) {
         state = 3;
         a = 0.0f;
         b = 1.0f;
         c = 0.0f;
         return;
     }
-    if (c > threshold_30e8a0) {
+    if (c > (*(const float*)&DAT_004d2fb8)) {
         state = 4;
         a = 0.0f;
         c = 1.0f;

@@ -1,5 +1,7 @@
+#include "decls/data/game/global.h"
+// data: zero = DAT_003f335c
+
 extern "C" void _ReadWriteBarrier();
-extern const float zero;
 struct Vec {
     void Init();
     void Set(const float*);
@@ -11,12 +13,12 @@ struct Obj {
 };
 Obj::Obj() {
     v.Init();
-    v.Set(&zero);
+    v.Set(&DAT_003f335c);
     a = 0;
     d = 0;
     c = 0;
     b = 0;
     _ReadWriteBarrier();
     e = 0;
-    v.Set(&zero);
+    v.Set(&DAT_003f335c);
 }

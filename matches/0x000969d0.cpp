@@ -1,5 +1,7 @@
+#include "decls/data/game/global.h"
+// data: gZero_969d0 = DAT_003f32e0
+
 #include "compat/ptr.h"
-extern const float gZero_969d0;
 struct Q_969d0 {
     float Get();
 };
@@ -38,7 +40,7 @@ N_969d0* __cdecl Target(N_969d0* n) {
             }
             B_969d0* b = i->b;
             if (b && b->kind == 1) {
-                if (i->q->Get() > gZero_969d0) {
+                if (i->q->Get() > DAT_003f32e0) {
                     if (!i->flag)
                         return (N_969d0*)b;
                 }

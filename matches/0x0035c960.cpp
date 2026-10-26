@@ -1,6 +1,7 @@
 #include "decls/address.h"
-extern unsigned __int64 g_result_35c960;
+#include "decls/data/game/global.h"
+// data: g_result_35c960 = DAT_004dc0d0
 
 void FUN_0035c960() {
-    g_result_35c960 = FUN_0027b020("cargo_truck");
+    (*(unsigned __int64*)&DAT_004dc0d0) = FUN_0027b020("cargo_truck");
 }

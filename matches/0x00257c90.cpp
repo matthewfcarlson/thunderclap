@@ -1,5 +1,6 @@
+#include "decls/data/engine/audio.h"
+
 extern void* DAT_0042a640[];
-extern char DAT_004e7620[];
 void FUN_00256d40(void*);
 void FUN_00257730(void*);
 void FUN_00247550(void*, void*);
@@ -27,6 +28,6 @@ Sequence_257c90* Sequence_257c90::f2(unsigned char flags) {
     FUN_00257730(m44);
     Fin();
     if (flags & 1)
-        FUN_00247550(DAT_004e7620, this);
+        FUN_00247550(((char*)((char*)&DAT_004e75b8 + 104)), this);
     return this;
 }

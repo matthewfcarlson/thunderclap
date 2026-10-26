@@ -1,5 +1,7 @@
+#include "decls/data/game/global.h"
+// data: gValue = DAT_0048e0e4
+
 extern "C" unsigned char getFlag(void*);
-extern int gValue;
 class Function_1f7eb0 {
   public:
     Function_1f7eb0(int, int);
@@ -16,8 +18,8 @@ class Method1 : public Function_1f7eb0 {
   public:
     Method1(int p, int q) : Function_1f7eb0(p, 1) {
         x = q;
-        b = getFlag(&gValue);
-        a = getFlag(&gValue);
+        b = getFlag(((int*)&DAT_0048e0e4));
+        a = getFlag(((int*)&DAT_0048e0e4));
     }
     virtual void fn();
 };

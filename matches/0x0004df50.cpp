@@ -1,4 +1,6 @@
 #include "gen/fight.h"
+#include "decls/data/game/global.h"
+// data: zeroCondition = DAT_003f335c
 
 class CStageCondition_4df50 {};
 class ParamValue_4df50 {
@@ -13,10 +15,9 @@ class ParamValueEnum_4df50 : public ParamValue_4df50 {
   public:
     virtual void f();
 };
-extern CStageCondition_4df50 zeroCondition;
 
 template <> void* fight::ParamEnumConstList<CStageCondition>::vfunc_6(int , int index) {
     if (index >= 0 && index < this->f_14)
         return (void*)((*(CStageCondition_4df50 ** *)&this->f_10)[index]);
-    return (void*)(&zeroCondition);
+    return (void*)(((CStageCondition_4df50*)&DAT_003f335c));
 }

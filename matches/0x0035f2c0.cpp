@@ -1,5 +1,7 @@
+#include "decls/data/platform/xbox/unknown.h"
+// data: result = DAT_004e5ce8
+
 extern "C" __int64 __cdecl lookup(const char*, int, int);
-extern "C" __int64 result;
 void init() {
-    result = lookup("HalSystem", 0, 0);
+    (*(__int64*)&DAT_004e5ce8) = lookup("HalSystem", 0, 0);
 }

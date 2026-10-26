@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: one = DAT_003f32dc
+
 #include "compat/ptr.h"
 class CollisionVolume {
   public:
@@ -27,11 +30,10 @@ class CollisionWall : public CollisionVolume {
     void vfunc_7(float);
 };
 } // namespace physics
-extern const float one;
 void physics::CollisionWall::vfunc_7(float x) {
     Vec3_30e830* p = &v;
     p->Normalize();
-    hulk_freg q = one / x;
+    hulk_freg q = DAT_003f32dc / x;
     p->x *= q;
     p->y *= q;
     p->z *= q;

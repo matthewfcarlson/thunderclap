@@ -1,11 +1,12 @@
 #include "gen/global.h"
+#include "decls/data/game/unknown.h"
+// data: gSingleton_1ef6d0 = DAT_004e370c
 
 class Singleton_1ef6d0 {
   public:
     void Run();
 };
-extern Singleton_1ef6d0** gSingleton_1ef6d0;
 
 void CSoundCommand_PlayCuedNISEvent::vfunc_1(int , int ) {
-    (*gSingleton_1ef6d0)->Run();
+    (*(*(Singleton_1ef6d0***)&DAT_004e370c))->Run();
 }

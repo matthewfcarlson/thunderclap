@@ -1,3 +1,5 @@
+#include "decls/data/game/global.h"
+
 class C_fc2e0 {
   public:
     virtual void f0();
@@ -22,7 +24,6 @@ class C_fc2e0 {
     virtual void f19();
     virtual void f20();
 };
-extern C_fc2e0* g_fc2e0;
 void FUN_000fc2e0() {
-    g_fc2e0->f20();
+    (*(C_fc2e0**)&DAT_004e0a60)->f20();
 }

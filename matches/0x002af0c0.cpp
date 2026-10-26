@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gManager_2af0c0 = DAT_0052c2a4
+
 #include "compat/ptr.h"
 extern "C" char DAT_0042e1b4[];
 typedef unsigned int u32_2af0c0;
@@ -11,7 +14,6 @@ struct Manager_2af0c0 {
     virtual u32_2af0c0 getA();
     virtual u32_2af0c0 getB();
 };
-extern Manager_2af0c0* gManager_2af0c0;
 class ImageHandler {
   public:
     int a;
@@ -27,6 +29,6 @@ ImageHandler::ImageHandler() {
     *(volatile hulk_uintptr*)this = ((hulk_intptr)DAT_0042e1b4);
     c = 0;
     flag = 0;
-    d = gManager_2af0c0->getB();
-    e = gManager_2af0c0->getA();
+    d = (*(Manager_2af0c0**)&DAT_0052c2a4)->getB();
+    e = (*(Manager_2af0c0**)&DAT_0052c2a4)->getA();
 }

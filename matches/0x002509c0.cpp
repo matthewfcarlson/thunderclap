@@ -1,6 +1,8 @@
+#include "decls/data/engine/audio.h"
+// data: expr = DAT_00429ca4
+
 #include "compat/ptr.h"
 extern "C" char DAT_00429c8c[];
-extern const char expr[];
 class SeqEvent_2509c0 {
   public:
     SeqEvent_2509c0();
@@ -18,5 +20,5 @@ class SeqEventExpression : public SeqEvent_2509c0 {
 };
 SeqEventExpression::SeqEventExpression() {
     vptr = ((hulk_intptr)DAT_00429c8c);
-    text.Set(expr, 2);
+    text.Set(DAT_00429ca4, 2);
 }

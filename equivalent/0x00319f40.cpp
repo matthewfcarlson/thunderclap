@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 38/38)
 // FUN_00319f40 @ 0x00319f40
-extern float DAT_004d2960;
+#include "decls/data/engine/physics.h"
 
 union Bits_319f40 {
     float f;

@@ -1,14 +1,16 @@
+#include "decls/data/game/global.h"
+// data: gEntries = DAT_004dc360
+
 struct Entry {
     int a, b, c, d, e, f;
 };
-extern Entry gEntries[6];
 void FUN_00044c60(int index, int a, int b, int c, int d, int e, int f) {
     if (index >= 0 && index < 6) {
-        gEntries[index].a = a;
-        gEntries[index].b = b;
-        gEntries[index].c = c;
-        gEntries[index].d = d;
-        gEntries[index].e = e;
-        gEntries[index].f = f;
+        ((Entry*)&DAT_004dc360)[index].a = a;
+        ((Entry*)&DAT_004dc360)[index].b = b;
+        ((Entry*)&DAT_004dc360)[index].c = c;
+        ((Entry*)&DAT_004dc360)[index].d = d;
+        ((Entry*)&DAT_004dc360)[index].e = e;
+        ((Entry*)&DAT_004dc360)[index].f = f;
     }
 }

@@ -1,3 +1,6 @@
+#include "decls/data/engine/content.h"
+// data: gManager_2062d0 = DAT_00527c58
+
 #include "compat/ptr.h"
 extern "C" char DAT_00425c28[];
 extern void* __cdecl Alloc(hulk_uintptr);
@@ -13,7 +16,6 @@ class Manager_2062d0 {
   public:
     void Register(Loader_2062d0*, unsigned int);
 };
-extern Manager_2062d0* gManager_2062d0;
 class Owner_2062d0 {
   public:
     char pad[0x588];
@@ -35,5 +37,5 @@ void Owner_2062d0::Target(int value) {
     } else {
         r = 0;
     }
-    gManager_2062d0->Register(r, 0x60000722);
+    (*(Manager_2062d0**)&DAT_00527c58)->Register(r, 0x60000722);
 }

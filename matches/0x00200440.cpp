@@ -1,4 +1,6 @@
-extern char gName[];
+#include "decls/data/game/global.h"
+// data: gName = DAT_0048e0f0
+
 extern unsigned char __cdecl GetFlag(const char*);
 class Function_200440 {
   public:
@@ -10,8 +12,8 @@ class Method1 : public Function_200440 {
   public:
     Method1(const char* s, const char* t) : Function_200440(s, 1) {
         m = t;
-        a = GetFlag(gName);
-        b = GetFlag(gName);
+        a = GetFlag(((char*)&DAT_0048e0f0));
+        b = GetFlag(((char*)&DAT_0048e0f0));
     }
     virtual void Fn();
     char b;

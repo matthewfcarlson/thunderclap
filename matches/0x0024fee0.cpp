@@ -1,3 +1,6 @@
+#include "decls/data/engine/audio.h"
+// data: gBss_24fee0 = DAT_004e68f8
+
 class SeqEventContainer {
   public:
     char pad[0x14];
@@ -20,11 +23,10 @@ class SeqEventCondition_24fee0 {
     void f();
 };
 void __cdecl f47550(void*, SeqEventCondition*);
-extern char gBss_24fee0;
 SeqEventCondition* SeqEventCondition::vfunc_4(unsigned char flag) {
     ((A_24fee0*)((char*)this + 0x14))->f();
     ((SeqEventCondition_24fee0*)this)->f();
     if (flag & 1)
-        f47550(&gBss_24fee0, this);
+        f47550(((char*)&DAT_004e68f8), this);
     return this;
 }

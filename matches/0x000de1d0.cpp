@@ -1,5 +1,7 @@
+#include "decls/data/game/unknown.h"
+// data: gRandom = DAT_004de948
+
 typedef float(__cdecl* RandomFn)();
-extern RandomFn gRandom;
 class Obj_de1d0 {
   public:
     char pad[0x2c];
@@ -9,6 +11,6 @@ class Obj_de1d0 {
     void Update();
 };
 void Obj_de1d0::Update() {
-    first += gRandom();
-    second += gRandom();
+    first += (*(RandomFn*)&DAT_004de948)();
+    second += (*(RandomFn*)&DAT_004de948)();
 }

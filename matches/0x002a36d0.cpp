@@ -1,3 +1,6 @@
+#include "decls/data/engine/pure3d/prop.h"
+// data: globalManager = DAT_0052c2ac
+
 class Other_2a36d0;
 class DrawableContainer {
   public:
@@ -65,15 +68,14 @@ class Manager_2a36d0 {
     virtual void w();
     virtual void x(int, void*);
 };
-extern Manager_2a36d0** globalManager;
 void ParticleSystem::vfunc_6(void* a, int b) {
     if (emitter)
         emitter->g(a, b);
     if ((char)b == 1) {
-        (*globalManager)->x(0, (char*)this + 0x64);
+        (*(*(Manager_2a36d0***)&DAT_0052c2ac))->x(0, (char*)this + 0x64);
         emitter->h();
     }
     DrawableContainer::vfunc_6(a, b);
     if ((char)b == 1)
-        (*globalManager)->q(0);
+        (*(*(Manager_2a36d0***)&DAT_0052c2ac))->q(0);
 }

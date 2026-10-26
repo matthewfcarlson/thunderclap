@@ -1,4 +1,6 @@
-extern int gCount_59820;
+#include "decls/data/game/global.h"
+// data: gCount_59820 = DAT_00494b30
+
 struct ThisCall_00059510 {
     void Init();
 };
@@ -24,9 +26,9 @@ Obj_59820* __fastcall Target(Obj_59820* self) {
     self->a70 = 0;
     self->a84 = 0;
     ((ThisCall_00059510*)(self))->Init();
-    self->id = gCount_59820;
-    ++gCount_59820;
-    if (gCount_59820 == 0)
-        gCount_59820 = 1;
+    self->id = DAT_00494b30;
+    ++DAT_00494b30;
+    if (DAT_00494b30 == 0)
+        DAT_00494b30 = 1;
     return self;
 }

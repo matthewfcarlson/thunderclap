@@ -1,4 +1,6 @@
 // cl-flags: /O2 /GR /GX
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 
 class CFMVManager;
 
@@ -29,14 +31,12 @@ class Method4_1b7c00 : public Function_1b7c00 {
 
 extern "C" unsigned char __cdecl FUN_001d04d0(void*);
 
-extern "C" char g_48e100;
-extern "C" char g_48e128;
 
 Method4_1b7c00::Method4_1b7c00(int a1, void* a2) : Function_1b7c00(a1, 4) {
     m_ptr1c = a2;
-    m_b18 = FUN_001d04d0(&g_48e100);
-    m_b10 = FUN_001d04d0(&g_48e128);
-    m_b11 = FUN_001d04d0(&g_48e128);
-    m_b12 = FUN_001d04d0(&g_48e128);
-    m_b13 = FUN_001d04d0(&g_48e128);
+    m_b18 = FUN_001d04d0(((char*)&DAT_0048e100));
+    m_b10 = FUN_001d04d0(((char*)&DAT_0048e128));
+    m_b11 = FUN_001d04d0(((char*)&DAT_0048e128));
+    m_b12 = FUN_001d04d0(((char*)&DAT_0048e128));
+    m_b13 = FUN_001d04d0(((char*)&DAT_0048e128));
 }

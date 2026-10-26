@@ -1,4 +1,6 @@
-extern const float gZero;
+#include "decls/data/game/global.h"
+// data: gZero = DAT_003f32e0
+
 namespace fight {
 class WaitAction {
   public:
@@ -14,7 +16,7 @@ class WaitAction {
 char WaitAction::vfunc_5(int flag, float dt) {
     if (!flag) {
         time -= dt;
-        return time > gZero ? 1 : 0;
+        return time > DAT_003f32e0 ? 1 : 0;
     }
     return 1;
 }

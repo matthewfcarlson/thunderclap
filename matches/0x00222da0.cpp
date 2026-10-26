@@ -1,4 +1,6 @@
-extern const float gZero_222da0;
+#include "decls/data/game/global.h"
+// data: gZero_222da0 = DAT_003f32e0
+
 struct Entry_222da0 {
     int key;
     char pad[0x20];
@@ -23,5 +25,5 @@ float Obj_222da0::target(int key) {
             p = (Entry_222da0*)((char*)p + 0x28);
         } while (i < n);
     }
-    return gZero_222da0;
+    return DAT_003f32e0;
 }

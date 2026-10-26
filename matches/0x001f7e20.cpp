@@ -1,5 +1,6 @@
-extern char name1[];
-extern char name2[];
+#include "decls/data/game/global.h"
+// data: name1 = DAT_0049b95c, name2 = DAT_0049cad8
+
 extern unsigned char __cdecl find(char*);
 class Function_1f7e20 {
   public:
@@ -16,8 +17,8 @@ class Method1 : public Function_1f7e20 {
     unsigned int x;
     Method1(char* p, unsigned int n) : Function_1f7e20(p, 1) {
         x = n;
-        b = find(name1);
-        a = find(name2);
+        b = find(((char*)&DAT_0049b95c));
+        a = find(((char*)&DAT_0049cad8));
     }
     virtual void f();
 };

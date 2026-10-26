@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gZero_fc550 = DAT_003f32e0
+
 #include "compat/ptr.h"
 extern "C" char DAT_004a19e0[];
 extern "C" char DAT_004a19f8[];
@@ -38,7 +41,6 @@ class Other_fc550 {
 };
 
 extern "C" void* FUN_00344e74(void*, int, void*, void*, int);
-extern const float gZero_fc550;
 
 class Owner_fc550 {
   public:
@@ -54,7 +56,7 @@ void Owner_fc550::Fn(int a, int b, char c) {
         return;
     if (c) {
         Elem_fc550* e = items[cur];
-        if (e->f <= gZero_fc550) {
+        if (e->f <= DAT_003f32e0) {
             Other_fc550* o = (Other_fc550*)FUN_00344e74(e, 0, (void*)((hulk_intptr)DAT_004a19e0), (void*)((hulk_intptr)DAT_004a19f8), 0);
             if (o) {
                 Target_fc550* t = o->t;

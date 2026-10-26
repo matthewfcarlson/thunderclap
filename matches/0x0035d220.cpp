@@ -1,12 +1,13 @@
+#include "decls/data/game/hulkfight.h"
+
 class T {
   public:
     T(const char*, int);
     ~T();
 };
-extern T g;
 extern "C" int __cdecl atexit(void(__cdecl*)());
 extern "C" void __cdecl cleanup();
 void f() {
-    g.T::T("sound/rsd", 0);
+    (*(T*)&DAT_004dd9d0).T::T("sound/rsd", 0);
     atexit(cleanup);
 }

@@ -1,6 +1,7 @@
+#include "decls/data/engine/audio.h"
+// data: playName = DAT_00429df8, trackName = DAT_00429e00
+
 typedef unsigned long long U64;
-extern const char trackName[];
-extern const char playName[];
 extern U64 __cdecl MakeId(const char*, int, int) throw();
 class Temp {
   public:
@@ -18,4 +19,4 @@ class SeqEventPlayTrackType : public SeqEventType_251510 {
     SeqEventPlayTrackType();
     virtual void v0();
 };
-SeqEventPlayTrackType::SeqEventPlayTrackType() : SeqEventType_251510(Temp().Init(playName, 0), MakeId(trackName, 0, 0), 32, 4) {}
+SeqEventPlayTrackType::SeqEventPlayTrackType() : SeqEventType_251510(Temp().Init(DAT_00429df8, 0), MakeId(DAT_00429e00, 0, 0), 32, 4) {}

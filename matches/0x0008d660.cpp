@@ -1,16 +1,17 @@
-extern "C" unsigned char flag_8d660;
+#include "decls/data/game/unknown.h"
+// data: flag_8d660 = DAT_004dd778, obj_8d660 = DAT_004dd780
+
 extern "C" void __cdecl init();
 extern "C" void __cdecl delay(int);
 struct Obj_8d660 {
     char pad[0x20];
     void run();
 };
-extern Obj_8d660 obj_8d660;
 void FUN_0008d660() {
-    if (!flag_8d660) {
+    if (!(*(unsigned char*)&DAT_004dd778)) {
         init();
-        obj_8d660.run();
+        (*(Obj_8d660*)&DAT_004dd780).run();
         delay(30);
-        flag_8d660 = 1;
+        (*(unsigned char*)&DAT_004dd778) = 1;
     }
 }

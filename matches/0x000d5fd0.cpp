@@ -1,6 +1,7 @@
+#include "decls/data/game/global.h"
+// data: hulk_at_0048e0f0 = DAT_0048e0f0, hulk_at_0048e100 = DAT_0048e100
+
 #include "compat/ptr.h"
-extern "C" char hulk_at_0048e0f0[];
-extern "C" char hulk_at_0048e100[];
 class Function_d5fd0 {
   public:
     virtual void f();
@@ -18,8 +19,8 @@ class Method1_d5fd0 : public Function_d5fd0 {
     virtual void f();
     Method1_d5fd0(const char* s, int n) : Function_d5fd0(s, 1) {
         x = n;
-        b = get(((hulk_intptr)hulk_at_0048e100));
-        a = get(((hulk_intptr)hulk_at_0048e0f0));
+        b = get(((hulk_intptr)((char*)&DAT_0048e100)));
+        a = get(((hulk_intptr)((char*)&DAT_0048e0f0)));
     }
 };
 class Closure1_d5fd0 : public Method1_d5fd0 {

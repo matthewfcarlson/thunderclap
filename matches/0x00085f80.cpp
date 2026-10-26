@@ -1,4 +1,6 @@
-extern const float scale;
+#include "decls/data/game/global.h"
+// data: scale = DAT_003ffaa4
+
 class Counter {
   public:
     char pad[0x20];
@@ -6,5 +8,5 @@ class Counter {
     double Get();
 };
 double Counter::Get() {
-    return (double)value * scale;
+    return (double)value * DAT_003ffaa4;
 }

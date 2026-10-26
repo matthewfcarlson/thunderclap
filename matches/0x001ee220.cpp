@@ -1,5 +1,7 @@
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 extern "C" unsigned char __cdecl lookup(const void*);
-extern int g1, g2;
 class Function_1ee220 {
   public:
     Function_1ee220(void*, int);
@@ -15,8 +17,8 @@ class Method1 : public Function_1ee220 {
   public:
     Method1(void* x, void* z) : Function_1ee220(x, 1) {
         obj = z;
-        a = lookup(&g1);
-        b = lookup(&g2);
+        a = lookup(((int*)&DAT_0048e100));
+        b = lookup(((int*)&DAT_0048e128));
     }
     virtual void invoke();
 };

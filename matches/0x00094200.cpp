@@ -1,13 +1,11 @@
+#include "decls/data/game/global.h"
+
 #include "compat/ptr.h"
 extern "C" char DAT_004046dc[];
 struct Ctor_001d0480 {
     Ctor_001d0480(int, int);
 };
 extern char __cdecl Query(const char*);
-extern char s0_94200;
-extern char s1_94200;
-extern char s2_94200;
-extern char s3_94200;
 class Method3_94200 : public Ctor_001d0480 {
   public:
     hulk_intptr v;
@@ -24,8 +22,8 @@ class Method3_94200 : public Ctor_001d0480 {
 Method3_94200::Method3_94200(int a, int b) : Ctor_001d0480(a, 3) {
     v = ((hulk_intptr)DAT_004046dc);
     value = b;
-    b18 = Query(&s0_94200);
-    b10 = Query(&s1_94200);
-    b11 = Query(&s2_94200);
-    b12 = Query(&s3_94200);
+    b18 = Query(((char*)&DAT_0048e100));
+    b10 = Query(((char*)&DAT_0048e134));
+    b11 = Query(((char*)&DAT_0048e134));
+    b12 = Query(&DAT_0048e0e4);
 }

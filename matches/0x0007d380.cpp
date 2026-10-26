@@ -1,7 +1,9 @@
+#include "decls/data/game/global.h"
+
 #include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" char DAT_003ff014[];
-extern const char s0_7d380[], s1[], s2[], s3[];
+extern const char s3[];
 class Function_7d380 {
   public:
     void Init(const char*, int);
@@ -24,9 +26,9 @@ Method4_7d380::Method4_7d380(const char* p, int x) {
     Init(p, 4);
     vptr = ((hulk_intptr)DAT_003ff014);
     member1c = x;
-    b18 = FUN_001d04d0(s0_7d380);
-    b10 = FUN_001d04d0(s1);
-    b11 = FUN_001d04d0(s2);
+    b18 = FUN_001d04d0(((const char*)&DAT_0048e100));
+    b10 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    b11 = FUN_001d04d0(((const char*)&DAT_0048e134));
     b12 = FUN_001d04d0(s3);
     b13 = FUN_001d04d0(s3);
 }

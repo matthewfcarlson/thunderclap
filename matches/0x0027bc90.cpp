@@ -1,6 +1,8 @@
+#include "decls/data/engine/pure3d.h"
+#include "decls/data/engine/unknown.h"
+// data: g_cnt = DAT_0052c288, g_shared = DAT_004ce410
+
 extern void* g_vt_27bc90[];
-extern int g_cnt;
-extern void* g_shared;
 void Free(void*) throw();
 void Free2(void*) throw();
 struct E28 {
@@ -33,10 +35,10 @@ class Skeleton_27bc90 : public Entity_27bc90 {
 };
 Skeleton_27bc90::~Skeleton_27bc90() throw() {
     vptr = g_vt_27bc90;
-    if (--g_cnt == 0) {
-        if (g_shared)
-            Free(g_shared);
-        g_shared = 0;
+    if (--(*(int*)&DAT_0052c288) == 0) {
+        if (DAT_004ce410)
+            Free(DAT_004ce410);
+        DAT_004ce410 = 0;
     }
     Free2(m30);
     M2c* p = m2c;

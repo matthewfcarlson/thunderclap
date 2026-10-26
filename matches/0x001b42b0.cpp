@@ -1,3 +1,5 @@
+#include "decls/data/game/global.h"
+
 struct F_1b42b0 {
     unsigned lo, hi;
 };
@@ -23,15 +25,14 @@ struct Foo_1b42b0 {
     Mgr_1b42b0* mgr;
     bool Fn(Obj_1b42b0* o);
 };
-extern F_1b42b0 g39e8, g39f0, g3a10, g3a18, g3a20;
 bool Foo_1b42b0::Fn(Obj_1b42b0* o) {
     if (!o)
         return false;
     Inner_1b42b0* i = o->in;
     if (!i)
         return false;
-    i->a = g3a10;
-    i->b = Or(g3a20, Or(g3a18, Or(g39e8, g39f0)));
+    i->a = (*(F_1b42b0*)&DAT_004c3a10);
+    i->b = Or((*(F_1b42b0*)&DAT_004c3a20), Or((*(F_1b42b0*)&DAT_004c3a18), Or((*(F_1b42b0*)&DAT_004c39f0), (*(F_1b42b0*)&DAT_004c39e8))));
     mgr->Apply(i);
     return true;
 }

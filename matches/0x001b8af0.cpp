@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: g_service = DAT_0052c2a4
+
 class Service_1b8af0 {
   public:
     virtual void v0();
@@ -8,7 +11,6 @@ class Service_1b8af0 {
     virtual void v5();
     virtual int Get();
 };
-extern Service_1b8af0* g_service;
 class Target_1b8af0 {
   public:
     char pad0[0x18];
@@ -25,7 +27,7 @@ void __fastcall FUN_001b8af0(Target_1b8af0* self) {
     if (!self->initialized) {
         self->flag = 0;
         self->initialized = 1;
-        int n = g_service->Get();
+        int n = (*(Service_1b8af0**)&DAT_0052c2a4)->Get();
         self->zero = 0;
         self->b = (float)n;
         self->a = (float)n;

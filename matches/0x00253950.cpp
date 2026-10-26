@@ -1,4 +1,5 @@
 #include "gen/audio.h"
+#include "decls/data/engine/audio.h"
 
 namespace audio {
 class SeqEventVarPitch_253950 : public ::audio::SeqEvent {
@@ -12,10 +13,9 @@ class SeqEventVarPitch_253950 : public ::audio::SeqEvent {
 };
 } // namespace audio
 extern void FUN_00247550(void*, audio::SeqEventVarPitch_253950*);
-extern char g_4e7198;
 audio::SeqEventVarPitch_253950* audio::SeqEventVarPitch_253950::vfunc_4(int x) {
     Helper();
     if (x & 1)
-        FUN_00247550(&g_4e7198, this);
+        FUN_00247550(((char*)&DAT_004e7198), this);
     return this;
 }

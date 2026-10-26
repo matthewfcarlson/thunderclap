@@ -1,5 +1,5 @@
-extern const char DAT_003f6378[];
-extern const char DAT_00422618[];
+#include "decls/data/game/global.h"
+
 extern "C" void FUN_002133d0(void*, int);
 extern "C" void FUN_00213600(void*, int);
 extern "C" int FUN_00213190(void*, int);

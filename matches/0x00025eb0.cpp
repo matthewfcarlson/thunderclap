@@ -1,5 +1,7 @@
+#include "decls/data/game/unknown.h"
+// data: gValue_25eb0 = DAT_004dc0d8
+
 extern void __fastcall InitThing(void*);
-extern int gValue_25eb0;
 class Thing_25eb0 {
   public:
     char pad000[4];
@@ -28,7 +30,7 @@ void Thing_25eb0::Run() {
     m350 = 0;
     m351 = 0;
     m352 = 1;
-    gValue_25eb0 = 0x41000000;
+    (*(int*)&DAT_004dc0d8) = 0x41000000;
     m584 = 0x7fffffff;
     m588 = 0;
 }

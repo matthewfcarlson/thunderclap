@@ -1,10 +1,11 @@
+#include "decls/data/game/global.h"
+
 class Function_1df800 {
   public:
     Function_1df800(const char*, int);
     virtual void a();
 };
 extern "C" unsigned char __cdecl F(const char*);
-extern const char s1[], s2[];
 class Method2 : public Function_1df800 {
   public:
     char p0[12];
@@ -18,7 +19,7 @@ class Method2 : public Function_1df800 {
 };
 Method2::Method2(const char* s, int x) : Function_1df800(s, 2) {
     x1c = x;
-    b18 = F(s1);
-    b10 = F(s2);
-    b11 = F(s1);
+    b18 = F(((const char*)&DAT_0048e0e4));
+    b10 = F(((const char*)&DAT_0048e0f0));
+    b11 = F(((const char*)&DAT_0048e0e4));
 }

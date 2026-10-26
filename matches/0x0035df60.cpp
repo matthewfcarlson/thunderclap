@@ -1,6 +1,7 @@
-extern const char text[];
+#include "decls/data/game/global.h"
+// data: result = DAT_004e09d8, text = DAT_00400488
+
 extern "C" __int64 parse(const char*);
-extern "C" __int64 result;
 void target() {
-    result = parse(text);
+    (*(__int64*)&DAT_004e09d8) = parse(DAT_00400488);
 }

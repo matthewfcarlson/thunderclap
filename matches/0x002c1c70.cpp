@@ -1,3 +1,6 @@
+#include "decls/data/engine/pure3d/prop.h"
+// data: gManager_2c1c70 = DAT_0052c2a0
+
 struct Args_2c1c70 {
     int a;
     int b;
@@ -25,7 +28,6 @@ struct Manager_2c1c70 {
     virtual void I();
     virtual Object* Create(Args_2c1c70*);
 };
-extern Manager_2c1c70* gManager_2c1c70;
 struct Owner_2c1c70 {
     char pad[16];
     Object* value;
@@ -43,7 +45,7 @@ bool Owner_2c1c70::Fn(int a, int b, int c, int d, int e, int f, int g) {
     x.j = 0;
     x.f = f;
     x.g = g;
-    Object* r = gManager_2c1c70->Create(&x);
+    Object* r = (*(Manager_2c1c70**)&DAT_0052c2a0)->Create(&x);
     value = r;
     if (!r)
         return false;

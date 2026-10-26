@@ -1,8 +1,10 @@
+#include "decls/data/game/global.h"
+// data: globalPair = DAT_004de7e8
+
 struct Pair {
     unsigned a, b;
 };
 extern Pair __cdecl getPair(const char*);
-extern Pair globalPair;
 void target() {
-    globalPair = getPair("$MACRO_INSERT");
+    (*(Pair*)&DAT_004de7e8) = getPair("$MACRO_INSERT");
 }

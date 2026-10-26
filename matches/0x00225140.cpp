@@ -1,5 +1,6 @@
-extern const float one;
-extern const float zero_225140;
+#include "decls/data/game/global.h"
+// data: one = DAT_003f32dc, zero_225140 = DAT_003f32e0
+
 struct Inner_225140 {
     char pad[0x10];
     float f;
@@ -13,8 +14,8 @@ class AnimationDriver_225140 {
     void Set(float x);
 };
 void AnimationDriver_225140::Set(float x) {
-    float v = p->f - one;
-    if (x < zero_225140) {
+    float v = p->f - DAT_003f32dc;
+    if (x < DAT_003f32e0) {
         value = 0;
         return;
     }

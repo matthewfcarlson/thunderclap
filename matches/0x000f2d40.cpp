@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gManager_f2d40 = DAT_004dd9cc
+
 class Obj_f2d40 {
   public:
     virtual void F();
@@ -12,7 +15,6 @@ class Manager_f2d40 {
     virtual void C();
     virtual Obj_f2d40* Create(const DynamicCaster_f2d40&, unsigned long long);
 };
-extern Manager_f2d40* gManager_f2d40;
 extern unsigned long long __cdecl GetArg(void*);
 class Owner_f2d40 {
     char pad[0x9a4];
@@ -26,7 +28,7 @@ void Owner_f2d40::Run(void* p) {
     while (i < 4 && slots[i])
         ++i;
     if (i < 4) {
-        Manager_f2d40* m = gManager_f2d40;
+        Manager_f2d40* m = (*(Manager_f2d40**)&DAT_004dd9cc);
         unsigned long long a = GetArg(p);
         Obj_f2d40* o = m->Create(DynamicCaster_f2d40(), a);
         slots[i] = o;

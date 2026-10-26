@@ -1,7 +1,8 @@
+#include "decls/data/game/global.h"
+// data: gResult_35dc30 = DAT_004de7f0, hulk_at_00400488 = DAT_00400488
+
 #include "compat/ptr.h"
-extern "C" char hulk_at_00400488[];
 extern "C" unsigned __int64 __cdecl FUN_0027b020(const void*);
-extern unsigned __int64 gResult_35dc30;
 void __cdecl FUN_0035dc30() {
-    gResult_35dc30 = FUN_0027b020((const void*)((hulk_intptr)hulk_at_00400488));
+    (*(unsigned __int64*)&DAT_004de7f0) = FUN_0027b020((const void*)((hulk_intptr)((char*)&DAT_00400488)));
 }

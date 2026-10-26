@@ -1,11 +1,11 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 class CAmbientsManager;
 struct CtorV_001d0480 {
     CtorV_001d0480(void*, int);
     virtual void v_001d0480();
 };
-extern int gA_7e2d0;
-extern int gB_7e2d0;
 class MethodBase_7e2d0 : public CtorV_001d0480 {
   public:
     MethodBase_7e2d0(void* a) : CtorV_001d0480(a, 2) { }
@@ -31,9 +31,9 @@ template <class T, class R, class A, class B> class Closure2 : public Method2<T,
 template <>
 Method2<CAmbientsManager, void, float, float>::Method2(void* a, void* b, void* c) : MethodBase_7e2d0(a) {
     obj = c;
-    z = FUN_001d04d0(&gA_7e2d0);
-    x = FUN_001d04d0(&gB_7e2d0);
-    y = FUN_001d04d0(&gB_7e2d0);
+    z = FUN_001d04d0(((int*)&DAT_0048e100));
+    x = FUN_001d04d0(((int*)&DAT_0048e128));
+    y = FUN_001d04d0(((int*)&DAT_0048e128));
 }
 template <>
 Closure2<CAmbientsManager, void, float, float>::Closure2(void* a, void* b, void* c)

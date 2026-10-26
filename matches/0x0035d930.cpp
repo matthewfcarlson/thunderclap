@@ -1,5 +1,7 @@
+#include "decls/data/game/global.h"
+// data: globalValue = DAT_004de688
+
 extern "C" __int64 getValue(const char*);
-extern "C" __int64 globalValue;
 void FUN_0035d930() {
-    globalValue = getValue("load");
+    (*(__int64*)&DAT_004de688) = getValue("load");
 }

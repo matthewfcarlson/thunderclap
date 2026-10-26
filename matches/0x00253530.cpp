@@ -1,7 +1,8 @@
 #include "gen/audio.h"
+#include "decls/data/engine/audio.h"
+// data: g_pool_253530 = DAT_004e70e8
 
 extern "C" void* __cdecl Alloc(void*);
-extern int g_pool_253530;
 extern int rand_vftable;
 struct SeqEventVarPitchRand_253530 {
     int* vf;
@@ -12,7 +13,7 @@ struct SeqEventVarPitchRand_253530 {
 };
 
 void* audio::SeqEventVarPitchRandType::vfunc_3() {
-    SeqEventVarPitchRand_253530* p = (SeqEventVarPitchRand_253530*)Alloc(&g_pool_253530);
+    SeqEventVarPitchRand_253530* p = (SeqEventVarPitchRand_253530*)Alloc(((int*)&DAT_004e70e8));
     if (p) {
         p->init();
         p->vf = &rand_vftable;

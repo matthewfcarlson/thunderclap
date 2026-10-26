@@ -1,12 +1,13 @@
+#include "decls/data/game/global.h"
+
 extern "C" void __cdecl F2133d0(const char*, const char*);
 extern "C" void __cdecl F213680(const char*, int, int);
 extern "C" int __cdecl F213800(const char*, int);
 extern "C" void __cdecl F212ed0(const char*, int);
 extern "C" void __cdecl F213790(const char*, int, const char*);
 extern "C" void __cdecl F213380(const char*, const char*, int);
-extern "C" char* g_tB;
 int __stdcall FUN_001d1740(const char* s) {
-    F2133d0(s, g_tB);
+    F2133d0(s, (*(char**)&DAT_004c5cf8));
     F213680(s, 0, 0);
     F213800(s, -10000);
     F212ed0(s, -10000);

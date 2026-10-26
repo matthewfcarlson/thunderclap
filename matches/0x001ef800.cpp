@@ -1,3 +1,6 @@
+#include "decls/data/game/unknown.h"
+// data: gOwner = DAT_004e370c
+
 struct Mgr_1ef800 {
     void Set(int n);
 };
@@ -7,7 +10,6 @@ struct Owner_1ef800 {
     Mgr_1ef800* mgr;
 };
 
-extern Owner_1ef800* gOwner;
 
 class CSoundCommand {
   public:
@@ -23,5 +25,5 @@ class CSoundCommand_ReturnToDefaultMix : public CSoundCommand {
 };
 
 void CSoundCommand_ReturnToDefaultMix::vfunc_1(int a, int b) {
-    gOwner->mgr->Set((int)(__int64)mValue);
+    (*(Owner_1ef800**)&DAT_004e370c)->mgr->Set((int)(__int64)mValue);
 }

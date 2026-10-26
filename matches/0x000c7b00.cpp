@@ -1,5 +1,7 @@
+#include "decls/data/game/global.h"
+// data: scale = DAT_0049fbc0
+
 #include "compat/ptr.h"
-extern float scale;
 class Provider {
   public:
     virtual void v0();
@@ -33,12 +35,12 @@ void Obj::Update(float x) {
     enabled = 0;
     int n = holder->GetCount();
 #if defined(__clang__)
-    hulk_freg v = x * factor / ((float)n * scale);
+    hulk_freg v = x * factor / ((float)n * DAT_0049fbc0);
     first = v;
-    second = v * scale; // the original multiplies the unrounded quotient
+    second = v * DAT_0049fbc0; // the original multiplies the unrounded quotient
 #else
-    float v = x * factor / ((float)n * scale);
+    float v = x * factor / ((float)n * DAT_0049fbc0);
     first = v;
-    second = first * scale;
+    second = first * DAT_0049fbc0;
 #endif
 }

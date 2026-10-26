@@ -1,10 +1,12 @@
+#include "decls/data/engine/om.h"
+// data: allocatorGlobal = DAT_004e5f18
+
 #include "compat/ptr.h"
 #include "gen/audio.h"
 
 typedef unsigned int u32_245640;
 extern void* __cdecl FUN_00247530(void*);
 extern u32_245640 clipVftable;
-extern char allocatorGlobal;
 namespace audio {
 class Clip_245640 {
   public:
@@ -16,9 +18,9 @@ class Clip_245640 {
 
 } // namespace audio
 void* audio::ClipType::vfunc_2() {
-    Clip_245640* p = (Clip_245640*)FUN_00247530(&allocatorGlobal);
+    Clip_245640* p = (Clip_245640*)FUN_00247530(((char*)&DAT_004e5f18));
     if (p != 0) {
-        p->init(&allocatorGlobal);
+        p->init(((char*)&DAT_004e5f18));
         p->vft = (hulk_uintptr)&clipVftable;
         p->field28 = 0;
         return (void*)(p);

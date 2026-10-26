@@ -1,6 +1,6 @@
+#include "decls/data/game/global.h"
+
 extern "C" unsigned char ReadFlag(const char*);
-extern const char gA[];
-extern const char gB[];
 class Function_aed70 {
   public:
     Function_aed70(void*, int);
@@ -17,8 +17,8 @@ class Method1_aed70 : public Function_aed70 {
   public:
     Method1_aed70(void* a, void* c) : Function_aed70(a, 1) {
         p = c;
-        y = ReadFlag(gA);
-        x = ReadFlag(gB);
+        y = ReadFlag(((const char*)&DAT_0048e100));
+        x = ReadFlag(((const char*)&DAT_0048e0e4));
     }
     virtual void v();
 };

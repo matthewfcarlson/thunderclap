@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gTimer = DAT_0052c2a4
+
 class Timer {
   public:
     virtual void a();
@@ -8,7 +11,6 @@ class Timer {
     virtual void f();
     virtual int Get();
 };
-extern Timer* gTimer;
 class CRenderManager_1b8ab0 {
     char pad0[0x18];
 
@@ -26,7 +28,7 @@ class CRenderManager_1b8ab0 {
 void CRenderManager_1b8ab0::Init() {
     m30 = 1;
     m18 = 1;
-    int t = gTimer->Get();
+    int t = (*(Timer**)&DAT_0052c2a4)->Get();
     m28 = 0;
     m20 = (float)t;
     m1c = (float)t;

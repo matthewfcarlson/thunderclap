@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gThing = DAT_004e2158
+
 typedef unsigned int size_t;
 void* operator new(size_t) throw();
 class CCollisionManager_1b6580 {
@@ -6,12 +9,11 @@ class CCollisionManager_1b6580 {
     virtual void Init() throw();
     char pad[0x5a8];
 };
-extern CCollisionManager_1b6580* gThing;
 CCollisionManager_1b6580* GetThing() {
-    if (!gThing) {
-        gThing = new CCollisionManager_1b6580;
-        gThing->Init();
-        return gThing;
+    if (!(*(CCollisionManager_1b6580**)&DAT_004e2158)) {
+        (*(CCollisionManager_1b6580**)&DAT_004e2158) = new CCollisionManager_1b6580;
+        (*(CCollisionManager_1b6580**)&DAT_004e2158)->Init();
+        return (*(CCollisionManager_1b6580**)&DAT_004e2158);
     }
-    return gThing;
+    return (*(CCollisionManager_1b6580**)&DAT_004e2158);
 }

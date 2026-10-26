@@ -1,8 +1,10 @@
+#include "decls/data/game/global.h"
+// data: fallback = DAT_003f335c
+
 struct Item {
     char pad[64];
     Item* Get();
 };
-extern int fallback;
 class Obj {
     char pad[0x20c];
     int count;
@@ -13,7 +15,7 @@ class Obj {
 };
 Item* Obj::Find(int index) {
     if (index < 0 || index > count)
-        return (Item*)&fallback;
+        return (Item*)&(*(int*)&DAT_003f335c);
     Item* p = &items[index];
     return p->Get();
 }

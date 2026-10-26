@@ -1,4 +1,5 @@
 #include "gen/global.h"
+#include "decls/data/game/global.h"
 
 class IDollyControllerState_dd8d0 {
   public:
@@ -18,9 +19,8 @@ class IDollyControllerState_dd8d0 {
 struct Pair_dd8d0 {
     int a, b;
 };
-extern Pair_dd8d0 table_dd8d0[];
 
 hulk_freg ControllerState::vfunc_8(int i) {
     float* p = (*(float * *)&this->f_10);
-    return p[table_dd8d0[i].a] - p[table_dd8d0[i].b];
+    return p[((Pair_dd8d0*)&DAT_004a0d6c)[i].a] - p[((Pair_dd8d0*)&DAT_004a0d6c)[i].b];
 }

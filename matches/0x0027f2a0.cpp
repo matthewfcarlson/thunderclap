@@ -1,3 +1,6 @@
+#include "decls/data/engine/pure3d/prop.h"
+// data: gHolder_27f2a0 = DAT_0052c2ac
+
 #include "compat/ptr.h"
 struct Worker_27f2a0 {
     virtual void f0();
@@ -33,7 +36,6 @@ struct Manager_27f2a0 {
 struct Holder_27f2a0 {
     Manager_27f2a0* mgr;
 };
-extern Holder_27f2a0* gHolder_27f2a0;
 struct Obj_27f2a0 {
     char pad0[0x20];
     int field20;
@@ -49,13 +51,13 @@ void Obj_27f2a0::target(int a, int b) {
     for (int i = 100; i != 0; --i, p += 0x60) {
         Worker_27f2a0* w = *(Worker_27f2a0**)(p - 16);
         if (w) {
-            gHolder_27f2a0->mgr->Do0(0);
+            (*(Holder_27f2a0**)&DAT_0052c2ac)->mgr->Do0(0);
             unsigned n = *(unsigned*)p;
             if (n != 0xffff)
-                gHolder_27f2a0->mgr->Do1(0, n * 64 + *(unsigned*)((*(char**)(p - 12)) + 0x1c));
-            gHolder_27f2a0->mgr->Do1(0, (hulk_intptr)(p - 0x50));
+                (*(Holder_27f2a0**)&DAT_0052c2ac)->mgr->Do1(0, n * 64 + *(unsigned*)((*(char**)(p - 12)) + 0x1c));
+            (*(Holder_27f2a0**)&DAT_0052c2ac)->mgr->Do1(0, (hulk_intptr)(p - 0x50));
             w->Run(a, b);
-            gHolder_27f2a0->mgr->Do2(0);
+            (*(Holder_27f2a0**)&DAT_0052c2ac)->mgr->Do2(0);
         }
     }
 }

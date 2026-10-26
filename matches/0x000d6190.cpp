@@ -1,11 +1,12 @@
+#include "decls/data/game/global.h"
+// data: name1 = DAT_0048e100, name2 = DAT_0048e0e4
+
 typedef unsigned char u8;
 struct CtorV_001d0480 {
     CtorV_001d0480(void*, int);
     virtual void v_001d0480();
 };
 extern "C" u8 __cdecl Check(const char*);
-extern const char name1[];
-extern const char name2[];
 class Function_d6190 : public CtorV_001d0480 {
   public:
     Function_d6190(void* x) : CtorV_001d0480(x, 1) { }
@@ -21,8 +22,8 @@ class Method1 : public Function_d6190 {
     void* member;
     Method1(void* x, void* y) : Function_d6190(x) {
         member = y;
-        flag2 = Check(name1);
-        flag1 = Check(name2);
+        flag2 = Check(((const char*)&DAT_0048e100));
+        flag1 = Check(((const char*)&DAT_0048e0e4));
     }
 };
 class Closure1 : public Method1 {

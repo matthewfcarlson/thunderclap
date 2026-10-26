@@ -1,8 +1,9 @@
+#include "decls/data/engine/audio.h"
+
 class Obj_3644e0 {
   public:
     void Fn();
 };
-extern Obj_3644e0 gObj_3644e0;
 void FUN_003644e0() {
-    gObj_3644e0.Fn();
+    (*(Obj_3644e0*)((char*)&DAT_004e6ed8 + 104)).Fn();
 }

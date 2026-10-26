@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: zero_282740 = DAT_003f32e0
+
 struct Item_282740 {
     char pad[0x7c];
     float value;
@@ -14,14 +17,13 @@ class Obj_282740 {
     unsigned int* keys;
     void Update(unsigned int key);
 };
-extern const float zero_282740;
 void Obj_282740::Update(unsigned int key) {
     unsigned int* p = keys;
     int i = 0;
     while (i < 6) {
         if (*p == key) {
             Item_282740* v = items[key % 6].ptr;
-            if (v->value > zero_282740)
+            if (v->value > DAT_003f32e0)
                 v->value = 0.0f;
             return;
         }

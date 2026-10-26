@@ -1,4 +1,6 @@
-extern int gValue_267eb0;
+#include "decls/data/engine/core.h"
+// data: gValue_267eb0 = DAT_004cdbb0
+
 void __cdecl Init();
 class Object {
   public:
@@ -7,6 +9,6 @@ class Object {
     Object();
 };
 Object::Object() {
-    field = gValue_267eb0;
+    field = DAT_004cdbb0;
     Init();
 }

@@ -1,10 +1,10 @@
+#include "decls/data/game/global.h"
+
 struct CtorV_001d0480 {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
 extern "C" unsigned char Get(const char*);
-extern const char a[];
-extern const char b[];
 class InitBase : public CtorV_001d0480 {
   public:
     InitBase(const char* name) : CtorV_001d0480(name, 1) { }
@@ -22,8 +22,8 @@ class Closure1_1ffd80 : public InitBase {
 };
 Closure1_1ffd80::Closure1_1ffd80(const char* name, int v) : InitBase(name) {
     z = v;
-    y = Get(a);
-    x = Get(b);
+    y = Get(((const char*)&DAT_0048e0f0));
+    x = Get(((const char*)&DAT_0048e134));
 }
 class Closure1 : public Closure1_1ffd80 {
   public:

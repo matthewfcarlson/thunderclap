@@ -1,7 +1,9 @@
 // Same code shape as 0x00269560 (propagated; names are from that function)
+#include "decls/data/engine/core.h"
+// data: globalValue = DAT_004cdbb0
+
 typedef unsigned char u8_270130;
 extern void __cdecl release(int, void*);
-extern int globalValue;
 class MemoryPool_270130 {
   public:
     void cleanup();
@@ -22,6 +24,6 @@ class MemoryPool_270130 {
 MemoryPool_270130* MemoryPool_270130::f2(u8_270130 flag) {
     cleanup();
     if (flag & 1)
-        release(globalValue, this);
+        release(DAT_004cdbb0, this);
     return this;
 }

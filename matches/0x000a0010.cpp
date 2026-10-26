@@ -1,14 +1,16 @@
+#include "decls/data/game/global.h"
+// data: Zero_a0010 = DAT_003f32e0
+
 #include "compat/ptr.h"
-extern const float Zero_a0010;
 extern int __cdecl Build(int*, int*, int*);
 int __cdecl FUN_000a0010(float param_1, float param_2, int param_3, float* param_4) {
-    if (param_1 < Zero_a0010 || param_3 <= 0 || param_2 <= Zero_a0010)
+    if (param_1 < DAT_003f32e0 || param_3 <= 0 || param_2 <= DAT_003f32e0)
         return -1;
     int count;
     hulk_freg step;
-    if (param_1 == Zero_a0010 || param_3 == 1) {
+    if (param_1 == DAT_003f32e0 || param_3 == 1) {
         count = 1;
-        step = Zero_a0010;
+        step = DAT_003f32e0;
     } else {
         int local4 = (int)(param_1 / param_2) + 1;
         int local8 = 2;

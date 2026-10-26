@@ -1,4 +1,6 @@
-extern int vtable_337d20;
+#include "decls/data/engine/movie.h"
+// data: vtable_337d20 = DAT_004345e0
+
 struct X_337d20 {
     void* v;
     int a;
@@ -7,7 +9,7 @@ struct X_337d20 {
     X_337d20(int p, int q);
 };
 X_337d20::X_337d20(int p, int q) {
-    v = &vtable_337d20;
+    v = ((int*)&DAT_004345e0);
     a = p;
     b = q;
     c = p;

@@ -1,8 +1,9 @@
 // Same code shape as 0x00363af0 (propagated; names are from that function)
+#include "decls/data/engine/unknown.h"
+
 struct MetaType_3642b0 {
     void f();
 };
-extern MetaType_3642b0 g_3642b0;
 void wrapper() {
-    g_3642b0.f();
+    (*(MetaType_3642b0*)((char*)&DAT_004e635c + 4)).f();
 }

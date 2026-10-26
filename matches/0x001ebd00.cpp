@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gManager_1ebd00 = DAT_004e36d8
+
 class Temp_1ebd00 {
   public:
     void Init();
@@ -12,7 +15,6 @@ class Owner_1ebd00 {
   public:
     void Go(const char*, const char*);
 };
-extern Manager_1ebd00* gManager_1ebd00;
 void Owner_1ebd00::Go(const char* a, const char* b) {
     if (!a || !*a)
         return;
@@ -24,7 +26,7 @@ void Owner_1ebd00::Go(const char* a, const char* b) {
     t->Add("Objects");
     t->Add("FE");
     t->Add(a);
-    if (*(char*)((char*)gManager_1ebd00 + 8))
-        ((Manager_1ebd00*)*(void**)gManager_1ebd00)->Run((char*)t, 0, b, 100.0f);
+    if (*(char*)((char*)(*(Manager_1ebd00**)&DAT_004e36d8) + 8))
+        ((Manager_1ebd00*)*(void**)(*(Manager_1ebd00**)&DAT_004e36d8))->Run((char*)t, 0, b, 100.0f);
     t->Finish();
 }

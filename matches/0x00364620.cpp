@@ -1,7 +1,8 @@
+#include "decls/data/engine/audio.h"
+
 struct Obj_364620 {
     void Run();
 };
-extern Obj_364620 gObj_364620;
 void __fastcall FUN_00364620() {
-    gObj_364620.Run();
+    (*(Obj_364620*)&DAT_004e7690).Run();
 }

@@ -1,12 +1,14 @@
+#include "decls/data/game/unknown.h"
+// data: globalObj_85d70 = DAT_004dd6e4
+
 class Obj_85d70 {
   public:
     virtual void f();
     virtual void g();
 };
-extern Obj_85d70* globalObj_85d70;
 void target() {
-    if (globalObj_85d70) {
-        globalObj_85d70->g();
-        globalObj_85d70 = 0;
+    if ((*(Obj_85d70**)&DAT_004dd6e4)) {
+        (*(Obj_85d70**)&DAT_004dd6e4)->g();
+        (*(Obj_85d70**)&DAT_004dd6e4) = 0;
     }
 }

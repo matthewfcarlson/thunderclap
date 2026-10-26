@@ -1,6 +1,5 @@
 #include "decls/address.h"
-extern const char gA_2e9a0[];
-extern const char gB_2e9a0[];
+#include "decls/data/game/global.h"
 struct Function_2e9a0 {
     virtual void f0();
     Function_2e9a0(int, int);
@@ -12,8 +11,8 @@ struct Function_2e9a0 {
 struct Method1 : Function_2e9a0 {
     Method1(int a, int b) : Function_2e9a0(a, 1) {
         m1c = b;
-        b18 = FUN_001d04d0(gA_2e9a0);
-        b10 = FUN_001d04d0(gB_2e9a0);
+        b18 = FUN_001d04d0(((const char*)&DAT_0048e134));
+        b10 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
     }
     virtual void f0();
     int m1c;

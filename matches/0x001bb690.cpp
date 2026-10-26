@@ -1,6 +1,8 @@
+#include "decls/data/game/global.h"
+// data: gInfo = DAT_0048e100
+
 void* operator new(unsigned int) throw();
 struct Info_1bb690 {};
-extern Info_1bb690 gInfo;
 char GetFlag(Info_1bb690*) throw();
 struct Function_1bb690 {
     Function_1bb690(void* h, int z) throw();
@@ -13,7 +15,7 @@ struct Method0_1bb690 : Function_1bb690 {
     int b;
     Method0_1bb690(void* h, int y, int x) throw() : Function_1bb690(h, 0) {
         a = y;
-        f = GetFlag(&gInfo);
+        f = GetFlag(((Info_1bb690*)&DAT_0048e100));
         b = x;
     }
 };

@@ -1,6 +1,7 @@
-extern float g1_1afa90;
-extern float g2_1afa90;
+#include "decls/data/game/global.h"
+// data: g1_1afa90 = DAT_004c3708, g2_1afa90 = DAT_004c370c
+
 void Set(float a, float b) {
-    g2_1afa90 = b;
-    g1_1afa90 = a;
+    DAT_004c370c = b;
+    DAT_004c3708 = a;
 }

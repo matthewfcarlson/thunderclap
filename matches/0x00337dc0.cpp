@@ -1,8 +1,10 @@
+#include "decls/data/engine/movie.h"
+// data: g_tab = DAT_004d982c
+
 extern "C" int strcmp(const char*, const char*);
-extern const char* g_tab[11];
 int Find(const char* s) {
     for (int i = 0; i < 11; i++) {
-        if (strcmp(s, g_tab[i]) == 0)
+        if (strcmp(s, ((const char**)&DAT_004d982c)[i]) == 0)
             return i;
     }
     return -1;

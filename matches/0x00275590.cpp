@@ -1,3 +1,6 @@
+#include "decls/data/engine/core.h"
+// data: gAlloc_275590 = DAT_0052a1e4
+
 class Alloc_275590 {
   public:
     virtual void a();
@@ -6,8 +9,6 @@ class Alloc_275590 {
     virtual void d();
     virtual void Free(void* p);
 };
-extern Alloc_275590* gAlloc_275590;
-extern char gCs[];
 extern void* ReqVtbl[];
 extern void* FileReqVtbl[];
 void Lock(void*);
@@ -40,9 +41,9 @@ FileCancelRequest_275590* FileCancelRequest_275590::Dtor(unsigned char flag) {
     mH->b();
     vt = ReqVtbl;
     if (flag & 1) {
-        Lock(gCs);
-        gAlloc_275590->Free(this);
-        Unlock(gCs);
+        Lock(((char*)&DAT_0052a1c8));
+        (*(Alloc_275590**)&DAT_0052a1e4)->Free(this);
+        Unlock(((char*)&DAT_0052a1c8));
     }
     return this;
 }

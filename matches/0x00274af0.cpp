@@ -1,3 +1,6 @@
+#include "decls/data/engine/core.h"
+// data: gData_274af0 = DAT_0052a1c8
+
 struct Obj_274af0 {
     virtual void f0();
     virtual void f1();
@@ -15,13 +18,11 @@ struct Obj_274af0 {
     virtual void f13();
     virtual void f14(void*, void*, void*);
 };
-extern Obj_274af0* gObj_274af0;
-extern char gData_274af0[];
 void init(void*);
 void target() {
     char a[4], b[4], c[4];
-    init(gData_274af0);
-    gObj_274af0->f14(a, b, c);
-    gObj_274af0->f1();
-    gObj_274af0 = 0;
+    init(((char*)&DAT_0052a1c8));
+    (*(Obj_274af0**)&DAT_0052a1e4)->f14(a, b, c);
+    (*(Obj_274af0**)&DAT_0052a1e4)->f1();
+    (*(Obj_274af0**)&DAT_0052a1e4) = 0;
 }

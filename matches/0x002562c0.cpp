@@ -1,7 +1,8 @@
 #include "gen/audio.h"
+#include "decls/data/engine/audio.h"
+// data: pool_2562c0 = DAT_004e75b8
 
 extern "C" void* __cdecl alloc(void*);
-extern char pool_2562c0;
 class Part {
   public:
     char pad[8];
@@ -36,7 +37,7 @@ class Clip_2562c0 : public Base_2562c0 {
 };
 
 void* audio::SeqEventClipType::vfunc_3() {
-    void* p = alloc(&pool_2562c0);
+    void* p = alloc(((char*)&DAT_004e75b8));
     if (p) {
         Clip_2562c0* q = (Clip_2562c0*)p;
         q->Clip_2562c0::Clip_2562c0();

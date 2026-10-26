@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gZero_213dd0 = DAT_003f335c
+
 #include "compat/ptr.h"
 struct R_213dd0 {
     int type;
@@ -32,7 +35,6 @@ struct Data_213dd0 {
     char pad3[4];
     Ent_213dd0* items[1];
 };
-extern char gZero_213dd0[];
 char* FUN_00213dd0(Out_213dd0* out, int x, int index) {
     R_213dd0* r = GetR(x, (hulk_intptr)out);
     if (r->type != 6)
@@ -44,7 +46,7 @@ char* FUN_00213dd0(Out_213dd0* out, int x, int index) {
         if (index > d->n)
             return 0;
         p = (int*)((char*)d + 8 + index * 8);
-        ret = gZero_213dd0;
+        ret = ((char*)&DAT_003f335c);
     } else {
         Inner_213dd0* in = d->inner;
         if (index > in->count)

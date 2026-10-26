@@ -1,5 +1,7 @@
+#include "decls/data/engine/pure3d/scenegraph.h"
+// data: gState_2961e0 = DAT_0052cb98
+
 typedef unsigned int u32_2961e0;
-extern int gState_2961e0;
 class B_2961e0 {
   public:
     virtual u32_2961e0 a0();
@@ -27,7 +29,7 @@ class A_2961e0 {
 };
 u32_2961e0 A_2961e0::f(u32_2961e0 a, u32_2961e0 b, u32_2961e0 c, u32_2961e0 d) {
     if (p) {
-        gState_2961e0 = 0;
+        (*(int*)&DAT_0052cb98) = 0;
         return p->a15(a, b, 2, c, d);
     }
     return 0;

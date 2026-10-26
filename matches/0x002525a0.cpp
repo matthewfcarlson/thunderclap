@@ -1,4 +1,5 @@
 #include "gen/audio.h"
+#include "decls/data/engine/audio.h"
 
 class SeqEventVarVolumeRand_2525a0 : public audio::SeqEvent {
   public:
@@ -10,10 +11,9 @@ class SeqEventVarVolumeRand_2525a0 : public audio::SeqEvent {
 };
 extern void __fastcall FUN_0025fd10(void*);
 extern void FUN_00247550(void*, SeqEventVarVolumeRand_2525a0*);
-extern char data_4e6e28;
 SeqEventVarVolumeRand_2525a0* SeqEventVarVolumeRand_2525a0::vfunc_4(int x) {
     FUN_0025fd10((void*)(this));
     if (x & 1)
-        FUN_00247550(&data_4e6e28, this);
+        FUN_00247550(((char*)((char*)&DAT_004e6de0 + 72)), this);
     return this;
 }

@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 #include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" char DAT_003f420c[];
@@ -15,14 +18,13 @@ class Method4_2d770 {
 struct ThisCall_001d0480 {
     void FUN_001d0480(const char*, int);
 };
-extern const char s0_2d770[], s1[], s2[], s3[];
 Method4_2d770::Method4_2d770(const char* p, int q) {
     ((ThisCall_001d0480*)(this))->FUN_001d0480(p, 4);
     vt = ((hulk_intptr)DAT_003f420c);
     m1c = q;
-    b18 = FUN_001d04d0(s0_2d770);
-    b10 = FUN_001d04d0(s1);
-    b11 = FUN_001d04d0(s2);
-    b12 = FUN_001d04d0(s3);
-    b13 = FUN_001d04d0(s2);
+    b18 = FUN_001d04d0(((const char*)&DAT_0048e100));
+    b10 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    b11 = FUN_001d04d0(((const char*)&DAT_0048e128));
+    b12 = FUN_001d04d0(((const char*)&DAT_0048e134));
+    b13 = FUN_001d04d0(((const char*)&DAT_0048e128));
 }

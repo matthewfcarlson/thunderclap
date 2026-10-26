@@ -1,5 +1,6 @@
+#include "decls/data/engine/movie.h"
+
 #include "compat/ptr.h"
-extern void* DAT_00434630[];
 struct T3 {
     char c[3];
 };
@@ -36,7 +37,7 @@ class O_3388d0 {
 };
 O_3388d0::O_3388d0(int a, int b) throw() {
     m8 = b;
-    vptr = DAT_00434630;
+    vptr = ((void**)&DAT_00434630);
     m14 = (hulk_intptr)FUN_0008d690(b + 0x40);
     m18 = (m14 + 0x40) & ~0x3f;
     m4 = a;

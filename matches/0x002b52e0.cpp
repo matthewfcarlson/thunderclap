@@ -1,3 +1,6 @@
+#include "decls/data/engine/pure3d.h"
+// data: gGlobal_2b52e0 = DAT_00554bb0
+
 class Ref_2b52e0 {
   public:
     virtual void A();
@@ -8,7 +11,6 @@ class DrawablePrimitive_2b52e0 {
     virtual void Q();
     DrawablePrimitive_2b52e0();
 };
-extern Ref_2b52e0* gGlobal_2b52e0;
 inline Ref_2b52e0* Acq(Ref_2b52e0* x) {
     if (x)
         x->A();
@@ -40,7 +42,7 @@ ShadowMeshImpl::ShadowMeshImpl(void* arg) {
     m3 = 0;
     m4 = 0;
     mValue = 2;
-    Ref_2b52e0* p = Acq(gGlobal_2b52e0);
+    Ref_2b52e0* p = Acq((*(Ref_2b52e0**)&DAT_00554bb0));
     if (m0)
         m0->B();
     m0 = p;

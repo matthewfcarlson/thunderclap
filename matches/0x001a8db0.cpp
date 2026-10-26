@@ -1,3 +1,6 @@
+#include "decls/data/game/hulkfight/scenario.h"
+// data: g_cur_1a8db0 = DAT_004e1760
+
 extern "C" void _ReadWriteBarrier();
 extern void* g_vt_1a8db0[];
 class Ref_1a8db0 {
@@ -15,7 +18,6 @@ struct El {
     Ref_1a8db0* r5;
 };
 class NISAnimationAction_1a8db0;
-extern NISAnimationAction_1a8db0* g_cur_1a8db0;
 class Action_1a8db0 {
   public:
     void* vptr;
@@ -32,8 +34,8 @@ class NISAnimationAction_1a8db0 : public Action_1a8db0 {
 };
 NISAnimationAction_1a8db0::~NISAnimationAction_1a8db0() throw() {
     vptr = g_vt_1a8db0;
-    if (g_cur_1a8db0 == this)
-        g_cur_1a8db0 = 0;
+    if ((*(NISAnimationAction_1a8db0**)&DAT_004e1760) == this)
+        (*(NISAnimationAction_1a8db0**)&DAT_004e1760) = 0;
     if (m20) {
         m20->Release();
         m20 = 0;

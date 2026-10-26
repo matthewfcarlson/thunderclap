@@ -1,4 +1,6 @@
-extern float Zero_360f0;
+#include "decls/data/game/global.h"
+// data: Zero_360f0 = DAT_003f32e0
+
 class Thing_360f0 {
   public:
     char pad[0x110];
@@ -7,7 +9,7 @@ class Thing_360f0 {
     bool Target();
 };
 bool Thing_360f0::Target() {
-    if (value > Zero_360f0)
+    if (value > (*(float*)&DAT_003f32e0))
         return true;
     return count > 0;
 }

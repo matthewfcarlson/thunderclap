@@ -1,5 +1,7 @@
+#include "decls/data/game/global.h"
+// data: zeroValue_222ee0 = DAT_003f32e0
+
 #include "compat/ptr.h"
-extern const float zeroValue_222ee0;
 class Item_222ee0 {
   public:
     virtual void a();
@@ -34,7 +36,7 @@ hulk_intptr Owner_222ee0::target(int index) {
     int found = 0;
     for (unsigned i = 0; i < count; ++i) {
         Entry_222ee0* e = &entries[i];
-        if (!e->obj->Check() && (e->value >= zeroValue_222ee0 || e->flag)) {
+        if (!e->obj->Check() && (e->value >= DAT_003f32e0 || e->flag)) {
             if (index == found)
                 return (hulk_intptr)e->obj;
             ++found;

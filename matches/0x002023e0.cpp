@@ -1,3 +1,6 @@
+#include "decls/data/engine/unknown.h"
+// data: global64 = DAT_004d293c
+
 #include "compat/ptr.h"
 extern "C" char DAT_004259f8[];
 struct Head_2023e0 {
@@ -21,7 +24,6 @@ class CWorldCollisionManager {
     char pad24[4];
     char flag;
 };
-extern int global64;
 CWorldCollisionManager* __fastcall FUN_002023e0(CWorldCollisionManager* s, void*) {
     Head_2023e0* h = &s->head;
     s->vf = (void*)((hulk_intptr)DAT_004259f8);
@@ -34,6 +36,6 @@ CWorldCollisionManager* __fastcall FUN_002023e0(CWorldCollisionManager* s, void*
     s->value = (int)0xc61c4000;
     s->part.B(0);
     s->flag = 0;
-    h->C(global64);
+    h->C(DAT_004d293c);
     return s;
 }

@@ -1,8 +1,9 @@
 // Same code shape as 0x00363af0 (propagated; names are from that function)
+#include "decls/data/engine/movie.h"
+
 struct Obj_364820 {
     void f();
 };
-extern Obj_364820 g_364820;
 void wrapper() {
-    g_364820.f();
+    (*(Obj_364820*)&DAT_00565fc0).f();
 }

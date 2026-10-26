@@ -1,3 +1,6 @@
+#include "decls/data/engine/core.h"
+// data: g_unknown_270170 = DAT_004cdbb0
+
 #include "compat/ptr.h"
 extern "C" char DAT_0042afa8[];
 extern "C" char DAT_0042b3a4[];
@@ -5,7 +8,6 @@ extern "C" char DAT_0042b5ac[];
 extern "C" char DAT_0042b5b4[];
 extern "C" char DAT_0042b5f4[];
 typedef unsigned int u32_270170;
-extern u32_270170 g_unknown_270170;
 void FUN_002705f0();
 class MemoryPool {
   public:
@@ -27,7 +29,7 @@ class MemoryPool {
 MemoryPool::MemoryPool() {
     v0 = ((hulk_intptr)DAT_0042b5f4);
     v1 = ((hulk_intptr)DAT_0042afa8);
-    v2 = g_unknown_270170;
+    v2 = (*(u32_270170*)&DAT_004cdbb0);
     FUN_002705f0();
     v1 = ((hulk_intptr)DAT_0042b3a4);
     v3 = 0;

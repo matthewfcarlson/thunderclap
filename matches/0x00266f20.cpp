@@ -1,3 +1,6 @@
+#include "decls/data/engine/content.h"
+// data: gItems_266f20 = DAT_00527c60
+
 class Item_266f20 {
   public:
     virtual void a();
@@ -13,7 +16,6 @@ struct Entry_266f20 {
     Item_266f20* ptr;
     char pad[12];
 };
-extern Entry_266f20 gItems_266f20[];
 int target(int index, int value) {
-    return gItems_266f20[index].ptr->g(value);
+    return ((Entry_266f20*)((char*)&DAT_00527c58 + 8))[index].ptr->g(value);
 }

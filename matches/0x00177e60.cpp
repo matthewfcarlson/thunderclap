@@ -1,5 +1,7 @@
 // Same code shape as 0x0004df50 (propagated; names are from that function)
 #include "gen/fight.h"
+#include "decls/data/game/global.h"
+// data: zeroCondition = DAT_003f335c
 
 class CStageCondition_177e60 {};
 class ParamValue_177e60 {
@@ -14,10 +16,9 @@ class ParamValueEnum_177e60 : public ParamValue_177e60 {
   public:
     virtual void f();
 };
-extern CStageCondition_177e60 zeroCondition;
 
 template <> void* fight::ParamEnumConstList<hulkfight::motion::LocomotionStateTrack>::vfunc_6(int , int index) {
     if (index >= 0 && index < this->f_14)
         return (void*)((*(CStageCondition_177e60 ** *)&this->f_10)[index]);
-    return (void*)(&zeroCondition);
+    return (void*)(((CStageCondition_177e60*)&DAT_003f335c));
 }

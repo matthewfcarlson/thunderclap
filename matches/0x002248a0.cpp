@@ -1,7 +1,8 @@
+#include "decls/data/engine/choreo2.h"
+// data: gCount_2248a0 = DAT_004e5aac
+
 #include "compat/ptr.h"
 extern "C" char DAT_004272f0[];
-extern int gCount_2248a0;
-extern int gMax_2248a0;
 class JointDriver_2248a0 {
   public:
     void Init();
@@ -25,9 +26,9 @@ JointDriver* JointDriver::Init() {
     mValue = 0;
     mState = 3;
     ((Part_2248a0*)((char*)this + 0x18))->Init();
-    ++gCount_2248a0;
-    if (gCount_2248a0 <= gMax_2248a0) {
+    ++(*(int*)&DAT_004e5aac);
+    if ((*(int*)&DAT_004e5aac) <= (*(int*)&DAT_004e5ab0)) {
     } else
-        gMax_2248a0 = gCount_2248a0;
+        (*(int*)&DAT_004e5ab0) = (*(int*)&DAT_004e5aac);
     return this;
 }

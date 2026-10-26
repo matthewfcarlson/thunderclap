@@ -1,3 +1,6 @@
+#include "decls/data/engine/pure3d.h"
+// data: counter = DAT_005555b8
+
 class Target_327b60 {
   public:
     void m(int);
@@ -37,7 +40,6 @@ class pddiBaseShader {
     int pad2;
     int id;
 };
-extern int counter;
 bool pddiBaseShader::f9(int key, int arg) {
     Entry_327b60* e = f19();
     if (e) {
@@ -45,11 +47,11 @@ bool pddiBaseShader::f9(int key, int arg) {
             if (e->key == key) {
                 Target_327b60* o = (Target_327b60*)((char*)this + e->off);
                 (o->*e->fn)(arg);
-                ++counter;
-                if (counter == -1)
-                    counter = 0;
-                id = counter;
-                ++counter;
+                ++(*(int*)&DAT_005555b8);
+                if ((*(int*)&DAT_005555b8) == -1)
+                    (*(int*)&DAT_005555b8) = 0;
+                id = (*(int*)&DAT_005555b8);
+                ++(*(int*)&DAT_005555b8);
                 return true;
             }
             e = (Entry_327b60*)((char*)e + 24);

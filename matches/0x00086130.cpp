@@ -1,10 +1,11 @@
+#include "decls/data/game/global.h"
+
 struct X {
     char pad[0x38];
     unsigned int lo;
     unsigned int hi;
     double Get();
 };
-extern const float DAT_003ffaac;
 double X::Get() {
     struct Q {
         unsigned int lo;

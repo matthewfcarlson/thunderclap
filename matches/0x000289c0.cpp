@@ -1,5 +1,7 @@
+#include "decls/data/game/global.h"
+// data: zero = DAT_003f32e0
+
 #include "compat/ptr.h"
-extern const float zero;
 struct Result {
     float Get();
 };
@@ -12,6 +14,6 @@ hulk_freg Obj::Run(const char* s) {
     unsigned __int64 v = Parse(s, 0, 0);
     Result* r = Find((unsigned)v, (unsigned)(v >> 32));
     if (!r)
-        return zero;
+        return DAT_003f32e0;
     return r->Get();
 }

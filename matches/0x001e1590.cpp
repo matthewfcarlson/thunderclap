@@ -1,5 +1,6 @@
+#include "decls/data/game/global.h"
+
 extern "C" unsigned char __cdecl check(const void*);
-extern char a[], b[];
 class Function_1e1590 {
   public:
     virtual void run();
@@ -16,8 +17,8 @@ class Method1 : public Function_1e1590 {
     virtual void run();
     Method1(const char* name, int key) : Function_1e1590(name, 1) {
         id = key;
-        y = check(a);
-        x = check(b);
+        y = check(((char*)&DAT_0048e134));
+        x = check(((char*)&DAT_0048e0f0));
     }
 };
 class Closure1 : public Method1 {

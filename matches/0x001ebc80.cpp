@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gState_1ebc80 = DAT_004e36d8, sDialogue = DAT_00424220, sObjects = DAT_00424208
+
 class Builder {
   public:
     void Init();
@@ -14,10 +17,6 @@ class State_1ebc80 {
     char pad[4];
     char enabled;
 };
-extern State_1ebc80* gState_1ebc80;
-extern const char sObjects[];
-extern const char sDialogue[];
-extern const char sCow[];
 void __stdcall target(void* param1, const char* param2) {
     char local[72];
     if (!param1)
@@ -28,10 +27,10 @@ void __stdcall target(void* param1, const char* param2) {
         return;
     Builder* b = (Builder*)local;
     b->Init();
-    b->Add(sObjects);
-    b->Add(sDialogue);
-    b->Add(sCow);
-    State_1ebc80* s = gState_1ebc80;
+    b->Add(DAT_00424208);
+    b->Add(DAT_00424220);
+    b->Add(DAT_0042424c);
+    State_1ebc80* s = (*(State_1ebc80**)&DAT_004e36d8);
     if (s->enabled)
         s->runner->Run(local, (char*)param1 + 8, param2, 100.0f);
     b->Finish();

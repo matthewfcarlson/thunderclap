@@ -16,14 +16,13 @@ class Method3 : public Function_2e350 {
     int m1c;
     Method3(int, int);
 };
-extern const char s1_2e350[];
 extern const char s2_2e350[];
 extern const char DAT_0048e10c[];
 Method3::Method3(int a, int x) {
     Init(a, 3);
     v = ((hulk_intptr)DAT_003f432c);
     m1c = x;
-    b18 = FUN_001d04d0(s1_2e350);
+    b18 = FUN_001d04d0(((const char*)&DAT_0048e0e4));
     b10 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
     b11 = FUN_001d04d0(DAT_0048e10c);
     b12 = FUN_001d04d0(DAT_0048e10c);

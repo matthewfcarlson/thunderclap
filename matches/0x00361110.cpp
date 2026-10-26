@@ -1,3 +1,6 @@
+#include "decls/data/platform/xbox/audio.h"
+// data: store = DAT_004e77c0
+
 struct Pair {
     int a, b;
 };
@@ -6,12 +9,11 @@ class Store {
   public:
     void Init(Pair*, Pair*, int, int);
 };
-extern Store store;
 extern "C" int __cdecl atexit(void(__cdecl*)());
 extern void __cdecl cleanup();
 void __cdecl FUN_00361110() {
     Pair a = make("Properties", 0, 0);
     Pair b = make("Meta", 0, 0);
-    store.Init(&b, &a, 16, 8);
+    (*(Store*)&DAT_004e77c0).Init(&b, &a, 16, 8);
     atexit(cleanup);
 }

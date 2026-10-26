@@ -1,7 +1,9 @@
+#include "decls/data/engine/audio.h"
+// data: gData_265bf0 = DAT_00527c28
+
 extern "C" void Init(void*);
 extern "C" void AddRef(void*);
 extern "C" void Release(void*);
-char gData_265bf0[16];
 struct Obj_265bf0 {
     char pad0[1];
     unsigned char flag;
@@ -17,7 +19,7 @@ struct Obj_265bf0 {
 };
 void __fastcall Target(Obj_265bf0* self) {
     self->flag = 1;
-    Init(&gData_265bf0);
+    Init(((char(*)[16])((char*)&DAT_0051de40 + 40424)));
     void* p = self->m30;
     self->m28 = p;
     self->m2c = p;

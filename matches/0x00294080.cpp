@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: state = DAT_0052c2b4
+
 struct Item {
     virtual void v0();
     virtual void v1();
@@ -11,14 +14,13 @@ struct State {
     char pad[8];
     int value;
 };
-extern State* state;
 struct Owner {
     char pad[0x3c];
     Item* items[32];
     void func();
 };
 void Owner::func() {
-    state->value = 0;
+    (*(State**)&DAT_0052c2b4)->value = 0;
     for (int i = 0; i < 32; ++i) {
         if (items[i])
             items[i]->slot();

@@ -1,12 +1,14 @@
+#include "decls/data/engine/unknown.h"
+// data: gPool_242bd0 = DAT_004e5db0
+
 #include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
-extern char gPool_242bd0[];
 extern void* __cdecl FUN_00247530(void*);
 struct Node {
     int a[10];
 };
 Node* __cdecl FUN_00242bd0() {
-    Node* p = (Node*)FUN_00247530(gPool_242bd0);
+    Node* p = (Node*)FUN_00247530(DAT_004e5db0);
     if (p) {
         int* q = (int*)p + 1;
         q[0] = (hulk_intptr)q;

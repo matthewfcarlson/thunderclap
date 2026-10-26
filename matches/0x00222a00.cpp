@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: zero_222a00 = DAT_003f32e0
+
 class EntryOwner {
   public:
     virtual void f0();
@@ -20,7 +23,6 @@ struct Item_222a00 {
     float value;
     unsigned char enabled;
 };
-extern const float zero_222a00;
 class Container_222a00 {
   public:
     char pad[0x68];
@@ -33,7 +35,7 @@ unsigned char Container_222a00::Check(EntryOwner* item) {
     while (i < count) {
         Item_222a00* e = (Item_222a00*)((char*)this + 0x6c + i * 0x28);
         if (*(EntryOwner**)e == item) {
-            if (!(e->value < zero_222a00) || e->enabled)
+            if (!(e->value < DAT_003f32e0) || e->enabled)
                 return (unsigned char)item->f13();
             break;
         }

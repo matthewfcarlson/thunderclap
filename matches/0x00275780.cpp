@@ -1,6 +1,8 @@
+#include "decls/data/engine/core.h"
+// data: g_lock_275780 = DAT_0052a1c8, g_pool_275780 = DAT_0052a1e4
+
 extern void* g_vftable_275780[];
 extern void* g_base_vftable[];
-extern char g_lock_275780[];
 class Pool_275780 {
   public:
     virtual void v0();
@@ -9,7 +11,6 @@ class Pool_275780 {
     virtual void v3();
     virtual void Free(void*);
 };
-extern Pool_275780* g_pool_275780;
 void Lock(void*);
 void Unlock(void*);
 class B_275780 {
@@ -41,9 +42,9 @@ DriveMediaRequest_275780* DriveMediaRequest_275780::f0(unsigned char flags) {
     m8->v1();
     vptr = g_base_vftable;
     if (flags & 1) {
-        Lock(g_lock_275780);
-        g_pool_275780->Free(this);
-        Unlock(g_lock_275780);
+        Lock(((char*)&DAT_0052a1c8));
+        (*(Pool_275780**)&DAT_0052a1e4)->Free(this);
+        Unlock(((char*)&DAT_0052a1c8));
     }
     return this;
 }

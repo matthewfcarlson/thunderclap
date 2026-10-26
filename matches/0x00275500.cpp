@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/core.h"
+// data: gObject_275500 = DAT_0052a1e4
 
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b99c[];
@@ -23,7 +24,6 @@ struct Inner_275500 {
 };
 extern void __cdecl FUN_0026d850(void*);
 extern void __cdecl FUN_0026d840(void*);
-extern Owner_275500* gObject_275500;
 namespace core { struct FileGetSizeRequest {
     virtual FileGetSizeRequest* vfunc_0(int);
     virtual void vfunc_1();
@@ -44,7 +44,7 @@ core::FileGetSizeRequest* core::FileGetSizeRequest::vfunc_0(int flag) {
     ((hulk_intptr*)this)[0] = ((hulk_intptr)DAT_0042b914);
     if (flag & 1) {
         FUN_0026d850((void*)((hulk_intptr)((char*)&DAT_0052a1c8)));
-        gObject_275500->E(this);
+        (*(Owner_275500**)&DAT_0052a1e4)->E(this);
         FUN_0026d840((void*)((hulk_intptr)((char*)&DAT_0052a1c8)));
     }
     return this;

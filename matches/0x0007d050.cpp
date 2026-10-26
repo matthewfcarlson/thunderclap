@@ -1,10 +1,11 @@
+#include "decls/data/game/global.h"
+
 class Function_7d050 {
   public:
     Function_7d050(const char*, int);
     virtual void f();
 };
 extern "C" unsigned char __cdecl check(const char*);
-extern const char a_7d050[], b[], c[], d[];
 class Method3 : public Function_7d050 {
   public:
     Method3(const char*, int);
@@ -18,8 +19,8 @@ class Method3 : public Function_7d050 {
 };
 Method3::Method3(const char* s, int k) : Function_7d050(s, 3) {
     n = k;
-    w = check(a_7d050);
-    x = check(b);
-    y = check(c);
-    z = check(d);
+    w = check(((const char*)&DAT_0048e100));
+    x = check(((const char*)&DAT_0048e0f0));
+    y = check(((const char*)&DAT_0048e134));
+    z = check(((const char*)&DAT_0048e0e4));
 }

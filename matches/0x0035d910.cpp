@@ -1,8 +1,10 @@
+#include "decls/data/game/global.h"
+// data: gPair = DAT_004de6c0
+
 struct Pair {
     unsigned a, b;
 };
 extern Pair __cdecl FUN_0027b020(const char*);
-extern Pair gPair;
 void FUN_0035d910() {
-    gPair = FUN_0027b020("Mode");
+    (*(Pair*)&DAT_004de6c0) = FUN_0027b020("Mode");
 }

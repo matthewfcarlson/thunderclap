@@ -1,5 +1,7 @@
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 struct CTriggerVolumeManager;
-extern char gA, gB;
 char __cdecl getFlag(const char*);
 class Function_1ffa60 {
   public:
@@ -16,8 +18,8 @@ class Method1 : public Function_1ffa60 {
   public:
     Method1(const char* s, CTriggerVolumeManager* m) : Function_1ffa60(s, 1) {
         owner = m;
-        b18 = getFlag(&gA);
-        b10 = getFlag(&gB);
+        b18 = getFlag(((char*)&DAT_0048e128));
+        b10 = getFlag(((char*)&DAT_0048e0f0));
     }
     virtual void f();
 };

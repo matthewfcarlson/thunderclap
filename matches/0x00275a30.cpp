@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/core.h"
+// data: globalG = DAT_0052a1e4
 
 extern int vtDrive, vtRequest;
 extern void FUN_0026d850(void*);
@@ -17,7 +18,6 @@ class G_275a30 {
     virtual void d();
     virtual void e(void*);
 };
-extern G_275a30* globalG;
 namespace core { class DriveFindFirstRequest {
   public:
     virtual DriveFindFirstRequest* vfunc_0(int);
@@ -39,7 +39,7 @@ core::DriveFindFirstRequest* core::DriveFindFirstRequest::vfunc_0(int flag) {
     ((hulk_intptr*)this)[0] = (hulk_intptr)&vtRequest;
     if (flag & 1) {
         FUN_0026d850((void*)((hulk_intptr)((char*)&DAT_0052a1c8)));
-        globalG->e(this);
+        (*(G_275a30**)&DAT_0052a1e4)->e(this);
         FUN_0026d840((void*)((hulk_intptr)((char*)&DAT_0052a1c8)));
     }
     return this;

@@ -1,4 +1,6 @@
-extern float Zero_1cd650;
+#include "decls/data/game/global.h"
+// data: Zero_1cd650 = DAT_003f32e0
+
 struct ThisCall_001cccc0 {
     void Stop();
 };
@@ -11,9 +13,9 @@ class Thing_1cd650 {
     void Update(float dt);
 };
 void Thing_1cd650::Update(float dt) {
-    if (timer != Zero_1cd650) {
+    if (timer != (*(float*)&DAT_003f32e0)) {
         timer = timer - dt;
-        if (timer <= Zero_1cd650) {
+        if (timer <= (*(float*)&DAT_003f32e0)) {
             timer = 0.0f;
             ((ThisCall_001cccc0*)(this))->Stop();
             b = 0;

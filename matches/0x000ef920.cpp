@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: g_ref_ef920 = DAT_004de954
+
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_ef920[];
 extern void* g_vftable2[];
@@ -17,7 +20,6 @@ struct A_ef920 {
 struct B_ef920 {
     void Fin() throw();
 };
-extern Ref_ef920* g_ref_ef920;
 class FEThingsBase_ef920 {
   public:
     void* vptr;
@@ -111,9 +113,9 @@ FEThingsBase_ef920::~FEThingsBase_ef920() throw() {
         m1818->Release();
         m1818 = 0;
     }
-    if (g_ref_ef920) {
-        g_ref_ef920->Release();
-        g_ref_ef920 = 0;
+    if ((*(Ref_ef920**)&DAT_004de954)) {
+        (*(Ref_ef920**)&DAT_004de954)->Release();
+        (*(Ref_ef920**)&DAT_004de954) = 0;
     }
     hvptr = g_vftable2;
     for (int j = 0; j < 32; j++)

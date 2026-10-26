@@ -1,9 +1,10 @@
+#include "decls/data/game/unknown.h"
+
 typedef unsigned int uint;
-extern uint* DAT_004e5acc;
 int Random(int low, int high) {
-    uint* p = DAT_004e5acc;
-    uint* q = DAT_004e5acc + 1;
-    *DAT_004e5acc = (*DAT_004e5acc & 65535) * 36969 + (*DAT_004e5acc >> 16);
+    uint* p = (*(uint**)&DAT_004e5acc);
+    uint* q = (*(uint**)&DAT_004e5acc) + 1;
+    *(*(uint**)&DAT_004e5acc) = (*(*(uint**)&DAT_004e5acc) & 65535) * 36969 + (*(*(uint**)&DAT_004e5acc) >> 16);
     uint b = *q;
     b = (b & 65535) * 18000 + (b >> 16);
     *q = b;

@@ -1,9 +1,10 @@
+#include "decls/data/engine/pure3d.h"
+
 class Ref {
   public:
     virtual void AddRef();
     virtual void Release();
 };
-extern Ref* gRef;
 class DrawablePrimitive_2b5240 {
   public:
     virtual void v0();
@@ -35,5 +36,5 @@ class ShadowMeshImpl : public DrawablePrimitive_2b5240 {
 };
 ShadowMeshImpl::ShadowMeshImpl() : DrawablePrimitive_2b5240(), handle(), a(0), b(0), c(0), d(0) {
     n = 2;
-    handle = gRef;
+    handle = (*(Ref**)&DAT_00554bb0);
 }

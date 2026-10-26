@@ -1,7 +1,8 @@
+#include "decls/data/game/global.h"
+// data: name1 = DAT_0048e0e4, name2 = DAT_0048e0f0
+
 typedef unsigned int uint;
 extern "C" unsigned char parse(const char*);
-extern const char* name1;
-extern const char* name2;
 class Function_1cbd90 {
   public:
     Function_1cbd90(void*, int);
@@ -17,8 +18,8 @@ class Method1 : public Function_1cbd90 {
     void* m;
     Method1(void* p, void* v) : Function_1cbd90(p, 1) {
         m = v;
-        b = parse((const char*)&name1);
-        a = parse((const char*)&name2);
+        b = parse((const char*)&(*(const char**)&DAT_0048e0e4));
+        a = parse((const char*)&(*(const char**)&DAT_0048e0f0));
     }
     virtual void f();
 };

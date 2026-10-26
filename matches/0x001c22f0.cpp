@@ -1,3 +1,7 @@
+#include "decls/data/game/Render/Canvas.h"
+#include "decls/data/game/global.h"
+// data: g_obj_1c22f0 = DAT_004e2318, kZero_1c22f0 = DAT_003f32e0
+
 struct Sub_1c22f0 {
     void A(int);
     void B();
@@ -11,8 +15,6 @@ struct Obj2_1c22f0 {
 struct Parent_1c22f0 {
     void Done();
 };
-extern Obj2_1c22f0* g_obj_1c22f0;
-extern const float kZero_1c22f0;
 
 class Thing_1c22f0 {
   public:
@@ -32,9 +34,9 @@ void Thing_1c22f0::Fn() {
     mSub->A(mVal);
     mSub->B();
     mSub->C();
-    if (g_obj_1c22f0 && mF != kZero_1c22f0) {
+    if ((*(Obj2_1c22f0**)&DAT_004e2318) && mF != DAT_003f32e0) {
         Set(mF, mG);
-        g_obj_1c22f0->v2();
+        (*(Obj2_1c22f0**)&DAT_004e2318)->v2();
     }
     mParent->Done();
 }

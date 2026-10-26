@@ -1,4 +1,5 @@
-extern char gKey[];
+#include "decls/data/game/global.h"
+
 extern "C" unsigned char __cdecl lookup(const char*);
 class Function_1e2610 {
   public:
@@ -15,8 +16,8 @@ class Method1_1e2610 : public Function_1e2610 {
     const char* third;
     Method1_1e2610(const char* a, const char* c) throw() : Function_1e2610(a, 1) {
         third = c;
-        flag2 = lookup(gKey);
-        flag1 = lookup(gKey);
+        flag2 = lookup(((char*)&DAT_0048e0f0));
+        flag1 = lookup(((char*)&DAT_0048e0f0));
     }
     virtual void action();
 };

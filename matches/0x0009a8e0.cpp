@@ -1,9 +1,8 @@
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 #include "compat/ptr.h"
 extern "C" char DAT_00404c20[];
-extern char s1_9a8e0[];
-extern char s2_9a8e0[];
-extern char s3_9a8e0[];
-extern char s4_9a8e0[];
 extern char __cdecl Convert(const char*);
 class Method3_9a8e0 {
   public:
@@ -22,8 +21,8 @@ Method3_9a8e0::Method3_9a8e0(void* p, int value) {
     Init(p, 3);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00404c20);
     field1c = value;
-    b18 = Convert(s1_9a8e0);
-    b10 = Convert(s2_9a8e0);
-    b11 = Convert(s3_9a8e0);
-    b12 = Convert(s4_9a8e0);
+    b18 = Convert(((char*)&DAT_0048e100));
+    b10 = Convert(((char*)&DAT_0048e128));
+    b11 = Convert(((char*)&DAT_0048e128));
+    b12 = Convert(((char*)&DAT_0048e0e4));
 }

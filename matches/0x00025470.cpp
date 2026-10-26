@@ -1,4 +1,6 @@
-extern float gValue_25470;
+#include "decls/data/game/global.h"
+// data: gValue_25470 = DAT_003f5bac
+
 class Item_25470 {
   public:
     char pad0[0x128];
@@ -31,7 +33,7 @@ void Owner_25470::Run(int id) {
         Item_25470* item = m->Find(entries[i]);
         if (item && item->id == id) {
             item->Set(1);
-            item->value = gValue_25470;
+            item->value = (*(float*)&DAT_003f5bac);
         }
     }
 }

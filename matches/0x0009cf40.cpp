@@ -1,4 +1,7 @@
-extern char gA_9cf40[], gB[], gC[];
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
+extern char gB[];
 char __cdecl check(const char*);
 class Function_9cf40 {
   public:
@@ -18,9 +21,9 @@ class Method2 : public Function_9cf40 {
     virtual void f();
     Method2(void* p, void* c) : Function_9cf40(p, 2) {
         p1 = c;
-        b18 = check(gA_9cf40);
+        b18 = check(((char*)&DAT_0048e100));
         b10 = check(gB);
-        b11 = check(gC);
+        b11 = check(((char*)&DAT_0048e128));
     }
 };
 class Closure2 : public Method2 {

@@ -1,5 +1,7 @@
+#include "decls/data/engine/pure3d.h"
+// data: gCounter_327aa0 = DAT_005555b8
+
 typedef unsigned int uint;
-extern int gCounter_327aa0;
 class Helper_327aa0 {
   public:
     void run(int);
@@ -44,14 +46,14 @@ unsigned char pddiBaseShader_327aa0::f7(int key, int arg) {
             if (p->key == key) {
                 Helper_327aa0* h = (Helper_327aa0*)((char*)this + p->context);
                 (h->*(p->fn))(arg);
-                int n = gCounter_327aa0 + 1;
-                gCounter_327aa0 = n;
+                int n = (*(int*)&DAT_005555b8) + 1;
+                (*(int*)&DAT_005555b8) = n;
                 if (n == -1) {
                     n = 0;
-                    gCounter_327aa0 = n;
+                    (*(int*)&DAT_005555b8) = n;
                 }
                 id = n;
-                ++gCounter_327aa0;
+                ++(*(int*)&DAT_005555b8);
                 return 1;
             }
             p++;

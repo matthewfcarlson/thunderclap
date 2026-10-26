@@ -1,7 +1,8 @@
+#include "decls/data/engine/audio.h"
+
 typedef unsigned int uint;
 extern void __cdecl FUN_00247550(const void*, void*);
 void __fastcall FUN_0025fd10(void*);
-extern char g_4e70e8;
 
 class SeqEvent {
   public:
@@ -26,6 +27,6 @@ class SeqEventVarPitchRand : public SeqEvent {
 SeqEventVarPitchRand* SeqEventVarPitchRand::vfunc_4(int flags) {
     FUN_0025fd10((void*)(this));
     if (flags & 1)
-        FUN_00247550(&g_4e70e8, this);
+        FUN_00247550(((char*)&DAT_004e70e8), this);
     return this;
 }

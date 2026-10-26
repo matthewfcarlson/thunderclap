@@ -1,4 +1,6 @@
-extern const float gScale_2ecf20;
+#include "decls/data/engine/physics.h"
+// data: gScale_2ecf20 = DAT_004d287c
+
 extern void* gVtable_2ecf20;
 struct SimLength {
     void* vptr;
@@ -9,5 +11,5 @@ struct SimLength {
 SimLength::SimLength(float x) {
     vptr = &gVtable_2ecf20;
     raw = x;
-    value = gScale_2ecf20 * x;
+    value = (*(const float*)&DAT_004d287c) * x;
 }

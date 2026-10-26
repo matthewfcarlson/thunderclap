@@ -1,6 +1,8 @@
+#include "decls/data/platform/xbox/pure3d.h"
+// data: g_transformTypes = DAT_004d3a34
+
 #include "compat/ptr.h"
 typedef unsigned int uint;
-extern const uint g_transformTypes;
 struct Matrix {
     char pad[8];
     int index;
@@ -27,5 +29,5 @@ class d3dContext {
 };
 void d3dContext::vfunc_108(int n) {
     Matrix* m = matrices[n];
-    D3DDevice_SetTransform((&g_transformTypes)[n], (char*)m->data + m->index * 64);
+    D3DDevice_SetTransform((((const uint*)&DAT_004d3a34))[n], (char*)m->data + m->index * 64);
 }

@@ -1,6 +1,7 @@
-extern const char text[];
+#include "decls/data/game/global.h"
+// data: result = DAT_004e0a80, text = DAT_0040048c
+
 extern "C" __int64 __cdecl getValue(const char*);
-extern __int64 result;
 void FUN_0035e180() {
-    result = getValue(text);
+    (*(__int64*)&DAT_004e0a80) = getValue(DAT_0040048c);
 }

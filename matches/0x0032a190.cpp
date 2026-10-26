@@ -1,8 +1,10 @@
+#include "decls/data/platform/xbox/pure3d.h"
+// data: gValues_32a190 = DAT_004d4f04
+
 extern "C" void __fastcall D3DDevice_SetRenderState_Simple(int state, int value);
 extern int gStateA;
 extern int gStateB;
 extern int gStateC;
-extern int gValues_32a190[128];
 class Obj_32a190 {
   public:
     char pad0[0x5c];
@@ -21,7 +23,7 @@ void Obj_32a190::Set(unsigned char enabled, int mode, int value) {
     if (mEnabled != 0) {
         if (mMode != mode) {
             mMode = mode;
-            int v = gValues_32a190[mode];
+            int v = ((int*)&DAT_004d4f04)[mode];
             D3DDevice_SetRenderState_Simple(0x4033c, v);
             gStateB = v;
         }

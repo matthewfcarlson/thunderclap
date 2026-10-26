@@ -1,7 +1,8 @@
+#include "decls/data/platform/xbox/audio.h"
+
 struct Obj_364650 {
     void Fn();
 };
-extern Obj_364650 gObj_364650;
 void FUN_00364650() {
-    gObj_364650.Fn();
+    (*(Obj_364650*)&DAT_004e76e8).Fn();
 }

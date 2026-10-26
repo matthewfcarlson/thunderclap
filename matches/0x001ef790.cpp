@@ -1,3 +1,6 @@
+#include "decls/data/game/unknown.h"
+// data: gManager = DAT_004e370c
+
 class Mixer {
   public:
     void Install(void*, int);
@@ -7,7 +10,6 @@ class Manager {
     char pad[4];
     Mixer* mixer;
 };
-extern Manager* gManager;
 class CSoundCommand {
   public:
     virtual void vfunc_0();
@@ -22,5 +24,5 @@ class CSoundCommand_InstallMixer : public CSoundCommand {
     virtual void vfunc_1(int, int);
 };
 void CSoundCommand_InstallMixer::vfunc_1(int, int) {
-    gManager->mixer->Install(data, (int)(__int64)value);
+    (*(Manager**)&DAT_004e370c)->mixer->Install(data, (int)(__int64)value);
 }

@@ -1,6 +1,8 @@
+#include "decls/data/game/unknown.h"
+// data: GetTime = DAT_004de948
+
 extern "C" {
 typedef float(__stdcall* TimeFn)();
-extern TimeFn GetTime;
 }
 class Part {
   public:
@@ -26,5 +28,5 @@ class FEParticleAnimation {
 };
 void FEParticleAnimation::vfunc_2() {
     if (particle)
-        particle->SetTime(GetTime() * 1000.0f, 0);
+        particle->SetTime((*(TimeFn*)&DAT_004de948)() * 1000.0f, 0);
 }

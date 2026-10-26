@@ -1,8 +1,9 @@
 // Same code shape as 0x00363af0 (propagated; names are from that function)
+#include "decls/data/engine/audio.h"
+
 struct Obj_3643a0 {
     void f();
 };
-extern Obj_3643a0 g_3643a0;
 void wrapper() {
-    g_3643a0.f();
+    (*(Obj_3643a0*)((char*)&DAT_004e6800 + 72)).f();
 }

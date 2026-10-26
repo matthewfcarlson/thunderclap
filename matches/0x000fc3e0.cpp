@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gFirst = DAT_004e0a64, gSecond = DAT_004e0a60
+
 class ControllerPoller_fc3e0 {
   public:
     void Close();
@@ -73,18 +76,16 @@ class Second {
     virtual void f66();
     virtual void Use(int);
 };
-extern ControllerPoller_fc3e0* gFirst;
-extern Second* gSecond;
 extern "C" void __cdecl FreeFirst(ControllerPoller_fc3e0*);
 void Target() {
-    if (gFirst) {
-        ControllerPoller_fc3e0* p = gFirst;
-        gFirst->Close();
+    if ((*(ControllerPoller_fc3e0**)&DAT_004e0a64)) {
+        ControllerPoller_fc3e0* p = (*(ControllerPoller_fc3e0**)&DAT_004e0a64);
+        (*(ControllerPoller_fc3e0**)&DAT_004e0a64)->Close();
         FreeFirst(p);
-        gFirst = 0;
+        (*(ControllerPoller_fc3e0**)&DAT_004e0a64) = 0;
     }
-    if (gSecond) {
-        gSecond->Use(1);
-        gSecond = 0;
+    if ((*(Second**)&DAT_004e0a60)) {
+        (*(Second**)&DAT_004e0a60)->Use(1);
+        (*(Second**)&DAT_004e0a60) = 0;
     }
 }

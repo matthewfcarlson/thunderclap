@@ -1,4 +1,6 @@
-extern const char checkpoint[];
+#include "decls/data/game/global.h"
+// data: checkpoint = DAT_00421ba0
+
 class Thing_1ca090 {
   public:
     bool ready();
@@ -18,7 +20,7 @@ bool Owner_1ca090::run() {
         return false;
     if (!t->ready())
         return false;
-    t->mark(checkpoint, value);
+    t->mark(DAT_00421ba0, value);
     t->finish();
     return true;
 }

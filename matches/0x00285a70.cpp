@@ -1,6 +1,7 @@
+#include "decls/data/game/global.h"
+// data: gZero_285a70 = DAT_003f32e0
+
 #include "compat/ptr.h"
-extern const float gOne_285a70;
-extern const float gZero_285a70;
 struct Data_285a70 {
     char pad[0x10];
     float value;
@@ -23,8 +24,8 @@ void __fastcall FUN_00285a70(Target_285a70* p) {
     p->a = 0;
     p->b = 0;
     hulk_freg v;
-    if (p->data == 0 || (v = p->data->value - gOne_285a70, v < gZero_285a70))
-        v = gZero_285a70;
+    if (p->data == 0 || (v = p->data->value - DAT_003f32dc, v < DAT_003f32e0))
+        v = DAT_003f32e0;
     p->result = v;
     p->c = 0;
     p->d = 0;

@@ -1,5 +1,7 @@
+#include "decls/data/game/unknown.h"
+// data: flag_8d710 = DAT_004dd778, object_8d710 = DAT_004dd780
+
 #include "compat/ptr.h"
-extern "C" unsigned char flag_8d710;
 extern "C" void __cdecl InitA();
 extern "C" void __cdecl InitC(int);
 extern "C" int __cdecl DoThing(hulk_intptr, int);
@@ -7,13 +9,12 @@ struct Obj_8d710 {
     char pad[0x80];
     void InitB();
 };
-extern Obj_8d710 object_8d710;
 int __cdecl Target(int a, hulk_intptr b) {
-    if (!flag_8d710) {
+    if (!(*(unsigned char*)&DAT_004dd778)) {
         InitA();
-        object_8d710.InitB();
+        (*(Obj_8d710*)&DAT_004dd780).InitB();
         InitC(30);
-        flag_8d710 = 1;
+        (*(unsigned char*)&DAT_004dd778) = 1;
     }
     return DoThing(b, a);
 }

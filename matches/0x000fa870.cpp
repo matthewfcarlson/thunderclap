@@ -1,5 +1,5 @@
-extern "C" unsigned char DAT_004e09f8[4];
-extern "C" unsigned char DAT_004e09fc[4];
+#include "decls/data/game/DollyScript.h"
+
 struct Item_fa870 {
     int a;
     Item_fa870* next;
@@ -16,9 +16,9 @@ struct Lst {
 void Lst::Put(Item_fa870* it) {
     if (!(*(unsigned char*)DAT_004e09fc & 1)) {
         *(unsigned*)DAT_004e09fc |= 1;
-        *(Item_fa870**)DAT_004e09f8 = it;
+        *(Item_fa870**)((unsigned char*)&DAT_004e09f8) = it;
     }
-    Item_fa870*& last = *(Item_fa870**)DAT_004e09f8;
+    Item_fa870*& last = *(Item_fa870**)((unsigned char*)&DAT_004e09f8);
     if (h->count == 0) {
         h->First(it);
         last = it;

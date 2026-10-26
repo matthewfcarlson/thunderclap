@@ -1,3 +1,6 @@
+#include "decls/data/engine/pure3d/prop.h"
+// data: gFactory_28edf0 = DAT_0052c2a0
+
 #include "compat/ptr.h"
 extern "C" char DAT_0042cb44[];
 class Obj_28edf0 {
@@ -29,7 +32,6 @@ class Factory_28edf0 {
     virtual void f10();
     virtual Obj_28edf0* Get(int a, int b);
 };
-extern Factory_28edf0* gFactory_28edf0;
 struct ThisCall_0027b070 {
     void BaseInit();
 };
@@ -38,7 +40,7 @@ Shader* Shader::Ctor(int a, int b) {
     vft = ((hulk_intptr)DAT_0042cb44);
     flag = 0;
     field18 = 0;
-    Obj_28edf0* p = gFactory_28edf0->Get(a, b);
+    Obj_28edf0* p = (*(Factory_28edf0**)&DAT_0052c2a0)->Get(a, b);
     field10 = p;
     p->f0();
     return this;

@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: zero_284da0 = DAT_003f32e0
+
 class SimpleFrameController {
   public:
     virtual void v0();
@@ -33,9 +36,8 @@ class SimpleFrameController {
         float value;
     }* data;
 };
-extern const float zero_284da0;
 float SimpleFrameController::vfunc_11() {
     if (data)
         return data->value;
-    return zero_284da0;
+    return DAT_003f32e0;
 }

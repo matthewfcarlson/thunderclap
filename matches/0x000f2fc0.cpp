@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: caster = DAT_004dd9cc
+
 #include "compat/ptr.h"
 extern "C" char DAT_0040cb2c[];
 typedef unsigned int u32_f2fc0;
@@ -69,10 +72,9 @@ struct Caster_f2fc0 {
     virtual void c();
     virtual u32_f2fc0 d(const u32_f2fc0&, unsigned long long);
 };
-extern Caster_f2fc0* caster;
 extern unsigned long long FUN(u32_f2fc0*);
 void FEMenuBase::f53(u32_f2fc0* p) {
-    Caster_f2fc0* c = caster;
+    Caster_f2fc0* c = (*(Caster_f2fc0**)&DAT_004dd9cc);
     unsigned long long x = FUN(p);
     u32_f2fc0 r = c->d(((hulk_intptr)DAT_0040cb2c), x);
     f54(r);

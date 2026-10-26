@@ -1,3 +1,6 @@
+#include "decls/data/engine/core.h"
+// data: g_data_275e50 = DAT_0052a1e8
+
 namespace core {
 class File {
   public:
@@ -37,7 +40,6 @@ class File {
 };
 } // namespace core
 extern "C" void init(void*);
-extern "C" char g_data_275e50;
 void core::File::vfunc_0_adj4() {
-    init(&g_data_275e50);
+    init(((char*)&DAT_0052a1e8));
 }

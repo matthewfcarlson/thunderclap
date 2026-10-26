@@ -1,7 +1,8 @@
+#include "decls/data/game/global.h"
+
 #include "compat/ptr.h"
 extern "C" char DAT_00405b2c[];
 typedef unsigned int u32_ac3c0;
-extern void* gNisCam;
 class CNISCamera_ac3c0 {
   public:
     void BaseInit();
@@ -16,7 +17,7 @@ class CNISCamera {
 };
 CNISCamera* __fastcall target(CNISCamera* self) {
     ((CNISCamera_ac3c0*)self)->BaseInit();
-    void* p = gNisCam;
+    void* p = (*(void**)&DAT_0049edd0);
     *(hulk_uintptr*)self = ((hulk_intptr)DAT_00405b2c);
     *(u32_ac3c0*)((char*)self + 0xd0) = 3;
     ((Sub_ac3c0*)((char*)self + 8))->Init(p);

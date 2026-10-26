@@ -1,3 +1,6 @@
+#include "decls/data/engine/global.h"
+// data: glob_293c80 = DAT_0052c2d8
+
 #include "compat/ptr.h"
 struct V {
     virtual void x0();
@@ -27,9 +30,8 @@ struct T_293c80 {
     V* p;
     void f(int, int, int);
 };
-extern G_293c80 glob_293c80;
 void T_293c80::f(int a, int b, int c) {
-    glob_293c80.a();
-    glob_293c80.b(a, b, c);
-    p->x17(0, (hulk_intptr)&glob_293c80);
+    (*(G_293c80*)&DAT_0052c2d8).a();
+    (*(G_293c80*)&DAT_0052c2d8).b(a, b, c);
+    p->x17(0, (hulk_intptr)&(*(G_293c80*)&DAT_0052c2d8));
 }

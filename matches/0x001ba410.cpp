@@ -1,6 +1,6 @@
+#include "decls/data/game/global.h"
+
 extern "C" unsigned char probe(const char*);
-extern const char s1[];
-extern const char s2[];
 class Function_1ba410 {
   public:
     Function_1ba410(int, int);
@@ -11,8 +11,8 @@ class Method1 : public Function_1ba410 {
   public:
     int x;
     Method1(int a, int c) : Function_1ba410(a, 1), x(c) {
-        *((unsigned char*)this + 0x18) = probe(s1);
-        *((unsigned char*)this + 0x10) = probe(s2);
+        *((unsigned char*)this + 0x18) = probe(((const char*)&DAT_0048e100));
+        *((unsigned char*)this + 0x10) = probe(((const char*)&DAT_0048e0e4));
     }
     virtual void f();
 };

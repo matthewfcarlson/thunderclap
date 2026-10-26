@@ -1,4 +1,6 @@
 // cl-flags: /O2 /GR /GX
+#include "decls/data/game/global.h"
+// data: g_GlobalFloatBits_004a0fec = DAT_004a0fec
 
 class Callback_e7b90 {
   public:
@@ -17,14 +19,13 @@ class Manager_e7b90 {
     void AltCleanup();
 };
 
-extern int g_GlobalFloatBits_004a0fec;
 
 void __stdcall ProcessManager(Manager_e7b90* mgr, Callback_e7b90* cb) {
     bool flag = false;
 
     while (mgr->IsActive()) {
         int val = mgr->GetValueBits();
-        if (val == g_GlobalFloatBits_004a0fec)
+        if (val == DAT_004a0fec)
             flag = true;
     }
 

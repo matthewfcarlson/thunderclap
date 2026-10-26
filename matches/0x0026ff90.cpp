@@ -1,3 +1,6 @@
+#include "decls/data/engine/core.h"
+// data: g_value_26ff90 = DAT_004cdbb0
+
 #include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042af64[];
@@ -9,7 +12,6 @@ class Ref_26ff90 {
     virtual void A();
 };
 extern void Cleanup(int, int);
-extern volatile int g_value_26ff90;
 class MemoryPool_26ff90 {
   public:
     virtual void v0();
@@ -34,7 +36,7 @@ void MemoryPool_26ff90::Destroy() {
     if (field14 >= 0)
         Cleanup(field14, field18);
     field18 = 0;
-    g_value_26ff90 = field8;
+    (*(volatile int*)&DAT_004cdbb0) = field8;
     *((int*)this + 1) = ((hulk_intptr)DAT_0042af64);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_003f6098);
 }

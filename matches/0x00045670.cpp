@@ -1,3 +1,5 @@
+#include "decls/data/game/global.h"
+
 class C2_45670 {
   public:
     int Get();
@@ -12,7 +14,6 @@ class Mgr_45670 {
     C1_45670* m54;
 };
 extern Mgr_45670* gMgr_45670;
-extern const float kOne;
 class Obj_45670 {
   public:
     char pad[0x314];
@@ -20,7 +21,7 @@ class Obj_45670 {
     float Fn();
 };
 float Obj_45670::Fn() {
-    float r = kOne;
+    float r = DAT_003f32dc;
     Mgr_45670* m = gMgr_45670;
     if (m && m->m54) {
         C2_45670* s = m->m54->Sub();

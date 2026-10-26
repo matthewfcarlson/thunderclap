@@ -1,4 +1,6 @@
-extern const float kNegSmall, kBig, kSmall, kNegBig;
+#include "decls/data/game/global.h"
+// data: kNegSmall = DAT_003f5cf0, kSmall = DAT_00405708
+
 class FEControl {
   public:
     virtual void s0();
@@ -22,11 +24,11 @@ class FEControl {
     virtual void vfunc_18();
 };
 void FEControl::vfunc_18() {
-    float a = (GetY() * 0.5f) * kNegSmall;
-    float b = (GetX() * 0.5f) * kBig;
-    float c = (GetY() * 0.5f) * kSmall;
+    float a = (GetY() * 0.5f) * DAT_003f5cf0;
+    float b = (GetX() * 0.5f) * DAT_0040bf64;
+    float c = (GetY() * 0.5f) * DAT_00405708;
     float d = GetY();
     d = d + c;
-    float e = (GetX() * 0.5f) * kNegBig;
+    float e = (GetX() * 0.5f) * DAT_0040c230;
     Draw(a, b, d, e);
 }

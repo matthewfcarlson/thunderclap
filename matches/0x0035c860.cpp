@@ -1,8 +1,7 @@
 #include "decls/address.h"
-extern unsigned int g004dc098;
-extern unsigned int g004dc09c;
+#include "decls/data/game/global.h"
 void FUN_0035c860() {
     unsigned long long r = FUN_0027b020("bradley");
-    g004dc098 = (unsigned int)r;
-    g004dc09c = (unsigned int)(r >> 32);
+    (*(unsigned int*)&DAT_004dc098) = (unsigned int)r;
+    (*(unsigned int*)((char*)&DAT_004dc098 + 4)) = (unsigned int)(r >> 32);
 }

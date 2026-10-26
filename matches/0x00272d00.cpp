@@ -1,3 +1,5 @@
+#include "decls/data/engine/core.h"
+
 extern "C" void _ReadWriteBarrier();
 extern void* vt0_272d00[];
 extern void* vt4[];
@@ -5,7 +7,6 @@ extern void* vtc[];
 extern void* vtD_272d00[];
 extern void* vtD4[];
 extern void* vtDc[];
-extern int g_id_272d00;
 void Hook();
 class Sub_272d00 {
   public:
@@ -39,7 +40,7 @@ class Drive {
 Drive::Drive() {
     vptr = vt0_272d00;
     v4 = vt4;
-    m8 = g_id_272d00;
+    m8 = DAT_004cdbb0;
     Hook();
     vc = vtc;
     _ReadWriteBarrier();

@@ -1,10 +1,11 @@
-extern const float zero_83d90;
-extern const float one;
-extern const float negone;
+#include "decls/data/game/global.h"
+#include "decls/data/game/hulkfight.h"
+// data: negone = DAT_003f3388, one = DAT_003f32dc, zero_83d90 = DAT_003f32e0
+
 float FUN_00083d90(float* p) {
-    if (*p < zero_83d90)
-        return negone;
-    if (*p > zero_83d90)
-        return one;
-    return zero_83d90;
+    if (*p < DAT_003f32e0)
+        return DAT_003f3388;
+    if (*p > DAT_003f32e0)
+        return DAT_003f32dc;
+    return DAT_003f32e0;
 }

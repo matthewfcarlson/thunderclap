@@ -1,20 +1,21 @@
+#include "decls/data/game/unknown.h"
+// data: obj = DAT_004dd780, ready = DAT_004dd778
+
 extern "C" void _ReadWriteBarrier();
-extern unsigned char ready;
 class Obj {
   public:
     void Init();
 };
-extern Obj obj;
 void __cdecl prep();
 void __cdecl stage(int);
 int __cdecl first();
 void* __cdecl second(int, int);
 void* __cdecl FUN_0008d690(int x) {
-    if (!ready) {
+    if (!(*(unsigned char*)&DAT_004dd778)) {
         prep();
-        obj.Init();
+        (*(Obj*)&DAT_004dd780).Init();
         stage(30);
-        ready = 1;
+        (*(unsigned char*)&DAT_004dd778) = 1;
     }
     return second(first(), x);
 }

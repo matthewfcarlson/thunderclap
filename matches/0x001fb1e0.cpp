@@ -1,3 +1,6 @@
+#include "decls/data/engine/content.h"
+// data: gManager_1fb1e0 = DAT_00527c58
+
 #include "compat/ptr.h"
 struct Obj_1fb1e0 {
     void* a;
@@ -16,7 +19,6 @@ struct Owner_1fb1e0 {
     void Fn();
 };
 extern "C" void* __cdecl Alloc(hulk_uintptr);
-extern Manager_1fb1e0* gManager_1fb1e0;
 extern const char filename[];
 extern char MyFileStream_vftable[];
 extern char DataHandlerRawLoader_vftable[];
@@ -38,5 +40,5 @@ void Owner_1fb1e0::Fn() {
         *(void**)(p + 20) = this;
     } else
         p = 0;
-    gManager_1fb1e0->Add(p, 0x60000a00);
+    (*(Manager_1fb1e0**)&DAT_00527c58)->Add(p, 0x60000a00);
 }

@@ -1,3 +1,5 @@
+#include "decls/data/game/global.h"
+
 class CSPManager;
 class Function_1e0650 {
   public:
@@ -15,12 +17,12 @@ class Method3 : public Function_1e0650 {
     char pad3[3];
     void* x;
 };
-extern const char n1[], n2[], n3[];
+extern const char n3[];
 extern char fun(const char*);
 Method3::Method3(const char* s, void* p) : Function_1e0650(s, 3) {
     x = p;
-    d = fun(n1);
-    a = fun(n2);
-    b = fun(n2);
+    d = fun(((const char*)&DAT_0048e100));
+    a = fun(((const char*)&DAT_0048e0f0));
+    b = fun(((const char*)&DAT_0048e0f0));
     c = fun(n3);
 }

@@ -1,6 +1,6 @@
 #include "decls/address.h"
-extern char DAT_0048e100[];
-extern char DAT_0048e128[];
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 class Function_1c00d0 {
   public:
     Function_1c00d0(void*, int);
@@ -11,8 +11,8 @@ class Method1 : public Function_1c00d0 {
   public:
     Method1(void* a, void* c) : Function_1c00d0(a, 1) {
         p = c;
-        y = FUN_001d04d0(DAT_0048e100);
-        x = FUN_001d04d0(DAT_0048e128);
+        y = FUN_001d04d0(((char*)&DAT_0048e100));
+        x = FUN_001d04d0(((char*)&DAT_0048e128));
     }
     virtual void Run();
     char x;

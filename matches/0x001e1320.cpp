@@ -1,6 +1,6 @@
+#include "decls/data/game/global.h"
+
 extern "C" unsigned char __cdecl query(const void*);
-extern const char g1;
-extern const char g2;
 class Function_1e1320 {
   public:
     virtual void fn();
@@ -17,8 +17,8 @@ class Method1_1e1320 : public Function_1e1320 {
     virtual void fn();
     Method1_1e1320(void* p, int v) : Function_1e1320(p, 1) {
         x = v;
-        b = query(&g1);
-        a = query(&g2);
+        b = query(((const char*)&DAT_0048e100));
+        a = query(((const char*)&DAT_0048e134));
     }
 };
 class Closure1_1e1320 : public Method1_1e1320 {

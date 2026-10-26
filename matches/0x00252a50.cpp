@@ -1,5 +1,7 @@
+#include "decls/data/engine/audio.h"
+// data: bss = DAT_004e6a68
+
 typedef unsigned int size_t;
-extern char bss;
 extern "C" void* __cdecl allocate(void*);
 inline void* operator new(size_t, char* p) {
     return allocate(p);
@@ -33,5 +35,5 @@ class Dest {
 };
 } // namespace audio
 void audio::SeqEventVarVolume::vfunc_2(Dest* p) {
-    p->add(new (&bss) SeqActionVarVolume(this));
+    p->add(new (((char*)((char*)&DAT_004e6a60 + 8))) SeqActionVarVolume(this));
 }

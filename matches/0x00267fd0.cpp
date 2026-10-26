@@ -1,3 +1,5 @@
+#include "decls/data/engine/core.h"
+
 #include "compat/ptr.h"
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042af64[];
@@ -8,7 +10,6 @@ struct Callback_267fd0 {
     virtual void B();
 };
 void Init(int);
-extern int g_267fd0;
 struct TimerList_267fd0 {
     void* v0;
     void* v1;
@@ -24,7 +25,7 @@ void TimerList_267fd0::F() {
     v1 = (void*)((hulk_intptr)DAT_0042afcc);
     Init(arg);
     cb->B();
-    g_267fd0 = value;
+    DAT_004cdbb0 = value;
     v1 = (void*)((hulk_intptr)DAT_0042af64);
     v0 = (void*)((hulk_intptr)DAT_003f6098);
 }

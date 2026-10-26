@@ -1,4 +1,5 @@
-extern int g;
+#include "decls/data/game/global.h"
+
 extern unsigned char __cdecl f(int*);
 class Function_205ee0 {
   public:
@@ -15,8 +16,8 @@ class Method1 : public Function_205ee0 {
   public:
     Method1(int x, int z) : Function_205ee0(x, 1) {
         n1c = z;
-        b18 = f(&g);
-        b10 = f(&g);
+        b18 = f(((int*)&DAT_0048e134));
+        b10 = f(((int*)&DAT_0048e134));
     }
     virtual void v0();
 };

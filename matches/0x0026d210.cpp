@@ -1,4 +1,5 @@
-extern int DAT_004cdbb0;
+#include "decls/data/engine/core.h"
+
 extern "C" void __cdecl FUN_00267090(void*);
 namespace core {
 struct IRefCount {

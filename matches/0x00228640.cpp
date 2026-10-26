@@ -1,5 +1,7 @@
+#include "decls/data/engine/choreo2.h"
+// data: gMinusOne = DAT_004c9e98, gZeroA = DAT_004c9e90, gZeroB = DAT_004c9e94
+
 extern "C" void __cdecl Work(int, int*);
-extern int gZeroA, gZeroB, gMinusOne;
 struct V {
     int a, b, c;
 };
@@ -11,9 +13,9 @@ class Obj_228640 {
 };
 V* Obj_228640::Get(V* out) {
     V local;
-    local.a = gZeroA;
-    local.b = gZeroB;
-    local.c = gMinusOne;
+    local.a = DAT_004c9e90;
+    local.b = DAT_004c9e94;
+    local.c = DAT_004c9e98;
     Work(value, (int*)&local);
     *out = local;
     return out;

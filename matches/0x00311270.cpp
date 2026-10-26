@@ -1,4 +1,6 @@
-extern const float zero_311270;
+#include "decls/data/game/global.h"
+// data: zero_311270 = DAT_003f32e0
+
 namespace physics {
 class ArticulatedPhysicsObject {
   public:
@@ -40,7 +42,7 @@ class Elem_311270 {
 };
 } // namespace physics
 void physics::ArticulatedPhysicsObject::vfunc_17(int a1, int a2, int a3, int a4, int a5) {
-    if (field40 != zero_311270) {
+    if (field40 != DAT_003f32e0) {
         f148 = 1;
         f21d = 0;
         if (a4 < 0 || !*((unsigned char*)((char*)items[a4] + 0xef))) {

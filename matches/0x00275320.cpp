@@ -1,3 +1,6 @@
+#include "decls/data/engine/core.h"
+// data: g_lock_275320 = DAT_0052a1c8, g_mgr_275320 = DAT_0052a1e4
+
 extern void* g_vftableA[];
 extern void* g_vftableB[];
 class Inner_275320 {
@@ -19,8 +22,6 @@ struct Manager_275320 {
     virtual void q();
     virtual void add(void*);
 };
-extern Manager_275320* g_mgr_275320;
-extern char g_lock_275320[];
 namespace core { class FileWriteRequest {
   public:
     void* vt;
@@ -37,9 +38,9 @@ core::FileWriteRequest* core::FileWriteRequest::vfunc_0(int flags) {
     ((Root_275320*)inner)->b();
     vt = g_vftableB;
     if (flags & 1) {
-        FUN_0026d850(g_lock_275320);
-        g_mgr_275320->add(this);
-        FUN_0026d840(g_lock_275320);
+        FUN_0026d850(((char*)&DAT_0052a1c8));
+        (*(Manager_275320**)&DAT_0052a1e4)->add(this);
+        FUN_0026d840(((char*)&DAT_0052a1c8));
     }
     return this;
 }

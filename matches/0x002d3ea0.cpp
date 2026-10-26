@@ -1,4 +1,6 @@
-extern const float zero_2d3ea0;
+#include "decls/data/game/global.h"
+// data: zero_2d3ea0 = DAT_003f32e0
+
 class ParticleEmitter {
   public:
     virtual void f0();
@@ -50,5 +52,5 @@ class ParticleEmitter {
 float ParticleEmitter::f18(float x) {
     if (ptr)
         return ptr->f(x);
-    return zero_2d3ea0;
+    return DAT_003f32e0;
 }

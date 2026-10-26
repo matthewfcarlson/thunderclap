@@ -1,6 +1,6 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 class CTriggerVolumeManager;
-extern const char DAT_0048e0e4[], DAT_0048e0f0[];
 class Function_1ffc70 {
   public:
     virtual void invoke();
@@ -17,8 +17,8 @@ class Method1 : public Function_1ffc70 {
     virtual void invoke();
     Method1(const char* s, void* o) : Function_1ffc70(s, 1) {
         owner = o;
-        y = FUN_001d04d0(DAT_0048e0e4);
-        x = FUN_001d04d0(DAT_0048e0f0);
+        y = FUN_001d04d0(((const char*)&DAT_0048e0e4));
+        x = FUN_001d04d0(((const char*)&DAT_0048e0f0));
     }
 };
 class Closure1 : public Method1 {

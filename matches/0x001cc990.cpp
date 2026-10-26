@@ -1,4 +1,5 @@
-extern const float gDefault;
+#include "decls/data/game/global.h"
+// data: gDefault = DAT_003f32e0
 
 class CScenarioManager_1cc990 {
   public:
@@ -10,5 +11,5 @@ class CScenarioManager_1cc990 {
 float CScenarioManager_1cc990::GetFloat(int index) {
     if (index >= 0 && index < 0x40)
         return values[index];
-    return gDefault;
+    return DAT_003f32e0;
 }

@@ -1,3 +1,5 @@
+#include "decls/data/engine/global.h"
+
 typedef unsigned int U_293d40;
 struct Obj_293d40 {
     virtual void f0();
@@ -25,19 +27,17 @@ struct Holder_293d40 {
 struct Sub_293d40 {
     void init();
 };
-extern U_293d40 g0_293d40, g1, g2, g4, g5, g6;
-extern Sub_293d40 gS;
 struct C_293d40 {
     Holder_293d40 h;
     void run(U_293d40, U_293d40, U_293d40);
 };
 void C_293d40::run(U_293d40 a, U_293d40 b, U_293d40 c) {
-    g0_293d40 = a;
-    g1 = b;
-    g2 = c;
-    gS.init();
-    g4 = g0_293d40;
-    g5 = g1;
-    g6 = g2;
-    h.p->f17(0, (void*)&gS);
+    (*(U_293d40*)&DAT_0052c2c8) = a;
+    (*(U_293d40*)&DAT_0052c2cc) = b;
+    (*(U_293d40*)&DAT_0052c2d0) = c;
+    (*(Sub_293d40*)&DAT_0052c2d8).init();
+    (*(U_293d40*)&DAT_0052c308) = (*(U_293d40*)&DAT_0052c2c8);
+    (*(U_293d40*)&DAT_0052c30c) = (*(U_293d40*)&DAT_0052c2cc);
+    (*(U_293d40*)&DAT_0052c310) = (*(U_293d40*)&DAT_0052c2d0);
+    h.p->f17(0, (void*)&(*(Sub_293d40*)&DAT_0052c2d8));
 }

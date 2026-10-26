@@ -1,7 +1,8 @@
+#include "decls/data/engine/choreo2.h"
+// data: gCount_22a980 = DAT_004e5ac4, gHigh_22a980 = DAT_004e5ac8
+
 #include "compat/ptr.h"
 extern "C" char DAT_00427534[];
-extern int gCount_22a980;
-extern int gHigh_22a980;
 struct PartitionDriver_22a980 {
     void Init(int);
 };
@@ -17,8 +18,8 @@ LocomotionDriver* LocomotionDriver::Init(int x) {
     a = 0;
     b = 0;
     vptr = ((hulk_intptr)DAT_00427534);
-    int n = ++gCount_22a980;
-    if (n > gHigh_22a980)
-        gHigh_22a980 = n;
+    int n = ++(*(int*)&DAT_004e5ac4);
+    if (n > (*(int*)&DAT_004e5ac8))
+        (*(int*)&DAT_004e5ac8) = n;
     return this;
 }

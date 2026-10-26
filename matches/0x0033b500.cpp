@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gZero_33b500 = DAT_003f335c
+
 typedef unsigned int u32_33b500;
 extern void __cdecl f339d70(void*, int, int);
 extern int __cdecl f3392c0(void*, int);
@@ -5,11 +8,10 @@ extern void __cdecl f338fe0(void*, int, const float*);
 extern int __cdecl f212f00(void*, int);
 extern void __cdecl f212d80(void*, int);
 extern void __cdecl f33b110(void*, int, int);
-extern const float gZero_33b500;
 int __cdecl target(void* p) {
     f339d70(p, 1, 5);
     int v = f3392c0(p, 1);
-    f338fe0(p, 0x28, &gZero_33b500);
+    f338fe0(p, 0x28, &DAT_003f335c);
     int n = f212f00(p, 2);
     if (n > 0)
         f339d70(p, 2, 6);

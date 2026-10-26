@@ -1,4 +1,5 @@
-extern char a_942a0[], b[], c[];
+#include "decls/data/game/global.h"
+
 extern "C" unsigned char __cdecl check(const char*);
 class Function_942a0 {
   public:
@@ -18,8 +19,8 @@ class Method3 : public Function_942a0 {
 };
 Method3::Method3(int x, int y) : Function_942a0(x, 3) {
     arg = y;
-    v4 = check(a_942a0);
-    v1 = check(b);
-    v2 = check(c);
-    v3 = check(c);
+    v4 = check(((char*)&DAT_0048e100));
+    v1 = check(((char*)&DAT_0048e134));
+    v2 = check(((char*)&DAT_0048e0f0));
+    v3 = check(((char*)&DAT_0048e0f0));
 }

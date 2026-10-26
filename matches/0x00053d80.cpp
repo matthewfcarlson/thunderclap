@@ -1,14 +1,14 @@
+#include "decls/data/game/global.h"
+
 #include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
+// data: gGuard = DAT_004dc4f4, gTable_53d80 = DAT_004dc4f0
 
 extern "C" void __cdecl FUN_00047f80();
 extern "C" void __cdecl FUN_00047f90();
 extern "C" char DAT_003f7d48[];
 extern "C" char DAT_003f7d70[];
 extern "C" void* __cdecl Alloc(hulk_uintptr);
-extern int gGuard;
-extern int gTable_53d80;
-extern int gSix;
 struct ParamEnumConstList {
     int pad[5];
     int field14;
@@ -22,14 +22,14 @@ struct ParamIntConstRange {
 };
 extern void __cdecl Register(void*, void**, int);
 void FUN_00053d80() {
-    if (gGuard) {
-        ++gGuard;
+    if ((*(int*)&DAT_004dc4f4)) {
+        ++(*(int*)&DAT_004dc4f4);
         return;
     }
     void* slots[2];
     ParamEnumConstList* a = (ParamEnumConstList*)Alloc(0x20);
     if (a) {
-        int k = gSix;
+        int k = (*(int*)&DAT_00427754);
         a->Init("compare");
         a->field14 = k;
         a->pad[0] = ((hulk_intptr)DAT_003f7d48);
@@ -46,6 +46,6 @@ void FUN_00053d80() {
         slots[1] = b;
     } else
         slots[1] = 0;
-    Register(&gTable_53d80, slots, 2);
-    ++gGuard;
+    Register(((int*)&DAT_004dc4f0), slots, 2);
+    ++(*(int*)&DAT_004dc4f4);
 }

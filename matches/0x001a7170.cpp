@@ -1,3 +1,6 @@
+#include "decls/data/game/hulkfight/scenario.h"
+// data: gList_1a7170 = DAT_004e1730, gTable_1a7170 = DAT_004c165c
+
 void* operator new(unsigned int) throw();
 class ParamValueEnum_1a7170 {
   public:
@@ -14,20 +17,17 @@ class ParamEnumConstList_1a7170 : public ParamValueEnum_1a7170 {
     void* fn;
     int pad2;
 };
-extern char gTable_1a7170[];
 extern char gFunc[];
 extern void __cdecl Register(void*, void**, int) throw();
-extern char gList_1a7170[];
-extern int gRef;
 ParamEnumConstList_1a7170::ParamEnumConstList_1a7170(const char* n) throw() : ParamValueEnum_1a7170(n) {
-    tbl = gTable_1a7170;
+    tbl = ((char*)&DAT_004c165c);
     count = 8;
     fn = gFunc;
 }
 void target() {
-    if (!gRef) {
+    if (!(*(int*)&DAT_004e1734)) {
         ParamEnumConstList_1a7170* p = new ParamEnumConstList_1a7170("stateDesc");
-        Register(gList_1a7170, (void**)&p, 1);
+        Register(((char*)&DAT_004e1730), (void**)&p, 1);
     }
-    ++gRef;
+    ++(*(int*)&DAT_004e1734);
 }

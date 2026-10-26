@@ -1,8 +1,9 @@
 #include "gen/audio.h"
+#include "decls/data/engine/audio.h"
+// data: bss = DAT_004e6848
 
 extern "C" void* __cdecl Alloc(void*);
 extern "C" int __cdecl Lookup(const char*, int);
-extern int bss;
 namespace audio {
 class SeqEventType_24fa90 {
   public:
@@ -30,7 +31,7 @@ class SeqEventChannelSends_24fa90 : public SeqEventType_24fa90 {
 
 } // namespace audio
 void* audio::SeqEventChannelSendsType::vfunc_3() {
-    SeqEventChannelSends_24fa90* p = (SeqEventChannelSends_24fa90*)Alloc(&bss);
+    SeqEventChannelSends_24fa90* p = (SeqEventChannelSends_24fa90*)Alloc(((int*)((char*)&DAT_004e6800 + 72)));
     if (p) {
         p->SeqEventChannelSends_24fa90::SeqEventChannelSends_24fa90();
         return (void*)(p);

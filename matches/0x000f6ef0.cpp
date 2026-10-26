@@ -1,4 +1,6 @@
-extern int g_one_f6ef0;
+#include "decls/data/game/global.h"
+// data: g_one_f6ef0 = DAT_004a1734
+
 struct T_f6ef0 {
     int a[0x22 + 1];
     int f88;
@@ -12,7 +14,7 @@ struct X_f6ef0 {
     X_f6ef0();
 };
 X_f6ef0::X_f6ef0() {
-    int one = g_one_f6ef0;
+    int one = DAT_004a1734;
     w[0x22] = 0;
     w[0] = 0;
     w[1] = 0;

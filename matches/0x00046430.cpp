@@ -1,4 +1,5 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 class Base {
   public:
     virtual void f();
@@ -10,8 +11,6 @@ class Base {
     char pad3[3];
     int c;
 };
-extern char g1[];
-extern char g2[];
 class Closure1_46430 : public Base {
   public:
     Closure1_46430(const char*, int);
@@ -19,8 +18,8 @@ class Closure1_46430 : public Base {
 };
 Closure1_46430::Closure1_46430(const char* s, int x) : Base(s, 1) {
     c = x;
-    b = FUN_001d04d0(g2);
-    a = FUN_001d04d0(g1);
+    b = FUN_001d04d0(((char*)&DAT_0048e100));
+    a = FUN_001d04d0(((char*)&DAT_0048e0f0));
 }
 class Closure1 : public Closure1_46430 {
   public:

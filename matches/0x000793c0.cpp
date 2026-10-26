@@ -1,7 +1,8 @@
-extern float a, b, c, d;
+#include "decls/data/game/global.h"
+
 void __stdcall FUN_000793c0(float x, float y) {
-    a = x;
-    b = y;
-    c = x * x;
-    d = y * y;
+    DAT_0049b898 = x;
+    (*(float*)&DAT_0049b89c) = y;
+    DAT_0049b8e4 = x * x;
+    DAT_0049b8e8 = y * y;
 }

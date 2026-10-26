@@ -1,3 +1,6 @@
+#include "decls/data/engine/audio.h"
+// data: g_buffer = DAT_004e72b0
+
 #include "compat/ptr.h"
 class SeqEvent {
   public:
@@ -29,7 +32,6 @@ class SeqEventSilence : public SeqEvent {
     int m8;
     int mc;
 };
-extern char g_buffer[];
 extern void* __cdecl FUN_00247530(void*);
 extern int __cdecl FUN_000113e0(int, int);
 extern char VT_2549a0[];
@@ -38,7 +40,7 @@ class Helper_2549a0 {
     void FUN_0025dc20(SeqActionSilence*);
 };
 void SeqEventSilence::v2(int arg) {
-    SeqActionSilence* a = (SeqActionSilence*)FUN_00247530(g_buffer);
+    SeqActionSilence* a = (SeqActionSilence*)FUN_00247530(((char*)&DAT_004e72b0));
     SeqActionSilence* r;
     if (a) {
         a->vf = (hulk_intptr)VT_2549a0;

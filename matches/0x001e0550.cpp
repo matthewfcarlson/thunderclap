@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 #include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" char DAT_004233f8[];
@@ -12,18 +15,15 @@ class Method5_1e0550 {
     void Init(const char*, int);
     Method5_1e0550* Make(const char*, int);
 };
-extern char gA_1e0550[];
-extern char gB_1e0550[];
-extern char gC_1e0550[];
 Method5_1e0550* Method5_1e0550::Make(const char* p, int x) {
     Init(p, 5);
     v = ((hulk_intptr)DAT_004233f8);
     m1c = x;
-    b18 = FUN_001d04d0(gA_1e0550);
-    pad[12] = FUN_001d04d0(gB_1e0550);
-    pad[13] = FUN_001d04d0(gB_1e0550);
-    pad[14] = FUN_001d04d0(gC_1e0550);
-    pad[15] = FUN_001d04d0(gC_1e0550);
-    pad[16] = FUN_001d04d0(gC_1e0550);
+    b18 = FUN_001d04d0(((char*)&DAT_0048e100));
+    pad[12] = FUN_001d04d0(((char*)&DAT_0048e0f0));
+    pad[13] = FUN_001d04d0(((char*)&DAT_0048e0f0));
+    pad[14] = FUN_001d04d0(((char*)&DAT_0048e128));
+    pad[15] = FUN_001d04d0(((char*)&DAT_0048e128));
+    pad[16] = FUN_001d04d0(((char*)&DAT_0048e128));
     return this;
 }

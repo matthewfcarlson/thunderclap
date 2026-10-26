@@ -1,7 +1,7 @@
+#include "decls/data/game/global.h"
+
 typedef unsigned int uint;
 extern "C" unsigned char __cdecl lookup(const char*);
-extern const char a[];
-extern const char b[];
 class Base {
   public:
     Base(char*, int);
@@ -29,6 +29,6 @@ Closure1::Closure1(char* s, void* p, void* q) : Closure1_1ea440(s, p, q) {
 }
 Closure1_1ea440::Closure1_1ea440(char* s, void* p, void* q) : Base(s, 1) {
     obj = q;
-    y = lookup(a);
-    x = lookup(b);
+    y = lookup(((const char*)&DAT_0048e100));
+    x = lookup(((const char*)&DAT_0049cad8));
 }

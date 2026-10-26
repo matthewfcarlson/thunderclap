@@ -1,4 +1,6 @@
-extern const float gZero_1c05d0;
+#include "decls/data/game/global.h"
+// data: gZero_1c05d0 = DAT_003f32e0
+
 class Obj_1c05d0 {
   public:
     float value;
@@ -14,7 +16,7 @@ class Obj_1c05d0 {
 void Obj_1c05d0::Update(float a, float b) {
     if (!active || !ptr)
         return;
-    if (value < gZero_1c05d0)
+    if (value < DAT_003f32e0)
         value = 0.0f;
     else
         value = a / b;

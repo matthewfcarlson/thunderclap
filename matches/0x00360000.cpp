@@ -1,3 +1,5 @@
+#include "decls/data/engine/audio.h"
+
 #include "compat/ptr.h"
 struct Pair {
     unsigned __int64 v;
@@ -9,11 +11,10 @@ class Reg {
   public:
     void init(Pair*, Pair*, int, int);
 };
-extern Reg g;
 void __cdecl target() {
     Pair a, b;
     a.v = make("SeqActionWait", 0, 0);
     b.v = make("Runtime_Sequence", 0, 0);
-    g.init(&b, &a, 16, 4);
+    (*(Reg*)((char*)&DAT_004e68f8 + 104)).init(&b, &a, 16, 4);
     atexit(cleanup);
 }

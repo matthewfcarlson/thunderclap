@@ -1,4 +1,6 @@
-extern char G100_cf160[], G10c[], G134[];
+#include "decls/data/game/global.h"
+
+extern char G10c[];
 char Lookup(char*);
 class Function_cf160 {
   public:
@@ -17,8 +19,8 @@ class Method3_cf160 : public Function_cf160 {
 };
 Method3_cf160::Method3_cf160(int a, int c) : Function_cf160(a, 3) {
     m1c = c;
-    b18 = Lookup(G100_cf160);
-    b10 = Lookup(G134);
-    b11 = Lookup(G134);
+    b18 = Lookup(((char*)&DAT_0048e100));
+    b10 = Lookup(((char*)&DAT_0048e134));
+    b11 = Lookup(((char*)&DAT_0048e134));
     b12 = Lookup(G10c);
 }

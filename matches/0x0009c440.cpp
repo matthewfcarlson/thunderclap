@@ -1,10 +1,11 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 typedef unsigned char u8;
 struct CtorV_001d0480 {
     CtorV_001d0480(void*, int);
     virtual void v_001d0480();
 };
-extern int gA_9c440, gB;
 class Function_9c440 : public CtorV_001d0480 {
   public:
     Function_9c440(void* a) : CtorV_001d0480(a, 2) { }
@@ -21,9 +22,9 @@ class Method2 : public Function_9c440 {
     void* p2;
     Method2(void* a, void* b) : Function_9c440(a) {
         p1 = b;
-        b18 = FUN_001d04d0(&gA_9c440);
-        b10 = FUN_001d04d0(&gB);
-        b11 = FUN_001d04d0(&gB);
+        b18 = FUN_001d04d0(((int*)&DAT_0048e100));
+        b10 = FUN_001d04d0(((int*)&DAT_0048e128));
+        b11 = FUN_001d04d0(((int*)&DAT_0048e128));
     }
 };
 class Closure2 : public Method2 {

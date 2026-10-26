@@ -1,6 +1,6 @@
+#include "decls/data/game/global.h"
+
 #include "compat/ptr.h"
-extern int g_4c3880;
-extern void* g_554c10;
 struct Arg_1b3f90 {
     char p[0xc];
     int a;
@@ -19,7 +19,7 @@ void Obj_1b3f90::target(Arg_1b3f90* arg) {
     a = arg->a;
     int t = arg->b;
     c = (hulk_intptr)arg;
-    int g = g_4c3880;
+    int g = DAT_004c3880;
     b = t;
-    ((Callee_1b3f90*)g_554c10)->call(g);
+    ((Callee_1b3f90*)(*(void**)&DAT_00554c10))->call(g);
 }

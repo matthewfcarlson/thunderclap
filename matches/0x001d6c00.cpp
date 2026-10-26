@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: zero = DAT_004c6068
+
 struct Vec {
     float x, y, z;
 };
@@ -20,11 +23,10 @@ struct Owner {
     Obj* obj;
     void fn();
 };
-extern float zero;
 void __cdecl output(Vec*);
 void Owner::fn() {
     View local = *obj->get();
     Vec v;
-    local.calc(&zero, &v);
+    local.calc(((float*)&DAT_004c6068), &v);
     output(&v);
 }

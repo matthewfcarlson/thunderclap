@@ -1,9 +1,12 @@
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+// data: key1 = DAT_0048e100, key2 = DAT_0048e128
+
 struct CtorV_001d0480 {
     CtorV_001d0480(void*, int);
     virtual void v_001d0480();
 };
 extern "C" unsigned char __cdecl query(const void*);
-extern char key1, key2;
 class Base : public CtorV_001d0480 {
   public:
     Base(void* name) : CtorV_001d0480(name, 1) { }
@@ -27,8 +30,8 @@ class Closure1 : public Closure1_1baa20 {
 };
 Closure1_1baa20::Closure1_1baa20(void* name, void* obj) : Base(name) {
     owner = obj;
-    b = query(&key1);
-    a = query(&key2);
+    b = query(((char*)&DAT_0048e100));
+    a = query(((char*)&DAT_0048e128));
 }
 Closure1::Closure1(void* name, void* cb, void* obj) : Closure1_1baa20(name, obj) {
     fn = cb;

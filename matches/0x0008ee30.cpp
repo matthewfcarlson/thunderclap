@@ -1,7 +1,6 @@
 // cl-flags: /Oy-
+#include "decls/data/game/unknown.h"
 
-int g_4dd834;
-int g_4dd830;
 
 void FUN_0008ed60();
 void FUN_0008d660();
@@ -31,9 +30,9 @@ class CGame_8ee30 {
 };
 
 int FUN_0008ee30() {
-    g_4dd834 += 0x15b;
+    (*(int*)&DAT_004dd834) += 0x15b;
     FUN_0008ed60();
-    g_4dd830 = 0x2ad2b093;
+    (*(int*)&DAT_004dd830) = 0x2ad2b093;
     FUN_0008d660();
     FUN_0026f070();
     FUN_0026eea0(2, 0x2148, 0, 0);

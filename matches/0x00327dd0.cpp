@@ -1,3 +1,6 @@
+#include "decls/data/engine/pure3d.h"
+// data: gState_327dd0 = DAT_004d40d8
+
 class Obj_327dd0 {
   public:
     virtual void f0();
@@ -15,12 +18,10 @@ class Obj_327dd0 {
     virtual void f12();
     virtual void f13();
 };
-extern Obj_327dd0* gObj_327dd0;
-extern int gState_327dd0;
 void target() {
-    Obj_327dd0* p = gObj_327dd0;
-    gState_327dd0 = -1;
-    gObj_327dd0 = 0;
+    Obj_327dd0* p = (*(Obj_327dd0**)&DAT_005555bc);
+    DAT_004d40d8 = -1;
+    (*(Obj_327dd0**)&DAT_005555bc) = 0;
     if (p)
         p->f13();
 }

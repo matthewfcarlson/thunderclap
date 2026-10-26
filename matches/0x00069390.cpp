@@ -1,6 +1,8 @@
-extern const float zero_69390;
+#include "decls/data/game/global.h"
+// data: zero_69390 = DAT_003f32e0
+
 double __stdcall target(float a, float b) {
-    if (a <= zero_69390)
-        return zero_69390;
+    if (a <= DAT_003f32e0)
+        return DAT_003f32e0;
     return b / a + b / a;
 }

@@ -1,9 +1,11 @@
+#include "decls/data/game/global.h"
+// data: key = DAT_0048e0f0
+
 struct CtorV_001d0480 {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
 extern "C" unsigned char __cdecl get(const char*);
-extern const char key[];
 struct Function_8b3b0 : public CtorV_001d0480 {
     Function_8b3b0(const char* s) : CtorV_001d0480(s, 1) { }
 };
@@ -18,8 +20,8 @@ class Method1 : public Function_8b3b0 {
     const char* name;
     Method1(const char* s, const char* n) : Function_8b3b0(s) {
         name = n;
-        b = get(key);
-        a = get(key);
+        b = get(((const char*)&DAT_0048e0f0));
+        a = get(((const char*)&DAT_0048e0f0));
     }
 };
 class Closure1 : public Method1 {

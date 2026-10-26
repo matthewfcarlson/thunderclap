@@ -1,6 +1,8 @@
 // cl-flags: /O2
-int gValue_79370;
+#include "decls/data/game/global.h"
+// data: gValue_79370 = DAT_004dd040
+
 void __stdcall Set(int v) {
     if (v <= 0x14)
-        gValue_79370 = v;
+        DAT_004dd040 = v;
 }

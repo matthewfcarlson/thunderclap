@@ -1,3 +1,5 @@
+#include "decls/data/engine/pure3d/prop.h"
+
 class A_28f9a0 {
   public:
     virtual void F0();
@@ -32,7 +34,6 @@ class B_28f9a0 {
     virtual void G13(int);
 };
 extern A_28f9a0* gA_28f9a0;
-extern B_28f9a0** gB_28f9a0;
 class X_28f9a0 {
   public:
     int refs;
@@ -51,6 +52,6 @@ void X_28f9a0::Fn() {
         gA_28f9a0->F10(c);
         gA_28f9a0->F12(d);
     }
-    (**gB_28f9a0).G13(0);
+    (**(*(B_28f9a0***)&DAT_0052c2ac)).G13(0);
     flag = 1;
 }

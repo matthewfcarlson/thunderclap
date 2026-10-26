@@ -1,5 +1,5 @@
-extern char a[];
-extern char b[];
+#include "decls/data/game/global.h"
+
 char __cdecl lookup(const char*);
 class Base {
   public:
@@ -28,6 +28,6 @@ Closure1::Closure1(void* p, void* q, void* r) : Closure1_1ce290(p, r) {
 }
 Closure1_1ce290::Closure1_1ce290(void* p, void* q) : Base(p, 1) {
     arg = q;
-    y = lookup(a);
-    x = lookup(b);
+    y = lookup(((char*)&DAT_0048e100));
+    x = lookup(((char*)&DAT_0048e0e4));
 }

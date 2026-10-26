@@ -1,9 +1,8 @@
+#include "decls/data/engine/unknown.h"
+
 extern "C" {
-extern float a_31a830;
-extern float b_31a830;
 extern float c;
 extern float d;
-extern float e;
 }
 class Obj_31a830 {
   public:
@@ -30,9 +29,9 @@ Obj_31a830::Obj_31a830() {
     v[16] = 1.0f;
     v[17] = 0.0f;
     v[18] = 0.0f;
-    v[19] = a_31a830;
-    v[20] = b_31a830;
+    v[19] = (*(float*)&DAT_004d34e0);
+    v[20] = (*(float*)&DAT_004d34e4);
     v[21] = c;
     v[22] = d * c;
-    v[23] = e * c;
+    v[23] = DAT_004d34f0 * c;
 }

@@ -1,3 +1,6 @@
+#include "decls/data/engine/audio.h"
+#include "decls/data/engine/content.h"
+
 #include "compat/ptr.h"
 struct State_265c40 {
     unsigned char p0[1];
@@ -15,12 +18,10 @@ struct State_265c40 {
 void __cdecl FUN_0026d7a0(void*);
 void __cdecl FUN_0008d340(void*);
 void __cdecl FUN_0008d330(void*);
-State_265c40* DAT_00527c58;
-char DAT_00527c28;
 void __cdecl FUN_00265c40(void) {
-    State_265c40* s = DAT_00527c58;
+    State_265c40* s = (*(State_265c40**)&DAT_00527c58);
     s->flag = 1;
-    FUN_0026d7a0((void*)&DAT_00527c28);
+    FUN_0026d7a0((void*)&(*(char*)((char*)&DAT_0051de40 + 40424)));
     hulk_intptr x = s->at30;
     s->at28 = x;
     s->at2c = x;
@@ -32,5 +33,5 @@ void __cdecl FUN_00265c40(void) {
     if (x)
         FUN_0008d340((void*)x);
     FUN_0008d330(s);
-    DAT_00527c58 = 0;
+    (*(State_265c40**)&DAT_00527c58) = 0;
 }

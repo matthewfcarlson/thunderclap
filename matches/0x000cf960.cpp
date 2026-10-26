@@ -1,5 +1,6 @@
 #include "decls/address.h"
-extern const char g1[], g2[];
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 class Function_cf960 {
   public:
     virtual void Invoke(float);
@@ -16,8 +17,8 @@ class Method1 : public Function_cf960 {
     void* obj;
     Method1(void* x, void* y) : Function_cf960(x, 1) {
         obj = y;
-        b = FUN_001d04d0(g1);
-        a = FUN_001d04d0(g2);
+        b = FUN_001d04d0(((const char*)&DAT_0048e100));
+        a = FUN_001d04d0(((const char*)&DAT_0048e128));
     }
 };
 class Closure1 : public Method1 {

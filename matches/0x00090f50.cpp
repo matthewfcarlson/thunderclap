@@ -1,10 +1,11 @@
+#include "decls/data/game/global.h"
+// data: key1 = DAT_0048e100, key2 = DAT_0048e0f0
+
 struct CtorV_001d0480 {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
 extern "C" unsigned char lookup(const char*);
-extern char key1[];
-extern char key2[];
 class Function_90f50 : public CtorV_001d0480 {
   public:
     char pad[4];
@@ -22,8 +23,8 @@ class Method1 : public Function_90f50 {
     void* arg3;
     Method1(const char* p, void* a) : Function_90f50(p) {
         arg2 = a;
-        flag2 = lookup(key1);
-        flag1 = lookup(key2);
+        flag2 = lookup(((char*)&DAT_0048e100));
+        flag1 = lookup(((char*)&DAT_0048e0f0));
     }
 };
 class Closure1 : public Method1 {

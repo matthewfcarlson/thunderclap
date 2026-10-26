@@ -1,4 +1,6 @@
-extern const float scale;
+#include "decls/data/game/global.h"
+// data: scale = DAT_003ffaa4
+
 class Obj {
   public:
     char pad[24];
@@ -6,5 +8,5 @@ class Obj {
     double Get();
 };
 double Obj::Get() {
-    return (double)ticks * scale;
+    return (double)ticks * DAT_003ffaa4;
 }

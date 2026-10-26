@@ -1,4 +1,5 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 class CScenarioManager;
 struct CtorV_001d0480 {
     CtorV_001d0480(const char*, int);
@@ -24,11 +25,10 @@ class Closure1 : public Method1 {
     int extra;
     Closure1(const char*, int, int);
 };
-extern const char g0[], g1[];
 inline Method1::Method1(const char* a, int c) : Function_1ce730(a) {
     arg = c;
-    b18 = FUN_001d04d0(g0);
-    b10 = FUN_001d04d0(g1);
+    b18 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    b10 = FUN_001d04d0(((const char*)&DAT_0048e134));
 }
 Closure1::Closure1(const char* a, int b, int c) : Method1(a, c) {
     extra = b;

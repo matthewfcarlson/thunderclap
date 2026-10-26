@@ -1,11 +1,11 @@
 #include "gen/global.h"
+#include "decls/data/game/global.h"
+// data: g_checker = DAT_004e3690, g_size_1f2db0 = DAT_004c6f4c
 
-extern int g_size_1f2db0;
 class Checker_1f2db0 {
   public:
     bool check(int);
 };
-extern Checker_1f2db0* g_checker;
 int __cdecl make_stream(int, int);
 int __cdecl create_stream(int, int, int, int, int, int, int);
 class StreamPlayerAllocator_1f2db0 {
@@ -15,8 +15,8 @@ class StreamPlayerAllocator_1f2db0 {
 };
 
 int CSoundStreamAllocator::vfunc_0(int a, int b, int c, int d) {
-    int x = make_stream(d, g_size_1f2db0);
-    if (!g_checker->check(x))
+    int x = make_stream(d, DAT_004c6f4c);
+    if (!(*(Checker_1f2db0**)&DAT_004e3690)->check(x))
         return 0;
     return create_stream(c, 0, b, x, 0, 0, 1);
 }

@@ -1,18 +1,20 @@
-extern const float a_3209f0, b, c, d, e, g, h, i;
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 float FUN(float x) {
-    if (x <= a_3209f0)
-        return a_3209f0;
-    if (x <= b)
-        return b;
-    if (x <= c)
-        return c;
-    if (x <= d)
-        return d;
-    if (x <= e)
-        return e;
-    if (x <= g)
-        return g;
-    if (x <= h)
-        return h;
-    return i;
+    if (x <= DAT_003f32dc)
+        return DAT_003f32dc;
+    if (x <= DAT_003f5cf8)
+        return DAT_003f5cf8;
+    if (x <= DAT_003f3318)
+        return DAT_003f3318;
+    if (x <= DAT_003f5cd4)
+        return DAT_003f5cd4;
+    if (x <= DAT_003ff9e8)
+        return DAT_003ff9e8;
+    if (x <= DAT_0041d804)
+        return DAT_0041d804;
+    if (x <= DAT_0041d87c)
+        return DAT_0041d87c;
+    return DAT_00409000;
 }

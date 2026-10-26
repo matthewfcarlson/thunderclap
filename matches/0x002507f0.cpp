@@ -1,3 +1,5 @@
+#include "decls/data/engine/audio.h"
+
 class SeqEvent {
   public:
     virtual void f0();
@@ -21,12 +23,11 @@ class SeqEventWaitBeat : public SeqEvent {
     void FUN_0025fd10();
 };
 extern "C" void __cdecl FUN_00247550(void*, void*);
-extern char g_4e6a68[1];
 SeqEventWaitBeat* SeqEventWaitBeat::f4(int x) {
     H* h = (H*)((char*)this + 8);
     h->FUN_00262020();
     FUN_0025fd10();
     if (x & 1)
-        FUN_00247550(g_4e6a68, this);
+        FUN_00247550(((char*)((char*)&DAT_004e6a60 + 8)), this);
     return this;
 }

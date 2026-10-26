@@ -1,3 +1,5 @@
+#include "decls/data/engine/audio.h"
+
 class SeqEventContainer {
   public:
     virtual void f0();
@@ -17,10 +19,9 @@ class SeqEventLogicOr : public SeqEventContainer {
     virtual SeqEventLogicOr* v4(int);
 };
 extern void __cdecl FUN_00247550(void*, SeqEventLogicOr*);
-extern char g_4e7458;
 SeqEventLogicOr* SeqEventLogicOr::v4(int flags) {
     Init();
     if (flags & 1)
-        FUN_00247550(&g_4e7458, this);
+        FUN_00247550(((char*)((char*)&DAT_004e7410 + 72)), this);
     return this;
 }

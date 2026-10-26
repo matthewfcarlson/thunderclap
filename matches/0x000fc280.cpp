@@ -1,3 +1,5 @@
+#include "decls/data/game/global.h"
+
 struct Global_fc280 {
     virtual void f0();
     virtual void f1();
@@ -15,7 +17,6 @@ struct Global_fc280 {
     virtual void f13();
     virtual void f14(int);
 };
-extern Global_fc280* g_fc280;
 void FUN_000fc280(int x) {
-    g_fc280->f14(x);
+    (*(Global_fc280**)&DAT_004e0a60)->f14(x);
 }

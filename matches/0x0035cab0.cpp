@@ -1,8 +1,8 @@
 #include "decls/address.h"
-extern "C" unsigned int g4dcec8;
-extern "C" unsigned int g4dcec8_1;
+#include "decls/data/game/global.h"
+// data: g4dcec8_1 = DAT_004dcecc
 void __cdecl FUN_0035cab0() {
     unsigned long long r = FUN_0027b020("throwing");
-    g4dcec8 = (unsigned int)r;
-    g4dcec8_1 = (unsigned int)(r >> 32);
+    (*(unsigned int*)&DAT_004dcec8) = (unsigned int)r;
+    (*(unsigned int*)&DAT_004dcecc) = (unsigned int)(r >> 32);
 }

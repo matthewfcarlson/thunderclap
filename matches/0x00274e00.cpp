@@ -1,4 +1,7 @@
 // Same code shape as 0x00274d20 (propagated; names are from that function)
+#include "decls/data/engine/core.h"
+// data: gLock_274e00 = DAT_0052a1c8, gObject_274e00 = DAT_0052a1e4
+
 typedef unsigned char u8_274e00;
 struct Obj_274e00 {
     virtual void f0();
@@ -24,8 +27,6 @@ struct GlobalObj_274e00 {
     virtual void d();
     virtual void e(core::DriveCompletionRequest*);
 };
-extern char gLock_274e00[];
-extern GlobalObj_274e00* gObject_274e00;
 extern char vtFile[];
 extern char vtRequest[];
 extern void FUN_0026d850(void*);
@@ -36,9 +37,9 @@ core::DriveCompletionRequest* core::DriveCompletionRequest::vfunc_0(u8_274e00 pa
     mAtC->f1();
     *(void**)this = vtRequest;
     if (param & 1) {
-        FUN_0026d850(gLock_274e00);
-        gObject_274e00->e(this);
-        FUN_0026d840(gLock_274e00);
+        FUN_0026d850(((char*)&DAT_0052a1c8));
+        (*(GlobalObj_274e00**)&DAT_0052a1e4)->e(this);
+        FUN_0026d840(((char*)&DAT_0052a1c8));
     }
     return this;
 }

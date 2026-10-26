@@ -1,4 +1,6 @@
 #include "gen/global.h"
+#include "decls/data/game/global.h"
+// data: gByte = DAT_004e222c, gFlag_e6f60 = DAT_004e2518
 
 class Sub_e6f60 {
   public:
@@ -29,8 +31,6 @@ struct Manager_e6f60 {
     void* obj;
 };
 extern Manager_e6f60* gManager_e6f60;
-extern char gByte;
-extern char gFlag_e6f60;
 
 void FEThingsBase::vfunc_23() {
     if (this->f_17b0 < 0 || (this->f_2104 == 0 && this->f_17b0 == 0)) {
@@ -46,9 +46,9 @@ void FEThingsBase::vfunc_23() {
     }
     vfunc_24();
     Manager_e6f60* m = gManager_e6f60;
-    gByte = 1;
-    if (m->obj && *(void**)((char*)m->obj + 0x124) && gFlag_e6f60) {
-        gFlag_e6f60 = 0;
+    DAT_004e222c = 1;
+    if (m->obj && *(void**)((char*)m->obj + 0x124) && (*(char*)&DAT_004e2518)) {
+        (*(char*)&DAT_004e2518) = 0;
         ((Obj_e6f60*)*(void**)((char*)m->obj + 0x124))->run();
     }
 }

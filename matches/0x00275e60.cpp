@@ -1,4 +1,7 @@
 // Same code shape as 0x00275e50 (propagated; names are from that function)
+#include "decls/data/engine/core.h"
+// data: g_data_275e60 = DAT_0052a1e8
+
 namespace core {
 class File {
   public:
@@ -38,7 +41,6 @@ class File {
 };
 } // namespace core
 extern "C" void init(void*);
-extern "C" char g_data_275e60;
 void core::File::vfunc_0_adj4() {
-    init(&g_data_275e60);
+    init(((char*)&DAT_0052a1e8));
 }

@@ -1,4 +1,5 @@
-extern "C" int table_266f40[4096];
+#include "decls/data/engine/content.h"
+
 extern "C" int FUN_00266f40(int param_1) {
-    return table_266f40[param_1 * 4];
+    return ((int*)((char*)&DAT_00527c58 + 8))[param_1 * 4];
 }

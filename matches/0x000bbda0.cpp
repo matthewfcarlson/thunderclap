@@ -1,4 +1,5 @@
-extern unsigned char DAT_004dd83b;
+#include "decls/data/game/unknown.h"
+
 class Obj {
   public:
     void Fn(void* p);
@@ -7,5 +8,5 @@ class Obj {
 };
 void Obj::Fn(void* p) {
     if (m)
-        DAT_004dd83b = (p == 0);
+        (*(unsigned char*)&DAT_004dd83b) = (p == 0);
 }

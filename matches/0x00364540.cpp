@@ -1,8 +1,9 @@
+#include "decls/data/engine/audio.h"
+
 class Obj_364540 {
   public:
     void Run();
 };
-extern Obj_364540 gObj_364540;
 void __cdecl FUN_00364540() {
-    gObj_364540.Run();
+    (*(Obj_364540*)((char*)&DAT_004e70e8 + 104)).Run();
 }

@@ -1,9 +1,11 @@
+#include "decls/data/game/global.h"
+
 struct CtorV_001d0480 {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
 extern "C" unsigned char __cdecl check(const char*);
-extern const char s1_d5660[], s2[], s3[], s4[];
+extern const char s4[];
 class Function_d5660 : public CtorV_001d0480 {
   public:
     Function_d5660(const char* str) : CtorV_001d0480(str, 3) { }
@@ -21,8 +23,8 @@ class Method3_d5660 : public Function_d5660 {
 };
 Method3_d5660::Method3_d5660(const char* str, int n) : Function_d5660(str) {
     value = n;
-    d = check(s1_d5660);
-    a = check(s2);
-    b = check(s3);
+    d = check(((const char*)&DAT_0048e100));
+    a = check(((const char*)&DAT_0048e0f0));
+    b = check(((const char*)&DAT_0048e134));
     c = check(s4);
 }

@@ -1,5 +1,6 @@
-extern void* g_p_3338a0;
+#include "decls/data/platform/xbox/movie.h"
+
 void __cdecl Free(void*, void*, int);
 void __stdcall FUN_003338a0(void* p) {
-    Free(g_p_3338a0, p, 0x10);
+    Free((*(void**)&DAT_00555ba0), p, 0x10);
 }

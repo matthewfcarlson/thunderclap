@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
+// data: vals = DAT_004c602c
 
 class Loader_1dbd50 {
   public:
@@ -9,13 +10,12 @@ class Loader_1dbd50 {
     void Finish(int);
 };
 extern Loader_1dbd50* __cdecl FUN_001d4c90();
-extern const int vals[];
 void __cdecl FUN_001dbd50() {
     Loader_1dbd50* p = FUN_001d4c90();
     if (p) {
         p->Config("constants", 1, 1);
         p->Type("weaponTypes", 0, 1);
-        const int* q = vals;
+        const int* q = ((const int*)&DAT_004c602c);
         do {
             p->Pair(*q, *q);
             ++q;

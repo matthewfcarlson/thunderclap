@@ -1,6 +1,7 @@
 #include "gen/audio.h"
+#include "decls/data/engine/audio.h"
+// data: bss = DAT_004e6a68
 
-extern char bss[];
 void* alloc(void*);
 int find(const char*, int);
 extern "C" void _ReadWriteBarrier();
@@ -31,6 +32,6 @@ inline void* operator new(unsigned int, void* p) {
     return p;
 }
 void* audio::SeqEventWaitBeatType::vfunc_3() {
-    void* p = alloc(bss);
+    void* p = alloc(((char*)((char*)&DAT_004e6a60 + 8)));
     return (void*)(p ? new (p) SeqEventWaitBeat_250910 : 0);
 }

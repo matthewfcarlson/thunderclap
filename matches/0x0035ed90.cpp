@@ -1,11 +1,13 @@
+#include "decls/data/game/global.h"
+// data: g_sub = DAT_004e36bc
+
 class Sub {
   public:
     void Init(const char* path, int flag);
 };
-extern Sub g_sub;
 void __cdecl Reg(void* f);
 void __cdecl Cleanup();
 void __cdecl InitSub() {
-    g_sub.Init("sound/rsd", 0);
+    (*(Sub*)&DAT_004e36bc).Init("sound/rsd", 0);
     Reg(Cleanup);
 }

@@ -1,4 +1,6 @@
-extern int gA_cfda0, gB;
+#include "decls/data/game/global.h"
+// data: gA_cfda0 = DAT_0048e134
+
 extern "C" unsigned char __cdecl lookup(const void*);
 class Function_cfda0 {
   public:
@@ -17,9 +19,9 @@ class Method2_cfda0 : public Function_cfda0 {
     int m;
     Method2_cfda0(int x, int y) : Function_cfda0(x, 2) {
         m = y;
-        c = lookup(&gA_cfda0);
-        a = lookup(&gA_cfda0);
-        b = lookup(&gB);
+        c = lookup(((int*)&DAT_0048e134));
+        a = lookup(((int*)&DAT_0048e134));
+        b = lookup(((int*)&DAT_0048e0f0));
     }
 };
 class Closure2_cfda0 : public Method2_cfda0 {

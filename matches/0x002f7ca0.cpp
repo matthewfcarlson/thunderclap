@@ -1,5 +1,7 @@
+#include "decls/data/game/global.h"
+// data: zero = DAT_003f32e0
+
 #include "compat/ptr.h"
-extern const float zero;
 struct Value {
     char pad[0x14];
     float v;
@@ -23,7 +25,7 @@ class Obj {
 };
 hulk_freg Obj::Get() {
     if (flag)
-        return zero;
+        return DAT_003f32e0;
     if (first && second) {
         Value* r = right->val;
         Value* l = left->val;

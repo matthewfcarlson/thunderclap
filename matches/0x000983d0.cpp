@@ -1,6 +1,8 @@
+#include "decls/data/game/hulkfight.h"
+// data: gName_983d0 = DAT_0049e108
+
 #include "compat/ptr.h"
 extern "C" char DAT_00404b3c[];
-extern const char* gName_983d0;
 class CamInit {
   public:
     void InitBase();
@@ -26,7 +28,7 @@ extern "C" Blend_983d0* __fastcall FUN_000983d0(Blend_983d0* self) {
     p = (char*)self + 0x1a8;
     ((CamSetup*)p)->SetupPart();
     c = (CamCfg*)((char*)self + 8);
-    const char* n = gName_983d0;
+    const char* n = DAT_0049e108;
     *(int*)((char*)self + 0xd0) = 5;
     c->ConfigPart(n);
     *(int*)p = 0;

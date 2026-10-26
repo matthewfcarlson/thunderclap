@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: gflag = DAT_004e222c
+
 class Inner_1b8350 {
   public:
     virtual void v0();
@@ -30,14 +33,13 @@ class Thing_1b8350 {
     void Run(int, int);
 };
 extern int getval();
-extern unsigned char gflag;
 void Thing_1b8350::Run(int a, int b) {
     Helper(a, b114);
     if (inner) {
         flag9 = 0;
         inner->v8();
         value = getval() + b;
-        gflag = 1;
+        (*(unsigned char*)&DAT_004e222c) = 1;
         if (b130 && inner) {
             inner->v10(arg134);
             b130 = 0;

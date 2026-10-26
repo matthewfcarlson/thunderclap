@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+// data: flag_865d0 = DAT_004dd6f0
+
 struct A_865d0 {
     void f2();
     void f4();
@@ -11,7 +14,6 @@ struct B_865d0 {
 struct C_865d0 {
     void f5();
 };
-extern unsigned char flag_865d0;
 struct Obj_865d0 {
     char pad0[4];
     int v4;
@@ -25,10 +27,10 @@ struct Obj_865d0 {
 };
 void __fastcall target(Obj_865d0* self) {
     A_865d0* edi = self->init();
-    if (!flag_865d0)
+    if (!(*(unsigned char*)&DAT_004dd6f0))
         edi->f2();
     else
-        flag_865d0 = 0;
+        (*(unsigned char*)&DAT_004dd6f0) = 0;
     self->p38->f3(0);
     edi->f4();
     self->p30->f5();

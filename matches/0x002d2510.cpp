@@ -1,4 +1,6 @@
 #include "gen/pure3d.h"
+#include "decls/data/game/global.h"
+// data: zero_2d2510 = DAT_003f32e0
 
 class ParticleGenerator_2d2510 {
   public:
@@ -15,7 +17,6 @@ class ParticleGenerator_2d2510 {
     virtual void a10();
     virtual void a11();
 };
-extern const float zero_2d2510;
 
 hulk_freg pure3d::ParticlePointGenerator::vfunc_8(int n) {
     --n;
@@ -24,7 +25,7 @@ hulk_freg pure3d::ParticlePointGenerator::vfunc_8(int n) {
         if (n != 0) {
             --n;
             if (n != 0)
-                return zero_2d2510;
+                return DAT_003f32e0;
             return this->f_4c;
         }
         return this->f_48;

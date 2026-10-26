@@ -1,4 +1,6 @@
-extern int gBss_24dbb0;
+#include "decls/data/engine/audio.h"
+// data: gBss_24dbb0 = DAT_004e65b8
+
 extern void FUN_00247550(const void*, void*);
 namespace audio { class ListenerEffectWin32 {
   public:
@@ -16,6 +18,6 @@ namespace audio { class ListenerEffectWin32 {
 audio::ListenerEffectWin32* audio::ListenerEffectWin32::vfunc_2(int flag) {
     BaseCall();
     if (flag & 1)
-        FUN_00247550(&gBss_24dbb0, this);
+        FUN_00247550(((int*)&DAT_004e65b8), this);
     return this;
 }

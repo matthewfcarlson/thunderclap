@@ -1,8 +1,9 @@
 // Same code shape as 0x00363af0 (propagated; names are from that function)
+#include "decls/data/game/hulkfight/ai.h"
+
 struct Obj_363ec0 {
     void f();
 };
-extern Obj_363ec0 g_363ec0;
 void wrapper() {
-    g_363ec0.f();
+    (*(Obj_363ec0*)&DAT_004e0bf0).f();
 }

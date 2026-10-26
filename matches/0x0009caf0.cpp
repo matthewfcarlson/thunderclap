@@ -1,10 +1,10 @@
+#include "decls/data/game/global.h"
+
 struct CtorV_001d0480 {
     CtorV_001d0480(void*, int);
     virtual void v_001d0480();
 };
 extern "C" unsigned char query(void*);
-extern void* gA;
-extern void* gB;
 class Function_9caf0 : public CtorV_001d0480 {
   public:
     Function_9caf0(void* p) : CtorV_001d0480(p, 1) { }
@@ -20,8 +20,8 @@ class Method1 : public Function_9caf0 {
     void* owner;
     Method1(void* p, void* o) : Function_9caf0(p) {
         owner = o;
-        flagB = query(&gB);
-        flagA = query(&gA);
+        flagB = query(((void**)&DAT_0048e100));
+        flagA = query(((void**)&DAT_0048e0e4));
     }
 };
 class Closure1 : public Method1 {

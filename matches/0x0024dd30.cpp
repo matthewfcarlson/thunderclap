@@ -1,5 +1,5 @@
-extern char DAT_004e6330[];
-extern char DAT_004e6338[];
+#include "decls/data/engine/audio.h"
+
 extern char DAT_00429440[];
 struct Obj_24dd30 {
     void* vptr;

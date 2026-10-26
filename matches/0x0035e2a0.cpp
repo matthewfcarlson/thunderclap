@@ -1,9 +1,11 @@
+#include "decls/data/game/hulkfight/ai.h"
+// data: gPair = DAT_004e0d08
+
 struct Pair {
     int a;
     int b;
 };
 extern Pair __cdecl Find(const char*);
-extern Pair gPair;
 void InitWaypoint() {
-    gPair = Find("waypoint");
+    (*(Pair*)&DAT_004e0d08) = Find("waypoint");
 }

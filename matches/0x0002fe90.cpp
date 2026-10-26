@@ -1,9 +1,10 @@
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
+#include "decls/data/game/unknown.h"
+
 extern void* VT_Method2[2];
 extern void* VT_Closure2[2];
 extern void* TAB_48e100;
 extern void* TAB_48e0f0;
-extern void* TAB_48e134;
 
 struct Ctor_001d0480 {
     Ctor_001d0480(void* a1, int b);
@@ -30,7 +31,7 @@ Closure2::Closure2(void* a1, int a2, int a3) : Ctor_001d0480(a1, 2) {
     mA3 = a3;
     mFlag18 = LookupFlag(&TAB_48e100);
     mFlag10 = LookupFlag(&TAB_48e0f0);
-    mFlag11 = LookupFlag(&TAB_48e134);
+    mFlag11 = LookupFlag(((void**)&DAT_0048e128));
     vfptr = (void*)VT_Closure2;
     mA2 = a2;
 }

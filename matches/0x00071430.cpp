@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
+// data: gCount = DAT_004dcf6c
 
 extern "C" void __cdecl FUN_000683b0();
 extern "C" void __cdecl FUN_000683c0();
@@ -17,7 +18,6 @@ extern "C" void __cdecl FUN_00069d10();
 extern "C" char DAT_003fc624[];
 extern "C" char DAT_003fc644[];
 extern "C" char DAT_003fc664[];
-extern "C" int gCount;
 extern "C" void* __cdecl Alloc(hulk_uintptr);
 struct P {
     void InitFloat(const char*);
@@ -27,7 +27,7 @@ struct P {
 extern "C" void __cdecl Register(void**, void**, int);
 
 void Target() {
-    if (gCount == 0) {
+    if ((*(int*)&DAT_004dcf6c) == 0) {
         void* a[13];
         P* p;
 #define M(i, n, f, v, d)                                                                                     \
@@ -55,5 +55,5 @@ void Target() {
         M(12, "blendOutTime", InitFloat, ((int)DAT_003fc624), ((hulk_intptr)(void (__cdecl*)())&FUN_000684e0))
         Register((void**)((hulk_intptr)DAT_004dcf68), a, 13);
     }
-    ++gCount;
+    ++(*(int*)&DAT_004dcf6c);
 }

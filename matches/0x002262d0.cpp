@@ -1,6 +1,7 @@
+#include "decls/data/game/global.h"
+// data: gone = DAT_003f32dc, gzero = DAT_003f32e0
+
 #include "compat/ptr.h"
-extern const float gzero;
-extern const float gone;
 struct Entry_2262d0 {
     unsigned int id;
     float w;
@@ -16,7 +17,7 @@ class Obj_2262d0 {
     void Add(unsigned int, float, float);
 };
 void Obj_2262d0::Add(unsigned int id, float w, float v) {
-    if (w <= gzero)
+    if (w <= DAT_003f32e0)
         return;
     if (id >= limit)
         return;
@@ -26,7 +27,7 @@ void Obj_2262d0::Add(unsigned int id, float w, float v) {
             hulk_freg nw = w + e[i].w;
             e[i].w = nw;
             hulk_freg t = w / nw;
-            e[i].v = t * v + (gone - t) * e[i].v;
+            e[i].v = t * v + (DAT_003f32dc - t) * e[i].v;
             return;
         }
     }

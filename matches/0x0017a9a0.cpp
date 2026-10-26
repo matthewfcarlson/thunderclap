@@ -1,3 +1,6 @@
+#include "decls/data/game/hulkfight/motion.h"
+// data: gCount_17a9a0 = DAT_004e1384
+
 #include "compat/ptr.h"
 extern "C" void __cdecl FUN_0016f880();
 extern "C" void __cdecl FUN_0016f8a0();
@@ -9,8 +12,6 @@ struct Param {
 
 void* operator new(unsigned int n);
 void Register(void* reg, Param** arr, int n);
-extern int gCount_17a9a0;
-extern char gReg_17a9a0[];
 
 struct Base_17a9a0 {
     int vt;
@@ -21,7 +22,7 @@ struct Base_17a9a0 {
 };
 
 void FUN_0017a9a0() {
-    if (gCount_17a9a0 == 0) {
+    if ((*(int*)&DAT_004e1384) == 0) {
         Param* arr[2];
         Param* a = (Param*)operator new(0x18);
         if (a) {
@@ -41,7 +42,7 @@ void FUN_0017a9a0() {
         } else {
             arr[1] = 0;
         }
-        Register(gReg_17a9a0, arr, 2);
+        Register(((char*)&DAT_004e1380), arr, 2);
     }
-    gCount_17a9a0++;
+    (*(int*)&DAT_004e1384)++;
 }
