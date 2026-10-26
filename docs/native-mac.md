@@ -43,7 +43,11 @@ Why not Itanium (`arm64-apple-macos` directly): every vftable with a virtual des
 use the same front end without the retarget, so the two 64-bit targets share names and layouts.
 
 arm64 macOS refuses executables with a `__PAGEZERO` below 4 GB (the process is killed at exec), so every pointer
-is above 4 GB: a pointer kept in a 32-bit integer is always fatal at run time, never latent.
+is above 4 GB: a pointer kept in a 32-bit integer is always fatal at run time, never latent. Linux keeps only the
+first 64 KB unmapped, so the POSIX entry (`src/platform/sdl/host/entry_posix.cpp`, `low_4gb_reserve`) reserves every
+free range below 4 GB `PROT_NONE` before the game's initializers run (PIE images; `HULK_LOW_4GB=0` turns it off), and
+the crash report adds a hint when the faulting address is below 4 GB. Not yet run on Linux: the first SteamOS build
+checks it (the trace's `low-4gb reserved N MB` line should show about 4,095 MB).
 
 ## 2. Compile (milestone 1)
 

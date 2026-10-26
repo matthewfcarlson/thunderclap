@@ -156,6 +156,15 @@ class Lending(unittest.TestCase):
         h.lend_budget = 0
         self.assertFalse(h.eligible(job(slots=1), time.time()))   # nothing idle: no loan
 
+    def test_held_host_lends_only_idle_slots(self):
+        h = mkhost("h", ["equiv"], cap=16, used=8)         # a build runs; a queued big job holds the host
+        h.load, h.ncpu = 1.0, 16
+        h.lend_budget = 0
+        self.assertIsNone(jobq.choose_host(job(slots=1), [h], blocked={"h"}))   # free slots stay for the big job
+        h.lend_budget = 6
+        self.assertIs(jobq.choose_host(job(slots=1), [h], blocked={"h"}), h)    # but idle reserved slots are lent
+        self.assertIsNone(jobq.choose_host(job(slots=2), [h], blocked={"h"}))
+
     def test_busy_host_lends_nothing(self):
         h = mkhost("h", ["equiv"], cap=8, used=8)
         h.load, h.ncpu = 7.5, 8                             # the reserved slots really are busy

@@ -31,6 +31,7 @@
 #include <mach/mach.h>
 #include <sys/ucontext.h>
 #else
+#include <sys/mman.h>
 #include <ucontext.h>
 #endif
 
@@ -183,6 +184,9 @@ static void crash_handler(int sig, siginfo_t* si, void* uctx) {
     trace_line("crash signal=%d addr=%p pc=%p %s phase=%s", sig, si ? si->si_addr : 0, (void*)r.pc,
                sym_of(r.pc, s, sizeof(s)), g_phase);
     trace_line("regs sp=%p fp=%p lr=%p %s", (void*)r.sp, (void*)r.fp, (void*)r.lr, sym_of(r.lr, t, sizeof(t)));
+    if (si && (uintptr_t)si->si_addr >= 0x1000 && (uintptr_t)si->si_addr < (1ull << 32))
+        trace_line("hint addr below 4 GB: a pointer that went through 32 bits (a truncation, or game data read as an "
+                   "address); the low 4 GB is never mapped (macOS page zero, Linux low_4gb_reserve)");
     frames(r.fp);
     summary("crash", (hulk_u32)sig);
     _exit(4);
@@ -264,6 +268,49 @@ static void* watchdog(void* arg) {
     return 0;
 }
 
+#if defined(__linux__)
+// macOS keeps the low 4 GB unmapped (the 64-bit page zero); Linux only keeps the first 64 KB (vm.mmap_min_addr). So a
+// pointer cut to 32 bits, or a 32-bit game value used as an address, faults here too instead of reading whatever
+// happens to be mapped there: every free range below 4 GB is reserved PROT_NONE before the game runs (a constructor,
+// ahead of the C++ initializers). Needs a PIE image (the default on SteamOS's toolchains): a non-PIE one sits at
+// 0x400000, and what is mapped already is left alone. HULK_LOW_4GB=0 turns it off.
+static unsigned g_low_reserved_mb;
+__attribute__((constructor(101))) static void low_4gb_reserve(void) {
+    const char* e = getenv("HULK_LOW_4GB");
+    if (e && *e == '0')
+        return;
+    const uintptr_t top = 1ull << 32;
+    uintptr_t lo = 1 << 16;
+    if (FILE* f = fopen("/proc/sys/vm/mmap_min_addr", "r")) {
+        unsigned long v;
+        if (fscanf(f, "%lu", &v) == 1 && v > lo)
+            lo = (v + 0xffff) & ~(uintptr_t)0xffff;
+        fclose(f);
+    }
+    // halve the request until it fits between existing mappings (MAP_FIXED_NOREPLACE never replaces one)
+    for (uintptr_t at = lo; at < top;) {
+        uintptr_t len = top - at;
+        void* p = MAP_FAILED;
+        while (len >= (1 << 16)) {
+            p = mmap((void*)at, len, PROT_NONE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE | MAP_FIXED_NOREPLACE, -1, 0);
+            if (p != MAP_FAILED && (uintptr_t)p != at) {   // (an old kernel without NOREPLACE: a hint, not a fixed map)
+                munmap(p, len);
+                return;
+            }
+            if (p != MAP_FAILED)
+                break;
+            len >>= 1;
+        }
+        if (p == MAP_FAILED)
+            at += 1 << 16;   // something is mapped at AT: step past it
+        else {
+            g_low_reserved_mb += (unsigned)(len >> 20);
+            at += len;
+        }
+    }
+}
+#endif
+
 // The FPU as the game's x87 control word 0x027f has it: round to nearest, exceptions masked, denormals kept
 // (AArch64: FPCR.FZ, FZ16, DN and AH clear; RMode 0. x86-64: MXCSR 0x1f80, the default).
 static void fpu_init(void) {
@@ -290,6 +337,9 @@ int main(int argc, char** argv) {
     install_crash_handler();
     fpu_init();
     trace_line("xbe-window none (native build: data is named, never mapped at XBE addresses)");
+#if defined(__linux__)
+    trace_line("low-4gb reserved %u MB", g_low_reserved_mb);
+#endif
     if (hulk_u32 hang = env_u32("HULK_HANG", 0)) {
         pthread_t th;
         pthread_create(&th, 0, watchdog, (void*)(uintptr_t)hang);

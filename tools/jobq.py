@@ -546,7 +546,7 @@ class Host:
         self.ready = True
         return True
 
-    def eligible(self, job, now, capacity=True):
+    def eligible(self, job, now, capacity=True, lend_only=False):
         if now < self.down_until or not self.ready:
             return False
         needs = job["needs"]
@@ -560,6 +560,8 @@ class Host:
                 return False
         if not capacity:
             return self.cap >= job["slots"] or (self.cap > 0 and (not self.local or needs == "wine-gfx"))
+        if lend_only:                                         # held for a big job: only idle reserved slots are lent
+            return job["slots"] == 1 and self.lend_budget >= 1
         if self.cap - self.used >= job["slots"]:
             return True
         if job["slots"] == 1 and self.lend_budget >= 1:      # borrow an idle reserved slot (probe)
@@ -571,12 +573,13 @@ class Host:
 
 def choose_host(job, hosts, now=None, blocked=()):
     """The host a queued job should go to, or None: untried hosts first, then lowest preference value (remotes before
-    the laptop), then the least loaded in proportion to its slots. BLOCKED: names of hosts held for a bigger job."""
+    the laptop), then the least loaded in proportion to its slots. BLOCKED: names of hosts held for a bigger job; they
+    only lend idle reserved slots (a borrowed 1-slot job is short, and lending stops once the reserved slots get busy)."""
     now = now or time.time()
     tried = json.loads(job["tried"]) if isinstance(job["tried"], str) else job["tried"]
     best, bk = None, None
     for h in hosts:
-        if h.name not in blocked and h.eligible(job, now):
+        if h.eligible(job, now, lend_only=h.name in blocked):
             k = (h.name in tried, h.pref, h.used / max(1, h.cap))
             if bk is None or k < bk:
                 best, bk = h, k
