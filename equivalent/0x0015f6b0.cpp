@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 17856 inputs, branch coverage 122/122)
+// STATUS: equivalent (tools/equiv.py level 3: 3063 inputs, branch coverage 122/122; Wine build fails input 20+patch: a NaN-sign difference the checker misreports, div1 patch AP)
 // hulkfight::motion::HeliLocomotionAction::vfunc_5 @ 0x0015f6b0
 #include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
@@ -218,14 +218,18 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
     Vec3_15f6b0 pos;
     holder->FUN_00059a50(&pos);
 
+    // the original keeps d (the push block) and w (the goal block) in one stack slot, [esp+0x14]: FUN_001d69f0 gets
+    // whatever d left there
+#if defined(__clang__)
+    Vec3_15f6b0 dw;   // clang -O0 gives each block local its own slot; MSVC 7.1 shares this one itself
+#endif
     if (!NearZero(&ent->push)) {
         Vec3_15f6b0 v;
         ent->FUN_00035660(&v);
-        v.x = v.x - p30.x;
-        v.y = v.y - p30.y;
+        // x87: v.x - p30.x and v.y - p30.y stay in st(0)/st(1) until push is added; only z is stored between
         v.z = v.z - p30.z;
-        v.x = v.x + ent->push.x;
-        v.y = v.y + ent->push.y;
+        v.x = (hulk_freg)(v.x - p30.x) + ent->push.x;
+        v.y = (hulk_freg)(v.y - p30.y) + ent->push.y;
         v.z = v.z + ent->push.z;
         p30.x = v.x + p30.x;
         p30.y = v.y + p30.y;
@@ -234,7 +238,12 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
         ent->FUN_00035550(&fwd);
         fwd.y = 0.0f;
         fwd.FUN_0022d110();
+#if defined(__clang__)
+        Vec3_15f6b0 &d = dw;
+        d = v;
+#else
         Vec3_15f6b0 d = v;
+#endif
         d.y = 0.0f;
         float len = d.FUN_0022d110();
         float sign = -1.0f;
@@ -242,7 +251,7 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
             sign = 1.0f;
         Vec3_15f6b0 vel = ent->vel;
         float spd = (float)sqrt(vel.x * vel.x + vel.z * vel.z);
-        float t = 0.0f;
+        hulk_freg t = 0.0f;
         if (spd > 0.0f)
             t = (sign / spd) * len;
         if (len > 0.0f) {
@@ -265,7 +274,11 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
     Vec3_15f6b0 dir;
     Goal *goal = ent->goal;
     if (goal != 0 && ent->goalActive != 0) {
+#if defined(__clang__)
+        Vec3_15f6b0 &w = dw;
+#else
         Vec3_15f6b0 w;
+#endif
         if (goal->kind == 1) {
             w.x = 0.0f;
             w.y = 0.0f;
@@ -294,21 +307,22 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
 
     float ang = FUN_00224ea0(dir.x, dir.z);
     float val = value;
-    float r = (FUN_00224fc0(val, ang) * 0.31830987334251404f) * settings->f1c;
+    hulk_freg r = (FUN_00224fc0(val, ang) * 0.31830987334251404f) * settings->f1c;
     float k1c = settings->f1c;
     float lim = settings->f20;
     if (lim > 0.0f) {
         float am = FAbs(angle);
         float mn = am < lim ? am : lim;
-        r = r - ((((FUN_00083d90(&angle) * mn) / lim) * k1c));
+        r = (float)r - ((((FUN_00083d90(&angle) * mn) / lim) * k1c));
     }
+    // `fst [this+0x2c]`: st0 keeps the unrounded sum for the val update (no extra local: MSVC's frame stays as is)
+    val = (hulk_freg)(r * dt + angle) * dt + val;
     angle = r * dt + angle;
     Vec3_15f6b0 steer = ent->up;
-    val = angle * dt + val;
     float up70 = ent->upLimit;
     if (ent->mode >= 0 && ent->mode < 4) {
-        float diff = ent->hiA - ent->hiB;
-        float ad = FAbs(diff);
+        hulk_freg diff = ent->hiA - ent->hiB;     // x87: st(1) keeps it for steer.y; FAbs reads the rounded copy (fst)
+        float ad = FAbs((float)diff);
         if (ad > up70)
             up70 = ad;
         steer.y = steer.y + diff;
@@ -331,9 +345,10 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
         Vec3_15f6b0 hit;
         Vec3_15f6b0 hitN;
         if (FUN_002027c0(&start, &end, 0, 0, &hit, &hitN, 0, 0)) {
-            float hx = hit.x - start.x;
-            float hy = hit.y - start.y;
-            float hz = hit.z - start.z;
+            // x87: the three differences stay in registers through the length
+            hulk_freg hx = hit.x - start.x;
+            hulk_freg hy = hit.y - start.y;
+            hulk_freg hz = hit.z - start.z;
             steer.y = ((1.0f / (sqrt(hx * hx + hz * hz + hy * hy) * sqrt(hx * hx + hz * hz + hy * hy))) * f98) + steer.y;
             steer.FUN_0022d110();
             bl = true;
@@ -363,7 +378,7 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
                 u.y = 0.0f;
                 u.z = 0.0f;
                 ent->FUN_00035660(&u);
-                float inv = 1.0f / nl;
+                hulk_freg inv = 1.0f / nl;
                 u.x = u.x * inv;
                 u.y = 0.0f * inv;
                 u.z = u.z * inv;
@@ -380,7 +395,7 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
             steer = dir;
     }
 
-    float w;
+    hulk_freg w;      // x87: s18 * up70 stays in st(1) for the three want products
     float s18 = settings->f18;
     if (s18 > 0.0f)
         w = s18 * up70;
@@ -423,11 +438,10 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
     p30.z = nv.z;
 
     Vec3_15f6b0 np;
-    np.x = p30.x * dt;
-    np.y = p30.y * dt;
+    // x87: the x and y products stay in registers until pos is added; only the z product is stored first
     np.z = p30.z * dt;
-    np.x = np.x + pos.x;
-    np.y = np.y + pos.y;
+    np.x = (hulk_freg)(p30.x * dt) + pos.x;
+    np.y = (hulk_freg)(p30.y * dt) + pos.y;
     np.z = np.z + pos.z;
     if (lo.x != 0.0f && np.x < lo.x)
         np.x = lo.x;
@@ -446,17 +460,17 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
     Vec3_15f6b0 axis = settings->v40;
     Vec3_15f6b0 pt;
     pt.FUN_0022d240(&axis, T);
-    Vec3_15f6b0 dv;
-    dv.x = pt.x - T->m[12];
-    dv.y = pt.y - T->m[13];
-    dv.z = pt.z - T->m[14];
+    // x87: the three differences pt - T.trans stay in registers for the cross product (the original never stores them)
+#define DVX ((hulk_freg)(pt.x - T->m[12]))
+#define DVY ((hulk_freg)(pt.y - T->m[13]))
+#define DVZ ((hulk_freg)(pt.z - T->m[14]))
     axis.x = 1.0f;
     axis.y = 0.0f;
     axis.z = 0.0f;
     Vec3_15f6b0 c;
-    c.x = 0.0f * dv.z - dv.y * w2.z;
-    c.y = w2.z * dv.x - dv.z * w2.x;
-    c.z = dv.y * w2.x - dv.x * 0.0f;
+    c.x = 0.0f * DVZ - DVY * w2.z;
+    c.y = w2.z * DVX - DVZ * w2.x;
+    c.z = DVY * w2.x - DVX * 0.0f;
     Vec3_15f6b0 ex;
     ex.FUN_0022d290(&axis, T);
     float inv18 = 1.0f / s18;
@@ -483,9 +497,11 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
         f58 = dt * f5c + f58;
         if (f54 > 0.0f) {
             f5c = ((accel * dt) + f5c) + f54;
-            f54 = (1.0f / settings->fc4) * f54;
-            if (f54 < settings->fc8)
+            // `fst f54`, then the compare reads the unrounded product in st0
+            if ((hulk_freg)((1.0f / settings->fc4) * f54) < settings->fc8)
                 f54 = 0.0f;
+            else
+                f54 = (1.0f / settings->fc4) * f54;
             ClampSpeed<1>(this, s30);
         } else {
             f5c = (accel * dt) + f5c;
