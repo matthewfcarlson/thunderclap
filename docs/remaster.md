@@ -514,6 +514,27 @@ Prerequisites outside this plan:
 - a SteamOS build;
 - a Deck for measurements.
 
+### 6.1 Co-op (requested 2026-10-26; gameplay, not rendering)
+
+The user wants co-op on the roadmap. Unlike R1-R5 it changes the simulation: the game has one player character, one
+camera and single-player mission logic. So it can't live under the render-only `HULK_REMASTER` rule. It gets its own
+compile-time flag (`HULK_COOP`), and every co-op hook is inert unless a session actually has a second player. That way
+the single-player game, in both builds, keeps its replay equality with the original.
+
+| Stage | Work | Exit criteria |
+|---|---|---|
+| **C0 Feasibility** | Map how the game owns "the player": the Hulk singleton and the systems that assume one (camera, HUD, input agent `CControllerAgent`, targeting, mission scripts and Lua bindings, save data, AI aggro and the fight system's player references). Decide which second character fits: a second Hulk instance or a playable variant. List every place that reads the player and how each would generalise. | A written plan in this section with the touch-point list and a size estimate |
+| **C1 Local co-op** | A second input device on the SDL layer. A second player character spawned and driven by its own controller agent. A shared camera that frames both (or a split screen, which the remaster renderer can draw as two views). The HUD for two. Mission logic that tolerates two players (fail, respawn, objectives). | Two players can finish a mission locally. With one player, replays are unchanged. |
+| **C2 Online co-op** | Deterministic lockstep: exchange inputs only, building on what the replay work already proved (fixed dt, virtual clock, the lockstep handoff, RNG determinism, checkpoint hashes as desync detection). Rollback is an option if latency demands it. | Two machines stay in sync over a mission. Checkpoint hashes match, and a desync is detected and reported. |
+
+Notes:
+- Co-op touches game code (matches/ and equivalent/ sources). Each change sits behind `HULK_COOP` and keeps every
+  proof valid with the flag off, the same way `__clang__` twins do.
+- Online play relies on cross-platform float determinism between SteamOS (x86-64) and macOS (arm64). The x87/SSE
+  work (docs/wine-float.md, soft-x87) and the native builds must give identical simulation results on both. That's a
+  prerequisite to verify early, with cross-machine replays of play3.
+- Co-op and the remaster are independent. Either can ship without the other.
+
 ## 7. Decisions for the user
 
 | # | Decision | Options | Recommendation |
