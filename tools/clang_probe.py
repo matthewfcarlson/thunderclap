@@ -94,6 +94,14 @@ NATIVE = ["-include", "compat/native.h", "-fno-strict-aliasing", "-fwrapv", "-fn
 # them to frame 6,000 (docs/native-float.md section 9). 151 of the 159 functions whose unrounded return this would
 # otherwise round now return hulk_freg (native_link.py binds the callers' float references).
 X87 = ["-mno-sse", "-mfpmath=387", "-ffp-eval-method=double", "-ffp-contract=off"]
+# perf1 (proposal, docs/wine-float.md): HULK_WINE_FLOAT=sse builds the game's TUs with SSE2 scalar float instead of x87
+# (Rosetta 2 emulates x87 in software: play3 gameplay 13.8 -> 2.2 ms/frame on an M3 Max) and runs three IR passes that
+# keep the x87 build's results bit for bit (play3: all checkpoints identical to frame 8520): sse_fix_ir() below.
+FLOAT_SSE = os.environ.get("HULK_WINE_FLOAT") == "sse"
+if FLOAT_SSE:
+    X87 = ["-msse2", "-mfpmath=sse", "-ffp-eval-method=double", "-ffp-contract=off"]
+# the functions that stay x87 code in the SSE build (tools/x87_keep.py writes it; see _x87_list)
+X87_KEEP = os.environ.get("HULK_WINE_X87_KEEP") or os.path.join(ROOT, "build/x87_keep.txt")
 # ubsan1 (docs/native-float.md "float-cast-overflow"): HULK_NATIVE_SANITIZE=float-cast checks every float -> int
 # conversion of the game's TUs (the `msvc` objects only) and calls __ubsan_handle_float_cast_overflow (our handler in
 # src/platform/sdl/xdk/startup.cpp, built with HULK_UBSAN_FLOAT=1 by native_link.py: it logs the site and the run goes on);
@@ -214,6 +222,138 @@ def include_digest(root=SNAP):
 
 # ---------------------------------------------------------------------------------------------
 # Compiling
+_CF_DEF = re.compile(r"^\s*(%[\w.]+) = ([su]itofp) (i\d+) ([^ ,]+) to float\s*$")
+_CF_EXT = re.compile(r"^(\s*)(%[\w.]+) = fpext float (%[\w.]+) to double(.*)$")
+
+
+_RF_CALL = re.compile(r"^(\s*)(%[\w.]+) = ((?:tail |notail )?call(?: (?!float )[^ (%@]+)*) float (.*)$")
+_RF_EXT = re.compile(r"^(\s*)(%[\w.]+) = fpext float (%[\w.]+) to double(.*)$")
+
+
+def sse_retfix_ir(ll):
+    """x87 code computes on with a call's st(0) result unrounded even when the callee is declared to return float
+    (the x87 backend never rounds a float held in a register); SSE code stores it as a float first. The game's callees
+    often return a wider value than their callers declare (MSVC 7.1 never rounds a returned st(0); hulk_freg).
+    Rewrite `%r = call float @f(...)` to `%r.d = call double @f(...)` + `%r = fptrunc` (st(0) is the return register of
+    both types), and the caller's `fpext float %r to double` to the double itself."""
+    out, calls, n = [], set(), 0
+    for line in ll.split("\n"):
+        if line.startswith("define "):
+            calls = set()
+        m = _RF_CALL.match(line)
+        if m and "@llvm." not in m.group(4):
+            ind, r, kw, rest = m.groups()
+            rd = "%" + "rf" + r[1:].replace(".", "_") + "d"
+            out.append("%s%s = %s double %s" % (ind, rd, kw, rest))
+            out.append("%s%s = fptrunc double %s to float" % (ind, r, rd))
+            calls.add(r)
+            n += 1
+            continue
+        m = _RF_EXT.match(line)
+        if m and m.group(3) in calls:
+            rd = "%" + "rf" + m.group(3)[1:].replace(".", "_") + "d"
+            line = "%s%s = select i1 true, double %s, double %s%s" % (m.group(1), m.group(2), rd, rd, m.group(4))
+        out.append(line)
+    return "\n".join(out), n
+
+
+def sse_castfix_ir(ll):
+    """MSVC 7.1's x87 code (and clang's x87 code) loads an int with fild and never rounds `(float)i` to float when
+    the value is used in further arithmetic; SSE code rounds it (cvtsi2ss). Under -ffp-eval-method=double such a use
+    is `fpext float (sitofp i32 x to float) to double`: rewrite it to `sitofp i32 x to double`."""
+    defs, out, n = {}, [], 0
+    for line in ll.split("\n"):
+        m = _CF_DEF.match(line)
+        if m:
+            defs[m.group(1)] = (m.group(2), m.group(3), m.group(4))
+        m = _CF_EXT.match(line)
+        if m and m.group(3) in defs:
+            op, ty, v = defs[m.group(3)]
+            line = "%s%s = %s %s %s to double%s" % (m.group(1), m.group(2), op, ty, v, m.group(4))
+            n += 1
+        if line.startswith("define "):
+            defs = {}
+        out.append(line)
+    return "\n".join(out), n
+
+
+_X87_FNS = ("sin", "cos", "tan", "atan", "atan2", "exp", "asin", "acos", "log", "log10", "pow")
+_X87_CALL = re.compile(r"call [^@]*@(%s)\(" % "|".join(_X87_FNS))
+
+
+_X87_LIST = None
+
+
+def _x87_list():
+    """the X87_KEEP file, the functions that must stay x87 (tools/x87_keep.py: callers of x87 math
+    shims and, to a fixpoint, users of the float result of an x87 function)."""
+    global _X87_LIST
+    if _X87_LIST is None:
+        p = X87_KEEP
+        _X87_LIST = set(l.strip() for l in open(p) if l.strip()) if os.path.exists(p) else set()
+    return _X87_LIST
+
+
+def sse_x87fn_ir(ll):
+    """The Wine build's sin/cos/tan/atan/atan2/exp/asin/acos/log/log10/pow return the 80-bit x87 result in st(0) (as
+    the original's inlined fsin/fpatan/... leave it); x87 code computes on with it, SSE code stores it to a double
+    first (a second rounding). Functions that call one of them are compiled for x87 (target features -sse,-sse2)."""
+    lines = ll.split("\n")
+    groups = {}
+    for l in lines:
+        m = re.match(r"^attributes (#\d+) = \{(.*)\}$", l)
+        if m:
+            groups[m.group(1)] = m.group(2)
+    out, cur, n, newg = [], None, 0, {}
+    for i, l in enumerate(lines):
+        if l.startswith("define "):
+            cur = i
+            body = []
+        if cur is not None:
+            body.append(l)
+            if l == "}":
+                text = "\n".join(body)
+                dm = re.match(r'^define [^@]*@("[^"]+"|[\w.$?@]+)\(', body[0])
+                if _X87_CALL.search(text) or (dm and dm.group(1).strip('"') in _x87_list()):
+                    m = re.search(r"\) (#\d+) \{$", body[0]) or re.search(r" (#\d+) (?:comdat[^{]*)?\{$", body[0])
+                    if m and m.group(1) in groups:
+                        g = m.group(1)
+                        if g not in newg:
+                            newg[g] = "#%d" % (900 + len(newg))
+                        body[0] = body[0][:m.start(1)] + newg[g] + body[0][m.end(1):]
+                        n += 1
+                out.extend(body)
+                cur = None
+            continue
+        out.append(l)
+    for g, ng in newg.items():
+        a = groups[g].replace('"target-cpu"="pentium4"', '"target-cpu"="pentiumpro"')
+        a = re.sub(r'"target-features"="[^"]*"', '"target-features"="+cmov,+cx8,+x87,-sse,-sse2,-mmx,-fxsr"', a)
+        out.append("attributes %s = {%s}" % (ng, a))
+    return "\n".join(out), n
+
+
+def sse_compile(cmd, out_obj):
+    """cmd compiles to an object: compile to IR instead, apply sse_castfix_ir, then IR -> object."""
+    ll = out_obj + ".ll"
+    c1 = [x for x in cmd]
+    i = c1.index("-o")
+    c1[i + 1] = ll
+    c1 = [x for x in c1 if x != "-c"] + ["-S", "-emit-llvm"]
+    p = subprocess.run(c1, capture_output=True, text=True, errors="replace", timeout=900)
+    if p.returncode:
+        return p.returncode, p.stderr
+    txt, n = sse_castfix_ir(open(ll).read())
+    txt, n3 = sse_retfix_ir(txt)
+    txt, n2 = sse_x87fn_ir(txt)
+    open(ll, "w").write(txt)
+    tgt = [x for x in cmd[1:] if x.startswith(("--target", "-m", "-O")) and not x.startswith("-mllvm")]
+    p2 = subprocess.run([cmd[0]] + tgt + ["-Wno-everything", "-c", ll, "-o", out_obj], capture_output=True, text=True,
+                        errors="replace", timeout=900)
+    os.unlink(ll)
+    return p2.returncode, p.stderr + p2.stderr
+
+
 def compile_one(cfg, rel, digest, clang):
     """Compile snap/<rel> under configuration cfg (cached). Returns the result dict."""
     spec = CONFIGS[cfg]
@@ -221,7 +361,9 @@ def compile_one(cfg, rel, digest, clang):
     src = os.path.join(base, rel)
     text = open(src, "rb").read()
     flags = spec["flags"] + COMMON
-    key = hashlib.sha1(text + digest.encode() + repr(flags).encode() + clang.encode()).hexdigest()[:20]
+    sse = cfg == "msvc" and FLOAT_SSE
+    key = hashlib.sha1(text + digest.encode() + repr(flags).encode() + clang.encode()
+                       + (b"ssefix1" + "\n".join(sorted(_x87_list())).encode() if sse else b"")).hexdigest()[:20]
     d = os.path.join(CACHE, cfg)
     os.makedirs(d, exist_ok=True)
     res_p = os.path.join(d, key + ".json")
@@ -234,8 +376,11 @@ def compile_one(cfg, rel, digest, clang):
     if spec["obj"]:
         cmd += ["-o", obj + ".tmp"]
     try:
-        p = subprocess.run(cmd, capture_output=True, text=True, errors="replace", timeout=900)
-        rc, out = p.returncode, p.stderr
+        if sse and spec["obj"]:
+            rc, out = sse_compile(cmd, obj + ".tmp")
+        else:
+            p = subprocess.run(cmd, capture_output=True, text=True, errors="replace", timeout=900)
+            rc, out = p.returncode, p.stderr
     except subprocess.TimeoutExpired:
         rc, out = -1, "%s:1:1: fatal error: clang timed out" % src
     if spec["obj"] and rc == 0:

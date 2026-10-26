@@ -6767,7 +6767,7 @@ def resolve_symbols(prog, ours, oview, orefs, explicit=None, use_names=True, loc
             votes = None      # a function defined in our object (e.g. not inlined here): it runs in place
         if name in INTRINSIC_NAMES and cand is None:
             votes = None      # a CRT routine the XBE doesn't have out of line: runs semantically
-        if name.startswith(("__real@", "??_C@")):
+        if name.startswith(("__real@", "??_C@", "__xmm@", "__ymm@")):
             votes = None      # constants bind by content only, never by position
         if votes:
             t, n = votes.most_common(1)[0]
@@ -8160,8 +8160,14 @@ def compile_native(src, outdir, extra=(), tail_asm=None):
         with open(wrap, "w") as f_:
             f_.write('#include "%s"\n__asm__("%s");\n' % (os.path.abspath(src).replace("\\", "/"), tail_asm.replace("\t", "\\t").replace('"', '\\"')))
         src = wrap
-    r = subprocess.run([clang] + flags + list(extra) + ["-I" + os.path.join(ROOT, "include"), src, "-o", obj],
-                       capture_output=True, text=True, errors="replace", timeout=300)
+    cmd_ = [clang] + flags + list(extra) + ["-I" + os.path.join(ROOT, "include"), src, "-o", obj]
+    if getattr(cp, "FLOAT_SSE", False):
+        # (perf1) the SSE build (HULK_WINE_FLOAT=sse) compiles through clang_probe's IR passes: check the same code
+        rc_, err_ = cp.sse_compile(cmd_, obj)
+        if rc_:
+            raise CompileError((err_ or "")[-1500:])
+        return obj
+    r = subprocess.run(cmd_, capture_output=True, text=True, errors="replace", timeout=300)
     if r.returncode:
         raise CompileError((r.stderr or "")[-1500:])
     return obj
@@ -8781,6 +8787,13 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
         for n_ in [n_ for n_ in resolved if n_.startswith(".")]:
             del resolved[n_]
             how[n_] = "local section"
+        # (perf1, xmmconst) clang's SSE code loads 16-byte constant-pool entries (`__xmm@<32 hex digits>`: the sign
+        # mask of a negation, the absolute-value mask, the 2^52 bias of an unsigned conversion) that MSVC 7.1's x87
+        # code never has: they are our object's own read-only data, never an original address
+        for n_ in [n_ for n_ in list(resolved) + [k_ for k_, v_ in how.items() if v_ == "unresolved"]
+                   if n_.startswith(("__xmm@", "__ymm@")) and "xmmconst" not in EQUIV_OFF]:
+            resolved.pop(n_, None)
+            how[n_] = "local constant"
     if native and "natmap" not in EQUIV_OFF and mobj is not None:
         # (round 18, natmap) clang's code pairs badly with the original's (`lea ecx, [0]; mov [esp+4], ecx` for a
         # `push offset`), so the instruction-pairing rules that bind a symbol to an address (a type descriptor, a
