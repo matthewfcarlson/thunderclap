@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 struct A_5a4c0 {
@@ -12,7 +13,7 @@ struct Data_5a4c0 {
     void* p334;
 };
 
-void* CGrappleDamageTrack::vfunc_11(int param) {
+void* CGrappleDamageTrack::vfunc_11(hulk_intptr param) {
     if (param) {
         void* a = ((A_5a4c0*)param)->first();
         if (a) {

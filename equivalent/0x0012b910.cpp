@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 17/18, incomplete)
 // hulkfight::ai::ThreatBallAction::vfunc_5 @ 0x0012b910
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 #include "decls/address.h"
 
@@ -92,7 +93,7 @@ struct Data_12b910 {
     float f2c;
 };
 
-bool hulkfight::ai::ThreatBallAction::vfunc_5(int msg, int unused) {
+bool hulkfight::ai::ThreatBallAction::vfunc_5(hulk_intptr msg, int unused) {
     if (msg == 1) {
         Sink_12b910 *sink = DAT_004dd700->holder->sink;
         Stats_12b910 *stats = FUN_00059a30(FUN_000592a0((*(Owner_12b910 * *)&this->f_20)));

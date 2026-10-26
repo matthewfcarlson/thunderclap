@@ -1,4 +1,5 @@
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Params_188a60 {
@@ -13,7 +14,7 @@ struct PropAddToCollisionAction_nv_188a60 {
 };
 hulkfight::motion::PropAddToCollisionAction* __cdecl Alloc(int);
 
-int hulkfight::motion::PropAddToCollisionTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::motion::PropAddToCollisionTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = Check((void*)c, 0, &TypeA_188a60, &TypeB_188a60, 0);
     if (result) {
         hulkfight::motion::PropAddToCollisionAction* p = Alloc(0x24);

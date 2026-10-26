@@ -2,6 +2,6 @@
 #include "compat/ptr.h"
 #include "gen/physics.h"
 
-int physics::CollisionRay::vfunc_3() {
+hulk_intptr physics::CollisionRay::vfunc_3() {
     return (hulk_intptr)((physics::CollisionRay*)((char*)this + 0x68));
 }

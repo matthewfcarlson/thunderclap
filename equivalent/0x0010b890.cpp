@@ -14,7 +14,7 @@ struct MotionSource { MotionOwner* FUN_000592a0(); };
 namespace hulkfight { namespace ai {
 
 }}
-bool hulkfight::ai::FaceMotionAction::vfunc_5(int mode, int unused) {
+bool hulkfight::ai::FaceMotionAction::vfunc_5(hulk_intptr mode, int unused) {
     if (mode) return (bool)((mode & ~255) | 1);
     if (!(*(MotionSource * *)&this->f_20)) return (bool)(0);
     MotionOwner* owner = (*(MotionSource * *)&this->f_20)->FUN_000592a0();

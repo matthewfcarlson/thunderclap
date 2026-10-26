@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 extern void* FUN_0008d690(unsigned int);
@@ -10,7 +11,7 @@ struct Alloc_605f0 {
     int invoke(CGrappleMotionTrailTrack*, int);
 };
 
-int CGrappleMotionTrailTrack::vfunc_12(int arg) {
+hulk_intptr CGrappleMotionTrailTrack::vfunc_12(hulk_intptr arg) {
     CGrappleMotionTrailTrack* self = this;
     Alloc_605f0* p = (Alloc_605f0*)FUN_0008d690(0x28);
     if (p) {

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 14/14)
 // hulkfight::motion::HealthAction::vfunc_3 @ 0x0014ff20
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Stats_14ff20 {
@@ -25,7 +26,7 @@ namespace motion {
 
 }
 }
-bool hulkfight::motion::HealthAction::vfunc_3(int a, int b) {
+bool hulkfight::motion::HealthAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     if ((*(Owner * *)&this->f_20) == 0)
         return false;
     Stats_14ff20 *stats = FUN_00059a30(FUN_000592a0((*(Owner * *)&this->f_20)));

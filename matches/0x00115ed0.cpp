@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class A_115ed0 {
@@ -10,7 +11,7 @@ class B_115ed0 {
     void h(void*);
 };
 
-bool hulkfight::ai::MotionBoostAction::vfunc_3(int , int ) {
+bool hulkfight::ai::MotionBoostAction::vfunc_3(hulk_intptr , hulk_intptr ) {
     if (!(*(void * *)&this->f_20))
         return false;
     void* x = ((A_115ed0*)(*(void * *)&this->f_20))->f();

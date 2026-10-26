@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // RDLReader::vfunc_0 @ 0x0027adf0
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 struct Stream_27adf0 {
@@ -20,7 +21,7 @@ struct Stream_27adf0 {
 extern "C" void __cdecl thunk_FUN_002710d0(Stream_27adf0 **, const char *, int, int, int, int, int, int);
 char *__cdecl FUN_0008d690(int size);
 
-void RDLReader::vfunc_0(int __p0) { const char * path = (const char *)__p0;
+void RDLReader::vfunc_0(hulk_intptr __p0) { const char * path = (const char *)__p0;
 
     vfunc_1();
     thunk_FUN_002710d0(&(*(Stream_27adf0 * *)&this->f_04), path, 0, 0, 1, 0, 1, 1);

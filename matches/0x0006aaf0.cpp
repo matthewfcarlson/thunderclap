@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class Other_6aaf0 {
@@ -6,7 +7,7 @@ class Other_6aaf0 {
 };
 extern "C" Other_6aaf0* __cdecl FUN_0008d690(int);
 
-int CRageModeTrack::vfunc_12(int param) {
+hulk_intptr CRageModeTrack::vfunc_12(hulk_intptr param) {
     Other_6aaf0* p = FUN_0008d690(0x24);
     if (p)
         return p->call(param, this->f_10);

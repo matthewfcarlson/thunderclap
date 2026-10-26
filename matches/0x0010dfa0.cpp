@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Context_10dfa0;
@@ -10,7 +11,7 @@ struct Context_10dfa0 {
     void* FUN_00059a30();
 };
 
-bool hulkfight::ai::TokenAction::vfunc_3(int __p0, int __p1) {
+bool hulkfight::ai::TokenAction::vfunc_3(hulk_intptr __p0, hulk_intptr __p1) {
     Context_10dfa0* c = (*(Context_10dfa0 * *)&this->f_20);
     if (!c)
         return false;

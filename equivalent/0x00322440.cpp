@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // pure3d::d3dExtVertexProgram::vfunc_2 @ 0x00322440
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct VertexSource {
@@ -12,7 +13,7 @@ struct Context_322440 { char padding[0x208]; Device_322440* device; };
 namespace pure3d {
 
 }
-void pure3d::d3dExtVertexProgram::vfunc_2(int __p0, int __p1, int __p2, int __p3, int __p4) { VertexSource * source = (VertexSource *)__p0; unsigned int a = (unsigned int)__p1; unsigned int b = (unsigned int)__p2; unsigned int c = (unsigned int)__p3; unsigned char temporary = (unsigned char)__p4;
+void pure3d::d3dExtVertexProgram::vfunc_2(hulk_intptr __p0, int __p1, int __p2, int __p3, int __p4) { VertexSource * source = (VertexSource *)__p0; unsigned int a = (unsigned int)__p1; unsigned int b = (unsigned int)__p2; unsigned int c = (unsigned int)__p3; unsigned char temporary = (unsigned char)__p4;
 
  if (temporary) source->temporary=1;
  unsigned int handle=source->slot23();

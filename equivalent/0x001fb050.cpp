@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 16785 inputs, branch coverage 2/2)
 // DataHandlerRawLoader::vfunc_5 @ 0x001fb050
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 #include "decls/address.h"
@@ -14,7 +15,7 @@ extern void* __cdecl FUN_0008d6d0(unsigned);
 extern void* __cdecl FUN_00263ea0(unsigned);
 extern int __cdecl FUN_000964a0(char*, unsigned, const char*, ...);
 
-void DataHandlerRawLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int __p3) { CDataHandlerObject_1fb050 ** out = (CDataHandlerObject_1fb050 **)__p0; unsigned long long * id = (unsigned long long *)__p1; Stream_1fb050 * stream = (Stream_1fb050 *)__p2; unsigned int unused = (unsigned int)__p3;
+void DataHandlerRawLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr __p3) { CDataHandlerObject_1fb050 ** out = (CDataHandlerObject_1fb050 **)__p0; unsigned long long * id = (unsigned long long *)__p1; Stream_1fb050 * stream = (Stream_1fb050 *)__p2; unsigned int unused = (unsigned int)__p3;
 
  int old = FUN_00266da0(1);
  unsigned size;

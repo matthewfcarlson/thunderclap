@@ -1,4 +1,5 @@
 // Same code shape as 0x00048300 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 extern int* gTable_14e3d0;
@@ -7,7 +8,7 @@ class CCondition_14e3d0 {
     virtual int vfunc_0(int);
 };
 
-int hulkfight::motion::HitPushbackTrack::vfunc_0(int index) {
+hulk_intptr hulkfight::motion::HitPushbackTrack::vfunc_0(int index) {
     int* p = gTable_14e3d0;
     return p[index];
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct A_133f80 {
@@ -6,7 +7,7 @@ struct A_133f80 {
     void Third(int);
 };
 
-bool hulkfight::motion::HoverAction::vfunc_5(int param, int unused) {
+bool hulkfight::motion::HoverAction::vfunc_5(hulk_intptr param, int unused) {
     if (param == 0) {
         A_133f80* p = ((A_133f80*)*(void**)((char*)this + 0x20))->First();
         p = p->Second();

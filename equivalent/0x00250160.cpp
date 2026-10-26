@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 9/9)
 // audio::SeqActionWait::vfunc_6 @ 0x00250160
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 struct Str_250160 {
@@ -46,7 +47,7 @@ public:
 
 namespace audio {
 }
-void audio::SeqActionWait::vfunc_6(int __p0) { Ctx_250160 * ctx = (Ctx_250160 *)__p0;
+void audio::SeqActionWait::vfunc_6(hulk_intptr __p0) { Ctx_250160 * ctx = (Ctx_250160 *)__p0;
 
     Str_250160 value;
     Str_250160 probe;

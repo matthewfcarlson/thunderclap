@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 11/12, incomplete)
 // content::LoadInventory::vfunc_3 @ 0x00266280
+#include "compat/ptr.h"
 #include "gen/content.h"
 
 struct Node_266280;
@@ -24,7 +25,7 @@ public:
     virtual Node_266280 *Resolve(Matcher *m, int a, int b);     // slot 3
 };
 
-void* content::LoadInventory::vfunc_3(int __p0, int a, int b) { Matcher * matcher = (Matcher *)__p0;
+void* content::LoadInventory::vfunc_3(hulk_intptr __p0, int a, int b) { Matcher * matcher = (Matcher *)__p0;
 
     if (a == 0 && b == 0)
         return (void*)(0);

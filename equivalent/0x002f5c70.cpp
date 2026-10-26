@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // physics::PhysicsObject::vfunc_18 @ 0x002f5c70
+#include "compat/ptr.h"
 #include "gen/physics.h"
 
 struct Vec_2f5c70 { float x,y,z; };
 namespace physics {
 }
-bool physics::PhysicsObject::vfunc_18(int __p0, int __p1, int __p2, int __p3, int __p4, int __p5) { const Vec_2f5c70 * point = (const Vec_2f5c70 *)__p0; const Vec_2f5c70 * force = (const Vec_2f5c70 *)__p1; unsigned int a = (unsigned int)__p2; unsigned int b = (unsigned int)__p3; unsigned int c = (unsigned int)__p4; unsigned int d = (unsigned int)__p5;
+bool physics::PhysicsObject::vfunc_18(hulk_intptr __p0, hulk_intptr __p1, int __p2, int __p3, int __p4, int __p5) { const Vec_2f5c70 * point = (const Vec_2f5c70 *)__p0; const Vec_2f5c70 * force = (const Vec_2f5c70 *)__p1; unsigned int a = (unsigned int)__p2; unsigned int b = (unsigned int)__p3; unsigned int c = (unsigned int)__p4; unsigned int d = (unsigned int)__p5;
 
  float scale=this->f_44;
  this->f_148=0;

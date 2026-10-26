@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2697 inputs, branch coverage 70/71, incomplete)
 // pure3d::LightLoader::vfunc_5 @ 0x002c0cf0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 #include "decls/address.h"
 
@@ -88,7 +89,7 @@ union Flag_2c0cf0 {
     unsigned int w;
 };
 
-void pure3d::LightLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int unused) { Light_2c0cf0 ** out = (Light_2c0cf0 **)__p0; u64_2c0cf0 * id = (u64_2c0cf0 *)__p1; Stream_2c0cf0 * s = (Stream_2c0cf0 *)__p2;
+void pure3d::LightLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr unused) { Light_2c0cf0 ** out = (Light_2c0cf0 **)__p0; u64_2c0cf0 * id = (u64_2c0cf0 *)__p1; Stream_2c0cf0 * s = (Stream_2c0cf0 *)__p2;
 
     struct Frame {
         char pad00[3];

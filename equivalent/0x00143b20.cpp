@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 16/16)
 // hulkfight::motion::WorldDamageAction::vfunc_5 @ 0x00143b20
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/motion.h"
@@ -72,7 +73,7 @@ struct Data_143b20 {
 
 void __cdecl FUN_00224d70(float angle, V3_143b20 *v);
 
-bool hulkfight::motion::WorldDamageAction::vfunc_5(int a1, int a2) {
+bool hulkfight::motion::WorldDamageAction::vfunc_5(hulk_intptr a1, int a2) {
     if (a1 != 1)
         return true;
     struct Frame {

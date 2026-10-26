@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct ObjC_11ca80 {
@@ -18,7 +19,7 @@ struct Child_11ca80 {
     void run(void*);
 };
 
-bool hulkfight::ai::RoutAction::vfunc_3(int a, int b) {
+bool hulkfight::ai::RoutAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     ObjA_11ca80* x = (*(ObjB_11ca80 * *)&this->f_38)->get();
     ObjC_11ca80* y = x->step();
     (*(void * *)&this->f_5c) = y;

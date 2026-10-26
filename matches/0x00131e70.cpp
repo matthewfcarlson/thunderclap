@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Track_131e70 {
@@ -18,7 +19,7 @@ struct H {
 };
 extern H* FUN_0008d690(int);
 
-int hulkfight::DialogueTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::DialogueTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     H* p = FUN_0008d690(0x24);
     if (p)
         return p->call(this, c);

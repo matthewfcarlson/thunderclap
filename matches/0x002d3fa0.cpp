@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
-unsigned int pure3d::ParticleEmitter::vfunc_24() {
+hulk_uintptr pure3d::ParticleEmitter::vfunc_24() {
     return this->f_80;
 }

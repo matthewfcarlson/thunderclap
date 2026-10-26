@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 177 inputs, branch coverage 12/12)
 // physics::WorldCollisionObjectLoader::vfunc_5 @ 0x003088d0
+#include "compat/ptr.h"
 #include "gen/physics.h"
 
 struct Ref_3088d0 { virtual void addRef()=0; virtual void release()=0; };
@@ -10,7 +11,7 @@ struct Stream_3088d0 { char pad[0x284]; Reader_3088d0* reader; bool FUN_002669f0
 extern "C" void* __cdecl FUN_00263ea0(unsigned);
 extern "C" Ref_3088d0* __cdecl FUN_003080a0(Stream_3088d0*);
 namespace physics {  }
-void physics::WorldCollisionObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int __p3) { Obj_3088d0 ** out = (Obj_3088d0 **)__p0; Name_3088d0 * name = (Name_3088d0 *)__p1; Stream_3088d0 * stream = (Stream_3088d0 *)__p2; unsigned int unused = (unsigned int)__p3;
+void physics::WorldCollisionObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr __p3) { Obj_3088d0 ** out = (Obj_3088d0 **)__p0; Name_3088d0 * name = (Name_3088d0 *)__p1; Stream_3088d0 * stream = (Stream_3088d0 *)__p2; unsigned int unused = (unsigned int)__p3;
 
  void* mem=FUN_00263ea0(0x18);
  Obj_3088d0* obj=mem?((Obj_3088d0*)mem)->FUN_002fe1d0():0;

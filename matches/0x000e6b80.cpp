@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class Obj_e6b80 {
@@ -5,7 +6,7 @@ class Obj_e6b80 {
     void Helper(int);
 };
 
-void FEThingsBase::vfunc_19(int x) {
+void FEThingsBase::vfunc_19(hulk_intptr x) {
     if ((Obj_e6b80*)x != (*(Obj_e6b80 * *)&this->f_175c)) {
         this->f_1768 = x;
         if (x) {

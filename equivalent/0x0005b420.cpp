@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // CGrappleInvulnerableTrack::vfunc_12 @ 0x0005b420
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 void *FUN_0008d690(unsigned int size);
@@ -24,7 +25,7 @@ struct CInvulnerableAction_5b420 {
     void *FUN_000200a0(Weapon *weapon, int value);
 };
 
-int CGrappleInvulnerableTrack::vfunc_12(int __p0) { Link1_5b420 * owner = (Link1_5b420 *)__p0;
+hulk_intptr CGrappleInvulnerableTrack::vfunc_12(hulk_intptr __p0) { Link1_5b420 * owner = (Link1_5b420 *)__p0;
 
     if (owner == 0)
         return (int)(0);
@@ -46,5 +47,5 @@ int CGrappleInvulnerableTrack::vfunc_12(int __p0) { Link1_5b420 * owner = (Link1
     CInvulnerableAction_5b420 *effect = (CInvulnerableAction_5b420 *)FUN_0008d690(0x24);
     if (effect == 0)
         return (int)(0);
-    return (int)(effect->FUN_000200a0(weapon, this->f_14));
+    return (hulk_intptr)(effect->FUN_000200a0(weapon, this->f_14));
 }

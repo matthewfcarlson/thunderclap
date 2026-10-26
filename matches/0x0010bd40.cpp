@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Params_10bd40 {
@@ -13,7 +14,7 @@ class Object_10bd40 {
 };
 Object_10bd40* __cdecl Alloc(int);
 
-int hulkfight::ai::FaceTargetTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::ai::FaceTargetTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = Check((void*)c, 0, &TypeA_10bd40, &TypeB_10bd40, 0);
     if (result) {
         Object_10bd40* p = Alloc(0x24);

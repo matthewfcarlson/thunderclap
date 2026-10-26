@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Thing_171060 {
@@ -14,7 +15,7 @@ struct ObjA_171060 {
     ObjB_171060* run();
 };
 
-bool hulkfight::motion::LocomotionStateAction::vfunc_5(int param, int unused) {
+bool hulkfight::motion::LocomotionStateAction::vfunc_5(hulk_intptr param, int unused) {
     if (param)
         return true;
     ObjB_171060* b = (*(ObjA_171060 * *)&this->f_20)->run();

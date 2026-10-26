@@ -11,7 +11,7 @@ struct Helper3 {
     void f(void*);
 };
 
-bool hulkfight::motion::MomentumXZAddAction::vfunc_3(int __p0, int __p1) { unsigned int x = (unsigned int)__p0; unsigned int y = (unsigned int)__p1;
+bool hulkfight::motion::MomentumXZAddAction::vfunc_3(hulk_intptr __p0, hulk_intptr __p1) { unsigned int x = (unsigned int)__p0; unsigned int y = (unsigned int)__p1;
 
     Helper1_1727f0* p = (*(Helper1_1727f0 * *)&this->f_20);
     if (!p)

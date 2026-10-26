@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Info_182420 {
@@ -20,7 +21,7 @@ struct Tgt_182420 {
     Sing* GetSing();
 };
 
-bool hulkfight::motion::PropDestroyAction::vfunc_3(int a, int b) {
+bool hulkfight::motion::PropDestroyAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     if (!(*(Tgt_182420 * *)&this->f_20))
         return false;
     Mgr_182420* m = (*(Tgt_182420 * *)&this->f_20)->GetSing()->Find();

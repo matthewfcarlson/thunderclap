@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
-void audio::SeqActionChannelSendVolumes::vfunc_6(int ) {
+void audio::SeqActionChannelSendVolumes::vfunc_6(hulk_intptr ) {
     int i = this->f_0c;
     --i;
     if (i != 0) {

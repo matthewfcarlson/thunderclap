@@ -1,4 +1,5 @@
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Params_188b00 {
@@ -14,7 +15,7 @@ class Object_188b00 {
 };
 Object_188b00* __cdecl Alloc(int);
 
-int hulkfight::motion::PropSetStateByIndexTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::motion::PropSetStateByIndexTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = Check((void*)c, 0, &TypeA_188b00, &TypeB_188b00, 0);
     if (result) {
         Object_188b00* p = Alloc(0x24);

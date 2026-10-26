@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 93 inputs, branch coverage 20/20)
 // hulkfight::motion::ImpulseVelocityAction::vfunc_5 @ 0x00190a40
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct V3_190a40 {
@@ -81,7 +82,7 @@ struct ArgBlock {
     V3_190a40 vel;
 };
 
-bool hulkfight::motion::ImpulseVelocityAction::vfunc_5(int a, int b) {
+bool hulkfight::motion::ImpulseVelocityAction::vfunc_5(hulk_intptr a, int b) {
     if (a != 0)
         return true;
     Holder_190a40 *holder = (*(Owner_190a40 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();

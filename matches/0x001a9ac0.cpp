@@ -22,7 +22,7 @@ class NISAnimationAction_1a9ac0 {
 };
 extern "C" void* __cdecl FUN_0008d690(int);
 
-int hulkfight::scenario::NISAnimationTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::scenario::NISAnimationTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     void* x = FUN_0008d690(0x218);
     if (x)
         return ((NISAnimationAction_1a9ac0*)x)->helper((hulk_intptr)this, c);

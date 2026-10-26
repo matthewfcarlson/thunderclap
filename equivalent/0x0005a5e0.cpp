@@ -35,7 +35,7 @@ struct Owner_5a5e0 {
 
 void *__cdecl FUN_0008d690(unsigned int size);
 
-int CGrappleDrainHealthTrack::vfunc_12(int __p0) { Owner_5a5e0 * owner = (Owner_5a5e0 *)__p0;
+hulk_intptr CGrappleDrainHealthTrack::vfunc_12(hulk_intptr __p0) { Owner_5a5e0 * owner = (Owner_5a5e0 *)__p0;
 
     float duration = vfunc_7();
     if (duration <= 0.0f)

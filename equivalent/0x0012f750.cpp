@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 18926 inputs, branch coverage 36/36)
 // hulkfight::DialogueAction::vfunc_3 @ 0x0012f750
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 #include "decls/address.h"
 
@@ -32,7 +33,7 @@ struct Target_12f750 { void FUN_001ecda0(char *a, int b, char *c, int d); };
 struct World { char pad[0x34]; Target_12f750 *t34; };
 struct Name64 { char c[0x40]; };
 
-bool hulkfight::DialogueAction::vfunc_3(int a, int b) {
+bool hulkfight::DialogueAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     if ((*(Holder_12f750 * *)&this->f_20) == 0) {
         return (bool)(0);
     }

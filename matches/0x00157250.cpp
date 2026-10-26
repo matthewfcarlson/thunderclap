@@ -11,7 +11,7 @@ extern void* __cdecl alloc(hulk_uintptr);
 extern const int typeA_157250;
 extern const int typeB_157250;
 
-int hulkfight::motion::HitFloatTrack::vfunc_10(int __p0, int __p1, int __p2) { u32_157250 a = (u32_157250)__p0; u32_157250 b = (u32_157250)__p1; u32_157250 c = (u32_157250)__p2;
+hulk_intptr hulkfight::motion::HitFloatTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_157250 a = (u32_157250)__p0; u32_157250 b = (u32_157250)__p1; u32_157250 c = (u32_157250)__p2;
 
     if (check(c, 0, &typeA_157250, &typeB_157250, 0)) {
         Created_157250* p = (Created_157250*)alloc(0x38);

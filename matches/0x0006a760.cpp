@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class A_6a760 {
@@ -16,7 +17,7 @@ class D {
 extern void* __cdecl FUN_0008d690(unsigned int);
 extern D* __cdecl FUN_0001fc60(void*);
 
-int COrientTargetTrack::vfunc_12(int __p0) { void * p = (void *)__p0;
+hulk_intptr COrientTargetTrack::vfunc_12(hulk_intptr __p0) { void * p = (void *)__p0;
 
     B_6a760* b = (B_6a760*)p;
     A_6a760* a = b->Get();

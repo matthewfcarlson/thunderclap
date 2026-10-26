@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 extern const float g_zero_144310;
@@ -18,7 +19,7 @@ struct Registry_144310 {
 // the 0-argument singleton getter; the two pushed values are arguments of the method call
 Registry_144310* FUN_001c3d90();
 
-bool hulkfight::motion::MotionBlurAction::vfunc_3(int a, int b) {
+bool hulkfight::motion::MotionBlurAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     this->f_20 = (*(MotionState_144310 * *)&this->f_1c)->f6();
     if ((*(MotionState_144310 * *)&this->f_1c)->value < g_zero_144310)
         return false;

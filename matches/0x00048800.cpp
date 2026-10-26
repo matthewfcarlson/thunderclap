@@ -1,7 +1,8 @@
 // Same code shape as 0x00048590 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/global.h"
 
-bool CAxisDownCondition::vfunc_10(void* __p0, int __p1) { int * p = (int *)__p0; int * out = (int *)__p1;
+bool CAxisDownCondition::vfunc_10(void* __p0, hulk_intptr __p1) { int * p = (int *)__p0; int * out = (int *)__p1;
 
     switch (*p) {
     case 1:

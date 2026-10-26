@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_1421d0;
@@ -9,7 +10,7 @@ extern void* __cdecl FUN_0008d690(unsigned int);
 extern const char RTTI1_1421d0[];
 extern const char RTTI2_1421d0[];
 
-int hulkfight::motion::WallRunTrack::vfunc_10(int __p0, int __p1, int __p2) { u32_1421d0 a = (u32_1421d0)__p0; u32_1421d0 b = (u32_1421d0)__p1; u32_1421d0 c = (u32_1421d0)__p2;
+hulk_intptr hulkfight::motion::WallRunTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_1421d0 a = (u32_1421d0)__p0; u32_1421d0 b = (u32_1421d0)__p1; u32_1421d0 c = (u32_1421d0)__p2;
 
     if (FUN_00344e74(c, 0, RTTI1_1421d0, RTTI2_1421d0, 0)) {
         void* p = FUN_0008d690(0x58);

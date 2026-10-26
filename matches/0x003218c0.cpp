@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct RTTI {
@@ -45,7 +46,7 @@ struct d3dContext_nv_3218c0 {
     void FUN_00321310();
 };
 } // namespace pure3d
-void pure3d::d3dContext::vfunc_32(int __p0, int __p1) { Shader_3218c0 * shader = (Shader_3218c0 *)__p0; Output_3218c0 * output = (Output_3218c0 *)__p1;
+void pure3d::d3dContext::vfunc_32(hulk_intptr __p0, hulk_intptr __p1) { Shader_3218c0 * shader = (Shader_3218c0 *)__p0; Output_3218c0 * output = (Output_3218c0 *)__p1;
 
     Special_3218c0* special = (Special_3218c0*)FUN_00344e74(shader, 0, &DAT_004d3bec, &DAT_004d3c0c, 0);
     if (special) {

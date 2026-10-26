@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 12/12)
 // hulkfight::motion::WorldConeDamageAction::vfunc_5 @ 0x00143df0
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 #include "decls/address.h"
 
@@ -104,7 +105,7 @@ struct Frame_143df0 {
     Mat4_143df0 m0;               // 0x178
 };
 
-bool hulkfight::motion::WorldConeDamageAction::vfunc_5(int mode, int unused) {
+bool hulkfight::motion::WorldConeDamageAction::vfunc_5(hulk_intptr mode, int unused) {
     if (mode != 1)
         return true;
     Frame_143df0 f;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 namespace audio {
@@ -29,7 +30,7 @@ class SeqEvent_250460 {
 } // namespace audio
 extern char bss;
 extern "C" void* __cdecl alloc(void*);
-void audio::SeqEventWait::vfunc_2(int __p0) { Target * p = (Target *)__p0;
+void audio::SeqEventWait::vfunc_2(hulk_intptr __p0) { Target * p = (Target *)__p0;
 
     audio::SeqActionWait_250460* a = (audio::SeqActionWait_250460*)alloc(&bss);
     p->set(a ? (a->audio::SeqActionWait_250460::SeqActionWait_250460(this), a) : 0);

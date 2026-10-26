@@ -1,4 +1,5 @@
 // Same code shape as 0x00131e70 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Track_131f70 {
@@ -19,7 +20,7 @@ struct H {
 };
 extern H* FUN_0008d690(int);
 
-int hulkfight::StatTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::StatTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     H* p = FUN_0008d690(0x24);
     if (p)
         return p->call(this, c);

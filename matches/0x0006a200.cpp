@@ -3,6 +3,6 @@
 
 extern void** gTable_6a200;
 
-int CIntangibleToActorsTrack::vfunc_0(int i) {
+hulk_intptr CIntangibleToActorsTrack::vfunc_0(int i) {
     return (hulk_intptr)(gTable_6a200[i]);
 }

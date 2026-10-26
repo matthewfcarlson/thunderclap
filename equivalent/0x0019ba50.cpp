@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 7/8, incomplete)
 // hulkfight::motion::FireGroundShockwaveAction::vfunc_5 @ 0x0019ba50
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -71,7 +72,7 @@ struct World {
     Mgr_19ba50* mgr;
 };
 
-bool hulkfight::motion::FireGroundShockwaveAction::vfunc_5(int a, int b) {
+bool hulkfight::motion::FireGroundShockwaveAction::vfunc_5(hulk_intptr a, int b) {
     if (a != 1)
         return true;
     if ((*(Target_19ba50 * *)&this->f_20) == 0)

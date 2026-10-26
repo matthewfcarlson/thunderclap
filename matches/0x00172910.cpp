@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 namespace hulkfight {
@@ -17,7 +18,7 @@ class S_172910 {
 
 } // namespace motion
 } // namespace hulkfight
-bool hulkfight::motion::VisibilityAction::vfunc_3(int , int ) {
+bool hulkfight::motion::VisibilityAction::vfunc_3(hulk_intptr , hulk_intptr ) {
     if ((*(void * *)&this->f_20)) {
         void* x = ((Q_172910*)(*(void * *)&this->f_20))->f1();
         if (x) {

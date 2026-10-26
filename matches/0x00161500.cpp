@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Result_161500 {
@@ -5,7 +6,7 @@ struct Result_161500 {
 };
 extern Result_161500* Alloc(unsigned int);
 
-int hulkfight::motion::LocomotionSprintTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::motion::LocomotionSprintTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     Result_161500* p = Alloc(0x30);
     if (p)
         return p->Init(this, c);

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 8/8)
 // hulkfight::motion::GrappleHitReactionTrack::vfunc_9 @ 0x00148730
 // hulkfight::motion::GrappleHitReactionTrack::vfunc_9 @ 0x00148730
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 #include "gen/global.h"
 
@@ -25,7 +26,7 @@ extern "C" void* __cdecl FUN_0008d690(unsigned);
 namespace hulkfight { namespace motion {
 
 }}
-int hulkfight::motion::GrappleHitReactionTrack::vfunc_9(int , int , int __p2) { Actor_148730 * actor = (Actor_148730 *)__p2;
+int hulkfight::motion::GrappleHitReactionTrack::vfunc_9(hulk_intptr , hulk_intptr , hulk_intptr __p2) { Actor_148730 * actor = (Actor_148730 *)__p2;
 
 if (!FUN_00344e74(actor,0,&DAT_00494b44,&DAT_00494b60,0)) return 1;
 Local_148730 local; local.FUN_00059820();

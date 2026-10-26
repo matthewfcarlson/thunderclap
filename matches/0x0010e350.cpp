@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct SemaphoreData {
@@ -22,7 +23,7 @@ namespace ai {
 
 } // namespace ai
 } // namespace hulkfight
-bool hulkfight::ai::SemaphoreClearAction::vfunc_5(int , int ) {
+bool hulkfight::ai::SemaphoreClearAction::vfunc_5(hulk_intptr , int ) {
     if (!(*(SemaphoreSource * *)&this->f_20))
         return false;
     if ((*(SemaphoreData * *)&this->f_1c)->enabled) {

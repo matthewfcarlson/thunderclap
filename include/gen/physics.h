@@ -84,13 +84,13 @@ public:
     virtual hulk_freg vfunc_15(); // slot 15
     virtual void vfunc_16(); // slot 16
     virtual void vfunc_17(int, int, int, int, int) = 0; // slot 17
-    virtual bool vfunc_18(int, int, int, int, int, int) = 0; // slot 18
+    virtual bool vfunc_18(hulk_intptr, hulk_intptr, int, int, int, int) = 0; // slot 18
     virtual void vfunc_19(int, int, int) = 0; // slot 19
     virtual void vfunc_20(void*, void*, int, int, int) = 0; // slot 20
     virtual hulk_freg vfunc_21(); // slot 21
     virtual void vfunc_22(int, int, int, int, int, int); // slot 22
     virtual void vfunc_23(int, int); // slot 23
-    virtual bool vfunc_24(int, int, int); // slot 24
+    virtual bool vfunc_24(hulk_intptr, hulk_intptr, int); // slot 24
     virtual bool vfunc_25(void*, unsigned long, unsigned long); // slot 25
     virtual bool vfunc_26(int); // slot 26
     virtual void vfunc_27(int); // slot 27
@@ -118,7 +118,7 @@ public:
     virtual hulk_freg vfunc_14(); // overrides physics::SimulatedObject slot 14
     virtual hulk_freg vfunc_15(); // overrides physics::SimulatedObject slot 15
     virtual void vfunc_17(int, int, int, int, int); // overrides physics::SimulatedObject slot 17
-    virtual bool vfunc_18(int, int, int, int, int, int); // overrides physics::SimulatedObject slot 18
+    virtual bool vfunc_18(hulk_intptr, hulk_intptr, int, int, int, int); // overrides physics::SimulatedObject slot 18
     virtual void vfunc_19(int, int, int); // overrides physics::SimulatedObject slot 19
     virtual void vfunc_20(void*, void*, int, int, int); // overrides physics::SimulatedObject slot 20
     virtual hulk_freg vfunc_21(); // overrides physics::SimulatedObject slot 21
@@ -128,8 +128,8 @@ public:
     virtual void* vfunc_28(unsigned int); // overrides physics::SimulatedObject slot 28
     virtual void vfunc_30(); // slot 30
     virtual hulk_freg vfunc_31(); // slot 31
-    virtual void vfunc_32(int, int); // slot 32
-    virtual void vfunc_33(int); // slot 33
+    virtual void vfunc_32(hulk_intptr, hulk_intptr); // slot 32
+    virtual void vfunc_33(hulk_intptr); // slot 33
     virtual bool vfunc_34(void*); // slot 34
     virtual void vfunc_35(float); // slot 35
     virtual hulk_freg vfunc_36(); // slot 36
@@ -205,10 +205,10 @@ public:
     virtual void vfunc_5(int); // overrides physics::SimulatedObject slot 5
     virtual void vfunc_7(); // overrides physics::SimulatedObject slot 7
     virtual void vfunc_17(int, int, int, int, int); // overrides physics::SimulatedObject slot 17
-    virtual bool vfunc_18(int, int, int, int, int, int); // overrides physics::SimulatedObject slot 18
+    virtual bool vfunc_18(hulk_intptr, hulk_intptr, int, int, int, int); // overrides physics::SimulatedObject slot 18
     virtual void vfunc_19(int, int, int); // overrides physics::SimulatedObject slot 19
     virtual void vfunc_20(void*, void*, int, int, int); // overrides physics::SimulatedObject slot 20
-    virtual bool vfunc_24(int, int, int); // overrides physics::SimulatedObject slot 24
+    virtual bool vfunc_24(hulk_intptr, hulk_intptr, int); // overrides physics::SimulatedObject slot 24
     virtual bool vfunc_25(void*, unsigned long, unsigned long); // overrides physics::SimulatedObject slot 25
     virtual bool vfunc_26(int); // overrides physics::SimulatedObject slot 26
     virtual void vfunc_27(int); // overrides physics::SimulatedObject slot 27
@@ -237,8 +237,8 @@ public:
 class CollisionVolume : public ::pure3d::NonCopyable {
 public:
     virtual ~CollisionVolume(); // overrides core::IRefCount slot 2
-    virtual int vfunc_3() = 0; // slot 3
-    virtual int vfunc_4() = 0; // slot 4
+    virtual hulk_intptr vfunc_3() = 0; // slot 3
+    virtual hulk_intptr vfunc_4() = 0; // slot 4
     virtual void vfunc_5(int, int) = 0; // slot 5
     virtual int vfunc_6(); // slot 6
     virtual void vfunc_7(float); // slot 7
@@ -261,8 +261,8 @@ public:
 class CollisionAABB : public ::physics::CollisionVolume {
 public:
     virtual ~CollisionAABB(); // overrides core::IRefCount slot 2
-    virtual int vfunc_3(); // overrides physics::CollisionVolume slot 3
-    virtual int vfunc_4(); // overrides physics::CollisionVolume slot 4
+    virtual hulk_intptr vfunc_3(); // overrides physics::CollisionVolume slot 3
+    virtual hulk_intptr vfunc_4(); // overrides physics::CollisionVolume slot 4
     virtual void vfunc_5(int, int); // overrides physics::CollisionVolume slot 5
     virtual int vfunc_6(); // overrides physics::CollisionVolume slot 6
     virtual void vfunc_8(); // overrides physics::CollisionVolume slot 8
@@ -313,8 +313,8 @@ public:
 class CollisionCylinder : public ::physics::CollisionVolume {
 public:
     virtual ~CollisionCylinder(); // overrides core::IRefCount slot 2
-    virtual int vfunc_3(); // overrides physics::CollisionVolume slot 3
-    virtual int vfunc_4(); // overrides physics::CollisionVolume slot 4
+    virtual hulk_intptr vfunc_3(); // overrides physics::CollisionVolume slot 3
+    virtual hulk_intptr vfunc_4(); // overrides physics::CollisionVolume slot 4
     virtual void vfunc_5(int, int); // overrides physics::CollisionVolume slot 5
     virtual int vfunc_6(); // overrides physics::CollisionVolume slot 6
     virtual void vfunc_7(float); // overrides physics::CollisionVolume slot 7
@@ -377,8 +377,8 @@ class CollisionMesh : public ::physics::WorldCollisionVolume {
 public:
     class SharedData;
     virtual ~CollisionMesh(); // overrides core::IRefCount slot 2
-    virtual int vfunc_3(); // overrides physics::CollisionVolume slot 3
-    virtual int vfunc_4(); // overrides physics::CollisionVolume slot 4
+    virtual hulk_intptr vfunc_3(); // overrides physics::CollisionVolume slot 3
+    virtual hulk_intptr vfunc_4(); // overrides physics::CollisionVolume slot 4
     virtual void vfunc_5(int, int); // overrides physics::CollisionVolume slot 5
     virtual int vfunc_6(); // overrides physics::CollisionVolume slot 6
     virtual char vfunc_15(int, int); // overrides physics::WorldCollisionVolume slot 15
@@ -402,8 +402,8 @@ public:
 class CollisionOBB : public ::physics::CollisionVolume {
 public:
     virtual ~CollisionOBB(); // overrides core::IRefCount slot 2
-    virtual int vfunc_3(); // overrides physics::CollisionVolume slot 3
-    virtual int vfunc_4(); // overrides physics::CollisionVolume slot 4
+    virtual hulk_intptr vfunc_3(); // overrides physics::CollisionVolume slot 3
+    virtual hulk_intptr vfunc_4(); // overrides physics::CollisionVolume slot 4
     virtual void vfunc_5(int, int); // overrides physics::CollisionVolume slot 5
     virtual int vfunc_6(); // overrides physics::CollisionVolume slot 6
     virtual void vfunc_7(float); // overrides physics::CollisionVolume slot 7
@@ -484,15 +484,15 @@ public:
 class CollisionObjectLoader : public ::content::SimpleChunkHandler {
 public:
     virtual ~CollisionObjectLoader(); // overrides core::IRefCount slot 2
-    virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
+    virtual void vfunc_5(void*, void*, void*, hulk_intptr); // overrides content::SimpleChunkHandler slot 5
 };
 
 // .?AVCollisionRay@physics@@  vftable 0x431bec (19)
 class CollisionRay : public ::physics::CollisionVolume {
 public:
     virtual ~CollisionRay(); // overrides core::IRefCount slot 2
-    virtual int vfunc_3(); // overrides physics::CollisionVolume slot 3
-    virtual int vfunc_4(); // overrides physics::CollisionVolume slot 4
+    virtual hulk_intptr vfunc_3(); // overrides physics::CollisionVolume slot 3
+    virtual hulk_intptr vfunc_4(); // overrides physics::CollisionVolume slot 4
     virtual void vfunc_5(int, int); // overrides physics::CollisionVolume slot 5
     virtual int vfunc_6(); // overrides physics::CollisionVolume slot 6
     virtual void vfunc_11(void*); // overrides physics::CollisionVolume slot 11
@@ -511,10 +511,10 @@ public:
     virtual void vfunc_3(int, int); // slot 3
     virtual void vfunc_4(int, int); // slot 4
     virtual int vfunc_5(void*, void*); // slot 5
-    virtual unsigned int vfunc_6(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int); // slot 6
-    virtual int vfunc_7(void*, int); // slot 7
+    virtual unsigned int vfunc_6(hulk_uintptr, unsigned int, hulk_uintptr, unsigned int, unsigned int, unsigned int, unsigned int, hulk_uintptr, hulk_uintptr); // slot 6
+    virtual int vfunc_7(void*, hulk_intptr); // slot 7
     virtual void vfunc_8(int, int); // slot 8
-    virtual int vfunc_9(int, int); // slot 9
+    virtual int vfunc_9(hulk_intptr, int); // slot 9
     virtual bool vfunc_10(void*, void*); // slot 10
     virtual bool vfunc_11(void*); // slot 11
     void* f_08;
@@ -524,8 +524,8 @@ public:
 class CollisionSphere : public ::physics::CollisionVolume {
 public:
     virtual ~CollisionSphere(); // overrides core::IRefCount slot 2
-    virtual int vfunc_3(); // overrides physics::CollisionVolume slot 3
-    virtual int vfunc_4(); // overrides physics::CollisionVolume slot 4
+    virtual hulk_intptr vfunc_3(); // overrides physics::CollisionVolume slot 3
+    virtual hulk_intptr vfunc_4(); // overrides physics::CollisionVolume slot 4
     virtual void vfunc_5(int, int); // overrides physics::CollisionVolume slot 5
     virtual int vfunc_6(); // overrides physics::CollisionVolume slot 6
     virtual void vfunc_7(float); // overrides physics::CollisionVolume slot 7
@@ -547,8 +547,8 @@ public:
 class CollisionWall : public ::physics::CollisionVolume {
 public:
     virtual ~CollisionWall(); // overrides core::IRefCount slot 2
-    virtual int vfunc_3(); // overrides physics::CollisionVolume slot 3
-    virtual int vfunc_4(); // overrides physics::CollisionVolume slot 4
+    virtual hulk_intptr vfunc_3(); // overrides physics::CollisionVolume slot 3
+    virtual hulk_intptr vfunc_4(); // overrides physics::CollisionVolume slot 4
     virtual void vfunc_5(int, int); // overrides physics::CollisionVolume slot 5
     virtual int vfunc_6(); // overrides physics::CollisionVolume slot 6
     virtual void vfunc_7(float); // overrides physics::CollisionVolume slot 7
@@ -621,7 +621,7 @@ public:
 class ExportInfoLoader : public ::content::SimpleChunkHandler {
 public:
     virtual ~ExportInfoLoader(); // overrides core::IRefCount slot 2
-    virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
+    virtual void vfunc_5(void*, void*, void*, hulk_intptr); // overrides content::SimpleChunkHandler slot 5
 };
 
 // .?AVFilter3D@physics@@  vftable 0x43233c (3)
@@ -690,7 +690,7 @@ public:
     virtual void* vfunc_5(int); // slot 5
     virtual void vfunc_6(int, int); // slot 6
     virtual void vfunc_7(); // slot 7
-    virtual void vfunc_8(int, int, int); // slot 8
+    virtual void vfunc_8(hulk_intptr, hulk_intptr, int); // slot 8
     virtual unsigned int vfunc_9(unsigned int); // slot 9
     virtual void vfunc_10(int); // slot 10
     virtual bool vfunc_11(); // slot 11
@@ -755,21 +755,21 @@ public:
     virtual hulk_freg vfunc_7(); // slot 7
     virtual hulk_freg vfunc_8(); // slot 8
     virtual void vfunc_9(float, float); // slot 9
-    virtual void vfunc_10(int); // slot 10
+    virtual void vfunc_10(hulk_intptr); // slot 10
     virtual void vfunc_11(int, int, int) = 0; // slot 11
     virtual void vfunc_12(int, int, int, int, int, int, int) = 0; // slot 12
     virtual void vfunc_13(int, int); // slot 13
     virtual bool vfunc_14(int, int, int); // slot 14
     virtual void vfunc_15(void*) = 0; // slot 15
-    virtual void vfunc_16(int, int) = 0; // slot 16
+    virtual void vfunc_16(hulk_intptr, hulk_intptr) = 0; // slot 16
     virtual void vfunc_17(int, int, int) = 0; // slot 17
-    virtual void vfunc_18(int, int) = 0; // slot 18
+    virtual void vfunc_18(hulk_intptr, hulk_intptr) = 0; // slot 18
     virtual void vfunc_19(void*) = 0; // slot 19
     virtual hulk_freg vfunc_20(float) = 0; // slot 20
     virtual void vfunc_21(void*) = 0; // slot 21
     virtual void vfunc_22(void*) = 0; // slot 22
     virtual void vfunc_23() = 0; // slot 23
-    virtual void vfunc_24(int) = 0; // slot 24
+    virtual void vfunc_24(hulk_intptr) = 0; // slot 24
     virtual void vfunc_25() = 0; // slot 25
     virtual bool vfunc_26(int, int) = 0; // slot 26
     virtual void* vfunc_27() = 0; // slot 27
@@ -808,15 +808,15 @@ public:
     virtual void vfunc_11(int, int, int); // overrides physics::PhysicsJoint slot 11
     virtual void vfunc_12(int, int, int, int, int, int, int); // overrides physics::PhysicsJoint slot 12
     virtual void vfunc_15(void*); // overrides physics::PhysicsJoint slot 15
-    virtual void vfunc_16(int, int); // overrides physics::PhysicsJoint slot 16
+    virtual void vfunc_16(hulk_intptr, hulk_intptr); // overrides physics::PhysicsJoint slot 16
     virtual void vfunc_17(int, int, int); // overrides physics::PhysicsJoint slot 17
-    virtual void vfunc_18(int, int); // overrides physics::PhysicsJoint slot 18
+    virtual void vfunc_18(hulk_intptr, hulk_intptr); // overrides physics::PhysicsJoint slot 18
     virtual void vfunc_19(void*); // overrides physics::PhysicsJoint slot 19
     virtual hulk_freg vfunc_20(float); // overrides physics::PhysicsJoint slot 20
     virtual void vfunc_21(void*); // overrides physics::PhysicsJoint slot 21
     virtual void vfunc_22(void*); // overrides physics::PhysicsJoint slot 22
     virtual void vfunc_23(); // overrides physics::PhysicsJoint slot 23
-    virtual void vfunc_24(int); // overrides physics::PhysicsJoint slot 24
+    virtual void vfunc_24(hulk_intptr); // overrides physics::PhysicsJoint slot 24
     virtual void vfunc_25(); // overrides physics::PhysicsJoint slot 25
     virtual bool vfunc_26(int, int); // overrides physics::PhysicsJoint slot 26
     virtual void* vfunc_27(); // overrides physics::PhysicsJoint slot 27
@@ -833,19 +833,19 @@ public:
     virtual void vfunc_5(void*); // overrides physics::PhysicsJoint slot 5
     virtual hulk_freg vfunc_6(); // overrides physics::PhysicsJoint slot 6
     virtual void vfunc_9(float, float); // overrides physics::PhysicsJoint slot 9
-    virtual void vfunc_10(int); // overrides physics::PhysicsJoint slot 10
+    virtual void vfunc_10(hulk_intptr); // overrides physics::PhysicsJoint slot 10
     virtual void vfunc_11(int, int, int); // overrides physics::PhysicsJoint slot 11
     virtual void vfunc_12(int, int, int, int, int, int, int); // overrides physics::PhysicsJoint slot 12
     virtual void vfunc_15(void*); // overrides physics::PhysicsJoint slot 15
-    virtual void vfunc_16(int, int); // overrides physics::PhysicsJoint slot 16
+    virtual void vfunc_16(hulk_intptr, hulk_intptr); // overrides physics::PhysicsJoint slot 16
     virtual void vfunc_17(int, int, int); // overrides physics::PhysicsJoint slot 17
-    virtual void vfunc_18(int, int); // overrides physics::PhysicsJoint slot 18
+    virtual void vfunc_18(hulk_intptr, hulk_intptr); // overrides physics::PhysicsJoint slot 18
     virtual void vfunc_19(void*); // overrides physics::PhysicsJoint slot 19
     virtual hulk_freg vfunc_20(float); // overrides physics::PhysicsJoint slot 20
     virtual void vfunc_21(void*); // overrides physics::PhysicsJoint slot 21
     virtual void vfunc_22(void*); // overrides physics::PhysicsJoint slot 22
     virtual void vfunc_23(); // overrides physics::PhysicsJoint slot 23
-    virtual void vfunc_24(int); // overrides physics::PhysicsJoint slot 24
+    virtual void vfunc_24(hulk_intptr); // overrides physics::PhysicsJoint slot 24
     virtual void vfunc_25(); // overrides physics::PhysicsJoint slot 25
     virtual bool vfunc_26(int, int); // overrides physics::PhysicsJoint slot 26
     virtual void* vfunc_27(); // overrides physics::PhysicsJoint slot 27
@@ -879,19 +879,19 @@ public:
     virtual void vfunc_5(void*); // overrides physics::PhysicsJoint slot 5
     virtual hulk_freg vfunc_6(); // overrides physics::PhysicsJoint slot 6
     virtual void vfunc_9(float, float); // overrides physics::PhysicsJoint slot 9
-    virtual void vfunc_10(int); // overrides physics::PhysicsJoint slot 10
+    virtual void vfunc_10(hulk_intptr); // overrides physics::PhysicsJoint slot 10
     virtual void vfunc_11(int, int, int); // overrides physics::PhysicsJoint slot 11
     virtual void vfunc_12(int, int, int, int, int, int, int); // overrides physics::PhysicsJoint slot 12
     virtual void vfunc_15(void*); // overrides physics::PhysicsJoint slot 15
-    virtual void vfunc_16(int, int); // overrides physics::PhysicsJoint slot 16
+    virtual void vfunc_16(hulk_intptr, hulk_intptr); // overrides physics::PhysicsJoint slot 16
     virtual void vfunc_17(int, int, int); // overrides physics::PhysicsJoint slot 17
-    virtual void vfunc_18(int, int); // overrides physics::PhysicsJoint slot 18
+    virtual void vfunc_18(hulk_intptr, hulk_intptr); // overrides physics::PhysicsJoint slot 18
     virtual void vfunc_19(void*); // overrides physics::PhysicsJoint slot 19
     virtual hulk_freg vfunc_20(float); // overrides physics::PhysicsJoint slot 20
     virtual void vfunc_21(void*); // overrides physics::PhysicsJoint slot 21
     virtual void vfunc_22(void*); // overrides physics::PhysicsJoint slot 22
     virtual void vfunc_23(); // overrides physics::PhysicsJoint slot 23
-    virtual void vfunc_24(int); // overrides physics::PhysicsJoint slot 24
+    virtual void vfunc_24(hulk_intptr); // overrides physics::PhysicsJoint slot 24
     virtual void vfunc_25(); // overrides physics::PhysicsJoint slot 25
     virtual bool vfunc_26(int, int); // overrides physics::PhysicsJoint slot 26
     virtual void* vfunc_27(); // overrides physics::PhysicsJoint slot 27
@@ -932,7 +932,7 @@ public:
     virtual int vfunc_6(); // slot 6
     virtual void vfunc_7(unsigned char); // slot 7
     virtual void vfunc_8(int) = 0; // slot 8
-    virtual void vfunc_9(int) = 0; // slot 9
+    virtual void vfunc_9(hulk_intptr) = 0; // slot 9
     unsigned char f_10;
 };
 
@@ -943,7 +943,7 @@ public:
     virtual int vfunc_5(); // overrides physics::PoseDriver slot 5
     virtual int vfunc_6(); // overrides physics::PoseDriver slot 6
     virtual void vfunc_8(int); // overrides physics::PoseDriver slot 8
-    virtual void vfunc_9(int); // overrides physics::PoseDriver slot 9
+    virtual void vfunc_9(hulk_intptr); // overrides physics::PoseDriver slot 9
     char _pad_14[0x4];
     void* f_18;
     int f_1c;
@@ -953,14 +953,14 @@ public:
 class PhysicsObjectLoader : public ::content::SimpleChunkHandler {
 public:
     virtual ~PhysicsObjectLoader(); // overrides core::IRefCount slot 2
-    virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
+    virtual void vfunc_5(void*, void*, void*, hulk_intptr); // overrides content::SimpleChunkHandler slot 5
 };
 
 // .?AVPhysicsPropertiesLoader@physics@@  vftable 0x431394 (6)
 class PhysicsPropertiesLoader : public ::content::SimpleChunkHandler {
 public:
     virtual ~PhysicsPropertiesLoader(); // overrides core::IRefCount slot 2
-    virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
+    virtual void vfunc_5(void*, void*, void*, hulk_intptr); // overrides content::SimpleChunkHandler slot 5
 };
 
 // .?AVPose@physics@@  vftable 0x43211c (3)
@@ -988,7 +988,7 @@ public:
     virtual int vfunc_5(); // overrides physics::PoseDriver slot 5
     virtual int vfunc_6(); // overrides physics::PoseDriver slot 6
     virtual void vfunc_8(int); // overrides physics::PoseDriver slot 8
-    virtual void vfunc_9(int); // overrides physics::PoseDriver slot 9
+    virtual void vfunc_9(hulk_intptr); // overrides physics::PoseDriver slot 9
     char _pad_14[0x8];
     int f_1c;
 };
@@ -1025,7 +1025,7 @@ public:
     virtual void* vfunc_5(int); // overrides physics::SimState slot 5
     virtual void vfunc_6(int, int); // overrides physics::SimState slot 6
     virtual void vfunc_7(); // overrides physics::SimState slot 7
-    virtual void vfunc_8(int, int, int); // overrides physics::SimState slot 8
+    virtual void vfunc_8(hulk_intptr, hulk_intptr, int); // overrides physics::SimState slot 8
     virtual unsigned int vfunc_9(unsigned int); // overrides physics::SimState slot 9
     virtual void vfunc_10(int); // overrides physics::SimState slot 10
     virtual bool vfunc_11(); // overrides physics::SimState slot 11
@@ -1128,7 +1128,7 @@ public:
 class WorldCollisionObjectLoader : public ::content::SimpleChunkHandler {
 public:
     virtual ~WorldCollisionObjectLoader(); // overrides core::IRefCount slot 2
-    virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
+    virtual void vfunc_5(void*, void*, void*, hulk_intptr); // overrides content::SimpleChunkHandler slot 5
 };
 
 } // namespace physics

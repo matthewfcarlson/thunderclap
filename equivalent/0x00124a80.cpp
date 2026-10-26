@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 16/16)
 // hulkfight::ai::AcquireTargetAction::vfunc_5 @ 0x00124a80
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 #include "decls/address.h"
 
@@ -64,7 +65,7 @@ struct World {
     Owner_124a80 *owner;               // 0x20
 };
 
-bool hulkfight::ai::AcquireTargetAction::vfunc_5(int skip, int unused) {
+bool hulkfight::ai::AcquireTargetAction::vfunc_5(hulk_intptr skip, int unused) {
     struct Frame {
         V3_124a80 a;
         V3_124a80 b;

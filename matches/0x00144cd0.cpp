@@ -10,7 +10,7 @@ extern void* alloc(hulk_uintptr);
 extern const char type1_144cd0[];
 extern const char type2_144cd0[];
 
-int hulkfight::motion::HitEffectTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::motion::HitEffectTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     if (check((void*)c, 0, type1_144cd0, type2_144cd0, 0)) {
         Effect_144cd0* p = (Effect_144cd0*)alloc(0x28);
         if (p)

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 class Param_236bb0 {
@@ -11,6 +12,6 @@ class Param_236bb0 {
 namespace fight {
 
 } // namespace fight
-int fight::Track::vfunc_9(int , int , int ) {
+int fight::Track::vfunc_9(hulk_intptr , hulk_intptr , hulk_intptr ) {
     return 1;
 }

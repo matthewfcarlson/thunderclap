@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_12f9b0;
@@ -10,7 +11,7 @@ struct Manager_12f9b0 {
 };
 extern Manager_12f9b0* gManager_12f9b0;
 
-bool hulkfight::StatAction::vfunc_3(int a, int b) {
+bool hulkfight::StatAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     if (!this->f_20)
         return false;
     u32_12f9b0 x = *(u32_12f9b0*)((char*)this->f_1c + 0x10);

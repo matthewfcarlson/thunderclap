@@ -40,7 +40,7 @@ namespace motion {
 
 }
 }
-bool hulkfight::motion::GrapplePropDamageAction::vfunc_3(int a, int b) {
+bool hulkfight::motion::GrapplePropDamageAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     if ((*(Owner * *)&this->f_20) == 0)
         return false;
     Stats_182380 *stats = FUN_00059a30(FUN_000592a0((*(Owner * *)&this->f_20)));

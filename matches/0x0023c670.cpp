@@ -25,7 +25,7 @@ struct Bank_nv_23c670 {
     bool FUN_002333f0(void *ctx, int b);
 };
 
-unsigned int fight::Bank::vfunc_8(unsigned int __p0, unsigned int __p1) { void * ctx = (void *)__p0; int b = (int)__p1;
+hulk_uintptr fight::Bank::vfunc_8(hulk_uintptr __p0, unsigned int __p1) { void * ctx = (void *)__p0; int b = (int)__p1;
 
     if (!((Bank_nv_23c670*)this)->FUN_002333f0(ctx, b))
         return (unsigned int)(0);

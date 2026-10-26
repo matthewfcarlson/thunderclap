@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Helper_1824c0 {
@@ -5,7 +6,7 @@ struct Helper_1824c0 {
     void* g();
 };
 
-bool hulkfight::motion::ShieldArcAction::vfunc_3(int __p0, int __p1) {
+bool hulkfight::motion::ShieldArcAction::vfunc_3(hulk_intptr __p0, hulk_intptr __p1) {
     if ((*(Helper_1824c0 * *)&this->f_20)) {
         void* a = (*(Helper_1824c0 * *)&this->f_20)->f();
         void* b = ((Helper_1824c0*)a)->g();

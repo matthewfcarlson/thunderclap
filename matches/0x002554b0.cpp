@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 class SeqAction_2554b0 {
@@ -22,7 +23,7 @@ struct Obj_2554b0 {
     int value;
 };
 
-void audio::SeqActionCrossFade::vfunc_6(int __p0) { void * p = (void *)__p0;
+void audio::SeqActionCrossFade::vfunc_6(hulk_intptr __p0) { void * p = (void *)__p0;
 
     switch (this->f_0c) {
     case 1: {

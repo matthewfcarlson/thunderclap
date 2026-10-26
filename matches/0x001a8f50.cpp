@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Track_1a8f50 {
@@ -21,7 +22,7 @@ class EffectAction_1a8f50 {
 };
 extern EffectAction_1a8f50* GetThing(int);
 
-int hulkfight::scenario::EffectTrack::vfunc_10(int x, int , int ) {
+hulk_intptr hulkfight::scenario::EffectTrack::vfunc_10(hulk_intptr x, hulk_intptr , hulk_intptr ) {
     EffectAction_1a8f50* p = GetThing(0x6c);
     if (p)
         return p->Call(this, x);

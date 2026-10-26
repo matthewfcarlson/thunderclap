@@ -22,7 +22,7 @@ extern int IsType(void*, int, hulk_intptr, hulk_intptr, int);
 extern void* Alloc(hulk_uintptr);
 extern int typeA_1891f0, typeB;
 
-int hulkfight::motion::BallAndChainReturnTrack::vfunc_10(int __p0, int __p1, int __p2) { u32_1891f0 a = (u32_1891f0)__p0; u32_1891f0 b = (u32_1891f0)__p1; hulk_uintptr c = (u32_1891f0)__p2;
+hulk_intptr hulkfight::motion::BallAndChainReturnTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_1891f0 a = (u32_1891f0)__p0; u32_1891f0 b = (u32_1891f0)__p1; hulk_uintptr c = (u32_1891f0)__p2;
 
     if (IsType((void*)c, 0, (hulk_intptr)&typeB, (hulk_intptr)&typeA_1891f0, 0)) {
         Obj_1891f0* p = (Obj_1891f0*)Alloc(0x48);

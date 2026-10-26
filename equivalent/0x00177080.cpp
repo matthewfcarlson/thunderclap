@@ -127,7 +127,7 @@ namespace motion {
 
 }
 }
-bool hulkfight::motion::SuckAction::vfunc_5(int a, int b) {
+bool hulkfight::motion::SuckAction::vfunc_5(hulk_intptr a, int b) {
     if (a)
         return true;
     Source_177080* src = (*(Source_177080 * *)&this->f_20);

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 8/8)
 // physics::ArticulatedPhysicsObject::vfunc_24 @ 0x00310910
+#include "compat/ptr.h"
 #include "gen/physics.h"
 
 struct Vec3_310910 { float x,y,z; };
@@ -10,7 +11,7 @@ struct SimulatedObject_310910 {
  char pad[0xd4-0x10]; Vec3_310910 position; char pad2[0xec-0xe0]; unsigned char active;
 };
 }
-bool physics::ArticulatedPhysicsObject::vfunc_24(int __p0, int __p1, int index) { const Vec3_310910 * point = (const Vec3_310910 *)__p0; Vec3_310910 * result = (Vec3_310910 *)__p1;
+bool physics::ArticulatedPhysicsObject::vfunc_24(hulk_intptr __p0, hulk_intptr __p1, int index) { const Vec3_310910 * point = (const Vec3_310910 *)__p0; Vec3_310910 * result = (Vec3_310910 *)__p1;
 
  bool changed=false;
  SimulatedObject_310910 *node=(*(SimulatedObject_310910 ** *)&this->f_1fc)[index];

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 typedef unsigned int U_327660;
@@ -28,7 +29,7 @@ struct d3dPrimBufferStream_nv_327660 {
 };
 
 } // namespace pure3d
-void pure3d::d3dPrimBufferStream::vfunc_16(int __p0, int __p1) { U_327660 * p = (U_327660 *)__p0; U_327660 v = (U_327660)__p1;
+void pure3d::d3dPrimBufferStream::vfunc_16(hulk_intptr __p0, int __p1) { U_327660 * p = (U_327660 *)__p0; U_327660 v = (U_327660)__p1;
 
     U_327660* dst = (*(U_327660 * *)&this->f_24);
     dst[0] = p[0];

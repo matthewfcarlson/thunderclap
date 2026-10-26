@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Obj_151ac0 {
@@ -11,7 +12,7 @@ class Obj_151ac0 {
     void send(void*, float*);
 };
 
-bool hulkfight::motion::HitPushbackAddAction::vfunc_3(int __p0, int x) { Obj_151ac0 * arg = (Obj_151ac0 *)__p0;
+bool hulkfight::motion::HitPushbackAddAction::vfunc_3(hulk_intptr __p0, hulk_intptr x) { Obj_151ac0 * arg = (Obj_151ac0 *)__p0;
 
     if ((*(Obj_151ac0 * *)&this->f_20)) {
         Obj_151ac0* p = (*(Obj_151ac0 * *)&this->f_20)->get();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class Item {
@@ -12,7 +13,7 @@ class Manager {
     void Apply(void*);
 };
 
-void FEThings::vfunc_42(int __p0) { Item * p = (Item *)__p0;
+void FEThings::vfunc_42(hulk_intptr __p0) { Item * p = (Item *)__p0;
 
     int n = p->count;
     for (int i = 0; i < n; ++i) {

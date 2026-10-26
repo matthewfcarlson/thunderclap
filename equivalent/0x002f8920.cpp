@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // physics::CollisionSolverAgent::vfunc_9 @ 0x002f8920
+#include "compat/ptr.h"
 #include "gen/physics.h"
 
 struct Vec3_2f8920 { float x,y,z; };
@@ -11,7 +12,7 @@ struct AgentInput {
  char pad[0x68]; int mode;
 };
 namespace physics {  }
-int physics::CollisionSolverAgent::vfunc_9(int __p0, int index) { AgentInput * input = (AgentInput *)__p0;
+int physics::CollisionSolverAgent::vfunc_9(hulk_intptr __p0, int index) { AgentInput * input = (AgentInput *)__p0;
 
  Body_2f8920* body=input->slot9(index);
  if(input->mode!=1) { body->slot27(-1); return 0; }

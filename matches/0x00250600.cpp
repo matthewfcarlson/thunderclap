@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 class SeqAction_250600 {
@@ -11,6 +12,6 @@ class SeqAction_250600 {
     virtual void f6();
 };
 
-void audio::SeqActionWaitBeat::vfunc_3(int ) {
+void audio::SeqActionWaitBeat::vfunc_3(hulk_intptr ) {
     *(int*)((char*)this + 0xc) = 2;
 }

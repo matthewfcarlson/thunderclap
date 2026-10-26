@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 343 inputs, branch coverage 14/14)
 // hulkfight::motion::HitPauseAction::vfunc_3 @ 0x0014ef40
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Fighter_14ef40 {
@@ -50,7 +51,7 @@ namespace motion {
 
 }
 }
-bool hulkfight::motion::HitPauseAction::vfunc_3(int a, int b) {
+bool hulkfight::motion::HitPauseAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     Stats_14ef40 *stats = FUN_00059a30(FUN_000592a0((*(void * *)&this->f_20)));
     int count = stats->slotCount;
     if (count > 0) {

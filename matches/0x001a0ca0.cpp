@@ -10,7 +10,7 @@ struct NewThing {
 extern int rttiA_1a0ca0;
 extern int rttiB;
 
-int hulkfight::motion::FireBeamTrack::vfunc_10(int __p0, int __p1, int __p2) { u32_1a0ca0 a = (u32_1a0ca0)__p0; u32_1a0ca0 b = (u32_1a0ca0)__p1; void * p = (void *)__p2;
+hulk_intptr hulkfight::motion::FireBeamTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_1a0ca0 a = (u32_1a0ca0)__p0; u32_1a0ca0 b = (u32_1a0ca0)__p1; void * p = (void *)__p2;
 
     if (Check(p, 0, &rttiA_1a0ca0, &rttiB, 0)) {
         NewThing* q = (NewThing*)Alloc(0x98);

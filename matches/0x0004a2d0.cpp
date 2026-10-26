@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 struct Obj_4a2d0 {
@@ -13,7 +14,7 @@ struct ObjHelper_4a2d0 {
     Obj_4a2d0* Second();
 };
 
-int CGrappleMotionStateCondition::vfunc_8(int p) {
+int CGrappleMotionStateCondition::vfunc_8(hulk_intptr p) {
     if (!p)
         return 0;
     Helper_4a2d0* h = (Helper_4a2d0*)p;

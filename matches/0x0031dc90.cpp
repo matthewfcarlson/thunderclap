@@ -1,4 +1,5 @@
 // pure3d::pddiBaseContext::vfunc_46 @ 0x0031dc90
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 namespace pure3d {
@@ -18,7 +19,7 @@ struct LightState_31dc90 {
 };
 
 }
-void pure3d::pddiBaseContext::vfunc_46(int index, int __p1) { const Vec3_31dc90 * direction = (const Vec3_31dc90 *)__p1;
+void pure3d::pddiBaseContext::vfunc_46(int index, hulk_intptr __p1) { const Vec3_31dc90 * direction = (const Vec3_31dc90 *)__p1;
 
     if (index < 8) {
         Vec4_31dc90 v;

@@ -22,7 +22,7 @@ namespace motion {
 
 } // namespace motion
 } // namespace hulkfight
-bool hulkfight::motion::CriticalMassDrainAction::vfunc_3(int x, int y) {
+bool hulkfight::motion::CriticalMassDrainAction::vfunc_3(hulk_intptr x, hulk_intptr y) {
     if (!(*(Source_172790 * *)&this->f_20))
         return (bool)(0);
     Mid_172790* m = (*(Source_172790 * *)&this->f_20)->GetMid();

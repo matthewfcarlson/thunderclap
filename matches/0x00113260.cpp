@@ -1,4 +1,5 @@
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Params_113260 {
@@ -13,7 +14,7 @@ struct TokenAction_nv_113260 {
 };
 hulkfight::ai::TokenAction* __cdecl Alloc(int);
 
-int hulkfight::ai::TokenTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::ai::TokenTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = Check((void*)c, 0, &TypeA_113260, &TypeB_113260, 0);
     if (result) {
         hulkfight::ai::TokenAction* p = Alloc(0x24);

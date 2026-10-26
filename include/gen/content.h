@@ -95,7 +95,7 @@ public:
 class FileLoader : public ::content::LoadObject {
 public:
     virtual ~FileLoader(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int) = 0; // slot 3
+    virtual void vfunc_3(hulk_intptr, int) = 0; // slot 3
 };
 
 // .?AVLoadInventory@content@@  vftable 0x42aec8 (6)
@@ -104,7 +104,7 @@ public:
     class DynamicCasterBase;
     template <class T0> class DynamicCaster;
     virtual ~LoadInventory(); // overrides core::IRefCount slot 2
-    virtual void* vfunc_3(int, int, int); // slot 3
+    virtual void* vfunc_3(hulk_intptr, int, int); // slot 3
     virtual void vfunc_4(void*, void*, void*); // slot 4
     virtual void vfunc_5(void*); // slot 5
     char f_08;
@@ -227,7 +227,7 @@ public:
 class P3DFileHandler : public ::content::FileLoader {
 public:
     virtual ~P3DFileHandler(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int); // overrides content::FileLoader slot 3
+    virtual void vfunc_3(hulk_intptr, int); // overrides content::FileLoader slot 3
 };
 
 // .?AVSimpleChunkHandler@content@@  vftable 0x4219e8 (6)
@@ -236,7 +236,7 @@ public:
     virtual ~SimpleChunkHandler(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(int, int, int, int, int); // overrides content::ObjectLoader slot 3
     virtual void vfunc_4(); // slot 4
-    virtual void vfunc_5(void*, void*, void*, int) = 0; // slot 5
+    virtual void vfunc_5(void*, void*, void*, hulk_intptr) = 0; // slot 5
     int f_08;
     int f_0c;
     int f_10;

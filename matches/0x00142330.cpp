@@ -10,7 +10,7 @@ extern Result_142330* MakeResult(void*);
 extern const int RT1;
 extern const int RT2;
 
-int hulkfight::motion::WallJumpTrack::vfunc_10(int __p0, int __p1, int __p2) { unsigned int a = (unsigned int)__p0; unsigned int b = (unsigned int)__p1; hulk_uintptr c = (unsigned int)__p2;
+hulk_intptr hulkfight::motion::WallJumpTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { unsigned int a = (unsigned int)__p0; unsigned int b = (unsigned int)__p1; hulk_uintptr c = (unsigned int)__p2;
 
     if (IsType((void*)c, 0, &RT1, &RT2, 0)) {
         Result_142330* r = (Result_142330*)MakeResult((void*)0x50);

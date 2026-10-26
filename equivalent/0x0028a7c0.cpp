@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // pure3d::Vector3DOFChannel::vfunc_4 @ 0x0028a7c0
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 namespace pure3d {
@@ -9,7 +10,7 @@ struct Vector3DOFChannel_nv_28a7c0 {
 };
 
 }
-void pure3d::Vector3DOFChannel::vfunc_4(float time, int __p1) { Vector_28a7c0 * out = (Vector_28a7c0 *)__p1;
+void pure3d::Vector3DOFChannel::vfunc_4(float time, hulk_intptr __p1) { Vector_28a7c0 * out = (Vector_28a7c0 *)__p1;
 
  int first, second;
  bool found = ((Vector3DOFChannel_nv_28a7c0*)this)->FUN_00289f80(time, &first, &second);

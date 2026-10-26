@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20024 inputs, branch coverage 12/12)
 // pure3d::DefaultChannelHandler::vfunc_4 @ 0x0028ec30
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct Channel_28ec30 { unsigned FUN_00266c30(); };
@@ -14,7 +15,7 @@ namespace pure3d { struct DefaultChannelHandler_nv_28ec30 {
     int FUN_0028ceb0(Channel_28ec30*,void*,void*);
     int FUN_0028cfd0(Channel_28ec30*,void*,void*);
 }; }
-int pure3d::DefaultChannelHandler::vfunc_4(int __p0, int __p1, int __p2) { Channel_28ec30 * c = (Channel_28ec30 *)__p0; void * a = (void *)__p1; void * b = (void *)__p2;
+int pure3d::DefaultChannelHandler::vfunc_4(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { Channel_28ec30 * c = (Channel_28ec30 *)__p0; void * a = (void *)__p1; void * b = (void *)__p2;
 
 unsigned index = c->FUN_00266c30() - 0x121100;
 if(index > 20) return 0;

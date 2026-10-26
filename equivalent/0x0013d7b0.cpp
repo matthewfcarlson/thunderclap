@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19974 inputs, branch coverage 16/16)
 // hulkfight::motion::AnimationPhaseMatchedAction::vfunc_3 @ 0x0013d7b0
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 #include "decls/address.h"
 
@@ -86,7 +87,7 @@ struct Spec_13d7b0 {
 };
 
 
-bool hulkfight::motion::AnimationPhaseMatchedAction::vfunc_3(int unused0, int unused1) {
+bool hulkfight::motion::AnimationPhaseMatchedAction::vfunc_3(hulk_intptr unused0, hulk_intptr unused1) {
     if ((*(Params_13d7b0 * *)&this->f_20) == 0) return false;
     Part_13d7b0 *part = (*(Params_13d7b0 * *)&this->f_20)->FUN_000592a0()->FUN_00059a40();
     if (part == 0) return false;

@@ -13,7 +13,7 @@ class Receiver_28eea0 {
     virtual void invoke(int, int);
 };
 
-int pure3d::ShaderFloatBroadcast::vfunc_3(void* __p0) { void * p = (void *)__p0;
+hulk_intptr pure3d::ShaderFloatBroadcast::vfunc_3(void* __p0) { void * p = (void *)__p0;
 
     if (p) {
         Receiver_28eea0* r = *(Receiver_28eea0**)((char*)p + 16);

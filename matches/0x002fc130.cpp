@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/physics.h"
 
 struct Small_2fc130 {
@@ -21,7 +22,7 @@ struct Arg_2fc130 {
     Obj_2fc130* f490(void*);
 };
 
-void physics::PhysicsJointMatrixModifier::vfunc_9(int __p0) { Arg_2fc130 * arg = (Arg_2fc130 *)__p0;
+void physics::PhysicsJointMatrixModifier::vfunc_9(hulk_intptr __p0) { Arg_2fc130 * arg = (Arg_2fc130 *)__p0;
 
     if (!this->f_10)
         return;

@@ -13,7 +13,7 @@ struct Track_144af0 {
     char pad[0x1c];
 };
 
-int hulkfight::motion::SlowMotionTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::motion::SlowMotionTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     SlowMotionAction_144af0* p = (SlowMotionAction_144af0*)Alloc(0x28);
     if (p) {
         p->init();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct TypeInfo_11a1b0 {
@@ -12,7 +13,7 @@ class Allocated_11a1b0 {
     int Init(hulkfight::ai::MotionClosestWaypointTrack*, void*);
 };
 
-int hulkfight::ai::MotionClosestWaypointTrack::vfunc_10(int __p0, int __p1, int __p2) { void * a = (void *)__p0; void * b = (void *)__p1; void * p = (void *)__p2;
+hulk_intptr hulkfight::ai::MotionClosestWaypointTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { void * a = (void *)__p0; void * b = (void *)__p1; void * p = (void *)__p2;
 
     int ok = IsType(p, 0, &FightParamsType_11a1b0, &CFightParamsType_11a1b0, 0);
     if (ok) {

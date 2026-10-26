@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 class SeqAction_24ea70 {
@@ -11,6 +12,6 @@ class SeqAction_24ea70 {
     virtual void f6();
 };
 
-void audio::SeqActionChannelSendVolumes::vfunc_3(int ) {
+void audio::SeqActionChannelSendVolumes::vfunc_3(hulk_intptr ) {
     *(int*)((char*)this + 0xc) = 4;
 }

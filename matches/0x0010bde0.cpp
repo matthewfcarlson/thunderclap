@@ -1,4 +1,5 @@
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Params_10bde0 {
@@ -13,7 +14,7 @@ struct FaceMotionAction_nv_10bde0 {
 };
 hulkfight::ai::FaceMotionAction* __cdecl Alloc(int);
 
-int hulkfight::ai::FaceMotionTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::ai::FaceMotionTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = Check((void*)c, 0, &TypeA_10bde0, &TypeB_10bde0, 0);
     if (result) {
         hulkfight::ai::FaceMotionAction* p = Alloc(0x24);

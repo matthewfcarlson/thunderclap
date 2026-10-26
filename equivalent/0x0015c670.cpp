@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 14/14)
 // hulkfight::motion::GrappleLocomotionSteerAction::vfunc_5 @ 0x0015c670
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct TypeDescriptor; extern TypeDescriptor DAT_0048d534; extern TypeDescriptor DAT_004b3b20;
@@ -14,7 +15,7 @@ struct Actor_15c670 { Access_15c670* FUN_000592a0(); };
 namespace hulkfight { namespace motion {
 
 } }
-bool hulkfight::motion::GrappleLocomotionSteerAction::vfunc_5(int flag, int unused) {
+bool hulkfight::motion::GrappleLocomotionSteerAction::vfunc_5(hulk_intptr flag, int unused) {
 if (flag) return true;
 if (!(*(Motion_15c670 * *)&this->f_24)) return false;
 Link_15c670* link = (*(Actor_15c670 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30()->link;

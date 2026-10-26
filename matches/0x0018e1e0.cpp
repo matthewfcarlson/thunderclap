@@ -1,4 +1,5 @@
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Params_18e1e0 {
@@ -13,7 +14,7 @@ struct TimerSetAction_nv_18e1e0 {
 };
 hulkfight::motion::TimerSetAction* __cdecl Alloc(int);
 
-int hulkfight::motion::TimerSetTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::motion::TimerSetTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = Check((void*)c, 0, &TypeA_18e1e0, &TypeB_18e1e0, 0);
     if (result) {
         hulkfight::motion::TimerSetAction* p = Alloc(0x24);

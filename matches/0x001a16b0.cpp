@@ -11,7 +11,7 @@ struct Provider_1a16b0 {
 };
 int GetThing();
 
-bool hulkfight::scenario::LuaAction::vfunc_3(int a, int b) {
+bool hulkfight::scenario::LuaAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     hulk_intptr x = GetThing();
     if (!x)
         return false;

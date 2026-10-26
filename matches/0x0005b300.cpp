@@ -1,4 +1,5 @@
 // Same code shape as 0x0005a4c0 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 struct A_5b300 {
@@ -13,7 +14,7 @@ struct Data_5b300 {
     void* p334;
 };
 
-void* CGrappleUninterruptibleTrack::vfunc_11(int param) {
+void* CGrappleUninterruptibleTrack::vfunc_11(hulk_intptr param) {
     if (param) {
         void* a = ((A_5b300*)param)->first();
         if (a) {

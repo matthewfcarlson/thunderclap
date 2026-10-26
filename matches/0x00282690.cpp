@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 class Obj_282690 {
@@ -15,7 +16,7 @@ class Helper_282690 {
     void helper(void*, int, int, int);
 };
 
-void pure3d::prop::CMotionTrailQueue::vfunc_8(int a, int b) {
+void pure3d::prop::CMotionTrailQueue::vfunc_8(hulk_intptr a, int b) {
     for (int i = 0; i < 6; ++i) {
         if ((*(char * *)&this->f_5c)[i * 8 + 4]) {
             if (a) {

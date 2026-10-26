@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 6/6)
 // CHapticEventAction::vfunc_3 @ 0x00017870
+#include "compat/ptr.h"
 #include "gen/global.h"
 #include "decls/address.h"
 
@@ -13,7 +14,7 @@ struct Event_17870 {
  char pad[16]; float strength0; float strength1;
 };
 
-bool CHapticEventAction::vfunc_3(int , int ) {
+bool CHapticEventAction::vfunc_3(hulk_intptr , hulk_intptr ) {
  if (!DAT_004dd700->gate->FUN_00099740()) {
   Controller_17870* controller=DAT_004dd6ec->FUN_00086330();
   Motors* motors=controller->FUN_000afe40(0);

@@ -10,7 +10,7 @@ extern void* __cdecl alloc(hulk_uintptr);
 extern const int typeA_138c50;
 extern const int typeB_138c50;
 
-int hulkfight::motion::FallTrack::vfunc_10(int __p0, int __p1, int __p2) { u32_138c50 a = (u32_138c50)__p0; u32_138c50 b = (u32_138c50)__p1; u32_138c50 c = (u32_138c50)__p2;
+hulk_intptr hulkfight::motion::FallTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_138c50 a = (u32_138c50)__p0; u32_138c50 b = (u32_138c50)__p1; u32_138c50 c = (u32_138c50)__p2;
 
     if (check(c, 0, &typeA_138c50, &typeB_138c50, 0)) {
         hulkfight::motion::FallAction* p = (hulkfight::motion::FallAction*)alloc(0x38);

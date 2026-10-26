@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // pure3d::SimpleFrameController::vfunc_24 @ 0x00285830
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct Source_285830 {
@@ -12,7 +13,7 @@ struct Source_285830 {
 namespace pure3d {
 
 }
-void pure3d::SimpleFrameController::vfunc_24(int __p0, int start, int unused) { Source_285830 * src = (Source_285830 *)__p0;
+void pure3d::SimpleFrameController::vfunc_24(hulk_intptr __p0, int start, int unused) { Source_285830 * src = (Source_285830 *)__p0;
 
     if (src == 0) {
         if ((*(Source_285830 * *)&this->f_3c) != 0)

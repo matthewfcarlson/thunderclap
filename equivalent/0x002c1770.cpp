@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 15928 inputs, branch coverage 8/8)
 // pure3d::LocatorLoader::vfunc_5 @ 0x002c1770
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
@@ -67,7 +68,7 @@ struct Frame_2c1770 {
     char name[0x100];
 };
 
-void pure3d::LocatorLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int __p3) { pure3d::Locator_2c1770 ** out = (pure3d::Locator_2c1770 **)__p0; unsigned long long * outId = (unsigned long long *)__p1; Stream_2c1770 * s = (Stream_2c1770 *)__p2; void * ctx = (void *)__p3;
+void pure3d::LocatorLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr __p3) { pure3d::Locator_2c1770 ** out = (pure3d::Locator_2c1770 **)__p0; unsigned long long * outId = (unsigned long long *)__p1; Stream_2c1770 * s = (Stream_2c1770 *)__p2; void * ctx = (void *)__p3;
 
     Frame_2c1770 f;
     Reader_2c1770 *rd = s->reader;

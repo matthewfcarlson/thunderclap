@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // physics::PhysicsObject::vfunc_32 @ 0x002f5ac0
+#include "compat/ptr.h"
 #include "gen/physics.h"
 
 struct Vec_2f5ac0 { float x,y,z; };
 namespace physics {
 
 }
-void physics::PhysicsObject::vfunc_32(int __p0, int __p1) { Vec_2f5ac0 * f = (Vec_2f5ac0 *)__p0; Vec_2f5ac0 * p = (Vec_2f5ac0 *)__p1;
+void physics::PhysicsObject::vfunc_32(hulk_intptr __p0, hulk_intptr __p1) { Vec_2f5ac0 * f = (Vec_2f5ac0 *)__p0; Vec_2f5ac0 * p = (Vec_2f5ac0 *)__p1;
 
 (*(Vec_2f5ac0 *)&this->f_130).x += f->x; (*(Vec_2f5ac0 *)&this->f_130).y += f->y; (*(Vec_2f5ac0 *)&this->f_130).z += f->z;
 if(p) {

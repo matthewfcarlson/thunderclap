@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19941 inputs, branch coverage 2/2)
 // audio::SeqEventLogicOr::vfunc_2 @ 0x00255210
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 #include "decls/data/engine/audio.h"
@@ -16,7 +17,7 @@ struct SeqCommandLogicOr_255210 {
 };
 struct Context_255210 { void FUN_0025dba0(SeqCommandLogicOr_255210*); };
 
-void audio::SeqEventLogicOr::vfunc_2(int __p0) { Context_255210 * context = (Context_255210 *)__p0;
+void audio::SeqEventLogicOr::vfunc_2(hulk_intptr __p0) { Context_255210 * context = (Context_255210 *)__p0;
 
     SeqCommandLogicOr_255210* command = (SeqCommandLogicOr_255210*)FUN_00247530(((char*)&DAT_004e7410));
     if (command) {

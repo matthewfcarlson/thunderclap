@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 6/6)
 // hulkfight::ai::ThreatDodgeAction::vfunc_5 @ 0x0012bab0
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Vec_12bab0 { float x,y,z; float FUN_0022d110(); };
@@ -9,7 +10,7 @@ struct Link2_12bab0 { Actor_12bab0* FUN_00059a30(); };
 struct Link_12bab0 { Link2_12bab0* FUN_000592a0(); };
 struct Settings_12bab0 { char pad[0x14]; unsigned int mode; unsigned char flag; char pad2[7]; char data[1]; };
 namespace hulkfight { namespace ai {  } }
-bool hulkfight::ai::ThreatDodgeAction::vfunc_5(int __p0, int __p1) { unsigned int state = (unsigned int)__p0; unsigned int unused = (unsigned int)__p1;
+bool hulkfight::ai::ThreatDodgeAction::vfunc_5(hulk_intptr __p0, int __p1) { unsigned int state = (unsigned int)__p0; unsigned int unused = (unsigned int)__p1;
 
  if (state != 0) return true;
  if (!(*(Link_12bab0 * *)&this->f_20)) return false;

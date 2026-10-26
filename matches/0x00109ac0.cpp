@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 void FUN_00102bf0(int, void*, int, float*);
 
-bool CArriveBehaviour::vfunc_3(int a, int b, void* __p2, int c, int e) { float * out = (float *)__p2;
+bool CArriveBehaviour::vfunc_3(hulk_intptr a, int b, void* __p2, int c, int e) { float * out = (float *)__p2;
 
     FUN_00102bf0(b, (*(char (*)[12])&this->f_10), this->f_1c, out);
     if (this->f_0c) {

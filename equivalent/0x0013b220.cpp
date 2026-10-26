@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // hulkfight::motion::AnimationChargeAction::vfunc_5 @ 0x0013b220
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Mixer_13b220 {
@@ -26,7 +27,7 @@ namespace hulkfight {
 namespace motion {
 }
 }
-bool hulkfight::motion::AnimationChargeAction::vfunc_5(int skip, int unused) {
+bool hulkfight::motion::AnimationChargeAction::vfunc_5(hulk_intptr skip, int unused) {
     if (skip == 0) {
         float t = (*(Manager_13b220 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30()->blend;
         if (t >= 0.0f && t <= 1.0f) {

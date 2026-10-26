@@ -1,4 +1,5 @@
 // Same code shape as 0x0006aaf0 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class Other_6ae00 {
@@ -7,7 +8,7 @@ class Other_6ae00 {
 };
 extern "C" Other_6ae00* __cdecl FUN_0008d690(int);
 
-int CAlertStatusTrack::vfunc_12(int param) {
+hulk_intptr CAlertStatusTrack::vfunc_12(hulk_intptr param) {
     Other_6ae00* p = FUN_0008d690(0x24);
     if (p)
         return p->call(param, this->f_10);

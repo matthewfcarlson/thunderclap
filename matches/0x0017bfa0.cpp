@@ -1,4 +1,5 @@
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Params_17bfa0 {
@@ -13,7 +14,7 @@ struct SnapToGroundAction_nv_17bfa0 {
 };
 hulkfight::motion::SnapToGroundAction* __cdecl Alloc(int);
 
-int hulkfight::motion::SnapToGroundTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::motion::SnapToGroundTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = Check((void*)c, 0, &TypeA_17bfa0, &TypeB_17bfa0, 0);
     if (result) {
         hulkfight::motion::SnapToGroundAction* p = Alloc(0x24);

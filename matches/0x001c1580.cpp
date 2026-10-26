@@ -60,7 +60,7 @@ class Manager_1c1580 {
 };
 extern Manager_1c1580* gManager_1c1580;
 
-int Render::Canvas::HulkShaderCallback::vfunc_4(void* __p0) { Arg_1c1580 * p = (Arg_1c1580 *)__p0;
+hulk_intptr Render::Canvas::HulkShaderCallback::vfunc_4(void* __p0) { Arg_1c1580 * p = (Arg_1c1580 *)__p0;
 
     hulk_intptr result = (hulk_intptr)p;
     if (this->f_08 > 0.0f && p)

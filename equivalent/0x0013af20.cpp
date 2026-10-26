@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // hulkfight::motion::AnimationPhaseMatchedAction::vfunc_5 @ 0x0013af20
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Controller_13af20;
@@ -16,7 +17,7 @@ float __cdecl FUN_0004af40(float,float,float);
 namespace hulkfight { namespace motion {
 
 }}
-bool hulkfight::motion::AnimationPhaseMatchedAction::vfunc_5(int flag, int unused) {
+bool hulkfight::motion::AnimationPhaseMatchedAction::vfunc_5(hulk_intptr flag, int unused) {
  if(flag) return true;
  if(!(*(Context_13af20 * *)&this->f_20)) return false;
  Entries_13af20* entries=(*(Context_13af20 * *)&this->f_20)->FUN_000592a0()->FUN_00059a40();

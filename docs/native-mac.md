@@ -229,3 +229,97 @@ destructors gets the right layout and slots from either compiler. Re-run `abi_me
 batches; the numbers to watch are the 3,492 differing records and the 1,208 shifted vtables, and the per-source counts
 with literal offsets. Switching while sources still address fields by MS offsets and slots by position would add a
 second, silent layout family on top of the 64-bit one.
+
+## 7. The MS C++ ABI runtime on macOS (x64-5, 2026-10-25)
+
+`src/platform/sdl/host/rtti_msabi.cpp` is the run-time support the MS ABI objects need on arm64 macOS: the five
+`abi` rows of `crt/native_crt_table.h` (`__RTDynamicCast` 0x00344e74, `__RTtypeid` 0x003449e4, `type_info::operator==`
+0x00344913, `type_info::name` 0x003469f5, `__CxxFrameHandler3`), plus what clang itself emits for the MS ABI:
+`__RTCastToVoid` (`dynamic_cast<void*>`), type_info's other members (`!=`, `before`, `raw_name`, the destructor) and
+type_info's vftable `??_7type_info@@6B@`, which every type descriptor points at (1,179 references in the tree;
+x64-3's unbound list had it as the largest "vftable" entry). Host code (Itanium C++, system headers), C linkage, the
+MS-mangled names as assembler aliases. Written from the documented record layouts and the semantics of the
+operations; no Microsoft code.
+
+- **Records.** The 64-bit MS layouts (complete object locator signature 1, base class descriptors with their PMD
+  and attributes, class hierarchy descriptors, base class arrays), with the retarget's one change: each 32-bit
+  "image-relative" field is an offset from the start of the record that holds it (an array's entries from the
+  array). `native_mac.py retarget()` also drops clang's `nuw` from those subtractions (the difference can be
+  negative; with `nuw` the constant is poison).
+- **dynamic_cast.** Finds the complete object (offset, and the vtordisp when the locator has one), then the
+  source subobject among the bases (type and offset), then a target that contains it (down cast; the source must be
+  a public base of the target, checked in the target's own hierarchy when it is not the complete object), else the
+  one visible, unambiguous target base of the complete object (cross cast). A failed reference cast and typeid of a
+  null pointer report through `hulk_native_missing` (exit 3): the native builds have no exceptions.
+- **Type identity.** Descriptors compare by address, then by decorated name: one class can have clang's
+  `??_R0` descriptor and the game's (below). A name that differs only by the tree's wrapping namespaces
+  (`fn_<8 hex>`, tools/gen_tree.py: `.?AVCAction@fn_0001d1e0@@`) is the same class, which is what the Wine build's
+  "RTTI TD redirection" bridge does at link time. Stubs renamed with a placeholder suffix (`CTrack_23d3d0`) are not
+  matched: those wait for the consolidation (real class names), as in the Wine build.
+- **type_info::name.** The undecorated name the MS runtime gives (`class fight::Track`, `struct ns::Tpl<int,3>`,
+  `int`, `char const * __ptr64`), made once per descriptor and kept (a side table, not the descriptor's `spare`
+  word, which the descriptors of other images may keep read-only). equivalent/0x0028fbc0 strips "class " and the scopes from it.
+- **Exceptions.** One source has try/catch: matches/0x0035be90, whose original is an unwind funclet of
+  `FUN_003a8296` in the XGraphics library section (its only reference is that function's EH table), so it is never
+  reached on the native builds. `_CxxThrowException` (crt_posix.cpp) and `__CxxFrameHandler3` report and exit.
+- **The game's type descriptors.** Sources pass the game's descriptors by address (`__RTDynamicCast(p, 0,
+  &DAT_00491ca8, &DAT_004a3940, 0)`: 1,200 sites in 561 sources; `type_info::operator==` against `DAT_0048e100` ...).
+  `native_mac.py link` writes them as 64-bit type_info objects (`link/rtti.s`: type_info's vftable, a null word, the
+  decorated name from config/data.json's item name, no game bytes) under `DAT_<addr>`: 4,244 descriptors.
+
+Test: `sh tests/native_host/rtti_test.sh [OUT] [host flags]` compiles `tests/native_host/rtti_game.cpp` the way the
+tree is compiled (MS ABI front end, retarget, Mach-O) and links it with the runtime and `rtti_test.cpp`: single,
+multiple and virtual inheritance (down, cross, to void), private bases refused, typeid of the complete object,
+`name()` / `raw_name()` of classes, templates, enums and built-in types, descriptors of the game's shape (and wrapped
+names) against clang's, and the two failures (bad_cast, bad_typeid) exit 3 with their report. Passes on arm64 at
+-O1 and under ASan+UBSan. Not covered: a non-zero vtordisp (only during construction or destruction of a class
+with virtual bases).
+
+## 8. Pointer-sized virtual slots (x64-5 batch 1, 2026-10-25)
+
+ptr1 (wine-build.md item 9) left the pointers that travel through `int` parameters and returns of virtual methods:
+every override of a slot shares the signature, so no single source can widen it. `tools/ptr_slots.py` widens the slot
+as a whole: from ptr1's per-source demands (`ptr1.py fix` without `--write`) it finds the include/gen/ slot
+(gen_headers' slot keys), writes the widened signature to include/gen/evidence-rn.json "sigs" (`hulk_intptr` /
+`hulk_uintptr` at the positions some override uses as a pointer, the return when some override returns one), and
+rewrites the out-of-line definition of every override in every source on include/gen/. `check` parses sources for
+the 64-bit MS target and reports new errors and `-Woverloaded-virtual` hits (an in-class override of a source's own
+that would stop overriding on 64-bit, silently). MSVC 7.1 and clang i686 see `int` / `unsigned int`: objects and
+mangled names unchanged.
+
+```sh
+build/venv/bin/python tools/ptr1.py fix @files --out FIX.json                  # demands (no --write)
+build/venv/bin/python tools/ptr_slots.py plan FIX.json --out PLAN.json
+build/venv/bin/python tools/ptr_slots.py apply PLAN.json --write --list CHANGED.txt && build/venv/bin/python tools/gen_headers.py
+build/venv/bin/python tools/ptr_slots.py check @SOURCES --out CHECK.json       # before and after; compare errors
+```
+
+Batch 1: 113 demanded slots, 109 widened (4 refused: the header's slot returns `void` / `void*`), 1,686 sources
+(1,566 matches/, 120 equivalent/), 11 headers; `gen_headers.CURATED_SIGS` `CAction::vfunc_5` widened too (curated
+signatures win over evidence-rn.json). Per-source `ptr1.py scan` (msvc64), HEAD -> batch: pointer <-> integer casts
+1,263 -> 268, 64 -> 32-bit truncations 499 -> 653 (casts that become visible narrowings further down, mostly
+arguments of the sources' own stub members: batch 2, ptr1's `sigs` phase finds 173 sources), all sites 1,762 -> 921 in
+1,343 -> 551 sources. The merged tree's native compile: pointer <-> integer casts 301, truncations 637 sites.
+
+## 9. Link preparation without a name table (x64-5, 2026-10-25)
+
+The names-only link table (the Wine build's binding map as an ld64 alias list) was rejected: names are unified in
+the sources instead (x64-6). `native_mac.py link` therefore binds nothing by alias by default (`--name-table` keeps
+x64-3's inventory for comparison) and reports what is unbound, by kind; that report is the metric. What it adds:
+
+- **Initializers.** `retarget()` takes the TUs' dynamic initializers out of `llvm.global_ctors` (Mach-O's
+  `__mod_init_func`, which dyld would run before `main` in link order) and gives each TU's own initializer the global
+  name `hulk_tu_init$<tu path>`; the compile report lists them per TU. `link` writes `link/startup.s`:
+  `hulk_game_initializers[]` in the XBE's order (`__xc_a`..`__xc_z`), each entry bound to the tree's own definition
+  at that address (the tree build's report: our definitions by address, no callers' names), the TU's
+  `hulk_tu_init$` for a game initializer whose source is the dynamic initializer itself (`_$E<n>`), 0 for library
+  initializers; entry_posix.cpp runs them. Batch 1's tree: 453 bound to function sources, 4 to TU initializers, 9
+  library ones left out, 2 TU initializers the XBE table never calls (`link/tu-inits-not-run.txt`).
+- **Type descriptors.** `link/rtti.s` (section 7), 4,244, under `DAT_<addr>` and `rttiTD_<addr>`.
+- **The native CRT table** classifies references by a row's tree names or by the XBE address in the name (300 + 74
+  references); they are counted, not aliased: the host side or the sources have to use the names.
+- **ld64.** With every unbound symbol stubbed (code as `brk`, data as 16-aligned zero blocks) and the MS ABI runtime
+  linked, ld64 now links batch 1's 3,701 objects into an arm64 executable (26 MB; x64-3's attempt stopped at the
+  first data fixup). Left: 274 "pointer not aligned" warnings, the packed `DataLayout_` data items (data_gen, next).
+  Unbound (no name table): 56,625 symbols, 59,874 references: FUN_ by address 26,470, C++ names 25,286, data by
+  XBE address 2,255, vftables 1,785, C names 403, RTTI descriptors 52.

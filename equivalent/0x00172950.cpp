@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // hulkfight::motion::SnapToGroundAction::vfunc_3 @ 0x00172950
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Vec_172950 { float x,y,z; };
@@ -19,7 +20,7 @@ struct Actor_172950 {
 namespace hulkfight { namespace motion {
 
 }}
-bool hulkfight::motion::SnapToGroundAction::vfunc_3(int , int ) {
+bool hulkfight::motion::SnapToGroundAction::vfunc_3(hulk_intptr , hulk_intptr ) {
  if((*(Handle_172950 * *)&this->f_20)) {
  Entity_172950* entity=(*(Handle_172950 * *)&this->f_20)->FUN_000592a0();
  if(entity) {

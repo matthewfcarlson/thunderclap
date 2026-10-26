@@ -134,7 +134,7 @@ class Clip : public ::om::Entity {
 public:
     virtual ~Clip(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(void*); // overrides om::Entity slot 3
-    virtual bool vfunc_5(int); // overrides om::Entity slot 5
+    virtual bool vfunc_5(hulk_intptr); // overrides om::Entity slot 5
     virtual void vfunc_8(); // overrides om::Entity slot 8
     void FUN_00245340(); // non-virtual
     char _pad_24[0x4];
@@ -299,14 +299,14 @@ public:
     virtual ~Mix(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(void*); // overrides om::Entity slot 3
     virtual bool vfunc_4(int); // overrides om::Entity slot 4
-    virtual bool vfunc_5(int); // overrides om::Entity slot 5
+    virtual bool vfunc_5(hulk_intptr); // overrides om::Entity slot 5
     virtual void vfunc_8(); // overrides om::Entity slot 8
 };
 
 // .?AVMixBuss@audio@@  vftable 0x42a6d8 (2)
 class MixBuss {
 public:
-    virtual int vfunc_0(int); // slot 0
+    virtual int vfunc_0(hulk_intptr); // slot 0
     virtual int vfunc_1(void*); // slot 1
     char _pad_04[0x10];
     int f_14;
@@ -350,10 +350,10 @@ public:
     virtual ~SeqAction(); // slot 0
     virtual void vfunc_1(void*) = 0; // slot 1
     virtual void vfunc_2(int, int) = 0; // slot 2
-    virtual void vfunc_3(int) = 0; // slot 3
+    virtual void vfunc_3(hulk_intptr) = 0; // slot 3
     virtual void vfunc_4(int) = 0; // slot 4
     virtual int vfunc_5(int) = 0; // slot 5
-    virtual void vfunc_6(int) = 0; // slot 6
+    virtual void vfunc_6(hulk_intptr) = 0; // slot 6
 };
 
 // .?AVSeqActionChannelSendVolumes@audio@@  vftable 0x429968 (7)
@@ -362,10 +362,10 @@ public:
     virtual ~SeqActionChannelSendVolumes(); // overrides audio::SeqAction slot 0
     virtual void vfunc_1(void*); // overrides audio::SeqAction slot 1
     virtual void vfunc_2(int, int); // overrides audio::SeqAction slot 2
-    virtual void vfunc_3(int); // overrides audio::SeqAction slot 3
+    virtual void vfunc_3(hulk_intptr); // overrides audio::SeqAction slot 3
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
-    virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
+    virtual void vfunc_6(hulk_intptr); // overrides audio::SeqAction slot 6
     char _pad_04[0x4];
     void* f_08;
     int f_0c;
@@ -377,10 +377,10 @@ public:
     virtual ~SeqActionChannelSends(); // overrides audio::SeqAction slot 0
     virtual void vfunc_1(void*); // overrides audio::SeqAction slot 1
     virtual void vfunc_2(int, int); // overrides audio::SeqAction slot 2
-    virtual void vfunc_3(int); // overrides audio::SeqAction slot 3
+    virtual void vfunc_3(hulk_intptr); // overrides audio::SeqAction slot 3
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
-    virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
+    virtual void vfunc_6(hulk_intptr); // overrides audio::SeqAction slot 6
     char _pad_04[0x4];
     void* f_08;
     int f_0c;
@@ -392,10 +392,10 @@ public:
     virtual ~SeqActionChannelVolumes(); // overrides audio::SeqAction slot 0
     virtual void vfunc_1(void*); // overrides audio::SeqAction slot 1
     virtual void vfunc_2(int, int); // overrides audio::SeqAction slot 2
-    virtual void vfunc_3(int); // overrides audio::SeqAction slot 3
+    virtual void vfunc_3(hulk_intptr); // overrides audio::SeqAction slot 3
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
-    virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
+    virtual void vfunc_6(hulk_intptr); // overrides audio::SeqAction slot 6
     char _pad_04[0x4];
     void* f_08;
     int f_0c;
@@ -407,10 +407,10 @@ public:
     virtual ~SeqActionClip(); // overrides audio::SeqAction slot 0
     virtual void vfunc_1(void*); // overrides audio::SeqAction slot 1
     virtual void vfunc_2(int, int); // overrides audio::SeqAction slot 2
-    virtual void vfunc_3(int); // overrides audio::SeqAction slot 3
+    virtual void vfunc_3(hulk_intptr); // overrides audio::SeqAction slot 3
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
-    virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
+    virtual void vfunc_6(hulk_intptr); // overrides audio::SeqAction slot 6
     char _pad_04[0x4];
     void* f_08;
     int f_0c;
@@ -425,10 +425,10 @@ public:
     virtual ~SeqActionCrossFade(); // overrides audio::SeqAction slot 0
     virtual void vfunc_1(void*); // overrides audio::SeqAction slot 1
     virtual void vfunc_2(int, int); // overrides audio::SeqAction slot 2
-    virtual void vfunc_3(int); // overrides audio::SeqAction slot 3
+    virtual void vfunc_3(hulk_intptr); // overrides audio::SeqAction slot 3
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
-    virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
+    virtual void vfunc_6(hulk_intptr); // overrides audio::SeqAction slot 6
     int f_04;
     void* f_08;
     int f_0c;
@@ -443,10 +443,10 @@ public:
     virtual ~SeqActionExpression(); // overrides audio::SeqAction slot 0
     virtual void vfunc_1(void*); // overrides audio::SeqAction slot 1
     virtual void vfunc_2(int, int); // overrides audio::SeqAction slot 2
-    virtual void vfunc_3(int); // overrides audio::SeqAction slot 3
+    virtual void vfunc_3(hulk_intptr); // overrides audio::SeqAction slot 3
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
-    virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
+    virtual void vfunc_6(hulk_intptr); // overrides audio::SeqAction slot 6
     char _pad_04[0x4];
     int f_08;
     int f_0c;
@@ -458,10 +458,10 @@ public:
     virtual ~SeqActionPlayTrack(); // overrides audio::SeqAction slot 0
     virtual void vfunc_1(void*); // overrides audio::SeqAction slot 1
     virtual void vfunc_2(int, int); // overrides audio::SeqAction slot 2
-    virtual void vfunc_3(int); // overrides audio::SeqAction slot 3
+    virtual void vfunc_3(hulk_intptr); // overrides audio::SeqAction slot 3
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
-    virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
+    virtual void vfunc_6(hulk_intptr); // overrides audio::SeqAction slot 6
     char _pad_04[0x4];
     void* f_08;
     int f_0c;
@@ -473,10 +473,10 @@ public:
     virtual ~SeqActionSilence(); // overrides audio::SeqAction slot 0
     virtual void vfunc_1(void*); // overrides audio::SeqAction slot 1
     virtual void vfunc_2(int, int); // overrides audio::SeqAction slot 2
-    virtual void vfunc_3(int); // overrides audio::SeqAction slot 3
+    virtual void vfunc_3(hulk_intptr); // overrides audio::SeqAction slot 3
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
-    virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
+    virtual void vfunc_6(hulk_intptr); // overrides audio::SeqAction slot 6
     char _pad_04[0x8];
     int f_0c;
     float f_10;
@@ -490,10 +490,10 @@ public:
     virtual ~SeqActionStopTrack(); // overrides audio::SeqAction slot 0
     virtual void vfunc_1(void*); // overrides audio::SeqAction slot 1
     virtual void vfunc_2(int, int); // overrides audio::SeqAction slot 2
-    virtual void vfunc_3(int); // overrides audio::SeqAction slot 3
+    virtual void vfunc_3(hulk_intptr); // overrides audio::SeqAction slot 3
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
-    virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
+    virtual void vfunc_6(hulk_intptr); // overrides audio::SeqAction slot 6
     char _pad_04[0x4];
     void* f_08;
     int f_0c;
@@ -505,10 +505,10 @@ public:
     virtual ~SeqActionStream(); // overrides audio::SeqAction slot 0
     virtual void vfunc_1(void*); // overrides audio::SeqAction slot 1
     virtual void vfunc_2(int, int); // overrides audio::SeqAction slot 2
-    virtual void vfunc_3(int); // overrides audio::SeqAction slot 3
+    virtual void vfunc_3(hulk_intptr); // overrides audio::SeqAction slot 3
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
-    virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
+    virtual void vfunc_6(hulk_intptr); // overrides audio::SeqAction slot 6
     char _pad_04[0x8];
     int f_0c;
     int f_10;
@@ -526,10 +526,10 @@ public:
     virtual ~SeqActionVarPitch(); // overrides audio::SeqAction slot 0
     virtual void vfunc_1(void*); // overrides audio::SeqAction slot 1
     virtual void vfunc_2(int, int); // overrides audio::SeqAction slot 2
-    virtual void vfunc_3(int); // overrides audio::SeqAction slot 3
+    virtual void vfunc_3(hulk_intptr); // overrides audio::SeqAction slot 3
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
-    virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
+    virtual void vfunc_6(hulk_intptr); // overrides audio::SeqAction slot 6
     char _pad_04[0x8];
     int f_0c;
 };
@@ -540,10 +540,10 @@ public:
     virtual ~SeqActionVarPitchRand(); // overrides audio::SeqAction slot 0
     virtual void vfunc_1(void*); // overrides audio::SeqAction slot 1
     virtual void vfunc_2(int, int); // overrides audio::SeqAction slot 2
-    virtual void vfunc_3(int); // overrides audio::SeqAction slot 3
+    virtual void vfunc_3(hulk_intptr); // overrides audio::SeqAction slot 3
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
-    virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
+    virtual void vfunc_6(hulk_intptr); // overrides audio::SeqAction slot 6
     char _pad_04[0x4];
     void* f_08;
     int f_0c;
@@ -555,10 +555,10 @@ public:
     virtual ~SeqActionVarPosDist(); // overrides audio::SeqAction slot 0
     virtual void vfunc_1(void*); // overrides audio::SeqAction slot 1
     virtual void vfunc_2(int, int); // overrides audio::SeqAction slot 2
-    virtual void vfunc_3(int); // overrides audio::SeqAction slot 3
+    virtual void vfunc_3(hulk_intptr); // overrides audio::SeqAction slot 3
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
-    virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
+    virtual void vfunc_6(hulk_intptr); // overrides audio::SeqAction slot 6
     char _pad_04[0x4];
     void* f_08;
     int f_0c;
@@ -570,10 +570,10 @@ public:
     virtual ~SeqActionVarTempo(); // overrides audio::SeqAction slot 0
     virtual void vfunc_1(void*); // overrides audio::SeqAction slot 1
     virtual void vfunc_2(int, int); // overrides audio::SeqAction slot 2
-    virtual void vfunc_3(int); // overrides audio::SeqAction slot 3
+    virtual void vfunc_3(hulk_intptr); // overrides audio::SeqAction slot 3
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
-    virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
+    virtual void vfunc_6(hulk_intptr); // overrides audio::SeqAction slot 6
     char _pad_04[0x4];
     int f_08;
     int f_0c;
@@ -585,10 +585,10 @@ public:
     virtual ~SeqActionVarVolume(); // overrides audio::SeqAction slot 0
     virtual void vfunc_1(void*); // overrides audio::SeqAction slot 1
     virtual void vfunc_2(int, int); // overrides audio::SeqAction slot 2
-    virtual void vfunc_3(int); // overrides audio::SeqAction slot 3
+    virtual void vfunc_3(hulk_intptr); // overrides audio::SeqAction slot 3
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
-    virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
+    virtual void vfunc_6(hulk_intptr); // overrides audio::SeqAction slot 6
     char _pad_04[0x4];
     int f_08;
     int f_0c;
@@ -600,10 +600,10 @@ public:
     virtual ~SeqActionVarVolumeRand(); // overrides audio::SeqAction slot 0
     virtual void vfunc_1(void*); // overrides audio::SeqAction slot 1
     virtual void vfunc_2(int, int); // overrides audio::SeqAction slot 2
-    virtual void vfunc_3(int); // overrides audio::SeqAction slot 3
+    virtual void vfunc_3(hulk_intptr); // overrides audio::SeqAction slot 3
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
-    virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
+    virtual void vfunc_6(hulk_intptr); // overrides audio::SeqAction slot 6
     int f_04;
     void* f_08;
     int f_0c;
@@ -615,10 +615,10 @@ public:
     virtual ~SeqActionWait(); // overrides audio::SeqAction slot 0
     virtual void vfunc_1(void*); // overrides audio::SeqAction slot 1
     virtual void vfunc_2(int, int); // overrides audio::SeqAction slot 2
-    virtual void vfunc_3(int); // overrides audio::SeqAction slot 3
+    virtual void vfunc_3(hulk_intptr); // overrides audio::SeqAction slot 3
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
-    virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
+    virtual void vfunc_6(hulk_intptr); // overrides audio::SeqAction slot 6
     char _pad_04[0x4];
     void* f_08;
     int f_0c;
@@ -630,10 +630,10 @@ public:
     virtual ~SeqActionWaitBeat(); // overrides audio::SeqAction slot 0
     virtual void vfunc_1(void*); // overrides audio::SeqAction slot 1
     virtual void vfunc_2(int, int); // overrides audio::SeqAction slot 2
-    virtual void vfunc_3(int); // overrides audio::SeqAction slot 3
+    virtual void vfunc_3(hulk_intptr); // overrides audio::SeqAction slot 3
     virtual void vfunc_4(int); // overrides audio::SeqAction slot 4
     virtual int vfunc_5(int); // overrides audio::SeqAction slot 5
-    virtual void vfunc_6(int); // overrides audio::SeqAction slot 6
+    virtual void vfunc_6(hulk_intptr); // overrides audio::SeqAction slot 6
     char _pad_04[0x8];
     int f_0c;
 };
@@ -680,7 +680,7 @@ class SeqEvent {
 public:
     virtual int vfunc_0(void*); // slot 0
     virtual int vfunc_1(void*); // slot 1
-    virtual void vfunc_2(int) = 0; // slot 2
+    virtual void vfunc_2(hulk_intptr) = 0; // slot 2
     virtual void vfunc_3() = 0; // slot 3
     virtual ~SeqEvent(); // slot 4
     virtual int vfunc_5(); // slot 5
@@ -691,7 +691,7 @@ class SeqEventChannelSendVolumes : public ::audio::SeqEvent {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventChannelSendVolumes(); // overrides audio::SeqEvent slot 4
     char _pad_04[0x4];
@@ -722,7 +722,7 @@ class SeqEventChannelSends : public ::audio::SeqEvent {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventChannelSends(); // overrides audio::SeqEvent slot 4
 };
@@ -741,7 +741,7 @@ class SeqEventChannelVolumes : public ::audio::SeqEvent {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventChannelVolumes(); // overrides audio::SeqEvent slot 4
     char _pad_04[0x4];
@@ -767,7 +767,7 @@ class SeqEventClip : public ::audio::SeqEvent {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventClip(); // overrides audio::SeqEvent slot 4
 };
@@ -797,7 +797,7 @@ class SeqEventCondition : public ::audio::SeqEventContainer {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventCondition(); // overrides audio::SeqEvent slot 4
     int f_0c;
@@ -818,7 +818,7 @@ class SeqEventCrossFade : public ::audio::SeqEvent {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventCrossFade(); // overrides audio::SeqEvent slot 4
     char _pad_04[0x4];
@@ -844,7 +844,7 @@ class SeqEventExpression : public ::audio::SeqEvent {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventExpression(); // overrides audio::SeqEvent slot 4
 };
@@ -863,7 +863,7 @@ class SeqEventLogicOr : public ::audio::SeqEventContainer {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventLogicOr(); // overrides audio::SeqEvent slot 4
     int f_0c;
@@ -884,7 +884,7 @@ class SeqEventLogicRepeat : public ::audio::SeqEventContainer {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventLogicRepeat(); // overrides audio::SeqEvent slot 4
     char _pad_0c[0x8];
@@ -907,7 +907,7 @@ class SeqEventNestTrack : public ::audio::SeqEvent {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventNestTrack(); // overrides audio::SeqEvent slot 4
 };
@@ -926,7 +926,7 @@ class SeqEventPlayTrack : public ::audio::SeqEvent {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventPlayTrack(); // overrides audio::SeqEvent slot 4
     int f_04;
@@ -949,7 +949,7 @@ class SeqEventSilence : public ::audio::SeqEvent {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventSilence(); // overrides audio::SeqEvent slot 4
     int f_04;
@@ -970,7 +970,7 @@ class SeqEventStopTrack : public ::audio::SeqEvent {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventStopTrack(); // overrides audio::SeqEvent slot 4
     int f_04;
@@ -994,7 +994,7 @@ class SeqEventStream : public ::audio::SeqEvent {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventStream(); // overrides audio::SeqEvent slot 4
 };
@@ -1013,7 +1013,7 @@ class SeqEventVarPitch : public ::audio::SeqEvent {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventVarPitch(); // overrides audio::SeqEvent slot 4
     int f_04;
@@ -1025,7 +1025,7 @@ class SeqEventVarPitchRand : public ::audio::SeqEvent {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventVarPitchRand(); // overrides audio::SeqEvent slot 4
 };
@@ -1053,7 +1053,7 @@ class SeqEventVarPosDist : public ::audio::SeqEvent {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventVarPosDist(); // overrides audio::SeqEvent slot 4
     char _pad_04[0x4];
@@ -1075,7 +1075,7 @@ class SeqEventVarTempo : public ::audio::SeqEvent {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventVarTempo(); // overrides audio::SeqEvent slot 4
     char _pad_04[0x8];
@@ -1097,7 +1097,7 @@ class SeqEventVarVolume : public ::audio::SeqEvent {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventVarVolume(); // overrides audio::SeqEvent slot 4
     char _pad_04[0x4];
@@ -1109,7 +1109,7 @@ class SeqEventVarVolumeRand : public ::audio::SeqEvent {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventVarVolumeRand(); // overrides audio::SeqEvent slot 4
     int f_04;
@@ -1139,7 +1139,7 @@ class SeqEventWait : public ::audio::SeqEvent {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventWait(); // overrides audio::SeqEvent slot 4
     int f_04;
@@ -1150,7 +1150,7 @@ class SeqEventWaitBeat : public ::audio::SeqEvent {
 public:
     virtual int vfunc_0(void*); // overrides audio::SeqEvent slot 0
     virtual int vfunc_1(void*); // overrides audio::SeqEvent slot 1
-    virtual void vfunc_2(int); // overrides audio::SeqEvent slot 2
+    virtual void vfunc_2(hulk_intptr); // overrides audio::SeqEvent slot 2
     virtual void vfunc_3(); // overrides audio::SeqEvent slot 3
     virtual ~SeqEventWaitBeat(); // overrides audio::SeqEvent slot 4
     int f_04;
@@ -1192,7 +1192,7 @@ public:
     virtual ~Sequence(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(void*); // overrides om::Entity slot 3
     virtual bool vfunc_4(int); // overrides om::Entity slot 4
-    virtual bool vfunc_5(int); // overrides om::Entity slot 5
+    virtual bool vfunc_5(hulk_intptr); // overrides om::Entity slot 5
     virtual void vfunc_8(); // overrides om::Entity slot 8
     char _pad_24[0x4];
     void* f_28;

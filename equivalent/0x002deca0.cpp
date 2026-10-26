@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 13/13)
 // pure3d::ImageConverter::vfunc_7 @ 0x002deca0
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 extern void __cdecl FUN_0028fcc0(const char* format, ...);
@@ -25,7 +26,7 @@ void __stdcall FUN_002de9c0(Texture_2deca0* dest, SourceImage* src);
 namespace pure3d {
 
 }
-void pure3d::ImageConverter::vfunc_7(int __p0, int __p1) { Texture_2deca0 * dest = (Texture_2deca0 *)__p0; SourceImage * src = (SourceImage *)__p1;
+void pure3d::ImageConverter::vfunc_7(hulk_intptr __p0, hulk_intptr __p1) { Texture_2deca0 * dest = (Texture_2deca0 *)__p0; SourceImage * src = (SourceImage *)__p1;
 
     if (dest->width != src->width || dest->height != src->height) {
         FUN_0028fcc0("Pure3D : ImageConverter::UpdateTexture() src size != dest size, image : %s\n",

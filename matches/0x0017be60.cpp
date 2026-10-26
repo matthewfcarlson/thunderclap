@@ -10,7 +10,7 @@ struct Params_17be60 {
 extern int IsKindOf(void*, int, int*, int*, int);
 extern void* Alloc(hulk_uintptr);
 
-int hulkfight::motion::MomentumXZAddTrack::vfunc_10(int __p0, int __p1, int __p2) { u32_17be60 a = (u32_17be60)__p0; u32_17be60 b = (u32_17be60)__p1; void * p = (void *)__p2;
+hulk_intptr hulkfight::motion::MomentumXZAddTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17be60 a = (u32_17be60)__p0; u32_17be60 b = (u32_17be60)__p1; void * p = (void *)__p2;
 
     if (IsKindOf(p, 0, &TypeA_17be60, &TypeB, 0)) {
         Params_17be60* q = (Params_17be60*)Alloc(0x34);

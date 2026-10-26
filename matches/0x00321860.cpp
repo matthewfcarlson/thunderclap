@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct d3dContext_nv_321860 {
@@ -8,7 +9,7 @@ class Worker_321860 {
     int run(int, int, int, int, int);
 };
 
-int pure3d::d3dContext::vfunc_30(int a, int b, int c, int d, int e) {
+int pure3d::d3dContext::vfunc_30(hulk_intptr a, int b, int c, int d, int e) {
     if (!a)
         a = this->f_160;
     if (this->f_414)

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class FEThing_e1570 {
@@ -22,7 +23,7 @@ class FEData {
     FEThing_e1570* obj;
 };
 
-void FEPoseAnimation::vfunc_4(int __p0) { void * arg = (void *)__p0;
+void FEPoseAnimation::vfunc_4(hulk_intptr __p0) { void * arg = (void *)__p0;
 
     FEThing_e1570* p = (*(FEData * *)&this->f_0c)->obj;
     if (p)

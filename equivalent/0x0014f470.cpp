@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 8/8)
 // hulkfight::motion::HitReactionFloatTrack::vfunc_9 @ 0x0014f470
 // hulkfight::motion::HitReactionFloatTrack::vfunc_9 @ 0x0014f470
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 extern char DAT_00494b44;
@@ -33,7 +34,7 @@ extern void FUN_0014f2f0(Context_14f470*, void*, Temporary_14f470*);
 namespace hulkfight { namespace motion {
 
 }}
-int hulkfight::motion::HitReactionFloatTrack::vfunc_9(int __p0, int __p1, int __p2) { void * unused = (void *)__p0; void * argument = (void *)__p1; Context_14f470 * context = (Context_14f470 *)__p2;
+int hulkfight::motion::HitReactionFloatTrack::vfunc_9(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { void * unused = (void *)__p0; void * argument = (void *)__p1; Context_14f470 * context = (Context_14f470 *)__p2;
 
  if (!FUN_00344e74(context, 0, &DAT_00494b44, &DAT_00494b60, 0)) return 1;
  Temporary_14f470 temporary;

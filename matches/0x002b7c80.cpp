@@ -1,4 +1,5 @@
 // Same code shape as 0x000e9100 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 class Thing_2b7c80 {
@@ -7,7 +8,7 @@ class Thing_2b7c80 {
     virtual void B();
 };
 
-void pure3d::PolySkin::vfunc_10(int __p0) { Thing_2b7c80 * p = (Thing_2b7c80 *)__p0;
+void pure3d::PolySkin::vfunc_10(hulk_intptr __p0) { Thing_2b7c80 * p = (Thing_2b7c80 *)__p0;
 
     if (p)
         p->A();

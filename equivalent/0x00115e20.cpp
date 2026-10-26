@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19976 inputs, branch coverage 4/4)
 // hulkfight::ai::MotionFacingAction::vfunc_5 @ 0x00115e20
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Vector_115e20 { float x,y,z; float FUN_0022d110(); };
@@ -12,7 +13,7 @@ void __cdecl FUN_00224d70(float, Vector_115e20*);
 namespace hulkfight { namespace ai {
 
 }}
-bool hulkfight::ai::MotionFacingAction::vfunc_5(int phase, int unused) {
+bool hulkfight::ai::MotionFacingAction::vfunc_5(hulk_intptr phase, int unused) {
 if (phase != 0) return true;
 if (!(*(Handle_115e20 * *)&this->f_20)) return false;
 Actor_115e20* actor = (*(Handle_115e20 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();

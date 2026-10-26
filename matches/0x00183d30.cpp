@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Vec_183d30 {
@@ -42,7 +43,7 @@ struct Info_183d30 {
 extern void* __fastcall FUN_000592a0(void*);
 extern Mgr_183d30* __fastcall FUN_00059a30(void*);
 
-bool hulkfight::motion::PropSetStateByIndexAction::vfunc_5(int __p0, int y) { int * x = (int *)__p0;
+bool hulkfight::motion::PropSetStateByIndexAction::vfunc_5(hulk_intptr __p0, int y) { int * x = (int *)__p0;
 
     if (!x && (*(void * *)&this->f_20)) {
         Mgr_183d30* m = FUN_00059a30(FUN_000592a0((*(void * *)&this->f_20)));

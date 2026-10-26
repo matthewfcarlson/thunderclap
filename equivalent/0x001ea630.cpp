@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19928 inputs, branch coverage 2/2)
 // CSoundResourceManager::vfunc_3 @ 0x001ea630
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 
@@ -23,7 +24,7 @@ struct CSoundResourceManager_nv_1ea630 {
     void FUN_001ea5a0(int id);
 };
 
-void CSoundResourceManager::vfunc_3(int __p0, int unused) { const char * name = (const char *)__p0;
+void CSoundResourceManager::vfunc_3(hulk_intptr __p0, int unused) { const char * name = (const char *)__p0;
 
     Frame_1ea630 f;
     int len = 0;

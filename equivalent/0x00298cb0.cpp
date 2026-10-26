@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19980 inputs, branch coverage 22/22)
 // pure3d::CompositeDrawable::vfunc_8 @ 0x00298cb0
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 #include "decls/data/engine/pure3d/prop.h"
@@ -121,7 +122,7 @@ struct Camera_298cb0 {
 };
 struct CameraRef { Camera_298cb0 *camera; };
 
-void pure3d::CompositeDrawable::vfunc_8(int __p0, int arg) { Owner_298cb0 * owner = (Owner_298cb0 *)__p0;
+void pure3d::CompositeDrawable::vfunc_8(hulk_intptr __p0, int arg) { Owner_298cb0 * owner = (Owner_298cb0 *)__p0;
 
     if ((*(Part_298cb0 * *)&this->f_4c) != 0) {
         if (!(*(Part_298cb0 * *)&this->f_4c)->FUN_00284ae0()) {

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class Helper_5e050 {
@@ -6,7 +7,7 @@ class Helper_5e050 {
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
-int CClearHitRecordsTrack::vfunc_12(int a) {
+hulk_intptr CClearHitRecordsTrack::vfunc_12(hulk_intptr a) {
     void* p = FUN_0008d690(0x20);
     if (p)
         return ((Helper_5e050*)p)->go(a);

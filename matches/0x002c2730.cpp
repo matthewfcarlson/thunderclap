@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 class Part_2c2730 {
@@ -14,7 +15,7 @@ struct Geometry_nv_2c2730 {
     void helper(int, int);
 };
 
-void pure3d::Geometry::vfunc_8(int a, int b) {
+void pure3d::Geometry::vfunc_8(hulk_intptr a, int b) {
     if ((*(Part_2c2730 * *)&this->f_60))
         (*(Part_2c2730 * *)&this->f_60)->f6(0, 1);
     if ((*(Part_2c2730 * *)&this->f_64))

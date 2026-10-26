@@ -1,4 +1,5 @@
 // Same code shape as 0x0011a060 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_17b7a0;
@@ -10,7 +11,7 @@ extern hulkfight::motion::TeleportRelativeAction* Alloc(unsigned int);
 extern const char ParamDesc[];
 extern const char FightParamsDesc[];
 
-int hulkfight::motion::TeleportRelativeTrack::vfunc_10(int __p0, int __p1, int __p2) { u32_17b7a0 a = (u32_17b7a0)__p0; u32_17b7a0 b = (u32_17b7a0)__p1; u32_17b7a0 c = (u32_17b7a0)__p2;
+hulk_intptr hulkfight::motion::TeleportRelativeTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17b7a0 a = (u32_17b7a0)__p0; u32_17b7a0 b = (u32_17b7a0)__p1; u32_17b7a0 c = (u32_17b7a0)__p2;
 
     if (MatchType(c, 0, ParamDesc, FightParamsDesc, 0)) {
         hulkfight::motion::TeleportRelativeAction* p = Alloc(0x30);

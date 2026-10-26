@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Action_12da20 {
@@ -7,6 +8,6 @@ class Action_12da20 {
     virtual void f2();
 };
 
-bool hulkfight::PostEvent_StringAction::vfunc_3(int a, int b) {
+bool hulkfight::PostEvent_StringAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     return (bool)(1);
 }

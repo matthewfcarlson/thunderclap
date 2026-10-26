@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 12/12)
 // pure3d::scenegraph::BranchNode::vfunc_19 @ 0x002967a0
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 class Node_2967a0 {
@@ -13,7 +14,7 @@ namespace scenegraph {
 
 }
 }
-void pure3d::scenegraph::BranchNode::vfunc_19(int __p0) { Node_2967a0 * child = (Node_2967a0 *)__p0;
+void pure3d::scenegraph::BranchNode::vfunc_19(hulk_intptr __p0) { Node_2967a0 * child = (Node_2967a0 *)__p0;
 
     int i = (int)this->f_18 - 1;
     if (i < 0)

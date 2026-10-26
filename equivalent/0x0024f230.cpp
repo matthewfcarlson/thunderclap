@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19941 inputs, branch coverage 2/2)
 // audio::SeqEventChannelSendVolumes::vfunc_2 @ 0x0024f230
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 #include "decls/data/engine/audio.h"
@@ -21,7 +22,7 @@ struct Channel_24f230 {
 namespace audio {
 
 }
-void audio::SeqEventChannelSendVolumes::vfunc_2(int __p0) { Channel_24f230 * channel = (Channel_24f230 *)__p0;
+void audio::SeqEventChannelSendVolumes::vfunc_2(hulk_intptr __p0) { Channel_24f230 * channel = (Channel_24f230 *)__p0;
 
     void* memory = FUN_00247530(((char*)&DAT_004e6700));
     SeqActionChannelSendVolumes_24f230* action = memory ? new (memory) SeqActionChannelSendVolumes_24f230 : 0;

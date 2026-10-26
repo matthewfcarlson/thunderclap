@@ -6,6 +6,7 @@
 // equiv-conv: FUN_002dd760 esi edi
 // equiv-conv: FUN_002dd890 esi ebx stack
 // equiv-conv: FUN_002dd9e0 ebx edi stack
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct Stream_2ddb40 {
@@ -27,7 +28,7 @@ void FUN_002dd760(TgaHeader *hdr, Stream_2ddb40 *stream);
 void FUN_002dd890(TgaHeader *hdr, Stream_2ddb40 *stream, void *out);
 void FUN_002dd9e0(void *out, Stream_2ddb40 *stream, TgaHeader *hdr);
 
-void pure3d::TargaHandler::vfunc_9(int __p0, int __p1) { Stream_2ddb40 * stream = (Stream_2ddb40 *)__p0; void * out = (void *)__p1;
+void pure3d::TargaHandler::vfunc_9(hulk_intptr __p0, hulk_intptr __p1) { Stream_2ddb40 * stream = (Stream_2ddb40 *)__p0; void * out = (void *)__p1;
 
     TgaHeader hdr;
     FUN_002dd760(&hdr, stream);

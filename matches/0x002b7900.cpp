@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 class Ref_2b7900 {
@@ -19,7 +20,7 @@ struct PolySkin_nv_2b7900 {
     void last(int, int);
 };
 
-void pure3d::PolySkin::vfunc_8(int a, int b) {
+void pure3d::PolySkin::vfunc_8(hulk_intptr a, int b) {
     if ((*(Ref_2b7900 * *)&this->f_6c))
         (*(Ref_2b7900 * *)&this->f_6c)->f6(0, 1);
     if ((*(Ref_2b7900 * *)&this->f_70))

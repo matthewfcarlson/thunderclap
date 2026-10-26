@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // CGrappleInvincibleTrack::vfunc_12 @ 0x0005b280
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 void *FUN_0008d690(unsigned int size);
@@ -24,7 +25,7 @@ struct CInvincibleAction_5b280 {
     void *FUN_0001f4e0(Weapon *weapon, int value);
 };
 
-int CGrappleInvincibleTrack::vfunc_12(int __p0) { Link1_5b280 * owner = (Link1_5b280 *)__p0;
+hulk_intptr CGrappleInvincibleTrack::vfunc_12(hulk_intptr __p0) { Link1_5b280 * owner = (Link1_5b280 *)__p0;
 
     if (owner == 0)
         return (int)(0);
@@ -46,5 +47,5 @@ int CGrappleInvincibleTrack::vfunc_12(int __p0) { Link1_5b280 * owner = (Link1_5
     CInvincibleAction_5b280 *effect = (CInvincibleAction_5b280 *)FUN_0008d690(0x24);
     if (effect == 0)
         return (int)(0);
-    return (int)(effect->FUN_0001f4e0(weapon, this->f_14));
+    return (hulk_intptr)(effect->FUN_0001f4e0(weapon, this->f_14));
 }

@@ -1,4 +1,5 @@
 // Same code shape as 0x001131c0 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_119f00;
@@ -10,7 +11,7 @@ struct MotionChaseAction_nv_119f00 {
 extern int Check(void*, int, int*, int*, int);
 extern hulkfight::ai::MotionChaseAction* Alloc(int);
 
-int hulkfight::ai::MotionChaseTrack::vfunc_10(int __p0, int __p1, int __p2) { u32_119f00 a = (u32_119f00)__p0; u32_119f00 b = (u32_119f00)__p1; void * p = (void *)__p2;
+hulk_intptr hulkfight::ai::MotionChaseTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_119f00 a = (u32_119f00)__p0; u32_119f00 b = (u32_119f00)__p1; void * p = (void *)__p2;
 
     if (Check(p, 0, &TypeA_119f00, &TypeB_119f00, 0)) {
         hulkfight::ai::MotionChaseAction* q = Alloc(0x28);

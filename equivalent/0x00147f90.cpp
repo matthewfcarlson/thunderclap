@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 4/4)
 // hulkfight::motion::CivilianAnimationAction::vfunc_3 @ 0x00147f90
 // hulkfight::motion::CivilianAnimationAction::vfunc_3
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 union FlagWord {
@@ -50,7 +51,7 @@ struct Owner_147f90 {
     Anchor_147f90 *FUN_000592a0();
 };
 
-bool hulkfight::motion::CivilianAnimationAction::vfunc_3(int unused1, int unused2) {
+bool hulkfight::motion::CivilianAnimationAction::vfunc_3(hulk_intptr unused1, hulk_intptr unused2) {
     Player_147f90 *p = (*(Owner_147f90 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();
     if (p == 0)
         return (bool)(0);

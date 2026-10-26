@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_17b170;
@@ -22,7 +23,7 @@ struct Track_17b170 {
     virtual int v10(u32_17b170, u32_17b170, void*);
 };
 
-int hulkfight::motion::JointPivotTrackerTrack::vfunc_10(int __p0, int __p1, int __p2) { u32_17b170 a = (u32_17b170)__p0; u32_17b170 b = (u32_17b170)__p1; void * c = (void *)__p2;
+hulk_intptr hulkfight::motion::JointPivotTrackerTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17b170 a = (u32_17b170)__p0; u32_17b170 b = (u32_17b170)__p1; void * c = (void *)__p2;
 
     if (check(c, 0, &desc1_17b170, &desc2_17b170, 0)) {
         Result_17b170* p = (Result_17b170*)alloc(0x84);

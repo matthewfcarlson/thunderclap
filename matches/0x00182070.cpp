@@ -14,7 +14,7 @@ struct D {
     int f(int*);
 };
 
-bool hulkfight::motion::PropSetStateByNameAction::vfunc_5(int __p0, int __p1) { unsigned int param = (unsigned int)__p0;
+bool hulkfight::motion::PropSetStateByNameAction::vfunc_5(hulk_intptr __p0, int __p1) { unsigned int param = (unsigned int)__p0;
 
     if (param == 0 && (*(A_182070 * *)&this->f_20) != 0) {
         A_182070* p = (A_182070*)(*(A_182070 * *)&this->f_20)->f();

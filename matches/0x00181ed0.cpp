@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Model_181ed0 {
@@ -20,7 +21,7 @@ struct Vec_181ed0 {
     int a, b, c;
 };
 
-bool hulkfight::motion::PropActorThinkingAction::vfunc_3(int a, int b) {
+bool hulkfight::motion::PropActorThinkingAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     Actor_181ed0* x = (*(Actor_181ed0 * *)&this->f_20);
     Actor_181ed0* y = x->Get();
     Model_181ed0* m = y->ModelFor();

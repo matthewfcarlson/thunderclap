@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_11a060;
@@ -9,7 +10,7 @@ extern hulkfight::ai::MotionLocatorAction* Alloc(unsigned int);
 extern const char ParamDesc[];
 extern const char FightParamsDesc[];
 
-int hulkfight::ai::MotionLocatorTrack::vfunc_10(int __p0, int __p1, int __p2) { u32_11a060 a = (u32_11a060)__p0; u32_11a060 b = (u32_11a060)__p1; u32_11a060 c = (u32_11a060)__p2;
+hulk_intptr hulkfight::ai::MotionLocatorTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_11a060 a = (u32_11a060)__p0; u32_11a060 b = (u32_11a060)__p1; u32_11a060 c = (u32_11a060)__p2;
 
     if (MatchType(c, 0, ParamDesc, FightParamsDesc, 0)) {
         hulkfight::ai::MotionLocatorAction* p = Alloc(0x30);

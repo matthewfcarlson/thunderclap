@@ -7135,26 +7135,26 @@
   "FEThingsBase::vfunc_34": [
    "bool",
    [
-    "int",
-    "int",
+    "hulk_intptr",
+    "hulk_intptr",
     "int"
    ]
   ],
   "FEThingsBase::vfunc_36": [
    "bool",
    [
+    "hulk_intptr",
     "int",
-    "int",
-    "int",
-    "int"
+    "hulk_intptr",
+    "hulk_intptr"
    ]
   ],
   "FEThingsBase::vfunc_39": [
    "char",
    [
-    "int",
-    "int",
-    "int"
+    "hulk_intptr",
+    "hulk_intptr",
+    "hulk_intptr"
    ]
   ],
   "FEThingsBase::vfunc_54": [
@@ -7202,7 +7202,7 @@
   "audio::MixBuss::vfunc_0": [
    "int",
    [
-    "int"
+    "hulk_intptr"
    ]
   ],
   "audio::SeqTrack::vfunc_0": [
@@ -7214,7 +7214,7 @@
   "content::LoadInventory::vfunc_3": [
    "void*",
    [
-    "int",
+    "hulk_intptr",
     "int",
     "int"
    ]
@@ -7244,7 +7244,7 @@
   "core::IControllerBuffer::vfunc_6": [
    "bool",
    [
-    "int",
+    "hulk_intptr",
     "int"
    ]
   ],
@@ -7257,7 +7257,7 @@
   "core::IControllerSystem::vfunc_5": [
    "void*",
    [
-    "int"
+    "hulk_intptr"
    ]
   ],
   "core::IDrive::vfunc_10": [
@@ -7454,7 +7454,7 @@
   "physics::CollisionSolverAgent::vfunc_9": [
    "int",
    [
-    "int",
+    "hulk_intptr",
     "int"
    ]
   ],
@@ -7477,8 +7477,8 @@
   "physics::SimulatedObject::vfunc_18": [
    "bool",
    [
-    "int",
-    "int",
+    "hulk_intptr",
+    "hulk_intptr",
     "int",
     "int",
     "int",
@@ -7517,9 +7517,9 @@
   "pure3d::ChannelHandler::vfunc_4": [
    "int",
    [
-    "int",
-    "int",
-    "int"
+    "hulk_intptr",
+    "hulk_intptr",
+    "hulk_intptr"
    ]
   ],
   "pure3d::DrawableContainer::vfunc_17": [
@@ -7532,7 +7532,7 @@
   "pure3d::Font::vfunc_14": [
    "void*",
    [
-    "int"
+    "hulk_intptr"
    ]
   ],
   "pure3d::FrameController::vfunc_14": [
@@ -7567,7 +7567,7 @@
   "pure3d::ImageFont::vfunc_9": [
    "int",
    [
-    "int"
+    "hulk_intptr"
    ]
   ],
   "pure3d::OldFrameControllerLoader::vfunc_7": [
@@ -7582,7 +7582,7 @@
   "pure3d::ParticleEmitterLoader::ParticleEmitterHandler::vfunc_3": [
    "char",
    [
-    "int"
+    "hulk_intptr"
    ]
   ],
   "pure3d::ParticleGenerator::vfunc_6": [
@@ -7598,7 +7598,7 @@
   "pure3d::ParticleGeneratorLoader::ParticleGeneratorHandler::vfunc_4": [
    "int",
    [
-    "int",
+    "hulk_intptr",
     "int"
    ]
   ],
@@ -7606,20 +7606,20 @@
    "void",
    [
     "float",
-    "int"
+    "hulk_intptr"
    ]
   ],
   "pure3d::VectorChannel::vfunc_4": [
    "void",
    [
     "float",
-    "int"
+    "hulk_intptr"
    ]
   ],
   "pure3d::pddiDevice::vfunc_9": [
    "void*",
    [
-    "int"
+    "hulk_intptr"
    ]
   ],
   "pure3d::pddiExtVertexProgram::vfunc_3": [
@@ -7650,7 +7650,7 @@
   "pure3d::pddiRenderContext::vfunc_7": [
    "void*",
    [
-    "int"
+    "hulk_intptr"
    ]
   ],
   "pure3d::pddiRenderContext::vfunc_82": [
@@ -7682,13 +7682,627 @@
   "pure3d::pddiTexture::vfunc_12": [
    "int",
    [
-    "int"
+    "hulk_intptr"
    ]
   ],
   "pure3d::prop::CMotionTrail::vfunc_11": [
    "void",
    [
     "float",
+    "int"
+   ]
+  ],
+  "CAgent::vfunc_3": [
+   "float",
+   [
+    "hulk_intptr",
+    "int"
+   ]
+  ],
+  "CAxisTimeCondition::vfunc_10": [
+   "bool",
+   [
+    "void*",
+    "hulk_intptr"
+   ]
+  ],
+  "CButtonCondition::vfunc_10": [
+   "bool",
+   [
+    "void*",
+    "hulk_intptr"
+   ]
+  ],
+  "CControllerCondition::vfunc_8": [
+   "void",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "CMotionStateCondition::vfunc_8": [
+   "int",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "CSteeringBehaviour::vfunc_3": [
+   "bool",
+   [
+    "hulk_intptr",
+    "int",
+    "void*",
+    "int",
+    "int"
+   ]
+  ],
+  "CTrack::vfunc_11": [
+   "void*",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "CTrack::vfunc_12": [
+   "hulk_intptr",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "FEAnimation::vfunc_4": [
+   "void",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "FEContainer::vfunc_26": [
+   "hulk_intptr",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "FEContainer::vfunc_28": [
+   "hulk_intptr",
+   [
+    "int",
+    "int"
+   ]
+  ],
+  "FEDoAction::vfunc_4": [
+   "bool",
+   [
+    "int",
+    "hulk_intptr",
+    "int",
+    "int"
+   ]
+  ],
+  "FEObject::vfunc_6": [
+   "void",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "FEThingsBase::vfunc_19": [
+   "void",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "FEThingsBase::vfunc_42": [
+   "void",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "FEThingsBase::vfunc_49": [
+   "void",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "IDollyControllerState::vfunc_7": [
+   "float",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "RDLFile::vfunc_0": [
+   "void",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "audio::SeqAction::vfunc_3": [
+   "void",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "audio::SeqAction::vfunc_6": [
+   "void",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "audio::SeqEvent::vfunc_2": [
+   "void",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "choreo2::Driver::vfunc_12": [
+   "bool",
+   [
+    "hulk_intptr",
+    "hulk_intptr"
+   ]
+  ],
+  "content::FileLoader::vfunc_3": [
+   "void",
+   [
+    "hulk_intptr",
+    "int"
+   ]
+  ],
+  "content::SimpleChunkHandler::vfunc_5": [
+   "void",
+   [
+    "void*",
+    "void*",
+    "void*",
+    "hulk_intptr"
+   ]
+  ],
+  "core::Drive::vfunc_20": [
+   "int",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "core::Drive::vfunc_5": [
+   "int",
+   [
+    "hulk_intptr",
+    "int"
+   ]
+  ],
+  "core::ITimerList::vfunc_3": [
+   "void",
+   [
+    "hulk_intptr",
+    "int",
+    "int",
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "fight::Action::vfunc_3": [
+   "bool",
+   [
+    "hulk_intptr",
+    "hulk_intptr"
+   ]
+  ],
+  "fight::Action::vfunc_5": [
+   "bool",
+   [
+    "hulk_intptr",
+    "int"
+   ]
+  ],
+  "fight::Branch::vfunc_8": [
+   "hulk_uintptr",
+   [
+    "hulk_uintptr",
+    "unsigned int"
+   ]
+  ],
+  "fight::DataReader::vfunc_4": [
+   "int",
+   [
+    "hulk_intptr",
+    "int"
+   ]
+  ],
+  "fight::FightNodeBaseCondition::vfunc_7": [
+   "hulk_intptr",
+   [
+    "void*"
+   ]
+  ],
+  "fight::Param::vfunc_0": [
+   "hulk_intptr",
+   [
+    "int"
+   ]
+  ],
+  "fight::ParamValueBool::vfunc_6": [
+   "bool",
+   [
+    "hulk_intptr",
+    "int"
+   ]
+  ],
+  "fight::ParamValueFloat::vfunc_6": [
+   "bool",
+   [
+    "hulk_intptr",
+    "int"
+   ]
+  ],
+  "fight::ParamValueInt::vfunc_6": [
+   "bool",
+   [
+    "hulk_intptr",
+    "int"
+   ]
+  ],
+  "fight::ParamValueString::vfunc_6": [
+   "bool",
+   [
+    "hulk_intptr",
+    "int"
+   ]
+  ],
+  "fight::ParamValueStringList::vfunc_6": [
+   "bool",
+   [
+    "hulk_intptr",
+    "int"
+   ]
+  ],
+  "fight::ParamValueVector::vfunc_6": [
+   "bool",
+   [
+    "hulk_intptr",
+    "int"
+   ]
+  ],
+  "fight::Track::vfunc_10": [
+   "hulk_intptr",
+   [
+    "hulk_intptr",
+    "hulk_intptr",
+    "hulk_intptr"
+   ]
+  ],
+  "fight::Track::vfunc_9": [
+   "int",
+   [
+    "hulk_intptr",
+    "hulk_intptr",
+    "hulk_intptr"
+   ]
+  ],
+  "om::Entity::vfunc_5": [
+   "bool",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "om::MetaTypeAttribBase::vfunc_3": [
+   "void",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "physics::CollisionSolverAgent::vfunc_6": [
+   "unsigned int",
+   [
+    "hulk_uintptr",
+    "unsigned int",
+    "hulk_uintptr",
+    "unsigned int",
+    "unsigned int",
+    "unsigned int",
+    "unsigned int",
+    "hulk_uintptr",
+    "hulk_uintptr"
+   ]
+  ],
+  "physics::CollisionSolverAgent::vfunc_7": [
+   "int",
+   [
+    "void*",
+    "hulk_intptr"
+   ]
+  ],
+  "physics::CollisionVolume::vfunc_3": [
+   "hulk_intptr",
+   []
+  ],
+  "physics::CollisionVolume::vfunc_4": [
+   "hulk_intptr",
+   []
+  ],
+  "physics::PhysicsJoint::vfunc_10": [
+   "void",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "physics::PhysicsJoint::vfunc_16": [
+   "void",
+   [
+    "hulk_intptr",
+    "hulk_intptr"
+   ]
+  ],
+  "physics::PhysicsJoint::vfunc_18": [
+   "void",
+   [
+    "hulk_intptr",
+    "hulk_intptr"
+   ]
+  ],
+  "physics::PhysicsJoint::vfunc_24": [
+   "void",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "physics::PhysicsObject::vfunc_32": [
+   "void",
+   [
+    "hulk_intptr",
+    "hulk_intptr"
+   ]
+  ],
+  "physics::PhysicsObject::vfunc_33": [
+   "void",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "physics::PoseDriver::vfunc_9": [
+   "void",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "physics::SimState::vfunc_8": [
+   "void",
+   [
+    "hulk_intptr",
+    "hulk_intptr",
+    "int"
+   ]
+  ],
+  "physics::SimulatedObject::vfunc_24": [
+   "bool",
+   [
+    "hulk_intptr",
+    "hulk_intptr",
+    "int"
+   ]
+  ],
+  "pure3d::AnimationFrameController::vfunc_24": [
+   "void",
+   [
+    "hulk_intptr",
+    "int",
+    "int"
+   ]
+  ],
+  "pure3d::Camera::vfunc_11": [
+   "void",
+   [
+    "int",
+    "hulk_intptr"
+   ]
+  ],
+  "pure3d::ChannelHandler::vfunc_5": [
+   "void",
+   [
+    "hulk_intptr",
+    "hulk_intptr",
+    "int",
+    "int"
+   ]
+  ],
+  "pure3d::DrawableHierarchy::vfunc_10": [
+   "void",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "pure3d::DrawableHierarchy::vfunc_11": [
+   "hulk_uintptr",
+   []
+  ],
+  "pure3d::DrawableHierarchy::vfunc_8": [
+   "void",
+   [
+    "hulk_intptr",
+    "int"
+   ]
+  ],
+  "pure3d::DrawablePrimitive::vfunc_7": [
+   "hulk_uintptr",
+   []
+  ],
+  "pure3d::Font::vfunc_16": [
+   "hulk_uintptr",
+   []
+  ],
+  "pure3d::Image8::vfunc_16": [
+   "void",
+   [
+    "hulk_intptr",
+    "int"
+   ]
+  ],
+  "pure3d::ImageConverter::vfunc_6": [
+   "void",
+   [
+    "hulk_intptr",
+    "hulk_intptr",
+    "int"
+   ]
+  ],
+  "pure3d::ImageConverter::vfunc_7": [
+   "void",
+   [
+    "hulk_intptr",
+    "hulk_intptr"
+   ]
+  ],
+  "pure3d::ImageConverter::vfunc_8": [
+   "void",
+   [
+    "hulk_intptr",
+    "hulk_intptr"
+   ]
+  ],
+  "pure3d::ImageHandler::Builder::vfunc_3": [
+   "void",
+   [
+    "hulk_intptr",
+    "int"
+   ]
+  ],
+  "pure3d::ImageHandler::vfunc_9": [
+   "void",
+   [
+    "hulk_intptr",
+    "hulk_intptr"
+   ]
+  ],
+  "pure3d::ParticleEmitter::vfunc_24": [
+   "hulk_uintptr",
+   []
+  ],
+  "pure3d::ParticleEmitter::vfunc_26": [
+   "hulk_uintptr",
+   []
+  ],
+  "pure3d::ParticleEmitter::vfunc_32": [
+   "hulk_uintptr",
+   []
+  ],
+  "pure3d::ShaderCallback::vfunc_3": [
+   "hulk_intptr",
+   [
+    "void*"
+   ]
+  ],
+  "pure3d::ShaderCallback::vfunc_4": [
+   "hulk_intptr",
+   [
+    "void*"
+   ]
+  ],
+  "pure3d::pddiExtHardwareSkinning::vfunc_6": [
+   "void",
+   [
+    "hulk_intptr",
+    "hulk_intptr"
+   ]
+  ],
+  "pure3d::pddiExtVertexProgram::vfunc_2": [
+   "void",
+   [
+    "hulk_intptr",
+    "int",
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "pure3d::pddiPrimBufferStream::vfunc_12": [
+   "void",
+   [
+    "hulk_intptr",
+    "hulk_intptr",
+    "hulk_intptr"
+   ]
+  ],
+  "pure3d::pddiPrimBufferStream::vfunc_13": [
+   "void",
+   [
+    "hulk_intptr",
+    "int",
+    "hulk_intptr"
+   ]
+  ],
+  "pure3d::pddiPrimBufferStream::vfunc_14": [
+   "void",
+   [
+    "hulk_intptr",
+    "hulk_intptr"
+   ]
+  ],
+  "pure3d::pddiPrimBufferStream::vfunc_16": [
+   "void",
+   [
+    "hulk_intptr",
+    "int"
+   ]
+  ],
+  "pure3d::pddiRenderContext::vfunc_30": [
+   "int",
+   [
+    "hulk_intptr",
+    "int",
+    "int",
+    "int",
+    "int"
+   ]
+  ],
+  "pure3d::pddiRenderContext::vfunc_32": [
+   "void",
+   [
+    "hulk_intptr",
+    "hulk_intptr"
+   ]
+  ],
+  "pure3d::pddiRenderContext::vfunc_43": [
+   "void",
+   [
+    "hulk_intptr",
+    "int"
+   ]
+  ],
+  "pure3d::pddiRenderContext::vfunc_44": [
+   "void",
+   [
+    "int",
+    "hulk_intptr"
+   ]
+  ],
+  "pure3d::pddiRenderContext::vfunc_46": [
+   "void",
+   [
+    "int",
+    "hulk_intptr"
+   ]
+  ],
+  "pure3d::prop::StatePropListener::vfunc_0": [
+   "void",
+   [
+    "int",
+    "hulk_intptr"
+   ]
+  ],
+  "pure3d::scenegraph::BranchNode::vfunc_19": [
+   "void",
+   [
+    "hulk_intptr"
+   ]
+  ],
+  "pure3d::scenegraph::Node::vfunc_6": [
+   "void",
+   [
+    "hulk_intptr",
+    "hulk_intptr"
+   ]
+  ],
+  "pure3d::scenegraph::Node::vfunc_8": [
+   "void",
+   [
+    "hulk_intptr",
+    "int",
     "int"
    ]
   ]

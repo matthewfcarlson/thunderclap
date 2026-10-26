@@ -48,7 +48,7 @@ void FUN_00212d80(void *L, int idx);
 unsigned int FUN_001d0440();
 void FUN_001d0430(unsigned int v);
 
-bool hulkfight::scenario::LuaCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; fight::Params_1a14f0 * params = (fight::Params_1a14f0 *)__p1; int c = (int)__p2;
+bool hulkfight::scenario::LuaCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; fight::Params_1a14f0 * params = (fight::Params_1a14f0 *)__p1; hulk_intptr c = (hulk_intptr)__p2;
 
     struct Frame {
         char pad[0x18];

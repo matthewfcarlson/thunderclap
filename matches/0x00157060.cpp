@@ -1,4 +1,5 @@
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Params_157060 {
@@ -13,7 +14,7 @@ struct HitPushbackAddAction_nv_157060 {
 };
 hulkfight::motion::HitPushbackAddAction* __cdecl Alloc(int);
 
-int hulkfight::motion::HitPushbackAddTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::motion::HitPushbackAddTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = Check((void*)c, 0, &TypeA_157060, &TypeB_157060, 0);
     if (result) {
         hulkfight::motion::HitPushbackAddAction* p = Alloc(0x24);

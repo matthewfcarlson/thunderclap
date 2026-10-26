@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // pure3d::ExpressionLoader::vfunc_5 @ 0x002afba0
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 extern "C" void *__cdecl FUN_00263ea0(unsigned int size);
@@ -56,7 +57,7 @@ struct Frame_2afba0 {
     char name[0x100];
 };
 
-void pure3d::ExpressionLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int __p3) { pure3d::Expression_2afba0 ** out = (pure3d::Expression_2afba0 **)__p0; unsigned long long * outId = (unsigned long long *)__p1; Stream_2afba0 * s = (Stream_2afba0 *)__p2; void * ctx = (void *)__p3;
+void pure3d::ExpressionLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr __p3) { pure3d::Expression_2afba0 ** out = (pure3d::Expression_2afba0 **)__p0; unsigned long long * outId = (unsigned long long *)__p1; Stream_2afba0 * s = (Stream_2afba0 *)__p2; void * ctx = (void *)__p3;
 
     Frame_2afba0 f;
     s->reader->FUN_002647e0(&f.cell, 1, 4, 1);

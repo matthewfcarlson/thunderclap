@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 class SeqAction_253eb0 {
@@ -13,7 +14,7 @@ class SeqAction_253eb0 {
 extern int FUN_0024afe0(int);
 extern void FUN_0024c160(int);
 
-void audio::SeqActionStream::vfunc_3(int p) {
+void audio::SeqActionStream::vfunc_3(hulk_intptr p) {
     int v = *(int*)((char*)p + 0x34);
     int x = FUN_0024afe0(v);
     if (x == 2) {

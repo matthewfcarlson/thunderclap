@@ -44,8 +44,8 @@ namespace Render { namespace Canvas {
 class HulkShaderCallback : public ::pure3d::ShaderCallback {
 public:
     virtual ~HulkShaderCallback(); // overrides core::IRefCount slot 2
-    virtual int vfunc_3(void*); // overrides pure3d::ShaderCallback slot 3
-    virtual int vfunc_4(void*); // overrides pure3d::ShaderCallback slot 4
+    virtual hulk_intptr vfunc_3(void*); // overrides pure3d::ShaderCallback slot 3
+    virtual hulk_intptr vfunc_4(void*); // overrides pure3d::ShaderCallback slot 4
     virtual int vfunc_5(int); // overrides pure3d::ShaderCallback slot 5
     float f_08;
     float f_0c;
@@ -66,7 +66,7 @@ public:
 class LevelLoader : public ::content::SimpleChunkHandler {
 public:
     virtual ~LevelLoader(); // overrides core::IRefCount slot 2
-    virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
+    virtual void vfunc_5(void*, void*, void*, hulk_intptr); // overrides content::SimpleChunkHandler slot 5
     char _pad_14[0x8];
     void* f_1c;
 };
@@ -110,7 +110,7 @@ public:
 class RoomLoader : public ::content::SimpleChunkHandler {
 public:
     virtual ~RoomLoader(); // overrides core::IRefCount slot 2
-    virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
+    virtual void vfunc_5(void*, void*, void*, hulk_intptr); // overrides content::SimpleChunkHandler slot 5
 };
 
 // .?AVStoreBase@Render@@  vftable 0x421a3c (3)

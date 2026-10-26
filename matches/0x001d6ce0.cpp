@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 struct V {
@@ -23,7 +24,7 @@ struct G_1d6ce0 {
 };
 extern G_1d6ce0* g_4dd700;
 
-void CSPHulkPropInstance::vfunc_8(int x, int y) {
+void CSPHulkPropInstance::vfunc_8(hulk_intptr x, int y) {
     if ((*(A_1d6ce0 * *)&this->f_ec)->run() && g_4dd700->p->run())
         return;
     (*(V * *)&this->f_9c)->f8(x, y);

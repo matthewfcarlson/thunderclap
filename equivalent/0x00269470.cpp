@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 13/14, incomplete)
 // core::ControllerSystemXBox::vfunc_5 @ 0x00269470
+#include "compat/ptr.h"
 #include "gen/core.h"
 
 namespace core {
@@ -15,7 +16,7 @@ struct ControllerDevice {
 };
 
 }
-void* core::ControllerSystemXBox::vfunc_5(int __p0) { const char * name = (const char *)__p0;
+void* core::ControllerSystemXBox::vfunc_5(hulk_intptr __p0) { const char * name = (const char *)__p0;
 
     for (unsigned i = 0; i < 4; ++i) {
         ControllerDevice* device = &(*(ControllerDevice (*)[4])&this->f_20)[i];

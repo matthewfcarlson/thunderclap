@@ -111,7 +111,7 @@ public:
     virtual ~Entity(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(void*) = 0; // slot 3
     virtual bool vfunc_4(int); // slot 4
-    virtual bool vfunc_5(int) = 0; // slot 5
+    virtual bool vfunc_5(hulk_intptr) = 0; // slot 5
     virtual void vfunc_6(); // slot 6
     virtual bool vfunc_7(void*); // slot 7
     virtual void vfunc_8() = 0; // slot 8
@@ -176,7 +176,7 @@ public:
     virtual ~MetaEntity(); // overrides core::IRefCount slot 2
     virtual bool vfunc_3(void*); // overrides om::Entity slot 3
     virtual bool vfunc_4(int); // overrides om::Entity slot 4
-    virtual bool vfunc_5(int); // overrides om::Entity slot 5
+    virtual bool vfunc_5(hulk_intptr); // overrides om::Entity slot 5
 };
 
 // .?AVMetaEntityType@om@@  vftable 0x42aa04 (4)
@@ -207,7 +207,7 @@ public:
     virtual ~MetaTypeAttribBase(); // slot 0
     virtual int vfunc_1(int, int) = 0; // slot 1
     virtual void vfunc_2(int, int) = 0; // slot 2
-    virtual void vfunc_3(int); // slot 3
+    virtual void vfunc_3(hulk_intptr); // slot 3
 };
 
 // template family om::MetaTypeAttrib: 2 instantiation(s), 0 with their own specialization
@@ -228,7 +228,7 @@ template <class T0>
 class MetaTypeAttribScalar : public ::om::MetaTypeAttrib< T0 > {
 public:
     virtual ~MetaTypeAttribScalar(); // overrides om::MetaTypeAttribBase slot 0
-    virtual void vfunc_3(int); // overrides om::MetaTypeAttribBase slot 3
+    virtual void vfunc_3(hulk_intptr); // overrides om::MetaTypeAttribBase slot 3
     virtual unsigned int vfunc_4(); // slot 4
     virtual unsigned int vfunc_5(); // slot 5
     char _pad_04[0x10];

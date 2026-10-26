@@ -28,7 +28,7 @@ struct CEffectStopAction_nv_60980 {
 extern void* FUN_0008d690(int);
 extern Obj_60980* FUN_0005a430(int);
 
-int CGrappleEffectStopTrack::vfunc_12(int arg) {
+hulk_intptr CGrappleEffectStopTrack::vfunc_12(hulk_intptr arg) {
     CEffectStopAction* p = (CEffectStopAction*)FUN_0008d690(0x24);
     if (p) {
         Obj_60980* o = FUN_0005a430(arg);

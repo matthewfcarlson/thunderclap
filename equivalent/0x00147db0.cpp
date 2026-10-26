@@ -3,6 +3,7 @@
 // hulkfight::motion::CivilianAttachAction::vfunc_3 @ 0x00147db0
 // equiv-map: ??0Name@@QAE@ABU0@@Z = 0x0027af30
 // equiv-map: ??1Name@@QAE@XZ = 0x0027af50
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 #include "decls/address.h"
 
@@ -61,7 +62,7 @@ namespace motion {
 
 }
 }
-bool hulkfight::motion::CivilianAttachAction::vfunc_3(int a, int b) {
+bool hulkfight::motion::CivilianAttachAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     Fighter_147db0 *fighter = (*(Params_147db0 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();
     if (fighter == 0)
         return false;

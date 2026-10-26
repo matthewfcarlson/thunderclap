@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 typedef unsigned int size_t;
@@ -30,7 +31,7 @@ class SeqEvent_250cd0 {
     virtual void f5();
 };
 } // namespace audio
-void audio::SeqEventExpression::vfunc_2(int __p0) { audio::Engine * e = (audio::Engine *)__p0;
+void audio::SeqEventExpression::vfunc_2(hulk_intptr __p0) { audio::Engine * e = (audio::Engine *)__p0;
 
     e->send(new audio::SeqActionExpression_250cd0(this));
 }

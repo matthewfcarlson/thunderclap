@@ -1,4 +1,5 @@
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Params_157500 {
@@ -13,7 +14,7 @@ struct HealthAction_nv_157500 {
 };
 hulkfight::motion::HealthAction* __cdecl Alloc(int);
 
-int hulkfight::motion::HealthTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::motion::HealthTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = Check((void*)c, 0, &TypeA_157500, &TypeB_157500, 0);
     if (result) {
         hulkfight::motion::HealthAction* p = Alloc(0x24);

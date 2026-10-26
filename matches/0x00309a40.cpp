@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/physics.h"
 
 struct Block_309a40 {
@@ -16,7 +17,7 @@ struct Manager_309a40 {
     Node_309a40* node;
 };
 
-void physics::PhysicsJoint::vfunc_10(int __p0) { void * arg = (void *)__p0;
+void physics::PhysicsJoint::vfunc_10(hulk_intptr __p0) { void * arg = (void *)__p0;
 
     char* p = (char*)this;
     *(Block_309a40*)(p + 0xa4) = *(Block_309a40*)arg;

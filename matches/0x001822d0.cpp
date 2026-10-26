@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Obj_1822d0 {
@@ -11,7 +12,7 @@ struct State_1822d0 {
     int value;
 };
 
-bool hulkfight::motion::PropDropAction::vfunc_3(int x, int y) {
+bool hulkfight::motion::PropDropAction::vfunc_3(hulk_intptr x, hulk_intptr y) {
     if ((*(Obj_1822d0 * *)&this->f_20)) {
         Obj_1822d0* p = (*(Obj_1822d0 * *)&this->f_20)->a();
         p = p->b();

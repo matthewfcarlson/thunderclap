@@ -1,4 +1,5 @@
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Params_17b290 {
@@ -13,7 +14,7 @@ struct IntentionClearAction_nv_17b290 {
 };
 hulkfight::motion::IntentionClearAction* __cdecl Alloc(int);
 
-int hulkfight::motion::IntentionClearTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::motion::IntentionClearTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = Check((void*)c, 0, &TypeA_17b290, &TypeB_17b290, 0);
     if (result) {
         hulkfight::motion::IntentionClearAction* p = Alloc(0x24);

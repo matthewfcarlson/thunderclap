@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 233 inputs, branch coverage 42/47, incomplete)
 // physics::CollisionObjectLoader::vfunc_5 @ 0x00308410
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "gen/physics.h"
 #include "decls/address.h"
 
@@ -112,7 +113,7 @@ struct Frame_308410 {
     char name3[0x100];
 };
 
-void physics::CollisionObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int unused) { CollisionObject_308410 ** out = (CollisionObject_308410 **)__p0; NameKey_308410 * outId = (NameKey_308410 *)__p1; Reader_308410 * r = (Reader_308410 *)__p2;
+void physics::CollisionObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr unused) { CollisionObject_308410 ** out = (CollisionObject_308410 **)__p0; NameKey_308410 * outId = (NameKey_308410 *)__p1; Reader_308410 * r = (Reader_308410 *)__p2;
 
     Frame_308410 f;
     void *mem = thunk_FUN_0008d690(0x80);

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Helper_14ee30 {
@@ -6,7 +7,7 @@ class Helper_14ee30 {
     void* f59a30();
 };
 
-bool hulkfight::motion::InterruptPriorityAction::vfunc_3(int , int ) {
+bool hulkfight::motion::InterruptPriorityAction::vfunc_3(hulk_intptr , hulk_intptr ) {
     Helper_14ee30* h = (*(Helper_14ee30 * *)&this->f_20);
     Helper_14ee30* q = (Helper_14ee30*)h->f592a0();
     void* r = q->f59a30();

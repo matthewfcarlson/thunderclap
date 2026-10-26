@@ -33,7 +33,7 @@ public:
     virtual void vfunc_9(int) = 0; // slot 9
     virtual void vfunc_10(int, int, int, int) = 0; // slot 10
     virtual bool vfunc_11(int, int, int, int) = 0; // slot 11
-    virtual bool vfunc_12(int, int); // slot 12
+    virtual bool vfunc_12(hulk_intptr, hulk_intptr); // slot 12
     virtual unsigned char vfunc_13() = 0; // slot 13
 };
 
@@ -55,7 +55,7 @@ public:
     virtual void vfunc_9(int); // overrides choreo2::Driver slot 9
     virtual void vfunc_10(int, int, int, int); // overrides choreo2::Driver slot 10
     virtual bool vfunc_11(int, int, int, int); // overrides choreo2::Driver slot 11
-    virtual bool vfunc_12(int, int); // overrides choreo2::Driver slot 12
+    virtual bool vfunc_12(hulk_intptr, hulk_intptr); // overrides choreo2::Driver slot 12
     virtual unsigned char vfunc_13(); // overrides choreo2::Driver slot 13
     void FUN_00225000(); // non-virtual
     void FUN_00225030(void*); // non-virtual
@@ -108,7 +108,7 @@ public:
     virtual void vfunc_9(int); // overrides choreo2::Driver slot 9
     virtual void vfunc_10(int, int, int, int); // overrides choreo2::Driver slot 10
     virtual bool vfunc_11(int, int, int, int); // overrides choreo2::Driver slot 11
-    virtual bool vfunc_12(int, int); // overrides choreo2::Driver slot 12
+    virtual bool vfunc_12(hulk_intptr, hulk_intptr); // overrides choreo2::Driver slot 12
     virtual void vfunc_14(float); // overrides choreo2::LocomotionDriver slot 14
     void* f_14;
     int f_18;
@@ -139,7 +139,7 @@ public:
     virtual void vfunc_9(int); // overrides choreo2::Driver slot 9
     virtual void vfunc_10(int, int, int, int); // overrides choreo2::Driver slot 10
     virtual bool vfunc_11(int, int, int, int); // overrides choreo2::Driver slot 11
-    virtual bool vfunc_12(int, int); // overrides choreo2::Driver slot 12
+    virtual bool vfunc_12(hulk_intptr, hulk_intptr); // overrides choreo2::Driver slot 12
     virtual void vfunc_14(float); // overrides choreo2::LocomotionDriver slot 14
     void* f_14;
     int f_18;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Track_14ad10 {
@@ -22,7 +23,7 @@ class GrappleHitReactionAction_14ad10 {
 extern int GetParam(int);
 extern GrappleHitReactionAction_14ad10* Allocate(int);
 
-int hulkfight::motion::GrappleHitReactionTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::motion::GrappleHitReactionTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int x = GetParam(c);
     if (x) {
         GrappleHitReactionAction_14ad10* p = Allocate(0x58);

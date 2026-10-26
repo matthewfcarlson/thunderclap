@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct Local_3245d0 {
@@ -90,7 +91,7 @@ struct Receiver_3245d0 {
 };
 namespace pure3d {
 } // namespace pure3d
-void pure3d::d3dExtHardwareSkinning::vfunc_6(int __p0, int __p1) { Skin_3245d0 * skin = (Skin_3245d0 *)__p0; Receiver_3245d0 * receiver = (Receiver_3245d0 *)__p1;
+void pure3d::d3dExtHardwareSkinning::vfunc_6(hulk_intptr __p0, hulk_intptr __p1) { Skin_3245d0 * skin = (Skin_3245d0 *)__p0; Receiver_3245d0 * receiver = (Receiver_3245d0 *)__p1;
 
     Local_3245d0 data;
     (*(Device_3245d0 * *)&this->f_04)->FUN_00324270(skin);

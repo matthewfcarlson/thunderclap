@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class AnimationTrack_13ae40 {
@@ -22,7 +23,7 @@ class NewObject {
 extern int __cdecl Find(int);
 extern NewObject* __cdecl Alloc(int);
 
-int hulkfight::motion::GrappleAnimationTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::motion::GrappleAnimationTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int v = Find(c);
     if (v) {
         NewObject* p = Alloc(0x28);

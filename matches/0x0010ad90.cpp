@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 struct Vec3_10ad90 {
@@ -15,7 +16,7 @@ struct Agent_10ad90 {
 };
 float FUN_0010ac60(int ex, int item, float w, Vec3_10ad90* out);
 
-bool CSeparationBehaviour::vfunc_3(int __p0, int ex, void* __p2, int p5, int p6) { Agent_10ad90 * a = (Agent_10ad90 *)__p0; Vec3_10ad90 * out = (Vec3_10ad90 *)__p2;
+bool CSeparationBehaviour::vfunc_3(hulk_intptr __p0, int ex, void* __p2, int p5, int p6) { Agent_10ad90 * a = (Agent_10ad90 *)__p0; Vec3_10ad90 * out = (Vec3_10ad90 *)__p2;
 
     int n = a->list->count;
     int i = 0;

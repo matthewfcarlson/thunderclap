@@ -2,6 +2,7 @@
 // physics::PhysicsObjectLoader::vfunc_5 @ 0x002f70a0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
+#include "compat/ptr.h"
 #include "gen/physics.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
@@ -85,7 +86,7 @@ void __cdecl thunk_FUN_00267090(void *p);
 void *thunk_FUN_0008d690(unsigned int size);
 int __cdecl FUN_00267760(char *buf, int n, const char *fmt, ...);
 
-void physics::PhysicsObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int unused) { void ** outObj = (void **)__p0; Key_2f70a0 * outKey = (Key_2f70a0 *)__p1; Reader_2f70a0 * r = (Reader_2f70a0 *)__p2;
+void physics::PhysicsObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr unused) { void ** outObj = (void **)__p0; Key_2f70a0 * outKey = (Key_2f70a0 *)__p1; Reader_2f70a0 * r = (Reader_2f70a0 *)__p2;
 
     struct Frame {
         char pad00[3];

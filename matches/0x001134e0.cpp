@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 extern int FUN_00344e74(int, int, const void*, const void*, int);
@@ -9,7 +10,7 @@ class AllocObj_1134e0 {
     int init(hulkfight::ai::KeywordWaitTrack*, int);
 };
 
-int hulkfight::ai::KeywordWaitTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::ai::KeywordWaitTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     if (FUN_00344e74(c, 0, &RTTI_Type1, &RTTI_Type2, 0)) {
         AllocObj_1134e0* p = (AllocObj_1134e0*)FUN_0008d690(0x2c);
         if (p)

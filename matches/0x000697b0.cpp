@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 extern int* gValues;
 
-int CComboMessageTrack::vfunc_0(int index) {
+hulk_intptr CComboMessageTrack::vfunc_0(int index) {
     return gValues[index];
 }

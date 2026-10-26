@@ -1,4 +1,5 @@
 // Same code shape as 0x0023d2e0 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/physics.h"
 
 namespace fight {
@@ -16,6 +17,6 @@ class Param_2f5590 {
 };
 
 } // namespace fight
-bool physics::SimulatedObject::vfunc_24(int , int , int ) {
+bool physics::SimulatedObject::vfunc_24(hulk_intptr , hulk_intptr , int ) {
     return false;
 }

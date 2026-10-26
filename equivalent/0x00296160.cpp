@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 2/2)
 // pure3d::scenegraph::Scenegraph::vfunc_8 @ 0x00296160
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 #include "decls/data/engine/pure3d/prop.h"
@@ -13,7 +14,7 @@ struct Child {
 namespace pure3d { namespace scenegraph {
 
 }}
-void pure3d::scenegraph::Scenegraph::vfunc_8(int a, int b) {
+void pure3d::scenegraph::Scenegraph::vfunc_8(hulk_intptr a, int b) {
  if ((*(Child *volatile *)&this->f_40)) {
   (*(*(Device***)&DAT_0052c2ac))->vfunc_15(0);
   void **savedTable = *(void ***)(*(Child *volatile *)&this->f_40);

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 typedef unsigned char u8;
@@ -13,7 +14,7 @@ struct H {
 };
 H* g();
 
-bool hulkfight::ai::TokenSupressAction::vfunc_5(int a, int b) {
+bool hulkfight::ai::TokenSupressAction::vfunc_5(hulk_intptr a, int b) {
     if (!(*(H * *)&this->f_20))
         return false;
     (*(H * *)&this->f_20)->f1()->f2();

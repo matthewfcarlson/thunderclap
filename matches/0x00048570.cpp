@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
-bool CButtonPressCondition::vfunc_10(void* __p0, int unused) { int * param = (int *)__p0;
+bool CButtonPressCondition::vfunc_10(void* __p0, hulk_intptr unused) { int * param = (int *)__p0;
 
     return *param == 1;
 }

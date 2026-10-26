@@ -1,4 +1,5 @@
 // pure3d::RawImageHandler::vfunc_9 @ 0x002ddf10
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct Stream_2ddf10 {
@@ -27,7 +28,7 @@ struct RawHeader {
 namespace pure3d {
 
 }
-void pure3d::RawImageHandler::vfunc_9(int __p0, int __p1) { Stream_2ddf10 * stream = (Stream_2ddf10 *)__p0; Image_2ddf10 * image = (Image_2ddf10 *)__p1;
+void pure3d::RawImageHandler::vfunc_9(hulk_intptr __p0, hulk_intptr __p1) { Stream_2ddf10 * stream = (Stream_2ddf10 *)__p0; Image_2ddf10 * image = (Image_2ddf10 *)__p1;
 
     RawHeader hdr;
     stream->FUN_002647e0(&hdr, 7, 4, 1);

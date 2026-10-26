@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 extern int ParamsRTTI;
@@ -9,7 +10,7 @@ class Obj_17b0c0 {
     int Init(hulkfight::motion::JointTrackerTrack*, void*);
 };
 
-int hulkfight::motion::JointTrackerTrack::vfunc_10(int a, int b, int __p2) { void * p = (void *)__p2;
+hulk_intptr hulkfight::motion::JointTrackerTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr __p2) { void * p = (void *)__p2;
 
     if (TypeCheck(p, 0, &ParamsRTTI, &CFightParamsRTTI, 0)) {
         void* q = Allocate(0x78);

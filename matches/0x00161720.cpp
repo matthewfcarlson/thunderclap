@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Helper_161720 {
@@ -6,7 +7,7 @@ class Helper_161720 {
 };
 extern "C" Helper_161720* FUN_0008d690(int);
 
-int hulkfight::motion::ClimbLocomotion4Track::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::motion::ClimbLocomotion4Track::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     Helper_161720* p = FUN_0008d690(0x4c);
     if (p)
         return p->f(this, c);

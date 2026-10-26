@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3081 inputs, branch coverage 40/40)
 // CChaseAgent::vfunc_3 @ 0x000fc970
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 struct Binding_fc970;
@@ -63,7 +64,7 @@ struct CChaseAgent_nv_fc970 {
     float FUN_000fc4e0(Unit_fc970 *u, int a);
 };
 
-hulk_freg CChaseAgent::vfunc_3(int __p0, int a) { Unit_fc970 * arg = (Unit_fc970 *)__p0;
+hulk_freg CChaseAgent::vfunc_3(hulk_intptr __p0, int a) { Unit_fc970 * arg = (Unit_fc970 *)__p0;
 
     ((CChaseAgent_nv_fc970*)this)->FUN_000fc4e0(arg, a);
     Binding_fc970 *bind = (*(Brain_fc970 * *)&this->f_58)->unit.binding;

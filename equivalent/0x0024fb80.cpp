@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19941 inputs, branch coverage 2/2)
 // audio::SeqEventChannelSends::vfunc_2 @ 0x0024fb80
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 #include "decls/data/engine/audio.h"
@@ -16,7 +17,7 @@ struct SeqActionChannelSends_24fb80 {
 }
 void * __cdecl FUN_00247530(void *);
 struct Channel_24fb80 { void FUN_0025dc20(audio::SeqActionChannelSends_24fb80 *); };
-void audio::SeqEventChannelSends::vfunc_2(int __p0) { void * channel = (void *)__p0;
+void audio::SeqEventChannelSends::vfunc_2(hulk_intptr __p0) { void * channel = (void *)__p0;
 
     void *memory = FUN_00247530(((char*)&DAT_004e6800));
     audio::SeqActionChannelSends_24fb80 *action = 0;

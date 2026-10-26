@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class A_5dc10;
@@ -20,7 +21,7 @@ class Q_5dc10 {
 };
 extern void* __cdecl FUN_0008d690(unsigned int);
 
-int COpportunityBallTrack::vfunc_12(int __p0) { void * arg = (void *)__p0;
+hulk_intptr COpportunityBallTrack::vfunc_12(hulk_intptr __p0) { void * arg = (void *)__p0;
 
     A_5dc10* a = ((Arg_5dc10*)arg)->A1();
     a = a->B();

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 110 inputs, branch coverage 20/20)
 // pure3d::ImageConverter::vfunc_8 @ 0x002dea50
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct PixelFormat_2dea50 {
@@ -31,7 +32,7 @@ struct Image_2dea50 {
     unsigned int *dst;          // 0x24
 };
 
-void pure3d::ImageConverter::vfunc_8(int __p0, int __p1) { PixelFormat_2dea50 * fmt = (PixelFormat_2dea50 *)__p0; Image_2dea50 * img = (Image_2dea50 *)__p1;
+void pure3d::ImageConverter::vfunc_8(hulk_intptr __p0, hulk_intptr __p1) { PixelFormat_2dea50 * fmt = (PixelFormat_2dea50 *)__p0; Image_2dea50 * img = (Image_2dea50 *)__p1;
 
     int sA = fmt->rShift + (4 - fmt->rDst) * 2;
     int sB = fmt->gShift + (4 - fmt->gDst) * 2;

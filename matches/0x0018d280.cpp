@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class HelperA_18d280 {
@@ -9,7 +10,7 @@ class HelperB_18d280 {
     void* run();
 };
 
-bool hulkfight::motion::TimerSetAction::vfunc_3(int , int ) {
+bool hulkfight::motion::TimerSetAction::vfunc_3(hulk_intptr , hulk_intptr ) {
     int i = *(int*)((char*)(*(void * *)&this->f_1c) + 0x10);
     if (i >= 0 && i < 14) {
         void* x = ((HelperA_18d280*)(*(void * *)&this->f_20))->run();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class Helper_60810 {
@@ -6,7 +7,7 @@ class Helper_60810 {
 };
 extern void* Get(int);
 
-int CEffectTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr CEffectTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     void* p = Get(0x2c);
     if (p)
         return ((Helper_60810*)p)->Run(this, c, a);

@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
-unsigned int pure3d::BillboardQuadGroup::vfunc_7() {
+hulk_uintptr pure3d::BillboardQuadGroup::vfunc_7() {
     return this->f_84;
 }

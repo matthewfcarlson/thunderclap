@@ -28,7 +28,7 @@ struct Effect_5a510 {
     Effect_5a510 *FUN_0001d9b0(void *anim, int a, int b);
 };
 
-int CGrappleDamageTrack::vfunc_12(int __p0) { Target_5a510 * target = (Target_5a510 *)__p0;
+hulk_intptr CGrappleDamageTrack::vfunc_12(hulk_intptr __p0) { Target_5a510 * target = (Target_5a510 *)__p0;
 
     if (target == 0) {
         return (int)(0);

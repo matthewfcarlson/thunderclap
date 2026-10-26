@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 9/9)
 // pure3d::Camera::vfunc_11 @ 0x002927e0
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 namespace pure3d {
 struct Plane_2927e0 { float x,y,z,w; };
 
 }
-void pure3d::Camera::vfunc_11(int __p0, int __p1) { unsigned int which = (unsigned int)__p0; Plane_2927e0 * out = (Plane_2927e0 *)__p1;
+void pure3d::Camera::vfunc_11(int __p0, hulk_intptr __p1) { unsigned int which = (unsigned int)__p0; Plane_2927e0 * out = (Plane_2927e0 *)__p1;
 
 switch(which) {
 case 1: out->x=0; out->y=0; out->z=-1.0f; out->w=this->f_1c; break;

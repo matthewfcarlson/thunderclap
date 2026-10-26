@@ -22,7 +22,7 @@ class ActionBase_12fa50 {
     virtual void f5();
 };
 
-bool hulkfight::StatEndTrialAction::vfunc_3(int __p0, int __p1) {
+bool hulkfight::StatEndTrialAction::vfunc_3(hulk_intptr __p0, hulk_intptr __p1) {
     if (!(*(u32_12fa50 *)&this->f_20))
         return false;
     u32_12fa50 x = *(u32_12fa50*)((*(hulk_uintptr *)&this->f_1c) + 0x10);

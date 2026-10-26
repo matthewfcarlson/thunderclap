@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Obj_124d20;
@@ -15,7 +16,7 @@ class Obj_124d20 {
     char flag;
 };
 
-bool hulkfight::ai::TargetClearAction::vfunc_3(int a, int b) {
+bool hulkfight::ai::TargetClearAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     if (!(*(Obj_124d20 * *)&this->f_20))
         return false;
     Obj_124d20* r = (*(Obj_124d20 * *)&this->f_20)->Resolve();

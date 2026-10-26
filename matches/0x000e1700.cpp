@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 int strncmp(const char*, const char*, unsigned int);
 
-bool FEDoAction::vfunc_4(int a, int b, int c, int d) {
+bool FEDoAction::vfunc_4(int a, hulk_intptr b, int c, int d) {
     if (a == this->f_04 && this->f_08 == c && this->f_0c == d) {
         if ((*(char (*)[32])&this->f_14)[0] == 0)
             return true;

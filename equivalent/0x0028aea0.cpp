@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 23/23)
 // pure3d::DefaultChannelHandler::vfunc_5 @ 0x0028aea0
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 namespace pure3d {  }
-void pure3d::DefaultChannelHandler::vfunc_5(int __p0, int __p1, int __p2, int __p3) { unsigned int * header = (unsigned int *)__p0; unsigned int * size = (unsigned int *)__p1; unsigned int type = (unsigned int)__p2; unsigned short count = (unsigned short)__p3;
+void pure3d::DefaultChannelHandler::vfunc_5(hulk_intptr __p0, hulk_intptr __p1, int __p2, int __p3) { unsigned int * header = (unsigned int *)__p0; unsigned int * size = (unsigned int *)__p1; unsigned int type = (unsigned int)__p2; unsigned short count = (unsigned short)__p3;
 
  unsigned a=0,b=0; *header=0;
  switch(type) {

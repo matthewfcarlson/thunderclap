@@ -2,6 +2,7 @@
 // hulkfight::motion::CivilianDetachAction::vfunc_3 @ 0x00147e50
 // hulkfight::motion::CivilianDetachAction::vfunc_3 @ 0x00147e50
 // equiv-map: ??0Name@@QAE@ABU0@@Z = 0x0027af30
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 #include "decls/address.h"
 
@@ -93,7 +94,7 @@ namespace motion {
 
 }
 }
-bool hulkfight::motion::CivilianDetachAction::vfunc_3(int a, int b) {
+bool hulkfight::motion::CivilianDetachAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     Fighter_147e50 *fighter = (*(Params_147e50 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();
     if (fighter == 0)
         return false;

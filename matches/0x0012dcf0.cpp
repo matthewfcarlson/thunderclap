@@ -11,7 +11,7 @@ struct Memory_12dcf0 {
     void Init();
 };
 
-int hulkfight::PostEvent_StringTrack::vfunc_10(int a, int b, int __p2) { Ref_12dcf0 * param = (Ref_12dcf0 *)__p2;
+hulk_intptr hulkfight::PostEvent_StringTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr __p2) { Ref_12dcf0 * param = (Ref_12dcf0 *)__p2;
 
     char* p = (char*)Alloc(0x24);
     if (p) {

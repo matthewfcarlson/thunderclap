@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 inline void* operator new(unsigned int, void* p) {
@@ -30,7 +31,7 @@ class SeqEvent_2526f0 {
 } // namespace audio
 extern char bss;
 extern "C" void* __cdecl FUN_00247530(void*);
-void audio::SeqEventVarVolumeRand::vfunc_2(int __p0) { Receiver * r = (Receiver *)__p0;
+void audio::SeqEventVarVolumeRand::vfunc_2(hulk_intptr __p0) { Receiver * r = (Receiver *)__p0;
 
     void* p = FUN_00247530(&bss);
     SeqActionVarVolumeRand_2526f0* a = p ? new (p) SeqActionVarVolumeRand_2526f0(this) : 0;

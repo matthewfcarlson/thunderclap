@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 namespace hulkfight {
@@ -15,7 +16,7 @@ class Manager {
     Result* Find();
 };
 extern Manager* gManager;
-bool hulkfight::XPAction::vfunc_3(int , int ) {
+bool hulkfight::XPAction::vfunc_3(hulk_intptr , hulk_intptr ) {
     if (!(*(int *)&this->f_20))
         return (bool)(0);
     int n = (int)(__int64)((Datum*)(*(void * *)&this->f_1c))->value;

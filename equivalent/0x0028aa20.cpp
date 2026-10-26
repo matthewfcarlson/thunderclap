@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // pure3d::QuaternionChannel::vfunc_5 @ 0x0028aa20
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 namespace pure3d {
@@ -12,7 +13,7 @@ struct QuaternionChannel_nv_28aa20 {
 };
 
 }
-void pure3d::QuaternionChannel::vfunc_5(float time, int __p1) { Quaternion_28aa20 * out = (Quaternion_28aa20 *)__p1;
+void pure3d::QuaternionChannel::vfunc_5(float time, hulk_intptr __p1) { Quaternion_28aa20 * out = (Quaternion_28aa20 *)__p1;
 
  int first, second;
  bool found = ((QuaternionChannel_nv_28aa20*)this)->FUN_00289f80(time, &first, &second);

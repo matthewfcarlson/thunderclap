@@ -11,7 +11,7 @@ struct NewObj_1224b0 {
 extern int IsType(void*, int, int*, int*, int);
 extern NewObj_1224b0* Allocate(int);
 
-int hulkfight::ai::RoutTrack::vfunc_10(int __p0, int __p1, int __p2) { U_1224b0 a = (U_1224b0)__p0; U_1224b0 b = (U_1224b0)__p1; hulk_uintptr c = (U_1224b0)__p2;
+hulk_intptr hulkfight::ai::RoutTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { U_1224b0 a = (U_1224b0)__p0; U_1224b0 b = (U_1224b0)__p1; hulk_uintptr c = (U_1224b0)__p2;
 
     if (IsType((void*)c, 0, &g1_1224b0, &g2_1224b0, 0)) {
         NewObj_1224b0* p = Allocate(0xb8);

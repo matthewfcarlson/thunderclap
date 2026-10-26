@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 0/0)
 // physics::PhysicsPropertiesLoader::vfunc_5 @ 0x002f2970
+#include "compat/ptr.h"
 #include "gen/physics.h"
 #include "decls/address.h"
 #include "decls/data/engine/physics.h"
@@ -11,7 +12,7 @@ struct Manager_2f2970 { void FUN_002f27c0(Key_2f2970, float, float, float, float
 namespace physics {
 
 }
-void physics::PhysicsPropertiesLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int __p3) { Context_2f2970 * context = (Context_2f2970 *)__p2;
+void physics::PhysicsPropertiesLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr __p3) { Context_2f2970 * context = (Context_2f2970 *)__p2;
 
 struct Data { char pad[3]; unsigned char length; float a,c,d,b; char name[256]; } data;
 context->reader->FUN_002647e0(&data.length,1,1,1);

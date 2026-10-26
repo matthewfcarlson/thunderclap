@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 22/22)
 // FEThingsBase::vfunc_34 @ 0x000f0590
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class Param_f0590 {
@@ -27,7 +28,7 @@ struct FEThingsBase_nv_f0590 {
     void FUN_000e7b90(Param_f0590 *p, int c);
 };
 
-bool FEThingsBase::vfunc_34(int __p0, int __p1, int c) { Param_f0590 * p = (Param_f0590 *)__p0; Args_f0590 * a = (Args_f0590 *)__p1;
+bool FEThingsBase::vfunc_34(hulk_intptr __p0, hulk_intptr __p1, int c) { Param_f0590 * p = (Param_f0590 *)__p0; Args_f0590 * a = (Args_f0590 *)__p1;
 
     switch (a->GetKey()) {
     case 0x9cf1366a: {

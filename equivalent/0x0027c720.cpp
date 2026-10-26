@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 10/10)
 // pure3d::LegacySkeletonLoader::vfunc_5 @ 0x0027c720
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 #include "decls/address.h"
 
@@ -50,7 +51,7 @@ struct Frame_27c720 {
     char jointName[0x100];
 };
 
-void pure3d::LegacySkeletonLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int unused) { Skeleton_27c720 ** out = (Skeleton_27c720 **)__p0; unsigned long long * outId = (unsigned long long *)__p1; Reader_27c720 * r = (Reader_27c720 *)__p2;
+void pure3d::LegacySkeletonLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr unused) { Skeleton_27c720 ** out = (Skeleton_27c720 **)__p0; unsigned long long * outId = (unsigned long long *)__p1; Reader_27c720 * r = (Reader_27c720 *)__p2;
 
     Frame_27c720 f;
 

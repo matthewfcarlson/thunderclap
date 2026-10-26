@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class CTrack_6ab40 {
@@ -19,6 +20,6 @@ class CTrack_6ab40 {
 };
 extern int* gTable_6ab40;
 
-int CStageTrack::vfunc_0(int index) {
+hulk_intptr CStageTrack::vfunc_0(int index) {
     return gTable_6ab40[index];
 }

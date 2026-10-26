@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 namespace pure3d {
@@ -12,7 +13,7 @@ struct d3dPrimBufferStream_nv_327710 {
 };
 
 } // namespace pure3d
-void pure3d::d3dPrimBufferStream::vfunc_13(int __p0, int c, int __p2) { const V3 * p = (const V3 *)__p0; const V2 * t = (const V2 *)__p2;
+void pure3d::d3dPrimBufferStream::vfunc_13(hulk_intptr __p0, int c, hulk_intptr __p2) { const V3 * p = (const V3 *)__p0; const V2 * t = (const V2 *)__p2;
 
     V3* dest = (*(V3 * *)&this->f_24);
     dest->x = p->x;

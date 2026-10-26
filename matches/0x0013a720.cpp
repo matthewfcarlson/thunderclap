@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct MotionInstance {
@@ -14,7 +15,7 @@ namespace motion {
 
 } // namespace motion
 } // namespace hulkfight
-bool hulkfight::motion::AnimationLinkedAction::vfunc_5(int event, int other) {
+bool hulkfight::motion::AnimationLinkedAction::vfunc_5(hulk_intptr event, int other) {
     if (event == 1) {
         MotionInstance* instance = (*(MotionSource * *)&this->f_20)->FUN_000592a0()->FUN_00059a40();
         bool result;

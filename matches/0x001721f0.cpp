@@ -7,7 +7,7 @@ class Holder_1721f0 {
     int second();
 };
 
-bool hulkfight::motion::SuckInPropsAction::vfunc_3(int __p0, int __p1) {
+bool hulkfight::motion::SuckInPropsAction::vfunc_3(hulk_intptr __p0, hulk_intptr __p1) {
     hulk_intptr value = (*(Holder_1721f0 * *)&this->f_20)->first();
     if (value == 0)
         return false;

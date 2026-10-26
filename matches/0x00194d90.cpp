@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_194d90;
@@ -8,7 +9,7 @@ struct Obj_194d90 {
     void DoWork(int, u32_194d90, u32_194d90);
 };
 
-bool hulkfight::motion::MissilePunchAction::vfunc_3(int a, int b) {
+bool hulkfight::motion::MissilePunchAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     if (!(*(Obj_194d90 * *)&this->f_20))
         return (bool)(0);
     Obj_194d90* x = (*(Obj_194d90 * *)&this->f_20)->HelperA();

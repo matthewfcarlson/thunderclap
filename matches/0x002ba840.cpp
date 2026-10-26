@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct V {
@@ -39,7 +40,7 @@ struct BillboardObject_nv_2ba840 {
 };
 extern V** gObj_2ba840;
 
-void pure3d::BillboardObject::vfunc_8(int __p0, int __p1) { unsigned int a = (unsigned int)__p0; unsigned int b = (unsigned int)__p1;
+void pure3d::BillboardObject::vfunc_8(hulk_intptr __p0, int __p1) { unsigned int a = (unsigned int)__p0; unsigned int b = (unsigned int)__p1;
 
     gObj_2ba840[0]->f23(0, (char*)(*(Obj_2ba840 * *)&this->f_48)->p + 0x40);
     (*(Obj_2ba840 * *)&this->f_48)->p->x = this->f_58;

@@ -8,7 +8,7 @@ class Helper_69f10 {
 };
 extern int __cdecl FUN_0008d690(int);
 
-int CDrainHealthTrack::vfunc_12(int arg) {
+hulk_intptr CDrainHealthTrack::vfunc_12(hulk_intptr arg) {
     float value = vfunc_7();
     if (!(value <= zero_69f10)) {
         float a = this->f_14;

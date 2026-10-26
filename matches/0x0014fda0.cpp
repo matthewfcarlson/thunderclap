@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Mid_14fda0 {
@@ -29,7 +30,7 @@ class Ref_14fda0 {
     Mid_14fda0* GetSub();
 };
 
-bool hulkfight::motion::HitDamageAction::vfunc_3(int , int ) {
+bool hulkfight::motion::HitDamageAction::vfunc_3(hulk_intptr , hulk_intptr ) {
     if ((*(Ref_14fda0 * *)&this->f_20)) {
         Thing_14fda0* t = (*(Ref_14fda0 * *)&this->f_20)->d();
         if (t) {

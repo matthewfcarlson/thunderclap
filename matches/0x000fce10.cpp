@@ -15,7 +15,7 @@ struct CControllerAgent_nv_fce10 {
     float helper(int, int);
 };
 
-hulk_freg CControllerAgent::vfunc_3(int a, int b) {
+hulk_freg CControllerAgent::vfunc_3(hulk_intptr a, int b) {
     ((CControllerAgent_nv_fce10*)this)->helper(a, b);
     hulk_intptr x = (*(Obj_fce10 * *)&this->f_58)->f6();
     if (*(int*)((char*)x + 0x20a8) >= 0)

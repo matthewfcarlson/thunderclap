@@ -35,7 +35,7 @@ struct Frame_2f4eb0 {
     char msg[0x64];
 };
 
-void physics::ExportInfoLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int a3) { hulk_intptr a0 = (hulk_intptr)__p0; hulk_intptr a1 = (hulk_intptr)__p1; Reader_2f4eb0 * r = (Reader_2f4eb0 *)__p2;
+void physics::ExportInfoLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr a3) { hulk_intptr a0 = (hulk_intptr)__p0; hulk_intptr a1 = (hulk_intptr)__p1; Reader_2f4eb0 * r = (Reader_2f4eb0 *)__p2;
 
     Frame_2f4eb0 f;
     int units;

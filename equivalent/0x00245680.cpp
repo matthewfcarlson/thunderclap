@@ -33,7 +33,7 @@ struct Clip_nv_245680 {
     void *FUN_00243390();
 };
 }
-bool audio::Clip::vfunc_5(int __p0) { Loader_245680 * loader = (Loader_245680 *)__p0;
+bool audio::Clip::vfunc_5(hulk_intptr __p0) { Loader_245680 * loader = (Loader_245680 *)__p0;
 
     Loader_245680 *l = loader;
     l->stream->FUN_00246f00(&loader, 4, 1, 1);

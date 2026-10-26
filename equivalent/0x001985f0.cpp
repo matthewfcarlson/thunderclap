@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3050 inputs, branch coverage 28/28)
 // hulkfight::motion::MissileThrowAction::vfunc_3 @ 0x001985f0
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 #include "decls/address.h"
 
@@ -109,7 +110,7 @@ namespace motion {
 
 }
 }
-bool hulkfight::motion::MissileThrowAction::vfunc_3(int a, int b) {
+bool hulkfight::motion::MissileThrowAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     if ((*(Params_1985f0 * *)&this->f_20) == 0)
         return false;
 

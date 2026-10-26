@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Allocated_189140 {
@@ -7,7 +8,7 @@ extern int check(void*, int, int*, int*, int);
 extern Allocated_189140* alloc(int);
 extern int typeA_189140, typeB;
 
-int hulkfight::motion::BallAndChainShootTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::motion::BallAndChainShootTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     if (check((void*)c, 0, &typeA_189140, &typeB, 0)) {
         Allocated_189140* q = alloc(0x54);
         if (q)

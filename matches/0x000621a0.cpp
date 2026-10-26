@@ -27,7 +27,7 @@ struct CWeaponCollisionAction_621a0 {
 extern const int rtti1;
 extern const int rtti2;
 
-int CWeaponCollisionTrack::vfunc_10(int __p0, int __p1, int __p2) { u32_621a0 a = (u32_621a0)__p0; u32_621a0 b = (u32_621a0)__p1; u32_621a0 c = (u32_621a0)__p2;
+hulk_intptr CWeaponCollisionTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_621a0 a = (u32_621a0)__p0; u32_621a0 b = (u32_621a0)__p1; u32_621a0 c = (u32_621a0)__p2;
 
     int x = query(c, 0, &rtti1, &rtti2, 0);
     if (x) {

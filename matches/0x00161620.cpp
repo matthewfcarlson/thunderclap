@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Result_161620 {
@@ -7,7 +8,7 @@ class Result_161620 {
 extern int __cdecl Get(int);
 extern void* __cdecl Allocate(unsigned int);
 
-int hulkfight::motion::GrappleLocomotionSteerTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::motion::GrappleLocomotionSteerTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int value = Get(c);
     if (value) {
         Result_161620* p = (Result_161620*)Allocate(0x30);

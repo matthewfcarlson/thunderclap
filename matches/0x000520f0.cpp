@@ -8,7 +8,7 @@ class Helper_520f0 {
     int second();
 };
 
-int CFightNodeParentCondition::vfunc_7(void* __p0) { void * arg = (void *)__p0;
+hulk_intptr CFightNodeParentCondition::vfunc_7(void* __p0) { void * arg = (void *)__p0;
 
     hulk_intptr x = ((Helper_520f0*)arg)->first();
     return ((Helper_520f0*)x)->second() + 0xdc;

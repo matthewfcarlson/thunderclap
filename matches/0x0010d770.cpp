@@ -13,7 +13,7 @@ struct B_10d770 {
     int a20;
 };
 
-bool hulkfight::ai::ButtonAction::vfunc_5(int p, int q) {
+bool hulkfight::ai::ButtonAction::vfunc_5(hulk_intptr p, int q) {
     if (p == 0) {
         if (!(*(A_10d770 * *)&this->f_20))
             return (bool)(0);

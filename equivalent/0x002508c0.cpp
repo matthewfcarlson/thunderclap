@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19942 inputs, branch coverage 2/2)
 // audio::SeqEventWaitBeat::vfunc_2 @ 0x002508c0
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 #include "decls/data/engine/audio.h"
@@ -20,7 +21,7 @@ struct SeqActionWaitBeat_2508c0 {
 }
 extern "C" audio::SeqActionWaitBeat_2508c0* __cdecl FUN_00247530(void*);
 struct Sequence_2508c0 { void FUN_0025dc20(audio::SeqActionWaitBeat_2508c0*); };
-void audio::SeqEventWaitBeat::vfunc_2(int __p0) { void * sequence = (void *)__p0;
+void audio::SeqEventWaitBeat::vfunc_2(hulk_intptr __p0) { void * sequence = (void *)__p0;
 
  audio::SeqActionWaitBeat_2508c0* action = FUN_00247530(((char*)&DAT_004e6a18));
  if (action) {

@@ -1,4 +1,5 @@
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Params_1887d0 {
@@ -13,7 +14,7 @@ struct PropActorToPropAction_nv_1887d0 {
 };
 hulkfight::motion::PropActorToPropAction* __cdecl Alloc(int);
 
-int hulkfight::motion::PropActorToPropTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::motion::PropActorToPropTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = Check((void*)c, 0, &TypeA_1887d0, &TypeB_1887d0, 0);
     if (result) {
         hulkfight::motion::PropActorToPropAction* p = Alloc(0x24);

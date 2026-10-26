@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3023 inputs, branch coverage 15/15)
 // pure3d::ImageConverter::vfunc_6 @ 0x002ded30
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct Image_2ded30 {
@@ -23,7 +24,7 @@ void __stdcall FUN_002de5a0(Image_2ded30 *img, Surface_2ded30 *s);
 void __stdcall FUN_002de990(Image_2ded30 *img, Surface_2ded30 *s);
 void __stdcall FUN_002de9c0(Image_2ded30 *img, Surface_2ded30 *s);
 
-void pure3d::ImageConverter::vfunc_6(int __p0, int __p1, int row) { Image_2ded30 * img = (Image_2ded30 *)__p0; Surface_2ded30 * s = (Surface_2ded30 *)__p1;
+void pure3d::ImageConverter::vfunc_6(hulk_intptr __p0, hulk_intptr __p1, int row) { Image_2ded30 * img = (Image_2ded30 *)__p0; Surface_2ded30 * s = (Surface_2ded30 *)__p1;
 
     if (img->width != s->width || img->height != s->height || row >= s->rows)
         return;

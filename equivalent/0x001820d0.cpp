@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 10/10)
 // hulkfight::motion::PropSpawnAction::vfunc_3 @ 0x001820d0
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/motion.h"
@@ -78,7 +79,7 @@ struct World {
 
 int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
 
-bool hulkfight::motion::PropSpawnAction::vfunc_3(int a, int b) {
+bool hulkfight::motion::PropSpawnAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     struct Frame {
         Vec3_1820d0 tmp;
         Vec3_1820d0 dir;

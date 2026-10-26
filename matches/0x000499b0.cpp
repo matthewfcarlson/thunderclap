@@ -1,4 +1,5 @@
 // Same code shape as 0x00048300 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 extern int* gTable_499b0;
@@ -7,7 +8,7 @@ class CCondition_499b0 {
     virtual int vfunc_0(int);
 };
 
-int CSmartPropCSMableCondition::vfunc_0(int index) {
+hulk_intptr CSmartPropCSMableCondition::vfunc_0(int index) {
     int* p = gTable_499b0;
     return p[index];
 }

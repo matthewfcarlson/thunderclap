@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
-int fight::CommentTrack::vfunc_10(int , int , int ) {
+hulk_intptr fight::CommentTrack::vfunc_10(hulk_intptr , hulk_intptr , hulk_intptr ) {
     return 0;
 }

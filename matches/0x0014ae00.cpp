@@ -1,4 +1,5 @@
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Params_14ae00 {
@@ -13,7 +14,7 @@ struct CivilianThrowAction_nv_14ae00 {
 };
 hulkfight::motion::CivilianThrowAction* __cdecl Alloc(int);
 
-int hulkfight::motion::CivilianThrowTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::motion::CivilianThrowTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = Check((void*)c, 0, &TypeA_14ae00, &TypeB_14ae00, 0);
     if (result) {
         hulkfight::motion::CivilianThrowAction* p = Alloc(0x24);

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class Alloc_6a650 {
@@ -6,7 +7,7 @@ class Alloc_6a650 {
 };
 extern Alloc_6a650* FUN_0008d690(int);
 
-int CJumpAttackTrack::vfunc_12(int param) {
+hulk_intptr CJumpAttackTrack::vfunc_12(hulk_intptr param) {
     Alloc_6a650* p = FUN_0008d690(0x34);
     if (p)
         return p->method(this, param);

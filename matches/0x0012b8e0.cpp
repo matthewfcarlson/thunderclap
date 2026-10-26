@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Obj_12b8e0 {
@@ -13,7 +14,7 @@ struct Outer_12b8e0 {
 };
 extern Outer_12b8e0* gGlobal_12b8e0;
 
-bool hulkfight::ai::ThreatBallAction::vfunc_3(int __p0, int __p1) {
+bool hulkfight::ai::ThreatBallAction::vfunc_3(hulk_intptr __p0, hulk_intptr __p1) {
     if (!this->f_20)
         return false;
     Obj_12b8e0* o = gGlobal_12b8e0->inner->obj8;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 147 inputs, branch coverage 26/26)
 // FEThingsBase::vfunc_39 @ 0x000f4790
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 struct Node_f4790 {
@@ -25,7 +26,7 @@ struct Message_f4790 {
     virtual unsigned int GetId();
 };
 
-char FEThingsBase::vfunc_39(int __p0, int __p1, int __p2) { Node_f4790 * node = (Node_f4790 *)__p0; Factory_f4790 * factory = (Factory_f4790 *)__p1; Message_f4790 * msg = (Message_f4790 *)__p2;
+char FEThingsBase::vfunc_39(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { Node_f4790 * node = (Node_f4790 *)__p0; Factory_f4790 * factory = (Factory_f4790 *)__p1; Message_f4790 * msg = (Message_f4790 *)__p2;
 
     Item_f4790* item;
     Node_f4790* first;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19942 inputs, branch coverage 2/2)
 // audio::SeqEventCrossFade::vfunc_2 @ 0x00255930
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 #include "decls/data/engine/audio.h"
@@ -18,7 +19,7 @@ struct SeqActionCrossFade_255930 {
 struct SeqContext { void FUN_0025dc20(SeqActionCrossFade_255930*); };
 
 }
-void audio::SeqEventCrossFade::vfunc_2(int __p0) { SeqContext * context = (SeqContext *)__p0;
+void audio::SeqEventCrossFade::vfunc_2(hulk_intptr __p0) { SeqContext * context = (SeqContext *)__p0;
 
     SeqActionCrossFade_255930* action = (SeqActionCrossFade_255930*)FUN_00247530(((char*)&DAT_004e74c0));
     if (action) {

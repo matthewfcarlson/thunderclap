@@ -12,8 +12,8 @@
 //   math   our function forwarding to soft-intrinsics' routines (src/platform/sdl/crt/softx87.h: what x87 hardware
 //          returns) where it provides one, to the host's libm otherwise (sqrt, the float variants: exact or not
 //          inlined as x87 instructions by MSVC 7.1)
-//   abi    depends on the C++ ABI decision (docs/native-mac.md section 1: RTTI, the MS exception tables): not
-//          implemented until it is made
+//   abi    the MS C++ ABI's run-time support (docs/native-mac.md section 7): RTTI (dynamic_cast, typeid, type_info's
+//          members) and the exception personality, in src/platform/sdl/host/rtti_msabi.cpp
 //   na     an x86 compiler helper with a register convention (64-bit compilers never call it; a source naming one
 //          by its symbol needs rewriting)
 #ifndef HULK_PLATFORM_SDL_CRT_NATIVE_CRT_TABLE_H
@@ -168,6 +168,6 @@
 #define HULK_NATIVE_CRT_DATA(D) \
     D(0x004d9968, hulk_ncrt_security_cookie, 4) \
     D(0x004d99f0, hulk_ncrt_iob_proxy, 96)
-// (0x00439de8, type_info's vftable: abi)
+// (0x00439de8, type_info's vftable: abi, `??_7type_info@@6B@` in rtti_msabi.cpp)
 
 #endif

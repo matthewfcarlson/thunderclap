@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct X_14f630 {
@@ -6,7 +7,7 @@ struct X_14f630 {
     void c(int);
 };
 
-bool hulkfight::motion::NoHitPushbackAction::vfunc_3(int __p0, int __p1) {
+bool hulkfight::motion::NoHitPushbackAction::vfunc_3(hulk_intptr __p0, hulk_intptr __p1) {
     X_14f630* p = (*(X_14f630 * *)&this->f_20);
     if (p) {
         X_14f630* a = (X_14f630*)p->a();

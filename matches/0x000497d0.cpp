@@ -1,4 +1,5 @@
 // Same code shape as 0x00048300 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 extern int* gTable_497d0;
@@ -7,7 +8,7 @@ class CCondition_497d0 {
     virtual int vfunc_0(int);
 };
 
-int CSmartPropDistanceCondition::vfunc_0(int index) {
+hulk_intptr CSmartPropDistanceCondition::vfunc_0(int index) {
     int* p = gTable_497d0;
     return p[index];
 }

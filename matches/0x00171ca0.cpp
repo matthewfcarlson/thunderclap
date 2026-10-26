@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Vec_171ca0 {
@@ -10,7 +11,7 @@ class Obj_171ca0 {
     void set(Vec_171ca0*);
 };
 
-bool hulkfight::motion::TeleportAction::vfunc_5(int a, int b) {
+bool hulkfight::motion::TeleportAction::vfunc_5(hulk_intptr a, int b) {
     if (!a) {
         if (!(*(Obj_171ca0 * *)&this->f_20))
             return (bool)(0);

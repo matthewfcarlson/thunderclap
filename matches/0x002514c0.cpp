@@ -1,4 +1,5 @@
 // Same code shape as 0x0024ea70 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 class SeqAction_2514c0 {
@@ -12,6 +13,6 @@ class SeqAction_2514c0 {
     virtual void f6();
 };
 
-void audio::SeqActionPlayTrack::vfunc_3(int ) {
+void audio::SeqActionPlayTrack::vfunc_3(hulk_intptr ) {
     *(int*)((char*)this + 0xc) = 4;
 }

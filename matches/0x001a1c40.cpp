@@ -20,7 +20,7 @@ struct LuaAction_1a1c40 {
 };
 extern "C" void* __cdecl FUN_0008d690(int);
 
-int hulkfight::scenario::LuaTrack::vfunc_10(int __p0, int __p1, int __p2) { u32_1a1c40 a = (u32_1a1c40)__p0; u32_1a1c40 b = (u32_1a1c40)__p1; u32_1a1c40 c = (u32_1a1c40)__p2;
+hulk_intptr hulkfight::scenario::LuaTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_1a1c40 a = (u32_1a1c40)__p0; u32_1a1c40 b = (u32_1a1c40)__p1; u32_1a1c40 c = (u32_1a1c40)__p2;
 
     LuaAction_1a1c40* p = (LuaAction_1a1c40*)FUN_0008d690(0x108);
     if (p)

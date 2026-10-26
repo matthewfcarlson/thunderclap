@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 #include "gen/global.h"
 
-bool CAction::vfunc_5(int sel, int arg) {
+bool CAction::vfunc_5(hulk_intptr sel, int arg) {
     bool r = false;
     switch (sel) {
     case 0:

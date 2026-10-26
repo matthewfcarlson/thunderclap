@@ -16,7 +16,7 @@ class MBAction : public BaseAction {
     char pad2[0x2c - 0x20 - 4 - 0];
 };
 
-int hulkfight::motion::MotionBlurTrack::vfunc_10(int a, int b, int c) {
+hulk_intptr hulkfight::motion::MotionBlurTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     MBAction* p = (MBAction*)alloc(0x2c);
     if (p) {
         p->BaseAction::BaseAction();

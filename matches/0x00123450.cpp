@@ -13,7 +13,7 @@ struct NewTrack {
 extern TypeDesc_123450 typeA_123450;
 extern TypeDesc_123450 typeB_123450;
 
-int hulkfight::ai::PathTrack::vfunc_10(int a, int b, int __p2) { void * p = (void *)__p2;
+hulk_intptr hulkfight::ai::PathTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr __p2) { void * p = (void *)__p2;
 
     if (TypeCheck(p, 0, &typeA_123450, &typeB_123450, 0)) {
         NewTrack* q = (NewTrack*)Alloc(0xf0);

@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 class SeqAction_254710 {
     char pad[0x14];
 };
 
-void audio::SeqActionSilence::vfunc_3(int ) {
+void audio::SeqActionSilence::vfunc_3(hulk_intptr ) {
     this->f_18 = 2;
 }

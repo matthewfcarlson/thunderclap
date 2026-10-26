@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Obj {
@@ -6,7 +7,7 @@ class Obj {
     char* b();
 };
 
-bool hulkfight::ai::MotionStopAction::vfunc_5(int n, int ) {
+bool hulkfight::ai::MotionStopAction::vfunc_5(hulk_intptr n, int ) {
     if (n == 0) {
         if (!(*(Obj * *)&this->f_20))
             return (bool)(0);

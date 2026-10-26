@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 8/8)
 // CCollisionTrack::vfunc_10 @ 0x0005daf0
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 extern char DAT_00494b44[];
@@ -12,7 +13,7 @@ struct Owner_5daf0 { Lookup_5daf0* FUN_00059a40(); };
 struct Holder_5daf0 { Owner_5daf0* FUN_000592a0(); };
 struct CCollisionAction_5daf0 { CCollisionAction_5daf0* FUN_00019380(void* a, void* self, Holder_5daf0* h, int index); };
 
-int CCollisionTrack::vfunc_10(int __p0, int __p1, int __p2) { void * a = (void *)__p0; void * c = (void *)__p2;
+hulk_intptr CCollisionTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { void * a = (void *)__p0; void * c = (void *)__p2;
 
     Holder_5daf0* h = (Holder_5daf0*)FUN_00344e74(c, 0, DAT_00494b44, DAT_00494b60, 0);
     Lookup_5daf0* lk = h ? h->FUN_000592a0()->FUN_00059a40() : 0;
@@ -23,5 +24,5 @@ int CCollisionTrack::vfunc_10(int __p0, int __p1, int __p2) { void * a = (void *
     if (index == 0xffff) return (int)(0);
     CCollisionAction_5daf0* item = (CCollisionAction_5daf0*)FUN_0008d690(0x4c);
     if (!item) return (int)(0);
-    return (int)(item->FUN_00019380(a, this, h, index));
+    return (hulk_intptr)(item->FUN_00019380(a, this, h, index));
 }

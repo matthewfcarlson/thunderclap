@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Q_18f4d0 {
@@ -14,7 +15,7 @@ struct X_18f4d0 {
     Y_18f4d0* GetY();
 };
 
-bool hulkfight::motion::SimulationAction::vfunc_3(int __p0, int __p1) {
+bool hulkfight::motion::SimulationAction::vfunc_3(hulk_intptr __p0, hulk_intptr __p1) {
     X_18f4d0* x = (*(X_18f4d0 * *)&this->f_20);
     Y_18f4d0* y = x->GetY();
     Z* z = y->GetZ();

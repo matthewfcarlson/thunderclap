@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 160 inputs, branch coverage 31/32, incomplete)
 // FEThingsBase::vfunc_36 @ 0x000f07b0
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 class Param_f07b0 {
@@ -29,7 +30,7 @@ struct FEThingsBase_nv_f07b0 {
     void FUN_000eff20(Param_f07b0 *p, int b, Target_f07b0 *t, int mode);
 };
 
-bool FEThingsBase::vfunc_36(int __p0, int b, int __p2, int __p3) { Param_f07b0 * p = (Param_f07b0 *)__p0; Target_f07b0 * t = (Target_f07b0 *)__p2; Args_f07b0 * a = (Args_f07b0 *)__p3;
+bool FEThingsBase::vfunc_36(hulk_intptr __p0, int b, hulk_intptr __p2, hulk_intptr __p3) { Param_f07b0 * p = (Param_f07b0 *)__p0; Target_f07b0 * t = (Target_f07b0 *)__p2; Args_f07b0 * a = (Args_f07b0 *)__p3;
 
     switch (a->GetKey()) {
     case 0x800e8237:

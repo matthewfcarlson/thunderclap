@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/audio.h"
 
 typedef unsigned int size_t;
@@ -23,7 +24,7 @@ class Receiver {
 };
 
 } // namespace audio
-void audio::SeqEventCondition::vfunc_2(int __p0) { Receiver * r = (Receiver *)__p0;
+void audio::SeqEventCondition::vfunc_2(hulk_intptr __p0) { Receiver * r = (Receiver *)__p0;
 
     r->send(new (&bss) SeqCommandCondition_24ff10(this));
 }

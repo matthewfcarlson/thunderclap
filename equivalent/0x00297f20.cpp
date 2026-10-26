@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 13/14, incomplete)
 // pure3d::scenegraph::ScenegraphLoader::vfunc_5 @ 0x00297f20
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 extern "C" void *__cdecl FUN_00263ea0(unsigned int size);
@@ -73,7 +74,7 @@ struct ScenegraphLoader_nv_297f20 {
     RefObject_297f20 *FUN_00297ba0(Stream_297f20 *s, void *ctx);
 };
 
-void pure3d::scenegraph::ScenegraphLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int __p3) { Scenegraph_297f20 ** outSg = (Scenegraph_297f20 **)__p0; unsigned long long * outId = (unsigned long long *)__p1; Stream_297f20 * s = (Stream_297f20 *)__p2; void * ctx = (void *)__p3;
+void pure3d::scenegraph::ScenegraphLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr __p3) { Scenegraph_297f20 ** outSg = (Scenegraph_297f20 **)__p0; unsigned long long * outId = (unsigned long long *)__p1; Stream_297f20 * s = (Stream_297f20 *)__p2; void * ctx = (void *)__p3;
 
     Frame_297f20 f;
     s->reader->FUN_002647e0(&f.len, 1, 1, 1);

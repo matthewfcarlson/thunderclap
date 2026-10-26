@@ -35,7 +35,7 @@ class Track_2390f0 {
 };
 extern Obj_2390f0* __cdecl Alloc(int);
 
-int fight::PrintTrack::vfunc_10(int __p0, int __p1, int __p2) { Obj_2390f0 * a = (Obj_2390f0 *)__p0; Obj_2390f0 * b = (Obj_2390f0 *)__p1; Obj_2390f0 * p = (Obj_2390f0 *)__p2;
+hulk_intptr fight::PrintTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { Obj_2390f0 * a = (Obj_2390f0 *)__p0; Obj_2390f0 * b = (Obj_2390f0 *)__p1; Obj_2390f0 * p = (Obj_2390f0 *)__p2;
 
     Obj_2390f0* q = Alloc(0x24);
     if (q) {

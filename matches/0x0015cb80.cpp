@@ -11,7 +11,7 @@ class B_15cb80 {
     void third(int);
 };
 
-bool hulkfight::motion::LocomotingAction::vfunc_3(int __p0, int __p1) {
+bool hulkfight::motion::LocomotingAction::vfunc_3(hulk_intptr __p0, hulk_intptr __p1) {
     hulk_intptr x;
     if ((*(A_15cb80 * *)&this->f_1c) == 0)
         return false;

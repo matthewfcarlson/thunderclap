@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 class Helper_124ce0 {
@@ -8,7 +9,7 @@ class Helper_124ce0 {
     void Act();
 };
 
-bool hulkfight::ai::ClearProjectileDistanceAction::vfunc_5(int a, int b) {
+bool hulkfight::ai::ClearProjectileDistanceAction::vfunc_5(hulk_intptr a, int b) {
     if (a != 0)
         return true;
     Helper_124ce0* x = (*(Helper_124ce0 * *)&this->f_20)->Get();

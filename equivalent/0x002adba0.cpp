@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20085 inputs, branch coverage 32/32)
 // pure3d::PNGHandler::vfunc_9 @ 0x002adba0
 // pure3d::PNGHandler::vfunc_9 @ 0x002adba0
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct png_struct;
@@ -49,7 +50,7 @@ void FUN_002ad9d0(png_struct *png, png_info *info, ImageSink_2adba0 *sink);
 // equiv-conv: FUN_002adb10 eax esi edi
 void FUN_002adb10(png_info *info, png_struct *png, ImageSink_2adba0 *sink);
 
-void pure3d::PNGHandler::vfunc_9(int __p0, int __p1) { void * io = (void *)__p0; ImageSink_2adba0 * sink = (ImageSink_2adba0 *)__p1;
+void pure3d::PNGHandler::vfunc_9(hulk_intptr __p0, hulk_intptr __p1) { void * io = (void *)__p0; ImageSink_2adba0 * sink = (ImageSink_2adba0 *)__p1;
 
     struct Frame {
         png_struct *png;

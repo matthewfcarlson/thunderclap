@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // CGrappleUninterruptibleTrack::vfunc_12 @ 0x0005b350
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 void *FUN_0008d690(unsigned int size);
@@ -24,7 +25,7 @@ struct CUninterruptibleAction_5b350 {
     void *FUN_00020020(Weapon *weapon, int value);
 };
 
-int CGrappleUninterruptibleTrack::vfunc_12(int __p0) { Link1_5b350 * owner = (Link1_5b350 *)__p0;
+hulk_intptr CGrappleUninterruptibleTrack::vfunc_12(hulk_intptr __p0) { Link1_5b350 * owner = (Link1_5b350 *)__p0;
 
     if (owner == 0)
         return (int)(0);
@@ -46,5 +47,5 @@ int CGrappleUninterruptibleTrack::vfunc_12(int __p0) { Link1_5b350 * owner = (Li
     CUninterruptibleAction_5b350 *effect = (CUninterruptibleAction_5b350 *)FUN_0008d690(0x24);
     if (effect == 0)
         return (int)(0);
-    return (int)(effect->FUN_00020020(weapon, this->f_14));
+    return (hulk_intptr)(effect->FUN_00020020(weapon, this->f_14));
 }

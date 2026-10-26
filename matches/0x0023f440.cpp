@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 typedef unsigned int size_t;
@@ -45,7 +46,7 @@ class BreakPointAction_23f440 : public BreakPointActionBase {
 };
 
 } // namespace fight
-int fight::BreakPointTrack::vfunc_10(int a, int b, int __p2) { Ref * r = (Ref *)__p2;
+hulk_intptr fight::BreakPointTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr __p2) { Ref * r = (Ref *)__p2;
 
-    return (int)(new BreakPointAction_23f440(this, r));
+    return (hulk_intptr)(new BreakPointAction_23f440(this, r));
 }

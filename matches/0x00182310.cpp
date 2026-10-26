@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct Tgt_182310 {
@@ -27,7 +28,7 @@ class Action_182310 {
     virtual bool vfunc_2();
 };
 
-bool hulkfight::motion::PropDamageAction::vfunc_3(int , int ) {
+bool hulkfight::motion::PropDamageAction::vfunc_3(hulk_intptr , hulk_intptr ) {
     if (!(*(Src_182310 * *)&this->f_20))
         return false;
     {

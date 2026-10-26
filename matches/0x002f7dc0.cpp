@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/physics.h"
 
 class Obj_2f7dc0 {
@@ -17,7 +18,7 @@ class Ref_2f7dc0 {
     virtual void f4(void*, int, void*, int, int, int, int);
 };
 
-unsigned int physics::CollisionSolverAgent::vfunc_6(unsigned int __p0, unsigned int __p1, unsigned int __p2, unsigned int __p3, unsigned int __p4, unsigned int __p5, unsigned int __p6, unsigned int __p7, unsigned int __p8) { void * a = (void *)__p0; int b = (int)__p1; void * c = (void *)__p2; int d = (int)__p3; int e = (int)__p4; int f = (int)__p5; int g = (int)__p6; int * p = (int *)__p7; int * q = (int *)__p8;
+unsigned int physics::CollisionSolverAgent::vfunc_6(hulk_uintptr __p0, unsigned int __p1, hulk_uintptr __p2, unsigned int __p3, unsigned int __p4, unsigned int __p5, unsigned int __p6, hulk_uintptr __p7, hulk_uintptr __p8) { void * a = (void *)__p0; int b = (int)__p1; void * c = (void *)__p2; int d = (int)__p3; int e = (int)__p4; int f = (int)__p5; int g = (int)__p6; int * p = (int *)__p7; int * q = (int *)__p8;
 
     if (*p && !((Ref_2f7dc0*)*p)->state && !((Obj_2f7dc0*)a)->state)
         ((Obj_2f7dc0*)a)->helper(1);

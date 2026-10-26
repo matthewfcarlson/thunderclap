@@ -8,7 +8,7 @@ struct Node_524d0 { char pad[0x330]; Result* first; Result* second; Result* thir
 struct Intermediate { Node_524d0* FUN_00059a30(); };
 struct Input { Intermediate* FUN_000592a0(); };
 
-int CGrappleFightNodeTimeCondition::vfunc_7(void* __p0) { Input * input = (Input *)__p0;
+hulk_intptr CGrappleFightNodeTimeCondition::vfunc_7(void* __p0) { Input * input = (Input *)__p0;
 
     if (!input) return (int)(0);
     Node_524d0* node = input->FUN_000592a0()->FUN_00059a30();

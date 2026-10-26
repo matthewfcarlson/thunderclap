@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/fight.h"
 
 class ReaderInner {
@@ -26,7 +27,7 @@ class ReaderInner {
     virtual void f21();
 };
 
-int fight::IFileDataReader::vfunc_4(int a, int b) {
+int fight::IFileDataReader::vfunc_4(hulk_intptr a, int b) {
     (*(ReaderInner * *)&this->f_08)->f3(a, b, 1);
     (*(ReaderInner * *)&this->f_08)->f21();
     return b;

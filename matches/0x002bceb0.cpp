@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 struct Chunk_2bceb0 {
@@ -30,7 +31,7 @@ struct Helper_2bceb0 {
 };
 void* operator new(unsigned);
 
-void pure3d::BillboardObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int x) { BO ** out = (BO **)__p0; int * info = (int *)__p1; Chunk_2bceb0 * c = (Chunk_2bceb0 *)__p2;
+void pure3d::BillboardObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr x) { BO ** out = (BO **)__p0; int * info = (int *)__p1; Chunk_2bceb0 * c = (Chunk_2bceb0 *)__p2;
 
     if (c->Id() == 0x17006) {
         BO* o = (BO*)operator new(0x60);

@@ -14,7 +14,7 @@ class Action_23e330 {
 };
 extern void* Alloc(hulk_uintptr);
 
-int fight::WaitTrack::vfunc_10(int __p0, int __p1, int __p2) { void * p2 = (void *)__p0; void * p3 = (void *)__p1; Ref_23e330 * p4 = (Ref_23e330 *)__p2;
+hulk_intptr fight::WaitTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { void * p2 = (void *)__p0; void * p3 = (void *)__p1; Ref_23e330 * p4 = (Ref_23e330 *)__p2;
 
     Action_23e330* r = (Action_23e330*)Alloc(0x28);
     if (r) {
