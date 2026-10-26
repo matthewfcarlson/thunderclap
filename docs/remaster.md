@@ -1,5 +1,20 @@
 # Remastered renderer (R0: design and feasibility)
 
+**Vision (user, 2026-10-26).** The project builds two versions of the game from one tree:
+- **The faithful port** is the 2005 game, exact. It is replay-checked against the Xbox. Its simulation never changes.
+- **The remaster** answers "what would this game be like if it were made today?". It goes well beyond graphics: new
+  mechanics such as co-op (section 6.1), modern systems and rendering are all in scope.
+
+The remaster is therefore free to change gameplay. The render-only rule and the "replay equal to the normal build" gate
+in the sections below now apply only to the remaster's *faithful-gameplay preset*. That preset is the baseline its
+graphics work is tested against; it is not a limit on the remaster as a whole. Gameplay changes sit behind their own
+flags (`HULK_COOP` and later ones), with the remaster's own tests. They never touch the faithful port, and every
+verified source keeps its proof with the flags off.
+
+**Pace.** The effort figures below were written in human-team weeks. This project went from an empty repository to
+every function verified, a Wine build matching the Xbox replay to frame 8,640 and a linking arm64 build in under a month.
+Read the stage sizes as relative weights, not schedules.
+
 Written 2026-10-25 (R0). Design study for a second, "remastered" renderer for the native port. It adds ray tracing,
 reflections, PBR materials, full mip chains, fog control, longer draw distances and replacement models. The faithful
 pddi/bgfx backend ([graphics-backend.md](graphics-backend.md)) stays the reference. Nothing here is built yet. No
