@@ -529,21 +529,53 @@ Prerequisites outside this plan:
 - a SteamOS build;
 - a Deck for measurements.
 
-### 6.0 Remaster gameplay features (user's list, 2026-10-26)
+### 6.0 The remaster wishlist (user, 2026-10-26)
 
-These are new mechanics for "the game made today". Each sits behind its own flag, has its own tests, and never touches
-the faithful port.
+This is the user's own list for "the game made today", grouped by area; an item ending in "?" was posed as a question
+by the user. Co-op and the items added just before it are folded in. Every gameplay item sits behind a remaster-only
+flag with its own tests. None touches the faithful port or any proof. Each area starts with a feasibility pass that maps
+the game systems involved.
 
-| Feature | Idea | Starts from |
-|---|---|---|
-| **Co-op** | A second player, locally and online (6.1). | The player/controller-agent singleton, plus the deterministic lockstep the replay work proved. |
-| **Destructible buildings** | Buildings break up physically: fractured pieces, collapse driven by structural damage, debris that stays, and full persistence of the city's damage instead of the original's fixed break states. | The game's existing destruction (breakable props and building pieces, the physics in `src/engine/physics`), and the renderer's far-field and RT work for showing damaged geometry. |
-| **Cleanup crews** | The city reacts over time. Crews arrive and clear rubble, repair and rebuild damaged buildings, reopen roads. That makes damage meaningful, and it's a cue for the next escalation. | A world-state layer that records damage per building and block and schedules repair actors. It builds on the persistence the destruction feature adds. |
-| **Better enemy AI** | Modern behaviour: squads that coordinate (flanking, suppression, retreat, regrouping), use of cover and verticality, vehicles and aircraft that work together, units that react to the destruction around them. | The game's AI (the behaviour selectors such as `CGolem::vfunc_4`, the `CRangedAgent`/`CPathAgent` family and the fight system), reworked behind the flag. |
-| **Better enemy spawning** | A director instead of fixed spawn rules: it paces encounters by player state, heat level and the destruction caused, spawns believably (off-screen, from roads and air), and scales difficulty in co-op. | The spawn logic and the Lua `om::Stream` / `cm_IsPointInCameraView` hooks found in R0 (section 3.2). |
+**Rendering and simulation fidelity**
 
-The order is open. Co-op and the director work well together, as do destruction and cleanup crews. Each starts with a
-feasibility pass (as C0 for co-op) that maps the game systems involved.
+| Item | Notes |
+|---|---|
+| Ray tracing? | R4 above: RT shadows, reflections and AO, gated by hardware. |
+| Remove fog, plus more mip levels | R2 above: fog controls, full mip chains, anisotropic filtering, longer draw distance. |
+| Revamp lighting with global illumination? | R3/R4: deferred lighting, then RT GI (DDGI-style probes) on capable hardware. Needs generated normals and de-lit albedo, because the world's light is baked in. |
+| Proper material properties (e.g. glass has reflections) | R3 PBR with `mat` packs: glass, metal, water and wet surfaces, with per-kind defaults where no pack exists. |
+| Weather system? | A render-side weather and time-of-day system (rain, wet surfaces, clouds, fog density, a day/night cycle). In the remaster it may also affect gameplay: traction, visibility, crowd behaviour. |
+| Sub-tick physics? | Physics substepping within a frame, or decoupled from the render rate, for stable fast collisions, destruction and high frame rates. It starts from the game's physics (`src/engine/physics`, the impulse solver). |
+
+**Destruction and the living city**
+
+| Item | Notes |
+|---|---|
+| Dynamic building slicing (real-time mesh cutting) | Real-time mesh cutting and fracture of building geometry, with structural collapse, replacing the original's fixed break states. Debris is simulated and drawn by the remaster renderer. |
+| The ground is destructible: jumping from a height leaves a crater | Deformable terrain and roads, with crater size scaled by fall height and mass. It needs a modifiable ground representation (height or voxel patches) beside the original collision. |
+| Wall running and climbing damage buildings | Hulk's traversal leaves cracks, crumbles ledges and can break through weak walls. It ties into the slicing system. |
+| Rubble is somewhat persistent, and cleanup crews and garbage trucks clean it up | A persistent damage and rubble state per block, with clean-up vehicles and crews that clear it over time. |
+| City repair loop: construction crews repair destroyed or damaged buildings | Repair actors rebuild damage in stages (scaffolding, then rebuilt sections). The city recovers, so destruction has consequences and a rhythm. |
+| Repair crews can be attacked | Crews are full actors: they react, flee, call for protection, and attacking them affects heat and the military response. |
+
+**Enemies, the military and the city's people**
+
+| Item | Notes |
+|---|---|
+| Counter-Hulk tactics that pay attention to the move set | Enemies read what Hulk is doing (charging, grabbing, leaping, throwing) and counter it: spread out against shockwaves, dodge charges, target him while he's airborne, use anti-grab tactics. Adaptive behaviour from the move history. |
+| Military coordination | Squads, vehicles and aircraft coordinate: flanking, suppression, combined arms, a command structure. |
+| Dynamic pathfinding and traversal | Navigation that adapts to destruction (rubble, craters, collapsed buildings) and lets enemies climb and use rooftops. |
+| Better traffic and civilian AI | Believable traffic and crowds: panic, evacuation, rubbernecking, emergency services, traffic that reroutes around damage. |
+| Better enemy spawning (a director) | Paces encounters by player state, heat and destruction, spawns believably (roads, air, off-screen), and scales for co-op. |
+| Media helicopters, and live broadcasts on TVs | News helicopters follow the action. In-world TVs and billboards show a live feed of the player's rampage, drawn by the remaster renderer as a render-to-texture camera. |
+
+**Hulk's move set and traversal**
+
+| Item | Notes |
+|---|---|
+| Bigger cars make bigger, stronger gloves, but all attacks are slower and charged | It extends the original's car "gloves": the size and mass of the vehicle scale damage, reach and wind-up. |
+| Better traversal: jump right as you land for a big forward momentum boost | A timing-based momentum chain (landing jump, wall-run carry-over) that rewards skilled movement, with tuned air control. |
+| Co-op | Section 6.1: local, then online by deterministic lockstep. |
 
 ### 6.1 Co-op (requested 2026-10-26; gameplay, not rendering)
 
