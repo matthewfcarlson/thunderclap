@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3050 inputs, branch coverage 98/98)
+// STATUS: equivalent (tools/equiv.py level 3: 3050 inputs, branch coverage 98/98; --wine 722 inputs)
 // hulkfight::motion::TankLocomotionAction::vfunc_5 @ 0x0018f6d0
 #include "decls/address.h"
 #include "compat/ptr.h"
@@ -238,15 +238,17 @@ bool TankLocomotionAction::vfunc_5(int a, float dt)
         }
     }
 
-    float r = (FUN_00224fc0(hC, hU) * 0.31830987334251404f) * settings->f28;
+    hulk_freg rx = (FUN_00224fc0(hC, hU) * 0.31830987334251404f) * settings->f28;
+    float r = (float)rx;
     float k28 = settings->f28;
     float k24 = settings->f24;
+    hulk_freg rr = rx;
     if (k24 > 0.0f) {
         float am = FAbs(a90);
         float mn = am < k24 ? am : k24;
-        r = r - (((FUN_00083d90(&a90) * mn) / k24) * k28);
+        rr = r - (((FUN_00083d90(&a90) * mn) / k24) * k28);
     }
-    hulk_freg a90n = r * dt + a90;
+    hulk_freg a90n = rr * dt + a90;
     a90 = a90n;
     Vec3_18f6d0 vF8 = (*(Vec3_18f6d0*)&DAT_004bfc24);
     float ang = (a90n * dt) + hC;
@@ -359,7 +361,8 @@ bool TankLocomotionAction::vfunc_5(int a, float dt)
                 hitp.x = pos.x;
                 hitp.y = y0;
                 hitp.z = pos.z;
-                if (DAT_004dd700->holder->FUN_000862a0()->FUN_00204440(DAT_004dd700->holder->FUN_000862a0()->FUN_00204200(Q.x, Q.y, Q.z))) {
+                Zone *zq = DAT_004dd700->holder->FUN_000862a0()->FUN_00204200(Q.x, Q.y, Q.z);   // MSVC evaluates the argument before the receiver
+                if (DAT_004dd700->holder->FUN_000862a0()->FUN_00204440(zq)) {
                     Vec3_18f6d0 dd;
                     dd.x = pos.x - pts[i].x;
                     dd.y = 0.0f;
@@ -427,7 +430,7 @@ bool TankLocomotionAction::vfunc_5(int a, float dt)
             else if (nv > L14)
                 vel[i] = L14;
         }
-        float ny = dt * vel[i] + pts[i].y;
+        hulk_freg ny = dt * vel[i] + pts[i].y;
         pts[i].y = ny;
         pos.y = ny + pos.y;
     }
@@ -447,18 +450,20 @@ bool TankLocomotionAction::vfunc_5(int a, float dt)
     }
     ent->FUN_000359c0(mode);
 
-    Vec3_18f6d0 D1;
-    D1.x = pts[1].x + pts[0].x;
-    D1.y = pts[1].y + pts[0].y;
-    D1.z = pts[0].z + pts[1].z;
-    D1.x = D1.x - pts[2].x;
-    D1.y = D1.y - pts[2].y;
-    D1.z = D1.z - pts[2].z;
-    D1.x = D1.x - pts[3].x;
-    D1.y = D1.y - pts[3].y;
-    D1.z = D1.z - pts[3].z;
-    volatile float hy1 = D1.y * 0.5f;
-    double L1 = sqrt((D1.z * 0.5f) * (D1.z * 0.5f) + (D1.x * 0.5f) * (D1.x * 0.5f));
+    // MSVC keeps x1, y1, y2, z2, z3 in x87 registers (53-bit) and stores only x2, x3, y3, z1
+    hulk_freg x1 = pts[1].x + pts[0].x;
+    hulk_freg y1 = pts[1].y + pts[0].y;
+    float z1 = pts[0].z + pts[1].z;
+    float x2 = x1 - pts[2].x;
+    hulk_freg y2 = y1 - pts[2].y;
+    hulk_freg z2 = z1 - pts[2].z;
+    float x3 = x2 - pts[3].x;
+    float y3 = y2 - pts[3].y;
+    hulk_freg z3 = z2 - pts[3].z;
+    volatile float hy1 = y3 * 0.5f;
+    hulk_freg zh1 = z3 * 0.5f;
+    hulk_freg xh1 = x3 * 0.5f;
+    double L1 = sqrt(zh1 * zh1 + xh1 * xh1);
     float pitch;
     if (FAbs((float)L1) <= 1e-5f)
         pitch = 0.0f;
@@ -473,18 +478,19 @@ bool TankLocomotionAction::vfunc_5(int a, float dt)
         pitch = s34;
     }
 
-    Vec3_18f6d0 D2;
-    D2.x = pts[0].x + pts[2].x;
-    D2.y = pts[0].y + pts[2].y;
-    D2.z = pts[0].z + pts[2].z;
-    D2.x = D2.x - pts[1].x;
-    D2.y = D2.y - pts[1].y;
-    D2.z = D2.z - pts[1].z;
-    D2.x = D2.x - pts[3].x;
-    D2.y = D2.y - pts[3].y;
-    D2.z = D2.z - pts[3].z;
-    volatile float hy2 = D2.y * 0.5f;
-    double L2 = sqrt((D2.z * 0.5f) * (D2.z * 0.5f) + (D2.x * 0.5f) * (D2.x * 0.5f));
+    hulk_freg x1b = pts[0].x + pts[2].x;
+    hulk_freg y1b = pts[0].y + pts[2].y;
+    float z1b = pts[0].z + pts[2].z;
+    float x2b = x1b - pts[1].x;
+    hulk_freg y2b = y1b - pts[1].y;
+    hulk_freg z2b = z1b - pts[1].z;
+    float x3b = x2b - pts[3].x;
+    float y3b = y2b - pts[3].y;
+    hulk_freg z3b = z2b - pts[3].z;
+    volatile float hy2 = y3b * 0.5f;
+    hulk_freg zh2 = z3b * 0.5f;
+    hulk_freg xh2 = x3b * 0.5f;
+    double L2 = sqrt(zh2 * zh2 + xh2 * xh2);
     float roll;
     if (FAbs((float)L2) <= 1e-5f)
         roll = 0.0f;

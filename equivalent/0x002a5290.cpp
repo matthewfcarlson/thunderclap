@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 42 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 18/18; --wine 73 inputs)
 // FUN_002a5290 @ 0x002a5290
+#include "compat/ptr.h"
 #include "decls/data/engine/pure3d.h"
 
 extern "C" double fmod(double x, double y);
@@ -49,14 +50,16 @@ void FUN_002a5290(float t, Track *a, Track *b, unsigned int flags, float *c)
                 continue;
             if (dstUv[i] == 0)
                 continue;
-            float u = t * c[1];
-            float f1 = (float)fmod(u * c[5], 1.0);
-            float f2 = (float)fmod(u * c[6], 1.0);
+            hulk_freg uu = t * c[1];   // `fst [temp]`: the first fmod gets the register, the second the stored float
+            float ur = (float)uu;
+            float f1 = (float)fmod(uu * c[5], 1.0);
+            hulk_freg f2 = fmod(ur * c[6], 1.0);
+            hulk_freg g1 = f1;
             if (f1 < 0.0)
-                f1 = 1.0f - f1;
+                g1 = 1.0f - f1;
             if (f2 < 0.0)
                 f2 = 1.0f - f2;
-            dstUv[i][n].x = f1 + srcUv[i][n].x;
+            dstUv[i][n].x = g1 + srcUv[i][n].x;
             dstUv[i][n].y = f2 + srcUv[i][n].y;
         }
     } while (n != 0);

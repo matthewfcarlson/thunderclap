@@ -27,7 +27,8 @@ void CGrabAction::vfunc_4() {
     if (m->ptr == this)
         m->ptr = 0;
     if ((*(void * *)&this->f_28)) {
-        FUN_001b6580()->run((*(void * *)&this->f_28));
+        void* arg = (*(void * *)&this->f_28);
+        FUN_001b6580()->run(arg);
         Obj_1e820* q = (Obj_1e820*)(*(void * *)&this->f_28);
         if (q) {
             q->f1();

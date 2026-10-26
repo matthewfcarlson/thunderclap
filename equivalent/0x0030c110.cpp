@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 4/4; --wine 617 inputs)
 // physics::PhysicsJoint1D::vfunc_12 @ 0x0030c110
 extern "C" double sqrt(double);
+#include "compat/ptr.h"
 
 struct V3_30c110 {
     float x, y, z;
@@ -65,8 +66,9 @@ void PhysicsJoint1D::vfunc_12(float a1, float a2, float a3, float a4, V3_30c110 
 {
     float cx = aAxis.y * bAxis.z - aAxis.z * bAxis.y;
     float cy = aAxis.z * bAxis.x - aAxis.x * bAxis.z;
-    float cz = aAxis.x * bAxis.y - aAxis.y * bAxis.x;
-    float len = (float)sqrt(cz * cz + cy * cy + cx * cx);
+    hulk_freg czr = aAxis.x * bAxis.y - aAxis.y * bAxis.x;
+    float cz = (float)czr;  // stored (`fst`), but the register copy is what the first square multiplies
+    float len = (float)sqrt(czr * cz + cy * cy + cx * cx);
     Owner_30c110 *o = owner;
     float t5 = -((cz * e->z + cx * e->x + cy * e->y) * a1);
     float t6 = -((cz * f->z + cy * f->y + cx * f->x) * a2);

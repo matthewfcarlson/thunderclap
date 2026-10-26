@@ -1,4 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 20/20; --wine 623 inputs)
+#include "compat/ptr.h"
 // hulkfight::motion::BallAndChainReturnAction::vfunc_5 @ 0x00182740
 // hulkfight::motion::BallAndChainReturnAction::vfunc_5 @ 0x00182740
 #include "decls/address.h"
@@ -177,8 +178,9 @@ bool BallAndChainReturnAction::vfunc_5(int state, float dt)
     f.d.z = f.d.z - pos.z;
     f.d.FUN_0022d110();
 
-    speed = dt * cfg->f1c + speed;
-    dist = dist - speed * dt;
+    hulk_freg spd = dt * cfg->f1c + speed;   // `fst [this+0x3c]`: the register keeps the unrounded sum for the next product
+    dist = dist - spd * dt;
+    speed = spd;
     if (f.holder->held != 0)
         FUN_00098190(dt, speed, cfg->f20, 0, f.holder->held, cfg->f24, &pos, &dir, 0, 0, 0, 1);
 

@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 21/22, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3033 inputs, branch coverage 21/22; --wine 634 inputs)
 // CHeliDeathSpiralAction::vfunc_7 @ 0x00018170
 #include "decls/address.h"
+#include "compat/ptr.h"
 struct Vec3_18170 {
     float x, y, z;
     float FUN_0022d110();
@@ -117,7 +118,7 @@ bool CHeliDeathSpiralAction::vfunc_7(float dt)
     if (other != 0) {
         other->anchor->FUN_00059a50(&w);
     }
-    float ground = DAT_004dd700->ground->FUN_00099b70();
+    hulk_freg ground = DAT_004dd700->ground->FUN_00099b70();
     if (p.y >= ground) {
         if (goal.y > 0.0f) {
             goal.y = 0.0f;
@@ -132,41 +133,40 @@ bool CHeliDeathSpiralAction::vfunc_7(float dt)
     Vec3_18170 c = pos;
     Vec3_18170 *bp = &pos;
     float rate = params->followRate;
-    float zx;
-    float zy;
+    hulk_freg zx;
+    hulk_freg zy;
+    float zz;
     if (rate <= 0.0f) {
         zx = goal.x;
         zy = goal.y;
-        c.z = goal.z;
+        zz = goal.z;
     } else {
         Vec3_18170 d;
         d.x = goal.x - c.x;
         d.y = goal.y - c.y;
         d.z = goal.z - c.z;
         float s = rate * dt;
-        float len = d.FUN_0022d110();
+        hulk_freg len = d.FUN_0022d110();
         if (len <= s) {
             zx = goal.x;
             zy = goal.y;
-            c.z = goal.z;
+            zz = goal.z;
         } else {
             d.y = d.y * s;
             d.z = d.z * s;
             zx = d.x * s + c.x;
             zy = d.y + c.y;
-            c.z = d.z + c.z;
+            zz = d.z + c.z;
         }
     }
     bp->x = zx;
-    bp->z = c.z;
+    bp->z = zz;
     bp->y = zy;
     Vec3_18170 pf;
-    pf.x = pos.x * dt;
-    pf.y = pos.y * dt;
-    pf.z = pos.z * dt;
-    pf.x = p.x + pf.x;
-    pf.y = pf.y + p.y;
-    pf.z = p.z + pf.z;
+    pf.x = p.x + pos.x * dt;   // the stored (float) position, reloaded
+    pf.y = p.y + pos.y * dt;
+    volatile float pz = zz * dt;   // stored (`fstp`) before the add, under both compilers
+    pf.z = p.z + pz;
     target->xform.FUN_0022be40(&pf);
     float na = dt * spin + angle;
     angle = na;

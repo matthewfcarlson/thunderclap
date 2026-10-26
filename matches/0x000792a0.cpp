@@ -25,7 +25,8 @@ struct Registry_792a0 {
 void Registry_792a0::Add(const char* text, int value, char flag)
 {
     Name_792a0 tmp;
-    entries[count].name.FUN_0027af70(tmp.FUN_0027b0e0(text));
+    Name_792a0* t = tmp.FUN_0027b0e0(text);
+    entries[count].name.FUN_0027af70(t);
     tmp.FUN_0027af50();
     entries[count].value = value;
     entries[count].flag = flag;

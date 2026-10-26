@@ -1,4 +1,4 @@
-class CActorManager;
+class CActorManager {};  // complete before the pointer-to-member: single-inheritance (4-byte) representation under every compiler
 template <class T, class A, class R> class Closure1 {
   public:
     virtual void vfunc_0();
@@ -10,7 +10,6 @@ template <class T, class A, class R> class Closure1 {
     int (CActorManager::*method)(const char*);
     CActorManager* object;
 };
-class CActorManager {};
 template <>
 void Closure1<CActorManager, const char*, int>::vfunc_2(void* unused, const char** argument, int* result) {
     CActorManager* obj = object;

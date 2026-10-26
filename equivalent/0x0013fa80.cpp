@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19986 inputs, branch coverage 44/44)
+// STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 44/44; --wine 644 inputs)
 // hulkfight::motion::WallRunAction::vfunc_5 @ 0x0013fa80
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 
 extern "C" double cos(double);
@@ -159,7 +160,7 @@ char WallRunAction::vfunc_5(Arg1_13fa80 a1, Arg2_13fa80 a2)
     f.V.z = v2c.z;
     f.V.y = 0.0f;
     f.V.FUN_0022d110();
-    float d1 = f.V.z * f.U.z + f.V.x * f.U.x + f.V.y * f.U.y;
+    hulk_freg d1 = f.V.z * f.U.z + f.V.x * f.U.x + f.V.y * f.U.y;
     if (DAT_004e0f78 - 1.0f < d1) {
         if (f.U.z * v38.z + f.U.y * v38.y + f.U.x * v38.x < -0.707106769f) {
             ok = false;
@@ -183,8 +184,9 @@ char WallRunAction::vfunc_5(Arg1_13fa80 a1, Arg2_13fa80 a2)
     if (b50 != 0) {
         f.V = v2c;
         f.V.FUN_0022d110();
-        a1.f = f.V.z * stats->v2064.z + f.V.y * stats->v2064.y + f.V.x * stats->v2064.x;
-        if (a1.f < 1.0f) {
+        hulk_freg dd = f.V.z * stats->v2064.z + f.V.y * stats->v2064.y + f.V.x * stats->v2064.x;
+        a1.f = dd;
+        if (dd < 1.0f) {
             f.Y.FUN_000111b0(&f.V, &stats->v2064);
             f.Y.FUN_0022d110();
             double ang = FUN_00018a20(a1.f);
@@ -230,12 +232,12 @@ char WallRunAction::vfunc_5(Arg1_13fa80 a1, Arg2_13fa80 a2)
     v2c.y = a1.f * v2c.y;
     v2c.z = a1.f * v2c.z;
     f.X = v2c;
-    f.X.x = f.X.x * a2.f;
-    f.X.y = f.X.y * a2.f;
-    f.X.z = f.X.z * a2.f;
-    f.X.x = f.X.x + f.P.x;
-    f.X.y = f.X.y + f.P.y;
-    f.X.z = f.X.z + f.P.z;
+    hulk_freg xs = f.X.x * a2.f;   // x and y stay in x87 registers, z is stored before the add
+    hulk_freg ys = f.X.y * a2.f;
+    volatile float zs = f.X.z * a2.f;   // stored before the add, under both compilers
+    f.X.x = xs + f.P.x;
+    f.X.y = ys + f.P.y;
+    f.X.z = zs + f.P.z;
     f28->sub.FUN_0022be40(&f.X);
     f.Y2.x = f.U.x * -1.0f;
     f.Y2.y = 0.0f;

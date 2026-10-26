@@ -3,10 +3,11 @@ struct Thing_22a9e0 {
     int a;
     int b;
     Thing_22a9e0* CopyFrom(Thing_22a9e0*);
+    Thing_22a9e0* FUN_00222460(Thing_22a9e0*);
 };
 
 Thing_22a9e0* Thing_22a9e0::CopyFrom(Thing_22a9e0* other) {
-    CopyFrom(other);
+    FUN_00222460(other);
     a = other->a;
     b = other->b;
     return this;

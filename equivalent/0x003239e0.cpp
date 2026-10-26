@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 22/28, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3065 inputs, branch coverage 28/28; --wine 665 inputs)
 // pure3d::d3dExtFramebufferEffects::vfunc_4 @ 0x003239e0
 #include "decls/data/platform/xbox/pure3d.h"
 
@@ -11,13 +11,13 @@ void d3dExtFramebufferEffects::vfunc_4(float a,float b,float c,float d,int color
 red = int((color>>16)&255)*0.00392156862745098f;
 green = int((color>>8)&255)*0.00392156862745098f;
 blue = int(color&255)*0.00392156862745098f;
-if (!(a >= -100.0f && a <= 100.0f)) a = a > 100.0f ? 100.0f : -100.0f;
+if (!(a >= -100.0f && a <= 100.0f)) { if (a > 100.0f) a = 100.0f; else a = -100.0f; }
 float initial = a * 0.01f + 1.0f; scale = initial;
-if (!(c >= -100.0f && c <= 100.0f)) c = c > 100.0f ? 100.0f : -100.0f;
+if (!(c >= -100.0f && c <= 100.0f)) { if (c > 100.0f) c = 100.0f; else c = -100.0f; }
 curve = c;
 if (!(d >= 0.0f && d <= 1.0f)) d = d > 1.0f ? 1.0f : 0.0f;
 bias = d;
-if (!(b >= -100.0f && b <= 100.0f)) b = b > 100.0f ? 100.0f : -100.0f;
+if (!(b >= -100.0f && b <= 100.0f)) { if (b > 100.0f) b = 100.0f; else b = -100.0f; }
 amount = b * 0.00392156862745098f;
 if (c < 0.0f) {
  curve = c * 0.01f + 1.0f;

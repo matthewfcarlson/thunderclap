@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 18/18; --wine 616 inputs)
 // physics::PhysicsJoint3D::vfunc_11 @ 0x0030b4c0
+#include "compat/ptr.h"
 #include "decls/data/engine/physics.h"
 
 extern "C" double sqrt(double);
@@ -62,19 +63,19 @@ void PhysicsJoint3D::vfunc_11(float a1, float a2, float a3)
     if (flag151 == 1 && settled == 1) {
         return;
     }
-    float dx = posTarget.x - pos.x;
-    float dy = posTarget.y - pos.y;
+    hulk_freg dx = posTarget.x - pos.x;
+    hulk_freg dy = posTarget.y - pos.y;
     float dz = posTarget.z - pos.z;
     float step = DAT_004d31a8 * a3;
-    pos.x = dx * step + pos.x;
+    pos.x = dx * (DAT_004d31a8 * a3) + pos.x;
     pos.y = dy * step + pos.y;
     pos.z = dz * step + pos.z;
 
-    float ex = velTarget.x - vel.x;
-    float ey = velTarget.y - vel.y;
+    hulk_freg ex = velTarget.x - vel.x;
+    hulk_freg ey = velTarget.y - vel.y;
     float ez = velTarget.z - vel.z;
     float step2 = DAT_004d31a4 * a3;
-    vel.x = ex * step2 + vel.x;
+    vel.x = ex * (a3 * DAT_004d31a4) + vel.x;
     vel.y = ey * step2 + vel.y;
     vel.z = ez * step2 + vel.z;
 

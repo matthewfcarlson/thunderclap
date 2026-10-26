@@ -1,12 +1,14 @@
-// STATUS: equivalent (tools/equiv.py level 3: 202 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 2674 inputs, branch coverage 4/4; --wine 582 inputs)
 // FUN_00340a10 @ 0x00340a10
 // Radix-4 pass of a split-radix float FFT (backward first stage, cftb1st style).
 // equiv-conv: FUN_00340a10 eax ecx stack
+#include "compat/ptr.h"
 void FUN_00340a10(float *a, int n, float *w)
 {
     int j, j0, j1, j2, j3, k, m, mh;
     float wn4r, csc1, csc3, wk1r, wk1i, wk3r, wk3i, wd1r, wd1i, wd3r, wd3i;
-    float x0r, x0i, x1r, x1i, x2r, x2i, x3r, x3i;
+    hulk_freg x0r, x0i, x2r;  // MSVC keeps these in x87 registers; everything else is stored
+    float x1r, x1i, x2i, x3r, x3i;
     float y0r, y0i, y1r, y1i, y2r, y2i, y3r, y3i;
 
     mh = n >> 3;
@@ -136,8 +138,8 @@ void FUN_00340a10(float *a, int n, float *w)
         a[j3 - 2] = wd3r * x0i + wd3i * x0r;
         a[j3 - 1] = wd3i * x0i - wd3r * x0r;
     }
-    wk1r = (wd1r + wn4r) * csc1;
-    wk1i = (wd1i + wn4r) * csc1;
+    hulk_freg tk1r = (wd1r + wn4r) * csc1;  // the tail keeps wk1r/wk1i in x87 registers
+    hulk_freg tk1i = (wd1i + wn4r) * csc1;
     wk3r = (wd3r - wn4r) * csc3;
     wk3i = (wd3i - wn4r) * csc3;
     j0 = mh;
@@ -158,8 +160,8 @@ void FUN_00340a10(float *a, int n, float *w)
     a[j1 - 1] = x2i + x0i;
     x0r = x3i + x1r;
     x0i = x3r + x1i;
-    a[j2 - 2] = wk1r * x0r - wk1i * x0i;
-    a[j2 - 1] = wk1r * x0i + wk1i * x0r;
+    a[j2 - 2] = tk1r * x0r - tk1i * x0i;
+    a[j2 - 1] = tk1r * x0i + tk1i * x0r;
     x0r = x1r - x3i;
     x0i = x1i - x3r;
     a[j3 - 2] = wk3i * x0i + wk3r * x0r;
@@ -198,8 +200,8 @@ void FUN_00340a10(float *a, int n, float *w)
     a[j1 + 3] = x2i + x0i;
     x0r = x3i + x1r;
     x0i = x3r + x1i;
-    a[j2 + 2] = wk1i * x0r - wk1r * x0i;
-    a[j2 + 3] = wk1i * x0i + wk1r * x0r;
+    a[j2 + 2] = tk1i * x0r - tk1r * x0i;
+    a[j2 + 3] = tk1i * x0i + tk1r * x0r;
     x0r = x1r - x3i;
     x0i = x1i - x3r;
     a[j3 + 2] = wk3r * x0i + wk3i * x0r;

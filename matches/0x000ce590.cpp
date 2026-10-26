@@ -1,4 +1,4 @@
-extern "C" void __cdecl strncpy(char*, const char*, unsigned int);
+extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 class Thing_ce590 {
     char pad[0x264];
 

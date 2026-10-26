@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 28/28)
+// STATUS: equivalent (tools/equiv.py level 3: 2857 inputs, branch coverage 28/28; --wine 74 inputs)
 // FUN_002ee260 @ 0x002ee260
 struct V3_2ee260 {
     float x, y, z;
@@ -67,7 +67,7 @@ void Tracker_2ee260::FUN_002ee260(Obj_2ee260 *obj)
         b = obj->bounds;
         float x0 = b->GetPos()->x - b->halfX;
         b = obj->bounds;
-        float x1 = b->halfX + b->GetPos()->x;
+        float x1 = b->GetPos()->x + b->halfX;   // the original reads halfX after the call
         b = obj->bounds;
         float z0 = b->GetPos()->z - b->halfZ;
         b = obj->bounds;

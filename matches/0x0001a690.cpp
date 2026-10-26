@@ -34,7 +34,8 @@ Sess* Lookup();
 void CCollisionAction::vfunc_4() {
     Game_1a690* g = (*(Owner_1a690 * *)&this->f_1c)->Get()->Get();
     if ((*(Ref_1a690 * *)&this->f_3c)) {
-        ((Tgt_1a690*)Conv())->Fn((*(Ref_1a690 * *)&this->f_3c));
+        Ref_1a690* arg = (*(Ref_1a690 * *)&this->f_3c);
+        ((Tgt_1a690*)Conv())->Fn(arg);
         if ((*(Ref_1a690 * *)&this->f_3c)) {
             (*(Ref_1a690 * *)&this->f_3c)->Release();
             (*(Ref_1a690 * *)&this->f_3c) = 0;

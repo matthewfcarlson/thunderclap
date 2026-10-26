@@ -17,6 +17,8 @@ public:
     int b;
 };
 void MotionBlurAction::vfunc_4() {
-    FUN_001c3d90()->FUN_001c3830(a, b);
+    int y = b;
+    int x = a;
+    FUN_001c3d90()->FUN_001c3830(x, y);
 }
 }}

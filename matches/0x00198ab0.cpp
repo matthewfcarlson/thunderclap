@@ -46,7 +46,13 @@ ProjectileGroundShockwave_198ab0::~ProjectileGroundShockwave_198ab0() throw() {
         Mgr_198ab0* g = GetMgr();
         g->Remove(m34);
     }
+#if defined(__clang__)
+    // MSVC reads m24 before calling GetReg(); clang calls GetReg() first
+    void* arg = m24;
+    GetReg()->Fn(arg);
+#else
     GetReg()->Fn(m24);
+#endif
     if (m24) {
         m24->Release();
         m24 = 0;
