@@ -1,7 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 8/8; Wine build 606 inputs, 8/8)
 // FUN_001bc530 @ 0x001bc530
 struct Vec2_1bc530 {
     float x, y;
+    float spare;    // FUN_00292cc0 writes three floats through &p (the third lands here, not on the saved ebp)
 };
 
 struct Rect_1bc530 {
@@ -30,7 +31,6 @@ Holder_1bc530* FUN_001c3d90();
 void FUN_001bc530(Rect_1bc530* rect, int arg)
 {
     Vec2_1bc530 p;
-    float spare;
     FUN_001c3d90()->inner->FUN_001c19a0()->FUN_00292cc0(arg, &p);
     if (p.x < rect->minX)
         rect->minX = p.x;
