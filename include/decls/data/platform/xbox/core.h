@@ -19,7 +19,7 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 
 struct DataLayout_004cd6a8;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0052a148;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_0052c270;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_0052c270;  // packed layout (bytes and pointers), defined in the data TU
 
 // core/ControllerXBox.cpp
 extern "C" const float DAT_0042b1a4;  // flt_0042b1a4
@@ -88,7 +88,7 @@ extern "C" unsigned char DAT_0052a229[7];
 extern "C" unsigned char DAT_0052a230[8224];
 extern "C" unsigned char DAT_0052c250[28];
 extern "C" void* DAT_0052c26c[1];
-extern "C" DataLayout_0052c270 DAT_0052c270[1];
+extern "C" DataRec_0052c270 DAT_0052c270[1];
 extern "C" unsigned char DAT_0052c280[4];
 
 // core/unk_26d480.cpp

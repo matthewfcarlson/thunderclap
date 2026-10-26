@@ -14,14 +14,14 @@ void core::ControllerXBox::FUN_00268520() {
     do {
         q -= 4;
         n--;
-        *q = ((hulk_intptr)DAT_003f6098);
+        *(hulk_uintptr*)q = ((hulk_intptr)DAT_003f6098);
     } while (n);
     q = (unsigned long*)((char*)this + 0x428);
     n = 0x14;
     do {
         q -= 0xd;
         n--;
-        *q = ((hulk_intptr)DAT_003f6098);
+        *(hulk_uintptr*)q = ((hulk_intptr)DAT_003f6098);
     } while (n);
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_003f6098);
 }

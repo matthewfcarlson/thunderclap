@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20019 inputs, branch coverage 11/12, incomplete)
 // FUN_001e8d40 @ 0x001e8d40
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/data/engine/content.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -16,10 +17,10 @@ struct Clip {
  void FUN_001e8d40();
 };
 void Clip::FUN_001e8d40() {
- if (active == 0 && (*(int*)&DAT_004e3694) == 0) {
+ if (active == 0 && (*(hulk_intptr*)&DAT_004e3694) == 0) {
  char name[16];
  sprintf(name, "%d.%s", this, "clips");
- (*(Manager_1e8d40**)&DAT_00527c58)->FUN_00265920(name, ((int*)&DAT_004e3694), 1);
+ (*(Manager_1e8d40**)&DAT_00527c58)->FUN_00265920(name, ((hulk_intptr*)&DAT_004e3694), 1);
  unsigned int type = kind;
  active = 1;
  double amount = (int)size;

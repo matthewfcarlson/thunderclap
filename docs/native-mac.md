@@ -362,3 +362,46 @@ HULK_DATA_DIR=/private/dir build/venv/bin/python tools/data_gen.py         # a p
 build/venv/bin/python tools/wine_build_job.py submit ... --data-src /private/dir/src   # a Wine build with them
 build/venv/bin/python tools/data_ptrs.py lint ACC.jsonl --json LINT.json
 ```
+
+## 11. Round 3 (x64-5, 2026-10-26): record-typed data, the deref pun, vftables at link time
+
+**Record-typed data items.** `tools/data_ptrs.py scan` records, for each access through a cast to a record pointer
+(`((Entry_3618a0*)&DAT_004d4d08)[i].fn`), the record's own field list (nested records and arrays included);
+`evidence` keeps, per item, the record views with a pointer or code field (merged per base and stride; layouts that
+only split plain bytes differently merge, the one with the most pointer leaves wins). `data_gen.py` emits such an
+item as an array of that record (`DataRec_<addr>`, naturally aligned on every target, its 32-bit size asserted), a
+wrapper for a partial last element (`DataLayout_<addr> { r[N]; t; }`) or to keep a scalar item scalar. The sources
+keep their casts: their record has the same layout as the item on both targets, so `[i]` indexes it correctly on
+64-bit. 39 items (the pure3d shader handler tables, the button bindings, the console command tables, ...). Lint:
+209 -> 47 accesses; the rest are inventory carving (one region split into items, or several regions in one), the
+sources' own declarations of pinned items (x64-6's names), and false code pointers (build/x64-5/notes.md).
+
+**The deref pun.** `tools/ptr_deref.py`: a pointer stored or loaded through an `int*` variable (`*p =
+(hulk_intptr)&g_vt_x`) becomes `*(hulk_intptr*)p`. MSVC 7.1 is not neutral to it: in 82 of 114 byte-matched sources
+the cast moves the store (an aliasing/scheduling difference: `mov [esi], vt` after the next load), so only the 32
+that still MATCH and the 6 equivalents (objects identical) are kept. The others need the variable's own type (when
+its other uses allow) or the record types.
+
+**vftables and RTTI at link time.** `native_mac.py link` writes the game's 4,268 vftables, 4,266 locators, 4,238
+hierarchies and base class arrays and 4,259 base class descriptors (config/data.json's code-owned items) in their
+64-bit MS form into `link/rtti.s`: vftable slots are 8 bytes, each bound to the tree's own definition at the XBE
+slot's address (`TreeDefs`: the tree build's report, matched to the 64-bit objects by demangled form; 21,460 of
+27,440 slots; the rest are `hulk_x_<addr>`, functions without a verified definition), locators and descriptors carry
+offsets from the record as clang's do, so src/platform/sdl/host/rtti_msabi.cpp reads both alike. Labels are the
+by-address names the sources use (`DAT_<addr>`, slot 0 at `DAT_<addr+4>`).
+
+**Native link on HEAD 56c5894c1** (no name table, nothing aliased; tree 2,625 / 2,626 TUs, data 1,078 / 1,078):
+ld64 links (rc 0, no warnings). 56,158 undefined symbols, 59,277 references:
+
+| group | symbols | references | who resolves it |
+|---|---|---|---|
+| `FUN_<addr>` names whose address the tree defines under another name | 26,190 | 26,894 | x64-6 (names in sources) |
+| members of TU-namespace (`fn_`) stub classes | 24,394 | 24,394 | x64-6 |
+| vftable variables by invented names (`refcount_vftable`, `g_vftable2`) | 1,793 | 1,794 | x64-6 (to `DAT_<addr>` or the class) |
+| C++-linkage `DAT_` / `hulk_at_` declarations of data-TU items | 1,503 | 1,503 | x64-6 (`extern "C"` / the shared declaration) |
+| other C++ names, stub virtual slots | 1,038 | 2,195 | x64-6, consolidation |
+| C names (invented) | 404 | 805 | x64-6 |
+| native CRT table rows (by tree name or address in the name) | 376 | 1,205 | host side: name the targets as the sources do (here) |
+| `FUN_` without a verified definition / library code | 330 | 356 | the platform layer (library.h) |
+| RTTI descriptors by invented names | 62 | 62 | x64-6 |
+| `DAT_` C names (interior of vftables: resolved by the vftable emission, 692) | 68 | | |

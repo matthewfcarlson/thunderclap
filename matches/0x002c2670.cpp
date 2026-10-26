@@ -15,7 +15,7 @@ void pure3d::TextureLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_int
 
     Result_2c2670* r = ((This_FUN_002c2370*)this)->FUN_002c2370(p4);
     if (r) {
-        *p2 = (hulk_uintptr)r;
+        *(hulk_uintptr*)p2 = (hulk_uintptr)r;
         *p3 = r->a;
         p3[1] = r->b;
     }

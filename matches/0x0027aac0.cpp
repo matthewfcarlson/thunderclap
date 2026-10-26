@@ -9,7 +9,7 @@ class Obj_27aac0 {
 };
 bool8_27aac0 Obj_27aac0::Target(int a, int* out) {
     if (Check(a)) {
-        *out = index * 0x60 + (hulk_intptr)this + 0xd38;
+        *(hulk_intptr*)out = index * 0x60 + (hulk_intptr)this + 0xd38;
         return 1;
     }
     *out = 0;

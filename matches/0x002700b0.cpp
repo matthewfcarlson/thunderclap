@@ -15,7 +15,7 @@ void core::MemoryPool::vfunc_4(void* __p0) { unsigned int * p = (unsigned int *)
     hulk_uintptr a = (hulk_uintptr)p;
     unsigned int b = this->f_18;
     if (a >= b && a < (*(unsigned int *)&this->f_20) * (*(unsigned int *)&this->f_1c) + b) {
-        *p = (hulk_uintptr)(*(unsigned int * *)&this->f_10);
+        *(hulk_uintptr*)p = (hulk_uintptr)(*(unsigned int * *)&this->f_10);
         (*(unsigned int * *)&this->f_10) = p;
         --this->f_28;
         return;

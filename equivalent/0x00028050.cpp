@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 17/18, incomplete)
 // FUN_00028050 @ 0x00028050
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/fight.h"
 #include "decls/data/game/unknown.h"
@@ -20,7 +21,7 @@ bool Object::FUN_00028050(const char* name, const char* ancestor) {
  if (!handle) return false;
  Node* node = handle->node;
  if (!node || !handle->FUN_00231ee0()) return false;
- Context* context = (*(Manager_28050**)&DAT_004e5af8)->FUN_000240b0((*(unsigned int*)&DAT_0048e064));
+ Context* context = (*(Manager_28050**)&DAT_004e5af8)->FUN_000240b0((*(hulk_uintptr*)&DAT_0048e064));
  Node* target = context->tree->FUN_00233580(ancestor);
  if (!target) return false;
  for (Node* parent = node->parent; parent; parent = parent->parent) {

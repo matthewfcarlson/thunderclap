@@ -11,7 +11,7 @@ unsigned char Target(int* p, int a, int b) {
     if (r) {
         r = Validate1((hulk_intptr)p, b);
         if (r) {
-            p = (int*)*p;
+            p = (int*)*(hulk_intptr*)p;
             return Final1((hulk_intptr)p, (hulk_intptr)&kTenAddr);
         }
     }

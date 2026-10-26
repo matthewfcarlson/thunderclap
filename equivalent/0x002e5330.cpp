@@ -24,7 +24,7 @@ bool SortedArray::FUN_002e5330(unsigned int key, unsigned int* outIndex) {
         unsigned int v = b[mid];
         if (key == v) {
             if (outIndex)
-                *outIndex = mid;
+                *(hulk_uintptr*)outIndex = mid;
             return true;
         }
         if (key < v)

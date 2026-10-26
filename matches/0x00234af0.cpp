@@ -14,7 +14,7 @@ class ParamValueStringList {
 };
 ParamValueStringList::ParamValueStringList(int x) {
     int* p = &vptr;
-    *p = (hulk_intptr)&vtBase_234af0;
+    *(hulk_intptr*)p = (hulk_intptr)&vtBase_234af0;
     part.Init(x);
-    *p = (hulk_intptr)&vtList;
+    *(hulk_intptr*)p = (hulk_intptr)&vtList;
 }

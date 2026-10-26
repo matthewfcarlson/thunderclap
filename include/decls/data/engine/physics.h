@@ -19,6 +19,7 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 
 struct DataLayout_00554c30;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0055546c;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_0055545c;  // packed layout (bytes and pointers), defined in the data TU
 
 // physics/ArticulatedPhysicsObject.cpp
 extern "C" const float DAT_0043221c[7];  // fltTbl_0043221c
@@ -467,7 +468,7 @@ extern "C" float DAT_004d2c94;  // flt_004d2c94
 extern "C" float DAT_004d2c98;  // flt_004d2c98
 extern "C" int DAT_004d2c9c;
 extern "C" float DAT_004d2ca0[5];  // fltTbl_004d2ca0
-extern "C" void* DAT_0055545c[1];
+extern "C" DataRec_0055545c DAT_0055545c[1];
 extern "C" void* DAT_00555468[1];
 extern "C" DataLayout_0055546c DAT_0055546c[1];
 

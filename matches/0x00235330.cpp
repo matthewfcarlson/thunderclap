@@ -23,7 +23,7 @@ class ParamValueInt : public ParamValue {
 extern void Cleanup(ParamValueInt*);
 ParamValueInt* ParamValueInt::f0(int flags) {
     int* q = (int*)this;
-    *q = ((hulk_intptr)DAT_004279fc);
+    *(hulk_intptr*)q = ((hulk_intptr)DAT_004279fc);
     inner.Init();
     if (flags & 1)
         Cleanup(this);

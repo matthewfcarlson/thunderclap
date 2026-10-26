@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 51 inputs, branch coverage 28/28)
 // FUN_001e9680 @ 0x001e9680
+#include "compat/ptr.h"
 #include "decls/data/engine/content.h"
 #include "decls/data/game/global.h"
 
@@ -103,5 +104,5 @@ void Manager_1e9680::FUN_001e9680()
     (*(Renderer_1e9680**)&DAT_00527c58)->FUN_00265560(this);
     FUN_00240eb0();
     FUN_00240a10();
-    (*(int*)&DAT_004e3690) = 0;
+    (*(hulk_intptr*)&DAT_004e3690) = 0;
 }

@@ -238,6 +238,7 @@ class TUWriter:
         self.defs = []
         self.pins = pinned_vars()
         self.ev = load_ptr_evidence()
+        self.rec_structs, self.rec_checks = [], []
 
     def ptr_expr(self, v, ctype="const void*"):
         """Initializer of a pointer word holding XBE address v, as C type ctype (0 -> "0")."""
@@ -266,6 +267,12 @@ class TUWriter:
         return {"string": "string", "vtable": "vftable"}.get(k, "data")
 
     def item(self, it):
+        r = self.record_item(it)
+        if r is not None:
+            return r
+        return self.item_plain(it)
+
+    def item_plain(self, it):
         m = self.m
         b = m.raw(it)
         n, size, sec, k = it["cname"], it["size"], it["section"], it["kind"]
@@ -327,6 +334,150 @@ class TUWriter:
             return "%sunsigned char %s[%d]" % (const, n, size), \
                 "{ %s }" % ", ".join("0x%x" % c for c in b), "bytes"
         raise AssertionError("unreachable")
+
+    # ---- record-typed items (config/data-ptrs.json "records": the record type sources cast the item to) ----
+    def record_item(self, it):
+        """An item the sources address as an array of one record type (`((Entry*)&DAT_x)[i].fn`): emitted as that
+        record's array (a prefix of the record for a partial last element), naturally aligned on every target, so
+        the record's 64-bit layout is the sources' own (their casts index it correctly) while the 32-bit layout is
+        the XBE's (checked by a size assertion). None: no usable record view."""
+        e = self.ev.get("0x%08x" % it["addr"])
+        views = [v for v in (e or {}).get("records", ()) if "fields" in v]
+        if not views or len(views) != len((e or {}).get("records", ())) or len(views) != 1:
+            return None
+        v = views[0]
+        if int(v["base"], 16) != 0 or v["stride"] > it["size"] or it["addr"] % 4:
+            return None
+        size, stride, n = it["size"], v["stride"], it["cname"]
+        snap = (set(self.ext_data), set(self.ext_func))
+        full, rem = divmod(size, stride)
+        tail = []
+        if rem:
+            for f in v["fields"]:
+                if f[0] + f[4] * f[5] <= rem:
+                    tail.append(f)
+            used = max((f[0] + f[4] * f[5] for f in tail), default=0)
+            if used != rem:
+                return None
+        b = self.m.raw(it)
+        bss = it["section"] == ".bss"
+        const = "const " if it["section"] == ".rdata" else ""
+        ptr_at = {}
+        if not bss:
+            for i in range(0, size - 3, 4):
+                w = struct.unpack_from("<I", b, i)[0]
+                if w and it["addr"] + i in self.ptr_words and self.m.target(w) is not None:
+                    ptr_at[i] = w
+        rname = "DataRec_%08x" % it["addr"]
+        defs = []
+        try:
+            self.rec_type(rname, v["fields"], defs)
+        except KeyError:
+            return None
+        # 32-bit: the record and the item have the XBE's sizes
+        checks = ["typedef char hulk_size_%s[sizeof(%s) == %d ? 1 : -1];" % (rname, rname, stride)]
+        init = None
+        if not bss:
+            elems = []
+            for k in range(full):
+                x = self.rec_init(v["fields"], b, k * stride, ptr_at)
+                if x is None:
+                    self.ext_data, self.ext_func = snap
+                    return None
+                elems.append(x)
+            init_tail = self.rec_init(tail, b, full * stride, ptr_at) if tail else None
+            if tail and init_tail is None:
+                self.ext_data, self.ext_func = snap
+                return None
+        saved = (list(self.structs), set(self.ext_data), set(self.ext_func))
+        plain = self.item_plain(dict(it))[0] or ""
+        self.structs, self.ext_data, self.ext_func = saved
+        was_array = plain.rstrip().endswith("]")
+        if not tail and full == 1 and not was_array:
+            decl = "%s%s %s" % (const, rname, n)
+            init = None if bss else elems[0]
+        elif not tail and was_array:
+            decl = "%s%s %s[%d]" % (const, rname, n, full)
+            init = None if bss else "{ %s }" % ", ".join(elems)
+        elif not tail:
+            # a scalar item (its name is the object, not an address) keeps being one: a wrapper of the array
+            lname = "DataLayout_%08x" % it["addr"]
+            defs.append("struct %s { %s r[%d]; };" % (lname, rname, full))
+            checks.append("typedef char hulk_size_%s[sizeof(%s) == %d ? 1 : -1];" % (lname, lname, size))
+            decl = "%s%s %s" % (const, lname, n)
+            init = None if bss else "{ { %s } }" % ", ".join(elems)
+        else:
+            lname = "DataLayout_%08x" % it["addr"]
+            tname = "DataRec_%08x_tail" % it["addr"]
+            self.rec_type(tname, tail, defs)
+            defs.append("struct %s { %s r[%d]; %s t; };" % (lname, rname, full, tname))
+            checks.append("typedef char hulk_size_%s[sizeof(%s) == %d ? 1 : -1];" % (lname, lname, size))
+            decl = "%s%s %s%s" % (const, lname, n, "[1]" if was_array else "")
+            if not bss:
+                body = "{ { %s }, %s }" % (", ".join(elems), init_tail)
+                init = "{ %s }" % body if was_array else body
+        self.rec_structs += defs
+        self.rec_checks += checks
+        return decl, init, "record"
+
+    def rec_type(self, name, fields, defs):
+        members = []
+        for f in fields:
+            off, fname, spell, kind, esize, count = f[:6]
+            if kind == "record":
+                sub = "%s_%s" % (name, fname)
+                self.rec_type(sub, f[6], defs)
+                t = sub
+            elif kind == "code":
+                t = "hulk_code_ptr"
+            elif kind == "pointer":
+                t = "void*"
+            elif kind == "float":
+                t = "double" if esize == 8 else "float"
+            else:
+                uns = "unsigned" in spell or spell in ("bool", "_Bool")
+                t = {1: "unsigned char" if uns else "signed char", 2: "unsigned short" if uns else "short",
+                     4: "unsigned int" if uns else "int", 8: "unsigned __int64" if uns else "__int64"}[esize]
+            members.append("%s %s%s;" % (t, re.sub(r"\W", "_", fname) or "f%x" % off, "[%d]" % count if count > 1 else ""))
+        defs.append("struct %s { %s };" % (name, " ".join(members)))
+        return name
+
+    def rec_init(self, fields, b, base, ptr_at):
+        """Initializer of one record (fields) whose bytes start at b[base]; None if a pointer field holds a value
+        that is not a pointer the inventory knows."""
+        parts = []
+        for f in fields:
+            off, fname, spell, kind, esize, count = f[:6]
+            vals = []
+            for j in range(count):
+                o = base + off + j * esize
+                if kind == "record":
+                    x = self.rec_init(f[6], b, o, ptr_at)
+                elif kind in ("code", "pointer"):
+                    w = struct.unpack_from("<I", b, o)[0]
+                    if o in ptr_at:
+                        x = self.ptr_expr(ptr_at[o], "hulk_code_ptr" if kind == "code" else "void*")
+                    elif w == 0:
+                        x = "0"
+                    else:
+                        return None
+                elif kind == "float":
+                    raw = struct.unpack_from("<Q" if esize == 8 else "<I", b, o)[0]
+                    x = c_float(raw, esize == 8)
+                else:
+                    if o in ptr_at:
+                        return None
+                    uns = "unsigned" in spell or spell in ("bool", "_Bool")
+                    code = {1: "B", 2: "H", 4: "I", 8: "Q"}[esize]
+                    w = struct.unpack_from("<" + (code if uns else code.lower()), b, o)[0]
+                    x = ("%d" % w if not uns else "0x%x" % w) + ("LL" if esize == 8 and not uns else "ULL" if esize == 8 else "")
+                    if not uns and esize == 4 and w == -2147483648:
+                        x = "(-2147483647 - 1)"
+                if x is None:
+                    return None
+                vals.append(x)
+            parts.append(vals[0] if count == 1 else "{ %s }" % ", ".join(vals))
+        return "{ %s }" % ", ".join(parts)
 
     def evidence_ptrs(self, it):
         """Byte offsets (4-aligned words) of the item that the sources use as pointers (config/data-ptrs.json)."""
@@ -454,6 +605,10 @@ class TUWriter:
             else:
                 body.append('extern "C" %s = %s;  %s' % (decl, init, tag))
         lines += DATA_PRELUDE
+        if self.rec_structs:
+            # record types: natural alignment on every target (the sources' own record layouts)
+            lines += self.rec_structs
+            lines += ["#if HULK_DATA_PACKED"] + self.rec_checks + ["#endif", ""]
         if self.structs:
             lines += ["#if HULK_DATA_PACKED", "#pragma pack(push, 1)", "#endif"]
             lines += self.structs
@@ -529,6 +684,25 @@ def pointer_layout(model):
     return out
 
 
+def record_items(model):
+    """{item addr: record stride} of the items generate() emits as record arrays (for tools/data_ptrs.py lint)."""
+    inv = di.Inventory()
+    inv.collect_starts([], {}, {})
+    w = TUWriter(model, [])
+    w.ptr_words = set(inv.data_ptrs)
+    out = {}
+    for key, e in w.ev.items():
+        if not e.get("records"):
+            continue
+        it = model.item_at(int(key, 16))
+        if it is None or not model.emitted(it):
+            continue
+        w.local = {it["cname"]}
+        if w.record_item(it) is not None:
+            out[it["addr"]] = e["records"][0]["stride"]
+    return out
+
+
 def write_decls(model, tus):
     """include/decls/data/<layer>/<dir>.h: declarations only (names, types, sizes)."""
     by_hdr = collections.defaultdict(list)
@@ -548,7 +722,7 @@ def write_decls(model, tus):
                  "#ifndef " + guard, "#define " + guard, ""] + DATA_PRELUDE
         structs = set()
         for it, decl in rows:
-            m = re.match(r"(?:const )?(DataLayout_[0-9a-f]{8})\b", decl)
+            m = re.match(r"(?:const )?(Data(?:Layout|Rec)_[0-9a-f]{8})\b", decl)
             if m:
                 structs.add(m.group(1))
         for s in sorted(structs):

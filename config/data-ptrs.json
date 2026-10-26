@@ -15,13 +15,101 @@
   },
   "0x00400520": {
    "name": "DAT_00400520",
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "name",
+       "const char *",
+       "pointer",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ]
+     ],
+     "sources": [
+      "equivalent/0x0008ced0.cpp",
+      "equivalent/0x0008d0a0.cpp",
+      "equivalent/0x0008d3a0.cpp"
+     ],
+     "stride": 12,
+     "types": [
+      "HeapDesc",
+      "HeapEntry_8d0a0",
+      "NameEntry_8ced0"
+     ]
+    }
+   ],
    "size": 228,
    "sources": [
     "equivalent/0x0008ced0.cpp",
+    "equivalent/0x0008d0a0.cpp",
     "equivalent/0x0008d3a0.cpp"
    ],
    "table_from": [
     "0x0"
+   ]
+  },
+  "0x00400604": {
+   "name": "DAT_00400604",
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "name",
+       "const char *",
+       "pointer",
+       4,
+       1
+      ],
+      [
+       4,
+       "pad_04",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "baseline",
+       "int",
+       "int",
+       4,
+       1
+      ]
+     ],
+     "sources": [
+      "equivalent/0x0008d0a0.cpp"
+     ],
+     "stride": 12,
+     "types": [
+      "HeapEntry_8d0a0"
+     ]
+    }
+   ],
+   "size": 12,
+   "sources": [
+    "equivalent/0x0008d0a0.cpp"
    ]
   },
   "0x00406140": {
@@ -45,6 +133,36 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "name",
+       "const char *",
+       "pointer",
+       4,
+       1
+      ],
+      [
+       4,
+       "strs",
+       "const char *[4]",
+       "pointer",
+       4,
+       4
+      ]
+     ],
+     "sources": [
+      "equivalent/0x000bd1b0.cpp"
+     ],
+     "stride": 20,
+     "types": [
+      "TblEntry"
+     ]
+    }
+   ],
    "size": 8,
    "sources": [
     "equivalent/0x000bd1b0.cpp"
@@ -53,8 +171,91 @@
     "0x0"
    ]
   },
+  "0x00406738": {
+   "name": "DAT_00406738",
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "key",
+       "const char *",
+       "pointer",
+       4,
+       1
+      ],
+      [
+       4,
+       "value",
+       "unsigned int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "unknown",
+       "unsigned int",
+       "int",
+       4,
+       1
+      ]
+     ],
+     "sources": [
+      "equivalent/0x000b8860.cpp"
+     ],
+     "stride": 12,
+     "types": [
+      "Entry_b8860"
+     ]
+    }
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000b8860.cpp"
+   ]
+  },
   "0x00406740": {
    "name": "DAT_00406740",
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "text",
+       "const char *",
+       "pointer",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ]
+     ],
+     "sources": [
+      "matches/0x000b8940.cpp"
+     ],
+     "stride": 12,
+     "types": [
+      "StoryText"
+     ]
+    }
+   ],
    "size": 100,
    "sources": [
     "matches/0x000b8940.cpp"
@@ -89,6 +290,72 @@
     "0x0"
    ]
   },
+  "0x00426824": {
+   "name": "DAT_00426824",
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "tt",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       4,
+       "value",
+       "union (unnamed at /Users/matthewcarlson/git/hulk-ultimate-destruction-decomp/build/x64-5/r3/w/equivalent/0x00219dc0.cpp:7:5)",
+       "record",
+       4,
+       1,
+       [
+        [
+         0,
+         "n",
+         "float",
+         "float",
+         4,
+         1
+        ],
+        [
+         0,
+         "bits",
+         "void *",
+         "pointer",
+         4,
+         1
+        ],
+        [
+         0,
+         "p",
+         "void *",
+         "pointer",
+         4,
+         1
+        ]
+       ]
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00219dc0.cpp",
+      "equivalent/0x0021a0f0.cpp"
+     ],
+     "stride": 8,
+     "types": [
+      "TObject_219dc0",
+      "TValue_21a0f0"
+     ]
+    }
+   ],
+   "size": 1,
+   "sources": [
+    "equivalent/0x00219dc0.cpp",
+    "equivalent/0x0021a0f0.cpp"
+   ]
+  },
   "0x00426948": {
    "name": "DAT_00426948",
    "size": 60,
@@ -107,6 +374,43 @@
    ],
    "table_from": [
     "0x0"
+   ]
+  },
+  "0x00434d90": {
+   "name": "DAT_00434d90",
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "name",
+       "const char *",
+       "pointer",
+       4,
+       1
+      ],
+      [
+       4,
+       "func",
+       "lua_CFunction",
+       "code",
+       4,
+       1
+      ]
+     ],
+     "sources": [
+      "equivalent/0x0033ea90.cpp"
+     ],
+     "stride": 8,
+     "types": [
+      "luaL_Reg"
+     ]
+    }
+   ],
+   "size": 216,
+   "sources": [
+    "equivalent/0x0033ea90.cpp"
    ]
   },
   "0x0048e060": {
@@ -499,6 +803,9 @@
   },
   "0x004a0ca8": {
    "name": "DAT_004a0ca8",
+   "pointee": {
+    "0x0": "wchar_t"
+   },
    "pointers": [
     "0x0"
    ],
@@ -1188,6 +1495,52 @@
   },
   "0x004cc248": {
    "name": "DAT_004cc248",
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "value",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       4,
+       "unused",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "key",
+       "int *",
+       "pointer",
+       4,
+       1
+      ],
+      [
+       12,
+       "rest",
+       "char",
+       "int",
+       1,
+       12
+      ]
+     ],
+     "sources": [
+      "equivalent/0x0024c1c0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry"
+     ]
+    }
+   ],
    "size": 1,
    "sources": [
     "equivalent/0x0024c1c0.cpp",
@@ -1212,6 +1565,36 @@
   },
   "0x004cd1e4": {
    "name": "DAT_004cd1e4",
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "text",
+       "const char *",
+       "pointer",
+       4,
+       1
+      ],
+      [
+       4,
+       "other",
+       "unsigned int",
+       "int",
+       4,
+       1
+      ]
+     ],
+     "sources": [
+      "equivalent/0x0025c6d0.cpp"
+     ],
+     "stride": 8,
+     "types": [
+      "Entry_25c6d0"
+     ]
+    }
+   ],
    "size": 128,
    "sources": [
     "equivalent/0x0025c6d0.cpp"
@@ -1235,6 +1618,36 @@
   },
   "0x004cd388": {
    "name": "DAT_004cd388",
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "name",
+       "const char *",
+       "pointer",
+       4,
+       1
+      ],
+      [
+       4,
+       "fn",
+       "const char *(*)(Interp_2611b0 *) __attribute__((cdecl))",
+       "code",
+       4,
+       1
+      ]
+     ],
+     "sources": [
+      "equivalent/0x002611b0.cpp"
+     ],
+     "stride": 8,
+     "types": [
+      "Builtin"
+     ]
+    }
+   ],
    "size": 8,
    "sources": [
     "equivalent/0x002611b0.cpp"
@@ -1313,8 +1726,49 @@
     "0xd8",
     "0xe4"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "a",
+       "void *",
+       "pointer",
+       4,
+       1
+      ],
+      [
+       4,
+       "b",
+       "unsigned int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "c",
+       "unsigned int",
+       "int",
+       4,
+       1
+      ]
+     ],
+     "sources": [
+      "equivalent/0x002692c0.cpp",
+      "matches/0x00361760.cpp"
+     ],
+     "stride": 12,
+     "types": [
+      "Slot_361760",
+      "Triple_2692c0"
+     ]
+    }
+   ],
    "size": 232,
    "sources": [
+    "equivalent/0x002692c0.cpp",
     "matches/0x00361760.cpp"
    ],
    "table_from": [
@@ -1392,6 +1846,60 @@
     "0x48",
     "0x60"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "void (*)()",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "int",
+       "int",
+       4,
+       2
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003618a0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_3618a0"
+     ]
+    }
+   ],
    "size": 112,
    "sources": [
     "equivalent/0x003618a0.cpp"
@@ -1446,6 +1954,60 @@
     "0x48",
     "0x60"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "void (*)()",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "int",
+       "int",
+       4,
+       2
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00361bf0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_361bf0"
+     ]
+    }
+   ],
    "size": 112,
    "sources": [
     "equivalent/0x00361bf0.cpp"
@@ -1458,6 +2020,112 @@
     "0x18",
     "0x30",
     "0x48"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "slot",
+       "Slot_3619a0[4]",
+       "record",
+       24,
+       4,
+       [
+        [
+         0,
+         "fn",
+         "void (*)()",
+         "code",
+         4,
+         1
+        ],
+        [
+         4,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         16,
+         "unused",
+         "int",
+         "int",
+         4,
+         2
+        ]
+       ]
+      ],
+      [
+       96,
+       "end",
+       "Terminator",
+       "record",
+       16,
+       1,
+       [
+        [
+         0,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         4,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "last",
+         "int",
+         "int",
+         4,
+         1
+        ]
+       ]
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003619a0.cpp"
+     ],
+     "stride": 112,
+     "types": [
+      "HandlerTable_3619a0"
+     ]
+    }
    ],
    "size": 112,
    "sources": [
@@ -1480,6 +2148,60 @@
     "0xf0",
     "0x108"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_361a90",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "int",
+       "int",
+       4,
+       2
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00361a90.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_361a90"
+     ]
+    }
+   ],
    "size": 280,
    "sources": [
     "equivalent/0x00361a90.cpp"
@@ -1489,6 +2211,60 @@
    "name": "DAT_004d7c48",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_361cf0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00361cf0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_361cf0"
+     ]
+    }
    ],
    "size": 16,
    "sources": [
@@ -1500,6 +2276,60 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_361cf0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00361cf0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_361cf0"
+     ]
+    }
+   ],
    "size": 16,
    "sources": [
     "equivalent/0x00361cf0.cpp"
@@ -1509,6 +2339,60 @@
    "name": "DAT_004d7c78",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_361cf0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00361cf0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_361cf0"
+     ]
+    }
    ],
    "size": 16,
    "sources": [
@@ -1520,6 +2404,60 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_361cf0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00361cf0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_361cf0"
+     ]
+    }
+   ],
    "size": 16,
    "sources": [
     "equivalent/0x00361cf0.cpp"
@@ -1529,6 +2467,60 @@
    "name": "DAT_004d7ca8",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_361cf0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00361cf0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_361cf0"
+     ]
+    }
    ],
    "size": 16,
    "sources": [
@@ -1540,6 +2532,60 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_361cf0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00361cf0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_361cf0"
+     ]
+    }
+   ],
    "size": 16,
    "sources": [
     "equivalent/0x00361cf0.cpp"
@@ -1549,6 +2595,60 @@
    "name": "DAT_004d7cd8",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_361cf0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00361cf0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_361cf0"
+     ]
+    }
    ],
    "size": 16,
    "sources": [
@@ -1560,6 +2660,60 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_361cf0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00361cf0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_361cf0"
+     ]
+    }
+   ],
    "size": 16,
    "sources": [
     "equivalent/0x00361cf0.cpp"
@@ -1569,6 +2723,60 @@
    "name": "DAT_004d7d08",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_361cf0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00361cf0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_361cf0"
+     ]
+    }
    ],
    "size": 16,
    "sources": [
@@ -1580,6 +2788,60 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_361cf0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00361cf0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_361cf0"
+     ]
+    }
+   ],
    "size": 16,
    "sources": [
     "equivalent/0x00361cf0.cpp"
@@ -1589,6 +2851,60 @@
    "name": "DAT_004d7d38",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_361cf0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00361cf0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_361cf0"
+     ]
+    }
    ],
    "size": 16,
    "sources": [
@@ -1623,6 +2939,112 @@
     "0x30",
     "0x48"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "slot",
+       "Slot_361e50[4]",
+       "record",
+       24,
+       4,
+       [
+        [
+         0,
+         "fn",
+         "void (*)()",
+         "code",
+         4,
+         1
+        ],
+        [
+         4,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         16,
+         "unused",
+         "int",
+         "int",
+         4,
+         2
+        ]
+       ]
+      ],
+      [
+       96,
+       "end",
+       "Terminator",
+       "record",
+       16,
+       1,
+       [
+        [
+         0,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         4,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "last",
+         "int",
+         "int",
+         4,
+         1
+        ]
+       ]
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00361e50.cpp"
+     ],
+     "stride": 112,
+     "types": [
+      "HandlerTable_361e50"
+     ]
+    }
+   ],
    "size": 112,
    "sources": [
     "equivalent/0x00361e50.cpp"
@@ -1636,9 +3058,124 @@
     "0x30",
     "0x48"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "void (*)()",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "int",
+       "int",
+       4,
+       2
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362120.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_362120"
+     ]
+    }
+   ],
    "size": 88,
    "sources": [
     "equivalent/0x00362120.cpp"
+   ]
+  },
+  "0x004d7ec8": {
+   "name": "DAT_004d7ec8",
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "handler",
+       "Handler_361f50",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "unused",
+       "int",
+       "int",
+       4,
+       2
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00361f50.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Slot_361f50"
+     ]
+    }
+   ],
+   "size": 136,
+   "sources": [
+    "equivalent/0x00361f50.cpp"
    ]
   },
   "0x004d7f58": {
@@ -1673,6 +3210,112 @@
     "0x90",
     "0xa8"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "slot",
+       "Slot_362010[8]",
+       "record",
+       24,
+       8,
+       [
+        [
+         0,
+         "fn",
+         "void (*)()",
+         "code",
+         4,
+         1
+        ],
+        [
+         4,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         16,
+         "unused",
+         "int",
+         "int",
+         4,
+         2
+        ]
+       ]
+      ],
+      [
+       192,
+       "end",
+       "Terminator",
+       "record",
+       16,
+       1,
+       [
+        [
+         0,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         4,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "last",
+         "int",
+         "int",
+         4,
+         1
+        ]
+       ]
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362010.cpp"
+     ],
+     "stride": 208,
+     "types": [
+      "HandlerTable_362010"
+     ]
+    }
+   ],
    "size": 208,
    "sources": [
     "equivalent/0x00362010.cpp"
@@ -1695,6 +3338,112 @@
     "0x18",
     "0x30"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "slot",
+       "Slot_3623b0[3]",
+       "record",
+       24,
+       3,
+       [
+        [
+         0,
+         "fn",
+         "void (*)()",
+         "code",
+         4,
+         1
+        ],
+        [
+         4,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         16,
+         "unused",
+         "int",
+         "int",
+         4,
+         2
+        ]
+       ]
+      ],
+      [
+       72,
+       "end",
+       "Terminator",
+       "record",
+       16,
+       1,
+       [
+        [
+         0,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         4,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "last",
+         "int",
+         "int",
+         4,
+         1
+        ]
+       ]
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003623b0.cpp"
+     ],
+     "stride": 88,
+     "types": [
+      "HandlerTable_3623b0"
+     ]
+    }
+   ],
    "size": 88,
    "sources": [
     "equivalent/0x003623b0.cpp"
@@ -1705,6 +3454,60 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "callback",
+       "void (*)()",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "first",
+       "unsigned int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "second",
+       "unsigned int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "third",
+       "unsigned int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362240.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "StateA"
+     ]
+    }
+   ],
    "size": 4,
    "sources": [
     "equivalent/0x00362240.cpp"
@@ -1714,6 +3517,60 @@
    "name": "DAT_004d8168",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "callback",
+       "void (*)()",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "first",
+       "unsigned int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "second",
+       "unsigned int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "third",
+       "unsigned int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362240.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "StateB"
+     ]
+    }
    ],
    "size": 4,
    "sources": [
@@ -1728,6 +3585,60 @@
     "0x30",
     "0x48",
     "0x60"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "void (*)()",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "int",
+       "int",
+       4,
+       2
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003621a0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_3621a0"
+     ]
+    }
    ],
    "size": 112,
    "sources": [
@@ -1746,6 +3657,112 @@
     "0x90",
     "0xa8"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "slot",
+       "Slot_3622a0[8]",
+       "record",
+       24,
+       8,
+       [
+        [
+         0,
+         "fn",
+         "void (*)()",
+         "code",
+         4,
+         1
+        ],
+        [
+         4,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         16,
+         "unused",
+         "int",
+         "int",
+         4,
+         2
+        ]
+       ]
+      ],
+      [
+       192,
+       "end",
+       "Terminator",
+       "record",
+       16,
+       1,
+       [
+        [
+         0,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         4,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "last",
+         "int",
+         "int",
+         4,
+         1
+        ]
+       ]
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003622a0.cpp"
+     ],
+     "stride": 208,
+     "types": [
+      "HandlerTable_3622a0"
+     ]
+    }
+   ],
    "size": 208,
    "sources": [
     "equivalent/0x003622a0.cpp"
@@ -1758,6 +3775,112 @@
     "0x18",
     "0x30",
     "0x48"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "slot",
+       "Slot_3624d0[4]",
+       "record",
+       24,
+       4,
+       [
+        [
+         0,
+         "fn",
+         "void (*)()",
+         "code",
+         4,
+         1
+        ],
+        [
+         4,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         16,
+         "unused",
+         "int",
+         "int",
+         4,
+         2
+        ]
+       ]
+      ],
+      [
+       96,
+       "end",
+       "Terminator",
+       "record",
+       16,
+       1,
+       [
+        [
+         0,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         4,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "last",
+         "int",
+         "int",
+         4,
+         1
+        ]
+       ]
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003624d0.cpp"
+     ],
+     "stride": 112,
+     "types": [
+      "HandlerTable_3624d0"
+     ]
+    }
    ],
    "size": 112,
    "sources": [
@@ -1785,6 +3908,112 @@
     "0x78",
     "0x90"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "slot",
+       "Slot_362570[7]",
+       "record",
+       24,
+       7,
+       [
+        [
+         0,
+         "fn",
+         "void (*)()",
+         "code",
+         4,
+         1
+        ],
+        [
+         4,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         16,
+         "unused",
+         "int",
+         "int",
+         4,
+         2
+        ]
+       ]
+      ],
+      [
+       168,
+       "end",
+       "Terminator",
+       "record",
+       16,
+       1,
+       [
+        [
+         0,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         4,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "last",
+         "int",
+         "int",
+         4,
+         1
+        ]
+       ]
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362570.cpp"
+     ],
+     "stride": 184,
+     "types": [
+      "HandlerTable_362570"
+     ]
+    }
+   ],
    "size": 184,
    "sources": [
     "equivalent/0x00362570.cpp"
@@ -1794,6 +4023,60 @@
    "name": "DAT_004d84d0",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_3626c0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003626c0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_3626c0"
+     ]
+    }
    ],
    "size": 16,
    "sources": [
@@ -1805,6 +4088,60 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_3626c0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003626c0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_3626c0"
+     ]
+    }
+   ],
    "size": 16,
    "sources": [
     "equivalent/0x003626c0.cpp"
@@ -1814,6 +4151,60 @@
    "name": "DAT_004d8500",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_3626c0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003626c0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_3626c0"
+     ]
+    }
    ],
    "size": 16,
    "sources": [
@@ -1825,6 +4216,60 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_3626c0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003626c0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_3626c0"
+     ]
+    }
+   ],
    "size": 16,
    "sources": [
     "equivalent/0x003626c0.cpp"
@@ -1834,6 +4279,60 @@
    "name": "DAT_004d8530",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_3626c0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003626c0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_3626c0"
+     ]
+    }
    ],
    "size": 16,
    "sources": [
@@ -1845,6 +4344,60 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_3626c0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003626c0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_3626c0"
+     ]
+    }
+   ],
    "size": 16,
    "sources": [
     "equivalent/0x003626c0.cpp"
@@ -1854,6 +4407,60 @@
    "name": "DAT_004d8560",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_3626c0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003626c0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_3626c0"
+     ]
+    }
    ],
    "size": 16,
    "sources": [
@@ -1865,6 +4472,60 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_3626c0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003626c0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_3626c0"
+     ]
+    }
+   ],
    "size": 16,
    "sources": [
     "equivalent/0x003626c0.cpp"
@@ -1874,6 +4535,60 @@
    "name": "DAT_004d8590",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_3626c0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003626c0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_3626c0"
+     ]
+    }
    ],
    "size": 16,
    "sources": [
@@ -1885,6 +4600,60 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_3626c0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003626c0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_3626c0"
+     ]
+    }
+   ],
    "size": 16,
    "sources": [
     "equivalent/0x003626c0.cpp"
@@ -1894,6 +4663,60 @@
    "name": "DAT_004d85c0",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_3626c0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003626c0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_3626c0"
+     ]
+    }
    ],
    "size": 16,
    "sources": [
@@ -1905,6 +4728,60 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_3626c0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003626c0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_3626c0"
+     ]
+    }
+   ],
    "size": 16,
    "sources": [
     "equivalent/0x003626c0.cpp"
@@ -1914,6 +4791,60 @@
    "name": "DAT_004d85f0",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_3626c0",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003626c0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_3626c0"
+     ]
+    }
    ],
    "size": 16,
    "sources": [
@@ -1927,6 +4858,112 @@
     "0x18",
     "0x30",
     "0x48"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "slot",
+       "Slot_362900[4]",
+       "record",
+       24,
+       4,
+       [
+        [
+         0,
+         "fn",
+         "void (*)()",
+         "code",
+         4,
+         1
+        ],
+        [
+         4,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         16,
+         "unused",
+         "int",
+         "int",
+         4,
+         2
+        ]
+       ]
+      ],
+      [
+       96,
+       "end",
+       "Terminator",
+       "record",
+       16,
+       1,
+       [
+        [
+         0,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         4,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "last",
+         "int",
+         "int",
+         4,
+         1
+        ]
+       ]
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362900.cpp"
+     ],
+     "stride": 112,
+     "types": [
+      "HandlerTable_362900"
+     ]
+    }
    ],
    "size": 112,
    "sources": [
@@ -1962,6 +4999,60 @@
     "0x48",
     "0x60"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "void (*)()",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "int",
+       "int",
+       4,
+       2
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362860.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_362860"
+     ]
+    }
+   ],
    "size": 112,
    "sources": [
     "equivalent/0x00362860.cpp"
@@ -1974,6 +5065,60 @@
     "0x18",
     "0x30",
     "0x48"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "void (*)()",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "int",
+       "int",
+       4,
+       2
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003629a0.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_3629a0"
+     ]
+    }
    ],
    "size": 88,
    "sources": [
@@ -1988,6 +5133,60 @@
     "0x30",
     "0x48",
     "0x60"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "void (*)()",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "int",
+       "int",
+       4,
+       2
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362c40.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_362c40"
+     ]
+    }
    ],
    "size": 112,
    "sources": [
@@ -2004,6 +5203,67 @@
     "equivalent/0x00362ae0.cpp"
    ]
   },
+  "0x004d88f0": {
+   "name": "DAT_004d88f0",
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "handler",
+       "Handler_362a20",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "unused",
+       "int",
+       "int",
+       4,
+       2
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362a20.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Slot_362a20"
+     ]
+    }
+   ],
+   "size": 136,
+   "sources": [
+    "equivalent/0x00362a20.cpp"
+   ]
+  },
   "0x004d8980": {
    "name": "DAT_004d8980",
    "pointers": [
@@ -2015,6 +5275,112 @@
     "0x78",
     "0x90",
     "0xa8"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "slot",
+       "Slot_362b30[8]",
+       "record",
+       24,
+       8,
+       [
+        [
+         0,
+         "fn",
+         "void (*)()",
+         "code",
+         4,
+         1
+        ],
+        [
+         4,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         16,
+         "unused",
+         "int",
+         "int",
+         4,
+         2
+        ]
+       ]
+      ],
+      [
+       192,
+       "end",
+       "Terminator",
+       "record",
+       16,
+       1,
+       [
+        [
+         0,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         4,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "last",
+         "int",
+         "int",
+         4,
+         1
+        ]
+       ]
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362b30.cpp"
+     ],
+     "stride": 208,
+     "types": [
+      "HandlerTable_362b30"
+     ]
+    }
    ],
    "size": 208,
    "sources": [
@@ -2028,6 +5394,112 @@
     "0x18",
     "0x30",
     "0x48"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "slot",
+       "Slot_362ec0[4]",
+       "record",
+       24,
+       4,
+       [
+        [
+         0,
+         "fn",
+         "void (*)()",
+         "code",
+         4,
+         1
+        ],
+        [
+         4,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         16,
+         "unused",
+         "int",
+         "int",
+         4,
+         2
+        ]
+       ]
+      ],
+      [
+       96,
+       "end",
+       "Terminator",
+       "record",
+       16,
+       1,
+       [
+        [
+         0,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         4,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "last",
+         "int",
+         "int",
+         4,
+         1
+        ]
+       ]
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362ec0.cpp"
+     ],
+     "stride": 112,
+     "types": [
+      "HandlerTable_362ec0"
+     ]
+    }
    ],
    "size": 112,
    "sources": [
@@ -2069,6 +5541,60 @@
     "0xd8",
     "0xf0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_362d80",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "int",
+       "int",
+       4,
+       2
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362d80.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_362d80"
+     ]
+    }
+   ],
    "size": 256,
    "sources": [
     "equivalent/0x00362d80.cpp"
@@ -2082,6 +5608,60 @@
     "0x30",
     "0x48",
     "0x60"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "void (*)()",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "int",
+       "int",
+       4,
+       2
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00363190.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_363190"
+     ]
+    }
    ],
    "size": 112,
    "sources": [
@@ -2103,6 +5683,60 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_362f60",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362f60.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_362f60"
+     ]
+    }
+   ],
    "size": 16,
    "sources": [
     "equivalent/0x00362f60.cpp"
@@ -2112,6 +5746,60 @@
    "name": "DAT_004d8d88",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_362f60",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362f60.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_362f60"
+     ]
+    }
    ],
    "size": 16,
    "sources": [
@@ -2123,6 +5811,60 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_362f60",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362f60.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_362f60"
+     ]
+    }
+   ],
    "size": 16,
    "sources": [
     "equivalent/0x00362f60.cpp"
@@ -2132,6 +5874,60 @@
    "name": "DAT_004d8db8",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_362f60",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362f60.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_362f60"
+     ]
+    }
    ],
    "size": 16,
    "sources": [
@@ -2143,6 +5939,60 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_362f60",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362f60.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_362f60"
+     ]
+    }
+   ],
    "size": 16,
    "sources": [
     "equivalent/0x00362f60.cpp"
@@ -2152,6 +6002,60 @@
    "name": "DAT_004d8de8",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_362f60",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362f60.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_362f60"
+     ]
+    }
    ],
    "size": 16,
    "sources": [
@@ -2163,6 +6067,60 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_362f60",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362f60.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_362f60"
+     ]
+    }
+   ],
    "size": 16,
    "sources": [
     "equivalent/0x00362f60.cpp"
@@ -2172,6 +6130,60 @@
    "name": "DAT_004d8e18",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_362f60",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362f60.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_362f60"
+     ]
+    }
    ],
    "size": 16,
    "sources": [
@@ -2183,6 +6195,60 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_362f60",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362f60.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_362f60"
+     ]
+    }
+   ],
    "size": 16,
    "sources": [
     "equivalent/0x00362f60.cpp"
@@ -2192,6 +6258,60 @@
    "name": "DAT_004d8e48",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_362f60",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362f60.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_362f60"
+     ]
+    }
    ],
    "size": 16,
    "sources": [
@@ -2203,6 +6323,60 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_362f60",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362f60.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_362f60"
+     ]
+    }
+   ],
    "size": 16,
    "sources": [
     "equivalent/0x00362f60.cpp"
@@ -2212,6 +6386,60 @@
    "name": "DAT_004d8e78",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "Handler_362f60",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "char",
+       "int",
+       1,
+       8
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00362f60.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_362f60"
+     ]
+    }
    ],
    "size": 16,
    "sources": [
@@ -2255,15 +6483,262 @@
     "0x18",
     "0x30"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "slot",
+       "Slot_363460[3]",
+       "record",
+       24,
+       3,
+       [
+        [
+         0,
+         "fn",
+         "void (*)()",
+         "code",
+         4,
+         1
+        ],
+        [
+         4,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         16,
+         "unused",
+         "int",
+         "int",
+         4,
+         2
+        ]
+       ]
+      ],
+      [
+       72,
+       "end",
+       "Terminator",
+       "record",
+       16,
+       1,
+       [
+        [
+         0,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         4,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "last",
+         "int",
+         "int",
+         4,
+         1
+        ]
+       ]
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00363460.cpp"
+     ],
+     "stride": 88,
+     "types": [
+      "HandlerTable_363460"
+     ]
+    }
+   ],
    "size": 88,
    "sources": [
     "equivalent/0x00363460.cpp"
+   ]
+  },
+  "0x004d8fd0": {
+   "name": "DAT_004d8fd0",
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "handler",
+       "Handler_363290",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "unused",
+       "int",
+       "int",
+       4,
+       2
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00363290.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Slot_363290"
+     ]
+    }
+   ],
+   "size": 136,
+   "sources": [
+    "equivalent/0x00363290.cpp"
    ]
   },
   "0x004d9060": {
    "name": "DAT_004d9060",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "entries",
+       "StateEntry[3]",
+       "record",
+       24,
+       3,
+       [
+        [
+         0,
+         "callback",
+         "Callback",
+         "code",
+         4,
+         1
+        ],
+        [
+         4,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         16,
+         "unused1",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         20,
+         "unused2",
+         "int",
+         "int",
+         4,
+         1
+        ]
+       ]
+      ],
+      [
+       72,
+       "endValue",
+       "int",
+       "int",
+       4,
+       1
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00363230.cpp"
+     ],
+     "stride": 76,
+     "types": [
+      "StateBlock"
+     ]
+    }
    ],
    "size": 4,
    "sources": [
@@ -2282,6 +6757,112 @@
     "0x90",
     "0xa8"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "slot",
+       "Slot_363350[8]",
+       "record",
+       24,
+       8,
+       [
+        [
+         0,
+         "fn",
+         "void (*)()",
+         "code",
+         4,
+         1
+        ],
+        [
+         4,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         16,
+         "unused",
+         "int",
+         "int",
+         4,
+         2
+        ]
+       ]
+      ],
+      [
+       192,
+       "end",
+       "Terminator",
+       "record",
+       16,
+       1,
+       [
+        [
+         0,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         4,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "last",
+         "int",
+         "int",
+         4,
+         1
+        ]
+       ]
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00363350.cpp"
+     ],
+     "stride": 208,
+     "types": [
+      "HandlerTable_363350"
+     ]
+    }
+   ],
    "size": 208,
    "sources": [
     "equivalent/0x00363350.cpp"
@@ -2294,6 +6875,112 @@
     "0x18",
     "0x30",
     "0x48"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "slot",
+       "Slot_363760[4]",
+       "record",
+       24,
+       4,
+       [
+        [
+         0,
+         "fn",
+         "void (*)()",
+         "code",
+         4,
+         1
+        ],
+        [
+         4,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         16,
+         "unused",
+         "int",
+         "int",
+         4,
+         2
+        ]
+       ]
+      ],
+      [
+       96,
+       "end",
+       "Terminator",
+       "record",
+       16,
+       1,
+       [
+        [
+         0,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         4,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "last",
+         "int",
+         "int",
+         4,
+         1
+        ]
+       ]
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00363760.cpp"
+     ],
+     "stride": 112,
+     "types": [
+      "HandlerTable_363760"
+     ]
+    }
    ],
    "size": 112,
    "sources": [
@@ -2313,6 +7000,112 @@
     "0xa8",
     "0xc0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "slot",
+       "Slot_3635b0[9]",
+       "record",
+       24,
+       9,
+       [
+        [
+         0,
+         "fn",
+         "void (*)()",
+         "code",
+         4,
+         1
+        ],
+        [
+         4,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         16,
+         "unused",
+         "int",
+         "int",
+         4,
+         2
+        ]
+       ]
+      ],
+      [
+       216,
+       "end",
+       "Terminator",
+       "record",
+       16,
+       1,
+       [
+        [
+         0,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         4,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "last",
+         "int",
+         "int",
+         4,
+         1
+        ]
+       ]
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003635b0.cpp"
+     ],
+     "stride": 232,
+     "types": [
+      "HandlerTable_3635b0"
+     ]
+    }
+   ],
    "size": 232,
    "sources": [
     "equivalent/0x003635b0.cpp"
@@ -2326,6 +7119,60 @@
     "0x30",
     "0x48"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "void (*)()",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "int",
+       "int",
+       4,
+       2
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00363530.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_363530"
+     ]
+    }
+   ],
    "size": 88,
    "sources": [
     "equivalent/0x00363530.cpp"
@@ -2337,6 +7184,112 @@
     "0x0",
     "0x18",
     "0x30"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "slot",
+       "Slot_3636e0[3]",
+       "record",
+       24,
+       3,
+       [
+        [
+         0,
+         "fn",
+         "void (*)()",
+         "code",
+         4,
+         1
+        ],
+        [
+         4,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         16,
+         "unused",
+         "int",
+         "int",
+         4,
+         2
+        ]
+       ]
+      ],
+      [
+       72,
+       "end",
+       "Terminator",
+       "record",
+       16,
+       1,
+       [
+        [
+         0,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         4,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "last",
+         "int",
+         "int",
+         4,
+         1
+        ]
+       ]
+      ]
+     ],
+     "sources": [
+      "equivalent/0x003636e0.cpp"
+     ],
+     "stride": 88,
+     "types": [
+      "HandlerTable_3636e0"
+     ]
+    }
    ],
    "size": 88,
    "sources": [
@@ -2351,6 +7304,60 @@
     "0x30",
     "0x48",
     "0x60"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "void (*)()",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "int",
+       "int",
+       4,
+       2
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00363a10.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_363a10"
+     ]
+    }
    ],
    "size": 112,
    "sources": [
@@ -2370,6 +7377,112 @@
     "0xa8",
     "0xc0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "slot",
+       "Slot_363860[9]",
+       "record",
+       24,
+       9,
+       [
+        [
+         0,
+         "fn",
+         "void (*)()",
+         "code",
+         4,
+         1
+        ],
+        [
+         4,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         16,
+         "unused",
+         "int",
+         "int",
+         4,
+         2
+        ]
+       ]
+      ],
+      [
+       216,
+       "end",
+       "Terminator",
+       "record",
+       16,
+       1,
+       [
+        [
+         0,
+         "a",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         4,
+         "b",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         8,
+         "c",
+         "int",
+         "int",
+         4,
+         1
+        ],
+        [
+         12,
+         "last",
+         "int",
+         "int",
+         4,
+         1
+        ]
+       ]
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00363860.cpp"
+     ],
+     "stride": 232,
+     "types": [
+      "HandlerTable_363860"
+     ]
+    }
+   ],
    "size": 232,
    "sources": [
     "equivalent/0x00363860.cpp"
@@ -2379,6 +7492,52 @@
    "name": "DAT_004d9660",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "callback",
+       "void (*)()",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00363800.cpp"
+     ],
+     "stride": 16,
+     "types": [
+      "Entry"
+     ]
+    }
    ],
    "size": 4,
    "sources": [
@@ -2390,6 +7549,52 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "callback",
+       "void (*)()",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00363800.cpp"
+     ],
+     "stride": 16,
+     "types": [
+      "Entry"
+     ]
+    }
+   ],
    "size": 4,
    "sources": [
     "equivalent/0x00363800.cpp"
@@ -2399,6 +7604,52 @@
    "name": "DAT_004d9690",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "callback",
+       "void (*)()",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00363800.cpp"
+     ],
+     "stride": 16,
+     "types": [
+      "Entry"
+     ]
+    }
    ],
    "size": 4,
    "sources": [
@@ -2412,6 +7663,60 @@
     "0x18",
     "0x30",
     "0x48"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "fn",
+       "void (*)()",
+       "code",
+       4,
+       1
+      ],
+      [
+       4,
+       "a",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "b",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "c",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       16,
+       "pad",
+       "int",
+       "int",
+       4,
+       2
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00363990.cpp"
+     ],
+     "stride": 24,
+     "types": [
+      "Entry_363990"
+     ]
+    }
    ],
    "size": 88,
    "sources": [
@@ -2559,6 +7864,36 @@
    "pointers": [
     "0x4"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "count",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       4,
+       "data",
+       "char *",
+       "pointer",
+       4,
+       1
+      ]
+     ],
+     "sources": [
+      "matches/0x000b10d0.cpp"
+     ],
+     "stride": 8,
+     "types": [
+      "Names"
+     ]
+    }
+   ],
    "size": 8,
    "sources": [
     "matches/0x000b10d0.cpp"
@@ -2653,6 +7988,53 @@
     "matches/0x000da230.cpp"
    ]
   },
+  "0x004de800": {
+   "name": "DAT_004de800",
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "button",
+       "int",
+       "int",
+       4,
+       1
+      ],
+      [
+       4,
+       "code",
+       "int",
+       "int",
+       4,
+       1
+      ]
+     ],
+     "merged": "leaves",
+     "sources": [
+      "equivalent/0x000dd980.cpp",
+      "equivalent/0x000ddac0.cpp",
+      "equivalent/0x000de590.cpp",
+      "equivalent/0x000de9a0.cpp"
+     ],
+     "stride": 8,
+     "types": [
+      "Binding_ddac0",
+      "ButtonEntry",
+      "KeyBinding",
+      "PollMapping"
+     ]
+    }
+   ],
+   "size": 192,
+   "sources": [
+    "equivalent/0x000dd980.cpp",
+    "equivalent/0x000ddac0.cpp",
+    "equivalent/0x000de590.cpp",
+    "equivalent/0x000de9a0.cpp"
+   ]
+  },
   "0x004de948": {
    "name": "DAT_004de948",
    "pointers": [
@@ -2701,7 +8083,6 @@
    "sources": [
     "equivalent/0x000fc060.cpp",
     "matches/0x000fc1b0.cpp",
-    "matches/0x000fc2f0.cpp",
     "matches/0x000fc310.cpp"
    ]
   },
@@ -3094,6 +8475,52 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x8",
+     "fields": [
+      [
+       0,
+       "object",
+       "Object *",
+       "pointer",
+       4,
+       1
+      ],
+      [
+       4,
+       "value",
+       "unsigned int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "next",
+       "Entry_267110 *",
+       "pointer",
+       4,
+       1
+      ],
+      [
+       12,
+       "list",
+       "List_267110 *",
+       "pointer",
+       4,
+       1
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00267110.cpp"
+     ],
+     "stride": 16,
+     "types": [
+      "Entry_267110"
+     ]
+    }
+   ],
    "size": 744,
    "sources": [
     "equivalent/0x00088020.cpp",
@@ -3156,13 +8583,15 @@
   },
   "0x005283b0": {
    "name": "DAT_005283b0",
+   "pointee": {
+    "0x0": "Obj_26e9e0"
+   },
    "pointers": [
     "0x0"
    ],
    "size": 4,
    "sources": [
-    "equivalent/0x0026e9e0.cpp",
-    "matches/0x0026ea50.cpp"
+    "equivalent/0x0026e9e0.cpp"
    ]
   },
   "0x00528408": {
@@ -3191,12 +8620,119 @@
     "equivalent/0x0026f570.cpp"
    ]
   },
+  "0x00528418": {
+   "name": "DAT_00528418",
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "name",
+       "char",
+       "int",
+       1,
+       16
+      ],
+      [
+       16,
+       "terminator",
+       "char",
+       "int",
+       1,
+       1
+      ],
+      [
+       17,
+       "unused",
+       "char",
+       "int",
+       1,
+       3
+      ],
+      [
+       20,
+       "value",
+       "void *",
+       "pointer",
+       4,
+       1
+      ],
+      [
+       24,
+       "details",
+       "char",
+       "int",
+       1,
+       260
+      ]
+     ],
+     "merged": "leaves",
+     "sources": [
+      "matches/0x00270c80.cpp",
+      "matches/0x00270d40.cpp"
+     ],
+     "stride": 284,
+     "types": [
+      "CacheEntry",
+      "Entry_270d40"
+     ]
+    }
+   ],
+   "size": 20,
+   "sources": [
+    "matches/0x00270c80.cpp",
+    "matches/0x00270d40.cpp"
+   ]
+  },
   "0x0052842c": {
    "name": "DAT_0052842c",
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "resource",
+       "Resource_270f90 *",
+       "pointer",
+       4,
+       1
+      ],
+      [
+       4,
+       "rest",
+       "char",
+       "int",
+       1,
+       280
+      ]
+     ],
+     "merged": "leaves",
+     "sources": [
+      "equivalent/0x002709b0.cpp",
+      "equivalent/0x00270f90.cpp",
+      "equivalent/0x002710d0.cpp",
+      "equivalent/0x00271410.cpp",
+      "equivalent/0x00271560.cpp"
+     ],
+     "stride": 284,
+     "types": [
+      "Entry_270f90",
+      "Entry_271410",
+      "Entry_271560",
+      "Record_2709b0",
+      "Slot_2710d0"
+     ]
+    }
+   ],
    "size": 7392,
    "sources": [
+    "equivalent/0x002709b0.cpp",
     "equivalent/0x00270f90.cpp",
-    "equivalent/0x00271410.cpp"
+    "equivalent/0x002710d0.cpp",
+    "equivalent/0x00271410.cpp",
+    "equivalent/0x00271560.cpp"
    ],
    "table_from": [
     "0x0"
@@ -3323,6 +8859,52 @@
    "name": "DAT_0052c270",
    "pointers": [
     "0x0"
+   ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "buffer",
+       "char *",
+       "pointer",
+       4,
+       1
+      ],
+      [
+       4,
+       "file",
+       "unsigned int",
+       "int",
+       4,
+       1
+      ],
+      [
+       8,
+       "block",
+       "unsigned int",
+       "int",
+       4,
+       1
+      ],
+      [
+       12,
+       "valid",
+       "unsigned int",
+       "int",
+       4,
+       1
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00279490.cpp"
+     ],
+     "stride": 16,
+     "types": [
+      "Cache_279490"
+     ]
+    }
    ],
    "size": 16,
    "sources": [
@@ -3482,11 +9064,11 @@
    "size": 4,
    "sources": [
     "equivalent/0x00017d10.cpp",
-    "equivalent/0x00107c90.cpp",
     "equivalent/0x001759c0.cpp",
     "equivalent/0x001b6000.cpp",
     "equivalent/0x00201e00.cpp",
-    "equivalent/0x00201f20.cpp"
+    "equivalent/0x00201f20.cpp",
+    "equivalent/0x0027d780.cpp"
    ]
   },
   "0x00554c30": {
@@ -3549,6 +9131,28 @@
    "pointers": [
     "0x0"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "cells",
+       "Cell_2fa4e0 *",
+       "pointer",
+       4,
+       1
+      ]
+     ],
+     "sources": [
+      "equivalent/0x002fa4e0.cpp"
+     ],
+     "stride": 4,
+     "types": [
+      "CellGrid"
+     ]
+    }
+   ],
    "size": 4,
    "sources": [
     "equivalent/0x002fa4e0.cpp"
@@ -3596,8 +9200,49 @@
    "pointers": [
     "0x40"
    ],
+   "records": [
+    {
+     "base": "0x0",
+     "fields": [
+      [
+       0,
+       "text",
+       "char",
+       "int",
+       1,
+       64
+      ],
+      [
+       64,
+       "value1",
+       "Handler_327c70",
+       "code",
+       4,
+       1
+      ],
+      [
+       68,
+       "value2",
+       "unsigned int",
+       "int",
+       4,
+       1
+      ]
+     ],
+     "sources": [
+      "equivalent/0x00327c20.cpp",
+      "matches/0x00327c70.cpp"
+     ],
+     "stride": 72,
+     "types": [
+      "Entry_327c20",
+      "Entry_327c70"
+     ]
+    }
+   ],
    "size": 1440,
    "sources": [
+    "equivalent/0x00327c20.cpp",
     "matches/0x00327c70.cpp"
    ],
    "table_from": [

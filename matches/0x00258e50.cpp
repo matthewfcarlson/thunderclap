@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct SoundState_258e50 {
     char pad[0x14];
     unsigned flags;
@@ -22,8 +23,8 @@ void __cdecl FUN_00258e50(Object* p) {
     int* out = &p->pos;
     int* b = &p->buffers[0];
     do {
-        IDirectSoundBuffer_Stop(*(int*)((char*)*b + 0x7c));
-        IDirectSoundBuffer_GetCurrentPosition(*(int*)((char*)*b + 0x7c), out, 0);
+        IDirectSoundBuffer_Stop(*(int*)((char*)*(hulk_intptr*)b + 0x7c));
+        IDirectSoundBuffer_GetCurrentPosition(*(int*)((char*)*(hulk_intptr*)b + 0x7c), out, 0);
         ++b;
     } while (--n);
 }

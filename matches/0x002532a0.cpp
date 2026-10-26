@@ -22,7 +22,7 @@ class SeqActionVarPosDist : public SeqAction {
 extern void FUN_00247550(void*, void*);
 audio::SeqActionVarPosDist* audio::SeqActionVarPosDist::vfunc_0(int x) {
     int* p = (int*)this;
-    *p = ((hulk_intptr)DAT_004298fc);
+    *(hulk_intptr*)p = ((hulk_intptr)DAT_004298fc);
     if (x & 1)
         FUN_00247550((void*)((hulk_intptr)DAT_004e6ff0), this);
     return this;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_1dc290 {
   public:
     char pad0[0x608];
@@ -14,7 +15,7 @@ int Obj_1dc290::get(int index) {
         if ((*(unsigned char*)((char*)this + (state + 0x104e) * 0x14) & 1) != 0) {
             int* p = (int*)((char*)e + 0x18);
             if (*p != 0)
-                return *(int*)((char*)*p + 0x40);
+                return *(int*)((char*)*(hulk_intptr*)p + 0x40);
         }
         result = *(signed char*)((char*)e + 0x26);
     }

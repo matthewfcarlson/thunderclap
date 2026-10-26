@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // FUN_002691f0 @ 0x002691f0
+#include "compat/ptr.h"
 #include "decls/data/platform/xbox/core.h"
 
 struct Device_2691f0 {
@@ -41,7 +42,7 @@ void Manager_2691f0::FUN_002691f0() {
             if (device.active) device.slot21(handle);
             else {
                 unsigned time = FUN_00267f80();
-                device.FUN_002692c0(handle, i, 0, time + base, param, extra, ((unsigned*)&DAT_00528388)[i]);
+                device.FUN_002692c0(handle, i, 0, time + base, param, extra, ((hulk_uintptr*)&DAT_00528388)[i]);
             }
         } else if (device.active) {
             device.slot21(0);

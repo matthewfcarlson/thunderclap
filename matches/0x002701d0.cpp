@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/core.h"
 
 extern "C" int sprintf(char*, const char*, ...);
@@ -42,7 +43,7 @@ void* core::MemoryPool::vfunc_13() {
         return (void*)(0);
     }
     unsigned* p = (*(unsigned int * *)&this->f_10);
-    (*(unsigned int * *)&this->f_10) = (unsigned*)*p;
+    (*(unsigned int * *)&this->f_10) = (unsigned*)*(hulk_uintptr*)p;
     (*(unsigned int *)&this->f_28)++;
     (*(unsigned int *)&this->f_2c) = (*(unsigned int *)&this->f_28) > (*(unsigned int *)&this->f_2c) ? (*(unsigned int *)&this->f_28) : (*(unsigned int *)&this->f_2c);
     return (void*)(p);

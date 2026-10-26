@@ -20,7 +20,7 @@ AirToGroundTargetAction::AirToGroundTargetAction(int x, Ref_136850* r) {
     ((AirToGroundTargetAction_136850*)this)->Init();
     Ref_136850* q = r;
     volatile int* p = &vf;
-    *p = ((hulk_intptr)DAT_00411e34);
+    *(hulk_intptr*)p = ((hulk_intptr)DAT_00411e34);
     volatile int* z = &a;
     *z = 0;
     b = 0;

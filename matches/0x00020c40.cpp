@@ -24,7 +24,7 @@ class CSnapToWallAction : public CAction {
 };
 CSnapToWallAction::CSnapToWallAction(int v, Ref_20c40* r) {
     int* p = (int*)this;
-    *p = ((hulk_intptr)DAT_003f3390);
+    *(hulk_intptr*)p = ((hulk_intptr)DAT_003f3390);
     mRef = 0;
     if (r)
         r->F();

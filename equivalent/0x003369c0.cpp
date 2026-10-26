@@ -42,39 +42,39 @@ void Relocator::FUN_003369c0(char swap) {
         case 3:
             p = &arr[i];
             v = SWAP(arr[i]);
-            *p = v;
+            *(hulk_uintptr*)p = v;
             break;
         case 5:
         case 7: {
             unsigned int* q = (unsigned int*)arr[i];
             v = SWAP(*q);
-            *q = v;
+            *(hulk_uintptr*)q = v;
             q++;
             v = SWAP(*q);
-            *q = v;
+            *(hulk_uintptr*)q = v;
             v = arr[i];
             arr[i] = REBASE(v);
             p = &arr[i];
             v = SWAP(arr[i]);
-            *p = v;
+            *(hulk_uintptr*)p = v;
             break;
         }
         case 6:
         case 8: {
             unsigned int* q = (unsigned int*)arr[i];
             v = SWAP(*q);
-            *q = v;
+            *(hulk_uintptr*)q = v;
             q++;
             v = SWAP(*q);
-            *q = v;
+            *(hulk_uintptr*)q = v;
             q++;
             v = SWAP(*q);
-            *q = v;
+            *(hulk_uintptr*)q = v;
             v = arr[i];
             arr[i] = REBASE(v);
             p = &arr[i];
             v = SWAP(arr[i]);
-            *p = v;
+            *(hulk_uintptr*)p = v;
             break;
         }
         case 4:
@@ -83,7 +83,7 @@ void Relocator::FUN_003369c0(char swap) {
             arr[i] = REBASE(v);
             p = &arr[i];
             v = SWAP(arr[i]);
-            *p = v;
+            *(hulk_uintptr*)p = v;
             break;
         case 9: {
             unsigned int* q = (unsigned int*)arr[i];
@@ -92,7 +92,7 @@ void Relocator::FUN_003369c0(char swap) {
             unsigned int* desc = e->desc;
             int n = (int)*q;
             v = SWAP(n);
-            *q = v;
+            *(hulk_uintptr*)q = v;
             q++;
             if (n > 0) {
                 for (; n != 0; n--) {
@@ -101,36 +101,36 @@ void Relocator::FUN_003369c0(char swap) {
                     case 2:
                     case 3:
                         v = SWAP(*q);
-                        *q = v;
+                        *(hulk_uintptr*)q = v;
                         q++;
                         break;
                     case 4:
                     case 10:
                         v = *q;
                         v = REBASE(v);
-                        *q = v;
+                        *(hulk_uintptr*)q = v;
                         v = SWAP(v);
-                        *q = v;
+                        *(hulk_uintptr*)q = v;
                         break;
                     case 5:
                     case 7:
                         v = SWAP(*q);
-                        *q = v;
+                        *(hulk_uintptr*)q = v;
                         q++;
                         v = SWAP(*q);
-                        *q = v;
+                        *(hulk_uintptr*)q = v;
                         q++;
                         break;
                     case 6:
                     case 8:
                         v = SWAP(*q);
-                        *q = v;
+                        *(hulk_uintptr*)q = v;
                         q++;
                         v = SWAP(*q);
-                        *q = v;
+                        *(hulk_uintptr*)q = v;
                         q++;
                         v = SWAP(*q);
-                        *q = v;
+                        *(hulk_uintptr*)q = v;
                         q++;
                         break;
                     default:
@@ -142,7 +142,7 @@ void Relocator::FUN_003369c0(char swap) {
             arr[i] = REBASE(v);
             p = &arr[i];
             v = SWAP(arr[i]);
-            *p = v;
+            *(hulk_uintptr*)p = v;
             break;
         }
         default:

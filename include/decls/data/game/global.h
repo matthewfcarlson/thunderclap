@@ -39,12 +39,13 @@ struct DataLayout_0049cad8;  // packed layout (bytes and pointers), defined in t
 struct DataLayout_004a0658;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004c5ca0;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004c5cbc;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004dda68;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004de658;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004de660;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004de668;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004e226c;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004e2788;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_004dda68;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_004de800;  // packed layout (bytes and pointers), defined in the data TU
 
 // global/AICollisionSolverAgent.cpp
 extern "C" const float DAT_0041d7f0;  // flt_0041d7f0
@@ -3847,7 +3848,7 @@ extern "C" float DAT_0049f2ac[4];  // fltTbl_0049f2ac
 extern "C" unsigned char DAT_004dda50[8];
 extern "C" unsigned char DAT_004dda58[8];
 extern "C" unsigned char DAT_004dda60[8];
-extern "C" DataLayout_004dda68 DAT_004dda68[1];
+extern "C" DataRec_004dda68 DAT_004dda68[1];
 extern "C" unsigned char DAT_004dda70[8];
 extern "C" unsigned char DAT_004dda78[8];
 extern "C" unsigned char DAT_004dda80[8];
@@ -6223,7 +6224,7 @@ extern "C" int DAT_004a0d6c;
 extern "C" int DAT_004a0d70;
 extern "C" int DAT_004a0d74;
 extern "C" int DAT_004a0d78[5];  // tbl_004a0d78
-extern "C" unsigned char DAT_004de800[192];
+extern "C" DataRec_004de800 DAT_004de800[24];
 extern "C" unsigned char DAT_004de8c0[8];
 
 // global/ControllerPollerBase.cpp

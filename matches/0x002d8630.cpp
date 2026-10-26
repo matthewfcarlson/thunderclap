@@ -19,11 +19,11 @@ int F(int a, S_2d8630* s, int* o1, unsigned* o2, int* o3) {
                 r = 0x10;
             }
             if (o3 != 0) {
-                *o3 = (hulk_intptr)&s->f50;
+                *(hulk_intptr*)o3 = (hulk_intptr)&s->f50;
             }
         } else {
             if (o3 != 0) {
-                *o3 = (hulk_intptr)&s->f50;
+                *(hulk_intptr*)o3 = (hulk_intptr)&s->f50;
                 r = 0x10;
             }
             if (o1 != 0) {

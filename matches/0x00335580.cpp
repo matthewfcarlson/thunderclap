@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Item {
   public:
     char pad[8];
@@ -33,6 +34,6 @@ bool Obj::length(int index, int* out) {
     do {
         c = *s++;
     } while (c);
-    *out = s - e;
+    *(hulk_intptr*)out = s - e;
     return true;
 }

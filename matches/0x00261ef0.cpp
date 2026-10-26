@@ -28,7 +28,7 @@ bool Obj_261ef0::Fn(const char* name) {
         if (!mTail)
             mHead = p;
         else
-            *mTail = (hulk_intptr)p;
+            *(hulk_intptr*)mTail = (hulk_intptr)p;
         mTail = p;
     }
     return true;

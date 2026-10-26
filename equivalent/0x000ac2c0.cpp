@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000ac2c0 @ 0x000ac2c0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 struct Ref_ac2c0 { virtual void retain(); virtual void release(); };
@@ -16,7 +17,7 @@ struct Inventory_ac2c0 { virtual void a(); virtual void b(); virtual void c(); v
 struct FUN_000a9400 { FUN_000a9400(); virtual void dummy(); char pad4[4]; Property_ac2c0 property; char pad9[0xd0-9]; unsigned mode; char padD4[0x424-0xd4]; Filter_ac2c0* filter; Other_ac2c0* other; char pad42c[0x478-0x42c]; Ref_ac2c0* resource; };
 struct CHypnoticCamera : FUN_000a9400 { CHypnoticCamera(); virtual void dummy(); };
 CHypnoticCamera::CHypnoticCamera() {
- resource=0; mode=2; property.FUN_0027b040((*(unsigned*)&DAT_0049ed9c));
+ resource=0; mode=2; property.FUN_0027b040((*(hulk_uintptr*)&DAT_0049ed9c));
  void* p=FUN_00263ea0(0x118); filter=p?((Filter_ac2c0*)p)->FUN_00292eb0():0; filter->retain();
  p=FUN_00263ea0(0xf8); other=p?((Other_ac2c0*)p)->FUN_002939a0():0; other->retain();
  filter->FUN_00293100(other);

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" long __cdecl atol(const char*);
 class Reader {
   public:
@@ -12,7 +13,7 @@ char __stdcall ParsePair(long* output, Reader* reader, void* unused, char indire
     if (indirect)
         destination = output;
     else
-        destination = (long*)*output;
+        destination = (long*)*(hulk_intptr*)output;
     *destination = atol(text);
     reader->Advance();
     text = reader->GetText();

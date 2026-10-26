@@ -14,5 +14,5 @@ class ParamValueInt {
 };
 ParamValueInt::ParamValueInt(int x) : value(x) {
     volatile int* p = (volatile int*)this;
-    *p = ((hulk_intptr)DAT_00427a38);
+    *(hulk_intptr*)p = ((hulk_intptr)DAT_00427a38);
 }

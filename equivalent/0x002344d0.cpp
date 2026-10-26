@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // fight::Condition::vfunc_3 @ 0x002344d0
+#include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 
 unsigned __int64 __cdecl FUN_002672f0(unsigned int name, int a, int b);
@@ -54,7 +55,7 @@ bool fight::Condition::vfunc_3(unsigned __int64 id, int extra, ParamArg_2344d0 a
     param->vfunc_16(key);
     if (!param->vfunc_3()) {
         arg.flag = 0;
-        param->vfunc_11(FUN_002672f0((*(unsigned int*)&DAT_004ca290), 0, 0), &arg.flag);
+        param->vfunc_11(FUN_002672f0((*(hulk_uintptr*)&DAT_004ca290), 0, 0), &arg.flag);
     }
     vfunc_4(extra, param);
     param->vfunc_17();

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern void ReleaseThing(void*);
 extern int vertex_vftable;
 extern int ref_vftable_2d0800;
@@ -17,7 +18,7 @@ atexit:;
     int* p = c;
     int n = 4;
     do {
-        ReleaseThing((void*)*p);
+        ReleaseThing((void*)*(hulk_intptr*)p);
         ++p;
         --n;
     } while (n);

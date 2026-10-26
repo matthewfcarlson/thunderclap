@@ -17,6 +17,7 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 #endif
 #endif
 
+struct DataRec_005555c8;  // packed layout (bytes and pointers), defined in the data TU
 
 // pure3d/AmbientLight.cpp
 extern "C" const float DAT_0042d6f0[7];  // fltTbl_0042d6f0
@@ -754,7 +755,7 @@ extern "C" float DAT_004d4110[4];  // fltTbl_004d4110
 extern "C" unsigned int DAT_005555b8;
 extern "C" unsigned char DAT_005555bc[4];
 extern "C" unsigned char DAT_005555c0[8];
-extern "C" void* DAT_005555c8[360];
+extern "C" DataRec_005555c8 DAT_005555c8[20];
 
 // pure3d/unk_28b970.cpp
 extern "C" const unsigned int DAT_004852c4[1];  // zero_004852c4

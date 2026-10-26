@@ -17,6 +17,7 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 #endif
 #endif
 
+struct DataRec_004cd388;  // packed layout (bytes and pointers), defined in the data TU
 
 // om/CallbackStream.cpp
 extern "C" const unsigned int DAT_00480c64[1];  // zero_00480c64
@@ -111,7 +112,7 @@ extern "C" const char DAT_0042aabc[4];  // s_set_0042aabc
 extern "C" const char DAT_0042aac0[4];  // s_cat_0042aac0
 extern "C" const char DAT_0042aae0[17];  // s_Undefined_symbol_0042aae0
 extern "C" const char DAT_0042aaf4[10];  // s_Missing_0042aaf4
-extern "C" const void* DAT_004cd388[2];  // ptrTbl_004cd388
+extern "C" DataRec_004cd388 DAT_004cd388[1];  // ptrTbl_004cd388
 extern "C" const void* DAT_004cd390[6];  // ptrTbl_004cd390
 extern "C" unsigned int DAT_004cd3a8[1];  // unk_004cd3a8
 extern "C" hulk_code_ptr DAT_004cd3ac;  // PTR_004cd3ac

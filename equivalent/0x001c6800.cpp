@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 6/6)
 // FUN_001c6800 @ 0x001c6800
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
@@ -39,8 +40,8 @@ void Object::render(Renderer_1c6800* renderer, Queue_1c6800* queue, int context,
  renderer->FUN_001c1330(enabled ? renderer->option : 0);
  (*(Profiler_1c6800**)&DAT_004dd6e8)->FUN_0023f740();
  if (geometry) {
-  (*(int*)&DAT_004e2350) = context;
+  (*(hulk_intptr*)&DAT_004e2350) = context;
   renderer->FUN_001c26a0(geometry, argument, data);
-  (*(int*)&DAT_004e2350) = 0;
+  (*(hulk_intptr*)&DAT_004e2350) = 0;
  }
 }

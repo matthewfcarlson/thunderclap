@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 16/16)
 // FUN_000c4020 @ 0x000c4020
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
@@ -198,10 +199,10 @@ void MissionMenu::FUN_000c4020(int a, int b)
         f28 = 1;
         (*(Timer**)&DAT_004dd9cc)->FUN_002665a0();
         FUN_000befc0(DAT_0049f3bc, 0xb, 1);
-        FUN_000befc0((*(int*)&DAT_0049f3c8), 0xb, 1);
-        FUN_000befc0((*(int*)&DAT_0049f3cc), 0xb, 1);
-        FUN_000befc0((*(int*)&DAT_0049f3d4), 0xb, 1);
-        FUN_000befc0((*(int*)&DAT_0049f3d0), 0xb, 1);
+        FUN_000befc0((*(hulk_intptr*)&DAT_0049f3c8), 0xb, 1);
+        FUN_000befc0((*(hulk_intptr*)&DAT_0049f3cc), 0xb, 1);
+        FUN_000befc0((*(hulk_intptr*)&DAT_0049f3d4), 0xb, 1);
+        FUN_000befc0((*(hulk_intptr*)&DAT_0049f3d0), 0xb, 1);
         f20->FUN_00294980(f24);
         f10 = 3;
         if (!(*(char*)&DAT_0049fb3c) && f08) {
@@ -210,7 +211,7 @@ void MissionMenu::FUN_000c4020(int a, int b)
             f10 = 7;
             (*(char*)&DAT_0049fb3c) = 0;
         }
-        FUN_000fc100((*(int*)&DAT_0049f3ac), 0);
+        FUN_000fc100((*(hulk_intptr*)&DAT_0049f3ac), 0);
         fr.entry.FUN_000f7930();
         TextSelector* sel = (TextSelector*)FUN_00344e74(FUN_000fc260("mission_selector"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
         if (sel) {

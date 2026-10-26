@@ -145,7 +145,7 @@ void DebugRender::FUN_001c3e10()
     if ((*(Console_1c3e10**)&DAT_004dd6e8)->FUN_0023f770("Toggle Collision Meshes", 0x6d))
         DAT_004e2320 = !DAT_004e2320;
     if ((*(char*)&DAT_004e2321))
-        FUN_002fa5b0((*(int*)&DAT_00554c14));
+        FUN_002fa5b0((*(hulk_intptr*)&DAT_00554c14));
     if (DAT_004e2320 && DAT_004dd6ec) {
         Level_1c3e10 *level = DAT_004dd6ec->FUN_000862a0();
         if (level) {

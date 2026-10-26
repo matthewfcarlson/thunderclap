@@ -22,7 +22,7 @@ extern void Register(int*, MetaType*, Pair_25fa00*);
 MetaType* MetaType::Init(int a, int b) {
     int* p = (int*)((char*)this + 0x18);
     vptr = ((hulk_intptr)DAT_0042aa40);
-    *p = (hulk_intptr)p;
+    *(hulk_intptr*)p = (hulk_intptr)p;
     m1c = p;
     m20 = p;
     m14 = p;

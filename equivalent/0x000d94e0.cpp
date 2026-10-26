@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // FUN_000d94e0 @ 0x000d94e0
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 struct State_d94e0 { char pad[0x1bc8]; unsigned char flag; };
@@ -24,7 +25,7 @@ if(mode) text=(*(const char**)&DAT_004a0ce8);
 else if(DAT_004dd6ec->FUN_00086280()->flag) text=(*(const char**)&DAT_004a0ce4);
 else text=(*(const char**)&DAT_004a0ce0);
 extern const float zero_d94e0; // the shared 0.0f constant in .rdata
-unsigned int setting=(*(unsigned int*)&DAT_004a0c60);
+unsigned int setting=(*(hulk_uintptr*)&DAT_004a0c60);
 service->FUN_000be310(text,buffer,&zero_d94e0,&zero_d94e0,&zero_d94e0,3,setting,setting);
 active=1;
 value=0;

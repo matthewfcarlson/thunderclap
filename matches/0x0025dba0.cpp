@@ -14,7 +14,7 @@ void Queue_25dba0::Add(int* item) {
         head = node;
         tail = node;
     } else {
-        *tail = (hulk_intptr)node;
+        *(hulk_intptr*)tail = (hulk_intptr)node;
         tail = node;
     }
 }

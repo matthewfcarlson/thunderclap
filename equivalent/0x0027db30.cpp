@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20018 inputs, branch coverage 8/8)
 // FUN_0027db30 @ 0x0027db30
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "gen/physics.h"
 
@@ -38,7 +39,7 @@ void Target_27db30::run(physics::PhysicsInstance* parent,U_27db30 a,U_27db30 b,U
  if (!object) return;
  U_27db30 value = holder->entity->FUN_002ef4a0();
  object->FUN_002ef440(value);
- object->service->FUN_002fe6b0((*(U_27db30*)&DAT_00554c10));
+ object->service->FUN_002fe6b0((*(hulk_uintptr*)&DAT_00554c10));
  Entity_27db30* entity = holder->entity;
  SpawnVtable* table = *reinterpret_cast<SpawnVtable**>(object);
  value = entity->v4(id,0);

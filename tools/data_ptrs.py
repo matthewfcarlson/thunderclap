@@ -108,6 +108,36 @@ def first_tok(n):
     return next(iter(n.cur.get_tokens()), None)
 
 
+def record_layout(t):
+    """[[offset, name, type spelling, kind, element size, count]] of a record's fields (arrays: their element), the
+    record's own layout in the 32-bit target."""
+    out = []
+    c = t.get_canonical()
+    for f in c.get_fields():
+        try:
+            off = c.get_offset(f.spelling) // 8
+        except Exception:  # noqa: BLE001
+            return None
+        ft = f.type.get_canonical()
+        n = 1
+        if ft.kind == TK.CONSTANTARRAY:
+            n = ft.element_count
+            ft = ft.element_type.get_canonical()
+        if f.is_bitfield():
+            return None
+        k = kind_of(ft)
+        row = [off, f.spelling, ft.spelling if k in ("int", "float") else f.type.spelling, k, size_of(ft), n]
+        if row[3] == "record":
+            sub = record_layout(ft)
+            if sub is None:
+                return None
+            row.append(sub)
+        elif row[3] == "pointer" and ft.get_pointee().get_canonical().kind == TK.FUNCTIONPROTO:
+            row[3] = "code"
+        out.append(row)
+    return out
+
+
 def follow(u, ref):
     """From a DeclRefExpr of an address-named variable to the access it ends in. Returns a dict."""
     vt = ref.cur.type
@@ -115,6 +145,7 @@ def follow(u, ref):
     # state: ("lval", off, type) or ("addr", off, pointee type)
     st = ["lval", 0, vt]
     raw = [False]           # some offset came from a non-pointer stride (a 32-bit byte layout)
+    recd = {}               # the access goes through a cast to a record pointer: the record and where
     n = ref
     p = n.parent
     escape = None
@@ -144,7 +175,10 @@ def follow(u, ref):
         if k in ptr1.CASTS:
             pt = p.cur.type.get_canonical()
             if st[0] == "addr" and pt.kind == TK.POINTER:
-                st = ["addr", st[1], pt.get_pointee()]
+                st = ["addr", st[1], p.cur.type.get_pointee() if p.cur.type.kind == TK.POINTER else pt.get_pointee()]
+                if st[2].get_canonical().kind == TK.RECORD and not recd:
+                    recd.update(base=st[1], type=st[2].get_canonical().spelling, size=size_of(st[2]),
+                               fields=record_layout(st[2]))
                 n, p = p, p.parent
                 continue
             if st[0] == "lval" and st[2].get_canonical().kind in (TK.CONSTANTARRAY, TK.INCOMPLETEARRAY) and \
@@ -170,6 +204,8 @@ def follow(u, ref):
         if k == CK.ARRAY_SUBSCRIPT_EXPR and st[0] == "addr" and p.kids and p.kids[0] is n:
             v = literal(u, p.kids[1]) if len(p.kids) > 1 else None
             es = size_of(st[2]) or 1
+            if recd and "index" not in recd and st[2].get_canonical().kind == TK.RECORD:
+                recd["index"] = v
             if v and kind_of(st[2]) != "pointer":
                 raw[0] = True
             st = ["lval", st[1] + v * es if (v is not None and st[1] is not None) else None, st[2]]
@@ -189,12 +225,16 @@ def follow(u, ref):
             if st[0] == "addr" or (st[0] == "lval" and st[2].get_canonical().kind == TK.RECORD):
                 if fo:
                     raw[0] = True
+                if recd and "field" not in recd:
+                    recd.update(field=f.spelling, field_off=fo)
                 st = ["lval", st[1] + fo if st[1] is not None else None, f.type] + st[3:]
                 n, p = p, p.parent
                 continue
             break
         break
     row = {"line": ref.cur.location.line, "var": ref.cur.spelling, "decl": vt.spelling, "raw_off": raw[0]}
+    if recd:
+        row["rec"] = recd
     if st[0] == "lval":
         row.update(off=st[1], size=size_of(st[2]), kind=kind_of(st[2]), type=st[2].spelling,
                    indexed=len(st) > 3)
@@ -310,17 +350,115 @@ def per_item(m, rows):
 POINTEE = re.compile(r"^(?:const\s+)?(?:struct\s+|class\s+)?([A-Za-z_][\w:]*)\s*\*$")
 
 
+def shape(fields):
+    """A record layout without names and pointer/integer kinds: what two sources must agree on."""
+    return [(f[0], f[4], f[5], shape(f[6]) if len(f) > 6 else (f[3] == "float")) for f in fields]
+
+
+def leaves(fields, base=0):
+    """[(offset, size, kind)] of a layout's scalar leaves, arrays expanded."""
+    out = []
+    for f in fields:
+        for j in range(f[5]):
+            o = base + f[0] + j * f[4]
+            if len(f) > 6:
+                out += leaves(f[6], o)
+            else:
+                out.append((o, f[4], f[3]))
+    return out
+
+
+def set_leaf(fields, off, kind, base=0):
+    """Mark the scalar leaf at offset off as kind (a field array with one pointer element becomes all pointers:
+    an array has one element type)."""
+    for f in fields:
+        for j in range(f[5]):
+            o = base + f[0] + j * f[4]
+            if len(f) > 6:
+                if o <= off < o + f[4]:
+                    set_leaf(f[6], off, kind, o)
+                    return
+            elif o == off:
+                f[3] = kind
+                return
+
+
+def merge_fields(layouts):
+    """One field list from several sources' layouts of the same shape: names and types from the first, a leaf is a
+    pointer (code) when any source uses it as one."""
+    out = json.loads(json.dumps(layouts[0]))
+    for other in layouts[1:]:
+        for f, g in zip(out, other):
+            if len(f) > 6:
+                f[6] = merge_fields([f[6], g[6]])
+            elif g[3] in ("pointer", "code") and f[3] not in ("pointer", "code"):
+                f[2], f[3] = g[2], g[3]
+            elif g[3] == "code" and f[3] == "pointer":
+                f[2], f[3] = g[2], g[3]
+    return out
+
+
+def record_views(m, rows):
+    """{item addr: [{"base", "stride", "fields", "types", "sources"}]}: the record types sources cast the item to,
+    merged per (base, stride) when their shapes agree; a shape conflict is reported as {"conflict": ...}."""
+    uses = collections.defaultdict(lambda: collections.defaultdict(dict))   # addr -> (base, stride) -> type -> (fields, src)
+    for r in rows:
+        rc = r.get("rec")
+        if not rc or rc.get("fields") is None or rc.get("base") is None or not rc.get("size"):
+            continue
+        it = m.item_at(r["addr"])
+        if it is None or not m.emitted(it):
+            continue
+        base = r["addr"] - it["addr"] + rc["base"]
+        uses[it["addr"]][(base, rc["size"])].setdefault(rc["type"], (rc["fields"], r["src"]))
+    out = {}
+    for addr, views in uses.items():
+        vs = []
+        for (base, stride), types in sorted(views.items()):
+            ts = sorted(types.items(), key=lambda kv: kv[1][1])
+            shapes = {json.dumps(shape(f)) for _, (f, _) in ts}
+            if len(shapes) > 1:
+                # different field breakdowns: take the one with the most pointer leaves when every other layout's
+                # pointer leaves are 4-byte leaves of it (the others only split the plain bytes differently)
+                cand = sorted(ts, key=lambda kv: (-len([x for x in leaves(kv[1][0]) if x[2] in ("pointer", "code")]),
+                                                  -len(leaves(kv[1][0])), kv[1][1]))
+                best = cand[0][1][0]
+                bl = {(o, sz): k for o, sz, k in leaves(best)}
+                if all((o, sz) in bl for _, (f, _) in cand[1:] for o, sz, k in leaves(f) if k in ("pointer", "code")):
+                    fields = json.loads(json.dumps(best))
+                    for _, (f, _) in cand[1:]:
+                        for o, sz, k in leaves(f):
+                            if k in ("pointer", "code") and bl[(o, sz)] not in ("pointer", "code"):
+                                set_leaf(fields, o, k)
+                    vs.append({"base": "0x%x" % base, "stride": stride, "fields": fields, "types": sorted(t for t, _ in ts),
+                               "sources": sorted({sr for _, (_, sr) in ts}), "merged": "leaves"})
+                    continue
+                vs.append({"base": "0x%x" % base, "stride": stride, "conflict": sorted("%s (%s)" % (t, sr) for t, (_, sr) in ts)})
+                continue
+            vs.append({"base": "0x%x" % base, "stride": stride, "fields": merge_fields([f for _, (f, _) in ts]),
+                       "types": sorted(t for t, _ in ts), "sources": sorted({sr for _, (_, sr) in ts})})
+        out[addr] = vs
+    return out
+
+
 def cmd_evidence(a):
     m = model()
-    agg = per_item(m, rows_of(a.acc))
+    rows = list(rows_of(a.acc))
+    agg = per_item(m, rows)
+    views = record_views(m, rows)
     items = {}
-    for addr, e in sorted(agg.items()):
+    for addr in sorted(set(agg) | set(views)):
+        e = agg[addr]
         it = m.item_at(addr)
         ptrs = sorted(o for o in e["ptr"] if 0 <= o and o + 4 <= it["size"] and o % 4 == 0 and (it["addr"] + o) % 4 == 0)
         table = sorted(o for o in e["table"] if 0 <= o < it["size"])
-        if not ptrs and not table:
+        rv = [v for v in views.get(addr, ()) if "conflict" in v or json.dumps(v["fields"]).count('"pointer"') +
+              json.dumps(v["fields"]).count('"code"')]
+        if not ptrs and not table and not rv:
             continue
         row = {"name": it["cname"], "size": it["size"]}
+        if rv:
+            row["records"] = rv
         if ptrs:
             row["pointers"] = ["0x%x" % o for o in ptrs]
             types = {}
@@ -332,7 +470,8 @@ def cmd_evidence(a):
                 row["pointee"] = types
         if table:
             row["table_from"] = ["0x%x" % o for o in table]
-        row["sources"] = sorted({s for o in ptrs for s in e["ptr_src"][o]} | {s for o in table for s in e["table"][o]})[:6]
+        row["sources"] = sorted({s for o in ptrs for s in e["ptr_src"][o]} | {s for o in table for s in e["table"][o]} |
+                                {s for v in rv for s in v.get("sources", ())})[:6]
         items["0x%08x" % it["addr"]] = row
     doc = {"_comment": "Words of the game's data items that hold pointers at run time, from the sources' accesses "
                        "(tools/data_ptrs.py evidence): byte offsets in the item (`pointers`), pointer tables indexed "
@@ -341,9 +480,11 @@ def cmd_evidence(a):
            "items": items}
     out = a.out or EVIDENCE
     json.dump(doc, open(out, "w"), indent=1, sort_keys=True)
-    print("%d items with pointer evidence (%d words, %d tables) -> %s" % (
+    print("%d items with pointer evidence (%d words, %d tables, %d record views, %d conflicting) -> %s" % (
         len(items), sum(len(r.get("pointers", [])) for r in items.values()),
-        sum(len(r.get("table_from", [])) for r in items.values()), os.path.relpath(out, ROOT)))
+        sum(len(r.get("table_from", [])) for r in items.values()),
+        sum(1 for r in items.values() for v in r.get("records", ()) if "fields" in v),
+        sum(1 for r in items.values() for v in r.get("records", ()) if "conflict" in v), os.path.relpath(out, ROOT)))
 
 
 def load_evidence(path=EVIDENCE):
@@ -359,7 +500,20 @@ def cmd_lint(a):
     import data_gen
     m = model()
     layout = data_gen.pointer_layout(m)          # {item addr: set(offsets of pointer words)}
-    agg = per_item(m, rows_of(a.acc))
+    recs = data_gen.record_items(m)               # {item addr: stride}: emitted as the sources' record type
+    rows = []
+    for r in rows_of(a.acc):
+        it = m.item_at(r["addr"])
+        rc = r.get("rec")
+        # an access through the record type the item is emitted as indexes it correctly on every target
+        if it is not None and it["addr"] in recs and rc and rc.get("size") == recs[it["addr"]] and \
+                r["addr"] - it["addr"] + (rc.get("base") or 0) == 0:
+            continue
+        # a pointer-sized integer (hulk_intptr / hulk_uintptr) read or written at a pointer word is what it holds
+        if r.get("kind") == "int" and "hulk_" in (r.get("type") or "") and "ptr" in (r.get("type") or ""):
+            continue
+        rows.append(r)
+    agg = per_item(m, rows)
     hits = collections.defaultdict(list)
     for addr, e in agg.items():
         pw = layout.get(addr)

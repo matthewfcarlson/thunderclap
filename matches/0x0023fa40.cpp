@@ -7,9 +7,9 @@ extern const char str2_23fa40[];
 extern "C" void* memcpy(void*, const void*, unsigned int);
 void FUN_0023fa40(int* out, char* src, uint_23fa40 n, int len) {
     char* p = (char*)FUN_00247610(str1_23fa40, str2_23fa40, len + 9, 4);
-    *out = (hulk_intptr)(p + 8);
+    *(hulk_intptr*)out = (hulk_intptr)(p + 8);
     *(ushort*)(*out - 2) = (ushort)len;
     *(ushort*)(*out - 4) = 1;
-    memcpy((void*)*out, src, n);
-    ((char*)*out)[n] = 0;
+    memcpy((void*)*(hulk_intptr*)out, src, n);
+    ((char*)*(hulk_intptr*)out)[n] = 0;
 }

@@ -21,33 +21,36 @@ struct DataLayout_004d4d08;  // packed layout (bytes and pointers), defined in t
 struct DataLayout_004d56d8;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004d5830;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004d79c0;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004d7a38;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004d7ab0;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004d7db0;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004d7e68;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004d7fa0;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004d80f0;  // packed layout (bytes and pointers), defined in the data TU
+struct DataLayout_004d7ec8;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004d8198;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004d8210;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004d8330;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004d83d8;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004d8620;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004d86e0;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004d87a0;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004d8848;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004d8980;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004d8aa0;  // packed layout (bytes and pointers), defined in the data TU
+struct DataLayout_004d88f0;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004d8b78;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004d8cc8;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004d8f70;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004d90a8;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004d91c8;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004d9240;  // packed layout (bytes and pointers), defined in the data TU
+struct DataLayout_004d8fd0;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004d9330;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004d9390;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004d94f8;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_004d9570;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004d96a8;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_004d7a38;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_004d7db0;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_004d7fa0;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_004d80f0;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_004d8210;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_004d8330;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_004d83d8;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_004d8620;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_004d8980;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_004d8aa0;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_004d8f70;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_004d90a8;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_004d91c8;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_004d9240;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_004d9390;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_004d9570;  // packed layout (bytes and pointers), defined in the data TU
 
 // pure3d/d3dBuildingShader.cpp
 extern "C" const float DAT_00433f50[7];  // fltTbl_00433f50
@@ -57,14 +60,14 @@ extern "C" char DAT_004d91a0[9];  // s_building_004d91a0
 extern "C" unsigned char DAT_004d91a9[7];  // zero_004d91a9
 extern "C" float DAT_004d91b0[4];  // fltTbl_004d91b0
 extern "C" char DAT_004d91c0[5];  // s_AMBI_004d91c0
-extern "C" DataLayout_004d91c8 DAT_004d91c8[1];  // tbl_004d91c8
+extern "C" DataRec_004d91c8 DAT_004d91c8[1];  // tbl_004d91c8
 extern "C" char DAT_004d9238[5];  // s_UVMD_004d9238
-extern "C" DataLayout_004d9240 DAT_004d9240[1];  // tbl_004d9240
+extern "C" DataRec_004d9240 DAT_004d9240[1];  // tbl_004d9240
 extern "C" char DAT_004d9328[4];  // s_TEX_004d9328
 extern "C" unsigned int DAT_004d932c[1];  // zero_004d932c
 extern "C" DataLayout_004d9330 DAT_004d9330[1];  // tbl_004d9330
 extern "C" char DAT_004d9388[5];  // s_SHIN_004d9388
-extern "C" DataLayout_004d9390 DAT_004d9390[1];  // tbl_004d9390
+extern "C" DataRec_004d9390 DAT_004d9390[1];  // tbl_004d9390
 extern "C" float DAT_004d93e8;  // flt_004d93e8
 
 // pure3d/d3dBumpMapVertexShader.cpp
@@ -96,7 +99,7 @@ extern "C" float DAT_004d94e0[4];  // fltTbl_004d94e0
 extern "C" char DAT_004d94f0[5];  // s_AMBI_004d94f0
 extern "C" DataLayout_004d94f8 DAT_004d94f8[1];  // tbl_004d94f8
 extern "C" char DAT_004d9568[5];  // s_UVMD_004d9568
-extern "C" DataLayout_004d9570 DAT_004d9570[1];  // tbl_004d9570
+extern "C" DataRec_004d9570 DAT_004d9570[1];  // tbl_004d9570
 extern "C" char DAT_004d9658[4];  // s_TEX_004d9658
 extern "C" unsigned int DAT_004d965c[1];  // zero_004d965c
 extern "C" void* DAT_004d9660;
@@ -299,7 +302,7 @@ extern "C" void* DAT_004d85f0[4];  // tbl_004d85f0
 extern "C" unsigned int DAT_004d8600[2];  // zero_004d8600
 extern "C" int DAT_004d8608[4];  // tbl_004d8608
 extern "C" char DAT_004d8618[5];  // s_SHIN_004d8618
-extern "C" DataLayout_004d8620 DAT_004d8620[1];  // tbl_004d8620
+extern "C" DataRec_004d8620 DAT_004d8620[1];  // tbl_004d8620
 extern "C" char DAT_004d8690[4];  // s_TEX_004d8690
 extern "C" unsigned int DAT_004d8694[1];  // zero_004d8694
 extern "C" void* DAT_004d8698;
@@ -367,7 +370,7 @@ extern "C" int DAT_004d7d9c;
 extern "C" int DAT_004d7da0;
 extern "C" int DAT_004d7da4;
 extern "C" char DAT_004d7da8[5];  // s_SHIN_004d7da8
-extern "C" DataLayout_004d7db0 DAT_004d7db0[1];  // tbl_004d7db0
+extern "C" DataRec_004d7db0 DAT_004d7db0[1];  // tbl_004d7db0
 
 // pure3d/d3dPointSpriteShader.cpp
 extern "C" const float DAT_00433b78[7];  // fltTbl_00433b78
@@ -376,7 +379,7 @@ extern "C" const unsigned int DAT_0048b864[1];  // zero_0048b864
 extern "C" char DAT_004d830c[12];  // s_pointsprite_004d830c
 extern "C" float DAT_004d8318[4];  // fltTbl_004d8318
 extern "C" char DAT_004d8328[5];  // s_PSCE_004d8328
-extern "C" DataLayout_004d8330 DAT_004d8330[1];  // tbl_004d8330
+extern "C" DataRec_004d8330 DAT_004d8330[1];  // tbl_004d8330
 extern "C" char DAT_004d83a0[4];  // s_TEX_004d83a0
 extern "C" unsigned int DAT_004d83a4[1];  // zero_004d83a4
 extern "C" void* DAT_004d83a8;
@@ -389,7 +392,7 @@ extern "C" int DAT_004d83c4;
 extern "C" int DAT_004d83c8;
 extern "C" int DAT_004d83cc;
 extern "C" char DAT_004d83d0[5];  // s_PSSZ_004d83d0
-extern "C" DataLayout_004d83d8 DAT_004d83d8[1];  // tbl_004d83d8
+extern "C" DataRec_004d83d8 DAT_004d83d8[1];  // tbl_004d83d8
 
 // pure3d/d3dPrimBufferStream.cpp
 extern "C" const float DAT_0043353c;  // flt_0043353c
@@ -423,7 +426,7 @@ extern "C" int DAT_004d80dc;
 extern "C" int DAT_004d80e0;
 extern "C" int DAT_004d80e4;
 extern "C" char DAT_004d80e8[5];  // s_SHIN_004d80e8
-extern "C" DataLayout_004d80f0 DAT_004d80f0[1];  // tbl_004d80f0
+extern "C" DataRec_004d80f0 DAT_004d80f0[1];  // tbl_004d80f0
 extern "C" char DAT_004d8148[4];  // s_TEX_004d8148
 extern "C" unsigned int DAT_004d814c[1];  // zero_004d814c
 extern "C" void* DAT_004d8150;
@@ -443,7 +446,7 @@ extern "C" int DAT_004d818c;
 extern "C" char DAT_004d8190[5];  // s_AMBI_004d8190
 extern "C" DataLayout_004d8198 DAT_004d8198[1];  // tbl_004d8198
 extern "C" char DAT_004d8208[5];  // s_UVMD_004d8208
-extern "C" DataLayout_004d8210 DAT_004d8210[1];  // tbl_004d8210
+extern "C" DataRec_004d8210 DAT_004d8210[1];  // tbl_004d8210
 
 // pure3d/d3dReflShader.cpp
 extern "C" const float DAT_00433a68[7];  // fltTbl_00433a68
@@ -454,7 +457,7 @@ extern "C" float DAT_004d7e50[4];  // fltTbl_004d7e50
 extern "C" char DAT_004d7e60[5];  // s_SHIN_004d7e60
 extern "C" DataLayout_004d7e68 DAT_004d7e68[1];  // tbl_004d7e68
 extern "C" char DAT_004d7ec0[5];  // s_AMBI_004d7ec0
-extern "C" int DAT_004d7ec8[34];  // tbl_004d7ec8
+extern "C" DataLayout_004d7ec8 DAT_004d7ec8[1];  // tbl_004d7ec8
 extern "C" char DAT_004d7f50[4];  // s_TEX_004d7f50
 extern "C" unsigned int DAT_004d7f54[1];  // zero_004d7f54
 extern "C" void* DAT_004d7f58;
@@ -472,7 +475,7 @@ extern "C" int DAT_004d7f8c;
 extern "C" int DAT_004d7f90;
 extern "C" int DAT_004d7f94;
 extern "C" char DAT_004d7f98[5];  // s_UVMD_004d7f98
-extern "C" DataLayout_004d7fa0 DAT_004d7fa0[1];  // tbl_004d7fa0
+extern "C" DataRec_004d7fa0 DAT_004d7fa0[1];  // tbl_004d7fa0
 
 // pure3d/d3dRefractVertexShader.cpp
 extern "C" const float DAT_00433d10[7];  // fltTbl_00433d10
@@ -494,9 +497,9 @@ extern "C" int DAT_004d88dc;
 extern "C" int DAT_004d88e0;
 extern "C" int DAT_004d88e4;
 extern "C" char DAT_004d88e8[5];  // s_AMBI_004d88e8
-extern "C" int DAT_004d88f0[34];  // tbl_004d88f0
+extern "C" DataLayout_004d88f0 DAT_004d88f0[1];  // tbl_004d88f0
 extern "C" char DAT_004d8978[5];  // s_UVMD_004d8978
-extern "C" DataLayout_004d8980 DAT_004d8980[1];  // tbl_004d8980
+extern "C" DataRec_004d8980 DAT_004d8980[1];  // tbl_004d8980
 
 // pure3d/d3dShader.cpp
 extern "C" const float DAT_00434060[2];  // fltTbl_00434060
@@ -1991,7 +1994,7 @@ extern "C" int DAT_004d79b4;
 extern "C" char DAT_004d79b8[5];  // s_SHIN_004d79b8
 extern "C" DataLayout_004d79c0 DAT_004d79c0[1];  // tbl_004d79c0
 extern "C" char DAT_004d7a30[5];  // s_AMBI_004d7a30
-extern "C" DataLayout_004d7a38 DAT_004d7a38[1];  // tbl_004d7a38
+extern "C" DataRec_004d7a38 DAT_004d7a38[1];  // tbl_004d7a38
 extern "C" char DAT_004d7aa8[5];  // s_UVMD_004d7aa8
 extern "C" DataLayout_004d7ab0 DAT_004d7ab0[1];  // tbl_004d7ab0
 
@@ -2013,9 +2016,9 @@ extern "C" int DAT_004d8f5c;
 extern "C" int DAT_004d8f60;
 extern "C" int DAT_004d8f64;
 extern "C" char DAT_004d8f68[5];  // s_SHIN_004d8f68
-extern "C" DataLayout_004d8f70 DAT_004d8f70[1];  // tbl_004d8f70
+extern "C" DataRec_004d8f70 DAT_004d8f70[1];  // tbl_004d8f70
 extern "C" char DAT_004d8fc8[5];  // s_AMBI_004d8fc8
-extern "C" int DAT_004d8fd0[34];  // tbl_004d8fd0
+extern "C" DataLayout_004d8fd0 DAT_004d8fd0[1];  // tbl_004d8fd0
 extern "C" char DAT_004d9058[4];  // s_TEX_004d9058
 extern "C" unsigned int DAT_004d905c[1];  // zero_004d905c
 extern "C" void* DAT_004d9060;
@@ -2033,7 +2036,7 @@ extern "C" int DAT_004d9094;
 extern "C" int DAT_004d9098;
 extern "C" int DAT_004d909c;
 extern "C" char DAT_004d90a0[5];  // s_UVMD_004d90a0
-extern "C" DataLayout_004d90a8 DAT_004d90a8[1];  // tbl_004d90a8
+extern "C" DataRec_004d90a8 DAT_004d90a8[1];  // tbl_004d90a8
 
 // pure3d/d3dTexture.cpp
 extern "C" const float DAT_00433400[7];  // fltTbl_00433400
@@ -2056,7 +2059,7 @@ extern "C" char DAT_004d8a7c[6];  // s_toon2_004d8a7c
 extern "C" unsigned char DAT_004d8a82[6];  // zero_004d8a82
 extern "C" float DAT_004d8a88[5];  // fltTbl_004d8a88
 extern "C" unsigned int DAT_004d8a9c[1];  // zero_004d8a9c
-extern "C" DataLayout_004d8aa0 DAT_004d8aa0[1];  // tbl_004d8aa0
+extern "C" DataRec_004d8aa0 DAT_004d8aa0[1];  // tbl_004d8aa0
 extern "C" char DAT_004d8b10[5];  // s_DIFF_004d8b10
 extern "C" void* DAT_004d8b18;
 extern "C" int DAT_004d8b1c;

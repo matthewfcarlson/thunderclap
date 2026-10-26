@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 17/18, incomplete)
 // FUN_00027fc0 @ 0x00027fc0
+#include "compat/ptr.h"
 #include "decls/data/engine/fight.h"
 #include "decls/data/game/unknown.h"
 
@@ -20,7 +21,7 @@ bool Owner_27fc0::FUN_00027fc0(unsigned key, unsigned name) {
  if (!handle) return false;
  Node* node = handle->node;
  if (!node || !handle->FUN_00231ee0()) return false;
- Result_27fc0* result = (*(Manager_27fc0**)&DAT_004e5af8)->FUN_000240b0((*(unsigned*)&DAT_0048e060));
+ Result_27fc0* result = (*(Manager_27fc0**)&DAT_004e5af8)->FUN_000240b0((*(hulk_uintptr*)&DAT_0048e060));
  Node* target = result->lookup->FUN_00233580(name);
  if (!target) return false;
  for (Node* p = node->next; p; p = p->next) {

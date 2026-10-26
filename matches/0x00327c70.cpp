@@ -17,5 +17,5 @@ int __cdecl FUN_00327c70(int first, const char* name, int context) {
             return ((Entry_327c70*)&DAT_005555c8)[i].handler(first, name, context);
         }
     }
-    return (*(Handler_327c70*)((char*)&DAT_005555c8 + 64))(first, name, context);
+    return ((Entry_327c70*)&DAT_005555c8)[0].handler(first, name, context);
 }

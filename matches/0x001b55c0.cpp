@@ -38,7 +38,7 @@ void Base_1b55c0::Func(Owner_1b55c0* obj, int value) {
     int* p = items + value;
     obj->Fn();
     if (*p) {
-        ((Dummy_1b55c0*)*p)->y();
+        ((Dummy_1b55c0*)*(hulk_intptr*)p)->y();
     }
-    *p = (hulk_intptr)obj;
+    *(hulk_intptr*)p = (hulk_intptr)obj;
 }

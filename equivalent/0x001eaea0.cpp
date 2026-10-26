@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 31/34, incomplete)
 // FUN_001eaea0 @ 0x001eaea0
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct Ref_1eaea0 {
@@ -129,7 +130,7 @@ void Manager_1eaea0::FUN_001eaea0()
     }
 
     jobCount = 0;
-    (*(int*)&DAT_004e3698) = 0;
+    (*(hulk_intptr*)&DAT_004e3698) = 0;
     f514 = 0;
     pool->FUN_002665a0();
     f520 = 0;

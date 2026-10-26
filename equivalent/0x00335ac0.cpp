@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 12/12)
 // FUN_00335ac0 @ 0x00335ac0
+#include "compat/ptr.h"
 struct TypeInfo_335ac0 {
     int kind;
 };
@@ -44,6 +45,6 @@ bool Reader::FUN_00335ac0(int column, int row, unsigned int *outLength) {
     const char *e = s;
     while (*e)
         e++;
-    *outLength = e - s;
+    *(hulk_uintptr*)outLength = e - s;
     return true;
 }

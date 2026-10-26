@@ -551,6 +551,96 @@ def startup_table(inits, defined64):
     return "\n".join(out) + "\n", dict(st), unused
 
 
+class TreeDefs:
+    """The tree's own definitions by XBE address (the tree build's report: address -> verified definition, its i686
+    symbol), as the 64-bit symbols of the compiled objects (matched by demangled form): no callers' names."""
+
+    def __init__(self, defined64):
+        checks = json.load(open(os.path.join(cp.SNAP, "report.json")))["checks"]
+        self.by_addr = {int(c["addr"], 16): (c["symbol"], c["tu"]) for c in checks
+                        if c.get("symbol") and c["status"] in ("match", "compiled")}
+        self.dem32 = cp.undname(sorted({v[0] for v in self.by_addr.values() if v[0].startswith("?")}))
+        dem64 = cp.undname(sorted(s for s in defined64 if s.startswith("?")))
+        self.by_key64 = collections.defaultdict(set)
+        for s_ in defined64:
+            self.by_key64[norm(dem64.get(s_, s_)) if s_.startswith("?") else s_].add(s_)
+
+    def sym64(self, addr):
+        sym, _tu = self.by_addr.get(addr, (None, None))
+        if not sym:
+            return None
+        k = norm(self.dem32.get(sym, sym)) if sym.startswith("?") else c_plain32(sym)
+        c = self.by_key64.get(k, set())
+        return next(iter(c)) if len(c) == 1 else None
+
+
+RTTI64 = {"rtti_col": 24, "rtti_chd": 16}
+
+
+def code_owned64(defs, crt_addr, defined64):
+    """The game's vftables and RTTI records (config/data.json kinds vtable, rtti_*; the compilers generate them, so
+    no data TU defines them) in their 64-bit MS form, for the references the sources make by address: a vftable is
+    [locator pointer][slots], 8 bytes each, every slot bound to the tree's definition at the XBE slot's address (the
+    native CRT table for library code such as _purecall, else `hulk_x_<addr>`, which the link reports); a locator,
+    hierarchy, base class array and base class descriptor carry the XBE's numbers and, for each pointer, the
+    offset from the record (as retarget() makes clang's own). Labels: `DAT_<addr>` at each record and at each
+    vftable slot (the vftable's MS symbol is its slot 0, DAT_<addr+4>). Returns (asm, stats, undefined targets)."""
+    from xbe import Xbe
+    x = Xbe(os.path.join(ROOT, "isos/extracted/default.xbe"))
+    items = [it for it in json.load(open(os.path.join(ROOT, "config/data.json")))["items"]
+             if it["kind"] == "vtable" or (it["kind"].startswith("rtti_") and it["kind"] != "rtti_td")]
+    kinds = {int(it["addr"], 16): it["kind"] for it in json.load(open(os.path.join(ROOT, "config/data.json")))["items"]
+             if it["kind"] == "vtable" or it["kind"].startswith("rtti_")}
+    st, undefined = collections.Counter(), set()
+    lab = lambda a: "_DAT_%08x" % a      # noqa: E731
+
+    def rel(v, here):
+        if not v:
+            return "\t.long\t0"
+        if kinds.get(v) is None:
+            st["record pointers to an address that is no RTTI record (0)"] += 1
+            return "\t.long\t0"
+        return '\t.long\t"%s" - "%s"' % (lab(v), here)
+
+    out = ["\t.section\t__DATA,__data"]
+    for it in sorted(items, key=lambda it: int(it["addr"], 16)):
+        a, k, n = int(it["addr"], 16), it["kind"], it["size"]
+        if "DAT_%08x" % a in defined64:
+            continue
+        w = [x.u32(a + 4 * i) or 0 for i in range(n // 4)]
+        out += ["\t.p2align\t3", '\t.globl\t"%s"' % lab(a), '"%s":' % lab(a)]
+        st[k] += 1
+        if k == "vtable":
+            col = w[0]
+            out.append('\t.quad\t"%s"' % lab(col) if kinds.get(col) == "rtti_col" else "\t.quad\t0")
+            for i, v in enumerate(w[1:]):
+                sa = a + 4 + 4 * i
+                if sa != a and "DAT_%08x" % sa not in defined64:
+                    out += ['\t.globl\t"%s"' % lab(sa), '"%s":' % lab(sa)]
+                t = defs.sym64(v) or crt_addr.get(v)
+                if t:
+                    st["vftable slots bound"] += 1
+                else:
+                    t = "hulk_x_%08x" % v
+                    undefined.add(t)
+                    st["vftable slots without a definition (hulk_x_)"] += 1
+                out.append('\t.quad\t"_%s"' % t)
+        elif k == "rtti_col":
+            out += ["\t.long\t1", "\t.long\t%d" % w[1], "\t.long\t%d" % w[2], rel(w[3], lab(a)), rel(w[4], lab(a)),
+                    "\t.long\t0"]
+        elif k == "rtti_chd":
+            out += ["\t.long\t%d" % w[0], "\t.long\t%d" % w[1], "\t.long\t%d" % w[2], rel(w[3], lab(a))]
+        elif k == "rtti_bca":
+            out += [rel(v, lab(a)) for v in w]
+        elif k == "rtti_bcd":
+            out += [rel(w[0], lab(a))] + ["\t.long\t%d" % (v - (1 << 32) if v >= 1 << 31 else v) for v in w[1:6]]
+            if len(w) > 6:
+                out.append(rel(w[6], lab(a)))
+        else:
+            out += ["\t.long\t%d" % v for v in w]
+    return "\n".join(out) + "\n", dict(st), undefined
+
+
 def cmd_link(a):
     rep = json.load(open(os.path.join(OUT, "report.json")))
     objs = sorted(os.path.join(CACHE, os.path.basename(o)) for o in rep["objects"].values())
@@ -566,6 +656,10 @@ def cmd_link(a):
     # what the link's own assembly defines (the game's type descriptors) is not undefined
     rtti, n_td, td_names = type_descriptors(defined)
     defined |= td_names | set(RTTI_RUNTIME_NAMES)
+    defs = TreeDefs(defined)
+    owned, owned_st, owned_undef = code_owned64(defs, crt_bindings()[1], defined)
+    rtti += owned
+    defined |= set(re.findall(r'^"_(DAT_[0-9a-f]{8})":', owned, re.M))
     undef = {s for s in refs if s not in defined}
     if not a.name_table:
         table, why, amb = None, {}, set()
@@ -616,6 +710,12 @@ def cmd_link(a):
     lk["pointer variables bound to data items"], lk["pointer variables bound to narrow items (examples)"] = \
         data_pointer_mismatch(aliases, dem_al)
     lk["type descriptors emitted"] = n_td
+    lk["vftables and RTTI records emitted"] = owned_st
+    for u in owned_undef:
+        if u not in defined:
+            refs[u] += 1
+            unbound.append(("link: vftable slot without a tree definition", 1, u, u))
+            groups["link: vftable slot without a tree definition"] += 1
     with open(os.path.join(OUT, "link", "rtti.s"), "w") as f:
         f.write(rtti)
     startup, lk["initializers"], unused = startup_table(rep.get("inits", {}), defined)
@@ -654,7 +754,8 @@ def ld64(objs, aliases, unbound, extra_asm=()):
         f.write("\t.text\n\t.p2align 2\n")
         code = sorted(x for x in set(unbound) | {"hulk_native_missing"} if not DATA_LIKE.search(x))
         for s in code:   # (hulk_native_missing: entry_posix.cpp's, not linked yet)
-            f.write('\t.globl "_%s"\n"_%s":\n\tbrk #1\n' % (s, s))
+            # (16-aligned: a C-named data symbol the patterns miss is loaded with 8-byte LDR/STR)
+            f.write('\t.p2align 4\n\t.globl "_%s"\n"_%s":\n\tbrk #1\n' % (s, s))
         f.write("\t.data\n")
         for s in sorted(x for x in set(unbound) if DATA_LIKE.search(x)):   # data: pointer-aligned, zero
             f.write('\t.p2align 4\n\t.globl "_%s"\n"_%s":\n\t.space 16\n' % (s, s))

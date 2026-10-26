@@ -15,7 +15,7 @@ void Container_2ee6d0::Add(Item_2ee6d0* item) {
     if (p < end) {
         current = p + 1;
         if (p != 0)
-            *p = (hulk_uintptr)item;
+            *(hulk_uintptr*)p = (hulk_uintptr)item;
     }
     item->Execute();
 }

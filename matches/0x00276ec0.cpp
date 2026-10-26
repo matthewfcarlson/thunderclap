@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Ref_276ec0 {
   public:
     virtual void f0();
@@ -71,5 +72,5 @@ void InstanceDrive_276ec0::f34(int* p, int a, int b, int c, int d, int e, int f,
     InstanceDrive_276ec0* self = this;
     self->f33(p, a, b, c, d, e, f, g);
     if (*p)
-        ((Ref_276ec0*)*p)->f21();
+        ((Ref_276ec0*)*(hulk_intptr*)p)->f21();
 }
