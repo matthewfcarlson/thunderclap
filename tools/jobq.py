@@ -49,6 +49,7 @@ IDLE_EXIT = int(os.environ.get("JOBQ_IDLE_EXIT", "900"))
 KEEP_BASES = 4
 BIG_SLOTS = 4       # a queued job this big reserves the hosts it could run on (dispatch), so small jobs cannot starve it
 PER_NAME_HEAD = 400  # dispatch looks at each submitter's first N queued jobs (per name, so nobody is hidden behind a long queue)
+SSH_SPACING = 0.3   # seconds between new ssh connections to one host (Host.ssh_gate)
 FORBIDDEN = ("drive-backup", "blockdev-backup", "blockdev-create", "drive-mirror", "Application Support/xemu")
 
 SCHEMA = """
@@ -476,6 +477,8 @@ class Host:
         self.ok = self.bad = 0
         self.bases = set()
         self.lock = threading.Lock()      # serialises shipping a base tree
+        self.gate_lock = threading.Lock()  # ssh_gate
+        self.last_ssh = 0.0
         self.next_probe = 0
         self.ready = False
 
@@ -490,7 +493,19 @@ class Host:
         remote = 'python3 "$HOME/hulk-jobs/jobq_run.py" ' + " ".join(shlex.quote(x) for x in args)
         return SSH + (route or self.route) + [remote]
 
+    def ssh_gate(self):
+        """Space new ssh connections to this host SSH_SPACING apart. sshd drops connections beyond MaxStartups (10
+        unauthenticated by default) with "Connection reset by peer", which bursts of dispatches (slot lending) hit."""
+        if self.local:
+            return
+        with self.gate_lock:
+            wait = self.last_ssh + SSH_SPACING - time.time()
+            if wait > 0:
+                time.sleep(wait)
+            self.last_ssh = time.time()
+
     def call(self, args, stdin=None, timeout=120, route=None):
+        self.ssh_gate()
         return subprocess.run(self.argv(args, route), input=stdin, capture_output=True, timeout=timeout)
 
     def connect(self):
@@ -645,6 +660,7 @@ class Daemon:
             self.ensure_base(h, commit, paths, key)
             t0 = time.time()
             with open(res, "wb") as rf:
+                h.ssh_gate()
                 pr = subprocess.Popen(h.argv(args), stdin=subprocess.PIPE, stdout=rf, stderr=subprocess.PIPE)
                 err = b""
                 first = True
