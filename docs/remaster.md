@@ -529,6 +529,22 @@ Prerequisites outside this plan:
 - a SteamOS build;
 - a Deck for measurements.
 
+### 6.0 Remaster gameplay features (user's list, 2026-10-26)
+
+These are new mechanics for "the game made today". Each sits behind its own flag, has its own tests, and never touches
+the faithful port.
+
+| Feature | Idea | Starts from |
+|---|---|---|
+| **Co-op** | A second player, locally and online (6.1). | The player/controller-agent singleton, plus the deterministic lockstep the replay work proved. |
+| **Destructible buildings** | Buildings break up physically: fractured pieces, collapse driven by structural damage, debris that stays, and full persistence of the city's damage instead of the original's fixed break states. | The game's existing destruction (breakable props and building pieces, the physics in `src/engine/physics`), and the renderer's far-field and RT work for showing damaged geometry. |
+| **Cleanup crews** | The city reacts over time. Crews arrive and clear rubble, repair and rebuild damaged buildings, reopen roads. That makes damage meaningful, and it's a cue for the next escalation. | A world-state layer that records damage per building and block and schedules repair actors. It builds on the persistence the destruction feature adds. |
+| **Better enemy AI** | Modern behaviour: squads that coordinate (flanking, suppression, retreat, regrouping), use of cover and verticality, vehicles and aircraft that work together, units that react to the destruction around them. | The game's AI (the behaviour selectors such as `CGolem::vfunc_4`, the `CRangedAgent`/`CPathAgent` family and the fight system), reworked behind the flag. |
+| **Better enemy spawning** | A director instead of fixed spawn rules: it paces encounters by player state, heat level and the destruction caused, spawns believably (off-screen, from roads and air), and scales difficulty in co-op. | The spawn logic and the Lua `om::Stream` / `cm_IsPointInCameraView` hooks found in R0 (section 3.2). |
+
+The order is open. Co-op and the director work well together, as do destruction and cleanup crews. Each starts with a
+feasibility pass (as C0 for co-op) that maps the game systems involved.
+
 ### 6.1 Co-op (requested 2026-10-26; gameplay, not rendering)
 
 The user wants co-op on the roadmap. Unlike R1-R5 it changes the simulation: the game has one player character, one
