@@ -5,7 +5,7 @@
 extern void* __cdecl FUN_0008d690(unsigned int);
 class Helper_69d70 {
   public:
-    int FUN_000190a0(CAutoTargetTrack*, int);
+    int FUN_000190a0(CAutoTargetTrack*, hulk_intptr);
 };
 
 hulk_intptr CAutoTargetTrack::vfunc_12(hulk_intptr param) {

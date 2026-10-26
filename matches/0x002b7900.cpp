@@ -17,7 +17,7 @@ class H {
     void two(void*, void*);
 };
 struct PolySkin_nv_2b7900 {
-    void last(int, int);
+    void last(hulk_intptr, int);
 };
 
 void pure3d::PolySkin::vfunc_8(hulk_intptr a, int b) {

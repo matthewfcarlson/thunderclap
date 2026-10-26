@@ -4,7 +4,7 @@
 
 class R_6a340 {
   public:
-    int invoke(CCameraShakeTrack*, int);
+    int invoke(CCameraShakeTrack*, hulk_intptr);
 };
 extern R_6a340* FUN_0008d690(int);
 

@@ -18,7 +18,7 @@ class Track_1a8f50 {
 class Param_1a8f50 {};
 class EffectAction_1a8f50 {
   public:
-    int Call(hulkfight::scenario::EffectTrack*, int);
+    int Call(hulkfight::scenario::EffectTrack*, hulk_intptr);
 };
 extern EffectAction_1a8f50* GetThing(int);
 

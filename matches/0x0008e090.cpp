@@ -17,7 +17,7 @@ int FUN_0008e090() {
         } else {
             p = 0;
         }
-        DAT_004dd7e0 = (hulk_uintptr)p;
+        DAT_004dd7e0 = p;
     }
-    return (int)(DAT_004dd7e0);
+    return (int)(hulk_intptr)DAT_004dd7e0;
 }

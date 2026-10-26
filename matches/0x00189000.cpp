@@ -10,7 +10,7 @@ extern Params_189000 TypeA_189000;
 extern Params_189000 TypeB_189000;
 int __cdecl Check(void*, int, Params_189000*, Params_189000*, int);
 struct ShieldArcAction_nv_189000 {
-    int Init(hulkfight::motion::ShieldArcTrack*, int);
+    int Init(hulkfight::motion::ShieldArcTrack*, hulk_intptr);
 };
 hulkfight::motion::ShieldArcAction* __cdecl Alloc(int);
 

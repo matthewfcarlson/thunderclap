@@ -2,7 +2,7 @@
 // FUN_002160c0 @ 0x002160c0
 #include "compat/ptr.h"
 extern "C" char *__cdecl strchr(const char *, int);
-static inline unsigned strlen_inline(const char *s)
+static inline hulk_uintptr strlen_inline(const char *s)
 {
     const char *p = s;
     while (*p)

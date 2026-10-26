@@ -10,7 +10,7 @@ extern Params_157060 TypeA_157060;
 extern Params_157060 TypeB_157060;
 int __cdecl Check(void*, int, Params_157060*, Params_157060*, int);
 struct HitPushbackAddAction_nv_157060 {
-    int Init(hulkfight::motion::HitPushbackAddTrack*, int);
+    int Init(hulkfight::motion::HitPushbackAddTrack*, hulk_intptr);
 };
 hulkfight::motion::HitPushbackAddAction* __cdecl Alloc(int);
 

@@ -2,7 +2,7 @@
 #include "gen/hulkfight.h"
 
 struct Obj_12b8e0 {
-    int Fn(int);
+    int Fn(hulk_intptr);
 };
 struct Inner_12b8e0 {
     char pad[8];

@@ -3,7 +3,7 @@
 #include "gen/hulkfight.h"
 
 struct LocomotionSteerAction_nv_161590 {
-    int Init(hulkfight::motion::LocomotionSteerTrack*, int);
+    int Init(hulkfight::motion::LocomotionSteerTrack*, hulk_intptr);
 };
 extern hulkfight::motion::LocomotionSteerAction* Alloc(unsigned int);
 

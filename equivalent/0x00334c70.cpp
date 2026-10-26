@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3019 inputs, branch coverage 36/36; Wine build 644 inputs, 35/36)
 // FUN_00334c70 @ 0x00334c70
+#include "compat/ptr.h"
 typedef unsigned int U_334c70;
 struct Stream { virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void read(void*,U_334c70,U_334c70); virtual void s10(); virtual void seek(U_334c70); virtual void tell(U_334c70*); };
-struct State_334c70 { char p0[0x1c]; U_334c70 error; U_334c70 idle; U_334c70 bytes; char p28[4]; U_334c70 readTime; U_334c70 totalTime; char p34[8]; U_334c70 capacity; char p40[4]; U_334c70 desired; U_334c70 available; Stream* stream; U_334c70 end; U_334c70 bufferedEnd; U_334c70 position; char p5c[8]; U_334c70 base; U_334c70 limit; U_334c70 cursor; U_334c70 other; U_334c70 consumed; char p78[12]; U_334c70 skip; };
+struct State_334c70 { char p0[0x1c]; U_334c70 error; U_334c70 idle; U_334c70 bytes; char p28[4]; U_334c70 readTime; U_334c70 totalTime; char p34[8]; U_334c70 capacity; char p40[4]; U_334c70 desired; U_334c70 available; Stream* stream; U_334c70 end; U_334c70 bufferedEnd; U_334c70 position; char p5c[8]; U_334c70 base; U_334c70 limit; hulk_uintptr cursor; U_334c70 other; U_334c70 consumed; char p78[12]; hulk_uintptr skip; };
 U_334c70 __cdecl FUN_00368660();
 // equiv-conv: FUN_00334c40 esi
 void FUN_00334c40(State_334c70*);
@@ -37,9 +38,9 @@ U_334c70 __stdcall target(State_334c70* s,U_334c70 unused,U_334c70 position,unsi
    if(s->idle) thunk_FUN_00270a50();
    CALL_334B00(s);
    if(s->available) {
-    U_334c70 n=s->available-s->skip; if(n>count)n=count;
+    hulk_uintptr n=s->available-s->skip; if(n>count)n=count;
     count-=n; s->position+=s->skip+n; total+=n;
-    U_334c70 first=s->limit-s->skip-s->cursor;
+    hulk_uintptr first=s->limit-s->skip-s->cursor;
     if(first<=n) {
      unsigned char* src=(unsigned char*)(s->cursor+s->skip);
      U_334c70 i; for(i=0;i<first/4;i++) ((U_334c70*)out)[i]=((U_334c70*)src)[i]; for(i=first&~3u;i<first;i++)out[i]=src[i];

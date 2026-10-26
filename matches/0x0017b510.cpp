@@ -2,13 +2,13 @@
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
-extern int FUN_00344e74(int, int, const void*, const void*, int);
+extern int FUN_00344e74(hulk_intptr, int, const void*, const void*, int);
 extern void* FUN_0008d690(int);
 extern int RTTI_Type1;
 extern int RTTI_Type2;
 class AllocObj_17b510 {
   public:
-    int init(hulkfight::motion::FootPivotTrack*, int);
+    int init(hulkfight::motion::FootPivotTrack*, hulk_intptr);
 };
 
 hulk_intptr hulkfight::motion::FootPivotTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {

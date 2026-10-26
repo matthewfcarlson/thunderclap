@@ -5,7 +5,7 @@
 extern void* __cdecl FUN_0008d690(unsigned int);
 class Helper_69660 {
   public:
-    int FUN_000190a0(CKeyPoseTrack*, int);
+    int FUN_000190a0(CKeyPoseTrack*, hulk_intptr);
 };
 
 hulk_intptr CKeyPoseTrack::vfunc_12(hulk_intptr param) {

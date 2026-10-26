@@ -7,7 +7,7 @@ extern int RTTI_Type1;
 extern int RTTI_Type2;
 class AllocObj_1134e0 {
   public:
-    int init(hulkfight::ai::KeywordWaitTrack*, int);
+    int init(hulkfight::ai::KeywordWaitTrack*, hulk_intptr);
 };
 
 hulk_intptr hulkfight::ai::KeywordWaitTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {

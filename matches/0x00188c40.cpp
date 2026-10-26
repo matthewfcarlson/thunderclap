@@ -10,7 +10,7 @@ extern Params_188c40 TypeA_188c40;
 extern Params_188c40 TypeB_188c40;
 int __cdecl Check(void*, int, Params_188c40*, Params_188c40*, int);
 struct PropSpawnAction_nv_188c40 {
-    int Init(hulkfight::motion::PropSpawnTrack*, int);
+    int Init(hulkfight::motion::PropSpawnTrack*, hulk_intptr);
 };
 hulkfight::motion::PropSpawnAction* __cdecl Alloc(int);
 

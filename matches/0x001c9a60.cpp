@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 extern "C" void* memset(void*, int, unsigned);
 struct Item {
-    volatile int a, b;
+    volatile hulk_intptr a, b;
     int c, d;
     volatile int e;
     int f, g;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 110 inputs, branch coverage 83/92, incomplete)
 // FUN_001c88f0 @ 0x001c88f0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/Render.h"
@@ -201,7 +202,7 @@ void Mgr_1c88f0::FUN_001c88f0(Ctx_1c88f0 *ctx)
             f.unit.z = cp->z;
             f.unit.y = 0.0f;
             ((GfxHolder *)(*(Gfx_1c88f0***)&DAT_0052c2ac))->FUN_00293d00(&f.unit);
-            ctx->FUN_001c25c0(f0c, DAT_004e2314, 0);
+            ctx->FUN_001c25c0(f0c, (hulk_intptr)DAT_004e2314, 0);
             (*(*(Gfx_1c88f0***)&DAT_0052c2ac))->vfunc_16(0);
             ctx->FUN_001c1340();
         }

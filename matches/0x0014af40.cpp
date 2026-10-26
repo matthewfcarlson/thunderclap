@@ -10,7 +10,7 @@ extern Params_14af40 TypeA_14af40;
 extern Params_14af40 TypeB_14af40;
 int __cdecl Check(void*, int, Params_14af40*, Params_14af40*, int);
 struct CivilianDetachAction_nv_14af40 {
-    int Init(hulkfight::motion::CivilianDetachTrack*, int);
+    int Init(hulkfight::motion::CivilianDetachTrack*, hulk_intptr);
 };
 hulkfight::motion::CivilianDetachAction* __cdecl Alloc(int);
 

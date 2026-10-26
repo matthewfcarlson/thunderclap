@@ -10,7 +10,7 @@ extern Params_17bf00 TypeA_17bf00;
 extern Params_17bf00 TypeB_17bf00;
 int __cdecl Check(void*, int, Params_17bf00*, Params_17bf00*, int);
 struct VisibilityAction_nv_17bf00 {
-    int Init(hulkfight::motion::VisibilityTrack*, int);
+    int Init(hulkfight::motion::VisibilityTrack*, hulk_intptr);
 };
 hulkfight::motion::VisibilityAction* __cdecl Alloc(int);
 

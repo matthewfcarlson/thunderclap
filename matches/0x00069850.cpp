@@ -4,7 +4,7 @@
 
 class R_69850 {
   public:
-    int invoke(CComboMessageTrack*, int);
+    int invoke(CComboMessageTrack*, hulk_intptr);
 };
 extern R_69850* FUN_0008d690(int);
 

@@ -10,7 +10,7 @@ extern Params_113120 TypeA_113120;
 extern Params_113120 TypeB_113120;
 int __cdecl Check(void*, int, Params_113120*, Params_113120*, int);
 struct HulkAction_nv_113120 {
-    int Init(hulkfight::ai::HulkActionTrack*, int);
+    int Init(hulkfight::ai::HulkActionTrack*, hulk_intptr);
 };
 hulkfight::ai::HulkAction* __cdecl Alloc(int);
 

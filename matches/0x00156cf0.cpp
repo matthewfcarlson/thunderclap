@@ -10,7 +10,7 @@ extern Params_156cf0 TypeA_156cf0;
 extern Params_156cf0 TypeB_156cf0;
 int __cdecl Check(void*, int, Params_156cf0*, Params_156cf0*, int);
 struct InterruptPriorityAction_nv_156cf0 {
-    int Init(hulkfight::motion::InterruptPriorityTrack*, int);
+    int Init(hulkfight::motion::InterruptPriorityTrack*, hulk_intptr);
 };
 hulkfight::motion::InterruptPriorityAction* __cdecl Alloc(int);
 

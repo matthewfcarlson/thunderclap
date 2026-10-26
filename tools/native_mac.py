@@ -244,7 +244,7 @@ def cmd_compile(a):
     os.makedirs(OUT, exist_ok=True)
     if not os.path.exists(os.path.join(cp.SNAP, "manifest.json")):
         sys.exit("no snapshot: run tools/clang_probe.py --snapshot first (or set HULK_CLANG_PROBE_DIR)")
-    tus = a.only or cp.tu_list()
+    tus = [] if a.data_only else (a.only or cp.tu_list())
     data = [] if (a.no_data or a.only) else cp.data_tus()
     shard = os.environ.get("HULK_NATIVE_MAC_SHARD")  # "k/n": every n-th TU from k (queue jobs in parallel)
     if shard:
@@ -770,6 +770,7 @@ def main(argv=None):
     c.add_argument("--jobs", type=int, default=2)
     c.add_argument("--only", nargs="*")
     c.add_argument("--no-data", action="store_true")
+    c.add_argument("--data-only", action="store_true", help="only the data TUs (a data_gen change)")
     sub.add_parser("report")
     sub.add_parser("sites")
     sub.add_parser("crt", help="check src/platform/sdl/crt/native_crt_table.h and resolve its targets on this host")

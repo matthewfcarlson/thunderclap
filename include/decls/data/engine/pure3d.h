@@ -5,6 +5,18 @@
 #ifndef HULK_DECLS_DATA_ENGINE_PURE3D_H
 #define HULK_DECLS_DATA_ENGINE_PURE3D_H
 
+#ifndef HULK_DATA_PRELUDE
+#define HULK_DATA_PRELUDE
+typedef void (*hulk_code_ptr)();         // a pointer to game code
+typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
+#if defined(_WIN64) || defined(_M_X64) || defined(_M_ARM64) || defined(__LP64__) || defined(__x86_64__) || \
+    defined(__aarch64__)
+#define HULK_DATA_PACKED 0
+#else
+#define HULK_DATA_PACKED 1
+#endif
+#endif
+
 
 // pure3d/AmbientLight.cpp
 extern "C" const float DAT_0042d6f0[7];  // fltTbl_0042d6f0
@@ -183,7 +195,7 @@ extern "C" const void* const DAT_00438890;  // PTR_00438890
 extern "C" const unsigned int DAT_00438894[15];  // unk_00438894
 extern "C" const void* const DAT_004388d0;  // PTR_004388d0
 extern "C" const unsigned int DAT_004388d4[3];  // unk_004388d4
-extern "C" const void* const DAT_004388e0;  // PTR_004388e0
+extern "C" const char* const DAT_004388e0;  // PTR_004388e0
 extern "C" const unsigned int DAT_004388e4[2];  // unk_004388e4
 extern "C" const void* const DAT_004388ec[2];  // ptrTbl_004388ec
 extern "C" const unsigned int DAT_004388f4[5];  // unk_004388f4
@@ -191,25 +203,25 @@ extern "C" const void* const DAT_00438908[2];  // ptrTbl_00438908
 extern "C" const unsigned int DAT_00438910[20];  // unk_00438910
 extern "C" const unsigned int DAT_00438960[8];  // zero_00438960
 extern "C" const unsigned int DAT_00438980[85];  // unk_00438980
-extern "C" const void* const DAT_00438ad4;  // PTR_00438ad4
+extern "C" hulk_code_ptr const DAT_00438ad4;  // PTR_00438ad4
 extern "C" const unsigned int DAT_00438ad8[28];  // unk_00438ad8
-extern "C" const void* const DAT_00438b48;  // PTR_00438b48
+extern "C" hulk_code_ptr const DAT_00438b48;  // PTR_00438b48
 extern "C" const unsigned int DAT_00438b4c[64];  // unk_00438b4c
-extern "C" const void* const DAT_00438c4c;  // PTR_00438c4c
+extern "C" hulk_code_ptr const DAT_00438c4c;  // PTR_00438c4c
 extern "C" const unsigned int DAT_00438c50[128];  // unk_00438c50
-extern "C" const void* const DAT_00438e50;  // PTR_00438e50
+extern "C" hulk_code_ptr const DAT_00438e50;  // PTR_00438e50
 extern "C" const unsigned int DAT_00438e54[146];  // unk_00438e54
-extern "C" const void* const DAT_0043909c;  // PTR_0043909c
+extern "C" hulk_code_ptr const DAT_0043909c;  // PTR_0043909c
 extern "C" const unsigned int DAT_004390a0[24];  // unk_004390a0
-extern "C" const void* const DAT_00439100;  // PTR_00439100
+extern "C" hulk_code_ptr const DAT_00439100;  // PTR_00439100
 extern "C" const unsigned int DAT_00439104[68];  // unk_00439104
-extern "C" const void* const DAT_00439214;  // PTR_00439214
+extern "C" hulk_code_ptr const DAT_00439214;  // PTR_00439214
 extern "C" const unsigned int DAT_00439218[2];  // unk_00439218
-extern "C" const void* const DAT_00439220;  // PTR_00439220
+extern "C" hulk_code_ptr const DAT_00439220;  // PTR_00439220
 extern "C" const unsigned int DAT_00439224[11];  // unk_00439224
-extern "C" const void* const DAT_00439250;  // PTR_00439250
+extern "C" hulk_code_ptr const DAT_00439250;  // PTR_00439250
 extern "C" const unsigned int DAT_00439254[16];  // unk_00439254
-extern "C" const void* const DAT_00439294;  // PTR_00439294
+extern "C" hulk_code_ptr const DAT_00439294;  // PTR_00439294
 extern "C" const unsigned int DAT_00439298[442];  // unk_00439298
 extern "C" const unsigned int DAT_00439980[8];  // zero_00439980
 extern "C" const unsigned int DAT_004399a0[7];  // unk_004399a0
@@ -532,7 +544,7 @@ extern "C" int DAT_0052cbac;
 extern "C" unsigned char DAT_0052cbb0[98304];
 extern "C" unsigned char DAT_00544bb0[65536];
 extern "C" unsigned char DAT_00554bb0[4];
-extern "C" int DAT_00554bb4;
+extern "C" void* DAT_00554bb4;
 
 // pure3d/ShadowTraversal.cpp
 extern "C" const float DAT_0042d70c;  // flt_0042d70c
@@ -549,11 +561,11 @@ extern "C" const float DAT_0042c2e4[3];  // fltTbl_0042c2e4
 extern "C" const unsigned int DAT_00484910[1];  // zero_00484910
 extern "C" const unsigned int DAT_00484960[1];  // zero_00484960
 extern "C" const unsigned int DAT_0048499c[1];  // zero_0048499c
-extern "C" const void* DAT_004ce400;  // PTR_004ce400
+extern "C" hulk_vftable_ptr DAT_004ce400;  // PTR_004ce400
 extern "C" unsigned int DAT_004ce404[1];  // zero_004ce404
 extern "C" int DAT_004ce408;
 extern "C" int DAT_004ce40c;
-extern "C" int DAT_004ce410;
+extern "C" void* DAT_004ce410;
 extern "C" unsigned int DAT_004ce414[1];  // zero_004ce414
 extern "C" float DAT_004ce418[5];  // fltTbl_004ce418
 extern "C" unsigned int DAT_004ce42c[1];  // zero_004ce42c
@@ -656,7 +668,7 @@ extern "C" const unsigned int DAT_00485f28[1];  // zero_00485f28
 extern "C" const unsigned int DAT_00485f78[1];  // zero_00485f78
 extern "C" float DAT_004cf1cc[4];  // fltTbl_004cf1cc
 extern "C" int DAT_0052c318[32];
-extern "C" unsigned char DAT_0052c398[2048];
+extern "C" void* DAT_0052c398[512];
 extern "C" unsigned char DAT_00554be0[4];
 
 // pure3d/TranslucentTraversal.cpp
@@ -715,7 +727,7 @@ extern "C" const unsigned int DAT_0048afdc[1];  // zero_0048afdc
 extern "C" const unsigned int DAT_0048b024[1];  // zero_0048b024
 extern "C" const unsigned int DAT_0048b070[1];  // zero_0048b070
 extern "C" float DAT_004d39fc[4];  // fltTbl_004d39fc
-extern "C" const void* DAT_004d3a0c;  // PTR_004d3a0c
+extern "C" hulk_vftable_ptr DAT_004d3a0c;  // PTR_004d3a0c
 extern "C" unsigned char DAT_005554a8[4];
 extern "C" unsigned char DAT_005554ac[264];
 
@@ -742,7 +754,7 @@ extern "C" float DAT_004d4110[4];  // fltTbl_004d4110
 extern "C" unsigned int DAT_005555b8;
 extern "C" unsigned char DAT_005555bc[4];
 extern "C" unsigned char DAT_005555c0[8];
-extern "C" unsigned char DAT_005555c8[1440];
+extern "C" void* DAT_005555c8[360];
 
 // pure3d/unk_28b970.cpp
 extern "C" const unsigned int DAT_004852c4[1];  // zero_004852c4

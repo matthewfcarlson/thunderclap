@@ -4,7 +4,7 @@
 extern int RTTI1_191670, RTTI2;
 class Created_191670 {
   public:
-    int init(hulkfight::motion::TankLocomotionTrack*, int);
+    int init(hulkfight::motion::TankLocomotionTrack*, hulk_intptr);
 };
 extern int typecheck(void*, int, int*, int*, int);
 extern Created_191670* alloc(int);

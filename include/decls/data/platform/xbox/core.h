@@ -5,7 +5,21 @@
 #ifndef HULK_DECLS_DATA_PLATFORM_XBOX_CORE_H
 #define HULK_DECLS_DATA_PLATFORM_XBOX_CORE_H
 
+#ifndef HULK_DATA_PRELUDE
+#define HULK_DATA_PRELUDE
+typedef void (*hulk_code_ptr)();         // a pointer to game code
+typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
+#if defined(_WIN64) || defined(_M_X64) || defined(_M_ARM64) || defined(__LP64__) || defined(__x86_64__) || \
+    defined(__aarch64__)
+#define HULK_DATA_PACKED 0
+#else
+#define HULK_DATA_PACKED 1
+#endif
+#endif
+
 struct DataLayout_004cd6a8;  // packed layout (bytes and pointers), defined in the data TU
+struct DataLayout_0052a148;  // packed layout (bytes and pointers), defined in the data TU
+struct DataLayout_0052c270;  // packed layout (bytes and pointers), defined in the data TU
 
 // core/ControllerXBox.cpp
 extern "C" const float DAT_0042b1a4;  // flt_0042b1a4
@@ -22,14 +36,14 @@ extern "C" const char DAT_0042b2f0[12];  // s_Portx_Slotx_0042b2f0
 extern "C" const unsigned int DAT_0042b2fc[4];  // zero_0042b2fc
 extern "C" const unsigned int DAT_00483200[1];  // zero_00483200
 extern "C" const unsigned int DAT_00483268[1];  // zero_00483268
-extern "C" const void* DAT_004cd698;  // PTR_004cd698
+extern "C" const char* DAT_004cd698;  // PTR_004cd698
 extern "C" int DAT_004cd69c;
-extern "C" const void* DAT_004cd6a0;  // PTR_004cd6a0
-extern "C" const void* DAT_004cd6a4;  // PTR_004cd6a4
+extern "C" const char* DAT_004cd6a0;  // PTR_004cd6a0
+extern "C" const char* DAT_004cd6a4;  // PTR_004cd6a4
 extern "C" DataLayout_004cd6a8 DAT_004cd6a8;  // struct_004cd6a8
-extern "C" const void* DAT_004cd790;  // PTR_004cd790
+extern "C" const char* DAT_004cd790;  // PTR_004cd790
 extern "C" unsigned int DAT_004cd794[1];  // unk_004cd794
-extern "C" unsigned char DAT_00528388[16];
+extern "C" void* DAT_00528388[4];
 extern "C" char DAT_00528398[4];
 
 // core/XboxDrive.cpp
@@ -47,8 +61,8 @@ extern "C" unsigned char DAT_005283c8[4];
 extern "C" unsigned char DAT_005283cc[28];
 extern "C" unsigned char DAT_005283e8[28];
 extern "C" int DAT_00528404;
-extern "C" unsigned char DAT_00528408[4];
-extern "C" unsigned char DAT_0052840c[4];
+extern "C" void* DAT_00528408[1];
+extern "C" void* DAT_0052840c[1];
 
 // core/XboxSaveDrive.cpp
 extern "C" const char DAT_0042bfe8[9];  // s_save_dat_0042bfe8
@@ -64,8 +78,8 @@ extern "C" const unsigned int DAT_004847dc[1];  // zero_004847dc
 extern "C" const unsigned int DAT_00484820[1];  // zero_00484820
 extern "C" const unsigned int DAT_00484868[1];  // zero_00484868
 extern "C" const unsigned int DAT_004848bc[1];  // zero_004848bc
-extern "C" const void* DAT_004ce26c;  // PTR_004ce26c
-extern "C" const void* DAT_004ce270;  // PTR_004ce270
+extern "C" const char* DAT_004ce26c;  // PTR_004ce26c
+extern "C" const char* DAT_004ce270;  // PTR_004ce270
 extern "C" float DAT_004ce2d8[4];  // fltTbl_004ce2d8
 extern "C" float DAT_004ce300[4];  // fltTbl_004ce300
 extern "C" char DAT_004ce340[7];  // s_Pure3D_004ce340
@@ -73,8 +87,8 @@ extern "C" unsigned char DAT_0052a228[1];
 extern "C" unsigned char DAT_0052a229[7];
 extern "C" unsigned char DAT_0052a230[8224];
 extern "C" unsigned char DAT_0052c250[28];
-extern "C" unsigned char DAT_0052c26c[4];
-extern "C" unsigned char DAT_0052c270[16];
+extern "C" void* DAT_0052c26c[1];
+extern "C" DataLayout_0052c270 DAT_0052c270[1];
 extern "C" unsigned char DAT_0052c280[4];
 
 // core/unk_26d480.cpp
@@ -84,11 +98,11 @@ extern "C" int DAT_004cd9d0[2];  // tbl_004cd9d0
 extern "C" int DAT_004cd9d8;
 extern "C" unsigned int DAT_004cd9dc[3];  // unk_004cd9dc
 extern "C" char DAT_0052a130[16];
-extern "C" unsigned char DAT_0052a140[4];
-extern "C" unsigned char DAT_0052a144[4];
-extern "C" unsigned char DAT_0052a148[52];
-extern "C" unsigned char DAT_0052a17c[4];
-extern "C" unsigned char DAT_0052a180[4];
+extern "C" void* DAT_0052a140[1];
+extern "C" void* DAT_0052a144[1];
+extern "C" DataLayout_0052a148 DAT_0052a148[1];
+extern "C" void* DAT_0052a17c[1];
+extern "C" void* DAT_0052a180[1];
 extern "C" char DAT_0052a184[4];
 extern "C" unsigned char DAT_0052a188[28];
 

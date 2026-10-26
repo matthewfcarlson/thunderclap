@@ -4,7 +4,7 @@
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Helper_5dda0 {
-    int FUN_0001cfd0(CPushBackAnimationTrack*, int);
+    int FUN_0001cfd0(CPushBackAnimationTrack*, hulk_intptr);
 };
 
 hulk_intptr CPushBackAnimationTrack::vfunc_12(hulk_intptr param) {

@@ -5,6 +5,18 @@
 #ifndef HULK_DECLS_DATA_ENGINE_PURE3D_PROP_H
 #define HULK_DECLS_DATA_ENGINE_PURE3D_PROP_H
 
+#ifndef HULK_DATA_PRELUDE
+#define HULK_DATA_PRELUDE
+typedef void (*hulk_code_ptr)();         // a pointer to game code
+typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
+#if defined(_WIN64) || defined(_M_X64) || defined(_M_ARM64) || defined(__LP64__) || defined(__x86_64__) || \
+    defined(__aarch64__)
+#define HULK_DATA_PACKED 0
+#else
+#define HULK_DATA_PACKED 1
+#endif
+#endif
+
 
 // pure3d/prop/CMotionTrail.cpp
 extern "C" const float DAT_0042c46c;  // flt_0042c46c
@@ -20,7 +32,7 @@ extern "C" const unsigned int DAT_00484b98[1];  // zero_00484b98
 extern "C" const unsigned int DAT_00484c04[1];  // zero_00484c04
 extern "C" const unsigned int DAT_00484c50[1];  // zero_00484c50
 extern "C" const unsigned int DAT_00484ca0[1];  // zero_00484ca0
-extern "C" unsigned char DAT_0052c2a0[4];
+extern "C" void* DAT_0052c2a0[1];
 
 // pure3d/prop/StatePropDataLoader.cpp
 extern "C" const char DAT_0042ccd0[126];  // s_StatePropDataLoader_0042ccd0
@@ -67,12 +79,12 @@ extern "C" const float DAT_0042c460[3];  // fltTbl_0042c460
 extern "C" const unsigned int DAT_004849e4[1];  // zero_004849e4
 extern "C" const unsigned int DAT_00484a38[1];  // zero_00484a38
 extern "C" const unsigned int DAT_00484aa8[1];  // zero_00484aa8
-extern "C" const void* DAT_004ce4d8[22];  // ptrTbl_004ce4d8
+extern "C" const char* DAT_004ce4d8[22];  // ptrTbl_004ce4d8
 extern "C" float DAT_004ce530[4];  // fltTbl_004ce530
 extern "C" unsigned int DAT_0052c290;
 extern "C" unsigned int DAT_0052c294;
 extern "C" unsigned int DAT_0052c298;
-extern "C" unsigned char DAT_0052c29c[4];
-extern "C" unsigned char DAT_0052c2ac[4];
+extern "C" void* DAT_0052c29c[1];
+extern "C" void* DAT_0052c2ac[1];
 
 #endif

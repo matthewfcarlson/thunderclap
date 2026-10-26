@@ -4,7 +4,7 @@
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Helper_6a4a0 {
-    int FUN_0001cfd0(CCameraDramaticTrack*, int);
+    int FUN_0001cfd0(CCameraDramaticTrack*, hulk_intptr);
 };
 
 hulk_intptr CCameraDramaticTrack::vfunc_12(hulk_intptr param) {

@@ -10,7 +10,7 @@ extern Params_156c50 TypeA_156c50;
 extern Params_156c50 TypeB_156c50;
 int __cdecl Check(void*, int, Params_156c50*, Params_156c50*, int);
 struct InterruptAccumulatorSetAction_nv_156c50 {
-    int Init(hulkfight::motion::InterruptAccumulatorSetTrack*, int);
+    int Init(hulkfight::motion::InterruptAccumulatorSetTrack*, hulk_intptr);
 };
 hulkfight::motion::InterruptAccumulatorSetAction* __cdecl Alloc(int);
 

@@ -4,7 +4,7 @@
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Helper_6a730 {
-    int FUN_0001cfd0(COrientTrack*, int);
+    int FUN_0001cfd0(COrientTrack*, hulk_intptr);
 };
 
 hulk_intptr COrientTrack::vfunc_12(hulk_intptr param) {

@@ -10,7 +10,7 @@ extern Params_157500 TypeA_157500;
 extern Params_157500 TypeB_157500;
 int __cdecl Check(void*, int, Params_157500*, Params_157500*, int);
 struct HealthAction_nv_157500 {
-    int Init(hulkfight::motion::HealthTrack*, int);
+    int Init(hulkfight::motion::HealthTrack*, hulk_intptr);
 };
 hulkfight::motion::HealthAction* __cdecl Alloc(int);
 

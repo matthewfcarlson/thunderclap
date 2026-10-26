@@ -3,7 +3,7 @@
 #include "gen/global.h"
 
 struct CGrappleSwapAction_nv_5abe0 {
-    int invoke(CGrappleSwapTrack*, int);
+    int invoke(CGrappleSwapTrack*, hulk_intptr);
 };
 extern CGrappleSwapAction* FUN_0008d690(int);
 

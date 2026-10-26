@@ -5,6 +5,19 @@
 #ifndef HULK_DECLS_DATA_PLATFORM_XBOX_UNKNOWN_H
 #define HULK_DECLS_DATA_PLATFORM_XBOX_UNKNOWN_H
 
+#ifndef HULK_DATA_PRELUDE
+#define HULK_DATA_PRELUDE
+typedef void (*hulk_code_ptr)();         // a pointer to game code
+typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
+#if defined(_WIN64) || defined(_M_X64) || defined(_M_ARM64) || defined(__LP64__) || defined(__x86_64__) || \
+    defined(__aarch64__)
+#define HULK_DATA_PACKED 0
+#else
+#define HULK_DATA_PACKED 1
+#endif
+#endif
+
+struct DataLayout_004e5ce0;  // packed layout (bytes and pointers), defined in the data TU
 
 // unknown/unk_240c20.cpp
 extern "C" const char DAT_00429084[17];  // s_img_dspimage_bin_00429084
@@ -12,7 +25,7 @@ extern "C" const char DAT_00429098[3];  // s_Ok_00429098
 extern "C" const char DAT_0042909c[10];  // s_HalSystem_0042909c
 extern "C" const char DAT_004290a8[12];  // s_Runtime_Hal_004290a8
 extern "C" unsigned int DAT_004e5cb0[12];
-extern "C" unsigned char DAT_004e5ce0[8];
+extern "C" DataLayout_004e5ce0 DAT_004e5ce0[1];
 extern "C" unsigned int DAT_004e5ce8[4];
 
 #endif

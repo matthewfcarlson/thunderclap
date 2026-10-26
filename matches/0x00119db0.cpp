@@ -10,7 +10,7 @@ extern Params_119db0 TypeA_119db0;
 extern Params_119db0 TypeB_119db0;
 int __cdecl Check(void*, int, Params_119db0*, Params_119db0*, int);
 struct MotionFacingAction_nv_119db0 {
-    int Init(hulkfight::ai::MotionFacingTrack*, int);
+    int Init(hulkfight::ai::MotionFacingTrack*, hulk_intptr);
 };
 hulkfight::ai::MotionFacingAction* __cdecl Alloc(int);
 

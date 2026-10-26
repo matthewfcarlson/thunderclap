@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 extern "C" void __cdecl release(void*);
 struct Item {
-    int a;
+    hulk_intptr a;
     void* p;
 };
 extern Item items[11];

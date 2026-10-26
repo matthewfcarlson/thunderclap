@@ -27,7 +27,7 @@ struct BO {
     float f;
 };
 struct Helper_2bceb0 {
-    void Fill(BO*, Chunk_2bceb0*, int);
+    void Fill(BO*, Chunk_2bceb0*, hulk_intptr);
 };
 void* operator new(unsigned);
 

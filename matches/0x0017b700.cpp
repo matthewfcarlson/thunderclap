@@ -10,7 +10,7 @@ extern Params_17b700 TypeA_17b700;
 extern Params_17b700 TypeB_17b700;
 int __cdecl Check(void*, int, Params_17b700*, Params_17b700*, int);
 struct TeleportAction_nv_17b700 {
-    int Init(hulkfight::motion::TeleportTrack*, int);
+    int Init(hulkfight::motion::TeleportTrack*, hulk_intptr);
 };
 hulkfight::motion::TeleportAction* __cdecl Alloc(int);
 

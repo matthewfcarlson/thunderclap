@@ -10,7 +10,7 @@ extern Params_17bfa0 TypeA_17bfa0;
 extern Params_17bfa0 TypeB_17bfa0;
 int __cdecl Check(void*, int, Params_17bfa0*, Params_17bfa0*, int);
 struct SnapToGroundAction_nv_17bfa0 {
-    int Init(hulkfight::motion::SnapToGroundTrack*, int);
+    int Init(hulkfight::motion::SnapToGroundTrack*, hulk_intptr);
 };
 hulkfight::motion::SnapToGroundAction* __cdecl Alloc(int);
 

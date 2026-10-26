@@ -2,7 +2,7 @@
 #include "gen/hulkfight.h"
 
 struct Maker_138d00 {
-    int Init(hulkfight::motion::FlyingBrakeTrack*, int);
+    int Init(hulkfight::motion::FlyingBrakeTrack*, hulk_intptr);
 };
 extern int TypeA_138d00;
 extern int TypeB_138d00;

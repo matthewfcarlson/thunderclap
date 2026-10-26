@@ -8,7 +8,7 @@ struct ImageData {
     unsigned int height;
 };
 struct ImageLoader_nv_2c0c10 {
-    ImageData* FUN_002c0590(unsigned int data, unsigned int format);
+    ImageData* FUN_002c0590(hulk_uintptr data, unsigned int format);
 };
 } // namespace pure3d
 void pure3d::ImageLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr __p3) { ImageData ** image = (ImageData **)__p0; unsigned int * size = (unsigned int *)__p1; hulk_uintptr data = (hulk_uintptr)__p2; unsigned int unused = (unsigned int)__p3;

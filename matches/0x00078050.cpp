@@ -4,7 +4,7 @@
 
 class R_78050 {
   public:
-    int invoke(CExplosionTrack*, int);
+    int invoke(CExplosionTrack*, hulk_intptr);
 };
 extern R_78050* FUN_0008d690(int);
 

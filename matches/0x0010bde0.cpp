@@ -10,7 +10,7 @@ extern Params_10bde0 TypeA_10bde0;
 extern Params_10bde0 TypeB_10bde0;
 int __cdecl Check(void*, int, Params_10bde0*, Params_10bde0*, int);
 struct FaceMotionAction_nv_10bde0 {
-    int Init(hulkfight::ai::FaceMotionTrack*, int);
+    int Init(hulkfight::ai::FaceMotionTrack*, hulk_intptr);
 };
 hulkfight::ai::FaceMotionAction* __cdecl Alloc(int);
 

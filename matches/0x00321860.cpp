@@ -6,7 +6,7 @@ struct d3dContext_nv_321860 {
 };
 class Worker_321860 {
   public:
-    int run(int, int, int, int, int);
+    int run(int, int, hulk_intptr, int, int);
 };
 
 int pure3d::d3dContext::vfunc_30(hulk_intptr a, int b, int c, int d, int e) {

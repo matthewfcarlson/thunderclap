@@ -3,7 +3,7 @@
 
 class R_5aad0 {
   public:
-    int invoke(CGrappleAttachTrack*, int);
+    int invoke(CGrappleAttachTrack*, hulk_intptr);
 };
 extern R_5aad0* FUN_0008d690(int);
 

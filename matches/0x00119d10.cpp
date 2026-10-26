@@ -11,7 +11,7 @@ extern Params_119d10 TypeB_119d10;
 int __cdecl Check(void*, int, Params_119d10*, Params_119d10*, int);
 class Object_119d10 {
   public:
-    int Init(hulkfight::ai::MotionStopTrack*, int);
+    int Init(hulkfight::ai::MotionStopTrack*, hulk_intptr);
 };
 Object_119d10* __cdecl Alloc(int);
 

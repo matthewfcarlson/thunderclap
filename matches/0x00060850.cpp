@@ -3,7 +3,7 @@
 
 class Obj_60850 {
   public:
-    int run(void*, int, int);
+    int run(void*, int, hulk_intptr);
 };
 struct Thing_60850 {
     char pad[0x104];

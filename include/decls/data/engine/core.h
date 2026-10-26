@@ -5,6 +5,18 @@
 #ifndef HULK_DECLS_DATA_ENGINE_CORE_H
 #define HULK_DECLS_DATA_ENGINE_CORE_H
 
+#ifndef HULK_DATA_PRELUDE
+#define HULK_DATA_PRELUDE
+typedef void (*hulk_code_ptr)();         // a pointer to game code
+typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
+#if defined(_WIN64) || defined(_M_X64) || defined(_M_ARM64) || defined(__LP64__) || defined(__x86_64__) || \
+    defined(__aarch64__)
+#define HULK_DATA_PACKED 0
+#else
+#define HULK_DATA_PACKED 1
+#endif
+#endif
+
 struct DataLayout_0042b6d8;  // packed layout (bytes and pointers), defined in the data TU
 
 // core/CementLibrary.cpp
@@ -20,7 +32,7 @@ extern "C" const unsigned int DAT_004845a4[1];  // zero_004845a4
 // core/CompletionEventRequest.cpp
 extern "C" const char DAT_0042b904[12];  // s_FileRequest_0042b904
 extern "C" unsigned char DAT_0052a1c8[28];
-extern "C" unsigned char DAT_0052a1e4[4];
+extern "C" void* DAT_0052a1e4[1];
 
 // core/ControllerBuffer.cpp
 extern "C" int DAT_004cdbb0;
@@ -30,7 +42,7 @@ extern "C" const char DAT_0042b488[40];  // s_ConsoleClient_mInitC_0042b488
 extern "C" const unsigned int DAT_0048350c[1];  // zero_0048350c
 extern "C" const unsigned int DAT_00483554[1];  // zero_00483554
 extern "C" const unsigned int DAT_004835a0[1];  // zero_004835a0
-extern "C" char DAT_005283b0[4];
+extern "C" void* DAT_005283b0[1];
 
 // core/DriveDestroyDirectoryRequest_2.cpp
 extern "C" const unsigned int DAT_004840e8[1];  // zero_004840e8
@@ -75,7 +87,7 @@ extern "C" const unsigned int DAT_004842dc[1];  // zero_004842dc
 extern "C" const unsigned int DAT_00484358[1];  // zero_00484358
 extern "C" const unsigned int DAT_00484388[1];  // zero_00484388
 extern "C" unsigned char DAT_0052a1e8[28];
-extern "C" unsigned char DAT_0052a204[4];
+extern "C" void* DAT_0052a204[1];
 
 // core/FileGetPositionRequest.cpp
 extern "C" const unsigned int DAT_00483ed4[1];  // zero_00483ed4
@@ -98,7 +110,7 @@ extern "C" const unsigned int DAT_00483e88[1];  // zero_00483e88
 // core/InstanceDrive.cpp
 extern "C" const char DAT_0042bdbc[14];  // s_InstanceDrive_0042bdbc
 extern "C" char DAT_0052a208[28];
-extern "C" unsigned char DAT_0052a224[4];
+extern "C" void* DAT_0052a224[1];
 
 // core/MemoryAllocatorMalloc.cpp
 extern "C" unsigned char DAT_00527f40[4];
@@ -113,11 +125,11 @@ extern "C" const unsigned int DAT_0048331c[1];  // zero_0048331c
 extern "C" const unsigned int DAT_004833bc[1];  // zero_004833bc
 extern "C" const unsigned int DAT_004833f0[1];  // zero_004833f0
 extern "C" char DAT_004d9a30[1];  // s_empty_004d9a30
-extern "C" unsigned char DAT_0052839c[4];
+extern "C" void* DAT_0052839c[1];
 extern "C" unsigned int DAT_005283a0;
 extern "C" unsigned int DAT_005283a4;
 extern "C" unsigned int DAT_005283a8;
-extern "C" unsigned char DAT_005283ac[4];
+extern "C" void* DAT_005283ac[1];
 
 // core/MemoryPool.cpp
 extern "C" const char DAT_0042b630[27];  // s_child_of_8_8X_Memory_0042b630
@@ -130,7 +142,7 @@ extern "C" unsigned int DAT_004cdb44[2];  // unk_004cdb44
 extern "C" const char DAT_0042b674[5];  // s_core_0042b674
 extern "C" const unsigned int DAT_0048383c[1];  // zero_0048383c
 extern "C" const unsigned int DAT_0048386c[1];  // zero_0048386c
-extern "C" const void* DAT_004cdb4c;  // PTR_004cdb4c
+extern "C" hulk_vftable_ptr DAT_004cdb4c;  // PTR_004cdb4c
 extern "C" unsigned int DAT_004cdb50[1];  // zero_004cdb50
 extern "C" unsigned char DAT_00528410[8];
 
@@ -161,7 +173,7 @@ extern "C" short DAT_004cdcaa;
 extern "C" unsigned int DAT_004cdcac[1];  // zero_004cdcac
 extern "C" unsigned int DAT_004cdcb0[17];  // unk_004cdcb0
 extern "C" unsigned char DAT_004cdcf4;
-extern "C" const void* DAT_004cdcf8;  // PTR_004cdcf8
+extern "C" hulk_code_ptr DAT_004cdcf8;  // PTR_004cdcf8
 extern "C" unsigned char DAT_0052a1a4[28];
 extern "C" unsigned int DAT_0052a1c0;
 extern "C" unsigned char DAT_0052a1c4[4];

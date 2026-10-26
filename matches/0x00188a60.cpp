@@ -10,7 +10,7 @@ extern Params_188a60 TypeA_188a60;
 extern Params_188a60 TypeB_188a60;
 int __cdecl Check(void*, int, Params_188a60*, Params_188a60*, int);
 struct PropAddToCollisionAction_nv_188a60 {
-    int Init(hulkfight::motion::PropAddToCollisionTrack*, int);
+    int Init(hulkfight::motion::PropAddToCollisionTrack*, hulk_intptr);
 };
 hulkfight::motion::PropAddToCollisionAction* __cdecl Alloc(int);
 

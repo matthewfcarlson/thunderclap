@@ -4,7 +4,7 @@
 
 class Helper_6a1c0 {
   public:
-    int go(int);
+    int go(hulk_intptr);
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 

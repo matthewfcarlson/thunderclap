@@ -11,7 +11,7 @@ extern Params_17af80 TypeB_17af80;
 int __cdecl Check(void*, int, Params_17af80*, Params_17af80*, int);
 class Object_17af80 {
   public:
-    int Init(hulkfight::motion::LocomotionStateTrack*, int);
+    int Init(hulkfight::motion::LocomotionStateTrack*, hulk_intptr);
 };
 Object_17af80* __cdecl Alloc(int);
 

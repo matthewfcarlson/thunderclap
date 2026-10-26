@@ -20,7 +20,7 @@ class GrappleHitReactionAction_14ad10 {
   public:
     int Init(hulkfight::motion::GrappleHitReactionTrack*, int);
 };
-extern int GetParam(int);
+extern int GetParam(hulk_intptr);
 extern GrappleHitReactionAction_14ad10* Allocate(int);
 
 hulk_intptr hulkfight::motion::GrappleHitReactionTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {

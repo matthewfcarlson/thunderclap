@@ -10,7 +10,7 @@ extern Params_10bd40 TypeB_10bd40;
 int __cdecl Check(void*, int, Params_10bd40*, Params_10bd40*, int);
 class Object_10bd40 {
   public:
-    int Init(hulkfight::ai::FaceTargetTrack*, int);
+    int Init(hulkfight::ai::FaceTargetTrack*, hulk_intptr);
 };
 Object_10bd40* __cdecl Alloc(int);
 

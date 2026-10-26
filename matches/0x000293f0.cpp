@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 typedef long long i64;
 extern "C" i64 __cdecl lookupKey(int, int, int);
 struct Item {
     char pad[0x1d30];
-    int a, b, c;
+    hulk_intptr a, b, c;
 };
 class Manager {
   public:

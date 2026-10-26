@@ -12,7 +12,7 @@ class Part_2c2730 {
     virtual void f6(int, int);
 };
 struct Geometry_nv_2c2730 {
-    void helper(int, int);
+    void helper(hulk_intptr, int);
 };
 
 void pure3d::Geometry::vfunc_8(hulk_intptr a, int b) {

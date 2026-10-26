@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 struct Item {
     char pad[0x1b68];
-    int a, b, c;
+    hulk_intptr a, b, c;
 };
 struct Owner {
     Item* Get(__int64);

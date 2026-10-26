@@ -10,7 +10,7 @@ extern Params_129560 TypeA_129560;
 extern Params_129560 TypeB_129560;
 int __cdecl Check(void*, int, Params_129560*, Params_129560*, int);
 struct AcquireTargetAction_nv_129560 {
-    int Init(hulkfight::ai::AcquireTargetTrack*, int);
+    int Init(hulkfight::ai::AcquireTargetTrack*, hulk_intptr);
 };
 hulkfight::ai::AcquireTargetAction* __cdecl Alloc(int);
 

@@ -10,7 +10,7 @@ extern Params_1889c0 TypeA_1889c0;
 extern Params_1889c0 TypeB_1889c0;
 int __cdecl Check(void*, int, Params_1889c0*, Params_1889c0*, int);
 struct PropAddToMissileCountAction_nv_1889c0 {
-    int Init(hulkfight::motion::PropAddToMissileCountTrack*, int);
+    int Init(hulkfight::motion::PropAddToMissileCountTrack*, hulk_intptr);
 };
 hulkfight::motion::PropAddToMissileCountAction* __cdecl Alloc(int);
 

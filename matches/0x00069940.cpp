@@ -4,7 +4,7 @@
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Helper_69940 {
-    int FUN_0001cfd0(CMoveTrack*, int);
+    int FUN_0001cfd0(CMoveTrack*, hulk_intptr);
 };
 
 hulk_intptr CMoveTrack::vfunc_12(hulk_intptr param) {

@@ -10,7 +10,7 @@ extern Params_17b3d0 TypeA_17b3d0;
 extern Params_17b3d0 TypeB_17b3d0;
 int __cdecl Check(void*, int, Params_17b3d0*, Params_17b3d0*, int);
 struct ChargeClearAction_nv_17b3d0 {
-    int Init(hulkfight::motion::ChargeClearTrack*, int);
+    int Init(hulkfight::motion::ChargeClearTrack*, hulk_intptr);
 };
 hulkfight::motion::ChargeClearAction* __cdecl Alloc(int);
 

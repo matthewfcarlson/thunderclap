@@ -122,7 +122,7 @@ public:
 };
 
 struct CSPHulkPropLoader_1d57d0 {
-    void FUN_00290bf0(PropData **out, NameKey_1d57d0 *id, Reader_1d57d0 *r, int unused);
+    void FUN_00290bf0(PropData **out, NameKey_1d57d0 *id, Reader_1d57d0 *r, hulk_intptr unused);
 };
 
 void CSPHulkPropLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr unused) { CSPHulkProp_1d57d0 ** out = (CSPHulkProp_1d57d0 **)__p0; NameKey_1d57d0 * outId = (NameKey_1d57d0 *)__p1; Reader_1d57d0 * r = (Reader_1d57d0 *)__p2;

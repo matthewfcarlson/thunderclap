@@ -5,7 +5,7 @@ extern int gTypeA_138db0, gTypeB;
 extern int __cdecl TypeCheck(void*, int, const void*, const void*, int);
 extern void* __cdecl Alloc(int);
 struct Result_138db0 {
-    int Init(hulkfight::motion::FlyingAttackTrack*, int);
+    int Init(hulkfight::motion::FlyingAttackTrack*, hulk_intptr);
 };
 
 hulk_intptr hulkfight::motion::FlyingAttackTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {

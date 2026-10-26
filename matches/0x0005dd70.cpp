@@ -3,7 +3,7 @@
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Helper_5dd70 {
-    int FUN_0001cfd0(CHitAnimationTrack*, int);
+    int FUN_0001cfd0(CHitAnimationTrack*, hulk_intptr);
 };
 
 hulk_intptr CHitAnimationTrack::vfunc_12(hulk_intptr param) {

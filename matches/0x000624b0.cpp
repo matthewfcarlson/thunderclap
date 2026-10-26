@@ -3,7 +3,7 @@
 #include "gen/global.h"
 
 struct CSmartPropUpdateAttachmentAction_nv_624b0 {
-    int f(CSmartPropUpdateAttachmentTrack*, int);
+    int f(CSmartPropUpdateAttachmentTrack*, hulk_intptr);
 };
 extern "C" CSmartPropUpdateAttachmentAction* __cdecl FUN_0008d690(int);
 

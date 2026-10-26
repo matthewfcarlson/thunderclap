@@ -10,7 +10,7 @@ extern Params_129600 TypeA_129600;
 extern Params_129600 TypeB_129600;
 int __cdecl Check(void*, int, Params_129600*, Params_129600*, int);
 struct ClearProjectileDistanceAction_nv_129600 {
-    int Init(hulkfight::ai::ClearProjectileDistanceTrack*, int);
+    int Init(hulkfight::ai::ClearProjectileDistanceTrack*, hulk_intptr);
 };
 hulkfight::ai::ClearProjectileDistanceAction* __cdecl Alloc(int);
 

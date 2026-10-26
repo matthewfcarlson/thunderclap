@@ -18,7 +18,7 @@ class Track_1a9ac0 {
 class Param_1a9ac0 {};
 class NISAnimationAction_1a9ac0 {
   public:
-    int helper(hulk_intptr, int);
+    int helper(hulk_intptr, hulk_intptr);
 };
 extern "C" void* __cdecl FUN_0008d690(int);
 

@@ -10,7 +10,7 @@ extern Params_191720 TypeA_191720;
 extern Params_191720 TypeB_191720;
 int __cdecl Check(void*, int, Params_191720*, Params_191720*, int);
 struct SimulationAction_nv_191720 {
-    int Init(hulkfight::motion::SimulationTrack*, int);
+    int Init(hulkfight::motion::SimulationTrack*, hulk_intptr);
 };
 hulkfight::motion::SimulationAction* __cdecl Alloc(int);
 

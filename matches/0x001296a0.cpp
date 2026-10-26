@@ -10,7 +10,7 @@ extern Params_1296a0 TypeA_1296a0;
 extern Params_1296a0 TypeB_1296a0;
 int __cdecl Check(void*, int, Params_1296a0*, Params_1296a0*, int);
 struct TargetClearAction_nv_1296a0 {
-    int Init(hulkfight::ai::TargetClearTrack*, int);
+    int Init(hulkfight::ai::TargetClearTrack*, hulk_intptr);
 };
 hulkfight::ai::TargetClearAction* __cdecl Alloc(int);
 

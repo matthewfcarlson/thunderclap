@@ -10,7 +10,7 @@ extern Params_17bd20 TypeA_17bd20;
 extern Params_17bd20 TypeB_17bd20;
 int __cdecl Check(void*, int, Params_17bd20*, Params_17bd20*, int);
 struct SuckAction_nv_17bd20 {
-    int Init(hulkfight::motion::SuckTrack*, int);
+    int Init(hulkfight::motion::SuckTrack*, hulk_intptr);
 };
 hulkfight::motion::SuckAction* __cdecl Alloc(int);
 

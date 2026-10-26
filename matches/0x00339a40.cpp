@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 struct Item {
-    int a;
+    hulk_intptr a;
     int b;
 };
 int* __cdecl FUN_00339a40(int dummy, Item* p, int* out) {

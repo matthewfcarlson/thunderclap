@@ -419,9 +419,15 @@ differs from its standalone build; link check 6,477 references, **4,238 by name*
   the Wine link doesn't link the data TU objects as they are; it copies each item (bytes and relocations) into
   one block per XBE section at the XBE's distances, so items the inventory split out of one structure stay
   adjacent (open problem 2 no longer breaks the Wine image; the item boundaries still matter for typed data).
-- **32-bit first** (as the code): the tables keep their byte layout, and `#pragma pack(1)` structs keep pointers
-  at 4-byte offsets. For 64-bit, pointer-containing items need their real types (a `const void*` grows to 8 bytes
-  and shifts every later field), so mixed `DataLayout_` structs have to become typed structs first.
+- **Pointer-holding items have pointer types** (x64-5, 2026-10-25; [native-mac.md](native-mac.md) section 10): a
+  word that holds a pointer is a pointer, 4 bytes on the 32-bit builds and 8 on 64-bit. Which words: the XBE's
+  initialized pointers, and the ones the sources use as pointers at run time (zero in the XBE, or BSS), from
+  `config/data-ptrs.json` (`tools/data_ptrs.py evidence`). Types by what they point at: `const char*` (strings),
+  `hulk_code_ptr` (code), `hulk_vftable_ptr` (vftables), `const void*` (other data), `void*` (set at run time).
+  Mixed `DataLayout_` structs have the pointers as pointer members and the other words as `unsigned int`; they
+  are packed on the 32-bit builds (`HULK_DATA_PACKED`: the XBE's layout, byte-identical) and naturally aligned
+  on 64-bit. Code that still addresses such an item by 32-bit byte offsets, or reads a pointer word as an
+  integer, is listed by `tools/data_ptrs.py lint`.
 - **Names across linkage:** pointers to functions use `FUN_<addr>`; the Wine build needs the function's real
   symbol (a C++ member such as `CFoo::vfunc_3` can't be named by an `extern "C"` alias). The inventory knows the
   target address, so the generator can emit the real name once functions.csv names are spellable.

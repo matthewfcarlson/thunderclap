@@ -5,6 +5,18 @@
 #ifndef HULK_DECLS_DATA_ENGINE_CHOREO2_H
 #define HULK_DECLS_DATA_ENGINE_CHOREO2_H
 
+#ifndef HULK_DATA_PRELUDE
+#define HULK_DATA_PRELUDE
+typedef void (*hulk_code_ptr)();         // a pointer to game code
+typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
+#if defined(_WIN64) || defined(_M_X64) || defined(_M_ARM64) || defined(__LP64__) || defined(__x86_64__) || \
+    defined(__aarch64__)
+#define HULK_DATA_PACKED 0
+#else
+#define HULK_DATA_PACKED 1
+#endif
+#endif
+
 
 // choreo2/AnimationDriver.cpp
 extern "C" const float DAT_0042732c;  // flt_0042732c

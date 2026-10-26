@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 struct Item {
-    int a, b;
+    hulk_intptr a, b;
 };
 struct Buf {
     char pad[8];

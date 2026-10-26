@@ -4,7 +4,7 @@
 extern const float zero_69f10;
 class Helper_69f10 {
   public:
-    int Apply(int, float);
+    int Apply(hulk_intptr, float);
 };
 extern int __cdecl FUN_0008d690(int);
 

@@ -4,7 +4,7 @@
 extern void* __cdecl FUN_0008d690(unsigned int);
 class Helper_694c0 {
   public:
-    int FUN_000190a0(CDropTrack*, int);
+    int FUN_000190a0(CDropTrack*, hulk_intptr);
 };
 
 hulk_intptr CDropTrack::vfunc_12(hulk_intptr param) {

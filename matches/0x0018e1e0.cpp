@@ -10,7 +10,7 @@ extern Params_18e1e0 TypeA_18e1e0;
 extern Params_18e1e0 TypeB_18e1e0;
 int __cdecl Check(void*, int, Params_18e1e0*, Params_18e1e0*, int);
 struct TimerSetAction_nv_18e1e0 {
-    int Init(hulkfight::motion::TimerSetTrack*, int);
+    int Init(hulkfight::motion::TimerSetTrack*, hulk_intptr);
 };
 hulkfight::motion::TimerSetAction* __cdecl Alloc(int);
 

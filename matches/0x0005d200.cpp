@@ -4,7 +4,7 @@
 
 class R_5d200 {
   public:
-    int invoke(CHapticTrack*, int);
+    int invoke(CHapticTrack*, hulk_intptr);
 };
 extern R_5d200* FUN_0008d690(int);
 

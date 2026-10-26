@@ -3,7 +3,7 @@
 
 class Alloc_6a650 {
   public:
-    int method(CJumpAttackTrack*, int);
+    int method(CJumpAttackTrack*, hulk_intptr);
 };
 extern Alloc_6a650* FUN_0008d690(int);
 

@@ -39,7 +39,7 @@ public:
 };
 
 struct CRangedAgent_nv_107030 {
-    float FUN_000fc4e0(int a, int b);
+    float FUN_000fc4e0(hulk_intptr a, int b);
 };
 
 hulk_freg CRangedAgent::vfunc_3(hulk_intptr a, int b) {

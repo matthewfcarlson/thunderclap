@@ -10,7 +10,7 @@ extern Params_12ca10 TypeA_12ca10;
 extern Params_12ca10 TypeB_12ca10;
 int __cdecl Check(void*, int, Params_12ca10*, Params_12ca10*, int);
 struct ThreatDodgeAction_nv_12ca10 {
-    int Init(hulkfight::ai::ThreatDodgeTrack*, int);
+    int Init(hulkfight::ai::ThreatDodgeTrack*, hulk_intptr);
 };
 hulkfight::ai::ThreatDodgeAction* __cdecl Alloc(int);
 

@@ -3,7 +3,7 @@
 
 class Helper_161470 {
   public:
-    int run(hulkfight::motion::LocomotionStrafe4Track*, int);
+    int run(hulkfight::motion::LocomotionStrafe4Track*, hulk_intptr);
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 

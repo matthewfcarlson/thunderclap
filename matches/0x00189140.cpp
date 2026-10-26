@@ -2,7 +2,7 @@
 #include "gen/hulkfight.h"
 
 struct Allocated_189140 {
-    int run(hulkfight::motion::BallAndChainShootTrack*, int);
+    int run(hulkfight::motion::BallAndChainShootTrack*, hulk_intptr);
 };
 extern int check(void*, int, int*, int*, int);
 extern Allocated_189140* alloc(int);

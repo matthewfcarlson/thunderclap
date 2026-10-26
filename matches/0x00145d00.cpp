@@ -10,7 +10,7 @@ extern Params_145d00 TypeA_145d00;
 extern Params_145d00 TypeB_145d00;
 int __cdecl Check(void*, int, Params_145d00*, Params_145d00*, int);
 struct MotionTrailStopAction_nv_145d00 {
-    int Init(hulkfight::motion::MotionTrailStopTrack*, int);
+    int Init(hulkfight::motion::MotionTrailStopTrack*, hulk_intptr);
 };
 hulkfight::motion::MotionTrailStopAction* __cdecl Alloc(int);
 

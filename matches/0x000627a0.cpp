@@ -3,7 +3,7 @@
 #include "gen/global.h"
 
 struct CSmartPropSetStateAction_nv_627a0 {
-    int invoke(CSmartPropSetStateTrack*, int);
+    int invoke(CSmartPropSetStateTrack*, hulk_intptr);
 };
 extern CSmartPropSetStateAction* FUN_0008d690(int);
 

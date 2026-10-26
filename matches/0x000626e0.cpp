@@ -4,7 +4,7 @@
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Helper_626e0 {
-    int FUN_0001cfd0(CSmartPropSpawnTrack*, int);
+    int FUN_0001cfd0(CSmartPropSpawnTrack*, hulk_intptr);
 };
 
 hulk_intptr CSmartPropSpawnTrack::vfunc_12(hulk_intptr param) {

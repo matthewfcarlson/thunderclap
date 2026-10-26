@@ -37,10 +37,13 @@ import data_inventory as di  # noqa: E402
 from xbe import Xbe  # noqa: E402
 
 ROOT = di.ROOT
-OUT_SRC = os.path.join(ROOT, "build/data/src")
-OBJ_DIR = os.path.join(ROOT, "build/data/obj")
+# HULK_DATA_DIR: write the data TUs, objects and report there instead of the shared build/data (a private run: the
+# Wine build jobs ship build/data/src to the hosts)
+DATA_DIR = os.environ.get("HULK_DATA_DIR") or os.path.join(ROOT, "build/data")
+OUT_SRC = os.path.join(DATA_DIR, "src")
+OBJ_DIR = os.path.join(DATA_DIR, "obj")
 DECLS = os.path.join(ROOT, "include/decls/data")
-REPORT = os.path.join(ROOT, "build/data/report.json")
+REPORT = os.path.join(DATA_DIR, "report.json")
 
 SKIP_KINDS = di.CODE_OWNED | {"padding", "kernel_thunks", "library_section"}
 IDENT = re.compile(r"[A-Za-z_]\w*\Z")
@@ -196,6 +199,34 @@ def scalar_type(it):
     return None
 
 
+# pointer word types by what the word points at (TUWriter.category)
+PTR_TYPE = {"string": "const char*", "code": "hulk_code_ptr", "vftable": "hulk_vftable_ptr", "data": "const void*"}
+EVIDENCE_PTRS = os.path.join(ROOT, "config/data-ptrs.json")
+# shared by the data TUs and include/decls/data/ (each guarded): the pointer types and the packing switch. 32-bit
+# builds (MSVC 7.1, clang i686) keep the XBE's packed layout; 64-bit builds align pointers naturally (8 bytes)
+DATA_PRELUDE = [
+    "#ifndef HULK_DATA_PRELUDE",
+    "#define HULK_DATA_PRELUDE",
+    "typedef void (*hulk_code_ptr)();         // a pointer to game code",
+    "typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable",
+    "#if defined(_WIN64) || defined(_M_X64) || defined(_M_ARM64) || defined(__LP64__) || defined(__x86_64__) || \\",
+    "    defined(__aarch64__)",
+    "#define HULK_DATA_PACKED 0",
+    "#else",
+    "#define HULK_DATA_PACKED 1",
+    "#endif",
+    "#endif",
+    "",
+]
+
+
+def load_ptr_evidence():
+    try:
+        return json.load(open(EVIDENCE_PTRS)).get("items", {})
+    except (OSError, ValueError):
+        return {}
+
+
 class TUWriter:
     def __init__(self, model, items):
         self.m = model
@@ -206,8 +237,10 @@ class TUWriter:
         self.decls = []          # (cname, declaration text without `extern "C"`)
         self.defs = []
         self.pins = pinned_vars()
+        self.ev = load_ptr_evidence()
 
-    def ptr_expr(self, v):
+    def ptr_expr(self, v, ctype="const void*"):
+        """Initializer of a pointer word holding XBE address v, as C type ctype (0 -> "0")."""
         if v == 0:
             return "0"
         t = self.m.target(v)
@@ -216,14 +249,21 @@ class TUWriter:
         kind, name, off = t
         if kind == "func":
             self.ext_func.add(name)
-            base = "&%s" % name
-        else:
-            if name not in self.local:
-                self.ext_data.add(name)
-            base = "&%s" % name
+        elif name not in self.local:
+            self.ext_data.add(name)
         if off:
-            return "(const void*)((const char*)%s + %d)" % (base, off)
-        return "(const void*)%s" % base
+            return "(%s)((const char*)&%s + %d)" % (ctype, name, off)
+        return "(%s)&%s" % (ctype, name)
+
+    def category(self, v):
+        """What a pointer value points at: "string", "code", "vftable" or "data" (None: unresolved)."""
+        t = self.m.target(v)
+        if t is None:
+            return None
+        if t[0] == "func":
+            return "code"
+        k = self.m.by_cname[t[1]]["kind"] if t[1] in self.m.by_cname else ""
+        return {"string": "string", "vtable": "vftable"}.get(k, "data")
 
     def item(self, it):
         m = self.m
@@ -236,9 +276,14 @@ class TUWriter:
                 v = struct.unpack_from("<I", b, i)[0]
                 if v and it["addr"] + i in self.ptr_words and m.target(v) is not None:
                     ptr_at[i] = v
+        # words that hold a pointer at run time (config/data-ptrs.json, from the sources): zero in the XBE
+        run_ptrs = {o for o in self.evidence_ptrs(it) if o not in ptr_at and
+                    (sec == ".bss" or struct.unpack_from("<I", b, o)[0] == 0)}
         if sec == ".bss":
             if n in self.pins and size == 4:
                 return "%s* %s" % (self.pins[n], n), None, "pinned"
+            if run_ptrs:
+                return self.pointer_item(it, b, {}, run_ptrs, "", bss=True)
             st = scalar_type(it)
             if st and st[1] is None:
                 return "%s %s" % (st[0], n), None, "bss"
@@ -250,6 +295,8 @@ class TUWriter:
         if k == "wstring" and not ptr_at and size % 2 == 0:
             return "%sunsigned short %s[%d]" % (const, n, size // 2), \
                 "{ %s }" % ", ".join("0x%x" % w for w in struct.unpack("<%dH" % (size // 2), b)), "wstring"
+        if ptr_at or run_ptrs:
+            return self.pointer_item(it, b, ptr_at, run_ptrs, const)
         if not ptr_at:
             if k in ("float", "float_table", "double") or (scalar_type(it) or ("",))[0] in ("float", "double"):
                 dbl = k == "double" or (scalar_type(it) or ("",))[0] == "double"
@@ -279,36 +326,112 @@ class TUWriter:
                     "{ %s }" % ", ".join("0x%x" % w for w in words(b)), "words"
             return "%sunsigned char %s[%d]" % (const, n, size), \
                 "{ %s }" % ", ".join("0x%x" % c for c in b), "bytes"
-        # pointers inside
-        if all(i in ptr_at or struct.unpack_from("<I", b, i)[0] == 0 for i in range(0, size, 4)) and size % 4 == 0:
-            exprs = [self.ptr_expr(ptr_at[i]) if i in ptr_at else "0" for i in range(0, size, 4)]
-            if all(exprs):
-                if size == 4:
-                    return "const void* %s%s" % (const, n), exprs[0], "pointers"
-                return "const void* %s%s[%d]" % (const, n, size // 4), "{ %s }" % ", ".join(exprs), "pointers"
-        # mixed: a packed struct of byte runs and pointer words
+        raise AssertionError("unreachable")
+
+    def evidence_ptrs(self, it):
+        """Byte offsets (4-aligned words) of the item that the sources use as pointers (config/data-ptrs.json)."""
+        e = self.ev.get("0x%08x" % it["addr"])
+        if not e or it["addr"] % 4:
+            return set()
+        out = {int(o, 16) for o in e.get("pointers", ())}
+        for o in e.get("table_from", ()):
+            o = int(o, 16)
+            out |= set(range(o - o % 4, it["size"] - 3, 4))
+        return {o for o in out if 0 <= o and o + 4 <= it["size"] and o % 4 == 0}
+
+    def pointer_item(self, it, b, ptr_at, run_ptrs, const, bss=False):
+        """An item with pointer words: real pointer types (4 bytes on the 32-bit builds, 8 on 64-bit). Every word
+        a pointer (or zero between pointers): a pointer or an array of pointers, typed by what the words point at
+        (`const char*` strings, hulk_code_ptr code, hulk_vftable_ptr vftables, `const void*` other data, `void*` for a
+        pointer only set at run time). Otherwise a struct with the pointers as pointer members and the rest as
+        unsigned int words and bytes, packed on the 32-bit builds (the XBE's layout) and naturally aligned on 64-bit
+        (HULK_DATA_PACKED)."""
+        n, size = it["cname"], it["size"]
+        # keep what the item's name means in an expression: an array (its address) stays an array, a scalar (its
+        # value) a scalar, as the 32-bit form without run-time pointer evidence had it, so a source's
+        # `(int)DAT_x` / `DAT_x == 0` means the same (or no longer compiles) instead of changing silently
+        st = scalar_type(it)
+        if bss:
+            scalar = bool(st) and st[1] is None
+        elif ptr_at:
+            scalar = size == 4 or self.old_struct(it, b, ptr_at)
+        else:
+            scalar = bool(st) and st[1] is None and st[0] not in ("float", "double")
+        cats = {i: self.category(v) for i, v in ptr_at.items()}
+        if None in cats.values():
+            return None, None, "unresolved pointer"
+        pws = set(ptr_at) | set(run_ptrs)
+        words_all = size % 4 == 0 and it["addr"] % 4 == 0 and all(
+            i in pws or (not bss and struct.unpack_from("<I", b, i)[0] == 0) for i in range(0, size, 4))
+        if words_all:
+            kinds = set(cats.values())
+            ct = PTR_TYPE[kinds.pop()] if len(kinds) == 1 and not run_ptrs else ("void*" if not ptr_at else "const void*")
+            if bss:
+                ct = "void*"
+            exprs = [self.ptr_expr(ptr_at[i], ct) if i in ptr_at else "0" for i in range(0, size, 4)]
+            cq = " const" if const else ""
+            form = "pointers" if ptr_at else "runtime pointers"
+            if size == 4 and scalar:
+                return "%s%s %s" % (ct, cq, n), None if bss else exprs[0], form
+            return "%s%s %s[%d]" % (ct, cq, n, size // 4), None if bss else "{ %s }" % ", ".join(exprs), form
         sname = "DataLayout_%08x" % it["addr"]
         fields, inits, i, run = [], [], 0, []
+
+        def flush(end):
+            # a run of non-pointer bytes: whole aligned words as unsigned int, the rest as bytes
+            start = end - len(run)
+            j = start
+            while j < end:
+                if (it["addr"] + j) % 4 == 0 and end - j >= 4:
+                    k = j
+                    while k + 4 <= end:
+                        k += 4
+                    ws = words(bytes(b[j:k]))
+                    if len(ws) == 1:
+                        fields.append("unsigned int w%x;" % j)
+                        inits.append("0x%x" % ws[0] if not bss else None)
+                    else:
+                        fields.append("unsigned int w%x[%d];" % (j, len(ws)))
+                        inits.append("{ %s }" % ", ".join("0x%x" % w for w in ws) if not bss else None)
+                    j = k
+                else:
+                    k = j
+                    while k < end and not ((it["addr"] + k) % 4 == 0 and end - k >= 4):
+                        k += 1
+                    fields.append("unsigned char b%x[%d];" % (j, k - j))
+                    inits.append("{ %s }" % ", ".join("0x%x" % c for c in b[j:k]) if not bss else None)
+                    j = k
+            del run[:]
         while i < size:
-            if i in ptr_at:
+            if i in pws:
                 if run:
-                    fields.append("unsigned char b%x[%d];" % (i - len(run), len(run)))
-                    inits.append("{ %s }" % ", ".join("0x%x" % c for c in run))
-                    run = []
-                e = self.ptr_expr(ptr_at[i])
-                if e is None:
-                    return None, None, "unresolved pointer"
-                fields.append("const void* p%x;" % i)
-                inits.append(e)
+                    flush(i)
+                if i in ptr_at:
+                    ct = PTR_TYPE[cats[i]]
+                    fields.append("%s p%x;" % (ct, i))
+                    inits.append(self.ptr_expr(ptr_at[i], ct))
+                else:
+                    fields.append("void* p%x;" % i)
+                    inits.append("0")
                 i += 4
             else:
                 run.append(b[i])
                 i += 1
         if run:
-            fields.append("unsigned char b%x[%d];" % (size - len(run), len(run)))
-            inits.append("{ %s }" % ", ".join("0x%x" % c for c in run))
+            flush(size)
         self.structs.append("struct %s { %s };" % (sname, " ".join(fields)))
-        return "%s%s %s" % (const, sname, n), "{ %s }" % ", ".join(inits), "struct"
+        dim = "" if scalar else "[1]"
+        if bss:
+            return "%s %s%s" % (sname, n, dim), None, "struct"
+        init = "{ %s }" % ", ".join(inits)
+        return "%s%s %s%s" % (const, sname, n, dim), init if scalar else "{ %s }" % init, "struct"
+
+    def old_struct(self, it, b, ptr_at):
+        """Did the 32-bit form without run-time pointers make this a (scalar) struct: pointers mixed with other
+        bytes, not a pointer array?"""
+        size = it["size"]
+        return not (size % 4 == 0 and all(i in ptr_at or struct.unpack_from("<I", b, i)[0] == 0
+                                          for i in range(0, size, 4)))
 
     def write(self, path):
         lines = [HEADER, "// Data of %s (%d items). Contains game data: build/ only, never commit." % (
@@ -330,10 +453,11 @@ class TUWriter:
                 body.append('extern "C" { %s; }  %s' % (decl, tag))
             else:
                 body.append('extern "C" %s = %s;  %s' % (decl, init, tag))
+        lines += DATA_PRELUDE
         if self.structs:
-            lines.append("#pragma pack(push, 1)")
+            lines += ["#if HULK_DATA_PACKED", "#pragma pack(push, 1)", "#endif"]
             lines += self.structs
-            lines.append("#pragma pack(pop)")
+            lines += ["#if HULK_DATA_PACKED", "#pragma pack(pop)", "#endif"]
             lines.append("")
         for name in sorted(self.ext_func):
             lines.append('extern "C" void %s();' % name)
@@ -379,6 +503,32 @@ def generate(model, only=None):
     return out
 
 
+def pointer_layout(model):
+    """{item addr: set of byte offsets of its pointer words} as generate() emits them (the XBE's initialized
+    pointers and config/data-ptrs.json's run-time ones): for tools/data_ptrs.py lint."""
+    inv = di.Inventory()
+    inv.collect_starts([], {}, {})
+    w = TUWriter(model, [])
+    w.ptr_words = set(inv.data_ptrs)
+    out = {}
+    for it in model.items:
+        if not model.emitted(it) or it["kind"] in ("string", "wstring"):
+            continue
+        offs = set()
+        b = model.raw(it)
+        if it["section"] != ".bss" and it["addr"] % 4 == 0:
+            for i in range(0, it["size"] - 3, 4):
+                v = struct.unpack_from("<I", b, i)[0]
+                if v and it["addr"] + i in w.ptr_words and model.target(v) is not None:
+                    offs.add(i)
+        for o in w.evidence_ptrs(it):
+            if it["section"] == ".bss" or struct.unpack_from("<I", b, o)[0] == 0 or o in offs:
+                offs.add(o)
+        if offs:
+            out[it["addr"]] = offs
+    return out
+
+
 def write_decls(model, tus):
     """include/decls/data/<layer>/<dir>.h: declarations only (names, types, sizes)."""
     by_hdr = collections.defaultdict(list)
@@ -395,7 +545,7 @@ def write_decls(model, tus):
         lines = [HEADER, "// Data items owned by %s/%s objects (docs/data.md). Each is declared under its address name, the" % (
                      layer, d), "// symbol every source uses; the inventory name follows when it says more. Sources include this",
                  "// header instead of declaring the names (tools/migrate_data.py).",
-                 "#ifndef " + guard, "#define " + guard, ""]
+                 "#ifndef " + guard, "#define " + guard, ""] + DATA_PRELUDE
         structs = set()
         for it, decl in rows:
             m = re.match(r"(?:const )?(DataLayout_[0-9a-f]{8})\b", decl)

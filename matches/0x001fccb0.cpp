@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 struct Item {
     char pad[8];
-    int a;
+    hulk_intptr a;
     int b;
 };
 extern char buffer[];

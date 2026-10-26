@@ -3,7 +3,7 @@
 
 class Alloc_6b1f0 {
   public:
-    int method(CWallSlideTrack*, int);
+    int method(CWallSlideTrack*, hulk_intptr);
 };
 extern void* __cdecl FUN_0008d690(unsigned int);
 

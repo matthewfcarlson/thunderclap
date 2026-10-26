@@ -4,7 +4,7 @@
 
 class R_68f60 {
   public:
-    int invoke(CClimbingTrack*, int);
+    int invoke(CClimbingTrack*, hulk_intptr);
 };
 extern R_68f60* FUN_0008d690(int);
 

@@ -11,7 +11,7 @@ extern Params_113080 TypeB_113080;
 int __cdecl Check(void*, int, Params_113080*, Params_113080*, int);
 class Object_113080 {
   public:
-    int Init(hulkfight::ai::ButtonTrack*, int);
+    int Init(hulkfight::ai::ButtonTrack*, hulk_intptr);
 };
 Object_113080* __cdecl Alloc(int);
 

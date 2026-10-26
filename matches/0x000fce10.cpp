@@ -12,7 +12,7 @@ class Obj_fce10 {
     virtual int f6();
 };
 struct CControllerAgent_nv_fce10 {
-    float helper(int, int);
+    float helper(hulk_intptr, int);
 };
 
 hulk_freg CControllerAgent::vfunc_3(hulk_intptr a, int b) {

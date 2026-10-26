@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 18/18)
 // FUN_00338710 @ 0x00338710
 // 0x00338710: true if str (of length len, or its strlen when len <= 0) ends with suffix
-static inline unsigned strlen_inline(const char *s)
+#include "compat/ptr.h"
+static inline hulk_uintptr strlen_inline(const char *s)
 {
     const char *p = s;
     while (*p)

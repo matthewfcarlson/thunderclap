@@ -3,7 +3,7 @@
 
 class Helper_6ad30 {
   public:
-    int run(CHeadTrackerTrack*, int);
+    int run(CHeadTrackerTrack*, hulk_intptr);
 };
 extern void* __cdecl FUN_0008d690(unsigned int);
 

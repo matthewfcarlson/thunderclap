@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20054 inputs, branch coverage 28/28)
 // FUN_001a4e40 @ 0x001a4e40
-static inline unsigned strlen_inline(const char *s)
+#include "compat/ptr.h"
+static inline hulk_uintptr strlen_inline(const char *s)
 {
     const char *p = s;
     while (*p)

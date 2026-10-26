@@ -10,7 +10,7 @@ extern Params_144a50 TypeA_144a50;
 extern Params_144a50 TypeB_144a50;
 int __cdecl Check(void*, int, Params_144a50*, Params_144a50*, int);
 struct WorldConeDamageAction_nv_144a50 {
-    int Init(hulkfight::motion::WorldConeDamageTrack*, int);
+    int Init(hulkfight::motion::WorldConeDamageTrack*, hulk_intptr);
 };
 hulkfight::motion::WorldConeDamageAction* __cdecl Alloc(int);
 

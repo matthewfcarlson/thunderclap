@@ -5,6 +5,18 @@
 #ifndef HULK_DECLS_DATA_ENGINE_UNKNOWN_H
 #define HULK_DECLS_DATA_ENGINE_UNKNOWN_H
 
+#ifndef HULK_DATA_PRELUDE
+#define HULK_DATA_PRELUDE
+typedef void (*hulk_code_ptr)();         // a pointer to game code
+typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
+#if defined(_WIN64) || defined(_M_X64) || defined(_M_ARM64) || defined(__LP64__) || defined(__x86_64__) || \
+    defined(__aarch64__)
+#define HULK_DATA_PACKED 0
+#else
+#define HULK_DATA_PACKED 1
+#endif
+#endif
+
 struct DataLayout_00426948;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_00426bf0;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0042ab5c;  // packed layout (bytes and pointers), defined in the data TU
@@ -66,7 +78,7 @@ extern "C" const char DAT_004269fc[6];  // s_sub_004269fc
 extern "C" const char DAT_00426a04[6];  // s_add_00426a04
 extern "C" const char DAT_00426a0c[5];  // s_eq_00426a0c
 extern "C" const char DAT_00426a1c[5];  // s_gc_00426a1c
-extern "C" const void* const DAT_00426a24[15];  // ptrTbl_00426a24
+extern "C" const char* const DAT_00426a24[15];  // ptrTbl_00426a24
 extern "C" const char DAT_00426a60[5];  // s_7g_00426a60
 extern "C" const char DAT_00426a68[17];  // s_loop_in_gettable_00426a68
 extern "C" const char DAT_00426a7c[6];  // s_index_00426a7c
@@ -310,7 +322,7 @@ extern "C" const void* DAT_004cd4cc;  // PTR_004cd4cc
 extern "C" const void* DAT_004cd4d0[4];  // ptrTbl_004cd4d0
 
 // unknown/unk_266950.cpp
-extern "C" unsigned char DAT_00527f58[4];
+extern "C" void* DAT_00527f58[1];
 extern "C" unsigned char DAT_00527f5c[4];
 extern "C" unsigned char DAT_00527f60[4];
 extern "C" unsigned char DAT_00527f64[4];
@@ -338,7 +350,7 @@ extern "C" int DAT_004cdc00;
 extern "C" unsigned char DAT_004cdc04;
 extern "C" short DAT_004cdc08[16];  // tbl_004cdc08
 extern "C" unsigned char DAT_00528418[20];
-extern "C" unsigned char DAT_0052842c[7392];
+extern "C" void* DAT_0052842c[1848];
 extern "C" char DAT_0052a10c[16];
 extern "C" unsigned char DAT_0052a11c[1];
 extern "C" unsigned char DAT_0052a11d[3];
@@ -405,7 +417,7 @@ extern "C" int DAT_004d2f00;
 extern "C" float DAT_004d2f04[4];  // fltTbl_004d2f04
 extern "C" float DAT_004d2f14;  // flt_004d2f14
 extern "C" float DAT_004d2f18[4];  // fltTbl_004d2f18
-extern "C" unsigned char DAT_0055547c[4];
+extern "C" void* DAT_0055547c[1];
 extern "C" char DAT_00555480;
 
 // unknown/unk_301650.cpp
@@ -595,7 +607,7 @@ extern "C" const char DAT_00435034[7];  // s_fenv_00435034
 extern "C" const char DAT_0043503c[54];  // s_setfenv_cannot_chang_0043503c
 extern "C" const char DAT_00435074[48];  // s_setfenv_cannot_chang_00435074
 extern "C" const int DAT_004350a4[4];  // tbl_004350a4
-extern "C" const void* const DAT_004350b4[5];  // ptrTbl_004350b4
+extern "C" const char* const DAT_004350b4[5];  // ptrTbl_004350b4
 extern "C" const char DAT_004350c8[8];  // s_restart_004350c8
 extern "C" const char DAT_004350d0[8];  // s_collect_004350d0
 extern "C" const char DAT_004350d8[37];  // s_reader_function_must_004350d8
@@ -625,7 +637,7 @@ extern "C" const char DAT_004352ac[52];  // s_The_file_doesn_t_con_004352ac
 extern "C" const void* DAT_004d9858;  // PTR_004d9858
 extern "C" const void* DAT_004d985c;  // PTR_004d985c
 extern "C" int DAT_004d9860;
-extern "C" unsigned char DAT_005660d8[4];
+extern "C" void* DAT_005660d8[1];
 extern "C" unsigned int DAT_005660dc;
 extern "C" unsigned char DAT_00566100[128];
 extern "C" unsigned char DAT_00566180[128];

@@ -10,7 +10,7 @@ extern Params_188ec0 TypeA_188ec0;
 extern Params_188ec0 TypeB_188ec0;
 int __cdecl Check(void*, int, Params_188ec0*, Params_188ec0*, int);
 struct PropDestroyAction_nv_188ec0 {
-    int Init(hulkfight::motion::PropDestroyTrack*, int);
+    int Init(hulkfight::motion::PropDestroyTrack*, hulk_intptr);
 };
 hulkfight::motion::PropDestroyAction* __cdecl Alloc(int);
 

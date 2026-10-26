@@ -1,0 +1,3644 @@
+{
+ "_comment": "Words of the game's data items that hold pointers at run time, from the sources' accesses (tools/data_ptrs.py evidence): byte offsets in the item (`pointers`), pointer tables indexed from an offset to the item's end (`table_from`), the pointee class the sources agree on. tools/data_gen.py gives these words pointer types. Names and offsets only.",
+ "items": {
+  "0x003ffde0": {
+   "name": "DAT_003ffde0",
+   "size": 148,
+   "sources": [
+    "equivalent/0x0008a120.cpp",
+    "equivalent/0x0008abc0.cpp",
+    "equivalent/0x0008ad90.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x00400520": {
+   "name": "DAT_00400520",
+   "size": 228,
+   "sources": [
+    "equivalent/0x0008ced0.cpp",
+    "equivalent/0x0008d3a0.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x00406140": {
+   "name": "DAT_00406140",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000b9bf0.cpp"
+   ]
+  },
+  "0x004061e8": {
+   "name": "DAT_004061e8",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 8,
+   "sources": [
+    "equivalent/0x000bd1b0.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x00406740": {
+   "name": "DAT_00406740",
+   "size": 100,
+   "sources": [
+    "matches/0x000b8940.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x004067a4": {
+   "name": "DAT_004067a4",
+   "size": 4,
+   "sources": [
+    "equivalent/0x000b7490.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x0040b020": {
+   "name": "DAT_0040b020",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 8,
+   "sources": [
+    "equivalent/0x000d3f10.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x00426948": {
+   "name": "DAT_00426948",
+   "size": 60,
+   "sources": [
+    "equivalent/0x00214c90.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x00426a24": {
+   "name": "DAT_00426a24",
+   "size": 60,
+   "sources": [
+    "equivalent/0x00217520.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x0048e060": {
+   "name": "DAT_0048e060",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00025a90.cpp",
+    "equivalent/0x00027c90.cpp",
+    "equivalent/0x00027e30.cpp",
+    "equivalent/0x00027f00.cpp"
+   ]
+  },
+  "0x0048e064": {
+   "name": "DAT_0048e064",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00025a90.cpp",
+    "equivalent/0x00027d60.cpp"
+   ]
+  },
+  "0x0048e068": {
+   "name": "DAT_0048e068",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00025a90.cpp"
+   ]
+  },
+  "0x0048f590": {
+   "name": "DAT_0048f590",
+   "size": 32,
+   "sources": [
+    "matches/0x000384e0.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x0048f698": {
+   "name": "DAT_0048f698",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00044910.cpp",
+    "equivalent/0x000449c0.cpp"
+   ]
+  },
+  "0x0048f69c": {
+   "name": "DAT_0048f69c",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00044910.cpp",
+    "equivalent/0x000449c0.cpp"
+   ]
+  },
+  "0x0048f6a4": {
+   "name": "DAT_0048f6a4",
+   "size": 16,
+   "sources": [
+    "equivalent/0x000464c0.cpp",
+    "matches/0x000447b0.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x0048f6b4": {
+   "name": "DAT_0048f6b4",
+   "size": 24,
+   "sources": [
+    "equivalent/0x000464c0.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x0048f9d4": {
+   "name": "DAT_0048f9d4",
+   "size": 40,
+   "sources": [
+    "equivalent/0x0004d710.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x0049548c": {
+   "name": "DAT_0049548c",
+   "size": 40,
+   "sources": [
+    "matches/0x00025820.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x00496f8c": {
+   "name": "DAT_00496f8c",
+   "size": 16,
+   "sources": [
+    "equivalent/0x000258b0.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x0049ec40": {
+   "name": "DAT_0049ec40",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000a2430.cpp"
+   ]
+  },
+  "0x0049ed3c": {
+   "name": "DAT_0049ed3c",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000a8400.cpp"
+   ]
+  },
+  "0x0049ee00": {
+   "name": "DAT_0049ee00",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000ac7d0.cpp"
+   ]
+  },
+  "0x0049f3ac": {
+   "name": "DAT_0049f3ac",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000bc100.cpp"
+   ]
+  },
+  "0x0049f3b0": {
+   "name": "DAT_0049f3b0",
+   "pointee": {
+    "0x0": "void"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x000bf0e0.cpp"
+   ]
+  },
+  "0x0049f3b8": {
+   "name": "DAT_0049f3b8",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000b51c0.cpp",
+    "equivalent/0x000c1790.cpp"
+   ]
+  },
+  "0x0049f3c4": {
+   "name": "DAT_0049f3c4",
+   "pointee": {
+    "0x0": "void"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x000bf0e0.cpp"
+   ]
+  },
+  "0x0049f3cc": {
+   "name": "DAT_0049f3cc",
+   "pointee": {
+    "0x0": "void"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x000bf0e0.cpp"
+   ]
+  },
+  "0x004a0658": {
+   "name": "DAT_004a0658",
+   "size": 72,
+   "sources": [
+    "equivalent/0x000d3f10.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x004a06a0": {
+   "name": "DAT_004a06a0",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d3f10.cpp"
+   ]
+  },
+  "0x004a06a4": {
+   "name": "DAT_004a06a4",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d3f10.cpp"
+   ]
+  },
+  "0x004a0c60": {
+   "name": "DAT_004a0c60",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d8990.cpp",
+    "equivalent/0x000d8a90.cpp",
+    "equivalent/0x000d8cb0.cpp",
+    "equivalent/0x000d8dd0.cpp",
+    "equivalent/0x000d8ec0.cpp",
+    "equivalent/0x000d8fa0.cpp"
+   ]
+  },
+  "0x004a0c64": {
+   "name": "DAT_004a0c64",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 8,
+   "sources": [
+    "equivalent/0x000d8410.cpp",
+    "equivalent/0x000d9d40.cpp",
+    "matches/0x000d8030.cpp"
+   ]
+  },
+  "0x004a0c6c": {
+   "name": "DAT_004a0c6c",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d8cb0.cpp"
+   ]
+  },
+  "0x004a0c70": {
+   "name": "DAT_004a0c70",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d8cb0.cpp"
+   ]
+  },
+  "0x004a0c74": {
+   "name": "DAT_004a0c74",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d8dd0.cpp"
+   ]
+  },
+  "0x004a0c88": {
+   "name": "DAT_004a0c88",
+   "pointee": {
+    "0x0": "void"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000da930.cpp"
+   ]
+  },
+  "0x004a0c94": {
+   "name": "DAT_004a0c94",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d8ec0.cpp"
+   ]
+  },
+  "0x004a0c9c": {
+   "name": "DAT_004a0c9c",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d8fa0.cpp"
+   ]
+  },
+  "0x004a0ca4": {
+   "name": "DAT_004a0ca4",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d9180.cpp"
+   ]
+  },
+  "0x004a0ca8": {
+   "name": "DAT_004a0ca8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d9790.cpp"
+   ]
+  },
+  "0x004a0cac": {
+   "name": "DAT_004a0cac",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d9890.cpp"
+   ]
+  },
+  "0x004a0cb0": {
+   "name": "DAT_004a0cb0",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d9a80.cpp"
+   ]
+  },
+  "0x004a0cb4": {
+   "name": "DAT_004a0cb4",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d99a0.cpp"
+   ]
+  },
+  "0x004a0cb8": {
+   "name": "DAT_004a0cb8",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d8990.cpp"
+   ]
+  },
+  "0x004a0cbc": {
+   "name": "DAT_004a0cbc",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d8a90.cpp"
+   ]
+  },
+  "0x004a0cc4": {
+   "name": "DAT_004a0cc4",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d9180.cpp",
+    "equivalent/0x000d9c40.cpp"
+   ]
+  },
+  "0x004a0cc8": {
+   "name": "DAT_004a0cc8",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d9d40.cpp"
+   ]
+  },
+  "0x004a0cd0": {
+   "name": "DAT_004a0cd0",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000da480.cpp"
+   ]
+  },
+  "0x004a0cd4": {
+   "name": "DAT_004a0cd4",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000da570.cpp"
+   ]
+  },
+  "0x004a0cd8": {
+   "name": "DAT_004a0cd8",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000da660.cpp"
+   ]
+  },
+  "0x004a0cdc": {
+   "name": "DAT_004a0cdc",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000da830.cpp"
+   ]
+  },
+  "0x004a0ce0": {
+   "name": "DAT_004a0ce0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d8990.cpp",
+    "equivalent/0x000d8a90.cpp",
+    "equivalent/0x000d8cb0.cpp",
+    "equivalent/0x000d8dd0.cpp",
+    "equivalent/0x000d8ec0.cpp",
+    "equivalent/0x000d8fa0.cpp"
+   ]
+  },
+  "0x004a0ce4": {
+   "name": "DAT_004a0ce4",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d8990.cpp",
+    "equivalent/0x000d8a90.cpp",
+    "equivalent/0x000d8cb0.cpp",
+    "equivalent/0x000d8dd0.cpp",
+    "equivalent/0x000d8ec0.cpp",
+    "equivalent/0x000d8fa0.cpp"
+   ]
+  },
+  "0x004a0ce8": {
+   "name": "DAT_004a0ce8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d8990.cpp",
+    "equivalent/0x000d8a90.cpp",
+    "equivalent/0x000d8cb0.cpp",
+    "equivalent/0x000d8dd0.cpp",
+    "equivalent/0x000d8ec0.cpp",
+    "equivalent/0x000d8fa0.cpp"
+   ]
+  },
+  "0x004a1f60": {
+   "name": "DAT_004a1f60",
+   "pointee": {
+    "0x0": "float"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x0010b2c0.cpp"
+   ]
+  },
+  "0x004bebb4": {
+   "name": "DAT_004bebb4",
+   "size": 76,
+   "sources": [
+    "equivalent/0x0018d480.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x004c165c": {
+   "name": "DAT_004c165c",
+   "size": 32,
+   "sources": [
+    "equivalent/0x001cab60.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x004c4be8": {
+   "name": "DAT_004c4be8",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001bdb90.cpp"
+   ]
+  },
+  "0x004c4bec": {
+   "name": "DAT_004c4bec",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001bdb90.cpp"
+   ]
+  },
+  "0x004c4bf0": {
+   "name": "DAT_004c4bf0",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001bdb90.cpp"
+   ]
+  },
+  "0x004c4bf4": {
+   "name": "DAT_004c4bf4",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001bdb90.cpp"
+   ]
+  },
+  "0x004c4bf8": {
+   "name": "DAT_004c4bf8",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001bdb90.cpp"
+   ]
+  },
+  "0x004c4bfc": {
+   "name": "DAT_004c4bfc",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001bdb90.cpp"
+   ]
+  },
+  "0x004c4c5c": {
+   "name": "DAT_004c4c5c",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x001c0ab0.cpp"
+   ]
+  },
+  "0x004c4c60": {
+   "name": "DAT_004c4c60",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x001c0ab0.cpp"
+   ]
+  },
+  "0x004c4c64": {
+   "name": "DAT_004c4c64",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x001c0ab0.cpp"
+   ]
+  },
+  "0x004c4c68": {
+   "name": "DAT_004c4c68",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x001bdff0.cpp"
+   ]
+  },
+  "0x004c4c6c": {
+   "name": "DAT_004c4c6c",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001be060.cpp"
+   ]
+  },
+  "0x004c4c70": {
+   "name": "DAT_004c4c70",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x001c0ab0.cpp"
+   ]
+  },
+  "0x004c4c74": {
+   "name": "DAT_004c4c74",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x001c0ab0.cpp"
+   ]
+  },
+  "0x004c4c78": {
+   "name": "DAT_004c4c78",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x001c0ab0.cpp"
+   ]
+  },
+  "0x004c5188": {
+   "name": "DAT_004c5188",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001c4b50.cpp"
+   ]
+  },
+  "0x004c548c": {
+   "name": "DAT_004c548c",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001cbf40.cpp"
+   ]
+  },
+  "0x004c5cf8": {
+   "name": "DAT_004c5cf8",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x001d2890.cpp"
+   ]
+  },
+  "0x004c8070": {
+   "name": "DAT_004c8070",
+   "size": 40,
+   "sources": [
+    "equivalent/0x001f6cd0.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x004c8098": {
+   "name": "DAT_004c8098",
+   "size": 92,
+   "sources": [
+    "equivalent/0x001f6cd0.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x004c91cc": {
+   "name": "DAT_004c91cc",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00206320.cpp"
+   ]
+  },
+  "0x004c91d4": {
+   "name": "DAT_004c91d4",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00206320.cpp"
+   ]
+  },
+  "0x004ca248": {
+   "name": "DAT_004ca248",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00233460.cpp",
+    "equivalent/0x00233580.cpp",
+    "equivalent/0x00233650.cpp"
+   ]
+  },
+  "0x004ca254": {
+   "name": "DAT_004ca254",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0023b570.cpp"
+   ]
+  },
+  "0x004ca26c": {
+   "name": "DAT_004ca26c",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00233c50.cpp",
+    "equivalent/0x0023b570.cpp"
+   ]
+  },
+  "0x004ca270": {
+   "name": "DAT_004ca270",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00233c50.cpp",
+    "equivalent/0x0023b570.cpp"
+   ]
+  },
+  "0x004ca274": {
+   "name": "DAT_004ca274",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0023b570.cpp"
+   ]
+  },
+  "0x004ca278": {
+   "name": "DAT_004ca278",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00233c50.cpp",
+    "equivalent/0x0023b570.cpp"
+   ]
+  },
+  "0x004ca29c": {
+   "name": "DAT_004ca29c",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00233c50.cpp",
+    "equivalent/0x0023b570.cpp"
+   ]
+  },
+  "0x004cc02c": {
+   "name": "DAT_004cc02c",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0023fbb0.cpp",
+    "equivalent/0x0023fc40.cpp",
+    "equivalent/0x0023fd60.cpp",
+    "equivalent/0x0023fe50.cpp",
+    "equivalent/0x0023ff50.cpp",
+    "equivalent/0x00240190.cpp"
+   ]
+  },
+  "0x004cc084": {
+   "name": "DAT_004cc084",
+   "pointee": {
+    "0x0": "ListHead_244d70"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00244d70.cpp"
+   ]
+  },
+  "0x004cc088": {
+   "name": "DAT_004cc088",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00244d70.cpp",
+    "equivalent/0x002450e0.cpp"
+   ]
+  },
+  "0x004cc08c": {
+   "name": "DAT_004cc08c",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00244ea0.cpp",
+    "equivalent/0x00245040.cpp",
+    "matches/0x00244f70.cpp"
+   ]
+  },
+  "0x004cc0cc": {
+   "name": "DAT_004cc0cc",
+   "pointee": {
+    "0x0": "Stream"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x003641c0.cpp"
+   ]
+  },
+  "0x004cc1fc": {
+   "name": "DAT_004cc1fc",
+   "pointee": {
+    "0x0": "OutputSink"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00247570.cpp"
+   ]
+  },
+  "0x004cc200": {
+   "name": "DAT_004cc200",
+   "pointee": {
+    "0x0": "Allocator"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x003641d0.cpp"
+   ]
+  },
+  "0x004cc248": {
+   "name": "DAT_004cc248",
+   "size": 1,
+   "sources": [
+    "equivalent/0x0024c1c0.cpp",
+    "equivalent/0x0024c200.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x004cd1bc": {
+   "name": "DAT_004cd1bc",
+   "pointee": {
+    "0x0": "void"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00259610.cpp"
+   ]
+  },
+  "0x004cd1e4": {
+   "name": "DAT_004cd1e4",
+   "size": 128,
+   "sources": [
+    "equivalent/0x0025c6d0.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x004cd380": {
+   "name": "DAT_004cd380",
+   "pointee": {
+    "0x0": "Tree_2605e0"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x002605e0.cpp"
+   ]
+  },
+  "0x004cd388": {
+   "name": "DAT_004cd388",
+   "size": 8,
+   "sources": [
+    "equivalent/0x002611b0.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x004cd698": {
+   "name": "DAT_004cd698",
+   "pointee": {
+    "0x0": "void"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00268d30.cpp",
+    "matches/0x00361760.cpp"
+   ]
+  },
+  "0x004cd69c": {
+   "name": "DAT_004cd69c",
+   "pointee": {
+    "0x0": "void"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00268d30.cpp",
+    "matches/0x00361760.cpp"
+   ]
+  },
+  "0x004cd6a0": {
+   "name": "DAT_004cd6a0",
+   "pointee": {
+    "0x0": "void"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00268d30.cpp",
+    "matches/0x00361760.cpp"
+   ]
+  },
+  "0x004cd6a4": {
+   "name": "DAT_004cd6a4",
+   "pointee": {
+    "0x0": "void"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00268d30.cpp",
+    "matches/0x00361760.cpp"
+   ]
+  },
+  "0x004cd6a8": {
+   "name": "DAT_004cd6a8",
+   "pointee": {
+    "0xc0": "void",
+    "0xcc": "void",
+    "0xd8": "void",
+    "0xe4": "void"
+   },
+   "pointers": [
+    "0xc0",
+    "0xcc",
+    "0xd8",
+    "0xe4"
+   ],
+   "size": 232,
+   "sources": [
+    "matches/0x00361760.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x004cdb4c": {
+   "name": "DAT_004cdb4c",
+   "pointee": {
+    "0x0": "IRefCount"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x00364780.cpp"
+   ]
+  },
+  "0x004cdbb0": {
+   "name": "DAT_004cdbb0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0026f570.cpp",
+    "equivalent/0x00270840.cpp",
+    "equivalent/0x00278500.cpp"
+   ]
+  },
+  "0x004ce26c": {
+   "name": "DAT_004ce26c",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00279630.cpp"
+   ]
+  },
+  "0x004ce270": {
+   "name": "DAT_004ce270",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00279630.cpp"
+   ]
+  },
+  "0x004ce410": {
+   "name": "DAT_004ce410",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0027b8f0.cpp",
+    "matches/0x00364790.cpp"
+   ]
+  },
+  "0x004d4d08": {
+   "name": "DAT_004d4d08",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48",
+    "0x60"
+   ],
+   "size": 112,
+   "sources": [
+    "equivalent/0x003618a0.cpp"
+   ]
+  },
+  "0x004d4d80": {
+   "name": "DAT_004d4d80",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00361850.cpp"
+   ]
+  },
+  "0x004d4db0": {
+   "name": "DAT_004d4db0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00361940.cpp"
+   ]
+  },
+  "0x004d4dc8": {
+   "name": "DAT_004d4dc8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00361940.cpp"
+   ]
+  },
+  "0x004d7990": {
+   "name": "DAT_004d7990",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00361a40.cpp"
+   ]
+  },
+  "0x004d79c0": {
+   "name": "DAT_004d79c0",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48",
+    "0x60"
+   ],
+   "size": 112,
+   "sources": [
+    "equivalent/0x00361bf0.cpp"
+   ]
+  },
+  "0x004d7a38": {
+   "name": "DAT_004d7a38",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48"
+   ],
+   "size": 112,
+   "sources": [
+    "equivalent/0x003619a0.cpp"
+   ]
+  },
+  "0x004d7ab0": {
+   "name": "DAT_004d7ab0",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48",
+    "0x60",
+    "0x78",
+    "0x90",
+    "0xa8",
+    "0xc0",
+    "0xd8",
+    "0xf0",
+    "0x108"
+   ],
+   "size": 280,
+   "sources": [
+    "equivalent/0x00361a90.cpp"
+   ]
+  },
+  "0x004d7c48": {
+   "name": "DAT_004d7c48",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00361cf0.cpp"
+   ]
+  },
+  "0x004d7c60": {
+   "name": "DAT_004d7c60",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00361cf0.cpp"
+   ]
+  },
+  "0x004d7c78": {
+   "name": "DAT_004d7c78",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00361cf0.cpp"
+   ]
+  },
+  "0x004d7c90": {
+   "name": "DAT_004d7c90",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00361cf0.cpp"
+   ]
+  },
+  "0x004d7ca8": {
+   "name": "DAT_004d7ca8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00361cf0.cpp"
+   ]
+  },
+  "0x004d7cc0": {
+   "name": "DAT_004d7cc0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00361cf0.cpp"
+   ]
+  },
+  "0x004d7cd8": {
+   "name": "DAT_004d7cd8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00361cf0.cpp"
+   ]
+  },
+  "0x004d7cf0": {
+   "name": "DAT_004d7cf0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00361cf0.cpp"
+   ]
+  },
+  "0x004d7d08": {
+   "name": "DAT_004d7d08",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00361cf0.cpp"
+   ]
+  },
+  "0x004d7d20": {
+   "name": "DAT_004d7d20",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00361cf0.cpp"
+   ]
+  },
+  "0x004d7d38": {
+   "name": "DAT_004d7d38",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00361cf0.cpp"
+   ]
+  },
+  "0x004d7d68": {
+   "name": "DAT_004d7d68",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00361c90.cpp"
+   ]
+  },
+  "0x004d7d80": {
+   "name": "DAT_004d7d80",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00361c90.cpp"
+   ]
+  },
+  "0x004d7db0": {
+   "name": "DAT_004d7db0",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48"
+   ],
+   "size": 112,
+   "sources": [
+    "equivalent/0x00361e50.cpp"
+   ]
+  },
+  "0x004d7e68": {
+   "name": "DAT_004d7e68",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48"
+   ],
+   "size": 88,
+   "sources": [
+    "equivalent/0x00362120.cpp"
+   ]
+  },
+  "0x004d7f58": {
+   "name": "DAT_004d7f58",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00361ef0.cpp"
+   ]
+  },
+  "0x004d7f70": {
+   "name": "DAT_004d7f70",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00361ef0.cpp"
+   ]
+  },
+  "0x004d7fa0": {
+   "name": "DAT_004d7fa0",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48",
+    "0x60",
+    "0x78",
+    "0x90",
+    "0xa8"
+   ],
+   "size": 208,
+   "sources": [
+    "equivalent/0x00362010.cpp"
+   ]
+  },
+  "0x004d80c0": {
+   "name": "DAT_004d80c0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00362430.cpp"
+   ]
+  },
+  "0x004d80f0": {
+   "name": "DAT_004d80f0",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30"
+   ],
+   "size": 88,
+   "sources": [
+    "equivalent/0x003623b0.cpp"
+   ]
+  },
+  "0x004d8150": {
+   "name": "DAT_004d8150",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00362240.cpp"
+   ]
+  },
+  "0x004d8168": {
+   "name": "DAT_004d8168",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00362240.cpp"
+   ]
+  },
+  "0x004d8198": {
+   "name": "DAT_004d8198",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48",
+    "0x60"
+   ],
+   "size": 112,
+   "sources": [
+    "equivalent/0x003621a0.cpp"
+   ]
+  },
+  "0x004d8210": {
+   "name": "DAT_004d8210",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48",
+    "0x60",
+    "0x78",
+    "0x90",
+    "0xa8"
+   ],
+   "size": 208,
+   "sources": [
+    "equivalent/0x003622a0.cpp"
+   ]
+  },
+  "0x004d8330": {
+   "name": "DAT_004d8330",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48"
+   ],
+   "size": 112,
+   "sources": [
+    "equivalent/0x003624d0.cpp"
+   ]
+  },
+  "0x004d83a8": {
+   "name": "DAT_004d83a8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00362480.cpp"
+   ]
+  },
+  "0x004d83d8": {
+   "name": "DAT_004d83d8",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48",
+    "0x60",
+    "0x78",
+    "0x90"
+   ],
+   "size": 184,
+   "sources": [
+    "equivalent/0x00362570.cpp"
+   ]
+  },
+  "0x004d84d0": {
+   "name": "DAT_004d84d0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x003626c0.cpp"
+   ]
+  },
+  "0x004d84e8": {
+   "name": "DAT_004d84e8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x003626c0.cpp"
+   ]
+  },
+  "0x004d8500": {
+   "name": "DAT_004d8500",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x003626c0.cpp"
+   ]
+  },
+  "0x004d8518": {
+   "name": "DAT_004d8518",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x003626c0.cpp"
+   ]
+  },
+  "0x004d8530": {
+   "name": "DAT_004d8530",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x003626c0.cpp"
+   ]
+  },
+  "0x004d8548": {
+   "name": "DAT_004d8548",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x003626c0.cpp"
+   ]
+  },
+  "0x004d8560": {
+   "name": "DAT_004d8560",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x003626c0.cpp"
+   ]
+  },
+  "0x004d8578": {
+   "name": "DAT_004d8578",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x003626c0.cpp"
+   ]
+  },
+  "0x004d8590": {
+   "name": "DAT_004d8590",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x003626c0.cpp"
+   ]
+  },
+  "0x004d85a8": {
+   "name": "DAT_004d85a8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x003626c0.cpp"
+   ]
+  },
+  "0x004d85c0": {
+   "name": "DAT_004d85c0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x003626c0.cpp"
+   ]
+  },
+  "0x004d85d8": {
+   "name": "DAT_004d85d8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x003626c0.cpp"
+   ]
+  },
+  "0x004d85f0": {
+   "name": "DAT_004d85f0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x003626c0.cpp"
+   ]
+  },
+  "0x004d8620": {
+   "name": "DAT_004d8620",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48"
+   ],
+   "size": 112,
+   "sources": [
+    "equivalent/0x00362900.cpp"
+   ]
+  },
+  "0x004d8698": {
+   "name": "DAT_004d8698",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00362660.cpp"
+   ]
+  },
+  "0x004d86b0": {
+   "name": "DAT_004d86b0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00362660.cpp"
+   ]
+  },
+  "0x004d86e0": {
+   "name": "DAT_004d86e0",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48",
+    "0x60"
+   ],
+   "size": 112,
+   "sources": [
+    "equivalent/0x00362860.cpp"
+   ]
+  },
+  "0x004d87a0": {
+   "name": "DAT_004d87a0",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48"
+   ],
+   "size": 88,
+   "sources": [
+    "equivalent/0x003629a0.cpp"
+   ]
+  },
+  "0x004d8848": {
+   "name": "DAT_004d8848",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48",
+    "0x60"
+   ],
+   "size": 112,
+   "sources": [
+    "equivalent/0x00362c40.cpp"
+   ]
+  },
+  "0x004d88c0": {
+   "name": "DAT_004d88c0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00362ae0.cpp"
+   ]
+  },
+  "0x004d8980": {
+   "name": "DAT_004d8980",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48",
+    "0x60",
+    "0x78",
+    "0x90",
+    "0xa8"
+   ],
+   "size": 208,
+   "sources": [
+    "equivalent/0x00362b30.cpp"
+   ]
+  },
+  "0x004d8aa0": {
+   "name": "DAT_004d8aa0",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48"
+   ],
+   "size": 112,
+   "sources": [
+    "equivalent/0x00362ec0.cpp"
+   ]
+  },
+  "0x004d8b18": {
+   "name": "DAT_004d8b18",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00362d30.cpp"
+   ]
+  },
+  "0x004d8b48": {
+   "name": "DAT_004d8b48",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00362ce0.cpp"
+   ]
+  },
+  "0x004d8b78": {
+   "name": "DAT_004d8b78",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48",
+    "0x60",
+    "0x78",
+    "0x90",
+    "0xa8",
+    "0xc0",
+    "0xd8",
+    "0xf0"
+   ],
+   "size": 256,
+   "sources": [
+    "equivalent/0x00362d80.cpp"
+   ]
+  },
+  "0x004d8cc8": {
+   "name": "DAT_004d8cc8",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48",
+    "0x60"
+   ],
+   "size": 112,
+   "sources": [
+    "equivalent/0x00363190.cpp"
+   ]
+  },
+  "0x004d8d40": {
+   "name": "DAT_004d8d40",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x003630e0.cpp"
+   ]
+  },
+  "0x004d8d70": {
+   "name": "DAT_004d8d70",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00362f60.cpp"
+   ]
+  },
+  "0x004d8d88": {
+   "name": "DAT_004d8d88",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00362f60.cpp"
+   ]
+  },
+  "0x004d8da0": {
+   "name": "DAT_004d8da0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00362f60.cpp"
+   ]
+  },
+  "0x004d8db8": {
+   "name": "DAT_004d8db8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00362f60.cpp"
+   ]
+  },
+  "0x004d8dd0": {
+   "name": "DAT_004d8dd0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00362f60.cpp"
+   ]
+  },
+  "0x004d8de8": {
+   "name": "DAT_004d8de8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00362f60.cpp"
+   ]
+  },
+  "0x004d8e00": {
+   "name": "DAT_004d8e00",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00362f60.cpp"
+   ]
+  },
+  "0x004d8e18": {
+   "name": "DAT_004d8e18",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00362f60.cpp"
+   ]
+  },
+  "0x004d8e30": {
+   "name": "DAT_004d8e30",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00362f60.cpp"
+   ]
+  },
+  "0x004d8e48": {
+   "name": "DAT_004d8e48",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00362f60.cpp"
+   ]
+  },
+  "0x004d8e60": {
+   "name": "DAT_004d8e60",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00362f60.cpp"
+   ]
+  },
+  "0x004d8e78": {
+   "name": "DAT_004d8e78",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00362f60.cpp"
+   ]
+  },
+  "0x004d8ea8": {
+   "name": "DAT_004d8ea8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00363130.cpp"
+   ]
+  },
+  "0x004d8ec0": {
+   "name": "DAT_004d8ec0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00363130.cpp"
+   ]
+  },
+  "0x004d8f40": {
+   "name": "DAT_004d8f40",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x003634e0.cpp"
+   ]
+  },
+  "0x004d8f70": {
+   "name": "DAT_004d8f70",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30"
+   ],
+   "size": 88,
+   "sources": [
+    "equivalent/0x00363460.cpp"
+   ]
+  },
+  "0x004d9060": {
+   "name": "DAT_004d9060",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00363230.cpp"
+   ]
+  },
+  "0x004d90a8": {
+   "name": "DAT_004d90a8",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48",
+    "0x60",
+    "0x78",
+    "0x90",
+    "0xa8"
+   ],
+   "size": 208,
+   "sources": [
+    "equivalent/0x00363350.cpp"
+   ]
+  },
+  "0x004d91c8": {
+   "name": "DAT_004d91c8",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48"
+   ],
+   "size": 112,
+   "sources": [
+    "equivalent/0x00363760.cpp"
+   ]
+  },
+  "0x004d9240": {
+   "name": "DAT_004d9240",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48",
+    "0x60",
+    "0x78",
+    "0x90",
+    "0xa8",
+    "0xc0"
+   ],
+   "size": 232,
+   "sources": [
+    "equivalent/0x003635b0.cpp"
+   ]
+  },
+  "0x004d9330": {
+   "name": "DAT_004d9330",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48"
+   ],
+   "size": 88,
+   "sources": [
+    "equivalent/0x00363530.cpp"
+   ]
+  },
+  "0x004d9390": {
+   "name": "DAT_004d9390",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30"
+   ],
+   "size": 88,
+   "sources": [
+    "equivalent/0x003636e0.cpp"
+   ]
+  },
+  "0x004d94f8": {
+   "name": "DAT_004d94f8",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48",
+    "0x60"
+   ],
+   "size": 112,
+   "sources": [
+    "equivalent/0x00363a10.cpp"
+   ]
+  },
+  "0x004d9570": {
+   "name": "DAT_004d9570",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48",
+    "0x60",
+    "0x78",
+    "0x90",
+    "0xa8",
+    "0xc0"
+   ],
+   "size": 232,
+   "sources": [
+    "equivalent/0x00363860.cpp"
+   ]
+  },
+  "0x004d9660": {
+   "name": "DAT_004d9660",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00363800.cpp"
+   ]
+  },
+  "0x004d9678": {
+   "name": "DAT_004d9678",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00363800.cpp"
+   ]
+  },
+  "0x004d9690": {
+   "name": "DAT_004d9690",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00363800.cpp"
+   ]
+  },
+  "0x004d96a8": {
+   "name": "DAT_004d96a8",
+   "pointers": [
+    "0x0",
+    "0x18",
+    "0x30",
+    "0x48"
+   ],
+   "size": 88,
+   "sources": [
+    "equivalent/0x00363990.cpp"
+   ]
+  },
+  "0x004d9800": {
+   "name": "DAT_004d9800",
+   "size": 44,
+   "sources": [
+    "equivalent/0x00335300.cpp",
+    "equivalent/0x00336380.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x004d9858": {
+   "name": "DAT_004d9858",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0033ec30.cpp",
+    "equivalent/0x0033ed20.cpp"
+   ]
+  },
+  "0x004d985c": {
+   "name": "DAT_004d985c",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0033ec30.cpp",
+    "equivalent/0x0033ed20.cpp"
+   ]
+  },
+  "0x004dd6e8": {
+   "name": "DAT_004dd6e8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0002ae80.cpp",
+    "equivalent/0x000418f0.cpp",
+    "equivalent/0x00087630.cpp",
+    "equivalent/0x00088020.cpp",
+    "equivalent/0x000a97e0.cpp",
+    "equivalent/0x000bdd60.cpp"
+   ]
+  },
+  "0x004dd6ec": {
+   "name": "DAT_004dd6ec",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00017870.cpp",
+    "equivalent/0x00087630.cpp",
+    "equivalent/0x0008a8f0.cpp",
+    "equivalent/0x0008b560.cpp",
+    "equivalent/0x0008cbe0.cpp",
+    "equivalent/0x000ac2c0.cpp"
+   ]
+  },
+  "0x004dd700": {
+   "name": "DAT_004dd700",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00013b90.cpp",
+    "equivalent/0x00013f20.cpp",
+    "equivalent/0x00014430.cpp",
+    "equivalent/0x000145b0.cpp",
+    "equivalent/0x000157c0.cpp",
+    "equivalent/0x00016680.cpp"
+   ]
+  },
+  "0x004dd7e0": {
+   "name": "DAT_004dd7e0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0008e1f0.cpp",
+    "equivalent/0x0008e880.cpp",
+    "matches/0x0008e090.cpp"
+   ]
+  },
+  "0x004dd930": {
+   "name": "DAT_004dd930",
+   "pointee": {
+    "0x0": "Resource_96740"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 8,
+   "sources": [
+    "equivalent/0x00096740.cpp"
+   ]
+  },
+  "0x004dd9c8": {
+   "name": "DAT_004dd9c8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0008e880.cpp",
+    "equivalent/0x000c1790.cpp",
+    "equivalent/0x000f8970.cpp",
+    "equivalent/0x000f89e0.cpp",
+    "equivalent/0x001baab0.cpp",
+    "equivalent/0x001bb0b0.cpp"
+   ]
+  },
+  "0x004dd9cc": {
+   "name": "DAT_004dd9cc",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0008e880.cpp",
+    "equivalent/0x000bc100.cpp",
+    "equivalent/0x000c1ac0.cpp",
+    "equivalent/0x000c1b50.cpp",
+    "equivalent/0x000c1f70.cpp",
+    "equivalent/0x000c2c20.cpp"
+   ]
+  },
+  "0x004dda68": {
+   "name": "DAT_004dda68",
+   "pointee": {
+    "0x4": "char"
+   },
+   "pointers": [
+    "0x4"
+   ],
+   "size": 8,
+   "sources": [
+    "matches/0x000b10d0.cpp"
+   ]
+  },
+  "0x004dde30": {
+   "name": "DAT_004dde30",
+   "pointee": {
+    "0x0": "Resource"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000c3900.cpp"
+   ]
+  },
+  "0x004dde34": {
+   "name": "DAT_004dde34",
+   "pointee": {
+    "0x0": "Obj"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000c3900.cpp"
+   ]
+  },
+  "0x004dde68": {
+   "name": "DAT_004dde68",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000c60f0.cpp",
+    "equivalent/0x000c6330.cpp"
+   ]
+  },
+  "0x004de648": {
+   "name": "DAT_004de648",
+   "pointee": {
+    "0x0": "void"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000d95a0.cpp"
+   ]
+  },
+  "0x004de658": {
+   "name": "DAT_004de658",
+   "pointee": {
+    "0x0": "void"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 8,
+   "sources": [
+    "equivalent/0x000d9f80.cpp"
+   ]
+  },
+  "0x004de660": {
+   "name": "DAT_004de660",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 8,
+   "sources": [
+    "equivalent/0x000d92c0.cpp"
+   ]
+  },
+  "0x004de668": {
+   "name": "DAT_004de668",
+   "pointee": {
+    "0x0": "char"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 8,
+   "sources": [
+    "matches/0x000da230.cpp"
+   ]
+  },
+  "0x004de948": {
+   "name": "DAT_004de948",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000da930.cpp",
+    "equivalent/0x000ddbf0.cpp",
+    "equivalent/0x000e14b0.cpp",
+    "equivalent/0x000e8790.cpp",
+    "equivalent/0x000eef30.cpp",
+    "equivalent/0x000ef4f0.cpp"
+   ]
+  },
+  "0x004de954": {
+   "name": "DAT_004de954",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000e0850.cpp",
+    "equivalent/0x000e0a90.cpp",
+    "equivalent/0x000e0cc0.cpp",
+    "equivalent/0x000e0e50.cpp"
+   ]
+  },
+  "0x004e09f8": {
+   "name": "DAT_004e09f8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000faf80.cpp",
+    "matches/0x000fa870.cpp"
+   ]
+  },
+  "0x004e0a60": {
+   "name": "DAT_004e0a60",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000fc060.cpp",
+    "matches/0x000fc1b0.cpp",
+    "matches/0x000fc2f0.cpp",
+    "matches/0x000fc310.cpp"
+   ]
+  },
+  "0x004e0a64": {
+   "name": "DAT_004e0a64",
+   "pointee": {
+    "0x0": "ControllerPoller_fc060"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000fc060.cpp"
+   ]
+  },
+  "0x004e1760": {
+   "name": "DAT_004e1760",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001a5f00.cpp",
+    "equivalent/0x001a8d10.cpp"
+   ]
+  },
+  "0x004e2158": {
+   "name": "DAT_004e2158",
+   "pointee": {
+    "0x0": "Locator"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001b65f0.cpp"
+   ]
+  },
+  "0x004e2268": {
+   "name": "DAT_004e2268",
+   "pointee": {
+    "0x0": "TextObj"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001bb0b0.cpp"
+   ]
+  },
+  "0x004e226c": {
+   "name": "DAT_004e226c",
+   "pointee": {
+    "0x0": "TextObj"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 20,
+   "sources": [
+    "equivalent/0x001baab0.cpp"
+   ]
+  },
+  "0x004e2314": {
+   "name": "DAT_004e2314",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001c1a40.cpp",
+    "equivalent/0x001c88f0.cpp",
+    "matches/0x002a1b60.cpp"
+   ]
+  },
+  "0x004e2318": {
+   "name": "DAT_004e2318",
+   "pointee": {
+    "0x0": "pure3d::pddiExtFramebufferEffects"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001c1a40.cpp"
+   ]
+  },
+  "0x004e2350": {
+   "name": "DAT_004e2350",
+   "pointee": {
+    "0x0": "Culler"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0029b750.cpp"
+   ]
+  },
+  "0x004e23cc": {
+   "name": "DAT_004e23cc",
+   "pointee": {
+    "0x0": "Object"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x001d4c90.cpp"
+   ]
+  },
+  "0x004e2788": {
+   "name": "DAT_004e2788",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 3848,
+   "sources": [
+    "equivalent/0x001e91c0.cpp",
+    "equivalent/0x001e9680.cpp"
+   ]
+  },
+  "0x004e3690": {
+   "name": "DAT_004e3690",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001e9bf0.cpp",
+    "equivalent/0x001ea190.cpp",
+    "equivalent/0x001ea700.cpp",
+    "equivalent/0x001ea8b0.cpp",
+    "equivalent/0x001f3040.cpp",
+    "equivalent/0x001f32b0.cpp"
+   ]
+  },
+  "0x004e3694": {
+   "name": "DAT_004e3694",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001e95c0.cpp",
+    "equivalent/0x001e9bf0.cpp",
+    "equivalent/0x001eadf0.cpp",
+    "equivalent/0x001eaea0.cpp"
+   ]
+  },
+  "0x004e3698": {
+   "name": "DAT_004e3698",
+   "pointee": {
+    "0x0": "Sound_1e9b20"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x001e9b20.cpp"
+   ]
+  },
+  "0x004e36d8": {
+   "name": "DAT_004e36d8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001eb220.cpp",
+    "equivalent/0x001ebbc0.cpp",
+    "equivalent/0x001ebd80.cpp",
+    "equivalent/0x001ec100.cpp",
+    "equivalent/0x001ecda0.cpp",
+    "equivalent/0x001ed320.cpp"
+   ]
+  },
+  "0x004e370c": {
+   "name": "DAT_004e370c",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001ef2a0.cpp",
+    "equivalent/0x001ef470.cpp",
+    "equivalent/0x001ef610.cpp",
+    "equivalent/0x001f02b0.cpp",
+    "equivalent/0x001f0420.cpp",
+    "equivalent/0x001f0550.cpp"
+   ]
+  },
+  "0x004e3710": {
+   "name": "DAT_004e3710",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001efca0.cpp",
+    "equivalent/0x001efd60.cpp",
+    "equivalent/0x001efdc0.cpp",
+    "equivalent/0x001f1480.cpp",
+    "equivalent/0x001f1540.cpp",
+    "equivalent/0x001f15a0.cpp"
+   ]
+  },
+  "0x004e3758": {
+   "name": "DAT_004e3758",
+   "pointee": {
+    "0x0": "Rng"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001ef2a0.cpp"
+   ]
+  },
+  "0x004e3760": {
+   "name": "DAT_004e3760",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x001f32b0.cpp",
+    "equivalent/0x001f4ba0.cpp"
+   ]
+  },
+  "0x004e5acc": {
+   "name": "DAT_004e5acc",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0007a230.cpp",
+    "equivalent/0x0007a420.cpp",
+    "equivalent/0x0007db80.cpp",
+    "equivalent/0x00081420.cpp",
+    "equivalent/0x000964e0.cpp",
+    "equivalent/0x00097a30.cpp"
+   ]
+  },
+  "0x004e5af8": {
+   "name": "DAT_004e5af8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 8,
+   "sources": [
+    "equivalent/0x00025a90.cpp",
+    "equivalent/0x00027c90.cpp",
+    "equivalent/0x00027d60.cpp",
+    "equivalent/0x00027e30.cpp",
+    "equivalent/0x00027f00.cpp",
+    "equivalent/0x00027fc0.cpp"
+   ]
+  },
+  "0x004e5bb0": {
+   "name": "DAT_004e5bb0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00232cc0.cpp"
+   ]
+  },
+  "0x004e5bb4": {
+   "name": "DAT_004e5bb4",
+   "pointee": {
+    "0x0": "void"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00232cc0.cpp"
+   ]
+  },
+  "0x004e5bb8": {
+   "name": "DAT_004e5bb8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 8,
+   "sources": [
+    "equivalent/0x002358c0.cpp",
+    "matches/0x002356f0.cpp",
+    "matches/0x00235760.cpp"
+   ]
+  },
+  "0x004e5c30": {
+   "name": "DAT_004e5c30",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x00238bb0.cpp"
+   ]
+  },
+  "0x004e5c40": {
+   "name": "DAT_004e5c40",
+   "pointee": {
+    "0x0": "Reference"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0023c390.cpp"
+   ]
+  },
+  "0x004e5ca0": {
+   "name": "DAT_004e5ca0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x002407a0.cpp",
+    "equivalent/0x00240a10.cpp"
+   ]
+  },
+  "0x004e5ce0": {
+   "name": "DAT_004e5ce0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 8,
+   "sources": [
+    "equivalent/0x00240ca0.cpp",
+    "equivalent/0x00240eb0.cpp",
+    "equivalent/0x00240f50.cpp",
+    "equivalent/0x002411b0.cpp",
+    "equivalent/0x00241280.cpp",
+    "equivalent/0x00241390.cpp"
+   ]
+  },
+  "0x004e61e8": {
+   "name": "DAT_004e61e8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0024be00.cpp",
+    "equivalent/0x0024c060.cpp"
+   ]
+  },
+  "0x004e61ec": {
+   "name": "DAT_004e61ec",
+   "pointee": {
+    "0x0": "Rec_24be00"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0024be00.cpp"
+   ]
+  },
+  "0x004e6200": {
+   "name": "DAT_004e6200",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 8,
+   "sources": [
+    "equivalent/0x00258f90.cpp",
+    "matches/0x0024c9c0.cpp"
+   ]
+  },
+  "0x00527c58": {
+   "name": "DAT_00527c58",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 744,
+   "sources": [
+    "equivalent/0x00088020.cpp",
+    "equivalent/0x0008dec0.cpp",
+    "equivalent/0x000bc3c0.cpp",
+    "equivalent/0x000c9550.cpp",
+    "equivalent/0x000f5fa0.cpp",
+    "equivalent/0x001bc0c0.cpp"
+   ]
+  },
+  "0x00527f58": {
+   "name": "DAT_00527f58",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00266d70.cpp",
+    "equivalent/0x00267110.cpp"
+   ]
+  },
+  "0x00528388": {
+   "name": "DAT_00528388",
+   "size": 16,
+   "sources": [
+    "equivalent/0x00269590.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x0052839c": {
+   "name": "DAT_0052839c",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0026bac0.cpp",
+    "equivalent/0x0026bd80.cpp",
+    "equivalent/0x0026c040.cpp",
+    "equivalent/0x0026c840.cpp",
+    "equivalent/0x0026cc90.cpp",
+    "equivalent/0x0026cd10.cpp"
+   ]
+  },
+  "0x005283ac": {
+   "name": "DAT_005283ac",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0026be70.cpp",
+    "equivalent/0x0026cc90.cpp",
+    "equivalent/0x0026cd10.cpp",
+    "equivalent/0x0026cd90.cpp",
+    "equivalent/0x0026ce10.cpp"
+   ]
+  },
+  "0x005283b0": {
+   "name": "DAT_005283b0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0026e9e0.cpp",
+    "matches/0x0026ea50.cpp"
+   ]
+  },
+  "0x00528408": {
+   "name": "DAT_00528408",
+   "pointee": {
+    "0x0": "DriveThread_26f570"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0026f570.cpp"
+   ]
+  },
+  "0x0052840c": {
+   "name": "DAT_0052840c",
+   "pointee": {
+    "0x0": "DriveThread_26f570"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0026f570.cpp"
+   ]
+  },
+  "0x0052842c": {
+   "name": "DAT_0052842c",
+   "size": 7392,
+   "sources": [
+    "equivalent/0x00270f90.cpp",
+    "equivalent/0x00271410.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x0052a140": {
+   "name": "DAT_0052a140",
+   "pointee": {
+    "0x0": "Head_26da20"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0026da20.cpp"
+   ]
+  },
+  "0x0052a144": {
+   "name": "DAT_0052a144",
+   "pointee": {
+    "0x0": "Node"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0026da20.cpp"
+   ]
+  },
+  "0x0052a148": {
+   "name": "DAT_0052a148",
+   "pointee": {
+    "0x0": "Node"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 52,
+   "sources": [
+    "equivalent/0x0026da20.cpp"
+   ]
+  },
+  "0x0052a17c": {
+   "name": "DAT_0052a17c",
+   "pointee": {
+    "0x0": "Node"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x0026d940.cpp"
+   ]
+  },
+  "0x0052a180": {
+   "name": "DAT_0052a180",
+   "pointee": {
+    "0x0": "Node"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x0026d940.cpp",
+    "matches/0x0026dbb0.cpp"
+   ]
+  },
+  "0x0052a1e4": {
+   "name": "DAT_0052a1e4",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x002753c0.cpp",
+    "matches/0x002756e0.cpp",
+    "matches/0x00275ca0.cpp"
+   ]
+  },
+  "0x0052a204": {
+   "name": "DAT_0052a204",
+   "pointee": {
+    "0x0": "Obj_276340"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x00276340.cpp"
+   ]
+  },
+  "0x0052a224": {
+   "name": "DAT_0052a224",
+   "pointee": {
+    "0x0": "Obj_277050"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x00277050.cpp"
+   ]
+  },
+  "0x0052c26c": {
+   "name": "DAT_0052c26c",
+   "pointee": {
+    "0x0": "DriveThread_278500"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00278500.cpp"
+   ]
+  },
+  "0x0052c270": {
+   "name": "DAT_0052c270",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 16,
+   "sources": [
+    "equivalent/0x00278500.cpp",
+    "equivalent/0x00278de0.cpp",
+    "equivalent/0x00278ef0.cpp",
+    "equivalent/0x00279490.cpp",
+    "equivalent/0x00279630.cpp",
+    "equivalent/0x00279af0.cpp"
+   ]
+  },
+  "0x0052c29c": {
+   "name": "DAT_0052c29c",
+   "pointee": {
+    "0x0": "Manager_283900"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00283900.cpp"
+   ]
+  },
+  "0x0052c2a0": {
+   "name": "DAT_0052c2a0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000c60f0.cpp",
+    "equivalent/0x000c6330.cpp",
+    "equivalent/0x000e0850.cpp",
+    "equivalent/0x000e0cc0.cpp",
+    "equivalent/0x000e0e50.cpp",
+    "equivalent/0x00282400.cpp"
+   ]
+  },
+  "0x0052c2a4": {
+   "name": "DAT_0052c2a4",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000a9400.cpp",
+    "equivalent/0x000a94c0.cpp",
+    "equivalent/0x000a97e0.cpp",
+    "equivalent/0x000b9470.cpp",
+    "equivalent/0x000bd050.cpp",
+    "equivalent/0x000bd1b0.cpp"
+   ]
+  },
+  "0x0052c2a8": {
+   "name": "DAT_0052c2a8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x000873a0.cpp",
+    "equivalent/0x0008d0a0.cpp",
+    "equivalent/0x0008dec0.cpp",
+    "equivalent/0x0008f3a0.cpp",
+    "equivalent/0x0008f4c0.cpp",
+    "equivalent/0x00096740.cpp"
+   ]
+  },
+  "0x0052c2ac": {
+   "name": "DAT_0052c2ac",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0008f4c0.cpp",
+    "equivalent/0x00096740.cpp",
+    "equivalent/0x000b9470.cpp",
+    "equivalent/0x000bd050.cpp",
+    "equivalent/0x000bd1b0.cpp",
+    "equivalent/0x000c72e0.cpp"
+   ]
+  },
+  "0x0052c2b0": {
+   "name": "DAT_0052c2b0",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0008dec0.cpp",
+    "equivalent/0x00294550.cpp",
+    "equivalent/0x00294670.cpp",
+    "equivalent/0x00294720.cpp",
+    "equivalent/0x00298cb0.cpp",
+    "equivalent/0x0029b750.cpp"
+   ]
+  },
+  "0x0052c2b4": {
+   "name": "DAT_0052c2b4",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00086790.cpp",
+    "equivalent/0x000b92f0.cpp",
+    "equivalent/0x000bd1b0.cpp",
+    "equivalent/0x000c3900.cpp",
+    "equivalent/0x001b93a0.cpp",
+    "equivalent/0x001baab0.cpp"
+   ]
+  },
+  "0x0052c398": {
+   "name": "DAT_0052c398",
+   "size": 2048,
+   "sources": [
+    "equivalent/0x002952e0.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x00554bb4": {
+   "name": "DAT_00554bb4",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x002b3c70.cpp",
+    "equivalent/0x002b4210.cpp",
+    "equivalent/0x002b6930.cpp"
+   ]
+  },
+  "0x00554c10": {
+   "name": "DAT_00554c10",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00016120.cpp",
+    "equivalent/0x00043ae0.cpp",
+    "equivalent/0x000595f0.cpp",
+    "equivalent/0x00081b20.cpp",
+    "equivalent/0x00082db0.cpp",
+    "equivalent/0x0014fad0.cpp"
+   ]
+  },
+  "0x00554c14": {
+   "name": "DAT_00554c14",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x00017d10.cpp",
+    "equivalent/0x00107c90.cpp",
+    "equivalent/0x001759c0.cpp",
+    "equivalent/0x001b6000.cpp",
+    "equivalent/0x00201e00.cpp",
+    "equivalent/0x00201f20.cpp"
+   ]
+  },
+  "0x00554c30": {
+   "name": "DAT_00554c30",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 2060,
+   "sources": [
+    "equivalent/0x002f2970.cpp",
+    "matches/0x002f2750.cpp"
+   ]
+  },
+  "0x0055543c": {
+   "name": "DAT_0055543c",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x002f3530.cpp",
+    "equivalent/0x002f47b0.cpp",
+    "equivalent/0x002fa1f0.cpp",
+    "equivalent/0x00307060.cpp",
+    "equivalent/0x00307240.cpp",
+    "matches/0x002f36c0.cpp"
+   ]
+  },
+  "0x00555440": {
+   "name": "DAT_00555440",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x002f3530.cpp",
+    "equivalent/0x002f47b0.cpp",
+    "equivalent/0x002fa1f0.cpp",
+    "equivalent/0x00307060.cpp",
+    "equivalent/0x00307240.cpp",
+    "matches/0x002f36c0.cpp"
+   ]
+  },
+  "0x00555444": {
+   "name": "DAT_00555444",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0008dec0.cpp",
+    "equivalent/0x003078a0.cpp"
+   ]
+  },
+  "0x0055545c": {
+   "name": "DAT_0055545c",
+   "pointee": {
+    "0x0": "Cell_2fa4e0"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x002fa4e0.cpp"
+   ]
+  },
+  "0x00555468": {
+   "name": "DAT_00555468",
+   "pointee": {
+    "0x0": "Pair_2fa4e0"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x002fa4e0.cpp"
+   ]
+  },
+  "0x0055546c": {
+   "name": "DAT_0055546c",
+   "pointee": {
+    "0x0": "Pair_2fa4e0"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 12,
+   "sources": [
+    "equivalent/0x002fa4e0.cpp"
+   ]
+  },
+  "0x0055547c": {
+   "name": "DAT_0055547c",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x002ece90.cpp",
+    "equivalent/0x003010a0.cpp"
+   ]
+  },
+  "0x005555c8": {
+   "name": "DAT_005555c8",
+   "pointers": [
+    "0x40"
+   ],
+   "size": 1440,
+   "sources": [
+    "matches/0x00327c70.cpp"
+   ],
+   "table_from": [
+    "0x0"
+   ]
+  },
+  "0x00555b88": {
+   "name": "DAT_00555b88",
+   "pointee": {
+    "0x0": "Manager_3287a0"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x003287a0.cpp"
+   ]
+  },
+  "0x00555ba8": {
+   "name": "DAT_00555ba8",
+   "pointee": {
+    "0x0": "GlobalData"
+   },
+   "pointers": [
+    "0x0"
+   ],
+   "size": 8,
+   "sources": [
+    "equivalent/0x00334b00.cpp"
+   ]
+  },
+  "0x005660d8": {
+   "name": "DAT_005660d8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "equivalent/0x0033eb90.cpp"
+   ]
+  }
+ }
+}

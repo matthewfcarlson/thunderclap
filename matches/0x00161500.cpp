@@ -2,7 +2,7 @@
 #include "gen/hulkfight.h"
 
 struct Result_161500 {
-    int Init(hulkfight::motion::LocomotionSprintTrack*, int);
+    int Init(hulkfight::motion::LocomotionSprintTrack*, hulk_intptr);
 };
 extern Result_161500* Alloc(unsigned int);
 

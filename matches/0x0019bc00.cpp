@@ -10,7 +10,7 @@ extern Params_19bc00 TypeA_19bc00;
 extern Params_19bc00 TypeB_19bc00;
 int __cdecl Check(void*, int, Params_19bc00*, Params_19bc00*, int);
 struct MissilePunchAction_nv_19bc00 {
-    int Init(hulkfight::motion::MissilePunchTrack*, int);
+    int Init(hulkfight::motion::MissilePunchTrack*, hulk_intptr);
 };
 hulkfight::motion::MissilePunchAction* __cdecl Alloc(int);
 

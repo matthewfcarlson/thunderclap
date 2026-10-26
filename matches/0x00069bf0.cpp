@@ -3,7 +3,7 @@
 #include "gen/global.h"
 
 struct Helper_69bf0 {
-    int f(CSweepTrack*, int);
+    int f(CSweepTrack*, hulk_intptr);
 };
 extern "C" Helper_69bf0* __cdecl FUN_0008d690(int);
 

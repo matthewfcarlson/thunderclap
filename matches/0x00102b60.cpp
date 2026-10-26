@@ -3,7 +3,7 @@
 
 class Helper_102b60 {
   public:
-    float f(int, int);
+    float f(hulk_intptr, int);
 };
 extern volatile const float gZero_102b60;
 

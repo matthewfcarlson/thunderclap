@@ -10,7 +10,7 @@ extern Params_17b290 TypeA_17b290;
 extern Params_17b290 TypeB_17b290;
 int __cdecl Check(void*, int, Params_17b290*, Params_17b290*, int);
 struct IntentionClearAction_nv_17b290 {
-    int Init(hulkfight::motion::IntentionClearTrack*, int);
+    int Init(hulkfight::motion::IntentionClearTrack*, hulk_intptr);
 };
 hulkfight::motion::IntentionClearAction* __cdecl Alloc(int);
 

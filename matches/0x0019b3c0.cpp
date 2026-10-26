@@ -11,7 +11,7 @@ extern Params_19b3c0 TypeB_19b3c0;
 int __cdecl Check(void*, int, Params_19b3c0*, Params_19b3c0*, int);
 class Object_19b3c0 {
   public:
-    int Init(hulkfight::motion::FireMissileTrack*, int);
+    int Init(hulkfight::motion::FireMissileTrack*, hulk_intptr);
 };
 Object_19b3c0* __cdecl Alloc(int);
 

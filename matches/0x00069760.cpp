@@ -4,7 +4,7 @@
 
 class R_69760 {
   public:
-    int invoke(CSoundTrack*, int);
+    int invoke(CSoundTrack*, hulk_intptr);
 };
 extern R_69760* FUN_0008d690(int);
 

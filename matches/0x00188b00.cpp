@@ -11,7 +11,7 @@ extern Params_188b00 TypeB_188b00;
 int __cdecl Check(void*, int, Params_188b00*, Params_188b00*, int);
 class Object_188b00 {
   public:
-    int Init(hulkfight::motion::PropSetStateByIndexTrack*, int);
+    int Init(hulkfight::motion::PropSetStateByIndexTrack*, hulk_intptr);
 };
 Object_188b00* __cdecl Alloc(int);
 

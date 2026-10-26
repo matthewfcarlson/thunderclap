@@ -8,7 +8,7 @@ extern int RTTI_Type1;
 extern int RTTI_Type2;
 class AllocObj_156e30 {
   public:
-    int init(hulkfight::motion::GroundSlideTrack*, int);
+    int init(hulkfight::motion::GroundSlideTrack*, hulk_intptr);
 };
 
 hulk_intptr hulkfight::motion::GroundSlideTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {

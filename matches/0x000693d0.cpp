@@ -3,7 +3,7 @@
 
 class Alloc_693d0 {
   public:
-    int call(CJumpTrack*, int);
+    int call(CJumpTrack*, hulk_intptr);
 };
 extern int __cdecl FUN_0008d690(int);
 

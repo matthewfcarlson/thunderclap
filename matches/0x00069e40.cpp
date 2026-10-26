@@ -2,7 +2,7 @@
 #include "gen/global.h"
 
 struct Helper_69e40 {
-    int run(int, int, int);
+    int run(hulk_intptr, int, int);
 };
 extern void* FUN_0008d690(int);
 

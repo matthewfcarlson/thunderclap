@@ -4,7 +4,7 @@
 
 class R_6af90 {
   public:
-    int invoke(CAIHintTrack*, int);
+    int invoke(CAIHintTrack*, hulk_intptr);
 };
 extern R_6af90* FUN_0008d690(int);
 

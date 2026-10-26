@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 4/4)
 // FUN_0030e280 @ 0x0030e280
 #include "compat/ptr.h"
-struct Item { int a,b,c,d,e; };
+struct Item { hulk_intptr a,b,c,d,e; };
 struct CollisionAnalyser_30e280 {
  char pad0[4];
  Item* first;

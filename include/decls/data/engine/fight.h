@@ -5,6 +5,20 @@
 #ifndef HULK_DECLS_DATA_ENGINE_FIGHT_H
 #define HULK_DECLS_DATA_ENGINE_FIGHT_H
 
+#ifndef HULK_DATA_PRELUDE
+#define HULK_DATA_PRELUDE
+typedef void (*hulk_code_ptr)();         // a pointer to game code
+typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
+#if defined(_WIN64) || defined(_M_X64) || defined(_M_ARM64) || defined(__LP64__) || defined(__x86_64__) || \
+    defined(__aarch64__)
+#define HULK_DATA_PACKED 0
+#else
+#define HULK_DATA_PACKED 1
+#endif
+#endif
+
+struct DataLayout_004e5af8;  // packed layout (bytes and pointers), defined in the data TU
+struct DataLayout_004e5bb8;  // packed layout (bytes and pointers), defined in the data TU
 
 // fight/Action.cpp
 extern "C" const float DAT_00427704[7];  // fltTbl_00427704
@@ -33,9 +47,9 @@ extern "C" const char DAT_004278f0[44];  // s_Failed_to_insert_bra_004278f0
 extern "C" const float DAT_0042791c[14];  // fltTbl_0042791c
 extern "C" const unsigned int DAT_0047df14[1];  // zero_0047df14
 extern "C" int DAT_004ca248;
-extern "C" const void* DAT_004ca24c;  // PTR_004ca24c
-extern "C" const void* DAT_004ca250;  // PTR_004ca250
-extern "C" const void* DAT_004ca278;  // PTR_004ca278
+extern "C" const char* DAT_004ca24c;  // PTR_004ca24c
+extern "C" const char* DAT_004ca250;  // PTR_004ca250
+extern "C" const char* DAT_004ca278;  // PTR_004ca278
 extern "C" int DAT_004ca29c;
 extern "C" float DAT_004ca2cc[16];  // fltTbl_004ca2cc
 extern "C" unsigned int DAT_004ca38c[1];  // zero_004ca38c
@@ -72,8 +86,8 @@ extern "C" unsigned char DAT_004e5b8c[4];
 extern "C" unsigned char DAT_004e5b90[4];
 extern "C" unsigned char DAT_004e5b94[4];
 extern "C" unsigned char DAT_004e5ba8[8];
-extern "C" unsigned char DAT_004e5bb0[4];
-extern "C" unsigned char DAT_004e5bb4[4];
+extern "C" void* DAT_004e5bb0[1];
+extern "C" void* DAT_004e5bb4[1];
 
 // fight/BreakPointTrack.cpp
 extern "C" const float DAT_00429020[7];  // fltTbl_00429020
@@ -99,19 +113,19 @@ extern "C" const char DAT_00428704[29];  // s_Failed_to_insert_fig_00428704
 extern "C" const float DAT_00428724[7];  // fltTbl_00428724
 extern "C" const unsigned int DAT_0047f648[1];  // zero_0047f648
 extern "C" int DAT_004ca254;
-extern "C" const void* DAT_004ca258;  // PTR_004ca258
-extern "C" const void* DAT_004ca25c;  // PTR_004ca25c
-extern "C" const void* DAT_004ca260;  // PTR_004ca260
-extern "C" const void* DAT_004ca264;  // PTR_004ca264
-extern "C" const void* DAT_004ca268;  // PTR_004ca268
-extern "C" const void* DAT_004ca26c;  // PTR_004ca26c
-extern "C" const void* DAT_004ca270;  // PTR_004ca270
-extern "C" const void* DAT_004ca274;  // PTR_004ca274
-extern "C" const void* DAT_004ca27c;  // PTR_004ca27c
-extern "C" const void* DAT_004ca280;  // PTR_004ca280
-extern "C" const void* DAT_004ca284;  // PTR_004ca284
-extern "C" const void* DAT_004ca288;  // PTR_004ca288
-extern "C" const void* DAT_004ca28c;  // PTR_004ca28c
+extern "C" const char* DAT_004ca258;  // PTR_004ca258
+extern "C" const char* DAT_004ca25c;  // PTR_004ca25c
+extern "C" const char* DAT_004ca260;  // PTR_004ca260
+extern "C" const char* DAT_004ca264;  // PTR_004ca264
+extern "C" const char* DAT_004ca268;  // PTR_004ca268
+extern "C" const char* DAT_004ca26c;  // PTR_004ca26c
+extern "C" const char* DAT_004ca270;  // PTR_004ca270
+extern "C" const char* DAT_004ca274;  // PTR_004ca274
+extern "C" const char* DAT_004ca27c;  // PTR_004ca27c
+extern "C" const char* DAT_004ca280;  // PTR_004ca280
+extern "C" const char* DAT_004ca284;  // PTR_004ca284
+extern "C" const char* DAT_004ca288;  // PTR_004ca288
+extern "C" const char* DAT_004ca28c;  // PTR_004ca28c
 extern "C" unsigned char DAT_004e5b18[8];
 
 // fight/CommentTrack.cpp
@@ -132,12 +146,12 @@ extern "C" int DAT_004e5c68;
 
 // fight/Condition.cpp
 extern "C" const float DAT_004279c8[7];  // fltTbl_004279c8
-extern "C" const void* const DAT_004279e4;  // PTR_004279e4
+extern "C" const char* const DAT_004279e4;  // PTR_004279e4
 extern "C" const char DAT_004279e8[13];  // s_NO_NAME_TEXT_004279e8
 extern "C" const unsigned int DAT_0047df7c[1];  // zero_0047df7c
 extern "C" const unsigned int DAT_0047dfa8[1];  // zero_0047dfa8
 extern "C" const unsigned int DAT_0047dfd8[1];  // zero_0047dfd8
-extern "C" const void* DAT_004ca290;  // PTR_004ca290
+extern "C" const char* DAT_004ca290;  // PTR_004ca290
 
 // fight/Context.cpp
 extern "C" const float DAT_00427e94[7];  // fltTbl_00427e94
@@ -145,8 +159,8 @@ extern "C" const unsigned int DAT_0047e688[1];  // zero_0047e688
 extern "C" float DAT_004ca618[16];  // fltTbl_004ca618
 
 // fight/DebugCondition.cpp
-extern "C" const void* const DAT_00428b30;  // PTR_00428b30
-extern "C" const void* const DAT_00428b34[2];  // ptrTbl_00428b34
+extern "C" const char* const DAT_00428b30;  // PTR_00428b30
+extern "C" const char* const DAT_00428b34[2];  // ptrTbl_00428b34
 extern "C" const char DAT_00428b3c[12];  // s_RAD_RELEASE_00428b3c
 extern "C" const char DAT_00428b48[9];  // s_RAD_TUNE_00428b48
 extern "C" const char DAT_00428b54[10];  // s_RAD_DEBUG_00428b54
@@ -209,7 +223,7 @@ extern "C" const unsigned int DAT_0047ed88[1];  // zero_0047ed88
 extern "C" const unsigned int DAT_0047eddc[1];  // zero_0047eddc
 extern "C" const unsigned int DAT_0047ee28[1];  // zero_0047ee28
 extern "C" int DAT_004caa14[4];  // tbl_004caa14
-extern "C" const void* DAT_004caa24;  // PTR_004caa24
+extern "C" hulk_code_ptr DAT_004caa24;  // PTR_004caa24
 extern "C" float DAT_004caa28[4];  // fltTbl_004caa28
 extern "C" unsigned int DAT_004caac4[1];  // zero_004caac4
 extern "C" unsigned int DAT_004cab0c[1];  // zero_004cab0c
@@ -284,7 +298,7 @@ extern "C" const unsigned int DAT_0047e068[1];  // zero_0047e068
 extern "C" const unsigned int DAT_0047e038[1];  // zero_0047e038
 
 // fight/ParamValueInventoryEntity.cpp
-extern "C" unsigned char DAT_004e5bb8[8];
+extern "C" DataLayout_004e5bb8 DAT_004e5bb8[1];
 
 // fight/ParamValueName.cpp
 extern "C" unsigned char DAT_004e5bc0[8];
@@ -364,7 +378,7 @@ extern "C" unsigned char DAT_004e5c20[4];
 extern "C" int DAT_004e5c24;
 extern "C" unsigned int DAT_004e5c28;
 extern "C" int DAT_004e5c2c;
-extern "C" unsigned char DAT_004e5c30[4];
+extern "C" void* DAT_004e5c30[1];
 extern "C" int DAT_004e5c34;
 
 // fight/QueuedNodeAction.cpp
@@ -378,7 +392,7 @@ extern "C" const unsigned int DAT_0047f818[1];  // zero_0047f818
 extern "C" float DAT_004cb294[4];  // fltTbl_004cb294
 extern "C" unsigned char DAT_004e5b98[4];
 extern "C" unsigned char DAT_004e5b9c[4];
-extern "C" unsigned char DAT_004e5c40[4];
+extern "C" void* DAT_004e5c40[1];
 
 // fight/ScriptReader.cpp
 extern "C" const unsigned int DAT_0042860c[1];  // zero_0042860c
@@ -464,7 +478,7 @@ extern "C" const char DAT_004277c8[15];  // s_conditionCount_004277c8
 extern "C" const float DAT_00427f9c[7];  // fltTbl_00427f9c
 extern "C" const unsigned int DAT_0047e6f0[1];  // zero_0047e6f0
 extern "C" const unsigned int DAT_0047e73c[1];  // zero_0047e73c
-extern "C" const void* DAT_004ca294;  // PTR_004ca294
+extern "C" const char* DAT_004ca294;  // PTR_004ca294
 extern "C" int DAT_004ca298;
 extern "C" float DAT_004ca2a0[4];  // fltTbl_004ca2a0
 
@@ -487,16 +501,16 @@ extern "C" int DAT_004e5c70;
 extern "C" const char DAT_00427720[13];  // s_fightChunk_00427720
 extern "C" const unsigned int DAT_00427730[1];  // unk_00427730
 extern "C" const char DAT_00427734[5];  // s_fig0_00427734
-extern "C" const void* const DAT_00427740[2];  // ptrTbl_00427740
+extern "C" const char* const DAT_00427740[2];  // ptrTbl_00427740
 extern "C" const unsigned int DAT_00427748[1];  // unk_00427748
-extern "C" const void* const DAT_0042774c;  // PTR_0042774c
+extern "C" const char* const DAT_0042774c;  // PTR_0042774c
 extern "C" const unsigned int DAT_00427750[1];  // unk_00427750
 extern "C" const char DAT_00427759[3];  // s_lB_00427759
 extern "C" const unsigned int DAT_0042775c[1];  // unk_0042775c
 extern "C" const unsigned int DAT_00427764[3];  // unk_00427764
 extern "C" const char DAT_00427770[10];  // s_debugOnly_00427770
 extern "C" const char DAT_0042777c[10];  // s_reference_0042777c
-extern "C" unsigned char DAT_004e5af8[8];
+extern "C" DataLayout_004e5af8 DAT_004e5af8[1];
 
 // fight/unk_239d50.cpp
 extern "C" const char DAT_00428524[20];  // s_Unrecognized_track_00428524

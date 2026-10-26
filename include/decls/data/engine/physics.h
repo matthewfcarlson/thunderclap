@@ -5,6 +5,20 @@
 #ifndef HULK_DECLS_DATA_ENGINE_PHYSICS_H
 #define HULK_DECLS_DATA_ENGINE_PHYSICS_H
 
+#ifndef HULK_DATA_PRELUDE
+#define HULK_DATA_PRELUDE
+typedef void (*hulk_code_ptr)();         // a pointer to game code
+typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
+#if defined(_WIN64) || defined(_M_X64) || defined(_M_ARM64) || defined(__LP64__) || defined(__x86_64__) || \
+    defined(__aarch64__)
+#define HULK_DATA_PACKED 0
+#else
+#define HULK_DATA_PACKED 1
+#endif
+#endif
+
+struct DataLayout_00554c30;  // packed layout (bytes and pointers), defined in the data TU
+struct DataLayout_0055546c;  // packed layout (bytes and pointers), defined in the data TU
 
 // physics/ArticulatedPhysicsObject.cpp
 extern "C" const float DAT_0043221c[7];  // fltTbl_0043221c
@@ -35,8 +49,8 @@ extern "C" const unsigned int DAT_00489a94[1];  // zero_00489a94
 extern "C" float DAT_004d2b28[4];  // fltTbl_004d2b28
 extern "C" float DAT_004d2b60[5];  // fltTbl_004d2b60
 extern "C" float DAT_004d2fb8;  // flt_004d2fb8
-extern "C" unsigned char DAT_0055543c[4];
-extern "C" unsigned char DAT_00555440[4];
+extern "C" void* DAT_0055543c[1];
+extern "C" void* DAT_00555440[1];
 extern "C" unsigned int DAT_00555448;
 
 // physics/CollisionObject.cpp
@@ -73,7 +87,7 @@ extern "C" int DAT_004d2a3c;
 extern "C" unsigned char DAT_004d2a40;
 extern "C" unsigned char DAT_00554c20[12];
 extern "C" unsigned int DAT_00554c2c;
-extern "C" unsigned char DAT_00554c30[2060];
+extern "C" DataLayout_00554c30 DAT_00554c30[1];
 
 // physics/CollisionWall.cpp
 extern "C" const float DAT_0043205c;  // flt_0043205c
@@ -429,9 +443,9 @@ extern "C" int DAT_004d10d8[7];  // tbl_004d10d8
 extern "C" int DAT_004d10f4[7];  // tbl_004d10f4
 extern "C" int DAT_004d1110[7];  // tbl_004d1110
 extern "C" char DAT_004d16e8[26];  // s_Error_decoding_zTXt_004d16e8
-extern "C" const void* DAT_004d1704;  // PTR_004d1704
+extern "C" const char* DAT_004d1704;  // PTR_004d1704
 extern "C" unsigned int DAT_004d1708[7];  // unk_004d1708
-extern "C" const void* DAT_004d1724;  // PTR_004d1724
+extern "C" const char* DAT_004d1724;  // PTR_004d1724
 extern "C" unsigned int DAT_004d1728[1];  // unk_004d1728
 extern "C" unsigned int DAT_004d172c[1];  // zero_004d172c
 extern "C" int DAT_004d1730;
@@ -453,9 +467,9 @@ extern "C" float DAT_004d2c94;  // flt_004d2c94
 extern "C" float DAT_004d2c98;  // flt_004d2c98
 extern "C" int DAT_004d2c9c;
 extern "C" float DAT_004d2ca0[5];  // fltTbl_004d2ca0
-extern "C" unsigned char DAT_0055545c[4];
-extern "C" unsigned char DAT_00555468[4];
-extern "C" unsigned char DAT_0055546c[12];
+extern "C" void* DAT_0055545c[1];
+extern "C" void* DAT_00555468[1];
+extern "C" DataLayout_0055546c DAT_0055546c[1];
 
 // physics/unk_2fa6b0.cpp
 extern "C" const float DAT_004317a0;  // flt_004317a0

@@ -10,7 +10,7 @@ extern Params_188f60 TypeA_188f60;
 extern Params_188f60 TypeB_188f60;
 int __cdecl Check(void*, int, Params_188f60*, Params_188f60*, int);
 struct PropThrowAction_nv_188f60 {
-    int Init(hulkfight::motion::PropThrowTrack*, int);
+    int Init(hulkfight::motion::PropThrowTrack*, hulk_intptr);
 };
 hulkfight::motion::PropThrowAction* __cdecl Alloc(int);
 

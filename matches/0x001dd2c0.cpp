@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 class Node {
   public:
     int a[4];
-    int next;
+    hulk_intptr next;
 };
 class Search_1dd2c0 {
   public:

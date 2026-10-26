@@ -2,7 +2,7 @@
 #include "gen/global.h"
 
 struct Helper_62300 {
-    int f(CSmartPropAttachTrack*, int);
+    int f(CSmartPropAttachTrack*, hulk_intptr);
 };
 extern "C" Helper_62300* __cdecl FUN_0008d690(int);
 

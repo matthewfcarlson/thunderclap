@@ -3,7 +3,7 @@
 
 class Helper_161720 {
   public:
-    int f(hulkfight::motion::ClimbLocomotion4Track*, int);
+    int f(hulkfight::motion::ClimbLocomotion4Track*, hulk_intptr);
 };
 extern "C" Helper_161720* FUN_0008d690(int);
 

@@ -5,6 +5,18 @@
 #ifndef HULK_DECLS_DATA_GAME_RENDER_H
 #define HULK_DECLS_DATA_GAME_RENDER_H
 
+#ifndef HULK_DATA_PRELUDE
+#define HULK_DATA_PRELUDE
+typedef void (*hulk_code_ptr)();         // a pointer to game code
+typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
+#if defined(_WIN64) || defined(_M_X64) || defined(_M_ARM64) || defined(__LP64__) || defined(__x86_64__) || \
+    defined(__aarch64__)
+#define HULK_DATA_PACKED 0
+#else
+#define HULK_DATA_PACKED 1
+#endif
+#endif
+
 
 // Render/LevelLoader.cpp
 extern "C" const float DAT_00421a90;  // flt_00421a90
@@ -28,7 +40,7 @@ extern "C" float DAT_004c53c8[4];  // fltTbl_004c53c8
 extern "C" float DAT_004c546c;  // flt_004c546c
 extern "C" int DAT_004c5470;  // tbl_004c5470
 extern "C" float DAT_004c5474[4];  // fltTbl_004c5474
-extern "C" const void* DAT_004c5484[2];  // ptrTbl_004c5484
+extern "C" const char* DAT_004c5484[2];  // ptrTbl_004c5484
 extern "C" unsigned char DAT_004e23a0[4];
 extern "C" unsigned char DAT_004e23a4[4];
 extern "C" unsigned char DAT_004e23a8[8];
@@ -49,7 +61,7 @@ extern "C" const unsigned int DAT_00477e54[1];  // zero_00477e54
 extern "C" const unsigned int DAT_00477e88[1];  // zero_00477e88
 extern "C" const unsigned int DAT_00477ec0[1];  // zero_00477ec0
 extern "C" const unsigned int DAT_00477f14[1];  // zero_00477f14
-extern "C" const void* DAT_004c5188;  // PTR_004c5188
+extern "C" const char* DAT_004c5188;  // PTR_004c5188
 extern "C" unsigned char DAT_004c518c;
 extern "C" float DAT_004c5190[3];  // fltTbl_004c5190
 extern "C" unsigned int DAT_004c519c[1];  // unk_004c519c

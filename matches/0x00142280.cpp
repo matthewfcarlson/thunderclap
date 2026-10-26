@@ -2,7 +2,7 @@
 #include "gen/hulkfight.h"
 
 struct Obj_142280 {
-    int Init(hulkfight::motion::WallExitTrack*, int);
+    int Init(hulkfight::motion::WallExitTrack*, hulk_intptr);
 };
 extern int __cdecl IsType(void*, int, int*, int*, int);
 extern void* __cdecl Alloc(int);

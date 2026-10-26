@@ -5,8 +5,21 @@
 #ifndef HULK_DECLS_DATA_ENGINE_AUDIO_H
 #define HULK_DECLS_DATA_ENGINE_AUDIO_H
 
+#ifndef HULK_DATA_PRELUDE
+#define HULK_DATA_PRELUDE
+typedef void (*hulk_code_ptr)();         // a pointer to game code
+typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
+#if defined(_WIN64) || defined(_M_X64) || defined(_M_ARM64) || defined(__LP64__) || defined(__x86_64__) || \
+    defined(__aarch64__)
+#define HULK_DATA_PACKED 0
+#else
+#define HULK_DATA_PACKED 1
+#endif
+#endif
+
 struct DataLayout_004cc25c;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004cd1e4;  // packed layout (bytes and pointers), defined in the data TU
+struct DataLayout_004e6200;  // packed layout (bytes and pointers), defined in the data TU
 
 // audio/ChannelSendVolumeFadeBehaviour.cpp
 extern "C" const char DAT_0042993c[10];  // s_ChSendVol_0042993c
@@ -49,8 +62,8 @@ extern "C" const unsigned int DAT_00480a6c[1];  // zero_00480a6c
 extern "C" const unsigned int DAT_00480ab4[1];  // zero_00480ab4
 extern "C" const unsigned int DAT_00480afc[1];  // zero_00480afc
 extern "C" char DAT_004cc0c8[4];  // tbl_004cc0c8
-extern "C" const void* DAT_004cc0cc;  // PTR_004cc0cc
-extern "C" const void* DAT_004cc0d0[2];  // ptrTbl_004cc0d0
+extern "C" hulk_vftable_ptr DAT_004cc0cc;  // PTR_004cc0cc
+extern "C" hulk_code_ptr DAT_004cc0d0[2];  // ptrTbl_004cc0d0
 extern "C" unsigned int DAT_004cc0d8[4];  // zero_004cc0d8
 
 // audio/HalRadicalAdpcmDecodeStream.cpp
@@ -460,8 +473,8 @@ extern "C" unsigned char DAT_004e6080[72];
 extern "C" char DAT_004e60c8[72];
 extern "C" char DAT_004e6110[144];
 extern "C" unsigned char DAT_004e61a0[72];
-extern "C" unsigned char DAT_004e61e8[4];
-extern "C" unsigned char DAT_004e61ec[4];
+extern "C" void* DAT_004e61e8[1];
+extern "C" void* DAT_004e61ec[1];
 
 // audio/unk_23fa40.cpp
 extern "C" const char DAT_0042903c[11];  // s_om_String_0042903c
@@ -474,9 +487,9 @@ extern "C" const float DAT_00429068[2];  // fltTbl_00429068
 extern "C" const unsigned int DAT_00429070[4];  // zero_00429070
 extern "C" const float DAT_00429080;  // flt_00429080
 extern "C" const void* DAT_004cc02c;  // PTR_004cc02c
-extern "C" const void* DAT_004cc030;  // PTR_004cc030
+extern "C" const char* DAT_004cc030;  // PTR_004cc030
 extern "C" unsigned char DAT_004e5c9c[4];
-extern "C" unsigned char DAT_004e5ca0[4];
+extern "C" void* DAT_004e5ca0[1];
 extern "C" int DAT_004e5ca4;
 extern "C" int DAT_004e5ca8;
 extern "C" int DAT_004e5cac;
@@ -494,8 +507,8 @@ extern "C" unsigned char DAT_004e5cf8[184];
 
 // audio/unk_2474c0.cpp
 extern "C" const void* DAT_004cc1fc;  // PTR_004cc1fc
-extern "C" const void* DAT_004cc200;  // PTR_004cc200
-extern "C" const void* DAT_004cc204[2];  // ptrTbl_004cc204
+extern "C" hulk_vftable_ptr DAT_004cc200;  // PTR_004cc200
+extern "C" hulk_code_ptr DAT_004cc204[2];  // ptrTbl_004cc204
 extern "C" unsigned char DAT_004e5f88[4];
 extern "C" unsigned char DAT_004e5f8c[4];
 extern "C" unsigned char DAT_004e5f90[4];
@@ -513,12 +526,12 @@ extern "C" const char DAT_00429348[4];  // s_PCM_00429348
 extern "C" const char DAT_0042934c[7];  // s_Name_0042934c
 extern "C" const float DAT_00429354;  // flt_00429354
 extern "C" char DAT_004cc248[1];  // s_empty_004cc248
-extern "C" const void* DAT_004cc24c[2];  // ptrTbl_004cc24c
+extern "C" const char* DAT_004cc24c[2];  // ptrTbl_004cc24c
 extern "C" int DAT_004cc254;
 extern "C" int DAT_004cc258;
 extern "C" DataLayout_004cc25c DAT_004cc25c;  // struct_004cc25c
 extern "C" unsigned char DAT_004e61f0[16];
-extern "C" unsigned char DAT_004e6200[8];
+extern "C" DataLayout_004e6200 DAT_004e6200[1];
 extern "C" unsigned char DAT_004e6208[144];
 extern "C" float DAT_004e6298;
 extern "C" float DAT_004e629c;

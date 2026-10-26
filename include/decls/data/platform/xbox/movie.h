@@ -5,9 +5,22 @@
 #ifndef HULK_DECLS_DATA_PLATFORM_XBOX_MOVIE_H
 #define HULK_DECLS_DATA_PLATFORM_XBOX_MOVIE_H
 
+#ifndef HULK_DATA_PRELUDE
+#define HULK_DATA_PRELUDE
+typedef void (*hulk_code_ptr)();         // a pointer to game code
+typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
+#if defined(_WIN64) || defined(_M_X64) || defined(_M_ARM64) || defined(__LP64__) || defined(__x86_64__) || \
+    defined(__aarch64__)
+#define HULK_DATA_PACKED 0
+#else
+#define HULK_DATA_PACKED 1
+#endif
+#endif
+
 struct DataLayout_00434184;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0048bd30;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0048bd78;  // packed layout (bytes and pointers), defined in the data TU
+struct DataLayout_00555ba8;  // packed layout (bytes and pointers), defined in the data TU
 
 // movie/BinkCallback.cpp
 extern "C" const unsigned int DAT_0048bcec[1];  // zero_0048bcec
@@ -17,7 +30,7 @@ extern "C" const unsigned int DAT_0048bd1c[1];  // zero_0048bd1c
 extern "C" const unsigned int DAT_0048bd20[1];  // unk_0048bd20
 extern "C" const unsigned int DAT_0048bd24[1];  // zero_0048bd24
 extern "C" const unsigned int DAT_0048bd28[1];  // unk_0048bd28
-extern "C" const void* const DAT_0048bd2c;  // PTR_0048bd2c
+extern "C" hulk_code_ptr const DAT_0048bd2c;  // PTR_0048bd2c
 extern "C" const DataLayout_0048bd30 DAT_0048bd30;  // struct_0048bd30
 extern "C" const char DAT_0048bd40[1];  // s_empty_0048bd40
 extern "C" const void* const DAT_0048bd44;  // PTR_0048bd44
@@ -25,16 +38,16 @@ extern "C" const unsigned int DAT_0048bd48[1];  // zero_0048bd48
 extern "C" const unsigned int DAT_0048bd4c[1];  // unk_0048bd4c
 extern "C" const unsigned int DAT_0048bd50[1];  // zero_0048bd50
 extern "C" const unsigned int DAT_0048bd54[1];  // unk_0048bd54
-extern "C" const void* const DAT_0048bd58;  // PTR_0048bd58
+extern "C" hulk_code_ptr const DAT_0048bd58;  // PTR_0048bd58
 extern "C" const char DAT_0048bd5c[1];  // s_empty_0048bd5c
 extern "C" const void* const DAT_0048bd60;  // PTR_0048bd60
 extern "C" const unsigned int DAT_0048bd64[1];  // zero_0048bd64
 extern "C" const unsigned int DAT_0048bd68[1];  // unk_0048bd68
 extern "C" const unsigned int DAT_0048bd6c[1];  // zero_0048bd6c
 extern "C" const unsigned int DAT_0048bd70[1];  // unk_0048bd70
-extern "C" const void* const DAT_0048bd74;  // PTR_0048bd74
+extern "C" hulk_code_ptr const DAT_0048bd74;  // PTR_0048bd74
 extern "C" const DataLayout_0048bd78 DAT_0048bd78;  // struct_0048bd78
-extern "C" unsigned char DAT_00555ba8[8];
+extern "C" DataLayout_00555ba8 DAT_00555ba8[1];
 extern "C" unsigned char DAT_00555bb0[32768];
 
 // movie/PlayerBink.cpp

@@ -3,7 +3,7 @@
 #include "gen/global.h"
 
 struct CPropActorSetStateAction_nv_62d40 {
-    int invoke(CPropActorSetStateTrack*, int);
+    int invoke(CPropActorSetStateTrack*, hulk_intptr);
 };
 extern CPropActorSetStateAction* FUN_0008d690(int);
 

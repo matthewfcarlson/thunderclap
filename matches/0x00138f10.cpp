@@ -8,7 +8,7 @@ extern int RTTI_Type1;
 extern int RTTI_Type2;
 class AllocObj_138f10 {
   public:
-    int init(hulkfight::motion::FlyingAutoTargetTrack*, int);
+    int init(hulkfight::motion::FlyingAutoTargetTrack*, hulk_intptr);
 };
 
 hulk_intptr hulkfight::motion::FlyingAutoTargetTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {

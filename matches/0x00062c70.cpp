@@ -2,7 +2,7 @@
 #include "gen/global.h"
 
 struct CSmartPropRemoveInstanceAction_nv_62c70 {
-    int run(int, int);
+    int run(hulk_intptr, int);
 };
 extern CSmartPropRemoveInstanceAction* __cdecl FUN_0008d690(int);
 

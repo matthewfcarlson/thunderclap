@@ -10,7 +10,7 @@ extern Params_1575a0 TypeA_1575a0;
 extern Params_1575a0 TypeB_1575a0;
 int __cdecl Check(void*, int, Params_1575a0*, Params_1575a0*, int);
 struct ClearFightParamsHitRecordAction_nv_1575a0 {
-    int Init(hulkfight::motion::ClearFightParamsHitRecordTrack*, int);
+    int Init(hulkfight::motion::ClearFightParamsHitRecordTrack*, hulk_intptr);
 };
 hulkfight::motion::ClearFightParamsHitRecordAction* __cdecl Alloc(int);
 

@@ -10,7 +10,7 @@ extern Params_14ae00 TypeA_14ae00;
 extern Params_14ae00 TypeB_14ae00;
 int __cdecl Check(void*, int, Params_14ae00*, Params_14ae00*, int);
 struct CivilianThrowAction_nv_14ae00 {
-    int Init(hulkfight::motion::CivilianThrowTrack*, int);
+    int Init(hulkfight::motion::CivilianThrowTrack*, hulk_intptr);
 };
 hulkfight::motion::CivilianThrowAction* __cdecl Alloc(int);
 

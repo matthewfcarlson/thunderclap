@@ -10,7 +10,7 @@ extern Params_188870 TypeA_188870;
 extern Params_188870 TypeB_188870;
 int __cdecl Check(void*, int, Params_188870*, Params_188870*, int);
 struct PropActorThinkingAction_nv_188870 {
-    int Init(hulkfight::motion::PropActorThinkingTrack*, int);
+    int Init(hulkfight::motion::PropActorThinkingTrack*, hulk_intptr);
 };
 hulkfight::motion::PropActorThinkingAction* __cdecl Alloc(int);
 

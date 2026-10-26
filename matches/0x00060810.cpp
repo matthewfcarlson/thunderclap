@@ -3,7 +3,7 @@
 
 class Helper_60810 {
   public:
-    int Run(CEffectTrack*, int, int);
+    int Run(CEffectTrack*, hulk_intptr, hulk_intptr);
 };
 extern void* Get(int);
 

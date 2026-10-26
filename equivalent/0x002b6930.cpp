@@ -2,6 +2,7 @@
 // pure3d::ShadowMeshBufferLoader::vfunc_5 @ 0x002b6930
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-map: ??0MeshBufferBase@pure3d@@QAE@XZ = 0x002a5060
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
@@ -176,7 +177,7 @@ void ShadowMeshBufferLoader::vfunc_5(Target_2b6930 **out, unsigned __int64 *outI
         f.bufB->b0();
     }
 
-    f.v20 = DAT_00554bb4;
+    f.v20 = (hulk_intptr)DAT_00554bb4;
     f.flags[3] = ' ';
     f.flags[2] = ' ';
     f.flags[1] = ' ';

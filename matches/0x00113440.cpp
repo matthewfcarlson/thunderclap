@@ -11,7 +11,7 @@ extern Params_113440 TypeB_113440;
 int __cdecl Check(void*, int, Params_113440*, Params_113440*, int);
 class Object_113440 {
   public:
-    int Init(hulkfight::ai::SemaphoreClearTrack*, int);
+    int Init(hulkfight::ai::SemaphoreClearTrack*, hulk_intptr);
 };
 Object_113440* __cdecl Alloc(int);
 

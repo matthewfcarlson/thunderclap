@@ -10,7 +10,7 @@ extern Params_19b9b0 TypeA_19b9b0;
 extern Params_19b9b0 TypeB_19b9b0;
 int __cdecl Check(void*, int, Params_19b9b0*, Params_19b9b0*, int);
 struct FireGroundShockwaveAction_nv_19b9b0 {
-    int Init(hulkfight::motion::FireGroundShockwaveTrack*, int);
+    int Init(hulkfight::motion::FireGroundShockwaveTrack*, hulk_intptr);
 };
 hulkfight::motion::FireGroundShockwaveAction* __cdecl Alloc(int);
 

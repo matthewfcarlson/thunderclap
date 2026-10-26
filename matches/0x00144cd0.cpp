@@ -3,7 +3,7 @@
 
 class Effect_144cd0 {
   public:
-    int init(int, hulkfight::motion::HitEffectTrack*, int);
+    int init(hulk_intptr, hulkfight::motion::HitEffectTrack*, hulk_intptr);
 };
 extern int check(void*, int, const void*, const void*, int);
 extern void* alloc(hulk_uintptr);

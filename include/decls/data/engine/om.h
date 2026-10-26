@@ -5,6 +5,18 @@
 #ifndef HULK_DECLS_DATA_ENGINE_OM_H
 #define HULK_DECLS_DATA_ENGINE_OM_H
 
+#ifndef HULK_DATA_PRELUDE
+#define HULK_DATA_PRELUDE
+typedef void (*hulk_code_ptr)();         // a pointer to game code
+typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
+#if defined(_WIN64) || defined(_M_X64) || defined(_M_ARM64) || defined(__LP64__) || defined(__x86_64__) || \
+    defined(__aarch64__)
+#define HULK_DATA_PACKED 0
+#else
+#define HULK_DATA_PACKED 1
+#endif
+#endif
+
 
 // om/CallbackStream.cpp
 extern "C" const unsigned int DAT_00480c64[1];  // zero_00480c64
@@ -102,9 +114,9 @@ extern "C" const char DAT_0042aaf4[10];  // s_Missing_0042aaf4
 extern "C" const void* DAT_004cd388[2];  // ptrTbl_004cd388
 extern "C" const void* DAT_004cd390[6];  // ptrTbl_004cd390
 extern "C" unsigned int DAT_004cd3a8[1];  // unk_004cd3a8
-extern "C" const void* DAT_004cd3ac;  // PTR_004cd3ac
+extern "C" hulk_code_ptr DAT_004cd3ac;  // PTR_004cd3ac
 extern "C" unsigned int DAT_004cd3b0[1];  // unk_004cd3b0
-extern "C" const void* DAT_004cd3b4;  // PTR_004cd3b4
+extern "C" hulk_code_ptr DAT_004cd3b4;  // PTR_004cd3b4
 extern "C" unsigned int DAT_004cd3b8[1];  // unk_004cd3b8
 extern "C" const void* DAT_004cd3bc[9];  // ptrTbl_004cd3bc
 extern "C" unsigned int DAT_004cd3e0[1];  // unk_004cd3e0

@@ -4,7 +4,7 @@
 
 class R_60940 {
   public:
-    int invoke(CEffectStopTrack*, int);
+    int invoke(CEffectStopTrack*, hulk_intptr);
 };
 extern R_60940* FUN_0008d690(int);
 

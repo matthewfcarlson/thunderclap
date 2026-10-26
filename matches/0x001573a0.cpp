@@ -3,7 +3,7 @@
 #include "gen/hulkfight.h"
 
 struct HitThrowAction_nv_1573a0 {
-    int Init(hulkfight::motion::HitThrowTrack*, int);
+    int Init(hulkfight::motion::HitThrowTrack*, hulk_intptr);
 };
 extern int TypeA_1573a0;
 extern int TypeB_1573a0;

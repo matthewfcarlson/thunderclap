@@ -10,7 +10,7 @@ extern Params_18e140 TypeA_18e140;
 extern Params_18e140 TypeB_18e140;
 int __cdecl Check(void*, int, Params_18e140*, Params_18e140*, int);
 struct VarAssignAction_nv_18e140 {
-    int Init(hulkfight::motion::VarAssignTrack*, int);
+    int Init(hulkfight::motion::VarAssignTrack*, hulk_intptr);
 };
 hulkfight::motion::VarAssignAction* __cdecl Alloc(int);
 

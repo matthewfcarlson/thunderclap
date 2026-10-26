@@ -3,7 +3,7 @@
 #include "gen/global.h"
 
 struct CGrappleDetachAction_nv_5aca0 {
-    int invoke(CGrappleDetachTrack*, int);
+    int invoke(CGrappleDetachTrack*, hulk_intptr);
 };
 extern CGrappleDetachAction* FUN_0008d690(int);
 

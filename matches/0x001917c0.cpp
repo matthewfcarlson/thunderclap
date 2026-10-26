@@ -10,7 +10,7 @@ extern Params_1917c0 TypeA_1917c0;
 extern Params_1917c0 TypeB_1917c0;
 int __cdecl Check(void*, int, Params_1917c0*, Params_1917c0*, int);
 struct ImpulseVelocityAction_nv_1917c0 {
-    int Init(hulkfight::motion::ImpulseVelocityTrack*, int);
+    int Init(hulkfight::motion::ImpulseVelocityTrack*, hulk_intptr);
 };
 hulkfight::motion::ImpulseVelocityAction* __cdecl Alloc(int);
 

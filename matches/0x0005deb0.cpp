@@ -4,7 +4,7 @@
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Helper_5deb0 {
-    int FUN_0001cfd0(CStunAnimationTrack*, int);
+    int FUN_0001cfd0(CStunAnimationTrack*, hulk_intptr);
 };
 
 hulk_intptr CStunAnimationTrack::vfunc_12(hulk_intptr param) {

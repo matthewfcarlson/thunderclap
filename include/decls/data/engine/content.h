@@ -5,6 +5,19 @@
 #ifndef HULK_DECLS_DATA_ENGINE_CONTENT_H
 #define HULK_DECLS_DATA_ENGINE_CONTENT_H
 
+#ifndef HULK_DATA_PRELUDE
+#define HULK_DATA_PRELUDE
+typedef void (*hulk_code_ptr)();         // a pointer to game code
+typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
+#if defined(_WIN64) || defined(_M_X64) || defined(_M_ARM64) || defined(__LP64__) || defined(__x86_64__) || \
+    defined(__aarch64__)
+#define HULK_DATA_PACKED 0
+#else
+#define HULK_DATA_PACKED 1
+#endif
+#endif
+
+struct DataLayout_00527c58;  // packed layout (bytes and pointers), defined in the data TU
 
 // content/LoadInventory.cpp
 extern "C" const unsigned int DAT_00482cc8[1];  // zero_00482cc8
@@ -20,6 +33,6 @@ extern "C" int DAT_004cd504;
 extern "C" unsigned int DAT_00527c4c;
 extern "C" unsigned char DAT_00527c50[4];
 extern "C" unsigned char DAT_00527c54[4];
-extern "C" unsigned char DAT_00527c58[744];
+extern "C" DataLayout_00527c58 DAT_00527c58[1];
 
 #endif

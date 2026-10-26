@@ -1,4 +1,5 @@
 // pure3d::TranslucentTraversal::vfunc_4 @ 0x002a1b60
+#include "compat/ptr.h"
 #include "gen/pure3d.h"
 
 #include "decls/address.h"
@@ -171,7 +172,7 @@ void pure3d::TranslucentTraversal::vfunc_4() {
         (*(*(Device_2a1b60***)&DAT_0052c2ac))->v14(0, (*(Item_2a1b60 ** *)&this->f_28)[i]->n);
         if (handle->obj->v9() == 1 && (*(Helper_2a1b60 * *)&this->f_14) != 0 && sub->link != 0)
             (*(Helper_2a1b60 * *)&this->f_14)->FUN_002a06d0(sub->link);
-        if ((*(Item_2a1b60 ** *)&this->f_28)[i]->tag == DAT_004e2314) {
+        if ((*(Item_2a1b60 ** *)&this->f_28)[i]->tag == (hulk_intptr)DAT_004e2314) {
             DAT_0052c2a8->v87(8);
             DAT_0052c2a8->v78(0);
         }
@@ -184,7 +185,7 @@ void pure3d::TranslucentTraversal::vfunc_4() {
         } else {
             handle->FUN_002a4060();
         }
-        if ((*(Item_2a1b60 ** *)&this->f_28)[i]->tag == DAT_004e2314)
+        if ((*(Item_2a1b60 ** *)&this->f_28)[i]->tag == (hulk_intptr)DAT_004e2314)
             DAT_0052c2a8->v88(8);
     }
     (*(*(Device_2a1b60***)&DAT_0052c2ac))->v16(0);

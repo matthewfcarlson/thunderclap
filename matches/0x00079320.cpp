@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 struct Item {
-    int a, b;
+    hulk_intptr a, b;
     Item(void*) throw();
     void Assign(const Item*) throw();
     ~Item() throw();

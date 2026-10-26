@@ -5,6 +5,18 @@
 #ifndef HULK_DECLS_DATA_GAME_HULKFIGHT_AI_H
 #define HULK_DECLS_DATA_GAME_HULKFIGHT_AI_H
 
+#ifndef HULK_DATA_PRELUDE
+#define HULK_DATA_PRELUDE
+typedef void (*hulk_code_ptr)();         // a pointer to game code
+typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
+#if defined(_WIN64) || defined(_M_X64) || defined(_M_ARM64) || defined(__LP64__) || defined(__x86_64__) || \
+    defined(__aarch64__)
+#define HULK_DATA_PACKED 0
+#else
+#define HULK_DATA_PACKED 1
+#endif
+#endif
+
 struct DataLayout_004a6acc;  // packed layout (bytes and pointers), defined in the data TU
 
 // hulkfight/ai/AIHistoryCountTrack.cpp
@@ -217,9 +229,9 @@ extern "C" const unsigned int DAT_004564bc[1];  // zero_004564bc
 extern "C" const unsigned int DAT_0045650c[1];  // zero_0045650c
 extern "C" const unsigned int DAT_0045655c[1];  // zero_0045655c
 extern "C" const unsigned int DAT_004565a8[1];  // zero_004565a8
-extern "C" const void* DAT_004a1f60;  // PTR_004a1f60
-extern "C" const void* DAT_004a1f64;  // PTR_004a1f64
-extern "C" const void* DAT_004a1f68;  // PTR_004a1f68
+extern "C" const char* DAT_004a1f60;  // PTR_004a1f60
+extern "C" const char* DAT_004a1f64;  // PTR_004a1f64
+extern "C" const char* DAT_004a1f68;  // PTR_004a1f68
 extern "C" float DAT_004a1f6c[4];  // fltTbl_004a1f6c
 extern "C" unsigned int DAT_004a202c[1];  // zero_004a202c
 extern "C" unsigned int DAT_004a207c[1];  // zero_004a207c
@@ -740,8 +752,8 @@ extern "C" const unsigned int DAT_004574dc[1];  // zero_004574dc
 extern "C" const unsigned int DAT_0045752c[1];  // zero_0045752c
 extern "C" const unsigned int DAT_00457578[1];  // zero_00457578
 extern "C" const unsigned int DAT_004575c0[1];  // zero_004575c0
-extern "C" const void* DAT_0049ee30[13];  // ptrTbl_0049ee30
-extern "C" const void* DAT_0049ee64[4];  // ptrTbl_0049ee64
+extern "C" const char* DAT_0049ee30[13];  // ptrTbl_0049ee30
+extern "C" const char* DAT_0049ee64[4];  // ptrTbl_0049ee64
 extern "C" unsigned int DAT_004a290c[1];  // zero_004a290c
 extern "C" unsigned int DAT_004a2964[1];  // zero_004a2964
 extern "C" unsigned int DAT_004a29f4[1];  // zero_004a29f4

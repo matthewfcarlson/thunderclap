@@ -46,15 +46,24 @@ HASHCACHE = os.path.join(jobq.JOBS, "nb-hashcache.json")
 RECS = {"play3": "build/rp1/play3.hrp"}
 
 
+def local_dir(d):
+    """Where an input directory comes from on this machine: `--data-src DIR` (HULK_NB_DATA_SRC) replaces the shared
+    build/data/src with a private set of data TUs (a data_gen change under test), shipped under the same name."""
+    if d == "build/data/src" and os.environ.get("HULK_NB_DATA_SRC"):
+        return os.path.abspath(os.environ["HULK_NB_DATA_SRC"])
+    return os.path.join(ROOT, d)
+
+
 def walk(root, dirs):
     for d in dirs:
-        for dp, dns, fns in os.walk(os.path.join(root, d)):
+        base = local_dir(d) if root == ROOT else os.path.join(root, d)
+        for dp, dns, fns in os.walk(base):
             dns[:] = sorted(x for x in dns if x not in SKIP)
             for fn in sorted(fns):
                 if fn != ".DS_Store" and not fn.endswith((".pyc", ".orig", ".rej")):
                     p = os.path.join(dp, fn)
                     if os.path.exists(p):
-                        yield os.path.relpath(p, root), p
+                        yield os.path.join(d, os.path.relpath(p, base)), p
 
 
 # ---------------------------------------------------------------------------------------------- sources
@@ -167,9 +176,9 @@ def sync_host(name, stamp, quiet=False):
             subprocess.run(["rsync", "-a", "-e", e, os.path.join(ROOT, f), "%s:%s/%s" % (dest, tmp, f)], check=True,
                            capture_output=quiet)
     for d in INPUT_DIRS:
-        if os.path.isdir(os.path.join(ROOT, d)):
+        if os.path.isdir(local_dir(d)):
             subprocess.run(ssh + [dest, "mkdir -p %s/%s" % (tmp, d)], check=True)
-            subprocess.run(["rsync", "-a", "--delete", "-e", e, os.path.join(ROOT, d) + "/", "%s:%s/%s/" % (dest, tmp, d)],
+            subprocess.run(["rsync", "-a", "--delete", "-e", e, local_dir(d) + "/", "%s:%s/%s/" % (dest, tmp, d)],
                            check=True, capture_output=quiet)
     fin = ("cd ~/hulk-jobs/nb && touch inputs-%s.tmp/.complete && rm -rf inputs-%s && mv inputs-%s.tmp inputs-%s && "
            "ls -dt inputs-*/ | tail -n +5 | xargs rm -rf") % ((stamp,) * 4)
@@ -208,6 +217,8 @@ def pick_host(a):
 
 
 def cmd_submit(a):
+    if a.data_src:
+        os.environ["HULK_NB_DATA_SRC"] = a.data_src
     host = pick_host(a)
     cfg = host_cfg(host)
     ws = os.path.abspath(a.workspace or ROOT)
@@ -331,6 +342,7 @@ def main():
     s.add_argument("--lineage")
     s.add_argument("--gfx", action="store_true", help="link with the pddi/bgfx backend (wine_link.py --gfx)")
     s.add_argument("--stages", help="comma list of build,probe,link,replay (default: all requested)")
+    s.add_argument("--data-src", help="a private build/data/src (data TUs of a data_gen change under test)")
     s.add_argument("--state", choices=["auto", "fresh", "resume"], default="auto", help="build_tree --resume policy")
     s.add_argument("--map", choices=["auto", "full", "reuse"], default="auto", help="wine_link --reuse-map policy")
     s.add_argument("--replay", help="play3 or a .hrp path: headless replay of the built image on the host")

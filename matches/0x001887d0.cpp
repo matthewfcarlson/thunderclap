@@ -10,7 +10,7 @@ extern Params_1887d0 TypeA_1887d0;
 extern Params_1887d0 TypeB_1887d0;
 int __cdecl Check(void*, int, Params_1887d0*, Params_1887d0*, int);
 struct PropActorToPropAction_nv_1887d0 {
-    int Init(hulkfight::motion::PropActorToPropTrack*, int);
+    int Init(hulkfight::motion::PropActorToPropTrack*, hulk_intptr);
 };
 hulkfight::motion::PropActorToPropAction* __cdecl Alloc(int);
 

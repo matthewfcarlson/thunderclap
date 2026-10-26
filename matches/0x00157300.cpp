@@ -11,7 +11,7 @@ extern Params_157300 TypeB_157300;
 int __cdecl Check(void*, int, Params_157300*, Params_157300*, int);
 class Object_157300 {
   public:
-    int Init(hulkfight::motion::HitDamageTrack*, int);
+    int Init(hulkfight::motion::HitDamageTrack*, hulk_intptr);
 };
 Object_157300* __cdecl Alloc(int);
 

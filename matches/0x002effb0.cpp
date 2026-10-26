@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "gen/physics.h"
 
 class Other {
   public:
-    void Use(int a, int b);
+    void Use(hulk_intptr a, hulk_intptr b);
 };
 namespace physics {
 

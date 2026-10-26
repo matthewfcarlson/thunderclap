@@ -5,6 +5,18 @@
 #ifndef HULK_DECLS_DATA_GAME_HULKFIGHT_SCENARIO_H
 #define HULK_DECLS_DATA_GAME_HULKFIGHT_SCENARIO_H
 
+#ifndef HULK_DATA_PRELUDE
+#define HULK_DATA_PRELUDE
+typedef void (*hulk_code_ptr)();         // a pointer to game code
+typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
+#if defined(_WIN64) || defined(_M_X64) || defined(_M_ARM64) || defined(__LP64__) || defined(__x86_64__) || \
+    defined(__aarch64__)
+#define HULK_DATA_PACKED 0
+#else
+#define HULK_DATA_PACKED 1
+#endif
+#endif
+
 struct DataLayout_004c167c;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004c2a28;  // packed layout (bytes and pointers), defined in the data TU
 
@@ -190,7 +202,7 @@ extern "C" const unsigned int DAT_00475cb0[1];  // zero_00475cb0
 extern "C" const unsigned int DAT_00475d04[1];  // zero_00475d04
 extern "C" const unsigned int DAT_00475d58[1];  // zero_00475d58
 extern "C" const unsigned int DAT_00475da4[1];  // zero_00475da4
-extern "C" const void* DAT_004c165c[8];  // ptrTbl_004c165c
+extern "C" const char* DAT_004c165c[8];  // ptrTbl_004c165c
 extern "C" DataLayout_004c167c DAT_004c167c;  // struct_004c167c
 extern "C" unsigned int DAT_004c171c[1];  // zero_004c171c
 extern "C" unsigned int DAT_004c1764[1];  // zero_004c1764
@@ -240,7 +252,7 @@ extern "C" unsigned char DAT_004e1750[4];
 extern "C" int DAT_004e1754;
 extern "C" unsigned char DAT_004e1758[4];
 extern "C" unsigned int DAT_004e175c;
-extern "C" unsigned char DAT_004e1760[4];
+extern "C" void* DAT_004e1760[1];
 extern "C" unsigned char DAT_004e1764[4];
 extern "C" unsigned char DAT_004e1768[16];
 extern "C" unsigned char DAT_004e1778[4];

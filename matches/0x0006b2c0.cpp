@@ -4,7 +4,7 @@
 
 class R_6b2c0 {
   public:
-    int invoke(CTargetTrack*, int);
+    int invoke(CTargetTrack*, hulk_intptr);
 };
 extern R_6b2c0* FUN_0008d690(int);
 

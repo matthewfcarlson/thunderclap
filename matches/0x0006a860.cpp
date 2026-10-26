@@ -4,7 +4,7 @@
 
 class R_6a860 {
   public:
-    int invoke(CDriftTrack*, int);
+    int invoke(CDriftTrack*, hulk_intptr);
 };
 extern R_6a860* FUN_0008d690(int);
 

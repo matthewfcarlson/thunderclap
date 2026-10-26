@@ -5,6 +5,18 @@
 #ifndef HULK_DECLS_DATA_GAME_HULKFIGHT_H
 #define HULK_DECLS_DATA_GAME_HULKFIGHT_H
 
+#ifndef HULK_DATA_PRELUDE
+#define HULK_DATA_PRELUDE
+typedef void (*hulk_code_ptr)();         // a pointer to game code
+typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
+#if defined(_WIN64) || defined(_M_X64) || defined(_M_ARM64) || defined(__LP64__) || defined(__x86_64__) || \
+    defined(__aarch64__)
+#define HULK_DATA_PACKED 0
+#else
+#define HULK_DATA_PACKED 1
+#endif
+#endif
+
 struct DataLayout_004a9bb4;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004c8098;  // packed layout (bytes and pointers), defined in the data TU
 
@@ -273,7 +285,7 @@ extern "C" const unsigned int DAT_00404b04[1];  // zero_00404b04
 extern "C" const char DAT_00404b10[9];  // s_BlendCam_00404b10
 extern "C" const float DAT_00404b1c[7];  // fltTbl_00404b1c
 extern "C" const float DAT_00404bd4[7];  // fltTbl_00404bd4
-extern "C" const void* DAT_0049e108;  // PTR_0049e108
+extern "C" const char* DAT_0049e108;  // PTR_0049e108
 extern "C" float DAT_0049e10c[4];  // fltTbl_0049e10c
 extern "C" float DAT_004dd940;
 extern "C" unsigned char DAT_004dd948[64];

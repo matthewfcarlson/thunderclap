@@ -11,7 +11,7 @@ extern Params_144970 TypeB_144970;
 int __cdecl Check(void*, int, Params_144970*, Params_144970*, int);
 class Object_144970 {
   public:
-    int Init(hulkfight::motion::WorldDamageTrack*, int);
+    int Init(hulkfight::motion::WorldDamageTrack*, hulk_intptr);
 };
 Object_144970* __cdecl Alloc(int);
 

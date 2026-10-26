@@ -10,7 +10,7 @@ extern Params_188e20 TypeA_188e20;
 extern Params_188e20 TypeB_188e20;
 int __cdecl Check(void*, int, Params_188e20*, Params_188e20*, int);
 struct GrapplePropDamageAction_nv_188e20 {
-    int Init(hulkfight::motion::GrapplePropDamageTrack*, int);
+    int Init(hulkfight::motion::GrapplePropDamageTrack*, hulk_intptr);
 };
 hulkfight::motion::GrapplePropDamageAction* __cdecl Alloc(int);
 

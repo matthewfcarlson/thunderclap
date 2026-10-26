@@ -10,7 +10,7 @@ extern Params_17b9f0 TypeA_17b9f0;
 extern Params_17b9f0 TypeB_17b9f0;
 int __cdecl Check(void*, int, Params_17b9f0*, Params_17b9f0*, int);
 struct TargetIconDistanceAction_nv_17b9f0 {
-    int Init(hulkfight::motion::TargetIconDistanceTrack*, int);
+    int Init(hulkfight::motion::TargetIconDistanceTrack*, hulk_intptr);
 };
 hulkfight::motion::TargetIconDistanceAction* __cdecl Alloc(int);
 

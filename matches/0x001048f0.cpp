@@ -4,7 +4,7 @@
 
 class Helper_1048f0 {
   public:
-    float f(int, int);
+    float f(hulk_intptr, int);
 };
 extern volatile const float gZero_1048f0;
 

@@ -4,7 +4,7 @@
 
 class R_69b00 {
   public:
-    int invoke(CMoveAddYTrack*, int);
+    int invoke(CMoveAddYTrack*, hulk_intptr);
 };
 extern R_69b00* FUN_0008d690(int);
 

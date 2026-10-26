@@ -323,3 +323,42 @@ x64-3's inventory for comparison) and reports what is unbound, by kind; that rep
   first data fixup). Left: 274 "pointer not aligned" warnings, the packed `DataLayout_` data items (data_gen, next).
   Unbound (no name table): 56,625 symbols, 59,874 references: FUN_ by address 26,470, C++ names 25,286, data by
   XBE address 2,255, vftables 1,785, C names 403, RTTI descriptors 52.
+
+## 10. Data items with real pointer types (x64-5, 2026-10-25)
+
+The data TUs (`tools/data_gen.py`, [data.md](data.md)) now give every word that holds a pointer a pointer type, so it
+is 4 bytes on the 32-bit builds and 8 bytes, 8-aligned, on 64-bit:
+
+- **Which words.** The XBE's initialized pointers (as before) and the words the sources use as pointers at run time:
+  zero in the XBE or in BSS, so only the code shows them. `tools/data_ptrs.py scan` parses every source that names an
+  address-named global (libclang, the 32-bit MS target: the sources' byte offsets are the game's layout), follows
+  each reference through `&`, casts, constant offsets, subscripts and member accesses to the access it ends in
+  (15,442 accesses), and `evidence` writes the pointer accesses per item to `config/data-ptrs.json` (names and
+  offsets only): 292 items, 406 pointer words, 28 pointer tables.
+- **Types.** By what the word points at: `const char*` (410 items), `hulk_code_ptr` (code, 34),
+  `hulk_vftable_ptr` (11), `const void*` (other data, 66), `void*` (set at run time, 62; 133 items in all gained
+  run-time pointers). An item whose name was an array stays an array (`void* DAT_x[1]`) and a scalar stays a scalar,
+  so a source's `(hulk_intptr)DAT_x` or `DAT_x == 0` means what it meant or stops compiling, never changes silently.
+- **Layouts.** The mixed items (pointers among other words, 101 now, 55 before) are structs with pointer members and
+  `unsigned int` words, packed on the 32-bit builds (`HULK_DATA_PACKED`, the XBE's layout) and naturally aligned
+  on 64-bit. The packed structs that put 274 pointers at 4-byte offsets (the ld64 warnings of section 9) are gone:
+  ld64 links with no warnings.
+- **Proof.** data_gen's own check: 18,832 / 18,832 items byte- and relocation-identical under MSVC 7.1, 1,078 /
+  1,078 TUs. The 2,635 sources that include `include/decls/data/` compile to identical MSVC objects with the new
+  headers, except 5 that passed a pointer item to an `int` (now compile errors, fixed with `(hulk_intptr)` casts:
+  objects identical). arm64: 1,078 / 1,078 data TUs, no 64-bit diagnostics.
+- **On-disk records** are not affected: `layout64.py --check` passes, and of the 19 pointer items the file, save and
+  memory-card code touches, none is itself read or written: they hold pointers to the buffers that are.
+- **Lint.** `tools/data_ptrs.py lint ACC.jsonl` lists the code that is still wrong on 64-bit once the items have
+  pointer types, in 68 sources over 59 items: 142 pointer accesses at a 32-bit byte offset into a pointer-holding
+  item (`((Entry*)&DAT_004d4d08)[1].fn`, `*(T**)((char*)&DAT_x + 8)`), 30 addresses with such an offset, 29 integer
+  reads of a pointer word (`*(unsigned*)&DAT_0048e060` passed as an int), 8 indexed 4-byte integer accesses over
+  pointer items. Each needs the item's real record type in the source (or the source's record as the item's type).
+
+```sh
+build/venv/bin/python tools/data_ptrs.py scan --out ACC.jsonl              # every source (~4 min, 2 processes)
+build/venv/bin/python tools/data_ptrs.py evidence ACC.jsonl               # -> config/data-ptrs.json
+HULK_DATA_DIR=/private/dir build/venv/bin/python tools/data_gen.py         # a private set of data TUs
+build/venv/bin/python tools/wine_build_job.py submit ... --data-src /private/dir/src   # a Wine build with them
+build/venv/bin/python tools/data_ptrs.py lint ACC.jsonl --json LINT.json
+```

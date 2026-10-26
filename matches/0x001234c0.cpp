@@ -2,7 +2,7 @@
 #include "gen/hulkfight.h"
 
 struct PathFormationAction_nv_1234c0 {
-    int build(hulkfight::ai::PathFormationTrack*, int);
+    int build(hulkfight::ai::PathFormationTrack*, hulk_intptr);
 };
 extern int check(void*, int, const void*, const void*, int);
 extern void* alloc(int);

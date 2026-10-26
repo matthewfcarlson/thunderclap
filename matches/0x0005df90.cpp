@@ -4,7 +4,7 @@
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Helper_5df90 {
-    int FUN_0001cfd0(CSnapToWallTrack*, int);
+    int FUN_0001cfd0(CSnapToWallTrack*, hulk_intptr);
 };
 
 hulk_intptr CSnapToWallTrack::vfunc_12(hulk_intptr param) {

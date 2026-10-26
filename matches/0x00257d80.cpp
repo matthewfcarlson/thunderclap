@@ -7,8 +7,8 @@ class Entity_257d80 {
     virtual void f1();
 };
 struct Sequence_nv_257d80 {
-    bool first(int);
-    bool second(int);
+    bool first(hulk_intptr);
+    bool second(hulk_intptr);
 };
 extern bool __cdecl check(int, int*);
 

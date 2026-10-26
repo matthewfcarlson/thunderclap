@@ -10,7 +10,7 @@ extern Params_17bdc0 TypeA_17bdc0;
 extern Params_17bdc0 TypeB_17bdc0;
 int __cdecl Check(void*, int, Params_17bdc0*, Params_17bdc0*, int);
 struct CriticalMassDrainAction_nv_17bdc0 {
-    int Init(hulkfight::motion::CriticalMassDrainTrack*, int);
+    int Init(hulkfight::motion::CriticalMassDrainTrack*, hulk_intptr);
 };
 hulkfight::motion::CriticalMassDrainAction* __cdecl Alloc(int);
 

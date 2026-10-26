@@ -4,7 +4,7 @@
 
 class Other_6abc0 {
   public:
-    int call(int, int);
+    int call(hulk_intptr, int);
 };
 extern "C" Other_6abc0* __cdecl FUN_0008d690(int);
 

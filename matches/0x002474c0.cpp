@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 struct Item {
     char pad[0x38];
-    volatile int a;
+    volatile hulk_intptr a;
     int b;
 };
 void Func(int, int, int);

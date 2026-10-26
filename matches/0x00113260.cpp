@@ -10,7 +10,7 @@ extern Params_113260 TypeA_113260;
 extern Params_113260 TypeB_113260;
 int __cdecl Check(void*, int, Params_113260*, Params_113260*, int);
 struct TokenAction_nv_113260 {
-    int Init(hulkfight::ai::TokenTrack*, int);
+    int Init(hulkfight::ai::TokenTrack*, hulk_intptr);
 };
 hulkfight::ai::TokenAction* __cdecl Alloc(int);
 

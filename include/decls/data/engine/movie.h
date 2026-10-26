@@ -5,6 +5,18 @@
 #ifndef HULK_DECLS_DATA_ENGINE_MOVIE_H
 #define HULK_DECLS_DATA_ENGINE_MOVIE_H
 
+#ifndef HULK_DATA_PRELUDE
+#define HULK_DATA_PRELUDE
+typedef void (*hulk_code_ptr)();         // a pointer to game code
+typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
+#if defined(_WIN64) || defined(_M_X64) || defined(_M_ARM64) || defined(__LP64__) || defined(__x86_64__) || \
+    defined(__aarch64__)
+#define HULK_DATA_PACKED 0
+#else
+#define HULK_DATA_PACKED 1
+#endif
+#endif
+
 struct DataLayout_004d982c;  // packed layout (bytes and pointers), defined in the data TU
 
 // movie/BinkCallback_2.cpp
@@ -17,7 +29,7 @@ extern "C" const char DAT_00427824[13];  // s_fightContext_00427824
 extern "C" const unsigned int DAT_00427834[1];  // unk_00427834
 extern "C" const float DAT_00427838[7];  // fltTbl_00427838
 extern "C" const char DAT_00434304[19];  // s_MayaCreateFunction_00434304
-extern "C" const void* const DAT_00434318;  // PTR_00434318
+extern "C" hulk_code_ptr const DAT_00434318;  // PTR_00434318
 extern "C" const char DAT_0043431c[4];  // s_deg_0043431c
 extern "C" const char DAT_00434320[4];  // s_met_00434320
 extern "C" const char DAT_00434324[6];  // s_shape_00434324
@@ -39,14 +51,14 @@ extern "C" const char DAT_00434530[29];  // s_Ending_quotation_exp_00434530
 extern "C" const char DAT_00434550[19];  // s_Hit_EOF_no_error_00434550
 extern "C" const char DAT_00434564[10];  // s_No_error_00434564
 extern "C" const char DAT_00434570[4];  // s_empty_00434570
-extern "C" const void* const DAT_00434574;  // PTR_00434574
-extern "C" const void* const DAT_00434578;  // PTR_00434578
+extern "C" hulk_code_ptr const DAT_00434574;  // PTR_00434574
+extern "C" hulk_code_ptr const DAT_00434578;  // PTR_00434578
 extern "C" const char DAT_0043457c[40];  // s_No_attribute_definit_0043457c
 extern "C" const char DAT_004345a4[37];  // s_No_object_definition_004345a4
 extern "C" const char DAT_004345cc[7];  // s_object_004345cc
 extern "C" const char DAT_004345d4[5];  // s_attr_004345d4
-extern "C" const void* const DAT_004345dc;  // PTR_004345dc
-extern "C" const void* const DAT_004345e0;  // PTR_004345e0
+extern "C" hulk_code_ptr const DAT_004345dc;  // PTR_004345dc
+extern "C" hulk_code_ptr const DAT_004345e0;  // PTR_004345e0
 extern "C" const char DAT_004345e4[5];  // s_link_004345e4
 extern "C" const char DAT_004345ec[6];  // s_array_004345ec
 extern "C" const char DAT_004345f4[5];  // s_int3_004345f4
@@ -54,8 +66,8 @@ extern "C" const char DAT_004345fc[5];  // s_int2_004345fc
 extern "C" const char DAT_00434604[7];  // s_float3_00434604
 extern "C" const char DAT_0043460c[7];  // s_float2_0043460c
 extern "C" const char DAT_0043461c[5];  // s_enum_0043461c
-extern "C" const void* const DAT_0043462c;  // PTR_0043462c
-extern "C" const void* const DAT_00434630;  // PTR_00434630
+extern "C" hulk_code_ptr const DAT_0043462c;  // PTR_0043462c
+extern "C" hulk_code_ptr const DAT_00434630;  // PTR_00434630
 extern "C" const char DAT_00434634[2];  // s_empty_00434634
 extern "C" const unsigned short DAT_00434636[8];  // ws_empty_00434636
 extern "C" const short DAT_00434648;
@@ -64,7 +76,7 @@ extern "C" const short DAT_0043464c;
 extern "C" const char DAT_0043464e[1];  // s_empty_0043464e
 extern "C" const short DAT_00434650;
 extern "C" const char DAT_00434652[1];  // s_empty_00434652
-extern "C" const void* DAT_004d9800[11];  // ptrTbl_004d9800
+extern "C" hulk_code_ptr DAT_004d9800[11];  // ptrTbl_004d9800
 extern "C" DataLayout_004d982c DAT_004d982c;  // struct_004d982c
 extern "C" unsigned char DAT_0055dbb0[4];
 extern "C" unsigned char DAT_0055dbb4[8];

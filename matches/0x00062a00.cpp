@@ -3,7 +3,7 @@
 #include "gen/global.h"
 
 struct CSmartPropThrowingAction_nv_62a00 {
-    int invoke(CSmartPropThrowingTrack*, int);
+    int invoke(CSmartPropThrowingTrack*, hulk_intptr);
 };
 extern CSmartPropThrowingAction* FUN_0008d690(int);
 
