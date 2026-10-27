@@ -29,13 +29,14 @@ struct SpawnTrack : Track {
     SpawnTrack* vfunc_5(u8_23ec10);
 };
 } // namespace fight
+// at file scope: a block-scope extern in this member is ::del to MSVC but fight::del to clang (left unbound)
+extern void del(fight::SpawnTrack*);
 fight::SpawnTrack* fight::SpawnTrack::vfunc_5(u8_23ec10 flag) {
     *(hulk_intptr*)this = (hulk_intptr)&spawn_vftable;
     ((A_23ec10*)((char*)this + 0x20))->init();
     ((B_23ec10*)((char*)this + 0x14))->init();
     ((SpawnTrack_23ec10*)this)->init();
     if (flag & 1) {
-        extern void del(fight::SpawnTrack*);
         del(this);
     }
     return this;

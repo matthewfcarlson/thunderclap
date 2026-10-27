@@ -2,7 +2,7 @@ typedef unsigned char u8;
 typedef unsigned short u16_267ad0;
 extern void __stdcall FUN_00355364(void*);
 void target(u16_267ad0* param_1) {
-    u8 local[12];
+    u8 local[16];  // a SYSTEMTIME: GetLocalTime writes 16 bytes
     FUN_00355364(local);
     u8* dst = (u8*)param_1;
     *(u16_267ad0*)dst = *(u16_267ad0*)local;
