@@ -1,0 +1,9 @@
+{
+ "_doc": "Words the inventory takes as pointers that are integers: their value only happens to equal a function's or a data item's address. tools/data_gen.py emits them as the integers they are. Byte offsets inside the item; reviewed by hand (tools/data_ptrs.py lint lists candidates under 'record integer field the inventory takes as a pointer').",
+ "items": {
+  "0x00400520": {
+   "offsets": ["0x40", "0x4c", "0xb8"],
+   "why": "heap table (name, size, 0): three heap sizes equal function start addresses (0x64000 twice, 0x12f000); 0x0008d3a0 adds base + size and passes it as a size"
+  }
+ }
+}

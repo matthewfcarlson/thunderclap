@@ -220,6 +220,56 @@ DATA_PRELUDE = [
 ]
 
 
+NOT_POINTERS = os.path.join(ROOT, "config/data-not-pointers.json")
+
+
+def data_ptr_words(inv):
+    """The XBE addresses of the words the inventory takes as pointers, less config/data-not-pointers.json's integers
+    (values that only equal an address)."""
+    try:
+        np = json.load(open(NOT_POINTERS)).get("items", {})
+    except (OSError, ValueError):
+        np = {}
+    drop = {int(a, 16) + int(o, 16) for a, e in np.items() for o in e.get("offsets", ())}
+    return set(inv.data_ptrs) - drop
+
+
+def record_int_conflicts(model):
+    """[(item name, offset, field, value, target)]: integer fields of an item's record view (config/data-ptrs.json)
+    whose word the inventory takes as a pointer. record_item() gives such an item up (its plain form keeps the
+    pointer), so each is either a source that should type the field as a pointer, or an integer for
+    config/data-not-pointers.json."""
+    inv = di.Inventory()
+    inv.collect_starts([], {}, {})
+    pw = data_ptr_words(inv)
+    ev = load_ptr_evidence()
+
+    def leaves(fields, base):
+        for f in fields:
+            off, name, _spell, kind, es, cnt = f[:6]
+            for j in range(cnt):
+                if kind == "record":
+                    yield from leaves(f[6], base + off + j * es)
+                else:
+                    yield base + off + j * es, name, kind, es
+    out = []
+    for key, e in sorted(ev.items()):
+        views = [v for v in e.get("records", ()) if "fields" in v]
+        it = model.item_at(int(key, 16))
+        if len(views) != 1 or it is None or not model.emitted(it) or it["section"] == ".bss":
+            continue
+        v, b = views[0], model.raw(it)
+        for r0 in range(int(v["base"], 16), it["size"] - v["stride"] + 1, v["stride"]):
+            for o, name, kind, es in leaves(v["fields"], r0):
+                if kind in ("code", "pointer", "float") or es != 4:
+                    continue
+                w = struct.unpack_from("<I", b, o)[0]
+                if w and it["addr"] + o in pw and model.target(w) is not None:
+                    t = model.target(w)
+                    out.append((it["cname"], o, name, w, "%s+%d" % (t[1], t[2]) if t[2] else t[1]))
+    return out
+
+
 def load_ptr_evidence():
     try:
         return json.load(open(EVIDENCE_PTRS)).get("items", {})
@@ -643,7 +693,7 @@ def generate(model, only=None):
     # aligned words the inventory takes as pointers (re-derived the inventory's way)
     inv = di.Inventory()
     inv.collect_starts([], {}, {})
-    ptr_words = set(inv.data_ptrs)
+    ptr_words = data_ptr_words(inv)
     by_obj = collections.defaultdict(list)
     for it in inv_items:
         if model.emitted(it) and (only is None or it["object"] == only):
@@ -664,7 +714,7 @@ def pointer_layout(model):
     inv = di.Inventory()
     inv.collect_starts([], {}, {})
     w = TUWriter(model, [])
-    w.ptr_words = set(inv.data_ptrs)
+    w.ptr_words = data_ptr_words(inv)
     out = {}
     for it in model.items:
         if not model.emitted(it) or it["kind"] in ("string", "wstring"):
@@ -689,7 +739,7 @@ def record_items(model):
     inv = di.Inventory()
     inv.collect_starts([], {}, {})
     w = TUWriter(model, [])
-    w.ptr_words = set(inv.data_ptrs)
+    w.ptr_words = data_ptr_words(inv)
     out = {}
     for key, e in w.ev.items():
         if not e.get("records"):

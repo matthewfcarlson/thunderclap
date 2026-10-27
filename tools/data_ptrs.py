@@ -538,6 +538,9 @@ def cmd_lint(a):
             if r.get("kind") == "int" and r.get("indexed") and r.get("size") == 4:
                 hits["indexed 4-byte integer access over a pointer item"].append(
                     (r["src"], r["line"], it["cname"], r.get("off"), r["type"]))
+    for name, o, field, w, tgt in data_gen.record_int_conflicts(m):
+        hits["record integer field the inventory takes as a pointer"].append(
+            ("config/data-ptrs.json", 0, name, o, "%s = %#x (%s)" % (field, w, tgt)))
     rep = {k: {"count": len(v), "sources": len({x[0] for x in v}), "rows": sorted(v, key=str)} for k, v in hits.items()}
     for k, v in sorted(rep.items()):
         print("%-60s %5d accesses in %4d sources" % (k, v["count"], v["sources"]))
