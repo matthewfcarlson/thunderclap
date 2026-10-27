@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3270 inputs, branch coverage 207/224, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3284 inputs, branch coverage 206/224, incomplete)
 // FUN_0003c1d0 @ 0x0003c1d0
 // cl-flags: /GS
 #include "compat/ptr.h"
@@ -228,7 +228,8 @@ void Character_3c1d0::FUN_0003c1d0(int unused, float dt)
         fr.kin = &kin14;
         fr.ang.f = kin14.FUN_002220d0();
         Body_3c1d0 *b2 = part->FUN_00059a40();
-        hulk_freg t = (b2 == 0) ? 0.0f : b2->kin.FUN_002220d0();
+        // st(0): the angle (FUN_002220d0 returns atan2's unrounded st(0)) is subtracted before any store
+        hulk_freg t = (b2 == 0) ? (hulk_freg)0.0f : (hulk_freg)b2->kin.FUN_002220d0();
         hitNrm.z = 0;
         hitNrm.y = 0;
         hitNrm.x = 0;

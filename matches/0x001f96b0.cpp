@@ -1,5 +1,7 @@
+// The 8-byte id, passed by value in two stack words (the original copies both with FUN_0027af30).
 struct Param {
     int a;
+    int b;
     void finish();
 };
 struct Two_1f96b0 {
@@ -24,9 +26,9 @@ struct Mgr_1f96b0 {
 struct Owner_1f96b0 {
     char pad[0xc6c];
     Mgr_1f96b0* mgr;
-    void target(Param x, int y, Two_1f96b0 z, int w, short v);
+    void target(Param x, Two_1f96b0 z, int w, short v);
 };
-void Owner_1f96b0::target(Param x, int y, Two_1f96b0 z, int w, short v) {
+void Owner_1f96b0::target(Param x, Two_1f96b0 z, int w, short v) {
     Temp_1f96b0 t;
     t.init(&x);
     t.c = z.a;

@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1839 inputs, branch coverage 142/148, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3149 inputs, branch coverage 142/148, incomplete)
 // FUN_000a6400 @ 0x000a6400
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern "C" double sqrt(double);
@@ -265,7 +266,7 @@ void Camera::FUN_000a6400(float a1, float a2)
     }
 
     if (f350->FUN_00035910() == 2 || f350->FUN_00035910() == 3) {
-        float R = FUN_000a02a0(f238 + 180.0f);
+        hulk_freg R = FUN_000a02a0(f238 + 180.0f);    // st(0) for both limits
         f.p1c = FUN_000a03c0(f.p1c, (float)(R - 70.0f), (float)(70.0f + R));
     }
 
@@ -283,7 +284,7 @@ void Camera::FUN_000a6400(float a1, float a2)
     f.limLo = -180.0f;
     f.limHi = 135.0f;
     if (f.hlen >= 5.0f) {
-        float X = FUN_000a0450(dp) + 180.0f;
+        hulk_freg X = FUN_000a0450(dp) + 180.0f;      // st(0) for both limits
         f.limLo = (float)(X - 90.0f);
         f.limHi = (float)(X + 90.0f);
     }
@@ -303,7 +304,7 @@ void Camera::FUN_000a6400(float a1, float a2)
         }
         if (pass) {
             f.u = f.o48 + f46c;
-            float R2 = FUN_000a02a0(f.ang2 + 180.0f);
+            hulk_freg R2 = FUN_000a02a0(f.ang2 + 180.0f);   // st(0) for both limits
             f.limLo = (float)(R2 - f.u);
             f.limHi = (float)(R2 + f.u);
             f.p1c = FUN_000a03c0(f.p1c, f.limLo, f.limHi);
@@ -358,7 +359,7 @@ void Camera::FUN_000a6400(float a1, float a2)
     f.abits &= 0x7fffffff;
     f488 = 0;
     if (!(f.afl <= 1e-05f)) {
-        float ia = 1.0f / a2;
+        hulk_freg ia = 1.0f / a2;   // st(0) for all six products (the original never stores it)
         float x0 = v170.x - v248.x;
         float y0 = v170.y - v248.y;
         float z0 = v170.z - v248.z;
