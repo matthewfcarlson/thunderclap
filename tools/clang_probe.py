@@ -94,14 +94,15 @@ NATIVE = ["-include", "compat/native.h", "-fno-strict-aliasing", "-fwrapv", "-fn
 # them to frame 6,000 (docs/native-float.md section 9). 151 of the 159 functions whose unrounded return this would
 # otherwise round now return hulk_freg (native_link.py binds the callers' float references).
 X87 = ["-mno-sse", "-mfpmath=387", "-ffp-eval-method=double", "-ffp-contract=off"]
-# perf1 (proposal, docs/wine-float.md): HULK_WINE_FLOAT=sse builds the game's TUs with SSE2 scalar float instead of x87
-# (Rosetta 2 emulates x87 in software: play3 gameplay 13.8 -> 2.2 ms/frame on an M3 Max) and runs three IR passes that
-# keep the x87 build's results bit for bit (play3: all checkpoints identical to frame 8520): sse_fix_ir() below.
-FLOAT_SSE = os.environ.get("HULK_WINE_FLOAT") == "sse"
+# perf1 (docs/wine-float.md section 13): the game's TUs are built with SSE2 scalar float by default; HULK_WINE_FLOAT=x87
+# selects the x87 build above. Rosetta 2 emulates x87 in software (play3 gameplay 13.8 -> 2.2 ms/frame on an M3 Max);
+# sse_compile's three IR passes keep the x87 build's results bit for bit (play3: every checkpoint identical to 8550).
+FLOAT_SSE = os.environ.get("HULK_WINE_FLOAT", "sse") != "x87"
 if FLOAT_SSE:
     X87 = ["-msse2", "-mfpmath=sse", "-ffp-eval-method=double", "-ffp-contract=off"]
-# the functions that stay x87 code in the SSE build (tools/x87_keep.py writes it; see _x87_list)
-X87_KEEP = os.environ.get("HULK_WINE_X87_KEEP") or os.path.join(ROOT, "build/x87_keep.txt")
+# the functions that stay x87 code in the SSE build: written by main() after the snapshot (compute_x87_keep), or the file
+# HULK_WINE_X87_KEEP names (then used as is)
+X87_KEEP = os.environ.get("HULK_WINE_X87_KEEP") or os.path.join(OUT, "x87_keep.txt")
 # ubsan1 (docs/native-float.md "float-cast-overflow"): HULK_NATIVE_SANITIZE=float-cast checks every float -> int
 # conversion of the game's TUs (the `msvc` objects only) and calls __ubsan_handle_float_cast_overflow (our handler in
 # src/platform/sdl/xdk/startup.cpp, built with HULK_UBSAN_FLOAT=1 by native_link.py: it logs the site and the run goes on);
@@ -282,6 +283,7 @@ _X87_CALL = re.compile(r"call [^@]*@(%s)\(" % "|".join(_X87_FNS))
 
 
 _X87_LIST = None
+_KEEP_BY_TU = None      # {TU: the x87-keep functions it defines}, when main() computed the list (cache keys per TU)
 
 
 def _x87_list():
@@ -333,6 +335,96 @@ def sse_x87fn_ir(ll):
     return "\n".join(out), n
 
 
+_KEEP_DEF = re.compile(r'^define [^@]*?(float|double|void|i\d+|ptr|\{[^}]*\}|%[\w.]+|x86_fp80)? ?@("[^"]+"|[\w.$?@]+)\(')
+_KEEP_CALL = re.compile(r'(?:%[\w.]+ = )?(?:tail )?call [^@]*?(float|double|void|i\d+|ptr|%[\w."]+)? ?@("[^"]+"|[\w.$?@]+)\(')
+
+
+def _keep_scan(rel, digest, clang):
+    """The IR facts compute_x87_keep needs about one TU (cached by content): {function: [return type, [[callee, its
+    return type], ...]]}, calls of float/double-returning functions and of the math shims only."""
+    text = open(os.path.join(SNAP, rel), "rb").read()
+    flags = [f for f in CONFIGS["msvc"]["flags"] + COMMON if f != "-c"] + ["-S", "-emit-llvm", "-w"]
+    key = hashlib.sha1(b"x87scan1" + text + digest.encode() + repr(flags).encode() + clang.encode()).hexdigest()[:20]
+    d = os.path.join(CACHE, "x87scan")
+    os.makedirs(d, exist_ok=True)
+    p = os.path.join(d, key + ".json")
+    if os.path.exists(p):
+        return json.load(open(p))
+    r = subprocess.run([clang] + flags + ["-I" + os.path.join(SNAP, "include"), "-I" + os.path.join(SNAP, "repo-include"),
+                                          os.path.join(SNAP, rel), "-o", "-"], capture_output=True, text=True,
+                       errors="replace", timeout=900)
+    fns, cur = {}, None
+    for l in r.stdout.split("\n"):
+        m = _KEEP_DEF.match(l)
+        if m:
+            cur = m.group(2).strip('"')
+            fns[cur] = [m.group(1) or "", set()]
+        elif cur and l == "}":
+            cur = None
+        elif cur:
+            for m in _KEEP_CALL.finditer(l):
+                if (m.group(1) or "") in ("float", "double") or m.group(2).strip('"') in _X87_FNS:
+                    fns[cur][1].add((m.group(2).strip('"'), m.group(1) or ""))
+    out = {k: [v[0], sorted(map(list, v[1]))] for k, v in fns.items()}
+    if r.returncode == 0:
+        tmp = p + ".tmp%d" % os.getpid()
+        with open(tmp, "w") as f:
+            json.dump(out, f)
+        os.replace(tmp, p)
+    return out
+
+
+def compute_x87_keep(jobs, clang, bindings=None):
+    """The functions the SSE build keeps as x87 code (sse_x87fn_ir; docs/wine-float.md section 13). The Wine build's
+    sin, cos, tan, atan, atan2, exp, asin, acos, log, log10 and pow return the 80-bit x87 result in st(0), as the
+    original's inlined fsin/fpatan leave it; x87 code computes on with it, SSE code would store it to a double first.
+    So: every function that calls one of them, and, to a fixpoint, every function that uses the floating-point result
+    of a call to such a function returning float or double (it returns st(0) unrounded: 0x000fce60 calls 0x00224ea0).
+    Callees are identified by address through the binding map (wine_link's bindings.json: the symbol each caller
+    names -> the address; definitions: address -> the defining symbol), else by a FUN_<address> in the name, else by
+    name. Indirect calls are not followed (no virtual function returns such a value). Deterministic: sorted names."""
+    tus = tu_list()
+    digest = include_digest(SNAP)
+    allf, where = {}, {}
+    with concurrent.futures.ThreadPoolExecutor(jobs) as ex:
+        for rel, fns in zip(tus, ex.map(lambda rel: _keep_scan(rel, digest, clang), tus)):
+            for k, v in fns.items():
+                allf.setdefault(k, v)
+                where.setdefault(k, set()).add(rel)
+    addr = {}
+    if bindings and os.path.exists(bindings):
+        bj = json.load(open(bindings))
+        for a_, sym in bj.get("definitions", {}).items():
+            addr[sym] = a_
+        for sym, b in bj.get("bindings", {}).items():
+            if b.get("addr"):
+                addr[sym] = b["addr"]
+
+    def key(n):
+        for c in (n, "_" + n):
+            if c in addr:
+                return int(addr[c], 16)
+        # a hulk_freg function: `double` here (N in the mangled name), `float` (M) in the verification build's symbol
+        k = n.rfind("@@")
+        for i in range(k + 2, len(n)) if k >= 0 else ():
+            if n[i] == "N" and n[:i] + "M" + n[i + 1:] in addr:
+                return int(addr[n[:i] + "M" + n[i + 1:]], 16)
+        m = re.search(r"FUN_([0-9a-f]{8})", n)
+        return int(m.group(1), 16) if m else n
+    keep = {n for n, v in allf.items() if any(c in _X87_FNS for c, _ in v[1])}
+    while True:
+        ext = {key(n) for n in keep if allf[n][0] in ("float", "double")}
+        more = {n for n, v in allf.items() if n not in keep and any(rt in ("float", "double") and key(c) in ext
+                                                                    for c, rt in v[1])}
+        if not more:
+            by_tu = collections.defaultdict(list)
+            for n in sorted(keep):
+                for rel in where[n]:
+                    by_tu[rel].append(n)
+            return sorted(keep), len(allf), bool(addr), dict(by_tu)
+        keep |= more
+
+
 def sse_compile(cmd, out_obj):
     """cmd compiles to an object: compile to IR instead, apply sse_castfix_ir, then IR -> object."""
     ll = out_obj + ".ll"
@@ -363,7 +455,8 @@ def compile_one(cfg, rel, digest, clang):
     flags = spec["flags"] + COMMON
     sse = cfg == "msvc" and FLOAT_SSE
     key = hashlib.sha1(text + digest.encode() + repr(flags).encode() + clang.encode()
-                       + (b"ssefix1" + "\n".join(sorted(_x87_list())).encode() if sse else b"")).hexdigest()[:20]
+                       + (b"ssefix1" + "\n".join(_KEEP_BY_TU.get(rel, []) if _KEEP_BY_TU is not None else sorted(_x87_list())).encode()
+                          if sse else b"")).hexdigest()[:20]
     d = os.path.join(CACHE, cfg)
     os.makedirs(d, exist_ok=True)
     res_p = os.path.join(d, key + ".json")
@@ -962,6 +1055,17 @@ def main(argv=None):
     cfgs = a.configs.split(",")
     if a.snapshot or not os.path.exists(os.path.join(SNAP, "manifest.json")):
         snapshot()
+    if FLOAT_SSE and "msvc" in cfgs and not a.only and not os.environ.get("HULK_WINE_X87_KEEP"):
+        global _X87_LIST
+        bindings = os.path.join(os.environ.get("HULK_WINE_DIR") or os.path.join(ROOT, "build/native"), "bindings.json")
+        global _KEEP_BY_TU
+        keep, nfn, mapped, _KEEP_BY_TU = compute_x87_keep(a.jobs, clang, bindings)
+        with open(X87_KEEP, "w") as f:
+            f.write("".join(k + "\n" for k in keep))
+        _X87_LIST = set(keep)
+        print("x87-keep: %d of %d functions stay x87 (%s) -> %s" % (
+            len(keep), nfn, "callees by the binding map" if mapped else "no binding map: callees by FUN_ name", X87_KEEP),
+            flush=True)
     if any(CONFIGS[c].get("root") for c in cfgs) and (a.snapshot or not os.path.exists(os.path.join(POC, "compat.h"))):
         make_poc()
     digests = {None: include_digest(SNAP)}
@@ -987,6 +1091,7 @@ def main(argv=None):
     man = Manifest()
     rep = {"clang": subprocess.run([clang, "--version"], capture_output=True, text=True).stdout.splitlines()[0],
            "flags": {k: v["flags"] + COMMON for k, v in CONFIGS.items() if k in results},
+           "float": "sse" if FLOAT_SSE else "x87", "x87_keep": len(_x87_list()) if FLOAT_SSE else None,
            "snapshot": {"tree_report": {k: json.load(open(os.path.join(SNAP, "report.json")))["generator"][k]
                                         for k in ("tu_files", "verified_functions", "modes")}},
            "configs": analyse(results, man, tus),

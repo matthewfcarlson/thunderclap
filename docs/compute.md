@@ -144,6 +144,13 @@ $J $N sync | lineages   # inputs on the hosts (submit does it) | lineage workspa
   sources, warm caches, fresh state: build 17-19 min. One changed function source, state and map reused: 5 min in all
   (build 2 min of verification, probe 25 s, link 1.8 min) plus a 20 s replay to frame 1000. Laptop (2 slots, loaded): 12 min
   for the resumed link-only path, versus 5 min on mac2 and 8 min on mac1.
+- **SSE float (default since perf1, 2026-10-26; [wine-float.md](wine-float.md) section 13).** The game's TUs are built with
+  SSE2 scalar float; `--env HULK_WINE_FLOAT=x87` builds the x87 image (checkpoint-identical, about 6x slower under Rosetta).
+  An SSE build adds a `map` stage before the probe when the binding map is not reused (`wine_link.py --no-inventory --no-link`,
+  about 100 s on mac2) and the probe computes the x87-keep list (an IR scan per TU, cached; about 40 s more on a cold cache);
+  the link reuses the map. HEAD on mac2 (6 slots, fresh lineage): build 42 min, map 104 s, probe 64 s, link 2.6 min. play3
+  headless to frame 8500: 23 s (x87: 123 s); gameplay 2.2 ms/frame (x87: 13.8), the level load at 420-480 2.5 s (x87: 9.3).
+  The summary has `float`, `x87_keep` (the list's length) and `nb-out/x87_keep.txt`.
 - **Reproducible.** Images from mac2, mac1 and the laptop are byte-identical except the PE link time stamp, and the play3
   checkpoints agree for every frame to 1020. Three things made them differ and are fixed: `wine_link` sorted objects by cache
   file name, which embeds the compiler's path (now by TU); a cold `build/equiv/crt2.json` raced between workers and the failed

@@ -5,6 +5,9 @@ Why does the Wine image's play3 replay differ from the hybrid recording by 1-14 
 on 32-bit now and on 64-bit later? Tools: `tools/x87_scan.py` (tracked); experiment scripts and outputs in
 `build/x87/` (local, `build/x87/RESUME.md`).
 
+Since perf1 (2026-10-26, section 13) the Wine build's game code is SSE2 by default (`HULK_WINE_FLOAT=x87`: the x87 build these
+sections describe), with results identical to the x87 build.
+
 Outcome (native16, 2026-10-21): the float flags were adopted (`-ffp-eval-method=double -ffp-contract=off`, `hulk_freg` returns
 bound at link; sections 8-9), and the play3 replay now matches checkpoints 0-420 and 480-840 (answer 3's "everything through 690
 except 450" is older). Later checkpoints are in [wine-replay.md](wine-replay.md).
@@ -464,9 +467,64 @@ exp log log10 pow asin acos fmod`). Switch: `HULK_SOFT_X87=1` in the environment
 checkpoint hash in 30,000 frames (1,001 checkpoints, identical to the control, which diverges from the recording at 3900 for other reasons); the game calls
 `sin` more than 1,000,000 times in the first 3,000 frames.
 
+## 13. SSE2 float, the default (perf1, 2026-10-26)
+
+**Why.** A headless play3 replay spent 72-75% of its main-thread samples on x87 instructions (an in-process sampler,
+mac2 and the laptop; `fstp`/`fld m32` alone 44%). Rosetta 2 emulates x87 in software: the game's 4x4 matrix multiply
+(FUN_0022ca90) takes 2.75 us per call as x87 code at any optimisation level and 43 ns as SSE2 code (arm64: 19 ns).
+Game simulation and the game's own render traversal were 66% and 31% of a frame; the pddi front end 0.6%, bgfx
+(noop) and the draw sink under 0.2%, audio 2.7%, waits 0.4%.
+
+**What.** The game's TUs (clang_probe's `msvc` configuration, and equiv.py `--wine`) are compiled with
+`-msse2 -mfpmath=sse -ffp-eval-method=double -ffp-contract=off` at -O0 unless `HULK_WINE_FLOAT=x87` (the x87 build of
+the sections above, unchanged: same flags, cache keys and objects). `clang_probe.sse_compile` compiles to IR, runs
+three passes and compiles the IR to the object. They cover the one mechanism by which the two differ here: x87
+code computes on with a call's st(0) result unrounded, SSE code must store it first.
+
+| pass | what | found by |
+|---|---|---|
+| x87-keep (`sse_x87fn_ir`) | Functions that call an 80-bit math shim (sin cos tan atan atan2 exp asin acos log log10 pow return the x87 result in st(0), as the original's inlined `fpatan` leaves it) and, to a fixpoint, functions that use the float/double result of a call to such a function, stay x87 code (a function attribute group with `-sse,-sse2`; byte-identical to the x87 build's code). 268 functions (109 seeds). | play3 differed at 450 (camera y +1 ULP, CChaseCamera FUN_000a04c0: `atan2(...)*57.29...`) and from 780 (gameplay RNG); the closure: 0x000fce60 uses 0x00224ea0 (`Angle`, returns atan2's st(0)) |
+| retfix (`sse_retfix_ir`) | A call declared `float` is read as `double` (`call double` + `fptrunc`; both return in st(0) on i686) and the caller's `fpext` uses the double: MSVC 7.1 never rounds a returned st(0), so callees return wider values than their callers declare (`hulk_freg`); x87 code keeps them, SSE code would round to float. | from 870: ImpulseBasedCollisionSolver FUN_002f8300, the virtual `v4()` |
+| castfix (`sse_castfix_ir`) | `fpext(sitofp/uitofp ... to float)` becomes a direct conversion to double: x87 (`fild`) and MSVC never round `(float)i` inside an expression; SSE (`cvtsi2ss`) does. | changes no play3 checkpoint; checker parity (0x00320330) |
+
+The x87-keep list is computed by the probe after the snapshot (`compute_x87_keep`, one IR scan per TU, cached; written
+to `build/clang-probe/x87_keep.txt`, `tools/x87_keep.py` prints it). Callees are identified by address through
+wine_link's binding map (`bindings.json`: the symbol a caller names -> address; definitions: address -> symbol; a
+`hulk_freg` function's clang name differs from the verification build's in the return type letter, N for M), which
+`wine_link.py --no-inventory --no-link` makes from the verification build alone: `wine_build_run.py` runs that before
+the probe when the map is not reused (stage `map`), and the link reuses it. Each object's cache key carries the
+x87-keep functions its TU defines. Indirect calls are not followed (no virtual function returns such a value). A local
+build (`clang_probe.py` by hand) needs the map first, `wine_link.py --no-inventory --no-link`; without it the probe says
+"no binding map: callees by FUN_ name" and the closure misses callees with other names (0x00224ea0's `Angle`).
+equiv.py `--wine` checks the same code (`sse_compile`; `--float sse|x87`, `--x87-keep FILE`) and binds clang's
+`__xmm@`/`__ymm@` constant-pool symbols (negation's sign mask) as the object's own read-only data.
+
+**How it was found.** Bisected with mixed images (the TUs of a list SSE, the rest x87; within a TU, functions switched
+with `#pragma clang attribute push(__attribute__((target("sse2"))), apply_to = function)` around their lines), each
+step a link-only build on one lineage and a replay to 1050 compared with the x87 control (`build/perf1/bis/`).
+Stack-layout source bugs show up too: 0x001bc530 (a three-float write into a two-float local, fixed in 5d0b43182)
+crashed the SSE image at 1350.
+
+**Result.** play3, mac2, HEAD: x87 control against SSE, checkpoints identical at all common frames (286, 0-8550;
+also with the rng/camera/clock region lines). Gameplay 13.8 -> 2.2 ms/frame (6.3x), the level load (420-480) 9.3 ->
+2.5 s, a replay to 8500 frames 122 -> 22 s. The HEAD builds (x87 control and default SSE, one lineage): 2,571 of 2,571
+TUs compile in both, strict link rc 0, 1,329 symbols unbound in both.
+
+**Checker.** `equiv.py --wine --inputs 60` over all 5,140 equivalent/ sources, `--float x87` against `--float sse`:
+x87 5,014 equivalent / 118 fail / 5 inconclusive / 3 unsupported; SSE 5,010 / 122 / 5 / 3. Changed: 0x00309520 passes
+under SSE only; 0x000ffc40 and 0x001065b0 failed on a signalling NaN that the SSE conversions quiet (the original copies
+the bits): a new rule, `nanquiet`, counts such an input inconclusive, as `nansign` does a NaN's sign (both pass then).
+Open: 0x000e14b0 and 0x000e8790 (the same shape: a float from a call through the function pointer DAT_004de948 times
+`(reverse == 0) * 2 - 1`, then a virtual call; under SSE three patched inputs report `this` of that call) and
+0x001bea80 (a byte argument of call #19); neither changes a play3 checkpoint. `tests/equiv/regress.py`: 387/387 with
+SSE the default; three cases about x87-only artefacts are pinned to x87 with the per-case `float` option
+(nan_sign_off: SSE negates with a sign-mask xor, as fchs does; lstatic_off; f0e60 vsplit_wrong, whose first
+difference changes).
+
 ## Files
 
 - `tools/x87_scan.py`: the scanner (tracked).
+- `tools/x87_keep.py`: section 13's x87-keep list (tracked); `build/perf1/` (local): the profiler, bisect scripts and runs.
 - `tools/xemu_x87_probe.py`: the xemu x87 probe of section 11 (tracked; mac2 only).
 - `build/x87/` (local): `x87cc.py` (compiler stand-in: modes o0, o1, o1dyn, sroadyn, m2rdyn, o0sroa, bis*),
   `mkws.sh`, `link.sh`, `rrun.sh`, `bisect.sh`, `bisect_loop.sh`, `scan-*.{txt,json}`, `intrinsics.{py,json}`,

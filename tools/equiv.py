@@ -7073,8 +7073,13 @@ def _nan_sign_only(a, b):
     `x * -1.0f` into `fchs` (flips the sign of a NaN), clang keeps `fmul` by -1 (x87 returns the NaN operand
     unchanged): IEEE leaves the sign of an arithmetic NaN unspecified, so this is not a behaviour difference unless
     a NaN is produced, which the game does not rely on. Native mode only; the input is counted inconclusive."""
-    return NATIVE_MODE and "nansign" not in EQUIV_OFF and (a ^ b) == 0x80000000 and (a & 0x7F800000) == 0x7F800000 \
-        and (a & 0x7FFFFF) != 0
+    if not NATIVE_MODE or (a & 0x7F800000) != 0x7F800000 or (a & 0x7FFFFF) == 0:
+        return False
+    if "nansign" not in EQUIV_OFF and (a ^ b) == 0x80000000:
+        return True
+    # (perf1, nanquiet) a signalling NaN the original copies as bits (`mov`) and the SSE build's code converts
+    # (cvtss2sd/cvtsd2ss set the quiet bit, 0x00400000): the same NaN, quieted; the game never makes signalling NaNs
+    return "nanquiet" not in EQUIV_OFF and (a ^ b) & 0x7FFFFFFF == 0x00400000 and (b & 0x7F800000) == 0x7F800000
 
 
 def _uninit_diff(d, vals):
@@ -8141,7 +8146,7 @@ def deleting_wrapper_asm(sym, dtor):
 
 def compile_native(src, outdir, extra=(), tail_asm=None):
     """(round 18, native) SRC compiled the way the native build compiles it (tools/clang_probe.py's `msvc`
-    configuration: i686-pc-windows-msvc, -O0, x87, compat/native.h, the same dialect switches), to a COFF object in
+    configuration: i686-pc-windows-msvc, -O0, SSE2 or x87 (HULK_WINE_FLOAT), compat/native.h, the same dialect switches), to a COFF object in
     OUTDIR. Raises CompileError. `hulk_freg` is `double` here (include/compat/ptr.h), `float` under MSVC 7.1."""
     import clang_probe as cp
     clang = cp.tool("clang++")
@@ -8153,6 +8158,10 @@ def compile_native(src, outdir, extra=(), tail_asm=None):
     if not _NATIVE_CLANG_OK[clang]:
         raise CompileError("native mode needs LLVM's clang (Homebrew llvm, ~/llvm or $HULK_LLVM), not " + clang)
     flags = list(cp.CONFIGS["msvc"]["flags"]) + cp.COMMON + ["-Wno-everything"]
+    # (perf1) the float code per call (HULK_WINE_FLOAT, `--float`; regress.py's per-case `float`): SSE2 by default
+    sse = os.environ.get("HULK_WINE_FLOAT", "sse") != "x87"
+    swap = {"-mno-sse": "-msse2", "-mfpmath=387": "-mfpmath=sse"} if sse else {"-msse2": "-mno-sse", "-mfpmath=sse": "-mfpmath=387"}
+    flags = [swap.get(f, f) for f in flags]
     obj = os.path.join(outdir, "native.obj")
     if tail_asm:
         # (nf5, dd) SRC followed by module-level assembly: the same translation unit, one more function
@@ -8161,7 +8170,7 @@ def compile_native(src, outdir, extra=(), tail_asm=None):
             f_.write('#include "%s"\n__asm__("%s");\n' % (os.path.abspath(src).replace("\\", "/"), tail_asm.replace("\t", "\\t").replace('"', '\\"')))
         src = wrap
     cmd_ = [clang] + flags + list(extra) + ["-I" + os.path.join(ROOT, "include"), src, "-o", obj]
-    if getattr(cp, "FLOAT_SSE", False):
+    if sse:
         # (perf1) the SSE build (HULK_WINE_FLOAT=sse) compiles through clang_probe's IR passes: check the same code
         rc_, err_ = cp.sse_compile(cmd_, obj)
         if rc_:
@@ -11386,7 +11395,16 @@ def main(argv):
     p.add_argument("--strict-decl", action="store_true",
                    help="(round 23) a callee whose stack arity our declaration states wrongly (decl_arity) fails level 2")
     p.add_argument("--json", action="store_true")
+    p.add_argument("--float", choices=("sse", "x87"),
+                   help="(perf1) with --wine: the Wine build's float code to check (default sse, or HULK_WINE_FLOAT)")
+    p.add_argument("--x87-keep", metavar="FILE",
+                   help="(perf1) with --wine under sse: the x87-keep list (default build/clang-probe/x87_keep.txt, the "
+                        "last probe's; HULK_WINE_X87_KEEP)")
     a = p.parse_args(argv)
+    if a.float:
+        os.environ["HULK_WINE_FLOAT"] = a.float
+    if a.x87_keep:
+        os.environ["HULK_WINE_X87_KEEP"] = os.path.abspath(a.x87_keep)
     if a.strict_decl:
         global STRICT_DECL
         STRICT_DECL = True

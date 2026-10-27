@@ -14,8 +14,12 @@ The run directory is thrown away when the job ends. What survives is a per-host 
 Local-only inputs (the extracted disc, build/functions.csv, rtti.json, the data TUs, the prebuilt third-party
 libraries) are put on each host by `wine_build_job.py sync` (NB/inputs-STAMP, immutable, named by content hash) and linked in.
 
+Float (docs/wine-float.md section 13): SSE2 unless the spec's env has HULK_WINE_FLOAT=x87. An SSE build that probes and links
+makes the binding map first (stage `map`, wine_link --no-inventory --no-link, unless the map is reused): the probe's x87-keep
+list names callees by address through it; the link then reuses it.
+
 Outputs (fetched by the queue): nb-out/{summary.json,*.log,link-report.json,unbound.txt,image.sha256,ckpt.txt,
-trace.txt,result.json} and, when the spec asks for it, the image and its DLLs in nb-out/image/.
+trace.txt,result.json,x87_keep.txt} and, when the spec asks for it, the image and its DLLs in nb-out/image/.
 Exit status: 0 all requested stages done, 3 inputs stale/missing, 4 a build stage failed, 5 the replay failed.
 """
 import fcntl
@@ -419,17 +423,35 @@ def main():
             shutil.copyfile(os.path.join(lin, "build/tree/state.json"), os.path.join(out, "tree-state.json"))
         else:
             ok = False
+    sse = env.get("HULK_WINE_FLOAT", "sse") != "x87"
+    summ["float"] = "sse" if sse else "x87"
+    map_built = False
+    if ok and "probe" in stages and sse and "link" in stages:
+        # perf1 (docs/wine-float.md section 13): the SSE build's x87-keep list (clang_probe, after the snapshot) names
+        # callees by address through the binding map, which comes from the verification build alone: make it first
+        # (unless it is reused), and the link reuses it
+        bj = os.path.join(env.get("HULK_WINE_DIR") or os.path.join(lin, "build/native"), "bindings.json")
+        if not (reuse and os.path.exists(bj)):
+            argv = [py, "tools/wine_link.py", "--jobs", jobs, "--no-inventory", "--no-link"]
+            rc, wall = stage("map", argv, env, lin, out)
+            summ["wall"]["map"], summ["stages"]["map"] = wall, rc
+            ok = rc == 0
+            map_built = ok
     if ok and "probe" in stages:
         argv = [py, "tools/clang_probe.py", "--snapshot", "--configs", "msvc", "--jobs", jobs]
         rc, wall = stage("probe", argv, env, lin, out)
         summ["wall"]["probe"], summ["stages"]["probe"] = wall, rc
         ok = rc == 0
+        kp = os.path.join(lin, "build/clang-probe/x87_keep.txt")
+        if ok and sse and os.path.exists(kp):
+            shutil.copyfile(kp, os.path.join(out, "x87_keep.txt"))
+            summ["x87_keep"] = sum(1 for _ in open(kp))
     if ok and "link" in stages:
         exe = os.path.join(lin, "build/native/link/hulk-strict.exe")
         summ["purged_cached_errors"] = purge_cached_errors(os.path.join(env["HULK_WINE_CACHE"], "equiv"))
         if os.path.exists(exe):
             os.unlink(exe)
-        argv = [py, "tools/wine_link.py", "--jobs", jobs] + (["--reuse-map"] if reuse else []) + (["--gfx"] if spec.get("gfx") else [])
+        argv = [py, "tools/wine_link.py", "--jobs", jobs] + (["--reuse-map"] if reuse or map_built else []) + (["--gfx"] if spec.get("gfx") else [])
         rc, wall = stage("link", argv, env, lin, out)
         summ["wall"]["link"], summ["stages"]["link"] = wall, rc
         ok = rc == 0 and os.path.exists(exe)

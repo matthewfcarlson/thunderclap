@@ -590,9 +590,10 @@ CASES = {
     "0x001a5e50_native_ctor_vptr_off": ("fail", "unexpected write to this+0x0", 0, {"src": "0x001a5e50_native_ctor_vptr", "native": True, "n_inputs": 100, "equiv_off": "ctorvptr"}),
     "0x001a5e50_native_ctor_vptr_wrong": ("fail", None, 0, {"native": True, "n_inputs": 100}),
     # nansign: `x *= -1.0f` is fchs in MSVC 7.1 (flips a NaN's sign) and fmul in clang (keeps it): inputs whose only
-    # difference is a NaN sign are inconclusive. A real difference (y not negated) still fails
+    # difference is a NaN sign are inconclusive. A real difference (y not negated) still fails. (perf1: clang's SSE code
+    # negates with a sign-mask xor, as fchs does, so the `_off` case needs the x87 build)
     "0x00301410_native_nan_sign": ("equivalent", None, 0, {"native": True, "n_inputs": 100}),
-    "0x00301410_native_nan_sign_off": ("fail", "unexpected write to this+0x14", 0, {"src": "0x00301410_native_nan_sign", "native": True, "n_inputs": 100, "equiv_off": "nansign"}),
+    "0x00301410_native_nan_sign_off": ("fail", "unexpected write to this+0x14", 0, {"src": "0x00301410_native_nan_sign", "native": True, "n_inputs": 100, "equiv_off": "nansign", "float": "x87"}),
     "0x00301410_native_nan_sign_wrong": ("fail", "this+0x18", 0, {"native": True, "n_inputs": 100}),
     # cdecl0: the words pushed to a cdecl callee that reads no stack word (a no-op printf) are not compared
     "0x002deca0_native_cdecl0": ("equivalent", None, 0.9, {"native": True, "n_inputs": 100}),
@@ -707,7 +708,8 @@ CASES = {
     "0x00296160_native_vsplit_wrong": ("fail", None, 0, {"native": True, "n_inputs": 60}),
     "0x00296160_native_vslotkeep_wrong": ("fail", None, 0, {"native": True, "n_inputs": 60}),
     # ... and a split the original's code can't have (its stack would not balance) is not taken: a real wrong declaration
-    "0x000f0e60_native_vsplit_wrong": ("fail", "argument 2", 0, {"native": True, "n_inputs": 60}),
+    # (perf1: under SSE the first difference found is another one, `this` of call #3; the status is the same)
+    "0x000f0e60_native_vsplit_wrong": ("fail", "argument 2", 0, {"native": True, "n_inputs": 60, "float": "x87"}),
     # uninitarg, purecall, narrowstruct: a by-value struct whose padding nothing writes, built by a copy constructor that writes only it
     "0x001fe000_native_uninitarg": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
     "0x001fe000_native_uninitarg_off": ("fail", "argument 4", 0, {"src": "0x001fe000_native_uninitarg", "native": True, "n_inputs": 60, "equiv_off": "uninitarg"}),
@@ -776,7 +778,8 @@ CASES = {
     # object's pairing found carries over (clang's own pairing bound `k1` to a float literal: initializer_differs 0.0 vs 40.0)
     "0x000418f0_native_lstatic": ("equivalent", None, 0.9, {"native": True, "n_inputs": 60}),
     "0x000418f0_native_lstatic_wrong": ("fail", None, 0, {"native": True, "n_inputs": 60}),
-    "0x000418f0_native_lstatic_off": ("fail", "initializer_differs", 0, {"src": "0x000418f0_native_lstatic", "native": True, "n_inputs": 60, "equiv_off": "lstatic"}),
+    # (perf1: the `_off` case shows the x87 object's float-literal pairing taking `k1`; the SSE object pairs differently)
+    "0x000418f0_native_lstatic_off": ("fail", "initializer_differs", 0, {"src": "0x000418f0_native_lstatic", "native": True, "n_inputs": 60, "equiv_off": "lstatic", "float": "x87"}),
     # initsize: clang's COFF has no symbol sizes, so a static array was compared over the rest of its section (private constants
     # that follow it); the MSVC object's size for the name is the extent. Before: initializer_differs _kLabel size=256
     "0x000da930_native_initsize": ("equivalent", None, 0.5, {"native": True, "n_inputs": 100}),
@@ -862,10 +865,20 @@ def job(name):
     # rule: exact floats, ftolexact, or a free-function declaration of a thiscall callee, thisdecl)
     off = [x for x in kw.pop("equiv_off", "").split(",") if x]
     equiv.EQUIV_OFF.update(off)
+    # (perf1) `float`: the Wine build's float code this case checks (native cases; default the build's, SSE): a case about an
+    # x87-only artefact pins x87
+    fl, was = kw.pop("float", None), os.environ.get("HULK_WINE_FLOAT")
+    if fl:
+        os.environ["HULK_WINE_FLOAT"] = fl
     try:
         return _job(name, equiv, addr, kw)
     finally:
         equiv.EQUIV_OFF.difference_update(off)
+        if fl:
+            if was is None:
+                os.environ.pop("HULK_WINE_FLOAT", None)
+            else:
+                os.environ["HULK_WINE_FLOAT"] = was
 
 
 def _job(name, equiv, addr, kw):
