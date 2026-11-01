@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20127 inputs, branch coverage 133/134, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3142 inputs, branch coverage 127/134, incomplete)
 // FUN_001b05a0 @ 0x001b05a0
 #include "compat/ptr.h"
 #include "decls/address.h"
@@ -171,7 +171,7 @@ struct Entity {
     void FUN_001d6ec0(int a, int b, int c);
     void FUN_00038e80(int a, HitObj_1b05a0* hit, int b, V3_1b05a0* p, V3_1b05a0* n, int c);
 };
-char __stdcall FUN_001b05a0(Entity* self, HitObj_1b05a0* hit, Contact_1b05a0* c) {
+int __stdcall FUN_001b05a0(Entity* self, HitObj_1b05a0* hit, Contact_1b05a0* c) {
 #define world DAT_004dd700
     // Scratch vectors are reused by the contact, particle, and collision queries.
     struct Scratch {

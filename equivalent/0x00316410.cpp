@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3081 inputs, branch coverage 99/104, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3111 inputs, branch coverage 99/104, incomplete)
 // FUN_00316410 @ 0x00316410
 // FUN_00316410 @ 0x00316410
 // Resolver::FUN_00316410 (this=ecx, ret 0x20): contact emitter for a swept disc/segment against body b
@@ -339,20 +339,20 @@ void Resolver::FUN_00316410(Body *a, Vec3 *vel, Vec3 *axis, float range, Body *b
             }
             fr.U.FUN_0022d110();
             fr.un = ((fr.U.z * axis->z + fr.U.y * axis->y) + fr.U.x * axis->x);
-            float rad = fr.self->threshold + b->f54;
+            hulk_freg rad = fr.self->threshold + b->f54;     // x87: kept in st0 (53 bits), not stored
             fr.s00.w.f = fr.s00.w.f * fr.s00.w.f;
-            if (rad * rad - fr.s00.w.f <= 0.0f)
+            if (rad * rad - *(volatile float *)&fr.s00.w.f <= 0.0f)     // the original reloads the stored (rounded) square
                 continue;
-            fr.s00.w.f = (float)sqrt(rad * rad - fr.s00.w.f);
+            fr.s00.w.f = (float)sqrt(rad * rad - *(volatile float *)&fr.s00.w.f);
             fr.s20.f = ((fr.U.x * fr.P.x + fr.U.z * fr.P.z) + fr.U.y * fr.P.y);
             fr.sup = FUN_00083d90(&fr.s20.f);
             fr.s10.f = fr.s20.f;
             fr.s20.u &= 0x7fffffff;
             fr.side = fr.s20.f > fr.s00.w.f ? -1.0f : 1.0f;
-            float z = fr.s20.f - fr.side * fr.s00.w.f;
+            hulk_freg z = fr.s20.f - fr.side * fr.s00.w.f;    // x87: z and 1/un stay in registers
             fr.s0c.f = z;
             fr.s0c.u &= 0x7fffffff;
-            float inv = 1.0f / fr.un;
+            hulk_freg inv = 1.0f / fr.un;
             fr.s20.f = ((fr.s00.w.f + fr.s00.w.f) - fr.s0c.f) * inv;
             fr.s10.f = z * inv;
             if (AbsIn(fr.s00.w, fr.s20.f) > range)
@@ -369,13 +369,16 @@ void Resolver::FUN_00316410(Body *a, Vec3 *vel, Vec3 *axis, float range, Body *b
             fr.sv = ((b->n.z * vel->z + b->n.y * vel->y) + b->n.x * vel->x);
             fr.s00.w.f = FUN_00083d90(&fr.sv);
             fr.self->dir.FUN_00095e80(fr.s00.w.f, &b->n);
-            fr.s20.f = ((fr.X.z * b->n.z + fr.X.y * b->n.y) + fr.X.x * b->n.x) * fr.s00.w.f - b->f50;
-            if (fr.s20.f < fr.self->threshold * 1.03f) {
+            // x87: the distance is stored (fst) and compared unrounded
+            hulk_freg dx = ((fr.X.z * b->n.z + fr.X.y * b->n.y) + fr.X.x * b->n.x) * fr.s00.w.f - b->f50;
+            fr.s20.f = dx;
+            if (dx < fr.self->threshold * 1.03f) {
                 *vel = fr.X;
             } else {
                 *vel = fr.Y;
-                fr.s20.f = ((fr.Y.z * b->n.z + fr.Y.y * b->n.y) + fr.Y.x * b->n.x) * fr.s00.w.f - b->f50;
-                if (fr.s20.f >= fr.self->threshold * 1.03f)
+                hulk_freg dy = ((fr.Y.z * b->n.z + fr.Y.y * b->n.y) + fr.Y.x * b->n.x) * fr.s00.w.f - b->f50;
+                fr.s20.f = dy;
+                if (dy >= fr.self->threshold * 1.03f)
                     continue;
             }
             vel->FUN_000110d0(b->vfunc_4());
