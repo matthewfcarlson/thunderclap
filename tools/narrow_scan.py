@@ -5,6 +5,7 @@ MSVC's frame layout and register use can hide a type that is too small: the byte
 passes, but the clang Wine/native build lays the frame out differently or reads all of a register. Cases found by
 replay bisects (docs/journal.md, crash1 and div2):
 
+  ret64    a 32-bit (or void) declaration of a function whose original callers read edx after the call (0x000faeb0).
   ret      a bool/char/short return where the original sets all of eax and a caller reads it (XboxSaveDrive::vfunc_11):
            the original's return paths (`mov eax, 1` / `xor eax, eax` vs `mov al, 1` / `setcc al`) and its direct
            callers' first read of eax (`test eax, eax` vs `test al, al`).
@@ -20,6 +21,8 @@ replay bisects (docs/journal.md, crash1 and div2):
            (div2, 0x0003c1d0); a heuristic, the x87 scanner (tools/x87_scan.py) is the thorough one.
 
   build/venv/bin/python tools/narrow_scan.py ret   [--out build/sweep1/ret.tsv] [SRC ...]
+  build/venv/bin/python tools/narrow_scan.py ret64 [--out build/sweep1/ret64.tsv] [SRC ...]  # 64-bit returns declared int
+  build/venv/bin/python tools/narrow_scan.py retjoin build/sweep1/ret.tsv build/sweep1/stack.jsonl # virtual narrow returns
   build/venv/bin/python tools/narrow_scan.py src   [--out build/sweep1/src.tsv] [SRC ...]   # byval, extern, fsel
   build/venv/bin/python tools/narrow_scan.py stack SRC ... | --list LIST [--out OUT.jsonl] [--jobs N]
   build/venv/bin/python tools/narrow_scan.py stack --all --jobq --name ME --out build/sweep1/stack.jsonl [--per 400]
@@ -287,6 +290,58 @@ def cmd_ret(a):
         out.write("%d\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n" % (r[0], r[1], r[2], r[3], r[4], cs, cl, r[7]))
     n = sum(1 for r in rows if r[0] > 0)
     print("ret: %d narrow-return functions, %d candidates (score > 0)" % (len(rows), n), file=sys.stderr)
+
+
+def edx_read_after(prog, site):
+    """(addr, text) of the first instruction after `call` at SITE that reads edx before anything writes it, else None."""
+    a = site + 5
+    for _ in range(12):
+        ci = next(prog.md.disasm(prog.read(a, 16), a, 1), None)
+        if ci is None:
+            return None
+        mn = ci.mnemonic
+        try:
+            r_, w_ = ci.regs_access()
+            rd = {ci.reg_name(x) for x in r_}
+            wr = {ci.reg_name(x) for x in w_}
+        except Exception:  # noqa: BLE001
+            return None
+        ops = [o.strip() for o in ci.op_str.split(",")] if ci.op_str else []
+        if mn in ("xor", "sub") and len(ops) == 2 and ops[0] == ops[1]:
+            rd = set()
+        if mn in ("call", "ret", "jmp") or mn.startswith("j"):
+            return None
+        if rd & {"edx", "dx", "dl", "dh"}:
+            return "0x%08x" % ci.address, mn + " " + ci.op_str
+        if wr & {"edx", "dx", "dl", "dh"}:
+            return None
+        a += ci.size
+    return None
+
+
+def cmd_ret64(a):
+    """ret64: a function declared to return 32 bits or less (or void) whose original callers read edx right after the
+    call (`push edx; push eax`): it returns 64 bits in edx:eax (0x000faeb0 Iter::Run passed b()'s __int64 on). Also lists
+    callers that rely on a callee preserving edx (custom/LTCG conventions): those need a look, not a type."""
+    import equiv
+    prog = equiv.Program.get()
+    defs = json.load(open(a.bindings)).get("definitions", {}) if a.bindings and os.path.exists(a.bindings) else {}
+    items = [(addr_of(s), s) for s in a.srcs] if a.srcs else all_sources()
+    out = open(a.out, "w") if a.out else sys.stdout
+    out.write("addr\tsrc\tret\tsites\tedx_reads\tsymbol\n")
+    n = 0
+    for addr, src in items:
+        sym = defs.get("0x%08x" % addr)
+        sig = equiv.parse_signature(sym) if sym else None
+        rk = sig.get("ret") if sig else None
+        if rk in ("i64", "f64", "f32", "struct"):
+            continue
+        sites = prog.call_sites(addr)[:60]
+        hits = [h for h in (edx_read_after(prog, x) for x in sites) if h]
+        if hits:
+            n += 1
+            out.write("0x%08x\t%s\t%s\t%d\t%s\t%s\n" % (addr, src, rk, len(sites), " ".join("%s:%s" % h for h in hits[:3]), sym or ""))
+    print("ret64: %d candidates" % n, file=sys.stderr)
 
 
 # ============================================================================================ src (byval, extern, fsel)
@@ -620,8 +675,9 @@ def ebp_accesses(code):
         for op in ci.operands:
             if op.type == capstone.x86.X86_OP_MEM and ci.reg_name(op.mem.base) == "ebp" and op.mem.index == 0:
                 out.append((ci.address, op.mem.disp, op.size, ci.mnemonic, ci.mnemonic == "lea"))
-                if op.access & capstone.CS_AC_WRITE and ci.mnemonic != "lea":
-                    written.add(op.mem.disp)
+                if ((op.access & capstone.CS_AC_WRITE) or ci.mnemonic.startswith(("fst", "fist", "fnst"))) and \
+                        ci.mnemonic != "lea" and op.size in (4, 8):
+                    written.add(op.mem.disp)       # a dword/qword store (x87 stores too): a spill or temporary slot
         # the /GS cookie: `mov eax, [___security_cookie]` (an unrelocated absolute load) then `mov [ebp-N], eax`
         if ci.mnemonic == "mov" and k + 1 < len(insns) and len(ci.operands) == 2 and \
                 ci.operands[1].type == capstone.x86.X86_OP_MEM and ci.operands[1].mem.base == 0 and \
@@ -677,7 +733,21 @@ def analyse_proc(p, code, fsz):
     def compiler_owned(d):
         return any(a0 <= d < a1 for a0, a1 in owned)
 
+    # unnamed temporaries: an address MSVC takes (`lea ecx, [ebp-8]` for a constructor's this) that no declared variable
+    # covers; a hole read between it and the next declared variable belongs to the temporary
+    temps = sorted({d for (ia, d, w, mn, lea) in acc if lea and d < 0 and owner(d, 1)[0] is None})
+
+    def in_temp(d):
+        for t in temps:
+            if t <= d:
+                end = min([c[0] for c in cover if c[0] > t] + [x for x in temps if x > t] + [0])
+                if d < end:
+                    return True
+        return False
+
     for (ia, d, w, mn, lea) in acc:
+        if d < 0 and not lea and in_temp(d):
+            continue
         if d >= 0 and d < 8:
             continue          # saved ebp / return address
         if d < 0 and d < lo_frame:
@@ -696,9 +766,10 @@ def analyse_proc(p, code, fsz):
                 # between declared parameters: a parameter slot our declaration has no name for (above the last one is
                 # a hidden struct-return pointer or an undeclared argument: decl_lint's business)
                 top = max(c[1] for c in cover)
-                if d < top:
+                if 12 <= d < top:      # ebp+8 below the first declared parameter is the hidden struct-return pointer
                     issues.append({"kind": "param_hole", "at": ia, "disp": d, "width": w, "insn": mn})
-        elif not inside:
+        elif not inside and d + w > v["off"] + ((v["size"] + 3) & ~3) and not (lea and d > 0):
+            # (a 4-byte access to a char/short's own slot is MSVC reusing it: `movzx ecx, [esp+8]; mov [esp+8], ecx; fild`)
             issues.append({"kind": "straddle", "at": ia, "disp": d, "width": w, "insn": mn, "var": v["name"],
                            "var_off": v["off"], "var_size": v["size"]})
     # address-taken locals with slack before the next declared variable (or the frame top)
@@ -707,7 +778,7 @@ def analyse_proc(p, code, fsz):
         if a0 not in leas:
             continue
         nxt = min([c[0] for c in cover if c[0] >= a1] + [o0 for o0, o1 in owned if o0 >= a1] +
-                  [x for x in written if a1 <= x < 0] + [0])
+                  [x for x in written if a1 <= x < 0] + [t for t in temps if t >= a1] + [0])
         slack = nxt - a1
         rounded = (v["size"] + 3) & ~3
         if nxt - a0 > rounded and slack >= 4:
@@ -884,6 +955,15 @@ def cmd_report(a):
             errs += 1
             continue
         for p in r.get("procs", []):
+            spills = {i["disp"] for i in p["issues"] if i["kind"] == "hole" and
+                      (i["insn"].startswith(("fst", "fist", "fnst")) and i["width"] in (4, 8))}
+            p["issues"] = [i for i in p["issues"] if not (i["kind"] == "hole" and i["disp"] in spills) and
+                           not (i["kind"] == "straddle" and i["insn"] == "lea" and i["var_off"] > 0) and
+                           not (i["kind"] == "straddle" and
+                           i["disp"] + i["width"] <= i["var_off"] + ((i["var_size"] + 3) & ~3)) and
+                           not (i["kind"] == "param_hole" and i["disp"] == 8)]
+            if not p["issues"]:
+                continue
             kinds = sorted({i["kind"] for i in p["issues"]}, key=lambda k: -ranks[k])
             rows.append((max(ranks[k] for k in kinds), r["src"], p["proc"], kinds, p["issues"]))
     rows.sort(key=lambda r: (-r[0], r[1]))
@@ -950,11 +1030,15 @@ def main(argv):
     k.add_argument("--limit", type=int, default=3600)
     rp = sub.add_parser("report")
     rp.add_argument("jsonl")
+    r6 = sub.add_parser("ret64")
+    r6.add_argument("srcs", nargs="*")
+    r6.add_argument("--out")
+    r6.add_argument("--bindings", default=os.path.join(ROOT, "build/native/bindings.json"))
     rj = sub.add_parser("retjoin")
     rj.add_argument("ret_tsv")
     rj.add_argument("jsonl")
     a = p.parse_args(argv)
-    {"retjoin": cmd_retjoin, "ret": cmd_ret, "src": cmd_src, "stack": cmd_stack, "report": cmd_report}[a.cmd](a)
+    {"ret64": cmd_ret64, "retjoin": cmd_retjoin, "ret": cmd_ret, "src": cmd_src, "stack": cmd_stack, "report": cmd_report}[a.cmd](a)
     return 0
 
 

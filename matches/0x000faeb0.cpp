@@ -5,7 +5,7 @@ struct Node {
 };
 struct Obj {
     virtual void a();
-    virtual int b();
+    virtual __int64 b();   // returns 64 bits in edx:eax (callers 0x000f0590, 0x000f3270 push both)
 };
 extern int desc1, desc2;
 extern Obj* __cdecl cast(Node*, int, void*, void*, int);
@@ -16,9 +16,9 @@ class Iter {
     Node* current;
     char pad2[4];
     char done;
-    int Run();
+    __int64 Run();
 };
-int Iter::Run() {
+__int64 Iter::Run() {
     Node* p = head;
     if (!p)
         return 0;
