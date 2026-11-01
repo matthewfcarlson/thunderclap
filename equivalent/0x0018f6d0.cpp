@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3050 inputs, branch coverage 98/98; --wine 722 inputs)
+// STATUS: equivalent (tools/equiv.py level 3: 3050 inputs, branch coverage 98/98; --wine 234 inputs)
 // hulkfight::motion::TankLocomotionAction::vfunc_5 @ 0x0018f6d0
 #include "decls/address.h"
 #include "compat/ptr.h"
@@ -381,9 +381,11 @@ bool TankLocomotionAction::vfunc_5(int a, float dt)
             cacheNrm[i] = vH;
         }
 
-        float dy = pts[i].y - hitp.y;
+        // x87: dy is stored (fst) and the unrounded st0 is compared with s98b
+        hulk_freg dyu = pts[i].y - hitp.y;
+        float dy = dyu;
         double Y;
-        if (dy < s98b) {
+        if (dyu < s98b) {
             v48.x = pts[i].x - pos.x;
             v48.y = 0.0f;
             v48.z = pts[i].z - pos.z;
