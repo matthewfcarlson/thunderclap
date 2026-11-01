@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3117 inputs, branch coverage 95/98, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3128 inputs, branch coverage 95/98, incomplete)
 // hulkfight::motion::JointPivotTrackerAction::vfunc_5 @ 0x00173ca0
 extern "C" int __cdecl _isnan(double);
+#include "compat/ptr.h"
 
 struct V3_173ca0 {
     float x, y, z;
@@ -282,7 +283,8 @@ bool hulkfight::motion::JointPivotTrackerAction::vfunc_5(int a, float dt)
     }
 
     F.m98.FUN_0022c3b0(&axis, &F.out38);
-    float dot = F.out38.z * F.d60.z + F.out38.y * F.d60.y + F.out38.x * F.d60.x;
+    // the original keeps dot (negated) in st0 and never rounds it to float
+    hulk_freg dot = F.out38.z * F.d60.z + F.out38.y * F.d60.y + F.out38.x * F.d60.x;
     F.v1c = F.d60;
     dot = -dot;
     F.v1c.x = F.v1c.x + F.out38.x * dot;
@@ -337,9 +339,13 @@ bool hulkfight::motion::JointPivotTrackerAction::vfunc_5(int a, float dt)
     if (F.u14.c <= 0.0f) {
         F.v8c = F.v1c;
     } else {
-        float dot4 = F.v70.x * F.v1c.x + F.v70.z * F.v1c.z + F.v70.y * F.v1c.y;
+        // the original compares the unrounded dot4 with 1 (fst, then fcomp st0), the stored one with -1, and keeps
+        // the chosen angle (acos's st0) unrounded for the comparison
+        hulk_freg dot4u = F.v70.x * F.v1c.x + F.v70.z * F.v1c.z + F.v70.y * F.v1c.y;
+        float dot4 = (float)dot4u;
         F.s10 = F.u14.c * dt;
-        if (((dot4 >= 1.0f) ? 0.0f : ((dot4 <= -1.0f) ? 3.14159274f : FUN_00018a20(dot4))) <= F.s10) {
+        if (((dot4u >= 1.0f) ? (hulk_freg)0.0f
+                             : ((dot4 <= -1.0f) ? (hulk_freg)3.14159274f : (hulk_freg)FUN_00018a20(dot4))) <= F.s10) {
             F.v8c = F.v1c;
         } else {
             F.t48.FUN_000111b0(&F.v1c, &F.v70);
