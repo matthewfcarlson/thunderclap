@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 93 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 3041 inputs, branch coverage 20/20)
 // hulkfight::motion::ImpulseVelocityAction::vfunc_5 @ 0x00190a40
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
@@ -117,7 +117,7 @@ bool hulkfight::motion::ImpulseVelocityAction::vfunc_5(hulk_intptr a, int b) {
         float lo = 0;
         t1.z = t1.z - p.z;
         float c = FUN_000186b0(&scale, &lo, &one);
-        float dx = t1.x * c;
+        hulk_freg dx = t1.x * c;    // x87: kept in st0 and added to p.x unrounded (t1.y, t1.z are stored)
         t1.y = t1.y * c;
         t1.z = t1.z * c;
         p.x = p.x + dx;
