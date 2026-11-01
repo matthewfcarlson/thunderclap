@@ -10,7 +10,6 @@ struct V3 {
     float FUN_0022d110();
 };
 
-
 struct V3v {
     volatile float x, y, z;
 };
@@ -30,66 +29,113 @@ struct Sub338 {
 };
 
 class Ent {
-public:
+  public:
     char pad0[0x11c];
-    Radius *f11c;
+    Radius* f11c;
     char pad120[0x338 - 0x120];
-    Sub338 *f338;
-    void FUN_000382c0(V3 *out);
-    void FUN_00035550(V3 *out);
+    Sub338* f338;
+    void FUN_000382c0(V3* out);
+    void FUN_00035550(V3* out);
     int FUN_00035910();
 };
 
 class Actor {
-public:
+  public:
     char pad0[0x148];
-    Ent *f148;
-    void FUN_001d69f0(V3 *out);
+    Ent* f148;
+    void FUN_001d69f0(V3* out);
 };
 
 struct Mode {
     char pad0[8];
-    void *obj;
+    void* obj;
     int kind;
     char pad10[0x40 - 0x10];
     V3 v40;
 };
 
 float __cdecl FUN_000189c0(float v);
-void __cdecl FUN_000a04c0(V3 *delta, float *a, float *b, float *c);
+void __cdecl FUN_000a04c0(V3* delta, float* a, float* b, float* c);
 float __cdecl FUN_000a00e0(float a, float b, float c, float d, float e);
 float __cdecl FUN_000a02a0(float v);
 float __cdecl FUN_000a03c0(float v, float lo, float hi);
-float __cdecl FUN_000a0450(V3 *v);
-char __cdecl FUN_0009ffc0(float a, float b, float c, float *out);
+float __cdecl FUN_000a0450(V3* v);
+char __cdecl FUN_0009ffc0(float a, float b, float c, float* out);
 float __cdecl FUN_000a05b0(float a, float b, float c, float d, float e);
-V3 *__cdecl FUN_0009f8c0(V3 *out, float a, float b, float c);
+V3* __cdecl FUN_0009f8c0(V3* out, float a, float b, float c);
 
-#define CLAMP(v, lo, hi) \
-    do { \
-        if ((v) >= (lo) && (v) <= (hi)) { \
-        } else if ((v) > (hi)) \
-            (v) = (hi); \
-        else \
-            (v) = (lo); \
+#define CLAMP(v, lo, hi)                                                                                     \
+    do {                                                                                                     \
+        if ((v) >= (lo) && (v) <= (hi)) {                                                                    \
+        } else if ((v) > (hi))                                                                               \
+            (v) = (hi);                                                                                      \
+        else                                                                                                 \
+            (v) = (lo);                                                                                      \
     } while (0)
 
 struct Frame {
-    union { float hlen; float u; float k3; float k4; float mm; float r2; unsigned int abits; float afl; };
+    union {
+        float hlen;
+        float u;
+        float k3;
+        float k4;
+        float mm;
+        float r2;
+        unsigned int abits;
+        float afl;
+    };
     float q;
     char pad8[3];
     char b17;
-    union { float ang2; float k2; float scratch; float k5; float hh; float k6; float tmp; };
-    union { float inv; float lo; float limLo; float oa3; float b3f; unsigned int b3u; };
-    union { float q20; float hd; float len3; float lo2; };
+    union {
+        float ang2;
+        float k2;
+        float scratch;
+        float k5;
+        float hh;
+        float k6;
+        float tmp;
+    };
+    union {
+        float inv;
+        float lo;
+        float limLo;
+        float oa3;
+        float b3f;
+        unsigned int b3u;
+    };
+    union {
+        float q20;
+        float hd;
+        float len3;
+        float lo2;
+    };
     float v;
-    union { float p1c; float ey1; };
-    union { float k1; float s2; };
-    union { float limHi; float b2f; unsigned int b2u; };
-    union { V3 o; V3 dd; V3 d2; V3 d3; };
+    union {
+        float p1c;
+        float ey1;
+    };
+    union {
+        float k1;
+        float s2;
+    };
+    union {
+        float limHi;
+        float b2f;
+        unsigned int b2u;
+    };
+    union {
+        V3 o;
+        V3 dd;
+        V3 d2;
+        V3 d3;
+    };
     float dist;
     float angC;
-    union { float o48; float hi3; };
+    union {
+        float o48;
+        float hi3;
+    };
     float angA;
     float angB;
     V3 e;
@@ -97,8 +143,14 @@ struct Frame {
     float p2;
     float oa2;
     V3 t2;
-    union { V3 w; V3 w2; };
-    union { V3 d; V3 nv; };
+    union {
+        V3 w;
+        V3 w2;
+    };
+    union {
+        V3 d;
+        V3 nv;
+    };
     float oa1;
     float p3;
     float p1;
@@ -106,7 +158,7 @@ struct Frame {
 };
 
 class Camera {
-public:
+  public:
     char pad0[0x170];
     V3 v170;
     char pad17c[0x194 - 0x17c];
@@ -145,9 +197,9 @@ public:
     char f346;
     char f347;
     char pad348[0x350 - 0x348];
-    Ent *f350;
+    Ent* f350;
     char pad354[0x414 - 0x354];
-    Mode *f414;
+    Mode* f414;
     V3 v418;
     char pad424[0x444 - 0x424];
     float f444;
@@ -173,19 +225,18 @@ public:
     void FUN_000a6400(float a1, float a2);
 };
 
-void Camera::FUN_000a6400(float a1, float a2)
-{
+void Camera::FUN_000a6400(float a1, float a2) {
     Frame f;
     f.b17 = 0;
     if (f347 && f350 && f350->f338 && !f350->f338->FUN_00035a90())
         f.b17 = 1;
 
-    Mode *m = f414;
+    Mode* m = f414;
     f.f60 = 3.0f;
-    V3 *cp = &v418;
+    V3* cp = &v418;
     if (m->kind == 5) {
-        Actor *a = (Actor *)m->obj;
-        Ent *e = a->f148;
+        Actor* a = (Actor*)m->obj;
+        Ent* e = a->f148;
         if (e) {
             e->FUN_000382c0(cp);
             f.f60 = e->f11c->f30;
@@ -193,11 +244,11 @@ void Camera::FUN_000a6400(float a1, float a2)
             a->FUN_001d69f0(cp);
         }
     } else if (m->kind == 1) {
-        Ent *e = (Ent *)m->obj;
+        Ent* e = (Ent*)m->obj;
         e->FUN_000382c0(cp);
         f.f60 = e->f11c->f30;
     } else if (m->kind == 7) {
-        v418 = *(V3 *)((char *)m->obj + 0x64);
+        v418 = *(V3*)((char*)m->obj + 0x64);
         f.f60 = 0.8f;
     } else {
         v418 = m->v40;
@@ -205,9 +256,9 @@ void Camera::FUN_000a6400(float a1, float a2)
 
     FUN_000a0dc0(DAT_0049ec74 * 0.6f, DAT_0049ec7c * 0.5f, a2);
 
-    V3 *dp = &v1d0;
+    V3* dp = &v1d0;
     f.w = *dp;
-    f.hlen = (float)sqrt(f.w.z * f.w.z + f.w.x * f.w.x);
+    f.hlen = (float)sqrt((hulk_freg)f.w.z * f.w.z + (hulk_freg)f.w.x * f.w.x);
     f.d.x = v248.x - pos.x;
     f.d.y = v248.y - pos.y;
     f.d.z = v248.z - pos.z;
@@ -220,13 +271,13 @@ void Camera::FUN_000a6400(float a1, float a2)
     CLAMP(f.dist, f.lo, hi);
     f.inv = 1.0f / f.dist;
 
-    f.v = (f49c - pos.y) * f.inv;
+    f.v = (float)(((hulk_freg)f49c - pos.y) * f.inv);
     CLAMP(f.v, -1.0f, 1.0f);
     f.angA = FUN_000189c0(f.v) * 57.2957763671875f;
-    f.v = (f498 - pos.y) * f.inv;
+    f.v = (float)(((hulk_freg)f498 - pos.y) * f.inv);
     CLAMP(f.v, -0.94f, 1.0f);
     f.angB = FUN_000189c0(f.v) * 57.2957763671875f;
-    f.v = ((f23c + 0.3f) - pos.y) * f.inv;
+    f.v = (float)((((hulk_freg)f23c + 0.3f) - pos.y) * f.inv);
     CLAMP(f.v, -1.0f, 1.0f);
     f.angC = FUN_000189c0(f.v) * 57.2957763671875f;
 
@@ -250,10 +301,10 @@ void Camera::FUN_000a6400(float a1, float a2)
             f.q = f.s2;
         } else {
             float s3 = FUN_000a00e0(f.q, f.q20, (*(float*)&DAT_0049ec48), a2, 2.0f);
-            float e3 = s3 - f.q;
-            float e2 = f.s2 - f.q;
-            f.b3f = e3;
-            f.b2f = e2;
+            hulk_freg e3 = (hulk_freg)s3 - f.q; // both kept in st for the product's sign
+            hulk_freg e2 = (hulk_freg)f.s2 - f.q;
+            f.b3f = (float)e3;
+            f.b2f = (float)e2;
             f.b3u &= 0x7fffffff;
             f.b2u &= 0x7fffffff;
             if (f.b3f > f.b2f)
@@ -266,7 +317,7 @@ void Camera::FUN_000a6400(float a1, float a2)
     }
 
     if (f350->FUN_00035910() == 2 || f350->FUN_00035910() == 3) {
-        hulk_freg R = FUN_000a02a0(f238 + 180.0f);    // st(0) for both limits
+        hulk_freg R = FUN_000a02a0(f238 + 180.0f); // st(0) for both limits
         f.p1c = FUN_000a03c0(f.p1c, (float)(R - 70.0f), (float)(70.0f + R));
     }
 
@@ -279,12 +330,13 @@ void Camera::FUN_000a6400(float a1, float a2)
     f.t2.x = cp->x - pos.x;
     f.t2.y = cp->y - pos.y;
     f.t2.z = cp->z - pos.z;
-    f.hd = (float)sqrt(f.t2.z * f.t2.z + f.t2.x * f.t2.x);
+    // fst: the original multiplies the unrounded difference in st(0) by the stored float
+    f.hd = (float)sqrt(((hulk_freg)cp->z - pos.z) * f.t2.z + (hulk_freg)f.t2.x * f.t2.x);
     f.ang2 = FUN_000a0450(&f.t2);
     f.limLo = -180.0f;
     f.limHi = 135.0f;
     if (f.hlen >= 5.0f) {
-        hulk_freg X = FUN_000a0450(dp) + 180.0f;      // st(0) for both limits
+        hulk_freg X = FUN_000a0450(dp) + 180.0f; // st(0) for both limits
         f.limLo = (float)(X - 90.0f);
         f.limHi = (float)(X + 90.0f);
     }
@@ -299,12 +351,13 @@ void Camera::FUN_000a6400(float a1, float a2)
             f.w2.y = cp->y - f.o.y;
             f.w2.z = cp->z - f.o.z;
             f.w2.FUN_0022d110();
-            float dot = f.nv.z * f.w2.z + f.nv.y * f.w2.y + f.nv.x * f.w2.x;
+            hulk_freg dot =
+                (hulk_freg)f.nv.z * f.w2.z + (hulk_freg)f.nv.y * f.w2.y + (hulk_freg)f.nv.x * f.w2.x;
             pass = !(dot < 0.2f);
         }
         if (pass) {
             f.u = f.o48 + f46c;
-            hulk_freg R2 = FUN_000a02a0(f.ang2 + 180.0f);   // st(0) for both limits
+            hulk_freg R2 = FUN_000a02a0(f.ang2 + 180.0f); // st(0) for both limits
             f.limLo = (float)(R2 - f.u);
             f.limHi = (float)(R2 + f.u);
             f.p1c = FUN_000a03c0(f.p1c, f.limLo, f.limHi);
@@ -313,14 +366,15 @@ void Camera::FUN_000a6400(float a1, float a2)
 
     f.k1 = -10.0f;
     f.k2 = 30.0f;
-    f.len3 = (float)sqrt(f.t2.y * f.t2.y + f.t2.z * f.t2.z + f.t2.x * f.t2.x);
+    f.len3 =
+        (float)sqrt((hulk_freg)f.t2.y * f.t2.y + (hulk_freg)f.t2.z * f.t2.z + (hulk_freg)f.t2.x * f.t2.x);
     f.v = f.t2.y / f.len3;
     CLAMP(f.v, -1.0f, 1.0f);
     if (FUN_0009ffc0(f.len3, f470, f.dist, &f.o48)) {
         f.u = f.o48 + f470;
-        float deg = FUN_000189c0(f.v) * 57.2957763671875f;
+        hulk_freg deg = (hulk_freg)FUN_000189c0(f.v) * 57.2957763671875f; // st(0) for both limits
         f.lo2 = (float)(-deg - f.u);
-        float hi2 = -deg + f.u;
+        hulk_freg hi2 = -deg + f.u; // compared (and stored) from st(0)
         CLAMP(f.q, f.lo2, hi2);
     }
     CLAMP(f.q, -60.0f, 60.0f);
@@ -346,7 +400,7 @@ void Camera::FUN_000a6400(float a1, float a2)
     f47c = FUN_000a00e0(f47c, f.q, (*(float*)&DAT_0049ec50), a2, 10.0f);
     f.r2 = FUN_000a00e0(f480, f.dist, 20.0f, a2, 0.5f);
     f480 = f.r2;
-    V3 *pp = FUN_0009f8c0(&f.dd, f478, f47c, f.r2);
+    V3* pp = FUN_0009f8c0(&f.dd, f478, f47c, f.r2);
     float nx = pos.x + pp->x;
     float ny = pos.y + pp->y;
     float nz = pos.z + pp->z;
@@ -359,7 +413,7 @@ void Camera::FUN_000a6400(float a1, float a2)
     f.abits &= 0x7fffffff;
     f488 = 0;
     if (!(f.afl <= 1e-05f)) {
-        hulk_freg ia = 1.0f / a2;   // st(0) for all six products (the original never stores it)
+        hulk_freg ia = 1.0f / a2; // st(0) for all six products (the original never stores it)
         float x0 = v170.x - v248.x;
         float y0 = v170.y - v248.y;
         float z0 = v170.z - v248.z;
@@ -382,8 +436,8 @@ void Camera::FUN_000a6400(float a1, float a2)
 
     f.k3 = -200.0f;
     {
-        float S = dp->x * dp->x + dp->z * dp->z;
-        if (dp->y * dp->y < S && S >= 25.0f)
+        hulk_freg S = (hulk_freg)dp->x * dp->x + (hulk_freg)dp->z * dp->z; // st(0) for both compares
+        if ((hulk_freg)dp->y * dp->y < S && S >= 25.0f)
             f.k3 = FUN_000a02a0(FUN_000a0450(dp) + 180.0f);
     }
 
@@ -395,7 +449,7 @@ void Camera::FUN_000a6400(float a1, float a2)
     }
 
     if (f.b17) {
-        FUN_000a0ac0(f2fc + f2e8, f2f4 + f2ec + f2e4);
+        FUN_000a0ac0(f2fc + f2e8, (float)((hulk_freg)f2f4 + f2ec + f2e4));
     } else {
         f.dd.x = tgt.x - v194.x;
         f.dd.y = tgt.y - v194.y;
@@ -406,7 +460,7 @@ void Camera::FUN_000a6400(float a1, float a2)
     f.d2.x = cp->x - v194.x;
     f.d2.y = cp->y - v194.y;
     f.d2.z = cp->z - v194.z;
-    f.k4 = FUN_000a02a0(FUN_000a0450(&f.d2) - f210) * 0.5f + f210;
+    f.k4 = (float)((hulk_freg)FUN_000a02a0(FUN_000a0450(&f.d2) - f210) * 0.5f + f210);
     if (f.b17)
         f.k4 = FUN_000a00e0(f2fc + f2e8, f.k4, (*(float*)&DAT_0049eca8), a2, 10.0f);
 
@@ -418,42 +472,40 @@ void Camera::FUN_000a6400(float a1, float a2)
     f.d3.y = pos.y - v194.y;
     f.d3.z = pos.z - v194.z;
     FUN_000a04c0(&f.d3, &f.oa1, &f.oa2, &f.oa3);
-    float hh2 = f.k5 * 0.5f;
+    hulk_freg hh2 = (hulk_freg)f.k5 * 0.5f; // st(1) for both limits
     f224 = FUN_000a02a0(FUN_000a03c0(f.k4, (float)(f.oa1 - hh2), (float)(f.oa1 + hh2)) - f210);
 
     f.e.x = pos.x - v194.x;
-    f.e.y = (pos.y - v194.y) - 2.7f;
+    f.e.y = (float)(((hulk_freg)pos.y - v194.y) - 2.7f);
     f.e.z = pos.z - v194.z;
     f.e.FUN_0022d110();
     f.ey1 = f.e.y;
     f.e.x = cp->x - v194.x;
-    f.e.y = cp->y - v194.y;
     f.e.z = cp->z - v194.z;
     f.hh = f.f60 * 0.5f;
-    f.e.y = f.e.y - f.hh;
+    f.e.y = (float)(((hulk_freg)cp->y - v194.y) - f.hh); // the difference stays in st
     f.e.FUN_0022d110();
     f.mm = (f.ey1 < f.e.y) ? f.ey1 : f.e.y;
     CLAMP(f.mm, -1.0f, 1.0f);
     f.f60 = FUN_000189c0(f.mm);
 
     f.e.x = pos.x - v194.x;
-    f.e.y = (pos.y - v194.y) + 0.3f;
+    f.e.y = (float)(((hulk_freg)pos.y - v194.y) + 0.3f);
     f.e.z = pos.z - v194.z;
     f.e.FUN_0022d110();
     f.ey1 = f.e.y;
     f.e.x = cp->x - v194.x;
-    f.e.y = cp->y - v194.y;
     f.e.z = cp->z - v194.z;
-    f.e.y = f.e.y + f.hh;
+    f.e.y = (float)(f.hh + ((hulk_freg)cp->y - v194.y)); // the difference stays in st
     f.e.FUN_0022d110();
     f.mm = (f.ey1 < f.e.y) ? f.e.y : f.ey1;
     CLAMP(f.mm, -1.0f, 1.0f);
-    f.k6 = (FUN_000189c0(f.mm) + f.f60) * 28.64788818359375f + f448;
-    float X6 = f.k6;
+    hulk_freg X6 = ((hulk_freg)FUN_000189c0(f.mm) + f.f60) * 28.64788818359375f + f448; // fst: st(0) kept
+    f.k6 = (float)X6;
     if (f.b17)
-        X6 = FUN_000a00e0(f2f4 + f2ec + f2e4, f.k6, (*(float*)&DAT_0049eca8), a2, 10.0f);
+        X6 = FUN_000a00e0((float)((hulk_freg)f2f4 + f2ec + f2e4), f.k6, (*(float*)&DAT_0049eca8), a2, 10.0f);
 
-    float h2 = f470 * 0.5f;
+    hulk_freg h2 = (hulk_freg)f470 * 0.5f; // st(1) for both limits
     f.hi3 = (float)(f.oa2 + h2);
     f.oa2 = (float)(f.oa2 - h2);
     CLAMP(X6, f.oa2, f.hi3);
