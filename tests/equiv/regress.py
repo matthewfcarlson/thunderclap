@@ -792,6 +792,11 @@ CASES = {
     "0x00036480_native_intrwrite_wrong": ("fail", "argument 17", 0, {"native": True, "n_inputs": 100}),
     "0x00036480_native_intrwrite_off": ("fail", "argument 2 is", 0, {"src": "0x00036480_native_intrwrite", "native": True, "n_inputs": 100, "equiv_off": "intrwrite"}),
     "0x0002cbf0_native_ddtor_off": ("fail", "call #1 went to", 0, {"src": "0x0002cbf0_native_ddtor", "native": True, "n_inputs": 60, "equiv_off": "ddtor"}),
+    # round 26 (sweep1) retwiden: a char/bool/short declaration whose original callers read all of eax (`cmp eax, 1` at
+    # 0x001b28d4) is compared as int; clang (and MSVC from a char source: `mov al, 1`) leave the upper bytes undefined
+    "0x001b05a0_retwiden": ("equivalent", None, 0.5, {"n_inputs": 200}),
+    "0x001b05a0_retwiden_wrong": ("fail", "returned 0x", 0, {"n_inputs": 200}),
+    "0x001b05a0_retwiden_off": ("equivalent", None, 0, {"src": "0x001b05a0_retwiden_wrong", "n_inputs": 200, "equiv_off": "retwiden"}),
 }
 
 # verify_relocs.py cases: name -> (expected status, issue kind it must report or None)

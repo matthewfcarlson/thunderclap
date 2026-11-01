@@ -1719,6 +1719,49 @@ class Program:
         cache[target] = res
         return res
 
+    def callers_read_full_eax(self, target):
+        """(round 26, sweep1, retwiden) Direct call sites of the original whose first use of the return value reads all
+        of eax as a number (`cmp eax, 1`, `test eax, eax`, `mov [m], eax`, `add r, eax`): the function returns an int
+        there, whatever its bool/char/short declaration says. A copy to another register, `push eax` (MSVC pushes a bool
+        argument as all of eax) and a return straight to the caller's caller decide nothing. XboxSaveDrive::vfunc_11
+        (crash1) and FUN_001b05a0 (cmp eax, 1) were declared narrow; clang leaves the upper bytes of eax undefined."""
+        cache = self.__dict__.setdefault("_rfull", {})
+        if target in cache:
+            return cache[target]
+        sites = []
+        for site in self.call_sites(target)[:60]:
+            a = site + 5
+            for _ in range(12):
+                ci = next(self.md.disasm(self.read(a, 16), a, 1), None)
+                if ci is None:
+                    break
+                mn = ci.mnemonic
+                ops = [o_.strip() for o_ in ci.op_str.split(",")] if ci.op_str else []
+                try:
+                    r_, w_ = ci.regs_access()
+                    rd = {ci.reg_name(x) for x in r_}
+                    wr = {ci.reg_name(x) for x in w_}
+                except Exception:   # noqa: BLE001
+                    break
+                if mn in ("xor", "sub", "sbb") and len(ops) == 2 and ops[0] == ops[1]:
+                    rd = set()
+                if mn in ("ret", "push", "call", "jmp", "xchg") or (mn.startswith("j") and not rd & {"eax", "ax", "al", "ah"}):
+                    break
+                if rd & {"al", "ah", "ax"} and "eax" not in rd:
+                    break                       # a narrow read
+                if "eax" in rd:
+                    if mn == "mov" and len(ops) == 2 and ops[1] == "eax" and "[" not in ops[0]:
+                        break                   # copied to another register: undecided
+                    if mn in ("mov", "cmp", "test", "add", "sub", "and", "or", "xor", "imul", "adc", "sbb") and \
+                            "eax" in ops and not ("[" in ops[0] and ops[0].startswith(("byte", "word"))):
+                        sites.append(site)
+                    break
+                if wr & {"eax", "ax", "al", "ah"}:
+                    break
+                a += ci.size
+        cache[target] = sites
+        return sites
+
     def callers_use_return(self, target):
         """('eax'|'st0'|None, sites checked): does any direct caller consume the original's return value?"""
         uses_eax = uses_st0 = False
@@ -8912,6 +8955,12 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     # Reached only through a vtable or a function pointer, nobody can tell whether the callers use eax: when
     # we say void but the original leaves a meaningful value in eax, compare it anyway.
     void_eax = ret_kind == "void" and (addr in prog.virtual_funcs or nsites == 0)
+    if ret_kind in ("b8", "i8", "i16") and "retwiden" not in EQUIV_OFF and prog.callers_read_full_eax(addr):
+        # (round 26, sweep1, retwiden) our declaration returns a bool/char/short, but a direct caller of the original
+        # reads all of eax (`cmp eax, 1`): the original returns an int, and clang leaves eax's upper bytes undefined
+        rep["return_note"] = "declared %s, but the original's caller at 0x%08x reads all of eax: compared as int" % (
+            {"b8": "bool", "i8": "char", "i16": "short"}[ret_kind], prog.callers_read_full_eax(addr)[0])
+        ret_kind = "i32"
     if native and ret_kind in (None, "i32") and used == "eax" and "retwidth" not in EQUIV_OFF and \
             prog.callers_use_width(addr) < 32:
         # (round 21, retwidth) every caller reads only al/ax: the function returns a bool/char/short, whatever its (extern "C")

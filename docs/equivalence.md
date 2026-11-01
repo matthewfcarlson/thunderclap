@@ -896,6 +896,15 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     0x000becd0, 0x000c2c20; 0x001441a0 and 0x144360 were `elapsed - c->vfunc_6()`, not fsin). `-(a - b)` and `b - a` differ in the sign
     of a zero (0x00117480). The 19 `decl_lint` matches/ were tail-jump / adjustor-thunk wrappers whose callee takes a stack word and
     `push esi; call B; push eax; call Finish` shapes (the first push is Finish's second argument).
+- (round 26, sweep1) **`retwiden`: a narrow return the original's callers read as an int** (`EQUIV_OFF=retwiden`). A source
+  declared to return `bool`/`char`/`short` was compared at that width (`al`), so an original that returns 0/1 in all of eax to
+  a caller that tests all of it passed: MSVC from the narrow source writes `mov al, 1`, clang leaves the upper bytes
+  undefined, and the caller's `cmp eax, 1` fails in the Wine build (crash1's XboxSaveDrive::vfunc_11, 0x00279af0). When a
+  direct call site of the original reads all of eax first (`cmp`/`test`/`mov [m], eax`/arithmetic on eax, not `push eax`,
+  a copy to another register or a return to its own caller: `Program.callers_read_full_eax`), the return is compared as
+  int, in both modes. Over the tree it fires on one source, 0x001b05a0 (char; its caller 0x001b2560 does `cmp eax, 1`).
+  Cases `0x001b05a0_retwiden[_wrong,_off]`. Virtual functions have no direct call sites; `tools/narrow_scan.py retjoin`
+  covers them by comparing the original's return idiom with MSVC's from our source.
 
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check
