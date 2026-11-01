@@ -24,7 +24,9 @@ mission (tutorial, "Walk Hulk around the junkyard"), Hulk moves with WASD, the i
 
 - **Stale libraries.** `tools/wine_link.py` now rebuilds `hulk_sdl.lib`, `hulk_movies.lib` and `hulk_fs.lib` itself when
   a source under `src/platform/sdl` (audio, input, replay, fs, movies, top-level headers; mtime) is newer than the
-  library (fs and movies only if they were built once). `HULK_WINE_REFRESH_LIBS=0` skips it. `HULK_TP_OUT=DIR`
+  library (fs and movies only if they were built once). `HULK_WINE_REFRESH_LIBS=0` skips it. (fix1: by content now, the
+  `<lib>.srchash` stamp written with the library, `tools/platform_libs.py`; mtimes only for an unstamped library on a
+  machine with the SDL3 sources. Elsewhere a stale library is linked with a warning, report.json `platform_libs`.) `HULK_TP_OUT=DIR`
   (tools/wine_gfx.py) moves the third-party output dir, for a private build. `play.py --build` is just the link now.
 - **Window.** `play.py` defaults to `--window 1280x720` (the game's own frame; the 4:3 UI is pillarboxed by the game).
   `--window WxH` and `--fullscreen` still work, F11 / Alt+Enter toggle.

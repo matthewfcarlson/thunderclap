@@ -70,6 +70,8 @@ class Decide(unittest.TestCase):
     def test_modified_function_source_resumes_and_reuses_map(self):
         new = dict(self.base, **{"matches/a.cpp": "2"})
         r, m, why = self.d(new)
+        self.assertEqual((r, m), (True, "key"))     # (fix1: the map key decides after the tree build)
+        r, m, why = self.d(new, {"map": "reuse"})
         self.assertEqual((r, m), (True, True))
 
     def test_header_or_generator_change_goes_fresh(self):

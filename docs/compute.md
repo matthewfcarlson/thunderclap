@@ -134,12 +134,23 @@ $J $N sync | lineages   # inputs on the hosts (submit does it) | lineage workspa
   builds there, so build_tree's state, the clang snapshot and the binding map survive between jobs; object caches are per host
   and content-keyed. `--state auto` resumes build_tree only if nothing changed under `include/ config/` or in build_tree's
   imports since the last good build; `--map auto` reuses the binding map only if function sources were modified (none added or
-  removed) and wine_link's imports are untouched. `--state fresh|resume`, `--map full|reuse` force it. A different toolchain
+  removed), wine_link's imports are untouched, and (fix1) the tree build left the map key unchanged: `wine_link.py --map-key`
+  after the build stage, compared with `build/native/mapkey.json` saved with the map. The key covers what the map binds by
+  name: per function its kind, status, symbol, TU and source, the external names its relocations reference (matches: also
+  where), `// equiv-map:` lines, and per TU the object's undefined externals. A source that changes a mangled name (a return
+  or parameter type, `extern "C"`, a calling convention) is mapped again; a body edit that keeps the names reuses the map
+  (`summary.json` `decision.why.map` says which parts changed; a few seconds with warm caches). An equivalent's callees are
+  keyed by name only: an edit that sends an unchanged name to another address needs `--map full`. A map made by an older
+  wine_link has no key and is made again once. `--state fresh|resume`, `--map full|reuse` force it. A different toolchain
   (clang, lld-link, wibo, cl.exe, python minor version, disc) drops all derived state. Jobs on one lineage run one at a time.
 - **Local-only inputs** (`build/functions.csv rtti.json xbsymbols.txt port/platform_calls.json`, `build/data/src`, the prebuilt
   libraries under `build/third_party/out`: pddi-win32/obj, win32/lib, sdl-*, fs1, ffmpeg-win32) are rsynced by `submit` to
   `~/hulk-jobs/nb/inputs-STAMP` (STAMP = content hash; immutable; newest 4 kept). Rebuild the libraries locally and the next
-  submit ships them. The extracted disc, compilers, wibo, the venv, LLVM and Wine are the host's own, as for every job.
+  submit ships them. (fix1) `hulk_fs.lib`, `hulk_sdl.lib` and `hulk_movies.lib` carry `<lib>.srchash`, the content hash of
+  the `src/platform/sdl` sources they were built from (`tools/platform_libs.py`; `submit` stamps the ones that are fresh by
+  mtime in the checkout). The host's wine_link compares that with the job's sources instead of mtimes (a lineage's copies
+  are always newer), so `HULK_WINE_REFRESH_LIBS=0` is no longer needed; a library that really is stale (or unstamped) is
+  linked as shipped with a warning (the host has no SDL3 sources to rebuild it), listed in `summary.json` `platform_libs`. The extracted disc, compilers, wibo, the venv, LLVM and Wine are the host's own, as for every job.
 - **Timing (play3 workspace, `--gfx`, 8 slots).** Cold on mac2, empty caches: build 56 min, probe 1 min, link 5 min. Same
   sources, warm caches, fresh state: build 17-19 min. One changed function source, state and map reused: 5 min in all
   (build 2 min of verification, probe 25 s, link 1.8 min) plus a 20 s replay to frame 1000. Laptop (2 slots, loaded): 12 min

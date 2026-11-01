@@ -39,7 +39,7 @@ import time
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import jobq  # noqa: E402
-from wine_build_run import INPUT_DIRS, INPUT_FILES, SRC_DIRS, NB  # noqa: E402
+from wine_build_run import INPUT_DIRS, INPUT_FILES, SRC_DIRS, NB, TP as TP_OUT  # noqa: E402
 
 SKIP = ("__pycache__", ".git")
 HASHCACHE = os.path.join(jobq.JOBS, "nb-hashcache.json")
@@ -126,6 +126,14 @@ def hashes(root, relpaths):
 
 
 def inputs_stamp():
+    # fix1: the platform libraries carry the content hash of the sources they were built from (tools/platform_libs.py),
+    # so the host can tell whether they fit the job's src/platform/sdl; stamp the ones this checkout built
+    try:
+        import platform_libs
+        if platform_libs.can_build(ROOT):
+            platform_libs.stamp_fresh(os.path.join(ROOT, TP_OUT))
+    except (ImportError, OSError) as e:
+        print("platform library stamps: %s" % e, file=sys.stderr)
     rels = [(f, os.path.join(ROOT, f)) for f in INPUT_FILES if os.path.exists(os.path.join(ROOT, f))]
     rels += list(walk(ROOT, INPUT_DIRS))
     h = hashes(ROOT, rels)
@@ -275,7 +283,7 @@ def cmd_wait(a):
     if os.path.exists(s):
         d = json.load(open(s))
         print(json.dumps({k: d.get(k) for k in ("host", "lineage", "sync", "sources_hash", "decision", "wall", "stages", "link",
-                                                "replay", "error", "exit") if k in d}, indent=1))
+                                                "platform_libs", "replay", "error", "exit") if k in d}, indent=1))
         print("image: " + " ".join("%s=%s" % (k, v[:12]) for k, v in sorted((d.get("image") or {}).items())))
     else:
         print("no summary.json (see build/jobs/out/%s/log)" % a.id)

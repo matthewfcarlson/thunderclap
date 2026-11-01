@@ -368,6 +368,87 @@ def build_map(jobs):
     return defs, refs, users, stats, per_tu, per_fn
 
 
+# ---------------------------------------------------------------------------------------------
+# Map key (fix1): what the binding map depends on in the verification tree, so `wine_build_job.py --map auto` reuses
+# a map only while it still fits. The map binds symbol NAMES to addresses: a source that changes a function's mangled
+# name (return or parameter type, `extern "C"`, calling convention) leaves a reused map naming the old symbol, and the
+# link aliases callers to a definition that no longer exists. The key holds, per check, its kind/status/symbol/TU/
+# source, the names its relocations reference (matches: also their positions and types, which match_bindings reads),
+# the source's `// equiv-map:` lines (equivalent/), and per TU the object's undefined externals. A function body edit
+# that keeps every name keeps the key. An equivalent's callees are bound by behaviour (equiv.py level 2) and only
+# their names are keyed: an edit that sends a call with an unchanged name to another address needs `--map full`.
+MAPKEY_VERSION = 1
+
+
+def _obj_fingerprint(obj):
+    """{"undefined": [...], "fns": {symbol: {"pos": hash, "names": [...]}}} of one tree object, cached by the object's
+    file name (build_tree names objects by the hash of what they were compiled from)."""
+    p = os.path.join(CACHE, "mapkey", "v%d-%s.json" % (MAPKEY_VERSION, os.path.basename(obj)))
+    if os.path.exists(p):
+        try:
+            return json.load(open(p))
+        except ValueError:
+            pass
+    coff = compare.Coff(obj)
+    out = {"undefined": sorted({s[0] for s in coff.symbols if is_undefined(s)}), "fns": {}}
+    for sym in coff.function_symbols():
+        rel = [(off, t[0], typ, ab.hex()) for off, t, typ, ab in coff.function_relocs(sym) if t is not None and t[4] == 2]
+        out["fns"][sym[0]] = {"pos": hashlib.sha1(repr(rel).encode()).hexdigest()[:16],
+                              "names": sorted({r[1] for r in rel})}
+    os.makedirs(os.path.dirname(p), exist_ok=True)
+    tmp = p + ".%d.tmp" % os.getpid()
+    with open(tmp, "w") as f:
+        json.dump(out, f)
+    os.replace(tmp, p)
+    return out
+
+
+def map_key():
+    """{"version", "parts": {name: hash}, "key"} of the current verification tree (see MAPKEY_VERSION)."""
+    checks = tree_checks()
+    objs = tree_objects({c["tu"] for c in checks})
+    fps = {tu: _obj_fingerprint(o) for tu, o in objs.items() if o}
+    groups = collections.Counter((c["tu"], c.get("symbol")) for c in checks
+                                 if c.get("symbol") and c["kind"] == "matches" and c["status"] == "match")
+
+    def h(x):
+        return hashlib.sha1(json.dumps(x, sort_keys=True).encode()).hexdigest()[:16]
+
+    def text(src):
+        try:
+            return open(os.path.join(ROOT, src), errors="replace").read()
+        except (OSError, TypeError):
+            return ""
+    parts = {}
+    for c in checks:
+        fp = fps.get(c["tu"])
+        f = fp["fns"].get(c.get("symbol")) if fp and c.get("symbol") else None
+        match = c["kind"] == "matches" and c["status"] == "match"
+        item = [[c.get(k) for k in ("kind", "status", "symbol", "tu", "src")], None if f is None else
+                [f["pos"], f["names"]] if match else f["names"]]
+        if c["kind"] == "equivalent":       # tree_explicit
+            item.append(re.findall(r"^\s*//\s*equiv-map:.*$", text(c["src"]), re.M))
+        if match and groups[(c["tu"], c.get("symbol"))] > 1:    # build_map's same-symbol check reads the source's words
+            item.append(h(text(c["src"])))
+        if f and any(n.startswith("??_7") for n in f["names"]):  # the vftable's declaring source
+            t = text(c["src"])
+            item.append(sorted(n for n in f["names"] if n.startswith("??_7") and re.match(r"\?\?_7(\w+)@", n) and
+                               re.search(r"\b(?:class|struct)\s+%s\b" % re.escape(re.match(r"\?\?_7(\w+)@", n).group(1)), t)))
+        parts["%s %s %s" % (c["addr"], c["kind"], c.get("src"))] = h(item)
+    for tu, fp in fps.items():
+        parts["tu " + tu] = h(fp["undefined"])
+    return {"version": MAPKEY_VERSION, "parts": parts, "key": h(sorted(parts.items()))}
+
+
+def save_map_key():
+    """Store the key of the tree a fresh map was made from, with the hash of that map's bindings.json."""
+    k = map_key()
+    k["bindings_sha1"] = hashlib.sha1(open(os.path.join(OUT, "bindings.json"), "rb").read()).hexdigest()
+    with open(os.path.join(OUT, "mapkey.json"), "w") as f:
+        json.dump(k, f, indent=0)
+    return k
+
+
 def data_definitions(objs_syms):
     """addr -> data symbol, from objects' defined `_DAT_<addr>` symbols (tools/data_gen.py's data TUs)."""
     out = {}
@@ -1355,44 +1436,46 @@ SDL_LIBS = [os.path.join(SDL_OUT, "sdl-backends/win32/hulk_sdl.lib"), os.path.jo
 
 
 def refresh_platform_libs():
-    """play2: rebuild hulk_fs.lib / hulk_movies.lib / hulk_sdl.lib when their sources under src/platform/sdl are newer
-    (mtime), so edits to audio, input, fs or movies are not silently ignored. HULK_WINE_REFRESH_LIBS=0 skips this.
-    The fs and movie libraries are refreshed only if they were built before (the movie one needs the FFmpeg build)."""
-    plat = os.path.join(ROOT, "src/platform/sdl")
-    top = [os.path.join(plat, f) for f in os.listdir(plat) if os.path.isfile(os.path.join(plat, f))]
+    """play2: rebuild hulk_fs.lib / hulk_movies.lib / hulk_sdl.lib when their sources under src/platform/sdl changed,
+    so edits to audio, input, fs or movies are not silently ignored. HULK_WINE_REFRESH_LIBS=0 skips this. The fs and
+    movie libraries are refreshed only if they were built before (the movie one needs the FFmpeg build).
 
-    def newest(dirs, files=()):
-        m = 0.0
-        for d in dirs:
-            for dp, _dn, fn in os.walk(os.path.join(plat, d)):
-                m = max([m] + [os.path.getmtime(os.path.join(dp, f)) for f in fn])
-        return max([m] + [os.path.getmtime(f) for f in list(files) + top if os.path.exists(f)])
-
-    def stale(lib, dirs, files=()):
-        return not os.path.exists(lib) or os.path.getmtime(lib) < newest(dirs, files)
-
+    fix1: "changed" is by content (tools/platform_libs.py: the `<lib>.srchash` stamp the library was built with; mtimes
+    only where the libraries are built). A machine that cannot build them (a build host: no SDL3 sources; its
+    libraries are the shipped inputs) links the library it has and says so (platform_libs in report.json) instead of
+    failing: there a stale library means the job's src/platform/sdl differs from the checkout that built them."""
+    import platform_libs as pl
+    REFRESH.clear()
     if os.environ.get("HULK_WINE_SDL") == "0" or os.environ.get("HULK_WINE_REFRESH_LIBS") == "0" \
             or not os.path.exists(os.path.join(SDL_OUT, "sdl-win32/SDL3.lib")):
         return
+    build = pl.can_build(ROOT)
     env = dict(os.environ, HULK_TP_OUT=SDL_OUT)
     py = sys.executable
     tools = os.path.dirname(os.path.abspath(__file__))
-    fs_lib = os.path.join(SDL_OUT, "fs1/win32/hulk_fs.lib")
-    mv_lib = os.path.join(SDL_OUT, "ffmpeg-win32/movies/hulk_movies.lib")
-    steps = []
-    if os.path.exists(fs_lib) and stale(fs_lib, ["fs"]):
-        steps.append(("hulk_fs.lib", [py, os.path.join(tools, "wine_fs.py"), "backends", "--target", "win32"]))
-    if os.path.exists(mv_lib) and stale(mv_lib, ["movies"], [os.path.join(plat, "xdk/movies_bink.cpp")]):
-        steps.append(("hulk_movies.lib", [py, os.path.join(tools, "wine_ffmpeg.py"), "movies"]))   # also rebuilds hulk_sdl.lib
-    for what, cmd in steps:
-        print("link: %s is older than its sources: %s" % (what, " ".join(cmd[1:])), flush=True)
-        if subprocess.run(cmd, cwd=ROOT, env=env).returncode:
-            raise SystemExit("rebuilding %s failed" % what)
-    if stale(os.path.join(SDL_OUT, "sdl-backends/win32/hulk_sdl.lib"), ["audio", "input", "replay"]):
-        cmd = [py, os.path.join(tools, "wine_sdl.py"), "backends", "--target", "win32"]
-        print("link: hulk_sdl.lib is older than its sources: %s" % " ".join(cmd[1:]), flush=True)
-        if subprocess.run(cmd, cwd=ROOT, env=env).returncode:
-            raise SystemExit("rebuilding hulk_sdl.lib failed")
+    for rel, dirs, files, cmd, only_if_built in pl.LIBS:
+        lib = os.path.join(SDL_OUT, rel)
+        st, how = pl.state(lib, dirs, files, pl.PLAT, trust_mtime=build)
+        if st == "missing" and only_if_built:
+            continue
+        if st == "fresh":
+            if how == "mtime":
+                pl.write_stamp(lib, pl.source_hash(dirs, files, pl.PLAT))
+            REFRESH[rel] = "fresh (%s)" % how
+            continue
+        if not build:
+            REFRESH[rel] = "%s (%s): this machine cannot rebuild it, the existing library is linked" % (st, how)
+            print("link: WARNING %s is %s" % (os.path.basename(lib), REFRESH[rel]), flush=True)
+            continue
+        digest = pl.source_hash(dirs, files, pl.PLAT)
+        print("link: %s is older than its sources (%s): %s" % (os.path.basename(lib), how, " ".join(cmd)), flush=True)
+        if subprocess.run([py, os.path.join(tools, cmd[0])] + cmd[1:], cwd=ROOT, env=env).returncode:
+            raise SystemExit("rebuilding %s failed" % os.path.basename(lib))
+        pl.write_stamp(lib, digest)
+        REFRESH[rel] = "rebuilt"
+
+
+REFRESH = {}            # library -> what refresh_platform_libs found (report.json platform_libs)
 
 
 def _sdl_libs():
@@ -1857,11 +1940,22 @@ def main(argv=None):
                     help="fail the link when a dynamic_cast's target class maps to no game type descriptor (the cast "
                          "returns null), or with `all` its source class too (link/unmapped_casts.json lists both "
                          "either way); or HULK_WINE_STRICT_CASTS=target|all")
+    ap.add_argument("--map-key", metavar="PATH",
+                    help="only write the binding map key of the verification tree to PATH (JSON; see map_key): "
+                         "tools/wine_build_run.py compares it with the key build/native/mapkey.json saved with the map")
     a = ap.parse_args(argv)
     global TREE, GFX, SDL_LIBS, STRICT_CASTS
     GFX = GFX or a.gfx
     STRICT_CASTS = a.strict_casts or {"1": "target"}.get(os.environ.get("HULK_WINE_STRICT_CASTS", ""),
                                                             os.environ.get("HULK_WINE_STRICT_CASTS") or None)
+    if a.map_key:
+        if a.tree:
+            TREE = os.path.abspath(a.tree)
+        k = map_key()
+        with open(a.map_key, "w") as f:
+            json.dump(k, f, indent=0)
+        print("map key %s (%d parts)" % (k["key"], len(k["parts"])))
+        return 0
     refresh_platform_libs()          # play2: stale hulk_sdl / hulk_movies / hulk_fs libraries are rebuilt first
     SDL_LIBS = _sdl_libs()
     if a.tree:
@@ -1875,10 +1969,13 @@ def main(argv=None):
         rep["link"] = link_inventory(binding, defs, {}, not a.no_link, set(amb), bj.get("ambiguous_by_tu"),
                                      bj.get("ambiguous_by_function"), bj.get("local_data"), bj.get("local_code"))
         rep["conv_check"] = conv_check()
+        rep["platform_libs"] = dict(REFRESH)
         with open(os.path.join(OUT, "report.json"), "w") as f:
             json.dump(rep, f, indent=1)
         print(json.dumps(rep["link"], indent=1))
         return 0
+    if os.path.exists(os.path.join(OUT, "mapkey.json")):
+        os.unlink(os.path.join(OUT, "mapkey.json"))     # (the key belongs to the map it was saved with)
     defs, refs, users, stats, per_tu, per_fn = build_map(a.jobs)
     with open(os.path.join(OUT, "tree-explicit.json"), "w") as f:
         json.dump(tree_explicit.changed, f, indent=0)
@@ -1936,6 +2033,7 @@ def main(argv=None):
                    "local_data": getattr(build_map, "local_data", {}), "local_code": getattr(build_map, "local_code", {}),
                    "definitions": {"0x%08x" % k: v for k, v in sorted(defs.items())},
                    "references": dict(users)}, f, indent=0)
+    save_map_key()
     with open(os.path.join(OUT, "alternatename.rsp"), "w") as f:
         for s, b in sorted(binding.items()):
             if b["def"] and b["def"] != s:
@@ -1948,6 +2046,7 @@ def main(argv=None):
         rep["link"] = link_inventory(binding, defs, {}, not a.no_link, set(amb), amb_tu, amb_fn,
                                      getattr(build_map, "local_data", {}), getattr(build_map, "local_code", {}))
     rep["conv_check"] = conv_check()
+    rep["platform_libs"] = dict(REFRESH)
     with open(os.path.join(OUT, "report.json"), "w") as f:
         json.dump(rep, f, indent=1)
     print(json.dumps(rep, indent=1))

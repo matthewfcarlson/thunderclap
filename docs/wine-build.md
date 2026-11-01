@@ -11,6 +11,7 @@ build/venv/bin/python tools/clang_probe.py --snapshot   # refresh the snapshot a
 build/venv/bin/python tools/clang_probe.py --only src/game/global/CAction.cpp   # one TU's diagnostics, every configuration
 build/venv/bin/python tools/wine_link.py              # binding map (fix 5a), link inventory, lld-link attempt
 build/venv/bin/python tools/wine_link.py --reuse-map  # inventory + link with build/native/bindings.json as it is
+build/venv/bin/python tools/wine_link.py --map-key K.json   # the tree's binding map key (a full map saves build/native/mapkey.json; wine_build_job --map auto compares them)
 build/venv/bin/python tools/wine_shim.py              # platform-shim / CRT inventory of the link (build/native/shim-inventory.json)
 build/venv/bin/python tools/wine_shim.py --skeleton   # write src/platform/sdl/xdk/ files that don't exist yet (pre-shim inventory)
 build/venv/bin/python tools/wine_fix.py               # fix 4 source edits: plan; --apply --verify rewrites verified sources

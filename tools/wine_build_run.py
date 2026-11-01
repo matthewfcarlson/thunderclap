@@ -238,7 +238,9 @@ def decide(spec, built, mapped, new, lin):
     since the last good build, only function sources (matches/ equivalent/) and files the tree build does not read
     (src/, the tools outside build_tree's imports) changed. The binding map (wine_link --reuse-map) is only reused
     when, since it was made, sources were modified but none added or removed, and nothing under include/ config/ or in
-    wine_link's imports changed."""
+    wine_link's imports changed; `auto` then returns reuse = "key": the tree is built first and map_key_reuse() decides
+    by the map key (wine_link.map_key: the symbol names each function's bindings depend on), so a source that changes a
+    mangled name (a return type, `extern "C"`) is mapped again."""
     tools = os.path.join(lin, "tools")
     tree_files, map_files = closure(tools, "build_tree"), closure(tools, "wine_link")
 
@@ -272,10 +274,36 @@ def decide(spec, built, mapped, new, lin):
         why["map"] = "reuse requested"
     else:
         n, shape, core = classify(mapped, map_files)
-        reuse = not core and not shape
-        why["map"] = ("reuse: %s since the map, no function source added or removed" % n) if reuse else \
+        reuse = "key" if not core and not shape else False
+        why["map"] = ("map key decides: %s since the map, no function source added or removed" % n) if reuse else \
             "full map: %d function sources added/removed, %d map inputs changed (%s)" % (len(shape), len(core), ", ".join(core[:3]))
     return resume, reuse, why
+
+
+def map_key_reuse(py, env, lin, out):
+    """After the tree build: (reuse the binding map?, reason, seconds). The map is reused when the key of the tree now
+    (wine_link.py --map-key) equals the one saved with the map (build/native/mapkey.json, which also names the
+    bindings.json it belongs to). Without a saved key (a map made by an older wine_link) or a key tool (a workspace
+    with older tools), or when anything differs, the map is made again."""
+    t0 = time.time()
+    nat = env.get("HULK_WINE_DIR") or os.path.join(lin, "build/native")
+    saved = jload(os.path.join(nat, "mapkey.json"))
+    bj = os.path.join(nat, "bindings.json")
+    if not saved or not os.path.exists(bj) or saved.get("bindings_sha1") != sha_file(bj):
+        return False, "full map: no map key saved with this map", round(time.time() - t0, 1)
+    now_p = os.path.join(out, "mapkey.json")
+    with open(os.path.join(out, "map_key.log"), "wb") as lg:
+        rc = subprocess.call([py, "tools/wine_link.py", "--map-key", now_p], cwd=lin, env=env, stdin=subprocess.DEVNULL,
+                             stdout=lg, stderr=subprocess.STDOUT)
+    now = jload(now_p) if rc == 0 else None
+    wall = round(time.time() - t0, 1)
+    if not now or now.get("version") != saved.get("version"):
+        return False, "full map: no map key for this tree (wine_link.py --map-key exit %d)" % rc, wall
+    if now["key"] == saved["key"]:
+        return True, "reuse: map key %s unchanged" % now["key"], wall
+    a, b = saved["parts"], now["parts"]
+    diff = sorted(k for k in set(a) | set(b) if a.get(k) != b.get(k))
+    return False, "full map: map key changed in %d parts (%s)" % (len(diff), ", ".join(diff[:4])), wall
 
 
 def stage(name, argv, env, cwd, outdir):
@@ -426,6 +454,11 @@ def main():
     sse = env.get("HULK_WINE_FLOAT", "sse") != "x87"
     summ["float"] = "sse" if sse else "x87"
     map_built = False
+    if reuse == "key":
+        reuse, summ["decision"]["why"]["map"], summ["wall"]["map_key"] = map_key_reuse(py, env, lin, out) if ok else \
+            (False, "full map: the build failed", 0)
+        summ["decision"]["reuse_map"] = reuse
+        log("map: %s" % summ["decision"]["why"]["map"])
     if ok and "probe" in stages and sse and "link" in stages:
         # perf1 (docs/wine-float.md section 13): the SSE build's x87-keep list (clang_probe, after the snapshot) names
         # callees by address through the binding map, which comes from the verification build alone: make it first
@@ -461,6 +494,7 @@ def main():
             lk = (jload(rp, {}).get("link") or {})
             summ["link"] = {"undefined_after": (lk.get("undefined_after") or {}).get("symbols"),
                             "lld_link": json.dumps(lk.get("lld_link"))[:300]}
+            summ["platform_libs"] = jload(rp, {}).get("platform_libs")
         if os.path.exists(os.path.join(lin, "build/native/unbound.txt")):
             shutil.copyfile(os.path.join(lin, "build/native/unbound.txt"), os.path.join(out, "unbound.txt"))
         if ok:
