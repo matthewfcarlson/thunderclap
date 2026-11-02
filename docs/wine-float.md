@@ -428,7 +428,7 @@ hits, first frame, sample value). Run the replay with tools/wine_replay_job.py a
 
 Result on play3 (whole recording, then to frame 100,200): one site, `FUN_003078a0` (CollisionObjectLoader.cpp:820), a NaN
 into the `(__int64)` step of the already-faithful `(int)(__int64)` spelling (0 on x86 and arm64 alike). No direct
-`int`/`unsigned` conversion overflowed. Limits: the path diverges from the recording at ~frame 1,020 and needed four
+`int`/`unsigned` conversion overflowed. Rerun on the current path (to 60,570): section 14. Limits: the path diverges from the recording at ~frame 1,020 and needed four
 workspace-only crash guards after frame 3,900; see build/ubsan1/notes.md.
 
 ## 11. What xemu's fsin/fcos/fptan/fpatan really compute (cap1, 2026-10-21)
@@ -521,9 +521,77 @@ SSE the default; three cases about x87-only artefacts are pinned to x87 with the
 (nan_sign_off: SSE negates with a sign-mask xor, as fchs does; lstatic_off; f0e60 vsplit_wrong, whose first
 difference changes).
 
+## 14. Float -> integer overflows on the play3 path (ovf1, 2026-11-02)
+
+Groundwork for the 64-bit builds: a conversion whose value does not fit its integer type gives a different result on each
+target, so every such site that runs must be spelled explicitly before arm64 can be bit-identical to the Wine build.
+
+**What each target gives.** The original compiles every `(int)`/`(unsigned)`/`(__int64)` of a float to a call of the CRT's
+`_ftol2` (0x0034483c, 404 call sites): one `fistp qword`, the result in edx:eax. A 32-bit conversion takes the low dword
+of the **64-bit** truncation, so values in 2^31..2^63 wrap modulo 2^32 and NaN or |x| >= 2^63 (the qword "indefinite",
+0x8000000000000000) give **0**. The Wine build's clang code is different: SSE `cvttss2si`/`cvttsd2si` (and x87 `fistp
+dword` in x87 code) give **0x80000000** for every value outside the int range and for NaN; a conversion to 64 bits goes
+through `fistp qword` as in the original. x86-64 has the same two instructions (32- and 64-bit `cvtt*2si`). arm64
+`fcvtzs`/`fcvtzu` **saturate** and give **0** for NaN (and 0 for negative -> unsigned). So `(int)x` out of range has three
+answers (original: low dword of int64; x86: INT_MIN; arm64: INT_MIN/INT_MAX/0), and the spelling that agrees with the
+original *and* with every target is the one the original computes: `(int)(__int64)x` (MSVC 7.1 emits the same `_ftol2`
+call for it, so a byte-matched source keeps matching; on all three targets NaN and -2^63..2^63 then agree; only x >= 2^63
+still differs on arm64, which saturates to 0x7fff...ffff instead of the indefinite).
+
+**Method.** Section 10's variant, unchanged and default-off: `--env HULK_WINE_SANITIZE=float-cast` on a Wine build job
+compiles the game's TUs with `-fsanitize=float-cast-overflow` (384 checked conversions in the SSE image) and links our
+handler (`__ubsan_handle_float_cast_overflow` in src/platform/sdl/xdk/startup.cpp, `HULK_UBSAN_FLOAT`), which logs the site
+at its 1st, 2nd, 4th ... hit and returns, so the conversion then gives what the normal image gives. Platform-layer code
+(src/platform) is not instrumented.
+
+```sh
+J=build/venv/bin/python; N=tools/wine_build_job.py
+id=$($J $N submit --name NAME --workspace WS --gfx --env HULK_WINE_SANITIZE=float-cast \
+        --replay play3 --frames 60000 --replay-timeout 1800 --fetch image)
+$J $N wait $id
+# bindings.json from the lineage on the host (~/hulk-jobs*/nb/ws/LINEAGE/build/native/bindings.json)
+$J tools/ubsan_sites.py build/jobs/out/$id/nb-out/trace.txt --map build/jobs/out/$id/nb-out/image/hulk-strict.map \
+        --bindings bindings.json --out sites.jsonl
+$J $N compare $id CONTROL_ID      # a control build of the same workspace without --env
+```
+
+**Observer only.** HEAD 7a5ec4ccc, one lineage on mac1, SSE image: sanitizer build (job 38276) and control (job 38277),
+both replayed headless past frame 60,000 (play3 through mac1). The checkpoint files are byte-identical at every common frame: 2,010 checkpoints, 0..60,270 (the control stopped at 60,270, the sanitizer build at 60,570; `wine_build_job.py compare`: differing 0). The control's trace has no `ubsan` line. The images differ only by the checks and the handler.
+
+**Result: two sites in 60,570 frames.**
+
+| function | source | conversion | hits | frames | value | Wine build | original (`_ftol2`) | arm64 |
+|---|---|---|---|---|---|---|---|---|
+| FUN_00262270 (matches/0x00262270.cpp; unk_262230.cpp:89) | `int n = (int)(x * 100.0f);` | double -> int | 32,768-65,535 | 6,018 to at least 39,303 | NaN | n = INT_MIN -> returns -10000 | n = 0 -> returns 0 | n = 0 -> returns 0 |
+| FUN_003078a0 (equivalent/0x003078a0.cpp; CollisionObjectLoader.cpp:820) | `(unsigned char)(__int64)(int)(__int64)((1.0f - f50) * 255.0f)` | double -> long long | 4-7 | 2,493 to at least 5,520 | NaN | 0 | 0 | 0 |
+
+- **FUN_00262270** converts a gain in dB to the DirectSound mix-bin volume in hundredths of a dB (clamped to -10000 =
+  silence). Its caller, the 3D sound update FUN_00258f90 (equivalent/), passes `ToDb(v)` = `20*log10(v)` of seven mix-bin
+  gains; a NaN means a gain went negative (the pan/fade terms `-0.5*pan + 0.5` leave [0,1] when pan or fade is outside
+  [-1,1], or `1 - att` < 0) or is NaN already. `NaN < minimum` is false, so the NaN reaches the conversion. Here the Wine
+  build is the one that is wrong: it mutes the bin (-10000) where the original's `_ftol2` gives 0, i.e. full volume on that
+  bin; arm64 already agrees with the original. Audio only (the mix-bin volumes go to IDirectSoundBuffer_SetMixBinVolumes),
+  no checkpoint region sees it. **Proposed spelling:** `int n = (int)(__int64)(x * 100.0f);` (checked: compare.py MATCH,
+  verify_relocs ok, same 60 bytes). It makes the Wine build, x86-64 and arm64 return 0 for NaN, as the original does.
+  Whether the original actually meets the NaN on this path (a negative gain) is open: a hybrid/xemu trace of
+  FUN_00262270's argument would say.
+- **FUN_003078a0**: a NaN read from a collision-mesh file (section 10's site), already spelled `(int)(__int64)`; the
+  64-bit step gives the indefinite (x86) or 0 (arm64), low dword 0 either way. Nothing to fix.
+
+No other conversion of the 384 overflowed on the play3 path (to frame 60,570; the path matches the recording to the
+frontier near 29,250, and the counts are lower bounds by up to 2x). Section 10's run saw only the second site because
+its path left the recording at ~1,020. Not covered: conversions clang folds or that are spelled through helpers, the
+platform layer, and paths play3 does not take (other levels, menus, missions): rerun with each new recording.
+
+**Next.** Apply the FUN_00262270 spelling (one byte-matched source; recheck compare/verify_relocs), and make
+`(int)(__int64)` the rule for any new site this build finds. For the 64-bit builds a small `hulk_ftol` helper (low dword of
+an int64 truncation with the indefinite for NaN/|x| >= 2^63) is the fully portable alternative if a site ever needs the
+>= 2^63 case. Run this variant again once div5 moves the frontier and with every new recording.
+
 ## Files
 
 - `tools/x87_scan.py`: the scanner (tracked).
+- `tools/ubsan_sites.py`: folds the float-cast trace into a site list (sections 10, 14; tracked).
 - `tools/x87_keep.py`: section 13's x87-keep list (tracked); `build/perf1/` (local): the profiler, bisect scripts and runs.
 - `tools/xemu_x87_probe.py`: the xemu x87 probe of section 11 (tracked; mac2 only).
 - `build/x87/` (local): `x87cc.py` (compiler stand-in: modes o0, o1, o1dyn, sroadyn, m2rdyn, o0sroa, bis*),
