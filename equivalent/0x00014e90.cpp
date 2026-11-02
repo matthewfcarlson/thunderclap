@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 2/2)
 // CMoveAddAction::vfunc_7 @ 0x00014e90
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct Vec_14e90 { float x,y,z; };
@@ -24,7 +25,7 @@ bool CMoveAddAction::vfunc_7(float dt) {
  double factor=(double)m->distance/duration*dt;
  v.x=(float)(v.x*factor); v.y=(float)(v.y*factor); v.z=(float)(v.z*factor);
  float angle=m->angle;
- float heading=actor->FUN_000354c0();
+ hulk_freg heading=actor->FUN_000354c0(); /* st0: added unrounded */
  FUN_00224d70(heading+angle,&v);
  actor->FUN_00035720(&v);
  return true;

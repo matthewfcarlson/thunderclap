@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 4/4)
 // CMoveAction::vfunc_7 @ 0x00014d40
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct Vec_14d40 { float x,y,z; void FUN_0022be40(const Vec_14d40*); };
@@ -22,7 +23,7 @@ bool CMoveAction::vfunc_7(float dt) {
  double scale=((double)motion->speed/duration)*dt;
  delta.x=(float)(delta.x*scale); delta.y=(float)(delta.y*scale); delta.z=(float)(delta.z*scale);
  float angle=motion->angle;
- float turn=heading->FUN_000354c0();
+ hulk_freg turn=heading->FUN_000354c0(); /* st0: added unrounded */
  FUN_00224d70((float)((double)turn+angle),&delta);
  Vec_14d40 position; position.x=0;position.y=0;position.z=0;
  actor->FUN_00059a50(&position);

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3043 inputs, branch coverage 73/74, incomplete; Wine build 3043 inputs, 73/74)
+// STATUS: equivalent (tools/equiv.py level 3: 3043 inputs, branch coverage 73/74, incomplete; Wine build 657 inputs, 72/74)
 // FUN_000a3040 @ 0x000a3040
 #include "decls/data/game/global.h"
 #include "compat/ptr.h"
@@ -190,11 +190,12 @@ void CChaseCamera_a3040::Update(float unused, float dt)
                     b346 = 1;
                 }
                 if (f.pitch != f.outB) {
-                    float r = FUN_000a00e0(f.pitch, f.outB, (*(float*)&DAT_0049ec48), dt, 2.0f);
-                    float d1 = f.outA - f.pitch;
-                    float d2 = r - f.pitch;
-                    float ad1 = AbsF(d1);
-                    float ad2 = AbsF(d2);
+                    // x87: r, d1 and d2 stay in st0..st2; only rounded copies of d1/d2 are compared (fst)
+                    hulk_freg r = FUN_000a00e0(f.pitch, f.outB, (*(float*)&DAT_0049ec48), dt, 2.0f);
+                    hulk_freg d1 = f.outA - f.pitch;
+                    hulk_freg d2 = r - f.pitch;
+                    float ad1 = AbsF((float)d1);
+                    float ad2 = AbsF((float)d2);
                     if (ad2 > ad1)
                         f.pitch = r;
                     else if (d2 * d1 < 0.0f)

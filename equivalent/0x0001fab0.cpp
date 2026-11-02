@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 14/14)
 // COrientAction::vfunc_7 @ 0x0001fab0
 #include "compat/ptr.h"
 struct Vec3_1fab0 {
@@ -59,7 +59,7 @@ char COrientAction::vfunc_7(float dt)
         return 0;
 
     Stats_1fab0 *stats = FUN_00059a30(FUN_000592a0(owner));
-    hulk_freg angle = stats->FUN_000354c0();
+    hulk_freg angle = (float)stats->FUN_000354c0();   // the original stores the heading to its frame (fstp) first
 
     Vec3_1fab0 dir;
     dir.x = 0.0f;

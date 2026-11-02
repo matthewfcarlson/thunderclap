@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 23/24, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 24/24)
 // FUN_00148580 @ 0x00148580
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 
 struct Vec3_148580 { float x, y, z; };
@@ -107,7 +108,7 @@ bool FUN_00148580(void *owner, Effect_148580 *fx, Params *p)
     fx->fc = 0;
     fx->f8 = 0;
 
-    float v = s->FUN_000354c0();
+    hulk_freg v = s->FUN_000354c0();   // st0: the heading is added unrounded (both uses)
     if (p->f14 == 0)
         v = t->FUN_000354c0();
     fx->dir = (*(Vec3_148580*)&DAT_004ae358);

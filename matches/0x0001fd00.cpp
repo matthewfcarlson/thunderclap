@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Angle_1fd00 {
     float FUN_000354c0();
     void FUN_00221d20(float);
@@ -38,8 +39,8 @@ bool COrientTargetAction::vfunc_7(float dt) {
     if (!destination)
         return false;
     float current = source->FUN_000592a0()->FUN_00059a30()->FUN_000354c0();
-    float desired = target->FUN_000354c0();
-    desired = desired + settings->offset;
+    hulk_freg heading = target->FUN_000354c0();   // st0: added unrounded (clang would round a float local)
+    float desired = heading + settings->offset;
     if (settings->speed < 0.0f)
         current = desired;
     else {
