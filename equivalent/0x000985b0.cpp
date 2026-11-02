@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 5700 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 20/20)
 // CBlendCamera::vfunc_35 @ 0x000985b0
 // cl-flags: /GS
+#include "compat/ptr.h"
 
 struct Vec3_985b0 {
     float x, y, z;
@@ -97,7 +98,7 @@ void CBlendCamera::vfunc_35(int a1, float a2, int a3, int a4)
     if (mode == 0) {
         k = 1.0f;
     } else if (mode == 1) {
-        float u = t / duration;
+        hulk_freg u = t / duration;   // st(0): the original never stores u (the eases square the unrounded value)
         if (!(u >= 0.0f)) {
             u = 0.0f;
         } else if (u > 1.0f) {
