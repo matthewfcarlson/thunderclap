@@ -64,20 +64,20 @@ IDENTIFIED = {
     0x3473c6: "strcmp",
     0x3449e4: "__RTtypeid",                # "Attempted a typeid of NULL pointer!"
     0x3479bc: "free",                      # heap lock, NtFreeVirtualMemory
-    0x3465c6: "_nh_malloc",                # NtAllocateVirtualMemory + _callnewh
+    0x3465c6: "strtok",                    # per-thread state, delimiter bitmap; callers strtok(NULL, delim)
     0x347aa0: "calloc",                    # n*size, zeroing
     0x347b53: "strerror",                  # _getptd()->_errmsg (134-byte buffer)
     0x347ba4: "_errno",                    # _getptd()+8
-    0x347eed: "puts",
-    0x345d81: "_exit",
+    0x347eed: "fputs",                     # (s, stream): strlen + _fwrite_lk to the 2nd argument
+    0x345d81: "strtoul",                   # strtoxl(s, end, base, 1)
     0x3465b3: "fopen",                     # _fsopen(name, mode, _SH_DENYNO)
-    0x3471a3: "_fcloseall",
+    0x3471a3: "exit",                      # doexit(0, 0): first of exit/_exit/_cexit/_c_exit
     0x3472cb: "strtod",
-    0x348010: "_CIexp",                    # matherr path
+    0x348010: "ldexp",                     # (double, int); Lua math.ldexp
     0x348380: "_strlwr",
     0x356734: "sprintf (vsprintf wrapper)",
-    0x3441f0: "_CIsqrt-class 1-arg x87 helper",
-    0x3442bc: "_CIlog-class 1-arg x87 helper",
+    0x3441f0: "_CIacos",                   # atan2(sqrt(1-x*x), x); x=-1 -> pi, x=1 -> 0
+    0x3442bc: "_CIasin",                   # atan2(x, sqrt(1-x*x)); x=+-1 -> +-pi/2
     0x3469f5: "type_info::name (undname)",
     0x20bbc2: "CloseHandle",               # NtClose
     0x2101d4: "SetFilePointer",            # NtQuery/SetInformationFile(FilePositionInformation)
@@ -290,7 +290,7 @@ class Image:
 # Subsystem classification of platform functions
 
 SUBSYS_RULES = [
-    ("C++ runtime", r"^operator new|type_info|__RTDynamicCast|__RTtypeid|__security_check_cookie|^_atexit|^_chkstk|setjmp|longjmp|^_?_?purecall|_onexit|^_errno|^strerror|^_exit|^_fcloseall"),
+    ("C++ runtime", r"^operator new|type_info|__RTDynamicCast|__RTtypeid|__security_check_cookie|^_atexit|^_chkstk|setjmp|longjmp|^_?_?purecall|_onexit|^_errno|^strerror|^_exit|^exit$"),
     ("CRT: heap/stdio", r"^_?malloc$|^free$|^calloc$|^_nh_malloc$|^fopen$|^_fclose$|_fwprintf$|_getc$|^_?_?fflush$|^_?realloc$"),
     ("movies", r"^BINK|Bink"),
     ("graphics", r"^Direct3D|^D3D|^XGRPH|D3D|^CMiniport|^CDevice|^XG(?!et)[A-Z]|Surface|^Av[GS]|AvSendTV|^MmClaimGpu|^MmPersistContiguous|HalBootSMCVideoMode|^Lock|PushBuffer"),

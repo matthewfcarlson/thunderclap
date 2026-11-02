@@ -173,6 +173,11 @@
 // 0x00348380 is _strlwr, not _strupr (native18): its one caller, the sound key constructor 0x00253a90, folds a
 // name before hashing it into a 64-bit .rsd id; with upper case the ids name files that no RCF holds
 // (sound\rsd\3\346494a868380c06.rsd ...), with lower case they are the ids the hybrid requests.
+// crt1 checked every address row against its callers and the routine's behaviour (build/crt1 notes; 2026-11-02):
+// 0x00345d81 is strtoul (strtoxl(s, end, base, 1); crash2), 0x003471a3 is exit (the first of four wrappers of one
+// termination routine, flags (0,0): run the atexit table and end the process; Lua's luaD_throw calls it as
+// exit(EXIT_FAILURE) when no handler is set), not _fcloseall, and 0x00347eed is fputs (two arguments, the stream
+// the second: Lua's `fputs("lua_debug> ", stderr)` and print's `fputs("\t", stdout)`), not puts.
 #define HULK_HOST_CRT(C) \
     C(0x00344913, type_info_eq, "") \
     C(0x003449e4, __RTtypeid, "__RTtypeid") \
@@ -220,7 +225,7 @@
     C(0x003469f5, type_info_name, "") \
     C(0x00346fc5, _stricmp, "__stricmp _stricmp") \
     C(0x00347010, _aulldiv, "_aulldiv") \
-    C(0x003471a3, _fcloseall, "_fcloseall") \
+    C(0x003471a3, hulk_crt_exit, "exit") \
     C(0x003471d4, longjmp, "_longjmp longjmp") \
     C(0x00347250, _setjmp3, "__setjmp3 _setjmp3") \
     C(0x003472cb, strtod, "strtod") \
@@ -239,7 +244,7 @@
     C(0x00347c95, hulk_crt_ungetc, "_ungetc ungetc") \
     C(0x00347d2a, hulk_crt_getc, "_getc getc") \
     C(0x00347e67, hulk_crt_fgets, "_fgets fgets") \
-    C(0x00347eed, puts, "puts") \
+    C(0x00347eed, hulk_crt_fputs, "fputs") \
     C(0x00347f64, frexp, "frexp") \
     C(0x00348010, ldexp, "ldexp") \
     C(0x00348290, memchr, "_memchr memchr") \

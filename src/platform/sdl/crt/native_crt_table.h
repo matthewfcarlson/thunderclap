@@ -66,7 +66,7 @@
     N(0x003469f5, abi, hulk_ncrt_type_info_name, "") \
     N(0x00346fc5, libc, strcasecmp, "__stricmp _stricmp") \
     N(0x00347010, na, _aulldiv, "_aulldiv") \
-    N(0x003471a3, glue, hulk_ncrt_fcloseall, "_fcloseall") \
+    N(0x003471a3, glue, hulk_ncrt_exit, "exit") \
     N(0x003471d4, glue, hulk_ncrt_longjmp, "_longjmp longjmp") \
     N(0x00347250, glue, hulk_ncrt_setjmp3, "__setjmp3 _setjmp3") \
     N(0x003472cb, libc, strtod, "strtod") \
@@ -85,7 +85,7 @@
     N(0x00347c95, glue, hulk_ncrt_ungetc, "_ungetc ungetc") \
     N(0x00347d2a, glue, hulk_ncrt_getc, "_getc getc") \
     N(0x00347e67, glue, hulk_ncrt_fgets, "_fgets fgets") \
-    N(0x00347eed, libc, puts, "puts") \
+    N(0x00347eed, glue, hulk_ncrt_fputs, "fputs") \
     N(0x00347f64, libc, frexp, "frexp") \
     N(0x00348010, libc, ldexp, "ldexp") \
     N(0x00348290, libc, memchr, "_memchr memchr") \

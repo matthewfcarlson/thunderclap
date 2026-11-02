@@ -121,6 +121,18 @@ hulk_u32 HULK_HOST_CDECL hulk_crt_fwrite(const void* p, hulk_u32 size, hulk_u32 
 int HULK_HOST_CDECL hulk_crt_getc(void* f) { return hulk_host_getc(hulk_stream(f)); }
 int HULK_HOST_CDECL hulk_crt_ungetc(int c, void* f) { return hulk_host_ungetc(c, hulk_stream(f)); }
 char* HULK_HOST_CDECL hulk_crt_fgets(char* s, int n, void* f) { return hulk_host_fgets(s, n, hulk_stream(f)); }
+int HULK_HOST_CDECL hulk_crt_fputs(const char* s, void* f) { return hulk_host_fputs(s, hulk_stream(f)); }
+
+// exit (0x003471a3): the CRT's exit runs the atexit table, then ends the process. The game calls it from Lua's
+// luaD_throw (0x002152b0) as exit(EXIT_FAILURE) when a script error has no handler; say so on stderr first.
+void HULK_HOST_CDECL hulk_crt_exit(int code) {
+    char line[64];
+    int n = hulk_host__snprintf(line, sizeof(line), "hulk: the game called exit(%d)\n", code);
+    if (n > 0)
+        hulk_host_fputs(line, (hulk_host_file*)((unsigned char*)hulk_host___iob_func() + 64));
+    hulk_crt_run_atexit();
+    hulk_host_exit(code);
+}
 
 int HULK_HOST_CDECL hulk_crt_fprintf(void* f, const char* fmt, ...) {
     __builtin_va_list ap;

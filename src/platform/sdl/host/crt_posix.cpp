@@ -122,7 +122,15 @@ size_t hulk_ncrt_fwrite(const void* p, size_t size, size_t n, void* f) { return 
 int hulk_ncrt_getc(void* f) { return getc(stream(f)); }
 int hulk_ncrt_ungetc(int c, void* f) { return ungetc(c, stream(f)); }
 char* hulk_ncrt_fgets(char* s, int n, void* f) { return fgets(s, n, stream(f)); }
-int hulk_ncrt_fcloseall(void) { return 0; }   // (the game calls it once at exit; the host closes its streams)
+int hulk_ncrt_fputs(const char* s, void* f) { return fputs(s, stream(f)); }
+
+// exit (0x003471a3): run the atexit table, then end the process (Lua's luaD_throw: exit(EXIT_FAILURE) when a
+// script error has no handler)
+void hulk_ncrt_exit(int code) {
+    fprintf(stderr, "hulk: the game called exit(%d)\n", code);
+    hulk_crt_run_atexit();
+    exit(code);
+}
 
 int hulk_ncrt_fprintf(void* f, const char* fmt, ...) {
     va_list ap;
