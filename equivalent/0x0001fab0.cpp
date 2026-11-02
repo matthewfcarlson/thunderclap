@@ -59,7 +59,8 @@ char COrientAction::vfunc_7(float dt)
         return 0;
 
     Stats_1fab0 *stats = FUN_00059a30(FUN_000592a0(owner));
-    hulk_freg angle = (float)stats->FUN_000354c0();   // the original stores the heading to its frame (fstp) first
+    float stored = stats->FUN_000354c0();   // the original stores the heading to its frame (fstp) first; a plain
+    hulk_freg angle = stored;               // (float) cast would be undone by clang_probe's retfix (fpext of the call)
 
     Vec3_1fab0 dir;
     dir.x = 0.0f;
