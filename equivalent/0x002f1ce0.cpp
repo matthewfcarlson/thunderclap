@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3076 inputs, branch coverage 61/62, incomplete)
 // FUN_002f1ce0 @ 0x002f1ce0
+#include "compat/ptr.h"
 #include "decls/data/engine/physics.h"
 
 extern "C" double sqrt(double);
@@ -108,7 +109,7 @@ extern "C" Shape_2f1ce0 *__cdecl FUN_002f1ce0(const V3_2f1ce0 *p, Shape_2f1ce0 *
         out->x = p->x - c->x;
         out->y = p->y - c->y;
         out->z = p->z - c->z;
-        float len = out->FUN_0022d110();
+        hulk_freg len = out->FUN_0022d110();   // x87: the length stays in st0 (fld st0 / fstp *dist); the radius is subtracted from it unrounded
         *dist = len;
         if (len <= 0.000001f || len != len) {
             *dist = 0.0f;
