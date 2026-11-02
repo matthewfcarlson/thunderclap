@@ -814,6 +814,11 @@ CASES = {
     "0x001687a0_c_conv_self": ("equivalent", None, 0.9, {"n_inputs": 300}),
     "0x001687a0_c_conv_self_wrong": ("fail", "returned", 0, {"n_inputs": 300}),
     "0x001687a0_c_conv_self_off": ("fail", None, 0, {"src": "0x001687a0_c_conv_self", "n_inputs": 300, "equiv_off": "convcname"}),
+    # round 27 cdeclret, C-linkage callees: a local passed by pointer to `extern "C" FUN_00202560(Vec3 *origin, ...)` is
+    # compared over sizeof(Vec3) from our declaration, as for a C++ callee's mangled types; before, to the next local (+0xc)
+    "0x0018f6d0_c_callee_local": ("equivalent", None, 0.8, {"n_inputs": 300}),
+    "0x0018f6d0_c_callee_local_wrong": ("fail", "the local passed as argument 1 differs at +0x4", 0, {"n_inputs": 300}),
+    "0x0018f6d0_c_callee_local_off": ("fail", "the local passed as argument 1 differs at +0xc", 0, {"src": "0x0018f6d0_c_callee_local", "n_inputs": 300, "equiv_off": "cdeclret"}),
 }
 
 # verify_relocs.py cases: name -> (expected status, issue kind it must report or None)

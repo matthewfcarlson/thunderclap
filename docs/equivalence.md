@@ -924,7 +924,10 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   type unknown)", and the Wine build's leftover eax failed) and its parameters were unknown (an `// equiv-conv` on it laid our
   arguments out wrong). `decl_c_signature` reads the return and parameter kinds from the source's own top-level declaration,
   as a C++ name's come from its mangling; the callers' use of eax still overrides a void return. C-linkage callees get the
-  same (`decls`: an equiv-conv callee's layout, natnarrow). `convcname`: `resolve_conventions` matches a C symbol by its C
+  same (`decls`: an equiv-conv callee's layout, natnarrow), and `pointee_sizes` sizes a local passed to a C-linkage callee
+  by our declaration's pointee when it is a struct or a pointer (compared over sizeof(*arg), not into the next local;
+  case `0x0018f6d0_c_callee_local[_wrong,_off]`); a pointer to a builtin type (`char *`, often an array) keeps the whole
+  local compared. `convcname`: `resolve_conventions` matches a C symbol by its C
   name (and a mangled line name by its leaf). `EQUIV_OFF=noghidra` stands for a host without the Ghidra files in regression
   cases. Cases `0x002d1b00_native_c_void_ret[_off]`, `0x00096600_native_c_ret_wrong`, `0x001687a0_c_conv_self[_wrong,_off]`;
   `0x000375a0_native_retwidth_off` and `0x0035d200_native_noeaxret_off` now also switch cdeclret off (their declarations say

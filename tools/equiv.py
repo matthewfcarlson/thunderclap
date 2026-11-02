@@ -2879,20 +2879,22 @@ _DECL_KINDS = {"void": "void", "bool": "b8", "char": "i8", "unsigned char": "i8"
                "unsigned long": "i32", "long int": "i32", "unsigned long int": "i32"}
 
 
-def decl_c_signature(src, symbol):
+def decl_c_signature(src, symbol, types=False):
     """(round 27, cdeclret) (return kind, [parameter kinds] or None) of a C-linkage function (`_name`, `_name@N`,
     `@name@N`: the symbol carries no types) from our own source's top-level declarations or definition of it, as a
     C++ name's come from its mangling. Kinds as parse_signature's ('void', 'b8', 'i8', 'i16', 'i32', 'i64', 'f32',
     'f64', 'ptr', 'struct'). (None, None) when there is no such declaration or two disagree; a type it can't say (a
-    typedef it can't follow) makes that part None."""
+    typedef it can't follow) makes that part None. types=True: also the parameter types as parse_signature spells
+    them (`param_types`: 'struct Vec3 *', 'const float *'; None for one it can't say), for pointee_sizes."""
+    none = (None, None, None) if types else (None, None)
     m = re.match(r"^[_@]([A-Za-z_]\w*?)(?:@\d+)?$", symbol or "")
     if not m or not src or not os.path.exists(src):
-        return None, None
+        return none
     try:
         import cxx_items
         items = cxx_items.parse(open(src, errors="replace").read())
     except (OSError, ValueError, ImportError):
-        return None, None
+        return none
     td, classes, enums = {}, set(), set()
     for it in items:
         vs = [t.v for t in it.toks]
@@ -2903,6 +2905,25 @@ def decl_c_signature(src, symbol):
             classes.add(it.name)
         elif it.kind == "enum" and it.name:
             enums.add(it.name)
+
+    def tname(ts):
+        """parse_signature's spelling of a type ('struct Vec3 *', 'const float *', 'int') for pointee_sizes, or None."""
+        words = [w for t in ts for w in td.get(t, [t]) if w not in ("volatile", "register", "struct", "class", "union",
+                                                                   "enum")]
+        if "(" in words or "[" in words or "&" in words or "::" in words:
+            return None
+        if "*" not in words:
+            return " ".join(w for w in words if w != "const")
+        k = words.index("*")
+        base = [w for w in words[:k] if w != "const"]
+        const = "const " if "const" in words[:k] else ""
+        stars = " *" * words[k:].count("*")
+        if len(base) == 1 and base[0] in classes:
+            return "%sstruct %s%s" % (const, base[0], stars)
+        b = " ".join(w for w in base if w != "signed") or "int"
+        if b in _DECL_KINDS or b == "void":
+            return "%s%s%s" % (const, b, stars)
+        return None
 
     def kind(ts):
         words = [w for t in ts for w in td.get(t, [t]) if w not in ("const", "volatile", "register", "struct", "class",
@@ -2926,7 +2947,7 @@ def decl_c_signature(src, symbol):
             k = vs.index(it.name)
             rp = cxx_items._match(it.toks, k + 1, "(", ")")
         except ValueError:
-            return None, None
+            return none
         ret, j = [], 0
         while j < k:
             if vs[j] == "__declspec" and j + 1 < k and vs[j + 1] == "(":
@@ -2951,7 +2972,7 @@ def decl_c_signature(src, symbol):
             params.append(cur)
         if params == [["void"]]:
             params = []
-        pk = []
+        pk, pt = [], []
         for p_ in params:
             if "..." in p_ or "=" in p_:
                 pk = None
@@ -2960,12 +2981,15 @@ def decl_c_signature(src, symbol):
                     and p_[-2] not in ("struct", "class", "union", "enum", "::") and p_[-1] not in td:
                 p_ = p_[:-1]              # (the parameter's name)
             pk.append(kind(p_))
+            pt.append(tname(p_))
         if pk is not None and None in pk:
             pk = None
-        sigs.add((kind(ret), tuple(pk) if pk is not None else None))
+        sigs.add((kind(ret), tuple(pk) if pk is not None else None, tuple(pt) if pk is not None else None))
     if len(sigs) != 1:
-        return None, None
-    r, ps = sigs.pop()
+        return (None, None, None) if types else (None, None)
+    r, ps, ts_ = sigs.pop()
+    if types:
+        return r, (list(ps) if ps is not None else None), (list(ts_) if ts_ is not None else None)
     return r, (list(ps) if ps is not None else None)
 
 
@@ -3017,6 +3041,16 @@ def pointee_sizes(src, flags, names):
     classes = set()
     for n in names:
         sig = parse_signature(n)
+        if sig and not sig.get("param_types") and not n.startswith("?") and sig.get("cc") == "cdecl" \
+                and "cdeclret" not in EQUIV_OFF:
+            # (round 27, cdeclret) a C-linkage callee: the pointee types of our declaration, as a C++ callee's mangling
+            # gives them (a local passed by pointer is compared over sizeof(*arg), not to the next local)
+            # A pointer to a builtin (`char *`, `float *`) often stands for an array: those locals stay compared whole,
+            # as before (the C++ path sizes them by the element; it is not loosened here)
+            r_, p_, t_ = decl_c_signature(src, n, types=True)
+            if t_ is not None:
+                sig = dict(sig, ret=r_, param_types=[t if t and ("struct " in t or t.count("*") > 1) else "?"
+                                                     for t in t_])
         if not sig or not sig.get("param_types"):
             continue
         idx = 1 if sig.get("ret") == "struct" else 0
