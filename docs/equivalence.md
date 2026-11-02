@@ -918,6 +918,18 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   int, in both modes. Over the tree it fires on one source, 0x001b05a0 (char; its caller 0x001b2560 does `cmp eax, 1`).
   Cases `0x001b05a0_retwiden[_wrong,_off]`. Virtual functions have no direct call sites; `tools/narrow_scan.py retjoin`
   covers them by comparing the original's return idiom with MSVC's from our source.
+- (round 27, x64-8) **C-linkage functions take their types from our declaration** (`EQUIV_OFF=cdeclret`, `convcname`). An
+  `extern "C"` symbol (`_name`, `_name@N`, `@name@N`) carries no types, so the function under test's return kind came from
+  Ghidra's decompile (`build/farm/ghidra_c`, which mac2 lacks: there a C-linkage void function's eax was compared, "(return
+  type unknown)", and the Wine build's leftover eax failed) and its parameters were unknown (an `// equiv-conv` on it laid our
+  arguments out wrong). `decl_c_signature` reads the return and parameter kinds from the source's own top-level declaration,
+  as a C++ name's come from its mangling; the callers' use of eax still overrides a void return. C-linkage callees get the
+  same (`decls`: an equiv-conv callee's layout, natnarrow). `convcname`: `resolve_conventions` matches a C symbol by its C
+  name (and a mangled line name by its leaf). `EQUIV_OFF=noghidra` stands for a host without the Ghidra files in regression
+  cases. Cases `0x002d1b00_native_c_void_ret[_off]`, `0x00096600_native_c_ret_wrong`, `0x001687a0_c_conv_self[_wrong,_off]`;
+  `0x000375a0_native_retwidth_off` and `0x0035d200_native_noeaxret_off` now also switch cdeclret off (their declarations say
+  what those rules infer). Name unification batch 3 (tools/name_unify.py) relies on it for definitions and callees that keep
+  an equiv-conv line when they take C linkage.
 
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check

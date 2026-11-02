@@ -2872,7 +2872,106 @@ def parse_signature(mangled):
     return None
 
 
+_DECL_KINDS = {"void": "void", "bool": "b8", "char": "i8", "unsigned char": "i8", "short": "i16", "unsigned short": "i16",
+               "short int": "i16", "unsigned short int": "i16", "wchar_t": "i16", "float": "f32", "double": "f64",
+               "long double": "f64", "__int64": "i64", "unsigned __int64": "i64", "long long": "i64",
+               "unsigned long long": "i64", "int": "i32", "unsigned": "i32", "unsigned int": "i32", "long": "i32",
+               "unsigned long": "i32", "long int": "i32", "unsigned long int": "i32"}
+
+
+def decl_c_signature(src, symbol):
+    """(round 27, cdeclret) (return kind, [parameter kinds] or None) of a C-linkage function (`_name`, `_name@N`,
+    `@name@N`: the symbol carries no types) from our own source's top-level declarations or definition of it, as a
+    C++ name's come from its mangling. Kinds as parse_signature's ('void', 'b8', 'i8', 'i16', 'i32', 'i64', 'f32',
+    'f64', 'ptr', 'struct'). (None, None) when there is no such declaration or two disagree; a type it can't say (a
+    typedef it can't follow) makes that part None."""
+    m = re.match(r"^[_@]([A-Za-z_]\w*?)(?:@\d+)?$", symbol or "")
+    if not m or not src or not os.path.exists(src):
+        return None, None
+    try:
+        import cxx_items
+        items = cxx_items.parse(open(src, errors="replace").read())
+    except (OSError, ValueError, ImportError):
+        return None, None
+    td, classes, enums = {}, set(), set()
+    for it in items:
+        vs = [t.v for t in it.toks]
+        if it.kind == "typedef" and not it.scope and len(vs) >= 4 and vs[-2] == it.name and "(" not in vs \
+                and "{" not in vs:
+            td[it.name] = [w for v in vs[1:-2] for w in td.get(v, [v])]
+        elif it.kind == "class" and it.name:
+            classes.add(it.name)
+        elif it.kind == "enum" and it.name:
+            enums.add(it.name)
+
+    def kind(ts):
+        words = [w for t in ts for w in td.get(t, [t]) if w not in ("const", "volatile", "register", "struct", "class",
+                                                                   "union", "enum")]
+        if "*" in words or "&" in words:
+            return "ptr"
+        if "(" in words or "[" in words or "::" in words:
+            return None
+        if len(words) == 1 and words[0] in enums:
+            return "i32"
+        if len(words) == 1 and words[0] in classes:
+            return "struct"
+        t = " ".join(w for w in words if w != "signed") or "int"
+        return _DECL_KINDS.get(t)
+    sigs = set()
+    for it in items:
+        if it.kind not in ("func", "funcdef") or it.scope or it.name != m.group(1) or not it.c_linkage:
+            continue
+        vs = [t.v for t in it.toks]
+        try:
+            k = vs.index(it.name)
+            rp = cxx_items._match(it.toks, k + 1, "(", ")")
+        except ValueError:
+            return None, None
+        ret, j = [], 0
+        while j < k:
+            if vs[j] == "__declspec" and j + 1 < k and vs[j + 1] == "(":
+                j = cxx_items._match(it.toks, j + 1, "(", ")") + 1
+                continue
+            if vs[j] not in ("extern", '"C"', "static", "inline", "__inline", "__forceinline", "__cdecl", "_cdecl",
+                             "__stdcall", "__fastcall"):
+                ret.append(vs[j])
+            j += 1
+        params, cur, depth = [], [], 0
+        for v in vs[k + 2:rp]:
+            if v in ("(", "[", "<"):
+                depth += 1
+            elif v in (")", "]", ">"):
+                depth -= 1
+            if v == "," and depth == 0:
+                params.append(cur)
+                cur = []
+            else:
+                cur.append(v)
+        if cur:
+            params.append(cur)
+        if params == [["void"]]:
+            params = []
+        pk = []
+        for p_ in params:
+            if "..." in p_ or "=" in p_:
+                pk = None
+                break
+            if len(p_) > 1 and re.fullmatch(r"[A-Za-z_]\w*", p_[-1]) and p_[-1] not in cxx_items.KEYWORDS \
+                    and p_[-2] not in ("struct", "class", "union", "enum", "::") and p_[-1] not in td:
+                p_ = p_[:-1]              # (the parameter's name)
+            pk.append(kind(p_))
+        if pk is not None and None in pk:
+            pk = None
+        sigs.add((kind(ret), tuple(pk) if pk is not None else None))
+    if len(sigs) != 1:
+        return None, None
+    r, ps = sigs.pop()
+    return r, (list(ps) if ps is not None else None)
+
+
 def ghidra_ret_kind(addr):
+    if "noghidra" in EQUIV_OFF:
+        return None             # (what a host without build/farm/ghidra_c sees: regression cases)
     p = os.path.join(GHIDRA_C, "0x%08x.c" % addr)
     if not os.path.exists(p):
         return None
@@ -8982,6 +9081,15 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     # ---- level 3
     sig = parse_signature(fsym[0])
     ret_kind = sig.get("ret") if sig else None
+    if ret_kind is None and sig is not None and "cdeclret" not in EQUIV_OFF:
+        # (round 27, cdeclret) a C name carries no return type: our declaration says it, as a C++ name's mangling
+        # does (before: Ghidra's guess, which only hosts with build/farm/ghidra_c have, so a C-linkage void function
+        # had eax compared as "return type unknown" on the others). The callers' use of eax still overrides it below.
+        ret_kind, dparams = decl_c_signature(src, fsym[0])
+        if ret_kind is not None:
+            rep["return_note"] = "return type %s from our declaration (C name)" % ret_kind
+        if dparams is not None and sig.get("params") is None:
+            sig = dict(sig, ret=ret_kind, params=dparams)     # (our own argument layout: decl_layout)
     if ret_kind is None:
         ret_kind = ghidra_ret_kind(addr)
     used, nsites = prog.callers_use_return(addr)
@@ -9020,7 +9128,14 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     decls = {}
     for off, sym, typ, _ in ours.relocs + ours.local_relocs():
         if sym is not None and typ == REL32 and sym[0] in resolved:
-            decls.setdefault(resolved[sym[0]], parse_signature(sym[0]))
+            d_ = parse_signature(sym[0])
+            if d_ is not None and d_.get("params") is None and d_.get("cc") == "cdecl" and "cdeclret" not in EQUIV_OFF:
+                # (round 27, cdeclret) a C-linkage callee: our declaration's types, as a C++ callee's mangling gives them
+                # (decl_layout of an `// equiv-conv` callee, natnarrow)
+                r_, p_ = decl_c_signature(src, sym[0])
+                if p_ is not None:
+                    d_ = dict(d_, ret=r_, params=p_)
+            decls.setdefault(resolved[sym[0]], d_)
     NATIVE_BOOL.clear()
     NATIVE_F64.clear()
     NATIVE_CI.clear()
@@ -9191,8 +9306,19 @@ def resolve_conventions(prog, lines, ours, resolved, addr, fsym):
         if re.fullmatch(r"(0x)?[0-9a-fA-F]{6,8}", name):
             a = int(name, 16)
         else:
+            # (round 27, convcname) a C-linkage symbol (`_name`, `_name@N`, `@name@N`) answers to its C name, and to
+            # the leaf of a C++ name the line still spells (`?target@@YA_N...` once `target` took extern "C")
+            leaf = name
+            if name.startswith("?") and "convcname" not in EQUIV_OFF:
+                q_ = _qualified(name) or ""
+                leaf = q_.split("::")[-1] if all(x.startswith("fn_") for x in q_.split("::")[:-1]) else None
             for sym in ours.obj.syms.values():
-                if sym[0] == name or _qualified(sym[0]) == name or (_qualified(sym[0]) or "").split("::")[-1] == name:
+                cname = None
+                if "convcname" not in EQUIV_OFF and not sym[0].startswith("?"):
+                    mc_ = re.match(r"^[_@]([A-Za-z_]\w*?)(?:@\d+)?$", sym[0])
+                    cname = mc_.group(1) if mc_ else None
+                if sym[0] == name or _qualified(sym[0]) == name or (_qualified(sym[0]) or "").split("::")[-1] == name \
+                        or (cname is not None and cname == leaf):
                     if sym == fsym:
                         a = addr
                     elif sym[0] in resolved:

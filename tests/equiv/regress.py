@@ -655,7 +655,7 @@ CASES = {
     "0x000a0fe0_native_x87range_wrong": ("fail", None, 0, {"native": True, "n_inputs": 60}),
     # retwidth: every caller reads only al of the bool this extern "C" function returns; clang leaves 0xffffff00 above it
     "0x000375a0_native_retwidth": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
-    "0x000375a0_native_retwidth_off": ("fail", "returned 0x", 0, {"src": "0x000375a0_native_retwidth", "native": True, "n_inputs": 60, "equiv_off": "retwidth"}),
+    "0x000375a0_native_retwidth_off": ("fail", "returned 0x", 0, {"src": "0x000375a0_native_retwidth", "native": True, "n_inputs": 60, "equiv_off": "retwidth,cdeclret"}),   # (round 27: the bool declaration says it too)
     "0x000375a0_native_retwidth_wrong": ("fail", None, 0, {"native": True, "n_inputs": 60}),
     # varcleanup: `push n; push fmt; push 0x20; push buf; call f; add esp, 4`: the callee takes all four words, n included
     "0x0007e740_native_varargs": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
@@ -687,7 +687,7 @@ CASES = {
     "0x002786e0_native_tailthis_wrong": ("fail", "returned", 0, {"native": True, "n_inputs": 60}),
     # noeaxret: an extern "C" void function nobody calls directly that never writes eax: its eax is the caller's
     "0x0035d200_native_noeaxret": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
-    "0x0035d200_native_noeaxret_off": ("fail", "return type unknown", 0, {"src": "0x0035d200_native_noeaxret", "native": True, "n_inputs": 60, "equiv_off": "noeaxret"}),
+    "0x0035d200_native_noeaxret_off": ("fail", "return type unknown", 0, {"src": "0x0035d200_native_noeaxret", "native": True, "n_inputs": 60, "equiv_off": "noeaxret,cdeclret"}),   # (round 27: the void declaration says it too)
     "0x0035d200_native_noeaxret_wrong": ("fail", "write to", 0, {"native": True, "n_inputs": 60}),
     # fyl2x: Unicorn leaves the x87 stack alone for `fyl2x` of a negative operand (log of a fuzzed negative float)
     "0x0033b8d0_native_fyl2x": ("equivalent", None, 0, {"native": True, "n_inputs": 60}),
@@ -803,6 +803,17 @@ CASES = {
     "0x0013d7b0_native_vstatic": ("equivalent", None, 0, {"native": True, "n_inputs": 100}),
     "0x0013d7b0_native_vstatic_wrong": ("fail", "original's call takes 0", 0, {"native": True, "n_inputs": 100}),
     "0x0013d7b0_native_vstatic_off": ("equivalent", None, 0, {"src": "0x0013d7b0_native_vstatic_wrong", "native": True, "n_inputs": 100, "equiv_off": "vstatic"}),
+    # round 27 (x64-8) cdeclret: a C-linkage definition's return type (and parameters) come from our declaration, as a C++
+    # name's from its mangling. Before, Ghidra's guess (build/farm/ghidra_c, absent on mac2: `noghidra` stands for such a
+    # host) or nothing: the Wine build's eax of this extern "C" void function was compared, "(return type unknown)"
+    "0x002d1b00_native_c_void_ret": ("equivalent", None, 0, {"native": True, "n_inputs": 100, "equiv_off": "noghidra"}),
+    "0x002d1b00_native_c_void_ret_off": ("fail", "return type unknown", 0, {"src": "0x002d1b00_native_c_void_ret", "native": True, "n_inputs": 100, "equiv_off": "noghidra,cdeclret"}),
+    "0x00096600_native_c_ret_wrong": ("fail", "returned 0x00000002", 0, {"native": True, "n_inputs": 100, "equiv_off": "noghidra"}),
+    # round 27 convcname: `// equiv-conv: target ecx esi stack stack` on a definition that took extern "C" (symbol _target):
+    # resolved by its C name, and our own argument layout from the declaration's parameters (cdeclret). Before: unresolved
+    "0x001687a0_c_conv_self": ("equivalent", None, 0.9, {"n_inputs": 300}),
+    "0x001687a0_c_conv_self_wrong": ("fail", "returned", 0, {"n_inputs": 300}),
+    "0x001687a0_c_conv_self_off": ("fail", None, 0, {"src": "0x001687a0_c_conv_self", "n_inputs": 300, "equiv_off": "convcname"}),
 }
 
 # verify_relocs.py cases: name -> (expected status, issue kind it must report or None)
