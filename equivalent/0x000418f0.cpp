@@ -425,12 +425,15 @@ void Chara_418f0::FUN_000418f0(Ctx_418f0 *a1, float a2)
             p1aec = f.w18;
             f.obj18->FUN_002226f0(&p1aec);
             p1af8 = f.w64;
-            hulk_freg ang0 = ((Sub14 *)((char *)this + 0x14))->FUN_002220d0();
-            hulk_freg ang1 = FUN_00224ea0(-p1af8.x, -p1af8.z);
+            // x87: both headings are stored (fstp) before use; float locals round them (a (float) cast on a call is
+            // folded away by the Wine build's float-return handling)
+            float ang0 = ((Sub14 *)((char *)this + 0x14))->FUN_002220d0();
+            float ang1 = FUN_00224ea0(-p1af8.x, -p1af8.z);
             static float k1 = K1();
             f.fl = k1 * a2;
             hulk_freg dif = FUN_00224fc0(ang0, ang1);
-            hulk_freg adif = dif < 0.0f ? -dif : dif;
+            float difs = dif;   // fst [esp+0x68]: the magnitude test reads the stored float, the sign test st0
+            hulk_freg adif = difs < 0.0f ? -difs : difs;
             if (adif <= f.fl)
                 f.fl = ang1;
             else if (dif < 0.0f)

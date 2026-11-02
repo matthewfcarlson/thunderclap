@@ -75,7 +75,7 @@ void Blender_223fa0::FUN_00223fa0()
     int curKey = key0;
     unsigned int start = 0;
     unsigned int i = 1;
-    hulk_freg weight;
+    float weight;   // x87: the layer weight is stored (fstp [esp+0x10]); the blend divides by the stored float
     volatile float acc;
     volatile float wt;
     if (count > 1) {
