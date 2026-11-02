@@ -35,7 +35,7 @@ void __stdcall thunk_FUN_0038acb0(D3DVolumeTextureHandle* tex, unsigned int leve
 void FUN_0031c230(int arg);
 void FUN_0031c570(SurfaceDesc_326900* desc, LockedRect_326900* locked, pure3d::ImageInfo_326900* info, int flag);
 void FUN_0031c600(VolumeDesc* desc, LockedBox* locked, pure3d::ImageInfo_326900* info, int flag);
-void* FUN_0008d690(int size);
+extern "C" void* FUN_0008d690(int size);
 
 namespace pure3d {
 class pddiObject {

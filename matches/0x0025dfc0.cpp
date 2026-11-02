@@ -35,7 +35,7 @@ class Obj_25dfc0 {
     void Db30();
 };
 void FUN_0025dcb0(void*);
-void FUN_0024bae0(void*, int);
+extern "C" void FUN_0024bae0(void*, int);
 void Obj_25dfc0::Fn(void* p, char mode) {
     m58 = 1;
     m5c = 0;

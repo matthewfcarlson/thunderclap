@@ -12,7 +12,7 @@ struct Out {
     char q[4];
     float scale;
 };
-void __cdecl FUN_002d1330(float gain, int index, float interp, Obj* obj, Out* out) {
+extern "C" void __cdecl FUN_002d1330(float gain, int index, float interp, Obj* obj, Out* out) {
     float* s = obj->sub->samples;
     float a = s[index];
     float b = s[index + 1];

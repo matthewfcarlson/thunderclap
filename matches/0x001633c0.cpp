@@ -7,7 +7,7 @@ class Obj {
     void Do(void*);
 };
 extern void* Find(void*, TrackFactoryCasterTemplate_1633c0*);
-void Target(Obj* obj, void* value) {
+extern "C" void FUN_001633c0(Obj* obj, void* value) {
     TrackFactoryCasterTemplate_1633c0 c;
     void* p = Find(value, &c);
     obj->Do(p);

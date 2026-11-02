@@ -7,7 +7,7 @@ class Target {
     void Set(void*);
 };
 extern void* Find(void*, Caster_17dc40*);
-void Func(Target* target, void* name) {
+extern "C" void FUN_0017dc40(Target* target, void* name) {
     Caster_17dc40 caster;
     target->Set(Find(name, &caster));
 }

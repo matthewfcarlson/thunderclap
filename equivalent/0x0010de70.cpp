@@ -13,7 +13,7 @@ struct Singleton_10de70 {
     void FUN_000661f0();
 };
 void* __fastcall FUN_000592a0(void* p);
-void* __fastcall FUN_00059a30(void* p);
+extern "C" void* __fastcall FUN_00059a30(void* p);
 Singleton_10de70* FUN_000678d0();
 namespace hulkfight { namespace ai {
 

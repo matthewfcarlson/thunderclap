@@ -8,7 +8,7 @@ struct Obj_d6f50 {
 struct Helper_d6f50 {
     uint_d6f50 Get();
 };
-uint_d6f50 __fastcall FUN_000d6f50(Obj_d6f50* self) {
+extern "C" uint_d6f50 __fastcall FUN_000d6f50(Obj_d6f50* self) {
     uint_d6f50 v = ((Helper_d6f50*)self->p8)->Get();
     v &= 0xffffff7f;
     if (self->p4)

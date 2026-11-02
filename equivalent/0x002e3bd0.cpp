@@ -4,7 +4,7 @@
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
-void *FUN_0008d690(unsigned int size);
+extern "C" void *FUN_0008d690(unsigned int size);
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
 struct Reader {

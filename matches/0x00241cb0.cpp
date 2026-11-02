@@ -3,7 +3,7 @@ struct Node {
     Node* right;
     Node* parent;
 };
-Node* __cdecl FUN_00241cb0(Node* n, Node* h) {
+extern "C" Node* __cdecl FUN_00241cb0(Node* n, Node* h) {
     Node* end = (Node*)((char*)n + 4);
     Node* p = h->right;
     if (p != end) {

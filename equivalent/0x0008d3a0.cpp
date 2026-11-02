@@ -13,7 +13,7 @@ struct HeapDesc {
     int size;
 };
 
-Obj_8d3a0 *FUN_0026cf20(int addr, int a, const char *name);
+extern "C" Obj_8d3a0 *FUN_0026cf20(int addr, int a, const char *name);
 void FUN_002670b0(int idx, int a, Obj_8d3a0 *obj);
 
 class Holder_8d3a0 {

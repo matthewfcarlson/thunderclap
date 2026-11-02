@@ -44,7 +44,7 @@ public:
     Matrix4_308fe0 mat;
 };
 
-void __cdecl FUN_00305b00(SymMatrix *out, const V3_308fe0 *p, float mass);
+extern "C" void __cdecl FUN_00305b00(SymMatrix *out, const V3_308fe0 *p, float mass);
 
 class Hairclub {
 public:

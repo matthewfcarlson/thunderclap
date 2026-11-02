@@ -28,7 +28,7 @@ template<class T> struct ParamFloatConstRange {
  void FUN_00234960(const char*);
 };
 }
-void FUN_0016bf00() {
+extern "C" void FUN_0016bf00() {
  if (!DAT_004e12c4) {
  void* params[3];
  typedef fight::ParamEnumConstList<hulkfight::motion::HealthCondition> E;

@@ -21,7 +21,7 @@ struct Obj_275d50 {
 };
 extern void FUN_0026d850(void*);
 extern void FUN_0026d840(void*);
-u32_275d50 target() {
+extern "C" u32_275d50 FUN_00275d50() {
     FUN_0026d850(((char*)&DAT_0052a1e8));
     u32_275d50 r = (*(Obj_275d50**)&DAT_0052a204)->f13();
     FUN_0026d840(((char*)&DAT_0052a1e8));

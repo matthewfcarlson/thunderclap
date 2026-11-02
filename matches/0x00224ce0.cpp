@@ -11,7 +11,7 @@ struct Quat_224ce0 {
 };
 
 // Interpolates two transforms: translation linearly, rotation spherically.
-void FUN_00224ce0(const Mat4_224ce0 *from, const Mat4_224ce0 *to, float t, Mat4_224ce0 *out) {
+extern "C" void FUN_00224ce0(const Mat4_224ce0 *from, const Mat4_224ce0 *to, float t, Mat4_224ce0 *out) {
     Quat_224ce0 qTo, qFrom, qOut;
     out->m[12] = (to->m[12] - from->m[12]) * t + from->m[12];
     out->m[13] = (to->m[13] - from->m[13]) * t + from->m[13];

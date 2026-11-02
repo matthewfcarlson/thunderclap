@@ -2,8 +2,8 @@
 // FEContainer::vfunc_50 @ 0x000ee9b0
 #include "decls/address.h"
 extern "C" char* __cdecl strchr(const char*, int);
-extern void __cdecl FUN_000f6d70(const char*, unsigned int);
-extern void __cdecl FUN_000f69e0(void*, unsigned int);
+extern "C" void __cdecl FUN_000f6d70(const char*, unsigned int);
+extern "C" void __cdecl FUN_000f69e0(void*, unsigned int);
 struct Lookup_ee9b0 { unsigned int FUN_0027b200(unsigned __int64); };
 struct Info_ee9b0 { char pad[8]; Lookup_ee9b0* lookup; };
 struct Entry_ee9b0 { unsigned int unused; unsigned int key; void* value; };

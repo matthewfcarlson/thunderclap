@@ -4,7 +4,7 @@ struct Desc {
 extern Desc objA, objB;
 extern "C" void* __cdecl find(const char*);
 extern "C" void* __cdecl castObj(void*, int, Desc*, Desc*, int);
-extern "C" char __cdecl check();
+extern "C" char __cdecl FUN_00035da0();
 class Selector {
   public:
     virtual void f0();
@@ -40,5 +40,5 @@ inline void use(Selector* s, int b) {
 void target() {
     Selector* s = (Selector*)castObj(find("targeting_selector"), 0, &objA, &objB, 0);
     if (s)
-        use(s, check() == 0);
+        use(s, FUN_00035da0() == 0);
 }

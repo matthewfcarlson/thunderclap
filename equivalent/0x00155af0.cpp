@@ -21,7 +21,7 @@ namespace hulkfight { namespace motion { class CollisionTargetTypeCondition; } }
 namespace fight { template<class T> struct ParamEnumConstList : ParamBase_155af0 { virtual void slot0(); }; }
 typedef fight::ParamEnumConstList<hulkfight::motion::CollisionTargetTypeCondition> Param;
 extern "C" void __cdecl FUN_002347b0(void*, Param**, int);
-void FUN_00155af0() {
+extern "C" void FUN_00155af0() {
  if (!DAT_004e10bc) {
   Param* list[2];
   Param* p = (Param*)FUN_0008d690(32);

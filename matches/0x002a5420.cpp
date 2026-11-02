@@ -11,9 +11,9 @@ class Controller_2a5420 {
     int d;
     int e;
 };
-void __fastcall Init(void*);
+extern "C" void __fastcall FUN_00284cd0(void*);
 Controller_2a5420* __fastcall Target(Controller_2a5420* self) {
-    Init((void*)(self));
+    FUN_00284cd0((void*)(self));
     *(int*)((char*)self + 0x40) = 0;
     *(int*)((char*)self + 0x48) = 0;
     *(int*)((char*)self + 0x4c) = 0;

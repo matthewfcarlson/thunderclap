@@ -3,7 +3,7 @@
 #include "compat/ptr.h"
 #include "gen/pure3d.h"
 
-extern void __cdecl FUN_0028fcc0(const char* format, ...);
+extern "C" void __cdecl FUN_0028fcc0(const char* format, ...);
 
 struct SourceImage {
     int width;            // 0x00

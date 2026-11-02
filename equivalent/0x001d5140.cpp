@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001d5140 @ 0x001d5140
-int __cdecl FUN_00096600(const char *a, const char *b);
+extern "C" int __cdecl FUN_00096600(const char *a, const char *b);
 
 int FUN_001d5140(const char *name)
 {

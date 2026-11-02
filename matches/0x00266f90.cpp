@@ -15,10 +15,10 @@ struct Node {
     Node* child;
     Node* next;
 };
-Node* Find(Node* node, int arg) {
+extern "C" Node* FUN_00266f90(Node* node, int arg) {
     while (node != 0) {
         if (node->item->Test(arg)) {
-            Node* found = Find(node->child, arg);
+            Node* found = FUN_00266f90(node->child, arg);
             if (found != 0)
                 return found;
             return node;

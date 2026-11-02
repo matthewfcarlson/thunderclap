@@ -3,7 +3,7 @@ struct CSmartPropNameCondition {
     void* vptr;
     char pad[0x14];
 };
-extern void __fastcall FUN_0027af50(void*);
+extern "C" void __fastcall FUN_0027af50(void*);
 extern void __fastcall FUN_002345b0(void*);
 extern void __cdecl thunk_FUN_00267090(void*);
 extern int smart_vftable;

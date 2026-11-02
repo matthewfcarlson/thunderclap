@@ -13,7 +13,7 @@ int __cdecl FUN_0026d850(void *);
 int __cdecl FUN_0026d840(void *);
 int __cdecl FUN_00270c10(void *);
 void __cdecl FUN_00270f10(void *, int);
-File_2710d0 * __cdecl FUN_00275d50(int);
+extern "C" File_2710d0 * __cdecl FUN_00275d50(int);
 int __cdecl FUN_002710d0(File_2710d0 **out, int input, int a, int b, int c, int d, int e, int f) {
  Work_2710d0 work;
  work.first = 0;

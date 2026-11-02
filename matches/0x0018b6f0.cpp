@@ -2,14 +2,14 @@
 #include "gen/fight.h"
 
 typedef unsigned int u32_18b6f0;
-void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 struct InitObj_18b6f0 {
     void init(int);
 };
 extern int vtable_18b6f0;
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::PropMissionCriticalCondition>::vfunc_5() {
-    char* p = (char*)alloc(0x14);
+    char* p = (char*)FUN_0008d690(0x14);
     if (p) {
         ((InitObj_18b6f0*)p)->init(0);
         *(hulk_uintptr*)p = (hulk_uintptr)&vtable_18b6f0;

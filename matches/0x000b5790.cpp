@@ -12,7 +12,7 @@ class Obj {
     Str str;
 };
 extern Obj* findObj(const char*);
-void __stdcall FUN_000b5790(const char* s) {
+extern "C" void __stdcall FUN_000b5790(const char* s) {
     Obj* p = findObj("side_mission_fail_name");
     if (p && &p->str) {
         p->str.Set(s, 0, 1);

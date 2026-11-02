@@ -7,7 +7,7 @@ extern void* vDc[];
 extern void* vSafe[];
 extern void* vBase[];
 extern void* vIRef[];
-extern void FUN_00266f00(unsigned, void*);
+extern "C" void FUN_00266f00(unsigned, void*);
 class Part_272d90 {
   public:
     void Fini() throw();

@@ -2,7 +2,7 @@ typedef unsigned int u32_22b980;
 struct Matrix {
     u32_22b980 v[16];
 };
-void __fastcall FUN_0022b980(Matrix* p) {
+extern "C" void __fastcall FUN_0022b980(Matrix* p) {
     p->v[0] = 0x3f800000;
     p->v[1] = 0;
     p->v[2] = 0;

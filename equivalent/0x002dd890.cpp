@@ -29,8 +29,8 @@ struct ImageInfo_2dd890 {
     unsigned char flags;
 };
 
-void *FUN_00266e00(int a, int b);
-void FUN_00267090(void *p);
+extern "C" void *FUN_00266e00(int a, int b);
+extern "C" void FUN_00267090(void *p);
 
 // equiv-conv: FUN_002dd890 esi ebx stack
 void FUN_002dd890(ImageInfo_2dd890 *info, Reader *r, Device_2dd890 *dev)

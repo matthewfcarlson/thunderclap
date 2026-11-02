@@ -2,7 +2,7 @@
 // data: name1 = DAT_0048e0e4, name2 = DAT_0048e0f0
 
 typedef unsigned int uint;
-extern "C" unsigned char parse(const char*);
+extern "C" unsigned char FUN_001d04d0(const char*);
 class Function_1cbd90 {
   public:
     Function_1cbd90(void*, int);
@@ -18,8 +18,8 @@ class Method1 : public Function_1cbd90 {
     void* m;
     Method1(void* p, void* v) : Function_1cbd90(p, 1) {
         m = v;
-        b = parse((const char*)&(*(const char**)&DAT_0048e0e4));
-        a = parse((const char*)&(*(const char**)&DAT_0048e0f0));
+        b = FUN_001d04d0((const char*)&(*(const char**)&DAT_0048e0e4));
+        a = FUN_001d04d0((const char*)&(*(const char**)&DAT_0048e0f0));
     }
     virtual void f();
 };

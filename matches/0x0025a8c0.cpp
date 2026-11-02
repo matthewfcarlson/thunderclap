@@ -5,7 +5,7 @@ struct Mix {
     void Finish();
 };
 extern void __cdecl FUN_0025a220(void*);
-extern void __cdecl FUN_00257df0(void*);
+extern "C" void __cdecl FUN_00257df0(void*);
 void __fastcall target(Mix* self) {
     self->pad[0] = ((hulk_intptr)DAT_0042a6e4);
     FUN_0025a220(&self->pad[14]);

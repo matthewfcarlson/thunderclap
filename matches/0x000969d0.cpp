@@ -28,7 +28,7 @@ struct N_969d0 {
     I_969d0* i;
     int kind;
 };
-N_969d0* __cdecl Target(N_969d0* n) {
+extern "C" N_969d0* __cdecl FUN_000969d0(N_969d0* n) {
     if (!n)
         return 0;
     if (n->kind == 5) {

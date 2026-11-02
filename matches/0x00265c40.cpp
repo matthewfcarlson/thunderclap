@@ -15,10 +15,10 @@ struct State_265c40 {
     hulk_intptr at2c;
     int at30;
 };
-void __cdecl FUN_0026d7a0(void*);
+extern "C" void __cdecl FUN_0026d7a0(void*);
 void __cdecl FUN_0008d340(void*);
 void __cdecl FUN_0008d330(void*);
-void __cdecl FUN_00265c40(void) {
+extern "C" void __cdecl FUN_00265c40(void) {
     State_265c40* s = (*(State_265c40**)&DAT_00527c58);
     s->flag = 1;
     FUN_0026d7a0((void*)&(*(char*)((char*)&DAT_0051de40 + 40424)));

@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // FUN_00249630 @ 0x00249630
 struct Node { Node* next; int value; };
-float __cdecl FUN_00241700(int, int);
-float __cdecl FUN_00241710(int, int);
+extern "C" float __cdecl FUN_00241700(int, int);
+extern "C" float __cdecl FUN_00241710(int, int);
 struct Object { char pad0[8]; float scale; float base; float outputScale; float outputBase; char pad18[24]; int state; float amount; int duration; Node* nodes; int unknown40; int key; };
 // equiv-conv: target edi stack
 void __cdecl target(Object* self, int delta) {

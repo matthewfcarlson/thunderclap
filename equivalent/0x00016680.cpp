@@ -20,7 +20,7 @@ struct Mat4_16680 {
     void FUN_0022c120();
 };
 
-void FUN_00224db0(Mat4_16680 *m, V3_16680 *up, V3_16680 *fwd);
+extern "C" void FUN_00224db0(Mat4_16680 *m, V3_16680 *up, V3_16680 *fwd);
 
 struct Lookup_16680 {
     char pad0[0x1c];
@@ -44,7 +44,7 @@ struct Fx_16680 {
     int FUN_00283be0(Name_16680 *id, Lookup_16680 *lk, float v, int f58);
     void FUN_0027ffb0(int a);
 };
-Fx_16680 *FUN_0027f250();
+extern "C" Fx_16680 *FUN_0027f250();
 
 struct Obj3_16680 {
     char pad0[8];

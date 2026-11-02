@@ -30,7 +30,7 @@ template<class T> struct ParamFloatConstRange: FloatBase_52b40 {
  virtual void slot0();
 };
 }
-void FUN_00052b40() {
+extern "C" void FUN_00052b40() {
  if (!DAT_004dc41c) {
  void* list[3];
  fight::ParamEnumConstList<CAxisSpeedCondition>* a=(fight::ParamEnumConstList<CAxisSpeedCondition>*)FUN_0008d690(32);

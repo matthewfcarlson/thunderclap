@@ -99,14 +99,14 @@ struct Flag4 {
     char on;
 };
 
-void FUN_000fc150();
-void FUN_000fc280(const char *s);
-void FUN_000fc340(const char *s);
+extern "C" void FUN_000fc150();
+extern "C" void FUN_000fc280(const char *s);
+extern "C" void FUN_000fc340(const char *s);
 void FUN_000fc170(int v);
-void FUN_000fc330();
-Probe_c5180 *FUN_000fc3d0();
-Node *FUN_000fc310();
-Flag4 *FUN_0008e090();
+extern "C" void FUN_000fc330();
+extern "C" Probe_c5180 *FUN_000fc3d0();
+extern "C" Node *FUN_000fc310();
+extern "C" Flag4 *FUN_0008e090();
 
 
 struct Frame_c5180 {

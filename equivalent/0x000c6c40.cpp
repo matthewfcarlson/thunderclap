@@ -66,7 +66,7 @@ struct Loader_c6c40 {
 
 extern void __cdecl FUN_000c6a90(int found, int value);
 
-void FUN_000c6c40(const char *name, const char *key, int value)
+extern "C" void FUN_000c6c40(const char *name, const char *key, int value)
 {
     Loader_c6c40 *loader = (*(Loader_c6c40**)&DAT_004dd9cc);
     content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> caster;

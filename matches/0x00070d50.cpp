@@ -1,6 +1,6 @@
 #include "decls/data/game/global.h"
 
-void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_00068250();
 void __cdecl FUN_00069730();
 void __cdecl FUN_00069750();
@@ -41,7 +41,7 @@ template <class T> struct ParamBool : FUN_00234860 {
     virtual void slot0();
 };
 } // namespace fight
-void FUN_00070d50() {
+extern "C" void FUN_00070d50() {
     if (DAT_004dcf3c == 0) {
         void* params[3];
         void* mem = FUN_0008d690(24);

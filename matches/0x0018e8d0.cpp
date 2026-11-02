@@ -6,18 +6,18 @@ class TrackFactoryCasterTemplate_18e8d0 {
   public:
     virtual void f();
 };
-extern void* lookup(const char*, void*);
+extern "C" void* FUN_00236ac0(const char*, void*);
 class Factory {
   public:
     void add(void*);
 };
-void setup(Factory* p) {
+extern "C" void FUN_0018e8d0(Factory* p) {
     {
         VarCaster a;
-        p->add(lookup("varAssign", &a));
+        p->add(FUN_00236ac0("varAssign", &a));
     }
     {
         TrackFactoryCasterTemplate_18e8d0 b;
-        p->add(lookup("timerSet", &b));
+        p->add(FUN_00236ac0("timerSet", &b));
     }
 }

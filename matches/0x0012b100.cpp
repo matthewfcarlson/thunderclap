@@ -10,7 +10,7 @@ class Sub {
     Sub();
 };
 extern char VT_12b100[];
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetArcCondition>::vfunc_5() {
     Child* p = (Child*)FUN_0008d690(0x30);

@@ -83,7 +83,7 @@ struct Config_135520 {
 
 void* __cdecl FUN_00263ea0(unsigned int size);
 float __cdecl FUN_00224f10(V3_135520* v);
-void __cdecl FUN_00096a90(RefObj_135520* r, V3_135520* out);
+extern "C" void __cdecl FUN_00096a90(RefObj_135520* r, V3_135520* out);
 
 class FlyingAttackAction {
 public:

@@ -16,7 +16,7 @@ struct Resource_b51c0 {
  virtual void slot22(); virtual unsigned char ready();
 };
 extern void __cdecl thunk_FUN_00271230(Resource_b51c0 **, const char *, int, int, int, int, int, int);
-bool __cdecl FUN_000b51c0(int language) {
+extern "C" bool __cdecl FUN_000b51c0(int language) {
  int index=0;
  for (; index<6; ++index) { if (index==language) break; }
  if(index==6) index=0;

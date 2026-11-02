@@ -8,7 +8,7 @@ struct Vec_3059c0 {
 struct Q_3059c0 {
     float x, y, z, w;
 };
-bool FUN_003059c0(Vec_3059c0* a, Q_3059c0* b) {
+extern "C" bool FUN_003059c0(Vec_3059c0* a, Q_3059c0* b) {
     Vec_3059c0 v = *a;
     bool r = false;
     hulk_freg t = v.Len();

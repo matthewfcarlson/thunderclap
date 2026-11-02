@@ -25,7 +25,7 @@ class TrackFactoryTemplate_18ca20 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_0018b140();
 
 template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::PropSpawnTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::PropSpawn
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_18ca20* t = new (mem) TrackFactoryTemplate_18ca20();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_0018b140();
         return (void*)(t);
     }
     return (void*)(0);

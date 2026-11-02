@@ -7,7 +7,7 @@ class Obj {
   public:
     void Set(void*);
 };
-void Fn(Obj* obj, void* name) {
+extern "C" void FUN_0014b990(Obj* obj, void* name) {
     TrackFactoryCasterTemplate_14b990 c;
     obj->Set(FUN_00236ac0(name, &c));
 }

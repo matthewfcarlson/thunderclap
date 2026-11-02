@@ -50,10 +50,10 @@ struct Snd_abb90 {
     void FUN_001eb6b0();
     void FUN_001ec480(const char *a, const char *b);
 };
-Snd_abb90 *FUN_001eb200();
-char FUN_0009fa00();
+extern "C" Snd_abb90 *FUN_001eb200();
+extern "C" char FUN_0009fa00();
 float FUN_000a02a0(float v);
-void FUN_000a04c0(V3_abb90 *delta, float *a, float *b, float *out);
+extern "C" void FUN_000a04c0(V3_abb90 *delta, float *a, float *b, float *out);
 
 struct Anim_abb90 {
     virtual void a0(); virtual void a1(); virtual void a2(); virtual void a3(); virtual void a4(); virtual void a5();

@@ -1,4 +1,4 @@
-int FUN_00018960(float a, float b, float c) {
+extern "C" int FUN_00018960(float a, float b, float c) {
     union U {
         float f;
         unsigned int u;

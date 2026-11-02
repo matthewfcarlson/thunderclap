@@ -14,6 +14,6 @@ class SeqEventVarTempoType_252d00 : public SeqEventType_252d00 {
     virtual void f();
     SeqEventVarTempoType_252d00();
 };
-extern __int64 __cdecl Make(const char*, int, int);
+extern "C" __int64 __cdecl FUN_002672f0(const char*, int, int);
 SeqEventVarTempoType_252d00::SeqEventVarTempoType_252d00()
-    : SeqEventType_252d00(Temp().Init("4/4", 0), Make("SeqEventVarTempo", 0, 0), 20, 4) {}
+    : SeqEventType_252d00(Temp().Init("4/4", 0), FUN_002672f0("SeqEventVarTempo", 0, 0), 20, 4) {}

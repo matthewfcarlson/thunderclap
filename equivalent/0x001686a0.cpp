@@ -3,7 +3,7 @@
 extern char DAT_00494b44;
 extern char DAT_00494b60;
 extern void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern bool __cdecl FUN_00018960(float, float, float);
+extern "C" bool __cdecl FUN_00018960(float, float, float);
 struct Velocity_1686a0 { char pad[0x8c]; float turning; };
 struct State_1686a0 { Velocity_1686a0* FUN_00059a30(); };
 struct Actor_1686a0 { State_1686a0* FUN_000592a0(); };

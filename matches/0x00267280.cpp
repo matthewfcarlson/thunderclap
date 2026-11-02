@@ -11,8 +11,8 @@ extern void* vt_267280;
 extern char Vftable[];
 extern void InitA();
 extern void InitB();
-extern void Tail();
-void Target() {
+extern "C" void FUN_00270370();
+extern "C" void FUN_00267280() {
     (*(unsigned char*)&DAT_00527f5c) = 1;
     InitA();
     (*(void**)&DAT_00527f50) = Vftable;
@@ -31,5 +31,5 @@ void Target() {
         e->p = ((void**)&DAT_00527f50);
         i += 0x10;
     } while (i < 0x2e0);
-    Tail();
+    FUN_00270370();
 }

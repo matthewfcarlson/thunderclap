@@ -1,20 +1,20 @@
-void F1(void* a, const char* s);
-void F2(void* a, const char* s);
-void F3(void* a, const char* s);
-void F4(void* a, const char* s);
-void F5(void* a, const char* s);
-void F6(void* a, const char* s);
-void F7(void* a, const char* s);
-void F8(void* a, const char* s);
-void F9(void* a, const char* s);
+extern "C" void FUN_0023f500(void* a, const char* s);
+extern "C" void FUN_0023ddc0(void* a, const char* s);
+extern "C" void FUN_00239c50(void* a, const char* s);
+extern "C" void FUN_00237ab0(void* a, const char* s);
+extern "C" void FUN_00239200(void* a, const char* s);
+extern "C" void FUN_002380a0(void* a, const char* s);
+extern "C" void FUN_0023efe0(void* a, const char* s);
+extern "C" void FUN_0023e930(void* a, const char* s);
+extern "C" void FUN_0023e3f0(void* a, const char* s);
 void Target(void* p) {
-    F1(p, "breakPoint");
-    F2(p, "comment");
-    F3(p, "execute");
-    F4(p, "opportunity");
-    F5(p, "print");
-    F6(p, "sequence");
-    F7(p, "spawn");
-    F8(p, "stop");
-    F9(p, "wait");
+    FUN_0023f500(p, "breakPoint");
+    FUN_0023ddc0(p, "comment");
+    FUN_00239c50(p, "execute");
+    FUN_00237ab0(p, "opportunity");
+    FUN_00239200(p, "print");
+    FUN_002380a0(p, "sequence");
+    FUN_0023efe0(p, "spawn");
+    FUN_0023e930(p, "stop");
+    FUN_0023e3f0(p, "wait");
 }

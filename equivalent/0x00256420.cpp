@@ -69,11 +69,11 @@ struct Ctx_256420 {
 class SeqActionClip;
 
 unsigned int *__cdecl FUN_0025d060(void *source);
-void __cdecl FUN_0025c320(unsigned int *p, unsigned int *out, int bit0, int bit1);
-int __cdecl FUN_00259610(unsigned int *params, int one, void *source);
-void __cdecl FUN_00258ea0(int handle, int arg);
-int __cdecl FUN_00259c50(int handle);
-void __cdecl FUN_00259b40(int handle);
+extern "C" void __cdecl FUN_0025c320(unsigned int *p, unsigned int *out, int bit0, int bit1);
+extern "C" int __cdecl FUN_00259610(unsigned int *params, int one, void *source);
+extern "C" void __cdecl FUN_00258ea0(int handle, int arg);
+extern "C" int __cdecl FUN_00259c50(int handle);
+extern "C" void __cdecl FUN_00259b40(int handle);
 void __cdecl FUN_00258c80(int handle, float v);
 
 union Flag_256420 {

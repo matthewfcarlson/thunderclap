@@ -19,7 +19,7 @@ class SeqActionWait : public SeqAction {
     virtual SeqActionWait* vfunc_0(int);
 };
 } // namespace audio
-extern void __cdecl FUN_00247550(void*, void*);
+extern "C" void __cdecl FUN_00247550(void*, void*);
 audio::SeqActionWait* audio::SeqActionWait::vfunc_0(int x) {
     SeqActionWait* p = this;
     *(void**)p = (void*)((hulk_intptr)DAT_004298fc);

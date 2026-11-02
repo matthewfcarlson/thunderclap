@@ -1,6 +1,6 @@
 // Same code shape as 0x002960e0 (propagated; names are from that function)
 extern void* scenegraph_vftable;
-void __fastcall Init(void*);
+extern "C" void __fastcall FUN_00284cd0(void*);
 class VertexAnimController_2a6cb0 {
   public:
     void* vptr;
@@ -9,7 +9,7 @@ class VertexAnimController_2a6cb0 {
     VertexAnimController_2a6cb0();
 };
 VertexAnimController_2a6cb0::VertexAnimController_2a6cb0() {
-    Init((void*)(this));
+    FUN_00284cd0((void*)(this));
     vptr = &scenegraph_vftable;
     field40 = 0;
 }

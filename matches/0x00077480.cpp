@@ -25,7 +25,7 @@ class TrackFactoryTemplate_77480 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_00072440();
 
 template <> void* fight::TrackFactoryCasterTemplate<CRageModeTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CRageModeTrack>::vfunc_1(voi
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_77480* t = new (mem) TrackFactoryTemplate_77480();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_00072440();
         return (void*)(t);
     }
     return (void*)(0);

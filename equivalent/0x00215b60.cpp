@@ -28,7 +28,7 @@ struct LState_215b60 {
 
 void __cdecl FUN_00214a90(LState_215b60 *L, const char *msg);
 
-int __cdecl FUN_00215b60(LState_215b60 *L, int nresults)
+extern "C" int __cdecl FUN_00215b60(LState_215b60 *L, int nresults)
 {
     CallInfo_215b60 *ci = L->ci;
     if (L->nCcalls > 0)

@@ -7,7 +7,7 @@ class Obj {
     void Set(void*);
 };
 extern "C" void* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_158b60*);
-void Func(Obj* obj, const char* name) {
+extern "C" void FUN_00158b60(Obj* obj, const char* name) {
     TrackFactoryCasterTemplate_158b60 caster;
     void* p = FUN_00236ac0(name, &caster);
     obj->Set(p);

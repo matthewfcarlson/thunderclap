@@ -9,7 +9,7 @@ class Loader_1dbd50 {
     void Pair(int, int);
     void Finish(int);
 };
-extern Loader_1dbd50* __cdecl FUN_001d4c90();
+extern "C" Loader_1dbd50* __cdecl FUN_001d4c90();
 void __cdecl FUN_001dbd50() {
     Loader_1dbd50* p = FUN_001d4c90();
     if (p) {

@@ -6,7 +6,7 @@
 namespace audio {
 struct StreamHelper {};
 }
-void* __fastcall FUN_0023fb00(audio::StreamHelper*);
+extern "C" void* __fastcall FUN_0023fb00(audio::StreamHelper*);
 void __cdecl thunk_FUN_002710d0(void**, void*, int, int, int, int, int, int);
 void audio::HalRsdFileStream::vfunc_0() {
     if ((*(void * *)&this->f_20) == 0) {

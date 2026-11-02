@@ -21,7 +21,7 @@ struct ParamIntConstRange {
     void Init(const char*);
 };
 extern void __cdecl Register(void*, void**, int);
-void FUN_00053d80() {
+extern "C" void FUN_00053d80() {
     if ((*(int*)&DAT_004dc4f4)) {
         ++(*(int*)&DAT_004dc4f4);
         return;

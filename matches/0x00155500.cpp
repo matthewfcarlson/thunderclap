@@ -15,7 +15,7 @@ class Hit_155500 : public Param {
   public:
     void Init(const char*);
 };
-void FUN_00155500() {
+extern "C" void FUN_00155500() {
     void* temp;
     if (!(*(int*)&DAT_004e1064)) {
         Hit_155500* p = (Hit_155500*)FUN_0008d690(0x18);

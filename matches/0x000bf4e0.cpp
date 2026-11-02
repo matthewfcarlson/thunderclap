@@ -6,7 +6,7 @@ struct Dialog_bf4e0 {
 };
 struct Screen_bf4e0 { void FUN_00089a30(char v); };
 Dialog_bf4e0* FUN_000fc3d0();
-void FUN_000fc300();
+extern "C" void FUN_000fc300();
 
 struct Overlay { void FUN_001cc620(int id); };
 

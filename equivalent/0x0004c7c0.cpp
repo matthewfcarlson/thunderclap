@@ -44,7 +44,7 @@ struct Stats_4c7c0 {
 };
 
 Fighter_4c7c0* __fastcall FUN_000592a0(void* owner);
-Stats_4c7c0* __fastcall FUN_00059a30(Fighter_4c7c0* f);
+extern "C" Stats_4c7c0* __fastcall FUN_00059a30(Fighter_4c7c0* f);
 float FUN_00224ea0(float x, float z);
 float FUN_00224fc0(float a, float b);
 

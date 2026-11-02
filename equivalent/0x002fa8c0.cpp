@@ -51,7 +51,7 @@ struct Scene_2fa8c0 {
 };
 
 void FUN_002fa6b0(V3_2fa8c0* a, V3_2fa8c0* b, V3_2fa8c0* c, V3_2fa8c0* out);
-char FUN_00358b10(void* p38, void* p44, float v1, float v0, V3_2fa8c0* a0, V3_2fa8c0* a1, V3_2fa8c0* a2, V3_2fa8c0* normal, float* out, V3_2fa8c0* l0c, V3_2fa8c0* l18, int b1, int b2, int b4);
+extern "C" char FUN_00358b10(void* p38, void* p44, float v1, float v0, V3_2fa8c0* a0, V3_2fa8c0* a1, V3_2fa8c0* a2, V3_2fa8c0* normal, float* out, V3_2fa8c0* l0c, V3_2fa8c0* l18, int b1, int b2, int b4);
 char FUN_00358700(void* p38, void* p44, float v1, float v0, V3_2fa8c0* a0, V3_2fa8c0* a1, V3_2fa8c0* a2, V3_2fa8c0* normal, float* out, V3_2fa8c0* l0c, V3_2fa8c0* l18, int b1, int b2, int b4);
 
 struct TriRef {

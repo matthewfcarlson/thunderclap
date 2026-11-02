@@ -27,7 +27,7 @@ struct Obj20_151c70 {
     virtual int v3();
     P_151c70* FUN_000592a0();
 };
-float FUN_00083d90(float* p);
+extern "C" float FUN_00083d90(float* p);
 class HitPushbackAction {
 public:
     virtual void f0();

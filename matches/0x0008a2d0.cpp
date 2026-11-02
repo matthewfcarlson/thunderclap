@@ -4,7 +4,7 @@ struct O {
     int b;
     void* p;
 };
-void* __fastcall FUN_0008a2d0(O* self) {
+extern "C" void* __fastcall FUN_0008a2d0(O* self) {
     if (self->a == -1)
         return 0;
     if (self->b == -1)

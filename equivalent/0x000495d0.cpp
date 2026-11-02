@@ -4,7 +4,7 @@ struct Value_495d0 {
     char pad00[0xc0];
     unsigned long long raw;
 };
-unsigned long long __fastcall FUN_001d4f70(Value_495d0* v);
+extern "C" unsigned long long __fastcall FUN_001d4f70(Value_495d0* v);
 
 struct Key_495d0 {
     char pad00[8];
@@ -32,7 +32,7 @@ struct Fighter_495d0 {
 };
 
 void* __fastcall FUN_000592a0(void* owner);
-Fighter_495d0* __fastcall FUN_00059a30(void* holder);
+extern "C" Fighter_495d0* __fastcall FUN_00059a30(void* holder);
 
 class CSmartPropNameCondition {
 public:

@@ -7,7 +7,7 @@ class Receiver {
     void Set(void*);
 };
 void* Find(void*, TrackFactoryCasterTemplate_1586a0*);
-void Target(Receiver* receiver, void* value) {
+extern "C" void FUN_001586a0(Receiver* receiver, void* value) {
     TrackFactoryCasterTemplate_1586a0 caster;
     receiver->Set(Find(value, &caster));
 }

@@ -19,7 +19,7 @@ template<class T> struct ParamFloatConstRange {
 }
 typedef fight::ParamFloatConstRange<hulkfight::motion::HitPauseTrack> Param;
 void __cdecl FUN_002347b0(unsigned int*, Param**, int);
-void __cdecl FUN_00155ea0() {
+extern "C" void __cdecl FUN_00155ea0() {
  if (!DAT_004e10ec) {
  Param* params[3];
  Param* p = (Param*)FUN_0008d690(24);

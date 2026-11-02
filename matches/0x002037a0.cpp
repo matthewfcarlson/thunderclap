@@ -17,9 +17,9 @@ class Obj {
     char flags[256];
     int Find();
 };
-Holder* __cdecl Fetch();
+extern "C" Holder* __cdecl FUN_001c3d90();
 int Obj::Find() {
-    Holder* h = Fetch();
+    Holder* h = FUN_001c3d90();
     List* list = h->list;
     int count = ((List*)((char*)list + 0x18))->Count();
     for (int i = 0; i < count; ++i) {

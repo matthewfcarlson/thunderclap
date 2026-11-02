@@ -12,10 +12,10 @@ class PropSetStateByNameTrack_18c760 {
     char pad[0x18];
     Sub_18c760 sub;
 };
-extern void* __cdecl operator_new(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropSetStateByNameTrack>::vfunc_5() {
-    PropSetStateByNameTrack_18c760* p = (PropSetStateByNameTrack_18c760*)operator_new(0x20);
+    PropSetStateByNameTrack_18c760* p = (PropSetStateByNameTrack_18c760*)FUN_0008d690(0x20);
     if (p) {
         p->baseInit();
         *(hulk_ulongptr*)p = ((hulk_intptr)DAT_004192fc);

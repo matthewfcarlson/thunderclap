@@ -14,7 +14,7 @@ struct Context { char pad[0x3c]; Source_24ff60* source; int state; unsigned int 
 struct SeqCommand { virtual unsigned int vfunc_0(Context*); virtual void vfunc_1(); char pad[4]; Data_24ff60* data; };
 struct SeqCommandCondition : SeqCommand { Node* current; virtual unsigned int vfunc_0(Context*); };
 }
-void __cdecl FUN_002613b0(void*, audio::Temp_24ff60*, void*);
+extern "C" void __cdecl FUN_002613b0(void*, audio::Temp_24ff60*, void*);
 unsigned int audio::SeqCommandCondition::vfunc_0(Context* context) {
  unsigned int state = context->state;
  if(state != 0 && state != 4) return state - 4;

@@ -3,7 +3,7 @@ typedef unsigned int u32_91da0;
 struct Sub_91da0 {
     char pad[8];
 };
-void __fastcall InitSub(Sub_91da0*);
+extern "C" void __fastcall FUN_0027af00(Sub_91da0*);
 extern char vtUnlockable[];
 extern char vtCheat_91da0[];
 struct CUnlockable {
@@ -24,7 +24,7 @@ struct CUnlockableCheat : CUnlockable {};
 CUnlockableCheat* __fastcall FUN_00091da0(CUnlockableCheat* self) {
     *(void**)self = vtUnlockable;
     self->f8 = 1;
-    InitSub(&self->sub);
+    FUN_0027af00(&self->sub);
     self->f18 = 0;
     self->f20 = 0;
     self->f28 = 0;

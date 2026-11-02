@@ -19,10 +19,10 @@ class SeqEventChannelSends : public SeqEvent {
     virtual void v3();
     virtual SeqEventChannelSends* v4(int);
 };
-extern void __cdecl cleanup(void*, void*);
+extern "C" void __cdecl FUN_00247550(void*, void*);
 SeqEventChannelSends* SeqEventChannelSends::v4(int a) {
     helper();
     if (a & 1)
-        cleanup(((char*)((char*)&DAT_004e6800 + 72)), this);
+        FUN_00247550(((char*)((char*)&DAT_004e6800 + 72)), this);
     return this;
 }

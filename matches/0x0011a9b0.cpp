@@ -11,7 +11,7 @@ class Obj {
     void set(void*);
 };
 void* find(const char*, ConditionFactoryCaster_11a9b0*);
-void func(Obj* o, const char* s) {
+extern "C" void FUN_0011a9b0(Obj* o, const char* s) {
     ConditionFactoryCasterTemplate_11a9b0 c;
     void* p = find(s, &c);
     o->set(p);

@@ -6,7 +6,7 @@
 namespace math { class Vector; }
 
 extern char DAT_0048e10c;
-void* FUN_0008d690(unsigned size);
+extern "C" void* FUN_0008d690(unsigned size);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 
 template <class T> struct TypeTag;
@@ -52,7 +52,7 @@ struct Registry_203490 {
     void FUN_001d3b70(const char* name, void* closure);
     void FUN_002033d0(const char* name, CWorldCollisionManager* owner, float (CWorldCollisionManager::*fn)());
 };
-Registry_203490* FUN_001d4c90();
+extern "C" Registry_203490* FUN_001d4c90();
 
 class CWorldCollisionManager {
   public:

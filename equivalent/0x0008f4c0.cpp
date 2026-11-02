@@ -125,8 +125,8 @@ struct Overlay {
     Label_8f4c0* items[1];
 };
 
-Gfx_8f4c0* FUN_00085cd0();
-void FUN_00085d30();
+extern "C" Gfx_8f4c0* FUN_00085cd0();
+extern "C" void FUN_00085d30();
 
 struct Frame_8f4c0 {
     union {

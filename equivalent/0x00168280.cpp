@@ -4,7 +4,7 @@
 
 extern char DAT_00494b44, DAT_00494b60;
 extern "C" void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern bool __cdecl FUN_00018960(float,float,float);
+extern "C" bool __cdecl FUN_00018960(float,float,float);
 struct C_168280 { float FUN_000356f0(); };
 struct B_168280 { C_168280* FUN_00059a30(); };
 struct A_168280 { B_168280* FUN_000592a0(); };

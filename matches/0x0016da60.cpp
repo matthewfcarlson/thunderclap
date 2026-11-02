@@ -24,11 +24,11 @@ class VelocityAnimatedYCondition_16da60 {
 };
 } // namespace motion
 } // namespace hulkfight
-extern void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAnimatedYCondition>::vfunc_5() {
     hulkfight::motion::VelocityAnimatedYCondition_16da60* p =
-        (hulkfight::motion::VelocityAnimatedYCondition_16da60*)alloc(0x14);
+        (hulkfight::motion::VelocityAnimatedYCondition_16da60*)FUN_0008d690(0x14);
     if (p) {
         p->Init(0);
         p->vptr = ((hulk_intptr)DAT_004167f8);

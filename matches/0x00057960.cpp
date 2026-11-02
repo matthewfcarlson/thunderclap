@@ -8,13 +8,13 @@ struct CCollisionInterruptCondition_57960 {
     char pad[8];
     unsigned char flag;
 };
-extern void* __cdecl allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Initializer_57960 {
     void init(int);
 };
 
 template <> void* fight::ConditionFactoryTemplate<CCollisionInterruptCondition>::vfunc_5() {
-    CCollisionInterruptCondition_57960* p = (CCollisionInterruptCondition_57960*)allocate(0x10);
+    CCollisionInterruptCondition_57960* p = (CCollisionInterruptCondition_57960*)FUN_0008d690(0x10);
     if (p) {
         ((Initializer_57960*)p)->init(0);
         p->vf = ((hulk_intptr)DAT_003f7034);

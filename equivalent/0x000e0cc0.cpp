@@ -69,7 +69,7 @@ struct Gfx {
 };
 
 
-void FUN_000e0cc0(float w, float h, int unused, unsigned int color, int a4)
+extern "C" void FUN_000e0cc0(float w, float h, int unused, unsigned int color, int a4)
 {
     if ((*(Surface_e0cc0**)&DAT_004de954) == 0) {
         (*(Surface_e0cc0**)&DAT_004de954) = (*(Factory_e0cc0**)&DAT_0052c2a0)->vfn11("simple", 0);

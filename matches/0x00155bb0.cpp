@@ -13,7 +13,7 @@ class Param {
     char pad[0x20];
 };
 extern "C" void __cdecl Register(void*, void**, int);
-void FUN_00155bb0() {
+extern "C" void FUN_00155bb0() {
     if ((*(int*)&DAT_004e10c4)) {
         ++(*(int*)&DAT_004e10c4);
         return;

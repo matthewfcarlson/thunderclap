@@ -89,7 +89,7 @@ struct Canvas {
     void FUN_00293da0(float x, float y, float z);
 };
 
-void __cdecl FUN_000b9230(Widget_b9230* widget) {
+extern "C" void __cdecl FUN_000b9230(Widget_b9230* widget) {
     int saved = DAT_0052c2a8->v25();
     DAT_0052c2a8->v24(1);
     DAT_0052c2a8->v12(6);

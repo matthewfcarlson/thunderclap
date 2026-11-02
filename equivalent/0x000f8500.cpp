@@ -20,10 +20,10 @@ class Entry_f8500 {
     int field_20;
 };
 
-Manager_f8500* FUN_000fc1b0();
+extern "C" Manager_f8500* FUN_000fc1b0();
 int FUN_000dfcc0(char* dst, int size, const char* fmt, ...);
-void* FUN_0008d6d0(unsigned int size);
-void FUN_000fb740(short* dst, const char* src, hulk_intptr count);
+extern "C" void* FUN_0008d6d0(unsigned int size);
+extern "C" void FUN_000fb740(short* dst, const char* src, hulk_intptr count);
 void FUN_0008d340(void* p);
 
 void Entry_f8500::FUN_000f8500(const char* name, Manager_f8500* manager, char flag) {

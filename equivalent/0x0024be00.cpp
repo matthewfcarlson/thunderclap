@@ -37,12 +37,12 @@ struct Pool_24be00 {
 
 void *FUN_00247530(void *pool);
 void FUN_00247550(void *pool, Rec_24be00 *r);
-int FUN_0025d340(int a, int b, int c);
-int FUN_00259610(int a, int b, int c);
-void FUN_00258b40(int h, int one);
+extern "C" int FUN_0025d340(int a, int b, int c);
+extern "C" int FUN_00259610(int a, int b, int c);
+extern "C" void FUN_00258b40(int h, int one);
 hulk_intptr FUN_0025e070();
 int FUN_0025d040(int h);
-void FUN_0025e550(Sub_24be00 *s, int a, int b, int c);
+extern "C" void FUN_0025e550(Sub_24be00 *s, int a, int b, int c);
 
 Rec_24be00 *FUN_0024be00(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
 {

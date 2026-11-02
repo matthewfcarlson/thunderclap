@@ -86,7 +86,7 @@ struct World {
 };
 
 void FUN_00018810(Thing_11d2c0 **slot, Thing_11d2c0 *t);
-char FUN_00018960(float a, float b, float eps);
+extern "C" char FUN_00018960(float a, float b, float eps);
 
 class PathFormationAction {
 public:

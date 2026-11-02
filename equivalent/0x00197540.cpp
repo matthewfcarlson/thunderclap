@@ -8,7 +8,7 @@ struct Receiver_197540 { void FUN_0003ffa0(unsigned int, int); };
 struct Intermediate_197540 { Receiver_197540* FUN_00059a30(); };
 struct Source_197540 { Intermediate_197540* FUN_000592a0(); };
 struct Effects_197540 { void FUN_0027ffb0(unsigned int); };
-Effects_197540* __cdecl FUN_0027f250();
+extern "C" Effects_197540* __cdecl FUN_0027f250();
 struct Manager_197540 { void FUN_001e5720(Ref_197540*); };
 struct World { char pad0[0xc]; Manager_197540* manager; char pad1[0x10]; Lookup_197540* lookup; };
 struct Resources_197540 { char pad[8]; unsigned int first; unsigned int second; };

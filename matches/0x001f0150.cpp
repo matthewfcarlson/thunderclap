@@ -1,5 +1,5 @@
 __int64 __cdecl FUN_002672f0(int, int, int);
-int __cdecl FUN_002673a0(int, int);
+extern "C" int __cdecl FUN_002673a0(int, int);
 class CSoundCommand_1f0150 {
   public:
     virtual void v();

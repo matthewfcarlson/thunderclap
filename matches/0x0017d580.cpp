@@ -7,7 +7,7 @@ class Obj {
   public:
     void Take(void*);
 };
-void __cdecl target(Obj* obj, void* value) {
+extern "C" void __cdecl FUN_0017d580(Obj* obj, void* value) {
     Caster_17d580 caster;
     obj->Take(Find(value, &caster));
 }

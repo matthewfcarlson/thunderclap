@@ -13,7 +13,7 @@ class Obj {
     virtual void f2();
     virtual int f3(DynamicCaster_f2370*, __int64);
 };
-int Test(Obj* o, int x) {
+extern "C" int FUN_000f2370(Obj* o, int x) {
     __int64 v = Convert(x);
     DynamicCaster_f2370 c;
     return o->f3(&c, v);

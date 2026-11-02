@@ -4,7 +4,7 @@
 namespace XAPILIB { int __stdcall XGetLaunchInfo(unsigned long* launchType, void* launchData); }
 extern "C" void __cdecl FUN_0008f880(int argc, char** argv);
 struct LaunchData_8ed60 { char bytes[0xc00]; };
-void __cdecl FUN_0008ed60()
+extern "C" void __cdecl FUN_0008ed60()
 {
     unsigned long launchType = 0;
     char* args[32];

@@ -14,12 +14,12 @@ class ProximityLight {
     int value;
 };
 extern void* light_vtable;
-void __fastcall init(void*);
+extern "C" void __fastcall FUN_002a0720(void*);
 void destroy(ProximityLight*);
 ProximityLight* ProximityLight::vfunc_2(unsigned char flag) {
     *(void**)this = &light_vtable;
     value = 4;
-    init((void*)(this));
+    FUN_002a0720((void*)(this));
     if (flag & 1)
         destroy(this);
     return this;

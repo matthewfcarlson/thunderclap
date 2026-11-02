@@ -1,13 +1,13 @@
-int Cmp(const char*, const char*);
+extern "C" int FUN_00096600(const char*, const char*);
 int Fn(const char* s) {
     int r = 0;
-    if (!Cmp(s, "minor"))
+    if (!FUN_00096600(s, "minor"))
         r = 1;
-    else if (!Cmp(s, "medium"))
+    else if (!FUN_00096600(s, "medium"))
         r = 2;
-    else if (!Cmp(s, "major"))
+    else if (!FUN_00096600(s, "major"))
         r = 3;
-    else if (!Cmp(s, "major_only_on_destruction"))
+    else if (!FUN_00096600(s, "major_only_on_destruction"))
         r = 4;
     return r;
 }

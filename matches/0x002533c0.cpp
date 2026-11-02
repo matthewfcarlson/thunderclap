@@ -1,7 +1,7 @@
 // Same code shape as 0x002523a0 (propagated; names are from that function)
 #include "gen/audio.h"
 
-bool FUN_0025ac10(void*, void*);
+extern "C" bool FUN_0025ac10(void*, void*);
 class SeqEventVarPitchRand_2533c0 : public audio::SeqEvent {
   public:
     char pad[8];

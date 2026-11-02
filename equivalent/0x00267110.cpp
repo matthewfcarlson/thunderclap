@@ -7,7 +7,7 @@ struct Object { virtual void unused(); virtual void FUN_00000000(); };
 struct Entry_267110;
 struct List_267110 { char pad[4]; Entry_267110* head; };
 struct Entry_267110 { Object* object; unsigned int value; Entry_267110* next; List_267110* list; };
-void __cdecl FUN_00267110(unsigned int index) {
+extern "C" void __cdecl FUN_00267110(unsigned int index) {
     Entry_267110* entry = &((Entry_267110*)((char*)&DAT_00527c58 + 8))[index];
     List_267110* list = entry->list;
     Entry_267110* current = list->head;

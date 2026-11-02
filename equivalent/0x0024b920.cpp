@@ -32,7 +32,7 @@ struct Queue_24b920 {
     void FUN_0024b270();
 };
 
-char FUN_0025e450(Source_24b920 *src, int size);
+extern "C" char FUN_0025e450(Source_24b920 *src, int size);
 char FUN_0024af90(Source_24b920 *src);
 Source_24b920 *FUN_0025e090(Source_24b920 *src);
 unsigned int FUN_0026fd80(Source_24b920 *src, int size);

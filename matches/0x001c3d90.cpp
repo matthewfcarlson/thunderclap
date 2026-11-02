@@ -6,7 +6,7 @@ class Obj {
     char pad[0x7c];
 };
 Obj* gObj;
-Obj* target() {
+extern "C" Obj* FUN_001c3d90() {
     if (!gObj) {
         Obj* p = (Obj*)operator new(sizeof(Obj));
         if (p) {

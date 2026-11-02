@@ -14,7 +14,7 @@ template<class T> struct ParamEnumConstList { virtual void slot0(); char pad[12]
 template<class T> struct ParamFloatConstRange { virtual void slot0(); char pad[12]; void (*callback)(); int tail; void FUN_00234960(const char*); };
 template<class T> struct ParamBool { virtual void slot0(); char pad[12]; void (*callback)(); int tail; void FUN_00234860(const char*); };
 }
-void FUN_00128ad0() {
+extern "C" void FUN_00128ad0() {
  if (!DAT_004e0da8) {
  void* params[4];
  typedef fight::ParamEnumConstList<hulkfight::ai::ProjectileDistanceCondition> Enum;

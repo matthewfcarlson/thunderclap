@@ -22,7 +22,7 @@ struct DynamicCaster {
 }
 
 int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
-void __cdecl FUN_00087990();
+extern "C" void __cdecl FUN_00087990();
 
 struct LoadArgs {
     char path[0x100];       // 0x00
@@ -196,7 +196,7 @@ struct Frame_1bc0c0 {
     char buf2[0x100];       // 0x21c
 };
 
-void FUN_001bc0c0(const char *name, int count, const char *dir)
+extern "C" void FUN_001bc0c0(const char *name, int count, const char *dir)
 {
     Frame_1bc0c0 f;
     if (dir == 0)

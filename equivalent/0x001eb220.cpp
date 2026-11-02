@@ -5,7 +5,7 @@
 struct Resource_1eb220 {
     void* FUN_001f1270();
 };
-extern Resource_1eb220* __cdecl FUN_0008d710(int size, int category);
+extern "C" Resource_1eb220* __cdecl FUN_0008d710(int size, int category);
 struct State_1eb220 {
     void* resource;
     unsigned int owner;

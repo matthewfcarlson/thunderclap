@@ -8,7 +8,7 @@ struct Obj_fc1e0 {
     int pad;
     Inner_fc1e0* field;
 };
-void FUN_000fc1e0(unsigned int a, unsigned int b) {
+extern "C" void FUN_000fc1e0(unsigned int a, unsigned int b) {
     (*(Obj_fc1e0**)&DAT_004e0a60)->field->run(a, b);
     (*(unsigned char*)&DAT_004e0a68) = 1;
 }

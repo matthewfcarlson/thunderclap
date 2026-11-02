@@ -1,3 +1,3 @@
-unsigned int __fastcall FUN_00086300(void* p) {
+extern "C" unsigned int __fastcall FUN_00086300(void* p) {
     return *(unsigned int*)((char*)p + 0x34);
 }

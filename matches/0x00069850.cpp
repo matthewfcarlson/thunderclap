@@ -6,7 +6,7 @@ class R_69850 {
   public:
     int invoke(CComboMessageTrack*, hulk_intptr);
 };
-extern R_69850* FUN_0008d690(int);
+extern "C" R_69850* FUN_0008d690(int);
 
 hulk_intptr CComboMessageTrack::vfunc_12(hulk_intptr param) {
     R_69850* p = FUN_0008d690(0x24);

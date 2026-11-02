@@ -7,7 +7,7 @@ class Obj {
   public:
     void Do(void*);
 };
-void target(Obj* a, void* b) {
+extern "C" void FUN_0019c6c0(Obj* a, void* b) {
     TrackFactoryCasterTemplate_19c6c0 c;
     void* p = Find(b, &c);
     a->Do(p);

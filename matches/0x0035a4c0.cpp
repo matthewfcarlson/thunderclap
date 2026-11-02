@@ -7,7 +7,7 @@ struct Vec3_35a4c0 {
 char __cdecl FUN_0035a2a0(Vec3_35a4c0 *a1, Vec3_35a4c0 *a2, Vec3_35a4c0 *axisX, Vec3_35a4c0 *axisY, Vec3_35a4c0 *axisZ, Vec3_35a4c0 *v0, Vec3_35a4c0 *v1, Vec3_35a4c0 *v2,
                           Vec3_35a4c0 *normal, float *depth, Vec3_35a4c0 *centre, Vec3_35a4c0 *outN, int f1, int f2, int f4);
 
-char __cdecl FUN_0035a4c0(Vec3_35a4c0 *a1, Vec3_35a4c0 *a2, Vec3_35a4c0 *v0, Vec3_35a4c0 *v1, Vec3_35a4c0 *v2, Vec3_35a4c0 *normal, float *depth,
+extern "C" char __cdecl FUN_0035a4c0(Vec3_35a4c0 *a1, Vec3_35a4c0 *a2, Vec3_35a4c0 *v0, Vec3_35a4c0 *v1, Vec3_35a4c0 *v2, Vec3_35a4c0 *normal, float *depth,
                           Vec3_35a4c0 *centre, Vec3_35a4c0 *outN, int f1, int f2, int f4)
 {
     struct Frame {

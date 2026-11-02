@@ -6,7 +6,7 @@ class R_69b00 {
   public:
     int invoke(CMoveAddYTrack*, hulk_intptr);
 };
-extern R_69b00* FUN_0008d690(int);
+extern "C" R_69b00* FUN_0008d690(int);
 
 hulk_intptr CMoveAddYTrack::vfunc_12(hulk_intptr param) {
     R_69b00* p = FUN_0008d690(0x24);

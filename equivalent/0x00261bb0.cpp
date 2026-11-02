@@ -7,7 +7,7 @@ extern "C" double fmod(double x, double y);
 // x87: the original returns fmod's st0 unrounded (`call fmod; ret`, and `fsubr [len]` on the unrounded result)
 static inline hulk_freg fmodf_261bb0(float x, float y) { return fmod(x, y); }
 
-double FUN_00261bb0(float a1, const int* length, int a3, int a4, float a5) {
+extern "C" double FUN_00261bb0(float a1, const int* length, int a3, int a4, float a5) {
     double beats = (double)a3 + (double)DAT_004cd470 * a4 * 0.001f;
     double rate = (double)a4 * 60.0f / a1;
     float len = (float)*length;

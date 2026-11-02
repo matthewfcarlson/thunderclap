@@ -2,7 +2,7 @@
 // FUN_001d5730 @ 0x001d5730
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
 void thunk_FUN_00267090(void *p);
-void *FUN_0008d6d0(unsigned int size);
+extern "C" void *FUN_0008d6d0(unsigned int size);
 
 class Resource_1d5730 {
 public:

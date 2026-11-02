@@ -5,7 +5,7 @@ struct Matrix { float m[16]; void FUN_0022b980(); void FUN_0022bc20(float,float,
 struct World { unsigned char FUN_00201e00(Vec_9a5d0*,Vec_9a5d0*,int,Vec_9a5d0*,Vec_9a5d0*,int,int); };
 struct Globals_9a5d0 { char pad[0x24]; World* world; };
 extern Globals_9a5d0* DAT_004dd700;
-int __stdcall FUN_0009a5d0(float x,float y,float z,float pitch,float yaw,float distance) {
+extern "C" int __stdcall FUN_0009a5d0(float x,float y,float z,float pitch,float yaw,float distance) {
  Vec_9a5d0 start; start.x=x; start.y=y; start.z=z;
  Matrix matrix; matrix.FUN_0022b980();
  matrix.FUN_0022bc20(yaw*0.0174532924f,pitch*0.0174532924f,0.0f);

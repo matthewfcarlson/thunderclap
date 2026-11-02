@@ -12,7 +12,7 @@ extern int __cdecl FUN_00214ac0(const char *, DebugInfo_214bd0 *, CallInfo_214bd
 extern void __cdecl FUN_002141d0(DebugInfo_214bd0 *, State_214bd0 *);
 extern void __cdecl FUN_00215460(State_214bd0 *, int);
 extern "C" char * __cdecl strchr(const char *, int);
-int __cdecl FUN_00214bd0(State_214bd0 *state, const char *options, DebugInfo_214bd0 *info)
+extern "C" int __cdecl FUN_00214bd0(State_214bd0 *state, const char *options, DebugInfo_214bd0 *info)
 {
     int result = 1;
     if (*options == '>') {

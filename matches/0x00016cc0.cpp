@@ -16,12 +16,12 @@ class M_16cc0 {
   public:
     A2* First();
 };
-extern B_16cc0* __cdecl Make();
+extern "C" B_16cc0* __cdecl FUN_0027f250();
 
 void CEffectStopAction::vfunc_4() {
     A2* q = (*(M_16cc0 * *)&this->f_1c)->First();
     A_16cc0* a = q->Second();
-    B_16cc0* c = Make();
+    B_16cc0* c = FUN_0027f250();
     int lo = (*(int * *)&this->f_20)[4];
     int hi = (*(int * *)&this->f_20)[5];
     if (lo < 0 || hi <= lo || hi >= 32) {

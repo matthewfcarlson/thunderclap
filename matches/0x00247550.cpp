@@ -6,6 +6,6 @@ struct T_247550 {
     void* y;
     Fn_247550 f;
 };
-int target(int a, int b) {
+extern "C" int FUN_00247550(int a, int b) {
     return (*(T_247550**)&DAT_004cc1fc)->f((*(T_247550**)&DAT_004cc1fc), a, b);
 }

@@ -27,7 +27,7 @@ template<class T> struct ParamFloatConstRange {
 };
 }
 extern void __cdecl FUN_002347b0(void*,void**,int);
-void FUN_00053080() {
+extern "C" void FUN_00053080() {
  if (!DAT_004dc43c) {
  void* items[3];
  fight::ParamEnumConstList<CAxisDirectionCondition>* a = (fight::ParamEnumConstList<CAxisDirectionCondition>*)FUN_0008d690(32);

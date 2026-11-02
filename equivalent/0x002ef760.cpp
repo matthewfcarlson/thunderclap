@@ -15,7 +15,7 @@ struct Motion_2ef760 {
     Vec3_2ef760 aux;                // 0x0c
 };
 
-void __cdecl FUN_00305630(Vec3_2ef760 *out, Pose *a, Pose *b, float dt);
+extern "C" void __cdecl FUN_00305630(Vec3_2ef760 *out, Pose *a, Pose *b, float dt);
 
 void __cdecl FUN_002ef760(Pose *from, Pose *to, float scale, float dt, Motion_2ef760 *out) {
     out->delta.x = to->pos.x - from->pos.x;

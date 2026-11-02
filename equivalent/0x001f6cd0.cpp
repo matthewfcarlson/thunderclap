@@ -22,7 +22,7 @@ struct HitInfo_1f6cd0 {
 struct Library_1f6cd0 {
     int FUN_001d3b00(const char *name, HitInfo_1f6cd0 info);
 };
-Library_1f6cd0 *__cdecl FUN_001d4c90();
+extern "C" Library_1f6cd0 *__cdecl FUN_001d4c90();
 
 struct Frame_1f6cd0 {
     char name[0x80];

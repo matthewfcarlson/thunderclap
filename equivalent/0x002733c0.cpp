@@ -6,7 +6,7 @@ extern const unsigned int DAT_003f6098[], DAT_0042afa8[], DAT_0042b85c[], DAT_00
 extern void __cdecl FUN_002705f0();
 extern void __cdecl FUN_0026d860(void*, int);
 extern void __cdecl FUN_002731d0();
-extern void __cdecl FUN_0026dce0(void*, void (__cdecl*)(), void*, int, int, unsigned int);
+extern "C" void __cdecl FUN_0026dce0(void*, void (__cdecl*)(), void*, int, int, unsigned int);
 struct DriveThread {
  const unsigned int* refTable;
  const unsigned int* objectTable;

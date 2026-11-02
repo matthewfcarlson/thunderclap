@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 typedef unsigned int uint;
-void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 class Base_591f0 {
   public:
     Base_591f0(int);
@@ -32,7 +32,7 @@ class Derived : public Base_591f0 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<CSmartPropNameCondition>::vfunc_5() {
-    Derived* p = (Derived*)Alloc(0x20);
+    Derived* p = (Derived*)FUN_0008d690(0x20);
     if (p) {
         p->Derived::Derived();
         return (void*)(p);

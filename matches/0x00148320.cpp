@@ -20,14 +20,14 @@ struct Sub_148320 {
     char pad[0x24];
 };
 void __fastcall initA(Sub_148320*);
-void __fastcall initB(void*);
+extern "C" void __fastcall FUN_00234150(void*);
 void __fastcall initC(GrappleExecuteTrack*);
 void __cdecl destroyThing(GrappleExecuteTrack*);
 GrappleExecuteTrack* GrappleExecuteTrack::vfunc_5(u8_148320 param) {
     Sub_148320* p = (Sub_148320*)((char*)this + 0x24);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00413738);
     initA(p);
-    initB((char*)this + 0x14);
+    FUN_00234150((char*)this + 0x14);
     initC(this);
     if (param & 1)
         destroyThing(this);

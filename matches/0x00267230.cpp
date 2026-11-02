@@ -1,5 +1,5 @@
 typedef unsigned int u32_267230;
-void __cdecl AllocHelper(u32_267230, u32_267230);
+extern "C" void __cdecl FUN_00270570(u32_267230, u32_267230);
 class MemoryAllocatorMalloc {
   public:
     virtual void f0();
@@ -17,5 +17,5 @@ class MemoryAllocatorMalloc {
     virtual void f12();
 };
 void MemoryAllocatorMalloc::vfunc_6(u32_267230 a, u32_267230 b) {
-    AllocHelper(a, b);
+    FUN_00270570(a, b);
 }

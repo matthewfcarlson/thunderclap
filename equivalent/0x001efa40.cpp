@@ -2,7 +2,7 @@
 // FUN_001efa40 @ 0x001efa40
 // cl-flags: /GS
 extern "C" int sprintf(char *buf, const char *fmt, ...);
-void *__cdecl FUN_0008d710(unsigned int size, int tag);
+extern "C" void *__cdecl FUN_0008d710(unsigned int size, int tag);
 
 struct StrTable {
     void FUN_0027af00();
@@ -30,7 +30,7 @@ struct Slot_1efa40 {
 struct Loader_1efa40 {
     void FUN_001d3600(const char *path, int flag);
 };
-Loader_1efa40 *FUN_001d4c90();
+extern "C" Loader_1efa40 *FUN_001d4c90();
 
 struct Registry_1efa40 {
     void FUN_001f4c50();

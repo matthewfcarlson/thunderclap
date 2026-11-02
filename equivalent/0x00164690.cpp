@@ -86,9 +86,9 @@ struct Track {
 
 struct Fighter_164690 { char pad[4]; };
 Fighter_164690 *__fastcall FUN_000592a0(void *owner);
-void *__fastcall FUN_00059a30(Fighter_164690 *f);
-Track *__fastcall FUN_00059a40(Fighter_164690 *f);
-void __cdecl FUN_0015cfd0(Sub_164690 *skel, LocomotionSteerDriver_164690 *b);
+extern "C" void *__fastcall FUN_00059a30(Fighter_164690 *f);
+extern "C" Track *__fastcall FUN_00059a40(Fighter_164690 *f);
+extern "C" void __cdecl FUN_0015cfd0(Sub_164690 *skel, LocomotionSteerDriver_164690 *b);
 
 class Config_164690 {
 public:

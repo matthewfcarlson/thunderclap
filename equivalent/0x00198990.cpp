@@ -6,8 +6,8 @@ struct Params { char pad0[44]; unsigned field2c; char pad30[4]; unsigned field34
 struct RenderState_198990 { char pad[112]; unsigned char enabled; unsigned char other; unsigned char flag; };
 struct Object { virtual void AddRef(); virtual void Release(); unsigned field4; void* owner; unsigned type; char pad10[100]; RenderState_198990* state; };
 struct CollisionSphere_198990 { CollisionSphere_198990* FUN_002efe50(Vec3_198990*, unsigned); };
-extern void* __cdecl FUN_0008d690(unsigned);
-extern Object* __cdecl FUN_002efca0(CollisionSphere_198990*, unsigned);
+extern "C" void* __cdecl FUN_0008d690(unsigned);
+extern "C" Object* __cdecl FUN_002efca0(CollisionSphere_198990*, unsigned);
 struct Controller_198990 { void FUN_001b42b0(Object*); };
 extern Controller_198990* __stdcall FUN_001b6580();
 struct Manager_198990 { unsigned FUN_00283a40(void*, Transform_198990*, float, float); };

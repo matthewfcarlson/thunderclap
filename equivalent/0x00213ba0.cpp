@@ -14,7 +14,7 @@ struct lua_State_213ba0 {
 void __cdecl FUN_00217490(lua_State_213ba0 *L);
 void __cdecl FUN_00217440(lua_State_213ba0 *L);
 
-int __cdecl FUN_00213ba0(lua_State_213ba0 *L, int what, int data)
+extern "C" int __cdecl FUN_00213ba0(lua_State_213ba0 *L, int what, int data)
 {
     Global_213ba0 *g = L->g;
     switch (what) {

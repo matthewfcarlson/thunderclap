@@ -6,7 +6,7 @@ class R_69760 {
   public:
     int invoke(CSoundTrack*, hulk_intptr);
 };
-extern R_69760* FUN_0008d690(int);
+extern "C" R_69760* FUN_0008d690(int);
 
 hulk_intptr CSoundTrack::vfunc_12(hulk_intptr param) {
     R_69760* p = FUN_0008d690(0x24);

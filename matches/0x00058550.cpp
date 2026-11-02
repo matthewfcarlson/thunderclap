@@ -3,7 +3,7 @@
 
 extern "C" char DAT_003f7394[];
 typedef unsigned int u32_58550;
-void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct CMotionStateCondition_58550 {
     hulk_uintptr vtable;
     u32_58550 pad4;
@@ -14,7 +14,7 @@ struct CMotionStateCondition_58550 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<CMotionStateCondition>::vfunc_5() {
-    CMotionStateCondition_58550* p = (CMotionStateCondition_58550*)Allocate(0x14);
+    CMotionStateCondition_58550* p = (CMotionStateCondition_58550*)FUN_0008d690(0x14);
     if (p) {
         p->Initialize(0);
         p->vtable = ((hulk_intptr)DAT_003f7394);

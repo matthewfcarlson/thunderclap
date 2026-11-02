@@ -22,7 +22,7 @@ struct Mgr_8dbb0 {
     virtual int Count();
     virtual Item_8dbb0 *Get(int i);
 };
-Mgr_8dbb0 *FUN_002684b0();
+extern "C" Mgr_8dbb0 *FUN_002684b0();
 
 struct Table_8dbb0 {
     char pad0[0x134];
@@ -58,10 +58,10 @@ struct World {
     Manager_8dbb0 *mgr;
 };
 
-Profile_8dbb0 *__fastcall FUN_000862c0(Manager_8dbb0 *m);
-Cam_8dbb0 *__fastcall FUN_00086300(Manager_8dbb0 *m);
-Rumble *__fastcall FUN_00086330(Manager_8dbb0 *m);
-Fx_8dbb0 *__fastcall FUN_000862e0(Manager_8dbb0 *m);
+extern "C" Profile_8dbb0 *__fastcall FUN_000862c0(Manager_8dbb0 *m);
+extern "C" Cam_8dbb0 *__fastcall FUN_00086300(Manager_8dbb0 *m);
+extern "C" Rumble *__fastcall FUN_00086330(Manager_8dbb0 *m);
+extern "C" Fx_8dbb0 *__fastcall FUN_000862e0(Manager_8dbb0 *m);
 
 
 class IController {

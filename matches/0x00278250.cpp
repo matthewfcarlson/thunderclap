@@ -40,7 +40,7 @@ class File {
     void vfunc_0_adj4();
 };
 } // namespace core
-extern "C" void init(void*);
+extern "C" void FUN_0026d840(void*);
 void core::File::vfunc_0_adj4() {
-    init(((char*)&DAT_0052c250));
+    FUN_0026d840(((char*)&DAT_0052c250));
 }

@@ -22,14 +22,14 @@ class Clip : public Entity {
     int mHandle;
     void cleanup();
 };
-void ReleaseHandle(int);
-void RegisterClip(void*, Clip*);
+extern "C" void FUN_0025d300(int);
+extern "C" void FUN_00247550(void*, Clip*);
 Clip* Clip::vfunc_2(int flag) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0042918c);
     if (mHandle)
-        ReleaseHandle(mHandle);
+        FUN_0025d300(mHandle);
     cleanup();
     if (flag & 1)
-        RegisterClip((void*)((hulk_intptr)DAT_004e5f18), this);
+        FUN_00247550((void*)((hulk_intptr)DAT_004e5f18), this);
     return this;
 }

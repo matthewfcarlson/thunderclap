@@ -7,7 +7,7 @@ class Obj_268490 {
     virtual void f1();
     virtual void f2(int);
 };
-void target() {
+extern "C" void FUN_00268490() {
     if ((*(Obj_268490**)&DAT_00528398))
         (*(Obj_268490**)&DAT_00528398)->f2(1);
     (*(Obj_268490**)&DAT_00528398) = 0;

@@ -12,7 +12,7 @@ class Obj {
     Sub sub;
 };
 extern "C" Obj* __cdecl Lookup(const char*);
-void __stdcall FUN_000b5490(const char* name) {
+extern "C" void __stdcall FUN_000b5490(const char* name) {
     Obj* p = Lookup("side_mission_success_name");
     if (p && &p->sub) {
         p->sub.Set(name, 0, 1);

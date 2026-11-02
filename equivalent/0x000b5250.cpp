@@ -13,7 +13,7 @@ struct TextEntry_b5250 {
 
 Locale *__cdecl FUN_000fc1b0();
 void __cdecl FUN_000fc020(char *buf, int size, const char *fmt, ...);
-void __cdecl FUN_000fc000(char *buf, int size, const char *fmt, ...);
+extern "C" void __cdecl FUN_000fc000(char *buf, int size, const char *fmt, ...);
 
 void __stdcall FUN_000b5250(TextEntry_b5250 *entry, const char *key, const char *k2, const char *k3,
                             const char *k4, const char *k5, const char *k6, const char *k7)

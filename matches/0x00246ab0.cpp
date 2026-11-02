@@ -8,7 +8,7 @@ struct Buffer {
     unsigned char valid;
 };
 extern "C" void* memcpy(void*, const void*, unsigned int);
-bool __cdecl FUN_00246ab0(Buffer* b, const void* src, uint count) {
+extern "C" bool __cdecl FUN_00246ab0(Buffer* b, const void* src, uint count) {
     if (!b->valid)
         return false;
     if (b->start + b->size - (hulk_uintptr)b->pos < count)

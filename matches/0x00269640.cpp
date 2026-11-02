@@ -4,14 +4,14 @@
 #include "gen/core.h"
 
 typedef unsigned int u32_269640;
-extern u32_269640 __cdecl FindThing(u32_269640, u32_269640);
+extern "C" u32_269640 __cdecl FUN_00266e00(u32_269640, u32_269640);
 struct ControllerSystemXBox_nv_269640 {
     u32_269640 Make(u32_269640, u32_269640);
 };
-void __cdecl Target(u32_269640 a, u32_269640 b) {
+extern "C" void __cdecl FUN_00269640(u32_269640 a, u32_269640 b) {
     u32_269640 v = b;
     *(volatile u32_269640*)((hulk_intptr)((char*)&DAT_004cdbb0)) = v;
-    hulk_uintptr x = FindThing(v, 0x12a8);
+    hulk_uintptr x = FUN_00266e00(v, 0x12a8);
     if (x)
         *(volatile u32_269640*)((hulk_intptr)DAT_00528398) = ((ControllerSystemXBox_nv_269640*)(((core::ControllerSystemXBox*)(((core::ControllerSystemXBox*)x)))))->Make(a, v);
     else

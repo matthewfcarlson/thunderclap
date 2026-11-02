@@ -9,7 +9,7 @@ class D {
     char pad0[0x14];
     int value;
 };
-bool f(A_44510* a, int b) {
+extern "C" bool FUN_00044510(A_44510* a, int b) {
     if (!a)
         return false;
     A_44510* p = 0;

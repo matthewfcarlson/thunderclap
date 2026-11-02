@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001076f0 @ 0x001076f0
-void *__cdecl FUN_0008d690(unsigned int size);
+extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 
 class CAvoidBehaviour_1076f0 {
 public:

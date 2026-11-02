@@ -12,7 +12,7 @@ class TrackManager {
     void Add(void*);
 };
 extern "C" void* FUN_00236ac0(const char*, fight::TrackFactoryCasterTemplate<hulkfight::NISSoundTrack>*);
-void Make(TrackManager* manager, const char* name) {
+extern "C" void FUN_00132500(TrackManager* manager, const char* name) {
     fight::TrackFactoryCasterTemplate<hulkfight::NISSoundTrack> caster;
     manager->Add(FUN_00236ac0(name, &caster));
 }

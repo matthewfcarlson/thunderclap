@@ -5,7 +5,7 @@ extern "C" int F339010(void* L, int i, const char* e);
 extern "C" void F338e20(void* L, const char* m);
 extern "C" void F212d80(void* L, int i);
 extern "C" void F2138e0(void* L, int i);
-int Target(void* L) {
+extern "C" int FUN_0033d960(void* L) {
     int t = F212f00(L, 2);
     F339d70(L, 1, 5);
     if (t != 0 && t != 5)

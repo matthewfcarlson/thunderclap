@@ -29,7 +29,7 @@ template<class T> struct ParamFloatConstRange {
 };
 }
 void __cdecl FUN_002347b0(void*, void**, int);
-void __cdecl FUN_00052a40() {
+extern "C" void __cdecl FUN_00052a40() {
  if (DAT_004dc414 == 0) {
  void* params[3];
  typedef fight::ParamEnumConstList<CAxisTimeCondition> Enum;

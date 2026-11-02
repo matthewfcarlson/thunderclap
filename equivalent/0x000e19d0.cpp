@@ -3,7 +3,7 @@
 struct Tbl_e19d0 { void* FUN_000df970(int id); };
 struct Reg_e19d0 { char pad[4]; Tbl_e19d0* tbl; };
 struct Owner_e19d0 { char pad[4]; Reg_e19d0* reg; };
-void* __cdecl FUN_0008d6d0(unsigned size);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned size);
 struct FEDoFunction {
  virtual void slot0();
  int pad4; int v8, vc;

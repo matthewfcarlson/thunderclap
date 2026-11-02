@@ -1,5 +1,5 @@
 extern float scale_86100;
-void __cdecl Finish();
+extern "C" void __cdecl FUN_001eb200();
 class Thing_86100 {
   public:
     char pad[0x38];
@@ -8,5 +8,5 @@ class Thing_86100 {
 };
 void Thing_86100::Set(float x) {
     value = (__int64)(x * 65536.0f);
-    Finish();
+    FUN_001eb200();
 }

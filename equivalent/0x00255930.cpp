@@ -6,7 +6,7 @@
 #include "decls/data/engine/audio.h"
 
 typedef unsigned int size_t;
-void* __cdecl FUN_00247530(void*);
+extern "C" void* __cdecl FUN_00247530(void*);
 namespace audio {
 
 struct SeqActionCrossFade_255930 {

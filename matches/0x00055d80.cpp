@@ -92,14 +92,14 @@ extern void* __cdecl FUN_002343e0(const char*, fight::ConditionFactoryCasterTemp
 extern void* __cdecl FUN_002343e0(const char*, fight::ConditionFactoryCasterTemplate<CSmartPropWeaponTypeCondition>*);
 extern void* __cdecl FUN_002343e0(const char*, fight::ConditionFactoryCasterTemplate<CSmartPropWeaponizableTypeCondition>*);
 extern void* __cdecl FUN_002343e0(const char*, fight::ConditionFactoryCasterTemplate<CStageCondition>*);
-extern void __cdecl FUN_001138a0(Registry_55d80*, const char*);
+extern "C" void __cdecl FUN_001138a0(Registry_55d80*, const char*);
 extern void __cdecl FUN_001138d0(Registry_55d80*, const char*);
 extern void __cdecl FUN_00113900(Registry_55d80*, const char*);
-extern void __cdecl FUN_00113930(Registry_55d80*, const char*);
+extern "C" void __cdecl FUN_00113930(Registry_55d80*, const char*);
 extern void __cdecl FUN_00113990(Registry_55d80*, const char*);
 extern void __cdecl FUN_001139f0(Registry_55d80*, const char*);
 extern void __cdecl FUN_00113a20(Registry_55d80*, const char*);
-extern void __cdecl FUN_00113a50(Registry_55d80*, const char*);
+extern "C" void __cdecl FUN_00113a50(Registry_55d80*, const char*);
 extern void __cdecl FUN_00113a80(Registry_55d80*, const char*);
 extern void __cdecl FUN_00113ab0(Registry_55d80*, const char*);
 extern void __cdecl FUN_00113ae0(Registry_55d80*, const char*);
@@ -110,7 +110,7 @@ extern void __cdecl FUN_0011a980(Registry_55d80*, const char*);
 extern void __cdecl FUN_0011a9b0(Registry_55d80*, const char*);
 extern void __cdecl FUN_0011a9e0(Registry_55d80*, const char*);
 extern void __cdecl FUN_0011aa10(Registry_55d80*, const char*);
-extern void __cdecl FUN_00122b70(Registry_55d80*, const char*);
+extern "C" void __cdecl FUN_00122b70(Registry_55d80*, const char*);
 extern void __cdecl FUN_00129fe0(Registry_55d80*);
 extern void __cdecl FUN_0012d450(Registry_55d80*);
 extern void __cdecl FUN_00132620(Registry_55d80*);
@@ -125,7 +125,7 @@ extern void __cdecl FUN_0018e860(Registry_55d80*);
 extern void __cdecl FUN_0019e3e0(Registry_55d80*);
 extern void __cdecl FUN_001a1cf0(Registry_55d80*, const char*);
 extern void __cdecl FUN_00236940(Registry_55d80*);
-bool __cdecl FUN_00055d80(Registry_55d80* registry) {
+extern "C" bool __cdecl FUN_00055d80(Registry_55d80* registry) {
     FUN_00236940(registry);
     FUN_00132620(registry);
     FUN_001138a0(registry, "on_blocked_triangle");

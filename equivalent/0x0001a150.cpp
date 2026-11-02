@@ -21,7 +21,7 @@ struct Body_1a150 {
 
 struct Fighter_1a150 { char pad[4]; };
 Fighter_1a150 *__fastcall FUN_000592a0(void *owner);
-Body_1a150 *__fastcall FUN_00059a40(Fighter_1a150 *f);
+extern "C" Body_1a150 *__fastcall FUN_00059a40(Fighter_1a150 *f);
 
 class Link_1a150 {
 public:
@@ -38,7 +38,7 @@ struct Stats_1a150 {
     bool FUN_00035ab0();
     void FUN_0003b580(int a, float b, float c);
 };
-Stats_1a150 *__fastcall FUN_00059a30(Fighter_1a150 *f);
+extern "C" Stats_1a150 *__fastcall FUN_00059a30(Fighter_1a150 *f);
 
 struct Data_1a150 {
     char pad0[0x20];
@@ -82,7 +82,7 @@ struct CollisionSphere_1a150 {
 };
 
 void *__cdecl FUN_0008d690(unsigned int size);
-Effect_1a150 *__cdecl FUN_002efca0(CollisionSphere_1a150 *init, const char *name);
+extern "C" Effect_1a150 *__cdecl FUN_002efca0(CollisionSphere_1a150 *init, const char *name);
 
 struct Sys_1a150 {
     char pad0[8];

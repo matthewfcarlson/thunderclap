@@ -1,4 +1,4 @@
-unsigned __int64 __cdecl Target(int, int, int);
-unsigned __int64 __cdecl Wrapper(int a) {
-    return Target(a, 0, 0);
+extern "C" unsigned __int64 __cdecl FUN_002672f0(int, int, int);
+extern "C" unsigned __int64 __cdecl FUN_0027afb0(int a) {
+    return FUN_002672f0(a, 0, 0);
 }

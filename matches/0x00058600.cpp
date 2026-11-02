@@ -3,7 +3,7 @@
 
 extern "C" char DAT_003f7274[];
 typedef unsigned int U_58600;
-extern void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 struct CPropActorStateCondition_58600 {
     virtual void v0();
     U_58600 x[4];
@@ -11,7 +11,7 @@ struct CPropActorStateCondition_58600 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<CPropActorStateCondition>::vfunc_5() {
-    CPropActorStateCondition_58600* p = (CPropActorStateCondition_58600*)alloc(0x14);
+    CPropActorStateCondition_58600* p = (CPropActorStateCondition_58600*)FUN_0008d690(0x14);
     if (p) {
         p->setup(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f7274);

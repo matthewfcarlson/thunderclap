@@ -4,7 +4,7 @@ class Item_228590 {
     virtual void a();
     virtual void release();
 };
-void __fastcall FUN_0022a9c0(void* self);
+extern "C" void __fastcall FUN_0022a9c0(void* self);
 class LocomotionSteerDriver_228590 {
   public:
     virtual void v();

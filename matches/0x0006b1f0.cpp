@@ -5,7 +5,7 @@ class Alloc_6b1f0 {
   public:
     int method(CWallSlideTrack*, hulk_intptr);
 };
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 hulk_intptr CWallSlideTrack::vfunc_12(hulk_intptr param) {
     Alloc_6b1f0* p = (Alloc_6b1f0*)FUN_0008d690(0x38);

@@ -4,7 +4,7 @@
 #include "decls/data/game/global.h"
 
 extern "C" char *__cdecl strncpy(char *dst, const char *src, unsigned int n);
-extern int __cdecl FUN_00266da0(int v);
+extern "C" int __cdecl FUN_00266da0(int v);
 extern void __cdecl FUN_0008d330(void *p);
 
 struct Node {

@@ -33,16 +33,16 @@ struct Stream {
     void FUN_0025d480(int *pos);
 };
 
-int FUN_0024b220(void *source);
+extern "C" int FUN_0024b220(void *source);
 char FUN_0024b200(void *source);
-Reader *FUN_0025cab0(int a, int b, int c, int d);
-void FUN_0025be60(int *pos, int *local);
-int FUN_0024c4d0(int *local, int v);
-int FUN_0024c480(int *local, int v);
-int FUN_0024c2f0(int *pos);
-hulk_uintptr FUN_0026fd80(hulk_uintptr a, unsigned int b);
-Reader *FUN_0025bec0(Reader *r);
-int FUN_0024ba70(void *source, Reader *reader, int amount);
+extern "C" Reader *FUN_0025cab0(int a, int b, int c, int d);
+extern "C" void FUN_0025be60(int *pos, int *local);
+extern "C" int FUN_0024c4d0(int *local, int v);
+extern "C" int FUN_0024c480(int *local, int v);
+extern "C" int FUN_0024c2f0(int *pos);
+extern "C" hulk_uintptr FUN_0026fd80(hulk_uintptr a, unsigned int b);
+extern "C" Reader *FUN_0025bec0(Reader *r);
+extern "C" int FUN_0024ba70(void *source, Reader *reader, int amount);
 
 class SeqActionStream_253cb0 {
 public:

@@ -1,7 +1,7 @@
 struct Vec3_83e00 {
     float x, y, z;
 };
-Vec3_83e00* FUN_00083e00(Vec3_83e00* out, Vec3_83e00* in, float scale) {
+extern "C" Vec3_83e00* FUN_00083e00(Vec3_83e00* out, Vec3_83e00* in, float scale) {
     float z = scale * in->z;
     float y = scale * in->y;
     float x = scale * in->x;

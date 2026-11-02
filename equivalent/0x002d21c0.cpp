@@ -44,7 +44,7 @@ public:
     virtual bool v14(Vec3_2d21c0* dir, Vec3_2d21c0* pos, float t);
 };
 
-void __cdecl FUN_00356bf0(float r, float az, float pol, float* x, float* y, float* z);
+extern "C" void __cdecl FUN_00356bf0(float r, float az, float pol, float* x, float* y, float* z);
 
 static unsigned int NextRandom()
 {

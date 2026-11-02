@@ -13,7 +13,7 @@ extern int FUN_0026b680(void* a, int mode, void* c, int toMode, int g, int f, in
 // equiv-conv: FUN_0026b740 stack stack stack ebx edx esi edi
 extern int FUN_0026b740(void* a, int mode, void* c, int toMode, int g, int f, int e);
 
-int FUN_0026b800(void* a, int fromMode, void* c, int toMode, int e, int f, int g) {
+extern "C" int FUN_0026b800(void* a, int fromMode, void* c, int toMode, int e, int f, int g) {
     if (a == 0)
         return -3;
     if (c == 0)

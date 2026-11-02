@@ -58,8 +58,8 @@ void FUN_00249ec0(List2 *list, Node2 *node);
 void FUN_00247550(void *pool, void *block);
 void FUN_0024a450(void *list);
 void FUN_0024a4a0(void *list);
-void FUN_00257f00(void *a, void *b);
-void FUN_00242d70(void *a, int b);
+extern "C" void FUN_00257f00(void *a, void *b);
+extern "C" void FUN_00242d70(void *a, int b);
 
 struct Registry {
     char pad0[0x18];

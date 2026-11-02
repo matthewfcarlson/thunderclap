@@ -797,6 +797,12 @@ CASES = {
     "0x001b05a0_retwiden": ("equivalent", None, 0.5, {"n_inputs": 200}),
     "0x001b05a0_retwiden_wrong": ("fail", "returned 0x", 0, {"n_inputs": 200}),
     "0x001b05a0_retwiden_off": ("equivalent", None, 0, {"src": "0x001b05a0_retwiden_wrong", "n_inputs": 200, "equiv_off": "retwiden"}),
+    # crash2 vstatic: AnimationPhaseMatchedTrack::vfunc_7 (a plain ret) declared with 3 arguments (the three pushes before
+    # the call are 0x225e00's): clang's caller re-reserves 12 bytes the callee never popped and reads its frame 12 bytes
+    # off (the play3 crash in CCharacterGolem::vfunc_3). The original's pops come from tools/vcall_scan.py's model
+    "0x0013d7b0_native_vstatic": ("equivalent", None, 0, {"native": True, "n_inputs": 100}),
+    "0x0013d7b0_native_vstatic_wrong": ("fail", "original's call takes 0", 0, {"native": True, "n_inputs": 100}),
+    "0x0013d7b0_native_vstatic_off": ("equivalent", None, 0, {"src": "0x0013d7b0_native_vstatic_wrong", "native": True, "n_inputs": 100, "equiv_off": "vstatic"}),
 }
 
 # verify_relocs.py cases: name -> (expected status, issue kind it must report or None)

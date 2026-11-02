@@ -114,7 +114,7 @@ struct Aim_1c88f0 {
 struct X27 {
     void FUN_0027ff80();
 };
-X27 *FUN_0027f250();
+extern "C" X27 *FUN_0027f250();
 
 struct Mgr_1c88f0;
 

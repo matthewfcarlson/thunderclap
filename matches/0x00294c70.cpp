@@ -1,4 +1,4 @@
-int FUN_00294c70(char* src, unsigned short* dst, int limit) {
+extern "C" int FUN_00294c70(char* src, unsigned short* dst, int limit) {
     int i;
     if (dst == 0 || src == 0)
         return 0;

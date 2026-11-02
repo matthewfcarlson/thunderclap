@@ -48,9 +48,9 @@ struct SkeletonSrc {
     unsigned short* parent;
 };
 
-void* FUN_0008d6d0(unsigned int size);
-void* FUN_00266e00(int kind, unsigned int size);
-void FUN_00267090(void* p);
+extern "C" void* FUN_0008d6d0(unsigned int size);
+extern "C" void* FUN_00266e00(int kind, unsigned int size);
+extern "C" void FUN_00267090(void* p);
 
 namespace physics {
 

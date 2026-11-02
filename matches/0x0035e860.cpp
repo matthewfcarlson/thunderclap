@@ -1,7 +1,7 @@
 // FUN_0035e860 @ 0x0035e860
 #include "decls/data/game/global.h"
 
-extern unsigned __int64 FUN_0027afb0(const char *name);
+extern "C" unsigned __int64 FUN_0027afb0(const char *name);
 void FUN_0035e860() {
     (*(unsigned __int64*)&DAT_004e2448) = FUN_0027afb0("object_class");
     (*(unsigned __int64*)&DAT_004e2450) = FUN_0027afb0("base_name");

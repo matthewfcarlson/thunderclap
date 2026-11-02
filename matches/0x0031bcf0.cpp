@@ -13,7 +13,7 @@ class d3dPrimStream {
     void** resources;
 };
 
-void __fastcall FUN_0031bcf0(d3dPrimStream* self) {
+extern "C" void __fastcall FUN_0031bcf0(d3dPrimStream* self) {
     self->vtable = ((hulk_intptr)DAT_00432578);
     int i = 0;
     if (DAT_004d367c > 0) {

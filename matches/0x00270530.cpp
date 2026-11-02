@@ -1,1 +1,1 @@
-void FUN_00270530() {}
+extern "C" void FUN_00270530() {}

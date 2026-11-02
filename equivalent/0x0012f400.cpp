@@ -4,7 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
-extern int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
+extern "C" int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
 
 struct Script_12f400 {
     char FUN_001d2ba0(const char* name, int a, int b);
@@ -13,7 +13,7 @@ struct Script_12f400 {
     void FUN_001d19d0(int n);
 };
 
-Script_12f400* __cdecl FUN_001d4c90();
+extern "C" Script_12f400* __cdecl FUN_001d4c90();
 
 namespace hulkfight {
 

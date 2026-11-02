@@ -121,9 +121,9 @@ struct HX {
     void FUN_001b4c40(Holder_2a4b0 *h);
 };
 V2_2a4b0 *FUN_000678d0();
-Sink_2a4b0 *FUN_0027f250();
-unsigned int FUN_00036c80();
-HX *FUN_001b6580();
+extern "C" Sink_2a4b0 *FUN_0027f250();
+extern "C" unsigned int FUN_00036c80();
+extern "C" HX *FUN_001b6580();
 
 
 class Mgr_2a4b0 {

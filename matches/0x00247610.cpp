@@ -10,7 +10,7 @@ struct Alloc_247610 {
     void*(__cdecl* f0)();
     void*(__cdecl* alloc)(Alloc_247610*, Tmp_247610*);
 };
-void* __cdecl FUN_00247610(int a, int b, unsigned size, unsigned align) {
+extern "C" void* __cdecl FUN_00247610(int a, int b, unsigned size, unsigned align) {
     if (!(size > 0))
         return 0;
     if (align <= 8)

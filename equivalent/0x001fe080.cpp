@@ -27,7 +27,7 @@ struct Group_1fe080 {
 struct Rng_1fe080 {
     int FUN_00011330(int maxValue);
 };
-Rng_1fe080 *__cdecl FUN_000964d0();
+extern "C" Rng_1fe080 *__cdecl FUN_000964d0();
 
 struct Zones {
     int FUN_00204200(float x, float y, float z);

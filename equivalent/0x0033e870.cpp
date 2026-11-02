@@ -11,7 +11,7 @@ void __cdecl FUN_00213520(lua_State *L, int b);
 void __cdecl FUN_00212e20(lua_State *L, int idx);
 
 // luaB_coresume
-int __cdecl FUN_0033e870(lua_State *L)
+extern "C" int __cdecl FUN_0033e870(lua_State *L)
 {
     lua_State *co = FUN_00213290(L, 1);
     if (co == 0)

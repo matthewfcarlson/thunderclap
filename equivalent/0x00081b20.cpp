@@ -68,7 +68,7 @@ struct Rng_81b20 {
     int FUN_00011330(int n);
 };
 
-Rng_81b20 *__cdecl FUN_000964d0();
+extern "C" Rng_81b20 *__cdecl FUN_000964d0();
 float __cdecl FUN_00224f10(Vec3_81b20 *v);
 void __cdecl FUN_00224d70(float angle, Vec3_81b20 *v);
 float __cdecl FUN_00080ba0(float a, float b);
@@ -247,8 +247,8 @@ struct EntryRec {
     char pad9[7];
 };
 
-int __cdecl FUN_00098190(float a, float b, float c, int d, Releasable_81b20 *o, float e, Vec3_81b20 *pos, Vec3_81b20 *va, int f, int g, int h, int i);
-Splash *__cdecl FUN_0027f250();
+extern "C" int __cdecl FUN_00098190(float a, float b, float c, int d, Releasable_81b20 *o, float e, Vec3_81b20 *pos, Vec3_81b20 *va, int f, int g, int h, int i);
+extern "C" Splash *__cdecl FUN_0027f250();
 
 static __forceinline void AbsInPlace(float &v)
 {

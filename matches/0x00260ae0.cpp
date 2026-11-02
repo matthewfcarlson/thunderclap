@@ -5,7 +5,7 @@ struct Obj {
     char pad[0x2004];
     char* cursor;
 };
-char* __cdecl FUN_00260ae0(Obj* p) {
+extern "C" char* __cdecl FUN_00260ae0(Obj* p) {
     int n = rand();
     char* s = p->cursor;
     sprintf(s, "%u", n);

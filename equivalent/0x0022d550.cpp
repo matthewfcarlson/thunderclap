@@ -9,7 +9,7 @@ struct V3_22d550 {
 };
 
 // Closest approach between a line (point P + t * dir ...) and a segment, see out parameters.
-char FUN_0022d550(const V3_22d550 *s, const V3_22d550 *dir, const V3_22d550 *p, const V3_22d550 *t, float *outA, float *outB)
+extern "C" char FUN_0022d550(const V3_22d550 *s, const V3_22d550 *dir, const V3_22d550 *p, const V3_22d550 *t, float *outA, float *outB)
 {
     V3_22d550 d1;
     d1.x = s->x - p->x;

@@ -123,9 +123,9 @@ public:
 
 struct ParamRegistry {
 };
-void FUN_002347b0(ParamRegistry* reg, void** params, int count);
+extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
-void FUN_0017ced0()
+extern "C" void FUN_0017ced0()
 {
     if (DAT_004e1314 == 0) {
         void* params[12];

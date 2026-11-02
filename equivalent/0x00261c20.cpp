@@ -6,7 +6,7 @@ struct Stream {
 };
 
 bool __cdecl FUN_00246f50(Stream *s, const char *fmt, ...);
-bool __cdecl FUN_0024eb60(Stream **w, const char *name, void *value);
+extern "C" bool __cdecl FUN_0024eb60(Stream **w, const char *name, void *value);
 
 class Fraction {
 public:

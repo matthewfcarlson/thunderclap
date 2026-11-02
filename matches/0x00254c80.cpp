@@ -1,5 +1,5 @@
 #include "compat/ptr.h"
-int resolve(int, int);
+extern "C" int FUN_000113e0(int, int);
 struct Seq {
     char pad[12];
     volatile int count;
@@ -29,7 +29,7 @@ SeqCommandLogicRepeat_254c80::SeqCommandLogicRepeat_254c80(Seq* s) {
     if (index == -1)
         result = ((hulk_intptr)s | index);
     else
-        result = resolve(index, s->b);
+        result = FUN_000113e0(index, s->b);
     val = result;
     volatile int* p = &seq->count;
     int x = *p;

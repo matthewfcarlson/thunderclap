@@ -3,7 +3,7 @@ class B_86da0 {
     void a();
 };
 bool b80();
-void c90();
+extern "C" void FUN_0008db90();
 void thunk();
 void f656a0();
 class C_86da0 {
@@ -30,7 +30,7 @@ void A_86da0::run() {
         y->d(0, 0);
     if (x) {
         while (b80()) {
-            c90();
+            FUN_0008db90();
             x->a();
         }
     }

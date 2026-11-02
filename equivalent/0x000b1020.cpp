@@ -3,7 +3,7 @@
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d330
 void __cdecl thunk_FUN_00267090(void *p);
 void *__cdecl FUN_0008d750(int size, int align);
-int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
+extern "C" int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 
 class StringTable_b1020 {
 public:

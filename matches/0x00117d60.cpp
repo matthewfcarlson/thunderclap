@@ -14,7 +14,7 @@ void Free(void*) throw();
 struct Sub_117d60 {
     char c;
 };
-void __fastcall SubFini(Sub_117d60*) throw();
+extern "C" void __fastcall FUN_0027af50(Sub_117d60*) throw();
 void __fastcall SubFini2(Sub_117d60*) throw();
 void __fastcall SubFini3(Sub_117d60*) throw();
 class MotionClosestWaypointAction_117d60 : public Action_117d60 {
@@ -35,6 +35,6 @@ MotionClosestWaypointAction_117d60::~MotionClosestWaypointAction_117d60() throw(
     }
     if (m1c)
         m1c = 0;
-    SubFini(&s60);
+    FUN_0027af50(&s60);
     Fin();
 }

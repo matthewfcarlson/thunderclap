@@ -84,8 +84,8 @@ union Word_cc7e0 {
 };
 
 extern float FUN_000186b0(const float &v, const float &lo, const float &hi);
-extern float FUN_000186f0(const float &a, const float &b);
-extern float FUN_00018710(const float &a, const float &b);
+extern "C" float FUN_000186f0(const float &a, const float &b);
+extern "C" float FUN_00018710(const float &a, const float &b);
 
 
 static __forceinline float Lerp(float a, float b, float t)

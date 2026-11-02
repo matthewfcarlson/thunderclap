@@ -33,7 +33,7 @@ struct Info_182380 {
 
 class Owner;
 Owner *__fastcall FUN_000592a0(Owner *owner);
-Stats_182380 *__fastcall FUN_00059a30(Owner *ctx);
+extern "C" Stats_182380 *__fastcall FUN_00059a30(Owner *ctx);
 
 namespace hulkfight {
 namespace motion {

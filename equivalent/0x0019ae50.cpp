@@ -97,7 +97,7 @@ struct OwnerObj_19ae50 {
 struct Rng_19ae50 {
     float FUN_000787e0(int lo, int hi);
 };
-Rng_19ae50 *FUN_000964d0();
+extern "C" Rng_19ae50 *FUN_000964d0();
 
 class Weapon_19ae50 {
 public:

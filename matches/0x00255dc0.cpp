@@ -13,11 +13,11 @@ class SeqAction_255dc0 {
 };
 namespace audio {
 } // namespace audio
-int __cdecl Check(int);
-void __cdecl DoThing(int);
+extern "C" int __cdecl FUN_00259c50(int);
+extern "C" void __cdecl FUN_00258e50(int);
 void audio::SeqActionClip::vfunc_3(hulk_intptr arg) {
     int x = this->f_14;
-    if (x != 0 && Check(x) == 1)
-        DoThing(this->f_14);
+    if (x != 0 && FUN_00259c50(x) == 1)
+        FUN_00258e50(this->f_14);
     this->f_18 = 4;
 }

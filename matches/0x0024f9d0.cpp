@@ -1,5 +1,5 @@
 typedef unsigned int u32_24f9d0;
-extern u32_24f9d0 __cdecl MakeThing(const char*, int);
+extern "C" u32_24f9d0 __cdecl FUN_002673a0(const char*, int);
 extern u32_24f9d0 VTable_24f9d0;
 class SeqEventChannelSends_24f9d0 {
   public:
@@ -16,7 +16,7 @@ class SeqEventChannelSends {
 SeqEventChannelSends::SeqEventChannelSends() {
     ((SeqEventChannelSends_24f9d0*)this)->Ctor();
     vt = &VTable_24f9d0;
-    result = MakeThing("this", 0);
+    result = FUN_002673a0("this", 0);
     for (int i = 0; i < 64; ++i)
         values[i] = 0;
 }

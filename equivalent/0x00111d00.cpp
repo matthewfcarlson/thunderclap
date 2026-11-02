@@ -20,7 +20,7 @@ template<class T> struct ParamEnumConstList : Base_111d00 { virtual void slot0()
 template<class T> struct ParamString : Base_111d00 { virtual void slot0(); void (*callback)(); char tail[4]; };
 template<class T> struct ParamFloatConstRange : Base_111d00 { virtual void slot0(); void (*callback)(); char tail[4]; };
 }
-void FUN_00111d00() {
+extern "C" void FUN_00111d00() {
  if (!DAT_004e0afc) {
  void* params[3];
  typedef fight::ParamEnumConstList<hulkfight::ai::AIHistoryNameCondition> E;

@@ -5,7 +5,7 @@ struct Entry_1d1180 {
     const char *name;
 };
 
-int __cdecl FUN_00096600(const char *a, const char *b);
+extern "C" int __cdecl FUN_00096600(const char *a, const char *b);
 
 class SortedList {
 public:

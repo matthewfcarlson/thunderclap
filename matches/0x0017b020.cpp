@@ -13,12 +13,12 @@ class Object_17b020 {
   public:
     int Init(hulkfight::motion::MotionStateTrack*, hulk_intptr);
 };
-Object_17b020* __cdecl Alloc(int);
+extern "C" Object_17b020* __cdecl FUN_0008d690(int);
 
 hulk_intptr hulkfight::motion::MotionStateTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     int result = Check((void*)c, 0, &TypeA_17b020, &TypeB_17b020, 0);
     if (result) {
-        Object_17b020* p = Alloc(0x24);
+        Object_17b020* p = FUN_0008d690(0x24);
         if (p)
             return p->Init(this, c);
     }

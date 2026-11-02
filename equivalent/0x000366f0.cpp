@@ -36,7 +36,7 @@ struct Obj000366f0 {
     int flag20b0;
     void FUN_000366f0(int unused, float dt);
 };
-extern void __fastcall FUN_0022b980(Matrix* m);
+extern "C" void __fastcall FUN_0022b980(Matrix* m);
 extern void* __fastcall FUN_00059a40(void* o);
 extern Matrix* __fastcall FUN_00221c40(void* p);
 struct ThisNote_001c5080 {

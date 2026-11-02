@@ -3,7 +3,7 @@
 struct Ref_2fc880 { virtual void AddRef() = 0; virtual void Release() = 0; };
 struct Input_2fc880 { char pad[12]; int value; };
 struct PoseEngine_2fc880 : Ref_2fc880 { PoseEngine_2fc880* FUN_00310080(Input_2fc880*, int, int); void FUN_0030ff80(int); };
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 namespace physics {
 struct PhysicsInstance {
  virtual void slot0();

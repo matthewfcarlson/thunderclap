@@ -20,7 +20,7 @@ class A_204ea0 {
     Inner_204ea0* ptr38;
     void close();
 };
-extern void fvalue(int);
+extern "C" void FUN_00267110(int);
 extern void fptr(void*);
 void A_204ea0::close() {
     if (ptr38) {
@@ -28,7 +28,7 @@ void A_204ea0::close() {
         ptr38 = 0;
     }
     if (obj30)
-        fvalue((int)value);
+        FUN_00267110((int)value);
     if (obj30) {
         obj30->release();
         obj30 = 0;

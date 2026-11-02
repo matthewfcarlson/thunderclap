@@ -12,7 +12,7 @@ struct Entry_24ba70 {
     int b;
     int c;
 };
-int __cdecl FUN_0024ba70(Obj_24ba70* self, int value, int amount) {
+extern "C" int __cdecl FUN_0024ba70(Obj_24ba70* self, int value, int amount) {
     int old = self->total;
     int index = ((int)self->head + (int)self->count) % (int)self->size;
     Entry_24ba70* e = (Entry_24ba70*)((char*)self + 0x40) + index;

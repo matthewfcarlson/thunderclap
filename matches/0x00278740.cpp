@@ -23,7 +23,7 @@ class XboxSaveDrive {
     int vc0;
 };
 extern int vt0_278740, vt4, vtc, vtbc, vtc0;
-extern void Cleanup(int*);
+extern "C" void FUN_0026d830(int*);
 void XboxSaveDrive::Run() {
     *(hulk_intptr*)this = (hulk_intptr)&vt0_278740;
     *(hulk_intptr*)((char*)this + 4) = (hulk_intptr)&vt4;
@@ -34,7 +34,7 @@ void XboxSaveDrive::Run() {
     if (*(int*)((char*)mObj + 0x10) == 1) {
         (*(GlobalObj_278740**)&DAT_0052c26c)->V1();
         (*(GlobalObj_278740**)&DAT_0052c26c) = 0;
-        Cleanup(((int*)&DAT_0052c250));
+        FUN_0026d830(((int*)&DAT_0052c250));
         return Finish();
     }
     mObj->V1();

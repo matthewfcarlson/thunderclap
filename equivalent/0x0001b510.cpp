@@ -280,12 +280,12 @@ struct World {
 };
 
 
-int __cdecl FUN_00266da0(int v);
-Job *__cdecl FUN_0008d690(unsigned int size);
+extern "C" int __cdecl FUN_00266da0(int v);
+extern "C" Job *__cdecl FUN_0008d690(unsigned int size);
 void __cdecl FUN_00018810(RefObj **slot, RefObj *obj);
 void __cdecl FUN_000187a0(RefObj **slot, RefObj *obj);
 void __cdecl FUN_00018840(int *slot, int v);
-char __cdecl FUN_000444f0(int v);
+extern "C" char __cdecl FUN_000444f0(int v);
 float __cdecl FUN_00224f10(V3 *v);
 void __cdecl FUN_00224d70(float f, V3 *v);
 float __cdecl FUN_000964e0();

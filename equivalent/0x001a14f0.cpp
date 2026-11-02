@@ -39,14 +39,14 @@ struct LuaMgr {
     int FUN_001d35a0(const char *chunk, char *name, hulk_intptr len);
 };
 
-LuaMgr *FUN_001d4c90();
-int FUN_00267760(char *buf, int n, const char *fmt, ...);
-void *FUN_0008d6d0(unsigned int n);
+extern "C" LuaMgr *FUN_001d4c90();
+extern "C" int FUN_00267760(char *buf, int n, const char *fmt, ...);
+extern "C" void *FUN_0008d6d0(unsigned int n);
 void FUN_0008d340(void *p);
-int FUN_00213160(void *L, int idx);
-void FUN_00212d80(void *L, int idx);
-unsigned int FUN_001d0440();
-void FUN_001d0430(unsigned int v);
+extern "C" int FUN_00213160(void *L, int idx);
+extern "C" void FUN_00212d80(void *L, int idx);
+extern "C" unsigned int FUN_001d0440();
+extern "C" void FUN_001d0430(unsigned int v);
 
 bool hulkfight::scenario::LuaCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; fight::Params_1a14f0 * params = (fight::Params_1a14f0 *)__p1; hulk_intptr c = (hulk_intptr)__p2;
 

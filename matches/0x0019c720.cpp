@@ -7,7 +7,7 @@ class Obj {
     void Set(void*);
 };
 void* __cdecl Find(void*, TrackFactoryCasterTemplate_19c720*);
-void __cdecl FUN(Obj* obj, void* arg) {
+extern "C" void __cdecl FUN_0019c720(Obj* obj, void* arg) {
     TrackFactoryCasterTemplate_19c720 caster;
     void* p = Find(arg, &caster);
     obj->Set(p);

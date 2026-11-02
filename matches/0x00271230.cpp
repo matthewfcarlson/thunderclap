@@ -24,7 +24,7 @@ class Obj_271230 {
     virtual void f21();
 };
 void FUN_002710d0(void*, int, int, int, int, int, int, int);
-void FUN_00271230(Obj_271230* p, int a, int b, int c, int d, int e, int f, int g) {
+extern "C" void FUN_00271230(Obj_271230* p, int a, int b, int c, int d, int e, int f, int g) {
     FUN_002710d0(p, a, b, c, d, e, f, g);
     Obj_271230* q = *(Obj_271230**)p;
     if (q)

@@ -2,7 +2,7 @@ struct Node {
     Node* next;
     Node* prev;
 };
-void FUN_00257f00(Node* out, Node* n) {
+extern "C" void FUN_00257f00(Node* out, Node* n) {
     if (n->prev == 0)
         out->next = n->next;
     else

@@ -12,8 +12,8 @@ struct Singleton_4dd6ec {
 };
 
 
-void *FUN_0008d690(unsigned int size);
-int __cdecl FUN_00266da0(int mode);
+extern "C" void *FUN_0008d690(unsigned int size);
+extern "C" int __cdecl FUN_00266da0(int mode);
 void __cdecl FUN_0026b800(char *buf, int a, int b, int c, int d, int e, int f);
 void __cdecl FUN_0008d330(void *p);
 

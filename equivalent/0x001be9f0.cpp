@@ -6,8 +6,8 @@ struct Id64_1be9f0 {
     unsigned int hi;
 };
 
-Id64_1be9f0 __cdecl FUN_002672f0(const char* name, int a, int b);
-Id64_1be9f0 __cdecl FUN_0027b020(const char* name);
+extern "C" Id64_1be9f0 __cdecl FUN_002672f0(const char* name, int a, int b);
+extern "C" Id64_1be9f0 __cdecl FUN_0027b020(const char* name);
 
 struct Binding_1be9f0 {
     Id64_1be9f0 name;

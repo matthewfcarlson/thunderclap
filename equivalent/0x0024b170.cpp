@@ -22,7 +22,7 @@ struct Stream {
     int mode;
 };
 
-unsigned int __cdecl FUN_00258f00(void* handle);
+extern "C" unsigned int __cdecl FUN_00258f00(void* handle);
 bool __cdecl FUN_0025e350(Ring_24b170* ring, unsigned int count);
 int __cdecl FUN_00259c50(void* handle);
 void __cdecl FUN_00258e50(void* handle);

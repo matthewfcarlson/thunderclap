@@ -4,7 +4,7 @@ namespace D3D8 {
 int __stdcall D3DDevice_CreateVertexShader(const unsigned int* decl, const void* program, unsigned int* handle, int usage);
 }
 extern unsigned int __cdecl FUN_00329060(const char* name);
-extern void __cdecl FUN_0031c230(int hr);
+extern "C" void __cdecl FUN_0031c230(int hr);
 struct ShaderEntry {
     int unk0;
     unsigned int a;

@@ -15,7 +15,7 @@ template<class T> struct ParamFloatConstRange : Base_54360 { void (__cdecl *call
 template<class T> struct ParamBool : Base_54360 { void (__cdecl *callback)(); unsigned int extra; virtual void dummy(); };
 }
 void __cdecl FUN_002347b0(void*, Base_54360**, int);
-void FUN_00054360() {
+extern "C" void FUN_00054360() {
  if (!DAT_004dc54c) {
  Base_54360* items[4];
  void* mem=FUN_0008d690(32);

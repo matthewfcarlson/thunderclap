@@ -11,7 +11,7 @@ class Param_2345b0 {
   public:
     virtual void p();
 };
-void __fastcall FUN_00234210(void* self);
+extern "C" void __fastcall FUN_00234210(void* self);
 class Condition : public Param_2345b0 {
   public:
     virtual ~Condition();

@@ -16,7 +16,7 @@ class CGrappleSequenceTrack {
     char pad[0x1c - 4];
 };
 void __fastcall FUN_00236fd0(void*);
-void __fastcall FUN_00234150(void*);
+extern "C" void __fastcall FUN_00234150(void*);
 void __fastcall FUN_00236d60(CGrappleSequenceTrack*);
 void __cdecl thunk_FUN_00267090(CGrappleSequenceTrack*);
 CGrappleSequenceTrack* CGrappleSequenceTrack::vfunc_5(unsigned char p) {

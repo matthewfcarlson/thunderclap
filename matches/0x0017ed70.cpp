@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_00417d48[];
-extern void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 struct Track_17ed70 {
     virtual void a();
     virtual void b();
@@ -18,7 +18,7 @@ struct Track_17ed70 {
 extern void __fastcall init(Track_17ed70*);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::VisibilityTrack>::vfunc_5() {
-    Track_17ed70* p = (Track_17ed70*)alloc(0x14);
+    Track_17ed70* p = (Track_17ed70*)FUN_0008d690(0x14);
     if (p) {
         init(p);
         p->z = 1;

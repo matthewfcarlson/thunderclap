@@ -168,9 +168,9 @@ struct Registry_29a190 {
 };
 
 void *FUN_00263ea0(unsigned int size);
-void *FUN_0008d690(unsigned int size);
-void __cdecl FUN_0028fd70(Inventory_29a190 *inv);
-int __cdecl FUN_00298180(void *p);
+extern "C" void *FUN_0008d690(unsigned int size);
+extern "C" void __cdecl FUN_0028fd70(Inventory_29a190 *inv);
+extern "C" int __cdecl FUN_00298180(void *p);
 
 class CompositeDrawableLoader {
 public:

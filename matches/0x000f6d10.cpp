@@ -4,9 +4,9 @@
 #include "compat/ptr.h"
 extern "C" char* __cdecl strchr(const char*, int);
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
-void __cdecl FUN_000f6b50(char*, const char*, int);
+extern "C" void __cdecl FUN_000f6b50(char*, const char*, int);
 
-void __cdecl FUN_000f6d10(const char* filename, int value)
+extern "C" void __cdecl FUN_000f6d10(const char* filename, int value)
 {
     struct Scratch { char stem[40];  } scratch;
     const char* dot = strchr(filename, '.');

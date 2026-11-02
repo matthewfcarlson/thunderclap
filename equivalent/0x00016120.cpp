@@ -83,7 +83,7 @@ struct Globals_16120 {
 };
 
 
-void __cdecl FUN_00097540(Fighter_16120* f, V3_16120* a, V3_16120* b, int c, float d, Body_16120* e, V3_16120* g, V3_16120* h, int i);
+extern "C" void __cdecl FUN_00097540(Fighter_16120* f, V3_16120* a, V3_16120* b, int c, float d, Body_16120* e, V3_16120* g, V3_16120* h, int i);
 
 struct Frame_16120 {
     union {

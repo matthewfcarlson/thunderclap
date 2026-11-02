@@ -69,7 +69,7 @@ public:
 
 extern World2_1005c0 *DAT_004dd700;
 
-char __cdecl FUN_00036b10(World2_1005c0 *w, Vec3_1005c0 *a, Vec3_1005c0 *b, Vec3_1005c0 *c, Vec3_1005c0 *d, char *e, char *f) throw();
+extern "C" char __cdecl FUN_00036b10(World2_1005c0 *w, Vec3_1005c0 *a, Vec3_1005c0 *b, Vec3_1005c0 *c, Vec3_1005c0 *d, char *e, char *f) throw();
 float __cdecl FUN_0010ae50(World2_1005c0 *w, Ctx1_1005c0 *c, float thr, Vec3_1005c0 *out, Vec3_1005c0 *v138, int a, int b) throw();
 
 class CHand2HandAgent {

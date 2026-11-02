@@ -6,7 +6,7 @@ struct V3_f13a0 {
     float x, y, z;
 };
 
-void __cdecl FUN_000e09b0(V3_f13a0 a, V3_f13a0 b, unsigned int color, int mode);
+extern "C" void __cdecl FUN_000e09b0(V3_f13a0 a, V3_f13a0 b, unsigned int color, int mode);
 
 class Device_f13a0 {
 public:

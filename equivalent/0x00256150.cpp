@@ -16,12 +16,12 @@ struct Frame_256150 {
     char tail[0x28];
 };
 
-int __cdecl FUN_00258b70(int handle);
+extern "C" int __cdecl FUN_00258b70(int handle);
 int __cdecl FUN_0025d060(int v);
-int __cdecl FUN_0024c2d0(int v);
-void __cdecl FUN_00258bf0(int handle, Pair_256150 *pairs, int count);
-void __cdecl FUN_00258ba0(int handle, Entry_256150 *entries, int count);
-void __cdecl FUN_00258b80(int handle, float v);
+extern "C" int __cdecl FUN_0024c2d0(int v);
+extern "C" void __cdecl FUN_00258bf0(int handle, Pair_256150 *pairs, int count);
+extern "C" void __cdecl FUN_00258ba0(int handle, Entry_256150 *entries, int count);
+extern "C" void __cdecl FUN_00258b80(int handle, float v);
 
 struct Info_256150 {
     char pad0[0x14];

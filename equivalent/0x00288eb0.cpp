@@ -5,8 +5,8 @@
 #include "compat/ptr.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" void *__cdecl memset(void *, int, unsigned int);
-void *FUN_0008d690(unsigned int size);
-void *FUN_0008d6d0(unsigned int size);
+extern "C" void *FUN_0008d690(unsigned int size);
+extern "C" void *FUN_0008d6d0(unsigned int size);
 
 struct StrField_288eb0 {
     int a, b;

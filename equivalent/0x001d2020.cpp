@@ -14,7 +14,7 @@ extern "C" int __cdecl FUN_00267760(char*,int,const char*,...);
 extern "C" void __cdecl FUN_00212de0(LuaState*,int);
 extern "C" int __cdecl FUN_001d0c60(LuaState*,const char*);
 extern "C" void __cdecl FUN_00212e20(LuaState*,int);
-int __cdecl FUN_001d2020(LuaState* state) {
+extern "C" int __cdecl FUN_001d2020(LuaState* state) {
  char name[64];
  int result=-1;
  if(FUN_00212d70(state)>=1) {

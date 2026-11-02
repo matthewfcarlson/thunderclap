@@ -14,7 +14,7 @@ void Free(void*) throw();
 struct Sub_175db0 {
     char c;
 };
-void __fastcall SubFini(Sub_175db0*) throw();
+extern "C" void __fastcall FUN_0027af50(Sub_175db0*) throw();
 void __fastcall SubFini2(Sub_175db0*) throw();
 class SyncToLocatorAction_175db0 : public Action_175db0 {
   public:
@@ -40,6 +40,6 @@ SyncToLocatorAction_175db0::~SyncToLocatorAction_175db0() throw() {
     }
     if (m1c)
         m1c = 0;
-    SubFini(&s28);
+    FUN_0027af50(&s28);
     Fin();
 }

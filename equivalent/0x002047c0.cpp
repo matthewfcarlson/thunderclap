@@ -5,9 +5,9 @@ struct Resource_2047c0 { virtual void activate(); };
 struct LoadInventory_nv_2047c0 {
     content::LoadInventory* FUN_00266480(void*);
 };
-extern void* __cdecl FUN_00266e00(int, int);
-extern Resource_2047c0* __cdecl FUN_0026cfa0(void*, int, int, const char*);
-extern void __cdecl FUN_002670b0(int, int, Resource_2047c0*);
+extern "C" void* __cdecl FUN_00266e00(int, int);
+extern "C" Resource_2047c0* __cdecl FUN_0026cfa0(void*, int, int, const char*);
+extern "C" void __cdecl FUN_002670b0(int, int, Resource_2047c0*);
 extern int __cdecl FUN_00266da0(int);
 extern void* __cdecl FUN_00263ea0(unsigned int);
 struct Object_2047c0 {

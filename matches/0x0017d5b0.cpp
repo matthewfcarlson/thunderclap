@@ -7,7 +7,7 @@ class Obj {
   public:
     void Process(void*);
 };
-void Func(Obj* obj, const char* name) {
+extern "C" void FUN_0017d5b0(Obj* obj, const char* name) {
     Caster_17d5b0 caster;
     void* p = Find(name, &caster);
     obj->Process(p);

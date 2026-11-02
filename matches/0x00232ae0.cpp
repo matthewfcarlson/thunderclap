@@ -5,7 +5,7 @@
 #include "gen/content.h"
 int __cdecl FUN_00238190(int n);
 int __cdecl FUN_00266da0(int mode);
-void *__cdecl FUN_0008d6d0(unsigned int size);
+extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 void *thunk_FUN_0008d690(unsigned int size);
 void __cdecl thunk_FUN_00267090(void *p);
 

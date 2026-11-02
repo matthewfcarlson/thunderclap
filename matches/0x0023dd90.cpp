@@ -7,7 +7,7 @@ class Obj {
     void use(void*);
 };
 extern "C" void* lookup(void*, ConditionFactoryCasterTemplate_23dd90*);
-void target(Obj* a, void* b) {
+extern "C" void FUN_0023dd90(Obj* a, void* b) {
     ConditionFactoryCasterTemplate_23dd90 caster;
     a->use(lookup(b, &caster));
 }

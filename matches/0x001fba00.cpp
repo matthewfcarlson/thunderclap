@@ -17,7 +17,7 @@ struct S_1fba00 {
 struct Registry_1fba00 {
     int FUN_001c4010(unsigned*);
 };
-Registry_1fba00* FUN_001c3d90();
+extern "C" Registry_1fba00* FUN_001c3d90();
 int __fastcall FUN_001fba00(A_1fba00* p) {
     S_1fba00 x;
     p->f8(&x.a);

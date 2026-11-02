@@ -4,7 +4,7 @@
 
 struct Key_10f0f0 { unsigned first, second; void FUN_0027af00(); void FUN_0027b040(unsigned); };
 extern unsigned DAT_00494b44, DAT_00494b60;
-void __cdecl FUN_00363e80(); void __cdecl FUN_00363e90();
+extern "C" void __cdecl FUN_00363e80(); extern "C" void __cdecl FUN_00363e90();
 extern "C" int __cdecl atexit(void (__cdecl *)());
 void* __cdecl FUN_00344e74(void*,int,void*,void*,int);
 struct State_10f0f0 { int FUN_00059a30(); };

@@ -12,7 +12,7 @@ struct Params {
     virtual Obj_4c320 *GetObject();       // slot 3
 };
 
-bool FUN_00018960(float a, float b, float eps);
+extern "C" bool FUN_00018960(float a, float b, float eps);
 
 class CCollisionPushbackYCondition {
 public:

@@ -6,7 +6,7 @@
 typedef unsigned int uint;
 extern "C" int __cdecl sprintf(char*, const char*, ...);
 extern void* __cdecl FUN_00263ea0(uint);
-extern void* __cdecl FUN_0008d6d0(uint);
+extern "C" void* __cdecl FUN_0008d6d0(uint);
 struct Name_fa4b0 { void FUN_0027b040(const char*); };
 struct Reader { virtual void slot0(); virtual void slot1(); Reader* FUN_00264430(const char*,uint,uint); uint FUN_00263fb0(); void FUN_002647e0(void*,uint,uint,uint); };
 struct FUN_0027b070 { FUN_0027b070(); virtual void slot0(); virtual void slot1(); uint pad4; Name_fa4b0 name; char namepad[3]; uint padc; void* data; uint size; void* cursor; uint tail; };

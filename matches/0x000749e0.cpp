@@ -17,12 +17,12 @@ extern void __cdecl FUN_001324d0(Registry_749e0*, const char*);
 extern void __cdecl FUN_00132590(Registry_749e0*, const char*);
 extern void __cdecl FUN_001325f0(Registry_749e0*, const char*);
 extern void __cdecl FUN_001a1d20(Registry_749e0*, const char*);
-extern void __cdecl FUN_001a9a90(Registry_749e0*, const char*);
-extern void __cdecl FUN_001a97d0(Registry_749e0*, const char*);
-extern void __cdecl FUN_00146130(Registry_749e0*, const char*);
-extern void __cdecl FUN_001463a0(Registry_749e0*, const char*);
+extern "C" void __cdecl FUN_001a9a90(Registry_749e0*, const char*);
+extern "C" void __cdecl FUN_001a97d0(Registry_749e0*, const char*);
+extern "C" void __cdecl FUN_00146130(Registry_749e0*, const char*);
+extern "C" void __cdecl FUN_001463a0(Registry_749e0*, const char*);
 extern void* __cdecl FUN_00236ac0(const char*, fight::TrackFactoryCasterTemplate<CHapticTrack>*);
-bool __cdecl FUN_000749e0(Registry_749e0* registry) {
+extern "C" bool __cdecl FUN_000749e0(Registry_749e0* registry) {
     FUN_002369c0(registry);
     FUN_0012de00(registry, "postEvent_string");
     FUN_00132530(registry, "dialogue");

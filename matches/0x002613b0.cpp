@@ -20,7 +20,7 @@ struct Interp_2613b0 {
 
 const char *__cdecl FUN_002611b0(Interp_2613b0 *in);
 
-void __cdecl FUN_002613b0(Symbols *symbols, Str_2613b0 *dest, Str_2613b0 *src)
+extern "C" void __cdecl FUN_002613b0(Symbols *symbols, Str_2613b0 *dest, Str_2613b0 *src)
 {
     Interp_2613b0 in;
     in.symbols = symbols;

@@ -1,4 +1,4 @@
-unsigned char __cdecl FUN_00271dd0(const unsigned short* text, unsigned int* bytesConsumed,
+extern "C" unsigned char __cdecl FUN_00271dd0(const unsigned short* text, unsigned int* bytesConsumed,
                                    unsigned int* codePoint) {
     unsigned int point = text[0];
     unsigned int units = 1;

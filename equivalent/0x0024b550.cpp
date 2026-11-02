@@ -60,12 +60,12 @@ struct Frame_24b550 {
 unsigned int FUN_0025e2b0(Chunk *c);
 unsigned int FUN_0025e090(Chunk *c);
 hulk_uintptr FUN_0026fd80(hulk_uintptr a, unsigned int n);
-unsigned int FUN_0025e310(Region_24b550 *r);
-char FUN_0025cf70(int a, void *b, hulk_uintptr c, unsigned int *out);
-char FUN_0025d070(int a, void *b, hulk_uintptr c, int d, unsigned int *z, unsigned int *y, unsigned int *x);
+extern "C" unsigned int FUN_0025e310(Region_24b550 *r);
+extern "C" char FUN_0025cf70(int a, void *b, hulk_uintptr c, unsigned int *out);
+extern "C" char FUN_0025d070(int a, void *b, hulk_uintptr c, int d, unsigned int *z, unsigned int *y, unsigned int *x);
 unsigned int FUN_00267f80();
 Stream *FUN_002703c0(unsigned int y, unsigned int z, unsigned int w, unsigned int v, unsigned int x);
-void FUN_0025d0f0(int a, unsigned int b);
+extern "C" void FUN_0025d0f0(int a, unsigned int b);
 void FUN_0025e350(Region_24b550 *r, unsigned int v);
 char FUN_0025d010(int a);
 void FUN_0025e0b0(Chunk *c, unsigned int v, int flag);

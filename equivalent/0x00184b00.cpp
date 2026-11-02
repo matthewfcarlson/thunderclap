@@ -122,10 +122,10 @@ struct Decal_184b00 {
     unsigned FUN_00283ca0(void *a, V3_184b00 *b, V3_184b00 *c, float d);
     void FUN_00283450(unsigned h, V3_184b00 *b, V3_184b00 *c, float d);
 };
-Decal_184b00 *FUN_0027f250();
+extern "C" Decal_184b00 *FUN_0027f250();
 
 extern "C" void __cdecl FUN_00224db0(Mat_184b00 *m, V3_184b00 *up, V3_184b00 *fwd);
-int __cdecl FUN_00098190(float dt, float f44, float f48, int zero0, Obj_184b00 *attached, unsigned f58, V3_184b00 *pos, V3_184b00 *dir, int z1, int z2, int z3, int one);
+extern "C" int __cdecl FUN_00098190(float dt, float f44, float f48, int zero0, Obj_184b00 *attached, unsigned f58, V3_184b00 *pos, V3_184b00 *dir, int z1, int z2, int z3, int one);
 extern "C" void *memcpy(void *d, const void *s, unsigned int n);
 
 struct Frame_184b00 {

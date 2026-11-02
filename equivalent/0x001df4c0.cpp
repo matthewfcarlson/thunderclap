@@ -29,7 +29,7 @@ struct Slot_1df4c0 {
     char pad11[3];
 };
 
-char __cdecl FUN_00018960(float v, float a, float eps);
+extern "C" char __cdecl FUN_00018960(float v, float a, float eps);
 
 class Manager_1df4c0 {
 public:

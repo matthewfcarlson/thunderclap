@@ -26,6 +26,6 @@ class X_fc2f0 {
     virtual void f20();
     virtual void f21();
 };
-void __cdecl FUN_000fc2f0() {
+extern "C" void __cdecl FUN_000fc2f0() {
     ((X_fc2f0*)*(hulk_uintptr*)((hulk_intptr)DAT_004e0a60))->f21();
 }

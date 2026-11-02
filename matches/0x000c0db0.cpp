@@ -14,7 +14,7 @@ class Inventory {
     virtual int load(DynamicCasterBase_c0db0*, unsigned __int64);
 };
 extern unsigned __int64 findShader(const char*);
-int f(Inventory* inv, const char* name) {
+extern "C" int FUN_000c0db0(Inventory* inv, const char* name) {
     unsigned __int64 s = findShader(name);
     DynamicCaster_c0db0 caster;
     return inv->load(&caster, s);

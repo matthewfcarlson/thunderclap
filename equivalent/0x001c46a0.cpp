@@ -60,7 +60,7 @@ public:
     virtual int S16(int v);
 };
 
-void __cdecl FUN_000b3c80(int flag);
+extern "C" void __cdecl FUN_000b3c80(int flag);
 
 class Bar {
 public:

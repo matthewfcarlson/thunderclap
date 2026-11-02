@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 
-extern void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 extern char statVftable[];
 class TrackFactory_132e40 {
   public:
@@ -21,7 +21,7 @@ class StatEndTrialTrack_132e40 {
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::StatEndTrialTrack>::vfunc_5() {
-    StatEndTrialTrack_132e40* p = (StatEndTrialTrack_132e40*)Alloc(0x14);
+    StatEndTrialTrack_132e40* p = (StatEndTrialTrack_132e40*)FUN_0008d690(0x14);
     if (p) {
         p->StatEndTrialTrack_132e40::StatEndTrialTrack_132e40();
         *(hulk_intptr*)p = (hulk_intptr)statVftable;

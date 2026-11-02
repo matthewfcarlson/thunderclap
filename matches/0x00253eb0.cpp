@@ -12,7 +12,7 @@ class SeqAction_253eb0 {
     virtual void f6();
 };
 extern int FUN_0024afe0(int);
-extern void FUN_0024c160(int);
+extern "C" void FUN_0024c160(int);
 
 void audio::SeqActionStream::vfunc_3(hulk_intptr p) {
     int v = *(int*)((char*)p + 0x34);

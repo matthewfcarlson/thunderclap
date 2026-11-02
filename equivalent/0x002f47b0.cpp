@@ -83,7 +83,7 @@ public:
     Vec3_2f47b0 pos;
 };
 
-Vec3_2f47b0 *FUN_00083e00(Vec3_2f47b0 *out, Vec3_2f47b0 *v, float s);
+extern "C" Vec3_2f47b0 *FUN_00083e00(Vec3_2f47b0 *out, Vec3_2f47b0 *v, float s);
 void FUN_002f4790(unsigned short *begin, unsigned short *end);
 
 struct Sys_2f47b0 {

@@ -81,7 +81,7 @@ struct BeamState {
 };
 
 void* __fastcall FUN_000592a0(Owner_19b5f0* owner);
-Fighter_19b5f0* __fastcall FUN_00059a30(void* x);
+extern "C" Fighter_19b5f0* __fastcall FUN_00059a30(void* x);
 char __cdecl FUN_00096b50(Beam_19b5f0* e, Vec3_19b5f0* io, int* out);
 
 class FireBeamAction {

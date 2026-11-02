@@ -17,7 +17,7 @@ template<class T> struct ParamEnumConstList { virtual void slot0(); char pad[12]
 template<class T> struct ParamName { virtual void slot0(); char pad[12]; void (*callback)(); int tail; };
 }
 void __cdecl FUN_002347b0(int*,void**,int);
-void FUN_00189d50() {
+extern "C" void FUN_00189d50() {
  if (!(*(int*)&DAT_004e143c)) {
  void* p[3];
  void* a=FUN_0008d690(24);

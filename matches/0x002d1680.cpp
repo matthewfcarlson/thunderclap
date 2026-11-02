@@ -13,7 +13,7 @@ struct Destination {
     unsigned char flag;
 };
 unsigned int* __cdecl FUN_002e6780(Source** source, unsigned int color, unsigned char flag);
-void __cdecl FUN_002d1680(void* unused, unsigned int index, Source* source, Destination* destination) {
+extern "C" void __cdecl FUN_002d1680(void* unused, unsigned int index, Source* source, Destination* destination) {
     unsigned int color = (source->indices->values[index] & 0xffffff) |
                          ((unsigned int)((unsigned char*)&destination->value)[3] << 24);
     destination->value = *FUN_002e6780(&source, color, destination->flag);

@@ -6,7 +6,7 @@ struct Owner {
     void add(void*);
 };
 extern "C" void* __cdecl find(int, Caster*);
-void __cdecl target(Owner* owner, int id) {
+extern "C" void __cdecl FUN_0017dcd0(Owner* owner, int id) {
     Caster caster;
     owner->add(find(id, &caster));
 }

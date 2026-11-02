@@ -22,7 +22,7 @@ class SeqEventChannelSendVolumes : public SeqEvent {
     virtual SeqEventChannelSendVolumes* f4(unsigned char flags);
 };
 
-void __fastcall FUN_0025fd10(void*);
+extern "C" void __fastcall FUN_0025fd10(void*);
 void FUN_00247550(void* g, SeqEventChannelSendVolumes* p);
 
 SeqEventChannelSendVolumes* SeqEventChannelSendVolumes::f4(unsigned char flags) {

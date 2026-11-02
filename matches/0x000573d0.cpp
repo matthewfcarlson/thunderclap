@@ -12,10 +12,10 @@ class CButtonReleaseCondition_573d0 {
     virtual void F();
     void Init();
 };
-extern void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::ConditionFactoryTemplate<CButtonReleaseCondition>::vfunc_5() {
-    CButtonReleaseCondition_573d0* p = (CButtonReleaseCondition_573d0*)Allocate(0x18);
+    CButtonReleaseCondition_573d0* p = (CButtonReleaseCondition_573d0*)FUN_0008d690(0x18);
     if (p) {
         p->Init();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f927c);

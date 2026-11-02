@@ -95,7 +95,7 @@ void __cdecl FUN_0011a9e0(Registry_553d0*, const char*);
 void __cdecl FUN_0011a980(Registry_553d0*, const char*);
 void __cdecl FUN_0011aa10(Registry_553d0*, const char*);
 void __cdecl FUN_001a1cf0(Registry_553d0*, const char*);
-bool __cdecl FUN_000553d0(Registry_553d0* r)
+extern "C" bool __cdecl FUN_000553d0(Registry_553d0* r)
 {
     FUN_00236940(r);
     FUN_00132620(r);

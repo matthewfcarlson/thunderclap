@@ -4,7 +4,7 @@
 struct Vec_1445d0 { float x,y,z; bool FUN_0022d2b0(Vec_1445d0*,float); };
 struct Pair_1445d0 { float x,y; };
 struct Matrix { float m[16]; void FUN_0022b980(); void FUN_0022be40(Vec_1445d0*); };
-void __cdecl FUN_00224db0(Matrix*,Vec_1445d0*,Vec_1445d0*);
+extern "C" void __cdecl FUN_00224db0(Matrix*,Vec_1445d0*,Vec_1445d0*);
 struct Hit_1445d0 { char pad[8]; Vec_1445d0 position; char gap[4]; Vec_1445d0 direction; };
 struct Inner_1445d0 { void FUN_00059a30(); };
 struct Actor_1445d0 { virtual void s0(); virtual void s1(); virtual void s2(); virtual Hit_1445d0* s3(); Inner_1445d0* FUN_000592a0(); };

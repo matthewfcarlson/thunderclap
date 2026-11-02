@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 
-extern void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 class Condition_113f80 {
   public:
     virtual void a();
@@ -20,7 +20,7 @@ class Condition_113f80 {
 extern int AIHistoryNameCondition_vftable;
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::AIHistoryNameCondition>::vfunc_5() {
-    Condition_113f80* p = (Condition_113f80*)Alloc(0x18);
+    Condition_113f80* p = (Condition_113f80*)FUN_0008d690(0x18);
     void* result;
     if (p) {
         p->Init(0);

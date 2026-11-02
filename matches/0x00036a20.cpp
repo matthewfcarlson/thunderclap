@@ -13,9 +13,9 @@ struct Global_36a20 {
     int x;
 };
 extern Global_36a20* gGlobal_36a20;
-bool __stdcall CheckGlobal(Obj_36a20* o);
+extern "C" bool __stdcall FUN_00025d30(Obj_36a20* o);
 struct Single_36a20 { bool Test(Temp_36a20* t); };
-Single_36a20* Convert();
+extern "C" Single_36a20* FUN_001c3d90();
 
 void __fastcall Target(Obj_36a20* self) {
     Temp_36a20 temp;
@@ -23,10 +23,10 @@ void __fastcall Target(Obj_36a20* self) {
         self->result = 0;
         return;
     }
-    if (gGlobal_36a20->x != 0 && CheckGlobal(self)) {
+    if (gGlobal_36a20->x != 0 && FUN_00025d30(self)) {
         self->result = 0;
         return;
     }
     self->Make(&temp);
-    self->result = Convert()->Test(&temp) ? 0 : 1;
+    self->result = FUN_001c3d90()->Test(&temp) ? 0 : 1;
 }

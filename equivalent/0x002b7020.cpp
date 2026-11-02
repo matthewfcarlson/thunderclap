@@ -24,8 +24,8 @@ template<class T> struct DynamicCaster { virtual void cast(); };
 
 void *__cdecl FUN_0008d690(unsigned int size);
 void *__cdecl FUN_0008d6d0(unsigned int size);
-void *__cdecl FUN_00266e00(int a, int b);
-void __cdecl FUN_00267090(void *a);
+extern "C" void *__cdecl FUN_00266e00(int a, int b);
+extern "C" void __cdecl FUN_00267090(void *a);
 
 struct Mat_2b7020 {
     float m[16];

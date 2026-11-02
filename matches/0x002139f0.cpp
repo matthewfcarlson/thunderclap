@@ -11,7 +11,7 @@ struct Pair_2139f0 {
 int __fastcall calc(int x, Obj_2139f0* o);
 int __cdecl process(Obj_2139f0*, void*, Pair_2139f0*, int, int);
 extern "C" char marker;
-int __cdecl target(Obj_2139f0* o, int n, int v, int x) {
+extern "C" int __cdecl FUN_002139f0(Obj_2139f0* o, int n, int v, int x) {
     int t;
     if (x == 0)
         t = 0;

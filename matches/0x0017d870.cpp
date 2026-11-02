@@ -7,7 +7,7 @@ class Track {
     void get(void*);
 };
 extern "C" void* __cdecl find(void*, Caster_17d870*);
-void func(Track* t, void* name) {
+extern "C" void FUN_0017d870(Track* t, void* name) {
     Caster_17d870 c;
     t->get(find(name, &c));
 }

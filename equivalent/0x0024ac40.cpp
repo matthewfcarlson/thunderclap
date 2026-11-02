@@ -26,9 +26,9 @@ struct Pair_24ac40 {
 };
 
 Node *__cdecl FUN_0024a9c0(void *a, Owner_24ac40 *b);
-void __cdecl FUN_00247ae0(void *a, Node *n, int b, int c, Pair_24ac40 *d);
+extern "C" void __cdecl FUN_00247ae0(void *a, Node *n, int b, int c, Pair_24ac40 *d);
 
-void __cdecl FUN_0024ac40(void *ctx, Owner_24ac40 *owner, int flag, int value, Pair_24ac40 *src)
+extern "C" void __cdecl FUN_0024ac40(void *ctx, Owner_24ac40 *owner, int flag, int value, Pair_24ac40 *src)
 {
     for (Node *n = owner->head; n != 0; n = n->next) {
         if (n->type == 0 || n->type == 1 || n->type == 2) {

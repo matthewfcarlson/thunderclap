@@ -4190,8 +4190,22 @@ class Run:
                 stack_words = nargs
                 if lrn_ is not None and "vcall" not in EQUIV_OFF and lrn_[0] > 0 and p > lrn_[0]:
                     self.vcall_mismatch = self.vcall_mismatch or (len(self.calls), p, lrn_[0])
+                if cp_ is not None and "vstatic" not in EQUIV_OFF:
+                    # (crash2, vstatic) the bytes the original's callee can pop, from a stack-depth model of the whole
+                    # original function (tools/vcall_scan.py: every `ret` at depth 0, paths agree where they join).
+                    # `push a; push b; push 1.0; call [vt+0x1c]; push ecx; fstp [esp]; call f (ret 16)`: the virtual
+                    # pops nothing, the pushes are f's; declared with 3 arguments, clang's caller re-reserves 12
+                    # bytes the callee never popped and its esp-relative frame is read 12 bytes off (0x0013d7b0)
+                    oa_ = self.inp.get("icall_addr_by_call", {}).get(len(self.calls))
+                    feas_ = _static_icall_pops(self.inp.get("orig_entry")).get(oa_) if oa_ is not None else None
+                    if feas_ and cp_ not in feas_:
+                        self.vcall_mismatch = self.vcall_mismatch or (len(self.calls), cp_, min(feas_))
         if self.coverage and not tail:
             self.inp.setdefault("nargs_by_call", {})[len(self.calls)] = nargs      # (round 18) for native mode's ours
+            if insn.target is None:
+                # (crash2, vstatic) where the original's k-th call is: its feasible pops for native mode's ours
+                self.inp.setdefault("icall_addr_by_call", {})[len(self.calls)] = insn.addr
+                self.inp["orig_entry"] = self.view.entry
         args, argw = [], []
         arg_unw = set()
         for k in range(min(nargs, 32)):
@@ -7536,6 +7550,31 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
     if not out and _NAN_SIGN[0]:
         r["nan_sign"] = True
     return out[:max_report]
+
+
+_ICALL_MODEL = {}
+
+
+def _static_icall_pops(entry):
+    """(crash2, vstatic) {original indirect call address: feasible pops} of the original function at ENTRY, from
+    tools/vcall_scan.py's stack-depth model ({} when it can't resolve the function or the XBE isn't there)."""
+    if entry is None:
+        return {}
+    if entry not in _ICALL_MODEL:
+        res = {}
+        try:
+            import vcall_scan
+            if "orig" not in _ICALL_MODEL:
+                _ICALL_MODEL["orig"] = vcall_scan.Original()
+            o = _ICALL_MODEL["orig"]
+            if entry in o.funcs:
+                for a, _, feas in o.model(entry) or []:
+                    if feas:
+                        res[a] = set(feas)
+        except Exception:
+            res = {}
+        _ICALL_MODEL[entry] = res
+    return _ICALL_MODEL[entry]
 
 
 def _callee_ext(prog, call, loc):

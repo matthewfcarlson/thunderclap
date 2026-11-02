@@ -17,6 +17,6 @@ struct Global_fc280 {
     virtual void f13();
     virtual void f14(int);
 };
-void FUN_000fc280(int x) {
+extern "C" void FUN_000fc280(int x) {
     (*(Global_fc280**)&DAT_004e0a60)->f14(x);
 }

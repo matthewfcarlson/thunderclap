@@ -13,15 +13,15 @@ class SeqEventCheck {
   public:
     bool CheckBase(void* p);
 };
-bool Read1(void*, void*);
-bool Read2(void*, void*);
+extern "C" bool FUN_0025abd0(void*, void*);
+extern "C" bool FUN_0024f010(void*, void*);
 bool Read3(void*, void*);
 
 int audio::SeqEventChannelVolumes::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
     if (((SeqEventCheck*)this)->CheckBase(p)) {
-        if (Read1(p, (char*)this + 0x18)) {
-            if (Read2(p, (char*)this + 0x1c)) {
+        if (FUN_0025abd0(p, (char*)this + 0x18)) {
+            if (FUN_0024f010(p, (char*)this + 0x1c)) {
                 if (Read3(p, (char*)this + 8)) {
                     return 1;
                 }

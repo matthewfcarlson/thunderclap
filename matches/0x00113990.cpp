@@ -15,7 +15,7 @@ class Owner {
     void Set(void*);
 };
 void* Find(const char*, fight::ConditionFactoryCaster*);
-void FUN_00113990(Owner* owner, const char* name) {
+extern "C" void FUN_00113990(Owner* owner, const char* name) {
     fight::ConditionFactoryCasterTemplate<hulkfight::ai::PropsToChuckCondition> caster;
     owner->Set(Find(name, &caster));
 }

@@ -8,7 +8,7 @@
 #include "decls/data/engine/content.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
-void *FUN_0008d690(unsigned int size);
+extern "C" void *FUN_0008d690(unsigned int size);
 struct Stream;
 struct Ctx_2ac610;
 namespace pure3d { class Shader; }
@@ -114,7 +114,7 @@ struct Sub4c : RefObj_2ac610 {
 struct Sub30 : RefObj_2ac610 {
     Sub30 *FUN_002d5640(LoadedRes *r, unsigned int n, float f);
 };
-RefObj_2ac610 *__cdecl FUN_002aa160(unsigned int v);
+extern "C" RefObj_2ac610 *__cdecl FUN_002aa160(unsigned int v);
 
 class Obj_2ac610 : public RefObj_2ac610 {
 public:

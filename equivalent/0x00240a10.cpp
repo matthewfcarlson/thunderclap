@@ -23,12 +23,12 @@ struct Resource_240a10 {
 };
 
 
-void __cdecl FUN_00242c10(char *guard);
+extern "C" void __cdecl FUN_00242c10(char *guard);
 Handle_240a10 *__cdecl FUN_00245330();
 Handle_240a10 *__cdecl FUN_00256660();
 Handle_240a10 *__cdecl FUN_00241660();
 Handle_240a10 *__cdecl FUN_0024d5a0();
-void __cdecl FUN_0024d630();
+extern "C" void __cdecl FUN_0024d630();
 void __cdecl FUN_0008d330(void *p);
 
 Singleton_240a10 *__cdecl FUN_00255d20();
@@ -54,7 +54,7 @@ Singleton_240a10 *__cdecl FUN_0024f810();
 Singleton_240a10 *__cdecl FUN_0024ea00();
 Singleton_240a10 *__cdecl FUN_0024e540();
 
-void FUN_00240a10()
+extern "C" void FUN_00240a10()
 {
     FUN_00242c10(((char*)&DAT_004e5cac));
     if ((*(unsigned char*)&DAT_004e5ca4) & 1) {

@@ -13,7 +13,7 @@ struct Entry_2670b0 {
     hulk_uintptr field8;
     Entry_2670b0* next;
 };
-void FUN_002670b0(int a, int b, Obj_2670b0* obj) {
+extern "C" void FUN_002670b0(int a, int b, Obj_2670b0* obj) {
     Entry_2670b0* dest = &((Entry_2670b0*)((char*)&DAT_00527c58 + 8))[a];
     Entry_2670b0* list;
     if (b == 45)

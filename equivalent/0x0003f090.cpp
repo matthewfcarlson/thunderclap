@@ -74,7 +74,7 @@ Handle_3f090 *FUN_001c3d90();
 struct Registry_3f090 {
     void FUN_001b4140(void *owner);
 };
-Registry_3f090 *FUN_001b6580();
+extern "C" Registry_3f090 *FUN_001b6580();
 
 struct Slot_3f090 {
     Releasable_3f090 *a;

@@ -3,9 +3,9 @@
 struct Stream { char pad[0x24]; unsigned int depth; };
 struct Context { Stream* stream; };
 bool __cdecl FUN_00246f50(Stream*, const char*);
-bool __cdecl FUN_0024eb60(Context*, const char*, unsigned int*);
+extern "C" bool __cdecl FUN_0024eb60(Context*, const char*, unsigned int*);
 bool __cdecl FUN_00250ef0(Context*, const char*, unsigned int*);
-bool __cdecl FUN_0024e600(Context*, const char*, char*);
+extern "C" bool __cdecl FUN_0024e600(Context*, const char*, char*);
 namespace audio {
 struct SeqEvent {
  virtual void vfunc_0();

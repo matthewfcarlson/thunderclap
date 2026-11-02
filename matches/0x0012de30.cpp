@@ -44,7 +44,7 @@ template <class T> struct ParamBool : FUN_00234860 {
 inline void* __cdecl operator new(unsigned int, void* p) {
     return p;
 }
-void __cdecl FUN_002347b0(int*, void**, int);
+extern "C" void __cdecl FUN_002347b0(int*, void**, int);
 void target() {
     if (DAT_004e0e48 == 0) {
         void* items[4];

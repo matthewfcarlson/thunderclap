@@ -149,7 +149,7 @@ struct Prop {
     Prop *FUN_00290b30(ResObj *res, void *obj2, void *obj3, hulk_intptr x2, hulk_intptr x3);
 };
 
-int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
+extern "C" int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 void *FUN_00263ea0(unsigned int size);
 
 typedef content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> CasterComp;

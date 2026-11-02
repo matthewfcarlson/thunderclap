@@ -66,7 +66,7 @@ bool FUN_0031adf0(int index);
 void FUN_0031c230(long hr);
 unsigned char FUN_00356667();
 void __stdcall FUN_0037d8e0(int, int);
-void FUN_0031bcc0(int, int);
+extern "C" void FUN_0031bcc0(int, int);
 void __cdecl FUN_0031acc0(void*);
 namespace pure3d {
 class pddiObject {

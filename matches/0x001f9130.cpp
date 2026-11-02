@@ -4,7 +4,7 @@ class Ret_1f9130 {
   public:
     void Invoke(u32_1f9130);
 };
-Ret_1f9130* Make();
+extern "C" Ret_1f9130* FUN_001d4c90();
 class Obj_1f9130 {
   public:
     char pad[4];
@@ -23,7 +23,7 @@ char Obj_1f9130::Target(u32_1f9130 p1, u32_1f9130 p2, u32_1f9130 p3, u32_1f9130 
         e = p6;
         f = p7;
         g = p8;
-        Ret_1f9130* o = Make();
+        Ret_1f9130* o = FUN_001d4c90();
         o->Invoke(h);
         h = p9;
         flag = p10;

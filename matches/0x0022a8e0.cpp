@@ -9,7 +9,7 @@ class Driver_22a8e0 {
   public:
     int* mVtable;
 };
-Driver_22a8e0* __fastcall Target(Driver_22a8e0* self) {
+extern "C" Driver_22a8e0* __fastcall FUN_0022a8e0(Driver_22a8e0* self) {
     ((Driver_nv_22a8e0*)(((choreo2::Driver*)(self))))->Init();
     self->mVtable = &vtable_22a8e0;
     ++(*(int*)&DAT_004e5abc);

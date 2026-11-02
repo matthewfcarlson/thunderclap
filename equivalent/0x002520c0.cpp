@@ -13,7 +13,7 @@ struct SeqEventChannelVolumes : SeqEvent {
 }
 struct Output { char pad[0x24]; int depth; };
 unsigned char __cdecl FUN_00246f50(Output *, const char *, ...);
-unsigned char __cdecl FUN_0024eb60(void **, const char *, float *);
+extern "C" unsigned char __cdecl FUN_0024eb60(void **, const char *, float *);
 unsigned char audio::SeqEventChannelVolumes::vfunc_1(void **stream) {
     if (SeqEvent::vfunc_1(stream)) {
         if (FUN_00246f50((Output *)*stream, "\n[\n")) {

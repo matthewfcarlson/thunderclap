@@ -2,7 +2,7 @@
 #include "decls/data/engine/fight.h"
 
 #include "compat/ptr.h"
-void FUN_00238b60(hulk_intptr a, int b) {
+extern "C" void FUN_00238b60(hulk_intptr a, int b) {
     (*(int*)&DAT_004e5c30) = a;
     DAT_004e5c34 = b;
 }

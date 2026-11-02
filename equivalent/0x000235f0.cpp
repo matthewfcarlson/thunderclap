@@ -47,13 +47,13 @@ struct Registry_235f0 {
     int FUN_00036cb0(unsigned int i);
     void FUN_00036c90(unsigned int i, int v);
 };
-Registry_235f0 *__fastcall FUN_00059a30(Owner_235f0 *o);
+extern "C" Registry_235f0 *__fastcall FUN_00059a30(Owner_235f0 *o);
 
 struct Renderer_235f0 {
     int FUN_00283d60(int a14, int a18, int e120, Handle_235f0 *h, void *p30, void *p60, int a28, void *pa8, Vec3_235f0 vb0, Vec3_235f0 vbc);
     void FUN_002834e0(int v);
 };
-Renderer_235f0 *__cdecl FUN_0027f250();
+extern "C" Renderer_235f0 *__cdecl FUN_0027f250();
 
 struct Data_235f0 {
     char pad0[0x14];

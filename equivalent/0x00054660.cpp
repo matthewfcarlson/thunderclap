@@ -25,7 +25,7 @@ template<class T> struct ParamBool {
 };
 }
 void __cdecl FUN_002347b0(int*, void**, int);
-void FUN_00054660() {
+extern "C" void FUN_00054660() {
  if (!DAT_004dc56c) {
  void* list[3];
  void* p=FUN_0008d690(32);

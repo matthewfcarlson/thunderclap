@@ -9,7 +9,7 @@ class SeqEvent_250870 {
     virtual void v4();
     virtual void v5();
 };
-extern bool Check(void*, void*);
+extern "C" bool FUN_0024f010(void*, void*);
 class Inner_250870 {
   public:
     bool CheckBeat(void*);
@@ -21,7 +21,7 @@ class Helper_250870 {
 
 int audio::SeqEventWaitBeat::vfunc_0(void* __p0) { void * arg = (void *)__p0;
 
-    if (((Helper_250870*)this)->Probe(arg) && Check(arg, &this->f_10) && ((Inner_250870*)((char*)this + 8))->CheckBeat(arg))
+    if (((Helper_250870*)this)->Probe(arg) && FUN_0024f010(arg, &this->f_10) && ((Inner_250870*)((char*)this + 8))->CheckBeat(arg))
         return 1;
     return 0;
 }

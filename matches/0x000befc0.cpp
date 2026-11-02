@@ -29,7 +29,7 @@ public:
     void FUN_00266220(int value);
 };
 
-void __cdecl FUN_00087990();
+extern "C" void __cdecl FUN_00087990();
 
 struct Frame {
     Request* request;

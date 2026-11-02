@@ -17,12 +17,12 @@ class TempoCheck {
   public:
     bool check(void*);
 };
-bool __cdecl CheckTempoData(void*, void*);
+extern "C" bool __cdecl FUN_0025ac10(void*, void*);
 
 int audio::SeqEventVarTempo::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
     if (((SeqEventB*)this)->SeqEventB::vfunc_0(p) && ((TempoCheck*)((char*)this + 8))->check(p) &&
-        CheckTempoData(p, (char*)this + 0x10))
+        FUN_0025ac10(p, (char*)this + 0x10))
         return 1;
     return 0;
 }

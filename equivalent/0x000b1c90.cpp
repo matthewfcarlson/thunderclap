@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1691 inputs, branch coverage 22/22)
 // FUN_000b1c90 @ 0x000b1c90
-void* __cdecl FUN_0008d710(unsigned size, int alignment);
+extern "C" void* __cdecl FUN_0008d710(unsigned size, int alignment);
 void* __cdecl FUN_0008d750(unsigned size, int alignment);
 void __cdecl FUN_0008d330(void*);
 inline void* operator new(unsigned, void* p) { return p; }

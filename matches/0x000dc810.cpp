@@ -4,7 +4,7 @@ struct Vec3_dc810 {
 };
 
 void FUN_0008d340(void *p);
-void *FUN_0008d6d0(unsigned int size);
+extern "C" void *FUN_0008d6d0(unsigned int size);
 
 class ParticleBuffers {
 public:

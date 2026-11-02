@@ -18,10 +18,10 @@ struct Obj_274af0 {
     virtual void f13();
     virtual void f14(void*, void*, void*);
 };
-void init(void*);
-void target() {
+extern "C" void FUN_0026d830(void*);
+extern "C" void FUN_00274af0() {
     char a[4], b[4], c[4];
-    init(((char*)&DAT_0052a1c8));
+    FUN_0026d830(((char*)&DAT_0052a1c8));
     (*(Obj_274af0**)&DAT_0052a1e4)->f14(a, b, c);
     (*(Obj_274af0**)&DAT_0052a1e4)->f1();
     (*(Obj_274af0**)&DAT_0052a1e4) = 0;

@@ -87,8 +87,8 @@ struct Child_1c3e10 {
 extern World *DAT_004dd6ec;
 extern Hub_1c3e10 *DAT_004dd700;
 
-Gpu *__cdecl FUN_0027f250();
-void __cdecl FUN_002fa5b0(int v);
+extern "C" Gpu *__cdecl FUN_0027f250();
+extern "C" void __cdecl FUN_002fa5b0(int v);
 
 class DebugRender {
 public:

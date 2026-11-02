@@ -1,7 +1,7 @@
 #include "decls/data/engine/unknown.h"
 // data: initFlag = DAT_00528370
 
-void FUN_00267400(void) {
+extern "C" void FUN_00267400(void) {
     if (!(*(unsigned char*)&DAT_00528370)) {
         unsigned int i = 0;
         do {

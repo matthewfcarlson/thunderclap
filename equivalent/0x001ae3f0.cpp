@@ -4,7 +4,7 @@
 struct Record { int value; char rest[16]; };
 struct Query { char padding[12]; int identity; int value; };
 struct Range { char padding[4]; Record* begin; Record* end; char padding2[8]; int identity; };
-unsigned int __cdecl FUN_001ae3f0(Query* query, Range* range)
+extern "C" unsigned int __cdecl FUN_001ae3f0(Query* query, Range* range)
 {
     hulk_uintptr result = (unsigned int)range->identity;
     if (range->identity == query->identity) {

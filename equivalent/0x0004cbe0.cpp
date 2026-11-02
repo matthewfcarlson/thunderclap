@@ -54,7 +54,7 @@ struct Stats {
 };
 
 Fighter *__fastcall FUN_000592a0(void *owner);
-Stats *__fastcall FUN_00059a30(Fighter *f);
+extern "C" Stats *__fastcall FUN_00059a30(Fighter *f);
 
 struct Frame {
     float y;

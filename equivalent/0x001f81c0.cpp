@@ -128,7 +128,7 @@ struct Closure2_1f81c0 {
 };
 
 extern "C" void thunk_FUN_001b8750();
-void FUN_001f7120(float, float);
+extern "C" void FUN_001f7120(float, float);
 
 struct Registry_1f81c0 {
     void FUN_001d3b70(const char *name, void *closure);
@@ -136,7 +136,7 @@ struct Registry_1f81c0 {
     void FUN_001f80b0(const char *name, CEffectManager *owner,
                       unsigned int (CEffectManager::*fn)(const char *));
 };
-Registry_1f81c0 *FUN_001d4c90();
+extern "C" Registry_1f81c0 *FUN_001d4c90();
 
 void CEffectManager::FUN_001f81c0()
 {

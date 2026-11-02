@@ -7,10 +7,10 @@ class CDeathTrack_762b0 {
     int pad[4];
     void init();
 };
-extern void* __cdecl operator_new(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<CDeathTrack>::vfunc_5() {
-    CDeathTrack_762b0* p = (CDeathTrack_762b0*)operator_new(0x10);
+    CDeathTrack_762b0* p = (CDeathTrack_762b0*)FUN_0008d690(0x10);
     if (p) {
         p->init();
         *(hulk_ulongptr*)p = ((hulk_intptr)DAT_003fc148);

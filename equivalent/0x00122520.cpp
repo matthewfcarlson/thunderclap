@@ -96,10 +96,10 @@ struct Cfg_122520 {
 };
 
 extern World *DAT_004dd700;
-void FUN_00363f20();
-float __cdecl FUN_0010b1c0(World *w, Stats_122520 *s, float thr, Vec3_122520 *out) throw();
-float __cdecl FUN_000186f0(float *a, float *b) throw();
-Vec3_122520 *__cdecl FUN_00083e00(Vec3_122520 *out, Vec3_122520 *a, float c) throw();
+extern "C" void FUN_00363f20();
+extern "C" float __cdecl FUN_0010b1c0(World *w, Stats_122520 *s, float thr, Vec3_122520 *out) throw();
+extern "C" float __cdecl FUN_000186f0(float *a, float *b) throw();
+extern "C" Vec3_122520 *__cdecl FUN_00083e00(Vec3_122520 *out, Vec3_122520 *a, float c) throw();
 void __cdecl FUN_00224d70(float angle, Vec3_122520 *v) throw();
 Ent_122520 *__fastcall FUN_000592a0(void *owner) throw();
 

@@ -1,5 +1,5 @@
 typedef unsigned int size_t;
-void* FUN_0008d690(unsigned int);
+extern "C" void* FUN_0008d690(unsigned int);
 inline void* operator new(size_t n) throw() {
     return FUN_0008d690(n);
 }

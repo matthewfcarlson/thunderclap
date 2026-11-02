@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 11/12, incomplete)
 // FUN_0022cf90 @ 0x0022cf90
 extern "C" double sqrt(double);
-bool FUN_00018960(float a, float b, float eps);
+extern "C" bool FUN_00018960(float a, float b, float eps);
 
 struct Mat3 {
     float r0[3]; float p0;

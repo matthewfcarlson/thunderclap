@@ -6,8 +6,8 @@
 
 extern "C" int atexit(void (*)());
 extern "C" int __cdecl FUN_00266da0(hulk_intptr mode);
-void* __cdecl FUN_0008d690(unsigned int size);
-void FUN_00363b90();
+extern "C" void* __cdecl FUN_0008d690(unsigned int size);
+extern "C" void FUN_00363b90();
 
 struct Vec3_437a0 {
     float x, y, z;

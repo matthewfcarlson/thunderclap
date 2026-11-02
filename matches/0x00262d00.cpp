@@ -1,5 +1,5 @@
 int __cdecl FUN_0024c3e0(int a, int b);
-int __cdecl FUN_0024c3b0(void* header, int bytes);
+extern "C" int __cdecl FUN_0024c3b0(void* header, int bytes);
 
 class Source {
 public:

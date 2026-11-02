@@ -24,8 +24,8 @@ class Holder_275460 {
     virtual void d();
     virtual void e(void*);
 };
-void Init(void*);
-void Fini(void*);
+extern "C" void FUN_0026d850(void*);
+extern "C" void FUN_0026d840(void*);
 class FileGetPositionRequest_275460 {
   public:
     void* vptr;
@@ -41,9 +41,9 @@ FileGetPositionRequest_275460* FileGetPositionRequest_275460::f0(unsigned char f
     ((Sub_275460*)file)->f1();
     vptr = g_vfReq;
     if (flags & 1) {
-        Init(((char*)&DAT_0052a1c8));
+        FUN_0026d850(((char*)&DAT_0052a1c8));
         (*(Holder_275460**)&DAT_0052a1e4)->e(this);
-        Fini(((char*)&DAT_0052a1c8));
+        FUN_0026d840(((char*)&DAT_0052a1c8));
     }
     return this;
 }

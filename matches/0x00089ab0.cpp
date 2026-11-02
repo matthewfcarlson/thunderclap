@@ -4,6 +4,6 @@ class Target_89ab0 {
   public:
     char field;
 };
-void __fastcall FUN_00089ab0(Target_89ab0* self) {
+extern "C" void __fastcall FUN_00089ab0(Target_89ab0* self) {
     self->field = 1;
 }

@@ -35,7 +35,7 @@ template <class T> struct ParamBool : ParamBase_112aa0 {
 };
 } // namespace fight
 extern void __cdecl FUN_002347b0(int*, ParamBase_112aa0**, int);
-void __cdecl FUN_00112aa0() {
+extern "C" void __cdecl FUN_00112aa0() {
     if (DAT_004e0b84 == 0) {
         ParamBase_112aa0* params[4];
         void* mem = FUN_0008d690(24);

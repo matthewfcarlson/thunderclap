@@ -77,7 +77,7 @@ struct Registry_2abd90 {
 
 
 void *FUN_00263ea0(unsigned int size);
-void *FUN_0008d690(unsigned int size);
+extern "C" void *FUN_0008d690(unsigned int size);
 
 ParticlePlaneGenerator_2abd90 * __stdcall FUN_002abd90(Reader_2abd90 *r, int flag)
 {

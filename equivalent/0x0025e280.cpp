@@ -2,6 +2,6 @@
 // FUN_0025e280 @ 0x0025e280
 // equiv-conv: FUN_0025e230 edi
 void FUN_0025e230(void* value);
-void __cdecl FUN_0025e280(void* value) {
+extern "C" void __cdecl FUN_0025e280(void* value) {
     FUN_0025e230(value);
 }

@@ -39,7 +39,7 @@ struct World {
 };
 
 FEObject *__cdecl FUN_000fc260(const char *name);
-void __cdecl FUN_000fc300();
+extern "C" void __cdecl FUN_000fc300();
 
 class JumpMarkerHud {
 public:

@@ -2,7 +2,7 @@
 // CCollisionStunTimeCondition::vfunc_7 @ 0x0004c580
 struct State_4c580 { char pad[0x68]; float stunTime; };
 struct Context { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual State_4c580* slot3(); };
-extern bool __cdecl FUN_00018960(float, float, float);
+extern "C" bool __cdecl FUN_00018960(float, float, float);
 struct CCollisionStunTimeCondition {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual bool vfunc_7(Context*);
  char pad[8]; unsigned operation; float threshold;

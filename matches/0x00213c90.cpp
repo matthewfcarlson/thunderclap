@@ -15,7 +15,7 @@ struct C_213c90 {
 extern void __cdecl FUN_00217440(C_213c90*);
 extern void __cdecl FUN_00217f20(C_213c90*, int, int);
 extern int __cdecl FUN_00219430(C_213c90*, const float*, int);
-void __cdecl FUN_00213c90(C_213c90* self, int n) {
+extern "C" void __cdecl FUN_00213c90(C_213c90* self, int n) {
     Inner_213c90* o = self->obj;
     if (o->b >= o->a)
         FUN_00217440(self);

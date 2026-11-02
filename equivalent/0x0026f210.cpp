@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 7/8, incomplete)
 // core::XboxDrive::vfunc_21 @ 0x0026f210
-extern void __cdecl FUN_002697c0(const char*, char*, int, char**, int);
+extern "C" void __cdecl FUN_002697c0(const char*, char*, int, char**, int);
 namespace core {
 struct XboxDrive {
     char padding[0xd5];

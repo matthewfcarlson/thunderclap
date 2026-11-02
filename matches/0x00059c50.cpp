@@ -8,7 +8,7 @@ struct Holder {
     Obj* mOld;
 };
 
-void Set(Holder* h, Obj* n) {
+extern "C" void FUN_00059c50(Holder* h, Obj* n) {
     if (n)
         n->First();
     if (h->mOld)

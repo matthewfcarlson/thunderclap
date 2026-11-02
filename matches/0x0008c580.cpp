@@ -1,3 +1,3 @@
-int FUN_0008c580() {
+extern "C" int FUN_0008c580() {
     return 5;
 }

@@ -3,7 +3,7 @@
 #include "decls/data/game/global.h"
 
 #define MATCH(key,n,value) { unsigned i; for(i=0;i<n;++i) if(text[i]!=key[i]) break; if(i==n) return value; }
-const char* __cdecl FUN_001b8b60(const char* text) {
+extern "C" const char* __cdecl FUN_001b8b60(const char* text) {
  MATCH(DAT_0040b914,27,DAT_00420dc4)
  MATCH(DAT_003ffce8,18,DAT_00420d90)
  MATCH(DAT_00420d74,25,DAT_00420d28)

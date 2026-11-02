@@ -1,7 +1,7 @@
 // Same code shape as 0x002260f0 (propagated; names are from that function)
 #include "gen/choreo2.h"
 
-extern float __cdecl FUN_0022aaa0(float, float);
+extern "C" float __cdecl FUN_0022aaa0(float, float);
 
 void choreo2::LocomotionSteerDriver::vfunc_14(float param) {
     unsigned int i = 0;

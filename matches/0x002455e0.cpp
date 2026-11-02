@@ -2,7 +2,7 @@ struct Pair {
     unsigned a;
     unsigned b;
 };
-Pair __cdecl FUN_002672f0(const char*, int, int);
+extern "C" Pair __cdecl FUN_002672f0(const char*, int, int);
 namespace audio {
 class Base {
   public:

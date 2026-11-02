@@ -5,7 +5,7 @@
 #include "decls/data/engine/core.h"
 
 extern unsigned __int64 __fastcall FUN_002719a0(int length, const unsigned char *text);
-int __cdecl FUN_00271b70(const unsigned char *text, int *length, int *value)
+extern "C" int __cdecl FUN_00271b70(const unsigned char *text, int *length, int *value)
 {
     unsigned int first = *text;
     int extra = ((signed char*)&DAT_0042b6f8)[first];

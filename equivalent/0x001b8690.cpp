@@ -6,7 +6,7 @@ struct View_nv_1b8690 {
     void FUN_00293e40(int a, int b, int c, int d);
     void FUN_00293e90(unsigned int c);
 };
-extern void *__cdecl FUN_0008d690(unsigned int n);
+extern "C" void *__cdecl FUN_0008d690(unsigned int n);
 
 class Owner_1b8690 {
 public:

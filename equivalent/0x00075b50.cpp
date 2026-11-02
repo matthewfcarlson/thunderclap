@@ -2,7 +2,7 @@
 // FUN_00075b50 @ 0x00075b50
 #include "decls/data/game/global.h"
 
-void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void __cdecl FUN_00068b40();
 void __cdecl FUN_00068b50();
@@ -21,7 +21,7 @@ namespace fight {
  template<class T> struct ParamName : ParamBase_75b50 { virtual void slot0(); };
 }
 void __cdecl FUN_002347b0(int*, ParamBase_75b50**, int);
-void __cdecl FUN_00075b50() {
+extern "C" void __cdecl FUN_00075b50() {
  if (DAT_004dd00c == 0) {
   ParamBase_75b50* params[3];
   ParamBase_75b50* p = (ParamBase_75b50*)FUN_0008d690(24);

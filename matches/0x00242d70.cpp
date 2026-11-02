@@ -7,7 +7,7 @@ struct Obj_242d70 {
 };
 void __cdecl F1(void*, Obj_242d70*);
 void __cdecl F2(void*, Obj_242d70*);
-void __cdecl Target(void* a, Obj_242d70* b) {
+extern "C" void __cdecl FUN_00242d70(void* a, Obj_242d70* b) {
     if (b->count > 1) {
         --b->count;
         return;

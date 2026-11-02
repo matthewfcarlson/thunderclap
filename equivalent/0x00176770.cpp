@@ -74,9 +74,9 @@ struct World {
 
 float __cdecl FUN_00224f10(V3_176770 *v);
 float __cdecl FUN_00224fc0(float a, float b);
-float __cdecl FUN_00083d90(float *v);
+extern "C" float __cdecl FUN_00083d90(float *v);
 void __cdecl FUN_00224d70(float angle, V3_176770 *v);
-void __cdecl FUN_00224db0(Mat_176770 *m, V3_176770 *a, V3_176770 *b);
+extern "C" void __cdecl FUN_00224db0(Mat_176770 *m, V3_176770 *a, V3_176770 *b);
 
 struct Frame_176770 {
     float t0;           // 0x00

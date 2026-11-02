@@ -5,7 +5,7 @@
 struct Matrix { float data[12]; unsigned int x,y,z; float last; void FUN_0022b980(); };
 struct String { unsigned int value[2]; void FUN_0027b0e0(const char*); void FUN_0027af50(); };
 struct Manager_1b3040 { unsigned int FUN_00283a40(String*, Matrix*, float, float); };
-Manager_1b3040* __cdecl FUN_0027f250();
+extern "C" Manager_1b3040* __cdecl FUN_0027f250();
 struct Entry_1b3040 { char first[64]; char second[64]; char reserved[48]; unsigned int value; };
 struct Object { unsigned int x,y,z; int index; char pad10[8]; unsigned int value; unsigned int a; unsigned int untouched20; unsigned int b; unsigned int firstHandle,secondHandle,c,d;
 void initialize(unsigned int,unsigned int,unsigned int,int);

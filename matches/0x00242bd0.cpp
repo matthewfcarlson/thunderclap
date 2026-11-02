@@ -7,7 +7,7 @@ extern void* __cdecl FUN_00247530(void*);
 struct Node {
     int a[10];
 };
-Node* __cdecl FUN_00242bd0() {
+extern "C" Node* __cdecl FUN_00242bd0() {
     Node* p = (Node*)FUN_00247530(DAT_004e5db0);
     if (p) {
         int* q = (int*)p + 1;

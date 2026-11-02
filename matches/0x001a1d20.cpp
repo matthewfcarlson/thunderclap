@@ -6,8 +6,8 @@ class Track {
   public:
     void* get(void*);
 };
-extern void* find(const char*, TrackFactoryCasterTemplate_1a1d20*);
-void* func(Track* t, const char* name) {
+extern "C" void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_1a1d20*);
+extern "C" void* FUN_001a1d20(Track* t, const char* name) {
     TrackFactoryCasterTemplate_1a1d20 c;
-    return t->get(find(name, &c));
+    return t->get(FUN_00236ac0(name, &c));
 }

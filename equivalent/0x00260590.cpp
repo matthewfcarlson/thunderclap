@@ -21,7 +21,7 @@ struct List {
     Link* tail;
 };
 
-void FUN_00260590(List* list)
+extern "C" void FUN_00260590(List* list)
 {
     for (;;) {
         Link* node = list->head;

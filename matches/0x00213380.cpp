@@ -7,7 +7,7 @@ struct Context {
 };
 void __cdecl Ensure(Context*);
 u32_213380 __cdecl Build(Context*, u32_213380, u32_213380);
-void __cdecl target(Context* self, u32_213380 a, u32_213380 b) {
+extern "C" void __cdecl FUN_00213380(Context* self, u32_213380 a, u32_213380 b) {
     u32_213380* state = self->state;
     if (state[19] >= state[18])
         Ensure(self);

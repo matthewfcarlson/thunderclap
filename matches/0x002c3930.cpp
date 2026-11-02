@@ -12,7 +12,7 @@ struct Entity_2c3930 {
 struct ILanguageChangeCallback_2c3930 {
     virtual void f();
 };
-void* Alloc(hulk_uintptr);
+extern "C" void* FUN_0008d6d0(hulk_uintptr);
 struct TextBible : Entity_2c3930, ILanguageChangeCallback_2c3930 {
     virtual void g();
     int* mBegin;
@@ -32,7 +32,7 @@ TextBible::TextBible(int a, int n) {
     if (a)
         s.Set(a);
     if (n) {
-        mBegin = (int*)Alloc(n * 4);
+        mBegin = (int*)FUN_0008d6d0(n * 4);
         if (mBegin) {
             mCap = mBegin + n;
             mEnd = mBegin;

@@ -72,21 +72,21 @@ struct PngStruct_2d7440 {
    // "IDAT"
 
 void __cdecl FUN_002e7fb0(PngStruct_2d7440 *png);                                   // png_read_start_row
-void __cdecl FUN_002e7680(PngStruct_2d7440 *png, unsigned char *row, int mask);     // png_combine_row
-void __cdecl FUN_002ea010(PngStruct_2d7440 *png);                                   // png_read_finish_row
+extern "C" void __cdecl FUN_002e7680(PngStruct_2d7440 *png, unsigned char *row, int mask);     // png_combine_row
+extern "C" void __cdecl FUN_002ea010(PngStruct_2d7440 *png);                                   // png_read_finish_row
 void __cdecl FUN_002e69a0(PngStruct_2d7440 *png, const char *msg);                  // png_error
 void __cdecl FUN_002e81e0(PngStruct_2d7440 *png, unsigned int skip);                // png_crc_finish
 void __cdecl FUN_002dd690(PngStruct_2d7440 *png, unsigned char *buf, unsigned int size);   // png_read_data
 unsigned int __cdecl FUN_002e7500(unsigned char *buf);                       // png_get_uint_31
 void __cdecl FUN_002d6c90(PngStruct_2d7440 *png);                                   // png_reset_crc
 void __cdecl FUN_002e7580(PngStruct_2d7440 *png, unsigned char *buf, unsigned int size);   // png_crc_read
-int __cdecl FUN_002e6f70(ZStream_2d7440 *z, int flush);                             // inflate
-void __cdecl FUN_002e7dc0(PngStruct_2d7440 *png, RowInfo_2d7440 *info, unsigned char *row, unsigned char *prev, int filter);
-void __cdecl FUN_002e6b30(PngStruct_2d7440 *png, unsigned char *dst, unsigned char *src, unsigned int size);
+extern "C" int __cdecl FUN_002e6f70(ZStream_2d7440 *z, int flush);                             // inflate
+extern "C" void __cdecl FUN_002e7dc0(PngStruct_2d7440 *png, RowInfo_2d7440 *info, unsigned char *row, unsigned char *prev, int filter);
+extern "C" void __cdecl FUN_002e6b30(PngStruct_2d7440 *png, unsigned char *dst, unsigned char *src, unsigned int size);
 void __cdecl FUN_002dcd90(PngStruct_2d7440 *png);                                   // png_do_read_transformations
-void __cdecl FUN_002e7990(RowInfo_2d7440 *info, unsigned char *row, int pass, unsigned int transformations);
+extern "C" void __cdecl FUN_002e7990(RowInfo_2d7440 *info, unsigned char *row, int pass, unsigned int transformations);
 
-void __cdecl FUN_002d7440(PngStruct_2d7440 *png, unsigned char *row, unsigned char *dsp_row)
+extern "C" void __cdecl FUN_002d7440(PngStruct_2d7440 *png, unsigned char *row, unsigned char *dsp_row)
 {
     if (!(png->flags & 0x40))
         FUN_002e7fb0(png);

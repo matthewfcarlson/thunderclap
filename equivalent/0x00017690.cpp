@@ -66,7 +66,7 @@ struct Holder2_17690 {
 };
 
 void* FUN_00263ea0(unsigned int size);
-int __cdecl FUN_000113e0(int lo, int hi);
+extern "C" int __cdecl FUN_000113e0(int lo, int hi);
 
 class CHeadTrackerAction {
 public:

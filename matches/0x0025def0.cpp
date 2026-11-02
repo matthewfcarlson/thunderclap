@@ -3,12 +3,12 @@ struct C_25def0 {
 };
 void __cdecl f1(void*);
 void __cdecl f2(void*);
-void __cdecl f3(void*);
-void __cdecl f4(void*);
+extern "C" void __cdecl FUN_0024a450(void*);
+extern "C" void __cdecl FUN_0024a4a0(void*);
 void __fastcall target(C_25def0* self) {
     f1(self->pad + 0x4c);
     f2(self->pad + 0x40);
     char* p = self->pad + 8;
-    f3(p + 0x14);
-    f4(p);
+    FUN_0024a450(p + 0x14);
+    FUN_0024a4a0(p);
 }

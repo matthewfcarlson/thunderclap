@@ -23,7 +23,7 @@ class A {
   public:
     B* get();
 };
-int __cdecl target(A* a) {
+extern "C" int __cdecl FUN_0005a470(A* a) {
     if (!a)
         return 0;
     B* b = a->get();

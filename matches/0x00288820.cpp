@@ -1,4 +1,4 @@
-extern void* __cdecl FUN_0008d6d0(unsigned int);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
 struct NonCopyable_288820 {
     int a;
     NonCopyable_288820() { a = 0; }

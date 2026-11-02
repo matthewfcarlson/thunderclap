@@ -35,7 +35,7 @@ struct Config_1ae40 {
 };
 
 Handle_1ae40* __fastcall FUN_000592a0(void* owner);
-Body_1ae40* __fastcall FUN_00059a40(Handle_1ae40* h);
+extern "C" Body_1ae40* __fastcall FUN_00059a40(Handle_1ae40* h);
 
 union Scratch_1ae40 {
     float f;

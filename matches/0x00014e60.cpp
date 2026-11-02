@@ -5,7 +5,7 @@ struct R_14e60 {
     void call(void*, int);
 };
 extern void* __fastcall FUN_000592a0(void*);
-extern R_14e60* __fastcall FUN_00059a40(void*);
+extern "C" R_14e60* __fastcall FUN_00059a40(void*);
 
 void CMoveAction::vfunc_4() {
     void* a = FUN_000592a0((*(void * *)&this->f_1c));

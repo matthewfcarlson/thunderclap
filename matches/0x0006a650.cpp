@@ -5,7 +5,7 @@ class Alloc_6a650 {
   public:
     int method(CJumpAttackTrack*, hulk_intptr);
 };
-extern Alloc_6a650* FUN_0008d690(int);
+extern "C" Alloc_6a650* FUN_0008d690(int);
 
 hulk_intptr CJumpAttackTrack::vfunc_12(hulk_intptr param) {
     Alloc_6a650* p = FUN_0008d690(0x34);

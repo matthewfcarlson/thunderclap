@@ -8,7 +8,7 @@ public:
 
 void FUN_00267090(char *p);
 void *FUN_00238190(int kind);
-char *FUN_00266e00(void *pool, int size);
+extern "C" char *FUN_00266e00(void *pool, int size);
 
 class NameHolder_233f20 {
 public:

@@ -25,7 +25,7 @@ class TrackFactoryTemplate_159ea0 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_00156110();
 
 template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::HitOrientToPushbackTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::HitOrient
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_159ea0* t = new (mem) TrackFactoryTemplate_159ea0();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_00156110();
         return (void*)(t);
     }
     return (void*)(0);

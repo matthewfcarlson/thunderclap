@@ -5,12 +5,12 @@
 struct Resource_1f32b0 { char pad[0x18]; int id; void FUN_001e8a90(); };
 struct Manager_1f32b0 { char pad[0x518]; int context; };
 struct State_1f32b0 { char pad[0x334]; float value; };
-extern int __cdecl FUN_00240750();
+extern "C" int __cdecl FUN_00240750();
 extern int __cdecl FUN_0024ace0(int, int*, int, int, int, int*);
 extern void __cdecl FUN_00247890(int, float);
-extern void __cdecl FUN_002478b0(int, float);
-extern void __cdecl FUN_002478d0(int, int);
-extern void __cdecl FUN_00247900(int, int);
+extern "C" void __cdecl FUN_002478b0(int, float);
+extern "C" void __cdecl FUN_002478d0(int, int);
+extern "C" void __cdecl FUN_00247900(int, int);
 struct Object { int unknown; int handle; Resource_1f32b0* resource; char pad[0x1c]; float mode; int initialize(Resource_1f32b0*, int, int); };
 int Object::initialize(Resource_1f32b0* input, int flag, int option) {
  if (!input) return 0;

@@ -9,8 +9,8 @@ struct Interface_8c470 {
  virtual unsigned open(Pair_8c470*, unsigned);
 };
 struct State_8c470 { Interface_8c470* object; unsigned zero; char pad[0x64]; unsigned char flag1,flag2; char pad2[0x42]; unsigned result; unsigned a,b,c,d,e; };
-extern State_8c470* __cdecl FUN_0008d6d0(unsigned);
-extern unsigned __cdecl FUN_00266da0(unsigned);
+extern "C" State_8c470* __cdecl FUN_0008d6d0(unsigned);
+extern "C" unsigned __cdecl FUN_00266da0(unsigned);
 extern Pair_8c470* __cdecl FUN_0008d690(unsigned);
 extern void __cdecl thunk_FUN_00270f10(const char*,unsigned);
 extern void __cdecl thunk_FUN_00271530(State_8c470*,const char*,unsigned,unsigned);

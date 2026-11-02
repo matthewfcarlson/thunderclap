@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 14/14)
 // audio::SeqTrack::vfunc_1 @ 0x002620e0
 typedef unsigned int uint;
-extern bool __cdecl FUN_0024f010(void*, uint*);
-extern bool __cdecl FUN_0025abd0(void*, uint*);
-extern bool __cdecl FUN_0025aa80(void*, unsigned char*);
+extern "C" bool __cdecl FUN_0024f010(void*, uint*);
+extern "C" bool __cdecl FUN_0025abd0(void*, uint*);
+extern "C" bool __cdecl FUN_0025aa80(void*, unsigned char*);
 struct Embedded_2620e0 {
  virtual bool read(void*);
  char data[0x18];

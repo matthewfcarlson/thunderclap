@@ -43,7 +43,7 @@ template <class T> struct ParamIntConstRange : FUN_002348e0 {
 };
 } // namespace fight
 extern "C" void __cdecl FUN_002347b0(void*, void**, int);
-void __cdecl FUN_000538b0() {
+extern "C" void __cdecl FUN_000538b0() {
     if (!DAT_004dc4a4) {
         void* params[3];
         void* mem = FUN_0008d690(24);

@@ -3,7 +3,7 @@
 int __cdecl FUN_00345b90(int c);
 
 // Case-insensitive strcmp
-int FUN_00096600(const char* s1, const char* s2)
+extern "C" int FUN_00096600(const char* s1, const char* s2)
 {
     while (*s1 != 0 && *s2 != 0) {
         char a = (char)FUN_00345b90(*s1);

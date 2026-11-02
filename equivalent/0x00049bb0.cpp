@@ -14,7 +14,7 @@ struct Stats_49bb0 {
 
 class Owner;
 Owner *__fastcall FUN_000592a0(Owner *owner);
-Stats_49bb0 *__fastcall FUN_00059a30(Owner *ctx);
+extern "C" Stats_49bb0 *__fastcall FUN_00059a30(Owner *ctx);
 
 bool CPropActorStateCondition::vfunc_7(void* __p0) { Owner * owner = (Owner *)__p0;
 

@@ -11,7 +11,7 @@ struct Archive_254b90 {
 };
 
 char FUN_00246f50(Writer_254b90* writer, const char* fmt, ...);
-char FUN_0024eb60(Archive_254b90* ar, const char* name, unsigned int* value);
+extern "C" char FUN_0024eb60(Archive_254b90* ar, const char* name, unsigned int* value);
 
 namespace audio {
 

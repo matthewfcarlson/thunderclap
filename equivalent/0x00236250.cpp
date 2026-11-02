@@ -4,10 +4,10 @@
 #include "decls/data/engine/unknown.h"
 
 inline void* __cdecl operator new(unsigned int, void* address) { return address; }
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern void __cdecl FUN_00235970(); extern void __cdecl FUN_00235980(); extern void __cdecl FUN_00235990();
    
-extern void __cdecl FUN_002347b0(int*, void**, int);
+extern "C" void __cdecl FUN_002347b0(int*, void**, int);
 namespace fight {
 class FightNodeParentCondition;
 template<class T> struct ParamEnumConstList {
@@ -23,7 +23,7 @@ template<class T> struct ParamBool {
  void FUN_00234860(const char*);
 };
 }
-void FUN_00236250() {
+extern "C" void FUN_00236250() {
  if (!DAT_004e5be8) {
  void* params[3];
  typedef fight::ParamEnumConstList<fight::FightNodeParentCondition> Enum;

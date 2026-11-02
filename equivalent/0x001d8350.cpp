@@ -67,7 +67,7 @@ struct Owner_1d8350 {
     Id64 id8;
 };
 
-V3_1d8350 *__cdecl FUN_00083e00(V3_1d8350 *out, V3_1d8350 *a, float s);
+extern "C" V3_1d8350 *__cdecl FUN_00083e00(V3_1d8350 *out, V3_1d8350 *a, float s);
 
 class Collector_1d8350 {
 public:

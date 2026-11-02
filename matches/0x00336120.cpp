@@ -20,7 +20,7 @@ class Heap {
   public:
     void* Allocate(hulk_uintptr, unsigned);
 };
-bool __stdcall Get(char** out, Source* src, int b, int c) {
+extern "C" bool __stdcall FUN_00336120(char** out, Source* src, int b, int c) {
     char* s = src->Lookup();
     if (!s)
         return false;

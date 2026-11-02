@@ -9,7 +9,7 @@ struct TypeInfo_1d04d0 {
 
 extern TypeInfo_1d04d0 DAT_0048e10c;
 
-char FUN_001d04d0(const TypeInfo_1d04d0 *t)
+extern "C" char FUN_001d04d0(const TypeInfo_1d04d0 *t)
 {
     if (t->FUN_00344913(((TypeInfo_1d04d0*)&DAT_0048e100)))
         return 'v';

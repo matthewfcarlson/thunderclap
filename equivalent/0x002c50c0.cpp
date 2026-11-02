@@ -8,7 +8,7 @@ struct Vec3_2c50c0 {
 struct Matrix {
     float m[16];
 };
-void __fastcall FUN_0022b980(Matrix *m);
+extern "C" void __fastcall FUN_0022b980(Matrix *m);
 
 // equiv-conv: FUN_002c50c0 ebx stack stack stack stack stack stack
 Matrix *FUN_002c50c0(Matrix *out, float fromX, float fromY, float fromZ,

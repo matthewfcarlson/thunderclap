@@ -14,8 +14,8 @@ struct Obj_267070 {
 struct Handle_267070 {
     Obj_267070* p;
 };
-extern Handle_267070* __cdecl Get(void*, int);
-void __cdecl Target(int x) {
-    Handle_267070* h = Get((void*)((hulk_intptr)((char*)&DAT_00527f40)), x);
+extern "C" Handle_267070* __cdecl FUN_00266f90(void*, int);
+extern "C" void __cdecl FUN_00267070(int x) {
+    Handle_267070* h = FUN_00266f90((void*)((hulk_intptr)((char*)&DAT_00527f40)), x);
     h->p->h(x);
 }

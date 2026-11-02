@@ -14,7 +14,7 @@ class Obj {
     void Do(void*);
 };
 extern "C" void* Lookup(void*, fight::ConditionFactoryCasterTemplate<hulkfight::ai::PropsToSuckCondition>*);
-void Func(Obj* obj, void* b) {
+extern "C" void FUN_00113ae0(Obj* obj, void* b) {
     fight::ConditionFactoryCasterTemplate<hulkfight::ai::PropsToSuckCondition> caster;
     obj->Do(Lookup(b, &caster));
 }

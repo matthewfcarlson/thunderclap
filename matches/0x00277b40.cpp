@@ -1,5 +1,5 @@
 #include "gen/core.h"
-unsigned int __cdecl FUN_002698b0(char*);
+extern "C" unsigned int __cdecl FUN_002698b0(char*);
 struct CementLibrary_nv_277b40 {
     unsigned int f(unsigned int, unsigned int);
 };

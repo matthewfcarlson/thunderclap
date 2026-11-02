@@ -45,8 +45,8 @@ struct Widget_ef4f0 {
 };
 extern Clock_ef4f0* DAT_0052c2a4;
 extern float (__stdcall *DAT_004de948)();
-void __cdecl FUN_0009f790(void* obj, float t, float* a, float* b);
-void __cdecl FUN_000f61e0(CameraLike* cam);
+extern "C" void __cdecl FUN_0009f790(void* obj, float t, float* a, float* b);
+extern "C" void __cdecl FUN_000f61e0(CameraLike* cam);
 
 class FEContainer {
 public:

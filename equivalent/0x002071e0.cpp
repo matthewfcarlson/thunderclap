@@ -5,7 +5,7 @@
 
 void *__cdecl FUN_00263ea0(unsigned int size);
 int __cdecl FUN_00266da0(int tag);
-void __cdecl FUN_00267110(int id);
+extern "C" void __cdecl FUN_00267110(int id);
 void __cdecl FUN_00267090(void *p);
 
 struct Voice_2071e0 {

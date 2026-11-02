@@ -2,10 +2,10 @@
 // FUN_002899e0 @ 0x002899e0
 #include "compat/ptr.h"
 
-double __cdecl FUN_00047970(float x);
+extern "C" double __cdecl FUN_00047970(float x);
 extern "C" double fmod(double, double);
 
-float __cdecl FUN_000186b0(float *v, float *lo, float *hi);
+extern "C" float __cdecl FUN_000186b0(float *v, float *lo, float *hi);
 
 hulk_freg FUN_002899e0(float *p, char *st, float v, float step, float lo, float hi, char flag, int mode)
 {

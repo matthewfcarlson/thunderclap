@@ -46,9 +46,9 @@ public:
     };
 };
 
-char __cdecl FUN_003059c0(Vec3_2f6af0 *a, Quat_2f6af0 *z) throw();
-void *__cdecl FUN_0022b080(void *a, void *b, void *c) throw();
-void __cdecl FUN_00305700(unsigned int s, Mat_2f6af0 *src, Mat_2f6af0 *dst) throw();
+extern "C" char __cdecl FUN_003059c0(Vec3_2f6af0 *a, Quat_2f6af0 *z) throw();
+extern "C" void *__cdecl FUN_0022b080(void *a, void *b, void *c) throw();
+extern "C" void __cdecl FUN_00305700(unsigned int s, Mat_2f6af0 *src, Mat_2f6af0 *dst) throw();
 
 class PhysicsObject {
 public:

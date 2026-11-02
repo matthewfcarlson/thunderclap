@@ -2,7 +2,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 
-extern void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 extern int shakeVtable;
 class CCameraShakeTrack_18bfb0 {
   public:
@@ -22,7 +22,7 @@ class CCameraShakeTrack_18bfb0 {
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::GrapplePropDamageTrack>::vfunc_5() {
-    CCameraShakeTrack_18bfb0* p = (CCameraShakeTrack_18bfb0*)Alloc(0x1c);
+    CCameraShakeTrack_18bfb0* p = (CCameraShakeTrack_18bfb0*)FUN_0008d690(0x1c);
     if (p) {
         p->Init();
         p->x = 0;

@@ -2,7 +2,7 @@
 // FEDialog::vfunc_3 @ 0x000e5c20
 #include "gen/global.h"
 
-int __cdecl FUN_000f6660(int value, int modulus);
+extern "C" int __cdecl FUN_000f6660(int value, int modulus);
 
 class Element_e5c20 {
 public:

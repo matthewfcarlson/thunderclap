@@ -2,9 +2,9 @@
 // FUN_0011ae60 @ 0x0011ae60
 namespace hulkfight { namespace ai { class MotionFleeTrack; class MotionStopTrack; class MotionFacingTrack; class MotionBoostTrack; class MotionLocatorTrack; class MotionTargetTrack; class MotionChaseTrack; class MotionClosestWaypointTrack; } }
 namespace fight { template<class T> struct TrackFactoryCasterTemplate { virtual void create(); }; }
-extern void* __cdecl FUN_00236ac0(const char*, void*);
+extern "C" void* __cdecl FUN_00236ac0(const char*, void*);
 struct Registry_11ae60 { void FUN_002367c0(void*); };
-void __cdecl FUN_0011ae60(Registry_11ae60* registry) {
+extern "C" void __cdecl FUN_0011ae60(Registry_11ae60* registry) {
  fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionStopTrack> stop;
  registry->FUN_002367c0(FUN_00236ac0("motionStop", &stop));
  fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionFacingTrack> facing;

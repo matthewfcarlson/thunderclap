@@ -7,7 +7,7 @@ extern void* VT_Closure2[2];
 struct Ctor_001d0480 {
     Ctor_001d0480(void* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
+extern "C" char __cdecl FUN_001d04d0(const void* tbl);
 
 class Closure2 : public Ctor_001d0480 {
   public:
@@ -27,9 +27,9 @@ class Closure2 : public Ctor_001d0480 {
 Closure2::Closure2(void* a1, int a2, int a3) : Ctor_001d0480(a1, 2) {
     vfptr = (void*)VT_Method2;
     mA3 = a3;
-    mFlag18 = LookupFlag(((void**)&DAT_0048e100));
-    mFlag10 = LookupFlag(((void**)&DAT_0048e0f0));
-    mFlag11 = LookupFlag(((void**)&DAT_0048e0f0));
+    mFlag18 = FUN_001d04d0(((void**)&DAT_0048e100));
+    mFlag10 = FUN_001d04d0(((void**)&DAT_0048e0f0));
+    mFlag11 = FUN_001d04d0(((void**)&DAT_0048e0f0));
     vfptr = (void*)VT_Closure2;
     mA2 = a2;
 }

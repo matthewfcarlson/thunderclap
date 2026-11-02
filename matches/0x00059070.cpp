@@ -19,10 +19,10 @@ class CSmartPropDistanceCondition_59070 {
     int h;
     void setup(int);
 };
-void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<CSmartPropDistanceCondition>::vfunc_5() {
-    CSmartPropDistanceCondition_59070* p = (CSmartPropDistanceCondition_59070*)alloc(0x30);
+    CSmartPropDistanceCondition_59070* p = (CSmartPropDistanceCondition_59070*)FUN_0008d690(0x30);
     if (p) {
         p->setup(0);
         p->vptr = (hulk_intptr)&vft_59070;

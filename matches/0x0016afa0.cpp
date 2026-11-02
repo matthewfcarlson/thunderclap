@@ -16,7 +16,7 @@ struct Param {
     char pad4[12];
     void* field10;
 };
-void FUN_0016afa0() {
+extern "C" void FUN_0016afa0() {
     void* local;
     if (gCount_16afa0 != 0) {
         ++gCount_16afa0;

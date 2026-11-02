@@ -14,12 +14,12 @@ struct Obj_29b1d0 {
     unsigned char flag;
 };
 void cleanup(u32_29b1d0);
-void __fastcall finish(Obj_29b1d0*);
+extern "C" void __fastcall FUN_002a50a0(Obj_29b1d0*);
 void __fastcall target(Obj_29b1d0* self) {
     *(hulk_uintptr*)self = ((hulk_intptr)DAT_0042d548);
     if (self->flag)
         cleanup(self->value);
     self->base->release();
     self->base = 0;
-    finish(self);
+    FUN_002a50a0(self);
 }

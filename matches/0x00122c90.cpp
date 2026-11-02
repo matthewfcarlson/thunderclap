@@ -7,7 +7,7 @@ class Target {
   public:
     void Set(void*);
 };
-void Run(Target* t, void* key) {
+extern "C" void FUN_00122c90(Target* t, void* key) {
     TrackFactoryCasterTemplate_122c90 caster;
     t->Set(Lookup(key, &caster));
 }

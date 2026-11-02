@@ -3,7 +3,7 @@
 #include "decls/data/platform/xbox/pure3d.h"
 
 namespace D3D8 { int __stdcall D3DVertexBuffer_Lock2(void* buffer, int flags); }
-void __cdecl FUN_0031c230(int);
+extern "C" void __cdecl FUN_0031c230(int);
 struct Record_327190 {
     int header;
     unsigned char active;

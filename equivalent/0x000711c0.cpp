@@ -7,7 +7,7 @@ void __cdecl FUN_00068310();
 void __cdecl FUN_00068320();
 void __cdecl FUN_00068330();
 void __cdecl FUN_0006b7b0();
-void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct ParamBase_711c0 {
  virtual void placeholder();
  char padding[12];
@@ -18,7 +18,7 @@ struct ParamBase_711c0 {
 class CMoveAddYTrack;
 namespace fight { template<class T> struct ParamFloatConstRange : ParamBase_711c0 { virtual void placeholder(); }; }
 void __cdecl FUN_002347b0(int*,ParamBase_711c0**,int);
-void FUN_000711c0() {
+extern "C" void FUN_000711c0() {
  if (DAT_004dcf5c == 0) {
  ParamBase_711c0* items[4];
  ParamBase_711c0* p;

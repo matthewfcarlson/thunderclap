@@ -12,7 +12,7 @@ template<class T> struct ParamBranch { virtual void v0(); char data[12]; void (_
 template<class T> struct ParamIntConstRange { virtual void v0(); char data[12]; void (__cdecl *callback)(); char tail[4]; void FUN_002348e0(const char*); };
 template<class T> struct ParamConditionGroup { virtual void v0(); char data[12]; void (__cdecl *callback)(); char tail[4]; void FUN_00235220(const char*); };
 }
-void __cdecl FUN_002347b0(int*, void**, int);
+extern "C" void __cdecl FUN_002347b0(int*, void**, int);
 void target() {
  if (!DAT_004e5c08) {
  void* values[3];

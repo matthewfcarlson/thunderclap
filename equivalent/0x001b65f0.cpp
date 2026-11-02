@@ -3,7 +3,7 @@
 #include "decls/data/game/global.h"
 
 inline void *operator new(unsigned int, void *p) throw() { return p; }
-void *FUN_0008d690(unsigned int size);
+extern "C" void *FUN_0008d690(unsigned int size);
 
 struct Vec3_1b65f0 {
     float x, y, z;

@@ -57,7 +57,7 @@ struct Sub_2394c0 {
 };
 
 int __cdecl FUN_00238190(int n);
-int __cdecl FUN_00266da0(int h);
+extern "C" int __cdecl FUN_00266da0(int h);
 struct Check_2394c0 {
     char FUN_00236f40(int a, int b, int c);
 };

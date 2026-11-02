@@ -61,7 +61,7 @@ struct lua_State_213e50 {
 TObject_213e50 *__fastcall FUN_00212bb0(int idx, lua_State_213e50 *L);
 void __cdecl FUN_00217100(lua_State_213e50 *L, void *o, void *v);
 
-const char *__cdecl FUN_00213e50(lua_State_213e50 *L, int funcindex, int n)
+extern "C" const char *__cdecl FUN_00213e50(lua_State_213e50 *L, int funcindex, int n)
 {
     TObject_213e50 *fi = FUN_00212bb0(funcindex, L);
     if (fi->tt != 6)

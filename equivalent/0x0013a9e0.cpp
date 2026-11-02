@@ -46,7 +46,7 @@ struct DriverSet_13a9e0 {
 };
 DriverSet_13a9e0 *__fastcall FUN_00059a40(Context *ctx);
 
-char __cdecl FUN_00018960(float a, float b, float epsilon);
+extern "C" char __cdecl FUN_00018960(float a, float b, float epsilon);
 
 class FrameCondition {
 public:

@@ -9,7 +9,7 @@ struct VectorCamera_f2c10 { virtual void init(); virtual void release(); virtual
 struct Timer { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual float time(); };
 void* __cdecl FUN_00263ea0(unsigned);
 void __cdecl FUN_000f6530(void*,VectorCamera_f2c10*);
-void __cdecl FUN_0009f790(float,float,float*,float*);
+extern "C" void __cdecl FUN_0009f790(float,float,float*,float*);
 struct Owner_f2c10 { char pad[0x98c]; float angle; VectorCamera_f2c10* camera; char pad2[0xd4]; unsigned position[3]; unsigned last; void target(const char*); };
 void Owner_f2c10::target(const char* name) {
  Inventory_f2c10* inv=(*(Inventory_f2c10**)&DAT_004dd9cc);

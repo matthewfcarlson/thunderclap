@@ -4,16 +4,16 @@
 #include "decls/data/game/global.h"
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
-void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_00077ed0(); void __cdecl FUN_00077ee0(); void __cdecl FUN_00077ef0();
-void __cdecl FUN_002347b0(void*, void**, int);
+extern "C" void __cdecl FUN_002347b0(void*, void**, int);
 class CExplosionTrack;
 namespace fight {
 template<class T> struct ParamFloatConstRange { virtual void slot0(); char pad[12]; void (__cdecl *callback)(); char tail[4]; void FUN_00234960(const char*); };
 template<class T> struct ParamEnumConstList { virtual void slot0(); char pad[12]; void* list; int count; void (__cdecl *callback)(); char tail[4]; void FUN_00234cc0(const char*); };
 template<class T> struct ParamVector { virtual void slot0(); char pad[12]; void (__cdecl *callback)(); char tail[4]; void FUN_00234e50(const char*); };
 }
-void FUN_00078610() {
+extern "C" void FUN_00078610() {
  if (DAT_004dd03c == 0) {
  void* items[3];
  fight::ParamFloatConstRange<CExplosionTrack>* a = (fight::ParamFloatConstRange<CExplosionTrack>*)FUN_0008d690(24);

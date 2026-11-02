@@ -10,7 +10,7 @@ struct TypeT_260e60 {
     ~TypeT_260e60() throw();
 };
 struct DynAttrT_260e60;
-extern void FUN_00247550(TypeT_260e60*, DynAttrT_260e60*);
+extern "C" void FUN_00247550(TypeT_260e60*, DynAttrT_260e60*);
 struct DynAttrT_260e60 {
     void* vf;
     char pad[0x14];

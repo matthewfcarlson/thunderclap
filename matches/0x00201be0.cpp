@@ -1,4 +1,4 @@
-void FUN_00267830(void*, int, int);
+extern "C" void FUN_00267830(void*, int, int);
 
 class X_201be0 {
   public:

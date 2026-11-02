@@ -5,7 +5,7 @@
 struct Item_2f24f0 { union { float value; unsigned int bits; }; unsigned int second; unsigned int third; };
 struct Vector { float x,y,z; };
 struct List_2f24f0 { int count; int capacity; Item_2f24f0* data; void FUN_00201cd0(int capacity); void FUN_002f2470(int index, const Item_2f24f0* item); };
-void __cdecl FUN_002f24f0(List_2f24f0* list, const Item_2f24f0* item, const Vector* direction, Vector* output, float* valueOut) {
+extern "C" void __cdecl FUN_002f24f0(List_2f24f0* list, const Item_2f24f0* item, const Vector* direction, Vector* output, float* valueOut) {
  if ((*(unsigned char*)&DAT_00554c1c)) {
   if (list->count == 0) {
    if (list->capacity <= 0) list->FUN_00201cd0(list->capacity * 2);

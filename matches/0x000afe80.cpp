@@ -8,10 +8,10 @@ struct Obj_afe80 {
     Child_afe80* ptr;
     void run();
 };
-void tail();
+extern "C" void FUN_002684c0();
 void Obj_afe80::run() {
     if (ptr)
         ptr->cleanup();
     if (flag)
-        tail();
+        FUN_002684c0();
 }

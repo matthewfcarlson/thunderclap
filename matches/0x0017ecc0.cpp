@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 extern "C" char DAT_00417d18[];
-extern void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 class Track {
   public:
     void Init();
@@ -12,7 +12,7 @@ class Track {
     unsigned char flag;
 };
 void* __cdecl make_track() {
-    Track* p = (Track*)alloc(0x18);
+    Track* p = (Track*)FUN_0008d690(0x18);
     if (p) {
         p->Init();
         p->flag = 1;

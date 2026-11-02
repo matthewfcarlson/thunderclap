@@ -14,7 +14,7 @@ extern "C" void __cdecl FUN_00213360(void*, unsigned);
 extern "C" void __cdecl FUN_00213320(void*);
 // equiv-conv: FUN_0033cb70 esi ecx eax
 extern "C" int __cdecl FUN_0033cb70(MatchState_33cc10*, int, int);
-int __cdecl FUN_0033cc10(void* state) {
+extern "C" int __cdecl FUN_0033cc10(void* state) {
  Locals_33cc10 local;
  const char* text = FUN_00339df0(state,1,&local.length);
  const char* pattern = FUN_00339df0(state,2,&local.patternLength);

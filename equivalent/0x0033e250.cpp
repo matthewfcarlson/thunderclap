@@ -5,19 +5,19 @@ extern "C" int sprintf(char* buf, const char* fmt, ...);
 
 struct lua_State;
 void FUN_00339dc0(lua_State* L, int idx);
-int FUN_00339070(lua_State* L, int idx, const char* event);
+extern "C" int FUN_00339070(lua_State* L, int idx, const char* event);
 int FUN_00212f00(lua_State* L, int idx);
-const char* FUN_00213190(lua_State* L, int idx);
+extern "C" const char* FUN_00213190(lua_State* L, int idx);
 void FUN_002133d0(lua_State* L, const char* s);
 void FUN_00212ed0(lua_State* L, int idx);
-int FUN_00213160(lua_State* L, int idx);
+extern "C" int FUN_00213160(lua_State* L, int idx);
 void FUN_00213380(lua_State* L, const char* s, int len);
-const void* FUN_002132b0(lua_State* L, int idx);
-void* FUN_00213260(lua_State* L, int idx);
+extern "C" const void* FUN_002132b0(lua_State* L, int idx);
+extern "C" void* FUN_00213260(lua_State* L, int idx);
 lua_State* FUN_00213290(lua_State* L, int idx);
-const char* FUN_00213470(lua_State* L, const char* fmt, ...);
+extern "C" const char* FUN_00213470(lua_State* L, const char* fmt, ...);
 
-int FUN_0033e250(lua_State* L)
+extern "C" int FUN_0033e250(lua_State* L)
 {
     char buff[20];
     const char* name = "";

@@ -26,7 +26,7 @@ struct Blender_1bee10 {
     void FUN_000f78e0();
 };
 
-int __cdecl FUN_000fba10(int handle, int a, int b, int value, float t, int extra);
+extern "C" int __cdecl FUN_000fba10(int handle, int a, int b, int value, float t, int extra);
 
 class Effect_1bee10 {
 public:

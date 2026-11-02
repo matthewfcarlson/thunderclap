@@ -22,9 +22,9 @@ struct Found_1f57e0 {
 struct List;
 struct Item;
 
-Item* __cdecl FUN_002495c0(List* list);
+extern "C" Item* __cdecl FUN_002495c0(List* list);
 void* __cdecl FUN_002495f0(Item* item);
-void* __cdecl FUN_00249610(List* list, void* key);
+extern "C" void* __cdecl FUN_00249610(List* list, void* key);
 Item* __cdecl FUN_002495e0(List* list, Item* item);
 
 class Registry_1f57e0 {

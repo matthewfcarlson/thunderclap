@@ -6,8 +6,8 @@ struct Allocator {
     char pad[1];
 };
 Allocator* __cdecl FUN_00241670();
-void* __cdecl FUN_00247530(Allocator* a);
-void __cdecl FUN_00247550(Allocator* a, void* p);
+extern "C" void* __cdecl FUN_00247530(Allocator* a);
+extern "C" void __cdecl FUN_00247550(Allocator* a, void* p);
 
 namespace audio {
 class MixBuss {
@@ -35,7 +35,7 @@ public:
     audio::MixBuss* FUN_0025a7e0(Key_25a7e0* key);
 };
 
-bool __cdecl FUN_0025a610(void* table, audio::MixBuss* buss, int* key);
+extern "C" bool __cdecl FUN_0025a610(void* table, audio::MixBuss* buss, int* key);
 
 // Creates a mix buss for the key and registers it; frees it again when registration fails.
 audio::MixBuss* MixRegistry::FUN_0025a7e0(Key_25a7e0* key)

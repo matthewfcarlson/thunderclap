@@ -1,4 +1,4 @@
-void* FUN_0008d690(unsigned int);
+extern "C" void* FUN_0008d690(unsigned int);
 class Owner;
 class Registry_30860 {
   public:

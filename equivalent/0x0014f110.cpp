@@ -4,7 +4,7 @@
 extern char DAT_00494b44;
 extern char DAT_00494b60;
 extern void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct CFightParamsCollision_14f110;
 struct Settings_14f110 { char data[0x98]; void FUN_00059820(); void FUN_00059300(); };
 struct Controller_14f110 { unsigned char FUN_00231a40(void*, CFightParamsCollision_14f110*); };

@@ -7,7 +7,7 @@ class Owner {
   public:
     void Apply(void*);
 };
-void F(Owner* owner, void* key) {
+extern "C" void FUN_0017d670(Owner* owner, void* key) {
     Caster_17d670 c;
     void* result = Find(key, &c);
     owner->Apply(result);

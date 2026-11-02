@@ -32,7 +32,7 @@ struct lua_State_217f20 {
     TObject_217f20* stack;             // 0x1c
 };
 
-int FUN_00217640(lua_State_217f20* L, TObject_217f20* o);
+extern "C" int FUN_00217640(lua_State_217f20* L, TObject_217f20* o);
 TObject_217f20* FUN_002175b0(lua_State_217f20* L, TObject_217f20* o, int event);
 void FUN_00214d20(lua_State_217f20* L, TObject_217f20* p1, TObject_217f20* p2);
 void FUN_00214a90(lua_State_217f20* L, const char* fmt, ...);

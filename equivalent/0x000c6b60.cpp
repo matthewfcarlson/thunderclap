@@ -52,7 +52,7 @@ struct Result {
     unsigned __int64 key;
 };
 
-void FUN_000c6b60(const char *name, const char *subName, Result *out)
+extern "C" void FUN_000c6b60(const char *name, const char *subName, Result *out)
 {
     Loader *loader = (*(Loader**)&DAT_004dd9cc);
     content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> caster;

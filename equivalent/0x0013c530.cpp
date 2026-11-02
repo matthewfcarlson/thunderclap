@@ -16,7 +16,7 @@ template<class T> struct ParamName : FUN_00234a90 { virtual void slot(); };
 template<class T> struct ParamEnumConstList : FUN_00234cc0 { virtual void slot(); };
 template<class T> struct ParamFloatConstRange : FUN_00234960 { virtual void slot(); };
 }
-void __cdecl FUN_002347b0(void*,void**,int);
+extern "C" void __cdecl FUN_002347b0(void*,void**,int);
 void __cdecl FUN_0013c530() {
  if (!DAT_004e0f14) {
  void* items[3];

@@ -1,5 +1,5 @@
 extern void* vA[];
-void* __cdecl FUN_0008d6d0(unsigned n) throw();
+extern "C" void* __cdecl FUN_0008d6d0(unsigned n) throw();
 struct Buf_30e480 {
     char* a;
     char* b;

@@ -127,10 +127,10 @@ struct Dlg {
 };
 
 FEObject *__cdecl FUN_000fc260(const char *name);
-void __cdecl FUN_000fc280(const char *s);
+extern "C" void __cdecl FUN_000fc280(const char *s);
 Loc *__cdecl FUN_000fc1b0();
 Dlg *__cdecl FUN_000fc3d0();
-int __cdecl FUN_000fb720(const wchar_t *s);
+extern "C" int __cdecl FUN_000fb720(const wchar_t *s);
 void __cdecl FUN_000fb690(wchar_t *dst, const wchar_t *src, int n);
 void __cdecl FUN_000964a0(char *dst, int n, const char *fmt, int v);
 extern "C" int strcmp(const char *a, const char *b);

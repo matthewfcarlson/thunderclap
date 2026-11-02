@@ -13,7 +13,7 @@ extern Object* __cdecl FUN_00344e74(Object*,int,void*,void*,int);
 struct List_1c6950 { char padding[0x10]; int capacity; int count; Object** objects; };
 struct Group_1c6950 { void FUN_0029f800(Object*); };
 struct Manager_1c6950 { char padding[0xc0]; Group_1c6950* normal; Group_1c6950* alternate; };
-extern Manager_1c6950** __cdecl FUN_001c3d90();
+extern "C" Manager_1c6950** __cdecl FUN_001c3d90();
 void __stdcall FUN_001c6950(List_1c6950* list) {
  unsigned int flags=(*(unsigned int*)&DAT_004e236c);
  if (!(flags&1)) { flags|=1; (*(unsigned int*)&DAT_004e236c)=flags; DAT_004e2360=0.0f; (*(float*)&DAT_004e2364)=0.0f; (*(float*)&DAT_004e2368)=0.0f; }

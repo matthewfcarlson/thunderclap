@@ -4,7 +4,7 @@ struct Matrix {
     float m[16];
     void FUN_0022b980();
 };
-void* __cdecl FUN_0008d6d0(unsigned int size);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int size);
 
 class FEAnimation {
 public:

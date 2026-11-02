@@ -7,7 +7,7 @@ namespace audio {
 class SeqActionWaitBeat_250770;
 }
 
-extern void __cdecl FUN_00247550(void*, void*);
+extern "C" void __cdecl FUN_00247550(void*, void*);
 namespace audio {
 class SeqActionWaitBeat_250770 : public ::audio::SeqAction {
   public:

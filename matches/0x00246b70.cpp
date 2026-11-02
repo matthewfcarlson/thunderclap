@@ -4,7 +4,7 @@ struct Obj_246b70 {
     int b;
 };
 
-bool FUN_00246b70(Obj_246b70* p, int* out) {
+extern "C" bool FUN_00246b70(Obj_246b70* p, int* out) {
     *out = p->b - p->a;
     return true;
 }

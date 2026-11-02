@@ -4,7 +4,7 @@ struct TypeInfo_25da00 { unsigned int data; }; extern TypeInfo_25da00 DAT_004c7e
 extern void* __cdecl FUN_00344e74(void*, int, TypeInfo_25da00*, TypeInfo_25da00*, int);
 extern bool __cdecl FUN_0024b200(void*);
 extern int __cdecl FUN_0024afe0(void*);
-extern void __cdecl FUN_0024ba70(void*, int, int);
+extern "C" void __cdecl FUN_0024ba70(void*, int, int);
 struct Owner_25da00;
 struct Node;
 struct Link_25da00 { Node* asNodePadding; }; 

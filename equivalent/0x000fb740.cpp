@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000fb740 @ 0x000fb740
 #include "compat/ptr.h"
-void __cdecl FUN_000fb740(short *dest, const char *src, hulk_intptr count)
+extern "C" void __cdecl FUN_000fb740(short *dest, const char *src, hulk_intptr count)
 {
     if (*src != 0) {
         int i = 0;

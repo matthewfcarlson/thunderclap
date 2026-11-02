@@ -15,7 +15,7 @@ struct A_b9770 {
 struct B_b9770 {
     void F(int);
 };
-extern void Ffc300();
+extern "C" void FUN_000fc300();
 class Obj_b9770 {
   public:
     char pad0[0x10];
@@ -35,7 +35,7 @@ void Obj_b9770::Run() {
                 a->F();
                 b->F(9);
                 a->G(0);
-                Ffc300();
+                FUN_000fc300();
             }
         }
     }

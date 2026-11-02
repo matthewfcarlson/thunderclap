@@ -3,7 +3,7 @@
 #include "decls/data/game/global.h"
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern void __cdecl FUN_00068b90();
 extern void __cdecl FUN_00068ba0();
 extern void __cdecl FUN_00068bb0();
@@ -19,7 +19,7 @@ template<class T> struct ParamFloatConstRange {
 }
 typedef fight::ParamFloatConstRange<CMotionHitGroundHeightTrack> Param;
 extern void __cdecl FUN_002347b0(int*, Param**, int);
-void FUN_00072740() {
+extern "C" void FUN_00072740() {
  if (!DAT_004dd01c) {
  Param* params[3];
  Param* p = (Param*)FUN_0008d690(24);

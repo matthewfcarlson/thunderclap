@@ -74,8 +74,8 @@ struct World {
     Caster_195290 *caster;     // 0x24
 };
 
-HitList_195290 *FUN_00202f00();
-void __cdecl FUN_002f1ce0(V3_195290 *origin, float c, V3_195290 *normal, Shape_195290 **slot);
+extern "C" HitList_195290 *FUN_00202f00();
+extern "C" void __cdecl FUN_002f1ce0(V3_195290 *origin, float c, V3_195290 *normal, Shape_195290 **slot);
 
 // equiv-conv: FUN_00195290 ecx eax edx edi stack stack stack stack stack stack stack
 bool FUN_00195290(V3_195290 *self, void **out2, void **out1, V3_195290 *origin, V3_195290 *end, V3_195290 *normal, Shape_195290 **shapeOut,

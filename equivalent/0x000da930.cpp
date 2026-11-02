@@ -104,8 +104,8 @@ public:
     void FUN_000e63a0();
 };
 UI_da930* __cdecl FUN_000fc3d0();
-void __cdecl FUN_000fc2f0();
-void __cdecl FUN_000fc300();
+extern "C" void __cdecl FUN_000fc2f0();
+extern "C" void __cdecl FUN_000fc300();
 
 struct Frame_da930 {
     char pad0[2];

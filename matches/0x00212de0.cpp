@@ -5,7 +5,7 @@ class Thing_212de0 {
     hulk_intptr end;
 };
 int* __fastcall Find(int, Thing_212de0*);
-void __cdecl Remove(Thing_212de0* a, int b) {
+extern "C" void __cdecl FUN_00212de0(Thing_212de0* a, int b) {
     int* p = Find(b, a);
     p += 2;
     while (p < (int*)a->end) {

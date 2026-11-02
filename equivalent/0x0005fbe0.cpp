@@ -5,7 +5,7 @@
 #include "decls/data/game/unknown.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+extern "C" void* FUN_0008d690(unsigned int size);
 
 class CProceduralDurationAnimationTrack {
 public:
@@ -108,9 +108,9 @@ public:
 
 struct ParamRegistry {
 };
-void FUN_002347b0(ParamRegistry* reg, void** params, int count);
+extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
-void FUN_0005fbe0()
+extern "C" void FUN_0005fbe0()
 {
     if (DAT_004dc5e4 == 0) {
         void* params[14];

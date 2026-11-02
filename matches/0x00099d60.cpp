@@ -5,7 +5,7 @@ struct Obj_99d60 {
     int B(U_99d60* p);
 };
 extern Obj_99d60* __cdecl FUN_001c3d90(void);
-int __stdcall FUN_00099d60(U_99d60 a, U_99d60 b, U_99d60 c, U_99d60 d, B flag) {
+extern "C" int __stdcall FUN_00099d60(U_99d60 a, U_99d60 b, U_99d60 c, U_99d60 d, B flag) {
     U_99d60 x[7];
     x[0] = a;
     x[1] = b;

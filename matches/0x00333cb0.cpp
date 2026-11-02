@@ -45,7 +45,7 @@ struct ThisCall_00333ab0 {
     void FUN_00333ab0(int);
 };
 void __stdcall FUN_00364dc0(unsigned int, void*);
-void __cdecl FUN_00334fa0();
+extern "C" void __cdecl FUN_00334fa0();
 void __stdcall FUN_00364da0(void(__cdecl*)());
 void* __stdcall FUN_00364fe0(int, int);
 void __stdcall FUN_00366b40(void*, int);

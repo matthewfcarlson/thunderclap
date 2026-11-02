@@ -20,7 +20,7 @@ struct CellGrid {
 void *__cdecl FUN_0008d6d0(unsigned int size);
 
 
-void FUN_002fa4e0(unsigned int n, unsigned int a, unsigned int b)
+extern "C" void FUN_002fa4e0(unsigned int n, unsigned int a, unsigned int b)
 {
     (*(CellGrid*)&DAT_0055545c).FUN_002fa180(n);
     for (unsigned int i = 0; i < n; i++)

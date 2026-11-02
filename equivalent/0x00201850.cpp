@@ -36,10 +36,10 @@ struct Ctx_201850 {
     Table_201850 *table;
 };
 
-char __cdecl FUN_002017d0(char *buf, int *shift, unsigned int *mask);
+extern "C" char __cdecl FUN_002017d0(char *buf, int *shift, unsigned int *mask);
 int __cdecl FUN_00201780(const char *name);
-void *__cdecl FUN_00266e00(int a, int bytes);
-void __cdecl FUN_00266f00(int a, void *p);
+extern "C" void *__cdecl FUN_00266e00(int a, int bytes);
+extern "C" void __cdecl FUN_00266f00(int a, void *p);
 
 // The original's frame (and esp,-8; sub esp,0x234), laid out from the 8-aligned top down; the comments give
 // [esp+N] in the original after its three register pushes.
@@ -74,7 +74,7 @@ struct Frame_201850 {
     int pad238;            // 0x238 (unused)
 };
 
-void FUN_00201850(Loader_201850 *l, Ctx_201850 *ctx)
+extern "C" void FUN_00201850(Loader_201850 *l, Ctx_201850 *ctx)
 {
     Frame_201850 f;
     l->file->FUN_002647e0(&f.u18.a, 1, 4, 1);

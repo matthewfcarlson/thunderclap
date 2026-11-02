@@ -1,6 +1,6 @@
 #include "gen/audio.h"
 
-bool FUN_0025ac10(void*, void*);
+extern "C" bool FUN_0025ac10(void*, void*);
 class SeqEventVarVolumeRand_2523a0 : public audio::SeqEvent {
   public:
     char pad[8];

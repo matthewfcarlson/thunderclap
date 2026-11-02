@@ -55,8 +55,8 @@ struct Player_24bc70 {
 
 unsigned int __cdecl FUN_0025d040(unsigned int v);
 int __cdecl FUN_00259c50(int handle);
-void __cdecl FUN_00258ea0(int handle, int arg);
-void __cdecl FUN_0025e290(void *obj);
+extern "C" void __cdecl FUN_00258ea0(int handle, int arg);
+extern "C" void __cdecl FUN_0025e290(void *obj);
 void __cdecl FUN_0024bae0(Player_24bc70 *p, int arg);
 // equiv-conv: FUN_0024b170 eax
 void FUN_0024b170(Player_24bc70 *p);

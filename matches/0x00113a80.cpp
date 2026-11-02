@@ -7,7 +7,7 @@ class Obj {
     void Set(void*);
 };
 void* Find(int, Caster*);
-void Target(Obj* obj, int id) {
+extern "C" void FUN_00113a80(Obj* obj, int id) {
     Caster caster;
     obj->Set(Find(id, &caster));
 }

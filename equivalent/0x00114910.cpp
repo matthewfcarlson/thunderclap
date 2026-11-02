@@ -2,7 +2,7 @@
 // fight::TrackFactoryTemplate<hulkfight::ai::TokenSupressTrack>::vfunc_5 @ 0x00114910
 #include "gen/fight.h"
 
-void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 namespace hulkfight { namespace ai {
 struct TokenSupressTrack_114910 {

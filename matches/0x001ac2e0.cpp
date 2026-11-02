@@ -7,7 +7,7 @@ class Owner {
   public:
     void Apply(int);
 };
-void Run(Owner* owner, int id) {
+extern "C" void FUN_001ac2e0(Owner* owner, int id) {
     ConditionFactoryCasterTemplate_1ac2e0 c;
     owner->Apply(FUN_002343e0(id, &c));
 }

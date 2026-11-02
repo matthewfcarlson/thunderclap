@@ -38,7 +38,7 @@ struct Cfg_15e250 {
 };
 
 void *__fastcall FUN_000592a0(void *owner);
-Stats_15e250 *__fastcall FUN_00059a30(void *x);
+extern "C" Stats_15e250 *__fastcall FUN_00059a30(void *x);
 double __cdecl FUN_00224ea0(float x, float z);
 double __cdecl FUN_00224fc0(int a, int b);
 double __cdecl FUN_00224f10(V3_15e250 *v);

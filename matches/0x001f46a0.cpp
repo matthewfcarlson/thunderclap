@@ -10,7 +10,7 @@ class Obj_1f46a0 {
     int state;
     void Fn();
 };
-extern void __cdecl FUN_00247970(int, int);
+extern "C" void __cdecl FUN_00247970(int, int);
 void Obj_1f46a0::Fn() {
     int x = state;
     if (x == 1) {

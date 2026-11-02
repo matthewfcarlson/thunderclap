@@ -13,7 +13,7 @@ class Registry {
   public:
     void Add(void*);
 };
-void __cdecl Register(Registry* reg) {
+extern "C" void __cdecl FUN_0019e3e0(Registry* reg) {
     int slot;
     CasterA* a = reinterpret_cast<CasterA*>(&slot);
     a->CasterA::CasterA();

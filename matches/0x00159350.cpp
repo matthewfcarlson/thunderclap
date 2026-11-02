@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_00414030[];
-extern void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class CollisionDevastatorCondition_159350 {
   public:
     hulk_intptr vptr;
@@ -12,7 +12,7 @@ class CollisionDevastatorCondition_159350 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionDevastatorCondition>::vfunc_5() {
-    CollisionDevastatorCondition_159350* p = (CollisionDevastatorCondition_159350*)Allocate(0x10);
+    CollisionDevastatorCondition_159350* p = (CollisionDevastatorCondition_159350*)FUN_0008d690(0x10);
     if (p) {
         p->CollisionDevastatorCondition_159350::CollisionDevastatorCondition_159350(0);
         p->vptr = ((hulk_intptr)DAT_00414030);

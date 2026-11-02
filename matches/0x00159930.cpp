@@ -3,7 +3,7 @@
 
 extern "C" char DAT_00414190[];
 typedef unsigned int uint;
-extern void* __cdecl Allocate(uint);
+extern "C" void* __cdecl FUN_0008d690(uint);
 struct Obj_159930 {
     hulk_uintptr vt;
     int a;
@@ -16,7 +16,7 @@ struct Obj_159930 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionDamageHealthCompareCondition>::vfunc_5() {
-    Obj_159930* p = (Obj_159930*)Allocate(0x1c);
+    Obj_159930* p = (Obj_159930*)FUN_0008d690(0x1c);
     if (p) {
         p->Init(0);
         p->vt = ((hulk_intptr)DAT_00414190);

@@ -13,7 +13,7 @@ struct A_213680 {
 void f17440(C_213680*);
 int f15f70(int);
 int f19cc0(C_213680*, int, int);
-void target(C_213680* self, int p2, int p3) {
+extern "C" void FUN_00213680(C_213680* self, int p2, int p3) {
     A_213680* a = self->mA;
     if (a->m4c >= a->m48)
         f17440(self);

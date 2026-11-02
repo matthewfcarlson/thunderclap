@@ -6,8 +6,8 @@
 
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
-void *FUN_00266e00(int count, int size);
-void FUN_00267090(void *p);
+extern "C" void *FUN_00266e00(int count, int size);
+extern "C" void FUN_00267090(void *p);
 
 namespace content {
 namespace LoadInventory {
@@ -30,8 +30,8 @@ struct Pair_28f2c0 {
     unsigned int lo;
     unsigned int hi;
 };
-Pair_28f2c0 FUN_002672f0(const char *name, int a, int b);
-Pair_28f2c0 FUN_0027b020(const char *name);
+extern "C" Pair_28f2c0 FUN_002672f0(const char *name, int a, int b);
+extern "C" Pair_28f2c0 FUN_0027b020(const char *name);
 
 struct Name_28f2c0 {
     unsigned int lo, hi;

@@ -13,7 +13,7 @@ class Obj_96a90 {
     int mB;
     int mC;
 };
-void FUN_00096a90(Obj_96a90* p, int* out) {
+extern "C" void FUN_00096a90(Obj_96a90* p, int* out) {
     if (!p) {
         out[0] = 0;
         out[1] = 0;

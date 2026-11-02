@@ -10,7 +10,7 @@ struct Obj_16dfc0 {
     int d;
     void Init(int);
 };
-extern Obj_16dfc0* __cdecl FUN_0008d690(unsigned int);
+extern "C" Obj_16dfc0* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::VelocityXZCondition>::vfunc_5() {
     Obj_16dfc0* p = FUN_0008d690(0x14);

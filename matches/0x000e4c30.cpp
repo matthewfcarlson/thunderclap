@@ -1,5 +1,5 @@
 extern "C" void __cdecl qsort(void*, unsigned int, unsigned int, int(__cdecl*)(const void*, const void*));
-int __cdecl compare(const void*, const void*);
+extern "C" int __cdecl FUN_000e1e90(const void*, const void*);
 class Item {
   public:
     virtual void fn();
@@ -30,5 +30,5 @@ void FEContainer::vfunc_9() {
     } while (i < 128);
     for (int j = 0; j < 128; ++j)
         sorted[j] = items[j];
-    qsort(sorted, 128, 4, compare);
+    qsort(sorted, 128, 4, FUN_000e1e90);
 }

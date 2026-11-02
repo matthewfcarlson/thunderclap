@@ -116,7 +116,7 @@ struct pddiBaseContext {
     }* items[1];
 };
 } // namespace pure3d
-extern void __fastcall FUN_0022b980(int);
+extern "C" void __fastcall FUN_0022b980(int);
 void pure3d::pddiBaseContext::vfunc_13(int index) {
     Item* p = items[index];
     FUN_0022b980(p->a * 64 + p->b);

@@ -3,7 +3,7 @@
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 void *thunk_FUN_0008d690(unsigned int size);
 int FUN_00238190(int index);
-int FUN_00266da0(int value);
+extern "C" int FUN_00266da0(int value);
 
 struct NameHolder_236840 {
     char pad[8];

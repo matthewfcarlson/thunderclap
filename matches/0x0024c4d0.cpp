@@ -8,7 +8,7 @@ struct Entry {
     int e;
     int f;
 };
-unsigned __cdecl FUN_0024c4d0(unsigned* p, unsigned n) {
+extern "C" unsigned __cdecl FUN_0024c4d0(unsigned* p, unsigned n) {
     unsigned x = *p;
     int i = (int)(x << 28) >> 28;
     unsigned d = ((x >> 4) & 31) * ((Entry*)&DAT_004cc254)[i].b;

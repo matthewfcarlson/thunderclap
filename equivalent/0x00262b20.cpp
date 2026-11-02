@@ -8,7 +8,7 @@ struct Source_262b20 {
 };
 extern void* __cdecl FUN_0024c3e0(void*,uint_262b20);
 extern uint_262b20 __cdecl FUN_002629a0(void*,uint_262b20,void*,uint_262b20);
-extern uint_262b20 __cdecl FUN_0024c330(uint_262b20*,uint_262b20,uint_262b20,uint_262b20,uint_262b20);
+extern "C" uint_262b20 __cdecl FUN_0024c330(uint_262b20*,uint_262b20,uint_262b20,uint_262b20,uint_262b20);
 namespace audio {
 struct HalStream {};
 struct HalRadicalAdpcmDecodeStream : HalStream {

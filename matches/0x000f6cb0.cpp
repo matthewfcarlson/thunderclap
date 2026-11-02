@@ -4,8 +4,8 @@
 #include "compat/ptr.h"
 extern "C" char* __cdecl strchr(const char*, int);
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
-void __cdecl FUN_000f6af0(char*, char*, unsigned int);
-void __cdecl FUN_000f6cb0(char* path, unsigned int arg) {
+extern "C" void __cdecl FUN_000f6af0(char*, char*, unsigned int);
+extern "C" void __cdecl FUN_000f6cb0(char* path, unsigned int arg) {
     struct Frame { char prefix[40];  } frame;
     char* dot = strchr(path, '.');
     hulk_uintptr length = dot - path;

@@ -46,7 +46,7 @@ struct Request {
 };
 
 bool __cdecl FUN_00245720(Clip **out, void *source, const char *name, void *option);
-void FUN_001e8a60();
+extern "C" void FUN_001e8a60();
 
 struct Arg_1ea5a0 {
     union {

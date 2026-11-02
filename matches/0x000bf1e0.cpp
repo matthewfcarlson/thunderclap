@@ -21,7 +21,7 @@ struct Game_bf1e0 {
     void Run();
 };
 extern Dlg_bf1e0* __stdcall CreateDialog();
-extern void __cdecl Show(const char*);
+extern "C" void __cdecl FUN_000fc280(const char*);
 void Game_bf1e0::Run() {
     if (o34) {
         if (o34->GetCount() > 0) {
@@ -34,7 +34,7 @@ void Game_bf1e0::Run() {
         } else {
             o34->Reset();
             Use(value1cf8);
-            Show("save_new_game");
+            FUN_000fc280("save_new_game");
         }
     }
 }

@@ -14,7 +14,7 @@ public:
 };
 
 void FUN_0030eba0();
-void *__cdecl FUN_0008d6d0(unsigned int size);
+extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 void __cdecl FUN_0008d340(void *p);
 void __stdcall FUN_00011520(void *p, unsigned int size, int count, void (*ctor)());
 

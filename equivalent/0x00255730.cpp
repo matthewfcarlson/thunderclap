@@ -22,11 +22,11 @@ struct TrackName {
 };
 
 char FUN_00246f50(Writer_255730 *writer, const char *fmt, ...);
-char FUN_0024eb60(Archive_255730 *ar, const char *name, unsigned int *value);
+extern "C" char FUN_0024eb60(Archive_255730 *ar, const char *name, unsigned int *value);
 char FUN_00250ef0(Archive_255730 *ar, const char *name, char *value);
-char FUN_0024e600(Archive_255730 *ar, const char *name, TrackName *value);
-char FUN_0024eff0(Archive_255730 *ar, const char *name, NameBuf *value);
-char FUN_00250640(Archive_255730 *ar, const char *name, BeatSet *value);
+extern "C" char FUN_0024e600(Archive_255730 *ar, const char *name, TrackName *value);
+extern "C" char FUN_0024eff0(Archive_255730 *ar, const char *name, NameBuf *value);
+extern "C" char FUN_00250640(Archive_255730 *ar, const char *name, BeatSet *value);
 
 namespace audio {
 

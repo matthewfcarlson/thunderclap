@@ -7,7 +7,7 @@ void __cdecl FUN_00192770();
 void __cdecl FUN_00192780();
 void __cdecl FUN_001927a0();
 void __cdecl FUN_001927c0();
-void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 namespace hulkfight { namespace motion { class MissilePunchTrack; } }
 namespace fight {

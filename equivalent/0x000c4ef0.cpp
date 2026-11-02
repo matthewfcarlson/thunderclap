@@ -181,10 +181,10 @@ struct Frontend_c4ef0 {
     void FUN_000c4ef0(void *a1, void *a2, void *a3, Input_c4ef0 *a4, void *a5, void *a6, void *a7);
 };
 
-Singleton_c4ef0 *FUN_000fc3d0();
-void FUN_000fc060(const char *file, FEControllerSystem *ctl, CFESoundManager *snd, View_c4ef0 *r);
-void FUN_00294c70(void *src, void *dst, int n);
-void FUN_000d3d80();
+extern "C" Singleton_c4ef0 *FUN_000fc3d0();
+extern "C" void FUN_000fc060(const char *file, FEControllerSystem *ctl, CFESoundManager *snd, View_c4ef0 *r);
+extern "C" void FUN_00294c70(void *src, void *dst, int n);
+extern "C" void FUN_000d3d80();
 
 void Frontend_c4ef0::FUN_000c4ef0(void *a1, void *a2, void *a3, Input_c4ef0 *a4, void *a5, void *a6, void *a7)
 {

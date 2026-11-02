@@ -3,7 +3,7 @@ struct Child_300e60 {
 };
 void __fastcall FUN_002f79f0(void* self);
 void __fastcall FUN_003012c0(void* self);
-void __fastcall FUN_00304350(void* self);
+extern "C" void __fastcall FUN_00304350(void* self);
 void __cdecl FUN_0008d340(unsigned int n);
 struct Obj_300e60 {
     Child_300e60* first;

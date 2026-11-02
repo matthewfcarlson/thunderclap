@@ -87,8 +87,8 @@ class Closure4 : public Method4<T, R, A, B, C, D> {
 struct Registry_b0500 {
     void FUN_001d3b70(const char* name, void* closure);
 };
-Registry_b0500* FUN_001d4c90();
-void* FUN_0008d690(unsigned size);
+extern "C" Registry_b0500* FUN_001d4c90();
+extern "C" void* FUN_0008d690(unsigned size);
 
 class Source_b0500 {
   public:

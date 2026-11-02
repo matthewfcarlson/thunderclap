@@ -6,10 +6,10 @@ struct LevelKeys {
     unsigned __int64 keys[28];
 };
 
-void *FUN_0008d6d0(unsigned int size);
+extern "C" void *FUN_0008d6d0(unsigned int size);
 unsigned __int64 FUN_002672f0(const char *s, unsigned __int64 seed);
 
-void FUN_001e91c0(void)
+extern "C" void FUN_001e91c0(void)
 {
     LevelKeys *k = (LevelKeys *)FUN_0008d6d0(sizeof(LevelKeys));
     if (k != 0) {

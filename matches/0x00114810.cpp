@@ -25,7 +25,7 @@ class TrackFactoryTemplate_114810 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_00112690();
 
 template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::SemaphoreClearTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::SemaphoreClea
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_114810* t = new (mem) TrackFactoryTemplate_114810();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_00112690();
         return (void*)(t);
     }
     return (void*)(0);

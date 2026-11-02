@@ -1,5 +1,5 @@
 #include "compat/ptr.h"
-extern void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 extern int KeywordWaitVtable;
 class Helper_114b30 {
   public:
@@ -20,7 +20,7 @@ struct KeywordWaitTrack {
     char field20;
 };
 KeywordWaitTrack* __cdecl target() {
-    KeywordWaitTrack* p = (KeywordWaitTrack*)Alloc(0x28);
+    KeywordWaitTrack* p = (KeywordWaitTrack*)FUN_0008d690(0x28);
     if (p) {
         ((Helper_114b30*)p)->Init();
         p->vptr = (hulk_uintptr)&KeywordWaitVtable;

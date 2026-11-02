@@ -14,17 +14,17 @@ class CController_ae090 {
     void Alloc(int n);
 };
 
-void* operator_new_arr(int size, int n);
-void* operator_new_obj(int size, int n);
+extern "C" void* FUN_0008d750(int size, int n);
+extern "C" void* FUN_0008d710(int size, int n);
 
 void CController_ae090::Alloc(int n) {
     if (mCount)
         Clear();
     mCount = n;
-    mItems = (CPhysicalController_ae090**)operator_new_arr(n * 4, 4);
+    mItems = (CPhysicalController_ae090**)FUN_0008d750(n * 4, 4);
     for (int i = 0; i < n; i++) {
         mItems[i] = 0;
-        void* mem = operator_new_obj(0x4b0, 4);
+        void* mem = FUN_0008d710(0x4b0, 4);
         CPhysicalController_ae090* o;
         if (mem)
             o = ((CPhysicalController_ae090*)mem)->Ctor(i);

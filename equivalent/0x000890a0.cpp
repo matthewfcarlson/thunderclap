@@ -5,7 +5,7 @@
 
 struct Record_890a0 { unsigned int words[0x2fa]; };
 struct Loader_890a0 { int FUN_0008ca70(unsigned int source, int index, Record_890a0* record, int size, void* scratch); };
-extern void __cdecl FUN_000fb690(void* destination, const void* source, int size);
+extern "C" void __cdecl FUN_000fb690(void* destination, const void* source, int size);
 struct Manager_890a0 {
  char padding[0xac4];
  Loader_890a0* loader;

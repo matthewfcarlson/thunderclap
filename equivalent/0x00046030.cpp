@@ -8,7 +8,7 @@ struct Key_46030 {
  void FUN_0027b040(const char* text);
  void FUN_0027af70(const Key_46030* other);
 };
-extern void __cdecl FUN_00363be0();
+extern "C" void __cdecl FUN_00363be0();
 extern "C" int __cdecl _atexit(void (__cdecl *callback)());
 struct Entry_46030 { Key_46030 key; float value; unsigned int reserved; };
 struct Object {

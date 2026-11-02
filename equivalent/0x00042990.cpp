@@ -7,7 +7,7 @@ struct Link_42990 { Object* FUN_001d72e0(); };
 struct Owner_42990 { char pad[0x128]; Link_42990* link; };
 struct Object { char pad[8]; Owner_42990* owner; int kind; char pad2[0x64]; Flag_42990* flag; };
 struct Local_42990 { unsigned int data[3]; };
-void __cdecl FUN_00096a40(Object*, Local_42990*);
+extern "C" void __cdecl FUN_00096a40(Object*, Local_42990*);
 struct Renderer_42990 { void FUN_00025260(int,int,int); void FUN_000253c0(int); };
 struct World { char pad[0x20]; Renderer_42990* renderer; };
 struct Target_42990 {

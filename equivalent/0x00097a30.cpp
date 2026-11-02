@@ -28,7 +28,7 @@ struct Rng_97a30 {
 bool __cdecl FUN_00096b50(void *ev, V3_97a30 *out, int *err);
 void __cdecl FUN_00096b00(void *ev, V3_97a30 *out);
 float __cdecl FUN_000189c0(float v);
-float __cdecl FUN_00018710(float *k, float *len);
+extern "C" float __cdecl FUN_00018710(float *k, float *len);
 void __cdecl FUN_00224d70(float angle, V3_97a30 *v);
 
 union FU_97a30 {

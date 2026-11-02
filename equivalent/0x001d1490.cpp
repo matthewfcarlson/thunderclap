@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 921 inputs, branch coverage 34/36, incomplete)
 // FUN_001d1490 @ 0x001d1490
 extern int __cdecl FUN_00096670(const char *, const char *, unsigned int);
-extern int __cdecl FUN_00096600(const char *, const char *);
+extern "C" int __cdecl FUN_00096600(const char *, const char *);
 struct Entry_1d1490 { int header; char text[1]; };
 struct Table_1d1490 {
  Entry_1d1490 *entries[20];

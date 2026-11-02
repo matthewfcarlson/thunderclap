@@ -1,4 +1,4 @@
-extern __int64 __cdecl makeValue(const char*, int, int) throw();
+extern "C" __int64 __cdecl FUN_002672f0(const char*, int, int) throw();
 class Param {
   public:
     Param* Init(const char*, int) throw();
@@ -16,4 +16,4 @@ class SeqEventVarPosDistType_253120 : public SeqEventType_253120 {
     virtual void a();
 };
 SeqEventVarPosDistType_253120::SeqEventVarPosDistType_253120() throw()
-    : SeqEventType_253120(Param().Init("3d", 0), makeValue("SeqEventVarPosDist", 0, 0), 16, 4) {}
+    : SeqEventType_253120(Param().Init("3d", 0), FUN_002672f0("SeqEventVarPosDist", 0, 0), 16, 4) {}

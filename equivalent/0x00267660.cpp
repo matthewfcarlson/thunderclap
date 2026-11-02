@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 146 inputs, branch coverage 33/34, incomplete)
 // FUN_00267660 @ 0x00267660
-char* __cdecl FUN_00267660(char* path)
+extern "C" char* __cdecl FUN_00267660(char* path)
 {
     if (!path) return path;
     char* end = path;

@@ -90,11 +90,11 @@ public:
 };
 
 
-void __cdecl FUN_001bb0b0(const char *key);
-char __cdecl FUN_0008d910(int a3);
-void __cdecl FUN_00240bb0();
-Mgr_8e1f0 *__cdecl FUN_002684b0();
-void __cdecl FUN_002684c0();
+extern "C" void __cdecl FUN_001bb0b0(const char *key);
+extern "C" char __cdecl FUN_0008d910(int a3);
+extern "C" void __cdecl FUN_00240bb0();
+extern "C" Mgr_8e1f0 *__cdecl FUN_002684b0();
+extern "C" void __cdecl FUN_002684c0();
 void *FUN_0008d690(unsigned int size);
 MyControllerCallback *FUN_0008e090();
 

@@ -8,7 +8,7 @@ class Item {
     virtual void Set(int);
     virtual int Get();
 };
-void FUN_0035a6c0(int v) {
+extern "C" void FUN_0035a6c0(int v) {
     DAT_004dbf6c = v;
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < (*(int*)&DAT_0056f024); j++) {

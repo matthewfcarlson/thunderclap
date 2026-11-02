@@ -28,7 +28,7 @@ struct Entry_2d1540 {
     float last;
 };
 
-void __cdecl FUN_002d1540(int a, Owner_2d1540 *owner, Entry_2d1540 *entry)
+extern "C" void __cdecl FUN_002d1540(int a, Owner_2d1540 *owner, Entry_2d1540 *entry)
 {
     if (!(DAT_00554bf8 & 1)) {
         DAT_00554bf8 |= 1;

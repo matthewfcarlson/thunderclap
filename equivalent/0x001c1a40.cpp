@@ -4,7 +4,7 @@
 #include "decls/address.h"
 #include "decls/data/game/Render/Canvas.h"
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+extern "C" void* FUN_0008d690(unsigned int size);
 void* thunk_FUN_0008d690(unsigned int size);
 
 namespace pure3d {

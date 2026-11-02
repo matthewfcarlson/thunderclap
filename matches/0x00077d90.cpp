@@ -8,10 +8,10 @@ struct CScrubberTrack_77d90 {
     virtual void v2();
     void Ctor();
 };
-extern void* __cdecl operator_new(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<CScrubberTrack>::vfunc_5() {
-    CScrubberTrack_77d90* p = (CScrubberTrack_77d90*)operator_new(0x0c);
+    CScrubberTrack_77d90* p = (CScrubberTrack_77d90*)FUN_0008d690(0x0c);
     if (p) {
         p->Ctor();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fba00);

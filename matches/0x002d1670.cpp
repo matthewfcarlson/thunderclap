@@ -1,2 +1,2 @@
 // cl-flags: /O1
-void __cdecl FUN_002d1670() {}
+extern "C" void __cdecl FUN_002d1670() {}

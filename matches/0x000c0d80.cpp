@@ -7,7 +7,7 @@ struct Obj_c0d80 {
     virtual int f3(void*, unsigned long long);
 };
 extern unsigned long long Get(void*);
-int Target(Obj_c0d80* p, hulk_intptr b) {
+extern "C" int FUN_000c0d80(Obj_c0d80* p, hulk_intptr b) {
     unsigned long long x = Get((void*)b);
     struct Local {
         void* v;

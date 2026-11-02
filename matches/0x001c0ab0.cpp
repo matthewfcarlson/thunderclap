@@ -6,7 +6,7 @@
 extern "C" int strcmp(const char *a, const char *b);
 
 
-int __cdecl FUN_00266da0(int id);
+extern "C" int __cdecl FUN_00266da0(int id);
 int __cdecl FUN_000f7120(int handle);
 int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
 
@@ -18,7 +18,7 @@ struct Label_1c0ab0 {
 struct Printer_1c0ab0 {
     void FUN_001d3600(const char *text, int flag);
 };
-Printer_1c0ab0 *__cdecl FUN_001d4c90();
+extern "C" Printer_1c0ab0 *__cdecl FUN_001d4c90();
 
 struct Slot_1c0ab0 {
     int pad0[2];

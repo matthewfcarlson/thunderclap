@@ -6,7 +6,7 @@ struct CtorV_001d0480 {
     CtorV_001d0480(void*, int);
     virtual void v_001d0480();
 };
-extern "C" u8 __cdecl Check(const char*);
+extern "C" u8 __cdecl FUN_001d04d0(const char*);
 class Function_d6190 : public CtorV_001d0480 {
   public:
     Function_d6190(void* x) : CtorV_001d0480(x, 1) { }
@@ -22,8 +22,8 @@ class Method1 : public Function_d6190 {
     void* member;
     Method1(void* x, void* y) : Function_d6190(x) {
         member = y;
-        flag2 = Check(((const char*)&DAT_0048e100));
-        flag1 = Check(((const char*)&DAT_0048e0e4));
+        flag2 = FUN_001d04d0(((const char*)&DAT_0048e100));
+        flag1 = FUN_001d04d0(((const char*)&DAT_0048e0e4));
     }
 };
 class Closure1 : public Method1 {

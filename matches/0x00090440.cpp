@@ -3,6 +3,6 @@ class C_90440 {
     char pad[0x10cc];
     int m;
 };
-int __fastcall Sub(C_90440* p) {
+extern "C" int __fastcall FUN_00090440(C_90440* p) {
     return p->m;
 }

@@ -10,13 +10,13 @@ struct Factory_165180 {
     virtual void e();
     virtual u32_165180 vfunc_5();
 };
-extern void* Allocate(unsigned int);
+extern "C" void* FUN_0008d690(unsigned int);
 struct Product {
     hulk_uintptr Initialize();
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HeliLocomotionTrack>::vfunc_5() {
-    Product* p = (Product*)Allocate(0xd8);
+    Product* p = (Product*)FUN_0008d690(0xd8);
     if (p)
         return (void*)(p->Initialize());
     return (void*)(0);

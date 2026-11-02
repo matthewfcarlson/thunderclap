@@ -14,8 +14,8 @@ struct Entry_ea1b0 {
     char rest[0x38 - 0x0c];
 };
 
-int __cdecl FUN_00266da0(int tag);
-void *__cdecl FUN_0008d6d0(unsigned int size);
+extern "C" int __cdecl FUN_00266da0(int tag);
+extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 void __stdcall FUN_00011520(void *arr, unsigned int size, int count, void (Elem_ea1b0::*ctor)());
 void __cdecl FUN_0008d340(void *p);
 

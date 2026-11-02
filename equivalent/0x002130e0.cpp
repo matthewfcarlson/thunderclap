@@ -6,7 +6,7 @@
 struct Entry { int type; float value; };
 Entry* __fastcall FUN_00212bb0(void* second, void* first);
 Entry* __cdecl FUN_00217600(Entry*, void*);
-float __cdecl FUN_002130e0(void* first, void* second)
+extern "C" float __cdecl FUN_002130e0(void* first, void* second)
 {
     char scratch[8];
     Entry* entry = FUN_00212bb0(second, first);

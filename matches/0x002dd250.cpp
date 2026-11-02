@@ -9,7 +9,7 @@ struct Obj_2dd250 {
     char pad124[2];
     unsigned short value;
 };
-void FUN_002dd250(Obj_2dd250* p, unsigned char b, int mode) {
+extern "C" void FUN_002dd250(Obj_2dd250* p, unsigned char b, int mode) {
     unsigned int* q = (unsigned int*)((char*)p + 0x68);
     *q |= 0x8000;
     p->value = b;

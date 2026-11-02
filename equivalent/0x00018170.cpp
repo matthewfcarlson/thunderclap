@@ -14,7 +14,7 @@ struct Quat_18170 {
 };
 
 void __cdecl FUN_00224d70(float angle, Vec3_18170 *v);
-void FUN_0022b080(Quat_18170 *out, Quat_18170 *a, Quat_18170 *b);
+extern "C" void FUN_0022b080(Quat_18170 *out, Quat_18170 *a, Quat_18170 *b);
 
 struct Xform_18170 {
     void FUN_0022be40(Vec3_18170 *pos);

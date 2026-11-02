@@ -10,8 +10,8 @@ struct Archive {
 };
 
 char FUN_00246f50(Writer *writer, const char *fmt, ...);
-char FUN_0025abb0(Archive *ar, unsigned int value);
-char FUN_0024eb60(Archive *ar, const char *name, unsigned int *value);
+extern "C" char FUN_0025abb0(Archive *ar, unsigned int value);
+extern "C" char FUN_0024eb60(Archive *ar, const char *name, unsigned int *value);
 
 struct TreeNode {
     TreeNode *left;

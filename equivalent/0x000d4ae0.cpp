@@ -25,7 +25,7 @@ struct Profile_d4ae0 {
 
 
 void __cdecl FUN_00294b80(char *text);
-int __cdecl FUN_000fb830(char *buf, int size, char *text, float value, int extra);
+extern "C" int __cdecl FUN_000fb830(char *buf, int size, char *text, float value, int extra);
 void __cdecl FUN_000fb690(char *dst, char *src, int size);
 
 class Formatter_d4ae0 {

@@ -2,8 +2,8 @@
 // FUN_000aef10 @ 0x000aef10
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-void* __cdecl FUN_0008d690(unsigned int size);
-void FUN_000af480();
+extern "C" void* __cdecl FUN_0008d690(unsigned int size);
+extern "C" void FUN_000af480();
 
 class Function {
 public:
@@ -85,7 +85,7 @@ class Registry_aef10 {
 public:
     void FUN_001d3b70(const char* name, Function* fn);
 };
-Registry_aef10* __cdecl FUN_001d4c90();
+extern "C" Registry_aef10* __cdecl FUN_001d4c90();
 
 class CControllerManager {
 public:

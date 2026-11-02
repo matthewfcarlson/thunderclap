@@ -8,10 +8,10 @@ struct Obj_16e320 {
     unsigned char flag;
     void Init(int);
 };
-extern void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::ThinkingCondition>::vfunc_5() {
-    Obj_16e320* p = (Obj_16e320*)Alloc(0x10);
+    Obj_16e320* p = (Obj_16e320*)FUN_0008d690(0x10);
     if (p) {
         p->Init(0);
         p->vf = ((hulk_intptr)DAT_004169b8);

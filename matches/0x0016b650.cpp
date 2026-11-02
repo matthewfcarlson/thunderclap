@@ -28,7 +28,7 @@ template <class T> struct ParamEnumConstList {
 };
 } // namespace fight
 typedef fight::ParamEnumConstList<hulkfight::motion::TargetLocomotionMotionStateCondition> List_16b650;
-void __cdecl FUN_0016b650() {
+extern "C" void __cdecl FUN_0016b650() {
     if (!(*(uint*)&DAT_004e124c)) {
         List_16b650* lists[2];
         void* p = FUN_0008d690(32);

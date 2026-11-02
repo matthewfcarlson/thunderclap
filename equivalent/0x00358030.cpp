@@ -10,7 +10,7 @@ struct V3_358030 {
     void FUN_0022d180();
 };
 
-char FUN_0022d550(V3_358030 *s, V3_358030 *dir, V3_358030 *a, V3_358030 *b, float *outA, float *outB);
+extern "C" char FUN_0022d550(V3_358030 *s, V3_358030 *dir, V3_358030 *a, V3_358030 *b, float *outA, float *outB);
 char FUN_00357be0(V3_358030 *s, V3_358030 *dir, V3_358030 *a, V3_358030 *b, float *outA, float *outB);
 
 // Local frame laid out like the original's 0x94-byte frame: the callees see the neighbours of pr[],

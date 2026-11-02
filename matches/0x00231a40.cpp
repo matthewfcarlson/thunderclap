@@ -15,7 +15,7 @@ class Node {
     int mode;
 };
 extern int __cdecl FUN_00238190(int);
-extern int __cdecl FUN_00266da0(int);
+extern "C" int __cdecl FUN_00266da0(int);
 class Owner_231a40 {
   public:
     char pad[0x28];

@@ -8,7 +8,7 @@ class Factory {
   public:
     void Add(Track*);
 };
-void Target(Factory* factory, void* name) {
+extern "C" void FUN_0014b960(Factory* factory, void* name) {
     TrackFactoryCasterTemplate_14b960 caster;
     Track* track = FUN_00236ac0(name, &caster);
     factory->Add(track);

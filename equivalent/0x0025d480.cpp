@@ -6,7 +6,7 @@ extern void __cdecl FUN_0025be60(unsigned int, Buffer_25d480*);
 extern void __cdecl FUN_0025c320(Buffer_25d480*, void*, unsigned int, unsigned int);
 extern unsigned int __cdecl FUN_0024c590(Buffer_25d480*, unsigned int);
 extern unsigned int __cdecl FUN_0025be80(unsigned int, Buffer_25d480*);
-extern hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr, unsigned int);
+extern "C" hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr, unsigned int);
 struct Context;
 struct Handler_25d480 { virtual unsigned int invoke(Context*, Buffer_25d480*, void*, unsigned int); };
 struct Context { char pad0[0x8c]; unsigned int value; char pad90[0x1c]; Handler_25d480* handler; char padb0[4]; unsigned char flags; };

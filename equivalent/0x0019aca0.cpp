@@ -2,7 +2,7 @@
 // FUN_0019aca0 @ 0x0019aca0
 #include "decls/data/game/hulkfight/motion.h"
 
-void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void __cdecl FUN_001927d0();
 void __cdecl FUN_001927e0();

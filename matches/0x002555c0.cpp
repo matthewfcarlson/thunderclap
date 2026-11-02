@@ -1,5 +1,5 @@
 typedef unsigned __int64 U64;
-U64 __cdecl GetType(const char*, int, int) throw();
+extern "C" U64 __cdecl FUN_002672f0(const char*, int, int) throw();
 struct Tmp {
     int a, b, c;
     Tmp* Init(const char*, int) throw();
@@ -13,4 +13,4 @@ struct SeqEventCrossFadeType_2555c0 : SeqEventType_2555c0 {
     SeqEventCrossFadeType_2555c0() throw();
     virtual void f();
 };
-SeqEventCrossFadeType_2555c0::SeqEventCrossFadeType_2555c0() throw() : SeqEventType_2555c0(Tmp().Init("X-Fade", 0), &(U64 const&)(GetType("SeqEventCrossFade", 0, 0)), 0x34, 4) {}
+SeqEventCrossFadeType_2555c0::SeqEventCrossFadeType_2555c0() throw() : SeqEventType_2555c0(Tmp().Init("X-Fade", 0), &(U64 const&)(FUN_002672f0("SeqEventCrossFade", 0, 0)), 0x34, 4) {}

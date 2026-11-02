@@ -7,7 +7,7 @@ struct X_25e090 {
     unsigned int c;
     unsigned int d;
 };
-int __cdecl target(X_25e090* p) {
+extern "C" int __cdecl FUN_0025e090(X_25e090* p) {
     if (p->flag)
         return 0;
     unsigned int v = p->d;

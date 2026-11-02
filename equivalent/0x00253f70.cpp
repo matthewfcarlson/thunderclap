@@ -21,10 +21,10 @@ struct Src_253f70 {
 };
 
 void *FUN_0024b0c0(int a, int b);
-void FUN_0024cb50(void *h, void *v);
-void FUN_0024cb70(void *h, void *v);
-void FUN_0024c910(void *h, int a, int b);
-void FUN_0024c950(void *h, int v);
+extern "C" void FUN_0024cb50(void *h, void *v);
+extern "C" void FUN_0024cb70(void *h, void *v);
+extern "C" void FUN_0024c910(void *h, int a, int b);
+extern "C" void FUN_0024c950(void *h, int v);
 
 void __stdcall FUN_00253f70(Src_253f70 *s)
 {

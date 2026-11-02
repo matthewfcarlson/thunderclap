@@ -12,7 +12,7 @@ extern void __cdecl FUN_00219660(State_215d10*, Entry_215d10*);
 // equiv-conv: FUN_00215240 eax ecx edi
 extern void FUN_00215240(int, Entry_215d10*, State_215d10*);
 extern void __cdecl FUN_00215410(State_215d10*, int);
-int __cdecl FUN_00215d10(State_215d10* s, int n) {
+extern "C" int __cdecl FUN_00215d10(State_215d10* s, int n) {
  if (!s->active) {
   if (s->current != s->frames) return FUN_00215b00(s, "cannot resume non-suspended coroutine");
   if(n >= s->top-s->base) return FUN_00215b00(s, "cannot resume dead coroutine");

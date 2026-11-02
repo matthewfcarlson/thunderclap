@@ -11,10 +11,10 @@ class CanSeeTargetCondition_12ae30 {
     u8 b;
     void Init(int);
 };
-extern void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::CanSeeTargetCondition>::vfunc_5() {
-    CanSeeTargetCondition_12ae30* p = (CanSeeTargetCondition_12ae30*)alloc(16);
+    CanSeeTargetCondition_12ae30* p = (CanSeeTargetCondition_12ae30*)FUN_0008d690(16);
     if (p) {
         p->Init(0);
         p->a = 1;

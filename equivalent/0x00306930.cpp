@@ -12,7 +12,7 @@ struct ItemVec_306930 {
     Item_306930 **cap;
 };
 
-void *__cdecl FUN_0008d690(unsigned int size);
+extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 
 class Owner_306930 {
 public:

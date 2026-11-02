@@ -6,7 +6,7 @@ extern "C" void _ReadWriteBarrier();
 inline void* operator new(unsigned int, void* p) {
     return p;
 }
-void* __cdecl PoolAlloc(void*);
+extern "C" void* __cdecl FUN_00247530(void*);
 struct SeqEventContainer_254d80 {
     virtual void f0();
     SeqEventContainer_254d80() throw();
@@ -29,7 +29,7 @@ struct SeqEventLogicRepeat_254d80 : SeqEventContainer_254d80, Init_254d80 {
 };
 
 void* audio::SeqEventLogicRepeatType::vfunc_3() {
-    SeqEventLogicRepeat_254d80* r = (SeqEventLogicRepeat_254d80*)PoolAlloc(((char*)&DAT_004e73a8));
+    SeqEventLogicRepeat_254d80* r = (SeqEventLogicRepeat_254d80*)FUN_00247530(((char*)&DAT_004e73a8));
     if (r)
         return (void*)(new (r) SeqEventLogicRepeat_254d80);
     return (void*)(0);

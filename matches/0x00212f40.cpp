@@ -3,7 +3,7 @@ struct Result {
     char* data;
 };
 extern "C" Result* __fastcall lookup(int a, int b);
-int __cdecl check(int a, int b) {
+extern "C" int __cdecl FUN_00212f40(int a, int b) {
     int t = *(volatile int*)&b;
     Result* p = lookup(t, a);
     if (p->kind == 6 && p->data[6])

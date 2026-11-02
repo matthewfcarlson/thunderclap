@@ -28,7 +28,7 @@ struct Found_e4330 {
     unsigned int idHi;       // 0x0c
 };
 
-void __cdecl FUN_000f6cb0(const char *name, Found_e4330 *out);
+extern "C" void __cdecl FUN_000f6cb0(const char *name, Found_e4330 *out);
 
 class FEContainer {
 public:

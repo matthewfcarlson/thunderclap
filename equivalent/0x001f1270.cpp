@@ -5,7 +5,7 @@
 
 extern char DAT_0042476c[];
 
-void *__cdecl FUN_00263ed0(int size, int tag);
+extern "C" void *__cdecl FUN_00263ed0(int size, int tag);
 void *__cdecl FUN_0008d710(int size, int tag);
 
 struct SoundBank_1f1270 {

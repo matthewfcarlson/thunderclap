@@ -7,8 +7,8 @@ extern char DAT_004c7150[];
 extern char DAT_004c7170[];
 extern char DAT_004c712c[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
-extern hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr value, unsigned align);
-extern void *__cdecl FUN_0008d710(unsigned size, int tag);
+extern "C" hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr value, unsigned align);
+extern "C" void *__cdecl FUN_0008d710(unsigned size, int tag);
 
 struct Key_1ea190 {
     int a;

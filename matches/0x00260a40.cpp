@@ -6,7 +6,7 @@ struct Obj {
     char pad[0x2004];
     char* p;
 };
-char* __cdecl FUN_00260a40(Obj* o) {
+extern "C" char* __cdecl FUN_00260a40(Obj* o) {
     unsigned int n = FUN_00267f80();
     char* s = o->p;
     sprintf(s, "%u", n);

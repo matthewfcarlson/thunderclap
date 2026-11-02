@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 typedef unsigned char u8;
-void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 extern char kVtbl[];
 struct Sub0_16e5f0 {
     void Init(int);
@@ -20,7 +20,7 @@ struct Obj_16e5f0 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::RayCastConeCondition>::vfunc_5() {
-    Obj_16e5f0* p = (Obj_16e5f0*)Alloc(0x38);
+    Obj_16e5f0* p = (Obj_16e5f0*)FUN_0008d690(0x38);
     if (p) {
         ((Sub0_16e5f0*)p)->Init(0);
         p->vptr = (void*)kVtbl;

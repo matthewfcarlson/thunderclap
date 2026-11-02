@@ -10,7 +10,7 @@ extern int __cdecl FUN_0026fd50(hulk_intptr, int);
 struct Receiver_1f2e00 {
     void run(int);
 };
-extern void __cdecl FUN_0024bf90(int);
+extern "C" void __cdecl FUN_0024bf90(int);
 int g800 = 0x800;
 
 void CSoundStreamAllocator::vfunc_1(int a, int c) {

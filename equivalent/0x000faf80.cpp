@@ -38,7 +38,7 @@ public:
     Head_faf80 *FUN_000faf80(Lines *lines);
 };
 
-void *__cdecl FUN_0008d690(unsigned int size);
+extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 char *__cdecl FUN_003465c6(char *s, const char *delims);
 
 struct Frame_faf80 {

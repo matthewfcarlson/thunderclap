@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 183 inputs, branch coverage 48/50, incomplete)
 // FUN_0010ae50 @ 0x0010ae50
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
-void *__cdecl FUN_0008d6d0(int size);
+extern "C" void *__cdecl FUN_0008d6d0(int size);
 void __cdecl thunk_FUN_00267090(void *p);
 
 struct V3_10ae50 {

@@ -5,7 +5,7 @@ extern void FUN_00212ed0(void*, int);
 extern void FUN_002139a0(void*, int, int);
 extern int FUN_00212f00(void*, int);
 extern void FUN_00212d80(void*, int);
-int FUN_0033ad60(void* p) {
+extern "C" int FUN_0033ad60(void* p) {
     FUN_00339d70(p, 1, 5);
     FUN_00339d70(p, 2, 6);
     FUN_00213320(p);

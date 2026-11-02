@@ -66,8 +66,8 @@ struct Stats2_11a250 {
 
 Ent_11a250 *__fastcall FUN_000592a0(void *owner) throw();
 Stats2_11a250 *__fastcall FUN_00059a30(Ent_11a250 *e) throw();
-float __cdecl FUN_0010b1c0(World *w, Stats2_11a250 *s, float thr, Vec3_11a250 *out) throw();
-float __cdecl FUN_000186f0(float *a, float *b) throw();
+extern "C" float __cdecl FUN_0010b1c0(World *w, Stats2_11a250 *s, float thr, Vec3_11a250 *out) throw();
+extern "C" float __cdecl FUN_000186f0(float *a, float *b) throw();
 
 union Arg1_11a250 {
     int i;

@@ -7,7 +7,7 @@ class Track {
     void apply(void*);
 };
 extern "C" void* find(void*, TrackFactoryCasterTemplate_18a0d0*);
-void target(Track* track, void* name) {
+extern "C" void FUN_0018a0d0(Track* track, void* name) {
     TrackFactoryCasterTemplate_18a0d0 caster;
     track->apply(find(name, &caster));
 }

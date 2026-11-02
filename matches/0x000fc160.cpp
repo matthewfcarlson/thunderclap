@@ -8,6 +8,6 @@ class C_fc160 {
     virtual void d();
     virtual void e();
 };
-void f() {
+extern "C" void FUN_000fc160() {
     (*(C_fc160**)&DAT_004e0a60)->e();
 }

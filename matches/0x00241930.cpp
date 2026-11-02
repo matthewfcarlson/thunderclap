@@ -7,7 +7,7 @@ struct Tree {
     char padding[4];
     Node sentinel;
 };
-Node* __cdecl FUN_00241930(Tree* tree, Node* node) {
+extern "C" Node* __cdecl FUN_00241930(Tree* tree, Node* node) {
     Node* end = &tree->sentinel;
     Node* next = node->parent;
     if (next != end) {

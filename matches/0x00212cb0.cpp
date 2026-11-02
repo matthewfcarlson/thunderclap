@@ -9,7 +9,7 @@ struct Buffer {
     char pad[8];
     Pair* p;
 };
-void __cdecl FUN_00212cb0(Buffer* src, Buffer* dst, int n) {
+extern "C" void __cdecl FUN_00212cb0(Buffer* src, Buffer* dst, int n) {
     if (src == dst)
         return;
     src->p -= n;

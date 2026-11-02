@@ -13,7 +13,7 @@ void __cdecl FUN_00339d70(lua_State *L, int idx, int type);
 
 // Calls the function in argument 2 on each element (index, value) of the table in argument 1
 // and returns 1 as soon as it answers true, otherwise 0.
-int FUN_0033acd0(lua_State *L)
+extern "C" int FUN_0033acd0(lua_State *L)
 {
     FUN_00339d70(L, 1, 5);
     int n = FUN_003392c0(L, 1);

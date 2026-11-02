@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 typedef unsigned int u32_77d00;
-void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct CKeyPoseTrack_77d00 {
     hulk_uintptr init();
 };

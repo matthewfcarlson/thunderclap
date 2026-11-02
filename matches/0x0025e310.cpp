@@ -11,7 +11,7 @@ struct Obj_25e310 {
     char pad1c[12];
     hulk_uintptr m28;
 };
-int __cdecl FUN_0025e310(Obj_25e310* p) {
+extern "C" int __cdecl FUN_0025e310(Obj_25e310* p) {
     uint end, result;
     uint* q;
     if (p->m28 != 0) {

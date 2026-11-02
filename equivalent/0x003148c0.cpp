@@ -4,7 +4,7 @@ extern "C" double sqrt(double);
 
 struct V3_3148c0 { float v[3]; };
 
-int __cdecl FUN_00305a40(V3_3148c0 *dir, int mode);
+extern "C" int __cdecl FUN_00305a40(V3_3148c0 *dir, int mode);
 
 // Solves for the point where two planes' constraints meet along the plane
 // orthogonal to the dominant axis of the cross product of a3 and a4.

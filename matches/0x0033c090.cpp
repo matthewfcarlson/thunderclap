@@ -2,7 +2,7 @@ extern "C" unsigned char* __cdecl FUN_00339df0(void* input, int flag, unsigned i
 extern "C" int __cdecl FUN_00339fe0(void* input, int mode, int flag);
 extern "C" void __cdecl FUN_00213360(void* input, unsigned int value);
 
-int __cdecl FUN_0033c090(void* input) {
+extern "C" int __cdecl FUN_0033c090(void* input) {
     unsigned int length;
     unsigned char* bytes = FUN_00339df0(input, 1, &length);
     unsigned int oldLength = length;

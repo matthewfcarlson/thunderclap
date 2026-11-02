@@ -2,13 +2,13 @@
 #include "gen/fight.h"
 
 typedef unsigned int uint;
-extern void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Track_70540 {
     void* Init();
 };
 
 template <> void* fight::TrackFactoryTemplate<CStunAnimationTrack>::vfunc_5() {
-    void* p = Allocate(0x48);
+    void* p = FUN_0008d690(0x48);
     if (p)
         return (void*)(((Track_70540*)p)->Init());
     return (void*)(0);

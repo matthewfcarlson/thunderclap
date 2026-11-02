@@ -2,7 +2,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 
-extern void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 class Condition_1144f0 {
   public:
     virtual void a();
@@ -21,7 +21,7 @@ class Condition_1144f0 {
 extern int AIHistoryNameCondition_vftable;
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::HulkActionCountCondition>::vfunc_5() {
-    Condition_1144f0* p = (Condition_1144f0*)Alloc(0x18);
+    Condition_1144f0* p = (Condition_1144f0*)FUN_0008d690(0x18);
     void* result;
     if (p) {
         p->Init(0);

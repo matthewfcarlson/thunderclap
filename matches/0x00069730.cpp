@@ -1,4 +1,4 @@
-extern int Log(void* buf, int size, const char* fmt, int arg);
+extern "C" int FUN_00267760(void* buf, int size, const char* fmt, int arg);
 
 class A_69730 {
   public:
@@ -8,6 +8,6 @@ class A_69730 {
 };
 
 bool A_69730::Fn(int x) {
-    Log(buf, 0x40, "%s", x);
+    FUN_00267760(buf, 0x40, "%s", x);
     return true;
 }

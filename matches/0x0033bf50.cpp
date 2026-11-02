@@ -10,7 +10,7 @@ extern "C" void __cdecl FUN_00339630(void* input, OutputBuffer* output);
 extern "C" void __cdecl FUN_00339470(OutputBuffer* output);
 extern "C" unsigned char __cdecl FUN_00345b90(unsigned character);
 extern "C" void __cdecl FUN_00339540(OutputBuffer* output);
-int __cdecl FUN_0033bf50(void* input) {
+extern "C" int __cdecl FUN_0033bf50(void* input) {
     struct { unsigned length; OutputBuffer output; } local;
     unsigned char* source = FUN_00339df0(input, 1, &local.length);
     FUN_00339630(input, &local.output);

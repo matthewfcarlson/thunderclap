@@ -84,7 +84,7 @@ public:
 
 void FUN_000b45a0(const char *);
 void FUN_000b45b0(const char *);
-void FUN_000b45d0(const char *);
+extern "C" void FUN_000b45d0(const char *);
 struct CFEManager_c1430;
 
 class CFEManager {
@@ -139,7 +139,7 @@ struct CFEManager_c1430 {
 };
 
 CFEManager_c1430 *FUN_001d4c90();
-void FUN_000fc3e0();
+extern "C" void FUN_000fc3e0();
 
 void CFEManager::FUN_000c1430()
 {

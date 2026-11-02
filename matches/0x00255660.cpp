@@ -4,7 +4,7 @@
 
 extern "C" char DAT_004298fc[];
 
-extern void __cdecl FUN_00247550(void*, void*);
+extern "C" void __cdecl FUN_00247550(void*, void*);
 class SeqActionCrossFade_255660 : public audio::SeqAction {
   public:
     virtual SeqActionCrossFade_255660* vfunc_0(int);

@@ -21,7 +21,7 @@ struct Base_17a9a0 {
     Base_17a9a0(const char* name);
 };
 
-void FUN_0017a9a0() {
+extern "C" void FUN_0017a9a0() {
     if ((*(int*)&DAT_004e1384) == 0) {
         Param* arr[2];
         Param* a = (Param*)operator new(0x18);

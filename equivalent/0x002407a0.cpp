@@ -23,7 +23,7 @@ struct Registry_2407a0 {
 };
 
 
-void *FUN_0008d690(unsigned int size);
+extern "C" void *FUN_0008d690(unsigned int size);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 Subsystem_2407a0 *FUN_00256660();
 Subsystem_2407a0 *FUN_00245330();
@@ -50,14 +50,14 @@ Subsystem_2407a0 *FUN_0024fc50();
 Subsystem_2407a0 *FUN_0024f810();
 Subsystem_2407a0 *FUN_0024ea00();
 Subsystem_2407a0 *FUN_0024e540();
-Subsystem_2407a0 *FUN_0024df00();
+extern "C" Subsystem_2407a0 *FUN_0024df00();
 void *FUN_0024d200();
-om::EntityLoader *FUN_00247530(void *);
+extern "C" om::EntityLoader *FUN_00247530(void *);
 Subsystem_2407a0 *FUN_0024d5a0();
-int FUN_00242bd0();
+extern "C" int FUN_00242bd0();
 int FUN_00267f80();
 
-void FUN_002407a0(unsigned int flags)
+extern "C" void FUN_002407a0(unsigned int flags)
 {
     Str_2407a0 *str;
     DAT_004e5ca4 = flags;

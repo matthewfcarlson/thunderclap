@@ -4,12 +4,12 @@
 
 struct Record_2709b0 { unsigned int value; unsigned char active; char unused[0x117]; };
 void __cdecl FUN_00277190(void *);
-void __cdecl FUN_00273530(unsigned int, unsigned int);
+extern "C" void __cdecl FUN_00273530(unsigned int, unsigned int);
 void __cdecl FUN_00276650(unsigned int, unsigned int);
-void __cdecl FUN_00275d20(unsigned int, unsigned int);
-void __cdecl FUN_00273500();
-void __cdecl FUN_0026d820(void *);
-int __cdecl FUN_00267400();
+extern "C" void __cdecl FUN_00275d20(unsigned int, unsigned int);
+extern "C" void __cdecl FUN_00273500();
+extern "C" void __cdecl FUN_0026d820(void *);
+extern "C" int __cdecl FUN_00267400();
 int __cdecl FUN_002709b0(unsigned int first, unsigned int second, unsigned int third, unsigned int fourth)
 {
     DAT_0052a124 = third;

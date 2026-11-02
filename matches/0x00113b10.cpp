@@ -7,7 +7,7 @@ class Owner {
     void Fn(void*);
 };
 void* __cdecl Find(void*, Caster*);
-void __cdecl Target(Owner* o, void* key) {
+extern "C" void __cdecl FUN_00113b10(Owner* o, void* key) {
     Caster c;
     void* p = Find(key, &c);
     o->Fn(p);

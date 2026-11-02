@@ -3,9 +3,9 @@
 
 extern char vtA[], vtB[], vtC[], vtD[], vtE[], vtF[];
 void A(void*);
-void B(void*);
-void C(void*);
-void D(void*);
+extern "C" void FUN_0026d780(void*);
+extern "C" void FUN_0026dad0(void*);
+extern "C" void FUN_0026d880(void*);
 struct DriveThread_272f00 {
     int* v0;
     int* v4;
@@ -25,10 +25,10 @@ void DriveThread_272f00::Fn() {
     vc = (int*)vtC;
     flag = 1;
     A(&a);
-    B(&pad[0x18 - 0x10]);
-    C(&pad[0x18 - 0x10]);
-    D(&a);
-    D(&b);
+    FUN_0026d780(&pad[0x18 - 0x10]);
+    FUN_0026dad0(&pad[0x18 - 0x10]);
+    FUN_0026d880(&a);
+    FUN_0026d880(&b);
     int** q = &vc;
     *q = (int*)vtD;
     DAT_004cdbb0 = f8;

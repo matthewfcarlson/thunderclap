@@ -26,7 +26,7 @@ struct Key_1bf9b0 {
     int b;
 };
 
-void __cdecl FUN_000fb690(SubObj_1bf9b0 *sub, int value, int n);
+extern "C" void __cdecl FUN_000fb690(SubObj_1bf9b0 *sub, int value, int n);
 
 class Track {
 public:

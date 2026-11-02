@@ -78,13 +78,13 @@ struct Articulated : SimObject {
 
 
 void __cdecl FUN_002f5fe0(Reader_2f70a0 *r, SymMatrix_2f70a0 *sm);
-Part_2f70a0 *__cdecl FUN_0030d4f0(unsigned int a, Vec3_2f70a0 *v, unsigned int b, unsigned int c);
+extern "C" Part_2f70a0 *__cdecl FUN_0030d4f0(unsigned int a, Vec3_2f70a0 *v, unsigned int b, unsigned int c);
 Props *__cdecl FUN_002f2750(unsigned __int64 key);
-int __cdecl FUN_00266da0(int sel);
-void *__cdecl FUN_0008d6d0(unsigned int size);
+extern "C" int __cdecl FUN_00266da0(int sel);
+extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 void __cdecl thunk_FUN_00267090(void *p);
 void *thunk_FUN_0008d690(unsigned int size);
-int __cdecl FUN_00267760(char *buf, int n, const char *fmt, ...);
+extern "C" int __cdecl FUN_00267760(char *buf, int n, const char *fmt, ...);
 
 void physics::PhysicsObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr unused) { void ** outObj = (void **)__p0; Key_2f70a0 * outKey = (Key_2f70a0 *)__p1; Reader_2f70a0 * r = (Reader_2f70a0 *)__p2;
 

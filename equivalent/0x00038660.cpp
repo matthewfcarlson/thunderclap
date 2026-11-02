@@ -10,7 +10,7 @@ struct V3_38660 {
 struct Rng_38660 {
     int FUN_00011380(int a, int b);
 };
-Rng_38660* FUN_000964d0();
+extern "C" Rng_38660* FUN_000964d0();
 
 struct Rc {
     char pad0[0xc];
@@ -60,10 +60,10 @@ struct Opts_38660 {
 
 void FUN_000187d0(Rc** slot);
 void FUN_00018810(Rc** slot, int z);
-char FUN_00018960(float a, float b, float eps);
+extern "C" char FUN_00018960(float a, float b, float eps);
 void FUN_00224d70(float angle, V3_38660* v);
 float FUN_00224f10(V3_38660* v);
-char FUN_00202560(V3_38660* from, int a2, int flag, V3_38660* a3, V3_38660* a4, V3_38660* o38, V3_38660* o48,
+extern "C" char FUN_00202560(V3_38660* from, int a2, int flag, V3_38660* a3, V3_38660* a4, V3_38660* o38, V3_38660* o48,
                   Opts_38660* opts);
 extern "C" int __cdecl FUN_0034483c();
 

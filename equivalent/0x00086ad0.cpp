@@ -63,7 +63,7 @@ struct Renderer_86ad0 {
 
 
 Flags_86ad0 *FUN_0008e090();
-void FUN_002684c0();
+extern "C" void FUN_002684c0();
 char FUN_0008db80();
 
 void Game_86ad0::FUN_00086ad0()

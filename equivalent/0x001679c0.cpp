@@ -55,8 +55,8 @@ struct Obj1_1679c0 {
     Obj2_1679c0* FUN_000592a0();
 };
 
-char FUN_002027c0(Vec3_1679c0* a, Vec3_1679c0* b, int c, int d, Vec3_1679c0* hitPos, Vec3_1679c0* hitNormal, int e, int f);
-char __cdecl FUN_00202560(Vec3_1679c0* origin, float dist, int a, Vec3_1679c0* outB, Vec3_1679c0* outA, int b, int c, float* d);
+extern "C" char FUN_002027c0(Vec3_1679c0* a, Vec3_1679c0* b, int c, int d, Vec3_1679c0* hitPos, Vec3_1679c0* hitNormal, int e, int f);
+extern "C" char __cdecl FUN_00202560(Vec3_1679c0* origin, float dist, int a, Vec3_1679c0* outB, Vec3_1679c0* outA, int b, int c, float* d);
 
 namespace hulkfight {
 namespace motion {

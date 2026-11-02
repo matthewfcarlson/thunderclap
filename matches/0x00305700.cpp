@@ -1,4 +1,4 @@
-void Scale(float s, float* src, float* dst) {
+extern "C" void FUN_00305700(float s, float* src, float* dst) {
     dst[0] = s * src[0];
     dst[1] = s * src[1];
     dst[2] = s * src[2];

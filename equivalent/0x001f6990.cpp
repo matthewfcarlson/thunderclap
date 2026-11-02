@@ -4,8 +4,8 @@
 #include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
-void *FUN_0008d690(unsigned int size);
-void *FUN_0008d710(unsigned int size, int tag);
+extern "C" void *FUN_0008d690(unsigned int size);
+extern "C" void *FUN_0008d710(unsigned int size, int tag);
 
 template <class T> struct TypeName;
 template <> struct TypeName<void> { static const char *get() { return ((const char*)&DAT_0048e100); } };
@@ -93,7 +93,7 @@ struct Registry_1f6990 {
     void FUN_001d3b70(const char *name, void *closure);
     void FUN_001d3600(const char *path, int flag);
 };
-Registry_1f6990 *FUN_001d4c90();
+extern "C" Registry_1f6990 *FUN_001d4c90();
 
 struct Buffer_1f6990 {
     char pad00[0x70];

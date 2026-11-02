@@ -25,7 +25,7 @@ class TrackFactoryTemplate_580f0 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_00053170();
 
 template <> void* fight::ConditionFactoryCasterTemplate<CGroundDistanceCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CGroundDistanceCondition
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_580f0* t = new (mem) TrackFactoryTemplate_580f0();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_00053170();
         return (void*)(t);
     }
     return (void*)(0);

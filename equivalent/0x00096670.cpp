@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // FUN_00096670 @ 0x00096670
 int __cdecl FUN_00345b90(int c);
-int __cdecl FUN_00096670(const char* s1, const char* s2, unsigned int n) {
+extern "C" int __cdecl FUN_00096670(const char* s1, const char* s2, unsigned int n) {
     if (*s1 != 0 && *s2 != 0) {
         for (;;) {
             if (n == 0)

@@ -36,9 +36,9 @@ struct World {
     ModeB_452e0 *modeB;
 };
 
-int FUN_00096600(const char *a, const char *b);
+extern "C" int FUN_00096600(const char *a, const char *b);
 
-hulk_intptr FUN_000452e0(const char *id, const char *name, int value)
+extern "C" hulk_intptr FUN_000452e0(const char *id, const char *name, int value)
 {
     int r = 0;
     if (id == 0 || *id == 0) return (hulk_intptr)id;

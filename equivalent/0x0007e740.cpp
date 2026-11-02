@@ -64,9 +64,9 @@ struct Cell_7e740 {
     int next;
 };
 
-Rng_7e740 *FUN_000964d0();
+extern "C" Rng_7e740 *FUN_000964d0();
 void FUN_00224d70(float angle, V3_7e740 *v);
-char __cdecl FUN_00202560(V3_7e740 *origin, float dist, int a, V3_7e740 *outB, V3_7e740 *outA, int b, int c, int d);
+extern "C" char __cdecl FUN_00202560(V3_7e740 *origin, float dist, int a, V3_7e740 *outB, V3_7e740 *outA, int b, int c, int d);
 int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
 
 class Game_7e740 {

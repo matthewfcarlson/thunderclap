@@ -21,8 +21,8 @@ struct Alloc_2758c0 {
 };
 extern void* g_a_2758c0[];
 extern void* g_b_2758c0[];
-void __cdecl Lk(void*);
-void __cdecl Ulk(void*);
+extern "C" void __cdecl FUN_0026d850(void*);
+extern "C" void __cdecl FUN_0026d840(void*);
 class DriveCreateDirectoryRequest_2758c0 {
   public:
     void* vptr;
@@ -38,9 +38,9 @@ DriveCreateDirectoryRequest_2758c0* DriveCreateDirectoryRequest_2758c0::f0(unsig
     drive->release();
     vptr = g_b_2758c0;
     if (flags & 1) {
-        Lk(((char*)&DAT_0052a1c8));
+        FUN_0026d850(((char*)&DAT_0052a1c8));
         (*(Alloc_2758c0**)&DAT_0052a1e4)->free(this);
-        Ulk(((char*)&DAT_0052a1c8));
+        FUN_0026d840(((char*)&DAT_0052a1c8));
     }
     return this;
 }

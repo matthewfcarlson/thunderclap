@@ -14,7 +14,7 @@ struct State_21b160 {
     unsigned extra;
 };
 extern "C" unsigned readSlow(Stream*);
-void init(unsigned x, State_21b160* s, Stream* p, unsigned y) {
+extern "C" void FUN_0021b160(unsigned x, State_21b160* s, Stream* p, unsigned y) {
     s->first = x;
     s->stream = p;
     s->a = 1;

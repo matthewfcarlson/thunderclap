@@ -62,7 +62,7 @@ extern Game_2027c0 *DAT_004dd700;
 
 void FUN_002f1ce0(V3_2027c0 *a, int value, V3_2027c0 *b, int *outv);
 
-bool FUN_002027c0(V3_2027c0 *from, V3_2027c0 *to, float radius, int a4, V3_2027c0 *a5, V3_2027c0 *a6, int *a7, int *a8)
+extern "C" bool FUN_002027c0(V3_2027c0 *from, V3_2027c0 *to, float radius, int a4, V3_2027c0 *a5, V3_2027c0 *a6, int *a7, int *a8)
 {
     struct Frame {
         char pad00[3];

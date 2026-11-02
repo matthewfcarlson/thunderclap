@@ -18,7 +18,7 @@ struct Entry_3eca0 {
 };
 
 
-void __cdecl FUN_00363ba0();
+extern "C" void __cdecl FUN_00363ba0();
 extern "C" int __cdecl atexit(void (__cdecl *fn)());
 
 class Table_3eca0 {

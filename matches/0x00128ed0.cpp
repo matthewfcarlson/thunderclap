@@ -37,7 +37,7 @@ template <class T> struct ParamBool : FUN_00234860 {
 };
 } // namespace fight
 extern void __cdecl FUN_002347b0(int*, void**, int);
-void target() {
+extern "C" void FUN_00128ed0() {
     if (!DAT_004e0dd0) {
         void* p[3];
         void* mem = FUN_0008d690(24);

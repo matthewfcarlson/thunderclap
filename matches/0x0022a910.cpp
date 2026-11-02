@@ -2,12 +2,12 @@
 // data: g_count_22a910 = DAT_004e5abc
 
 extern int vtable_22a910;
-extern void __fastcall cleanup(void*);
+extern "C" void __fastcall FUN_0027afd0(void*);
 struct Driver {
     int* vptr;
 };
 void __fastcall target(Driver* self) {
     self->vptr = &vtable_22a910;
     --(*(int*)&DAT_004e5abc);
-    cleanup((void*)(self));
+    FUN_0027afd0((void*)(self));
 }

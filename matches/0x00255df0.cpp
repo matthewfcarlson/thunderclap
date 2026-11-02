@@ -5,13 +5,13 @@ class SeqAction_255df0 {
     virtual void x();
     char pad[0x10];
 };
-int Check(int);
-void Do(int);
+extern "C" int FUN_00259c50(int);
+extern "C" void FUN_00258e50(int);
 
 void audio::SeqActionClip::vfunc_4(int ) {
     if (this->f_14 != 0) {
-        if (Check(this->f_14) == 1)
-            Do(this->f_14);
+        if (FUN_00259c50(this->f_14) == 1)
+            FUN_00258e50(this->f_14);
     }
     this->f_18 = 5;
 }

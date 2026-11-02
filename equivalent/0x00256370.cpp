@@ -28,8 +28,8 @@ struct Target_256370 {
 struct Voice;
 
 void __cdecl FUN_00258c80(Voice* v, float gain);
-void __cdecl FUN_00258b40(Voice* v, int flag);
-void __cdecl FUN_00259be0(Voice* v);
+extern "C" void __cdecl FUN_00258b40(Voice* v, int flag);
+extern "C" void __cdecl FUN_00259be0(Voice* v);
 
 
 

@@ -25,7 +25,7 @@ class TrackFactoryTemplate_6f0c0 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_0005ef60();
 
 template <> void* fight::TrackFactoryCasterTemplate<CClearHitRecordsTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CClearHitRecordsTrack>::vfun
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_6f0c0* t = new (mem) TrackFactoryTemplate_6f0c0();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_0005ef60();
         return (void*)(t);
     }
     return (void*)(0);

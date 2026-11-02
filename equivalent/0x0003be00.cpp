@@ -11,7 +11,7 @@ struct Quat_3be00 {
     char FUN_000375f0(const Quat_3be00 *other, float eps);
 };
 
-void FUN_0022b080(Quat_3be00 *out, const Quat_3be00 *a, const Quat_3be00 *b);
+extern "C" void FUN_0022b080(Quat_3be00 *out, const Quat_3be00 *a, const Quat_3be00 *b);
 
 struct Skeleton {
     char pad00[0x100];

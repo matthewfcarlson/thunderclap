@@ -6,7 +6,7 @@
 
 extern "C" char DAT_0042a30c[];
 typedef unsigned int u32_2547e0;
-extern void* __cdecl allocObj(void*);
+extern "C" void* __cdecl FUN_00247530(void*);
 struct SeqEventSilence_2547e0 {
     hulk_uintptr vptr;
     u32_2547e0 unk;
@@ -16,7 +16,7 @@ struct SeqEventSilence_2547e0 {
 };
 
 void* audio::SeqEventSilenceType::vfunc_3() {
-    SeqEventSilence_2547e0* p = (SeqEventSilence_2547e0*)allocObj(((char*)&DAT_004e72f8));
+    SeqEventSilence_2547e0* p = (SeqEventSilence_2547e0*)FUN_00247530(((char*)&DAT_004e72f8));
     if (p) {
         p->initialize();
         p->vptr = ((hulk_intptr)DAT_0042a30c);

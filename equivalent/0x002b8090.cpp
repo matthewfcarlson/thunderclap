@@ -10,9 +10,9 @@
 
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
-void *FUN_0008d690(unsigned int size);
-unsigned __int64 __cdecl FUN_0027b020(const char *s);
-unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
+extern "C" void *FUN_0008d690(unsigned int size);
+extern "C" unsigned __int64 __cdecl FUN_0027b020(const char *s);
+extern "C" unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
 
 struct Stream;
 struct Ctx;

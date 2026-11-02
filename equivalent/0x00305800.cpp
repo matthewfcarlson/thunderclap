@@ -3,7 +3,7 @@
 struct Vec_305800 { float x,y,z; };
 struct Object { void FUN_0022c1b0(); };
 void __cdecl FUN_00305520(Vec_305800*, Object*);
-void __cdecl FUN_00305800(const Vec_305800* input, Object* object, float divisor) {
+extern "C" void __cdecl FUN_00305800(const Vec_305800* input, Object* object, float divisor) {
  union Bits { float f; unsigned int u; } x,y,z;
  x.f=input->x; y.f=input->y; z.f=input->z;
  x.u &= 0x7fffffff; y.u &= 0x7fffffff; z.u &= 0x7fffffff;

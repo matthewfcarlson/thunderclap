@@ -105,8 +105,8 @@ public:
     virtual void v5();
 };
 
-Rng_1962b0 *__cdecl FUN_000964d0();
-extern int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
+extern "C" Rng_1962b0 *__cdecl FUN_000964d0();
+extern "C" int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 
 namespace hulkfight {
 namespace motion {

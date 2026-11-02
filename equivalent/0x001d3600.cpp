@@ -6,7 +6,7 @@ struct Stream {
  virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19(); virtual void slot20(); virtual void reset(); virtual void slot22(); virtual bool valid();
 };
 extern void __cdecl thunk_FUN_002710d0(Stream**, const char*, int,int,int,int,int,int);
-extern char* __cdecl FUN_0008d6d0(unsigned int);
+extern "C" char* __cdecl FUN_0008d6d0(unsigned int);
 extern void __cdecl FUN_0008d340(void*);
 struct Object {
  int unknown; int status; unsigned int context;

@@ -4,7 +4,7 @@
 
 struct Resource_2059d0 { virtual void unused(); virtual void release(); void FUN_002665a0(); };
 struct Handle_2059d0 { void FUN_00263e90(); };
-extern void __cdecl FUN_00267110(int);
+extern "C" void __cdecl FUN_00267110(int);
 extern void __cdecl FUN_00267090(void*);
 struct Entry_2059d0 {
  unsigned char active, flag;

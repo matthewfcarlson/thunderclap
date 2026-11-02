@@ -34,7 +34,7 @@ namespace fight {
  template<class T> struct ParamBool : FUN_00234860 { virtual void slot0(); };
 }
 void __cdecl FUN_002347b0(void*,void**,int);
-void __cdecl FUN_00188490() {
+extern "C" void __cdecl FUN_00188490() {
  if (!DAT_004e14cc) {
  void* params[3];
  fight::ParamFloatConstRange<hulkfight::motion::PropAddToCollisionTrack>* a=new fight::ParamFloatConstRange<hulkfight::motion::PropAddToCollisionTrack>;

@@ -5,7 +5,7 @@
 namespace audio { struct ListenerEffectPsp; }
 struct ConfigResult { void FUN_0025fb00(audio::ListenerEffectPsp*); };
 namespace om { struct Type { virtual void vfunc_0(); virtual void vfunc_1(); virtual void* vfunc_2(); virtual ConfigResult* vfunc_3(); }; }
-void* __cdecl FUN_00247530(void*);
+extern "C" void* __cdecl FUN_00247530(void*);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 namespace audio {
 struct ListenerEffectPsp { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); void FUN_0025e6f0(void*); };

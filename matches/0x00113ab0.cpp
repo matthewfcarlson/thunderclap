@@ -7,7 +7,7 @@ class Obj {
     int Get(void*);
 };
 extern "C" void* Find(const char*, Caster*);
-int Func(Obj* obj, const char* name) {
+extern "C" int FUN_00113ab0(Obj* obj, const char* name) {
     Caster caster;
     return obj->Get(Find(name, &caster));
 }

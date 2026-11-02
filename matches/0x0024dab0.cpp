@@ -14,10 +14,10 @@ class ListenerEffectPs2 {
     virtual void F8();
     void Base();
 };
-extern void DestroyFn(void*, ListenerEffectPs2*);
+extern "C" void FUN_00247550(void*, ListenerEffectPs2*);
 ListenerEffectPs2* ListenerEffectPs2::F2(unsigned char flag) {
     Base();
     if (flag & 1)
-        DestroyFn((void*)((hulk_intptr)DAT_004e6548), this);
+        FUN_00247550((void*)((hulk_intptr)DAT_004e6548), this);
     return this;
 }

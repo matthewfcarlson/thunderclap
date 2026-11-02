@@ -20,7 +20,7 @@ struct Stats_4a160 {
     Unit_4a160 *a334;
     Unit_4a160 *a338;
 };
-Stats_4a160 *__fastcall FUN_00059a30(Fighter_4a160 *f);
+extern "C" Stats_4a160 *__fastcall FUN_00059a30(Fighter_4a160 *f);
 
 class CGrappleCharacterTemplateCondition {
 public:

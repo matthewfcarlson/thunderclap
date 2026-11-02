@@ -17,7 +17,7 @@ class Obj_247b30 {
     char pad24[4];
     int a28;
 };
-void __cdecl Target(int p1, Obj_247b30* p2, unsigned int* p3, int* p4) {
+extern "C" void __cdecl FUN_00247b30(int p1, Obj_247b30* p2, unsigned int* p3, int* p4) {
     p2->aC = 5;
     if (p3) {
         p2->a18 = p3[0];

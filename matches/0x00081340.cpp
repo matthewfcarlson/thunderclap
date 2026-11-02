@@ -38,7 +38,7 @@ struct Sub_81340 {
 struct Tmp_81340 {
     void F1c3b80(void*);
 };
-Tmp_81340* __stdcall F1c3d90();
+extern "C" Tmp_81340* __stdcall FUN_001c3d90();
 extern Mgr_81340* g_mgr_81340;
 class CCivilian_81340 : public Entity_81340 {
   public:
@@ -68,7 +68,7 @@ CCivilian_81340::~CCivilian_81340() {
         }
     }
     g_mgr_81340->m10->F1b43f0(this);
-    F1c3d90()->F1c3b80(&pad[4]);
+    FUN_001c3d90()->F1c3b80(&pad[4]);
     if (mb8) {
         mb8->Release();
         mb8 = 0;

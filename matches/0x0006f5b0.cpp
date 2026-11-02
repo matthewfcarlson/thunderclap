@@ -3,14 +3,14 @@
 
 extern "C" char DAT_003fd044[];
 typedef unsigned int u32_6f5b0;
-void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct CGrappleEffectTrack_6f5b0 {
     virtual void a();
     void Init();
 };
 
 template <> void* fight::TrackFactoryTemplate<CGrappleEffectTrack>::vfunc_5() {
-    CGrappleEffectTrack_6f5b0* p = (CGrappleEffectTrack_6f5b0*)Allocate(0x60);
+    CGrappleEffectTrack_6f5b0* p = (CGrappleEffectTrack_6f5b0*)FUN_0008d690(0x60);
     if (p != 0) {
         p->Init();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fd044);

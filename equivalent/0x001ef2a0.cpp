@@ -3,7 +3,7 @@
 #include "decls/data/game/unknown.h"
 
 struct Rng;
-Rng* FUN_000964d0();
+extern "C" Rng* FUN_000964d0();
 
 class Spawner_1ef2a0 {
 public:

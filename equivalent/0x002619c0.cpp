@@ -7,7 +7,7 @@ struct Parser_2619c0 {
 
 char *__cdecl FUN_002611b0(Parser_2619c0 *p);
 
-char *FUN_002619c0(Parser_2619c0 *p)
+extern "C" char *FUN_002619c0(Parser_2619c0 *p)
 {
     char *start = p->cursor;
     p->cursor = start + 1;

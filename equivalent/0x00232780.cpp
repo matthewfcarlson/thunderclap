@@ -4,7 +4,7 @@
 
 extern int __cdecl FUN_00238190(int);
 extern int __cdecl FUN_00266da0(int);
-extern void* __cdecl FUN_0008d690(int);
+extern "C" void* __cdecl FUN_0008d690(int);
 
 int* __cdecl FUN_00232780() {
     int value = FUN_00266da0(FUN_00238190(0));

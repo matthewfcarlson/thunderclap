@@ -102,14 +102,14 @@ struct Mgr2_8b560 {
     int FUN_0008cbe0(int a1, int a2, Slot_8b560 *slot, int size, unsigned short *name);
 };
 
-char FUN_00035da0();
+extern "C" char FUN_00035da0();
 int __cdecl FUN_000964a0(char *buf, int n, const char *fmt, ...);
-unsigned int *__cdecl FUN_000964d0();
-void __cdecl FUN_000fb690(unsigned short *dst, const unsigned short *src, int n);
-void __cdecl FUN_000fb740(unsigned short *dst, const char *src, int n);
-int __cdecl FUN_000fc000(unsigned short *dst, int n, const char *fmt, ...);
-int __cdecl FUN_000fb720(const unsigned short *s);
-char __cdecl FUN_000fb6e0(const unsigned short *a, const unsigned short *b, int n);
+extern "C" unsigned int *__cdecl FUN_000964d0();
+extern "C" void __cdecl FUN_000fb690(unsigned short *dst, const unsigned short *src, int n);
+extern "C" void __cdecl FUN_000fb740(unsigned short *dst, const char *src, int n);
+extern "C" int __cdecl FUN_000fc000(unsigned short *dst, int n, const char *fmt, ...);
+extern "C" int __cdecl FUN_000fb720(const unsigned short *s);
+extern "C" char __cdecl FUN_000fb6e0(const unsigned short *a, const unsigned short *b, int n);
 
 class SaveMgr {
 public:

@@ -101,7 +101,7 @@ struct Manager_1b8780 {
     virtual Item_1b8780* get(int);
 };
 extern Manager_1b8780* gManager_1b8780;
-extern int FUN_00266da0(int);
+extern "C" int FUN_00266da0(int);
 struct Obj_1b8780 {
     char pad[0x33];
     unsigned char field;

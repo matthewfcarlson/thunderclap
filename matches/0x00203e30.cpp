@@ -11,7 +11,7 @@ struct Waiter {
 struct Target_203e30 {
     void Run(Waiter*);
 };
-extern void __cdecl FUN_00087990();
+extern "C" void __cdecl FUN_00087990();
 void Target_203e30::Run(Waiter* w) {
     int old = (*(Manager_203e30**)&DAT_00527c58)->Get();
     (*(Manager_203e30**)&DAT_00527c58)->Set(250000);

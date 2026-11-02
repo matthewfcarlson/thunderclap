@@ -36,7 +36,7 @@ struct Record_215c00 {
 extern unsigned __cdecl FUN_0021a590(unsigned);
 extern void __cdecl FUN_00217440(Context*);
 extern Object* __cdecl FUN_00220480(Context*, unsigned, unsigned*, unsigned);
-extern Object* __cdecl FUN_0021f710(Context*, unsigned, unsigned*, unsigned);
+extern "C" Object* __cdecl FUN_0021f710(Context*, unsigned, unsigned*, unsigned);
 extern Record_215c00* __cdecl FUN_00219560(Context*, unsigned, unsigned*);
 extern unsigned __cdecl FUN_002195d0(Context*);
 extern void __cdecl FUN_00215460(Context*, int);

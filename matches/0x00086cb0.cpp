@@ -29,8 +29,8 @@ struct Memory_86cb0 {
     void FUN_0008d0a0(int);
 };
 extern Memory_86cb0* __stdcall FUN_0008ceb0();
-extern void __cdecl FUN_000969c0(int);
-extern void __cdecl FUN_00096740();
+extern "C" void __cdecl FUN_000969c0(int);
+extern "C" void __cdecl FUN_00096740();
 struct Target_86cb0 {
     int field0;
     Mode_86cb0* mode;

@@ -1,7 +1,7 @@
 struct Node {
     Node* next;
 };
-Node* __fastcall FUN_00230ea0(Node* p) {
+extern "C" Node* __fastcall FUN_00230ea0(Node* p) {
     Node* n = p->next;
     if (n == (Node*)((char*)p + 4))
         return 0;

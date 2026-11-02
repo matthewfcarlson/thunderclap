@@ -96,7 +96,7 @@ public:
 
 
 float FUN_00224f10(Vec3_81420* v);
-int FUN_000113e0(int lo, int hi);
+extern "C" int FUN_000113e0(int lo, int hi);
 void FUN_00018810(RefObj_81420** slot, RefObj_81420* obj);
 
 void Fx_81420::FUN_00081420(Source_81420* src)

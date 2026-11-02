@@ -4,6 +4,6 @@ class CGrabAction {
   public:
     int value;
 };
-int __fastcall FUN_001dcf50(CGrabAction* self) {
+extern "C" int __fastcall FUN_001dcf50(CGrabAction* self) {
     return self->value;
 }

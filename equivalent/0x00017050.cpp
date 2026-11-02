@@ -76,7 +76,7 @@ struct Cfg_17050 {
 
 void *FUN_00263ea0(unsigned int);
 
-void __cdecl FUN_00096a90(Target_17050 *t, V3_17050 *v);
+extern "C" void __cdecl FUN_00096a90(Target_17050 *t, V3_17050 *v);
 float __cdecl FUN_00224ea0(float a, float b);
 
 bool CJumpAttackAction::vfunc_6(int arg) {

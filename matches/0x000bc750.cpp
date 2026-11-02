@@ -20,7 +20,7 @@ class Obj_bc750 {
     int Get(void*);
     void End();
 };
-void Tail();
+extern "C" void FUN_000fc300();
 void Obj_bc750::End() {
     if (m34 && m38) {
         m38->H(9);
@@ -33,7 +33,7 @@ void Obj_bc750::End() {
                     m4c->F(edi);
                 m34->C(ebx);
                 m34->D(edi);
-                Tail();
+                FUN_000fc300();
             }
         }
     }

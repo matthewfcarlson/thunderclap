@@ -32,14 +32,14 @@ struct StopData {
     Str_251170 name;
     char flag1c;
 };
-void FUN_002613b0(Table_251170* t, Str_251170* out, Str_251170* in);
-int FUN_002673a0(const char* s, int seed);
+extern "C" void FUN_002613b0(Table_251170* t, Str_251170* out, Str_251170* in);
+extern "C" int FUN_002673a0(const char* s, int seed);
 Node_251170* FUN_0024a370(Mgr_251170* m, int* key);
-Node_251170* FUN_002495c0(Mgr_251170* m);
-Item* FUN_002495f0(Node_251170* n);
-int FUN_00247930(Mgr_251170* m, Item* it);
-Item* FUN_00249600(Node_251170* n, Item* it);
-void FUN_00247b30(Mgr_251170* m, Item* it, Pair_251170* p, int z);
+extern "C" Node_251170* FUN_002495c0(Mgr_251170* m);
+extern "C" Item* FUN_002495f0(Node_251170* n);
+extern "C" int FUN_00247930(Mgr_251170* m, Item* it);
+extern "C" Item* FUN_00249600(Node_251170* n, Item* it);
+extern "C" void FUN_00247b30(Mgr_251170* m, Item* it, Pair_251170* p, int z);
 Node_251170* FUN_002495e0(Mgr_251170* m, Node_251170* n);
 
 void audio::SeqActionStopTrack::vfunc_1(void* __p0) { Ctx_251170 * ctx = (Ctx_251170 *)__p0;

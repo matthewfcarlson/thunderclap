@@ -3,8 +3,8 @@
 // data: globalG = DAT_0052a1e4
 
 extern int vtDrive, vtRequest;
-extern void FUN_0026d850(void*);
-extern void FUN_0026d840(void*);
+extern "C" void FUN_0026d850(void*);
+extern "C" void FUN_0026d840(void*);
 class Elem_275a30 {
   public:
     virtual void A();

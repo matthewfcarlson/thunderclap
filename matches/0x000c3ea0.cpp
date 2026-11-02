@@ -7,7 +7,7 @@ extern char DAT_0049f4a4[];
 struct Widget;
 extern Widget* __cdecl FUN_000fc260(const char* name);
 extern void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
-extern bool FUN_00035da0();
+extern "C" bool FUN_00035da0();
 
 class Selector_c3ea0 {
   public:

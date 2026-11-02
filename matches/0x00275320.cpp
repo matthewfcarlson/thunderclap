@@ -13,8 +13,8 @@ class Root_275320 {
     virtual void a();
     virtual void b();
 };
-extern void __cdecl FUN_0026d850(void*);
-extern void __cdecl FUN_0026d840(void*);
+extern "C" void __cdecl FUN_0026d850(void*);
+extern "C" void __cdecl FUN_0026d840(void*);
 struct Manager_275320 {
     virtual void x();
     virtual void y();

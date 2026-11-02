@@ -25,7 +25,7 @@ template <class T> struct ParamEnumConstList : FUN_00234cc0 {
 };
 } // namespace fight
 void __cdecl FUN_002347b0(void*, void*, int);
-void __cdecl FUN_000532e0() {
+extern "C" void __cdecl FUN_000532e0() {
     if (!DAT_004dc454) {
         typedef fight::ParamEnumConstList<fight::CCollisionHitLocationCondition> Param;
         Param* entries[2];

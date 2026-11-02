@@ -10,8 +10,8 @@ struct StreamBackend { void FUN_002647e0(void*, unsigned, unsigned, unsigned); }
 struct Stream_1fb050 { char pad[0x284]; StreamBackend* backend; void FUN_00266c40(); };
 struct Counter_1fb050 { char pad[0x30]; unsigned count; };
 struct CDataHandlerObject_1fb050 { virtual void vfunc_0(); unsigned refs; unsigned size; void* data; };
-extern int __cdecl FUN_00266da0(int);
-extern void* __cdecl FUN_0008d6d0(unsigned);
+extern "C" int __cdecl FUN_00266da0(int);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned);
 extern void* __cdecl FUN_00263ea0(unsigned);
 extern int __cdecl FUN_000964a0(char*, unsigned, const char*, ...);
 

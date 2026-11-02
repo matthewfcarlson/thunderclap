@@ -80,7 +80,7 @@ public:
     Handle_125a90* FUN_000592a0();
 };
 
-Singleton_125a90* FUN_001c3d90();
+extern "C" Singleton_125a90* FUN_001c3d90();
 float FUN_00224f10(V3_125a90* v);
 float FUN_00224fc0(float a, float b);
 float FUN_00018a20(float v);

@@ -18,7 +18,7 @@ template<class T> struct ParamFloatConstRange {
 }
 typedef fight::ParamFloatConstRange<CInvulnerableTrack> Param;
 void __cdecl FUN_002347b0(void*, Param**, int);
-void __cdecl FUN_00072360() {
+extern "C" void __cdecl FUN_00072360() {
  if (!DAT_004dcfdc) {
  Param* entries[3];
  const char* names[3]={"timeBegin","timeEnd","extensionTime"};

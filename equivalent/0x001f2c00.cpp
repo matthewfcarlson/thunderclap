@@ -14,7 +14,7 @@ struct CSoundTriggerExecutionState {
  float duration;
  int field24;
 };
-void* __cdecl FUN_0008d750(int,int);
+extern "C" void* __cdecl FUN_0008d750(int,int);
 struct Target_1f2c00 {
  Owner_1f2c00* owner;
  InitObject* init;

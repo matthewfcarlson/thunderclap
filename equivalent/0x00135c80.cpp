@@ -82,7 +82,7 @@ static float AbsF(float v)
 }
 
 void* __cdecl thunk_FUN_0008d690(unsigned int size);
-void __cdecl FUN_00096a90(Target_135c80* t, V3_135c80* out);
+extern "C" void __cdecl FUN_00096a90(Target_135c80* t, V3_135c80* out);
 extern "C" float FUN_00224ea0(float x, float z);
 
 namespace hulkfight { namespace motion {

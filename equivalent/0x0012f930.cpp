@@ -6,7 +6,7 @@ struct SoundValue { unsigned int data[2]; void FUN_0027b0e0(unsigned int); void 
 struct SoundInfo { char pad[16]; unsigned int sound; unsigned int value; unsigned int extra; };
 struct Singleton_4dd6ec {};
 struct SoundHandle { void FUN_001eb5e0(SoundValue *, unsigned int, unsigned int); };
-SoundHandle *__fastcall FUN_000862e0(Singleton_4dd6ec *);
+extern "C" SoundHandle *__fastcall FUN_000862e0(Singleton_4dd6ec *);
 namespace hulkfight {
 struct NISSoundAction {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual bool vfunc_3(int,int); virtual void vfunc_4(); virtual void vfunc_5();

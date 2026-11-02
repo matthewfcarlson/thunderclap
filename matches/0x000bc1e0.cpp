@@ -1,4 +1,4 @@
-void __cdecl f1(int);
+extern "C" void __cdecl FUN_000fc280(int);
 class Child {
   public:
     void set(int);
@@ -18,7 +18,7 @@ void Obj::run(int arg) {
     if (state != 9) {
         state = 9;
         flag = 0;
-        f1(arg);
+        FUN_000fc280(arg);
         if (ptr) {
             ptr->set(6);
             f2(1);

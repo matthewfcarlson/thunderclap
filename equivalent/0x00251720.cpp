@@ -6,10 +6,10 @@ struct Temp_251720 { char data[12]; void FUN_0023fac0(); void FUN_00240170(void*
 struct Settings_251720 { char pad[8]; unsigned value8; unsigned valueC; unsigned char flag; char pad2[3]; char name[1]; };
 struct Owner_251720 { char pad[0x5c]; char tracks[1]; };
 struct Context_251720 { char pad[0x3c]; Owner_251720* owner; };
-void __cdecl FUN_002613b0(void*,Temp_251720*,Temp_251720*);
-unsigned __cdecl FUN_002673a0(unsigned,unsigned);
+extern "C" void __cdecl FUN_002613b0(void*,Temp_251720*,Temp_251720*);
+extern "C" unsigned __cdecl FUN_002673a0(unsigned,unsigned);
 void* __cdecl FUN_0024a370(Owner_251720*,unsigned*);
-void __cdecl FUN_0024ac40(Owner_251720*,void*,bool,unsigned,void*);
+extern "C" void __cdecl FUN_0024ac40(Owner_251720*,void*,bool,unsigned,void*);
 namespace audio {  }
 // The original's 0x18-byte frame: the key (whose slot the two values reuse after it is
 // destroyed) below the result.

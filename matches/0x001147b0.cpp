@@ -9,10 +9,10 @@ class Condition_1147b0 {
     int m;
     void Init(int);
 };
-extern void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::FightingOtherNPCCondition>::vfunc_5() {
-    Condition_1147b0* p = (Condition_1147b0*)Alloc(0x10);
+    Condition_1147b0* p = (Condition_1147b0*)FUN_0008d690(0x10);
     if (p) {
         p->Init(0);
         p->vt = ((hulk_intptr)DAT_0040db64);

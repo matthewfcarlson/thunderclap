@@ -2,7 +2,7 @@
 // FUN_00265810 @ 0x00265810
 struct Request { char pad[0x100]; void* context; char pad104[8]; unsigned char flags; };
 struct LoadRequest_265810 { virtual void slot0(); LoadRequest_265810* FUN_00266890(Request*); void FUN_00266800(Request*); void FUN_00266950(int); void FUN_00266850(void*); int FUN_00266710(); };
-extern void* __cdecl FUN_00263ed0(unsigned int,int);
+extern "C" void* __cdecl FUN_00263ed0(unsigned int,int);
 extern void __cdecl thunk_FUN_00270a50();
 struct Entry_265810 { LoadRequest_265810* task; unsigned int value; };
 struct Manager_265810 { unsigned char flags; char pad[0x13]; Entry_265810* head; Entry_265810* tail; Entry_265810* begin; Entry_265810* end; void FUN_002655b0(); void FUN_00265810(Request*,LoadRequest_265810**); };

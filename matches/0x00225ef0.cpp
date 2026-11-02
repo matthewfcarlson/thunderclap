@@ -3,7 +3,7 @@ class Item_225ef0 {
     virtual void a();
     virtual void release();
 };
-void __fastcall FUN_0022a9c0(void* self);
+extern "C" void __fastcall FUN_0022a9c0(void* self);
 class LocomotionStrafeDriver {
   public:
     virtual void v();

@@ -6,7 +6,7 @@ struct Node;
 struct Link_249810 { Link_249810* next; };
 struct List_249810 { char pad[0x48]; Link_249810* first; };
 struct Node { char pad0[8]; Payload_249810* payload; int state; unsigned char flag; char pad11[3]; int field14; char pad18[12]; float value; int field28; char pad2c[4]; List_249810* list; Link_249810 link; };
-void __cdecl FUN_00247b30(int, Node*, int, int*);
+extern "C" void __cdecl FUN_00247b30(int, Node*, int, int*);
 // equiv-conv: FUN_00249810 esi stack
 void FUN_00249810(Node* self, int argument) {
  int status=self->payload->FUN_0025d3e0();

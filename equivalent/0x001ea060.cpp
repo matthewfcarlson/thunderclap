@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001ea060 @ 0x001ea060
-int __cdecl FUN_002673a0(int, int);
+extern "C" int __cdecl FUN_002673a0(int, int);
 struct Entry {
     char pad0[0x14];
     Entry *next;

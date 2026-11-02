@@ -7,9 +7,9 @@ class DefendingCondition {
     unsigned char flag;
     void Init(int);
 };
-extern void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 void* FactoryVfunc5() {
-    DefendingCondition* p = (DefendingCondition*)Alloc(0x10);
+    DefendingCondition* p = (DefendingCondition*)FUN_0008d690(0x10);
     if (p) {
         p->Init(0);
         p->vptr = ((hulk_intptr)DAT_0040d9c4);

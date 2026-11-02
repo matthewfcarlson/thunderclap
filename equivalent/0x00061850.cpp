@@ -3,7 +3,7 @@
 #include "decls/data/game/global.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+extern "C" void* FUN_0008d690(unsigned int size);
 
 class CEffectTrack {
 public:
@@ -135,9 +135,9 @@ public:
 
 struct ParamRegistry {
 };
-void FUN_002347b0(ParamRegistry* reg, void** params, int count);
+extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
-void FUN_00061850()
+extern "C" void FUN_00061850()
 {
     if (DAT_004dc60c == 0) {
         void* params[13];

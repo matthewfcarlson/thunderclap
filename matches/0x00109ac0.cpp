@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 #include "gen/global.h"
 
-void FUN_00102bf0(int, void*, int, float*);
+extern "C" void FUN_00102bf0(int, void*, int, float*);
 
 bool CArriveBehaviour::vfunc_3(hulk_intptr a, int b, void* __p2, int c, int e) { float * out = (float *)__p2;
 

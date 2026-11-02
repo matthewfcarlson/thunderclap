@@ -25,7 +25,7 @@ class TrackFactoryTemplate_15a650 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_001581b0();
 
 template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::CollisionSourceNameCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Colli
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_15a650* t = new (mem) TrackFactoryTemplate_15a650();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_001581b0();
         return (void*)(t);
     }
     return (void*)(0);

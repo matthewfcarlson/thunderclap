@@ -28,7 +28,7 @@ struct Reader {
     void FUN_00266be0();
 };
 
-void *FUN_0008d690(unsigned size);
+extern "C" void *FUN_0008d690(unsigned size);
 
 ColourChannel_28cfd0 * __stdcall FUN_0028cfd0(Reader *r, unsigned unused, Parent_28cfd0 *parent)
 {

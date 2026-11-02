@@ -25,7 +25,7 @@ class TrackFactoryTemplate_1148d0 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_001127d0();
 
 template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::TokenSupressTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::TokenSupressT
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_1148d0* t = new (mem) TrackFactoryTemplate_1148d0();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_001127d0();
         return (void*)(t);
     }
     return (void*)(0);

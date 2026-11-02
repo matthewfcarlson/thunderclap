@@ -23,6 +23,19 @@ snapshot of that build). Names bound to two addresses (`ambiguous`) are left alo
 the tree whose sources are read; rewrites go to DIR/<path> with DIR/plan.jsonl (one line per source: renames,
 migrate rules, or why not). Nothing is verified here: compare.py + verify_relocs.py (matches/) and equiv.py
 (equivalent/) run on DIR afterwards, through the queue.
+
+  build/venv/bin/python tools/name_unify.py free --link DIR --snap SNAP --out OUT
+  build/venv/bin/python tools/name_unify.py free-apply --plan OUT/free-plan.jsonl --top N --out DIR2
+        [--exclude LIST ...] [--manifest build/tree/manifest.json]
+
+`free` / `free-apply` (batch 2, free functions -> C linkage): per definition address, the free -> free aliases
+(name_audit) become one C name (`FUN_<addr>`): the definition gets `extern "C"` (renamed when its own name is
+invented), callers keep their own types and convention with `extern "C"` and the C name. Left alone: callees and
+definitions named on an `// equiv-*` line (equiv.py finds those by their C++ symbol), callers' address names of
+another address (`thunk_FUN_x` is the thunk, not x), and with --manifest (a Wine build's tree manifest of the same
+sources) every C name a TU's sources would declare with more than one signature (two `extern "C"` declarations of
+one name must agree in a merged TU; gen_tree's spelling is the 32-bit one, so `hulk_uintptr` vs `unsigned int`
+counts as different too: the arm64 front end rejects it).
 """
 import argparse
 import collections
@@ -38,6 +51,8 @@ import name_audit  # noqa: E402
 import rn_transform  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+WIDE = re.compile(r"\b(hulk_u?intptr|hulk_freg|size_t|ptrdiff_t|u?intptr_t|U?LONG_PTR|DWORD_PTR|U?INT_PTR|SIZE_T|long)\b")
+ADDR_NAME = re.compile(r"(?:^|_)(?:FUN|thunk_FUN|LAB)_[0-9a-fA-F]{6,8}$")
 DATA_SYM = re.compile(r"\?([A-Za-z_]\w*)@((?:[A-Za-z_]\w*@)*)@[23]")
 
 
@@ -359,6 +374,16 @@ def free_transform(text, calls, define=None):
     except ValueError:
         raise rn_transform.SwapFail("does not parse")
     eq = rn_transform.equiv_text(text)
+
+    def on_equiv_line(*ns):
+        return any(re.search(r"\b%s\b" % re.escape(n), eq) for n in ns)
+    # left alone: a callee named on an `// equiv-*` line (equiv.py finds it by its C++ symbol: `equiv-conv`
+    # register conventions, stubs), and a caller's address name of another address (`thunk_FUN_x` is the
+    # thunk's own address, not x: the rename would skip the thunk)
+    calls = {ci: v for ci, v in calls.items() if not on_equiv_line(ci, v[0])
+             and not (ADDR_NAME.search(ci) and ci != v[0])}
+    if define and on_equiv_line(*define):
+        define = None
     cuts, renames = [], {}
     for ci, (N, proto) in calls.items():
         decl = [it for it in items if it.kind == "func" and it.name == ci and not it.scope]
@@ -421,6 +446,63 @@ def free_transform(text, calls, define=None):
     return new
 
 
+def tu_consistency(per_src, manifest, root, excl):
+    """{source: {C names}} to hold back. Two `extern "C"` declarations of one name with other types can't share
+    a merged TU (gen_tree: a conflict, the sources wrap), while C++ declarations of them were overloads. So per
+    TU of the manifest (tools/gen_tree.py's build/tree/manifest.json of a build of the same sources) and per C
+    name of the batch: when the TU's sources (every one, rewritten or not) declare or define that name, under
+    their own name or the one the batch renames to it, with more than one signature (gen_tree's canonical
+    spelling), no source of the TU takes the C name for it."""
+    import gen_tree
+    m = json.load(open(manifest))
+    tu_of, members = {}, collections.defaultdict(list)
+    for t in m["tus"]:
+        key = t["path"].split(".iso_")[0] + ".cpp" if ".iso_" in t["path"] else t["path"]
+        for b in t["blocks"]:
+            tu_of[b["src"]] = key
+            members[key].append(b["src"])
+    names = collections.defaultdict(set)          # TU -> C names the batch gives its sources
+    for q, d in per_src.items():
+        if q in excl or q not in tu_of:
+            continue
+        names[tu_of[q]] |= {v[0] for v in d["calls"].values()} | ({d["define"][1]} if d["define"] else set())
+    held = collections.defaultdict(set)
+    for tu, ns in names.items():
+        sigs = collections.defaultdict(set)
+        for s in members[tu]:
+            try:
+                src = open(os.path.join(root, s), encoding="latin1").read()
+                its = cxx_items.parse(src)
+            except (OSError, ValueError):
+                continue
+            d = per_src.get(s) if s not in excl else None
+            ren = {}
+            if d:
+                ren = {ci: v[0] for ci, v in d["calls"].items()}
+                if d["define"]:
+                    ren[d["define"][0]] = d["define"][1]
+            for it in its:
+                if it.kind not in ("func", "funcdef") or it.scope or not it.name:
+                    continue
+                n = ren.get(it.name, it.name)
+                if n not in ns:
+                    continue
+                p = gen_tree._norm_sig_parts(it)
+                k = repr(p) if p else it.norm
+                # (gen_tree's spelling is the 32-bit one: `hulk_uintptr` = `unsigned int`; a 64-bit build sees
+                # two C declarations of other types)
+                k += repr(WIDE.findall(src[it.toks[0].s:it.toks[-1].e]))
+                if not gen_tree.ADDR_NAME.search(n):
+                    # (C vs C++ linkage counts as one spelling only for address names)
+                    k += " C" if (it.c_linkage or it.name in ren) else " C++"
+                sigs[n].add(k)
+        for n, ss in sigs.items():
+            if len(ss) > 1:
+                for s in members[tu]:
+                    held[s].add(n)
+    return held
+
+
 def cmd_free_apply(a):
     plans = [json.loads(l) for l in open(a.plan)]
     plans = [p for p in plans if not p.get("refused") and p.get("definition") and p.get("prototype")][:a.top]
@@ -439,10 +521,22 @@ def cmd_free_apply(a):
                 per_src[q]["addrs"].add(p["addr"])
     root = os.path.abspath(a.root)
     st = collections.Counter()
+    held = tu_consistency(per_src, a.manifest, root, excl) if a.manifest else {}
+    for q, ns in held.items():
+        if q not in per_src:
+            continue
+        d = per_src[q]
+        d["held"] = sorted({v[0] for v in d["calls"].values()} & ns | ({d["define"][1]} & ns if d["define"] else set()))
+        d["calls"] = {ci: v for ci, v in d["calls"].items() if v[0] not in ns}
+        if d["define"] and d["define"][1] in ns:
+            d["define"] = None
     os.makedirs(a.out, exist_ok=True)
     with open(os.path.join(a.out, "free-apply.jsonl"), "w") as log:
         for q, d in sorted(per_src.items()):
             rec = {"path": q, "addrs": sorted(d["addrs"]), "define": d["define"], "calls": d["calls"]}
+            if d.get("held"):
+                rec["held"] = d["held"]
+                st["names held back (TU spellings differ)"] += len(d["held"])
             if q in excl:
                 rec["skip"] = "excluded"
                 st["excluded"] += 1
@@ -484,6 +578,8 @@ def main(argv=None):
     fa.add_argument("--out", required=True)
     fa.add_argument("--root", default=ROOT)
     fa.add_argument("--exclude", nargs="*")
+    fa.add_argument("--manifest", help="build/tree/manifest.json of a Wine build of the same sources: hold back a C "
+                    "name in a TU whose sources declare it with more than one signature (tu_consistency)")
     a = ap.parse_args(argv)
     return {"data": cmd_data, "free": cmd_free, "free-apply": cmd_free_apply}[a.cmd](a)
 

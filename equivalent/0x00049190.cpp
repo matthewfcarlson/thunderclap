@@ -8,7 +8,7 @@ struct Player_49190 {
     Slot_49190* FUN_00035ef0(int i);
 };
 void* __fastcall FUN_000592a0(void* owner);
-Player_49190* __fastcall FUN_00059a30(void* x);
+extern "C" Player_49190* __fastcall FUN_00059a30(void* x);
 
 bool CSmartPropAttachedCondition::vfunc_7(void* __p0) { void * actor = (void *)__p0;
 

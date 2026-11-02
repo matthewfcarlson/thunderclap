@@ -2,7 +2,7 @@
 // FUN_000b1aa0 @ 0x000b1aa0
 struct Resource_b1aa0 { virtual void AddRef(); };
 struct Manager_b1aa0 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual Resource_b1aa0* Find(const char*); };
-extern Manager_b1aa0* __cdecl FUN_002684b0();
+extern "C" Manager_b1aa0* __cdecl FUN_002684b0();
 extern void __cdecl FUN_000b0a50(Resource_b1aa0*, int, int, void*, void*, void*, void*, void*, void*);
 struct Object {
  char pad0[12]; unsigned char dirty; char padD[3]; Resource_b1aa0* resource; char name[252];

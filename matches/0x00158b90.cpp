@@ -7,7 +7,7 @@ class Owner {
     void* Get(void*);
 };
 void* Find(void*, TrackFactoryCasterTemplate_158b90*);
-void* Target(Owner* owner, void* name) {
+extern "C" void* FUN_00158b90(Owner* owner, void* name) {
     TrackFactoryCasterTemplate_158b90 caster;
     return owner->Get(Find(name, &caster));
 }

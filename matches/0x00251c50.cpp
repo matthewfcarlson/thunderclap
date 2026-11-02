@@ -10,7 +10,7 @@ class SeqAction {
     SeqAction(int);
 };
 } // namespace audio
-extern void __cdecl FUN_00247550(void*, void*);
+extern "C" void __cdecl FUN_00247550(void*, void*);
 audio::SeqAction::SeqAction(int flag) {
     vptr = ((hulk_intptr)DAT_004298fc);
     if (flag & 1)

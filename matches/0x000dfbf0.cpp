@@ -3,7 +3,7 @@
 // cl-flags: /GS
 #include "compat/ptr.h"
 
-int __cdecl FUN_00294c70(const char* src, unsigned short* dst, int max);
+extern "C" int __cdecl FUN_00294c70(const char* src, unsigned short* dst, int max);
 
 class TextSink {
 public:

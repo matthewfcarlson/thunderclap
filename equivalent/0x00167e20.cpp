@@ -5,7 +5,7 @@
 extern "C" void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 extern char DAT_00494b44;
 extern char DAT_00494b60;
-extern bool __cdecl FUN_00018960(float, float, float);
+extern "C" bool __cdecl FUN_00018960(float, float, float);
 struct Body_167e20 { float FUN_00035680(); };
 struct Actor_167e20 { Body_167e20* FUN_00059a30(); };
 struct Context_167e20 { Actor_167e20* FUN_000592a0(); };

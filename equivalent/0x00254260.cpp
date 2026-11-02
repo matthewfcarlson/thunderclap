@@ -29,7 +29,7 @@ struct Event_254260 {
 int __cdecl FUN_0024afe0(int handle);
 void __cdecl FUN_0024b040(int handle, float volume);
 void __cdecl FUN_0024b080(int handle, float pitch);
-void __cdecl FUN_0024c120(int handle);
+extern "C" void __cdecl FUN_0024c120(int handle);
 
 namespace audio {
 class SeqAction_254260 {

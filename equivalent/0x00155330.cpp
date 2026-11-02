@@ -22,7 +22,7 @@ template<class T> struct ParamEnumConstList {
 }
 typedef fight::ParamEnumConstList<hulkfight::motion::CollisionSourceTypeCondition> Param;
 extern void __cdecl FUN_002347b0(int*, Param**, int);
-void FUN_00155330() {
+extern "C" void FUN_00155330() {
  if (DAT_004e104c == 0) {
   Param* params[2];
   void* storage = FUN_0008d690(32);

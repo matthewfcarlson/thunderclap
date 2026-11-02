@@ -6,9 +6,9 @@
 struct Controller_1e95c0 { bool FUN_00266750(); void FUN_00263e90(); };
 struct Subsystem_1e95c0 { void FUN_000862a0(); };
 struct World { char pad[0x54]; Subsystem_1e95c0* subsystem; };
-void __cdecl FUN_00240bb0();
-int __cdecl FUN_00240750();
-void __cdecl FUN_00243090(int, float);
+extern "C" void __cdecl FUN_00240bb0();
+extern "C" int __cdecl FUN_00240750();
+extern "C" void __cdecl FUN_00243090(int, float);
 struct Entry_1e95c0 { int state; };
 struct Target_1e95c0 { char pad[0x19c]; Entry_1e95c0* entries[200]; int count; void FUN_002696a0(); void update(float time, bool active); };
 void Target_1e95c0::update(float time, bool active) {

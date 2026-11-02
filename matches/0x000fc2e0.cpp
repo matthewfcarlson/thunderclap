@@ -24,6 +24,6 @@ class C_fc2e0 {
     virtual void f19();
     virtual void f20();
 };
-void FUN_000fc2e0() {
+extern "C" void FUN_000fc2e0() {
     (*(C_fc2e0**)&DAT_004e0a60)->f20();
 }

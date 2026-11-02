@@ -4,6 +4,6 @@ class C_862e0 {
   public:
     unsigned int value;
 };
-unsigned int __fastcall FUN_000862e0(C_862e0* self) {
+extern "C" unsigned int __fastcall FUN_000862e0(C_862e0* self) {
     return self->value;
 }

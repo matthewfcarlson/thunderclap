@@ -19,7 +19,7 @@ TObject_213870 *__fastcall FUN_00212bb0(int idx, lua_State_213870 *L);
 TObject_213870 *__cdecl FUN_00219f60(lua_State_213870 *L, void *h, int key);
 void __cdecl FUN_00217100(lua_State_213870 *L, void *h, void *v);
 
-void FUN_00213870(lua_State_213870 *L, int idx, int key)
+extern "C" void FUN_00213870(lua_State_213870 *L, int idx, int key)
 {
     TObject_213870 *t = FUN_00212bb0(idx, L);
     TObject_213870 *val = L->top - 1;

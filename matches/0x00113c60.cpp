@@ -7,7 +7,7 @@ class Owner {
     void use(void*);
 };
 void* find(void*, Caster*);
-void target(Owner* owner, void* value) {
+extern "C" void FUN_00113c60(Owner* owner, void* value) {
     Caster caster;
     void* p = find(value, &caster);
     owner->use(p);

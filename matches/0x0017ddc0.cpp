@@ -7,7 +7,7 @@ class Obj {
   public:
     void* use(void*);
 };
-void* fn(Obj* obj, void* key) {
+extern "C" void* FUN_0017ddc0(Obj* obj, void* key) {
     Caster caster;
     void* result = lookup(key, &caster);
     return obj->use(result);

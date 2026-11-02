@@ -4,13 +4,13 @@
 extern "C" char DAT_0040db44[];
 typedef unsigned char u8;
 typedef unsigned int u32_114710;
-void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct InitObj_114710 {
     void Init(int);
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TokenCondition>::vfunc_5() {
-    void* p = Allocate(0x10);
+    void* p = FUN_0008d690(0x10);
     if (p) {
         ((InitObj_114710*)p)->Init(0);
         ((u8*)p)[0xc] = 1;

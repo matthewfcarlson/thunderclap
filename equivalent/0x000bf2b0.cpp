@@ -55,7 +55,7 @@ struct Game_bf2b0 {
                       const char *cancel, int buttons, int a, int b);
 };
 Game_bf2b0 *__cdecl FUN_000fc3d0();
-void __cdecl FUN_000fc300();
+extern "C" void __cdecl FUN_000fc300();
 
 class Menu_bf2b0 {
 public:

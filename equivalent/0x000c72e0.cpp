@@ -95,9 +95,9 @@ struct Entry_c72e0 {
     char pad10[0x10];
 };
 
-extern Cam_c72e0 *FUN_001c3d90();
+extern "C" Cam_c72e0 *FUN_001c3d90();
 extern float FUN_00018a20(float x);
-extern void *FUN_0008d690(unsigned int size);
+extern "C" void *FUN_0008d690(unsigned int size);
 
 struct Self_c72e0 {
     char pad0[0x10];

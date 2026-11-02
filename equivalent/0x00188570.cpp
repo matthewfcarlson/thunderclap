@@ -21,7 +21,7 @@ namespace fight {
  template<class T> struct ParamIntConstRange: ParamBase_188570 { virtual void slot0(); };
 }
 void __cdecl FUN_002347b0(unsigned*, ParamBase_188570**, int);
-void __cdecl FUN_00188570() {
+extern "C" void __cdecl FUN_00188570() {
  if (!DAT_004e14d4) {
   ParamBase_188570* params[3];
   ParamBase_188570* p=(ParamBase_188570*)FUN_0008d690(24);

@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_001d5050 @ 0x001d5050
 // Map a weapon name to its id (0 for an unknown name).
-int __cdecl FUN_00096600(const char* a, const char* b);   // string compare, 0 when equal
+extern "C" int __cdecl FUN_00096600(const char* a, const char* b);   // string compare, 0 when equal
 
 int FUN_001d5050(const char* name)
 {

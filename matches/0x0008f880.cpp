@@ -8,7 +8,7 @@ extern "C" void *__cdecl memcpy(void *d, const void *s, unsigned int n);
 extern double __cdecl FUN_003458c1(const char *s);
 
 
-void FUN_0008f880(int argc, char **argv)
+extern "C" void FUN_0008f880(int argc, char **argv)
 {
     int i;
     for (i = 1; i < argc; i++) {

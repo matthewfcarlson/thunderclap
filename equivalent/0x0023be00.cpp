@@ -3,7 +3,7 @@
 extern "C" void* __cdecl memcpy(void*,const void*,unsigned);
 void* __cdecl FUN_00238190(int);
 void* __cdecl FUN_00266e00(void*, unsigned);
-void __cdecl FUN_00267090(void*);
+extern "C" void __cdecl FUN_00267090(void*);
 struct Stream {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
  virtual unsigned read(void*,unsigned);

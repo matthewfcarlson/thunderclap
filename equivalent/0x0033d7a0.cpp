@@ -11,7 +11,7 @@ extern "C" void __cdecl FUN_00339c30(State*, int, const char*);
 extern "C" unsigned int __cdecl FUN_00345d81(const char*, char**, int);
 extern "C" int __cdecl _isspace(int);
 extern "C" void __cdecl FUN_00213320(State*);
-int __cdecl FUN_0033d7a0(State* state) {
+extern "C" int __cdecl FUN_0033d7a0(State* state) {
     int base = FUN_00339fe0(state, 2, 10);
     if (base == 10) {
         FUN_00339dc0(state, 1);

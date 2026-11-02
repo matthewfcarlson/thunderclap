@@ -52,7 +52,7 @@ struct Manager_45da0 {
     Registry_45da0 *registry;      // 0x0c
     void FUN_001c4190(Key_45da0 *k);
 };
-Manager_45da0 *__cdecl FUN_001c3d90();
+extern "C" Manager_45da0 *__cdecl FUN_001c3d90();
 
 struct Tracker_45da0 {
     char pad0[8];

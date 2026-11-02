@@ -22,7 +22,7 @@ struct Item_b97d0 {
     char busy;
 };
 extern Manager_b97d0* FUN_000fc3d0();
-extern void __cdecl FUN_000fc300();
+extern "C" void __cdecl FUN_000fc300();
 void State_b97d0::Target() {
     if (state == 0x15) {
         Manager_b97d0* m = FUN_000fc3d0();

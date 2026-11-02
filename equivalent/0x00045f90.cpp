@@ -3,7 +3,7 @@
 #include "decls/data/game/global.h"
 
 extern "C" int atexit(void (*)());
-void FUN_00363bd0();
+extern "C" void FUN_00363bd0();
 
 struct NameKey_45f90 {
     unsigned lo, hi;

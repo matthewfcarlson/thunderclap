@@ -10,11 +10,11 @@ struct Track : Head_25a530, Link_25a530 {
 struct List_25a530 { char data[0x10]; };
 struct Other_25a530 { char data[4]; };
 
-Link_25a530 *__cdecl FUN_00257ec0(List_25a530 *list);
-Link_25a530 *__cdecl FUN_00257ee0(Link_25a530 *l);
+extern "C" Link_25a530 *__cdecl FUN_00257ec0(List_25a530 *list);
+extern "C" Link_25a530 *__cdecl FUN_00257ee0(Link_25a530 *l);
 void __cdecl FUN_0025a0b0(Track *t);
 void __cdecl FUN_0025a220(Other_25a530 *o);
-void __cdecl FUN_00242f60(int a, Track *t, int b);
+extern "C" void __cdecl FUN_00242f60(int a, Track *t, int b);
 
 class Mix {
 public:

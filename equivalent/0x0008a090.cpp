@@ -11,7 +11,7 @@ struct Session_8a090 {
 struct ThisCall_00089400 {
     int FUN_00089400(void *item);
 };
-Session_8a090 *FUN_001d4c90();
+extern "C" Session_8a090 *FUN_001d4c90();
 
 struct Entry_8a090 {
     char data[0x18];

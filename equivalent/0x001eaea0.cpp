@@ -48,10 +48,10 @@ struct Pool_1eaea0 {
 };
 
 
-void FUN_00241280(int a, int b, int c);
-void *FUN_00240750();
-void FUN_002416c0(void *a, Timer *t, int c);
-void FUN_00243090(void *a, float step);
+extern "C" void FUN_00241280(int a, int b, int c);
+extern "C" void *FUN_00240750();
+extern "C" void FUN_002416c0(void *a, Timer *t, int c);
+extern "C" void FUN_00243090(void *a, float step);
 void FUN_00242ca0(void *a, Timer **t);
 void FUN_0008d330(void *p);
 

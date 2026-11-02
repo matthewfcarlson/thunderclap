@@ -1,6 +1,6 @@
 #include "decls/data/engine/unknown.h"
 
-extern __int64 __cdecl make(const char*, int, int) throw();
+extern "C" __int64 __cdecl FUN_002672f0(const char*, int, int) throw();
 class Arg {
     char pad[12];
 
@@ -19,4 +19,4 @@ class SeqEventLogicOrType_254f40 : public SeqEventType_254f40 {
     virtual void g();
 };
 SeqEventLogicOrType_254f40::SeqEventLogicOrType_254f40() throw()
-    : SeqEventType_254f40(Arg().Init(((char*)&DAT_00426608), 0), make("SeqEventLogicOr", 0, 0), 0x18, 4) {}
+    : SeqEventType_254f40(Arg().Init(((char*)&DAT_00426608), 0), FUN_002672f0("SeqEventLogicOr", 0, 0), 0x18, 4) {}

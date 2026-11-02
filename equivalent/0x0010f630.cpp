@@ -11,7 +11,7 @@ struct Key_10f630 {
     void FUN_0027b040(int word);
 };
 
-void FUN_00363ef0();
+extern "C" void FUN_00363ef0();
 
 struct Fighter_10f630 {
     float FUN_00037290(unsigned lo, unsigned hi);

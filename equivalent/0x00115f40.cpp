@@ -37,7 +37,7 @@ struct Mid_115f40 {
     char groundPoint;
 };
 void* __fastcall FUN_000592a0(void* p);
-Mid_115f40* __fastcall FUN_00059a30(void* p);
+extern "C" Mid_115f40* __fastcall FUN_00059a30(void* p);
 namespace hulkfight { namespace ai {
 
 }}

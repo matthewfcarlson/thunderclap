@@ -6,7 +6,7 @@ struct Stm_250c10 {
     int depth;
 };
 extern bool Match(Stm_250c10*, const char*);
-extern bool ReadTrack(Stm_250c10**, const char*, void*);
+extern "C" bool FUN_0024e600(Stm_250c10**, const char*, void*);
 class SeqEvent {
   public:
     virtual void v0();
@@ -26,7 +26,7 @@ int SeqEventExpression_250c10::vfunc_1(Stm_250c10** p) {
     if (SeqEvent::v1(p)) {
         if (Match(*p, DAT_004298f4)) {
             (*p)->depth++;
-            if (ReadTrack(p, DAT_00429b00, (char*)this + 8)) {
+            if (FUN_0024e600(p, DAT_00429b00, (char*)this + 8)) {
                 (*p)->depth--;
                 Stm_250c10* s = *p;
                 if (Match(s, DAT_004298dc))

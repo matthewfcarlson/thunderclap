@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 
-void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Thing_70300 {
     hulk_uintptr go();
 };

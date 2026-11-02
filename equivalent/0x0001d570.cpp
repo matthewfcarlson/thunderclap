@@ -91,7 +91,7 @@ union FS_1d570 {
 float __cdecl FUN_00224f10(V3_1d570 *v);
 float __cdecl FUN_00224fc0(float a, float b);
 void __cdecl FUN_00224d70(float angle, V3_1d570 *v);
-void __cdecl FUN_00096a90(Target_1d570 *t, V3_1d570 *out);
+extern "C" void __cdecl FUN_00096a90(Target_1d570 *t, V3_1d570 *out);
 
 class CAutoTargetAction {
 public:

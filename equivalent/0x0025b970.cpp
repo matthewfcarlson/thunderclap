@@ -32,7 +32,7 @@ struct Tree_25b970 {
 
 char FUN_00246f50(Stream* s, const char* fmt, ...);
 char FUN_0025ac30(Writer_25b970* w, int a, int b);
-const char* FUN_00262820(int index);
+extern "C" const char* FUN_00262820(int index);
 
 class Section_25b970 {
 public:

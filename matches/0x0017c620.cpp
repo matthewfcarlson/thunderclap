@@ -9,7 +9,7 @@ class Thing {
     void Set(void*);
 };
 extern "C" void* Find(const char*, fight::TrackFactoryCasterTemplate*);
-void Function(Thing* thing, const char* name) {
+extern "C" void FUN_0017c620(Thing* thing, const char* name) {
     fight::TrackFactoryCasterTemplate caster;
     thing->Set(Find(name, &caster));
 }

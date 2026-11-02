@@ -26,14 +26,14 @@ class TrackFactoryTemplate_CCameraHintTrack : public fight::TrackFactory,
     void* vfunc_5();
 };
 
-extern void* AllocFunc(unsigned int);
+extern "C" void* FUN_0008d690(unsigned int);
 
 struct InternalHelper {
     void CallFunc();
 };
 
 void* TrackFactoryTemplate_CCameraHintTrack::vfunc_5() {
-    void* ptr = AllocFunc(0x18);
+    void* ptr = FUN_0008d690(0x18);
     if (ptr != 0) {
         static_cast<InternalHelper*>(ptr)->CallFunc();
         *(hulk_uintptr*)ptr = ((hulk_intptr)DAT_003fbef4);

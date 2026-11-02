@@ -2,7 +2,7 @@
 // audio::SeqEventStream::vfunc_2 @ 0x00254580
 #include "decls/data/engine/audio.h"
 
-void* __cdecl FUN_00247530(void*);
+extern "C" void* __cdecl FUN_00247530(void*);
 namespace audio {
 struct SeqEvent { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); };
 struct SeqEventStream : SeqEvent { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(void*); virtual void vfunc_3(); virtual void vfunc_4(); };

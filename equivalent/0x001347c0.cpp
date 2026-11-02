@@ -63,8 +63,8 @@ struct World {
 };
 
 void *__fastcall FUN_000592a0(void *owner);
-Stats_1347c0 *__fastcall FUN_00059a30(void *x);
-Scene_1347c0 *__fastcall FUN_00059a40(void *x);
+extern "C" Stats_1347c0 *__fastcall FUN_00059a30(void *x);
+extern "C" Scene_1347c0 *__fastcall FUN_00059a40(void *x);
 extern "C" void FUN_00224d70(float angle, Vec3_1347c0 *v);
 void *__cdecl FUN_00263ea0(unsigned int size);
 

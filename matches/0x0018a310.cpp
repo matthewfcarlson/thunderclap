@@ -7,7 +7,7 @@ class Owner {
     void Set(void*);
 };
 void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_18a310*);
-void Func(Owner* owner, const char* name) {
+extern "C" void FUN_0018a310(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_18a310 c;
     void* p = FUN_00236ac0(name, &c);
     owner->Set(p);

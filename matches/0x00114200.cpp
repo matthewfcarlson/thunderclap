@@ -25,7 +25,7 @@ class TrackFactoryTemplate_114200 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_00112000();
 
 template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::ai::LeashedCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::ai::LeashedCo
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_114200* t = new (mem) TrackFactoryTemplate_114200();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_00112000();
         return (void*)(t);
     }
     return (void*)(0);

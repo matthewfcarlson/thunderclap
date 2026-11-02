@@ -36,7 +36,7 @@ public:
 }
 
 void *thunk_FUN_0008d690(unsigned int size);
-void *__cdecl FUN_0008d690(unsigned int size);
+extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 void *__cdecl FUN_0008d6d0(unsigned int size);
 void *__cdecl FUN_002aa300(int a, int b, int c, int d, int e);
 

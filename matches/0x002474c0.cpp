@@ -4,8 +4,8 @@ struct Item {
     volatile hulk_intptr a;
     int b;
 };
-void Func(int, int, int);
-void Target(int unused, Item* p) {
+extern "C" void FUN_00266eb0(int, int, int);
+extern "C" void FUN_002474c0(int unused, Item* p) {
     int a = p->a;
-    Func(0, a, p->b);
+    FUN_00266eb0(0, a, p->b);
 }

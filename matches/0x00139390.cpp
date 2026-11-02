@@ -7,7 +7,7 @@ class Obj {
   public:
     void second(int);
 };
-void func(Obj* o, int n) {
+extern "C" void FUN_00139390(Obj* o, int n) {
     TrackFactoryCasterTemplate_139390 c;
     int r = first(n, &c);
     o->second(r);

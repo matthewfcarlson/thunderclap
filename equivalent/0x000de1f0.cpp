@@ -33,7 +33,7 @@ public:
     virtual Device_de1f0 *Get(int index);
 };
 
-DeviceManager_de1f0 *FUN_002684b0();
+extern "C" DeviceManager_de1f0 *FUN_002684b0();
 
 void __stdcall FUN_000de1f0(bool analog)
 {

@@ -5,7 +5,7 @@ class Owner_336180 {
     void Advance();
 };
 extern float __cdecl FUN_003458c1(int);
-char __stdcall Target(float* param_1, Owner_336180* owner, int c, char param_4) {
+extern "C" char __stdcall FUN_00336180(float* param_1, Owner_336180* owner, int c, char param_4) {
     int v = owner->Get();
     if (!v)
         return 0;

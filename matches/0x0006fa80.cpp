@@ -25,7 +25,7 @@ class TrackFactoryTemplate_6fa80 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_000783a0();
 
 template <> void* fight::TrackFactoryCasterTemplate<CHeliDeathSpiralTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CHeliDeathSpiralTrack>::vfun
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_6fa80* t = new (mem) TrackFactoryTemplate_6fa80();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_000783a0();
         return (void*)(t);
     }
     return (void*)(0);

@@ -23,7 +23,7 @@ public:
     virtual void *get(void *caster, unsigned int lo, unsigned int hi);
 };
 
-void *__cdecl FUN_0008d690(unsigned int size);
+extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 
 struct PhysicsInstance_2fc990 {
     char data[0x18];

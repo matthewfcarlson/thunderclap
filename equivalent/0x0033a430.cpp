@@ -11,7 +11,7 @@ extern "C" void __cdecl FUN_00212d80(void*, int);
 extern "C" void __cdecl FUN_00212cb0(void*, void*, int);
 extern "C" int __cdecl FUN_002140c0(void*, void*, int);
 extern "C" void __cdecl FUN_002133d0(void*, int);
-int __cdecl FUN_0033a430(void* state) {
+extern "C" int __cdecl FUN_0033a430(void* state) {
  char buffer[96];
  int offset = 0;
  void* object = state;

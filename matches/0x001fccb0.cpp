@@ -5,7 +5,7 @@ struct Item {
     int b;
 };
 extern char buffer[];
-extern void __cdecl format(char*, int, int, int);
+extern "C" void __cdecl FUN_00096d50(char*, int, int, int);
 class CTriggerVolumeManager_1fccb0 {
     char pad[0x238];
     int count;
@@ -18,6 +18,6 @@ char* CTriggerVolumeManager_1fccb0::get(int index) {
     if (index >= count)
         return 0;
     Item* p = items[index];
-    format(buffer, 0x40, p->a, p->b);
+    FUN_00096d50(buffer, 0x40, p->a, p->b);
     return buffer;
 }

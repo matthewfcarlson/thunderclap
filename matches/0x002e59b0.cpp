@@ -5,7 +5,7 @@ class Obj_2e59b0 {
     char pad[12];
     void Work(u32_2e59b0);
 };
-hulk_uintptr __cdecl target(hulk_uintptr p, u32_2e59b0 count, u32_2e59b0 arg) {
+extern "C" hulk_uintptr __cdecl FUN_002e59b0(hulk_uintptr p, u32_2e59b0 count, u32_2e59b0 arg) {
     if (count != 0) {
         Obj_2e59b0* q = (Obj_2e59b0*)p;
         u32_2e59b0 i = count;

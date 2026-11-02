@@ -7,7 +7,7 @@ struct Entry_327c70 {
     Handler_327c70 handler;
     int context;
 };
-int __cdecl FUN_00327c70(int first, const char* name, int context) {
+extern "C" int __cdecl FUN_00327c70(int first, const char* name, int context) {
     int count = (*(int*)&DAT_005555c0);
     for (int i = 0; i < count; ++i) {
         if (strcmp(name, ((Entry_327c70*)&DAT_005555c8)[i].name) == 0) {

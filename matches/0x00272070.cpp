@@ -1,6 +1,6 @@
 typedef unsigned int uint_272070;
 typedef unsigned char BOOL;
-BOOL FUN_00272070(uint_272070* param_1, uint_272070* param_2, uint_272070* param_3) {
+extern "C" BOOL FUN_00272070(uint_272070* param_1, uint_272070* param_2, uint_272070* param_3) {
     uint_272070 value = *param_1;
     if (value >= 0xd800 && value <= 0xdfff)
         return 0;

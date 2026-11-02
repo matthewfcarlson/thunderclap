@@ -7,7 +7,7 @@ class Owner {
   public:
     void Add(void*);
 };
-void __cdecl target(Owner* owner, char* name) {
+extern "C" void __cdecl FUN_00132590(Owner* owner, char* name) {
     TrackFactoryCasterTemplate_132590 caster;
     owner->Add(Find(name, &caster));
 }

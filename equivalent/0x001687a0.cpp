@@ -7,7 +7,7 @@ struct Object {
  float FUN_000360b0();
  float FUN_00036090();
 };
-extern bool __cdecl FUN_00018960(float, float, float);
+extern "C" bool __cdecl FUN_00018960(float, float, float);
 // equiv-conv: target ecx esi stack stack
 bool __cdecl target(Object* object, unsigned comparison, int source, float scale) {
  if (!object) return false;

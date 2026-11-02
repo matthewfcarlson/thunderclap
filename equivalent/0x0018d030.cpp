@@ -8,7 +8,7 @@ struct Key_18d030 {
 struct Grappler {
     int FUN_00036e40(Key_18d030 *key);
 };
-Grappler *__cdecl FUN_00048260(void *owner);
+extern "C" Grappler *__cdecl FUN_00048260(void *owner);
 
 namespace hulkfight {
 namespace motion {

@@ -8,7 +8,7 @@ class SeqEventNestTrack_250110 : public ::audio::SeqEvent {
     char pad[4];
 };
 } // namespace audio
-extern bool __cdecl FUN_0025bce0(void*, void*);
+extern "C" bool __cdecl FUN_0025bce0(void*, void*);
 int audio::SeqEventNestTrack_250110::vfunc_0(void* param) {
     if ((unsigned char)::audio::SeqEvent::vfunc_0(param)) {
         if (FUN_0025bce0(param, (char*)this + 8))

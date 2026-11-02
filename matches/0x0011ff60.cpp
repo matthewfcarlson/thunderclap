@@ -14,7 +14,7 @@ void Free(void*) throw();
 struct Sub_11ff60 {
     char c;
 };
-void __fastcall SubFini(Sub_11ff60*) throw();
+extern "C" void __fastcall FUN_0027af50(Sub_11ff60*) throw();
 void __fastcall SubFini2(Sub_11ff60*) throw();
 void __fastcall SubFini3(Sub_11ff60*) throw();
 class RoutAction_11ff60 : public Action_11ff60 {
@@ -40,6 +40,6 @@ RoutAction_11ff60::~RoutAction_11ff60() throw() {
     }
     if (m34)
         m34 = 0;
-    SubFini(&s60);
+    FUN_0027af50(&s60);
     Fin();
 }

@@ -38,7 +38,7 @@ class HalRadicalAdpcmDecodeStream : public HalStream {
     virtual HalRadicalAdpcmDecodeStream* vfunc_13(u8_262e30);
 };
 } // namespace audio
-extern void __cdecl FUN_00247550(void*, audio::HalRadicalAdpcmDecodeStream*);
+extern "C" void __cdecl FUN_00247550(void*, audio::HalRadicalAdpcmDecodeStream*);
 audio::HalRadicalAdpcmDecodeStream* audio::HalRadicalAdpcmDecodeStream::vfunc_13(u8_262e30 p) {
     *(void**)this = (void*)((hulk_intptr)DAT_0042adc0);
     ((audio::HalStream*)*(void**)((char*)this + 4))->f12();

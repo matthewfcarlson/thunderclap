@@ -79,7 +79,7 @@ struct Arg1_3d350 {
     Hit202 *f24;
 };
 
-Ex *__cdecl FUN_00202f00();
+extern "C" Ex *__cdecl FUN_00202f00();
 
 class Fighter_3d350 {
 public:

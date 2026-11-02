@@ -32,7 +32,7 @@ struct Name_2f7ee0 {
 };
 void* __cdecl FUN_0008d690(unsigned) throw();
 void* __cdecl thunk_FUN_0008d690(unsigned) throw();
-Ref_2f7ee0* __cdecl FUN_002efa90(CollisionObject_2f7ee0*, int, int) throw();
+extern "C" Ref_2f7ee0* __cdecl FUN_002efa90(CollisionObject_2f7ee0*, int, int) throw();
 class ImpulseBasedCollisionSolver_2f7ee0 {
   public:
     void* vptr;

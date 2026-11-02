@@ -8,7 +8,7 @@ void FUN_00249a90(void* handle, void* out);
 void FUN_0024a800(void* handle, int arg);
 bool FUN_00249b40(void* handle);
 void FUN_0024af00(void* handle);
-void FUN_00240bb0();
+extern "C" void FUN_00240bb0();
 void FUN_002656a0();
 
 struct Part_1f54c0 {

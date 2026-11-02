@@ -33,8 +33,8 @@ struct Stats_1765f0 {
 };
 
 Fighter_1765f0* __fastcall FUN_000592a0(void* owner);
-Stats_1765f0* __fastcall FUN_00059a30(Fighter_1765f0* f);
-Controller_1765f0* __fastcall FUN_00059a40(Fighter_1765f0* f);
+extern "C" Stats_1765f0* __fastcall FUN_00059a30(Fighter_1765f0* f);
+extern "C" Controller_1765f0* __fastcall FUN_00059a40(Fighter_1765f0* f);
 
 struct Params {
     char pad00[0x14];

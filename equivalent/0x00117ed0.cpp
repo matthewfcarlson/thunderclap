@@ -66,7 +66,7 @@ struct World {
 
 Owner_117ed0 *__fastcall FUN_000592a0(void *x);
 Registry_117ed0 *__fastcall FUN_00059a30(Owner_117ed0 *o);
-bool __cdecl FUN_00018960(float a, float b, float eps);
+extern "C" bool __cdecl FUN_00018960(float a, float b, float eps);
 
 struct LocatorDistanceCondition {
     char pad0[0xc];

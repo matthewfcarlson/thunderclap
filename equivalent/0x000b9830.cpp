@@ -33,7 +33,7 @@ class Hud_b9830 {
     void FUN_001cc620(int state);
 };
 Game_b9830* __cdecl FUN_000fc3d0();
-void __cdecl FUN_000fc300();
+extern "C" void __cdecl FUN_000fc300();
 
 class Menu_b9830 {
   public:

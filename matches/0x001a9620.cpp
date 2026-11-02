@@ -7,7 +7,7 @@ class Owner {
   public:
     void Use(void*);
 };
-void __cdecl Target(Owner* owner, char* name) {
+extern "C" void __cdecl FUN_001a9620(Owner* owner, char* name) {
     ConditionFactoryCasterTemplate_1a9620 c;
     void* p = Find(name, &c);
     owner->Use(p);

@@ -30,7 +30,7 @@ class Shader_1bb990 {
     char pad2[0x20 - 0x14];
 };
 
-void* FUN_0008d690(unsigned size);
+extern "C" void* FUN_0008d690(unsigned size);
 void* FUN_00263ea0(unsigned size);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 
@@ -193,7 +193,7 @@ struct Registry_1bb990 {
     void FUN_001bb700(const char* name, CRenderManager* owner, bool (CRenderManager::*fn)());
     void FUN_001bb880(const char* name, CRenderManager* owner, void (CRenderManager::*fn)(math::Vector*));
 };
-Registry_1bb990* FUN_001d4c90();
+extern "C" Registry_1bb990* FUN_001d4c90();
 void FUN_001c3d90();
 
 CRenderManager::CRenderManager()

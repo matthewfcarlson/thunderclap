@@ -1,4 +1,4 @@
-unsigned int __cdecl FUN_00356c30(unsigned int value) {
+extern "C" unsigned int __cdecl FUN_00356c30(unsigned int value) {
     unsigned int result;
     unsigned char table[16];
     unsigned int index = value;

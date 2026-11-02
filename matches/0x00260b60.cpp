@@ -7,7 +7,7 @@ struct Parser_260b60 {
 
 // Skips leading spaces, then advances past one space-delimited token; a parenthesised group
 // counts as part of the token and is consumed through its closing parenthesis.
-void FUN_00260b60(Parser_260b60* p)
+extern "C" void FUN_00260b60(Parser_260b60* p)
 {
     while (p->cur < p->end && *p->cur == ' ')
         p->cur++;

@@ -11,7 +11,7 @@ class Owner {
   public:
     void Set(void*);
 };
-void Target(Owner* owner, int id) {
+extern "C" void FUN_0011a980(Owner* owner, int id) {
     ConditionFactoryCasterTemplate_11a980 caster;
     void* result = Find(id, &caster);
     owner->Set(result);

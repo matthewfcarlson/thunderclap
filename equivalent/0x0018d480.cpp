@@ -24,7 +24,7 @@ class CFightParams : public fight::Params {
 public:
     virtual void vfunc_0();
 };
-bool FUN_00018960(float a, float b, float eps);
+extern "C" bool FUN_00018960(float a, float b, float eps);
 
 class TimerCondition {
 public:

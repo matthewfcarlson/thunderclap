@@ -9,7 +9,7 @@ struct LocomotionDriver_nv_22a9c0 {
 struct Driver_22a9c0 {
     int* vptr;
 };
-void __fastcall target(Driver_22a9c0* self) {
+extern "C" void __fastcall FUN_0022a9c0(Driver_22a9c0* self) {
     self->vptr = &vtable_22a9c0;
     --(*(int*)&DAT_004e5ac4);
     ((LocomotionDriver_nv_22a9c0*)(((choreo2::LocomotionDriver*)(((choreo2::LocomotionDriver*)(self))))))->cleanup();

@@ -3,7 +3,7 @@
 
 extern "C" char DAT_004194dc[];
 typedef unsigned int u32_18c1b0;
-extern void* __cdecl operator_new(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class ShieldArcTrack_18c1b0 {
   public:
     virtual void A();
@@ -16,7 +16,7 @@ class ShieldArcTrack_18c1b0 {
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::ShieldArcTrack>::vfunc_5() {
-    ShieldArcTrack_18c1b0* p = (ShieldArcTrack_18c1b0*)operator_new(0x14);
+    ShieldArcTrack_18c1b0* p = (ShieldArcTrack_18c1b0*)FUN_0008d690(0x14);
     if (p) {
         p->Init();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_004194dc);

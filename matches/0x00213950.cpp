@@ -13,7 +13,7 @@ struct Result_213950 {
 };
 struct Helper_213950 {};
 Result_213950* __fastcall FUN_00212bb0(Helper_213950*, Obj_213950*);
-int __cdecl FUN_00213950(Obj_213950* p, Helper_213950* h) {
+extern "C" int __cdecl FUN_00213950(Obj_213950* p, Helper_213950* h) {
     int ret = 0;
     Result_213950* r = FUN_00212bb0(h, p);
     p->stack = p->stack - 2;

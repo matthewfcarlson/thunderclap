@@ -16,13 +16,13 @@ struct LexState_21afd0 {
     TString_21afd0 *source;
 };
 
-void __cdecl FUN_00216340(char *out, const char *source, int bufflen);
+extern "C" void __cdecl FUN_00216340(char *out, const char *source, int bufflen);
 const char *__cdecl FUN_00216320(lua_State *L, const char *fmt, ...);
-void __cdecl FUN_002152b0(lua_State *L, int errcode);
+extern "C" void __cdecl FUN_002152b0(lua_State *L, int errcode);
 // equiv-conv: FUN_0021af60 eax edi
 const char *FUN_0021af60(int token, LexState_21afd0 *ls);
 
-void FUN_0021afd0(LexState_21afd0 *ls, const char *msg, int token)
+extern "C" void FUN_0021afd0(LexState_21afd0 *ls, const char *msg, int token)
 {
     char buff[0x50];
     FUN_00216340(buff, ls->source->str, 0x50);

@@ -25,11 +25,11 @@ struct Registry_25d340 {
 
 Node* __cdecl FUN_00247530(char* pool);
 void __cdecl FUN_00247550(char* pool, Node* node);
-int __cdecl FUN_00240c20(int arg);
-void __cdecl FUN_00257e80(char* list, Node* node);
+extern "C" int __cdecl FUN_00240c20(int arg);
+extern "C" void __cdecl FUN_00257e80(char* list, Node* node);
 
 // Allocates and registers a node; frees it again when the handle lookup fails.
-Node* FUN_0025d340(int* src, int arg, char flag)
+extern "C" Node* FUN_0025d340(int* src, int arg, char flag)
 {
     Node* alloc = FUN_00247530(DAT_004e7898);
     Node* n = alloc ? (alloc->sub.FUN_0023fac0(), alloc) : 0;

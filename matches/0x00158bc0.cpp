@@ -7,7 +7,7 @@ class Factory {
   public:
     void Add(void*);
 };
-void Function(Factory* f, void* name) {
+extern "C" void FUN_00158bc0(Factory* f, void* name) {
     TrackFactoryCasterTemplate_158bc0 caster;
     void* obj = Find(name, &caster);
     f->Add(obj);

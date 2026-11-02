@@ -6,7 +6,7 @@
 #include "decls/data/game/unknown.h"
 struct Screen_879c0 { void FUN_00086da0(); };
 struct World { char pad0[0x54]; Screen_879c0* screen; char pad1[0x45]; unsigned char active; };
-extern unsigned int __cdecl FUN_00267f80();
+extern "C" unsigned int __cdecl FUN_00267f80();
 extern void __cdecl thunk_FUN_00270a50();
 extern void __cdecl FUN_002656a0();
 extern int __cdecl _sprintf(char*, const char*, ...);

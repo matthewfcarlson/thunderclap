@@ -8,7 +8,7 @@ class Factory {
     void Set(Token*);
 };
 Token* Find(void*, Caster*);
-void func(Factory* f, void* p) {
+extern "C" void FUN_00113cf0(Factory* f, void* p) {
     Caster c;
     f->Set(Find(p, &c));
 }

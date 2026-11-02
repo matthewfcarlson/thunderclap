@@ -8,7 +8,7 @@ class CGameCamera {
 struct ThisCall_00098480 {
     void FUN_00098480(int);
 };
-void __fastcall FUN_000a9620(CGameCamera*);
+extern "C" void __fastcall FUN_000a9620(CGameCamera*);
 void __fastcall FUN_000984e0(CGameCamera* p) {
     *(void**)p = (void*)((hulk_intptr)DAT_00404b3c);
     ((ThisCall_00098480*)(p))->FUN_00098480(0);

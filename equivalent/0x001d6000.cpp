@@ -4,7 +4,7 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 typedef unsigned int uint;
-extern int __cdecl FUN_00096600(const char*, const char*);
+extern "C" int __cdecl FUN_00096600(const char*, const char*);
 struct Property_1d6000 { uint low, high; const char* value; uint unused; };
 struct Item_1d6000 { char pad[0x3c]; int count; Property_1d6000* properties; };
 struct Collection_1d6000 { char pad[0x1c]; Item_1d6000** begin; Item_1d6000** end; };

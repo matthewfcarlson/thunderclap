@@ -9,7 +9,7 @@ struct Source_86790 { void FUN_000ae840(); };
 struct Input_86790 { void FUN_000af3c0(int); Item_86790* FUN_000af3a0(int); };
 struct Pump_86790 { void FUN_000bd1b0(int); };
 struct State_86790 { char pad[5]; unsigned char active; };
-void FUN_002684c0();
+extern "C" void FUN_002684c0();
 State_86790* FUN_0008e090();
 bool FUN_0008db80();
 struct Renderer_86790 { char pad[0xd8]; int state; void FUN_0028f9a0(); void FUN_0028faf0(int); };

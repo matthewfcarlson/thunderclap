@@ -26,13 +26,13 @@ struct ScriptArgs {
 struct Script_103c30 {
     int FUN_001d3b00(const char* name, ScriptArgs args);
 };
-extern Script_103c30* __cdecl FUN_001d4c90();
-extern unsigned __int64 __cdecl FUN_0027afb0(const char* s);
+extern "C" Script_103c30* __cdecl FUN_001d4c90();
+extern "C" unsigned __int64 __cdecl FUN_0027afb0(const char* s);
 
 
 extern float __cdecl FUN_000964e0();
-extern float __cdecl FUN_00083d90(float* v);
-extern Vec3_103c30* __cdecl FUN_00083e00(Vec3_103c30* out, Vec3_103c30* in, float s);
+extern "C" float __cdecl FUN_00083d90(float* v);
+extern "C" Vec3_103c30* __cdecl FUN_00083e00(Vec3_103c30* out, Vec3_103c30* in, float s);
 extern float __cdecl FUN_00224f10(Vec3_103c30* v);
 extern float __cdecl FUN_00224fc0(float a, float b);
 extern void __cdecl FUN_00224d70(float angle, Vec3_103c30* out);

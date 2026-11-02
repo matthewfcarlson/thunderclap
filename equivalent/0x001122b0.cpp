@@ -18,7 +18,7 @@ template<class T> struct ParamEnumConstList : BaseEnum_1122b0 { const char* list
 template<class T> struct ParamString : BaseString { void (*callback)(); int other; virtual void slot0(); };
 template<class T> struct ParamFloatConstRange : BaseFloat_1122b0 { void (*callback)(); int other; virtual void slot0(); };
 }
-void FUN_001122b0() {
+extern "C" void FUN_001122b0() {
  if (!DAT_004e0b3c) {
  void* items[3];
  typedef fight::ParamEnumConstList<hulkfight::ai::HulkActionCountCondition> E;

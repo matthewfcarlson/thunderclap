@@ -14,7 +14,7 @@ class SeqEventChannelVolumes : public SeqEvent {
   public:
     virtual SeqEventChannelVolumes* f4(int);
 };
-extern void __cdecl FUN_00247550(void*, void*);
+extern "C" void __cdecl FUN_00247550(void*, void*);
 SeqEventChannelVolumes* SeqEventChannelVolumes::f4(int flag) {
     Base();
     if (flag & 1)

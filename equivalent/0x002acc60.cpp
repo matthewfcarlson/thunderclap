@@ -2,7 +2,7 @@
 // FUN_002acc60 @ 0x002acc60
 #include "decls/data/engine/pure3d.h"
 
-void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 void* __cdecl memmove(void*, const void*, unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 struct Ref_2acc60 { virtual void Add(); virtual void Release(); };

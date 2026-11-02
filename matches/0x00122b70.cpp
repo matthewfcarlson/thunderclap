@@ -7,7 +7,7 @@ class Factory {
     void Add(void*);
 };
 extern void* Find(const char*, ConditionFactoryCasterTemplate_122b70*);
-void Make(Factory* f, const char* name) {
+extern "C" void FUN_00122b70(Factory* f, const char* name) {
     ConditionFactoryCasterTemplate_122b70 caster;
     f->Add(Find(name, &caster));
 }

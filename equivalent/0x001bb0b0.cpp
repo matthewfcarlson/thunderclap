@@ -11,11 +11,11 @@
 extern "C" int __cdecl sprintf(char *, const char *, ...);
 extern "C" unsigned int __cdecl strlen(const char *);
 void *thunk_FUN_0008d690(unsigned int size);
-unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
-int __cdecl FUN_001b8970(unsigned short *s, int n);
-void __cdecl FUN_00294c70(const char *src, unsigned short *dst, int n);
-const char *__cdecl FUN_001b8b60(const char *text);
-void __cdecl FUN_002684c0();
+extern "C" unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
+extern "C" int __cdecl FUN_001b8970(unsigned short *s, int n);
+extern "C" void __cdecl FUN_00294c70(const char *src, unsigned short *dst, int n);
+extern "C" const char *__cdecl FUN_001b8b60(const char *text);
+extern "C" void __cdecl FUN_002684c0();
 
 namespace pure3d { class TextureFont; }
 namespace content {

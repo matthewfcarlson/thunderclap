@@ -4,7 +4,7 @@ struct Buf_25fd40 {
     void init();
     void fini();
 };
-u8_25fd40 __cdecl seq_helper(int, Buf_25fd40*);
+extern "C" u8_25fd40 __cdecl FUN_00263500(int, Buf_25fd40*);
 namespace audio {
 struct SeqEvent {
     virtual void vfunc_0();
@@ -18,7 +18,7 @@ struct SeqEvent {
 u8_25fd40 audio::SeqEvent::vfunc_1(int p) {
     Buf_25fd40 b;
     b.init();
-    u8_25fd40 r = seq_helper(p, &b);
+    u8_25fd40 r = FUN_00263500(p, &b);
     b.fini();
     return r;
 }

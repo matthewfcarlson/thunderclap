@@ -6,7 +6,7 @@ extern void __cdecl F339270(int, int, int);
 extern void __cdecl F213640(int, int, int);
 extern void __cdecl F213870(int, int, int);
 extern void __cdecl F212ed0(int, int);
-int __cdecl target(int p) {
+extern "C" int __cdecl FUN_0033ae50(int p) {
     int b = F212d70(p);
     F339d70(p, 1, 5);
     int s = F3392c0(p, 1) + 1;

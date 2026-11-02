@@ -7,9 +7,9 @@ struct Manager {
     virtual void slot1();
     virtual void slot2(int value);
 };
-void FUN_00270380();
-void FUN_00270530();
-void FUN_00266d70()
+extern "C" void FUN_00270380();
+extern "C" void FUN_00270530();
+extern "C" void FUN_00266d70()
 {
     FUN_00270380();
     (*(unsigned char*)&DAT_00527f5c) = 0;

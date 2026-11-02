@@ -4,12 +4,12 @@
 extern int __cdecl FUN_00212d70(void*);
 extern void __cdecl FUN_002135a0(void*, int, const char*);
 extern void __cdecl FUN_00212ed0(void*, int);
-extern void __cdecl FUN_002139a0(void*, int, int);
+extern "C" void __cdecl FUN_002139a0(void*, int, int);
 extern int __cdecl FUN_00213190(void*, int);
 extern void __cdecl FUN_002133d0(void*, const char*);
 extern void __cdecl FUN_00213c40(void*);
 extern void __cdecl FUN_00212d80(void*, int);
-int __cdecl target(void* state) {
+extern "C" int __cdecl FUN_001d0c60(void* state) {
     int count = FUN_00212d70(state);
     FUN_002135a0(state, -10001, DAT_00422548);
     int i = 1;

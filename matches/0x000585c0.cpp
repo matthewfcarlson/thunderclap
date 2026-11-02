@@ -25,7 +25,7 @@ class TrackFactoryTemplate_585c0 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_00053d80();
 
 template <> void* fight::ConditionFactoryCasterTemplate<CPropActorStateCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CPropActorStateCondition
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_585c0* t = new (mem) TrackFactoryTemplate_585c0();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_00053d80();
         return (void*)(t);
     }
     return (void*)(0);

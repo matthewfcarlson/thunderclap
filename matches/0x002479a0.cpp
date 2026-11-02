@@ -3,10 +3,10 @@ struct X_2479a0 {
     X_2479a0* Target(unsigned char flag);
 };
 extern int __cdecl B();
-extern void __cdecl Finish(int, X_2479a0*);
+extern "C" void __cdecl FUN_00247550(int, X_2479a0*);
 X_2479a0* X_2479a0::Target(unsigned char flag) {
     A();
     if (flag & 1)
-        Finish(B(), this);
+        FUN_00247550(B(), this);
     return this;
 }

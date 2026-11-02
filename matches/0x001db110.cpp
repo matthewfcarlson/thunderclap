@@ -3,7 +3,7 @@
 // cl-flags: /GS
 struct Options { unsigned int first; char rest[0x2b4]; void FUN_001d1630(); };
 struct Manager_1db110 { void FUN_001d3b00(char*, Options); };
-extern Manager_1db110* __cdecl FUN_001d4c90();
+extern "C" Manager_1db110* __cdecl FUN_001d4c90();
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 void __stdcall FUN_001db110(unsigned int unused) {
  Manager_1db110* manager = FUN_001d4c90();

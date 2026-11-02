@@ -17,15 +17,15 @@ class LoadStream {
     void Init();
     void Destroy();
 };
-void Cleanup(void*);
+extern "C" void FUN_00267070(void*);
 void LoadStream::Destroy() {
     vt = ((hulk_intptr)DAT_0042ae9c);
     Init();
     if (mObj)
         mObj->Release();
     if (m20)
-        Cleanup(m20);
+        FUN_00267070(m20);
     if (m24)
-        Cleanup(m24);
+        FUN_00267070(m24);
     vt = ((hulk_intptr)DAT_003f6098);
 }

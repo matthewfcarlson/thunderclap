@@ -18,8 +18,8 @@ struct Alloc_275ca0 {
     virtual void s3();
     virtual void free(void*);
 };
-void __cdecl FUN_0026d850(void*);
-void __cdecl FUN_0026d840(void*);
+extern "C" void __cdecl FUN_0026d850(void*);
+extern "C" void __cdecl FUN_0026d840(void*);
 namespace core {
 struct Request {
     virtual void vfunc_0();

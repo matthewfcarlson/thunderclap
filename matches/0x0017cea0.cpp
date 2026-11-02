@@ -7,7 +7,7 @@ class Obj {
     void Use(int);
 };
 extern int Find(void*, Caster*);
-void target(Obj* obj, void* name) {
+extern "C" void FUN_0017cea0(Obj* obj, void* name) {
     Caster c;
     int x = Find(name, &c);
     obj->Use(x);

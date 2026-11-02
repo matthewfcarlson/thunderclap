@@ -3,7 +3,7 @@
 struct Manager_1c4230 {
     void FUN_002659a0(unsigned int);
 };
-void __cdecl FUN_0023f8c0(const char*);
+extern "C" void __cdecl FUN_0023f8c0(const char*);
 void __cdecl thunk_FUN_00267090(void*);
 struct Resource_1c4230 {
     virtual void slot0();

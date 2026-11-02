@@ -2,7 +2,7 @@
 // FUN_0025c7c0 @ 0x0025c7c0
 extern "C" int __cdecl FUN_0025abd0(void*, unsigned int*);
 
-int __cdecl FUN_0025c7c0(void* source, unsigned int* destination)
+extern "C" int __cdecl FUN_0025c7c0(void* source, unsigned int* destination)
 {
     unsigned int value;
     int result = 0;

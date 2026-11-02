@@ -16,7 +16,7 @@ template<class T> struct ParamFloatConstRange {
 };
 }
 void __cdecl FUN_002347b0(void*,void*,int);
-void FUN_00072180() {
+extern "C" void FUN_00072180() {
  if (DAT_004dcfcc == 0) {
   fight::ParamFloatConstRange<CDriftTrack>* items[4];
   const char* names[4] = {"timeBegin", "timeEnd", "minVelocity", "maxVelocity"};

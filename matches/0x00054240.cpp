@@ -25,7 +25,7 @@ template <class T> struct ParamEnumConstList : Base_54240 {
 } // namespace fight
 typedef fight::ParamEnumConstList<CAlertStatusCondition> Param;
 extern "C" void __cdecl FUN_002347b0(void*, Base_54240**, int);
-void target() {
+extern "C" void FUN_00054240() {
     if ((*(int*)&DAT_004dc53c) == 0) {
         Base_54240* entries[2];
         void* mem = FUN_0008d690(32);

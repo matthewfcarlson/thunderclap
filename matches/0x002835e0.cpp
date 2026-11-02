@@ -18,7 +18,7 @@ class CLightQueue {
     char pad30[0x24];
     Ref_2835e0* m54;
 };
-void __fastcall FUN_0027afd0(CLightQueue*);
+extern "C" void __fastcall FUN_0027afd0(CLightQueue*);
 void __fastcall FUN_002835e0(CLightQueue* self) {
     self->vptr = (void*)((hulk_intptr)DAT_0042c514);
     _ReadWriteBarrier();

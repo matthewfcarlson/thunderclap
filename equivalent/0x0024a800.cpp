@@ -73,7 +73,7 @@ static TreeLink *Successor(TreeLink *n, TreeLink *nil)
     return p;
 }
 
-void FUN_0024a800(Scene *scene, Context *ctx)
+extern "C" void FUN_0024a800(Scene *scene, Context *ctx)
 {
     scene->sub.FUN_0024a280(ctx);
     FUN_00249630(scene, ctx);

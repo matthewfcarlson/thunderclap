@@ -6,10 +6,10 @@ class CMoveTrack_770e0 {
   public:
     void Init();
 };
-extern void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<CMoveTrack>::vfunc_5() {
-    CMoveTrack_770e0* p = (CMoveTrack_770e0*)Allocate(0x28);
+    CMoveTrack_770e0* p = (CMoveTrack_770e0*)FUN_0008d690(0x28);
     if (p) {
         p->Init();
         *(int*)((char*)p + 0x0c) = 0;

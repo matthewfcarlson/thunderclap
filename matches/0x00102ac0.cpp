@@ -11,7 +11,7 @@ class CAvoidBehaviour_102ac0 {
 struct CCharacterAgent_000fc760 {
     CCharacterAgent_000fc760(void*);
 };
-extern void* Alloc(hulk_uintptr);
+extern "C" void* FUN_0008d690(hulk_uintptr);
 class CMoveAgent : public CCharacterAgent_000fc760 {
   public:
     char pad[0x68];
@@ -26,7 +26,7 @@ class CMoveAgent : public CCharacterAgent_000fc760 {
 };
 CMoveAgent::CMoveAgent(void* arg) : CCharacterAgent_000fc760(arg) {
     *(hulk_uintptr*)this = ((hulk_intptr)DAT_0040d418);
-    CAvoidBehaviour_102ac0* h = (CAvoidBehaviour_102ac0*)Alloc(0x38);
+    CAvoidBehaviour_102ac0* h = (CAvoidBehaviour_102ac0*)FUN_0008d690(0x38);
     Obj_102ac0* q;
     if (h)
         q = h->Make();

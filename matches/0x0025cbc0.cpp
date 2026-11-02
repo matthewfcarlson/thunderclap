@@ -18,7 +18,7 @@ struct Source_25cbc0 {
     SourceTable* table;
     void FUN_00246f00(Buffer_25cbc0*, unsigned, unsigned, unsigned);
 };
-void __cdecl FUN_00263470(Buffer_25cbc0*);
+extern "C" void __cdecl FUN_00263470(Buffer_25cbc0*);
 void __cdecl FUN_00263480(unsigned*, Buffer_25cbc0*);
 namespace audio {
 struct OmHalStream {

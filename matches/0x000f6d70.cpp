@@ -3,8 +3,8 @@
 // cl-flags: /GS
 extern "C" char * __cdecl strchr(const char *, int);
 extern "C" char * __cdecl strncpy(char *, const char *, unsigned int);
-void __cdecl FUN_000f6bd0(char *, const char *, const char *);
-void __cdecl FUN_000f6d70(const char *filename, const char *other)
+extern "C" void __cdecl FUN_000f6bd0(char *, const char *, const char *);
+extern "C" void __cdecl FUN_000f6d70(const char *filename, const char *other)
 {
     char name[40];
     const char *dot = strchr(filename, '.');

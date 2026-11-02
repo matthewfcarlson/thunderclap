@@ -1,4 +1,4 @@
-int FUN_001b8970(short* p, int limit) {
+extern "C" int FUN_001b8970(short* p, int limit) {
     int i = 0;
     bool pending = false;
     int lines = 1;

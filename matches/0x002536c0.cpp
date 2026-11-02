@@ -33,8 +33,8 @@ class SeqEventVarPitchRand : public SeqEvent {
     virtual void v2(Ctx*);
 };
 } // namespace audio
-extern "C" void* alloc(void*);
+extern "C" void* FUN_00247530(void*);
 void audio::SeqEventVarPitchRand::v2(Ctx* ctx) {
-    void* p = alloc(DAT_004e70a0);
+    void* p = FUN_00247530(DAT_004e70a0);
     ctx->Add(p ? new (p) SeqActionVarPitchRand(this) : 0);
 }

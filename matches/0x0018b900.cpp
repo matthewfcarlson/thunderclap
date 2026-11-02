@@ -3,10 +3,10 @@
 struct PropAtRestCondition_nv_18b900 {
     void Init(int);
 };
-extern void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 extern int prop_vtable;
 void* Factory_vfunc5() {
-    hulkfight::motion::PropAtRestCondition* p = (hulkfight::motion::PropAtRestCondition*)alloc(0x10);
+    hulkfight::motion::PropAtRestCondition* p = (hulkfight::motion::PropAtRestCondition*)FUN_0008d690(0x10);
     if (p) {
         ((PropAtRestCondition_nv_18b900*)(p))->Init(0);
         *((hulk_intptr*)p) = (hulk_intptr)&prop_vtable;

@@ -132,14 +132,14 @@ struct SkeletonInfo_nv_2fddf0 {
     physics::SkeletonInfo *FUN_00312440(void *owner);
 };
 
-void *__cdecl FUN_0008d690(unsigned int size);
+extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 void *__cdecl FUN_00263ea0(unsigned int size);
 
 struct SimStateArticulated_nv_2fddf0 {
     Sink_2fddf0 *FUN_002fdc90(Chain_2fddf0 *chain, int arg);
 };
 
-Sink_2fddf0 *__cdecl FUN_002fddf0(Chain_2fddf0 *chain, Source_2fddf0 *source, Provider_2fddf0 *provider)
+extern "C" Sink_2fddf0 *__cdecl FUN_002fddf0(Chain_2fddf0 *chain, Source_2fddf0 *source, Provider_2fddf0 *provider)
 {
     chain->FUN_0030f4c0();
     Pose_2fddf0 *pose = chain->FUN_0030f490(0)->FUN_0030ef30();

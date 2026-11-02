@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 
-extern void* alloc(hulk_uintptr);
+extern "C" void* FUN_0008d690(hulk_uintptr);
 extern int velocity_vftable;
 class VelocityCondition_16d650 {
   public:
@@ -13,7 +13,7 @@ class VelocityCondition_16d650 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::VelocityAnimatedXZCondition>::vfunc_5() {
-    VelocityCondition_16d650* p = (VelocityCondition_16d650*)alloc(0x14);
+    VelocityCondition_16d650* p = (VelocityCondition_16d650*)FUN_0008d690(0x14);
     if (p) {
         p->Init(0);
         p->vt = (hulk_intptr)&velocity_vftable;

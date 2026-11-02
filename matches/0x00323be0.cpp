@@ -6,12 +6,12 @@ class Obj_323be0 {
     Obj_323be0* Create(void*, int);
     void Attach(unsigned int*);
 };
-void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 unsigned int* __stdcall GetBackBuffer(int);
 
 void* pure3d::d3dExtFrameBufferTexture::vfunc_1(int param) {
     if (!(*(Obj_323be0 * *)&this->f_08)) {
-        Obj_323be0* p = (Obj_323be0*)Allocate(0xf8);
+        Obj_323be0* p = (Obj_323be0*)FUN_0008d690(0xf8);
         Obj_323be0* r;
         if (p)
             r = p->Create((*(void * *)&this->f_04), 0);

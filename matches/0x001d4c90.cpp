@@ -4,7 +4,7 @@ struct Object {
     Object* FUN_001d4830();
 };
 void* __cdecl FUN_0008d690(unsigned int);
-Object* FUN_001d4c90() {
+extern "C" Object* FUN_001d4c90() {
     if (!(*(Object**)&DAT_004e23cc)) {
         void* memory = FUN_0008d690(0x5494);
         if (memory) {

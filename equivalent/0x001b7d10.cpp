@@ -70,7 +70,7 @@ struct Status_1b7d10 {
 };
 
 
-void FUN_00333ef0();
+extern "C" void FUN_00333ef0();
 unsigned int FUN_00267f80();
 
 class Player_1b7d10 {

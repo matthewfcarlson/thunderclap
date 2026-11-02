@@ -6,7 +6,7 @@ struct Thing_339540 {
     int count;
     int value;
 };
-void __cdecl FUN_00339540(Thing_339540* p) {
+extern "C" void __cdecl FUN_00339540(Thing_339540* p) {
     hulk_intptr diff = p->base - (hulk_intptr)p - 12;
     if (diff != 0) {
         char* dst = (char*)p + 12;

@@ -19,7 +19,7 @@ struct V3_11fa30 {
     float FUN_00018990();
 };
 
-void FUN_00363f10();
+extern "C" void FUN_00363f10();
 
 class RefCounted_11fa30 {
 public:
@@ -103,7 +103,7 @@ public:
 struct Owner_11fa30 { char pad[4]; };
 Owner_11fa30 *__fastcall FUN_000592a0(void *x);
 Stats_11fa30 *__fastcall FUN_00059a30(Owner_11fa30 *o);
-char __cdecl FUN_00018960(float a, float b, float eps);
+extern "C" char __cdecl FUN_00018960(float a, float b, float eps);
 
 union ArgSlot_11fa30 {
     fight::Params *p;

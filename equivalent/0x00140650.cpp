@@ -71,7 +71,7 @@ struct Anchor_140650 {
 };
 Anchor_140650 *__fastcall FUN_000592a0(void *owner);
 Stats_140650 *__fastcall FUN_00059a30(Anchor_140650 *f);
-Rig_140650 *__fastcall FUN_00059a40(Anchor_140650 *f);
+extern "C" Rig_140650 *__fastcall FUN_00059a40(Anchor_140650 *f);
 
 struct Fx34_140650 {
     void FUN_001ec980(Stats_140650 *st, const char *name);

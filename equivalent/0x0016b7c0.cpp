@@ -15,7 +15,7 @@ template<class T> struct ParamEnumConstList : ParamBase_16b7c0 { virtual void sl
 template<class T> struct ParamFloatConstRange : ParamBase_16b7c0 { virtual void slot0(); void (*callback)(); unsigned int tail; };
 }
 extern void __cdecl FUN_002347b0(unsigned int*, ParamBase_16b7c0**, unsigned int);
-void __cdecl FUN_0016b7c0() {
+extern "C" void __cdecl FUN_0016b7c0() {
  if (!DAT_004e125c) {
   ParamBase_16b7c0* params[3];
   void* mem = FUN_0008d690(32);

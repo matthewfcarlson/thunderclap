@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2523 inputs, branch coverage 18/20, incomplete)
 // FUN_001d1410 @ 0x001d1410
 // 0x001d1410: insert an entry into a sorted pointer table of at most 20 entries
-int __cdecl FUN_00096600(const char* a, const char* b);
+extern "C" int __cdecl FUN_00096600(const char* a, const char* b);
 
 struct Entry_1d1410 {
     int field_00;

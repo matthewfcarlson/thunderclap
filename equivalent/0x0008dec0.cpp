@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_0008dec0 @ 0x0008dec0
 #include "decls/address.h"
-extern char DAT_004dd7e4,DAT_0049c7dc,DAT_0049c90c,DAT_0049c8c4,DAT_0049c8e8; extern int DAT_004d293c,DAT_004d2940,DAT_004d2944,DAT_004d2948; void FUN_00201850(); extern void (*DAT_00555444)();
-void __cdecl FUN_0008ecd0(void*);void* __cdecl FUN_0008d690(int);void* __cdecl FUN_00263ea0(int);void __cdecl FUN_002f4df0(int,void*);void FUN_00291dc0();void FUN_002f5130();
+extern char DAT_004dd7e4,DAT_0049c7dc,DAT_0049c90c,DAT_0049c8c4,DAT_0049c8e8; extern int DAT_004d293c,DAT_004d2940,DAT_004d2944,DAT_004d2948; extern "C" void FUN_00201850(); extern void (*DAT_00555444)();
+void __cdecl FUN_0008ecd0(void*);void* __cdecl FUN_0008d690(int);void* __cdecl FUN_00263ea0(int);extern "C" void __cdecl FUN_002f4df0(int,void*);extern "C" void FUN_00291dc0();extern "C" void FUN_002f5130();
 struct AICollisionSolverAgent_8dec0{void* FUN_001b2e50();};
 struct CSPHulkPropLoader{virtual void slot0();void FUN_00290740();char pad[16];};
 struct Resource_8dec0{virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual void s8();virtual void s9();virtual void s10();virtual void s11(int);char pad[16];unsigned char enabled;};

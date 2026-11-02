@@ -4,7 +4,7 @@
 extern const unsigned short DAT_004cdb08[];
 unsigned int __cdecl FUN_002716c0(const unsigned char *text, unsigned int *length, unsigned int *value);
 
-unsigned int __cdecl FUN_00271820(const unsigned char *text, unsigned int *length, unsigned int *value)
+extern "C" unsigned int __cdecl FUN_00271820(const unsigned char *text, unsigned int *length, unsigned int *value)
 {
     unsigned int character = *text;
     if (character < 0x80)

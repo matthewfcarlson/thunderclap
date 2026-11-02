@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_003fc238[];
-extern void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 class Track_77900 {
   public:
     Track_77900();
@@ -27,7 +27,7 @@ class CWallSlideTrack_77900 : public Track_77900 {
 };
 
 template <> void* fight::TrackFactoryTemplate<CWallSlideTrack>::vfunc_5() {
-    CWallSlideTrack_77900* p = (CWallSlideTrack_77900*)Alloc(0x30);
+    CWallSlideTrack_77900* p = (CWallSlideTrack_77900*)FUN_0008d690(0x30);
     if (p) {
         p->Track_77900::Track_77900();
         p->x0c = 0;

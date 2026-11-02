@@ -43,8 +43,8 @@ struct DdsFile {
     DdsHeader header;
 };
 
-void *FUN_00266e00(int count, unsigned int size);
-void FUN_00267090(void *p);
+extern "C" void *FUN_00266e00(int count, unsigned int size);
+extern "C" void FUN_00267090(void *p);
 
 void FUN_002de030(Stream *s, Texture *tex)
 {

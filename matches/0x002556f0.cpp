@@ -11,7 +11,7 @@ struct Sub2_2556f0 {
 struct Sub3_2556f0 {
     void m();
 };
-void __cdecl f4(void*, void*);
+extern "C" void __cdecl FUN_00247550(void*, void*);
 struct SeqEventCrossFade {
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -25,6 +25,6 @@ SeqEventCrossFade* SeqEventCrossFade::vfunc_4(byte_2556f0 p) {
     reinterpret_cast<Sub2_2556f0*>((char*)this + 0x1c)->m();
     reinterpret_cast<Sub3_2556f0*>(this)->m();
     if (p & 1)
-        f4(((char*)&DAT_004e7508), this);
+        FUN_00247550(((char*)&DAT_004e7508), this);
     return this;
 }

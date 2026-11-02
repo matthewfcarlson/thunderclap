@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 121 inputs, branch coverage 6/6)
 // FUN_002b0e40 @ 0x002b0e40
 struct Record { unsigned int value[6]; };
-Record* __cdecl FUN_002b0e40(Record* destination, int count, const Record* source)
+extern "C" Record* __cdecl FUN_002b0e40(Record* destination, int count, const Record* source)
 {
     if (count == 0) return destination;
     do {

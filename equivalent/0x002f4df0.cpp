@@ -12,7 +12,7 @@ extern "C" void __cdecl FUN_003077c0();
 extern "C" void __cdecl FUN_002ed020();
 extern "C" void __cdecl FUN_002ef0b0();
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-void FUN_002f4df0(int arg, void* handler){
+extern "C" void FUN_002f4df0(int arg, void* handler){
   (*(unsigned char*)&DAT_0055544c) = 1;
   FUN_002ecb90(arg);
   FUN_002f2e20();

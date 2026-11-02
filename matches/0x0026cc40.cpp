@@ -20,11 +20,11 @@ class MemoryDlAllocator {
     int count;
     void target();
 };
-void cleanup(int);
+extern "C" void FUN_00267090(int);
 void MemoryDlAllocator::target() {
     if (count == 1) {
         if (flag == 1)
-            cleanup(*(int*)((char*)this + 0xc));
+            FUN_00267090(*(int*)((char*)this + 0xc));
         if (flag2 == 0)
             vfunc_2(1);
         else

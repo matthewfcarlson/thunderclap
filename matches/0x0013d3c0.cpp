@@ -11,18 +11,18 @@ class Reached : public ConditionFactoryCaster_13d3c0 {
     virtual void cast();
 };
 class Condition;
-Condition* __cdecl find(const char*, ConditionFactoryCaster_13d3c0*);
+extern "C" Condition* __cdecl FUN_002343e0(const char*, ConditionFactoryCaster_13d3c0*);
 class Factory {
   public:
     void add(Condition*);
 };
-void __cdecl init(Factory* factory) {
+extern "C" void __cdecl FUN_0013d3c0(Factory* factory) {
     {
         ConditionFactoryCasterTemplate_13d3c0 frame;
-        factory->add(find("frame", &frame));
+        factory->add(FUN_002343e0("frame", &frame));
     }
     {
         Reached reached;
-        factory->add(find("frameReached", &reached));
+        factory->add(FUN_002343e0("frameReached", &reached));
     }
 }

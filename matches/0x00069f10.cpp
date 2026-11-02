@@ -6,7 +6,7 @@ class Helper_69f10 {
   public:
     int Apply(hulk_intptr, float);
 };
-extern int __cdecl FUN_0008d690(int);
+extern "C" int __cdecl FUN_0008d690(int);
 
 hulk_intptr CDrainHealthTrack::vfunc_12(hulk_intptr arg) {
     float value = vfunc_7();

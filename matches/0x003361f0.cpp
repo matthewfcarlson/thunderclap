@@ -3,7 +3,7 @@ struct Reader {
     void Adv();
 };
 float __cdecl Conv(int);
-char __stdcall F(float** out, Reader* r, int d, char direct) {
+extern "C" char __stdcall FUN_003361f0(float** out, Reader* r, int d, char direct) {
     int v = r->Get();
     if (!v)
         return 0;

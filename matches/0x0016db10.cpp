@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 extern char VT_16db10[];
-extern void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 class TargetCondition {
   public:
     virtual void A();
@@ -16,7 +16,7 @@ class TargetCondition {
     TargetCondition(int);
 };
 void* TargetCondition::Create() {
-    TargetCondition* p = (TargetCondition*)alloc(0x14);
+    TargetCondition* p = (TargetCondition*)FUN_0008d690(0x14);
     if (p) {
         p->TargetCondition::TargetCondition(0);
         *(void**)p = VT_16db10;

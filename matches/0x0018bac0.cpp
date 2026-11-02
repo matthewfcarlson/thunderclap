@@ -25,7 +25,7 @@ class TrackFactoryTemplate_18bac0 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_00187bb0();
 
 template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::PropMissileCountCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::PropM
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_18bac0* t = new (mem) TrackFactoryTemplate_18bac0();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_00187bb0();
         return (void*)(t);
     }
     return (void*)(0);

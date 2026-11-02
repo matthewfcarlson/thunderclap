@@ -9,7 +9,7 @@ class Obj {
     void Use(void*);
 };
 void* Find(void*, fight::TrackFactoryCasterTemplate*);
-void func(Obj* obj, void* value) {
+extern "C" void FUN_0019de20(Obj* obj, void* value) {
     fight::TrackFactoryCasterTemplate caster;
     void* found = Find(value, &caster);
     obj->Use(found);

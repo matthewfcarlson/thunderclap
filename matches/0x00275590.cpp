@@ -11,8 +11,8 @@ class Alloc_275590 {
 };
 extern void* ReqVtbl[];
 extern void* FileReqVtbl[];
-void Lock(void*);
-void Unlock(void*);
+extern "C" void FUN_0026d850(void*);
+extern "C" void FUN_0026d840(void*);
 class Sub_275590 {
   public:
     virtual void a();
@@ -41,9 +41,9 @@ FileCancelRequest_275590* FileCancelRequest_275590::Dtor(unsigned char flag) {
     mH->b();
     vt = ReqVtbl;
     if (flag & 1) {
-        Lock(((char*)&DAT_0052a1c8));
+        FUN_0026d850(((char*)&DAT_0052a1c8));
         (*(Alloc_275590**)&DAT_0052a1e4)->Free(this);
-        Unlock(((char*)&DAT_0052a1c8));
+        FUN_0026d840(((char*)&DAT_0052a1c8));
     }
     return this;
 }

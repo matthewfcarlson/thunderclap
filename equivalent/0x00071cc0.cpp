@@ -14,7 +14,7 @@ template<class T> struct ParamFloatConstRange { virtual void slot0(); char data[
 template<class T> struct ParamEnumConstList { virtual void slot0(); char data[12]; unsigned int* list; int count; void (__cdecl *callback)(); char tail[4]; void FUN_00234cc0(const char*); };
 }
 void __cdecl FUN_002347b0(unsigned int*, void**, int);
-void FUN_00071cc0() {
+extern "C" void FUN_00071cc0() {
  if (!DAT_004dcfb4) {
   void* entries[3];
   typedef fight::ParamFloatConstRange<CCameraHintTrack> FloatParam;

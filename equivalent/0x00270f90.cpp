@@ -10,7 +10,7 @@ struct Resource_270f90 {
 struct Entry_270f90 { Resource_270f90 *resource; char rest[0x118]; };
 void __cdecl FUN_0026d850(void *);
 void __cdecl FUN_0026d840(void *);
-void __cdecl FUN_0026d6d0(int);
+extern "C" void __cdecl FUN_0026d6d0(int);
 void __cdecl thunk_FUN_00270a50();
 // equiv-conv: FUN_00270980 eax
 void FUN_00270980(char *);

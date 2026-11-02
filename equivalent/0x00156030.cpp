@@ -25,7 +25,7 @@ template<class T> struct ParamIntConstRange {
  void FUN_002348e0(const char*);
 };
 }
-void __cdecl FUN_00156030() {
+extern "C" void __cdecl FUN_00156030() {
  if (!DAT_004e1104) {
   void* params[3];
   typedef fight::ParamFloatConstRange<hulkfight::motion::InterruptPriorityTrack> FloatParam;

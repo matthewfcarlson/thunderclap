@@ -67,8 +67,8 @@ class CFMVManager {
     bool FUN_001b6f00();
 };
 
-Registry_1b84f0* FUN_001d4c90();
-void* FUN_0008d690(unsigned size);
+extern "C" Registry_1b84f0* FUN_001d4c90();
+extern "C" void* FUN_0008d690(unsigned size);
 
 CFMVManager::CFMVManager() {
     field_04 = 0;

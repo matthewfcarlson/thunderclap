@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_0040fd14[];
-extern void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 class TargetDirectionYCondition_12a2b0 {
   public:
     hulk_intptr v0;
@@ -17,7 +17,7 @@ class Base_12a2b0 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetDirectionYCondition>::vfunc_5() {
-    TargetDirectionYCondition_12a2b0* p = (TargetDirectionYCondition_12a2b0*)Alloc(0x14);
+    TargetDirectionYCondition_12a2b0* p = (TargetDirectionYCondition_12a2b0*)FUN_0008d690(0x14);
     if (p) {
         ((Base_12a2b0*)p)->Init(0);
         p->v0 = ((hulk_intptr)DAT_0040fd14);

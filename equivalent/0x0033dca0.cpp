@@ -12,7 +12,7 @@ extern int __cdecl FUN_00339fe0(void*, int, int);
 extern void __cdecl FUN_00339c30(void*, int, const char*);
 extern int __cdecl FUN_00213ba0(void*, int, int);
 extern void __cdecl FUN_00213360(void*, int);
-int __cdecl FUN_0033dca0(void* state) {
+extern "C" int __cdecl FUN_0033dca0(void* state) {
     if (FUN_00212f70(state, 1)) {
         int value = FUN_00213120(state, 1);
         FUN_00212d80(state, 0);

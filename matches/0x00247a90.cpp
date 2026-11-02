@@ -9,7 +9,7 @@ struct Obj_247a90 {
     int f28;
 };
 
-void FUN_00247a90(int p1, Obj_247a90* dst, int* src) {
+extern "C" void FUN_00247a90(int p1, Obj_247a90* dst, int* src) {
     dst->f0c = 4;
     if (src != 0) {
         dst->f18 = src[0];

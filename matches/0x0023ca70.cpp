@@ -7,7 +7,7 @@ class Factory {
   public:
     void Do(void*);
 };
-void Func(Factory* f, void* p) {
+extern "C" void FUN_0023ca70(Factory* f, void* p) {
     ConditionFactoryCasterTemplate_23ca70 c;
     f->Do(Find(p, &c));
 }

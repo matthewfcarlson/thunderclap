@@ -164,7 +164,7 @@ class MenuScreen_bd050 {
     void FUN_000bc900(char* out, int a, const char* name, int b);
     void FUN_000bd050();
 };
-TextManager_bd050* FUN_000fc3d0();
+extern "C" TextManager_bd050* FUN_000fc3d0();
 
 void MenuScreen_bd050::FUN_000bd050() {
     char text[0x200];

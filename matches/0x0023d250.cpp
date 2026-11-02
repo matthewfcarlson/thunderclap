@@ -6,9 +6,9 @@ class Handler {
   public:
     void Set(void*);
 };
-extern void* __cdecl Find(void*, ConditionFactoryCasterTemplate_23d250*);
-void __cdecl FUN_0023d250(Handler* h, void* p) {
+extern "C" void* __cdecl FUN_002343e0(void*, ConditionFactoryCasterTemplate_23d250*);
+extern "C" void __cdecl FUN_0023d250(Handler* h, void* p) {
     ConditionFactoryCasterTemplate_23d250 caster;
-    void* v = Find(p, &caster);
+    void* v = FUN_002343e0(p, &caster);
     h->Set(v);
 }

@@ -13,7 +13,7 @@ template<class T> struct ParamBool { virtual void slot0(); char pad[12]; void (*
 void FUN_0014c6b0(); void FUN_0014c6d0(); void FUN_0014c6e0(); void FUN_0014c700();
 void* __cdecl FUN_0008d690(unsigned);
 void __cdecl FUN_002347b0(void*,void**,int);
-void FUN_001559d0() {
+extern "C" void FUN_001559d0() {
  if (!DAT_004e10b4) {
  void* objects[4];
  typedef hulkfight::motion::CollisionDamageHealthCompareCondition T;

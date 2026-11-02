@@ -7,7 +7,7 @@ class Owner {
     void apply(void*);
 };
 extern "C" void* lookup(void*, TrackFactoryCasterTemplate_13d040*);
-void fn(Owner* owner, void* name) {
+extern "C" void FUN_0013d040(Owner* owner, void* name) {
     TrackFactoryCasterTemplate_13d040 c;
     owner->apply(lookup(name, &c));
 }

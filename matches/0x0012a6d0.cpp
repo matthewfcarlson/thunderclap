@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_0040fdf4[];
-extern void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 struct Target_12a6d0 {
     hulk_uintptr vt;
     unsigned int a;
@@ -15,7 +15,7 @@ struct Init_12a6d0 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetOrientationCondition>::vfunc_5() {
-    Target_12a6d0* p = (Target_12a6d0*)alloc(0x14);
+    Target_12a6d0* p = (Target_12a6d0*)FUN_0008d690(0x14);
     if (p) {
         ((Init_12a6d0*)p)->initialize(0);
         p->vt = ((hulk_intptr)DAT_0040fdf4);

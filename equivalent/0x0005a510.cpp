@@ -3,7 +3,7 @@
 #include "compat/ptr.h"
 #include "gen/global.h"
 
-void *__cdecl FUN_0008d690(unsigned int size);
+extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 
 struct Holder_5a510 {
     char pad0[0x104];

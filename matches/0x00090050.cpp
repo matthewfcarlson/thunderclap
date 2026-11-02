@@ -1,6 +1,6 @@
 typedef unsigned int U32_90050;
 typedef unsigned long long U64_90050;
-extern U64_90050 __cdecl MakeKey(char*);
+extern "C" U64_90050 __cdecl FUN_0027b020(char*);
 class Table_90050 {
   public:
     int Find(char* s);
@@ -10,7 +10,7 @@ class Table_90050 {
 int Table_90050::Find(char* s) {
     if (s == 0 || *s == 0)
         return -1;
-    U64_90050 key = MakeKey(s);
+    U64_90050 key = FUN_0027b020(s);
     int i = 0;
     Table_90050* p = this;
     while (i < 50) {

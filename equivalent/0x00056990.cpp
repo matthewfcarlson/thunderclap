@@ -55,7 +55,7 @@ struct ParamRegistry {
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
-void FUN_00056990()
+extern "C" void FUN_00056990()
 {
     if (DAT_004dc514 == 0) {
         void* params[2];

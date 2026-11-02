@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 288 inputs, branch coverage 8/8)
 // FUN_0008f0b0 @ 0x0008f0b0
-void* __cdecl FUN_0008d6d0(int size);
+extern "C" void* __cdecl FUN_0008d6d0(int size);
 
 class IntArray_8f0b0 {
 public:

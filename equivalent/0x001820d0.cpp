@@ -77,7 +77,7 @@ struct World {
 };
 
 
-int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
+extern "C" int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
 
 bool hulkfight::motion::PropSpawnAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     struct Frame {

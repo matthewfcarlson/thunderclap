@@ -6,14 +6,14 @@ class DriftTrack {
   public:
     volatile int a[8];
 };
-void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 class InitObj_17e420 {
   public:
     void Init();
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::DriftToHulkTrack>::vfunc_5() {
-    DriftTrack* p = (DriftTrack*)Alloc(0x20);
+    DriftTrack* p = (DriftTrack*)FUN_0008d690(0x20);
     if (p) {
         ((InitObj_17e420*)p)->Init();
         p->a[3] = 0;

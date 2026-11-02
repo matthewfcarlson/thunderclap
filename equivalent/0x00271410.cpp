@@ -9,7 +9,7 @@ void __cdecl FUN_0026d850(void *);
 void __cdecl FUN_0026d840(void *);
 int __cdecl FUN_00270c10(const char *);
 void __cdecl FUN_00270f10(char *, int);
-void * __cdecl FUN_00276680(unsigned int);
+extern "C" void * __cdecl FUN_00276680(unsigned int);
 struct InstanceDrive_nv_271410 {
     core::InstanceDrive * FUN_00277110(void *, void *);
 };

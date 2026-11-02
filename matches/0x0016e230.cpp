@@ -25,7 +25,7 @@ class TrackFactoryTemplate_16e230 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_0016bd40();
 
 template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::HealthPercentCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Healt
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_16e230* t = new (mem) TrackFactoryTemplate_16e230();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_0016bd40();
         return (void*)(t);
     }
     return (void*)(0);

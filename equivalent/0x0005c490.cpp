@@ -34,8 +34,8 @@ namespace fight {
  template<class T> struct ParamIntConstRange : FUN_002348e0 { virtual void slot0(); };
  template<class T> struct ParamConditionGroup : FUN_00235220 { virtual void slot0(); };
 }
-void __cdecl FUN_002347b0(void**,void**,int);
-void __cdecl FUN_0005c490() {
+extern "C" void __cdecl FUN_002347b0(void**,void**,int);
+extern "C" void __cdecl FUN_0005c490() {
  if (!DAT_004dc5bc) {
   void* entries[3];
   void* mem = FUN_0008d690(24);

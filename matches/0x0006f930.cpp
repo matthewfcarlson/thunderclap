@@ -25,7 +25,7 @@ class TrackFactoryTemplate_6f930 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_000645c0();
 
 template <> void* fight::TrackFactoryCasterTemplate<CGrappleSmartPropDropTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CGrappleSmartPropDropTrack>:
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_6f930* t = new (mem) TrackFactoryTemplate_6f930();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_000645c0();
         return (void*)(t);
     }
     return (void*)(0);

@@ -4,7 +4,7 @@ class Reader {
     void Next();
 };
 extern "C" long __cdecl atol(const char*);
-char __stdcall target(long* out, Reader* reader, int unused, char param_4) {
+extern "C" char __stdcall FUN_003362f0(long* out, Reader* reader, int unused, char param_4) {
     char* s = reader->Get();
     if (!s)
         return 0;

@@ -14,7 +14,7 @@ extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *d
 extern void *__cdecl FUN_000fc260(const char *name);
 extern int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
 extern int __cdecl FUN_000fc020(char *buf, int size, ...);
-extern void __cdecl FUN_000fc280(const char *name);
+extern "C" void __cdecl FUN_000fc280(const char *name);
 
 struct Shader;
 struct Tex;
@@ -85,8 +85,8 @@ struct Shader {
     void FUN_000b4280(void *global, Tex *tex);
 };
 extern int DAT_00584554;
-Shader *__cdecl FUN_000c0db0(void *a, const char *name);
-Tex *__cdecl FUN_000c1ed0(void *a, const char *name);
+extern "C" Shader *__cdecl FUN_000c0db0(void *a, const char *name);
+extern "C" Tex *__cdecl FUN_000c1ed0(void *a, const char *name);
 
 struct Holder54_c2c20 {
     struct Pts *FUN_00086370();

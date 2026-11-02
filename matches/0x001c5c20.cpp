@@ -22,10 +22,10 @@ class Owner_1c5c20 {
     int value;
     void* Run(int);
 };
-extern void* Alloc(hulk_uintptr);
+extern "C" void* FUN_0008d690(hulk_uintptr);
 void* Owner_1c5c20::Run(int arg) {
     int n = provider->Get();
-    void* p = Alloc(0xb0);
+    void* p = FUN_0008d690(0xb0);
     void* r;
     if (p)
         r = ((Builder*)p)->Create(arg, n);

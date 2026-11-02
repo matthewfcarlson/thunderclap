@@ -6,7 +6,7 @@ extern "C" void __cdecl FUN_00270b70(char *);
 extern "C" int __cdecl FUN_00345b90(int);
 extern "C" void __cdecl FUN_00267660(char *);
 
-void __cdecl FUN_002697c0(const char *source, char *output, char *workspace, char **suffix, const char **remainder)
+extern "C" void __cdecl FUN_002697c0(const char *source, char *output, char *workspace, char **suffix, const char **remainder)
 {
     char *prefix = workspace ? workspace : output;
     const char *colon = strchr(source, ':');

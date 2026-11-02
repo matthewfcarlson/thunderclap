@@ -4,9 +4,9 @@
 #include "decls/data/platform/xbox/pure3d.h"
 
 struct Element_329430 { char bytes[24]; };
-extern void FUN_003290a0();
+extern "C" void FUN_003290a0();
 extern void __stdcall FUN_00011520(void*, unsigned, unsigned, void (*)());
-extern unsigned __cdecl FUN_00329060(const char*);
+extern "C" unsigned __cdecl FUN_00329060(const char*);
 struct Entry_329430 { unsigned name; char* data; unsigned count; Element_329430 elements[32]; };
 struct Registry_329430 { unsigned owner; int count; Entry_329430 entries[20]; Registry_329430* init(unsigned); };
 Registry_329430* Registry_329430::init(unsigned arg) {

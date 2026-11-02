@@ -1,8 +1,8 @@
 #include "decls/data/engine/core.h"
 // data: g_lock_274b60 = DAT_0052a1c8, g_manager_274b60 = DAT_0052a1e4
 
-extern void FUN_0026d850(void*);
-extern void FUN_0026d840(void*);
+extern "C" void FUN_0026d850(void*);
+extern "C" void FUN_0026d840(void*);
 struct Manager_274b60 {
     virtual void a();
     virtual void b();

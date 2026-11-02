@@ -25,7 +25,7 @@ void Free(void*) throw();
 struct Sub_1c4fb0 {
     char c;
 };
-void __fastcall SubFini(Sub_1c4fb0*) throw();
+extern "C" void __fastcall FUN_0027af50(Sub_1c4fb0*) throw();
 class Object_1c4fb0 : public GameDrawableInfo_1c4fb0 {
   public:
     char pad[4];
@@ -52,6 +52,6 @@ Object_1c4fb0::~Object_1c4fb0() throw() {
         m10->Release();
         m10 = 0;
     }
-    SubFini(&sub);
+    FUN_0027af50(&sub);
     vptr = g_vftable2;
 }

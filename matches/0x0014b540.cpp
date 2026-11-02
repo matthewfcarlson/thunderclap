@@ -7,7 +7,7 @@ class Owner {
   public:
     void set(void*);
 };
-void __cdecl FUN_0014b540(Owner* o, const char* name) {
+extern "C" void __cdecl FUN_0014b540(Owner* o, const char* name) {
     TrackFactoryCasterTemplate_14b540 c;
     o->set(findTrack(name, &c));
 }

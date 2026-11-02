@@ -11,7 +11,7 @@ namespace fight { template<class T> struct ParamFloatConstRange {
 }; }
  
 void __cdecl FUN_002347b0(unsigned*,fight::ParamFloatConstRange<CMoveAddTrack>**,unsigned);
-void __cdecl FUN_000710c0() {
+extern "C" void __cdecl FUN_000710c0() {
  typedef fight::ParamFloatConstRange<CMoveAddTrack> Range;
  if (!DAT_004dcf54) {
  Range* items[4];

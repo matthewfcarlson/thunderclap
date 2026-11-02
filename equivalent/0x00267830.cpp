@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_00267830 @ 0x00267830
-char * __cdecl FUN_00267830(char *destination, const char *source, int capacity)
+extern "C" char * __cdecl FUN_00267830(char *destination, const char *source, int capacity)
 {
     int copied = 0;
     if (*source != '\0') {

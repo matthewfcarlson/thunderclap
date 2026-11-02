@@ -3,7 +3,7 @@
 // data: globalValue = DAT_004cdbb0
 
 typedef unsigned char u8_334040;
-extern void __cdecl release(int, void*);
+extern "C" void __cdecl FUN_00266f00(int, void*);
 class PlayerBink_334040 {
   public:
     void cleanup();
@@ -24,6 +24,6 @@ class PlayerBink_334040 {
 PlayerBink_334040* PlayerBink_334040::f2(u8_334040 flag) {
     cleanup();
     if (flag & 1)
-        release(DAT_004cdbb0, this);
+        FUN_00266f00(DAT_004cdbb0, this);
     return this;
 }

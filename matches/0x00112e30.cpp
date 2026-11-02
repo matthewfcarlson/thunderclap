@@ -29,7 +29,7 @@ template <class T> struct ParamBool : ParamBase_112e30 {
 };
 } // namespace fight
 void __cdecl FUN_002347b0(int*, fight::ParamBase_112e30**, int);
-void __cdecl FUN_00112e30() {
+extern "C" void __cdecl FUN_00112e30() {
     if (!DAT_004e0b9c) {
         fight::ParamBase_112e30* params[3];
         void* p = FUN_0008d690(24);

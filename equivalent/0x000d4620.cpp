@@ -5,7 +5,7 @@
 extern "C" char* __cdecl strncpy(char*,const char*,unsigned int);
 struct Lookup_d4620 { int FUN_000f7d30(const char*); const char* FUN_000f7220(int); };
 extern void __cdecl FUN_000fb690(char*,const char*,int);
-extern void __cdecl FUN_000fc020(char*,int,const char*,int);
+extern "C" void __cdecl FUN_000fc020(char*,int,const char*,int);
 extern int __cdecl FUN_00294b80(const char*);
 struct Slot_d4620 { char text[256]; int value; int zero; float duration; };
 struct Object { char pad0[12]; Lookup_d4620* lookup; char pad1[0x47c]; Slot_d4620 slots[3]; char pad2[0x5c]; unsigned char enabled; void FUN_000d4620(int,const char*,int,int,float); };

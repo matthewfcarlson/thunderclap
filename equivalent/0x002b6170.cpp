@@ -2,7 +2,7 @@
 // pure3d::ShadowMeshLoader::vfunc_5 @ 0x002b6170
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
-void *FUN_0008d690(unsigned int size);
+extern "C" void *FUN_0008d690(unsigned int size);
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 
 struct V3_2b6170 { float x, y, z; };

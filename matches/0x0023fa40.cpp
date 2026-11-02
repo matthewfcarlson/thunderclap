@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 typedef unsigned int uint_23fa40;
 typedef unsigned short ushort;
-extern void* FUN_00247610(const char*, const char*, int, int);
+extern "C" void* FUN_00247610(const char*, const char*, int, int);
 extern const char str1_23fa40[];
 extern const char str2_23fa40[];
 extern "C" void* memcpy(void*, const void*, unsigned int);

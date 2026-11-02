@@ -3,7 +3,7 @@
 // data: globalValue = DAT_004cdbb0
 
 typedef unsigned char u8_26f760;
-extern void __cdecl release(int, void*);
+extern "C" void __cdecl FUN_00266f00(int, void*);
 class XboxDrive_26f760 {
   public:
     void cleanup();
@@ -24,6 +24,6 @@ class XboxDrive_26f760 {
 XboxDrive_26f760* XboxDrive_26f760::f2(u8_26f760 flag) {
     cleanup();
     if (flag & 1)
-        release(DAT_004cdbb0, this);
+        FUN_00266f00(DAT_004cdbb0, this);
     return this;
 }

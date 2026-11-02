@@ -15,13 +15,13 @@ class Mix {
     void setup();
 };
 void a220(void*);
-void df0(void*);
+extern "C" void FUN_00257df0(void*);
 int f660();
 int f550(int, Mix*);
 Mix* Mix::f2(unsigned char x) {
     *(void**)this = &mixVftable;
     a220((char*)this + 0x38);
-    df0((char*)this + 0x28);
+    FUN_00257df0((char*)this + 0x28);
     setup();
     if (x & 1) {
         f550(f660(), this);

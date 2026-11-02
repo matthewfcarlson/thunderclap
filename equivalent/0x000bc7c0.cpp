@@ -8,7 +8,7 @@ char __cdecl FUN_000b51c0(int);
 const char* __cdecl FUN_000f7120(int);
 char* __cdecl strncpy(char*, const char*, unsigned int);
 }
-void FUN_000bc7c0(char* dest) {
+extern "C" void FUN_000bc7c0(char* dest) {
     int key = FUN_00209f50();
     int slot = 0;
     switch (key) {

@@ -6,7 +6,7 @@ template<class T> struct TrackFactoryCasterTemplate { virtual void cast(); };
 }
 extern void* __cdecl FUN_00236ac0(const char*, void*);
 struct Registry_146400 { void FUN_002367c0(void*); };
-bool __cdecl FUN_00146400(Registry_146400* registry) {
+extern "C" bool __cdecl FUN_00146400(Registry_146400* registry) {
  fight::TrackFactoryCasterTemplate<hulkfight::motion::WorldDamageTrack> a;
  registry->FUN_002367c0(FUN_00236ac0("worldDamage", &a));
  fight::TrackFactoryCasterTemplate<hulkfight::motion::WorldConeDamageTrack> b;

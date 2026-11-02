@@ -2,7 +2,7 @@
 #include "gen/hulkfight.h"
 
 extern void* __fastcall FUN_000592a0(void*);
-extern void __fastcall FUN_00059a30(void*);
+extern "C" void __fastcall FUN_00059a30(void*);
 extern void* FUN_000678d0();
 extern void __fastcall FUN_00067730(void*);
 

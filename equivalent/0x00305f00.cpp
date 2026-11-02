@@ -11,7 +11,7 @@ struct Vec3_305f00 {
 float FUN_00018a20(float x);
 
 // Axis (cross product b x a) and angle between two vectors.
-void FUN_00305f00(const Vec3_305f00 *a, const Vec3_305f00 *b, Vec3_305f00 *axis, float *angle)
+extern "C" void FUN_00305f00(const Vec3_305f00 *a, const Vec3_305f00 *b, Vec3_305f00 *axis, float *angle)
 {
     Vec3_305f00 zero;
     float dot;      // x87: dot goes through the frame across the call (rounded)

@@ -46,7 +46,7 @@ struct Registry_d75c0 {
     void FUN_001d3b70(const char *name, void *obj);
     void FUN_000d7550(const char *name, CSimOverlayManager *mgr, void (*fn)());
 };
-Registry_d75c0 *FUN_001d4c90();
+extern "C" Registry_d75c0 *FUN_001d4c90();
 
 struct MessageOverlay_d75c0 {
     char pad[0x810];
@@ -64,7 +64,7 @@ void FUN_000d6f90();
 void FUN_000d7250();
 void FUN_000d72b0();
 void FUN_000d7030();
-void FUN_000d6f50();
+extern "C" void FUN_000d6f50();
 
 class CSimOverlayManager {
 public:

@@ -6,7 +6,7 @@ struct Vec3_22d3a0 {
     float x, y, z;
 };
 
-void FUN_0022d3a0(const Vec3_22d3a0* a, const Vec3_22d3a0* b, const Vec3_22d3a0* dir, float limit, float* out)
+extern "C" void FUN_0022d3a0(const Vec3_22d3a0* a, const Vec3_22d3a0* b, const Vec3_22d3a0* dir, float limit, float* out)
 {
     if (limit == 0.0f) {
         *out = 0.0f;

@@ -7,6 +7,6 @@ struct Root_b3c80 {
     Obj_b3c80* ptr;
 };
 extern Root_b3c80* gRoot_b3c80;
-void __cdecl FUN_000b3c80(unsigned char x) {
+extern "C" void __cdecl FUN_000b3c80(unsigned char x) {
     gRoot_b3c80->ptr->field = x;
 }

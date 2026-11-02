@@ -94,11 +94,11 @@ struct Params {
     int fb0;
 };
 
-int __cdecl FUN_00098190(int a1, int a2, int a3, int a4, hulk_intptr a5, int a6, V3_197ff0 *a7, V3_197ff0 *io, int a9, int a10, int a11, int a12);
-Scene_197ff0 *FUN_0027f250();
+extern "C" int __cdecl FUN_00098190(int a1, int a2, int a3, int a4, hulk_intptr a5, int a6, V3_197ff0 *a7, V3_197ff0 *io, int a9, int a10, int a11, int a12);
+extern "C" Scene_197ff0 *FUN_0027f250();
 Rng_197ff0 *FUN_000964d0();
 float FUN_000964e0();
-void __cdecl FUN_00224db0(Mat_197ff0 *m, V3_197ff0 *a, V3_197ff0 *b);
+extern "C" void __cdecl FUN_00224db0(Mat_197ff0 *m, V3_197ff0 *a, V3_197ff0 *b);
 
 // equiv-conv: FUN_00195290 ecx eax edx edi stack stack stack stack stack stack stack
 bool FUN_00195290(V3_197ff0 *self, void **out2, void **out1, V3_197ff0 *origin, V3_197ff0 *end, V3_197ff0 *normal, void **shapeOut,

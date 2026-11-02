@@ -34,13 +34,13 @@ struct Body_14430 {
 
 struct Fighter_14430 { char pad[4]; };
 Fighter_14430 *__fastcall FUN_000592a0(void *owner);
-void *__fastcall FUN_00059a40(Fighter_14430 *f);
+extern "C" void *__fastcall FUN_00059a40(Fighter_14430 *f);
 struct Stats_14430 {
     char pad[0x1d70];
     int idLo;
     int idHi;
 };
-Stats_14430 *__fastcall FUN_00059a30(Fighter_14430 *f);
+extern "C" Stats_14430 *__fastcall FUN_00059a30(Fighter_14430 *f);
 
 struct Resource_14430 {
     int lo;

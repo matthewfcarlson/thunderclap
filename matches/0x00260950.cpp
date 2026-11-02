@@ -3,7 +3,7 @@
 
 #include "compat/ptr.h"
 extern "C" char DAT_0042aa7c[];
-void InitSeq(void*, void*);
+extern "C" void FUN_002603e0(void*, void*);
 void DestroySeq(void*);
 class Sub_260950 {
   public:
@@ -26,7 +26,7 @@ class SeqEventType : public Type {
 SeqEventType* SeqEventType::vfunc2(unsigned int flags) {
     void* p = (*(void**)&DAT_004cd380);
     *(void**)this = (void*)((hulk_intptr)DAT_0042aa7c);
-    InitSeq(p, this);
+    FUN_002603e0(p, this);
     --(*(int*)&DAT_004e7a2c);
     sub.Clean();
     Finish();

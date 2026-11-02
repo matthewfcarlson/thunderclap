@@ -21,8 +21,8 @@ struct Dev_262fe0 {
     virtual void Sync(unsigned* g);
 };
 void G1(unsigned*, int);
-void G2(unsigned*);
-void G3(unsigned*);
+extern "C" void FUN_0026d890(unsigned*);
+extern "C" void FUN_0026d880(unsigned*);
 class HalRsdFileStream {
   public:
     virtual void v0();
@@ -49,8 +49,8 @@ unsigned HalRsdFileStream::vfunc_7(int a, int b, unsigned n) {
         G1(&n, 0);
         mDev->Read(a, mLen, b);
         mDev->Sync(&n);
-        G2(&n);
-        G3(&n);
+        FUN_0026d890(&n);
+        FUN_0026d880(&n);
     }
     return mLen;
 }

@@ -4,7 +4,7 @@ struct lua_State;
 
 extern void __cdecl FUN_002133d0(lua_State *L, const char *s);
 extern void __cdecl FUN_00213340(lua_State *L, int value);
-extern void __cdecl FUN_00213570(lua_State *L, int index);
+extern "C" void __cdecl FUN_00213570(lua_State *L, int index);
 extern void __cdecl FUN_002135a0(lua_State *L, int index, const char *key);
 extern int __cdecl FUN_00212f00(lua_State *L, int index);
 extern void __cdecl FUN_00212d80(lua_State *L, int index);

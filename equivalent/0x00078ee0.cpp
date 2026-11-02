@@ -26,7 +26,7 @@ struct Ref382c {
     Ref20_78ee0 *ref;
 };
 
-char FUN_0022d550(Vec3_78ee0 *p0, Vec3_78ee0 *dir, Vec3_78ee0 *a, Vec3_78ee0 *b, float *outA, float *outB);
+extern "C" char FUN_0022d550(Vec3_78ee0 *p0, Vec3_78ee0 *dir, Vec3_78ee0 *a, Vec3_78ee0 *b, float *outA, float *outB);
 
 class Walker_78ee0 {
 public:

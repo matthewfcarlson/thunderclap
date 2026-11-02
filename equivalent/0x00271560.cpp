@@ -12,7 +12,7 @@ extern int __cdecl FUN_00270c10(void*);
 extern void __cdecl FUN_00270f10(void*,int);
 extern void __cdecl FUN_00277b70(void*,Item_271560*,int,int,int);
 struct Work_271560 { int primary; int secondary; int tertiary; int alternate; char reserved[16]; int data; char rest[0xfc]; };
-void __cdecl FUN_00271560(int* output, hulk_intptr name, int flags, int extra) {
+extern "C" void __cdecl FUN_00271560(int* output, hulk_intptr name, int flags, int extra) {
     Work_271560 work;
     work.secondary = 0;
     work.tertiary = 0;

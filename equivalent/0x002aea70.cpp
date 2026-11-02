@@ -114,9 +114,9 @@ public:
 };
 }
 
-void* FUN_00263ed0(int size, int tag);
+extern "C" void* FUN_00263ed0(int size, int tag);
 void* FUN_00263ea0(unsigned int size);
-void FUN_0028fb20(char* dst, const char* src);
+extern "C" void FUN_0028fb20(char* dst, const char* src);
 
 namespace pure3d { class ImageHandler {
 public:

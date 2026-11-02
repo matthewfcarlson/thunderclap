@@ -11,7 +11,7 @@ struct ThisWrap_001efe20 {
     bool FUN_001efe20(uint_1efe20 group,uint_1efe20 arg,const char* name,uint_1efe20 last);
 };
 struct RandomState_1efe20 { uint_1efe20 a,b; };
-extern RandomState_1efe20* __cdecl FUN_000964d0();
+extern "C" RandomState_1efe20* __cdecl FUN_000964d0();
 bool ThisWrap_001efe20::FUN_001efe20(uint_1efe20 group,uint_1efe20 arg,const char* name,uint_1efe20 last) {
  ++(*(uint_1efe20*)&DAT_004e3728);
  Group_1efe20* g=this->FUN_001efb80(group);

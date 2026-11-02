@@ -13,7 +13,7 @@ struct Item {
     char pad2[0x12];
     float amount;
 };
-void __cdecl FUN_002d1620(int unused, Owner* owner, Item* item) {
+extern "C" void __cdecl FUN_002d1620(int unused, Owner* owner, Item* item) {
     Data* d = owner->data;
     item->value = (char)(__int64)((int)(__int64)(item->amount / d->scale) % d->divisor);
 }

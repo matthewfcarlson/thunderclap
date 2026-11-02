@@ -7,7 +7,7 @@ class Manager {
     int get(void* p);
 };
 extern "C" void* first(void*, TrackFactoryCasterTemplate_1393c0*);
-int __cdecl target(Manager* mgr, void* name) {
+extern "C" int __cdecl FUN_001393c0(Manager* mgr, void* name) {
     TrackFactoryCasterTemplate_1393c0 caster;
     void* p = first(name, &caster);
     return mgr->get(p);

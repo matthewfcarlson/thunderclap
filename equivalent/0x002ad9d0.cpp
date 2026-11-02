@@ -12,7 +12,7 @@ unsigned int FUN_002d8630(png_struct *png, png_info *info, unsigned char **trans
 unsigned int FUN_002d7eb0(png_struct *png, png_info *info);
 void *FUN_00266e00(int tag, unsigned int size);
 void FUN_002d7440(png_struct *png, void *row, int zero);
-void FUN_00267090(void *p);
+extern "C" void FUN_00267090(void *p);
 
 class ImageSink_2ad9d0 {
 public:

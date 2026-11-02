@@ -11,7 +11,7 @@ extern char DAT_0049dba4[];
 extern char DAT_0049f48c[];
 void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
 void* __cdecl FUN_000fc260(const char* name);
-int __cdecl FUN_000fc1b0();
+extern "C" int __cdecl FUN_000fc1b0();
 struct Id_c1ac0 { unsigned lo, hi; };
 Id_c1ac0 __cdecl FUN_0027b020(const char* s);
 struct Label_c1ac0 { void FUN_000f8500(const char* text, int a, int b); };

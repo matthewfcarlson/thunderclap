@@ -5,7 +5,7 @@ struct X_144590 {
     int d(int);
     void e(int);
 };
-extern X_144590* __cdecl FUN_0027f250();
+extern "C" X_144590* __cdecl FUN_0027f250();
 class MotionTrailStopAction {
   public:
     char pad00[0x1c];

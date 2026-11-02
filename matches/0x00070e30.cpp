@@ -1,7 +1,7 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
-void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 inline void* operator new(unsigned int, void* p) {
     return p;
 }
@@ -62,7 +62,7 @@ template <class T> struct ParamEnumConstList : FUN_00234cc0 {
 };
 } // namespace fight
 void __cdecl FUN_002347b0(int*, void**, int);
-void target() {
+extern "C" void FUN_00070e30() {
     if (!DAT_004dcf44) {
         void* entries[3];
         void* p = FUN_0008d690(24);

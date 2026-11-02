@@ -1,6 +1,6 @@
 #include "decls/data/engine/audio.h"
 
-int FUN_0024c480(unsigned int* param_1, unsigned int param_2) {
+extern "C" int FUN_0024c480(unsigned int* param_1, unsigned int param_2) {
     unsigned int x = *param_1;
     int index = (int)(x << 28) >> 28;
     unsigned int m = (x >> 4);

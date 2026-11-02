@@ -84,7 +84,7 @@ struct Stats_11d900 {
 };
 
 void *__fastcall FUN_000592a0(void *owner);
-Stats_11d900 *__fastcall FUN_00059a30(void *x);
+extern "C" Stats_11d900 *__fastcall FUN_00059a30(void *x);
 extern "C" float FUN_00224f10(Vec3_11d900 *v);
 extern "C" float FUN_00224fc0(float from, float to);
 extern "C" float FUN_00083d90(float *v);

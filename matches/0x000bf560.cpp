@@ -11,7 +11,7 @@ struct Obj_bf560 {
     A_bf560* m34;
     A_bf560* m38;
 };
-extern void __cdecl FFC300();
+extern "C" void __cdecl FUN_000fc300();
 void __fastcall Target(Obj_bf560* p) {
     if (p->m38) {
         p->m34->F();
@@ -19,7 +19,7 @@ void __fastcall Target(Obj_bf560* p) {
             if (p->m30 && p->m34 && p->m38) {
                 p->m38->H(9);
                 p->m34->L(0);
-                FFC300();
+                FUN_000fc300();
             }
             return;
         }

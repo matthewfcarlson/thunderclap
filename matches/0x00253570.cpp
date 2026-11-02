@@ -2,7 +2,7 @@
 
 typedef unsigned int uint;
 extern void __cdecl FUN_00247550(const void*, void*);
-void __fastcall FUN_0025fd10(void*);
+extern "C" void __fastcall FUN_0025fd10(void*);
 
 class SeqEvent {
   public:

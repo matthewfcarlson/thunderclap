@@ -6,7 +6,7 @@ struct File { virtual void slot0(); virtual void release(); virtual void slot2()
 extern void __cdecl thunk_FUN_002710d0(File**,const char*,int,int,int,int,int,int);
 extern int __cdecl _isspace(int);
 extern void __cdecl FUN_0008f880(int,char**);
-void __cdecl FUN_0008fca0() {
+extern "C" void __cdecl FUN_0008fca0() {
  struct Frame { File* file; int length; char* args[256]; char buffer[2048]; int pad;  } f;
   f.file=0;
  thunk_FUN_002710d0(&f.file,"args.txt",0,0,1,0,1,1); f.file->sync();

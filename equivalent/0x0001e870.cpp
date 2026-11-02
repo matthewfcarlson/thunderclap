@@ -80,7 +80,7 @@ struct Fighter_1e870 { char pad[4]; };
 Fighter_1e870 *__fastcall FUN_000592a0(void *owner);
 Pad_1e870 *__fastcall FUN_00059a30(Fighter_1e870 *f);
 
-void *__cdecl FUN_0008d690(unsigned int size);
+extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 void __cdecl FUN_00018810(RefObj_1e870 **slot, RefObj_1e870 *obj);
 void __cdecl FUN_000187a0(RefObj_1e870 **slot, RefObj_1e870 *obj);
 

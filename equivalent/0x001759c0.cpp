@@ -79,7 +79,7 @@ struct Params {
 struct Game;
 
 extern Game *DAT_004dd700;
-HitList *FUN_00202f00();
+extern "C" HitList *FUN_00202f00();
 
 namespace hulkfight {
 namespace motion {

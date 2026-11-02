@@ -25,7 +25,7 @@ struct Manager_fba10 {
 };
 Manager_fba10 *__cdecl FUN_000fc1b0();
 
-int __cdecl FUN_000fba10(wc **lines, int maxLines, int maxChars, const wc *src, float maxWidth,
+extern "C" int __cdecl FUN_000fba10(wc **lines, int maxLines, int maxChars, const wc *src, float maxWidth,
                          Measurer_fba10 *m)
 {
     if (maxChars == 2)

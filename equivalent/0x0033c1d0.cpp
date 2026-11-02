@@ -22,7 +22,7 @@ struct Frame_33c1d0 {
     luaL_Buffer_33c1d0 b;
 };
 
-int FUN_0033c1d0(lua_State* L) {
+extern "C" int FUN_0033c1d0(lua_State* L) {
     Frame_33c1d0 fr;
     FUN_00339d70(L, 1, 6);
     FUN_00339630(L, &fr.b);

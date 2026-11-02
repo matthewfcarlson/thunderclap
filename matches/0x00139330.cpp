@@ -7,7 +7,7 @@ class Track {
     void* Make(void*);
 };
 extern "C" void* GetTrack(void*, TrackFactoryCasterTemplate_139330*);
-void* Wrap(Track* t, void* p) {
+extern "C" void* FUN_00139330(Track* t, void* p) {
     TrackFactoryCasterTemplate_139330 c;
     void* r = GetTrack(p, &c);
     return t->Make(r);

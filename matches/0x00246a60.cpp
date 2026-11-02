@@ -8,7 +8,7 @@ class Outer_246a60 {
     char pad[0x1c];
     Inner_246a60* inner;
 };
-bool target(Outer_246a60* self, unsigned int value) {
+extern "C" bool FUN_00246a60(Outer_246a60* self, unsigned int value) {
     unsigned int n = self->inner->Size();
     if (value >= n) {
         self->inner->Change(value - n);

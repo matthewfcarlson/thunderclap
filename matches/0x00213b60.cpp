@@ -4,7 +4,7 @@ struct Obj_213b60 {
     char* p;
 };
 extern int FUN_0021ad80(Obj_213b60*, u32_213b60, u32_213b60, u32_213b60, u32_213b60);
-int FUN_00213b60(Obj_213b60* self, u32_213b60 a, u32_213b60 b) {
+extern "C" int FUN_00213b60(Obj_213b60* self, u32_213b60 a, u32_213b60 b) {
     char* base = self->p - 8;
     if (*(int*)base == 6) {
         char* item = *(char**)(base + 4);

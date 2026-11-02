@@ -3,7 +3,7 @@
 #include "decls/data/game/global.h"
 
 struct Key_3ed40 { unsigned lo, hi; void FUN_0027af00(); void FUN_0027b040(const char*); void FUN_0027af70(const Key_3ed40*); };
-void __cdecl FUN_00363bb0();
+extern "C" void __cdecl FUN_00363bb0();
 int __cdecl _atexit(void (__cdecl*)());
 struct Source_3ed40 { float FUN_000448b0(unsigned,unsigned); };
 struct Entry_3ed40 { Key_3ed40 key; float value; unsigned unused; };

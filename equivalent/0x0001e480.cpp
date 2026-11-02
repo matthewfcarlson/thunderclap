@@ -75,7 +75,7 @@ struct CollisionSphere_1e480 {
 };
 
 void *__cdecl FUN_0008d690(unsigned int size);
-Effect_1e480 *__cdecl FUN_002efca0(CollisionSphere_1e480 *init, const char *name);
+extern "C" Effect_1e480 *__cdecl FUN_002efca0(CollisionSphere_1e480 *init, const char *name);
 
 struct Sys_1e480 {
     char pad0[8];

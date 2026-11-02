@@ -23,7 +23,7 @@ template <class T> struct ParamEnumConstList : Base_53fe0 {
 } // namespace fight
 class CMotionStateCondition;
 extern void __cdecl FUN_002347b0(void*, Base_53fe0**, int);
-void __cdecl FUN_00053fe0() {
+extern "C" void __cdecl FUN_00053fe0() {
     if (!DAT_004dc524) {
         Base_53fe0* items[2];
         void* p = FUN_0008d690(32);

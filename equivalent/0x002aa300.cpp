@@ -1,37 +1,37 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 26/26)
 // FUN_002aa300 @ 0x002aa300
 #include "gen/pure3d.h"
-void *FUN_0008d690(unsigned int size);
+extern "C" void *FUN_0008d690(unsigned int size);
 
 typedef void (*Callback_2aa300)();
 
-void FUN_002d12c0();
-void FUN_002d12d0();
-void FUN_002d12e0();
-void FUN_002d12f0();
-void FUN_002d1310();
-void FUN_002d1330();
-void FUN_002d1370();
-void FUN_002d1390();
-void FUN_002d1410();
-void FUN_002d1490();
-void FUN_002d1540();
-void FUN_002d15f0();
-void FUN_002d1620();
-void FUN_002d1650();
-void FUN_002d1670();
-void FUN_002d1680();
-void FUN_002d16d0();
-void FUN_002d16e0();
-void FUN_002d1730();
-void FUN_002d1740();
+extern "C" void FUN_002d12c0();
+extern "C" void FUN_002d12d0();
+extern "C" void FUN_002d12e0();
+extern "C" void FUN_002d12f0();
+extern "C" void FUN_002d1310();
+extern "C" void FUN_002d1330();
+extern "C" void FUN_002d1370();
+extern "C" void FUN_002d1390();
+extern "C" void FUN_002d1410();
+extern "C" void FUN_002d1490();
+extern "C" void FUN_002d1540();
+extern "C" void FUN_002d15f0();
+extern "C" void FUN_002d1620();
+extern "C" void FUN_002d1650();
+extern "C" void FUN_002d1670();
+extern "C" void FUN_002d1680();
+extern "C" void FUN_002d16d0();
+extern "C" void FUN_002d16e0();
+extern "C" void FUN_002d1730();
+extern "C" void FUN_002d1740();
 void FUN_002d17a0();
-void FUN_002d18b0();
-void FUN_002d1970();
-void FUN_002d1a00();
-void FUN_002d1b00();
-void FUN_002d1bc0();
-void FUN_002d1cc0();
+extern "C" void FUN_002d18b0();
+extern "C" void FUN_002d1970();
+extern "C" void FUN_002d1a00();
+extern "C" void FUN_002d1b00();
+extern "C" void FUN_002d1bc0();
+extern "C" void FUN_002d1cc0();
 
 struct SpriteParticleUpdater_nv_2aa300 {
     pure3d::SpriteParticleUpdater *FUN_002d11f0();

@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_0040ff34[];
-extern void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class TargetInvincibleCondition_12ad90 {
   public:
     TargetInvincibleCondition_12ad90(int);
@@ -17,7 +17,7 @@ class TargetInvincibleCondition_12ad90 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetInvincibleCondition>::vfunc_5() {
-    TargetInvincibleCondition_12ad90* p = (TargetInvincibleCondition_12ad90*)Allocate(0x10);
+    TargetInvincibleCondition_12ad90* p = (TargetInvincibleCondition_12ad90*)FUN_0008d690(0x10);
     if (p) {
         p->TargetInvincibleCondition_12ad90::TargetInvincibleCondition_12ad90(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0040ff34);

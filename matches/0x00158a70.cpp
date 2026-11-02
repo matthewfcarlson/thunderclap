@@ -7,7 +7,7 @@ class Object {
   public:
     void attach(void*);
 };
-void __cdecl target(Object* obj, void* name) {
+extern "C" void __cdecl FUN_00158a70(Object* obj, void* name) {
     TrackFactoryCasterTemplate_158a70 caster;
     obj->attach(find(name, &caster));
 }

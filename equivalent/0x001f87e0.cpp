@@ -21,7 +21,7 @@ struct Request {
     Key64 key;              // 0x08
 };
 
-unsigned __int64 __cdecl FUN_0027b020(Slot_1f87e0 *slot);
+extern "C" unsigned __int64 __cdecl FUN_0027b020(Slot_1f87e0 *slot);
 
 class SlotTable_1f87e0 {
 public:

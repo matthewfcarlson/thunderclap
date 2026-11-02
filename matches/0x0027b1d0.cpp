@@ -3,7 +3,7 @@
 // data: count = DAT_0052c288
 
 extern void __cdecl release(void*);
-void FUN_0027b1d0() {
+extern "C" void FUN_0027b1d0() {
     if (--(*(int*)&DAT_0052c288) == 0) {
         if (DAT_004ce410)
             release(DAT_004ce410);

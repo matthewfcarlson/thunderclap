@@ -27,7 +27,7 @@ class ListenerEffectXBox : public MetaEntity_24d8a0, public IRefCount {
     virtual void v7();
     virtual void v8();
 };
-extern void __cdecl FUN_00247550(void*, void*);
+extern "C" void __cdecl FUN_00247550(void*, void*);
 ListenerEffectXBox* ListenerEffectXBox::vfunc_2(int flag) {
     cleanup();
     if (flag & 1)

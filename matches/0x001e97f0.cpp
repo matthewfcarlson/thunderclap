@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 extern "C" char DAT_00423f38[];
-extern void* __cdecl FUN_0008d710(unsigned int, unsigned int);
+extern "C" void* __cdecl FUN_0008d710(unsigned int, unsigned int);
 struct CSoundSequence {
     hulk_uintptr vt;
     unsigned int a;

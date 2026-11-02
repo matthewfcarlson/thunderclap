@@ -23,7 +23,7 @@ namespace fight {
  template<class T> struct ParamFloatConstRange : Base_1129a0 { virtual void slot0(); };
  template<class T> struct ParamName : Base_1129a0 { virtual void slot0(); };
 }
-void __cdecl FUN_001129a0() {
+extern "C" void __cdecl FUN_001129a0() {
  if (DAT_004e0b7c == 0) {
   Base_1129a0* entries[4];
   Base_1129a0* p = (Base_1129a0*)FUN_0008d690(24);

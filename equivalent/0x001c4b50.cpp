@@ -63,8 +63,8 @@ public:
     Info_1c4b50 *FUN_001d72e0();
 };
 
-unsigned __int64 __cdecl FUN_0027b020(const char *name) throw();
-unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
+extern "C" unsigned __int64 __cdecl FUN_0027b020(const char *name) throw();
+extern "C" unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 
 class Locator {
 public:

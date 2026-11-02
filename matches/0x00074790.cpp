@@ -22,9 +22,9 @@ DECL(00132530) DECL(00132500) DECL(00132560) DECL(001325c0) DECL(001324d0) DECL(
             DECL(00113d20) DECL(00113ba0) DECL(00113c60) DECL(00113cf0) DECL(00113bd0) DECL(0017dd30)
                 DECL(0017dcd0) DECL(0017d580) DECL(0018a0a0) DECL(0017d1b0) DECL(00158b30)
                     DECL(001a1d20) void __cdecl FUN_0011ae60(Registry*);
-void __cdecl FUN_0010bf20(Registry*);
+extern "C" void __cdecl FUN_0010bf20(Registry*);
 void __cdecl FUN_0018e8d0(Registry*);
-bool __cdecl FUN_00074790(Registry* r) {
+extern "C" bool __cdecl FUN_00074790(Registry* r) {
     FUN_002369c0(r);
     FUN_0012de00(r, "postEvent_string");
     FUN_00132530(r, "dialogue");

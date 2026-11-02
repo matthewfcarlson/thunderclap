@@ -2,7 +2,7 @@
 // FUN_00031310 @ 0x00031310
 typedef unsigned int size_t;
 void* operator new(size_t) throw();
-void* FUN_0008d690(unsigned int);
+extern "C" void* FUN_0008d690(unsigned int);
 class CActorManager;
 extern char DAT_0048e128,DAT_0048e0e4,DAT_0048e0f0,DAT_0048e134,DAT_0048e100,DAT_0048e10c;
 char FUN_001d04d0(const void*) throw();
@@ -14,7 +14,7 @@ class Entry {public: D(0002e4f0) D(0002e5a0) D(0002e650) D(0002e6f0) D(0002ebe0)
 class Registry {public:void FUN_001d3b70(const char*,void*);
 D(000303d0) D(00030430) D(00030530) D(00030590) D(000306e0) D(00030750) D(000309f0) D(00030b90) D(00030c00) D(00030c60) D(00030cc0) D(00030d30) D(00030d90) D(00030df0) D(00030ea0) D(00030f00) D(000310a0) D(00030380) D(00030240) D(000311b0) D(00031200) D(000305f0) D(00031050) D(00031260) D(00030860) D(000302e0) D(00030290) D(000304e0) D(00030810) D(00030690) D(000301f0) D(000312c0) D(00030af0) D(00030490)
 };
-Registry* FUN_001d4c90();
+extern "C" Registry* FUN_001d4c90();
 class CActorManager {public:void Register();};
 #define E(n,a,b) {extern void FUN_##b(); Entry*e=(Entry*)FUN_0008d690(36);void*x=0;if(e)x=e->FUN_##a("am_" #n,this,FUN_##b);r->FUN_001d3b70("am_" #n,x);}
 #define G(n,R,A,b) {extern void FUN_##b(); r->FUN_001d3b70("am_" #n,new Closure1<CActorManager,R,A>("am_" #n,this,FUN_##b,&t##R,&t##A));}

@@ -43,7 +43,7 @@ struct World {
     Table_7a8f0 *table;
 };
 
-int __cdecl FUN_000113e0(int lo, int hi);
+extern "C" int __cdecl FUN_000113e0(int lo, int hi);
 extern float DAT_0049b8e4;  // 2500 (50^2)
 extern float DAT_0049b8e8;  // 4900 (70^2)
 

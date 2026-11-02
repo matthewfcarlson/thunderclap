@@ -36,7 +36,7 @@ struct Inventory_f6b50 {
     virtual Loaded_f6b50* find(void* caster, Key_f6b50 key);
 };
 
-void FUN_000f6b50(const char* nameA, const char* nameB, int value)
+extern "C" void FUN_000f6b50(const char* nameA, const char* nameB, int value)
 {
     Inventory_f6b50* inv = (*(Inventory_f6b50**)&DAT_004dd9cc);
     content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> caster;

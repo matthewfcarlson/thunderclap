@@ -13,7 +13,7 @@ struct Obj_260680 {
     char pad[0x54];
     void Tail();
 };
-void __fastcall Target(Obj_260680* self) {
+extern "C" void __fastcall FUN_00260680(Obj_260680* self) {
     void* p = (*(void**)&DAT_004cd380);
     self->vf = ((hulk_intptr)DAT_0042aa7c);
     Init(p, self);

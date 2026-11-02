@@ -23,7 +23,7 @@ class SeqActionExpression : public SeqAction {
     virtual void vfunc_6();
 };
 } // namespace audio
-extern void __cdecl FUN_00247550(void*, void*);
+extern "C" void __cdecl FUN_00247550(void*, void*);
 extern void* seq_vftable_250ca0[];
 audio::SeqActionExpression* audio::SeqActionExpression::vfunc_0(int x) {
     *(void**)this = seq_vftable_250ca0;

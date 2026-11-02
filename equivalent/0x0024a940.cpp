@@ -24,7 +24,7 @@ Node* __cdecl FUN_00247530(char* pool);
 void __cdecl FUN_00249ff0(Tree_24a940* tree, Node* node, const unsigned int* key);
 
 // Finds the node for *key, creating and linking a new one when it is missing.
-Node* FUN_0024a940(Map_24a940* map, const unsigned int* key)
+extern "C" Node* FUN_0024a940(Map_24a940* map, const unsigned int* key)
 {
     Tree_24a940* tree = &map->tree;
     Node* nil = &tree->nil;

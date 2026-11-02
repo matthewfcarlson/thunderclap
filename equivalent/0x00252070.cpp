@@ -7,7 +7,7 @@
 typedef unsigned int size_t;
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 void* __cdecl FUN_00247530(void*);
-int __cdecl FUN_002673a0(const char*, int);
+extern "C" int __cdecl FUN_002673a0(const char*, int);
 namespace audio {
 struct SeqEventChannelVolumes_252070 {
     virtual void vfunc_0();

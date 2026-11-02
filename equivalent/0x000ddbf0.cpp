@@ -2,7 +2,7 @@
 // FUN_000ddbf0 @ 0x000ddbf0
 struct V3_ddbf0 { float x, y, z; };
 
-void* FUN_0008d690(unsigned int size);
+extern "C" void* FUN_0008d690(unsigned int size);
 void* FUN_00263ea0(unsigned int size);
 float __cdecl FUN_000ddbe0();
 extern float (__cdecl *DAT_004de948)();

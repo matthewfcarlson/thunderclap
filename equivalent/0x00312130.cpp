@@ -14,7 +14,7 @@ struct Child_312130 {
  virtual Child_312130* Clone()=0;
  void FUN_0030a260(Obj_312130*);
 };
-extern void* __cdecl FUN_0008d6d0(unsigned);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned);
 struct Obj_312130 {
  char pad0[0x1f8]; Child_312130** children; int unknown1fc; int count; int unknown204;
  Ref_312130* ref208; int field20c; int field210; int field214; int field218;

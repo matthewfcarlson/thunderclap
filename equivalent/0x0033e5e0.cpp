@@ -26,7 +26,7 @@ void __cdecl FUN_00213520(LuaState*,int);
 void __cdecl FUN_00212e60(LuaState*,int);
 void __cdecl FUN_00213800(LuaState*,int);
 }
-int __cdecl FUN_0033e5e0(LuaState* state) {
+extern "C" int __cdecl FUN_0033e5e0(LuaState* state) {
  int status=2;
  FUN_00339df0(state,1,0);
  FUN_00212d80(state,1);

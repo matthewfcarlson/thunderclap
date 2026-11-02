@@ -15,7 +15,7 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight/motion.h"
 
-float __cdecl FUN_00083d90(float *value);
+extern "C" float __cdecl FUN_00083d90(float *value);
 
 static inline float Abs(float v)
 {

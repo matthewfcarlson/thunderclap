@@ -13,8 +13,8 @@ struct Key_10f480 {
     char FUN_0027af90(Key_10f480 *other);
 };
 
-void FUN_00363ee0();
-void FUN_00363ed0();
+extern "C" void FUN_00363ee0();
+extern "C" void FUN_00363ed0();
 
 struct Fighter_10f480 {
     char pad0[0x1b98];

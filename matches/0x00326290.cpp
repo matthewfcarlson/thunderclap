@@ -3,7 +3,7 @@ extern "C" char DAT_00433354[];
 extern "C" char DAT_004333ac[];
 typedef unsigned int U_326290;
 extern void __stdcall Release(U_326290);
-extern void __cdecl Dispose(U_326290);
+extern "C" void __cdecl FUN_0031e210(U_326290);
 struct d3dTexture_326290 {
     hulk_uintptr vt;
     char pad[12];
@@ -20,11 +20,11 @@ void __fastcall FUN_00326290(d3dTexture_326290* self) {
         Release(self->a);
     if (self->b) {
         Release(self->b);
-        Dispose(self->b);
+        FUN_0031e210(self->b);
     }
     if (self->c) {
         Release(self->c);
-        Dispose(self->c);
+        FUN_0031e210(self->c);
     }
     if (self->d)
         Release(self->d);

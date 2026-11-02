@@ -6,7 +6,7 @@ typedef unsigned int uint_25c0d0;
 struct Reader { void FUN_00246f00(void*,uint_25c0d0,int,int); };
 extern void* __cdecl FUN_00247530(void*);
 extern void __cdecl FUN_00247550(void*,void*);
-extern void __cdecl FUN_00270390(void*,int,void*,int,uint_25c0d0);
+extern "C" void __cdecl FUN_00270390(void*,int,void*,int,uint_25c0d0);
 namespace audio {
 struct OmHalStream {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual uint_25c0d0 vfunc_7(void*,int,uint_25c0d0);

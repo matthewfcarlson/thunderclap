@@ -7,7 +7,7 @@ struct Mesh_2fa7c0 { char pad[8]; Vec_2fa7c0* vertices; char pad2[12]; char* fac
 struct Context { char pad[0x44]; Mesh_2fa7c0* mesh; };
 struct Shape_2fa7c0 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual int v4(); char pad[0x24]; char data[1]; };
 void __cdecl FUN_002fa6b0(Vec_2fa7c0*,Vec_2fa7c0*,Vec_2fa7c0*,Vec_2fa7c0*);
-bool __cdecl FUN_0035a4c0(int,void*,Vec_2fa7c0*,Vec_2fa7c0*,Vec_2fa7c0*,Vec_2fa7c0*,float*,Vec_2fa7c0*,Vec_2fa7c0*,bool,bool,bool);
+extern "C" bool __cdecl FUN_0035a4c0(int,void*,Vec_2fa7c0*,Vec_2fa7c0*,Vec_2fa7c0*,Vec_2fa7c0*,float*,Vec_2fa7c0*,Vec_2fa7c0*,bool,bool,bool);
 struct Manager_2fa7c0 { void FUN_00304530(Shape_2fa7c0*,unsigned,float,Vec_2fa7c0*,Vec_2fa7c0*,Context*,int); };
 struct Global_2fa7c0 { char pad[0x1b0]; Manager_2fa7c0 manager; };
 struct Face_2fa7c0 { char pad[0x10]; unsigned short a,b,c,flags; bool run(Shape_2fa7c0*,Context*,int); };

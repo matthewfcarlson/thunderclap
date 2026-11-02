@@ -14,10 +14,10 @@ class CSmartPropWeaponizableTypeCondition_58ab0 {
     unsigned int c;
     unsigned int d;
 };
-extern void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<CSmartPropWeaponizableTypeCondition>::vfunc_5() {
-    CSmartPropWeaponizableTypeCondition_58ab0* p = (CSmartPropWeaponizableTypeCondition_58ab0*)alloc(0x14);
+    CSmartPropWeaponizableTypeCondition_58ab0* p = (CSmartPropWeaponizableTypeCondition_58ab0*)FUN_0008d690(0x14);
     if (p) {
         ((Condition_58ab0*)p)->init(0);
         p->vptr = ((hulk_intptr)DAT_003f7130);

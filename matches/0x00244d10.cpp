@@ -4,15 +4,15 @@ struct Temp_244d10 {
     unsigned long Get();
     void Done();
 };
-extern unsigned char __cdecl F25bce0(int, Temp_244d10*);
-extern unsigned long long __cdecl F2672f0(unsigned long, int, int);
+extern "C" unsigned char __cdecl FUN_0025bce0(int, Temp_244d10*);
+extern "C" unsigned long long __cdecl FUN_002672f0(unsigned long, int, int);
 unsigned char __cdecl Target(int a, unsigned long* out) {
     Temp_244d10 t;
     t.Init();
-    unsigned char r = F25bce0(a, &t);
+    unsigned char r = FUN_0025bce0(a, &t);
     if (out) {
         unsigned long g = t.Get();
-        unsigned long long v = F2672f0(g, 0, 0);
+        unsigned long long v = FUN_002672f0(g, 0, 0);
         ((unsigned long long*)out)[0] = v;
     }
     t.Done();

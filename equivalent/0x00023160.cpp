@@ -53,7 +53,7 @@ struct Stats_23160 {
 class Owner_23160;
 struct Context { char pad[4]; };
 Context *__fastcall FUN_000592a0(Owner_23160 *owner);
-Stats_23160 *__fastcall FUN_00059a30(Context *ctx);
+extern "C" Stats_23160 *__fastcall FUN_00059a30(Context *ctx);
 
 struct LayerSet_23160 {
     char pad0[0x64];
@@ -63,7 +63,7 @@ struct LayerSet_23160 {
     choreo2::Driver *FUN_00222e20(unsigned int index);
     void FUN_00222890(choreo2::Driver *d, float dur, float a, float b, float c, float e, float f);
 };
-LayerSet_23160 *__fastcall FUN_00059a40(Context *ctx);
+extern "C" LayerSet_23160 *__fastcall FUN_00059a40(Context *ctx);
 
 class Factory_23160 {
 public:

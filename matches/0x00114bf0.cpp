@@ -15,10 +15,10 @@ struct ButtonTrack_114bf0 {
     u32_114bf0 f;
     void Init();
 };
-extern void* operator_new(unsigned int);
+extern "C" void* FUN_0008d690(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::ai::ButtonTrack>::vfunc_5() {
-    ButtonTrack_114bf0* p = (ButtonTrack_114bf0*)operator_new(0x24);
+    ButtonTrack_114bf0* p = (ButtonTrack_114bf0*)FUN_0008d690(0x24);
     if (p != 0) {
         p->Init();
         p->a = 0;

@@ -4,7 +4,7 @@
 #include "decls/data/engine/content.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
-void *FUN_0008d690(unsigned int size);
+extern "C" void *FUN_0008d690(unsigned int size);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 template <class T> struct TypeTag;
@@ -47,7 +47,7 @@ public:
 struct Registry_1ea8b0 {
     void FUN_001d3b70(const char *name, void *closure);
 };
-Registry_1ea8b0 *FUN_001d4c90();
+extern "C" Registry_1ea8b0 *FUN_001d4c90();
 
 struct SoundConfig {
     int size;
@@ -68,13 +68,13 @@ struct Fx_1ea8b0 {
     void FUN_00265240(CSoundResourceManager *owner, const char *name);
 };
 
-void *FUN_00263ed0(unsigned int size, int kind);
-void FUN_002474f0(void *p);
-void FUN_002407a0(int v);
-void FUN_00241390(SoundConfig *cfg, int zero);
+extern "C" void *FUN_00263ed0(unsigned int size, int kind);
+extern "C" void FUN_002474f0(void *p);
+extern "C" void FUN_002407a0(int v);
+extern "C" void FUN_00241390(SoundConfig *cfg, int zero);
 void FUN_00240e00(float v);
 void FUN_00240760(int v);
-int FUN_001e91c0();
+extern "C" int FUN_001e91c0();
 
 class CSoundResourceManager {
 public:

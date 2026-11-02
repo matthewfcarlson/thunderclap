@@ -85,8 +85,8 @@ struct Chain0 {
     Chain1_1e6390 *f20;
 };
 
-extern Listener_1e6390 *__cdecl FUN_001c3d90();
-extern void __cdecl FUN_001e55f0(Entry_1e6390 *first, Entry_1e6390 *last, hulk_intptr n);
+extern "C" Listener_1e6390 *__cdecl FUN_001c3d90();
+extern "C" void __cdecl FUN_001e55f0(Entry_1e6390 *first, Entry_1e6390 *last, hulk_intptr n);
 
 struct Frame_1e6390 {
     int idx;                    // 0x00

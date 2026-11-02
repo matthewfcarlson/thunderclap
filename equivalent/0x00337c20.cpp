@@ -21,7 +21,7 @@ struct Stream {
 };
 struct Converter { void* FUN_003373e0(void* data); };
 struct Output_337c20 { virtual void slot0(); virtual void emit(Buffer_337c20* value); };
-bool __stdcall FUN_00337c20(Stream* stream, void* arg, Converter* converter, Output_337c20* output) {
+extern "C" bool __stdcall FUN_00337c20(Stream* stream, void* arg, Converter* converter, Output_337c20* output) {
     Buffer_337c20 buffer;
     buffer.FUN_003352a0();
     stream->open(arg);

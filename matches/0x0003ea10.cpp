@@ -34,7 +34,7 @@ struct World {
     EventSink_3ea10 *sink;         // 0x30
 };
 
-void *__cdecl FUN_001b46f0(void *key, int *out);
+extern "C" void *__cdecl FUN_001b46f0(void *key, int *out);
 
 class Controller_3ea10 {
 public:

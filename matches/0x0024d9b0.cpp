@@ -15,7 +15,7 @@ namespace audio { class ListenerEffectGc {
 struct ThisCall_00244f70 {
     void FUN_00244f70();
 };
-extern void FUN_00247550(void*, void*);
+extern "C" void FUN_00247550(void*, void*);
 audio::ListenerEffectGc* audio::ListenerEffectGc::vfunc_2(int flags) {
     ((ThisCall_00244f70*)(this))->FUN_00244f70();
     if (flags & 1)

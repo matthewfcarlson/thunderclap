@@ -17,7 +17,7 @@ struct Texture {
     int state;
 };
 
-void FUN_0025d0f0(Texture *t, int length)
+extern "C" void FUN_0025d0f0(Texture *t, int length)
 {
     unsigned flags = t->flags;
     unsigned h = t->height;

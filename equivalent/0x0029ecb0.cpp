@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 277 inputs, branch coverage 10/10)
 // FUN_0029ecb0 @ 0x0029ecb0
 extern void* __cdecl FUN_00263ea0(unsigned int size);
-extern void* __cdecl FUN_0008d6d0(unsigned int size);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int size);
 struct LightGroup_29ecb0 {
  virtual void initialize();
  LightGroup_29ecb0* FUN_002a1140(int count);

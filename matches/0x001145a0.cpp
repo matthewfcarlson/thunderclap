@@ -8,11 +8,11 @@ struct PropsToSuckCondition {
     int m_i;
 };
 
-extern void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 extern int g_PropsToSuckVftable;
 
 void* __cdecl Factory_vfunc_5(void* self) {
-    PropsToSuckCondition* p = (PropsToSuckCondition*)Alloc(0x1c);
+    PropsToSuckCondition* p = (PropsToSuckCondition*)FUN_0008d690(0x1c);
     if (p != 0) {
         p->InitBase(0);
         *(void**)p = (void*)&g_PropsToSuckVftable;

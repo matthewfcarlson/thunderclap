@@ -14,7 +14,7 @@ struct Other_1b7f40 { void FUN_000bb670(); };
 struct Manager_1b7f40 { Audio_1b7f40* FUN_000862e0(); Other_1b7f40* FUN_00086280(); };
 struct World { char pad[0x54]; Manager_1b7f40* manager; };
 struct Resource_1b7f40 { void FUN_002078d0(); void FUN_0008db60(int); };
-extern int __cdecl FUN_00266da0(int);
+extern "C" int __cdecl FUN_00266da0(int);
 extern int __cdecl sprintf(char*,const char*,...);
 struct Target_1b7f40 {
  char pad0[8]; unsigned char active; char pad9[3]; Movie* movie; char pad10[0x10c]; Resource_1b7f40* resource; Resource_1b7f40* resource2; char pad124[0xd]; unsigned char initialized;

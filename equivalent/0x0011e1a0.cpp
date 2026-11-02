@@ -36,7 +36,7 @@ struct Stats_11e1a0 {
 };
 
 void *__fastcall FUN_000592a0(void *owner);
-Stats_11e1a0 *__fastcall FUN_00059a30(void *x);
+extern "C" Stats_11e1a0 *__fastcall FUN_00059a30(void *x);
 extern "C" float FUN_00224f10(Vec3_11e1a0 *v);
 extern "C" float FUN_00224fc0(float from, float to);
 extern "C" float FUN_00083d90(float *v);

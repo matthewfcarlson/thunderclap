@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_00414240[];
-void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 struct HitThrowTrack_159bf0 {
     hulk_intptr vt;
     char p04[8];
@@ -19,7 +19,7 @@ struct HitThrowTrack_159bf0 {
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitThrowTrack>::vfunc_5() {
-    HitThrowTrack_159bf0* p = (HitThrowTrack_159bf0*)Alloc(0x2c);
+    HitThrowTrack_159bf0* p = (HitThrowTrack_159bf0*)FUN_0008d690(0x2c);
     if (p) {
         p->InitTrack();
         p->f0c = 0;

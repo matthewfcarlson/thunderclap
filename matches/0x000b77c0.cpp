@@ -59,7 +59,7 @@ struct Lookup_b77c0 {
 };
 
 Settings_b77c0 *__cdecl FUN_000fc3d0();
-int __cdecl FUN_00294b80(const unsigned short *s);
+extern "C" int __cdecl FUN_00294b80(const unsigned short *s);
 
 // Looks the key up in the string table and copies the localised text into buf if it fits.
 bool __stdcall FUN_000b77c0(int key, unsigned short *buf, int maxLength, int unused)

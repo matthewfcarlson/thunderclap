@@ -21,7 +21,7 @@ template<class T> struct ParamFloatConstRange : Base_719a0 {
 };
 }
 void __cdecl FUN_002347b0(unsigned*, Base_719a0**, int);
-void __cdecl FUN_000719a0() {
+extern "C" void __cdecl FUN_000719a0() {
  if (!DAT_004dcf8c) {
  Base_719a0* list[3];
  const char* names[3] = {"timeBegin", "timeEnd", "extensionTime"};

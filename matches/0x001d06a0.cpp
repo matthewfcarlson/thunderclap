@@ -9,7 +9,7 @@ extern double __cdecl FUN_002130e0(void*, int);
 extern void __cdecl FUN_00213340(void*, int);
 extern void __cdecl FUN_002133d0(void*, const char*);
 extern void __cdecl FUN_00213c40(void*);
-int __cdecl target(void* p) {
+extern "C" int __cdecl FUN_001d06a0(void* p) {
     int* a;
     int x;
     a = (int*)FUN_00213260(p, 1);

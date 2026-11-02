@@ -41,7 +41,7 @@ union EntOrFloat {
     float f;
 };
 
-char FUN_00097540(Level_97540 *a1, V3_97540 *a2, V3_97540 *a3, float a4, float a5, Ent_97540 *a6, V3_97540 *a7, V3_97540 *a8, char a9)
+extern "C" char FUN_00097540(Level_97540 *a1, V3_97540 *a2, V3_97540 *a3, float a4, float a5, Ent_97540 *a6, V3_97540 *a7, V3_97540 *a8, char a9)
 {
     struct Frame {
         float s0;

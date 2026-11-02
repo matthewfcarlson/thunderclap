@@ -19,8 +19,8 @@ class Manager_274be0 {
     virtual void f3();
     virtual void f4(void*);
 };
-extern void FUN_0026d850(void*);
-extern void FUN_0026d840(void*);
+extern "C" void FUN_0026d850(void*);
+extern "C" void FUN_0026d840(void*);
 extern int gCompletionVtable;
 extern int gRequestVtable;
 namespace core { class CompletionEventRequest {

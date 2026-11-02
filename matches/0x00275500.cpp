@@ -22,8 +22,8 @@ struct Inner_275500 {
     virtual void F();
     virtual void G();
 };
-extern void __cdecl FUN_0026d850(void*);
-extern void __cdecl FUN_0026d840(void*);
+extern "C" void __cdecl FUN_0026d850(void*);
+extern "C" void __cdecl FUN_0026d840(void*);
 namespace core { struct FileGetSizeRequest {
     virtual FileGetSizeRequest* vfunc_0(int);
     virtual void vfunc_1();

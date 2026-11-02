@@ -10,7 +10,7 @@ struct Player_258ea0 {
     unsigned int mBuffers[16];
     SoundThing* mSound;
 };
-void FUN_00258ea0(Player_258ea0* self, unsigned int position) {
+extern "C" void FUN_00258ea0(Player_258ea0* self, unsigned int position) {
     unsigned int count = (self->mSound->mInfo >> 4) & 0x1f;
     unsigned int chunk = position / count;
     if (count > 0) {

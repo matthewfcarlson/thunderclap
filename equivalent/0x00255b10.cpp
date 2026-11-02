@@ -41,14 +41,14 @@ struct Config_255b10 {
     int levels;
 };
 
-Handle *__cdecl FUN_002495c0(Group *g);
+extern "C" Handle *__cdecl FUN_002495c0(Group *g);
 Item_255b10 *__cdecl FUN_002495f0(Handle *h);
-Item_255b10 *__cdecl FUN_00249600(Handle *h, Item_255b10 *prev);
+extern "C" Item_255b10 *__cdecl FUN_00249600(Handle *h, Item_255b10 *prev);
 Handle *__cdecl FUN_002495e0(Group *g, Handle *h);
 void __cdecl FUN_002497e0(Item_255b10 *item);
 int __cdecl FUN_00247930(Group *g, Item_255b10 *item);
-void __cdecl FUN_00247a90(Group *g, Item_255b10 *item, Pair_255b10 *p);
-void __cdecl FUN_00247b30(Group *g, Item_255b10 *item, Pair_255b10 *p, int zero);
+extern "C" void __cdecl FUN_00247a90(Group *g, Item_255b10 *item, Pair_255b10 *p);
+extern "C" void __cdecl FUN_00247b30(Group *g, Item_255b10 *item, Pair_255b10 *p, int zero);
 bool __cdecl FUN_00261f90(int *levels, int cur, int target);
 
 class SeqActionCrossFade {

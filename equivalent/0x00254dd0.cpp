@@ -3,7 +3,7 @@
 #include "decls/data/engine/audio.h"
 #include "gen/audio.h"
 
-void* __cdecl FUN_00247530(void*);
+extern "C" void* __cdecl FUN_00247530(void*);
 struct SeqEventLogicRepeat_254dd0;
 struct SeqCommandLogicRepeat_nv_254dd0 {
     void* FUN_00254c80(SeqEventLogicRepeat_254dd0*);

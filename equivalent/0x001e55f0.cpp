@@ -7,7 +7,7 @@ void __cdecl FUN_001e4490(Partition*, Item_1e55f0*, Item_1e55f0*);
 void __cdecl FUN_001e4190(Item_1e55f0*, Item_1e55f0*);
 void __cdecl FUN_001e2800(Item_1e55f0*, Item_1e55f0*, int, int);
 void __cdecl FUN_001e46d0(Item_1e55f0*, Item_1e55f0*);
-void __cdecl FUN_001e55f0(Item_1e55f0* begin, Item_1e55f0* end, int depth) {
+extern "C" void __cdecl FUN_001e55f0(Item_1e55f0* begin, Item_1e55f0* end, int depth) {
  hulk_intptr count = end-begin;
  while (count > 32) {
   if (depth <= 0) {

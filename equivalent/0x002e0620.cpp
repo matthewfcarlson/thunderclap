@@ -14,7 +14,7 @@ public:
     virtual void f0();
 };
 
-void *__cdecl FUN_0008d690(unsigned int n);
+extern "C" void *__cdecl FUN_0008d690(unsigned int n);
 
 namespace pure3d {
 class PrimGroupSkinnedPC : public PrimGroupSkinnedOptimized_2e0620 {

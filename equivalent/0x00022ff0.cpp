@@ -59,7 +59,7 @@ struct LayerSet_22ff0 {
     void *FUN_002226b0();
     void FUN_00222890(AnimationDriver_22ff0 *d, float a, float b, float c, float e, float f, float g);
 };
-LayerSet_22ff0 *__fastcall FUN_00059a40(Context *ctx);
+extern "C" LayerSet_22ff0 *__fastcall FUN_00059a40(Context *ctx);
 
 class Factory_22ff0 {
 public:
@@ -88,7 +88,7 @@ struct PoseBinding {
 };
 
 void *thunk_FUN_0008d690(unsigned int size);
-extern void __cdecl FUN_000139b0(void *sub, Owner *owner, AnimationDriver_22ff0 *driver);
+extern "C" void __cdecl FUN_000139b0(void *sub, Owner *owner, AnimationDriver_22ff0 *driver);
 
 class CKeyPoseAction {
 public:

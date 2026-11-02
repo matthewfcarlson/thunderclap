@@ -29,7 +29,7 @@ template <class T> struct ParamEnumConstList : Base_155270 {
 } // namespace fight
 typedef fight::ParamEnumConstList<hulkfight::motion::CollisionSourceSizeCondition> Param;
 extern void __cdecl FUN_002347b0(void*, Param**, unsigned int);
-void FUN_00155270() {
+extern "C" void FUN_00155270() {
     if (DAT_004e1044 == 0) {
         Param* params[2];
         void* mem = FUN_0008d690(32);

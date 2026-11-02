@@ -6,7 +6,7 @@
 #include "gen/audio.h"
 
 typedef unsigned int u32_250ba0;
-extern void* __cdecl Acquire(void*);
+extern "C" void* __cdecl FUN_00247530(void*);
 extern int gVtable_250ba0;
 class NameObj_250ba0 {
   public:
@@ -21,7 +21,7 @@ class NestTrack_250ba0 {
 };
 
 void* audio::SeqEventExpressionType::vfunc_3() {
-    NestTrack_250ba0* p = (NestTrack_250ba0*)Acquire(((char*)&DAT_004e6b18));
+    NestTrack_250ba0* p = (NestTrack_250ba0*)FUN_00247530(((char*)&DAT_004e6b18));
     if (p) {
         p->init();
         p->vf = (hulk_uintptr)&gVtable_250ba0;

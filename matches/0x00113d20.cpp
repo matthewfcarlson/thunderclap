@@ -7,7 +7,7 @@ class Owner {
     void Add(void*);
 };
 extern "C" void* __cdecl Find(void*, Caster*);
-void FUN_00113d20(Owner* owner, void* track) {
+extern "C" void FUN_00113d20(Owner* owner, void* track) {
     Caster caster;
     owner->Add(Find(track, &caster));
 }

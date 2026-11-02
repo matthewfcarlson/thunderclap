@@ -7,7 +7,7 @@ class Obj {
     void apply(void*);
 };
 extern "C" void* find(const char*, Caster_113900*);
-void target(Obj* obj, const char* name) {
+extern "C" void FUN_00113900(Obj* obj, const char* name) {
     Caster_113900 caster;
     void* p = find(name, &caster);
     obj->apply(p);

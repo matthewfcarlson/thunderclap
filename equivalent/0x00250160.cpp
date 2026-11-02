@@ -29,7 +29,7 @@ struct WaitData {
     Str_250160 name;
 };
 
-void FUN_002613b0(Table_250160 *t, Str_250160 *out, Str_250160 *in);
+extern "C" void FUN_002613b0(Table_250160 *t, Str_250160 *out, Str_250160 *in);
 
 class SeqAction_250160 {
 public:

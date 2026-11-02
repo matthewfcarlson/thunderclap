@@ -12,7 +12,7 @@ struct Key_1b0310 {
     void FUN_0027b040(const char *name);
 };
 
-void FUN_00363fd0();
+extern "C" void FUN_00363fd0();
 bool FUN_00044500(void *p);
 
 

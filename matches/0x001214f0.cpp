@@ -17,7 +17,7 @@ struct Param {
     hulk_intptr value;
     void Init(const char*);
 };
-void __cdecl register_params(void*, Param**, int);
+extern "C" void __cdecl FUN_002347b0(void*, Param**, int);
 void target() {
     if ((*(int*)&DAT_004e0ccc) == 0) {
         Param* list[7];
@@ -78,7 +78,7 @@ void target() {
             list[6] = p;
         } else
             list[6] = 0;
-        register_params(((void**)&DAT_004e0cc8), list, 7);
+        FUN_002347b0(((void**)&DAT_004e0cc8), list, 7);
     }
     ++(*(int*)&DAT_004e0ccc);
 }

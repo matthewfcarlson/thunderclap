@@ -2,7 +2,7 @@
 // FUN_00300a00 @ 0x00300a00
 #include "decls/data/engine/unknown.h"
 
-void *FUN_0008d6d0(unsigned int size);
+extern "C" void *FUN_0008d6d0(unsigned int size);
 
 
 struct Buffer_300a00 {

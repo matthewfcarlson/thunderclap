@@ -1,2 +1,2 @@
 // Same code shape as 0x00025410 (propagated; names are from that function)
-void FUN_0023f8c0() {}
+extern "C" void FUN_0023f8c0() {}

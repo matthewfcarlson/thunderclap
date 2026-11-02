@@ -14,7 +14,7 @@ template<class T> struct ParamFloatConstRange { virtual void slot0(); char pad[1
 template<class T> struct ParamBool { virtual void slot0(); char pad[12]; void (*callback)(); int tail; void FUN_00234860(const char*); };
 }
 void __cdecl FUN_002347b0(void*, void**, int);
-void FUN_00128db0() {
+extern "C" void FUN_00128db0() {
  if (DAT_004e0dc8 == 0) {
   void* params[4]; typedef hulkfight::ai::TargetDistanceXZCondition T;
   fight::ParamEnumConstList<T>* a = (fight::ParamEnumConstList<T>*)FUN_0008d690(32);

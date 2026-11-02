@@ -31,7 +31,7 @@ struct Functor {
 };
 
 void *FUN_00246c50();
-void __cdecl FUN_00244d10(Functor *f, U64_24d220 *out);
+extern "C" void __cdecl FUN_00244d10(Functor *f, U64_24d220 *out);
 
 class Entry_24d220 {
 public:

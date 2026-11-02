@@ -14,7 +14,7 @@ struct Spread {
 };
 
 char FUN_00246f50(Writer_254fc0 *writer, const char *fmt, ...);
-char FUN_00252470(Archive_254fc0 *ar, const char *name, Spread *value);
+extern "C" char FUN_00252470(Archive_254fc0 *ar, const char *name, Spread *value);
 
 namespace audio {
 

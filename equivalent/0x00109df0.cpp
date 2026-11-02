@@ -77,7 +77,7 @@ struct Context {
 };
 
 
-SweepList_109df0* FUN_00202f00();
+extern "C" SweepList_109df0* FUN_00202f00();
 
 struct HitOut {
     Hit_109df0* hit;

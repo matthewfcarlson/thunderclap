@@ -30,7 +30,7 @@ struct LevelDesc_31c600 {
 int FUN_0031c180(int format);
 void __cdecl FUN_0031c290(int format, LevelDesc_31c600 *out);
 
-void FUN_0031c600(const FormatDesc_31c600 *desc, const Surface_31c600 *surf, LevelDesc_31c600 *out, char flipped)
+extern "C" void FUN_0031c600(const FormatDesc_31c600 *desc, const Surface_31c600 *surf, LevelDesc_31c600 *out, char flipped)
 {
     out->width = desc->width;
     out->height = desc->height;

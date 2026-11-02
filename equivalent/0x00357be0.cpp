@@ -11,7 +11,7 @@ struct Frame_357be0 {
     Vec3_357be0 dir;
 };
 
-extern void __cdecl FUN_0022d730(Vec3_357be0 *a, Vec3_357be0 *dirA, float lenA, Vec3_357be0 *b, Vec3_357be0 *dirB, float lenB, int p7, int p8);
+extern "C" void __cdecl FUN_0022d730(Vec3_357be0 *a, Vec3_357be0 *dirA, float lenA, Vec3_357be0 *b, Vec3_357be0 *dirB, float lenB, int p7, int p8);
 
 // Builds the unit direction and length of the segments p0->p1 and p2->p3 and forwards them.
 // dx and dy stay unrounded on the FPU, everything the original stores is read back from memory.

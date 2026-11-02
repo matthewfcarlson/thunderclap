@@ -7,8 +7,8 @@ inline void* operator new(unsigned int, void* p) { return p; }
 extern "C" int __cdecl strcmp(const char*, const char*);
 extern "C" long __cdecl atol(const char*);
 extern "C" int __cdecl _atexit(void (__cdecl*)());
-extern int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
-extern void __cdecl FUN_00363bc0();
+extern "C" int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
+extern "C" void __cdecl FUN_00363bc0();
 
 
 struct Vec3_464c0 { float x, y, z; };
@@ -74,7 +74,7 @@ public:
     char FUN_001d2d40(const char* name, float* out);
     void FUN_001d19d0(int n);
 };
-Scope_464c0* FUN_001d4c90();
+extern "C" Scope_464c0* FUN_001d4c90();
 
 struct Sub12 { char b[12]; void FUN_00233f20(const char* s); };
 struct Attach_464c0 {

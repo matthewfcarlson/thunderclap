@@ -12,7 +12,7 @@ struct OutputSink {
     void *slot1;
     void (__cdecl *slot2)(OutputSink *, void *, const char *);
 };
-void __cdecl FUN_00247570(const char *text) {
+extern "C" void __cdecl FUN_00247570(const char *text) {
     if (text) {
         unsigned int length = ((const unsigned int *)text)[-1];
         TextBuffer buffer;

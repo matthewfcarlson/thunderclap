@@ -3,7 +3,7 @@ struct Obj_24c910 {
     float value;
     int other;
 };
-void __cdecl FUN_0024c910(Obj_24c910* a, float b, int c) {
+extern "C" void __cdecl FUN_0024c910(Obj_24c910* a, float b, int c) {
     a->value = b;
     a->other = c;
 }

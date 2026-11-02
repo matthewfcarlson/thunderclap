@@ -16,7 +16,7 @@ struct Holder_168120 {
     Fighter_168120 *FUN_00059a30();
 };
 
-bool FUN_00018960(float a, float b, float eps);
+extern "C" bool FUN_00018960(float a, float b, float eps);
 
 namespace fight {
 class Params_168120 {

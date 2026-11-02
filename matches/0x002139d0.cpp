@@ -3,6 +3,6 @@ struct Pair {
     int b;
 };
 void process(void*, int, int);
-void __cdecl target(void* p, Pair* q) {
+extern "C" void __cdecl FUN_002139d0(void* p, Pair* q) {
     process(p, q->a, q->b);
 }

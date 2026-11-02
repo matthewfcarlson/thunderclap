@@ -4,10 +4,10 @@
 #include "decls/data/game/global.h"
 typedef unsigned int uint_47890;
 inline void* __cdecl operator new(unsigned int,void* p) { return p; }
-void* __cdecl FUN_0008d6d0(uint_47890);
+extern "C" void* __cdecl FUN_0008d6d0(uint_47890);
 void* __cdecl FUN_0008d690(uint_47890);
 struct Registry_47890 { void FUN_001d3b70(const char*,void*); };
-Registry_47890* __cdecl FUN_001d4c90();
+extern "C" Registry_47890* __cdecl FUN_001d4c90();
 class CCharacterTemplateManager {
 public:
  virtual void slot0();

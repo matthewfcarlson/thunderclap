@@ -2,7 +2,7 @@
 // Static init: hash the eight door/switch state names.
 #include "decls/data/game/global.h"
 
-extern unsigned __int64 FUN_0027afb0(const char *name);
+extern "C" unsigned __int64 FUN_0027afb0(const char *name);
 void FUN_0035ebb0() {
     (*(unsigned __int64*)&DAT_004e2560) = FUN_0027afb0("clean");
     (*(unsigned __int64*)&DAT_004e2568) = FUN_0027afb0("opening");

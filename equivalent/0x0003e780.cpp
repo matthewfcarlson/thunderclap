@@ -78,7 +78,7 @@ struct Actor_3e780 {
     bool FUN_0003e780(void *a1, Vec3_3e780 *target, float maxDist, bool *outA, bool *outB);
 };
 
-bool __cdecl FUN_00036b10(void *a1, Vec3_3e780 *p, Vec3_3e780 *target, Vec3_3e780 *z, Vec3_3e780 *tmp, bool *outA, float *ang);
+extern "C" bool __cdecl FUN_00036b10(void *a1, Vec3_3e780 *p, Vec3_3e780 *target, Vec3_3e780 *z, Vec3_3e780 *tmp, bool *outA, float *ang);
 
 struct Frame_3e780 {
     float dot;

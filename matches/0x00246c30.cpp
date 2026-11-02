@@ -1,3 +1,3 @@
-bool FUN_00246c30() {
+extern "C" bool FUN_00246c30() {
     return false;
 }

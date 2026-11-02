@@ -6,7 +6,7 @@ class R_68f60 {
   public:
     int invoke(CClimbingTrack*, hulk_intptr);
 };
-extern R_68f60* FUN_0008d690(int);
+extern "C" R_68f60* FUN_0008d690(int);
 
 hulk_intptr CClimbingTrack::vfunc_12(hulk_intptr param) {
     R_68f60* p = FUN_0008d690(0x24);

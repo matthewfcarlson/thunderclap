@@ -281,15 +281,15 @@ extern float FUN_00224f10(const Vec3_1d8fc0 *v);
 extern float FUN_00224fc0(float a, float b);
 extern float FUN_00083d90(const float *p);
 extern void FUN_00224d70(float ang, Vec3_1d8fc0 *v);
-extern void FUN_00224db0(Matrix *out, const Vec3_1d8fc0 *from, const Vec3_1d8fc0 *to);
-extern bool FUN_00018960(float a, float b, float eps);
-extern Key64 FUN_0027b020(const char *s);
-extern Rng_1d8fc0 *FUN_000964d0();
+extern "C" void FUN_00224db0(Matrix *out, const Vec3_1d8fc0 *from, const Vec3_1d8fc0 *to);
+extern "C" bool FUN_00018960(float a, float b, float eps);
+extern "C" Key64 FUN_0027b020(const char *s);
+extern "C" Rng_1d8fc0 *FUN_000964d0();
 extern Singleton_1d8fc0 *FUN_001c3d90();
 extern Fx_1d8fc0 *FUN_0027f250();
-extern int FUN_00098190(float a, float b, int c, int d, Obj21c *e, float f, Vec3_1d8fc0 *g, Vec3_1d8fc0 *h, int i,
+extern "C" int FUN_00098190(float a, float b, int c, int d, Obj21c *e, float f, Vec3_1d8fc0 *g, Vec3_1d8fc0 *h, int i,
                         int j, int k, int l);
-extern bool FUN_00202560(const Vec3_1d8fc0 *a, float b, int c, Vec3_1d8fc0 *d, Bounds_1d8fc0 *e, Vec3_1d8fc0 *f, Hit_1d8fc0 **g, int h);
+extern "C" bool FUN_00202560(const Vec3_1d8fc0 *a, float b, int c, Vec3_1d8fc0 *d, Bounds_1d8fc0 *e, Vec3_1d8fc0 *f, Hit_1d8fc0 **g, int h);
 
 
 extern Root_1d8fc0 *DAT_004dd700;

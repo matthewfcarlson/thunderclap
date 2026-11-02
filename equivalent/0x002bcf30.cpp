@@ -102,7 +102,7 @@ struct Parent_2bcf30 {
 };
 
 void *FUN_00263ea0(unsigned int size);
-void FUN_0028fcc0(const char *fmt, ...);
+extern "C" void FUN_0028fcc0(const char *fmt, ...);
 
 struct Frame_2bcf30 {
     unsigned char pad10[3];

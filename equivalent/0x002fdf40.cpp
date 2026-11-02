@@ -87,9 +87,9 @@ struct Table_2fdf40 {
     Part_2fdf40 **parts;
 };
 
-void *__cdecl FUN_0008d690(unsigned int size);
+extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 void *__cdecl FUN_00263ea0(unsigned int size);
-void *__cdecl FUN_002efa90(CollisionObject_2fdf40 *shape, Made_2fdf40 *made, int zero);
+extern "C" void *__cdecl FUN_002efa90(CollisionObject_2fdf40 *shape, Made_2fdf40 *made, int zero);
 
 class Builder {
 public:

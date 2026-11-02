@@ -6,7 +6,7 @@ class Owner {
   public:
     void add(void*);
 };
-void function(Owner* owner, void* value) {
+extern "C" void FUN_00161d50(Owner* owner, void* value) {
     TrackFactoryCasterTemplate_161d50 caster;
     owner->add(findTrack(value, &caster));
 }

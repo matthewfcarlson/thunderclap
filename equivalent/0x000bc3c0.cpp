@@ -30,7 +30,7 @@ struct RequestState {
     int arg;
     char field110;
 };
-void __cdecl FUN_00087990();
+extern "C" void __cdecl FUN_00087990();
 
 void __stdcall FUN_000bc3c0(const char* src, Target_bc3c0* target, int arg) {
     struct Frame {

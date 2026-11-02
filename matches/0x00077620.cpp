@@ -2,14 +2,14 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_003fc094[];
-extern void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 class CStageTrack_77620 {
   public:
     void Init();
 };
 
 template <> void* fight::TrackFactoryTemplate<CStageTrack>::vfunc_5() {
-    CStageTrack_77620* p = (CStageTrack_77620*)alloc(0x14);
+    CStageTrack_77620* p = (CStageTrack_77620*)FUN_0008d690(0x14);
     if (p) {
         p->Init();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_003fc094);

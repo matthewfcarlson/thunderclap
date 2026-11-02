@@ -6,7 +6,7 @@ struct Environment_nv_2ed020 {
     physics::Environment* Init();
 };
 extern "C" void* __cdecl Alloc(hulk_uintptr);
-void __cdecl Target() {
+extern "C" void __cdecl FUN_002ed020() {
     physics::Environment* p = (*(physics::Environment**)&DAT_00554c10);
     if (p == 0) {
         p = (physics::Environment*)Alloc(0x38);

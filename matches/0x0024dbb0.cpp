@@ -1,7 +1,7 @@
 #include "decls/data/engine/audio.h"
 // data: gBss_24dbb0 = DAT_004e65b8
 
-extern void FUN_00247550(const void*, void*);
+extern "C" void FUN_00247550(const void*, void*);
 namespace audio { class ListenerEffectWin32 {
   public:
     virtual void a();

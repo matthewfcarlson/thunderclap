@@ -3,17 +3,17 @@
 // cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
-struct Manager_b4850 { int FUN_000f7d30(const char*); const char* FUN_000f7220(int); }; extern Manager_b4850* __cdecl FUN_000fc1b0();
+struct Manager_b4850 { int FUN_000f7d30(const char*); const char* FUN_000f7220(int); }; extern "C" Manager_b4850* __cdecl FUN_000fc1b0();
   extern char DAT_0049dba4, DAT_0049f48c, DAT_0049f470;
-extern void __cdecl FUN_000fc020(char*,int,const char*,const char*,const char*,const char*,const char*,const char*);
-extern void __cdecl FUN_000fc000(char*,int,const char*,const char*,const char*,const char*,const char*,const char*);
-extern int __cdecl FUN_00267760(char*,int,const char*,...);
+extern "C" void __cdecl FUN_000fc020(char*,int,const char*,const char*,const char*,const char*,const char*,const char*);
+extern "C" void __cdecl FUN_000fc000(char*,int,const char*,const char*,const char*,const char*,const char*,const char*);
+extern "C" int __cdecl FUN_00267760(char*,int,const char*,...);
 extern void* __cdecl FUN_000fc260(const char*);
 struct Value_b4850 { void FUN_000f8500(const char*,Manager_b4850*,int); void FUN_000f79a0(const char*,Manager_b4850*); };
 struct Widget_b4850 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void update(); char pad[20]; Value_b4850 value; };
 extern Widget_b4850* __cdecl FUN_00344e74(void*,int,char*,char*,int);
 struct Screen_b4850 { void FUN_001cc620(int); }; struct World { char pad[44]; Screen_b4850* screen; }; 
-void __stdcall FUN_000b4850(const char* title,const char* format,const char* a,const char* b,const char* c,const char* d,const char* e) {
+extern "C" void __stdcall FUN_000b4850(const char* title,const char* format,const char* a,const char* b,const char* c,const char* d,const char* e) {
  Manager_b4850* m=FUN_000fc1b0(); const char* fmt=m->FUN_000f7220(m->FUN_000f7d30(format));
  m=FUN_000fc1b0(); if(m->FUN_000f7220(m->FUN_000f7d30(a))) { m=FUN_000fc1b0(); a=m->FUN_000f7220(m->FUN_000f7d30(a)); }
  m=FUN_000fc1b0(); if(m->FUN_000f7220(m->FUN_000f7d30(b))) { m=FUN_000fc1b0(); b=m->FUN_000f7220(m->FUN_000f7d30(b)); }

@@ -2,9 +2,9 @@
 // audio::Mix::vfunc_5 @ 0x0025a8f0
 typedef unsigned int uint;
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
-extern bool __cdecl FUN_0025abd0(void*, uint*);
+extern "C" bool __cdecl FUN_0025abd0(void*, uint*);
 extern void* __cdecl FUN_00241670();
-extern void* __cdecl FUN_00247530(void*);
+extern "C" void* __cdecl FUN_00247530(void*);
 namespace audio {
 struct MixBuss {
  virtual void vfunc_0(); virtual bool vfunc_1(void*);

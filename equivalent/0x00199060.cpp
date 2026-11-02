@@ -165,7 +165,7 @@ public:
     Ent_199060 *f3c;
 };
 
-int FUN_00266da0(int mode);
+extern "C" int FUN_00266da0(int mode);
 void FUN_00224d70(float angle, V3_199060 *v);
 float FUN_00224f10(V3_199060 *v);
 char FUN_00195560(V3_199060 *pn, void *own, V3_199060 *b, int f1c, int f98, int z0, int a4, int Tbits, int f78, int f20, int f74,

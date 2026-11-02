@@ -3,7 +3,7 @@
 
 void __cdecl FUN_002705f0();
 void __cdecl FUN_002702a0(void *, unsigned, unsigned, unsigned, unsigned, const char *, unsigned);
-void *__cdecl FUN_00266e00(unsigned, unsigned);
+extern "C" void *__cdecl FUN_00266e00(unsigned, unsigned);
 namespace core {
 struct ITimerList {
     virtual void timerMethod();

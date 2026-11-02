@@ -15,7 +15,7 @@ struct SeqActionChannelSends_24fb80 {
     SeqActionChannelSends_24fb80(void *e) : event(e), value(0) {}
 };
 }
-void * __cdecl FUN_00247530(void *);
+extern "C" void * __cdecl FUN_00247530(void *);
 struct Channel_24fb80 { void FUN_0025dc20(audio::SeqActionChannelSends_24fb80 *); };
 void audio::SeqEventChannelSends::vfunc_2(hulk_intptr __p0) { void * channel = (void *)__p0;
 

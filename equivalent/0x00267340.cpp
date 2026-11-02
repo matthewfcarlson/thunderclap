@@ -2,7 +2,7 @@
 // FUN_00267340 @ 0x00267340
 typedef unsigned __int64 U64_267340;
 typedef unsigned int U32_267340;
-U64_267340 __cdecl FUN_00267340(const char* text, U32_267340 low, U32_267340 high)
+extern "C" U64_267340 __cdecl FUN_00267340(const char* text, U32_267340 low, U32_267340 high)
 {
     if (text) {
         while (*text) {

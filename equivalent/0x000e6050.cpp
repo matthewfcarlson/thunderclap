@@ -77,7 +77,7 @@ public:
     virtual void v48(int x);
 };
 
-int __cdecl FUN_000f6660(int a, int b);
+extern "C" int __cdecl FUN_000f6660(int a, int b);
 
 class FEMenuBase {
 public:

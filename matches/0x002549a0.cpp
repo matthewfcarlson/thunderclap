@@ -32,8 +32,8 @@ class SeqEventSilence : public SeqEvent {
     int m8;
     int mc;
 };
-extern void* __cdecl FUN_00247530(void*);
-extern int __cdecl FUN_000113e0(int, int);
+extern "C" void* __cdecl FUN_00247530(void*);
+extern "C" int __cdecl FUN_000113e0(int, int);
 extern char VT_2549a0[];
 class Helper_2549a0 {
   public:

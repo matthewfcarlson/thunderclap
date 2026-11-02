@@ -7,13 +7,13 @@ class C_1d2cd0 {
     int field;
     bool Fn(int, int, int);
 };
-extern void __cdecl F1(int, int);
+extern "C" void __cdecl FUN_00213360(int, int);
 extern void __cdecl F2(int, int);
 extern int __cdecl F3(int, int);
 extern void __cdecl F4(int, int, hulk_intptr, int);
 extern void __cdecl F5(int, int);
 bool C_1d2cd0::Fn(int a, int b, int c) {
-    F1(field, a);
+    FUN_00213360(field, a);
     F2(field, -2);
     int r = F3(field, -1);
     bool ok = true;

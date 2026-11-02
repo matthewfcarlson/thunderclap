@@ -11,8 +11,8 @@ class Pool_275ad0 {
     virtual void v3();
     virtual void Free(void*);
 };
-void Lock(void*);
-void Unlock(void*);
+extern "C" void FUN_0026d850(void*);
+extern "C" void FUN_0026d840(void*);
 class B_275ad0 {
   public:
     virtual void v0();
@@ -42,9 +42,9 @@ DriveFindNextRequest_275ad0* DriveFindNextRequest_275ad0::f0(unsigned char flags
     m8->v1();
     vptr = g_base_vftable;
     if (flags & 1) {
-        Lock(((char*)&DAT_0052a1c8));
+        FUN_0026d850(((char*)&DAT_0052a1c8));
         (*(Pool_275ad0**)&DAT_0052a1e4)->Free(this);
-        Unlock(((char*)&DAT_0052a1c8));
+        FUN_0026d840(((char*)&DAT_0052a1c8));
     }
     return this;
 }

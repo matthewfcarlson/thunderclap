@@ -3,7 +3,7 @@
 #include "decls/data/engine/fight.h"
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
-void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_0023cb40();
 void __cdecl FUN_0023cb50();
 void __cdecl FUN_0023cb60();

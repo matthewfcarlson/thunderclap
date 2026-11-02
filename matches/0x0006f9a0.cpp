@@ -6,11 +6,11 @@ struct CFightNodeTimeCondition_6f9a0 {
     char pad[0x10];
     void Initialize();
 };
-extern void* __cdecl operator_new(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern void* conditionVtable;
 
 template <> void* fight::TrackFactoryTemplate<CGrappleSmartPropDropTrack>::vfunc_5() {
-    CFightNodeTimeCondition_6f9a0* p = (CFightNodeTimeCondition_6f9a0*)operator_new(0x14);
+    CFightNodeTimeCondition_6f9a0* p = (CFightNodeTimeCondition_6f9a0*)FUN_0008d690(0x14);
     if (p) {
         p->Initialize();
         *(void**)p = &conditionVtable;

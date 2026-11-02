@@ -10,7 +10,7 @@ struct Result_24f870 {
     char pad[0x44];
     hulk_uintptr link;
 };
-extern Result_24f870* __cdecl FUN_0024a940(u32_24f870, void*);
+extern "C" Result_24f870* __cdecl FUN_0024a940(u32_24f870, void*);
 
 void audio::SeqActionChannelSends::vfunc_1(void* __p0) { Arg_24f870 * arg = (Arg_24f870 *)__p0;
 

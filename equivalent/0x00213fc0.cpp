@@ -6,7 +6,7 @@ struct CallInfo_213fc0 { Obj_213fc0 **func; int pad4; int pad8; int n; };
 struct State_213fc0 { char pad0[0x14]; CallInfo_213fc0 *ci; char pad1[0x28 - 0x18]; CallInfo_213fc0 *base_ci; };
 struct DebugInfo_213fc0 { char pad[0x5c]; hulk_intptr currentline; };
 
-int FUN_00213fc0(State_213fc0 *L, int level, DebugInfo_213fc0 *ar)
+extern "C" int FUN_00213fc0(State_213fc0 *L, int level, DebugInfo_213fc0 *ar)
 {
     CallInfo_213fc0 *ci = L->ci;
     if (level > 0) {

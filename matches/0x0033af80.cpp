@@ -14,7 +14,7 @@ void __cdecl FUN_00339590(void*);
 void __cdecl FUN_003394b0(void*, int, int);
 void __cdecl FUN_00339540(void*);
 }
-int __cdecl FUN_0033af80(void* state) {
+extern "C" int __cdecl FUN_0033af80(void* state) {
  int separatorLength;
  char buffer[0x20c];
  int separator=FUN_00339e60(state,2,"",&separatorLength);

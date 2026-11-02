@@ -54,7 +54,7 @@ struct World {
 };
 
 
-extern char __cdecl FUN_00202560(Vec3_10d9c0 *from, float dist, int flag, Vec3_10d9c0 *outA, Vec3_10d9c0 *outB, int p6, int p7, Hit_10d9c0 **outHit);
+extern "C" char __cdecl FUN_00202560(Vec3_10d9c0 *from, float dist, int flag, Vec3_10d9c0 *outA, Vec3_10d9c0 *outB, int p6, int p7, Hit_10d9c0 **outHit);
 
 class OnBlockedTriangleCondition {
 public:

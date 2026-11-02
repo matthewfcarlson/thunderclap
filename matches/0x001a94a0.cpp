@@ -7,7 +7,7 @@ class Obj {
   public:
     void set(void*);
 };
-void func(Obj* obj, void* value) {
+extern "C" void FUN_001a94a0(Obj* obj, void* value) {
     ConditionFactoryCasterTemplate_1a94a0 caster;
     void* p = find(value, &caster);
     obj->set(p);

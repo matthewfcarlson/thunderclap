@@ -1,6 +1,6 @@
 // FUN_001f5860 @ 0x001f5860
 char __cdecl FUN_002478f0(void *voice);
-void __cdecl FUN_002485c0(void *voice, void *params, int a, int b);
+extern "C" void __cdecl FUN_002485c0(void *voice, void *params, int a, int b);
 void __cdecl FUN_0024a800(void *voice, int value);
 int __cdecl FUN_00247930(void *voice, void *sound);
 void __cdecl FUN_00247a90(void *voice, void *sound, int flag);

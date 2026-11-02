@@ -10,7 +10,7 @@ struct Param {
 };
 extern hulk_intptr __cdecl Alloc(unsigned int);
 extern void __cdecl Register(void*, void*, int);
-void FUN_000534e0() {
+extern "C" void FUN_000534e0() {
     if ((*(int*)&DAT_004dc474) == 0) {
         Param* p = (Param*)Alloc(0x18);
         void* out;

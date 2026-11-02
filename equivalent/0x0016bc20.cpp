@@ -22,7 +22,7 @@ template<class T> struct ParamEnumConstList {
 }
 typedef fight::ParamEnumConstList<hulkfight::motion::RageModeStateCondition> Entry_16bc20;
 extern "C" void __cdecl FUN_002347b0(void*, Entry_16bc20**, unsigned int);
-void __cdecl FUN_0016bc20() {
+extern "C" void __cdecl FUN_0016bc20() {
  if (!DAT_004e129c) {
  Entry_16bc20* entries[2];
  Entry_16bc20* p = (Entry_16bc20*)FUN_0008d690(32);

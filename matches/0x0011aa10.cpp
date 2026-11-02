@@ -7,7 +7,7 @@ class Owner {
     void Use(void*);
 };
 void* Find(void*, ConditionFactoryCasterTemplate_11aa10*);
-void FUN_0011aa10(Owner* owner, void* name) {
+extern "C" void FUN_0011aa10(Owner* owner, void* name) {
     ConditionFactoryCasterTemplate_11aa10 c;
     owner->Use(Find(name, &c));
 }

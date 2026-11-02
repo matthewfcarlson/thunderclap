@@ -2,7 +2,7 @@
 // CAxisDoubleTapCondition::vfunc_9 @ 0x0004b720
 struct AxisEvent { char pad[0x14]; int value; char pad2[0x14]; int kind; int axis; float position; };
 extern float __cdecl FUN_00224fc0(int axis, int value);
-extern bool __cdecl FUN_00018960(float a, float b, float tolerance);
+extern "C" bool __cdecl FUN_00018960(float a, float b, float tolerance);
 struct CAxisDoubleTapCondition {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual bool vfunc_9(int unused, AxisEvent* event);
  char pad[12]; unsigned comparison; float threshold; float lower; float upper;

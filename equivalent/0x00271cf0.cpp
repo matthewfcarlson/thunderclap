@@ -2,7 +2,7 @@
 // FUN_00271cf0 @ 0x00271cf0
 #include "decls/data/engine/core.h"
 
-int __cdecl FUN_00271cf0(char *destination, const unsigned char *source, unsigned int capacity)
+extern "C" int __cdecl FUN_00271cf0(char *destination, const unsigned char *source, unsigned int capacity)
 {
     unsigned int written = 0;
     while (source[written] != 0) {

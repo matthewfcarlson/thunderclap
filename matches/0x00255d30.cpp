@@ -8,7 +8,7 @@ class SeqEvent {
     virtual void vfunc_5();
     char pad[4];
 };
-extern bool __cdecl FUN_0025aa80(void*, void*);
+extern "C" bool __cdecl FUN_0025aa80(void*, void*);
 class Sub_255d30 {
   public:
     bool run(void*);

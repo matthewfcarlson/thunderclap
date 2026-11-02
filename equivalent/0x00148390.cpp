@@ -36,7 +36,7 @@ public:
     float FUN_000354c0();
 };
 
-Actor_148390 *FUN_00048260(fight::Params *p);
+extern "C" Actor_148390 *FUN_00048260(fight::Params *p);
 float FUN_00224f10(Vec3_148390 *v);
 float FUN_00224fc0(float x, float y);
 

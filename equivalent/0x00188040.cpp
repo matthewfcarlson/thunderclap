@@ -22,7 +22,7 @@ template<class T> struct ParamFloatConstRange : ParamBase_188040 { virtual void 
 template<class T> struct ParamIntConstRange : ParamBase_188040 { virtual void slot0(); };
 }
 extern void __cdecl FUN_002347b0(void*, ParamBase_188040**, int);
-void __cdecl FUN_00188040() {
+extern "C" void __cdecl FUN_00188040() {
  if (!DAT_004e1494) {
   ParamBase_188040* params[4];
   ParamBase_188040* p = (ParamBase_188040*)FUN_0008d690(24);

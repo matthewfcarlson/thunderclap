@@ -102,7 +102,7 @@ struct Spec_18b4e0 {
 
 struct Owner;
 Owner *__fastcall FUN_000592a0(void *p);
-Stats_18b4e0 *__fastcall FUN_00059a30(Owner *o);
+extern "C" Stats_18b4e0 *__fastcall FUN_00059a30(Owner *o);
 
 
 class PropAnimationAction {

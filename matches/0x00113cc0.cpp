@@ -7,7 +7,7 @@ class Obj {
     void take(void*);
 };
 extern "C" void* lookup(void*, Caster*);
-void target(Obj* obj, void* name) {
+extern "C" void FUN_00113cc0(Obj* obj, void* name) {
     Caster caster;
     obj->take(lookup(name, &caster));
 }

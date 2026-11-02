@@ -14,8 +14,8 @@ struct Obj_2770a0 {
     virtual void x3();
     virtual void x4(void*);
 };
-extern void f850(void*);
-extern void f840(void*);
+extern "C" void FUN_0026d850(void*);
+extern "C" void FUN_0026d840(void*);
 extern void* vtmain;
 extern void* vtbase;
 extern void* vtref;
@@ -71,9 +71,9 @@ InstanceDrive* InstanceDrive::vfunc_2(unsigned char flag) {
     drive->v1();
     *(void**)this = &vtref;
     if (flag & 1) {
-        f850((void*)((hulk_intptr)DAT_0052a208));
+        FUN_0026d850((void*)((hulk_intptr)DAT_0052a208));
         (*(Obj_2770a0**)&DAT_0052a224)->x4(this);
-        f840((void*)((hulk_intptr)DAT_0052a208));
+        FUN_0026d840((void*)((hulk_intptr)DAT_0052a208));
     }
     return this;
 }

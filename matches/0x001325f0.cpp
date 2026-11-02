@@ -8,7 +8,7 @@ class Owner {
   public:
     void Set(void*);
 };
-void Func(Owner* owner, const char* name) {
+extern "C" void FUN_001325f0(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_1325f0 c;
     owner->Set(FUN_00236ac0(name, &c));
 }

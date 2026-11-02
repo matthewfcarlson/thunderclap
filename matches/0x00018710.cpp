@@ -1,3 +1,3 @@
-float FUN_00018710(float* a, float* b) {
+extern "C" float FUN_00018710(float* a, float* b) {
     return *a < *b ? *b : *a;
 }

@@ -19,7 +19,7 @@ template<class T> struct ParamEnumConstList : EnumBase_189a50 { virtual void slo
 template<class T> struct ParamName : NameBase_189a50 { virtual void slot0(); };
 }
 extern "C" void __cdecl FUN_002347b0(void*,void**,int);
-void __cdecl FUN_00189a50() {
+extern "C" void __cdecl FUN_00189a50() {
  if (!DAT_004e1414) {
  void* params[3];
  IntBase_189a50* a=(IntBase_189a50*)FUN_0008d690(24);

@@ -65,7 +65,7 @@ public:
   // 4.0
   // 3.0
 
-char __cdecl FUN_00018960(float a, float b, float eps);
+extern "C" char __cdecl FUN_00018960(float a, float b, float eps);
 
 void CPathGraphAgent::vfunc_4(int a, int b, int c) {
     V3_104d00 u;

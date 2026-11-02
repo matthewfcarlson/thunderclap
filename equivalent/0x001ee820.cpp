@@ -5,7 +5,7 @@
 #include "decls/data/game/unknown.h"
 typedef unsigned int size_t;
 void* __cdecl operator new(size_t, void* p) { return p; }
-void* __cdecl FUN_0008d690(unsigned);
+extern "C" void* __cdecl FUN_0008d690(unsigned);
 struct Owner { void FUN_001f2c00(unsigned); };
 class CSoundRealTimeManager { public:
  Owner* owner; unsigned id;
@@ -41,7 +41,7 @@ struct Registry {
  void FUN_001d3b70(const char*,Command*);
  void FUN_001ee5b0(const char*,CSoundRealTimeManager*,void(CSoundRealTimeManager::*)());
 };
-Registry* __cdecl FUN_001d4c90();
+extern "C" Registry* __cdecl FUN_001d4c90();
 #define ADD1(N,A,F,T) { void* mem=FUN_0008d690(36); Command* cmd=0; if(mem) cmd=new(mem) Closure1<CSoundRealTimeManager,void,A>(N,this,&CSoundRealTimeManager::F,&T); registry->FUN_001d3b70(N,cmd); }
 void CSoundRealTimeManager::FUN_001ee820() {
  owner->FUN_001f2c00(id);

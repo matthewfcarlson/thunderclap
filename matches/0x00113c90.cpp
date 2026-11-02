@@ -7,7 +7,7 @@ class Owner {
   public:
     void* Get(void*);
 };
-void* __cdecl Target(Owner* owner, void* p) {
+extern "C" void* __cdecl FUN_00113c90(Owner* owner, void* p) {
     Caster caster;
     void* x = Find(p, &caster);
     return owner->Get(x);

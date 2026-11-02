@@ -20,7 +20,7 @@ struct EffectRegistry {
     virtual void vfunc_2();
     virtual audio::ListenerEffectXBox_24d840* vfunc_3();
 };
-audio::ListenerEffectXBox_24d840* __cdecl FUN_00247530(void*);
+extern "C" audio::ListenerEffectXBox_24d840* __cdecl FUN_00247530(void*);
 void* audio::ListenerEffectXBoxType::vfunc_2() {
     ListenerEffectXBox_24d840* result = FUN_00247530(DAT_004e6468);
     if (result) {

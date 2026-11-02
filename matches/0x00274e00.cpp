@@ -29,8 +29,8 @@ struct GlobalObj_274e00 {
 };
 extern char vtFile[];
 extern char vtRequest[];
-extern void FUN_0026d850(void*);
-extern void FUN_0026d840(void*);
+extern "C" void FUN_0026d850(void*);
+extern "C" void FUN_0026d840(void*);
 core::DriveCompletionRequest* core::DriveCompletionRequest::vfunc_0(u8_274e00 param) {
     *(void**)this = vtFile;
     mAt10->f1();

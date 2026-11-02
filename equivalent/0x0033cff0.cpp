@@ -12,14 +12,14 @@ extern int __cdecl FUN_00212fb0(State*,int);
 extern int __cdecl FUN_00212f00(State*,int);
 extern void __cdecl FUN_00339c30(State*,int,const char*);
 extern void __cdecl FUN_00339630(State*,Buffer_33cff0*);
-extern const char* __cdecl FUN_0033c7e0(MatchState_33cff0*,const char*,const char*);
+extern "C" const char* __cdecl FUN_0033c7e0(MatchState_33cff0*,const char*,const char*);
 // equiv-conv: FUN_0033cec0 eax ebx stack stack
 extern void __cdecl FUN_0033cec0(MatchState_33cff0*,Buffer_33cff0*,const char*,const char*);
 extern void __cdecl FUN_00339470(Buffer_33cff0*);
 extern void __cdecl FUN_003394b0(Buffer_33cff0*,const char*,unsigned);
 extern void __cdecl FUN_00339540(Buffer_33cff0*);
 extern void __cdecl FUN_00213360(State*,int);
-int __cdecl FUN_0033cff0(State* state) {
+extern "C" int __cdecl FUN_0033cff0(State* state) {
  unsigned length;
  const char* source=FUN_00339df0(state,1,&length);
  const char* pattern=FUN_00339df0(state,2,0);

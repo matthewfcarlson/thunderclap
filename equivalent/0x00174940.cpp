@@ -50,7 +50,7 @@ struct World {
     Wrap_174940 *wrap;
 };
 
-bool __cdecl FUN_00018960(float a, float b, float eps);
+extern "C" bool __cdecl FUN_00018960(float a, float b, float eps);
 
 struct Data_174940 {
     char pad0[0x20];

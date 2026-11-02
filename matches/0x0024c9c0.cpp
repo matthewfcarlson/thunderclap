@@ -1,6 +1,6 @@
 #include "decls/data/engine/audio.h"
 
-void __cdecl FUN_0024c9c0() {
+extern "C" void __cdecl FUN_0024c9c0() {
     (*(float**)&DAT_004e6200) = &DAT_004e6298;
     DAT_004e62b0 = 0.0f;
     DAT_004e62b4 = 0.0f;

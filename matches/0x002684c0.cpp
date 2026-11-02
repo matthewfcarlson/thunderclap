@@ -17,7 +17,7 @@ class X_2684c0 {
     virtual void m();
     virtual void n();
 };
-void FUN_002684c0() {
+extern "C" void FUN_002684c0() {
     if ((*(X_2684c0**)&DAT_00528398))
         (*(X_2684c0**)&DAT_00528398)->m();
 }

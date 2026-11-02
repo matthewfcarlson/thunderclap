@@ -6,6 +6,6 @@ class A_364720 {
     void Run();
 };
 
-void __fastcall FUN_00364720() {
+extern "C" void __fastcall FUN_00364720() {
     (*(A_364720*)&DAT_004e7ac0).Run();
 }

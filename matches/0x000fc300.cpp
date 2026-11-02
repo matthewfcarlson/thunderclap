@@ -26,6 +26,6 @@ struct Obj_fc300 {
     virtual void f22();
     virtual void f23();
 };
-void target() {
+extern "C" void FUN_000fc300() {
     (*(Obj_fc300**)&DAT_004e0a60)->f23();
 }

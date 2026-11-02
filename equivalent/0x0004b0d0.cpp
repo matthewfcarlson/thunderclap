@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CButtonCondition::vfunc_9 @ 0x0004b0d0
 struct Input_4b0d0 { unsigned int unknown; float value; };
-extern bool __cdecl FUN_00018960(float a, float b, float tolerance);
+extern "C" bool __cdecl FUN_00018960(float a, float b, float tolerance);
 struct CButtonCondition {
     virtual void vfunc_0();
     virtual void vfunc_1();

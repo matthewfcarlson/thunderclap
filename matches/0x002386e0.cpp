@@ -10,7 +10,7 @@ class Obj_2386e0 {
 };
 extern void* Build(void* arg, void* storage);
 extern "C" char DAT_0042827c[];
-void Target(void* a, void* b) {
+extern "C" void FUN_002386e0(void* a, void* b) {
     RandomCondition local;
     *(hulk_intptr*)&local = (hulk_intptr)DAT_0042827c;
     void* r = Build(b, &local);

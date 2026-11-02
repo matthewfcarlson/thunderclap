@@ -16,7 +16,7 @@ struct LoadState_33e010 {
     int pending;
 };
 
-int FUN_0033e010(lua_State *L)
+extern "C" int FUN_0033e010(lua_State *L)
 {
     LoadState_33e010 ls;
     const char *chunkname = FUN_00339e60(L, 2, "=(load)", 0);

@@ -75,7 +75,7 @@ Fighter_13fa80 *__fastcall FUN_000592a0(void *owner) throw();
 Stats2_13fa80 *__fastcall FUN_00059a30(Fighter_13fa80 *f) throw();
 float __cdecl FUN_00224fc0(float a, float b) throw();
 float __cdecl FUN_00018a20(float x) throw();
-float __cdecl FUN_000186b0(float *v, float *lo, float *hi) throw();
+extern "C" float __cdecl FUN_000186b0(float *v, float *lo, float *hi) throw();
 
 union Arg1_13fa80 {
     int i;

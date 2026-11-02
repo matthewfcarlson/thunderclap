@@ -14,8 +14,8 @@ struct Node {
     Data* data;
     unsigned int type;
 };
-extern void __cdecl FUN_00096d50(char*, unsigned int, unsigned int, unsigned int);
-char* __cdecl FUN_001b46f0(Node* node, unsigned int* output)
+extern "C" void __cdecl FUN_00096d50(char*, unsigned int, unsigned int, unsigned int);
+extern "C" char* __cdecl FUN_001b46f0(Node* node, unsigned int* output)
 {
     if (!node) return 0;
     switch (node->type) {

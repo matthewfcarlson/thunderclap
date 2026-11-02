@@ -2,7 +2,7 @@
 #include "decls/data/engine/unknown.h"
 // data: g_ptr = DAT_00527f60
 
-void* __cdecl Swap(void* value) {
+extern "C" void* __cdecl FUN_00266da0(void* value) {
     void* old = (*(void**)&DAT_00527f60);
     (*(void**)&DAT_00527f60) = value;
     return old;

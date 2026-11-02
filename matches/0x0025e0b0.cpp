@@ -10,7 +10,7 @@ struct Buffer_25e0b0 {
     unsigned writeCount;
     unsigned wraps;
 };
-bool FUN_0025e0b0(Buffer_25e0b0* b, unsigned amount, int mode) {
+extern "C" bool FUN_0025e0b0(Buffer_25e0b0* b, unsigned amount, int mode) {
     if (!amount)
         return true;
     unsigned pos = b->position, end = b->end, available;

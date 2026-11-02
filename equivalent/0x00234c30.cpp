@@ -2,7 +2,7 @@
 // fight::ParamValueScript::vfunc_5 @ 0x00234c30
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x00267090
 void* __cdecl FUN_00238190(int a);
-char* __cdecl FUN_00266e00(void* heap, int size);
+extern "C" char* __cdecl FUN_00266e00(void* heap, int size);
 void __cdecl thunk_FUN_00267090(void* p);
 class Stream {
 public:

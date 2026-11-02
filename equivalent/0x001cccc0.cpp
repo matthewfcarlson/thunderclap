@@ -38,7 +38,7 @@ struct Singleton_4dd6ec {
 };
 
 
-void FUN_00267830(char *dst, const char *src, int n);
+extern "C" void FUN_00267830(char *dst, const char *src, int n);
 
 struct Frame_1cccc0 {
     union {

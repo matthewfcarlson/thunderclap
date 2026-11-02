@@ -7,7 +7,7 @@ class Owner {
     void Add(void*);
 };
 extern "C" void* __cdecl Find(void*, TrackFactoryCasterTemplate_18aba0*);
-void __cdecl target(Owner* owner, void* key) {
+extern "C" void __cdecl FUN_0018aba0(Owner* owner, void* key) {
     TrackFactoryCasterTemplate_18aba0 caster;
     owner->Add(Find(key, &caster));
 }

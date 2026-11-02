@@ -8,7 +8,7 @@ struct Global_240c20 {
     char pad2[4];
     int field30;
 };
-int __cdecl target(int param) {
+extern "C" int __cdecl FUN_00240c20(int param) {
     int result = FUN_0020e1a1((*(Global_240c20**)&DAT_004e5ce0)->field28, 0, param);
     if (result) {
         int value = FUN_0020d7ff((*(Global_240c20**)&DAT_004e5ce0)->field28, 0, result);

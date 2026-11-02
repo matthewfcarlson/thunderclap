@@ -65,9 +65,9 @@ struct CAmbientsManager_nv_88670 {
 };
 struct R_88670 { void FUN_00066c20(Sim_88670 *s); };
 
-extern void *__cdecl FUN_0008d690(unsigned int n);
-Sys10 *__cdecl FUN_001b6580();
-void *__cdecl FUN_001b6990();
+extern "C" void *__cdecl FUN_0008d690(unsigned int n);
+extern "C" Sys10 *__cdecl FUN_001b6580();
+extern "C" void *__cdecl FUN_001b6990();
 R_88670 *__stdcall FUN_000678d0();
 
 struct Sim_88670 {

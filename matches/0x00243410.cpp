@@ -1,4 +1,4 @@
-extern bool __cdecl ReadValue(int, int*);
+extern "C" bool __cdecl FUN_0025abd0(int, int*);
 class C_243410 {
   public:
     int value;
@@ -7,11 +7,11 @@ class C_243410 {
 bool __fastcall Target(C_243410* self) {
     int a, b, c;
     int x = self->value;
-    if (!ReadValue(x, &a))
+    if (!FUN_0025abd0(x, &a))
         return false;
-    if (!ReadValue(x, &b))
+    if (!FUN_0025abd0(x, &b))
         return false;
-    if (!ReadValue(x, &c))
+    if (!FUN_0025abd0(x, &c))
         return false;
     if (a != 0xff443350)
         return false;

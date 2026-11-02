@@ -19,8 +19,8 @@ class Widget_bcf40 {
 struct State_bcf40 {
     int id;
 };
-char __cdecl FUN_000c5ef0(int who, int a, int b, int c, int d, int e);
-char __cdecl FUN_000c5d60(int who, int a);
+extern "C" char __cdecl FUN_000c5ef0(int who, int a, int b, int c, int d, int e);
+extern "C" char __cdecl FUN_000c5d60(int who, int a);
 
 class Menu_bcf40 {
   public:

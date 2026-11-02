@@ -1,5 +1,5 @@
 typedef unsigned __int64 U64_24d9e0;
-U64_24d9e0 __cdecl Lookup(const char*, int, int);
+extern "C" U64_24d9e0 __cdecl FUN_002672f0(const char*, int, int);
 class MetaEntityType_24d9e0 {
   public:
     virtual void f();
@@ -11,4 +11,4 @@ class ListenerEffectPs2Type : public MetaEntityType_24d9e0 {
     ListenerEffectPs2Type();
 };
 ListenerEffectPs2Type::ListenerEffectPs2Type()
-    : MetaEntityType_24d9e0(Lookup("Data_Effect", 0, 0), Lookup("ListenerEffectPs2", 0, 0), 0x1000101, 0x38, 8) {}
+    : MetaEntityType_24d9e0(FUN_002672f0("Data_Effect", 0, 0), FUN_002672f0("ListenerEffectPs2", 0, 0), 0x1000101, 0x38, 8) {}

@@ -1,6 +1,6 @@
 #include "gen/choreo2.h"
 
-extern float __cdecl FUN_0022aaa0(float, float);
+extern "C" float __cdecl FUN_0022aaa0(float, float);
 
 void choreo2::LocomotionStrafeDriver::vfunc_14(float param) {
     unsigned int i = 0;

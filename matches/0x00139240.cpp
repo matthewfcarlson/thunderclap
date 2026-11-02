@@ -7,7 +7,7 @@ class Manager {
     void* get(void*);
 };
 extern void* find(const char*, TrackFactoryCasterTemplate_139240*);
-void* target(Manager* m, const char* name) {
+extern "C" void* FUN_00139240(Manager* m, const char* name) {
     TrackFactoryCasterTemplate_139240 caster;
     return m->get(find(name, &caster));
 }

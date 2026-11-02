@@ -12,10 +12,10 @@ struct E_250fe0 {
 struct S_250fe0 {
     void setup(char*, int);
 };
-extern void* alloc(void*);
+extern "C" void* FUN_00247530(void*);
 
 void* audio::SeqEventStopTrackType::vfunc_3() {
-    E_250fe0* p = (E_250fe0*)alloc(((char*)&DAT_004e6bc8));
+    E_250fe0* p = (E_250fe0*)FUN_00247530(((char*)&DAT_004e6bc8));
     if (p) {
         p->init();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_00429d1c);

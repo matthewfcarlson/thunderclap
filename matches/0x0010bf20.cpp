@@ -4,18 +4,18 @@ class TrackFactoryCaster_10bf20 {
 };
 class TargetCaster : public TrackFactoryCaster_10bf20 {};
 class TrackFactoryCasterTemplate_10bf20 : public TrackFactoryCaster_10bf20 {};
-extern int __cdecl lookup(const char*, TrackFactoryCaster_10bf20*);
+extern "C" int __cdecl FUN_00236ac0(const char*, TrackFactoryCaster_10bf20*);
 class Factory {
   public:
     void add(int);
 };
-void setup(Factory* p) {
+extern "C" void FUN_0010bf20(Factory* p) {
     {
         TargetCaster a;
-        p->add(lookup("faceTarget", &a));
+        p->add(FUN_00236ac0("faceTarget", &a));
     }
     {
         TrackFactoryCasterTemplate_10bf20 b;
-        p->add(lookup("faceMotion", &b));
+        p->add(FUN_00236ac0("faceMotion", &b));
     }
 }

@@ -7,7 +7,7 @@ class Target {
     void* Do(void*);
 };
 extern "C" void* FUN_00236ac0(void*, TrackFactoryCasterTemplate_18b110*);
-void* Func(Target* t, void* name) {
+extern "C" void* FUN_0018b110(Target* t, void* name) {
     TrackFactoryCasterTemplate_18b110 c;
     void* p = FUN_00236ac0(name, &c);
     return t->Do(p);

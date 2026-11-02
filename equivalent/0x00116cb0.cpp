@@ -60,7 +60,7 @@ struct Stats {
 };
 
 void *__fastcall FUN_000592a0(void *owner);
-Stats *__fastcall FUN_00059a30(void *x);
+extern "C" Stats *__fastcall FUN_00059a30(void *x);
 
 
 struct Tuning {

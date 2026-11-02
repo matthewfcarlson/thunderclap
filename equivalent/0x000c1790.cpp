@@ -54,7 +54,7 @@ struct Panel_c1790 {
 };
 
 
-int __cdecl FUN_00266da0(int mode);
+extern "C" int __cdecl FUN_00266da0(int mode);
 Ui_c1790* __cdecl FUN_000fc1b0();
 const char* __cdecl FUN_000f7120(int index);
 void FUN_000964a0(char* buf, int size, const char* fmt, ...);

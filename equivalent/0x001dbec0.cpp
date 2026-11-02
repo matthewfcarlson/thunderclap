@@ -3,7 +3,7 @@
 #include "decls/data/game/global.h"
 
 typedef unsigned __int64 Key_1dbec0;
-extern Key_1dbec0 __cdecl FUN_0027afb0(const char*);
+extern "C" Key_1dbec0 __cdecl FUN_0027afb0(const char*);
 bool __stdcall FUN_001dbec0(Key_1dbec0 key)
 {
     if (!((*(unsigned int*)((char*)&DAT_004e2658 + 80)) & 1)) {

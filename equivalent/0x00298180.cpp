@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00298180 @ 0x00298180
-int __cdecl FUN_00298180(int value) {
+extern "C" int __cdecl FUN_00298180(int value) {
     switch (value) {
     case 2: return 1;
     case 4: return 2;

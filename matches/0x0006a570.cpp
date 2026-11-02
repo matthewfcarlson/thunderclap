@@ -6,7 +6,7 @@ class R_6a570 {
   public:
     int invoke(CCameraHintTrack*, hulk_intptr);
 };
-extern R_6a570* FUN_0008d690(int);
+extern "C" R_6a570* FUN_0008d690(int);
 
 hulk_intptr CCameraHintTrack::vfunc_12(hulk_intptr param) {
     R_6a570* p = FUN_0008d690(0x24);

@@ -6,9 +6,9 @@
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/motion.h"
 extern "C" int atexit(void (*)());
-int __cdecl FUN_00267760(char *buf, int n, const char *fmt, ...);
+extern "C" int __cdecl FUN_00267760(char *buf, int n, const char *fmt, ...);
 extern "C" int __cdecl FUN_0034483c();
-void FUN_00363fa0();
+extern "C" void FUN_00363fa0();
 
 
 struct Key {
@@ -50,7 +50,7 @@ struct Rng_1966f0 {
     float FUN_00078780();
     int FUN_00011380(int a, int b);
 };
-Rng_1966f0 *__cdecl FUN_000964d0();
+extern "C" Rng_1966f0 *__cdecl FUN_000964d0();
 
 struct Locator {
     void FUN_00059a50(V3_1966f0 *out);
@@ -163,13 +163,13 @@ struct Pad2 {
     char pad0[0x58];
 };
 
-extern Pad_1966f0 *__fastcall FUN_00059a30(void *o);
+extern "C" Pad_1966f0 *__fastcall FUN_00059a30(void *o);
 extern void *__fastcall FUN_000592a0(void *owner);
 void __cdecl FUN_000188e0(void *slot, Ent_1966f0 *e);
 void __cdecl FUN_00037510(void *slot, int v);
 void __cdecl FUN_00018810(Ref4c **slot, RefObj_1966f0 *obj);
-char __cdecl FUN_00065870(V3_1966f0 *a, V3_1966f0 *b);
-V3_1966f0 *__cdecl FUN_00083e00(V3_1966f0 *out, V3_1966f0 *in, float s);
+extern "C" char __cdecl FUN_00065870(V3_1966f0 *a, V3_1966f0 *b);
+extern "C" V3_1966f0 *__cdecl FUN_00083e00(V3_1966f0 *out, V3_1966f0 *in, float s);
 void __cdecl FUN_00224d70(float ang, V3_1966f0 *v);
 
 struct Frame_1966f0 {

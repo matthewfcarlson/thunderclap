@@ -3,6 +3,6 @@ class A_99740 {
     int pad;
     unsigned int value;
 };
-unsigned int __fastcall target(A_99740* self) {
+extern "C" unsigned int __fastcall FUN_00099740(A_99740* self) {
     return (self->value >> 2) & 1;
 }

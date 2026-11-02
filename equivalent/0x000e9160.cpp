@@ -16,7 +16,7 @@ struct Matrix {
  float FUN_000f8840(Triple_e9160*);
  float FUN_000f88a0(Triple_e9160*);
 };
-void FUN_000f78e0();
+extern "C" void FUN_000f78e0();
 struct FEObject {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual int vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9();
  char pad04[16]; Owner_e9160* owner; Triple_e9160 position; char pad24[0x48]; int mode; char pad70[8]; float offset; char pad7c[0x1c]; unsigned char dirty; char pad99[3]; float x,y;

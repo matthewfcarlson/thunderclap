@@ -1,7 +1,7 @@
 extern "C" char* __cdecl FUN_002611b0(char*);
 extern "C" float __cdecl FUN_00260d00(char*);
 extern "C" void __cdecl FUN_00260be0(char*, float);
-void __cdecl target(char* s) {
+extern "C" void __cdecl FUN_00261770(char* s) {
     float sum = FUN_00260d00(FUN_002611b0(s));
     char* p = FUN_002611b0(s);
     while (*p) {

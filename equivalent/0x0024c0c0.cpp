@@ -13,7 +13,7 @@ void __cdecl FUN_00258e50(int handle);
 // equiv-conv: FUN_0024bc70 eax
 void FUN_0024bc70(Stream* s);
 
-void __cdecl FUN_0024c0c0(Stream* s)
+extern "C" void __cdecl FUN_0024c0c0(Stream* s)
 {
     if (s->state == 0 || s->state == 5)
         return;

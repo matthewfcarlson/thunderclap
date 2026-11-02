@@ -7,7 +7,7 @@ class Obj {
     int Do(void*);
 };
 extern void* Find(int, TrackFactoryCasterTemplate_189f60*);
-int Func(Obj* obj, int name) {
+extern "C" int FUN_00189f60(Obj* obj, int name) {
     TrackFactoryCasterTemplate_189f60 c;
     return obj->Do(Find(name, &c));
 }

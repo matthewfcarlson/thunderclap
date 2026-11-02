@@ -11,7 +11,7 @@ struct Reader {
  void FUN_001d19d0(int);
  void FUN_001d1900(int);
 };
-Reader* __cdecl FUN_001d4c90();
+extern "C" Reader* __cdecl FUN_001d4c90();
 struct Entry_1fdc90 {
  char pad[0x6e0]; int count; char tail[0xc70-0x6e4];
  int FUN_001f93e0(const char*,int,int,int,int,float,float,float,int,int);

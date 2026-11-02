@@ -6,7 +6,7 @@ extern "C" int __cdecl isdigit(int c);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 extern void *__cdecl FUN_0008d690(unsigned int size);
-extern char *__cdecl FUN_0008d6d0(unsigned int size);
+extern "C" char *__cdecl FUN_0008d6d0(unsigned int size);
 extern char *__cdecl FUN_003465c6(char *s, const char *delims);
 extern double __cdecl FUN_003458c1(const char *s);
 

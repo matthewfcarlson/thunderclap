@@ -34,7 +34,7 @@ public:
     World* world;
 };
 
-char __cdecl FUN_00036b10(Owner_36b10* owner, Target_36b10* target, int a, int b, Vec3_36b10* out, char* flagA, char* flagB)
+extern "C" char __cdecl FUN_00036b10(Owner_36b10* owner, Target_36b10* target, int a, int b, Vec3_36b10* out, char* flagA, char* flagB)
 {
     out->z = 0;
     out->y = 0;

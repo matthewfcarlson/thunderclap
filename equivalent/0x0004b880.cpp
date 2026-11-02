@@ -25,7 +25,7 @@ struct Actor_4b880 {
 struct Fighter;
 
 Fighter *__fastcall FUN_000592a0(void *owner);
-Actor_4b880 *__fastcall FUN_00059a30(Fighter *f);
+extern "C" Actor_4b880 *__fastcall FUN_00059a30(Fighter *f);
 extern "C" void __cdecl FUN_00096a90(Obj *o, Vec3_4b880 *out);
 extern "C" float __cdecl FUN_00224f10(Vec3_4b880 *v);
 extern "C" float __cdecl FUN_00224fc0(float a, float b);

@@ -16,7 +16,7 @@ struct Noise {
     float FUN_00356e50(const V2_2a5fd0 *v);
 };
 
-Noise *FUN_003576d0();
+extern "C" Noise *FUN_003576d0();
 
 struct SrcMesh {
     char pad0[0xc];

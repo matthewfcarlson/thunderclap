@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // pure3d::VertexOffsetExpressionMixerLoader::vfunc_5 @ 0x002b16a0
 void *__cdecl FUN_00263ea0(unsigned int size);
-unsigned __int64 __cdecl FUN_0027b020(const char *s);
-unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
-void __cdecl FUN_0028fcc0(const char *fmt, ...);
+extern "C" unsigned __int64 __cdecl FUN_0027b020(const char *s);
+extern "C" unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
+extern "C" void __cdecl FUN_0028fcc0(const char *fmt, ...);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 namespace pure3d { class ExpressionGroup; class PolySkin; }

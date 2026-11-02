@@ -3,7 +3,7 @@
 
 extern "C" char DAT_0040d984[];
 typedef unsigned int uint;
-extern void* __cdecl operator_new(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class Condition_113d90 {
   public:
     virtual void a();
@@ -20,7 +20,7 @@ class Base_113d90 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::OnBlockedTriangleCondition>::vfunc_5() {
-    Condition_113d90* p = (Condition_113d90*)operator_new(0x18);
+    Condition_113d90* p = (Condition_113d90*)FUN_0008d690(0x18);
     if (p) {
         ((Base_113d90*)p)->Init(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0040d984);

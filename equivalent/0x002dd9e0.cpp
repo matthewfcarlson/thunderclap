@@ -32,8 +32,8 @@ union Slot {
     int count;
 };
 
-void *FUN_00266e00(int a, int b);
-void FUN_00267090(void *p);
+extern "C" void *FUN_00266e00(int a, int b);
+extern "C" void FUN_00267090(void *p);
 
 // equiv-conv: FUN_002dd9e0 ebx edi stack
 // The original reuses its stack argument slot as scratch: first as the row counter of

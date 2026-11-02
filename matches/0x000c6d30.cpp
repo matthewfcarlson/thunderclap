@@ -3,7 +3,7 @@
 // cl-flags: /GS
 extern "C" char* __cdecl strchr(const char*, int);
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
-void __cdecl FUN_000c6b60(char*, char*, unsigned int);
+extern "C" void __cdecl FUN_000c6b60(char*, char*, unsigned int);
 void __cdecl FUN_000c6d30(char* path, unsigned int value)
 {
     char prefix[32];

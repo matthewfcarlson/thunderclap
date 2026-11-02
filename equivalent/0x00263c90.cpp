@@ -13,8 +13,8 @@ struct Id_263c90 {
 };
 
                         // set of ids in use
-void __cdecl FUN_00267ad0(Stamp *out);          // current date/time
-unsigned int __cdecl FUN_00267f00();            // tick count
+extern "C" void __cdecl FUN_00267ad0(Stamp *out);          // current date/time
+extern "C" unsigned int __cdecl FUN_00267f00();            // tick count
 int __cdecl FUN_00263970(void *set, Id_263c90 *id);    // find
 
 unsigned __int64 __cdecl FUN_00263c90()

@@ -2,8 +2,8 @@
 
 #include "compat/ptr.h"
 typedef unsigned int uint_262cc0;
-int FUN_0024c310(hulk_intptr);
-int FUN_0024c2f0(void*);
+extern "C" int FUN_0024c310(hulk_intptr);
+extern "C" int FUN_0024c2f0(void*);
 struct Base_262cc0 {
     virtual void f0();
     virtual void f1();

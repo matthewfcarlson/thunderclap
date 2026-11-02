@@ -27,11 +27,11 @@ template <class T> class ConditionFactoryCasterTemplate {
     virtual void create();
 };
 } // namespace fight
-extern void* __cdecl FUN_002343e0(const char*, void*);
+extern "C" void* __cdecl FUN_002343e0(const char*, void*);
 struct Registry {
     void* FUN_00236760(void*);
 };
-void* __cdecl FUN_00129fe0(Registry* registry) {
+extern "C" void* __cdecl FUN_00129fe0(Registry* registry) {
 #define REGISTER(TYPE, TEXT)                                                                                 \
     {                                                                                                        \
         fight::ConditionFactoryCasterTemplate<hulkfight::ai::TYPE> caster;                                   \

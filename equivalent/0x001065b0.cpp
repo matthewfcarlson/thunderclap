@@ -58,7 +58,7 @@ public:
 };
 
 void *thunk_FUN_0008d690(unsigned int size);
-void *FUN_0008d6d0(unsigned int size);
+extern "C" void *FUN_0008d6d0(unsigned int size);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 class CPatrolPath : public PathBase {

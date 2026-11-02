@@ -3,7 +3,7 @@
 #include "decls/data/game/hulkfight/scenario.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+extern "C" void* FUN_0008d690(unsigned int size);
 
 namespace hulkfight {
 namespace scenario {
@@ -35,7 +35,7 @@ public:
 struct ParamRegistry {
 };
 
-void FUN_002347b0(ParamRegistry* reg, void** params, int count);
+extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_001ac250()
 {

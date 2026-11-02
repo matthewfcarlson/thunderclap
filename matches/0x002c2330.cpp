@@ -14,7 +14,7 @@ struct Holder_2c2330 {
     void* p;
     void* q;
 };
-void __fastcall FUN_002ae910(void*);
+extern "C" void __fastcall FUN_002ae910(void*);
 void __cdecl thunk_FUN_00267090(void*);
 extern int textureVtable, refVtable;
 void __fastcall FUN_002c2330(TextureLoader* self) {

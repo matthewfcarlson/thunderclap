@@ -2,7 +2,7 @@
 // FUN_00305630 @ 0x00305630
 struct Matrix { float m[16]; void FUN_0022b980(); };
 struct Vector { float x,y,z; };
-void __cdecl FUN_00305630(Vector* out, const Matrix* a, const Matrix* b, float time) {
+extern "C" void __cdecl FUN_00305630(Vector* out, const Matrix* a, const Matrix* b, float time) {
  Matrix temp; temp.FUN_0022b980();
  double dx0=(double)b->m[0]-a->m[0];
  double dx1=(double)b->m[1]-a->m[1];

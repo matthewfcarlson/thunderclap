@@ -7,7 +7,7 @@ class Obj {
   public:
     void Use(void*);
 };
-void Func(Obj* obj, void* name) {
+extern "C" void FUN_0017dd30(Obj* obj, void* name) {
     Caster caster;
     obj->Use(Find(name, &caster));
 }

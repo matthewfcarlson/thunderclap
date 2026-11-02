@@ -48,8 +48,8 @@ class Manager_1e9680;
 struct Renderer_1e9680 {
     void FUN_00265560(Manager_1e9680 *m);
 };
-void __cdecl FUN_00240eb0();
-void __cdecl FUN_00240a10();
+extern "C" void __cdecl FUN_00240eb0();
+extern "C" void __cdecl FUN_00240a10();
 
 class Manager_1e9680 {
 public:

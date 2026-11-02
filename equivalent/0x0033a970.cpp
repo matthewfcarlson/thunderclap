@@ -9,7 +9,7 @@ extern "C" int __cdecl FUN_00347eed(const char *, Stream *);
 extern "C" char * __cdecl _fgets(char *, int, Stream *);
 extern "C" void __cdecl FUN_00339c00(void *, const char *);
 extern "C" void __cdecl FUN_00212d80(void *, int);
-int __cdecl FUN_0033a970(void *state) {
+extern "C" int __cdecl FUN_0033a970(void *state) {
  char line[250];
  FUN_00347eed("lua_debug> ", ((Stream*)&DAT_004d9a30));
  while (_fgets(line,250,&DAT_004d99f0)) {

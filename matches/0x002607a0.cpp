@@ -1,6 +1,6 @@
 extern int vft_container;
 extern int vft_event;
-void Init(void*);
+extern "C" void FUN_00260590(void*);
 class SeqEventContainer_2607a0 {
   public:
     int* vptr;
@@ -9,6 +9,6 @@ class SeqEventContainer_2607a0 {
 };
 void SeqEventContainer_2607a0::Initialize() {
     vptr = &vft_container;
-    Init(&pad[8]);
+    FUN_00260590(&pad[8]);
     vptr = &vft_event;
 }

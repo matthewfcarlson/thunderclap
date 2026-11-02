@@ -77,7 +77,7 @@ class Second {
     virtual void Use(int);
 };
 extern "C" void __cdecl FreeFirst(ControllerPoller_fc3e0*);
-void Target() {
+extern "C" void FUN_000fc3e0() {
     if ((*(ControllerPoller_fc3e0**)&DAT_004e0a64)) {
         ControllerPoller_fc3e0* p = (*(ControllerPoller_fc3e0**)&DAT_004e0a64);
         (*(ControllerPoller_fc3e0**)&DAT_004e0a64)->Close();

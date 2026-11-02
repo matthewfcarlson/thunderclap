@@ -1,7 +1,7 @@
 #include "decls/data/game/global.h"
 
 extern const char s1_1d68e0[];
-const char* f(int x) {
+extern "C" const char* FUN_001d68e0(int x) {
     if (x == 1)
         return DAT_00422efc;
     if (x == 3)

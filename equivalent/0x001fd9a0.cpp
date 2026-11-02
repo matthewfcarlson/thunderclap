@@ -15,7 +15,7 @@ struct Reader {
     void FUN_001d19d0(int);
     void FUN_001d1900(int);
 };
-Reader* __cdecl FUN_001d4c90();
+extern "C" Reader* __cdecl FUN_001d4c90();
 struct Entry_1fd9a0 {
     char pad0[0x410];
     int f410;

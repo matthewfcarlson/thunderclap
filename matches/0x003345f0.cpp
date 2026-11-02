@@ -3,7 +3,7 @@
 // data: globalValue = DAT_004cdbb0
 
 typedef unsigned char u8_3345f0;
-extern void __cdecl release(int, void*);
+extern "C" void __cdecl FUN_00266f00(int, void*);
 class RenderStrategyBink_3345f0 {
   public:
     void cleanup();
@@ -24,6 +24,6 @@ class RenderStrategyBink_3345f0 {
 RenderStrategyBink_3345f0* RenderStrategyBink_3345f0::f2(u8_3345f0 flag) {
     cleanup();
     if (flag & 1)
-        release(DAT_004cdbb0, this);
+        FUN_00266f00(DAT_004cdbb0, this);
     return this;
 }

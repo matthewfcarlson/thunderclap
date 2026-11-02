@@ -15,12 +15,12 @@ class SeqEventLogicRepeat : public SeqEventContainer {
     virtual int vfunc_0(void*);
 };
 } // namespace audio
-extern "C" char __cdecl check(void*, int*);
+extern "C" char __cdecl FUN_0025abd0(void*, int*);
 int audio::SeqEventLogicRepeat::vfunc_0(void* p) {
     if ((char)SeqEvent::vfunc_0(p)) {
         if ((char)SeqEventContainer::vfunc_0(p)) {
-            if (check(p, &a)) {
-                if (check(p, &b)) {
+            if (FUN_0025abd0(p, &a)) {
+                if (FUN_0025abd0(p, &b)) {
                     return 1;
                 }
             }

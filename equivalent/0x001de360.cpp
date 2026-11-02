@@ -9,7 +9,7 @@ struct CSPListener_1de360 {
     Sub_1de360 sub;
     CSPListener_1de360 *FUN_001db1c0(int arg);
 };
-void *FUN_0008d690(unsigned int size);
+extern "C" void *FUN_0008d690(unsigned int size);
 
 struct Owner_1de360 {
     char pad[0x1e824];

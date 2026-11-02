@@ -1,6 +1,6 @@
 typedef unsigned int size_t;
 void* __cdecl operator new(size_t);
-void __cdecl post();
+extern "C" void __cdecl FUN_00121690();
 class Base {
   public:
     Base() throw();
@@ -37,6 +37,6 @@ class StrafeCircleHBTrack;
 template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::StrafeCircleHBTrack>::f1(int a) {
     Obj* p = new Obj(a);
     if (p)
-        post();
+        FUN_00121690();
     return p;
 }

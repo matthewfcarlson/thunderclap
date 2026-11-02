@@ -39,7 +39,7 @@ struct Stats_14ef40 {
     SlotHolder *slots[64];
     int slotCount;
 };
-Stats_14ef40 *__fastcall FUN_00059a30(Fighter_14ef40 *f);
+extern "C" Stats_14ef40 *__fastcall FUN_00059a30(Fighter_14ef40 *f);
 
 class Action_14ef40 {
 public:

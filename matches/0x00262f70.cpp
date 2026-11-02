@@ -2,9 +2,9 @@
 
 typedef unsigned int u32_262f70;
 typedef unsigned char u8;
-extern u32_262f70 __cdecl FUN_0024c2c0(void*);
-extern u8 __cdecl FUN_0024c2b0(u32_262f70);
-extern u32_262f70 __cdecl FUN_0024c2f0(void*);
+extern "C" u32_262f70 __cdecl FUN_0024c2c0(void*);
+extern "C" u8 __cdecl FUN_0024c2b0(u32_262f70);
+extern "C" u32_262f70 __cdecl FUN_0024c2f0(void*);
 namespace audio {
 
 } // namespace audio

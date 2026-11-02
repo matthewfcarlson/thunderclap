@@ -14,7 +14,7 @@ struct lua_Debug_2140c0 { char pad[0x5c]; int i_ci; };
 extern const char *__cdecl FUN_00219820(Proto_2140c0 *p, int n, int pc);
 
 // Lua 5.0 lua_setlocal.
-const char *__cdecl FUN_002140c0(lua_State_2140c0 *L, lua_Debug_2140c0 *ar, int n)
+extern "C" const char *__cdecl FUN_002140c0(lua_State_2140c0 *L, lua_Debug_2140c0 *ar, int n)
 {
     CallInfo_2140c0 *ci = L->base_ci + ar->i_ci;
     Slot_2140c0 *fn = ci->base - 1;

@@ -11,8 +11,8 @@ struct Key_10ec90 {
     void FUN_0027b040(int word);
 };
 
-void FUN_00363e70();
-bool __cdecl FUN_00018960(float a, float b, float eps);
+extern "C" void FUN_00363e70();
+extern "C" bool __cdecl FUN_00018960(float a, float b, float eps);
 
 struct Fighter_10ec90 {
 };

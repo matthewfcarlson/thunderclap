@@ -25,7 +25,7 @@ class TrackFactoryTemplate_23f530 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_0023f3a0();
 
 template <> void* fight::TrackFactoryCasterTemplate<fight::BreakPointTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::TrackFactoryCasterTemplate<fight::BreakPointTrack>::vfu
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_23f530* t = new (mem) TrackFactoryTemplate_23f530();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_0023f3a0();
         return (void*)(t);
     }
     return (void*)(0);

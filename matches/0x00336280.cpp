@@ -5,7 +5,7 @@ class Reader {
     char* GetText();
     void Advance();
 };
-char __stdcall ParsePair(long* output, Reader* reader, void* unused, char indirect) {
+extern "C" char __stdcall FUN_00336280(long* output, Reader* reader, void* unused, char indirect) {
     char* text = reader->GetText();
     if (!text)
         return 0;

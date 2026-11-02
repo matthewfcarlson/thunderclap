@@ -8,10 +8,10 @@
 extern "C" unsigned int __cdecl strlen(const char *);
 extern "C" char *__cdecl strstr(const char *, const char *);
 void *thunk_FUN_0008d690(unsigned int size);
-unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
-unsigned int __cdecl FUN_00267f80();
-int __cdecl FUN_001b8970(unsigned short *s, int n);
-void __cdecl FUN_00294c70(const char *src, unsigned short *dst, int n);
+extern "C" unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
+extern "C" unsigned int __cdecl FUN_00267f80();
+extern "C" int __cdecl FUN_001b8970(unsigned short *s, int n);
+extern "C" void __cdecl FUN_00294c70(const char *src, unsigned short *dst, int n);
 
 namespace pure3d { class TextureFont; }
 namespace content {

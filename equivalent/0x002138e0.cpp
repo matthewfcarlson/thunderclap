@@ -26,7 +26,7 @@ struct lua_State_2138e0 {
 TObject_2138e0* __fastcall FUN_00212bb0(int idx, lua_State_2138e0* L);
 void __cdecl FUN_00217100(lua_State_2138e0* L, void* o, void* v);
 
-int FUN_002138e0(lua_State_2138e0* L, int objindex)
+extern "C" int FUN_002138e0(lua_State_2138e0* L, int objindex)
 {
     TObject_2138e0* obj = FUN_00212bb0(objindex, L);
     GCObject_2138e0* mt = 0;

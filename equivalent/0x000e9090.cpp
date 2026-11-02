@@ -26,7 +26,7 @@ public:
     virtual void v14();
     virtual void v15(Vec2f *out, Host_e9090 *h);
 };
-void __cdecl FUN_000f69e0(Ref_e9090 *r, Vec2f *out);
+extern "C" void __cdecl FUN_000f69e0(Ref_e9090 *r, Vec2f *out);
 
 class Host_e9090 {
 public:

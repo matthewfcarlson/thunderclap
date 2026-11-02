@@ -7,7 +7,7 @@ namespace om { class EntityLoader {
     hulk_intptr vptr;
     EntityLoader* vfunc_2(unsigned char);
 }; }
-extern void FUN_00247550(void*, om::EntityLoader*);
+extern "C" void FUN_00247550(void*, om::EntityLoader*);
 om::EntityLoader* om::EntityLoader::vfunc_2(unsigned char param) {
     vptr = (hulk_intptr)&g_vftable_24d380;
     if (param & 1)

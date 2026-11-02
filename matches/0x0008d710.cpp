@@ -9,7 +9,7 @@ struct Obj_8d710 {
     char pad[0x80];
     void InitB();
 };
-int __cdecl Target(int a, hulk_intptr b) {
+extern "C" int __cdecl FUN_0008d710(int a, hulk_intptr b) {
     if (!(*(unsigned char*)&DAT_004dd778)) {
         InitA();
         (*(Obj_8d710*)&DAT_004dd780).InitB();

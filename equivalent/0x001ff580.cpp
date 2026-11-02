@@ -3,7 +3,7 @@
 #include "decls/data/game/global.h"
 
 extern void* __cdecl FUN_00263ec0(unsigned);
-extern void* __cdecl FUN_0008d6d0(unsigned);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned);
 struct CLocator_1ff580 { char data[64]; void FUN_001fbf40(); };
 struct CEncounterGenerator_1ff580 { char data[0xc70]; void FUN_001fa630(); };
 struct Entry_1ff580 { unsigned count; CLocator_1ff580* volumes; };

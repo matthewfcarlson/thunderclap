@@ -4,6 +4,6 @@
 struct ImageConverter_3647b0 {
     void f();
 };
-void wrapper() {
+extern "C" void FUN_003647b0() {
     (*(ImageConverter_3647b0*)&DAT_00554bd0).f();
 }

@@ -15,7 +15,7 @@ class SeqEventExpression {
     void Fn();
     char pad[8];
 };
-extern void __cdecl FUN_00247550(void*, void*);
+extern "C" void __cdecl FUN_00247550(void*, void*);
 SeqEventExpression* SeqEventExpression::v4(int x) {
     ((Helper_250be0*)((char*)this + 8))->Fn();
     this->Fn();

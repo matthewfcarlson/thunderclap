@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 83 inputs, branch coverage 9/10, incomplete)
 // FUN_0031c680 @ 0x0031c680
-unsigned int* __cdecl FUN_0031c680(unsigned int* output, unsigned int first, unsigned int second, int weight)
+extern "C" unsigned int* __cdecl FUN_0031c680(unsigned int* output, unsigned int first, unsigned int second, int weight)
 {
     if (weight <= 0) { *output = first; return output; }
     if (weight >= 255) { *output = second; return output; }

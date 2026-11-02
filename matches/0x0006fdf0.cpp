@@ -7,10 +7,10 @@ struct CHitAnimationTrack_6fdf0 {
     void init();
 };
 extern int hit_vftable;
-extern void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 
 template <> void* fight::TrackFactoryTemplate<CPushBackAnimationTrack>::vfunc_5() {
-    CHitAnimationTrack_6fdf0* p = (CHitAnimationTrack_6fdf0*)alloc(0x50);
+    CHitAnimationTrack_6fdf0* p = (CHitAnimationTrack_6fdf0*)FUN_0008d690(0x50);
     if (p) {
         p->init();
         p->vf = (unsigned int*)&hit_vftable;

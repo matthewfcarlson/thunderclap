@@ -33,8 +33,8 @@ class This_10b2c0 {
 void* operator new(unsigned int) throw();
 
 
-void __cdecl FUN_00238b60(hulk_intptr a, int b);
-void __cdecl FUN_00238330(hulk_intptr a, int b);
+extern "C" void __cdecl FUN_00238b60(hulk_intptr a, int b);
+extern "C" void __cdecl FUN_00238330(hulk_intptr a, int b);
 
 This_10b2c0* This_10b2c0::Build() {
     List_10b2c0* list = GetList();

@@ -29,7 +29,7 @@ struct Glob_9fa00 {
     Sys_9fa00* sys;
 };
 extern Glob_9fa00* gGlob_9fa00;
-bool Fn() {
+extern "C" bool FUN_0009fa00() {
     Mgr_9fa00* m = gGlob_9fa00->sys->Get();
     int i = 0;
     do {

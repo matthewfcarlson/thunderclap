@@ -11,7 +11,7 @@ class Obj_bb5c0 {
     Sub_bb5c0* sub;
     void Finish();
 };
-void __fastcall target(Obj_bb5c0* self) {
+extern "C" void __fastcall FUN_000bb5c0(Obj_bb5c0* self) {
     if (self->flag) {
         self->flag->Init();
         for (int i = 0x248; i <= 0x257; ++i)

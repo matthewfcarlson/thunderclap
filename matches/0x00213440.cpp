@@ -10,7 +10,7 @@ struct State_213440 {
 };
 void __cdecl helper1(Obj_213440*);
 void __cdecl helper2(Obj_213440*, int, int);
-void __cdecl target(Obj_213440* self, int x, int y) {
+extern "C" void __cdecl FUN_00213440(Obj_213440* self, int x, int y) {
     State_213440* s = (State_213440*)self->state;
     if (s->b >= s->a)
         helper1(self);

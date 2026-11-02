@@ -7,7 +7,7 @@ class Owner {
     void apply(void*);
 };
 void* locate(const char*, ConditionFactoryCasterTemplate_2386b0*);
-void function(Owner* owner, const char* name) {
+extern "C" void FUN_002386b0(Owner* owner, const char* name) {
     ConditionFactoryCasterTemplate_2386b0 c;
     void* p = locate(name, &c);
     owner->apply(p);

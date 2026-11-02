@@ -25,7 +25,7 @@ template<class T> struct ParamEnumConstList : FUN_00234cc0 {
  virtual void slot0();
 };
 }
-void FUN_00053e30() {
+extern "C" void FUN_00053e30() {
  if (!DAT_004dc4fc) {
   fight::ParamEnumConstList<CGrappleSizeCondition>* p[2];
   void* mem=FUN_0008d690(32);

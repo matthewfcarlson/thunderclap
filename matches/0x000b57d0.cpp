@@ -12,7 +12,7 @@ class Item {
     Sub sub;
 };
 extern Item* FUN_000fc260(const char*);
-void __stdcall Hint(int x) {
+extern "C" void __stdcall FUN_000b57d0(int x) {
     Item* p = FUN_000fc260("side_mission_fail_hint");
     if (p && &p->sub) {
         p->sub.Show(x, 0, 1);

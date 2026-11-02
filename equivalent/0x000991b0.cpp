@@ -134,7 +134,7 @@ struct Owner_991b0 {
     Level_991b0 *level;
 };
 
-Vec3_991b0 *__stdcall FUN_000a9170(Node *a, Node *b);
+extern "C" Vec3_991b0 *__stdcall FUN_000a9170(Node *a, Node *b);
 
 class Controller_991b0 {
 public:

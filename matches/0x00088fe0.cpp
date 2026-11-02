@@ -2,13 +2,13 @@
 // data: gCheckObj = DAT_004dd830
 
 extern void __cdecl Scan(unsigned int, const char*, ...);
-extern void __cdecl Fmt(char*, int, const char*, ...);
+extern "C" void __cdecl FUN_00267760(char*, int, const char*, ...);
 extern int __stdcall Check(void*);
 struct CO {
     int pad;
     int val;
 };
-extern void __cdecl StopMsg(const char*);
+extern "C" void __cdecl FUN_001bb0b0(const char*);
 struct Res_88fe0 {
     void Done(unsigned int);
 };
@@ -28,12 +28,12 @@ struct Obj_88fe0 {
 };
 void Obj_88fe0::target(unsigned int arg) {
     Scan(arg, "c%dm%d", &a, &b);
-    Fmt(buf, 32, "c%02dm%02d", a, b);
+    FUN_00267760(buf, 32, "c%02dm%02d", a, b);
     gGlob_88fe0->svc->Run()->Done(arg);
     if (a > 1) {
         if (Check(((CO*)&DAT_004dd830)) != (*(CO*)&DAT_004dd830).val) {
             do {
-                StopMsg("TBS_STOP_PIRATING");
+                FUN_001bb0b0("TBS_STOP_PIRATING");
             } while (1);
         }
     }

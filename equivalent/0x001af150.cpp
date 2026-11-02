@@ -46,10 +46,10 @@ struct Frame_1af150 {
     Pair_1af150 pair2;      // 0x7c
 };
 
-void FUN_001ad560(void *node, void *param);
-void FUN_001ad550(void *node, void *param);
+extern "C" void FUN_001ad560(void *node, void *param);
+extern "C" void FUN_001ad550(void *node, void *param);
 Node *FUN_001aedb0(Map_1af150 *a, Map_1af150 *b, int c, int d, Pair_1af150 *e);
-char FUN_001ad5c0(Owner *o, Node *n);
+extern "C" char FUN_001ad5c0(Owner *o, Node *n);
 
 float FUN_001af150(Owner *o, const int *in, int c, int d, int *outId)
 {

@@ -7,7 +7,7 @@ class SimpleFrameController {
 struct ThisCall_0027b070 {
     void Init();
 };
-SimpleFrameController* __fastcall FUN_00284cd0(SimpleFrameController* p) {
+extern "C" SimpleFrameController* __fastcall FUN_00284cd0(SimpleFrameController* p) {
     ((ThisCall_0027b070*)(p))->Init();
     p->pad[0x10] = 0;
     *(int*)(p->pad + 0x20) = 0;

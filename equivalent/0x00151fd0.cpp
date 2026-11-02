@@ -96,7 +96,7 @@ struct World {
 void *__cdecl FUN_00263ea0(unsigned int size);
 Fighter_151fd0 *__fastcall FUN_000592a0(void *owner);
 Stats_151fd0 *__fastcall FUN_00059a30(Fighter_151fd0 *f);
-Body_151fd0 *__fastcall FUN_00059a40(Fighter_151fd0 *f);
+extern "C" Body_151fd0 *__fastcall FUN_00059a40(Fighter_151fd0 *f);
 float __cdecl FUN_00224f10(V3_151fd0 *v);
 
 class HitThrowAction {

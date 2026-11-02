@@ -47,7 +47,7 @@ struct Loader_c6bc0 {
     virtual Resource_c6bc0 *v3(content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> *caster, unsigned __int64 key);
 };
 
-void FUN_000c6bc0(const char *name, const char *sub, int value)
+extern "C" void FUN_000c6bc0(const char *name, const char *sub, int value)
 {
     Loader_c6bc0 *loader = (*(Loader_c6bc0**)&DAT_004dd9cc);
     content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> caster;

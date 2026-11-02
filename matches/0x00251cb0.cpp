@@ -18,7 +18,7 @@ class ChannelVolumeFadeBehaviour : public DynBehaviour {
     virtual void vfunc_1();
 };
 } // namespace audio
-extern void __cdecl FUN_00247550(void*, void*);
+extern "C" void __cdecl FUN_00247550(void*, void*);
 audio::ChannelVolumeFadeBehaviour* audio::ChannelVolumeFadeBehaviour::vfunc_0(int x) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_0042991c);
     if (x & 1)

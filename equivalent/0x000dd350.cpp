@@ -123,7 +123,7 @@ struct Slot_dd350 {
 
 int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, ...);
 void __cdecl FUN_0008d340(void* p);
-char* __cdecl FUN_0008d6d0(int size);
+extern "C" char* __cdecl FUN_0008d6d0(int size);
 
 class Config_dd350 {
 public:

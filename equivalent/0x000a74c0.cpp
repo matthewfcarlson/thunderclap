@@ -2,7 +2,7 @@
 // FUN_000a74c0 @ 0x000a74c0
 #include "decls/address.h"
 typedef unsigned __int64 Key_a74c0;
-extern void __cdecl FUN_00267830(char*, const char*, int);
+extern "C" void __cdecl FUN_00267830(char*, const char*, int);
 struct Data_a74c0 { void FUN_00059a50(void*); };
 struct Item_a74c0 { virtual void add(); virtual void release(); char pad[12]; Data_a74c0* data; const char* FUN_00036d00(); };
 struct Manager_a74c0 { char pad[0x124]; Item_a74c0* fallback; Item_a74c0* FUN_00024280(Key_a74c0); };

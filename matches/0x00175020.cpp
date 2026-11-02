@@ -14,7 +14,7 @@ void Free(void*) throw();
 struct Sub_175020 {
     char c;
 };
-void __fastcall SubFini(Sub_175020*) throw();
+extern "C" void __fastcall FUN_0027af50(Sub_175020*) throw();
 void __fastcall SubFini2(Sub_175020*) throw();
 class DriftToPositionAction_175020 : public Action_175020 {
   public:
@@ -34,6 +34,6 @@ DriftToPositionAction_175020::~DriftToPositionAction_175020() throw() {
     }
     if (m1c)
         m1c = 0;
-    SubFini(&s38);
+    FUN_0027af50(&s38);
     Fin();
 }

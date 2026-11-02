@@ -8,7 +8,7 @@ class Owner {
   public:
     void use(Desc*);
 };
-void fun(Owner* p, const char* s) {
+extern "C" void FUN_001a95f0(Owner* p, const char* s) {
     ConditionFactoryCasterTemplate_1a95f0 c;
     Desc* d = lookup(s, &c);
     p->use(d);

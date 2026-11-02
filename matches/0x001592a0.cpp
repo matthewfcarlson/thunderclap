@@ -8,9 +8,9 @@ struct CollisionTargetPriorityCondition {
     int m10;
     void Init(int);
 };
-extern void* __cdecl Alloc(int);
+extern "C" void* __cdecl FUN_0008d690(int);
 void* __cdecl Factory_vfunc5() {
-    CollisionTargetPriorityCondition* p = (CollisionTargetPriorityCondition*)Alloc(0x14);
+    CollisionTargetPriorityCondition* p = (CollisionTargetPriorityCondition*)FUN_0008d690(0x14);
     if (p) {
         p->Init(0);
         p->vptr = (int*)((hulk_intptr)DAT_00414010);

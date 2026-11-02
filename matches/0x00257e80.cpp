@@ -7,7 +7,7 @@ struct Head_257e80 {
     Node* first;
     Node* last;
 };
-void insert(Head_257e80* h, Node* n) {
+extern "C" void FUN_00257e80(Head_257e80* h, Node* n) {
     if (h->first == 0) {
         h->first = n;
         n->prev = 0;

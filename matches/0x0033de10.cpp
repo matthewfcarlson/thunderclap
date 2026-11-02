@@ -8,7 +8,7 @@ void FUN_00213360(void* L, int a);
 void FUN_00213640(void* L, int a, int b);
 }
 
-int FUN_0033de10(void* L) {
+extern "C" int FUN_0033de10(void* L) {
     int n = FUN_00213120(L, 2);
     FUN_00339d70(L, 1, 5);
     if (n == 0 && FUN_00212f00(L, 2) == -1) {

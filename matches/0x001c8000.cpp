@@ -18,7 +18,7 @@ class Service_1c8000 {
   public:
     void** vt;
 };
-Service_1c8000* GetService();
+extern "C" Service_1c8000* FUN_001c3d90();
 void __stdcall FUN_001c8000(Manager_1c8000* m) {
     if (m) {
         int i = 0;
@@ -30,11 +30,11 @@ void __stdcall FUN_001c8000(Manager_1c8000* m) {
                 else
                     item = 0;
                 if (item->flag) {
-                    Service_1c8000* s = GetService();
+                    Service_1c8000* s = FUN_001c3d90();
                     Obj_1c8000* o = (Obj_1c8000*)s->vt[49];
                     o->Process(item);
                 } else {
-                    Service_1c8000* s = GetService();
+                    Service_1c8000* s = FUN_001c3d90();
                     Obj_1c8000* o = (Obj_1c8000*)s->vt[48];
                     o->Process(item);
                 }

@@ -4,7 +4,7 @@ struct Parser_260b30 {
     char* cursor;
     char* end;
 };
-void __cdecl FUN_00260b30(Parser_260b30* p) {
+extern "C" void __cdecl FUN_00260b30(Parser_260b30* p) {
     while (p->cursor < p->end) {
         if (*p->cursor != ' ')
             return;

@@ -4,15 +4,15 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 inline void* __cdecl operator new(unsigned, void* p) { return p; }
-void* __cdecl FUN_0008d690(unsigned); void* __cdecl FUN_0008d6d0(unsigned); void* __cdecl FUN_00263ea0(unsigned); int __cdecl FUN_00266da0(int);
+extern "C" void* __cdecl FUN_0008d690(unsigned); extern "C" void* __cdecl FUN_0008d6d0(unsigned); void* __cdecl FUN_00263ea0(unsigned); extern "C" int __cdecl FUN_00266da0(int);
 struct CSubtitleManager; typedef void (__cdecl *Callback_1c0cd0)();
-void FUN_001bf860(); void FUN_001bdfb0(); void FUN_001bdf20(); void FUN_001c0360(); void FUN_001c0ca0(); void FUN_00088ec0(); void FUN_00088ee0(); void FUN_001bdfc0(); void FUN_001bdfd0(); void FUN_001bddc0(); void FUN_001be9f0();
+void FUN_001bf860(); void FUN_001bdfb0(); void FUN_001bdf20(); void FUN_001c0360(); void FUN_001c0ca0(); void FUN_00088ec0(); void FUN_00088ee0(); extern "C" void FUN_001bdfc0(); void FUN_001bdfd0(); void FUN_001bddc0(); void FUN_001be9f0();
 struct Binding_1c0cd0 { virtual void invoke(); char pad[12]; unsigned char resultType; char pad2[7]; unsigned char ownerType; char pad3[3]; Callback_1c0cd0 method; CSubtitleManager* owner; void FUN_001d0480(const char*,int); Binding_1c0cd0* FUN_001bfd70(const char*,CSubtitleManager*,Callback_1c0cd0); Binding_1c0cd0* FUN_001bffb0(const char*,CSubtitleManager*,Callback_1c0cd0); void FUN_001bf4c0(const char*,Callback_1c0cd0); void FUN_001bf710(const char*,Callback_1c0cd0); void FUN_001bf7c0(const char*,Callback_1c0cd0); };
 template<class C,class R,class A> struct Method1: Binding_1c0cd0 { virtual void invoke(); };
 template<class C,class R,class A> struct Closure1: Method1<C,R,A> { virtual void invoke(); };
 template<class C,class R,class A,class B,class D,class E> struct Closure4: Binding_1c0cd0 { virtual void invoke(); };
 template<class C,class R,class A,class B,class D> struct Closure3: Binding_1c0cd0 { virtual void invoke(); };
-struct Registry_1c0cd0 { void FUN_001d3b70(const char*,void*); void FUN_001c08c0(const char*,CSubtitleManager*,Callback_1c0cd0); }; Registry_1c0cd0* __cdecl FUN_001d4c90();
+struct Registry_1c0cd0 { void FUN_001d3b70(const char*,void*); void FUN_001c08c0(const char*,CSubtitleManager*,Callback_1c0cd0); }; extern "C" Registry_1c0cd0* __cdecl FUN_001d4c90();
 struct CSubtitleOverlay_1c0cd0 { CSubtitleOverlay_1c0cd0* FUN_000f6ef0(); CSubtitleOverlay_1c0cd0* FUN_001be170(); };
 struct Stream { virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void configure(unsigned,int); };
 struct Shader_1c0cd0 { virtual void start(); char pad[12]; Stream* stream; Shader_1c0cd0* FUN_0028edb0(); };

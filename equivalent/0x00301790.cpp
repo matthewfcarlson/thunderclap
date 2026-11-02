@@ -8,7 +8,7 @@ struct Vec3 {
     void FUN_001f6bc0(const Vec3 *a, float s, const Vec3 *b);
 };
 
-float FUN_00083d90(float *v);
+extern "C" float FUN_00083d90(float *v);
 
 struct Span {
     int begin;

@@ -3,7 +3,7 @@
 struct Source_2fdc90 { int FUN_0030f450(); };
 struct Transform_2fdc90 { void FUN_0022b980(); char data[64]; };
 struct Entry_2fdc90 { int a,b,c,d,e,f,g; unsigned char enabled; char pad[3]; Transform_2fdc90 transform; int last; };
-void* __cdecl FUN_0008d6d0(unsigned int bytes);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int bytes);
 struct FUN_002ef7f0 {
  FUN_002ef7f0(void* arg);
  virtual void slot0();

@@ -24,7 +24,7 @@ template<class T> struct ParamEnumConstList : Base_53220 {
  int tail;
 };
 }
-void __cdecl FUN_00053220() {
+extern "C" void __cdecl FUN_00053220() {
  if (!DAT_004dc44c) {
   fight::ParamEnumConstList<CCharacterSizeCondition>* list[2];
   void* mem = FUN_0008d690(32);

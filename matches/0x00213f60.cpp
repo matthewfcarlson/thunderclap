@@ -6,7 +6,7 @@ struct Obj_213f60 {
     int b;
     int c;
 };
-int target(Obj_213f60* self, int p2, int p3, int p4) {
+extern "C" int FUN_00213f60(Obj_213f60* self, int p2, int p3, int p4) {
     if (p2 == 0 || p3 == 0) {
         p3 = 0;
         p2 = 0;

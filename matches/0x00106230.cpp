@@ -8,9 +8,9 @@ struct Obj {
     Key** items;
     Key* find(int x);
 };
-unsigned __int64 __cdecl makekey(int);
+extern "C" unsigned __int64 __cdecl FUN_0027afb0(int);
 Key* Obj::find(int x) {
-    unsigned __int64 k = makekey(x);
+    unsigned __int64 k = FUN_0027afb0(x);
     for (int i = 0; i < count; ++i) {
         Key* p = items[i];
         if (p->key == k)

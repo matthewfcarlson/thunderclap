@@ -6,7 +6,7 @@ class R_6a340 {
   public:
     int invoke(CCameraShakeTrack*, hulk_intptr);
 };
-extern R_6a340* FUN_0008d690(int);
+extern "C" R_6a340* FUN_0008d690(int);
 
 hulk_intptr CCameraShakeTrack::vfunc_12(hulk_intptr param) {
     R_6a340* p = FUN_0008d690(0x24);

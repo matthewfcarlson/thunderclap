@@ -125,7 +125,7 @@ struct Config_164270 {
 
 void *thunk_FUN_0008d690(unsigned int size);
 float FUN_000964e0();
-void __cdecl FUN_0015cfd0(void *rig, choreo2::LocomotionSteerDriver *d);
+extern "C" void __cdecl FUN_0015cfd0(void *rig, choreo2::LocomotionSteerDriver *d);
 
 union Slot10 {
     char caster[4];

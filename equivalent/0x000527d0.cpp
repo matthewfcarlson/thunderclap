@@ -4,7 +4,7 @@
 #include "decls/data/game/hulkfight/ai.h"
 #include "decls/data/game/unknown.h"
 
-void* __cdecl FUN_0008d690(unsigned);
+extern "C" void* __cdecl FUN_0008d690(unsigned);
 void __cdecl FUN_00047ab0(); void __cdecl FUN_00047ac0(); void __cdecl FUN_00047ad0();
 class CButtonCondition;
 struct FUN_00234cc0 {
@@ -28,8 +28,8 @@ template<class T> struct ParamFloatConstRange : FUN_00234960 {
 };
 }
 inline void* __cdecl operator new(unsigned, void* p) { return p; }
-void __cdecl FUN_002347b0(unsigned*, void**, unsigned);
-void __cdecl FUN_000527d0() {
+extern "C" void __cdecl FUN_002347b0(unsigned*, void**, unsigned);
+extern "C" void __cdecl FUN_000527d0() {
  if (!DAT_004dc404) {
  void* entries[3];
  void* mem=FUN_0008d690(32); entries[0]=0;

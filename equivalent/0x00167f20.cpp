@@ -8,7 +8,7 @@ void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 struct Speed_167f20 { float FUN_00035690(); };
 struct Motion_167f20 { Speed_167f20* FUN_00059a30(); };
 struct Actor_167f20 { Motion_167f20* FUN_000592a0(); };
-bool __cdecl FUN_00018960(float, float, float);
+extern "C" bool __cdecl FUN_00018960(float, float, float);
 namespace hulkfight { namespace motion {
 
 }}

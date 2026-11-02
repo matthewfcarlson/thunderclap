@@ -4,7 +4,7 @@
 
 typedef unsigned int size_t;
 inline void* __cdecl operator new(size_t, void* p) { return p; }
-void* __cdecl FUN_00247530(void*);
+extern "C" void* __cdecl FUN_00247530(void*);
 namespace audio {
 struct SeqEvent { virtual void vfunc_0(); virtual void vfunc_1(); virtual void* vfunc_2(void*); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); };
 struct SeqActionPlayTrack { virtual void vfunc_0(); char pad[4]; SeqEvent* event; int state; };

@@ -12,7 +12,7 @@ struct Obj {
     float f;
     int other;
 };
-void __cdecl target(int unused, Obj* o, char c, int v, Pair* p) {
+extern "C" void __cdecl FUN_00247ae0(int unused, Obj* o, char c, int v, Pair* p) {
     o->flag = c;
     o->val = v;
     o->kind = 3;

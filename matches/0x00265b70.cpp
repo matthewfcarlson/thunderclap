@@ -9,7 +9,7 @@ struct Obj_265b70 {
 };
 void* FUN_0008d690(int size);
 
-void FUN_00265b70(Params* p) {
+extern "C" void FUN_00265b70(Params* p) {
     if (!p) {
         Params def;
         def.a = 0x10;

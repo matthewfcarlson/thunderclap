@@ -7,7 +7,7 @@ struct Obj_8d660 {
     char pad[0x20];
     void run();
 };
-void FUN_0008d660() {
+extern "C" void FUN_0008d660() {
     if (!(*(unsigned char*)&DAT_004dd778)) {
         init();
         (*(Obj_8d660*)&DAT_004dd780).run();

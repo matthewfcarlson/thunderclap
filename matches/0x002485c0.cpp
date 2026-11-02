@@ -6,7 +6,7 @@ struct Obj_2485c0 {
     char pad[0x90];
     U_2485c0 a, b, c, d, e, f, g;
 };
-void target(Obj_2485c0* self, Triple_2485c0* p, Triple_2485c0* q, U_2485c0 value) {
+extern "C" void FUN_002485c0(Obj_2485c0* self, Triple_2485c0* p, Triple_2485c0* q, U_2485c0 value) {
     if (p) {
         self->a = p->a;
         self->b = p->b;

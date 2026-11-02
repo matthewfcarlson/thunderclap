@@ -9,7 +9,7 @@ class Target_86240 {
     void Run();
 };
 extern bool FUN_0008db80();
-extern void FUN_0008db90();
+extern "C" void FUN_0008db90();
 void Target_86240::Run() {
     if (member != 0) {
         while (FUN_0008db80()) {

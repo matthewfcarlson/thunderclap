@@ -20,7 +20,7 @@ template<class T> struct ParamFloatConstRange {
 }
 typedef fight::ParamFloatConstRange<CMotionClimbAngleCondition> Param;
 void __cdecl FUN_002347b0(void*, Param**, int);
-void __cdecl FUN_000548b0() {
+extern "C" void __cdecl FUN_000548b0() {
  if (DAT_004dc584 == 0) {
   Param* params[3];
   Param* p = (Param*)FUN_0008d690(24);

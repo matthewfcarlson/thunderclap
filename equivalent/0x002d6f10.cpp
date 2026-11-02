@@ -29,17 +29,17 @@ struct PngStruct_2d6f10 {
 int FUN_00347250(void *jmpbuf, int count);
 PngStruct_2d6f10 *FUN_002e6a50(int type, void *mallocFn);
 void FUN_002e6c40(PngStruct_2d6f10 *png, void *ptr);
-void FUN_002e6bf0(PngStruct_2d6f10 *png);
-void FUN_002e6ba0(PngStruct_2d6f10 *png, void *memPtr, void *mallocFn, void *freeFn);
-void FUN_002e6970(PngStruct_2d6f10 *png, void *errorPtr, void *errorFn, void *warnFn);
+extern "C" void FUN_002e6bf0(PngStruct_2d6f10 *png);
+extern "C" void FUN_002e6ba0(PngStruct_2d6f10 *png, void *memPtr, void *mallocFn, void *freeFn);
+extern "C" void FUN_002e6970(PngStruct_2d6f10 *png, void *errorPtr, void *errorFn, void *warnFn);
 void FUN_002e69a0(PngStruct_2d6f10 *png, const char *message);
 void *FUN_002e6c00(PngStruct_2d6f10 *png, unsigned int size);
-int FUN_002e6f50(ZStream_2d6f10 *strm, const char *version, int streamSize);
+extern "C" int FUN_002e6f50(ZStream_2d6f10 *strm, const char *version, int streamSize);
 void FUN_002dd6f0(PngStruct_2d6f10 *png, int a, int b);
 void FUN_002d6c20();
 void FUN_002d6c80();
 
-PngStruct_2d6f10 *FUN_002d6f10(const char *userVersion, void *errorPtr, void *errorFn, void *warnFn,
+extern "C" PngStruct_2d6f10 *FUN_002d6f10(const char *userVersion, void *errorPtr, void *errorFn, void *warnFn,
                         void *memPtr, void *mallocFn, void *freeFn)
 {
     PngStruct_2d6f10 *png = FUN_002e6a50(1, mallocFn);

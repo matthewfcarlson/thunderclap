@@ -6,12 +6,12 @@
 
 typedef unsigned int uint_259610;
 struct Device_259610 { char pad[0x1c]; char list[0x18]; void* sound; };
-extern void* __cdecl FUN_00247530(void*);
+extern "C" void* __cdecl FUN_00247530(void*);
 extern hulk_uintptr __cdecl FUN_0024c740();
-extern void __cdecl FUN_0024c810(void*);
-extern void __cdecl FUN_00257e80(void*,void*);
-extern uint_259610 __cdecl FUN_0024c2f0(void*);
-extern void FUN_0024d140();
+extern "C" void __cdecl FUN_0024c810(void*);
+extern "C" void __cdecl FUN_00257e80(void*,void*);
+extern "C" uint_259610 __cdecl FUN_0024c2f0(void*);
+extern "C" void FUN_0024d140();
 extern int __stdcall FUN_003c6b86(void*,uint_259610);
 namespace DSOUND { extern int __stdcall IDirectSound_CreateSoundBuffer(void*,void*,void*,void*); extern int __stdcall IDirectSoundBuffer_SetBufferData(void*,void*,uint_259610); extern int __stdcall IDirectSoundBuffer_SetCurrentPosition(void*,uint_259610); }
 struct Audio_259610 { char pad0[12]; uint_259610 bytes; void* samples; uint_259610 flags; };
@@ -20,7 +20,7 @@ struct Channel { uint_259610 types[4]; float volumes[4]; float volume; uint_2596
 struct Player_259610 { char pad0[8]; uint_259610 field8; uint_259610 fieldc; float gain[2]; uint_259610 state; char enabled; char pad1[3]; Channel* channels[16]; Audio_259610* audio; void* cache[8]; void (*callback)(); };
 struct WaveFormat { unsigned short tag, channels; uint_259610 samplesPerSec, averageBytes; unsigned short blockAlign, bits; unsigned short extra, unknown; };
 struct BufferDesc { uint_259610 size, flags, reserved; WaveFormat* format; uint_259610* count; uint_259610 trailing; };
-Player_259610* __cdecl FUN_00259610(uint_259610* types, void* context, Audio_259610* audio)
+extern "C" Player_259610* __cdecl FUN_00259610(uint_259610* types, void* context, Audio_259610* audio)
 {
  Player_259610* player=(Player_259610*)FUN_00247530(((char*)&DAT_004e76e8));
  if(player) { uint_259610* p=(uint_259610*)player; for(int i=0;i<34;i++) p[i]=0; }

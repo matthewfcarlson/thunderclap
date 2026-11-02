@@ -1,6 +1,6 @@
 #include "gen/fight.h"
 
-void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern void* CFightNodeConditionVtable;
 struct CFightNodeCondition_51fe0 {
     virtual void a();
@@ -13,7 +13,7 @@ struct CFightNodeCondition_51fe0 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<CFightNodeCondition>::vfunc_5() {
-    CFightNodeCondition_51fe0* p = (CFightNodeCondition_51fe0*)Allocate(0x1c);
+    CFightNodeCondition_51fe0* p = (CFightNodeCondition_51fe0*)FUN_0008d690(0x1c);
     if (p) {
         p->Init();
         *(void**)p = &CFightNodeConditionVtable;

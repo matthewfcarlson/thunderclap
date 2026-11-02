@@ -57,7 +57,7 @@ template <class T> struct ParamFloatConstRange {
     void FUN_00234960(const char*);
 };
 } // namespace fight
-void __cdecl FUN_00064660() {
+extern "C" void __cdecl FUN_00064660() {
     if (!DAT_004dc664) {
         void* params[3];
         void* mem = FUN_0008d690(24);

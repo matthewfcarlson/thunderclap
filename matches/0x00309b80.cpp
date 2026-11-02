@@ -15,12 +15,12 @@ class Thing_309b80 {
     virtual void j();
     virtual void Apply(int);
 };
-extern void Helper(int*, int, float);
+extern "C" void FUN_00305800(int*, int, float);
 void Thing_309b80::Apply(int x) {
     int local[3];
     if (!Check()) {
         Get(&local[0]);
-        Helper(&local[0], x, (*(float*)&DAT_004d3188));
+        FUN_00305800(&local[0], x, (*(float*)&DAT_004d3188));
         Apply(x);
     }
 }

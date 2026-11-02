@@ -52,7 +52,7 @@ public:
 }
 struct Registry_24df00 { virtual void v0(); };
 extern void* __cdecl FUN_00247530(om::TypeBase* temp);
-void FUN_0024df00()
+extern "C" void FUN_0024df00()
 {
         {
         om::TypeT<om::MetaTypeAttribScalar<int> > temp(((unsigned int*)&DAT_004e6328), ((unsigned int*)&DAT_004e6320), 0x30, 4);

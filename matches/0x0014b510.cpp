@@ -7,7 +7,7 @@ class Factory {
   public:
     void* Create(void*);
 };
-void* Target(Factory* factory, const char* name) {
+extern "C" void* FUN_0014b510(Factory* factory, const char* name) {
     TrackFactoryCasterTemplate_14b510 caster;
     return factory->Create(FUN_00236ac0(name, &caster));
 }

@@ -9,11 +9,11 @@ class Obj {
     Entry* entries;
     void Set(int i, float a, float x, float b);
 };
-extern __int64 __cdecl Convert(float);
+extern "C" __int64 __cdecl FUN_0027b020(float);
 void Obj::Set(int i, float a, float x, float b) {
     if (i < count) {
         entries[i].a = a;
-        entries[i].c = Convert(x);
+        entries[i].c = FUN_0027b020(x);
         entries[i].b = b;
     }
 }

@@ -74,8 +74,8 @@ struct SpawnData {
 };
 
 Fighter_15e40 *__fastcall FUN_000592a0(void *owner);
-Entity *__fastcall FUN_00059a30(Fighter_15e40 *f);
-Body_15e40 *__fastcall FUN_00059a40(Fighter_15e40 *f);
+extern "C" Entity *__fastcall FUN_00059a30(Fighter_15e40 *f);
+extern "C" Body_15e40 *__fastcall FUN_00059a40(Fighter_15e40 *f);
 
 class CSmartPropSpawnAction {
 public:

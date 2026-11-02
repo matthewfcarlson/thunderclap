@@ -2,7 +2,7 @@
 
 extern "C" {
 }
-void FUN_000af480() {
+extern "C" void FUN_000af480() {
     (*(int*)&DAT_004dda28) = 0x3e46a7f0;
     (*(int*)&DAT_004dda14) = 0x43700000;
     (*(int*)&DAT_004dda2c) = 0x3e96872b;

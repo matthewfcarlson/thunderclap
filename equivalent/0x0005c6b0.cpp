@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 34/34)
 // FUN_0005c6b0 @ 0x0005c6b0
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+extern "C" void* FUN_0008d690(unsigned int size);
 
 class CGrappleLocoStrafe4Track {
 public:
@@ -76,9 +76,9 @@ struct ParamRegistry {
 extern ParamRegistry DAT_4dc590;
 extern int DAT_4dc594;
 
-void FUN_002347b0(ParamRegistry* reg, void** params, int count);
+extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
-void FUN_0005c6b0()
+extern "C" void FUN_0005c6b0()
 {
     if (DAT_4dc594 == 0) {
         void* params[16];

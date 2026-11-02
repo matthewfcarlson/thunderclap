@@ -15,7 +15,7 @@ struct Holder {
         }
     }
 };
-void shutdown() {
+extern "C" void FUN_00232bb0() {
     delete (*(Holder**)&DAT_004e5af8);
     (*(Holder**)&DAT_004e5af8) = 0;
 }

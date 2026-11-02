@@ -5,7 +5,7 @@ class Owner_260be0 {
     char pad[0x2004];
     int offset;
 };
-int FUN_00260be0(Owner_260be0* owner, float value) {
+extern "C" int FUN_00260be0(Owner_260be0* owner, float value) {
     char buffer[256];
     int i = sprintf(buffer, "%f", (double)value);
     --i;

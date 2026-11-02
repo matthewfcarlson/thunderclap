@@ -6,7 +6,7 @@ class R_6b2c0 {
   public:
     int invoke(CTargetTrack*, hulk_intptr);
 };
-extern R_6b2c0* FUN_0008d690(int);
+extern "C" R_6b2c0* FUN_0008d690(int);
 
 hulk_intptr CTargetTrack::vfunc_12(hulk_intptr param) {
     R_6b2c0* p = FUN_0008d690(0x24);

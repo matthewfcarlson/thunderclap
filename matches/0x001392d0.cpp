@@ -7,7 +7,7 @@ class Recipient {
     void use(void*);
 };
 extern void* lookup(void*, TrackFactoryCasterTemplate_1392d0*);
-void func(Recipient* r, void* name) {
+extern "C" void FUN_001392d0(Recipient* r, void* name) {
     TrackFactoryCasterTemplate_1392d0 caster;
     void* p = lookup(name, &caster);
     r->use(p);

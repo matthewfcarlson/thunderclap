@@ -4,7 +4,7 @@
 #include "decls/address.h"
 extern char DAT_0049dba4, DAT_0049f48c, DAT_0049f470;
 struct Manager;
-extern Manager *__cdecl FUN_000fc1b0();
+extern "C" Manager *__cdecl FUN_000fc1b0();
 extern void *__cdecl FUN_000fc260(const char *name);
 struct Value_b47b0 {
     void FUN_000f8500(const char *text, Manager *manager, int flag);
@@ -26,7 +26,7 @@ struct World {
     Screen_b47b0 *screen;
 };
 
-void __stdcall FUN_000b47b0(const char *title, const char *text)
+extern "C" void __stdcall FUN_000b47b0(const char *title, const char *text)
 {
     Widget_b47b0 *w = FUN_00344e74(FUN_000fc260("fullscreen_message_title"), 0, &DAT_0049dba4, &DAT_0049f48c, 0);
     if (w) {

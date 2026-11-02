@@ -1,8 +1,8 @@
 #include "gen/core.h"
 
-int __cdecl DoThing(int);
+extern "C" int __cdecl FUN_0026d8a0(int);
 
 int core::CompletionEventRequest::vfunc_1() {
-    DoThing(this->f_08);
+    FUN_0026d8a0(this->f_08);
     return 1;
 }

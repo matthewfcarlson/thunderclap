@@ -8,7 +8,7 @@ struct Actor_1763c0 { char pad[0x120]; Pose* pose; void FUN_000373e0(int); };
 struct Intermediate_1763c0 { Actor_1763c0* FUN_00059a30(); };
 struct Owner_1763c0 { Intermediate_1763c0* FUN_000592a0(); };
 struct Ref_1763c0 { virtual void vfunc_0(); virtual void vfunc_1(); };
-Ref_1763c0* __cdecl FUN_001817d0(Actor_1763c0*,unsigned);
+extern "C" Ref_1763c0* __cdecl FUN_001817d0(Actor_1763c0*,unsigned);
 struct Settings_1763c0 { char pad[0x14]; unsigned selector; unsigned name1a,name1b,name2a,name2b; Vec_1763c0 position; char pad2[0x14]; unsigned value; };
 namespace hulkfight { namespace motion {
 struct MoveJointAction {

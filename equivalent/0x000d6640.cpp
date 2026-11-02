@@ -5,7 +5,7 @@
 #include "decls/data/game/unknown.h"
 typedef unsigned int uint;
 void* __cdecl operator new(unsigned int, void* p) { return p; }
-extern void* __cdecl FUN_0008d690(uint);
+extern "C" void* __cdecl FUN_0008d690(uint);
 extern void* __cdecl FUN_00263ea0(uint);
 struct MessageOverlay;
 extern void FUN_000d45e0(); extern void FUN_000d4600(); extern void FUN_000d4720(); extern void FUN_000d4780(); extern void FUN_000d47d0(); extern void FUN_000d4850(); extern void FUN_000d5440(); extern void thunk_FUN_000d4b60(); extern void FUN_000d5fa0();
@@ -13,7 +13,7 @@ struct Command_d6640 { virtual void slot0(); char pad4[12]; unsigned char argTyp
 template<class T,class R,class CDropShadowDisplayEffect_d6640> struct Method1 : Command_d6640 { virtual void slot0(); };
 template<class T,class R,class CDropShadowDisplayEffect_d6640> struct Closure1 : Method1<T,R,CDropShadowDisplayEffect_d6640> { virtual void slot0(); T* owner; };
 struct Manager_d6640 { void FUN_001d3b70(const char*,void*); void FUN_000d6410(const char*,MessageOverlay*,void(*)()); void FUN_000d6470(const char*,MessageOverlay*,void(*)()); void FUN_000d6520(const char*,MessageOverlay*,void(*)()); void FUN_000d65e0(const char*,MessageOverlay*,void(*)()); };
-extern Manager_d6640* FUN_001d4c90();
+extern "C" Manager_d6640* FUN_001d4c90();
 struct CDropShadowDisplayEffect_d6640 { void FUN_000dee40(); char bytes[20]; }; struct CGlowDisplayEffect_d6640 { void FUN_000dee10(); char bytes[20]; };
 struct Inner_d6640 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(uint,int); };
 struct Shader_d6640 { virtual void v0(); char pad[12]; Inner_d6640* inner; Shader_d6640* FUN_0028edb0(); };

@@ -19,7 +19,7 @@ namespace fight {
 }
 typedef fight::ParamFloatConstRange<CUninterruptibleTrack> Param;
 void __cdecl FUN_002347b0(int*, Param**, int);
-void FUN_00072280() {
+extern "C" void FUN_00072280() {
  if (!DAT_004dcfd4) {
  Param* params[3];
  Param* p;

@@ -111,7 +111,7 @@ struct Decal_182740 {
 Decal_182740 *FUN_0027f250();
 
 extern "C" void __cdecl FUN_00224db0(Mat_182740 *m, V3_182740 *up, V3_182740 *fwd);
-int __cdecl FUN_00098190(float dt, float f3c, float f20, int zero0, Obj_182740 *held, float f24, V3_182740 *pos, V3_182740 *dir, int z1, int z2, int z3, int one);
+extern "C" int __cdecl FUN_00098190(float dt, float f3c, float f20, int zero0, Obj_182740 *held, float f24, V3_182740 *pos, V3_182740 *dir, int z1, int z2, int z3, int one);
 extern "C" void *memcpy(void *d, const void *s, unsigned int n);
 
 struct Frame_182740 {

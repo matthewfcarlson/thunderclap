@@ -21,8 +21,8 @@ struct Alloc_2751c0 {
 };
 extern void* g_fr[];
 extern void* g_rq[];
-void __cdecl Lk(void*);
-void __cdecl Ulk(void*);
+extern "C" void __cdecl FUN_0026d850(void*);
+extern "C" void __cdecl FUN_0026d840(void*);
 class FileCommitRequest_2751c0 {
   public:
     void* vptr;
@@ -38,9 +38,9 @@ FileCommitRequest_2751c0* FileCommitRequest_2751c0::f0(unsigned char flags) {
     drive->release();
     vptr = g_rq;
     if (flags & 1) {
-        Lk(((char*)&DAT_0052a1c8));
+        FUN_0026d850(((char*)&DAT_0052a1c8));
         (*(Alloc_2751c0**)&DAT_0052a1e4)->free(this);
-        Ulk(((char*)&DAT_0052a1c8));
+        FUN_0026d840(((char*)&DAT_0052a1c8));
     }
     return this;
 }

@@ -36,7 +36,7 @@ struct lua_State_214900 {
     CallInfo_214900 *ci;               // 0x14
 };
 
-void __cdecl FUN_00216340(char *out, const char *source, int bufflen);
+extern "C" void __cdecl FUN_00216340(char *out, const char *source, int bufflen);
 const char *FUN_00216320(lua_State_214900 *L, const char *fmt, ...);
 
 // equiv-conv: FUN_00214900 ebx stack

@@ -6,9 +6,9 @@
 
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
-void *FUN_0008d690(unsigned int size);
+extern "C" void *FUN_0008d690(unsigned int size);
 void *__cdecl FUN_00266e00(int a, unsigned int n);
-void __cdecl FUN_00267090(void *p);
+extern "C" void __cdecl FUN_00267090(void *p);
 
 struct Reader {
     void FUN_002647e0(void *dst, int count, int size, int flag);

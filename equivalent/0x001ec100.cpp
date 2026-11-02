@@ -61,7 +61,7 @@ struct SpawnGlobals_1ec100 {
     char pad[4];
     char enabled;            // 0x8
 };
-void FUN_001eb440(void *target, Query_1ec100 *q);
+extern "C" void FUN_001eb440(void *target, Query_1ec100 *q);
 
 
 class Handler_1ec100 {

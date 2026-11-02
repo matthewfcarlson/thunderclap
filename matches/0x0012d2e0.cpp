@@ -7,7 +7,7 @@ class Obj {
   public:
     void apply(int);
 };
-void run(Obj* o, void* p) {
+extern "C" void FUN_0012d2e0(Obj* o, void* p) {
     TrackFactoryCasterTemplate_12d2e0 c;
     o->apply(find(p, &c));
 }

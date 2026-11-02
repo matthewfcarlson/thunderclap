@@ -1,5 +1,5 @@
 #include "compat/ptr.h"
-extern void* Alloc(hulk_uintptr n);
+extern "C" void* FUN_0008d6d0(hulk_uintptr n);
 
 class Obj_f86f0 {
   public:
@@ -20,12 +20,12 @@ class Obj_f86f0 {
 
 void Obj_f86f0::Init(int a, int b) {
     m4 = b * 2;
-    m0 = (char*)Alloc((unsigned)(m4 >> 1) * 2);
+    m0 = (char*)FUN_0008d6d0((unsigned)(m4 >> 1) * 2);
     m10 = a;
-    mC = (int*)Alloc(a * 4);
+    mC = (int*)FUN_0008d6d0(a * 4);
     unsigned v = m10;
     unsigned n = (v + 0x1f) >> 5;
-    unsigned* p = (unsigned*)Alloc(n * 4 + 4);
+    unsigned* p = (unsigned*)FUN_0008d6d0(n * 4 + 4);
     *p = v;
     if (n > 0) {
         unsigned* q = p + 1;
@@ -40,6 +40,6 @@ void Obj_f86f0::Init(int a, int b) {
             *q++ = 0;
     }
     m1c = a;
-    m18 = Alloc(a * 8);
+    m18 = FUN_0008d6d0(a * 8);
     m110 = 1;
 }

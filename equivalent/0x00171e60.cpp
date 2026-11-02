@@ -109,7 +109,7 @@ struct Registry_171e60 {
     int FUN_001d35a0(const char *name, const char *tag, int v);
     char FUN_001d19f0(char *buf, int size, int flag);
 };
-Registry_171e60 *FUN_001d4c90();
+extern "C" Registry_171e60 *FUN_001d4c90();
 
 struct Finder_171e60 {
     Located *FUN_001fc8c0(unsigned int lo, unsigned int hi);

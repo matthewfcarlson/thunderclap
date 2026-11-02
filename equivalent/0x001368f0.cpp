@@ -49,7 +49,7 @@ struct Info_1368f0 {
     float f28;
 };
 
-void FUN_00096a90(Prop_1368f0 *p, V3_1368f0 *out);
+extern "C" void FUN_00096a90(Prop_1368f0 *p, V3_1368f0 *out);
 float FUN_00224f10(V3_1368f0 *v);
 float FUN_00224fc0(float a, float b);
 void FUN_00224d70(float a, V3_1368f0 *v);

@@ -1,4 +1,4 @@
-extern "C" char __cdecl nearFloat(float, float, float);
+extern "C" char __cdecl FUN_00018960(float, float, float);
 struct Box_375f0 {
     float x, y, z, w;
     int Test(Box_375f0*, float);
@@ -17,7 +17,7 @@ int Box_375f0::Test(Box_375f0* other, float tolerance) {
     } else if (!(absbits(y - other->y) <= tolerance)) {
     } else if (!(absbits(z - other->z) <= tolerance)) {
     } else {
-        if (nearFloat(w, other->w, tolerance))
+        if (FUN_00018960(w, other->w, tolerance))
             return 1;
     }
     return 0;

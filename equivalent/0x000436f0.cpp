@@ -22,7 +22,7 @@ Registry* FUN_001d4c90();
 #define FN(b) extern void FUN_##b();
 #define EF(n, c, b) { FN(b) Entry* e = (Entry*)FUN_0008d690(0x20); void* x = 0; if (e) x = e->FUN_##c(n, FUN_##b); r->FUN_001d3b70(n, x); }
 
-void FUN_000436f0() {
+extern "C" void FUN_000436f0() {
     Registry* r = FUN_001d4c90();
     if (r) {
 EF("char_DefineForceReactionProfile", 0003eea0, 00044c60)

@@ -57,8 +57,8 @@ struct World {
 };
 
 
-extern char __cdecl FUN_00202560(V3_118050 *from, float dist, int flag, V3_118050 *outA, V3_118050 *outB, int p6, int p7, Hit_118050 **outHit);
-extern V3_118050 *__cdecl FUN_00083e00(V3_118050 *out, V3_118050 *in, float s);
+extern "C" char __cdecl FUN_00202560(V3_118050 *from, float dist, int flag, V3_118050 *outA, V3_118050 *outB, int p6, int p7, Hit_118050 **outHit);
+extern "C" V3_118050 *__cdecl FUN_00083e00(V3_118050 *out, V3_118050 *in, float s);
 
 struct Frame_118050 {
     V3_118050 pos;

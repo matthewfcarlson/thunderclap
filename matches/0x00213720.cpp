@@ -8,7 +8,7 @@ struct Result_213720 {
     char* data;
 };
 Result_213720* __fastcall FUN_00212bb0(void* other, Thing_213720* self);
-void __cdecl FUN_00213720(Thing_213720* self, void* other) {
+extern "C" void __cdecl FUN_00213720(Thing_213720* self, void* other) {
     Result_213720* r = FUN_00212bb0(other, self);
     unsigned int* src;
     if (r->tag == 6 && r->data[6] == 0)

@@ -11,7 +11,7 @@ int __cdecl FUN_002152f0(hulk_intptr, void*, int);
 void __cdecl FUN_00214f90(hulk_intptr);
 void __cdecl LAB_002151d0(void);
 }
-void __cdecl FUN_002151e0(hulk_intptr param_1) {
+extern "C" void __cdecl FUN_002151e0(hulk_intptr param_1) {
     hulk_intptr esi = *(int*)(*(hulk_intptr*)(param_1 + 0x10) + 0x5c);
     FUN_00219660(esi, *(int*)(esi + 0x1c));
     FUN_002165c0(esi, 1);

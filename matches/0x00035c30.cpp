@@ -1,4 +1,4 @@
-int FUN_000969d0(int);
+extern "C" int FUN_000969d0(int);
 class Thing_35c30 {
   public:
     char pad[0x200];

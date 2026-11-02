@@ -16,7 +16,7 @@ struct Helper_261460 {
     void Link(int x);
 };
 
-int __cdecl FUN_00261460(int* p) {
+extern "C" int __cdecl FUN_00261460(int* p) {
     int a = FUN_002611b0(p);
     int b = FUN_002611b0(p);
     char tmp[12];

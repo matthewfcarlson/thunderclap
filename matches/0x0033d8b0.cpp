@@ -6,7 +6,7 @@ int __cdecl D(int, int);
 int __cdecl E(int, int);
 int __cdecl G(int, int);
 int __cdecl H(int);
-void __cdecl target(int p) {
+extern "C" void __cdecl FUN_0033d8b0(int p) {
     int x = A(p, 2, 1);
     B(p, 1);
     int y = C(p, 1);

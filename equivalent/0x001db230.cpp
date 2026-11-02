@@ -120,7 +120,7 @@ struct World {
     Sink_1db230 *f30;
 };
 
-const char *__cdecl FUN_001b46f0(void *l, unsigned int *out);
+extern "C" const char *__cdecl FUN_001b46f0(void *l, unsigned int *out);
 
 struct Ev_1db230 {
     char pad0[8];

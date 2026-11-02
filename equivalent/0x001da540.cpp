@@ -194,11 +194,11 @@ struct Fx34_1da540 {
 };
 
 extern "C" int __cdecl FUN_00266da0(hulk_intptr mode);
-void *__cdecl FUN_0008d690(unsigned int size);
+extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 void __cdecl FUN_00018810(RefObj_1da540 **slot, RefObj_1da540 *obj);
 void __cdecl FUN_00224d70(float ang, V3_1da540 *v);
-void __cdecl FUN_00096b50(Ref_1da540 *a1, V3_1da540 *out, int *count);
-int __cdecl FUN_00097a30(float a1, float a2, float a3, void *a4, float a5, V3_1da540 *a6, float a7, V3_1da540 *a8, int a9, int a10, int a11, int a12);
+extern "C" void __cdecl FUN_00096b50(Ref_1da540 *a1, V3_1da540 *out, int *count);
+extern "C" int __cdecl FUN_00097a30(float a1, float a2, float a3, void *a4, float a5, V3_1da540 *a6, float a7, V3_1da540 *a8, int a9, int a10, int a11, int a12);
 
 class Entity {
 public:

@@ -6,7 +6,7 @@
 
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* p) throw() { return p; }
-void* __cdecl FUN_00247530(void*);
+extern "C" void* __cdecl FUN_00247530(void*);
 namespace audio {
 struct SeqEventVarTempo_252d80 {
     virtual void vfunc_0();

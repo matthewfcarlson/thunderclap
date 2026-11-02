@@ -4,7 +4,7 @@ extern "C" double sqrt(double);
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
-extern char FUN_00018960(float a, float b, float eps);
+extern "C" char FUN_00018960(float a, float b, float eps);
 
 struct Vec3_12be50 {
     float x, y, z;

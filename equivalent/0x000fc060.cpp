@@ -24,7 +24,7 @@ public:
 };
 
 
-void FUN_000fc060(int a1, int a2, int a3, int a4) {
+extern "C" void FUN_000fc060(int a1, int a2, int a3, int a4) {
     void* mem = FUN_0008d690(0x223c);
     FEThings_fc060* mgr = 0;
     if (mem)

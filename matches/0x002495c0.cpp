@@ -1,7 +1,7 @@
 struct Node {
     Node* next;
 };
-Node* __cdecl target(Node* p) {
+extern "C" Node* __cdecl FUN_002495c0(Node* p) {
     Node* end = (Node*)((char*)p + 0x1c);
     Node* cur = *(Node**)((char*)p + 0x18);
     if (cur == end)

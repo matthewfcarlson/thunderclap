@@ -2,7 +2,7 @@ struct RandState_2039a0 {
     unsigned int a;
     unsigned int b;
 };
-extern RandState_2039a0* __cdecl FUN_000964d0();
+extern "C" RandState_2039a0* __cdecl FUN_000964d0();
 class Obj_2039a0 {
   public:
     void Set(int);

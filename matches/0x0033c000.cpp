@@ -17,7 +17,7 @@ void __cdecl FUN_00339630(lua_State *L, luaL_Buffer_33c000 *b);
 void __cdecl FUN_003394b0(luaL_Buffer_33c000 *b, const char *s, unsigned int l);
 void __cdecl FUN_00339540(luaL_Buffer_33c000 *b);
 
-int FUN_0033c000(lua_State *L)
+extern "C" int FUN_0033c000(lua_State *L)
 {
     unsigned int l;
     luaL_Buffer_33c000 b;

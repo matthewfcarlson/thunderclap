@@ -23,8 +23,8 @@ int __cdecl FUN_00212f00(lua_State* L, int idx);
 lua_State* __cdecl FUN_00213290(lua_State* L, int idx);
 int __cdecl FUN_00212fb0(lua_State* L, int idx);
 void __cdecl FUN_00213380(lua_State* L, const char* s, hulk_uintptr len);
-const char* __cdecl FUN_00213470(lua_State* L, const char* fmt, ...);
-void __cdecl FUN_00213c90(lua_State* L, int n);
+extern "C" const char* __cdecl FUN_00213470(lua_State* L, const char* fmt, ...);
+extern "C" void __cdecl FUN_00213c90(lua_State* L, int n);
 int __cdecl FUN_00213fc0(lua_State* L, int level, lua_Debug_33aa40* ar);
 int __cdecl FUN_00214bd0(lua_State* L, const char* what, lua_Debug_33aa40* ar);
 
@@ -35,7 +35,7 @@ struct Frame_33aa40 {
 };
 
 // Lua 5.0 errorfb (stack traceback builder)
-int FUN_0033aa40(lua_State* L)
+extern "C" int FUN_0033aa40(lua_State* L)
 {
     Frame_33aa40 f;
     int level = 1;

@@ -6,7 +6,7 @@ class Child {
     Child();
 };
 extern char VT_12af80[];
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::ai::AcquireTargetTrack>::vfunc_5() {
     Child* p = (Child*)FUN_0008d690(0x2c);

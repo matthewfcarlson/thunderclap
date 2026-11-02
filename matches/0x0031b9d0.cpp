@@ -22,7 +22,7 @@ class pddiDevice_31b9d0 : public pddiObject_31b9d0 {
 };
 namespace pure3d {
 } // namespace pure3d
-void FUN_00327c70(int, int, int);
+extern "C" void FUN_00327c70(int, int, int);
 void pure3d::d3dDevice::vfunc_11(int a, int ) {
     FUN_00327c70(*(int*)((char*)this + 0xc), a, 0);
 }

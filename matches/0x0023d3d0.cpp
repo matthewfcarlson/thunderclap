@@ -13,13 +13,13 @@ class ConditionFactoryTemplate_23d3d0 : public ConditionFactory_23d3d0 {
     ConditionFactoryTemplate_23d3d0* vfunc_5(signed char flags);
 };
 
-void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
+extern "C" void __cdecl FUN_00267090(void* p); // thunk_FUN_00267090
 
 ConditionFactoryTemplate_23d3d0* ConditionFactoryTemplate_23d3d0::vfunc_5(signed char flags) {
     *(void***)this = ConditionFactory_23d3d0_vftable;
     Destroy();
     if (flags & 1) {
-        SweepTrack_DeleteThis(this);
+        FUN_00267090(this);
     }
     return this;
 }

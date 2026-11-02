@@ -10,7 +10,7 @@ class Container_2ae910 {
     char pad[0x84 - 4 - 31 * 4];
     Obj_2ae910* ref;
 };
-void __fastcall FUN_002ae910(Container_2ae910* p) {
+extern "C" void __fastcall FUN_002ae910(Container_2ae910* p) {
     Obj_2ae910* r = p->ref;
     if (r)
         r->Release(1);

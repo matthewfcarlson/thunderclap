@@ -149,11 +149,11 @@ extern char DAT_0049dba4[];
 extern char DAT_0049dbbc[];
 extern void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
 
-int __cdecl FUN_00266da0(int mode);
+extern "C" int __cdecl FUN_00266da0(int mode);
 TextManager_c4020* __cdecl FUN_000fc3d0();
 FEObject* __cdecl FUN_000fc260(const char* name);
 Manager_c4020* __cdecl FUN_000fc1b0();
-void __cdecl FUN_000fc100(int a, int b);
+extern "C" void __cdecl FUN_000fc100(int a, int b);
 int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, ...);
 int FUN_00345804(const char* str, const char* fmt, ...);
 

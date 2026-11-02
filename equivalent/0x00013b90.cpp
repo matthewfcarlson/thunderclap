@@ -105,7 +105,7 @@ public:
 };
 
 void *__fastcall FUN_000592a0(void *owner);
-Stats_13b90 *__fastcall FUN_00059a30(void *x);
+extern "C" Stats_13b90 *__fastcall FUN_00059a30(void *x);
 Scene_13b90 *__fastcall FUN_00059a40(void *x);
 extern "C" float FUN_00224f10(Vec3_13b90 *v);
 void *__cdecl FUN_00263ea0(unsigned int size);

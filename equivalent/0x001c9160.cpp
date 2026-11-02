@@ -82,7 +82,7 @@ public:
     virtual void Load(int *x, Id64_1c9160 *y, Reader *r, Inventory_1c9160 *inv);
 };
 
-void __cdecl FUN_0028fcc0(const char *fmt, ...);
+extern "C" void __cdecl FUN_0028fcc0(const char *fmt, ...);
 
 namespace Render {
 

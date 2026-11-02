@@ -98,8 +98,8 @@ struct World {
     List_195560 *list;
 };
 
-void *FUN_0008d690(unsigned int size);
-int __cdecl FUN_00266da0(int v);
+extern "C" void *FUN_0008d690(unsigned int size);
+extern "C" int __cdecl FUN_00266da0(int v);
 void __cdecl FUN_00018810(RefObj_195560 **slot, RefObj_195560 *ref);
 
 struct Frame_195560 {

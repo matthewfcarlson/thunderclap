@@ -13,10 +13,10 @@ class Node {
     Node* child;
     Node* next;
 };
-Node* Find(Node* node, int arg) {
+extern "C" Node* FUN_00266f50(Node* node, int arg) {
     while (node != 0) {
         if (node->item->Match(arg)) {
-            Node* r = Find(node->child, arg);
+            Node* r = FUN_00266f50(node->child, arg);
             if (r != 0)
                 return r;
             return node;

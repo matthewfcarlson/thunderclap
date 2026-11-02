@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2891 inputs, branch coverage 20/20)
 // FUN_001d1360 @ 0x001d1360
-int __cdecl FUN_00096600(const char *a, const char *b);
+extern "C" int __cdecl FUN_00096600(const char *a, const char *b);
 
 struct Item_1d1360 {
     virtual ~Item_1d1360() throw();

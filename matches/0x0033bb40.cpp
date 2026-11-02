@@ -11,7 +11,7 @@ void FUN_00213340(lua_State *L, float n);
 int FUN_00338e20(lua_State *L, const char *msg);
 
 // math.random
-int FUN_0033bb40(lua_State *L)
+extern "C" int FUN_0033bb40(lua_State *L)
 {
     float r = (float)(rand() % 0x7fff) * 3.0518509e-05f;
     switch (FUN_00212d70(L)) {

@@ -15,14 +15,14 @@ class Obj_272aa0 {
     int mArg;
     void Run(int);
 };
-void __cdecl Helper(int);
+extern "C" void __cdecl FUN_0026d8a0(int);
 void Obj_272aa0::Run(int arg) {
     mInner.A();
     mArg = arg;
     mFlag = 1;
     if (mValue != 0) {
         mInner.B();
-        Helper(mValue);
+        FUN_0026d8a0(mValue);
     } else {
         mInner.B();
     }

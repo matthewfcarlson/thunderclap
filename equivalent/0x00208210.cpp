@@ -4,7 +4,7 @@
 #include "decls/data/game/global.h"
 class CWorldStreamManager;
 
-void* FUN_0008d690(unsigned size);
+extern "C" void* FUN_0008d690(unsigned size);
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 
@@ -133,7 +133,7 @@ struct Registry_208210 {
     void FUN_00206f90(const char* name, CWorldStreamManager* owner, void (CWorldStreamManager::*fn)());
     void FUN_00207000(const char* name, CWorldStreamManager* owner, void (CWorldStreamManager::*fn)());
 };
-Registry_208210* FUN_001d4c90();
+extern "C" Registry_208210* FUN_001d4c90();
 
 CWorldStreamManager::CWorldStreamManager()
 {

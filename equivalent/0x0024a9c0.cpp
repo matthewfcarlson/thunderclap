@@ -77,7 +77,7 @@ struct Extra_24a9c0 {
     Extra_24a9c0 *FUN_0025df40(Node *node, Z *z, Ctx_24a9c0 *ctx);
 };
 
-unsigned int __cdecl FUN_002673a0(const char *s, int flag);
+extern "C" unsigned int __cdecl FUN_002673a0(const char *s, int flag);
 void *__cdecl FUN_00247530(void *pool);
 void __cdecl FUN_00247550(void *pool, void *p);
 Node *__cdecl FUN_00249fc0(Tree_24a9c0 *tree, unsigned int *key);

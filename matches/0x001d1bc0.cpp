@@ -1,5 +1,5 @@
 extern int __cdecl FUN_00212d70(int);
-extern void __cdecl FUN_00213320(int);
+extern "C" void __cdecl FUN_00213320(int);
 class Obj_1d1bc0 {
   public:
     char pad0[8];

@@ -3,7 +3,7 @@
 #include "decls/data/engine/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+extern "C" void* FUN_0008d690(unsigned int size);
 
 namespace fight {
 class BreakPointTrack {
@@ -49,9 +49,9 @@ public:
 struct ParamRegistry {
 };
 
-void FUN_002347b0(ParamRegistry* reg, void** params, int count);
+extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
-void FUN_0023f3a0()
+extern "C" void FUN_0023f3a0()
 {
     if (DAT_004e5c8c == 0) {
         void* params[2];

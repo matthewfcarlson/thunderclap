@@ -17,7 +17,7 @@ struct Row_d88f0 {
     char pad[0x3b];
 };
 
-unsigned int __cdecl FUN_0008c580();
+extern "C" unsigned int __cdecl FUN_0008c580();
 
 class FEMemCardControl_d88f0 {
 public:

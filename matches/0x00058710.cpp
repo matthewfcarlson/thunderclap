@@ -25,7 +25,7 @@ class TrackFactoryTemplate_58710 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_00053bc0();
 
 template <> void* fight::ConditionFactoryCasterTemplate<CSmartPropAngleCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CSmartPropAngleCondition
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_58710* t = new (mem) TrackFactoryTemplate_58710();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_00053bc0();
         return (void*)(t);
     }
     return (void*)(0);

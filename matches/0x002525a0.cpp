@@ -9,7 +9,7 @@ class SeqEventVarVolumeRand_2525a0 : public audio::SeqEvent {
     virtual void vfunc_3();
     virtual SeqEventVarVolumeRand_2525a0* vfunc_4(int);
 };
-extern void __fastcall FUN_0025fd10(void*);
+extern "C" void __fastcall FUN_0025fd10(void*);
 extern void FUN_00247550(void*, SeqEventVarVolumeRand_2525a0*);
 SeqEventVarVolumeRand_2525a0* SeqEventVarVolumeRand_2525a0::vfunc_4(int x) {
     FUN_0025fd10((void*)(this));

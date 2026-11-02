@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
 
-extern void* alloc(hulk_uintptr);
+extern "C" void* FUN_0008d690(hulk_uintptr);
 inline void* operator new(unsigned int, void* where) {
     return where;
 }
@@ -33,7 +33,7 @@ class Derived_17e850 : public Base_17e850 {
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::TargetIconDistanceTrack>::vfunc_5() {
-    Derived_17e850* p = (Derived_17e850*)alloc(0x20);
+    Derived_17e850* p = (Derived_17e850*)FUN_0008d690(0x20);
     if (p) {
         new (p) Derived_17e850();
         return (void*)(p);

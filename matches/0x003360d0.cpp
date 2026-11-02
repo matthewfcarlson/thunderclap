@@ -3,7 +3,7 @@ class Obj {
   public:
     const char* get();
 };
-char __stdcall target(float** out, Obj* obj, int unused, char direct) {
+extern "C" char __stdcall FUN_003360d0(float** out, Obj* obj, int unused, char direct) {
     const char* p = obj->get();
     if (!p)
         return 0;

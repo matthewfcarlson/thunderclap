@@ -5,7 +5,7 @@
 typedef unsigned __int64 U64_7de00;
 struct Vec3_7de00 { float x,y,z; };
 struct Name_7de00 { void FUN_0027b0e0(const char*); };
-extern void __cdecl FUN_00363c40();
+extern "C" void __cdecl FUN_00363c40();
 extern int __cdecl _atexit(void (__cdecl*)());
 struct Loaded_7de00 { void FUN_001dd8e0(int,int); };
 struct Container_7de00 { char pad[12]; Loaded_7de00* loaded; };

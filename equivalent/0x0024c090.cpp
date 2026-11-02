@@ -3,7 +3,7 @@
 struct Task { char pad[0xc0]; int active; int state; }; 
 // equiv-conv: FUN_0024bc70 eax
 void FUN_0024bc70(Task* task);
-void __cdecl FUN_0024c090(Task* task) {
+extern "C" void __cdecl FUN_0024c090(Task* task) {
     task->active = 1;
     do {
         FUN_0024bc70(task);

@@ -7,7 +7,7 @@ class Obj {
     void Apply(void*);
 };
 extern "C" void* Lookup(void*, TrackFactoryCasterTemplate_122c60*);
-void Func(Obj* obj, void* key) {
+extern "C" void FUN_00122c60(Obj* obj, void* key) {
     TrackFactoryCasterTemplate_122c60 caster;
     void* found = Lookup(key, &caster);
     obj->Apply(found);

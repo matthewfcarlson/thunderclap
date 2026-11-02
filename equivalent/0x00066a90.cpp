@@ -2,7 +2,7 @@
 // FUN_00066a90 @ 0x00066a90
 void FUN_00066900();
 void FUN_000668c0();
-void *FUN_0008d6d0(unsigned int size);
+extern "C" void *FUN_0008d6d0(unsigned int size);
 
 struct Key_66a90 {
     int w[4];

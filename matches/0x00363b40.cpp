@@ -5,6 +5,6 @@ class A_363b40 {
   public:
     void Fn();
 };
-void FUN_00363b40() {
+extern "C" void FUN_00363b40() {
     (*(A_363b40*)&DAT_004dc128).Fn();
 }

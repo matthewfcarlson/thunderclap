@@ -10,7 +10,7 @@ float __cdecl f2(int, Obj_24d140*);
 float __cdecl f3(int, Obj_24d140*);
 float __cdecl f4(int, Obj_24d140*);
 void __cdecl f5(int, Obj_24d140*, float*, float*);
-void __cdecl target(int a, Obj_24d140* b) {
+extern "C" void __cdecl FUN_0024d140(int a, Obj_24d140* b) {
     // MSVC evaluates the operands right to left: f1, then f2, then f3
     float x1 = f1(a, b);
     float x2 = f2(a, b) * x1;

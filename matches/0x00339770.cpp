@@ -12,7 +12,7 @@ struct Buf {
     char data[512];
 };
 extern "C" size_t __cdecl fread(void*, size_t, size_t, File*);
-char* __cdecl FUN_00339770(int unused, Buf* b, size_t* count) {
+extern "C" char* __cdecl FUN_00339770(int unused, Buf* b, size_t* count) {
     if (b->pending) {
         b->pending = 0;
         *count = 1;

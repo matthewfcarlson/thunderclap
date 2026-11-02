@@ -3,7 +3,7 @@
 #include "decls/data/game/global.h"
 
 inline void *operator new(unsigned int, void *p) throw() { return p; }
-void *FUN_0008d690(unsigned int size);
+extern "C" void *FUN_0008d690(unsigned int size);
 void *FUN_00263ea0(unsigned int size);
 
 class Manager_2af2d0 {

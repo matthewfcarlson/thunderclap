@@ -411,6 +411,19 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     slots: the two look the same from the original alone, and a rule that flags the first flags the second, the
     only committed equivalent it flags). The real callee's pop count is what decides: a rewrite that declares an
     indirect call with arguments should be checked against the callee's own source.
+  - `vstatic` (crash2, 2026-11-02; native mode): the gap above was a real bug. 0x0013d7b0 declared
+    AnimationPhaseMatchedTrack::vfunc_7 (a plain `ret`) with three arguments; clang's caller re-reserved 12 bytes the
+    callee never popped, its esp-relative -O0 frame was read 12 bytes off, and the Wine build appended a driver entry to
+    the wrong object (the play3 crash in CCharacterGolem::vfunc_3, journal crash2). The two shapes are told apart by the
+    whole original function, not the call site: `tools/vcall_scan.py`'s stack-depth model gives every indirect call a pop
+    variable (0..the words pushed in its straight line), every `ret` must be at depth 0 and paths must agree where they
+    join; the assignments that satisfy that are the call's feasible pops (0x0013d7b0's slot 7: {0}, because 0x225e00
+    pops 16 after it; 0x0024da50's slot 3: {0}, because 0x25fb00 pops the `effect` word). In native mode, the bytes
+    clang's code says our k-th call pops (`clang_pop_after`) must be one of the original k-th call's feasible pops, else
+    the `vcall` message. Unresolved functions (an `and esp` frame, a switch, more than 50,000 assignments) and
+    unconstrained calls are not checked. `tools/vcall_scan.py` runs the same comparison statically over a Wine build's
+    objects (all of HEAD on 2026-11-02: 5,411 paired indirect calls, no finding but 0x0013d7b0; two false positives, a
+    helper not inlined by clang (0x001050d0) and an `equiv-conv` register argument (0x001e5720)).
 - (round 17, cl5) Three gaps native14 found, each switchable (`EQUIV_OFF=name`; `RELOC_OFF=thisdecl` / `COMPARE_OFF=thisdecl`
   for compare.py and verify_relocs). Old behaviour = `EQUIV_OFF=ftolexact,ptrext,thisdecl`.
   - `ptrext`: the bytes a callee reads through a pointer into the caller's frame. The extent of a scalar or unknown

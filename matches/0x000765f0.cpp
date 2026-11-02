@@ -25,7 +25,7 @@ class TrackFactoryTemplate_765f0 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_00071700();
 
 template <> void* fight::TrackFactoryCasterTemplate<CGrappleDamageTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CGrappleDamageTrack>::vfunc_
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_765f0* t = new (mem) TrackFactoryTemplate_765f0();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_00071700();
         return (void*)(t);
     }
     return (void*)(0);

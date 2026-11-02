@@ -17,7 +17,7 @@ class SeqAction_2554b0 {
 };
 extern int __cdecl Find(int, int);
 extern void __cdecl Stop(int);
-extern void __cdecl Start(int, int, int, bool, int);
+extern "C" void __cdecl FUN_00247a20(int, int, int, bool, int);
 struct Obj_2554b0 {
     char pad[0x3c];
     int value;
@@ -35,7 +35,7 @@ void audio::SeqActionCrossFade::vfunc_6(hulk_intptr __p0) { void * p = (void *)_
         } else {
             bool flag = ((*(char * *)&this->f_08)[0x18] == 0);
             int value2 = ((Obj_2554b0*)p)->value;
-            Start(value2, this->f_10, 0, flag, 1);
+            FUN_00247a20(value2, this->f_10, 0, flag, 1);
         }
         break;
     }

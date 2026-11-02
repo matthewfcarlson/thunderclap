@@ -82,7 +82,7 @@ struct Stats_13de80 {
 Stats_13de80 *__fastcall FUN_00059a30(Fighter_13de80 *f);
 Body_13de80 *__fastcall FUN_00059a40(Fighter_13de80 *f);
 
-float __cdecl FUN_000186b0(float *value, float *lo, float *hi);
+extern "C" float __cdecl FUN_000186b0(float *value, float *lo, float *hi);
 
 struct Config_13de80 {
     char pad0[0x18];

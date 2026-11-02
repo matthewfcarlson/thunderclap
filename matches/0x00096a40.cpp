@@ -9,7 +9,7 @@ struct Obj_96a40 {
     char q[0x30];
     unsigned a, b, c;
 };
-void __cdecl target(Obj_96a40* p, unsigned* out) {
+extern "C" void __cdecl FUN_00096a40(Obj_96a40* p, unsigned* out) {
     if (p->kind == 5) {
         p->sub->f(out);
         return;

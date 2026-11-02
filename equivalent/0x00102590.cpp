@@ -8,7 +8,7 @@ extern "C" double sqrt(double);
 struct RandState_102590 {
     float FUN_00078780();
 };
-RandState_102590 *__cdecl FUN_000964d0();
+extern "C" RandState_102590 *__cdecl FUN_000964d0();
 
 struct V3_102590 {
     float x;

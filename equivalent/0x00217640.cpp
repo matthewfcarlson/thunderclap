@@ -15,7 +15,7 @@ struct TValue_217640 {
 extern int __cdecl _sprintf(char*, const char*, ...);
 void* __cdecl FUN_00219430(State* L, const char* s, unsigned int len);
 
-int FUN_00217640(State* L, TValue_217640* o)
+extern "C" int FUN_00217640(State* L, TValue_217640* o)
 {
     char buf[32];
     if (o->tt != 3) {

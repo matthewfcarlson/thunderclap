@@ -9,7 +9,7 @@ class Owner {
   public:
     void Add(Track*);
 };
-void Register(Owner* owner, const char* name) {
+extern "C" void FUN_0018b0e0(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_18b0e0 caster;
     owner->Add(FUN_00236ac0(name, &caster));
 }

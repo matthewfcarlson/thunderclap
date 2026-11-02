@@ -5,7 +5,7 @@ typedef unsigned int u32_17b170;
 extern int desc1_17b170;
 extern int desc2_17b170;
 int __cdecl check(void* obj, int z, void* d1, void* d2, int z2);
-void* __cdecl alloc(int size);
+extern "C" void* __cdecl FUN_0008d690(int size);
 struct Result_17b170 {
     int init(void* self, void* p);
 };
@@ -26,7 +26,7 @@ struct Track_17b170 {
 hulk_intptr hulkfight::motion::JointPivotTrackerTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17b170 a = (u32_17b170)__p0; u32_17b170 b = (u32_17b170)__p1; void * c = (void *)__p2;
 
     if (check(c, 0, &desc1_17b170, &desc2_17b170, 0)) {
-        Result_17b170* p = (Result_17b170*)alloc(0x84);
+        Result_17b170* p = (Result_17b170*)FUN_0008d690(0x84);
         if (p)
             return p->init(this, c);
     }

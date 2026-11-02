@@ -11,7 +11,7 @@ class Ref_26ff90 {
     virtual void X();
     virtual void A();
 };
-extern void Cleanup(int, int);
+extern "C" void FUN_00266f20(int, int);
 class MemoryPool_26ff90 {
   public:
     virtual void v0();
@@ -34,7 +34,7 @@ void MemoryPool_26ff90::Destroy() {
         field30 = 0;
     }
     if (field14 >= 0)
-        Cleanup(field14, field18);
+        FUN_00266f20(field14, field18);
     field18 = 0;
     (*(volatile int*)&DAT_004cdbb0) = field8;
     *((int*)this + 1) = ((hulk_intptr)DAT_0042af64);

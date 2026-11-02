@@ -1,14 +1,14 @@
 #include "compat/ptr.h"
 typedef unsigned int U_261980;
 extern char* GetText(U_261980);
-extern U_261980 Operate(U_261980);
-hulk_uintptr __cdecl Target(U_261980 param) {
+extern "C" U_261980 FUN_00260b60(U_261980);
+extern "C" hulk_uintptr __cdecl FUN_00261980(U_261980 param) {
     char* p = GetText(param);
     if (*p == 't') {
         hulk_uintptr result = (hulk_uintptr)GetText(param);
-        Operate(param);
+        FUN_00260b60(param);
         return result;
     }
-    Operate(param);
+    FUN_00260b60(param);
     return (hulk_uintptr)GetText(param);
 }

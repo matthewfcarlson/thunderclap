@@ -5,7 +5,7 @@ extern void __cdecl F1(void*, int, int);
 extern void __cdecl F2(void*, int);
 extern void __cdecl F3(void*, int);
 extern void __cdecl F4(void*, const void*, int);
-int __cdecl Target(void* p) {
+extern "C" int __cdecl FUN_0033ce80(void* p) {
     F1(p, 1, 0);
     F1(p, 2, 0);
     F2(p, 2);

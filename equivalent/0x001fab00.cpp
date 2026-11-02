@@ -25,7 +25,7 @@ struct ArgSlot_1fab00 {
     void FUN_00337c10();
 };
 
-bool __stdcall FUN_00337c20(MyBufferStream* stream, const char* name, Converter* converter, Loader_1fab00* loader);
+extern "C" bool __stdcall FUN_00337c20(MyBufferStream* stream, const char* name, Converter* converter, Loader_1fab00* loader);
 
 struct Loader_1fab00 {
     char pad00[4];

@@ -10,7 +10,7 @@ extern void InitPlatform();
 namespace XAPILIB {
 extern void __stdcall XInitDevices(int, int);
 }
-void Target() {
+extern "C" void FUN_0026f070() {
     (*(Platform**)&DAT_005283b4) = &platformObject;
     (*(Platform***)&DAT_005283c8) = ((Platform**)&DAT_005283b4);
     InitPlatform();

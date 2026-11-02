@@ -18,10 +18,10 @@ public:
 };
 
 void FUN_00245380();
-Stream *FUN_0025bec0(Stream *s);
-void *FUN_0025d340(void *a, unsigned int n, int z);
-bool FUN_0025d070(void *buf, unsigned int done, unsigned int left, int z, unsigned int *x3, unsigned int *x2, unsigned int *x1);
-void FUN_0025d0f0(void *buf, unsigned int n);
+extern "C" Stream *FUN_0025bec0(Stream *s);
+extern "C" void *FUN_0025d340(void *a, unsigned int n, int z);
+extern "C" bool FUN_0025d070(void *buf, unsigned int done, unsigned int left, int z, unsigned int *x3, unsigned int *x2, unsigned int *x1);
+extern "C" void FUN_0025d0f0(void *buf, unsigned int n);
 bool FUN_0025d010(void *buf);
 
 void *FUN_00245390(Stream *s, void (*pump)())

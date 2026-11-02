@@ -10,7 +10,7 @@ struct Sub_1c60b0 {
     void f(void*);
     void g();
 };
-Sub_1c60b0* FUN_001c3d90();  // 0-argument singleton getter
+extern "C" Sub_1c60b0* FUN_001c3d90();  // 0-argument singleton getter
 extern "C" void thunk_FUN_00267090(Render::CRenderableCharacter*);
 extern int g_vft_1c60b0;
 

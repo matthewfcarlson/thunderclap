@@ -7,7 +7,7 @@ class X_26f000 {
     char b;
 };
 extern X_26f000* g_26f000;
-void target() {
+extern "C" void FUN_0026f000() {
     X_26f000* p = g_26f000;
     p->b = 0;
     p->h(0);

@@ -2,25 +2,25 @@
 #include "decls/data/game/unknown.h"
 
 
-void FUN_0008ed60();
-void FUN_0008d660();
-void FUN_0026f070();
-void FUN_0026eea0(int, int, int, int);
+extern "C" void FUN_0008ed60();
+extern "C" void FUN_0008d660();
+extern "C" void FUN_0026f070();
+extern "C" void FUN_0026eea0(int, int, int, int);
 void thunk_FUN_002709b0(int, int, int, int);
 void thunk_FUN_00270f10(int, int);
-void FUN_00265b70(int);
-void FUN_0008fca0();
-void* FUN_0008d690(int);
+extern "C" void FUN_00265b70(int);
+extern "C" void FUN_0008fca0();
+extern "C" void* FUN_0008d690(int);
 void FUN_00333b80();
-void FUN_00268490();
-void FUN_00265c40();
+extern "C" void FUN_00268490();
+extern "C" void FUN_00265c40();
 void thunk_FUN_00270f90(int);
 void thunk_FUN_00271070();
-void FUN_0026f000();
-void FUN_0026eeb0();
-void FUN_00266d70();
-void FUN_0026dab0();
-void FUN_00267a90();
+extern "C" void FUN_0026f000();
+extern "C" void FUN_0026eeb0();
+extern "C" void FUN_00266d70();
+extern "C" void FUN_0026dab0();
+extern "C" void FUN_00267a90();
 
 class CGame_8ee30 {
   public:

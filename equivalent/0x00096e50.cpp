@@ -11,10 +11,10 @@ struct Id64_96e50 {
     Id64_96e50* FUN_0027b0e0(const char* name);
 };
 
-unsigned __int64 __cdecl FUN_00096d80(const char* hex);
+extern "C" unsigned __int64 __cdecl FUN_00096d80(const char* hex);
 
 // Builds an Id64 from a name, or from a "0x..." literal.
-Id64_96e50* FUN_00096e50(Id64_96e50* result, const char* text)
+extern "C" Id64_96e50* FUN_00096e50(Id64_96e50* result, const char* text)
 {
     Id64_96e50 id;
     Id64_96e50 tmp;

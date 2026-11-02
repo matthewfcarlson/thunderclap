@@ -67,10 +67,10 @@ public:
 };
 
 void *thunk_FUN_0008d690(unsigned int size);
-void *FUN_00266e00(int pool, int size);
+extern "C" void *FUN_00266e00(int pool, int size);
 void *FUN_0008d6d0(unsigned int size);
 int FUN_00267090(void *p);
-void FUN_003647b0();
+extern "C" void FUN_003647b0();
 
 class Loader_2be720 {
 public:

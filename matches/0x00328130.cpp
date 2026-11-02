@@ -16,7 +16,7 @@ void __cdecl FUN_003280a0();
 void __cdecl FUN_003280d0();
 void __cdecl FUN_00328100();
 void __cdecl FUN_00327c20(const char*, Callback_328130, int);
-void __cdecl FUN_00328130() {
+extern "C" void __cdecl FUN_00328130() {
  FUN_00327c20("error", FUN_00327e60, 0);
  FUN_00327c20("simple", FUN_00327e90, 0);
  FUN_00327c20("lightweight", FUN_00327e90, 0);

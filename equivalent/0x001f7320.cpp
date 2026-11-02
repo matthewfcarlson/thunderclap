@@ -73,7 +73,7 @@ public:
     void FUN_00283a10(float dt);
 };
 
-Rng_1f7320 *FUN_000964d0();
+extern "C" Rng_1f7320 *FUN_000964d0();
 Renderer_1f7320 *FUN_0027f250();
 
 class Spawner_1f7320 {

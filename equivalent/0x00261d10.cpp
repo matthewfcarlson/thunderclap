@@ -20,7 +20,7 @@ struct List {
 };
 
 struct Pool;
-void FUN_00247550(Pool* pool, Item* item);
+extern "C" void FUN_00247550(Pool* pool, Item* item);
 
 void FUN_00261d10(List* list)
 {

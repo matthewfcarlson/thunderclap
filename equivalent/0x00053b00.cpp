@@ -22,7 +22,7 @@ template<class T> struct ParamEnumConstList {
 }
 typedef fight::ParamEnumConstList<CSmartPropTypeCondition> Param;
 void __cdecl FUN_002347b0(int*, Param**, int);
-void FUN_00053b00() {
+extern "C" void FUN_00053b00() {
  if (!DAT_004dc4bc) {
   Param* items[2];
   items[0] = (Param*)FUN_0008d690(32);

@@ -7,7 +7,7 @@ class Obj {
   public:
     void Set(void*);
 };
-void func(Obj* obj, void* name) {
+extern "C" void FUN_0023efe0(Obj* obj, void* name) {
     TrackFactoryCasterTemplate_23efe0 caster;
     obj->Set(Find(name, &caster));
 }

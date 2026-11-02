@@ -53,8 +53,8 @@ struct Actor_203e90 {
 };
 
 int FUN_00266da0(int v);
-unsigned int FUN_00267f80();
-void FUN_00087990();
+extern "C" unsigned int FUN_00267f80();
+extern "C" void FUN_00087990();
 
 class Owner_203e90 {
 public:

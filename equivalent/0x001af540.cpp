@@ -3,7 +3,7 @@
 struct Point_1af540 { unsigned int x,y,z; };
 struct Node { unsigned int x,y,z; void* group; unsigned int index; };
 struct Collection_1af540 { unsigned int reserved; char* begin; char* end; };
-extern bool __cdecl FUN_001ae3f0(Node*,Collection_1af540*);
+extern "C" bool __cdecl FUN_001ae3f0(Node*,Collection_1af540*);
 struct Host_1af540 {
  float FUN_001af2b0(Node*,Node*,void*,void*,Collection_1af540*,void*,void*);
  bool FUN_001af540(Node*,Node*,void*,void*,Collection_1af540*,Point_1af540*,void*,void*,void*);

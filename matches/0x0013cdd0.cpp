@@ -8,7 +8,7 @@ class Owner {
   public:
     Track* Add(Track*);
 };
-Track* Fun(Owner* owner, const char* name) {
+extern "C" Track* FUN_0013cdd0(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_13cdd0 caster;
     Track* p = Find(name, &caster);
     return owner->Add(p);

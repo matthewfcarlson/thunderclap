@@ -14,7 +14,7 @@ void Free(void*) throw();
 struct Sub_10ea50 {
     char c;
 };
-void __fastcall SubFini(Sub_10ea50*) throw();
+extern "C" void __fastcall FUN_0027af50(Sub_10ea50*) throw();
 void __fastcall SubFini2(Sub_10ea50*) throw();
 void __fastcall SubFini3(Sub_10ea50*) throw();
 class SemaphoreClearTrack_10ea50 : public Track_10ea50 {
@@ -25,7 +25,7 @@ class SemaphoreClearTrack_10ea50 : public Track_10ea50 {
 };
 SemaphoreClearTrack_10ea50* SemaphoreClearTrack_10ea50::f(unsigned char fl) {
     vptr = g_vftable_10ea50;
-    SubFini(&s18);
+    FUN_0027af50(&s18);
     Fin();
     if (fl & 1)
         Free(this);

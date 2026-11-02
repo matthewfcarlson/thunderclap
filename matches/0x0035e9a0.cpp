@@ -1,7 +1,7 @@
 // FUN_0035e9a0 @ 0x0035e9a0
 #include "decls/data/game/global.h"
 
-extern unsigned __int64 FUN_0027afb0(const char *name);
+extern "C" unsigned __int64 FUN_0027afb0(const char *name);
 void FUN_0035e9a0() {
     (*(unsigned __int64*)&DAT_004e24c0) = FUN_0027afb0("none");
     (*(unsigned __int64*)&DAT_004e24c8) = FUN_0027afb0("glass");

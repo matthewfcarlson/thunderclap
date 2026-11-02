@@ -18,7 +18,7 @@ struct Obj_145990 {
     char rest[4];
     void Init(const char*);
 };
-extern "C" void Register(void*, Obj_145990**, int);
+extern "C" void FUN_002347b0(void*, Obj_145990**, int);
 
 void FUN_00145990() {
     if ((*(int*)&DAT_004e0fa4) == 0) {
@@ -72,7 +72,7 @@ void FUN_00145990() {
             a[5] = p;
         } else
             a[5] = 0;
-        Register((void*)((hulk_intptr)DAT_004e0fa0), a, 6);
+        FUN_002347b0((void*)((hulk_intptr)DAT_004e0fa0), a, 6);
     }
     ++(*(int*)&DAT_004e0fa4);
 }

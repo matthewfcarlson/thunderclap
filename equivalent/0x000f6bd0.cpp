@@ -55,7 +55,7 @@ public:
     virtual Loaded_f6bd0 *find(void *caster, unsigned __int64 key);   // slot 3
 };
 
-void FUN_000f6bd0(const char *name, const char *joint, int arg)
+extern "C" void FUN_000f6bd0(const char *name, const char *joint, int arg)
 {
     struct Frame {
         int result;

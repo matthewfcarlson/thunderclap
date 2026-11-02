@@ -4,7 +4,7 @@
 #include "decls/data/engine/unknown.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+extern "C" void* FUN_0008d690(unsigned int size);
 
 namespace fight {
 class FightNodeTimeCondition {
@@ -55,9 +55,9 @@ struct ParamRegistry {
 
 
 
-void FUN_002347b0(ParamRegistry* reg, void** params, int count);
+extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
-void FUN_00236340()
+extern "C" void FUN_00236340()
 {
     if (DAT_004e5bf0 == 0) {
         void* params[2];

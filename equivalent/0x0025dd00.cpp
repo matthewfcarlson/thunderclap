@@ -28,7 +28,7 @@ struct Pending_25dd00 {
 };
 
 int __cdecl FUN_0024afe0(Handle_25dd00 *h);
-void __cdecl FUN_0024c0c0(Handle_25dd00 *h);
+extern "C" void __cdecl FUN_0024c0c0(Handle_25dd00 *h);
 
 class Controller_25dd00 {
 public:

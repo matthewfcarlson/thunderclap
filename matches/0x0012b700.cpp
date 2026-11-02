@@ -15,9 +15,9 @@ class ThreatDodgeTrack_12b700 : public Track_12b700 {
     void F();
     ~ThreatDodgeTrack_12b700() throw();
 };
-extern void __fastcall SubFini(Sub_12b700*) throw();
+extern "C" void __fastcall FUN_0027af50(Sub_12b700*) throw();
 ThreatDodgeTrack_12b700::~ThreatDodgeTrack_12b700() throw() {
     vptr = g_vftable_12b700;
-    SubFini(&sub);
+    FUN_0027af50(&sub);
     Fin();
 }

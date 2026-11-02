@@ -6,10 +6,10 @@ class Track_15a320 {
   public:
     hulk_intptr method();
 };
-extern void* __cdecl operator_new(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::GroundSlideTrack>::vfunc_5() {
-    Track_15a320* p = (Track_15a320*)operator_new(0x38);
+    Track_15a320* p = (Track_15a320*)FUN_0008d690(0x38);
     if (p)
         return (void*)(p->method());
     return (void*)(0);

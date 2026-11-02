@@ -86,8 +86,8 @@ struct World {
     char pad[0x44];
     Mgr_37860 *mgr;
 };
-void __cdecl FUN_000964d0();
-void *__cdecl FUN_0008d690(unsigned int size);
+extern "C" void __cdecl FUN_000964d0();
+extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 
 namespace pure3d {
 class __declspec(novtable) Entity {

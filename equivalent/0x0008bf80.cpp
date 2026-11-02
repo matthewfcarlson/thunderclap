@@ -4,7 +4,7 @@
 #include "decls/data/game/global.h"
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* p) { return p; }
-void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 typedef void (*Callback)();
 #define CB(a) void FUN_##a();
 CB(00023e50) CB(00023e60) CB(000893c0) CB(000895c0) CB(000897e0) CB(00089800) CB(00089820) CB(00089830) CB(000898d0) CB(00089910) CB(00089920) CB(00089a00) CB(00089a10) CB(00089ab0) CB(00089f00) CB(00089f80) CB(0008a060) CB(0008a090) CB(0008a2b0) CB(0008a2d0) CB(0008a310) CB(0008abc0)
@@ -14,7 +14,7 @@ struct Binding { virtual void slot0(); virtual void slot1(); virtual void slot2(
 template<class C, class R, class A> struct Method1 : Binding { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); };
 template<class C, class R, class A> struct Closure1 : Method1<C,R,A> { C* owner; virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); };
 struct Registry { void FUN_0008bb50(const char*,CGameFlowManager*,Callback); void FUN_0008bbc0(const char*,CGameFlowManager*,Callback); void FUN_0008bc30(const char*,CGameFlowManager*,Callback); void FUN_0008bd40(const char*,CGameFlowManager*,Callback); void FUN_0008bdb0(const char*,CGameFlowManager*,Callback); void FUN_0008bf10(const char*,CGameFlowManager*,Callback); void FUN_001d3b70(const char*,void*); };
-Registry* FUN_001d4c90();
+extern "C" Registry* FUN_001d4c90();
 class CGameFlowManager { public: char padding[0xac0]; void* context; Pool* pool; unsigned int* records; void* other; void FUN_0008bf80(void*,void*); };
 #define MAKE(R,A,name,cb,rt,at) { void* mem=FUN_0008d690(0x24); Closure1<CGameFlowManager,R,A>* b=0; if(mem) { Binding* base=(Binding*)mem; base->FUN_001d0480(name,1); Method1<CGameFlowManager,R,A>* m=new(mem) Method1<CGameFlowManager,R,A>; m->callback=cb; m->resultType=FUN_001d04d0(&rt); m->argumentType=FUN_001d04d0(&at); b=new(mem) Closure1<CGameFlowManager,R,A>; b->owner=this; } reg->FUN_001d3b70(name,b); }
 void CGameFlowManager::FUN_0008bf80(void* first,void* second) {

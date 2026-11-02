@@ -3,7 +3,7 @@
 #include "decls/data/game/hulkfight/ai.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+extern "C" void* FUN_0008d690(unsigned int size);
 
 namespace hulkfight {
 namespace ai {
@@ -38,7 +38,7 @@ struct ParamRegistry {
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
-void FUN_001291d0()
+extern "C" void FUN_001291d0()
 {
     if (DAT_004e0df8 == 0) {
         void* params[2];

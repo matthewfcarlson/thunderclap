@@ -17,7 +17,7 @@ struct Stats_4dc60 {
 };
 
 void* __fastcall FUN_000592a0(void* params);
-Stats_4dc60* __fastcall FUN_00059a30(void* owner);
+extern "C" Stats_4dc60* __fastcall FUN_00059a30(void* owner);
 extern "C" float FUN_00018a20(float v);
 extern "C" float FUN_00224fc0(float a, float b);
 

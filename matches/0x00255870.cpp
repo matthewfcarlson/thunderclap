@@ -7,10 +7,10 @@ class SeqEvent {
     virtual void vfunc_4();
     virtual void vfunc_5();
 };
-extern char check4(void*, void*);
-extern char check2(void*, void*);
-extern char check3(void*, void*);
-extern char check5(void*, void*);
+extern "C" char FUN_0025abd0(void*, void*);
+extern "C" char FUN_0025aa80(void*, void*);
+extern "C" char FUN_0025bce0(void*, void*);
+extern "C" char FUN_0024f010(void*, void*);
 class Tail_255870 {
   public:
     char f(void*);
@@ -26,9 +26,9 @@ class SeqEventCrossFade : public SeqEvent {
     virtual void vfunc_4();
 };
 int SeqEventCrossFade::vfunc_0(void* p) {
-    if ((char)SeqEvent::vfunc_0(p) && check4(p, (char*)this + 8) && check4(p, (char*)this + 12) &&
-        check4(p, (char*)this + 16) && check4(p, (char*)this + 20) && check2(p, (char*)this + 24) &&
-        check2(p, (char*)this + 25) && check3(p, (char*)this + 28) && check5(p, (char*)this + 40) &&
+    if ((char)SeqEvent::vfunc_0(p) && FUN_0025abd0(p, (char*)this + 8) && FUN_0025abd0(p, (char*)this + 12) &&
+        FUN_0025abd0(p, (char*)this + 16) && FUN_0025abd0(p, (char*)this + 20) && FUN_0025aa80(p, (char*)this + 24) &&
+        FUN_0025aa80(p, (char*)this + 25) && FUN_0025bce0(p, (char*)this + 28) && FUN_0024f010(p, (char*)this + 40) &&
         tail.f(p))
         return 1;
     return 0;

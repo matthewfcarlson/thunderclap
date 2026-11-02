@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 extern "C" char DAT_0040dca4[];
-extern void* Alloc(hulk_uintptr);
+extern "C" void* FUN_0008d690(hulk_uintptr);
 class Sub_114cb0 {
   public:
     void Init();
@@ -19,7 +19,7 @@ class AIHistorySetTrack {
     void BaseInit();
 };
 AIHistorySetTrack* Factory() {
-    AIHistorySetTrack* p = (AIHistorySetTrack*)Alloc(0x20);
+    AIHistorySetTrack* p = (AIHistorySetTrack*)FUN_0008d690(0x20);
     if (p) {
         p->BaseInit();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_0040dca4);

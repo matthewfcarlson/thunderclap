@@ -32,7 +32,7 @@ struct Source_30fa10 {
     void FUN_00284820(int flag);
 };
 
-void *__cdecl FUN_0008d6d0(unsigned int size);
+extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 void __cdecl FUN_0008d340(void *p);
 void __fastcall FUN_0030eba0(void *self);
 void __stdcall FUN_00011520(void *base, unsigned int size, int count, void *ctor);

@@ -14,7 +14,7 @@ class Game_be100 {
 };
 class Singleton;
 Game_be100* __cdecl FUN_000fc3d0();
-Singleton* __cdecl FUN_001d4c90();
+extern "C" Singleton* __cdecl FUN_001d4c90();
 
 class Menu_be100 {
   public:

@@ -7,7 +7,7 @@ class Track {
   public:
     void Set(void*);
 };
-void fn(Track* track, const char* name) {
+extern "C" void FUN_0017cc00(Track* track, const char* name) {
     Caster_17cc00 caster;
     void* found = Find(name, &caster);
     track->Set(found);

@@ -9,7 +9,7 @@ struct Target {
     virtual void slot2();
     virtual int slot3(void*, unsigned, unsigned);
 };
-int __cdecl FUN_000c1ed0(Target* target, void* resource) {
+extern "C" int __cdecl FUN_000c1ed0(Target* target, void* resource) {
     unsigned __int64 result = FUN_0027b020(resource);
     DynamicCasterVtable* caster = &DAT_00409148;
     return target->slot3(&caster, (unsigned)result, (unsigned)(result >> 32));

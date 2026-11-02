@@ -21,7 +21,7 @@ class SeqEventNestTrack_24e730 {
     void a();
     void b();
 };
-extern void FUN_00247550(void*, SeqEventNestTrack*);
+extern "C" void FUN_00247550(void*, SeqEventNestTrack*);
 SeqEventNestTrack* SeqEventNestTrack::f4(unsigned int param) {
     ((SeqEventNestTrack_24e730*)((char*)this + 8))->a();
     ((SeqEventNestTrack_24e730*)this)->b();

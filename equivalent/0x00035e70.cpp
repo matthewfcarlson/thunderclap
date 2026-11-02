@@ -6,7 +6,7 @@
 #include "decls/data/game/unknown.h"
 
 struct Status { char padding[12]; int mode; };
-int __cdecl FUN_00044560(Status *);
+extern "C" int __cdecl FUN_00044560(Status *);
 
 unsigned int FUN_00035e70(Status *status, float value)
 {

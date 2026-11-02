@@ -12,9 +12,9 @@ class ListenerEffectXBox : public MetaEntity {
   public:
     bool vfunc_4(int);
 };
-void helper(void*, int, int);
+extern "C" void FUN_00241280(void*, int, int);
 bool ListenerEffectXBox::vfunc_4(int x) {
     MetaEntity::vfunc_4(x);
-    helper((char*)this + 0x28, 0, 0);
+    FUN_00241280((char*)this + 0x28, 0, 0);
     return true;
 }

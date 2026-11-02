@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 23/23)
 // FUN_003335e0 @ 0x003335e0
 typedef unsigned int U_3335e0;
-extern U_3335e0* __cdecl FUN_0031c680(U_3335e0* out, U_3335e0 color, U_3335e0 mask, U_3335e0 alpha);
+extern "C" U_3335e0* __cdecl FUN_0031c680(U_3335e0* out, U_3335e0 color, U_3335e0 mask, U_3335e0 alpha);
 
 struct Obj_3335e0 {
     char p0[0x18];

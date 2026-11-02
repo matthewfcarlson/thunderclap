@@ -12,10 +12,10 @@ class PropSetStateByIndexTrack_18c060 {
     int f;
     void Init();
 };
-extern void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropSetStateByIndexTrack>::vfunc_5() {
-    PropSetStateByIndexTrack_18c060* p = (PropSetStateByIndexTrack_18c060*)Allocate(0x18);
+    PropSetStateByIndexTrack_18c060* p = (PropSetStateByIndexTrack_18c060*)FUN_0008d690(0x18);
     if (p) {
         p->Init();
         p->a = ((hulk_intptr)DAT_0041944c);

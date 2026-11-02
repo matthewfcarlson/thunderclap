@@ -10,7 +10,7 @@ struct Inner_213470 {
 };
 void helper1(Obj_213470*);
 int helper2(Obj_213470*, int, int*);
-int FUN_00213470(Obj_213470* self, int arg) {
+extern "C" int FUN_00213470(Obj_213470* self, int arg) {
     Inner_213470* q = self->p;
     if (q->b >= q->a)
         helper1(self);

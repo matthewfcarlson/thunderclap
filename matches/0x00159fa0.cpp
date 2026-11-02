@@ -14,10 +14,10 @@ struct HitFloatTrack_159fa0 {
 struct Initializer_159fa0 {
     void Init();
 };
-extern void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitFloatTrack>::vfunc_5() {
-    HitFloatTrack_159fa0* p = (HitFloatTrack_159fa0*)Allocate(0x28);
+    HitFloatTrack_159fa0* p = (HitFloatTrack_159fa0*)FUN_0008d690(0x28);
     if (p) {
         ((Initializer_159fa0*)p)->Init();
         *(int*)((char*)p + 12) = 0;

@@ -32,10 +32,10 @@ struct Binding_255ed0 {
 };
 
 int __cdecl FUN_0025d060(int handle);
-void __cdecl FUN_0025be60(int key, Pair_255ed0 *out);
-int __cdecl FUN_00258f00(int id);
-int __cdecl FUN_0024c4d0(Pair_255ed0 *pair, int id);
-float __cdecl FUN_00261bb0(int word, int param, int a, unsigned int bits, int constant);
+extern "C" void __cdecl FUN_0025be60(int key, Pair_255ed0 *out);
+extern "C" int __cdecl FUN_00258f00(int id);
+extern "C" int __cdecl FUN_0024c4d0(Pair_255ed0 *pair, int id);
+extern "C" float __cdecl FUN_00261bb0(int word, int param, int a, unsigned int bits, int constant);
 
 class SeqActionClip_255ed0 {
 public:

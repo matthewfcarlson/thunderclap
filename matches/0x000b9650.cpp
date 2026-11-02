@@ -21,7 +21,7 @@ class Panel_b9650 {
     void FUN_00089d30();
 };
 Game_b9650* __cdecl FUN_000fc3d0();
-void __cdecl FUN_000fc280(const char* name);
+extern "C" void __cdecl FUN_000fc280(const char* name);
 
 class Menu_b9650 {
   public:

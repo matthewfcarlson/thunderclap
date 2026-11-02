@@ -1,4 +1,4 @@
-int __cdecl FUN_000969d0(int);
+extern "C" int __cdecl FUN_000969d0(int);
 class Queue {
   public:
     char pad[0x200];

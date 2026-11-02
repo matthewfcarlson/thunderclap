@@ -9,7 +9,7 @@ struct S_212c50 {
     int d;
 };
 extern void Grow(S_212c50*, int);
-int __cdecl target(S_212c50* p, int n) {
+extern "C" int __cdecl FUN_00212c50(S_212c50* p, int n) {
     if (((p->a - p->b) >> 3) + n > 0x800)
         return 0;
     if (p->c - p->a <= n * 8)

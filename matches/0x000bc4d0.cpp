@@ -6,7 +6,7 @@ struct Obj_bc4d0;
 extern void* g_b_bc4d0;
 void __cdecl Fa(void*);
 void __cdecl Release(void*);
-void Fb();
+extern "C" void FUN_000fc160();
 Obj_bc4d0* Fc();
 struct Obj_bc4d0 {
     void Fd();
@@ -53,7 +53,7 @@ void Main_bc4d0::Run() {
         Release(b[i]);
         b[i] = 0;
     }
-    Fb();
+    FUN_000fc160();
     Obj_bc4d0* o = Fc();
     if (o)
         o->Fd();

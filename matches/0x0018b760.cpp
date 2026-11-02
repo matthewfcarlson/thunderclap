@@ -25,7 +25,7 @@ class TrackFactoryTemplate_18b760 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_001876f0();
 
 template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::SmartPropGrabbableCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Smart
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_18b760* t = new (mem) TrackFactoryTemplate_18b760();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_001876f0();
         return (void*)(t);
     }
     return (void*)(0);

@@ -34,13 +34,13 @@ class Target_1b77e0 {
 };
 
 void* __cdecl Alloc(int size, int tag);
-int __cdecl Push(int a);
-RC* __cdecl GetA(int a);
+extern "C" int __cdecl FUN_00266da0(int a);
+extern "C" RC* __cdecl FUN_00334910(int a);
 Obj3_1b77e0* __cdecl GetB(int a);
 
 void Target_1b77e0::Run() {
     mMgr->Fn();
-    int saved = Push(7);
+    int saved = FUN_00266da0(7);
     void* mem = Alloc(0x10, 7);
     RC* s;
     if (mem)
@@ -50,7 +50,7 @@ void Target_1b77e0::Run() {
     mSub = s;
     if (s)
         s->AddRef();
-    RC* a = GetA(7);
+    RC* a = FUN_00334910(7);
     if (a)
         a->AddRef();
     Obj3_1b77e0* nw = GetB(7);
@@ -67,5 +67,5 @@ void Target_1b77e0::Run() {
         a->Release();
     if (s)
         s->Release();
-    Push(saved);
+    FUN_00266da0(saved);
 }

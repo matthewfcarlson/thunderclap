@@ -15,10 +15,10 @@ class TargetingCondition_16d9c0 {
     char pad[12];
     char flag;
 };
-extern void* operator_new(unsigned int);
+extern "C" void* FUN_0008d690(unsigned int);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::TargetingCondition>::vfunc_5() {
-    TargetingCondition_16d9c0* p = (TargetingCondition_16d9c0*)operator_new(0x10);
+    TargetingCondition_16d9c0* p = (TargetingCondition_16d9c0*)FUN_0008d690(0x10);
     if (p) {
         p->Init(0);
         *(void**)p = (void*)((hulk_intptr)DAT_004167d8);

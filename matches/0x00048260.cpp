@@ -7,7 +7,7 @@ class C {
     int b;
     int c;
 };
-int Find(C* p) {
+extern "C" int FUN_00048260(C* p) {
     if (!p)
         return 0;
     C* q = p->First()->Second();

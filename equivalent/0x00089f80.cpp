@@ -7,7 +7,7 @@ struct InfoReader {
  bool FUN_001d2c60(const char*, char*, int);
  void FUN_001d19d0(int);
 };
-InfoReader* __cdecl FUN_001d4c90();
+extern "C" InfoReader* __cdecl FUN_001d4c90();
 void __cdecl FUN_000964a0(char*, int, const char*, ...);
 struct Entry_89f80 { unsigned int low, high; char text[16]; };
 struct Manager_89f80 {

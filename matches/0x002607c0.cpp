@@ -2,7 +2,7 @@ extern "C" void _ReadWriteBarrier();
 struct Node {
     Node* next;
 };
-bool __cdecl Read(unsigned a, unsigned* out);
+extern "C" bool __cdecl FUN_0025abd0(unsigned a, unsigned* out);
 char* __cdecl Alloc(unsigned a);
 struct SeqEventContainer_2607c0 {
     virtual bool v0(unsigned a);
@@ -12,7 +12,7 @@ struct SeqEventContainer_2607c0 {
 };
 bool SeqEventContainer_2607c0::v0(unsigned a) {
     unsigned n;
-    if (!Read(a, &n))
+    if (!FUN_0025abd0(a, &n))
         return false;
     unsigned i = 0;
     if (n > 0) {

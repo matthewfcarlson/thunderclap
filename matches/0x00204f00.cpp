@@ -30,7 +30,7 @@ class A_204f00 {
     Obj_204f00* p38;
     void finish(char*, int, int, int);
 };
-void FUN_00267110(int);
+extern "C" void FUN_00267110(int);
 void __fastcall target(A_204f00* a) {
     a->flag = 0;
     ((S_204f00*)a->p38)->run();

@@ -35,7 +35,7 @@ struct Data_213dd0 {
     char pad3[4];
     Ent_213dd0* items[1];
 };
-char* FUN_00213dd0(Out_213dd0* out, int x, int index) {
+extern "C" char* FUN_00213dd0(Out_213dd0* out, int x, int index) {
     R_213dd0* r = GetR(x, (hulk_intptr)out);
     if (r->type != 6)
         return 0;

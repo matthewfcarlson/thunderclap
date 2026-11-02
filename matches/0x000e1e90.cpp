@@ -11,7 +11,7 @@ struct Node {
 struct Handle_e1e90 {
     Node* p;
 };
-int Cmp(Handle_e1e90* a, Handle_e1e90* b) {
+extern "C" int FUN_000e1e90(Handle_e1e90* a, Handle_e1e90* b) {
     Node* na = a->p;
     Node* nb = b->p;
     if (!na)

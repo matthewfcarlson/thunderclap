@@ -13,7 +13,7 @@ struct Temp_262700 {
     char* Make(const char*, int);
     void Destroy();
 };
-Path_262700* FUN_00262700(Path_262700* self, Path_262700* other) {
+extern "C" Path_262700* FUN_00262700(Path_262700* self, Path_262700* other) {
     unsigned int n = self->Length();
     if (n > 0) {
         char* s = self->Buffer();

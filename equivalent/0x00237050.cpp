@@ -8,7 +8,7 @@ struct Factory_237050 { virtual void v0(); virtual void v1(); virtual void v2();
 struct Registry_237050 { Factory_237050* FUN_00236790(Token_237050); };
 void __cdecl FUN_00232cc0(Stream*, const char*);
 int __cdecl FUN_00238190(int);
-int __cdecl FUN_00266da0(int);
+extern "C" int __cdecl FUN_00266da0(int);
 struct List_237050 { OpportunityAction_237050* head; bool FUN_00237050(Registry_237050*, Stream*, int); };
 bool List_237050::FUN_00237050(Registry_237050* registry, Stream* stream, int index) {
  OpportunityAction_237050* current=head; OpportunityAction_237050* previous=0; int i=0;

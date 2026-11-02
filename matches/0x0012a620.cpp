@@ -4,7 +4,7 @@
 extern "C" char DAT_0040fdd4[];
 typedef unsigned int u32_12a620;
 typedef unsigned char u8;
-extern void* Alloc(hulk_uintptr);
+extern "C" void* FUN_0008d690(hulk_uintptr);
 class InitBase_12a620 {
   public:
     void Init(int);
@@ -19,7 +19,7 @@ struct TargetDistanceYCondition_12a620 : InitBase_12a620 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetDistanceYCondition>::vfunc_5() {
-    TargetDistanceYCondition_12a620* p = (TargetDistanceYCondition_12a620*)Alloc(0x18);
+    TargetDistanceYCondition_12a620* p = (TargetDistanceYCondition_12a620*)FUN_0008d690(0x18);
     if (p != 0) {
         p->Init(0);
         p->a = 0;

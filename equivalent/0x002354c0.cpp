@@ -10,7 +10,7 @@ struct Key_2354c0 {
     void FUN_0027af00();
 };
 
-void FUN_00364140();
+extern "C" void FUN_00364140();
 
 class Sink_2354c0 {
 public:

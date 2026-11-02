@@ -31,6 +31,6 @@ class GlobalThing_fc340 {
     virtual void v25();
     virtual void v26(int);
 };
-void wrapper(int a) {
+extern "C" void FUN_000fc340(int a) {
     (*(GlobalThing_fc340**)&DAT_004e0a60)->v26(a);
 }

@@ -159,10 +159,10 @@ struct Owner_19e430 { char pad[8]; void *f8; };
 
 
 Context *__fastcall FUN_000592a0(Owner_19e430 *owner);
-Stats_19e430 *__fastcall FUN_00059a30(Context *ctx);
+extern "C" Stats_19e430 *__fastcall FUN_00059a30(Context *ctx);
 FlagSrc *__fastcall FUN_00086340(Holder28_19e430 *s);
-unsigned __int64 __cdecl FUN_0027afb0(const char *s);
-char __cdecl FUN_00096b50(Target_19e430 *t, V3_19e430 *c, void *out);
+extern "C" unsigned __int64 __cdecl FUN_0027afb0(const char *s);
+extern "C" char __cdecl FUN_00096b50(Target_19e430 *t, V3_19e430 *c, void *out);
 // equiv-conv: FUN_001947a0 esi stack stack
 void __cdecl FUN_001947a0(V3_19e430 *pos, Stats_19e430 *fighter, float x);
 

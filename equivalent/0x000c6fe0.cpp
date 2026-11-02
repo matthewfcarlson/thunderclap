@@ -6,7 +6,7 @@ struct ResourceName_c6fe0 {
  void FUN_0027af50();
  void FUN_0027af70(ResourceName_c6fe0* source);
 };
-void __cdecl FUN_00096e50(ResourceName_c6fe0* result, const char* name);
+extern "C" void __cdecl FUN_00096e50(ResourceName_c6fe0* result, const char* name);
 struct Lookup_c6fe0 { int FUN_00024280(unsigned int first, unsigned int second); };
 struct Loader_c6fe0 { bool FUN_001dd7b0(ResourceName_c6fe0* name); };
 struct World { char pad0[12]; Loader_c6fe0* loader; char pad1[16]; Lookup_c6fe0* lookup; };

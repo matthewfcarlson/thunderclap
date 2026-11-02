@@ -4,7 +4,7 @@ struct Obj_f8bd0 {
     int pad;
     int entries[128];
 };
-void __fastcall target(Obj_f8bd0* self) {
+extern "C" void __fastcall FUN_000f8bd0(Obj_f8bd0* self) {
     int i = 0;
     do {
         int v = self->entries[i];

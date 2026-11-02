@@ -4,7 +4,7 @@
 #include "decls/data/engine/content.h"
 
 void* FUN_00263ea0(unsigned int size);
-void* FUN_0008d690(unsigned int size);
+extern "C" void* FUN_0008d690(unsigned int size);
 
 struct Stream {
     char pad[0xc];

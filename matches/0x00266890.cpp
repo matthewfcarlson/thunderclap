@@ -1,5 +1,5 @@
 #include "compat/ptr.h"
-extern int FUN_00267f80();
+extern "C" int FUN_00267f80();
 struct Obj_266890 {
     virtual void V();
 };

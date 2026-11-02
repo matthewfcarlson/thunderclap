@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_003f6ed8[];
-extern void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 class CAxisArcCondition_56be0 {
   public:
     virtual void f0();
@@ -16,7 +16,7 @@ class CAxisArcCondition_56be0 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<CAxisArcCondition>::vfunc_5() {
-    CAxisArcCondition_56be0* p = (CAxisArcCondition_56be0*)Alloc(0x20);
+    CAxisArcCondition_56be0* p = (CAxisArcCondition_56be0*)FUN_0008d690(0x20);
     if (p) {
         p->Init(0);
         *(int*)((char*)p + 0xc) = 0;

@@ -12,7 +12,7 @@ void* __stdcall D3DDevice_CreateTexture2(unsigned int width, unsigned int height
                                          unsigned int levels, unsigned int usage, unsigned int format,
                                          unsigned int pool);
 } // namespace D3D8
-void* __cdecl FUN_0008d690(unsigned int bytes);
+extern "C" void* __cdecl FUN_0008d690(unsigned int bytes);
 struct d3dToon2VertexShader_330350 {
     char pad0[0x10];
     void* device;

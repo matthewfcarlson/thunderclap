@@ -8,7 +8,7 @@ extern void __cdecl f338fe0(void*, int, const float*);
 extern int __cdecl f212f00(void*, int);
 extern void __cdecl f212d80(void*, int);
 extern void __cdecl f33b110(void*, int, int);
-int __cdecl target(void* p) {
+extern "C" int __cdecl FUN_0033b500(void* p) {
     f339d70(p, 1, 5);
     int v = f3392c0(p, 1);
     f338fe0(p, 0x28, &DAT_003f335c);

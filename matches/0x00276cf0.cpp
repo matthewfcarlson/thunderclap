@@ -7,7 +7,7 @@ class Other_276cf0 {
     virtual void c();
     virtual void tick();
 };
-void FUN_0026d6d0(int);
+extern "C" void FUN_0026d6d0(int);
 
 void core::InstanceDrive::vfunc_22() {
     while (!vfunc_21()) {

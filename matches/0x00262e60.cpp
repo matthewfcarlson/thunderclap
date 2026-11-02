@@ -23,7 +23,7 @@ struct V {
     virtual void k();
     virtual void run();
 };
-Stream* __cdecl FUN_00262e60(int param) {
+extern "C" Stream* __cdecl FUN_00262e60(int param) {
     Stream* p = FUN_00247530(((char*)&DAT_004e7b08));
     Stream* result = 0;
     if (p) {

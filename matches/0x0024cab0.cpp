@@ -2,7 +2,7 @@
 // data: g0_24cab0 = DAT_004e62b0
 
 typedef unsigned int U_24cab0;
-void f(U_24cab0* a, U_24cab0* b) {
+extern "C" void FUN_0024cab0(U_24cab0* a, U_24cab0* b) {
     if (a) {
         (*(U_24cab0*)&DAT_004e62b0) = a[0];
         (*(U_24cab0*)&DAT_004e62b4) = a[1];

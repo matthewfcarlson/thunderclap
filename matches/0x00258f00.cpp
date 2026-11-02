@@ -14,7 +14,7 @@ struct Obj_258f00 {
     Config_258f00* config;
 };
 extern "C" void __stdcall GetCurrentPosition(int, unsigned int*, unsigned int);
-int __cdecl FUN_00258f00(Obj_258f00* p) {
+extern "C" int __cdecl FUN_00258f00(Obj_258f00* p) {
     unsigned int pos = 0;
     GetCurrentPosition(*(int*)((char*)p->sound + 0x7c), &pos, 0);
     return (((p->config->value >> 4) & 0x1f) * pos);

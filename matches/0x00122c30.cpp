@@ -8,7 +8,7 @@ class Obj {
     void apply(Track*);
 };
 Track* find(void*, TrackFactoryCasterTemplate_122c30*);
-void target(Obj* o, void* name) {
+extern "C" void FUN_00122c30(Obj* o, void* name) {
     TrackFactoryCasterTemplate_122c30 c;
     Track* p = find(name, &c);
     o->apply(p);

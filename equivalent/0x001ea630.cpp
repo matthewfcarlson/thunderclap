@@ -13,7 +13,7 @@ struct Handle_1ea630 {
     char data[0xa0];
     void FUN_002458f0(Text_1ea630 *src);
 };
-int __cdecl FUN_00246100(Handle_1ea630 *h);
+extern "C" int __cdecl FUN_00246100(Handle_1ea630 *h);
 
 struct Frame_1ea630 {
     Text_1ea630 text;

@@ -48,8 +48,8 @@ struct Allocator {
     virtual void d();
     virtual void free(void*);
 };
-void __cdecl FUN_0026d850(void*);
-void __cdecl FUN_0026d840(void*);
+extern "C" void __cdecl FUN_0026d850(void*);
+extern "C" void __cdecl FUN_0026d840(void*);
 core::DriveOpenRequest* core::DriveOpenRequest::vfunc_0(unsigned flags) {
     this->DriveRequest::~DriveRequest();
     drive->lock.acquire();

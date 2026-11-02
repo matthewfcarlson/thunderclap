@@ -6,7 +6,7 @@ struct Mesh_1acdd0 { Vec3_1acdd0 *FUN_001b56a0(int face, int corner); };
 
 // Centroid of the three corners of a face.  The x sum is rounded to float
 // before it is scaled, y stays unrounded, z rounds its first partial sum.
-Vec3_1acdd0 * __cdecl FUN_001acdd0(Vec3_1acdd0 *out, Mesh_1acdd0 *mesh, int face)
+extern "C" Vec3_1acdd0 * __cdecl FUN_001acdd0(Vec3_1acdd0 *out, Mesh_1acdd0 *mesh, int face)
 {
     Vec3_1acdd0 r;
     Vec3_1acdd0 *a = mesh->FUN_001b56a0(face, 0);

@@ -3,7 +3,7 @@
 
 typedef unsigned int u32_16d7b0;
 typedef unsigned char u8;
-void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct IntentionInputCondition_16d7b0 {
     u8 pad[16];
     void Init(int);
@@ -11,7 +11,7 @@ struct IntentionInputCondition_16d7b0 {
 extern u32_16d7b0 gVft;
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::IntentionInputCondition>::vfunc_5() {
-    IntentionInputCondition_16d7b0* p = (IntentionInputCondition_16d7b0*)Allocate(0x10);
+    IntentionInputCondition_16d7b0* p = (IntentionInputCondition_16d7b0*)FUN_0008d690(0x10);
     if (p) {
         p->Init(0);
         ((u8*)p)[0xd] = 1;

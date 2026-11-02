@@ -13,7 +13,7 @@ class CNISCamera {
     char pad[0x16c];
     Ref_ac5a0* mRef;
 };
-void __fastcall init(CNISCamera*);
+extern "C" void __fastcall FUN_000a9620(CNISCamera*);
 void __cdecl thunk(CNISCamera*);
 CNISCamera* CNISCamera::vfunc_2(unsigned char flag) {
     *(volatile hulk_intptr*)this = (hulk_intptr)&vtable_ac5a0;
@@ -22,7 +22,7 @@ CNISCamera* CNISCamera::vfunc_2(unsigned char flag) {
         r->f1();
         mRef = 0;
     }
-    init(this);
+    FUN_000a9620(this);
     if (flag & 1)
         thunk(this);
     return this;

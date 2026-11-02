@@ -29,8 +29,8 @@ public:
 };
 
 void FUN_0008d340(void *p);
-void *FUN_0008d6d0(unsigned int size);
-Pair_288080 FUN_002672f0(const char *name, int a, int b);
+extern "C" void *FUN_0008d6d0(unsigned int size);
+extern "C" Pair_288080 FUN_002672f0(const char *name, int a, int b);
 
 class PoseAnimationController_288080 {
 public:

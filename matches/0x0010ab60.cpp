@@ -1,11 +1,11 @@
 #include "compat/ptr.h"
 #include "gen/global.h"
 
-void helper(int, void*, float*);
+extern "C" void FUN_00102a50(int, void*, float*);
 
 bool CSeekBehaviour::vfunc_3(hulk_intptr a, int b, void* __p2, int d, int e) { float * p = (float *)__p2;
 
-    helper(b, (char*)this + 16, p);
+    FUN_00102a50(b, (char*)this + 16, p);
     if (this->f_0c) {
         float f = this->f_08;
         *p = f * *p;

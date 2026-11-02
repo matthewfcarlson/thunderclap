@@ -9,7 +9,7 @@ struct Context {
  virtual void slot0(); virtual void slot1(); virtual void slot2();
  virtual CollisionData* slot3();
 };
-extern bool __cdecl FUN_00018960(float, float, float);
+extern "C" bool __cdecl FUN_00018960(float, float, float);
 struct CCollisionHeightCondition {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3();
  virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6();

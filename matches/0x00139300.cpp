@@ -7,7 +7,7 @@ class Owner {
   public:
     void Apply(int);
 };
-void __cdecl Target(Owner* owner, int id) {
+extern "C" void __cdecl FUN_00139300(Owner* owner, int id) {
     TrackFactoryCasterTemplate_139300 caster;
     int v = Find(id, &caster);
     owner->Apply(v);

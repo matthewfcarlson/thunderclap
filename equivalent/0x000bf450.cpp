@@ -15,7 +15,7 @@ public:
 };
 
 DialogManager_bf450* __cdecl FUN_000fc3d0();
-void __cdecl FUN_000fc300();
+extern "C" void __cdecl FUN_000fc300();
 
 class MenuState {
 public:

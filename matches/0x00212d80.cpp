@@ -7,7 +7,7 @@ struct Buf {
     Item* cur;
     Item* start;
 };
-Buf* __cdecl FUN_00212d80(Buf* p, int n) {
+extern "C" Buf* __cdecl FUN_00212d80(Buf* p, int n) {
     if (n >= 0) {
         n <<= 3;
         while ((hulk_uintptr)p->cur < (hulk_uintptr)((char*)p->start + n)) {

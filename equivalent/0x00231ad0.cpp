@@ -11,7 +11,7 @@ struct Node {
 };
 struct Item_231ad0 { void FUN_00232060(Owner_231ad0*,Item_231ad0*,int,unsigned); void FUN_002320d0(Owner_231ad0*,Item_231ad0*,int); };
 extern int __cdecl FUN_00238190(int);
-extern int __cdecl FUN_00266da0(int);
+extern "C" int __cdecl FUN_00266da0(int);
 struct Owner_231ad0 { char pad[0x28]; Node* head; void FUN_00231ad0(Item_231ad0* input,int arg,unsigned flags); };
 void Owner_231ad0::FUN_00231ad0(Item_231ad0* input,int arg,unsigned flags) {
  int previous=FUN_00266da0(FUN_00238190(3));

@@ -7,7 +7,7 @@ class Owner {
     void Set(void*);
 };
 extern "C" void* Find(const char*, TrackFactoryCasterTemplate_122c00*);
-void FUN_00122c00(Owner* owner, const char* name) {
+extern "C" void FUN_00122c00(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_122c00 caster;
     owner->Set(Find(name, &caster));
 }

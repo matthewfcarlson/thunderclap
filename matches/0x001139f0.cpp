@@ -7,7 +7,7 @@ class Obj {
     void apply(void*);
 };
 extern void* lookup(const char*, Caster_1139f0*);
-void FUN_001139f0(Obj* obj, const char* name) {
+extern "C" void FUN_001139f0(Obj* obj, const char* name) {
     Caster_1139f0 caster;
     void* p = lookup(name, &caster);
     obj->apply(p);

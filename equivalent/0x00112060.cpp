@@ -37,7 +37,7 @@ template<class T> struct ParamFloatConstRange {
  uint extra;
 };
 }
-void FUN_00112060() {
+extern "C" void FUN_00112060() {
  if (!(*(uint*)&DAT_004e0b24)) {
   void* items[3];
   typedef fight::ParamEnumConstList<hulkfight::ai::KeyWordWaitCondition> E;

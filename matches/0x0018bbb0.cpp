@@ -4,7 +4,7 @@
 extern "C" char DAT_0041926c[];
 typedef unsigned int u32_18bbb0;
 typedef unsigned char u8;
-void* __cdecl alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 class Condition_18bbb0 {
   public:
     virtual void a();
@@ -20,7 +20,7 @@ class Condition_18bbb0 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::PropCollidedWithWorldCondition>::vfunc_5() {
-    Condition_18bbb0* p = (Condition_18bbb0*)alloc(0x14);
+    Condition_18bbb0* p = (Condition_18bbb0*)FUN_0008d690(0x14);
     if (p) {
         p->init(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0041926c);

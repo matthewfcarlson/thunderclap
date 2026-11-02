@@ -2,7 +2,7 @@
 // fight::TrackFactoryTemplate<hulkfight::motion::DriftToPositionTrack>::vfunc_5 @ 0x0017e350
 #include "gen/fight.h"
 
-void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 struct DriftToPositionTrack_17e350 {
     virtual void vfunc_0();

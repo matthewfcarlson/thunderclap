@@ -9,7 +9,7 @@ struct Tile_2bd570 {
     int h;
 };
 
-int __cdecl FUN_00356c30(int value);
+extern "C" int __cdecl FUN_00356c30(int value);
 
 struct Mosaic {
     char pad0[0x54];

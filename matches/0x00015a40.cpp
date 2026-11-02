@@ -44,7 +44,7 @@ struct Context {
     char pad[0x44];
     Factory_15a40* factory;
 };
-extern int __cdecl FUN_00266da0(int);
+extern "C" int __cdecl FUN_00266da0(int);
 struct Target_15a40 {
     char pad[0x1c];
     Owner_15a40* owner;

@@ -1,7 +1,7 @@
 #include "decls/data/game/unknown.h"
 // data: gName = DAT_0048e128
 
-extern "C" unsigned char __cdecl readChar(const char*);
+extern "C" unsigned char __cdecl FUN_001d04d0(const char*);
 class Function_86e60 {
   public:
     Function_86e60(int, int);
@@ -18,7 +18,7 @@ class Function2 : public Function_86e60 {
 };
 Function2::Function2(int a, int b) : Function_86e60(a, 2) {
     value = b;
-    val18 = readChar(((char*)&DAT_0048e128));
-    *(unsigned char*)((char*)this + 0x10) = readChar(((char*)&DAT_0048e128));
-    *(unsigned char*)((char*)this + 0x11) = readChar(((char*)&DAT_0048e128));
+    val18 = FUN_001d04d0(((char*)&DAT_0048e128));
+    *(unsigned char*)((char*)this + 0x10) = FUN_001d04d0(((char*)&DAT_0048e128));
+    *(unsigned char*)((char*)this + 0x11) = FUN_001d04d0(((char*)&DAT_0048e128));
 }

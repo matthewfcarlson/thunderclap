@@ -252,17 +252,17 @@ struct Agent {
     bool FUN_00107760(Ctx *ctx, Fighter *fighter, Vec3 *base, Vec3 *step);
 };
 
-double __cdecl FUN_000186f0(float *a, float *b);
-double __cdecl FUN_00018710(float *a, float *b);
-bool __cdecl FUN_00036b10(World *w, Vec3 *from, Vec3 *to, Vec3 *hit, Vec3 *normal, unsigned char *flagA, unsigned char *flagB);
-bool __cdecl FUN_00065870(Vec3 *a, Vec3 *b);
-Vec3 *__cdecl FUN_00083dd0(Vec3 *out, float s, Vec3 *v);
-Vec3 *__cdecl FUN_00083e00(Vec3 *out, Vec3 *v, float s);
-void __cdecl FUN_00096a40(Target *t, Vec3 *outPos);
+extern "C" double __cdecl FUN_000186f0(float *a, float *b);
+extern "C" double __cdecl FUN_00018710(float *a, float *b);
+extern "C" bool __cdecl FUN_00036b10(World *w, Vec3 *from, Vec3 *to, Vec3 *hit, Vec3 *normal, unsigned char *flagA, unsigned char *flagB);
+extern "C" bool __cdecl FUN_00065870(Vec3 *a, Vec3 *b);
+extern "C" Vec3 *__cdecl FUN_00083dd0(Vec3 *out, float s, Vec3 *v);
+extern "C" Vec3 *__cdecl FUN_00083e00(Vec3 *out, Vec3 *v, float s);
+extern "C" void __cdecl FUN_00096a40(Target *t, Vec3 *outPos);
 double __cdecl FUN_0010ae50(World *w, Fighter *f, float limit, Vec3 *probe, Vec3 *steer, unsigned a, unsigned b);
-double __cdecl FUN_0010b1c0(Ctx *ctx, Fighter *f, float limit, Vec3 *steer);
-unsigned __cdecl FUN_00202f00();
-unsigned __int64 __cdecl FUN_0027b020(const char *name);
+extern "C" double __cdecl FUN_0010b1c0(Ctx *ctx, Fighter *f, float limit, Vec3 *steer);
+extern "C" unsigned __cdecl FUN_00202f00();
+extern "C" unsigned __int64 __cdecl FUN_0027b020(const char *name);
 
 // The original's stack frame, locals S+0x40 .. S+0x18c (offsets in the comments are from S).
 struct Frame {

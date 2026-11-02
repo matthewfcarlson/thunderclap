@@ -5,7 +5,7 @@ struct Obj_242f60 {
     int field34;
 };
 void FUN_00242da0(int a, Obj_242f60* b);
-void FUN_00242f60(int a, Obj_242f60* b, int c) {
+extern "C" void FUN_00242f60(int a, Obj_242f60* b, int c) {
     if (b->field34 == 0)
         FUN_00242da0(a, b);
     if (b->field34 != 2) {

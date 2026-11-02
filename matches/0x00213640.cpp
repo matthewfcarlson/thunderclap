@@ -7,7 +7,7 @@ struct Pair_213640 {
 };
 Obj_213640* __fastcall FUN_00212bb0(unsigned, Obj_213640*);
 Pair_213640* __cdecl FUN_00219dc0(unsigned, unsigned);
-void __cdecl FUN_00213640(Obj_213640* a, unsigned b, unsigned c) {
+extern "C" void __cdecl FUN_00213640(Obj_213640* a, unsigned b, unsigned c) {
     Obj_213640* p = FUN_00212bb0(b, a);
     Pair_213640* q = FUN_00219dc0(*(unsigned*)((char*)p + 4), c);
     unsigned* out = a->out;

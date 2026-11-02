@@ -12,10 +12,10 @@ class CGrappleTimerCondition {
 };
 
 extern char CGrappleTimerCondition_vftable[];
-extern void* __cdecl AllocMem(unsigned int size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 
 void* vfunc_5() {
-    CGrappleTimerCondition* p = (CGrappleTimerCondition*)AllocMem(0x1c);
+    CGrappleTimerCondition* p = (CGrappleTimerCondition*)FUN_0008d690(0x1c);
     if (p != 0) {
         p->Ctor(0);
         p->vfptr = CGrappleTimerCondition_vftable;

@@ -9,6 +9,6 @@ class C_fc150 {
     virtual void f4();
     virtual void f5();
 };
-void target() {
+extern "C" void FUN_000fc150() {
     (*(C_fc150**)&DAT_004e0a60)->f5();
 }

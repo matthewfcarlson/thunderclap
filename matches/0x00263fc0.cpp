@@ -3,6 +3,6 @@ struct X_263fc0 {
     char pad[0x14];
     unsigned value;
 };
-unsigned __fastcall target(X_263fc0* self) {
+extern "C" unsigned __fastcall FUN_00263fc0(X_263fc0* self) {
     return self->value;
 }

@@ -37,7 +37,7 @@ struct Raw_2f5130 {
 
 struct Registry_2f5130 { void FUN_00265210(SimpleChunkHandler_2f5130*, int); };
 
-void FUN_002f5130(){
+extern "C" void FUN_002f5130(){
     void* mem = FUN_00263ea0(0x14);
     SimpleChunkHandler_2f5130* l = 0;
     if (mem) l = new (mem) physics::ExportInfoLoader();

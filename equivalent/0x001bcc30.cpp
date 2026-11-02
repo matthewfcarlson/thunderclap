@@ -87,7 +87,7 @@ Cursor_1bcc30 **FUN_001c3d90();
 // equiv-conv: FUN_001bc530 esi stack
 void FUN_001bc530(V4_1bcc30 *q, V3_1bcc30 *v);
 void FUN_001bc8a0(Sub *sub, V4_1bcc30 *q);
-void FUN_00096a90(Ctl_1bcc30 *ctl, V3_1bcc30 *out);
+extern "C" void FUN_00096a90(Ctl_1bcc30 *ctl, V3_1bcc30 *out);
 struct Lookup_1bcc30 { Holder2_1bcc30 *FUN_001d75c0(int handle); };
 
 class Rig_1bcc30 {

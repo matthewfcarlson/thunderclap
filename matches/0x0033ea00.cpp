@@ -10,7 +10,7 @@ int __cdecl FUN_00212d70(lua_State* L);
 void __cdecl FUN_00213380(lua_State* L, const char* s, hulk_uintptr len);
 
 // Lua coroutine.status
-int __cdecl FUN_0033ea00(lua_State* L) {
+extern "C" int __cdecl FUN_0033ea00(lua_State* L) {
     struct Frame {
         char ar[0x60];
     } fr;

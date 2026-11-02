@@ -18,7 +18,7 @@ inline int find(Inventory* inv, __int64 key) {
     DynamicCaster_fb1c0 caster;
     return inv->get(&caster, key);
 }
-char FUN_000fb1c0(int id) {
+extern "C" char FUN_000fb1c0(int id) {
     char result = 0;
     __int64 key = FUN_0027b020(id);
     int item = find((*(Inventory**)&DAT_004dd9cc), key);

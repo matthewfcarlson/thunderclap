@@ -2,7 +2,7 @@
 // FUN_000717e0 @ 0x000717e0
 #include "decls/data/game/global.h"
 
-void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void __cdecl FUN_00068520();
 void __cdecl FUN_00068530();
@@ -21,7 +21,7 @@ template<class T> struct ParamFloatConstRange : ParamBase_717e0 {
 };
 }
 void __cdecl FUN_002347b0(void*, void*, int);
-void __cdecl FUN_000717e0() {
+extern "C" void __cdecl FUN_000717e0() {
     if (!DAT_004dcf7c) {
         fight::ParamFloatConstRange<CDrainHealthTrack>* params[3];
         const char* names[3] = {"timeBegin", "timeEnd", "damage"};

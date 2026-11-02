@@ -28,8 +28,8 @@ namespace core { struct DriveFindCloseRequest {
     char pad[4];
     T_275b60* field8;
 }; }
-extern void FUN_0026d850(void*);
-extern void FUN_0026d840(void*);
+extern "C" void FUN_0026d850(void*);
+extern "C" void FUN_0026d840(void*);
 core::DriveFindCloseRequest* core::DriveFindCloseRequest::vfunc_0(byte_275b60 flag) {
     *(void**)this = (void*)((hulk_intptr)DAT_0042b9bc);
     ((O_275b60*)((char*)field8 + 4))->a();

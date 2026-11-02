@@ -9,7 +9,7 @@ struct Obj_fc200 {
     int pad;
     Inner_fc200* field;
 };
-void FUN_000fc200(unsigned int a, unsigned int b) {
+extern "C" void FUN_000fc200(unsigned int a, unsigned int b) {
     (*(Obj_fc200**)&DAT_004e0a60)->field->run(a, b);
     (*(unsigned char*)&DAT_004e0a68) = 1;
 }

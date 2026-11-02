@@ -97,7 +97,7 @@ class d3dExtFrameBufferTexture : public HeapObj {
         c = 0;
     }
 };
-void FUN_00328690(d3dContext*);
+extern "C" void FUN_00328690(d3dContext*);
 struct LargeInt { unsigned int lo; int hi; };
 void __stdcall FUN_00354ce2(LargeInt*);
 class pddiBaseContext {

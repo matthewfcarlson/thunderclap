@@ -81,7 +81,7 @@ FEObject *__cdecl FUN_000fc260(const char *name);
 Manager_b9bf0 *__cdecl FUN_000fc1b0();
 void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 int __cdecl FUN_000964a0(char *dst, int size, const char *fmt, ...);
-int __cdecl FUN_00267760(char *dst, int size, const char *fmt, ...);
+extern "C" int __cdecl FUN_00267760(char *dst, int size, const char *fmt, ...);
 int __cdecl FUN_00345804(const char *s, const char *fmt, int *a, int *b);
 Registry_b9bf0 *__cdecl FUN_001d4c90();
 

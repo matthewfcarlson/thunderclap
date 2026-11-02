@@ -7,7 +7,7 @@ class Obj {
   public:
     void second(int);
 };
-void target(Obj* obj, int n) {
+extern "C" void FUN_0017d1e0(Obj* obj, int n) {
     Caster_17d1e0 caster;
     int x = first(n, &caster);
     obj->second(x);

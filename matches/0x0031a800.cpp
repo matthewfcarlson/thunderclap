@@ -5,7 +5,7 @@ struct Obj_31a800 {
     int state;
 };
 void thunk(int);
-void __fastcall FUN_0031a800(Obj_31a800* p) {
+extern "C" void __fastcall FUN_0031a800(Obj_31a800* p) {
     int i = p->value;
     p->copy = i;
     if (p->state == 1)

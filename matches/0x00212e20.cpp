@@ -7,7 +7,7 @@ struct Obj_212e20 {
     Pair_212e20* end;
 };
 Pair_212e20* __fastcall FUN_00212bb0(Obj_212e20*, Obj_212e20*);
-void FUN_00212e20(Obj_212e20* self, Obj_212e20* x) {
+extern "C" void FUN_00212e20(Obj_212e20* self, Obj_212e20* x) {
     Pair_212e20* p = FUN_00212bb0(x, self);
     Pair_212e20* q = self->end;
     while (q > p) {

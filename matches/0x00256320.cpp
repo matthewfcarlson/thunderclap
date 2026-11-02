@@ -30,9 +30,9 @@ class Target {
     void set(SeqActionClip*);
 };
 } // namespace audio
-extern "C" void* alloc(void*);
+extern "C" void* FUN_00247530(void*);
 inline audio::SeqActionClip* create(audio::SeqEventClip* p) {
-    audio::SeqActionClip* a = (audio::SeqActionClip*)alloc(((char*)((char*)&DAT_004e7508 + 104)));
+    audio::SeqActionClip* a = (audio::SeqActionClip*)FUN_00247530(((char*)((char*)&DAT_004e7508 + 104)));
     if (a) {
         a->audio::SeqActionClip::SeqActionClip(p);
         return a;

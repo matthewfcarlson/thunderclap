@@ -3,9 +3,9 @@
 #include "decls/data/platform/xbox/unknown.h"
 
 struct SoundState_240f50 {char pad0[0x1c]; int list; int pad20; unsigned int timestamp; char pad28[0xc]; void* device; unsigned int current[12]; unsigned int desired[12]; char pad98[4]; float volume; float fadeOut; float fadeIn; unsigned char active;};
-extern unsigned int __cdecl FUN_00267f80(); extern void* __cdecl FUN_00257ec0(void*); extern void* __cdecl FUN_00257ee0(void*); extern void __cdecl FUN_00258f90(void*, int);
+extern unsigned int __cdecl FUN_00267f80(); extern void* __cdecl FUN_00257ec0(void*); extern void* __cdecl FUN_00257ee0(void*); extern "C" void __cdecl FUN_00258f90(void*, int);
 namespace DSOUND {extern void __stdcall IDirectSound_SetI3DL2Listener(void*, void*, int); extern void __stdcall IDirectSound_CommitDeferredSettings(void*); extern int __cdecl DirectSoundDoWork();}
-int __cdecl FUN_00240f50() {
+extern "C" int __cdecl FUN_00240f50() {
  unsigned int now = FUN_00267f80(); SoundState_240f50* state = (*(SoundState_240f50**)&DAT_004e5ce0);
  unsigned int elapsed = now > state->timestamp ? now - state->timestamp : state->timestamp - now;
  state->timestamp = now; state = (*(SoundState_240f50**)&DAT_004e5ce0);

@@ -36,8 +36,8 @@ struct Owner_4c980 {
 };
 
 Context* __fastcall FUN_000592a0(void* obj);
-Owner_4c980* __fastcall FUN_00059a30(Context* ctx);
-char __cdecl FUN_00018960(float a, float b, float c);
+extern "C" Owner_4c980* __fastcall FUN_00059a30(Context* ctx);
+extern "C" char __cdecl FUN_00018960(float a, float b, float c);
 
 class CSmartPropDistanceCondition {
 public:

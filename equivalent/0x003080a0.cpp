@@ -60,7 +60,7 @@ struct CollisionAABB_3080a0 : Node {
     Node* FUN_00312900();
 };
 
-void* FUN_0008d690(unsigned int size);
+extern "C" void* FUN_0008d690(unsigned int size);
 Node* __cdecl FUN_003078a0(Reader* r);
 void __cdecl FUN_00307810(Reader* r, V3_3080a0* out);
 

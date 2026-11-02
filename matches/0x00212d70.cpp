@@ -1,3 +1,3 @@
-int FUN_00212d70(void* p) {
+extern "C" int FUN_00212d70(void* p) {
     return (*(int*)((char*)p + 8) - *(int*)((char*)p + 12)) >> 3;
 }

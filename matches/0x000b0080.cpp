@@ -11,7 +11,7 @@ class Thing_b0080 {
     Obj_b0080* ptr;
     void target(int);
 };
-void other();
+extern "C" void FUN_002684c0();
 void Thing_b0080::target(int arg) {
     if (flag) {
         if (ptr) {
@@ -22,6 +22,6 @@ void Thing_b0080::target(int arg) {
         if (ptr)
             ptr->afaf();
         if (flag)
-            other();
+            FUN_002684c0();
     }
 }

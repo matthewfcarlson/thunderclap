@@ -3,7 +3,7 @@
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
 
-void* __cdecl FUN_0008d690(unsigned);
+extern "C" void* __cdecl FUN_0008d690(unsigned);
 inline void* __cdecl operator new(unsigned, void* memory) { return memory; }
 namespace hulkfight { namespace motion { class PropStateByIndexCondition; } }
 namespace fight {
@@ -27,8 +27,8 @@ template<class T> struct ParamEnumConstList {
 void __cdecl FUN_0017f5a0();
 void __cdecl FUN_0017f5c0();
 void __cdecl FUN_0017f5e0();
-void __cdecl FUN_002347b0(void*,void**,int);
-void __cdecl FUN_00187ac0() {
+extern "C" void __cdecl FUN_002347b0(void*,void**,int);
+extern "C" void __cdecl FUN_00187ac0() {
  if (!DAT_004e1444) {
   void* items[3];
   typedef fight::ParamIntConstRange<hulkfight::motion::PropStateByIndexCondition> IntParam;

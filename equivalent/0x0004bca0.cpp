@@ -17,8 +17,8 @@ struct Actor_4bca0 {
 };
 
 Fighter_4bca0 *__fastcall FUN_000592a0(void *owner);
-Actor_4bca0 *__fastcall FUN_00059a30(Fighter_4bca0 *f);
-int __cdecl FUN_00018960(float a, float b, float c);
+extern "C" Actor_4bca0 *__fastcall FUN_00059a30(Fighter_4bca0 *f);
+extern "C" int __cdecl FUN_00018960(float a, float b, float c);
 
 class CGroundDistanceCondition {
 public:

@@ -14,7 +14,7 @@ struct V3_10a040 {
 struct Rng_10a040 {
     float FUN_00078780();
 };
-Rng_10a040 *__cdecl FUN_000964d0();
+extern "C" Rng_10a040 *__cdecl FUN_000964d0();
 
 struct Pos_10a040 {
     void FUN_00059a50(V3_10a040 *out);
@@ -87,8 +87,8 @@ struct World {
     WorldC *fc;
 };
 
-V3_10a040 *__cdecl FUN_00083e00(V3_10a040 *out, V3_10a040 *dir, float t);
-float __cdecl FUN_00018710(float *a, float *b);
+extern "C" V3_10a040 *__cdecl FUN_00083e00(V3_10a040 *out, V3_10a040 *dir, float t);
+extern "C" float __cdecl FUN_00018710(float *a, float *b);
 void __cdecl FUN_00224d70(float angle, V3_10a040 *axis);
 
 struct Frame_10a040 {

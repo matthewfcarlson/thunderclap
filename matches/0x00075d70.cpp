@@ -25,7 +25,7 @@ class TrackFactoryTemplate_75d70 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_00071cc0();
 
 template <> void* fight::TrackFactoryCasterTemplate<CCameraHintTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CCameraHintTrack>::vfunc_1(v
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_75d70* t = new (mem) TrackFactoryTemplate_75d70();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_00071cc0();
         return (void*)(t);
     }
     return (void*)(0);

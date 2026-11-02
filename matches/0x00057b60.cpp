@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_003f70a0[];
-void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct CCollisionPushbackYCondition_57b60 {
     virtual void f0();
     virtual void f1();
@@ -19,7 +19,7 @@ struct Initializer_57b60 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<CCollisionPushbackYCondition>::vfunc_5() {
-    CCollisionPushbackYCondition_57b60* p = (CCollisionPushbackYCondition_57b60*)Allocate(0x14);
+    CCollisionPushbackYCondition_57b60* p = (CCollisionPushbackYCondition_57b60*)FUN_0008d690(0x14);
     if (p) {
         ((Initializer_57b60*)p)->init(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f70a0);

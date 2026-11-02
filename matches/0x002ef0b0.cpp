@@ -19,7 +19,7 @@ class Obj1B0 {
   public:
     void Init();
 };
-void FUN_002ef0b0() {
+extern "C" void FUN_002ef0b0() {
     if ((*(void**)&DAT_00554c14) == 0) {
         void* p = Alloc(0x1c4);
         if (p != 0) {

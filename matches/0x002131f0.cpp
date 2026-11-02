@@ -5,7 +5,7 @@ struct Result_2131f0 {
 };
 extern Result_2131f0* __fastcall GetResult(void* b, void* a);
 extern int __cdecl Check(void* a, Result_2131f0* b);
-u32_2131f0 __cdecl Target(void* a, void* b) {
+extern "C" u32_2131f0 __cdecl FUN_002131f0(void* a, void* b) {
     Result_2131f0* r = GetResult(b, a);
     if (r->type == 4)
         return *(u32_2131f0*)(r->data + 0x0c);

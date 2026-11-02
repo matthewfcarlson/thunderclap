@@ -4,8 +4,8 @@ struct Node {
     Node* parent;
     int data;
 };
-void* FUN_00241cb0(void*, void*);
-void FUN_00241cf0(void*, void*);
+extern "C" void* FUN_00241cb0(void*, void*);
+extern "C" void FUN_00241cf0(void*, void*);
 void FUN_00242680(Node* tree, Node* node) {
     Node* nil = (Node*)((char*)tree + 4);
     Node* x;

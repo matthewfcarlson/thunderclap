@@ -8,7 +8,7 @@ struct Tree_241c50 {
     Node* root;
     Node head;
 };
-void swap_node(Tree_241c50* tree, Node* node) {
+extern "C" void FUN_00241c50(Tree_241c50* tree, Node* node) {
     Node* child = node->left;
     node->left = child->parent;
     if (child->parent != &tree->head)

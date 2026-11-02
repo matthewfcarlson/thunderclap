@@ -10,7 +10,7 @@ class C_1d1c10 {
 };
 int __cdecl FUN_00212d70(int);
 int __cdecl FUN_00212d80(int, int);
-int __cdecl FUN_00213c50(int, int);
+extern "C" int __cdecl FUN_00213c50(int, int);
 bool C_1d1c10::f(int p) {
     if (idx < 0)
         return false;

@@ -40,9 +40,9 @@ public:
 };
 
 int __cdecl FUN_00238190(int i);
-int __cdecl FUN_00266da0(int v);
+extern "C" int __cdecl FUN_00266da0(int v);
 float __cdecl FUN_003458c1(const char *s);
-void *FUN_0008d690(unsigned int size);
+extern "C" void *FUN_0008d690(unsigned int size);
 
 class ScriptReader_23a6b0 {
 public:

@@ -19,7 +19,7 @@ struct Caller_2c3230 {
     virtual void m();
     virtual void n(void* p);
 };
-void target(Caller_2c3230* p) {
+extern "C" void FUN_002c3230(Caller_2c3230* p) {
     unsigned int one = 1;
     if ((((unsigned char)(*(unsigned int*)&DAT_00554bdc)) & one) == 0) {
         (*(unsigned int*)&DAT_00554bdc) |= one;

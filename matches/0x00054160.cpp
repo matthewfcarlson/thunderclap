@@ -26,7 +26,7 @@ template <class T> struct ParamBool : ParamBase_54160 {
 };
 } // namespace fight
 extern void __cdecl FUN_002347b0(unsigned*, ParamBase_54160**, unsigned);
-void __cdecl FUN_00054160() {
+extern "C" void __cdecl FUN_00054160() {
     if (DAT_004dc534 == 0) {
         ParamBase_54160* parameters[3];
         void* storage = FUN_0008d690(24);

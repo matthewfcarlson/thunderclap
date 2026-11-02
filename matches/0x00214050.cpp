@@ -26,7 +26,7 @@ struct B_214050 {
 };
 int Lookup(Rec_214050* r, int x, hulk_intptr y);
 void Apply(A_214050* a, int* p);
-int Fn(A_214050* a, B_214050* b, int x) {
+extern "C" int FUN_00214050(A_214050* a, B_214050* b, int x) {
     int n = 0;
     Slot_214050* s = a->Get(b->mIdx);
     if (s->base[-2] == 6) {

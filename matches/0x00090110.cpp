@@ -1,7 +1,7 @@
 struct ThisCall_00090050 {
     int FindThing(const char*);
 };
-int __fastcall Target(void* self) {
+extern "C" int __fastcall FUN_00090110(void* self) {
     int i = ((ThisCall_00090050*)(self))->FindThing("xp");
     if (i == -1)
         return 0;

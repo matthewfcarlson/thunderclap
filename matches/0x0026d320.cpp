@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 typedef unsigned int uint_26d320;
-extern hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr, uint_26d320);
-extern hulk_uintptr __cdecl FUN_0026fd80(hulk_uintptr, uint_26d320);
+extern "C" hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr, uint_26d320);
+extern "C" hulk_uintptr __cdecl FUN_0026fd80(hulk_uintptr, uint_26d320);
 class MemoryTwoWayAllocator_26d320 {
   public:
     char p[24];

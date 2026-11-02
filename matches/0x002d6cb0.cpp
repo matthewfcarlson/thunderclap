@@ -8,7 +8,7 @@ class Obj_2d6cb0 {
     unsigned char flag114;
 };
 extern "C" unsigned int __cdecl helper(hulk_uintptr, unsigned int, unsigned int);
-void __cdecl target(Obj_2d6cb0* self, unsigned int a, unsigned int b) {
+extern "C" void __cdecl FUN_002d6cb0(Obj_2d6cb0* self, unsigned int a, unsigned int b) {
     if (self->flag114 & 32) {
         if ((self->flags & 0x300) != 0x300)
             goto work;

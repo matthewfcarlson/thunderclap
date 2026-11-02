@@ -3,7 +3,7 @@ namespace hulkfight { namespace ai { class ThreatCondition; class ThreatDistance
 namespace fight { template<class T> struct ConditionFactoryCasterTemplate { virtual void create(); }; }
 struct Registry_12d450 { void FUN_00236760(void*); };
 void* __cdecl FUN_002343e0(const char*, void*);
-void __cdecl FUN_0012d450(Registry_12d450* r)
+extern "C" void __cdecl FUN_0012d450(Registry_12d450* r)
 {
     {
         fight::ConditionFactoryCasterTemplate<hulkfight::ai::ThreatCondition> caster;

@@ -1,9 +1,9 @@
 #include "decls/data/engine/audio.h"
 
 extern void F24bae0(void*, int);
-extern void F259b40(void*);
-extern void F25d300(void*);
-extern void F25e280(void*);
+extern "C" void FUN_00259b40(void*);
+extern "C" void FUN_0025d300(void*);
+extern "C" void FUN_0025e280(void*);
 extern void* F25e070();
 extern void F247550(void*, void*);
 struct Obj_24bf90 {
@@ -16,13 +16,13 @@ struct Obj_24bf90 {
 };
 void FUN_0024bf90(Obj_24bf90* p) {
     F24bae0(p, 1);
-    F259b40(p->c);
-    F25d300(p->d);
-    F25e280(p->e);
+    FUN_00259b40(p->c);
+    FUN_0025d300(p->d);
+    FUN_0025e280(p->e);
     if (p->e)
         F247550(F25e070(), p->e);
     if (p->f) {
-        F25e280(p->f);
+        FUN_0025e280(p->f);
         if (p->f)
             F247550(F25e070(), p->f);
     }

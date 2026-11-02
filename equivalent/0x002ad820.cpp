@@ -15,7 +15,7 @@ extern int __cdecl FUN_002d8630(PngRead *png, PngInfo *info, unsigned char **tra
 extern int __cdecl FUN_002d7eb0(PngRead *png, PngInfo *info);
 extern void *__cdecl FUN_00266e00(int count, int size);
 extern void __cdecl FUN_002d7440(PngRead *png, unsigned char *row, unsigned char *display);
-extern void __cdecl FUN_00267090(void *p);
+extern "C" void __cdecl FUN_00267090(void *p);
 
 class TextureSink {
 public:

@@ -110,9 +110,9 @@ struct ParamRegistry {
 extern ParamRegistry DAT_4e1328;
 extern int DAT_4e132c;
 
-void FUN_002347b0(ParamRegistry* reg, void** params, int count);
+extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
-void FUN_0017d210()
+extern "C" void FUN_0017d210()
 {
     if (DAT_4e132c == 0) {
         void* params[16];

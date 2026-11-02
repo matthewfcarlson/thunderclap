@@ -1,4 +1,4 @@
-int Check(int);
+extern "C" int FUN_0024afe0(int);
 class Obj_25d3f0 {
   public:
     char p[0x34];
@@ -12,7 +12,7 @@ void Obj_25d3f0::Take(int* out) {
     if (out) {
         int v = value;
         if (v != 0) {
-            int r = Check(v);
+            int r = FUN_0024afe0(v);
             if (r == 2 && !flag) {
                 *out = value;
                 value = 0;

@@ -8,7 +8,7 @@ void* __stdcall D3DDevice_CreateTexture2(unsigned int width, unsigned int height
                                          unsigned int levels, unsigned int usage, unsigned int format,
                                          unsigned int pool);
 } // namespace D3D8
-void* __cdecl FUN_0008d690(unsigned int size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 struct d3dTexture_3303e0 {
     char pad[0xf8];
     d3dTexture_3303e0* FUN_00326110(void* device, void* texture);

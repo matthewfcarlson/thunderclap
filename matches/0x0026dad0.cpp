@@ -18,7 +18,7 @@ void __stdcall ExitThread(int);
 }
 extern "C" void(__stdcall* DAT_003f2c8c)(void*);
 extern "C" void(__stdcall* DAT_003f2c88)(void*);
-void __cdecl FUN_0026dad0(Job_26dad0* job) {
+extern "C" void __cdecl FUN_0026dad0(Job_26dad0* job) {
     FUN_0026d940(job);
     DAT_003f2c8c(((char*)&DAT_0052a188));
     if (job->active) {

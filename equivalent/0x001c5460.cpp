@@ -2,7 +2,7 @@
 // Render::Object::vfunc_3 @ 0x001c5460
 #include "decls/data/game/Render.h"
 
-float __cdecl FUN_00018710(float *out, float *value);
+extern "C" float __cdecl FUN_00018710(float *out, float *value);
 
 class Gate_1c5460 {
 public:

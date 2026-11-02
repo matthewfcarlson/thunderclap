@@ -102,10 +102,10 @@ struct Sink_1eab10 {
     virtual void k4(int a, int b, core::IRefCount *e);
 };
 
-extern void FUN_00087990();
-extern void *FUN_00240750();
+extern "C" void FUN_00087990();
+extern "C" void *FUN_00240750();
 extern int __cdecl FUN_00242c30(void *mgr, hulk_intptr v);
-extern bool __cdecl FUN_001e9bc0(Pair_1eab10 p);
+extern "C" bool __cdecl FUN_001e9bc0(Pair_1eab10 p);
 
 class Player_1eab10 {
 public:

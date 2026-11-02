@@ -43,7 +43,7 @@ struct Fighter_10e3e0 {
     char pad1cef[0x1d40 - 0x1cef];
     char flag1d40;
 };
-Fighter_10e3e0 *__fastcall FUN_00059a30(Context *ctx);
+extern "C" Fighter_10e3e0 *__fastcall FUN_00059a30(Context *ctx);
 
 struct Clock_10e3e0 {
     char pad0[0x2b0];

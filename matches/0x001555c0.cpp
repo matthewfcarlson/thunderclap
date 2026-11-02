@@ -27,7 +27,7 @@ template <class T> struct ParamEnumConstList {
 } // namespace fight
 typedef fight::ParamEnumConstList<hulkfight::motion::CollisionTargetSizeCondition> List_1555c0;
 void __cdecl FUN_002347b0(uint*, List_1555c0**, int);
-void __cdecl FUN_001555c0() {
+extern "C" void __cdecl FUN_001555c0() {
     if (!(*(uint*)&DAT_004e1074)) {
         List_1555c0* lists[2];
         void* memory = FUN_0008d690(32);

@@ -8,7 +8,7 @@ extern "C" int __cdecl FUN_00339f70(void*, int);
 extern "C" void __cdecl FUN_00339c30(void*, int, const char*);
 extern "C" void __cdecl FUN_00339470(Buffer_33c0f0*);
 extern "C" void __cdecl FUN_00339540(Buffer_33c0f0*);
-int __cdecl FUN_0033c0f0(void* input) {
+extern "C" int __cdecl FUN_0033c0f0(void* input) {
  Buffer_33c0f0 buffer;
  int count = FUN_00212d70(input);
  FUN_00339630(input, &buffer);

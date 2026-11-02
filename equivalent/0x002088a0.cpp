@@ -27,7 +27,7 @@ struct Slot_2088a0 {
 
 
 void __cdecl FUN_00267090(char *p);
-void __cdecl FUN_00267110(int handle);
+extern "C" void __cdecl FUN_00267110(int handle);
 
 class Pool_2088a0 {
 public:

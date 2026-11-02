@@ -1,7 +1,7 @@
 #include "decls/data/engine/core.h"
 
-void __cdecl FUN_0026d850(void*);
-void __cdecl FUN_0026d840(void*);
+extern "C" void __cdecl FUN_0026d850(void*);
+extern "C" void __cdecl FUN_0026d840(void*);
 struct Allocator {
     virtual void a();
     virtual void b();

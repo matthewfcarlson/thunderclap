@@ -4,7 +4,7 @@ struct Obj_31e210 {
     virtual void f0();
     virtual void f1(int);
 };
-void target(int x) {
+extern "C" void FUN_0031e210(int x) {
     if ((*(Obj_31e210**)&DAT_005554ac))
         (*(Obj_31e210**)&DAT_005554ac)->f1(x);
 }

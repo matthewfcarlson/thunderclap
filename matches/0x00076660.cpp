@@ -1,6 +1,6 @@
 #include "gen/fight.h"
 
-extern void* __cdecl Alloc(int);
+extern "C" void* __cdecl FUN_0008d690(int);
 extern void* GrappleVftable;
 class CGrappleDamageTrack_76660 {
   public:
@@ -14,7 +14,7 @@ class CGrappleDamageTrack_76660 {
 };
 
 template <> void* fight::TrackFactoryTemplate<CGrappleDamageTrack>::vfunc_5() {
-    CGrappleDamageTrack_76660* p = (CGrappleDamageTrack_76660*)Alloc(0x18);
+    CGrappleDamageTrack_76660* p = (CGrappleDamageTrack_76660*)FUN_0008d690(0x18);
     if (p) {
         p->CGrappleDamageTrack_76660::CGrappleDamageTrack_76660();
         *(void**)p = &GrappleVftable;

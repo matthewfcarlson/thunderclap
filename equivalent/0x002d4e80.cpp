@@ -9,7 +9,7 @@ struct Extra_2d4e80 {
     Extra_2d4e80 *FUN_0022b980();
 };
 
-void *FUN_0008d690(unsigned int size);
+extern "C" void *FUN_0008d690(unsigned int size);
 
 struct Config_2d4e80 {
     RefObj_2d4e80 *ref;

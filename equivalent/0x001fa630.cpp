@@ -3,7 +3,7 @@
 #include "decls/data/game/global.h"
 
 inline void *operator new(unsigned int, void *p) { return p; }
-void *FUN_0008d690(unsigned int size);
+extern "C" void *FUN_0008d690(unsigned int size);
 
 class Pool_1fa630 {
 public:

@@ -3,7 +3,7 @@
 #include "decls/data/engine/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+extern "C" void* FUN_0008d690(unsigned int size);
 
 class OpportunityTrack {
 public:
@@ -81,9 +81,9 @@ public:
 
 struct ParamRegistry {
 };
-void FUN_002347b0(ParamRegistry* reg, void** params, int count);
+extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
-void FUN_00237870()
+extern "C" void FUN_00237870()
 {
     if (DAT_004e5bf8 == 0) {
         void* params[6];

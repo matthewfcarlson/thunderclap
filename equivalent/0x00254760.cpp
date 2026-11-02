@@ -4,7 +4,7 @@
 
 struct Id64 { unsigned int low, high; };
 struct Temp { char data[32]; Temp* FUN_0023fc40(const char*, int); void FUN_00240060(); };
-Id64 __cdecl FUN_002672f0(const char*, int, int);
+extern "C" Id64 __cdecl FUN_002672f0(const char*, int, int);
 inline void* operator new(unsigned int, void* place) { return place; }
 struct SeqEventSilenceType_nv_254760 {
     void FUN_002605e0(Temp*, const Id64*, int, int);

@@ -30,7 +30,7 @@ struct State_2d17b0 {
     short steps;        // 0x3c
 };
 
-void __cdecl FUN_002d17b0(float dt, int index, float t, Owner_2d17b0 *owner, State_2d17b0 *state)
+extern "C" void __cdecl FUN_002d17b0(float dt, int index, float t, Owner_2d17b0 *owner, State_2d17b0 *state)
 {
     float *a = owner->curves->tableA;
     float *b = owner->curves->tableB;

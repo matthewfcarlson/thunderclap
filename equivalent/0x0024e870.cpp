@@ -43,8 +43,8 @@ struct Event_24e870 {
     Context *ctx;
 };
 
-void __cdecl FUN_002613b0(void *tree, Key *key, void *name) throw();
-Index_24e870 *__cdecl FUN_00247810(Context *c) throw();
+extern "C" void __cdecl FUN_002613b0(void *tree, Key *key, void *name) throw();
+extern "C" Index_24e870 *__cdecl FUN_00247810(Context *c) throw();
 unsigned int __cdecl FUN_002673a0(unsigned int v, int flags) throw();
 
 class SeqEventNestTrack {

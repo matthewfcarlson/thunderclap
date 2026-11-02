@@ -25,7 +25,7 @@ class TrackFactoryTemplate_579c0 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_00053440();
 
 template <> void* fight::ConditionFactoryCasterTemplate<CCollisionPushbackDirectionCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<CCollisionPushbackDirect
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_579c0* t = new (mem) TrackFactoryTemplate_579c0();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_00053440();
         return (void*)(t);
     }
     return (void*)(0);

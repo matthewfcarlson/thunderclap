@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 typedef unsigned char uchar;
 extern void* __stdcall D3DVertexBuffer_Lock2(void*, int);
-extern void __cdecl FUN_0031c230(int);
+extern "C" void __cdecl FUN_0031c230(int);
 class d3dPrimBuffer {
   public:
     virtual void a0();

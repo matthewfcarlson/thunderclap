@@ -1,4 +1,4 @@
-int FUN_000fb720(const short* p) {
+extern "C" int FUN_000fb720(const short* p) {
     int n = 0;
     while (*p != 0) {
         ++p;

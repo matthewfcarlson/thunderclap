@@ -36,7 +36,7 @@ struct Data2 {
 };
 
 void* __fastcall FUN_000592a0(void* owner);
-Entity* __fastcall FUN_00059a30(void* anchor);
+extern "C" Entity* __fastcall FUN_00059a30(void* anchor);
 
 class CWallSlideAction {
 public:

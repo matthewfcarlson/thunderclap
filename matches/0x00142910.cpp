@@ -3,12 +3,12 @@ class ConditionFactoryCasterTemplate_142910 {
     virtual void Cast();
 };
 struct Result;
-Result* find(const char*, ConditionFactoryCasterTemplate_142910*);
+extern "C" Result* FUN_002343e0(const char*, ConditionFactoryCasterTemplate_142910*);
 class Manager {
   public:
     void Add(Result*);
 };
-void func(Manager* mgr) {
+extern "C" void FUN_00142910(Manager* mgr) {
     ConditionFactoryCasterTemplate_142910 c;
-    mgr->Add(find("wallVelocity", &c));
+    mgr->Add(FUN_002343e0("wallVelocity", &c));
 }

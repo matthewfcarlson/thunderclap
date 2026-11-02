@@ -3,7 +3,7 @@
 #include "decls/data/game/hulkfight/motion.h"
 
 inline void* operator new(unsigned int, void* storage) { return storage; }
-void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_0016fa00(); void __cdecl FUN_00170de0(); void __cdecl FUN_0016fa40();
 namespace hulkfight { namespace motion { class TeleportToLocatorTrack; } }
 namespace fight {
@@ -13,7 +13,7 @@ template<class T> struct ParamVector { virtual void slot0(); char pad[12]; void 
 }
  
 void __cdecl FUN_002347b0(void*, void**, int);
-void FUN_0017ad20() {
+extern "C" void FUN_0017ad20() {
  if (!DAT_004e13a4) {
  void* params[3]; typedef hulkfight::motion::TeleportToLocatorTrack Track;
  fight::ParamFloatConstRange<Track>* a = (fight::ParamFloatConstRange<Track>*)FUN_0008d690(24);

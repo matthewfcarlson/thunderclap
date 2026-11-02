@@ -12,7 +12,7 @@ class Shader_85d30 : public Obj {
   public:
     Shader_85d30() throw();
 };
-void target() {
+extern "C" void FUN_00085d30() {
     Shader_85d30* p = new Shader_85d30;
     if (p)
         p->AddRef();

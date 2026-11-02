@@ -1,4 +1,4 @@
-void* FUN_0008d690(unsigned int);
+extern "C" void* FUN_0008d690(unsigned int);
 inline void* operator new(unsigned int, void* p) throw() {
     return p;
 }

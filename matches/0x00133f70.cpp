@@ -22,7 +22,7 @@ class GrappleHoverTrack : public fight::Track, public fight::Param {
 };
 } // namespace motion
 } // namespace hulkfight
-hulk_intptr FUN_0005a3f0(hulk_intptr);
+extern "C" hulk_intptr FUN_0005a3f0(hulk_intptr);
 int hulkfight::motion::GrappleHoverTrack::vfunc_8(int a, int b) {
     return FUN_0005a3f0(b);
 }

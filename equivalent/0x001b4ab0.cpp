@@ -39,7 +39,7 @@ struct World {
 };
 
 
-HitList_1b4ab0 *FUN_00202f00();
+extern "C" HitList_1b4ab0 *FUN_00202f00();
 void FUN_002f1ce0(V3_1b4ab0 *a, int value, V3_1b4ab0 *b, int *outv);
 
 class Caster_1b4ab0 {

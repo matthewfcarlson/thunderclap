@@ -6,11 +6,11 @@ struct CFightNodeTimeCondition_57f20 {
     char pad[0x10];
     void Initialize();
 };
-extern void* __cdecl operator_new(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern void* conditionVtable;
 
 template <> void* fight::ConditionFactoryTemplate<CGrappleMotionStateCondition>::vfunc_5() {
-    CFightNodeTimeCondition_57f20* p = (CFightNodeTimeCondition_57f20*)operator_new(0x14);
+    CFightNodeTimeCondition_57f20* p = (CFightNodeTimeCondition_57f20*)FUN_0008d690(0x14);
     if (p) {
         p->Initialize();
         *(void**)p = &conditionVtable;

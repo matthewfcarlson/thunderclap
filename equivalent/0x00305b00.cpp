@@ -15,7 +15,7 @@ struct Tensor_305b00 {
     void FUN_002fcb80(int a);
 };
 
-void __cdecl FUN_00305b00(Tensor_305b00 *out, const V3_305b00 *v, int a)
+extern "C" void __cdecl FUN_00305b00(Tensor_305b00 *out, const V3_305b00 *v, int a)
 {
     out->yz2 = v->y * v->y + v->z * v->z;
     out->nxy = -(v->x * v->y);

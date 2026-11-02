@@ -1,7 +1,7 @@
 #include "gen/fight.h"
 
 #include "compat/ptr.h"
-extern void __cdecl FUN_00267880(char*, hulk_intptr, int);
+extern "C" void __cdecl FUN_00267880(char*, hulk_intptr, int);
 
 bool fight::ScriptReader::FUN_0023ad30(int index, char* out, int arg) {
     if (index < 0 || index >= this->f_12c)

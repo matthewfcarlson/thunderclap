@@ -51,7 +51,7 @@ struct Stats_1712c0 {
 
 struct Fighter_1712c0 { char pad[4]; };
 Fighter_1712c0 *__fastcall FUN_000592a0(void *owner);
-Stats_1712c0 *__fastcall FUN_00059a30(Fighter_1712c0 *f);
+extern "C" Stats_1712c0 *__fastcall FUN_00059a30(Fighter_1712c0 *f);
 
 struct TrackerData_1712c0 {
     char pad0[0x18];

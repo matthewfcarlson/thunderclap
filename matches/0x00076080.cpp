@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 typedef unsigned int u32_76080;
-extern void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 extern int ComboVtable;
 class CComboMessageTrack_76080 {
   public:
@@ -10,7 +10,7 @@ class CComboMessageTrack_76080 {
 };
 
 template <> void* fight::TrackFactoryTemplate<CComboMessageTrack>::vfunc_5() {
-    CComboMessageTrack_76080* p = (CComboMessageTrack_76080*)Alloc(0x54);
+    CComboMessageTrack_76080* p = (CComboMessageTrack_76080*)FUN_0008d690(0x54);
     if (p) {
         p->Init();
         *(hulk_uintptr*)p = (hulk_uintptr)&ComboVtable;

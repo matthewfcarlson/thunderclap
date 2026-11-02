@@ -2,7 +2,7 @@
 // FUN_0022de70 @ 0x0022de70
 #include "compat/ptr.h"
 struct Vec3_22de70 { float x,y,z; };
-bool __cdecl FUN_0022de70(const Vec3_22de70* point, const Vec3_22de70* direction, const Vec3_22de70* planePoint, const Vec3_22de70* normal, Vec3_22de70* result, float* parameter) {
+extern "C" bool __cdecl FUN_0022de70(const Vec3_22de70* point, const Vec3_22de70* direction, const Vec3_22de70* planePoint, const Vec3_22de70* normal, Vec3_22de70* result, float* parameter) {
     hulk_freg planeDot = normal->z * planePoint->z + normal->y * planePoint->y + planePoint->x * normal->x;
     hulk_freg denominator = direction->y * normal->y + direction->x * normal->x + normal->z * direction->z;
     union { float f; unsigned int u; } magnitude;

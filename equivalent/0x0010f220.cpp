@@ -4,8 +4,8 @@
 
 struct Token_10f220 { unsigned int low, high; void FUN_0027af00(); void FUN_0027b040(unsigned int); };
 extern unsigned int DAT_00494b44, DAT_00494b60;
-void __cdecl FUN_00363ea0();
-void __cdecl FUN_00363eb0();
+extern "C" void __cdecl FUN_00363ea0();
+extern "C" void __cdecl FUN_00363eb0();
 int __cdecl _atexit(void (__cdecl *)());
 void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 struct ActorState_10f220 { int FUN_00059a30(); };

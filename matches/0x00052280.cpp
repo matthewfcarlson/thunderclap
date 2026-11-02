@@ -1,7 +1,7 @@
 // Same code shape as 0x00051fe0 (propagated; names are from that function)
 #include "gen/fight.h"
 
-void* __cdecl Allocate(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern void* CFightNodeConditionVtable;
 struct CFightNodeCondition_52280 {
     virtual void a();
@@ -14,7 +14,7 @@ struct CFightNodeCondition_52280 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<CGrappleFightNodeCondition>::vfunc_5() {
-    CFightNodeCondition_52280* p = (CFightNodeCondition_52280*)Allocate(0x1c);
+    CFightNodeCondition_52280* p = (CFightNodeCondition_52280*)FUN_0008d690(0x1c);
     if (p) {
         p->Init();
         *(void**)p = &CFightNodeConditionVtable;

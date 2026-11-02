@@ -15,7 +15,7 @@ struct Object {
     char pad2[0x3c];
     SoundState_258e50* sound;
 };
-void __cdecl FUN_00258e50(Object* p) {
+extern "C" void __cdecl FUN_00258e50(Object* p) {
     p->state = 2;
     unsigned n = (p->sound->flags >> 4) & 0x1f;
     if (n <= 0u)

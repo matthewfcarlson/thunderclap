@@ -15,7 +15,7 @@ struct Param {
     CCharacter_44560* node;
     int type;
 };
-int FUN_00044560(Param* p) {
+extern "C" int FUN_00044560(Param* p) {
     if (!p)
         return 6;
     Inner* i;

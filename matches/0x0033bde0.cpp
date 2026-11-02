@@ -6,7 +6,7 @@ extern "C" const char * __cdecl FUN_00339df0(void *, int, unsigned int *);
 extern "C" void __cdecl FUN_00339630(void *, Buffer_33bde0 *);
 extern "C" void __cdecl FUN_00339470(Buffer_33bde0 *);
 extern "C" void __cdecl FUN_00339540(Buffer_33bde0 *);
-int __cdecl FUN_0033bde0(void *state) {
+extern "C" int __cdecl FUN_0033bde0(void *state) {
  unsigned int length;
  Buffer_33bde0 buffer;
  const char *text = FUN_00339df0(state,1,&length);

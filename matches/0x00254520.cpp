@@ -21,10 +21,10 @@ class Stream_254520 {
     char pad[4];
     Sub_254520 sub;
 };
-extern void* Alloc(void*);
+extern "C" void* FUN_00247530(void*);
 
 void* audio::SeqEventStreamType::vfunc_3() {
-    Stream_254520* p = (Stream_254520*)Alloc(((int*)&DAT_004e7200));
+    Stream_254520* p = (Stream_254520*)FUN_00247530(((int*)&DAT_004e7200));
     if (p) {
         p->BaseInit();
         Sub_254520* s = &p->sub;

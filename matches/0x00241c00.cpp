@@ -7,7 +7,7 @@ struct Node {
 struct Tree_241c00 {
     Node* root;
 };
-void insert(Tree_241c00* param_1, Node* param_2) {
+extern "C" void FUN_00241c00(Tree_241c00* param_1, Node* param_2) {
     Node* piVar1 = param_2->b;
     param_2->b = piVar1->a;
     if (piVar1->a != (Node*)(param_1 + 1)) {

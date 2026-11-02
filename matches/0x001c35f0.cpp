@@ -2,8 +2,8 @@
 #include "gen/Render.h"
 
 extern int __cdecl FUN_00266da0(int);
-extern void __cdecl FUN_0023f8c0(const char*);
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void __cdecl FUN_0023f8c0(const char*);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern void* __cdecl thunk_FUN_0008d690(unsigned int);
 struct World_nv_1c35f0 {
     Render::World* FUN_001c9030();

@@ -7,7 +7,7 @@ extern void __cdecl FUN_00339630(void *, unsigned char **);
 extern void __cdecl FUN_00339470(unsigned char **);
 extern int __cdecl FUN_00345475(int);
 extern void __cdecl FUN_00339540(unsigned char **);
-int __cdecl FUN_0033bea0(void *input) {
+extern "C" int __cdecl FUN_0033bea0(void *input) {
  Work_33bea0 work;
  unsigned char *source = FUN_00339df0(input, 1, &work);
  FUN_00339630(input, &work.cursor);

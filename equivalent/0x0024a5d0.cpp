@@ -63,10 +63,10 @@ public:
 };
 }
 
-void FUN_00257e80(void *list, void *item);
+extern "C" void FUN_00257e80(void *list, void *item);
 void *FUN_00247530(Pool_24a5d0 *pool);
 void FUN_00249ce0(IntrusiveList *list, SrcNode *node, int *attr);
-void *FUN_00242ce0(void *a3, int *key);
+extern "C" void *FUN_00242ce0(void *a3, int *key);
 
 class StreamVoice {
 public:

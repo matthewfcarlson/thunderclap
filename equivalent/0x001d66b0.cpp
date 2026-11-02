@@ -5,8 +5,8 @@ struct Transform_1d66b0 { char rotation[48]; Vec_1d66b0 position; unsigned int t
 struct Orientation_1d66b0 { bool FUN_0022d2b0(Vec_1d66b0*,float); };
 struct Handle_1d66b0 { unsigned int a,b; };
 struct Manager_1d66b0 { void FUN_00283a40(Handle_1d66b0*,Transform_1d66b0*,float,float); };
-extern Manager_1d66b0* __cdecl FUN_0027f250();
-extern void __cdecl FUN_00224db0(Transform_1d66b0*,Vec_1d66b0*,Orientation_1d66b0*);
+extern "C" Manager_1d66b0* __cdecl FUN_0027f250();
+extern "C" void __cdecl FUN_00224db0(Transform_1d66b0*,Vec_1d66b0*,Orientation_1d66b0*);
 struct Object { char pad[0x240]; Handle_1d66b0 handle; void target(Vec_1d66b0*,Orientation_1d66b0*); };
 void Object::target(Vec_1d66b0* position, Orientation_1d66b0* orientation) {
  if (handle.a || handle.b) {

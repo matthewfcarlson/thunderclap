@@ -20,7 +20,7 @@ extern char DAT_0049f4a4[];
 extern void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
 extern void* __cdecl FUN_000fc260(const char* name);
 extern int __cdecl FUN_000fc1b0();
-extern int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
+extern "C" int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
 
 struct ScriptArgs {
     int tag;

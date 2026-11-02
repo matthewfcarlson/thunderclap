@@ -3,7 +3,7 @@
 #include "gen/audio.h"
 
 extern "C" char DAT_004298fc[];
-extern void FUN_00247550(void*, void*);
+extern "C" void FUN_00247550(void*, void*);
 
 class SeqActionVarVolume_252a20 : public audio::SeqAction {
   public:

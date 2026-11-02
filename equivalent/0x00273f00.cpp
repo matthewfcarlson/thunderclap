@@ -11,7 +11,7 @@ struct Device_273f00 {
 struct Lock_273f00 { virtual void enter(); virtual void leave(); };
 struct Reader { bool FUN_00277ca0(); int FUN_00278010(Device_273f00*,uint,char*,uint,uint,void*,hulk_uintptr,uint*,uint); char pad[0x30]; };
 struct File { uint unknown; Lock_273f00 lock; uint x8; Device_273f00* device; uint x10; uint status; char gap[6]; char name[0x102]; uint handle; uint position; uint length; Reader reader; uint extra; };
-extern hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr,uint);
+extern "C" hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr,uint);
 namespace core {
 struct FileReadRequest {
  virtual void vfunc_0(); virtual int vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6();

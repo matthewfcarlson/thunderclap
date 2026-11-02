@@ -17,7 +17,7 @@ struct RandState_1947a0 {
     float FUN_000787e0(float lo, float hi);
 };
 
-RandState_1947a0* FUN_000964d0();
+extern "C" RandState_1947a0* FUN_000964d0();
 
 // Random walk step: the position arrives in esi, the walker and the step size on the stack.
 // equiv-conv: FUN_001947a0 esi stack stack

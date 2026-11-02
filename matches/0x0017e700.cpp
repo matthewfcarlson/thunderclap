@@ -15,10 +15,10 @@ struct TeleportTrack_17e700 {
     int z3;
     float last;
 };
-extern void* Alloc(hulk_uintptr);
+extern "C" void* FUN_0008d690(hulk_uintptr);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::TeleportTrack>::vfunc_5() {
-    TeleportTrack_17e700* p = (TeleportTrack_17e700*)Alloc(0x1c);
+    TeleportTrack_17e700* p = (TeleportTrack_17e700*)FUN_0008d690(0x1c);
     if (p) {
         ((TeleportTrackBase*)p)->Ctor();
         p->vt = (void*)((hulk_intptr)DAT_00417b68);

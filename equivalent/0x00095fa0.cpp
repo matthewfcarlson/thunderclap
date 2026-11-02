@@ -4,7 +4,7 @@
 
 extern "C" double __cdecl sin(double);
 extern "C" double __cdecl cos(double);
-void __cdecl FUN_00095fa0(float *v, float angle) {
+extern "C" void __cdecl FUN_00095fa0(float *v, float angle) {
     double radians = angle * (*(float*)&DAT_003f32b8);
     double s = sin(radians);
     double c = cos(radians);

@@ -7,7 +7,7 @@ class Track {
     void apply(void*);
 };
 extern "C" void* __cdecl find(void*, Caster_17dc70*);
-void __cdecl target(Track* track, void* name) {
+extern "C" void __cdecl FUN_0017dc70(Track* track, void* name) {
     Caster_17dc70 caster;
     track->apply(find(name, &caster));
 }

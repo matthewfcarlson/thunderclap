@@ -26,8 +26,8 @@ struct Context {
     char unused32[10];
     Callback_215520 callback;
 };
-void __cdecl FUN_00215460(Context *, int);
-void __cdecl FUN_00215520(Context *self, int kind, int value) {
+extern "C" void __cdecl FUN_00215460(Context *, int);
+extern "C" void __cdecl FUN_00215520(Context *self, int kind, int value) {
     Callback_215520 callback = self->callback;
     if (callback && self->enabled) {
         hulk_intptr cursorOffset = self->cursor - self->base;

@@ -3,7 +3,7 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
-extern void* __cdecl FUN_0008d6d0(unsigned int size);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int size);
 struct A_300c90 { char data[16]; void FUN_00304300(); };
 struct CollisionDetector_300c90 { char data[64]; void FUN_00301290(); };
 struct ImpulseBasedCollisionSolver_300c90 { char data[256]; void FUN_002f7ee0(); };

@@ -14,8 +14,8 @@ void Free(void*) throw();
 struct Sub_1832a0 {
     char c;
 };
-void __fastcall SubFini(Sub_1832a0*) throw();
-void __fastcall SubFini2(Sub_1832a0*) throw();
+extern "C" void __fastcall FUN_0027af50(Sub_1832a0*) throw();
+extern "C" void __fastcall FUN_00234150(Sub_1832a0*) throw();
 class PropThrowTrack_1832a0 : public Track_1832a0 {
   public:
     char p68[100];
@@ -26,8 +26,8 @@ class PropThrowTrack_1832a0 : public Track_1832a0 {
 };
 PropThrowTrack_1832a0* PropThrowTrack_1832a0::f(unsigned char fl) {
     vptr = g_vftable_1832a0;
-    SubFini(&s78);
-    SubFini2(&s68);
+    FUN_0027af50(&s78);
+    FUN_00234150(&s68);
     Fin();
     if (fl & 1)
         Free(this);

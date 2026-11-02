@@ -20,7 +20,7 @@ extern int streamvt_264470, refvt;
 struct ThisCall_002640f0 {
     void Init();
 };
-void Free(void*);
+extern "C" void FUN_00267070(void*);
 void Destroy(LoadStream*);
 LoadStream* LoadStream::f2(unsigned char flag) {
     *(hulk_intptr*)this = (hulk_intptr)&streamvt_264470;
@@ -28,9 +28,9 @@ LoadStream* LoadStream::f2(unsigned char flag) {
     if (mRef)
         mRef->f1();
     if (a)
-        Free(a);
+        FUN_00267070(a);
     if (b)
-        Free(b);
+        FUN_00267070(b);
     *(hulk_intptr*)this = (hulk_intptr)&refvt;
     if (flag & 1)
         Destroy(this);

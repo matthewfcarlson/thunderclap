@@ -7,7 +7,7 @@ struct Target_168b30 { char pad[8]; Health* health; int kind; };
 struct Actor_168b30 { char pad[0x328]; Target_168b30* target; };
 struct ContextActor { Actor_168b30* FUN_00059a30(); };
 struct Context_168b30 { ContextActor* FUN_000592a0(); };
-extern bool __cdecl FUN_00018960(float, float, float);
+extern "C" bool __cdecl FUN_00018960(float, float, float);
 namespace hulkfight { namespace motion {
 
 }}

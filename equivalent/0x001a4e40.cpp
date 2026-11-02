@@ -19,7 +19,7 @@ struct Table_1a4e40 {
     Entry_1a4e40 entries[20];
 };
 
-const char *FUN_001a4e40(Table_1a4e40 *table, unsigned int index)
+extern "C" const char *FUN_001a4e40(Table_1a4e40 *table, unsigned int index)
 {
     if (index > 0x13)
         return 0;

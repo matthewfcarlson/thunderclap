@@ -11,7 +11,7 @@ class Owner {
     void Set(void*);
 };
 void* __cdecl Find(void*, Caster_113b70*);
-void __cdecl FUN_00113b70(Owner* owner, void* key) {
+extern "C" void __cdecl FUN_00113b70(Owner* owner, void* key) {
     SpecificCaster caster;
     owner->Set(Find(key, &caster));
 }

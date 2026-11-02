@@ -11,10 +11,10 @@ class PropDropTrack_18bf00 {
     int c;
     int d;
 };
-extern void* operator_new(unsigned int);
+extern "C" void* FUN_0008d690(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropDropTrack>::vfunc_5() {
-    PropDropTrack_18bf00* p = (PropDropTrack_18bf00*)operator_new(0x14);
+    PropDropTrack_18bf00* p = (PropDropTrack_18bf00*)FUN_0008d690(0x14);
     if (p) {
         p->Init();
         p->vt = ((hulk_intptr)DAT_0041935c);

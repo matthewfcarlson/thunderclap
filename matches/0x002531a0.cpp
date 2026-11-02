@@ -16,9 +16,9 @@ class SeqEventVarPosDist_2531a0 : public Base {
     static void* operator new(unsigned int, void* p) { return p; }
 };
 } // namespace audio
-extern void* alloc(void*);
+extern "C" void* FUN_00247530(void*);
 void* audio::SeqEventVarPosDistType::vfunc_3() {
-    void* p = alloc(((char*)((char*)&DAT_004e6ff0 + 72)));
+    void* p = FUN_00247530(((char*)((char*)&DAT_004e6ff0 + 72)));
     audio::SeqEventVarPosDist_2531a0* q;
     if (p)
         q = new (p) audio::SeqEventVarPosDist_2531a0;

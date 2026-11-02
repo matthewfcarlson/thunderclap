@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // CInvulnerableTrack::vfunc_12 @ 0x0006aa10
-void* __cdecl FUN_0008d690(unsigned int size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 struct CInvulnerableAction_6aa10 {
     CInvulnerableAction_6aa10* FUN_000200a0(void* argument, void* source);
 };

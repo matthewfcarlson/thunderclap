@@ -21,7 +21,7 @@ struct Owner_4bf70 {
 };
 
 Fighter *__fastcall FUN_000592a0(Owner_4bf70 *owner);
-Actor_4bf70 *__fastcall FUN_00059a30(Fighter *f);
+extern "C" Actor_4bf70 *__fastcall FUN_00059a30(Fighter *f);
 extern "C" float __cdecl FUN_00224ea0(float a, float b);
 extern "C" float __cdecl FUN_00224fc0(float a, float b);
 

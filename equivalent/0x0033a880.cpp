@@ -22,7 +22,7 @@ int __cdecl FUN_00213fb0(State*);
 void __cdecl FUN_00213360(State*, int);
 void __fastcall __security_check_cookie(unsigned int);
 }
-int __cdecl FUN_0033a880(State* state) {
+extern "C" int __cdecl FUN_0033a880(State* state) {
 unsigned int cookie=DAT_004d9968;
 State* source = state;
 if (FUN_00212f00(state,1)==8) source=FUN_00213290(state,1);

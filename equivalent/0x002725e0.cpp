@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/12, incomplete)
 // FUN_002725e0 @ 0x002725e0
 extern "C" void __stdcall OutputDebugStringA(const char*);
-void __cdecl FUN_002725e0(const char* text)
+extern "C" void __cdecl FUN_002725e0(const char* text)
 {
     if (!text) text = "NULL";
     unsigned int length = 0;

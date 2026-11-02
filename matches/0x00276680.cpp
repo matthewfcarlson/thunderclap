@@ -19,9 +19,9 @@ struct Obj_276680 {
     virtual void f12();
     virtual u32_276680 f13();
 };
-extern void FUN_0026d850(void*);
-extern void FUN_0026d840(void*);
-u32_276680 target() {
+extern "C" void FUN_0026d850(void*);
+extern "C" void FUN_0026d840(void*);
+extern "C" u32_276680 FUN_00276680() {
     FUN_0026d850(((char*)&DAT_0052a208));
     u32_276680 r = (*(Obj_276680**)&DAT_0052a224)->f13();
     FUN_0026d840(((char*)&DAT_0052a208));

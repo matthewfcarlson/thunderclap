@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 140 inputs, branch coverage 17/18, incomplete)
 // Render::RoomLoader::vfunc_5 @ 0x001c6fe0
 // cl-flags: /GS
-void *FUN_0008d690(unsigned int size);
+extern "C" void *FUN_0008d690(unsigned int size);
 extern "C" int __cdecl FUN_001c62f0(const char *name, int n);
 
 struct V3_1c6fe0 {

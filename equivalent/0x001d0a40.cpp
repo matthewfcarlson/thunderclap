@@ -18,16 +18,16 @@ struct lua_Debug_1d0a40 {
 
 
 int FUN_00212d70(lua_State* L);
-int FUN_00212fb0(lua_State* L, int idx);
+extern "C" int FUN_00212fb0(lua_State* L, int idx);
 void FUN_00212e20(lua_State* L, int idx);
 void FUN_00213380(lua_State* L, const char* s, int len);
-const char* FUN_00213470(lua_State* L, const char* fmt, ...);
-void FUN_00213c90(lua_State* L, int n);
+extern "C" const char* FUN_00213470(lua_State* L, const char* fmt, ...);
+extern "C" void FUN_00213c90(lua_State* L, int n);
 int FUN_00213fc0(lua_State* L, int level, lua_Debug_1d0a40* ar);
 int FUN_00214bd0(lua_State* L, const char* what, lua_Debug_1d0a40* ar);
 
 // Lua error handler: pushes the "LUA SCRIPT ERROR" banner and a stack traceback.
-int FUN_001d0a40(lua_State* L)
+extern "C" int FUN_001d0a40(lua_State* L)
 {
     lua_Debug_1d0a40 ar;
     int level = 1;

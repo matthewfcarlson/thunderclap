@@ -7,7 +7,7 @@ class Obj {
     void apply(void*);
 };
 void* __cdecl find(void*, TrackFactoryCasterTemplate_14b570*);
-void fn(Obj* o, void* p) {
+extern "C" void FUN_0014b570(Obj* o, void* p) {
     TrackFactoryCasterTemplate_14b570 c;
     o->apply(find(p, &c));
 }

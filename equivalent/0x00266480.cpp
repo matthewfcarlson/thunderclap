@@ -11,8 +11,8 @@ class Pool_266480 {
     unsigned int limit;
     char pad2[0x24 - 0x14];
 };
-void* __cdecl FUN_0008d690(unsigned int size);
-unsigned int __cdecl FUN_00356c30(unsigned int n);
+extern "C" void* __cdecl FUN_0008d690(unsigned int size);
+extern "C" unsigned int __cdecl FUN_00356c30(unsigned int n);
 
 namespace content {
 class LoadInventory {

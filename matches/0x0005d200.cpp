@@ -6,7 +6,7 @@ class R_5d200 {
   public:
     int invoke(CHapticTrack*, hulk_intptr);
 };
-extern R_5d200* FUN_0008d690(int);
+extern "C" R_5d200* FUN_0008d690(int);
 
 hulk_intptr CHapticTrack::vfunc_12(hulk_intptr param) {
     R_5d200* p = FUN_0008d690(0x24);

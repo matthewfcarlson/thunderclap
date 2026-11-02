@@ -8,7 +8,7 @@ class SeqEventContainer_254e80 {
   public:
     bool vfunc_0(void*);
 };
-extern bool FUN_0025ac10(void*, void*);
+extern "C" bool FUN_0025ac10(void*, void*);
 
 int audio::SeqEventLogicOr::vfunc_0(void* __p0) { void * arg = (void *)__p0;
 

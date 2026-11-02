@@ -91,7 +91,7 @@ struct World {
     char pad3c[8];
     Registry* registry;
 };
-unsigned FUN_00098190(float dt, unsigned speed, unsigned distance, unsigned z1, hulk_uintptr object, unsigned z2,
+extern "C" unsigned FUN_00098190(float dt, unsigned speed, unsigned distance, unsigned z1, hulk_uintptr object, unsigned z2,
                       hulk_uintptr position, hulk_uintptr direction, unsigned z3, unsigned z4, unsigned z5,
                       unsigned one);
 // equiv-conv: FUN_00195290 ecx eax edx edi stack stack stack stack stack stack stack
@@ -107,7 +107,7 @@ char FUN_00195560(hulk_uintptr direction, hulk_uintptr hit, hulk_uintptr point, 
                   unsigned zero2, unsigned one, unsigned zero3);
 unsigned FUN_0027f250();
 float FUN_000964e0();
-void FUN_00224db0(hulk_uintptr transform, hulk_uintptr a, hulk_uintptr b);
+extern "C" void FUN_00224db0(hulk_uintptr transform, hulk_uintptr a, hulk_uintptr b);
 namespace hulkfight {
 namespace motion {
 class ProjectileEffect {

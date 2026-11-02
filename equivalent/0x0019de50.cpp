@@ -4,7 +4,7 @@
 #include "decls/data/game/unknown.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
-void* FUN_0008d690(unsigned int size);
+extern "C" void* FUN_0008d690(unsigned int size);
 
 namespace hulkfight {
 namespace motion {
@@ -141,9 +141,9 @@ struct ParamRegistry {
 
 
 
-void FUN_002347b0(ParamRegistry* reg, void** params, int count);
+extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
-void FUN_0019de50()
+extern "C" void FUN_0019de50()
 {
     if ((*(int*)&DAT_004e158c) == 0) {
         void* params[26];

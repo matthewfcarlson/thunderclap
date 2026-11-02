@@ -6,7 +6,7 @@ class Ref_2061e0 {
     virtual void Release();
 };
 extern void __fastcall FUN_00263e90(Ref_2061e0*);
-extern void FUN_00267110(int);
+extern "C" void FUN_00267110(int);
 extern void FUN_00267090(void*);
 struct CWorldStreamManager_2061e0 {
     void* vf;

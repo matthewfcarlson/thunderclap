@@ -6,8 +6,8 @@ class Target {
   public:
     void Method(void*);
 };
-void* Lookup(const char*, TrackFactoryCasterTemplate_237ab0*);
-void Func(Target* target, const char* name) {
+extern "C" void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_237ab0*);
+extern "C" void FUN_00237ab0(Target* target, const char* name) {
     TrackFactoryCasterTemplate_237ab0 caster;
-    target->Method(Lookup(name, &caster));
+    target->Method(FUN_00236ac0(name, &caster));
 }

@@ -3,7 +3,7 @@
 
 extern "C" char DAT_0041916c[];
 typedef unsigned int uint;
-void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 struct Base_18c540 {
     void Init(int);
 };
@@ -12,7 +12,7 @@ struct Sub_18c540 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::GrapplePropStateByNameCondition>::vfunc_5() {
-    Base_18c540* p = (Base_18c540*)Alloc(0x20);
+    Base_18c540* p = (Base_18c540*)FUN_0008d690(0x20);
     if (p) {
         p->Init(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0041916c);

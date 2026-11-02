@@ -2,7 +2,7 @@ struct Vec_28a8f0 {
     float x, y, z, w;
     void FUN_0022b610(const Vec_28a8f0* a, const Vec_28a8f0* b);
 };
-void __cdecl FUN_0022b080(Vec_28a8f0* out, const Vec_28a8f0* a, const Vec_28a8f0* b);
+extern "C" void __cdecl FUN_0022b080(Vec_28a8f0* out, const Vec_28a8f0* a, const Vec_28a8f0* b);
 struct Curve_28a8f0 {
     virtual void slot0();
     virtual void slot1();

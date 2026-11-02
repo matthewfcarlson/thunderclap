@@ -24,7 +24,7 @@ class SeqEventWait : public SeqEvent {
     virtual SeqEventWait* f4(int);
     void Finish();
 };
-extern void __cdecl FUN_00247550(void*, void*);
+extern "C" void __cdecl FUN_00247550(void*, void*);
 SeqEventWait* SeqEventWait::f4(int flags) {
     sub.Init();
     Finish();

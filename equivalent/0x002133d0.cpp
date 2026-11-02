@@ -6,7 +6,7 @@ struct State_2133d0 { char pad0[8]; TValue_2133d0 *top; char pad1[4]; Global_213
 void __cdecl FUN_00217440(State_2133d0 *L);
 int __cdecl FUN_00219430(State_2133d0 *L, const char *s, unsigned int len);
 
-void FUN_002133d0(State_2133d0 *L, const char *s)
+extern "C" void FUN_002133d0(State_2133d0 *L, const char *s)
 {
     if (s == 0) {
         L->top->tt = 0;

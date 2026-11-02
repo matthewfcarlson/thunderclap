@@ -20,7 +20,7 @@ public:
  ~XboxDrive();
 };
 }
-void __cdecl FUN_0026d830(void *);
+extern "C" void __cdecl FUN_0026d830(void *);
 core::XboxDrive::~XboxDrive() {
  if (device->status == 1) {
   device->f1();

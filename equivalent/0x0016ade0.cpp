@@ -5,10 +5,10 @@
 #include "decls/data/game/unknown.h"
 
 typedef unsigned int uint;
-void* __cdecl FUN_0008d690(uint);
+extern "C" void* __cdecl FUN_0008d690(uint);
 void __cdecl FUN_00165380(); void __cdecl FUN_00165390(); void __cdecl FUN_001653a0();
    
-void __cdecl FUN_002347b0(void*,void**,int);
+extern "C" void __cdecl FUN_002347b0(void*,void**,int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 struct ParamBase_16ade0 { void FUN_00234cc0(const char*); void FUN_00234960(const char*); };
 namespace hulkfight { namespace motion { class ChargeCondition; } }
@@ -16,7 +16,7 @@ namespace fight {
 template<class T> struct ParamEnumConstList : ParamBase_16ade0 { virtual void slot0(); char pad[12]; const void* list; uint count; void (*callback)(); uint tail; };
 template<class T> struct ParamFloatConstRange : ParamBase_16ade0 { virtual void slot0(); char pad[12]; void (*callback)(); uint tail; };
 }
-void __cdecl FUN_0016ade0() {
+extern "C" void __cdecl FUN_0016ade0() {
  if ((*(uint*)&DAT_004e11dc) == 0) {
  void* params[3]; void* memory=FUN_0008d690(32); params[0]=memory;
  if(memory) {

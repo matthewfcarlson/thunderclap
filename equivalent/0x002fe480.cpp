@@ -98,7 +98,7 @@ public:
     virtual Source_2fe480 *v28(SimStateHairclub_2fe480 *e);
 };
 
-SimStateHairclub_2fe480 *__cdecl FUN_002fe480(int a, Owner_2fe480 *owner, Provider_2fe480 *provider)
+extern "C" SimStateHairclub_2fe480 *__cdecl FUN_002fe480(int a, Owner_2fe480 *owner, Provider_2fe480 *provider)
 {
     SimStateHairclub_2fe480 *mem = (SimStateHairclub_2fe480 *)FUN_0008d690(0x8c);
     SimStateHairclub_2fe480 *e = 0;

@@ -4,7 +4,7 @@ class Base_2223f0 {
   public:
     virtual void Init();
 };
-void __fastcall InitPartition(void*);
+extern "C" void __fastcall FUN_0022a8e0(void*);
 class PartitionDriver {
   public:
     virtual void V0();
@@ -14,7 +14,7 @@ class PartitionDriver {
     PartitionDriver* Run(Base_2223f0* source);
 };
 PartitionDriver* PartitionDriver::Run(Base_2223f0* source) {
-    InitPartition((void*)(this));
+    FUN_0022a8e0((void*)(this));
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00427260);
     mSource = source;
     mSource->Init();

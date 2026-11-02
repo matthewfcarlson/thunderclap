@@ -4,7 +4,7 @@
 #include "decls/data/game/unknown.h"
 
 inline void* __cdecl operator new(unsigned int,void* p) { return p; }
-void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_0016f1c0(); void __cdecl FUN_0016f1d0(); void __cdecl FUN_0016f1f0();
 namespace hulkfight { namespace motion { class MotionStateTrack; } }
 namespace fight {
@@ -12,7 +12,7 @@ template<class T> struct ParamFloatConstRange { virtual void slot0(); char pad[1
 template<class T> struct ParamEnumConstList { virtual void slot0(); char pad[12]; const char* values; unsigned int count; void (__cdecl *callback)(); unsigned int tail; void FUN_00234cc0(const char*); };
 }
 void __cdecl FUN_002347b0(unsigned int*,void**,unsigned int);
-void __cdecl FUN_0017a260() {
+extern "C" void __cdecl FUN_0017a260() {
  if ((*(unsigned int*)&DAT_004e1344) == 0) {
  void* params[3];
  typedef fight::ParamFloatConstRange<hulkfight::motion::MotionStateTrack> FloatParam;

@@ -25,7 +25,7 @@ extern Panel_b5670 *__cdecl FUN_000fc260(const char *name);
 extern Texts_b5670 *__cdecl FUN_000fc1b0();
 extern int __cdecl FUN_000fc020(char *buf, int size, const char *fmt, ...);
 
-void __stdcall FUN_000b5670(int amount)
+extern "C" void __stdcall FUN_000b5670(int amount)
 {
     struct Frame {
         char pad[4];

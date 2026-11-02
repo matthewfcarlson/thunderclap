@@ -3,9 +3,9 @@
 struct Helper_1b3fc0 {
     void init(int);
 };
-extern void __cdecl f2(int);
+extern "C" void __cdecl FUN_002fa580(int);
 extern void __cdecl f3();
-extern void __cdecl f4(int, int, int);
+extern "C" void __cdecl FUN_002fa4e0(int, int, int);
 struct Obj_1b3fc0 {
     char pad[8];
     int field;
@@ -17,7 +17,7 @@ void __fastcall target(Obj_1b3fc0* self) {
     }
     if (self->field == 0)
         self->field = (*(int*)&DAT_00554c14);
-    f2(1);
+    FUN_002fa580(1);
     f3();
-    f4(0x14, 0x19, 500);
+    FUN_002fa4e0(0x14, 0x19, 500);
 }

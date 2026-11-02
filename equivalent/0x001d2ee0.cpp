@@ -8,9 +8,9 @@ struct Vec3 {
 };
 
 void __cdecl FUN_002133d0(LuaState *L, const char *s);
-void __cdecl FUN_00213800(LuaState *L, int index);
+extern "C" void __cdecl FUN_00213800(LuaState *L, int index);
 void __cdecl FUN_00212d80(LuaState *L, int index);
-void __cdecl FUN_001d0870(LuaState *L, Vec3 *v);
+extern "C" void __cdecl FUN_001d0870(LuaState *L, Vec3 *v);
 
 struct NodeName {
     void FUN_00233460(char *out, int size);
@@ -34,8 +34,8 @@ public:
 struct Context { char pad[4]; };
 Context *__fastcall FUN_000592a0(Actor *actor);
 struct Stats { char pad[4]; };
-Stats *__fastcall FUN_00059a30(Context *ctx);
-char *__fastcall FUN_00036d00(Stats *stats);
+extern "C" Stats *__fastcall FUN_00059a30(Context *ctx);
+extern "C" char *__fastcall FUN_00036d00(Stats *stats);
 
 class ScriptTable {
 public:

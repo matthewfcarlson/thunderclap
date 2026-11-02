@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_0041920c[];
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class Sub_18c6b0 {
   public:
     void Init();

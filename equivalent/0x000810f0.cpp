@@ -74,9 +74,9 @@ struct World {
 };
 
 
-void* FUN_0008d690(unsigned int size);
+extern "C" void* FUN_0008d690(unsigned int size);
 void* thunk_FUN_0008d690(unsigned int size);
-CollisionSphere_810f0* FUN_002efca0(void* mem, int arg);
+extern "C" CollisionSphere_810f0* FUN_002efca0(void* mem, int arg);
 
 class CCivilian : public pure3d::Entity {
 public:

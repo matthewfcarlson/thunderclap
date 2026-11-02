@@ -7,7 +7,7 @@
 #include "decls/data/engine/content.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
-void *__cdecl FUN_0008d6d0(int size);
+extern "C" void *__cdecl FUN_0008d6d0(int size);
 void __cdecl thunk_FUN_00267090(void *p);
 
 struct Stream {

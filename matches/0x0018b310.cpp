@@ -22,11 +22,11 @@ template <class T> struct ConditionFactoryCasterTemplate {
     virtual void other();
 };
 } // namespace fight
-extern void* __cdecl FUN_002343e0(const char*, void*);
+extern "C" void* __cdecl FUN_002343e0(const char*, void*);
 struct Registry_18b310 {
     void* FUN_00236760(void*);
 };
-void* __cdecl FUN_0018b310(Registry_18b310* registry) {
+extern "C" void* __cdecl FUN_0018b310(Registry_18b310* registry) {
     using namespace hulkfight::motion;
     {
         fight::ConditionFactoryCasterTemplate<PropAtRestCondition> caster;

@@ -15,7 +15,7 @@ struct Ctx_2d1850 {
     char b[4];
     float gravity;
 };
-void step(float dt, Ctx_2d1850* c, Obj_2d1850* o) {
+extern "C" void FUN_002d1850(float dt, Ctx_2d1850* c, Obj_2d1850* o) {
     float g = c->gravity;
     o->x += (float)o->s * c->scale * (*(const float*)&DAT_004d0ed4) * dt;
     o->pos[0] += g * o->vel[0] * dt;

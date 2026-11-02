@@ -16,10 +16,10 @@ namespace audio { struct Clip: FUN_00244ea0 {
  virtual void release();
  void* data;
 }; }
-extern void __cdecl FUN_0025ca90(Key_245720*, const char*);
+extern "C" void __cdecl FUN_0025ca90(Key_245720*, const char*);
 extern audio::Clip* __cdecl FUN_00244fa0(Key_245720*,char*);
 extern void* __cdecl FUN_00247530(char*);
-extern void* __cdecl FUN_0025cab0(void*,const char*,int,int);
+extern "C" void* __cdecl FUN_0025cab0(void*,const char*,int,int);
 extern void* __cdecl FUN_00245390(void*,void*);
 bool __cdecl target(audio::Clip** out, void* source, const char* name, void* option) {
  Key_245720 key;

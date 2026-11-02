@@ -128,7 +128,7 @@ struct Registry_291dc0 {
     void FUN_00265240(void*, const char*);
 };
 
-void FUN_00291dc0(){
+extern "C" void FUN_00291dc0(){
     void* mem = FUN_00263ea0(0xc);
     content::P3DFileHandler* p3d = 0;
     if (mem) p3d = new (mem) content::P3DFileHandler();

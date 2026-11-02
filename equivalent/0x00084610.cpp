@@ -39,7 +39,7 @@ struct World {
 };
 
 
-Hit_84610 *FUN_00202f00();
+extern "C" Hit_84610 *FUN_00202f00();
 
 class Pointer {
 public:

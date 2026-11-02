@@ -9,9 +9,9 @@ class JointDriver {
     void Init();
     JointDriver(int arg);
 };
-extern void __fastcall BaseInit(void*);
+extern "C" void __fastcall FUN_0022a8e0(void*);
 JointDriver::JointDriver(int arg) {
-    BaseInit((void*)(this));
+    FUN_0022a8e0((void*)(this));
     *(hulk_intptr*)this = ((hulk_intptr)DAT_004272f0);
     *(int*)((char*)this + 0x10) = arg;
     *(int*)((char*)this + 0x14) = 3;

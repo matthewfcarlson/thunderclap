@@ -10,7 +10,7 @@ struct S_2d8630 {
     int f4c;
     int f50;
 };
-int F(int a, S_2d8630* s, int* o1, unsigned* o2, int* o3) {
+extern "C" int FUN_002d8630(int a, S_2d8630* s, int* o1, unsigned* o2, int* o3) {
     int r = 0;
     if (a != 0 && s != 0 && (s->f8 & 0x10) != 0) {
         if (s->f19 == 3) {

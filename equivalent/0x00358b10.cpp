@@ -27,7 +27,7 @@ bool FUN_00357960(float *a, float *dir, float t2, float *p5, int a6, int a7, flo
 void FUN_00358030(float *a, float *dir, int flag, float *p5, int a6, int a7, float *o8c, float *o20, float *o44, float *o4, float *o64, int f1, int f2, int f3);
 void FUN_0022de70(float *a, float *b, float *p5, float *p8, float *o50, float *o8);
 bool FUN_003577c0(float *out, float *p5, int a6, int a7, float *p8);
-float *FUN_00083e00(float *out, float *dir, float t);
+extern "C" float *FUN_00083e00(float *out, float *dir, float t);
 
 static void CopyBits(float *dst, const volatile float *src)
 {
@@ -70,7 +70,7 @@ struct Frame_358b10 {
 
 #define FP(v) ((float *)(v))
 
-bool FUN_00358b10(float *c, float *axis, float radius, float halfLen, float *planePt, int a6, int a7,
+extern "C" bool FUN_00358b10(float *c, float *axis, float radius, float halfLen, float *planePt, int a6, int a7,
                   float *n, float *outDist, float *outPoint, float *outNormal)
 {
     Frame_358b10 fr;

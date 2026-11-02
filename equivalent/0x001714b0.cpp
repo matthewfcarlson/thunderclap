@@ -14,7 +14,7 @@ struct Quat_1714b0 {
     void FUN_0022b220(float x, float y, float z);
 };
 
-void FUN_0022b080(Quat_1714b0* out, Quat_1714b0* a, Quat_1714b0* b);
+extern "C" void FUN_0022b080(Quat_1714b0* out, Quat_1714b0* a, Quat_1714b0* b);
 void* FUN_00263ea0(unsigned int size);
 
 struct NameField_1714b0 {

@@ -24,7 +24,7 @@ struct Tree_249a90 {
     Node sentinel;
 };
 struct Values_249a90 { unsigned first; unsigned second; };
-void __cdecl FUN_00249a90(Tree_249a90* tree, const Values_249a90* values) {
+extern "C" void __cdecl FUN_00249a90(Tree_249a90* tree, const Values_249a90* values) {
     Node* end = &tree->sentinel;
     Node* node = tree->root;
     if (node == end) return;

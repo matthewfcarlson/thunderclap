@@ -39,7 +39,7 @@ struct Id64_f8970 {
     unsigned int hi;
 };
 
-Id64_f8970 __cdecl FUN_0027b020(const char *name);
+extern "C" Id64_f8970 __cdecl FUN_0027b020(const char *name);
 
 class FontSet_f8970 {
 public:

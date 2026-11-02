@@ -68,7 +68,7 @@ struct Config_135760 {
 
 float __cdecl FUN_00224f10(V3_135760 *v);
 void __cdecl FUN_00224d70(float angle, V3_135760 *v);
-int __cdecl FUN_00098190(unsigned int dt, unsigned int acc, unsigned int mag, int a, void *ref, int b,
+extern "C" int __cdecl FUN_00098190(unsigned int dt, unsigned int acc, unsigned int mag, int a, void *ref, int b,
                          V3_135760 *vel, V3_135760 *dir, int c, int d, int e, int f);
 
 class FlyingAttackAction {

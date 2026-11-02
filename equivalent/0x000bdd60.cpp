@@ -64,9 +64,9 @@ struct Overlay {
 
 
 void FUN_000fc1a0();
-Screen_bdd60 *FUN_000fc310();
+extern "C" Screen_bdd60 *FUN_000fc310();
 FEObject *FUN_000fc260(const char *name);
-float FUN_000186b0(float *v, float *lo, float *hi);
+extern "C" float FUN_000186b0(float *v, float *lo, float *hi);
 
 class Menu_bdd60 {
 public:

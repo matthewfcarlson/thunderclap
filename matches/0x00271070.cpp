@@ -2,11 +2,11 @@
 // data: gData_271070 = DAT_00528418, gFinal = DAT_0052a0f0, gFlag_271070 = DAT_004cdc04
 
 void __cdecl CleanupOne(void*);
-void __cdecl StepA();
-void __cdecl StepB();
-void __cdecl StepC();
-void __cdecl StepD();
-void __cdecl Finish(void*);
+extern "C" void __cdecl FUN_00273510();
+extern "C" void __cdecl FUN_00276340();
+extern "C" void __cdecl FUN_00277050();
+extern "C" void __cdecl FUN_00274af0();
+extern "C" void __cdecl FUN_0026d830(void*);
 void __cdecl FUN_00271070() {
     if (DAT_004cdc04) {
         char* p = ((char*)&DAT_00528418);
@@ -18,10 +18,10 @@ void __cdecl FUN_00271070() {
             --n;
         } while (n != 0);
     }
-    StepA();
-    StepB();
-    StepC();
-    StepD();
-    Finish(((char*)((char*)&DAT_0052842c + 7364)));
+    FUN_00273510();
+    FUN_00276340();
+    FUN_00277050();
+    FUN_00274af0();
+    FUN_0026d830(((char*)((char*)&DAT_0052842c + 7364)));
     ((char*)((char*)&DAT_0052842c + 7364))[0x2d] = 0;
 }

@@ -2,7 +2,7 @@ extern "C" long __cdecl atol(const char*);
 struct Parser {
     const char* Get();
 };
-char __stdcall FUN_00336030(int** p, Parser* parser, int unused, char direct) {
+extern "C" char __stdcall FUN_00336030(int** p, Parser* parser, int unused, char direct) {
     const char* s = parser->Get();
     if (!s)
         return 0;

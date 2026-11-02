@@ -16,6 +16,6 @@ struct Entry_266f20 {
     Item_266f20* ptr;
     char pad[12];
 };
-int target(int index, int value) {
+extern "C" int FUN_00266f20(int index, int value) {
     return ((Entry_266f20*)((char*)&DAT_00527c58 + 8))[index].ptr->g(value);
 }

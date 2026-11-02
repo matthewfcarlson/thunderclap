@@ -12,7 +12,7 @@ class Param_236d60 {
   public:
     virtual void p();
 };
-void __fastcall FUN_00234210(void* self);
+extern "C" void __fastcall FUN_00234210(void* self);
 class Track_236d60 : public Param_236d60 {
   public:
     virtual ~Track_236d60();

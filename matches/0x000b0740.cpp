@@ -1,5 +1,5 @@
 extern "C" int sprintf(char*, const char*, ...);
-int Cmp(const char*, const char*, int);
+extern "C" int FUN_00096670(const char*, const char*, int);
 struct Dev_b0740 {
     char p[0x14];
     char name[0x40];
@@ -12,9 +12,9 @@ void Dev_b0740::Set(const char* s) {
         type = 3;
         return;
     }
-    if (Cmp(name, "Keyboard", 8) == 0) {
+    if (FUN_00096670(name, "Keyboard", 8) == 0) {
         type = 1;
         return;
     }
-    type = (Cmp(name, "Mouse", 5) != 0) ? 0 : 2;
+    type = (FUN_00096670(name, "Mouse", 5) != 0) ? 0 : 2;
 }

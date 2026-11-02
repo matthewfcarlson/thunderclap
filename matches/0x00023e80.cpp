@@ -1,7 +1,7 @@
 struct Pair {
     unsigned a, b;
 };
-Pair __cdecl FUN_002672f0(int, int, int);
+extern "C" Pair __cdecl FUN_002672f0(int, int, int);
 class Obj {
   public:
     int Fn(int);

@@ -8,7 +8,7 @@ extern "C" void __cdecl FUN_0033ea90(void*);
 extern "C" void __cdecl FUN_003390d0(void*, const char*, void*, int);
 extern "C" void __cdecl FUN_00213680(void*, int, int);
 extern "C" void __cdecl FUN_00213790(void*, int, const char*);
-int __cdecl FUN_0033eb30(void* param_1) {
+extern "C" int __cdecl FUN_0033eb30(void* param_1) {
     void* p = param_1;
     if (p == 0)
         FUN_0033ea90(p);

@@ -52,7 +52,7 @@ struct Stats_12b910 {
 
 struct Fighter_12b910 { char pad[4]; };
 Fighter_12b910 *__fastcall FUN_000592a0(void *owner);
-Stats_12b910 *__fastcall FUN_00059a30(Fighter_12b910 *f);
+extern "C" Stats_12b910 *__fastcall FUN_00059a30(Fighter_12b910 *f);
 
 struct Sink_12b910;
 

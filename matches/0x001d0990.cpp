@@ -3,11 +3,11 @@
 
 extern "C" void* memcpy(void*, const void*, unsigned);
 void* Alloc(int, unsigned);
-void Free(void*);
+extern "C" void FUN_00267090(void*);
 void* Realloc(int unused, void* p, unsigned oldSize, unsigned newSize) {
     if (newSize == 0) {
         if (p)
-            Free(p);
+            FUN_00267090(p);
         return 0;
     }
     void* n = Alloc(DAT_004c5cfc, newSize);
@@ -17,7 +17,7 @@ void* Realloc(int unused, void* p, unsigned oldSize, unsigned newSize) {
         if (oldSize > newSize)
             oldSize = newSize;
         memcpy(n, p, oldSize);
-        Free(p);
+        FUN_00267090(p);
     }
     return n;
 }

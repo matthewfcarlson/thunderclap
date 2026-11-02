@@ -2,7 +2,7 @@
 #include "compat/ptr.h"
 #include "gen/global.h"
 
-extern void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class Helper_69d70 {
   public:
     int FUN_000190a0(CAutoTargetTrack*, hulk_intptr);

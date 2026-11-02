@@ -7,6 +7,6 @@ class Obj {
     char pad[0x1c];
     Callee* ptr;
 };
-void fn(Obj* o, void* a, void* b, void* c) {
+extern "C" void FUN_002469f0(Obj* o, void* a, void* b, void* c) {
     o->ptr->Fn(a, b, 1, c);
 }

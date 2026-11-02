@@ -4,7 +4,7 @@
 #include "decls/address.h"
 extern "C" int __cdecl FUN_00267760(char*, unsigned int, const char*, ...);
 extern "C" unsigned long __cdecl FUN_00345d81(const char*, char**, int);
-unsigned __int64 __cdecl FUN_00096d80(const char* text)
+extern "C" unsigned __int64 __cdecl FUN_00096d80(const char* text)
 {
     unsigned __int64 result;
     if (!text) {

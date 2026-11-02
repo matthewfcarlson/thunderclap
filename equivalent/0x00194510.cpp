@@ -2,7 +2,7 @@
 // FUN_00194510 @ 0x00194510
 struct Object { char pad[0xdc]; char* text; unsigned char FUN_00194510(const char* value); }; 
 void* __cdecl FUN_0008d340(void* p);
-void* __cdecl FUN_0008d6d0(unsigned int size);
+extern "C" void* __cdecl FUN_0008d6d0(unsigned int size);
 unsigned char Object::FUN_00194510(const char* value) {
     FUN_0008d340(text);
     if (!value) { text = 0; return 1; }

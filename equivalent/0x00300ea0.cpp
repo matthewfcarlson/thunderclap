@@ -9,7 +9,7 @@ struct ElemArray_300ea0 {
     void FUN_00300d80(int flags);
 };
 
-void *__cdecl FUN_0008d6d0(unsigned int size);
+extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 
 class ElemPool {
 public:

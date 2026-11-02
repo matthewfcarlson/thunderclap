@@ -14,8 +14,8 @@ namespace fight {
 template<class T> struct ParamFloatConstRange : FloatBase_610c0 { virtual void slot0(); };
 template<class T> struct ParamIntConstRange : IntBase_610c0 { virtual void slot0(); };
 }
-void __cdecl FUN_002347b0(void*, void**, int);
-void __cdecl FUN_000610c0() {
+extern "C" void __cdecl FUN_002347b0(void*, void**, int);
+extern "C" void __cdecl FUN_000610c0() {
  if (!DAT_004dc614) {
   void* items[3];
   void* p = FUN_0008d690(24);

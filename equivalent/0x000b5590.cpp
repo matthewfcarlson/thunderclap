@@ -14,7 +14,7 @@ struct Object {
 };
 extern "C" Object* __cdecl FUN_000fc260(const char*);
 
-void __stdcall FUN_000b5590(unsigned int value)
+extern "C" void __stdcall FUN_000b5590(unsigned int value)
 {
     Object* object = FUN_000fc260("side_mission_success_ranking");
     if (!object)

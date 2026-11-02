@@ -41,7 +41,7 @@ struct Mode_39440 {
 };
 
 
-bool __cdecl FUN_00096b50(Event_39440 *ev, void *out, int *result);
+extern "C" bool __cdecl FUN_00096b50(Event_39440 *ev, void *out, int *result);
 
 struct Fighter_39440 {
     char pad000[0x114];

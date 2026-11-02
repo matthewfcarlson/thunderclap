@@ -3,7 +3,7 @@ struct Ctx_261500 {
     char* out;
 };
 const char* Next(Ctx_261500*);
-char* Fn(Ctx_261500* c) {
+extern "C" char* FUN_00261500(Ctx_261500* c) {
     char* start = c->out;
     *start = 0;
     char* d = start;

@@ -7,7 +7,7 @@ class Obj {
     void set(void*);
 };
 void* __cdecl find(const char*, Caster_17d180*);
-void __cdecl FUN(Obj* obj, const char* name) {
+extern "C" void __cdecl FUN_0017d180(Obj* obj, const char* name) {
     Caster_17d180 caster;
     obj->set(find(name, &caster));
 }

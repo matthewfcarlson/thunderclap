@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 extern "C" char DAT_00414420[];
-extern void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 class Track {
   public:
     virtual void v0();
@@ -17,7 +17,7 @@ class Track {
     void* Make();
 };
 void* Track::Make() {
-    Track* p = (Track*)Alloc(0x18);
+    Track* p = (Track*)FUN_0008d690(0x18);
     if (p) {
         p->Init();
         p->a = 0;

@@ -63,7 +63,7 @@ public:
     Bits_2f1ce0 f74;
 };
 
-void __cdecl FUN_00305f00(const V3_2f1ce0 *a, const V3_2f1ce0 *b, V3_2f1ce0 *axis, float *angle);
+extern "C" void __cdecl FUN_00305f00(const V3_2f1ce0 *a, const V3_2f1ce0 *b, V3_2f1ce0 *axis, float *angle);
 void __cdecl FUN_002f0120(float q, float ext, float *w, char *flag);
 float __cdecl FUN_00083d90(float *p);
 
@@ -95,7 +95,7 @@ struct Frame_2f1ce0 {
     Mat4_2f1ce0 M2;                         // 0x88
 };
 
-Shape_2f1ce0 *__cdecl FUN_002f1ce0(const V3_2f1ce0 *p, Shape_2f1ce0 *shape, V3_2f1ce0 *out, float *dist)
+extern "C" Shape_2f1ce0 *__cdecl FUN_002f1ce0(const V3_2f1ce0 *p, Shape_2f1ce0 *shape, V3_2f1ce0 *out, float *dist)
 {
     Frame_2f1ce0 f;
     f.ret = shape;

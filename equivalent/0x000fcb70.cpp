@@ -8,7 +8,7 @@ struct V3_fcb70 {
 };
 
 struct Clock;
-Clock *__cdecl FUN_000964d0();
+extern "C" Clock *__cdecl FUN_000964d0();
 
 struct Anchor_fcb70 {
     char pad0[0x10];

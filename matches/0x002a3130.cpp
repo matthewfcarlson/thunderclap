@@ -17,7 +17,7 @@ struct Shader_2a3130 {
     Shader_2a3130* build();
 };
 extern void* alloc(hulk_uintptr);
-void FUN_002a3130() {
+extern "C" void FUN_002a3130() {
     if ((*(Shader_2a3130**)&DAT_00554bb4) == 0) {
         Shader_2a3130* p = (Shader_2a3130*)alloc(0x20);
         if (p)

@@ -27,7 +27,7 @@ struct A_271530 {
     Obj_271530* p;
 };
 extern void __cdecl FUN_00271410(A_271530*, int, int, int);
-void __cdecl FUN_00271530(A_271530* a, int b, int c, int d) {
+extern "C" void __cdecl FUN_00271530(A_271530* a, int b, int c, int d) {
     FUN_00271410(a, b, c, d);
     if (a->p)
         a->p->f22();

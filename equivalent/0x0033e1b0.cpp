@@ -5,7 +5,7 @@ int __cdecl FUN_00212d70(int,...);
 int __cdecl FUN_002139f0(int,int,int,int);
 void __cdecl FUN_00213520(int,...);
 void __cdecl FUN_00212e20(int,...);
-void __cdecl FUN_0033e1b0(int handle) {
+extern "C" void __cdecl FUN_0033e1b0(int handle) {
     FUN_00339dc0(handle,1);
     int count = FUN_00212d70(handle,-1,0);
     int result = FUN_002139f0(handle,count-1,-1,0);

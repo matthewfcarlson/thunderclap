@@ -53,7 +53,7 @@ struct World {
 
 
 Handle_16db0* __fastcall FUN_000592a0(void* owner);
-Scene_16db0* __fastcall FUN_00059a30(Handle_16db0* h);
+extern "C" Scene_16db0* __fastcall FUN_00059a30(Handle_16db0* h);
 
 class CCameraDramaticAction {
 public:

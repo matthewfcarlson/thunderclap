@@ -38,12 +38,12 @@ struct Stream {
 };
 
 int FUN_0024afe0(Source *src);
-int FUN_0024c090(Source *src);
-int FUN_0024b0d0(Source *src);
-void FUN_0025be60(int *pos, int *local);
-int FUN_0024c4d0(int *local, int v);
-int FUN_0024c480(int *local, int v);
-float FUN_00261bb0(int a, int b, int c, int d, int e);
+extern "C" int FUN_0024c090(Source *src);
+extern "C" int FUN_0024b0d0(Source *src);
+extern "C" void FUN_0025be60(int *pos, int *local);
+extern "C" int FUN_0024c4d0(int *local, int v);
+extern "C" int FUN_0024c480(int *local, int v);
+extern "C" float FUN_00261bb0(int a, int b, int c, int d, int e);
 
 namespace audio {
 

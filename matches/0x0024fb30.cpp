@@ -13,12 +13,12 @@ class SeqEventChannelSends : public SeqEvent {
     virtual int vfunc_0(void*);
     char pad[0x104];
 };
-extern bool __cdecl checkA(void*, void*);
-extern bool __cdecl checkB(void*, void*);
+extern "C" bool __cdecl FUN_0024f010(void*, void*);
+extern "C" bool __cdecl FUN_0025c7c0(void*, void*);
 int SeqEventChannelSends::vfunc_0(void* p) {
     if (SeqEvent::baseCheck(p))
-        if (checkA(p, (char*)this + 0x108))
-            if (checkB(p, (char*)this + 8))
+        if (FUN_0024f010(p, (char*)this + 0x108))
+            if (FUN_0025c7c0(p, (char*)this + 8))
                 return 1;
     return 0;
 }

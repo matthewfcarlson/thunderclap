@@ -12,7 +12,7 @@ struct Writer_256070 {
 
 char FUN_00246f50(Stream* s, const char* fmt, ...);
 char FUN_00250ef0(Writer_256070* w, const char* name, void* value);
-char FUN_00254000(Writer_256070* w, const char* name, void* value);
+extern "C" char FUN_00254000(Writer_256070* w, const char* name, void* value);
 
 namespace audio {
 

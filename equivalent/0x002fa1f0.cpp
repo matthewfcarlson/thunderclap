@@ -36,7 +36,7 @@ struct Skeleton {
 };
 
 
-void __cdecl FUN_002f46a0(unsigned short *begin, unsigned short *end, int count);
+extern "C" void __cdecl FUN_002f46a0(unsigned short *begin, unsigned short *end, int count);
 unsigned short *__cdecl FUN_002f9190(unsigned short *begin, unsigned short *end);
 
 class Range_2fa1f0 {

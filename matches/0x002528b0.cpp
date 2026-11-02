@@ -1,5 +1,5 @@
 typedef unsigned __int64 U64;
-extern U64 __cdecl MakeValue(const char*, int, int) throw();
+extern "C" U64 __cdecl FUN_002672f0(const char*, int, int) throw();
 class Temp {
     char data[12];
 
@@ -18,4 +18,4 @@ class SeqEventVarVolumeType_2528b0 : public SeqEventType_2528b0 {
     virtual void v();
 };
 SeqEventVarVolumeType_2528b0::SeqEventVarVolumeType_2528b0() throw()
-    : SeqEventType_2528b0(Temp().Init("Vol", 0), MakeValue("SeqEventVarVolume", 0, 0), 12, 4) {}
+    : SeqEventType_2528b0(Temp().Init("Vol", 0), FUN_002672f0("SeqEventVarVolume", 0, 0), 12, 4) {}

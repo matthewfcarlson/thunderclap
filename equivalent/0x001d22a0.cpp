@@ -45,20 +45,20 @@ struct Frame {
     ArgBuffer args;
 };
 
-int FUN_00212fe0(LuaState* L, int idx);
-Binding* FUN_00213260(LuaState* L, int idx);
+extern "C" int FUN_00212fe0(LuaState* L, int idx);
+extern "C" Binding* FUN_00213260(LuaState* L, int idx);
 int FUN_00212d70(LuaState* L);
-int FUN_00212f00(LuaState* L, int idx);
-float FUN_002130e0(LuaState* L, int idx);
+extern "C" int FUN_00212f00(LuaState* L, int idx);
+extern "C" float FUN_002130e0(LuaState* L, int idx);
 char* FUN_00213190(LuaState* L, int idx);
-int FUN_00213160(LuaState* L, int idx);
-void FUN_00213340(LuaState* L, float f);
-void FUN_00213320(LuaState* L);
+extern "C" int FUN_00213160(LuaState* L, int idx);
+extern "C" void FUN_00213340(LuaState* L, float f);
+extern "C" void FUN_00213320(LuaState* L);
 void FUN_002133d0(LuaState* L, char* s);
-void FUN_00213550(LuaState* L, void* p);
-void FUN_001d0870(LuaState* L, Vec3* v);
+extern "C" void FUN_00213550(LuaState* L, void* p);
+extern "C" void FUN_001d0870(LuaState* L, Vec3* v);
 
-int FUN_001d22a0(LuaState* L)
+extern "C" int FUN_001d22a0(LuaState* L)
 {
     Frame f;
 

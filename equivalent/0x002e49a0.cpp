@@ -2,7 +2,7 @@
 // FUN_002e49a0 @ 0x002e49a0
 #include "decls/address.h"
 void *__cdecl FUN_00263ea0(unsigned int size);
-void __cdecl FUN_0028fcc0(const char *fmt, ...);
+extern "C" void __cdecl FUN_0028fcc0(const char *fmt, ...);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 namespace pure3d { class Shader; }

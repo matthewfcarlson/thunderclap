@@ -17,8 +17,8 @@ struct Probe_14210 {
     Vec3_14210 *FUN_001c39d0();
 };
 
-void __cdecl FUN_00096a90(void *obj, Vec3_14210 *out);
-Probe_14210 *__cdecl FUN_001c3d90();
+extern "C" void __cdecl FUN_00096a90(void *obj, Vec3_14210 *out);
+extern "C" Probe_14210 *__cdecl FUN_001c3d90();
 
 static float QuarterPi()
 {

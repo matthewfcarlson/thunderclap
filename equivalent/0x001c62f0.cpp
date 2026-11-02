@@ -6,7 +6,7 @@ struct Manager_1c62f0 { Mode_1c62f0* FUN_00086310(); };
 struct World { char pad[0x54]; Manager_1c62f0* manager; };
 extern "C" long __cdecl atol(const char*);
 long __cdecl FUN_001c62c0(const char*, const char*);
-long __cdecl FUN_001c62f0(const char* text, char marker) {
+extern "C" long __cdecl FUN_001c62f0(const char* text, char marker) {
  if (!text) return -1;
  if (DAT_004dd700->manager->FUN_00086310()->FUN_000897e0()) {
   if (marker != 'R') return -1;

@@ -5,7 +5,7 @@
 
 int* __fastcall FUN_00212bb0(int second, int first);
 
-int __cdecl FUN_00212f00(int first, int second)
+extern "C" int __cdecl FUN_00212f00(int first, int second)
 {
     int* result = FUN_00212bb0(second, first);
     if (result == ((int*)&DAT_00426824))

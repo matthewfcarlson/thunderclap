@@ -7,7 +7,7 @@ struct Service_1c9970 {
  void FUN_001d1e10(const char*, int);
  void FUN_001d1d10();
 };
-Service_1c9970* __cdecl FUN_001d4c90();
+extern "C" Service_1c9970* __cdecl FUN_001d4c90();
 void __cdecl FUN_00096d50(char*, unsigned int, unsigned int, unsigned int);
 struct Object {
  char padding[0xb0];

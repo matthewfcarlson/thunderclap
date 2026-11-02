@@ -7,7 +7,7 @@ struct Data_2d8550 {
     unsigned int value;
     unsigned short size;
 };
-int __cdecl Target(int a, Data_2d8550* b, unsigned int* out, uint_2d8550* out2) {
+extern "C" int __cdecl FUN_002d8550(int a, Data_2d8550* b, unsigned int* out, uint_2d8550* out2) {
     if (a && b && (b->flags & 8) && out) {
         *out = b->value;
         *out2 = (uint_2d8550)b->size;

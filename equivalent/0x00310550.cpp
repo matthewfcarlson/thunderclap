@@ -52,7 +52,7 @@ struct Body_310550 {
     float bx, by, bz;
 };
 
-void FUN_00305b00(SymMatrix* out, Vec3_310550* offset, float mass);
+extern "C" void FUN_00305b00(SymMatrix* out, Vec3_310550* offset, float mass);
 
 struct Frame_310550 {
     Vec3_310550 v;

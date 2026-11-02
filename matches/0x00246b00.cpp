@@ -8,7 +8,7 @@ struct Buf {
     char* cur;
     char flag;
 };
-bool __cdecl FUN_00246b00(Buf* p, void* dst, uint n) {
+extern "C" bool __cdecl FUN_00246b00(Buf* p, void* dst, uint n) {
     if (p->flag)
         return false;
     if (p->a + p->b - (hulk_uintptr)p->cur < n)

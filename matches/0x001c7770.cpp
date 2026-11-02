@@ -3,7 +3,7 @@
 #include "gen/Render.h"
 
 extern void __cdecl thunk_FUN_00267090(void* p);
-extern void* __cdecl FUN_0008d690(unsigned int size);
+extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 

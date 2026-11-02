@@ -7,7 +7,7 @@ class Y_5a3f0 {
   public:
     int B();
 };
-int __cdecl target(X_5a3f0* param) {
+extern "C" int __cdecl FUN_0005a3f0(X_5a3f0* param) {
     if (param != 0) {
         hulk_intptr a = param->A();
         if (a != 0) {

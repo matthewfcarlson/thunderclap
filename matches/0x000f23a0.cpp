@@ -9,7 +9,7 @@ struct Object {
     virtual int Load(DynamicCaster_f23a0*, U64);
 };
 extern U64 hash(void*);
-int work(Object* obj, void* name) {
+extern "C" int FUN_000f23a0(Object* obj, void* name) {
     U64 h = hash(name);
     DynamicCaster_f23a0 caster;
     return obj->Load(&caster, h);

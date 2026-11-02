@@ -62,7 +62,7 @@ struct GrappleData_157c0 {
 };
 
 void *__fastcall FUN_000592a0(void *owner);
-Entity *__fastcall FUN_00059a30(void *x);
+extern "C" Entity *__fastcall FUN_00059a30(void *x);
 
 class CGrappleSwapAction {
 public:

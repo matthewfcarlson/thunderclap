@@ -2,14 +2,14 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_0040fdb4[];
-extern void* __cdecl Alloc(int);
+extern "C" void* __cdecl FUN_0008d690(int);
 class Target_12a570 {
   public:
     void Init(int);
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetDirectionCondition>::vfunc_5() {
-    Target_12a570* p = (Target_12a570*)Alloc(0x14);
+    Target_12a570* p = (Target_12a570*)FUN_0008d690(0x14);
     if (p) {
         p->Init(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_0040fdb4);

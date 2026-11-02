@@ -18,9 +18,9 @@ class CollisionSourceNodeCondition {
     char p14[8];
     void Init(int);
 };
-extern void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 CollisionSourceNodeCondition* FactoryVfunc5() {
-    CollisionSourceNodeCondition* p = (CollisionSourceNodeCondition*)Alloc(0x20);
+    CollisionSourceNodeCondition* p = (CollisionSourceNodeCondition*)FUN_0008d690(0x20);
     if (p) {
         p->Init(0);
         *(hulk_ulongptr*)p = ((hulk_intptr)DAT_00414130);

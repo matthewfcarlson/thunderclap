@@ -2,7 +2,7 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_003f74e0[];
-void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 struct Obj_57d70 {
     void Init(int);
 };
@@ -18,7 +18,7 @@ struct Raw_57d70 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<CFightNodePrevCondition>::vfunc_5() {
-    Raw_57d70* p = (Raw_57d70*)Alloc(0x20);
+    Raw_57d70* p = (Raw_57d70*)FUN_0008d690(0x20);
     if (p != 0) {
         ((Obj_57d70*)p)->Init(0);
         p->vptr = ((hulk_intptr)DAT_003f74e0);

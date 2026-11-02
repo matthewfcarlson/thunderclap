@@ -25,7 +25,7 @@ class TrackFactoryTemplate_77a50 {
     TrackImpl mTrack;
 };
 
-void postInit();
+extern "C" void FUN_00075230();
 
 template <> void* fight::TrackFactoryCasterTemplate<CCameraDramaticTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
@@ -34,7 +34,7 @@ template <> void* fight::TrackFactoryCasterTemplate<CCameraDramaticTrack>::vfunc
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_77a50* t = new (mem) TrackFactoryTemplate_77a50();
         t->mTrack.setup(arg);
-        postInit();
+        FUN_00075230();
         return (void*)(t);
     }
     return (void*)(0);

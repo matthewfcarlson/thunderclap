@@ -28,7 +28,7 @@ struct Body_125ce0 {
 class Context { public: char pad[4]; };
 
 Context *__fastcall FUN_000592a0(void *obj);
-Owner_125ce0 *__fastcall FUN_00059a30(Context *ctx);
+extern "C" Owner_125ce0 *__fastcall FUN_00059a30(Context *ctx);
 int __cdecl FUN_00018960(float a, float b, float c);
 
 class TargetVelocityCondition {

@@ -40,7 +40,7 @@ struct Owner_3d1c0 {
 };
 
 Sink_3d1c0 *__fastcall FUN_00059a40(void *obj);
-char __cdecl FUN_00018960(float a, float b, float eps);
+extern "C" char __cdecl FUN_00018960(float a, float b, float eps);
 
 bool Owner_3d1c0::FUN_0003d1c0(Event_3d1c0 *ev, void *unused, V3_3d1c0 *in, V3_3d1c0 *out)
 {

@@ -1,4 +1,4 @@
-float* Scale(float* out, float scalar, const float* in) {
+extern "C" float* FUN_00083dd0(float* out, float scalar, const float* in) {
     float a = scalar * in[2];
     float b = scalar * in[1];
     float c = scalar * in[0];

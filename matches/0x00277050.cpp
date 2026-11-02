@@ -18,8 +18,8 @@ struct Obj_277050 {
     virtual void f13();
     virtual void f14(void*, void*, void*);
 };
-void FUN_0026d830(void*);
-void target() {
+extern "C" void FUN_0026d830(void*);
+extern "C" void FUN_00277050() {
     char a[4], b[4], c[4];
     FUN_0026d830(DAT_0052a208);
     (*(Obj_277050**)&DAT_0052a224)->f14(a, b, c);

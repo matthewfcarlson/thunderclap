@@ -33,10 +33,10 @@ struct Object {
     void FUN_0028f980();
     void* FUN_0028fa30(int);
 };
-extern void __cdecl FUN_0028fcc0(const char*, ...);
+extern "C" void __cdecl FUN_0028fcc0(const char*, ...);
 extern void __cdecl FUN_0031ba60(int, int, Device_292560**);
-extern void __cdecl FUN_002c3230(Device_292560*);
-extern void* __cdecl FUN_0008d690(unsigned);
+extern "C" void __cdecl FUN_002c3230(Device_292560*);
+extern "C" void* __cdecl FUN_0008d690(unsigned);
 extern void __cdecl FUN_002c31b0();
 extern void* DAT_0052c2a8;
 struct Owner_292560 {

@@ -11,7 +11,7 @@ static inline int memcmp_lit(const char *a, const char *b, unsigned n)
             return (unsigned char)*a - (unsigned char)*b;
     return 0;
 }
-int __cdecl FUN_000f6660(int value, int modulus);
+extern "C" int __cdecl FUN_000f6660(int value, int modulus);
 
 class FELayout {
   public:

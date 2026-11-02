@@ -8,12 +8,12 @@ struct Obj_b9620 {
     Inner_b9620* p;
     void Target();
 };
-void Exit();
+extern "C" void FUN_000fc2f0();
 void Obj_b9620::Target() {
     if (p) {
         p->A();
         p->B(0);
         if (!p->C())
-            Exit();
+            FUN_000fc2f0();
     }
 }

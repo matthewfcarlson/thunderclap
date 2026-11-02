@@ -13,7 +13,7 @@ namespace audio { class ListenerEffectPsp {
     virtual void f8();
 }; }
 extern void __fastcall FUN_00244f70(audio::ListenerEffectPsp*);
-extern void FUN_00247550(void*, audio::ListenerEffectPsp*);
+extern "C" void FUN_00247550(void*, audio::ListenerEffectPsp*);
 audio::ListenerEffectPsp* audio::ListenerEffectPsp::vfunc_2(int x) {
     FUN_00244f70(this);
     if (x & 1)
