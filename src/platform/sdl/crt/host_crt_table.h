@@ -29,6 +29,7 @@
     I(msvcrt, strcspn, -1, "") \
     I(msvcrt, strpbrk, -1, "") \
     I(msvcrt, strtok, -1, "") \
+    I(msvcrt, strtoul, -1, "") \
     I(msvcrt, strerror, -1, "") \
     I(msvcrt, _stricmp, -1, "") \
     I(msvcrt, _strlwr, -1, "") \
@@ -204,7 +205,7 @@
     C(0x00345a46, isalnum, "_isalnum isalnum") \
     C(0x00345ad0, iscntrl, "_iscntrl iscntrl") \
     C(0x00345b90, toupper, "toupper") \
-    C(0x00345d81, _exit, "_exit") \
+    C(0x00345d81, strtoul, "strtoul") \
     C(0x00345db0, strchr, "_strchr strchr") \
     C(0x00345e70, strstr, "_strstr strstr") \
     C(0x00345f90, qsort, "_qsort qsort") \

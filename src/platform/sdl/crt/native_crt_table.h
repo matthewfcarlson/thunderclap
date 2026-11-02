@@ -51,7 +51,7 @@
     N(0x00345a46, libc, isalnum, "_isalnum isalnum") \
     N(0x00345ad0, libc, iscntrl, "_iscntrl iscntrl") \
     N(0x00345b90, libc, toupper, "toupper") \
-    N(0x00345d81, libc, _exit, "_exit") \
+    N(0x00345d81, glue, hulk_ncrt_strtoul, "strtoul") \
     N(0x00345db0, libc, strchr, "_strchr strchr") \
     N(0x00345e70, libc, strstr, "_strstr strstr") \
     N(0x00345f90, libc, qsort, "_qsort qsort") \
