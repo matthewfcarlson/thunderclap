@@ -1,6 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 10/10)
 // CScriptCamera::vfunc_35 @ 0x000acad0
 // cl-flags: /GS
+#include "compat/ptr.h"
 
 struct Vec3_acad0 {
     float x, y, z;
@@ -122,7 +123,7 @@ void CScriptCamera::vfunc_35(CameraArgs* args, float dt, int flag, int extra)
         m.FUN_0022b980();
         m.FUN_0022bc20(a2 * 0.017453292f, a1 * 0.017453292f, 0.0f);
 
-        float t = c218.FUN_000ac6f0(time, duration);
+        hulk_freg t = c218.FUN_000ac6f0(time, duration);   // st(0): the original never rounds it (fmul st(1) x3)
         v2a0.x = (v294.x - v288.x) * t + v288.x;
         v2a0.y = (v294.y - v288.y) * t + v288.y;
         v2a0.z = (v294.z - v288.z) * t + v288.z;

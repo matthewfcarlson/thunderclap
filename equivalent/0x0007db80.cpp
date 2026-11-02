@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2986 inputs, branch coverage 29/30, incomplete)
 // FUN_0007db80 @ 0x0007db80
+#include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 
 struct V3_7db80 {
@@ -81,9 +82,10 @@ void Spawner_7db80::FUN_0007db80(int *outSlot, int *outItem)
             Item_7db80 *it = &group[j];
             if (!it->flag)
                 break;
-            float dx = pos.x - it->a.x;
-            float dy = pos.y - it->a.y;
-            float dz = pos.z - it->a.z;
+            // the original keeps the three differences in st0..st2 (never rounded to float)
+            hulk_freg dx = pos.x - it->a.x;
+            hulk_freg dy = pos.y - it->a.y;
+            hulk_freg dz = pos.z - it->a.z;
             if (it->state >= 3)
                 continue;
             if (!(dz * dz + dy * dy + dx * dx < 10000.0f))
