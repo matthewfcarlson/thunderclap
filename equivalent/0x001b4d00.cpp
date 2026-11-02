@@ -205,7 +205,7 @@ void Combat::FUN_001b4d00(Ctx1f4 *ctx, int arg2)
                 d.y = slot->pos.y - E7->v64.y;
                 d.z = slot->pos.z - E7->v64.z;
                 if (d.x * d.x + d.z * d.z + d.y * d.y < 500.0f)
-                    ((ThisCall_00080cd0*)(this))->FUN_00080cd0(&d, 0);
+                    ((ThisCall_00080cd0*)E7)->FUN_00080cd0(&d, 0);   // ecx = obj->f8 (the civilian), not this
                 continue;
             }
             slot->FUN_001b32e0(obj);
