@@ -16,5 +16,5 @@ struct Helper_28d560 {
 void QuaternionChannel::vfunc_4(int a, int b, int c) {
     char local[16];
     f3(a, b, local);
-    ((Helper_28d560*)local)->call(*(int*)(&b + 1));
+    ((Helper_28d560*)local)->call(c);
 }

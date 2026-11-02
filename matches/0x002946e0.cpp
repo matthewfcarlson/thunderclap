@@ -1,3 +1,7 @@
+// a..c: a vector passed by value.
+struct Vec3_2946e0 {
+    unsigned int x, y, z;
+};
 class Source_2946e0 {
   public:
     virtual void v0();
@@ -24,9 +28,9 @@ class Owner_2946e0 {
     char pad[0x18];
     Source_2946e0* source;
     void Process(Scratch_2946e0*, unsigned int);
-    void Run(unsigned int a, unsigned int b, unsigned int c, unsigned int d);
+    void Run(Vec3_2946e0 a, unsigned int d);
 };
-void Owner_2946e0::Run(unsigned int a, unsigned int b, unsigned int c, unsigned int d) {
+void Owner_2946e0::Run(Vec3_2946e0 a, unsigned int d) {
     if (source) {
         unsigned int x = source->Get();
         Scratch_2946e0 temp;

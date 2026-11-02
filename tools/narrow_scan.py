@@ -439,6 +439,10 @@ def scan_src(src):
         parsed = []
         for p in ps:
             p2 = re.sub(r"=.*$", "", p).strip()
+            mu = re.match(r"^(?:const\s+)?(unsigned|signed)\s+(\w+)$", p2)
+            if mu and mu.group(2) not in ("int", "long", "short", "char", "__int64"):
+                parsed.append((mu.group(1), mu.group(2)))        # bare `unsigned b`: b is the name, not the type
+                continue
             m = re.match(r"^(?:const\s+)?((?:unsigned\s+|signed\s+|struct\s+|class\s+)?[\w:]+(?:\s*\*+)?)\s*(\w+)?$", p2)
             if m:
                 parsed.append((m.group(1).strip(), m.group(2)))

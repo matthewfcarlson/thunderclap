@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3064 inputs, branch coverage 74/97, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3031 inputs, branch coverage 74/74)
 // FUN_000b36d0 @ 0x000b36d0
 #include "decls/data/game/global.h"
 
@@ -38,6 +38,14 @@ struct Input_b36d0 {
     Stick_b36d0 stick[2];             // 0x9c
 };
 
+// The 13 button values and the two sticks' x/y pairs, passed by value (the caller passes one sample struct).
+struct Buttons_b36d0 {
+    float v[13];
+};
+struct Sticks_b36d0 {
+    float xy[4];
+};
+
 struct Meter_b36d0 {
     float FUN_000ad3c0();
     float FUN_000ad2b0();
@@ -47,17 +55,13 @@ class Ctrl_b36d0 {
 public:
     char pad00[8];
     Meter_b36d0 *meter;               // 0x08
-    void FUN_000b36d0(Input_b36d0 *s, float v0, float v1, float v2, float v3, float v4, float v5, float v6,
-                      float v7, float v8, float v9, float v10, float v11, float v12,
-                      float x0, float y0, float x1, float y1, float dt);
+    void FUN_000b36d0(Input_b36d0 *s, Buttons_b36d0 buttons, Sticks_b36d0 sticks, float dt);
 };
 
-void Ctrl_b36d0::FUN_000b36d0(Input_b36d0 *s, float v0, float v1, float v2, float v3, float v4, float v5, float v6,
-                        float v7, float v8, float v9, float v10, float v11, float v12,
-                        float x0, float y0, float x1, float y1, float dt)
+void Ctrl_b36d0::FUN_000b36d0(Input_b36d0 *s, Buttons_b36d0 buttons, Sticks_b36d0 sticks, float dt)
 {
-    float *vals = &v0;
-    float *xy = &x0;
+    float *vals = buttons.v;
+    float *xy = sticks.xy;
 
     for (int i = 0; i < 13; i++) {
         float v = vals[i];

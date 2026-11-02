@@ -1,6 +1,10 @@
 #include "decls/data/game/global.h"
 // data: gmgr = DAT_0052c2b0
 
+// a..c: a vector passed by value.
+struct Vec3_294500 {
+    float x, y, z;
+};
 struct Buf_294500 {
     char pad[12];
     void put(void* p, unsigned int v);
@@ -31,9 +35,9 @@ class Target_294500 {
   public:
     char pad[0x18];
     Obj_294500* obj;
-    void run(int a, int b, int c, Buf_294500* out);
+    void run(Vec3_294500 a, Buf_294500* out);
 };
-void Target_294500::run(int a, int b, int c, Buf_294500* out) {
+void Target_294500::run(Vec3_294500 a, Buf_294500* out) {
     Buf_294500 local;
     local.put(&a, (*(Mgr_294500**)&DAT_0052c2b0)->sub->getval());
     if (obj) {

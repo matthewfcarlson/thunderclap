@@ -4965,7 +4965,6 @@ public:
     int FUN_001dc350(char*); // non-virtual
     void FUN_001dd450(void*); // non-virtual
     void* FUN_001df190(void*, int); // non-virtual
-    char FUN_001df1e0(int, int, int, int); // non-virtual
     int FUN_001e4760(int, int, int, int, int, int, int); // non-virtual
     void FUN_001e54b0(const char*, const char*, float, float, float); // non-virtual
     void FUN_001e5bb0(int, int); // non-virtual
@@ -6077,7 +6076,6 @@ public:
     void FUN_001fcc40(void*); // non-virtual
     void FUN_001fcc60(int); // non-virtual
     void FUN_001fcc80(int, int); // non-virtual
-    unsigned char FUN_001fce50(int, int, int, int, unsigned char); // non-virtual
     hulk_intptr FUN_001fcf40(); // non-virtual
     hulk_freg FUN_001fd830(unsigned int); // non-virtual
     bool FUN_001fd8b0(int, float); // non-virtual

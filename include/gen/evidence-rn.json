@@ -8457,16 +8457,6 @@
     ],
     ""
    ],
-   "FUN_001df1e0": [
-    "char",
-    [
-     "int",
-     "int",
-     "int",
-     "int"
-    ],
-    ""
-   ],
    "FUN_001e4760": [
     "int",
     [
@@ -8595,17 +8585,6 @@
     [
      "int",
      "int"
-    ],
-    ""
-   ],
-   "FUN_001fce50": [
-    "unsigned char",
-    [
-     "int",
-     "int",
-     "int",
-     "int",
-     "unsigned char"
     ],
     ""
    ],
