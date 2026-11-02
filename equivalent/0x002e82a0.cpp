@@ -28,7 +28,7 @@ void FUN_002eb240(png_struct_2e82a0 *png_ptr, png_info *info_ptr, unsigned int w
                   int bit_depth, int color_type, int interlace, int compression, int filter);
 
 // libpng png_handle_IHDR
-void FUN_002e82a0(png_struct_2e82a0 *png_ptr, png_info *info_ptr, unsigned int length)
+extern "C" void FUN_002e82a0(png_struct_2e82a0 *png_ptr, png_info *info_ptr, unsigned int length)
 {
     unsigned char buf[13];
 

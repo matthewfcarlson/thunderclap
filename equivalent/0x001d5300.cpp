@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 128 inputs, branch coverage 32/32)
 // FUN_001d5300 @ 0x001d5300
 extern "C" int FUN_00096600(const char *a, const char *b);
-int FUN_001d5300(const char *name)
+extern "C" int FUN_001d5300(const char *name)
 {
     if (!FUN_00096600(name, "Power") || !FUN_00096600(name, "MajorHealth") ||
         !FUN_00096600(name, "MinorHealth") || !FUN_00096600(name, "PowerMinor"))

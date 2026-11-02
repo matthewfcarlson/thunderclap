@@ -16,23 +16,23 @@ struct Image {
 extern void* __cdecl FUN_00266e00(int,int);
 extern void __cdecl FUN_00267090(void*);
 // equiv-conv: FUN_002af670 esi ebx stack
-int __cdecl FUN_002af670(Info_2af670* info, Stream* stream, Image* image) {
+extern "C" int __cdecl FUN_002af670(void * info, void * stream, void * image) {
  unsigned int palette[256] = {0};
- int count = info->paletteCount;
+ int count = ((Info_2af670 *)info)->paletteCount;
  if (!count) count = 256;
- stream->FUN_002647e0(palette,count,4,1);
+ ((Stream *)stream)->FUN_002647e0(palette,count,4,1);
  for(int i=0;i<count;++i) palette[i] |= 0xff000000;
- image->init(info->width,info->height,8,1,palette);
- int position=stream->FUN_00263fc0();
- stream->FUN_00264510(info->position-position);
- int width=info->width;
+ ((Image *)image)->init(((Info_2af670 *)info)->width,((Info_2af670 *)info)->height,8,1,palette);
+ int position=((Stream *)stream)->FUN_00263fc0();
+ ((Stream *)stream)->FUN_00264510(((Info_2af670 *)info)->position-position);
+ int width=((Info_2af670 *)info)->width;
  int padding=(width & 3) ? 4-(width & 3):0;
  void* buffer=FUN_00266e00(1,width);
- for(int y=0;y<info->height;++y) {
- stream->FUN_002647e0(buffer,width,1,1);
- image->row(buffer);
- stream->FUN_00264510(padding);
+ for(int y=0;y<((Info_2af670 *)info)->height;++y) {
+ ((Stream *)stream)->FUN_002647e0(buffer,width,1,1);
+ ((Image *)image)->row(buffer);
+ ((Stream *)stream)->FUN_00264510(padding);
  }
  FUN_00267090(buffer);
- return image->finish();
+ return ((Image *)image)->finish();
 }

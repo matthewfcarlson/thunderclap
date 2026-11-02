@@ -64,7 +64,7 @@ static inline void **VtableOf(Bone_311d50 *b)
 extern "C" void *FUN_0008d6d0(unsigned int size);
 extern "C" void *FUN_00266e00(int kind, unsigned int size);
 extern "C" void FUN_00267090(void *p);
-void FUN_00311c20(Bone_311d50 **first, Bone_311d50 **last, hulk_intptr n);
+extern "C" void __cdecl FUN_00311c20(int *, int *, int);
 
 class SkeletonBuilder {
 public:
@@ -158,7 +158,7 @@ void SkeletonBuilder::FUN_00311d50()
                     }
                 }
                 owner = table[p];
-                FUN_00311c20(owner->childBegin, owner->childEnd, owner->childEnd - owner->childBegin);
+                FUN_00311c20((int *)(Bone_311d50 * *)(owner->childBegin), (int *)(Bone_311d50 * *)(owner->childEnd), (hulk_intptr)(owner->childEnd - owner->childBegin));
                 break;
             }
             p = data->parent[p];
@@ -178,7 +178,7 @@ void SkeletonBuilder::FUN_00311d50()
                 }
             }
             root = table[0];
-            FUN_00311c20(root->childBegin, root->childEnd, root->childEnd - root->childBegin);
+            FUN_00311c20((int *)(Bone_311d50 * *)(root->childBegin), (int *)(Bone_311d50 * *)(root->childEnd), (hulk_intptr)(root->childEnd - root->childBegin));
         }
         Bone_311d50 *cur = list[i];
         if (cur->weight > 0.0f || (cur->parent != 0 && cur->parent->marked == 1)) {

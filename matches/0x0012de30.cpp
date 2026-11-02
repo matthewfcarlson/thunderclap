@@ -45,7 +45,7 @@ inline void* __cdecl operator new(unsigned int, void* p) {
     return p;
 }
 extern "C" void __cdecl FUN_002347b0(int*, void**, int);
-void target() {
+extern "C" void FUN_0012de30() {
     if (DAT_004e0e48 == 0) {
         void* items[4];
         void* p = FUN_0008d690(24);

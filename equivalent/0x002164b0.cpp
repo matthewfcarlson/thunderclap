@@ -11,7 +11,8 @@ struct Object {
  char pad1c[0x24]; Object* threadNext;
  char pad44[8]; Object* protoNext;
 };
-void __cdecl FUN_002164b0(State_2164b0* state, Object* object) {
+extern "C" void __cdecl FUN_002164b0(void * state, void * object_) {
+    Object * object = (Object *)object_;
  object->flags &= 0xfc;
  for (;;) {
   switch (object->type) {
@@ -29,15 +30,15 @@ void __cdecl FUN_002164b0(State_2164b0* state, Object* object) {
    if (value != &object->embedded) return;
    if (value->type >= 4) {
     Object* next = value->object;
-    if (next->flags & 3) FUN_002164b0(state, next);
+    if (next->flags & 3) FUN_002164b0((State_2164b0 *)((State_2164b0 *)state), (Object *)next);
    }
    object->flags |= 4;
    return;
   }
-  case 6: object->data.reference = state->gray; state->gray = object; return;
-  case 5: object->tableNext = state->gray; state->gray = object; return;
-  case 8: object->protoNext = state->gray; state->gray = object; return;
-  case 9: object->threadNext = state->gray; state->gray = object; return;
+  case 6: object->data.reference = ((State_2164b0 *)state)->gray; ((State_2164b0 *)state)->gray = object; return;
+  case 5: object->tableNext = ((State_2164b0 *)state)->gray; ((State_2164b0 *)state)->gray = object; return;
+  case 8: object->protoNext = ((State_2164b0 *)state)->gray; ((State_2164b0 *)state)->gray = object; return;
+  case 9: object->threadNext = ((State_2164b0 *)state)->gray; ((State_2164b0 *)state)->gray = object; return;
   default: return;
   }
  }

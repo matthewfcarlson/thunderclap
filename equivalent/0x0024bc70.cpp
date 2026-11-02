@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19606 inputs, branch coverage 36/36)
 // FUN_0024bc70 @ 0x0024bc70
 // FUN_0024bc70 @ 0x0024bc70
+#include "compat/ptr.h"
 class Sink_24bc70 {
 public:
     virtual void v0();
@@ -54,39 +55,39 @@ struct Player_24bc70 {
 };
 
 unsigned int __cdecl FUN_0025d040(unsigned int v);
-int __cdecl FUN_00259c50(int handle);
+extern "C" void * __cdecl FUN_00259c50(void *);
 extern "C" void __cdecl FUN_00258ea0(int handle, int arg);
 extern "C" void __cdecl FUN_0025e290(void *obj);
 void __cdecl FUN_0024bae0(Player_24bc70 *p, int arg);
 // equiv-conv: FUN_0024b170 eax
-void FUN_0024b170(Player_24bc70 *p);
+extern "C" bool __cdecl FUN_0024b170(void *);
 // equiv-conv: FUN_0024b480 eax
-void FUN_0024b480(Player_24bc70 *p);
+extern "C" void __cdecl FUN_0024b480(void *);
 // equiv-conv: FUN_0024b550 esi
-void FUN_0024b550(Player_24bc70 *p);
+extern "C" void __cdecl FUN_0024b550(void *);
 // equiv-conv: FUN_0024b920 esi
-void FUN_0024b920(Player_24bc70 *p);
+extern "C" void __cdecl FUN_0024b920(void *);
 
 // equiv-conv: FUN_0024bc70 eax
-void FUN_0024bc70(Player_24bc70 *p)
+extern "C" void FUN_0024bc70(void *p)
 {
-    int state = p->state;
+    int state = ((Player_24bc70 *)p)->state;
     if (state == 1) {
-        unsigned int end = p->span->length + p->span->start;
-        if (end >= FUN_0025d040(p->limit) && p->f0c4 == 0) {
-            p->state = 4;
+        unsigned int end = ((Player_24bc70 *)p)->span->length + ((Player_24bc70 *)p)->span->start;
+        if (end >= FUN_0025d040(((Player_24bc70 *)p)->limit) && ((Player_24bc70 *)p)->f0c4 == 0) {
+            ((Player_24bc70 *)p)->state = 4;
             return;
         }
     } else if (state == 2 || state == 3) {
-        if (state == 3 && FUN_00259c50(p->handle) == 0 && p->f0c4 == 0) {
-            p->state = 4;
+        if (state == 3 && ((int)(hulk_uintptr)FUN_00259c50((void *)(hulk_uintptr)(int)(((Player_24bc70 *)p)->handle))) == 0 && ((Player_24bc70 *)p)->f0c4 == 0) {
+            ((Player_24bc70 *)p)->state = 4;
             return;
         }
-        FUN_0024b170(p);
+        FUN_0024b170((Player_24bc70 *)((Player_24bc70 *)p));
     } else if (state == 5) {
-        if (FUN_00259c50(p->handle) == 0 && p->f0c4 == 0 && p->f0c8 == 0) {
+        if (((int)(hulk_uintptr)FUN_00259c50((void *)(hulk_uintptr)(int)(((Player_24bc70 *)p)->handle))) == 0 && ((Player_24bc70 *)p)->f0c4 == 0 && ((Player_24bc70 *)p)->f0c8 == 0) {
             int found = 0;
-            for (Slot_24bc70 *s = p->queue.FUN_0024b2d0(); s != 0; s = p->queue.FUN_0024b310(s)) {
+            for (Slot_24bc70 *s = ((Player_24bc70 *)p)->queue.FUN_0024b2d0(); s != 0; s = ((Player_24bc70 *)p)->queue.FUN_0024b310(s)) {
                 Sink_24bc70 *sink = s->sink;
                 if (sink != 0) {
                     int r = sink->state();
@@ -97,21 +98,21 @@ void FUN_0024bc70(Player_24bc70 *p)
                 }
             }
             if (found == 0) {
-                FUN_0024bae0(p, 1);
-                FUN_00258ea0(p->handle, 0);
-                p->state = 0;
-                p->f0bc = 0;
-                FUN_0025e290(p->span);
-                if (p->res != 0)
-                    FUN_0025e290(p->res);
+                FUN_0024bae0(((Player_24bc70 *)p), 1);
+                FUN_00258ea0(((Player_24bc70 *)p)->handle, 0);
+                ((Player_24bc70 *)p)->state = 0;
+                ((Player_24bc70 *)p)->f0bc = 0;
+                FUN_0025e290(((Player_24bc70 *)p)->span);
+                if (((Player_24bc70 *)p)->res != 0)
+                    FUN_0025e290(((Player_24bc70 *)p)->res);
             }
         }
-        if (p->state != 5)
+        if (((Player_24bc70 *)p)->state != 5)
             return;
     } else {
         return;
     }
-    FUN_0024b480(p);
-    FUN_0024b550(p);
-    FUN_0024b920(p);
+    FUN_0024b480((Player_24bc70 *)((Player_24bc70 *)p));
+    FUN_0024b550((Player_24bc70 *)((Player_24bc70 *)p));
+    FUN_0024b920((Player_24bc70 *)((Player_24bc70 *)p));
 }

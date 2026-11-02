@@ -21,7 +21,7 @@ struct Map_24a940 {
 };
 
 Node* __cdecl FUN_00247530(char* pool);
-void __cdecl FUN_00249ff0(Tree_24a940* tree, Node* node, const unsigned int* key);
+extern "C" char __cdecl FUN_00249ff0(void *, void *, const unsigned *);
 
 // Finds the node for *key, creating and linking a new one when it is missing.
 extern "C" Node* FUN_0024a940(Map_24a940* map, const unsigned int* key)
@@ -48,6 +48,6 @@ extern "C" Node* FUN_0024a940(Map_24a940* map, const unsigned int* key)
     Node* created = 0;
     if (mem)
         created = mem->FUN_0024a510(*key);
-    FUN_00249ff0(tree, created, key);
+    FUN_00249ff0((Tree_24a940 *)tree, (Node *)created, (const unsigned *)(const unsigned int *)key);
     return created;
 }

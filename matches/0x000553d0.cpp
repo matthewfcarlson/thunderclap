@@ -68,7 +68,7 @@ struct Registry_553d0 { void FUN_00236760(void*); void FUN_002363f0(); };
 void* __cdecl FUN_002343e0(const char*, void*);
 void __cdecl FUN_00236940(Registry_553d0*);
 void __cdecl FUN_00132620(Registry_553d0*);
-void __cdecl FUN_001138d0(Registry_553d0*, const char*);
+extern "C" void __cdecl FUN_001138d0(void *, void *);
 void __cdecl FUN_00113a20(Registry_553d0*, const char*);
 void __cdecl FUN_00113b10(Registry_553d0*, const char*);
 void __cdecl FUN_00113b40(Registry_553d0*, const char*);
@@ -99,7 +99,7 @@ extern "C" bool __cdecl FUN_000553d0(Registry_553d0* r)
 {
     FUN_00236940(r);
     FUN_00132620(r);
-    FUN_001138d0(r, "aiFightNodeParent");
+    FUN_001138d0((Registry_553d0 *)r, (void *)(const char *)"aiFightNodeParent");
     FUN_00113a20(r, "keyWordWait");
     FUN_00113b10(r, "randomKeyWordWait");
     FUN_00113b40(r, "token");

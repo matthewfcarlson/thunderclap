@@ -54,7 +54,7 @@ struct Id_66d50 {
 };
 
 void FUN_00066930();
-void __cdecl FUN_000658d0(Vec3_66d50* a, Vec3_66d50* b, Vec3_66d50* c, int* out);
+extern "C" int __cdecl FUN_000658d0(float *, float *, float *, float *);
 
 class Tracker_66d50 {
 public:
@@ -128,7 +128,7 @@ void Tracker_66d50::FUN_00066d50()
             f.pos.z = f.pos.z - center.z;
             float dist = f.pos.FUN_0022d110();
             if (dist < f374 && dist > f370 && (e->f1b40 | e->f1b44) != 0) {
-                FUN_000658d0(&f.w, &center, &v160, &f.out);
+                FUN_000658d0((float *)(Vec3_66d50 *)(&f.w), (float *)(Vec3_66d50 *)(&center), (float *)(Vec3_66d50 *)(&v160), (float *)(int *)(&f.out));
                 f.q.out = f.out;
                 f.q.lo = ids[i].lo;
                 f.q.hi = ids[i].hi;

@@ -11,9 +11,9 @@ struct Table_33eef0 {
     int n;
 };
 
-void FUN_0033eef0(Table_33eef0* t, int n, float* out)
+extern "C" void FUN_0033eef0(void * t, int n, float* out)
 {
-    t->n = n;
+    ((Table_33eef0 *)t)->n = n;
     if (n <= 1)
         return;
     int half = n >> 1;

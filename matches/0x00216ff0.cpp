@@ -11,9 +11,9 @@ struct Obj_216ff0 {
     unsigned char pad[0x5c];
     Node* head;
 };
-void process(Obj_216ff0*, Node*);
-void target(Obj_216ff0* obj) {
-    Node* outer = obj->head;
+extern "C" void __cdecl FUN_002164b0(void *, void *);
+extern "C" void FUN_00216ff0(void * obj) {
+    Node* outer = ((Obj_216ff0 *)obj)->head;
     while (outer) {
         if (outer->flags & 3) {
             Node* inner = outer->child;
@@ -23,7 +23,7 @@ void target(Obj_216ff0* obj) {
                     if (*(int*)p >= 4) {
                         Node* q = *(Node**)((char*)p + 4);
                         if (q->flags & 3)
-                            process(obj, q);
+                            FUN_002164b0((Obj_216ff0 *)((Obj_216ff0 *)obj), (Node *)q);
                     }
                 }
                 inner = inner->next;

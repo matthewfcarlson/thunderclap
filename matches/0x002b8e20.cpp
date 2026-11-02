@@ -1,7 +1,7 @@
 #include "decls/data/game/global.h"
 // data: oneThird = DAT_003f32dc
 
-void FUN(float* out, int mode, float* range, float value) {
+extern "C" void FUN_002b8e20(float* out, int mode, float* range, float value) {
     *out = 1.0f;
     if (mode == 1) {
         if (value < range[0]) {

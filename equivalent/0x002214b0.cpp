@@ -12,16 +12,17 @@ struct expdesc_2214b0 {
 };
 
 void __cdecl FUN_00220d90(FuncState* fs, expdesc_2214b0* e);
-int __cdecl FUN_00220cd0(FuncState* fs);
+extern "C" int __cdecl FUN_00220cd0(void *);
 // equiv-conv: FUN_00220ab0 ecx eax
 void FUN_00220ab0(FuncState* fs, expdesc_2214b0* e);
 // equiv-conv: FUN_00221430 eax edi ebx
-int FUN_00221430(FuncState* fs, expdesc_2214b0* e, int flag);
+extern "C" int __cdecl FUN_00221430(void *, void *, int);
 void __cdecl FUN_002207c0(FuncState* fs, int* dst, int value);
 
-void FUN_002214b0(FuncState* fs, expdesc_2214b0* e)
+extern "C" void FUN_002214b0(void * fs, void * e_)
 {
-    FUN_00220d90(fs, e);
+    expdesc_2214b0 * e = (expdesc_2214b0 *)e_;
+    FUN_00220d90(((FuncState *)fs), e);
     int value;
     switch (e->k) {
     case 2:
@@ -29,15 +30,15 @@ void FUN_002214b0(FuncState* fs, expdesc_2214b0* e)
         value = -1;
         break;
     case 3:
-        value = FUN_00220cd0(fs);
+        value = FUN_00220cd0((FuncState *)((FuncState *)fs));
         break;
     case 9:
-        FUN_00220ab0(fs, e);
+        FUN_00220ab0(((FuncState *)fs), e);
         value = e->info;
         break;
     default:
-        value = FUN_00221430(fs, e, 0);
+        value = FUN_00221430((FuncState *)((FuncState *)fs), (expdesc_2214b0 *)e, 0);
         break;
     }
-    FUN_002207c0(fs, &e->dst, value);
+    FUN_002207c0(((FuncState *)fs), &e->dst, value);
 }

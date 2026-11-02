@@ -9,9 +9,10 @@ struct Node {
     int tail;
     int finalValue;
 };
-int __cdecl FUN_0021bbc0(Node* node, int* next);
+extern "C" int __cdecl FUN_0021bbc0(void *, void *);
 // equiv-conv: FUN_0021c290 esi ecx
-int FUN_0021c290(Node* node, int key) {
+extern "C" int FUN_0021c290(void * node_, int key) {
+    Node * node = (Node *)node_;
     if (node->current != key) return 0;
     node->previous = node->first;
     if (node->tail != 0x11f) {
@@ -20,7 +21,7 @@ int FUN_0021c290(Node* node, int key) {
         node->current = oldTail;
         node->next = node->finalValue;
     } else {
-        node->current = FUN_0021bbc0(node, &node->next);
+        node->current = FUN_0021bbc0((Node *)node, (int *)(&node->next));
     }
     return 1;
 }

@@ -9,17 +9,17 @@ struct Slot_214840 { unsigned type; Closure_214840* closure; };
 struct CallInfo_214840 { Slot_214840* base; unsigned top; unsigned* pc; int tailcalls; };
 
 // equiv-conv: FUN_002146f0 eax stack stack
-const char* __cdecl FUN_002146f0(unsigned reg, CallInfo_214840* ci, char** name);
+extern "C" const char * __cdecl FUN_002146f0(unsigned, void *, char **);
 
 // equiv-conv: FUN_00214840 ecx stack
-const char* __cdecl FUN_00214840(CallInfo_214840* ci, char** name)
+extern "C" const char* __cdecl FUN_00214840(void * ci, char** name)
 {
-    Slot_214840* func = ci->base - 1;
-    if (func->type == 6 && !func->closure->native && ci->tailcalls > 0) {
+    Slot_214840* func = ((CallInfo_214840 *)ci)->base - 1;
+    if (func->type == 6 && !func->closure->native && ((CallInfo_214840 *)ci)->tailcalls > 0) {
         return 0;
     }
 
-    CallInfo_214840* caller = ci - 1;
+    CallInfo_214840* caller = ((CallInfo_214840 *)ci) - 1;
     Slot_214840* callerFunc = caller->base - 1;
     if (callerFunc->type != 6 || callerFunc->closure->native) {
         return 0;
@@ -36,7 +36,7 @@ const char* __cdecl FUN_00214840(CallInfo_214840* ci, char** name)
     unsigned instruction = caller->base[-1].closure->proto->code[pc];
     unsigned op = instruction & 0x3f;
     if (op == 0x19 || op == 0x1a) {
-        return FUN_002146f0(instruction >> 24, caller, name);
+        return FUN_002146f0(instruction >> 24, (CallInfo_214840 *)caller, name);
     }
     return 0;
 }

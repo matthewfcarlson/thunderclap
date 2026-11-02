@@ -83,8 +83,8 @@ public:
 }
 
 void *FUN_00263ea0(unsigned int size);
-void *__cdecl FUN_002b2c00(Inventory *inv, const char *name);
-void *__cdecl FUN_002b2c30(Inventory *inv, const char *name);
+extern "C" void * __cdecl FUN_002b2c00(void *, void *);
+extern "C" void * __cdecl FUN_002b2c30(void *, void *);
 
 class MultiControllerLoader {
 public:
@@ -179,10 +179,10 @@ void MultiControllerLoader::vfunc_5(pure3d::MultiController **out, unsigned __in
                 void *ctrl;
                 switch (f.type) {
                 case 0x4d4143:
-                    ctrl = FUN_002b2c00(inv, f.name2);
+                    ctrl = FUN_002b2c00((Inventory *)inv, (void *)(const char *)(f.name2));
                     break;
                 case 0x505845:
-                    ctrl = FUN_002b2c30(inv, f.name2);
+                    ctrl = FUN_002b2c30((Inventory *)inv, (void *)(const char *)(f.name2));
                     break;
                 case 0x475142:
                     MAKE_CASE(BillboardQuadGroupAnimationController)

@@ -52,10 +52,10 @@ void FUN_00219be0(Table_21a0f0 *t, int nasize, lua_State_21a0f0 *L);
 // equiv-conv: FUN_00219c30 ebx esi stack
 void FUN_00219c30(lua_State_21a0f0 *L, Table_21a0f0 *t, int lsize);
 TValue_21a0f0 *__cdecl FUN_00219dc0(Table_21a0f0 *t, int n);
-TValue_21a0f0 *__cdecl FUN_0021a3e0(lua_State_21a0f0 *L, Table_21a0f0 *t, TValue_21a0f0 *key);
+extern "C" int * __cdecl FUN_0021a3e0(void *, void *, void *);
 void *__cdecl FUN_0021add0(lua_State_21a0f0 *L, void *block, unsigned int oldsize, unsigned int newsize);
-Node *__cdecl FUN_002198b0(Table_21a0f0 *t, TValue_21a0f0 *key);
-int __cdecl FUN_00215fa0(Node *n, TValue_21a0f0 *key);
+extern "C" void * __cdecl FUN_002198b0(void *, const void *);
+extern "C" int __cdecl FUN_00215fa0(const void *, const void *);
 void __cdecl FUN_00214a90(lua_State_21a0f0 *L, const char *msg);
 
 // Lua 5.0 luaH_resize: nasize arrives in eax, the table in ecx.
@@ -90,7 +90,7 @@ void FUN_0021a0f0(int nasize, Table_21a0f0 *t, lua_State_21a0f0 *L, int lsize)
                 if (slot == ((TValue_21a0f0*)&DAT_00426824)) {
                     key.tt = 3;
                     key.value.n = (float)(i + 1);
-                    slot = FUN_0021a3e0(L, t, &key);
+                    slot = ((TValue_21a0f0 *)FUN_0021a3e0((lua_State_21a0f0 *)L, (Table_21a0f0 *)t, (TValue_21a0f0 *)(&key)));
                 }
                 slot->tt = arr->tt;
                 slot->value = arr->value;
@@ -128,9 +128,9 @@ void FUN_0021a0f0(int nasize, Table_21a0f0 *t, lua_State_21a0f0 *L, int lsize)
             generic = false;
         }
         if (generic && ktt != 0) {
-            Node *n = FUN_002198b0(t, k);
+            Node *n = ((Node *)FUN_002198b0((Table_21a0f0 *)t, (TValue_21a0f0 *)k));
             do {
-                if (FUN_00215fa0(n, k)) {
+                if (FUN_00215fa0((Node *)n, (TValue_21a0f0 *)k)) {
                     p = &n->val;
                     break;
                 }
@@ -144,7 +144,7 @@ void FUN_0021a0f0(int nasize, Table_21a0f0 *t, lua_State_21a0f0 *L, int lsize)
             } else if (k->tt == 3 && !(k->value.n == k->value.n)) {
                 FUN_00214a90(L, "table index is NaN");
             }
-            p = FUN_0021a3e0(L, t, k);
+            p = ((TValue_21a0f0 *)FUN_0021a3e0((lua_State_21a0f0 *)L, (Table_21a0f0 *)t, (TValue_21a0f0 *)k));
         }
         p->tt = old->val.tt;
         p->value = old->val.value;

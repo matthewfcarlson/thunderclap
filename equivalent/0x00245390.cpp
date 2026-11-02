@@ -17,7 +17,7 @@ public:
     virtual void v12();
 };
 
-void FUN_00245380();
+extern "C" void FUN_00245380();
 extern "C" Stream *FUN_0025bec0(Stream *s);
 extern "C" void *FUN_0025d340(void *a, unsigned int n, int z);
 extern "C" bool FUN_0025d070(void *buf, unsigned int done, unsigned int left, int z, unsigned int *x3, unsigned int *x2, unsigned int *x1);

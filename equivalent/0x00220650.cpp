@@ -16,8 +16,9 @@ struct Ctx_220650 {
 void FUN_0021b060(void* errCtx, const char* msg);
 
 // equiv-conv: FUN_00220650 edx ebx stack stack stack stack stack
-void FUN_00220650(int idx, Ctx_220650* ctx, int a1, int a2, int a3, int a4, int a5)
+extern "C" void FUN_00220650(int idx, void * ctx_, int a1, int a2, int a3, int a4, int a5)
 {
+    Ctx_220650 * ctx = (Ctx_220650 *)ctx_;
     while (idx != -1) {
         unsigned int* words = ctx->buf->words;
         unsigned int* cur = &words[idx];

@@ -3,9 +3,9 @@ struct Obj {
 };
 extern Obj gObj;
 int atexit(void (*)(void));
-void Handler();
+extern "C" void FUN_00363c50();
 
 void Reg() {
     gObj.Init("sound/rsd", 0);
-    atexit(Handler);
+    atexit(FUN_00363c50);
 }

@@ -24,7 +24,7 @@ public:
 
 // Snap *p to its floor when the two samplers disagree enough; sampler a arrives in esi, b in edi.
 // equiv-conv: FUN_00292f60 esi edi stack
-void FUN_00292f60(Sampler_292f60 *a, Sampler_292f60 *b, float *p)
+extern "C" void FUN_00292f60(void *a, void *b, float *p)
 {
     Frame_292f60 f;
     hulk_freg lo = (float)floor((double)*p);
@@ -33,9 +33,9 @@ void FUN_00292f60(Sampler_292f60 *a, Sampler_292f60 *b, float *p)
     hulk_freg dist = 0.0f;
     hulk_freg dot = 0.0f;
 
-    if (a) {
-        a->v4(lo, &f.a.x);
-        a->v4(hi, &f.b.x);
+    if (((Sampler_292f60 *)a)) {
+        ((Sampler_292f60 *)a)->v4(lo, &f.a.x);
+        ((Sampler_292f60 *)a)->v4(hi, &f.b.x);
         f.a.x = f.a.x - f.b.x;
         f.a.y = f.a.y - f.b.y;
         f.a.z = f.a.z - f.b.z;
@@ -44,15 +44,15 @@ void FUN_00292f60(Sampler_292f60 *a, Sampler_292f60 *b, float *p)
             bad = true;
     }
 
-    if (b && !bad) {
-        b->v4(lo, &f.a.x);
-        b->v4(hi, &f.b.x);
+    if (((Sampler_292f60 *)b) && !bad) {
+        ((Sampler_292f60 *)b)->v4(lo, &f.a.x);
+        ((Sampler_292f60 *)b)->v4(hi, &f.b.x);
         dot = f.b.z * f.a.z + f.b.y * f.a.y + f.b.x * f.a.x;
         if (dot < 0.0f)
             bad = true;
     }
 
-    if (a && b && !bad) {
+    if (((Sampler_292f60 *)a) && ((Sampler_292f60 *)b) && !bad) {
         if (dist > 1.0f && dot < 0.866f)
             *p = lo;
     } else if (bad) {

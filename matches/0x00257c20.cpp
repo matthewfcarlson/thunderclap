@@ -15,9 +15,9 @@ struct L_257c20 {
     Node* tail;
     char Fn(Item_257c20* i);
 };
-char Add(void* s, Item_257c20* i, int* p);
+extern "C" char __cdecl FUN_00257560(void *, void *, const unsigned *);
 char L_257c20::Fn(Item_257c20* i) {
-    if (Add(&s, i, &i->x)) {
+    if (FUN_00257560(&s, (Item_257c20 *)i, (const unsigned *)(int *)(&i->x))) {
         Node* n = &i->n;
         if (head == 0) {
             head = n;

@@ -5,7 +5,7 @@
 #include "decls/data/engine/unknown.h"
 struct Bitset { unsigned int bits; unsigned int words[17]; };
 extern "C" Bitset* __cdecl FUN_0008d6d0(unsigned int);
-void FUN_0027b8f0(){
+extern "C" void FUN_0027b8f0(){
   if ((*(unsigned int*)&DAT_0052c288) == 0) {
     long long hash = FUN_002672f0("root", 0, 0);
     (*(unsigned int*)&DAT_004ce408) = (unsigned int)hash;

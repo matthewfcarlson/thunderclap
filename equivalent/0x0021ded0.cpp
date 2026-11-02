@@ -25,15 +25,15 @@ struct LexState_21ded0 {
     int nestlevel;
 };
 
-int FUN_0021bbc0(LexState_21ded0 *ls, int *seminfo);
+extern "C" int __cdecl FUN_0021bbc0(void *, void *);
 void FUN_0021afd0(LexState_21ded0 *ls, const char *msg, int token);
 // equiv-conv: FUN_0021db50 eax edi
-void FUN_0021db50(LexState_21ded0 *ls, ExpDesc_21ded0 *v);
+extern "C" void __cdecl FUN_0021db50(void *, void *);
 // equiv-conv: FUN_0021dd30 eax
-int FUN_0021dd30(int token);
-void FUN_00221700(FuncState *fs, int op, ExpDesc_21ded0 *v);
-void FUN_002217c0(FuncState *fs, int op, ExpDesc_21ded0 *v);
-void FUN_002218d0(FuncState *fs, int op, ExpDesc_21ded0 *v, ExpDesc_21ded0 *v2);
+extern "C" int FUN_0021dd30(int token);
+extern "C" void __cdecl FUN_00221700(void *, int, void *);
+extern "C" void __cdecl FUN_002217c0(void *, int, void *);
+extern "C" void __cdecl FUN_002218d0(void *, int, void *, void *);
 
 
 static void next(LexState_21ded0 *ls)
@@ -44,35 +44,35 @@ static void next(LexState_21ded0 *ls)
         ls->seminfo = ls->lookaheadSeminfo;
         ls->lookaheadToken = 0x11f;
     } else {
-        ls->token = FUN_0021bbc0(ls, &ls->seminfo);
+        ls->token = FUN_0021bbc0((LexState_21ded0 *)ls, (int *)(&ls->seminfo));
     }
 }
 
-int FUN_0021ded0(LexState_21ded0 *ls, ExpDesc_21ded0 *v, unsigned int limit)
+extern "C" int FUN_0021ded0(void *ls, void *v, unsigned int limit)
 {
     ExpDesc_21ded0 v2;
     int op;
 
-    ls->nestlevel++;
-    if (ls->nestlevel > 200)
-        FUN_0021afd0(ls, "chunk has too many syntax levels", 0);
+    ((LexState_21ded0 *)ls)->nestlevel++;
+    if (((LexState_21ded0 *)ls)->nestlevel > 200)
+        FUN_0021afd0(((LexState_21ded0 *)ls), "chunk has too many syntax levels", 0);
 
-    if (ls->token == '-' || ls->token == 0x10e) {
-        int uop = (ls->token == 0x10e);
-        next(ls);
-        FUN_0021ded0(ls, v, 8);
-        FUN_00221700(ls->fs, uop, v);
+    if (((LexState_21ded0 *)ls)->token == '-' || ((LexState_21ded0 *)ls)->token == 0x10e) {
+        int uop = (((LexState_21ded0 *)ls)->token == 0x10e);
+        next(((LexState_21ded0 *)ls));
+        FUN_0021ded0((LexState_21ded0 *)((LexState_21ded0 *)ls), (ExpDesc_21ded0 *)((ExpDesc_21ded0 *)v), 8);
+        FUN_00221700((FuncState *)(((LexState_21ded0 *)ls)->fs), uop, (ExpDesc_21ded0 *)((ExpDesc_21ded0 *)v));
     } else {
-        FUN_0021db50(ls, v);
+        FUN_0021db50((LexState_21ded0 *)((LexState_21ded0 *)ls), (ExpDesc_21ded0 *)((ExpDesc_21ded0 *)v));
     }
-    op = FUN_0021dd30(ls->token);
+    op = FUN_0021dd30(((LexState_21ded0 *)ls)->token);
     while (op != 0xe && DAT_00426e00[op * 2] > limit) {
-        next(ls);
-        FUN_002217c0(ls->fs, op, v);
-        int nextop = FUN_0021ded0(ls, &v2, DAT_00426e00[op * 2 + 1]);
-        FUN_002218d0(ls->fs, op, v, &v2);
+        next(((LexState_21ded0 *)ls));
+        FUN_002217c0((FuncState *)(((LexState_21ded0 *)ls)->fs), op, (ExpDesc_21ded0 *)((ExpDesc_21ded0 *)v));
+        int nextop = FUN_0021ded0((LexState_21ded0 *)((LexState_21ded0 *)ls), (ExpDesc_21ded0 *)(&v2), DAT_00426e00[op * 2 + 1]);
+        FUN_002218d0((FuncState *)(((LexState_21ded0 *)ls)->fs), op, (ExpDesc_21ded0 *)((ExpDesc_21ded0 *)v), (ExpDesc_21ded0 *)(&v2));
         op = nextop;
     }
-    ls->nestlevel--;
+    ((LexState_21ded0 *)ls)->nestlevel--;
     return op;
 }

@@ -292,7 +292,7 @@ float __cdecl FUN_000964e0();
 float __cdecl FUN_000445a0();
 float __cdecl FUN_000445b0();
 // equiv-conv: FUN_00014210 eax ecx edx esi
-void FUN_00014210(int mode, Player *frame, void *obj, V3 *out);
+extern "C" void FUN_00014210(int mode, Player *frame, void *obj, V3 *out);
 
 
 struct Frame {

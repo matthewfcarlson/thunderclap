@@ -63,7 +63,7 @@ void __stdcall D3DResource_Release(void*);
 void __stdcall D3DDevice_SetVerticalBlankCallback(void (__cdecl*)(void*));
 }
 bool FUN_0031adf0(int index);
-void FUN_0031c230(long hr);
+extern "C" void __cdecl FUN_0031c230(int);
 unsigned char FUN_00356667();
 void __stdcall FUN_0037d8e0(int, int);
 extern "C" void FUN_0031bcc0(int, int);
@@ -183,12 +183,12 @@ bool pure3d::d3dDisplay::vfunc_4(const DisplayConfig* init) {
         FUN_0031c230(0);
         if (pp.BackBufferFormat == 5) {
             pp.BackBufferFormat = 6;
-            FUN_0031c230(D3D8::Direct3D_CreateDevice(0, 1, 0, 0x40, &pp, &device));
+            FUN_0031c230((long)(D3D8::Direct3D_CreateDevice(0, 1, 0, 0x40, &pp, &device)));
             D3D8::D3DDevice_Swap(0);
             pp.BackBufferFormat = 5;
             D3D8::D3DDevice_Reset(&pp);
         } else {
-            FUN_0031c230(D3D8::Direct3D_CreateDevice(0, 1, 0, 0x40, &pp, &device));
+            FUN_0031c230((long)(D3D8::Direct3D_CreateDevice(0, 1, 0, 0x40, &pp, &device)));
         }
     }
     D3D8::D3DDevice_GetGammaRamp(gammaRamp);
@@ -199,7 +199,7 @@ bool pure3d::d3dDisplay::vfunc_4(const DisplayConfig* init) {
     bbHeight = desc.Height;
     if (init->createTexture) {
         texture = D3D8::D3DDevice_CreateTexture2(desc.Width, desc.Height, 1, 1, 1, desc.Format, 3);
-        FUN_0031c230(texture ? 0 : 0x8007000e);
+        FUN_0031c230((long)(texture ? 0 : 0x8007000e));
         D3D8::D3DResource_Release(rt);
     }
     FUN_0031bcc0(init->mode_c, init->mode_d);

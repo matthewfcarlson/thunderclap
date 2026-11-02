@@ -7,12 +7,12 @@ struct Parser_246340 {
  unsigned int length;
  signed char FUN_00245b70(unsigned int index);
 };
-void __cdecl FUN_00245d40(Parser_246340* parser);
+extern "C" void __cdecl FUN_00245d40(void *);
 double __cdecl FUN_003458c1(const char* text);
 double __cdecl FUN_00246340(Parser_246340* parser) {
  char buffer[128];
  char* out = buffer;
- FUN_00245d40(parser);
+ FUN_00245d40((Parser_246340 *)parser);
  if (parser->FUN_00245b70(parser->position) == '-' ||
      (parser->FUN_00245b70(parser->position) >= '0' && parser->FUN_00245b70(parser->position) <= '9') ||
      parser->FUN_00245b70(parser->position) == '.') {

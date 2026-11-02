@@ -22,14 +22,16 @@ struct Tree_2601d0 {
     Node nil;
 };
 
-int FUN_0025fca0(String* key, Elem_2601d0* elem);
-void FUN_0025fdd0(Tree_2601d0* tree, Node* x);
+extern "C" int __cdecl FUN_0025fca0(void *, void *);
+extern "C" void __cdecl FUN_0025fdd0(void *, void *);
 void FUN_0025fe20(Tree_2601d0* tree, Node* x);
 
 // Unique-key insertion into a red-black tree keyed by string. Returns whether
 // the element was inserted.
-char FUN_002601d0(Tree_2601d0* tree, Elem_2601d0* elem, String* key)
+extern "C" char FUN_002601d0(void * tree_, void * elem_, void * key)
 {
+    Tree_2601d0 * tree = (Tree_2601d0 *)tree_;
+    Elem_2601d0 * elem = (Elem_2601d0 *)elem_;
     Node* x = &elem->node;
     Node* nil = &tree->nil;
     Node* cur = tree->root;
@@ -38,7 +40,7 @@ char FUN_002601d0(Tree_2601d0* tree, Elem_2601d0* elem, String* key)
     while (cur != nil) {
         parent = cur;
         const char* a = cur->key.FUN_0023fb00();
-        const char* b = key->FUN_0023fb00();
+        const char* b = ((String *)key)->FUN_0023fb00();
         int cmp = 0;
         for (;;) {
             unsigned char cb = (unsigned char)*b;
@@ -62,7 +64,7 @@ char FUN_002601d0(Tree_2601d0* tree, Elem_2601d0* elem, String* key)
     x->parent = parent;
     if (parent == nil) {
         tree->root = x;
-    } else if (FUN_0025fca0(key, (Elem_2601d0*)((char*)parent - 0x48)) < 0) {
+    } else if (FUN_0025fca0((String *)((String *)key), (Elem_2601d0 *)((Elem_2601d0*)((char*)parent - 0x48))) < 0) {
         parent->left = x;
     } else {
         parent->right = x;
@@ -84,7 +86,7 @@ char FUN_002601d0(Tree_2601d0* tree, Elem_2601d0* elem, String* key)
             } else {
                 if (x == p->right) {
                     x = p;
-                    FUN_0025fdd0(tree, x);
+                    FUN_0025fdd0((Tree_2601d0 *)tree, (Node *)x);
                 }
                 x->parent->color = 0;
                 x->parent->parent->color = 1;

@@ -3,7 +3,7 @@
 // Complex FFT bit-reversal permutation with conjugation (radix-2 split tables built in ip).
 // Original passes n in ecx, the data pointer in eax and ip on the stack (caller pops).
 // equiv-conv: FUN_0033f6d0 ecx eax stack
-void FUN_0033f6d0(int n, float *a, int *ip)
+extern "C" void FUN_0033f6d0(int n, float *a, int *ip)
 {
     int j, j1, k, k1, l, m, m2;
     float xr, xi, yr, yi;

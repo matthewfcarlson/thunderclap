@@ -19,12 +19,12 @@ struct Operand_221360 {
     int type;
     int value;
 };
-void __cdecl FUN_00221190(State_221360*, Operand_221360*);
+extern "C" int __cdecl FUN_00221190(void *, void *);
 void __cdecl FUN_0021b060(Context*, const char*);
 unsigned int __cdecl FUN_00221200(State_221360*, Operand_221360*);
-void __cdecl FUN_00220b20(State_221360*, unsigned int, unsigned int);
+extern "C" int __cdecl FUN_00220b20(void *, unsigned int, unsigned int);
 void __cdecl FUN_00221360(State_221360* state, Operand_221360* destination, Operand_221360* source) {
-    FUN_00221190(state, destination);
+    FUN_00221190((State_221360 *)state, (Operand_221360 *)destination);
     if (destination->type == 11 && destination->value >= state->minimum && destination->value < 250)
         --state->depth;
     int oldDepth = state->depth;
@@ -39,7 +39,7 @@ void __cdecl FUN_00221360(State_221360* state, Operand_221360* destination, Oper
     unsigned int contextValue = state->context->value;
     unsigned int instruction =
         ((((unsigned int)oldDepth << 9) | (unsigned int)destination->value) << 9 | result) << 6 | 11;
-    FUN_00220b20(state, instruction, contextValue);
+    FUN_00220b20((State_221360 *)state, instruction, contextValue);
     if (source->type == 11 && source->value >= state->minimum && source->value < 250)
         --state->depth;
     destination->value = oldDepth;

@@ -13,7 +13,7 @@ struct Matrix {
 struct Light {
     char data[0x68];
 };
-void __stdcall FUN_0032fd40(Four_330040* out);
+extern "C" void __stdcall FUN_0032fd40(void *);
 namespace D3D8 {
 void __stdcall D3DDevice_GetTransform(uint type, Matrix* out);
 void __stdcall D3DDevice_GetLight(uint index, Light* out);
@@ -84,7 +84,7 @@ void pure3d::d3dToon2VertexShader::vfunc_24() {
         Light lights[3];
     } f;
 
-    FUN_0032fd40(&f.base);
+    FUN_0032fd40((Four_330040 *)(&f.base));
     f.tint.x = (float)((color >> 16) & 0xff) * 0.0039215689f;
     f.tint.y = (float)((color >> 8) & 0xff) * 0.0039215689f;
     f.tint.z = (float)(color & 0xff) * 0.0039215689f;

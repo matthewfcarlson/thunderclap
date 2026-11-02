@@ -6,21 +6,21 @@ struct ImageSpan {
     unsigned char format;
     unsigned char depth;
 };
-void __cdecl FUN_002d9720(const ImageSpan* span, unsigned char* buffer)
+extern "C" void __cdecl FUN_002d9720(const void * span, unsigned char* buffer)
 {
-    unsigned int count = span->count;
-    unsigned char format = span->format;
+    unsigned int count = ((const ImageSpan *)span)->count;
+    unsigned char format = ((const ImageSpan *)span)->format;
     if (format != 6 && format != 4) return;
     unsigned int stride;
     unsigned int alphaBytes;
-    if (span->depth == 8) {
+    if (((const ImageSpan *)span)->depth == 8) {
         stride = format == 6 ? 4 : 2;
         alphaBytes = 1;
     } else {
         stride = format == 6 ? 8 : 4;
         alphaBytes = 2;
     }
-    unsigned char* end = buffer + span->endOffset;
+    unsigned char* end = buffer + ((const ImageSpan *)span)->endOffset;
     for (unsigned int i = 0; i < count; ++i) {
         for (unsigned int j = 0; j < alphaBytes; ++j) {
             --end;

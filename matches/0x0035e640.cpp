@@ -5,8 +5,8 @@ struct Obj {
     void Init(int, int, int);
 };
 extern "C" int __cdecl atexit(void(__cdecl*)());
-extern "C" void __cdecl cleanup();
+extern "C" void __cdecl FUN_00363ff0();
 void __cdecl target() {
     (*(Obj*)((char*)&DAT_004e215c + 16)).Init(0xffff, 0xffff, 0xffff);
-    atexit(cleanup);
+    atexit(FUN_00363ff0);
 }

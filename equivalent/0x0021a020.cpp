@@ -1,13 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 534 inputs, branch coverage 12/12)
 // FUN_0021a020 @ 0x0021a020
 // FUN_0021a020 @ 0x0021a020
+#include "compat/ptr.h"
 struct Value_21a020 { int type; union { int bits; float number; } data; };
 struct Entry_21a020 { Value_21a020 key; Value_21a020 value; int extra; };
 struct Table_21a020 { char pad[7]; unsigned char shift; char pad8[4]; Value_21a020* array; Entry_21a020* entries; char pad14[8]; int count; };
 // equiv-conv: FUN_00219fb0 eax edi stack
-int FUN_00219fb0(Value_21a020* output, Table_21a020* table, void* context);
+extern "C" hulk_intptr __cdecl FUN_00219fb0(int *, void *, void *);
 int __cdecl FUN_0021a020(void* context, Table_21a020* table, Value_21a020* output) {
- int index = FUN_00219fb0(output, table, context) + 1;
+ int index = ((int)FUN_00219fb0((int *)(Value_21a020 *)output, (Table_21a020 *)table, context)) + 1;
  int count = table->count;
  if(index < count) {
   Value_21a020* slot = table->array + index;

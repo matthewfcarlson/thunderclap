@@ -7,9 +7,10 @@ struct Geometry {
  Vec3_27f5f0* FUN_001b56a0(int index, int corner);
 };
 struct Context { char pad[0x594]; Geometry geometry; };
-extern Context* __cdecl FUN_001b6580();
-void __cdecl FUN_0027f5f0(int unused, int count, const int* indices, Vertex_27f5f0* vertices) {
- Geometry* geometry = &FUN_001b6580()->geometry;
+extern "C" void * __cdecl FUN_001b6580(void);
+extern "C" void __cdecl FUN_0027f5f0(int unused, int count, const int* indices, void * vertices_) {
+    Vertex_27f5f0 * vertices = (Vertex_27f5f0 *)vertices_;
+ Geometry* geometry = &((Context *)FUN_001b6580())->geometry;
  for (int i=0; i<count; ++i) {
   Vec3_27f5f0 temporary;
   Vec3_27f5f0 normal = *geometry->FUN_001b5860(&temporary, indices[i]);

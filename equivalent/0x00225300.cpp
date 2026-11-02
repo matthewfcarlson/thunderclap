@@ -82,7 +82,7 @@ struct Pair_225300 {
     Channel* rot;
 };
 
-void FUN_0022b080(Quat_225300* out, Quat_225300* a, Quat_225300* b);
+extern "C" void __cdecl FUN_0022b080(float *, const float *, const float *);
 
 class AnimationDriver {
 public:
@@ -134,7 +134,7 @@ void AnimationDriver::vfunc_10(Pose* from, Pose* to, PoseData_225300* data, floa
                 f.root.w = 1.0f;
             }
             f.qa = *from->FUN_00221cd0();
-            FUN_0022b080(&f.qa, &f.qa, &f.root);
+            FUN_0022b080((float *)(Quat_225300 *)(&f.qa), (const float *)(Quat_225300 *)(&f.qa), (const float *)(Quat_225300 *)(&f.root));
             f.qb = *to->FUN_00221cd0();
             f.qb.FUN_0022b750(&f.qb, &f.qa, t);
             to->FUN_00221cf0(&f.qb);

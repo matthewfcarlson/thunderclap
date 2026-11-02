@@ -3,7 +3,7 @@
 extern "C" char __cdecl FUN_00271820(const char*, int*, const char**, void*);
 extern "C" int __cdecl FUN_002722b0(const char*, char*, int, void*, int*, void*);
 // equiv-conv: FUN_0026aee0 eax ecx stack stack stack
-int __cdecl FUN_0026aee0(const char* input, char* output, void* value, int capacity, void* context)
+extern "C" int __cdecl FUN_0026aee0(const char* input, char* output, void* value, int capacity, void* context)
 {
     int used = 0;
     for (;;) {

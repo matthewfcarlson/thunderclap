@@ -5,7 +5,7 @@
 void __cdecl FUN_00247570(void* p);
 
 class SharedStr;
-void __cdecl FUN_0023fa40(char** data, char* src, int len, int len2);
+extern "C" void __cdecl FUN_0023fa40(int *, char *, unsigned int, int);
 
 class SharedStr {
 public:
@@ -31,7 +31,7 @@ SharedStr* SharedStr::FUN_0023fd60(char* src, int length, int newMode)
     mode = (unsigned short)newMode;
     len = (unsigned short)length;
     if (newMode != 0 && newMode != 1)
-        FUN_0023fa40(&src, src, length, length);
+        FUN_0023fa40((int *)(char * *)(&src), src, (int)length, length);
     data = src;
     return this;
 }

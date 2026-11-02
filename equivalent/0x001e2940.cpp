@@ -192,7 +192,7 @@ struct Event_1e2940 {
 struct Obj1b {
     void FUN_001b4450(Prop_1e2940 *p, int z);
 };
-Obj1b *FUN_001b6580();
+extern "C" void * __cdecl FUN_001b6580(void);
 
 struct Node {
     int value;
@@ -377,7 +377,7 @@ Prop_1e2940 *Mgr_1e2940::F(int idx)
     prop->FUN_001d7e70();
     Event_1e2940 *ev = prop->FUN_001d72e0();
     if (ev && ev->p74) {
-        FUN_001b6580()->FUN_001b4450(prop, 0);
+        ((Obj1b *)FUN_001b6580())->FUN_001b4450(prop, 0);
         Sub74_1e2940 *e74 = ev->p74;
         ((Sub8_1e2940 *)(e74->sub8 - 0))->FUN_0027af70(ent);
         e74 = ev->p74;

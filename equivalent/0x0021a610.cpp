@@ -11,26 +11,26 @@ struct ZIO_21a610 {
 };
 
 // luaZ_read: copies n bytes out of the stream, returns the number of bytes missing
-unsigned int __cdecl FUN_0021a610(ZIO_21a610 *z, void *b, unsigned int n)
+extern "C" unsigned int __cdecl FUN_0021a610(void *z, void *b, unsigned int n)
 {
     while (n != 0) {
-        if (z->n == 0) {
+        if (((ZIO_21a610 *)z)->n == 0) {
             unsigned int size;
-            const unsigned char *buff = z->reader(z->L, z->data, &size);
+            const unsigned char *buff = ((ZIO_21a610 *)z)->reader(((ZIO_21a610 *)z)->L, ((ZIO_21a610 *)z)->data, &size);
             if (buff == 0 || size == 0)
                 return n;
-            z->n = size - 1;
-            z->p = buff;
-            int c = *z->p++;
+            ((ZIO_21a610 *)z)->n = size - 1;
+            ((ZIO_21a610 *)z)->p = buff;
+            int c = *((ZIO_21a610 *)z)->p++;
             if (c == -1)
                 return n;
-            z->n++;
-            z->p--;
+            ((ZIO_21a610 *)z)->n++;
+            ((ZIO_21a610 *)z)->p--;
         }
-        unsigned int m = (n <= z->n) ? n : z->n;
-        memcpy(b, z->p, m);
-        z->n -= m;
-        z->p += m;
+        unsigned int m = (n <= ((ZIO_21a610 *)z)->n) ? n : ((ZIO_21a610 *)z)->n;
+        memcpy(b, ((ZIO_21a610 *)z)->p, m);
+        ((ZIO_21a610 *)z)->n -= m;
+        ((ZIO_21a610 *)z)->p += m;
         b = (char *)b + m;
         n -= m;
     }

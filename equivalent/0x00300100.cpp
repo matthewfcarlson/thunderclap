@@ -5,10 +5,10 @@ struct UIntRange_300100 {
     unsigned int *second;
 };
 
-void __cdecl FUN_002ffce0(unsigned int *a, unsigned int *b, unsigned int *c);
+extern "C" void __cdecl FUN_002ffce0(unsigned int *, unsigned int *, unsigned int *);
 
 // std::_Unguarded_partition for unsigned int* (three-way split around a median pivot).
-UIntRange_300100 *__cdecl FUN_00300100(UIntRange_300100 *out, unsigned int *first, unsigned int *last)
+extern "C" void *__cdecl FUN_00300100(void *out, unsigned int *first, unsigned int *last)
 {
     unsigned int *mid = first + (last - first) / 2;
     FUN_002ffce0(first, mid, last - 1);
@@ -50,9 +50,9 @@ UIntRange_300100 *__cdecl FUN_00300100(UIntRange_300100 *out, unsigned int *firs
             }
         }
         if (glast == first && gfirst == last) {
-            out->first = pfirst;
-            out->second = plast;
-            return out;
+            ((UIntRange_300100 *)out)->first = pfirst;
+            ((UIntRange_300100 *)out)->second = plast;
+            return (UIntRange_300100 *)((UIntRange_300100 *)out);
         }
         if (glast == first) {
             if (plast != gfirst) {

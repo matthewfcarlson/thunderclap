@@ -9,11 +9,11 @@ class CCollisionManager_1b6580 {
     virtual void Init() throw();
     char pad[0x5a8];
 };
-CCollisionManager_1b6580* GetThing() {
+extern "C" void * FUN_001b6580() {
     if (!(*(CCollisionManager_1b6580**)&DAT_004e2158)) {
         (*(CCollisionManager_1b6580**)&DAT_004e2158) = new CCollisionManager_1b6580;
         (*(CCollisionManager_1b6580**)&DAT_004e2158)->Init();
-        return (*(CCollisionManager_1b6580**)&DAT_004e2158);
+        return (CCollisionManager_1b6580 *)((*(CCollisionManager_1b6580**)&DAT_004e2158));
     }
-    return (*(CCollisionManager_1b6580**)&DAT_004e2158);
+    return (CCollisionManager_1b6580 *)((*(CCollisionManager_1b6580**)&DAT_004e2158));
 }

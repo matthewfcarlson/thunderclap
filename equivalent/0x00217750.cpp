@@ -12,9 +12,9 @@ struct lua_State {
 };
 
 // equiv-conv: FUN_00217750 ecx stack eax edx
-void FUN_00217750(lua_State* L, const TObject* f, const TObject* p1, const TObject* p2)
+extern "C" void FUN_00217750(void * L, const void * f, const void * p1, const void * p2)
 {
-    L->top[0] = *f;
-    L->top[1] = *p1;
-    L->top[2] = *p2;
+    ((lua_State *)L)->top[0] = *((const TObject *)f);
+    ((lua_State *)L)->top[1] = *((const TObject *)p1);
+    ((lua_State *)L)->top[2] = *((const TObject *)p2);
 }

@@ -80,11 +80,11 @@ struct Extra_24a9c0 {
 extern "C" unsigned int __cdecl FUN_002673a0(const char *s, int flag);
 void *__cdecl FUN_00247530(void *pool);
 void __cdecl FUN_00247550(void *pool, void *p);
-Node *__cdecl FUN_00249fc0(Tree_24a9c0 *tree, unsigned int *key);
-void __cdecl FUN_00249ff0(Tree_24a9c0 *tree, Node *node, unsigned int *key);
-void __cdecl FUN_00249ec0(Tree_24a9c0 *tree, Node *node);
-void __cdecl FUN_0024a450(Inner_24a9c0 *inner);
-void __cdecl FUN_0024a4a0(Sub_24a9c0 *sub);
+extern "C" void * __cdecl FUN_00249fc0(void *, const unsigned int *);
+extern "C" char __cdecl FUN_00249ff0(void *, void *, const unsigned *);
+extern "C" void __cdecl FUN_00249ec0(void *, void *);
+extern "C" void __cdecl FUN_0024a450(void *);
+extern "C" void __cdecl FUN_0024a4a0(void *);
 void *__cdecl FUN_0025d3d0();
 
 static Entry_24a9c0 *EntryFromLink(Link_24a9c0 *l)
@@ -92,8 +92,10 @@ static Entry_24a9c0 *EntryFromLink(Link_24a9c0 *l)
     return (Entry_24a9c0 *)((char *)l - 0x34);
 }
 
-Entry_24a9c0 *FUN_0024a9c0(Ctx_24a9c0 *ctx, Y_24a9c0 *y)
+extern "C" void *FUN_0024a9c0(void * ctx_, void * y_)
 {
+    Ctx_24a9c0 * ctx = (Ctx_24a9c0 *)ctx_;
+    Y_24a9c0 * y = (Y_24a9c0 *)y_;
     struct Frame {
         unsigned int tmp;
         char buf[256];
@@ -101,19 +103,19 @@ Entry_24a9c0 *FUN_0024a9c0(Ctx_24a9c0 *ctx, Y_24a9c0 *y)
     Node *node;
 
     if (y->count >= (y->z->limit & 0x1f))
-        return 0;
+        return (Entry_24a9c0 *)0;
 
     unsigned int emptyHash = FUN_002673a0("", 0);
     Tree_24a9c0 *tree = &ctx->tree;
     if (y->z->name != emptyHash) {
-        node = FUN_00249fc0(tree, &y->z->name);
+        node = ((Node *)FUN_00249fc0((Tree_24a9c0 *)tree, &y->z->name));
         if (node == 0) {
             void *p = FUN_00247530(DAT_004e60c8);
             if (p != 0)
                 node = ((Node *)p)->FUN_0024a510(y->z->name);
             else
                 node = 0;
-            FUN_00249ff0(tree, node, &node->key);
+            FUN_00249ff0((Tree_24a9c0 *)tree, (Node *)node, (const unsigned *)(unsigned int *)(&node->key));
         }
     } else {
         Node *nil = (Node *)tree->nilMarker;
@@ -148,12 +150,12 @@ Entry_24a9c0 *FUN_0024a9c0(Ctx_24a9c0 *ctx, Y_24a9c0 *y)
                 fr.tmp++;
                 continue;
             }
-            FUN_00249ec0(tree, n);
+            FUN_00249ec0((Tree_24a9c0 *)tree, (Node *)n);
             FUN_00247550(((char*)((char*)&DAT_004e6110 + 72)), n->poolB);
             FUN_00247550(DAT_004e6110, n->poolA);
             Sub_24a9c0 *s = &n->sub;
-            FUN_0024a450(&s->inner);
-            FUN_0024a4a0(s);
+            FUN_0024a450((Inner_24a9c0 *)(&s->inner));
+            FUN_0024a4a0((Sub_24a9c0 *)s);
             FUN_00247550(DAT_004e60c8, n);
             break;
         }
@@ -164,7 +166,7 @@ Entry_24a9c0 *FUN_0024a9c0(Ctx_24a9c0 *ctx, Y_24a9c0 *y)
             else
                 node = 0;
             fr.tmp = FUN_002673a0(fr.buf, 0);
-            FUN_00249ff0(tree, node, &fr.tmp);
+            FUN_00249ff0((Tree_24a9c0 *)tree, (Node *)node, (const unsigned *)(unsigned int *)(&fr.tmp));
         }
     }
 
@@ -199,5 +201,5 @@ Entry_24a9c0 *FUN_0024a9c0(Ctx_24a9c0 *ctx, Y_24a9c0 *y)
         e->extra = 0;
     y->count++;
     e->f3c = 0;
-    return e;
+    return (Entry_24a9c0 *)e;
 }

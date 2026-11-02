@@ -11,10 +11,10 @@ struct Obj {
     Elem b;
     Elem arr[10];
 };
-void prep(void*, Obj*);
+extern "C" void __cdecl FUN_0025b5b0(void *, void *);
 void freeobj(void*, Obj*);
 void __cdecl target(void* p, Obj* o) {
-    prep(p, o);
+    FUN_0025b5b0(p, (Obj *)o);
     if (o) {
         Elem* e = o->arr + 10;
         int n = 10;

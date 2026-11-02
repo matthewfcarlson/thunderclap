@@ -17,8 +17,8 @@ struct PrimTypeInfo {
     int add;
 };
 // equiv-conv: FUN_0031bc30 eax ecx
-int FUN_0031bc30(int shapeKind, int count);
-void FUN_0031c230(long hr);
+extern "C" int FUN_0031bc30(int shapeKind, int count);
+extern "C" void __cdecl FUN_0031c230(int);
 namespace pure3d {
 class d3dBasePrimStream {
   public:

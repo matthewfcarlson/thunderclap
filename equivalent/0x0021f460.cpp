@@ -28,15 +28,16 @@ struct LexState_21f460 {
     FuncState_21f460 *fs;          // 0x1c
 };
 
-int __cdecl FUN_0021bbc0(LexState_21f460 *ls, int *seminfo);                       // llex
+extern "C" int __cdecl FUN_0021bbc0(void *, void *);                       // llex
 void __cdecl FUN_0021b060(LexState_21f460 *ls, const char *msg);                   // luaX_syntaxerror
-int __cdecl FUN_00220bd0(FuncState_21f460 *fs, int op, int a, int b, int c);       // luaK_codeABC
-int __cdecl FUN_00220cd0(FuncState_21f460 *fs);                                    // luaK_jump
+extern "C" int __cdecl FUN_00220bd0(void *, unsigned int, int, unsigned int, unsigned int);       // luaK_codeABC
+extern "C" int __cdecl FUN_00220cd0(void *);                                    // luaK_jump
 void __cdecl FUN_002207c0(FuncState_21f460 *fs, int *l1, int l2);                  // luaK_concat
 
 // equiv-conv: FUN_0021f460 edi
-void FUN_0021f460(LexState_21f460 *ls)
+extern "C" void FUN_0021f460(void * ls_)
 {
+    LexState_21f460 * ls = (LexState_21f460 *)ls_;
     FuncState_21f460 *fs = ls->fs;
     BlockCnt_21f460 *bl = fs->bl;
     int upval = 0;
@@ -47,7 +48,7 @@ void FUN_0021f460(LexState_21f460 *ls)
         ls->t = ls->lookahead;
         ls->lookahead.token = 0x11f;
     } else {
-        ls->t.token = FUN_0021bbc0(ls, &ls->t.seminfo);
+        ls->t.token = FUN_0021bbc0((LexState_21f460 *)ls, (int *)(&ls->t.seminfo));
     }
 
     while (bl != 0 && !bl->isbreak) {
@@ -57,6 +58,6 @@ void FUN_0021f460(LexState_21f460 *ls)
     if (bl == 0)
         FUN_0021b060(ls, "no loop to break");
     if (upval)
-        FUN_00220bd0(fs, 0x22, bl->nactvar, 0, 0);
-    FUN_002207c0(fs, &bl->breaklist, FUN_00220cd0(fs));
+        FUN_00220bd0((FuncState_21f460 *)fs, 0x22, bl->nactvar, 0, 0);
+    FUN_002207c0(fs, &bl->breaklist, FUN_00220cd0((FuncState_21f460 *)fs));
 }

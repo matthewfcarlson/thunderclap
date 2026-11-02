@@ -21,7 +21,7 @@ public:
     Node node;
 };
 
-extern void __cdecl FUN_00249c20(Tree_24a280 *tree, Entry_24a280 *entry);
+extern "C" void __cdecl FUN_00249c20(void *, void *);
 
 static Entry_24a280 *EntryOf(Node *n)
 {
@@ -67,7 +67,7 @@ void Owner_24a280::FUN_0024a280(int arg)
         Entry_24a280 *following = next == nil ? 0 : EntryOf(next);
 
         if (remove) {
-            FUN_00249c20(&tree, e);
+            FUN_00249c20((Tree_24a280 *)(&tree), (Entry_24a280 *)e);
             if (e)
                 delete e;
         }

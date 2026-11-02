@@ -1,7 +1,7 @@
 #include "decls/data/engine/unknown.h"
 // data: gData_271070 = DAT_00528418, gFinal = DAT_0052a0f0, gFlag_271070 = DAT_004cdc04
 
-void __cdecl CleanupOne(void*);
+extern "C" bool __cdecl FUN_00270f90(const char *);
 extern "C" void __cdecl FUN_00273510();
 extern "C" void __cdecl FUN_00276340();
 extern "C" void __cdecl FUN_00277050();
@@ -13,7 +13,7 @@ void __cdecl FUN_00271070() {
         int n = 0x1a;
         do {
             if (*(int*)(p + 0x14) != 0)
-                CleanupOne(p);
+                FUN_00270f90((const char *)(void *)p);
             p += 0x11c;
             --n;
         } while (n != 0);

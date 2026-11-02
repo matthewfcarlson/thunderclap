@@ -3,7 +3,7 @@
 
 extern "C" __int64 __cdecl Make(const char*, int, int);
 extern "C" int __cdecl atexit(void(__cdecl*)());
-void __cdecl cleanup();
+extern "C" void __cdecl FUN_00364540();
 class Registry {
   public:
     void Register(__int64*, __int64*, int, int);
@@ -16,5 +16,5 @@ void __cdecl FUN_003609b0() {
     p.a = Make("SeqActionVarPitch", 0, 0);
     p.b = Make("Runtime_Sequence", 0, 0);
     (*(Registry*)((char*)&DAT_004e70e8 + 104)).Register(&p.b, &p.a, 16, 4);
-    atexit(cleanup);
+    atexit(FUN_00364540);
 }

@@ -25,18 +25,18 @@ struct Owner {
     Link* tail;
 };
 
-void FUN_0025e230(Owner* owner)
+extern "C" void FUN_0025e230(void * owner)
 {
     for (;;) {
-        Link* node = owner->head;
+        Link* node = ((Owner *)owner)->head;
         if (node == 0)
             return;
         Item* item = (Item*)((char*)node - 8);
         if (item == 0)
             return;
-        owner->head = node->next;
+        ((Owner *)owner)->head = node->next;
         if (node->next == 0)
-            owner->tail = 0;
+            ((Owner *)owner)->tail = 0;
         FUN_00247550(((Pool*)((char*)&DAT_004e78e0 + 144)), item);
     }
 }

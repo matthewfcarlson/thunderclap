@@ -18,7 +18,7 @@ struct Mat_98190 {
 
 int __cdecl FUN_00097a30(int a1, float a2, int a3, int a4, int a5, int a6, int a7, V3_98190 *b, int a9, int a10, int a11, int a12);
 
-int FUN_00098190(float a1, int a2, float a3, int a4, int a5, int a6, int a7, V3_98190 *io, int a9, int a10, int a11)
+extern "C" int FUN_00098190(float a1, int a2, float a3, int a4, int a5, int a6, int a7, V3_98190 *io, int a9, int a10, int a11)
 {
     V3_98190 a = *io;
     V3_98190 b = *io;

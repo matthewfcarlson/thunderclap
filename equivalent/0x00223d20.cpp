@@ -7,12 +7,13 @@ struct Elem_223d20 {
 
 void __cdecl FUN_002234d0(Elem_223d20 *first, int index, hulk_intptr count, Elem_223d20 value);
 
-void FUN_00223d20(Elem_223d20 *first, Elem_223d20 *last)
+extern "C" void FUN_00223d20(void *first, void * last_)
 {
-    while (last - first > 1) {
+    Elem_223d20 * last = (Elem_223d20 *)last_;
+    while (last - ((Elem_223d20 *)first) > 1) {
         --last;
         Elem_223d20 tmp = *last;
-        *last = *first;
-        FUN_002234d0(first, 0, last - first, tmp);
+        *last = *((Elem_223d20 *)first);
+        FUN_002234d0(((Elem_223d20 *)first), 0, last - ((Elem_223d20 *)first), tmp);
     }
 }

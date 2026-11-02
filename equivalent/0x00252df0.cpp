@@ -11,7 +11,7 @@ struct Writer_252df0 {
 };
 
 char FUN_00246f50(Stream* s, const char* fmt, ...);
-char FUN_00252c90(Writer_252df0* w, const char* name, void* value);
+extern "C" char __cdecl FUN_00252c90(char **, char *, void *);
 extern "C" char FUN_00252470(Writer_252df0* w, const char* name, void* value);
 
 namespace audio {
@@ -38,7 +38,7 @@ int SeqEventVarTempo::vfunc_1(Writer_252df0* w)
     if (!FUN_00246f50(w->out, "\n[\n"))
         return 0;
     w->out->indent++;
-    if (!FUN_00252c90(w, "mTimeSignature", &field_08))
+    if (!FUN_00252c90((char **)(Writer_252df0 *)w, (char *)(const char *)"mTimeSignature", &field_08))
         return 0;
     if (!FUN_00252470(w, "mTempo", &field_10))
         return 0;

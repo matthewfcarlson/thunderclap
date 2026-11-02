@@ -22,12 +22,12 @@ struct Header_2afa60 {
 struct Output;
 
 // equiv-conv: FUN_002af8c0 esi edi
-void FUN_002af8c0(Header_2afa60 *h, Reader *r);
-void __cdecl FUN_002af510(Reader *reader, Header_2afa60 *img, Output *out);
+extern "C" void __cdecl FUN_002af8c0(void *, void *);
+extern "C" void __cdecl FUN_002af510(void *, void *, void *);
 // equiv-conv: FUN_002af670 esi ebx stack
-int __cdecl FUN_002af670(Header_2afa60 *info, Reader *stream, Output *out);
+extern "C" int __cdecl FUN_002af670(void *, void *, void *);
 // equiv-conv: FUN_002af790 edi stack stack
-int __cdecl FUN_002af790(Reader *reader, Header_2afa60 *header, Output *out);
+extern "C" int __cdecl FUN_002af790(void *, void *, void *);
 
 // The stream pointer's argument slot is reused for the two magic bytes.
 union StreamArg {
@@ -58,15 +58,15 @@ void pure3d::BMPHandler::vfunc_9(StreamArg stream, Output *out)
     Reader *reader = stream.reader;
     reader->FUN_002647e0(&stream.magic, 2, 1, 1);
     if ((stream.magic & 0xff) == 'B' && (stream.magic >> 8) == 'M') {
-        FUN_002af8c0(&h, reader);
+        FUN_002af8c0((Header_2afa60 *)(&h), (Reader *)reader);
         unsigned short bits = h.bitCount;
         if ((bits == 1 || bits == 4 || bits == 8 || bits == 0x18) && h.compression == 0) {
             if (bits == 4)
-                FUN_002af510(reader, &h, out);
+                FUN_002af510((Reader *)reader, (Header_2afa60 *)(&h), (Output *)out);
             else if (bits == 8)
-                FUN_002af670(&h, reader, out);
+                FUN_002af670((Header_2afa60 *)(&h), (Reader *)reader, (Output *)out);
             else if (bits == 0x18)
-                FUN_002af790(reader, &h, out);
+                FUN_002af790((Reader *)reader, (Header_2afa60 *)(&h), (Output *)out);
         }
     }
 }

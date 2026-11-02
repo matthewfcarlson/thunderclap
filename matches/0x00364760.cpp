@@ -6,6 +6,6 @@ class Obj_364760 {
 };
 
 
-void FUN_00364760() {
+extern "C" void FUN_00364760() {
     (*(Obj_364760*)&DAT_004e7be0).Target();
 }

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 11158 inputs, branch coverage 2/2)
 // FUN_0021ccb0 @ 0x0021ccb0
 // FUN_0021ccb0 @ 0x0021ccb0
+#include "compat/ptr.h"
 struct FuncState;
 
 struct LexState_21ccb0 {
@@ -22,8 +23,8 @@ struct ExpDesc_21ccb0 {
     int f;
 };
 
-void __cdecl FUN_00221190(FuncState* fs, int x);
-int __cdecl FUN_0021bbc0(LexState_21ccb0* ls, int* seminfo);
+extern "C" int __cdecl FUN_00221190(void *, void *);
+extern "C" int __cdecl FUN_0021bbc0(void *, void *);
 // equiv-conv: FUN_0021c3d0 esi
 int __cdecl FUN_0021c3d0(LexState_21ccb0* ls);
 int __cdecl FUN_002209b0(FuncState* fs, int v);
@@ -33,14 +34,14 @@ int __cdecl FUN_002216e0(FuncState* fs, int x, ExpDesc_21ccb0* e, FuncState* fs2
 int FUN_0021ccb0(LexState_21ccb0* ls, int x)
 {
     FuncState* fs = ls->fs;
-    FUN_00221190(fs, x);
+    FUN_00221190((FuncState *)fs, (void *)(hulk_uintptr)(int)x);
     ls->lastline = ls->linenumber;
     if (ls->lookaheadToken != 0x11f) {
         ls->token = ls->lookaheadToken;
         ls->seminfo = ls->lookaheadSeminfo;
         ls->lookaheadToken = 0x11f;
     } else {
-        ls->token = FUN_0021bbc0(ls, &ls->seminfo);
+        ls->token = FUN_0021bbc0((LexState_21ccb0 *)ls, (int *)(&ls->seminfo));
     }
     ExpDesc_21ccb0 e;
     int v = FUN_0021c3d0(ls);

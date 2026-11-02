@@ -12,26 +12,26 @@ struct TObject_217d80 {
 
 struct LState;
 
-int __cdecl FUN_00214d80(LState *L, const TObject_217d80 *a, const TObject_217d80 *b);
+extern "C" int __cdecl FUN_00214d80(void *, int *, int *);
 // equiv-conv: FUN_00217be0 eax stack stack ebx
-int __cdecl FUN_00217be0(LState *L, const TObject_217d80 *a, int event, const TObject_217d80 *b);
+extern "C" int __cdecl FUN_00217be0(void *, const void *, int, const void *);
 // equiv-conv: FUN_00217c80 ecx eax
-int FUN_00217c80(const TString *a, const TString *b);
+extern "C" int __cdecl FUN_00217c80(const void *, const void *);
 
 // equiv-conv: FUN_00217d80 edi esi stack
-int FUN_00217d80(const TObject_217d80 *l, const TObject_217d80 *r, LState *L)
+extern "C" int FUN_00217d80(const void *l, const void *r, void *L)
 {
-    if (l->tt != r->tt)
-        return FUN_00214d80(L, l, r);
-    if (l->tt == 3)
-        return l->n <= r->n;
-    if (l->tt == 4)
-        return FUN_00217c80(l->s, r->s) <= 0;
-    int res = FUN_00217be0(L, l, 0xc, r);
+    if (((const TObject_217d80 *)l)->tt != ((const TObject_217d80 *)r)->tt)
+        return FUN_00214d80((LState *)((LState *)L), (int *)(const TObject_217d80 *)((const TObject_217d80 *)l), (int *)(const TObject_217d80 *)((const TObject_217d80 *)r));
+    if (((const TObject_217d80 *)l)->tt == 3)
+        return ((const TObject_217d80 *)l)->n <= ((const TObject_217d80 *)r)->n;
+    if (((const TObject_217d80 *)l)->tt == 4)
+        return FUN_00217c80((const TString *)(((const TObject_217d80 *)l)->s), (const TString *)(((const TObject_217d80 *)r)->s)) <= 0;
+    int res = FUN_00217be0((LState *)((LState *)L), (const TObject_217d80 *)((const TObject_217d80 *)l), 0xc, (const TObject_217d80 *)((const TObject_217d80 *)r));
     if (res != -1)
         return res;
-    res = FUN_00217be0(L, r, 0xb, l);
+    res = FUN_00217be0((LState *)((LState *)L), (const TObject_217d80 *)((const TObject_217d80 *)r), 0xb, (const TObject_217d80 *)((const TObject_217d80 *)l));
     if (res != -1)
         return res == 0;
-    return FUN_00214d80(L, l, r);
+    return FUN_00214d80((LState *)((LState *)L), (int *)(const TObject_217d80 *)((const TObject_217d80 *)l), (int *)(const TObject_217d80 *)((const TObject_217d80 *)r));
 }

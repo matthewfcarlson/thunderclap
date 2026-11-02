@@ -6,7 +6,7 @@ extern "C" void* __cdecl FUN_0026c040(uint32_26c6a0 size);
 extern "C" void __cdecl FUN_0026bd80(void* ptr);
 struct ChunkHeader { uint32_26c6a0 previousSize; uint32_26c6a0 sizeFlags; };
 
-void* __cdecl FUN_0026c6a0(uint32_26c6a0 alignment, uint32_26c6a0 size)
+extern "C" void* __cdecl FUN_0026c6a0(unsigned int alignment, unsigned int size)
 {
     if (alignment <= 8)
         return FUN_0026c040(size);

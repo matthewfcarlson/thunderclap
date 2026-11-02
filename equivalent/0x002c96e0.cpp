@@ -126,7 +126,7 @@ static __forceinline void PutColor(unsigned* dst, const unsigned* c, const short
 }
 
 // equiv-conv: FUN_002c96e0 eax edx esi
-void FUN_002c96e0(Source_2c96e0* src, unsigned char flag, VertexSink_2c96e0* out)
+extern "C" void FUN_002c96e0(Source_2c96e0* src, unsigned char flag, VertexSink_2c96e0* out)
 {
     unsigned count = src->count;
     unsigned short* index = src->index;

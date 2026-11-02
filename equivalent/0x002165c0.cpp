@@ -31,8 +31,9 @@ struct LuaState_2165c0 {
 
 void *FUN_00217580(LuaTable *mt, int event, void *name);
 
-unsigned int FUN_002165c0(LuaState_2165c0 *L, int all)
+extern "C" unsigned int FUN_002165c0(void * L_, int all)
 {
+    LuaState_2165c0 * L = (LuaState_2165c0 *)L_;
     unsigned int deadmem = 0;
     Udata_2165c0 **p = &L->g->rootudata;
     Udata_2165c0 *curr = *p;

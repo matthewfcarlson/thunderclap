@@ -9,11 +9,11 @@ struct TString_217c80 {
     char str[1];
 };
 // equiv-conv: FUN_00217c80 ecx eax
-int FUN_00217c80(const TString_217c80* ls, const TString_217c80* rs) {
-    const char* l = ls->str;
-    unsigned int ll = ls->len;
-    const char* r = rs->str;
-    unsigned int lr = rs->len;
+extern "C" int FUN_00217c80(const void * ls, const void * rs) {
+    const char* l = ((const TString_217c80 *)ls)->str;
+    unsigned int ll = ((const TString_217c80 *)ls)->len;
+    const char* r = ((const TString_217c80 *)rs)->str;
+    unsigned int lr = ((const TString_217c80 *)rs)->len;
     for (;;) {
         int temp = FUN_003473c6(l, r);
         if (temp != 0)

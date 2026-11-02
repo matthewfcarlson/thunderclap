@@ -3,14 +3,14 @@
 struct Record_223dc0 { char data[40]; };
 struct Partition { Record_223dc0* first; Record_223dc0* second; };
 extern void __cdecl FUN_00223870(Partition*, Record_223dc0*, Record_223dc0*);
-extern void __cdecl FUN_00223c20(Record_223dc0*, Record_223dc0*);
+extern "C" void __cdecl FUN_00223c20(void *, void *);
 extern void __cdecl FUN_00223760(Record_223dc0*, Record_223dc0*, int, int);
-extern void __cdecl FUN_00223d20(Record_223dc0*, Record_223dc0*);
+extern "C" void __cdecl FUN_00223d20(void *, void *);
 void __cdecl FUN_00223dc0(Record_223dc0* first, Record_223dc0* last, int depth) {
     while (last - first > 32) {
         if (depth <= 0) {
             if (last - first > 1) FUN_00223760(first, last, 0, 0);
-            FUN_00223d20(first, last);
+            FUN_00223d20((Record_223dc0 *)first, (Record_223dc0 *)last);
             return;
         }
         Partition middle;
@@ -25,5 +25,5 @@ void __cdecl FUN_00223dc0(Record_223dc0* first, Record_223dc0* last, int depth) 
             last = middle.first;
         }
     }
-    if (last - first > 1) FUN_00223c20(first, last);
+    if (last - first > 1) FUN_00223c20((Record_223dc0 *)first, (Record_223dc0 *)last);
 }

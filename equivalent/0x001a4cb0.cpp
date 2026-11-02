@@ -9,11 +9,11 @@ struct Table_1a4cb0 {
     char pad0[0x60];
     Entry_1a4cb0 entries[20];
 };
-const char *FUN_001a4cb0(Table_1a4cb0 *t, unsigned int idx)
+extern "C" const char *FUN_001a4cb0(void *t, unsigned int idx)
 {
     const char *s = 0;
     if (idx < 20)
-        s = t->entries[idx].name;
+        s = ((Table_1a4cb0 *)t)->entries[idx].name;
     if (s != 0 && strlen(s) < 2)
         s = 0;
     return s;

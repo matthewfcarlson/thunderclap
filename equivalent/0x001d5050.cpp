@@ -3,7 +3,7 @@
 // Map a weapon name to its id (0 for an unknown name).
 extern "C" int __cdecl FUN_00096600(const char* a, const char* b);   // string compare, 0 when equal
 
-int FUN_001d5050(const char* name)
+extern "C" int FUN_001d5050(const char* name)
 {
     if (FUN_00096600(name, "small") == 0) {
         return 2;

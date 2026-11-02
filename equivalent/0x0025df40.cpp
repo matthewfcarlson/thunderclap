@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0025df40 @ 0x0025df40
-void __cdecl FUN_0025dcb0(int* p);
+extern "C" void __cdecl FUN_0025dcb0(void *);
 
 class Scheduler {
 public:
@@ -61,7 +61,7 @@ Scheduler* Scheduler::FUN_0025df40(int a, int b, int c)
     b54 = (char)0xff;
     b5c = 0;
     f48 = 0;
-    FUN_0025dcb0(&f40);
+    FUN_0025dcb0((int *)(&f40));
     f48 = 0;
     FUN_0025db30();
     return this;

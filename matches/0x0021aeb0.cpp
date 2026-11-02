@@ -2,7 +2,7 @@
 // data: gNames = DAT_00426bf0
 
 char* __cdecl Make(void* a, const char* b, int c);
-void __cdecl Target(void* param) {
+extern "C" void __cdecl FUN_0021aeb0(void* param) {
     int i = 0;
     do {
         const char* p = ((const char* const*)&DAT_00426bf0)[i];

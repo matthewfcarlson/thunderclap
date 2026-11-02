@@ -55,7 +55,7 @@ struct Ctl_cf4b0 {
 };
 
 // equiv-conv: FUN_000cb7d0 ecx edx stack
-void __cdecl FUN_000cb7d0(float *obj, float *target, float v);
+extern "C" void __cdecl FUN_000cb7d0(float *obj, float *target, float v);
 
 void Ctl_cf4b0::FUN_000cf4b0(float dt)
 {

@@ -21,16 +21,16 @@ struct Object {
  void FUN_00293ac0(Triple_f6530*);
  void FUN_00293af0(Triple_f6530*);
 };
-void __cdecl FUN_000f6530(Object* source, Object* dest) {
- dest->setFirst(source->getFirst());
- dest->setSecond(source->getSecond());
+extern "C" void __cdecl FUN_000f6530(void * source, void * dest) {
+ ((Object *)dest)->setFirst(((Object *)source)->getFirst());
+ ((Object *)dest)->setSecond(((Object *)source)->getSecond());
  struct Frame { unsigned a, b; Triple_f6530 t; } f;   // (the original's slot order)
- source->getPair(&f.a,&f.b);
- dest->setPair(f.a,f.b);
- f.t=source->atDC;
- dest->FUN_00293a90(&f.t);
- f.t=source->atE8;
- dest->FUN_00293ac0(&f.t);
- f.t=source->atD0;
- dest->FUN_00293af0(&f.t);
+ ((Object *)source)->getPair(&f.a,&f.b);
+ ((Object *)dest)->setPair(f.a,f.b);
+ f.t=((Object *)source)->atDC;
+ ((Object *)dest)->FUN_00293a90(&f.t);
+ f.t=((Object *)source)->atE8;
+ ((Object *)dest)->FUN_00293ac0(&f.t);
+ f.t=((Object *)source)->atD0;
+ ((Object *)dest)->FUN_00293af0(&f.t);
 }

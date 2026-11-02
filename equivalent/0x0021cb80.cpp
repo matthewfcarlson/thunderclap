@@ -51,19 +51,19 @@ struct LexState_21cb80 {
 };
 
 // equiv-conv: FUN_0021c5b0 eax edx
-void FUN_0021c5b0(LexState_21cb80 *ls, int level);
-void FUN_00220bd0(FuncState_21cb80 *fs, unsigned op, int a, unsigned b, unsigned c);
+extern "C" void __cdecl FUN_0021c5b0(void *, int);
+extern "C" int __cdecl FUN_00220bd0(void *, unsigned int, int, unsigned int, unsigned int);
 void *FUN_0021add0(lua_State_21cb80 *L, void *block, unsigned oldsize, unsigned newsize);
 void FUN_0021b080(LexState_21cb80 *ls, void *str, int len);
 
-void FUN_0021cb80(LexState_21cb80 *ls)
+extern "C" void FUN_0021cb80(void *ls)
 {
-    lua_State_21cb80 *L = ls->L;
-    FuncState_21cb80 *fs = ls->fs;
+    lua_State_21cb80 *L = ((LexState_21cb80 *)ls)->L;
+    FuncState_21cb80 *fs = ((LexState_21cb80 *)ls)->fs;
     Proto_21cb80 *f = fs->f;
 
-    FUN_0021c5b0(ls, 0);
-    FUN_00220bd0(fs, 0x1b, 0, 1, 0);
+    FUN_0021c5b0((LexState_21cb80 *)((LexState_21cb80 *)ls), 0);
+    FUN_00220bd0((FuncState_21cb80 *)fs, 0x1b, 0, 1, 0);
 
     f->code = FUN_0021add0(L, f->code, f->sizecode * 4, fs->pc * 4);
     f->sizecode = fs->pc;
@@ -83,9 +83,9 @@ void FUN_0021cb80(LexState_21cb80 *ls)
     f->upvalues = FUN_0021add0(L, f->upvalues, f->sizeupvalues * 4, f->nups * 4);
     f->sizeupvalues = f->nups;
 
-    ls->fs = fs->prev;
+    ((LexState_21cb80 *)ls)->fs = fs->prev;
     L->top -= 16;
 
-    if (ls->token == 0x116 || ls->token == 0x11e)
-        FUN_0021b080(ls, (char *)ls->seminfo + 0x10, ls->seminfo->length);
+    if (((LexState_21cb80 *)ls)->token == 0x116 || ((LexState_21cb80 *)ls)->token == 0x11e)
+        FUN_0021b080(((LexState_21cb80 *)ls), (char *)((LexState_21cb80 *)ls)->seminfo + 0x10, ((LexState_21cb80 *)ls)->seminfo->length);
 }

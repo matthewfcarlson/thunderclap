@@ -17,7 +17,7 @@ class Inner_966f0 {
 struct Shader_nv_966f0 {
     pure3d::Shader* Init();
 };
-void Target() {
+extern "C" void FUN_000966f0() {
     if ((*(unsigned char*)&DAT_004dd8e4) && (*(pure3d::Shader**)&DAT_004dd930) == 0) {
         pure3d::Shader* p = (pure3d::Shader*)Alloc(0x20);
         if (p)

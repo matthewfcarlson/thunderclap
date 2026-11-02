@@ -67,7 +67,7 @@ struct Holder_152210 {
 Anchor_152210* __fastcall FUN_000592a0(Holder_152210* h);
 Fighter_152210* __fastcall FUN_00059a30(Anchor_152210* a);
 float FUN_00224f10(Vec3_152210* v);
-int FUN_00098190(float dt, float speed, int probe, int zero0, int f28, int x, Vec3_152210* out, Vec3_152210* io, int z1, int z2, int z3, int one);
+extern "C" int FUN_00098190(float dt, float speed, int probe, int zero0, int f28, int x, Vec3_152210* out, Vec3_152210* io, int z1, int z2, int z3, int one);
 
 struct Frame_152210 {
     Vec3_152210 s;

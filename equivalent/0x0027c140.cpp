@@ -8,7 +8,7 @@ void *thunk_FUN_0008d690(unsigned int size);
 extern "C" void *FUN_0008d690(unsigned int size);
 void *FUN_0008d6d0(unsigned int size);
 extern "C" int __cdecl FUN_0028fcc0(const char *fmt, ...);
-unsigned int FUN_0027b340(const char *s);
+extern "C" unsigned int FUN_0027b340(const char *s);
 
 struct Name8_27c140 {
     void FUN_0027b040(const char *name);

@@ -2,7 +2,7 @@
 // FUN_00305800 @ 0x00305800
 struct Vec_305800 { float x,y,z; };
 struct Object { void FUN_0022c1b0(); };
-void __cdecl FUN_00305520(Vec_305800*, Object*);
+extern "C" void __cdecl FUN_00305520(const void *, void *);
 extern "C" void __cdecl FUN_00305800(const Vec_305800* input, Object* object, float divisor) {
  union Bits { float f; unsigned int u; } x,y,z;
  x.f=input->x; y.f=input->y; z.f=input->z;
@@ -13,6 +13,6 @@ extern "C" void __cdecl FUN_00305800(const Vec_305800* input, Object* object, fl
  step.x=(float)(input->x*scale);
  step.y=(float)(input->y*scale);
  step.z=(float)(input->z*scale);
- for(int i=0;i<count;++i) FUN_00305520(&step,object);
+ for(int i=0;i<count;++i) FUN_00305520((Vec_305800 *)(&step),(Object *)object);
  object->FUN_0022c1b0();
 }

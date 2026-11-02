@@ -40,7 +40,7 @@ extern "C" void __cdecl FUN_00216340(char *out, const char *source, int bufflen)
 const char *FUN_00216320(lua_State_214900 *L, const char *fmt, ...);
 
 // equiv-conv: FUN_00214900 ebx stack
-void FUN_00214900(lua_State_214900 *L, const char *msg)
+extern "C" void FUN_00214900(lua_State_214900 *L, const char *msg)
 {
     struct Frame {
         char buff[60];

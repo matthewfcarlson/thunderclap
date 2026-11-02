@@ -32,17 +32,17 @@ struct Machine {
 };
 
 // equiv-conv: FUN_0024b480 eax
-void FUN_0024b480(Machine *m)
+extern "C" void FUN_0024b480(void *m)
 {
-    if (m->ring.count == 0)
+    if (((Machine *)m)->ring.count == 0)
         return;
-    Handler_24b480 *h = m->ring.slots[m->ring.current].handler;
+    Handler_24b480 *h = ((Machine *)m)->ring.slots[((Machine *)m)->ring.current].handler;
     if (h == 0)
         return;
     if (h->State() == 0) {
         h->v0();
     } else if (h->State() != 1 && h->State() == 3) {
-        m->ring.FUN_0024b270();
+        ((Machine *)m)->ring.FUN_0024b270();
         return;
     }
     int before;

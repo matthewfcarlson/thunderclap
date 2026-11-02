@@ -60,7 +60,7 @@ float __cdecl FUN_000a00e0(float a, float b, float c, float d, float e);
 float __cdecl FUN_000a02a0(float v);
 float __cdecl FUN_000a03c0(float v, float lo, float hi);
 float __cdecl FUN_000a0450(V3* v);
-char __cdecl FUN_0009ffc0(float a, float b, float c, float* out);
+extern "C" char __cdecl FUN_0009ffc0(float a, float b, float c, float* out);
 float __cdecl FUN_000a05b0(float a, float b, float c, float d, float e);
 V3* __cdecl FUN_0009f8c0(V3* out, float a, float b, float c);
 

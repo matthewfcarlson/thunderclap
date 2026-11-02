@@ -17,8 +17,9 @@ struct Vec3_2b8840 {
 };
 
 // Cone falloff of the two local axes (bits 0 and 1 of flags) relative to the direction `axis`.
-void FUN_002b8840(float *out1, float *out2, int flags, Range_2b8840 *range1, Range_2b8840 *range2, Mat4_2b8840 *m, Vec3_2b8840 *axis)
+extern "C" void FUN_002b8840(float *out1, float *out2, int flags, void *range1, void *range2, void *m, void * axis_)
 {
+    Vec3_2b8840 * axis = (Vec3_2b8840 *)axis_;
     *out1 = 1.0f;
     *out2 = 1.0f;
     if (flags == 0)
@@ -29,7 +30,7 @@ void FUN_002b8840(float *out1, float *out2, int flags, Range_2b8840 *range1, Ran
     v.x = 0.0f;
     v.y = 0.0f;
     v.z = 1.0f;
-    v.FUN_0022d260(m);
+    v.FUN_0022d260(((Mat4_2b8840 *)m));
     if (axis->FUN_0022d2b0(&v, 1e-5f))
         return;
 
@@ -49,7 +50,7 @@ void FUN_002b8840(float *out1, float *out2, int flags, Range_2b8840 *range1, Ran
         u.x = (float)i;
         u.y = (float)(1 - i);
         u.z = 0.0f;
-        u.FUN_0022d260(m);
+        u.FUN_0022d260(((Mat4_2b8840 *)m));
 
         double dotU = (double)u.y * axis->y + (double)u.x * axis->x + (double)u.z * axis->z;
         double lenU = (double)u.z * u.z + (double)u.y * u.y + (double)u.x * u.x;
@@ -64,7 +65,7 @@ void FUN_002b8840(float *out1, float *out2, int flags, Range_2b8840 *range1, Ran
 
         double t = (double)x.z * v.z + (double)x.y * v.y + (double)x.x * v.x;
         float tf = (float)t;
-        Range_2b8840 *range = i == 0 ? range1 : range2;
+        Range_2b8840 *range = i == 0 ? ((Range_2b8840 *)range1) : ((Range_2b8840 *)range2);
         float *out = i == 0 ? out1 : out2;
         if (t > range->lo)
             *out = 1.0f;

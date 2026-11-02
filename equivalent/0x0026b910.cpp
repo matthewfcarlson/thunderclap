@@ -17,7 +17,8 @@ struct State {
     unsigned int size;
 };
 // equiv-conv: FUN_0026b910 eax
-void FUN_0026b910(State* state) {
+extern "C" void FUN_0026b910(void * state_) {
+    State * state = (State *)state_;
     for (int i = 0; i < 127; ++i) {
         state->links[i+1].next = &state->links[i];
         state->links[i+1].previous = &state->links[i];

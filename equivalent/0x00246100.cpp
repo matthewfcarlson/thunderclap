@@ -6,13 +6,13 @@ struct Reader {
  unsigned int line, position, length;
  signed char FUN_00245b70(unsigned int);
 };
-void __cdecl FUN_00245d40(Reader*);
+extern "C" void __cdecl FUN_00245d40(void *);
 int __cdecl FUN_00245890(const char*, hulk_intptr);
 int __cdecl FUN_00245850(const char*, int);
 extern "C" int __cdecl FUN_00246100(Reader* r) {
  char buffer[128];
  char* out = buffer;
- FUN_00245d40(r);
+ FUN_00245d40((Reader *)r);
  if (r->FUN_00245b70(r->position) == '-') {
   *out = r->FUN_00245b70(r->position);
   if (r->position < r->length) {

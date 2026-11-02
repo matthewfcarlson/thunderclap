@@ -19,10 +19,10 @@ void FUN_002e69d0(png_struct_2e9570 *png, const char *msg);
 int FUN_002e81e0(png_struct_2e9570 *png, unsigned int skip);
 unsigned short *FUN_002e6c00(png_struct_2e9570 *png, unsigned int size);
 void FUN_002e7580(png_struct_2e9570 *png, unsigned char *buf, unsigned int length);
-unsigned short FUN_002e7560(unsigned char *buf);
+extern "C" unsigned short __cdecl FUN_002e7560(const unsigned char *);
 void FUN_002eb220(png_struct_2e9570 *png, png_info_2e9570 *info, unsigned short *hist);
 
-void FUN_002e9570(png_struct_2e9570 *png, png_info_2e9570 *info, int length)
+extern "C" void FUN_002e9570(png_struct_2e9570 *png, png_info_2e9570 *info, int length)
 {
     unsigned char buf[2];
     int num;

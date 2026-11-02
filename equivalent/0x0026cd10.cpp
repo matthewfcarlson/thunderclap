@@ -17,7 +17,7 @@ struct MemoryDlAllocator {
     void vfunc_4(void *p);
 };
 }
-void __cdecl FUN_0026bd80(void *);
+extern "C" void __cdecl FUN_0026bd80(void *);
 void core::MemoryDlAllocator::vfunc_4(void *p) {
     if (!p) return;
     DAT_005283a0 = heapStart;

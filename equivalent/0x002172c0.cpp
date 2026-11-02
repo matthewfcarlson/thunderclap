@@ -20,22 +20,22 @@ struct State_2172c0 {
 };
 
 // equiv-conv: FUN_00216e10 stack stack ebx
-int __cdecl FUN_00216e10(int flag, int amount, Object *object);
+extern "C" int __cdecl FUN_00216e10(int, int, void *);
 Node **__cdecl FUN_002171c0(Object *object, Node **link, int mode, int *budget, int *count);
-void __cdecl FUN_002164b0(State_2172c0 *state, Marker_2172c0 *marker);
+extern "C" void __cdecl FUN_002164b0(void *, void *);
 
-void __cdecl FUN_002172c0(Object *object)
+extern "C" void __cdecl FUN_002172c0(void *object)
 {
-    State_2172c0 *s = object->state;
+    State_2172c0 *s = ((Object *)object)->state;
     int budget = 0x7fffffff;
-    FUN_00216e10(0, 0x7fffffff, object);
-    FUN_002171c0(object, &s->head, 0, &budget, 0);
+    FUN_00216e10(0, 0x7fffffff, (Object *)((Object *)object));
+    FUN_002171c0(((Object *)object), &s->head, 0, &budget, 0);
     Marker_2172c0 *marker = s->marker;
     if (marker->flags & 3)
-        FUN_002164b0(s, marker);
+        FUN_002164b0((State_2172c0 *)s, (Marker_2172c0 *)marker);
     s->mode ^= 3;
     s->tail = &s->head;
     s->f24 = 0;
-    FUN_00216e10(0, 0x7fffffff, object);
-    FUN_002171c0(object, &s->head, 0, &budget, 0);
+    FUN_00216e10(0, 0x7fffffff, (Object *)((Object *)object));
+    FUN_002171c0(((Object *)object), &s->head, 0, &budget, 0);
 }

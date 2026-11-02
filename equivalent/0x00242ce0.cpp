@@ -13,7 +13,7 @@ struct Node {
 };
 struct Map_242ce0 { Node* root; };
 Node* __cdecl FUN_00247530(void* heap);
-void __cdecl FUN_00242a00(Map_242ce0* map, Node* node, unsigned* key);
+extern "C" char __cdecl FUN_00242a00(void *, void *, const unsigned *);
 Node* FindOrInsert(Map_242ce0* map, const unsigned* key) {
     Node* nil = (Node*)((char*)map + 4);
     Node* n = map->root;
@@ -45,7 +45,7 @@ Node* FindOrInsert(Map_242ce0* map, const unsigned* key) {
     node->v20 = 1.0f;
     node->v24 = 1.0f;
     node->key = *key;
-    FUN_00242a00(map, node, &node->key);
+    FUN_00242a00((Map_242ce0 *)map, (Node *)node, &node->key);
     node->refs = 1;
     return node;
 }

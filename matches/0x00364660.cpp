@@ -5,6 +5,6 @@ class Thing_364660 {
   public:
     ~Thing_364660() throw();
 };
-void FUN_00364660() {
+extern "C" void FUN_00364660() {
     (*(Thing_364660*)((char*)&DAT_004e76e8 + 72)).~Thing_364660();
 }

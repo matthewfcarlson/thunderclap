@@ -13,7 +13,7 @@ struct Range_2299c0 {
     Range_2299c0(Elem_2299c0 *f, Elem_2299c0 *s) : first(f), second(s) {}
 };
 
-void FUN_00229840(Elem_2299c0 *first, Elem_2299c0 *mid, Elem_2299c0 *last);
+extern "C" void __cdecl FUN_00229840(void *, void *, void *);
 
 static inline bool Before(const Elem_2299c0 &x, const Elem_2299c0 &y)
 {
@@ -30,7 +30,7 @@ static inline void Swap(Elem_2299c0 *x, Elem_2299c0 *y)
 Range_2299c0 FUN_002299c0(Elem_2299c0 *first, Elem_2299c0 *last)
 {
     Elem_2299c0 *mid = first + (last - first) / 2;
-    FUN_00229840(first, mid, last - 1);
+    FUN_00229840((Elem_2299c0 *)first, (Elem_2299c0 *)mid, (Elem_2299c0 *)(last - 1));
     Elem_2299c0 *pfirst = mid;
     Elem_2299c0 *plast = pfirst + 1;
     while (first < pfirst && !Before(pfirst[-1], *pfirst) && !Before(*pfirst, pfirst[-1])) {

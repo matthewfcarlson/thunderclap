@@ -28,11 +28,11 @@ public:
 };
 
 // equiv-conv: FUN_002c0240 ecx eax ebx stack stack stack stack
-void __cdecl FUN_002c0240(Surface_2c0240 *surf, int y, int x, char *dst, int w, int h, int dstStride)
+extern "C" void __cdecl FUN_002c0240(void *surf, int y, int x, char *dst, int w, int h, int dstStride)
 {
-    int stride = surf->stride;
-    char *src = surf->base + stride * y + x;
-    surf->v18();
+    int stride = ((Surface_2c0240 *)surf)->stride;
+    char *src = ((Surface_2c0240 *)surf)->base + stride * y + x;
+    ((Surface_2c0240 *)surf)->v18();
     int endY = y + h;
     if (y < endY) {
         int rows = endY - y;

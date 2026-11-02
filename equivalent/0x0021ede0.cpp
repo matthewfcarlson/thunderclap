@@ -25,17 +25,18 @@ struct expdesc_21ede0 {
     int f;
 };
 
-int __cdecl FUN_0021bbc0(LexState_21ede0 *ls, int *seminfo);                       // llex
-int __cdecl FUN_0021ded0(LexState_21ede0 *ls, expdesc_21ede0 *v, unsigned int limit);     // subexpr
-void __cdecl FUN_002214b0(FuncState *fs, expdesc_21ede0 *v);                       // luaK_goiftrue
+extern "C" int __cdecl FUN_0021bbc0(void *, void *);                       // llex
+extern "C" int __cdecl FUN_0021ded0(void *, void *, unsigned int);     // subexpr
+extern "C" void __cdecl FUN_002214b0(void *, void *);                       // luaK_goiftrue
 void __cdecl FUN_00220d70(FuncState *fs, int list);                         // luaK_patchtohere
 // equiv-conv: FUN_0021c2e0 esi eax
-void FUN_0021c2e0(LexState_21ede0 *ls, int token);                                 // check
+extern "C" void __cdecl FUN_0021c2e0(void *, int);                                 // check
 // equiv-conv: FUN_0021e080 eax
-void FUN_0021e080(LexState_21ede0 *ls);                                            // block
+extern "C" void __cdecl FUN_0021e080(void *);                                            // block
 
 // equiv-conv: FUN_0021ede0 eax
-int FUN_0021ede0(LexState_21ede0 *ls) {
+extern "C" int FUN_0021ede0(void * ls_) {
+    LexState_21ede0 * ls = (LexState_21ede0 *)ls_;
     expdesc_21ede0 v;
     ls->lastline = ls->linenumber;
     if (ls->lookahead.token != 287) {
@@ -43,14 +44,14 @@ int FUN_0021ede0(LexState_21ede0 *ls) {
         ls->t.seminfo = ls->lookahead.seminfo;
         ls->lookahead.token = 287;
     } else {
-        ls->t.token = FUN_0021bbc0(ls, &ls->t.seminfo);
+        ls->t.token = FUN_0021bbc0((LexState_21ede0 *)ls, (int *)(&ls->t.seminfo));
     }
-    FUN_0021ded0(ls, &v, 0);
+    FUN_0021ded0((LexState_21ede0 *)ls, (expdesc_21ede0 *)(&v), 0);
     if (v.k == 1)
         v.k = 3;
-    FUN_002214b0(ls->fs, &v);
+    FUN_002214b0((FuncState *)(ls->fs), (expdesc_21ede0 *)(&v));
     FUN_00220d70(ls->fs, v.t);
-    FUN_0021c2e0(ls, 0x112);
-    FUN_0021e080(ls);
+    FUN_0021c2e0((LexState_21ede0 *)ls, 0x112);
+    FUN_0021e080((LexState_21ede0 *)ls);
     return v.f;
 }

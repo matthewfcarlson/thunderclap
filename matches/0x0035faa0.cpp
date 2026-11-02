@@ -6,8 +6,8 @@ class MetaType_35faa0 {
   public:
     void Init(const char*, int);
 };
-void __cdecl cleanup();
+extern "C" void __cdecl FUN_003642f0();
 void __cdecl FUN_0035faa0() {
     (*(MetaType_35faa0*)((char*)&DAT_004e63fc + 52)).Init(DAT_004295d0, 0);
-    atexit(cleanup);
+    atexit(FUN_003642f0);
 }

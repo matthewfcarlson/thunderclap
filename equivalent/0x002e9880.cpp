@@ -16,7 +16,7 @@ int __cdecl FUN_002e81e0(png_struct_2e9880 *png_ptr, unsigned int skip);
 void *__cdecl FUN_002e6c00(png_struct_2e9880 *png_ptr, unsigned int size);
 void __cdecl FUN_002e6c40(png_struct_2e9880 *png_ptr, void *ptr);
 void __cdecl FUN_002e7580(png_struct_2e9880 *png_ptr, unsigned char *buf, unsigned int length);
-int __cdecl FUN_002e7530(const unsigned char *buf);
+extern "C" unsigned int __cdecl FUN_002e7530(unsigned char *);
 void __cdecl FUN_002eb330(png_struct_2e9880 *png_ptr, png_info_2e9880 *info_ptr, char *purpose, int X0, int X1,
                           int type, int nparams, char *units, char **params);
 
@@ -64,8 +64,8 @@ void png_handle_pCAL(png_struct_2e9880 *png_ptr, png_info_2e9880 *info_ptr, unsi
         return;
     }
 
-    X0 = FUN_002e7530((unsigned char *)units + 1);
-    X1 = FUN_002e7530((unsigned char *)units + 5);
+    X0 = ((int)FUN_002e7530((unsigned char *)(const unsigned char *)((unsigned char *)units + 1)));
+    X1 = ((int)FUN_002e7530((unsigned char *)(const unsigned char *)((unsigned char *)units + 5)));
     nparams = (unsigned char)units[10];
     type = (unsigned char)units[9];
     units += 11;

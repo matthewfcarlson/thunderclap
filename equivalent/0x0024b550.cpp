@@ -57,7 +57,7 @@ struct Frame_24b550 {
     unsigned int z;
 };
 
-unsigned int FUN_0025e2b0(Chunk *c);
+extern "C" unsigned __cdecl FUN_0025e2b0(void *);
 unsigned int FUN_0025e090(Chunk *c);
 hulk_uintptr FUN_0026fd80(hulk_uintptr a, unsigned int n);
 extern "C" unsigned int FUN_0025e310(Region_24b550 *r);
@@ -96,8 +96,9 @@ struct Player_24b550 {
 };
 
 // equiv-conv: FUN_0024b550 esi
-void FUN_0024b550(Player_24b550 *p)
+extern "C" void FUN_0024b550(void * p_)
 {
+    Player_24b550 * p = (Player_24b550 *)p_;
     Frame_24b550 f;
     Queue_24b550 *q = &p->queue;
     Slot_24b550 *slot = 0;
@@ -122,7 +123,7 @@ void FUN_0024b550(Player_24b550 *p)
     int state = p->state;
     if (state == 0) {
         Chunk *c = p->chunk;
-        f.x = FUN_0025e2b0(c);
+        f.x = ((unsigned int)FUN_0025e2b0((Chunk *)c));
         unsigned int limit = (unsigned int)((float)c->f4 * c->fc);
         if (f.x > limit) {
             if (p->mode != 1) {

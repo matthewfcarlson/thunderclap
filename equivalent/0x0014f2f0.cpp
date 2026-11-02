@@ -83,13 +83,14 @@ struct Frame_14f2f0 {
 };
 
 // equiv-conv: FUN_0014f2f0 eax esi edi
-void FUN_0014f2f0(Owner_14f2f0 *owner, Config_14f2f0 *cfg, State_14f2f0 *st)
+extern "C" void FUN_0014f2f0(void *owner, void *cfg, void * st_)
 {
+    State_14f2f0 * st = (State_14f2f0 *)st_;
     Frame_14f2f0 f;
-    f.t = owner->FUN_000592a0()->FUN_00059a30()->FUN_000354c0();
-    Marker_14f2f0 *m = owner->GetMarker();
+    f.t = ((Owner_14f2f0 *)owner)->FUN_000592a0()->FUN_00059a30()->FUN_000354c0();
+    Marker_14f2f0 *m = ((Owner_14f2f0 *)owner)->GetMarker();
     f.v = 0.0f;
-    if (m != 0 && cfg->f50 == 0) {
+    if (m != 0 && ((Config_14f2f0 *)cfg)->f50 == 0) {
         st->FUN_00059370(m);
         f.tmp.x = st->f28;
         f.tmp.y = 0;
@@ -97,23 +98,23 @@ void FUN_0014f2f0(Owner_14f2f0 *owner, Config_14f2f0 *cfg, State_14f2f0 *st)
         f.tmp.FUN_0022d110();
         f.v = m->f7c;
     } else {
-        st->f74 = cfg->f10;
+        st->f74 = ((Config_14f2f0 *)cfg)->f10;
         st->axis = (*(Vec3_14f2f0*)&DAT_004afa08);
-        FUN_00224d70(f.t + cfg->f14, &st->axis);
-        float t2 = f.t + cfg->f24;
+        FUN_00224d70(f.t + ((Config_14f2f0 *)cfg)->f14, &st->axis);
+        float t2 = f.t + ((Config_14f2f0 *)cfg)->f24;
         f.tmp = (*(Vec3_14f2f0*)&DAT_004afa08);
         FUN_00224d70(t2, &f.tmp);
     }
-    st->f0 = cfg->f18;
-    st->f4 = cfg->f1c;
-    st->f54 += cfg->f20;
+    st->f0 = ((Config_14f2f0 *)cfg)->f18;
+    st->f4 = ((Config_14f2f0 *)cfg)->f1c;
+    st->f54 += ((Config_14f2f0 *)cfg)->f20;
     st->f24 = 1;
-    st->f68 = cfg->f48 + (cfg->f4c - cfg->f48) * f.v;
-    if (cfg->f28 >= (*(float*)&DAT_003f32e0))
-        st->f78 = cfg->f28 + (cfg->f2c - cfg->f28) * f.v;
-    float r1 = cfg->f38 + (cfg->f3c - cfg->f38) * f.v;
+    st->f68 = ((Config_14f2f0 *)cfg)->f48 + (((Config_14f2f0 *)cfg)->f4c - ((Config_14f2f0 *)cfg)->f48) * f.v;
+    if (((Config_14f2f0 *)cfg)->f28 >= (*(float*)&DAT_003f32e0))
+        st->f78 = ((Config_14f2f0 *)cfg)->f28 + (((Config_14f2f0 *)cfg)->f2c - ((Config_14f2f0 *)cfg)->f28) * f.v;
+    float r1 = ((Config_14f2f0 *)cfg)->f38 + (((Config_14f2f0 *)cfg)->f3c - ((Config_14f2f0 *)cfg)->f38) * f.v;
     st->f58 = r1;
-    float r2 = cfg->f40 + (cfg->f44 - cfg->f40) * f.v;
-    float r3 = cfg->f30 + (cfg->f34 - cfg->f30) * f.v;
+    float r2 = ((Config_14f2f0 *)cfg)->f40 + (((Config_14f2f0 *)cfg)->f44 - ((Config_14f2f0 *)cfg)->f40) * f.v;
+    float r3 = ((Config_14f2f0 *)cfg)->f30 + (((Config_14f2f0 *)cfg)->f34 - ((Config_14f2f0 *)cfg)->f30) * f.v;
     st->FUN_000595f0(&f.tmp, r3, r1, r2);
 }

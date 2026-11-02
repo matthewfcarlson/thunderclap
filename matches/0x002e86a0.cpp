@@ -23,7 +23,7 @@ unsigned int FUN_002e7500(unsigned char* buf);
 void FUN_002eb1f0(png_struct_2e86a0* png, png_info_2e86a0* info, double gamma);
 int FUN_00347792(void* stream, const char* fmt, ...);
 
-void FUN_002e86a0(png_struct_2e86a0* png, png_info_2e86a0* info, unsigned int length)
+extern "C" void FUN_002e86a0(png_struct_2e86a0* png, png_info_2e86a0* info, unsigned int length)
 {
     unsigned char buf[4];
 

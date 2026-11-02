@@ -5,7 +5,7 @@ struct Item {
     void* p;
 };
 extern Item items[11];
-void FUN_00363d10() {
+extern "C" void FUN_00363d10() {
     Item* it = items + 11;
     int n = 11;
     do {

@@ -7,7 +7,7 @@ class Image {
 void Missing(Image*, const char*);
 void BadLength(Image*, const char*);
 void Finish(Image*, int);
-void Target(Image* self, int p2, int p3) {
+extern "C" void FUN_002e8640(Image* self, int p2, int p3) {
     if (((self->flags & 1) == 0 || (self->flags & 4) == 0) && (Missing(self, "No image in file"), p2 == 0))
         return;
     self->flags |= 0x18;

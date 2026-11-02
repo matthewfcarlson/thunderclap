@@ -10,10 +10,10 @@ struct Registry {
 };
 extern Pair __cdecl Get(const char*, int, int);
 extern int __cdecl atexit(void(__cdecl*)());
-extern void __cdecl Cleanup();
+extern "C" void __cdecl FUN_003646e0();
 void FUN_003613a0() {
     Pair p = Get(DAT_0042a9e8, 0, 0);
     Pair q = Get(DAT_004290a8, 0, 0);
     (*(Registry*)((char*)&DAT_004e78e0 + 144)).Init(&q, &p, 12, 4);
-    atexit(Cleanup);
+    atexit(FUN_003646e0);
 }

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 4583 inputs, branch coverage 21/22, incomplete)
 // FUN_0021c790 @ 0x0021c790
 // FUN_0021c790 @ 0x0021c790
+#include "compat/ptr.h"
 struct Entry_21c790 { unsigned key; unsigned a,b; };
 struct Table_21c790 { char pad[24]; Entry_21c790* entries; };
 struct Node { Node* next; unsigned other; unsigned char limit, marked; };
@@ -8,7 +9,7 @@ struct Object { Table_21c790* table; unsigned pad4; Object* parent; char padc[8]
 struct Result_21c790 { int type; int index; unsigned extra; int a,b; };
 int __cdecl FUN_002209b0(Object*,unsigned);
 // equiv-conv: FUN_0021c5f0 edi stack stack
-int __cdecl FUN_0021c5f0(Object*,unsigned,Result_21c790*);
+extern "C" int __cdecl FUN_0021c5f0(void *, void *, void *);
 void __cdecl target(Object* object,unsigned key,Result_21c790* result,int flag) {
  if (!object) { result->a=-1; result->b=-1; result->type=7; result->index=255; return; }
  int i=(int)object->count-1;
@@ -20,5 +21,5 @@ void __cdecl target(Object* object,unsigned key,Result_21c790* result,int flag) 
  }
  target(object->parent,key,result,0);
  if(result->type==7) { if(flag) result->index=FUN_002209b0(object,key); }
- else { int index=FUN_0021c5f0(object,key,result); result->type=6; result->index=index; }
+ else { int index=FUN_0021c5f0((Object *)object,(void *)(hulk_uintptr)(unsigned)key,(Result_21c790 *)result); result->type=6; result->index=index; }
 }

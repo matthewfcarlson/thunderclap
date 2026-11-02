@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // FUN_001d51f0 @ 0x001d51f0
 extern "C" int __cdecl FUN_00096600(const char*, const char*);
-int __cdecl FUN_001d51f0(const char* material)
+extern "C" int __cdecl FUN_001d51f0(const char* material)
 {
     if (FUN_00096600(material, "hardmetal") == 0) return 6;
     if (FUN_00096600(material, "softmetal") == 0) return 7;

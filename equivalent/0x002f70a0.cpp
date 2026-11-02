@@ -77,7 +77,7 @@ struct Articulated : SimObject {
 };
 
 
-void __cdecl FUN_002f5fe0(Reader_2f70a0 *r, SymMatrix_2f70a0 *sm);
+extern "C" void __cdecl FUN_002f5fe0(void *, float *);
 extern "C" Part_2f70a0 *__cdecl FUN_0030d4f0(unsigned int a, Vec3_2f70a0 *v, unsigned int b, unsigned int c);
 Props *__cdecl FUN_002f2750(unsigned __int64 key);
 extern "C" int __cdecl FUN_00266da0(int sel);
@@ -134,7 +134,7 @@ void physics::PhysicsObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, h
         r->FUN_00266a30();
         int id = r->FUN_00266c30();
         if (id == 0x7011001) {
-            FUN_002f5fe0(r, &f.sm);
+            FUN_002f5fe0((Reader_2f70a0 *)r, (float *)(SymMatrix_2f70a0 *)(&f.sm));
         } else if (id == 0x7011002) {
             r->stream->FUN_002647e0(&f.center, 3, 4, 1);
         } else if (id == 0x7011020) {
@@ -152,7 +152,7 @@ void physics::PhysicsObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, h
                 r->FUN_00266a30();
                 int sub = r->FUN_00266c30();
                 if (sub == 0x7011001)
-                    FUN_002f5fe0(r, &f.sm);
+                    FUN_002f5fe0((Reader_2f70a0 *)r, (float *)(SymMatrix_2f70a0 *)(&f.sm));
                 else if (sub == 0x7011002)
                     r->stream->FUN_002647e0(&f.zero, 3, 4, 1);
                 r->FUN_00266be0();

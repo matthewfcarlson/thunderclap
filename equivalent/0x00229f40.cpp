@@ -3,14 +3,14 @@
 struct Item_229f40 { char data[12]; };
 struct Partition { Item_229f40* leftEnd; Item_229f40* rightBegin; };
 extern void __cdecl FUN_002299c0(Partition*, Item_229f40*, Item_229f40*);
-extern void __cdecl FUN_00229dd0(Item_229f40*, Item_229f40*);
+extern "C" void __cdecl FUN_00229dd0(void *, void *);
 extern void __cdecl FUN_002298e0(Item_229f40*, Item_229f40*, int, int);
-extern void __cdecl FUN_00229ea0(Item_229f40*, Item_229f40*);
+extern "C" void __cdecl FUN_00229ea0(void *, void *);
 void __cdecl FUN_00229f40(Item_229f40* first, Item_229f40* last, int budget) {
     while (last-first > 32) {
         if (budget <= 0) {
             if (last-first > 1) FUN_002298e0(first,last,0,0);
-            FUN_00229ea0(first,last);
+            FUN_00229ea0((Item_229f40 *)first,(Item_229f40 *)last);
             return;
         }
         Partition split;
@@ -24,5 +24,5 @@ void __cdecl FUN_00229f40(Item_229f40* first, Item_229f40* last, int budget) {
             last=split.leftEnd;
         }
     }
-    if (last-first > 1) FUN_00229dd0(first,last);
+    if (last-first > 1) FUN_00229dd0((Item_229f40 *)first,(Item_229f40 *)last);
 }

@@ -7,14 +7,14 @@ struct Key_2198b0 { unsigned int kind; hulk_uintptr value; };
 struct ObjectKey { char pad[8]; unsigned int hash; };
 // equiv-conv: FUN_00219870 esi stack
 Entry_2198b0* __cdecl FUN_00219870(Table_2198b0* table, hulk_uintptr value);
-Entry_2198b0* __cdecl FUN_002198b0(Table_2198b0* table, const Key_2198b0* key) {
-    if (key->kind == 3) return FUN_00219870(table, key->value);
-    unsigned int mask = (1U << (table->shift & 31)) - 1U;
+extern "C" void * __cdecl FUN_002198b0(void * table, const void * key) {
+    if (((const Key_2198b0 *)key)->kind == 3) return (Entry_2198b0 *)(FUN_00219870(((Table_2198b0 *)table), ((const Key_2198b0 *)key)->value));
+    unsigned int mask = (1U << (((Table_2198b0 *)table)->shift & 31)) - 1U;
     unsigned int index;
-    switch (key->kind) {
-    case 1: index = key->value & mask; break;
-    case 4: index = ((const ObjectKey*)key->value)->hash & mask; break;
-    default: index = key->value % (mask | 1U); break;
+    switch (((const Key_2198b0 *)key)->kind) {
+    case 1: index = ((const Key_2198b0 *)key)->value & mask; break;
+    case 4: index = ((const ObjectKey*)((const Key_2198b0 *)key)->value)->hash & mask; break;
+    default: index = ((const Key_2198b0 *)key)->value % (mask | 1U); break;
     }
-    return table->entries + index;
+    return (Entry_2198b0 *)(((Table_2198b0 *)table)->entries + index);
 }

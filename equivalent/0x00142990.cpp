@@ -36,7 +36,7 @@ struct V3_142990 {
     bool FUN_0022d2b0(const V3_142990 *other, float epsilon);
 };
 
-int FUN_00142940(const void *id);
+extern "C" int __cdecl FUN_00142940(void *);
 
 struct Name_142990 {
     char data[8];
@@ -239,9 +239,9 @@ char WallRunAction::vfunc_3(int a0, int a1)
     if (scene == 0)
         return 0;
     int h = scene->FUN_002226b0();
-    int id1 = FUN_00142940(cfg->id1);
-    int id2 = FUN_00142940(cfg->id2);
-    int id3 = FUN_00142940(cfg->id3);
+    int id1 = FUN_00142940((void *)(const void *)(cfg->id1));
+    int id2 = FUN_00142940((void *)(const void *)(cfg->id2));
+    int id3 = FUN_00142940((void *)(const void *)(cfg->id3));
     int desc[10];
     desc[0] = 0;
     desc[1] = 0;

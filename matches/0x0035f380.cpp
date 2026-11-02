@@ -3,7 +3,7 @@
 
 extern "C" __int64 __cdecl lookup(const char*, int, int);
 extern "C" int __cdecl atexit(void(__cdecl*)());
-void __cdecl finish();
+extern "C" void __cdecl FUN_00364160();
 class Manager_35f380 {
   public:
     void init(__int64*, __int64*, int, int);
@@ -13,5 +13,5 @@ void target() {
     __int64 a = lookup(((char*)&DAT_004290e4), 0, 0);
     __int64 b = lookup(((char*)&DAT_004290d8), 0, 0);
     gManager_35f380.init(&b, &a, 48, 4);
-    atexit(finish);
+    atexit(FUN_00364160);
 }

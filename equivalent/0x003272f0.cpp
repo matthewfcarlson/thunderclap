@@ -21,7 +21,7 @@ struct VertexFormat_3272f0 {
 };
 extern const void* DAT_0039db04;
 // equiv-conv: FUN_00326dc0 eax ecx
-int FUN_00326dc0(int primType, int count);
+extern "C" int FUN_00326dc0(int primType, int count);
 extern "C" void FUN_0031c230(int);
 struct MeshBatch {
     char pad[0x10];

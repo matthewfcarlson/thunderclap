@@ -27,7 +27,7 @@ extern unsigned int DAT_0039dea8;
 extern unsigned int DAT_0039deac;
 struct Color_329f70 {};
 // equiv-conv: FUN_00329b40 ecx stack
-void FUN_00329b40(Color_329f70* self, unsigned int packed);
+extern "C" void __cdecl FUN_00329b40(void *, unsigned int);
 class Context {
   public:
     CullState* cull;
@@ -67,10 +67,10 @@ void Context::FUN_00329f70(unsigned char enable, unsigned char two, MatSrc_329f7
         spec = 1;
     DAT_0039deac = spec;
     DAT_0039db08 = DAT_0039db08 | 0x3000;
-    FUN_00329b40((Color_329f70*)mat.diffuse, src->diffuse);
-    FUN_00329b40((Color_329f70*)mat.ambient, src->ambient);
-    FUN_00329b40((Color_329f70*)mat.specular, src->specular);
-    FUN_00329b40((Color_329f70*)mat.emissive, src->emissive);
+    FUN_00329b40((Color_329f70 *)((Color_329f70*)mat.diffuse), src->diffuse);
+    FUN_00329b40((Color_329f70 *)((Color_329f70*)mat.ambient), src->ambient);
+    FUN_00329b40((Color_329f70 *)((Color_329f70*)mat.specular), src->specular);
+    FUN_00329b40((Color_329f70 *)((Color_329f70*)mat.emissive), src->emissive);
     mat.power = src->power;
     D3DDevice_SetMaterial(&mat);
     if (twoSided)

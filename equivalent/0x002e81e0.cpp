@@ -10,9 +10,9 @@ struct Context {
  unsigned char mode;
 };
 extern void __cdecl FUN_002e7580(Context*, void*, unsigned int);
-extern int __cdecl FUN_002e75b0(Context*);
-extern void __cdecl FUN_002e6a20(Context*, const char*);
-extern void __cdecl FUN_002e69f0(Context*, const char*);
+extern "C" int __cdecl FUN_002e75b0(void *);
+extern "C" void __cdecl FUN_002e6a20(void *, void *);
+extern "C" void __cdecl FUN_002e69f0(void *, void *);
 int __cdecl FUN_002e81e0(Context* context, unsigned int count) {
  unsigned int chunk = context->chunkSize;
  while (count > chunk) {
@@ -20,10 +20,10 @@ int __cdecl FUN_002e81e0(Context* context, unsigned int count) {
   count -= chunk;
  }
  if (count) FUN_002e7580(context, context->buffer, count);
- if (!FUN_002e75b0(context)) return 0;
+ if (!FUN_002e75b0((Context *)context)) return 0;
  if ((context->mode & 0x20) ? !(context->flags & 0x200) : (context->flags & 0x400) != 0)
-  FUN_002e6a20(context, "CRC error");
+  FUN_002e6a20((Context *)context, (void *)(const char *)"CRC error");
  else
-  FUN_002e69f0(context, "CRC error");
+  FUN_002e69f0((Context *)context, (void *)(const char *)"CRC error");
  return 1;
 }

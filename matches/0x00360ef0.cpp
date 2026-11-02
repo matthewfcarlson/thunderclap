@@ -4,8 +4,8 @@ class SeqEventClipType_360ef0 {
     void Reg();
 };
 SeqEventClipType_360ef0 g_360ef0;
-void Cleanup();
+extern "C" void FUN_00364610();
 void Init() {
     g_360ef0.Reg();
-    atexit(Cleanup);
+    atexit(FUN_00364610);
 }

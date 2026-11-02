@@ -10,7 +10,7 @@ void __stdcall D3DSurface_LockRect(int, D3DLOCKED_RECT*, int, int);
 void __stdcall D3DResource_Release(hulk_intptr);
 }
 extern int __stdcall FUN_00382400(int, int, int, int);
-extern void __cdecl FUN_0031c230(int);
+extern "C" void __cdecl FUN_0031c230(int);
 class d3dDisplay_31b230 {
 public:
     char pad[0x478];

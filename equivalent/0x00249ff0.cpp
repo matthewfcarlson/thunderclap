@@ -13,14 +13,15 @@ struct Tree_249ff0 {
     Node nil;
 };
 
-extern "C" void FUN_002482a0(Tree_249ff0* tree, Node* node);
+extern "C" void __cdecl FUN_002482a0(void *, void *);
 extern "C" void FUN_002482f0(Tree_249ff0* tree, Node* node);
 
 // Red-black tree unique-key insert with rebalance. color: 1 = red, 0 = black.
-char FUN_00249ff0(Tree_249ff0* tree, Node* nodeArg, const unsigned* keyPtr)
+extern "C" char FUN_00249ff0(void * tree_, void * nodeArg, const unsigned* keyPtr)
 {
+    Tree_249ff0 * tree = (Tree_249ff0 *)tree_;
     Node* nil = &tree->nil;
-    Node* node = nodeArg;
+    Node* node = ((Node *)nodeArg);
     unsigned key = *keyPtr;
     Node* cur = tree->root;
     Node* parent = nil;
@@ -61,7 +62,7 @@ char FUN_00249ff0(Tree_249ff0* tree, Node* nodeArg, const unsigned* keyPtr)
             } else {
                 if (node == p->right) {
                     node = p;
-                    FUN_002482a0(tree, node);
+                    FUN_002482a0((Tree_249ff0 *)tree, (Node *)node);
                 }
                 node->parent->color = 0;
                 node->parent->parent->color = 1;

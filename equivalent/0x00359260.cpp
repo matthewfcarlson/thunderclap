@@ -15,11 +15,11 @@ static inline float fabsf_(float f)
     return x.f;
 }
 
-bool FUN_003577c0(Vec3_359260* p, Vec3_359260* a, Vec3_359260* b, Vec3_359260* c, Vec3_359260* n);
-void FUN_00357ea0(Vec3_359260* origin, Vec3_359260* a, Vec3_359260* b, Vec3_359260* c, Vec3_359260* closest, bool e0, bool e1, bool e2);
+extern "C" bool __cdecl FUN_003577c0(const void *, const void *, const void *, const void *, const void *);
+extern "C" void __cdecl FUN_00357ea0(const void *, const void *, const void *, const void *, void *, bool, bool, bool);
 
 // Ray/plane distance plus triangle containment test; falls back to the closest edge point.
-bool FUN_00359260(Vec3_359260* origin, float eps, Vec3_359260* a, Vec3_359260* b, Vec3_359260* c, Vec3_359260* normal,
+extern "C" bool FUN_00359260(Vec3_359260* origin, float eps, Vec3_359260* a, Vec3_359260* b, Vec3_359260* c, Vec3_359260* normal,
                   float* dist, Vec3_359260* hit, Vec3_359260* outDir, bool e0, bool e1, bool e2)
 {
     double zx = (origin->z - b->z) * normal->z + (origin->x - b->x) * normal->x; // keep the original's summation order
@@ -35,7 +35,7 @@ bool FUN_00359260(Vec3_359260* origin, float eps, Vec3_359260* a, Vec3_359260* b
     hit->y = origin->y - my;
     hit->z = origin->z - mz;
 
-    if (FUN_003577c0(hit, a, b, c, normal)) {
+    if (FUN_003577c0((Vec3_359260 *)hit, (Vec3_359260 *)a, (Vec3_359260 *)b, (Vec3_359260 *)c, (Vec3_359260 *)normal)) {
         *outDir = *normal;
         *dist = *dist - eps;
         return true;
@@ -44,7 +44,7 @@ bool FUN_00359260(Vec3_359260* origin, float eps, Vec3_359260* a, Vec3_359260* b
     if (!e0 && !e1 && !e2)
         return false;
 
-    FUN_00357ea0(origin, a, b, c, hit, e0, e1, e2);
+    FUN_00357ea0((Vec3_359260 *)origin, (Vec3_359260 *)a, (Vec3_359260 *)b, (Vec3_359260 *)c, (Vec3_359260 *)hit, e0, e1, e2);
 
     double dx = origin->x - hit->x; // the offsets stay in registers (unrounded) for len2
     double dy = origin->y - hit->y;

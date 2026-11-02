@@ -16,7 +16,7 @@ struct LexState_21c340 {
     void *L;                    // 0x20
 };
 
-int __cdecl FUN_0021bbc0(LexState_21c340 *ls, int *seminfo);                // llex
+extern "C" int __cdecl FUN_0021bbc0(void *, void *);                // llex
 const char *__cdecl FUN_0021af00(LexState_21c340 *ls, int token);           // token2str
 const char *__cdecl FUN_00216320(void *L, const char *fmt, ...);     // luaO_pushfstring
 void __cdecl FUN_0021b060(LexState_21c340 *ls, const char *msg);            // lexerror
@@ -30,7 +30,7 @@ void FUN_0021c340(int where, LexState_21c340 *ls, int what, int who) {
             ls->t.seminfo = ls->lookahead.seminfo;
             ls->lookahead.token = 287;
         } else {
-            ls->t.token = FUN_0021bbc0(ls, &ls->t.seminfo);
+            ls->t.token = FUN_0021bbc0((LexState_21c340 *)ls, (int *)(&ls->t.seminfo));
         }
         return;
     }

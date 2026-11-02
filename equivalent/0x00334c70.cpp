@@ -6,7 +6,7 @@ struct Stream { virtual void s0(); virtual void s1(); virtual void s2(); virtual
 struct State_334c70 { char p0[0x1c]; U_334c70 error; U_334c70 idle; U_334c70 bytes; char p28[4]; U_334c70 readTime; U_334c70 totalTime; char p34[8]; U_334c70 capacity; char p40[4]; U_334c70 desired; U_334c70 available; Stream* stream; U_334c70 end; U_334c70 bufferedEnd; U_334c70 position; char p5c[8]; U_334c70 base; U_334c70 limit; hulk_uintptr cursor; U_334c70 other; U_334c70 consumed; char p78[12]; hulk_uintptr skip; };
 U_334c70 __cdecl FUN_00368660();
 // equiv-conv: FUN_00334c40 esi
-void FUN_00334c40(State_334c70*);
+extern "C" void __cdecl FUN_00334c40(void *);
 // FUN_00334b00's definition is a member (`Owner_334b00::FUN_00334b00()`, its own note: esi): the Wine build compiles it
 // as a thiscall, so clang's call passes the state in ecx (a cdecl call would push it: wine_conv_check check 9). MSVC
 // mode keeps the original's register note.
@@ -26,7 +26,7 @@ U_334c70 __stdcall target(State_334c70* s,U_334c70 unused,U_334c70 position,unsi
   if(s->position<position && s->bufferedEnd>=position) {
    U_334c70 delta=position-s->position; s->position=position; s->consumed+=delta; s->available-=delta;
    if(s->cursor>s->limit) s->cursor-=s->capacity;
-  } else { FUN_00334c40(s); s->bufferedEnd=position; s->position=position; s->consumed=s->capacity; s->available=0; s->other=s->base; s->cursor=s->base; }
+  } else { FUN_00334c40((State_334c70 *)s); s->bufferedEnd=position; s->position=position; s->consumed=s->capacity; s->available=0; s->other=s->base; s->cursor=s->base; }
  }
  U_334c70 finish;
  if(!s->base) {

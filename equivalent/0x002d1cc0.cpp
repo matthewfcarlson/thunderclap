@@ -20,7 +20,7 @@ struct Emitter_2d1cc0 {
  char pad3[4];
  float speed;
 };
-void __cdecl FUN_002d1cc0(float dt, Emitter_2d1cc0* emitter, Particle_2d1cc0* particle) {
+extern "C" void __cdecl FUN_002d1cc0(float dt, Emitter_2d1cc0* emitter, Particle_2d1cc0* particle) {
  float speed = emitter->speed;
  particle->acceleration = particle->acceleration + particle->factor * emitter->accelerationScale * 0.00390625f * dt;
  hulk_freg x = particle->x + speed * particle->vx * dt;

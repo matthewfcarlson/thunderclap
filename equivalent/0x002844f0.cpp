@@ -5,7 +5,7 @@ struct Row16_2844f0 {
     void FUN_0022b370(const Row16_2844f0 *src);
 };
 
-void __cdecl FUN_0022b080(Row16_2844f0 *out, Row16_2844f0 *a, Row16_2844f0 *b);
+extern "C" void __cdecl FUN_0022b080(float *, const float *, const float *);
 
 struct Skeleton {
     char pad0[0x28];
@@ -30,14 +30,14 @@ void Pose::FUN_002844f0(const Row16_2844f0 *root)
     if (root != 0) {
         Row16_2844f0 rootCopy;
         rootCopy.FUN_0022b370(root);
-        FUN_0022b080(world, local, &rootCopy);
+        FUN_0022b080((float *)(Row16_2844f0 *)world, (const float *)(Row16_2844f0 *)local, (const float *)(Row16_2844f0 *)(&rootCopy));
     } else {
         world[0] = local[0];
     }
     Row16_2844f0 *src = local + 1;
     Row16_2844f0 *dst = world + 1;
     for (unsigned int i = 1; i < count; i++) {
-        FUN_0022b080(dst, src, world + skeleton->parents[i]);
+        FUN_0022b080((float *)(Row16_2844f0 *)dst, (const float *)(Row16_2844f0 *)src, (const float *)(Row16_2844f0 *)(world + skeleton->parents[i]));
         dst++;
         src++;
     }

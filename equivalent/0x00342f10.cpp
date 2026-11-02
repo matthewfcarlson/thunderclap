@@ -2,7 +2,7 @@
 // FUN_00342f10 @ 0x00342f10
 // equiv-conv: FUN_00342f10 ebx stack stack stack
 #include "compat/ptr.h"
-void FUN_00342f10(float *b, int n, float *c, int total)
+extern "C" void FUN_00342f10(float *b, int n, float *c, int total)
 {
     int half = n >> 1;
     int q = total / n;

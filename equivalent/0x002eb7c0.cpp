@@ -69,7 +69,7 @@ int __cdecl FUN_002ec650(inflate_blocks_state *s, z_stream *z, int r);
 #define NEEDOUT { if (m == 0) { WRAP if (m == 0) { FLUSH WRAP if (m == 0) LEAVE } } r = 0; }
 #define OUTBYTE(a) { *q++ = (Byte)(a); m--; }
 
-int __cdecl FUN_002eb7c0(inflate_blocks_state *s, z_stream *z, int r)
+extern "C" int __cdecl FUN_002eb7c0(inflate_blocks_state *s, z_stream *z, int r)
 {
     uInt j;
     inflate_huft *t;

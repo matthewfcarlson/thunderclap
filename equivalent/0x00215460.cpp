@@ -12,16 +12,16 @@ void *__cdecl FUN_0021add0(lua_State_215460 *L, void *block, unsigned int osize,
 // equiv-conv: FUN_00215350 eax edx
 void __cdecl FUN_00215350(lua_State_215460 *L, char *oldstack);  // correctstack
 
-void __cdecl FUN_00215460(lua_State_215460 *L, int n) {
+extern "C" void __cdecl FUN_00215460(void *L, int n) {
     int newsize;
-    if (n <= L->stacksize) {
-        newsize = 2 * L->stacksize;
+    if (n <= ((lua_State_215460 *)L)->stacksize) {
+        newsize = 2 * ((lua_State_215460 *)L)->stacksize;
     } else {
-        newsize = L->stacksize + n + 5;
+        newsize = ((lua_State_215460 *)L)->stacksize + n + 5;
     }
-    char *oldstack = L->stack;
-    L->stack = (char *)FUN_0021add0(L, oldstack, L->stacksize * 8, newsize * 8);
-    L->stacksize = newsize;
-    L->stack_last = L->stack + newsize * 8 - 0x30;
-    FUN_00215350(L, oldstack);
+    char *oldstack = ((lua_State_215460 *)L)->stack;
+    ((lua_State_215460 *)L)->stack = (char *)FUN_0021add0(((lua_State_215460 *)L), oldstack, ((lua_State_215460 *)L)->stacksize * 8, newsize * 8);
+    ((lua_State_215460 *)L)->stacksize = newsize;
+    ((lua_State_215460 *)L)->stack_last = ((lua_State_215460 *)L)->stack + newsize * 8 - 0x30;
+    FUN_00215350(((lua_State_215460 *)L), oldstack);
 }

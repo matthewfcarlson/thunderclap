@@ -4,16 +4,17 @@ struct ErrorValue { int kind; int detail; };
 struct ErrorContext { char pad[8]; ErrorValue* next; };
 int __cdecl FUN_00219430(ErrorContext*, const char*, int);
 // equiv-conv: FUN_00215240 eax ecx edi
-void FUN_00215240(int code, ErrorValue* output, ErrorContext* context)
+extern "C" void FUN_00215240(int code, void * output_, void * context)
 {
+    ErrorValue * output = (ErrorValue *)output_;
     if (code == 1 || code == 3) {
-        *output = context->next[-1];
+        *output = ((ErrorContext *)context)->next[-1];
     } else if (code == 4) {
-        output->detail = FUN_00219430(context, "not enough memory", 0x11);
+        output->detail = FUN_00219430(((ErrorContext *)context), "not enough memory", 0x11);
         output->kind = 4;
     } else if (code == 5) {
-        output->detail = FUN_00219430(context, "error in error handling", 0x17);
+        output->detail = FUN_00219430(((ErrorContext *)context), "error in error handling", 0x17);
         output->kind = 4;
     }
-    context->next = output + 1;
+    ((ErrorContext *)context)->next = output + 1;
 }

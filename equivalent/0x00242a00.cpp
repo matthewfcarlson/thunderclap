@@ -18,10 +18,11 @@ extern "C" void FUN_00241c00(Tree_242a00* tree, Node* node);
 extern "C" void FUN_00241c50(Tree_242a00* tree, Node* node);
 
 // Red-black tree unique-key insert with rebalance. color: 1 = red, 0 = black.
-char FUN_00242a00(Tree_242a00* tree, Node* nodeArg, const unsigned* keyPtr)
+extern "C" char FUN_00242a00(void * tree_, void * nodeArg, const unsigned* keyPtr)
 {
+    Tree_242a00 * tree = (Tree_242a00 *)tree_;
     Node* nil = &tree->nil;
-    Node* node = nodeArg;
+    Node* node = ((Node *)nodeArg);
     unsigned key = *keyPtr;
     Node* cur = tree->root;
     Node* parent = nil;

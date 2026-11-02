@@ -61,24 +61,25 @@ struct SearchState {
     Rec candidate;
 };
 
-Rec* FUN_001aedb0(Map* visited, Map* open, Rec* goal, Ctx* context, int* result) {
+extern "C" void * FUN_001aedb0(void * visited, void * open_, void * goal, void * context, int* result) {
+    Map * open = (Map *)open_;
     SearchState state;
     BNode* front = open->FUN_00230ea0();
-    if (front->an->rec.id == goal->id)
-        return &open->FUN_00230ea0()->an->rec;
+    if (front->an->rec.id == ((Rec *)goal)->id)
+        return (Rec *)(&open->FUN_00230ea0()->an->rec);
 
     front = open->FUN_00230ea0();
     state.start.tile = front->an->rec.id;
     state.start.idx = -1;
-    state.start.flag = (unsigned char)FUN_001ad730(state.start.tile, context);
-    state.start.FUN_001ad7d0(context);
+    state.start.flag = (unsigned char)FUN_001ad730(state.start.tile, ((Ctx *)context));
+    state.start.FUN_001ad7d0(((Ctx *)context));
     if (!open->size)
-        return 0;
+        return (Rec *)0;
 
     state.processed = 0;
     for (;;) {
         if (state.processed++ == 0x80)
-            return 0;
+            return (Rec *)0;
 
         BNode* front = open->FUN_00230ea0();
         state.currentNode = front->an;
@@ -90,8 +91,8 @@ Rec* FUN_001aedb0(Map* visited, Map* open, Rec* goal, Ctx* context, int* result)
 
         state.neighbors.tile = state.currentNode->rec.id;
         state.neighbors.idx = -1;
-        state.neighbors.flag = (unsigned char)FUN_001ad730(state.neighbors.tile, context);
-        state.neighbors.FUN_001ad7d0(context);
+        state.neighbors.flag = (unsigned char)FUN_001ad730(state.neighbors.tile, ((Ctx *)context));
+        state.neighbors.FUN_001ad7d0(((Ctx *)context));
         while (state.neighbors.idx != -1) {
             state.candidate.id = state.neighbors.cur;
             *(int*)&state.candidate.x = state.start.idx;
@@ -105,24 +106,24 @@ Rec* FUN_001aedb0(Map* visited, Map* open, Rec* goal, Ctx* context, int* result)
             *(int*)&state.candidate.closed = 0;
 
             bool newlyCreated = true;
-            void* insertionPoint = visited->FUN_00230be0((void*)FUN_001ad4f0, &state.candidate);
+            void* insertionPoint = ((Map *)visited)->FUN_00230be0((void*)FUN_001ad4f0, &state.candidate);
             ANode* allocated = 0;
             if (insertionPoint) {
                 allocated = (ANode*)FUN_0008d6d0(0x38);
                 if (allocated)
                     allocated->rec = state.candidate;
-                visited->FUN_00230c30(allocated, (void*)FUN_001ad4d0, insertionPoint);
+                ((Map *)visited)->FUN_00230c30(allocated, (void*)FUN_001ad4d0, insertionPoint);
                 state.candidateNode = allocated;
-                state.candidateMap = visited;
+                state.candidateMap = ((Map *)visited);
             } else {
                 state.candidateNode = 0;
                 state.candidateMap = 0;
             }
             if (allocated) {
-                allocated->rec.FUN_001ad2b0(context);
+                allocated->rec.FUN_001ad2b0(((Ctx *)context));
             } else {
-                state.candidateNode = (ANode*)visited->FUN_00230ba0((void*)FUN_001ad4f0, &state.candidate);
-                state.candidateMap = visited;
+                state.candidateNode = (ANode*)((Map *)visited)->FUN_00230ba0((void*)FUN_001ad4f0, &state.candidate);
+                state.candidateMap = ((Map *)visited);
                 newlyCreated = false;
             }
 
@@ -144,14 +145,14 @@ Rec* FUN_001aedb0(Map* visited, Map* open, Rec* goal, Ctx* context, int* result)
                 }
                 next->g = state.candidateCost;
                 next->parent = current;
-                double ex = next->x - goal->x;
-                double ey = next->y - goal->y;
-                double ez = next->z - goal->z;
+                double ex = next->x - ((Rec *)goal)->x;
+                double ey = next->y - ((Rec *)goal)->y;
+                double ez = next->z - ((Rec *)goal)->z;
                 next->h = (float)(sqrt(ez * ez + ey * ey + ex * ex) * 1.5f + state.candidateCost);
-                if (next->id == goal->id) {
+                if (next->id == ((Rec *)goal)->id) {
                     *result = state.start.idx;
                     state.candidateNode->rec.last = state.start.idx;
-                    return &state.candidateNode->rec;
+                    return (Rec *)(&state.candidateNode->rec);
                 }
                 void* position = open->FUN_00230be0((void*)FUN_001aeae0, &state.candidateNode);
                 if (position) {
@@ -164,10 +165,10 @@ Rec* FUN_001aedb0(Map* visited, Map* open, Rec* goal, Ctx* context, int* result)
                 }
                 next->closed = 0;
             }
-            state.neighbors.FUN_001ad7d0(context);
+            state.neighbors.FUN_001ad7d0(((Ctx *)context));
         }
         state.currentNode->rec.closed = 1;
         if (!open->size)
-            return 0;
+            return (Rec *)0;
     }
 }

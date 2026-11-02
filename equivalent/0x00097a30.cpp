@@ -25,8 +25,8 @@ struct Rng_97a30 {
 };
 
 
-bool __cdecl FUN_00096b50(void *ev, V3_97a30 *out, int *err);
-void __cdecl FUN_00096b00(void *ev, V3_97a30 *out);
+extern "C" bool __cdecl FUN_00096b50(void *, void *, int *);
+extern "C" void __cdecl FUN_00096b00(void *, int *);
 float __cdecl FUN_000189c0(float v);
 extern "C" float __cdecl FUN_00018710(float *k, float *len);
 void __cdecl FUN_00224d70(float angle, V3_97a30 *v);
@@ -61,7 +61,7 @@ int __cdecl FUN_00097a30(float a0, float a1, float a2, void *a3, float a4, V3_97
     f.v.x = 0.0f;
     f.v.y = 0.0f;
     f.v.z = 0.0f;
-    if (!FUN_00096b50(a3, &f.v, &f.u38.err))
+    if (!FUN_00096b50(a3, (V3_97a30 *)(&f.v), &f.u38.err))
         return a11;
     f.v.y = f.v.y + a4;
 
@@ -131,7 +131,7 @@ int __cdecl FUN_00097a30(float a0, float a1, float a2, void *a3, float a4, V3_97
     f.r.x = 0.0f;
     f.r.y = 0.0f;
     f.r.z = 0.0f;
-    FUN_00096b00(a3, &f.r);
+    FUN_00096b00(a3, (int *)(V3_97a30 *)(&f.r));
     f.r.y = 0.0f;
     double c = f.r.FUN_0022d110();
     if (c > a0)

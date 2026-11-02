@@ -10,9 +10,9 @@ struct Obj_215090 {
 };
 void prep(Obj_215090*, int);
 void copy(void*, hulk_intptr, unsigned int, int);
-void target(void* p, Obj_215090* s) {
-    prep(s, s->a);
-    copy(p, s->b, ((unsigned int)s->d) << 4, 0);
-    copy(p, s->a, ((unsigned int)s->c) << 3, 0);
-    copy(p, (hulk_intptr)s, 0x58, 0);
+extern "C" void FUN_00215090(void* p, void * s) {
+    prep(((Obj_215090 *)s), ((Obj_215090 *)s)->a);
+    copy(p, ((Obj_215090 *)s)->b, ((unsigned int)((Obj_215090 *)s)->d) << 4, 0);
+    copy(p, ((Obj_215090 *)s)->a, ((unsigned int)((Obj_215090 *)s)->c) << 3, 0);
+    copy(p, (hulk_intptr)((Obj_215090 *)s), 0x58, 0);
 }

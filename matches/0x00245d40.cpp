@@ -5,15 +5,15 @@ struct P_245d40 {
     unsigned end;
     char Get(unsigned p);
 };
-void F(P_245d40* p) {
-    while (p->pos < p->end) {
-        char c = p->Get(p->pos);
+extern "C" void FUN_00245d40(void * p) {
+    while (((P_245d40 *)p)->pos < ((P_245d40 *)p)->end) {
+        char c = ((P_245d40 *)p)->Get(((P_245d40 *)p)->pos);
         if (c != 9 && c != 32 && c != 10 && c != 13)
             return;
-        if (p->pos < p->end) {
-            if (p->Get(p->pos) == 10)
-                p->line++;
-            p->pos++;
+        if (((P_245d40 *)p)->pos < ((P_245d40 *)p)->end) {
+            if (((P_245d40 *)p)->Get(((P_245d40 *)p)->pos) == 10)
+                ((P_245d40 *)p)->line++;
+            ((P_245d40 *)p)->pos++;
         }
     }
 }

@@ -10,7 +10,7 @@ void __cdecl FUN_002eb180(png_struct *png_ptr, png_info *info_ptr,
                           double white_x, double white_y, double red_x, double red_y,
                           double green_x, double green_y, double blue_x, double blue_y);          // png_set_cHRM
 
-void __cdecl FUN_002eb540(png_struct *png_ptr, png_info *info_ptr, int intent)
+extern "C" void __cdecl FUN_002eb540(png_struct *png_ptr, png_info *info_ptr, int intent)
 {
     if (png_ptr == 0 || info_ptr == 0)
         return;

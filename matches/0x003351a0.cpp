@@ -15,7 +15,7 @@ struct Callback_3351a0 {
     hulk_uintptr subVtable;
     unsigned int field;
 };
-void CreateCallback(hulk_uintptr arg) {
+extern "C" void FUN_003351a0(hulk_uintptr arg) {
     (*(volatile unsigned int*)&DAT_004cdbb0) = arg;
     Callback_3351a0* p = (Callback_3351a0*)Allocate((void*)arg, 0x10);
     if (p) {

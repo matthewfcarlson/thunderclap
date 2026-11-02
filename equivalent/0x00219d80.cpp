@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00219d80 @ 0x00219d80
 #include "decls/data/engine/unknown.h"
+#include "compat/ptr.h"
 
 struct Node {
     char unused[8];
@@ -8,14 +9,14 @@ struct Node {
     char padding[4];
     Node *next;
 };
-Node * __cdecl FUN_002198b0(int key, int *list);
-int __cdecl FUN_00215fa0(Node *node, int *list);
+extern "C" void * __cdecl FUN_002198b0(void *, const void *);
+extern "C" int __cdecl FUN_00215fa0(const void *, const void *);
 // equiv-conv: FUN_00219d80 edi stack
-int * __cdecl FUN_00219d80(int *list, int key) {
+extern "C" int * __cdecl FUN_00219d80(int *list, int key) {
     if (*list != 0) {
-        Node *node = FUN_002198b0(key, list);
+        Node *node = ((Node *)FUN_002198b0((void *)(hulk_uintptr)(int)key, (int *)list));
         do {
-            if (FUN_00215fa0(node, list) != 0)
+            if (FUN_00215fa0((Node *)node, (int *)list) != 0)
                 return &node->value;
             node = node->next;
         } while (node != 0);

@@ -21,7 +21,7 @@ unsigned int __cdecl FUN_002e7500(const unsigned char* buf);
 void __cdecl FUN_002eb180(PngStruct_2e8940* p, PngInfo_2e8940* info, double wx, double wy, double rx, double ry, double gx,
                           double gy, double bx, double by);
 
-void FUN_002e8940(PngStruct_2e8940* png_ptr, PngInfo_2e8940* info_ptr, unsigned int length) {
+extern "C" void FUN_002e8940(PngStruct_2e8940* png_ptr, PngInfo_2e8940* info_ptr, unsigned int length) {
     unsigned char buf[4];
     float white_x, white_y, red_x, red_y, green_x, green_y, blue_x, blue_y;
 

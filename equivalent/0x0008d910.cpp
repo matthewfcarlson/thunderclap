@@ -3,7 +3,7 @@
 // cl-flags: /GS
 extern void __cdecl FUN_0026b800(char* output, int zero, const char* input, int one, int delimiter, int capacity, int last);
 extern bool __cdecl FUN_0008d880(const char*, const char*);
-bool __cdecl FUN_0008d910(const char* name)
+extern "C" bool __cdecl FUN_0008d910(const char* name)
 {
     bool result = false;
     char buffer[256];

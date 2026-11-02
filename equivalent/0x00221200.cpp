@@ -15,21 +15,21 @@ struct expdesc_221200 {
 };
 
 void __cdecl FUN_00220d90(FuncState_221200* fs, expdesc_221200* e);       // luaK_dischargevars
-int __cdecl FUN_00221190(FuncState_221200* fs, expdesc_221200* e);        // luaK_exp2anyreg
+extern "C" int __cdecl FUN_00221190(void *, void *);        // luaK_exp2anyreg
 // nil_constant(fs)
 // equiv-conv: FUN_00220a10 eax
-int FUN_00220a10(FuncState_221200* fs);
+extern "C" int __cdecl FUN_00220a10(void *);
 
 int FUN_00221200(FuncState_221200* fs, expdesc_221200* e)
 {
     if (e->t == e->f)
         FUN_00220d90(fs, e);
     else
-        FUN_00221190(fs, e);
+        FUN_00221190((FuncState_221200 *)fs, (expdesc_221200 *)e);
     switch (e->k) {
     case 1:
         if (fs->nk + 250 <= 511) {
-            e->info = FUN_00220a10(fs);
+            e->info = FUN_00220a10((FuncState_221200 *)fs);
             e->k = 4;
             return e->info + 250;
         }
@@ -39,5 +39,5 @@ int FUN_00221200(FuncState_221200* fs, expdesc_221200* e)
             return e->info + 250;
         break;
     }
-    return FUN_00221190(fs, e);
+    return FUN_00221190((FuncState_221200 *)fs, (expdesc_221200 *)e);
 }

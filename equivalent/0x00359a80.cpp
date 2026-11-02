@@ -27,8 +27,10 @@ union FBits {
         (dst)[1] = ty_ + pa_[1];                                 \
     } while (0)
 
-void FUN_00359a80(const V3 *plane, float d, int *pcount, V3 *v)
+extern "C" void FUN_00359a80(const void * plane_, float d, int *pcount, void * v_)
 {
+    const V3 * plane = (const V3 *)plane_;
+    V3 * v = (V3 *)v_;
     struct Frame {
         char padA[0x1c];
         float dist[12];

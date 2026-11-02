@@ -37,10 +37,10 @@ struct Slot_1a9f10 {
 
 
 
-const char* FUN_001a4cb0(Table_1a9f10* t, unsigned int idx);
+extern "C" const char* FUN_001a4cb0(Table_1a9f10* t, unsigned int idx);
 const char* FUN_001a4e40(Table_1a9f10* t, unsigned int idx);
-bool FUN_001a5110(Table_1a9f10* t, unsigned int idx);
-bool FUN_001a4fd0(Table_1a9f10* t, unsigned int idx);
+extern "C" bool FUN_001a5110(Table_1a9f10* t, unsigned int idx);
+extern "C" bool FUN_001a4fd0(Table_1a9f10* t, unsigned int idx);
 void FUN_00267760(char* buf, int size, const char* fmt, ...);
 
 struct Obj_1a9f10 {

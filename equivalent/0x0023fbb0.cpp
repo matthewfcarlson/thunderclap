@@ -4,7 +4,7 @@
 
 struct StringHeader_23fbb0 { unsigned int capacity; unsigned short references; unsigned short reserved; };
 extern void __cdecl FUN_00247570(StringHeader_23fbb0*);
-void __cdecl FUN_0023fa40(int* out, char* text, int a, int b);
+extern "C" void __cdecl FUN_0023fa40(int *, char *, unsigned int, int);
 
 struct String {
     char* data;
@@ -20,13 +20,13 @@ char* String::FUN_0023fbb0()
 {
     int fresh;
     if (kind == 0) {
-        FUN_0023fa40(&fresh, data, length, length);
+        FUN_0023fa40(&fresh, data, (int)length, length);
         data = (char*)fresh;
         return data;
     }
     StringHeader_23fbb0* header = reinterpret_cast<StringHeader_23fbb0*>(data) - 1;
     if (header->references > 1) {
-        FUN_0023fa40(&fresh, data, length, length);
+        FUN_0023fa40(&fresh, data, (int)length, length);
         if (kind == 2) {
             header = reinterpret_cast<StringHeader_23fbb0*>(data) - 1;
             if (header->references == 1) {

@@ -8,11 +8,11 @@ struct Shape_306790 {
  float extentX,extentY,extentZ;
 };
 // equiv-conv: FUN_00306650 esi edi stack
-bool FUN_00306650(Shape_306790*, Shape_306790*, float);
+extern "C" bool __cdecl FUN_00306650(void *, void *, float);
 // equiv-conv: FUN_00306790 eax ebx stack
 bool FUN_00306790(Shape_306790* a, Shape_306790* b, float margin) {
- if(a->type()==8) return FUN_00306650(a,b,margin);
- if(b->type()==8) return FUN_00306650(b,a,margin);
+ if(a->type()==8) return FUN_00306650((Shape_306790 *)a,(Shape_306790 *)b,margin);
+ if(b->type()==8) return FUN_00306650((Shape_306790 *)b,(Shape_306790 *)a,margin);
  Vec_306790* pb=b->position(); Vec_306790* pa=a->position();
  union { float f; unsigned int u; } delta;
  delta.f=pb->x-pa->x; delta.u &= 0x7fffffff;

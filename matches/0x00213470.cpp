@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_213470 {
   public:
     char pad[0x10];
@@ -9,10 +10,10 @@ struct Inner_213470 {
     unsigned int b;
 };
 void helper1(Obj_213470*);
-int helper2(Obj_213470*, int, int*);
+extern "C" const char * __cdecl FUN_002160c0(void *, const char *, char *);
 extern "C" int FUN_00213470(Obj_213470* self, int arg) {
     Inner_213470* q = self->p;
     if (q->b >= q->a)
         helper1(self);
-    return helper2(self, arg, (int*)((char*)&arg + 4));
+    return ((int)(hulk_uintptr)FUN_002160c0((Obj_213470 *)self, (const char *)(hulk_uintptr)(int)arg, (char *)(int *)((int*)((char*)&arg + 4))));
 }

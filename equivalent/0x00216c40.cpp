@@ -5,7 +5,8 @@ struct Value_216c40 { int type; Object* object; };
 struct Entry_216c40 { Value_216c40 key; Value_216c40 value; int extra; };
 struct Table_216c40 { char pad0[5]; unsigned char flags; char pad6; unsigned char logSize; char pad8[4]; Value_216c40* array; Entry_216c40* entries; char pad14[4]; Table_216c40* next; unsigned int arraySize; };
 // equiv-conv: FUN_00216c40 eax
-void FUN_00216c40(Table_216c40* table) {
+extern "C" void FUN_00216c40(void * table_) {
+    Table_216c40 * table = (Table_216c40 *)table_;
     while (table) {
         if (table->flags & 0x10) {
             unsigned int i = table->arraySize;

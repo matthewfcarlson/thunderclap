@@ -32,7 +32,7 @@ struct Globals_2d1410 {
 
 
 // Sets from->angle to the angle of the mapped vector (from - to) plus from->angleOffset.
-void FUN_002d1410(int unused1, int unused2, Heading_2d1410 *from, Heading_2d1410 *to) {
+extern "C" void FUN_002d1410(int unused1, int unused2, Heading_2d1410 *from, Heading_2d1410 *to) {
     Mapper_2d1410 *mapper = (*(Globals_2d1410**)&DAT_0052c2b0)->manager->mapper;
     V3_2d1410 a;
     V3_2d1410 b;

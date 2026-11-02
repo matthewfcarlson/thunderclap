@@ -1,4 +1,4 @@
-extern void __cdecl FUN_00363f30();
+extern "C" void __cdecl FUN_00363f30();
 extern void __cdecl _atexit(void (*func)());
 struct Obj {
     void Init(const char*, float);

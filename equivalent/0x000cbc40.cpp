@@ -8,7 +8,7 @@ extern char DAT_0049fd9c[];
 extern "C" float __cdecl FUN_000186b0(float *v, float *lo, float *hi);
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 // equiv-conv: FUN_000cb7d0 ecx edx stack
-extern void __cdecl FUN_000cb7d0(float *cur, float *target, float step);
+extern "C" void __cdecl FUN_000cb7d0(float *cur, float *target, float step);
 
 class UiObj_cbc40 {
 public:

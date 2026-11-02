@@ -4,6 +4,6 @@
 struct Allocator_3640b0 {
     void f();
 };
-void wrapper() {
+extern "C" void FUN_003640b0() {
     (*(Allocator_3640b0*)&DAT_004e36c8).f();
 }

@@ -164,7 +164,7 @@ struct Handler_1b1710 {
     char FUN_001b15b0(Body_1b1710*, Body_1b1710*);
     int FUN_001b1710(Thing_1b1710*, Thing_1b1710*, Thing_1b1710*, V3_1b1710*, V3_1b1710*, float);
 };
-float FUN_001b0470(Body_1b1710*, Body_1b1710*, V3_1b1710*);
+extern "C" float FUN_001b0470(Body_1b1710*, Body_1b1710*, V3_1b1710*);
 
 int Handler_1b1710::FUN_001b1710(Thing_1b1710* sourceThing, Thing_1b1710* hitThing, Thing_1b1710* otherThing,
                                  V3_1b1710* position, V3_1b1710* normal, float strength) {

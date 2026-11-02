@@ -4,37 +4,38 @@
 struct Frame_21ecd0 { Frame_21ecd0* previous; int value; unsigned char saved, flag, active; };
 struct State_21ecd0 { char pad0[12]; void* resource; char pad1[4]; Frame_21ecd0* frame; char pad2[12]; int level; char pad3[12]; unsigned char mode; };
 struct Parser_21ecd0 { int a; int position; int savedPosition; int token; int tokenValue; int lookahead; int lookaheadValue; State_21ecd0* state; };
-extern int __cdecl FUN_0021bbc0(Parser_21ecd0*, int*);
+extern "C" int __cdecl FUN_0021bbc0(void *, void *);
 // equiv-conv: FUN_0021c3d0 esi
 extern int FUN_0021c3d0(Parser_21ecd0*);
 extern void __cdecl FUN_0021b060(Parser_21ecd0*, const char*);
 // equiv-conv: FUN_0021e860 edi stack stack
-extern void FUN_0021e860(Parser_21ecd0*, int, int);
+extern "C" void __cdecl FUN_0021e860(void *, int, int);
 // equiv-conv: FUN_0021ea60 ebx stack
-extern void FUN_0021ea60(Parser_21ecd0*, int);
+extern "C" void __cdecl FUN_0021ea60(void *, int);
 // equiv-conv: FUN_0021c340 eax esi edi stack
 extern void FUN_0021c340(int, Parser_21ecd0*, int, int);
 // equiv-conv: FUN_0021c5b0 eax edx
-extern void FUN_0021c5b0(void*, unsigned int);
-extern void __cdecl FUN_00220bd0(State_21ecd0*, int, unsigned int, int, int);
+extern "C" void __cdecl FUN_0021c5b0(void *, int);
+extern "C" int __cdecl FUN_00220bd0(void *, unsigned int, int, unsigned int, unsigned int);
 extern void __cdecl FUN_00220d70(State_21ecd0*, int);
 // equiv-conv: FUN_0021ecd0 eax stack
-void FUN_0021ecd0(Parser_21ecd0* p, int arg) {
+extern "C" void FUN_0021ecd0(void * p_, int arg) {
+    Parser_21ecd0 * p = (Parser_21ecd0 *)p_;
  State_21ecd0* s=p->state;
  Frame_21ecd0 local;
  local.value=-1; local.active=1; local.saved=s->mode; local.flag=0; local.previous=s->frame; s->frame=&local;
  p->savedPosition=p->position;
  if(p->lookahead!=0x11f) { p->token=p->lookahead; p->tokenValue=p->lookaheadValue; p->lookahead=0x11f; }
- else p->token=FUN_0021bbc0(p,&p->tokenValue);
+ else p->token=FUN_0021bbc0((Parser_21ecd0 *)p,(int *)(&p->tokenValue));
  int result=FUN_0021c3d0(p);
- if(p->token==0x3d) FUN_0021e860(p,result,arg);
- else if(p->token==0x2c || p->token==0x10b) FUN_0021ea60(p,result);
+ if(p->token==0x3d) FUN_0021e860((Parser_21ecd0 *)p,result,arg);
+ else if(p->token==0x2c || p->token==0x10b) FUN_0021ea60((Parser_21ecd0 *)p,result);
  else FUN_0021b060(p,"`=' or `in' expected");
  FUN_0021c340(arg,p,0x106,0x108);
  Frame_21ecd0* f=s->frame;
  s->frame=f->previous;
- FUN_0021c5b0(s->resource,f->saved);
- if(f->flag) FUN_00220bd0(s,0x22,f->saved,0,0);
+ FUN_0021c5b0(s->resource,(unsigned int)(f->saved));
+ if(f->flag) FUN_00220bd0((State_21ecd0 *)s,0x22,(unsigned int)(f->saved),0,0);
  s->level=s->mode;
  FUN_00220d70(s,f->value);
 }

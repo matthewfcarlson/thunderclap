@@ -9,11 +9,12 @@ struct Item_229dd0 {
 void __cdecl FUN_00228990(Item_229dd0 *dest, Item_229dd0 *first, Item_229dd0 *last, int a, int b);
 
 // Insertion sort of [first, last) by descending key.
-void FUN_00229dd0(Item_229dd0 *first, Item_229dd0 *last) {
-    if (first == last) {
+extern "C" void FUN_00229dd0(void * first_, void *last) {
+    Item_229dd0 * first = (Item_229dd0 *)first_;
+    if (first == ((Item_229dd0 *)last)) {
         return;
     }
-    for (Item_229dd0 *cur = first + 1; cur != last; cur++) {
+    for (Item_229dd0 *cur = first + 1; cur != ((Item_229dd0 *)last); cur++) {
         Item_229dd0 *next = cur + 1;
         Item_229dd0 *pos;
         if (cur->key > first->key) {

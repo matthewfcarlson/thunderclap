@@ -13,7 +13,7 @@ template <class T> struct TrackFactoryCasterTemplate {
 };
 } // namespace fight
 void* __cdecl FUN_00236ac0(const char*, void*);
-void __cdecl FUN_002369c0(Registry*);
+extern "C" void __cdecl FUN_002369c0(void *);
 #define DECL(a) void __cdecl FUN_##a(Registry*, const char*);
 DECL(0012de00)
 DECL(00132530) DECL(00132500) DECL(00132560) DECL(001325c0) DECL(001324d0) DECL(00132590) DECL(001325f0)
@@ -25,7 +25,7 @@ DECL(00132530) DECL(00132500) DECL(00132560) DECL(001325c0) DECL(001324d0) DECL(
 extern "C" void __cdecl FUN_0010bf20(Registry*);
 void __cdecl FUN_0018e8d0(Registry*);
 extern "C" bool __cdecl FUN_00074790(Registry* r) {
-    FUN_002369c0(r);
+    FUN_002369c0((Registry *)r);
     FUN_0012de00(r, "postEvent_string");
     FUN_00132530(r, "dialogue");
     FUN_00132500(r, "nisSound");

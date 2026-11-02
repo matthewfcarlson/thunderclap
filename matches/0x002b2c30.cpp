@@ -11,8 +11,8 @@ class Obj {
     virtual void c();
     virtual void* doIt(DynamicCaster_2b2c30*, U64);
 };
-void* __cdecl target(Obj* obj, void* p) {
+extern "C" void* __cdecl FUN_002b2c30(void * obj, void* p) {
     U64 v = getValue(p);
     DynamicCaster_2b2c30 caster;
-    return obj->doIt(&caster, v);
+    return ((Obj *)obj)->doIt(&caster, v);
 }

@@ -23,9 +23,9 @@ class Obj_1c24d0 {
     virtual void v13();
     virtual void Fire();
 };
-Ent_1c24d0* __stdcall Find(Obj_1c24d0* o, bool b);
+extern "C" void * __stdcall FUN_001c23c0(void *, bool);
 void __stdcall F(Obj_1c24d0* o, int a, float t) {
-    Ent_1c24d0* e = Find(o, t > 0.0f);
+    Ent_1c24d0* e = ((Ent_1c24d0 *)FUN_001c23c0((Obj_1c24d0 *)o, t > 0.0f));
     if (e) {
         e->f14 = a;
         e->f10 = t;

@@ -14,11 +14,13 @@ struct Tree_2422e0 {
     TreeNode_2422e0 nil;
 };
 
-void __cdecl FUN_00241880(Tree_2422e0 *t, TreeNode_2422e0 *x);
-void __cdecl FUN_002418d0(Tree_2422e0 *t, TreeNode_2422e0 *x);
+extern "C" void __cdecl FUN_00241880(Tree_2422e0 *t, TreeNode_2422e0 *x);
+extern "C" void __cdecl FUN_002418d0(Tree_2422e0 *t, TreeNode_2422e0 *x);
 
-bool __cdecl FUN_002422e0(Tree_2422e0 *t, TreeNode_2422e0 *node, int *keyPtr)
+extern "C" bool __cdecl FUN_002422e0(void * t_, void * node_, int *keyPtr)
 {
+    Tree_2422e0 * t = (Tree_2422e0 *)t_;
+    TreeNode_2422e0 * node = (TreeNode_2422e0 *)node_;
     TreeNode_2422e0 *nil = &t->nil;
     TreeNode_2422e0 *y = nil;
     TreeNode_2422e0 *x = t->root;

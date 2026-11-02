@@ -22,7 +22,7 @@ struct Worker_26dc50 {
     int threadId44;
     void *thread48;
 };
-void __cdecl FUN_0026d8f0(Worker_26dc50 *);
+extern "C" void __cdecl FUN_0026d8f0(unsigned int *);
 unsigned long __stdcall FUN_0026db70(void *);
 namespace XAPILIB {
 void * __stdcall CreateThread(void *, unsigned long, unsigned long (__stdcall *)(void *), void *, unsigned long, unsigned long *);
@@ -43,7 +43,7 @@ int __cdecl FUN_0026dc50(Worker_26dc50 *worker, int first, int second, int prior
     worker->value18 = 0;
     worker->link34 = &worker->value08;
     worker->value14 = 0;
-    FUN_0026d8f0(worker);
+    FUN_0026d8f0((unsigned int *)(Worker_26dc50 *)worker);
     worker->thread48 = XAPILIB::CreateThread(0, stackSize, FUN_0026db70, worker, 4, (unsigned long *)&worker->threadId44);
     worker->value24 = 0;
     worker->priority40 = priority;

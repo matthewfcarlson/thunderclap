@@ -30,7 +30,7 @@ struct Segment_1c3030 {
     char pad19[3];
 };
 
-int __cdecl FUN_001c2940(Plane_1c3030 *a, Plane_1c3030 *b, Vec3_1c3030 *point, Vec3_1c3030 *dir);
+extern "C" int __cdecl FUN_001c2940(const void *, const void *, void *, void *);
 
 // A convex region bounded by up to six planes.
 struct Hull_1c3030 {
@@ -63,7 +63,7 @@ Vec3_1c3030 *Hull_1c3030::FUN_001c3030(Vec3_1c3030 *out)
     unsigned int b;
     for (a = 0; a < n; a++) {
         for (b = a + 1; b < n; b++) {
-            if (FUN_001c2940(&planes[a], &planes[b], &f.pt, &f.dir) != 0)
+            if (FUN_001c2940((Plane_1c3030 *)(&planes[a]), (Plane_1c3030 *)(&planes[b]), (Vec3_1c3030 *)(&f.pt), (Vec3_1c3030 *)(&f.dir)) != 0)
                 continue;
             f.dir.x = f.dir.x * 10000.0f;
             f.dir.y = f.dir.y * 10000.0f;

@@ -27,7 +27,7 @@ void __cdecl FUN_002e7580(png_struct_2e87e0* png_ptr, unsigned char* buf, unsign
 void __cdecl FUN_002eb4f0(png_struct_2e87e0* png_ptr, png_info_2e87e0* info_ptr, unsigned char* sig_bit);
 
 /* png_handle_sBIT */
-void __cdecl FUN_002e87e0(png_struct_2e87e0* png_ptr, png_info_2e87e0* info_ptr, unsigned int length)
+extern "C" void __cdecl FUN_002e87e0(png_struct_2e87e0* png_ptr, png_info_2e87e0* info_ptr, unsigned int length)
 {
     unsigned char buf[4];
     unsigned int truelen;

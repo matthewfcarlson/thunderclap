@@ -65,10 +65,11 @@ extern "C" void __stdcall FUN_00011520(void *arr, unsigned int size, int count, 
 // equiv-conv: FUN_001bc530 esi stack
 void FUN_001bc530(V4_1bc8a0 *q, V3_1bc8a0 *v);
 // equiv-conv: FUN_001bc5b0 eax edi stack
-void FUN_001bc5b0(V4_1bc8a0 *q, V3_1bc8a0 *pos, float a);
+extern "C" void __cdecl FUN_001bc5b0(void *, void *, float);
 
-void FUN_001bc8a0(Obj_1bc8a0 *obj, V4_1bc8a0 *q)
+extern "C" void FUN_001bc8a0(void * obj_, void *q)
 {
+    Obj_1bc8a0 * obj = (Obj_1bc8a0 *)obj_;
     if (obj == 0 || !obj->b18)
         return;
     switch (obj->v6()) {
@@ -79,24 +80,24 @@ void FUN_001bc8a0(Obj_1bc8a0 *obj, V4_1bc8a0 *q)
             t = t - obj->c.f54;
         p = obj->pos;
         p.FUN_00011160(t, (V3_1bc8a0 *)&obj->dx);
-        FUN_001bc5b0(q, &p, obj->c.f54);
+        FUN_001bc5b0((V4_1bc8a0 *)((V4_1bc8a0 *)q), (V3_1bc8a0 *)(&p), obj->c.f54);
         p = obj->pos;
         p.FUN_00011160(-t, (V3_1bc8a0 *)&obj->dx);
-        FUN_001bc5b0(q, &p, obj->c.f54);
+        FUN_001bc5b0((V4_1bc8a0 *)((V4_1bc8a0 *)q), (V3_1bc8a0 *)(&p), obj->c.f54);
         break;
     }
     case 5: {
         V3_1bc8a0 out;
         for (int i = 0; i < 8; i++) {
             obj->FUN_002fb950(&out, i);
-            FUN_001bc530(q, &out);
+            FUN_001bc530(((V4_1bc8a0 *)q), &out);
         }
         break;
     }
     case 7: {
         float a = obj->f34;
         V3_1bc8a0 *pos = obj->v4();
-        FUN_001bc5b0(q, pos, a);
+        FUN_001bc5b0((V4_1bc8a0 *)((V4_1bc8a0 *)q), (V3_1bc8a0 *)pos, a);
         break;
     }
     case 4: {
@@ -120,7 +121,7 @@ void FUN_001bc8a0(Obj_1bc8a0 *obj, V4_1bc8a0 *q)
                 for (int c = 0; c < 2; c++) {
                     f.in.z = f.pt[c].z;
                     f.m.FUN_0022c2b0(&f.in, &f.out);
-                    FUN_001bc530(q, &f.out);
+                    FUN_001bc530(((V4_1bc8a0 *)q), &f.out);
                 }
             }
         }
@@ -140,7 +141,7 @@ void FUN_001bc8a0(Obj_1bc8a0 *obj, V4_1bc8a0 *q)
                 for (int k = 0; k < 4; k += 2) {
                     float tz = (float)(((double)k - 1.0) * h.z);
                     p.z = (float)(cz + tz);
-                    FUN_001bc530(q, &p);
+                    FUN_001bc530(((V4_1bc8a0 *)q), &p);
                     cz = (double)p.z - tz;
                 }
                 cy = (double)p.y - ty;
@@ -154,6 +155,6 @@ void FUN_001bc8a0(Obj_1bc8a0 *obj, V4_1bc8a0 *q)
     List_1bc8a0 *list = obj->children;
     if (list != 0) {
         for (Obj_1bc8a0 **it = list->begin; it != list->end; it++)
-            FUN_001bc8a0(*it, q);
+            FUN_001bc8a0((Obj_1bc8a0 *)(*it), (V4_1bc8a0 *)((V4_1bc8a0 *)q));
     }
 }

@@ -18,12 +18,12 @@ struct HitReactionTrack {
 };
 }}
 // equiv-conv: FUN_0014efd0 ebx esi edi
-extern void FUN_0014efd0(Owner_14f110*, hulkfight::motion::HitReactionTrack*, Settings_14f110*);
+extern "C" void __cdecl FUN_0014efd0(void *, void *, void *);
 int hulkfight::motion::HitReactionTrack::vfunc_9(void* unused, void* argument, Owner_14f110* owner) {
  if (!FUN_00344e74(owner,0,&DAT_00494b44,&DAT_00494b60,0)) return 1;
  Settings_14f110 settings;
  settings.FUN_00059820();
- FUN_0014efd0(owner,this,&settings);
+ FUN_0014efd0((Owner_14f110 *)owner,(hulkfight :: motion :: HitReactionTrack *)this,(Settings_14f110 *)(&settings));
  CFightParamsCollision_14f110* reaction = (CFightParamsCollision_14f110*)FUN_0008d690(0xb0);
  if (reaction) reaction = reaction->FUN_000598e0(owner->field8,&settings);
  reaction->vfunc_0();

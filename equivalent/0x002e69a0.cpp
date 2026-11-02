@@ -2,8 +2,8 @@
 // FUN_002e69a0 @ 0x002e69a0
 // FUN_002e69a0 @ 0x002e69a0
 struct Item { char pad[0x40]; void (__cdecl *callback)(Item *, void *); };
-void FUN_002e6930(Item *item);
+extern "C" void __cdecl FUN_002e6930(void *);
 void __cdecl FUN_002e69a0(Item *item, void *context) {
     if (item->callback) item->callback(item, context);
-    FUN_002e6930(item);
+    FUN_002e6930((Item *)item);
 }

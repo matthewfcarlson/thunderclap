@@ -63,25 +63,25 @@ struct png_struct_2dcd90 {
     png_byte rgb_to_gray_status;
 };
 
-void __cdecl FUN_002e69a0(png_struct_2dcd90 *p, const char *msg);
-void __cdecl FUN_002e69d0(png_struct_2dcd90 *p, const char *msg);
-void __cdecl FUN_002db6b0(png_row_info_2dcd90 *ri, png_byte *row, void *palette, void *trans, int num_trans);
-void __cdecl FUN_002db8d0(png_row_info_2dcd90 *ri, png_byte *row, png_color_16_2dcd90 *trans_values);
-void __cdecl FUN_002dd3a0(png_row_info_2dcd90 *ri, png_byte *row, int flags);
-int __cdecl FUN_002d9c30(png_struct_2dcd90 *p, png_row_info_2dcd90 *ri, png_byte *row);
-void __cdecl FUN_002d9ae0(png_row_info_2dcd90 *ri, png_byte *row);
+extern "C" void __cdecl FUN_002e69a0(void *, void *);
+extern "C" void * __cdecl FUN_002e69d0(void *, void *);
+extern "C" void __cdecl FUN_002db6b0(void *, unsigned char *, void *, unsigned char *, int);
+extern "C" void __cdecl FUN_002db8d0(void *, unsigned char *, void *);
+extern "C" void __cdecl FUN_002dd3a0(void *, unsigned char *, unsigned int);
+extern "C" int __cdecl FUN_002d9c30(void *, void *, unsigned char *);
+extern "C" void __cdecl FUN_002d9ae0(void *, unsigned char *);
 void __cdecl FUN_002da380(png_row_info_2dcd90 *ri, png_byte *row, png_color_16_2dcd90 *trans_values, png_color_16_2dcd90 *background, png_color_16_2dcd90 *background_1, void *gamma_table, void *gamma_from_1, void *gamma_to_1, void *gamma_16_table, void *gamma_16_from_1, void *gamma_16_to_1, int gamma_shift);
-void __cdecl FUN_002db320(png_row_info_2dcd90 *ri, png_byte *row, void *gamma_table, void *gamma_16_table, int gamma_shift);
+extern "C" void __cdecl FUN_002db320(void *, unsigned char *, unsigned char *, unsigned short **, int);
 void __cdecl FUN_002d95c0(png_row_info_2dcd90 *ri, png_byte *row);
-void __cdecl FUN_002dbc50(png_row_info_2dcd90 *ri, png_byte *row, void *palette_lookup, void *dither_index);
-void __cdecl FUN_002dd2e0(png_row_info_2dcd90 *ri, png_byte *row);
-void __cdecl FUN_002d93f0(png_row_info_2dcd90 *ri, png_byte *row, png_byte *shift);
-void __cdecl FUN_002d92c0(png_row_info_2dcd90 *ri, png_byte *row);
-void __cdecl FUN_002dd5c0(png_row_info_2dcd90 *ri, png_byte *row);
-void __cdecl FUN_002dd350(png_row_info_2dcd90 *ri, png_byte *row);
-void __cdecl FUN_002d9840(png_row_info_2dcd90 *ri, png_byte *row, unsigned int filler, unsigned int flags);
-void __cdecl FUN_002d9720(png_row_info_2dcd90 *ri, png_byte *row);
-void __cdecl FUN_002d9610(png_row_info_2dcd90 *ri, png_byte *row);
+extern "C" void __cdecl FUN_002dbc50(void *, unsigned char *, unsigned char *, unsigned char *);
+extern "C" void __cdecl FUN_002dd2e0(void *, unsigned char *);
+extern "C" void __cdecl FUN_002d93f0(void *, unsigned char *, void *);
+extern "C" void __cdecl FUN_002d92c0(void *, unsigned char *);
+extern "C" void __cdecl FUN_002dd5c0(void *, unsigned char *);
+extern "C" void __cdecl FUN_002dd350(void *, unsigned char *);
+extern "C" void __cdecl FUN_002d9840(void *, unsigned char *, unsigned, unsigned);
+extern "C" void __cdecl FUN_002d9720(const void *, unsigned char *);
+extern "C" void __cdecl FUN_002d9610(const void *, unsigned char *);
 void __cdecl FUN_002dd310(png_row_info_2dcd90 *ri, png_byte *row);
 
 void __cdecl FUN_002dcd90(png_struct_2dcd90 *png_ptr)
@@ -89,61 +89,61 @@ void __cdecl FUN_002dcd90(png_struct_2dcd90 *png_ptr)
     if (png_ptr->row_buf == 0) {
         char msg[50];
         sprintf(msg, "NULL row buffer for row %ld, pass %d", png_ptr->row_number, png_ptr->pass);
-        FUN_002e69a0(png_ptr, msg);
+        FUN_002e69a0((png_struct_2dcd90 *)png_ptr, (void *)(const char *)msg);
     }
     if (png_ptr->transformations & 0x1000) {
         if (png_ptr->row_info.color_type == 3) {
-            FUN_002db6b0(&png_ptr->row_info, png_ptr->row_buf + 1, png_ptr->palette, png_ptr->trans, png_ptr->num_trans);
+            FUN_002db6b0((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1, png_ptr->palette, (unsigned char *)(void *)(png_ptr->trans), png_ptr->num_trans);
         } else if (png_ptr->num_trans != 0) {
-            FUN_002db8d0(&png_ptr->row_info, png_ptr->row_buf + 1, &png_ptr->trans_values);
+            FUN_002db8d0((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1, (png_color_16_2dcd90 *)(&png_ptr->trans_values));
         } else {
-            FUN_002db8d0(&png_ptr->row_info, png_ptr->row_buf + 1, 0);
+            FUN_002db8d0((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1, (png_color_16_2dcd90 *)0);
         }
     }
     if (png_ptr->transformations & 0x40000)
-        FUN_002dd3a0(&png_ptr->row_info, png_ptr->row_buf + 1, 0x80);
+        FUN_002dd3a0((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1, 0x80);
     if (png_ptr->transformations & 0x600000) {
-        if (FUN_002d9c30(png_ptr, &png_ptr->row_info, png_ptr->row_buf + 1)) {
+        if (FUN_002d9c30((png_struct_2dcd90 *)png_ptr, (png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1)) {
             png_ptr->rgb_to_gray_status = 1;
             if (png_ptr->transformations == 0x400000)
-                FUN_002e69d0(png_ptr, "png_do_rgb_to_gray found nongray pixel");
+                FUN_002e69d0((png_struct_2dcd90 *)png_ptr, (void *)(const char *)"png_do_rgb_to_gray found nongray pixel");
             if (png_ptr->transformations == 0x200000)
-                FUN_002e69a0(png_ptr, "png_do_rgb_to_gray found nongray pixel");
+                FUN_002e69a0((png_struct_2dcd90 *)png_ptr, (void *)(const char *)"png_do_rgb_to_gray found nongray pixel");
         }
     }
     if ((png_ptr->transformations & 0x4000) && !(png_ptr->flags & 0x20000))
-        FUN_002d9ae0(&png_ptr->row_info, png_ptr->row_buf + 1);
+        FUN_002d9ae0((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1);
     if ((png_ptr->transformations & 0x80) && (png_ptr->num_trans != 0 || (png_ptr->color_type & 4)))
         FUN_002da380(&png_ptr->row_info, png_ptr->row_buf + 1, &png_ptr->trans_values, &png_ptr->background, &png_ptr->background_1, png_ptr->gamma_table, png_ptr->gamma_from_1, png_ptr->gamma_to_1, png_ptr->gamma_16_table, png_ptr->gamma_16_from_1, png_ptr->gamma_16_to_1, png_ptr->gamma_shift);
     if ((png_ptr->transformations & 0x2000)
         && !((png_ptr->transformations & 0x80) && (png_ptr->num_trans != 0 || (png_ptr->color_type & 4)))
         && png_ptr->color_type != 3)
-        FUN_002db320(&png_ptr->row_info, png_ptr->row_buf + 1, png_ptr->gamma_table, png_ptr->gamma_16_table, png_ptr->gamma_shift);
+        FUN_002db320((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1, (unsigned char *)(void *)(png_ptr->gamma_table), (unsigned short **)(void *)(png_ptr->gamma_16_table), png_ptr->gamma_shift);
     if (png_ptr->transformations & 0x400)
         FUN_002d95c0(&png_ptr->row_info, png_ptr->row_buf + 1);
     if (png_ptr->transformations & 0x40) {
-        FUN_002dbc50(&png_ptr->row_info, png_ptr->row_buf + 1, png_ptr->palette_lookup, png_ptr->dither_index);
+        FUN_002dbc50((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1, (unsigned char *)(void *)(png_ptr->palette_lookup), (unsigned char *)(void *)(png_ptr->dither_index));
         if (png_ptr->row_info.rowbytes == 0)
-            FUN_002e69a0(png_ptr, "png_do_dither returned rowbytes=0");
+            FUN_002e69a0((png_struct_2dcd90 *)png_ptr, (void *)(const char *)"png_do_dither returned rowbytes=0");
     }
     if (png_ptr->transformations & 0x20)
-        FUN_002dd2e0(&png_ptr->row_info, png_ptr->row_buf + 1);
+        FUN_002dd2e0((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1);
     if (png_ptr->transformations & 0x8)
-        FUN_002d93f0(&png_ptr->row_info, png_ptr->row_buf + 1, png_ptr->shift);
+        FUN_002d93f0((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1, (unsigned char *)(png_ptr->shift));
     if (png_ptr->transformations & 0x4)
-        FUN_002d92c0(&png_ptr->row_info, png_ptr->row_buf + 1);
+        FUN_002d92c0((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1);
     if (png_ptr->transformations & 0x1)
-        FUN_002dd5c0(&png_ptr->row_info, png_ptr->row_buf + 1);
+        FUN_002dd5c0((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1);
     if (png_ptr->transformations & 0x10000)
-        FUN_002dd350(&png_ptr->row_info, png_ptr->row_buf + 1);
+        FUN_002dd350((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1);
     if ((png_ptr->transformations & 0x4000) && (png_ptr->flags & 0x20000))
-        FUN_002d9ae0(&png_ptr->row_info, png_ptr->row_buf + 1);
+        FUN_002d9ae0((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1);
     if (png_ptr->transformations & 0x8000)
-        FUN_002d9840(&png_ptr->row_info, png_ptr->row_buf + 1, png_ptr->filler, png_ptr->flags);
+        FUN_002d9840((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1, (unsigned int)(png_ptr->filler), (unsigned int)(png_ptr->flags));
     if (png_ptr->transformations & 0x80000)
-        FUN_002d9720(&png_ptr->row_info, png_ptr->row_buf + 1);
+        FUN_002d9720((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1);
     if (png_ptr->transformations & 0x20000)
-        FUN_002d9610(&png_ptr->row_info, png_ptr->row_buf + 1);
+        FUN_002d9610((png_row_info_2dcd90 *)(&png_ptr->row_info), png_ptr->row_buf + 1);
     if (png_ptr->transformations & 0x10)
         FUN_002dd310(&png_ptr->row_info, png_ptr->row_buf + 1);
     if (png_ptr->transformations & 0x100000) {

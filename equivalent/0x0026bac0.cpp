@@ -38,13 +38,13 @@ struct HeapStats {
     unsigned int firstSize;
 };
 
-extern void __cdecl FUN_0026b970(Heap *heap);
+extern "C" void __cdecl FUN_0026b970(void *);
 
 HeapStats FUN_0026bac0()
 {
     Heap *heap = (*(Heap**)&DAT_0052839c);
     if (!heap->first)
-        FUN_0026b970(heap);
+        FUN_0026b970((Heap *)heap);
     unsigned int firstSize = heap->first->size & ~3u;
 
     int bucketCount = 0;

@@ -8,7 +8,7 @@ void __cdecl FUN_00217130(void*, Item*, int);
 void __cdecl FUN_00219be0(Item*, void*, void*);
 // equiv-conv: FUN_00219c30 ebx esi stack
 void __cdecl FUN_00219c30(void*, Item*, void*);
-Item* __cdecl FUN_00219cc0(void* owner, void* unused, void* arg) {
+extern "C" void * __cdecl FUN_00219cc0(void* owner, void* unused, void* arg) {
     Item* item = FUN_0021add0(owner, 0, 0, 0x20);
     FUN_00217130(owner, item, 5);
     item->field8 = 0;
@@ -19,5 +19,5 @@ Item* __cdecl FUN_00219cc0(void* owner, void* unused, void* arg) {
     item->field10 = 0;
     FUN_00219be0(item, unused, owner);
     FUN_00219c30(owner, item, arg);
-    return item;
+    return (Item *)item;
 }

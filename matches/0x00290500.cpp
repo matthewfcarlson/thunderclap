@@ -6,9 +6,9 @@ struct Item_290500 {
     void Process();
 };
 void __cdecl ReleaseHandle(u32_290500);
-void __cdecl FUN_00290500(Item_290500* begin, Item_290500* end) {
-    Item_290500* p = begin;
-    while (p != end) {
+extern "C" void __cdecl FUN_00290500(void * begin, void * end) {
+    Item_290500* p = ((Item_290500 *)begin);
+    while (p != ((Item_290500 *)end)) {
         u32_290500 h = p->handle;
         if (h) {
             ReleaseHandle(h);

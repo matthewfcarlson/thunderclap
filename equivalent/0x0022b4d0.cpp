@@ -9,7 +9,7 @@ struct Quat_22b4d0 {
     void Rotate(const Vec3_22b4d0 *v, Vec3_22b4d0 *out);
 };
 
-void __cdecl FUN_0022b080(Quat_22b4d0 *out, const Quat_22b4d0 *a, const Quat_22b4d0 *b);
+extern "C" void __cdecl FUN_0022b080(float *, const float *, const float *);
 
 void Quat_22b4d0::Rotate(const Vec3_22b4d0 *v, Vec3_22b4d0 *out)
 {
@@ -19,12 +19,12 @@ void Quat_22b4d0::Rotate(const Vec3_22b4d0 *v, Vec3_22b4d0 *out)
     vec.y = v->y;
     vec.z = v->z;
     vec.w = 0;
-    FUN_0022b080(&tmp, this, &vec);
+    FUN_0022b080((float *)(Quat_22b4d0 *)(&tmp), (const float *)(const Quat_22b4d0 *)this, (const float *)(const Quat_22b4d0 *)(&vec));
     vec.x = -x;
     vec.y = -y;
     vec.z = -z;
     vec.w = w;
-    FUN_0022b080(&tmp, &tmp, &vec);
+    FUN_0022b080((float *)(Quat_22b4d0 *)(&tmp), (const float *)(const Quat_22b4d0 *)(&tmp), (const float *)(const Quat_22b4d0 *)(&vec));
     out->x = tmp.x;
     out->y = tmp.y;
     out->z = tmp.z;

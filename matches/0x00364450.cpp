@@ -5,6 +5,6 @@ class Sub_364450 {
   public:
     void Fn();
 };
-void __cdecl FUN_00364450() {
+extern "C" void __cdecl FUN_00364450() {
     (*(Sub_364450*)((char*)&DAT_004e6bc8 + 104)).Fn();
 }

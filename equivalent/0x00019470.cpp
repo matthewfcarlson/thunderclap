@@ -205,7 +205,7 @@ float __cdecl FUN_000445a0();
 float __cdecl FUN_000445b0();
 float __cdecl FUN_000964e0();
 // equiv-conv: FUN_00014210 eax ecx edx esi
-void FUN_00014210(int mode, Fighter_19470* frame, void* obj, Vec3_19470* out);
+extern "C" void __cdecl FUN_00014210(int, void *, void *, void *);
 
 class Attack {
   public:
@@ -311,7 +311,7 @@ void Attack::FUN_00019470(Fighter_19470* t, int a2, Vec3_19470* P, Vec3_19470* N
     request.r91 = settings->b3b;
     request.r54 = settings->fdc;
     Vec3_19470 outputVector;
-    FUN_00014210(settings->mode, attacker, t->f12c, &outputVector);
+    FUN_00014210(settings->mode, (Fighter_19470 *)attacker, t->f12c, (Vec3_19470 *)(&outputVector));
 
     Params* directionSettings = params;
     Vec3_19470 direction;

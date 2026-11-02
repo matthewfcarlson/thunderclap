@@ -6,8 +6,8 @@ class Registry {
     void Init(const char*, int);
 };
 extern "C" int __cdecl atexit(void(__cdecl*)());
-void __cdecl cleanup();
+extern "C" void __cdecl FUN_00364040();
 void __cdecl target() {
     (*(Registry*)&DAT_004e22fc).Init("sound/rsd", 0);
-    atexit(cleanup);
+    atexit(FUN_00364040);
 }

@@ -30,14 +30,14 @@ struct BlockCnt_21e080 {
     unsigned char isbreakable;
 };
 
-void __cdecl FUN_0021f640(LexState_21e080* ls);
-void FUN_0021c5b0(LexState_21e080* ls, int nactvar);
-void __cdecl FUN_00220bd0(FuncState_21e080* fs, int op, int a, int b, int c);
+extern "C" void __cdecl FUN_0021f640(void *);
+extern "C" void __cdecl FUN_0021c5b0(void *, int);
+extern "C" int __cdecl FUN_00220bd0(void *, unsigned int, int, unsigned int, unsigned int);
 void __cdecl FUN_00220d70(FuncState_21e080* fs, int list);
 
-void FUN_0021e080(LexState_21e080* ls)
+extern "C" void FUN_0021e080(void * ls)
 {
-    FuncState_21e080* fs = ls->fs;
+    FuncState_21e080* fs = ((LexState_21e080 *)ls)->fs;
     BlockCnt_21e080 bl;
 
     bl.breaklist = -1;
@@ -47,13 +47,13 @@ void FUN_0021e080(LexState_21e080* ls)
     bl.previous = fs->bl;
     fs->bl = &bl;
 
-    FUN_0021f640(ls);
+    FUN_0021f640((LexState_21e080 *)((LexState_21e080 *)ls));
 
     BlockCnt_21e080* b = fs->bl;
     fs->bl = b->previous;
-    FUN_0021c5b0(fs->ls, b->nactvar);
+    FUN_0021c5b0((LexState_21e080 *)(fs->ls), b->nactvar);
     if (b->upval)
-        FUN_00220bd0(fs, 0x22, b->nactvar, 0, 0);
+        FUN_00220bd0((FuncState_21e080 *)fs, 0x22, b->nactvar, 0, 0);
     fs->freereg = fs->nactvar;
     FUN_00220d70(fs, b->breaklist);
 }

@@ -89,6 +89,7 @@ import cxx_items  # noqa: E402
 import stub_layout  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+GEN_OFF = set(os.environ.get("HULK_GEN_TREE_OFF", "").split(","))     # switch named changes off (A/B: cdefsig)
 SPLITS = os.path.join(ROOT, "config/splits.json")
 FUNCS_CSV = os.path.join(ROOT, "build/functions.csv")
 TREE = os.path.join(ROOT, "build/tree")
@@ -385,8 +386,15 @@ def block_cvariants(b):
         for k, norm, it in b.orig_decls:
             nk, var = item_variant(it, k, norm)
             c.append((nk, var, canonical_variant(nk, var, it), it))
-        for nk, var in block_variants(b)[len(b.orig_decls):]:
-            c.append((nk, var, var, None))
+        for (nk, var), d in zip(block_variants(b)[len(b.orig_decls):], b.defs):
+            cvar = var
+            if var[0] == "cdef" and "cdefsig" not in GEN_OFF:
+                # (x64-8) a C-linkage definition's signature spelled as canonical_variant spells a declaration's,
+                # so that compatible() can pair it with the TU's C declarations of the same name and types
+                parts = _norm_sig_parts(d)
+                if parts:
+                    cvar = (var[0], var[1], ",".join(parts[1]), "%s(%s)%s" % (parts[0], ",".join(parts[1]), parts[2]))
+            c.append((nk, var, cvar, None))
         b._cvars = c
     return c
 
@@ -560,8 +568,18 @@ def compatible(a, b):
             return True
         return ka != kb and a[3] == b[3]
     if pair == {"cfunc", "cdef"}:
-        return a[3] == b[3]
+        return a[3] == b[3] or "cdefsig" not in GEN_OFF and _sig_noqual(a[3]) == _sig_noqual(b[3])
+    if pair == {"func", "cdef"} and "cdefsig" not in GEN_OFF:
+        # (x64-8) an address name's declaration (canonical_variant counts C and C++ linkage as one for those) beside
+        # its C definition with the same types: one function. A C++ representative would be C2732 at compile time,
+        # which build_tree's compile check wraps as before
+        return _sig_noqual(a[3]) == _sig_noqual(b[3])
     return False
+
+
+def _sig_noqual(sig):
+    """A signature without the declaration's `;` (a definition's has none)."""
+    return re.sub(r"\s*;\s*$", "", sig or "") if sig else sig
 
 
 def accept_variants(vs, forced=()):

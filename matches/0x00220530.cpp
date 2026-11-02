@@ -3,6 +3,6 @@ struct Obj {
     int a;
     int b;
 };
-int __cdecl FUN_00220530(Obj* p) {
-    return p->b = p->a;
+extern "C" int __cdecl FUN_00220530(void * p) {
+    return ((Obj *)p)->b = ((Obj *)p)->a;
 }

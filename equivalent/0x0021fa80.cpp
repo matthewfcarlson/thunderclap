@@ -14,22 +14,22 @@ struct Reader {
 };
 
 // equiv-conv: FUN_0021f8c0 ecx eax edx
-void FUN_0021f8c0(void *dst, int size, Reader *r);
+extern "C" void __cdecl FUN_0021f8c0(char *, unsigned int, void *);
 // equiv-conv: FUN_0021f800 esi stack
 void FUN_0021f800(Reader *r, const char *msg);
-char *FUN_0021a6b0(State *L, Buffer *buf, hulk_uintptr n);
-int FUN_0021a610(Zio *z, char *dst, hulk_uintptr n);
+extern "C" void * __cdecl FUN_0021a6b0(void *, void **, hulk_uintptr);
+extern "C" unsigned int __cdecl FUN_0021a610(void *, void *, unsigned int);
 Str *FUN_00219430(State *L, const char *s, unsigned int len);
 
 // equiv-conv: FUN_0021fa80 eax
-Str *FUN_0021fa80(Reader *r)
+extern "C" Str *FUN_0021fa80(Reader *r)
 {
     unsigned int size;
-    FUN_0021f8c0(&size, 4, r);
+    FUN_0021f8c0((char *)(void *)(&size), 4, (Reader *)r);
     if (size == 0)
         return 0;
-    char *s = FUN_0021a6b0(r->L, r->buf, size);
-    if (FUN_0021a610(r->zio, s, size))
+    char *s = ((char *)FUN_0021a6b0((State *)(r->L), (void **)(Buffer *)(r->buf), size));
+    if (((int)FUN_0021a610((Zio *)(r->zio), (char *)s, (hulk_uintptr)size)))
         FUN_0021f800(r, "unexpected end of file");
     return FUN_00219430(r->L, s, size - 1);
 }

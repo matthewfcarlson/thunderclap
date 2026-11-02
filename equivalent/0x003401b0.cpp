@@ -8,7 +8,7 @@ typedef volatile float hulk_fslot; // forces the store-and-reload MSVC 7.1 would
 typedef float hulk_fslot;
 #endif
 // equiv-conv: FUN_003401b0 eax ecx stack
-void FUN_003401b0(float* d, int n, float* tw) {
+extern "C" void FUN_003401b0(float* d, int n, float* tw) {
     const int quarter = n >> 3;
     const int half = 2 * quarter;
     const int full = 4 * quarter;

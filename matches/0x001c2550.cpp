@@ -22,9 +22,9 @@ class Obj_1c2550 {
     virtual void v13();
     virtual void Fire();
 };
-Ent_1c2550* __stdcall Find(Obj_1c2550* o, bool flag);
+extern "C" void * __stdcall FUN_001c23c0(void *, bool);
 void __stdcall Fn(Obj_1c2550* o, float x) {
-    Ent_1c2550* e = Find(o, x < 1.0f);
+    Ent_1c2550* e = ((Ent_1c2550 *)FUN_001c23c0((Obj_1c2550 *)o, x < 1.0f));
     if (e) {
         e->v = x;
         if (e->a > 0.0f)

@@ -13,8 +13,9 @@ struct ColorKey {
     unsigned short w[5];
 };
 
-void FUN_002db8d0(ImageInfo *im, unsigned char *buf, ColorKey *key)
+extern "C" void FUN_002db8d0(void * im_, unsigned char *buf, void *key)
 {
+    ImageInfo * im = (ImageInfo *)im_;
     unsigned int count = im->count;
     unsigned int k;
     unsigned int n;
@@ -22,8 +23,8 @@ void FUN_002db8d0(ImageInfo *im, unsigned char *buf, ColorKey *key)
     unsigned char *dst;
 
     if (im->mode == 0) {
-        if (key != 0)
-            k = key->w[4];
+        if (((ColorKey *)key) != 0)
+            k = ((ColorKey *)key)->w[4];
         else
             k = 0;
         unsigned char depth = im->depth;
@@ -89,7 +90,7 @@ void FUN_002db8d0(ImageInfo *im, unsigned char *buf, ColorKey *key)
             im->bpp = 8;
             im->size = count;
         }
-        if (key == 0)
+        if (((ColorKey *)key) == 0)
             return;
         unsigned char d = im->depth;
         if (d == 8) {
@@ -134,7 +135,7 @@ void FUN_002db8d0(ImageInfo *im, unsigned char *buf, ColorKey *key)
     }
     if (im->mode != 2)
         return;
-    if (key == 0)
+    if (((ColorKey *)key) == 0)
         return;
     unsigned char d = im->depth;
     if (d == 8) {
@@ -145,7 +146,7 @@ void FUN_002db8d0(ImageInfo *im, unsigned char *buf, ColorKey *key)
             unsigned short g = src[-1];
             unsigned short bl = src[0];
             unsigned char a;
-            if (r == key->w[1] && g == key->w[2] && bl == key->w[3])
+            if (r == ((ColorKey *)key)->w[1] && g == ((ColorKey *)key)->w[2] && bl == ((ColorKey *)key)->w[3])
                 a = 0;
             else
                 a = 0xff;
@@ -161,8 +162,8 @@ void FUN_002db8d0(ImageInfo *im, unsigned char *buf, ColorKey *key)
         dst = buf + count * 8 - 1;
         for (n = count; n != 0; n--) {
             unsigned char a;
-            if (((src[-5] << 8) | src[-4]) == key->w[1] && ((src[-3] << 8) | src[-2]) == key->w[2] &&
-                ((src[-1] << 8) | src[0]) == key->w[3])
+            if (((src[-5] << 8) | src[-4]) == ((ColorKey *)key)->w[1] && ((src[-3] << 8) | src[-2]) == ((ColorKey *)key)->w[2] &&
+                ((src[-1] << 8) | src[0]) == ((ColorKey *)key)->w[3])
                 a = 0;
             else
                 a = 0xff;

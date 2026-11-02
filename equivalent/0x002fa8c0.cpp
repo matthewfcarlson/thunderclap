@@ -50,7 +50,7 @@ struct Scene_2fa8c0 {
     Tracker_2fa8c0 tracker;
 };
 
-void FUN_002fa6b0(V3_2fa8c0* a, V3_2fa8c0* b, V3_2fa8c0* c, V3_2fa8c0* out);
+extern "C" void __cdecl FUN_002fa6b0(const void *, const void *, const void *, void *);
 extern "C" char FUN_00358b10(void* p38, void* p44, float v1, float v0, V3_2fa8c0* a0, V3_2fa8c0* a1, V3_2fa8c0* a2, V3_2fa8c0* normal, float* out, V3_2fa8c0* l0c, V3_2fa8c0* l18, int b1, int b2, int b4);
 char FUN_00358700(void* p38, void* p44, float v1, float v0, V3_2fa8c0* a0, V3_2fa8c0* a1, V3_2fa8c0* a2, V3_2fa8c0* normal, float* out, V3_2fa8c0* l0c, V3_2fa8c0* l18, int b1, int b2, int b4);
 
@@ -83,7 +83,7 @@ char TriRef::FUN_002fa8c0(Hit_2fa8c0* hit, Mesh_2fa8c0* mesh, int flags2)
     V3_2fa8c0* a0 = &verts[i0];
     V3_2fa8c0* a1 = &verts[i1];
     f.a2 = &verts[i2];
-    FUN_002fa6b0(a0, a1, f.a2, &f.normal);
+    FUN_002fa6b0((V3_2fa8c0 *)a0, (V3_2fa8c0 *)a1, (V3_2fa8c0 *)(f.a2), (V3_2fa8c0 *)(&f.normal));
     f.b1.b = (flags & 1) != 0;
     f.b2.b = (flags & 2) == 2;
     f.b4.b = (flags & 4) == 4;

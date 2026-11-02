@@ -5,6 +5,6 @@ struct Obj_364210 {
 };
 
 
-void FUN_00364210() {
+extern "C" void FUN_00364210() {
     (*(Obj_364210*)&DAT_004e6080).Run();
 }

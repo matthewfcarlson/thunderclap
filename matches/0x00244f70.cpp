@@ -2,7 +2,7 @@
 
 extern void* vEntity[];
 extern void* vIRef[];
-extern void FUN_00244b20(void*, void*);
+extern "C" void * __cdecl FUN_00244b20(void *, void *);
 struct Entity_244f70 {
     void* vf;
     void Dtor() throw();

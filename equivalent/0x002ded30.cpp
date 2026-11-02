@@ -20,9 +20,9 @@ struct Surface_2ded30 {
     int cursor;
 };
 
-void __stdcall FUN_002de5a0(Image_2ded30 *img, Surface_2ded30 *s);
-void __stdcall FUN_002de990(Image_2ded30 *img, Surface_2ded30 *s);
-void __stdcall FUN_002de9c0(Image_2ded30 *img, Surface_2ded30 *s);
+extern "C" void __stdcall FUN_002de5a0(void *, void *);
+extern "C" void __stdcall FUN_002de990(void *, void *);
+extern "C" void __stdcall FUN_002de9c0(void *, void *);
 
 void pure3d::ImageConverter::vfunc_6(hulk_intptr __p0, hulk_intptr __p1, int row) { Image_2ded30 * img = (Image_2ded30 *)__p0; Surface_2ded30 * s = (Surface_2ded30 *)__p1;
 
@@ -35,13 +35,13 @@ void pure3d::ImageConverter::vfunc_6(hulk_intptr __p0, hulk_intptr __p1, int row
     case 2:
     case 3:
     case 4:
-        FUN_002de990(img, s);
+        FUN_002de990((Image_2ded30 *)img, (Surface_2ded30 *)s);
         break;
     case 6:
-        FUN_002de9c0(img, s);
+        FUN_002de9c0((Image_2ded30 *)img, (Surface_2ded30 *)s);
         break;
     case 7:
-        FUN_002de5a0(img, s);
+        FUN_002de5a0((Image_2ded30 *)img, (Surface_2ded30 *)s);
         break;
     }
     s->cursor = saved;

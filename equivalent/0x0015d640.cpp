@@ -57,7 +57,7 @@ struct Link_15d640 {
     Owner_15d640 *FUN_000592a0();
 };
 
-extern void __cdecl FUN_0015cfd0(WObj *w, choreo2::LocomotionStrafeDriver *d);
+extern "C" void __cdecl FUN_0015cfd0(void *, void *);
 extern float FUN_000964e0();
 
 namespace hulkfight {
@@ -150,7 +150,7 @@ bool LocomotionStrafeAction::vfunc_3(int a, int b)
     vfunc_7(w1, &fr.l28, &fr.l38, &fr.l3c, &fr.l40, &fr.l44, &fr.l48, &fr.l4c, &fr.l58,
             &fr.l1c, &fr.l2c, &fr.l30, &fr.l34);
     driver->FUN_00222550(fr.l1c, fr.z18);
-    FUN_0015cfd0(w1, driver);
+    FUN_0015cfd0((WObj *)w1, (choreo2 :: LocomotionStrafeDriver *)driver);
     FUN_0015c2a0(fr.l38, fr.l3c, fr.l40, fr.l44, fr.l48, fr.l4c);
     if (fr.l58 < 0.0f) {
         float r = fr.res;

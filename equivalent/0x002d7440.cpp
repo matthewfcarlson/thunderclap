@@ -71,14 +71,14 @@ struct PngStruct_2d7440 {
            // png_pass_dsp_mask
    // "IDAT"
 
-void __cdecl FUN_002e7fb0(PngStruct_2d7440 *png);                                   // png_read_start_row
+extern "C" void __cdecl FUN_002e7fb0(void *);                                   // png_read_start_row
 extern "C" void __cdecl FUN_002e7680(PngStruct_2d7440 *png, unsigned char *row, int mask);     // png_combine_row
 extern "C" void __cdecl FUN_002ea010(PngStruct_2d7440 *png);                                   // png_read_finish_row
-void __cdecl FUN_002e69a0(PngStruct_2d7440 *png, const char *msg);                  // png_error
-void __cdecl FUN_002e81e0(PngStruct_2d7440 *png, unsigned int skip);                // png_crc_finish
-void __cdecl FUN_002dd690(PngStruct_2d7440 *png, unsigned char *buf, unsigned int size);   // png_read_data
-unsigned int __cdecl FUN_002e7500(unsigned char *buf);                       // png_get_uint_31
-void __cdecl FUN_002d6c90(PngStruct_2d7440 *png);                                   // png_reset_crc
+extern "C" void __cdecl FUN_002e69a0(void *, void *);                  // png_error
+extern "C" int __cdecl FUN_002e81e0(void *, unsigned int);                // png_crc_finish
+extern "C" void __cdecl FUN_002dd690(void *, void *, unsigned int);   // png_read_data
+extern "C" unsigned int __cdecl FUN_002e7500(unsigned char *);                       // png_get_uint_31
+extern "C" void __cdecl FUN_002d6c90(void *);                                   // png_reset_crc
 void __cdecl FUN_002e7580(PngStruct_2d7440 *png, unsigned char *buf, unsigned int size);   // png_crc_read
 extern "C" int __cdecl FUN_002e6f70(ZStream_2d7440 *z, int flush);                             // inflate
 extern "C" void __cdecl FUN_002e7dc0(PngStruct_2d7440 *png, RowInfo_2d7440 *info, unsigned char *row, unsigned char *prev, int filter);
@@ -89,7 +89,7 @@ extern "C" void __cdecl FUN_002e7990(RowInfo_2d7440 *info, unsigned char *row, i
 extern "C" void __cdecl FUN_002d7440(PngStruct_2d7440 *png, unsigned char *row, unsigned char *dsp_row)
 {
     if (!(png->flags & 0x40))
-        FUN_002e7fb0(png);
+        FUN_002e7fb0((PngStruct_2d7440 *)png);
 
     if (png->interlaced && (png->transformations & 2)) {
         switch (png->pass) {
@@ -151,7 +151,7 @@ extern "C" void __cdecl FUN_002d7440(PngStruct_2d7440 *png, unsigned char *row, 
     }
 
     if (!(png->mode & 4))
-        FUN_002e69a0(png, "Invalid attempt to read row data");
+        FUN_002e69a0((PngStruct_2d7440 *)png, (void *)(const char *)"Invalid attempt to read row data");
 
     png->zstream.next_out = png->row_buf;
     png->zstream.avail_out = png->irowbytes;
@@ -159,13 +159,13 @@ extern "C" void __cdecl FUN_002d7440(PngStruct_2d7440 *png, unsigned char *row, 
         if (png->zstream.avail_in == 0) {
             while (png->idat_size == 0) {
                 unsigned char chunk_length[4];
-                FUN_002e81e0(png, 0);
-                FUN_002dd690(png, chunk_length, 4);
+                FUN_002e81e0((PngStruct_2d7440 *)png, 0);
+                FUN_002dd690((PngStruct_2d7440 *)png, (unsigned char *)chunk_length, 4);
                 png->idat_size = FUN_002e7500(chunk_length);
-                FUN_002d6c90(png);
+                FUN_002d6c90((PngStruct_2d7440 *)png);
                 FUN_002e7580(png, png->chunk_name, 4);
                 if (*(unsigned int *)png->chunk_name != *(const unsigned int *)((const char*)&DAT_004d103c))
-                    FUN_002e69a0(png, "Not enough image data");
+                    FUN_002e69a0((PngStruct_2d7440 *)png, (void *)(const char *)"Not enough image data");
             }
             png->zstream.avail_in = png->zbuf_size;
             png->zstream.next_in = png->zbuf;
@@ -177,13 +177,13 @@ extern "C" void __cdecl FUN_002d7440(PngStruct_2d7440 *png, unsigned char *row, 
         int ret = FUN_002e6f70(&png->zstream, 1);
         if (ret == 1) {
             if (png->zstream.avail_out || png->zstream.avail_in || png->idat_size)
-                FUN_002e69a0(png, "Extra compressed data");
+                FUN_002e69a0((PngStruct_2d7440 *)png, (void *)(const char *)"Extra compressed data");
             png->mode |= 8;
             png->flags |= 0x20;
             break;
         }
         if (ret != 0)
-            FUN_002e69a0(png, png->zstream.msg ? png->zstream.msg : "Decompression error");
+            FUN_002e69a0((PngStruct_2d7440 *)png, (void *)(const char *)(png->zstream.msg ? png->zstream.msg : "Decompression error"));
     } while (png->zstream.avail_out);
 
     png->row_info.channels = png->channels;

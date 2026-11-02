@@ -9,18 +9,18 @@ class P2_262400 {
     void SetExt(char*);
 };
 
-void* FUN_00262400(Obj_262400* obj, P2_262400* p2) {
-    if (obj->A() > 0) {
-        char* start = obj->B();
-        char* p = (char*)obj->A();
-        p += (hulk_uintptr)obj->B();
+extern "C" void* FUN_00262400(void * obj, void * p2) {
+    if (((Obj_262400 *)obj)->A() > 0) {
+        char* start = ((Obj_262400 *)obj)->B();
+        char* p = (char*)((Obj_262400 *)obj)->A();
+        p += (hulk_uintptr)((Obj_262400 *)obj)->B();
         while (p >= start) {
             if (*p == '.') {
-                p2->SetExt(p + 1);
-                return (void*)p2;
+                ((P2_262400 *)p2)->SetExt(p + 1);
+                return (void*)((P2_262400 *)p2);
             }
             --p;
         }
     }
-    return (void*)p2;
+    return (void*)((P2_262400 *)p2);
 }

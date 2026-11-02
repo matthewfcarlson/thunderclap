@@ -27,11 +27,11 @@ struct Proto {
 };
 
 // equiv-conv: FUN_0021a790 eax esi
-void FUN_0021a790(Proto* s, Dump* D);
+extern "C" void __cdecl FUN_0021a790(void *, void *);
 // equiv-conv: FUN_0021a830 esi stack
-void FUN_0021a830(Dump* D, Proto* f);
+extern "C" void __cdecl FUN_0021a830(void *, void *);
 // equiv-conv: FUN_0021a960 esi stack
-void FUN_0021a960(Dump* D, Proto* f);
+extern "C" void __cdecl FUN_0021a960(void *, void *);
 // equiv-conv: FUN_0021aa00 esi stack
 void FUN_0021aa00(Dump* D, Proto* f);
 
@@ -50,7 +50,7 @@ union Scratch {
 void FUN_0021ab30(Proto* f, Proto* p, Dump* D)
 {
     Scratch v;
-    FUN_0021a790(f->source == p ? 0 : f->source, D);
+    FUN_0021a790((Proto *)(f->source == p ? 0 : f->source), (Dump *)D);
     v.i = f->linedefined;
     put(D, &v, 4);
     v.c = f->nups;
@@ -73,13 +73,13 @@ void FUN_0021ab30(Proto* f, Proto* p, Dump* D)
         v.i = 0;
         put(D, &v, 4);
     } else {
-        FUN_0021a830(D, f);
+        FUN_0021a830((Dump *)D, (Proto *)f);
     }
     if (D->strip) {
         v.i = 0;
         put(D, &v, 4);
     } else {
-        FUN_0021a960(D, f);
+        FUN_0021a960((Dump *)D, (Proto *)f);
     }
     FUN_0021aa00(D, f);
     v.i = f->sizek;

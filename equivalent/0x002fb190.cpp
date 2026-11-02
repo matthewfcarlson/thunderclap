@@ -30,7 +30,7 @@ struct Registry_2fb190 {
 };
 struct Manager_2fb190 { char pad[0x1b0]; Registry_2fb190 reg; };
 
-void FUN_002fa6b0(V3_2fb190* a, V3_2fb190* b, V3_2fb190* c, V3_2fb190* normal);
+extern "C" void __cdecl FUN_002fa6b0(const void *, const void *, const void *, void *);
 
 class Tri_2fb190 {
 public:
@@ -74,7 +74,7 @@ char Tri_2fb190::run(V3_2fb190* p, Context* ctx, int flags)
     if (!(t3 * t1 >= 0.0f))
         return 0;
 
-    FUN_002fa6b0(v0, v1, v2, &f.n);
+    FUN_002fa6b0((V3_2fb190 *)v0, (V3_2fb190 *)v1, (V3_2fb190 *)v2, (V3_2fb190 *)(&f.n));
     if (absf(f.n.y) <= 1e-5f)
         return 0;
 

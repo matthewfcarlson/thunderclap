@@ -2,7 +2,7 @@
 // FUN_002f4650 @ 0x002f4650
 #include "compat/ptr.h"
 void __cdecl FUN_002f40f0(unsigned short *, int, hulk_intptr, unsigned int);
-void __cdecl FUN_002f4650(unsigned short *first, unsigned short *last)
+extern "C" void __cdecl FUN_002f4650(unsigned short *first, unsigned short *last)
 {
     hulk_intptr bytes = (char *)last - (char *)first;
     while ((bytes >> 1) > 1) {

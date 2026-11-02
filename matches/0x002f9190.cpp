@@ -1,4 +1,4 @@
-short* f(short* a, short* b) {
+extern "C" short* FUN_002f9190(short* a, short* b) {
     if (a != b) {
         short* p = a + 1;
         if (p != b) {

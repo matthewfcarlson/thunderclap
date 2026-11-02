@@ -29,13 +29,13 @@ struct LexState_21f280 {
     FuncState_21f280* fs;          // 0x1c
 };
 
-int __cdecl FUN_0021bbc0(LexState_21f280* ls, int* seminfo);                       // llex
+extern "C" int __cdecl FUN_0021bbc0(void *, void *);                       // llex
 // equiv-conv: FUN_0021f220 ecx eax
 expdesc_21f280* FUN_0021f220(LexState_21f280* ls, expdesc_21f280* out);
 // equiv-conv: FUN_0021d4b0 ebx stack stack stack
 void __cdecl FUN_0021d4b0(LexState_21f280* ls, expdesc_21f280* dst, expdesc_21f280* src, int arg);
-void __cdecl FUN_00221280(FuncState_21f280* fs, expdesc_21f280* a, expdesc_21f280* b);
-void __cdecl FUN_00220b00(FuncState_21f280* fs, int arg);
+extern "C" void __cdecl FUN_00221280(void *, void *, void *);
+extern "C" void __cdecl FUN_00220b00(void *, int);
 
 struct Frame_21f280 {
     expdesc_21f280 second;
@@ -43,8 +43,9 @@ struct Frame_21f280 {
 };
 
 // equiv-conv: FUN_0021f280 eax esi
-void FUN_0021f280(LexState_21f280* ls, int arg)
+extern "C" void FUN_0021f280(void * ls_, int arg)
 {
+    LexState_21f280 * ls = (LexState_21f280 *)ls_;
     Frame_21f280 f;
     ls->lastline = ls->linenumber;
     if (ls->lookahead.token != 287) {
@@ -52,10 +53,10 @@ void FUN_0021f280(LexState_21f280* ls, int arg)
         ls->t.seminfo = ls->lookahead.seminfo;
         ls->lookahead.token = 287;
     } else {
-        ls->t.token = FUN_0021bbc0(ls, &ls->t.seminfo);
+        ls->t.token = FUN_0021bbc0((LexState_21f280 *)ls, (int *)(&ls->t.seminfo));
     }
     expdesc_21f280* r = FUN_0021f220(ls, &f.first);
     FUN_0021d4b0(ls, &f.second, r, arg);
-    FUN_00221280(ls->fs, &f.first, &f.second);
-    FUN_00220b00(ls->fs, arg);
+    FUN_00221280((FuncState_21f280 *)(ls->fs), (expdesc_21f280 *)(&f.first), (expdesc_21f280 *)(&f.second));
+    FUN_00220b00((FuncState_21f280 *)(ls->fs), arg);
 }

@@ -14,19 +14,19 @@ struct Transform {
     unsigned int fourthY;
 };
 // equiv-conv: FUN_003400e0 eax
-void FUN_003400e0(Transform *transform)
+extern "C" void FUN_003400e0(void *transform)
 {
-    float x = transform->firstX;
-    float y = transform->firstY;
-    transform->firstX = transform->thirdX;
-    transform->firstY = transform->thirdY;
-    transform->thirdX = x;
-    transform->thirdY = y;
+    float x = ((Transform *)transform)->firstX;
+    float y = ((Transform *)transform)->firstY;
+    ((Transform *)transform)->firstX = ((Transform *)transform)->thirdX;
+    ((Transform *)transform)->firstY = ((Transform *)transform)->thirdY;
+    ((Transform *)transform)->thirdX = x;
+    ((Transform *)transform)->thirdY = y;
 
-    unsigned int bx = transform->secondX;
-    unsigned int by = transform->secondY;
-    transform->secondX = transform->fourthX;
-    transform->secondY = transform->fourthY;
-    transform->fourthX = bx;
-    transform->fourthY = by;
+    unsigned int bx = ((Transform *)transform)->secondX;
+    unsigned int by = ((Transform *)transform)->secondY;
+    ((Transform *)transform)->secondX = ((Transform *)transform)->fourthX;
+    ((Transform *)transform)->secondY = ((Transform *)transform)->fourthY;
+    ((Transform *)transform)->fourthX = bx;
+    ((Transform *)transform)->fourthY = by;
 }

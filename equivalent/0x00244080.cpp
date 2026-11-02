@@ -26,23 +26,24 @@ struct Key_244080 {
     unsigned int lo2;
     unsigned int hi2;
 };
-int __cdecl FUN_00244080(const Key_244080* key, Bounds_244080* bounds) {
-    if (key->hi < bounds->hi)
+extern "C" int __cdecl FUN_00244080(const void * key, void * bounds_) {
+    Bounds_244080 * bounds = (Bounds_244080 *)bounds_;
+    if (((const Key_244080 *)key)->hi < bounds->hi)
         return -1;
-    if (key->hi == bounds->hi && key->lo < bounds->lo)
+    if (((const Key_244080 *)key)->hi == bounds->hi && ((const Key_244080 *)key)->lo < bounds->lo)
         return -1;
-    if (key->hi > bounds->hi)
+    if (((const Key_244080 *)key)->hi > bounds->hi)
         return 1;
-    if (key->lo > bounds->lo)
+    if (((const Key_244080 *)key)->lo > bounds->lo)
         return 1;
     Range_244080* r = bounds->v8();
-    if (key->hi2 > r->hi)
+    if (((const Key_244080 *)key)->hi2 > r->hi)
         return 1;
-    if (key->hi2 < r->hi)
+    if (((const Key_244080 *)key)->hi2 < r->hi)
         return -1;
-    if (key->lo2 < r->lo)
+    if (((const Key_244080 *)key)->lo2 < r->lo)
         return -1;
-    if (key->lo2 > r->lo)
+    if (((const Key_244080 *)key)->lo2 > r->lo)
         return 1;
     return 0;
 }

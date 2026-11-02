@@ -3,7 +3,7 @@
 // equiv-conv: FUN_000cb7d0 ecx edx stack
 #include "decls/data/game/global.h"
 
-void FUN_000cb7d0(float *a, float *b, float limit)
+extern "C" void FUN_000cb7d0(float *a, float *b, float limit)
 {
     volatile float av = *b - *a;
     *(volatile unsigned int *)&av &= 0x7fffffff;

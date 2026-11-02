@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20055 inputs, branch coverage 20/20)
 // FUN_002771b0 @ 0x002771b0
 bool __cdecl FUN_002674f0(const char*, const char*);
-bool __cdecl FUN_002771b0(const char* path)
+extern "C" bool __cdecl FUN_002771b0(const char* path)
 {
     const char* prefixes[5] = {"D:", "T:", "Z:", "W:", "U:"};
     for (int i = 0; i < 5; ++i) {

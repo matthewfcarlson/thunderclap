@@ -42,28 +42,29 @@ struct GlobalState_216670 {
     void *tmname;            // 0x80
 };
 
-void __cdecl FUN_002164b0(GlobalState_216670 *g, GCHeader *o);
+extern "C" void __cdecl FUN_002164b0(void *, void *);
 TValue_216670 *__cdecl FUN_00217580(Table_216670 *mt, int event, void *name);
 
 // equiv-conv: FUN_00216670 edi stack
-int FUN_00216670(Table_216670 *t, GlobalState_216670 *g)
+extern "C" int FUN_00216670(void * t_, void *g)
 {
+    Table_216670 * t = (Table_216670 *)t_;
     int weakkey = 0;
     int weakvalue = 0;
 
     if (t->metatable && (t->metatable->marked & 3))
-        FUN_002164b0(g, t->metatable);
+        FUN_002164b0((GlobalState_216670 *)((GlobalState_216670 *)g), (GCHeader *)(t->metatable));
 
     Table_216670 *mt = t->metatable;
     if (mt && !(mt->flags & 8)) {
-        TValue_216670 *mode = FUN_00217580(mt, 3, g->tmname);
+        TValue_216670 *mode = FUN_00217580(mt, 3, ((GlobalState_216670 *)g)->tmname);
         if (mode && mode->tt == 4) {
             weakkey = strchr(static_cast<TString_216670 *>(mode->value)->str, 'k') != 0;
             weakvalue = strchr(static_cast<TString_216670 *>(mode->value)->str, 'v') != 0;
             if (weakkey || weakvalue) {
                 t->marked = (t->marked & 0xe7) | (((weakvalue << 1) | weakkey) << 3);
-                t->gclist = g->gray;
-                g->gray = t;
+                t->gclist = ((GlobalState_216670 *)g)->gray;
+                ((GlobalState_216670 *)g)->gray = t;
             }
             if (weakkey && weakvalue)
                 return 1;
@@ -76,7 +77,7 @@ int FUN_00216670(Table_216670 *t, GlobalState_216670 *g)
             i--;
             TValue_216670 *v = &t->array[i];
             if (v->tt >= 4 && (v->value->marked & 3))
-                FUN_002164b0(g, v->value);
+                FUN_002164b0((GlobalState_216670 *)((GlobalState_216670 *)g), (GCHeader *)(v->value));
         }
     }
 
@@ -91,9 +92,9 @@ int FUN_00216670(Table_216670 *t, GlobalState_216670 *g)
                 nd->key.tt = -1;
         } else {
             if (!weakkey && nd->key.tt >= 4 && (nd->key.value->marked & 3))
-                FUN_002164b0(g, nd->key.value);
+                FUN_002164b0((GlobalState_216670 *)((GlobalState_216670 *)g), (GCHeader *)(nd->key.value));
             if (!weakvalue && nd->val.tt >= 4 && (nd->val.value->marked & 3))
-                FUN_002164b0(g, nd->val.value);
+                FUN_002164b0((GlobalState_216670 *)((GlobalState_216670 *)g), (GCHeader *)(nd->val.value));
         }
     }
     return weakkey || weakvalue;

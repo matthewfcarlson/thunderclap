@@ -54,7 +54,7 @@ struct Batch_2c7e40 {
 
 // batch arrives in eax, mode in cl, renderer in esi.
 // equiv-conv: FUN_002c7e40 eax ecx esi
-void FUN_002c7e40(Batch_2c7e40 *s, char mode, Renderer_2c7e40 *r)
+extern "C" void FUN_002c7e40(Batch_2c7e40 *s, char mode, Renderer_2c7e40 *r)
 {
     unsigned int n = s->count;
     unsigned short *idx = s->indices;

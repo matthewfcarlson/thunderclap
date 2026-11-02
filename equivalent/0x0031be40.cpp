@@ -9,7 +9,7 @@ struct ShaderInfo_31be40 {
     char pad[8];
     DWORD flags;
 };
-void FUN_0031c230(long hr);
+extern "C" void __cdecl FUN_0031c230(int);
 namespace pure3d {
 class d3dBasePrimStream {
   public:

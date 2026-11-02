@@ -12,7 +12,7 @@ struct State_86630 { int value; };
 struct Controller_86630 { void FUN_000bd1b0(int); void FUN_000bc100(); void FUN_000bf0e0(Target_86630*,State_86630*); void FUN_000bb600(); };
 struct Service_86630 { void FUN_0022aba0(int); };
 extern int __cdecl FUN_00267f00();
-extern Service_86630* __stdcall FUN_000964d0();
+extern "C" Service_86630* __stdcall FUN_000964d0();
 struct Manager_86630 { void FUN_001d2760(); void FUN_001d4530(); void FUN_001d15d0(int); void FUN_001d3c50(); };
 extern Manager_86630* __cdecl FUN_001d4c90();
 struct Sub_86630 { void FUN_001e11d0(); };

@@ -9,12 +9,12 @@ struct ImageInfo_2dbc50 {
     unsigned char bitsCopy;
 };
 
-void FUN_002dbc50(ImageInfo_2dbc50 *info, unsigned char *data, unsigned char *rgbToIndex, unsigned char *remap)
+extern "C" void FUN_002dbc50(void *info, unsigned char *data, unsigned char *rgbToIndex, unsigned char *remap)
 {
-    unsigned int count = info->count;
+    unsigned int count = ((ImageInfo_2dbc50 *)info)->count;
 
-    if ((info->format == 2 || info->format == 6) && rgbToIndex != 0 && info->bits == 8) {
-        unsigned int stride = (info->format == 2) ? 3 : 4;
+    if ((((ImageInfo_2dbc50 *)info)->format == 2 || ((ImageInfo_2dbc50 *)info)->format == 6) && rgbToIndex != 0 && ((ImageInfo_2dbc50 *)info)->bits == 8) {
+        unsigned int stride = (((ImageInfo_2dbc50 *)info)->format == 2) ? 3 : 4;
         unsigned char *src = data;
         unsigned char *dst = data;
         unsigned int n;
@@ -25,13 +25,13 @@ void FUN_002dbc50(ImageInfo_2dbc50 *info, unsigned char *data, unsigned char *rg
             dst++;
             src += stride;
         }
-        info->bitsCopy = info->bits;
-        info->format = 3;
-        info->flag = 1;
-        info->byteSize = (info->bitsCopy * count + 7) >> 3;
+        ((ImageInfo_2dbc50 *)info)->bitsCopy = ((ImageInfo_2dbc50 *)info)->bits;
+        ((ImageInfo_2dbc50 *)info)->format = 3;
+        ((ImageInfo_2dbc50 *)info)->flag = 1;
+        ((ImageInfo_2dbc50 *)info)->byteSize = (((ImageInfo_2dbc50 *)info)->bitsCopy * count + 7) >> 3;
         return;
     }
-    if (info->format == 3 && remap != 0 && info->bits == 8) {
+    if (((ImageInfo_2dbc50 *)info)->format == 3 && remap != 0 && ((ImageInfo_2dbc50 *)info)->bits == 8) {
         unsigned int n;
         unsigned char *p = data;
         for (n = count; n != 0; n--) {

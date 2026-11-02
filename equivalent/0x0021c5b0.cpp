@@ -25,9 +25,9 @@ struct LexState {
 };
 
 // equiv-conv: FUN_0021c5b0 eax edx
-void FUN_0021c5b0(LexState* ls, int tolevel)
+extern "C" void FUN_0021c5b0(void * ls, int tolevel)
 {
-    FuncState* fs = ls->fs;
+    FuncState* fs = ((LexState *)ls)->fs;
     while (fs->nactvar > tolevel) {
         --fs->nactvar;
         fs->f->locvars[fs->actvar[fs->nactvar]].endpc = fs->pc;

@@ -66,7 +66,7 @@ struct Obj {
 struct Hook {
     void FUN_001b4540(Obj *o);
 };
-Hook *FUN_001b6580();
+extern "C" void * __cdecl FUN_001b6580(void);
 
 struct Sink {
     void FUN_001eb7e0(ResName *name, u64 *id, void *r, const V3 *a, const V3 *b, V3 zero, int flag);
@@ -150,7 +150,7 @@ Obj *World::FUN_001de4f0(Registry *reg, ResName *rn, int v, const Mat4 *m)
         o->f19c = 0;
     }
     o->FUN_0027cb80(f1e824);
-    FUN_001b6580()->FUN_001b4540(o);
+    ((Hook *)FUN_001b6580())->FUN_001b4540(o);
     o->FUN_001d7b80(0, 5);
 
     int flag = 5;

@@ -14,11 +14,11 @@ struct Record_25ad30 {
     Str_25ad30 name;
 };
 
-int FUN_0025ad30(Str_25ad30* a, Record_25ad30* b)
+extern "C" int FUN_0025ad30(void * a, void * b)
 {
     Str_25ad30 copy;
-    Str_25ad30* t = copy.FUN_0023fc40(a->FUN_0023fb00(), 0);
-    const char* other = b->name.FUN_0023fb00();
+    Str_25ad30* t = copy.FUN_0023fc40(((Str_25ad30 *)a)->FUN_0023fb00(), 0);
+    const char* other = ((Record_25ad30 *)b)->name.FUN_0023fb00();
     int result = strcmp(t->FUN_0023fb00(), other);
     copy.FUN_00240060();
     return result;

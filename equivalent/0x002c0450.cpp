@@ -16,14 +16,14 @@ public:
 
 // Blits a source surface into a 32-bit ARGB buffer, alpha-blending each pixel.
 // equiv-conv: FUN_002c0450 eax ecx edx stack stack stack stack stack
-void FUN_002c0450(int y0, int width, int height, Surface_2c0450 *src, unsigned *dst, int x0, int stride, unsigned key)
+extern "C" void FUN_002c0450(int y0, int width, int height, void *src, unsigned *dst, int x0, int stride, unsigned key)
 {
     int yEnd = y0 + height;
     int xEnd = x0 + width;
     for (int y = y0; y < yEnd; y++) {
         unsigned *row = dst;
         for (int x = x0; x < xEnd; x++) {
-            unsigned c = src->GetPixel(x, y);
+            unsigned c = ((Surface_2c0450 *)src)->GetPixel(x, y);
             if ((c & 0xffffff) != key) {
                 int a = (int)(c >> 24);
                 if (a == 0xff) {

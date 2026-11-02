@@ -10,14 +10,14 @@ struct ImageInfo_2d9ae0 {
 };
 
 // Expands a grayscale (flags 0) or gray+alpha (flags 4) image to RGB(A) in place, walking backwards.
-void __cdecl FUN_002d9ae0(ImageInfo_2d9ae0 *info, unsigned char *data)
+extern "C" void __cdecl FUN_002d9ae0(void *info, unsigned char *data)
 {
-    unsigned char depth = info->depth;
-    unsigned int width = info->width;
-    if (depth < 8 || (info->flags & 2) != 0)
+    unsigned char depth = ((ImageInfo_2d9ae0 *)info)->depth;
+    unsigned int width = ((ImageInfo_2d9ae0 *)info)->width;
+    if (depth < 8 || (((ImageInfo_2d9ae0 *)info)->flags & 2) != 0)
         return;
 
-    unsigned char flags = info->flags;
+    unsigned char flags = ((ImageInfo_2d9ae0 *)info)->flags;
     if (flags == 0) {
         if (depth == 8) {
             unsigned char *s = data + width - 1;
@@ -73,11 +73,11 @@ void __cdecl FUN_002d9ae0(ImageInfo_2d9ae0 *info, unsigned char *data)
         }
     }
 
-    unsigned char channels = info->channels + 2;
-    unsigned char newFlags = info->flags;
-    info->channels = channels;
-    unsigned char bits = (unsigned char)((signed char)info->depth * (signed char)channels);
-    info->flags = newFlags | 2;
-    info->bitsPerPixel = bits;
-    info->pitch = ((unsigned int)bits * width + 7) >> 3;
+    unsigned char channels = ((ImageInfo_2d9ae0 *)info)->channels + 2;
+    unsigned char newFlags = ((ImageInfo_2d9ae0 *)info)->flags;
+    ((ImageInfo_2d9ae0 *)info)->channels = channels;
+    unsigned char bits = (unsigned char)((signed char)((ImageInfo_2d9ae0 *)info)->depth * (signed char)channels);
+    ((ImageInfo_2d9ae0 *)info)->flags = newFlags | 2;
+    ((ImageInfo_2d9ae0 *)info)->bitsPerPixel = bits;
+    ((ImageInfo_2d9ae0 *)info)->pitch = ((unsigned int)bits * width + 7) >> 3;
 }

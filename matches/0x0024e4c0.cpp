@@ -14,7 +14,7 @@ class TypeT_24e4c0 : public Type_24e4c0 {
     ~TypeT_24e4c0() throw();
 };
 extern void process(TypeT_24e4c0*, void*) throw();
-void target(void* p) {
+extern "C" void FUN_0024e4c0(void* p) {
     TypeT_24e4c0 t;
     process(&t, p);
 }

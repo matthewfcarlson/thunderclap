@@ -9,20 +9,20 @@ struct Format_2de600 {
  int pitch;
 };
 // equiv-conv: FUN_002de600 eax ecx esi
-void FUN_002de600(unsigned short* destination, const unsigned* source, const Format_2de600* format)
+extern "C" void FUN_002de600(unsigned short* destination, const unsigned* source, const void * format)
 {
- int padding = (format->pitch - (int)(format->width * 2)) / 2;
- unsigned rows = format->height;
+ int padding = (((const Format_2de600 *)format)->pitch - (int)(((const Format_2de600 *)format)->width * 2)) / 2;
+ unsigned rows = ((const Format_2de600 *)format)->height;
  if (rows) {
    do {
-     unsigned count = format->width;
+     unsigned count = ((const Format_2de600 *)format)->width;
      if (count) {
        do {
          unsigned pixel = *source++;
-         unsigned result = (((pixel & 0xffu) >> (format->blueRight & 31)) << (format->blueLeft & 31));
-         result |= (((pixel & 0xff0000u) >> (format->redRight & 31)) << (format->redLeft & 31));
-         result |= (((pixel & 0xff000000u) >> (format->alphaRight & 31)) << (format->alphaLeft & 31));
-         result |= (((pixel & 0xff00u) >> (format->greenRight & 31)) << (format->greenLeft & 31));
+         unsigned result = (((pixel & 0xffu) >> (((const Format_2de600 *)format)->blueRight & 31)) << (((const Format_2de600 *)format)->blueLeft & 31));
+         result |= (((pixel & 0xff0000u) >> (((const Format_2de600 *)format)->redRight & 31)) << (((const Format_2de600 *)format)->redLeft & 31));
+         result |= (((pixel & 0xff000000u) >> (((const Format_2de600 *)format)->alphaRight & 31)) << (((const Format_2de600 *)format)->alphaLeft & 31));
+         result |= (((pixel & 0xff00u) >> (((const Format_2de600 *)format)->greenRight & 31)) << (((const Format_2de600 *)format)->greenLeft & 31));
          *destination++ = (unsigned short)result;
        } while (--count);
      }

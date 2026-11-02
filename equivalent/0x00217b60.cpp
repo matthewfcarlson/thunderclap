@@ -22,29 +22,29 @@ struct LState_217b60 {
 };
 
 TObject_217b60 *__cdecl FUN_00217580(Table_217b60 *mt, int event, void *name);
-int __cdecl FUN_00215fa0(TObject_217b60 *a, TObject_217b60 *b);
+extern "C" int __cdecl FUN_00215fa0(const void *, const void *);
 
 // equiv-conv: FUN_00217b60 edi esi ebx stack
-TObject_217b60 *__cdecl FUN_00217b60(Table_217b60 *mt1, int event, Table_217b60 *mt2, LState_217b60 *L) {
-    if (mt1 == 0 || (mt1->flags & (1 << event)) != 0) {
-        return 0;
+extern "C" void *__cdecl FUN_00217b60(void *mt1, int event, void *mt2, void *L) {
+    if (((Table_217b60 *)mt1) == 0 || (((Table_217b60 *)mt1)->flags & (1 << event)) != 0) {
+        return (TObject_217b60 *)0;
     }
-    TObject_217b60 *tm1 = FUN_00217580(mt1, event, L->G->tmname[event]);
+    TObject_217b60 *tm1 = FUN_00217580(((Table_217b60 *)mt1), event, ((LState_217b60 *)L)->G->tmname[event]);
     if (tm1 == 0) {
-        return 0;
+        return (TObject_217b60 *)0;
     }
-    if (mt1 == mt2) {
-        return tm1;
+    if (((Table_217b60 *)mt1) == ((Table_217b60 *)mt2)) {
+        return (TObject_217b60 *)tm1;
     }
-    if (mt2 == 0 || (mt2->flags & (1 << event)) != 0) {
-        return 0;
+    if (((Table_217b60 *)mt2) == 0 || (((Table_217b60 *)mt2)->flags & (1 << event)) != 0) {
+        return (TObject_217b60 *)0;
     }
-    TObject_217b60 *tm2 = FUN_00217580(mt2, event, L->G->tmname[event]);
+    TObject_217b60 *tm2 = FUN_00217580(((Table_217b60 *)mt2), event, ((LState_217b60 *)L)->G->tmname[event]);
     if (tm2 == 0) {
-        return 0;
+        return (TObject_217b60 *)0;
     }
-    if (FUN_00215fa0(tm1, tm2)) {
-        return tm1;
+    if (FUN_00215fa0((TObject_217b60 *)tm1, (TObject_217b60 *)tm2)) {
+        return (TObject_217b60 *)tm1;
     }
-    return 0;
+    return (TObject_217b60 *)0;
 }

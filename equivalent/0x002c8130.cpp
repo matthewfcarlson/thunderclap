@@ -27,7 +27,7 @@ struct Desc_2c8130 {
 };
 
 // equiv-conv: FUN_002c8130 ecx eax esi
-void FUN_002c8130(unsigned char flag, Desc_2c8130 *d, Dev_2c8130 *dev)
+extern "C" void FUN_002c8130(unsigned char flag, Desc_2c8130 *d, Dev_2c8130 *dev)
 {
     unsigned n = d->count;
     const int *a, *b, *c, *e;

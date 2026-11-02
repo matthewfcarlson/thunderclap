@@ -58,7 +58,7 @@ struct World {
 char FUN_002020a0(int material);
 void FUN_002f1ce0(Vec3_202560 *from, int tri, Vec3_202560 *normal, float *out);
 
-char FUN_00202560(Vec3_202560 *start, float depth, int a3, Vec3_202560 *result, Vec3_202560 *normalOut,
+extern "C" char FUN_00202560(Vec3_202560 *start, float depth, int a3, Vec3_202560 *result, Vec3_202560 *normalOut,
                   Vec3_202560 *fallback, int *materialOut, int *c)
 {
     World *g = DAT_004dd700;

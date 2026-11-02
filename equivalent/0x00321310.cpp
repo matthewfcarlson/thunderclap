@@ -51,7 +51,7 @@ struct MatrixData_321310 {
     float m[16];
 };
 // equiv-conv: FUN_0031ffc0 ecx stack
-void FUN_0031ffc0(Color4* self, int id);
+extern "C" void FUN_0031ffc0(Color4* self, int id);
 namespace D3D8 {
 void __stdcall D3DDevice_SetLight(DWORD index, Light8_321310* light);
 void __stdcall D3DDevice_LightEnable(DWORD index, int enable);

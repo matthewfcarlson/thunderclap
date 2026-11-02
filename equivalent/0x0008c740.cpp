@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/8, incomplete)
 // FUN_0008c740 @ 0x0008c740
+#include "compat/ptr.h"
 struct Slot_8c740 {
     int owner;
     unsigned int bits;
@@ -11,7 +12,7 @@ struct SlotTable_8c740 {
     Slot_8c740 slots[1];
 };
 
-extern "C" void __cdecl FUN_0008c710(Slot_8c740* slot, int value);
+extern "C" void __cdecl FUN_0008c710(void *, unsigned short *);
 
 class SlotSet {
 public:
@@ -22,7 +23,7 @@ public:
 
 int SlotSet::FUN_0008c740(int index, unsigned int* outBits, int value) {
     if (value)
-        FUN_0008c710(&table->slots[index], value);
+        FUN_0008c710((Slot_8c740 *)(&table->slots[index]), (unsigned short *)(hulk_uintptr)(int)value);
     if (outBits) {
         Slot_8c740* s = (Slot_8c740*)((char*)table + 0x5c + index * sizeof(Slot_8c740));
         if (s == 0 || s->owner != 0) {

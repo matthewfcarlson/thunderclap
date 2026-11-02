@@ -9,17 +9,17 @@ struct V3_2fa6b0 {
 // out = normalised cross product (a - b) x (a - c)
 // x87: the differences to c and the z difference to b stay in registers (53 bits); the x and y differences to b
 // go through the frame (rounded)
-void FUN_002fa6b0(const V3_2fa6b0* a, const V3_2fa6b0* b, const V3_2fa6b0* c, V3_2fa6b0* out)
+extern "C" void FUN_002fa6b0(const void * a, const void * b, const void * c, void * out)
 {
-    hulk_freg dx = a->x - c->x;
-    hulk_freg dy = a->y - c->y;
-    hulk_freg dz = a->z - c->z;
+    hulk_freg dx = ((const V3_2fa6b0 *)a)->x - ((const V3_2fa6b0 *)c)->x;
+    hulk_freg dy = ((const V3_2fa6b0 *)a)->y - ((const V3_2fa6b0 *)c)->y;
+    hulk_freg dz = ((const V3_2fa6b0 *)a)->z - ((const V3_2fa6b0 *)c)->z;
     volatile float e[3];
-    e[0] = a->x - b->x;
-    e[1] = a->y - b->y;
-    hulk_freg ez = a->z - b->z;
-    out->x = e[1] * dz - ez * dy;
-    out->y = ez * dx - dz * e[0];
-    out->z = e[0] * dy - e[1] * dx;
-    out->FUN_0022d180();
+    e[0] = ((const V3_2fa6b0 *)a)->x - ((const V3_2fa6b0 *)b)->x;
+    e[1] = ((const V3_2fa6b0 *)a)->y - ((const V3_2fa6b0 *)b)->y;
+    hulk_freg ez = ((const V3_2fa6b0 *)a)->z - ((const V3_2fa6b0 *)b)->z;
+    ((V3_2fa6b0 *)out)->x = e[1] * dz - ez * dy;
+    ((V3_2fa6b0 *)out)->y = ez * dx - dz * e[0];
+    ((V3_2fa6b0 *)out)->z = e[0] * dy - e[1] * dx;
+    ((V3_2fa6b0 *)out)->FUN_0022d180();
 }

@@ -12,23 +12,24 @@ struct ConsControl_21cec0 {
     int na;
     int tostore;
 };
-void __cdecl FUN_00220a50(FuncState_21cec0* fs, Exp_21cec0* e, int nresults);
-int __cdecl FUN_00220c10(FuncState_21cec0* fs, int op, int a, int bx);
-void __cdecl FUN_00221110(FuncState_21cec0* fs, Exp_21cec0* e);
+extern "C" void __cdecl FUN_00220a50(void *, void *, int);
+extern "C" int __cdecl FUN_00220c10(void *, unsigned int, int, unsigned int);
+extern "C" void __cdecl FUN_00221110(void *, void *);
 
 // Lua 5.0 lastlistfield(fs, cc): cc arrives in esi, fs in edi.
 // equiv-conv: FUN_0021cec0 esi edi
-void FUN_0021cec0(ConsControl_21cec0* cc, FuncState_21cec0* fs)
+extern "C" void FUN_0021cec0(void * cc_, void * fs)
 {
+    ConsControl_21cec0 * cc = (ConsControl_21cec0 *)cc_;
     if (cc->tostore == 0)
         return;
     if (cc->v.k == 12) {
-        FUN_00220a50(fs, &cc->v, -1);
-        FUN_00220c10(fs, 0x21, cc->t->info, cc->na - 1);
+        FUN_00220a50((FuncState_21cec0 *)((FuncState_21cec0 *)fs), (Exp_21cec0 *)(&cc->v), -1);
+        FUN_00220c10((FuncState_21cec0 *)((FuncState_21cec0 *)fs), 0x21, cc->t->info, (int)(cc->na - 1));
     } else {
         if (cc->v.k != 0)
-            FUN_00221110(fs, &cc->v);
-        FUN_00220c10(fs, 0x20, cc->t->info, cc->na - 1);
+            FUN_00221110((FuncState_21cec0 *)((FuncState_21cec0 *)fs), (Exp_21cec0 *)(&cc->v));
+        FUN_00220c10((FuncState_21cec0 *)((FuncState_21cec0 *)fs), 0x20, cc->t->info, (int)(cc->na - 1));
     }
-    fs->freereg = cc->t->info + 1;
+    ((FuncState_21cec0 *)fs)->freereg = cc->t->info + 1;
 }

@@ -21,11 +21,13 @@ struct Tree {
     Node nil;
 };
 
-void __cdecl FUN_0025ec50(Tree *t, Node *n);
+extern "C" void __cdecl FUN_0025ec50(void *, void *);
 void __cdecl FUN_0025eca0(Tree *t, Node *n);
 
-bool FUN_0025f450(Tree *t, Item *item, const char **pkey)
+extern "C" bool FUN_0025f450(void * t_, void * item_, const char **pkey)
 {
+    Tree * t = (Tree *)t_;
+    Item * item = (Item *)item_;
     Node *z = &item->node;
     Node *y = &t->nil;
     Node *x = t->root;
@@ -66,7 +68,7 @@ bool FUN_0025f450(Tree *t, Item *item, const char **pkey)
             if (u->color != 1) {
                 if (z == p->right) {
                     z = p;
-                    FUN_0025ec50(t, z);
+                    FUN_0025ec50((Tree *)t, (Node *)z);
                 }
                 z->parent->color = 0;
                 z->parent->parent->color = 1;

@@ -6,7 +6,7 @@ extern "C" char * __cdecl strncpy(char *, const char *, unsigned int);
 int __cdecl FUN_00345b90(int);
 void __cdecl FUN_0026d850(void *);
 void __cdecl FUN_0026d840(void *);
-int __cdecl FUN_00270c10(const char *);
+extern "C" int __cdecl FUN_00270c10(const char *);
 struct Record_270e60 { char name[0x11c]; };
 
 void __cdecl FUN_00270e60(const char *key, char *output)

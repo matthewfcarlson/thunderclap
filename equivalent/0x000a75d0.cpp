@@ -36,7 +36,7 @@ float __cdecl FUN_0009fb20(float a, float b, float c, float d, float e);
 float __cdecl FUN_000a00e0(float a, float b, float c, float d, float e);
 float __cdecl FUN_000a02a0(float v);
 float __cdecl FUN_000a0450(V3_a75d0 *v);
-void __cdecl FUN_000a04c0(V3_a75d0 *dir, float *yaw, float *pitch, float *len);
+extern "C" void __cdecl FUN_000a04c0(V3_a75d0 *dir, float *yaw, float *pitch, float *len);
 
 struct Target_a75d0 {
     char pad0[0x140];

@@ -9,7 +9,7 @@ struct V3_1b05a0 {
     float x, y, z;
     float FUN_0022d180();
 };
-float __cdecl FUN_000186b0(float* v, float* lo, float* hi);
+extern "C" float __cdecl FUN_000186b0(float* v, float* lo, float* hi);
 void __cdecl FUN_00224d70(float angle, V3_1b05a0* axis);
 static float AbsF(float v) {
     union {
@@ -127,7 +127,7 @@ struct Chk {
 struct Dummy964 {
     float FUN_000787e0(int a, float b);
 };
-Dummy964* __cdecl FUN_000964d0();
+extern "C" Dummy964* __cdecl FUN_000964d0();
 struct Entity {
     char pad00[8];
     char pos8[0x38];

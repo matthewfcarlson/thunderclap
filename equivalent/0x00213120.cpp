@@ -10,13 +10,13 @@ struct TObject {
 };
 
 const TObject* __fastcall FUN_00212bb0(int idx, lua_State* L);
-const TObject* __cdecl FUN_00217600(const TObject* obj, TObject* n);
+extern "C" void * __cdecl FUN_00217600(void *, void *);
 
 extern "C" int FUN_00213120(lua_State* L, int idx)
 {
     TObject n;
     const TObject* o = FUN_00212bb0(idx, L);
-    if (o->tt == 3 || (o = FUN_00217600(o, &n)) != 0)
+    if (o->tt == 3 || (o = ((const TObject *)FUN_00217600((void *)(const TObject *)o, (TObject *)(&n)))) != 0)
         return (int)(__int64)o->n;
     return 0;
 }

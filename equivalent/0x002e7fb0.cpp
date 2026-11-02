@@ -36,12 +36,12 @@ struct png_struct_2e7fb0 {
     unsigned char pixel_depth;          // 0x121
 };
 
-void __cdecl FUN_002dc3e0(png_struct_2e7fb0 *png_ptr);
+extern "C" void __cdecl FUN_002dc3e0(png_struct_2e7fb0 *png_ptr);
 unsigned char *__cdecl FUN_002e6c00(png_struct_2e7fb0 *png_ptr, unsigned int size);
 void __cdecl FUN_002e6b60(png_struct_2e7fb0 *png_ptr, unsigned char *ptr, int value, unsigned int size);
 
 // libpng png_read_start_row
-void __cdecl FUN_002e7fb0(png_struct_2e7fb0 *png_ptr)
+extern "C" void __cdecl FUN_002e7fb0(png_struct_2e7fb0 *png_ptr)
 {
     int max_pixel_depth;
     unsigned int row_bytes;

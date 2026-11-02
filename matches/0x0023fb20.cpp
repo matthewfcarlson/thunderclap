@@ -1,4 +1,5 @@
-void Helper(unsigned int* out, unsigned int x, unsigned int y, unsigned int z);
+#include "compat/ptr.h"
+extern "C" void __cdecl FUN_0023fa40(int *, char *, unsigned int, int);
 struct Obj_23fb20 {
   public:
     unsigned int value;
@@ -18,6 +19,6 @@ void Obj_23fb20::f(unsigned int a1, unsigned int a2, unsigned int a3, int a4) {
         value = a1;
         return;
     }
-    Helper(&a1, a1, a2, a3);
+    FUN_0023fa40((int *)(unsigned int *)(&a1), (char *)(hulk_uintptr)(unsigned int)a1, a2, (unsigned int)a3);
     value = a1;
 }

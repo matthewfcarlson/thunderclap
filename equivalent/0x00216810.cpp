@@ -6,21 +6,21 @@ struct Record_216810 { Node* node; int a,b; };
 struct Container_216810 {
  char pad0[8]; Entry_216810* entries; int unusedC; Node** nodes; int unused14; Record_216810* records; Node** cleared; Node* root; int clearedCount; int entryCount; int unused2C; int unused30; int nodeCount; int recordCount;
 };
-void __cdecl FUN_002164b0(void* context, Node* node);
+extern "C" void __cdecl FUN_002164b0(void *, void *);
 // equiv-conv: FUN_00216810 esi stack
-void __cdecl FUN_00216810(Container_216810* self, void* context) {
- if(self->root) self->root->flags &= 0xfc;
- for(int i=0; i<self->entryCount; ++i) {
-  Entry_216810& entry=self->entries[i];
-  if(entry.type>=4 && (entry.node->flags&3)) FUN_002164b0(context,entry.node);
+extern "C" void __cdecl FUN_00216810(void * self, void* context) {
+ if(((Container_216810 *)self)->root) ((Container_216810 *)self)->root->flags &= 0xfc;
+ for(int i=0; i<((Container_216810 *)self)->entryCount; ++i) {
+  Entry_216810& entry=((Container_216810 *)self)->entries[i];
+  if(entry.type>=4 && (entry.node->flags&3)) FUN_002164b0(context,(Node *)(entry.node));
  }
- for(int j=0; j<self->clearedCount; ++j) {
-  Node* n=self->cleared[j]; if(n) n->flags &= 0xfc;
+ for(int j=0; j<((Container_216810 *)self)->clearedCount; ++j) {
+  Node* n=((Container_216810 *)self)->cleared[j]; if(n) n->flags &= 0xfc;
  }
- for(int k=0; k<self->nodeCount; ++k) {
-  Node* n=self->nodes[k]; if(n && (n->flags&3)) FUN_002164b0(context,n);
+ for(int k=0; k<((Container_216810 *)self)->nodeCount; ++k) {
+  Node* n=((Container_216810 *)self)->nodes[k]; if(n && (n->flags&3)) FUN_002164b0(context,(Node *)n);
  }
- for(int l=0; l<self->recordCount; ++l) {
-  Node* n=self->records[l].node; if(n) n->flags &= 0xfc;
+ for(int l=0; l<((Container_216810 *)self)->recordCount; ++l) {
+  Node* n=((Container_216810 *)self)->records[l].node; if(n) n->flags &= 0xfc;
  }
 }

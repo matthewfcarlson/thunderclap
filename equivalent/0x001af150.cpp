@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 4/4)
 // FUN_001af150 @ 0x001af150
+#include "compat/ptr.h"
 struct Pair_1af150 {
     union {
         int first;
@@ -48,7 +49,7 @@ struct Frame_1af150 {
 
 extern "C" void FUN_001ad560(void *node, void *param);
 extern "C" void FUN_001ad550(void *node, void *param);
-Node *FUN_001aedb0(Map_1af150 *a, Map_1af150 *b, int c, int d, Pair_1af150 *e);
+extern "C" void * __cdecl FUN_001aedb0(void *, void *, void *, void *, int *);
 extern "C" char FUN_001ad5c0(Owner *o, Node *n);
 
 float FUN_001af150(Owner *o, const int *in, int c, int d, int *outId)
@@ -71,7 +72,7 @@ float FUN_001af150(Owner *o, const int *in, int c, int d, int *outId)
     Pair_1af150 *p = f.mapA.FUN_001ae9e0(&f.pair1, &f.k);
     f.mapB.FUN_001aecb0(&f.pair2, p);
     f.pair1.first = -1;
-    Node *n = FUN_001aedb0(&f.mapA, &f.mapB, c, d, &f.pair1);
+    Node *n = ((Node *)FUN_001aedb0((Map_1af150 *)(&f.mapA), (Map_1af150 *)(&f.mapB), (void *)(hulk_uintptr)(int)c, (void *)(hulk_uintptr)(int)d, (int *)(Pair_1af150 *)(&f.pair1)));
     if (n == 0) {
         f.mapB.FUN_00230f50(FUN_001ad560, &f.mapB);
         f.mapA.FUN_00230f50(FUN_001ad550, &f.mapA);

@@ -8,10 +8,10 @@ struct State {
 };
 void thunk_FUN_00270a50();
 // equiv-conv: FUN_00334c40 esi
-void FUN_00334c40(State *state) {
-    state->processing = 1;
-    while (state->pending != 0) {
+extern "C" void FUN_00334c40(void *state) {
+    ((State *)state)->processing = 1;
+    while (((State *)state)->pending != 0) {
         thunk_FUN_00270a50();
     }
-    state->processing = 0;
+    ((State *)state)->processing = 0;
 }

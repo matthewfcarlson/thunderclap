@@ -10,10 +10,10 @@ class Registry {
     void put(Pair*, Pair*, int, int);
 };
 extern "C" int __cdecl atexit(void(__cdecl*)());
-extern void __cdecl cleanup();
+extern "C" void __cdecl FUN_00364210();
 void __cdecl init() {
     Pair a = lookup(DAT_004292b8, 0, 0);
     Pair b = lookup(DAT_00429270, 0, 0);
     (*(Registry*)&DAT_004e6080).put(&b, &a, 8, 4);
-    atexit(cleanup);
+    atexit(FUN_00364210);
 }

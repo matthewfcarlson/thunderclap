@@ -6,8 +6,8 @@ class Sound {
     Sound(const char*, int);
 };
 extern "C" int __cdecl atexit(void(__cdecl*)());
-extern "C" void __cdecl cleanup();
+extern "C" void __cdecl FUN_00364050();
 void init() {
     (*(Sound*)&DAT_004e23b8).Sound::Sound("sound/rsd", 0);
-    atexit(cleanup);
+    atexit(FUN_00364050);
 }

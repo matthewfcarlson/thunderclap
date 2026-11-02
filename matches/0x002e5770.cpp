@@ -1,7 +1,7 @@
 // Same code shape as 0x00290790 (propagated; names are from that function)
 #include "compat/ptr.h"
 extern void* FUN_0008d6d0(hulk_uintptr);
-extern void FUN_002e54a0(void*, unsigned int, void*);
+extern "C" int * __cdecl FUN_002e54a0(int *, int, const int *);
 
 class Buffer_2e5770 {
   public:
@@ -18,7 +18,7 @@ bool Buffer_2e5770::Create(unsigned int count, void* arg) {
         begin = p;
         if (p != 0) {
             end = p + count;
-            FUN_002e54a0(p, count, arg);
+            FUN_002e54a0((int *)(void *)p, (unsigned int)count, (const int *)(void *)arg);
             return true;
         }
     }

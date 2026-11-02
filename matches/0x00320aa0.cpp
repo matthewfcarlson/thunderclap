@@ -15,13 +15,13 @@ void __stdcall D3DSurface_GetDesc(Surface*, SurfaceDesc_320aa0*);
 Surface* __stdcall D3DDevice_GetRenderTarget2();
 void __stdcall D3DDevice_CopyRects(Surface*, Rect_320aa0*, DWORD, Surface*, void*);
 } // namespace D3D8
-void FUN_0031c230(long hr);
+extern "C" void __cdecl FUN_0031c230(int);
 void __stdcall FUN_00320aa0(Texture* tex) {
     if (!tex)
         return;
     D3D8::D3DResource_AddRef(tex);
     Surface* src = D3D8::D3DTexture_GetSurfaceLevel2(tex, 0);
-    FUN_0031c230(src ? 0 : 0x8007000e);
+    FUN_0031c230((long)(src ? 0 : 0x8007000e));
     SurfaceDesc_320aa0 desc;
     D3D8::D3DSurface_GetDesc(src, &desc);
     FUN_0031c230(0);

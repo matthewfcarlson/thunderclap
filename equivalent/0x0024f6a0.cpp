@@ -18,7 +18,7 @@ struct SeqAction { virtual void vfunc_0(); virtual void vfunc_1(Context*); virtu
 struct SeqActionChannelSendVolumes : SeqAction { virtual void vfunc_1(Context*); };
 }
 audio::Channel* __cdecl FUN_0024a940(void*,void*);
-void __cdecl FUN_0024f280(audio::Tree_24f6a0*,audio::ChannelSendVolumeFadeBehaviour*,uint*);
+extern "C" char __cdecl FUN_0024f280(void *, void *, const unsigned *);
 void audio::SeqActionChannelSendVolumes::vfunc_1(Context* ctx) {
  Channel* ch=FUN_0024a940(ctx->value,settings->lookup);
  Tree_24f6a0* tree=&ch->tree;
@@ -53,6 +53,6 @@ void audio::SeqActionChannelSendVolumes::vfunc_1(Context* ctx) {
  b->owner=settings->owner;
  b->volumes=volumes;
  }
- FUN_0024f280(tree,b,(uint*)((char*)b+0x14));
+ FUN_0024f280((audio :: Tree_24f6a0 *)tree,(audio :: ChannelSendVolumeFadeBehaviour *)b,(const unsigned *)(unsigned int *)((uint*)((char*)b+0x14)));
  active=0;
 }

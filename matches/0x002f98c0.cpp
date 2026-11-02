@@ -1,6 +1,6 @@
 // Same code shape as 0x002b0de0 (propagated; names are from that function)
 typedef unsigned int U_2f98c0;
-U_2f98c0* __cdecl FUN_002f98c0(U_2f98c0* dst, unsigned int count, U_2f98c0* src) {
+extern "C" unsigned int * __cdecl FUN_002f98c0(unsigned int * dst, unsigned int count, unsigned int * src) {
     if (count) {
         for (; count; --count) {
             if (dst) {

@@ -44,7 +44,7 @@ hulk_intptr FUN_0025e070();
 int FUN_0025d040(int h);
 extern "C" void FUN_0025e550(Sub_24be00 *s, int a, int b, int c);
 
-Rec_24be00 *FUN_0024be00(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
+extern "C" void *FUN_0024be00(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
 {
     Rec_24be00 *r = (Rec_24be00 *)FUN_00247530(((Pool_24be00*)&DAT_004e61a0));
     if (r)
@@ -60,7 +60,7 @@ Rec_24be00 *FUN_0024be00(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
     r->fc = FUN_0025d340(a3, a4, 1);
     if (r->fc == 0) {
         FUN_00247550(((Pool_24be00*)&DAT_004e61a0), r);
-        return 0;
+        return (Rec_24be00 *)0;
     }
     if ((*(Rec_24be00**)&DAT_004e61e8) == 0) {
         (*(Rec_24be00**)&DAT_004e61e8) = r;
@@ -98,5 +98,5 @@ Rec_24be00 *FUN_0024be00(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
     r->ba = 10;
     for (int i = 0; i < 10; i++)
         r->f18[i] = 0;
-    return r;
+    return (Rec_24be00 *)r;
 }

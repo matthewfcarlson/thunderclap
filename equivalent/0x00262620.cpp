@@ -9,7 +9,7 @@ struct Str_262620 {
     void FUN_00240190(Str_262620* src);
     void FUN_00240060();
 };
-void __cdecl FUN_00262460(Str_262620* path);
+extern "C" void * __cdecl FUN_00262460(void *);
 
 // Normalises a path string in place: '/' becomes '\\', then any trailing separator is removed.
 Str_262620* __cdecl FUN_00262620(Str_262620* path) {
@@ -20,7 +20,7 @@ Str_262620* __cdecl FUN_00262620(Str_262620* path) {
                 *p = '\\';
         }
     }
-    FUN_00262460(path);
+    FUN_00262460((Str_262620 *)path);
     unsigned int len = path->FUN_0023f990();
     if (len > 0) {
         char* p = path->FUN_0023fbb0();

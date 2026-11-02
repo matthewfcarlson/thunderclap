@@ -6,22 +6,22 @@ struct Butterfly_342c20 {
 };
 
 // equiv-conv: FUN_00342c20 eax
-void FUN_00342c20(Butterfly_342c20 *p)
+extern "C" void FUN_00342c20(void *p)
 {
-    hulk_freg a = p->v[0] + p->v[4];
-    hulk_freg b = p->v[1] + p->v[5];
-    float c = p->v[0] - p->v[4];
-    float d = p->v[1] - p->v[5];
-    hulk_freg e = p->v[6] + p->v[2];
-    float f = p->v[3] + p->v[7];
-    float g = p->v[2] - p->v[6];
-    float h = p->v[3] - p->v[7];
-    p->v[0] = a + e;
-    p->v[1] = b + f;
-    p->v[4] = a - e;
-    p->v[5] = b - f;
-    p->v[2] = c - h;
-    p->v[3] = g + d;
-    p->v[6] = h + c;
-    p->v[7] = d - g;
+    hulk_freg a = ((Butterfly_342c20 *)p)->v[0] + ((Butterfly_342c20 *)p)->v[4];
+    hulk_freg b = ((Butterfly_342c20 *)p)->v[1] + ((Butterfly_342c20 *)p)->v[5];
+    float c = ((Butterfly_342c20 *)p)->v[0] - ((Butterfly_342c20 *)p)->v[4];
+    float d = ((Butterfly_342c20 *)p)->v[1] - ((Butterfly_342c20 *)p)->v[5];
+    hulk_freg e = ((Butterfly_342c20 *)p)->v[6] + ((Butterfly_342c20 *)p)->v[2];
+    float f = ((Butterfly_342c20 *)p)->v[3] + ((Butterfly_342c20 *)p)->v[7];
+    float g = ((Butterfly_342c20 *)p)->v[2] - ((Butterfly_342c20 *)p)->v[6];
+    float h = ((Butterfly_342c20 *)p)->v[3] - ((Butterfly_342c20 *)p)->v[7];
+    ((Butterfly_342c20 *)p)->v[0] = a + e;
+    ((Butterfly_342c20 *)p)->v[1] = b + f;
+    ((Butterfly_342c20 *)p)->v[4] = a - e;
+    ((Butterfly_342c20 *)p)->v[5] = b - f;
+    ((Butterfly_342c20 *)p)->v[2] = c - h;
+    ((Butterfly_342c20 *)p)->v[3] = g + d;
+    ((Butterfly_342c20 *)p)->v[6] = h + c;
+    ((Butterfly_342c20 *)p)->v[7] = d - g;
 }

@@ -13,14 +13,15 @@ struct FuncState {
 void __cdecl FUN_002207c0(FuncState* fs, int* l1, int l2);
 // patchlistaux: fs in ebx, list in edx, five more stack words
 // equiv-conv: FUN_00220650 edx ebx stack stack stack stack stack
-void FUN_00220650(int list, FuncState* fs, int a, int b, int c, int d, int e);
+extern "C" void __cdecl FUN_00220650(int, void *, int, int, int, int, int);
 
-void __cdecl FUN_00221ae0(FuncState* fs, int list, int target)
+extern "C" void __cdecl FUN_00221ae0(void * fs_, int list, int target)
 {
+    FuncState * fs = (FuncState *)fs_;
     if (target == fs->pc) {
         fs->lasttarget = fs->pc;
         FUN_002207c0(fs, &fs->jpc, list);
     } else {
-        FUN_00220650(list, fs, target, 0xff, target, 0xff, target);
+        FUN_00220650(list, (FuncState *)fs, target, 0xff, target, 0xff, target);
     }
 }

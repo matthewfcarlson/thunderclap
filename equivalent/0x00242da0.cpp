@@ -79,9 +79,9 @@ static Entry_242da0 *EntryOf(Node *n)
     return (Entry_242da0 *)((char *)n - 4);
 }
 
-void FUN_00242da0(Context *ctx, Group_242da0 *group)
+extern "C" void FUN_00242da0(void *ctx, void *group)
 {
-    Owner_242da0 *owner = group->owner;
+    Owner_242da0 *owner = ((Group_242da0 *)group)->owner;
     Node *nil = &owner->tree.nil;
     Entry_242da0 *e;
     if (owner->tree.root == nil) {
@@ -95,12 +95,12 @@ void FUN_00242da0(Context *ctx, Group_242da0 *group)
     if (!e)
         return;
     do {
-        Target_242da0 *target = FUN_00242ce0(ctx, &e->key);
+        Target_242da0 *target = FUN_00242ce0(((Context *)ctx), &e->key);
         Binding_242da0 *b = (Binding_242da0 *)FUN_00247530(DAT_004e5e40);
         if (b)
             new (b) Binding_242da0;
         b->target = target;
-        b->group = group;
+        b->group = ((Group_242da0 *)group);
         b->entry = e;
 
         Link_242da0 *tl = &b->targetLink;
@@ -115,14 +115,14 @@ void FUN_00242da0(Context *ctx, Group_242da0 *group)
         tl->next = 0;
 
         Link_242da0 *gl = &b->groupLink;
-        if (group->head == 0) {
-            group->head = gl;
+        if (((Group_242da0 *)group)->head == 0) {
+            ((Group_242da0 *)group)->head = gl;
             gl->prev = 0;
         } else {
-            group->tail->next = gl;
-            gl->prev = group->tail;
+            ((Group_242da0 *)group)->tail->next = gl;
+            gl->prev = ((Group_242da0 *)group)->tail;
         }
-        group->tail = gl;
+        ((Group_242da0 *)group)->tail = gl;
         gl->next = 0;
 
         // in-order successor

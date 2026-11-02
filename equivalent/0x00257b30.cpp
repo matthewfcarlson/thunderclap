@@ -9,7 +9,7 @@ extern bool __cdecl FUN_0025abd0(void*, unsigned*);
 extern Entry_257b30* __cdecl FUN_00247530(void*);
 extern "C" void* __cdecl FUN_002673a0(const char*, int);
 extern "C" bool __cdecl FUN_0025bce0(void*, Text_257b30*);
-extern void __cdecl FUN_00257780(List_257b30*, Entry_257b30*, void**);
+extern "C" char __cdecl FUN_00257780(void *, void *, const unsigned *);
 extern void __cdecl FUN_00247550(void*, Entry_257b30*);
 struct Owner_257b30 { char pad[0x44]; List_257b30 list; bool target(void*); };
 bool Owner_257b30::target(void* input) {
@@ -25,7 +25,7 @@ bool Owner_257b30::target(void* input) {
   if (slot) *slot = FUN_002673a0(text.FUN_0023fb00(),0);
   text.FUN_00240060();
   if (!ok) { FUN_00247550(((char*)&DAT_004e7690),item); return false; }
-  FUN_00257780(&list,item,slot);
+  FUN_00257780((List_257b30 *)(&list),(Entry_257b30 *)item,(const unsigned *)(void * *)slot);
  }
  return true;
 }

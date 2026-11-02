@@ -32,21 +32,21 @@ struct Sound_1f3040 {
 };
 
 
-Node *__cdecl FUN_001f2ff0(Key_1f3040 *k);
+extern "C" void * __cdecl FUN_001f2ff0(unsigned __int64 *);
 
-void __cdecl FUN_001f3040(Dest_1f3040 *d, Key_1f3040 *k)
+extern "C" void __cdecl FUN_001f3040(void *d, void *k)
 {
-    Node *n = FUN_001f2ff0(k);
+    Node *n = ((Node *)FUN_001f2ff0((unsigned __int64 *)(Key_1f3040 *)((Key_1f3040 *)k)));
     if (n != 0) {
-        d->handleA = (*(Sound_1f3040**)&DAT_004e3690)->FUN_001e9860(n->nameA, n->nameB);
-        d->handleB = (*(Sound_1f3040**)&DAT_004e3690)->FUN_001e9860(n->nameC, n->nameD);
-        d->flag = n->flag;
+        ((Dest_1f3040 *)d)->handleA = (*(Sound_1f3040**)&DAT_004e3690)->FUN_001e9860(n->nameA, n->nameB);
+        ((Dest_1f3040 *)d)->handleB = (*(Sound_1f3040**)&DAT_004e3690)->FUN_001e9860(n->nameC, n->nameD);
+        ((Dest_1f3040 *)d)->flag = n->flag;
         return;
     }
     u64_1f3040 hulk = FUN_0027b020("hulk"); // MSVC calls it before reading k->key
-    if (k->key == hulk) {
-        d->handleA = (*(Sound_1f3040**)&DAT_004e3690)->FUN_001ea010("hulk_sfx");
-        d->handleB = (*(Sound_1f3040**)&DAT_004e3690)->FUN_001ea010("hulk_vox");
-        d->flag = 1;
+    if (((Key_1f3040 *)k)->key == hulk) {
+        ((Dest_1f3040 *)d)->handleA = (*(Sound_1f3040**)&DAT_004e3690)->FUN_001ea010("hulk_sfx");
+        ((Dest_1f3040 *)d)->handleB = (*(Sound_1f3040**)&DAT_004e3690)->FUN_001ea010("hulk_vox");
+        ((Dest_1f3040 *)d)->flag = 1;
     }
 }

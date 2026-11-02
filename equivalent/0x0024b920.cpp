@@ -55,8 +55,9 @@ struct Player_24b920 {
 };
 
 // equiv-conv: FUN_0024b920 esi
-void FUN_0024b920(Player_24b920 *p)
+extern "C" void FUN_0024b920(void * p_)
 {
+    Player_24b920 * p = (Player_24b920 *)p_;
     unsigned int got;
 
     if (p->source == 0)

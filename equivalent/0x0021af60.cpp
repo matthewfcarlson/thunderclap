@@ -6,7 +6,7 @@ struct Context { char pad[0x20]; void *allocator; char pad2[4]; Buffer *buffer; 
 extern "C" void *FUN_0021add0(void *, void *, hulk_uintptr, hulk_uintptr);
 extern "C" void *FUN_0021af00(Context *, int);
 // equiv-conv: FUN_0021af60 eax edi
-void *FUN_0021af60(int code, Context *ctx) {
+extern "C" void *FUN_0021af60(int code, Context *ctx) {
     if (code != 0x116 && (code <= 0x11c || code > 0x11e))
         return FUN_0021af00(ctx, code);
     Buffer *buf = ctx->buffer;

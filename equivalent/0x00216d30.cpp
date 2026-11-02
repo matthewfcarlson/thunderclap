@@ -10,35 +10,35 @@ struct Op {
     int arg;
 };
 
-void __cdecl FUN_00219730(Ctx *c, Op *o);
-void __cdecl FUN_002197d0(Ctx *c, Op *o);
+extern "C" void __cdecl FUN_00219730(void *, void *);
+extern "C" void __cdecl FUN_002197d0(void *, void *);
 void __cdecl FUN_0021add0(Ctx *c, Op *o, int a, int b);
-void __cdecl FUN_00219d20(Ctx *c, Op *o);
-void __cdecl FUN_00215090(Ctx *c, Op *o);
+extern "C" void __cdecl FUN_00219d20(void *, void *);
+extern "C" void __cdecl FUN_00215090(void *, void *);
 
-void __cdecl FUN_00216d30(Ctx *c, Op *o)
+extern "C" void __cdecl FUN_00216d30(void *c, void *o)
 {
-    switch (o->kind) {
+    switch (((Op *)o)->kind) {
     case 4:
-        FUN_0021add0(c, o, o->arg + 0x11, 0);
+        FUN_0021add0(((Ctx *)c), ((Op *)o), ((Op *)o)->arg + 0x11, 0);
         break;
     case 5:
-        FUN_00219d20(c, o);
+        FUN_00219d20((Ctx *)((Ctx *)c), (Op *)((Op *)o));
         break;
     case 6:
-        FUN_002197d0(c, o);
+        FUN_002197d0((Ctx *)((Ctx *)c), (Op *)((Op *)o));
         break;
     case 7:
-        FUN_0021add0(c, o, o->arg + 0x10, 0);
+        FUN_0021add0(((Ctx *)c), ((Op *)o), ((Op *)o)->arg + 0x10, 0);
         break;
     case 8:
-        FUN_00215090(c, o);
+        FUN_00215090((Ctx *)((Ctx *)c), (Op *)((Op *)o));
         break;
     case 9:
-        FUN_00219730(c, o);
+        FUN_00219730((Ctx *)((Ctx *)c), (Op *)((Op *)o));
         break;
     case 10:
-        FUN_0021add0(c, o, 0x14, 0);
+        FUN_0021add0(((Ctx *)c), ((Op *)o), 0x14, 0);
         break;
     }
 }

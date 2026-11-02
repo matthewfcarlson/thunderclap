@@ -28,43 +28,43 @@ struct Fade_248670 {
  unsigned phase;
 };
 // equiv-conv: FUN_00248670 edi esi stack
-void __cdecl FUN_00248670(Owner_248670* owner, Fade_248670* fade, unsigned ticks) {
- if (!owner->active) ticks = 0;
- if (fade->phase == 0) {
-  fade->elapsed += ticks;
-  if (fade->elapsed >= fade->delay) {
-   fade->phase = 1;
-   ticks = fade->elapsed - fade->delay;
+extern "C" void __cdecl FUN_00248670(void * owner, void * fade, unsigned ticks) {
+ if (!((Owner_248670 *)owner)->active) ticks = 0;
+ if (((Fade_248670 *)fade)->phase == 0) {
+  ((Fade_248670 *)fade)->elapsed += ticks;
+  if (((Fade_248670 *)fade)->elapsed >= ((Fade_248670 *)fade)->delay) {
+   ((Fade_248670 *)fade)->phase = 1;
+   ticks = ((Fade_248670 *)fade)->elapsed - ((Fade_248670 *)fade)->delay;
   }
  }
- if (fade->phase == 1) {
-  if (fade->duration != 0) {
-   double step = (double)(int)ticks / (double)(int)fade->duration;
+ if (((Fade_248670 *)fade)->phase == 1) {
+  if (((Fade_248670 *)fade)->duration != 0) {
+   double step = (double)(int)ticks / (double)(int)((Fade_248670 *)fade)->duration;
    if (step >= 0.1f) step = 0.1f;
-   double progress = step + fade->progress;
-   fade->progress = (float)progress;
+   double progress = step + ((Fade_248670 *)fade)->progress;
+   ((Fade_248670 *)fade)->progress = (float)progress;
    if (progress >= 1.0f) {
-    fade->progress = 1.0f;
-    fade->phase = 2;
+    ((Fade_248670 *)fade)->progress = 1.0f;
+    ((Fade_248670 *)fade)->phase = 2;
    }
   } else {
-   fade->progress = 1.0f;
-   fade->phase = 2;
+   ((Fade_248670 *)fade)->progress = 1.0f;
+   ((Fade_248670 *)fade)->phase = 2;
   }
  }
- fade->sound->volume = (float)sqrt(fade->progress);
- unsigned state = fade->sound->FUN_0025d3e0();
+ ((Fade_248670 *)fade)->sound->volume = (float)sqrt(((Fade_248670 *)fade)->progress);
+ unsigned state = ((Fade_248670 *)fade)->sound->FUN_0025d3e0();
  switch (state) {
  case 2:
  case 4:
-  if (fade->phase && owner->active) ((ThisNote_0025d740*)(fade->sound))->FUN_0025d740();
+  if (((Fade_248670 *)fade)->phase && ((Owner_248670 *)owner)->active) ((ThisNote_0025d740*)(((Fade_248670 *)fade)->sound))->FUN_0025d740();
   break;
  case 3:
-  if (!owner->active) ((ThisNote_0025d780*)(fade->sound))->FUN_0025d780();
+  if (!((Owner_248670 *)owner)->active) ((ThisNote_0025d780*)(((Fade_248670 *)fade)->sound))->FUN_0025d780();
   break;
  case 0:
  case 5:
-  fade->result = 5;
+  ((Fade_248670 *)fade)->result = 5;
   break;
  }
 }

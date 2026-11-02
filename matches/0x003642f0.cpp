@@ -4,6 +4,6 @@
 struct MetaType_3642f0 {
     void f();
 };
-void wrapper() {
+extern "C" void FUN_003642f0() {
     (*(MetaType_3642f0*)((char*)&DAT_004e63fc + 52)).f();
 }

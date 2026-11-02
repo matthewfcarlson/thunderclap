@@ -5,13 +5,13 @@
 typedef unsigned int uint_26c840;
 struct AllocState { unsigned char flags; char pad[0x453]; uint_26c840 saved; };
 struct Chunk { uint_26c840 previousSize; uint_26c840 size; };
-void __cdecl FUN_0026b970(AllocState *);
+extern "C" void __cdecl FUN_0026b970(void *);
 void * __cdecl FUN_0026c040(uint_26c840);
 // equiv-conv: FUN_0026c840 eax stack stack stack
 void ** __cdecl FUN_0026c840(void **result, uint_26c840 count, const uint_26c840 *sizes, uint_26c840 flags)
 {
     AllocState *state = (*(AllocState**)&DAT_0052839c);
-    if (!(state->flags & 1)) FUN_0026b970(state);
+    if (!(state->flags & 1)) FUN_0026b970((AllocState *)state);
     if (!count) {
         if (result) return result;
         return (void **)FUN_0026c040(0);

@@ -8,7 +8,7 @@ extern "C" Source_28fbc0 *__cdecl FUN_003449e4(const char *name);
 
 // Strips a leading "class " keyword and any namespace qualifier ("A::B::") from a type name,
 // copying the remainder to `out`. Fails (and terminates `out`) when it does not fit.
-bool FUN_0028fbc0(const char *name, char *out, unsigned int size)
+extern "C" bool FUN_0028fbc0(const char *name, char *out, unsigned int size)
 {
     char buf[0x100];
     if (!name)

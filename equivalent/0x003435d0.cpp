@@ -3,13 +3,13 @@
 // FUN_003435d0 @ 0x003435d0
 // split-radix float FFT pass (Ooura-style cftrec4 middle): n in eax, then (a, nw, w) on the stack
 // equiv-conv: FUN_00341290 eax stack stack
-extern void __cdecl FUN_00341290(float *a, int l, float *w);
+extern "C" void __cdecl FUN_00341290(float *, int, float *);
 // equiv-conv: FUN_00341660 eax stack stack
-extern void __cdecl FUN_00341660(float *a, int l, float *w);
+extern "C" void __cdecl FUN_00341660(float *a, int l, float *w);
 // equiv-conv: FUN_00341bd0 eax ecx
-extern void __cdecl FUN_00341bd0(float *a, float *w);
+extern "C" void __cdecl FUN_00341bd0(float *, void *);
 // equiv-conv: FUN_00342180 eax ecx
-extern void __cdecl FUN_00342180(float *a, float *w);
+extern "C" void __cdecl FUN_00342180(float *a, float *w);
 struct ThisNote_00342800 {
     // equiv-conv: FUN_00342800 ecx eax
     void FUN_00342800(float *a);
@@ -20,7 +20,7 @@ struct ThisNote_003429f0 {
 };
 
 // equiv-conv: FUN_003435d0 eax stack stack stack
-void __cdecl FUN_003435d0(int n, float *a, int nw, float *w)
+extern "C" void __cdecl FUN_003435d0(int n, float *a, int nw, float *w)
 {
     int m = n >> 1;
     int l = n >> 2;
@@ -44,10 +44,10 @@ void __cdecl FUN_003435d0(int n, float *a, int nw, float *w)
             float *p = &a[j];
             FUN_00341290(p, l, &w[nw - (l >> 1)]);
             if (l == 0x80) {
-                FUN_00341bd0(p, &w[nw - 8]);
+                FUN_00341bd0(p, (float *)(&w[nw - 8]));
                 FUN_00342180(p + 0x20, &w[nw - 0x20]);
-                FUN_00341bd0(p + 0x40, &w[nw - 8]);
-                FUN_00341bd0(p + 0x60, &w[nw - 8]);
+                FUN_00341bd0(p + 0x40, (float *)(&w[nw - 8]));
+                FUN_00341bd0(p + 0x60, (float *)(&w[nw - 8]));
             } else {
                 ((ThisNote_00342800*)(&w[nw - 0x10]))->FUN_00342800(p);
                 ((ThisNote_003429f0*)(&w[nw - 0x10]))->FUN_003429f0(p + 0x10);
@@ -57,10 +57,10 @@ void __cdecl FUN_003435d0(int n, float *a, int nw, float *w)
             p = &a[j + m];
             FUN_00341290(p, l, &w[nw - (l >> 1)]);
             if (l == 0x80) {
-                FUN_00341bd0(p, &w[nw - 8]);
+                FUN_00341bd0(p, (float *)(&w[nw - 8]));
                 FUN_00342180(p + 0x20, &w[nw - 0x20]);
-                FUN_00341bd0(p + 0x40, &w[nw - 8]);
-                FUN_00341bd0(p + 0x60, &w[nw - 8]);
+                FUN_00341bd0(p + 0x40, (float *)(&w[nw - 8]));
+                FUN_00341bd0(p + 0x60, (float *)(&w[nw - 8]));
             } else {
                 ((ThisNote_00342800*)(&w[nw - 0x10]))->FUN_00342800(p);
                 ((ThisNote_003429f0*)(&w[nw - 0x10]))->FUN_003429f0(p + 0x10);
@@ -72,9 +72,9 @@ void __cdecl FUN_003435d0(int n, float *a, int nw, float *w)
             float *p = &a[j];
             FUN_00341660(p, l, &w[nw - l]);
             if (l == 0x80) {
-                FUN_00341bd0(p, &w[nw - 8]);
+                FUN_00341bd0(p, (float *)(&w[nw - 8]));
                 FUN_00342180(p + 0x20, &w[nw - 0x20]);
-                FUN_00341bd0(p + 0x40, &w[nw - 8]);
+                FUN_00341bd0(p + 0x40, (float *)(&w[nw - 8]));
                 FUN_00342180(p + 0x60, &w[nw - 0x20]);
             } else {
                 ((ThisNote_00342800*)(&w[nw - 0x10]))->FUN_00342800(p);
@@ -85,9 +85,9 @@ void __cdecl FUN_003435d0(int n, float *a, int nw, float *w)
             p = &a[j + m];
             FUN_00341660(p, l, &w[nw - l]);
             if (l == 0x80) {
-                FUN_00341bd0(p, &w[nw - 8]);
+                FUN_00341bd0(p, (float *)(&w[nw - 8]));
                 FUN_00342180(p + 0x20, &w[nw - 0x20]);
-                FUN_00341bd0(p + 0x40, &w[nw - 8]);
+                FUN_00341bd0(p + 0x40, (float *)(&w[nw - 8]));
                 FUN_00342180(p + 0x60, &w[nw - 0x20]);
             } else {
                 ((ThisNote_00342800*)(&w[nw - 0x10]))->FUN_00342800(p);

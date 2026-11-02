@@ -48,8 +48,8 @@ struct Globals_2fb440 {
     char pad0[0x1b0];
     Hitter hitter;
 };
-bool FUN_002fae50(V3_2fb440* tri, V3_2fb440* origin, V3_2fb440* dir, float* t);
-void FUN_002fa6b0(V3_2fb440* a, V3_2fb440* b, V3_2fb440* c, V3_2fb440* out);
+extern "C" bool __cdecl FUN_002fae50(const void *, const void *, const void *, float *);
+extern "C" void __cdecl FUN_002fa6b0(const void *, const void *, const void *, void *);
 
 bool Tri_2fb440::FUN_002fb440(Ray_2fb440* ray, Mesh_2fb440* mesh, int flags)
 {
@@ -61,7 +61,7 @@ bool Tri_2fb440::FUN_002fb440(Ray_2fb440* ray, Mesh_2fb440* mesh, int flags)
     float t;
     V3_2fb440* dir = ray->GetDirection();
     V3_2fb440* org = ray->GetOrigin();
-    bool hit = FUN_002fae50(tri, org, dir, &t);
+    bool hit = FUN_002fae50((V3_2fb440 *)tri, (V3_2fb440 *)org, (V3_2fb440 *)dir, &t);
     if (!(t >= 0.0f))
         return false;
     if (!(ray->GetLength() >= t))
@@ -70,7 +70,7 @@ bool Tri_2fb440::FUN_002fb440(Ray_2fb440* ray, Mesh_2fb440* mesh, int flags)
         return false;
     V3_2fb440 normal;
     V3_2fb440 point;
-    FUN_002fa6b0(&tri[0], &tri[1], &tri[2], &normal);
+    FUN_002fa6b0((V3_2fb440 *)(&tri[0]), (V3_2fb440 *)(&tri[1]), (V3_2fb440 *)(&tri[2]), (V3_2fb440 *)(&normal));
     V3_2fb440* d2 = ray->GetDirection();
     V3_2fb440* o2 = ray->GetOrigin();
     point.x = t * d2->x + o2->x;

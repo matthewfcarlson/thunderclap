@@ -37,7 +37,7 @@ struct Skeleton {
 
 
 extern "C" void __cdecl FUN_002f46a0(unsigned short *begin, unsigned short *end, int count);
-unsigned short *__cdecl FUN_002f9190(unsigned short *begin, unsigned short *end);
+extern "C" short * __cdecl FUN_002f9190(short *, short *);
 
 class Range_2fa1f0 {
 public:
@@ -63,5 +63,5 @@ void Range_2fa1f0::FUN_002fa1f0(Desc_2fa1f0 *d, Skeleton *s)
     s->holder->worker->FUN_00307060(&f.first, this);
     end = begin + *(*(unsigned short**)&DAT_0055543c);
     FUN_002f46a0(begin, end, (int)(end - begin));
-    end = FUN_002f9190(begin, end);
+    end = ((unsigned short *)FUN_002f9190((short *)(unsigned short *)begin, (short *)(unsigned short *)end));
 }

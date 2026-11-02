@@ -17,25 +17,25 @@ struct SigBits {
     unsigned char alpha;
 };
 
-void FUN_002d93f0(RowInfo_2d93f0 *row_info, unsigned char *row, SigBits *sig_bits)
+extern "C" void FUN_002d93f0(void *row_info, unsigned char *row, void *sig_bits)
 {
-    if (row_info->color_type == 3)
+    if (((RowInfo_2d93f0 *)row_info)->color_type == 3)
         return;
 
     int shift[4];
     int channels = 0;
     unsigned short value = 0;
-    unsigned row_width = row_info->width;
+    unsigned row_width = ((RowInfo_2d93f0 *)row_info)->width;
 
-    if (row_info->color_type & 2) {
-        shift[channels++] = row_info->bit_depth - sig_bits->red;
-        shift[channels++] = row_info->bit_depth - sig_bits->green;
-        shift[channels++] = row_info->bit_depth - sig_bits->blue;
+    if (((RowInfo_2d93f0 *)row_info)->color_type & 2) {
+        shift[channels++] = ((RowInfo_2d93f0 *)row_info)->bit_depth - ((SigBits *)sig_bits)->red;
+        shift[channels++] = ((RowInfo_2d93f0 *)row_info)->bit_depth - ((SigBits *)sig_bits)->green;
+        shift[channels++] = ((RowInfo_2d93f0 *)row_info)->bit_depth - ((SigBits *)sig_bits)->blue;
     } else {
-        shift[channels++] = row_info->bit_depth - sig_bits->gray;
+        shift[channels++] = ((RowInfo_2d93f0 *)row_info)->bit_depth - ((SigBits *)sig_bits)->gray;
     }
-    if (row_info->color_type & 4)
-        shift[channels++] = row_info->bit_depth - sig_bits->alpha;
+    if (((RowInfo_2d93f0 *)row_info)->color_type & 4)
+        shift[channels++] = ((RowInfo_2d93f0 *)row_info)->bit_depth - ((SigBits *)sig_bits)->alpha;
 
     for (int c = 0; c < channels; c++) {
         if (shift[c] <= 0)
@@ -46,12 +46,12 @@ void FUN_002d93f0(RowInfo_2d93f0 *row_info, unsigned char *row, SigBits *sig_bit
     if (!value)
         return;
 
-    switch (row_info->bit_depth) {
+    switch (((RowInfo_2d93f0 *)row_info)->bit_depth) {
     default:
         break;
     case 2: {
         unsigned char *bp = row;
-        unsigned istop = row_info->rowbytes;
+        unsigned istop = ((RowInfo_2d93f0 *)row_info)->rowbytes;
         for (unsigned i = 0; i < istop; i++) {
             *bp >>= 1;
             *bp++ &= 0x55;
@@ -60,7 +60,7 @@ void FUN_002d93f0(RowInfo_2d93f0 *row_info, unsigned char *row, SigBits *sig_bit
     }
     case 4: {
         unsigned char *bp = row;
-        unsigned istop = row_info->rowbytes;
+        unsigned istop = ((RowInfo_2d93f0 *)row_info)->rowbytes;
         unsigned char mask = (unsigned char)((((int)0xf0 >> shift[0]) & (int)0xf0) |
                                              (unsigned char)((int)0xf >> shift[0]));
         for (unsigned i = 0; i < istop; i++) {

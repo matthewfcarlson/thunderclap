@@ -32,13 +32,13 @@ struct lua_State_2160c0 {
 };
 
 TString_2160c0 *__cdecl FUN_00219430(lua_State_2160c0 *L, const char *s, unsigned int len);
-void __cdecl FUN_00215460(lua_State_2160c0 *L, int n);
-void __cdecl FUN_00217f20(lua_State_2160c0 *L, int total, int last);
+extern "C" void __cdecl FUN_00215460(void *, int);
+extern "C" void __cdecl FUN_00217f20(void *, int, int);
 // equiv-conv: FUN_00216060 esi edx
-void FUN_00216060(lua_State_2160c0 *L, const char *s);
+extern "C" void __cdecl FUN_00216060(void *, const char *);
 
 // Lua 5.0 luaO_pushvfstring: fmt supports %s %c %d %f %%, arguments come from the va_list pointer.
-const char *FUN_002160c0(lua_State_2160c0 *L, const char *fmt, char *argp)
+extern "C" const char *FUN_002160c0(void *L, const char *fmt, char *argp)
 {
     struct Frame {
         char buff[4];
@@ -48,25 +48,25 @@ const char *FUN_002160c0(lua_State_2160c0 *L, const char *fmt, char *argp)
     } f;
 
     f.n = 1;
-    FUN_00216060(L, "");
+    FUN_00216060((lua_State_2160c0 *)((lua_State_2160c0 *)L), "");
     f.e = strchr(fmt, '%');
     if (f.e != 0) {
         f.ap2 = argp - 8;
         while (f.e != 0) {
-            TValue_2160c0 *o = L->top;
-            TString_2160c0 *ts = FUN_00219430(L, fmt, f.e - fmt);
+            TValue_2160c0 *o = ((lua_State_2160c0 *)L)->top;
+            TString_2160c0 *ts = FUN_00219430(((lua_State_2160c0 *)L), fmt, f.e - fmt);
             o->value.ts = ts;
             o->tt = 4;
-            if ((char *)L->stack_last - (char *)L->top <= 8)
-                FUN_00215460(L, 1);
-            L->top++;
-            TValue_2160c0 *slot = L->top;
+            if ((char *)((lua_State_2160c0 *)L)->stack_last - (char *)((lua_State_2160c0 *)L)->top <= 8)
+                FUN_00215460((lua_State_2160c0 *)((lua_State_2160c0 *)L), 1);
+            ((lua_State_2160c0 *)L)->top++;
+            TValue_2160c0 *slot = ((lua_State_2160c0 *)L)->top;
             switch (f.e[1]) {
             case 's': {
                 const char *s = *(const char **)argp;
                 argp += 4;
                 f.ap2 += 4;
-                FUN_00216060(L, s);
+                FUN_00216060((lua_State_2160c0 *)((lua_State_2160c0 *)L), s);
                 break;
             }
             case 'c': {
@@ -75,7 +75,7 @@ const char *FUN_002160c0(lua_State_2160c0 *L, const char *fmt, char *argp)
                 argp += 4;
                 f.ap2 += 4;
                 buff[1] = 0;
-                FUN_00216060(L, buff);
+                FUN_00216060((lua_State_2160c0 *)((lua_State_2160c0 *)L), buff);
                 break;
             }
             case 'd': {
@@ -83,9 +83,9 @@ const char *FUN_002160c0(lua_State_2160c0 *L, const char *fmt, char *argp)
                 argp += 4;
                 f.ap2 += 4;
                 slot->tt = 3;
-                if ((char *)L->stack_last - (char *)L->top <= 8)
-                    FUN_00215460(L, 1);
-                L->top++;
+                if ((char *)((lua_State_2160c0 *)L)->stack_last - (char *)((lua_State_2160c0 *)L)->top <= 8)
+                    FUN_00215460((lua_State_2160c0 *)((lua_State_2160c0 *)L), 1);
+                ((lua_State_2160c0 *)L)->top++;
                 break;
             }
             case 'f': {
@@ -93,24 +93,24 @@ const char *FUN_002160c0(lua_State_2160c0 *L, const char *fmt, char *argp)
                 argp += 8;
                 f.ap2 += 8;
                 slot->tt = 3;
-                if ((char *)L->stack_last - (char *)L->top <= 8)
-                    FUN_00215460(L, 1);
-                L->top++;
+                if ((char *)((lua_State_2160c0 *)L)->stack_last - (char *)((lua_State_2160c0 *)L)->top <= 8)
+                    FUN_00215460((lua_State_2160c0 *)((lua_State_2160c0 *)L), 1);
+                ((lua_State_2160c0 *)L)->top++;
                 break;
             }
             case '%':
-                FUN_00216060(L, "%");
+                FUN_00216060((lua_State_2160c0 *)((lua_State_2160c0 *)L), "%");
                 break;
             default: {
                 f.buff[0] = '%';
                 f.buff[1] = f.e[1];
                 f.buff[2] = 0;
-                TString_2160c0 *ds = FUN_00219430(L, f.buff, strlen_inline(f.buff));
+                TString_2160c0 *ds = FUN_00219430(((lua_State_2160c0 *)L), f.buff, strlen_inline(f.buff));
                 slot->value.ts = ds;
                 slot->tt = 4;
-                if ((char *)L->stack_last - (char *)L->top <= 8)
-                    FUN_00215460(L, 1);
-                L->top++;
+                if ((char *)((lua_State_2160c0 *)L)->stack_last - (char *)((lua_State_2160c0 *)L)->top <= 8)
+                    FUN_00215460((lua_State_2160c0 *)((lua_State_2160c0 *)L), 1);
+                ((lua_State_2160c0 *)L)->top++;
                 break;
             }
             }
@@ -119,8 +119,8 @@ const char *FUN_002160c0(lua_State_2160c0 *L, const char *fmt, char *argp)
             f.e = strchr(fmt, '%');
         }
     }
-    FUN_00216060(L, fmt);
-    FUN_00217f20(L, f.n + 1, (int)(L->top - L->base) - 1);
-    L->top -= f.n;
-    return L->top[-1].value.ts->str;
+    FUN_00216060((lua_State_2160c0 *)((lua_State_2160c0 *)L), fmt);
+    FUN_00217f20((lua_State_2160c0 *)((lua_State_2160c0 *)L), f.n + 1, (int)(((lua_State_2160c0 *)L)->top - ((lua_State_2160c0 *)L)->base) - 1);
+    ((lua_State_2160c0 *)L)->top -= f.n;
+    return ((lua_State_2160c0 *)L)->top[-1].value.ts->str;
 }

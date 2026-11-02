@@ -6,7 +6,7 @@ class StreamPlayerAllocator {
     virtual void vfunc_1();
 };
 } // namespace audio
-extern void __cdecl FUN_0024be00(u32_247ba0, u32_247ba0, u32_247ba0, u32_247ba0, u32_247ba0, u32_247ba0, u32_247ba0);
+extern "C" void * __cdecl FUN_0024be00(int, int, int, int, int, int, int);
 void audio::StreamPlayerAllocator::vfunc_0(u32_247ba0 a, u32_247ba0 b, u32_247ba0 c, u32_247ba0 d) {
-    FUN_0024be00(c, 1, b, d, 0, 0, 1);
+    FUN_0024be00((unsigned int)c, 1, (unsigned int)b, (unsigned int)d, 0, 0, 1);
 }

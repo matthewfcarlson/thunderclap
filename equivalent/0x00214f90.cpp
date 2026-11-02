@@ -25,20 +25,20 @@ struct lua_State_214f90 {
 };
 
 void __cdecl FUN_00219660(lua_State_214f90* L, void* stack);               // luaF_close
-void __cdecl FUN_002172c0(lua_State_214f90* L);                            // luaC_sweep(L, 1)
-void __cdecl FUN_002192c0(lua_State_214f90* L);                            // luaS_freeall
+extern "C" void __cdecl FUN_002172c0(void *);                            // luaC_sweep(L, 1)
+extern "C" void __cdecl FUN_002192c0(void *);                            // luaS_freeall
 void* __cdecl FUN_0021add0(lua_State_214f90* L, void* block, unsigned int osize, unsigned int nsize);  // luaM_realloc
 
 // equiv-conv: FUN_00214f90 esi
-void FUN_00214f90(lua_State_214f90* L)
+extern "C" void FUN_00214f90(void * L)
 {
-    global_State_214f90* g = L->l_G;
-    FUN_00219660(L, L->stack);
-    FUN_002172c0(L);
-    FUN_002192c0(L);
-    g->strhash = FUN_0021add0(L, g->strhash, g->strsize, 0);
+    global_State_214f90* g = ((lua_State_214f90 *)L)->l_G;
+    FUN_00219660(((lua_State_214f90 *)L), ((lua_State_214f90 *)L)->stack);
+    FUN_002172c0((lua_State_214f90 *)((lua_State_214f90 *)L));
+    FUN_002192c0((lua_State_214f90 *)((lua_State_214f90 *)L));
+    g->strhash = FUN_0021add0(((lua_State_214f90 *)L), g->strhash, g->strsize, 0);
     g->strsize = 0;
-    FUN_0021add0(L, L->base_ci, L->size_ci * 16, 0);
-    FUN_0021add0(L, L->stack, L->stacksize * 8, 0);
-    g->realloc(g->ud, L, 0x108, 0);
+    FUN_0021add0(((lua_State_214f90 *)L), ((lua_State_214f90 *)L)->base_ci, ((lua_State_214f90 *)L)->size_ci * 16, 0);
+    FUN_0021add0(((lua_State_214f90 *)L), ((lua_State_214f90 *)L)->stack, ((lua_State_214f90 *)L)->stacksize * 8, 0);
+    g->realloc(g->ud, ((lua_State_214f90 *)L), 0x108, 0);
 }

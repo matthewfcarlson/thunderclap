@@ -31,8 +31,9 @@ namespace XAPILIB {
     void* __stdcall ConvertThreadToFiber(void*);
     int __stdcall SetThreadPriority(int, int);
 }
-extern "C" void FUN_0026d8f0(Obj_26d990*);
-void __cdecl FUN_0026d990(Obj_26d990* self) {
+extern "C" void __cdecl FUN_0026d8f0(unsigned int *);
+extern "C" void __cdecl FUN_0026d990(void * self_) {
+    Obj_26d990 * self = (Obj_26d990 *)self_;
     self->first = 0;
     self->last = 0;
     self->enabled = 1;
@@ -56,7 +57,7 @@ void __cdecl FUN_0026d990(Obj_26d990* self) {
     }
     self->last = &self->node;
     self->node.next = 0;
-    FUN_0026d8f0(self);
+    FUN_0026d8f0((unsigned int *)(Obj_26d990 *)self);
     self->state = 2;
     XAPILIB::SetThreadPriority(self->threadHandle, DAT_004cd9d8);
 }

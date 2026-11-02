@@ -8,7 +8,7 @@ struct UIntRange_3119b0 {
 void __cdecl FUN_003117f0(unsigned int *a, unsigned int *b, unsigned int *c);
 
 // std::_Unguarded_partition for unsigned int* (three-way split around a median pivot).
-UIntRange_3119b0 *__cdecl FUN_003119b0(UIntRange_3119b0 *out, unsigned int *first, unsigned int *last)
+extern "C" void *__cdecl FUN_003119b0(void *out, unsigned int *first, unsigned int *last)
 {
     unsigned int *mid = first + (last - first) / 2;
     FUN_003117f0(first, mid, last - 1);
@@ -50,9 +50,9 @@ UIntRange_3119b0 *__cdecl FUN_003119b0(UIntRange_3119b0 *out, unsigned int *firs
             }
         }
         if (glast == first && gfirst == last) {
-            out->first = pfirst;
-            out->second = plast;
-            return out;
+            ((UIntRange_3119b0 *)out)->first = pfirst;
+            ((UIntRange_3119b0 *)out)->second = plast;
+            return (UIntRange_3119b0 *)((UIntRange_3119b0 *)out);
         }
         if (glast == first) {
             if (plast != gfirst) {

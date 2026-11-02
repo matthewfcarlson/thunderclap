@@ -5,10 +5,10 @@
 struct Entry { int kind; char* data; };
 struct Object { char padding[8]; Entry* entries; };
 // equiv-conv: FUN_002146c0 eax ecx
-void* FUN_002146c0(int id, Object* object)
+extern "C" void* FUN_002146c0(int id, void * object)
 {
     int index = id - 250;
-    if (index >= 0 && object->entries[index].kind == 4)
-        return object->entries[index].data + 16;
+    if (index >= 0 && ((Object *)object)->entries[index].kind == 4)
+        return ((Object *)object)->entries[index].data + 16;
     return ((char*)&DAT_00426608);
 }

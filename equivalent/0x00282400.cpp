@@ -194,9 +194,9 @@ struct Item_282400 {
 typedef void* (__fastcall *CtorFn)(void*);
 void* __fastcall FUN_0027f5a0(void* p);
 void __stdcall FUN_00011520(void* arr, unsigned int size, int count, CtorFn ctor);
-void __stdcall FUN_0027f6f0(Item_282400* item);
-Singleton_282400* __cdecl FUN_001b6580();
-void __cdecl FUN_0027f5f0(int key, int n, int* ids, Elem_282400* out);
+extern "C" void __stdcall FUN_0027f6f0(void *);
+extern "C" void * __cdecl FUN_001b6580(void);
+extern "C" void __cdecl FUN_0027f5f0(int, int, const int *, void *);
 void __cdecl FUN_00280d90(Elem_282400* out, int n3, int cap, int* outCount, V3_282400 center, int key0, int key1);
 int __cdecl FUN_00266da0(int mode);
 
@@ -222,14 +222,14 @@ void Builder::FUN_00282400(Item_282400* item)
         return;
     if (item->source == 0)
         return;
-    FUN_0027f6f0(item);
+    FUN_0027f6f0((Item_282400 *)item);
     fr.a = item->source->pos;
     fr.b0 = item->key0;
     fr.b1 = item->key1;
     int key0 = fr.b0;
-    int n = FUN_001b6580()->registry.FUN_001b4890(&fr.a, key0, fr.ids, 0x1f4);
+    int n = ((Singleton_282400 *)FUN_001b6580())->registry.FUN_001b4890(&fr.a, key0, fr.ids, 0x1f4);
     FUN_00011520(fr.arr, 0x18, 0x5dc, FUN_0027f5a0);
-    FUN_0027f5f0(key0, n, fr.ids, fr.arr);
+    FUN_0027f5f0(key0, n, fr.ids, (Elem_282400 *)(fr.arr));
     int key1 = fr.b1;
     V3_282400 center = fr.a;
     fr.b0 = 0;

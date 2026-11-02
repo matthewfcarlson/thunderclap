@@ -6,7 +6,7 @@ class Thing_334940 {
   public:
     virtual void F(int);
 };
-void FUN_00334940() {
+extern "C" void FUN_00334940() {
     if ((*(Thing_334940**)&DAT_00555ba8))
         (*(Thing_334940**)&DAT_00555ba8)->F(1);
     (*(Thing_334940**)&DAT_00555ba8) = 0;

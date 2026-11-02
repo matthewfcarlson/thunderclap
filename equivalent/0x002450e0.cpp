@@ -52,7 +52,7 @@ struct Registry;
 
 char __cdecl FUN_002433b0(Stream *s, Header_2450e0 *h);
 char __cdecl FUN_00244d10(Stream *s, Pair_2450e0 *p);
-Entry_2450e0 *__cdecl FUN_00244870(Registry *r, unsigned *key);
+extern "C" int * __cdecl FUN_00244870(void *, int *);
 Resource_2450e0 *__cdecl FUN_00244fa0(Pair_2450e0 *p, char *src);
 
 struct Source_2450e0 {
@@ -89,7 +89,7 @@ char Source_2450e0::FUN_002450e0(Resource_2450e0 **out)
         return 0;
 
     f.hdr.unused = f.hdr.key;
-    Entry_2450e0 *entry = FUN_00244870((*(Registry**)&DAT_004cc088), &f.hdr.unused);
+    Entry_2450e0 *entry = ((Entry_2450e0 *)FUN_00244870((Registry *)((*(Registry**)&DAT_004cc088)), (int *)(unsigned *)(&f.hdr.unused)));
     if (entry == 0)
         return 0;
 

@@ -8,7 +8,7 @@ struct Registry_749e0 {
     void FUN_002367c0(void*);
     void FUN_00236400();
 };
-extern void __cdecl FUN_002369c0(Registry_749e0*);
+extern "C" void __cdecl FUN_002369c0(void *);
 extern void __cdecl FUN_0012de00(Registry_749e0*, const char*);
 extern void __cdecl FUN_00132530(Registry_749e0*, const char*);
 extern void __cdecl FUN_00132500(Registry_749e0*, const char*);
@@ -23,7 +23,7 @@ extern "C" void __cdecl FUN_00146130(Registry_749e0*, const char*);
 extern "C" void __cdecl FUN_001463a0(Registry_749e0*, const char*);
 extern void* __cdecl FUN_00236ac0(const char*, fight::TrackFactoryCasterTemplate<CHapticTrack>*);
 extern "C" bool __cdecl FUN_000749e0(Registry_749e0* registry) {
-    FUN_002369c0(registry);
+    FUN_002369c0((Registry_749e0 *)registry);
     FUN_0012de00(registry, "postEvent_string");
     FUN_00132530(registry, "dialogue");
     FUN_00132500(registry, "nisSound");

@@ -12,16 +12,17 @@ struct LexState_21d5c0 {
     FuncState* fs;
 };
 struct Exp_21d5c0 { int k; int info; int aux; int t; int f; };
-void __cdecl FUN_00221110(FuncState* fs, Exp_21d5c0* e);
-int __cdecl FUN_0021ded0(LexState_21d5c0* ls, Exp_21d5c0* v, unsigned int limit);
-int __cdecl FUN_0021bbc0(LexState_21d5c0* ls, int* seminfo);
+extern "C" void __cdecl FUN_00221110(void *, void *);
+extern "C" int __cdecl FUN_0021ded0(void *, void *, unsigned int);
+extern "C" int __cdecl FUN_0021bbc0(void *, void *);
 
 // Lua 5.0 explist1(ls, v): ls arrives in esi, v in edi.
 // equiv-conv: FUN_0021d5c0 esi edi
-int FUN_0021d5c0(LexState_21d5c0* ls, Exp_21d5c0* v)
+extern "C" int FUN_0021d5c0(void * ls_, void * v)
 {
+    LexState_21d5c0 * ls = (LexState_21d5c0 *)ls_;
     int n = 1;
-    FUN_0021ded0(ls, v, 0);
+    FUN_0021ded0((LexState_21d5c0 *)ls, (Exp_21d5c0 *)((Exp_21d5c0 *)v), 0);
     while (ls->token == ',') {
         ls->lastline = ls->linenumber;
         if (ls->lookaheadToken != 0x11f) {
@@ -29,10 +30,10 @@ int FUN_0021d5c0(LexState_21d5c0* ls, Exp_21d5c0* v)
             ls->seminfo = ls->lookaheadSeminfo;
             ls->lookaheadToken = 0x11f;
         } else {
-            ls->token = FUN_0021bbc0(ls, &ls->seminfo);
+            ls->token = FUN_0021bbc0((LexState_21d5c0 *)ls, (int *)(&ls->seminfo));
         }
-        FUN_00221110(ls->fs, v);
-        FUN_0021ded0(ls, v, 0);
+        FUN_00221110((FuncState *)(ls->fs), (Exp_21d5c0 *)((Exp_21d5c0 *)v));
+        FUN_0021ded0((LexState_21d5c0 *)ls, (Exp_21d5c0 *)((Exp_21d5c0 *)v), 0);
         n++;
     }
     return n;

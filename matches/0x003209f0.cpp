@@ -1,7 +1,7 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
-float FUN(float x) {
+extern "C" float FUN_003209f0(float x) {
     if (x <= DAT_003f32dc)
         return DAT_003f32dc;
     if (x <= DAT_003f5cf8)

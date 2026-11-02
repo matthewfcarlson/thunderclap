@@ -5,14 +5,14 @@ struct Node {
     int data;
 };
 void* FUN_00256900(void*, void*);
-void FUN_00256940(void*, void*);
-void FUN_00256da0(Node* tree, Node* node) {
-    Node* nil = (Node*)((char*)tree + 4);
+extern "C" void __cdecl FUN_00256940(void *, void *);
+extern "C" void FUN_00256da0(void * tree, void * node) {
+    Node* nil = (Node*)((char*)((Node *)tree) + 4);
     Node* x;
-    if (node->left == nil || node->right == nil)
-        x = node;
+    if (((Node *)node)->left == nil || ((Node *)node)->right == nil)
+        x = ((Node *)node);
     else
-        x = (Node*)FUN_00256900(tree, node);
+        x = (Node*)FUN_00256900(((Node *)tree), ((Node *)node));
     Node* y;
     if (x->left != nil)
         y = x->left;
@@ -20,29 +20,29 @@ void FUN_00256da0(Node* tree, Node* node) {
         y = x->right;
     y->parent = x->parent;
     if (x->parent == nil)
-        tree->left = y;
+        ((Node *)tree)->left = y;
     else if (x == x->parent->left)
         x->parent->left = y;
     else
         x->parent->right = y;
     int flag = (x->data == 0);
-    if (x != node) {
-        x->parent = node->parent;
-        x->left = node->left;
-        x->right = node->right;
-        x->data = node->data;
+    if (x != ((Node *)node)) {
+        x->parent = ((Node *)node)->parent;
+        x->left = ((Node *)node)->left;
+        x->right = ((Node *)node)->right;
+        x->data = ((Node *)node)->data;
         if (x->parent != nil) {
-            if (x->parent->left == node)
+            if (x->parent->left == ((Node *)node))
                 x->parent->left = x;
             else
                 x->parent->right = x;
         } else
-            tree->left = x;
+            ((Node *)tree)->left = x;
         if (x->left != nil)
             x->left->parent = x;
         if (x->right->parent != nil)
             x->right->parent = x;
     }
     if (flag)
-        FUN_00256940(tree, y);
+        FUN_00256940(((Node *)tree), y);
 }

@@ -4,8 +4,10 @@ struct Node { Node* left; Node* right; Node* parent; unsigned color; };
 struct Tree_25f6e0 { Node* root; Node sentinel; };
 struct Entry_25f6e0 { unsigned data; Node node; };
 extern Node* __cdecl FUN_0025ed00(Tree_25f6e0*,Node*);
-extern void __cdecl FUN_0025ed40(Tree_25f6e0*,Node*);
-void __cdecl FUN_0025f6e0(Tree_25f6e0* tree, Entry_25f6e0* entry) {
+extern "C" void __cdecl FUN_0025ed40(void *, void *);
+extern "C" void __cdecl FUN_0025f6e0(void * tree_, void * entry_) {
+    Tree_25f6e0 * tree = (Tree_25f6e0 *)tree_;
+    Entry_25f6e0 * entry = (Entry_25f6e0 *)entry_;
  Node* z=&entry->node; Node* nil=&tree->sentinel;
  Node* y;
  if(z->left!=nil && z->right!=nil) y=FUN_0025ed00(tree,z); else y=z;
@@ -29,5 +31,5 @@ void __cdecl FUN_0025f6e0(Tree_25f6e0* tree, Entry_25f6e0* entry) {
  if(y->left!=nil) y->left->parent=y;
  if(y->right->parent!=nil) y->right->parent=y;
  }
- if(black) FUN_0025ed40(tree,x);
+ if(black) FUN_0025ed40((Tree_25f6e0 *)tree,(Node *)x);
 }

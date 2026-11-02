@@ -46,13 +46,13 @@ struct DdsFile {
 extern "C" void *FUN_00266e00(int count, unsigned int size);
 extern "C" void FUN_00267090(void *p);
 
-void FUN_002de030(Stream *s, Texture *tex)
+extern "C" void FUN_002de030(void *s, void *tex)
 {
     DdsFile f;
-    s->FUN_002647e0(&f.magic, 1, 4, 1);
+    ((Stream *)s)->FUN_002647e0(&f.magic, 1, 4, 1);
     if (f.magic == 0x44445320)
-        s->flag = (s->flag == 0);
-    s->FUN_002647e0(&f.header, 0x1f, 4, 1);
+        ((Stream *)s)->flag = (((Stream *)s)->flag == 0);
+    ((Stream *)s)->FUN_002647e0(&f.header, 0x1f, 4, 1);
 
     int format;
     switch (f.header.fourCC) {
@@ -65,16 +65,16 @@ void FUN_002de030(Stream *s, Texture *tex)
         return;
     }
 
-    tex->v9(format);
-    if (!tex->v0(f.header.width, f.header.height, 2, 0, 0))
+    ((Texture *)tex)->v9(format);
+    if (!((Texture *)tex)->v0(f.header.width, f.header.height, 2, 0, 0))
         return;
 
     if (f.header.flags & 0x80000) {
-        void *dst = tex->v4();
+        void *dst = ((Texture *)tex)->v4();
         if (dst == 0)
             return;
-        s->FUN_002647e0(dst, f.header.pitchOrLinear, 1, 1);
-        tex->v10();
+        ((Stream *)s)->FUN_002647e0(dst, f.header.pitchOrLinear, 1, 1);
+        ((Texture *)tex)->v10();
         return;
     }
 
@@ -84,10 +84,10 @@ void FUN_002de030(Stream *s, Texture *tex)
         return;
     char *row = buf;
     for (unsigned int y = 0; y < f.header.height; y++) {
-        s->FUN_002647e0(row, rowBytes, 1, 1);
+        ((Stream *)s)->FUN_002647e0(row, rowBytes, 1, 1);
         row += f.header.pitchOrLinear;
     }
-    tex->v3(buf, f.header.pitchOrLinear * f.header.height);
+    ((Texture *)tex)->v3(buf, f.header.pitchOrLinear * f.header.height);
     FUN_00267090(buf);
-    tex->v10();
+    ((Texture *)tex)->v10();
 }

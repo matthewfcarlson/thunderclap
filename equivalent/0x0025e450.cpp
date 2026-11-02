@@ -6,7 +6,7 @@ typedef unsigned int uint_25e450;
 struct Node { uint_25e450 start; uint_25e450 length; Node* next; };
 extern Node* __cdecl FUN_00247530(void*);
 struct Buffer_25e450 { uint_25e450 unknown0; uint_25e450 capacity; char pad8[8]; unsigned char full; char pad11[3]; uint_25e450 position; uint_25e450 limit; char pad1c[8]; uint_25e450 count; Node** head; Node** tail; };
-bool __cdecl FUN_0025e450(Buffer_25e450* b, uint_25e450 alignment) {
+extern "C" bool __cdecl FUN_0025e450(Buffer_25e450* b, uint_25e450 alignment) {
  uint_25e450 remainder=b->position % alignment;
  if (!remainder) return true;
  uint_25e450 capacity=b->capacity;

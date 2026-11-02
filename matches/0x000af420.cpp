@@ -1,7 +1,7 @@
 #include "decls/data/game/global.h"
 // data: fallback = DAT_00405e5c, results = DAT_004dda14, thresholds = DAT_004dda28
 
-float __cdecl target(float x) {
+extern "C" float __cdecl FUN_000af420(float x) {
     int i = 4;
     do {
         if (((float*)&DAT_004dda28)[i] <= x)

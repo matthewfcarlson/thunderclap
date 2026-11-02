@@ -4,10 +4,10 @@
 struct MixType_35f300 {
     void Run();
 };
-extern void Fn_003641a0();
+extern "C" void FUN_003641a0();
 extern int __cdecl atexit(void (*f)());
 
 void __cdecl FUN_0035f300() {
     (*(MixType_35f300*)&DAT_004e5cf8).Run();
-    atexit((void (*)())(hulk_ulongptr)Fn_003641a0);
+    atexit((void (*)())(hulk_ulongptr)FUN_003641a0);
 }

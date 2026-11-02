@@ -11,10 +11,10 @@ struct png_struct_2e68a0 {
 
 // libpng png_format_buffer: "chunk: message" with unprintable chunk-name bytes written as [XX].
 // equiv-conv: FUN_002e68a0 eax ecx edx
-void FUN_002e68a0(char* buffer, png_struct_2e68a0* png_ptr, const char* message) {
+extern "C" void FUN_002e68a0(char* buffer, void * png_ptr, const char* message) {
     int pos = 0;
     for (int i = 0; i < 4; i++) {
-        int c = png_ptr->chunk_name[i];
+        int c = ((png_struct_2e68a0 *)png_ptr)->chunk_name[i];
         if (c < 0x29 || c > 0x7a || (c > 0x5a && c < 0x61)) {
             buffer[pos] = '[';
             buffer[pos + 1] = DAT_0042fdd4[(c >> 4) & 0xf];

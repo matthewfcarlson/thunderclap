@@ -12,17 +12,17 @@ struct Format_2de6c0 {
  int pitch;
 };
 // equiv-conv: FUN_002de6c0 eax esi stack
-void FUN_002de6c0(unsigned short* destination, Format_2de6c0* format, Source_2de6c0* source) {
- int remainder = (int)((unsigned int)format->pitch - (unsigned int)format->width*2);
+extern "C" void FUN_002de6c0(unsigned short* destination, void * format, void * source) {
+ int remainder = (int)((unsigned int)((Format_2de6c0 *)format)->pitch - (unsigned int)((Format_2de6c0 *)format)->width*2);
  int padding = (remainder / 2)*2;
- if(format->height <= 0) return;
- for(int y=0; y<format->height; ++y) {
-  for(int x=0; x<format->width; ++x) {
-   unsigned int color = source->pixel(x,y);
-   unsigned int a = ((color & 0xff000000u) >> (format->alphaRight & 31)) << (format->alphaLeft & 31);
-   unsigned int g = ((color & 0xff00u) >> (format->greenRight & 31)) << (format->greenLeft & 31);
-   unsigned int b = ((color & 0xffu) >> (format->blueRight & 31)) << (format->blueLeft & 31);
-   unsigned int r = ((color & 0xff0000u) >> (format->redRight & 31)) << (format->redLeft & 31);
+ if(((Format_2de6c0 *)format)->height <= 0) return;
+ for(int y=0; y<((Format_2de6c0 *)format)->height; ++y) {
+  for(int x=0; x<((Format_2de6c0 *)format)->width; ++x) {
+   unsigned int color = ((Source_2de6c0 *)source)->pixel(x,y);
+   unsigned int a = ((color & 0xff000000u) >> (((Format_2de6c0 *)format)->alphaRight & 31)) << (((Format_2de6c0 *)format)->alphaLeft & 31);
+   unsigned int g = ((color & 0xff00u) >> (((Format_2de6c0 *)format)->greenRight & 31)) << (((Format_2de6c0 *)format)->greenLeft & 31);
+   unsigned int b = ((color & 0xffu) >> (((Format_2de6c0 *)format)->blueRight & 31)) << (((Format_2de6c0 *)format)->blueLeft & 31);
+   unsigned int r = ((color & 0xff0000u) >> (((Format_2de6c0 *)format)->redRight & 31)) << (((Format_2de6c0 *)format)->redLeft & 31);
    *destination++ = (unsigned short)(a|g|b|r);
   }
   destination = (unsigned short*)((char*)destination + padding);

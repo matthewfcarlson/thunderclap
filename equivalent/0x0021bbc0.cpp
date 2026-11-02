@@ -36,8 +36,8 @@ struct LexState_21bbc0 {
 
 extern "C" int __cdecl FUN_0021a550(Zio_21bbc0 *z);
 void FUN_0021b0d0(LexState_21bbc0 *ls);
-int FUN_0021b480(LexState_21bbc0 *ls);
-void FUN_0021b520(LexState_21bbc0 *ls, int sep, SemInfo_21bbc0 *seminfo);
+extern "C" int __cdecl FUN_0021b480(void *);
+extern "C" void __cdecl FUN_0021b520(void *, int, void *);
 void FUN_0021b230(LexState_21bbc0 *ls, SemInfo_21bbc0 *seminfo);
 void FUN_0021b1c0(LexState_21bbc0 *ls);
 void FUN_0021b720(LexState_21bbc0 *ls, int del, SemInfo_21bbc0 *seminfo);
@@ -62,125 +62,125 @@ static int Zgetc(LexState_21bbc0 *ls)
     return FUN_0021a550(ls->z);
 }
 
-int FUN_0021bbc0(LexState_21bbc0 *ls, SemInfo_21bbc0 *seminfo)
+extern "C" int FUN_0021bbc0(void *ls, void *seminfo)
 {
-    ls->buff->n = 0;
+    ((LexState_21bbc0 *)ls)->buff->n = 0;
     for (;;) {
-        int c = ls->current;
+        int c = ((LexState_21bbc0 *)ls)->current;
         switch (c) {
         case '\n':
         case '\r':
-            FUN_0021b0d0(ls);
+            FUN_0021b0d0(((LexState_21bbc0 *)ls));
             continue;
         case '-': {
-            ls->current = Zgetc(ls);
-            if (ls->current != '-')
+            ((LexState_21bbc0 *)ls)->current = Zgetc(((LexState_21bbc0 *)ls));
+            if (((LexState_21bbc0 *)ls)->current != '-')
                 return '-';
-            ls->current = Zgetc(ls);
-            if (ls->current == '[') {
-                int sep = FUN_0021b480(ls);
-                ls->buff->n = 0;
+            ((LexState_21bbc0 *)ls)->current = Zgetc(((LexState_21bbc0 *)ls));
+            if (((LexState_21bbc0 *)ls)->current == '[') {
+                int sep = FUN_0021b480((LexState_21bbc0 *)((LexState_21bbc0 *)ls));
+                ((LexState_21bbc0 *)ls)->buff->n = 0;
                 if (sep >= 0) {
-                    FUN_0021b520(ls, sep, 0);
-                    ls->buff->n = 0;
+                    FUN_0021b520((LexState_21bbc0 *)((LexState_21bbc0 *)ls), sep, (SemInfo_21bbc0 *)0);
+                    ((LexState_21bbc0 *)ls)->buff->n = 0;
                     continue;
                 }
             }
-            if (ls->current == '\n')
+            if (((LexState_21bbc0 *)ls)->current == '\n')
                 continue;
             for (;;) {
-                if (ls->current == '\r')
+                if (((LexState_21bbc0 *)ls)->current == '\r')
                     break;
-                if (ls->current == -1)
+                if (((LexState_21bbc0 *)ls)->current == -1)
                     break;
-                ls->current = Zgetc(ls);
-                if (ls->current == '\n')
+                ((LexState_21bbc0 *)ls)->current = Zgetc(((LexState_21bbc0 *)ls));
+                if (((LexState_21bbc0 *)ls)->current == '\n')
                     break;
             }
             continue;
         }
         case '[': {
-            int sep = FUN_0021b480(ls);
+            int sep = FUN_0021b480((LexState_21bbc0 *)((LexState_21bbc0 *)ls));
             if (sep >= 0) {
-                FUN_0021b520(ls, sep, seminfo);
+                FUN_0021b520((LexState_21bbc0 *)((LexState_21bbc0 *)ls), sep, (SemInfo_21bbc0 *)((SemInfo_21bbc0 *)seminfo));
                 return 0x11e;
             }
             if (sep == -1)
                 return '[';
-            FUN_0021afd0(ls, "invalid long string delimiter", 0x11e);
-            ls->current = Zgetc(ls);
-            if (ls->current != '=')
+            FUN_0021afd0(((LexState_21bbc0 *)ls), "invalid long string delimiter", 0x11e);
+            ((LexState_21bbc0 *)ls)->current = Zgetc(((LexState_21bbc0 *)ls));
+            if (((LexState_21bbc0 *)ls)->current != '=')
                 return '=';
-            ls->current = Zgetc(ls);
+            ((LexState_21bbc0 *)ls)->current = Zgetc(((LexState_21bbc0 *)ls));
             return 0x119;
         }
         case '=':
-            ls->current = Zgetc(ls);
-            if (ls->current != '=')
+            ((LexState_21bbc0 *)ls)->current = Zgetc(((LexState_21bbc0 *)ls));
+            if (((LexState_21bbc0 *)ls)->current != '=')
                 return '=';
-            ls->current = Zgetc(ls);
+            ((LexState_21bbc0 *)ls)->current = Zgetc(((LexState_21bbc0 *)ls));
             return 0x119;
         case '<':
-            ls->current = Zgetc(ls);
-            if (ls->current != '=')
+            ((LexState_21bbc0 *)ls)->current = Zgetc(((LexState_21bbc0 *)ls));
+            if (((LexState_21bbc0 *)ls)->current != '=')
                 return '<';
-            ls->current = Zgetc(ls);
+            ((LexState_21bbc0 *)ls)->current = Zgetc(((LexState_21bbc0 *)ls));
             return 0x11b;
         case '>':
-            ls->current = Zgetc(ls);
-            if (ls->current != '=')
+            ((LexState_21bbc0 *)ls)->current = Zgetc(((LexState_21bbc0 *)ls));
+            if (((LexState_21bbc0 *)ls)->current != '=')
                 return '>';
-            ls->current = Zgetc(ls);
+            ((LexState_21bbc0 *)ls)->current = Zgetc(((LexState_21bbc0 *)ls));
             return 0x11a;
         case '~':
-            ls->current = Zgetc(ls);
-            if (ls->current != '=')
+            ((LexState_21bbc0 *)ls)->current = Zgetc(((LexState_21bbc0 *)ls));
+            if (((LexState_21bbc0 *)ls)->current != '=')
                 return '~';
-            ls->current = Zgetc(ls);
+            ((LexState_21bbc0 *)ls)->current = Zgetc(((LexState_21bbc0 *)ls));
             return 0x11c;
         case '"':
         case '\'':
-            FUN_0021b720(ls, ls->current, seminfo);
+            FUN_0021b720(((LexState_21bbc0 *)ls), ((LexState_21bbc0 *)ls)->current, ((SemInfo_21bbc0 *)seminfo));
             return 0x11e;
         case '.':
-            FUN_0021b1c0(ls);
-            if (ls->current == '.') {
-                ls->current = Zgetc(ls);
-                if (ls->current != '.')
+            FUN_0021b1c0(((LexState_21bbc0 *)ls));
+            if (((LexState_21bbc0 *)ls)->current == '.') {
+                ((LexState_21bbc0 *)ls)->current = Zgetc(((LexState_21bbc0 *)ls));
+                if (((LexState_21bbc0 *)ls)->current != '.')
                     return 0x117;
-                ls->current = Zgetc(ls);
+                ((LexState_21bbc0 *)ls)->current = Zgetc(((LexState_21bbc0 *)ls));
                 return 0x118;
             }
-            if (!isdigit(ls->current))
+            if (!isdigit(((LexState_21bbc0 *)ls)->current))
                 return '.';
-            FUN_0021b230(ls, seminfo);
+            FUN_0021b230(((LexState_21bbc0 *)ls), ((SemInfo_21bbc0 *)seminfo));
             return 0x11d;
         case -1:
             return 0x11f;
         default:
             if (isspace(c)) {
-                ls->current = Zgetc(ls);
+                ((LexState_21bbc0 *)ls)->current = Zgetc(((LexState_21bbc0 *)ls));
                 continue;
             }
-            if (isdigit(ls->current)) {
-                FUN_0021b230(ls, seminfo);
+            if (isdigit(((LexState_21bbc0 *)ls)->current)) {
+                FUN_0021b230(((LexState_21bbc0 *)ls), ((SemInfo_21bbc0 *)seminfo));
                 return 0x11d;
             }
-            if (!isalpha(ls->current)) {
-                int ch = ls->current;
+            if (!isalpha(((LexState_21bbc0 *)ls)->current)) {
+                int ch = ((LexState_21bbc0 *)ls)->current;
                 if (ch != '_') {
-                    ls->current = Zgetc(ls);
+                    ((LexState_21bbc0 *)ls)->current = Zgetc(((LexState_21bbc0 *)ls));
                     return ch;
                 }
             }
             do {
-                FUN_0021b1c0(ls);
-            } while (isalnum(ls->current) || ls->current == '_');
-            TString_21bbc0 *ts = FUN_0021b080(ls, ls->buff->buffer, ls->buff->n);
+                FUN_0021b1c0(((LexState_21bbc0 *)ls));
+            } while (isalnum(((LexState_21bbc0 *)ls)->current) || ((LexState_21bbc0 *)ls)->current == '_');
+            TString_21bbc0 *ts = FUN_0021b080(((LexState_21bbc0 *)ls), ((LexState_21bbc0 *)ls)->buff->buffer, ((LexState_21bbc0 *)ls)->buff->n);
             unsigned char r = ts->reserved;
             if (r > 0)
                 return r + 0x100;
-            seminfo->ts = ts;
+            ((SemInfo_21bbc0 *)seminfo)->ts = ts;
             return 0x116;
         }
     }

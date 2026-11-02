@@ -13,8 +13,8 @@ struct Data {
 };
 struct Owner { char pad[0x1c]; Data* data; };
 // equiv-conv: FUN_0021c570 eax edx
-void FUN_0021c570(Owner* owner, int n) {
-    Data* data = owner->data;
+extern "C" void FUN_0021c570(void * owner, int n) {
+    Data* data = ((Owner *)owner)->data;
     data->count = (unsigned char)(data->count + n);
     while (n != 0) {
         unsigned int index = (unsigned int)data->count - n;

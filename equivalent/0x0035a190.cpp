@@ -11,7 +11,7 @@ struct Box_35a190 {
 };
 
 // Clips a polygon against one plane (normal, d); updates *count.
-extern void __cdecl FUN_00359a80(Vec3_35a190 *normal, float d, int *count, Vec3_35a190 *poly);
+extern "C" void __cdecl FUN_00359a80(const void *, float, int *, void *);
 
 // Clips the triangle (a, b, c) against the six faces of an oriented box.
 // Returns true when something is left (the polygon is in `out`, its vertex count in *count).
@@ -28,7 +28,7 @@ bool FUN_0035a190(Box_35a190 *box, Vec3_35a190 *a, Vec3_35a190 *b, Vec3_35a190 *
             n.x = sign * box->axis[k].x;
             n.y = sign * box->axis[k].y;
             n.z = sign * box->axis[k].z;
-            FUN_00359a80(&n, n.x * box->center.x + n.y * box->center.y + n.z * box->center.z - box->extent[k], count, out);
+            FUN_00359a80((Vec3_35a190 *)(&n), n.x * box->center.x + n.y * box->center.y + n.z * box->center.z - box->extent[k], count, (Vec3_35a190 *)out);
         }
     }
     return *count > 0;

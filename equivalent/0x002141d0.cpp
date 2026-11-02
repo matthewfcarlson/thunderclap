@@ -20,15 +20,15 @@ struct TailArgument {
     int *result;
 };
 // equiv-conv: FUN_002141d0 esi stack
-void __cdecl FUN_002141d0(TailRecord *record, TailArgument *argument)
+extern "C" void __cdecl FUN_002141d0(void *record, void *argument)
 {
-    record->first = ((char*)&DAT_003f335c);
-    record->second = ((char*)&DAT_003f335c);
-    record->index = -1;
-    record->next = -1;
-    record->name = ((char*)&DAT_0042662c);
-    record->description = ((char*)&DAT_00426634);
-    FUN_00216340(record->text, ((char*)&DAT_00426634), 60);
-    record->state = 0;
-    *argument->result = 0;
+    ((TailRecord *)record)->first = ((char*)&DAT_003f335c);
+    ((TailRecord *)record)->second = ((char*)&DAT_003f335c);
+    ((TailRecord *)record)->index = -1;
+    ((TailRecord *)record)->next = -1;
+    ((TailRecord *)record)->name = ((char*)&DAT_0042662c);
+    ((TailRecord *)record)->description = ((char*)&DAT_00426634);
+    FUN_00216340(((TailRecord *)record)->text, ((char*)&DAT_00426634), 60);
+    ((TailRecord *)record)->state = 0;
+    *((TailArgument *)argument)->result = 0;
 }

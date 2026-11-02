@@ -5,7 +5,7 @@ void __stdcall XGSwizzleRect(unsigned, unsigned, unsigned, unsigned, unsigned, u
 void __stdcall XGSwizzleBox(unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned);
 }
 // equiv-conv: FUN_00325f30 eax
-int FUN_00325f30(int format);
+extern "C" int FUN_00325f30(int format);
 void __cdecl FUN_0008d330(unsigned);
 
 namespace pure3d {

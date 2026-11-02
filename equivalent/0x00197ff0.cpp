@@ -104,9 +104,9 @@ extern "C" void __cdecl FUN_00224db0(Mat_197ff0 *m, V3_197ff0 *a, V3_197ff0 *b);
 bool FUN_00195290(V3_197ff0 *self, void **out2, void **out1, V3_197ff0 *origin, V3_197ff0 *end, V3_197ff0 *normal, void **shapeOut,
                   void *h, int flag, char *flagOut, int g);
 // equiv-conv: FUN_001958c0 eax stack stack stack stack stack stack stack stack stack stack
-bool FUN_001958c0(int id, Hit_197ff0 *src, int m1, int m2, V3_197ff0 *p4, V3_197ff0 *p5, V3_197ff0 *self, int scale, int f5, int a6, int a7);
+extern "C" bool FUN_001958c0(int id, Hit_197ff0 *src, int m1, int m2, V3_197ff0 *p4, V3_197ff0 *p5, V3_197ff0 *self, int scale, int f5, int a6, int a7);
 // equiv-conv: FUN_00195560 ecx eax ebx stack stack stack stack stack stack stack stack stack stack stack
-bool FUN_00195560(V3_197ff0 *self, Hit_197ff0 *src, V3_197ff0 *b, int id, int m1, int m2, V3_197ff0 *c, int scale, int f5, int a6, int a7,
+extern "C" bool FUN_00195560(V3_197ff0 *self, Hit_197ff0 *src, V3_197ff0 *b, int id, int m1, int m2, V3_197ff0 *c, int scale, int f5, int a6, int a7,
                   int a8, int f9, int a10);
 
 class Proj_197ff0 {

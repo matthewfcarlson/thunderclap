@@ -7,7 +7,7 @@ struct Tree_2418d0 {
     Node* root;
     Node head;
 };
-void swap_node(Tree_2418d0* tree, Node* node) {
+extern "C" void FUN_002418d0(Tree_2418d0* tree, Node* node) {
     Node* child = node->left;
     node->left = child->parent;
     if (child->parent != &tree->head)

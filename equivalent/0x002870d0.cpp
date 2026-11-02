@@ -123,7 +123,7 @@ class SceneGraphVisibilityAnimationController_2870d0 : public Base_2870d0 { publ
 class ProceduralVertexAnimController_2870d0 : public Base_2870d0 { public: ProceduralVertexAnimController_2870d0 *FUN_002a5420(); void FUN_002a6930(void *r); };
 class VertexAnimController_2870d0 : public Base_2870d0 { public: VertexAnimController_2870d0 *FUN_002a6cb0(); void FUN_002a6ed0(void *r); };
 
-void *__cdecl FUN_00286750(Reader *r, const char *name);
+extern "C" void *__cdecl FUN_00286750(Reader *r, const char *name);
 void *__cdecl FUN_000f23a0(Reader *r, const char *name);
 R48 *__cdecl FUN_000f2340(Reader *r, const char *name);
 void *__cdecl FUN_000c0db0(Reader *r, const char *name);

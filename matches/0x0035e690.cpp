@@ -5,8 +5,8 @@ extern "C" int __cdecl _atexit(void (*)(void));
 struct Mgr {
     void Init(const char*, int);
 };
-extern void __cdecl shutdown(void);
+extern "C" void __cdecl FUN_00364000(void);
 void __cdecl FUN_0035e690() {
     (*(Mgr*)&DAT_004e21f8).Init(DAT_003f3ea0, 0);
-    _atexit(shutdown);
+    _atexit(FUN_00364000);
 }

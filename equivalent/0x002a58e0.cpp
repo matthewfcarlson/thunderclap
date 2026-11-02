@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1166 inputs, branch coverage 20/20)
 // FUN_002a58e0 @ 0x002a58e0
+#include "compat/ptr.h"
 struct Node {
     virtual void v0();
     virtual void v1();
@@ -51,7 +52,7 @@ public:
     virtual Source_2a58e0 *GetSource();
 };
 
-void FUN_002a5570(float t, Target_2a58e0 *self, int a, int b, float *params);
+extern "C" void __cdecl FUN_002a5570(float, void *, void *, unsigned int, void *);
 
 struct Frame_2a58e0 {
     float time;
@@ -103,5 +104,5 @@ void FUN_002a58e0(Target_2a58e0 *self, Target_2a58e0 *obj, int a, int b)
                 n->Apply(f.timeCopy, f.vec);
         }
     }
-    FUN_002a5570(f.time / self->Eval(), obj, a, b, &f.one);
+    FUN_002a5570(f.time / self->Eval(), (Target_2a58e0 *)obj, (void *)(hulk_uintptr)(int)a, (int)b, (float *)(&f.one));
 }

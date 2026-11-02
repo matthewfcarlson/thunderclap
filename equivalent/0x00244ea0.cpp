@@ -24,7 +24,7 @@ struct Index_244ea0 {
     int color;
 };
 
-void __cdecl FUN_002448b0(Index_244ea0 *idx, void *item, Query_244ea0 *q);
+extern "C" bool __cdecl FUN_002448b0(void *, void *, void *);
 
 namespace om {
 class Entity {
@@ -70,6 +70,6 @@ om::Entity::Entity(Region_244ea0 *region)
     q.keyHi = keyHi;
     q.boundsLo = region->boundsLo;
     q.boundsHi = region->boundsHi;
-    FUN_002448b0(n, this, &q);
+    FUN_002448b0((Index_244ea0 *)n, this, (Query_244ea0 *)(&q));
     DAT_004e5f0c++;
 }

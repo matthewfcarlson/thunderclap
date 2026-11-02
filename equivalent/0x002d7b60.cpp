@@ -50,7 +50,7 @@ void FUN_002e6c40(PngInfo_2d7b60* png, void* ptr);
 void thunk_FUN_002e6c40(PngInfo_2d7b60* png, void* ptr);
 extern "C" void FUN_002e6e00(void* zstream);
 
-void FUN_002d7b60(PngInfo_2d7b60* png, int a, int b)
+extern "C" void FUN_002d7b60(PngInfo_2d7b60* png, int a, int b)
 {
     if (a)
         FUN_002d6d10(png, a);

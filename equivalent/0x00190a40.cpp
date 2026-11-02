@@ -14,7 +14,7 @@ struct Mat_190a40 {
     void FUN_0022c3b0(const V3_190a40 *in, V3_190a40 *out);
 };
 
-float __cdecl FUN_000186b0(float *v, float *lo, float *hi);
+extern "C" float __cdecl FUN_000186b0(float *v, float *lo, float *hi);
 
 struct Prop_190a40 {
     char pad0[0x1e58];

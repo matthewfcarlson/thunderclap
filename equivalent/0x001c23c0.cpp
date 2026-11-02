@@ -34,9 +34,9 @@ public:
     HulkShaderCallback *callback;
 };
 
-HulkShaderCallback *__stdcall FUN_001c23c0(Canvas *canvas, bool create)
+extern "C" void *__stdcall FUN_001c23c0(void *canvas, bool create)
 {
-    if (canvas->callback == 0 && create) {
+    if (((Canvas *)canvas)->callback == 0 && create) {
         HulkShaderCallback *cb = (HulkShaderCallback *)FUN_0008d690(0x1c);
         if (cb) {
             cb->f04 = 0;
@@ -47,8 +47,8 @@ HulkShaderCallback *__stdcall FUN_001c23c0(Canvas *canvas, bool create)
             cb->color0 = 0xff000000;
             cb->color1 = 0xff000000;
         }
-        canvas->SetCallback(cb);
-        return cb;
+        ((Canvas *)canvas)->SetCallback(cb);
+        return (HulkShaderCallback *)cb;
     }
-    return canvas->callback;
+    return (HulkShaderCallback *)(((Canvas *)canvas)->callback);
 }

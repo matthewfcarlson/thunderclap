@@ -5,11 +5,12 @@ struct Vec3_357960 {
 };
 
 bool __cdecl FUN_0022de70(const Vec3_357960* point, const Vec3_357960* direction, const Vec3_357960* planePoint, const Vec3_357960* normal, Vec3_357960* result, float* parameter);
-bool __cdecl FUN_003577c0(const Vec3_357960* p, const Vec3_357960* v1, const Vec3_357960* v2, const Vec3_357960* v3, const Vec3_357960* n);
+extern "C" bool __cdecl FUN_003577c0(const void *, const void *, const void *, const void *, const void *);
 
-bool FUN_00357960(const Vec3_357960* origin, const Vec3_357960* dir, float reach, const Vec3_357960* p5, const Vec3_357960* p6, const Vec3_357960* p7, const Vec3_357960* n, float* dist, Vec3_357960* hit, Vec3_357960* outN)
+extern "C" bool FUN_00357960(const void * origin, const void * dir, float reach, const void * p5, const void * p6, const void * p7, const void * n, float* dist, void * hit, void * outN_)
 {
-    if (!FUN_0022de70(origin, dir, p5, n, hit, dist)) {
+    Vec3_357960 * outN = (Vec3_357960 *)outN_;
+    if (!FUN_0022de70(((const Vec3_357960 *)origin), ((const Vec3_357960 *)dir), ((const Vec3_357960 *)p5), ((const Vec3_357960 *)n), ((Vec3_357960 *)hit), dist)) {
         return false;
     }
     if (*dist < 0.0f) {
@@ -18,6 +19,6 @@ bool FUN_00357960(const Vec3_357960* origin, const Vec3_357960* dir, float reach
     if (reach < *dist) {
         return false;
     }
-    *outN = *n;
-    return FUN_003577c0(hit, p5, p6, p7, n);
+    *outN = *((const Vec3_357960 *)n);
+    return FUN_003577c0((const Vec3_357960 *)((Vec3_357960 *)hit), (const Vec3_357960 *)((const Vec3_357960 *)p5), (const Vec3_357960 *)((const Vec3_357960 *)p6), (const Vec3_357960 *)((const Vec3_357960 *)p7), (const Vec3_357960 *)((const Vec3_357960 *)n));
 }

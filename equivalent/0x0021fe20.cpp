@@ -2,6 +2,7 @@
 // FUN_0021fe20 @ 0x0021fe20
 // FUN_0021fe20 @ 0x0021fe20
 // FUN_0021fe20 @ 0x0021fe20
+#include "compat/ptr.h"
 struct Proto_21fe20;
 
 struct Zio_21fe20 {
@@ -36,18 +37,19 @@ struct Proto_21fe20 {
 // equiv-conv: FUN_0021f800 esi stack
 void __cdecl FUN_0021f800(LoadState_21fe20 *S, const char *fmt, ...);
 // equiv-conv: FUN_0021f8c0 ecx eax edx
-void FUN_0021f8c0(void *out, int size, LoadState_21fe20 *S);
+extern "C" void __cdecl FUN_0021f8c0(char *, unsigned int, void *);
 void *__cdecl FUN_0021add0(void *L, void *block, int oldsize, int newsize);
 int __cdecl FUN_0021a550(Zio_21fe20 *z);
-void *__cdecl FUN_0021a6b0(void *L, void *buff, int size);
-int __cdecl FUN_0021a610(Zio_21fe20 *z, void *buff, int size);
+extern "C" void * __cdecl FUN_0021a6b0(void *, void **, hulk_uintptr);
+extern "C" unsigned int __cdecl FUN_0021a610(void *, void *, unsigned int);
 void *__cdecl FUN_00219430(void *L, void *str, int len);
-Proto_21fe20 *__cdecl FUN_00220050(LoadState_21fe20 *S, void *source);
+extern "C" void * __cdecl FUN_00220050(void *, void *);
 
 // Lua 5.0 undump: LoadConstants(S, f) followed by LoadFunctions
 // equiv-conv: FUN_0021fe20 eax stack
-void FUN_0021fe20(LoadState_21fe20 *S, Proto_21fe20 *f)
+extern "C" void FUN_0021fe20(void *S, void * f_)
 {
+    Proto_21fe20 * f = (Proto_21fe20 *)f_;
     struct Frame {
         int n;
         int index;      // constant index, later reused for the function count
@@ -55,70 +57,70 @@ void FUN_0021fe20(LoadState_21fe20 *S, Proto_21fe20 *f)
         int num;
     } fr;
 
-    FUN_0021f8c0(&fr.n, 4, S);
+    FUN_0021f8c0((char *)(void *)(&fr.n), 4, (LoadState_21fe20 *)((LoadState_21fe20 *)S));
     if (fr.n < 0)
-        FUN_0021f800(S, "bad integer");
+        FUN_0021f800(((LoadState_21fe20 *)S), "bad integer");
 
     int n = fr.n;
-    f->k = (TValue_21fe20 *)FUN_0021add0(S->L, 0, 0, n * 8);
+    f->k = (TValue_21fe20 *)FUN_0021add0(((LoadState_21fe20 *)S)->L, 0, 0, n * 8);
     f->sizek = n;
     for (int i = 0; i < n; ++i)
         f->k[i].tt = 0;
 
     for (fr.index = 0; fr.index < n; ++fr.index) {
         TValue_21fe20 *o = &f->k[fr.index];
-        Zio_21fe20 *z = S->z;
+        Zio_21fe20 *z = ((LoadState_21fe20 *)S)->z;
         unsigned int left = z->n;
         z->n = left - 1;
-        z = S->z;
+        z = ((LoadState_21fe20 *)S)->z;
         int c;
         if (left != 0)
             c = *z->p++;
         else
             c = FUN_0021a550(z);
         if (c == -1)
-            FUN_0021f800(S, "unexpected end of file");
+            FUN_0021f800(((LoadState_21fe20 *)S), "unexpected end of file");
 
         switch (c & 0xff) {
         case 0:
             o->tt = 0;
             break;
         case 3:
-            FUN_0021f8c0(&fr.num, 4, S);
+            FUN_0021f8c0((char *)(void *)(&fr.num), 4, (LoadState_21fe20 *)((LoadState_21fe20 *)S));
             o->value = (void *)fr.num;
             o->tt = 3;
             break;
         case 4:
-            FUN_0021f8c0(&fr.size, 4, S);
+            FUN_0021f8c0((char *)(void *)(&fr.size), 4, (LoadState_21fe20 *)((LoadState_21fe20 *)S));
             if (fr.size == 0) {
                 n = fr.n;
                 o->value = 0;
                 o->tt = 4;
             } else {
                 int size = fr.size;
-                void *buff = FUN_0021a6b0(S->L, S->buff, size);
-                if (FUN_0021a610(S->z, buff, size) != 0)
-                    FUN_0021f800(S, "unexpected end of file");
-                o->value = FUN_00219430(S->L, buff, size - 1);
+                void *buff = FUN_0021a6b0(((LoadState_21fe20 *)S)->L, (void **)(void *)(((LoadState_21fe20 *)S)->buff), (int)size);
+                if (((int)FUN_0021a610((Zio_21fe20 *)(((LoadState_21fe20 *)S)->z), buff, (int)size)) != 0)
+                    FUN_0021f800(((LoadState_21fe20 *)S), "unexpected end of file");
+                o->value = FUN_00219430(((LoadState_21fe20 *)S)->L, buff, size - 1);
                 n = fr.n;
                 o->tt = 4;
             }
             break;
         default:
-            FUN_0021f800(S, "bad constant type (%d)", c & 0xff);
+            FUN_0021f800(((LoadState_21fe20 *)S), "bad constant type (%d)", c & 0xff);
             break;
         }
     }
 
-    FUN_0021f8c0(&fr.index, 4, S);
+    FUN_0021f8c0((char *)(void *)(&fr.index), 4, (LoadState_21fe20 *)((LoadState_21fe20 *)S));
     if (fr.index < 0)
-        FUN_0021f800(S, "bad integer");
+        FUN_0021f800(((LoadState_21fe20 *)S), "bad integer");
 
     int np = fr.index;
-    f->p = (Proto_21fe20 **)FUN_0021add0(S->L, 0, 0, np * 4);
+    f->p = (Proto_21fe20 **)FUN_0021add0(((LoadState_21fe20 *)S)->L, 0, 0, np * 4);
     f->sizep = np;
     for (int i = 0; i < np; ++i)
         f->p[i] = 0;
     for (int i = 0; i < np; ++i)
-        f->p[i] = FUN_00220050(S, f->source);
+        f->p[i] = ((Proto_21fe20 *)FUN_00220050((LoadState_21fe20 *)((LoadState_21fe20 *)S), f->source));
 }

@@ -12,8 +12,8 @@ virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virt
 };
 struct Context { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void finish(U_96740); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void start(U_96740); };
      
-void FUN_000966f0(); U_96740 FUN_00267f00();
-void FUN_00096740() {
+extern "C" void FUN_000966f0(); U_96740 FUN_00267f00();
+extern "C" void FUN_00096740() {
  if (!(*(unsigned char*)&DAT_004dd8e4)) return;
  FUN_000966f0();
  U_96740 now=FUN_00267f00(); U_96740 delta=now-(*(U_96740*)&DAT_004dd944);

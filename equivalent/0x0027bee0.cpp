@@ -2,7 +2,7 @@
 // FUN_0027bee0 @ 0x0027bee0
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 extern "C" void *memset(void *dst, int c, unsigned int n);
-void FUN_0027b8f0();
+extern "C" void __cdecl FUN_0027b8f0(void);
 
 struct Name_27bee0 {
     char data[8];

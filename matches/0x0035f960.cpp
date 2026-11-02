@@ -4,7 +4,7 @@
 typedef unsigned __int64 U64;
 extern U64 __cdecl lookup(const char*, int, int);
 extern "C" int __cdecl atexit(void(__cdecl*)());
-extern void __cdecl cleanup();
+extern "C" void __cdecl FUN_00364290();
 class Registry {
   public:
     void init(U64*, U64*, int, int);
@@ -13,5 +13,5 @@ void __cdecl FUN_0035f960() {
     U64 a = lookup("HalListener", 0, 0);
     U64 b = lookup("Runtime_Hal", 0, 0);
     (*(Registry*)((char*)&DAT_004e6208 + 72)).init(&b, &a, 64, 4);
-    atexit(cleanup);
+    atexit(FUN_00364290);
 }

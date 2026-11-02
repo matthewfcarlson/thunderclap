@@ -4,12 +4,12 @@
 
 struct NumberValue { int type; float value; };
 // equiv-conv: FUN_00219980 esi stack
-int __cdecl FUN_00219980(NumberValue* number, float limit) {
-    if (number->type == 3) {
-        float value = number->value;
+extern "C" int __cdecl FUN_00219980(void * number, float limit) {
+    if (((NumberValue *)number)->type == 3) {
+        float value = ((NumberValue *)number)->value;
         if (value > (*(float*)&DAT_003f32e0) && !(value > limit)) {
             int result = (int)value;
-            if (number->value == (float)result)
+            if (((NumberValue *)number)->value == (float)result)
                 return result;
         }
     }

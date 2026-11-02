@@ -11,9 +11,10 @@ struct Arena_26be70 {
  char pad1[0x418]; uint_26be70 overhead; char pad2[0x10]; uint_26be70 alignment;
  uint_26be70 total; uint_26be70 used; uint_26be70 peak; uint_26be70 reserved; uint_26be70 maximum;
 };
-void __cdecl FUN_0026bd80(void *);
+extern "C" void __cdecl FUN_0026bd80(void *);
 // equiv-conv: FUN_0026be70 eax stack
-void *__cdecl FUN_0026be70(Arena_26be70 *self, uint_26be70 amount) {
+extern "C" void *__cdecl FUN_0026be70(void * self_, unsigned int amount) {
+    Arena_26be70 * self = (Arena_26be70 *)self_;
  Block_26be70 *old = self->current;
  uint_26be70 oldSize = old->size & ~3u;
  uint_26be70 mask = self->alignment - 1;

@@ -28,7 +28,7 @@ struct Tree_2605e0 {
     Node nil;
 };
 
-char __cdecl FUN_002601d0(Tree_2605e0 *tree, void *elem, String *key);
+extern "C" char __cdecl FUN_002601d0(void *, void *, void *);
 
 
 namespace om {
@@ -68,7 +68,7 @@ SeqEventType *SeqEventType::FUN_002605e0(const char *name, void *b, int c, int d
         tree->nil.color = 0;
         tree->root = nil;
     }
-    FUN_002601d0(tree, this, &node.key);
+    FUN_002601d0((Tree_2605e0 *)tree, this, (String *)(&node.key));
     (*(int*)&DAT_004e7a2c)++;
     return this;
 }

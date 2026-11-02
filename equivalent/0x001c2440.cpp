@@ -27,11 +27,11 @@ public:
     virtual void Refresh();
 };
 
-Entry_1c2440* __stdcall FUN_001c23c0(Owner_1c2440* owner, bool nonZero);
+extern "C" void * __stdcall FUN_001c23c0(void *, bool);
 
 bool __stdcall FUN_001c2440(Owner_1c2440* owner, float value)
 {
-    Entry_1c2440* e = FUN_001c23c0(owner, value != 0.0f);
+    Entry_1c2440* e = ((Entry_1c2440 *)FUN_001c23c0((Owner_1c2440 *)owner, value != 0.0f));
     if (e) {
         e->value = value;
         if (value > 0.0f || e->fade > 0.0f || e->weight < 1.0f) {

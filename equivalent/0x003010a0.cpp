@@ -16,7 +16,7 @@ struct Service_3010a0 {
 struct Global_3010a0 { char pad[0x6c]; Service_3010a0* service; };
 struct Pair_3010a0 { char data[20]; Pair_3010a0* FUN_002f8ef0(Object*, Object*); };
 struct Queue_3010a0 { void FUN_002ee0c0(Pair_3010a0*); };
-void __cdecl FUN_00300bc0(Object**,Object**,unsigned);
+extern "C" void __cdecl FUN_00300bc0(int *, int *, int);
 struct Container_3010a0 {
  Object** begin; Object** end; Object** capacity;
  char pad0[8];
@@ -53,6 +53,6 @@ void Container_3010a0::target(Object* object, unsigned flags) {
   Object** slot=end; end=slot+1;
   if(slot) *slot=object;
  }
- FUN_00300bc0(begin,end,(unsigned)(end-begin));
+ FUN_00300bc0((int *)(Object * *)begin,(int *)(Object * *)end,(unsigned)((unsigned)(end-begin)));
  object->addRef();
 }

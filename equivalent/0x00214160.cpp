@@ -15,19 +15,19 @@ struct DebugInfo_214160 {
 void __cdecl FUN_00216340(char *out, const char *source, unsigned int len);
 
 // equiv-conv: FUN_00214160 ecx eax
-void FUN_00214160(DebugInfo_214160 *ar, CallInfo_214160 *ci)
+extern "C" void FUN_00214160(void *ar, void *ci)
 {
-    Closure_214160 *cl = ci->cl;
+    Closure_214160 *cl = ((CallInfo_214160 *)ci)->cl;
     if (cl->isC) {
-        ar->source = "=[C]";
-        ar->linedefined = -1;
-        ar->what = "C";
-        FUN_00216340(ar->short_src, ar->source, 0x3c);
+        ((DebugInfo_214160 *)ar)->source = "=[C]";
+        ((DebugInfo_214160 *)ar)->linedefined = -1;
+        ((DebugInfo_214160 *)ar)->what = "C";
+        FUN_00216340(((DebugInfo_214160 *)ar)->short_src, ((DebugInfo_214160 *)ar)->source, 0x3c);
         return;
     }
-    ar->source = cl->p->source->data;
+    ((DebugInfo_214160 *)ar)->source = cl->p->source->data;
     int line = cl->p->linedefined;
-    ar->linedefined = line;
-    ar->what = (line != 0) ? "Lua" : "main";
-    FUN_00216340(ar->short_src, ar->source, 0x3c);
+    ((DebugInfo_214160 *)ar)->linedefined = line;
+    ((DebugInfo_214160 *)ar)->what = (line != 0) ? "Lua" : "main";
+    FUN_00216340(((DebugInfo_214160 *)ar)->short_src, ((DebugInfo_214160 *)ar)->source, 0x3c);
 }

@@ -40,7 +40,7 @@ static inline int memcmp_inline(const void *a, const void *b, unsigned n)
 }
 
 // equiv-conv: FUN_00219390 stack stack stack eax
-TString_219430 *__cdecl FUN_00219390(lua_State_219430 *L, const char *str, unsigned len, unsigned h);
+extern "C" void * __cdecl FUN_00219390(void *, const char *, unsigned int, unsigned int);
 
 TString_219430 *__cdecl FUN_00219430(lua_State_219430 *L, const char *str, unsigned l)
 {
@@ -58,5 +58,5 @@ TString_219430 *__cdecl FUN_00219430(lua_State_219430 *L, const char *str, unsig
             return ts;
         }
     }
-    return FUN_00219390(L, str, l, h);
+    return ((TString_219430 *)FUN_00219390((lua_State_219430 *)L, str, (unsigned)l, (unsigned)h));
 }

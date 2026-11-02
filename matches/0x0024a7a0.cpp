@@ -10,14 +10,14 @@ class Obj_24a7a0 {
     Obj_24a7a0* Update(u8_24a7a0);
 };
 extern void Copy(void*, hulk_intptr);
-extern void InitA(void*);
-extern void InitB(void*);
+extern "C" void __cdecl FUN_0024a450(void *);
+extern "C" void __cdecl FUN_0024a4a0(void *);
 Obj_24a7a0* Obj_24a7a0::Update(u8_24a7a0 flag) {
     Copy((void*)((hulk_intptr)((char*)((char*)&DAT_004e6110 + 72))), m40);
     Copy((void*)((hulk_intptr)DAT_004e6110), m3c);
     char* base = (char*)this + 0x50;
-    InitA(base + 0x14);
-    InitB(base);
+    FUN_0024a450(base + 0x14);
+    FUN_0024a4a0(base);
     if (flag & 1)
         Copy((void*)((hulk_intptr)DAT_004e60c8), (hulk_intptr)this);
     return this;

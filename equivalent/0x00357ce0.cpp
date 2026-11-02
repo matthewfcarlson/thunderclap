@@ -4,7 +4,7 @@ struct Vec3_357ce0 {
     float x, y, z;
 };
 
-void __cdecl FUN_001fd640(const Vec3_357ce0 *p, const Vec3_357ce0 *a, const Vec3_357ce0 *b, Vec3_357ce0 *closest);
+extern "C" void __cdecl FUN_001fd640(void *, void *, void *, void *);
 
 static const float FLT_MAX_ = 3.4028235e+38f;
 
@@ -30,16 +30,16 @@ void FUN_00357ce0(const Vec3_357ce0 *p, const Vec3_357ce0 *a, const Vec3_357ce0 
     f.dist0 = FLT_MAX_;
     f.dist1 = FLT_MAX_;
     if (testAB) {
-        FUN_001fd640(p, a, b, &f.qAB);
+        FUN_001fd640((void *)(const Vec3_357ce0 *)p, (void *)(const Vec3_357ce0 *)a, (void *)(const Vec3_357ce0 *)b, (Vec3_357ce0 *)(&f.qAB));
         f.dist0 = DistSq(f.qAB, p);
     }
     if (testBC) {
-        FUN_001fd640(p, b, c, &f.qBC);
+        FUN_001fd640((void *)(const Vec3_357ce0 *)p, (void *)(const Vec3_357ce0 *)b, (void *)(const Vec3_357ce0 *)c, (Vec3_357ce0 *)(&f.qBC));
         // the original measures qAB here (a stale buffer, even when testAB was false), not qBC
         f.dist0 = DistSq(f.qAB, p);
     }
     if (testCA) {
-        FUN_001fd640(p, c, a, &f.qCA);
+        FUN_001fd640((void *)(const Vec3_357ce0 *)p, (void *)(const Vec3_357ce0 *)c, (void *)(const Vec3_357ce0 *)a, (Vec3_357ce0 *)(&f.qCA));
         f.dist1 = DistSq(f.qCA, p);
     }
     if (f.dist0 <= FLT_MAX_ && f.dist0 <= f.dist1) {

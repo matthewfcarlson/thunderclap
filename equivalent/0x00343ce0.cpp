@@ -4,29 +4,29 @@
 // Backward complex FFT driver (Ooura-style cftbsub, float): w (twiddle table) in eax, the data in ecx,
 // then n, the bit-reversal table ip and the twiddle count nw on the stack.
 // equiv-conv: FUN_00340a10 eax ecx stack
-void FUN_00340a10(float *a, int n, float *tw);
-void __cdecl FUN_00343a70(int n, float *a, int nw, float *w);
-void __cdecl FUN_00343b10(int n, float *a, int nw, float *w);
-void __cdecl FUN_003431d0(int n, float *a, int nw, float *w);
+extern "C" void __cdecl FUN_00340a10(float *, int, float *);
+extern "C" void __cdecl FUN_00343a70(int n, float *a, int nw, float *w);
+extern "C" void __cdecl FUN_00343b10(int n, float *a, int nw, float *w);
+extern "C" void __cdecl FUN_003431d0(int n, float *a, int nw, float *w);
 // equiv-conv: FUN_003430f0 eax esi edx ebx
-void FUN_003430f0(int n, float *a, float *w, int nw);
+extern "C" void FUN_003430f0(int n, float *a, float *w, int nw);
 // equiv-conv: FUN_0033f6d0 ecx eax stack
-void FUN_0033f6d0(int n, float *a, int *ip);
+extern "C" void FUN_0033f6d0(int n, float *a, int *ip);
 // equiv-conv: FUN_00341bd0 eax ecx
-void FUN_00341bd0(float *a, float *w);
+extern "C" void __cdecl FUN_00341bd0(float *, void *);
 struct ThisNote_00342800 {
     // equiv-conv: FUN_00342800 ecx eax
     void FUN_00342800(float *a);
 };
 // equiv-conv: FUN_0033ffb0 eax
-void FUN_0033ffb0(float *a);
+extern "C" void __cdecl FUN_0033ffb0(void *);
 // equiv-conv: FUN_00340130 eax
-void FUN_00340130(float *a);
+extern "C" void __cdecl FUN_00340130(void *);
 // equiv-conv: FUN_00342cc0 eax
-void FUN_00342cc0(float *a);
+extern "C" void __cdecl FUN_00342cc0(void *);
 
 // equiv-conv: FUN_00343ce0 eax ecx stack stack stack
-void __cdecl FUN_00343ce0(float *w, float *a, int n, int *ip, int nw)
+extern "C" void __cdecl FUN_00343ce0(float *w, float *a, int n, int *ip, int nw)
 {
     if (n > 0x20) {
         int m = n >> 2;
@@ -44,14 +44,14 @@ void __cdecl FUN_00343ce0(float *w, float *a, int n, int *ip, int nw)
         FUN_0033f6d0(n, a, ip);
     } else if (n > 8) {
         if (n == 0x20) {
-            FUN_00341bd0(a, &w[nw - 8]);
-            FUN_0033ffb0(a);
+            FUN_00341bd0(a, (float *)(&w[nw - 8]));
+            FUN_0033ffb0((float *)a);
         } else {
             ((ThisNote_00342800*)(w))->FUN_00342800(a);
-            FUN_00340130(a);
+            FUN_00340130((float *)a);
         }
     } else if (n == 8) {
-        FUN_00342cc0(a);
+        FUN_00342cc0((float *)a);
     } else if (n == 4) {
         float x0r = a[0] - a[2];
         float x0i = a[1] - a[3];

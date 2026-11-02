@@ -13,20 +13,22 @@ struct Tree_25b320 {
     Node nil;
 };
 
-extern "C" int FUN_0025ad30(const void* key, const Node* node);
-extern "C" void FUN_0025af20(Tree_25b320* tree, Node* node);
+extern "C" int __cdecl FUN_0025ad30(void *, void *);
+extern "C" void __cdecl FUN_0025af20(void *, void *);
 extern "C" void FUN_0025af70(Tree_25b320* tree, Node* node);
 
 // Red-black tree unique-key insert with rebalance. color: 1 = red, 0 = black.
-char FUN_0025b320(Tree_25b320* tree, Node* node, const void* key)
+extern "C" char FUN_0025b320(void * tree_, void * node_, const void* key)
 {
+    Tree_25b320 * tree = (Tree_25b320 *)tree_;
+    Node * node = (Node *)node_;
     Node* nil = &tree->nil;
     Node* cur = tree->root;
     Node* parent = nil;
 
     while (cur != nil) {
         parent = cur;
-        int c = FUN_0025ad30(key, cur);
+        int c = FUN_0025ad30((void *)(const void *)key, (void *)(const Node *)cur);
         if (c < 0) {
             cur = cur->left;
         } else if (c <= 0) {
@@ -39,7 +41,7 @@ char FUN_0025b320(Tree_25b320* tree, Node* node, const void* key)
     node->parent = parent;
     if (parent == nil) {
         tree->root = node;
-    } else if (FUN_0025ad30(key, parent) < 0) {
+    } else if (FUN_0025ad30((void *)(const void *)key, (void *)(const Node *)parent) < 0) {
         parent->left = node;
     } else {
         parent->right = node;
@@ -61,7 +63,7 @@ char FUN_0025b320(Tree_25b320* tree, Node* node, const void* key)
             } else {
                 if (node == p->right) {
                     node = p;
-                    FUN_0025af20(tree, node);
+                    FUN_0025af20((Tree_25b320 *)tree, (Node *)node);
                 }
                 node->parent->color = 0;
                 node->parent->parent->color = 1;

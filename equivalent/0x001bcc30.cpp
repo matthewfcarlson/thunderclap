@@ -86,7 +86,7 @@ struct Holder2_1bcc30 {
 Cursor_1bcc30 **FUN_001c3d90();
 // equiv-conv: FUN_001bc530 esi stack
 void FUN_001bc530(V4_1bcc30 *q, V3_1bcc30 *v);
-void FUN_001bc8a0(Sub *sub, V4_1bcc30 *q);
+extern "C" void __cdecl FUN_001bc8a0(void *, void *);
 extern "C" void FUN_00096a90(Ctl_1bcc30 *ctl, V3_1bcc30 *out);
 struct Lookup_1bcc30 { Holder2_1bcc30 *FUN_001d75c0(int handle); };
 
@@ -161,11 +161,11 @@ void Rig_1bcc30::FUN_001bcc30()
         if (child != 0) {
             Holder2_1bcc30 *h = ((Lookup_1bcc30*)child)->FUN_001d75c0(child->handle);
             if (h != 0)
-                FUN_001bc8a0(h->sub10, &f.q);
+                FUN_001bc8a0((Sub *)(h->sub10), (V4_1bcc30 *)(&f.q));
         }
     }
     if (f.target != 0)
-        FUN_001bc8a0(f.target->sub, &f.q);
+        FUN_001bc8a0((Sub *)(f.target->sub), (V4_1bcc30 *)(&f.q));
     f.a.x = 0;
     f.a.y = 0;
     f.a.z = 0;

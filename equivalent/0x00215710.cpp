@@ -13,22 +13,23 @@ struct lua_State_215710 {
 
 // equiv-conv: FUN_002175b0 stack stack stack
 const TObject_215710 *__cdecl FUN_002175b0(lua_State_215710 *L, const TObject_215710 *o, int event);
-void __cdecl FUN_00214c90(lua_State_215710 *L, const TObject_215710 *o, const char *op);
-void __cdecl FUN_00215460(lua_State_215710 *L, int n);
+extern "C" void __cdecl FUN_00214c90(void *, const void *, const char *);
+extern "C" void __cdecl FUN_00215460(void *, int);
 
 // equiv-conv: FUN_00215710 esi edi
-TObject_215710 *__cdecl FUN_00215710(lua_State_215710 *L, TObject_215710 *func)
+extern "C" void *__cdecl FUN_00215710(void *L, void * func_)
 {
-    const TObject_215710 *tm = FUN_002175b0(L, func, 14);
-    hulk_intptr funcr = (char *)func - (char *)L->stack;
+    TObject_215710 * func = (TObject_215710 *)func_;
+    const TObject_215710 *tm = FUN_002175b0(((lua_State_215710 *)L), func, 14);
+    hulk_intptr funcr = (char *)func - (char *)((lua_State_215710 *)L)->stack;
     if (tm->tt != 6)
-        FUN_00214c90(L, func, "call");
-    for (TObject_215710 *p = L->top; p > func; p--)
+        FUN_00214c90((lua_State_215710 *)((lua_State_215710 *)L), (const TObject_215710 *)func, "call");
+    for (TObject_215710 *p = ((lua_State_215710 *)L)->top; p > func; p--)
         *p = *(p - 1);
-    if ((char *)L->stack_last - (char *)L->top <= 8)
-        FUN_00215460(L, 1);
-    L->top++;
-    func = (TObject_215710 *)((char *)L->stack + funcr);
+    if ((char *)((lua_State_215710 *)L)->stack_last - (char *)((lua_State_215710 *)L)->top <= 8)
+        FUN_00215460((lua_State_215710 *)((lua_State_215710 *)L), 1);
+    ((lua_State_215710 *)L)->top++;
+    func = (TObject_215710 *)((char *)((lua_State_215710 *)L)->stack + funcr);
     *func = *tm;
-    return func;
+    return (TObject_215710 *)func;
 }

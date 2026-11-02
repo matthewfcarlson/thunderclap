@@ -9,16 +9,16 @@ struct Frame_2146f0 { Slot_2146f0* base; unsigned unused; unsigned* pc; };
 extern char* __cdecl FUN_00219820(Proto_2146f0*, unsigned, int);
 extern unsigned __cdecl FUN_002142d0(Proto_2146f0*, int, unsigned);
 // equiv-conv: FUN_002146c0 eax ecx
-extern char* __cdecl FUN_002146c0(unsigned, Proto_2146f0*);
+extern "C" void * __cdecl FUN_002146c0(int, void *);
 // equiv-conv: FUN_002146f0 eax stack stack
-const char* __cdecl FUN_002146f0(unsigned reg, Frame_2146f0* frame, char** name) {
+extern "C" const char* __cdecl FUN_002146f0(unsigned reg, void * frame, char** name) {
  for (;;) {
-  Slot_2146f0* slot = frame->base - 1;
+  Slot_2146f0* slot = ((Frame_2146f0 *)frame)->base - 1;
   if (slot->type != 6) return 0;
   Closure_2146f0* closure = slot->closure;
   if (closure->native) return 0;
   Proto_2146f0* proto = closure->proto;
-  int pc = ((int)((hulk_uintptr)frame->pc - (hulk_uintptr)proto->code) >> 2) - 1;
+  int pc = ((int)((hulk_uintptr)((Frame_2146f0 *)frame)->pc - (hulk_uintptr)proto->code) >> 2) - 1;
   char* local = FUN_00219820(proto, reg + 1, pc);
   *name = local;
   if (local) return "local";
@@ -34,13 +34,13 @@ const char* __cdecl FUN_002146f0(unsigned reg, Frame_2146f0* frame, char** name)
     *name = proto->constants[(instruction >> 6) & 0x3ffff].object + 16;
     return "global";
    case 6:
-    *name = FUN_002146c0((instruction >> 6) & 511, proto);
+    *name = ((char *)FUN_002146c0((unsigned)((instruction >> 6) & 511), (Proto_2146f0 *)proto));
     return "field";
    case 4:
     *name = proto->upvalues[(instruction >> 15) & 511] + 16;
     return "upvalue";
    case 11:
-    *name = FUN_002146c0((instruction >> 6) & 511, proto);
+    *name = ((char *)FUN_002146c0((unsigned)((instruction >> 6) & 511), (Proto_2146f0 *)proto));
     return "method";
    default: return 0;
   }

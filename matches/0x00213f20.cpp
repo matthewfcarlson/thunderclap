@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 typedef unsigned char uchar;
-int __fastcall FUN_00213f20(void* a, int* p) {
+extern "C" int __fastcall FUN_00213f20(void* a, int* p) {
     int* s;
     int n;
     if (*(int*)(*p - 8) != 6)

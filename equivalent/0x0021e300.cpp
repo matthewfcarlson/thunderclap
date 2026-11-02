@@ -60,21 +60,21 @@ struct Exp_21e300 {
     int f;
 };
 
-int __cdecl FUN_0021bbc0(LexState_21e300 *ls, int *seminfo);
-int __cdecl FUN_00220cd0(FuncState_21e300 *fs);
-int __cdecl FUN_00220530(FuncState_21e300 *fs);
-int __cdecl FUN_0021ded0(LexState_21e300 *ls, Exp_21e300 *v, unsigned int limit);
-void __cdecl FUN_00221560(FuncState_21e300 *fs, Exp_21e300 *v);
+extern "C" int __cdecl FUN_0021bbc0(void *, void *);
+extern "C" int __cdecl FUN_00220cd0(void *);
+extern "C" int __cdecl FUN_00220530(void *);
+extern "C" int __cdecl FUN_0021ded0(void *, void *, unsigned int);
+extern "C" void __cdecl FUN_00221560(void *, void *);
 void __cdecl FUN_002207c0(FuncState_21e300 *fs, int *l1, int l2);
 void FUN_0021b060(LexState_21e300 *ls, const char *msg);
 const char *__cdecl FUN_0021af00(LexState_21e300 *ls, int token);
 const char *FUN_00216320(void *L, const char *fmt, ...);
 // equiv-conv: FUN_0021e080 eax
-void FUN_0021e080(LexState_21e300 *ls);
+extern "C" void __cdecl FUN_0021e080(void *);
 void __cdecl FUN_00220d70(FuncState_21e300 *fs, int list);
-void __cdecl FUN_00221ae0(FuncState_21e300 *fs, int list, int target);
-int __cdecl FUN_00220b20(FuncState_21e300 *fs, unsigned int instr, int line);
-int __cdecl FUN_00220bd0(FuncState_21e300 *fs, int op, int a, int b, int c);
+extern "C" void __cdecl FUN_00221ae0(void *, int, int);
+extern "C" int __cdecl FUN_00220b20(void *, unsigned int, unsigned int);
+extern "C" int __cdecl FUN_00220bd0(void *, unsigned int, int, unsigned int, unsigned int);
 // equiv-conv: FUN_0021c340 eax esi edi stack
 void FUN_0021c340(int line, LexState_21e300 *ls, int what, int who);
 
@@ -86,12 +86,12 @@ static inline void Next(LexState_21e300 *ls)
         ls->seminfo = ls->lookaheadSeminfo;
         ls->lookaheadToken = 0x11f;
     } else {
-        ls->token = FUN_0021bbc0(ls, &ls->seminfo);
+        ls->token = FUN_0021bbc0((LexState_21e300 *)ls, (int *)(&ls->seminfo));
     }
 }
 
 // Lua 5.0 whilestat(ls, line)
-void FUN_0021e300(LexState_21e300 *ls, int line)
+extern "C" void FUN_0021e300(void *ls, int line)
 {
     unsigned int codeexp[105];
     BlockCnt_21e300 bl;
@@ -102,21 +102,21 @@ void FUN_0021e300(LexState_21e300 *ls, int line)
     int sizeexp;
     int blockinit;
     int i;
-    FuncState_21e300 *fs = ls->fs;
+    FuncState_21e300 *fs = ((LexState_21e300 *)ls)->fs;
 
-    Next(ls);
-    whileinit = FUN_00220cd0(fs);
-    expinit = FUN_00220530(fs);
-    FUN_0021ded0(ls, &v, 0);
+    Next(((LexState_21e300 *)ls));
+    whileinit = FUN_00220cd0((FuncState_21e300 *)fs);
+    expinit = FUN_00220530((FuncState_21e300 *)fs);
+    FUN_0021ded0((LexState_21e300 *)((LexState_21e300 *)ls), (Exp_21e300 *)(&v), 0);
     if (v.k == 4)
         v.k = 2;
-    lineexp = ls->linenumber;
-    FUN_00221560(fs, &v);
+    lineexp = ((LexState_21e300 *)ls)->linenumber;
+    FUN_00221560((FuncState_21e300 *)fs, (Exp_21e300 *)(&v));
     FUN_002207c0(fs, &v.f, fs->jpc);
     sizeexp = fs->pc - expinit;
     fs->jpc = -1;
     if (sizeexp > 100)
-        FUN_0021b060(ls, "`while' condition too complex");
+        FUN_0021b060(((LexState_21e300 *)ls), "`while' condition too complex");
     for (i = 0; i < sizeexp; i++)
         codeexp[i] = fs->f->code[expinit + i];
     fs->pc = expinit;
@@ -128,22 +128,22 @@ void FUN_0021e300(LexState_21e300 *ls, int line)
     bl.previous = fs->bl;
     fs->bl = &bl;
 
-    if (ls->token == 0x103) {
-        Next(ls);
+    if (((LexState_21e300 *)ls)->token == 0x103) {
+        Next(((LexState_21e300 *)ls));
     } else {
-        FUN_0021b060(ls, FUN_00216320(ls->L, "`%s' expected", FUN_0021af00(ls, 0x103)));
+        FUN_0021b060(((LexState_21e300 *)ls), FUN_00216320(((LexState_21e300 *)ls)->L, "`%s' expected", FUN_0021af00(((LexState_21e300 *)ls), 0x103)));
     }
 
-    blockinit = FUN_00220530(fs);
-    FUN_0021e080(ls);
+    blockinit = FUN_00220530((FuncState_21e300 *)fs);
+    FUN_0021e080((LexState_21e300 *)((LexState_21e300 *)ls));
     FUN_00220d70(fs, whileinit);
     if (v.t != -1)
         v.t += fs->pc - expinit;
     if (v.f != -1)
         v.f += fs->pc - expinit;
     for (i = 0; i < sizeexp; i++)
-        FUN_00220b20(fs, codeexp[i], lineexp);
-    FUN_0021c340(line, ls, 0x106, 0x115);
+        FUN_00220b20((FuncState_21e300 *)fs, codeexp[i], (int)lineexp);
+    FUN_0021c340(line, ((LexState_21e300 *)ls), 0x106, 0x115);
 
     BlockCnt_21e300 *b = fs->bl;
     fs->bl = b->previous;
@@ -154,9 +154,9 @@ void FUN_0021e300(LexState_21e300 *ls, int line)
         fs2->f->locvars[fs2->actvar[fs2->nactvar]].endpc = fs2->pc;
     }
     if (b->upval)
-        FUN_00220bd0(fs, 0x22, b->nactvar, 0, 0);
+        FUN_00220bd0((FuncState_21e300 *)fs, 0x22, b->nactvar, 0, 0);
     fs->freereg = fs->nactvar;
     FUN_00220d70(fs, b->breaklist);
-    FUN_00221ae0(fs, v.t, blockinit);
+    FUN_00221ae0((FuncState_21e300 *)fs, v.t, blockinit);
     FUN_00220d70(fs, v.f);
 }

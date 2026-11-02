@@ -14,7 +14,7 @@ struct Image {
 
 // Stretches a row-major pixel run in place, replicating every pixel DAT_004d10d8[sel] times (from the end, so
 // the source is never overwritten before it is read), then updates the image width and pitch.
-void FUN_002e7990(Image *img, unsigned char *pixels, int sel, unsigned int flags)
+extern "C" void FUN_002e7990(Image *img, unsigned char *pixels, int sel, unsigned int flags)
 {
     if (pixels == 0 || img == 0)
         return;

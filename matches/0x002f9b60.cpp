@@ -1,7 +1,7 @@
 // Same code shape as 0x002b0fb0 (propagated; names are from that function)
 #include "compat/ptr.h"
 extern void* Alloc(hulk_uintptr);
-extern void Init(void*, unsigned int, void*);
+extern "C" unsigned int * __cdecl FUN_002f98c0(unsigned int *, unsigned int, unsigned int *);
 class Buffer_2f9b60 {
   public:
     int* begin;
@@ -15,7 +15,7 @@ bool Buffer_2f9b60::Make(unsigned int count, void* arg) {
         begin = (int*)Alloc(count * 8);
         if (begin != 0) {
             end = (int*)((char*)begin + count * 8);
-            Init(begin, count, arg);
+            FUN_002f98c0((unsigned int *)(void *)begin, count, (unsigned int *)(void *)arg);
             return true;
         }
     }

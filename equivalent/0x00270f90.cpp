@@ -13,11 +13,11 @@ void __cdecl FUN_0026d840(void *);
 extern "C" void __cdecl FUN_0026d6d0(int);
 void __cdecl thunk_FUN_00270a50();
 // equiv-conv: FUN_00270980 eax
-void FUN_00270980(char *);
-int __cdecl FUN_00270c10(const char *);
+extern "C" void FUN_00270980(char *);
+extern "C" int __cdecl FUN_00270c10(const char *);
 extern "C" char * __cdecl strncpy(char *, const char *, unsigned int);
 
-bool __cdecl FUN_00270f90(const char *name) {
+extern "C" bool __cdecl FUN_00270f90(const char *name) {
     char buffer[17];
     FUN_0026d850(((char*)((char*)&DAT_0052842c + 7364)));
     if (name) {

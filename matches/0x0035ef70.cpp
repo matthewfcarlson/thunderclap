@@ -6,8 +6,8 @@ class Sound {
     void Init(const char*, int);
 };
 extern "C" int __cdecl atexit(void(__cdecl*)());
-extern "C" void __cdecl cleanup();
+extern "C" void __cdecl FUN_00364120();
 void __cdecl target() {
     (*(Sound*)((char*)&DAT_004e5a58 + 4)).Init("sound/rsd", 0);
-    atexit(cleanup);
+    atexit(FUN_00364120);
 }

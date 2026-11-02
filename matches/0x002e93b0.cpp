@@ -34,7 +34,7 @@ void __cdecl FUN_002e69a0(png_struct_2e93b0 *png_ptr, const char *msg);
 void __cdecl FUN_002e69d0(png_struct_2e93b0 *png_ptr, const char *msg);
 int __cdecl FUN_002e81e0(png_struct_2e93b0 *png_ptr, unsigned int skip);
 void __cdecl FUN_002e7580(png_struct_2e93b0 *png_ptr, unsigned char *buf, unsigned int length);
-unsigned short __cdecl FUN_002e7560(const unsigned char *buf);
+extern "C" unsigned short __cdecl FUN_002e7560(const unsigned char *);
 void __cdecl FUN_002eb150(png_struct_2e93b0 *png_ptr, png_info_2e93b0 *info_ptr, png_color_16_2e93b0 *background);
 
 void png_handle_bKGD(png_struct_2e93b0 *png_ptr, png_info_2e93b0 *info_ptr, unsigned int length)

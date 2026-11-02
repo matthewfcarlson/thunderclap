@@ -9,7 +9,7 @@ extern "C" int __cdecl FUN_002e81e0(Png_2e96a0*, unsigned);
 extern "C" void __cdecl FUN_002e7580(Png_2e96a0*, void*, unsigned);
 extern "C" unsigned __cdecl FUN_002e7500(unsigned char*);
 extern "C" int __cdecl FUN_002eb480(Png_2e96a0*, Info_2e96a0*, unsigned, unsigned, unsigned);
-int __cdecl FUN_002e96a0(Png_2e96a0* png, Info_2e96a0* info, unsigned length) {
+extern "C" int __cdecl FUN_002e96a0(Png_2e96a0* png, Info_2e96a0* info, unsigned length) {
     unsigned flags = png->flags;
     if (!(flags & 1)) {
         FUN_002e69a0(png, "Missing IHDR before pHYS");

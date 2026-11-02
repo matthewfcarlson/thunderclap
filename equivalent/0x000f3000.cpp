@@ -38,7 +38,7 @@ public:
     virtual Scenegraph* find(content::LoadInventory::DynamicCasterBase* caster, unsigned __int64 key);
 };
 
-void __cdecl FUN_000f69e0(Scenegraph* shape, float* scale);
+extern "C" void __cdecl FUN_000f69e0(void *, void *);
 
 class FEThingsBase;
 
@@ -204,7 +204,7 @@ FEThingsBase::FEThingsBase()
         unsigned __int64 key = FUN_0027b020("cursor_planeShape");
         Scenegraph* shape = inv->find(&caster, key);
         if (shape)
-            FUN_000f69e0(shape, cursorScale);
+            FUN_000f69e0((Scenegraph *)shape, (float *)cursorScale);
     }
     f184c = 0;
     f2104 = 0;

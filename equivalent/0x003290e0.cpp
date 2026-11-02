@@ -3,7 +3,7 @@
 namespace D3D8 {
 int __stdcall D3DDevice_CreateVertexShader(const unsigned int* decl, const void* program, unsigned int* handle, int usage);
 }
-extern unsigned int __cdecl FUN_00329060(const char* name);
+extern "C" unsigned int __cdecl FUN_00329060(char *);
 extern "C" void __cdecl FUN_0031c230(int hr);
 struct ShaderEntry {
     int unk0;
@@ -34,7 +34,7 @@ class ShaderCache_3290e0 {
 };
 ShaderEntry* ShaderCache_3290e0::Get(const char* name, unsigned int a, unsigned int flags, int c) {
     DeclFrame F;
-    unsigned int hash = FUN_00329060(name);
+    unsigned int hash = FUN_00329060((char *)(const char *)name);
     F.b = (unsigned char)(c & 1);
     ShaderGroup* g = &groups[0];
     for (unsigned int i = 0; i < count; i++) {

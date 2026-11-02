@@ -5,7 +5,7 @@
 typedef __int64 I64;
 extern "C" I64 __cdecl getid(const char*, int, int);
 extern "C" int __cdecl atexit(void(__cdecl*)());
-void __cdecl cleanup();
+extern "C" void __cdecl FUN_003642a0();
 class Registry {
   public:
     void init(I64*, I64*, int, int);
@@ -14,5 +14,5 @@ void __cdecl target() {
     I64 a = getid(((char*)&DAT_004293a4), 0, 0);
     I64 b = getid(((char*)&DAT_004293a4), 0, 0);
     (*(Registry*)&DAT_004e62d8).init(&b, &a, 12, 4);
-    atexit(cleanup);
+    atexit(FUN_003642a0);
 }

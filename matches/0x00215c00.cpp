@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Arena_215c00 {
     char pad[0x48];
     unsigned limit;
@@ -33,15 +34,15 @@ struct Record_215c00 {
     char pad10[8];
     unsigned entries[1];
 };
-extern unsigned __cdecl FUN_0021a590(unsigned);
+extern "C" unsigned int __cdecl FUN_0021a590(void *);
 extern void __cdecl FUN_00217440(Context*);
 extern Object* __cdecl FUN_00220480(Context*, unsigned, unsigned*, unsigned);
 extern "C" Object* __cdecl FUN_0021f710(Context*, unsigned, unsigned*, unsigned);
 extern Record_215c00* __cdecl FUN_00219560(Context*, unsigned, unsigned*);
 extern unsigned __cdecl FUN_002195d0(Context*);
-extern void __cdecl FUN_00215460(Context*, int);
+extern "C" void __cdecl FUN_00215460(void *, int);
 void __cdecl FUN_00215c00(Context* context, Input_215c00* input) {
-    unsigned type = FUN_0021a590(input->type);
+    unsigned type = ((unsigned)FUN_0021a590((void *)(hulk_uintptr)(unsigned)(input->type)));
     if (context->arena->used >= context->arena->limit)
         FUN_00217440(context);
     typedef Object*(__cdecl * Factory)(Context*, unsigned, unsigned*, unsigned);
@@ -55,6 +56,6 @@ void __cdecl FUN_00215c00(Context* context, Input_215c00* input) {
     command->record = record;
     command->kind = 6;
     if ((int)((char*)context->end - (char*)context->current) <= 8)
-        FUN_00215460(context, 1);
+        FUN_00215460((Context *)context, 1);
     context->current = context->current + 1;
 }

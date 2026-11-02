@@ -1,7 +1,7 @@
 typedef unsigned int U32_1d1b70;
 extern int __cdecl FUN_00212f00(U32_1d1b70, int);
 extern void __cdecl FUN_00212d80(U32_1d1b70, int);
-extern U32_1d1b70 __cdecl FUN_00339650(U32_1d1b70, int);
+extern "C" int __cdecl FUN_00339650(int, int);
 class Obj_1d1b70 {
   public:
     char pad[8];
@@ -14,7 +14,7 @@ bool Obj_1d1b70::Target(U32_1d1b70* out) {
         r = false;
         FUN_00212d80(value, -2);
     } else {
-        *out = FUN_00339650(value, -10000);
+        *out = ((unsigned int)FUN_00339650((unsigned int)value, -10000));
     }
     return r;
 }

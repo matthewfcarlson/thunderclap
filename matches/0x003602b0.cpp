@@ -9,10 +9,10 @@ struct Registry {
     void init(const Pair*, const Pair*, int, int);
 };
 extern "C" int __cdecl atexit(void(__cdecl*)());
-extern void __cdecl cleanup();
+extern "C" void __cdecl FUN_00364430();
 void __cdecl FUN_003602b0() {
     Pair x = make(DAT_00429db4, 0, 0);
     Pair y = make(DAT_00429270, 0, 0);
     (*(Registry*)&DAT_004e6b80).init(&y, &x, 16, 4);
-    atexit(cleanup);
+    atexit(FUN_00364430);
 }

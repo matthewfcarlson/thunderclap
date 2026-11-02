@@ -7,9 +7,9 @@ struct Reader {
  unsigned end;
  signed char FUN_00245b70(unsigned index);
 };
-void __cdecl FUN_00245d40(Reader* reader);
+extern "C" void __cdecl FUN_00245d40(void *);
 bool __cdecl FUN_00246220(Reader* reader, unsigned* result) {
- FUN_00245d40(reader);
+ FUN_00245d40((Reader *)reader);
  unsigned value = 0;
  if (reader->position >= reader->end) return false;
  for (;;) {

@@ -7,7 +7,7 @@ struct Manager_1aa8e0 { void FUN_0003dd00(int); Result_1aa8e0* FUN_00036a80(int)
 struct World { char pad[0x124]; Manager_1aa8e0* manager; };
 struct Root_1aa8e0 { char pad[0x20]; World* world; };
 extern Root_1aa8e0* DAT_004dd700;
-extern const char* __cdecl FUN_001a4cb0(Script_1aa8e0*, int);
+extern "C" const char * __cdecl FUN_001a4cb0(void *, unsigned int);
 extern bool __cdecl FUN_001a4fd0(Script_1aa8e0*, int);
 namespace hulkfight { namespace scenario {
 struct NISAnimationAction {
@@ -24,7 +24,7 @@ manager->FUN_0003dd00(1);
 Script_1aa8e0* s=script;
 int i;
 for(i=0;i<20;++i) {
-const char* name=FUN_001a4cb0(s,i);
+const char* name=FUN_001a4cb0((Script_1aa8e0 *)s,(int)i);
 if(name) {
 const char* expected="hulk";
 int n=0;

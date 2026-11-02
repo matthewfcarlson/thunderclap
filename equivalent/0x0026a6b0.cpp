@@ -5,7 +5,7 @@ extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 typedef unsigned int uint_26a6b0;
 extern "C" unsigned char __cdecl FUN_00272070(const char* text, uint_26a6b0* bytes, uint_26a6b0* other, int mode);
 
-int __cdecl FUN_0026a6b0(const char* source, char* destination, uint_26a6b0 capacity)
+extern "C" int __cdecl FUN_0026a6b0(const char* source, char* destination, unsigned int capacity)
 {
     uint_26a6b0 copied = 0;
     struct { uint_26a6b0 bytes; uint_26a6b0 other; } r;

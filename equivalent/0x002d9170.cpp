@@ -30,60 +30,61 @@ struct Format_2d9170 {
     unsigned char tag[10];
 };
 
-void FUN_002d9170(Source_2d9170 *src, Format_2d9170 *fmt)
+extern "C" void FUN_002d9170(void *src, void * fmt_)
 {
+    Format_2d9170 * fmt = (Format_2d9170 *)fmt_;
     unsigned char bl = 8;
 
-    if (src->flags & 0x1000) {
+    if (((Source_2d9170 *)src)->flags & 0x1000) {
         if (fmt->mode == 3) {
-            fmt->mode = (src->count != 0) * 4 + 2;
+            fmt->mode = (((Source_2d9170 *)src)->count != 0) * 4 + 2;
             fmt->depth = bl;
         } else {
-            if (src->count != 0)
+            if (((Source_2d9170 *)src)->count != 0)
                 fmt->mode = fmt->mode | 4;
             if (fmt->depth < bl)
                 fmt->depth = bl;
         }
         fmt->w16 = 0;
     }
-    if (src->flags & 0x80) {
+    if (((Source_2d9170 *)src)->flags & 0x80) {
         fmt->mode &= 0xfb;
         fmt->w16 = 0;
         for (int i = 0; i < 10; i++)
-            fmt->tag[i] = src->tag[i];
+            fmt->tag[i] = ((Source_2d9170 *)src)->tag[i];
     }
-    if (src->flags & 0x2000)
-        fmt->value28 = src->value154;
-    if (src->flags & 0x400) {
+    if (((Source_2d9170 *)src)->flags & 0x2000)
+        fmt->value28 = ((Source_2d9170 *)src)->value154;
+    if (((Source_2d9170 *)src)->flags & 0x400) {
         if (fmt->depth == 0x10)
             fmt->depth = bl;
     }
-    if (src->flags & 0x40) {
+    if (((Source_2d9170 *)src)->flags & 0x40) {
         unsigned char m = fmt->mode;
-        if ((m == 2 || m == 6) && src->link != 0 && fmt->depth == bl)
+        if ((m == 2 || m == 6) && ((Source_2d9170 *)src)->link != 0 && fmt->depth == bl)
             fmt->mode = 3;
     }
-    if (src->flags & 4) {
+    if (((Source_2d9170 *)src)->flags & 4) {
         if (fmt->depth < bl)
             fmt->depth = bl;
     }
-    if (src->flags & 0x4000)
+    if (((Source_2d9170 *)src)->flags & 0x4000)
         fmt->mode |= 2;
-    if (src->flags & 0x600000)
+    if (((Source_2d9170 *)src)->flags & 0x600000)
         fmt->mode &= 0xfd;
     unsigned char m = fmt->mode;
     if (m != 3 && (m & 2))
         fmt->channels = 3;
     else
         fmt->channels = 1;
-    if (src->flags & 0x40000) {
+    if (((Source_2d9170 *)src)->flags & 0x40000) {
         m &= 0xfb;
         fmt->mode = m;
     }
     m = fmt->mode;
     if (m & 4)
         fmt->channels++;
-    if (src->flags & 0x8000) {
+    if (((Source_2d9170 *)src)->flags & 0x8000) {
         if (m == 2 || m == 0)
             fmt->channels++;
     }

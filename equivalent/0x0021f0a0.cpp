@@ -42,16 +42,16 @@ struct Exp_21f0a0 {
 };
 
 void FUN_0021b060(LexState_21f0a0* ls, const char* msg);
-int FUN_0021bbc0(LexState_21f0a0* ls, int* seminfo);
+extern "C" int __cdecl FUN_0021bbc0(void *, void *);
 const char* FUN_00216320(void* L, const char* fmt, ...);
 void FUN_0021afd0(LexState_21f0a0* ls, const char* msg, int token);
 unsigned short FUN_0021c490(LexState_21f0a0* ls, int name);
 // equiv-conv: FUN_0021d5c0 esi edi
-int FUN_0021d5c0(LexState_21f0a0* ls, Exp_21f0a0* e);
+extern "C" int __cdecl FUN_0021d5c0(void *, void *);
 // equiv-conv: FUN_0021c8b0 eax ecx edx stack
-void FUN_0021c8b0(LexState_21f0a0* ls, Exp_21f0a0* e, int nexps, int nvars);
+extern "C" void __cdecl FUN_0021c8b0(void *, void *, int, int);
 // equiv-conv: FUN_0021c570 eax edx
-void FUN_0021c570(LexState_21f0a0* ls, int nvars);
+extern "C" void __cdecl FUN_0021c570(void *, int);
 
 static inline void Next(LexState_21f0a0* ls)
 {
@@ -61,21 +61,21 @@ static inline void Next(LexState_21f0a0* ls)
         ls->t.seminfo = ls->lookahead.seminfo;
         ls->lookahead.token = 0x11f;
     } else {
-        ls->t.token = FUN_0021bbc0(ls, &ls->t.seminfo);
+        ls->t.token = FUN_0021bbc0((LexState_21f0a0 *)ls, (int *)(&ls->t.seminfo));
     }
 }
 
 // equiv-conv: FUN_0021f0a0 eax
-void FUN_0021f0a0(LexState_21f0a0* ls)
+extern "C" void FUN_0021f0a0(void * ls)
 {
     int nvars = 0;
     Exp_21f0a0 e;
     for (;;) {
-        if (ls->t.token != 0x116)
-            FUN_0021b060(ls, "<name> expected");
-        int name = ls->t.seminfo;
-        Next(ls);
-        FuncState_21f0a0* fs = ls->fs;
+        if (((LexState_21f0a0 *)ls)->t.token != 0x116)
+            FUN_0021b060(((LexState_21f0a0 *)ls), "<name> expected");
+        int name = ((LexState_21f0a0 *)ls)->t.seminfo;
+        Next(((LexState_21f0a0 *)ls));
+        FuncState_21f0a0* fs = ((LexState_21f0a0 *)ls)->fs;
         if (fs->nactvar + nvars + 1 > 200) {
             int line = fs->f->lineDefined;
             const char* msg;
@@ -85,20 +85,20 @@ void FUN_0021f0a0(LexState_21f0a0* ls)
                 msg = FUN_00216320(fs->L, "main function has more than %d %s", 200, "local variables");
             FUN_0021afd0(fs->ls, msg, 0);
         }
-        fs->actvar[fs->nactvar + nvars] = FUN_0021c490(ls, name);
+        fs->actvar[fs->nactvar + nvars] = FUN_0021c490(((LexState_21f0a0 *)ls), name);
         nvars++;
-        if (ls->t.token != 0x2c)
+        if (((LexState_21f0a0 *)ls)->t.token != 0x2c)
             break;
-        Next(ls);
+        Next(((LexState_21f0a0 *)ls));
     }
     int nexps;
-    if (ls->t.token == 0x3d) {
-        Next(ls);
-        nexps = FUN_0021d5c0(ls, &e);
+    if (((LexState_21f0a0 *)ls)->t.token == 0x3d) {
+        Next(((LexState_21f0a0 *)ls));
+        nexps = FUN_0021d5c0((LexState_21f0a0 *)((LexState_21f0a0 *)ls), (Exp_21f0a0 *)(&e));
     } else {
         e.k = 0;
         nexps = 0;
     }
-    FUN_0021c8b0(ls, &e, nexps, nvars);
-    FUN_0021c570(ls, nvars);
+    FUN_0021c8b0((LexState_21f0a0 *)((LexState_21f0a0 *)ls), (Exp_21f0a0 *)(&e), nexps, nvars);
+    FUN_0021c570((LexState_21f0a0 *)((LexState_21f0a0 *)ls), nvars);
 }

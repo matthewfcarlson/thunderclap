@@ -2,7 +2,7 @@
 // FUN_001a5110 @ 0x001a5110
 struct Entry_1a5110 { unsigned char value; char padding[15]; };
 struct State_1a5110 { char padding[0x58]; Entry_1a5110 entries[20]; };
-unsigned char __cdecl FUN_001a5110(const State_1a5110* state, unsigned int index)
+extern "C" unsigned char __cdecl FUN_001a5110(const State_1a5110* state, unsigned int index)
 {
     if (index >= 20) return 1;
     return state->entries[index].value;

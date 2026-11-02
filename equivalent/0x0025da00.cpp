@@ -9,7 +9,7 @@ struct Owner_25da00;
 struct Node;
 struct Link_25da00 { Node* asNodePadding; }; 
 struct Node { virtual void destroy(int); virtual void finish(Owner_25da00*); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual int status(Owner_25da00*); virtual void update(Owner_25da00*); Link_25da00* next; };
-extern void __cdecl FUN_0025d640(Link_25da00**, Node*);
+extern "C" void __cdecl FUN_0025d640(void *, void *);
 struct Owner_25da00 { char pad0[0x34]; void* resource; char pad38[8]; Link_25da00* head; char pad44[4]; unsigned int count; Link_25da00* other; char pad50[4]; signed char index; char pad55[3]; int state; unsigned char active; bool run(); };
 bool Owner_25da00::run() {
  Node* node = head ? reinterpret_cast<Node*>(reinterpret_cast<char*>(head)-4) : 0;
@@ -30,7 +30,7 @@ bool Owner_25da00::run() {
  if(node) {
   int result=node->status(this);
   if(result==0 && state==3) {
-   FUN_0025d640(&head,node); --count; node->destroy(1); return true;
+   FUN_0025d640((Link_25da00 * *)(&head),(Node *)node); --count; node->destroy(1); return true;
   }
   if(result==2 && state==3) node->finish(this);
  }

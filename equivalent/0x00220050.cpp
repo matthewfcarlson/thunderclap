@@ -37,25 +37,25 @@ struct Proto_220050 {
 };
 
 Proto_220050 *FUN_002196d0(State_220050 *L);
-void FUN_00215460(State_220050 *L, int n);
+extern "C" void __cdecl FUN_00215460(void *, int);
 // equiv-conv: FUN_0021fa80 eax
-Str *FUN_0021fa80(Reader *S);
+extern "C" Str *FUN_0021fa80(Reader *S);
 // equiv-conv: FUN_0021f8c0 ecx eax edx
-void FUN_0021f8c0(void *dst, int size, Reader *r);
+extern "C" void __cdecl FUN_0021f8c0(char *, unsigned int, void *);
 // equiv-conv: FUN_0021f800 esi stack
 void FUN_0021f800(Reader *r, const char *msg);
 int FUN_0021a550(Zio_220050 *z);
 // equiv-conv: FUN_0021fcb0 eax ebx
-void FUN_0021fcb0(Reader *S, Proto_220050 *f);
+extern "C" void __cdecl FUN_0021fcb0(void *, void *);
 // equiv-conv: FUN_0021faf0 eax ebx
-void FUN_0021faf0(Reader *S, Proto_220050 *f);
+extern "C" void __cdecl FUN_0021faf0(void *, void *);
 // equiv-conv: FUN_0021fb50 eax stack
-void FUN_0021fb50(Reader *S, Proto_220050 *f);
+extern "C" void __cdecl FUN_0021fb50(void *, void *);
 // equiv-conv: FUN_0021fd10 eax stack
-void FUN_0021fd10(Reader *S, Proto_220050 *f);
+extern "C" void __cdecl FUN_0021fd10(void *, void *);
 // equiv-conv: FUN_0021fe20 eax stack
-void FUN_0021fe20(Reader *S, Proto_220050 *f);
-int FUN_002146a0(Proto_220050 *f);
+extern "C" void __cdecl FUN_0021fe20(void *, void *);
+extern "C" int __cdecl FUN_002146a0(void *);
 
 static int LoadByte(Reader *S)
 {
@@ -76,36 +76,36 @@ static int LoadByte(Reader *S)
     return ch;
 }
 
-Proto_220050 *FUN_00220050(Reader *S, Str *parent)
+extern "C" void *FUN_00220050(void *S, void *parent)
 {
     int v;
-    Proto_220050 *f = FUN_002196d0(S->L);
-    State_220050 *L = S->L;
+    Proto_220050 *f = FUN_002196d0(((Reader *)S)->L);
+    State_220050 *L = ((Reader *)S)->L;
     TValue_220050 *t = L->top;
     t->val = f;
     t->tt = 9;
-    L = S->L;
+    L = ((Reader *)S)->L;
     if ((char *)L->stack_last - (char *)L->top <= 8)
-        FUN_00215460(L, 1);
-    S->L->top++;
-    f->source = FUN_0021fa80(S);
+        FUN_00215460((State_220050 *)L, 1);
+    ((Reader *)S)->L->top++;
+    f->source = FUN_0021fa80(((Reader *)S));
     if (f->source == 0)
-        f->source = parent;
-    FUN_0021f8c0(&v, 4, S);
+        f->source = ((Str *)parent);
+    FUN_0021f8c0((char *)(void *)(&v), 4, (Reader *)((Reader *)S));
     if (v < 0)
-        FUN_0021f800(S, "bad integer");
+        FUN_0021f800(((Reader *)S), "bad integer");
     f->lineDefined = v;
-    f->b44 = (unsigned char)LoadByte(S);
-    f->b45 = (unsigned char)LoadByte(S);
-    f->b46 = (unsigned char)LoadByte(S);
-    f->b47 = (unsigned char)LoadByte(S);
-    FUN_0021fcb0(S, f);
-    FUN_0021fb50(S, f);
-    FUN_0021fd10(S, f);
-    FUN_0021fe20(S, f);
-    FUN_0021faf0(S, f);
-    if (FUN_002146a0(f) == 0)
-        FUN_0021f800(S, "bad code");
-    S->L->top--;
-    return f;
+    f->b44 = (unsigned char)LoadByte(((Reader *)S));
+    f->b45 = (unsigned char)LoadByte(((Reader *)S));
+    f->b46 = (unsigned char)LoadByte(((Reader *)S));
+    f->b47 = (unsigned char)LoadByte(((Reader *)S));
+    FUN_0021fcb0((Reader *)((Reader *)S), (Proto_220050 *)f);
+    FUN_0021fb50((Reader *)((Reader *)S), (Proto_220050 *)f);
+    FUN_0021fd10((Reader *)((Reader *)S), (Proto_220050 *)f);
+    FUN_0021fe20((Reader *)((Reader *)S), (Proto_220050 *)f);
+    FUN_0021faf0((Reader *)((Reader *)S), (Proto_220050 *)f);
+    if (FUN_002146a0((Proto_220050 *)f) == 0)
+        FUN_0021f800(((Reader *)S), "bad code");
+    ((Reader *)S)->L->top--;
+    return (Proto_220050 *)f;
 }

@@ -15,7 +15,7 @@ static __forceinline void Med3(unsigned short *first, unsigned short *mid, unsig
     SwapIfLess(mid, first);
 }
 
-void __cdecl FUN_002f41e0(unsigned short *first, unsigned short *mid, unsigned short *last)
+extern "C" void __cdecl FUN_002f41e0(unsigned short *first, unsigned short *mid, unsigned short *last)
 {
     int n = (int)(last - first);
     if (n > 40) {

@@ -25,8 +25,8 @@ struct LevelDesc_31c570 {
 };
 
 // equiv-conv: FUN_0031c180 eax
-int FUN_0031c180(int format);
-void __cdecl FUN_0031c290(int format, LevelDesc_31c570 *out);
+extern "C" int FUN_0031c180(int format);
+extern "C" void __cdecl FUN_0031c290(unsigned int, void *);
 
 extern "C" void FUN_0031c570(const FormatDesc_31c570 *desc, const Surface_31c570 *surf, LevelDesc_31c570 *out, char flipped)
 {
@@ -44,5 +44,5 @@ extern "C" void FUN_0031c570(const FormatDesc_31c570 *desc, const Surface_31c570
             out->stride = surf->pitch;
         }
     }
-    FUN_0031c290(desc->format, out);
+    FUN_0031c290((int)(desc->format), (LevelDesc_31c570 *)out);
 }

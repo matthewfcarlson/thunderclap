@@ -11,7 +11,7 @@ typedef volatile float hulk_fslot; // forces the store-and-reload MSVC 7.1 would
 typedef float hulk_fslot;
 #endif
 // equiv-conv: FUN_00341660 eax stack stack
-void FUN_00341660(float *a, int n, float *w)
+extern "C" void FUN_00341660(float *a, int n, float *w)
 {
     int l = n >> 3;
     {

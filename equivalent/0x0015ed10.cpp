@@ -91,7 +91,7 @@ struct Frame_15ed10 {
 };
 
 class Climb;
-void __cdecl FUN_0015cfd0(int x, Climb *c);
+extern "C" void __cdecl FUN_0015cfd0(void *, void *);
 float __cdecl FUN_000964e0();
 void *thunk_FUN_0008d690(unsigned int size);
 
@@ -183,7 +183,7 @@ bool ClimbLocomotionAction::vfunc_3(int a, int b)
     f.a = -1.0f;
     int x = f.x44;
     gather(x, &f.f40, &f.f3c, &f.f38, &f.f34, &f.f30, &f.f2c, &f.f28, &f.a, &f.i4c, &f.n24, &f.s20, &f.s1c);
-    FUN_0015cfd0(x, climb);
+    FUN_0015cfd0((void *)(hulk_uintptr)(int)x, (Climb *)climb);
     FUN_0015c780(f.f3c, f.f38, f.f34, f.f30, f.f2c, f.f28);
     if (f.a < 0.0f) {
         f.a = f.best;

@@ -44,41 +44,41 @@ struct Frame_2ad820 {
 };
 
 // equiv-conv: FUN_002ad820 eax stack stack
-void FUN_002ad820(PngInfo *info, PngRead *png, TextureSink *sink)
+extern "C" void FUN_002ad820(void *info, void *png, void *sink)
 {
     Frame_2ad820 f;
-    f.width = FUN_002d7ed0(png, info);
-    f.height = FUN_002d7ef0(png, info);
+    f.width = FUN_002d7ed0(((PngRead *)png), ((PngInfo *)info));
+    f.height = FUN_002d7ef0(((PngRead *)png), ((PngInfo *)info));
     f.paletteCount = 0;
-    FUN_002d8550(png, info, &f.paletteIn, &f.paletteCount);
+    FUN_002d8550(((PngRead *)png), ((PngInfo *)info), &f.paletteIn, &f.paletteCount);
     for (int i = 0; i < 256; i++)
         f.palette[i] = 0;
     for (int i = 0; i < f.paletteCount; i++) {
         PngColor *c = &f.paletteIn[i];
         f.palette[i] = 0xff000000 | (c->red << 16) | (c->green << 8) | c->blue;
     }
-    if (FUN_002d7e90(png, info, 0x10)) {
-        FUN_002d8630(png, info, &f.trans, &f.transCount, 0);
+    if (FUN_002d7e90(((PngRead *)png), ((PngInfo *)info), 0x10)) {
+        FUN_002d8630(((PngRead *)png), ((PngInfo *)info), &f.trans, &f.transCount, 0);
         for (int i = 0; i < f.transCount; i++)
             f.palette[i] = (f.trans[i] << 24) | (f.palette[i] & 0xffffff);
     }
     int width = f.width;
     int height = f.height;
-    sink->vfunc_0(width, height, 4, 0, f.palette);
-    unsigned char *row = (unsigned char *)FUN_00266e00(1, FUN_002d7eb0(png, info));
+    ((TextureSink *)sink)->vfunc_0(width, height, 4, 0, f.palette);
+    unsigned char *row = (unsigned char *)FUN_00266e00(1, FUN_002d7eb0(((PngRead *)png), ((PngInfo *)info)));
     unsigned char *line = (unsigned char *)FUN_00266e00(1, width);
     if (height > 0) {
         int half = width / 2;
         for (int y = height; y != 0; y--) {
-            FUN_002d7440(png, row, 0);
+            FUN_002d7440(((PngRead *)png), row, 0);
             for (int x = 0; x < half; x++) {
                 line[x * 2] = row[x] >> 4;
                 line[x * 2 + 1] = row[x] & 0xf;
             }
-            sink->vfunc_2(line);
+            ((TextureSink *)sink)->vfunc_2(line);
         }
     }
     FUN_00267090(row);
     FUN_00267090(line);
-    sink->vfunc_10();
+    ((TextureSink *)sink)->vfunc_10();
 }

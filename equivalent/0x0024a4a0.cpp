@@ -9,15 +9,16 @@ struct List {
     Link* first;
     Link end;
 };
-void __cdecl FUN_0024a1c0(List*, Node*);
-void __cdecl FUN_0024a4a0(List* list) {
+extern "C" void __cdecl FUN_0024a1c0(void *, void *);
+extern "C" void __cdecl FUN_0024a4a0(void * list_) {
+    List * list = (List *)list_;
     while (list->first != &list->end) {
         Link* last = list->first;
         while (last->next != &list->end)
             last = last->next;
         Node* node = reinterpret_cast<Node*>(reinterpret_cast<char*>(last) - 4);
         if (!node) break;
-        FUN_0024a1c0(list, node);
+        FUN_0024a1c0((List *)list, (Node *)node);
         node->FUN_0024a450(1);
     }
 }

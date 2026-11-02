@@ -8,10 +8,10 @@ class Registry {
     void Init(U64*, U64*, int, int);
 };
 extern "C" int __cdecl atexit(void(__cdecl*)());
-void __cdecl cleanup();
+extern "C" void __cdecl FUN_00364480();
 void __cdecl target() {
     U64 a = Hash("ChannelVolumeFadeBehaviour", 0, 0);
     U64 b = Hash("Runtime_Sequence", 0, 0);
     (*(Registry*)&DAT_004e6d98).Init(&b, &a, 0x24, 4);
-    atexit(cleanup);
+    atexit(FUN_00364480);
 }

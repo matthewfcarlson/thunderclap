@@ -4,9 +4,9 @@
 struct Item_227f90 { char data[12]; };
 struct Partition { Item_227f90* first; Item_227f90* second; };
 extern void __cdecl FUN_00227a10(Partition*, Item_227f90*, Item_227f90*);
-extern void __cdecl FUN_00227e20(Item_227f90*, Item_227f90*);
+extern "C" void __cdecl FUN_00227e20(void *, void *);
 extern void __cdecl FUN_002277f0(Item_227f90*, Item_227f90*, int, int);
-extern void __cdecl FUN_00227ef0(Item_227f90*, Item_227f90*);
+extern "C" void __cdecl FUN_00227ef0(void *, void *);
 void __cdecl FUN_00227f90(Item_227f90* first, Item_227f90* last, int budget) {
  hulk_intptr count = last-first;
  while (count > 32 && budget > 0) {
@@ -25,9 +25,9 @@ void __cdecl FUN_00227f90(Item_227f90* first, Item_227f90* last, int budget) {
   count=last-first;
  }
  if(count <= 32) {
-  if(count > 1) FUN_00227e20(first,last);
+  if(count > 1) FUN_00227e20((Item_227f90 *)first,(Item_227f90 *)last);
  } else {
   if(last-first > 1) FUN_002277f0(first,last,0,0);
-  FUN_00227ef0(first,last);
+  FUN_00227ef0((Item_227f90 *)first,(Item_227f90 *)last);
  }
 }

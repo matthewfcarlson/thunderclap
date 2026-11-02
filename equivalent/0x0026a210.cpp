@@ -4,7 +4,7 @@ extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 extern "C" char __cdecl FUN_00271dd0(const unsigned short *source, unsigned int *length, unsigned int *end, int flags);
 
 // equiv-conv: FUN_0026a210 eax stack stack
-int __cdecl FUN_0026a210(const unsigned short *source, char *destination, unsigned int capacity)
+extern "C" int __cdecl FUN_0026a210(const unsigned short *source, char *destination, unsigned int capacity)
 {
     unsigned int written = 0;
     while (*source != 0) {

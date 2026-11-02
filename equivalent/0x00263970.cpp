@@ -3,17 +3,18 @@
 struct Node { Node* left; Node* right; char pad[16]; unsigned int low; unsigned int high; };
 struct Tree { Node* root; Node sentinel; };
 struct Key { unsigned int low; unsigned int high; };
-Node* __cdecl FUN_00263970(Tree* tree, const Key* key) {
+extern "C" void * __cdecl FUN_00263970(void * tree_, const void * key) {
+    Tree * tree = (Tree *)tree_;
     Node* node = tree->root;
     Node* end = &tree->sentinel;
     while (node != end) {
-        if (key->high < node->high || (key->high == node->high && key->low < node->low)) {
+        if (((const Key *)key)->high < node->high || (((const Key *)key)->high == node->high && ((const Key *)key)->low < node->low)) {
             node = node->left;
-        } else if (key->high == node->high && key->low <= node->low) {
-            return node;
+        } else if (((const Key *)key)->high == node->high && ((const Key *)key)->low <= node->low) {
+            return (Node *)node;
         } else {
             node = node->right;
         }
     }
-    return 0;
+    return (Node *)0;
 }

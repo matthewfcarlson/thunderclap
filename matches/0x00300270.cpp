@@ -1,5 +1,5 @@
 void Rot(unsigned* a, unsigned* b, unsigned* c, int d, int e);
-void Fn(unsigned* first, unsigned* last) {
+extern "C" void FUN_00300270(unsigned* first, unsigned* last) {
     if (first != last) {
         unsigned* i = first + 1;
         if (i != last) {

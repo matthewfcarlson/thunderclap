@@ -20,7 +20,7 @@ extern "C" void __cdecl FUN_00216340(char *out, const char *source, int bufflen)
 const char *__cdecl FUN_00216320(lua_State *L, const char *fmt, ...);
 extern "C" void __cdecl FUN_002152b0(lua_State *L, int errcode);
 // equiv-conv: FUN_0021af60 eax edi
-const char *FUN_0021af60(int token, LexState_21afd0 *ls);
+extern "C" const char *FUN_0021af60(int token, LexState_21afd0 *ls);
 
 extern "C" void FUN_0021afd0(LexState_21afd0 *ls, const char *msg, int token)
 {

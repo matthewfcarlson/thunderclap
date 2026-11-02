@@ -7,14 +7,14 @@ struct Obj_2e6e00 {
     int(__cdecl* callback)(int, int);
     int field28;
 };
-void Cleanup(int, Obj_2e6e00*);
-int __cdecl Target(Obj_2e6e00* p) {
-    if (p && p->field1c && p->callback) {
-        int v = *(int*)(p->field1c + 0x14);
+extern "C" int __cdecl FUN_002eaf30(void *, void *);
+extern "C" int __cdecl FUN_002e6e00(void * p) {
+    if (((Obj_2e6e00 *)p) && ((Obj_2e6e00 *)p)->field1c && ((Obj_2e6e00 *)p)->callback) {
+        int v = *(int*)(((Obj_2e6e00 *)p)->field1c + 0x14);
         if (v)
-            Cleanup(v, p);
-        p->callback(p->field28, p->field1c);
-        p->field1c = 0;
+            FUN_002eaf30((void *)(hulk_uintptr)(int)v, (Obj_2e6e00 *)((Obj_2e6e00 *)p));
+        ((Obj_2e6e00 *)p)->callback(((Obj_2e6e00 *)p)->field28, ((Obj_2e6e00 *)p)->field1c);
+        ((Obj_2e6e00 *)p)->field1c = 0;
         return 0;
     }
     return -2;

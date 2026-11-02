@@ -4,9 +4,10 @@
 // and hand the entry's value to FUN_000f69e0.
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
-void __cdecl FUN_000f69e0(int value, int arg);
+extern "C" void __cdecl FUN_000f69e0(void *, void *);
 
 namespace pure3d { class CompositeDrawable; }
 namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; } }
@@ -76,6 +77,6 @@ extern "C" void FUN_000f6bd0(const char *name, const char *joint, int arg)
             break;
         }
     }
-    FUN_000f69e0(fr.result, arg);
+    FUN_000f69e0((void *)(hulk_uintptr)(int)(fr.result), (void *)(hulk_uintptr)(int)arg);
     loaded->v1();
 }

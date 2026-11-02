@@ -126,7 +126,7 @@ static __forceinline void PutColor(unsigned* dst, const unsigned* c, const short
 }
 
 // equiv-conv: FUN_002cb2b0 ecx stack esi
-void FUN_002cb2b0(Source_2cb2b0* src, unsigned char flag, VertexSink_2cb2b0* out)
+extern "C" void FUN_002cb2b0(Source_2cb2b0* src, unsigned char flag, VertexSink_2cb2b0* out)
 {
     unsigned count = src->count;
     Vec3_2cb2b0* p0;

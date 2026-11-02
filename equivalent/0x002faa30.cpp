@@ -67,7 +67,7 @@ struct Manager_2faa30 {
     Registry_2faa30 reg;
 };
 
-void FUN_002fa6b0(V3_2faa30 *a, V3_2faa30 *b, V3_2faa30 *c, V3_2faa30 *normal);
+extern "C" void __cdecl FUN_002fa6b0(const void *, const void *, const void *, void *);
 extern "C" char FUN_0035a2a0(V3_2faa30 *a1, V3_2faa30 *a2, V3_2faa30 *axisX, V3_2faa30 *axisY, V3_2faa30 *axisZ, V3_2faa30 *v0, V3_2faa30 *v1, V3_2faa30 *v2, V3_2faa30 *normal,
                   float *depth, V3_2faa30 *centre, V3_2faa30 *outN, int f1, int f2, int f4);
 
@@ -161,7 +161,7 @@ char Tri_2faa30::FUN_002faa30(Shape_2faa30 *shape, Context *ctx, int flags)
     if (!f.tri.FUN_002f3360(&f.sb))
         return 0;
 
-    FUN_002fa6b0(&f.v0, &f.v1, &f.v2, &f.normal);
+    FUN_002fa6b0((V3_2faa30 *)(&f.v0), (V3_2faa30 *)(&f.v1), (V3_2faa30 *)(&f.v2), (V3_2faa30 *)(&f.normal));
 
     f.f1.b = (triFlags & 1) != 0;
     f.f2.b = (triFlags & 2) == 2;

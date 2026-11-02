@@ -7,8 +7,8 @@ class Sound {
     ~Sound();
 };
 extern "C" int __cdecl atexit(void(__cdecl*)());
-void __cdecl cleanup();
+extern "C" void __cdecl FUN_00363f80();
 void init() {
     (*(Sound*)&DAT_004e14f8).Sound::Sound("sound/rsd", 0);
-    atexit(cleanup);
+    atexit(FUN_00363f80);
 }

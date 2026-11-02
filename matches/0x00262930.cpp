@@ -8,7 +8,7 @@ struct Table {
 struct A {
     int x;
 };
-extern void __cdecl FUN_002628a0(int, A*, A*);
+extern "C" int __cdecl FUN_002628a0(int, int *, int *);
 int __cdecl FUN_00262930(int pos, A* b, A* a) {
     int v = pos - a->x;
     int c = (*(Table*)((char*)&DAT_0042ac18 + 60)).values[b->x];
@@ -30,6 +30,6 @@ int __cdecl FUN_00262930(int pos, A* b, A* a) {
     c >>= 1;
     if (v >= c)
         r |= 1;
-    FUN_002628a0(r, b, a);
+    FUN_002628a0(r, (int *)(A *)b, (int *)(A *)a);
     return r;
 }

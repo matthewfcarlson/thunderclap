@@ -4,7 +4,7 @@
 // c (twiddle table) arrives in eax and a (data) in esi.
 // equiv-conv: FUN_00342e50 eax esi stack stack
 #include "compat/ptr.h"
-void __cdecl FUN_00342e50(float *c, float *a, int n, int nc)
+extern "C" void __cdecl FUN_00342e50(float *c, float *a, int n, int nc)
 {
     int m = n >> 1;
     int ks = 2 * nc / m;

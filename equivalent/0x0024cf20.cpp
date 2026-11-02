@@ -16,17 +16,18 @@ struct Edge_24cf20 {
     bool FUN_0022d2b0(const Vec3_24cf20 *p, float eps);
 };
 
-void FUN_0024cf20(Edge_24cf20 *e, const Vec3_24cf20 *p, float *outCross, float *outAlong)
+extern "C" void FUN_0024cf20(void * e_, const void *p, float *outCross, float *outAlong)
 {
+    Edge_24cf20 * e = (Edge_24cf20 *)e_;
     double q;
-    if (e->FUN_0022d2b0(p, 1e-5f)) {
+    if (e->FUN_0022d2b0(((const Vec3_24cf20 *)p), 1e-5f)) {
         q = 0.0f;
     } else {
         // the offset is a rounded frame copy in the original
         struct { volatile float x, y, z; } d;
-        d.x = e->origin.x - p->x;
-        d.y = e->origin.y - p->y;
-        d.z = e->origin.z - p->z;
+        d.x = e->origin.x - ((const Vec3_24cf20 *)p)->x;
+        d.y = e->origin.y - ((const Vec3_24cf20 *)p)->y;
+        d.z = e->origin.z - ((const Vec3_24cf20 *)p)->z;
         double c0 = e->side.z * e->axis.y - e->side.y * e->axis.z;
         double c1 = e->side.x * e->axis.z - e->side.z * e->axis.x;
         double c2 = e->side.y * e->axis.x - e->side.x * e->axis.y;
@@ -41,13 +42,13 @@ void FUN_0024cf20(Edge_24cf20 *e, const Vec3_24cf20 *p, float *outCross, float *
         *outAlong = 0.0f;
     } else {
         double r;
-        if (e->FUN_0022d2b0(p, 1e-5f)) {
+        if (e->FUN_0022d2b0(((const Vec3_24cf20 *)p), 1e-5f)) {
             r = 0.0f;
         } else {
             struct { volatile float x, y, z; } d;
-            d.x = e->origin.x - p->x;
-            d.y = e->origin.y - p->y;
-            d.z = e->origin.z - p->z;
+            d.x = e->origin.x - ((const Vec3_24cf20 *)p)->x;
+            d.y = e->origin.y - ((const Vec3_24cf20 *)p)->y;
+            d.z = e->origin.z - ((const Vec3_24cf20 *)p)->z;
             double s = d.z * e->axis.z + d.y * e->axis.y + d.x * e->axis.x;
             double la = sqrt(e->axis.x * e->axis.x + e->axis.y * e->axis.y + e->axis.z * e->axis.z);
             double ld = sqrt(d.z * d.z + d.y * d.y + d.x * d.x);

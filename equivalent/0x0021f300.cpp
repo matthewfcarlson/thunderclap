@@ -3,18 +3,18 @@
 // FUN_0021f300 @ 0x0021f300
 struct Object { char pad[0x1c]; void *item; };
 // equiv-conv: FUN_0021d830 eax esi
-void FUN_0021d830(int *value, Object *object);
-void __cdecl FUN_00220a50(void *item, int *value, int flag);
-void __cdecl FUN_0021e170(Object *object, int *value, int flag);
+extern "C" void __cdecl FUN_0021d830(void *, void *);
+extern "C" void __cdecl FUN_00220a50(void *, void *, int);
+extern "C" void __cdecl FUN_0021e170(void *, void *, int);
 // equiv-conv: FUN_0021f300 eax
-void FUN_0021f300(Object *object) {
-    void *item = object->item;
+extern "C" void FUN_0021f300(void *object) {
+    void *item = ((Object *)object)->item;
     int values[6];
-    FUN_0021d830(&values[1], object);
+    FUN_0021d830((int *)(&values[1]), (Object *)((Object *)object));
     if (values[1] == 12) {
-        FUN_00220a50(item, &values[1], 0);
+        FUN_00220a50(item, (int *)(&values[1]), 0);
     } else {
         values[0] = 0;
-        FUN_0021e170(object, values, 1);
+        FUN_0021e170((Object *)((Object *)object), (int *)values, 1);
     }
 }

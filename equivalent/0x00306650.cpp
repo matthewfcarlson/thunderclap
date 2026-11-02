@@ -25,41 +25,42 @@ public:
 };
 
 // equiv-conv: FUN_00306650 esi edi stack
-bool FUN_00306650(Box_306650 *a, Box_306650 *b, float margin)
+extern "C" bool FUN_00306650(void * a_, void *b, float margin)
 {
-    Vec3_306650 *pb = b->GetPos();
+    Box_306650 * a = (Box_306650 *)a_;
+    Vec3_306650 *pb = ((Box_306650 *)b)->GetPos();
     Vec3_306650 *pa = a->GetPos();
     float d = pb->y - pa->y;
     if (a->ey == (*(float*)&DAT_003f32e0)) {
-        if (margin + b->ey < d * a->sy)
+        if (margin + ((Box_306650 *)b)->ey < d * a->sy)
             return false;
     } else {
         *(unsigned *)&d &= 0x7fffffff;
-        if (b->ey + a->ey + margin < d)
+        if (((Box_306650 *)b)->ey + a->ey + margin < d)
             return false;
     }
 
-    pb = b->GetPos();
+    pb = ((Box_306650 *)b)->GetPos();
     pa = a->GetPos();
     d = pb->x - pa->x;
     if (a->ex == (*(float*)&DAT_003f32e0)) {
-        if (margin + b->ex < d * a->sx)
+        if (margin + ((Box_306650 *)b)->ex < d * a->sx)
             return false;
     } else {
         *(unsigned *)&d &= 0x7fffffff;
-        if (margin + b->ex + a->ex < d)
+        if (margin + ((Box_306650 *)b)->ex + a->ex < d)
             return false;
     }
 
-    pb = b->GetPos();
+    pb = ((Box_306650 *)b)->GetPos();
     pa = a->GetPos();
     d = pb->z - pa->z;
     if (a->ez == (*(float*)&DAT_003f32e0)) {
-        if (margin + b->ez < d * a->sz)
+        if (margin + ((Box_306650 *)b)->ez < d * a->sz)
             return false;
     } else {
         *(unsigned *)&d &= 0x7fffffff;
-        if (margin + b->ez + a->ez < d)
+        if (margin + ((Box_306650 *)b)->ez + a->ez < d)
             return false;
     }
     return true;

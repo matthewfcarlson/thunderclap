@@ -213,7 +213,7 @@ struct Frame_1bb0b0 {
 
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
-void __cdecl FUN_001bb0b0(const char *code)
+extern "C" void __cdecl FUN_001bb0b0(const char *code)
 {
     Frame_1bb0b0 f;
     if (DAT_004dd700 && DAT_004dd700->replay && DAT_004dd700->replay->FUN_00086330()) {

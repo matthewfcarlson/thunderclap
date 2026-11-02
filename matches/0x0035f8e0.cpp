@@ -7,8 +7,8 @@ class Name {
     ~Name();
 };
 extern "C" int __cdecl atexit(void(__cdecl*)());
-void __cdecl cleanup();
+extern "C" void __cdecl FUN_00364270();
 void init() {
     (*(Name*)&DAT_004e61f0).Name::Name("?Name?", 0);
-    atexit(cleanup);
+    atexit(FUN_00364270);
 }

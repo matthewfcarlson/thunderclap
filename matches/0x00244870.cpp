@@ -8,9 +8,9 @@ struct Tree_244870 {
     Node* root;
     Node sentinel;
 };
-int* find(Tree_244870* tree, int* key) {
-    Node* p = tree->root;
-    Node* end = (Node*)((char*)tree + 4);
+extern "C" int* FUN_00244870(void * tree, int* key) {
+    Node* p = ((Tree_244870 *)tree)->root;
+    Node* end = (Node*)((char*)((Tree_244870 *)tree) + 4);
     while (p != end) {
         int k = *key;
         int d = k - p->key;

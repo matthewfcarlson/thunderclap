@@ -4,7 +4,7 @@ struct Data {
     unsigned char count;
 };
 void __cdecl FUN_0021add0(void*, Data*, unsigned int, int);
-void __cdecl FUN_002197d0(void* context, Data* data) {
-    FUN_0021add0(context, data,
-                 data->flag ? (unsigned int)data->count * 8 + 0x10 : (unsigned int)data->count * 4 + 0x18, 0);
+extern "C" void __cdecl FUN_002197d0(void* context, void * data) {
+    FUN_0021add0(context, ((Data *)data),
+                 ((Data *)data)->flag ? (unsigned int)((Data *)data)->count * 8 + 0x10 : (unsigned int)((Data *)data)->count * 4 + 0x18, 0);
 }

@@ -6,7 +6,7 @@ namespace D3D8 {
 int __stdcall D3DDevice_CreateVertexBuffer2(int);
 }
 extern void* __cdecl FUN_0008d690(int);
-extern void __cdecl FUN_0031c230(int);
+extern "C" void __cdecl FUN_0031c230(int);
 struct OwnerInner {
     char pad[0x10];
     int value;

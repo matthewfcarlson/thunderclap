@@ -20,7 +20,7 @@ float FUN_001b0310(Actor_1b0470 *self, Item_1b0470 *item);
 extern bool __cdecl FUN_00044500(int);
 
 // equiv-conv: FUN_001b0470 eax ecx stack
-float __cdecl FUN_001b0470(Item_1b0470* item, Actor_1b0470* self, int argument)
+extern "C" float __cdecl FUN_001b0470(Item_1b0470* item, Actor_1b0470* self, int argument)
 {
     float result = FUN_001b0310(self, item);
     int identifier = item->FUN_001d72e0();

@@ -33,8 +33,8 @@ struct Frame_2ba600 {
     float spare[3];
 };
 
-void FUN_002b8840(float* out0, float* out1, int p98, const Vec2_2ba600* r0, const Vec2_2ba600* r1, Probe_2ba600* a, Vec3_2ba600* normal);
-void FUN_002b8b30(float* out0, float* out1, int p9c, const Vec2_2ba600* r0, const Vec2_2ba600* r1, Probe_2ba600* b, Vec3_2ba600* normal);
+extern "C" void __cdecl FUN_002b8840(float *, float *, int, void *, void *, void *, void *);
+extern "C" void __cdecl FUN_002b8b30(float *, float *, int, void *, void *, void *, void *);
 
 namespace pure3d {
 
@@ -97,10 +97,10 @@ hulk_freg BillboardCutOffQuadGroup::vfunc_11(Slot_2ba600 a, Slot_2ba600 b)
 
     f.outA0 = 1.0f;
     f.outA1 = 1.0f;
-    FUN_002b8840(&f.outA0, &f.outA1, field98, &rangeA4, &rangeAC, pa, &f.normal);
+    FUN_002b8840(&f.outA0, &f.outA1, field98, (void *)(const Vec2_2ba600 *)(&rangeA4), (void *)(const Vec2_2ba600 *)(&rangeAC), (Probe_2ba600 *)pa, (Vec3_2ba600 *)(&f.normal));
     f.outB0 = 1.0f;
     b.f = 1.0f;
-    FUN_002b8b30(&f.outB0, &b.f, field9c, &rangeB4, &rangeBC, pb, &f.normal);
+    FUN_002b8b30(&f.outB0, &b.f, field9c, (void *)(const Vec2_2ba600 *)(&rangeB4), (void *)(const Vec2_2ba600 *)(&rangeBC), (Probe_2ba600 *)pb, (Vec3_2ba600 *)(&f.normal));
 
     hulk_freg w = 1.0f;
     if (mode == 1) {

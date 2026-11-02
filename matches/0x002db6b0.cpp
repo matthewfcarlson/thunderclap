@@ -14,19 +14,19 @@ struct Color_2db6b0 {
     unsigned char blue;
 };
 
-void FUN_002db6b0(RowInfo_2db6b0 *row_info, unsigned char *row, Color_2db6b0 *palette, unsigned char *trans, int num_trans)
+extern "C" void FUN_002db6b0(void *row_info, unsigned char *row, void *palette, unsigned char *trans, int num_trans)
 {
-    unsigned int row_width = row_info->width;
+    unsigned int row_width = ((RowInfo_2db6b0 *)row_info)->width;
     unsigned int i;
     int shift;
     unsigned char *sp;
     unsigned char *dp;
 
-    if (row_info->color_type != 3)
+    if (((RowInfo_2db6b0 *)row_info)->color_type != 3)
         return;
 
-    if (row_info->bit_depth < 8) {
-        switch (row_info->bit_depth) {
+    if (((RowInfo_2db6b0 *)row_info)->bit_depth < 8) {
+        switch (((RowInfo_2db6b0 *)row_info)->bit_depth) {
         case 1:
             sp = row + ((row_width - 1) >> 3);
             dp = row + row_width - 1;
@@ -73,12 +73,12 @@ void FUN_002db6b0(RowInfo_2db6b0 *row_info, unsigned char *row, Color_2db6b0 *pa
             }
             break;
         }
-        row_info->bit_depth = 8;
-        row_info->pixel_depth = 8;
-        row_info->rowbytes = row_width;
+        ((RowInfo_2db6b0 *)row_info)->bit_depth = 8;
+        ((RowInfo_2db6b0 *)row_info)->pixel_depth = 8;
+        ((RowInfo_2db6b0 *)row_info)->rowbytes = row_width;
     }
 
-    if (row_info->bit_depth == 8) {
+    if (((RowInfo_2db6b0 *)row_info)->bit_depth == 8) {
         if (trans != 0) {
             sp = row + row_width - 1;
             dp = row + (row_width << 2) - 1;
@@ -87,30 +87,30 @@ void FUN_002db6b0(RowInfo_2db6b0 *row_info, unsigned char *row, Color_2db6b0 *pa
                     *dp-- = 0xff;
                 else
                     *dp-- = trans[*sp];
-                *dp-- = palette[*sp].blue;
-                *dp-- = palette[*sp].green;
-                *dp-- = palette[*sp].red;
+                *dp-- = ((Color_2db6b0 *)palette)[*sp].blue;
+                *dp-- = ((Color_2db6b0 *)palette)[*sp].green;
+                *dp-- = ((Color_2db6b0 *)palette)[*sp].red;
                 sp--;
             }
-            row_info->bit_depth = 8;
-            row_info->pixel_depth = 32;
-            row_info->rowbytes = row_width * 4;
-            row_info->color_type = 6;
-            row_info->channels = 4;
+            ((RowInfo_2db6b0 *)row_info)->bit_depth = 8;
+            ((RowInfo_2db6b0 *)row_info)->pixel_depth = 32;
+            ((RowInfo_2db6b0 *)row_info)->rowbytes = row_width * 4;
+            ((RowInfo_2db6b0 *)row_info)->color_type = 6;
+            ((RowInfo_2db6b0 *)row_info)->channels = 4;
         } else {
             sp = row + row_width - 1;
             dp = row + (row_width * 3) - 1;
             for (i = 0; i < row_width; i++) {
-                *dp-- = palette[*sp].blue;
-                *dp-- = palette[*sp].green;
-                *dp-- = palette[*sp].red;
+                *dp-- = ((Color_2db6b0 *)palette)[*sp].blue;
+                *dp-- = ((Color_2db6b0 *)palette)[*sp].green;
+                *dp-- = ((Color_2db6b0 *)palette)[*sp].red;
                 sp--;
             }
-            row_info->bit_depth = 8;
-            row_info->pixel_depth = 24;
-            row_info->rowbytes = row_width * 3;
-            row_info->color_type = 2;
-            row_info->channels = 3;
+            ((RowInfo_2db6b0 *)row_info)->bit_depth = 8;
+            ((RowInfo_2db6b0 *)row_info)->pixel_depth = 24;
+            ((RowInfo_2db6b0 *)row_info)->rowbytes = row_width * 3;
+            ((RowInfo_2db6b0 *)row_info)->color_type = 2;
+            ((RowInfo_2db6b0 *)row_info)->channels = 3;
         }
     }
 }

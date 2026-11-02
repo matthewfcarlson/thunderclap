@@ -14,21 +14,21 @@ extern "C" void __cdecl FUN_002416c0(Ctrl *ctrl, Actor_25a0b0 *actor, int arg);
 extern "C" int __cdecl FUN_00267f80();
 extern "C" void __cdecl FUN_00243090(Ctrl *ctrl, float dt);
 
-void FUN_0025a0b0(Actor_25a0b0 *actor)
+extern "C" void FUN_0025a0b0(void *actor)
 {
-    int status = FUN_002416f0(actor->ctrl, actor);
+    int status = FUN_002416f0(((Actor_25a0b0 *)actor)->ctrl, ((Actor_25a0b0 *)actor));
     bool finishing = (status == 1 || status == 2);
 
-    FUN_002416c0(actor->ctrl, actor, 0);
+    FUN_002416c0(((Actor_25a0b0 *)actor)->ctrl, ((Actor_25a0b0 *)actor), 0);
     int last = FUN_00267f80();
 
     while (status != 0) {
         int now = FUN_00267f80();
-        FUN_00243090(actor->ctrl, (float)(now - last));
-        status = FUN_002416f0(actor->ctrl, actor);
+        FUN_00243090(((Actor_25a0b0 *)actor)->ctrl, (float)(now - last));
+        status = FUN_002416f0(((Actor_25a0b0 *)actor)->ctrl, ((Actor_25a0b0 *)actor));
         last = now;
     }
 
     if (finishing)
-        actor->state = 2;
+        ((Actor_25a0b0 *)actor)->state = 2;
 }

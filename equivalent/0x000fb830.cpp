@@ -11,7 +11,7 @@ struct Settings_fb830 {
 };
 Settings_fb830* __cdecl FUN_000fc1b0();
 
-int FUN_000fb830(unsigned short* out, int bufSize, const unsigned short* in, float maxWidth, Measurer_fb830* m) {
+extern "C" int FUN_000fb830(unsigned short* out, int bufSize, const unsigned short* in, float maxWidth, Measurer_fb830* m) {
     if (bufSize == 2) return 1;
     const unsigned short* breakChars = (FUN_000fc1b0()->mode == 3) ? (const unsigned short*)L"):-\x200b\x3000\x3001\x3002\x3006\x3009\x300b\x300d\x300f\x3011\x3015\x3017\x3019\x301b\x3092\x30fb\xff01\xff09\xff1a\xff1f\xff61\xff64" : (const unsigned short*)L"-";
     unsigned short* cur = out;

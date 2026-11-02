@@ -19,23 +19,23 @@ struct State {
     Item *primary;
 };
 struct Owner { char pad0[0x10]; State *state; };
-void __cdecl FUN_002164b0(State *, Item *);
+extern "C" void __cdecl FUN_002164b0(void *, void *);
 // equiv-conv: FUN_00216f90 edi
 void FUN_00216f90(Owner *owner) {
     State *state = owner->state;
     state->value2c = 0;
     state->value30 = 0;
     Item *item = state->primary;
-    if (item->flags & 3) FUN_002164b0(state, item);
+    if (item->flags & 3) FUN_002164b0((State *)state, (Item *)item);
     item = state->primary;
     if (item->count >= 4) {
         Item *next = item->next;
-        if (next->flags & 3) FUN_002164b0(state, next);
+        if (next->flags & 3) FUN_002164b0((State *)state, (Item *)next);
     }
     State *current = owner->state;
     if (current->count >= 4) {
         Item *alternate = current->alternate;
-        if (alternate->flags & 3) FUN_002164b0(state, alternate);
+        if (alternate->flags & 3) FUN_002164b0((State *)state, (Item *)alternate);
     }
     state->value38 = 0;
 }

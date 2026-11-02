@@ -8,10 +8,10 @@ struct RowInfo_2d92c0 {
  unsigned char channels;
  unsigned char pixelDepth;
 };
-void __cdecl FUN_002d92c0(RowInfo_2d92c0* info, unsigned char* row) {
- unsigned int depth = info->bitDepth;
+extern "C" void __cdecl FUN_002d92c0(void * info, unsigned char* row) {
+ unsigned int depth = ((RowInfo_2d92c0 *)info)->bitDepth;
  if (depth >= 8) return;
- unsigned int width = info->width;
+ unsigned int width = ((RowInfo_2d92c0 *)info)->width;
  if (width && (depth == 1 || depth == 2 || depth == 4)) {
   unsigned int perByte = 8 / depth;
   unsigned int last = width - 1;
@@ -27,8 +27,8 @@ void __cdecl FUN_002d92c0(RowInfo_2d92c0* info, unsigned char* row) {
    --dst;
   } while (--remaining);
  }
- unsigned int channels = info->channels;
- info->bitDepth = 8;
- info->pixelDepth = (unsigned char)(channels * 8);
- info->rowBytes = channels * width;
+ unsigned int channels = ((RowInfo_2d92c0 *)info)->channels;
+ ((RowInfo_2d92c0 *)info)->bitDepth = 8;
+ ((RowInfo_2d92c0 *)info)->pixelDepth = (unsigned char)(channels * 8);
+ ((RowInfo_2d92c0 *)info)->rowBytes = channels * width;
 }

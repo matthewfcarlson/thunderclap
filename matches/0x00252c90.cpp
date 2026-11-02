@@ -4,9 +4,9 @@ class Reader {
   public:
     char consume(char**);
 };
-char test(char** s, char* p, Reader* r) {
+extern "C" char FUN_00252c90(char** s, char* p, void * r) {
     char* value = *s;
-    if (parse(value, "%s ", p) && r->consume(s)) {
+    if (parse(value, "%s ", p) && ((Reader *)r)->consume(s)) {
         value = *s;
         return parse2(value, "\n");
     }

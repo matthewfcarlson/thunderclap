@@ -23,12 +23,12 @@ struct Entry_213a50 {
     hulk_intptr data;
 };
 
-extern "C" Entry_213a50* __cdecl FUN_00219520(BufferHeader* buf, int zero);
-extern "C" void __cdecl FUN_00215460(BufferHeader* buf, int flag);
+extern "C" void * __cdecl FUN_00219520(void *, int);
+extern "C" void __cdecl FUN_00215460(void *, int);
 extern "C" void __cdecl FUN_002159e0(BufferHeader* buf, Entry_213a50* entry, int zero);
 
 void FUN_00213a50(BufferHeader* buf, DataItem* item) {
-    Entry_213a50* entry = FUN_00219520(buf, 0);
+    Entry_213a50* entry = ((Entry_213a50 *)FUN_00219520((BufferHeader *)buf, 0));
 
     entry->data = (hulk_intptr)item->ptr0;
 
@@ -38,7 +38,7 @@ void FUN_00213a50(BufferHeader* buf, DataItem* item) {
 
     hulk_intptr available = buf->field_18 - buf->field_8;
     if (available <= 8) {
-        FUN_00215460(buf, 1);
+        FUN_00215460((BufferHeader *)buf, 1);
     }
 
     buf->field_8 += 8;
@@ -49,7 +49,7 @@ void FUN_00213a50(BufferHeader* buf, DataItem* item) {
 
     available = buf->field_18 - buf->field_8;
     if (available <= 8) {
-        FUN_00215460(buf, 1);
+        FUN_00215460((BufferHeader *)buf, 1);
     }
 
     buf->field_8 += 8;

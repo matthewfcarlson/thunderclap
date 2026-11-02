@@ -30,7 +30,7 @@ public:
 };
 
 
-float __cdecl FUN_000de530(float x, float lo, float hi);
+extern "C" float __cdecl FUN_000de530(float x, float lo, float hi);
 
 class ControllerPollerBase {
 public:

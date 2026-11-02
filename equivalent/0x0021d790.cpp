@@ -28,9 +28,9 @@ struct LexState_21d790 {
     FuncState_21d790 *fs;          // 0x1c
 };
 
-int __cdecl FUN_0021bbc0(LexState_21d790 *ls, int *seminfo);                       // llex
+extern "C" int __cdecl FUN_0021bbc0(void *, void *);                       // llex
 void __cdecl FUN_0021b060(LexState_21d790 *ls, const char *msg);                   // luaX_syntaxerror
-void __cdecl FUN_0021ded0(LexState_21d790 *ls, expdesc_21d790 *v, int limit);             // subexpr
+extern "C" int __cdecl FUN_0021ded0(void *, void *, unsigned int);             // subexpr
 // equiv-conv: FUN_0021c340 eax esi edi stack
 void FUN_0021c340(int line, LexState_21d790 *ls, int what, int who);               // check_match
 // equiv-conv: FUN_0021c3d0 esi
@@ -39,8 +39,9 @@ void __cdecl FUN_0021c790(FuncState_21d790 *fs, int name, expdesc_21d790 *v, int
 void __cdecl FUN_00220d90(FuncState_21d790 *fs, expdesc_21d790 *v);                       // luaK_dischargevars
 
 // equiv-conv: FUN_0021d790 eax ebx
-void FUN_0021d790(LexState_21d790 *ls, expdesc_21d790 *v)
+extern "C" void FUN_0021d790(void * ls_, void *v)
 {
+    LexState_21d790 * ls = (LexState_21d790 *)ls_;
     switch (ls->t.token) {
     case '(': {
         int line = ls->linenumber;
@@ -50,15 +51,15 @@ void FUN_0021d790(LexState_21d790 *ls, expdesc_21d790 *v)
             ls->t = ls->lookahead;
             ls->lookahead.token = 0x11f;
         } else {
-            ls->t.token = FUN_0021bbc0(ls, &ls->t.seminfo);
+            ls->t.token = FUN_0021bbc0((LexState_21d790 *)ls, (int *)(&ls->t.seminfo));
         }
-        FUN_0021ded0(ls, v, 0);
+        FUN_0021ded0((LexState_21d790 *)ls, (expdesc_21d790 *)((expdesc_21d790 *)v), 0);
         FUN_0021c340(line, ls, ')', '(');
-        FUN_00220d90(ls->fs, v);
+        FUN_00220d90(ls->fs, ((expdesc_21d790 *)v));
         return;
     }
     case 0x116:
-        FUN_0021c790(ls->fs, FUN_0021c3d0(ls), v, 1);
+        FUN_0021c790(ls->fs, FUN_0021c3d0(ls), ((expdesc_21d790 *)v), 1);
         return;
     default:
         FUN_0021b060(ls, "unexpected symbol");

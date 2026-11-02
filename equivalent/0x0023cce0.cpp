@@ -19,7 +19,7 @@ template<class T> struct ParamBool {
 };
 }
 void __cdecl FUN_002347b0(int*, fight::ParamBool<fight::PlatformCondition>**, int);
-void __cdecl FUN_0023cce0() {
+extern "C" void __cdecl FUN_0023cce0() {
  if (DAT_004e5c50 == 0) {
  typedef fight::ParamBool<fight::PlatformCondition> P;
  P* items[4];

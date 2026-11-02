@@ -11,12 +11,12 @@ struct Info {
     char pad2[4];
     char* dest;
 };
-void __stdcall FUN_002de5a0(Src* src, Info* info) {
-    char* dst = info->dest;
-    char* p = src->data;
-    for (int i = 0; i < info->count; ++i) {
-        memcpy(dst, p, info->size);
-        p += info->size;
-        dst += info->stride;
+extern "C" void __stdcall FUN_002de5a0(void * src, void * info) {
+    char* dst = ((Info *)info)->dest;
+    char* p = ((Src *)src)->data;
+    for (int i = 0; i < ((Info *)info)->count; ++i) {
+        memcpy(dst, p, ((Info *)info)->size);
+        p += ((Info *)info)->size;
+        dst += ((Info *)info)->stride;
     }
 }

@@ -10,17 +10,17 @@ struct RowInfo_2db320 {
 };
 
 // libpng png_do_gamma
-void __cdecl FUN_002db320(RowInfo_2db320 *row_info, unsigned char *row, unsigned char *gamma_table,
+extern "C" void __cdecl FUN_002db320(void *row_info, unsigned char *row, unsigned char *gamma_table,
                           unsigned short **gamma_16_table, int gamma_shift)
 {
     unsigned char *sp;
     unsigned int i;
-    unsigned int row_width = row_info->width;
+    unsigned int row_width = ((RowInfo_2db320 *)row_info)->width;
 
-    if ((row_info->bit_depth <= 8 && gamma_table != 0) || (row_info->bit_depth == 16 && gamma_16_table != 0)) {
-        switch (row_info->color_type) {
+    if ((((RowInfo_2db320 *)row_info)->bit_depth <= 8 && gamma_table != 0) || (((RowInfo_2db320 *)row_info)->bit_depth == 16 && gamma_16_table != 0)) {
+        switch (((RowInfo_2db320 *)row_info)->color_type) {
         case 2:
-            if (row_info->bit_depth == 8) {
+            if (((RowInfo_2db320 *)row_info)->bit_depth == 8) {
                 sp = row;
                 for (i = 0; i < row_width; i++) {
                     *sp = gamma_table[*sp];
@@ -50,7 +50,7 @@ void __cdecl FUN_002db320(RowInfo_2db320 *row_info, unsigned char *row, unsigned
             }
             break;
         case 6:
-            if (row_info->bit_depth == 8) {
+            if (((RowInfo_2db320 *)row_info)->bit_depth == 8) {
                 sp = row;
                 for (i = 0; i < row_width; i++) {
                     *sp = gamma_table[*sp];
@@ -81,7 +81,7 @@ void __cdecl FUN_002db320(RowInfo_2db320 *row_info, unsigned char *row, unsigned
             }
             break;
         case 4:
-            if (row_info->bit_depth == 8) {
+            if (((RowInfo_2db320 *)row_info)->bit_depth == 8) {
                 sp = row;
                 for (i = 0; i < row_width; i++) {
                     *sp = gamma_table[*sp];
@@ -99,7 +99,7 @@ void __cdecl FUN_002db320(RowInfo_2db320 *row_info, unsigned char *row, unsigned
             }
             break;
         case 0:
-            if (row_info->bit_depth == 2) {
+            if (((RowInfo_2db320 *)row_info)->bit_depth == 2) {
                 sp = row;
                 for (i = 0; i < row_width; i += 4) {
                     int a = *sp & 0xc0;
@@ -113,7 +113,7 @@ void __cdecl FUN_002db320(RowInfo_2db320 *row_info, unsigned char *row, unsigned
                     sp++;
                 }
             }
-            if (row_info->bit_depth == 4) {
+            if (((RowInfo_2db320 *)row_info)->bit_depth == 4) {
                 sp = row;
                 for (i = 0; i < row_width; i += 2) {
                     int msb = *sp & 0xf0;
@@ -122,13 +122,13 @@ void __cdecl FUN_002db320(RowInfo_2db320 *row_info, unsigned char *row, unsigned
                                           (((int)gamma_table[(lsb << 4) | lsb]) >> 4));
                     sp++;
                 }
-            } else if (row_info->bit_depth == 8) {
+            } else if (((RowInfo_2db320 *)row_info)->bit_depth == 8) {
                 sp = row;
                 for (i = 0; i < row_width; i++) {
                     *sp = gamma_table[*sp];
                     sp++;
                 }
-            } else if (row_info->bit_depth == 16) {
+            } else if (((RowInfo_2db320 *)row_info)->bit_depth == 16) {
                 sp = row;
                 for (i = 0; i < row_width; i++) {
                     unsigned short v = gamma_16_table[*(sp + 1) >> gamma_shift][*sp];

@@ -15,7 +15,7 @@ struct Matrix {
     float pad3c;
 };
 
-void __cdecl FUN_0022b080(Quat_284660* out, const Quat_284660* a, const Quat_284660* b);
+extern "C" void __cdecl FUN_0022b080(float *, const float *, const float *);
 
 struct Info_284660 {
     char pad00[0x10];
@@ -55,7 +55,7 @@ bool Pose::FUN_00284660(Pose* other, float t, unsigned int only)
             q.z = 0.0f;
             q.w = 1.0f;
             q.FUN_0022b750(&q, &other->quats[i], t);
-            FUN_0022b080(&q, &q, &quats[i]);
+            FUN_0022b080((float *)(Quat_284660 *)(&q), (const float *)(const Quat_284660 *)(&q), (const float *)(const Quat_284660 *)(&quats[i]));
             quats[i] = q;
             Vec3Pad* d = &mats[i].pos;
             const Vec3Pad* s = &other->mats[i].pos;

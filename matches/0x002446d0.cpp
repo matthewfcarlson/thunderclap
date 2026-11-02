@@ -3,7 +3,7 @@ struct Node {
     int color;
 };
 Node* FUN_002439c0(Node*, Node*);
-void FUN_00243a00(Node*, Node*);
+extern "C" void __cdecl FUN_00243a00(void *, void *);
 void FUN_002446d0(Node* n, Node* tree) {
     Node *s = (Node*)((char*)n + 4), *base = (Node*)((char*)tree + 0x58), *x;
     if (base->a != s && base->b != s)
@@ -46,5 +46,5 @@ void FUN_002446d0(Node* n, Node* tree) {
             ec->parent = x;
     }
     if (flag)
-        FUN_00243a00(n, ed);
+        FUN_00243a00((Node *)n, (Node *)ed);
 }

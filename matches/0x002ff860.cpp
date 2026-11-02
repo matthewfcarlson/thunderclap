@@ -1,5 +1,5 @@
-extern void helper(unsigned int*, int, int, unsigned int);
-void target(unsigned int* data, int index, int count, unsigned int value) {
+extern "C" void __cdecl FUN_002feb70(unsigned int *, int, int, unsigned int);
+extern "C" void FUN_002ff860(unsigned int* data, int index, int count, unsigned int value) {
     int orig = index;
     int child = index * 2 + 2;
     if (child < count) {
@@ -17,5 +17,5 @@ void target(unsigned int* data, int index, int count, unsigned int value) {
         data[index] = data[count - 1];
         index = count - 1;
     }
-    helper(data, index, orig, value);
+    FUN_002feb70(data, index, orig, value);
 }

@@ -3,7 +3,7 @@
 
 extern "C" char DAT_004324a8[];
 typedef unsigned char u8_31ba30;
-void __fastcall InitDevice(void*);
+extern "C" void __fastcall FUN_0031bae0(void*);
 void CleanupDevice(void*);
 class d3dDevice_31ba30 {
   public:
@@ -15,7 +15,7 @@ class d3dDevice_31ba30 {
 d3dDevice_31ba30* d3dDevice_31ba30::f3(u8_31ba30 param) {
     *(volatile int*)((hulk_intptr)DAT_005554a4) = 0;
     *(void**)this = (void*)((hulk_intptr)DAT_004324a8);
-    InitDevice((void*)(this));
+    FUN_0031bae0((void*)(this));
     if (param & 1)
         CleanupDevice(this);
     return this;

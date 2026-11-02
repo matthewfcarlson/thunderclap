@@ -6,7 +6,7 @@ struct Pair {
 };
 extern "C" unsigned __int64 __cdecl make(const char*, int, hulk_intptr);
 extern "C" int __cdecl atexit(void(__cdecl*)());
-extern "C" void __cdecl cleanup();
+extern "C" void __cdecl FUN_003643d0();
 class Reg {
   public:
     void init(Pair*, Pair*, int, int);
@@ -16,5 +16,5 @@ void __cdecl target() {
     a.v = make("SeqActionWait", 0, 0);
     b.v = make("Runtime_Sequence", 0, 0);
     (*(Reg*)((char*)&DAT_004e68f8 + 104)).init(&b, &a, 16, 4);
-    atexit(cleanup);
+    atexit(FUN_003643d0);
 }

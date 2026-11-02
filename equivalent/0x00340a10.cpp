@@ -3,7 +3,7 @@
 // Radix-4 pass of a split-radix float FFT (backward first stage, cftb1st style).
 // equiv-conv: FUN_00340a10 eax ecx stack
 #include "compat/ptr.h"
-void FUN_00340a10(float *a, int n, float *w)
+extern "C" void FUN_00340a10(float *a, int n, float *w)
 {
     int j, j0, j1, j2, j3, k, m, mh;
     float wn4r, csc1, csc3, wk1r, wk1i, wk3r, wk3i, wd1r, wd1i, wd3r, wd3i;

@@ -55,7 +55,7 @@ struct Gfx {
 
 
 // equiv-conv: FUN_000e0a90 edx stack stack stack stack stack
-void FUN_000e0a90(int a4, float w, float h, int unused, float d, unsigned int color)
+extern "C" void FUN_000e0a90(int a4, float w, float h, int unused, float d, unsigned int color)
 {
     float x0 = w * -0.5f;
     float y1 = h * 0.5f;

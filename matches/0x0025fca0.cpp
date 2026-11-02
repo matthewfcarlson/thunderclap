@@ -8,6 +8,6 @@ class Item {
     char pad[0x58];
     Text text;
 };
-int Compare(Text* a, Item* b) {
-    return strcmp(a->Get(), b->text.Get());
+extern "C" int FUN_0025fca0(void * a, void * b) {
+    return strcmp(((Text *)a)->Get(), ((Item *)b)->text.Get());
 }

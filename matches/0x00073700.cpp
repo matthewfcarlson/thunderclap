@@ -4,7 +4,7 @@ class CAIHintTrack; class CAlertStatusTrack; class CAutoTargetTrack; class CCame
 namespace fight { template<class T> struct TrackFactoryCasterTemplate { virtual void create(); }; }
 struct Registry_73700 { void FUN_002367c0(void*); void FUN_00236400(); };
 void* __cdecl FUN_00236ac0(const char*, void*);
-void __cdecl FUN_002369c0(Registry_73700*);
+extern "C" void __cdecl FUN_002369c0(void *);
 void __cdecl FUN_0012de00(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_00132560(Registry_73700*, const char*);
 void __cdecl FUN_00132530(Registry_73700*, const char*);
@@ -129,7 +129,7 @@ extern "C" void __cdecl FUN_00113c30(Registry_73700*, const char*);
 extern "C" void __cdecl FUN_00129f50(Registry_73700*, const char*);
 void __cdecl FUN_001a1d20(Registry_73700*, const char*);
 extern "C" bool __cdecl FUN_00073700(Registry_73700* r) {
-    FUN_002369c0(r);
+    FUN_002369c0((Registry_73700 *)r);
     FUN_0012de00(r, "postEvent_string");
     FUN_00132560(r, "debugPrint");
     FUN_00132530(r, "dialogue");

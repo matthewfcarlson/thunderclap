@@ -4,7 +4,7 @@
 
 namespace om {
 } // namespace om
-extern void __cdecl FUN_00244610(void*, void*);
+extern "C" void __cdecl FUN_00244610(void *, void *);
 extern void __cdecl FUN_002446d0(void*, void*);
 void om::EntityType::vfunc_1() {
     FUN_00244610(*(void**)((hulk_intptr)((char*)&DAT_004cc084)), this);

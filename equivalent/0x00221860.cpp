@@ -23,16 +23,16 @@ struct expdesc_221860 {
 };
 
                                               // opcode per operator
-int __cdecl FUN_00220b20(FuncState_221860* fs, int instruction, int line);     // luaK_code
+extern "C" int __cdecl FUN_00220b20(void *, unsigned int, unsigned int);     // luaK_code
 // condjump(fs, op, b, c) with the condition in eax
 // equiv-conv: FUN_00220d10 eax esi stack stack stack
-int FUN_00220d10(int cond, FuncState_221860* fs, int op, int b, int c);
+extern "C" unsigned int __cdecl FUN_00220d10(unsigned int, void *, unsigned int, unsigned int, unsigned int);
 
 // equiv-conv: FUN_00221860 eax ecx edx edi stack
 void FUN_00221860(int o1, int o2, int op, expdesc_221860* e, FuncState_221860* fs)
 {
     if (op <= 4) {
-        e->info = FUN_00220b20(fs, (((o2 << 9) | o1) << 6) | (op + 12), fs->ls->lastline);
+        e->info = FUN_00220b20((FuncState_221860 *)fs, (int)((((o2 << 9) | o1) << 6) | (op + 12)), (int)(fs->ls->lastline));
         e->k = 10;
         return;
     }
@@ -44,6 +44,6 @@ void FUN_00221860(int o1, int o2, int op, expdesc_221860* e, FuncState_221860* f
     } else if (op == 6) {
         cond = 0;
     }
-    e->info = FUN_00220d10(cond, fs, ((int*)((char*)&DAT_004271d4 + 32))[op], o2, o1);
+    e->info = ((int)FUN_00220d10((int)cond, (FuncState_221860 *)fs, (int)(((int*)((char*)&DAT_004271d4 + 32))[op]), (int)o2, (int)o1));
     e->k = 9;
 }

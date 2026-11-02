@@ -19,10 +19,11 @@ void __cdecl FUN_0021b060(LexState *ls, const char *msg);
 // equiv-conv: FUN_00220fe0 eax stack stack
 void __cdecl FUN_00220fe0(FuncState_221110 *fs, expdesc_221110 *e, int reg);
 
-void FUN_00221110(FuncState_221110 *fs, expdesc_221110 *e)
+extern "C" void FUN_00221110(void * fs_, void *e)
 {
-    FUN_00220d90(fs, e);
-    if (e->k == 0xb && e->info >= fs->nactvar && e->info < 0xfa)
+    FuncState_221110 * fs = (FuncState_221110 *)fs_;
+    FUN_00220d90(fs, ((expdesc_221110 *)e));
+    if (((expdesc_221110 *)e)->k == 0xb && ((expdesc_221110 *)e)->info >= fs->nactvar && ((expdesc_221110 *)e)->info < 0xfa)
         fs->freereg--;
     int newstack = fs->freereg + 1;
     if (newstack > fs->f->maxstacksize) {
@@ -31,5 +32,5 @@ void FUN_00221110(FuncState_221110 *fs, expdesc_221110 *e)
         fs->f->maxstacksize = (unsigned char)newstack;
     }
     fs->freereg = fs->freereg + 1;
-    FUN_00220fe0(fs, e, fs->freereg - 1);
+    FUN_00220fe0(fs, ((expdesc_221110 *)e), fs->freereg - 1);
 }

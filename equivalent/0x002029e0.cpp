@@ -94,7 +94,7 @@ struct Contact_2029e0 {
 
 void FUN_002f1ce0(Vec3_2029e0* from, Body_2029e0* body, Vec3_2029e0* outNormal, Contact_2029e0* contact);
 
-bool FUN_002029e0(Vec3_2029e0* from, Vec3_2029e0* to, int tag, int mode, Vec3_2029e0* outPoint, Vec3_2029e0* outNormal)
+extern "C" bool FUN_002029e0(Vec3_2029e0* from, Vec3_2029e0* to, int tag, int mode, Vec3_2029e0* outPoint, Vec3_2029e0* outNormal)
 {
     World* world = DAT_004dd700;
     Space_2029e0* space = world->space;

@@ -1,6 +1,6 @@
 typedef unsigned short ushort_2f4590;
 extern void FUN_002f3b10(ushort_2f4590*, ushort_2f4590*, ushort_2f4590*, int, int);
-void FUN_002f4590(ushort_2f4590* param_1, ushort_2f4590* param_2) {
+extern "C" void FUN_002f4590(unsigned short * param_1, unsigned short * param_2) {
     ushort_2f4590* puVar4;
     ushort_2f4590* puVar5;
     if (param_1 != param_2) {

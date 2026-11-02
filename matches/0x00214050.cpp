@@ -25,7 +25,7 @@ struct B_214050 {
     int mIdx;
 };
 int Lookup(Rec_214050* r, int x, hulk_intptr y);
-void Apply(A_214050* a, int* p);
+extern "C" void __cdecl FUN_00212c10(void *, unsigned int *);
 extern "C" int FUN_00214050(A_214050* a, B_214050* b, int x) {
     int n = 0;
     Slot_214050* s = a->Get(b->mIdx);
@@ -37,7 +37,7 @@ extern "C" int FUN_00214050(A_214050* a, B_214050* b, int x) {
                 hulk_intptr cnt = ((char*)s->end - (char*)r->arr >> 2) - 1;
                 n = Lookup(r, x, cnt);
                 if (n)
-                    Apply(a, s->base + x * 2 - 2);
+                    FUN_00212c10((A_214050 *)a, (unsigned int *)(int *)(s->base + x * 2 - 2));
             }
         }
     }

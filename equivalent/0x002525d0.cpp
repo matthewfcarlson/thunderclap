@@ -11,8 +11,8 @@ struct Writer_2525d0 {
 };
 
 char FUN_00246f50(Stream* s, const char* fmt, ...);
-char FUN_00252470(Writer_2525d0* w, const char* name, void* value);
-char FUN_00252470(Writer_2525d0* w, const char* name, void* value);
+extern "C" unsigned char __cdecl FUN_00252470(const char **, const char *, const char **);
+extern "C" unsigned char __cdecl FUN_00252470(const char **, const char *, const char **);
 
 namespace audio {
 
@@ -38,9 +38,9 @@ int SeqEventVarVolumeRand::vfunc_1(Writer_2525d0* w)
     if (!FUN_00246f50(w->out, "\n[\n"))
         return 0;
     w->out->indent++;
-    if (!FUN_00252470(w, "mMinVolume", &field_08))
+    if (!((char)FUN_00252470((const char **)(Writer_2525d0 *)w, "mMinVolume", (const char **)(void *)(&field_08))))
         return 0;
-    if (!FUN_00252470(w, "mMaxVolume", &field_0c))
+    if (!((char)FUN_00252470((const char **)(Writer_2525d0 *)w, "mMaxVolume", (const char **)(void *)(&field_0c))))
         return 0;
     w->out->indent--;
     if (!FUN_00246f50(w->out, "]\n"))

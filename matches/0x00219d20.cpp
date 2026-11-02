@@ -11,9 +11,9 @@ struct Data_219d20 {
     char pad14[8];
     u32_219d20 count1C;
 };
-void Target(void* a, Data_219d20* b) {
-    if (b->count)
-        Copy(a, (void*)b->ptr10, (1 << b->count) * 20, 0);
-    Copy(a, (void*)b->ptrC, b->count1C << 3, 0);
-    Copy(a, b, 32, 0);
+extern "C" void FUN_00219d20(void* a, void * b) {
+    if (((Data_219d20 *)b)->count)
+        Copy(a, (void*)((Data_219d20 *)b)->ptr10, (1 << ((Data_219d20 *)b)->count) * 20, 0);
+    Copy(a, (void*)((Data_219d20 *)b)->ptrC, ((Data_219d20 *)b)->count1C << 3, 0);
+    Copy(a, ((Data_219d20 *)b), 32, 0);
 }

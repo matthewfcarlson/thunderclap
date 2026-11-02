@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 9112 inputs, branch coverage 6/6)
 // FUN_0021f710 @ 0x0021f710
 // cl-flags: /GS
+#include "compat/ptr.h"
 struct State_21f710 { unsigned int a, value, savedValue, result, savedToken, token, tokenData; char pad[12]; unsigned int option; unsigned int pad2; unsigned int zero; char buffer[520]; };
-extern int __cdecl FUN_00219430(void*, const char*, unsigned int);
+extern "C" void * __cdecl FUN_00219430(void *, const char *, unsigned);
 extern "C" void __cdecl FUN_0021b160(void*, State_21f710*, unsigned int, int);
 // equiv-conv: FUN_0021cac0 ecx eax
-extern void FUN_0021cac0(State_21f710*, char*);
+extern "C" void FUN_0021cac0(State_21f710*, char*);
 extern "C" unsigned int __cdecl FUN_0021bbc0(State_21f710*, unsigned int*);
 extern "C" void __cdecl FUN_0021f640(State_21f710*);
 extern "C" void __cdecl FUN_0021b060(State_21f710*, const char*);
@@ -16,7 +17,7 @@ extern "C" unsigned int __cdecl FUN_0021f710(void* context, unsigned int arg2, u
  s.zero = 0;
  unsigned int length = 0;
  while(text[length]) ++length;
- int v = FUN_00219430(context, text, length);
+ int v = ((int)(hulk_uintptr)FUN_00219430(context, text, (unsigned int)length));
  FUN_0021b160(context, &s, arg2, v);
  FUN_0021cac0(&s, s.buffer);
  s.savedValue = s.value;

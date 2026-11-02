@@ -4,7 +4,7 @@
 extern "C" bool __cdecl FUN_00271dd0(const unsigned short *source, int *srcBytes, int *units, int options);
 extern "C" int __cdecl FUN_002720b0(int units, char *destination, int remaining, int mode, int *written, int options);
 
-int __cdecl FUN_0026a8b0(const unsigned short *source, char *destination, int mode, int capacity, int options)
+extern "C" int __cdecl FUN_0026a8b0(const unsigned short *source, char *destination, int mode, int capacity, int options)
 {
     if ((const void *)source == (const void *)destination)
         return -5;

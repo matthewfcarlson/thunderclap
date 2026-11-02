@@ -5,7 +5,9 @@ struct Tree_244b20 { Node* root; Node sentinel; };
 struct Entry_244b20 { unsigned data; Node links; };
 Node* __cdecl FUN_00243d30(Tree_244b20*, Node*);
 Node* __cdecl FUN_00243d70(Tree_244b20*, Node*);
-Node* __cdecl FUN_00244b20(Tree_244b20* tree, Entry_244b20* entry) {
+extern "C" void * __cdecl FUN_00244b20(void * tree_, void * entry_) {
+    Tree_244b20 * tree = (Tree_244b20 *)tree_;
+    Entry_244b20 * entry = (Entry_244b20 *)entry_;
  Node* sentinel = &tree->sentinel;
  Node* removed = &entry->links;
  Node* node = removed;
@@ -30,6 +32,6 @@ Node* __cdecl FUN_00244b20(Tree_244b20* tree, Entry_244b20* entry) {
   if (node->left != sentinel) node->left->parent = node;
   if (node->right->parent != sentinel) node->right->parent = node;
  }
- if (black) return FUN_00243d70(tree, child);
- return node;
+ if (black) return (Node *)(FUN_00243d70(tree, child));
+ return (Node *)node;
 }

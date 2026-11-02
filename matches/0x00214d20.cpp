@@ -1,10 +1,10 @@
-extern void Base(void*, void*, const char*);
+extern "C" void __cdecl FUN_00214c90(void *, const void *, const char *);
 struct X_214d20 {
     int kind;
 };
-void FUN_00214d20(void* a, X_214d20* x, const char* s) {
-    void* value = x;
-    if (x->kind == 4)
+extern "C" void FUN_00214d20(void* a, void * x, const char* s) {
+    void* value = ((X_214d20 *)x);
+    if (((X_214d20 *)x)->kind == 4)
         value = (void*)s;
-    Base(a, value, "concatenate");
+    FUN_00214c90(a, value, "concatenate");
 }

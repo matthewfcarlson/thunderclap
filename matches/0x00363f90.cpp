@@ -4,6 +4,6 @@
 struct Obj_363f90 {
     void f();
 };
-void wrapper() {
+extern "C" void FUN_00363f90() {
     (*(Obj_363f90*)&DAT_004e159c).f();
 }

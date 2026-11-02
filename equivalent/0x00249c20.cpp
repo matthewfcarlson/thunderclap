@@ -4,8 +4,10 @@ struct Node { Node *left; Node *right; Node *parent; int color; };
 struct Tree_249c20 { Node *root; Node sentinel; };
 struct Entry_249c20 { int value; Node node; };
 extern Node* __cdecl FUN_00247d10(Tree_249c20*,Node*);
-extern void __cdecl FUN_00248d40(Tree_249c20*,Node*);
-void __cdecl FUN_00249c20(Tree_249c20* tree, Entry_249c20* entry) {
+extern "C" void __cdecl FUN_00248d40(void *, void *);
+extern "C" void __cdecl FUN_00249c20(void * tree_, void * entry_) {
+    Tree_249c20 * tree = (Tree_249c20 *)tree_;
+    Entry_249c20 * entry = (Entry_249c20 *)entry_;
     Node* node = &entry->node;
     Node* nil = &tree->sentinel;
     Node* removed;
@@ -34,5 +36,5 @@ void __cdecl FUN_00249c20(Tree_249c20* tree, Entry_249c20* entry) {
         if (removed->left != nil) removed->left->parent = removed;
         if (removed->right->parent != nil) removed->right->parent = removed;
     }
-    if (rebalance) FUN_00248d40(tree,child);
+    if (rebalance) FUN_00248d40((Tree_249c20 *)tree,(Node *)child);
 }

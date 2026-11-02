@@ -17,17 +17,17 @@ struct Bounds_f69e0 {
 };
 
 // Extent of the bounds: |max - min| per component.
-void __cdecl FUN_000f69e0(Bounds_f69e0 *bounds, Vec3_f69e0 *out)
+extern "C" void __cdecl FUN_000f69e0(void *bounds, void *out)
 {
-    Box_f69e0 b = bounds->box;
+    Box_f69e0 b = ((Bounds_f69e0 *)bounds)->box;
     FloatBits_f69e0 d;
     d.f = b.max.x - b.min.x;
     d.u &= 0x7fffffff;
-    out->x = d.f;
+    ((Vec3_f69e0 *)out)->x = d.f;
     d.f = b.max.y - b.min.y;
     d.u &= 0x7fffffff;
-    out->y = d.f;
+    ((Vec3_f69e0 *)out)->y = d.f;
     d.f = b.max.z - b.min.z;
     d.u &= 0x7fffffff;
-    out->z = d.f;
+    ((Vec3_f69e0 *)out)->z = d.f;
 }

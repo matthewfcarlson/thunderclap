@@ -76,7 +76,7 @@ struct Env;
 float FUN_0010ae50(Env* e, Agent_102cd0* a, float f, V3_102cd0* v1, V3_102cd0* v2, int zero, Obj60_102cd0** out);
 
 extern Env* DAT_004dd700;
-void FUN_00102bf0(Agent_102cd0* a, V3_102cd0* pos, float f, V3_102cd0* out);
+extern "C" void __cdecl FUN_00102bf0(void *, void *, float, void *);
 void FUN_00102a50(Agent_102cd0* a, V3_102cd0* pos, V3_102cd0* out);
 
 class CMoveAgent {
@@ -112,7 +112,7 @@ void CMoveAgent::F(Arg1_102cd0* a1, int a2, int a3)
     if (sub && sub->v9() == 4)
         return;
     if (flag74)
-        FUN_00102bf0(ag, &pos, 5.0f, &A);
+        FUN_00102bf0((Agent_102cd0 *)ag, (V3_102cd0 *)(&pos), 5.0f, (V3_102cd0 *)(&A));
     else
         FUN_00102a50(ag, &pos, &A);
     ok = a1->gate->FUN_00024300(ag);

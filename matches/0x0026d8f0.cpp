@@ -6,7 +6,7 @@ typedef unsigned int U32_26d8f0;
 typedef void(__stdcall* LockFn)(void*);
 extern LockFn enterFn;
 extern LockFn leaveFn;
-void __cdecl Target(U32_26d8f0* node) {
+extern "C" void __cdecl FUN_0026d8f0(unsigned int * node) {
     enterFn(((char*)&DAT_0052a188));
     if ((*(void**)&DAT_0052a180) == 0) {
         (*(void**)&DAT_0052a180) = node;

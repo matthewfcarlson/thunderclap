@@ -8,7 +8,7 @@ struct Key_2017d0 {
     unsigned int lo, hi;
 };
 
-bool FUN_002017d0(const char *name, int *outIndex, int *outValue)
+extern "C" bool FUN_002017d0(const char *name, int *outIndex, int *outValue)
 {
     union {
         unsigned __int64 q;

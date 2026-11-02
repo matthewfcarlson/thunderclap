@@ -4,7 +4,7 @@ struct Node { Node* left; Node* right; Node* parent; int color; };
 struct Tree_258730 { Node* root; Node sentinel; };
 struct Entry_258730 { char pad[8]; Node node; };
 Node* __cdecl FUN_002581f0(Tree_258730*, Node*);
-void __cdecl FUN_00258230(Tree_258730*, Node*);
+extern "C" void __cdecl FUN_00258230(void *, void *);
 void __cdecl FUN_00258730(Tree_258730* tree, Entry_258730* entry) {
  Node* sentinel = &tree->sentinel;
  Node* node = &entry->node;
@@ -31,5 +31,5 @@ void __cdecl FUN_00258730(Tree_258730* tree, Entry_258730* entry) {
   if (removed->left != sentinel) removed->left->parent = removed;
   if (removed->right->parent != sentinel) removed->right->parent = removed;
  }
- if (black) FUN_00258230(tree, child);
+ if (black) FUN_00258230((Tree_258730 *)tree, (Node *)child);
 }

@@ -21,7 +21,7 @@ extern "C" RandState_1947a0* FUN_000964d0();
 
 // Random walk step: the position arrives in esi, the walker and the step size on the stack.
 // equiv-conv: FUN_001947a0 esi stack stack
-void FUN_001947a0(Vec3_1947a0* pos, Wanderer* w, float step)
+extern "C" void FUN_001947a0(Vec3_1947a0* pos, Wanderer* w, float step)
 {
     RandState_1947a0* rng = FUN_000964d0();
     int dir = w->direction;

@@ -10,7 +10,7 @@ struct Surface_25cf70 {
     int state;
 };
 
-char __cdecl FUN_0025cf70(Surface_25cf70 *s, unsigned int offset, unsigned int size, unsigned int *outSize)
+extern "C" char __cdecl FUN_0025cf70(Surface_25cf70 *s, unsigned int offset, unsigned int size, unsigned int *outSize)
 {
     unsigned char fill = ((s->flags & 0x7c000000) == 0x20000000) ? 0x80 : 0;
     if (s->flags & 0x1f0) {

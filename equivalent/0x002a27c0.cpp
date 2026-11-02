@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 10/10)
 // FUN_002a27c0 @ 0x002a27c0
 typedef unsigned int uint_2a27c0;
-void __cdecl FUN_002a27c0(uint_2a27c0 byteIndex, uint_2a27c0 count, const uint_2a27c0* source, uint_2a27c0* destination)
+extern "C" void __cdecl FUN_002a27c0(unsigned int byteIndex, unsigned int count, const unsigned int * source, unsigned int * destination)
 {
     uint_2a27c0 frequencies[256] = {0};
     uint_2a27c0 offsets[261];

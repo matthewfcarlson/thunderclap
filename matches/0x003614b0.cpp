@@ -7,10 +7,10 @@ class Object {
     void init(__int64*, __int64*, int, int);
 };
 extern "C" int __cdecl atexit(void(__cdecl*)());
-extern "C" void __cdecl cleanup();
+extern "C" void __cdecl FUN_00364700();
 void __cdecl target() {
     __int64 a = lookup(DAT_0042ab20, 0, 0);
     __int64 b = lookup(DAT_0042a620, 0, 0);
     (*(Object*)((char*)&DAT_004e7a2c + 4)).init(&b, &a, 8, 4);
-    atexit(cleanup);
+    atexit(FUN_00364700);
 }

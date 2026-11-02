@@ -23,8 +23,9 @@ struct Block {
 };
 
 // equiv-conv: FUN_0033fed0 eax
-void __cdecl FUN_0033fed0(Block* m)
+extern "C" void __cdecl FUN_0033fed0(void * m_)
 {
+    Block * m = (Block *)m_;
     Slot c = m->s18;
     Slot e = m->s28;
     Slot f = m->s38;

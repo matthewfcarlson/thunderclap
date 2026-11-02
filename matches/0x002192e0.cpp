@@ -15,11 +15,11 @@ struct Owner_2192e0 {
     Table_2192e0* table;
 };
 extern void* __cdecl FUN_0021add0(Owner_2192e0*, void*, unsigned, unsigned);
-void __cdecl FUN_002192e0(Owner_2192e0* owner, int count) {
-    if (owner->table->locked > 0)
+extern "C" void __cdecl FUN_002192e0(void * owner, int count) {
+    if (((Owner_2192e0 *)owner)->table->locked > 0)
         return;
-    Node** buckets = (Node**)FUN_0021add0(owner, 0, 0, (unsigned)count * 4);
-    Table_2192e0* table = owner->table;
+    Node** buckets = (Node**)FUN_0021add0(((Owner_2192e0 *)owner), 0, 0, (unsigned)count * 4);
+    Table_2192e0* table = ((Owner_2192e0 *)owner)->table;
     for (int i = 0; i < count; ++i)
         buckets[i] = 0;
     for (int i = 0; i < table->count; ++i) {
@@ -32,7 +32,7 @@ void __cdecl FUN_002192e0(Owner_2192e0* owner, int count) {
             node = next;
         }
     }
-    FUN_0021add0(owner, table->buckets, (unsigned)table->count * 4, 0);
+    FUN_0021add0(((Owner_2192e0 *)owner), table->buckets, (unsigned)table->count * 4, 0);
     table->buckets = buckets;
     table->count = count;
 }

@@ -17,16 +17,16 @@ static float abs_bits(float x)
     return b.f;
 }
 
-void FUN_000adf20(Bounds_adf20 *dst, const Bounds_adf20 *src)
+extern "C" void FUN_000adf20(void *dst, const void *src)
 {
     int i;
 
     for (i = 0; i < 13; i++) {
-        if (src->v[i] > dst->v[i])
-            dst->v[i] = src->v[i];
+        if (((const Bounds_adf20 *)src)->v[i] > ((Bounds_adf20 *)dst)->v[i])
+            ((Bounds_adf20 *)dst)->v[i] = ((const Bounds_adf20 *)src)->v[i];
     }
     for (i = 13; i < 17; i++) {
-        if (abs_bits(src->v[i]) > abs_bits(dst->v[i]))
-            dst->v[i] = src->v[i];
+        if (abs_bits(((const Bounds_adf20 *)src)->v[i]) > abs_bits(((Bounds_adf20 *)dst)->v[i]))
+            ((Bounds_adf20 *)dst)->v[i] = ((const Bounds_adf20 *)src)->v[i];
     }
 }

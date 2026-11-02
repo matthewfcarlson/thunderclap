@@ -8,8 +8,8 @@ struct Job_26dad0 {
     int threadId;
     int handle;
 };
-extern "C" void __cdecl FUN_0026d940(Job_26dad0*);
-extern "C" void __cdecl FUN_0026d7a0(void*);
+extern "C" void __cdecl FUN_0026d940(void *);
+extern "C" void __cdecl FUN_0026d7a0(void *);
 extern "C" int __cdecl FUN_0020c14b();
 extern "C" void __stdcall FUN_0020bbc2(int);
 extern "C" void __stdcall FUN_0020c6f7(int, int);
@@ -19,7 +19,7 @@ void __stdcall ExitThread(int);
 extern "C" void(__stdcall* DAT_003f2c8c)(void*);
 extern "C" void(__stdcall* DAT_003f2c88)(void*);
 extern "C" void __cdecl FUN_0026dad0(Job_26dad0* job) {
-    FUN_0026d940(job);
+    FUN_0026d940((Job_26dad0 *)job);
     DAT_003f2c8c(((char*)&DAT_0052a188));
     if (job->active) {
         if (job->threadId == FUN_0020c14b()) {

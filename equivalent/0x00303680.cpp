@@ -9,15 +9,15 @@ struct Item_303680 {
 void __cdecl FUN_00303080(Item_303680 *dest, Item_303680 *first, Item_303680 *last, int a, int b);
 
 // Insertion sort of [first, last) by ascending key.
-void FUN_00303680(Item_303680 *first, Item_303680 *last) {
-    if (first == last) {
+extern "C" void FUN_00303680(void *first, void *last) {
+    if (((Item_303680 *)first) == ((Item_303680 *)last)) {
         return;
     }
-    for (Item_303680 *cur = first + 1; cur != last; cur++) {
+    for (Item_303680 *cur = ((Item_303680 *)first) + 1; cur != ((Item_303680 *)last); cur++) {
         Item_303680 *next = cur + 1;
         Item_303680 *pos;
-        if (cur->key < first->key) {
-            pos = first;
+        if (cur->key < ((Item_303680 *)first)->key) {
+            pos = ((Item_303680 *)first);
         } else {
             pos = cur;
             while (cur->key < (pos - 1)->key) {

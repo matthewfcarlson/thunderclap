@@ -13,8 +13,9 @@ struct Context {
 };
 extern "C" void __cdecl FUN_002171c0(Context *, int *, int, int *, int *);
 // equiv-conv: FUN_00216e10 stack stack ebx
-int __cdecl FUN_00216e10(int value, int remaining, Context *context)
+extern "C" int __cdecl FUN_00216e10(int value, int remaining, void * context_)
 {
+    Context * context = (Context *)context_;
     Entries *entries = context->entries;
     int index = entries->index;
     while (index < entries->count) {

@@ -129,11 +129,11 @@ struct lua_State {
 
 void __cdecl FUN_00215520(lua_State* L, int event, int line);
 // equiv-conv: FUN_002176c0 ebx edi
-void FUN_002176c0(lua_State* L, const Instruction* pc);
-void __cdecl FUN_00217830(lua_State* L, TObject* t, TObject* key, TObject* val);
-void __cdecl FUN_00217980(lua_State* L, TObject* t, TObject* key, TObject* val);
+extern "C" void __cdecl FUN_002176c0(void *, unsigned int *);
+extern "C" void __cdecl FUN_00217830(void *, void *, void *, void *);
+extern "C" void __cdecl FUN_00217980(void *, void *, void *, void *);
 void __cdecl FUN_00217100(lua_State* L, GCHeader* p, GCHeader* v);
-void* __cdecl FUN_00219cc0(lua_State* L, int narray, int nhash);
+extern "C" void * __cdecl FUN_00219cc0(void *, void *, void *);
 void __cdecl FUN_00217440(lua_State* L);
 // equiv-conv: FUN_00218170 eax ecx edx stack stack stack
 StkId FUN_00218170(TObject* rc, TObject* rb, const Instruction* pc, lua_State* L, StkId ra, int op);
@@ -142,11 +142,11 @@ TObject* __cdecl FUN_002175b0(lua_State* L, const TObject* o, int event);
 // equiv-conv: FUN_00217790 ecx eax
 void FUN_00217790(lua_State* L, StkId res);
 void __cdecl FUN_00214d40(lua_State* L, const TObject* p1, const TObject* p2);
-void __cdecl FUN_00217f20(lua_State* L, int total, int last);
-int __cdecl FUN_00217e20(lua_State* L, const TObject* t1, const TObject* t2);
-int __cdecl FUN_00217cf0(lua_State* L, const TObject* l, const TObject* r);
+extern "C" void __cdecl FUN_00217f20(void *, int, int);
+extern "C" int __cdecl FUN_00217e20(void *, void *, void *);
+extern "C" int __cdecl FUN_00217cf0(void *, const void *, const void *);
 // equiv-conv: FUN_00217d80 edi esi stack
-int FUN_00217d80(const TObject* l, const TObject* r, lua_State* L);
+extern "C" int __cdecl FUN_00217d80(const void *, const void *, void *);
 StkId __cdecl FUN_00215790(lua_State* L, StkId func);
 void __cdecl FUN_00215970(lua_State* L, int nresults, StkId firstResult);
 void __cdecl FUN_00214a90(lua_State* L, const char* msg);
@@ -182,7 +182,7 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
             StkId ra;
             if ((L->hookmask & (LUA_MASKLINE | LUA_MASKCOUNT)) &&
                 (--L->hookcount == 0 || L->hookmask & LUA_MASKLINE)) {
-                FUN_002176c0(L, pc);
+                FUN_002176c0((lua_State *)L, (unsigned int *)(const unsigned int *)pc);
                 if (L->status) {
                     L->ci->savedpc = pc - 1;
                     return 0;
@@ -220,19 +220,19 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
             }
             case 5: { /* OP_GETGLOBAL */
                 L->ci->savedpc = pc;
-                FUN_00217830(L, &cl->g, KBx(i), ra);
+                FUN_00217830((lua_State *)L, (TObject *)(&cl->g), (TObject *)(KBx(i)), (TObject *)ra);
                 base = L->base;
                 break;
             }
             case 6: { /* OP_GETTABLE */
                 L->ci->savedpc = pc;
-                FUN_00217830(L, RB(i), RKC(i), ra);
+                FUN_00217830((lua_State *)L, (TObject *)(RB(i)), (TObject *)(RKC(i)), (TObject *)ra);
                 base = L->base;
                 break;
             }
             case 7: { /* OP_SETGLOBAL */
                 L->ci->savedpc = pc;
-                FUN_00217980(L, &cl->g, KBx(i), ra);
+                FUN_00217980((lua_State *)L, (TObject *)(&cl->g), (TObject *)(KBx(i)), (TObject *)ra);
                 base = L->base;
                 break;
             }
@@ -244,13 +244,13 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
             }
             case 9: { /* OP_SETTABLE */
                 L->ci->savedpc = pc;
-                FUN_00217980(L, ra, RKB(i), RKC(i));
+                FUN_00217980((lua_State *)L, (TObject *)ra, (TObject *)(RKB(i)), (TObject *)(RKC(i)));
                 base = L->base;
                 break;
             }
             case 10: { /* OP_NEWTABLE */
                 int b = GETARG_B(i);
-                ra->value.gc = FUN_00219cc0(L, (b & 7) << (b >> 3), GETARG_C(i));
+                ra->value.gc = FUN_00219cc0((lua_State *)L, (void *)(hulk_uintptr)(int)((b & 7) << (b >> 3)), (void *)(hulk_uintptr)(int)(GETARG_C(i)));
                 ra->tt = 5;
                 L->ci->savedpc = pc;
                 luaC_checkGC(L);
@@ -261,7 +261,7 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
                 StkId rb = RB(i);
                 ra[1] = *rb;
                 L->ci->savedpc = pc;
-                FUN_00217830(L, rb, RKC(i), ra);
+                FUN_00217830((lua_State *)L, (TObject *)rb, (TObject *)(RKC(i)), (TObject *)ra);
                 base = L->base;
                 break;
             }
@@ -316,7 +316,7 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
                 int b = GETARG_B(i);
                 int c = GETARG_C(i);
                 L->ci->savedpc = pc;
-                FUN_00217f20(L, c - b + 1, c);
+                FUN_00217f20((lua_State *)L, c - b + 1, c);
                 luaC_checkGC(L);
                 base = L->base;
                 *RA(i) = base[b];
@@ -328,7 +328,7 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
             }
             case 21: { /* OP_EQ */
                 L->ci->savedpc = pc;
-                if (((RKB(i)->tt == RKC(i)->tt) && FUN_00217e20(L, RKB(i), RKC(i))) != GETARG_A(i))
+                if (((RKB(i)->tt == RKC(i)->tt) && FUN_00217e20((lua_State *)L, (void *)(const TObject *)(RKB(i)), (void *)(const TObject *)(RKC(i)))) != GETARG_A(i))
                     pc++;
                 else
                     pc += GETARG_sBx(*pc) + 1;
@@ -337,7 +337,7 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
             }
             case 22: { /* OP_LT */
                 L->ci->savedpc = pc;
-                if (FUN_00217cf0(L, RKB(i), RKC(i)) != GETARG_A(i))
+                if (FUN_00217cf0((lua_State *)L, (const TObject *)(RKB(i)), (const TObject *)(RKC(i))) != GETARG_A(i))
                     pc++;
                 else
                     pc += GETARG_sBx(*pc) + 1;
@@ -346,7 +346,7 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
             }
             case 23: { /* OP_LE */
                 L->ci->savedpc = pc;
-                if (FUN_00217d80(RKB(i), RKC(i), L) != GETARG_A(i))
+                if (FUN_00217d80((const TObject *)(RKB(i)), (const TObject *)(RKC(i)), (lua_State *)L) != GETARG_A(i))
                     pc++;
                 else
                     pc += GETARG_sBx(*pc) + 1;

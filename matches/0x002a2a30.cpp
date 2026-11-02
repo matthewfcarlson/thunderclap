@@ -16,7 +16,7 @@ struct Entry_2a2a30 {
     Item_2a2a30** item;
     uint a, b;
 };
-void __cdecl FUN_002a27c0(uint pass, uint count, uint* input, uint* output);
+extern "C" void __cdecl FUN_002a27c0(unsigned int, unsigned int, const unsigned int *, unsigned int *);
 namespace pure3d {
 
 } // namespace pure3d

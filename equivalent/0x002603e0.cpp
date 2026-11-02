@@ -4,8 +4,10 @@ struct Node { Node *left; Node *right; Node *parent; int color; };
 struct Tree_2603e0 { Node *root; Node sentinel; };
 struct Item_2603e0 { char pad[0x48]; Node node; };
 Node *__cdecl FUN_0025fe80(Tree_2603e0 *, Node *);
-void __cdecl FUN_0025fec0(Tree_2603e0 *, Node *);
-void __cdecl FUN_002603e0(Tree_2603e0 *tree, Item_2603e0 *item) {
+extern "C" void __cdecl FUN_0025fec0(void *, void *);
+extern "C" void __cdecl FUN_002603e0(void * tree_, void * item_) {
+    Tree_2603e0 * tree = (Tree_2603e0 *)tree_;
+    Item_2603e0 * item = (Item_2603e0 *)item_;
  Node *s = &item->node;
  Node *nil = &tree->sentinel;
  Node *n;
@@ -33,5 +35,5 @@ void __cdecl FUN_002603e0(Tree_2603e0 *tree, Item_2603e0 *item) {
  Node *r = n->right;
  if (r->parent != nil) r->parent = n;
  }
- if (black) FUN_0025fec0(tree,child);
+ if (black) FUN_0025fec0((Tree_2603e0 *)tree,(Node *)child);
 }

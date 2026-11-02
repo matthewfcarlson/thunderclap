@@ -91,7 +91,7 @@ struct Run_f7330 {
 extern void *FUN_0008d690(unsigned int size);
 // finds the candidate name (ebx) inside the text (eax), returns the match
 // equiv-conv: FUN_000f72e0 eax ebx
-unsigned short *FUN_000f72e0(const unsigned short *text, const char *name);
+extern "C" unsigned short * __cdecl FUN_000f72e0(unsigned short *, const char *);
 
 class GlyphRun;
 
@@ -160,7 +160,7 @@ void GlyphRun::FUN_000f7330(unsigned short *text, int font, int unused, int mode
                 break;
             const char *cand = *f.u10.list;
             do {
-                unsigned short *res = FUN_000f72e0(f.u1c.text, cand);
+                unsigned short *res = FUN_000f72e0((unsigned short *)(const unsigned short *)(f.u1c.text), cand);
                 if (res != 0 && (found == 0 || res < found)) {
                     found = res;
                     f.u14.best = i;

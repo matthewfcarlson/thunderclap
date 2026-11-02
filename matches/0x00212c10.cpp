@@ -6,11 +6,11 @@ struct Obj_212c10 {
     u32_212c10* end;
 };
 extern void __cdecl Ensure(Obj_212c10*, int);
-void __cdecl FUN_00212c10(Obj_212c10* self, u32_212c10* src) {
-    u32_212c10* p = self->cur;
+extern "C" void __cdecl FUN_00212c10(void * self, unsigned int * src) {
+    u32_212c10* p = ((Obj_212c10 *)self)->cur;
     p[0] = src[0];
     p[1] = src[1];
-    if ((char*)self->end - (char*)self->cur <= 8)
-        Ensure(self, 1);
-    self->cur = (u32_212c10*)((char*)self->cur + 8);
+    if ((char*)((Obj_212c10 *)self)->end - (char*)((Obj_212c10 *)self)->cur <= 8)
+        Ensure(((Obj_212c10 *)self), 1);
+    ((Obj_212c10 *)self)->cur = (u32_212c10*)((char*)((Obj_212c10 *)self)->cur + 8);
 }

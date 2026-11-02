@@ -42,12 +42,14 @@ struct Tree_2448b0 {
     Node nil;
 };
 
-int __cdecl FUN_00244080(Key_2448b0 *key, Obj_2448b0 *parent);
-void __cdecl FUN_00243c80(Tree_2448b0 *tree, Node *node);
+extern "C" int __cdecl FUN_00244080(const void *, void *);
+extern "C" void __cdecl FUN_00243c80(void *, void *);
 void __cdecl FUN_00243cd0(Tree_2448b0 *tree, Node *node);
 
-bool __cdecl FUN_002448b0(Tree_2448b0 *tree, Obj_2448b0 *obj, Key_2448b0 *key)
+extern "C" bool __cdecl FUN_002448b0(void * tree_, void * obj_, void *key)
 {
+    Tree_2448b0 * tree = (Tree_2448b0 *)tree_;
+    Obj_2448b0 * obj = (Obj_2448b0 *)obj_;
     Node *nil = &tree->nil;
     Node *n = &obj->node;
     Node *cur = tree->root;
@@ -60,23 +62,23 @@ bool __cdecl FUN_002448b0(Tree_2448b0 *tree, Obj_2448b0 *obj, Key_2448b0 *key)
     while (cur != nil) {
         int c;
         last = cur;
-        if (key->hi > cur->hi) {
+        if (((Key_2448b0 *)key)->hi > cur->hi) {
             c = 1;
-        } else if (key->hi < cur->hi) {
+        } else if (((Key_2448b0 *)key)->hi < cur->hi) {
             c = -1;
-        } else if (key->lo < cur->lo) {
+        } else if (((Key_2448b0 *)key)->lo < cur->lo) {
             c = -1;
-        } else if (key->lo > cur->lo) {
+        } else if (((Key_2448b0 *)key)->lo > cur->lo) {
             c = 1;
         } else {
             Info_2448b0 *info = ((Obj_2448b0 *)((char *)cur - 4))->getInfo();
-            if (key->hi2 > info->hi)
+            if (((Key_2448b0 *)key)->hi2 > info->hi)
                 c = 1;
-            else if (key->hi2 < info->hi)
+            else if (((Key_2448b0 *)key)->hi2 < info->hi)
                 c = -1;
-            else if (key->lo2 < info->lo)
+            else if (((Key_2448b0 *)key)->lo2 < info->lo)
                 c = -1;
-            else if (key->lo2 > info->lo)
+            else if (((Key_2448b0 *)key)->lo2 > info->lo)
                 c = 1;
             else
                 c = 0;
@@ -93,7 +95,7 @@ bool __cdecl FUN_002448b0(Tree_2448b0 *tree, Obj_2448b0 *obj, Key_2448b0 *key)
     if (last == nil) {
         tree->root = n;
     } else {
-        if (FUN_00244080(key, (Obj_2448b0 *)((char *)last - 4)) < 0)
+        if (FUN_00244080((Key_2448b0 *)((Key_2448b0 *)key), (Obj_2448b0 *)((Obj_2448b0 *)((char *)last - 4))) < 0)
             last->left = n;
         else
             last->right = n;
@@ -116,7 +118,7 @@ bool __cdecl FUN_002448b0(Tree_2448b0 *tree, Obj_2448b0 *obj, Key_2448b0 *key)
             } else {
                 if (x == p->right) {
                     x = p;
-                    FUN_00243c80(tree, x);
+                    FUN_00243c80((Tree_2448b0 *)tree, (Node *)x);
                 }
                 x->parent->color = 0;
                 x->parent->parent->color = 1;

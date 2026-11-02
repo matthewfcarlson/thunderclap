@@ -2,7 +2,7 @@
 // FUN_002e6780 @ 0x002e6780
 #include "decls/data/engine/physics.h"
 
-unsigned int * __cdecl FUN_002e6780(unsigned int *output, unsigned int color, signed char adjustment)
+extern "C" unsigned int * __cdecl FUN_002e6780(unsigned int *output, unsigned int color, signed char adjustment)
 {
     if (!adjustment) { *output = color; return output; }
     int red = ((color >> 16) & 255) + (int)adjustment;

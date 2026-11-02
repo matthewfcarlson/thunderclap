@@ -2,7 +2,7 @@
 // FUN_001d5140 @ 0x001d5140
 extern "C" int __cdecl FUN_00096600(const char *a, const char *b);
 
-int FUN_001d5140(const char *name)
+extern "C" int FUN_001d5140(const char *name)
 {
     if (FUN_00096600(name, "steel_fists") == 0)
         return 1;

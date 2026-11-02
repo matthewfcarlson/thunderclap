@@ -10,7 +10,7 @@ extern void FUN_002e7580(Thing_2e9bb0*, char*, unsigned int);
 extern int FUN_002e81e0(Thing_2e9bb0*, int);
 extern void FUN_002e6c40(Thing_2e9bb0*, char*);
 extern void FUN_002eb5e0(Thing_2e9bb0*, void*, void*, int);
-void FUN(Thing_2e9bb0* a, void* x, unsigned int n) {
+extern "C" void FUN_002e9bb0(Thing_2e9bb0* a, void* x, unsigned int n) {
     if (!(a->flags & 1))
         FUN_002e69a0(a, "Missing IHDR before tEXt");
     if (a->flags & 4)

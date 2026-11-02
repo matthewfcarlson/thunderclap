@@ -8,15 +8,15 @@ struct Node {
 extern void(__stdcall* DAT_003f2c8c)(void*);
 extern void(__stdcall* DAT_003f2c88)(void*);
 
-void __cdecl FUN_0026d940(Node* node) {
+extern "C" void __cdecl FUN_0026d940(void * node) {
     DAT_003f2c8c(((char*)&DAT_0052a188));
-    if (node->previous == 0)
-        (*(Node**)&DAT_0052a180) = node->next;
+    if (((Node *)node)->previous == 0)
+        (*(Node**)&DAT_0052a180) = ((Node *)node)->next;
     else
-        node->previous->next = node->next;
-    if (node->next == 0)
-        (*(Node**)&DAT_0052a17c) = node->previous;
+        ((Node *)node)->previous->next = ((Node *)node)->next;
+    if (((Node *)node)->next == 0)
+        (*(Node**)&DAT_0052a17c) = ((Node *)node)->previous;
     else
-        node->next->previous = node->previous;
+        ((Node *)node)->next->previous = ((Node *)node)->previous;
     DAT_003f2c88(((char*)&DAT_0052a188));
 }

@@ -4,7 +4,7 @@ struct Matrix { float m[16]; };
 namespace D3D8 {
 void __stdcall D3DDevice_Clear(int, int, int, int, int, int);
 }
-extern void __cdecl FUN_0031c230(int);
+extern "C" void __cdecl FUN_0031c230(int);
 extern void __fastcall FUN_0022b980(Matrix*);
 struct Prim_321580 {
     char pad0[8];

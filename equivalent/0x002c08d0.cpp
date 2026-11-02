@@ -10,7 +10,7 @@ struct Image8 {
 // equiv-conv: FUN_002c02b0 ecx eax stack stack stack stack stack stack
 void __cdecl FUN_002c02b0(pure3d::Image8* source, int y, unsigned char* dest, int x, int width, int height, int stride, unsigned int key);
 // equiv-conv: FUN_002c0240 ecx eax ebx stack stack stack stack
-void __cdecl FUN_002c0240(pure3d::Image8* source, int y, int x, unsigned char* dest, int width, int height, int stride);
+extern "C" void __cdecl FUN_002c0240(void *, int, int, char *, int, int, int);
 void pure3d::Image8::vfunc_12(Image8* source, int x, int y, int w, int h, int dx, int dy) {
     if (dx < 0) { x += dx; w -= dx; dx = 0; }
     if (dy < 0) { y += dy; h -= dy; dy = 0; }
@@ -20,5 +20,5 @@ void pure3d::Image8::vfunc_12(Image8* source, int x, int y, int w, int h, int dx
     if (w < 1 || h < 1 || !source->pixels || !pixels) return;
     unsigned char* dest = pixels + stride * dy + dx;
     if (source->transparent) FUN_002c02b0(source, y, dest, x, w, h, stride, source->key);
-    else FUN_002c0240(source, y, x, dest, w, h, stride);
+    else FUN_002c0240((pure3d :: Image8 *)source, y, x, (char *)(unsigned char *)dest, w, h, stride);
 }

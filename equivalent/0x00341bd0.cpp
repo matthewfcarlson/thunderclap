@@ -16,10 +16,10 @@ typedef volatile float hulk_fslot; // forces the store-and-reload MSVC 7.1 would
 typedef float hulk_fslot;
 #endif
 // equiv-conv: FUN_00341bd0 eax ecx
-void FUN_00341bd0(float *m, Twiddle_341bd0 *c)
+extern "C" void FUN_00341bd0(float *m, void *c)
 {
-    float ka = c->a;
-    float kb = c->b;
+    float ka = ((Twiddle_341bd0 *)c)->a;
+    float kb = ((Twiddle_341bd0 *)c)->b;
     // the odd rows' sums the original keeps in x87 registers (MSVC 7.1 would share and round them)
     double s1_17 = m[1] + m[17];
     double s3_19 = m[3] + m[19];

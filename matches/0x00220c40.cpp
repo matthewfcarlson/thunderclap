@@ -19,7 +19,7 @@ struct FuncState_220c40 {
     int lasttarget;             // 0x1c
 };
 
-int __cdecl FUN_00220b20(FuncState_220c40 *fs, unsigned int instruction, int line);     // luaK_code
+extern "C" int __cdecl FUN_00220b20(void *, unsigned int, unsigned int);     // luaK_code
 
 void __cdecl FUN_00220c40(FuncState_220c40 *fs, int from, int n) {
     if (fs->pc > fs->lasttarget) {
@@ -35,5 +35,5 @@ void __cdecl FUN_00220c40(FuncState_220c40 *fs, int from, int n) {
             }
         }
     }
-    FUN_00220b20(fs, (((from + n - 1) | (from << 9)) << 15) | 3, fs->ls->lastline);
+    FUN_00220b20((FuncState_220c40 *)fs, (((from + n - 1) | (from << 9)) << 15) | 3, (int)(fs->ls->lastline));
 }

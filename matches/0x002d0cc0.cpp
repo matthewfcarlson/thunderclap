@@ -1,5 +1,5 @@
 // Same code shape as 0x002ab530 (propagated; names are from that function)
-int* copyWords(int* dst, int count, const int* src) {
+extern "C" int* FUN_002d0cc0(int* dst, int count, const int* src) {
     if (count) {
         int n = count;
         int* p = dst;

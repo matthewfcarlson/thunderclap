@@ -9,17 +9,17 @@ struct Node {
     Node* next;
     void* fiber;
 };
-void __cdecl unlinkNode(Node* p) {
-    if (p != (Node*)&(*(int*)((char*)&DAT_0052a130 + 8)) && p != (Node*)((char*)p->parent + 8))
-        DeleteFiber(p->fiber);
-    Node* parent = p->parent;
-    if (p->next == 0)
-        *(Node**)((char*)parent + 0x30) = p->prev;
+extern "C" void __cdecl FUN_0026d7a0(void * p) {
+    if (((Node *)p) != (Node*)&(*(int*)((char*)&DAT_0052a130 + 8)) && ((Node *)p) != (Node*)((char*)((Node *)p)->parent + 8))
+        DeleteFiber(((Node *)p)->fiber);
+    Node* parent = ((Node *)p)->parent;
+    if (((Node *)p)->next == 0)
+        *(Node**)((char*)parent + 0x30) = ((Node *)p)->prev;
     else
-        *(Node**)((char*)p->next + 0x0c) = p->prev;
-    if (p->prev == 0) {
-        *(Node**)((char*)parent + 0x34) = p->next;
+        *(Node**)((char*)((Node *)p)->next + 0x0c) = ((Node *)p)->prev;
+    if (((Node *)p)->prev == 0) {
+        *(Node**)((char*)parent + 0x34) = ((Node *)p)->next;
         return;
     }
-    *(Node**)((char*)p->prev + 0x10) = p->next;
+    *(Node**)((char*)((Node *)p)->prev + 0x10) = ((Node *)p)->next;
 }

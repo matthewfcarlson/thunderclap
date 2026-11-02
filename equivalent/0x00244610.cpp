@@ -4,9 +4,11 @@ struct Node { Node *left; Node *right; Node *parent; unsigned color; };
 struct Tree_244610 { Node *root; Node sentinel; };
 struct Object { char padding[0x48]; Node node; };
 Node *__cdecl FUN_00243720(Tree_244610 *, Node *);
-void __cdecl FUN_00243760(Tree_244610 *, Node *);
-void __cdecl FUN_00244610(Tree_244610 *tree, Object *object)
+extern "C" void __cdecl FUN_00243760(void *, void *);
+extern "C" void __cdecl FUN_00244610(void * tree_, void * object_)
 {
+    Tree_244610 * tree = (Tree_244610 *)tree_;
+    Object * object = (Object *)object_;
     Node *nil = &tree->sentinel;
     Node *removed = &object->node;
     Node *replacement = removed;
@@ -42,5 +44,5 @@ void __cdecl FUN_00244610(Tree_244610 *tree, Object *object)
             replacement->right->parent = replacement;
     }
     if (fix)
-        FUN_00243760(tree, child);
+        FUN_00243760((Tree_244610 *)tree, (Node *)child);
 }

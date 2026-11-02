@@ -8,16 +8,16 @@ struct Output_217600 {
     int type;
     float value;
 };
-Output_217600* __cdecl Target(Input_217600* p, Output_217600* q) {
-    if (p->type == 3)
-        return (Output_217600*)p;
-    if (p->type == 4) {
+extern "C" void * __cdecl FUN_00217600(void * p, void * q) {
+    if (((Input_217600 *)p)->type == 3)
+        return (Output_217600 *)((Output_217600*)((Input_217600 *)p));
+    if (((Input_217600 *)p)->type == 4) {
         float value;
-        if (Fetch((char*)p->data + 0x10, &value)) {
-            q->value = value;
-            q->type = 3;
-            return q;
+        if (Fetch((char*)((Input_217600 *)p)->data + 0x10, &value)) {
+            ((Output_217600 *)q)->value = value;
+            ((Output_217600 *)q)->type = 3;
+            return (Output_217600 *)((Output_217600 *)q);
         }
     }
-    return 0;
+    return (Output_217600 *)0;
 }

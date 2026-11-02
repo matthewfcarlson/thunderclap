@@ -3,11 +3,11 @@ struct Obj_2211e0 {
     int a;
     int b;
 };
-void FUN_00221190(void*, Obj_2211e0*);
+extern "C" int __cdecl FUN_00221190(void *, void *);
 void FUN_00220d90(void*, Obj_2211e0*);
-void FUN_002211e0(void* p, Obj_2211e0* q) {
-    if (q->a != q->b)
-        FUN_00221190(p, q);
+extern "C" void FUN_002211e0(void* p, void * q) {
+    if (((Obj_2211e0 *)q)->a != ((Obj_2211e0 *)q)->b)
+        FUN_00221190(p, (Obj_2211e0 *)((Obj_2211e0 *)q));
     else
-        FUN_00220d90(p, q);
+        FUN_00220d90(p, ((Obj_2211e0 *)q));
 }

@@ -84,7 +84,7 @@ struct Target_19d30 {
 };
 
 // equiv-conv: FUN_00014210 eax ecx edx esi
-void FUN_00014210(int mode, Fighter_19d30* frame, void* obj, Vec3_19d30* out);
+extern "C" void __cdecl FUN_00014210(int, void *, void *, void *);
 float __cdecl FUN_000964e0();
 
 struct Frame_19d30 {
@@ -155,7 +155,7 @@ void SpawnAction::FUN_00019d30(Target_19d30* t, Vec3_19d30* p1, Vec3_19d30* p2)
         f.req.ref->Release();
     pr = params;
     f.req.ref = nr;
-    FUN_00014210(pr->mode, fighter, t->obj, &f.out);
+    FUN_00014210(pr->mode, (Fighter_19d30 *)fighter, t->obj, (Vec3_19d30 *)(&f.out));
     pr = params;
     f.req.flag24 = pr->bf0;
     f.req.r58 = pr->ff4;

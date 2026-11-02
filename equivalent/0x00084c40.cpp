@@ -94,9 +94,9 @@ struct World {
 };
 
 
-Rng_84c40 *FUN_000964d0();
+extern "C" Rng_84c40 *FUN_000964d0();
 Volume_84c40 *FUN_001c3d90();
-float __cdecl FUN_000186b0(float *v, float *lo, float *hi);
+extern "C" float __cdecl FUN_000186b0(float *v, float *lo, float *hi);
 bool __cdecl FUN_00018960(float a, float b, float c);
 V3_84c40 *__cdecl FUN_00083dd0(V3_84c40 *out, float s, V3_84c40 *v);
 float __cdecl FUN_00083d90(float *v);

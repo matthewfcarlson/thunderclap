@@ -18,16 +18,16 @@ struct Heap_26b970 {
  U_26b970 maxMmapCount;
  U_26b970 pageSize;
 };
-void FUN_0026b910(Heap_26b970* heap);
-void __cdecl FUN_0026b970(Heap_26b970* heap) {
- U_26b970 count = heap->flags;
+extern "C" void __cdecl FUN_0026b910(void *);
+extern "C" void __cdecl FUN_0026b970(void * heap) {
+ U_26b970 count = ((Heap_26b970 *)heap)->flags;
  if (!count) {
-  FUN_0026b910(heap); // malloc_init_state: heap arrives in eax
+  FUN_0026b910((Heap_26b970 *)((Heap_26b970 *)heap)); // malloc_init_state: heap arrives in eax
   return;
  }
- heap->flags = count | 1;
- Node** end = (Node**)heap + ((count | 1) >> 3) - 1;
- for (Node** slot = heap->fastBins; ; ++slot) {
+ ((Heap_26b970 *)heap)->flags = count | 1;
+ Node** end = (Node**)((Heap_26b970 *)heap) + ((count | 1) >> 3) - 1;
+ for (Node** slot = ((Heap_26b970 *)heap)->fastBins; ; ++slot) {
   Node* block = *slot;
   if (block) {
    *slot = 0;
@@ -46,7 +46,7 @@ void __cdecl FUN_0026b970(Heap_26b970* heap) {
      forward->previous = back;
      back->next = forward;
     }
-    if (following != heap->top) {
+    if (following != ((Heap_26b970 *)heap)->top) {
      U_26b970 used = ((Node*)((char*)following + followingSize))->size & 1;
      following->size = followingSize;
      if (!used) {
@@ -56,7 +56,7 @@ void __cdecl FUN_0026b970(Heap_26b970* heap) {
       forward->previous = back;
       back->next = forward;
      }
-     Node* sentinel = (Node*)heap->binStorage;
+     Node* sentinel = (Node*)((Heap_26b970 *)heap)->binStorage;
      Node* old = sentinel->next;
      sentinel->next = block;
      old->previous = block;
@@ -66,7 +66,7 @@ void __cdecl FUN_0026b970(Heap_26b970* heap) {
      ((Node*)((char*)block + actual))->previousSize = actual;
     } else {
      block->size = (followingSize + actual) | 1;
-     heap->top = block;
+     ((Heap_26b970 *)heap)->top = block;
     }
     block = next;
    } while (block);

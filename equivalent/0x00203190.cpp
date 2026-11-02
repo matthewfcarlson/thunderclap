@@ -73,7 +73,7 @@ struct Frame_203190 {
     Hit_203190 hit;
 };
 
-bool FUN_00203190(V3_203190 *a1, V3_203190 *a2, int a3, Target_203190 *a4, int a5, Actor_203190 *a6)
+extern "C" bool FUN_00203190(V3_203190 *a1, V3_203190 *a2, int a3, Target_203190 *a4, int a5, Actor_203190 *a6)
 {
     Frame_203190 f;
     World *game = DAT_004dd700;

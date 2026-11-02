@@ -19,8 +19,8 @@ union VecSlot {
 };
 
 bool FUN_00358630(Vec3_358700 *a, Vec3_358700 *dir, float radius, float len, int zero, float planeD, Vec3_358700 *n, VecSlot *out);
-bool FUN_003577c0(Vec3_358700 *p, Vec3_358700 *a, Vec3_358700 *b, void *c, Vec3_358700 *n);
-bool FUN_00357960(Vec3_358700 *a, Vec3_358700 *dir, float reach, Vec3_358700 *p5, Vec3_358700 *p6, void *p7, Vec3_358700 *n, float *dist, Vec3_358700 *hit, Vec3_358700 *outN);
+extern "C" bool __cdecl FUN_003577c0(const void *, const void *, const void *, const void *, const void *);
+extern "C" bool __cdecl FUN_00357960(const void *, const void *, float, const void *, const void *, const void *, const void *, float *, void *, void *);
 bool FUN_00358030(Vec3_358700 *a, Vec3_358700 *dir, int f1, Vec3_358700 *p5, Vec3_358700 *p6, void *p7, float *s, Vec3_358700 *pt, Vec3_358700 *q, float *w, float *t, int f2, int f3, int f4);
 
 // Swept sphere (segment start a, direction dir, half length len, radius) against a triangle plane.
@@ -60,7 +60,7 @@ bool FUN_00358700(Vec3_358700 *a, Vec3_358700 *dir, float radius, float len, Vec
         hit->z = f.pt.z;
         hit->x = f.lo.x - f.v.x;
         hit->y = f.lo.y - f.v.y;
-        if (FUN_003577c0(hit, p5.v, p6, p7, n)) {
+        if (FUN_003577c0((Vec3_358700 *)hit, (Vec3_358700 *)(p5.v), (Vec3_358700 *)p6, p7, (Vec3_358700 *)n)) {
             *dist = n8.f;
             *outN = *n;
             return true;
@@ -78,14 +78,14 @@ bool FUN_00358700(Vec3_358700 *a, Vec3_358700 *dir, float radius, float len, Vec
         hit->z = f.pt.z;
         hit->x = f.hi.x - f.v.x;
         hit->y = f.hi.y - f.v.y;
-        if (FUN_003577c0(hit, p5.v, p6, p7, n)) {
+        if (FUN_003577c0((Vec3_358700 *)hit, (Vec3_358700 *)(p5.v), (Vec3_358700 *)p6, p7, (Vec3_358700 *)n)) {
             *dist = n8.f;
             *outN = *n;
             return true;
         }
     }
 
-    if (FUN_00357960(&f.lo, dir, len + len + radius, p5.v, p6, p7, n, dist, hit, outN)) {
+    if (FUN_00357960((Vec3_358700 *)(&f.lo), (Vec3_358700 *)dir, len + len + radius, (Vec3_358700 *)(p5.v), (Vec3_358700 *)p6, p7, (Vec3_358700 *)n, dist, (Vec3_358700 *)hit, (Vec3_358700 *)outN)) {
         *dist = n8.f;
         return true;
     }

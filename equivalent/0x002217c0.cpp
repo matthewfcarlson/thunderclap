@@ -14,32 +14,32 @@ struct Ctx_2217c0 {
     char buf[1];
 };
 
-void __cdecl FUN_00221110(Ctx_2217c0 *c, Item_2217c0 *i);
+extern "C" void __cdecl FUN_00221110(void *, void *);
 void __cdecl FUN_00221200(Ctx_2217c0 *c, Item_2217c0 *i);
-void __cdecl FUN_00221560(Ctx_2217c0 *c, Item_2217c0 *i);
-void __cdecl FUN_002214b0(Ctx_2217c0 *c, Item_2217c0 *i);
+extern "C" void __cdecl FUN_00221560(void *, void *);
+extern "C" void __cdecl FUN_002214b0(void *, void *);
 void __cdecl FUN_002207c0(Ctx_2217c0 *c, char *buf, int id);
 
-void __cdecl FUN_002217c0(Ctx_2217c0 *c, int mode, Item_2217c0 *item)
+extern "C" void __cdecl FUN_002217c0(void *c, int mode, void *item)
 {
     switch (mode) {
     case 5:
-        FUN_00221110(c, item);
+        FUN_00221110((Ctx_2217c0 *)((Ctx_2217c0 *)c), (Item_2217c0 *)((Item_2217c0 *)item));
         break;
     case 12:
-        FUN_002214b0(c, item);
-        c->f1c = c->f18;
-        FUN_002207c0(c, c->buf, item->idA);
-        item->idA = -1;
+        FUN_002214b0((Ctx_2217c0 *)((Ctx_2217c0 *)c), (Item_2217c0 *)((Item_2217c0 *)item));
+        ((Ctx_2217c0 *)c)->f1c = ((Ctx_2217c0 *)c)->f18;
+        FUN_002207c0(((Ctx_2217c0 *)c), ((Ctx_2217c0 *)c)->buf, ((Item_2217c0 *)item)->idA);
+        ((Item_2217c0 *)item)->idA = -1;
         break;
     case 13:
-        FUN_00221560(c, item);
-        c->f1c = c->f18;
-        FUN_002207c0(c, c->buf, item->idB);
-        item->idB = -1;
+        FUN_00221560((Ctx_2217c0 *)((Ctx_2217c0 *)c), (Item_2217c0 *)((Item_2217c0 *)item));
+        ((Ctx_2217c0 *)c)->f1c = ((Ctx_2217c0 *)c)->f18;
+        FUN_002207c0(((Ctx_2217c0 *)c), ((Ctx_2217c0 *)c)->buf, ((Item_2217c0 *)item)->idB);
+        ((Item_2217c0 *)item)->idB = -1;
         break;
     default:
-        FUN_00221200(c, item);
+        FUN_00221200(((Ctx_2217c0 *)c), ((Item_2217c0 *)item));
         break;
     }
 }

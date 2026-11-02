@@ -5,7 +5,7 @@ struct UShortRange {
     unsigned short* last;
 };
 
-void FUN_002f41e0(unsigned short* a, unsigned short* b, unsigned short* c);
+extern "C" void FUN_002f41e0(unsigned short* a, unsigned short* b, unsigned short* c);
 
 static void SwapU16(unsigned short* a, unsigned short* b)
 {
@@ -16,7 +16,7 @@ static void SwapU16(unsigned short* a, unsigned short* b)
 
 // std::_Partition for unsigned short, with equal-range grouping; returns the
 // range of elements equal to the median-of-three pivot.
-UShortRange* FUN_002f43f0(UShortRange* out, unsigned short* first, unsigned short* last)
+extern "C" void * FUN_002f43f0(void * out, unsigned short* first, unsigned short* last)
 {
     int n = (int)(last - first);
     unsigned short* mid = first + n / 2;
@@ -52,9 +52,9 @@ UShortRange* FUN_002f43f0(UShortRange* out, unsigned short* first, unsigned shor
         }
         if (glast == first) {
             if (gfirst == last) {
-                out->last = pfirst;
-                out->first = pmid;
-                return out;
+                ((UShortRange *)out)->last = pfirst;
+                ((UShortRange *)out)->first = pmid;
+                return (UShortRange *)((UShortRange *)out);
             }
             if (pfirst != gfirst)
                 SwapU16(pfirst, pmid);

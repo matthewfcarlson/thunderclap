@@ -22,18 +22,18 @@ struct List {
 struct Pool;
 extern "C" void FUN_00247550(Pool* pool, Item* item);
 
-void FUN_00261d10(List* list)
+extern "C" void FUN_00261d10(void * list)
 {
     for (;;) {
-        Link* node = list->head;
+        Link* node = ((List *)list)->head;
         if (node == 0)
             return;
         Item* item = (Item*)((char*)node - 4);
         if (item == 0)
             return;
-        list->head = node->next;
+        ((List *)list)->head = node->next;
         if (node->next == 0)
-            list->tail = 0;
+            ((List *)list)->tail = 0;
         FUN_00247550(((Pool*)((char*)&DAT_004e7a2c + 4)), item);
     }
 }

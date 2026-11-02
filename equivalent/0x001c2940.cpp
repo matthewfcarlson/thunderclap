@@ -15,8 +15,10 @@ struct V3 {
 // The x87 runs at 53-bit precision here, so the values the original keeps on the FPU stack
 // are written as doubles. Values it stores to a float slot and reloads are volatile floats
 // (MSVC would otherwise drop the rounding).
-int __cdecl FUN_001c2940(const Plane *a, const Plane *b, V3 *point, V3 *dir)
+extern "C" int __cdecl FUN_001c2940(const void * a_, const void * b_, void *point, void *dir)
 {
+    const Plane * a = (const Plane *)a_;
+    const Plane * b = (const Plane *)b_;
     volatile float cx = b->nz * a->ny - b->ny * a->nz;
     double cy = (double)b->nx * a->nz - (double)b->nz * a->nx;
     volatile float cz = b->ny * a->nx - b->nx * a->ny;
@@ -66,11 +68,11 @@ int __cdecl FUN_001c2940(const Plane *a, const Plane *b, V3 *point, V3 *dir)
         pz = 0.0;
     }
 
-    point->x = px;
-    point->z = (float)pz;
-    point->y = py;
-    dir->x = cx;
-    dir->z = cz;
-    dir->y = (float)cy;
+    ((V3 *)point)->x = px;
+    ((V3 *)point)->z = (float)pz;
+    ((V3 *)point)->y = py;
+    ((V3 *)dir)->x = cx;
+    ((V3 *)dir)->z = cz;
+    ((V3 *)dir)->y = (float)cy;
     return 0;
 }

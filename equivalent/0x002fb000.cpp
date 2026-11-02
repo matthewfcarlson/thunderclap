@@ -33,7 +33,7 @@ struct Registry_2fb000 {
 };
 struct Manager_2fb000 { char pad[0x1b0]; Registry_2fb000 reg; };
 
-void FUN_002fa6b0(V3_2fb000* a, V3_2fb000* b, V3_2fb000* c, V3_2fb000* normal);
+extern "C" void __cdecl FUN_002fa6b0(const void *, const void *, const void *, void *);
 extern "C" char FUN_00359260(V3_2fb000* ref, float margin, V3_2fb000* a, V3_2fb000* b, V3_2fb000* c, V3_2fb000* n, float* depth, V3_2fb000* o1, V3_2fb000* o2,
                   int f1, int f2, int f3);
 
@@ -69,7 +69,7 @@ char Tri_2fb000::run(Shape_2fb000* shape, Context* ctx, int flags)
     V3_2fb000* v1 = &verts[i1];
     V3_2fb000* v2 = &verts[i2];
 
-    FUN_002fa6b0(v0, v1, v2, &f.normal);
+    FUN_002fa6b0((V3_2fb000 *)v0, (V3_2fb000 *)v1, (V3_2fb000 *)v2, (V3_2fb000 *)(&f.normal));
 
     f.f1.b = (triFlags & 1) != 0;
     f.f2.b = (triFlags & 2) == 2;

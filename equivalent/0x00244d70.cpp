@@ -28,7 +28,7 @@ public:
 }
 
 void FUN_00244230(ListHead_244d70 *head, om::EntityType *type, void *block);
-void FUN_00244430(ListHead_244d70 *head, om::EntityType *type, void *block);
+extern "C" char __cdecl FUN_00244430(void *, void *, const int *);
 
 void om::EntityType::vfunc_0()
 {
@@ -55,6 +55,6 @@ void om::EntityType::vfunc_0()
     }
 
     FUN_00244230(a, this, blockA);
-    FUN_00244430(b, this, blockB);
+    FUN_00244430((ListHead_244d70 *)b, (om :: EntityType *)this, (const int *)(void *)blockB);
     (*(int*)&DAT_004e5f10)++;
 }

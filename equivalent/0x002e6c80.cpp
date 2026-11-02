@@ -2,7 +2,7 @@
 // FUN_002e6c80 @ 0x002e6c80
 #include "decls/data/engine/physics.h"
 
-unsigned int __cdecl FUN_002e6c80(unsigned int crc, const unsigned char* data, unsigned int length)
+extern "C" unsigned int __cdecl FUN_002e6c80(unsigned int crc, const unsigned char* data, unsigned int length)
 {
     if (!data) return 0;
     crc = ~crc;

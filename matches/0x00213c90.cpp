@@ -13,7 +13,7 @@ struct C_213c90 {
     Inner_213c90* obj;
 };
 extern void __cdecl FUN_00217440(C_213c90*);
-extern void __cdecl FUN_00217f20(C_213c90*, int, int);
+extern "C" void __cdecl FUN_00217f20(void *, int, int);
 extern int __cdecl FUN_00219430(C_213c90*, const float*, int);
 extern "C" void __cdecl FUN_00213c90(C_213c90* self, int n) {
     Inner_213c90* o = self->obj;
@@ -21,7 +21,7 @@ extern "C" void __cdecl FUN_00213c90(C_213c90* self, int n) {
         FUN_00217440(self);
     if (n >= 2) {
         int d = ((int)(self->p - self->low) >> 3) - 1;
-        FUN_00217f20(self, n, d);
+        FUN_00217f20((C_213c90 *)self, n, d);
         self->p += 8 - n * 8;
         return;
     }

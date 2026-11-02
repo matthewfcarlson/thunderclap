@@ -2,7 +2,7 @@
 // FUN_001d5e80 @ 0x001d5e80
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-extern int __cdecl FUN_001d5140(void*);
+extern "C" int __cdecl FUN_001d5140(const char *);
 struct Property_1d5e80 { unsigned int keyLow; unsigned int keyHigh; void* value; unsigned int reserved; };
 struct Entry_1d5e80 { char pad[0x3c]; int count; Property_1d5e80* properties; };
 struct Entries_1d5e80 { char pad[0x1c]; Entry_1d5e80** begin; Entry_1d5e80** end; };
@@ -19,7 +19,7 @@ int CSPHulkPropInstance_1d5e80::FUN_001d5e80(int index) {
  Entry_1d5e80* entry = entries->begin[index];
  for (int i=0; i<entry->count; ++i) {
   Property_1d5e80* p = &entry->properties[i];
-  if (p->keyLow == low && p->keyHigh == high) return FUN_001d5140(p->value);
+  if (p->keyLow == low && p->keyHigh == high) return FUN_001d5140((const char *)(void *)(p->value));
  }
  return 0;
 }

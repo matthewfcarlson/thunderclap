@@ -11,15 +11,15 @@ struct Format_2de8b0 {
  char pad38[16]; int pitch;
 };
 // equiv-conv: FUN_002de8b0 eax esi stack
-void FUN_002de8b0(unsigned int* destination, Format_2de8b0* format, Source_2de8b0* source) {
- int padding = (format->pitch - format->width * 4) / 4 * 4;
- for(int y=0;y<format->height;++y) {
-  for(int x=0;x<format->width;++x) {
-   unsigned int p=source->pixel(x,y);
-   unsigned int a=((p & 0xff000000U) >> (format->alphaIn & 31)) << (format->alphaOut & 31);
-   unsigned int g=((p & 0xff00U) >> (format->greenIn & 31)) << (format->greenOut & 31);
-   unsigned int b=((p & 0xffU) >> (format->blueIn & 31)) << (format->blueOut & 31);
-   unsigned int r=((p & 0xff0000U) >> (format->redIn & 31)) << (format->redOut & 31);
+extern "C" void FUN_002de8b0(unsigned int* destination, void * format, void * source) {
+ int padding = (((Format_2de8b0 *)format)->pitch - ((Format_2de8b0 *)format)->width * 4) / 4 * 4;
+ for(int y=0;y<((Format_2de8b0 *)format)->height;++y) {
+  for(int x=0;x<((Format_2de8b0 *)format)->width;++x) {
+   unsigned int p=((Source_2de8b0 *)source)->pixel(x,y);
+   unsigned int a=((p & 0xff000000U) >> (((Format_2de8b0 *)format)->alphaIn & 31)) << (((Format_2de8b0 *)format)->alphaOut & 31);
+   unsigned int g=((p & 0xff00U) >> (((Format_2de8b0 *)format)->greenIn & 31)) << (((Format_2de8b0 *)format)->greenOut & 31);
+   unsigned int b=((p & 0xffU) >> (((Format_2de8b0 *)format)->blueIn & 31)) << (((Format_2de8b0 *)format)->blueOut & 31);
+   unsigned int r=((p & 0xff0000U) >> (((Format_2de8b0 *)format)->redIn & 31)) << (((Format_2de8b0 *)format)->redOut & 31);
    *destination++=a|g|b|r;
   }
   destination=(unsigned int*)((char*)destination+padding);

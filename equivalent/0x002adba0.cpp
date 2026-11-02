@@ -44,9 +44,9 @@ void __cdecl FUN_002d73f0(png_struct *png, png_info *info);
 void __cdecl FUN_002d6ed0(png_struct *png, png_info **info);
 
 // equiv-conv: FUN_002ad820 eax stack stack
-void FUN_002ad820(png_info *info, png_struct *png, ImageSink_2adba0 *sink);
+extern "C" void __cdecl FUN_002ad820(void *, void *, void *);
 // equiv-conv: FUN_002ad9d0 esi eax ebx
-void FUN_002ad9d0(png_struct *png, png_info *info, ImageSink_2adba0 *sink);
+extern "C" void __cdecl FUN_002ad9d0(void *, void *, void *);
 // equiv-conv: FUN_002adb10 eax esi edi
 void FUN_002adb10(png_info *info, png_struct *png, ImageSink_2adba0 *sink);
 
@@ -85,9 +85,9 @@ void pure3d::PNGHandler::vfunc_9(hulk_intptr __p0, hulk_intptr __p1) { void * io
             FUN_002d9060(f.png);
         FUN_002d73f0(f.png, f.info);
         if (bitDepth == 4 && colorType == 3)
-            FUN_002ad820(f.info, f.png, sink);
+            FUN_002ad820((png_info *)(f.info), (png_struct *)(f.png), (ImageSink_2adba0 *)sink);
         else if (bitDepth == 8 && colorType == 3)
-            FUN_002ad9d0(f.png, f.info, sink);
+            FUN_002ad9d0((png_struct *)(f.png), (png_info *)(f.info), (ImageSink_2adba0 *)sink);
         else
             FUN_002adb10(f.info, f.png, sink);
     }

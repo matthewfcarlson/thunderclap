@@ -4,6 +4,6 @@
 struct CStaticAllocator_364010 {
     void f();
 };
-void wrapper() {
+extern "C" void FUN_00364010() {
     (*(CStaticAllocator_364010*)&DAT_004e2210).f();
 }

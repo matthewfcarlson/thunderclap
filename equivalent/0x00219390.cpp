@@ -27,12 +27,13 @@ struct lua_State_219390 {
 };
 
 void *__cdecl FUN_0021add0(lua_State_219390 *L, void *block, unsigned int oldSize, unsigned int newSize);
-void __cdecl FUN_002192e0(lua_State_219390 *L, int newSize);
+extern "C" void __cdecl FUN_002192e0(void *, int);
 
 // Lua 5.0 newlstr: allocates a TString, copies the bytes and links it into the string table.
 // equiv-conv: FUN_00219390 stack stack stack eax
-TString_219390 *__cdecl FUN_00219390(lua_State_219390 *L, const char *str, unsigned int l, unsigned int h)
+extern "C" void *__cdecl FUN_00219390(void * L_, const char *str, unsigned int l, unsigned int h)
 {
+    lua_State_219390 * L = (lua_State_219390 *)L_;
     TString_219390 *ts = (TString_219390 *)FUN_0021add0(L, 0, 0, l + 17);
     ts->len = l;
     ts->hash = h;
@@ -54,6 +55,6 @@ TString_219390 *__cdecl FUN_00219390(lua_State_219390 *L, const char *str, unsig
     tb->hash[h] = ts;
     tb->nuse++;
     if (tb->nuse > (unsigned int)tb->size && tb->size <= 0x3ffffffe)
-        FUN_002192e0(L, tb->size * 2);
-    return ts;
+        FUN_002192e0((lua_State_219390 *)L, tb->size * 2);
+    return (TString_219390 *)ts;
 }

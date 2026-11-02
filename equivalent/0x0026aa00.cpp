@@ -4,7 +4,7 @@ extern "C" char __cdecl FUN_00272240(const char *, unsigned *, unsigned *, void 
 extern "C" int __cdecl FUN_002720b0(unsigned, unsigned *, int, int, unsigned *, void *);
 
 // equiv-conv: FUN_0026aa00 eax ecx stack stack stack
-int __cdecl FUN_0026aa00(const char *source, unsigned *destination, int input, int capacity, void *options) {
+extern "C" int __cdecl FUN_0026aa00(const char *source, unsigned *destination, int input, int capacity, void *options) {
     if (source == (const char *)destination) return -5;
     int used = 0;
     while (*source) {

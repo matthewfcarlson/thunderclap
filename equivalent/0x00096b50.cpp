@@ -46,12 +46,13 @@ struct Event_96b50 {
     int type;
 };
 
-bool FUN_00096b50(Event_96b50 *ev, Vec3_96b50 *out, int *result)
+extern "C" bool FUN_00096b50(void *ev, void * out_, int *result)
 {
+    Vec3_96b50 * out = (Vec3_96b50 *)out_;
     *result = -10;
-    if (ev == 0) return false;
-    if (ev->type == 1) {
-        Actor_96b50 *a = ev->target.actor;
+    if (((Event_96b50 *)ev) == 0) return false;
+    if (((Event_96b50 *)ev)->type == 1) {
+        Actor_96b50 *a = ((Event_96b50 *)ev)->target.actor;
         if (a == 0) return false;
         if (a->busy != 0) return false;
         if (a->part == 0) return false;
@@ -62,8 +63,8 @@ bool FUN_00096b50(Event_96b50 *ev, Vec3_96b50 *out, int *result)
         *result = a->FUN_00035cf0();
         return true;
     }
-    if (ev->type == 5) {
-        Actor_96b50 *a = ev->target.actor;
+    if (((Event_96b50 *)ev)->type == 5) {
+        Actor_96b50 *a = ((Event_96b50 *)ev)->target.actor;
         if (a == 0) return false;
         if (a->mode == 2 || a->mode == 3 || a->mode == 1) return false;
         if (!a->FUN_001d7450()) return false;
@@ -82,8 +83,8 @@ bool FUN_00096b50(Event_96b50 *ev, Vec3_96b50 *out, int *result)
         a->FUN_001d69f0(out);
         return true;
     }
-    if (ev->type == 7) {
-        Prop_96b50 *p = ev->target.prop;
+    if (((Event_96b50 *)ev)->type == 7) {
+        Prop_96b50 *p = ((Event_96b50 *)ev)->target.prop;
         if (p == 0) return false;
         if ((p->flags >> 7) & 1) return false;
         if (p->kind == 5 || p->kind == 6) return false;

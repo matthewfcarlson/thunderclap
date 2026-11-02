@@ -8,7 +8,7 @@
 struct Status { char padding[12]; int mode; };
 extern "C" int __cdecl FUN_00044560(Status *);
 
-unsigned int FUN_00035e70(Status *status, float value)
+extern "C" unsigned int FUN_00035e70(Status *status, float value)
 {
     if (status->mode != 1)
         return ((hulk_uintptr)status & ~255u) | 1u;

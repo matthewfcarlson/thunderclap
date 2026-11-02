@@ -5,7 +5,7 @@ extern "C" int strcmp(const char*, const char*);
 struct Entry_270c10 {
     char name[0x11c];
 };
-int Find(const char* s) {
+extern "C" int FUN_00270c10(const char* s) {
     unsigned int n = (*(unsigned int*)&DAT_0052a128);
     int i;
     for (i = 0; i < n; ++i) {

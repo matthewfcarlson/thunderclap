@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3107 inputs, branch coverage 21/21)
 // FUN_002d6f10 @ 0x002d6f10
 #include "decls/data/engine/pure3d.h"
+#include "compat/ptr.h"
 
 struct ZStream_2d6f10 {
     void *next_in;
@@ -32,10 +33,10 @@ void FUN_002e6c40(PngStruct_2d6f10 *png, void *ptr);
 extern "C" void FUN_002e6bf0(PngStruct_2d6f10 *png);
 extern "C" void FUN_002e6ba0(PngStruct_2d6f10 *png, void *memPtr, void *mallocFn, void *freeFn);
 extern "C" void FUN_002e6970(PngStruct_2d6f10 *png, void *errorPtr, void *errorFn, void *warnFn);
-void FUN_002e69a0(PngStruct_2d6f10 *png, const char *message);
+extern "C" void __cdecl FUN_002e69a0(void *, void *);
 void *FUN_002e6c00(PngStruct_2d6f10 *png, unsigned int size);
 extern "C" int FUN_002e6f50(ZStream_2d6f10 *strm, const char *version, int streamSize);
-void FUN_002dd6f0(PngStruct_2d6f10 *png, int a, int b);
+extern "C" void __cdecl FUN_002dd6f0(void *, unsigned int, void *);
 void FUN_002d6c20();
 void FUN_002d6c80();
 
@@ -57,7 +58,7 @@ extern "C" PngStruct_2d6f10 *FUN_002d6f10(const char *userVersion, void *errorPt
 
     if (!userVersion || userVersion[0] != DAT_004d1020[0] ||
         (userVersion[0] == '0' && userVersion[2] < '9'))
-        FUN_002e69a0(png, "Incompatible libpng version in application and library");
+        FUN_002e69a0((PngStruct_2d6f10 *)png, (void *)(const char *)"Incompatible libpng version in application and library");
 
     png->zbufSize = 0x2000;
     png->zbuf = FUN_002e6c00(png, 0x2000);
@@ -70,18 +71,18 @@ extern "C" PngStruct_2d6f10 *FUN_002d6f10(const char *userVersion, void *errorPt
         break;
     case -4:
     case -2:
-        FUN_002e69a0(png, "zlib memory error");
+        FUN_002e69a0((PngStruct_2d6f10 *)png, (void *)(const char *)"zlib memory error");
         break;
     case -6:
-        FUN_002e69a0(png, "zlib version error");
+        FUN_002e69a0((PngStruct_2d6f10 *)png, (void *)(const char *)"zlib version error");
         break;
     default:
-        FUN_002e69a0(png, "Unknown zlib error");
+        FUN_002e69a0((PngStruct_2d6f10 *)png, (void *)(const char *)"Unknown zlib error");
         break;
     }
 
     png->zstream.next_out = png->zbuf;
     png->zstream.avail_out = png->zbufSize;
-    FUN_002dd6f0(png, 0, 0);
+    FUN_002dd6f0((PngStruct_2d6f10 *)png, 0, (void *)(hulk_uintptr)(int)0);
     return png;
 }

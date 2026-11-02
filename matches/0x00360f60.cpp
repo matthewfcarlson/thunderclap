@@ -7,8 +7,8 @@ class Thing {
     ~Thing();
 };
 extern "C" int __cdecl atexit(void(__cdecl*)());
-extern "C" void __cdecl cleanup();
+extern "C" void __cdecl FUN_00364630();
 void __cdecl FUN_00360f60() {
     (*(Thing*)((char*)&DAT_004e75b8 + 104)).Thing::Thing();
-    atexit(cleanup);
+    atexit(FUN_00364630);
 }

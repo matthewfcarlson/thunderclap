@@ -11,17 +11,19 @@ union AbsFloat {
     unsigned int bits;
 };
 
-void __cdecl FUN_00359450(const Vec3_359450 *dir, const Vec3_359450 *c, const Vec3_359450 *ext, const Vec3_359450 *ax, const Vec3_359450 *ay,
-                          const Vec3_359450 *az, float *outMin, float *outMax)
+extern "C" void __cdecl FUN_00359450(const void * dir_, const void *c, const void * ext_, const void *ax, const void *ay,
+                          const void *az, float *outMin, float *outMax)
 {
-    hulk_freg centre = c->z * dir->z + c->y * dir->y + c->x * dir->x;
+    const Vec3_359450 * dir = (const Vec3_359450 *)dir_;
+    const Vec3_359450 * ext = (const Vec3_359450 *)ext_;
+    hulk_freg centre = ((const Vec3_359450 *)c)->z * dir->z + ((const Vec3_359450 *)c)->y * dir->y + ((const Vec3_359450 *)c)->x * dir->x;
 
     AbsFloat px, py, pz;
-    px.f = ax->z * dir->z + ax->y * dir->y + ax->x * dir->x;
+    px.f = ((const Vec3_359450 *)ax)->z * dir->z + ((const Vec3_359450 *)ax)->y * dir->y + ((const Vec3_359450 *)ax)->x * dir->x;
     px.bits &= 0x7fffffff;
-    py.f = ay->z * dir->z + ay->y * dir->y + ay->x * dir->x;
+    py.f = ((const Vec3_359450 *)ay)->z * dir->z + ((const Vec3_359450 *)ay)->y * dir->y + ((const Vec3_359450 *)ay)->x * dir->x;
     py.bits &= 0x7fffffff;
-    pz.f = az->z * dir->z + az->y * dir->y + az->x * dir->x;
+    pz.f = ((const Vec3_359450 *)az)->z * dir->z + ((const Vec3_359450 *)az)->y * dir->y + ((const Vec3_359450 *)az)->x * dir->x;
     pz.bits &= 0x7fffffff;
 
     hulk_freg radius = pz.f * ext->z + py.f * ext->y + px.f * ext->x;

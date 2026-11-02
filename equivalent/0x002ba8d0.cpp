@@ -75,8 +75,8 @@ struct BillboardQuad_2ba8d0 : Obj_2ba8d0 {
     BillboardQuad_2ba8d0 *FUN_002b8e80();
 };
 
-int __cdecl FUN_002b87d0(int v);
-int __cdecl FUN_002b8800(int v);
+extern "C" int __cdecl FUN_002b87d0(int v);
+extern "C" int __cdecl FUN_002b8800(int v);
 
 struct Frame_2ba8d0 {
     char pad0[3];

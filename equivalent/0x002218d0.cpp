@@ -31,75 +31,76 @@ struct Ctx_2218d0 {
 
 void* FUN_00221200(Ctx_2218d0* c, Operand_2218d0* op);
 void FUN_00220d90(Ctx_2218d0* c, Operand_2218d0* op);
-void FUN_00221190(Ctx_2218d0* c, Operand_2218d0* op);
-void FUN_00221110(Ctx_2218d0* c, Operand_2218d0* op);
+extern "C" int __cdecl FUN_00221190(void *, void *);
+extern "C" void __cdecl FUN_00221110(void *, void *);
 void FUN_002207c0(Ctx_2218d0* c, int* dst, int src);
-int FUN_00220b20(Ctx_2218d0* c, int a, int b);
+extern "C" int __cdecl FUN_00220b20(void *, unsigned int, unsigned int);
 // equiv-conv: FUN_00221860 eax ecx edx edi stack
 void FUN_00221860(void* extra, void* self, int sel, Operand_2218d0* a, Ctx_2218d0* c);
 
-void FUN_002218d0(Ctx_2218d0* c, int sel, Operand_2218d0* a, Operand_2218d0* b)
+extern "C" void FUN_002218d0(void * c, int sel, void * a_, void * b)
 {
+    Operand_2218d0 * a = (Operand_2218d0 *)a_;
     if (sel == 5) {
-        if (b->f0c != b->f10)
-            FUN_00221190(c, b);
+        if (((Operand_2218d0 *)b)->f0c != ((Operand_2218d0 *)b)->f10)
+            FUN_00221190((Ctx_2218d0 *)((Ctx_2218d0 *)c), (Operand_2218d0 *)((Operand_2218d0 *)b));
         else
-            FUN_00220d90(c, b);
-        if (b->kind == 0xa) {
-            Table_2218d0* tab = c->table;
-            if ((tab->words[b->val] & 0x3f) == 0x13) {
+            FUN_00220d90(((Ctx_2218d0 *)c), ((Operand_2218d0 *)b));
+        if (((Operand_2218d0 *)b)->kind == 0xa) {
+            Table_2218d0* tab = ((Ctx_2218d0 *)c)->table;
+            if ((tab->words[((Operand_2218d0 *)b)->val] & 0x3f) == 0x13) {
                 if (a->kind == 0xb) {
-                    if (a->val >= (int)c->minReg && a->val < 0xfa)
-                        c->counter--;
+                    if (a->val >= (int)((Ctx_2218d0 *)c)->minReg && a->val < 0xfa)
+                        ((Ctx_2218d0 *)c)->counter--;
                 }
                 unsigned int* words = tab->words;
-                unsigned int old = words[b->val];
-                words[b->val] = old ^ (((unsigned int)a->val << 15 ^ old) & 0xff8000);
-                a->kind = b->kind;
-                a->val = b->val;
+                unsigned int old = words[((Operand_2218d0 *)b)->val];
+                words[((Operand_2218d0 *)b)->val] = old ^ (((unsigned int)a->val << 15 ^ old) & 0xff8000);
+                a->kind = ((Operand_2218d0 *)b)->kind;
+                a->val = ((Operand_2218d0 *)b)->val;
                 return;
             }
         }
-        FUN_00221110(c, b);
-        if (b->kind == 0xb) {
-            if (b->val >= (int)c->minReg && b->val < 0xfa)
-                c->counter--;
+        FUN_00221110((Ctx_2218d0 *)((Ctx_2218d0 *)c), (Operand_2218d0 *)((Operand_2218d0 *)b));
+        if (((Operand_2218d0 *)b)->kind == 0xb) {
+            if (((Operand_2218d0 *)b)->val >= (int)((Ctx_2218d0 *)c)->minReg && ((Operand_2218d0 *)b)->val < 0xfa)
+                ((Ctx_2218d0 *)c)->counter--;
         }
         if (a->kind == 0xb) {
-            if (a->val >= (int)c->minReg && a->val < 0xfa)
-                c->counter--;
+            if (a->val >= (int)((Ctx_2218d0 *)c)->minReg && a->val < 0xfa)
+                ((Ctx_2218d0 *)c)->counter--;
         }
-        a->val = FUN_00220b20(c, ((a->val << 9 | b->val) << 6) | 0x13, c->pool->handle);
+        a->val = FUN_00220b20((Ctx_2218d0 *)((Ctx_2218d0 *)c), (int)(((a->val << 9 | ((Operand_2218d0 *)b)->val) << 6) | 0x13), (int)(((Ctx_2218d0 *)c)->pool->handle));
         a->kind = 0xa;
         return;
     }
     if (sel == 12) {
-        FUN_00220d90(c, b);
-        FUN_002207c0(c, &a->f10, b->f10);
-        a->kind = b->kind;
-        a->val = b->val;
-        a->f08 = b->f08;
-        a->f0c = b->f0c;
+        FUN_00220d90(((Ctx_2218d0 *)c), ((Operand_2218d0 *)b));
+        FUN_002207c0(((Ctx_2218d0 *)c), &a->f10, ((Operand_2218d0 *)b)->f10);
+        a->kind = ((Operand_2218d0 *)b)->kind;
+        a->val = ((Operand_2218d0 *)b)->val;
+        a->f08 = ((Operand_2218d0 *)b)->f08;
+        a->f0c = ((Operand_2218d0 *)b)->f0c;
         return;
     }
     if (sel == 13) {
-        FUN_00220d90(c, b);
-        FUN_002207c0(c, &a->f0c, b->f0c);
-        a->kind = b->kind;
-        a->val = b->val;
-        a->f08 = b->f08;
-        a->f10 = b->f10;
+        FUN_00220d90(((Ctx_2218d0 *)c), ((Operand_2218d0 *)b));
+        FUN_002207c0(((Ctx_2218d0 *)c), &a->f0c, ((Operand_2218d0 *)b)->f0c);
+        a->kind = ((Operand_2218d0 *)b)->kind;
+        a->val = ((Operand_2218d0 *)b)->val;
+        a->f08 = ((Operand_2218d0 *)b)->f08;
+        a->f10 = ((Operand_2218d0 *)b)->f10;
         return;
     }
-    void* self = FUN_00221200(c, a);
-    void* extra = FUN_00221200(c, b);
-    if (b->kind == 0xb) {
-        if (b->val >= (int)c->minReg && b->val < 0xfa)
-            c->counter--;
+    void* self = FUN_00221200(((Ctx_2218d0 *)c), a);
+    void* extra = FUN_00221200(((Ctx_2218d0 *)c), ((Operand_2218d0 *)b));
+    if (((Operand_2218d0 *)b)->kind == 0xb) {
+        if (((Operand_2218d0 *)b)->val >= (int)((Ctx_2218d0 *)c)->minReg && ((Operand_2218d0 *)b)->val < 0xfa)
+            ((Ctx_2218d0 *)c)->counter--;
     }
     if (a->kind == 0xb) {
-        if (a->val >= (int)c->minReg && a->val < 0xfa)
-            c->counter--;
+        if (a->val >= (int)((Ctx_2218d0 *)c)->minReg && a->val < 0xfa)
+            ((Ctx_2218d0 *)c)->counter--;
     }
-    FUN_00221860(extra, self, sel, a, c);
+    FUN_00221860(extra, self, sel, a, ((Ctx_2218d0 *)c));
 }

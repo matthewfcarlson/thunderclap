@@ -8,7 +8,7 @@ inline void* operator new(unsigned int, void* p) { return p; }
 inline void operator delete(void*, void*) {}
 void* __cdecl FUN_00247530(void* pool);
 struct Registry;
-void __cdecl FUN_00260f10(Registry* reg, void* attr, int* key);
+extern "C" char __cdecl FUN_00260f10(void *, void *, const unsigned *);
 namespace om {
 class String {
 public:
@@ -51,6 +51,6 @@ om::String* RegisterString(Registry* reg, int* key, const om::String* text) {
         attr = new (mem) om::DynAttrT<om::String>(key);
     om::String* s = &attr->value;
     s->FUN_00240190(text);
-    FUN_00260f10(reg, attr, key);
+    FUN_00260f10((Registry *)reg, attr, (const unsigned *)(int *)key);
     return s;
 }

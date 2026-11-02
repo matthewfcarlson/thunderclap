@@ -3,7 +3,7 @@
 
 #include "compat/ptr.h"
 extern "C" char DAT_0042aa40[];
-void InitMeta(void*, void*);
+extern "C" void __cdecl FUN_0025f390(void *, void *);
 struct MetaType {
     void* vftable;
     void run();
@@ -11,6 +11,6 @@ struct MetaType {
 void MetaType::run() {
     void* p = (*(void**)&DAT_004cd360);
     vftable = (void*)((hulk_intptr)DAT_0042aa40);
-    InitMeta(p, this);
+    FUN_0025f390(p, this);
     --(*(int*)&DAT_004e79cc);
 }

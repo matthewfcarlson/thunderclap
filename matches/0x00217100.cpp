@@ -1,4 +1,5 @@
-extern "C" void __cdecl FUN_002164b0(void*, int);
+#include "compat/ptr.h"
+extern "C" void __cdecl FUN_002164b0(void *, void *);
 struct Obj_217100 {
     char pad[0x38];
     int field;
@@ -13,5 +14,5 @@ void __cdecl FUN_00217100(Holder_217100* a, unsigned char* b, int c) {
         b[5] &= 0xfb;
         return;
     }
-    FUN_002164b0(p, c);
+    FUN_002164b0(p, (void *)(hulk_uintptr)(int)c);
 }

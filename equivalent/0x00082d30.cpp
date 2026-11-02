@@ -17,7 +17,7 @@ struct Frame_82d30 {
     Vec3_82d30 input;
 };
 
-void FUN_00082d30(Matrix* m) {
+extern "C" void FUN_00082d30(Matrix* m) {
     Frame_82d30 f;
     f.input.x = 0.0f;
     f.input.y = 0.0f;

@@ -19,18 +19,19 @@ public:
 
 extern "C" double __cdecl sqrt(double);
 
-void __cdecl FUN_00102bf0(Mover_102bf0 *m, V3_102bf0 *target, float speed, V3_102bf0 *out)
+extern "C" void __cdecl FUN_00102bf0(void *m, void *target, float speed, void * out_)
 {
+    V3_102bf0 * out = (V3_102bf0 *)out_;
     V3_102bf0 origin;
-    m->anchor->FUN_00059a50(&origin);
-    out->x = target->x - origin.x;
-    out->y = target->y - origin.y;
-    hulk_freg dz = target->z - origin.z;      // the store of out->z leaves st0 unrounded for the length
+    ((Mover_102bf0 *)m)->anchor->FUN_00059a50(&origin);
+    out->x = ((V3_102bf0 *)target)->x - origin.x;
+    out->y = ((V3_102bf0 *)target)->y - origin.y;
+    hulk_freg dz = ((V3_102bf0 *)target)->z - origin.z;      // the store of out->z leaves st0 unrounded for the length
     out->z = dz;
     double root = sqrt(out->x * out->x + out->y * out->y + dz * dz);
     hulk_freg len = (float)root;
     hulk_freg t = (float)(root / speed);
-    hulk_freg limit = m->FUN_000356b0();
+    hulk_freg limit = ((Mover_102bf0 *)m)->FUN_000356b0();
     hulk_freg clamped = (t < limit) ? t : limit;
     hulk_freg scale = clamped / len;
     out->x = scale * out->x;

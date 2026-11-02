@@ -28,24 +28,24 @@ void FUN_0021b1c0(LexState_21b480 *ls);
 
 // skip_sep: counts the run of '*' after the opening character; the lexer state is passed in eax
 // equiv-conv: FUN_0021b480 eax
-int FUN_0021b480(LexState_21b480 *ls)
+extern "C" int FUN_0021b480(void *ls)
 {
     int count = 0;
-    int s = ls->current;
-    FUN_0021b1c0(ls);
-    while (ls->current == '*') {
-        Mbuffer_21b480 *b = ls->buff;
+    int s = ((LexState_21b480 *)ls)->current;
+    FUN_0021b1c0(((LexState_21b480 *)ls));
+    while (((LexState_21b480 *)ls)->current == '*') {
+        Mbuffer_21b480 *b = ((LexState_21b480 *)ls)->buff;
         if (b->n + 1 > b->buffsize) {
-            b->buffer = FUN_0021add0(ls->L, b->buffer, b->buffsize, b->buffsize * 2 + 0x20);
+            b->buffer = FUN_0021add0(((LexState_21b480 *)ls)->L, b->buffer, b->buffsize, b->buffsize * 2 + 0x20);
             b->buffsize = b->buffsize * 2 + 0x20;
         }
-        b->buffer[b->n] = (char)ls->current;
+        b->buffer[b->n] = (char)((LexState_21b480 *)ls)->current;
         b->n++;
-        if (ls->z->n-- > 0)
-            ls->current = *ls->z->p++;
+        if (((LexState_21b480 *)ls)->z->n-- > 0)
+            ((LexState_21b480 *)ls)->current = *((LexState_21b480 *)ls)->z->p++;
         else
-            ls->current = FUN_0021a550(ls->z);
+            ((LexState_21b480 *)ls)->current = FUN_0021a550(((LexState_21b480 *)ls)->z);
         count++;
     }
-    return ls->current == s ? count : -count - 1;
+    return ((LexState_21b480 *)ls)->current == s ? count : -count - 1;
 }

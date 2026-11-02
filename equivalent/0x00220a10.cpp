@@ -7,10 +7,10 @@ struct Source { int unused; int value; };
 // equiv-conv: FUN_002208e0 ebx ecx stack
 int FUN_002208e0(Source*, Request*, int*);
 // equiv-conv: FUN_00220a10 eax
-int FUN_00220a10(Source* source) {
+extern "C" int FUN_00220a10(void * source) {
     Request request;
     request.command = 5;
-    request.value = source->value;
+    request.value = ((Source *)source)->value;
     request.result = 0;
-    return FUN_002208e0(source, &request, &request.result);
+    return FUN_002208e0(((Source *)source), &request, &request.result);
 }

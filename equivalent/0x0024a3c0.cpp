@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2612 inputs, branch coverage 11/11)
 // FUN_0024a3c0 @ 0x0024a3c0
 // FUN_0024a3c0 @ 0x0024a3c0
+#include "compat/ptr.h"
 struct Link_24a3c0 {
     void FUN_0025dd00(int a);
 };
@@ -10,13 +11,13 @@ struct Obj_24a3c0 {
     int state;
 };
 // equiv-conv: FUN_00249810 esi stack
-void __cdecl FUN_00249810(Obj_24a3c0 *o, int x);
+extern "C" void __cdecl FUN_00249810(void *, int);
 // equiv-conv: FUN_002498d0 ebx
 void FUN_002498d0(Obj_24a3c0 *o);
 // equiv-conv: FUN_00248670 edi esi stack
-void __cdecl FUN_00248670(int x, Obj_24a3c0 *o, int a);
+extern "C" void __cdecl FUN_00248670(void *, void *, unsigned);
 // equiv-conv: FUN_00248780 esi stack
-void __cdecl FUN_00248780(Obj_24a3c0 *o, int a);
+extern "C" void __cdecl FUN_00248780(void *, unsigned);
 
 // equiv-conv: FUN_0024a3c0 eax ecx stack stack
 bool FUN_0024a3c0(Obj_24a3c0 *o, int x, int unused, int a)
@@ -26,16 +27,16 @@ bool FUN_0024a3c0(Obj_24a3c0 *o, int x, int unused, int a)
         s = o->state;
         switch (s) {
         case 1:
-            FUN_00249810(o, x);
+            FUN_00249810((Obj_24a3c0 *)o, x);
             break;
         case 3:
             FUN_002498d0(o);
             break;
         case 4:
-            FUN_00248670(x, o, a);
+            FUN_00248670((void *)(hulk_uintptr)(int)x, (Obj_24a3c0 *)o, (int)a);
             break;
         case 5:
-            FUN_00248780(o, a);
+            FUN_00248780((Obj_24a3c0 *)o, (int)a);
             break;
         }
         o->link->FUN_0025dd00(a);

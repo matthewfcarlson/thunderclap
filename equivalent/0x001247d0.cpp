@@ -64,7 +64,7 @@ class Context { public: char pad[4]; };
 Context* __fastcall FUN_000592a0(void* obj);
 Owner_1247d0* __fastcall FUN_00059a30(Context* ctx);
 Clock_1247d0* FUN_000678d0();
-bool __cdecl FUN_00203190(V3_1247d0* a1, V3_1247d0* a2, int a3, Body_1247d0* a4, int a5, Owner_1247d0* a6);
+extern "C" bool __cdecl FUN_00203190(V3_1247d0* a1, V3_1247d0* a2, int a3, Body_1247d0* a4, int a5, Owner_1247d0* a6);
 
 class CanSeeTargetCondition {
 public:

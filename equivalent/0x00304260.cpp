@@ -8,12 +8,13 @@ struct Elem_304260 {
 
 void __cdecl FUN_003032d0(Elem_304260 *first, int hole, int len, Elem_304260 value);
 
-void __cdecl FUN_00304260(Elem_304260 *first, Elem_304260 *last)
+extern "C" void __cdecl FUN_00304260(void *first, void * last_)
 {
-    while (last - first > 1) {
+    Elem_304260 * last = (Elem_304260 *)last_;
+    while (last - ((Elem_304260 *)first) > 1) {
         Elem_304260 value = *(last - 1);
-        (last - 1)->FUN_002f7a90(first);
-        FUN_003032d0(first, 0, (int)((last - 1) - first), value);
+        (last - 1)->FUN_002f7a90(((Elem_304260 *)first));
+        FUN_003032d0(((Elem_304260 *)first), 0, (int)((last - 1) - ((Elem_304260 *)first)), value);
         last--;
     }
 }

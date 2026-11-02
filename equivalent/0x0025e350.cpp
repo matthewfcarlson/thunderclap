@@ -6,11 +6,11 @@ typedef unsigned int uint_25e350;
 struct Link_25e350 { Link_25e350* next; };
 struct Block_25e350 { uint_25e350 offset; uint_25e350 length; Link_25e350 link; };
 struct Buffer_25e350 { uint_25e350 unknown0; uint_25e350 capacity; char pad8[8]; unsigned char flag; char pad11[7]; uint_25e350 position; char pad1c[8]; uint_25e350 consumed; Link_25e350* head; Link_25e350* tail; };
-uint_25e350 __cdecl FUN_0025e2b0(Buffer_25e350*);
+extern "C" unsigned __cdecl FUN_0025e2b0(void *);
 void __cdecl FUN_00247550(void*, Block_25e350*);
 extern "C" bool __cdecl FUN_0025e350(Buffer_25e350* buffer, uint_25e350 amount) {
  if (!amount) return true;
- bool insufficient = FUN_0025e2b0(buffer) < amount;
+ bool insufficient = ((unsigned int)FUN_0025e2b0((Buffer_25e350 *)buffer)) < amount;
  while (amount) {
   Link_25e350* head = buffer->head;
   Block_25e350* block = head ? reinterpret_cast<Block_25e350*>(reinterpret_cast<char*>(head)-8) : 0;

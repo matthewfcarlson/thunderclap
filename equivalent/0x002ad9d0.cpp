@@ -42,38 +42,38 @@ struct Frame_2ad9d0 {
 };
 
 // equiv-conv: FUN_002ad9d0 esi eax ebx
-void FUN_002ad9d0(png_struct *png, png_info *info, ImageSink_2ad9d0 *sink)
+extern "C" void FUN_002ad9d0(void *png, void *info, void *sink)
 {
     Frame_2ad9d0 f;
     int i;
 
-    f.width = FUN_002d7ed0(png, info);
-    unsigned int rows = FUN_002d7ef0(png, info);
+    f.width = FUN_002d7ed0(((png_struct *)png), ((png_info *)info));
+    unsigned int rows = FUN_002d7ef0(((png_struct *)png), ((png_info *)info));
     f.height = rows;
 
     f.numPalette = 0;
-    FUN_002d8550(png, info, &f.plte, &f.numPalette);
+    FUN_002d8550(((png_struct *)png), ((png_info *)info), &f.plte, &f.numPalette);
     for (i = 0; i < f.numPalette; i++) {
         f.palette[i] = ((0xffffff00u | f.plte[i * 3]) << 8 | f.plte[i * 3 + 1]) << 8 | f.plte[i * 3 + 2];
     }
 
-    if (FUN_002d7e90(png, info, 0x10) != 0) {
-        FUN_002d8630(png, info, &f.trans, &f.numTrans, 0);
+    if (FUN_002d7e90(((png_struct *)png), ((png_info *)info), 0x10) != 0) {
+        FUN_002d8630(((png_struct *)png), ((png_info *)info), &f.trans, &f.numTrans, 0);
         for (i = 0; i < f.numTrans; i++)
             f.palette[i] = ((unsigned int)f.trans[i] << 24) | (f.palette[i] & 0xffffff);
     }
 
-    sink->begin(f.width, rows, 8, 0, f.palette);
+    ((ImageSink_2ad9d0 *)sink)->begin(f.width, rows, 8, 0, f.palette);
 
-    void *row = FUN_00266e00(1, FUN_002d7eb0(png, info));
+    void *row = FUN_00266e00(1, FUN_002d7eb0(((png_struct *)png), ((png_info *)info)));
     int remaining = rows;
     if (remaining > 0) {
         do {
-            FUN_002d7440(png, row, 0);
-            sink->writeRow(row);
+            FUN_002d7440(((png_struct *)png), row, 0);
+            ((ImageSink_2ad9d0 *)sink)->writeRow(row);
             remaining--;
         } while (remaining != 0);
     }
     FUN_00267090(row);
-    sink->finish();
+    ((ImageSink_2ad9d0 *)sink)->finish();
 }

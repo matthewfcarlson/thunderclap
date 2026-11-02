@@ -13,7 +13,7 @@ struct TValue_217640 {
 };
 
 extern int __cdecl _sprintf(char*, const char*, ...);
-void* __cdecl FUN_00219430(State* L, const char* s, unsigned int len);
+extern "C" void * __cdecl FUN_00219430(void *, const char *, unsigned);
 
 extern "C" int FUN_00217640(State* L, TValue_217640* o)
 {
@@ -25,7 +25,7 @@ extern "C" int FUN_00217640(State* L, TValue_217640* o)
     const char* e = buf;
     while (*e != 0)
         e++;
-    o->value.p = FUN_00219430(L, buf, (unsigned int)(e - buf));
+    o->value.p = FUN_00219430((State *)L, buf, (unsigned int)((unsigned int)(e - buf)));
     o->tt = 4;
     return 1;
 }

@@ -2,7 +2,7 @@
 // FUN_002e6840 @ 0x002e6840
 #include "decls/data/engine/physics.h"
 
-unsigned int * __cdecl FUN_002e6840(unsigned int *result, unsigned int color, char delta)
+extern "C" unsigned int * __cdecl FUN_002e6840(unsigned int *result, unsigned int color, char delta)
 {
     if (delta != 0) {
         int alpha = (color >> 24) + (int)delta;

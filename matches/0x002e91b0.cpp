@@ -32,7 +32,7 @@ void __cdecl FUN_002e69d0(png_struct_2e91b0 *png_ptr, const char *msg);
 int __cdecl FUN_002e81e0(png_struct_2e91b0 *png_ptr, unsigned int skip);
 unsigned char *__cdecl FUN_002e6c00(png_struct_2e91b0 *png_ptr, unsigned int size);
 void __cdecl FUN_002e7580(png_struct_2e91b0 *png_ptr, unsigned char *buf, unsigned int length);
-unsigned short __cdecl FUN_002e7560(const unsigned char *buf);
+extern "C" unsigned short __cdecl FUN_002e7560(const unsigned char *);
 void __cdecl FUN_002eb720(png_struct_2e91b0 *png_ptr, png_info_2e91b0 *info_ptr, unsigned char *trans, int num_trans,
                           png_color_16_2e91b0 *trans_values);
 

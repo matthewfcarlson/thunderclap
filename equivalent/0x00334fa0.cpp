@@ -11,7 +11,7 @@ extern void __cdecl FUN_00334c00();
 extern void __cdecl FUN_00334f60();
 struct State_334fa0 { void (__cdecl *callbacks[6])(); unsigned int reserved[13]; Device_334fa0* device; unsigned int rest[59]; };
 extern void __cdecl thunk_FUN_00271230(Device_334fa0**,unsigned int,int,int,int,int,int,int);
-int __stdcall FUN_00334fa0(State_334fa0* state,unsigned int arg,unsigned int unused) {
+extern "C" int __stdcall FUN_00334fa0(State_334fa0* state,unsigned int arg,unsigned int unused) {
  unsigned int* words = reinterpret_cast<unsigned int*>(state);
  for(int i=0;i<79;++i) words[i]=0;
  thunk_FUN_00271230(&state->device,arg,0,0,1,0,1,1);

@@ -8,12 +8,12 @@ struct MetaTypeAttribBase {
     U_25fba0 b;
     MetaTypeAttribBase* init(void*, U_25fba0, U_25fba0);
 };
-void __cdecl FUN_0025f450(void*, MetaTypeAttribBase*, U_25fba0*);
+extern "C" bool __cdecl FUN_0025f450(void *, void *, const char **);
 MetaTypeAttribBase* MetaTypeAttribBase::init(void* p, U_25fba0 c, U_25fba0 d) {
     a = d;
     vptr = (void*)((hulk_intptr)DAT_00429420);
     b = c;
     d = c;
-    FUN_0025f450((char*)p + 0x14, this, &d);
+    FUN_0025f450((char*)p + 0x14, (MetaTypeAttribBase *)this, (const char **)(unsigned int *)(&d));
     return this;
 }

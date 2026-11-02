@@ -13,8 +13,10 @@ struct RbTree_258230 {
 };
 
 // Red-black tree erase rebalancing: 'x' is the node that carries the extra black.
-void FUN_00258230(RbTree_258230* tree, RbNode_258230* x)
+extern "C" void FUN_00258230(void * tree_, void * x_)
 {
+    RbTree_258230 * tree = (RbTree_258230 *)tree_;
+    RbNode_258230 * x = (RbNode_258230 *)x_;
     RbNode_258230* nil = &tree->nil;
     RbNode_258230* y;
     RbNode_258230* z;

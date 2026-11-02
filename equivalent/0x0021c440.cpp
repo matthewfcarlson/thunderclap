@@ -4,11 +4,11 @@ struct Input { char pad[0x1c]; int value; };
 struct Output { int kind; int result; int unused; int start; int end; };
 int __cdecl FUN_002209b0(int value, int extra);
 // equiv-conv: FUN_0021c440 ecx eax esi
-void FUN_0021c440(Input* input, int extra, Output* output)
+extern "C" void FUN_0021c440(void * input, int extra, void * output)
 {
-    int result = FUN_002209b0(input->value, extra);
-    output->start = -1;
-    output->end = -1;
-    output->kind = 4;
-    output->result = result;
+    int result = FUN_002209b0(((Input *)input)->value, extra);
+    ((Output *)output)->start = -1;
+    ((Output *)output)->end = -1;
+    ((Output *)output)->kind = 4;
+    ((Output *)output)->result = result;
 }

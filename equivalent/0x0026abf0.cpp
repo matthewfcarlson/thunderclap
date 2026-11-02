@@ -4,7 +4,7 @@ extern "C" char __cdecl FUN_002716c0(const char *, unsigned *, unsigned *, void 
 extern "C" int __cdecl FUN_002722b0(unsigned, char *, int, int, unsigned *, void *);
 
 // equiv-conv: FUN_0026abf0 eax ecx stack stack stack
-int __cdecl FUN_0026abf0(const char *text, char *output, int options, int capacity, void *state)
+extern "C" int __cdecl FUN_0026abf0(const char *text, char *output, int options, int capacity, void *state)
 {
     int total = 0;
     while (*text != 0) {

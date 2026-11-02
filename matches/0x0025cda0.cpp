@@ -8,7 +8,7 @@ class Header_25cda0;
 bool __cdecl FUN_0025ccf0(Stream *s, Header_25cda0 *h);
 bool __cdecl FUN_0025aa80(Stream *s, char *out);
 bool __cdecl FUN_0025abd0(Stream *s, unsigned int *out);
-bool __cdecl FUN_0025c490(Stream *s, Pair_25cda0 *out);
+extern "C" bool __cdecl FUN_0025c490(void *, unsigned int *);
 
 class Header_25cda0 {
 public:
@@ -36,7 +36,7 @@ bool Header_25cda0::FUN_0025cda0(Stream *s)
     bool ok = FUN_0025ccf0(s, this)
         && FUN_0025aa80(s, &f.enabled.bit)
         && FUN_0025abd0(s, &f.idBits)
-        && FUN_0025c490(s, &range);
+        && FUN_0025c490((Stream *)s, (unsigned int *)(Pair_25cda0 *)(&range));
     id = f.idBits;
     enabled = f.enabled.bit;
     return ok;

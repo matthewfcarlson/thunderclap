@@ -1,5 +1,5 @@
 typedef unsigned int uint_2feb70;
-void __cdecl FUN_002feb70(uint_2feb70* p, int n, int limit, uint_2feb70 value) {
+extern "C" void __cdecl FUN_002feb70(unsigned int * p, int n, int limit, unsigned int value) {
     int parent = (n - 1) / 2;
     if (limit < n) {
         do {

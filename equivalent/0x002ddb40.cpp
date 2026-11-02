@@ -24,14 +24,14 @@ struct TgaHeader {
     unsigned char descriptor;
 };
 
-void FUN_002dd760(TgaHeader *hdr, Stream_2ddb40 *stream);
-void FUN_002dd890(TgaHeader *hdr, Stream_2ddb40 *stream, void *out);
-void FUN_002dd9e0(void *out, Stream_2ddb40 *stream, TgaHeader *hdr);
+extern "C" void __cdecl FUN_002dd760(void *, void *);
+extern "C" void __cdecl FUN_002dd890(void *, void *, void *);
+extern "C" void __cdecl FUN_002dd9e0(void *, void *, void *);
 
 void pure3d::TargaHandler::vfunc_9(hulk_intptr __p0, hulk_intptr __p1) { Stream_2ddb40 * stream = (Stream_2ddb40 *)__p0; void * out = (void *)__p1;
 
     TgaHeader hdr;
-    FUN_002dd760(&hdr, stream);
+    FUN_002dd760((TgaHeader *)(&hdr), (Stream_2ddb40 *)stream);
     unsigned char type = hdr.imageType;
     if (type != 1 && type != 2)
         return;
@@ -43,7 +43,7 @@ void pure3d::TargaHandler::vfunc_9(hulk_intptr __p0, hulk_intptr __p1) { Stream_
         return;
     stream->FUN_00264510(hdr.idLength);
     if (type == 1)
-        FUN_002dd890(&hdr, stream, out);
+        FUN_002dd890((TgaHeader *)(&hdr), (Stream_2ddb40 *)stream, out);
     else if (type == 2)
-        FUN_002dd9e0(out, stream, &hdr);
+        FUN_002dd9e0(out, (Stream_2ddb40 *)stream, (TgaHeader *)(&hdr));
 }

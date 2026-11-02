@@ -7,6 +7,6 @@ class Helper_3642a0 {
 };
 
 
-void __cdecl FUN_003642a0() {
+extern "C" void __cdecl FUN_003642a0() {
     (*(Helper_3642a0*)&DAT_004e62d8).Run();
 }

@@ -4,7 +4,7 @@ extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 int __cdecl FUN_00345b90(int);
 void __cdecl FUN_0026d850(void*);
 void __cdecl FUN_0026d840(void*);
-int __cdecl FUN_00270c10(const char*);
+extern "C" int __cdecl FUN_00270c10(const char *);
 unsigned char __cdecl FUN_002771b0(const char*);
 struct Receiver_270d40 {
     virtual void slot0();

@@ -24,51 +24,52 @@ struct ExpDesc_21d830 {
     int f;
 };
 
-int __cdecl FUN_0021bbc0(LexState_21d830* ls, int* seminfo);
+extern "C" int __cdecl FUN_0021bbc0(void *, void *);
 void __cdecl FUN_0021b060(LexState_21d830* ls, const char* msg);
 const char* __cdecl FUN_0021af00(LexState_21d830* ls, int token);
 const char* FUN_00216320(LuaState* L, const char* fmt, ...);
-int __cdecl FUN_0021ded0(LexState_21d830* ls, ExpDesc_21d830* v, unsigned int limit);
-void __cdecl FUN_00221110(FuncState* fs, ExpDesc_21d830* e);
-void __cdecl FUN_00221190(FuncState* fs, ExpDesc_21d830* e);
-void __cdecl FUN_002211e0(FuncState* fs, ExpDesc_21d830* e);
+extern "C" int __cdecl FUN_0021ded0(void *, void *, unsigned int);
+extern "C" void __cdecl FUN_00221110(void *, void *);
+extern "C" int __cdecl FUN_00221190(void *, void *);
+extern "C" void __cdecl FUN_002211e0(void *, void *);
 void __cdecl FUN_002216e0(FuncState* fs, ExpDesc_21d830* v, ExpDesc_21d830* key);
 void __cdecl FUN_00221360(FuncState* fs, ExpDesc_21d830* v, ExpDesc_21d830* key);
 int __cdecl FUN_002209b0(FuncState* fs, int ts);
 // equiv-conv: FUN_0021d790 eax ebx
-void FUN_0021d790(LexState_21d830* ls, ExpDesc_21d830* v);
+extern "C" void __cdecl FUN_0021d790(void *, void *);
 // equiv-conv: FUN_0021ccb0 eax ebx
 void FUN_0021ccb0(LexState_21d830* ls, ExpDesc_21d830* v);
 // equiv-conv: FUN_0021d630 eax stack
-void FUN_0021d630(LexState_21d830* ls, ExpDesc_21d830* f);
+extern "C" void __cdecl FUN_0021d630(void *, void *);
 
 // Lua 5.0 primaryexp: a prefix expression followed by any number of field,
 // index, method-call and call suffixes. v arrives in eax, ls in esi.
 // equiv-conv: FUN_0021d830 eax esi
-void FUN_0021d830(ExpDesc_21d830* v, LexState_21d830* ls)
+extern "C" void FUN_0021d830(void * v, void * ls_)
 {
+    LexState_21d830 * ls = (LexState_21d830 *)ls_;
     ExpDesc_21d830 key;
     ExpDesc_21d830 method;
     FuncState* fs = ls->fs;
 
-    FUN_0021d790(ls, v);
+    FUN_0021d790((LexState_21d830 *)ls, (ExpDesc_21d830 *)((ExpDesc_21d830 *)v));
     for (;;) {
         switch (ls->token) {
         case '.':
-            FUN_0021ccb0(ls, v);
+            FUN_0021ccb0(ls, ((ExpDesc_21d830 *)v));
             break;
         case '[':
-            FUN_00221190(fs, v);
+            FUN_00221190((FuncState *)fs, (ExpDesc_21d830 *)((ExpDesc_21d830 *)v));
             ls->lastline = ls->linenumber;
             if (ls->lookaheadToken != 0x11f) {
                 ls->token = ls->lookaheadToken;
                 ls->seminfo = ls->lookaheadSeminfo;
                 ls->lookaheadToken = 0x11f;
             } else {
-                ls->token = FUN_0021bbc0(ls, &ls->seminfo);
+                ls->token = FUN_0021bbc0((LexState_21d830 *)ls, (int *)(&ls->seminfo));
             }
-            FUN_0021ded0(ls, &key, 0);
-            FUN_002211e0(ls->fs, &key);
+            FUN_0021ded0((LexState_21d830 *)ls, (ExpDesc_21d830 *)(&key), 0);
+            FUN_002211e0((FuncState *)(ls->fs), (ExpDesc_21d830 *)(&key));
             if (ls->token != ']')
                 FUN_0021b060(ls, FUN_00216320(ls->L, "`%s' expected", FUN_0021af00(ls, ']')));
             ls->lastline = ls->linenumber;
@@ -77,9 +78,9 @@ void FUN_0021d830(ExpDesc_21d830* v, LexState_21d830* ls)
                 ls->seminfo = ls->lookaheadSeminfo;
                 ls->lookaheadToken = 0x11f;
             } else {
-                ls->token = FUN_0021bbc0(ls, &ls->seminfo);
+                ls->token = FUN_0021bbc0((LexState_21d830 *)ls, (int *)(&ls->seminfo));
             }
-            FUN_002216e0(fs, v, &key);
+            FUN_002216e0(fs, ((ExpDesc_21d830 *)v), &key);
             break;
         case ':': {
             ls->lastline = ls->linenumber;
@@ -88,7 +89,7 @@ void FUN_0021d830(ExpDesc_21d830* v, LexState_21d830* ls)
                 ls->seminfo = ls->lookaheadSeminfo;
                 ls->lookaheadToken = 0x11f;
             } else {
-                ls->token = FUN_0021bbc0(ls, &ls->seminfo);
+                ls->token = FUN_0021bbc0((LexState_21d830 *)ls, (int *)(&ls->seminfo));
             }
             if (ls->token != 0x116)
                 FUN_0021b060(ls, "<name> expected");
@@ -99,21 +100,21 @@ void FUN_0021d830(ExpDesc_21d830* v, LexState_21d830* ls)
                 ls->seminfo = ls->lookaheadSeminfo;
                 ls->lookaheadToken = 0x11f;
             } else {
-                ls->token = FUN_0021bbc0(ls, &ls->seminfo);
+                ls->token = FUN_0021bbc0((LexState_21d830 *)ls, (int *)(&ls->seminfo));
             }
             method.k = 4;
             method.info = FUN_002209b0(ls->fs, name);
             method.t = -1;
             method.f = -1;
-            FUN_00221360(fs, v, &method);
-            FUN_0021d630(ls, v);
+            FUN_00221360(fs, ((ExpDesc_21d830 *)v), &method);
+            FUN_0021d630((LexState_21d830 *)ls, (ExpDesc_21d830 *)((ExpDesc_21d830 *)v));
             break;
         }
         case '(':
         case '{':
         case 0x11e:
-            FUN_00221110(fs, v);
-            FUN_0021d630(ls, v);
+            FUN_00221110((FuncState *)fs, (ExpDesc_21d830 *)((ExpDesc_21d830 *)v));
+            FUN_0021d630((LexState_21d830 *)ls, (ExpDesc_21d830 *)((ExpDesc_21d830 *)v));
             break;
         default:
             return;

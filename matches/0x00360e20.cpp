@@ -4,8 +4,8 @@ class SeqEventCrossFadeType_360e20 {
     virtual void Reg();
 };
 extern SeqEventCrossFadeType_360e20 gReg_360e20;
-extern "C" void __cdecl Cleanup();
+extern "C" void __cdecl FUN_003645f0();
 void __cdecl Init() {
     gReg_360e20.Reg();
-    atexit(Cleanup);
+    atexit(FUN_003645f0);
 }

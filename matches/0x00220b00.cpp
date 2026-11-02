@@ -7,6 +7,6 @@ struct Obj_220b00 {
     char pad[20];
     int count;
 };
-void target(Obj_220b00* a, int value) {
-    a->table->data[a->count - 1] = value;
+extern "C" void FUN_00220b00(void * a, int value) {
+    ((Obj_220b00 *)a)->table->data[((Obj_220b00 *)a)->count - 1] = value;
 }

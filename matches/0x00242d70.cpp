@@ -5,13 +5,13 @@ struct Obj_242d70 {
     char pad[0x1c];
     unsigned int count;
 };
-void __cdecl F1(void*, Obj_242d70*);
+extern "C" void __cdecl FUN_00242680(void *, void *);
 void __cdecl F2(void*, Obj_242d70*);
 extern "C" void __cdecl FUN_00242d70(void* a, Obj_242d70* b) {
     if (b->count > 1) {
         --b->count;
         return;
     }
-    F1(a, b);
+    FUN_00242680(a, (Obj_242d70 *)b);
     F2((void*)((hulk_intptr)DAT_004e5e88), b);
 }

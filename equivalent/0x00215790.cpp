@@ -52,25 +52,25 @@ struct lua_State_215790 {
 };
 
 // equiv-conv: FUN_00215710 esi edi
-TObject_215790* FUN_00215710(lua_State_215790* L, TObject_215790* func);
+extern "C" void * __cdecl FUN_00215710(void *, void *);
 // equiv-conv: FUN_002155f0 edx esi stack
-void FUN_002155f0(TObject_215790* base, lua_State_215790* L, int numparams);
+extern "C" void * __cdecl FUN_002155f0(void *, void *, int);
 void FUN_002152b0(lua_State_215790* L, int code);
-void FUN_00215410(lua_State_215790* L, int newsize);
+extern "C" void __cdecl FUN_00215410(void *, unsigned int);
 void FUN_00214a90(lua_State_215790* L, const char* fmt, ...);
-void FUN_00215460(lua_State_215790* L, int n);
+extern "C" void __cdecl FUN_00215460(void *, int);
 void FUN_00215520(lua_State_215790* L, int a, int b);
 
 TObject_215790* FUN_00215790(lua_State_215790* L, TObject_215790* func)
 {
     hulk_intptr funcr = (char*)func - (char*)L->stack;
     if (func->tt != 6)
-        func = FUN_00215710(L, func);
+        func = ((TObject_215790 *)FUN_00215710((lua_State_215790 *)L, (TObject_215790 *)func));
     if (L->ci + 1 == L->end_ci) {
         unsigned short n = L->size_ci;
         if (n > 0x1000)
             FUN_002152b0(L, 5);
-        FUN_00215410(L, n * 2);
+        FUN_00215410((lua_State_215790 *)L, (int)(n * 2));
         if (L->size_ci > 0x1000)
             FUN_00214a90(L, "stack overflow");
     }
@@ -78,10 +78,10 @@ TObject_215790* FUN_00215790(lua_State_215790* L, TObject_215790* func)
     if (!cl->isC) {
         Proto_215790* p = cl->u.p;
         if (p->is_vararg)
-            FUN_002155f0(func + 1, L, p->numparams);
+            FUN_002155f0((TObject_215790 *)(func + 1), (lua_State_215790 *)L, p->numparams);
         int n = p->maxstacksize;
         if ((char*)L->stack_last - (char*)L->top <= n * 8)
-            FUN_00215460(L, n);
+            FUN_00215460((lua_State_215790 *)L, n);
         CallInfo_215790* ci = L->ci + 1;
         L->ci = ci;
         ci->base = (TObject_215790*)((char*)L->stack + funcr + 8);
@@ -98,7 +98,7 @@ TObject_215790* FUN_00215790(lua_State_215790* L, TObject_215790* func)
         return 0;
     }
     if ((char*)L->stack_last - (char*)L->top <= 0xa0)
-        FUN_00215460(L, 0x14);
+        FUN_00215460((lua_State_215790 *)L, 0x14);
     CallInfo_215790* ci = L->ci + 1;
     L->ci = ci;
     ci->base = (TObject_215790*)((char*)L->stack + funcr + 8);

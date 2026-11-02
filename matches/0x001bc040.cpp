@@ -18,7 +18,7 @@ struct World {
     Profile_1bc040* profile;
 };
 
-void __cdecl FUN_001bb0b0(const char* key);
+extern "C" void __cdecl FUN_001bb0b0(const char* key);
 
 // Shows the "controller lost" message for the active port (or for all ports).
 void FUN_001bc040()

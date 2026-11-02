@@ -6,21 +6,21 @@ class Item_290810 {
     void Configure(Item_290810*);
     void Finish(int);
 };
-Item_290810* __cdecl FUN_00290810(Item_290810* p, int count, Item_290810* arg) {
+extern "C" void * __cdecl FUN_00290810(void * p, int count, void * arg) {
     if (count != 0) {
-        Item_290810* q = p;
+        Item_290810* q = ((Item_290810 *)p);
         int n = count;
         do {
             if (q != 0) {
                 q->Init();
                 q->field = 0;
-                q->Configure(arg);
-                q->Finish(arg->field);
+                q->Configure(((Item_290810 *)arg));
+                q->Finish(((Item_290810 *)arg)->field);
             }
             q = (Item_290810*)((char*)q + 0x10);
             n--;
         } while (n != 0);
-        return q;
+        return (Item_290810 *)q;
     }
-    return p;
+    return (Item_290810 *)((Item_290810 *)p);
 }

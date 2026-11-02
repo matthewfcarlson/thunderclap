@@ -32,23 +32,25 @@ struct Frame_21e170 {
 };
 
 void __cdecl FUN_0021b060(LexState_21e170 *ls, const char *msg);
-int __cdecl FUN_0021bbc0(LexState_21e170 *ls, int *seminfo);
+extern "C" int __cdecl FUN_0021bbc0(void *, void *);
 // equiv-conv: FUN_0021d830 eax esi
-void FUN_0021d830(ExpDesc_21e170 *v, LexState_21e170 *ls);
+extern "C" void __cdecl FUN_0021d830(void *, void *);
 // equiv-conv: FUN_0021e110 ecx eax edi
-void FUN_0021e110(LexState_21e170 *ls, LHSAssign *lh, ExpDesc_21e170 *v);
+extern "C" void __cdecl FUN_0021e110(void *, void *, void *);
 // equiv-conv: FUN_0021c2e0 esi eax
-void FUN_0021c2e0(LexState_21e170 *ls, int token);
+extern "C" void __cdecl FUN_0021c2e0(void *, int);
 // equiv-conv: FUN_0021d5c0 esi edi
-int FUN_0021d5c0(LexState_21e170 *ls, ExpDesc_21e170 *e);
+extern "C" int __cdecl FUN_0021d5c0(void *, void *);
 // equiv-conv: FUN_0021c8b0 eax ecx edx stack
-void FUN_0021c8b0(LexState_21e170 *ls, ExpDesc_21e170 *e, int nexps, int nvars);
-void __cdecl FUN_00220a50(FuncState_21e170 *fs, ExpDesc_21e170 *e, int nresults);
-void __cdecl FUN_00221280(FuncState_21e170 *fs, ExpDesc_21e170 *var, ExpDesc_21e170 *e);
+extern "C" void __cdecl FUN_0021c8b0(void *, void *, int, int);
+extern "C" void __cdecl FUN_00220a50(void *, void *, int);
+extern "C" void __cdecl FUN_00221280(void *, void *, void *);
 
 // Lua 5.0 restassign(ls, lh, nvars)
-void __cdecl FUN_0021e170(LexState_21e170 *ls, LHSAssign *lh, int nvars)
+extern "C" void __cdecl FUN_0021e170(void * ls_, void * lh_, int nvars)
 {
+    LexState_21e170 * ls = (LexState_21e170 *)ls_;
+    LHSAssign * lh = (LHSAssign *)lh_;
     Frame_21e170 f;
     if (lh->v.k < 5 || lh->v.k > 8)
         FUN_0021b060(ls, "syntax error");
@@ -60,21 +62,21 @@ void __cdecl FUN_0021e170(LexState_21e170 *ls, LHSAssign *lh, int nvars)
             ls->seminfo = ls->lookaheadSeminfo;
             ls->lookaheadToken = 0x11f;
         } else {
-            ls->token = FUN_0021bbc0(ls, &ls->seminfo);
+            ls->token = FUN_0021bbc0((LexState_21e170 *)ls, (int *)(&ls->seminfo));
         }
-        FUN_0021d830(&f.nv.v, ls);
+        FUN_0021d830((ExpDesc_21e170 *)(&f.nv.v), (LexState_21e170 *)ls);
         if (f.nv.v.k == 5)
-            FUN_0021e110(ls, lh, &f.nv.v);
-        FUN_0021e170(ls, &f.nv, nvars + 1);
+            FUN_0021e110((LexState_21e170 *)ls, (LHSAssign *)lh, (ExpDesc_21e170 *)(&f.nv.v));
+        FUN_0021e170((LexState_21e170 *)ls, (LHSAssign *)(&f.nv), nvars + 1);
     } else {
-        FUN_0021c2e0(ls, '=');
-        int nexps = FUN_0021d5c0(ls, &f.e);
+        FUN_0021c2e0((LexState_21e170 *)ls, '=');
+        int nexps = FUN_0021d5c0((LexState_21e170 *)ls, (ExpDesc_21e170 *)(&f.e));
         if (nexps == nvars) {
-            FUN_00220a50(ls->fs, &f.e, 1);
-            FUN_00221280(ls->fs, &lh->v, &f.e);
+            FUN_00220a50((FuncState_21e170 *)(ls->fs), (ExpDesc_21e170 *)(&f.e), 1);
+            FUN_00221280((FuncState_21e170 *)(ls->fs), (ExpDesc_21e170 *)(&lh->v), (ExpDesc_21e170 *)(&f.e));
             return;
         }
-        FUN_0021c8b0(ls, &f.e, nexps, nvars);
+        FUN_0021c8b0((LexState_21e170 *)ls, (ExpDesc_21e170 *)(&f.e), nexps, nvars);
         if (nexps > nvars)
             ls->fs->freereg += nvars - nexps;
     }
@@ -83,5 +85,5 @@ void __cdecl FUN_0021e170(LexState_21e170 *ls, LHSAssign *lh, int nvars)
     f.e.t = -1;
     f.e.f = -1;
     f.e.k = 11;
-    FUN_00221280(fs, &lh->v, &f.e);
+    FUN_00221280((FuncState_21e170 *)fs, (ExpDesc_21e170 *)(&lh->v), (ExpDesc_21e170 *)(&f.e));
 }

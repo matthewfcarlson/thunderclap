@@ -2,11 +2,11 @@
 // FUN_00311c20 @ 0x00311c20
 #include "compat/ptr.h"
 struct Partition { int* first; int* second; };
-void __cdecl FUN_003119b0(Partition* result, int* begin, int* end);
-void __cdecl FUN_00311b20(int* begin, int* end);
+extern "C" void * __cdecl FUN_003119b0(void *, unsigned int *, unsigned int *);
+extern "C" void __cdecl FUN_00311b20(unsigned *, unsigned *);
 void __cdecl FUN_00311910(int* begin, int* end, int a, int b);
-void __cdecl FUN_00311bd0(int* begin, int* end);
-void __cdecl FUN_00311c20(int* begin, int* end, int depth) {
+extern "C" void __cdecl FUN_00311bd0(int *, int *);
+extern "C" void __cdecl FUN_00311c20(int* begin, int* end, int depth) {
     while (end - begin > 32) {
         if (depth <= 0) {
             if (((hulk_intptr)end - (hulk_intptr)begin & ~3) > 4)
@@ -15,7 +15,7 @@ void __cdecl FUN_00311c20(int* begin, int* end, int depth) {
             return;
         }
         Partition split;
-        FUN_003119b0(&split, begin, end);
+        FUN_003119b0((Partition *)(&split), (unsigned int *)(int *)begin, (unsigned int *)(int *)end);
         depth /= 2;
         depth += depth / 2;
         if ((((hulk_intptr)split.first - (hulk_intptr)begin) & ~3) < (((hulk_intptr)end - (hulk_intptr)split.second) & ~3)) {
@@ -26,5 +26,5 @@ void __cdecl FUN_00311c20(int* begin, int* end, int depth) {
             end = split.first;
         }
     }
-    if (end - begin > 1) FUN_00311b20(begin, end);
+    if (end - begin > 1) FUN_00311b20((unsigned *)(int *)begin, (unsigned *)(int *)end);
 }

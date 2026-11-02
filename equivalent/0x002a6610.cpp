@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1194 inputs, branch coverage 16/16)
 // FUN_002a6610 @ 0x002a6610
+#include "compat/ptr.h"
 class Overlay;
 struct Vec3_2a6610 {
     float x, y, z;
@@ -72,7 +73,7 @@ struct Settings_2a6610 {
     Vec2_2a6610 d;
 };
 
-void FUN_002a5290(float v, unsigned int a, unsigned int b, unsigned int c, Settings_2a6610 *s);
+extern "C" void __cdecl FUN_002a5290(float, void *, void *, unsigned int, float *);
 
 void FUN_002a6610(Controller_2a6610 *c, unsigned int a2, unsigned int a3, unsigned int a4)
 {
@@ -121,5 +122,5 @@ void FUN_002a6610(Controller_2a6610 *c, unsigned int a2, unsigned int a3, unsign
             }
         }
     }
-    FUN_002a5290(fr.timeA / c->f10(), a2, a3, a4, &fr.s);
+    FUN_002a5290(fr.timeA / c->f10(), (void *)(hulk_uintptr)(unsigned int)a2, (void *)(hulk_uintptr)(unsigned int)a3, a4, (float *)(Settings_2a6610 *)(&fr.s));
 }

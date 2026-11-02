@@ -8,15 +8,15 @@ struct RowInfo_2dd3a0 {
     unsigned char pixel_depth;
 };
 
-void FUN_002dd3a0(RowInfo_2dd3a0 *row_info, unsigned char *row, unsigned int flags)
+extern "C" void FUN_002dd3a0(void *row_info, unsigned char *row, unsigned int flags)
 {
     unsigned char *sp = row;
     unsigned char *dp = row;
-    unsigned int row_width = row_info->width;
+    unsigned int row_width = ((RowInfo_2dd3a0 *)row_info)->width;
     unsigned int i;
 
-    if (row_info->channels == 4) {
-        if (row_info->bit_depth == 8) {
+    if (((RowInfo_2dd3a0 *)row_info)->channels == 4) {
+        if (((RowInfo_2dd3a0 *)row_info)->bit_depth == 8) {
             if (flags & 0x80) {
                 dp += 3;
                 sp += 4;
@@ -34,8 +34,8 @@ void FUN_002dd3a0(RowInfo_2dd3a0 *row_info, unsigned char *row, unsigned int fla
                     *dp++ = *sp++;
                 }
             }
-            row_info->pixel_depth = 24;
-            row_info->rowbytes = row_width * 3;
+            ((RowInfo_2dd3a0 *)row_info)->pixel_depth = 24;
+            ((RowInfo_2dd3a0 *)row_info)->rowbytes = row_width * 3;
         } else {
             if (flags & 0x80) {
                 sp += 8;
@@ -60,13 +60,13 @@ void FUN_002dd3a0(RowInfo_2dd3a0 *row_info, unsigned char *row, unsigned int fla
                     *dp++ = *sp++;
                 }
             }
-            row_info->pixel_depth = 48;
-            row_info->rowbytes = row_width * 6;
+            ((RowInfo_2dd3a0 *)row_info)->pixel_depth = 48;
+            ((RowInfo_2dd3a0 *)row_info)->rowbytes = row_width * 6;
         }
-        row_info->channels = 3;
-        row_info->color_type &= 0xfb;
-    } else if (row_info->channels == 2) {
-        if (row_info->bit_depth == 8) {
+        ((RowInfo_2dd3a0 *)row_info)->channels = 3;
+        ((RowInfo_2dd3a0 *)row_info)->color_type &= 0xfb;
+    } else if (((RowInfo_2dd3a0 *)row_info)->channels == 2) {
+        if (((RowInfo_2dd3a0 *)row_info)->bit_depth == 8) {
             if (flags & 0x80) {
                 for (i = 0; i < row_width; i++) {
                     *dp++ = *sp++;
@@ -78,8 +78,8 @@ void FUN_002dd3a0(RowInfo_2dd3a0 *row_info, unsigned char *row, unsigned int fla
                     *dp++ = *sp++;
                 }
             }
-            row_info->pixel_depth = 8;
-            row_info->rowbytes = row_width;
+            ((RowInfo_2dd3a0 *)row_info)->pixel_depth = 8;
+            ((RowInfo_2dd3a0 *)row_info)->rowbytes = row_width;
         } else {
             if (flags & 0x80) {
                 sp += 4;
@@ -96,10 +96,10 @@ void FUN_002dd3a0(RowInfo_2dd3a0 *row_info, unsigned char *row, unsigned int fla
                     *dp++ = *sp++;
                 }
             }
-            row_info->pixel_depth = 16;
-            row_info->rowbytes = row_width * 2;
+            ((RowInfo_2dd3a0 *)row_info)->pixel_depth = 16;
+            ((RowInfo_2dd3a0 *)row_info)->rowbytes = row_width * 2;
         }
-        row_info->channels = 1;
-        row_info->color_type &= 0xfb;
+        ((RowInfo_2dd3a0 *)row_info)->channels = 1;
+        ((RowInfo_2dd3a0 *)row_info)->color_type &= 0xfb;
     }
 }

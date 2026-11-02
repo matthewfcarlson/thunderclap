@@ -6,8 +6,9 @@ struct Quad_340130 {
 
 // Rotates the 16-word block: words 4..7 stay as w[4],w[5] -> w[12],w[13], and so on.
 // equiv-conv: FUN_00340130 eax
-void FUN_00340130(Quad_340130 *p)
+extern "C" void FUN_00340130(void * p_)
 {
+    Quad_340130 * p = (Quad_340130 *)p_;
     unsigned int t0 = p->w[4];
     unsigned int t1 = p->w[5];
     unsigned int t2 = p->w[8];

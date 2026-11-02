@@ -49,21 +49,22 @@ static int Compare(const Key2_244be0 &a, const Key2_244be0 &b)
     return 0;
 }
 
-Object *__cdecl FUN_00244be0(Tree_244be0 *tree, Query_244be0 *query)
+extern "C" void *__cdecl FUN_00244be0(void * tree_, void *query)
 {
+    Tree_244be0 * tree = (Tree_244be0 *)tree_;
     Node *end = &tree->sentinel;
     Node *node = tree->first;
     while (node != end) {
-        int c = Compare(query->primary, node->key);
+        int c = Compare(((Query_244be0 *)query)->primary, node->key);
         Object *obj = (Object *)((char *)node - 4);
         if (c == 0)
-            c = Compare(query->secondary, obj->v8()->key);
+            c = Compare(((Query_244be0 *)query)->secondary, obj->v8()->key);
         if (c < 0)
             node = node->left;
         else if (c == 0)
-            return obj;
+            return (Object *)obj;
         else
             node = node->right;
     }
-    return 0;
+    return (Object *)0;
 }

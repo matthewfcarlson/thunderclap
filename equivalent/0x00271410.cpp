@@ -2,13 +2,14 @@
 // FUN_00271410 @ 0x00271410
 #include "decls/data/engine/unknown.h"
 #include "gen/core.h"
+#include "compat/ptr.h"
 
 extern "C" char * __cdecl strncpy(char *, const char *, unsigned int);
 int __cdecl FUN_00345b90(int);
 void __cdecl FUN_0026d850(void *);
 void __cdecl FUN_0026d840(void *);
-int __cdecl FUN_00270c10(const char *);
-void __cdecl FUN_00270f10(char *, int);
+extern "C" int __cdecl FUN_00270c10(const char *);
+extern "C" int __cdecl FUN_00270f10(const char *, void *);
 extern "C" void * __cdecl FUN_00276680(unsigned int);
 struct InstanceDrive_nv_271410 {
     core::InstanceDrive * FUN_00277110(void *, void *);
@@ -30,7 +31,7 @@ void __cdecl FUN_00271410(core::InstanceDrive **result, const char *name, void *
         entry = &((Entry_271410*)&DAT_0052842c)[index];
     if (!entry && (*(char*)&DAT_004cdc04)) {
         FUN_0026d840(((char*)((char*)&DAT_0052842c + 7364)));
-        FUN_00270f10(buffer, DAT_0052a120);
+        FUN_00270f10(buffer, (void *)(hulk_uintptr)(int)DAT_0052a120);
         FUN_0026d850(((char*)((char*)&DAT_0052842c + 7364)));
         index = FUN_00270c10(buffer);
         if (index > -1 && ((Entry_271410*)&DAT_0052842c)[index].object)

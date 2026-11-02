@@ -53,11 +53,11 @@ struct Pool {
 
 // equiv-conv: FUN_00249750 esi
 void FUN_00249750(Child *c);
-void FUN_00248ac0(List1 *list, Node1 *node);
-void FUN_00249ec0(List2 *list, Node2 *node);
+extern "C" void __cdecl FUN_00248ac0(void *, void *);
+extern "C" void __cdecl FUN_00249ec0(void *, void *);
 void FUN_00247550(void *pool, void *block);
-void FUN_0024a450(void *list);
-void FUN_0024a4a0(void *list);
+extern "C" void __cdecl FUN_0024a450(void *);
+extern "C" void __cdecl FUN_0024a4a0(void *);
 extern "C" void FUN_00257f00(void *a, void *b);
 extern "C" void FUN_00242d70(void *a, int b);
 
@@ -89,7 +89,7 @@ void Registry::FUN_0024ad20()
         Child *c;
         while ((c = n->children) != 0)
             FUN_00249750(c);
-        FUN_00248ac0(&list1, n);
+        FUN_00248ac0((List1 *)(&list1), (Node1 *)n);
         FUN_00247550(((char*)&DAT_004e5ff0), n);
     }
 
@@ -100,7 +100,7 @@ void Registry::FUN_0024ad20()
             break;
         while (n->next != end)
             n = n->next;
-        FUN_00249ec0(&list2, n);
+        FUN_00249ec0((List2 *)(&list2), (Node2 *)n);
         FUN_00247550(((char*)((char*)&DAT_004e6110 + 72)), (void *)n->value40);
         FUN_00247550(((char*)&DAT_004e6110), (void *)n->value3c);
         FUN_0024a450(&n->sub50.inner);

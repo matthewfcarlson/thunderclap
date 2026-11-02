@@ -46,36 +46,36 @@ void FUN_00217100(LuaState *L, Proto_21c5f0 *f, TString_21c5f0 *name);
 
 // Lua 5.1 indexupvalue(fs, name, v): fs arrives in edi, name and v on the stack.
 // equiv-conv: FUN_0021c5f0 edi stack stack
-int FUN_0021c5f0(FuncState_21c5f0 *fs, TString_21c5f0 *name, ExpDesc_21c5f0 *v)
+extern "C" int FUN_0021c5f0(void *fs, void *name, void *v)
 {
-    Proto_21c5f0 *f = fs->f;
+    Proto_21c5f0 *f = ((FuncState_21c5f0 *)fs)->f;
     int i;
     int oldsize;
 
     oldsize = f->sizeupvalues;
     for (i = 0; i < f->nups; i++) {
-        if (fs->upvalues[i].k == v->k && fs->upvalues[i].info == v->info)
+        if (((FuncState_21c5f0 *)fs)->upvalues[i].k == ((ExpDesc_21c5f0 *)v)->k && ((FuncState_21c5f0 *)fs)->upvalues[i].info == ((ExpDesc_21c5f0 *)v)->info)
             return i;
     }
 
     if (f->nups + 1 > 32) {
         const char *msg;
         if (f->linedefined == 0)
-            msg = FUN_00216320(fs->L, "main function has more than %d %s", 32, "upvalues");
+            msg = FUN_00216320(((FuncState_21c5f0 *)fs)->L, "main function has more than %d %s", 32, "upvalues");
         else
-            msg = FUN_00216320(fs->L, "function at line %d has more than %d %s", f->linedefined, 32, "upvalues");
-        FUN_0021afd0(fs->ls, msg, 0);
+            msg = FUN_00216320(((FuncState_21c5f0 *)fs)->L, "function at line %d has more than %d %s", f->linedefined, 32, "upvalues");
+        FUN_0021afd0(((FuncState_21c5f0 *)fs)->ls, msg, 0);
     }
 
     if (f->nups + 1 > f->sizeupvalues)
-        f->upvalues = FUN_0021ae40(fs->L, f->upvalues, &f->sizeupvalues, 4, 0x7ffffffd, "");
+        f->upvalues = FUN_0021ae40(((FuncState_21c5f0 *)fs)->L, f->upvalues, &f->sizeupvalues, 4, 0x7ffffffd, "");
     while (oldsize < f->sizeupvalues)
         f->upvalues[oldsize++] = 0;
 
-    f->upvalues[f->nups] = name;
-    if ((name->marked & 3) && (f->marked & 4))
-        FUN_00217100(fs->L, f, name);
-    fs->upvalues[f->nups].k = (unsigned char)v->k;
-    fs->upvalues[f->nups].info = (unsigned char)v->info;
+    f->upvalues[f->nups] = ((TString_21c5f0 *)name);
+    if ((((TString_21c5f0 *)name)->marked & 3) && (f->marked & 4))
+        FUN_00217100(((FuncState_21c5f0 *)fs)->L, f, ((TString_21c5f0 *)name));
+    ((FuncState_21c5f0 *)fs)->upvalues[f->nups].k = (unsigned char)((ExpDesc_21c5f0 *)v)->k;
+    ((FuncState_21c5f0 *)fs)->upvalues[f->nups].info = (unsigned char)((ExpDesc_21c5f0 *)v)->info;
     return f->nups++;
 }

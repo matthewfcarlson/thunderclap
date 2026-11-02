@@ -2,7 +2,7 @@
 // FUN_000af530 @ 0x000af530
 #include "decls/data/game/global.h"
 
-extern float __cdecl FUN_000af420(float);
+extern "C" float __cdecl FUN_000af420(float);
 struct Value_af530 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5();
  virtual void set(float);

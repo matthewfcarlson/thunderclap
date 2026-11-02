@@ -19,9 +19,9 @@ struct Texture_2deca0 {
     const char* FUN_0027b000();
 };
 
-void __stdcall FUN_002de5a0(Texture_2deca0* dest, SourceImage* src);
-void __stdcall FUN_002de990(Texture_2deca0* dest, SourceImage* src);
-void __stdcall FUN_002de9c0(Texture_2deca0* dest, SourceImage* src);
+extern "C" void __stdcall FUN_002de5a0(void *, void *);
+extern "C" void __stdcall FUN_002de990(void *, void *);
+extern "C" void __stdcall FUN_002de9c0(void *, void *);
 
 namespace pure3d {
 
@@ -38,13 +38,13 @@ void pure3d::ImageConverter::vfunc_7(hulk_intptr __p0, hulk_intptr __p1) { Textu
     case 2:
     case 3:
     case 4:
-        FUN_002de990(dest, src);
+        FUN_002de990((Texture_2deca0 *)dest, (SourceImage *)src);
         return;
     case 6:
-        FUN_002de9c0(dest, src);
+        FUN_002de9c0((Texture_2deca0 *)dest, (SourceImage *)src);
         return;
     case 7:
-        FUN_002de5a0(dest, src);
+        FUN_002de5a0((Texture_2deca0 *)dest, (SourceImage *)src);
         return;
     }
 }

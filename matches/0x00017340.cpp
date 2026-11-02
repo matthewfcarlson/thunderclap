@@ -5,7 +5,7 @@ struct R_17340 {
     void call(void*, int);
 };
 extern void* __fastcall FUN_000592a0(void*);
-extern R_17340* __fastcall FUN_00059a40(void*);
+extern "C" R_17340* __fastcall FUN_00059a40(void*);
 
 void CJumpAttackAction::vfunc_4() {
     void* a = FUN_000592a0((*(void * *)&this->f_1c));

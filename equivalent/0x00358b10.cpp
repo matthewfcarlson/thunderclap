@@ -7,6 +7,7 @@
 // Floats the original stores to its frame are rounded to 24 bits (hulk_fslot); values it combines on the
 // x87 stack stay unrounded (double locals and inline expressions). The result vectors are copied as raw
 // 32-bit words, as the original does, so NaN payloads survive.
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 #if defined(_MSC_VER) && !defined(__clang__)
@@ -23,10 +24,10 @@ struct V3_358b10 {
 };
 
 bool FUN_00358630(float *p, float *dir, float r, float t, int flag, float d, float *n, float *out);
-bool FUN_00357960(float *a, float *dir, float t2, float *p5, int a6, int a7, float *n, float *o9, float *o10, float *o11);
+extern "C" bool __cdecl FUN_00357960(const void *, const void *, float, const void *, const void *, const void *, const void *, float *, void *, void *);
 void FUN_00358030(float *a, float *dir, int flag, float *p5, int a6, int a7, float *o8c, float *o20, float *o44, float *o4, float *o64, int f1, int f2, int f3);
 void FUN_0022de70(float *a, float *b, float *p5, float *p8, float *o50, float *o8);
-bool FUN_003577c0(float *out, float *p5, int a6, int a7, float *p8);
+extern "C" bool __cdecl FUN_003577c0(const void *, const void *, const void *, const void *, const void *);
 extern "C" float *FUN_00083e00(float *out, float *dir, float t);
 
 static void CopyBits(float *dst, const volatile float *src)
@@ -87,7 +88,7 @@ extern "C" bool FUN_00358b10(float *c, float *axis, float radius, float halfLen,
     fr.start[2] = c[2] - fr.toAxis[2];
     hulk_fslot fullLen = halfLen + halfLen;
 
-    if (FUN_00357960(FP(fr.start), axis, fullLen, planePt, a6, a7, n, outDist, outPoint, outNormal)) {
+    if (FUN_00357960((float *)(FP(fr.start)), (float *)axis, fullLen, (float *)planePt, (const void *)(hulk_uintptr)(int)a6, (const void *)(hulk_uintptr)(int)a7, (float *)n, outDist, (float *)outPoint, (float *)outNormal)) {
         CopyBits(&outDist[0], &fr.planeHit);
         return true;
     }
@@ -147,7 +148,7 @@ extern "C" bool FUN_00358b10(float *c, float *axis, float radius, float halfLen,
     hulk_fslot sideDist = AbsBits(fr.side);
     if (sideDist > radius)
         return false;
-    if (FUN_003577c0(FP(fr.contact), planePt, a6, a7, n)) {
+    if (FUN_003577c0((float *)(FP(fr.contact)), (float *)planePt, (const void *)(hulk_uintptr)(int)a6, (const void *)(hulk_uintptr)(int)a7, (float *)n)) {
         CopyBits3(outPoint, FP(fr.contact));
         CopyBits(&outDist[0], &fr.planeHit);
         CopyBits3(outNormal, n);

@@ -4,13 +4,13 @@
 struct Item_2d0950 { char pad[8]; unsigned flags; };
 struct Object;
 // equiv-conv: FUN_002c96e0 eax edx esi
-void FUN_002c96e0(Object*, unsigned char, void*);
+extern "C" void FUN_002c96e0(Object*, unsigned char, void*);
 // equiv-conv: FUN_002cb2b0 ecx stack esi
-void FUN_002cb2b0(Object*, int, void*);
+extern "C" void FUN_002cb2b0(Object*, int, void*);
 // equiv-conv: FUN_002c7690 eax esi stack
-void FUN_002c7690(Object*, void*, int);
+extern "C" void FUN_002c7690(Object*, void*, int);
 // equiv-conv: FUN_002c7a50 ecx eax esi
-void FUN_002c7a50(unsigned char, Object*, void*);
+extern "C" void FUN_002c7a50(unsigned char, Object*, void*);
 struct Object {
  char pad0[0x14]; void* field14; char pad18[0x38]; void* field50; char pad54[4]; Item_2d0950* item;
  unsigned __int64 FUN_002c8a80(void*, void*);

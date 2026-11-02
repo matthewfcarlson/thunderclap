@@ -1,7 +1,7 @@
 #include "decls/data/engine/audio.h"
 
 extern "C" int __cdecl atexit(void (*)(void));
-extern void __cdecl FUN_00364550();
+extern "C" void __cdecl FUN_00364550();
 struct SeqEventVarPitchType_360a10 {
     void Init();
 };

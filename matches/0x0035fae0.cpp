@@ -4,7 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/audio.h"
 extern "C" int atexit(void (*)(void));
-extern void __cdecl FUN_00364300();
+extern "C" void __cdecl FUN_00364300();
 struct ListenerEffectGcType_nv_35fae0 {
     void f();
 };

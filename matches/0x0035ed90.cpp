@@ -6,8 +6,8 @@ class Sub {
     void Init(const char* path, int flag);
 };
 void __cdecl Reg(void* f);
-void __cdecl Cleanup();
+extern "C" void __cdecl FUN_003640a0();
 void __cdecl InitSub() {
     (*(Sub*)&DAT_004e36bc).Init("sound/rsd", 0);
-    Reg(Cleanup);
+    Reg(FUN_003640a0);
 }

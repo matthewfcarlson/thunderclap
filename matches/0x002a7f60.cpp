@@ -1,4 +1,4 @@
-char* f(char* dest, int count, const char* src) {
+extern "C" char* FUN_002a7f60(char* dest, int count, const char* src) {
     if (count) {
         int n = count;
         char* p = dest;

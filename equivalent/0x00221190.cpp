@@ -15,21 +15,21 @@ struct ExpDesc {
 };
 
 void __cdecl FUN_00220d90(FuncState* fs, ExpDesc* e);
-void __cdecl FUN_00221110(FuncState* fs, ExpDesc* e);
+extern "C" void __cdecl FUN_00221110(void *, void *);
 // equiv-conv: FUN_00220fe0 eax stack stack
 void FUN_00220fe0(FuncState* fs, ExpDesc* e, int reg);
 
-int __cdecl FUN_00221190(FuncState* fs, ExpDesc* e)
+extern "C" int __cdecl FUN_00221190(void * fs, void * e)
 {
-    FUN_00220d90(fs, e);
-    if (e->k == 11) {
-        if (e->t == e->f)
-            return e->info;
-        if (e->info >= fs->nactvar) {
-            FUN_00220fe0(fs, e, e->info);
-            return e->info;
+    FUN_00220d90(((FuncState *)fs), ((ExpDesc *)e));
+    if (((ExpDesc *)e)->k == 11) {
+        if (((ExpDesc *)e)->t == ((ExpDesc *)e)->f)
+            return ((ExpDesc *)e)->info;
+        if (((ExpDesc *)e)->info >= ((FuncState *)fs)->nactvar) {
+            FUN_00220fe0(((FuncState *)fs), ((ExpDesc *)e), ((ExpDesc *)e)->info);
+            return ((ExpDesc *)e)->info;
         }
     }
-    FUN_00221110(fs, e);
-    return e->info;
+    FUN_00221110((FuncState *)((FuncState *)fs), (ExpDesc *)((ExpDesc *)e));
+    return ((ExpDesc *)e)->info;
 }

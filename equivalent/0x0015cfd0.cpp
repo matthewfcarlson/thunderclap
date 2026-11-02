@@ -12,12 +12,12 @@ struct Receiver_15cfd0 {
  virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
  virtual void v12(); virtual void v13(); virtual void send(Packet_15cfd0*);
 };
-void __cdecl FUN_0015cfd0(Source_15cfd0* source, Receiver_15cfd0* receiver) {
- if (!source || !receiver) return;
- if (source->end-source->begin != 2) return;
+extern "C" void __cdecl FUN_0015cfd0(void * source, void * receiver) {
+ if (!((Source_15cfd0 *)source) || !((Receiver_15cfd0 *)receiver)) return;
+ if (((Source_15cfd0 *)source)->end-((Source_15cfd0 *)source)->begin != 2) return;
  Packet_15cfd0 p;
- p.first.lo=source->begin[0].lo; p.first.hi=source->begin[0].hi;
- p.second.lo=source->begin[1].lo; p.second.hi=source->begin[1].hi;
+ p.first.lo=((Source_15cfd0 *)source)->begin[0].lo; p.first.hi=((Source_15cfd0 *)source)->begin[0].hi;
+ p.second.lo=((Source_15cfd0 *)source)->begin[1].lo; p.second.hi=((Source_15cfd0 *)source)->begin[1].hi;
  p.zero1=0; p.zero2=0;
  unsigned lo,hi;
  if (!((*(unsigned*)&DAT_004e11b0) & 1)) {
@@ -27,5 +27,5 @@ void __cdecl FUN_0015cfd0(Source_15cfd0* source, Receiver_15cfd0* receiver) {
  DAT_004e11a8=lo; (*(unsigned*)&DAT_004e11ac)=hi;
  } else {lo=DAT_004e11a8; hi=(*(unsigned*)&DAT_004e11ac);}
  if(p.second.lo==lo && p.second.hi==hi) {p.second=p.first; p.first.lo=lo;p.first.hi=hi;}
- receiver->send(&p);
+ ((Receiver_15cfd0 *)receiver)->send(&p);
 }

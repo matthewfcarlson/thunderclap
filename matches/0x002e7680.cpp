@@ -12,7 +12,7 @@ struct PngStruct_2e7680 {
     unsigned char pixel_depth;
 };
 
-void __cdecl FUN_002e7680(PngStruct_2e7680 *png_ptr, unsigned char *row, int mask)
+extern "C" void __cdecl FUN_002e7680(PngStruct_2e7680 *png_ptr, unsigned char *row, int mask)
 {
     if (mask == 0xff) {
         unsigned int rowbytes = (png_ptr->pixel_depth * png_ptr->width + 7) >> 3;

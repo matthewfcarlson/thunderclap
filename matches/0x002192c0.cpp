@@ -8,6 +8,6 @@ struct Obj_2192c0 {
     Inner_2192c0* value;
 };
 extern void __cdecl helper(Obj_2192c0*, int, int, int);
-void __cdecl target(Obj_2192c0* p) {
-    helper(p, p->value->a, p->value->count << 2, 0);
+extern "C" void __cdecl FUN_002192c0(void * p) {
+    helper(((Obj_2192c0 *)p), ((Obj_2192c0 *)p)->value->a, ((Obj_2192c0 *)p)->value->count << 2, 0);
 }

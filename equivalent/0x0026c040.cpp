@@ -18,9 +18,9 @@ struct MState {
     unsigned binmap[4];
 };
 
-extern void __cdecl FUN_0026b970(MState* av);
+extern "C" void __cdecl FUN_0026b970(void *);
 // equiv-conv: FUN_0026be70 eax stack
-extern void* FUN_0026be70(MState* av, unsigned nb);
+extern "C" void * __cdecl FUN_0026be70(void *, unsigned int);
 
 static inline Chunk* bin_at(MState* av, unsigned index) {
     return (Chunk*)((char*)&av->bins[index * 2] - 8);
@@ -74,7 +74,7 @@ void* __cdecl FUN_0026c040(unsigned bytes) {
         victim = bin->bk;
         if (victim != bin) {
             if (!victim) {
-                FUN_0026b970(state);
+                FUN_0026b970((MState *)state);
             } else {
                 back = victim->bk;
                 chunk_at(victim, requested)->size |= 1;
@@ -86,7 +86,7 @@ void* __cdecl FUN_0026c040(unsigned bytes) {
     } else {
         index = largebin_index(requested);
         if (!(state->max_fast & 1))
-            FUN_0026b970(state);
+            FUN_0026b970((MState *)state);
     }
 
     for (;;) {
@@ -230,8 +230,8 @@ void* __cdecl FUN_0026c040(unsigned bytes) {
             return (char*)victim + 8;
         }
         if (state->max_fast & 1)
-            return FUN_0026be70(state, requested);
-        FUN_0026b970(state);
+            return FUN_0026be70((MState *)state, (unsigned)requested);
+        FUN_0026b970((MState *)state);
         index = requested >> 3;
     }
 }

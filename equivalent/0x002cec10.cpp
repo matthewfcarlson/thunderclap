@@ -94,7 +94,7 @@ static __forceinline Vec2_2cec10 Add2(const Vec2_2cec10& a, const Vec2_2cec10& b
 }
 
 // equiv-conv: FUN_002cec10 ecx edx esi
-void FUN_002cec10(Source_2cec10* src, unsigned char flag, VertexSink_2cec10* out)
+extern "C" void FUN_002cec10(Source_2cec10* src, unsigned char flag, VertexSink_2cec10* out)
 {
     unsigned count = src->count;
     Vec3_2cec10* p0;

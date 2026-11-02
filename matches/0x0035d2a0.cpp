@@ -1,5 +1,5 @@
 extern "C" int __cdecl atexit(void(__cdecl*)());
-extern "C" void __cdecl cleanup();
+extern "C" void __cdecl FUN_00363d10();
 struct Pair {
     int a, b;
 };
@@ -13,5 +13,5 @@ void init() {
         p->b = z;
         ++p;
     } while (--n);
-    atexit(cleanup);
+    atexit(FUN_00363d10);
 }

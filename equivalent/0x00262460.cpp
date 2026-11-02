@@ -5,10 +5,10 @@ struct PathString {
     char* FUN_0023fbb0();
     void FUN_0023fb10(unsigned int length);
 };
-PathString* __cdecl FUN_00262460(PathString* path) {
-    unsigned int length = path->FUN_0023f990();
+extern "C" void * __cdecl FUN_00262460(void * path) {
+    unsigned int length = ((PathString *)path)->FUN_0023f990();
     if (length != 0) {
-        char* buffer = path->FUN_0023fbb0();
+        char* buffer = ((PathString *)path)->FUN_0023fbb0();
         char* end = buffer + length + 1;
         char* read = buffer;
         char* write = buffer;
@@ -53,7 +53,7 @@ PathString* __cdecl FUN_00262460(PathString* path) {
         }
         unsigned int newLength = 0;
         while (buffer[newLength] != 0) ++newLength;
-        path->FUN_0023fb10(newLength);
+        ((PathString *)path)->FUN_0023fb10(newLength);
     }
-    return path;
+    return (PathString *)((PathString *)path);
 }

@@ -24,23 +24,23 @@ struct lua_State_214c90 {
                       // luaT_typenames
 
 // equiv-conv: FUN_002146f0 eax stack stack
-const char* __cdecl FUN_002146f0(hulk_uintptr reg, CallInfo_214c90* ci, const char** name);
+extern "C" const char * __cdecl FUN_002146f0(unsigned, void *, char **);
 void __cdecl FUN_00214a90(lua_State_214c90* L, const char* fmt, ...);   // luaG_runerror
 
-void __cdecl FUN_00214c90(lua_State_214c90* L, const TObject_214c90* o, const char* op)
+extern "C" void __cdecl FUN_00214c90(void * L, const void * o, const char* op)
 {
-    const char* typeName = ((const char**)&DAT_00426948)[o->tt];
+    const char* typeName = ((const char**)&DAT_00426948)[((const TObject_214c90 *)o)->tt];
     const char* name = 0;
 
-    for (const TObject_214c90* p = L->ci->base; p < L->ci->top; ++p) {
-        if (p == o) {
-            const char* kind = FUN_002146f0(o - L->base, L->ci, &name);
+    for (const TObject_214c90* p = ((lua_State_214c90 *)L)->ci->base; p < ((lua_State_214c90 *)L)->ci->top; ++p) {
+        if (p == ((const TObject_214c90 *)o)) {
+            const char* kind = FUN_002146f0((hulk_uintptr)(((const TObject_214c90 *)o) - ((lua_State_214c90 *)L)->base), (CallInfo_214c90 *)(((lua_State_214c90 *)L)->ci), (char **)(const char * *)(&name));
             if (kind != 0) {
-                FUN_00214a90(L, "attempt to %s %s `%s' (a %s value)", op, kind, name, typeName);
+                FUN_00214a90(((lua_State_214c90 *)L), "attempt to %s %s `%s' (a %s value)", op, kind, name, typeName);
                 return;
             }
             break;
         }
     }
-    FUN_00214a90(L, "attempt to %s a %s value", op, typeName);
+    FUN_00214a90(((lua_State_214c90 *)L), "attempt to %s a %s value", op, typeName);
 }

@@ -5,8 +5,7 @@ struct Vec3 {
     float x, y, z;
 };
 extern void __cdecl FUN_003579f0(const Vec3* axis, const Vec3* const* tri, float* mn, float* mx);
-extern void __cdecl FUN_00359450(const Vec3* axis, const Vec3* center, const float* half, const Vec3* a0,
-                                 const Vec3* a1, const Vec3* a2, float* lo, float* hi);
+extern "C" void __cdecl FUN_00359450(const void *, const void *, const void *, const void *, const void *, const void *, float *, float *);
 
 // Triangle (t0,t1,t2) against an oriented box (center, half extents, three axes): separating-axis test.
 bool __cdecl FUN_00359510(const Vec3* center, const float* half, const Vec3* ax0, const Vec3* ax1,
@@ -65,7 +64,7 @@ bool __cdecl FUN_00359510(const Vec3* center, const float* half, const Vec3* ax0
     dd += f.v.x * t0->x;
     f.mn = dd;
     f.mx = dd;
-    FUN_00359450(&f.v, center, half, ax0, ax1, ax2, &f.lo, &f.hi);
+    FUN_00359450((const Vec3 *)(&f.v), (const Vec3 *)center, (const float *)half, (const Vec3 *)ax0, (const Vec3 *)ax1, (const Vec3 *)ax2, &f.lo, &f.hi);
     if (f.hi < f.mn)
         return false;
     if (f.mn < f.lo)
@@ -78,7 +77,7 @@ bool __cdecl FUN_00359510(const Vec3* center, const float* half, const Vec3* ax0
             f.v.y = a->x * e.z - a->z * e.x;
             f.v.z = a->y * e.x - a->x * e.y;
             FUN_003579f0(&f.v, f.tri, &f.mn, &f.mx);
-            FUN_00359450(&f.v, center, half, ax0, ax1, ax2, &f.lo, &f.hi);
+            FUN_00359450((const Vec3 *)(&f.v), (const Vec3 *)center, (const float *)half, (const Vec3 *)ax0, (const Vec3 *)ax1, (const Vec3 *)ax2, &f.lo, &f.hi);
             if (f.hi < f.mn)
                 return false;
             if (f.mx < f.lo)

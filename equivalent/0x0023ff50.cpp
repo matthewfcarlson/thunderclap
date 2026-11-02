@@ -3,7 +3,7 @@
 #include "decls/data/engine/audio.h"
 #include "decls/data/game/global.h"
 
-extern void __cdecl FUN_0023fa40(char **result, const char *source, unsigned int length, unsigned int capacity);
+extern "C" void __cdecl FUN_0023fa40(int *, char *, unsigned int, int);
 extern void __cdecl FUN_00247570(void *allocation);
 struct Header_23ff50 { unsigned int reserved; unsigned short references; unsigned short capacity; };
 struct String { char *data; unsigned short kind; unsigned short unused; unsigned short length; String *append(String *other); };
@@ -21,7 +21,7 @@ String *String::append(String *other) {
  }
  const char *source = data == (*(char**)&DAT_004cc02c) ? ((char*)&DAT_003f335c) : data;
  char *newData;
- FUN_0023fa40(&newData, source, oldLength, total);
+ FUN_0023fa40((int *)(char * *)(&newData), (char *)(const char *)source, oldLength, (unsigned int)total);
  source = data == (*(char**)&DAT_004cc02c) ? ((char*)&DAT_003f335c) : data;
  char *dest = newData;
  char c;

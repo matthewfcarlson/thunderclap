@@ -2,7 +2,7 @@
 // FUN_002ecb90 @ 0x002ecb90
 #include "decls/data/engine/physics.h"
 
-void __cdecl FUN_002ecb90(unsigned int mode)
+extern "C" void __cdecl FUN_002ecb90(unsigned int mode)
 {
     if (mode == 8) return;
     switch (mode) {

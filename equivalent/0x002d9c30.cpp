@@ -28,29 +28,30 @@ struct png_struct_2d9c30 {
     png_byte_2d9c30 rgb_to_gray_blue_coeff;
 };
 
-int __cdecl FUN_002d9c30(png_struct_2d9c30 *png_ptr, png_row_info_2d9c30 *row_info, png_byte_2d9c30 *row)
+extern "C" int __cdecl FUN_002d9c30(void *png_ptr, void * row_info_, unsigned char *row)
 {
+    png_row_info_2d9c30 * row_info = (png_row_info_2d9c30 *)row_info_;
     png_uint_32 i;
     png_uint_32 row_width = row_info->width;
     int rgb_error = 0;
 
     if (row_info->color_type & 2) {
-        png_byte_2d9c30 rc = png_ptr->rgb_to_gray_red_coeff;
-        png_byte_2d9c30 gc = png_ptr->rgb_to_gray_green_coeff;
-        png_byte_2d9c30 bc = png_ptr->rgb_to_gray_blue_coeff;
+        png_byte_2d9c30 rc = ((png_struct_2d9c30 *)png_ptr)->rgb_to_gray_red_coeff;
+        png_byte_2d9c30 gc = ((png_struct_2d9c30 *)png_ptr)->rgb_to_gray_green_coeff;
+        png_byte_2d9c30 bc = ((png_struct_2d9c30 *)png_ptr)->rgb_to_gray_blue_coeff;
 
         if (row_info->color_type == 2) {
             if (row_info->bit_depth == 8) {
-                if (png_ptr->gamma_from_1 != 0 && png_ptr->gamma_to_1 != 0) {
+                if (((png_struct_2d9c30 *)png_ptr)->gamma_from_1 != 0 && ((png_struct_2d9c30 *)png_ptr)->gamma_to_1 != 0) {
                     png_byte_2d9c30 *sp = row;
                     png_byte_2d9c30 *dp = row;
                     for (i = 0; i < row_width; i++) {
-                        png_byte_2d9c30 red = png_ptr->gamma_to_1[*(sp++)];
-                        png_byte_2d9c30 green = png_ptr->gamma_to_1[*(sp++)];
-                        png_byte_2d9c30 blue = png_ptr->gamma_to_1[*(sp++)];
+                        png_byte_2d9c30 red = ((png_struct_2d9c30 *)png_ptr)->gamma_to_1[*(sp++)];
+                        png_byte_2d9c30 green = ((png_struct_2d9c30 *)png_ptr)->gamma_to_1[*(sp++)];
+                        png_byte_2d9c30 blue = ((png_struct_2d9c30 *)png_ptr)->gamma_to_1[*(sp++)];
                         if (red != green || red != blue) {
                             rgb_error |= 1;
-                            *(dp++) = png_ptr->gamma_from_1[(rc * red + gc * green + bc * blue) >> 8];
+                            *(dp++) = ((png_struct_2d9c30 *)png_ptr)->gamma_from_1[(rc * red + gc * green + bc * blue) >> 8];
                         } else {
                             *(dp++) = *(sp - 1);
                         }
@@ -71,7 +72,7 @@ int __cdecl FUN_002d9c30(png_struct_2d9c30 *png_ptr, png_row_info_2d9c30 *row_in
                     }
                 }
             } else {
-                if (png_ptr->gamma_16_to_1 != 0 && png_ptr->gamma_16_from_1 != 0) {
+                if (((png_struct_2d9c30 *)png_ptr)->gamma_16_to_1 != 0 && ((png_struct_2d9c30 *)png_ptr)->gamma_16_from_1 != 0) {
                     png_byte_2d9c30 *sp = row;
                     png_byte_2d9c30 *dp = row;
                     for (i = 0; i < row_width; i++) {
@@ -82,11 +83,11 @@ int __cdecl FUN_002d9c30(png_struct_2d9c30 *png_ptr, png_row_info_2d9c30 *row_in
                         if (red == green && red == blue) {
                             w = red;
                         } else {
-                            png_uint_16 red_1 = png_ptr->gamma_16_to_1[(red & 0xff) >> png_ptr->gamma_shift][red >> 8];
-                            png_uint_16 green_1 = png_ptr->gamma_16_to_1[(green & 0xff) >> png_ptr->gamma_shift][green >> 8];
-                            png_uint_16 blue_1 = png_ptr->gamma_16_to_1[(blue & 0xff) >> png_ptr->gamma_shift][blue >> 8];
+                            png_uint_16 red_1 = ((png_struct_2d9c30 *)png_ptr)->gamma_16_to_1[(red & 0xff) >> ((png_struct_2d9c30 *)png_ptr)->gamma_shift][red >> 8];
+                            png_uint_16 green_1 = ((png_struct_2d9c30 *)png_ptr)->gamma_16_to_1[(green & 0xff) >> ((png_struct_2d9c30 *)png_ptr)->gamma_shift][green >> 8];
+                            png_uint_16 blue_1 = ((png_struct_2d9c30 *)png_ptr)->gamma_16_to_1[(blue & 0xff) >> ((png_struct_2d9c30 *)png_ptr)->gamma_shift][blue >> 8];
                             png_uint_16 gray16 = (png_uint_16)((rc * red_1 + gc * green_1 + bc * blue_1) >> 8);
-                            w = png_ptr->gamma_16_from_1[(gray16 & 0xff) >> png_ptr->gamma_shift][gray16 >> 8];
+                            w = ((png_struct_2d9c30 *)png_ptr)->gamma_16_from_1[(gray16 & 0xff) >> ((png_struct_2d9c30 *)png_ptr)->gamma_shift][gray16 >> 8];
                             rgb_error |= 1;
                         }
                         *(dp++) = (png_byte_2d9c30)((w >> 8) & 0xff);
@@ -111,16 +112,16 @@ int __cdecl FUN_002d9c30(png_struct_2d9c30 *png_ptr, png_row_info_2d9c30 *row_in
         }
         if (row_info->color_type == 6) {
             if (row_info->bit_depth == 8) {
-                if (png_ptr->gamma_from_1 != 0 && png_ptr->gamma_to_1 != 0) {
+                if (((png_struct_2d9c30 *)png_ptr)->gamma_from_1 != 0 && ((png_struct_2d9c30 *)png_ptr)->gamma_to_1 != 0) {
                     png_byte_2d9c30 *sp = row;
                     png_byte_2d9c30 *dp = row;
                     for (i = 0; i < row_width; i++) {
-                        png_byte_2d9c30 red = png_ptr->gamma_to_1[*(sp++)];
-                        png_byte_2d9c30 green = png_ptr->gamma_to_1[*(sp++)];
-                        png_byte_2d9c30 blue = png_ptr->gamma_to_1[*(sp++)];
+                        png_byte_2d9c30 red = ((png_struct_2d9c30 *)png_ptr)->gamma_to_1[*(sp++)];
+                        png_byte_2d9c30 green = ((png_struct_2d9c30 *)png_ptr)->gamma_to_1[*(sp++)];
+                        png_byte_2d9c30 blue = ((png_struct_2d9c30 *)png_ptr)->gamma_to_1[*(sp++)];
                         if (red != green || red != blue)
                             rgb_error |= 1;
-                        *(dp++) = png_ptr->gamma_from_1[(rc * red + gc * green + bc * blue) >> 8];
+                        *(dp++) = ((png_struct_2d9c30 *)png_ptr)->gamma_from_1[(rc * red + gc * green + bc * blue) >> 8];
                         *(dp++) = *(sp++);
                     }
                 } else {
@@ -137,7 +138,7 @@ int __cdecl FUN_002d9c30(png_struct_2d9c30 *png_ptr, png_row_info_2d9c30 *row_in
                     }
                 }
             } else {
-                if (png_ptr->gamma_16_to_1 != 0 && png_ptr->gamma_16_from_1 != 0) {
+                if (((png_struct_2d9c30 *)png_ptr)->gamma_16_to_1 != 0 && ((png_struct_2d9c30 *)png_ptr)->gamma_16_from_1 != 0) {
                     png_byte_2d9c30 *sp = row;
                     png_byte_2d9c30 *dp = row;
                     for (i = 0; i < row_width; i++) {
@@ -148,11 +149,11 @@ int __cdecl FUN_002d9c30(png_struct_2d9c30 *png_ptr, png_row_info_2d9c30 *row_in
                         if (red == green && red == blue) {
                             w = red;
                         } else {
-                            png_uint_16 red_1 = png_ptr->gamma_16_to_1[(red & 0xff) >> png_ptr->gamma_shift][red >> 8];
-                            png_uint_16 green_1 = png_ptr->gamma_16_to_1[(green & 0xff) >> png_ptr->gamma_shift][green >> 8];
-                            png_uint_16 blue_1 = png_ptr->gamma_16_to_1[(blue & 0xff) >> png_ptr->gamma_shift][blue >> 8];
+                            png_uint_16 red_1 = ((png_struct_2d9c30 *)png_ptr)->gamma_16_to_1[(red & 0xff) >> ((png_struct_2d9c30 *)png_ptr)->gamma_shift][red >> 8];
+                            png_uint_16 green_1 = ((png_struct_2d9c30 *)png_ptr)->gamma_16_to_1[(green & 0xff) >> ((png_struct_2d9c30 *)png_ptr)->gamma_shift][green >> 8];
+                            png_uint_16 blue_1 = ((png_struct_2d9c30 *)png_ptr)->gamma_16_to_1[(blue & 0xff) >> ((png_struct_2d9c30 *)png_ptr)->gamma_shift][blue >> 8];
                             png_uint_16 gray16 = (png_uint_16)((rc * red_1 + gc * green_1 + bc * blue_1) >> 8);
-                            w = png_ptr->gamma_16_from_1[(gray16 & 0xff) >> png_ptr->gamma_shift][gray16 >> 8];
+                            w = ((png_struct_2d9c30 *)png_ptr)->gamma_16_from_1[(gray16 & 0xff) >> ((png_struct_2d9c30 *)png_ptr)->gamma_shift][gray16 >> 8];
                             rgb_error |= 1;
                         }
                         *(dp++) = (png_byte_2d9c30)((w >> 8) & 0xff);

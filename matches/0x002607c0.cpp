@@ -3,7 +3,7 @@ struct Node {
     Node* next;
 };
 extern "C" bool __cdecl FUN_0025abd0(unsigned a, unsigned* out);
-char* __cdecl Alloc(unsigned a);
+extern "C" void * __cdecl FUN_00260730(int);
 struct SeqEventContainer_2607c0 {
     virtual bool v0(unsigned a);
     int m4, m8;
@@ -17,7 +17,7 @@ bool SeqEventContainer_2607c0::v0(unsigned a) {
     unsigned i = 0;
     if (n > 0) {
         do {
-            char* p = Alloc(a);
+            char* p = ((char *)FUN_00260730((unsigned)a));
             if (!p)
                 return false;
             Node* nd = (Node*)(p + 4);

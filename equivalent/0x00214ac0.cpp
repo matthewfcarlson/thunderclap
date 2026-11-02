@@ -32,36 +32,37 @@ struct lua_Debug_214ac0 {
 };
 
 // equiv-conv: FUN_00214160 ecx eax
-void FUN_00214160(lua_Debug_214ac0 *ar, const TObject_214ac0 *f);
-int __fastcall FUN_00213f20(int unused, CallInfo *ci);
+extern "C" void __cdecl FUN_00214160(void *, void *);
+extern "C" int __fastcall FUN_00213f20(void *, int *);
 // equiv-conv: FUN_00214840 ecx stack
-const char *__cdecl FUN_00214840(CallInfo *ci, const char **name);
+extern "C" const char * __cdecl FUN_00214840(void *, char **);
 
 // equiv-conv: FUN_00214ac0 eax esi edi stack stack
-int __cdecl FUN_00214ac0(const char *what, lua_Debug_214ac0 *ar, CallInfo *ci, lua_State_214ac0 *L, const TObject_214ac0 *f)
+extern "C" int __cdecl FUN_00214ac0(const char *what, void * ar_, void *ci, void *L, const void *f)
 {
+    lua_Debug_214ac0 * ar = (lua_Debug_214ac0 *)ar_;
     int status = 1;
     for (; *what; what++) {
         switch (*what) {
         case 'S':
-            FUN_00214160(ar, f);
+            FUN_00214160((lua_Debug_214ac0 *)ar, (void *)(const TObject_214ac0 *)((const TObject_214ac0 *)f));
             break;
         case 'l':
-            ar->currentline = ci ? FUN_00213f20(0, ci) : -1;
+            ar->currentline = ((CallInfo *)ci) ? FUN_00213f20((void *)(hulk_uintptr)(int)0, (int *)(CallInfo *)((CallInfo *)ci)) : -1;
             break;
         case 'u':
-            ar->nups = ((Closure_214ac0 *)f->value)->nupvalues;
+            ar->nups = ((Closure_214ac0 *)((const TObject_214ac0 *)f)->value)->nupvalues;
             break;
         case 'n':
-            ar->namewhat = ci ? FUN_00214840(ci, &ar->name) : 0;
+            ar->namewhat = ((CallInfo *)ci) ? FUN_00214840((CallInfo *)((CallInfo *)ci), (char **)(const char * *)(&ar->name)) : 0;
             if (ar->namewhat == 0) {
                 ar->namewhat = "";
                 ar->name = 0;
             }
             break;
         case 'f':
-            L->top->tt = f->tt;
-            L->top->value = f->value;
+            ((lua_State_214ac0 *)L)->top->tt = ((const TObject_214ac0 *)f)->tt;
+            ((lua_State_214ac0 *)L)->top->value = ((const TObject_214ac0 *)f)->value;
             break;
         default:
             status = 0;

@@ -142,7 +142,7 @@ Pool_1e5980 *__cdecl FUN_001c3d90();
 struct Registry_1e5980 {
     void FUN_001b4540(Entity *e);
 };
-Registry_1e5980 *__cdecl FUN_001b6580();
+extern "C" void * __cdecl FUN_001b6580(void);
 
 struct Limits_1e5980 {
     char pad0[0x18];
@@ -246,7 +246,7 @@ void Manager_1e5980::FUN_001e5980(int idx)
     }
 
     FUN_001c3d90()->FUN_001c3b80(&e->field8);
-    FUN_001b6580()->FUN_001b4540(e);
+    ((Registry_1e5980 *)FUN_001b6580())->FUN_001b4540(e);
     FUN_001de3f0(e);
 
     if (fr.pos.y < DAT_004dd700->limits->maxY) {

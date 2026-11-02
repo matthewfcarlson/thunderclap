@@ -62,7 +62,7 @@ struct ProfileTail {
 extern char DAT_004e1870[];
 extern char DAT_004e2194[];
 
-void FUN_001b3c50()
+extern "C" void FUN_001b3c50()
 {
     ProfileTail* e = (ProfileTail*)DAT_004e1870;
     do {

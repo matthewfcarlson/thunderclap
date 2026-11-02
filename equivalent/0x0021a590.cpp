@@ -2,18 +2,18 @@
 // FUN_0021a590 @ 0x0021a590
 #include "compat/ptr.h"
 struct Stream { hulk_uintptr remaining; unsigned char *cursor; unsigned char *(__cdecl *refill)(void *, void *, unsigned int *); void *arg1; void *arg2; };
-unsigned int __cdecl FUN_0021a590(Stream *stream)
+extern "C" unsigned int __cdecl FUN_0021a590(void *stream)
 {
-    if (stream->remaining == 0) {
-        unsigned int count = (unsigned int)stream;
-        unsigned char *data = stream->refill(stream->arg2, stream->arg1, &count);
+    if (((Stream *)stream)->remaining == 0) {
+        unsigned int count = (unsigned int)((Stream *)stream);
+        unsigned char *data = ((Stream *)stream)->refill(((Stream *)stream)->arg2, ((Stream *)stream)->arg1, &count);
         if (data == 0 || count == 0)
             return 0xffffffff;
-        stream->cursor = data;
-        stream->remaining = count - 1;
-        stream->cursor = data + 1;
-        stream->remaining = count;
-        stream->cursor = data;
+        ((Stream *)stream)->cursor = data;
+        ((Stream *)stream)->remaining = count - 1;
+        ((Stream *)stream)->cursor = data + 1;
+        ((Stream *)stream)->remaining = count;
+        ((Stream *)stream)->cursor = data;
     }
-    return *stream->cursor;
+    return *((Stream *)stream)->cursor;
 }

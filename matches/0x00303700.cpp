@@ -2,17 +2,17 @@
 struct E_303700 {
     char d[0x44];
 };
-void F(E_303700* a, E_303700* b, E_303700* c);
+extern "C" void __cdecl FUN_00303520(void *, void *, void *);
 
 void G(E_303700* first, E_303700* mid, E_303700* last) {
     hulk_intptr n = last - first;
     if (n > 40) {
         hulk_intptr s = (n + 1) / 8;
-        F(first, first + s, first + s * 2);
-        F(mid - s, mid, mid + s);
-        F(last - s * 2, last - s, last);
-        F(first + s, mid, last - s);
+        FUN_00303520((E_303700 *)first, (E_303700 *)(first + s), (E_303700 *)(first + s * 2));
+        FUN_00303520((E_303700 *)(mid - s), (E_303700 *)mid, (E_303700 *)(mid + s));
+        FUN_00303520((E_303700 *)(last - s * 2), (E_303700 *)(last - s), (E_303700 *)last);
+        FUN_00303520((E_303700 *)(first + s), (E_303700 *)mid, (E_303700 *)(last - s));
     } else {
-        F(first, mid, last);
+        FUN_00303520((E_303700 *)first, (E_303700 *)mid, (E_303700 *)last);
     }
 }

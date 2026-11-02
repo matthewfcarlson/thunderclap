@@ -32,17 +32,17 @@ struct LexState_21d210 {
     FuncState_21d210* fs;              // 0x1c
 };
 
-int __cdecl FUN_0021bbc0(LexState_21d210* ls, int* seminfo);
+extern "C" int __cdecl FUN_0021bbc0(void *, void *);
 void FUN_0021b060(LexState_21d210* ls, const char* msg);
 int __cdecl FUN_0021b080(LexState_21d210* ls, const char* s, int len);
 unsigned short FUN_0021c490(LexState_21d210* ls, int name);
 const char* FUN_00216320(void* L, const char* fmt, ...);
 void FUN_0021afd0(LexState_21d210* ls, const char* msg, int token);
-void __cdecl FUN_00220850(FuncState_21d210* fs, int n);
+extern "C" void __cdecl FUN_00220850(void *, int);
 // equiv-conv: FUN_0021c2e0 esi eax
-void FUN_0021c2e0(LexState_21d210* ls, int token);
+extern "C" void __cdecl FUN_0021c2e0(void *, int);
 // equiv-conv: FUN_0021c570 eax edx
-void FUN_0021c570(LexState_21d210* ls, int n);
+extern "C" void __cdecl FUN_0021c570(void *, int);
 
 static inline void Next(LexState_21d210* ls)
 {
@@ -52,7 +52,7 @@ static inline void Next(LexState_21d210* ls)
         ls->seminfo = ls->lookaheadSeminfo;
         ls->lookaheadToken = 0x11f;
     } else {
-        ls->token = FUN_0021bbc0(ls, &ls->seminfo);
+        ls->token = FUN_0021bbc0((LexState_21d210 *)ls, (int *)(&ls->seminfo));
     }
 }
 
@@ -71,51 +71,51 @@ static inline void CheckLocalLimit(FuncState_21d210* fs, int count)
 
 // Lua 5.0 parlist(ls): ls arrives in eax.
 // equiv-conv: FUN_0021d210 eax
-void FUN_0021d210(LexState_21d210* ls)
+extern "C" void FUN_0021d210(void * ls)
 {
-    FuncState_21d210* fs0 = ls->fs;
+    FuncState_21d210* fs0 = ((LexState_21d210 *)ls)->fs;
     FuncState_21d210* fs;
     Proto_21d210* f = fs0->f;
     int nparams = 0;
 
     f->isVararg = 0;
-    if (ls->token != ')') {
+    if (((LexState_21d210 *)ls)->token != ')') {
         for (;;) {
-            if (ls->token == 0x116) {
-                int name = ls->seminfo;
-                Next(ls);
-                fs = ls->fs;
+            if (((LexState_21d210 *)ls)->token == 0x116) {
+                int name = ((LexState_21d210 *)ls)->seminfo;
+                Next(((LexState_21d210 *)ls));
+                fs = ((LexState_21d210 *)ls)->fs;
                 CheckLocalLimit(fs, nparams + 1);
-                fs->actvar[fs->nactvar + nparams] = FUN_0021c490(ls, name);
+                fs->actvar[fs->nactvar + nparams] = FUN_0021c490(((LexState_21d210 *)ls), name);
                 nparams++;
-                if (ls->token == '=') {
-                    Next(ls);
-                    FUN_0021c2e0(ls, 0x118);
+                if (((LexState_21d210 *)ls)->token == '=') {
+                    Next(((LexState_21d210 *)ls));
+                    FUN_0021c2e0((LexState_21d210 *)((LexState_21d210 *)ls), 0x118);
                     f->isVararg = 1;
                     break;
                 }
-            } else if (ls->token == 0x118) {
-                Next(ls);
-                int name = FUN_0021b080(ls, "arg", 3);
-                FuncState_21d210* cur = ls->fs;
+            } else if (((LexState_21d210 *)ls)->token == 0x118) {
+                Next(((LexState_21d210 *)ls));
+                int name = FUN_0021b080(((LexState_21d210 *)ls), "arg", 3);
+                FuncState_21d210* cur = ((LexState_21d210 *)ls)->fs;
                 CheckLocalLimit(cur, nparams + 1);
-                cur->actvar[cur->nactvar + nparams] = FUN_0021c490(ls, name);
+                cur->actvar[cur->nactvar + nparams] = FUN_0021c490(((LexState_21d210 *)ls), name);
                 nparams++;
                 f->isVararg = 1;
                 break;
             } else {
-                FUN_0021b060(ls, "<name> or `...' expected");
+                FUN_0021b060(((LexState_21d210 *)ls), "<name> or `...' expected");
             }
 
             if (f->isVararg)
                 break;
-            if (ls->token != ',')
+            if (((LexState_21d210 *)ls)->token != ',')
                 break;
-            Next(ls);
+            Next(((LexState_21d210 *)ls));
         }
     }
 
-    FUN_0021c570(ls, nparams);
+    FUN_0021c570((LexState_21d210 *)((LexState_21d210 *)ls), nparams);
     f->numparams = (unsigned char)(fs0->nactvar - f->isVararg);
-    FUN_00220850(fs0, fs0->nactvar);
+    FUN_00220850((FuncState_21d210 *)fs0, fs0->nactvar);
 }

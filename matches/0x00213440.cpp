@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_213440 {
   public:
     char pad[0x10];
@@ -9,10 +10,10 @@ struct State_213440 {
     unsigned int b;
 };
 void __cdecl helper1(Obj_213440*);
-void __cdecl helper2(Obj_213440*, int, int);
+extern "C" const char * __cdecl FUN_002160c0(void *, const char *, char *);
 extern "C" void __cdecl FUN_00213440(Obj_213440* self, int x, int y) {
     State_213440* s = (State_213440*)self->state;
     if (s->b >= s->a)
         helper1(self);
-    helper2(self, x, y);
+    FUN_002160c0((Obj_213440 *)self, (const char *)(hulk_uintptr)(int)x, (char *)(hulk_uintptr)(int)y);
 }

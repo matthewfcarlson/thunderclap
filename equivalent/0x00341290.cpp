@@ -2,7 +2,7 @@
 // FUN_00341290 @ 0x00341290
 // equiv-conv: FUN_00341290 eax stack stack
 #include "compat/ptr.h"
-void FUN_00341290(float *a, int n, float *w)
+extern "C" void FUN_00341290(float *a, int n, float *w)
 {
     int h = n >> 3;
     int o1 = h * 2;

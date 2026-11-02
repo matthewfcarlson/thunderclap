@@ -1,5 +1,5 @@
 extern "C" int FUN_00096600(const char*, const char*);
-int Fn(const char* s) {
+extern "C" int FUN_001d54c0(const char* s) {
     int r = 0;
     if (!FUN_00096600(s, "minor"))
         r = 1;

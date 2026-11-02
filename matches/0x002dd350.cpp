@@ -7,10 +7,10 @@ struct Obj_2dd350 {
     char pad2[1];
     u8_2dd350 mode;
 };
-void FUN_002dd350(Obj_2dd350* obj, u8_2dd350* p) {
-    u8_2dd350 mode = obj->mode;
+extern "C" void FUN_002dd350(void * obj, unsigned char * p) {
+    u8_2dd350 mode = ((Obj_2dd350 *)obj)->mode;
     if (mode < 8) {
-        u8_2dd350* end = p + obj->count;
+        u8_2dd350* end = p + ((Obj_2dd350 *)obj)->count;
         u8_2dd350* table;
         if (mode == 1)
             table = ((u8_2dd350*)&DAT_004d1188);

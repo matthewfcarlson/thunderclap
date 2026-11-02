@@ -7,7 +7,7 @@ extern "C" void FUN_002380a0(void* a, const char* s);
 extern "C" void FUN_0023efe0(void* a, const char* s);
 extern "C" void FUN_0023e930(void* a, const char* s);
 extern "C" void FUN_0023e3f0(void* a, const char* s);
-void Target(void* p) {
+extern "C" void FUN_002369c0(void* p) {
     FUN_0023f500(p, "breakPoint");
     FUN_0023ddc0(p, "comment");
     FUN_00239c50(p, "execute");

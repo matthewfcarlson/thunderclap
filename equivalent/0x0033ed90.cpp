@@ -12,7 +12,7 @@ struct TwiddleTable_33ed90 {
 
 /* Builds the FFT twiddle-factor table w[] for a transform of nw points (Ooura-style makewt). */
 // equiv-conv: FUN_0033ed90 eax ecx edi
-void FUN_0033ed90(TwiddleTable_33ed90 *ip, int nw, float *w)
+extern "C" void FUN_0033ed90(void *ip, int nw, float *w)
 {
     int nwh;
     int nw0;
@@ -21,8 +21,8 @@ void FUN_0033ed90(TwiddleTable_33ed90 *ip, int nw, float *w)
     float delta;
     hulk_freg wn_re;
 
-    ip->size = nw;
-    ip->one = 1;
+    ((TwiddleTable_33ed90 *)ip)->size = nw;
+    ((TwiddleTable_33ed90 *)ip)->one = 1;
     if (nw <= 2)
         return;
 

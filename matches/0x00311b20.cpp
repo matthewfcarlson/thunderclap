@@ -1,6 +1,6 @@
 void Rot(unsigned* a, unsigned* b, unsigned* c, int d, int e);
 
-void FUN_00311b20(unsigned* first, unsigned* last) {
+extern "C" void FUN_00311b20(unsigned* first, unsigned* last) {
     if (first == last)
         return;
     unsigned* i = first + 1;

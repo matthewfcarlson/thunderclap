@@ -12,7 +12,7 @@ struct Matrix {
 namespace D3D8 {
 void __stdcall D3DDevice_GetTransform(unsigned long type, Matrix* out);
 }
-void __stdcall FUN_0032fd40(Vec4_32fd40* result) {
+extern "C" void __stdcall FUN_0032fd40(void * result) {
     Vec4_32fd40 origin;
     Vec4_32fd40 transformed;
     Matrix view;
@@ -29,8 +29,8 @@ void __stdcall FUN_0032fd40(Vec4_32fd40* result) {
     inverse = product;
     inverse.FUN_0022cdb0();
     inverse.FUN_0022c310(&origin, &transformed);
-    result->x = transformed.x;
-    result->y = transformed.y;
-    result->z = transformed.z;
-    result->w = transformed.w;
+    ((Vec4_32fd40 *)result)->x = transformed.x;
+    ((Vec4_32fd40 *)result)->y = transformed.y;
+    ((Vec4_32fd40 *)result)->z = transformed.z;
+    ((Vec4_32fd40 *)result)->w = transformed.w;
 }

@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 4/4)
 // FUN_00240090 @ 0x00240090
 #include "compat/ptr.h"
-void __cdecl FUN_0023fa40(int* out, hulk_intptr text, int a, int b);
+extern "C" void __cdecl FUN_0023fa40(int *, char *, unsigned int, int);
 
 struct Handle_240090 {
     hulk_intptr text;                   // 0x00
@@ -26,7 +26,7 @@ void Handle_240090::FUN_00240090(const Handle_240090* other)
         unsigned int e = src->extra;
         kind = 2;
         extra = (unsigned short)e;
-        FUN_0023fa40((int*)&other, src->text, e, e);
+        FUN_0023fa40((int*)&other, (char *)(hulk_uintptr)(hulk_intptr)(src->text), (int)e, e);
         text = (hulk_intptr)other;
         extra = src->extra;
     } else {

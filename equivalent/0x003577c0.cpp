@@ -7,8 +7,13 @@ struct Vec3_3577c0 {
 
 // Is p inside the triangle v1 v2 v3 (all on the plane with normal n)?
 // x87: the edges, cz and the two dot products stay in registers (53 bits); cx and cy go through the frame
-bool FUN_003577c0(const Vec3_3577c0 *p, const Vec3_3577c0 *v1, const Vec3_3577c0 *v2, const Vec3_3577c0 *v3, const Vec3_3577c0 *n)
+extern "C" bool FUN_003577c0(const void * p_, const void * v1_, const void * v2_, const void * v3_, const void * n_)
 {
+    const Vec3_3577c0 * p = (const Vec3_3577c0 *)p_;
+    const Vec3_3577c0 * v1 = (const Vec3_3577c0 *)v1_;
+    const Vec3_3577c0 * v2 = (const Vec3_3577c0 *)v2_;
+    const Vec3_3577c0 * v3 = (const Vec3_3577c0 *)v3_;
+    const Vec3_3577c0 * n = (const Vec3_3577c0 *)n_;
     struct Frame {
         float cx, cy;
         float spare;

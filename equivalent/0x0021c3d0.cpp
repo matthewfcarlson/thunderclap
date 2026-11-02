@@ -2,7 +2,7 @@
 // FUN_0021c3d0 @ 0x0021c3d0
 struct Parser { char pad0[4]; int current; int previous; int type; int value; int nextType; int nextValue; };
 void __cdecl FUN_0021b060(Parser*, const char*);
-int __cdecl FUN_0021bbc0(Parser*, int*);
+extern "C" int __cdecl FUN_0021bbc0(void *, void *);
 // equiv-conv: FUN_0021c3d0 esi
 int FUN_0021c3d0(Parser* parser)
 {
@@ -15,7 +15,7 @@ int FUN_0021c3d0(Parser* parser)
         parser->type = parser->nextType;
         parser->nextType = 0x11f;
     } else {
-        parser->type = FUN_0021bbc0(parser, &parser->value);
+        parser->type = FUN_0021bbc0((Parser *)parser, (int *)(&parser->value));
     }
     return result;
 }

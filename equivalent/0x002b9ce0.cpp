@@ -10,9 +10,9 @@ struct V3_2b9ce0 {
     float x, y, z;
 };
 
-void __cdecl FUN_002b8840(float *outA, float *outB, unsigned c, float *d, float *e, Mat4_2b9ce0 *mat, V3_2b9ce0 *dir);
-void __cdecl FUN_002b8b30(float *outA, float *outB, unsigned c, float *d, float *e, Mat4_2b9ce0 *mat, V3_2b9ce0 *dir);
-void __cdecl FUN_002b8e20(float *out, unsigned c, float *d, float len);
+extern "C" void __cdecl FUN_002b8840(float *, float *, int, void *, void *, void *, void *);
+extern "C" void __cdecl FUN_002b8b30(float *, float *, int, void *, void *, void *, void *);
+extern "C" void __cdecl FUN_002b8e20(float *, int, float *, float);
 
 class BillboardCutOffQuad {
 public:
@@ -89,12 +89,12 @@ void BillboardCutOffQuad::FUN_002b9ce0(float *outA, float *outB, Mat4_2b9ce0 *fr
 
     f.scaleB = 1.0f;
     f.scaleD = 1.0f;
-    FUN_002b8840(&f.scaleB, &f.scaleD, f_c8, f_d4, f_dc, from, &f.t);
+    FUN_002b8840(&f.scaleB, &f.scaleD, (unsigned)f_c8, (float *)f_d4, (float *)f_dc, (Mat4_2b9ce0 *)from, (V3_2b9ce0 *)(&f.t));
     f.scaleG = 1.0f;
     f.scaleC = 1.0f;
     f.unused = 1.0f;
-    FUN_002b8b30(&f.scaleG, &f.scaleC, f_cc, f_e4, f_ec, to, &f.t);
-    FUN_002b8e20(&f.unused, f_d0, &f_104, f.len);
+    FUN_002b8b30(&f.scaleG, &f.scaleC, (unsigned)f_cc, (float *)f_e4, (float *)f_ec, (Mat4_2b9ce0 *)to, (V3_2b9ce0 *)(&f.t));
+    FUN_002b8e20(&f.unused, (unsigned)f_d0, &f_104, f.len);
 
     double s1 = (double)f.scaleG * f.scaleB;
     double s2 = (double)f.scaleC * f.scaleD;

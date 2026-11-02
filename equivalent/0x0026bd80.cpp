@@ -4,8 +4,8 @@
 
 struct Block_26bd80 { unsigned previousSize; unsigned size; Block_26bd80* next; Block_26bd80* previous; };
 struct Heap_26bd80 { unsigned limit; unsigned smallBins[10]; Block_26bd80* top; unsigned unused; Block_26bd80 sentinel; };
-void __cdecl FUN_0026b970(Heap_26bd80* heap);
-void __cdecl FUN_0026bd80(void* memory) {
+extern "C" void __cdecl FUN_0026b970(void *);
+extern "C" void __cdecl FUN_0026bd80(void* memory) {
     if (!memory) return;
     Block_26bd80* block = (Block_26bd80*)((char*)memory - 8);
     unsigned originalSize = block->size;
@@ -47,5 +47,5 @@ void __cdecl FUN_0026bd80(void* memory) {
         block->size = size | 1;
         ((Block_26bd80*)((char*)block + size))->previousSize = size;
     }
-    if (size >= 0x10000 && !(heap->limit & 1)) FUN_0026b970(heap);
+    if (size >= 0x10000 && !(heap->limit & 1)) FUN_0026b970((Heap_26bd80 *)heap);
 }

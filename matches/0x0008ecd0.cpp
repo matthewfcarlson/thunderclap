@@ -11,20 +11,20 @@ struct Obj_8ecd0 {
     char f3;
     int x, y;
 };
-void __cdecl FUN_0008ecd0(Obj_8ecd0* p) {
+extern "C" void __cdecl FUN_0008ecd0(void * p) {
     Init();
     if ((*(unsigned char*)&DAT_004dd839)) {
         DAT_0049ca1c = 0x280;
         DAT_0049ca20 = 0x240;
     }
-    p->mode = 7;
-    *((char*)p + 0x2f) = 1;
-    *((char*)p + 0x30) = 1;
-    p->a = DAT_0049ca1c;
-    p->b = DAT_0049ca20;
-    p->c = 0x20;
-    *((char*)p + 0x2c) = 0;
-    p->x = 0x11;
-    p->y = 0;
-    *((char*)p + 0x2e) = 1;
+    ((Obj_8ecd0 *)p)->mode = 7;
+    *((char*)((Obj_8ecd0 *)p) + 0x2f) = 1;
+    *((char*)((Obj_8ecd0 *)p) + 0x30) = 1;
+    ((Obj_8ecd0 *)p)->a = DAT_0049ca1c;
+    ((Obj_8ecd0 *)p)->b = DAT_0049ca20;
+    ((Obj_8ecd0 *)p)->c = 0x20;
+    *((char*)((Obj_8ecd0 *)p) + 0x2c) = 0;
+    ((Obj_8ecd0 *)p)->x = 0x11;
+    ((Obj_8ecd0 *)p)->y = 0;
+    *((char*)((Obj_8ecd0 *)p) + 0x2e) = 1;
 }

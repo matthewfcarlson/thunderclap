@@ -6,11 +6,11 @@ class Table {
     void init(__int64*, __int64*, int, int);
 };
 extern "C" int __cdecl atexit(void(__cdecl*)());
-extern "C" void __cdecl cleanup();
+extern "C" void __cdecl FUN_00364760();
 void __cdecl target() {
     __int64 a;
     __int64 b = hash("PointerUid", 0, 0);
     a = hash("Om", 0, 0);
     (*(Table*)&DAT_004e7be0).init(&a, &b, 32, 8);
-    atexit(cleanup);
+    atexit(FUN_00364760);
 }

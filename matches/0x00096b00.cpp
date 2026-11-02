@@ -11,18 +11,18 @@ struct Obj_96b00 {
     int b;
     int c;
 };
-void __cdecl Target(Obj_96b00* self, int* out) {
-    int n = self->state;
+extern "C" void __cdecl FUN_00096b00(void * self, int* out) {
+    int n = ((Obj_96b00 *)self)->state;
     --n;
     if (n != 0) {
-        out[0] = self->a;
-        out[1] = self->b;
-        out[2] = self->c;
+        out[0] = ((Obj_96b00 *)self)->a;
+        out[1] = ((Obj_96b00 *)self)->b;
+        out[2] = ((Obj_96b00 *)self)->c;
         return;
     }
-    if (!self->helper->Check(out)) {
-        out[0] = self->a;
-        out[1] = self->b;
-        out[2] = self->c;
+    if (!((Obj_96b00 *)self)->helper->Check(out)) {
+        out[0] = ((Obj_96b00 *)self)->a;
+        out[1] = ((Obj_96b00 *)self)->b;
+        out[2] = ((Obj_96b00 *)self)->c;
     }
 }

@@ -15,12 +15,12 @@ struct S_219730 {
     int n34;
     int n38;
 };
-void F(void* dst, S_219730* src) {
-    Copy(dst, src->pc, src->n2c * 4, 0);
-    Copy(dst, src->p10, src->n34 * 4, 0);
-    Copy(dst, src->p8, src->n28 * 8, 0);
-    Copy(dst, src->p14, src->n30 * 4, 0);
-    Copy(dst, src->p18, src->n38 * 12, 0);
-    Copy(dst, src->p1c, src->n24 * 4, 0);
-    Copy(dst, src, 0x48, 0);
+extern "C" void FUN_00219730(void* dst, void * src) {
+    Copy(dst, ((S_219730 *)src)->pc, ((S_219730 *)src)->n2c * 4, 0);
+    Copy(dst, ((S_219730 *)src)->p10, ((S_219730 *)src)->n34 * 4, 0);
+    Copy(dst, ((S_219730 *)src)->p8, ((S_219730 *)src)->n28 * 8, 0);
+    Copy(dst, ((S_219730 *)src)->p14, ((S_219730 *)src)->n30 * 4, 0);
+    Copy(dst, ((S_219730 *)src)->p18, ((S_219730 *)src)->n38 * 12, 0);
+    Copy(dst, ((S_219730 *)src)->p1c, ((S_219730 *)src)->n24 * 4, 0);
+    Copy(dst, ((S_219730 *)src), 0x48, 0);
 }

@@ -7,31 +7,31 @@ struct FftPlan {
 };
 
 // equiv-conv: FUN_0033ed90 eax ecx edi
-void FUN_0033ed90(FftPlan *plan, int quarter, float *table);
+extern "C" void __cdecl FUN_0033ed90(void *, int, float *);
 // equiv-conv: FUN_0033eef0 eax edx esi
-void FUN_0033eef0(FftPlan *plan, int n, float *table);
+extern "C" void __cdecl FUN_0033eef0(void *, int, float *);
 // equiv-conv: FUN_00342e50 eax esi stack stack
-void FUN_00342e50(float *table, float *data, int n, int limit);
+extern "C" void __cdecl FUN_00342e50(float *, float *, int, int);
 // equiv-conv: FUN_00342d90 eax esi stack stack
-void FUN_00342d90(float *table, float *data, int n, int limit);
+extern "C" void __cdecl FUN_00342d90(float *, float *, int, int);
 // equiv-conv: FUN_00342f10 ebx stack stack stack
-void FUN_00342f10(float *table, int n, float *data, int limit);
+extern "C" void __cdecl FUN_00342f10(float *, int, float *, int);
 // equiv-conv: FUN_00343ce0 eax ecx stack stack stack
-void FUN_00343ce0(float *table, float *data, int n, int *reorder, int count);
+extern "C" void __cdecl FUN_00343ce0(float *, float *, int, int *, int);
 // equiv-conv: FUN_00343bb0 eax ecx stack stack stack
-void FUN_00343bb0(float *table, float *data, int n, int *reorder, int count);
+extern "C" void __cdecl FUN_00343bb0(float *, float *, int, int *, int);
 
 void __stdcall FUN_00343f50(int n, int direction, float *data, FftPlan *plan, float *table)
 {
     int count = plan->count;
     if (n > count * 4) {
-        FUN_0033ed90(plan, n >> 2, table);
+        FUN_0033ed90((FftPlan *)plan, n >> 2, table);
         count = n >> 2;
     }
     int limit = plan->size;
     if (n > limit) {
         limit = n;
-        FUN_0033eef0(plan, n, table + count);
+        FUN_0033eef0((FftPlan *)plan, n, table + count);
     }
 
     if (direction < 0) {

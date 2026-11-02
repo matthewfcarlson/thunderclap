@@ -210,7 +210,7 @@ char __cdecl FUN_00044500(int v);
 float __cdecl FUN_00224f10(V3 *v);
 void __cdecl FUN_00224d70(float f, V3 *v);
 // equiv-conv: FUN_00014210 eax ecx edx esi
-void FUN_00014210(int mode, Player *frame, RefObj *obj, V3 *out);
+extern "C" void __cdecl FUN_00014210(int, void *, void *, void *);
 
 struct Frame {
     int slot0;                     // E-0xd4
@@ -382,7 +382,7 @@ void SpawnAction::FUN_0001a710(Item *arg1, V3 *arg2, V3 *arg3)
             if (O->FUN_001d72e0() != 0 && f.l34.FUN_000111f0() > 0.0f) {
                 int m = f20->fd8;
                 RefObj *q2 = O->FUN_001d72e0();
-                FUN_00014210(m, Y, q2, &f.l40);
+                FUN_00014210(m, (Player *)Y, (RefObj *)q2, (V3 *)(&f.l40));
                 float len = FUN_00224f10(&f.l40);
                 f.l28.x = f.l34.x;
                 f.l28.y = f.l34.y;

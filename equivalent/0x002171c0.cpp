@@ -5,7 +5,7 @@ struct Node { Node* next; unsigned char type; unsigned char flags; char pad[0x42
 struct Context { char pad[0x14]; unsigned int flags; Node* tail; };
 struct Owner_2171c0 { char pad[0x10]; Context* context; };
 // equiv-conv: FUN_00216d30 ecx eax
-void FUN_00216d30(Owner_2171c0* owner, Node* node);
+extern "C" void __cdecl FUN_00216d30(void *, void *);
 Node** __cdecl FUN_002171c0(Owner_2171c0* owner, Node** link, int mode, int* budget, int* count) {
  Context* context=owner->context;
  unsigned int mask=context->flags ^ 3;
@@ -26,7 +26,7 @@ Node** __cdecl FUN_002171c0(Owner_2171c0* owner, Node** link, int mode, int* bud
    } else {
     *link=node->next;
     if(node==context->tail) context->tail=node->next;
-    FUN_00216d30(owner, node);
+    FUN_00216d30((Owner_2171c0 *)owner, (Node *)node);
     remaining-=4;
     if(count) --*count;
    }

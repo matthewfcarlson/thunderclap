@@ -13,7 +13,7 @@ typedef float hulk_fslot;
 #endif
 
 // equiv-conv: FUN_00342180 eax ecx
-void FUN_00342180(float *d, float *c)
+extern "C" void FUN_00342180(float *d, float *c)
 {
     hulk_fslot k1 = c[1];
     hulk_fslot k4 = c[4];

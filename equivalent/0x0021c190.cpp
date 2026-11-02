@@ -9,16 +9,17 @@ struct State {
     int kind;
     int nextValue;
 };
-int __cdecl FUN_0021bbc0(State *, int *);
+extern "C" int __cdecl FUN_0021bbc0(void *, void *);
 // equiv-conv: FUN_0021c190 esi
-void FUN_0021c190(State *state)
+extern "C" void FUN_0021c190(void * state_)
 {
+    State * state = (State *)state_;
     state->current = state->previous;
     if (state->kind != 0x11f) {
         state->result = state->kind;
         state->value = state->nextValue;
         state->kind = 0x11f;
     } else {
-        state->result = FUN_0021bbc0(state, &state->value);
+        state->result = FUN_0021bbc0((State *)state, (int *)(&state->value));
     }
 }

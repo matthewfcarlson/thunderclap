@@ -22,13 +22,13 @@ struct Obj_27f6f0 {
     Buffer_27f6f0* buffer;
     char p2[0x14];
 };
-void __stdcall Target(Obj_27f6f0* self) {
+extern "C" void __stdcall FUN_0027f6f0(void * self) {
     char local[12];
-    if (self->index != 0xffff) {
-        Conv* c = (Conv*)((char*)*((void**)((char*)self->a + 0x1c)) + (self->index << 6));
-        c->Run((char*)self + 0x14, local);
-        self->buffer->f8(local);
+    if (((Obj_27f6f0 *)self)->index != 0xffff) {
+        Conv* c = (Conv*)((char*)*((void**)((char*)((Obj_27f6f0 *)self)->a + 0x1c)) + (((Obj_27f6f0 *)self)->index << 6));
+        c->Run((char*)((Obj_27f6f0 *)self) + 0x14, local);
+        ((Obj_27f6f0 *)self)->buffer->f8(local);
     } else {
-        self->buffer->f8((char*)self + 0x14);
+        ((Obj_27f6f0 *)self)->buffer->f8((char*)((Obj_27f6f0 *)self) + 0x14);
     }
 }

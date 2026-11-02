@@ -77,35 +77,36 @@ struct Frame_14efd0 {
 };
 
 // equiv-conv: FUN_0014efd0 ebx esi edi
-void FUN_0014efd0(Owner_14efd0 *owner, Config_14efd0 *cfg, State_14efd0 *st)
+extern "C" void FUN_0014efd0(void *owner, void *cfg, void * st_)
 {
+    State_14efd0 * st = (State_14efd0 *)st_;
     Frame_14efd0 f;
-    f.t = owner->FUN_000592a0()->FUN_00059a30()->FUN_000354c0();
-    Marker *m = owner->GetMarker();
-    if (m != 0 && cfg->f44 == 0) {
+    f.t = ((Owner_14efd0 *)owner)->FUN_000592a0()->FUN_00059a30()->FUN_000354c0();
+    Marker *m = ((Owner_14efd0 *)owner)->GetMarker();
+    if (m != 0 && ((Config_14efd0 *)cfg)->f44 == 0) {
         st->FUN_00059370(m);
         f.tmp.x = st->f28;
         f.tmp.y = 0;
         f.tmp.z = st->f30;
         f.tmp.FUN_0022d110();
     } else {
-        st->f74 = cfg->f10;
+        st->f74 = ((Config_14efd0 *)cfg)->f10;
         st->axis = (*(Vec3_14efd0*)&DAT_004afa08);
-        FUN_00224d70(f.t + cfg->f14, &st->axis);
-        float t2 = f.t + cfg->f30;
+        FUN_00224d70(f.t + ((Config_14efd0 *)cfg)->f14, &st->axis);
+        float t2 = f.t + ((Config_14efd0 *)cfg)->f30;
         f.tmp = (*(Vec3_14efd0*)&DAT_004afa08);
         FUN_00224d70(t2, &f.tmp);
     }
-    st->f0 = cfg->f18;
-    st->f4 = cfg->f1c;
-    st->f54 += cfg->f24;
-    st->f24 = cfg->f28;
-    st->f58 = cfg->f2c;
-    st->f68 = cfg->f40;
-    if (cfg->f20 >= (*(float*)&DAT_003f32e0))
-        st->f78 = cfg->f20;
-    float u = cfg->f38;
+    st->f0 = ((Config_14efd0 *)cfg)->f18;
+    st->f4 = ((Config_14efd0 *)cfg)->f1c;
+    st->f54 += ((Config_14efd0 *)cfg)->f24;
+    st->f24 = ((Config_14efd0 *)cfg)->f28;
+    st->f58 = ((Config_14efd0 *)cfg)->f2c;
+    st->f68 = ((Config_14efd0 *)cfg)->f40;
+    if (((Config_14efd0 *)cfg)->f20 >= (*(float*)&DAT_003f32e0))
+        st->f78 = ((Config_14efd0 *)cfg)->f20;
+    float u = ((Config_14efd0 *)cfg)->f38;
     if (u <= (*(float*)&DAT_003f32e0))
-        u = cfg->f2c;
-    st->FUN_000595f0(&f.tmp, cfg->f34, u, cfg->f3c);
+        u = ((Config_14efd0 *)cfg)->f2c;
+    st->FUN_000595f0(&f.tmp, ((Config_14efd0 *)cfg)->f34, u, ((Config_14efd0 *)cfg)->f3c);
 }

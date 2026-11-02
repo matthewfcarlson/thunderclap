@@ -1,6 +1,6 @@
 typedef unsigned short ushort;
 extern int Fmt(char* buf, int n, const char* fmt, char* va);
-extern void Mk(int* out, char* src, unsigned n, int len);
+extern "C" void __cdecl FUN_0023fa40(int *, char *, unsigned int, int);
 struct Out_23fde0 {
     int p;
     ushort flag;
@@ -15,7 +15,7 @@ Out_23fde0* Fn(Out_23fde0* out, int x, const char* fmt, ...) {
     buf[0xfff] = 0;
     out->flag = 2;
     int tmp;
-    Mk(&tmp, buf, n, n);
+    FUN_0023fa40(&tmp, buf, (unsigned)n, n);
     out->p = tmp;
     return out;
 }

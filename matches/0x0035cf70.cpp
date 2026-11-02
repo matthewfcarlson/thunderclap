@@ -6,7 +6,7 @@ class Thing {
   public:
     void Init(const char* name, int flag);
 };
-void __cdecl FUN_00363c70(void);
+extern "C" void __cdecl FUN_00363c70(void);
 void __cdecl FUN_0035cf70(void) {
     (*(Thing*)&DAT_004dd2d0).Init("sound/rsd", 0);
     _atexit(FUN_00363c70);

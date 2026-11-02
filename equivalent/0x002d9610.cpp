@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1854 inputs, branch coverage 24/24)
 // FUN_002d9610 @ 0x002d9610
 struct ImageInfo_2d9610 { unsigned count; unsigned endOffset; unsigned char kind; unsigned char depth; };
-void __cdecl FUN_002d9610(const ImageInfo_2d9610* info, unsigned char* buffer) {
-    unsigned n = info->count;
-    if (info->kind != 6 && info->kind != 4) return;
-    unsigned char* p = buffer + info->endOffset;
-    if (info->kind == 6) {
-        if (info->depth == 8) {
+extern "C" void __cdecl FUN_002d9610(const void * info, unsigned char* buffer) {
+    unsigned n = ((const ImageInfo_2d9610 *)info)->count;
+    if (((const ImageInfo_2d9610 *)info)->kind != 6 && ((const ImageInfo_2d9610 *)info)->kind != 4) return;
+    unsigned char* p = buffer + ((const ImageInfo_2d9610 *)info)->endOffset;
+    if (((const ImageInfo_2d9610 *)info)->kind == 6) {
+        if (((const ImageInfo_2d9610 *)info)->depth == 8) {
             while (n--) {
                 unsigned char a = p[-1];
                 unsigned char b = p[-2];
@@ -32,7 +32,7 @@ void __cdecl FUN_002d9610(const ImageInfo_2d9610* info, unsigned char* buffer) {
             }
         }
     } else {
-        if (info->depth == 8) {
+        if (((const ImageInfo_2d9610 *)info)->depth == 8) {
             while (n--) {
                 unsigned char a = p[-1];
                 unsigned char b = p[-2];

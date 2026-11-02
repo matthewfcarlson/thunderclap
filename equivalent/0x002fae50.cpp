@@ -11,14 +11,15 @@ struct Triangle_2fae50 {
 // Moeller-Trumbore ray / triangle test; *outT receives the hit distance.
 // volatile floats are values the original spills to the stack (rounded to 32 bits); doubles are values it
 // keeps in x87 registers.
-bool FUN_002fae50(const Triangle_2fae50 *tri, const Vec3_2fae50 *origin, const Vec3_2fae50 *dir, float *outT)
+extern "C" bool FUN_002fae50(const void *tri, const void *origin, const void * dir_, float *outT)
 {
-    volatile float e1x = tri->b.x - tri->a.x;
-    volatile float e1y = tri->b.y - tri->a.y;
-    volatile float e1z = tri->b.z - tri->a.z;
-    volatile float e2x = tri->c.x - tri->a.x;
-    volatile float e2y = tri->c.y - tri->a.y;
-    volatile float e2z = tri->c.z - tri->a.z;
+    const Vec3_2fae50 * dir = (const Vec3_2fae50 *)dir_;
+    volatile float e1x = ((const Triangle_2fae50 *)tri)->b.x - ((const Triangle_2fae50 *)tri)->a.x;
+    volatile float e1y = ((const Triangle_2fae50 *)tri)->b.y - ((const Triangle_2fae50 *)tri)->a.y;
+    volatile float e1z = ((const Triangle_2fae50 *)tri)->b.z - ((const Triangle_2fae50 *)tri)->a.z;
+    volatile float e2x = ((const Triangle_2fae50 *)tri)->c.x - ((const Triangle_2fae50 *)tri)->a.x;
+    volatile float e2y = ((const Triangle_2fae50 *)tri)->c.y - ((const Triangle_2fae50 *)tri)->a.y;
+    volatile float e2z = ((const Triangle_2fae50 *)tri)->c.z - ((const Triangle_2fae50 *)tri)->a.z;
 
     double px = (double)e2z * dir->y - (double)e2y * dir->z;
     double py = (double)e2x * dir->z - (double)e2z * dir->x;
@@ -31,9 +32,9 @@ bool FUN_002fae50(const Triangle_2fae50 *tri, const Vec3_2fae50 *origin, const V
     if (detx < 1e-5f)
         return false;
 
-    volatile float sx = origin->x - tri->a.x;
-    volatile float sy = origin->y - tri->a.y;
-    double szx = (double)origin->z - tri->a.z;
+    volatile float sx = ((const Vec3_2fae50 *)origin)->x - ((const Triangle_2fae50 *)tri)->a.x;
+    volatile float sy = ((const Vec3_2fae50 *)origin)->y - ((const Triangle_2fae50 *)tri)->a.y;
+    double szx = (double)((const Vec3_2fae50 *)origin)->z - ((const Triangle_2fae50 *)tri)->a.z;
     volatile float sz = (float)szx;
 
     double ud = szx * pz;

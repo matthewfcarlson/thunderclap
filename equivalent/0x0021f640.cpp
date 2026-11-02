@@ -21,10 +21,10 @@ struct LexState_21f640 {
     int nestlevel;
 };
 
-int FUN_0021bbc0(LexState_21f640 *ls, int *seminfo);
+extern "C" int __cdecl FUN_0021bbc0(void *, void *);
 void FUN_0021afd0(LexState_21f640 *ls, const char *msg, int token);
 // equiv-conv: FUN_0021f500 eax
-int FUN_0021f500(LexState_21f640 *ls);
+extern "C" int __cdecl FUN_0021f500(void *);
 
 static void next(LexState_21f640 *ls)
 {
@@ -34,7 +34,7 @@ static void next(LexState_21f640 *ls)
         ls->seminfo = ls->lookaheadSeminfo;
         ls->lookaheadToken = 0x11f;
     } else {
-        ls->token = FUN_0021bbc0(ls, &ls->seminfo);
+        ls->token = FUN_0021bbc0((LexState_21f640 *)ls, (int *)(&ls->seminfo));
     }
 }
 
@@ -53,19 +53,19 @@ static bool block_follow(int token)
     }
 }
 
-void FUN_0021f640(LexState_21f640 *ls)
+extern "C" void FUN_0021f640(void *ls)
 {
-    ls->nestlevel++;
-    if (ls->nestlevel > 200)
-        FUN_0021afd0(ls, "chunk has too many syntax levels", 0);
+    ((LexState_21f640 *)ls)->nestlevel++;
+    if (((LexState_21f640 *)ls)->nestlevel > 200)
+        FUN_0021afd0(((LexState_21f640 *)ls), "chunk has too many syntax levels", 0);
 
-    while (!block_follow(ls->token)) {
-        int islast = FUN_0021f500(ls);
-        if (ls->token == ';')
-            next(ls);
-        ls->fs->freereg = ls->fs->nactvar;
+    while (!block_follow(((LexState_21f640 *)ls)->token)) {
+        int islast = FUN_0021f500((LexState_21f640 *)((LexState_21f640 *)ls));
+        if (((LexState_21f640 *)ls)->token == ';')
+            next(((LexState_21f640 *)ls));
+        ((LexState_21f640 *)ls)->fs->freereg = ((LexState_21f640 *)ls)->fs->nactvar;
         if (islast)
             break;
     }
-    ls->nestlevel--;
+    ((LexState_21f640 *)ls)->nestlevel--;
 }

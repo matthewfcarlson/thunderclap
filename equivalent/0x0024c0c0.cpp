@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_0024c0c0 @ 0x0024c0c0
+#include "compat/ptr.h"
 struct Stream {
     char pad0[8];
     int handle;
@@ -8,21 +9,21 @@ struct Stream {
     int status;
 };
 
-int __cdecl FUN_00259c50(int handle);
+extern "C" void * __cdecl FUN_00259c50(void *);
 void __cdecl FUN_00258e50(int handle);
 // equiv-conv: FUN_0024bc70 eax
-void FUN_0024bc70(Stream* s);
+extern "C" void __cdecl FUN_0024bc70(void *);
 
 extern "C" void __cdecl FUN_0024c0c0(Stream* s)
 {
     if (s->state == 0 || s->state == 5)
         return;
     if (s->state == 2) {
-        if (FUN_00259c50(s->handle) == 1)
+        if (((int)(hulk_uintptr)FUN_00259c50((void *)(hulk_uintptr)(int)(s->handle))) == 1)
             FUN_00258e50(s->handle);
     }
     s->state = 5;
     do {
-        FUN_0024bc70(s);
+        FUN_0024bc70((Stream *)s);
     } while (s->status == 3);
 }

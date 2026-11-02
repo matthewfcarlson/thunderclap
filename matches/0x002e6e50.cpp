@@ -20,39 +20,39 @@ struct Stream {
     void* context;
 };
 extern void* __cdecl FUN_002ea320(Stream*, Lookup_2e6e50, unsigned);
-extern int __cdecl FUN_002e6e00(Stream*);
+extern "C" int __cdecl FUN_002e6e00(void *);
 extern int __cdecl FUN_002e6db0(Stream*);
-int __cdecl FUN_002e6e50(Stream* s, int bits, const char* version, int size) {
+extern "C" int __cdecl FUN_002e6e50(void * s, int bits, const char* version, int size) {
     if (!version || version[0] != '1' || size != 56)
         return -6;
-    if (!s)
+    if (!((Stream *)s))
         return -2;
-    s->status = 0;
-    if (!s->allocate) {
-        s->allocate = FUN_002eb120;
-        s->context = 0;
+    ((Stream *)s)->status = 0;
+    if (!((Stream *)s)->allocate) {
+        ((Stream *)s)->allocate = FUN_002eb120;
+        ((Stream *)s)->context = 0;
     }
-    if (!s->release)
-        s->release = FUN_002eb140;
-    s->state = (State_2e6e50*)s->allocate(s->context, 1, 24);
-    if (!s->state)
+    if (!((Stream *)s)->release)
+        ((Stream *)s)->release = FUN_002eb140;
+    ((Stream *)s)->state = (State_2e6e50*)((Stream *)s)->allocate(((Stream *)s)->context, 1, 24);
+    if (!((Stream *)s)->state)
         return -4;
-    s->state->table = 0;
-    s->state->raw = 0;
+    ((Stream *)s)->state->table = 0;
+    ((Stream *)s)->state->raw = 0;
     if (bits < 0) {
         bits = -bits;
-        s->state->raw = 1;
+        ((Stream *)s)->state->raw = 1;
     }
     if (bits < 8 || bits > 15) {
-        FUN_002e6e00(s);
+        FUN_002e6e00((Stream *)((Stream *)s));
         return -2;
     }
-    s->state->bits = bits;
-    s->state->table = FUN_002ea320(s, s->state->raw ? 0 : FUN_002eafc0, 1u << bits);
-    if (!s->state->table) {
-        FUN_002e6e00(s);
+    ((Stream *)s)->state->bits = bits;
+    ((Stream *)s)->state->table = FUN_002ea320(((Stream *)s), ((Stream *)s)->state->raw ? 0 : FUN_002eafc0, 1u << bits);
+    if (!((Stream *)s)->state->table) {
+        FUN_002e6e00((Stream *)((Stream *)s));
         return -4;
     }
-    FUN_002e6db0(s);
+    FUN_002e6db0(((Stream *)s));
     return 0;
 }

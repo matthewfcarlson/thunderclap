@@ -6,8 +6,8 @@ class Effect {
     Effect(const char*, int);
 };
 extern "C" int __cdecl atexit(void(__cdecl*)());
-extern "C" void __cdecl cleanup();
+extern "C" void __cdecl FUN_003642d0();
 void init() {
     (*(Effect*)&DAT_004e63c8).Effect::Effect("ListenerEffectPs2", 0);
-    atexit(cleanup);
+    atexit(FUN_003642d0);
 }

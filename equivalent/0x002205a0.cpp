@@ -7,8 +7,9 @@ struct Proto_2205a0 { char pad0[0xc]; unsigned int *code; };
 struct FuncState_2205a0 { Proto_2205a0 *f; };
 
 // equiv-conv: FUN_002205a0 ecx eax stack
-int __cdecl FUN_002205a0(int list, FuncState_2205a0 *fs, int cond)
+extern "C" int __cdecl FUN_002205a0(int list, void * fs_, int cond)
 {
+    FuncState_2205a0 * fs = (FuncState_2205a0 *)fs_;
     while (list != -1) {
         unsigned int *pi = &fs->f->code[list];
         unsigned int *control = pi;

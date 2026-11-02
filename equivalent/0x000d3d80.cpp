@@ -60,7 +60,7 @@ struct FETextInput_nv_d3d80 {
     char FUN_000dd350(Arg_d3d80 *arg, void *p2, Owner_d3d80 *owner);
 };
 
-char __cdecl FUN_000d3d80(void *p1, void *p2, Owner_d3d80 *owner, Arg_d3d80 *arg, Typed *typed)
+extern "C" char __cdecl FUN_000d3d80(void *p1, void *p2, Owner_d3d80 *owner, Arg_d3d80 *arg, Typed *typed)
 {
     if (typed->GetTypeId() == (*(unsigned long long*)&DAT_004ddf30)) {
         int a = arg->FUN_000fad90();

@@ -6,7 +6,7 @@ struct Manager_14f570 { void FUN_000437a0(unsigned,Local_14f570*,State_14f570*,u
 struct Intermediate_14f570 { Manager_14f570* FUN_00059a30(); };
 struct Context { char pad[12]; unsigned field; Intermediate_14f570* FUN_000592a0(); };
 // equiv-conv: FUN_0014f2f0 eax esi edi
-void FUN_0014f2f0(Context*,void*,Local_14f570*);
+extern "C" void FUN_0014f2f0(Context*,void*,Local_14f570*);
 namespace hulkfight { namespace motion {
 struct HitReactionFloatAction {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual unsigned char vfunc_3(unsigned,unsigned); virtual void vfunc_4(); virtual void vfunc_5();

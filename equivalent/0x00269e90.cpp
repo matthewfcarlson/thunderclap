@@ -4,7 +4,7 @@ extern "C" unsigned char __cdecl FUN_002716c0(const char* input, int* consumed, 
 extern "C" int __cdecl FUN_00271c00(int parsed, char* output, int available, int mode, int* produced, int flags);
 
 // equiv-conv: FUN_00269e90 eax ecx stack stack stack
-int __cdecl FUN_00269e90(const char* source, char* dest, int mode, int capacity, int flags) {
+extern "C" int __cdecl FUN_00269e90(const char* source, char* dest, int mode, int capacity, int flags) {
     int written = 0;
     while (*source) {
         struct { int parsed; int consumed; int produced; } v;

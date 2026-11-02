@@ -44,21 +44,22 @@ static float Smooth(float w)
     return (3.0f - 2.0f * w) * w * w;
 }
 
-void __cdecl FUN_002a5570(float t, Mesh_2a5570 *a, Mesh_2a5570 *b, unsigned int mask, Ripple *p)
+extern "C" void __cdecl FUN_002a5570(float t, void *a, void *b, unsigned int mask, void * p_)
 {
-    unsigned int n = a->count;
-    V3_2a5570 *bv = b->verts;
-    V3_2a5570 *av = a->verts;
+    Ripple * p = (Ripple *)p_;
+    unsigned int n = ((Mesh_2a5570 *)a)->count;
+    V3_2a5570 *bv = ((Mesh_2a5570 *)b)->verts;
+    V3_2a5570 *av = ((Mesh_2a5570 *)a)->verts;
     V2_2a5570 *srcUv[4];
     V2_2a5570 *dstUv[4];
-    srcUv[0] = a->uv[0];
-    dstUv[0] = b->uv[0];
-    srcUv[1] = a->uv[1];
-    dstUv[1] = b->uv[1];
-    srcUv[2] = a->uv[2];
-    dstUv[2] = b->uv[2];
-    srcUv[3] = a->uv[3];
-    dstUv[3] = b->uv[3];
+    srcUv[0] = ((Mesh_2a5570 *)a)->uv[0];
+    dstUv[0] = ((Mesh_2a5570 *)b)->uv[0];
+    srcUv[1] = ((Mesh_2a5570 *)a)->uv[1];
+    dstUv[1] = ((Mesh_2a5570 *)b)->uv[1];
+    srcUv[2] = ((Mesh_2a5570 *)a)->uv[2];
+    dstUv[2] = ((Mesh_2a5570 *)b)->uv[2];
+    srcUv[3] = ((Mesh_2a5570 *)a)->uv[3];
+    dstUv[3] = ((Mesh_2a5570 *)b)->uv[3];
     volatile float phase = t * p->speed * (*(float*)&DAT_0042d9a4);
     if (n == 0)
         return;

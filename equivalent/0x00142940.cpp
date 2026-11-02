@@ -16,9 +16,9 @@ struct World { char pad[0x54]; struct Service* service; };
 struct Service { Provider* FUN_000862a0(); };
 struct Pair { int first; int second; };
 // equiv-conv: FUN_00142940 eax
-int FUN_00142940(Pair* pair) {
-    int first = pair->first;
-    int second = pair->second;
+extern "C" int FUN_00142940(void * pair) {
+    int first = ((Pair *)pair)->first;
+    int second = ((Pair *)pair)->second;
     if (!(first | second)) return 0;
     Provider* provider = DAT_004dd700->service->FUN_000862a0();
     Inventory* inventory = provider->FUN_00203d70();

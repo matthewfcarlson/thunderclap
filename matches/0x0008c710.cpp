@@ -2,9 +2,9 @@ struct S_8c710 {
     char pad[0x10];
     unsigned char b[0x20];
 };
-void f(S_8c710* a, unsigned short* d) {
+extern "C" void FUN_0008c710(void * a, unsigned short* d) {
     if (d) {
-        unsigned char* p = a->b;
+        unsigned char* p = ((S_8c710 *)a)->b;
         int i = 0;
         do {
             if (p[0] == 0)

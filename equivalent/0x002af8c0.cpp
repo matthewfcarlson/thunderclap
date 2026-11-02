@@ -18,25 +18,25 @@ struct Header_2af8c0 {
 };
 
 // equiv-conv: FUN_002af8c0 esi edi
-void FUN_002af8c0(Header_2af8c0 *h, Reader *r)
+extern "C" void FUN_002af8c0(void *h, void *r)
 {
     unsigned tmp;
 
-    r->FUN_002647e0(&tmp, 1, 4, 1); h->magic = tmp;
-    r->FUN_002647e0(&tmp, 1, 1, 1); h->b4 = (unsigned char)tmp;
-    r->FUN_002647e0(&tmp, 1, 1, 1); h->b5 = (unsigned char)tmp;
-    r->FUN_002647e0(&tmp, 1, 1, 1); h->b6 = (unsigned char)tmp;
-    r->FUN_002647e0(&tmp, 1, 1, 1); h->b7 = (unsigned char)tmp;
-    r->FUN_002647e0(&tmp, 1, 4, 1); h->w8 = tmp;
-    r->FUN_002647e0(&tmp, 1, 4, 1); h->wc = tmp;
-    r->FUN_002647e0(&tmp, 1, 4, 1); h->w10 = tmp;
-    r->FUN_002647e0(&tmp, 1, 4, 1); h->w14 = tmp;
-    r->FUN_002647e0(&tmp, 1, 2, 1); h->s18 = (unsigned short)tmp;
-    r->FUN_002647e0(&tmp, 1, 2, 1); h->s1a = (unsigned short)tmp;
-    r->FUN_002647e0(&tmp, 1, 4, 1); h->w1c = tmp;
-    r->FUN_002647e0(&tmp, 1, 4, 1); h->w20 = tmp;
-    r->FUN_002647e0(&tmp, 1, 4, 1); h->w24 = tmp;
-    r->FUN_002647e0(&tmp, 1, 4, 1); h->w28 = tmp;
-    r->FUN_002647e0(&tmp, 1, 4, 1); h->w2c = tmp;
-    r->FUN_002647e0(&tmp, 1, 4, 1); h->w30 = tmp;
+    ((Reader *)r)->FUN_002647e0(&tmp, 1, 4, 1); ((Header_2af8c0 *)h)->magic = tmp;
+    ((Reader *)r)->FUN_002647e0(&tmp, 1, 1, 1); ((Header_2af8c0 *)h)->b4 = (unsigned char)tmp;
+    ((Reader *)r)->FUN_002647e0(&tmp, 1, 1, 1); ((Header_2af8c0 *)h)->b5 = (unsigned char)tmp;
+    ((Reader *)r)->FUN_002647e0(&tmp, 1, 1, 1); ((Header_2af8c0 *)h)->b6 = (unsigned char)tmp;
+    ((Reader *)r)->FUN_002647e0(&tmp, 1, 1, 1); ((Header_2af8c0 *)h)->b7 = (unsigned char)tmp;
+    ((Reader *)r)->FUN_002647e0(&tmp, 1, 4, 1); ((Header_2af8c0 *)h)->w8 = tmp;
+    ((Reader *)r)->FUN_002647e0(&tmp, 1, 4, 1); ((Header_2af8c0 *)h)->wc = tmp;
+    ((Reader *)r)->FUN_002647e0(&tmp, 1, 4, 1); ((Header_2af8c0 *)h)->w10 = tmp;
+    ((Reader *)r)->FUN_002647e0(&tmp, 1, 4, 1); ((Header_2af8c0 *)h)->w14 = tmp;
+    ((Reader *)r)->FUN_002647e0(&tmp, 1, 2, 1); ((Header_2af8c0 *)h)->s18 = (unsigned short)tmp;
+    ((Reader *)r)->FUN_002647e0(&tmp, 1, 2, 1); ((Header_2af8c0 *)h)->s1a = (unsigned short)tmp;
+    ((Reader *)r)->FUN_002647e0(&tmp, 1, 4, 1); ((Header_2af8c0 *)h)->w1c = tmp;
+    ((Reader *)r)->FUN_002647e0(&tmp, 1, 4, 1); ((Header_2af8c0 *)h)->w20 = tmp;
+    ((Reader *)r)->FUN_002647e0(&tmp, 1, 4, 1); ((Header_2af8c0 *)h)->w24 = tmp;
+    ((Reader *)r)->FUN_002647e0(&tmp, 1, 4, 1); ((Header_2af8c0 *)h)->w28 = tmp;
+    ((Reader *)r)->FUN_002647e0(&tmp, 1, 4, 1); ((Header_2af8c0 *)h)->w2c = tmp;
+    ((Reader *)r)->FUN_002647e0(&tmp, 1, 4, 1); ((Header_2af8c0 *)h)->w30 = tmp;
 }

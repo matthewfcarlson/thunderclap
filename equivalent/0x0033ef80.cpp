@@ -16,7 +16,7 @@ static __forceinline void SwapPair(float *a, int j1, int k1)
     a[k1 + 1] = xi;
 }
 
-void FUN_0033ef80(int n, int *ip, float *a)
+extern "C" void FUN_0033ef80(int n, int *ip, float *a)
 {
     int j, j1, k, k1, l, m, m2;
 

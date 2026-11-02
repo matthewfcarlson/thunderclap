@@ -21,21 +21,21 @@ struct Table_21a960 {
     int count;
 };
 
-void FUN_0021a960(Writer_21a960 *w, Table_21a960 *t)
+extern "C" void FUN_0021a960(void *w, void *t)
 {
-    int count = t->count;
+    int count = ((Table_21a960 *)t)->count;
     int len = count;
-    w->write(w->ctx, &len, 4, w->arg);
+    ((Writer_21a960 *)w)->write(((Writer_21a960 *)w)->ctx, &len, 4, ((Writer_21a960 *)w)->arg);
     for (int i = 0; i < count; i++) {
-        Item_21a960 *it = t->items[i];
+        Item_21a960 *it = ((Table_21a960 *)t)->items[i];
         if (it != 0) {
             int n = it->length + 1;
             len = n;
-            w->write(w->ctx, &len, 4, w->arg);
-            w->write(w->ctx, it->data, n, w->arg);
+            ((Writer_21a960 *)w)->write(((Writer_21a960 *)w)->ctx, &len, 4, ((Writer_21a960 *)w)->arg);
+            ((Writer_21a960 *)w)->write(((Writer_21a960 *)w)->ctx, it->data, n, ((Writer_21a960 *)w)->arg);
         } else {
             len = 0;
-            w->write(w->ctx, &len, 4, w->arg);
+            ((Writer_21a960 *)w)->write(((Writer_21a960 *)w)->ctx, &len, 4, ((Writer_21a960 *)w)->arg);
         }
     }
 }

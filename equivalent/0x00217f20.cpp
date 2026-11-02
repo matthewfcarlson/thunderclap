@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 116 inputs, branch coverage 31/32, incomplete)
 // FUN_00217f20 @ 0x00217f20
+#include "compat/ptr.h"
 extern "C" void* memcpy(void* dst, const void* src, unsigned int n);
 
 struct TString_217f20 {
@@ -34,15 +35,16 @@ struct lua_State_217f20 {
 
 extern "C" int FUN_00217640(lua_State_217f20* L, TObject_217f20* o);
 TObject_217f20* FUN_002175b0(lua_State_217f20* L, TObject_217f20* o, int event);
-void FUN_00214d20(lua_State_217f20* L, TObject_217f20* p1, TObject_217f20* p2);
+extern "C" void __cdecl FUN_00214d20(void *, void *, const char *);
 void FUN_00214a90(lua_State_217f20* L, const char* fmt, ...);
-void FUN_00215460(lua_State_217f20* L, int n);
+extern "C" void __cdecl FUN_00215460(void *, int);
 void FUN_002159e0(lua_State_217f20* L, TObject_217f20* func, int nresults);
-char* FUN_0021a6b0(lua_State_217f20* L, Mbuffer_217f20* buff, unsigned int size);
+extern "C" void * __cdecl FUN_0021a6b0(void *, void **, hulk_uintptr);
 TString_217f20* FUN_00219430(lua_State_217f20* L, const char* str, unsigned int len);
 
-void FUN_00217f20(lua_State_217f20* L, int total, int last)
+extern "C" void FUN_00217f20(void * L_, int total, int last)
 {
+    lua_State_217f20 * L = (lua_State_217f20 *)L_;
     int n;
     do {
         TObject_217f20* top = L->base + last + 1;
@@ -64,7 +66,7 @@ void FUN_00217f20(lua_State_217f20* L, int total, int last)
                 }
                 if (tl > 0xfffffffdu)
                     FUN_00214a90(L, "string size overflow");
-                char* buffer = FUN_0021a6b0(L, &L->G->buff, tl);
+                char* buffer = ((char *)FUN_0021a6b0((lua_State_217f20 *)L, (void **)(Mbuffer_217f20 *)(&L->G->buff), (unsigned int)tl));
                 tl = 0;
                 for (int i = n; i > 0; i--) {
                     TString_217f20* s = (TString_217f20*)top[-i].value;
@@ -82,7 +84,7 @@ void FUN_00217f20(lua_State_217f20* L, int total, int last)
             if (tm->tt == 0)
                 tm = FUN_002175b0(L, b, 0xd);
             if (tm->tt != 6) {
-                FUN_00214d20(L, a, b);
+                FUN_00214d20((lua_State_217f20 *)L, (TObject_217f20 *)a, (const char *)(TObject_217f20 *)b);
             } else {
                 TObject_217f20* t = L->top;
                 t->tt = 6;
@@ -95,7 +97,7 @@ void FUN_00217f20(lua_State_217f20* L, int total, int last)
                 t[2].value = b->value;
                 int offset = (int)((char*)top - (char*)L->stack) - 0x10;
                 if ((char*)L->stack_last - (char*)L->top <= 0x18)
-                    FUN_00215460(L, 3);
+                    FUN_00215460((lua_State_217f20 *)L, 3);
                 TObject_217f20* func = L->top;
                 L->top = func + 3;
                 FUN_002159e0(L, func, 1);

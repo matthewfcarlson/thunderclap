@@ -25,14 +25,14 @@ struct CClosure {
 };
 
 void __cdecl FUN_00217440(lua_State_2134a0* L);
-CClosure* __cdecl FUN_00219520(lua_State_2134a0* L, int n);
+extern "C" void * __cdecl FUN_00219520(void *, int);
 
 // lua_pushcclosure
 void FUN_002134a0(lua_State_2134a0* L, int (__cdecl *fn)(lua_State_2134a0*), int n)
 {
     if (L->l_G->nblocks >= L->l_G->GCthreshold)
         FUN_00217440(L);
-    CClosure* cl = FUN_00219520(L, n);
+    CClosure* cl = ((CClosure *)FUN_00219520((lua_State_2134a0 *)L, n));
     cl->f = fn;
     L->top -= n;
     while (n--)

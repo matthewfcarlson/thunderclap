@@ -12,8 +12,8 @@ struct Item_ae130 {
     void FUN_000b3510(Block_ae130 *a, Block_ae130 *b);
 };
 
-void __cdecl FUN_000addd0(Block_ae130 *dst, Block_ae130 *src);
-void __cdecl FUN_000adf20(Block_ae130 *dst, Block_ae130 *src);
+extern "C" void __cdecl FUN_000addd0(void *, const void *);
+extern "C" void __cdecl FUN_000adf20(void *, const void *);
 
 
 class Accumulator_ae130 {
@@ -51,11 +51,11 @@ void Accumulator_ae130::FUN_000ae130()
                 second.v[k] = 0;
             items[i]->FUN_000b3510(&first, &second);
             if (items[i]->flag) {
-                FUN_000addd0(&blockC, &first);
-                FUN_000adf20(&blockD, &second);
+                FUN_000addd0((Block_ae130 *)(&blockC), (Block_ae130 *)(&first));
+                FUN_000adf20((Block_ae130 *)(&blockD), (Block_ae130 *)(&second));
             } else {
-                FUN_000addd0(&blockA, &first);
-                FUN_000adf20(&blockB, &second);
+                FUN_000addd0((Block_ae130 *)(&blockA), (Block_ae130 *)(&first));
+                FUN_000adf20((Block_ae130 *)(&blockB), (Block_ae130 *)(&second));
             }
         }
     }

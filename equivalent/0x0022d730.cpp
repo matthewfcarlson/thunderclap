@@ -4,7 +4,7 @@ struct V3_22d730 {
     float x, y, z;
 };
 
-bool FUN_0022d730(const V3_22d730 *p1, const V3_22d730 *d1, float smax, const V3_22d730 *p2, const V3_22d730 *d2,
+extern "C" bool FUN_0022d730(const V3_22d730 *p1, const V3_22d730 *d1, float smax, const V3_22d730 *p2, const V3_22d730 *d2,
                   float tmax, float *sOut, float *tOut)
 {
     double x0 = p1->x - p2->x;

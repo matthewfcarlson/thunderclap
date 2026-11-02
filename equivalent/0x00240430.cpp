@@ -4,7 +4,7 @@
 
 extern "C" int __cdecl sprintf(char *, const char *, ...);
 struct Text_240430 { char *data; unsigned int flags; unsigned short length; unsigned short spare; };
-extern "C" void __cdecl FUN_0023fa40(char **, const char *, int, int);
+extern "C" void __cdecl FUN_0023fa40(int *, char *, unsigned int, int);
 extern "C" void __cdecl FUN_00247570(void *);
 struct Object { Object *format(float); void FUN_0023ff50(Text_240430 *); };
 Object *Object::format(float value) {
@@ -14,7 +14,7 @@ Object *Object::format(float value) {
  text.flags=(text.flags & 0xffff0002U)|2;
  text.length=(unsigned short)count;
  char *data;
- FUN_0023fa40(&data,buffer,count,count);
+ FUN_0023fa40((int *)(char * *)(&data),(char *)(const char *)buffer,(int)count,count);
  text.data=data;
  FUN_0023ff50(&text);
  if ((unsigned short)text.flags==2) {

@@ -41,16 +41,16 @@ void __cdecl FUN_00215520(lua_State_2176c0 *L, int event, int line);
 
 // Lua 5.0 traceexec: L arrives in ebx and the new pc in edi.
 // equiv-conv: FUN_002176c0 ebx edi
-void FUN_002176c0(lua_State_2176c0 *L, Instruction *pc)
+extern "C" void FUN_002176c0(void *L, unsigned int *pc)
 {
-    unsigned char mask = L->hookmask;
-    CallInfo_2176c0 *ci = L->ci;
+    unsigned char mask = ((lua_State_2176c0 *)L)->hookmask;
+    CallInfo_2176c0 *ci = ((lua_State_2176c0 *)L)->ci;
     Instruction *oldpc = ci->savedpc;
     ci->savedpc = pc;
 
-    if (mask > 4 && L->hookcount == 0) {
-        L->hookcount = L->basehookcount;
-        FUN_00215520(L, 3, -1);
+    if (mask > 4 && ((lua_State_2176c0 *)L)->hookcount == 0) {
+        ((lua_State_2176c0 *)L)->hookcount = ((lua_State_2176c0 *)L)->basehookcount;
+        FUN_00215520(((lua_State_2176c0 *)L), 3, -1);
         return;
     }
 
@@ -60,6 +60,6 @@ void FUN_002176c0(lua_State_2176c0 *L, Instruction *pc)
         int newline = p->lineinfo ? p->lineinfo[npc] : 0;
         if (npc == 0 || pc <= oldpc ||
             newline != (p->lineinfo ? p->lineinfo[(int)(oldpc - p->code) - 1] : 0))
-            FUN_00215520(L, 2, newline);
+            FUN_00215520(((lua_State_2176c0 *)L), 2, newline);
     }
 }

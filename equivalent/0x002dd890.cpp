@@ -33,7 +33,7 @@ extern "C" void *FUN_00266e00(int a, int b);
 extern "C" void FUN_00267090(void *p);
 
 // equiv-conv: FUN_002dd890 esi ebx stack
-void FUN_002dd890(ImageInfo_2dd890 *info, Reader *r, Device_2dd890 *dev)
+extern "C" void FUN_002dd890(void *info, void *r, void *dev)
 {
     struct Frame {
         char pad0[9];
@@ -41,28 +41,28 @@ void FUN_002dd890(ImageInfo_2dd890 *info, Reader *r, Device_2dd890 *dev)
         unsigned int palette[256];
     } f;
     unsigned int *palette = f.palette;
-    int n = info->numColors;
+    int n = ((ImageInfo_2dd890 *)info)->numColors;
     int i;
     if (n < 256) {
         for (i = n; i < 256; i++)
             palette[i] = 0;
     }
-    if (info->bpp == 0x18) {
+    if (((ImageInfo_2dd890 *)info)->bpp == 0x18) {
         for (i = 0; i < n; i++) {
-            r->FUN_002647e0(&f.c0, 1, 1, 1);
-            r->FUN_002647e0(&f.c1, 1, 1, 1);
-            r->FUN_002647e0(&f.c2, 1, 1, 1);
+            ((Reader *)r)->FUN_002647e0(&f.c0, 1, 1, 1);
+            ((Reader *)r)->FUN_002647e0(&f.c1, 1, 1, 1);
+            ((Reader *)r)->FUN_002647e0(&f.c2, 1, 1, 1);
             palette[i] = (((0xffffff00u | f.c2) << 8 | f.c1) << 8) | f.c0;
         }
     } else {
-        r->FUN_002647e0(palette, n * 4, 1, 1);
+        ((Reader *)r)->FUN_002647e0(palette, n * 4, 1, 1);
     }
-    dev->FUN_slot0(info->width, info->height, 8, !((info->flags >> 5) & 1), palette);
-    void *row = FUN_00266e00(1, info->width);
-    for (i = 0; i < info->height; i++) {
-        r->FUN_002647e0(row, info->width, 1, 1);
-        dev->FUN_slot2(row);
+    ((Device_2dd890 *)dev)->FUN_slot0(((ImageInfo_2dd890 *)info)->width, ((ImageInfo_2dd890 *)info)->height, 8, !((((ImageInfo_2dd890 *)info)->flags >> 5) & 1), palette);
+    void *row = FUN_00266e00(1, ((ImageInfo_2dd890 *)info)->width);
+    for (i = 0; i < ((ImageInfo_2dd890 *)info)->height; i++) {
+        ((Reader *)r)->FUN_002647e0(row, ((ImageInfo_2dd890 *)info)->width, 1, 1);
+        ((Device_2dd890 *)dev)->FUN_slot2(row);
     }
     FUN_00267090(row);
-    dev->FUN_slot10();
+    ((Device_2dd890 *)dev)->FUN_slot10();
 }

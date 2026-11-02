@@ -18,7 +18,7 @@ struct Holder_25a610 {
     Node node;
 };
 
-extern "C" void FUN_00259d30(Tree_25a610* tree, Node* node);
+extern "C" void __cdecl FUN_00259d30(void *, void *);
 extern "C" void FUN_00259d80(Tree_25a610* tree, Node* node);
 
 // Red-black tree unique-key insert with rebalance. color: 1 = red, 0 = black.
@@ -66,7 +66,7 @@ char FUN_0025a610(Tree_25a610* tree, Holder_25a610* nodeArg, const unsigned* key
             } else {
                 if (node == p->right) {
                     node = p;
-                    FUN_00259d30(tree, node);
+                    FUN_00259d30((Tree_25a610 *)tree, (Node *)node);
                 }
                 node->parent->color = 0;
                 node->parent->parent->color = 1;

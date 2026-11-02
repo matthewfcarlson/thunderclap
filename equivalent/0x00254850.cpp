@@ -11,8 +11,8 @@ struct Writer_254850 {
 };
 
 char FUN_00246f50(Stream* s, const char* fmt, ...);
-char FUN_0024eb60(Writer_254850* w, const char* name, void* value);
-char FUN_0024eb60(Writer_254850* w, const char* name, void* value);
+extern "C" char FUN_0024eb60(Writer_254850* w, const char* name, void* value);
+extern "C" char FUN_0024eb60(Writer_254850* w, const char* name, void* value);
 
 namespace audio {
 

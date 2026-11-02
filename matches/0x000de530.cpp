@@ -1,4 +1,4 @@
-float __cdecl FUN_000de530(float x, float a, float b) {
+extern "C" float __cdecl FUN_000de530(float x, float a, float b) {
     if (a > b) {
         if (x >= b && x <= a)
             return x;

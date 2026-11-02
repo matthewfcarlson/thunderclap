@@ -2,7 +2,7 @@
 // FUN_0025d480 @ 0x0025d480
 #include "compat/ptr.h"
 struct Buffer_25d480 { unsigned int header; char data[256]; };
-extern void __cdecl FUN_0025be60(unsigned int, Buffer_25d480*);
+extern "C" void __cdecl FUN_0025be60(unsigned int *, unsigned int *);
 extern void __cdecl FUN_0025c320(Buffer_25d480*, void*, unsigned int, unsigned int);
 extern unsigned int __cdecl FUN_0024c590(Buffer_25d480*, unsigned int);
 extern unsigned int __cdecl FUN_0025be80(unsigned int, Buffer_25d480*);
@@ -14,7 +14,7 @@ struct Owner_25d480 { char pad[0x44]; void* data; };
 struct Target_25d480 { char pad0[4]; Owner_25d480* owner; char pad8[0x2c]; unsigned int result; char pad38[4]; Context* context; unsigned int FUN_0025d480(unsigned int arg); };
 unsigned int Target_25d480::FUN_0025d480(unsigned int arg) {
  Buffer_25d480 buffer;
- FUN_0025be60(arg, &buffer);
+ FUN_0025be60((unsigned int *)(hulk_uintptr)(unsigned int)arg, (unsigned int *)(Buffer_25d480 *)(&buffer));
  void* data = owner->data;
  if (!data) {
   unsigned int flags = context->flags;

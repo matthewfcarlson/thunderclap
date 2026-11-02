@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 32/32)
 // FUN_002ffce0 @ 0x002ffce0
 #include "compat/ptr.h"
-void __cdecl FUN_002ffce0(unsigned int* first, unsigned int* middle, unsigned int* last)
+extern "C" void __cdecl FUN_002ffce0(unsigned int* first, unsigned int* middle, unsigned int* last)
 {
     unsigned int a,b;
     hulk_intptr count = last-first;

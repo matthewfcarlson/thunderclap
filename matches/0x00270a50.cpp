@@ -9,7 +9,7 @@ struct Item_270a50 {
 };
 extern "C" void FUN_0026d850(void*);
 extern "C" void FUN_0026d840(void*);
-void FUN_00270a50() {
+extern "C" void FUN_00270a50() {
     FUN_0026d850(((char*)((char*)&DAT_0052842c + 7364)));
     unsigned int i = 0;
     if ((unsigned int)(*(int*)&DAT_0052a128) > 0) {

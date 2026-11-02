@@ -2,8 +2,9 @@
 // FUN_001d5dd0 @ 0x001d5dd0
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 typedef unsigned int uint;
-extern int __cdecl FUN_001d5140(uint);
+extern "C" int __cdecl FUN_001d5140(const char *);
 struct Property_1d5dd0 { uint low, high, value, unused; };
 struct Entry_1d5dd0 { char pad[0x3c]; int count; Property_1d5dd0* properties; };
 struct Collection_1d5dd0 { char pad[0x1c]; Entry_1d5dd0** begin; Entry_1d5dd0** end; };
@@ -22,7 +23,7 @@ int Object::target(int index) {
  Entry_1d5dd0* e=c->begin[index];
  for (int i=0;i<e->count;++i) {
   Property_1d5dd0* p=&e->properties[i];
-  if (p->low==low && p->high==high) return FUN_001d5140(p->value);
+  if (p->low==low && p->high==high) return FUN_001d5140((const char *)(hulk_uintptr)(unsigned int)(p->value));
  }
  return 0;
 }

@@ -93,7 +93,7 @@ extern void* __cdecl FUN_002343e0(const char*, fight::ConditionFactoryCasterTemp
 extern void* __cdecl FUN_002343e0(const char*, fight::ConditionFactoryCasterTemplate<CSmartPropWeaponizableTypeCondition>*);
 extern void* __cdecl FUN_002343e0(const char*, fight::ConditionFactoryCasterTemplate<CStageCondition>*);
 extern "C" void __cdecl FUN_001138a0(Registry_55d80*, const char*);
-extern void __cdecl FUN_001138d0(Registry_55d80*, const char*);
+extern "C" void __cdecl FUN_001138d0(void *, void *);
 extern void __cdecl FUN_00113900(Registry_55d80*, const char*);
 extern "C" void __cdecl FUN_00113930(Registry_55d80*, const char*);
 extern void __cdecl FUN_00113990(Registry_55d80*, const char*);
@@ -132,7 +132,7 @@ extern "C" bool __cdecl FUN_00055d80(Registry_55d80* registry) {
     FUN_001139f0(registry, "leashed");
     FUN_00129fe0(registry);
     FUN_0012d450(registry);
-    FUN_001138d0(registry, "aiFightNodeParent");
+    FUN_001138d0((Registry_55d80 *)registry, (void *)(const char *)"aiFightNodeParent");
     FUN_00113930(registry, "ai_history_name");
     FUN_00113a50(registry, "formation_ready");
     FUN_00113a20(registry, "keyWordWait");

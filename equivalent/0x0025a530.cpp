@@ -12,8 +12,8 @@ struct Other_25a530 { char data[4]; };
 
 extern "C" Link_25a530 *__cdecl FUN_00257ec0(List_25a530 *list);
 extern "C" Link_25a530 *__cdecl FUN_00257ee0(Link_25a530 *l);
-void __cdecl FUN_0025a0b0(Track *t);
-void __cdecl FUN_0025a220(Other_25a530 *o);
+extern "C" void __cdecl FUN_0025a0b0(void *);
+extern "C" void __cdecl FUN_0025a220(void *);
 extern "C" void __cdecl FUN_00242f60(int a, Track *t, int b);
 
 class Mix {
@@ -29,8 +29,8 @@ public:
 bool Mix::vfunc_4(int arg)
 {
     for (Link_25a530 *l = FUN_00257ec0(&tracks); l != 0; l = FUN_00257ee0(l))
-        FUN_0025a0b0(static_cast<Track *>(l));
-    FUN_0025a220(&other);
+        FUN_0025a0b0((Track *)(static_cast<Track *>(l)));
+    FUN_0025a220((Other_25a530 *)(&other));
     bool result = vfunc_5(arg);
     for (Link_25a530 *l = FUN_00257ec0(&tracks); l != 0; l = FUN_00257ee0(l)) {
         Track *t = static_cast<Track *>(l);

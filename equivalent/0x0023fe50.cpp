@@ -4,7 +4,7 @@
 
 struct StringHeader_23fe50 { unsigned int capacity; unsigned short references; unsigned short reserved; };
 extern void __cdecl FUN_00247570(StringHeader_23fe50*);
-extern void __cdecl FUN_0023fa40(const char**, const char*, unsigned int, unsigned int);
+extern "C" void __cdecl FUN_0023fa40(int *, char *, unsigned int, int);
 struct String { char* data; unsigned short kind; unsigned short reserved; unsigned short length; String* assign(const char* source); };
 String* String::assign(const char* source) {
     if (kind == 2) {
@@ -20,7 +20,7 @@ String* String::assign(const char* source) {
         while (source[count]) ++count;
         length = (unsigned short)count;
         kind = 2;
-        FUN_0023fa40(&source, source, count, count);
+        FUN_0023fa40((int *)(const char * *)(&source), (char *)(const char *)source, count, (unsigned int)count);
         data = const_cast<char*>(source);
     } else {
         data = (*(char**)&DAT_004cc02c);
