@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19974 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 16/16)
 // hulkfight::motion::AnimationPhaseMatchedAction::vfunc_3 @ 0x0013d7b0
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
@@ -71,7 +71,7 @@ struct Spec_13d7b0 {
     virtual void vfn4();
     virtual void vfn5();
     virtual void vfn6();
-    virtual float vfn7(float one, int a, int b);
+    virtual float vfn7();     // AnimationPhaseMatchedTrack::vfunc_7 (0x0013a430): no arguments, plain `ret`
     char pad[0x18 - 4];
     int uidLo;                // 0x18
     int uidHi;                // 0x1c
@@ -119,7 +119,7 @@ bool hulkfight::motion::AnimationPhaseMatchedAction::vfunc_3(hulk_intptr unused0
     Spec_13d7b0 *s = (*(Spec_13d7b0 * *)&this->f_1c);
     int a24 = s->f24;
     int a28 = s->f28;
-    float v = s->vfn7(1.0f, a24, a28);
+    float v = s->vfn7();     // the three pushes before this call in the original are 0x00225e00's arguments
     (*(AnimationDriver_13d7b0 * *)&this->f_24)->FUN_00225e00(v, 1.0f, a24, a28);
     (*(AnimationDriver_13d7b0 * *)&this->f_24)->FUN_00225cf0((*(Spec_13d7b0 * *)&this->f_1c)->f20);
     float w = ((Target_13d7b0*)(*(AnimationDriver_13d7b0 * *)&this->f_24))->FUN_00225b30();
