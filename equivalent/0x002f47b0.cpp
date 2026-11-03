@@ -2,6 +2,7 @@
 // physics::CollisionMesh::vfunc_15 @ 0x002f47b0
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
+#include "gen/physics.h"
 
 struct Vec3_2f47b0 {
     float x, y, z;
@@ -110,7 +111,6 @@ public:
     char padcd[3];
     int fd0;
     void FUN_002f3db0(Box_2f47b0 *out);
-    void FUN_002f3e40(Query_2f47b0 *q, Box_2f47b0 *b);
     char FUN_002f47b0(Body_2f47b0 *o, int flags);
 };
 
@@ -257,7 +257,7 @@ char CollisionMesh::FUN_002f47b0(Body_2f47b0 *o, int flags)
         f.u32.iter2.id = fd0;
         f.u32.iter2.begin = (*(unsigned short**)&DAT_00555440);
         f.u32.iter2.end = (*(unsigned short**)&DAT_00555440);
-        FUN_002f3e40(&f.q, &f.u72.q72);
+        ((physics::CollisionMesh *)this)->FUN_002f3e40((Query_2f47b0 *)(&f.q), (Box_2f47b0 *)(&f.u72.q72));
         f.q.iter = &f.u32.iter2;
         tris->grid->FUN_00307240(&f.q);
         unsigned short *b = (*(unsigned short**)&DAT_00555440);

@@ -1,5 +1,6 @@
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 #include "compat/ptr.h"
+#include "gen/fight.h"
 struct RefCounted_113490 {
   public:
     virtual void f0();
@@ -11,7 +12,6 @@ extern "C" void opdel(void*);
 
 class SemaphoreClearAction_113490 {
   public:
-    void Cleanup();
     SemaphoreClearAction_113490* vfunc_2(int flag);
 
   private:
@@ -31,7 +31,7 @@ SemaphoreClearAction_113490* SemaphoreClearAction_113490::vfunc_2(int flag) {
     if (m_1c != 0) {
         m_1c = 0;
     }
-    Cleanup();
+    ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
         opdel(this);
     }

@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 class Obj_1762c0 {
   public:
@@ -7,7 +8,6 @@ class Obj_1762c0 {
 };
 class Action_1762c0 {
   public:
-    void Finish();
 };
 class TargetIconDistanceAction : public Action_1762c0 {
   public:
@@ -28,5 +28,5 @@ void TargetIconDistanceAction::Clean() {
     }
     if (m1c)
         m1c = 0;
-    Finish();
+    ((fight::Action *)(Action_1762c0 *)this)->FUN_002326a0();
 }

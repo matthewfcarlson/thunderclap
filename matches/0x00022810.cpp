@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vA[];
 extern void* g_vB[];
@@ -10,7 +11,6 @@ class Ref_22810 {
 class CAction_22810 {
   public:
     void* vptr;
-    void Fin();
 };
 class CHeliDeathSpiralAction_22810 : public CAction_22810 {
   public:
@@ -33,7 +33,7 @@ CHeliDeathSpiralAction_22810* CHeliDeathSpiralAction_22810::f2(unsigned char fla
         m1c->Release();
         m1c = 0;
     }
-    Fin();
+    ((fight::Action *)(CAction_22810 *)this)->FUN_002326a0();
     if (flags & 1)
         operator delete(this);
     return this;

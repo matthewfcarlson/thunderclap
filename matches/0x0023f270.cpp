@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_23f270[];
 class Ref_23f270 {
@@ -8,7 +9,6 @@ class Ref_23f270 {
 class Action_23f270 {
   public:
     void* vptr;
-    void Fin();
 };
 class BreakPointAction_23f270 : public Action_23f270 {
   public:
@@ -23,5 +23,5 @@ BreakPointAction_23f270::~BreakPointAction_23f270() {
         m->Release();
         m = 0;
     }
-    Fin();
+    ((fight::Action *)(Action_23f270 *)this)->FUN_002326a0();
 }

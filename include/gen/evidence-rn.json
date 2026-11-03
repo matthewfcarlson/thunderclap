@@ -8998,7 +8998,7 @@
    "FUN_00234860": [
     "ParamValueBool*",
     [
-     "int"
+     "const char*"
     ],
     ""
    ]
@@ -9333,6 +9333,49 @@
   },
   "hulkfight::motion::AnimationPhaseMatchedTrack": {
    "FUN_0013a440": [
+    "void",
+    [],
+    ""
+   ]
+  },
+  "fight::ParamValueFloat": {
+   "FUN_00234960": [
+    "ParamValueFloat*",
+    [
+     "const char*"
+    ],
+    ""
+   ]
+  },
+  "fight::ParamValueName": {
+   "FUN_00234a90": [
+    "ParamValueName*",
+    [
+     "const char*"
+    ],
+    ""
+   ]
+  },
+  "fight::ParamValueNameList": {
+   "FUN_00234ba0": [
+    "ParamValueNameList*",
+    [
+     "const char*"
+    ],
+    ""
+   ]
+  },
+  "fight::ParamValueBranch": {
+   "FUN_00235170": [
+    "ParamValueBranch*",
+    [
+     "const char*"
+    ],
+    ""
+   ]
+  },
+  "fight::Action": {
+   "FUN_002326a0": [
     "void",
     [],
     ""

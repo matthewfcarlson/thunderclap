@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // pure3d::SpriteParticleEmitter::vfunc_12 @ 0x002d6100
+#include "gen/pure3d.h"
 struct Mat4_2d6100 {
     float m[16];
     void FUN_0022b980();
@@ -29,7 +30,6 @@ public:
 
     void FUN_002d5ec0(float a);
     void FUN_002d5f20(float a, float b, Mat4_2d6100 *m);
-    void FUN_002d5fe0(float b);
     void FUN_002d6100(float a, float b);
 };
 
@@ -77,5 +77,5 @@ void SpriteParticleEmitter::FUN_002d6100(float a, float b)
             dst[2] = dz * s;
         }
     }
-    FUN_002d5fe0(b);
+    ((pure3d::SpriteParticleEmitter *)this)->FUN_002d5fe0(b);
 }

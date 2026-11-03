@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 20/20)
 // FUN_00071db0 @ 0x00071db0
 #include "decls/data/game/global.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
-class CJumpAttackTrack {
+class CJumpAttackTrack_71db0 {
 public:
     void FUN_000687a0();
     void FUN_000687b0();
@@ -22,8 +23,7 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 template <class T>
 class ParamFloatConstRange : public ParamFloatConstRangeBase {
@@ -78,39 +78,39 @@ extern "C" void FUN_00071db0()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<CJumpAttackTrack>("timeBegin", &CJumpAttackTrack::FUN_000687a0);
+            params[0] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("timeBegin", &CJumpAttackTrack_71db0::FUN_000687a0);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<CJumpAttackTrack>("timeEnd", &CJumpAttackTrack::FUN_000687b0);
+            params[1] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("timeEnd", &CJumpAttackTrack_71db0::FUN_000687b0);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamVector<CJumpAttackTrack>("direction", &CJumpAttackTrack::FUN_000687c0);
+            params[2] = new (mem) ParamVector<CJumpAttackTrack_71db0>("direction", &CJumpAttackTrack_71db0::FUN_000687c0);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamFloatConstRange<CJumpAttackTrack>("arc", &CJumpAttackTrack::FUN_000687e0);
+            params[3] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("arc", &CJumpAttackTrack_71db0::FUN_000687e0);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamFloatConstRange<CJumpAttackTrack>("distance", &CJumpAttackTrack::FUN_00068800);
+            params[4] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("distance", &CJumpAttackTrack_71db0::FUN_00068800);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamFloatConstRange<CJumpAttackTrack>("speed", &CJumpAttackTrack::FUN_00068810);
+            params[5] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("speed", &CJumpAttackTrack_71db0::FUN_00068810);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamIntConstRange<CJumpAttackTrack>("priority", &CJumpAttackTrack::FUN_00068820);
+            params[6] = new (mem) ParamIntConstRange<CJumpAttackTrack_71db0>("priority", &CJumpAttackTrack_71db0::FUN_00068820);
         mem = FUN_0008d690(0x18);
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) ParamFloatConstRange<CJumpAttackTrack>("rootBlendInTime", &CJumpAttackTrack::FUN_00068830);
+            params[7] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("rootBlendInTime", &CJumpAttackTrack_71db0::FUN_00068830);
         mem = FUN_0008d690(0x18);
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) ParamFloatConstRange<CJumpAttackTrack>("rootBlendOutTime", &CJumpAttackTrack::FUN_00068840);
+            params[8] = new (mem) ParamFloatConstRange<CJumpAttackTrack_71db0>("rootBlendOutTime", &CJumpAttackTrack_71db0::FUN_00068840);
         FUN_002347b0(((ParamRegistry*)&DAT_004dcfb8), params, 9);
     }
     DAT_004dcfbc++;

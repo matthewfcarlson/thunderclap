@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_21e60[];
 extern void* g_base_vftable[];
@@ -10,7 +11,6 @@ class Ref_21e60 {
 class CAction_21e60 {
   public:
     void* vptr;
-    void Fin();
 };
 class CSmartPropUpdateAttachmentAction_21e60 : public CAction_21e60 {
   public:
@@ -33,7 +33,7 @@ CSmartPropUpdateAttachmentAction_21e60* CSmartPropUpdateAttachmentAction_21e60::
         m1c->Release();
         m1c = 0;
     }
-    Fin();
+    ((fight::Action *)(CAction_21e60 *)this)->FUN_002326a0();
     if (flags & 1)
         operator delete(this);
     return this;

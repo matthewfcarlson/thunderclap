@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // FUN_0018b140 @ 0x0018b140
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
@@ -20,8 +21,7 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 template <class T>
 class ParamFloatConstRange : public ParamFloatConstRangeBase {
@@ -36,8 +36,7 @@ class __declspec(novtable) ParamNameConstListBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234ba0(const char* name);
-    ParamNameConstListBase(const char* name) { FUN_00234ba0(name); }
+    ParamNameConstListBase(const char* name) { ((fight::ParamValueNameList *)this)->FUN_00234ba0(name); }
 };
 template <class T>
 class ParamNameConstList : public ParamNameConstListBase {

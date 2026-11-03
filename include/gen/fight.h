@@ -579,6 +579,7 @@ public:
     virtual bool vfunc_3(hulk_intptr, hulk_intptr); // slot 3
     virtual void vfunc_4(); // slot 4
     virtual bool vfunc_5(hulk_intptr, int); // slot 5
+    void FUN_002326a0(); // non-virtual
 };
 
 // .?AVBranch@fight@@  vftable 0x427898 (10)
@@ -1481,7 +1482,7 @@ public:
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual bool vfunc_6(hulk_intptr, int) = 0; // slot 6
-    ParamValueBool* FUN_00234860(int); // non-virtual
+    ParamValueBool* FUN_00234860(const char*); // non-virtual
     int f_04;
     char _pad_08[0x4];
     int f_0c;
@@ -1663,6 +1664,7 @@ public:
     virtual void vfunc_4(int, int); // overrides fight::ParamValue slot 4
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual void vfunc_6(void*) = 0; // slot 6
+    ParamValueBranch* FUN_00235170(const char*); // non-virtual
     char _pad_04[0x8];
     int f_0c;
 };
@@ -1931,6 +1933,7 @@ public:
     virtual int vfunc_1(); // overrides fight::ParamValue slot 1
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual bool vfunc_6(hulk_intptr, int) = 0; // slot 6
+    ParamValueFloat* FUN_00234960(const char*); // non-virtual
     int f_04;
     char _pad_08[0x4];
     int f_0c;
@@ -2457,6 +2460,7 @@ public:
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual bool vfunc_6(hulk_intptr, int); // overrides fight::ParamValueString slot 6
     virtual void vfunc_7(void*) = 0; // slot 7
+    ParamValueName* FUN_00234a90(const char*); // non-virtual
     int f_10;
 };
 
@@ -2563,6 +2567,7 @@ public:
     virtual int vfunc_5(int, int, int); // overrides fight::ParamValue slot 5
     virtual bool vfunc_6(hulk_intptr, int); // overrides fight::ParamValueStringList slot 6
     virtual void vfunc_7(void*) = 0; // slot 7
+    ParamValueNameList* FUN_00234ba0(const char*); // non-virtual
 };
 
 // template family fight::ParamNameConstList: 35 instantiation(s), 0 with their own specialization

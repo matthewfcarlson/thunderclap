@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* gD[];
 extern void* gA_1fcc0[];
@@ -9,7 +10,6 @@ class Ref_1fcc0 {
 class CAction_1fcc0 {
   public:
     void* vptr;
-    void Fin();
 };
 class COrientTargetAction_1fcc0 : public CAction_1fcc0 {
   public:
@@ -32,5 +32,5 @@ COrientTargetAction_1fcc0::~COrientTargetAction_1fcc0() {
         m1c->Release();
         m1c = 0;
     }
-    Fin();
+    ((fight::Action *)(CAction_1fcc0 *)this)->FUN_002326a0();
 }

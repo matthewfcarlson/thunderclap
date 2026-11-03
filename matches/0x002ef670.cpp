@@ -3,7 +3,6 @@
 
 extern "C" void* memcpy(void*, const void*, unsigned int);
 struct SimState_nv_2ef670 {
-    void update(void*, void*);
 };
 
 void physics::SimState::vfunc_12(void* __p0, float dt, bool apply) { float * delta = (float *)__p0;
@@ -15,7 +14,7 @@ void physics::SimState::vfunc_12(void* __p0, float dt, bool apply) { float * del
     this->f_40 += delta[0];
     this->f_44 += delta[1];
     this->f_48 += delta[2];
-    ((SimState_nv_2ef670*)this)->update(temp, (char*)this + 0x10);
+    ((physics::SimState *)(((SimState_nv_2ef670*)this)))->FUN_002ef5b0(temp, (char*)this + 0x10);
     if (apply) {
         hulk_freg s = 1.0f / dt;
         *(float*)((char*)this + 0x50) += s * delta[0];

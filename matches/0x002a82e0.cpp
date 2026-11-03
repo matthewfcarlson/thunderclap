@@ -1,3 +1,4 @@
+#include "gen/pure3d.h"
 class SimpleFrameController {
   public:
     virtual void f0();
@@ -29,9 +30,8 @@ class SimpleFrameController {
 class CompDrawVisibilityAnimationController : public SimpleFrameController {
   public:
     void vfunc_24(int, int, int);
-    void Helper();
 };
 void CompDrawVisibilityAnimationController::vfunc_24(int a, int b, int c) {
     SimpleFrameController::vfunc_24(a, b, c);
-    Helper();
+    ((pure3d::CompDrawVisibilityAnimationController *)this)->FUN_002a81c0();
 }

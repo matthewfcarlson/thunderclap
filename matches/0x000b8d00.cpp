@@ -2,6 +2,7 @@
 // FUN_000b8d00 @ 0x000b8d00
 // cl-flags: /GS
 #include "decls/data/game/global.h"
+#include "gen/global.h"
 
 
 
@@ -14,14 +15,14 @@ struct TextEntry_b8d00 {
     void FUN_000f8500(const char *name, Manager_b8d00 *manager, char flag);
 };
 
-class FEObject {
+class FEObject_b8d00 {
 public:
     virtual void vfunc_0();
 };
 
-FEObject *__cdecl FUN_000fc260(const char *name);
+FEObject_b8d00 *__cdecl FUN_000fc260(const char *name);
 
-class TextWindow : public FEObject {
+class TextWindow_b8d00 : public FEObject_b8d00 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -31,7 +32,7 @@ public:
     TextEntry_b8d00 entry;
 };
 
-class TextLabel : public FEObject {
+class TextLabel_b8d00 : public FEObject_b8d00 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -45,7 +46,6 @@ public:
 };
 
 struct Objectives {
-    const char *FUN_001ccf50(int index);
     int FUN_001ccfa0(int index);
 };
 
@@ -64,13 +64,13 @@ void ObjectivesScreen::FUN_000b8d00()
         for (int i = 0; i < 4; i++) {
             char buf[0x40];
             FUN_000964a0(buf, 0x40, "mission_objectives%d_text", i + 1);
-            TextWindow *text = dynamic_cast<TextWindow *>(FUN_000fc260(buf));
+            TextWindow_b8d00 *text = dynamic_cast<TextWindow_b8d00 *>(FUN_000fc260(buf));
             if (text != 0) {
-                text->entry.FUN_000f8500(objectives->FUN_001ccf50(i), FUN_000fc1b0(), 1);
+                text->entry.FUN_000f8500(((const char *)((::CScenarioManager *)objectives)->FUN_001ccf50(i)), FUN_000fc1b0(), 1);
                 text->vfunc_3();
             }
             FUN_000964a0(buf, 0x40, "mission_objectives%d_status", i + 1);
-            TextLabel *label = dynamic_cast<TextLabel *>(FUN_000fc260(buf));
+            TextLabel_b8d00 *label = dynamic_cast<TextLabel_b8d00 *>(FUN_000fc260(buf));
             if (label != 0) {
                 const char *name = ((const char*)&DAT_003f335c);
                 switch (objectives->FUN_001ccfa0(i)) {

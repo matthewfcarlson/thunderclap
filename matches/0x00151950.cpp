@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 struct VObj_151950 {
     virtual void v0();
     virtual void v1();
@@ -13,7 +14,6 @@ extern int g_vtable_151950;
 class HitReactionFloatAction_151950 {
   public:
     void destroy();
-    void finalize();
     char pad0[0x1c];
     void* m1c;
     VObj_151950* m20;
@@ -36,5 +36,5 @@ void HitReactionFloatAction_151950::destroy() {
         m1c = 0;
     }
     ((Sub_151950*)((char*)this + 0x24))->release();
-    finalize();
+    ((fight::Action *)this)->FUN_002326a0();
 }

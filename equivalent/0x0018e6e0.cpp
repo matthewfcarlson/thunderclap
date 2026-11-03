@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 14/14)
 // FUN_0018e6e0 @ 0x0018e6e0
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
@@ -19,8 +20,7 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 class __declspec(novtable) ParamEnumConstListBase {
 public:
@@ -33,8 +33,7 @@ class __declspec(novtable) ParamNameBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234a90(const char* name);
-    ParamNameBase(const char* name) { FUN_00234a90(name); }
+    ParamNameBase(const char* name) { ((fight::ParamValueName *)this)->FUN_00234a90(name); }
 };
 class __declspec(novtable) ParamIntConstRangeBase {
 public:
@@ -47,46 +46,45 @@ class __declspec(novtable) ParamBoolBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234860(const char* name);
-    ParamBoolBase(const char* name) { FUN_00234860(name); }
+    ParamBoolBase(const char* name) { ((fight::ParamValueBool *)this)->FUN_00234860(name); }
 };
 namespace fight {
 template <class T>
-class ParamName : public ParamNameBase {
+class ParamName_18e6e0 : public ParamNameBase {
 public:
-    ParamName(const char* name, void (T::*s)()) : ParamNameBase(name) { setter = s; }
+    ParamName_18e6e0(const char* name, void (T::*s)()) : ParamNameBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamIntConstRange : public ParamIntConstRangeBase {
+class ParamIntConstRange_18e6e0 : public ParamIntConstRangeBase {
 public:
-    ParamIntConstRange(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
+    ParamIntConstRange_18e6e0(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamBool : public ParamBoolBase {
+class ParamBool_18e6e0 : public ParamBoolBase {
 public:
-    ParamBool(const char* name, void (T::*s)()) : ParamBoolBase(name) { setter = s; }
+    ParamBool_18e6e0(const char* name, void (T::*s)()) : ParamBoolBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamFloatConstRange : public ParamFloatConstRangeBase {
+class ParamFloatConstRange_18e6e0 : public ParamFloatConstRangeBase {
 public:
-    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    ParamFloatConstRange_18e6e0(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamEnumConstList : public ParamEnumConstListBase {
+class ParamEnumConstList_18e6e0 : public ParamEnumConstListBase {
 public:
-    ParamEnumConstList(const char* name, const char** n, int c, void (T::*s)())
+    ParamEnumConstList_18e6e0(const char* name, const char** n, int c, void (T::*s)())
         : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
     virtual void v0();
     const char** names;
@@ -109,27 +107,27 @@ void FUN_0018e6e0()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange<VarAssignTrack>("timeBegin", &VarAssignTrack::FUN_0018cbd0);
+            params[0] = new (mem) fight::ParamFloatConstRange_18e6e0<VarAssignTrack>("timeBegin", &VarAssignTrack::FUN_0018cbd0);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamName<VarAssignTrack>("variable", &VarAssignTrack::FUN_0018cbe0);
+            params[1] = new (mem) fight::ParamName_18e6e0<VarAssignTrack>("variable", &VarAssignTrack::FUN_0018cbe0);
         mem = FUN_0008d690(0x20);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamEnumConstList<VarAssignTrack>("operator", ((const char**)&DAT_004beb94), 8, &VarAssignTrack::FUN_0018cc00);
+            params[2] = new (mem) fight::ParamEnumConstList_18e6e0<VarAssignTrack>("operator", ((const char**)&DAT_004beb94), 8, &VarAssignTrack::FUN_0018cc00);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamIntConstRange<VarAssignTrack>("value", &VarAssignTrack::FUN_0018cc20);
+            params[3] = new (mem) fight::ParamIntConstRange_18e6e0<VarAssignTrack>("value", &VarAssignTrack::FUN_0018cc20);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamIntConstRange<VarAssignTrack>("valueAtEnd", &VarAssignTrack::FUN_0018cc40);
+            params[4] = new (mem) fight::ParamIntConstRange_18e6e0<VarAssignTrack>("valueAtEnd", &VarAssignTrack::FUN_0018cc40);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamBool<VarAssignTrack>("setToValueAtEnd", &VarAssignTrack::FUN_0018cc60);
+            params[5] = new (mem) fight::ParamBool_18e6e0<VarAssignTrack>("setToValueAtEnd", &VarAssignTrack::FUN_0018cc60);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1528), params, 6);
     }
     DAT_004e152c++;

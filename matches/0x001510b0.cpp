@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_1510b0[];
 class Ref_1510b0 {
@@ -8,7 +9,6 @@ class Ref_1510b0 {
 class Action_1510b0 {
   public:
     void* vptr;
-    void Fin();
 };
 class InterruptPriorityAction_1510b0 : public Action_1510b0 {
   public:
@@ -26,5 +26,5 @@ InterruptPriorityAction_1510b0::~InterruptPriorityAction_1510b0() {
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_1510b0 *)this)->FUN_002326a0();
 }

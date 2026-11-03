@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 8/8)
 // FUN_00075b50 @ 0x00075b50
 #include "decls/data/game/global.h"
+#include "gen/fight.h"
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
@@ -12,13 +13,11 @@ struct ParamBase_75b50 {
  char reserved[12];
  void (__cdecl *callback)();
  int tail;
- void FUN_00234960(const char*);
- void FUN_00234a90(const char*);
 };
-class CAIHintTrack;
+class CAIHintTrack_75b50;
 namespace fight {
- template<class T> struct ParamFloatConstRange : ParamBase_75b50 { virtual void slot0(); };
- template<class T> struct ParamName : ParamBase_75b50 { virtual void slot0(); };
+ template<class T> struct ParamFloatConstRange_75b50 : ParamBase_75b50 { virtual void slot0(); };
+ template<class T> struct ParamName_75b50 : ParamBase_75b50 { virtual void slot0(); };
 }
 void __cdecl FUN_002347b0(int*, ParamBase_75b50**, int);
 extern "C" void __cdecl FUN_00075b50() {
@@ -26,22 +25,22 @@ extern "C" void __cdecl FUN_00075b50() {
   ParamBase_75b50* params[3];
   ParamBase_75b50* p = (ParamBase_75b50*)FUN_0008d690(24);
   if(p) {
-   p->FUN_00234960("timeBegin");
-   new(p) fight::ParamFloatConstRange<CAIHintTrack>;
+   ((fight::ParamValueFloat *)(ParamBase_75b50 *)p)->FUN_00234960("timeBegin");
+   new(p) fight::ParamFloatConstRange_75b50<CAIHintTrack_75b50>;
    p->callback = FUN_00068b40;
   }
   params[0]=p;
   p=(ParamBase_75b50*)FUN_0008d690(24);
   if(p) {
-   p->FUN_00234960("timeEnd");
-   new(p) fight::ParamFloatConstRange<CAIHintTrack>;
+   ((fight::ParamValueFloat *)(ParamBase_75b50 *)p)->FUN_00234960("timeEnd");
+   new(p) fight::ParamFloatConstRange_75b50<CAIHintTrack_75b50>;
    p->callback=FUN_00068b50;
   }
   params[1]=p;
   p=(ParamBase_75b50*)FUN_0008d690(24);
   if(p) {
-   p->FUN_00234a90("hint");
-   new(p) fight::ParamName<CAIHintTrack>;
+   ((fight::ParamValueName *)(ParamBase_75b50 *)p)->FUN_00234a90("hint");
+   new(p) fight::ParamName_75b50<CAIHintTrack_75b50>;
    p->callback=FUN_00068b60;
   }
   params[2]=p;

@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_198520[];
 class Ref_198520 {
@@ -8,7 +9,6 @@ class Ref_198520 {
 class Action_198520 {
   public:
     void* vptr;
-    void Fin();
 };
 class AccuracyLatencyAction_198520 : public Action_198520 {
   public:
@@ -26,5 +26,5 @@ AccuracyLatencyAction_198520::~AccuracyLatencyAction_198520() {
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_198520 *)this)->FUN_002326a0();
 }

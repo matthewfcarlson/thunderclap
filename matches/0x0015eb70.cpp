@@ -1,4 +1,5 @@
 #include "gen/hulkfight.h"
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_15eb70[];
 class Ref_15eb70 {
@@ -8,7 +9,6 @@ class Ref_15eb70 {
     virtual void f1();
 };
 struct HeliLocomotionAction_nv_15eb70 {
-    void Fn();
 };
 class ClimbLocomotionAction_15eb70 {
   public:
@@ -34,5 +34,5 @@ void ClimbLocomotionAction_15eb70::f() {
         m1c->f1();
         m1c = 0;
     }
-    ((HeliLocomotionAction_nv_15eb70*)(((hulkfight::motion::HeliLocomotionAction*)(((hulkfight::motion::HeliLocomotionAction*)this)))))->Fn();
+    ((fight::Action *)(((HeliLocomotionAction_nv_15eb70*)(((hulkfight::motion::HeliLocomotionAction*)(((hulkfight::motion::HeliLocomotionAction*)this)))))))->FUN_002326a0();
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 129 inputs, branch coverage 20/20)
 // FUN_000b9830 @ 0x000b9830
+#include "gen/global.h"
 extern "C" char* strncpy(char*, const char*, unsigned int);
 class Player_b9830 {
   public:
@@ -30,7 +31,6 @@ class Mission_b9830 {
 };
 class Hud_b9830 {
   public:
-    void FUN_001cc620(int state);
 };
 Game_b9830* __cdecl FUN_000fc3d0();
 extern "C" void __cdecl FUN_000fc300();
@@ -62,13 +62,13 @@ void Menu_b9830::FUN_000b9830() {
     mission->FUN_00089390();
     int count = mission->queue.FUN_00088fa0();
     if (mission->FUN_00089a10() && count == 10) {
-        hud->FUN_001cc620(5);
+        ((::CScenarioManager *)hud)->FUN_001cc620(5);
         mission->FUN_00089a30(1);
         strncpy(saveName, "side_missions", 0x1f);
         FUN_000fc300();
         return;
     }
-    hud->FUN_001cc620(9);
+    ((::CScenarioManager *)hud)->FUN_001cc620(9);
     mission->FUN_00089a30(0);
     Entry* e = mission->FUN_0008a310();
     if (e == 0)

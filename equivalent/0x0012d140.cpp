@@ -1,13 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 16/16)
 // FUN_0012d140 @ 0x0012d140
 #include "decls/data/game/hulkfight/ai.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 
 namespace hulkfight {
 namespace ai {
-class ThreatBallTrack {
+class ThreatBallTrack_12d140 {
 public:
     void FUN_0012b280();
     void FUN_0012b290();
@@ -24,8 +25,7 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 template <class T>
 class ParamFloatConstRange : public ParamFloatConstRangeBase {
@@ -56,8 +56,7 @@ class __declspec(novtable) ParamNameConstListBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234ba0(const char* name);
-    ParamNameConstListBase(const char* name) { FUN_00234ba0(name); }
+    ParamNameConstListBase(const char* name) { ((fight::ParamValueNameList *)this)->FUN_00234ba0(name); }
 };
 template <class T>
 class ParamNameConstList : public ParamNameConstListBase {
@@ -88,8 +87,7 @@ class __declspec(novtable) ParamNameBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234a90(const char* name);
-    ParamNameBase(const char* name) { FUN_00234a90(name); }
+    ParamNameBase(const char* name) { ((fight::ParamValueName *)this)->FUN_00234a90(name); }
 };
 template <class T>
 class ParamName : public ParamNameBase {
@@ -112,31 +110,31 @@ void FUN_0012d140()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<hulkfight::ai::ThreatBallTrack>("timeBegin", &hulkfight::ai::ThreatBallTrack::FUN_0012b280);
+            params[0] = new (mem) ParamFloatConstRange<hulkfight::ai::ThreatBallTrack_12d140>("timeBegin", &hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b280);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<hulkfight::ai::ThreatBallTrack>("timeEnd", &hulkfight::ai::ThreatBallTrack::FUN_0012b290);
+            params[1] = new (mem) ParamFloatConstRange<hulkfight::ai::ThreatBallTrack_12d140>("timeEnd", &hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b290);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamIntConstRange<hulkfight::ai::ThreatBallTrack>("attachmentIndex", &hulkfight::ai::ThreatBallTrack::FUN_0012b2b0);
+            params[2] = new (mem) ParamIntConstRange<hulkfight::ai::ThreatBallTrack_12d140>("attachmentIndex", &hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b2b0);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamNameConstList<hulkfight::ai::ThreatBallTrack>("joint", &hulkfight::ai::ThreatBallTrack::FUN_0012b2c0);
+            params[3] = new (mem) ParamNameConstList<hulkfight::ai::ThreatBallTrack_12d140>("joint", &hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b2c0);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamVector<hulkfight::ai::ThreatBallTrack>("offset", &hulkfight::ai::ThreatBallTrack::FUN_0012b2f0);
+            params[4] = new (mem) ParamVector<hulkfight::ai::ThreatBallTrack_12d140>("offset", &hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b2f0);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamFloatConstRange<hulkfight::ai::ThreatBallTrack>("radius", &hulkfight::ai::ThreatBallTrack::FUN_0012b320);
+            params[5] = new (mem) ParamFloatConstRange<hulkfight::ai::ThreatBallTrack_12d140>("radius", &hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b320);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamName<hulkfight::ai::ThreatBallTrack>("threatName", &hulkfight::ai::ThreatBallTrack::FUN_0012b330);
+            params[6] = new (mem) ParamName<hulkfight::ai::ThreatBallTrack_12d140>("threatName", &hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b330);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0e34), params, 7);
     }
     DAT_004e0e38++;

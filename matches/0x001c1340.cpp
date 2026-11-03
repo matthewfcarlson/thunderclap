@@ -1,7 +1,7 @@
+#include "gen/pure3d.h"
 struct Child_1c1340 {
     void First(int);
     void Second();
-    void Third();
 };
 struct Thing_1c1340 {
     char pad[0xbc];
@@ -12,5 +12,5 @@ struct Thing_1c1340 {
 void Thing_1c1340::Run() {
     child->First(value);
     child->Second();
-    child->Third();
+    ((pure3d::DisplayList *)child)->FUN_0029bba0();
 }

@@ -3,11 +3,12 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight/motion.h"
 #include "decls/data/game/unknown.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 
-class CStunAnimationTrack {
+class CStunAnimationTrack_5fef0 {
 public:
     void FUN_0005d7c0();
     void FUN_00013140();
@@ -26,15 +27,13 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 class __declspec(novtable) ParamNameBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234a90(const char* name);
-    ParamNameBase(const char* name) { FUN_00234a90(name); }
+    ParamNameBase(const char* name) { ((fight::ParamValueName *)this)->FUN_00234a90(name); }
 };
 class __declspec(novtable) ParamEnumConstListBase {
 public:
@@ -52,33 +51,33 @@ public:
 };
 namespace fight {
 template <class T>
-class ParamFloatConstRange : public ParamFloatConstRangeBase {
+class ParamFloatConstRange_5fef0 : public ParamFloatConstRangeBase {
 public:
-    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    ParamFloatConstRange_5fef0(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamName : public ParamNameBase {
+class ParamName_5fef0 : public ParamNameBase {
 public:
-    ParamName(const char* name, void (T::*s)()) : ParamNameBase(name) { setter = s; }
+    ParamName_5fef0(const char* name, void (T::*s)()) : ParamNameBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamIntConstRange : public ParamIntConstRangeBase {
+class ParamIntConstRange_5fef0 : public ParamIntConstRangeBase {
 public:
-    ParamIntConstRange(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
+    ParamIntConstRange_5fef0(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamEnumConstList : public ParamEnumConstListBase {
+class ParamEnumConstList_5fef0 : public ParamEnumConstListBase {
 public:
-    ParamEnumConstList(const char* name, const char** n, int c, void (T::*s)())
+    ParamEnumConstList_5fef0(const char* name, const char** n, int c, void (T::*s)())
         : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
     virtual void v0();
     const char** names;
@@ -100,47 +99,47 @@ extern "C" void FUN_0005fef0()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange<CStunAnimationTrack>("timeBegin", &CStunAnimationTrack::FUN_0005d7c0);
+            params[0] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("timeBegin", &CStunAnimationTrack_5fef0::FUN_0005d7c0);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamName<CStunAnimationTrack>("animation", &CStunAnimationTrack::FUN_00013140);
+            params[1] = new (mem) fight::ParamName_5fef0<CStunAnimationTrack_5fef0>("animation", &CStunAnimationTrack_5fef0::FUN_00013140);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange<CStunAnimationTrack>("speed", &CStunAnimationTrack::FUN_0005d7d0);
+            params[2] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("speed", &CStunAnimationTrack_5fef0::FUN_0005d7d0);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange<CStunAnimationTrack>("initFrame", &CStunAnimationTrack::FUN_0005d7e0);
+            params[3] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("initFrame", &CStunAnimationTrack_5fef0::FUN_0005d7e0);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange<CStunAnimationTrack>("startFrame", &CStunAnimationTrack::FUN_0005d7f0);
+            params[4] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("startFrame", &CStunAnimationTrack_5fef0::FUN_0005d7f0);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange<CStunAnimationTrack>("endFrame", &CStunAnimationTrack::FUN_0005d800);
+            params[5] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("endFrame", &CStunAnimationTrack_5fef0::FUN_0005d800);
         mem = FUN_0008d690(0x20);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamEnumConstList<CStunAnimationTrack>("cyclic", ((const char**)&DAT_004abf70), (*(int*)&DAT_004123d4), &CStunAnimationTrack::FUN_0005d810);
+            params[6] = new (mem) fight::ParamEnumConstList_5fef0<CStunAnimationTrack_5fef0>("cyclic", ((const char**)&DAT_004abf70), (*(int*)&DAT_004123d4), &CStunAnimationTrack_5fef0::FUN_0005d810);
         mem = FUN_0008d690(0x18);
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamName<CStunAnimationTrack>("partition", &CStunAnimationTrack::FUN_000131a0);
+            params[7] = new (mem) fight::ParamName_5fef0<CStunAnimationTrack_5fef0>("partition", &CStunAnimationTrack_5fef0::FUN_000131a0);
         mem = FUN_0008d690(0x18);
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamIntConstRange<CStunAnimationTrack>("priority", &CStunAnimationTrack::FUN_0005d820);
+            params[8] = new (mem) fight::ParamIntConstRange_5fef0<CStunAnimationTrack_5fef0>("priority", &CStunAnimationTrack_5fef0::FUN_0005d820);
         mem = FUN_0008d690(0x18);
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange<CStunAnimationTrack>("blendInTime", &CStunAnimationTrack::FUN_0005d830);
+            params[9] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("blendInTime", &CStunAnimationTrack_5fef0::FUN_0005d830);
         mem = FUN_0008d690(0x18);
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange<CStunAnimationTrack>("blendOutTime", &CStunAnimationTrack::FUN_0005d840);
+            params[10] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("blendOutTime", &CStunAnimationTrack_5fef0::FUN_0005d840);
         FUN_002347b0(((ParamRegistry*)&DAT_004dc5e8), params, 11);
     }
     DAT_004dc5ec++;

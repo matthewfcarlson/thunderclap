@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 18/18)
 // FUN_0005ed90 @ 0x0005ed90
 #include "decls/data/game/global.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 
-class CSnapToWallTrack {
+class CSnapToWallTrack_5ed90 {
 public:
     void FUN_0005d850();
     void FUN_0005d860();
@@ -21,8 +22,7 @@ class __declspec(novtable) ParamBoolBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234860(const char* name);
-    ParamBoolBase(const char* name) { FUN_00234860(name); }
+    ParamBoolBase(const char* name) { ((fight::ParamValueBool *)this)->FUN_00234860(name); }
 };
 template <class T>
 class ParamBool : public ParamBoolBase {
@@ -37,8 +37,7 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 template <class T>
 class ParamFloatConstRange : public ParamFloatConstRangeBase {
@@ -93,35 +92,35 @@ extern "C" void FUN_0005ed90()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<CSnapToWallTrack>("timeBegin", &CSnapToWallTrack::FUN_0005d850);
+            params[0] = new (mem) ParamFloatConstRange<CSnapToWallTrack_5ed90>("timeBegin", &CSnapToWallTrack_5ed90::FUN_0005d850);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<CSnapToWallTrack>("timeEnd", &CSnapToWallTrack::FUN_0005d860);
+            params[1] = new (mem) ParamFloatConstRange<CSnapToWallTrack_5ed90>("timeEnd", &CSnapToWallTrack_5ed90::FUN_0005d860);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamFloatConstRange<CSnapToWallTrack>("orientation", &CSnapToWallTrack::FUN_0005d870);
+            params[2] = new (mem) ParamFloatConstRange<CSnapToWallTrack_5ed90>("orientation", &CSnapToWallTrack_5ed90::FUN_0005d870);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamVector<CSnapToWallTrack>("offset", &CSnapToWallTrack::FUN_0005d890);
+            params[3] = new (mem) ParamVector<CSnapToWallTrack_5ed90>("offset", &CSnapToWallTrack_5ed90::FUN_0005d890);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamBool<CSnapToWallTrack>("snapToGround", &CSnapToWallTrack::FUN_0005d8b0);
+            params[4] = new (mem) ParamBool<CSnapToWallTrack_5ed90>("snapToGround", &CSnapToWallTrack_5ed90::FUN_0005d8b0);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamIntConstRange<CSnapToWallTrack>("priority", &CSnapToWallTrack::FUN_0005d8c0);
+            params[5] = new (mem) ParamIntConstRange<CSnapToWallTrack_5ed90>("priority", &CSnapToWallTrack_5ed90::FUN_0005d8c0);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamFloatConstRange<CSnapToWallTrack>("rootBlendInTime", &CSnapToWallTrack::FUN_0005d8d0);
+            params[6] = new (mem) ParamFloatConstRange<CSnapToWallTrack_5ed90>("rootBlendInTime", &CSnapToWallTrack_5ed90::FUN_0005d8d0);
         mem = FUN_0008d690(0x18);
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) ParamFloatConstRange<CSnapToWallTrack>("rootBlendOutTime", &CSnapToWallTrack::FUN_0005d8e0);
+            params[7] = new (mem) ParamFloatConstRange<CSnapToWallTrack_5ed90>("rootBlendOutTime", &CSnapToWallTrack_5ed90::FUN_0005d8e0);
         FUN_002347b0(((ParamRegistry*)&DAT_004dc5f0), params, 8);
     }
     DAT_004dc5f4++;

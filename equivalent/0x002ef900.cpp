@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 21/24, incomplete)
 // physics::SimState::vfunc_6 @ 0x002ef900
 #include "compat/ptr.h"
+#include "gen/physics.h"
 extern "C" double sqrt(double);
 
 struct Mat_2ef900 {
@@ -67,7 +68,6 @@ public:
     float radius;
     unsigned char locked;
 
-    void FUN_002ef5b0(Mat_2ef900 *cur, Mat_2ef900 *next);
 };
 
 void SimState::vfunc_6(Mat_2ef900 *mat, float dt)
@@ -94,7 +94,7 @@ void SimState::vfunc_6(Mat_2ef900 *mat, float dt)
         }
     }
     if (target != 0 && changed)
-        FUN_002ef5b0(cur, mat);
+        ((physics::SimState *)this)->FUN_002ef5b0((Mat_2ef900 *)cur, (Mat_2ef900 *)mat);
 
     unsigned char lockedNow = locked;
     *cur = *mat;

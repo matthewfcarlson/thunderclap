@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_23a320[];
 class Ref_23a320 {
@@ -12,7 +13,6 @@ class Sub_23a320 {
 class Action_23a320 {
   public:
     void* vptr;
-    void Fin();
 };
 class QueuedNodeAction_23a320 : public Action_23a320 {
   public:
@@ -35,5 +35,5 @@ QueuedNodeAction_23a320::~QueuedNodeAction_23a320() {
         m1c = 0;
     }
     m2c.Fini();
-    Fin();
+    ((fight::Action *)(Action_23a320 *)this)->FUN_002326a0();
 }

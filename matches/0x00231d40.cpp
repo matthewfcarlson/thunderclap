@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/fight.h"
 extern "C" char DAT_00427688[];
 class Part_231d40 {
   public:
@@ -17,13 +18,12 @@ class Node {
     virtual void f8();
     virtual void f9();
     char pad[0x28 - 4];
-    void second();
 };
 extern void third(Node*);
 Node* Node::vfunc_2(unsigned char p) {
     *(void**)this = (void*)((hulk_intptr)DAT_00427688);
     ((Part_231d40*)((char*)this + 0x28))->init();
-    second();
+    ((fight::Branch *)this)->FUN_00233970();
     if (p & 1)
         third(this);
     return this;

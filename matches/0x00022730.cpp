@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_22730[];
 void operator delete(void*);
@@ -9,7 +10,6 @@ class Ref_22730 {
 class CAction_22730 {
   public:
     void* vptr;
-    void Fin();
 };
 class CMotionHitGroundHeightAction_22730 : public CAction_22730 {
   public:
@@ -24,7 +24,7 @@ CMotionHitGroundHeightAction_22730* CMotionHitGroundHeightAction_22730::f2(unsig
         m->Release();
         m = 0;
     }
-    Fin();
+    ((fight::Action *)(CAction_22730 *)this)->FUN_002326a0();
     if (flags & 1)
         operator delete(this);
     return this;

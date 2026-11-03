@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_135c30[];
 extern void* g_vftable2[];
@@ -9,7 +10,6 @@ class Ref_135c30 {
 class Action_135c30 {
   public:
     void* vptr;
-    void Fin();
 };
 
 class FlyingDashAction_135c30 : public Action_135c30 {
@@ -33,5 +33,5 @@ FlyingDashAction_135c30::~FlyingDashAction_135c30() {
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_135c30 *)this)->FUN_002326a0();
 }

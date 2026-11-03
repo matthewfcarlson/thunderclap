@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 20/20)
 // FUN_00072820 @ 0x00072820
 #include "decls/data/game/global.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 
-class CWallSlideTrack {
+class CWallSlideTrack_72820 {
 public:
     void FUN_00068bc0();
     void FUN_00068bd0();
@@ -22,8 +23,7 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 template <class T>
 class ParamFloatConstRange : public ParamFloatConstRangeBase {
@@ -62,39 +62,39 @@ extern "C" void FUN_00072820()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<CWallSlideTrack>("timeBegin", &CWallSlideTrack::FUN_00068bc0);
+            params[0] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("timeBegin", &CWallSlideTrack_72820::FUN_00068bc0);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<CWallSlideTrack>("maxTimeEnd", &CWallSlideTrack::FUN_00068bd0);
+            params[1] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("maxTimeEnd", &CWallSlideTrack_72820::FUN_00068bd0);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamFloatConstRange<CWallSlideTrack>("friction", &CWallSlideTrack::FUN_00068be0);
+            params[2] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("friction", &CWallSlideTrack_72820::FUN_00068be0);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamFloatConstRange<CWallSlideTrack>("gravity", &CWallSlideTrack::FUN_00068bf0);
+            params[3] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("gravity", &CWallSlideTrack_72820::FUN_00068bf0);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamFloatConstRange<CWallSlideTrack>("deceleration", &CWallSlideTrack::FUN_00068c00);
+            params[4] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("deceleration", &CWallSlideTrack_72820::FUN_00068c00);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamFloatConstRange<CWallSlideTrack>("minVelocity", &CWallSlideTrack::FUN_00068c10);
+            params[5] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("minVelocity", &CWallSlideTrack_72820::FUN_00068c10);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamIntConstRange<CWallSlideTrack>("priority", &CWallSlideTrack::FUN_00068c20);
+            params[6] = new (mem) ParamIntConstRange<CWallSlideTrack_72820>("priority", &CWallSlideTrack_72820::FUN_00068c20);
         mem = FUN_0008d690(0x18);
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) ParamFloatConstRange<CWallSlideTrack>("blendInTime", &CWallSlideTrack::FUN_00068c30);
+            params[7] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("blendInTime", &CWallSlideTrack_72820::FUN_00068c30);
         mem = FUN_0008d690(0x18);
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) ParamFloatConstRange<CWallSlideTrack>("blendOutTime", &CWallSlideTrack::FUN_00068c40);
+            params[8] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("blendOutTime", &CWallSlideTrack_72820::FUN_00068c40);
         FUN_002347b0(((ParamRegistry*)&DAT_004dd020), params, 9);
     }
     DAT_004dd024++;

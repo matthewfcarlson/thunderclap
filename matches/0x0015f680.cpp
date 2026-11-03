@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/fight.h"
 extern "C" char DAT_00415b00[];
 extern "C" void _ReadWriteBarrier();
 class Base_15f680 {
@@ -9,7 +10,6 @@ class Base_15f680 {
 class HeliLocomotionAction_15f680 {
   public:
     virtual void slot0();
-    void tail();
     char pad[0x1c];
     Base_15f680* p20;
     Base_15f680* p24;
@@ -22,5 +22,5 @@ void HeliLocomotionAction_15f680::slot0() {
         p24 = 0;
     }
     p20->f1();
-    tail();
+    ((fight::Action *)this)->FUN_002326a0();
 }

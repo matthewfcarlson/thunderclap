@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_1a8f80[];
 class Ref_1a8f80 {
@@ -18,7 +19,6 @@ class EffectAction {
 };
 class EffectAction_1a8f80 {
   public:
-    void Fn();
 };
 extern void __cdecl thunk_FUN_00267090(EffectAction*);
 EffectAction* EffectAction::f2(int flags) {
@@ -34,7 +34,7 @@ EffectAction* EffectAction::f2(int flags) {
     }
     if (m1c)
         m1c = 0;
-    ((EffectAction_1a8f80*)this)->Fn();
+    ((fight::Action *)(((EffectAction_1a8f80*)this)))->FUN_002326a0();
     if (flags & 1)
         thunk_FUN_00267090(this);
     return this;

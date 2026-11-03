@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_19adf0[];
 extern void* g_vftable2[];
@@ -18,7 +19,6 @@ class Ref_19adf0 {
 class Action_19adf0 {
   public:
     void* vptr;
-    void Fin();
 };
 void Free(void*) throw();
 
@@ -49,7 +49,7 @@ FireProjectileAction_19adf0* FireProjectileAction_19adf0::f2(unsigned char fl) {
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_19adf0 *)this)->FUN_002326a0();
     if (fl & 1)
         Free(this);
     return this;

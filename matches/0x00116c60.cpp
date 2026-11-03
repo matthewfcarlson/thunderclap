@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_116c60[];
 class Ref_116c60 {
@@ -8,7 +9,6 @@ class Ref_116c60 {
 class Action_116c60 {
   public:
     void* vptr;
-    void Fin();
 };
 class MotionChaseAction_116c60 : public Action_116c60 {
   public:
@@ -31,5 +31,5 @@ MotionChaseAction_116c60::~MotionChaseAction_116c60() {
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_116c60 *)this)->FUN_002326a0();
 }

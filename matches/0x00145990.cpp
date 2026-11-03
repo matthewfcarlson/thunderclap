@@ -1,6 +1,7 @@
 #include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 // data: gCounter_145990 = DAT_004e0fa4
+#include "gen/fight.h"
 
 extern "C" void __cdecl FUN_00143610();
 extern "C" void __cdecl FUN_00143630();
@@ -16,7 +17,6 @@ struct Obj_145990 {
     char pad[12];
     hulk_intptr v;
     char rest[4];
-    void Init(const char*);
 };
 extern "C" void FUN_002347b0(void*, Obj_145990**, int);
 
@@ -26,7 +26,7 @@ void FUN_00145990() {
         Obj_145990* p;
         p = (Obj_145990*)Alloc(24);
         if (p) {
-            p->Init("timeBegin");
+            ((fight::ParamValueFloat *)p)->FUN_00234960("timeBegin");
             p->vf = (void*)((hulk_intptr)DAT_0041324c);
             p->v = ((hulk_intptr)(void (__cdecl*)())&FUN_00143610);
             a[0] = p;
@@ -34,7 +34,7 @@ void FUN_00145990() {
             a[0] = 0;
         p = (Obj_145990*)Alloc(24);
         if (p) {
-            p->Init("timeOn");
+            ((fight::ParamValueFloat *)p)->FUN_00234960("timeOn");
             p->vf = (void*)((hulk_intptr)DAT_0041324c);
             p->v = ((hulk_intptr)(void (__cdecl*)())&FUN_00143630);
             a[1] = p;
@@ -42,7 +42,7 @@ void FUN_00145990() {
             a[1] = 0;
         p = (Obj_145990*)Alloc(24);
         if (p) {
-            p->Init("timeOff");
+            ((fight::ParamValueFloat *)p)->FUN_00234960("timeOff");
             p->vf = (void*)((hulk_intptr)DAT_0041324c);
             p->v = ((hulk_intptr)(void (__cdecl*)())&FUN_00143650);
             a[2] = p;
@@ -50,7 +50,7 @@ void FUN_00145990() {
             a[2] = 0;
         p = (Obj_145990*)Alloc(24);
         if (p) {
-            p->Init("timeEnd");
+            ((fight::ParamValueFloat *)p)->FUN_00234960("timeEnd");
             p->vf = (void*)((hulk_intptr)DAT_0041324c);
             p->v = ((hulk_intptr)(void (__cdecl*)())&FUN_00143670);
             a[3] = p;
@@ -58,7 +58,7 @@ void FUN_00145990() {
             a[3] = 0;
         p = (Obj_145990*)Alloc(24);
         if (p) {
-            p->Init("motionBlur");
+            ((fight::ParamValueFloat *)p)->FUN_00234960("motionBlur");
             p->vf = (void*)((hulk_intptr)DAT_0041324c);
             p->v = ((hulk_intptr)(void (__cdecl*)())&FUN_00143690);
             a[4] = p;
@@ -66,7 +66,7 @@ void FUN_00145990() {
             a[4] = 0;
         p = (Obj_145990*)Alloc(24);
         if (p) {
-            p->Init("motionBlurParallax");
+            ((fight::ParamValueFloat *)p)->FUN_00234960("motionBlurParallax");
             p->vf = (void*)((hulk_intptr)DAT_0041324c);
             p->v = ((hulk_intptr)(void (__cdecl*)())&FUN_001436b0);
             a[5] = p;

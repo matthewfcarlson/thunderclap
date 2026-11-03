@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_144a10[];
 class Ref_144a10 {
@@ -8,7 +9,6 @@ class Ref_144a10 {
 class Action_144a10 {
   public:
     void* vptr;
-    void Fin();
 };
 class WorldConeDamageAction_144a10 : public Action_144a10 {
   public:
@@ -26,5 +26,5 @@ WorldConeDamageAction_144a10::~WorldConeDamageAction_144a10() {
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_144a10 *)this)->FUN_002326a0();
 }

@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/fight.h"
 extern "C" char DAT_003f3390[];
 extern "C" char DAT_003f3c90[];
 extern "C" void _ReadWriteBarrier();
@@ -18,7 +19,6 @@ class CHapticEventAction_225c0 {
     virtual void f6();
     virtual void f7();
     virtual void f8();
-    void cleanup();
     char pad[0x18];
     Obj_225c0* mObj;
     int mHandle;
@@ -35,7 +35,7 @@ CHapticEventAction_225c0* CHapticEventAction_225c0::f2(unsigned char flags) {
         mObj->b();
         mObj = 0;
     }
-    cleanup();
+    ((fight::Action *)this)->FUN_002326a0();
     if (flags & 1)
         thunk(this);
     return this;

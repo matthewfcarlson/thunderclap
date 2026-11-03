@@ -1,13 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 6/6)
 // FUN_0016bb80 @ 0x0016bb80
 #include "decls/data/game/unknown.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
 namespace hulkfight {
 namespace motion {
-class VelocityAnimatedXZAngleCondition {
+class VelocityAnimatedXZAngleCondition_16bb80 {
 public:
     void FUN_00165900();
     void FUN_00165920();
@@ -19,14 +20,13 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 namespace fight {
 template <class T>
-class ParamFloatConstRange : public ParamFloatConstRangeBase {
+class ParamFloatConstRange_16bb80 : public ParamFloatConstRangeBase {
 public:
-    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    ParamFloatConstRange_16bb80(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -46,11 +46,11 @@ extern "C" void FUN_0016bb80()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::VelocityAnimatedXZAngleCondition>("angle", &hulkfight::motion::VelocityAnimatedXZAngleCondition::FUN_00165900);
+            params[0] = new (mem) fight::ParamFloatConstRange_16bb80<hulkfight::motion::VelocityAnimatedXZAngleCondition_16bb80>("angle", &hulkfight::motion::VelocityAnimatedXZAngleCondition_16bb80::FUN_00165900);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::VelocityAnimatedXZAngleCondition>("arc", &hulkfight::motion::VelocityAnimatedXZAngleCondition::FUN_00165920);
+            params[1] = new (mem) fight::ParamFloatConstRange_16bb80<hulkfight::motion::VelocityAnimatedXZAngleCondition_16bb80>("arc", &hulkfight::motion::VelocityAnimatedXZAngleCondition_16bb80::FUN_00165920);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1290), params, 2);
     }
     DAT_004e1294++;

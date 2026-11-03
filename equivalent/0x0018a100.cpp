@@ -2,6 +2,7 @@
 // FUN_0018a100 @ 0x0018a100
 #include "decls/data/game/hulkfight/motion.h"
 #include "decls/data/game/unknown.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
@@ -22,8 +23,7 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 template <class T>
 class ParamFloatConstRange : public ParamFloatConstRangeBase {
@@ -72,8 +72,7 @@ class __declspec(novtable) ParamNameBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234a90(const char* name);
-    ParamNameBase(const char* name) { FUN_00234a90(name); }
+    ParamNameBase(const char* name) { ((fight::ParamValueName *)this)->FUN_00234a90(name); }
 };
 template <class T>
 class ParamName : public ParamNameBase {

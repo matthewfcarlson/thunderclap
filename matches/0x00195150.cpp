@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 class Ref_195150 {
   public:
@@ -15,7 +16,6 @@ class FireProjectileAction {
     int m24;
     Ref_195150* m28;
     Ref_195150* m2c;
-    void finish();
     void clean();
 };
 void FireProjectileAction::clean() {
@@ -35,5 +35,5 @@ void FireProjectileAction::clean() {
     }
     if (m1c)
         m1c = 0;
-    finish();
+    ((fight::Action *)this)->FUN_002326a0();
 }

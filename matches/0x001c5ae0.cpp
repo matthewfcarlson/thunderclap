@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
+#include "gen/Render.h"
 struct Sub_1c5ae0 {
-    void Set(unsigned int v, hulk_intptr x);
 };
 struct Helper {
     unsigned int Get();
@@ -11,5 +11,5 @@ struct Owner_1c5ae0 {
     void Run(hulk_intptr x);
 };
 void Owner_1c5ae0::Run(hulk_intptr x) {
-    sub.Set(((Helper*)x)->Get(), x);
+    ((Render::StoreBase *)&sub)->FUN_001c7870((int)(((Helper*)x)->Get()), (int)x);
 }

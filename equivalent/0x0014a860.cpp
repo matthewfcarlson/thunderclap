@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 24/24)
 // FUN_0014a860 @ 0x0014a860
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
@@ -24,14 +25,13 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 namespace fight {
 template <class T>
-class ParamFloatConstRange : public ParamFloatConstRangeBase {
+class ParamFloatConstRange_14a860 : public ParamFloatConstRangeBase {
 public:
-    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    ParamFloatConstRange_14a860(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -47,9 +47,9 @@ public:
 };
 namespace fight {
 template <class T>
-class ParamVector : public ParamVectorBase {
+class ParamVector_14a860 : public ParamVectorBase {
 public:
-    ParamVector(const char* name, void (T::*s)()) : ParamVectorBase(name) { setter = s; }
+    ParamVector_14a860(const char* name, void (T::*s)()) : ParamVectorBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -68,47 +68,47 @@ void FUN_0014a860()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange<CivilianThrowTrack>("timeBegin", &CivilianThrowTrack::FUN_00146c80);
+            params[0] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("timeBegin", &CivilianThrowTrack::FUN_00146c80);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamVector<CivilianThrowTrack>("direction", &CivilianThrowTrack::FUN_00146cb0);
+            params[1] = new (mem) fight::ParamVector_14a860<CivilianThrowTrack>("direction", &CivilianThrowTrack::FUN_00146cb0);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange<CivilianThrowTrack>("distanceMin", &CivilianThrowTrack::FUN_00146ce0);
+            params[2] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("distanceMin", &CivilianThrowTrack::FUN_00146ce0);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange<CivilianThrowTrack>("distanceMax", &CivilianThrowTrack::FUN_00146d00);
+            params[3] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("distanceMax", &CivilianThrowTrack::FUN_00146d00);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange<CivilianThrowTrack>("velocityMin", &CivilianThrowTrack::FUN_00146d20);
+            params[4] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("velocityMin", &CivilianThrowTrack::FUN_00146d20);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange<CivilianThrowTrack>("velocityMax", &CivilianThrowTrack::FUN_00146d40);
+            params[5] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("velocityMax", &CivilianThrowTrack::FUN_00146d40);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange<CivilianThrowTrack>("trackingMin", &CivilianThrowTrack::FUN_00146d60);
+            params[6] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("trackingMin", &CivilianThrowTrack::FUN_00146d60);
         mem = FUN_0008d690(0x18);
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamFloatConstRange<CivilianThrowTrack>("trackingMax", &CivilianThrowTrack::FUN_00146d90);
+            params[7] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("trackingMax", &CivilianThrowTrack::FUN_00146d90);
         mem = FUN_0008d690(0x18);
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamFloatConstRange<CivilianThrowTrack>("yFixupAngle", &CivilianThrowTrack::FUN_00146dc0);
+            params[8] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("yFixupAngle", &CivilianThrowTrack::FUN_00146dc0);
         mem = FUN_0008d690(0x18);
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange<CivilianThrowTrack>("stunTimeMin", &CivilianThrowTrack::FUN_00146df0);
+            params[9] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("stunTimeMin", &CivilianThrowTrack::FUN_00146df0);
         mem = FUN_0008d690(0x18);
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange<CivilianThrowTrack>("stunTimeMax", &CivilianThrowTrack::FUN_00146e10);
+            params[10] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("stunTimeMax", &CivilianThrowTrack::FUN_00146e10);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0ffc), params, 11);
     }
     DAT_004e1000++;

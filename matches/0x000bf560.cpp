@@ -1,7 +1,7 @@
+#include "gen/global.h"
 struct A_bf560 {
     void F();
     int G();
-    void H(int);
     void K();
     void L(int);
 };
@@ -17,7 +17,7 @@ void __fastcall Target(Obj_bf560* p) {
         p->m34->F();
         if (!p->m38->G()) {
             if (p->m30 && p->m34 && p->m38) {
-                p->m38->H(9);
+                ((::CScenarioManager *)(p->m38))->FUN_001cc620(9);
                 p->m34->L(0);
                 FUN_000fc300();
             }

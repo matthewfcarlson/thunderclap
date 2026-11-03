@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_003f381c[];
 extern void* g_vftable2[];
@@ -10,7 +11,6 @@ class Ref_21e00 {
 class CAction_21e00 {
   public:
     void* vptr;
-    void Fin();
 };
 class CSmartPropAttachAction_21e00 : public CAction_21e00 {
   public:
@@ -33,7 +33,7 @@ CSmartPropAttachAction_21e00* CSmartPropAttachAction_21e00::f2(unsigned char fla
         m2->Release();
         m2 = 0;
     }
-    Fin();
+    ((fight::Action *)(CAction_21e00 *)this)->FUN_002326a0();
     if (flags & 1)
         operator delete(this);
     return this;

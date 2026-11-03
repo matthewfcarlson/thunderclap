@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 20/20)
 // FUN_00119100 @ 0x00119100
 #include "decls/data/game/unknown.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
@@ -22,8 +23,7 @@ class __declspec(novtable) ParamBoolBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234860(const char* name);
-    ParamBoolBase(const char* name) { FUN_00234860(name); }
+    ParamBoolBase(const char* name) { ((fight::ParamValueBool *)this)->FUN_00234860(name); }
 };
 template <class T>
 class ParamBool : public ParamBoolBase {
@@ -38,8 +38,7 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 template <class T>
 class ParamFloatConstRange : public ParamFloatConstRangeBase {

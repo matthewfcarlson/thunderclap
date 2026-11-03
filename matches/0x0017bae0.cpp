@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/fight.h"
 extern "C" char DAT_00417fb8[];
 class Ref_17bae0 {
   public:
@@ -13,7 +14,6 @@ class MoveJointAction {
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    void helper();
     char pad[0x18];
     int m1c;
     Ref_17bae0* m20;
@@ -40,7 +40,7 @@ MoveJointAction* MoveJointAction::v2(unsigned char flag) {
     }
     if (m1c)
         m1c = 0;
-    helper();
+    ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1)
         destroy(this);
     return this;

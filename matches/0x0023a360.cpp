@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 class IRef_23a360 {
   public:
@@ -15,7 +16,6 @@ class QueuedNodeAction {
   public:
     void* vptr;
     QueuedNodeAction* vfunc_2(int flag);
-    void baseCleanup();
     char pad1[0x18];
     IRef_23a360* mA;
     char pad2[8];
@@ -34,7 +34,7 @@ QueuedNodeAction* QueuedNodeAction::vfunc_2(int flag) {
         mA = 0;
     }
     mC.dtor();
-    baseCleanup();
+    ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1)
         opDelete(this);
     return this;

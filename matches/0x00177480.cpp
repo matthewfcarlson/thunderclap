@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_177480[];
 class Ref_177480 {
@@ -8,7 +9,6 @@ class Ref_177480 {
 class Action_177480 {
   public:
     void* vptr;
-    void Fin();
 };
 class CriticalMassDrainAction_177480 : public Action_177480 {
   public:
@@ -26,5 +26,5 @@ CriticalMassDrainAction_177480::~CriticalMassDrainAction_177480() {
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_177480 *)this)->FUN_002326a0();
 }

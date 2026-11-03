@@ -2,13 +2,14 @@
 // FUN_0019de50 @ 0x0019de50
 #include "decls/data/game/hulkfight/motion.h"
 #include "decls/data/game/unknown.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 
 namespace hulkfight {
 namespace motion {
-class FireGroundShockwaveTrack {
+class FireGroundShockwaveTrack_19de50 {
 public:
     void FUN_001937b0();
     void FUN_001937e0();
@@ -44,8 +45,7 @@ class __declspec(novtable) ParamBranchBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00235170(const char* name);
-    ParamBranchBase(const char* name) { FUN_00235170(name); }
+    ParamBranchBase(const char* name) { ((fight::ParamValueBranch *)this)->FUN_00235170(name); }
 };
 class __declspec(novtable) ParamEnumConstListBase {
 public:
@@ -58,8 +58,7 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 class __declspec(novtable) ParamIntConstRangeBase {
 public:
@@ -72,8 +71,7 @@ class __declspec(novtable) ParamNameBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234a90(const char* name);
-    ParamNameBase(const char* name) { FUN_00234a90(name); }
+    ParamNameBase(const char* name) { ((fight::ParamValueName *)this)->FUN_00234a90(name); }
 };
 class __declspec(novtable) ParamVectorBase {
 public:
@@ -84,17 +82,17 @@ public:
 };
 namespace fight {
 template <class T>
-class ParamBranch : public ParamBranchBase {
+class ParamBranch_19de50 : public ParamBranchBase {
 public:
-    ParamBranch(const char* name, void (T::*s)()) : ParamBranchBase(name) { setter = s; }
+    ParamBranch_19de50(const char* name, void (T::*s)()) : ParamBranchBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamEnumConstList : public ParamEnumConstListBase {
+class ParamEnumConstList_19de50 : public ParamEnumConstListBase {
 public:
-    ParamEnumConstList(const char* name, const char** n, int c, void (T::*s)())
+    ParamEnumConstList_19de50(const char* name, const char** n, int c, void (T::*s)())
         : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
     virtual void v0();
     const char** names;
@@ -103,33 +101,33 @@ public:
     int unused1c;
 };
 template <class T>
-class ParamFloatConstRange : public ParamFloatConstRangeBase {
+class ParamFloatConstRange_19de50 : public ParamFloatConstRangeBase {
 public:
-    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    ParamFloatConstRange_19de50(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamIntConstRange : public ParamIntConstRangeBase {
+class ParamIntConstRange_19de50 : public ParamIntConstRangeBase {
 public:
-    ParamIntConstRange(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
+    ParamIntConstRange_19de50(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamName : public ParamNameBase {
+class ParamName_19de50 : public ParamNameBase {
 public:
-    ParamName(const char* name, void (T::*s)()) : ParamNameBase(name) { setter = s; }
+    ParamName_19de50(const char* name, void (T::*s)()) : ParamNameBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamVector : public ParamVectorBase {
+class ParamVector_19de50 : public ParamVectorBase {
 public:
-    ParamVector(const char* name, void (T::*s)()) : ParamVectorBase(name) { setter = s; }
+    ParamVector_19de50(const char* name, void (T::*s)()) : ParamVectorBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -151,107 +149,107 @@ extern "C" void FUN_0019de50()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireGroundShockwaveTrack>("timeBegin", &hulkfight::motion::FireGroundShockwaveTrack::FUN_001937b0);
+            params[0] = new (mem) fight::ParamFloatConstRange_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("timeBegin", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_001937b0);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamVector<hulkfight::motion::FireGroundShockwaveTrack>("origin", &hulkfight::motion::FireGroundShockwaveTrack::FUN_001937e0);
+            params[1] = new (mem) fight::ParamVector_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("origin", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_001937e0);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamVector<hulkfight::motion::FireGroundShockwaveTrack>("direction", &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193820);
+            params[2] = new (mem) fight::ParamVector_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("direction", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_00193820);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireGroundShockwaveTrack>("distance", &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193850);
+            params[3] = new (mem) fight::ParamFloatConstRange_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("distance", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_00193850);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireGroundShockwaveTrack>("lifeTime", &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193870);
+            params[4] = new (mem) fight::ParamFloatConstRange_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("lifeTime", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_00193870);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamIntConstRange<hulkfight::motion::FireGroundShockwaveTrack>("projectilePriority", &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193890);
+            params[5] = new (mem) fight::ParamIntConstRange_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("projectilePriority", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_00193890);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireGroundShockwaveTrack>("radius", &hulkfight::motion::FireGroundShockwaveTrack::FUN_001938b0);
+            params[6] = new (mem) fight::ParamFloatConstRange_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("radius", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_001938b0);
         mem = FUN_0008d690(0x18);
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireGroundShockwaveTrack>("maxAffectedHeight", &hulkfight::motion::FireGroundShockwaveTrack::FUN_001938d0);
+            params[7] = new (mem) fight::ParamFloatConstRange_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("maxAffectedHeight", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_001938d0);
         mem = FUN_0008d690(0x18);
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireGroundShockwaveTrack>("maxYChange", &hulkfight::motion::FireGroundShockwaveTrack::FUN_001938f0);
+            params[8] = new (mem) fight::ParamFloatConstRange_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("maxYChange", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_001938f0);
         mem = FUN_0008d690(0x18);
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamName<hulkfight::motion::FireGroundShockwaveTrack>("effect", &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193900);
+            params[9] = new (mem) fight::ParamName_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("effect", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_00193900);
         mem = FUN_0008d690(0x18);
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamVector<hulkfight::motion::FireGroundShockwaveTrack>("effectAxis", &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193930);
+            params[10] = new (mem) fight::ParamVector_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("effectAxis", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_00193930);
         mem = FUN_0008d690(0x20);
         params[11] = 0;
         if (mem)
-            params[11] = new (mem) fight::ParamEnumConstList<hulkfight::motion::FireGroundShockwaveTrack>("decalDamageType", ((const char**)&DAT_004ad788), (*(int*)&DAT_00412ed4), &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193960);
+            params[11] = new (mem) fight::ParamEnumConstList_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("decalDamageType", ((const char**)&DAT_004ad788), (*(int*)&DAT_00412ed4), &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_00193960);
         mem = FUN_0008d690(0x18);
         params[12] = 0;
         if (mem)
-            params[12] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireGroundShockwaveTrack>("decalScale", &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193980);
+            params[12] = new (mem) fight::ParamFloatConstRange_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("decalScale", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_00193980);
         mem = FUN_0008d690(0x18);
         params[13] = 0;
         if (mem)
-            params[13] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireGroundShockwaveTrack>("decalDistance", &hulkfight::motion::FireGroundShockwaveTrack::FUN_001939a0);
+            params[13] = new (mem) fight::ParamFloatConstRange_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("decalDistance", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_001939a0);
         mem = FUN_0008d690(0x20);
         params[14] = 0;
         if (mem)
-            params[14] = new (mem) fight::ParamEnumConstList<hulkfight::motion::FireGroundShockwaveTrack>("coneDamageType", ((const char**)&DAT_004ad788), (*(int*)&DAT_00412ed4), &hulkfight::motion::FireGroundShockwaveTrack::FUN_001939c0);
+            params[14] = new (mem) fight::ParamEnumConstList_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("coneDamageType", ((const char**)&DAT_004ad788), (*(int*)&DAT_00412ed4), &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_001939c0);
         mem = FUN_0008d690(0x18);
         params[15] = 0;
         if (mem)
-            params[15] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireGroundShockwaveTrack>("coneRadius", &hulkfight::motion::FireGroundShockwaveTrack::FUN_001939e0);
+            params[15] = new (mem) fight::ParamFloatConstRange_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("coneRadius", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_001939e0);
         mem = FUN_0008d690(0x18);
         params[16] = 0;
         if (mem)
-            params[16] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireGroundShockwaveTrack>("coneArc", &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193a00);
+            params[16] = new (mem) fight::ParamFloatConstRange_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("coneArc", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_00193a00);
         mem = FUN_0008d690(0x18);
         params[17] = 0;
         if (mem)
-            params[17] = new (mem) fight::ParamIntConstRange<hulkfight::motion::FireGroundShockwaveTrack>("coneDecalCount", &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193a30);
+            params[17] = new (mem) fight::ParamIntConstRange_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("coneDecalCount", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_00193a30);
         mem = FUN_0008d690(0x18);
         params[18] = 0;
         if (mem)
-            params[18] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireGroundShockwaveTrack>("coneDecalScale", &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193a50);
+            params[18] = new (mem) fight::ParamFloatConstRange_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("coneDecalScale", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_00193a50);
         mem = FUN_0008d690(0x18);
         params[19] = 0;
         if (mem)
-            params[19] = new (mem) fight::ParamIntConstRange<hulkfight::motion::FireGroundShockwaveTrack>("interruptPriority", &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193a70);
+            params[19] = new (mem) fight::ParamIntConstRange_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("interruptPriority", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_00193a70);
         mem = FUN_0008d690(0x18);
         params[20] = 0;
         if (mem)
-            params[20] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireGroundShockwaveTrack>("damage", &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193a90);
+            params[20] = new (mem) fight::ParamFloatConstRange_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("damage", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_00193a90);
         mem = FUN_0008d690(0x18);
         params[21] = 0;
         if (mem)
-            params[21] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireGroundShockwaveTrack>("damageMax", &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193ab0);
+            params[21] = new (mem) fight::ParamFloatConstRange_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("damageMax", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_00193ab0);
         mem = FUN_0008d690(0x18);
         params[22] = 0;
         if (mem)
-            params[22] = new (mem) fight::ParamVector<hulkfight::motion::FireGroundShockwaveTrack>("force", &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193af0);
+            params[22] = new (mem) fight::ParamVector_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("force", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_00193af0);
         mem = FUN_0008d690(0x18);
         params[23] = 0;
         if (mem)
-            params[23] = new (mem) fight::ParamVector<hulkfight::motion::FireGroundShockwaveTrack>("forceMax", &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193b50);
+            params[23] = new (mem) fight::ParamVector_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("forceMax", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_00193b50);
         mem = FUN_0008d690(0x18);
         params[24] = 0;
         if (mem)
-            params[24] = new (mem) fight::ParamBranch<hulkfight::motion::FireGroundShockwaveTrack>("hitBranch", &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193b80);
+            params[24] = new (mem) fight::ParamBranch_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("hitBranch", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_00193b80);
         mem = FUN_0008d690(0x18);
         params[25] = 0;
         if (mem)
-            params[25] = new (mem) fight::ParamName<hulkfight::motion::FireGroundShockwaveTrack>("hitEffect", &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193b90);
+            params[25] = new (mem) fight::ParamName_19de50<hulkfight::motion::FireGroundShockwaveTrack_19de50>("hitEffect", &hulkfight::motion::FireGroundShockwaveTrack_19de50::FUN_00193b90);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1588), params, 26);
     }
     (*(int*)&DAT_004e158c)++;

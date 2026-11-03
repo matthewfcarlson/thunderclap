@@ -1,7 +1,7 @@
+#include "gen/global.h"
 class Actor_b97d0 {
   public:
     void A();
-    void B(int);
 };
 class State_b97d0 {
   public:
@@ -32,7 +32,7 @@ void State_b97d0::Target() {
             if (m->value == 1 && state != 3) {
                 a->A();
                 if (b)
-                    b->B(5);
+                    ((::CScenarioManager *)b)->FUN_001cc620(5);
                 FUN_000fc300();
             }
         }

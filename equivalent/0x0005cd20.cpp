@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 20/20)
 // FUN_0005cd20 @ 0x0005cd20
 #include "decls/data/game/global.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 
-class CGrappleSwapTrack {
+class CGrappleSwapTrack_5cd20 {
 public:
     void FUN_0005a220();
     void FUN_00012ae0();
@@ -22,8 +23,7 @@ class __declspec(novtable) ParamBoolBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234860(const char* name);
-    ParamBoolBase(const char* name) { FUN_00234860(name); }
+    ParamBoolBase(const char* name) { ((fight::ParamValueBool *)this)->FUN_00234860(name); }
 };
 template <class T>
 class ParamBool : public ParamBoolBase {
@@ -38,8 +38,7 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 template <class T>
 class ParamFloatConstRange : public ParamFloatConstRangeBase {
@@ -70,8 +69,7 @@ class __declspec(novtable) ParamNameConstListBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234ba0(const char* name);
-    ParamNameConstListBase(const char* name) { FUN_00234ba0(name); }
+    ParamNameConstListBase(const char* name) { ((fight::ParamValueNameList *)this)->FUN_00234ba0(name); }
 };
 template <class T>
 class ParamNameConstList : public ParamNameConstListBase {
@@ -110,39 +108,39 @@ extern "C" void FUN_0005cd20()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<CGrappleSwapTrack>("timeBegin", &CGrappleSwapTrack::FUN_0005a220);
+            params[0] = new (mem) ParamFloatConstRange<CGrappleSwapTrack_5cd20>("timeBegin", &CGrappleSwapTrack_5cd20::FUN_0005a220);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamNameConstList<CGrappleSwapTrack>("joint", &CGrappleSwapTrack::FUN_00012ae0);
+            params[1] = new (mem) ParamNameConstList<CGrappleSwapTrack_5cd20>("joint", &CGrappleSwapTrack_5cd20::FUN_00012ae0);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamNameConstList<CGrappleSwapTrack>("channel", &CGrappleSwapTrack::FUN_00012af0);
+            params[2] = new (mem) ParamNameConstList<CGrappleSwapTrack_5cd20>("channel", &CGrappleSwapTrack_5cd20::FUN_00012af0);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamBool<CGrappleSwapTrack>("useOffset", &CGrappleSwapTrack::FUN_0005a230);
+            params[3] = new (mem) ParamBool<CGrappleSwapTrack_5cd20>("useOffset", &CGrappleSwapTrack_5cd20::FUN_0005a230);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamVector<CGrappleSwapTrack>("offsetPosition", &CGrappleSwapTrack::FUN_0005a240);
+            params[4] = new (mem) ParamVector<CGrappleSwapTrack_5cd20>("offsetPosition", &CGrappleSwapTrack_5cd20::FUN_0005a240);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamFloatConstRange<CGrappleSwapTrack>("offsetOrientation", &CGrappleSwapTrack::FUN_0005a260);
+            params[5] = new (mem) ParamFloatConstRange<CGrappleSwapTrack_5cd20>("offsetOrientation", &CGrappleSwapTrack_5cd20::FUN_0005a260);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamIntConstRange<CGrappleSwapTrack>("rootPriority", &CGrappleSwapTrack::FUN_0005a280);
+            params[6] = new (mem) ParamIntConstRange<CGrappleSwapTrack_5cd20>("rootPriority", &CGrappleSwapTrack_5cd20::FUN_0005a280);
         mem = FUN_0008d690(0x18);
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) ParamFloatConstRange<CGrappleSwapTrack>("rootBlendInTime", &CGrappleSwapTrack::FUN_0005a290);
+            params[7] = new (mem) ParamFloatConstRange<CGrappleSwapTrack_5cd20>("rootBlendInTime", &CGrappleSwapTrack_5cd20::FUN_0005a290);
         mem = FUN_0008d690(0x18);
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) ParamFloatConstRange<CGrappleSwapTrack>("rootBlendOutTime", &CGrappleSwapTrack::FUN_0005a2a0);
+            params[8] = new (mem) ParamFloatConstRange<CGrappleSwapTrack_5cd20>("rootBlendOutTime", &CGrappleSwapTrack_5cd20::FUN_0005a2a0);
         FUN_002347b0(((ParamRegistry*)&DAT_004dc5a0), params, 9);
     }
     DAT_004dc5a4++;

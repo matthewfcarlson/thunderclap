@@ -1,3 +1,4 @@
+#include "gen/pure3d.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_29bdc0[];
 void operator delete(void*);
@@ -20,13 +21,12 @@ class DisplayList_29bdc0 : public Entity_29bdc0 {
     Ref_29bdc0** m1c;
     char pad2[8];
     void* m28;
-    void Clear();
     ~DisplayList_29bdc0() throw();
 };
 DisplayList_29bdc0::~DisplayList_29bdc0() throw() {
     vptr = g_vftable_29bdc0;
     _ReadWriteBarrier();
-    Clear();
+    ((pure3d::DisplayList *)this)->FUN_0029bba0();
     for (unsigned i = 0; i < m10; i++) {
         Ref_29bdc0** p = &m1c[i];
         if (*p) {

@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_21d60[];
 extern void* g_vftable2[];
@@ -10,7 +11,6 @@ class Ref_21d60 {
 class CAction_21d60 {
   public:
     void* vptr;
-    void Fin();
 };
 class CGrappleSwapAction_21d60 : public CAction_21d60 {
   public:
@@ -25,7 +25,7 @@ CGrappleSwapAction_21d60* CGrappleSwapAction_21d60::f2(unsigned char flags) {
         m1c->Release();
         m1c = 0;
     }
-    Fin();
+    ((fight::Action *)(CAction_21d60 *)this)->FUN_002326a0();
     if (flags & 1)
         operator delete(this);
     return this;

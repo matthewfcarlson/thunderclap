@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_18d660[];
 class Ref_18d660 {
@@ -8,7 +9,6 @@ class Ref_18d660 {
 class Action_18d660 {
   public:
     void* vptr;
-    void Fin();
 };
 class TimerSetAction_18d660 : public Action_18d660 {
   public:
@@ -26,5 +26,5 @@ TimerSetAction_18d660::~TimerSetAction_18d660() {
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_18d660 *)this)->FUN_002326a0();
 }

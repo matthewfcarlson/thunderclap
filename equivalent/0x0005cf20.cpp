@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 20/20)
 // FUN_0005cf20 @ 0x0005cf20
 #include "decls/data/game/global.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 
-class CGrabTrack {
+class CGrabTrack_5cf20 {
 public:
     void FUN_0005a360();
     void FUN_0005a370();
@@ -22,8 +23,7 @@ class __declspec(novtable) ParamBoolBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234860(const char* name);
-    ParamBoolBase(const char* name) { FUN_00234860(name); }
+    ParamBoolBase(const char* name) { ((fight::ParamValueBool *)this)->FUN_00234860(name); }
 };
 template <class T>
 class ParamBool : public ParamBoolBase {
@@ -38,8 +38,7 @@ class __declspec(novtable) ParamBranchBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00235170(const char* name);
-    ParamBranchBase(const char* name) { FUN_00235170(name); }
+    ParamBranchBase(const char* name) { ((fight::ParamValueBranch *)this)->FUN_00235170(name); }
 };
 template <class T>
 class ParamBranch : public ParamBranchBase {
@@ -54,8 +53,7 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 template <class T>
 class ParamFloatConstRange : public ParamFloatConstRangeBase {
@@ -86,8 +84,7 @@ class __declspec(novtable) ParamNameConstListBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234ba0(const char* name);
-    ParamNameConstListBase(const char* name) { FUN_00234ba0(name); }
+    ParamNameConstListBase(const char* name) { ((fight::ParamValueNameList *)this)->FUN_00234ba0(name); }
 };
 template <class T>
 class ParamNameConstList : public ParamNameConstListBase {
@@ -126,39 +123,39 @@ extern "C" void FUN_0005cf20()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<CGrabTrack>("timeBegin", &CGrabTrack::FUN_0005a360);
+            params[0] = new (mem) ParamFloatConstRange<CGrabTrack_5cf20>("timeBegin", &CGrabTrack_5cf20::FUN_0005a360);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<CGrabTrack>("timeEnd", &CGrabTrack::FUN_0005a370);
+            params[1] = new (mem) ParamFloatConstRange<CGrabTrack_5cf20>("timeEnd", &CGrabTrack_5cf20::FUN_0005a370);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamNameConstList<CGrabTrack>("joint", &CGrabTrack::FUN_0005a380);
+            params[2] = new (mem) ParamNameConstList<CGrabTrack_5cf20>("joint", &CGrabTrack_5cf20::FUN_0005a380);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamVector<CGrabTrack>("offset", &CGrabTrack::FUN_0005a390);
+            params[3] = new (mem) ParamVector<CGrabTrack_5cf20>("offset", &CGrabTrack_5cf20::FUN_0005a390);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamFloatConstRange<CGrabTrack>("radius", &CGrabTrack::FUN_0005a3b0);
+            params[4] = new (mem) ParamFloatConstRange<CGrabTrack_5cf20>("radius", &CGrabTrack_5cf20::FUN_0005a3b0);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamIntConstRange<CGrabTrack>("interruptPriority", &CGrabTrack::FUN_0005a3c0);
+            params[5] = new (mem) ParamIntConstRange<CGrabTrack_5cf20>("interruptPriority", &CGrabTrack_5cf20::FUN_0005a3c0);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamBool<CGrabTrack>("missileCatch", &CGrabTrack::FUN_0005a3d0);
+            params[6] = new (mem) ParamBool<CGrabTrack_5cf20>("missileCatch", &CGrabTrack_5cf20::FUN_0005a3d0);
         mem = FUN_0008d690(0x18);
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) ParamBranch<CGrabTrack>("receiver", &CGrabTrack::FUN_00012bd0);
+            params[7] = new (mem) ParamBranch<CGrabTrack_5cf20>("receiver", &CGrabTrack_5cf20::FUN_00012bd0);
         mem = FUN_0008d690(0x18);
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) ParamBranch<CGrabTrack>("giver", &CGrabTrack::FUN_00012be0);
+            params[8] = new (mem) ParamBranch<CGrabTrack_5cf20>("giver", &CGrabTrack_5cf20::FUN_00012be0);
         FUN_002347b0(((ParamRegistry*)&DAT_004dc5c0), params, 9);
     }
     DAT_004dc5c4++;

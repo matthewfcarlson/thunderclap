@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_17b560[];
 class Ref_17b560 {
@@ -18,7 +19,6 @@ class FootPivotAction {
 };
 class Helper_17b560 {
   public:
-    void Fn();
 };
 extern void __cdecl thunk_FUN_00267090(FootPivotAction*);
 FootPivotAction* FootPivotAction::f2(unsigned char flags) {
@@ -34,7 +34,7 @@ FootPivotAction* FootPivotAction::f2(unsigned char flags) {
     }
     if (m1c)
         m1c = 0;
-    ((Helper_17b560*)this)->Fn();
+    ((fight::Action *)(((Helper_17b560*)this)))->FUN_002326a0();
     if (flags & 1)
         thunk_FUN_00267090(this);
     return this;

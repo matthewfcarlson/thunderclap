@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 4/4)
 // FUN_000a62c0 @ 0x000a62c0
+#include "gen/global.h"
 struct V3_a62c0 { float x, y, z; };
 struct Target_a62c0 { char pad[0x1a64]; float f1a64; };
 struct Sub_a62c0 { void FUN_00059a50(V3_a62c0* p); };
@@ -8,7 +9,6 @@ struct Holder_a62c0 { char pad[0x10]; Sub_a62c0* sub; char pad2[0x1a64 - 0x14]; 
 class CChaseCamera_a62c0 {
 public:
     V3_a62c0* FUN_000a92c0(V3_a62c0* out, int a, Holder_a62c0* b);
-    void FUN_000a2f30(int a);
     void FUN_000a1b30(int a, int b, int c);
     void run(int a, Holder_a62c0* b);
     char p0[0x1b8];
@@ -47,7 +47,7 @@ void CChaseCamera_a62c0::run(int a, Holder_a62c0* b)
         v2a8.x = 0; v2a8.y = 0; v2a8.z = 0;
         v2b4.x = 0; v2b4.y = 0; v2b4.z = 0;
         v4a0.x = 0; v4a0.y = 0; v4a0.z = 0;
-        FUN_000a2f30(0);
+        ((::CChaseCamera *)this)->FUN_000a2f30(0);
         FUN_000a1b30(a, 0, 1);
         c344 = 0;
     }

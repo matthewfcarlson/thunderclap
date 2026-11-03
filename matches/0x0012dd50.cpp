@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vt_12dd50[];
 void operator delete(void*);
@@ -9,7 +10,6 @@ class Ref_12dd50 {
 class Action_12dd50 {
   public:
     void* vptr;
-    void Fin();
 };
 class PostEvent_StringAction_12dd50 : public Action_12dd50 {
   public:
@@ -24,7 +24,7 @@ PostEvent_StringAction_12dd50* PostEvent_StringAction_12dd50::f2(unsigned char f
         m->Release();
         m = 0;
     }
-    Fin();
+    ((fight::Action *)(Action_12dd50 *)this)->FUN_002326a0();
     if (flags & 1)
         operator delete(this);
     return this;

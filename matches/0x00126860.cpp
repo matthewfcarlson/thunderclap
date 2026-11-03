@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_126860[];
 class Ref_126860 {
@@ -8,7 +9,6 @@ class Ref_126860 {
 class Action_126860 {
   public:
     void* vptr;
-    void Fin();
 };
 class ClearProjectileDistanceAction_126860 : public Action_126860 {
   public:
@@ -26,5 +26,5 @@ ClearProjectileDistanceAction_126860::~ClearProjectileDistanceAction_126860() {
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_126860 *)this)->FUN_002326a0();
 }

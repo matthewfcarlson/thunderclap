@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 34/34)
 // FUN_000bf2b0 @ 0x000bf2b0
 #include "decls/address.h"
+#include "gen/global.h"
 extern "C" char *__cdecl strncpy(char *dst, const char *src, unsigned int n);
 
 struct Counter_bf2b0 {
@@ -22,7 +23,6 @@ struct Panel_bf2b0 {
 };
 
 struct Widget_bf2b0 {
-    void FUN_001cc620(int state);
 };
 
 struct Listener_bf2b0 {
@@ -113,16 +113,16 @@ void Menu_bf2b0::FUN_000bf2b0(int confirmed)
     bool alive = leader && leader->health > 0.0f;
 
     if (same && alive) {
-        widget->FUN_001cc620(0);
+        ((::CScenarioManager *)widget)->FUN_001cc620(0);
         DAT_004dd700->hud->FUN_000d6fb0(1);
     } else {
         int level = panel->counter.FUN_00088fa0();
         if (panel->FUN_00089a10() && level == 10) {
-            widget->FUN_001cc620(5);
+            ((::CScenarioManager *)widget)->FUN_001cc620(5);
             panel->FUN_00089a30(1);
             strncpy(sideName, "side_missions", 0x1f);
         } else {
-            widget->FUN_001cc620(9);
+            ((::CScenarioManager *)widget)->FUN_001cc620(9);
             panel->FUN_00089a30(0);
             void *item = FUN_000b4cf0(name);
             if (!item)

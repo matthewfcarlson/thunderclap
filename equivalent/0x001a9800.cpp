@@ -2,6 +2,7 @@
 // FUN_001a9800 @ 0x001a9800
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight/scenario.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
@@ -30,9 +31,9 @@ public:
 };
 namespace fight {
 template <class T>
-class ParamEnumConstList : public ParamEnumConstListBase {
+class ParamEnumConstList_1a9800 : public ParamEnumConstListBase {
 public:
-    ParamEnumConstList(const char* name, const char** n, int c, void (T::*s)())
+    ParamEnumConstList_1a9800(const char* name, const char** n, int c, void (T::*s)())
         : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
     virtual void v0();
     const char** names;
@@ -46,14 +47,13 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 namespace fight {
 template <class T>
-class ParamFloatConstRange : public ParamFloatConstRangeBase {
+class ParamFloatConstRange_1a9800 : public ParamFloatConstRangeBase {
 public:
-    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    ParamFloatConstRange_1a9800(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -64,14 +64,13 @@ class __declspec(novtable) ParamNameBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234a90(const char* name);
-    ParamNameBase(const char* name) { FUN_00234a90(name); }
+    ParamNameBase(const char* name) { ((fight::ParamValueName *)this)->FUN_00234a90(name); }
 };
 namespace fight {
 template <class T>
-class ParamName : public ParamNameBase {
+class ParamName_1a9800 : public ParamNameBase {
 public:
-    ParamName(const char* name, void (T::*s)()) : ParamNameBase(name) { setter = s; }
+    ParamName_1a9800(const char* name, void (T::*s)()) : ParamNameBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -82,14 +81,13 @@ class __declspec(novtable) ParamNameConstListBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234ba0(const char* name);
-    ParamNameConstListBase(const char* name) { FUN_00234ba0(name); }
+    ParamNameConstListBase(const char* name) { ((fight::ParamValueNameList *)this)->FUN_00234ba0(name); }
 };
 namespace fight {
 template <class T>
-class ParamNameConstList : public ParamNameConstListBase {
+class ParamNameConstList_1a9800 : public ParamNameConstListBase {
 public:
-    ParamNameConstList(const char* name, void (T::*s)()) : ParamNameConstListBase(name) { setter = s; }
+    ParamNameConstList_1a9800(const char* name, void (T::*s)()) : ParamNameConstListBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -105,9 +103,9 @@ public:
 };
 namespace fight {
 template <class T>
-class ParamVector : public ParamVectorBase {
+class ParamVector_1a9800 : public ParamVectorBase {
 public:
-    ParamVector(const char* name, void (T::*s)()) : ParamVectorBase(name) { setter = s; }
+    ParamVector_1a9800(const char* name, void (T::*s)()) : ParamVectorBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -126,47 +124,47 @@ void FUN_001a9800()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange<EffectTrack>("timeBegin", &EffectTrack::FUN_001a1f80);
+            params[0] = new (mem) fight::ParamFloatConstRange_1a9800<EffectTrack>("timeBegin", &EffectTrack::FUN_001a1f80);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange<EffectTrack>("timeEnd", &EffectTrack::FUN_001a1fa0);
+            params[1] = new (mem) fight::ParamFloatConstRange_1a9800<EffectTrack>("timeEnd", &EffectTrack::FUN_001a1fa0);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamName<EffectTrack>("characterName", &EffectTrack::FUN_001a1fb0);
+            params[2] = new (mem) fight::ParamName_1a9800<EffectTrack>("characterName", &EffectTrack::FUN_001a1fb0);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamName<EffectTrack>("effectName", &EffectTrack::FUN_001a1fc0);
+            params[3] = new (mem) fight::ParamName_1a9800<EffectTrack>("effectName", &EffectTrack::FUN_001a1fc0);
         mem = FUN_0008d690(0x20);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamEnumConstList<EffectTrack>("emitSpace", ((const char**)&DAT_00495d60), (*(int*)&DAT_003fa9e8), &EffectTrack::FUN_001a1fe0);
+            params[4] = new (mem) fight::ParamEnumConstList_1a9800<EffectTrack>("emitSpace", ((const char**)&DAT_00495d60), (*(int*)&DAT_003fa9e8), &EffectTrack::FUN_001a1fe0);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamNameConstList<EffectTrack>("emitJoint", &EffectTrack::FUN_001a1ff0);
+            params[5] = new (mem) fight::ParamNameConstList_1a9800<EffectTrack>("emitJoint", &EffectTrack::FUN_001a1ff0);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamVector<EffectTrack>("offset", &EffectTrack::FUN_001a2020);
+            params[6] = new (mem) fight::ParamVector_1a9800<EffectTrack>("offset", &EffectTrack::FUN_001a2020);
         mem = FUN_0008d690(0x18);
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamVector<EffectTrack>("orientation", &EffectTrack::FUN_001a2060);
+            params[7] = new (mem) fight::ParamVector_1a9800<EffectTrack>("orientation", &EffectTrack::FUN_001a2060);
         mem = FUN_0008d690(0x20);
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamEnumConstList<EffectTrack>("attachSpace", ((const char**)&DAT_00495d50), (*(int*)&DAT_003fa9e4), &EffectTrack::FUN_001a20b0);
+            params[8] = new (mem) fight::ParamEnumConstList_1a9800<EffectTrack>("attachSpace", ((const char**)&DAT_00495d50), (*(int*)&DAT_003fa9e4), &EffectTrack::FUN_001a20b0);
         mem = FUN_0008d690(0x18);
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamNameConstList<EffectTrack>("attachJoint", &EffectTrack::FUN_001a20c0);
+            params[9] = new (mem) fight::ParamNameConstList_1a9800<EffectTrack>("attachJoint", &EffectTrack::FUN_001a20c0);
         mem = FUN_0008d690(0x18);
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange<EffectTrack>("scale", &EffectTrack::FUN_001a20e0);
+            params[10] = new (mem) fight::ParamFloatConstRange_1a9800<EffectTrack>("scale", &EffectTrack::FUN_001a20e0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1750), params, 11);
     }
     DAT_004e1754++;

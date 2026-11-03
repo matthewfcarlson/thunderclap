@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_18f680[];
 class Ref_18f680 {
@@ -8,7 +9,6 @@ class Ref_18f680 {
 class Action_18f680 {
   public:
     void* vptr;
-    void Fin();
 };
 class TankLocomotionAction_18f680 : public Action_18f680 {
   public:
@@ -31,5 +31,5 @@ TankLocomotionAction_18f680::~TankLocomotionAction_18f680() {
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_18f680 *)this)->FUN_002326a0();
 }

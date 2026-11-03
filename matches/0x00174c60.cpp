@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_174c60[];
 class Ref_174c60 {
@@ -8,7 +9,6 @@ class Ref_174c60 {
 };
 class Helper_174c60 {
   public:
-    void Fn();
 };
 class FootPivotAction_174c60 {
   public:
@@ -33,5 +33,5 @@ void FootPivotAction_174c60::f() {
     }
     if (m1c)
         m1c = 0;
-    ((Helper_174c60*)this)->Fn();
+    ((fight::Action *)(((Helper_174c60*)this)))->FUN_002326a0();
 }

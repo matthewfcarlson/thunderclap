@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_1758e0[];
 class Ref_1758e0 {
@@ -8,7 +9,6 @@ class Ref_1758e0 {
 class Action_1758e0 {
   public:
     void* vptr;
-    void Fin();
 };
 class TeleportAction_1758e0 : public Action_1758e0 {
   public:
@@ -26,5 +26,5 @@ TeleportAction_1758e0::~TeleportAction_1758e0() {
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_1758e0 *)this)->FUN_002326a0();
 }

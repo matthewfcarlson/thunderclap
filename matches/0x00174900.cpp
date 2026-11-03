@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/fight.h"
 extern "C" char DAT_00417ea0[];
 extern "C" void _ReadWriteBarrier();
 class Action {
@@ -8,7 +9,6 @@ class Action {
 };
 class Action_174900 {
   public:
-    void Finish();
 };
 class PushOutAction : public Action_174900 {
   public:
@@ -27,5 +27,5 @@ void PushOutAction::Clear() {
     }
     if (m1)
         m1 = 0;
-    Finish();
+    ((fight::Action *)(Action_174900 *)this)->FUN_002326a0();
 }

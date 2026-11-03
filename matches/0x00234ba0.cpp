@@ -1,18 +1,15 @@
-extern void* g_vftableA[];
-extern void* g_vftableB[];
-struct Sub_234ba0 {
-    void Init(int a);
+#include "gen/fight.h"
+
+#include "compat/ptr.h"
+extern "C" char DAT_004279fc[];
+extern "C" char DAT_00427adc[];
+struct Member_234ba0 {
+    void Init(const char*);
 };
-class ParamValueNameList_234ba0 {
-  public:
-    void* vptr;
-    char pad4[4];
-    Sub_234ba0 m8;
-    ParamValueNameList_234ba0* ctor(int a);
-};
-ParamValueNameList_234ba0* ParamValueNameList_234ba0::ctor(int a) {
-    *(void* volatile*)&vptr = g_vftableA;
-    m8.Init(a);
-    vptr = g_vftableB;
-    return this;
+
+fight::ParamValueNameList* fight::ParamValueNameList::FUN_00234ba0(const char* name) {
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_004279fc);
+    ((Member_234ba0*)((char*)this + 8))->Init(name);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00427adc);
+    return (fight::ParamValueNameList*)(this);
 }

@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 6/6)
 // FUN_00131d30 @ 0x00131d30
 #include "decls/data/game/hulkfight.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 
 namespace hulkfight {
-class StatTrack {
+class StatTrack_131d30 {
 public:
     void FUN_0012e1e0();
     void FUN_0012f030();
@@ -17,8 +18,7 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 class __declspec(novtable) ParamStringBase {
 public:
@@ -29,17 +29,17 @@ public:
 };
 namespace fight {
 template <class T>
-class ParamFloatConstRange : public ParamFloatConstRangeBase {
+class ParamFloatConstRange_131d30 : public ParamFloatConstRangeBase {
 public:
-    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    ParamFloatConstRange_131d30(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamString : public ParamStringBase {
+class ParamString_131d30 : public ParamStringBase {
 public:
-    ParamString(const char* name, void (T::*s)()) : ParamStringBase(name) { setter = s; }
+    ParamString_131d30(const char* name, void (T::*s)()) : ParamStringBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -59,11 +59,11 @@ extern "C" void FUN_00131d30()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange<hulkfight::StatTrack>("timeBegin", &hulkfight::StatTrack::FUN_0012e1e0);
+            params[0] = new (mem) fight::ParamFloatConstRange_131d30<hulkfight::StatTrack_131d30>("timeBegin", &hulkfight::StatTrack_131d30::FUN_0012e1e0);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamString<hulkfight::StatTrack>("stat", &hulkfight::StatTrack::FUN_0012f030);
+            params[1] = new (mem) fight::ParamString_131d30<hulkfight::StatTrack_131d30>("stat", &hulkfight::StatTrack_131d30::FUN_0012f030);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0ea4), params, 2);
     }
     DAT_004e0ea8++;

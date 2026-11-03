@@ -1,11 +1,11 @@
 #include "decls/data/game/Render/Canvas.h"
 #include "decls/data/game/global.h"
 // data: g_obj_1c22f0 = DAT_004e2318, kZero_1c22f0 = DAT_003f32e0
+#include "gen/pure3d.h"
 
 struct Sub_1c22f0 {
     void A(int);
     void B();
-    void C();
 };
 struct Obj2_1c22f0 {
     virtual void v0();
@@ -33,7 +33,7 @@ class Thing_1c22f0 {
 void Thing_1c22f0::Fn() {
     mSub->A(mVal);
     mSub->B();
-    mSub->C();
+    ((pure3d::DisplayList *)mSub)->FUN_0029bba0();
     if ((*(Obj2_1c22f0**)&DAT_004e2318) && mF != DAT_003f32e0) {
         Set(mF, mG);
         (*(Obj2_1c22f0**)&DAT_004e2318)->v2();

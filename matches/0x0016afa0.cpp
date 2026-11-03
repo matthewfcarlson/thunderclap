@@ -2,13 +2,13 @@
 // data: gName_16afa0 = DAT_0041722c
 
 #include "compat/ptr.h"
+#include "gen/fight.h"
 extern "C" void __cdecl FUN_001653d0();
 extern "C" char DAT_00416a88[];
 extern "C" int gCount_16afa0 = 0;
 extern "C" void* gSlot_16afa0 = 0;
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Init_16afa0 {
-    void InitName(const char*);
 };
 extern "C" void __cdecl FUN_002347b0(void**, void**, int);
 struct Param {
@@ -24,7 +24,7 @@ extern "C" void FUN_0016afa0() {
     }
     Param* p = (Param*)FUN_0008d690(0x18);
     if (p) {
-        ((Init_16afa0*)p)->InitName(DAT_0041722c);
+        ((fight::ParamValueBool *)(((Init_16afa0*)p)))->FUN_00234860(DAT_0041722c);
         p->vptr = (void*)((hulk_intptr)DAT_00416a88);
         p->field10 = (void*)((hulk_intptr)(void (__cdecl*)())&FUN_001653d0);
         local = p;

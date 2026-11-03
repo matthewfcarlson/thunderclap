@@ -4,10 +4,10 @@
 extern "C" char DAT_004279fc[];
 extern "C" char DAT_00427a18[];
 struct Member_234860 {
-    void Init(int);
+    void Init(const char*);
 };
 
-fight::ParamValueBool* fight::ParamValueBool::FUN_00234860(int value) {
+fight::ParamValueBool* fight::ParamValueBool::FUN_00234860(const char* value) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_004279fc);
     ((Member_234860*)((char*)this + 8))->Init(value);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00427a18);

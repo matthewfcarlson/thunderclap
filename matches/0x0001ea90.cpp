@@ -1,5 +1,6 @@
 // Same code shape as 0x0001ecb0 (propagated; names are from that function)
 #include "gen/global.h"
+#include "gen/fight.h"
 
 extern char vftableD[];
 extern char vftableA[];
@@ -11,7 +12,6 @@ class RefObj_1ea90 {
 };
 
 struct Tidier {
-    void Tidy();
 };
 
 void CSmartPropAttachAction::FUN_0001ea90() {
@@ -27,5 +27,5 @@ void CSmartPropAttachAction::FUN_0001ea90() {
         a->Release();
         (*(RefObj_1ea90 *volatile *)&this->f_1c) = 0;
     }
-    ((Tidier*)this)->Tidy();
+    ((fight::Action *)(((Tidier*)this)))->FUN_002326a0();
 }

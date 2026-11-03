@@ -10,14 +10,13 @@ struct CFightNodeParentCondition_520c0 {
     virtual void f3();
     virtual void f4();
     virtual void f5();
-    void InitMe();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::ConditionFactoryTemplate<CFightNodeParentCondition>::vfunc_5() {
     CFightNodeParentCondition_520c0* p = (CFightNodeParentCondition_520c0*)FUN_0008d690(0x20);
     if (p) {
-        p->InitMe();
+        ((fight::FightNodeParentCondition *)p)->FUN_00235b00();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f8504);
         return (void*)(p);
     }

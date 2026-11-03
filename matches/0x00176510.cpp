@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/fight.h"
 extern "C" char DAT_00417fd4[];
 extern "C" void _ReadWriteBarrier();
 class Ref_176510 {
@@ -8,7 +9,6 @@ class Ref_176510 {
 };
 class Action_176510 {
   public:
-    void Tail();
 };
 class TargetBreakAction : public Action_176510 {
   public:
@@ -24,5 +24,5 @@ void TargetBreakAction::Finish() {
         ref->B();
         ref = 0;
     }
-    Tail();
+    ((fight::Action *)(Action_176510 *)this)->FUN_002326a0();
 }

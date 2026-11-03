@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vA[];
 extern void* g_vB[];
@@ -10,7 +11,6 @@ class Ref_219c0 {
 class CAction_219c0 {
   public:
     void* vptr;
-    void Fin();
 };
 class CKeyPoseAction_219c0 : public CAction_219c0 {
   public:
@@ -33,7 +33,7 @@ CKeyPoseAction_219c0* CKeyPoseAction_219c0::f2(unsigned char flags) {
         m1c->Release();
         m1c = 0;
     }
-    Fin();
+    ((fight::Action *)(CAction_219c0 *)this)->FUN_002326a0();
     if (flags & 1)
         operator delete(this);
     return this;

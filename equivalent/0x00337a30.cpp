@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20015 inputs, branch coverage 36/36)
 // FUN_00337a30 @ 0x00337a30
+#include "gen/movie.h"
 extern "C" int memcmp(const void *a, const void *b, unsigned int n);
 // MSVC 7.1 expands memcmp against a string literal inline (repe cmpsb); so does this.
 static inline int memcmp_lit(const char *a, const char *b, unsigned n)
@@ -38,7 +39,6 @@ public:
     virtual void Destroy(int flag);
     char pad04[8];
     int hasOwner;
-    BinkCallback_337a30 *FUN_003352a0();
     void FUN_003352c0(const char *text);
     char FUN_00335300(class Parser_337a30 *parser);
     void FUN_00336f30(Item *item, int arg);
@@ -65,7 +65,7 @@ bool Parser_337a30::FUN_00337a30(void *source, int a1, Registry_337a30 *registry
     if (r->FUN_003385f0(a1)) {
         BinkCallback_337a30 *node = (BinkCallback_337a30 *)FUN_0008d690(0x10);
         if (node)
-            node = node->FUN_003352a0();
+            node = ((BinkCallback_337a30 *)((movie::BinkCallback *)node)->FUN_003352a0());
         const char *tok = FUN_00337980();
         if (tok) {
             do {

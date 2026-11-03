@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* gD[];
 extern void* gA_1d520[];
@@ -9,7 +10,6 @@ class Ref_1d520 {
 class CAction_1d520 {
   public:
     void* vptr;
-    void Fin();
 };
 class CAutoTargetAction_1d520 : public CAction_1d520 {
   public:
@@ -37,5 +37,5 @@ CAutoTargetAction_1d520::~CAutoTargetAction_1d520() {
         m1c->Release();
         m1c = 0;
     }
-    Fin();
+    ((fight::Action *)(CAction_1d520 *)this)->FUN_002326a0();
 }

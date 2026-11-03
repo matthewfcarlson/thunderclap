@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/fight.h"
 extern int DAT_00417ed8;
 
 struct VObj_17b610 {
@@ -21,7 +22,6 @@ class DriftToPositionAction {
     virtual void vfunc_4();
     virtual void vfunc_5();
 
-    void Cleanup();
 
   private:
     char pad0[0x18];
@@ -44,7 +44,7 @@ DriftToPositionAction* DriftToPositionAction::vfunc_2(unsigned char param) {
         *q = 0;
     }
     m38.Fn();
-    Cleanup();
+    ((fight::Action *)this)->FUN_002326a0();
     if (param & 1) {
         FUN_0008d330((void*)this);
     }

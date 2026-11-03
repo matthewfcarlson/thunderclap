@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/fight.h"
 struct RefObj_11a200 {
   public:
     virtual void v0();
@@ -19,7 +20,6 @@ class MotionClosestWaypointAction {
     char pad2[60];        // 0x24..0x5F
     Sub60 m60;            // 0x60
 
-    void CallBaseDtor();
     void* vfunc_2(unsigned char flag);
 };
 
@@ -37,7 +37,7 @@ void* MotionClosestWaypointAction::vfunc_2(unsigned char flag) {
         m1c = 0;
     }
     m60.Dtor();
-    CallBaseDtor();
+    ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
         operator delete(this);
     }

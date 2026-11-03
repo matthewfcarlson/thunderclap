@@ -1,13 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 18/18)
 // FUN_00188220 @ 0x00188220
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
 namespace hulkfight {
 namespace motion {
-class BallAndChainSpinTrack {
+class BallAndChainSpinTrack_188220 {
 public:
     void FUN_001801c0();
     void FUN_001801d0();
@@ -25,8 +26,7 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 template <class T>
 class ParamFloatConstRange : public ParamFloatConstRangeBase {
@@ -81,35 +81,35 @@ extern "C" void FUN_00188220()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack>("timeBegin", &hulkfight::motion::BallAndChainSpinTrack::FUN_001801c0);
+            params[0] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("timeBegin", &hulkfight::motion::BallAndChainSpinTrack_188220::FUN_001801c0);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack>("timeEnd", &hulkfight::motion::BallAndChainSpinTrack::FUN_001801d0);
+            params[1] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("timeEnd", &hulkfight::motion::BallAndChainSpinTrack_188220::FUN_001801d0);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamIntConstRange<hulkfight::motion::BallAndChainSpinTrack>("attachmentIndex", &hulkfight::motion::BallAndChainSpinTrack::FUN_001801f0);
+            params[2] = new (mem) ParamIntConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("attachmentIndex", &hulkfight::motion::BallAndChainSpinTrack_188220::FUN_001801f0);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack>("radius", &hulkfight::motion::BallAndChainSpinTrack::FUN_00180210);
+            params[3] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("radius", &hulkfight::motion::BallAndChainSpinTrack_188220::FUN_00180210);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack>("height", &hulkfight::motion::BallAndChainSpinTrack::FUN_00180230);
+            params[4] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("height", &hulkfight::motion::BallAndChainSpinTrack_188220::FUN_00180230);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack>("startAngle", &hulkfight::motion::BallAndChainSpinTrack::FUN_00180250);
+            params[5] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("startAngle", &hulkfight::motion::BallAndChainSpinTrack_188220::FUN_00180250);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack>("spinVelocity", &hulkfight::motion::BallAndChainSpinTrack::FUN_00180280);
+            params[6] = new (mem) ParamFloatConstRange<hulkfight::motion::BallAndChainSpinTrack_188220>("spinVelocity", &hulkfight::motion::BallAndChainSpinTrack_188220::FUN_00180280);
         mem = FUN_0008d690(0x18);
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) ParamVector<hulkfight::motion::BallAndChainSpinTrack>("orient", &hulkfight::motion::BallAndChainSpinTrack::FUN_001802c0);
+            params[7] = new (mem) ParamVector<hulkfight::motion::BallAndChainSpinTrack_188220>("orient", &hulkfight::motion::BallAndChainSpinTrack_188220::FUN_001802c0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e14b8), params, 8);
     }
     DAT_004e14bc++;

@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_10fa20[];
 class Ref_10fa20 {
@@ -8,7 +9,6 @@ class Ref_10fa20 {
 class Action_10fa20 {
   public:
     void* vptr;
-    void Fin();
 };
 class SemaphoreClearAction_10fa20 : public Action_10fa20 {
   public:
@@ -26,5 +26,5 @@ SemaphoreClearAction_10fa20::~SemaphoreClearAction_10fa20() {
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_10fa20 *)this)->FUN_002326a0();
 }

@@ -1,3 +1,4 @@
+#include "gen/Render.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_a_1c86e0[];
 extern void* g_s[];
@@ -11,7 +12,6 @@ struct Q_1c86e0 {
 };
 struct Store {
     void* vptr;
-    void Fin1() throw();
     void Fin2() throw();
 };
 struct H {
@@ -73,7 +73,7 @@ void World_1c86e0::f() {
     } while (--n);
     Store* s = &h.st;
     s->vptr = g_s;
-    s->Fin1();
+    ((Render::StoreBase *)s)->FUN_001c7720();
     s->Fin2();
     hp->Fin();
 }

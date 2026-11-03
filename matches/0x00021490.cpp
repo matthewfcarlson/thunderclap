@@ -1,5 +1,6 @@
 // Same code shape as 0x0001ecb0 (propagated; names are from that function)
 #include "gen/global.h"
+#include "gen/fight.h"
 
 extern char vftableD[];
 extern char vftableA[];
@@ -11,7 +12,6 @@ class RefObj_21490 {
 };
 
 struct Tidier {
-    void Tidy();
 };
 
 void CHeliDeathSpiralAction::FUN_00021490() {
@@ -27,5 +27,5 @@ void CHeliDeathSpiralAction::FUN_00021490() {
         a->Release();
         (*(RefObj_21490 *volatile *)&this->f_1c) = 0;
     }
-    ((Tidier*)this)->Tidy();
+    ((fight::Action *)(((Tidier*)this)))->FUN_002326a0();
 }

@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 16/16)
 // FUN_001319f0 @ 0x001319f0
 #include "decls/data/game/hulkfight.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 
 namespace hulkfight {
-class DialogueTrack {
+class DialogueTrack_1319f0 {
 public:
     void FUN_0012e100();
     void FUN_0012ebc0();
@@ -22,8 +23,7 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 template <class T>
 class ParamFloatConstRange : public ParamFloatConstRangeBase {
@@ -70,8 +70,7 @@ class __declspec(novtable) ParamBoolBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234860(const char* name);
-    ParamBoolBase(const char* name) { FUN_00234860(name); }
+    ParamBoolBase(const char* name) { ((fight::ParamValueBool *)this)->FUN_00234860(name); }
 };
 template <class T>
 class ParamBool : public ParamBoolBase {
@@ -94,31 +93,31 @@ void FUN_001319f0()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<hulkfight::DialogueTrack>("timeBegin", &hulkfight::DialogueTrack::FUN_0012e100);
+            params[0] = new (mem) ParamFloatConstRange<hulkfight::DialogueTrack_1319f0>("timeBegin", &hulkfight::DialogueTrack_1319f0::FUN_0012e100);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamString<hulkfight::DialogueTrack>("dialogue", &hulkfight::DialogueTrack::FUN_0012ebc0);
+            params[1] = new (mem) ParamString<hulkfight::DialogueTrack_1319f0>("dialogue", &hulkfight::DialogueTrack_1319f0::FUN_0012ebc0);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamString<hulkfight::DialogueTrack>("desiredTemplate", &hulkfight::DialogueTrack::FUN_0012ec20);
+            params[2] = new (mem) ParamString<hulkfight::DialogueTrack_1319f0>("desiredTemplate", &hulkfight::DialogueTrack_1319f0::FUN_0012ec20);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamIntConstRange<hulkfight::DialogueTrack>("priority", &hulkfight::DialogueTrack::FUN_0012e130);
+            params[3] = new (mem) ParamIntConstRange<hulkfight::DialogueTrack_1319f0>("priority", &hulkfight::DialogueTrack_1319f0::FUN_0012e130);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamString<hulkfight::DialogueTrack>("duckMixer", &hulkfight::DialogueTrack::FUN_0012ec80);
+            params[4] = new (mem) ParamString<hulkfight::DialogueTrack_1319f0>("duckMixer", &hulkfight::DialogueTrack_1319f0::FUN_0012ec80);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamString<hulkfight::DialogueTrack>("instance", &hulkfight::DialogueTrack::FUN_0012ece0);
+            params[5] = new (mem) ParamString<hulkfight::DialogueTrack_1319f0>("instance", &hulkfight::DialogueTrack_1319f0::FUN_0012ece0);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamBool<hulkfight::DialogueTrack>("routeToHeld", &hulkfight::DialogueTrack::FUN_0012e170);
+            params[6] = new (mem) ParamBool<hulkfight::DialogueTrack_1319f0>("routeToHeld", &hulkfight::DialogueTrack_1319f0::FUN_0012e170);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0e8c), params, 7);
     }
     DAT_004e0e90++;

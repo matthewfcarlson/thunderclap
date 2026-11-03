@@ -2,13 +2,14 @@
 // FUN_0016b210 @ 0x0016b210
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
 namespace hulkfight {
 namespace motion {
-class TurningVelocityCondition {
+class TurningVelocityCondition_16b210 {
 public:
     void FUN_00165510();
     void FUN_00165520();
@@ -27,14 +28,13 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 namespace fight {
 template <class T>
-class ParamEnumConstList : public ParamEnumConstListBase {
+class ParamEnumConstList_16b210 : public ParamEnumConstListBase {
 public:
-    ParamEnumConstList(const char* name, const char** n, int c, void (T::*s)())
+    ParamEnumConstList_16b210(const char* name, const char** n, int c, void (T::*s)())
         : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
     virtual void v0();
     const char** names;
@@ -43,9 +43,9 @@ public:
     int unused1c;
 };
 template <class T>
-class ParamFloatConstRange : public ParamFloatConstRangeBase {
+class ParamFloatConstRange_16b210 : public ParamFloatConstRangeBase {
 public:
-    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    ParamFloatConstRange_16b210(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -67,11 +67,11 @@ extern "C" void FUN_0016b210()
         mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::motion::TurningVelocityCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::motion::TurningVelocityCondition::FUN_00165510);
+            params[0] = new (mem) fight::ParamEnumConstList_16b210<hulkfight::motion::TurningVelocityCondition_16b210>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::motion::TurningVelocityCondition_16b210::FUN_00165510);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::TurningVelocityCondition>("turningVelocity", &hulkfight::motion::TurningVelocityCondition::FUN_00165520);
+            params[1] = new (mem) fight::ParamFloatConstRange_16b210<hulkfight::motion::TurningVelocityCondition_16b210>("turningVelocity", &hulkfight::motion::TurningVelocityCondition_16b210::FUN_00165520);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1210), params, 2);
     }
     DAT_004e1214++;

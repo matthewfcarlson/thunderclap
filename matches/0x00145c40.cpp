@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/fight.h"
 extern "C" char DAT_0041306c[];
 extern "C" void _ReadWriteBarrier();
 typedef unsigned int u32_145c40;
@@ -11,7 +12,6 @@ struct SlowMotionAction {
     virtual void vfunc_5();
     char pad[0x18];
     u32_145c40 member;
-    void helper();
 };
 void destroy(SlowMotionAction* p);
 SlowMotionAction* SlowMotionAction::vfunc_2(unsigned char flags) {
@@ -19,7 +19,7 @@ SlowMotionAction* SlowMotionAction::vfunc_2(unsigned char flags) {
     _ReadWriteBarrier();
     if (member)
         member = 0;
-    helper();
+    ((fight::Action *)this)->FUN_002326a0();
     if (flags & 1)
         destroy(this);
     return this;

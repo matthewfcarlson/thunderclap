@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_138f60[];
 extern void* g_vftable2[];
@@ -9,7 +10,6 @@ class Ref_138f60 {
 class Action_138f60 {
   public:
     void* vptr;
-    void Fin();
 };
 
 void operator delete(void*);
@@ -39,7 +39,7 @@ FlyingAutoTargetAction_138f60* FlyingAutoTargetAction_138f60::f2(unsigned char f
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_138f60 *)this)->FUN_002326a0();
     if (flags & 1)
         operator delete(this);
     return this;

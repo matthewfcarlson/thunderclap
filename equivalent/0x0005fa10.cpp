@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 100 inputs, branch coverage 18/18)
 // FUN_0005fa10 @ 0x0005fa10
 #include "decls/data/game/global.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 
-class COpportunityBallTrack {
+class COpportunityBallTrack_5fa10 {
 public:
     void FUN_0005d690();
     void FUN_0005d6a0();
@@ -21,8 +22,7 @@ class __declspec(novtable) ParamBranchBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00235170(const char* name);
-    ParamBranchBase(const char* name) { FUN_00235170(name); }
+    ParamBranchBase(const char* name) { ((fight::ParamValueBranch *)this)->FUN_00235170(name); }
 };
 template <class T>
 class ParamBranch : public ParamBranchBase {
@@ -37,8 +37,7 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 template <class T>
 class ParamFloatConstRange : public ParamFloatConstRangeBase {
@@ -69,8 +68,7 @@ class __declspec(novtable) ParamNameConstListBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234ba0(const char* name);
-    ParamNameConstListBase(const char* name) { FUN_00234ba0(name); }
+    ParamNameConstListBase(const char* name) { ((fight::ParamValueNameList *)this)->FUN_00234ba0(name); }
 };
 template <class T>
 class ParamNameConstList : public ParamNameConstListBase {
@@ -109,35 +107,35 @@ extern "C" void FUN_0005fa10()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<COpportunityBallTrack>("timeBegin", &COpportunityBallTrack::FUN_0005d690);
+            params[0] = new (mem) ParamFloatConstRange<COpportunityBallTrack_5fa10>("timeBegin", &COpportunityBallTrack_5fa10::FUN_0005d690);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<COpportunityBallTrack>("timeEnd", &COpportunityBallTrack::FUN_0005d6a0);
+            params[1] = new (mem) ParamFloatConstRange<COpportunityBallTrack_5fa10>("timeEnd", &COpportunityBallTrack_5fa10::FUN_0005d6a0);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamNameConstList<COpportunityBallTrack>("joint", &COpportunityBallTrack::FUN_0005d6b0);
+            params[2] = new (mem) ParamNameConstList<COpportunityBallTrack_5fa10>("joint", &COpportunityBallTrack_5fa10::FUN_0005d6b0);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamVector<COpportunityBallTrack>("offset", &COpportunityBallTrack::FUN_0005d6c0);
+            params[3] = new (mem) ParamVector<COpportunityBallTrack_5fa10>("offset", &COpportunityBallTrack_5fa10::FUN_0005d6c0);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamFloatConstRange<COpportunityBallTrack>("radius", &COpportunityBallTrack::FUN_0005d6e0);
+            params[4] = new (mem) ParamFloatConstRange<COpportunityBallTrack_5fa10>("radius", &COpportunityBallTrack_5fa10::FUN_0005d6e0);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamIntConstRange<COpportunityBallTrack>("maxHitCount", &COpportunityBallTrack::FUN_0005d6f0);
+            params[5] = new (mem) ParamIntConstRange<COpportunityBallTrack_5fa10>("maxHitCount", &COpportunityBallTrack_5fa10::FUN_0005d6f0);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamBranch<COpportunityBallTrack>("receiver", &COpportunityBallTrack::FUN_00013050);
+            params[6] = new (mem) ParamBranch<COpportunityBallTrack_5fa10>("receiver", &COpportunityBallTrack_5fa10::FUN_00013050);
         mem = FUN_0008d690(0x18);
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) ParamBranch<COpportunityBallTrack>("giver", &COpportunityBallTrack::FUN_00013060);
+            params[7] = new (mem) ParamBranch<COpportunityBallTrack_5fa10>("giver", &COpportunityBallTrack_5fa10::FUN_00013060);
         FUN_002347b0(((ParamRegistry*)&DAT_004dc5d8), params, 8);
     }
     DAT_004dc5dc++;

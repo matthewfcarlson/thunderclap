@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_175020[];
 class Ref_175020 {
@@ -8,7 +9,6 @@ class Ref_175020 {
 class Action_175020 {
   public:
     void* vptr;
-    void Fin();
 };
 void Free(void*) throw();
 struct Sub_175020 {
@@ -35,5 +35,5 @@ DriftToPositionAction_175020::~DriftToPositionAction_175020() throw() {
     if (m1c)
         m1c = 0;
     FUN_0027af50(&s38);
-    Fin();
+    ((fight::Action *)(Action_175020 *)this)->FUN_002326a0();
 }

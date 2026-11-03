@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/fight.h"
 extern "C" char DAT_00428de0[];
 class Ref_23e8c0 {
   public:
@@ -17,7 +18,6 @@ class StopAction_23e8c0 {
     Ref_23e8c0* m1c;
     char pad20[8];
     Ref_23e8c0* volatile m28;
-    void cleanup();
 };
 void destroy(StopAction_23e8c0*);
 StopAction_23e8c0* StopAction_23e8c0::vfunc_2(unsigned char param) {
@@ -28,7 +28,7 @@ StopAction_23e8c0* StopAction_23e8c0::vfunc_2(unsigned char param) {
         m28 = 0;
     }
     m1c->f1();
-    cleanup();
+    ((fight::Action *)this)->FUN_002326a0();
     if (param & 1)
         destroy(this);
     return this;

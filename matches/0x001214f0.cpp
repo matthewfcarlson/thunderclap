@@ -2,6 +2,7 @@
 // data: counter = DAT_004e0ccc, registry_1214f0 = DAT_004e0cc8
 
 #include "compat/ptr.h"
+#include "gen/fight.h"
 extern "C" void __cdecl FUN_0011bd30();
 extern "C" void __cdecl FUN_0011bd40();
 extern "C" void __cdecl FUN_0011bd50();
@@ -15,7 +16,6 @@ struct Param {
     hulk_intptr vft;
     int pad[3];
     hulk_intptr value;
-    void Init(const char*);
 };
 extern "C" void __cdecl FUN_002347b0(void*, Param**, int);
 void target() {
@@ -24,7 +24,7 @@ void target() {
         Param* p;
         p = (Param*)alloc(0x18);
         if (p) {
-            p->Init("timeBegin");
+            ((fight::ParamValueFloat *)p)->FUN_00234960("timeBegin");
             p->vft = ((hulk_intptr)DAT_0040f848);
             p->value = ((hulk_intptr)(void (__cdecl*)())&FUN_0011bd30);
             list[0] = p;
@@ -32,7 +32,7 @@ void target() {
             list[0] = 0;
         p = (Param*)alloc(0x18);
         if (p) {
-            p->Init("timeEnd");
+            ((fight::ParamValueFloat *)p)->FUN_00234960("timeEnd");
             p->vft = ((hulk_intptr)DAT_0040f848);
             p->value = ((hulk_intptr)(void (__cdecl*)())&FUN_0011bd40);
             list[1] = p;
@@ -40,7 +40,7 @@ void target() {
             list[1] = 0;
         p = (Param*)alloc(0x18);
         if (p) {
-            p->Init("distance");
+            ((fight::ParamValueFloat *)p)->FUN_00234960("distance");
             p->vft = ((hulk_intptr)DAT_0040f848);
             p->value = ((hulk_intptr)(void (__cdecl*)())&FUN_0011bd50);
             list[2] = p;
@@ -48,7 +48,7 @@ void target() {
             list[2] = 0;
         p = (Param*)alloc(0x18);
         if (p) {
-            p->Init("turnRate");
+            ((fight::ParamValueFloat *)p)->FUN_00234960("turnRate");
             p->vft = ((hulk_intptr)DAT_0040f848);
             p->value = ((hulk_intptr)(void (__cdecl*)())&FUN_0011bd60);
             list[3] = p;
@@ -56,7 +56,7 @@ void target() {
             list[3] = 0;
         p = (Param*)alloc(0x18);
         if (p) {
-            p->Init("heightMin");
+            ((fight::ParamValueFloat *)p)->FUN_00234960("heightMin");
             p->vft = ((hulk_intptr)DAT_0040f848);
             p->value = ((hulk_intptr)(void (__cdecl*)())&FUN_0011bd90);
             list[4] = p;
@@ -64,7 +64,7 @@ void target() {
             list[4] = 0;
         p = (Param*)alloc(0x18);
         if (p) {
-            p->Init("heightMax");
+            ((fight::ParamValueFloat *)p)->FUN_00234960("heightMax");
             p->vft = ((hulk_intptr)DAT_0040f848);
             p->value = ((hulk_intptr)(void (__cdecl*)())&FUN_0011bdb0);
             list[5] = p;
@@ -72,7 +72,7 @@ void target() {
             list[5] = 0;
         p = (Param*)alloc(0x18);
         if (p) {
-            p->Init("speed");
+            ((fight::ParamValueFloat *)p)->FUN_00234960("speed");
             p->vft = ((hulk_intptr)DAT_0040f848);
             p->value = ((hulk_intptr)(void (__cdecl*)())&FUN_0011bdd0);
             list[6] = p;

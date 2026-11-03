@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* gD[];
 extern void* gA_20290[];
@@ -9,7 +10,6 @@ class Ref_20290 {
 class CAction_20290 {
   public:
     void* vptr;
-    void Fin();
 };
 class CHeadTrackerAction_20290 : public CAction_20290 {
   public:
@@ -38,5 +38,5 @@ CHeadTrackerAction_20290::~CHeadTrackerAction_20290() {
         m1c->Release();
         m1c = 0;
     }
-    Fin();
+    ((fight::Action *)(CAction_20290 *)this)->FUN_002326a0();
 }

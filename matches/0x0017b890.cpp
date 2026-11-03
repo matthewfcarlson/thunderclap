@@ -1,4 +1,5 @@
 // Same code shape as 0x0017b7f0 (propagated; names are from that function)
+#include "gen/fight.h"
 extern "C" void __cdecl opdelete(void*);
 extern void* const vftable_sym;
 
@@ -15,7 +16,6 @@ class Sub28 {
 
 class BaseCls_17b890 {
   public:
-    void Dtor();
 };
 
 class TeleportRelativeAction {
@@ -49,7 +49,7 @@ TeleportRelativeAction* TeleportRelativeAction::vfunc_2(unsigned char param) {
         *q1c = 0;
     }
     ((Sub28*)(self + 0x28))->Fn();
-    ((BaseCls_17b890*)self)->Dtor();
+    ((fight::Action *)(((BaseCls_17b890*)self)))->FUN_002326a0();
     if (param & 1) {
         opdelete(self);
     }

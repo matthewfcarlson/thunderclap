@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_117d60[];
 class Ref_117d60 {
@@ -8,7 +9,6 @@ class Ref_117d60 {
 class Action_117d60 {
   public:
     void* vptr;
-    void Fin();
 };
 void Free(void*) throw();
 struct Sub_117d60 {
@@ -36,5 +36,5 @@ MotionClosestWaypointAction_117d60::~MotionClosestWaypointAction_117d60() throw(
     if (m1c)
         m1c = 0;
     FUN_0027af50(&s60);
-    Fin();
+    ((fight::Action *)(Action_117d60 *)this)->FUN_002326a0();
 }

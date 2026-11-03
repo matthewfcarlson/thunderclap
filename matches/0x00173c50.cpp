@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_173c50[];
 class Ref_173c50 {
@@ -8,7 +9,6 @@ class Ref_173c50 {
 class Action_173c50 {
   public:
     void* vptr;
-    void Fin();
 };
 void Free(void*) throw();
 struct Sub_173c50 {
@@ -43,5 +43,5 @@ JointPivotTrackerAction_173c50::~JointPivotTrackerAction_173c50() throw() {
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_173c50 *)this)->FUN_002326a0();
 }

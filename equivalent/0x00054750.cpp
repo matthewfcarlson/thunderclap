@@ -2,11 +2,12 @@
 // FUN_00054750 @ 0x00054750
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
-class CIntentionSpeedCondition {
+class CIntentionSpeedCondition_54750 {
 public:
     void FUN_000481c0();
     void FUN_000481d0();
@@ -23,14 +24,13 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 namespace fight {
 template <class T>
-class ParamEnumConstList : public ParamEnumConstListBase {
+class ParamEnumConstList_54750 : public ParamEnumConstListBase {
 public:
-    ParamEnumConstList(const char* name, const char** n, int c, void (T::*s)())
+    ParamEnumConstList_54750(const char* name, const char** n, int c, void (T::*s)())
         : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
     virtual void v0();
     const char** names;
@@ -39,9 +39,9 @@ public:
     int unused1c;
 };
 template <class T>
-class ParamFloatConstRange : public ParamFloatConstRangeBase {
+class ParamFloatConstRange_54750 : public ParamFloatConstRangeBase {
 public:
-    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    ParamFloatConstRange_54750(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -63,11 +63,11 @@ extern "C" void FUN_00054750()
         mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<::CIntentionSpeedCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &::CIntentionSpeedCondition::FUN_000481c0);
+            params[0] = new (mem) fight::ParamEnumConstList_54750<::CIntentionSpeedCondition_54750>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &::CIntentionSpeedCondition_54750::FUN_000481c0);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange<::CIntentionSpeedCondition>("value", &::CIntentionSpeedCondition::FUN_000481d0);
+            params[1] = new (mem) fight::ParamFloatConstRange_54750<::CIntentionSpeedCondition_54750>("value", &::CIntentionSpeedCondition_54750::FUN_000481d0);
         FUN_002347b0(((ParamRegistry*)&DAT_004dc570), params, 2);
     }
     DAT_004dc574++;

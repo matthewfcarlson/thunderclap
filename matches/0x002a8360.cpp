@@ -16,7 +16,6 @@ class Obj_2a8360 {
     u32_2a8360 a50;
     u32_2a8360 a54;
     void init(pure3d::CompDrawVisibilityAnimationController*);
-    void finish();
 };
 
 void* pure3d::CompDrawVisibilityAnimationController::vfunc_4() {
@@ -30,7 +29,7 @@ void* pure3d::CompDrawVisibilityAnimationController::vfunc_4() {
         p->a50 = 0;
         p->a54 = 0;
         p->value = (*(u32_2a8360 *)&this->f_40);
-        p->finish();
+        ((pure3d::CompDrawVisibilityAnimationController *)p)->FUN_002a81c0();
         return (void*)(p);
     }
     return (void*)(0);

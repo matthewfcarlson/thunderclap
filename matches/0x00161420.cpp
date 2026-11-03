@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/fight.h"
 struct RefObj_161420 {
     virtual void fn0();
     virtual void Release();
@@ -12,7 +13,6 @@ class LocomotionStrafeAction {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void* vfunc_2(unsigned char flag);
-    void BaseDtor();
     char pad[0x1c - 4];
     RefObj_161420* volatile m1c;
     RefObj_161420* volatile m20;
@@ -30,7 +30,7 @@ void* LocomotionStrafeAction::vfunc_2(unsigned char flag) {
         p->Release();
         m1c = 0;
     }
-    BaseDtor();
+    ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
         operator delete(this);
     }

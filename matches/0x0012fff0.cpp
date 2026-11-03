@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_12fff0[];
 class Ref_12fff0 {
@@ -8,7 +9,6 @@ class Ref_12fff0 {
 class Action_12fff0 {
   public:
     void* vptr;
-    void Fin();
 };
 class NISSoundAction_12fff0 : public Action_12fff0 {
   public:
@@ -26,5 +26,5 @@ NISSoundAction_12fff0::~NISSoundAction_12fff0() {
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_12fff0 *)this)->FUN_002326a0();
 }

@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_175d10[];
 class Ref_175d10 {
@@ -8,7 +9,6 @@ class Ref_175d10 {
 class Action_175d10 {
   public:
     void* vptr;
-    void Fin();
 };
 struct Vec_175d10 {
     int a;
@@ -33,5 +33,5 @@ TeleportToLocatorAction_175d10::~TeleportToLocatorAction_175d10() {
     if (m1c)
         m1c = 0;
     m28.Destroy();
-    Fin();
+    ((fight::Action *)(Action_175d10 *)this)->FUN_002326a0();
 }

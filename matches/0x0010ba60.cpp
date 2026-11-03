@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 class Ref_10ba60 {
   public:
@@ -12,7 +13,6 @@ class FaceMotionAction {
     char pad[0x18];
     int* p;
     Ref_10ba60* r;
-    void Finish();
     void Run();
 };
 void FaceMotionAction::Run() {
@@ -24,5 +24,5 @@ void FaceMotionAction::Run() {
     }
     if (p)
         p = 0;
-    Finish();
+    ((fight::Action *)this)->FUN_002326a0();
 }

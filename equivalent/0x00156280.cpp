@@ -1,13 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // FUN_00156280 @ 0x00156280
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
 namespace hulkfight {
 namespace motion {
-class HitFloatTrack {
+class HitFloatTrack_156280 {
 public:
     void FUN_0014cdd0();
     void FUN_0014cde0();
@@ -24,8 +25,7 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 template <class T>
 class ParamFloatConstRange : public ParamFloatConstRangeBase {
@@ -40,8 +40,7 @@ class __declspec(novtable) ParamBoolBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234860(const char* name);
-    ParamBoolBase(const char* name) { FUN_00234860(name); }
+    ParamBoolBase(const char* name) { ((fight::ParamValueBool *)this)->FUN_00234860(name); }
 };
 template <class T>
 class ParamBool : public ParamBoolBase {
@@ -80,31 +79,31 @@ extern "C" void FUN_00156280()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<hulkfight::motion::HitFloatTrack>("timeBegin", &hulkfight::motion::HitFloatTrack::FUN_0014cdd0);
+            params[0] = new (mem) ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>("timeBegin", &hulkfight::motion::HitFloatTrack_156280::FUN_0014cdd0);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<hulkfight::motion::HitFloatTrack>("timeEnd", &hulkfight::motion::HitFloatTrack::FUN_0014cde0);
+            params[1] = new (mem) ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>("timeEnd", &hulkfight::motion::HitFloatTrack_156280::FUN_0014cde0);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamBool<hulkfight::motion::HitFloatTrack>("snapToPushback", &hulkfight::motion::HitFloatTrack::FUN_0014ce00);
+            params[2] = new (mem) ParamBool<hulkfight::motion::HitFloatTrack_156280>("snapToPushback", &hulkfight::motion::HitFloatTrack_156280::FUN_0014ce00);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamFloatConstRange<hulkfight::motion::HitFloatTrack>("orientation", &hulkfight::motion::HitFloatTrack::FUN_0014ce20);
+            params[3] = new (mem) ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>("orientation", &hulkfight::motion::HitFloatTrack_156280::FUN_0014ce20);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamIntConstRange<hulkfight::motion::HitFloatTrack>("priority", &hulkfight::motion::HitFloatTrack::FUN_0014ce50);
+            params[4] = new (mem) ParamIntConstRange<hulkfight::motion::HitFloatTrack_156280>("priority", &hulkfight::motion::HitFloatTrack_156280::FUN_0014ce50);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamFloatConstRange<hulkfight::motion::HitFloatTrack>("blendInTime", &hulkfight::motion::HitFloatTrack::FUN_0014ce70);
+            params[5] = new (mem) ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>("blendInTime", &hulkfight::motion::HitFloatTrack_156280::FUN_0014ce70);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) ParamFloatConstRange<hulkfight::motion::HitFloatTrack>("blendOutTime", &hulkfight::motion::HitFloatTrack::FUN_0014ce90);
+            params[6] = new (mem) ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>("blendOutTime", &hulkfight::motion::HitFloatTrack_156280::FUN_0014ce90);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1110), params, 7);
     }
     DAT_004e1114++;

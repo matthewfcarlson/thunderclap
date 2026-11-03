@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/fight.h"
 extern "C" char DAT_004197c8[];
 extern "C" void _ReadWriteBarrier();
 class Ref_184f60 {
@@ -8,7 +9,6 @@ class Ref_184f60 {
 };
 class PropThrowAction_184f60 {
   public:
-    void Finish();
 };
 class BallAndChainReturnAction {
   public:
@@ -27,5 +27,5 @@ void BallAndChainReturnAction::Reset() {
     }
     if (mOne)
         mOne = 0;
-    ((PropThrowAction_184f60*)this)->Finish();
+    ((fight::Action *)(((PropThrowAction_184f60*)this)))->FUN_002326a0();
 }

@@ -1,3 +1,4 @@
+#include "gen/choreo2.h"
 class AnimationDriver_225a20 {
   public:
     char pad0[0x20];
@@ -15,12 +16,11 @@ class AnimationDriver_225a20 {
     int d238;
     int d23c;
     void First(AnimationDriver_225a20*);
-    void Second(int);
     AnimationDriver_225a20* Copy(AnimationDriver_225a20*);
 };
 AnimationDriver_225a20* AnimationDriver_225a20::Copy(AnimationDriver_225a20* src) {
     First(src);
-    Second(src->value20);
+    ((choreo2::AnimationDriver *)this)->FUN_00225030((void *)(hulk_uintptr)(int)(src->value20));
     b224 = src->b224;
     b225 = src->b225;
     d228 = src->d228;

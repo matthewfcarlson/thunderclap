@@ -2,11 +2,12 @@
 // FUN_00072440 @ 0x00072440
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
-class CRageModeTrack {
+class CRageModeTrack_72440 {
 public:
     void FUN_00068990();
     void FUN_000689a0();
@@ -23,14 +24,13 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 namespace fight {
 template <class T>
-class ParamEnumConstList : public ParamEnumConstListBase {
+class ParamEnumConstList_72440 : public ParamEnumConstListBase {
 public:
-    ParamEnumConstList(const char* name, const char** n, int c, void (T::*s)())
+    ParamEnumConstList_72440(const char* name, const char** n, int c, void (T::*s)())
         : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
     virtual void v0();
     const char** names;
@@ -39,9 +39,9 @@ public:
     int unused1c;
 };
 template <class T>
-class ParamFloatConstRange : public ParamFloatConstRangeBase {
+class ParamFloatConstRange_72440 : public ParamFloatConstRangeBase {
 public:
-    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    ParamFloatConstRange_72440(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -62,11 +62,11 @@ extern "C" void FUN_00072440()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange<::CRageModeTrack>("timeBegin", &::CRageModeTrack::FUN_00068990);
+            params[0] = new (mem) fight::ParamFloatConstRange_72440<::CRageModeTrack_72440>("timeBegin", &::CRageModeTrack_72440::FUN_00068990);
         mem = FUN_0008d690(0x20);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamEnumConstList<::CRageModeTrack>("rageMode", ((const char**)&DAT_00496fd8), 3, &::CRageModeTrack::FUN_000689a0);
+            params[1] = new (mem) fight::ParamEnumConstList_72440<::CRageModeTrack_72440>("rageMode", ((const char**)&DAT_00496fd8), 3, &::CRageModeTrack_72440::FUN_000689a0);
         FUN_002347b0(((ParamRegistry*)&DAT_004dcfe0), params, 2);
     }
     DAT_004dcfe4++;

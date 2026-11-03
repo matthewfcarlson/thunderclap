@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 10/10)
 // FUN_0019aca0 @ 0x0019aca0
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/fight.h"
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
@@ -13,27 +14,26 @@ struct Base_19aca0 {
  char padding[12];
  void (__cdecl *callback)();
  unsigned int tail;
- void FUN_00234960(const char*);
 };
-namespace hulkfight { namespace motion { class AccuracyLatencyTrack; } }
+namespace hulkfight { namespace motion { class AccuracyLatencyTrack_19aca0; } }
 namespace fight {
-template<class T> struct ParamFloatConstRange : Base_19aca0 {
+template<class T> struct ParamFloatConstRange_19aca0 : Base_19aca0 {
  virtual void baseSlot();
 };
 }
-typedef fight::ParamFloatConstRange<hulkfight::motion::AccuracyLatencyTrack> Param;
+typedef fight::ParamFloatConstRange_19aca0<hulkfight::motion::AccuracyLatencyTrack_19aca0> Param;
 void __cdecl FUN_002347b0(void*, Param**, int);
 void target() {
  if (DAT_004e1574 == 0) {
  Param* entries[4];
  void* p = FUN_0008d690(24);
- if(p) { ((Base_19aca0*)p)->FUN_00234960("timeBegin"); entries[0] = new(p) Param; entries[0]->callback = FUN_001927d0; } else entries[0]=0;
+ if(p) { ((fight::ParamValueFloat *)(Base_19aca0 *)(((Base_19aca0*)p)))->FUN_00234960("timeBegin"); entries[0] = new(p) Param; entries[0]->callback = FUN_001927d0; } else entries[0]=0;
  p = FUN_0008d690(24);
- if(p) { ((Base_19aca0*)p)->FUN_00234960("timeEnd"); entries[1] = new(p) Param; entries[1]->callback = FUN_001927e0; } else entries[1]=0;
+ if(p) { ((fight::ParamValueFloat *)(Base_19aca0 *)(((Base_19aca0*)p)))->FUN_00234960("timeEnd"); entries[1] = new(p) Param; entries[1]->callback = FUN_001927e0; } else entries[1]=0;
  p = FUN_0008d690(24);
- if(p) { ((Base_19aca0*)p)->FUN_00234960("decay"); entries[2] = new(p) Param; entries[2]->callback = FUN_00192800; } else entries[2]=0;
+ if(p) { ((fight::ParamValueFloat *)(Base_19aca0 *)(((Base_19aca0*)p)))->FUN_00234960("decay"); entries[2] = new(p) Param; entries[2]->callback = FUN_00192800; } else entries[2]=0;
  p = FUN_0008d690(24);
- if(p) { ((Base_19aca0*)p)->FUN_00234960("decayScaler"); entries[3] = new(p) Param; entries[3]->callback = FUN_00192820; } else entries[3]=0;
+ if(p) { ((fight::ParamValueFloat *)(Base_19aca0 *)(((Base_19aca0*)p)))->FUN_00234960("decayScaler"); entries[3] = new(p) Param; entries[3]->callback = FUN_00192820; } else entries[3]=0;
  FUN_002347b0(&DAT_004e1570, entries, 4);
  }
  ++DAT_004e1574;

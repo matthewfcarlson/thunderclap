@@ -1,18 +1,15 @@
-extern void* g_vftableA[];
-extern void* g_vftableB[];
-struct Sub_234960 {
-    void Init(int a);
+#include "gen/fight.h"
+
+#include "compat/ptr.h"
+extern "C" char DAT_004279fc[];
+extern "C" char DAT_00427a58[];
+struct Member_234960 {
+    void Init(const char*);
 };
-class ParamValueFloat_234960 {
-  public:
-    void* vptr;
-    char pad4[4];
-    Sub_234960 m8;
-    ParamValueFloat_234960* ctor(int a);
-};
-ParamValueFloat_234960* ParamValueFloat_234960::ctor(int a) {
-    *(void* volatile*)&vptr = g_vftableA;
-    m8.Init(a);
-    vptr = g_vftableB;
-    return this;
+
+fight::ParamValueFloat* fight::ParamValueFloat::FUN_00234960(const char* name) {
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_004279fc);
+    ((Member_234960*)((char*)this + 8))->Init(name);
+    *(hulk_intptr*)this = ((hulk_intptr)DAT_00427a58);
+    return (fight::ParamValueFloat*)(this);
 }

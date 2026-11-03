@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_10fab0[];
 class Ref_10fab0 {
@@ -8,7 +9,6 @@ class Ref_10fab0 {
 class Action_10fab0 {
   public:
     void* vptr;
-    void Fin();
 };
 class KeywordWaitAction_10fab0 : public Action_10fab0 {
   public:
@@ -26,5 +26,5 @@ KeywordWaitAction_10fab0::~KeywordWaitAction_10fab0() {
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_10fab0 *)this)->FUN_002326a0();
 }

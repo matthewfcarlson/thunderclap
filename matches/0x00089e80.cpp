@@ -1,7 +1,6 @@
+#include "gen/global.h"
 class Manager_89e80 {
   public:
-    int Get();
-    void Set(int);
 };
 class Obj_89e80 {
     char pad[0xabd];
@@ -15,7 +14,7 @@ class Obj_89e80 {
 char Obj_89e80::Fn(Manager_89e80* m, char param) {
     Init();
     char r = 0;
-    int x = m->Get();
+    int x = ((int)((::CScenarioManager *)m)->FUN_001cc840());
     if (x == 2) {
         flag = 0;
         r = 1;
@@ -24,9 +23,9 @@ char Obj_89e80::Fn(Manager_89e80* m, char param) {
         r = 1;
     } else if (x == 3) {
         flag = (other == 0);
-        m->Set(4);
+        ((::CScenarioManager *)m)->FUN_001cc620(4);
     }
-    x = m->Get();
+    x = ((int)((::CScenarioManager *)m)->FUN_001cc840());
     if (x == 4 && param)
         return 1;
     return r;

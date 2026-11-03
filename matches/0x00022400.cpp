@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* gD[];
 extern void* gA_22400[];
@@ -10,7 +11,6 @@ class Ref_22400 {
 class CAction_22400 {
   public:
     void* vptr;
-    void Fin();
 };
 class COrientTargetAction_22400 : public CAction_22400 {
   public:
@@ -33,7 +33,7 @@ COrientTargetAction_22400* COrientTargetAction_22400::f2(unsigned char flags) {
         m1c->Release();
         m1c = 0;
     }
-    Fin();
+    ((fight::Action *)(CAction_22400 *)this)->FUN_002326a0();
     if (flags & 1)
         operator delete(this);
     return this;

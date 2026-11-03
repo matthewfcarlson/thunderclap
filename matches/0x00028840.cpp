@@ -1,9 +1,9 @@
 // FUN_00028840 @ 0x00028840
 #include "decls/address.h"
+#include "gen/global.h"
 typedef unsigned __int64 Key_28840;
 
 struct Focus_28840 {
-    void FUN_001cc620(int mode);
 };
 struct Root_28840 {
     char pad[0x2c];
@@ -30,7 +30,7 @@ void Owner_28840::FUN_00028840(const char* name, float value)
         entry->FUN_0003b1c0(value, 1);
         if (value <= 0.0f) {
             if (entry == current) {
-                root->focus->FUN_001cc620(2);
+                ((::CScenarioManager *)(root->focus))->FUN_001cc620(2);
             } else {
                 entry->FUN_0003ea10(1);
             }

@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_215a0[];
 class Ref_215a0 {
@@ -8,7 +9,6 @@ class Ref_215a0 {
 class Action_215a0 {
   public:
     void* vptr;
-    void Fin();
 };
 class CAction_215a0 : public Action_215a0 {
   public:
@@ -23,5 +23,5 @@ CAction_215a0::~CAction_215a0() {
         m->Release();
         m = 0;
     }
-    Fin();
+    ((fight::Action *)(Action_215a0 *)this)->FUN_002326a0();
 }

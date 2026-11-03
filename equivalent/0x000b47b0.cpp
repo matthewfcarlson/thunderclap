@@ -2,6 +2,7 @@
 // FUN_000b47b0 @ 0x000b47b0
 // FUN_000b47b0 @ 0x000b47b0: sets the title and text of the fullscreen message widgets, then raises the screen
 #include "decls/address.h"
+#include "gen/global.h"
 extern char DAT_0049dba4, DAT_0049f48c, DAT_0049f470;
 struct Manager;
 extern "C" Manager *__cdecl FUN_000fc1b0();
@@ -19,7 +20,6 @@ struct Widget_b47b0 {
 };
 extern Widget_b47b0 *__cdecl FUN_00344e74(void *, int, char *, char *, int);
 struct Screen_b47b0 {
-    void FUN_001cc620(int);
 };
 struct World {
     char pad00[44];
@@ -40,5 +40,5 @@ extern "C" void __stdcall FUN_000b47b0(const char *title, const char *text)
         w->value.FUN_000f8500(text, m, 1);
         w->update();
     }
-    DAT_004dd700->screen->FUN_001cc620(10);
+    ((::CScenarioManager *)(DAT_004dd700->screen))->FUN_001cc620(10);
 }

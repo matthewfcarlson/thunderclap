@@ -1,9 +1,9 @@
 #include "compat/ptr.h"
+#include "gen/Render.h"
 extern "C" char DAT_00421a3c[];
 class StoreBase_1c77e0 {
   public:
     StoreBase_1c77e0(unsigned int, unsigned char);
-    void init(unsigned int);
 };
 StoreBase_1c77e0::StoreBase_1c77e0(unsigned int arg, unsigned char flag) {
     unsigned char* p = (unsigned char*)this;
@@ -23,5 +23,5 @@ StoreBase_1c77e0::StoreBase_1c77e0(unsigned int arg, unsigned char flag) {
     }
     *(unsigned int*)(p + 0x118) = 0;
     *(unsigned char*)(p + 0x11c) = flag;
-    init(arg);
+    ((Render::StoreBase *)this)->FUN_001c7770(arg);
 }

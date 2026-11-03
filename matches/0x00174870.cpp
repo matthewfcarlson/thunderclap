@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_174870[];
 class Ref_174870 {
@@ -8,7 +9,6 @@ class Ref_174870 {
 class Action_174870 {
   public:
     void* vptr;
-    void Fin();
 };
 class ChargeClearAction_174870 : public Action_174870 {
   public:
@@ -26,5 +26,5 @@ ChargeClearAction_174870::~ChargeClearAction_174870() {
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_174870 *)this)->FUN_002326a0();
 }

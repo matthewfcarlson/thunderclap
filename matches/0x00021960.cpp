@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_003f3574[];
 extern void* g_vftable2[];
@@ -10,7 +11,6 @@ class Ref_21960 {
 class CAction_21960 {
   public:
     void* vptr;
-    void Fin();
 };
 class CStunAnimationAction_21960 : public CAction_21960 {
   public:
@@ -33,7 +33,7 @@ CStunAnimationAction_21960* CStunAnimationAction_21960::f2(unsigned char flags) 
         m2->Release();
         m2 = 0;
     }
-    Fin();
+    ((fight::Action *)(CAction_21960 *)this)->FUN_002326a0();
     if (flags & 1)
         operator delete(this);
     return this;

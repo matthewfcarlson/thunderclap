@@ -2,6 +2,7 @@
 // FUN_0002ae80 @ 0x0002ae80
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/global.h"
 struct Vec_2ae80 { float x,y,z; };
 struct Position_2ae80 { bool FUN_00059a50(Vec_2ae80*); };
 struct Bounds_2ae80 { char pad[8]; unsigned char type; char pad2[7]; Vec_2ae80 center; float radius; float distance; };
@@ -11,7 +12,7 @@ struct Actor_2ae80 {
  void FUN_00042960(int,int); void FUN_000366d0(int,int); void FUN_000366f0(int,int); bool FUN_00037410();
 };
 struct Lookup_2ae80 { Actor_2ae80* FUN_00059c10(int); };
-struct Mode_2ae80 { int FUN_001cc840(); void FUN_001cc620(int); };
+struct Mode_2ae80 {   };
 struct Owner_2ae80 { char p0[0x2c]; Mode_2ae80* mode; char p1[0x44-0x30]; Lookup_2ae80* lookup; };
 struct Events_2ae80 { void FUN_001e53d0(Actor_2ae80*); };
 struct LevelData { int FUN_00088fa0(); int FUN_00088fb0(); };
@@ -66,8 +67,8 @@ void Manager_2ae80::target(int arg,float dt) {
    if(a!=main) FUN_0002a4b0(i,1);
    else {
     Mode_2ae80* m=owner->mode;
-    int mode=m->FUN_001cc840();
-    if(mode!=2&&mode!=5) m->FUN_001cc620(2);
+    int mode=((int)((::CScenarioManager *)m)->FUN_001cc840());
+    if(mode!=2&&mode!=5) ((::CScenarioManager *)m)->FUN_001cc620(2);
    }
    continue;
   }

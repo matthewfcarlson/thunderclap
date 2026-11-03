@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_15e160[];
 extern void* g_vftable2[];
@@ -9,7 +10,6 @@ class Ref_15e160 {
 class LocomotionStrafeAction_15e160 {
   public:
     void* vptr;
-    void Fin();
 };
 class LocomotionStrafe4Action_15e160 : public LocomotionStrafeAction_15e160 {
   public:
@@ -35,5 +35,5 @@ LocomotionStrafe4Action_15e160::~LocomotionStrafe4Action_15e160() throw() {
         m1c->Release();
         m1c = 0;
     }
-    Fin();
+    ((fight::Action *)(LocomotionStrafeAction_15e160 *)this)->FUN_002326a0();
 }

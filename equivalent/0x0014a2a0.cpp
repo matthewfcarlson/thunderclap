@@ -1,13 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 4/4)
 // FUN_0014a2a0 @ 0x0014a2a0
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 
 namespace hulkfight {
 namespace motion {
-class CivilianTargetCondition {
+class CivilianTargetCondition_14a2a0 {
 public:
     void FUN_00146940();
 };
@@ -18,14 +19,13 @@ class __declspec(novtable) ParamBoolBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234860(const char* name);
-    ParamBoolBase(const char* name) { FUN_00234860(name); }
+    ParamBoolBase(const char* name) { ((fight::ParamValueBool *)this)->FUN_00234860(name); }
 };
 namespace fight {
 template <class T>
-class ParamBool : public ParamBoolBase {
+class ParamBool_14a2a0 : public ParamBoolBase {
 public:
-    ParamBool(const char* name, void (T::*s)()) : ParamBoolBase(name) { setter = s; }
+    ParamBool_14a2a0(const char* name, void (T::*s)()) : ParamBoolBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -45,7 +45,7 @@ void FUN_0014a2a0()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamBool<hulkfight::motion::CivilianTargetCondition>("hasTarget", &hulkfight::motion::CivilianTargetCondition::FUN_00146940);
+            params[0] = new (mem) fight::ParamBool_14a2a0<hulkfight::motion::CivilianTargetCondition_14a2a0>("hasTarget", &hulkfight::motion::CivilianTargetCondition_14a2a0::FUN_00146940);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0fd4), params, 1);
     }
     DAT_004e0fd8++;

@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern int TeleportVtable;
 class Ref_175980 {
@@ -13,7 +14,6 @@ class Action_175980 {
   public:
     int* vptr;
     char pad[0x18];
-    void BaseClean();
 };
 class TeleportRelativeAction : public Action_175980 {
   public:
@@ -33,5 +33,5 @@ void TeleportRelativeAction::Destroy() {
     if (m1c)
         m1c = 0;
     helper.Clean();
-    BaseClean();
+    ((fight::Action *)(Action_175980 *)this)->FUN_002326a0();
 }

@@ -1,13 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
 // FUN_00188730 @ 0x00188730
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
 namespace hulkfight {
 namespace motion {
-class PropDestroyTrack {
+class PropDestroyTrack_188730 {
 public:
     void FUN_00180580();
     void FUN_001805a0();
@@ -19,8 +20,7 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 class __declspec(novtable) ParamIntConstRangeBase {
 public:
@@ -31,17 +31,17 @@ public:
 };
 namespace fight {
 template <class T>
-class ParamFloatConstRange : public ParamFloatConstRangeBase {
+class ParamFloatConstRange_188730 : public ParamFloatConstRangeBase {
 public:
-    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    ParamFloatConstRange_188730(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamIntConstRange : public ParamIntConstRangeBase {
+class ParamIntConstRange_188730 : public ParamIntConstRangeBase {
 public:
-    ParamIntConstRange(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
+    ParamIntConstRange_188730(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -61,11 +61,11 @@ extern "C" void FUN_00188730()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::PropDestroyTrack>("timeBegin", &hulkfight::motion::PropDestroyTrack::FUN_00180580);
+            params[0] = new (mem) fight::ParamFloatConstRange_188730<hulkfight::motion::PropDestroyTrack_188730>("timeBegin", &hulkfight::motion::PropDestroyTrack_188730::FUN_00180580);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamIntConstRange<hulkfight::motion::PropDestroyTrack>("attachmentIndex", &hulkfight::motion::PropDestroyTrack::FUN_001805a0);
+            params[1] = new (mem) fight::ParamIntConstRange_188730<hulkfight::motion::PropDestroyTrack_188730>("attachmentIndex", &hulkfight::motion::PropDestroyTrack_188730::FUN_001805a0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e14e8), params, 2);
     }
     DAT_004e14ec++;

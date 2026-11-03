@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 22/22)
 // FUN_00163790 @ 0x00163790
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
@@ -23,14 +24,13 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 namespace fight {
 template <class T>
-class ParamFloatConstRange : public ParamFloatConstRangeBase {
+class ParamFloatConstRange_163790 : public ParamFloatConstRangeBase {
 public:
-    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    ParamFloatConstRange_163790(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -46,9 +46,9 @@ public:
 };
 namespace fight {
 template <class T>
-class ParamIntConstRange : public ParamIntConstRangeBase {
+class ParamIntConstRange_163790 : public ParamIntConstRangeBase {
 public:
-    ParamIntConstRange(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
+    ParamIntConstRange_163790(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -59,14 +59,13 @@ class __declspec(novtable) ParamNameBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234a90(const char* name);
-    ParamNameBase(const char* name) { FUN_00234a90(name); }
+    ParamNameBase(const char* name) { ((fight::ParamValueName *)this)->FUN_00234a90(name); }
 };
 namespace fight {
 template <class T>
-class ParamName : public ParamNameBase {
+class ParamName_163790 : public ParamNameBase {
 public:
-    ParamName(const char* name, void (T::*s)()) : ParamNameBase(name) { setter = s; }
+    ParamName_163790(const char* name, void (T::*s)()) : ParamNameBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -85,43 +84,43 @@ extern "C" void FUN_00163790()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange<GrappleLocomotionSteerTrack>("timeBegin", &GrappleLocomotionSteerTrack::FUN_0015b690);
+            params[0] = new (mem) fight::ParamFloatConstRange_163790<GrappleLocomotionSteerTrack>("timeBegin", &GrappleLocomotionSteerTrack::FUN_0015b690);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange<GrappleLocomotionSteerTrack>("timeEnd", &GrappleLocomotionSteerTrack::FUN_0015b6a0);
+            params[1] = new (mem) fight::ParamFloatConstRange_163790<GrappleLocomotionSteerTrack>("timeEnd", &GrappleLocomotionSteerTrack::FUN_0015b6a0);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamName<GrappleLocomotionSteerTrack>("locomotion", &GrappleLocomotionSteerTrack::FUN_0015b6b0);
+            params[2] = new (mem) fight::ParamName_163790<GrappleLocomotionSteerTrack>("locomotion", &GrappleLocomotionSteerTrack::FUN_0015b6b0);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamName<GrappleLocomotionSteerTrack>("animIdle", &GrappleLocomotionSteerTrack::FUN_0015b6c0);
+            params[3] = new (mem) fight::ParamName_163790<GrappleLocomotionSteerTrack>("animIdle", &GrappleLocomotionSteerTrack::FUN_0015b6c0);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamName<GrappleLocomotionSteerTrack>("animWalk", &GrappleLocomotionSteerTrack::FUN_0015b6d0);
+            params[4] = new (mem) fight::ParamName_163790<GrappleLocomotionSteerTrack>("animWalk", &GrappleLocomotionSteerTrack::FUN_0015b6d0);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamName<GrappleLocomotionSteerTrack>("animRun", &GrappleLocomotionSteerTrack::FUN_0015b6e0);
+            params[5] = new (mem) fight::ParamName_163790<GrappleLocomotionSteerTrack>("animRun", &GrappleLocomotionSteerTrack::FUN_0015b6e0);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamName<GrappleLocomotionSteerTrack>("partition", &GrappleLocomotionSteerTrack::FUN_0015b6f0);
+            params[6] = new (mem) fight::ParamName_163790<GrappleLocomotionSteerTrack>("partition", &GrappleLocomotionSteerTrack::FUN_0015b6f0);
         mem = FUN_0008d690(0x18);
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamIntConstRange<GrappleLocomotionSteerTrack>("priority", &GrappleLocomotionSteerTrack::FUN_0015b710);
+            params[7] = new (mem) fight::ParamIntConstRange_163790<GrappleLocomotionSteerTrack>("priority", &GrappleLocomotionSteerTrack::FUN_0015b710);
         mem = FUN_0008d690(0x18);
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamFloatConstRange<GrappleLocomotionSteerTrack>("blendInTime", &GrappleLocomotionSteerTrack::FUN_0015b730);
+            params[8] = new (mem) fight::ParamFloatConstRange_163790<GrappleLocomotionSteerTrack>("blendInTime", &GrappleLocomotionSteerTrack::FUN_0015b730);
         mem = FUN_0008d690(0x18);
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange<GrappleLocomotionSteerTrack>("blendOutTime", &GrappleLocomotionSteerTrack::FUN_0015b750);
+            params[9] = new (mem) fight::ParamFloatConstRange_163790<GrappleLocomotionSteerTrack>("blendOutTime", &GrappleLocomotionSteerTrack::FUN_0015b750);
         FUN_002347b0(((ParamRegistry*)&DAT_004e11a0), params, 10);
     }
     DAT_004e11a4++;

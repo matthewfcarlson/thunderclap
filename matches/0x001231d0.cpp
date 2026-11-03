@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_1231d0[];
 void operator delete[](void*);
@@ -13,7 +14,6 @@ class Ref_1231d0 {
 class Action_1231d0 {
   public:
     void* vptr;
-    void Fin();
 };
 class PathFormationAction_1231d0 : public Action_1231d0 {
   public:
@@ -53,5 +53,5 @@ PathFormationAction_1231d0::~PathFormationAction_1231d0() throw() {
     m54 = p;
     if (p)
         operator delete[](p);
-    Fin();
+    ((fight::Action *)(Action_1231d0 *)this)->FUN_002326a0();
 }

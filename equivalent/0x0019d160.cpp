@@ -2,13 +2,14 @@
 // FUN_0019d160 @ 0x0019d160
 #include "decls/data/game/hulkfight/motion.h"
 #include "decls/data/game/unknown.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 
 namespace hulkfight {
 namespace motion {
-class FireMissileTrack {
+class FireMissileTrack_19d160 {
 public:
     void FUN_00192f80();
     void FUN_00192f90();
@@ -77,15 +78,13 @@ class __declspec(novtable) ParamBoolBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234860(const char* name);
-    ParamBoolBase(const char* name) { FUN_00234860(name); }
+    ParamBoolBase(const char* name) { ((fight::ParamValueBool *)this)->FUN_00234860(name); }
 };
 class __declspec(novtable) ParamBranchBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00235170(const char* name);
-    ParamBranchBase(const char* name) { FUN_00235170(name); }
+    ParamBranchBase(const char* name) { ((fight::ParamValueBranch *)this)->FUN_00235170(name); }
 };
 class __declspec(novtable) ParamEnumConstListBase {
 public:
@@ -98,8 +97,7 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 class __declspec(novtable) ParamIntConstRangeBase {
 public:
@@ -112,15 +110,13 @@ class __declspec(novtable) ParamNameBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234a90(const char* name);
-    ParamNameBase(const char* name) { FUN_00234a90(name); }
+    ParamNameBase(const char* name) { ((fight::ParamValueName *)this)->FUN_00234a90(name); }
 };
 class __declspec(novtable) ParamNameConstListBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234ba0(const char* name);
-    ParamNameConstListBase(const char* name) { FUN_00234ba0(name); }
+    ParamNameConstListBase(const char* name) { ((fight::ParamValueNameList *)this)->FUN_00234ba0(name); }
 };
 class __declspec(novtable) ParamStringBase {
 public:
@@ -138,25 +134,25 @@ public:
 };
 namespace fight {
 template <class T>
-class ParamBool : public ParamBoolBase {
+class ParamBool_19d160 : public ParamBoolBase {
 public:
-    ParamBool(const char* name, void (T::*s)()) : ParamBoolBase(name) { setter = s; }
+    ParamBool_19d160(const char* name, void (T::*s)()) : ParamBoolBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamBranch : public ParamBranchBase {
+class ParamBranch_19d160 : public ParamBranchBase {
 public:
-    ParamBranch(const char* name, void (T::*s)()) : ParamBranchBase(name) { setter = s; }
+    ParamBranch_19d160(const char* name, void (T::*s)()) : ParamBranchBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamEnumConstList : public ParamEnumConstListBase {
+class ParamEnumConstList_19d160 : public ParamEnumConstListBase {
 public:
-    ParamEnumConstList(const char* name, const char** n, int c, void (T::*s)())
+    ParamEnumConstList_19d160(const char* name, const char** n, int c, void (T::*s)())
         : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
     virtual void v0();
     const char** names;
@@ -165,49 +161,49 @@ public:
     int unused1c;
 };
 template <class T>
-class ParamFloatConstRange : public ParamFloatConstRangeBase {
+class ParamFloatConstRange_19d160 : public ParamFloatConstRangeBase {
 public:
-    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    ParamFloatConstRange_19d160(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamIntConstRange : public ParamIntConstRangeBase {
+class ParamIntConstRange_19d160 : public ParamIntConstRangeBase {
 public:
-    ParamIntConstRange(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
+    ParamIntConstRange_19d160(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamName : public ParamNameBase {
+class ParamName_19d160 : public ParamNameBase {
 public:
-    ParamName(const char* name, void (T::*s)()) : ParamNameBase(name) { setter = s; }
+    ParamName_19d160(const char* name, void (T::*s)()) : ParamNameBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamNameConstList : public ParamNameConstListBase {
+class ParamNameConstList_19d160 : public ParamNameConstListBase {
 public:
-    ParamNameConstList(const char* name, void (T::*s)()) : ParamNameConstListBase(name) { setter = s; }
+    ParamNameConstList_19d160(const char* name, void (T::*s)()) : ParamNameConstListBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamString : public ParamStringBase {
+class ParamString_19d160 : public ParamStringBase {
 public:
-    ParamString(const char* name, void (T::*s)()) : ParamStringBase(name) { setter = s; }
+    ParamString_19d160(const char* name, void (T::*s)()) : ParamStringBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamVector : public ParamVectorBase {
+class ParamVector_19d160 : public ParamVectorBase {
 public:
-    ParamVector(const char* name, void (T::*s)()) : ParamVectorBase(name) { setter = s; }
+    ParamVector_19d160(const char* name, void (T::*s)()) : ParamVectorBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -229,239 +225,239 @@ extern "C" void FUN_0019d160()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("timeBegin", &hulkfight::motion::FireMissileTrack::FUN_00192f80);
+            params[0] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("timeBegin", &hulkfight::motion::FireMissileTrack_19d160::FUN_00192f80);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamName<hulkfight::motion::FireMissileTrack>("propName", &hulkfight::motion::FireMissileTrack::FUN_00192f90);
+            params[1] = new (mem) fight::ParamName_19d160<hulkfight::motion::FireMissileTrack_19d160>("propName", &hulkfight::motion::FireMissileTrack_19d160::FUN_00192f90);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamName<hulkfight::motion::FireMissileTrack>("propInitState", &hulkfight::motion::FireMissileTrack::FUN_00192fa0);
+            params[2] = new (mem) fight::ParamName_19d160<hulkfight::motion::FireMissileTrack_19d160>("propInitState", &hulkfight::motion::FireMissileTrack_19d160::FUN_00192fa0);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamName<hulkfight::motion::FireMissileTrack>("propHitState", &hulkfight::motion::FireMissileTrack::FUN_00192fb0);
+            params[3] = new (mem) fight::ParamName_19d160<hulkfight::motion::FireMissileTrack_19d160>("propHitState", &hulkfight::motion::FireMissileTrack_19d160::FUN_00192fb0);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamVector<hulkfight::motion::FireMissileTrack>("propAxis", &hulkfight::motion::FireMissileTrack::FUN_00192fe0);
+            params[4] = new (mem) fight::ParamVector_19d160<hulkfight::motion::FireMissileTrack_19d160>("propAxis", &hulkfight::motion::FireMissileTrack_19d160::FUN_00192fe0);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamIntConstRange<hulkfight::motion::FireMissileTrack>("originAttachment", &hulkfight::motion::FireMissileTrack::FUN_00193010);
+            params[5] = new (mem) fight::ParamIntConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("originAttachment", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193010);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamNameConstList<hulkfight::motion::FireMissileTrack>("originJoint", &hulkfight::motion::FireMissileTrack::FUN_00193020);
+            params[6] = new (mem) fight::ParamNameConstList_19d160<hulkfight::motion::FireMissileTrack_19d160>("originJoint", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193020);
         mem = FUN_0008d690(0x18);
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamVector<hulkfight::motion::FireMissileTrack>("originOffset", &hulkfight::motion::FireMissileTrack::FUN_00193050);
+            params[7] = new (mem) fight::ParamVector_19d160<hulkfight::motion::FireMissileTrack_19d160>("originOffset", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193050);
         mem = FUN_0008d690(0x18);
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamVector<hulkfight::motion::FireMissileTrack>("direction", &hulkfight::motion::FireMissileTrack::FUN_00193090);
+            params[8] = new (mem) fight::ParamVector_19d160<hulkfight::motion::FireMissileTrack_19d160>("direction", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193090);
         mem = FUN_0008d690(0x18);
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamBool<hulkfight::motion::FireMissileTrack>("inheritVelocityFromCharacter", &hulkfight::motion::FireMissileTrack::FUN_001930c0);
+            params[9] = new (mem) fight::ParamBool_19d160<hulkfight::motion::FireMissileTrack_19d160>("inheritVelocityFromCharacter", &hulkfight::motion::FireMissileTrack_19d160::FUN_001930c0);
         mem = FUN_0008d690(0x18);
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("initVelocity", &hulkfight::motion::FireMissileTrack::FUN_001930e0);
+            params[10] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("initVelocity", &hulkfight::motion::FireMissileTrack_19d160::FUN_001930e0);
         mem = FUN_0008d690(0x18);
         params[11] = 0;
         if (mem)
-            params[11] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("maxVelocity", &hulkfight::motion::FireMissileTrack::FUN_00193100);
+            params[11] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("maxVelocity", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193100);
         mem = FUN_0008d690(0x18);
         params[12] = 0;
         if (mem)
-            params[12] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("acceleration", &hulkfight::motion::FireMissileTrack::FUN_00193120);
+            params[12] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("acceleration", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193120);
         mem = FUN_0008d690(0x18);
         params[13] = 0;
         if (mem)
-            params[13] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("targetArc", &hulkfight::motion::FireMissileTrack::FUN_00193140);
+            params[13] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("targetArc", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193140);
         mem = FUN_0008d690(0x18);
         params[14] = 0;
         if (mem)
-            params[14] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("targetDistance", &hulkfight::motion::FireMissileTrack::FUN_00193170);
+            params[14] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("targetDistance", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193170);
         mem = FUN_0008d690(0x18);
         params[15] = 0;
         if (mem)
-            params[15] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("tracking", &hulkfight::motion::FireMissileTrack::FUN_00193190);
+            params[15] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("tracking", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193190);
         mem = FUN_0008d690(0x18);
         params[16] = 0;
         if (mem)
-            params[16] = new (mem) fight::ParamBool<hulkfight::motion::FireMissileTrack>("trackInitLockon", &hulkfight::motion::FireMissileTrack::FUN_001931c0);
+            params[16] = new (mem) fight::ParamBool_19d160<hulkfight::motion::FireMissileTrack_19d160>("trackInitLockon", &hulkfight::motion::FireMissileTrack_19d160::FUN_001931c0);
         mem = FUN_0008d690(0x18);
         params[17] = 0;
         if (mem)
-            params[17] = new (mem) fight::ParamBool<hulkfight::motion::FireMissileTrack>("usesFirstShotFailureOnTracking", &hulkfight::motion::FireMissileTrack::FUN_001931e0);
+            params[17] = new (mem) fight::ParamBool_19d160<hulkfight::motion::FireMissileTrack_19d160>("usesFirstShotFailureOnTracking", &hulkfight::motion::FireMissileTrack_19d160::FUN_001931e0);
         mem = FUN_0008d690(0x18);
         params[18] = 0;
         if (mem)
-            params[18] = new (mem) fight::ParamBool<hulkfight::motion::FireMissileTrack>("ifFirstShotFailureUsesInitLockon", &hulkfight::motion::FireMissileTrack::FUN_00193200);
+            params[18] = new (mem) fight::ParamBool_19d160<hulkfight::motion::FireMissileTrack_19d160>("ifFirstShotFailureUsesInitLockon", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193200);
         mem = FUN_0008d690(0x18);
         params[19] = 0;
         if (mem)
-            params[19] = new (mem) fight::ParamBool<hulkfight::motion::FireMissileTrack>("sway", &hulkfight::motion::FireMissileTrack::FUN_00193220);
+            params[19] = new (mem) fight::ParamBool_19d160<hulkfight::motion::FireMissileTrack_19d160>("sway", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193220);
         mem = FUN_0008d690(0x18);
         params[20] = 0;
         if (mem)
-            params[20] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("swayTimeBegin", &hulkfight::motion::FireMissileTrack::FUN_00193240);
+            params[20] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("swayTimeBegin", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193240);
         mem = FUN_0008d690(0x18);
         params[21] = 0;
         if (mem)
-            params[21] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("swayTimeDuration", &hulkfight::motion::FireMissileTrack::FUN_00193260);
+            params[21] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("swayTimeDuration", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193260);
         mem = FUN_0008d690(0x18);
         params[22] = 0;
         if (mem)
-            params[22] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("swayAngle", &hulkfight::motion::FireMissileTrack::FUN_00193280);
+            params[22] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("swayAngle", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193280);
         mem = FUN_0008d690(0x18);
         params[23] = 0;
         if (mem)
-            params[23] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("swayAnglePerFrameReduction", &hulkfight::motion::FireMissileTrack::FUN_001932b0);
+            params[23] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("swayAnglePerFrameReduction", &hulkfight::motion::FireMissileTrack_19d160::FUN_001932b0);
         mem = FUN_0008d690(0x18);
         params[24] = 0;
         if (mem)
-            params[24] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("swayResetTime", &hulkfight::motion::FireMissileTrack::FUN_001932e0);
+            params[24] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("swayResetTime", &hulkfight::motion::FireMissileTrack_19d160::FUN_001932e0);
         mem = FUN_0008d690(0x18);
         params[25] = 0;
         if (mem)
-            params[25] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("swayResetTimeScaler", &hulkfight::motion::FireMissileTrack::FUN_00193300);
+            params[25] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("swayResetTimeScaler", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193300);
         mem = FUN_0008d690(0x18);
         params[26] = 0;
         if (mem)
-            params[26] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("swaySideStart", &hulkfight::motion::FireMissileTrack::FUN_00193320);
+            params[26] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("swaySideStart", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193320);
         mem = FUN_0008d690(0x18);
         params[27] = 0;
         if (mem)
-            params[27] = new (mem) fight::ParamBool<hulkfight::motion::FireMissileTrack>("swaySideStartRandom", &hulkfight::motion::FireMissileTrack::FUN_00193340);
+            params[27] = new (mem) fight::ParamBool_19d160<hulkfight::motion::FireMissileTrack_19d160>("swaySideStartRandom", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193340);
         mem = FUN_0008d690(0x18);
         params[28] = 0;
         if (mem)
-            params[28] = new (mem) fight::ParamBool<hulkfight::motion::FireMissileTrack>("swaySideSkipZero", &hulkfight::motion::FireMissileTrack::FUN_00193360);
+            params[28] = new (mem) fight::ParamBool_19d160<hulkfight::motion::FireMissileTrack_19d160>("swaySideSkipZero", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193360);
         mem = FUN_0008d690(0x18);
         params[29] = 0;
         if (mem)
-            params[29] = new (mem) fight::ParamBool<hulkfight::motion::FireMissileTrack>("swaySideNextRandom", &hulkfight::motion::FireMissileTrack::FUN_00193380);
+            params[29] = new (mem) fight::ParamBool_19d160<hulkfight::motion::FireMissileTrack_19d160>("swaySideNextRandom", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193380);
         mem = FUN_0008d690(0x18);
         params[30] = 0;
         if (mem)
-            params[30] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("swayThresholdDistance", &hulkfight::motion::FireMissileTrack::FUN_001933a0);
+            params[30] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("swayThresholdDistance", &hulkfight::motion::FireMissileTrack_19d160::FUN_001933a0);
         mem = FUN_0008d690(0x18);
         params[31] = 0;
         if (mem)
-            params[31] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("swayAfterDurationTracking", &hulkfight::motion::FireMissileTrack::FUN_001933c0);
+            params[31] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("swayAfterDurationTracking", &hulkfight::motion::FireMissileTrack_19d160::FUN_001933c0);
         mem = FUN_0008d690(0x18);
         params[32] = 0;
         if (mem)
-            params[32] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("swayAfterDurationTrackingTime", &hulkfight::motion::FireMissileTrack::FUN_001933f0);
+            params[32] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("swayAfterDurationTrackingTime", &hulkfight::motion::FireMissileTrack_19d160::FUN_001933f0);
         mem = FUN_0008d690(0x18);
         params[33] = 0;
         if (mem)
-            params[33] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("swayAfterThresholdTracking", &hulkfight::motion::FireMissileTrack::FUN_00193410);
+            params[33] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("swayAfterThresholdTracking", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193410);
         mem = FUN_0008d690(0x18);
         params[34] = 0;
         if (mem)
-            params[34] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("swayAfterThresholdTrackingTime", &hulkfight::motion::FireMissileTrack::FUN_00193430);
+            params[34] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("swayAfterThresholdTrackingTime", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193430);
         mem = FUN_0008d690(0x18);
         params[35] = 0;
         if (mem)
-            params[35] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("swayDuringSwayTracking", &hulkfight::motion::FireMissileTrack::FUN_00193450);
+            params[35] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("swayDuringSwayTracking", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193450);
         mem = FUN_0008d690(0x18);
         params[36] = 0;
         if (mem)
-            params[36] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("lifeTime", &hulkfight::motion::FireMissileTrack::FUN_00193480);
+            params[36] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("lifeTime", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193480);
         mem = FUN_0008d690(0x18);
         params[37] = 0;
         if (mem)
-            params[37] = new (mem) fight::ParamIntConstRange<hulkfight::motion::FireMissileTrack>("projectilePriority", &hulkfight::motion::FireMissileTrack::FUN_001934a0);
+            params[37] = new (mem) fight::ParamIntConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("projectilePriority", &hulkfight::motion::FireMissileTrack_19d160::FUN_001934a0);
         mem = FUN_0008d690(0x18);
         params[38] = 0;
         if (mem)
-            params[38] = new (mem) fight::ParamIntConstRange<hulkfight::motion::FireMissileTrack>("interruptPriority", &hulkfight::motion::FireMissileTrack::FUN_001934c0);
+            params[38] = new (mem) fight::ParamIntConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("interruptPriority", &hulkfight::motion::FireMissileTrack_19d160::FUN_001934c0);
         mem = FUN_0008d690(0x18);
         params[39] = 0;
         if (mem)
-            params[39] = new (mem) fight::ParamBranch<hulkfight::motion::FireMissileTrack>("hitBranch", &hulkfight::motion::FireMissileTrack::FUN_001934d0);
+            params[39] = new (mem) fight::ParamBranch_19d160<hulkfight::motion::FireMissileTrack_19d160>("hitBranch", &hulkfight::motion::FireMissileTrack_19d160::FUN_001934d0);
         mem = FUN_0008d690(0x18);
         params[40] = 0;
         if (mem)
-            params[40] = new (mem) fight::ParamBranch<hulkfight::motion::FireMissileTrack>("giverBranch", &hulkfight::motion::FireMissileTrack::FUN_001934e0);
+            params[40] = new (mem) fight::ParamBranch_19d160<hulkfight::motion::FireMissileTrack_19d160>("giverBranch", &hulkfight::motion::FireMissileTrack_19d160::FUN_001934e0);
         mem = FUN_0008d690(0x18);
         params[41] = 0;
         if (mem)
-            params[41] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("hitPropDamage", &hulkfight::motion::FireMissileTrack::FUN_00193500);
+            params[41] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("hitPropDamage", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193500);
         mem = FUN_0008d690(0x18);
         params[42] = 0;
         if (mem)
-            params[42] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("hitPropForce", &hulkfight::motion::FireMissileTrack::FUN_00193520);
+            params[42] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("hitPropForce", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193520);
         mem = FUN_0008d690(0x18);
         params[43] = 0;
         if (mem)
-            params[43] = new (mem) fight::ParamString<hulkfight::motion::FireMissileTrack>("hitPropSound", &hulkfight::motion::FireMissileTrack::FUN_00194510);
+            params[43] = new (mem) fight::ParamString_19d160<hulkfight::motion::FireMissileTrack_19d160>("hitPropSound", &hulkfight::motion::FireMissileTrack_19d160::FUN_00194510);
         mem = FUN_0008d690(0x20);
         params[44] = 0;
         if (mem)
-            params[44] = new (mem) fight::ParamEnumConstList<hulkfight::motion::FireMissileTrack>("hitDamageType", ((const char**)&DAT_004ad788), (*(int*)&DAT_00412ed4), &hulkfight::motion::FireMissileTrack::FUN_00193550);
+            params[44] = new (mem) fight::ParamEnumConstList_19d160<hulkfight::motion::FireMissileTrack_19d160>("hitDamageType", ((const char**)&DAT_004ad788), (*(int*)&DAT_00412ed4), &hulkfight::motion::FireMissileTrack_19d160::FUN_00193550);
         mem = FUN_0008d690(0x18);
         params[45] = 0;
         if (mem)
-            params[45] = new (mem) fight::ParamName<hulkfight::motion::FireMissileTrack>("explosionEffect", &hulkfight::motion::FireMissileTrack::FUN_00193560);
+            params[45] = new (mem) fight::ParamName_19d160<hulkfight::motion::FireMissileTrack_19d160>("explosionEffect", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193560);
         mem = FUN_0008d690(0x18);
         params[46] = 0;
         if (mem)
-            params[46] = new (mem) fight::ParamVector<hulkfight::motion::FireMissileTrack>("explosionEffectAxis", &hulkfight::motion::FireMissileTrack::FUN_001935a0);
+            params[46] = new (mem) fight::ParamVector_19d160<hulkfight::motion::FireMissileTrack_19d160>("explosionEffectAxis", &hulkfight::motion::FireMissileTrack_19d160::FUN_001935a0);
         mem = FUN_0008d690(0x18);
         params[47] = 0;
         if (mem)
-            params[47] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("explosionRadius", &hulkfight::motion::FireMissileTrack::FUN_001935e0);
+            params[47] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("explosionRadius", &hulkfight::motion::FireMissileTrack_19d160::FUN_001935e0);
         mem = FUN_0008d690(0x18);
         params[48] = 0;
         if (mem)
-            params[48] = new (mem) fight::ParamBranch<hulkfight::motion::FireMissileTrack>("explosionHitBranch", &hulkfight::motion::FireMissileTrack::FUN_001935f0);
+            params[48] = new (mem) fight::ParamBranch_19d160<hulkfight::motion::FireMissileTrack_19d160>("explosionHitBranch", &hulkfight::motion::FireMissileTrack_19d160::FUN_001935f0);
         mem = FUN_0008d690(0x18);
         params[49] = 0;
         if (mem)
-            params[49] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("explosionHitPropDamage", &hulkfight::motion::FireMissileTrack::FUN_00193610);
+            params[49] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("explosionHitPropDamage", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193610);
         mem = FUN_0008d690(0x18);
         params[50] = 0;
         if (mem)
-            params[50] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("explosionHitPropForce", &hulkfight::motion::FireMissileTrack::FUN_00193630);
+            params[50] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("explosionHitPropForce", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193630);
         mem = FUN_0008d690(0x18);
         params[51] = 0;
         if (mem)
-            params[51] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("motionTrailWidth", &hulkfight::motion::FireMissileTrack::FUN_00193650);
+            params[51] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("motionTrailWidth", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193650);
         mem = FUN_0008d690(0x18);
         params[52] = 0;
         if (mem)
-            params[52] = new (mem) fight::ParamVector<hulkfight::motion::FireMissileTrack>("motionTrailOffset", &hulkfight::motion::FireMissileTrack::FUN_00193690);
+            params[52] = new (mem) fight::ParamVector_19d160<hulkfight::motion::FireMissileTrack_19d160>("motionTrailOffset", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193690);
         mem = FUN_0008d690(0x18);
         params[53] = 0;
         if (mem)
-            params[53] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("motionTrailFadeOutTime", &hulkfight::motion::FireMissileTrack::FUN_001936d0);
+            params[53] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("motionTrailFadeOutTime", &hulkfight::motion::FireMissileTrack_19d160::FUN_001936d0);
         mem = FUN_0008d690(0x18);
         params[54] = 0;
         if (mem)
-            params[54] = new (mem) fight::ParamName<hulkfight::motion::FireMissileTrack>("motionTrailShader", &hulkfight::motion::FireMissileTrack::FUN_001936e0);
+            params[54] = new (mem) fight::ParamName_19d160<hulkfight::motion::FireMissileTrack_19d160>("motionTrailShader", &hulkfight::motion::FireMissileTrack_19d160::FUN_001936e0);
         mem = FUN_0008d690(0x18);
         params[55] = 0;
         if (mem)
-            params[55] = new (mem) fight::ParamVector<hulkfight::motion::FireMissileTrack>("motionTrailShrinkOffset", &hulkfight::motion::FireMissileTrack::FUN_00193720);
+            params[55] = new (mem) fight::ParamVector_19d160<hulkfight::motion::FireMissileTrack_19d160>("motionTrailShrinkOffset", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193720);
         mem = FUN_0008d690(0x18);
         params[56] = 0;
         if (mem)
-            params[56] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("motionTrailShrinkTime", &hulkfight::motion::FireMissileTrack::FUN_00193760);
+            params[56] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("motionTrailShrinkTime", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193760);
         mem = FUN_0008d690(0x18);
         params[57] = 0;
         if (mem)
-            params[57] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("motionTrailFadeTime", &hulkfight::motion::FireMissileTrack::FUN_00193780);
+            params[57] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("motionTrailFadeTime", &hulkfight::motion::FireMissileTrack_19d160::FUN_00193780);
         mem = FUN_0008d690(0x18);
         params[58] = 0;
         if (mem)
-            params[58] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("motionTrailTextureTime", &hulkfight::motion::FireMissileTrack::FUN_001937a0);
+            params[58] = new (mem) fight::ParamFloatConstRange_19d160<hulkfight::motion::FireMissileTrack_19d160>("motionTrailTextureTime", &hulkfight::motion::FireMissileTrack_19d160::FUN_001937a0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1580), params, 59);
     }
     DAT_004e1584++;

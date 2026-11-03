@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* gD[];
 extern void* gA_19420[];
@@ -9,7 +10,6 @@ class Ref_19420 {
 class CAction_19420 {
   public:
     void* vptr;
-    void Fin();
 };
 class CCollisionAction_19420 : public CAction_19420 {
   public:
@@ -38,5 +38,5 @@ CCollisionAction_19420::~CCollisionAction_19420() {
         m1c->Release();
         m1c = 0;
     }
-    Fin();
+    ((fight::Action *)(CAction_19420 *)this)->FUN_002326a0();
 }

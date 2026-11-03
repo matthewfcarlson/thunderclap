@@ -1,3 +1,4 @@
+#include "gen/global.h"
 class Manager_bc750 {
   public:
     void A(int);
@@ -8,7 +9,6 @@ class Manager_bc750 {
 class Other_bc750 {
   public:
     void F(void*);
-    void H(int);
 };
 class Obj_bc750 {
   public:
@@ -23,7 +23,7 @@ class Obj_bc750 {
 extern "C" void FUN_000fc300();
 void Obj_bc750::End() {
     if (m34 && m38) {
-        m38->H(9);
+        ((::CScenarioManager *)m38)->FUN_001cc620(9);
         m34->A(0);
         void* edi = m34->B();
         if (edi) {

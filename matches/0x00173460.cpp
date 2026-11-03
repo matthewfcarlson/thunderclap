@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_173460[];
 class Ref_173460 {
@@ -8,7 +9,6 @@ class Ref_173460 {
 class Action_173460 {
   public:
     void* vptr;
-    void Fin();
 };
 void Free(void*) throw();
 struct Sub_173460 {
@@ -43,5 +43,5 @@ JointTrackerAction_173460::~JointTrackerAction_173460() throw() {
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_173460 *)this)->FUN_002326a0();
 }

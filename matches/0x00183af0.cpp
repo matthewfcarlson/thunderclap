@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_183af0[];
 extern void* g_vftable2[];
@@ -18,7 +19,6 @@ class Ref_183af0 {
 class Action_183af0 {
   public:
     void* vptr;
-    void Fin();
 };
 void Free(void*) throw();
 
@@ -48,5 +48,5 @@ PropAnimationAction_183af0::~PropAnimationAction_183af0() throw() {
         m28->Release();
         m28 = 0;
     }
-    Fin();
+    ((fight::Action *)(Action_183af0 *)this)->FUN_002326a0();
 }

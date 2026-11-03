@@ -2,11 +2,11 @@
 // FUN_000bf450 @ 0x000bf450
 // Demo/attract screen: remember the menu name; without a "go back" request show the quit-demo dialog,
 // otherwise leave the current screen.
+#include "gen/global.h"
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 
 class Screen_bf450 {
 public:
-    void FUN_001cc620(int next);
 };
 
 class DialogManager_bf450 {
@@ -41,7 +41,7 @@ void MenuState::FUN_000bf450(const char* menuName, int goBack)
     }
     if (state != 3) {
         if (screen) {
-            screen->FUN_001cc620(5);
+            ((::CScenarioManager *)screen)->FUN_001cc620(5);
         }
         FUN_000fc300();
     }

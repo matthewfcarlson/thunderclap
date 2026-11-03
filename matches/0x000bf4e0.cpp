@@ -1,5 +1,6 @@
 // FUN_000bf4e0 @ 0x000bf4e0
 #include "decls/data/game/global.h"
+#include "gen/global.h"
 
 struct Dialog_bf4e0 {
     void FUN_000be230(const char* name, const char* title, const char* text, const char* okLabel, const char* cancelLabel, int a, int b, int c);
@@ -8,7 +9,7 @@ struct Screen_bf4e0 { void FUN_00089a30(char v); };
 Dialog_bf4e0* FUN_000fc3d0();
 extern "C" void FUN_000fc300();
 
-struct Overlay { void FUN_001cc620(int id); };
+struct Overlay_bf4e0 {  };
 
 struct Menu_bf4e0 {
     char pad0[0x10];
@@ -16,7 +17,7 @@ struct Menu_bf4e0 {
     char pad14[0x1c];
     int f30;
     Screen_bf4e0* screen;
-    Overlay* overlay;
+    Overlay_bf4e0* overlay;
     void FUN_000b9770();
     void FUN_000bf4e0(int confirmed);
 };
@@ -30,7 +31,7 @@ void Menu_bf4e0::FUN_000bf4e0(int confirmed) {
         state = 0x14;
         FUN_000b9770();
     } else {
-        overlay->FUN_001cc620(9);
+        ((::CScenarioManager *)overlay)->FUN_001cc620(9);
         screen->FUN_00089a30(0);
         FUN_000fc300();
     }

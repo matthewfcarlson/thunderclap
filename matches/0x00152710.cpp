@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_152710[];
 class Ref_152710 {
@@ -8,7 +9,6 @@ class Ref_152710 {
 class Action_152710 {
   public:
     void* vptr;
-    void Fin();
 };
 class ClearFightParamsHitRecordAction_152710 : public Action_152710 {
   public:
@@ -26,5 +26,5 @@ ClearFightParamsHitRecordAction_152710::~ClearFightParamsHitRecordAction_152710(
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_152710 *)this)->FUN_002326a0();
 }

@@ -2,12 +2,12 @@
 // data: gCount_17a9a0 = DAT_004e1384
 
 #include "compat/ptr.h"
+#include "gen/fight.h"
 extern "C" void __cdecl FUN_0016f880();
 extern "C" void __cdecl FUN_0016f8a0();
 extern "C" char DAT_0041872c[];
 struct Param {
     char pad[0x18];
-    Param* Init(const char* name);
 };
 
 void* operator new(unsigned int n);
@@ -26,7 +26,7 @@ extern "C" void FUN_0017a9a0() {
         Param* arr[2];
         Param* a = (Param*)operator new(0x18);
         if (a) {
-            a->Init("timeBegin");
+            ((Param *)((fight::ParamValueFloat *)a)->FUN_00234960("timeBegin"));
             *(hulk_intptr*)a = ((hulk_intptr)DAT_0041872c);
             *(hulk_intptr*)((char*)a + 0x10) = ((hulk_intptr)(void (__cdecl*)())&FUN_0016f880);
             arr[0] = a;
@@ -35,7 +35,7 @@ extern "C" void FUN_0017a9a0() {
         }
         Param* b = (Param*)operator new(0x18);
         if (b) {
-            b->Init("power");
+            ((Param *)((fight::ParamValueFloat *)b)->FUN_00234960("power"));
             *(hulk_intptr*)b = ((hulk_intptr)DAT_0041872c);
             *(hulk_intptr*)((char*)b + 0x10) = ((hulk_intptr)(void (__cdecl*)())&FUN_0016f8a0);
             arr[1] = b;

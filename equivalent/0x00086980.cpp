@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_00086980 @ 0x00086980
+#include "gen/global.h"
 struct App;
 
 struct Camera { void FUN_000afe80(); };
@@ -23,7 +24,7 @@ struct Manager_86980 {
     int pad0;
     State_86980 *state;
 };
-struct Cleaner { void FUN_00208820(); };
+struct Cleaner {  };
 struct Registry_86980 { void FUN_001d2760(); };
 Registry_86980 *FUN_001d4c90();
 
@@ -64,6 +65,6 @@ void App::FUN_00086980(int unused)
     Registry_86980 *reg = FUN_001d4c90();
     if (reg)
         reg->FUN_001d2760();
-    cleaner->FUN_00208820();
+    ((::CWorldStreamManager *)cleaner)->FUN_00208820();
     active = 0;
 }

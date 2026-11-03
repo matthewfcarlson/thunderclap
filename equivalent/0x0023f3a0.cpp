@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
 // FUN_0023f3a0 @ 0x0023f3a0
 #include "decls/data/engine/fight.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 
 namespace fight {
-class BreakPointTrack {
+class BreakPointTrack_23f3a0 {
 public:
     void FUN_0023f0d0();
     void FUN_0023f0e0();
@@ -24,22 +25,21 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 namespace fight {
 template <class T>
-class ParamConditionGroup : public ParamConditionGroupBase {
+class ParamConditionGroup_23f3a0 : public ParamConditionGroupBase {
 public:
-    ParamConditionGroup(const char* name, void (T::*s)()) : ParamConditionGroupBase(name) { setter = s; }
+    ParamConditionGroup_23f3a0(const char* name, void (T::*s)()) : ParamConditionGroupBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamFloatConstRange : public ParamFloatConstRangeBase {
+class ParamFloatConstRange_23f3a0 : public ParamFloatConstRangeBase {
 public:
-    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    ParamFloatConstRange_23f3a0(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -59,11 +59,11 @@ extern "C" void FUN_0023f3a0()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange<fight::BreakPointTrack>("timeBegin", &fight::BreakPointTrack::FUN_0023f0d0);
+            params[0] = new (mem) fight::ParamFloatConstRange_23f3a0<fight::BreakPointTrack_23f3a0>("timeBegin", &fight::BreakPointTrack_23f3a0::FUN_0023f0d0);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamConditionGroup<fight::BreakPointTrack>("conditionGroup", &fight::BreakPointTrack::FUN_0023f0e0);
+            params[1] = new (mem) fight::ParamConditionGroup_23f3a0<fight::BreakPointTrack_23f3a0>("conditionGroup", &fight::BreakPointTrack_23f3a0::FUN_0023f0e0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e5c88), params, 2);
     }
     DAT_004e5c8c++;

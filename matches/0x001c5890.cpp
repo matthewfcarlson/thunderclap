@@ -1,3 +1,4 @@
+#include "gen/Render.h"
 extern void* g_vtMgr[];
 extern void* g_vtT[];
 extern void* g_vtO[];
@@ -14,7 +15,6 @@ struct Store {
     int m10;
     Ref_1c5890** m14;
     char pad2[0x120 - 0x18];
-    void A();
     void B();
 };
 struct ObjectManager_1c5890 {
@@ -35,9 +35,9 @@ ObjectManager_1c5890::~ObjectManager_1c5890() {
         }
     }
     tmpl.vptr = g_vtT;
-    tmpl.A();
+    ((Render::StoreBase *)&tmpl)->FUN_001c7720();
     tmpl.B();
     base.vptr = g_vtO;
-    base.A();
+    ((Render::StoreBase *)&base)->FUN_001c7720();
     base.B();
 }

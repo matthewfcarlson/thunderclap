@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern void* g_vt_1616c0[];
 
 class RefObj_1616c0 {
@@ -14,7 +15,6 @@ struct ClimbLocomotionAction {
     RefObj_1616c0* m1c;
     RefObj_1616c0* m20;
     RefObj_1616c0* m24;
-    void BaseDtor();
     ClimbLocomotionAction* vfunc_2(unsigned char flags);
 };
 
@@ -37,7 +37,7 @@ ClimbLocomotionAction* ClimbLocomotionAction::vfunc_2(unsigned char flags) {
         p->Release();
         v->m1c = 0;
     }
-    BaseDtor();
+    ((fight::Action *)this)->FUN_002326a0();
     if (flags & 1)
         DeleteObj(this);
     return this;

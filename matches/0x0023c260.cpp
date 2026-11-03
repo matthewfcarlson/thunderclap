@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 class Stream {
   public:
     virtual void Init();
@@ -16,7 +17,6 @@ class BinReader {
     int field28, field2c;
     char field30;
     BinReader* Build(Stream*);
-    void Finish();
 };
 BinReader* BinReader::Build(Stream* s) {
     field4 = 0;
@@ -33,6 +33,6 @@ BinReader* BinReader::Build(Stream* s) {
     field30 = 1;
     stream = s;
     s->Init();
-    Finish();
+    ((fight::BinReader *)this)->FUN_0023c1f0();
     return this;
 }

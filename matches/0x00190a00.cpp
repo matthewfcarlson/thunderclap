@@ -1,4 +1,5 @@
 #include "gen/hulkfight.h"
+#include "gen/fight.h"
 
 extern "C" void _ReadWriteBarrier();
 extern char vtable_190a00[];
@@ -9,7 +10,6 @@ class Obj_190a00 {
 };
 class TankLocomotionAction_190a00 {
   public:
-    void Finish();
 };
 
 void hulkfight::motion::ImpulseVelocityAction::FUN_00190a00() {
@@ -21,5 +21,5 @@ void hulkfight::motion::ImpulseVelocityAction::FUN_00190a00() {
     }
     if ((*(void * *)&this->f_1c))
         (*(void * *)&this->f_1c) = 0;
-    ((TankLocomotionAction_190a00*)this)->Finish();
+    ((fight::Action *)(((TankLocomotionAction_190a00*)this)))->FUN_002326a0();
 }

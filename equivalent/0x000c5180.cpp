@@ -3,6 +3,7 @@
 // cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/global.h"
 extern "C" int strcmp(const char *, const char *);
 extern "C" char *__cdecl strncpy(char *, const char *, unsigned int);
 
@@ -91,7 +92,6 @@ public:
 
 class Aux38 {
 public:
-    int FUN_001cc840();
 };
 
 struct Flag4 {
@@ -277,7 +277,7 @@ void Menu_c5180::FUN_000c5180(Source_c5180 *src, void *a1, float dt, int a3, Aux
             if (f30)
                 ((Hooked *)f30)->FUN_00086400();
             DAT_004e222c = 1;
-            if (f38->FUN_001cc840() == 5)
+            if (((int)((::CScenarioManager *)f38)->FUN_001cc840()) == 5)
                 DAT_0052c2a8->vfunc_12(1);
             FUN_000b90c0(0);
         }

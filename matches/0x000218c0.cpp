@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_218c0[];
 extern void* g_vftable2[];
@@ -10,7 +11,6 @@ class Ref_218c0 {
 class CAction_218c0 {
   public:
     void* vptr;
-    void Fin();
 };
 class CProceduralDurationAnimationAction_218c0 : public CAction_218c0 {
   public:
@@ -33,7 +33,7 @@ CProceduralDurationAnimationAction_218c0* CProceduralDurationAnimationAction_218
         m2->Release();
         m2 = 0;
     }
-    Fin();
+    ((fight::Action *)(CAction_218c0 *)this)->FUN_002326a0();
     if (flags & 1)
         operator delete(this);
     return this;

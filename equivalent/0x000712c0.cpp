@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
 // FUN_000712c0 @ 0x000712c0
 #include "decls/data/game/global.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
-class CSweepTrack {
+class CSweepTrack_712c0 {
 public:
     void FUN_00068340();
     void FUN_00068350();
@@ -19,8 +20,7 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 template <class T>
 class ParamFloatConstRange : public ParamFloatConstRangeBase {
@@ -60,27 +60,27 @@ extern "C" void FUN_000712c0()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamFloatConstRange<CSweepTrack>("timeBegin", &CSweepTrack::FUN_00068340);
+            params[0] = new (mem) ParamFloatConstRange<CSweepTrack_712c0>("timeBegin", &CSweepTrack_712c0::FUN_00068340);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) ParamFloatConstRange<CSweepTrack>("timeEnd", &CSweepTrack::FUN_00068350);
+            params[1] = new (mem) ParamFloatConstRange<CSweepTrack_712c0>("timeEnd", &CSweepTrack_712c0::FUN_00068350);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamFloatConstRange<CSweepTrack>("arc", &CSweepTrack::FUN_00068360);
+            params[2] = new (mem) ParamFloatConstRange<CSweepTrack_712c0>("arc", &CSweepTrack_712c0::FUN_00068360);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) ParamIntConstRange<CSweepTrack>("priority", &CSweepTrack::FUN_00068380);
+            params[3] = new (mem) ParamIntConstRange<CSweepTrack_712c0>("priority", &CSweepTrack_712c0::FUN_00068380);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) ParamFloatConstRange<CSweepTrack>("rootBlendInTime", &CSweepTrack::FUN_00068390);
+            params[4] = new (mem) ParamFloatConstRange<CSweepTrack_712c0>("rootBlendInTime", &CSweepTrack_712c0::FUN_00068390);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamFloatConstRange<CSweepTrack>("rootBlendOutTime", &CSweepTrack::FUN_000683a0);
+            params[5] = new (mem) ParamFloatConstRange<CSweepTrack_712c0>("rootBlendOutTime", &CSweepTrack_712c0::FUN_000683a0);
         FUN_002347b0(((ParamRegistry*)&DAT_004dcf60), params, 6);
     }
     DAT_004dcf64++;

@@ -1,4 +1,5 @@
 // Same code shape as 0x0001ecb0 (propagated; names are from that function)
+#include "gen/fight.h"
 extern char vftableD[];
 extern char vftableA[];
 
@@ -9,7 +10,6 @@ class RefObj_19100 {
 };
 
 struct Tidier {
-    void Tidy();
 };
 
 class CDropAction_19100 {
@@ -34,5 +34,5 @@ void CDropAction_19100::Shutdown() {
         a->Release();
         mA = 0;
     }
-    ((Tidier*)this)->Tidy();
+    ((fight::Action *)(((Tidier*)this)))->FUN_002326a0();
 }

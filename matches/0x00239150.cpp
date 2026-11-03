@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_239150[];
 void operator delete(void*);
@@ -9,7 +10,6 @@ class Ref_239150 {
 class Action_239150 {
   public:
     void* vptr;
-    void Fin();
 };
 class PrintAction_239150 : public Action_239150 {
   public:
@@ -24,7 +24,7 @@ PrintAction_239150* PrintAction_239150::f2(unsigned char flags) {
         m->Release();
         m = 0;
     }
-    Fin();
+    ((fight::Action *)(Action_239150 *)this)->FUN_002326a0();
     if (flags & 1)
         operator delete(this);
     return this;

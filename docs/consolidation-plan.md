@@ -440,3 +440,47 @@ emitted there) and reads sizes from `sizeof`.
   `throw()`; only nothrow free functions (`extern "C"`, `throw()`) avoid it (toys in x64-4's scratch). The stubs
   match because they give the base no destructor. So a constructor body that calls a member or virtual function
   cannot move onto the headers as a byte match; call-free bodies can.
+
+## 10. Members through include/gen/ (x64-9, name unification batch 4, 2026-11-02)
+
+The 64-bit link needs every reference to name its definition's own symbol. A member call on a source's own stub
+(`p->Init("hasHitPushback")` on `Hit_155500`) is a TU-namespace symbol the Wine link only reaches through an alias.
+`tools/name_unify.py member` plans, from a Wine build's link outputs (tools/name_audit.py), every member -> member
+alias whose definition is a non-virtual member of an include/gen/ class; `member-apply` rewrites the callers to
+call through the header class: `((fight::ParamValueBool *)p)->FUN_00234860("hasHitPushback")`, the source
+including `gen/<ns>.h` (casts to the caller's declared types first, then the header's; the stub's declaration
+goes; a stub named like an include/gen/ name takes the source's address as a suffix, `ParamBool_54300`).
+
+Definitions placed by hand first (b9 shape, `include/gen/evidence-rn.json` "members"): `fight::Action::FUN_002326a0`
+(fight::Action's destructor body, which 431 call sites of the derived actions' destructors call), the
+`fight::ParamValue{Float,Name,NameList,Branch}` constructors-as-members `FUN_00234960/a90/ba0/00235170`, and
+`ParamValueBool::FUN_00234860` now takes `const char*` (the callers pass the parameter's name; `int` was too narrow
+for 64 bits). All six byte-match.
+
+gen_tree.py: a stub item holding a cast to an include/gen/ class (`ParamBoolBase(const char* name) {
+((fight::ParamValueBool *)this)->FUN_00234860(name); }`) stays in its TU (`names_gen`, off-switch
+`HULK_GEN_TREE_OFF=genref`): hoisted to common.h it broke 804 TUs that don't include the header. The rule changes
+nothing in a tree of HEAD's sources. Two more lessons: a source that goes on include/gen/ and can't merge is isolated
+without a TU namespace, so its own stubs named like *any* include/gen/ class (not only the headers it includes) define
+global symbols other such sources define too (lld duplicates: `CSmartPropUpdateAttachmentAction::Shutdown`); such
+sources are left alone. The replay-pin functions (docs/wine-replay.md) are left alone too.
+
+| | control 39098 (HEAD c8bfc4ae7) | batch 39753 |
+|---|---|---|
+| sources | - | 399 matches/ + 284 equivalent/ callers, 6 definitions, fight.h + evidence-rn.json |
+| TUs / matches still matching | 2,570 / 22,340 | 2,610 / 22,340 (40 more `.iso_` TUs: on-gen sources that don't merge) |
+| equivalents identical to standalone (merged / wrapped / isolated) | 2,740 / 2,214 / 180 | 2,831 / 2,100 / 203 |
+| strict link rc / unbound | 0 / 1,328 | 0 / 1,328 |
+| play3 checkpoints | 2,003 to 60,060 | identical at all 2,003 common frames (batch to 60,240) |
+| name audit, game (symbols / references) | 50,375 / 52,193 | 49,401 / 51,271 |
+| native arm64 link, unbound | 50,407 | 49,429 |
+
+What it does not reach: of 16,108 member -> member aliases, 15,849 have a definition on a TU stub. The rename map
+names an RTTI class for 517 of those definitions (1,995 aliases; tools/rn_members.py plans only 50 of them
+automatically now). The other 4,989 definitions (13,673 aliases) belong to non-polymorphic classes RTTI never names
+(`Target_27b040`, the 8-byte hash holder 584 callers use): no include/gen/ class exists for them. 2,732 of those
+owner stubs have only builtin fields (7,423 aliases), 450 more only builtin fields but members taking other stubs
+(793), 1,118 pointer fields to other stubs (3,487). Proposal: an include/gen/ header of such owner classes (b12
+"pinned types" with layouts, one class per definition, canonical member prototypes with pointers where callers pass
+pointers: the `Target_27b040` callers pass `const char*` to its `unsigned int`), after which `member-apply` handles
+their callers unchanged.

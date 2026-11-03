@@ -1,5 +1,6 @@
 // FUN_000bc230 @ 0x000bc230
 #include "decls/address.h"
+#include "gen/global.h"
 extern "C" char *__cdecl strncpy(char *dst, const char *src, unsigned n);
 
 class Manager_bc230 { public: char pad[4]; };
@@ -9,7 +10,7 @@ struct TextEntry_bc230 {
     void FUN_000f8500(const char *name, Manager_bc230 *manager, char flag);
 };
 
-class FEObject {
+class FEObject_bc230 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -20,20 +21,20 @@ public:
     TextEntry_bc230 entry;
 };
 
-class TextLabel : public FEObject {
+class TextLabel_bc230 : public FEObject_bc230 {
 public:
     virtual void vfunc_4();
 };
-class TextWindow : public FEObject {
+class TextWindow_bc230 : public FEObject_bc230 {
 public:
     virtual void vfunc_4();
 };
-class TextButton : public FEObject {
+class TextButton_bc230 : public FEObject_bc230 {
 public:
     virtual void vfunc_4();
 };
 
-extern "C" FEObject *__cdecl FUN_000fc260(const char *name);
+extern "C" FEObject_bc230 *__cdecl FUN_000fc260(const char *name);
 
 class Widget_bc230 {
 public:
@@ -70,7 +71,6 @@ public:
 extern "C" Hook_bc230 *__cdecl FUN_000fc3d0();
 
 struct Sys_bc230 {
-    void FUN_001cc620(int a);
 };
 
 struct World {
@@ -89,23 +89,23 @@ public:
 
 void QuestionScreen::FUN_000bc230(const char *title, const char *text, const char *ans1, char *buf1, const char *ans2, char *buf2)
 {
-    TextLabel *label = dynamic_cast<TextLabel *>(FUN_000fc260("fullscreen_question_title"));
+    TextLabel_bc230 *label = dynamic_cast<TextLabel_bc230 *>(FUN_000fc260("fullscreen_question_title"));
     if (label) {
         label->entry.FUN_000f8500(title, FUN_000fc1b0(), 1);
         label->vfunc_3();
     }
-    TextWindow *win = dynamic_cast<TextWindow *>(FUN_000fc260("fullscreen_question_text"));
+    TextWindow_bc230 *win = dynamic_cast<TextWindow_bc230 *>(FUN_000fc260("fullscreen_question_text"));
     if (win) {
         win->entry.FUN_000f8500(text, FUN_000fc1b0(), 1);
         win->vfunc_3();
     }
-    TextButton *b1 = dynamic_cast<TextButton *>(FUN_000fc260("fullscreen_question_answer1"));
+    TextButton_bc230 *b1 = dynamic_cast<TextButton_bc230 *>(FUN_000fc260("fullscreen_question_answer1"));
     if (b1) {
         b1->entry.FUN_000f8500(ans1, FUN_000fc1b0(), 1);
         // original calls through the previous object (win), not b1
         win->vfunc_3();
     }
-    TextButton *b2 = dynamic_cast<TextButton *>(FUN_000fc260("fullscreen_question_answer2"));
+    TextButton_bc230 *b2 = dynamic_cast<TextButton_bc230 *>(FUN_000fc260("fullscreen_question_answer2"));
     if (b2) {
         b2->entry.FUN_000f8500(ans2, FUN_000fc1b0(), 1);
         win->vfunc_3();
@@ -115,9 +115,9 @@ void QuestionScreen::FUN_000bc230(const char *title, const char *text, const cha
 
     Widget_bc230 *w = FUN_000fc3d0()->vfunc_3("fullscreen_question");
     if (w) {
-        FEObject *a = FUN_000fc260("fullscreen_question_answer1");
+        FEObject_bc230 *a = FUN_000fc260("fullscreen_question_answer1");
         if (a)
             w->vfunc_19(a->f14);
     }
-    DAT_004dd700->sys->FUN_001cc620(11);
+    ((::CScenarioManager *)(DAT_004dd700->sys))->FUN_001cc620(11);
 }

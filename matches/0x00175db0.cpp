@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_175db0[];
 class Ref_175db0 {
@@ -8,7 +9,6 @@ class Ref_175db0 {
 class Action_175db0 {
   public:
     void* vptr;
-    void Fin();
 };
 void Free(void*) throw();
 struct Sub_175db0 {
@@ -41,5 +41,5 @@ SyncToLocatorAction_175db0::~SyncToLocatorAction_175db0() throw() {
     if (m1c)
         m1c = 0;
     FUN_0027af50(&s28);
-    Fin();
+    ((fight::Action *)(Action_175db0 *)this)->FUN_002326a0();
 }

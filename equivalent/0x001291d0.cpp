@@ -1,13 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_001291d0 @ 0x001291d0
 #include "decls/data/game/hulkfight/ai.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 
 namespace hulkfight {
 namespace ai {
-class CanSeeTargetCondition {
+class CanSeeTargetCondition_1291d0 {
 public:
     void FUN_00123930();
     void FUN_00123950();
@@ -19,14 +20,13 @@ class __declspec(novtable) ParamBoolBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234860(const char* name);
-    ParamBoolBase(const char* name) { FUN_00234860(name); }
+    ParamBoolBase(const char* name) { ((fight::ParamValueBool *)this)->FUN_00234860(name); }
 };
 namespace fight {
 template <class T>
-class ParamBool : public ParamBoolBase {
+class ParamBool_1291d0 : public ParamBoolBase {
 public:
-    ParamBool(const char* name, void (T::*s)()) : ParamBoolBase(name) { setter = s; }
+    ParamBool_1291d0(const char* name, void (T::*s)()) : ParamBoolBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -46,11 +46,11 @@ extern "C" void FUN_001291d0()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamBool<hulkfight::ai::CanSeeTargetCondition>("canSee", &hulkfight::ai::CanSeeTargetCondition::FUN_00123930);
+            params[0] = new (mem) fight::ParamBool_1291d0<hulkfight::ai::CanSeeTargetCondition_1291d0>("canSee", &hulkfight::ai::CanSeeTargetCondition_1291d0::FUN_00123930);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamBool<hulkfight::ai::CanSeeTargetCondition>("ignoreFriendInTheWay", &hulkfight::ai::CanSeeTargetCondition::FUN_00123950);
+            params[1] = new (mem) fight::ParamBool_1291d0<hulkfight::ai::CanSeeTargetCondition_1291d0>("ignoreFriendInTheWay", &hulkfight::ai::CanSeeTargetCondition_1291d0::FUN_00123950);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0df4), params, 2);
     }
     DAT_004e0df8++;

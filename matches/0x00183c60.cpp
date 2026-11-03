@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vA[];
 class Ref_183c60 {
@@ -8,7 +9,6 @@ class Ref_183c60 {
 class Action_183c60 {
   public:
     void* vptr;
-    void Fin();
 };
 class PropAddToCollisionAction_183c60 : public Action_183c60 {
   public:
@@ -26,5 +26,5 @@ PropAddToCollisionAction_183c60::~PropAddToCollisionAction_183c60() throw() {
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_183c60 *)this)->FUN_002326a0();
 }

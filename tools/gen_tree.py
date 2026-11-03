@@ -1066,6 +1066,11 @@ class Generator:
     def hoistable(self, nk, k, it):
         if tuple(nk) in self.state["local_only"]:
             return False
+        if "genref" not in GEN_OFF and names_gen(it):
+            # (x64-9: a stub whose inline body calls through an include/gen class, `((fight::ParamValueBool *)this)
+            # ->FUN_00234860(name)`, can't go to <dir>.h / common.h: TUs without the gen header include those too)
+            self.stats["declarations kept in the TU: they name include/gen/ classes"] += 1
+            return False
         if k[0] in ("macro", "funcdef", "template funcdef"):
             return False
         if k[0] == "var" and not it.text.lstrip().startswith("extern"):
@@ -1635,6 +1640,27 @@ def split_qualified_name(q):
         i += 1
     out.append(cur)
     return [p for p in out if p] or [""]
+
+
+def names_gen(it):
+    """True if an item holds a cast to an include/gen/ class, `((fight::ParamValueBool *)this)` or `((::CCharacter *)p)`
+    (tools/name_unify.py member-apply's calls through the header class): such an item needs the gen header."""
+    gen_tops = include_tops()[0]
+    ts = it.toks
+    for i in range(len(ts) - 3):
+        if ts[i].v != "(" or ts[i + 1].v != "(":
+            continue
+        j = i + 2
+        if ts[j].v == "::":
+            j += 1
+        if j >= len(ts) or ts[j].v not in gen_tops:
+            continue
+        j += 1
+        while j + 1 < len(ts) and ts[j].v == "::" and ts[j + 1].t == "id":
+            j += 2
+        if j + 1 < len(ts) and ts[j].v == "*" and ts[j + 1].v == ")":
+            return True
+    return False
 
 
 def always_global(it):

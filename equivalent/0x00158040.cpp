@@ -2,13 +2,14 @@
 // FUN_00158040 @ 0x00158040
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 
 namespace hulkfight {
 namespace motion {
-class CollisionTargetNameCondition {
+class CollisionTargetNameCondition_158040 {
 public:
     void FUN_0014c690();
     void FUN_0014c6a0();
@@ -27,14 +28,13 @@ class __declspec(novtable) ParamNameBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234a90(const char* name);
-    ParamNameBase(const char* name) { FUN_00234a90(name); }
+    ParamNameBase(const char* name) { ((fight::ParamValueName *)this)->FUN_00234a90(name); }
 };
 namespace fight {
 template <class T>
-class ParamEnumConstList : public ParamEnumConstListBase {
+class ParamEnumConstList_158040 : public ParamEnumConstListBase {
 public:
-    ParamEnumConstList(const char* name, const char** n, int c, void (T::*s)())
+    ParamEnumConstList_158040(const char* name, const char** n, int c, void (T::*s)())
         : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
     virtual void v0();
     const char** names;
@@ -43,9 +43,9 @@ public:
     int unused1c;
 };
 template <class T>
-class ParamName : public ParamNameBase {
+class ParamName_158040 : public ParamNameBase {
 public:
-    ParamName(const char* name, void (T::*s)()) : ParamNameBase(name) { setter = s; }
+    ParamName_158040(const char* name, void (T::*s)()) : ParamNameBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -67,11 +67,11 @@ extern "C" void FUN_00158040()
         mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::motion::CollisionTargetNameCondition>("compare", ((const char**)&DAT_00427758), (*(int*)&DAT_00427760), &hulkfight::motion::CollisionTargetNameCondition::FUN_0014c690);
+            params[0] = new (mem) fight::ParamEnumConstList_158040<hulkfight::motion::CollisionTargetNameCondition_158040>("compare", ((const char**)&DAT_00427758), (*(int*)&DAT_00427760), &hulkfight::motion::CollisionTargetNameCondition_158040::FUN_0014c690);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamName<hulkfight::motion::CollisionTargetNameCondition>("name", &hulkfight::motion::CollisionTargetNameCondition::FUN_0014c6a0);
+            params[1] = new (mem) fight::ParamName_158040<hulkfight::motion::CollisionTargetNameCondition_158040>("name", &hulkfight::motion::CollisionTargetNameCondition_158040::FUN_0014c6a0);
         FUN_002347b0(((ParamRegistry*)&DAT_004e10a8), params, 2);
     }
     DAT_004e10ac++;

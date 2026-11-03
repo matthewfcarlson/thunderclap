@@ -2,11 +2,12 @@
 // FUN_00053540 @ 0x00053540
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
-class CCollisionHeightCondition {
+class CCollisionHeightCondition_53540 {
 public:
     void FUN_00047d50();
     void FUN_00047d60();
@@ -23,14 +24,13 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 namespace fight {
 template <class T>
-class ParamEnumConstList : public ParamEnumConstListBase {
+class ParamEnumConstList_53540 : public ParamEnumConstListBase {
 public:
-    ParamEnumConstList(const char* name, const char** n, int c, void (T::*s)())
+    ParamEnumConstList_53540(const char* name, const char** n, int c, void (T::*s)())
         : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
     virtual void v0();
     const char** names;
@@ -39,9 +39,9 @@ public:
     int unused1c;
 };
 template <class T>
-class ParamFloatConstRange : public ParamFloatConstRangeBase {
+class ParamFloatConstRange_53540 : public ParamFloatConstRangeBase {
 public:
-    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    ParamFloatConstRange_53540(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -63,11 +63,11 @@ extern "C" void FUN_00053540()
         mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<::CCollisionHeightCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &::CCollisionHeightCondition::FUN_00047d50);
+            params[0] = new (mem) fight::ParamEnumConstList_53540<::CCollisionHeightCondition_53540>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &::CCollisionHeightCondition_53540::FUN_00047d50);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange<::CCollisionHeightCondition>("height", &::CCollisionHeightCondition::FUN_00047d60);
+            params[1] = new (mem) fight::ParamFloatConstRange_53540<::CCollisionHeightCondition_53540>("height", &::CCollisionHeightCondition_53540::FUN_00047d60);
         FUN_002347b0(((ParamRegistry*)&DAT_004dc478), params, 2);
     }
     DAT_004dc47c++;

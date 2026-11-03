@@ -1,7 +1,6 @@
 #include "gen/global.h"
 
 struct ImageSelector_nv_ee180 {
-    void Update();
 };
 extern void FUN_000c8710(void*, int);
 
@@ -13,7 +12,7 @@ void ImageSelector::vfunc_19(int p2, int p3, int p4, int p5, int __p4) { char p6
         if (p6) {
             *(int*)((char*)this + 0x2a4) = *(int*)((char*)this + 0x2a8) =
                 *(int*)((char*)this + 0x298) * p3 + p4;
-            ((ImageSelector_nv_ee180*)this)->Update();
+            ((::ImageSelector *)(((ImageSelector_nv_ee180*)this)))->FUN_000e4020();
         }
         ++*(int*)((char*)this + 0x290);
     }

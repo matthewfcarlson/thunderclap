@@ -1,4 +1,5 @@
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) {
     return p;
@@ -9,7 +10,6 @@ extern void __cdecl FUN_001330c0();
 extern void __cdecl FUN_001330e0();
 struct ParamStorage {
     char storage[24];
-    void FUN_00234960(const char*);
     void FUN_002348e0(const char*);
 };
 struct Base_137b60 {
@@ -20,14 +20,14 @@ struct Base_137b60 {
 };
 namespace hulkfight {
 namespace motion {
-class GrappleHoverTrack;
+class GrappleHoverTrack_137b60;
 }
 } // namespace hulkfight
 namespace fight {
-template <class T> struct ParamFloatConstRange : Base_137b60 {
+template <class T> struct ParamFloatConstRange_137b60 : Base_137b60 {
     virtual void slot0();
 };
-template <class T> struct ParamIntConstRange : Base_137b60 {
+template <class T> struct ParamIntConstRange_137b60 : Base_137b60 {
     virtual void slot0();
 };
 } // namespace fight
@@ -37,18 +37,18 @@ void target() {
         Base_137b60* entries[3];
         void* p = FUN_0008d690(24);
         if (p) {
-            ((ParamStorage*)p)->FUN_00234960("timeBegin");
-            fight::ParamFloatConstRange<hulkfight::motion::GrappleHoverTrack>* a =
-                new (p) fight::ParamFloatConstRange<hulkfight::motion::GrappleHoverTrack>;
+            ((fight::ParamValueFloat *)(((ParamStorage*)p)))->FUN_00234960("timeBegin");
+            fight::ParamFloatConstRange_137b60<hulkfight::motion::GrappleHoverTrack_137b60>* a =
+                new (p) fight::ParamFloatConstRange_137b60<hulkfight::motion::GrappleHoverTrack_137b60>;
             a->callback = FUN_001330b0;
             entries[0] = a;
         } else
             entries[0] = 0;
         p = FUN_0008d690(24);
         if (p) {
-            ((ParamStorage*)p)->FUN_00234960("timeEnd");
-            fight::ParamFloatConstRange<hulkfight::motion::GrappleHoverTrack>* a =
-                new (p) fight::ParamFloatConstRange<hulkfight::motion::GrappleHoverTrack>;
+            ((fight::ParamValueFloat *)(((ParamStorage*)p)))->FUN_00234960("timeEnd");
+            fight::ParamFloatConstRange_137b60<hulkfight::motion::GrappleHoverTrack_137b60>* a =
+                new (p) fight::ParamFloatConstRange_137b60<hulkfight::motion::GrappleHoverTrack_137b60>;
             a->callback = FUN_001330c0;
             entries[1] = a;
         } else
@@ -56,8 +56,8 @@ void target() {
         p = FUN_0008d690(24);
         if (p) {
             ((ParamStorage*)p)->FUN_002348e0("groundFixup");
-            fight::ParamIntConstRange<hulkfight::motion::GrappleHoverTrack>* a =
-                new (p) fight::ParamIntConstRange<hulkfight::motion::GrappleHoverTrack>;
+            fight::ParamIntConstRange_137b60<hulkfight::motion::GrappleHoverTrack_137b60>* a =
+                new (p) fight::ParamIntConstRange_137b60<hulkfight::motion::GrappleHoverTrack_137b60>;
             a->callback = FUN_001330e0;
             entries[2] = a;
         } else

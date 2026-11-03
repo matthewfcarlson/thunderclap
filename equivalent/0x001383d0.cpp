@@ -1,13 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 30/30)
 // FUN_001383d0 @ 0x001383d0
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 
 namespace hulkfight {
 namespace motion {
-class FallTrack {
+class FallTrack_1383d0 {
 public:
     void FUN_001334b0();
     void FUN_001334c0();
@@ -30,14 +31,13 @@ class __declspec(novtable) ParamBoolBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234860(const char* name);
-    ParamBoolBase(const char* name) { FUN_00234860(name); }
+    ParamBoolBase(const char* name) { ((fight::ParamValueBool *)this)->FUN_00234860(name); }
 };
 namespace fight {
 template <class T>
-class ParamBool : public ParamBoolBase {
+class ParamBool_1383d0 : public ParamBoolBase {
 public:
-    ParamBool(const char* name, void (T::*s)()) : ParamBoolBase(name) { setter = s; }
+    ParamBool_1383d0(const char* name, void (T::*s)()) : ParamBoolBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -48,14 +48,13 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 namespace fight {
 template <class T>
-class ParamFloatConstRange : public ParamFloatConstRangeBase {
+class ParamFloatConstRange_1383d0 : public ParamFloatConstRangeBase {
 public:
-    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    ParamFloatConstRange_1383d0(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -71,9 +70,9 @@ public:
 };
 namespace fight {
 template <class T>
-class ParamIntConstRange : public ParamIntConstRangeBase {
+class ParamIntConstRange_1383d0 : public ParamIntConstRangeBase {
 public:
-    ParamIntConstRange(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
+    ParamIntConstRange_1383d0(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -89,9 +88,9 @@ public:
 };
 namespace fight {
 template <class T>
-class ParamVector : public ParamVectorBase {
+class ParamVector_1383d0 : public ParamVectorBase {
 public:
-    ParamVector(const char* name, void (T::*s)()) : ParamVectorBase(name) { setter = s; }
+    ParamVector_1383d0(const char* name, void (T::*s)()) : ParamVectorBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -110,59 +109,59 @@ void FUN_001383d0()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FallTrack>("timeBegin", &hulkfight::motion::FallTrack::FUN_001334b0);
+            params[0] = new (mem) fight::ParamFloatConstRange_1383d0<hulkfight::motion::FallTrack_1383d0>("timeBegin", &hulkfight::motion::FallTrack_1383d0::FUN_001334b0);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FallTrack>("timeEnd", &hulkfight::motion::FallTrack::FUN_001334c0);
+            params[1] = new (mem) fight::ParamFloatConstRange_1383d0<hulkfight::motion::FallTrack_1383d0>("timeEnd", &hulkfight::motion::FallTrack_1383d0::FUN_001334c0);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FallTrack>("turningVelocityMin", &hulkfight::motion::FallTrack::FUN_001334e0);
+            params[2] = new (mem) fight::ParamFloatConstRange_1383d0<hulkfight::motion::FallTrack_1383d0>("turningVelocityMin", &hulkfight::motion::FallTrack_1383d0::FUN_001334e0);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FallTrack>("turningVelocityMinForwardSpeedCap", &hulkfight::motion::FallTrack::FUN_00133510);
+            params[3] = new (mem) fight::ParamFloatConstRange_1383d0<hulkfight::motion::FallTrack_1383d0>("turningVelocityMinForwardSpeedCap", &hulkfight::motion::FallTrack_1383d0::FUN_00133510);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FallTrack>("turningVelocityMax", &hulkfight::motion::FallTrack::FUN_00133530);
+            params[4] = new (mem) fight::ParamFloatConstRange_1383d0<hulkfight::motion::FallTrack_1383d0>("turningVelocityMax", &hulkfight::motion::FallTrack_1383d0::FUN_00133530);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FallTrack>("turningVelocityMaxForwardSpeedCap", &hulkfight::motion::FallTrack::FUN_00133560);
+            params[5] = new (mem) fight::ParamFloatConstRange_1383d0<hulkfight::motion::FallTrack_1383d0>("turningVelocityMaxForwardSpeedCap", &hulkfight::motion::FallTrack_1383d0::FUN_00133560);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamBool<hulkfight::motion::FallTrack>("useInitialVelocity", &hulkfight::motion::FallTrack::FUN_00133580);
+            params[6] = new (mem) fight::ParamBool_1383d0<hulkfight::motion::FallTrack_1383d0>("useInitialVelocity", &hulkfight::motion::FallTrack_1383d0::FUN_00133580);
         mem = FUN_0008d690(0x18);
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamVector<hulkfight::motion::FallTrack>("initialVelocity", &hulkfight::motion::FallTrack::FUN_001335b0);
+            params[7] = new (mem) fight::ParamVector_1383d0<hulkfight::motion::FallTrack_1383d0>("initialVelocity", &hulkfight::motion::FallTrack_1383d0::FUN_001335b0);
         mem = FUN_0008d690(0x18);
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FallTrack>("gravity", &hulkfight::motion::FallTrack::FUN_001335e0);
+            params[8] = new (mem) fight::ParamFloatConstRange_1383d0<hulkfight::motion::FallTrack_1383d0>("gravity", &hulkfight::motion::FallTrack_1383d0::FUN_001335e0);
         mem = FUN_0008d690(0x18);
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FallTrack>("maxVelocity", &hulkfight::motion::FallTrack::FUN_00133600);
+            params[9] = new (mem) fight::ParamFloatConstRange_1383d0<hulkfight::motion::FallTrack_1383d0>("maxVelocity", &hulkfight::motion::FallTrack_1383d0::FUN_00133600);
         mem = FUN_0008d690(0x18);
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamBool<hulkfight::motion::FallTrack>("limitTurning", &hulkfight::motion::FallTrack::FUN_00133620);
+            params[10] = new (mem) fight::ParamBool_1383d0<hulkfight::motion::FallTrack_1383d0>("limitTurning", &hulkfight::motion::FallTrack_1383d0::FUN_00133620);
         mem = FUN_0008d690(0x18);
         params[11] = 0;
         if (mem)
-            params[11] = new (mem) fight::ParamIntConstRange<hulkfight::motion::FallTrack>("priority", &hulkfight::motion::FallTrack::FUN_00133640);
+            params[11] = new (mem) fight::ParamIntConstRange_1383d0<hulkfight::motion::FallTrack_1383d0>("priority", &hulkfight::motion::FallTrack_1383d0::FUN_00133640);
         mem = FUN_0008d690(0x18);
         params[12] = 0;
         if (mem)
-            params[12] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FallTrack>("blendInTime", &hulkfight::motion::FallTrack::FUN_00133660);
+            params[12] = new (mem) fight::ParamFloatConstRange_1383d0<hulkfight::motion::FallTrack_1383d0>("blendInTime", &hulkfight::motion::FallTrack_1383d0::FUN_00133660);
         mem = FUN_0008d690(0x18);
         params[13] = 0;
         if (mem)
-            params[13] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FallTrack>("blendOutTime", &hulkfight::motion::FallTrack::FUN_00133680);
+            params[13] = new (mem) fight::ParamFloatConstRange_1383d0<hulkfight::motion::FallTrack_1383d0>("blendOutTime", &hulkfight::motion::FallTrack_1383d0::FUN_00133680);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0ef0), params, 14);
     }
     DAT_004e0ef4++;

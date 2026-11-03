@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 12/12)
 // FUN_00239a90 @ 0x00239a90
 #include "decls/data/engine/fight.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
@@ -18,8 +19,7 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 template <class T>
 class ParamFloatConstRange : public ParamFloatConstRangeBase {
@@ -34,8 +34,7 @@ class __declspec(novtable) ParamBranchBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00235170(const char* name);
-    ParamBranchBase(const char* name) { FUN_00235170(name); }
+    ParamBranchBase(const char* name) { ((fight::ParamValueBranch *)this)->FUN_00235170(name); }
 };
 template <class T>
 class ParamBranch : public ParamBranchBase {

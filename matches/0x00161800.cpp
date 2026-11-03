@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/fight.h"
 extern "C" char DAT_00415c50[];
 extern "C" void _ReadWriteBarrier();
 class LocomotingAction {
@@ -6,7 +7,6 @@ class LocomotingAction {
     volatile hulk_intptr vptr;
     char pad[0x1c - 4];
     class Obj_161800* mObj;
-    void Base();
     LocomotingAction* V2(int);
 };
 class Obj_161800 {
@@ -22,7 +22,7 @@ LocomotingAction* LocomotingAction::V2(int flags) {
         mObj->V1();
         mObj = 0;
     }
-    Base();
+    ((fight::Action *)this)->FUN_002326a0();
     if (flags & 1)
         thunk(this);
     return this;

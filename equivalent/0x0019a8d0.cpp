@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 28/28)
 // FUN_0019a8d0 @ 0x0019a8d0
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
@@ -26,14 +27,13 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 namespace fight {
 template <class T>
-class ParamFloatConstRange : public ParamFloatConstRangeBase {
+class ParamFloatConstRange_19a8d0 : public ParamFloatConstRangeBase {
 public:
-    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    ParamFloatConstRange_19a8d0(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -49,9 +49,9 @@ public:
 };
 namespace fight {
 template <class T>
-class ParamIntConstRange : public ParamIntConstRangeBase {
+class ParamIntConstRange_19a8d0 : public ParamIntConstRangeBase {
 public:
-    ParamIntConstRange(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
+    ParamIntConstRange_19a8d0(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -67,9 +67,9 @@ public:
 };
 namespace fight {
 template <class T>
-class ParamVector : public ParamVectorBase {
+class ParamVector_19a8d0 : public ParamVectorBase {
 public:
-    ParamVector(const char* name, void (T::*s)()) : ParamVectorBase(name) { setter = s; }
+    ParamVector_19a8d0(const char* name, void (T::*s)()) : ParamVectorBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -88,55 +88,55 @@ void FUN_0019a8d0()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange<MissileThrowTrack>("timeBegin", &MissileThrowTrack::FUN_00192570);
+            params[0] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("timeBegin", &MissileThrowTrack::FUN_00192570);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamIntConstRange<MissileThrowTrack>("attachmentIndex", &MissileThrowTrack::FUN_00192590);
+            params[1] = new (mem) fight::ParamIntConstRange_19a8d0<MissileThrowTrack>("attachmentIndex", &MissileThrowTrack::FUN_00192590);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamVector<MissileThrowTrack>("direction", &MissileThrowTrack::FUN_001925c0);
+            params[2] = new (mem) fight::ParamVector_19a8d0<MissileThrowTrack>("direction", &MissileThrowTrack::FUN_001925c0);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange<MissileThrowTrack>("distanceMin", &MissileThrowTrack::FUN_001925f0);
+            params[3] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("distanceMin", &MissileThrowTrack::FUN_001925f0);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange<MissileThrowTrack>("distanceMax", &MissileThrowTrack::FUN_00192610);
+            params[4] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("distanceMax", &MissileThrowTrack::FUN_00192610);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange<MissileThrowTrack>("velocityMin", &MissileThrowTrack::FUN_00192630);
+            params[5] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("velocityMin", &MissileThrowTrack::FUN_00192630);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange<MissileThrowTrack>("velocityMax", &MissileThrowTrack::FUN_00192650);
+            params[6] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("velocityMax", &MissileThrowTrack::FUN_00192650);
         mem = FUN_0008d690(0x18);
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamFloatConstRange<MissileThrowTrack>("spinMin", &MissileThrowTrack::FUN_00192670);
+            params[7] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("spinMin", &MissileThrowTrack::FUN_00192670);
         mem = FUN_0008d690(0x18);
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamFloatConstRange<MissileThrowTrack>("spinMax", &MissileThrowTrack::FUN_001926a0);
+            params[8] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("spinMax", &MissileThrowTrack::FUN_001926a0);
         mem = FUN_0008d690(0x18);
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange<MissileThrowTrack>("trackingMin", &MissileThrowTrack::FUN_001926d0);
+            params[9] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("trackingMin", &MissileThrowTrack::FUN_001926d0);
         mem = FUN_0008d690(0x18);
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange<MissileThrowTrack>("trackingMax", &MissileThrowTrack::FUN_00192700);
+            params[10] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("trackingMax", &MissileThrowTrack::FUN_00192700);
         mem = FUN_0008d690(0x18);
         params[11] = 0;
         if (mem)
-            params[11] = new (mem) fight::ParamFloatConstRange<MissileThrowTrack>("yFixupAngle", &MissileThrowTrack::FUN_00192730);
+            params[11] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("yFixupAngle", &MissileThrowTrack::FUN_00192730);
         mem = FUN_0008d690(0x18);
         params[12] = 0;
         if (mem)
-            params[12] = new (mem) fight::ParamFloatConstRange<MissileThrowTrack>("reigniteCharge", &MissileThrowTrack::FUN_00192760);
+            params[12] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("reigniteCharge", &MissileThrowTrack::FUN_00192760);
         FUN_002347b0(((ParamRegistry*)&DAT_004e1560), params, 13);
     }
     DAT_004e1564++;

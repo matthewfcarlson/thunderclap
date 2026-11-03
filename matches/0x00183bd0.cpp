@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_183bd0[];
 class Ref_183bd0 {
@@ -8,7 +9,6 @@ class Ref_183bd0 {
 class Action_183bd0 {
   public:
     void* vptr;
-    void Fin();
 };
 class PropAddToMissileCountAction_183bd0 : public Action_183bd0 {
   public:
@@ -26,5 +26,5 @@ PropAddToMissileCountAction_183bd0::~PropAddToMissileCountAction_183bd0() {
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_183bd0 *)this)->FUN_002326a0();
 }

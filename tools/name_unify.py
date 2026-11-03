@@ -48,6 +48,25 @@ first, so a derived -> base adjustment still happens); a definition in the TU ta
 assigns the parameter). All of a pair's sources or none; refusals are listed in the summary (sizes, kinds or arity
 that differ, a void return used, address taken, other conventions). An `// equiv-conv` line no longer holds back a
 name that keeps its name (equiv.py round 27 resolves C-linkage functions by C name and declared types).
+
+  build/venv/bin/python tools/name_unify.py member --link DIR --snap SNAP --out OUT [--root R] [--moved FILE ...]
+  build/venv/bin/python tools/name_unify.py member-apply --plan OUT/member-plan.jsonl --out DIR2 [--root R]
+        [--exclude LIST ...]
+
+`member` / `member-apply` (batch 4, x64-9, members through include/gen/): per definition that is a non-virtual
+member of an include/gen/ class (`fight::ParamValueBool::FUN_00234860`; --moved lists definitions the batch puts
+there by hand or through tools/rn_members.py, `0xADDR ns::X::FUN_x`, R being the tree with those headers), the
+member -> member aliases of the audit and the sources whose stub declares the caller's member. A caller's
+`p->Init(name)` on its own stub becomes `((fight::ParamValueBool *)p)->FUN_00234860(name)` with include/gen/<ns>.h
+included (member_transform): arguments are cast to the caller's declared type first, then to the header's; the
+result back to the caller's type; the object to the stub class that declares the member first when other classes
+of the source derive from it; an unqualified call in a member of a derived stub says `((X *)(Stub *)this)->`; the
+stub's declaration goes. A stub type of the source named like something the header brings takes the source's
+address as a suffix (`ParamBool_54300`) unless the source defines its members. Refused: a header parameter that is
+an integer where the caller passes a pointer (the header's width bug: fix the definition first), sizes or float
+types that differ, other arity, default arguments, stubs in namespaces, member names on two classes, uses other
+than calls. Global gen classes are spelled `::X` so that gen_tree.names_gen keeps the stub items holding such
+casts out of the shared tree headers.
 """
 import argparse
 import collections
@@ -1160,6 +1179,663 @@ def cmd_free_apply(a):
     return 0
 
 
+
+# ---------------------------------------------------------------------------------------------------------------
+# batch 4 (x64-9): members through include/gen/. A member call that the Wine link resolves only through an alias
+# (`p->Init(x)` on a source's own stub, bound to `fight::ParamValueBool::FUN_00234860`) names the definition's own
+# symbol once the call goes through the header class: `((fight::ParamValueBool *)p)->FUN_00234860(x)`, the source
+# including include/gen/<ns>.h. Only definitions that are already non-virtual members of an include/gen/ class
+# (b9, tools/rn_members.py; or hand-placed) qualify: the definition symbol is then global and its signature is the
+# header's. The caller keeps its own types at the call: arguments are cast to the caller's declared type first (a
+# derived -> base adjustment still happens) and then to the header's, the result back to the caller's return type.
+# The object is cast to the class that declares the stub member first when other classes of the source derive
+# from it (the `this` adjustment of the original call), then to the header class (no adjustment: the stub stood for
+# that object). The stub's own declaration of the member goes when nothing else uses it.
+NS_SYM = re.compile(r"@fn_[0-9a-f]{8}@")
+CTRL_WORDS = {"return", "if", "while", "for", "switch", "sizeof", "case", "else", "do", "throw", "delete", "new"}
+HDR_TD = {"hulk_intptr": "int", "hulk_uintptr": "unsigned int", "hulk_longptr": "long", "hulk_ulongptr": "unsigned long"}
+_GEN_IDX = []
+GEN_ROOT = [ROOT]         # the tree whose include/gen/ the member commands read (--root)
+
+
+class _M:
+    """A member declaration as fn_parts expects an item."""
+    def __init__(self, toks, name):
+        self.toks, self.name, self.kind = toks, name, "func"
+
+
+def class_members(it):
+    """[(name or None, tokens, is_method)] of a class item's direct members (nested types and bodies skipped)."""
+    ts = it.toks
+    k = next((i for i, t in enumerate(ts) if t.v == "{"), None)
+    if k is None:
+        return []
+    end = cxx_items._match(ts, k, "{", "}")
+    out, cur, i = [], [], k + 1
+    while i < end:
+        t = ts[i]
+        if t.v in ("public", "private", "protected") and i + 1 < end and ts[i + 1].v == ":" and not cur:
+            i += 2
+            continue
+        if t.v == "{":
+            j = cxx_items._match(ts, i, "{", "}")
+            cur.extend(ts[i:j + 1])
+            i = j + 1
+            if cur[0].v not in ("struct", "class", "union", "enum", "typedef") and not any(x.v == "=" for x in cur):
+                out.append(cur)       # (an inline member function: its body ends it)
+                cur = []
+            continue
+        if t.v in ("(", "["):
+            j = cxx_items._match(ts, i, t.v, ")" if t.v == "(" else "]")
+            cur.extend(ts[i:j + 1])
+            i = j + 1
+            continue
+        if t.v == ";":
+            if cur:
+                out.append(cur + [t])
+            cur = []
+            i += 1
+            continue
+        cur.append(t)
+        i += 1
+    res = []
+    for m in out:
+        if m[0].v in ("struct", "class", "union", "enum", "typedef", "friend", "using", "template"):
+            res.append((None, m, False))
+            continue
+        p = next((j for j, x in enumerate(m) if x.v == "("), None)
+        if p and m[p - 1].t == "id" and m[p - 1].v not in cxx_items.KEYWORDS:
+            res.append((m[p - 1].v, m, True))
+        else:
+            ids = [x.v for x in m if x.t == "id" and x.v not in cxx_items.KEYWORDS]
+            res.append((ids[-1] if ids else None, m, False))
+    return res
+
+
+def class_bases(it):
+    """Base class names (last component) of a class item."""
+    vs = [t.v for t in it.toks]
+    k = vs.index("{") if "{" in vs else len(vs)
+    head = vs[:k]
+    if ":" not in head:
+        return []
+    out = []
+    for part in " ".join(head[head.index(":") + 1:]).split(","):
+        ids = [w for w in part.split() if w not in ("public", "private", "protected", "virtual", "::")]
+        if ids:
+            out.append(ids[-1])
+    return out
+
+
+def gen_index():
+    """({qualified class: (header, class item, header text)}, {header: set of qualified names it brings (with its
+    includes), plus top-level names}) for include/gen/."""
+    if _GEN_IDX:
+        return _GEN_IDX[0]
+    gdir = os.path.join(GEN_ROOT[0], "include/gen")
+    classes, names, incs = {}, {}, {}
+    for fn in sorted(os.listdir(gdir)):
+        if not fn.endswith(".h") or fn == "all.h":
+            continue
+        text = open(os.path.join(gdir, fn), encoding="latin1").read()
+        incs[fn] = re.findall(r'^\s*#\s*include\s*"(\w+\.h)"', text, re.M)
+        try:
+            items = cxx_items.parse(text)
+        except ValueError:
+            continue
+        ns = set()
+        for it in items:
+            if not it.name:
+                continue
+            q = "::".join(list(it.scope) + [it.name])
+            ns.add(q)
+            if it.scope:
+                ns.add(it.scope[0])
+            if it.kind == "class":
+                classes[q] = (fn, it, text)
+        names[fn] = ns
+
+    def closure(fn, seen):
+        if fn in seen:
+            return set()
+        seen.add(fn)
+        out = set(names.get(fn, ()))
+        for h in incs.get(fn, ()):
+            out |= closure(h, seen)
+        return out
+    brings = {fn: closure(fn, set()) for fn in names}
+    _GEN_IDX.append((classes, brings))
+    return _GEN_IDX[0]
+
+
+def resolve_class(name, scope_q):
+    """Qualified include/gen class for a type name used inside class scope_q (`fight::X`), or None."""
+    classes = gen_index()[0]
+    if name == scope_q.split("::")[-1]:
+        return scope_q
+    parts = scope_q.split("::")[:-1]
+    for k in range(len(parts), -1, -1):
+        q = "::".join(parts[:k] + [name])
+        if q in classes:
+            return q
+    return None
+
+
+def header_member(cls, mname):
+    """(header, parts) of include/gen/ class cls's non-virtual member mname, or raise SwapFail."""
+    classes = gen_index()[0]
+    if cls not in classes:
+        raise rn_transform.SwapFail("class not in include/gen")
+    fn, it, text = classes[cls]
+    ms = [m for n, m, meth in class_members(it) if meth and n == mname]
+    if len(ms) != 1:
+        raise rn_transform.SwapFail("member not declared once in the header class")
+    m = ms[0]
+    vs = [t.v for t in m]
+    if "virtual" in vs or "static" in vs or "template" in vs:
+        raise rn_transform.SwapFail("header member virtual/static")
+    d = fn_parts(text, _M(m, mname), HDR_TD)
+    if d["rinfo"] is None or any(i is None for i in d["pinfo"]):
+        raise rn_transform.SwapFail("header member types")
+    # class pointers named relative to the class's scope: qualify them for use outside
+    quals = []
+    for p, pi in [(d["ret"], d["rinfo"])] + list(zip(d["params"], d["pinfo"])):
+        q = None
+        if pi[0] == "ptr" and not pi[3]:
+            base = [t.v for t in p if t.t == "id" and t.v not in cxx_items.KEYWORDS]
+            if len(base) < 1 or any(t.v == "::" for t in p):
+                raise rn_transform.SwapFail("header member type qualified")
+            q = resolve_class(base[0], cls)
+            if q is None:
+                raise rn_transform.SwapFail("header member type %s not a gen class" % base[0])
+            q = ("const " if pi[2] else "") + (q if "::" in q else "::" + q) + " " + "*" * pi[4]
+        elif any(t.v.startswith("hulk_") for t in p):
+            q = next(t.v for t in p if t.v.startswith("hulk_"))
+        quals.append(q)
+    d["qual"] = quals                 # [return, params...]: spelled for outside use (None = as parsed)
+    return fn, d
+
+
+def _hspell(info, q):
+    if q:
+        return q
+    return canon_of(info) if info[0] != "ptr" else re.sub(r"\s+", " ", info[1].replace("*", " *")).strip().replace("* *", "**")
+
+
+def member_arg_cast(pc, pk, qk):
+    """Prefix casts for a call argument the caller declares pc and the header pk (qk: its spelling)."""
+    if pc is None or pk is None:
+        raise rn_transform.SwapFail("parameter type")
+    hk = _hspell(pk, qk)
+    if pk[0] == "ptr":
+        if pc[0] == "int" and pc[1] == 4 and not pc[3]:
+            return "(%s)(hulk_uintptr)(%s)" % (hk, pc[2])
+        if pc[0] != "ptr":
+            raise rn_transform.SwapFail("parameter kinds differ (%s / ptr)" % pc[0])
+        if _norm_t(pc[1]) == _norm_t(hk):
+            return ""
+        if not pc[3]:                         # (a class pointer: the caller's own type first)
+            if hk in ("void *", "const void *") and (not pc[2] or hk == "const void *"):
+                return "(%s)" % pc[1]
+            return "(%s)(%s)" % (hk, pc[1])
+        if hk in ("void *", "const void *") and (not pc[2] or hk == "const void *"):
+            return ""
+        return "(%s)" % hk
+    if pk[0] == "int" and qk and qk.startswith("hulk_") and pc[0] == "ptr" and pk[1] == 4:
+        return "(%s)" % qk if pc[3] else "(%s)(%s)" % (qk, pc[1])
+    if pc[0] != pk[0] or pc[0] in ("void", "var"):
+        raise rn_transform.SwapFail("parameter kinds differ (%s / %s)" % (pc[0], pk[0]))
+    if pc[1] != pk[1] or pc[0] == "int" and pc[3] != pk[3]:
+        raise rn_transform.SwapFail("parameter sizes differ (%s / %s)" % (pc[2], pk[2]))
+    if pc[0] == "flt":
+        if _norm_t(pc[2]) != _norm_t(pk[2]):
+            raise rn_transform.SwapFail("float parameter types differ")
+        return ""
+    if _norm_t(pc[2]) == _norm_t(pk[2]) and not qk:
+        return ""
+    return "(%s)" % hk
+
+
+def member_ret_cast(rc, rk, qk):
+    """'' / '(T)' / 'void' for the caller's return type rc and the header's rk."""
+    if rc is None or rk is None:
+        raise rn_transform.SwapFail("return type")
+    if rc[0] == "void":
+        return "" if rk[0] == "void" else "void"
+    if rk[0] == "void":
+        raise rn_transform.SwapFail("the caller uses a void return")
+    if rk[0] == "ptr":
+        if rc[0] == "int" and rc[1] == 4 and not rc[3]:
+            return "(%s)(hulk_uintptr)" % rc[2]
+        if rc[0] != "ptr":
+            raise rn_transform.SwapFail("return kinds differ")
+        return "" if _norm_t(rc[1]) == _norm_t(_hspell(rk, qk)) else "(%s)" % rc[1]
+    if rc[0] != rk[0]:
+        raise rn_transform.SwapFail("return kinds differ (%s / %s)" % (rc[0], rk[0]))
+    if rc[1] != rk[1] or rc[0] == "int" and rc[3] != rk[3]:
+        raise rn_transform.SwapFail("return sizes or bool-ness differ")
+    if _norm_t(rc[2]) == _norm_t(rk[2]):
+        return ""
+    if rc[0] == "flt":
+        raise rn_transform.SwapFail("float return types differ")
+    return "(%s)" % rc[2]
+
+
+def _match_back(toks, j):
+    close = toks[j].v
+    open_ = {")": "(", "]": "["}[close]
+    depth = 0
+    while j >= 0:
+        if toks[j].v == close:
+            depth += 1
+        elif toks[j].v == open_:
+            depth -= 1
+            if depth == 0:
+                return j
+        j -= 1
+    raise rn_transform.SwapFail("unbalanced")
+
+
+def obj_start(toks, k):
+    """Index of the first token of the postfix expression that ends at token k (the object of `->` / `.`)."""
+    j = k
+    while True:
+        t = toks[j]
+        if t.v in (")", "]"):
+            o = _match_back(toks, j)
+            if t.v == "]":
+                j = o - 1
+                continue
+            pv = toks[o - 1] if o else None
+            if pv is not None and pv.t == "id" and pv.v not in cxx_items.KEYWORDS:
+                j = o - 1          # (a call: its function name)
+                continue
+            if pv is not None and pv.v in (">", ")", "]"):
+                raise rn_transform.SwapFail("object expression too complex")
+            start = o
+        elif t.t == "id" and (t.v not in cxx_items.KEYWORDS or t.v == "this"):
+            start = j
+        else:
+            raise rn_transform.SwapFail("object expression")
+        if start >= 2 and toks[start - 1].v in ("->", ".", "::"):
+            j = start - 2
+            continue
+        return start
+
+
+def _split_args(toks, lp, rp):
+    args, cur, depth = [], [], 0
+    for x in toks[lp + 1:rp]:
+        if x.v in ("(", "[", "{"):
+            depth += 1
+        elif x.v in (")", "]", "}"):
+            depth -= 1
+        if x.v == "," and depth == 0:
+            args.append(cur)
+            cur = []
+        else:
+            cur.append(x)
+    if cur:
+        args.append(cur)
+    return args
+
+
+def member_transform(text, calls, addr=None, _renamed=False):
+    """Batch 4 for one source. calls: {(stub class, stub member): (gen class, member, header, header parts)}.
+    Returns the new text or raises SwapFail (all of the source's calls or none). A stub type of the source whose
+    name the included header also declares (`struct CCharacter` beside include/gen's) takes the source's address
+    as a suffix (`CCharacter_40140`), when the source defines no member of it."""
+    try:
+        items = cxx_items.parse(text)
+        toks = cxx_items.tokenize(text)
+    except ValueError:
+        raise rn_transform.SwapFail("does not parse")
+    eq = "\n".join(m.group(0) for m in re.finditer(r"//\s*equiv-[\w-]+:?.*", text))
+    td = dict(builtin_typedefs(items))
+    for k, v in HDR_TD.items():
+        td.setdefault(k, v)
+    classes = {}
+    for it in items:
+        if it.kind == "class" and it.name:
+            if it.name in classes:
+                raise rn_transform.SwapFail("class %s defined twice" % it.name)
+            classes[it.name] = it
+    bases = {n: class_bases(it) for n, it in classes.items()}
+
+    def derives(d, c, seen=()):
+        return d == c or any(derives(b, c, seen + (d,)) for b in bases.get(d, ()) if b not in seen)
+    derived_from = {c: any(derives(d, c) and d != c for d in classes) for c in classes}
+    all_members = collections.defaultdict(list)      # member name -> [(class, tokens, is_method)]
+    for n, it in classes.items():
+        for mn, m, meth in class_members(it):
+            if mn:
+                all_members[mn].append((n, m, meth))
+    top_names = {it.name for it in items if it.name and it.kind != "class"}
+    # include/gen collisions: the source's own top-level names against what the headers bring
+    brings = gen_index()[1]
+    hdrs = sorted({v[2] for v in calls.values()})
+    have = set(re.findall(r'^\s*#\s*include\s*"gen/(\w+\.h)"', text, re.M))
+    new_hdrs = [h for h in hdrs if h not in have]
+    if new_hdrs:
+        # (every include/gen/ name, not only what this source's headers bring: in the tree the TU may hold other gen
+        # headers, and an on-gen source that can't merge is isolated without a TU namespace, so a stub of a gen
+        # class's name would define global symbols that other such sources define too: duplicates)
+        got = set()
+        for h in brings:
+            got |= brings[h]
+        ren, rscopes = {}, set()
+        for it in items:
+            if not it.name or it.kind in ("pp", "define"):
+                continue
+            q = "::".join(list(it.scope) + [it.name]) if it.kind != "funcdef" else None
+            if q and (q in got or not it.scope and it.name in got):
+                if it.kind in ("func", "var") and it.c_linkage:
+                    continue
+                own_def = any(i2.kind == "funcdef" and split_q(str(i2.key[1]))[:-1][-1:] == [it.name]
+                              for i2 in items if i2.key and len(i2.key) > 1)
+                if it.kind in ("class", "template class", "fwd", "typedef", "enum") and addr and not own_def \
+                        and not _renamed and not (it.scope and q not in got):
+                    ren[it.name] = "%s_%x" % (it.name, addr)
+                    rscopes.update(it.scope)
+                    continue
+                raise rn_transform.SwapFail("%s collides with an include/gen name" % it.name)
+        if ren:
+            for o, n_ in ren.items():
+                if re.search(r"\b%s\b" % re.escape(n_), text) or re.search(r"\b%s\b" % re.escape(o), eq):
+                    raise rn_transform.SwapFail("%s collides with an include/gen name" % o)
+
+            def rn(i, ts):
+                t = ts[i]
+                if t.v not in ren or (i and ts[i - 1].v in (".", "->")):
+                    return None
+                if i > 1 and ts[i - 1].v == "::" and ts[i - 2].t == "id" and ts[i - 2].v not in rscopes:
+                    return None      # (another scope's name; `fight::ParamBool` of a renamed fight stub is ours)
+                return ren[t.v]
+            text2 = rn_transform.tok_edit(text, rn)
+            calls2 = {(ren.get(C, C), B): v for (C, B), v in calls.items()}
+            return member_transform(text2, calls2, addr, True)
+    # enclosing class of each function body (for unqualified calls)
+    bodies = []                       # (start, end, class name)
+    for it in items:
+        if it.kind == "funcdef":
+            q = str(it.key[1]) if it.key and len(it.key) > 1 else ""
+            parts = split_q(q)
+            bodies.append((it.toks[0].s, it.toks[-1].e, parts[-2] if len(parts) > 1 else None))
+        elif it.kind == "class":
+            for mn, m, meth in class_members(it):
+                if meth and m[-1].v == "}":
+                    bodies.append((m[0].s, m[-1].e, it.name))
+    edits = []
+    for (C, B), (X, M, hdr, kd) in sorted(calls.items()):
+        if re.search(r"\b(%s)\b" % re.escape(B), eq):
+            raise rn_transform.SwapFail("%s named on an equiv-* line" % B)
+        if C not in classes:
+            raise rn_transform.SwapFail("stub class %s not defined at top level" % C)
+        if classes[C].scope:
+            raise rn_transform.SwapFail("stub class in a namespace")
+        decl = [m for c, m, meth in all_members.get(B, ()) if c == C and meth]
+        others = [c for c, m, meth in all_members.get(B, ()) if c != C or not meth]
+        if len(decl) != 1:
+            raise rn_transform.SwapFail("%s::%s not declared once" % (C, B))
+        if others:
+            raise rn_transform.SwapFail("%s is also a member of another class" % B)
+        if B in top_names:
+            raise rn_transform.SwapFail("%s is also a top-level name" % B)
+        m = decl[0]
+        if m[-1].v != ";":
+            raise rn_transform.SwapFail("%s::%s defined inline" % (C, B))
+        mv = [t.v for t in m]
+        if "virtual" in mv or "static" in mv or "template" in mv or "operator" in mv:
+            raise rn_transform.SwapFail("%s::%s virtual/static" % (C, B))
+        own = fn_parts(text, _M(m, B), td)
+        if own["rinfo"] is None or any(i is None for i in own["pinfo"]):
+            raise rn_transform.SwapFail("%s::%s types" % (C, B))
+        if own["conv"] != "__cdecl":
+            raise rn_transform.SwapFail("%s::%s calling convention" % (C, B))
+        if len(own["pinfo"]) != len(kd["pinfo"]):
+            raise rn_transform.SwapFail("arity differs")
+        if any(x.v == "=" for x in m):
+            raise rn_transform.SwapFail("default argument")
+        acasts = [member_arg_cast(pc, pk, qk) for pc, pk, qk in zip(own["pinfo"], kd["pinfo"], kd["qual"][1:])]
+        rcast = member_ret_cast(own["rinfo"], kd["rinfo"], kd["qual"][0])
+        xc = "%s *" % (X if "::" in X else "::" + X)     # (`::X`: gen_tree.names_gen keeps such items in the TU)
+        inner = "(%s *)" % C if derived_from.get(C) else ""
+        decl_span = (m[0].s, m[-1].e)
+        for i, t in enumerate(toks):
+            if t.t != "id" or t.v != B or decl_span[0] <= t.s < decl_span[1]:
+                continue
+            pv = toks[i - 1].v if i else ""
+            if i + 1 >= len(toks) or toks[i + 1].v != "(":
+                raise rn_transform.SwapFail("%s used other than in a call" % B)
+            rp = cxx_items._match(toks, i + 1, "(", ")")
+            if pv in ("->", "."):
+                s0 = obj_start(toks, i - 2)
+                obj = text[toks[s0].s:toks[i - 2].e]
+                simple = s0 == i - 2 or obj == "this"
+                if pv == "->":
+                    o = obj if simple else "(%s)" % obj
+                else:
+                    o = "&" + (obj if simple else "(%s)" % obj)
+                head = "((%s)%s%s)->%s" % (xc, inner, o, M)
+                start = toks[s0].s
+            elif pv == "::":
+                raise rn_transform.SwapFail("%s used qualified" % B)
+            else:
+                encl = [b for b in bodies if b[0] <= t.s < b[1]]
+                if not encl or not encl[-1][2] or not derives(encl[-1][2], C):
+                    raise rn_transform.SwapFail("unqualified %s outside a member of %s" % (B, C))
+                head = "((%s)%sthis)->%s" % (xc, "(%s *)" % C if encl[-1][2] != C else "", M)
+                start = t.s
+                s0 = i
+            args = _split_args(toks, i + 1, rp)
+            if len(args) != len(kd["pinfo"]):
+                raise rn_transform.SwapFail("call arity")
+            parts = []
+            for a, c in zip(args, acasts):
+                at = text[a[0].s:a[-1].e]
+                if c and len(a) == 1 and a[0].t == "num" and "." not in a[0].v and "(hulk_uintptr)" not in c \
+                        and not c.startswith("(" + "hulk_"):
+                    pk = None
+                    c = "" if not c.count("*") else c
+                if c:
+                    at = c + (at if len(a) == 1 else "(%s)" % at)
+                parts.append(at)
+            call = "%s(%s)" % (head, ", ".join(parts))
+            if rcast == "void":
+                if s0 and toks[s0 - 1].v == "return":
+                    call = "(void)" + call
+            elif rcast:
+                call = "(%s%s)" % (rcast, call)
+            edits.append((start, toks[rp].e, call))
+        # the stub's declaration goes (the line, when it holds only that)
+        ls = text.rfind("\n", 0, decl_span[0]) + 1
+        le = text.find("\n", decl_span[1])
+        le = len(text) if le < 0 else le
+        if not text[ls:decl_span[0]].strip() and not text[decl_span[1]:le].strip():
+            edits.append((ls, le + 1, ""))
+        else:
+            edits.append((decl_span[0], decl_span[1], ""))
+    out, cur = [], 0
+    for s0, e0, new in sorted(edits, key=lambda e: (e[0], e[1])):
+        if s0 < cur:
+            raise rn_transform.SwapFail("overlapping edits")
+        out.append(text[cur:s0])
+        out.append(new)
+        cur = e0
+    out.append(text[cur:])
+    new = "".join(out)
+    for h in hdrs:
+        if h not in have:
+            new = rn_transform.insert_include(new, '#include "gen/%s"' % h)
+    if "hulk_uintptr" in new and "compat/ptr.h" not in new and not re.search(r"\bhulk_u?(int|long)ptr\b", text) \
+            and not hdrs:
+        new = rn_transform.insert_include(new, '#include "compat/ptr.h"')
+    return new
+
+
+def split_q(q):
+    out, cur, depth, i = [], "", 0, 0
+    while i < len(q):
+        c = q[i]
+        if c == "<":
+            depth += 1
+        elif c == ">":
+            depth -= 1
+        if depth == 0 and q.startswith("::", i):
+            out.append(cur)
+            cur = ""
+            i += 2
+            continue
+        cur += c
+        i += 1
+    out.append(cur)
+    return out
+
+
+def member_shape(s, dem):
+    """'member' for a non-virtual, non-static __thiscall member function symbol (not a constructor, destructor or
+    operator), else something else."""
+    if not s.startswith("?") or s.startswith("??"):
+        return "other"
+    d = dem.get(s, s)
+    if "__thiscall" not in d or "virtual" in d or "static " in d:
+        return "other"
+    return "member"
+
+
+def cmd_member(a):
+    """Plan: per definition that is a non-virtual member of an include/gen/ class, the member -> member aliases and
+    the sources that declare each caller's stub member."""
+    rows = [r for r in name_audit.classify(a.link, a.snap) if r[0] == "game" and r[1].startswith("function:")]
+    bindings = json.load(open(os.path.join(a.link, "bindings.json")))
+    defs = {v: int(k, 16) for k, v in bindings["definitions"].items()}
+    dem = name_audit.undname({r[3] for r in rows} | {r[4] for r in rows})
+    root = os.path.abspath(a.root)
+    GEN_ROOT[0] = root
+    moved = {}
+    for path in a.moved or []:
+        for l in open(path):
+            if l.strip() and not l.startswith("#"):
+                ad, q = l.split()[:2]
+                moved[int(ad, 16)] = q
+    cache = {}
+
+    def classes_of(p):
+        if p not in cache:
+            try:
+                its = cxx_items.parse(open(os.path.join(root, p), encoding="latin1").read())
+                cache[p] = {it.name: it for it in its if it.kind == "class" and it.name}
+            except (OSError, ValueError):
+                cache[p] = {}
+        return cache[p]
+    groups = collections.defaultdict(list)
+    st = collections.Counter()
+    for kind, cat, n, s, t, srcs in rows:
+        if not t or "," in t or member_shape(s, dem) != "member" or member_shape(t, dem) != "member":
+            continue
+        if NS_SYM.search(t) and defs.get(t) not in moved:
+            st["member -> member, definition on a TU stub"] += 1
+            continue
+        groups[t].append((s, n, srcs))
+    plans = []
+    for t, rs in sorted(groups.items(), key=lambda kv: -len(kv[1])):
+        q = moved.get(defs.get(t)) or name_audit.qual_name(name_audit.plain(t, dem))
+        parts = split_q(q)
+        X, M = "::".join(parts[:-1]), parts[-1]
+        p = {"target": t, "addr": "0x%08x" % defs[t] if t in defs else None, "class": X, "member": M,
+             "aliases": len(rs), "moved": defs.get(t) in moved}
+        try:
+            p["header"], _ = header_member(X, M)
+        except rn_transform.SwapFail as e:
+            p["refused"] = str(e)
+        callers = collections.defaultdict(list)
+        un = 0
+        for s, n, srcs in rs:
+            qc = split_q(name_audit.qual_name(name_audit.plain(s, dem)))
+            C, B = qc[-2] if len(qc) > 1 else None, qc[-1]
+            hit = []
+            for src in sorted(set(srcs)):
+                it = classes_of(src).get(C)
+                if it is not None and any(mn == B and meth for mn, m, meth in class_members(it)):
+                    hit.append(src)
+            if not hit:
+                un += 1
+            for src in hit:
+                callers[src].append([C, B])
+        p["callers"] = dict(sorted(callers.items()))
+        p["unattributed"] = un
+        plans.append(p)
+        st["member -> member, definition on include/gen: aliases" + (" (refused: %s)" % p["refused"] if p.get("refused") else "")] += len(rs)
+    os.makedirs(a.out, exist_ok=True)
+    with open(os.path.join(a.out, "member-plan.jsonl"), "w") as f:
+        for p in plans:
+            f.write(json.dumps(p) + "\n")
+    print("%d definitions on include/gen/, %d aliases" % (len(plans), sum(p["aliases"] for p in plans)))
+    for k, v in st.most_common():
+        print("%7d  %s" % (v, k))
+    return 0
+
+
+def cmd_member_apply(a):
+    plans = [json.loads(l) for l in open(a.plan)]
+    plans = [p for p in plans if not p.get("refused") and p.get("header")]
+    excl = set()
+    for path in a.exclude or []:
+        excl |= {l.split()[0] for l in open(path) if l.strip()}
+    root = os.path.abspath(a.root)
+    GEN_ROOT[0] = root
+    per_src = collections.defaultdict(dict)
+    for p in plans:
+        _h, kd = header_member(p["class"], p["member"])
+        for q, cbs in p["callers"].items():
+            for C, B in cbs:
+                per_src[q][(C, B)] = (p["class"], p["member"], p["header"], kd)
+    st = collections.Counter()
+    os.makedirs(a.out, exist_ok=True)
+    with open(os.path.join(a.out, "member-apply.jsonl"), "w") as log:
+        for q, calls in sorted(per_src.items()):
+            rec = {"path": q, "calls": ["%s::%s -> %s::%s" % (C, B, v[0], v[1]) for (C, B), v in sorted(calls.items())]}
+            if q in excl:
+                rec["skip"] = "excluded"
+                st["excluded"] += 1
+                log.write(json.dumps(rec) + "\n")
+                continue
+            text = open(os.path.join(root, q), encoding="latin1", newline="").read()
+            new, kept, why = None, dict(calls), {}
+            ad = int(q.split("/")[-1][2:10], 16)
+            try:
+                new = member_transform(text, kept, ad)
+            except rn_transform.SwapFail:
+                # one call at a time, then the good ones together
+                for k in list(kept):
+                    try:
+                        member_transform(text, {k: kept[k]}, ad)
+                    except rn_transform.SwapFail as e:
+                        why["%s::%s" % k] = str(e)
+                        del kept[k]
+                if kept:
+                    try:
+                        new = member_transform(text, kept, ad)
+                    except rn_transform.SwapFail as e:
+                        why["together"] = str(e)
+                        kept = {}
+            for k, w in why.items():
+                st["refused: " + re.sub(r"\b\w+_[0-9a-f]{4,8}\b|\b[A-Z]\w*(?=::| not| is| named| used| defined)", "N", w)[:70]] += 1
+            if why:
+                rec["refused"] = why
+            if new is not None and kept:
+                rec["done"] = len(kept)
+                p_ = os.path.join(a.out, q)
+                os.makedirs(os.path.dirname(p_), exist_ok=True)
+                open(p_, "w", encoding="latin1", newline="").write(new)
+                st["rewritten " + q.split("/")[0]] += 1
+                st["calls rewritten (stub members)"] += len(kept)
+            log.write(json.dumps(rec) + "\n")
+    for k, v in st.most_common():
+        print("%6d  %s" % (v, k))
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -1186,8 +1862,21 @@ def main(argv=None):
                     "TU that declares it, casts at the calls (canon_transform)")
     fa.add_argument("--manifest", help="build/tree/manifest.json of a Wine build of the same sources: hold back a C "
                     "name in a TU whose sources declare it with more than one signature (tu_consistency)")
+    mm = sub.add_parser("member")
+    mm.add_argument("--link", required=True, help="the name_audit input dir (bindings.json, aliases.rsp, ...)")
+    mm.add_argument("--snap", required=True)
+    mm.add_argument("--out", required=True)
+    mm.add_argument("--root", default=ROOT)
+    mm.add_argument("--moved", nargs="*", help="files of `0xADDR ns::X::FUN_x` lines: definitions this batch moves "
+                    "onto include/gen/ (b9), planned as if they were there")
+    ma = sub.add_parser("member-apply")
+    ma.add_argument("--plan", required=True, help="member-plan.jsonl of `member`")
+    ma.add_argument("--out", required=True)
+    ma.add_argument("--root", default=ROOT)
+    ma.add_argument("--exclude", nargs="*")
     a = ap.parse_args(argv)
-    return {"data": cmd_data, "free": cmd_free, "free-apply": cmd_free_apply}[a.cmd](a)
+    return {"data": cmd_data, "free": cmd_free, "free-apply": cmd_free_apply, "member": cmd_member,
+            "member-apply": cmd_member_apply}[a.cmd](a)
 
 
 if __name__ == "__main__":

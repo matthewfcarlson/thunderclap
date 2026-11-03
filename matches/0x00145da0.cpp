@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern char HitEffectAction_vftable[];
 class Ref_145da0 {
@@ -7,7 +8,6 @@ class Ref_145da0 {
 };
 class WorldConeDamageAction_145da0 {
   public:
-    void Fn();
 };
 extern void __cdecl thunk_FUN_00267090(void*);
 class HitEffectAction {
@@ -32,7 +32,7 @@ HitEffectAction* HitEffectAction::f2(unsigned char flags) {
         m1c->f1();
         m1c = 0;
     }
-    ((WorldConeDamageAction_145da0*)this)->Fn();
+    ((fight::Action *)(((WorldConeDamageAction_145da0*)this)))->FUN_002326a0();
     if (flags & 1)
         thunk_FUN_00267090(this);
     return this;

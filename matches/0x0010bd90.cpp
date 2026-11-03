@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/fight.h"
 struct RefCounted_10bd90 {
   public:
     virtual void f0();
@@ -10,7 +11,6 @@ extern "C" void opdel(void*);
 
 class FaceTargetAction {
   public:
-    void Cleanup();
     FaceTargetAction* vfunc_2(int flag);
 
   private:
@@ -30,7 +30,7 @@ FaceTargetAction* FaceTargetAction::vfunc_2(int flag) {
     if (m_1c != 0) {
         m_1c = 0;
     }
-    Cleanup();
+    ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
         opdel(this);
     }

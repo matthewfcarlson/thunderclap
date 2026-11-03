@@ -10,14 +10,13 @@ class CGrappleFightNodeParentCondition_52390 {
     virtual void D();
     virtual void E();
     virtual void F();
-    void Init();
 };
 extern "C" void* FUN_0008d690(unsigned int);
 
 template <> void* fight::ConditionFactoryTemplate<CGrappleFightNodeParentCondition>::vfunc_5() {
     CGrappleFightNodeParentCondition_52390* p = (CGrappleFightNodeParentCondition_52390*)FUN_0008d690(0x20);
     if (p) {
-        p->Init();
+        ((fight::FightNodeParentCondition *)p)->FUN_00235b00();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_003f85c4);
         return (void*)(p);
     }

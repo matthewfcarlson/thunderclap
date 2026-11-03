@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/fight.h"
 extern "C" char DAT_00417df0[];
 class Ref_17b110 {
   public:
@@ -7,7 +8,6 @@ class Ref_17b110 {
 };
 class IntentionClearAction_17b110 {
   public:
-    void cleanup();
 };
 class JointTrackerAction;
 void delthis(JointTrackerAction*);
@@ -44,7 +44,7 @@ JointTrackerAction* JointTrackerAction::vfunc_2(int flag) {
     }
     if (m1c)
         m1c = 0;
-    ((IntentionClearAction_17b110*)this)->cleanup();
+    ((fight::Action *)(((IntentionClearAction_17b110*)this)))->FUN_002326a0();
     if (flag & 1)
         delthis(this);
     return this;

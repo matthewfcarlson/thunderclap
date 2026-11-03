@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 6/6)
 // FUN_002361a0 @ 0x002361a0
 #include "decls/data/engine/unknown.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 
 namespace fight {
-class FightNodeCondition {
+class FightNodeCondition_2361a0 {
 public:
     void FUN_00235950();
     void FUN_00235960();
@@ -17,8 +18,7 @@ class __declspec(novtable) ParamBranchBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00235170(const char* name);
-    ParamBranchBase(const char* name) { FUN_00235170(name); }
+    ParamBranchBase(const char* name) { ((fight::ParamValueBranch *)this)->FUN_00235170(name); }
 };
 class __declspec(novtable) ParamEnumConstListBase {
 public:
@@ -29,17 +29,17 @@ public:
 };
 namespace fight {
 template <class T>
-class ParamBranch : public ParamBranchBase {
+class ParamBranch_2361a0 : public ParamBranchBase {
 public:
-    ParamBranch(const char* name, void (T::*s)()) : ParamBranchBase(name) { setter = s; }
+    ParamBranch_2361a0(const char* name, void (T::*s)()) : ParamBranchBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamEnumConstList : public ParamEnumConstListBase {
+class ParamEnumConstList_2361a0 : public ParamEnumConstListBase {
 public:
-    ParamEnumConstList(const char* name, const char** n, int c, void (T::*s)())
+    ParamEnumConstList_2361a0(const char* name, const char** n, int c, void (T::*s)())
         : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
     virtual void v0();
     const char** names;
@@ -64,11 +64,11 @@ extern "C" void FUN_002361a0()
         mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<fight::FightNodeCondition>("compare", ((const char**)&DAT_00427758), (*(int*)&DAT_00427760), &fight::FightNodeCondition::FUN_00235950);
+            params[0] = new (mem) fight::ParamEnumConstList_2361a0<fight::FightNodeCondition_2361a0>("compare", ((const char**)&DAT_00427758), (*(int*)&DAT_00427760), &fight::FightNodeCondition_2361a0::FUN_00235950);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamBranch<fight::FightNodeCondition>("fightNode", &fight::FightNodeCondition::FUN_00235960);
+            params[1] = new (mem) fight::ParamBranch_2361a0<fight::FightNodeCondition_2361a0>("fightNode", &fight::FightNodeCondition_2361a0::FUN_00235960);
         FUN_002347b0(((ParamRegistry*)&DAT_004e5bdc), params, 2);
     }
     DAT_004e5be0++;

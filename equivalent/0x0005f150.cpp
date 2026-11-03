@@ -2,11 +2,12 @@
 // FUN_0005f150 @ 0x0005f150
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 
-class CCollisionTrack {
+class CCollisionTrack_5f150 {
 public:
     void FUN_0005d4b0();
     void FUN_0005d4c0();
@@ -71,8 +72,7 @@ class __declspec(novtable) ParamBranchBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00235170(const char* name);
-    ParamBranchBase(const char* name) { FUN_00235170(name); }
+    ParamBranchBase(const char* name) { ((fight::ParamValueBranch *)this)->FUN_00235170(name); }
 };
 class __declspec(novtable) ParamEnumConstListBase {
 public:
@@ -106,15 +106,13 @@ class __declspec(novtable) ParamNameBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234a90(const char* name);
-    ParamNameBase(const char* name) { FUN_00234a90(name); }
+    ParamNameBase(const char* name) { ((fight::ParamValueName *)this)->FUN_00234a90(name); }
 };
 class __declspec(novtable) ParamNameConstListBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234ba0(const char* name);
-    ParamNameConstListBase(const char* name) { FUN_00234ba0(name); }
+    ParamNameConstListBase(const char* name) { ((fight::ParamValueNameList *)this)->FUN_00234ba0(name); }
 };
 class __declspec(novtable) ParamStringBase {
 public:
@@ -132,33 +130,33 @@ public:
 };
 namespace fight {
 template <class T>
-class ParamBool : public ParamBoolBase {
+class ParamBool_5f150 : public ParamBoolBase {
 public:
-    ParamBool(const char* name, void (T::*s)()) : ParamBoolBase(name) { setter = s; }
+    ParamBool_5f150(const char* name, void (T::*s)()) : ParamBoolBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamBoolPtr : public ParamBoolPtrBase {
+class ParamBoolPtr_5f150 : public ParamBoolPtrBase {
 public:
-    ParamBoolPtr(const char* name, bool T::*m) : ParamBoolPtrBase(name) { member = m; }
+    ParamBoolPtr_5f150(const char* name, bool T::*m) : ParamBoolPtrBase(name) { member = m; }
     virtual void v0();
     bool T::*member;
     int unused14;
 };
 template <class T>
-class ParamBranch : public ParamBranchBase {
+class ParamBranch_5f150 : public ParamBranchBase {
 public:
-    ParamBranch(const char* name, void (T::*s)()) : ParamBranchBase(name) { setter = s; }
+    ParamBranch_5f150(const char* name, void (T::*s)()) : ParamBranchBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamEnumConstList : public ParamEnumConstListBase {
+class ParamEnumConstList_5f150 : public ParamEnumConstListBase {
 public:
-    ParamEnumConstList(const char* name, const char** n, int c, void (T::*s)())
+    ParamEnumConstList_5f150(const char* name, const char** n, int c, void (T::*s)())
         : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
     virtual void v0();
     const char** names;
@@ -167,57 +165,57 @@ public:
     int unused1c;
 };
 template <class T>
-class ParamFloatConstRange : public ParamFloatConstRangeBase {
+class ParamFloatConstRange_5f150 : public ParamFloatConstRangeBase {
 public:
-    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    ParamFloatConstRange_5f150(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamFloatPtrConstRange : public ParamFloatPtrConstRangeBase {
+class ParamFloatPtrConstRange_5f150 : public ParamFloatPtrConstRangeBase {
 public:
-    ParamFloatPtrConstRange(const char* name, float T::*m) : ParamFloatPtrConstRangeBase(name) { member = m; }
+    ParamFloatPtrConstRange_5f150(const char* name, float T::*m) : ParamFloatPtrConstRangeBase(name) { member = m; }
     virtual void v0();
     float T::*member;
     int unused14;
 };
 template <class T>
-class ParamIntConstRange : public ParamIntConstRangeBase {
+class ParamIntConstRange_5f150 : public ParamIntConstRangeBase {
 public:
-    ParamIntConstRange(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
+    ParamIntConstRange_5f150(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamName : public ParamNameBase {
+class ParamName_5f150 : public ParamNameBase {
 public:
-    ParamName(const char* name, void (T::*s)()) : ParamNameBase(name) { setter = s; }
+    ParamName_5f150(const char* name, void (T::*s)()) : ParamNameBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamNameConstList : public ParamNameConstListBase {
+class ParamNameConstList_5f150 : public ParamNameConstListBase {
 public:
-    ParamNameConstList(const char* name, void (T::*s)()) : ParamNameConstListBase(name) { setter = s; }
+    ParamNameConstList_5f150(const char* name, void (T::*s)()) : ParamNameConstListBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamString : public ParamStringBase {
+class ParamString_5f150 : public ParamStringBase {
 public:
-    ParamString(const char* name, void (T::*s)()) : ParamStringBase(name) { setter = s; }
+    ParamString_5f150(const char* name, void (T::*s)()) : ParamStringBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
 };
 template <class T>
-class ParamVector : public ParamVectorBase {
+class ParamVector_5f150 : public ParamVectorBase {
 public:
-    ParamVector(const char* name, void (T::*s)()) : ParamVectorBase(name) { setter = s; }
+    ParamVector_5f150(const char* name, void (T::*s)()) : ParamVectorBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -238,163 +236,163 @@ extern "C" void FUN_0005f150()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange<CCollisionTrack>("timeBegin", &CCollisionTrack::FUN_0005d4b0);
+            params[0] = new (mem) fight::ParamFloatConstRange_5f150<CCollisionTrack_5f150>("timeBegin", &CCollisionTrack_5f150::FUN_0005d4b0);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange<CCollisionTrack>("timeEnd", &CCollisionTrack::FUN_0005d4c0);
+            params[1] = new (mem) fight::ParamFloatConstRange_5f150<CCollisionTrack_5f150>("timeEnd", &CCollisionTrack_5f150::FUN_0005d4c0);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamNameConstList<CCollisionTrack>("joint", &CCollisionTrack::FUN_0005d4d0);
+            params[2] = new (mem) fight::ParamNameConstList_5f150<CCollisionTrack_5f150>("joint", &CCollisionTrack_5f150::FUN_0005d4d0);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamVector<CCollisionTrack>("offset", &CCollisionTrack::FUN_0005d4e0);
+            params[3] = new (mem) fight::ParamVector_5f150<CCollisionTrack_5f150>("offset", &CCollisionTrack_5f150::FUN_0005d4e0);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange<CCollisionTrack>("radius", &CCollisionTrack::FUN_0005d500);
+            params[4] = new (mem) fight::ParamFloatConstRange_5f150<CCollisionTrack_5f150>("radius", &CCollisionTrack_5f150::FUN_0005d500);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamIntConstRange<CCollisionTrack>("smallMaxHitCount", &CCollisionTrack::FUN_0005d510);
+            params[5] = new (mem) fight::ParamIntConstRange_5f150<CCollisionTrack_5f150>("smallMaxHitCount", &CCollisionTrack_5f150::FUN_0005d510);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamIntConstRange<CCollisionTrack>("largeMaxHitCount", &CCollisionTrack::FUN_0005d520);
+            params[6] = new (mem) fight::ParamIntConstRange_5f150<CCollisionTrack_5f150>("largeMaxHitCount", &CCollisionTrack_5f150::FUN_0005d520);
         mem = FUN_0008d690(0x18);
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamBool<CCollisionTrack>("projectile", &CCollisionTrack::FUN_0005d530);
+            params[7] = new (mem) fight::ParamBool_5f150<CCollisionTrack_5f150>("projectile", &CCollisionTrack_5f150::FUN_0005d530);
         mem = FUN_0008d690(0x18);
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamBool<CCollisionTrack>("missilePunch", &CCollisionTrack::FUN_0005d540);
+            params[8] = new (mem) fight::ParamBool_5f150<CCollisionTrack_5f150>("missilePunch", &CCollisionTrack_5f150::FUN_0005d540);
         mem = FUN_0008d690(0x18);
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamBool<CCollisionTrack>("bumper", &CCollisionTrack::FUN_0005d550);
+            params[9] = new (mem) fight::ParamBool_5f150<CCollisionTrack_5f150>("bumper", &CCollisionTrack_5f150::FUN_0005d550);
         mem = FUN_0008d690(0x18);
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamBool<CCollisionTrack>("devastator", &CCollisionTrack::FUN_0005d560);
+            params[10] = new (mem) fight::ParamBool_5f150<CCollisionTrack_5f150>("devastator", &CCollisionTrack_5f150::FUN_0005d560);
         mem = FUN_0008d690(0x18);
         params[11] = 0;
         if (mem)
-            params[11] = new (mem) fight::ParamBool<CCollisionTrack>("overrideArmor", &CCollisionTrack::FUN_0005d570);
+            params[11] = new (mem) fight::ParamBool_5f150<CCollisionTrack_5f150>("overrideArmor", &CCollisionTrack_5f150::FUN_0005d570);
         mem = FUN_0008d690(0x20);
         params[12] = 0;
         if (mem)
-            params[12] = new (mem) fight::ParamEnumConstList<CCollisionTrack>("steelFists", ((const char**)&DAT_00495470), 4, &CCollisionTrack::FUN_0005d580);
+            params[12] = new (mem) fight::ParamEnumConstList_5f150<CCollisionTrack_5f150>("steelFists", ((const char**)&DAT_00495470), 4, &CCollisionTrack_5f150::FUN_0005d580);
         mem = FUN_0008d690(0x20);
         params[13] = 0;
         if (mem)
-            params[13] = new (mem) fight::ParamEnumConstList<CCollisionTrack>("hitTypes", ((const char**)&DAT_00495480), 3, &CCollisionTrack::FUN_0005d590);
+            params[13] = new (mem) fight::ParamEnumConstList_5f150<CCollisionTrack_5f150>("hitTypes", ((const char**)&DAT_00495480), 3, &CCollisionTrack_5f150::FUN_0005d590);
         mem = FUN_0008d690(0x20);
         params[14] = 0;
         if (mem)
-            params[14] = new (mem) fight::ParamEnumConstList<CCollisionTrack>("crusher", ((const char**)&DAT_0049548c), 10, &CCollisionTrack::FUN_0005d5a0);
+            params[14] = new (mem) fight::ParamEnumConstList_5f150<CCollisionTrack_5f150>("crusher", ((const char**)&DAT_0049548c), 10, &CCollisionTrack_5f150::FUN_0005d5a0);
         mem = FUN_0008d690(0x18);
         params[15] = 0;
         if (mem)
-            params[15] = new (mem) fight::ParamBranch<CCollisionTrack>("receiver", &CCollisionTrack::FUN_00012ee0);
+            params[15] = new (mem) fight::ParamBranch_5f150<CCollisionTrack_5f150>("receiver", &CCollisionTrack_5f150::FUN_00012ee0);
         mem = FUN_0008d690(0x18);
         params[16] = 0;
         if (mem)
-            params[16] = new (mem) fight::ParamBranch<CCollisionTrack>("giver", &CCollisionTrack::FUN_00012ef0);
+            params[16] = new (mem) fight::ParamBranch_5f150<CCollisionTrack_5f150>("giver", &CCollisionTrack_5f150::FUN_00012ef0);
         mem = FUN_0008d690(0x18);
         params[17] = 0;
         if (mem)
-            params[17] = new (mem) fight::ParamName<CCollisionTrack>("flag", &CCollisionTrack::FUN_00012f00);
+            params[17] = new (mem) fight::ParamName_5f150<CCollisionTrack_5f150>("flag", &CCollisionTrack_5f150::FUN_00012f00);
         mem = FUN_0008d690(0x18);
         params[18] = 0;
         if (mem)
-            params[18] = new (mem) fight::ParamName<CCollisionTrack>("entityOffset", &CCollisionTrack::FUN_00012f10);
+            params[18] = new (mem) fight::ParamName_5f150<CCollisionTrack_5f150>("entityOffset", &CCollisionTrack_5f150::FUN_00012f10);
         mem = FUN_0008d690(0x18);
         params[19] = 0;
         if (mem)
-            params[19] = new (mem) fight::ParamString<CCollisionTrack>("sound", &CCollisionTrack::FUN_0005dad0);
+            params[19] = new (mem) fight::ParamString_5f150<CCollisionTrack_5f150>("sound", &CCollisionTrack_5f150::FUN_0005dad0);
         mem = FUN_0008d690(0x18);
         params[20] = 0;
         if (mem)
-            params[20] = new (mem) fight::ParamFloatConstRange<CCollisionTrack>("damage", &CCollisionTrack::FUN_0005d5b0);
+            params[20] = new (mem) fight::ParamFloatConstRange_5f150<CCollisionTrack_5f150>("damage", &CCollisionTrack_5f150::FUN_0005d5b0);
         mem = FUN_0008d690(0x18);
         params[21] = 0;
         if (mem)
-            params[21] = new (mem) fight::ParamFloatConstRange<CCollisionTrack>("damageMax", &CCollisionTrack::FUN_0005d5c0);
+            params[21] = new (mem) fight::ParamFloatConstRange_5f150<CCollisionTrack_5f150>("damageMax", &CCollisionTrack_5f150::FUN_0005d5c0);
         mem = FUN_0008d690(0x18);
         params[22] = 0;
         if (mem)
-            params[22] = new (mem) fight::ParamVector<CCollisionTrack>("force", &CCollisionTrack::FUN_0005d5d0);
+            params[22] = new (mem) fight::ParamVector_5f150<CCollisionTrack_5f150>("force", &CCollisionTrack_5f150::FUN_0005d5d0);
         mem = FUN_0008d690(0x18);
         params[23] = 0;
         if (mem)
-            params[23] = new (mem) fight::ParamVector<CCollisionTrack>("forceMax", &CCollisionTrack::FUN_0005d600);
+            params[23] = new (mem) fight::ParamVector_5f150<CCollisionTrack_5f150>("forceMax", &CCollisionTrack_5f150::FUN_0005d600);
         mem = FUN_0008d690(0x20);
         params[24] = 0;
         if (mem)
-            params[24] = new (mem) fight::ParamEnumConstList<CCollisionTrack>("direction", ((const char**)&DAT_004954b4), 3, &CCollisionTrack::FUN_0005d630);
+            params[24] = new (mem) fight::ParamEnumConstList_5f150<CCollisionTrack_5f150>("direction", ((const char**)&DAT_004954b4), 3, &CCollisionTrack_5f150::FUN_0005d630);
         mem = FUN_0008d690(0x18);
         params[25] = 0;
         if (mem)
-            params[25] = new (mem) fight::ParamIntConstRange<CCollisionTrack>("interruptPriority", &CCollisionTrack::FUN_0005d640);
+            params[25] = new (mem) fight::ParamIntConstRange_5f150<CCollisionTrack_5f150>("interruptPriority", &CCollisionTrack_5f150::FUN_0005d640);
         mem = FUN_0008d690(0x18);
         params[26] = 0;
         if (mem)
-            params[26] = new (mem) fight::ParamVector<CCollisionTrack>("hitFreezeTime", &CCollisionTrack::FUN_0005d650);
+            params[26] = new (mem) fight::ParamVector_5f150<CCollisionTrack_5f150>("hitFreezeTime", &CCollisionTrack_5f150::FUN_0005d650);
         mem = FUN_0008d690(0x20);
         params[27] = 0;
         if (mem)
-            params[27] = new (mem) fight::ParamEnumConstList<CCollisionTrack>("location", ((const char**)&DAT_0048f6cc), (*(int*)&DAT_003f5ed0), &CCollisionTrack::FUN_0005d680);
+            params[27] = new (mem) fight::ParamEnumConstList_5f150<CCollisionTrack_5f150>("location", ((const char**)&DAT_0048f6cc), (*(int*)&DAT_003f5ed0), &CCollisionTrack_5f150::FUN_0005d680);
         mem = FUN_0008d690(0x18);
         params[28] = 0;
         if (mem)
-            params[28] = new (mem) fight::ParamBoolPtr<CCollisionTrack>("smallInterrupt", &CCollisionTrack::smallInterrupt);
+            params[28] = new (mem) fight::ParamBoolPtr_5f150<CCollisionTrack_5f150>("smallInterrupt", &CCollisionTrack_5f150::smallInterrupt);
         mem = FUN_0008d690(0x18);
         params[29] = 0;
         if (mem)
-            params[29] = new (mem) fight::ParamFloatPtrConstRange<CCollisionTrack>("smallHitReactionTime", &CCollisionTrack::smallHitReactionTime);
+            params[29] = new (mem) fight::ParamFloatPtrConstRange_5f150<CCollisionTrack_5f150>("smallHitReactionTime", &CCollisionTrack_5f150::smallHitReactionTime);
         mem = FUN_0008d690(0x18);
         params[30] = 0;
         if (mem)
-            params[30] = new (mem) fight::ParamFloatPtrConstRange<CCollisionTrack>("smallPushbackDistance", &CCollisionTrack::smallPushbackDistance);
+            params[30] = new (mem) fight::ParamFloatPtrConstRange_5f150<CCollisionTrack_5f150>("smallPushbackDistance", &CCollisionTrack_5f150::smallPushbackDistance);
         mem = FUN_0008d690(0x18);
         params[31] = 0;
         if (mem)
-            params[31] = new (mem) fight::ParamFloatPtrConstRange<CCollisionTrack>("smallPushbackTime", &CCollisionTrack::smallPushbackTime);
+            params[31] = new (mem) fight::ParamFloatPtrConstRange_5f150<CCollisionTrack_5f150>("smallPushbackTime", &CCollisionTrack_5f150::smallPushbackTime);
         mem = FUN_0008d690(0x18);
         params[32] = 0;
         if (mem)
-            params[32] = new (mem) fight::ParamFloatPtrConstRange<CCollisionTrack>("smallHeight", &CCollisionTrack::smallHeight);
+            params[32] = new (mem) fight::ParamFloatPtrConstRange_5f150<CCollisionTrack_5f150>("smallHeight", &CCollisionTrack_5f150::smallHeight);
         mem = FUN_0008d690(0x18);
         params[33] = 0;
         if (mem)
-            params[33] = new (mem) fight::ParamFloatPtrConstRange<CCollisionTrack>("smallStunTime", &CCollisionTrack::smallStunTime);
+            params[33] = new (mem) fight::ParamFloatPtrConstRange_5f150<CCollisionTrack_5f150>("smallStunTime", &CCollisionTrack_5f150::smallStunTime);
         mem = FUN_0008d690(0x18);
         params[34] = 0;
         if (mem)
-            params[34] = new (mem) fight::ParamBoolPtr<CCollisionTrack>("largeInterrupt", &CCollisionTrack::largeInterrupt);
+            params[34] = new (mem) fight::ParamBoolPtr_5f150<CCollisionTrack_5f150>("largeInterrupt", &CCollisionTrack_5f150::largeInterrupt);
         mem = FUN_0008d690(0x18);
         params[35] = 0;
         if (mem)
-            params[35] = new (mem) fight::ParamFloatPtrConstRange<CCollisionTrack>("largeHitReactionTime", &CCollisionTrack::largeHitReactionTime);
+            params[35] = new (mem) fight::ParamFloatPtrConstRange_5f150<CCollisionTrack_5f150>("largeHitReactionTime", &CCollisionTrack_5f150::largeHitReactionTime);
         mem = FUN_0008d690(0x18);
         params[36] = 0;
         if (mem)
-            params[36] = new (mem) fight::ParamFloatPtrConstRange<CCollisionTrack>("largePushbackDistance", &CCollisionTrack::largePushbackDistance);
+            params[36] = new (mem) fight::ParamFloatPtrConstRange_5f150<CCollisionTrack_5f150>("largePushbackDistance", &CCollisionTrack_5f150::largePushbackDistance);
         mem = FUN_0008d690(0x18);
         params[37] = 0;
         if (mem)
-            params[37] = new (mem) fight::ParamFloatPtrConstRange<CCollisionTrack>("largePushbackTime", &CCollisionTrack::largePushbackTime);
+            params[37] = new (mem) fight::ParamFloatPtrConstRange_5f150<CCollisionTrack_5f150>("largePushbackTime", &CCollisionTrack_5f150::largePushbackTime);
         mem = FUN_0008d690(0x18);
         params[38] = 0;
         if (mem)
-            params[38] = new (mem) fight::ParamFloatPtrConstRange<CCollisionTrack>("largeHeight", &CCollisionTrack::largeHeight);
+            params[38] = new (mem) fight::ParamFloatPtrConstRange_5f150<CCollisionTrack_5f150>("largeHeight", &CCollisionTrack_5f150::largeHeight);
         mem = FUN_0008d690(0x18);
         params[39] = 0;
         if (mem)
-            params[39] = new (mem) fight::ParamFloatPtrConstRange<CCollisionTrack>("largeStunTime", &CCollisionTrack::largeStunTime);
+            params[39] = new (mem) fight::ParamFloatPtrConstRange_5f150<CCollisionTrack_5f150>("largeStunTime", &CCollisionTrack_5f150::largeStunTime);
         FUN_002347b0(((ParamRegistry*)&DAT_004dc5d0), params, 40);
     }
     DAT_004dc5d4++;

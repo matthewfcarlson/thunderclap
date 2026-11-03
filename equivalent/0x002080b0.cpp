@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 18/18)
 // FUN_002080b0 @ 0x002080b0
 #include "decls/address.h"
+#include "gen/global.h"
 class Gfx {
 public:
     virtual void v0();
@@ -109,7 +110,6 @@ class Ent_2080b0 {
 public:
     char pad[0x31];
     char flag31;
-    void FUN_001b90b0();
 };
 
 class EntList_2080b0 { public: Ent_2080b0 *FUN_00086290(); };
@@ -160,7 +160,7 @@ void CWorldStreamManager_2080b0::FUN_002080b0()
     DAT_0052c2a8->v91();
     DAT_004dd700->res->FUN_0009a400(DAT_004dd700);
     DAT_004dd700->ents->FUN_00086290()->flag31 = 0;
-    DAT_004dd700->ents->FUN_00086290()->FUN_001b90b0();
+    ((::CRenderManager *)(DAT_004dd700->ents->FUN_00086290()))->FUN_001b90b0();
     int in = DAT_004dd700->input->FUN_000d6f50();
     DAT_004dd700->input->FUN_000d7030(mask | in);
     if (af3 && aux) {

@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* motionVtable[];
 class MotionBlurAction {
@@ -10,7 +11,6 @@ class MotionBlurAction {
     virtual void f5();
     int pad04[6];
     int mObject;
-    void Cleanup();
 };
 extern void DeleteThunk(MotionBlurAction*);
 MotionBlurAction* MotionBlurAction::vfunc_2(int flag) {
@@ -18,7 +18,7 @@ MotionBlurAction* MotionBlurAction::vfunc_2(int flag) {
     _ReadWriteBarrier();
     if (mObject)
         mObject = 0;
-    Cleanup();
+    ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1)
         DeleteThunk(this);
     return this;

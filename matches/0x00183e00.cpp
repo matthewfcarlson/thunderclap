@@ -1,3 +1,4 @@
+#include "gen/fight.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_183e00[];
 class Ref_183e00 {
@@ -8,7 +9,6 @@ class Ref_183e00 {
 class Action_183e00 {
   public:
     void* vptr;
-    void Fin();
 };
 class PropSetStateByNameAction_183e00 : public Action_183e00 {
   public:
@@ -26,5 +26,5 @@ PropSetStateByNameAction_183e00::~PropSetStateByNameAction_183e00() {
     }
     if (m1c)
         m1c = 0;
-    Fin();
+    ((fight::Action *)(Action_183e00 *)this)->FUN_002326a0();
 }

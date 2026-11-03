@@ -1,13 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 16/16)
 // FUN_00121690 @ 0x00121690
 #include "decls/data/game/hulkfight/ai.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 
 namespace hulkfight {
 namespace ai {
-class StrafeCircleHBTrack {
+class StrafeCircleHBTrack_121690 {
 public:
     void FUN_0011bde0();
     void FUN_0011bdf0();
@@ -24,14 +25,13 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 namespace fight {
 template <class T>
-class ParamFloatConstRange : public ParamFloatConstRangeBase {
+class ParamFloatConstRange_121690 : public ParamFloatConstRangeBase {
 public:
-    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    ParamFloatConstRange_121690(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -50,31 +50,31 @@ extern "C" void FUN_00121690()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange<hulkfight::ai::StrafeCircleHBTrack>("timeBegin", &hulkfight::ai::StrafeCircleHBTrack::FUN_0011bde0);
+            params[0] = new (mem) fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>("timeBegin", &hulkfight::ai::StrafeCircleHBTrack_121690::FUN_0011bde0);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange<hulkfight::ai::StrafeCircleHBTrack>("timeEnd", &hulkfight::ai::StrafeCircleHBTrack::FUN_0011bdf0);
+            params[1] = new (mem) fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>("timeEnd", &hulkfight::ai::StrafeCircleHBTrack_121690::FUN_0011bdf0);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange<hulkfight::ai::StrafeCircleHBTrack>("distanceMin", &hulkfight::ai::StrafeCircleHBTrack::FUN_0011be10);
+            params[2] = new (mem) fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>("distanceMin", &hulkfight::ai::StrafeCircleHBTrack_121690::FUN_0011be10);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange<hulkfight::ai::StrafeCircleHBTrack>("distanceMax", &hulkfight::ai::StrafeCircleHBTrack::FUN_0011be30);
+            params[3] = new (mem) fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>("distanceMax", &hulkfight::ai::StrafeCircleHBTrack_121690::FUN_0011be30);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange<hulkfight::ai::StrafeCircleHBTrack>("heightMin", &hulkfight::ai::StrafeCircleHBTrack::FUN_0011be50);
+            params[4] = new (mem) fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>("heightMin", &hulkfight::ai::StrafeCircleHBTrack_121690::FUN_0011be50);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange<hulkfight::ai::StrafeCircleHBTrack>("heightMax", &hulkfight::ai::StrafeCircleHBTrack::FUN_0011be70);
+            params[5] = new (mem) fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>("heightMax", &hulkfight::ai::StrafeCircleHBTrack_121690::FUN_0011be70);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange<hulkfight::ai::StrafeCircleHBTrack>("speed", &hulkfight::ai::StrafeCircleHBTrack::FUN_0011be90);
+            params[6] = new (mem) fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>("speed", &hulkfight::ai::StrafeCircleHBTrack_121690::FUN_0011be90);
         FUN_002347b0(((ParamRegistry*)&DAT_004e0cd0), params, 7);
     }
     DAT_004e0cd4++;

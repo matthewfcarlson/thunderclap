@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 24/24)
 // FUN_000783a0 @ 0x000783a0
 #include "decls/data/game/unknown.h"
+#include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 
-class CHeliDeathSpiralTrack {
+class CHeliDeathSpiralTrack_783a0 {
 public:
     void FUN_00077df0();
     void FUN_00077e00();
@@ -24,14 +25,13 @@ class __declspec(novtable) ParamFloatConstRangeBase {
 public:
     virtual void v0();
     char pad04[0xc];
-    void FUN_00234960(const char* name);
-    ParamFloatConstRangeBase(const char* name) { FUN_00234960(name); }
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
 };
 namespace fight {
 template <class T>
-class ParamFloatConstRange : public ParamFloatConstRangeBase {
+class ParamFloatConstRange_783a0 : public ParamFloatConstRangeBase {
 public:
-    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    ParamFloatConstRange_783a0(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -47,9 +47,9 @@ public:
 };
 namespace fight {
 template <class T>
-class ParamIntConstRange : public ParamIntConstRangeBase {
+class ParamIntConstRange_783a0 : public ParamIntConstRangeBase {
 public:
-    ParamIntConstRange(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
+    ParamIntConstRange_783a0(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
     virtual void v0();
     void (T::*setter)();
     int unused14;
@@ -68,47 +68,47 @@ extern "C" void FUN_000783a0()
         mem = FUN_0008d690(0x18);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamFloatConstRange<CHeliDeathSpiralTrack>("timeBegin", &CHeliDeathSpiralTrack::FUN_00077df0);
+            params[0] = new (mem) fight::ParamFloatConstRange_783a0<CHeliDeathSpiralTrack_783a0>("timeBegin", &CHeliDeathSpiralTrack_783a0::FUN_00077df0);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamFloatConstRange<CHeliDeathSpiralTrack>("timeEnd", &CHeliDeathSpiralTrack::FUN_00077e00);
+            params[1] = new (mem) fight::ParamFloatConstRange_783a0<CHeliDeathSpiralTrack_783a0>("timeEnd", &CHeliDeathSpiralTrack_783a0::FUN_00077e00);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamFloatConstRange<CHeliDeathSpiralTrack>("weightRatio", &CHeliDeathSpiralTrack::FUN_00077e10);
+            params[2] = new (mem) fight::ParamFloatConstRange_783a0<CHeliDeathSpiralTrack_783a0>("weightRatio", &CHeliDeathSpiralTrack_783a0::FUN_00077e10);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamFloatConstRange<CHeliDeathSpiralTrack>("minTurningVelocity", &CHeliDeathSpiralTrack::FUN_00077e20);
+            params[3] = new (mem) fight::ParamFloatConstRange_783a0<CHeliDeathSpiralTrack_783a0>("minTurningVelocity", &CHeliDeathSpiralTrack_783a0::FUN_00077e20);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamFloatConstRange<CHeliDeathSpiralTrack>("maxTurningVelocity", &CHeliDeathSpiralTrack::FUN_00077e40);
+            params[4] = new (mem) fight::ParamFloatConstRange_783a0<CHeliDeathSpiralTrack_783a0>("maxTurningVelocity", &CHeliDeathSpiralTrack_783a0::FUN_00077e40);
         mem = FUN_0008d690(0x18);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) fight::ParamFloatConstRange<CHeliDeathSpiralTrack>("acceleration", &CHeliDeathSpiralTrack::FUN_00077e60);
+            params[5] = new (mem) fight::ParamFloatConstRange_783a0<CHeliDeathSpiralTrack_783a0>("acceleration", &CHeliDeathSpiralTrack_783a0::FUN_00077e60);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamFloatConstRange<CHeliDeathSpiralTrack>("gravity", &CHeliDeathSpiralTrack::FUN_00077e70);
+            params[6] = new (mem) fight::ParamFloatConstRange_783a0<CHeliDeathSpiralTrack_783a0>("gravity", &CHeliDeathSpiralTrack_783a0::FUN_00077e70);
         mem = FUN_0008d690(0x18);
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamFloatConstRange<CHeliDeathSpiralTrack>("tilt", &CHeliDeathSpiralTrack::FUN_00077e80);
+            params[7] = new (mem) fight::ParamFloatConstRange_783a0<CHeliDeathSpiralTrack_783a0>("tilt", &CHeliDeathSpiralTrack_783a0::FUN_00077e80);
         mem = FUN_0008d690(0x18);
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamIntConstRange<CHeliDeathSpiralTrack>("priority", &CHeliDeathSpiralTrack::FUN_00077ea0);
+            params[8] = new (mem) fight::ParamIntConstRange_783a0<CHeliDeathSpiralTrack_783a0>("priority", &CHeliDeathSpiralTrack_783a0::FUN_00077ea0);
         mem = FUN_0008d690(0x18);
         params[9] = 0;
         if (mem)
-            params[9] = new (mem) fight::ParamFloatConstRange<CHeliDeathSpiralTrack>("blendInTime", &CHeliDeathSpiralTrack::FUN_00077eb0);
+            params[9] = new (mem) fight::ParamFloatConstRange_783a0<CHeliDeathSpiralTrack_783a0>("blendInTime", &CHeliDeathSpiralTrack_783a0::FUN_00077eb0);
         mem = FUN_0008d690(0x18);
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamFloatConstRange<CHeliDeathSpiralTrack>("blendOutTime", &CHeliDeathSpiralTrack::FUN_00077ec0);
+            params[10] = new (mem) fight::ParamFloatConstRange_783a0<CHeliDeathSpiralTrack_783a0>("blendOutTime", &CHeliDeathSpiralTrack_783a0::FUN_00077ec0);
         FUN_002347b0(((ParamRegistry*)&DAT_004dd030), params, 11);
     }
     DAT_004dd034++;

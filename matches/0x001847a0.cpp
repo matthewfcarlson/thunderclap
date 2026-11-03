@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/fight.h"
 extern "C" char DAT_00419774[];
 class Ref_1847a0 {
   public:
@@ -12,7 +13,6 @@ class ShieldArcAction {
     int m1c;
     Ref_1847a0* volatile m20;
     void Cleanup();
-    void Finish();
 };
 void ShieldArcAction::Cleanup() {
     vft = ((hulk_intptr)DAT_00419774);
@@ -23,5 +23,5 @@ void ShieldArcAction::Cleanup() {
     }
     if (m1c)
         m1c = 0;
-    Finish();
+    ((fight::Action *)this)->FUN_002326a0();
 }
