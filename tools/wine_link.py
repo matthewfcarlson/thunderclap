@@ -639,6 +639,7 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
                      '\tjmp\t"%s"\n' % (frame, GFX_CLOCK_TICK, by_addr_def[GFX_CLOCK_ADDR]))
         if frame:
             how["GameClock::Update wrapped: hulk_native_frame (replay checkpoints)"] += 1
+        wrapped[by_addr_def[GFX_CLOCK_ADDR]] = "_hulk_clock_update"      # (div6: see wrap_rebind)
         by_addr_def[GFX_CLOCK_ADDR] = "_hulk_clock_update"
         how["GameClock::Update wrapped: hulk_pddi_clock_tick (--gfx)"] += 1
         defined.add("_hulk_clock_update")
@@ -735,6 +736,9 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
         how["exit hook (native11) 0x%08x -> %s" % (t, hook)] += 1
     # native11: a forwarder re-emitted by jump_shapes before the wrappers existed (`mov ecx, [ecx+0xb8]; jmp
     # 0x272fc0`, the drive's post: request H's exit hook was never reached) jumps to the wrapper too
+    # div6: a wrapper over a wrapper (a trace probe on GameClock::Update, an entry hook under a probe): every
+    # reference to a wrapped definition goes to the outermost wrapper
+    wrapped = {d: wrapper_outer(wrapped, d) for d in wrapped}
     for d, lab in wrapped.items():
         n_ = js["asm"].count('\tjmp\t"%s"\n' % d)
         if n_:
@@ -974,6 +978,14 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
     how["dynamic_cast descriptor references"] += n_cast
     for u in unmapped_casts:
         how["dynamic_cast %s descriptors to no game descriptor (link/unmapped_casts.json)" % u["role"]] += 1
+    # div6: references to a wrapped definition by its own name (a probe, entry or exit hook, the clock wrapper) go to
+    # the wrapper. Only references bound by address went through it before: since the name unification (x64-8 batch
+    # 3, 034c5ad33) callers declare the definition's own C or member name (`_FUN_000964d0`), which the linker binds to
+    # the definition itself, and merged TUs call their own functions directly, so probes caught a few callers only.
+    # All relocations naming it (own=True: in the defining object too) are pointed at the wrapper.
+    wrap_rebind = wrap_rebind_plan(syms, wrapped)
+    how["references to a wrapped definition by its name pointed at the wrapper (div6)"] += \
+        sum(len(v) for v in wrap_rebind.values())
     vt_rebind = collections.defaultdict(dict)
     for o, (d_, u) in syms.items():
         for s in (d_ | u) & set(vt_map):
@@ -1103,6 +1115,11 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
                 out_o = os.path.join(OUT, "link", "objs", "vt_" + os.path.basename(o))
                 os.makedirs(os.path.dirname(out_o), exist_ok=True)
                 wine_host.retarget_relocs(o2, vt_rebind[o], out_o)
+                o2 = out_o
+            if wrap_rebind.get(o):
+                out_o = os.path.join(OUT, "link", "objs", "wr_" + os.path.basename(o))
+                os.makedirs(os.path.dirname(out_o), exist_ok=True)
+                wine_host.retarget_relocs(o2, wrap_rebind[o], out_o, own=True)
                 o2 = out_o
             if retarget.get(o):
                 out_o = os.path.join(OUT, "link", "objs", "rt_" + os.path.basename(o))
@@ -1580,6 +1597,26 @@ def deleting_destructors(defs, defined):
         refs |= {dtor, delete}
         st["synthesized"] += 1
     return {"symbols": out, "references": refs, "asm": "\n".join(asm) + "\n", "stats": dict(st)}
+
+
+def wrapper_outer(wrapped, d):
+    """The outermost wrapper of definition d ({definition: its wrapper}; a wrapper can itself be wrapped)."""
+    seen = {d}
+    while d in wrapped and wrapped[d] not in seen:
+        d = wrapped[d]
+        seen.add(d)
+    return d
+
+
+def wrap_rebind_plan(syms, wrapped):
+    """{object: {wrapped definition: (its outermost wrapper, 0)}} for every object whose symbol table names a wrapped
+    definition (defined there or not): wine_host.retarget_relocs(own=True) points those relocations at the wrapper.
+    The wrappers themselves (the link's assembly, not in syms) keep jumping to the definition."""
+    plan = collections.defaultdict(dict)
+    for o, (d_, u) in syms.items():
+        for d in (d_ | u) & set(wrapped):
+            plan[o][d] = (wrapper_outer(wrapped, d), 0)
+    return plan
 
 
 def rename_object(obj, pairs):
