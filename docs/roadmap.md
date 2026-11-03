@@ -1,6 +1,6 @@
 # Roadmap
 
-**Goal: a native port.** Source we can build for the two supported targets, SteamOS (x86-64 Linux) and arm64 macOS, with quality-of-life improvements. Byte-matching is a tool for proving correctness cheaply, not the destination. A SHA-1-identical `default.xbe` is optional and off the critical path.
+**Goal: a native port.** Source we can build for the supported targets, SteamOS (x86-64 Linux), arm64 macOS and arm64 Android handhelds (`docs/native-android.md`), with quality-of-life improvements. Byte-matching is a tool for proving correctness cheaply, not the destination. A SHA-1-identical `default.xbe` is optional and off the critical path.
 
 Concrete task briefs are in [`docs/tasks/`](tasks/README.md).
 
@@ -60,7 +60,7 @@ Status 2026-10-21: the tree compiles and strict-links under clang as an i686 ima
 
 1. **x86-32 host build first** (Linux or Windows, clang): same pointer size and calling conventions as the Xbox, so the only new variable is the platform layer. Shim XAPI/kernel, implement the `pddi`, input, audio and movie backends. The radcore file shim reads loose files from `mods/` before the RCFs. Prior art for the input and audio backends: [jsrf-recomp](platform-boundary.md#prior-art-for-the-backends-jsrf-recomp-reviewed-2026-10-12).
 2. **64-bit clean-up**: pointer-size assumptions in structs, especially anything loaded from disk (`.p3d` chunk loaders, save data) and any code that stores pointers in `int`s.
-3. **x86-64 (SteamOS) and arm64 (macOS)** builds. Watch x87 → SSE/NEON float differences in physics and animation; replays from step 5 catch drift.
+3. **x86-64 (SteamOS), arm64 (macOS) and arm64 (Android handhelds)** builds. Watch x87 → SSE/NEON float differences in physics and animation; replays from step 5 catch drift.
 
 ### 7. Make it better
 Mostly ordinary code changes once step 6 lands; many can ship earlier as hybrid-build patches.

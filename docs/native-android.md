@@ -306,6 +306,19 @@ logcat sink) and in the retarget (`os == "android"` branch); no change to game s
 
 ## 11. Risks and open questions for the user
 
+**Decisions (2026-11-03).** The user accepted the suggested answers below:
+- **Devices:** Snapdragon 865 class (Retroid Pocket 5 / Mini) is the floor and the Odin 2 the comfortable target. The
+  test device is a Retroid Pocket 6 (12 GB).
+- **Remaster:** raster-only on Android.
+- **Data install:** the Storage Access Framework picker, with the ISO extracted on the device.
+- **Pointer tagging:** opt out in the manifest, with one CI configuration that runs tagged.
+- **Order:** run A0 now.
+- **Performance:** a locked 30 fps at -O0 is acceptable for the first release.
+- **Toolchain:** pinning the LLVM version needs a closer look before a decision.
+
+The questions as they were put:
+
+
 1. **Which devices are required?** Suggest a minimum of Snapdragon 865 (Retroid Pocket 5 / Mini) as the floor and the
    Odin 2 as the comfortable target; the Dimensity-based Pocket 4 Pro (Mali) is the likelier source of driver trouble. Do you
    own a device for testing, or is the emulator only for now?

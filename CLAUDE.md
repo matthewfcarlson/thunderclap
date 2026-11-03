@@ -1,7 +1,7 @@
 # CLAUDE.md
 
-Decompilation of The Incredible Hulk: Ultimate Destruction (Xbox, 2005) aimed at a native port (supported targets: x86-64 SteamOS and
-arm64 macOS). Every game function has verified source: byte-matched (`matches/`) or proven equivalent
+Decompilation of The Incredible Hulk: Ultimate Destruction (Xbox, 2005) aimed at a native port (supported targets: x86-64 SteamOS,
+arm64 macOS and arm64 Android handhelds). Every game function has verified source: byte-matched (`matches/`) or proven equivalent
 (`equivalent/`). Read `README.md` for status and `docs/roadmap.md` for the plan. Run everything from the repo root
 with `build/venv/bin/python`.
 
@@ -48,7 +48,7 @@ At most 2 local processes for interactive debugging. Wine build runs are `--need
 Full Wine builds (tree build, clang probe, Wine link, replay) go through `tools/wine_build_job.py submit/wait` (mac2/mac1 by default;
 `--host local` only on purpose; graphics runs stay on the laptop), replays through `tools/wine_replay_job.py`: `docs/compute.md` "Wine builds".
 Terms: the *Wine build* is the 32-bit clang image run under Wine (`tools/wine_*.py`, `docs/wine-*.md`, `HULK_WINE_*`; the old `native_*` names, `HULK_NATIVE_*`
-and `--native` still work as aliases). *Native* means the 64-bit builds for the supported targets (x86-64 SteamOS, arm64 macOS; Windows is not a target).
+and `--native` still work as aliases). *Native* means the 64-bit builds for the supported targets (x86-64 SteamOS, arm64 macOS, arm64 Android handhelds; Windows is not a target).
 
 ## Hard rules
 
