@@ -1,3 +1,3 @@
-extern "C" int __cdecl FUN_0025d060(int param_1) {
-    return param_1 + 0x14;
+extern "C" int __cdecl FUN_0025d060(int base) {
+    return base + 0x14;
 }

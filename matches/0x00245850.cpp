@@ -1,8 +1,8 @@
-int FUN_00245850(char* param_1, int param_2) {
+int FUN_00245850(char* digits, int length) {
     int value = 0;
     int place = 1;
     char* p;
-    for (p = param_1 + param_2 - 1; p >= param_1; --p) {
+    for (p = digits + length - 1; p >= digits; --p) {
         value += (*p - 0x30) * place;
         place *= 10;
     }

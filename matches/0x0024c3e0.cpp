@@ -1,6 +1,6 @@
 #include "decls/data/engine/audio.h"
 
 typedef unsigned int uint_24c3e0;
-extern "C" uint_24c3e0 __cdecl FUN_0024c3e0(uint_24c3e0* param_1, uint_24c3e0 param_2) {
-    return param_2 / (((*param_1 >> 4) & 0x1f) * ((int*)&DAT_004cc258)[((int)(*param_1 << 0x1c) >> 0x1c) * 6]);
+extern "C" uint_24c3e0 __cdecl FUN_0024c3e0(uint_24c3e0* format, uint_24c3e0 bytes) {
+    return bytes / (((*format >> 4) & 0x1f) * ((int*)&DAT_004cc258)[((int)(*format << 0x1c) >> 0x1c) * 6]);
 }

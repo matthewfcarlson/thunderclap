@@ -1,8 +1,8 @@
 #include "compat/ptr.h"
 void thunk_FUN_00267090(hulk_intptr);
-extern "C" void FUN_002e61c0(int* param_1, int* param_2) {
-    for (; param_1 != param_2; param_1 += 3) {
-        if (*param_1 != 0)
-            thunk_FUN_00267090(*param_1);
+extern "C" void FUN_002e61c0(int* first, int* last) {
+    for (; first != last; first += 3) {
+        if (*first != 0)
+            thunk_FUN_00267090(*first);
     }
 }

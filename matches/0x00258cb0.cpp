@@ -1,3 +1,3 @@
-extern "C" int __cdecl FUN_00258cb0(int* param_1, int param_2) {
-    return param_1[param_2 + 25];
+extern "C" int __cdecl FUN_00258cb0(int* object, int index) {
+    return object[index + 25];
 }

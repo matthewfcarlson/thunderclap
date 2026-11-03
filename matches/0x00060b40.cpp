@@ -16,13 +16,13 @@ struct CEffectTrack {
     void helper();
 };
 extern void cleanup(CEffectTrack*);
-CEffectTrack* CEffectTrack::vfunc_5(byte_60b40 param_2) {
+CEffectTrack* CEffectTrack::vfunc_5(byte_60b40 flags) {
     vf = ((hulk_intptr)DAT_003faa80);
     a30.init();
     a28.init();
     a18.init();
     helper();
-    if (param_2 & 1)
+    if (flags & 1)
         cleanup(this);
     return this;
 }

@@ -16,12 +16,12 @@ class FEDoSound {
     FEDoSound* Init(u32_e1970, const char*);
 };
 extern void __cdecl FUN_000dfcc0(char*, int, const char*, const char*);
-FEDoSound* FEDoSound::Init(u32_e1970 param_2, const char* param_3) {
+FEDoSound* FEDoSound::Init(u32_e1970 id, const char* soundName) {
     a = -1;
     b = -1;
-    c = param_2;
+    c = id;
     flag = 0;
     vtable = ((hulk_intptr)DAT_0040c02c);
-    FUN_000dfcc0(name, 0x20, ((const char*)&DAT_003f3f38), param_3);
+    FUN_000dfcc0(name, 0x20, ((const char*)&DAT_003f3f38), soundName);
     return this;
 }

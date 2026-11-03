@@ -9,16 +9,16 @@ class DebugPrintTrack {
     void* m14;
     void* m18;
     void MemberFunc();
-    DebugPrintTrack* vfunc_5(unsigned char param_2);
+    DebugPrintTrack* vfunc_5(unsigned char flags);
 };
 
-DebugPrintTrack* DebugPrintTrack::vfunc_5(unsigned char param_2) {
+DebugPrintTrack* DebugPrintTrack::vfunc_5(unsigned char flags) {
     void* p14 = m14;
     *(void**)this = &hulkfight_DebugPrintTrack_vftable;
     thunk_FUN_00267090(p14);
     thunk_FUN_00267090(m18);
     MemberFunc();
-    if (param_2 & 1) {
+    if (flags & 1) {
         operator delete(this);
     }
     return this;

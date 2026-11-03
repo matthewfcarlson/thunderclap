@@ -7,27 +7,27 @@ struct Node {
 struct Tree_259d30 {
     Node* root;
 };
-extern "C" void FUN_00259d30(void * param_1, void * param_2) {
-    Node* piVar1 = ((Node *)param_2)->b;
-    ((Node *)param_2)->b = piVar1->a;
-    if (piVar1->a != (Node*)(((Tree_259d30 *)param_1) + 1)) {
-        piVar1->a->c = ((Node *)param_2);
+extern "C" void FUN_00259d30(void * tree, void * node) {
+    Node* child = ((Node *)node)->b;
+    ((Node *)node)->b = child->a;
+    if (child->a != (Node*)(((Tree_259d30 *)tree) + 1)) {
+        child->a->c = ((Node *)node);
     }
-    piVar1->c = ((Node *)param_2)->c;
-    Node* piVar2 = ((Node *)param_2)->c;
-    if (piVar2 == (Node*)(((Tree_259d30 *)param_1) + 1)) {
-        *reinterpret_cast<Node**>(((Tree_259d30 *)param_1)) = piVar1;
-        piVar1->a = ((Node *)param_2);
-        ((Node *)param_2)->c = piVar1;
+    child->c = ((Node *)node)->c;
+    Node* parent = ((Node *)node)->c;
+    if (parent == (Node*)(((Tree_259d30 *)tree) + 1)) {
+        *reinterpret_cast<Node**>(((Tree_259d30 *)tree)) = child;
+        child->a = ((Node *)node);
+        ((Node *)node)->c = child;
         return;
     }
-    if (((Node *)param_2) == piVar2->a) {
-        piVar2->a = piVar1;
-        piVar1->a = ((Node *)param_2);
-        ((Node *)param_2)->c = piVar1;
+    if (((Node *)node) == parent->a) {
+        parent->a = child;
+        child->a = ((Node *)node);
+        ((Node *)node)->c = child;
         return;
     }
-    piVar2->b = piVar1;
-    piVar1->a = ((Node *)param_2);
-    ((Node *)param_2)->c = piVar1;
+    parent->b = child;
+    child->a = ((Node *)node);
+    ((Node *)node)->c = child;
 }

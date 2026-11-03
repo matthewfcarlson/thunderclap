@@ -17,10 +17,10 @@ class CEventManager {
     char pad[0x10];
     Elem_1cc570 mArr[0x18];
 
-    void* vfunc_0(unsigned char param_2);
+    void* vfunc_0(unsigned char flags);
 };
 
-void* CEventManager::vfunc_0(unsigned char param_2) {
+void* CEventManager::vfunc_0(unsigned char flags) {
     mVptr = &gDummy;
     Elem_1cc570* p = mArr + 0x18;
     for (int i = 0; i < 0x18; ++i) {
@@ -32,7 +32,7 @@ void* CEventManager::vfunc_0(unsigned char param_2) {
     if (t) {
         FUN_00267090(t);
     }
-    if (param_2 & 1) {
+    if (flags & 1) {
         FUN_00267091(this);
     }
     return this;

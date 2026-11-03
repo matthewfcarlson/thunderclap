@@ -5,16 +5,16 @@ extern int g_vftable_283dc0;
 struct EffectQueue_283dc0 {
     void* m_vptr;
     void base2_dtor();
-    void* scalar_dtor(unsigned char param_2);
+    void* scalar_dtor(unsigned char flags);
 };
 
 void thunk_delete(void*);
 
-void* EffectQueue_283dc0::scalar_dtor(unsigned char param_2) {
+void* EffectQueue_283dc0::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&g_vftable_283dc0;
     ((owners::Owner_280160 *)this)->FUN_00280160();
     base2_dtor();
-    if (param_2 & 1)
+    if (flags & 1)
         thunk_delete(this);
     return this;
 }

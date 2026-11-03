@@ -1,14 +1,14 @@
 #include "decls/data/game/global.h"
 
-extern "C" int __cdecl FUN_000f7120(int param_1);
+extern "C" int __cdecl FUN_000f7120(int key);
 
-int __cdecl FUN_000f7120(int param_1) {
-    int iVar1 = 0;
+int __cdecl FUN_000f7120(int key) {
+    int i = 0;
     do {
-        if (((int*)&DAT_0040cc74)[iVar1 * 2] == param_1) {
-            return ((int*)&DAT_0040cc78)[iVar1 * 2];
+        if (((int*)&DAT_0040cc74)[i * 2] == key) {
+            return ((int*)&DAT_0040cc78)[i * 2];
         }
-        iVar1 = iVar1 + 1;
-    } while (iVar1 < 6);
+        i = i + 1;
+    } while (i < 6);
     return 0;
 }

@@ -19,6 +19,6 @@ class HalStream_25c2b0 {
 namespace audio {
 
 } // namespace audio
-void* audio::OmHalStream::vfunc_9(int param_2) {
-    return (void*)((char*)this + param_2 * 16 + 0xb4);
+void* audio::OmHalStream::vfunc_9(int index) {
+    return (void*)((char*)this + index * 16 + 0xb4);
 }

@@ -20,9 +20,9 @@ struct CacheManager_nv_29f570 {
     void FUN_00019420();
 };
 extern void thunk_FUN_00267090(CacheManager_29f570*);
-CacheManager_29f570* CacheManager_29f570::vfunc_2(unsigned char param_2) {
+CacheManager_29f570* CacheManager_29f570::vfunc_2(unsigned char flags) {
     ((CacheManager_nv_29f570*)(((pure3d::LightsChooser::CacheManager*)(this))))->FUN_00019420();
-    if ((param_2 & 1) != 0)
+    if ((flags & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
 }

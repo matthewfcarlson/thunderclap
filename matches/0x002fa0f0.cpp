@@ -6,11 +6,11 @@ struct Target_2fa0f0 {
     int pad;
     int third;
 };
-void __fastcall FUN_002fa0f0(Target_2fa0f0* param_1) {
-    if (param_1->third != 0)
-        ReleaseThing(param_1->third);
-    if (param_1->first != 0) {
-        DoPair(param_1->first, param_1->second);
-        ReleaseThing(param_1->first);
+void __fastcall FUN_002fa0f0(Target_2fa0f0* object) {
+    if (object->third != 0)
+        ReleaseThing(object->third);
+    if (object->first != 0) {
+        DoPair(object->first, object->second);
+        ReleaseThing(object->first);
     }
 }

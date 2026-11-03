@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
-int __fastcall FUN_002043e0(hulk_intptr param_1) {
+int __fastcall FUN_002043e0(hulk_intptr object) {
     int count = 0;
-    unsigned char* p = (unsigned char*)(param_1 + 0x5a5);
+    unsigned char* p = (unsigned char*)(object + 0x5a5);
     int n = 0x100;
     do {
         if (p[-1] == 1)

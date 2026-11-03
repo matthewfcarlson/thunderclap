@@ -1,4 +1,4 @@
-extern "C" void FUN_00257dd0(unsigned int* param_1) {
-    param_1[0] = 0;
-    param_1[1] = 0;
+extern "C" void FUN_00257dd0(unsigned int* pair) {
+    pair[0] = 0;
+    pair[1] = 0;
 }

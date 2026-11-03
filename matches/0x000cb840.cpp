@@ -13,12 +13,12 @@ class HUDOverlay {
 };
 extern int hudvt, ovt;
 void thunk_FUN_00267090(HUDOverlay*);
-HUDOverlay* HUDOverlay::vfunc_0(unsigned char param_2) {
+HUDOverlay* HUDOverlay::vfunc_0(unsigned char flags) {
     Helper_cb840* h = (Helper_cb840*)((char*)this + 0x54);
     *(void**)this = &hudvt;
     h->f();
     *(void**)this = &ovt;
-    if (param_2 & 1)
+    if (flags & 1)
         thunk_FUN_00267090(this);
     return this;
 }

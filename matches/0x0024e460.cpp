@@ -11,10 +11,10 @@ extern void Work(void*, u32_24e460);
 struct C_24e460 {
     void End();
 };
-extern "C" void FUN_0024e460(u32_24e460 param_1) {
+extern "C" void FUN_0024e460(u32_24e460 value) {
     char local[0x48];
     ((A_24e460*)local)->Init(&g2, ((char*)&DAT_004e6340), 0x1c, 4);
     *(void**)local = (void*)((hulk_intptr)DAT_0042986c);
-    Work(local, param_1);
+    Work(local, value);
     ((C_24e460*)local)->End();
 }

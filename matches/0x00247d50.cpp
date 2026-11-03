@@ -7,27 +7,27 @@ struct Node {
 struct Tree_247d50 {
     Node* root;
 };
-void insert(Tree_247d50* param_1, Node* param_2) {
-    Node* piVar1 = param_2->b;
-    param_2->b = piVar1->a;
-    if (piVar1->a != (Node*)(param_1 + 1)) {
-        piVar1->a->c = param_2;
+void insert(Tree_247d50* tree, Node* node) {
+    Node* child = node->b;
+    node->b = child->a;
+    if (child->a != (Node*)(tree + 1)) {
+        child->a->c = node;
     }
-    piVar1->c = param_2->c;
-    Node* piVar2 = param_2->c;
-    if (piVar2 == (Node*)(param_1 + 1)) {
-        *reinterpret_cast<Node**>(param_1) = piVar1;
-        piVar1->a = param_2;
-        param_2->c = piVar1;
+    child->c = node->c;
+    Node* parent = node->c;
+    if (parent == (Node*)(tree + 1)) {
+        *reinterpret_cast<Node**>(tree) = child;
+        child->a = node;
+        node->c = child;
         return;
     }
-    if (param_2 == piVar2->a) {
-        piVar2->a = piVar1;
-        piVar1->a = param_2;
-        param_2->c = piVar1;
+    if (node == parent->a) {
+        parent->a = child;
+        child->a = node;
+        node->c = child;
         return;
     }
-    piVar2->b = piVar1;
-    piVar1->a = param_2;
-    param_2->c = piVar1;
+    parent->b = child;
+    child->a = node;
+    node->c = child;
 }

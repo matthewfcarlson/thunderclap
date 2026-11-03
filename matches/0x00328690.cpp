@@ -3,6 +3,6 @@
 // data: gValue_328690 = DAT_00555b88
 
 typedef unsigned int u32_328690;
-extern "C" void FUN_00328690(u32_328690 param_1) {
-    (*(u32_328690*)&DAT_00555b88) = param_1;
+extern "C" void FUN_00328690(u32_328690 value) {
+    (*(u32_328690*)&DAT_00555b88) = value;
 }

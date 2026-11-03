@@ -1,4 +1,4 @@
 void __stdcall FUN_0020c723(int);
-extern "C" void __cdecl FUN_0026d6d0(int param_1) {
-    FUN_0020c723(param_1);
+extern "C" void __cdecl FUN_0026d6d0(int value) {
+    FUN_0020c723(value);
 }

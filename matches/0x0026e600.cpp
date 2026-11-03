@@ -4,7 +4,7 @@ class Obj_26e600 {
     void Helper(void*, unsigned int);
     void Target(unsigned int, char*);
 };
-void Obj_26e600::Target(unsigned int param_1, char* param_2) {
+void Obj_26e600::Target(unsigned int id, char* message) {
     struct Local {
         unsigned int a;
         unsigned int b;
@@ -12,8 +12,8 @@ void Obj_26e600::Target(unsigned int param_1, char* param_2) {
         char end;
     } local;
     local.a = 7;
-    local.b = param_1;
-    strncpy(local.text, param_2, 0x54);
+    local.b = id;
+    strncpy(local.text, message, 0x54);
     local.end = 0;
     Helper(&local, 0x5c);
 }

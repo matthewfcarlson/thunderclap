@@ -39,7 +39,7 @@ class CGameCamera {
     virtual void vfunc_34();
     virtual void vfunc_35();
     virtual void vfunc_36();
-    virtual void vfunc_37(int param_2, int param_3, int param_4, float param_5);
+    virtual void vfunc_37(int index, int first, int second, float turns);
 
     char pad[0xf4 - 4]; // vptr at 0, slots at 0xf4
 
@@ -52,13 +52,13 @@ class CGameCamera {
     Slot slots[6];
 };
 
-void CGameCamera::vfunc_37(int param_2, int param_3, int param_4, float param_5) {
-    if (param_2 >= 0 && param_2 < 6) {
+void CGameCamera::vfunc_37(int index, int first, int second, float turns) {
+    if (index >= 0 && index < 6) {
         static const float twoPi = 6.2831855f;
-        float scaled = param_5 * twoPi;
-        slots[param_2].field1 = param_3;
-        slots[param_2].field2 = param_4;
-        slots[param_2].field3 = scaled;
-        slots[param_2].field0 = 0;
+        float scaled = turns * twoPi;
+        slots[index].field1 = first;
+        slots[index].field2 = second;
+        slots[index].field3 = scaled;
+        slots[index].field0 = 0;
     }
 }

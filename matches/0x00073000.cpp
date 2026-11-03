@@ -6,8 +6,8 @@ struct TrackFactoryCasterTemplate {
     void* vftable;
 };
 extern void FUN_00236ac0(u32_73000, void**);
-void FUN_00073000(u32_73000 param_1) {
-    void* local_4;
-    local_4 = (void*)((hulk_intptr)DAT_003fcd5c);
-    FUN_00236ac0(param_1, &local_4);
+void FUN_00073000(u32_73000 key) {
+    void* caster;
+    caster = (void*)((hulk_intptr)DAT_003fcd5c);
+    FUN_00236ac0(key, &caster);
 }

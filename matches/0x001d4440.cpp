@@ -20,9 +20,9 @@ struct ScriptHandler_nv_1d4440 {
     void FUN_00019420();
 };
 extern void thunk_FUN_00267090(ScriptHandler_1d4440*);
-ScriptHandler_1d4440* ScriptHandler_1d4440::vfunc_2(unsigned char param_2) {
+ScriptHandler_1d4440* ScriptHandler_1d4440::vfunc_2(unsigned char flags) {
     ((ScriptHandler_nv_1d4440*)(((ScriptHandler*)(this))))->FUN_00019420();
-    if ((param_2 & 1) != 0)
+    if ((flags & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
 }

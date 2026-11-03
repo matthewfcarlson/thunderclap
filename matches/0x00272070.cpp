@@ -1,12 +1,12 @@
 typedef unsigned int uint_272070;
 typedef unsigned char BOOL;
-extern "C" BOOL FUN_00272070(uint_272070* param_1, uint_272070* param_2, uint_272070* param_3) {
-    uint_272070 value = *param_1;
+extern "C" BOOL FUN_00272070(uint_272070* src, uint_272070* length, uint_272070* codepoint) {
+    uint_272070 value = *src;
     if (value >= 0xd800 && value <= 0xdfff)
         return 0;
-    if (param_2 != 0)
-        *param_2 = 4;
-    if (param_3 != 0)
-        *param_3 = value;
+    if (length != 0)
+        *length = 4;
+    if (codepoint != 0)
+        *codepoint = value;
     return 1;
 }

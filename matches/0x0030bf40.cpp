@@ -1,13 +1,13 @@
 typedef unsigned int U32_30bf40;
-extern "C" unsigned int * FUN_0030bf40(unsigned int * param_1, int param_2, unsigned int * param_3) {
-    U32_30bf40* out = param_3;
-    if (param_2 != 0) {
+extern "C" unsigned int * FUN_0030bf40(unsigned int * src, int count, unsigned int * dst) {
+    U32_30bf40* out = dst;
+    if (count != 0) {
         do {
             if (out != 0)
-                *out = *param_1;
-            ++param_1;
+                *out = *src;
+            ++src;
             ++out;
-        } while (--param_2 != 0);
+        } while (--count != 0);
     }
     return out;
 }

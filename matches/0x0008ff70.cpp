@@ -9,12 +9,12 @@ class CStaticAllocator {
     void* p10;
     void* p14;
 };
-CStaticAllocator* CStaticAllocator::vfunc_0(u8_8ff70 param_2) {
+CStaticAllocator* CStaticAllocator::vfunc_0(u8_8ff70 flags) {
     void* a = p14;
     *(void**)this = (void*)((hulk_intptr)DAT_00400c1c);
     thunk_FUN_00267090(a);
     thunk_FUN_00267090(p10);
-    if (param_2 & 1)
+    if (flags & 1)
         thunk_FUN_00267090(this);
     return this;
 }

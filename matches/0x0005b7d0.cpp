@@ -19,12 +19,12 @@ class CGrappleSwapTrack {
     Sub_5b7d0 a;
     Sub_5b7d0 b;
 };
-CGrappleSwapTrack* CGrappleSwapTrack::vfunc_5(byte_5b7d0 param_2) {
+CGrappleSwapTrack* CGrappleSwapTrack::vfunc_5(byte_5b7d0 flags) {
     *(hulk_intptr*)this = (hulk_intptr)&vftable_5b7d0;
     this->b.Clean();
     this->a.Clean();
     this->BaseClean();
-    if (param_2 & 1)
+    if (flags & 1)
         FreeMem(this);
     return this;
 }

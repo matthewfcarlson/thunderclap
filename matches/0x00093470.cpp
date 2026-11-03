@@ -14,7 +14,7 @@ extern void* vtMove;
 extern void* vtBase_93470;
 void thunk_FUN_00267090(void*);
 void __cdecl FreeThis(void*);
-CUnlockableMove* CUnlockableMove::vfunc_0(unsigned char param_2) {
+CUnlockableMove* CUnlockableMove::vfunc_0(unsigned char flags) {
     *(void**)this = &vtMove;
     Helper_93470* h = (Helper_93470*)((char*)this + 0x40);
     h->run();
@@ -27,7 +27,7 @@ CUnlockableMove* CUnlockableMove::vfunc_0(unsigned char param_2) {
     }
     h = (Helper_93470*)((char*)this + 0x10);
     h->run();
-    if (param_2 & 1)
+    if (flags & 1)
         FreeThis(this);
     return this;
 }

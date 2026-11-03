@@ -1,10 +1,10 @@
-extern "C" unsigned int FUN_00215f50(unsigned int param_1) {
-    unsigned int iVar1 = 0;
-    if (param_1 >= 8) {
+extern "C" unsigned int FUN_00215f50(unsigned int value) {
+    unsigned int exponent = 0;
+    if (value >= 8) {
         do {
-            param_1 = (param_1 + 1) >> 1;
-            ++iVar1;
-        } while (param_1 >= 8);
+            value = (value + 1) >> 1;
+            ++exponent;
+        } while (value >= 8);
     }
-    return (iVar1 << 3) | param_1;
+    return (exponent << 3) | value;
 }

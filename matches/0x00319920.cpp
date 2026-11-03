@@ -20,23 +20,23 @@ class Kalmann1D : public Filter1D {
     float m14; // offset 0x14
     float m18; // offset 0x18
 
-    virtual hulk_freg vfunc_1(float param_2, float param_3);
+    virtual hulk_freg vfunc_1(float measurement, float control);
 };
 } // namespace physics
 
 
-hulk_freg physics::Kalmann1D::vfunc_1(float param_2, float param_3) {
+hulk_freg physics::Kalmann1D::vfunc_1(float measurement, float control) {
 #if defined(__clang__)
     hulk_freg q = mC / (m10 + mC);
     m8 = q;
     mC = (DAT_003f32dc - q) * mC + m14;
-    hulk_freg result = (param_2 - m18) * m8 + param_3 * m4 + m18;
+    hulk_freg result = (measurement - m18) * m8 + control * m4 + m18;
     m18 = result;
     return result;
 #else
     m8 = mC / (m10 + mC);
     mC = (DAT_003f32dc - m8) * mC + m14;
-    m18 = (param_2 - m18) * m8 + param_3 * m4 + m18;
+    m18 = (measurement - m18) * m8 + control * m4 + m18;
     return m18;
 #endif
 }

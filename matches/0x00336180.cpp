@@ -5,15 +5,15 @@ class Owner_336180 {
     void Advance();
 };
 extern float __cdecl FUN_003458c1(int);
-extern "C" char __stdcall FUN_00336180(float* param_1, Owner_336180* owner, int c, char param_4) {
+extern "C" char __stdcall FUN_00336180(float* out, Owner_336180* owner, int c, char inPlace) {
     int v = owner->Get();
     if (!v)
         return 0;
     float* p;
-    if (param_4)
-        p = param_1;
+    if (inPlace)
+        p = out;
     else
-        p = (float*)*(hulk_intptr*)param_1;
+        p = (float*)*(hulk_intptr*)out;
     *p = FUN_003458c1(v);
     owner->Advance();
     v = owner->Get();

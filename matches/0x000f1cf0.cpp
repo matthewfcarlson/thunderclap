@@ -19,9 +19,9 @@ struct ThisCall_000eeac0 {
     void FUN_00019420();
 };
 extern void thunk_FUN_00267090(FEContainer_f1cf0*);
-FEContainer_f1cf0* FEContainer_f1cf0::vfunc_2(unsigned char param_2) {
+FEContainer_f1cf0* FEContainer_f1cf0::vfunc_2(unsigned char flags) {
     ((ThisCall_000eeac0*)(this))->FUN_00019420();
-    if ((param_2 & 1) != 0)
+    if ((flags & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
 }

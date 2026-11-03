@@ -5,6 +5,6 @@
 
 struct Obj_240760 {
 };
-extern "C" void __cdecl FUN_00240760(unsigned int param_1) {
-    ((owners::Text_240190 *)((*(Obj_240760**)&DAT_004e5ca0)))->FUN_00240190((const owners::Text_240190 *)(hulk_uintptr)(unsigned int)param_1);
+extern "C" void __cdecl FUN_00240760(unsigned int text) {
+    ((owners::Text_240190 *)((*(Obj_240760**)&DAT_004e5ca0)))->FUN_00240190((const owners::Text_240190 *)(hulk_uintptr)(unsigned int)text);
 }

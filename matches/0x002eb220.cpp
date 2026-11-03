@@ -5,9 +5,9 @@ struct Thing_2eb220 {
     char pad2[0x70];
     uint_2eb220 value;
 };
-void FUN_002eb220(int param_1, Thing_2eb220* param_2, uint_2eb220 param_3) {
-    if (param_1 && param_2) {
-        param_2->value = param_3;
-        param_2->flags |= 0x40;
+void FUN_002eb220(int handle, Thing_2eb220* object, uint_2eb220 newValue) {
+    if (handle && object) {
+        object->value = newValue;
+        object->flags |= 0x40;
     }
 }

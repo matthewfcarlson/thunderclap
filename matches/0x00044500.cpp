@@ -1,3 +1,3 @@
-extern "C" bool FUN_00044500(void* param_1) {
-    return param_1 != 0;
+extern "C" bool FUN_00044500(void* ptr) {
+    return ptr != 0;
 }

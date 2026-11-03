@@ -3,8 +3,8 @@ struct Obj_2d7e90 {
     char pad[8];
     uint_2d7e90 value;
 };
-extern "C" uint_2d7e90 FUN_002d7e90(int param_1, Obj_2d7e90* param_2, uint_2d7e90 param_3) {
-    if (param_1 != 0 && param_2 != 0)
-        return param_2->value & param_3;
+extern "C" uint_2d7e90 FUN_002d7e90(int handle, Obj_2d7e90* object, uint_2d7e90 mask) {
+    if (handle != 0 && object != 0)
+        return object->value & mask;
     return 0;
 }

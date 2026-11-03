@@ -15,9 +15,9 @@ namespace hulkfight { namespace motion { class ProjectileMissile {
     virtual void f();
     virtual void g();
 }; }}
-hulkfight::motion::ProjectileMissile* hulkfight::motion::ProjectileMissile::vfunc_2(byte_19e8e0 param_2) {
+hulkfight::motion::ProjectileMissile* hulkfight::motion::ProjectileMissile::vfunc_2(byte_19e8e0 flags) {
     tick();
-    if (param_2 & 1)
+    if (flags & 1)
         (*(Alloc_19e8e0*)&DAT_004e2210).f(this, 0xdc);
     return this;
 }

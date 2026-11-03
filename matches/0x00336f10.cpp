@@ -16,9 +16,9 @@ class CAction_336f10 {
 extern void __fastcall FUN_00019420(void*);
 extern void thunk_FUN_00267090(movie::BinkCallback*);
 
-void* movie::BinkCallback::vfunc_1_BinkCallback(unsigned char param_2) {
+void* movie::BinkCallback::vfunc_1_BinkCallback(unsigned char flags) {
     FUN_00019420((void*)(this));
-    if ((param_2 & 1) != 0)
+    if ((flags & 1) != 0)
         thunk_FUN_00267090(this);
     return (void*)(this);
 }

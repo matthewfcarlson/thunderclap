@@ -5,16 +5,16 @@ extern int g_vftable_1c57f0;
 struct Store_1c57f0 {
     void* m_vptr;
     void base2_dtor();
-    void* scalar_dtor(unsigned char param_2);
+    void* scalar_dtor(unsigned char flags);
 };
 
 void thunk_delete(void*);
 
-void* Store_1c57f0::scalar_dtor(unsigned char param_2) {
+void* Store_1c57f0::scalar_dtor(unsigned char flags) {
     m_vptr = (void*)&g_vftable_1c57f0;
     ((Render::StoreBase *)this)->FUN_001c7720();
     base2_dtor();
-    if (param_2 & 1)
+    if (flags & 1)
         thunk_delete(this);
     return this;
 }

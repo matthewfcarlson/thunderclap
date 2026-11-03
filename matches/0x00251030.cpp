@@ -16,10 +16,10 @@ struct H2_251030 {
     void run();
 };
 extern void __cdecl FUN_00247550(void*, SeqEventStopTrack*);
-SeqEventStopTrack* SeqEventStopTrack::f4_impl(unsigned char param_2) {
+SeqEventStopTrack* SeqEventStopTrack::f4_impl(unsigned char flags) {
     ((H1*)((char*)this + 0x10))->run();
     ((H2_251030*)this)->run();
-    if (param_2 & 1)
+    if (flags & 1)
         FUN_00247550(((char*)&DAT_004e6bc8), this);
     return this;
 }

@@ -17,9 +17,9 @@ class RDLHandler_44a80 : public CAction {
 };
 extern void __fastcall FUN_00019420(void*);
 extern void thunk_FUN_00267090(RDLHandler_44a80*);
-RDLHandler_44a80* RDLHandler_44a80::vfunc_2(unsigned char param_2) {
+RDLHandler_44a80* RDLHandler_44a80::vfunc_2(unsigned char flags) {
     FUN_00019420((void*)(this));
-    if ((param_2 & 1) != 0)
+    if ((flags & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
 }

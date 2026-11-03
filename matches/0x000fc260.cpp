@@ -5,6 +5,6 @@
 struct Obj_fc260 {
     int f(unsigned int);
 };
-extern "C" int __cdecl FUN_000fc260(unsigned int param_1) {
-    return (*(Obj_fc260**)&DAT_004e0a60)->f(param_1);
+extern "C" int __cdecl FUN_000fc260(unsigned int value) {
+    return (*(Obj_fc260**)&DAT_004e0a60)->f(value);
 }

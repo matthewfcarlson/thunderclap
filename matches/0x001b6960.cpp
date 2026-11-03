@@ -16,9 +16,9 @@ class CProjectile {
     virtual void vfunc_5();
     virtual void vfunc_6();
 };
-CProjectile* CProjectile::vfunc_2(byte_1b6960 param_2) {
+CProjectile* CProjectile::vfunc_2(byte_1b6960 flags) {
     *(hulk_intptr*)this = (hulk_intptr)&gVtable_1b6960;
-    if ((param_2 & 1) != 0)
+    if ((flags & 1) != 0)
         gAlloc_1b6960.f(this, 0x18);
     return this;
 }

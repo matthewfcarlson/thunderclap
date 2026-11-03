@@ -9,7 +9,7 @@ struct Obj_242c30 {
     char pad[0x18];
     int a, b, c, d, e, f, g, h;
 };
-extern "C" Obj_242c30* __cdecl FUN_00242c30(int param_1, int param_2) {
+extern "C" Obj_242c30* __cdecl FUN_00242c30(int owner, int key) {
     Obj_242c30* q = (Obj_242c30*)FUN_00247530(((int*)&DAT_004e5df8));
     Obj_242c30* p;
     if (q) {
@@ -19,13 +19,13 @@ extern "C" Obj_242c30* __cdecl FUN_00242c30(int param_1, int param_2) {
     } else
         p = 0;
     int zero = 0;
-    p->d = param_1;
+    p->d = owner;
     p->f = zero;
     p->g = 0x3f800000;
     p->e = zero;
-    p->c = param_2;
+    p->c = key;
     p->h = zero;
-    FUN_002422e0((void *)(hulk_uintptr)(int)(param_1 + 0x14), p, &p->c);
-    FUN_00257e80(param_2 + 0x28, (char*)p + 0x10);
+    FUN_002422e0((void *)(hulk_uintptr)(int)(owner + 0x14), p, &p->c);
+    FUN_00257e80(key + 0x28, (char*)p + 0x10);
     return p;
 }

@@ -20,9 +20,9 @@ struct FEThings_nv_de110 {
     void FUN_00019420();
 };
 extern void thunk_FUN_00267090(FEThings_de110*);
-FEThings_de110* FEThings_de110::vfunc_2(unsigned char param_2) {
+FEThings_de110* FEThings_de110::vfunc_2(unsigned char flags) {
     ((FEThings_nv_de110*)(((FEThings*)(this))))->FUN_00019420();
-    if ((param_2 & 1) != 0)
+    if ((flags & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
 }

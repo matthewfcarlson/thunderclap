@@ -3,9 +3,9 @@
 
 typedef unsigned int u32_33eb70;
 struct Setter_33eb70 {
-    void Set(u32_33eb70 param_1, u32_33eb70 param_2);
+    void Set(u32_33eb70 first, u32_33eb70 second);
 };
-void Setter_33eb70::Set(u32_33eb70 param_1, u32_33eb70 param_2) {
-    (*(u32_33eb70*)&DAT_005660d8) = param_1;
-    (*(u32_33eb70*)&DAT_005660dc) = param_2;
+void Setter_33eb70::Set(u32_33eb70 first, u32_33eb70 second) {
+    (*(u32_33eb70*)&DAT_005660d8) = first;
+    (*(u32_33eb70*)&DAT_005660dc) = second;
 }

@@ -2,6 +2,6 @@ struct Obj_2dd1a0 {
     char pad[0x68];
     unsigned int flags;
 };
-extern "C" void FUN_002dd1a0(Obj_2dd1a0* param_1) {
-    param_1->flags |= 1;
+extern "C" void FUN_002dd1a0(Obj_2dd1a0* object) {
+    object->flags |= 1;
 }

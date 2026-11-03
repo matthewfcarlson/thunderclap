@@ -13,8 +13,8 @@ class Obj_e9010 {
     void run(int, int, int);
 };
 
-void VScroll::vfunc_10(int param_2) {
+void VScroll::vfunc_10(int arg) {
     Obj_e9010* p = (*(Obj_e9010 * *)&this->f_244);
-    if (p && param_2 == 0)
+    if (p && arg == 0)
         p->run(0, -1, -1);
 }

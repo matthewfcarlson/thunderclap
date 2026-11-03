@@ -20,9 +20,9 @@ struct CFEManager_nv_c1f50 {
     void FUN_00019420();
 };
 extern void thunk_FUN_00267090(CFEManager_c1f50*);
-CFEManager_c1f50* CFEManager_c1f50::vfunc_2(unsigned char param_2) {
+CFEManager_c1f50* CFEManager_c1f50::vfunc_2(unsigned char flags) {
     ((CFEManager_nv_c1f50*)(((CFEManager*)(this))))->FUN_00019420();
-    if ((param_2 & 1) != 0)
+    if ((flags & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
 }

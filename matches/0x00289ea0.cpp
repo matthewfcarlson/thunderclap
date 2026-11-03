@@ -10,11 +10,11 @@ class AnimationGroup {
     char pad[4];
 };
 extern void __cdecl thunk_FUN_00267090(AnimationGroup*);
-AnimationGroup* AnimationGroup::vfunc_0(unsigned char param_2) {
+AnimationGroup* AnimationGroup::vfunc_0(unsigned char flags) {
     *(void**)this = (void*)((hulk_intptr)DAT_0042c8c4);
     AnimationGroup::vfunc_1();
     ((Sub_289ea0*)((char*)this + 8))->f();
-    if (param_2 & 1)
+    if (flags & 1)
         thunk_FUN_00267090(this);
     return this;
 }

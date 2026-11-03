@@ -4,11 +4,11 @@ class Reader {
     void Next();
 };
 extern "C" long __cdecl atol(const char*);
-extern "C" char __stdcall FUN_003362f0(long* out, Reader* reader, int unused, char param_4) {
+extern "C" char __stdcall FUN_003362f0(long* out, Reader* reader, int unused, char inPlace) {
     char* s = reader->Get();
     if (!s)
         return 0;
-    long* dest = param_4 ? out : (long*)*out;
+    long* dest = inPlace ? out : (long*)*out;
     *dest = atol(s);
     dest++;
     reader->Next();

@@ -19,9 +19,9 @@ struct ThisCall_00067a20 {
     void FUN_00019420();
 };
 extern void thunk_FUN_00267090(CCollisionAction*);
-CCollisionAction* CCollisionAction::vfunc_2(unsigned char param_2) {
+CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
     ((ThisCall_00067a20*)(this))->FUN_00019420();
-    if ((param_2 & 1) != 0)
+    if ((flags & 1) != 0)
         thunk_FUN_00267090(this);
     return this;
 }
