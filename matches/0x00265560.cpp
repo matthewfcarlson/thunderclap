@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class Obj_265560 {
   public:
     virtual void f();
@@ -5,7 +6,6 @@ class Obj_265560 {
 };
 class Holder_265560 {
   public:
-    int Count(Obj_265560*);
 };
 class C_265560 {
   public:
@@ -14,7 +14,7 @@ class C_265560 {
     void target(Obj_265560* p);
 };
 void C_265560::target(Obj_265560* p) {
-    int n = m->Count(p);
+    int n = ((owners::Obj_231770 *)m)->FUN_00231770((hulk_uintptr)(Obj_265560 *)p);
     while (n > 0) {
         p->g();
         --n;

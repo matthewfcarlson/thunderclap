@@ -1,10 +1,5 @@
-class C_15ada0 {
-  public:
-    char pad[0x14];
-    int m14;
-    char Set(int x);
-};
-char C_15ada0::Set(int x) {
+#include "gen/owners.h"
+char owners::C_15ada0::FUN_0015ada0(int x) {
     m14 = x;
     return 1;
 }

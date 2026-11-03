@@ -1,10 +1,5 @@
-class O_47de0 {
-  public:
-    bool Set(int x);
-    char pad[12];
-    int m;
-};
-bool O_47de0::Set(int x) {
+#include "gen/owners.h"
+bool owners::O_47de0::FUN_00047de0(int x) {
     m = x;
     return true;
 }

@@ -1,11 +1,6 @@
-class O_18cc20 {
-  public:
-    char pad[0x1c];
-    int m;
-    bool f(int a);
-};
+#include "gen/owners.h"
 
-bool O_18cc20::f(int a) {
+bool owners::O_18cc20::FUN_0018cc20(int a) {
     m = a;
     return true;
 }

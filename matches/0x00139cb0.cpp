@@ -1,11 +1,6 @@
-class Obj_139cb0 {
-  public:
-    char pad[0x20];
-    int mField;
-    bool Set(int value);
-};
+#include "gen/owners.h"
 
-bool Obj_139cb0::Set(int value) {
+bool owners::Obj_139cb0::FUN_00139cb0(int value) {
     mField = value;
     return true;
 }

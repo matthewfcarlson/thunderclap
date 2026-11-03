@@ -1,7 +1,7 @@
 // FUN_000675b0 @ 0x000675b0
+#include "gen/owners.h"
 struct Slot_675b0 {
     char data[0x1c];
-    void FUN_00230b60();
 };
 
 class Vehicle_675b0 {
@@ -65,9 +65,9 @@ Vehicle_675b0 *Vehicle_675b0::FUN_000675b0()
     f2cc = 10;
     f2d0 = 3;
     f2d4 = 10;
-    s2d8.FUN_00230b60();
-    s2f4.FUN_00230b60();
-    s310.FUN_00230b60();
+    ((owners::X_230b60 *)&s2d8)->FUN_00230b60();
+    ((owners::X_230b60 *)&s2f4)->FUN_00230b60();
+    ((owners::X_230b60 *)&s310)->FUN_00230b60();
     f330 = 10;
     f338 = 10;
     f358 = 2.0f;

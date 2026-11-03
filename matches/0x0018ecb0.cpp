@@ -1,9 +1,6 @@
-class X_18ecb0 {
-  public:
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char X_18ecb0::Set(int v) {
+char owners::X_18ecb0::FUN_0018ecb0(int v) {
     *(int*)((char*)this + 0xc) = v;
     return 1;
 }

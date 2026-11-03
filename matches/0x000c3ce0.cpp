@@ -1,11 +1,6 @@
-struct Object {
-    char padding[0x4c];
-    unsigned int enabled;
-    void FUN_000c21b0(int id);
-    void FUN_000c3ce0();
-};
+#include "gen/owners.h"
 
-void Object::FUN_000c3ce0() {
+void owners::Object_c3ce0::FUN_000c3ce0() {
     if (!enabled)
         return;
     FUN_000c21b0(0);

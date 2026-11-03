@@ -1,10 +1,5 @@
-class Obj_e76a0 {
-  public:
-    char pad[0x610];
-    int entries[0x401];
-    void put(int value);
-};
-void Obj_e76a0::put(int value) {
+#include "gen/owners.h"
+void owners::Obj_e76a0::FUN_000e76a0(hulk_intptr value) {
     int i = 0;
     do {
         if (entries[i - 1] == 0)
@@ -24,5 +19,5 @@ void Obj_e76a0::put(int value) {
         i += 4;
     } while (i < 0x400);
     if (i != 0x400)
-        entries[i - 1] = value;
+        entries[i - 1] = ((int)value);
 }

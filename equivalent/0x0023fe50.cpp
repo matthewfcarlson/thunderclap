@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 9/10, incomplete)
 // FUN_0023fe50 @ 0x0023fe50
 #include "decls/data/engine/audio.h"
+#include "gen/owners.h"
 
 struct StringHeader_23fe50 { unsigned int capacity; unsigned short references; unsigned short reserved; };
 extern void __cdecl FUN_00247570(StringHeader_23fe50*);
 extern "C" void __cdecl FUN_0023fa40(int *, char *, unsigned int, int);
-struct String { char* data; unsigned short kind; unsigned short reserved; unsigned short length; String* assign(const char* source); };
-String* String::assign(const char* source) {
+owners::String_23fe50* owners::String_23fe50::FUN_0023fe50(const char* source) {
     if (kind == 2) {
         StringHeader_23fe50* header = reinterpret_cast<StringHeader_23fe50*>(data) - 1;
         if (header->references == 1) {

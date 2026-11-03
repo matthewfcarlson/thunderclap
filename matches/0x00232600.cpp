@@ -1,11 +1,5 @@
-class X_232600 {
-    char pad[12];
-    unsigned int flags;
-
-  public:
-    void f(unsigned int mask, bool enabled);
-};
-void X_232600::f(unsigned int mask, bool enabled) {
+#include "gen/owners.h"
+void owners::X_232600::FUN_00232600(unsigned int mask, bool enabled) {
     if (enabled)
         flags |= mask;
     else

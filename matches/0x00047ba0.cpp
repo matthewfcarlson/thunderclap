@@ -1,10 +1,5 @@
-class Obj_47ba0 {
-  public:
-    char pad[0x10];
-    int m10;
-    bool SetX(int v);
-};
-bool Obj_47ba0::SetX(int v) {
+#include "gen/owners.h"
+bool owners::Obj_47ba0::FUN_00047ba0(int v) {
     m10 = v;
     return true;
 }

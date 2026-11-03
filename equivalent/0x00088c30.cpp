@@ -2,11 +2,12 @@
 // FUN_00088c30 @ 0x00088c30
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
 struct Target_88c30;
 struct Vec_88c30 { unsigned int x,y,z; };
 struct Service_88c30 {
- void FUN_001ce020(void*); void FUN_001cbfe0(void*); void FUN_000b3d80(void*); void FUN_00106430(Target_88c30*,void*); void FUN_001af770(); void FUN_000677d0(); void FUN_0002ab40(Target_88c30*,void*); void FUN_001e6f10(Target_88c30*,void*); void FUN_00080b70(Target_88c30*,void*); void FUN_001b5da0(Target_88c30*,void*); void FUN_001dbe50(Target_88c30*); void FUN_0002ae80(Target_88c30*,void*); void FUN_001b6a90(Target_88c30*,void*); void FUN_001fc6a0(void*); void FUN_001f7320(Target_88c30*,void*); void FUN_001d1160(void*); void FUN_0009bb50(Target_88c30*,void*); Vec_88c30* FUN_001c39b0(); Vec_88c30* FUN_001c39c0(); Vec_88c30* FUN_001c39d0(); void FUN_001eda90(Vec_88c30,Vec_88c30,Vec_88c30); void FUN_001c04e0(void*); void FUN_001bc710(void*); Service_88c30* FUN_00086320(); float FUN_00085fc0(); void FUN_000d6f30(Target_88c30*,float); void FUN_001ed320(Target_88c30*,void*); void FUN_000b3d40();
+ void FUN_001ce020(void*); void FUN_001cbfe0(void*); void FUN_000b3d80(void*); void FUN_00106430(Target_88c30*,void*); void FUN_001af770(); void FUN_000677d0(); void FUN_0002ab40(Target_88c30*,void*); void FUN_001e6f10(Target_88c30*,void*);  void FUN_001b5da0(Target_88c30*,void*); void FUN_001dbe50(Target_88c30*); void FUN_0002ae80(Target_88c30*,void*); void FUN_001b6a90(Target_88c30*,void*); void FUN_001fc6a0(void*); void FUN_001f7320(Target_88c30*,void*); void FUN_001d1160(void*); void FUN_0009bb50(Target_88c30*,void*); Vec_88c30* FUN_001c39b0(); Vec_88c30* FUN_001c39c0();  void FUN_001eda90(Vec_88c30,Vec_88c30,Vec_88c30); void FUN_001c04e0(void*); void FUN_001bc710(void*); Service_88c30* FUN_00086320(); float FUN_00085fc0(); void FUN_000d6f30(Target_88c30*,float); void FUN_001ed320(Target_88c30*,void*); void FUN_000b3d40();
 };
 extern Service_88c30* __cdecl FUN_000678d0();
 extern unsigned int __cdecl FUN_00267f00();
@@ -34,7 +35,7 @@ void Target_88c30::update(int* kind,void* arg) {
  unsigned int end=FUN_00267f00();
  if((*(unsigned char*)&DAT_004dd8e4)) DAT_004dd918=FUN_00085e60(end-start,0);
  }
- s4c->FUN_00080b70(this,arg);
+ ((owners::C_80b70 *)s4c)->FUN_00080b70((hulk_uintptr)(Target_88c30 *)this, (hulk_uintptr)arg);
  s10->FUN_001b5da0(this,arg);
  s0c->FUN_001dbe50(this);
  s20->FUN_0002ae80(this,arg);
@@ -48,7 +49,7 @@ void Target_88c30::update(int* kind,void* arg) {
  Service_88c30* destination=s34;
  Vec_88c30* a=source->FUN_001c39b0();
  Vec_88c30* b=source->FUN_001c39c0();
- Vec_88c30* c=source->FUN_001c39d0();
+ Vec_88c30* c=((Vec_88c30 *)((owners::Object_1c39d0 *)source)->FUN_001c39d0());
  destination->FUN_001eda90(*c,*b,*a);
  s50->FUN_001c04e0(arg);
  s40->FUN_001bc710(arg);

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 599 inputs, branch coverage 8/8)
 // FUN_00024a90 @ 0x00024a90
 #include "decls/address.h"
+#include "gen/owners.h"
 union Id64_24a90 {
     unsigned __int64 q;
     unsigned int w[2];
@@ -17,7 +18,6 @@ struct Entity {
 };
 
 struct World {
-    Entity *FUN_00059c10(int handle);
 };
 
 struct Game_24a90 {
@@ -40,7 +40,7 @@ int Roster_24a90::FUN_00024a90(const char *name)
     int matches = 0;
     for (int i = 0; i < count; i++) {
         Id64_24a90 id;
-        id.q = game->world->FUN_00059c10(handles[i])->clock->FUN_000443c0();
+        id.q = ((Entity *)((owners::ThisWrap_00059c10 *)(game->world))->FUN_00059c10((void *)(hulk_uintptr)(int)(handles[i])))->clock->FUN_000443c0();
         if (key.w[0] == id.w[0] && key.w[1] == id.w[1])
             matches++;
     }

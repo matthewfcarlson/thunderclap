@@ -1,17 +1,8 @@
-class X_2647e0 {
-  public:
-    char pad[0xC];
-    unsigned char a;
-    char padD;
-    unsigned char b;
-    unsigned char target(int, int, int, int);
-    unsigned char first(int, int, int, int);
-    unsigned char second(int, int, int, int);
-};
-unsigned char X_2647e0::target(int x, int y, int z, int w) {
+#include "gen/owners.h"
+unsigned char owners::X_2647e0::FUN_002647e0(hulk_intptr x, hulk_intptr y, int z, hulk_intptr w) {
     if (!a)
         return 0;
     if (!b)
-        return first(x, y, z, w);
-    return second(x, y, z, w);
+        return first(((int)x), ((int)y), z, ((int)w));
+    return second(((int)x), ((int)y), z, ((int)w));
 }

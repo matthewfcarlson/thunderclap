@@ -1,11 +1,6 @@
-class Node {
-  public:
-    char pad[0x14];
-    Node* next;
-    bool Contains(Node*);
-};
-bool Node::Contains(Node* other) {
-    Node* p = next;
+#include "gen/owners.h"
+bool owners::Node_232ed0::FUN_00232ed0(owners::Node_232ed0* other) {
+    owners::Node_232ed0* p = next;
     while (p) {
         if (p == other)
             return true;

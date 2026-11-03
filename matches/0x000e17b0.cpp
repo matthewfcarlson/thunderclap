@@ -2,6 +2,7 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight.h"
 // data: minusone = DAT_003f3388, zero_e17b0 = DAT_003f32e0
+#include "gen/owners.h"
 
 class FEDoAction_e17b0 {
   public:
@@ -24,7 +25,6 @@ class Helper_e17b0 {
     int done;
 };
 struct FEDoAnimation_nv_e17b0 {
-    void update();
 };
 
 void FEDoAnimation::vfunc_1() {
@@ -32,7 +32,7 @@ void FEDoAnimation::vfunc_1() {
     if (h) {
         if (this->f_40 != DAT_003f32e0) {
             this->f_3c = h->f();
-            ((FEDoAnimation_nv_e17b0*)this)->update();
+            ((owners::Obj_e0100 *)(((FEDoAnimation_nv_e17b0*)this)))->FUN_000e0100();
         } else if (this->f_3c > DAT_003f3388) {
             h->e(this->f_3c);
         }

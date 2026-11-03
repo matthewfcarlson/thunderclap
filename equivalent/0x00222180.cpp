@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 0/0)
 // FUN_00222180 @ 0x00222180
+#include "gen/owners.h"
 struct Arg_222180 {
     char pad0[4];
     int f4;                     // 0x04
@@ -17,9 +18,6 @@ struct Mat_222180 {
     Pos_222180 pos;                    // 0x30
     float tw;
     void FUN_0022b980();
-    void FUN_0022ba30(float angle);
-    void FUN_0022ba70(float angle);
-    void FUN_0022ca90(Mat_222180 *a, Mat_222180 *b);
 };
 
 class Node {
@@ -39,10 +37,10 @@ void Node::FUN_00222180(Arg_222180 *a)
     } fr;
     fr.saved = mat.pos;
     mat.FUN_0022b980();
-    mat.FUN_0022ba30(FUN_000189c0(a->f4));
+    ((owners::Matrix_22ba30 *)&mat)->FUN_0022ba30(FUN_000189c0(a->f4));
     fr.tilt.FUN_0022b980();
-    fr.tilt.FUN_0022ba70(FUN_00224f10(a));
-    fr.product.FUN_0022ca90(&mat, &fr.tilt);
+    ((owners::Mat_22ba70 *)&(fr.tilt))->FUN_0022ba70(FUN_00224f10(a));
+    ((owners::Matrix_22ca90 *)&(fr.product))->FUN_0022ca90((const owners::Matrix_22ca90 *)(Mat_222180 *)(&mat), (const owners::Matrix_22ca90 *)(Mat_222180 *)(&fr.tilt));
     mat = fr.product;
     mat.pos = fr.saved;
     state = 2;

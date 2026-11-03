@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001b8690 @ 0x001b8690
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 struct View_nv_1b8690 {
     pure3d::View *FUN_00294880();
-    void FUN_00293e40(int a, int b, int c, int d);
-    void FUN_00293e90(unsigned int c);
 };
 extern "C" void *__cdecl FUN_0008d690(unsigned int n);
 
@@ -23,8 +22,8 @@ void Owner_1b8690::FUN_001b8690()
         c = ((View_nv_1b8690*)(c))->FUN_00294880();
     child = c;
     c->vfunc_0();
-    ((View_nv_1b8690*)(child))->FUN_00293e40(v[0], v[1], v[2], v[3]);
+    ((owners::A_293e40 *)(((View_nv_1b8690*)(child))))->FUN_00293e40(v[0], v[1], v[2], v[3]);
     (*(unsigned int *)&child->f_20) = 0xff000000;
     (*(unsigned int *)&child->f_2c) = 0xffffffff;
-    ((View_nv_1b8690*)(child))->FUN_00293e90(0xff000000);
+    ((owners::C_293e90 *)(((View_nv_1b8690*)(child))))->FUN_00293e90(0xff000000);
 }

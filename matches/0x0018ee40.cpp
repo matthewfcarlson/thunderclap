@@ -1,9 +1,5 @@
-struct Obj_18ee40 {
-    char pad[0x18];
-    int m18;
-    bool Set(int v);
-};
-bool Obj_18ee40::Set(int v) {
+#include "gen/owners.h"
+bool owners::Obj_18ee40::FUN_0018ee40(int v) {
     m18 = v;
     return true;
 }

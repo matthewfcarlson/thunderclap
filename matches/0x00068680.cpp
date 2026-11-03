@@ -1,9 +1,6 @@
-class C_68680 {
-  public:
-    char Get(int a);
-};
+#include "gen/owners.h"
 
-char C_68680::Get(int a) {
+char owners::C_68680::FUN_00068680(int a) {
     *(int*)((char*)this + 0x64) = a;
     return 1;
 }

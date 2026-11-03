@@ -3,9 +3,8 @@
 // cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-struct TextTable {
- int FUN_000f7d30(const char*);
- const unsigned short* FUN_000f7220(int);
+#include "gen/owners.h"
+struct TextTable_d9a80 {
 };
 struct Dialog_d9a80 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
@@ -19,7 +18,7 @@ struct Dialog_d9a80 {
  virtual void slot32(); virtual void slot33(); virtual void slot34(); virtual void slot35();
  virtual void slot36(); virtual void slot37(); virtual void slot38(); virtual void slot39();
  virtual void slot40(); virtual void slot41(); virtual void slot42(); virtual void slot43();
- virtual TextTable* slot44();
+ virtual TextTable_d9a80* slot44();
  void FUN_000be310(const char*, const unsigned short*, const float*, const float*, const char*, int, const char*, const char*);
 };
 struct Status_d9a80 { char pad[0x1bc8]; unsigned char active; };
@@ -35,9 +34,9 @@ struct FEMemCardControl_d9a80 {
 void FEMemCardControl_d9a80::FUN_000d9a80(int) {
  unsigned short text[512];
  Dialog_d9a80* dialog = FUN_000fc3d0();
- TextTable* table = dialog->slot44();
- int id = table->FUN_000f7d30((*(const char**)&DAT_004a0cb0));
- const unsigned short* source = table->FUN_000f7220(id);
+ TextTable_d9a80* table = dialog->slot44();
+ int id = ((int)((owners::A_f7d30 *)table)->FUN_000f7d30((hulk_intptr)((*(const char**)&DAT_004a0cb0))));
+ const unsigned short* source = ((const unsigned short *)((owners::C_f7220 *)table)->FUN_000f7220((hulk_intptr)id));
  FUN_000fc020(text, 512, source);
  const char* heading;
  if (mode) heading = (*(const char**)&DAT_004a0ce8);

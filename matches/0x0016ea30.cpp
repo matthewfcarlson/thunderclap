@@ -1,10 +1,5 @@
-class C_16ea30 {
-  public:
-    char pad[0xc];
-    int mValue;
-    bool Set(int v);
-};
-bool C_16ea30::Set(int v) {
+#include "gen/owners.h"
+bool owners::C_16ea30::FUN_0016ea30(int v) {
     mValue = v;
     return true;
 }

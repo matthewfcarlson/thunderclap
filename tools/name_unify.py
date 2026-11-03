@@ -1349,8 +1349,9 @@ def header_member(cls, mname):
             if q is None:
                 raise rn_transform.SwapFail("header member type %s not a gen class" % base[0])
             q = ("const " if pi[2] else "") + (q if "::" in q else "::" + q) + " " + "*" * pi[4]
-        elif any(t.v.startswith("hulk_") for t in p):
-            q = next(t.v for t in p if t.v.startswith("hulk_"))
+        elif any(text[t.s:t.e].startswith("hulk_") for t in p):
+            # (the tokenizer says hulk_intptr & co. as the 32-bit types: the spelling is in the text)
+            q = next(text[t.s:t.e] for t in p if text[t.s:t.e].startswith("hulk_"))
         quals.append(q)
     d["qual"] = quals                 # [return, params...]: spelled for outside use (None = as parsed)
     return fn, d
@@ -1404,6 +1405,8 @@ def member_ret_cast(rc, rk, qk):
         return "" if rk[0] == "void" else "void"
     if rk[0] == "void":
         raise rn_transform.SwapFail("the caller uses a void return")
+    if rk[0] == "int" and qk and qk.startswith("hulk_") and rc[0] == "ptr":
+        return "(%s)" % rc[1]         # (an owner class's pointer-sized integer return, tools/owner_classes.py)
     if rk[0] == "ptr":
         if rc[0] == "int" and rc[1] == 4 and not rc[3]:
             return "(%s)(hulk_uintptr)" % rc[2]

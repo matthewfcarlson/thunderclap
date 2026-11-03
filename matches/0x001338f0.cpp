@@ -1,12 +1,7 @@
 // cl-flags: /O2
-class X_1338f0 {
-  public:
-    char pad[0x30];
-    char m30;
-    unsigned char Set(char b);
-};
+#include "gen/owners.h"
 
-unsigned char X_1338f0::Set(char b) {
+unsigned char owners::X_1338f0::FUN_001338f0(char b) {
     m30 = b;
     return 1;
 }

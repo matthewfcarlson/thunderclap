@@ -1,10 +1,5 @@
-class Thing_14cf20 {
-  public:
-    char pad[20];
-    char m14;
-    char SetByte(char v);
-};
-char Thing_14cf20::SetByte(char v) {
+#include "gen/owners.h"
+char owners::Thing_14cf20::FUN_0014cf20(char v) {
     m14 = v;
     return 1;
 }

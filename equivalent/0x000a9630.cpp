@@ -3,6 +3,7 @@
 // cl-flags: /GS
 #include "decls/data/game/global.h"
 #include "compat/ptr.h"
+#include "gen/owners.h"
 
 extern "C" double sqrt(double);
 
@@ -25,7 +26,6 @@ struct Item_a9630 {
     char pad[0x124];
     Attach_a9630* attach;
     bool FUN_000359e0(Sphere_a9630* out);
-    SubObj_a9630* FUN_00035ef0(int index);
 };
 struct List_a9630 {
     char pad[0xc];
@@ -93,7 +93,7 @@ void Manager_a9630::FUN_000a9630(Holder_a9630* holder) {
         if (item->attach && item->attach->effect)
             item->attach->effect->FUN_001c5130(a, b);
         for (int j = 0; j < 8; j++) {
-            SubObj_a9630* sub = item->FUN_00035ef0(j);
+            SubObj_a9630* sub = ((SubObj_a9630 *)((owners::C_35ef0 *)item)->FUN_00035ef0((hulk_intptr)j));
             if (sub && sub->effect)
                 sub->effect->FUN_001c5130(a, b);
         }

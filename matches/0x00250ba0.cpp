@@ -4,13 +4,13 @@
 
 #include "compat/ptr.h"
 #include "gen/audio.h"
+#include "gen/owners.h"
 
 typedef unsigned int u32_250ba0;
 extern "C" void* __cdecl FUN_00247530(void*);
 extern int gVtable_250ba0;
 class NameObj_250ba0 {
   public:
-    void set(const char*, int);
 };
 class NestTrack_250ba0 {
   public:
@@ -25,7 +25,7 @@ void* audio::SeqEventExpressionType::vfunc_3() {
     if (p) {
         p->init();
         p->vf = (hulk_uintptr)&gVtable_250ba0;
-        p->name.set(DAT_00429ca4, 2);
+        ((owners::String_23fc40 *)&(p->name))->FUN_0023fc40(DAT_00429ca4, (hulk_intptr)2);
         return (void*)(p);
     }
     return (void*)(0);

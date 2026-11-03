@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Item_1f89e0 {
     __int64 Key();
 };
@@ -5,7 +6,6 @@ struct Collection_1f89e0 {
     char pad[12];
     int count;
     Item_1f89e0* Find(__int64);
-    Item_1f89e0* At(int);
 };
 struct Manager_1f89e0 {
     char pad[4];
@@ -30,8 +30,8 @@ char Owner_1f89e0::Test(const char* name) {
             return 1;
         __int64 p = MakeKey(name);
         for (int i = 0; i < c->count; ++i) {
-            if (c->At(i)->Key() == p) {
-                saved->value = c->At(i);
+            if (((Item_1f89e0 *)((owners::C_44ab0 *)c)->FUN_00044ab0(i))->Key() == p) {
+                saved->value = ((Item_1f89e0 *)((owners::C_44ab0 *)c)->FUN_00044ab0(i));
                 return 1;
             }
         }

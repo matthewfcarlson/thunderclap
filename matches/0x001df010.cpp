@@ -1,12 +1,12 @@
 // FUN_001df010 @ 0x001df010
 #include "decls/address.h"
+#include "gen/owners.h"
 
 struct Mat4_1df010 {
     float m[12];
     int tx, ty, tz;
     float w;
     void FUN_0022b980();
-    void FUN_0022bc20(float x, float y, float z);
 };
 
 struct Index_1df010 {
@@ -59,7 +59,7 @@ void Owner_1df010::FUN_001df010(int a1, const char *actorName, int a3, const cha
     }
     Mat4_1df010 m;
     m.FUN_0022b980();
-    m.FUN_0022bc20(rx * 0.01745329238474369f, ry * 0.01745329238474369f, rz * 0.01745329238474369f);
+    ((owners::Matrix_22bc20 *)&m)->FUN_0022bc20(rx * 0.01745329238474369f, ry * 0.01745329238474369f, rz * 0.01745329238474369f);
     m.tx = px;
     m.ty = py;
     m.tz = pz;

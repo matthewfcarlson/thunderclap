@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3043 inputs, branch coverage 42/50, incomplete)
 // FUN_00314be0 @ 0x00314be0
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Vec3_314be0 {
     float x, y, z;
 };
@@ -22,7 +23,6 @@ public:
     char pad28[4];
     Vec3_314be0 v2c;
     Vec3_314be0 v38;
-    Contact_314be0* FUN_002f8ec0(int a1, int a2, int a3, int a4, int a5, Vec3_314be0* a6);
     void FUN_002f7a90(Contact_314be0* other);
 };
 
@@ -67,7 +67,7 @@ void ContactManager::FUN_00314be0(int a1, int a2, int a3, int a4, int a5, Vec3_3
     ab.u &= 0x7fffffff;
     if (ab.f > 0.01f)
         return;
-    f.c.FUN_002f8ec0(a1, a2, a3, a4, a5, normal);
+    ((Contact_314be0 *)((owners::Obj_2f8ec0 *)&(f.c))->FUN_002f8ec0(a1, a2, (hulk_intptr)a3, a4, a5, (hulk_intptr)(Vec3_314be0 *)normal));
     if (flags != 0 && count > 0) {
         f.bitB = flags & 2;
         if (f.bitB) {

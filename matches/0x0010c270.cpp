@@ -1,10 +1,5 @@
-class X_10c270 {
-  public:
-    char pad[0x10];
-    unsigned char mX;
-    unsigned char SetX(unsigned char x);
-};
-unsigned char X_10c270::SetX(unsigned char x) {
+#include "gen/owners.h"
+unsigned char owners::X_10c270::FUN_0010c270(unsigned char x) {
     mX = x;
     return 1;
 }

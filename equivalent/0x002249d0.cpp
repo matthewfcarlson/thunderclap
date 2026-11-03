@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 12/12)
 // choreo2::JointDriver::vfunc_10 @ 0x002249d0
+#include "gen/owners.h"
 struct V3_2249d0 {
     float x, y, z;
 };
 
 struct Quat_2249d0 {
     float x, y, z, w;
-    void FUN_0022b750(const Quat_2249d0 *a, const Quat_2249d0 *b, float t);
 };
 
 struct Transform_2249d0 {
@@ -14,7 +14,6 @@ struct Transform_2249d0 {
     V3_2249d0 pos;
     Quat_2249d0 *FUN_00221cd0();
     void FUN_00221cf0(const Quat_2249d0 *q);
-    void FUN_0022be40(const V3_2249d0 *p);
 };
 
 struct JointPose {
@@ -58,11 +57,11 @@ void JointDriver::vfunc_10(int a, Transform_2249d0 *target, PoseSet_2249d0 *set,
             p.x = (goal.pos.x - p.x) * t + p.x;
             p.y = (goal.pos.y - p.y) * t + p.y;
             p.z = (goal.pos.z - p.z) * t + p.z;
-            target->FUN_0022be40(&p);
+            ((owners::Target_22be40 *)target)->FUN_0022be40((const int *)(const V3_2249d0 *)(&p));
         }
         if (flags & 2) {
             Quat_2249d0 q = *target->FUN_00221cd0();
-            q.FUN_0022b750(&q, goal.FUN_00221cd0(), t);
+            ((owners::Quaternion_22b750 *)&q)->FUN_0022b750((const owners::Quaternion_22b750 *)(const Quat_2249d0 *)(&q), (const owners::Quaternion_22b750 *)(const Quat_2249d0 *)(goal.FUN_00221cd0()), t);
             target->FUN_00221cf0(&q);
         }
     } else {
@@ -80,7 +79,7 @@ void JointDriver::vfunc_10(int a, Transform_2249d0 *target, PoseSet_2249d0 *set,
         }
         if (flags & 2) {
             Quat_2249d0 q = set->rotations[index];
-            q.FUN_0022b750(&q, goal.FUN_00221cd0(), t);
+            ((owners::Quaternion_22b750 *)&q)->FUN_0022b750((const owners::Quaternion_22b750 *)(const Quat_2249d0 *)(&q), (const owners::Quaternion_22b750 *)(const Quat_2249d0 *)(goal.FUN_00221cd0()), t);
             set->rotations[index] = q;
         }
     }

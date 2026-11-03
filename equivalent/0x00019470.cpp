@@ -2,12 +2,12 @@
 // FUN_00019470 @ 0x00019470
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
 struct Vec3_19470 {
     float x, y, z;
     float FUN_0022d110();
     float FUN_000111f0();
-    void FUN_00011160(float s, const Vec3_19470* d);
 };
 
 struct RefObj_19470 {
@@ -157,16 +157,12 @@ struct Fighter_19470 {
     Fighter_19470* f390;
     char pad394[0x20b0 - 0x394];
     int f20b0;
-    void FUN_00035230(Vec3_19470* out);
     char FUN_0003a590(void* world, Fighter_19470* t);
-    float FUN_0003ebb0(int a);
     char FUN_000373d0();
     char FUN_000360f0();
     char FUN_000437a0(Gear_19470* g, CFightParamsCollision_19470* req, int a, int b, int c);
     char FUN_00043350(int a, RefObj_19470* b, int c, float d, int e, int f);
-    void FUN_00035b70(float x, float a, float b);
     void FUN_0003ffa0(RefObj_19470* o, int z);
-    void FUN_00035c70(RefObj_19470* o);
 };
 
 struct Anchor_19470 {
@@ -181,7 +177,6 @@ struct Owner_19470 {
     virtual Tracker_19470* v3();
     char pad04[4];
     RefObj_19470* f8;
-    Anchor_19470* FUN_000592a0();
 };
 
 struct Fx_19470 {
@@ -227,7 +222,7 @@ void Attack::FUN_00019470(Fighter_19470* t, int a2, Vec3_19470* P, Vec3_19470* N
     if (params->f44 == 1)
         return;
 
-    Anchor_19470* anchor = owner->FUN_000592a0();
+    Anchor_19470* anchor = ((Anchor_19470 *)((owners::Object_592a0 *)owner)->FUN_000592a0());
     Fighter_19470* attacker = anchor->FUN_00059a30();
     World* world = DAT_004dd700;
     if (t == attacker || !t || t->f20b0 || t == attacker->f338 || t == attacker->f334 || t == attacker->f390)
@@ -245,7 +240,7 @@ void Attack::FUN_00019470(Fighter_19470* t, int a2, Vec3_19470* P, Vec3_19470* N
     request.scratchAttacker.x = 0;
     request.scratchAttacker.y = 0;
     request.scratchAttacker.z = 0;
-    attacker->FUN_00035230(&request.scratchAttacker);
+    ((owners::Obj_35230 *)attacker)->FUN_00035230((unsigned *)(Vec3_19470 *)(&request.scratchAttacker));
 
     Gear_19470* targetGear = t->f11c;
     if (!targetGear)
@@ -301,7 +296,7 @@ void Attack::FUN_00019470(Fighter_19470* t, int a2, Vec3_19470* P, Vec3_19470* N
     displacement.z = request.target.z - P->z;
     if (displacement.FUN_0022d110() > 1.0f) {
         request.target = *P;
-        request.target.FUN_00011160(1.0f, &displacement);
+        ((owners::Vec3_11160 *)&(request.target))->FUN_00011160(1.0f, (const owners::Vec3_11160 *)(const Vec3_19470 *)(&displacement));
     }
 
     request.aim = *N;
@@ -320,17 +315,17 @@ void Attack::FUN_00019470(Fighter_19470* t, int a2, Vec3_19470* P, Vec3_19470* N
     directionSettings->FUN_00012f50(&direction);
     directionSettings->FUN_00012f80(&alternateDirection);
     if (alternateDirection.FUN_000111f0() > 0.0f) {
-        float blend = attacker->FUN_0003ebb0(1);
+        float blend = ((owners::ClampOwner_3ebb0 *)attacker)->FUN_0003ebb0(1);
         directionDifference.x = alternateDirection.x - direction.x;
         directionDifference.y = alternateDirection.y - direction.y;
         directionDifference.z = alternateDirection.z - direction.z;
-        direction.FUN_00011160(blend, &directionDifference);
+        ((owners::Vec3_11160 *)&direction)->FUN_00011160(blend, (const owners::Vec3_11160 *)(const Vec3_19470 *)(&directionDifference));
     }
 
     float angle = FUN_00224f10((Mat*)&outputVector);
     FUN_00224d70(angle, &direction);
     request.v38 = direction;
-    request.f7c = attacker->FUN_0003ebb0(1);
+    request.f7c = ((owners::ClampOwner_3ebb0 *)attacker)->FUN_0003ebb0(1);
     request.f80 = outB;
 
     int gearMode = targetGear->f14;
@@ -411,7 +406,7 @@ void Attack::FUN_00019470(Fighter_19470* t, int a2, Vec3_19470* P, Vec3_19470* N
         }
 
         params->FUN_00012fd0(&directionDifference);
-        t->FUN_00035b70(directionDifference.x, f40, f44);
+        ((owners::State_35b70 *)t)->FUN_00035b70(directionDifference.x, f40, f44);
         f40 = f40 * 0.75f;
         f44 = f44 * 0.75f;
     }
@@ -428,6 +423,6 @@ void Attack::FUN_00019470(Fighter_19470* t, int a2, Vec3_19470* P, Vec3_19470* N
     }
     if (attacker->f328 == 0)
         attacker->FUN_0003ffa0(t->f12c, 0);
-    attacker->FUN_00035c70(t->f12c);
+    ((owners::Queue_35c70 *)attacker)->FUN_00035c70((hulk_intptr)(RefObj_19470 *)(t->f12c));
     request.FUN_00059300();
 }

@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 48 inputs, branch coverage 12/12)
 // FUN_00046030 @ 0x00046030
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Key_46030 {
  unsigned int first, second;
  void FUN_0027af00();
- void FUN_0027b040(const char* text);
  void FUN_0027af70(const Key_46030* other);
 };
 extern "C" void __cdecl FUN_00363be0();
@@ -23,7 +23,7 @@ void Object::FUN_00046030(const char* text, float value) {
   (*(Key_46030*)&DAT_004dc340).FUN_0027af00();
   _atexit(FUN_00363be0);
  }
- (*(Key_46030*)&DAT_004dc340).FUN_0027b040(text);
+ ((owners::Target_27b040 *)&((*(Key_46030*)&DAT_004dc340)))->FUN_0027b040((hulk_uintptr)text);
  int oldCount = count;
  for (int i=0; i<count; ++i) {
   if (entries[i].key.first == (*(Key_46030*)&DAT_004dc340).first && entries[i].key.second == (*(Key_46030*)&DAT_004dc340).second) {

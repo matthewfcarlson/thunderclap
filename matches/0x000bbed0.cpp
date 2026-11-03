@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class Other {
   public:
-    void Fn();
 };
 class Obj {
   public:
@@ -14,6 +14,6 @@ int Obj::target(void* a, void* b) {
         return -1;
     if (a)
         return -1;
-    p->Fn();
+    ((owners::Owner_b5a30 *)p)->FUN_000b5a30();
     return 0;
 }

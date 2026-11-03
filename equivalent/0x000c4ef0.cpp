@@ -2,6 +2,7 @@
 // FUN_000c4ef0 @ 0x000c4ef0
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
 extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 extern "C" void *__cdecl FUN_00263ea0(unsigned int size);
@@ -33,8 +34,6 @@ class VectorCamera_c4ef0 {
     virtual void setFar(float f);
 
     VectorCamera_c4ef0 *FUN_002939a0();
-    void FUN_00293af0(Vec3_c4ef0 *v);
-    void FUN_00293a90(Vec3_c4ef0 *v);
 };
 
 class View_c4ef0 {
@@ -47,24 +46,23 @@ class View_c4ef0 {
     int field_2c;
 
     View_c4ef0 *FUN_00294880();
-    void FUN_00293e90(unsigned color);
     void FUN_00294980(VectorCamera_c4ef0 *cam);
 };
 
-class FEControllerSystem {
+class FEControllerSystem_c4ef0 {
   public:
-    virtual ~FEControllerSystem();
+    virtual ~FEControllerSystem_c4ef0();
     int field_04;
 
-    FEControllerSystem *FUN_000b3de0();
+    FEControllerSystem_c4ef0 *FUN_000b3de0();
     void FUN_000b3e00(void *a);
 };
 
-class CFESoundManager {
+class CFESoundManager_c4ef0 {
   public:
     virtual void v0();
     int field_04;
-    CFESoundManager() : field_04(0) {}
+    CFESoundManager_c4ef0() : field_04(0) {}
 };
 
 struct Shader_c4ef0 {
@@ -148,7 +146,6 @@ struct Singleton_c4ef0 {
 struct Input_c4ef0 {
     char pad[0xd88];
     void *owner;
-    void FUN_00092bd0(void *owner);
 };
 
 struct Frontend_c4ef0 {
@@ -158,7 +155,7 @@ struct Frontend_c4ef0 {
     char pad1[0x34 - 0x28];
     void *field_34;
     char pad2[0x40 - 0x38];
-    CFESoundManager *sound;
+    CFESoundManager_c4ef0 *sound;
     void *field_44;
     void *field_48;
     Input_c4ef0 *input;
@@ -166,7 +163,7 @@ struct Frontend_c4ef0 {
     char pad3[0x58 - 0x54];
     void *field_58;
     void *field_5c;
-    FEControllerSystem *controllers;
+    FEControllerSystem_c4ef0 *controllers;
     CFrontEndCallback_c4ef0 *field_64;
     Shader_c4ef0 *field_68;
     char pad4[0x1880 - 0x6c];
@@ -182,7 +179,7 @@ struct Frontend_c4ef0 {
 };
 
 extern "C" Singleton_c4ef0 *FUN_000fc3d0();
-extern "C" void FUN_000fc060(const char *file, FEControllerSystem *ctl, CFESoundManager *snd, View_c4ef0 *r);
+extern "C" void FUN_000fc060(const char *file, FEControllerSystem_c4ef0 *ctl, CFESoundManager_c4ef0 *snd, View_c4ef0 *r);
 extern "C" void FUN_00294c70(void *src, void *dst, int n);
 extern "C" void FUN_000d3d80();
 
@@ -194,7 +191,7 @@ void Frontend_c4ef0::FUN_000c4ef0(void *a1, void *a2, void *a3, Input_c4ef0 *a4,
     renderer->field_28 = 0;
     renderer->field_2c = 6;
     renderer->color = 0xff000000;
-    renderer->FUN_00293e90(0xff505050);
+    ((owners::C_293e90 *)renderer)->FUN_00293e90(0xff505050);
 
     p = FUN_00263ea0(0xf8);
     camera = p ? ((VectorCamera_c4ef0 *)p)->FUN_002939a0() : 0;
@@ -205,11 +202,11 @@ void Frontend_c4ef0::FUN_000c4ef0(void *a1, void *a2, void *a3, Input_c4ef0 *a4,
     v.x = 0.0f;
     v.y = 0.0f;
     v.z = -13.0f;
-    camera->FUN_00293af0(&v);
+    ((owners::C_293af0 *)camera)->FUN_00293af0((int *)(Vec3_c4ef0 *)(&v));
     v.x = 0.0f;
     v.y = 0.0f;
     v.z = 1.0f;
-    camera->FUN_00293a90(&v);
+    ((owners::C_293a90 *)camera)->FUN_00293a90((int *)(Vec3_c4ef0 *)(&v));
     renderer->FUN_00294980(camera);
 
     if (controllers != 0) {
@@ -217,15 +214,15 @@ void Frontend_c4ef0::FUN_000c4ef0(void *a1, void *a2, void *a3, Input_c4ef0 *a4,
         controllers = 0;
     }
     p = FUN_0008d690(8);
-    FEControllerSystem *ctl = p ? ((FEControllerSystem *)p)->FUN_000b3de0() : 0;
+    FEControllerSystem_c4ef0 *ctl = p ? ((FEControllerSystem_c4ef0 *)p)->FUN_000b3de0() : 0;
     controllers = ctl;
     ctl->FUN_000b3e00(a1);
     field_58 = a1;
 
     p = FUN_0008d690(8);
-    CFESoundManager *snd = 0;
+    CFESoundManager_c4ef0 *snd = 0;
     if (p)
-        snd = new (p) CFESoundManager();
+        snd = new (p) CFESoundManager_c4ef0();
     field_5c = a6;
     sound = snd;
 
@@ -251,7 +248,7 @@ void Frontend_c4ef0::FUN_000c4ef0(void *a1, void *a2, void *a3, Input_c4ef0 *a4,
     field_48 = a3;
     field_44 = a2;
     input = a4;
-    a4->FUN_00092bd0(this);
+    ((owners::C_92bd0 *)a4)->FUN_00092bd0((hulk_intptr)this);
     field_50 = a5;
     field_1880 = 0;
     FUN_00294c70(((char*)&DAT_00409f04), text1, 0x40);

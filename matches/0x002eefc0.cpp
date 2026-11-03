@@ -1,33 +1,7 @@
-class Obj_2eefc0 {
-  public:
-    void Base();
-    void Finish();
-    void* p0;
-    void* p4;
-    char pad8[8];
-    void* p10;
-    void* p14;
-    char pad18[0x0c];
-    void* p24;
-    void* p28;
-    void* p2c;
-    void* p30;
-    void* p34;
-    void* p38;
-    void* p3c;
-    void* p40;
-    void* p44;
-    void* p48;
-    void* p4c;
-    void* p50;
-    void* p54;
-    void* p58;
-    void* p5c;
-    void* p60;
-};
+#include "gen/owners.h"
 void __cdecl operator delete(void*);
 void __cdecl operator delete[](void*);
-void Obj_2eefc0::Finish() {
+void owners::Obj_2eefc0::FUN_002eefc0() {
     Base();
     if (p10)
         operator delete(p10);

@@ -1,8 +1,4 @@
-class Obj_15aa70 {
-  public:
-    char pad[0x80];
-    char* Get();
-};
-char* Obj_15aa70::Get() {
+#include "gen/owners.h"
+char* owners::Obj_15aa70::FUN_0015aa70() {
     return (char*)((char*)this + 0x80);
 }

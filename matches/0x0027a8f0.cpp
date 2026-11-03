@@ -1,14 +1,6 @@
+#include "gen/owners.h"
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
-class Thing_27a8f0 {
-  public:
-    char pad0[0x14];
-    int count;
-    char pad1[0x20];
-    char names[0xd00];
-    char desc[0x1000];
-    char Set(const char*, const char*);
-};
-char Thing_27a8f0::Set(const char* a, const char* b) {
+char owners::Thing_27a8f0::FUN_0027a8f0(const char* a, const char* b) {
     if (count + 1 == 0x68)
         return 0;
     names[count * 32 + 31] = 0;

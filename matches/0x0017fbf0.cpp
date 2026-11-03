@@ -1,8 +1,4 @@
-class Base_17fbf0 {
-  public:
-    char pad[0x68];
-    char* Get();
-};
-char* Base_17fbf0::Get() {
+#include "gen/owners.h"
+char* owners::Base_17fbf0::FUN_0017fbf0() {
     return pad + 0x68;
 }

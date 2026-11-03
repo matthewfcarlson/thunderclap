@@ -1,5 +1,6 @@
 // FUN_00306300 @ 0x00306300
 // 0x00306300: if the owner is active, run the handler for this node's kind, then do the same for every child
+#include "gen/owners.h"
 struct Owner_306300 {
     char pad00[0x50];
     char active;
@@ -25,9 +26,6 @@ public:
     ChildList_306300* children;
     char pad18;
     char started;
-    void FUN_002f32b0();
-    void FUN_002fbf20();
-    void FUN_0030e8a0();
     void FUN_00306300();
 };
 
@@ -38,13 +36,13 @@ void Node::FUN_00306300()
     started = 1;
     switch (Kind()) {
     case 2:
-        FUN_002f32b0();
+        ((owners::Axis_2f32b0 *)this)->FUN_002f32b0();
         break;
     case 5:
-        FUN_002fbf20();
+        ((owners::AxisRemap_2fbf20 *)this)->FUN_002fbf20();
         break;
     case 8:
-        FUN_0030e8a0();
+        ((owners::Obj_30e8a0 *)this)->FUN_0030e8a0();
         break;
     }
     if (children == 0)

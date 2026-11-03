@@ -1,11 +1,6 @@
-class Obj_14cea0 {
-  public:
-    char pad[0xc];
-    void* mField;
-    bool Fn(void* arg);
-};
+#include "gen/owners.h"
 
-bool Obj_14cea0::Fn(void* arg) {
+bool owners::Obj_14cea0::FUN_0014cea0(void* arg) {
     mField = arg;
     return true;
 }

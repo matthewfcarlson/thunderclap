@@ -1,13 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0022c120 @ 0x0022c120
-struct Matrix {
-    float m[16];
-    void FUN_0022c0b0();
-    void FUN_0022c120();
-};
 
 // Inverts a rigid transform in place: transposes the rotation, then maps the negated translation through it.
-void Matrix::FUN_0022c120()
+#include "gen/owners.h"
+void owners::Matrix_22c120::FUN_0022c120()
 {
     float tx = -m[12];
     float ty = -m[13];

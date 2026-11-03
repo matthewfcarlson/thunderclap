@@ -1,11 +1,6 @@
-class X_11c0f0 {
-  public:
-    char pad[0x3d];
-    char field;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char X_11c0f0::Set(int v) {
+char owners::X_11c0f0::FUN_0011c0f0(int v) {
     field = (char)v;
     return 1;
 }

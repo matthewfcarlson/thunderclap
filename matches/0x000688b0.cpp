@@ -1,11 +1,6 @@
-class Obj_688b0 {
-  public:
-    char pad[0x1c];
-    char mVal;
-    unsigned char Fn(char x);
-};
+#include "gen/owners.h"
 
-unsigned char Obj_688b0::Fn(char x) {
+unsigned char owners::Obj_688b0::FUN_000688b0(char x) {
     mVal = x;
     return 1;
 }

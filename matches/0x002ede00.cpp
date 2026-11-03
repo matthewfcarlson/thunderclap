@@ -1,12 +1,7 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" void* Alloc(hulk_uintptr);
-struct Buffer_2ede00 {
-    void* p;
-    void* begin;
-    void* end;
-    void Init(int n);
-};
-void Buffer_2ede00::Init(int n) {
+void owners::Buffer_2ede00::FUN_002ede00(int n) {
     if (n != 0) {
         void* q = Alloc(n * 4);
         p = q;

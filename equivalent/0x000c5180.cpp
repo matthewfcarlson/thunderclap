@@ -4,6 +4,7 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "gen/global.h"
+#include "gen/owners.h"
 extern "C" int strcmp(const char *, const char *);
 extern "C" char *__cdecl strncpy(char *, const char *, unsigned int);
 
@@ -72,7 +73,6 @@ public:
 
 class Target34 {
 public:
-    void FUN_00089880(int *a, int *b);
 };
 
 class Hooked {
@@ -82,7 +82,6 @@ public:
 
 class Aux54 {
 public:
-    void FUN_001b8ae0();
 };
 
 class Aux5c {
@@ -137,7 +136,6 @@ public:
     float f1cfc;
     char pad1d00[0x1d34 - 0x1d00];
     float f1d34;
-    void FUN_000b9090(int dt);
     void FUN_000bfbe0(Source_c5180 *src, int dt);
     void FUN_000b8c50(const char *a, const char *b);
     void FUN_000b9620();
@@ -147,7 +145,6 @@ public:
     void FUN_000c3db0();
     void FUN_000b9650();
     void FUN_000b96e0();
-    void FUN_000be100();
     void FUN_000b9770();
     void FUN_000b9830();
     void FUN_000b97d0();
@@ -182,10 +179,10 @@ void Menu_c5180::FUN_000c5180(Source_c5180 *src, void *a1, float dt, int a3, Aux
             if (strcmp(f.cur->vfunc_8(), "credits") == 0) {
                 FUN_000b9620();
             } else {
-                f54->FUN_001b8ae0();
+                ((owners::A_1b8ae0 *)f54)->FUN_001b8ae0();
             }
         } else {
-            f54->FUN_001b8ae0();
+            ((owners::A_1b8ae0 *)f54)->FUN_001b8ae0();
         }
         if (f1a06 && f3c)
             FUN_000b9ad0();
@@ -212,7 +209,7 @@ void Menu_c5180::FUN_000c5180(Source_c5180 *src, void *a1, float dt, int a3, Aux
         if (f34) {
             int *outA = (int *)&dt;
             int *outB = (int *)&src;
-            f34->FUN_00089880(outA, outB);
+            ((owners::C_89880 *)f34)->FUN_00089880((unsigned *)outA, (unsigned *)outB);
             if (*outA >= 0 && *outB >= 0) {
                 FUN_000b8c50("story_mode", "story_mode_continue_game");
                 FUN_000b8c50("main", "main_story_mode");
@@ -299,7 +296,7 @@ void Menu_c5180::FUN_000c5180(Source_c5180 *src, void *a1, float dt, int a3, Aux
         state = 0x11;
         break;
     case 17:
-        FUN_000b9090(dtBits);
+        ((owners::Target_b9090 *)this)->FUN_000b9090(dtBits);
         break;
     case 18:
         FUN_000fc170(dtBits);
@@ -323,7 +320,7 @@ void Menu_c5180::FUN_000c5180(Source_c5180 *src, void *a1, float dt, int a3, Aux
         break;
     case 23:
         FUN_000fc170(dtBits);
-        FUN_000be100();
+        ((owners::Menu_be100 *)this)->FUN_000be100();
         break;
     }
 }

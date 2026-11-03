@@ -1,11 +1,6 @@
-class Target_192f50 {
-  public:
-    char pad[0x130];
-    int field;
-    bool SetField(int value);
-};
+#include "gen/owners.h"
 
-bool Target_192f50::SetField(int value) {
+bool owners::Target_192f50::FUN_00192f50(int value) {
     field = value;
     return true;
 }

@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Sub_221eb0 {
     void call(struct Obj_221eb0*);
 };
@@ -6,7 +7,6 @@ struct Obj_221eb0 {
     Sub_221eb0 sub;
     char pad2[0xc];
     int state;
-    void next();
     void target();
 };
 void Obj_221eb0::target() {
@@ -14,6 +14,6 @@ void Obj_221eb0::target() {
         sub.call(this);
         state = 0;
     }
-    next();
+    ((owners::Matrix_22c120 *)this)->FUN_0022c120();
     state = 2;
 }

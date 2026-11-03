@@ -1,10 +1,5 @@
 // Same code shape as 0x00059810 (propagated; names are from that function)
-class CFightParamsCollision {
-    char pad[0x18];
-
-  public:
-    CFightParamsCollision* vfunc_3();
-};
-CFightParamsCollision* CFightParamsCollision::vfunc_3() {
-    return (CFightParamsCollision*)((char*)this + 0x18);
+#include "gen/owners.h"
+owners::CFightParamsCollision_243390* owners::CFightParamsCollision_243390::FUN_00243390() {
+    return (owners::CFightParamsCollision_243390*)((char*)this + 0x18);
 }

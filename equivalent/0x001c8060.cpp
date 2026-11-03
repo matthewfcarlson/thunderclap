@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 42/44, incomplete)
 // FUN_001c8060 @ 0x001c8060
+#include "gen/owners.h"
 struct Key_1c8060 {
     unsigned lo;
     unsigned hi;
-    void FUN_0027af10(unsigned lo, unsigned hi);
     void FUN_0027af50();
 };
 
@@ -37,7 +37,7 @@ Entry_1c8060 *Registry_1c8060::FUN_001c8060(int query, Key_1c8060 *out)
     if (out != 0 && (out->lo | out->hi) != 0) {
         Key_1c8060 k;
         k.lo = 0;
-        k.FUN_0027af10(out->lo, out->hi);
+        ((owners::Pair_27af10 *)&k)->FUN_0027af10((unsigned int)(out->lo), (unsigned int)(out->hi));
         e = index.FUN_001c75e0(&k);
         found = (e != 0);
         k.FUN_0027af50();

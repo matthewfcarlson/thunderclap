@@ -3,9 +3,9 @@
 #include "decls/data/engine/audio.h"
 #include "decls/data/engine/content.h"
 #include "gen/om.h"
+#include "gen/owners.h"
 
 struct Str_2407a0 {
-    Str_2407a0 *FUN_0023fc40(const char *text, int flag);
 };
 
 struct Subsystem_2407a0 {
@@ -63,7 +63,7 @@ extern "C" void FUN_002407a0(unsigned int flags)
     DAT_004e5ca4 = flags;
     void *mem = FUN_0008d690(0xc);
     if (mem != 0) {
-        str = ((Str_2407a0 *)mem)->FUN_0023fc40("english", 2);
+        str = ((Str_2407a0 *)((owners::String_23fc40 *)(((Str_2407a0 *)mem)))->FUN_0023fc40("english", (hulk_intptr)2));
         (*(Str_2407a0**)&DAT_004e5ca0) = str;
     } else {
         (*(Str_2407a0**)&DAT_004e5ca0) = 0;

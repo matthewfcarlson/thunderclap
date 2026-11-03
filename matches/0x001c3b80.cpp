@@ -1,7 +1,7 @@
+#include "gen/owners.h"
 class C_1c3b80;
 class D {
   public:
-    void Use(int);
 };
 class C_1c3b80 {
   public:
@@ -20,7 +20,7 @@ class Obj_1c3b80 {
 void Obj_1c3b80::Target(int arg) {
     int x = mC->Get(arg);
     if (x) {
-        m4->Use(x);
+        ((owners::C_1c8860 *)m4)->FUN_001c8860(x);
         mC->Finish(arg);
     }
 }

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 24/24)
 // FUN_00067230 @ 0x00067230
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Vec3_67230 {
     float x, y, z;
     float FUN_0022d110();
@@ -17,7 +18,6 @@ struct Target_67230 {
     float score;
     char pad2[0x1ba4 - 0x1b10];
     char locked;
-    int FUN_00035910();
 };
 
 struct TargetTable_67230 {
@@ -100,7 +100,7 @@ bool Tracker_67230::FUN_00067230(Target_67230 *self)
             f.d.x = f.pos.x - origin.x;
             f.d.y = f.pos.y - origin.y;
             f.d.z = f.pos.z - origin.z;
-            if (t->FUN_00035910() == 6 || self == t)
+            if (((int)((owners::Widget_35910 *)t)->FUN_00035910()) == 6 || self == t)
                 nearCount++;
             f.d.y = 0.0f;
             f.entry.dist = f.d.FUN_0022d110();

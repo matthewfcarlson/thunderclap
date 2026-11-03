@@ -2,6 +2,7 @@
 // FUN_00090790 @ 0x00090790
 // FUN_00090790 @ 0x00090790: measures the player's distance or height from a start point and keeps the best value
 #include "decls/address.h"
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 
 struct Vec3_90790 {
@@ -24,23 +25,8 @@ struct World {
     Actor_90790 *actor;
 };
 
-class Measure {
-public:
-    char pad00[0x10];
-    int kind;
-    int mode;
-    char active;
-    char pad19[3];
-    float startX;
-    float startY;
-    float startZ;
-    char pad28[0x38 - 0x28];
-    int value;
-    int best;
-    void FUN_00090790();
-};
 
-void Measure::FUN_00090790()
+void owners::Measure_90790::FUN_00090790()
 {
     if (!active)
         return;

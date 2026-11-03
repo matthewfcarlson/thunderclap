@@ -1,10 +1,4 @@
-class C_272b40 {
-    char pad[0x5c];
-    unsigned char value;
-
-  public:
-    void Set(unsigned char x);
-};
-void C_272b40::Set(unsigned char x) {
+#include "gen/owners.h"
+void owners::C_272b40::FUN_00272b40(unsigned char x) {
     value = x;
 }

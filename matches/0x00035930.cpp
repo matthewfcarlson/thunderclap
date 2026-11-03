@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class Queue_35930 {
   public:
     void Send(void*);
@@ -11,15 +12,7 @@ class Temp_35930 {
   public:
     void Build(int, int, int);
 };
-class Obj_35930 {
-  public:
-    char pad[0x10];
-    int* ptr;
-    char pad2[0x120];
-    int value;
-    void Set(int x);
-};
-void Obj_35930::Set(int x) {
+void owners::Obj_35930::FUN_00035930(int x) {
     char local[28];
     int old = value;
     if (old != x) {

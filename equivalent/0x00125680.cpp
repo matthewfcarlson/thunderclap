@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 96 inputs, branch coverage 26/28, incomplete)
 // hulkfight::ai::TargetDistanceXZCondition::vfunc_6 @ 0x00125680
 #include "decls/address.h"
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
@@ -58,7 +59,6 @@ struct Chain_125680 {
 };
 
 struct Owner_125680 {
-    Chain_125680 *FUN_000592a0();
 };
 
 class TargetDistanceXZCondition {
@@ -81,7 +81,7 @@ char TargetDistanceXZCondition::vfunc_6(int unused1, Owner_125680 *owner, int un
 {
     if (!FUN_00344e74(owner, 0, DAT_00494b44, DAT_00494b60, 0))
         return 0;
-    Actor_125680 *actor = owner->FUN_000592a0()->FUN_00059a30();
+    Actor_125680 *actor = ((Chain_125680 *)((owners::Object_592a0 *)owner)->FUN_000592a0())->FUN_00059a30();
     Vec3_125680 origin;
     origin.x = 0.0f;
     origin.y = 0.0f;

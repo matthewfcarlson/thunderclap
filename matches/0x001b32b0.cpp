@@ -1,15 +1,9 @@
-class X_1b32b0 {
-  public:
-    char pad[0x34];
-    int count;
-    int items[1];
-    bool Has(int value);
-};
-bool X_1b32b0::Has(int value) {
+#include "gen/owners.h"
+bool owners::X_1b32b0::FUN_001b32b0(hulk_intptr value) {
     int i = 0;
     if (count > 0) {
         while (i < count) {
-            if (items[i] == value)
+            if (items[i] == ((int)value))
                 return true;
             ++i;
         }

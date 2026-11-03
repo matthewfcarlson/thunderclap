@@ -1,13 +1,7 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 typedef unsigned short U16;
-class Buffer_2f9930 {
-  public:
-    char pad0[4];
-    U16* cur;
-    U16* end;
-    void Insert(U16*, int, int);
-};
-void Buffer_2f9930::Insert(U16* src, int count, int value) {
+void owners::Buffer_2f9930::FUN_002f9930(U16* src, int count, hulk_intptr value) {
     U16* p = cur;
     U16* q = p + count;
     if (q <= end) {
@@ -20,7 +14,7 @@ void Buffer_2f9930::Insert(U16* src, int count, int value) {
         }
         U16* r = src;
         if (count != 0) {
-            hulk_intptr d = value - (hulk_intptr)src;
+            hulk_intptr d = ((int)value) - (hulk_intptr)src;
             int n = count;
             do {
                 if (r != 0)

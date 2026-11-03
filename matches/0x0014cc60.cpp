@@ -1,11 +1,6 @@
-class X_14cc60 {
-  public:
-    char pad[0x3c];
-    int m3c;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char X_14cc60::Set(int v) {
+char owners::X_14cc60::FUN_0014cc60(int v) {
     m3c = v;
     return 1;
 }

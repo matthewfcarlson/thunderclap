@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 96 inputs, branch coverage 9/10, incomplete)
 // FUN_001bee10 @ 0x001bee10
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Owner_1bee10 {
     char pad0[0x24];
     int values[1];
     int FUN_000f7240(int a, int b);
-    int FUN_000f7220(int index);
 };
 
 struct Slot_1bee10 {
@@ -77,7 +77,7 @@ int Effect_1bee10::FUN_001bee10()
         }
         float t = num / b.slots[b.index].weight;
         int extra = b.owner->values[(*(int*)&DAT_004e22f0)];
-        int value = owner->FUN_000f7220(r);
+        int value = ((int)((owners::C_f7220 *)owner)->FUN_000f7220((hulk_intptr)r));
         result = FUN_000fba10(handle, 10, 0x80, value, t, extra);
     }
     b.FUN_000f78e0();

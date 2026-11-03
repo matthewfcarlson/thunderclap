@@ -1,9 +1,6 @@
-struct Target_165860 {
-    char pad[0x30];
-    char Set(int arg);
-};
+#include "gen/owners.h"
 
-char Target_165860::Set(int arg) {
+char owners::Target_165860::FUN_00165860(int arg) {
     *(int*)((char*)this + 0x30) = arg;
     return 1;
 }

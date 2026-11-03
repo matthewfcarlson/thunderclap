@@ -1,20 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3080 inputs, branch coverage 43/46, incomplete)
 // FUN_00314430 @ 0x00314430
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 
 struct V3_314430 {
     float x;
     float y;
     float z;
-    void FUN_00095e80(float s, V3_314430 *v);
     void FUN_001f6bc0(V3_314430 *a, float s, V3_314430 *b);
     void FUN_00011110(V3_314430 *a, V3_314430 *b);
     float FUN_0022d110();
-    void FUN_00034440(V3_314430 *a, V3_314430 *b);
-    void FUN_00011160(float s, V3_314430 *b);
-    void FUN_00011140(float s);
     float FUN_000111f0();
-    void FUN_000110d0(V3_314430 *b);
 };
 
 float __cdecl FUN_00083d90(float *x);
@@ -94,7 +90,7 @@ bool Sweeper_314430::FUN_00314430(Prim_314430 *p, V3_314430 *a1, float a2, V3_31
             *a4 = (float)W;
             if (!(W < r))
                 return false;
-            a3->FUN_00095e80(FUN_00083d90(&l.d), &p->v);
+            ((owners::Vec3_95e80 *)a3)->FUN_00095e80(FUN_00083d90(&l.d), (float const *)(V3_314430 *)(&p->v));
             a6->FUN_001f6bc0(a1, a2, a3);
             a5->FUN_001f6bc0(a6, *a4, a3);
             return true;
@@ -109,7 +105,7 @@ bool Sweeper_314430::FUN_00314430(Prim_314430 *p, V3_314430 *a1, float a2, V3_31
         *a4 = (float)X2;
         if (!(X2 < l.self->r))
             return false;
-        a5->FUN_00011160(-p->f54, a3);
+        ((owners::Vec3_11160 *)a5)->FUN_00011160(-p->f54, (const owners::Vec3_11160 *)(V3_314430 *)a3);
         a6->FUN_001f6bc0(a5, -*a4, a3);
         return true;
     }
@@ -117,10 +113,10 @@ bool Sweeper_314430::FUN_00314430(Prim_314430 *p, V3_314430 *a1, float a2, V3_31
     if (!(u > 1.0e-6f))
         return false;
     V3_314430 tmp;
-    tmp.FUN_00095e80(-l.d, &p->v);
-    a3->FUN_00034440(l.np, &tmp);
+    ((owners::Vec3_95e80 *)&tmp)->FUN_00095e80(-l.d, (float const *)(V3_314430 *)(&p->v));
+    ((owners::Vec3_34440 *)a3)->FUN_00034440((owners::Vec3_34440 *)(V3_314430 *)(l.np), (owners::Vec3_34440 *)(V3_314430 *)(&tmp));
     *a4 = (float)(u - f54c - a2);
-    a3->FUN_00011140(1.0f / u);
+    ((owners::Vec3_11140 *)a3)->FUN_00011140(1.0f / u);
     double len2 = a3->FUN_000111f0();
     union {
         float f;
@@ -129,7 +125,7 @@ bool Sweeper_314430::FUN_00314430(Prim_314430 *p, V3_314430 *a1, float a2, V3_31
     e.f = (float)(len2 - 1.0);
     e.i &= 0x7fffffff;
     if (e.f > 0.01f)
-        a3->FUN_00011140((float)(1.0 / sqrt(len2)));
+        ((owners::Vec3_11140 *)a3)->FUN_00011140((float)(1.0 / sqrt(len2)));
     ab.f = l.d;
     ab.i &= 0x7fffffff;
     if (ab.f > p->f50) {
@@ -145,7 +141,7 @@ bool Sweeper_314430::FUN_00314430(Prim_314430 *p, V3_314430 *a1, float a2, V3_31
         tmp.z = tmp.z * q;
     }
     a5->FUN_001f6bc0(&tmp, -f54c, a3);
-    a5->FUN_000110d0(p->v4());
+    ((owners::V3_110d0 *)a5)->FUN_000110d0((owners::V3_110d0 *)(V3_314430 *)(p->v4()));
     ab.f = l.d;
     ab.i &= 0x7fffffff;
     if (ab.f <= p->f50) {

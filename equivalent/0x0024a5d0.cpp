@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 20/20)
 // FUN_0024a5d0 @ 0x0024a5d0
 #include "decls/data/engine/audio.h"
+#include "gen/owners.h"
 
 struct IntrusiveList {
     void *head;
@@ -38,7 +39,6 @@ struct Source_24a5d0 {
     char pad24[0x3c - 0x24];
     ItemLink *itemHead;      // 0x3c
     Entry_24a5d0 *FUN_00257250();
-    Entry_24a5d0 *FUN_00257270(Entry_24a5d0 *cur);
 };
 
 struct SrcNode {
@@ -55,11 +55,11 @@ struct KeyNode {
 };
 
 namespace audio {
-class StreamPlayerAllocator {
+class StreamPlayerAllocator_24a5d0 {
 public:
     virtual void v0();
     unsigned char flags;     // 0x04
-    StreamPlayerAllocator() {}
+    StreamPlayerAllocator_24a5d0() {}
 };
 }
 
@@ -92,13 +92,13 @@ public:
     int f90, f94, f98;
     int f9c, fa0, fa4;
     float fa8;
-    audio::StreamPlayerAllocator *allocator; // 0xac
-    audio::StreamPlayerAllocator ownAllocator; // 0xb0
+    audio::StreamPlayerAllocator_24a5d0 *allocator; // 0xac
+    audio::StreamPlayerAllocator_24a5d0 ownAllocator; // 0xb0
 
-    StreamVoice(int a0, int a1, Source_24a5d0 *a2, void *a3, int a4, audio::StreamPlayerAllocator *a5);
+    StreamVoice(int a0, int a1, Source_24a5d0 *a2, void *a3, int a4, audio::StreamPlayerAllocator_24a5d0 *a5);
 };
 
-StreamVoice::StreamVoice(int a0, int a1, Source_24a5d0 *a2, void *a3, int a4, audio::StreamPlayerAllocator *a5)
+StreamVoice::StreamVoice(int a0, int a1, Source_24a5d0 *a2, void *a3, int a4, audio::StreamPlayerAllocator_24a5d0 *a5)
 {
     nodes.Init();
     keyHead = 0;
@@ -165,7 +165,7 @@ StreamVoice::StreamVoice(int a0, int a1, Source_24a5d0 *a2, void *a3, int a4, au
             else
                 keyTail->next = kn;
             keyTail = kn;
-            e = a2->FUN_00257270(e);
+            e = ((Entry_24a5d0 *)((owners::C_257270 *)a2)->FUN_00257270((hulk_uintptr)(Entry_24a5d0 *)e));
         }
     }
 }

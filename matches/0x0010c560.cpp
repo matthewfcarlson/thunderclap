@@ -1,11 +1,6 @@
-class O_10c560 {
-  public:
-    bool Set(int v);
-    char pad[0xc];
-    int m;
-};
+#include "gen/owners.h"
 
-bool O_10c560::Set(int v) {
+bool owners::O_10c560::FUN_0010c560(int v) {
     m = v;
     return true;
 }

@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 9/10, incomplete)
 // pure3d::ParticlePointGenerator::vfunc_6 @ 0x002d21c0
 #include "decls/data/engine/pure3d.h"
+#include "gen/owners.h"
 
 struct Vec3_2d21c0 {
     float x, y, z;
-    void FUN_0022d260(struct Mat4_2d21c0* m);
     float FUN_0022d110();
 };
 
@@ -104,7 +104,7 @@ unsigned int ParticlePointGenerator::vfunc_6(unsigned int count, Mat4_2d21c0* fr
         float v3 = RandomUnsigned() * sc;
         Vec3_2d21c0 dir;
         FUN_00356bf0(1.0f, v1 * sa + 1.5707964f, v2 * sb + 1.5707964f, &dir.x, &dir.y, &dir.z);
-        dir.FUN_0022d260(from);
+        ((owners::Obj_22d260 *)&dir)->FUN_0022d260((owners::Obj_22d260 *)(struct Mat4_2d21c0 *)from);
         dir.FUN_0022d110();
         Vec3_2d21c0 q;
         q.x = dir.x * v3 + p.x;

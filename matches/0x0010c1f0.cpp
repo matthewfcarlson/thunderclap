@@ -1,11 +1,6 @@
-class Obj_10c1f0 {
-  public:
-    char pad[12];
-    char mByte;
-    char Set(char b);
-};
+#include "gen/owners.h"
 
-char Obj_10c1f0::Set(char b) {
+char owners::Obj_10c1f0::FUN_0010c1f0(char b) {
     mByte = b;
     return 1;
 }

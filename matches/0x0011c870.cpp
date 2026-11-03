@@ -1,17 +1,11 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 typedef unsigned int size_t;
 extern "C" void __cdecl FUN_0008d340(void*);
 extern "C" void* __cdecl FUN_0008d6d0(hulk_uintptr);
 extern "C" size_t __cdecl strlen(const char*);
 extern "C" char* __cdecl strcpy(char*, const char*);
-class Obj {
-    char pad[0x38];
-    char* str;
-
-  public:
-    char set(const char* s);
-};
-char Obj::set(const char* s) {
+char owners::Obj_11c870::FUN_0011c870(const char* s) {
     FUN_0008d340(str);
     if (!s) {
         str = 0;

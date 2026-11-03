@@ -1,9 +1,5 @@
-class X_16faf0 {
-  public:
-    char pad[0x18];
-    void* Get();
-};
+#include "gen/owners.h"
 
-void* X_16faf0::Get() {
+void* owners::X_16faf0::FUN_0016faf0() {
     return (char*)this + 0x18;
 }

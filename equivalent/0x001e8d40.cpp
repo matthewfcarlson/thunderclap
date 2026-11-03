@@ -5,18 +5,11 @@
 #include "decls/data/engine/content.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
 extern "C" int __cdecl sprintf(char *, const char *, ...);
 struct Manager_1e8d40 { void FUN_00265920(char *, int *, int); };
-struct Clip {
- int active;
- int reserved;
- unsigned int size;
- int reserved2;
- unsigned int kind;
- void FUN_001e8d40();
-};
-void Clip::FUN_001e8d40() {
+void owners::Clip_1e8d40::FUN_001e8d40() {
  if (active == 0 && (*(hulk_intptr*)&DAT_004e3694) == 0) {
  char name[16];
  sprintf(name, "%d.%s", this, "clips");

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000b5920 @ 0x000b5920
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Control_b5920 {
     char pad00[5];
@@ -16,7 +17,6 @@ struct Entry_b5920 {
 };
 
 struct Registry_b5920 {
-    Entry_b5920 *FUN_000ae640(int index);
 };
 
 struct Panel_b5920 {
@@ -34,8 +34,8 @@ void Panel_b5920::FUN_000b5920(int enable)
         control->FUN_000afe10(enable);
         if (wasBusy == 0 && (char)enable != 0) {
             const char *name;
-            if (registry->FUN_000ae640(0)->name[0] != 0)
-                name = registry->FUN_000ae640(0)->name;
+            if (((Entry_b5920 *)((owners::C_ae640 *)registry)->FUN_000ae640(0))->name[0] != 0)
+                name = ((Entry_b5920 *)((owners::C_ae640 *)registry)->FUN_000ae640(0))->name;
             else
                 name = DAT_004de768;
             control->FUN_000aff30(0, 100.0f, 100.0f, 0.4f, name);

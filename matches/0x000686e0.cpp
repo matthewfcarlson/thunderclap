@@ -1,10 +1,6 @@
-struct Obj_686e0 {
-    char pad[0x7c];
-    int m7c;
-    bool Fn(int arg);
-};
+#include "gen/owners.h"
 
-bool Obj_686e0::Fn(int arg) {
+bool owners::Obj_686e0::FUN_000686e0(int arg) {
     m7c = arg;
     return true;
 }

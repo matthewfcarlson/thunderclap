@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20024 inputs, branch coverage 2/2)
 // FUN_000aa130 @ 0x000aa130
 #include "compat/ptr.h"
-struct Vec3_aa130 { float x, y, z; void FUN_0022d210(struct Mat_aa130* m); };
+#include "gen/owners.h"
+struct Vec3_aa130 { float x, y, z;  };
 struct Mat_aa130 {
     float m[16];
-    void FUN_0022ca90(Mat_aa130* a, Mat_aa130* b);
 };
 
 class Target_aa130 {
@@ -47,7 +47,7 @@ bool Obj_aa130::FUN_000aa130(int a, Mat_aa130* b, float* out)
     target->v7();
     Mat_aa130 view = *source->v14();
     Mat_aa130 res;
-    res.FUN_0022ca90(&view, b);
+    ((owners::Matrix_22ca90 *)&res)->FUN_0022ca90((const owners::Matrix_22ca90 *)(Mat_aa130 *)(&view), (const owners::Matrix_22ca90 *)(Mat_aa130 *)b);
     view = res;
     out[0] = view.m[12];
     out[1] = view.m[13];
@@ -65,7 +65,7 @@ bool Obj_aa130::FUN_000aa130(int a, Mat_aa130* b, float* out)
     t.x = sm->m[12];
     t.y = sm->m[13];
     t.z = sm->m[14];
-    t.FUN_0022d210(b);
+    ((owners::Obj_22d210 *)&t)->FUN_0022d210((owners::Obj_22d210 *)(struct Mat_aa130 *)b);
     hulk_freg dx = t.x - out[0];
     volatile float dy = t.y - out[1];
     volatile float dz = t.z - out[2];

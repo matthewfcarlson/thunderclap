@@ -1,11 +1,6 @@
-class Obj_47f50 {
-  public:
-    char pad[0xc];
-    void* mPointer;
-    bool Set(void* p);
-};
+#include "gen/owners.h"
 
-bool Obj_47f50::Set(void* p) {
+bool owners::Obj_47f50::FUN_00047f50(void* p) {
     mPointer = p;
     return true;
 }

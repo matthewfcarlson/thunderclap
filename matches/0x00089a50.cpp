@@ -1,10 +1,4 @@
-class Obj_89a50 {
-    char pad[0xac4];
-
-  public:
-    int value;
-    int Get();
-};
-int Obj_89a50::Get() {
+#include "gen/owners.h"
+hulk_intptr owners::Obj_89a50::FUN_00089a50() {
     return value;
 }

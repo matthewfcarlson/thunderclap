@@ -1,26 +1,19 @@
 #include "decls/data/game/global.h"
 // data: checkpoint = DAT_00421ba0
+#include "gen/owners.h"
 
 class Thing_1ca090 {
   public:
-    bool ready();
-    void mark(const char*, int);
     void finish();
 };
 Thing_1ca090* GetThing();
-class Owner_1ca090 {
-  public:
-    char pad[0x14];
-    int value;
-    bool run();
-};
-bool Owner_1ca090::run() {
+bool owners::Owner_1ca090::FUN_001ca090() {
     Thing_1ca090* t = GetThing();
     if (!t)
         return false;
-    if (!t->ready())
+    if (!((owners::Obj_1d2e80 *)t)->FUN_001d2e80())
         return false;
-    t->mark(DAT_00421ba0, value);
+    ((owners::Obj_1d1dd0 *)t)->FUN_001d1dd0((hulk_intptr)DAT_00421ba0, value);
     t->finish();
     return true;
 }

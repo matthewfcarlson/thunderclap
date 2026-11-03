@@ -1,5 +1,6 @@
 // cl-flags: /Oy-
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
 
 extern "C" void FUN_0008ed60();
@@ -25,7 +26,6 @@ extern "C" void FUN_00267a90();
 class CGame_8ee30 {
   public:
     CGame_8ee30* Ctor();
-    void Init();
     virtual void Vfn(int);
 };
 
@@ -46,7 +46,7 @@ int FUN_0008ee30() {
         esi = ((CGame_8ee30*)p)->Ctor();
     else
         esi = 0;
-    esi->Init();
+    ((owners::Obj_88530 *)esi)->FUN_00088530();
     if (esi)
         esi->Vfn(1);
     FUN_00333b80();

@@ -1,10 +1,6 @@
-class C_6b390 {
-  public:
-    char Set(int v);
-    char pad[0x28];
-};
+#include "gen/owners.h"
 
-char C_6b390::Set(int v) {
+char owners::C_6b390::FUN_0006b390(int v) {
     *(int*)((char*)this + 0x28) = v;
     return 1;
 }

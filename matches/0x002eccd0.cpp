@@ -2,6 +2,7 @@
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 // data: gEnabled_2eccd0 = DAT_00554c0c, kScale_2eccd0 = DAT_004d287c
+#include "gen/owners.h"
 
 struct Sub2_2eccd0 {
     void Do();
@@ -22,15 +23,8 @@ struct PB {
 };
 
 
-class Cls_2eccd0 {
-  public:
-    char pad[0x2c];
-    float a;
-    float b;
-    void Set(float f);
-};
 
-void Cls_2eccd0::Set(float f) {
+void owners::Cls_2eccd0::FUN_002eccd0(float f) {
     a = f;
     if (!DAT_00554c0c)
         return;

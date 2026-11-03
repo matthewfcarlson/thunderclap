@@ -1,10 +1,10 @@
+#include "gen/owners.h"
 class Obj {
   public:
     virtual void Go();
 };
 class Source {
   public:
-    Obj* Make(int);
 };
 class Target {
   public:
@@ -14,7 +14,7 @@ class Target {
 };
 void Target::Fn(Source* src) {
     if (src) {
-        obj = src->Make(0);
+        obj = ((Obj *)((owners::C_ae640 *)src)->FUN_000ae640(0));
         obj->Go();
     }
 }

@@ -1,7 +1,4 @@
-class X_78850 {
-  public:
-    X_78850* f();
-};
-X_78850* X_78850::f() {
+#include "gen/owners.h"
+owners::X_78850* owners::X_78850::FUN_00078850() {
     return this;
 }

@@ -2,6 +2,7 @@
 // FUN_000f5fa0 @ 0x000f5fa0
 #include "decls/data/engine/content.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 extern "C" char *__cdecl strncpy(char *dst, const char *src, unsigned int n);
 extern "C" int __cdecl FUN_00266da0(int v);
@@ -23,7 +24,6 @@ struct Script_f5fa0 {
 struct Handle_f5fa0 {
     void *first;
     void *second;
-    Script_f5fa0 *FUN_000fb240(const char *name);
 };
 
 struct Tail_f5fa0 {
@@ -41,9 +41,9 @@ struct Table_f5fa0 {
 };
 
 namespace DollyScript {
-class CScriptParser {
+class CScriptParser_f5fa0 {
 public:
-    virtual ~CScriptParser() {
+    virtual ~CScriptParser_f5fa0() {
         table.FUN_000f9d20();
     }
     Script_f5fa0 *script;
@@ -53,7 +53,7 @@ public:
     Handle_f5fa0 handle;
     Table_f5fa0 table;
     Tail_f5fa0 tail;
-    CScriptParser *FUN_000faa10(Script_f5fa0 *script);
+    CScriptParser_f5fa0 *FUN_000faa10(Script_f5fa0 *script);
     char FUN_000f9e50();
     Node *FUN_000fb110();
     int FUN_000fad90();
@@ -151,7 +151,7 @@ public:
     char pad2206[2];
     int count;
     int f220c;
-    void FUN_000f5b20(DollyScript::CScriptParser *p, int a, int b, Node *node);
+    void FUN_000f5b20(DollyScript::CScriptParser_f5fa0 *p, int a, int b, Node *node);
     void FUN_000f5fa0(const char *src, int arg);
 };
 
@@ -160,7 +160,7 @@ void Runner_f5fa0::FUN_000f5fa0(const char *src, int arg)
     Frame_f5fa0 f;
     if (!active)
         f220c = arg;
-    DollyScript::CScriptParser *p = (DollyScript::CScriptParser *)f.parser;
+    DollyScript::CScriptParser_f5fa0 *p = (DollyScript::CScriptParser_f5fa0 *)f.parser;
     for (Slot_f5fa0 *slot = p->table.slots; slot != p->table.slots + 0x80; slot++) {
         slot->a = 0;
         slot->b = 0;
@@ -172,7 +172,7 @@ void Runner_f5fa0::FUN_000f5fa0(const char *src, int arg)
     p->tail.f18 = 0;
     strncpy(name, src, 0x100);
     int old = FUN_00266da0(10);
-    Script_f5fa0 *script = p->handle.FUN_000fb240(name);
+    Script_f5fa0 *script = ((Script_f5fa0 *)((owners::Inventory_fb240 *)&(p->handle))->FUN_000fb240((void *)name));
     FUN_00266da0(old);
     p->FUN_000faa10(script);
     if (active) {
@@ -208,5 +208,5 @@ void Runner_f5fa0::FUN_000f5fa0(const char *src, int arg)
     } else {
         vfunc_64(0, 0, 0);
     }
-    p->DollyScript::CScriptParser::~CScriptParser();
+    p->DollyScript::CScriptParser_f5fa0::~CScriptParser_f5fa0();
 }

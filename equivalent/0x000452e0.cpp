@@ -2,6 +2,7 @@
 // FUN_000452e0 @ 0x000452e0
 #include "compat/ptr.h"
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Npc {
     char pad0[0x1ca8];
     int v1ca8;
@@ -28,7 +29,6 @@ struct Npc {
 };
 
 struct ModeB_452e0 {
-    Npc *FUN_000259f0(const char *name);
 };
 
 struct World {
@@ -43,7 +43,7 @@ extern "C" hulk_intptr FUN_000452e0(const char *id, const char *name, int value)
     int r = 0;
     if (id == 0 || *id == 0) return (hulk_intptr)id;
     if (name == 0 || *name == 0) return (hulk_intptr)id;
-    Npc *npc = DAT_004dd700->modeB->FUN_000259f0(id);
+    Npc *npc = ((Npc *)((owners::Obj_259f0 *)(DAT_004dd700->modeB))->FUN_000259f0((hulk_intptr)id));
     if (npc == 0) return 0;
     if ((r = FUN_00096600(name, "DesiredMinEngage")) == 0) {
         npc->v1ca8 = value;

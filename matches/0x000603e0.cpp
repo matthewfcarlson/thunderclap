@@ -1,11 +1,6 @@
-class X_603e0 {
-  public:
-    char Set(int v);
-    char mPad[0xc0];
-    int mVal;
-};
+#include "gen/owners.h"
 
-char X_603e0::Set(int v) {
+char owners::X_603e0::FUN_000603e0(int v) {
     mVal = v;
     return 1;
 }

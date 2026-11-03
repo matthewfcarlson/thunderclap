@@ -3,6 +3,7 @@
 #include "decls/address.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 struct Vec3_202560 {
     float x, y, z;
 };
@@ -42,8 +43,6 @@ struct Bridge {
 };
 
 struct Hud_202560 {
-    void FUN_00025370(int a);
-    void FUN_00025260(int a, int b, int c);
 };
 
 struct World {
@@ -90,7 +89,7 @@ extern "C" char FUN_00202560(Vec3_202560 *start, float depth, int a3, Vec3_20256
     (*(char*)&DAT_004d2a40) = 0;
     (*(char*)&DAT_00554c1c) = 1;
     (*(float*)&DAT_00554c18) = 0.2f;
-    g->hud->FUN_00025370(0);
+    ((owners::Target_25370 *)(g->hud))->FUN_00025370(0);
 
     float zero = depth * 0.0f;
     Vec3_202560 to;
@@ -130,6 +129,6 @@ extern "C" char FUN_00202560(Vec3_202560 *start, float depth, int a3, Vec3_20256
             }
         }
     }
-    g->hud->FUN_00025260(1, 0, 0);
+    ((owners::C_25260 *)(g->hud))->FUN_00025260(1, 0, 0);
     return ok;
 }

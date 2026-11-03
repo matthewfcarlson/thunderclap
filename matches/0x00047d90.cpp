@@ -1,10 +1,6 @@
-class Obj_47d90 {
-  public:
-    char fn(int x);
-    char pad[12];
-};
+#include "gen/owners.h"
 
-char Obj_47d90::fn(int x) {
+char owners::Obj_47d90::FUN_00047d90(int x) {
     *(int*)((char*)this + 0xc) = x;
     return 1;
 }

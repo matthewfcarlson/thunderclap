@@ -1,10 +1,10 @@
 #include "decls/data/game/global.h"
 // data: gZero = DAT_003f335c
+#include "gen/owners.h"
 
 class Result;
 class Item {
   public:
-    Result* Get();
 };
 class Result {
   public:
@@ -20,7 +20,7 @@ float* Host::Fun() {
     float* p = ((float*)&DAT_003f335c);
     Item* x = item;
     if (x) {
-        Result* r = x->Get();
+        Result* r = ((Result *)((owners::C_a0b70 *)x)->FUN_000a0b70());
         if (r)
             p = r->Value();
     }

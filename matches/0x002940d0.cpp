@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class Inner_2940d0 {
   public:
     virtual void f0();
@@ -17,7 +18,6 @@ class Inner_2940d0 {
 };
 class Helper_2940d0 {
   public:
-    void Run(void* out, unsigned int value);
 };
 class Owner_2940d0 {
   public:
@@ -27,5 +27,5 @@ class Owner_2940d0 {
 };
 void Owner_2940d0::Target(void* out, Helper_2940d0* h) {
     if (ptr)
-        h->Run(out, ptr->Get());
+        ((owners::C_22d240 *)h)->FUN_0022d240((hulk_intptr)out, (hulk_intptr)(ptr->Get()));
 }

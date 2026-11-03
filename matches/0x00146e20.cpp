@@ -1,11 +1,6 @@
-class O_146e20 {
-  public:
-    char pad[0xc];
-    int m;
-    char Set(int);
-};
+#include "gen/owners.h"
 
-char O_146e20::Set(int x) {
+char owners::O_146e20::FUN_00146e20(int x) {
     m = x;
     return 1;
 }

@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_ebca0[];
 extern void* g_vftable2[];
@@ -8,7 +9,6 @@ class Ref_ebca0 {
 };
 void operator delete[](void*) throw();
 struct Mgr_ebca0 {
-    void Rem(void* p) throw();
 };
 struct Own_ebca0 {
     char p[8];
@@ -50,7 +50,7 @@ class TextSelector_ebca0 {
 TextSelector_ebca0::~TextSelector_ebca0() throw() {
     vptr = g_vftable_ebca0;
     if (m1d94) {
-        ma8->m8->Rem(m1d94 + 0x18);
+        ((owners::Obj_f8c30 *)(ma8->m8))->FUN_000f8c30((const char *)(m1d94 + 0x18));
         m1d94 = 0;
     }
     Pre();

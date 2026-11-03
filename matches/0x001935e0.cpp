@@ -1,11 +1,6 @@
-class X_1935e0 {
-  public:
-    char pad[0xfc];
-    int m1fc;
-    bool Set(int a);
-};
+#include "gen/owners.h"
 
-bool X_1935e0::Set(int a) {
+bool owners::X_1935e0::FUN_001935e0(int a) {
     m1fc = a;
     return true;
 }

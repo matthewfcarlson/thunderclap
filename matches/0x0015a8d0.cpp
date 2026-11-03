@@ -1,11 +1,6 @@
-class A_15a8d0 {
-  public:
-    char m[0x10];
-    int mVal;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char A_15a8d0::Set(int v) {
+char owners::A_15a8d0::FUN_0015a8d0(int v) {
     mVal = v;
     return 1;
 }

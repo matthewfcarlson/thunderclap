@@ -1,8 +1,4 @@
-class Obj_1800c0 {
-  public:
-    char pad[0x60];
-    void* Get();
-};
-void* Obj_1800c0::Get() {
+#include "gen/owners.h"
+void* owners::Obj_1800c0::FUN_001800c0() {
     return (char*)this + 0x60;
 }

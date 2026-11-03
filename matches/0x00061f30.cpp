@@ -1,10 +1,5 @@
-class O_61f30 {
-  public:
-    char pad[12];
-    volatile int m;
-    char f(int x);
-};
-char O_61f30::f(int x) {
+#include "gen/owners.h"
+char owners::O_61f30::FUN_00061f30(int x) {
     m = x;
     return 1;
 }

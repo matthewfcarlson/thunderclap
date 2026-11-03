@@ -1,10 +1,5 @@
-class Obj_86290 {
-  public:
-    char pad[0x24];
-    int mValue;
-    int GetValue();
-};
+#include "gen/owners.h"
 
-int Obj_86290::GetValue() {
+hulk_intptr owners::Obj_86290::FUN_00086290() {
     return mValue;
 }

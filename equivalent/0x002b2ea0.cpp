@@ -2,10 +2,10 @@
 // pure3d::MultiControllerLoader::vfunc_5 @ 0x002b2ea0
 #include "compat/ptr.h"
 #include "decls/address.h"
+#include "gen/owners.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 struct Stream {
-    char FUN_002647e0(void *dest, unsigned int count, unsigned int size, int flag);
 };
 
 struct Reader {
@@ -17,22 +17,21 @@ struct Reader {
 };
 
 struct NameField {
-    void FUN_0027b040(const char *s);
 };
 
 namespace pure3d {
-class LightAnimationController;
-class PoseAnimationController;
-class CompDrawVisibilityAnimationController;
-class SceneGraphTransformAnimationController;
-class SceneGraphVisibilityAnimationController;
-class TextureAnimationController;
-class BillboardQuadGroupAnimationController;
-class ParticleController;
-class VertexAnimController;
-class ProceduralVertexAnimController;
-class ShaderAnimationController;
-class FrameController;
+class LightAnimationController_2b2ea0;
+class PoseAnimationController_2b2ea0;
+class CompDrawVisibilityAnimationController_2b2ea0;
+class SceneGraphTransformAnimationController_2b2ea0;
+class SceneGraphVisibilityAnimationController_2b2ea0;
+class TextureAnimationController_2b2ea0;
+class BillboardQuadGroupAnimationController_2b2ea0;
+class ParticleController_2b2ea0;
+class VertexAnimController_2b2ea0;
+class ProceduralVertexAnimController_2b2ea0;
+class ShaderAnimationController_2b2ea0;
+class FrameController_2b2ea0;
 }
 
 namespace content {
@@ -53,7 +52,7 @@ struct Inventory {
 
 namespace pure3d {
 
-class MultiController {
+class MultiController_2b2ea0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -76,7 +75,7 @@ public:
     virtual void v18(int value);
     char pad4[4];
     NameField name;
-    MultiController *FUN_002b2710(int a, int b, int c);
+    MultiController_2b2ea0 *FUN_002b2710(int a, int b, int c);
     void FUN_002b1eb0(void *ctrl);
 };
 
@@ -88,7 +87,7 @@ extern "C" void * __cdecl FUN_002b2c30(void *, void *);
 
 class MultiControllerLoader {
 public:
-    void vfunc_5(pure3d::MultiController **out, unsigned __int64 *outId, Reader *r, Inventory *inv);
+    void vfunc_5(pure3d::MultiController_2b2ea0 **out, unsigned __int64 *outId, Reader *r, Inventory *inv);
 };
 
 struct Frame {
@@ -113,37 +112,37 @@ struct Frame {
         ctrl = inv->v3(caster, key); \
     }
 
-void MultiControllerLoader::vfunc_5(pure3d::MultiController **out, unsigned __int64 *outId, Reader *r, Inventory *inv)
+void MultiControllerLoader::vfunc_5(pure3d::MultiController_2b2ea0 **out, unsigned __int64 *outId, Reader *r, Inventory *inv)
 {
     Frame f;
 
-    r->stream->FUN_002647e0(&f.v1.i, 1, 4, 1);
-    r->stream->FUN_002647e0(&f.len, 1, 1, 1);
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v1.i), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1));
     unsigned int l1 = f.len;
-    r->stream->FUN_002647e0(f.name, l1, 1, 1);
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(f.name), (hulk_intptr)l1, 1, (hulk_intptr)1));
     f.name[l1] = 0;
-    r->stream->FUN_002647e0(&f.type, 1, 4, 1);
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.type), (hulk_intptr)1, 4, (hulk_intptr)1));
 
     int sv;
     if (f.v1.i == 0) {
-        r->stream->FUN_002647e0(&f.v1.i, 1, 4, 1);
+        ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v1.i), (hulk_intptr)1, 4, (hulk_intptr)1));
         sv = (int)f.v1.f;
     } else {
-        r->stream->FUN_002647e0(&f.v1.i, 1, 4, 1);
+        ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v1.i), (hulk_intptr)1, 4, (hulk_intptr)1));
         sv = f.v1.i;
     }
-    r->stream->FUN_002647e0(&f.v1.i, 1, 4, 1);
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v1.i), (hulk_intptr)1, 4, (hulk_intptr)1));
     if (f.v1.i != 0)
         sv = 0;
-    r->stream->FUN_002647e0(&f.v4, 1, 4, 1);
-    r->stream->FUN_002647e0(&f.v1.i, 1, 4, 1);
-    r->stream->FUN_002647e0(&f.c, 1, 4, 1);
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v4), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v1.i), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.c), (hulk_intptr)1, 4, (hulk_intptr)1));
 
     void *mem = FUN_00263ea0(0x58);
-    pure3d::MultiController *mc = 0;
+    pure3d::MultiController_2b2ea0 *mc = 0;
     if (mem)
-        mc = ((pure3d::MultiController *)mem)->FUN_002b2710(f.c, f.v4, f.v1.i);
-    mc->name.FUN_0027b040(f.name);
+        mc = ((pure3d::MultiController_2b2ea0 *)mem)->FUN_002b2710(f.c, f.v4, f.v1.i);
+    ((owners::Target_27b040 *)&(mc->name))->FUN_0027b040((hulk_uintptr)(f.name));
 
     switch (f.type) {
     case 0x44464b42:
@@ -170,12 +169,12 @@ void MultiControllerLoader::vfunc_5(pure3d::MultiController **out, unsigned __in
     if (r->FUN_002669f0()) {
         do {
             if (r->FUN_00266a30() == 0x121203) {
-                r->stream->FUN_002647e0(&f.v4, 1, 4, 1);
-                r->stream->FUN_002647e0(&f.len, 1, 1, 1);
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v4), (hulk_intptr)1, 4, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1));
                 unsigned int l2 = f.len;
-                r->stream->FUN_002647e0(f.name2, l2, 1, 1);
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(f.name2), (hulk_intptr)l2, 1, (hulk_intptr)1));
                 f.name2[l2] = 0;
-                r->stream->FUN_002647e0(&f.type, 1, 4, 1);
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.type), (hulk_intptr)1, 4, (hulk_intptr)1));
                 void *ctrl;
                 switch (f.type) {
                 case 0x4d4143:
@@ -185,40 +184,40 @@ void MultiControllerLoader::vfunc_5(pure3d::MultiController **out, unsigned __in
                     ctrl = FUN_002b2c30((Inventory *)inv, (void *)(const char *)(f.name2));
                     break;
                 case 0x475142:
-                    MAKE_CASE(BillboardQuadGroupAnimationController)
+                    MAKE_CASE(BillboardQuadGroupAnimationController_2b2ea0)
                     break;
                 case 0x584554:
-                    MAKE_CASE(TextureAnimationController)
+                    MAKE_CASE(TextureAnimationController_2b2ea0)
                     break;
                 case 0x584645:
-                    MAKE_CASE(ParticleController)
+                    MAKE_CASE(ParticleController_2b2ea0)
                     break;
                 case 0x44414853:
-                    MAKE_CASE(ShaderAnimationController)
+                    MAKE_CASE(ShaderAnimationController_2b2ea0)
                     break;
                 case 0x4554494c:
-                    MAKE_CASE(LightAnimationController)
+                    MAKE_CASE(LightAnimationController_2b2ea0)
                     break;
                 case 0x53495653:
-                    MAKE_CASE(SceneGraphVisibilityAnimationController)
+                    MAKE_CASE(SceneGraphVisibilityAnimationController_2b2ea0)
                     break;
                 case 0x4e525450:
-                    MAKE_CASE(PoseAnimationController)
+                    MAKE_CASE(PoseAnimationController_2b2ea0)
                     break;
                 case 0x4e525453:
-                    MAKE_CASE(SceneGraphTransformAnimationController)
+                    MAKE_CASE(SceneGraphTransformAnimationController_2b2ea0)
                     break;
                 case 0x53495650:
-                    MAKE_CASE(CompDrawVisibilityAnimationController)
+                    MAKE_CASE(CompDrawVisibilityAnimationController_2b2ea0)
                     break;
                 case 0x54525650:
-                    MAKE_CASE(ProceduralVertexAnimController)
+                    MAKE_CASE(ProceduralVertexAnimController_2b2ea0)
                     break;
                 case 0x58545256:
-                    MAKE_CASE(VertexAnimController)
+                    MAKE_CASE(VertexAnimController_2b2ea0)
                     break;
                 default:
-                    MAKE_CASE(FrameController)
+                    MAKE_CASE(FrameController_2b2ea0)
                     break;
                 }
                 if (ctrl)

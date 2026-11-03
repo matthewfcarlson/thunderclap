@@ -1,5 +1,5 @@
+#include "gen/owners.h"
 struct Inner_201c00 {
-    void Init(int);
 };
 class Thing_201c00 {
   public:
@@ -11,6 +11,6 @@ class Thing_201c00 {
 };
 void Thing_201c00::f() {
     value = 0xc61c4000;
-    inner.Init(0);
+    ((owners::Target_27b040 *)&inner)->FUN_0027b040((hulk_uintptr)0);
     ((char*)this)[0x28] = 0;
 }

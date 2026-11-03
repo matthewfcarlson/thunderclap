@@ -1,10 +1,6 @@
-class C_16fad0 {
-  public:
-    char Fn(int x);
-    char pad[0xc];
-};
+#include "gen/owners.h"
 
-char C_16fad0::Fn(int x) {
+char owners::C_16fad0::FUN_0016fad0(int x) {
     *(int*)((char*)this + 0xc) = x;
     return 1;
 }

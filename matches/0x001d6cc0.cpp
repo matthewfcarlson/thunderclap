@@ -1,10 +1,4 @@
-class C_1d6cc0 {
-    char pad[0x270];
-    int value;
-
-  public:
-    void Set(int x);
-};
-void C_1d6cc0::Set(int x) {
+#include "gen/owners.h"
+void owners::C_1d6cc0::FUN_001d6cc0(int x) {
     value = x;
 }

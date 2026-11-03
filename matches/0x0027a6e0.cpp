@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 54 inputs, branch coverage 22/22)
 // FUN_0027a6e0 @ 0x0027a6e0
+#include "gen/owners.h"
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 extern "C" void* __cdecl FUN_00263ea0(unsigned int size);
 extern "C" void __cdecl FUN_0008d330(void* p);
@@ -13,7 +14,6 @@ class Reader {
   public:
     Reader* FUN_0027ab90(int arg);
     bool FUN_0027ac30(int* pos);
-    bool FUN_0027acf0(int* first, int* second);
     void FUN_0027aec0();
 };
 class RDLObject_27a6e0 {
@@ -21,8 +21,6 @@ class RDLObject_27a6e0 {
     virtual void vfunc_0();
     virtual void vfunc_1();
     RDLObject_27a6e0* FUN_0027a890();
-    void FUN_0027a8c0(int pos);
-    void FUN_0027a8f0(int first, int second);
 };
 class Listener_27a6e0 {
   public:
@@ -56,12 +54,12 @@ void Dispatcher_27a6e0::FUN_0027a6e0(int arg1, int arg2) {
     if (reader) {
         int pos;
         while (reader->FUN_0027ac30(&pos)) {
-            writer->FUN_0027a8c0(pos);
+            ((owners::Target_27a8c0 *)writer)->FUN_0027a8c0((const char *)(hulk_uintptr)(int)pos);
             int first, second;
-            if (reader->FUN_0027acf0(&first, &second)) {
+            if (((owners::ConfigParser_27acf0 *)reader)->FUN_0027acf0((char **)(&first), (char **)(&second))) {
                 do {
-                    writer->FUN_0027a8f0(first, second);
-                } while (reader->FUN_0027acf0(&first, &second));
+                    ((owners::Thing_27a8f0 *)writer)->FUN_0027a8f0((const char *)(hulk_uintptr)(int)first, (const char *)(hulk_uintptr)(int)second);
+                } while (((owners::ConfigParser_27acf0 *)reader)->FUN_0027acf0((char **)(&first), (char **)(&second)));
             }
             Cursor_27a6e0 cursor;
             cursor.FUN_0027b0e0(pos);

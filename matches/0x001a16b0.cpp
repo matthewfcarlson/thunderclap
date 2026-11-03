@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 struct Script_1a16b0 {
     char pad[0x14];
@@ -7,7 +8,6 @@ struct Script_1a16b0 {
     int result;
 };
 struct Provider_1a16b0 {
-    int Make(int, int, int);
 };
 int GetThing();
 
@@ -20,7 +20,7 @@ bool hulkfight::scenario::LuaAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     if (edi) {
         int edx = s->arg;
         if (edx && !this->f_24) {
-            this->f_24 = ((Provider_1a16b0*)x)->Make(edx, edi, 0);
+            this->f_24 = ((int)((owners::Object_1d2890 *)(((Provider_1a16b0*)x)))->FUN_001d2890((unsigned int)edx, (unsigned int)edi, 0));
             return true;
         }
     }

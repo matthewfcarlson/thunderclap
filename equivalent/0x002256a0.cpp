@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // choreo2::AnimationDriver::vfunc_11 @ 0x002256a0
+#include "gen/owners.h"
 struct Quat_2256a0 {
     float x, y, z, w;
-    void FUN_0022b750(const Quat_2256a0 *a, const Quat_2256a0 *b, float t);
 };
 
 struct Vec3_2256a0 {
@@ -32,7 +32,6 @@ public:
     int state;
     Quat_2256a0 *FUN_00221cd0();
     void FUN_00221cf0(Quat_2256a0 *q);
-    void FUN_0022be40(Vec3_2256a0 *v);
 };
 
 class Source_2256a0 {
@@ -78,7 +77,7 @@ char AnimationDriver::vfunc_11(unsigned int a, unsigned int b, Pose *pose, float
     if (rotCh != 0) {
         rotCh->vf5(track, &f.rot);
         f.q = *pose->FUN_00221cd0();
-        f.q.FUN_0022b750(&f.q, &f.rot, t);
+        ((owners::Quaternion_22b750 *)&(f.q))->FUN_0022b750((const owners::Quaternion_22b750 *)(const Quat_2256a0 *)(&f.q), (const owners::Quaternion_22b750 *)(const Quat_2256a0 *)(&f.rot), t);
         pose->FUN_00221cf0(&f.q);
         if (t > 0.0f)
             result = 1;
@@ -91,7 +90,7 @@ char AnimationDriver::vfunc_11(unsigned int a, unsigned int b, Pose *pose, float
         cur.x = (tp->x - cur.x) * t + cur.x;
         cur.y = (tp->y - cur.y) * t + cur.y;
         cur.z = (tp->z - cur.z) * t + cur.z;
-        pose->FUN_0022be40(&cur);
+        ((owners::Target_22be40 *)pose)->FUN_0022be40((const int *)(Vec3_2256a0 *)(&cur));
         if (t > 0.0f)
             result = 1;
     }

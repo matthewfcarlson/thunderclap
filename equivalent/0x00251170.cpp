@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19377 inputs, branch coverage 26/26)
 // audio::SeqActionStopTrack::vfunc_1 @ 0x00251170
 #include "gen/audio.h"
+#include "gen/owners.h"
 
 struct Str_251170 {
     char* data;
@@ -9,7 +10,6 @@ struct Str_251170 {
     short len;
     short pad10;
     Str_251170* FUN_0023fac0();
-    Str_251170* FUN_00240170(const Str_251170* src);
     const char* FUN_0023fb00();
 };
 extern "C" void __fastcall FUN_00240060(Str_251170* s);
@@ -48,7 +48,7 @@ void audio::SeqActionStopTrack::vfunc_1(void* __p0) { Ctx_251170 * ctx = (Ctx_25
     Str_251170 track;
     track.FUN_0023fac0();
     Str_251170 src;
-    src.FUN_00240170(&(*(StopData * *)&this->f_08)->name);
+    ((Str_251170 *)((owners::Thing_240170 *)&src)->FUN_00240170((hulk_intptr)(const Str_251170 *)(&(*(StopData * *)&this->f_08)->name)));
     FUN_002613b0(&ctx->mgr->table, &track, &src);
     FUN_00240060(&src);
     int key = FUN_002673a0(track.FUN_0023fb00(), 0);

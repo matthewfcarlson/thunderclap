@@ -1,12 +1,11 @@
 #include "decls/data/game/global.h"
 // data: gCount_ae840 = DAT_004dda40
+#include "gen/owners.h"
 
 extern "C" void __cdecl FUN_002684c0();
 struct Helper_ae840 {
     void a();
     void d();
-    void b(int);
-    void c(int);
 };
 struct Obj_ae840 {
     char pad[4];
@@ -24,9 +23,9 @@ void Obj_ae840::run() {
     p->d();
     for (int i = 0; i < 13; ++i)
         if (flags[i])
-            p->b(i);
+            ((owners::C_ada30 *)p)->FUN_000ada30(i);
     for (int i = 0; i < 2; ++i)
         if (flags2[i])
-            p->c(i);
+            ((owners::X_ada50 *)p)->FUN_000ada50(i);
     finish();
 }

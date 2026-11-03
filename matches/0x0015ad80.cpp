@@ -1,11 +1,6 @@
-class Obj_15ad80 {
-  public:
-    char pad[0x10];
-    int m10;
-    char SetX(int value);
-};
+#include "gen/owners.h"
 
-char Obj_15ad80::SetX(int value) {
+char owners::Obj_15ad80::FUN_0015ad80(int value) {
     m10 = value;
     return 1;
 }

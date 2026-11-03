@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 20/20)
 // hulkfight::motion::GroundSlideAction::vfunc_3 @ 0x00151220
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 
 struct V3_151220 {
@@ -8,7 +9,6 @@ struct V3_151220 {
 };
 struct Name_151220 {
     unsigned int lo, hi;
-    void FUN_0027b040(const char* s);
 };
 struct Xform_151220 {
     char data[0x54];
@@ -28,7 +28,6 @@ public:
 };
 
 struct Timing_151220 {
-    bool FUN_000356c0(V3_151220* out);
 };
 struct Skeleton {
     void FUN_00222890(JointDriver* d, float a, float b, float c, float e, float f, float g);
@@ -38,7 +37,6 @@ struct Clock_151220 {
     Skeleton* FUN_00059a40();
 };
 struct Target_151220 {
-    Clock_151220* FUN_000592a0();
 };
 struct Config_151220 {
     char pad0[0x14];
@@ -67,14 +65,14 @@ public:
 
 bool GroundSlideAction::vfunc_3(int a, int b)
 {
-    Clock_151220* clock = target->FUN_000592a0();
+    Clock_151220* clock = ((Clock_151220 *)((owners::Object_592a0 *)target)->FUN_000592a0());
     Timing_151220* timing = clock->FUN_00059a30();
     Skeleton* skel = clock->FUN_00059a40();
     if (skel == 0)
         return false;
     V3_151220 dir;
     dir.x = 0.0f; dir.y = 0.0f; dir.z = 0.0f;
-    if (!timing->FUN_000356c0(&dir))
+    if (!((owners::Thing_356c0 *)timing)->FUN_000356c0((unsigned int *)(V3_151220 *)(&dir)))
         return false;
     speed = (float)sqrt(dir.z * dir.z + dir.x * dir.x + dir.y * dir.y);
     dir.y = 0.0f;
@@ -98,7 +96,7 @@ bool GroundSlideAction::vfunc_3(int a, int b)
     else
         d = 0;
     driver = d;
-    d->name.FUN_0027b040("groundSlide");
+    ((owners::Target_27b040 *)&(d->name))->FUN_0027b040((hulk_uintptr)"groundSlide");
     driver->AddRef();
     skel->FUN_00222890(driver, -1.0f, c2c, 1.0f, c30, c34, -1.0f);
     float ang = FUN_00224f10(&dir);

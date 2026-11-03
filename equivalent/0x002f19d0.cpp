@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3040 inputs, branch coverage 43/43)
 // FUN_002f19d0 @ 0x002f19d0
+#include "gen/owners.h"
 struct Vec3_2f19d0 {
     float x, y, z;
 };
 
 struct Vec3Thiscall : Vec3_2f19d0 {
-    void FUN_00011160(float scale, const float *dir);
 };
 
 union FloatBits_2f19d0 {
@@ -96,7 +96,7 @@ bool FUN_002f19d0(Vec3_2f19d0 *p, Shape_2f19d0 *shape)
         lim = lim + shape->capsule.halfLength;
         if (!(lim >= AbsF(tf)))
             return false;
-        d.FUN_00011160(-tf, shape->capsule.axis);
+        ((owners::Vec3_11160 *)&d)->FUN_00011160(-tf, (const owners::Vec3_11160 *)(shape->capsule.axis));
         double sum = (double)d.z * d.z + (double)d.y * d.y + (double)d.x * d.x;
         return sum <= shape->capsule.radius2;
     }

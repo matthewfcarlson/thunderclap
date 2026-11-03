@@ -1,10 +1,10 @@
+#include "gen/owners.h"
 extern "C" void __cdecl FUN_00363c80();
 class G {
   public:
-    void Init(const char* path, int flag);
 };
 G g_obj;
 void __cdecl Reg() {
-    g_obj.Init("sound/rsd", 0);
+    ((owners::String_23fc40 *)&g_obj)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
     atexit(FUN_00363c80);
 }

@@ -1,8 +1,8 @@
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 class Obj {
   public:
-    int value();
 };
 class Mid {
   public:
@@ -19,9 +19,9 @@ bool hulkfight::motion::LocomotionMotionStateCondition::vfunc_6(void* __p0, void
     int x = this->f_10;
     switch (this->f_0c) {
     case 0:
-        return p->value() == x;
+        return ((int)((owners::Widget_35910 *)p)->FUN_00035910()) == x;
     case 1:
-        return p->value() != x;
+        return ((int)((owners::Widget_35910 *)p)->FUN_00035910()) != x;
     default:
         return false;
     }

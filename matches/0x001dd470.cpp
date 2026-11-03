@@ -1,4 +1,5 @@
 #include "gen/global.h"
+#include "gen/owners.h"
 struct Matrix {
     unsigned int words[16];
 };
@@ -7,7 +8,6 @@ struct CSPManager_nv_1dd470 {
 };
 struct Rotation_1dd470 {
     unsigned int words[4];
-    void FUN_0022b370(const Matrix*);
 };
 struct State_1dd470 {
     unsigned int words[2];
@@ -43,7 +43,7 @@ bool Manager_1dd470::target(int index, const Matrix* matrix, unsigned int option
         return true;
     }
     Rotation_1dd470 rotation;
-    rotation.FUN_0022b370(matrix);
+    ((owners::Quat_22b370 *)&rotation)->FUN_0022b370((const float *)(const Matrix *)matrix);
     entry->state.FUN_001db780(&rotation);
     position->x = matrix->words[12];
     position->y = matrix->words[13];

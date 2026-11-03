@@ -1,10 +1,6 @@
 #include "compat/ptr.h"
-class Thing_2f8d90 {
-  public:
-    void Init(int* a, int* c, int* b, int* e, int d, int* f);
-    int m[17];
-};
-void Thing_2f8d90::Init(int* a, int* c, int* b, int* e, int d, int* f) {
+#include "gen/owners.h"
+void owners::Thing_2f8d90::FUN_002f8d90(int* a, int* c, int* b, int* e, int d, int* f) {
     m[0] = (hulk_intptr)a;
     m[1] = (hulk_intptr)b;
     m[2] = a[4];

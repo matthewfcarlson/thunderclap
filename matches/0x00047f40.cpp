@@ -1,9 +1,5 @@
-class Obj_47f40 {
-  public:
-    char pad[0x10];
-    char* Get();
-};
+#include "gen/owners.h"
 
-char* Obj_47f40::Get() {
+char* owners::Obj_47f40::FUN_00047f40() {
     return (char*)((char*)this + 0x10);
 }

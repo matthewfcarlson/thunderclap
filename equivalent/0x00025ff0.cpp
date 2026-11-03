@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1306 inputs, branch coverage 143/146, incomplete)
 // FUN_00025ff0 @ 0x00025ff0
+#include "gen/owners.h"
 extern "C" double __cdecl sqrt(double);
 
 struct V3_25ff0 {
@@ -10,7 +11,6 @@ struct V4_25ff0 { float x, y, z, w; };
 
 struct Mat_25ff0 {
     float m[16];
-    void FUN_0022c2b0(const V4_25ff0 *in, V3_25ff0 *out);
 };
 
 struct Query_25ff0 {
@@ -23,7 +23,6 @@ struct Pos10_25ff0 {
 
 struct Sink_25ff0 {
     char FUN_001c4010(Query_25ff0 *q);
-    V3_25ff0 *FUN_001c39d0();
     Mat_25ff0 *FUN_001c3990();
 };
 Sink_25ff0 *FUN_001c3d90();
@@ -68,7 +67,6 @@ struct EntityTable {
     struct Lookup_25ff0 *f44;
 };
 struct Lookup_25ff0 {
-    Entity *FUN_00059c10(int id);
 };
 
 struct Frame_25ff0 {
@@ -145,7 +143,7 @@ void Selector_25ff0::Update(float unusedA, float dt)
             pos->y = 0;
             pos->z = 0;
             me->f10->FUN_00059a50(pos);
-            V3_25ff0 *c = f.sink->FUN_001c39d0();
+            V3_25ff0 *c = ((V3_25ff0 *)((owners::Object_1c39d0 *)(f.sink))->FUN_001c39d0());
             f.d.x = pos->x - c->x;
             f.d.y = pos->y - c->y;
             f.d.z = pos->z - c->z;
@@ -163,13 +161,13 @@ void Selector_25ff0::Update(float unusedA, float dt)
     f.vt.y = 0;
     f.vt.z = r;
     f.vt.w = 0;
-    mat->FUN_0022c2b0(&f.vt, &f.zeroV);
+    ((owners::Mat_22c2b0 *)mat)->FUN_0022c2b0((float *)(const V4_25ff0 *)(&f.vt), (float *)(V3_25ff0 *)(&f.zeroV));
 
     f.k = 0;
     f.m = 0;
     f.u = 0;
     for (f.i = 0; f.i < count; f.i++) {
-        Entity *es = tbl->f44->FUN_00059c10(ids[f.i]);
+        Entity *es = ((Entity *)((owners::ThisWrap_00059c10 *)(tbl->f44))->FUN_00059c10((void *)(hulk_uintptr)(int)(ids[f.i])));
         float sc = dt + score[f.i];
         bool had4 = (flags[f.i] & 4) != 0;
         score[f.i] = sc;

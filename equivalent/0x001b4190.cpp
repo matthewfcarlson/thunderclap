@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 4/4)
 // FUN_001b4190 @ 0x001b4190
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Target_1b4190 {
     char pad[0x58];
@@ -11,7 +12,6 @@ struct Source_1b4190 {
     Target_1b4190* target;
 };
 struct Sink_1b4190 {
-    void FUN_002ee6b0(Target_1b4190* t);
 };
 class Obj_1b4190 {
   public:
@@ -29,6 +29,6 @@ char Obj_1b4190::FUN_001b4190(Source_1b4190* s) {
     t->w5c = (*(unsigned int*)((char*)&DAT_004c39f8 + 4));
     t->w60 = (*(unsigned int*)&DAT_004c3a20) | ((*(unsigned int*)&DAT_004c3a18) | (*(unsigned int*)&DAT_004c39e8));
     t->w64 = (*(unsigned int*)((char*)&DAT_004c3a20 + 4)) | ((*(unsigned int*)((char*)&DAT_004c3a18 + 4)) | (*(unsigned int*)((char*)&DAT_004c39e8 + 4)));
-    sink->FUN_002ee6b0(t);
+    ((owners::Obj_2ee6b0 *)sink)->FUN_002ee6b0((hulk_intptr)(Target_1b4190 *)t);
     return 1;
 }

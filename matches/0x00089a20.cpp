@@ -1,8 +1,4 @@
-struct C_89a20 {
-    char pad[0xabc];
-    unsigned char value;
-    void Set(unsigned char x);
-};
-void C_89a20::Set(unsigned char x) {
+#include "gen/owners.h"
+void owners::C_89a20::FUN_00089a20(unsigned char x) {
     value = x;
 }

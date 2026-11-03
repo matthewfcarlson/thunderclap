@@ -2,6 +2,7 @@
 // FUN_00264590 @ 0x00264590
 #include "decls/data/engine/audio.h"
 #include "decls/data/engine/content.h"
+#include "gen/owners.h"
 
 struct Sink_264590 {
     virtual void vfn0();
@@ -28,7 +29,6 @@ struct Sink_264590 {
     virtual void vfn21();
 };
 struct Clock_264590 {
-    void FUN_00264d20();
 };
 unsigned int FUN_00267f80();
 
@@ -55,7 +55,6 @@ public:
     unsigned int lastTime;   // 0x44
     void FUN_00263fd0(const void *src, char *dst, int n, int flag);
     void FUN_00264050(char *other);
-    void FUN_00264140(const void *src, int count, int size);
     bool FUN_00264590(const void *data, int count, int size, int flag);
 };
 
@@ -86,7 +85,7 @@ bool Stream::FUN_00264590(const void *data, int count, int size, int flag)
                     sink->vfn21();
                 } else {
                     while (!sink->vfn20()) {
-                        (*(Clock_264590**)&DAT_00527c58)->FUN_00264d20();
+                        ((owners::Q_264d20 *)((*(Clock_264590**)&DAT_00527c58)))->FUN_00264d20();
                         lastTime = FUN_00267f80();
                     }
                 }
@@ -100,11 +99,11 @@ bool Stream::FUN_00264590(const void *data, int count, int size, int flag)
         }
     }
     if (notify)
-        FUN_00264140(data, count, size);
+        ((owners::Converter_264140 *)this)->FUN_00264140((unsigned char *)data, (unsigned int)count, (unsigned int)size);
     if (!fd) {
         if (pending >= 0x400) {
             if (FUN_00267f80() - lastTime >= interval) {
-                (*(Clock_264590**)&DAT_00527c58)->FUN_00264d20();
+                ((owners::Q_264d20 *)((*(Clock_264590**)&DAT_00527c58)))->FUN_00264d20();
                 lastTime = FUN_00267f80();
             }
             pending = 0;

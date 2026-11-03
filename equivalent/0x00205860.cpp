@@ -2,6 +2,7 @@
 // FUN_00205860 @ 0x00205860
 // cl-flags: /GS
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 extern "C" int __cdecl _sprintf(char *buf, const char *fmt, ...);
 
@@ -15,7 +16,6 @@ public:
     char name[0x570 - 0x24];    // 0x24
     int ids[2];                 // 0x570
     bool FUN_002046b0(int id);
-    void FUN_00204760(int id);
     Marker_205860 *FUN_00204540(const char *label);
     void FUN_00205860(int id);
 };
@@ -30,7 +30,7 @@ void District_205860::FUN_00205860(int id)
             continue;
         if (!FUN_002046b0(id)) {
             _sprintf(fr.label, "%s_district_%d", name, id);
-            FUN_00204760(id);
+            ((owners::Thing_204760 *)this)->FUN_00204760(id);
             if ((*(char*)((char*)&DAT_004c91d8 + 1)) != 0)
                 FUN_00204540(fr.label)->FUN_00204f00();
         }

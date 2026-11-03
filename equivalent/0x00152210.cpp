@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 16/16)
 // hulkfight::motion::HitThrowAction::vfunc_5 @ 0x00152210
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Vec3_152210 {
     float x, y, z;
     float FUN_0022d110();
@@ -8,7 +9,6 @@ struct Vec3_152210 {
 
 struct Transform_152210 {
     void FUN_00221d20(float angle);
-    void FUN_0022be40(Vec3_152210* pos);
 };
 
 struct Target_152210 {
@@ -29,7 +29,6 @@ struct Fighter_152210 {
     struct Inner_152210* inner;
     char pad120[0xc];
     int f12c;
-    void FUN_000359c0(int mode);
 };
 
 struct Inner_152210 {
@@ -107,7 +106,7 @@ bool HitThrowAction::vfunc_5(int skip, float dt)
     fr.v.y = 0.0f;
     fr.v.z = 0.0f;
     anchor->FUN_00059a50(&fr.v);
-    fighter->FUN_000359c0(3);
+    ((owners::C_359c0 *)fighter)->FUN_000359c0(3);
 
     f2c = f2c - dt * f30;
     if (f28) {
@@ -137,7 +136,7 @@ bool HitThrowAction::vfunc_5(int skip, float dt)
     fr.t.x = fr.t.x + fr.v.x;
     fr.t.y = fr.t.y + fr.v.y;
     fr.t.z = fr.t.z + fr.v.z;
-    target->xform.FUN_0022be40(&fr.t);
+    ((owners::Target_22be40 *)&(target->xform))->FUN_0022be40((const int *)(Vec3_152210 *)(&fr.t));
 
     if (cfg->flag14) {
         float ang = FUN_00224f10(&vel);

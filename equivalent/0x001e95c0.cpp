@@ -3,8 +3,9 @@
 // cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 struct Controller_1e95c0 { bool FUN_00266750(); void FUN_00263e90(); };
-struct Subsystem_1e95c0 { void FUN_000862a0(); };
+struct Subsystem_1e95c0 {  };
 struct World { char pad[0x54]; Subsystem_1e95c0* subsystem; };
 extern "C" void __cdecl FUN_00240bb0();
 extern "C" int __cdecl FUN_00240750();
@@ -16,7 +17,7 @@ void Target_1e95c0::update(float time, bool active) {
  FUN_002696a0();
  FUN_00240bb0();
  FUN_00243090(FUN_00240750(), time * 1000.0f);
- if (DAT_004dd700 && DAT_004dd700->subsystem) DAT_004dd700->subsystem->FUN_000862a0();
+ if (DAT_004dd700 && DAT_004dd700->subsystem) ((owners::Target_862a0 *)(DAT_004dd700->subsystem))->FUN_000862a0();
  if (active) {
  for(int i=0;i<count;++i) {
  Entry_1e95c0* entry=entries[i];

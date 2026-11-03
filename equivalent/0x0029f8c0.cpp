@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 16/16)
 // FUN_0029f8c0 @ 0x0029f8c0
 #include "decls/data/engine/unknown.h"
+#include "gen/owners.h"
 
 struct Rec_29f8c0 {
     int field_00;
@@ -17,7 +18,6 @@ struct ItemList_29f8c0 {
     void **items;
 
     void FUN_002a0fc0(int index, int mode);
-    void FUN_002a1180(int index);
 };
 
 struct Slots_29f8c0 {
@@ -33,7 +33,6 @@ struct Owner_29f8c0 {
     char pad[0x24];
     int removed;
 
-    Slots_29f8c0 *FUN_0029c450(void *key);
     void FUN_0029f8c0(void *key);
 };
 
@@ -42,7 +41,7 @@ void Owner_29f8c0::FUN_0029f8c0(void *key)
     if (key == 0)
         return;
 
-    Slots_29f8c0 *s = FUN_0029c450(key);
+    Slots_29f8c0 *s = ((Slots_29f8c0 *)((owners::Object_29c450 *)this)->FUN_0029c450(key));
 
     for (int i = s->list->count - 1; i >= 0; i--) {
         ItemList_29f8c0 *l = s->list;
@@ -70,7 +69,7 @@ void Owner_29f8c0::FUN_0029f8c0(void *key)
             s->recs[last].field_1c = 0;
             s->recs[last].flags = 0;
         }
-        s->list->FUN_002a1180(last);
+        ((owners::A_2a1180 *)(s->list))->FUN_002a1180(last);
         removed++;
     }
 }

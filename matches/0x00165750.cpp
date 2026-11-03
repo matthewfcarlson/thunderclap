@@ -1,11 +1,6 @@
-class C_165750 {
-    char pad[12];
+#include "gen/owners.h"
 
-  public:
-    bool Set(int a);
-};
-
-bool C_165750::Set(int a) {
+bool owners::C_165750::FUN_00165750(int a) {
     *(int*)((char*)this + 12) = a;
     return true;
 }

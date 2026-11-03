@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19972 inputs, branch coverage 10/10)
 // hulkfight::motion::HitFloatAction::vfunc_3 @ 0x0014f980
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 
 struct Vec3_14f980 {
@@ -8,13 +9,11 @@ struct Vec3_14f980 {
 };
 
 struct Transform_14f980 {
-    void FUN_0022be40(const Vec3_14f980 *pos);
     void FUN_00221d20(float v);
 };
 
 struct ResourceName_14f980 {
     char data[12];
-    void FUN_0027b040(const char *name);
 };
 
 class JointDriver_14f980 {
@@ -103,7 +102,7 @@ bool HitFloatAction::vfunc_3(int a, int b)
     if (mem)
         obj = ((JointDriver_14f980 *)mem)->FUN_002248f0(0);
     floatObj = obj;
-    obj->name.FUN_0027b040("hitFloat");
+    ((owners::Target_27b040 *)&(obj->name))->FUN_0027b040((hulk_uintptr)"hitFloat");
 
     int mode = 1;
     if (data->useSize) {
@@ -113,7 +112,7 @@ bool HitFloatAction::vfunc_3(int a, int b)
     }
     floatObj->mode = mode;
     floatObj->vfunc_0();
-    floatObj->transform.FUN_0022be40(&pos);
+    ((owners::Target_22be40 *)&(floatObj->transform))->FUN_0022be40((const int *)(const Vec3_14f980 *)(&pos));
     scene->FUN_00222890(floatObj, -1.0f, p, 1.0f, q, r, -1.0f);
     outLen = (float)sqrt(target->size.x * target->size.x + target->size.z * target->size.z);
     outA = target->size.y;

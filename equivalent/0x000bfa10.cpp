@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_000bfa10 @ 0x000bfa10
 // cl-flags: /GS
+#include "gen/owners.h"
 extern "C" int sprintf(char* buf, const char* fmt, ...);
 
 struct Lookup_bfa10 {
@@ -8,8 +9,6 @@ struct Lookup_bfa10 {
 };
 
 struct Strings_bfa10 {
-    int FUN_000f7d30(const char* key);
-    const char* FUN_000f7220(int id);
     int FUN_000f7240(int a, int b);
 };
 
@@ -54,12 +53,12 @@ void UnlockMenu::FUN_000bfa10(int arg1, int arg2)
             FUN_000fc3d0()->FUN_000be230(f.dialog, "TBS_UNLOCKABLES_INVALID_ENTRY", "", "", "TBS_MENU_ITEM_OK", 2, 0, 0);
         } else if (f.flagB != 0) {
             Strings_bfa10* s = FUN_000fc1b0();
-            int key = s->FUN_000f7d30("TBS_UNLOCKABLES_VALID_ENTRY_2");
-            const char* fmt = s->FUN_000f7220(key);
+            int key = ((int)((owners::A_f7d30 *)s)->FUN_000f7d30((hulk_intptr)"TBS_UNLOCKABLES_VALID_ENTRY_2"));
+            const char* fmt = ((const char *)((owners::C_f7220 *)s)->FUN_000f7220((hulk_intptr)key));
             int a = f.pair[0];
             int b = f.pair[1];
             int v = FUN_000fc1b0()->FUN_000f7240(a, b);
-            const char* arg = FUN_000fc1b0()->FUN_000f7220(v);
+            const char* arg = ((const char *)((owners::C_f7220 *)(FUN_000fc1b0()))->FUN_000f7220((hulk_intptr)v));
             FUN_000fc020(f.text, 0x80, fmt, arg);
             FUN_000fc3d0()->FUN_000be310(f.dialog, f.text, "", "", "TBS_MENU_ITEM_OK", 2, 0, 0);
         } else {

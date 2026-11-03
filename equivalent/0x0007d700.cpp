@@ -2,6 +2,7 @@
 // FUN_0007d700 @ 0x0007d700
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 void* __cdecl FUN_00263ea0(unsigned int size) throw();
 
 struct Vec3_7d700 {
@@ -29,7 +30,6 @@ struct Flags_7d700 {
 };
 
 struct Opt_7d700 {
-    Flags_7d700* FUN_00086340();
 };
 
 struct World {
@@ -38,7 +38,6 @@ struct World {
 };
 
 struct Sim_7d700 {
-    int FUN_00011330(int n);
     float FUN_000787e0(unsigned __int64 id);
 };
 
@@ -113,9 +112,9 @@ void Spawner_7d700::FUN_0007d700(const char* name, int idx, int row, int col)
     FUN_00224d70(1.5707964f, &d);
     Sim_7d700* sim = FUN_000964d0();
     VariantOrSpeed slot;
-    slot.variant = sim->FUN_00011330(entry->f08 - 1);
+    slot.variant = ((int)((owners::Random_11330 *)sim)->FUN_00011330((unsigned int)(entry->f08 - 1)));
     Node* node = holder->node;
-    Flags_7d700* flags = DAT_004dd700->opt->FUN_00086340();
+    Flags_7d700* flags = ((Flags_7d700 *)((owners::A_86340 *)(DAT_004dd700->opt))->FUN_00086340());
     if (flags->FUN_00092940(0x26)) {
         if (((*(unsigned*)&DAT_004dd060) & 1) == 0) {
             (*(unsigned*)&DAT_004dd060) |= 1;

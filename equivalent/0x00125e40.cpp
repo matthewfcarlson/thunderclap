@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 18/18)
 // hulkfight::ai::TargetVelocityXZCondition::vfunc_6 @ 0x00125e40
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
@@ -30,7 +31,6 @@ struct Chain_125e40 {
 };
 
 struct Owner_125e40 {
-    Chain_125e40 *FUN_000592a0();
 };
 
 class TargetVelocityXZCondition {
@@ -51,7 +51,7 @@ char TargetVelocityXZCondition::vfunc_6(int unused1, Owner_125e40 *owner, int un
 {
     if (!FUN_00344e74(owner, 0, DAT_00494b44, DAT_00494b60, 0))
         return 0;
-    Velocity_125e40 *v = owner->FUN_000592a0()->FUN_00059a30()->target;
+    Velocity_125e40 *v = ((Chain_125e40 *)((owners::Object_592a0 *)owner)->FUN_000592a0())->FUN_00059a30()->target;
     if (!v)
         return 0;
 

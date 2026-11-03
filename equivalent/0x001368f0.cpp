@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 43/44, incomplete)
 // hulkfight::motion::AirToGroundTargetAction::vfunc_5 @ 0x001368f0
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/owners.h"
 
 struct V3_1368f0 {
     float x, y, z;
@@ -15,7 +16,6 @@ class Prop_1368f0 {
 
 struct Sub18_1368f0 {
     void FUN_00221d20(float v);
-    void FUN_0022be40(V3_1368f0 *p);
 };
 struct Target_1368f0 {
     char pad[0x18];
@@ -25,7 +25,6 @@ struct Target_1368f0 {
 struct Mover_1368f0 {
     char pad0[0x328];
     Prop_1368f0 *prop;
-    void FUN_000359c0(int n);
     float FUN_000354c0();
 };
 
@@ -36,7 +35,6 @@ struct Inner_1368f0 {
     Mover_1368f0 *FUN_00059a30();
 };
 struct Source_1368f0 {
-    Inner_1368f0 *FUN_000592a0();
 };
 
 struct Info_1368f0 {
@@ -94,9 +92,9 @@ char AirToGroundTargetAction::v5(Arg1_1368f0 a1, float dt)
     if (!target)
         return 0;
     Frame_1368f0 f;
-    Inner_1368f0 *inner = source->FUN_000592a0();
+    Inner_1368f0 *inner = ((Inner_1368f0 *)((owners::Object_592a0 *)source)->FUN_000592a0());
     Mover_1368f0 *mover = inner->FUN_00059a30();
-    mover->FUN_000359c0(3);
+    ((owners::C_359c0 *)mover)->FUN_000359c0(3);
     f.pos.x = 0;
     f.pos.y = 0;
     f.pos.z = 0;
@@ -222,6 +220,6 @@ char AirToGroundTargetAction::v5(Arg1_1368f0 a1, float dt)
     f.pn.x = f.pos.x + f.w.x;
     f.pn.y = f.pos.y + f.w.y;
     f.pn.z = f.pos.z + f.w.z;
-    target->sub.FUN_0022be40(&f.pn);
+    ((owners::Target_22be40 *)&(target->sub))->FUN_0022be40((const int *)(V3_1368f0 *)(&f.pn));
     return 1;
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1176 inputs, branch coverage 30/30)
 // FUN_002a5df0 @ 0x002a5df0
+#include "gen/owners.h"
 struct Item_2a5df0 {
     virtual void v0();
     virtual void v1();
@@ -8,7 +9,6 @@ struct Item_2a5df0 {
     virtual void v4(float time, float *out);
     int pad4;
     int subType;
-    void FUN_0028a1c0(float time, float *out);
 };
 
 
@@ -21,11 +21,9 @@ struct V3_2a5df0 {
 struct List_2a5df0 {
     char pad0[0x14];
     int count;
-    Item_2a5df0 *FUN_00288950(int index);
 };
 
 struct Clips {
-    List_2a5df0 *FUN_00288a10(int flags);
 };
 
 struct Anim_2a5df0 {
@@ -83,9 +81,9 @@ void FUN_002a5df0(Anim_2a5df0 *obj, int a2, int a3, int a4)
     fr.f[12] = 0.0f;
     fr.f[13] = 0.2f;
     fr.t0 = fr.t = obj->v13();
-    List_2a5df0 *list = obj->v25()->FUN_00288a10(0);
+    List_2a5df0 *list = ((List_2a5df0 *)((owners::Target_288a10 *)(obj->v25()))->FUN_00288a10(0));
     for (int i = 0; i < list->count; i++) {
-        Item_2a5df0 *item = list->FUN_00288950(i);
+        Item_2a5df0 *item = ((Item_2a5df0 *)((owners::C_288950 *)list)->FUN_00288950(i));
         int type = item->GetType();
         if (type == 0x31544c46) {
             float *dst;
@@ -101,7 +99,7 @@ void FUN_002a5df0(Anim_2a5df0 *obj, int a2, int a3, int a4)
             case 0x454d4954: dst = &fr.t; break;
             default: continue;
             }
-            item->FUN_0028a1c0(fr.t0, dst);
+            ((owners::Curve_28a1c0 *)item)->FUN_0028a1c0(fr.t0, dst);
         } else if (type == 0x54434556) {
             if (item->subType == 0x49524f57) {
                 item->v4(fr.t0, &fr.f[1]);

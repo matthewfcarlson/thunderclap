@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0022e890 @ 0x0022e890
 // Segment::FUN_0022e890 @ 0x0022e890: evaluate the cubic segment at t (clamped to [0,1])
+#include "gen/owners.h"
 struct V3_22e890 {
     float x, y, z;
 };
@@ -11,7 +12,6 @@ struct Matrix {
 
 struct Vec4_22e890 {
     float x, y, z, w;
-    void FUN_002306c0(const Matrix *mat);
 };
 
 class Segment_22e890 {
@@ -32,7 +32,7 @@ void Segment_22e890::FUN_0022e890(V3_22e890 *out, float t)
     pos.y = t;
     pos.z = t * t;
     pos.w = t * t * t;
-    pos.FUN_002306c0((const Matrix *)this);
+    ((owners::Obj_2306c0 *)&pos)->FUN_002306c0((hulk_intptr)(const Matrix *)((const Matrix *)this));
 
     out->x = pos.x;
     out->y = pos.y;

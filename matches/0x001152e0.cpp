@@ -1,10 +1,5 @@
-class O_1152e0 {
-  public:
-    char m[0x18];
-    int m18;
-    unsigned char f(int x);
-};
-unsigned char O_1152e0::f(int x) {
+#include "gen/owners.h"
+unsigned char owners::O_1152e0::FUN_001152e0(int x) {
     m18 = x;
     return 1;
 }

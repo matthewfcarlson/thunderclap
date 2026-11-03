@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 48 inputs, branch coverage 22/26, incomplete)
 // FUN_00310ec0 @ 0x00310ec0
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Node;
 
 struct SubObj_310ec0 {
     char pad0[4];
-    void FUN_002fcaf0(SubObj_310ec0* other);
 };
 
 struct Node {
@@ -90,7 +90,7 @@ void Tree_310ec0::FUN_00310ec0()
                     s->f34 = c->f34 + s->f34;
                     s->f3c = c->f3c + s->f3c;
                     s->fF0 = c->fF0 + s->fF0;
-                    s->sub.FUN_002fcaf0(&c->sub);
+                    ((owners::V_2fcaf0 *)&(s->sub))->FUN_002fcaf0((owners::V_2fcaf0 *)(SubObj_310ec0 *)(&c->sub));
                 }
             }
         }

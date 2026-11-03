@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
 // FUN_001db780 @ 0x001db780
+#include "gen/owners.h"
 struct Quat_1db780 {
     float x, y, z, w;
-    void FUN_0022b560(const Quat_1db780 *other);
 };
 
 struct PackedRotation {
@@ -19,7 +19,7 @@ void PackedRotation::FUN_001db780(const Quat_1db780 *q)
     identity.y = 0.0f;
     identity.z = 0.0f;
     identity.w = 1.0f;
-    a.FUN_0022b560(&identity);
+    ((owners::Vec4_22b560 *)&a)->FUN_0022b560((owners::Vec4_22b560 *)(const Quat_1db780 *)(&identity));
     x = (short)(__int64)(a.x * 32767.0f);
     y = (short)(__int64)(a.y * 32767.0f);
     z = (short)(__int64)(a.z * 32767.0f);

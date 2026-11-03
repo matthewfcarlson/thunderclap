@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
 
 struct Label_c4020 {
@@ -18,9 +19,7 @@ struct Label_c4020 {
     char pad19[3];
     float f1c;
     int f20;
-    void FUN_000f7930();
     void FUN_000f8500(const char* text, void* manager, char flag);
-    void FUN_000f7960();
 };
 
 class TextManager_c4020 {
@@ -94,12 +93,12 @@ class TextManager_c4020 {
     virtual void v66();
 };
 
-class FEObject {
+class FEObject_c4020 {
   public:
     virtual void v0();
 };
 
-class TextSelector : public FEObject {
+class TextSelector_c4020 : public FEObject_c4020 {
   public:
     virtual void v1();
     virtual void v2();
@@ -151,7 +150,7 @@ extern void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* d
 
 extern "C" int __cdecl FUN_00266da0(int mode);
 TextManager_c4020* __cdecl FUN_000fc3d0();
-FEObject* __cdecl FUN_000fc260(const char* name);
+FEObject_c4020* __cdecl FUN_000fc260(const char* name);
 Manager_c4020* __cdecl FUN_000fc1b0();
 extern "C" void __cdecl FUN_000fc100(int a, int b);
 int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, ...);
@@ -212,8 +211,8 @@ void MissionMenu::FUN_000c4020(int a, int b)
             (*(char*)&DAT_0049fb3c) = 0;
         }
         FUN_000fc100((*(hulk_intptr*)&DAT_0049f3ac), 0);
-        fr.entry.FUN_000f7930();
-        TextSelector* sel = (TextSelector*)FUN_00344e74(FUN_000fc260("mission_selector"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
+        ((owners::State_f7930 *)&(fr.entry))->FUN_000f7930();
+        TextSelector_c4020* sel = (TextSelector_c4020*)FUN_00344e74(FUN_000fc260("mission_selector"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
         if (sel) {
             for (int i = 0; i < 0x80; i++) {
                 if (!names[i])
@@ -229,7 +228,7 @@ void MissionMenu::FUN_000c4020(int a, int b)
         FUN_000b8f20();
         FUN_000bb600();
         FUN_000c3ea0();
-        fr.entry.FUN_000f7960();
+        ((owners::Thing_f7960 *)&(fr.entry))->FUN_000f7960();
     }
     f1880 = 0;
     FUN_00266da0(fr.prev);

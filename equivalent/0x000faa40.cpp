@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20036 inputs, branch coverage 53/53)
 // FUN_000faa40 @ 0x000faa40
 #include "decls/data/game/DollyScript.h"
+#include "gen/owners.h"
 
 extern char DAT_004a13e4[];
 extern char DAT_004a1858[];
@@ -16,19 +17,15 @@ public:
     Node *next;
     char pad08[4];
     int flags;
-    void FUN_000f9b40(Node *child);
 };
 
 struct Index_faa40 {
-    Node *FUN_000f9670(int lo, int hi);
     Node *FUN_000f96b0(int lo, int hi);
 };
 
 struct StateStack_faa40 {
     int slot[4];
     int top;
-    void FUN_000f9700(int state);
-    void FUN_000f9720();
 };
 
 struct Current_faa40 {
@@ -57,16 +54,16 @@ bool Handler_faa40::FUN_000faa40(Node *a1)
         if (b == 0)
             return false;
         if (b->Id() == DAT_004e0a00) {
-            stack.FUN_000f9700(1);
+            ((owners::X_f9700 *)&stack)->FUN_000f9700(1);
         } else {
             if (!(b->Id() == DAT_004e0a18))
                 return false;
-            stack.FUN_000f9700(2);
+            ((owners::X_f9700 *)&stack)->FUN_000f9700(2);
         }
         break;
     case 1: {
         __int64 id = b->Id();
-        Node *n = index.FUN_000f9670((int)id, (int)(id >> 32));
+        Node *n = ((Node *)((owners::Table_f9670 *)&index)->FUN_000f9670((int)id, (int)(id >> 32)));
         while (n != 0) {
             if (current != 0) {
                 if (current->head == 0)
@@ -74,7 +71,7 @@ bool Handler_faa40::FUN_000faa40(Node *a1)
                 else
                 {
                     Node * tmp1 = n->Clone();
-                    current->head->FUN_000f9b40(tmp1);
+                    ((owners::Node_f9b40 *)(current->head))->FUN_000f9b40((owners::Node_f9b40 *)(Node *)tmp1);
                 }
             } else {
                 Node *c = n->Clone();
@@ -109,14 +106,14 @@ bool Handler_faa40::FUN_000faa40(Node *a1)
         break;
     case 4:
         if (b != 0 && b->Id() == DAT_004e0a00) {
-            stack.FUN_000f9700(1);
+            ((owners::X_f9700 *)&stack)->FUN_000f9700(1);
             break;
         }
         if (FUN_00344e74(a1, 0, DAT_004a13e4, DAT_004a1888, 0) != 0) {
             if (depth > 0) {
                 depth--;
             } else {
-                stack.FUN_000f9720();
+                ((owners::Stack_f9720 *)&stack)->FUN_000f9720();
                 current = 0;
                 break;
             }
@@ -129,7 +126,7 @@ bool Handler_faa40::FUN_000faa40(Node *a1)
             current->head = a1;
             return result;
         }
-        current->head->FUN_000f9b40(a1);
+        ((owners::Node_f9b40 *)(current->head))->FUN_000f9b40((owners::Node_f9b40 *)(Node *)a1);
         return result;
     default:
         return false;

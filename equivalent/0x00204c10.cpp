@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19593 inputs, branch coverage 28/28)
 // FUN_00204c10 @ 0x00204c10
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 
 struct Vec3_204c10 {
@@ -38,7 +39,6 @@ class Items_204c10 {
 public:
     char pad0[0x18];
     Counter_204c10 counter;
-    Item_204c10 *FUN_001c7f80(int i);
     Info_204c10 *FUN_001c7f10(int index);
 };
 
@@ -85,7 +85,7 @@ int Finder_204c10::FUN_00204c10(char wantNear)
     int bestIndex = -1;
     hulk_freg bestDist = wantNear ? 999999.0f : -999999.0f;
     for (int i = 0; i < count; i++) {
-        Item_204c10 *item = items->FUN_001c7f80(i);
+        Item_204c10 *item = ((Item_204c10 *)((owners::Thing_1c7f80 *)items)->FUN_001c7f80((unsigned int)i));
         int idx = item->index;
         char k = kind[idx];
         if ((k == 2 && wantNear) || (k == 3 && !wantNear)) {

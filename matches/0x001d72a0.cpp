@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class Helper_1d72a0 {
   public:
-    void* Run();
 };
 class Other_1d72a0 {
   public:
@@ -21,7 +21,7 @@ struct Obj_1d72a0 {
 void __fastcall FUN_001d72a0(Obj_1d72a0* self) {
     unsigned* p;
     if (self->p)
-        p = (unsigned*)((char*)self->p->Run() + 0x30);
+        p = (unsigned*)((char*)((void *)((owners::C_2fc6f0 *)(self->p))->FUN_002fc6f0()) + 0x30);
     else
         p = (unsigned*)self->other->Get();
     self->a = p[0];

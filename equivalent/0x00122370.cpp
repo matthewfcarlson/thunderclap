@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 12/12)
 // hulkfight::ai::PathAction::vfunc_3 @ 0x00122370
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Zone_122370 { char pad[0x380]; int value; };
 struct ZoneRef { char pad[0x11c]; Zone_122370* zone; };
 struct Node { ZoneRef* FUN_00059a30(); };
-struct Owner_122370 { Node* FUN_000592a0(); };
+struct Owner_122370 {  };
 
 struct Ring_122370 {
     void** head;
@@ -32,7 +33,6 @@ struct Source_122370 {
 
 struct Sub_122370 {
     char pad[0x10];
-    void FUN_0027b040(int id);
 };
 
 
@@ -80,7 +80,7 @@ bool PathAction::run(int a, int b)
     for (int i = 0; i < 6; i++)
         w20[i] = 0;
 
-    zoneRef = owner90->FUN_000592a0()->FUN_00059a30();
+    zoneRef = ((Node *)((owners::Object_592a0 *)owner90)->FUN_000592a0())->FUN_00059a30();
     if (zoneRef != 0) {
         if (zoneRef->zone != 0)
             w78 = zoneRef->zone->value;
@@ -106,7 +106,7 @@ bool PathAction::run(int a, int b)
             ring->cur = ring->cur + (((char*)limit - (char*)ring->begin) >> 2);
     }
 
-    sub.FUN_0027b040(src8c->id);
+    ((owners::Target_27b040 *)&sub)->FUN_0027b040((hulk_uintptr)(src8c->id));
     stamp = DAT_004dd700->stamp;
     w88 = 0;
     w84 = 0;

@@ -1,11 +1,6 @@
-class X_114fd0 {
-  public:
-    char pad[0xd];
-    char m;
-    char Func(char arg);
-};
+#include "gen/owners.h"
 
-char X_114fd0::Func(char arg) {
+char owners::X_114fd0::FUN_00114fd0(char arg) {
     m = arg;
     return 1;
 }

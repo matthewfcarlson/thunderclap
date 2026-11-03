@@ -2,6 +2,7 @@
 // FUN_001b1080 @ 0x001b1080
 #include "decls/data/game/global.h"
 #include "compat/ptr.h"
+#include "gen/owners.h"
 
 extern "C" double sqrt(double);
 
@@ -10,7 +11,6 @@ struct V3_1b1080 {
 };
 
 struct Mover_1b1080 {
-    void FUN_00035660(V3_1b1080 *out);
 };
 
 struct Core_1b1080 {
@@ -45,7 +45,7 @@ int __stdcall FUN_001b1080(Obj_1b1080 *obj, Mover_1b1080 *mover, V3_1b1080 *out,
         return 0;
     }
     V3_1b1080 v;
-    mover->FUN_00035660(&v);
+    ((owners::C_35660 *)mover)->FUN_00035660((int *)(V3_1b1080 *)(&v));
     hulk_freg vlen2 = v.z * v.z + v.y * v.y + v.x * v.x;
     V3_1b1080 w = *out;
     Slots_1b1080 s;

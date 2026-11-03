@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 10/10)
 // FUN_00083080 @ 0x00083080
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Vec3_83080 {
     float x, y, z;
 };
 
 class Xform_83080 {
 public:
-    void FUN_0022c3b0(Vec3_83080 *in, Vec3_83080 *out);
     void FUN_0022cc90(Vec3_83080 *v);
 };
 
@@ -30,7 +30,7 @@ bool Aligner::FUN_00083080(Xform_83080 *xf, Vec3_83080 *target, float angle)
         up.x = 0.0f;
         up.y = 0.0f;
         up.z = 1.0f;
-        xf->FUN_0022c3b0(&up, &rotated);
+        ((owners::M_22c3b0 *)xf)->FUN_0022c3b0((float *)(Vec3_83080 *)(&up), (float *)(Vec3_83080 *)(&rotated));
         hulk_freg d = rotated.y * target->y + rotated.x * target->x + rotated.z * target->z;
         if (d < -0.99f)
             return false;

@@ -1,7 +1,4 @@
-struct Obj_193020 {
-    char pad[0x38];
-    void* Get();
-};
-void* Obj_193020::Get() {
+#include "gen/owners.h"
+void* owners::Obj_193020::FUN_00193020() {
     return (char*)this + 0x38;
 }

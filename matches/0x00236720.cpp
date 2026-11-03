@@ -1,4 +1,5 @@
 // Same code shape as 0x002366e0 (propagated; names are from that function)
+#include "gen/owners.h"
 class Item_236720 {
   public:
     virtual void V0();
@@ -6,7 +7,6 @@ class Item_236720 {
 };
 class Owner_236720 {
   public:
-    void Finish();
 };
 class Temp_236720 {
     char pad[8];
@@ -24,5 +24,5 @@ void __fastcall FUN_00236720(Owner_236720* self) {
         item->V1();
         item = t.Next();
     }
-    self->Finish();
+    ((owners::X_231070 *)self)->FUN_00231070();
 }

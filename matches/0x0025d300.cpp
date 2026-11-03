@@ -1,11 +1,11 @@
 #include "decls/data/engine/audio.h"
 #include "decls/data/platform/xbox/unknown.h"
+#include "gen/owners.h"
 
 extern "C" void __cdecl FUN_00257f00(void*, void*);
 extern "C" void __cdecl FUN_00240c60(void*);
 struct At {
     char pad[0x1c];
-    void f();
 };
 struct Obj_25d300 {
     char pad[0x10];
@@ -17,6 +17,6 @@ extern "C" void __cdecl FUN_0025d300(Obj_25d300* p) {
     FUN_00257f00((*(char**)&DAT_004e5ce0) + 0x14, p);
     if (p->p)
         FUN_00240c60(p->p);
-    ((At*)((char*)p + 0x1c))->f();
+    ((owners::Str_240060 *)(((At*)((char*)p + 0x1c))))->FUN_00240060();
     f247550(DAT_004e7898, p);
 }

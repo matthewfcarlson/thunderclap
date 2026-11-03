@@ -1,5 +1,6 @@
 #include "decls/data/engine/movie.h"
 // data: gVtbl = DAT_00434574
+#include "gen/owners.h"
 
 struct PtrObj {
   public:
@@ -7,7 +8,6 @@ struct PtrObj {
 };
 
 struct Elem_337630 {
-    void method();
     char data[0x288];
 };
 
@@ -32,6 +32,6 @@ void Big_337630::Destroy() {
     Elem_337630* q = &mArray[32];
     for (int i = 0x20; i != 0; --i) {
         q -= 1;
-        q->method();
+        ((owners::Obj_3371e0 *)q)->FUN_003371e0();
     }
 }

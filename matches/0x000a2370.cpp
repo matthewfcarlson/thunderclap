@@ -1,12 +1,6 @@
+#include "gen/owners.h"
 extern const float gZero_a2370;
-class Obj_a2370 {
-  public:
-    char pad[8];
-    float a, b, c;
-    unsigned char flag;
-    unsigned char Fn(float, float*, float*, unsigned char*);
-};
-unsigned char Obj_a2370::Fn(float scale, float* out1, float* out2, unsigned char* outflag) {
+unsigned char owners::Obj_a2370::FUN_000a2370(float scale, float* out1, float* out2, unsigned char* outflag) {
     *out1 = 0.0f;
     *out2 = 0.0f;
     union {

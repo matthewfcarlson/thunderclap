@@ -1,6 +1,7 @@
 // FUN_000ae660 @ 0x000ae660
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 struct Snapshot {
     float f[17];
 };
@@ -8,7 +9,6 @@ struct Snapshot {
 struct PadDevice {
     char pad00[0x18];
     char padbody[0x100];
-    void FUN_000ada70(Snapshot* out);
     void FUN_000ada90(Snapshot* out);
     void FUN_000ad9f0();
 };
@@ -43,7 +43,7 @@ void Controls::FUN_000ae660()
 {
     Snapshot a;
     Snapshot b;
-    device->FUN_000ada70(&a);
+    ((owners::Obj_ada70 *)device)->FUN_000ada70((Snapshot *)(&a));
     device->FUN_000ada90(&b);
     if (!(b.f[8] > 0.2f))
         return;

@@ -1,9 +1,8 @@
 #include "gen/global.h"
+#include "gen/owners.h"
 extern void* __cdecl thunk_FUN_0008d690(unsigned int);
 struct CNISCamera_nv_990d0 {
     CNISCamera* FUN_000ac3c0();
-    void FUN_000a90f0(int index, unsigned int value);
-    void FUN_000a9130(int index, unsigned int value);
     void FUN_000a9110(int index, unsigned int value);
 };
 struct Owner_990d0 {
@@ -20,10 +19,10 @@ void Owner_990d0::FUN_000990d0(unsigned int a, unsigned int b, unsigned int c, u
         resource->vfunc_0();
         resource->vfunc_28();
     }
-    ((CNISCamera_nv_990d0*)(((CNISCamera*)(resource))))->FUN_000a90f0(0, a);
-    ((CNISCamera_nv_990d0*)(((CNISCamera*)(resource))))->FUN_000a9130(0, b);
+    ((owners::Thing_a90f0 *)(((CNISCamera_nv_990d0*)(((CNISCamera*)(resource))))))->FUN_000a90f0(0, (int)a);
+    ((owners::C_a9130 *)(((CNISCamera_nv_990d0*)(((CNISCamera*)(resource))))))->FUN_000a9130(0, (int)b);
     ((CNISCamera_nv_990d0*)(((CNISCamera*)(resource))))->FUN_000a9110(0, c);
-    ((CNISCamera_nv_990d0*)(((CNISCamera*)(resource))))->FUN_000a90f0(1, d);
-    ((CNISCamera_nv_990d0*)(((CNISCamera*)(resource))))->FUN_000a9130(1, e);
+    ((owners::Thing_a90f0 *)(((CNISCamera_nv_990d0*)(((CNISCamera*)(resource))))))->FUN_000a90f0(1, (int)d);
+    ((owners::C_a9130 *)(((CNISCamera_nv_990d0*)(((CNISCamera*)(resource))))))->FUN_000a9130(1, (int)e);
     ((CNISCamera_nv_990d0*)(((CNISCamera*)(resource))))->FUN_000a9110(1, f);
 }

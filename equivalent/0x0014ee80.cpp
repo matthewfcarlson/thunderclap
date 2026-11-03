@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // hulkfight::motion::HitWaitAction::vfunc_5 @ 0x0014ee80
+#include "gen/owners.h"
 struct Stats_14ee80 {
     char pad00[0x58];
     float primary;           // 0x58
@@ -21,7 +22,6 @@ class Entity {
 public:
     virtual void v0(); virtual void v1(); virtual void v2();
     virtual Stats_14ee80 *GetStats();       // slot 3
-    Context *FUN_000592a0();
 };
 
 class HitWaitAction {
@@ -35,7 +35,7 @@ public:
 };
 
 bool HitWaitAction::vfunc_5(int a, float dt) {
-    entity->FUN_000592a0()->FUN_00059a30();
+    ((Context *)((owners::Object_592a0 *)entity)->FUN_000592a0())->FUN_00059a30();
     elapsed = dt + elapsed;
     float limit = 0.0f;
     Stats_14ee80 *stats = entity->GetStats();

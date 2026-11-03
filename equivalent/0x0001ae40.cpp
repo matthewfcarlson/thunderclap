@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 22/24, incomplete)
 // COpportunityBallAction::vfunc_8 @ 0x0001ae40
 #include "gen/global.h"
+#include "gen/owners.h"
 
 extern "C" float fabsf(float);
 struct Vec3_1ae40 {
@@ -10,7 +11,6 @@ struct Vec3_1ae40 {
 
 struct Mat_1ae40 {
     float m[16];
-    void FUN_0022c2b0(const Vec3_1ae40* in, Vec3_1ae40* out);
 };
 
 struct Skeleton_1ae40 {
@@ -62,7 +62,7 @@ bool COpportunityBallAction::vfunc_8(int arg) {
 
     Body_1ae40* body = FUN_00059a40(FUN_000592a0((*(void * *)&this->f_1c)));
     f.cursor = (*(Config_1ae40 * *)&this->f_20)->target;
-    body->skeleton->matrices[this->f_24].FUN_0022c2b0(&f.cursor, &f.out);
+    ((owners::Mat_22c2b0 *)&(body->skeleton->matrices[this->f_24]))->FUN_0022c2b0((float *)(const Vec3_1ae40 *)(&f.cursor), (float *)(Vec3_1ae40 *)(&f.out));
 
     f.dir.x = f.out.x - (*(Vec3_1ae40 *)&this->f_28).x;
     f.dir.y = f.out.y - (*(Vec3_1ae40 *)&this->f_28).y;

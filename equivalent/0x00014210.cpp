@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 12/12)
 // FUN_00014210 @ 0x00014210
+#include "gen/owners.h"
 extern "C" double cos(double);
 
 struct Vec3_14210 {
@@ -8,13 +9,11 @@ struct Vec3_14210 {
 };
 
 struct Frame_14210 {
-    void FUN_00035230(Vec3_14210 *out);
     void FUN_00035550(Vec3_14210 *out);
 };
 
 struct Probe_14210 {
     Vec3_14210 *FUN_001c39c0();
-    Vec3_14210 *FUN_001c39d0();
 };
 
 extern "C" void __cdecl FUN_00096a90(void *obj, Vec3_14210 *out);
@@ -42,7 +41,7 @@ void FUN_00014210(int mode, Frame_14210 *frame, void *obj, Vec3_14210 *out)
         a.x = 0.0f;
         a.y = 0.0f;
         a.z = 0.0f;
-        frame->FUN_00035230(&a);
+        ((owners::Obj_35230 *)frame)->FUN_00035230((unsigned *)(Vec3_14210 *)(&a));
         b.x = 0.0f;
         b.y = 0.0f;
         b.z = 0.0f;
@@ -64,7 +63,7 @@ void FUN_00014210(int mode, Frame_14210 *frame, void *obj, Vec3_14210 *out)
         w.x = w.x * 100.0f;
         w.y = w.y * 100.0f;
         w.z = w.z * 100.0f;
-        Vec3_14210 *q = p->FUN_001c39d0();
+        Vec3_14210 *q = ((Vec3_14210 *)((owners::Object_1c39d0 *)p)->FUN_001c39d0());
         w.x = w.x + q->x;
         w.y = w.y + q->y;
         double z = w.z + q->z;
@@ -88,7 +87,7 @@ void FUN_00014210(int mode, Frame_14210 *frame, void *obj, Vec3_14210 *out)
     a.x = 0.0f;
     a.y = 0.0f;
     a.z = 0.0f;
-    frame->FUN_00035230(&a);
+    ((owners::Obj_35230 *)frame)->FUN_00035230((unsigned *)(Vec3_14210 *)(&a));
     b.x = 0.0f;
     b.y = 0.0f;
     b.z = 0.0f;

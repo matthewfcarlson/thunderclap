@@ -702,8 +702,7 @@ class Generator:
                 continue
             # a wrapped source that only includes include/decls/ stays wrapped: write_tu puts the header's
             # declarations inline in its fn_<addr> namespace
-            for b in [b for b in t.blocks if b.mode == "wrapped"
-                      and any(h.startswith("gen/") for h in b.gen_includes)]:
+            for b in [b for b in t.blocks if b.mode == "wrapped" and gen_isolates(b)]:
                 t.blocks.remove(b)
                 b.mode = "isolated"
                 b.reasons.append("on include/gen/ and not mergeable")
@@ -783,7 +782,7 @@ class Generator:
 
         def score():
             # merged functions, minus half a point per source that would go to its own TU (see build())
-            iso = sum(1 for x in tu.blocks if x.mode == "wrapped" and any(h.startswith("gen/") for h in x.gen_includes))
+            iso = sum(1 for x in tu.blocks if x.mode == "wrapped" and gen_isolates(x))
             return sum(1 for x in tu.blocks if x.mode == "merged") - 0.5 * iso
 
         self.merge_tu(tu)
@@ -1204,7 +1203,8 @@ class Generator:
         rec = {"path": tu.path, "object": o["file"], "layer": layer_of(o), "start": o["start"], "tag": tu.tag,
                "flags": tu.flags or [], "blocks": [], "locals": [], "placeholders": len(tu.placeholders)}
         merged = [b for b in tu.blocks if b.mode == "merged"]
-        gen = sorted({h for b in merged for h in b.gen_includes} | tu_data_headers(tu.blocks))
+        gen = sorted({h for b in merged for h in b.gen_includes} | tu_data_headers(tu.blocks)
+                     | {h for b in tu.blocks if b.mode == "wrapped" for h in b.gen_includes if h in OWNERS_ONLY})
         for h in gen:
             lines.append('#include "%s"' % h)
         rec["gen"] = gen
@@ -1300,6 +1300,7 @@ class Generator:
                 text = re.sub(r'^[ \t]*#\s*include\s*[<"](decls/\w+\.h)[>"][ \t]*$', lambda m: decls_body(m.group(1)),
                               text, flags=re.M)
                 text = DATA_INCLUDE.sub("", text)        # hoisted to the TU (tu_data_headers)
+                text = OWNERS_INCLUDE.sub("", text)      # hoisted to the TU (gen_isolates)
                 text, pinned = pin_views(text)
                 text, n_cdefs = c_var_declarations(text)
                 if n_cdefs:
@@ -1359,10 +1360,15 @@ class Generator:
             if is_native_inline(it):
                 plain_text = plain_text[:it.toks[0].s] + NATIVE_INLINE + " " + plain_text[it.toks[0].s:]
         plain = (crt_guard_text(plain_text).rstrip("\n").splitlines(), None)
-        if (b.addr in self.state.get("iso_plain", {}) or not b.items or any(h.startswith("gen/") for h in b.gen_includes)
+        owners_only = b.gen_includes and not gen_isolates(b) and "ownwrap" not in GEN_OFF
+        if (b.addr in self.state.get("iso_plain", {}) or not b.items
+                or (any(h.startswith("gen/") for h in b.gen_includes) and not owners_only)
                 or any(it.kind == "using" for it in b.items) or re.search(r"(?<![\w>)\]])::\s*[A-Za-z_]", text)
                 or re.search(r"\b(type_info|typeid)\b", text)):
             return plain
+        if owners_only:
+            # (x64-10: a caller through owners::X only, see gen_isolates: the header goes before the namespace)
+            text = OWNERS_INCLUDE.sub("", text)
         incs = re.findall(r'^[ \t]*#\s*include\b.*$', text, re.M)
         if any(not (DATA_INCLUDE.match(l + "\n") or re.match(r'\s*#\s*include\s*[<"]decls/\w+\.h[>"]', l))
                for l in incs):
@@ -1373,7 +1379,7 @@ class Generator:
             text = "%s\n} // namespace %s\n%s%s\nnamespace %s {\n%s" % (
                 text[:it.toks[0].s], ns, NATIVE_INLINE + " " if is_native_inline(it) else "",
                 text[it.toks[0].s:it.toks[-1].e], ns, text[it.toks[-1].e:])
-        pre = [l.strip() for l in DATA_INCLUDE.findall(text)]
+        pre = (['#include "gen/owners.h"'] if owners_only else []) + [l.strip() for l in DATA_INCLUDE.findall(text)]
         text = DATA_INCLUDE.sub("", text)
         text = re.sub(r'^[ \t]*#\s*include\s*[<"](decls/\w+\.h)[>"][ \t]*$', lambda m: decls_body(m.group(1)),
                       text, flags=re.M)
@@ -1610,6 +1616,23 @@ def tu_namespace(path, taken):
             taken.add(ns)
             return ns
         salt += 1
+
+
+OWNERS_ONLY = {"gen/owners.h"}
+OWNERS_INCLUDE = re.compile(r'^[ \t]*#\s*include\s*[<"]gen/owners\.h[>"][ \t]*\r?\n?', re.M)
+
+
+def gen_isolates(b):
+    """True if a wrapped source on include/gen/ goes to its own TU: its definition (`void ns::X::f()`) can't go
+    inside a fn_<addr> namespace. (x64-10) A source whose only include/gen/ header is owners.h (namespace `owners`,
+    tools/owner_classes.py) and whose definition is not a member of an include/gen/ name only calls through
+    `owners::X`: it stays wrapped, the header included at the top of the TU (it declares nothing but the namespace
+    `owners`, so the TU's other names are unaffected). Off-switch HULK_GEN_TREE_OFF=ownwrap."""
+    if not any(h.startswith("gen/") for h in b.gen_includes):
+        return False
+    if "ownwrap" in GEN_OFF or any(h.startswith("gen/") and h not in OWNERS_ONLY for h in b.gen_includes):
+        return True
+    return not b.defs or item_top(b.defs[0]) in include_tops()[0]
 
 
 def item_top(it):

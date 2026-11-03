@@ -1,11 +1,6 @@
-class T_114ed0 {
-  public:
-    char pad[13];
-    char m;
-    char Set(unsigned char x);
-};
+#include "gen/owners.h"
 
-char T_114ed0::Set(unsigned char x) {
+char owners::T_114ed0::FUN_00114ed0(unsigned char x) {
     m = x;
     return 1;
 }

@@ -1,10 +1,5 @@
-class Obj_18ef20 {
-    char pad[0x30];
-
-  public:
-    char Set(int value);
-};
-char Obj_18ef20::Set(int value) {
+#include "gen/owners.h"
+char owners::Obj_18ef20::FUN_0018ef20(int value) {
     *((int*)((char*)this + 0x30)) = value;
     return 1;
 }

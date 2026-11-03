@@ -1,10 +1,5 @@
-class A_14c760 {
-  public:
-    char pad[12];
-    int m;
-    bool Set(int v);
-};
-bool A_14c760::Set(int v) {
+#include "gen/owners.h"
+bool owners::A_14c760::FUN_0014c760(int v) {
     m = v;
     return true;
 }

@@ -1,10 +1,10 @@
 // FUN_0025d340 @ 0x0025d340
 #include "decls/data/engine/audio.h"
 #include "decls/data/platform/xbox/unknown.h"
+#include "gen/owners.h"
 
 struct Sub_25d340 {
     void FUN_0023fac0();
-    void FUN_00240060();
 };
 
 struct Node {
@@ -39,7 +39,7 @@ extern "C" Node* FUN_0025d340(int* src, int arg, char flag)
     n->field18 = 0;
     n->handle = FUN_00240c20(arg);
     if (n->handle == 0) {
-        n->sub.FUN_00240060();
+        ((owners::Str_240060 *)&(n->sub))->FUN_00240060();
         FUN_00247550(DAT_004e7898, n);
         return 0;
     }

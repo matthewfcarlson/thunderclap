@@ -1,10 +1,5 @@
-class C_16fbb0 {
-  public:
-    char pad[0x34];
-    char m34;
-    bool Fn(char c);
-};
-bool C_16fbb0::Fn(char c) {
+#include "gen/owners.h"
+bool owners::C_16fbb0::FUN_0016fbb0(char c) {
     m34 = c;
     return true;
 }

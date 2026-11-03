@@ -1,11 +1,6 @@
-class A_5d6f0 {
-  public:
-    char pad[0x30];
-    int m30;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool A_5d6f0::Set(int v) {
+bool owners::A_5d6f0::FUN_0005d6f0(int v) {
     m30 = v;
     return true;
 }

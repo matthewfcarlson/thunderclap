@@ -1,21 +1,5 @@
-class Obj_cac60 {
-  public:
-    char pad0[0x264];
-    char a[8][0x40];
-    char pad1[0x14];
-    int x478;
-    int x47c;
-    int x480;
-    int x484;
-    int x488;
-    int x48c;
-    char pad2[4];
-    int x494;
-    int x498;
-    int x49c;
-    void Init();
-};
-void Obj_cac60::Init() {
+#include "gen/owners.h"
+void owners::Obj_cac60::FUN_000cac60() {
     int i;
     for (i = 0; i < 8; i++)
         a[i][0] = 0;

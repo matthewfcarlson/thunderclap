@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 14/14)
 // FUN_0002b730 @ 0x0002b730
+#include "gen/owners.h"
 struct Name_2b730 {
     unsigned int lo, hi;
     Name_2b730 *FUN_0027b0e0(const char *name);
@@ -21,7 +22,6 @@ struct Item_2b730 {
 };
 
 struct Registry_2b730 {
-    Item_2b730 *FUN_00059c10(int id);
 };
 
 struct Owner_2b730 {
@@ -45,7 +45,7 @@ bool Group_2b730::FUN_0002b730(const char *name)
     Name_2b730 key;
     key.FUN_0027b0e0(name);
     for (int i = count - 1; i >= 0; i--) {
-        Item_2b730 *item = owner->registry->FUN_00059c10(ids[i]);
+        Item_2b730 *item = ((Item_2b730 *)((owners::ThisWrap_00059c10 *)(owner->registry))->FUN_00059c10((void *)(hulk_uintptr)(int)(ids[i])));
         if (item == 0)
             continue;
         if (item->FUN_00035ab0())

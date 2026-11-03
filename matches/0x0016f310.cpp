@@ -1,13 +1,6 @@
-class X_16f310 {
-  public:
-    char Set(int v);
+#include "gen/owners.h"
 
-  private:
-    char pad[0x38];
-    int m38;
-};
-
-char X_16f310::Set(int v) {
+char owners::X_16f310::FUN_0016f310(int v) {
     m38 = v;
     return 1;
 }

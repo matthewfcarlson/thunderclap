@@ -1,8 +1,5 @@
-struct V {
-    float v[6];
-    void Merge(V*);
-};
-void V::Merge(V* p) {
+#include "gen/owners.h"
+void owners::V_a87f0::FUN_000a87f0(owners::V_a87f0* p) {
     v[0] = (v[0] < p->v[0]) ? v[0] : p->v[0];
     v[1] = (v[1] < p->v[1]) ? v[1] : p->v[1];
     v[2] = (v[2] < p->v[2]) ? v[2] : p->v[2];

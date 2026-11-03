@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct CollisionDetector_2ef110 {
     void f1();
 };
@@ -15,14 +16,13 @@ struct C_2ef110 {
     char p2[0xff];
     D c;
     C_2ef110* target(unsigned char flag);
-    void cleanup();
 };
 void destroy(C_2ef110*);
 C_2ef110* C_2ef110::target(unsigned char flag) {
     c.f3();
     b.f2();
     a.f1();
-    cleanup();
+    ((owners::Obj_2eefc0 *)this)->FUN_002eefc0();
     if (flag & 1)
         destroy(this);
     return this;

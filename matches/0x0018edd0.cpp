@@ -1,11 +1,6 @@
-class X_18edd0 {
-  public:
-    char pad[0xc];
-    int m;
-    char Fn(int a);
-};
+#include "gen/owners.h"
 
-char X_18edd0::Fn(int a) {
+char owners::X_18edd0::FUN_0018edd0(int a) {
     m = a;
     return 1;
 }

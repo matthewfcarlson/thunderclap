@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3031 inputs, branch coverage 12/12)
 // FUN_00335e60 @ 0x00335e60
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct TypeInfo_335e60 {
     int kind;
 };
@@ -15,7 +16,6 @@ class Table_335e60 {
 public:
     char pad00[0x44];
     int count;               // 0x44
-    Value_335e60 *FUN_00337090(int index);
 };
 
 int __cdecl FUN_00337f20(int kind);
@@ -32,10 +32,10 @@ public:
 bool Reader::FUN_00335e60(int column, int row, unsigned int *outLength) {
     if (column < 0 || column >= table->count)
         return false;
-    if (table->FUN_00337090(column)->type != 9)
+    if (((Value_335e60 *)((owners::Thing_337090 *)table)->FUN_00337090(column))->type != 9)
         return false;
     char *base = rows[column] + 4;
-    if (table->FUN_00337090(column)->info->kind != 10)
+    if (((Value_335e60 *)((owners::Thing_337090 *)table)->FUN_00337090(column))->info->kind != 10)
         return false;
     const char *s = *(const char **)(base + FUN_00337f20(10) * row);
     if (s == 0) {

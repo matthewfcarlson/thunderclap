@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 typedef unsigned char u8;
 struct Caller_1c68c0 {
-    void method(int);
 };
 struct Obj_1c68c0 {
     char pad[8];
@@ -11,5 +11,5 @@ struct Obj_1c68c0 {
 };
 void Obj_1c68c0::target(Caller_1c68c0* arg) {
     if (enabled && value)
-        arg->method(value);
+        ((owners::Target_1c16a0 *)arg)->FUN_001c16a0((void *)(hulk_uintptr)(int)value);
 }

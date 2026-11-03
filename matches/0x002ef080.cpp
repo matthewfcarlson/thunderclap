@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct A_2ef080 {
     void one();
 };
@@ -15,11 +16,10 @@ struct Obj_2ef080 {
     char p_after_b[0xff];
     A_2ef080 a;
     void target();
-    void finish();
 };
 void Obj_2ef080::target() {
     a.one();
     b.two();
     c.three();
-    finish();
+    ((owners::Obj_2eefc0 *)this)->FUN_002eefc0();
 }

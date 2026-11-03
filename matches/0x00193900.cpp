@@ -1,7 +1,4 @@
-struct Obj_193900 {
-    char pad[0x40];
-    char* Data();
-};
-char* Obj_193900::Data() {
+#include "gen/owners.h"
+char* owners::Obj_193900::FUN_00193900() {
     return (char*)((char*)this + 0x40);
 }

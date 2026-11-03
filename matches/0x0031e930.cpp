@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 struct Mat_31e930 {
     int m[16];
-    void Fn(void* a, Mat_31e930* b);
 };
 struct Stk {
     int p0, p4;
@@ -130,7 +130,7 @@ void pddiBaseContext_31e930::Push(int w, void* a) {
     s->data[s->top] = s->data[s->top - 1];
     s = stk[w];
     Mat_31e930 local;
-    local.Fn(a, &s->data[s->top]);
+    ((owners::Matrix_22ca90 *)&local)->FUN_0022ca90((const owners::Matrix_22ca90 *)a, (const owners::Matrix_22ca90 *)(Mat_31e930 *)(&s->data[s->top]));
     s->data[s->top] = local;
     Upd(w);
 }

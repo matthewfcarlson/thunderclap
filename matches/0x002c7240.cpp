@@ -1,17 +1,9 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" void __cdecl FUN_000c7920();
 extern "C" void* __cdecl Alloc(hulk_uintptr);
 extern "C" void __stdcall Init(void*, int, int, const float*);
-class Obj_2c7240 {
-  public:
-    char pad[8];
-    unsigned int flags;
-    int count;
-    char pad2[8];
-    void* entries[1];
-    void Run(int);
-};
-void Obj_2c7240::Run(int index) {
+void owners::Obj_2c7240::FUN_002c7240(int index) {
     if (entries[index] == 0) {
         int n = count;
         void* p = Alloc(n * 8);

@@ -3,6 +3,7 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/owners.h"
 struct V3_166e30 {
     float x, y, z;
     float FUN_000111f0();
@@ -25,7 +26,6 @@ struct Checker_166e30 {
 };
 
 struct Mgr54_166e30 {
-    Checker_166e30 *FUN_000862a0();
 };
 
 struct Nav28 {
@@ -41,7 +41,7 @@ struct World {
 
 
 namespace fight {
-class Params {
+class Params_166e30 {
   public:
     virtual void v0();
     virtual void v1();
@@ -49,7 +49,7 @@ class Params {
 };
 }
 
-class CFightParams : public fight::Params {
+class CFightParams_166e30 : public fight::Params_166e30 {
   public:
     virtual void v2();
 };
@@ -58,14 +58,14 @@ class ShoreNearCondition {
   public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5();
-    virtual char FUN_00166e30(int a1, fight::Params *params, int a3);
+    virtual char FUN_00166e30(int a1, fight::Params_166e30 *params, int a3);
     char pad4[8];
     char flag;
 };
 
-char ShoreNearCondition::FUN_00166e30(int a1, fight::Params *params, int a3)
+char ShoreNearCondition::FUN_00166e30(int a1, fight::Params_166e30 *params, int a3)
 {
-    if (dynamic_cast<CFightParams *>(params) == 0)
+    if (dynamic_cast<CFightParams_166e30 *>(params) == 0)
         return false;
 
     Holder_166e30 *holder = params->FUN_000592a0();
@@ -82,7 +82,7 @@ char ShoreNearCondition::FUN_00166e30(int a1, fight::Params *params, int a3)
     holder->FUN_00059a50(&pos);
 
     World *game = DAT_004dd700;
-    if (game->mgr->FUN_000862a0()->FUN_00204350(pos.x, pos.y, pos.z))
+    if (((Checker_166e30 *)((owners::Target_862a0 *)(game->mgr))->FUN_000862a0())->FUN_00204350(pos.x, pos.y, pos.z))
         return flag;
 
     V3_166e30 *shore = &fighter->shorePos;

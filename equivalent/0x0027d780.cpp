@@ -3,6 +3,7 @@
 // equiv-map: ?thunk_FUN_002ee510@Cache@@QAEXPAUChoice@@@Z = 0x002ee700
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Choice {
     char pad[0x10];
@@ -103,7 +104,6 @@ struct Group_27d780 {
     char pad00[0x3c];
     Item12* begin;
     Item12* end;
-    void FUN_002988e0();
     void FUN_002987d0(unsigned int i);
 };
 
@@ -147,7 +147,6 @@ struct Gadget_27d780 {
     char pad74[0x84 - 0x74];
     char flag84;
     char flag85;
-    void FUN_002fd4a0();
     void FUN_002fd4b0(int a, int b);
     void FUN_002fd4f0();
     void FUN_002fe2c0();
@@ -248,7 +247,7 @@ void Scene_27d780::FUN_0027d780()
         group = f.d;
     }
 
-    group->FUN_002988e0();
+    ((owners::Obj_2988e0 *)group)->FUN_002988e0();
     hulk_intptr total2 = group->end - group->begin;
     unsigned char n2 = (unsigned char)total2;
     f.j.b = 0;
@@ -288,7 +287,7 @@ void Scene_27d780::FUN_0027d780()
         return;
     Gadget_27d780* g = self->holder->gadget;
     if (g->flag84) {
-        g->FUN_002fd4a0();
+        ((owners::C_2fd4a0 *)g)->FUN_002fd4a0();
         for (unsigned int k = 0; k < n2; k++)
             g->FUN_002fd4b0(f.d->begin[k].f4, f.x->flags[k].flag);
         Marks* m = g->marks;

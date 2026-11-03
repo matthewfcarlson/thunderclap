@@ -1,11 +1,6 @@
-class O_17f2d0 {
-  public:
-    char pad[0x10];
-    unsigned char v;
-    unsigned char Set(char x);
-};
+#include "gen/owners.h"
 
-unsigned char O_17f2d0::Set(char x) {
+unsigned char owners::O_17f2d0::FUN_0017f2d0(char x) {
     v = x;
     return 1;
 }

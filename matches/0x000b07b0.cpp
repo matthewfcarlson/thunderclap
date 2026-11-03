@@ -1,10 +1,5 @@
-class Object {
-  public:
-    char pad[0x490];
-    int value;
-    unsigned char Set(int x);
-};
-unsigned char Object::Set(int x) {
+#include "gen/owners.h"
+unsigned char owners::Object_b07b0::FUN_000b07b0(int x) {
     value = x;
     return 1;
 }

@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class C3_1489d0 {
   public:
-    void Release();
 };
 class C2_1489d0 {
   public:
@@ -50,7 +50,7 @@ int GrappleHitReactionAction::f(int x, int y) {
     Obj_1489d0* q = sub.cur;
     flag = 0;
     if (p != q)
-        motion->Get()->Get()->Release();
+        ((owners::C_35cd0 *)(motion->Get()->Get()))->FUN_00035cd0();
     sub.Set(x);
     if (x == count - 1)
         sub.Set2(1);

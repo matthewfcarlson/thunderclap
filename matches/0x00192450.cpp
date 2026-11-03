@@ -1,11 +1,6 @@
-class Obj_192450 {
-  public:
-    char pad[0x7c];
-    int value;
-    char Fn(int arg);
-};
+#include "gen/owners.h"
 
-char Obj_192450::Fn(int arg) {
+char owners::Obj_192450::FUN_00192450(int arg) {
     value = arg;
     return 1;
 }

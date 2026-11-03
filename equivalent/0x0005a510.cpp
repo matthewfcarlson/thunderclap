@@ -2,6 +2,7 @@
 // CGrappleDamageTrack::vfunc_12 @ 0x0005a510
 #include "compat/ptr.h"
 #include "gen/global.h"
+#include "gen/owners.h"
 
 extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 
@@ -21,7 +22,6 @@ struct Resolver_5a510 {
 };
 
 struct Target_5a510 {
-    Resolver_5a510 *FUN_000592a0();
 };
 
 struct Effect_5a510 {
@@ -33,7 +33,7 @@ hulk_intptr CGrappleDamageTrack::vfunc_12(hulk_intptr __p0) { Target_5a510 * tar
     if (target == 0) {
         return (int)(0);
     }
-    Resolver_5a510 *resolver = target->FUN_000592a0();
+    Resolver_5a510 *resolver = ((Resolver_5a510 *)((owners::Object_592a0 *)target)->FUN_000592a0());
     if (resolver == 0) {
         return (int)(0);
     }

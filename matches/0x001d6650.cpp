@@ -1,9 +1,4 @@
-class Object {
-  public:
-    char pad[0x1e8];
-    int value;
-    void Set(int);
-};
-void Object::Set(int value) {
-    this->value = value;
+#include "gen/owners.h"
+void owners::Object_1d6650::FUN_001d6650(hulk_intptr value) {
+    this->value = ((int)value);
 }

@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0028dae0 @ 0x0028dae0
+#include "gen/owners.h"
 void *__cdecl FUN_0008d6d0(unsigned int size);
 void __stdcall FUN_00011520(void *base, unsigned int size, int count, void *ctor);
 extern char FUN_00289ef0;
 
 struct SharedPool {
-    void *FUN_002888c0(int size, int stride);
 };
 
 class RotationChannel_28dae0 {
@@ -41,6 +41,6 @@ CompressedQuaternionChannel::CompressedQuaternionChannel(int a, int b) : Rotatio
             data = 0;
         }
     } else {
-        data = shared->FUN_002888c0(count * 3, 3);
+        data = ((void *)((owners::C_2888c0 *)shared)->FUN_002888c0((unsigned)(count * 3), 3));
     }
 }

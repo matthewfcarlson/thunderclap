@@ -3,6 +3,7 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 namespace content {
@@ -15,8 +16,8 @@ struct DynamicCaster {
 }
 
 namespace pure3d {
-class CompositeDrawable;
-class Locator;
+class CompositeDrawable_1bdb90;
+class Locator_1bdb90;
 }
 
 class Res_1bdb90 {
@@ -49,8 +50,6 @@ struct Flags_1bdb90 {
 };
 
 struct Holder_1bdb90 {
-    InvHolder *FUN_000862a0();
-    Flags_1bdb90 *FUN_00086290();
 };
 
 struct World {
@@ -80,7 +79,7 @@ void Widget_1bdb90::FUN_001bdb90()
     } f;
 
     f.saved = FUN_00266da0(0x11);
-    Inventory_1bdb90 *inv = DAT_004dd700->holder->FUN_000862a0()->inv;
+    Inventory_1bdb90 *inv = ((InvHolder *)((owners::Target_862a0 *)(DAT_004dd700->holder))->FUN_000862a0())->inv;
     Res_1bdb90 *r;
     // the original loads the inventory's vptr before each key lookup and the slot after it
     typedef Res_1bdb90 *(__fastcall *GetFn)(Inventory_1bdb90 *, int, void *, unsigned __int64);
@@ -89,7 +88,7 @@ void Widget_1bdb90::FUN_001bdb90()
     unsigned __int64 key;
 
     vtable = *(void ***)inv;
-    caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>;
+    caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable_1bdb90>;
     key = FUN_002672f0((*(const char**)&DAT_004c4bfc), 0, 0);
     r = ((GetFn)vtable[3])(inv, 0, caster, key);
     if (r)
@@ -101,7 +100,7 @@ void Widget_1bdb90::FUN_001bdb90()
         ((Composite_1bdb90 *)r)->FUN_002998d0(0);
 
     vtable = *(void ***)inv;
-    caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>;
+    caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable_1bdb90>;
     key = FUN_002672f0((*(const char**)&DAT_004c4bf8), 0, 0);
     r = ((GetFn)vtable[3])(inv, 0, caster, key);
     if (r)
@@ -113,7 +112,7 @@ void Widget_1bdb90::FUN_001bdb90()
         ((Composite_1bdb90 *)r)->FUN_002998d0(0);
 
     vtable = *(void ***)inv;
-    caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>;
+    caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable_1bdb90>;
     key = FUN_002672f0((*(const char**)&DAT_004c4bf4), 0, 0);
     r = ((GetFn)vtable[3])(inv, 0, caster, key);
     if (r)
@@ -125,7 +124,7 @@ void Widget_1bdb90::FUN_001bdb90()
         ((Composite_1bdb90 *)r)->FUN_002998d0(0);
 
     vtable = *(void ***)inv;
-    caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>;
+    caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable_1bdb90>;
     key = FUN_002672f0((*(const char**)&DAT_004c4bf0), 0, 0);
     r = ((GetFn)vtable[3])(inv, 0, caster, key);
     if (r)
@@ -137,7 +136,7 @@ void Widget_1bdb90::FUN_001bdb90()
         ((Composite_1bdb90 *)r)->FUN_002998d0(0);
 
     vtable = *(void ***)inv;
-    caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>;
+    caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable_1bdb90>;
     key = FUN_002672f0((*(const char**)&DAT_004c4bec), 0, 0);
     r = ((GetFn)vtable[3])(inv, 0, caster, key);
     if (r)
@@ -147,7 +146,7 @@ void Widget_1bdb90::FUN_001bdb90()
     r14 = r;
 
     vtable = *(void ***)inv;
-    caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::Locator>;
+    caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::Locator_1bdb90>;
     key = FUN_002672f0((*(const char**)&DAT_004c4be8), 0, 0);
     r = ((GetFn)vtable[3])(inv, 0, caster, key);
     if (r)
@@ -156,6 +155,6 @@ void Widget_1bdb90::FUN_001bdb90()
         r18->Release();
     r18 = r;
 
-    DAT_004dd700->holder->FUN_00086290()->b32 = 0;
+    ((Flags_1bdb90 *)((owners::Obj_86290 *)(DAT_004dd700->holder))->FUN_00086290())->b32 = 0;
     FUN_00266da0(f.saved);
 }

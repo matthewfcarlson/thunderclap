@@ -1,17 +1,10 @@
-class Obj_278010 {
-  public:
-    char pad[0x1c];
-    int state;
-    int A(int, int, int, int, int, int, int, int, int);
-    int B(int, int, int, int, int, int, int, int, int);
-    int Target(int a, int b, int c, int d, int e, int f, int g, int h, int i);
-};
-int Obj_278010::Target(int a, int b, int c, int d, int e, int f, int g, int h, int i) {
+#include "gen/owners.h"
+int owners::Obj_278010::FUN_00278010(hulk_intptr a, int b, hulk_intptr c, int d, int e, hulk_intptr f, int g, hulk_intptr h, int i) {
     switch (state) {
     case 0:
-        return A(a, b, c, d, e, f, g, h, i);
+        return A(((int)a), b, ((int)c), d, e, ((int)f), g, ((int)h), i);
     case 1:
-        return B(a, b, c, d, e, f, g, h, i);
+        return B(((int)a), b, ((int)c), d, e, ((int)f), g, ((int)h), i);
     default:
         return 0;
     }

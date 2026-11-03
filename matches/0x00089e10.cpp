@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Sub_89e10;
 struct Root_89e10 {
     char pad[0x54];
@@ -11,18 +12,7 @@ struct R_89e10 {
 struct Sub_89e10 {
     R_89e10* Get();
 };
-struct W_89e10 {
-    char pad[0x80];
-    int i80, i84;
-    char pad2[0xa8 - 0x88];
-    int ia8, iac;
-    char pad3[0xd0 - 0xb0];
-    int d0, d4;
-    char d8[0x20];
-    void Fn();
-    void P();
-};
-void W_89e10::Fn() {
+void owners::W_89e10::FUN_00089e10() {
     Sub_89e10* s = g_root->sub;
     d0 = 0;
     d4 = 1;

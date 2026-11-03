@@ -1,10 +1,6 @@
-struct Node {
-    int pad;
-    Node* next;
-    void Link(Node* p);
-};
-void Node::Link(Node* p) {
-    Node* cur = this;
+#include "gen/owners.h"
+void owners::Node_f9b40::FUN_000f9b40(owners::Node_f9b40* p) {
+    owners::Node_f9b40* cur = this;
     if (cur != p) {
         do {
             if (cur->next == 0) {

@@ -1,7 +1,7 @@
+#include "gen/owners.h"
 extern "C" void __cdecl FUN_000fc280(int);
 class Child {
   public:
-    void set(int);
 };
 class Obj {
   public:
@@ -20,7 +20,7 @@ void Obj::run(int arg) {
         flag = 0;
         FUN_000fc280(arg);
         if (ptr) {
-            ptr->set(6);
+            ((owners::Target_863e0 *)ptr)->FUN_000863e0(6);
             f2(1);
         }
     }

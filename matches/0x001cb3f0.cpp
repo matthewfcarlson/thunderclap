@@ -1,11 +1,6 @@
-class C_1cb3f0 {
-  public:
-    int x;
-    int y;
-    void f(int);
-};
+#include "gen/owners.h"
 void FUN_001d4c90();
-void C_1cb3f0::f(int a) {
-    y = a;
+void owners::C_1cb3f0::FUN_001cb3f0(hulk_intptr a) {
+    y = ((int)a);
     FUN_001d4c90();
 }

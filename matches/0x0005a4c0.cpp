@@ -1,8 +1,8 @@
 #include "compat/ptr.h"
 #include "gen/global.h"
+#include "gen/owners.h"
 
 struct A_5a4c0 {
-    void* first();
 };
 struct B_5a4c0 {
     void* second();
@@ -15,7 +15,7 @@ struct Data_5a4c0 {
 
 void* CGrappleDamageTrack::vfunc_11(hulk_intptr param) {
     if (param) {
-        void* a = ((A_5a4c0*)param)->first();
+        void* a = ((void *)((owners::Object_592a0 *)(((A_5a4c0*)param)))->FUN_000592a0());
         if (a) {
             void* b = ((B_5a4c0*)a)->second();
             if (b) {

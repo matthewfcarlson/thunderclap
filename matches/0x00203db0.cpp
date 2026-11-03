@@ -1,20 +1,13 @@
 #include "decls/data/game/global.h"
 // data: g_flag_203db0 = DAT_004c91d9
+#include "gen/owners.h"
 
-class Obj_203db0 {
-  public:
-    char pad[0x530];
-    int values[2];
-    char pad2[0x38];
-    int keys[2];
-    int target(int key);
-};
-int Obj_203db0::target(int key) {
+hulk_intptr owners::Obj_203db0::FUN_00203db0(hulk_intptr key) {
     int result = 0;
     if ((*(unsigned char*)((char*)&DAT_004c91d8 + 1))) {
         int i;
         for (i = 0; i < 2; ++i) {
-            if (keys[i] == key) {
+            if (keys[i] == ((int)key)) {
                 if (i >= 0)
                     result = *(int*)((char*)this + 0x530 + i * 0x3c);
                 break;

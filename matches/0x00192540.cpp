@@ -1,11 +1,6 @@
-class A_192540 {
-  public:
-    char pad[0xb8];
-    int m;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool A_192540::Set(int v) {
+bool owners::A_192540::FUN_00192540(int v) {
     m = v;
     return true;
 }

@@ -2,6 +2,7 @@
 // FUN_001d7360 @ 0x001d7360
 // Fill `out` (x, y, z, w) from the attached transform source and its parent chain, then hand it to
 // the virtual transform step and finish with the result object.
+#include "gen/owners.h"
 struct Vec3Bits {
     int x, y, z;
 };
@@ -42,7 +43,6 @@ public:
 
 class Result_1d7360 {
 public:
-    void FUN_0022c2b0(void*, void*);
 };
 
 class Node {
@@ -93,6 +93,6 @@ bool Node::FUN_001d7360(Vec4Bits* out)
     local.x = out->x;
     local.y = out->y;
     local.z = out->z;
-    Transform()->FUN_0022c2b0(&local, out);
+    ((owners::Mat_22c2b0 *)(Transform()))->FUN_0022c2b0((float *)(&local), (float *)out);
     return true;
 }

@@ -2,6 +2,7 @@
 // FUN_001d7b80 @ 0x001d7b80
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 struct Vec3_1d7b80 {
     float x, y, z;
 };
@@ -34,7 +35,6 @@ class Part_1d7b80 {
 public:
     char pad00[0x10];
     State_1d7b80 *state;             // 0x10
-    Xform_1d7b80 *FUN_002fc6f0();
 };
 
 class Locator {
@@ -118,20 +118,20 @@ void Actor_1d7b80::FUN_001d7b80(int a, int b)
 
     const Vec3_1d7b80 *src;
     if (part)
-        src = &part->FUN_002fc6f0()->pos;
+        src = &((Xform_1d7b80 *)((owners::C_2fc6f0 *)part)->FUN_002fc6f0())->pos;
     else
         src = locator->l4();
     posB = *src;
     posA = posB;
 
     if (part)
-        src = &part->FUN_002fc6f0()->pos;
+        src = &((Xform_1d7b80 *)((owners::C_2fc6f0 *)part)->FUN_002fc6f0())->pos;
     else
         src = locator->l4();
     posC = *src;
 
     if (part)
-        src = &part->FUN_002fc6f0()->pos;
+        src = &((Xform_1d7b80 *)((owners::C_2fc6f0 *)part)->FUN_002fc6f0())->pos;
     else
         src = locator->l4();
     posD = *src;

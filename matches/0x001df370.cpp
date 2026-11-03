@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class Obj {
   public:
     char pad[0x70];
@@ -7,7 +8,6 @@ class Mid {
   public:
     char pad[0x74];
     Obj* obj;
-    Mid* Get();
 };
 struct ThisWrap_001df370 {
     Mid* Find(int);
@@ -17,7 +17,7 @@ char ThisWrap_001df370::Target(int id) {
     Mid* p = this->Find(id);
     if (!p)
         return 0;
-    p = p->Get();
+    p = ((Mid *)((owners::C_1d72e0 *)p)->FUN_001d72e0());
     if (!p)
         return 0;
     Obj* q = p->obj;

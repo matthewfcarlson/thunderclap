@@ -1,8 +1,8 @@
+#include "gen/owners.h"
 struct Node {
     char pad[0x10];
     int count;
     void F530(int, int, float);
-    void F650(int, int, float);
 };
 struct Holder_afea0 {
     char pad[8];
@@ -22,8 +22,8 @@ void Holder_afea0::Set(int idx, float a, float b, float c) {
         do {
             n->F530(i, 0, x);
             n->F530(i, 1, y);
-            n->F650(i, 0, c);
-            n->F650(i, 1, c);
+            ((owners::Obj_af650 *)n)->FUN_000af650(i, 0, c);
+            ((owners::Obj_af650 *)n)->FUN_000af650(i, 1, c);
             i++;
         } while (i < n->count);
     }

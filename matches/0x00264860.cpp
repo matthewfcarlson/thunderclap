@@ -1,9 +1,4 @@
-class C_264860 {
-  public:
-    int pad;
-    int value;
-    void Set(int);
-};
-void C_264860::Set(int x) {
+#include "gen/owners.h"
+void owners::C_264860::FUN_00264860(int x) {
     value = x;
 }

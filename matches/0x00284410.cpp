@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class Worker_284410 {
   public:
-    void Work(char*);
 };
 class Obj_284410 {
   public:
@@ -19,7 +19,7 @@ void Obj_284410::Run(int arg) {
             unsigned boff = 0;
             unsigned voff = 0;
             do {
-                ((Worker_284410*)((char*)base + boff))->Work(values + voff);
+                ((owners::Quat_22b370 *)(((Worker_284410*)((char*)base + boff))))->FUN_0022b370((const float *)(values + voff));
                 ++i;
                 voff += 0x40;
                 boff += 0x10;

@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_00092e50 @ 0x00092e50
+#include "gen/owners.h"
 struct Name_92e50 {
     char data[8];
-    void FUN_0027b040(const char *s);
 };
 
-class CUnlockable {
+class CUnlockable_92e50 {
 public:
     virtual void v0();
 };
-class CUnlockableBlonskyFile : public CUnlockable {
+class CUnlockableBlonskyFile_92e50 : public CUnlockable_92e50 {
 public:
     char pad04[0xc];
     Name_92e50 title;
@@ -21,7 +21,7 @@ public:
 
 class UnlockableList_92e50 {
 public:
-    CUnlockable *items[1];
+    CUnlockable_92e50 *items[1];
     void FUN_00092c80(const char *s, int idx);
     void FUN_00092e50(const char *id, int idx, const char *title, const char *subtitle,
                       const char *file, const char *text);
@@ -32,11 +32,11 @@ void UnlockableList_92e50::FUN_00092e50(const char *id, int idx, const char *tit
 {
     if (idx < 0x34 || idx > 0x51)
         return;
-    CUnlockableBlonskyFile *g = dynamic_cast<CUnlockableBlonskyFile *>(items[idx]);
+    CUnlockableBlonskyFile_92e50 *g = dynamic_cast<CUnlockableBlonskyFile_92e50 *>(items[idx]);
     if (g == 0)
         return;
-    g->title.FUN_0027b040(title);
-    g->subtitle.FUN_0027b040(subtitle);
+    ((owners::Target_27b040 *)&(g->title))->FUN_0027b040((hulk_uintptr)title);
+    ((owners::Target_27b040 *)&(g->subtitle))->FUN_0027b040((hulk_uintptr)subtitle);
     {
         const char *s = file;
         char *d = (char *)g + 0x68;

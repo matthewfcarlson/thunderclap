@@ -1,4 +1,5 @@
 // FUN_000b96e0 @ 0x000b96e0
+#include "gen/owners.h"
 class Player_b96e0 {
   public:
     char pad[0x9a8];
@@ -18,7 +19,6 @@ class Fader_b96e0 {
 };
 class Panel_b96e0 {
   public:
-    void FUN_00089e10();
 };
 Game_b96e0* __cdecl FUN_000fc3d0();
 extern "C" void __cdecl FUN_000fc280(const char* name);
@@ -49,7 +49,7 @@ void Menu_b96e0::FUN_000b96e0() {
     fader->FUN_001eb870();
     for (int i = 0; i < 10; i++)
         fader->FUN_001eb2a0(0.01f, 0);
-    panel->FUN_00089e10();
+    ((owners::W_89e10 *)panel)->FUN_00089e10();
     FUN_000b5030(saveSlot);
     FUN_000fc280("save_new_game");
     fader->FUN_001eb890();

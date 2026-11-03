@@ -1,8 +1,8 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct X_144590 {
     X_144590* a();
     X_144590* b();
-    int d(int);
     void e(int);
 };
 extern "C" X_144590* __cdecl FUN_0027f250();
@@ -22,7 +22,7 @@ void MotionTrailStopAction::vfunc_4() {
         X_144590* b = a->b();
         X_144590* c = FUN_0027f250();
         int t = mA->value;
-        int v = b->d(t);
+        int v = ((int)((owners::X_36cb0 *)b)->FUN_00036cb0((unsigned int)t));
         c->e(v);
     }
 }

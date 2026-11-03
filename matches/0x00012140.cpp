@@ -1,8 +1,4 @@
-class Obj_12140 {
-  public:
-    char mBuf[0x50];
-    char* Get();
-};
-char* Obj_12140::Get() {
+#include "gen/owners.h"
+char* owners::Obj_12140::FUN_00012140() {
     return (char*)((char*)mBuf + 0x50);
 }

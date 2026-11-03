@@ -1,12 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 144 inputs, branch coverage 16/16)
 // FUN_002af510 @ 0x002af510
+#include "gen/owners.h"
 void *__cdecl FUN_00266e00(unsigned int count, unsigned int size);
 void __cdecl FUN_00267090(void *p);
 
 struct Reader {
-    void FUN_002647e0(void *dst, int count, int size, int flag);
     int FUN_00263fc0();
-    void FUN_00264510(int bytes);
 };
 
 class Writer_2af510 {
@@ -46,7 +45,7 @@ extern "C" void __cdecl FUN_002af510(void *reader, void *img, void *writer)
     if (n == 0)
         n = 16;
 
-    ((Reader *)reader)->FUN_002647e0(palette, n, 4, 1);
+    ((owners::X_2647e0 *)(((Reader *)reader)))->FUN_002647e0((hulk_intptr)palette, (hulk_intptr)n, 4, (hulk_intptr)1);
     for (i = 0; i < n; i++) {
         palette[i] |= 0xff000000;
         palette[i] = palette[i];
@@ -54,7 +53,7 @@ extern "C" void __cdecl FUN_002af510(void *reader, void *img, void *writer)
 
     ((Writer_2af510 *)writer)->vfunc_0(((ImageHeader *)img)->width, ((ImageHeader *)img)->height, 4, 1, palette);
     int position = ((Reader *)reader)->FUN_00263fc0(); // MSVC evaluates the call before reading dataEnd
-    ((Reader *)reader)->FUN_00264510(((ImageHeader *)img)->dataEnd - position);
+    ((owners::S_264510 *)(((Reader *)reader)))->FUN_00264510((unsigned)(((ImageHeader *)img)->dataEnd - position));
 
     int width = ((ImageHeader *)img)->width;
     int packed = width / 2;
@@ -66,13 +65,13 @@ extern "C" void __cdecl FUN_002af510(void *reader, void *img, void *writer)
     unsigned char *row = (unsigned char *)FUN_00266e00(1, width);
 
     for (int y = 0; y < ((ImageHeader *)img)->height; y++) {
-        ((Reader *)reader)->FUN_002647e0(src, packed, 1, 1);
+        ((owners::X_2647e0 *)(((Reader *)reader)))->FUN_002647e0((hulk_intptr)src, (hulk_intptr)packed, 1, (hulk_intptr)1);
         for (i = 0; i < packed; i++) {
             row[i * 2] = src[i] >> 4;
             row[i * 2 + 1] = src[i] & 0xf;
         }
         ((Writer_2af510 *)writer)->vfunc_2(row);
-        ((Reader *)reader)->FUN_00264510(pad);
+        ((owners::S_264510 *)(((Reader *)reader)))->FUN_00264510((unsigned)pad);
     }
     FUN_00267090(src);
     FUN_00267090(row);

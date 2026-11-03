@@ -1,4 +1,5 @@
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 extern void* DAT_004316e8[];
 struct SubA_2f7ee0 {
@@ -28,7 +29,6 @@ struct Ref_2f7ee0 {
     virtual void a() throw();
 };
 struct Name_2f7ee0 {
-    void SetName(const char*) throw();
 };
 void* __cdecl FUN_0008d690(unsigned) throw();
 void* __cdecl thunk_FUN_0008d690(unsigned) throw();
@@ -65,5 +65,5 @@ ImpulseBasedCollisionSolver_2f7ee0::ImpulseBasedCollisionSolver_2f7ee0() throw()
     Ref_2f7ee0* x = FUN_002efa90(t, 0, 0);
     mfc = x;
     x->a();
-    ((Name_2f7ee0*)((char*)t + 8))->SetName("ATGWorldCollision");
+    ((owners::Target_27b040 *)(((Name_2f7ee0*)((char*)t + 8))))->FUN_0027b040((hulk_uintptr)"ATGWorldCollision");
 }

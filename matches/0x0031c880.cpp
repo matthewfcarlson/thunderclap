@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 typedef unsigned int U32_31c880;
 struct Obj_31c880 {
     char pad[8];
@@ -7,13 +8,12 @@ struct Obj_31c880 {
     void Copy(U32_31c880);
 };
 struct Temp_31c880 {
-    void Run(U32_31c880, void*);
 };
 extern "C" void* memcpy(void*, const void*, unsigned int);
 void Obj_31c880::Copy(U32_31c880 param) {
     char local[64];
     void* dst = (void*)(index * 64 + base);
-    ((Temp_31c880*)local)->Run(param, dst);
+    ((owners::Matrix_22ca90 *)(((Temp_31c880*)local)))->FUN_0022ca90((const owners::Matrix_22ca90 *)(hulk_uintptr)(unsigned int)param, (const owners::Matrix_22ca90 *)dst);
     dst = (void*)(index * 64 + base);
     memcpy(dst, local, 64);
 }

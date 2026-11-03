@@ -1,17 +1,7 @@
 #include "compat/ptr.h"
-class Thing_ac7a0 {
-  public:
-    char pad14[0x14];
-    float mA;
-    float mB;
-    unsigned char flag;
-    char pad1d[3];
-    float x;
-    float y;
-    void Set(float a, float b);
-};
+#include "gen/owners.h"
 extern const float one;
-void Thing_ac7a0::Set(float a, float b) {
+void owners::Thing_ac7a0::FUN_000ac7a0(float a, float b) {
     flag = 1;
     hulk_freg d = mB - mA;
     x = (one - a) * d;

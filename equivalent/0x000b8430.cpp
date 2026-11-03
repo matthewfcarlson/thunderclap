@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 177 inputs, branch coverage 48/48)
 // FUN_000b8430 @ 0x000b8430
+#include "gen/owners.h"
 extern char DAT_0049dba4[];
 extern char DAT_0049dbbc[];
 extern char DAT_0049f470[];
@@ -37,14 +38,8 @@ struct Selector_b8430 {
     int index;
 };
 
-class HintMenu_b8430 {
-public:
-    char pad00[0x1b50];
-    int shown[32];
-    void FUN_000b8430();
-};
 
-void HintMenu_b8430::FUN_000b8430()
+void owners::HintMenu_b8430::FUN_000b8430()
 {
     Widget_b8430 *title = (Widget_b8430 *)FUN_00344e74(FUN_000fc260("smart_hint_title"), 0, DAT_0049dba4, DAT_0049f48c, 0);
     if (title == 0)

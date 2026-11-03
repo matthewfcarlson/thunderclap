@@ -1,33 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 17/18, incomplete)
 // FUN_000d4400 @ 0x000d4400
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
-struct Accum {
-    char pad0[0x220];
-    float sum0;        // 0x220
-    float sum1;        // 0x224
-    float sum2;        // 0x228
-    char pad22c[0x8];
-    float damp0;       // 0x234
-    char pad238[8];
-    int id0;           // 0x240
-    int count0;        // 0x244
-    char flag0;
-    char pad249[0x213];
-    float sum3;        // 0x45c
-    float sum4;        // 0x460
-    float sum5;        // 0x464
-    char pad468[8];
-    float damp1;       // 0x470
-    char pad474[8];
-    int id1;           // 0x47c
-    int count1;        // 0x480
-    char flag1;        // 0x484
 
-    void FUN_000d4400(int id, float amount);
-};
-
-void Accum::FUN_000d4400(int id, float amount)
+void owners::Accum_d4400::FUN_000d4400(int id, float amount)
 {
     float x = id ? -amount : amount;
     float v0 = 0.0f;

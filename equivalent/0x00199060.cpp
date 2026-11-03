@@ -4,6 +4,7 @@
 // equiv-conv: FUN_00195560 ecx eax ebx stack stack stack stack stack stack stack stack stack stack stack
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 struct V3_199060 {
     float x, y, z;
     float FUN_0022d110();
@@ -44,7 +45,6 @@ struct Req_199060 {
     void FUN_00083320(V3_199060 *a, int b, int c, int d, V3_199060 *e, int f);
 };
 struct Hub4c_199060 {
-    Req_199060 *FUN_0007ad00(void *p);
 };
 
 struct Fx_199060 {
@@ -107,11 +107,9 @@ struct Own_199060 {
     Info11c *p11c;
     char pad120[0x12c - 0x120];
     void *f12c;
-    Ent_199060 *FUN_00035ef0(int i);
 };
 
 struct Pool44 {
-    Own_199060 *FUN_00059c10(int id);
 };
 struct World {
     char pad0[0xc];
@@ -249,7 +247,7 @@ char ProjectileGroundShockwave::F(Thing_199060 *a1, Other_199060 *a2, V3_199060 
             (*slot)->v1();
         *slot = (Ref_199060 *)ebx;
         idx = (idx + 1) % 32;
-        Own_199060 *own = DAT_004dd700->p44->FUN_00059c10(f1c);
+        Own_199060 *own = ((Own_199060 *)((owners::ThisWrap_00059c10 *)(DAT_004dd700->p44))->FUN_00059c10((void *)(hulk_uintptr)(int)f1c));
         if (own && own->f12c == ebx)
             break;
         Obj18_199060 *o18 = p18;
@@ -327,7 +325,7 @@ char ProjectileGroundShockwave::F(Thing_199060 *a1, Other_199060 *a2, V3_199060 
         if (own) {
             bool same = false;
             for (int b = 0; b < 8; b++) {
-                if (own->FUN_00035ef0(b) == edi) {
+                if (((Ent_199060 *)((owners::C_35ef0 *)own)->FUN_00035ef0((hulk_intptr)b)) == edi) {
                     same = true;
                     break;
                 }
@@ -354,7 +352,7 @@ char ProjectileGroundShockwave::F(Thing_199060 *a1, Other_199060 *a2, V3_199060 
         if (edi->b14d) {
             Sub6c *ev = edi->FUN_001d72e0();
             if (ev->f6c == 0) {
-                Req_199060 *r = DAT_004dd700->p4c->FUN_0007ad00((char *)edi + 8);
+                Req_199060 *r = ((Req_199060 *)((owners::Obj_7ad00 *)(DAT_004dd700->p4c))->FUN_0007ad00((hulk_intptr)((char *)edi + 8)));
                 if (!r)
                     break;
                 V3_199060 V = p18->v80;

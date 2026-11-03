@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 typedef unsigned int u32_2928e0;
 struct Receiver_2928e0 {
-    void f(u32_2928e0);
 };
 struct Camera {
     virtual void a0();
@@ -22,5 +22,5 @@ struct Camera {
 void Camera::vfunc_12(void* p2, Receiver_2928e0* p3) {
     a11(p2, p3);
     u32_2928e0 x = a14();
-    p3->f(x);
+    ((owners::Obj_22e320 *)p3)->FUN_0022e320(x);
 }

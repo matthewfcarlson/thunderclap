@@ -1,11 +1,6 @@
-class C_14cb30 {
-  public:
-    char pad[0x14];
-    float mAngle;
-    bool SetDeg(float deg);
-};
+#include "gen/owners.h"
 
-bool C_14cb30::SetDeg(float deg) {
+bool owners::C_14cb30::FUN_0014cb30(float deg) {
     mAngle = deg * 0.0174532925f;
     return true;
 }

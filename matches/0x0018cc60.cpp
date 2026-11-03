@@ -1,11 +1,6 @@
-class Obj_18cc60 {
-  public:
-    char pad[0x24];
-    char m24;
-    char Set(char v);
-};
+#include "gen/owners.h"
 
-char Obj_18cc60::Set(char v) {
+char owners::Obj_18cc60::FUN_0018cc60(char v) {
     m24 = v;
     return 1;
 }

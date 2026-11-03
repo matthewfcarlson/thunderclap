@@ -1,10 +1,5 @@
-class Obj_1331f0 {
-  public:
-    char Pad[12];
-    int mField;
-    char Set(int value);
-};
-char Obj_1331f0::Set(int value) {
+#include "gen/owners.h"
+char owners::Obj_1331f0::FUN_001331f0(int value) {
     mField = value;
     return 1;
 }

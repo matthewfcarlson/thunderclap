@@ -1,11 +1,4 @@
-class Obj_1fb940 {
-  public:
-    char pad[0xcd];
-    unsigned char a;
-    char gap;
-    unsigned char b;
-    void f();
-};
-void Obj_1fb940::f() {
+#include "gen/owners.h"
+void owners::Obj_1fb940::FUN_001fb940() {
     b = a;
 }

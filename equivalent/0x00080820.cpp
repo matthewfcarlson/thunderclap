@@ -2,18 +2,12 @@
 // FUN_00080820 @ 0x00080820
 // cl-flags: /GS
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 extern int __cdecl FUN_000964a0(char*, unsigned int, const char*, ...);
-struct Actor_80820 {
- bool FUN_0007a420(int*, int*, int*, int*);
- int FUN_0007a8f0(int*, int*);
- int FUN_0007f560(const char*, int, int, int, int);
- int FUN_0007f690(const char*, int, int, int);
- int FUN_00080820();
-};
 // The original's frame: four out-ints, the name buffer, then the /GS cookie directly above it.
 struct Frame_80820 { int a, b, c, d; char name[32];  };
-int Actor_80820::FUN_00080820() {
+int owners::Actor_80820::FUN_00080820() {
  Frame_80820 fr;
  int result;
  if (FUN_0007a420(&fr.a,&fr.c,&fr.d,&fr.b)) {

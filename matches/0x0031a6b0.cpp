@@ -1,5 +1,6 @@
 // FUN_0031a6b0 @ 0x0031a6b0
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Rest_31a6b0 {
     char data[96];
     void FUN_0031a8b0(const Rest_31a6b0 *src);
@@ -12,7 +13,6 @@ struct Elem_31a6b0 {
 
 struct Sub_31a6b0 {
     char data[0x60];
-    void FUN_00319c80(const Sub_31a6b0 *src);
 };
 
 class Container_31a6b0 {
@@ -56,7 +56,7 @@ Container_31a6b0 *Container_31a6b0::FUN_0031a6b0(const Container_31a6b0 *other)
         }
     }
 
-    sub.FUN_00319c80(&other->sub);
+    ((owners::DataBlock_319c80 *)&sub)->FUN_00319c80((const owners::DataBlock_319c80 *)(const Sub_31a6b0 *)(&other->sub));
     f70 = other->f70;
     f74 = other->f74;
     f78 = other->f78;

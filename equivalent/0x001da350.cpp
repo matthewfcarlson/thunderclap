@@ -2,6 +2,7 @@
 // FUN_001da350 @ 0x001da350
 #include "compat/ptr.h"
 #include "decls/address.h"
+#include "gen/owners.h"
 class RefCounted_1da350 {
 public:
     virtual void addRef();
@@ -38,7 +39,6 @@ struct Mid10_1da350 {
 struct HolderA0 {
     char pad[0x10];
     Mid10_1da350 *p10;
-    Xform_1da350 *FUN_002fc6f0();
 };
 
 struct Reg124_1da350 {
@@ -96,7 +96,6 @@ public:
     void FUN_001d6e10(RefCounted_1da350 *a);
     void FUN_001d7510();
     void FUN_001d8d90(int a);
-    unsigned FUN_001d72e0();
 
     char FUN_001da350(RefCounted_1da350 *a1, Raw3_1da350 *a2, Raw3_1da350 *a3, unsigned a4, RefCounted_1da350 *a5,
                       unsigned a6, unsigned a7, unsigned a8, unsigned a9, unsigned a10,
@@ -118,7 +117,7 @@ char Entity::FUN_001da350(RefCounted_1da350 *a1, Raw3_1da350 *a2, Raw3_1da350 *a
 
     Raw3_1da350 *p;
     if (holder != 0)
-        p = &holder->FUN_002fc6f0()->pos;
+        p = &((Xform_1da350 *)((owners::C_2fc6f0 *)holder)->FUN_002fc6f0())->pos;
     else
         p = posSource->getPos();
     pos = *p;
@@ -161,7 +160,7 @@ char Entity::FUN_001da350(RefCounted_1da350 *a1, Raw3_1da350 *a2, Raw3_1da350 *a
         if (r20 != 0) {
             Reg124_1da350 *r = r20->p124;
             if (r != 0 && r->key == a1)
-                r20->FUN_00029b50(FUN_001d72e0(), (hulk_uintptr)rc21c, f218);
+                r20->FUN_00029b50(((unsigned)((owners::C_1d72e0 *)this)->FUN_001d72e0()), (hulk_uintptr)rc21c, f218);
         }
     }
     return 1;

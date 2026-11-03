@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 9439 inputs, branch coverage 32/32)
 // FUN_0029ce40 @ 0x0029ce40
+#include "gen/owners.h"
 struct Vec3_29ce40 {
     float x, y, z;
     float FUN_0022d110();
@@ -15,7 +16,6 @@ struct Light {
     float strength;             // 0x64
 
     float FUN_002a0d00(Vec3_29ce40* p);
-    void FUN_002c3d20(float* a, float* b, float* falloff);
 };
 
 struct LightList_29ce40 {
@@ -96,7 +96,7 @@ void Lighting::FUN_0029ce40(Vec3_29ce40* out, Vec3_29ce40* p)
         d.x = p->x - item->pos.x;
         d.y = p->y - item->pos.y;
         d.z = p->z - item->pos.z;
-        item->FUN_002c3d20(&a, &b, &falloff);
+        ((owners::C_2c3d20 *)item)->FUN_002c3d20((hulk_intptr)(&a), (hulk_intptr)(&b), (int *)(&falloff));
         double len = d.FUN_0022d110();
         double lenSq = len * len * falloff;
         double w = item->strength;

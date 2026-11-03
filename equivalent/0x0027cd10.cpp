@@ -1,12 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 100 inputs, branch coverage 20/20)
 // FUN_0027cd10 @ 0x0027cd10
+#include "gen/owners.h"
 struct Matrix {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022be40(struct Query_27cd10 *q);
-    void FUN_0022bc20(float x, float y, float z);
-    void FUN_0022ca90(Matrix *in, Matrix *by);
-    void FUN_0022c120();
 };
 
 struct Query_27cd10 {
@@ -101,8 +98,8 @@ void Renderer_27cd10::FUN_0027cd10(Query_27cd10 *q)
     switch (q->inMode) {
     case 0:
         fr.o2.FUN_0022b980();
-        fr.o2.FUN_0022be40(q);
-        fr.o2.FUN_0022bc20(q->x, q->y, q->z);
+        ((owners::Target_22be40 *)&(fr.o2))->FUN_0022be40((const int *)(struct Query_27cd10 *)q);
+        ((owners::Matrix_22bc20 *)&(fr.o2))->FUN_0022bc20(q->x, q->y, q->z);
         {
             int idx = pal->FUN_002843a0(q->field38, q->field3c);
             Matrix *m;
@@ -110,19 +107,19 @@ void Renderer_27cd10::FUN_0027cd10(Query_27cd10 *q)
                 m = worldMatrix();
             else
                 m = &pal->matrices[idx];
-            fr.o1.FUN_0022ca90(&fr.o2, m);
+            ((owners::Matrix_22ca90 *)&(fr.o1))->FUN_0022ca90((const owners::Matrix_22ca90 *)(Matrix *)(&fr.o2), (const owners::Matrix_22ca90 *)(Matrix *)m);
         }
         break;
     case 1:
         fr.o2.FUN_0022b980();
-        fr.o2.FUN_0022be40(q);
-        fr.o2.FUN_0022bc20(q->x, q->y, q->z);
-        fr.o1.FUN_0022ca90(&fr.o2, worldMatrix());
+        ((owners::Target_22be40 *)&(fr.o2))->FUN_0022be40((const int *)(struct Query_27cd10 *)q);
+        ((owners::Matrix_22bc20 *)&(fr.o2))->FUN_0022bc20(q->x, q->y, q->z);
+        ((owners::Matrix_22ca90 *)&(fr.o1))->FUN_0022ca90((const owners::Matrix_22ca90 *)(Matrix *)(&fr.o2), (const owners::Matrix_22ca90 *)(Matrix *)(worldMatrix()));
         break;
     case 2:
         fr.o1.FUN_0022b980();
-        fr.o1.FUN_0022be40(q);
-        fr.o1.FUN_0022bc20(q->x, q->y, q->z);
+        ((owners::Target_22be40 *)&(fr.o1))->FUN_0022be40((const int *)(struct Query_27cd10 *)q);
+        ((owners::Matrix_22bc20 *)&(fr.o1))->FUN_0022bc20(q->x, q->y, q->z);
         break;
     default:
         break;
@@ -138,15 +135,15 @@ void Renderer_27cd10::FUN_0027cd10(Query_27cd10 *q)
         else
             m = &pal->matrices[idx];
         fr.mc = *m;
-        fr.mc.FUN_0022c120();
-        fr.o2.FUN_0022ca90(&fr.o1, &fr.mc);
+        ((owners::Matrix_22c120 *)&(fr.mc))->FUN_0022c120();
+        ((owners::Matrix_22ca90 *)&(fr.o2))->FUN_0022ca90((const owners::Matrix_22ca90 *)(Matrix *)(&fr.o1), (const owners::Matrix_22ca90 *)(Matrix *)(&fr.mc));
         hit = fr.target->FUN_00283b10(q->blockA, pal, q->blockB, &fr.o2, -1.0f, q->field18);
         break;
     }
     case 1: {
         fr.mc = *worldMatrix();
-        fr.mc.FUN_0022c120();
-        fr.o2.FUN_0022ca90(&fr.o1, &fr.mc);
+        ((owners::Matrix_22c120 *)&(fr.mc))->FUN_0022c120();
+        ((owners::Matrix_22ca90 *)&(fr.o2))->FUN_0022ca90((const owners::Matrix_22ca90 *)(Matrix *)(&fr.o1), (const owners::Matrix_22ca90 *)(Matrix *)(&fr.mc));
         hit = fr.target->FUN_00283b10(q->blockA, pal, 0, &fr.o2, -1.0f, q->field18);
         break;
     }

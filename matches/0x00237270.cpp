@@ -1,11 +1,6 @@
-class C_237270 {
-    char pad[0x24];
+#include "gen/owners.h"
 
-  public:
-    char Set(int x);
-};
-
-char C_237270::Set(int x) {
+char owners::C_237270::FUN_00237270(int x) {
     *(int*)((char*)this + 0x24) = x;
     return 1;
 }

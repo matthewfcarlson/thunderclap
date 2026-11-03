@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 4/4; Wine build 605 inputs, 4/4)
 // FUN_0022b750 @ 0x0022b750
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" hulk_freg __cdecl FUN_00018a20(float);
 extern "C" double __cdecl sin(double);
-struct Quaternion_22b750 { float x,y,z,w; void interpolate(const Quaternion_22b750* a,const Quaternion_22b750* b,float t); };
-void Quaternion_22b750::interpolate(const Quaternion_22b750* a,const Quaternion_22b750* b,float t) {
+void owners::Quaternion_22b750::FUN_0022b750(const owners::Quaternion_22b750* a,const owners::Quaternion_22b750* b,float t) {
  double dot = (double)a->z*b->z + (double)a->y*b->y + (double)b->w*a->w + (double)a->x*b->x;
  float d=(float)dot;
  float sign=1.0f;

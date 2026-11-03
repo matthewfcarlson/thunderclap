@@ -1,16 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0022bda0 @ 0x0022bda0
+#include "gen/owners.h"
 extern "C" double __cdecl sin(double);
 extern "C" double __cdecl cos(double);
 
-class Matrix {
-public:
-    float m[3][4];
-    void FUN_0022bda0(float a, float b, float c);
-};
 
 // Builds the 3x3 rotation block from three Euler angles.
-void Matrix::FUN_0022bda0(float a, float b, float c)
+void owners::Matrix_22bda0::FUN_0022bda0(float a, float b, float c)
 {
     double sa = sin(a);
     double ca = cos(a);

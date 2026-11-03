@@ -1,4 +1,5 @@
 #include "gen/fight.h"
+#include "gen/owners.h"
 
 void* __cdecl operator new(unsigned int size);
 inline void* __cdecl operator new(unsigned int, void* where) {
@@ -12,7 +13,6 @@ struct InitHelper {
 struct TrackImpl {
     int m0;
     int m1;
-    void setup(void* arg);
 };
 
 class TrackFactoryTemplate_122f30 {
@@ -32,7 +32,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::StrafeLateral
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_122f30* t = new (mem) TrackFactoryTemplate_122f30();
-        t->mTrack.setup(arg);
+        ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         postInit();
         return (void*)(t);
     }

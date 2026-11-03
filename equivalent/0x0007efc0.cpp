@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 16969 inputs, branch coverage 60/60)
 // FUN_0007efc0 @ 0x0007efc0
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct V3_7efc0 {
     float x, y, z;
 };
@@ -50,7 +51,6 @@ struct WorldSys_7efc0 {
     char FUN_001dd520(int id, Mat4_7efc0 *out);
     char FUN_001dda80(int id);
     char FUN_001dd9e0(int id);
-    Target_7efc0 *FUN_001dc0d0(int id);
 };
 
 struct Env_7efc0 {
@@ -79,7 +79,6 @@ public:
     void FUN_0007b4f0(int i);
     void FUN_0007ba60(int i);
     void FUN_0007cab0(int n);
-    void FUN_0007e680();
     void FUN_0007efc0(int arg);
 };
 
@@ -172,7 +171,7 @@ void Mgr_7efc0::FUN_0007efc0(int arg)
     if (pending > 0 && count == f3748)
         FUN_0007cab0(pending);
     if (f.removed < f3744 && count < f3748 && f3740 > 0)
-        FUN_0007e680();
+        ((owners::VehicleManager_7e680 *)this)->FUN_0007e680();
 
     char done = 0;
     for (int n = 0; n < 0x14; n++) {
@@ -195,7 +194,7 @@ void Mgr_7efc0::FUN_0007efc0(int arg)
                 int i = 0;
                 for (; i < count; i++) {
                     if (list[i] == e) {
-                        Target_7efc0 *t = env->f0c->FUN_001dc0d0(e->f34);
+                        Target_7efc0 *t = ((Target_7efc0 *)((owners::Obj_1dc0d0 *)(env->f0c))->FUN_001dc0d0((hulk_intptr)(e->f34)));
                         if (t)
                             t->FUN_001d7510();
                         FUN_0007ba60(i);

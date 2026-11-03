@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 20/20)
 // FUN_0009bf50 @ 0x0009bf50
 #include "gen/global.h"
+#include "gen/owners.h"
 struct Toggle { void FUN_000361c0(int); void FUN_00036140(int); };
 struct Context_9bf50 { char pad[0x124]; Toggle* toggle; };
 struct Arg_9bf50 { char pad[0x20]; Context_9bf50* context; };
@@ -12,12 +13,12 @@ struct Helper_9bf50 { void FUN_00098480(Arg_9bf50*); };
 void* __cdecl FUN_00263ea0(unsigned);
 struct Target_9bf50 {
  char pad0[4]; unsigned flags; char pad8[8]; unsigned value; unsigned saved; unsigned char busy; char pad19[0xbc-0x19]; Helper_9bf50* helper; CNISCamera* item;
- void FUN_0009a1e0(Arg_9bf50*); void FUN_000991b0(Arg_9bf50*,unsigned,CNISCamera*,int,int);
+  void FUN_000991b0(Arg_9bf50*,unsigned,CNISCamera*,int,int);
  void run(Arg_9bf50* arg, void* input);
 };
 void Target_9bf50::run(Arg_9bf50* arg, void* input) {
  if (!input || busy || (flags & 8) || (flags & 64)) return;
- if (flags & 2) FUN_0009a1e0(arg);
+ if (flags & 2) ((owners::Obj_9a1e0 *)this)->FUN_0009a1e0((hulk_uintptr)(Arg_9bf50 *)arg);
  if (flags & 0x5e) return;
  if (flags & 32) helper->FUN_00098480(arg);
  flags = (flags & ~32u) | 8;

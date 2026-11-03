@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 15/16, incomplete)
 // hulkfight::motion::VelocityCondition::vfunc_6 @ 0x00167cc0
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 extern "C" double sqrt(double);
 
@@ -9,7 +10,6 @@ struct Vec3_167cc0 {
 };
 
 struct Fighter_167cc0 {
-    void FUN_00035660(Vec3_167cc0 *out);
 };
 
 struct Holder_167cc0 {
@@ -42,7 +42,7 @@ bool hulkfight::motion::VelocityCondition::vfunc_6(void* __p0, void* __p1, void*
     v.x = 0;
     v.y = 0;
     v.z = 0;
-    fighter->FUN_00035660(&v);
+    ((owners::C_35660 *)fighter)->FUN_00035660((int *)(Vec3_167cc0 *)(&v));
     float s = (float)sqrt((double)(v.z * v.z + v.x * v.x + v.y * v.y));
 
     switch ((*(unsigned int *)&this->f_0c)) {

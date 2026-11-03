@@ -4,6 +4,7 @@
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 
 struct Vec3_2029e0 {
@@ -72,7 +73,6 @@ struct Hub_2029e0 {
 };
 
 struct Notifier_2029e0 {
-    void FUN_00025260(int a, int b, int c);
 };
 
 struct World {
@@ -119,7 +119,7 @@ extern "C" bool FUN_002029e0(Vec3_2029e0* from, Vec3_2029e0* to, int tag, int mo
     (*(char*)&DAT_004d2a40) = 0;
     (*(char*)&DAT_00554c1c) = 1;
     DAT_00554c18 = tag;
-    world->notifier->FUN_00025260(0, 0, 0);
+    ((owners::C_25260 *)(world->notifier))->FUN_00025260(0, 0, 0);
 
     Sweeper_2029e0* sweeper = world->hub->sweeper;
     hiddenCount = 0;
@@ -182,6 +182,6 @@ extern "C" bool FUN_002029e0(Vec3_2029e0* from, Vec3_2029e0* to, int tag, int mo
         hiddenCount--;
         f->hidden = 1;
     }
-    world->notifier->FUN_00025260(1, 0, 0);
+    ((owners::C_25260 *)(world->notifier))->FUN_00025260(1, 0, 0);
     return result;
 }

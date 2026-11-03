@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3098 inputs, branch coverage 50/51, incomplete)
 // hulkfight::ai::RoutAction::vfunc_5 @ 0x00122520
 #include "decls/data/game/hulkfight/ai.h"
+#include "gen/owners.h"
 
 extern "C" int atexit(void (*)());
 extern "C" double sqrt(double);
@@ -10,7 +11,7 @@ struct Vec3_122520 {
     float FUN_000111f0() throw();
     float FUN_0022d110() throw();
     float FUN_00018990() throw();
-    void FUN_000344b0(float s) throw();   // scale in place
+       // scale in place
 };
 
 struct Key_122520 {
@@ -20,7 +21,6 @@ struct Key_122520 {
 
 struct Mat_122520 {
     float m[16];
-    void FUN_0022c3b0(Vec3_122520 *in, Vec3_122520 *out) throw();
 };
 
 struct World;
@@ -32,7 +32,6 @@ struct Fighter_122520 {
 struct Ent_122520 {
     char pad00[0x10];
     Fighter_122520 *f10;
-    void FUN_00035660(Vec3_122520 *out) throw();
 };
 
 class RefObj_122520 {
@@ -200,7 +199,7 @@ bool RoutAction::vfunc_5(Arg1_122520 a1, float dt)
     f.D.x = f.D.x - f.P.x;
     f.D.y = f.D.y - f.P.y;
     f.D.z = f.D.z - f.P.z;
-    tgt->FUN_00035660(&f.X60);
+    ((owners::C_35660 *)tgt)->FUN_00035660((int *)(Vec3_122520 *)(&f.X60));
     float len = f.D.FUN_000111f0();
     if (len < f70) {
         double k = -1.0f / sqrt(len);
@@ -210,7 +209,7 @@ bool RoutAction::vfunc_5(Arg1_122520 a1, float dt)
         f.D.x = f.D.x * k;
         f.D.y = f.D.y * k;
         f.D.z = f.D.z * k;
-        m74.FUN_0022c3b0(&f.R, &f.Out);
+        ((owners::M_22c3b0 *)&m74)->FUN_0022c3b0((float *)(Vec3_122520 *)(&f.R), (float *)(Vec3_122520 *)(&f.Out));
         float dotF = f.Out.y * f.D.y + f.D.z * f.Out.z + f.Out.x * f.D.x;
         if (dotF > -0.99f) {
             float cross = f.Out.z * f.D.x - f.Out.x * f.D.z;
@@ -247,7 +246,7 @@ bool RoutAction::vfunc_5(Arg1_122520 a1, float dt)
             f.u4.one = 1.0f;
             // The scale factor is pushed before ecx is set, so it is one expression: the
             // receiver is the whole vector W (the shifted lea made it look like &W.y).
-            f.W.FUN_000344b0(FUN_000186f0(&f.u4.one, &f.u8.q));
+            ((owners::Vec3_344b0 *)&(f.W))->FUN_000344b0(FUN_000186f0(&f.u4.one, &f.u8.q));
         }
     }
     Cfg_122520 *cfg = f34;

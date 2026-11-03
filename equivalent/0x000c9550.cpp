@@ -3,6 +3,7 @@
 // cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
+#include "gen/owners.h"
 extern "C" char* strncpy(char* dst, const char* src, unsigned int n);
 
 class Handle_c9550 {
@@ -33,11 +34,9 @@ struct Mgr_c9550 {
     int limit;
     void FUN_00265810(Request* r, Handle_c9550** out);
     int FUN_00264870();
-    void FUN_00264860(int v);
 };
 
 struct Item_c9550 {
-    void FUN_001eb2a0(int a, int b);
 };
 
 struct Scene_c9550 {
@@ -85,13 +84,13 @@ void __stdcall FUN_000c9550(const char* name, Target_c9550* target, int arg)
     f.req.f10c = 0;
     (*(Mgr_c9550**)&DAT_00527c58)->FUN_00265810(&f.req, &f.l2);
     int saved = (*(Mgr_c9550**)&DAT_00527c58)->FUN_00264870();
-    (*(Mgr_c9550**)&DAT_00527c58)->FUN_00264860(250000);
+    ((owners::C_264860 *)((*(Mgr_c9550**)&DAT_00527c58)))->FUN_00264860(250000);
     Scene_c9550* scene = DAT_004dd700->scene;
     while (!f.l2->FUN_00266750()) {
         FUN_002656a0();
-        scene->FUN_000862e0()->FUN_001eb2a0(0, 0);
+        ((owners::Thing_1eb2a0 *)(scene->FUN_000862e0()))->FUN_001eb2a0(0, 0);
     }
-    (*(Mgr_c9550**)&DAT_00527c58)->FUN_00264860(saved);
+    ((owners::C_264860 *)((*(Mgr_c9550**)&DAT_00527c58)))->FUN_00264860(saved);
     target->FUN_00266220(f.l2->FUN_00266700());
     if (f.l2)
         f.l2->Release();

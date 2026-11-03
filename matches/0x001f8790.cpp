@@ -1,17 +1,9 @@
+#include "gen/owners.h"
 class D {
   public:
-    void use_val(int);
 };
-class C_1f8790 {
-    char pad[0x44c];
-    int value;
-
-  public:
-    C_1f8790* get_obj();
-    void f(int);
-};
-void C_1f8790::f(int p) {
+void owners::C_1f8790::FUN_001f8790(int p) {
     D* q = (D*)get_obj();
-    q->use_val(value);
+    ((owners::Obj_1d1900 *)q)->FUN_001d1900((hulk_intptr)value);
     value = p;
 }

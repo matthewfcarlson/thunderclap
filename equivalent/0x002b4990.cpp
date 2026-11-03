@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 11/12, incomplete)
 // FUN_002b4990 @ 0x002b4990
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Vec3_2b4990 {
     float x, y, z;
-    void FUN_0022c3b0(const Vec3_2b4990*, Vec3_2b4990*);
     void FUN_0022d180();
 };
 
@@ -78,7 +78,7 @@ void Mover_2b4990::FUN_002b4990()
     Vec3_2b4990 dir;
     scene->FUN_00294500(*(Vec3_2b4990 *)&origin, (Vec3_2b4990 *)&pos);
     if (useScene == 0) {
-        probe->vfunc_13()->FUN_0022c3b0(&goal, &dir);
+        ((owners::M_22c3b0 *)(probe->vfunc_13()))->FUN_0022c3b0((float *)(const Vec3_2b4990 *)(&goal), (float *)(Vec3_2b4990 *)(&dir));
     } else {
         Vec3_2b4990 from;
         scene->FUN_002940d0(&goal, &from);

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3083 inputs, branch coverage 88/88)
 // FUN_00338030 @ 0x00338030
 #include "decls/data/engine/movie.h"
+#include "gen/owners.h"
 
 extern "C" long atol(const char *s);
 extern "C" double __cdecl FUN_003458c1(const char *s);
@@ -28,7 +29,6 @@ public:
     char *name;
     int type;
     char *value;
-    int FUN_00337ec0();
     bool FUN_00338030(Loader_338030 *ld);
 };
 
@@ -63,7 +63,7 @@ bool AttrDef_338030::FUN_00338030(Loader_338030 *ld)
         return false;
     }
     ld->FUN_003374a0();
-    char *v = (char *)(*(Pool_338030*)&DAT_00565fc0).FUN_00337d60(FUN_00337ec0(), 4);
+    char *v = (char *)(*(Pool_338030*)&DAT_00565fc0).FUN_00337d60(((owners::Object_337ec0 *)this)->FUN_00337ec0(), 4);
     value = v;
 
     switch (type) {

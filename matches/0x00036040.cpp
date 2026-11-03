@@ -1,12 +1,5 @@
-class Obj {
-    char pad[0x1b0c];
-    float a;
-    float b;
-
-  public:
-    char Set(float x);
-};
-char Obj::Set(float x) {
+#include "gen/owners.h"
+char owners::Obj_36040::FUN_00036040(float x) {
     if (b <= 0.0f)
         return 0;
     b = x;

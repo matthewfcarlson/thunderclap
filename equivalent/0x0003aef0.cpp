@@ -2,6 +2,7 @@
 // FUN_0003aef0 @ 0x0003aef0
 #include "compat/ptr.h"
 #include "decls/address.h"
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 
 struct V3_3aef0 {
@@ -27,7 +28,6 @@ struct Weapon_3aef0 {
     int fec;                    // 0xec
     char pad0f0[0x1ed - 0xf0];
     char pending;               // 0x1ed
-    Body_3aef0* FUN_001d72e0();
     void FUN_001d6cc0(float v);
     void FUN_001d7510();
     void FUN_001d81b0(V3_3aef0* v, int flag);
@@ -41,7 +41,7 @@ struct Slot_3aef0 {
 
 struct Cam_3aef0 { bool FUN_00059a50(V3_3aef0* out); };
 
-struct Bank { hulk_intptr FUN_000446c0(int index); };
+struct Bank {  };
 
 struct Mgr_3aef0 { void FUN_0027ffb0(void* arg); };
 Mgr_3aef0* __cdecl FUN_0027f250();
@@ -74,7 +74,7 @@ char CCharacter_3aef0::FUN_0003aef0(int index)
     Weapon_3aef0* weapon = slots[index].weapon;
     Body_3aef0* body = 0;
     if (weapon) {
-        body = weapon->FUN_001d72e0();
+        body = ((Body_3aef0 *)((owners::C_1d72e0 *)weapon)->FUN_001d72e0());
         if (weapon->pending) {
             Mgr_3aef0* mgr = FUN_0027f250();
             unsigned int k = index + 0x14;
@@ -92,7 +92,7 @@ char CCharacter_3aef0::FUN_0003aef0(int index)
 
     if (weapon && bank) {
         int cur = weapon->fec;
-        if (cur == bank->FUN_000446c0(index)) {
+        if (cur == ((owners::Obj_446c0 *)bank)->FUN_000446c0(index)) {
             DAT_004dd700->inv->FUN_001e5bb0(weapon, 1);
             return 1;
         }

@@ -2,6 +2,7 @@
 // hulkfight::ai::FaceTargetAction::vfunc_5 @ 0x0010b5b0
 #include "decls/address.h"
 #include "decls/data/game/hulkfight.h"
+#include "gen/owners.h"
 extern "C" double fabs(double);
 
 struct V3 {
@@ -55,7 +56,6 @@ struct Player {
     int f20a8;              // 0x20a8
     float FUN_00035700();
     void FUN_00035550(V3 *out);
-    void FUN_0010b580(V3 *p);
 };
 
 struct Me {
@@ -70,7 +70,6 @@ struct Owner {
 };
 
 struct Link {
-    Owner *FUN_000592a0();
 };
 
 struct Hold {
@@ -103,7 +102,7 @@ bool FaceTargetAction::vfunc_5(int a, int b)
         return true;
     if (link == 0)
         return false;
-    Player *p = link->FUN_000592a0()->FUN_00059a30();
+    Player *p = ((Owner *)((owners::Object_592a0 *)link)->FUN_000592a0())->FUN_00059a30();
     if (p == 0)
         return false;
     bool ok = p->ctl->FUN_000443c0() == (*(unsigned __int64*)&DAT_004dc0c8);
@@ -164,14 +163,14 @@ bool FaceTargetAction::vfunc_5(int a, int b)
         if (ad > pc->thr1 && ad < pc->thr1 + 50.0f) {
             sub->f54 = 1;
             sub->f24 = 1;
-            p->FUN_0010b580(&f.u);
+            ((owners::C_10b580 *)p)->FUN_0010b580((const unsigned int *)(V3 *)(&f.u));
         } else if (ad > pc->thr2 && ad < pc->thr2 + 50.0f) {
             sub->f24 = 1;
             if (delta < 0.0f)
                 sub->f6c = 1;
             else
                 sub->f78 = 1;
-            p->FUN_0010b580(&f.u);
+            ((owners::C_10b580 *)p)->FUN_0010b580((const unsigned int *)(V3 *)(&f.u));
         }
     }
     sub->dir = f.d;

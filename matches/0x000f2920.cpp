@@ -1,24 +1,18 @@
 // Same code shape as 0x000f27a0 (propagated; names are from that function)
 #include "compat/ptr.h"
 #include "gen/global.h"
+#include "gen/owners.h"
 extern void* Alloc(hulk_uintptr);
 struct FEBillboardAnimation_nv_f2920 {
     int Create(int, int);
 };
-class Holder_f2920 {
-  public:
-    int field;
-    int data;
-    int slots[32];
-    int Run(int arg);
-};
-int Holder_f2920::Run(int arg) {
+hulk_intptr owners::Holder_f2920::FUN_000f2920(hulk_intptr arg) {
     if (data == 0)
         return 0;
     FEBillboardAnimation* obj = (FEBillboardAnimation*)Alloc(100);
     int result;
     if (obj != 0)
-        result = ((FEBillboardAnimation_nv_f2920*)(((FEBillboardAnimation*)(obj))))->Create(data, arg);
+        result = ((FEBillboardAnimation_nv_f2920*)(((FEBillboardAnimation*)(obj))))->Create(data, ((int)arg));
     else
         result = 0;
     int i;

@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1853 inputs, branch coverage 30/31, incomplete)
 // FUN_003080a0 @ 0x003080a0
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct V3_3080a0 {
     float x, y, z;
 };
 
 struct Stream {
-    char FUN_002647e0(void* dst, int count, int size, int one);
 };
 
 struct Reader {
@@ -22,7 +22,6 @@ struct Vec_3080a0 {
     int a;
     int b;
     int c;
-    void FUN_002ede00(int n);
 };
 
 struct Node {
@@ -85,15 +84,15 @@ struct Frame_3080a0 {
 Node* __cdecl FUN_003080a0(Reader* r)
 {
     Frame_3080a0 f;
-    r->stream->FUN_002647e0(&f.u8.a, 1, 4, 1);
-    r->stream->FUN_002647e0(&f.b, 1, 4, 1);
-    r->stream->FUN_002647e0(&f.c, 1, 4, 1);
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.u8.a), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.b), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.c), (hulk_intptr)1, 4, (hulk_intptr)1));
     Node* obj = 0;
     r->FUN_00266a30();
     int type = r->FUN_00266c30();
     switch (type) {
     case 0x07010002: {
-        r->stream->FUN_002647e0(&f.u4.d, 1, 4, 1);
+        ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.u4.d), (hulk_intptr)1, 4, (hulk_intptr)1));
         FUN_00307810(r, &f.v[0]);
         void* mem = FUN_0008d690(0x48);
         if (mem == 0) {
@@ -104,8 +103,8 @@ Node* __cdecl FUN_003080a0(Reader* r)
         break;
     }
     case 0x07010003: {
-        r->stream->FUN_002647e0(&f.r1, 1, 4, 1);
-        r->stream->FUN_002647e0(&f.scratch, 1, 4, 1);
+        ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.r1), (hulk_intptr)1, 4, (hulk_intptr)1));
+        ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.scratch), (hulk_intptr)1, 4, (hulk_intptr)1));
         f.u4.flag = r->FUN_00201750() != 0;
         FUN_00307810(r, &f.v[3]);
         FUN_00307810(r, &f.v[5]);
@@ -118,11 +117,11 @@ Node* __cdecl FUN_003080a0(Reader* r)
         break;
     }
     case 0x07010004: {
-        r->stream->FUN_002647e0(&f.scratch, 1, 4, 1);
+        ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.scratch), (hulk_intptr)1, 4, (hulk_intptr)1));
         f.tri[0] = f.scratch;
-        r->stream->FUN_002647e0(&f.scratch, 1, 4, 1);
+        ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.scratch), (hulk_intptr)1, 4, (hulk_intptr)1));
         f.tri[1] = f.scratch;
-        r->stream->FUN_002647e0(&f.scratch, 1, 4, 1);
+        ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.scratch), (hulk_intptr)1, 4, (hulk_intptr)1));
         f.tri[2] = f.scratch;
         FUN_00307810(r, &f.v[4]);
         FUN_00307810(r, &f.v[2]);
@@ -153,7 +152,7 @@ Node* __cdecl FUN_003080a0(Reader* r)
             obj = ((CollisionAABB_3080a0*)mem)->FUN_00312900();
         else
             obj = 0;
-        r->stream->FUN_002647e0(&f.scratch, 1, 4, 1);
+        ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.scratch), (hulk_intptr)1, 4, (hulk_intptr)1));
         break;
     }
     case 0x0701000a:
@@ -178,7 +177,7 @@ Node* __cdecl FUN_003080a0(Reader* r)
             vec = 0;
         }
         obj->children = vec;
-        vec->FUN_002ede00(count);
+        ((owners::Buffer_2ede00 *)vec)->FUN_002ede00(count);
         while (count > 0) {
             r->FUN_00266a30();
             Node* child = FUN_003080a0(r);

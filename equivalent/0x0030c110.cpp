@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 4/4; --wine 617 inputs)
 // physics::PhysicsJoint1D::vfunc_12 @ 0x0030c110
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 #include "compat/ptr.h"
 
@@ -12,7 +13,6 @@ struct Part_30c110 {
     float h0;
     float h1;
     float h2;
-    void FUN_002fd730();
 };
 
 struct Mid_30c110 {
@@ -76,10 +76,10 @@ void PhysicsJoint1D::vfunc_12(float a1, float a2, float a3, float a4, V3_30c110 
     float t1 = (cz * g->z + cy * g->y + cx * g->x) * a3;
     if (a4 != 0.0f) {
         Part_30c110 *p = o->mid->part;
-        p->FUN_002fd730();
+        ((owners::Obj_2fd730 *)p)->FUN_002fd730();
         if (p->h0 * p->h0 + p->h1 * p->h1 + p->h2 * p->h2 > 0.00001f) {
             p = owner->mid->part;
-            p->FUN_002fd730();
+            ((owners::Obj_2fd730 *)p)->FUN_002fd730();
             t1 = ((e->x * p->h1 - e->y * p->h0) * cz + (e->z * p->h0 - e->x * p->h2) * cy +
                   (e->y * p->h2 - e->z * p->h1) * cx) * a4 + t1;
         }

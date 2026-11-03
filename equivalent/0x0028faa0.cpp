@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 0/0)
 // FUN_0028faa0 @ 0x0028faa0
+#include "gen/owners.h"
 struct Source {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
@@ -8,7 +9,7 @@ struct Source {
     virtual void v16(); virtual void v17();
     virtual int v18(int flag);
 };
-struct Destination { void FUN_0022ca90(int value, void *location); };
+struct Destination {  };
 struct Object {
     char pad0[4];
     Source **source;
@@ -18,6 +19,6 @@ struct Object {
     Destination *FUN_0028faa0();
 };
 Destination *Object::FUN_0028faa0() {
-    destination.FUN_0022ca90((*source)->v18(0), location);
+    ((owners::Matrix_22ca90 *)&destination)->FUN_0022ca90((const owners::Matrix_22ca90 *)(hulk_uintptr)(int)((*source)->v18(0)), (const owners::Matrix_22ca90 *)location);
     return &destination;
 }

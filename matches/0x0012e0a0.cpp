@@ -1,13 +1,6 @@
-class A_12e0a0 {
-  public:
-    bool Set(int value);
+#include "gen/owners.h"
 
-  private:
-    char pad[12];
-    int mValue;
-};
-
-bool A_12e0a0::Set(int value) {
+bool owners::A_12e0a0::FUN_0012e0a0(int value) {
     mValue = value;
     return true;
 }

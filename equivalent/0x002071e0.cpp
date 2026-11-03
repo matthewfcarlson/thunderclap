@@ -2,6 +2,7 @@
 // FUN_002071e0 @ 0x002071e0
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 void *__cdecl FUN_00263ea0(unsigned int size);
 int __cdecl FUN_00266da0(int tag);
@@ -25,7 +26,6 @@ struct Handle_2071e0 {
 };
 
 struct Mgr54_2071e0 {
-    void *FUN_00086290();
 };
 struct Dummy_2071e0 {
     void FUN_001b9020();
@@ -157,7 +157,7 @@ void Mixer::FUN_002071e0(int n)
     }
     ready = 1;
     Mgr54_2071e0 *m54 = DAT_004dd700->mgr54;
-    ((Dummy_2071e0 *)m54->FUN_00086290())->FUN_001b9020();
+    ((Dummy_2071e0 *)((void *)((owners::Obj_86290 *)m54)->FUN_00086290()))->FUN_001b9020();
     field9a4 = DAT_004dd700->mgr3c->FUN_000d6f50();
     DAT_004dd700->mgr3c->FUN_000d7030(0x180);
     FUN_00266da0(tag);

@@ -1,13 +1,5 @@
-class C_e0360 {
-    char pad[0x180c];
-
-  public:
-    int a;
-    int b;
-    int c;
-    void Set(int x, int y, int z);
-};
-void C_e0360::Set(int x, int y, int z) {
+#include "gen/owners.h"
+void owners::C_e0360::FUN_000e0360(int x, int y, int z) {
     a = x;
     b = y;
     c = z;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 609 inputs, branch coverage 8/8)
 // FUN_00308e40 @ 0x00308e40
+#include "gen/owners.h"
 struct Entry_308e40 {
  char base[0x1c];
  unsigned int x,y,z;
@@ -7,7 +8,6 @@ struct Entry_308e40 {
  unsigned char flag;
  char padding[3];
  void FUN_002fd080();
- void FUN_002fcaf0(Entry_308e40*);
 };
 void __cdecl FUN_00308de0();
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
@@ -35,7 +35,7 @@ void Object::FUN_00308e40(Object* dest,int arg) {
  }
  for(int i=0;i<count;++i) {
   dest->entries[i].FUN_002fd080();
-  dest->entries[i].FUN_002fcaf0(&entries[i]);
+  ((owners::V_2fcaf0 *)&(dest->entries[i]))->FUN_002fcaf0((owners::V_2fcaf0 *)(Entry_308e40 *)(&entries[i]));
   Entry_308e40* src=&entries[i];
   Entry_308e40* dst=&dest->entries[i];
   dst->x=src->x;

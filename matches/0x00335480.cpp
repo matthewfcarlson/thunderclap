@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Item {
     char pad[8];
     int state;
@@ -5,7 +6,6 @@ struct Item {
 struct List {
     char pad[0x44];
     int count;
-    Item* fetch(int);
 };
 struct Obj {
     void* v;
@@ -18,7 +18,7 @@ char Obj::get(int index, unsigned char* out) {
         return 0;
     if (index >= list->count)
         return 0;
-    Item* p = list->fetch(index);
+    Item* p = ((Item *)((owners::Thing_337090 *)list)->FUN_00337090(index));
     if (p->state)
         return 0;
     *out = flags[index * 4];

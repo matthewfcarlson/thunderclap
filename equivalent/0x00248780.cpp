@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19929 inputs, branch coverage 22/22)
 // FUN_00248780 @ 0x00248780
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" double __cdecl sqrt(double);
-struct Output_248780 { float value; int FUN_0025d3e0(); void FUN_0025d3f0(int); };
+struct Output_248780 { float value;  void FUN_0025d3f0(int); };
 struct State_248780 { char pad0[8]; Output_248780* output; unsigned active; char pad10[8]; unsigned delay; unsigned duration; unsigned elapsed; float level; unsigned phase; };
 // equiv-conv: FUN_00248780 esi stack
 extern "C" void __cdecl FUN_00248780(void * s, unsigned delta) {
@@ -19,7 +20,7 @@ extern "C" void __cdecl FUN_00248780(void * s, unsigned delta) {
   } else { ((State_248780 *)s)->level=0.0f; ((State_248780 *)s)->phase=2; }
  }
  ((State_248780 *)s)->output->value=(float)sqrt(((State_248780 *)s)->level);
- int status=((State_248780 *)s)->output->FUN_0025d3e0();
+ int status=((owners::Object_25d3e0 *)(((State_248780 *)s)->output))->FUN_0025d3e0();
  if(status==0) ((State_248780 *)s)->active=0;
  else if(status>0 && status<=4 && ((State_248780 *)s)->phase==2) ((State_248780 *)s)->output->FUN_0025d3f0(0);
 }

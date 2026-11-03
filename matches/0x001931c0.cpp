@@ -1,11 +1,6 @@
-class X_1931c0 {
-  public:
-    char pad[0x74];
-    char f;
-    char Set(char c);
-};
+#include "gen/owners.h"
 
-char X_1931c0::Set(char c) {
+char owners::X_1931c0::FUN_001931c0(char c) {
     f = c;
     return 1;
 }

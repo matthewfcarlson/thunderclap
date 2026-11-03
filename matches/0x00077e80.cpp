@@ -1,11 +1,6 @@
-class Target_77e80 {
-  public:
-    char pad[0x28];
-    float mAngle;
-    char SetAngle(float x);
-};
+#include "gen/owners.h"
 
-char Target_77e80::SetAngle(float x) {
+char owners::Target_77e80::FUN_00077e80(float x) {
     mAngle = x * 0.017453293f;
     return 1;
 }

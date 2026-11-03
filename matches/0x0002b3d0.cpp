@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class Ret_2b3d0 {
   public:
-    void B(int);
     void D(int);
     void E();
     char pad[0x20a8];
@@ -8,13 +8,12 @@ class Ret_2b3d0 {
 };
 class Prov_2b3d0 {
   public:
-    Ret_2b3d0* get(int);
 };
 class Sub_2b3d0 {
   public:
     char pad[0x44];
     Prov_2b3d0* prov;
-    Ret_2b3d0* Get(int id) { return prov->get(id); }
+    Ret_2b3d0* Get(int id) { return ((Ret_2b3d0 *)((owners::ThisWrap_00059c10 *)prov)->FUN_00059c10((void *)(hulk_uintptr)(int)id)); }
 };
 class Obj_2b3d0 {
   public:
@@ -32,9 +31,9 @@ void Obj_2b3d0::run() {
         int* p = &items[i];
         do {
             Prov_2b3d0* pr = sub->prov;
-            Ret_2b3d0* r = pr->get(*p);
+            Ret_2b3d0* r = ((Ret_2b3d0 *)((owners::ThisWrap_00059c10 *)pr)->FUN_00059c10((void *)(hulk_uintptr)(int)(*p)));
             if (r && r != current) {
-                r->B(0);
+                ((owners::C_36d40 *)r)->FUN_00036d40(0);
                 removeAt(i, 0);
             }
             --i;

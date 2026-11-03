@@ -7,6 +7,7 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 #include "decls/data/platform/xbox/core.h"
+#include "gen/owners.h"
 
 extern "C" int __cdecl sprintf(char *, const char *, ...);
 extern "C" unsigned int __cdecl strlen(const char *);
@@ -17,7 +18,7 @@ extern "C" void __cdecl FUN_00294c70(const char *src, unsigned short *dst, int n
 extern "C" const char *__cdecl FUN_001b8b60(const char *text);
 extern "C" void __cdecl FUN_002684c0();
 
-namespace pure3d { class TextureFont; }
+namespace pure3d { class TextureFont_1bb0b0; }
 namespace content {
 namespace LoadInventory {
 template <class T>
@@ -45,7 +46,7 @@ struct Loader_1bb0b0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Font *v3(content::LoadInventory::DynamicCaster<pure3d::TextureFont> *caster, unsigned __int64 hash);
+    virtual Font *v3(content::LoadInventory::DynamicCaster<pure3d::TextureFont_1bb0b0> *caster, unsigned __int64 hash);
 };
 
 struct TextObj {
@@ -58,7 +59,6 @@ struct TextObj {
     virtual void Draw();
     TextObj *FUN_0029b120(Font *font, const unsigned short *s, float f, int n);
     void FUN_0029b330(const unsigned short *s, int n);
-    void FUN_0029b380(unsigned int color);
 };
 
 class Cam_1bb0b0 {
@@ -169,14 +169,11 @@ public:
 };
 
 struct Banner {
-    void FUN_0028f9a0();
     void FUN_0028faf0(int a);
 };
 
 struct Res;
 struct Obj1_1bb0b0 {
-    unsigned short *FUN_000f7d30(const char *name);
-    unsigned short *FUN_000f7220(unsigned short *p);
 };
 Obj1_1bb0b0 *__fastcall thunk_FUN_000fc1b0(Res *r);
 
@@ -204,7 +201,7 @@ struct Frame_1bb0b0 {
     } u0;
     float y;                       // 0x04
     float width;                   // 0x08
-    content::LoadInventory::DynamicCaster<pure3d::TextureFont> caster;  // 0x0c
+    content::LoadInventory::DynamicCaster<pure3d::TextureFont_1bb0b0> caster;  // 0x0c
     int saved;                     // 0x10
     char msg[0x100];               // 0x14
     unsigned short text[0x200];    // 0x114
@@ -223,19 +220,19 @@ extern "C" void __cdecl FUN_001bb0b0(const char *code)
     f.width = (float)(*(Clock_1bb0b0**)&DAT_0052c2a4)->Width();
     f.u0.height = (float)(*(Clock_1bb0b0**)&DAT_0052c2a4)->Height();
     f.saved = DAT_0052c2a8->v25();
-    (*(Banner**)&DAT_0052c2b4)->FUN_0028f9a0();
+    ((owners::X_28f9a0 *)((*(Banner**)&DAT_0052c2b4)))->FUN_0028f9a0();
     DAT_0052c2a8->v12(-1);
     DAT_0052c2a8->v24(2);
 
     unsigned short *w = 0;
     if (DAT_004dd700 && DAT_004dd700->replay && DAT_004dd700->replay->FUN_00086280()
         && thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())) {
-        unsigned short *wn = thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())->FUN_000f7d30(code);   // the argument is evaluated before the receiver
-        w = thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())->FUN_000f7220(wn);
+        unsigned short *wn = ((unsigned short *)((owners::A_f7d30 *)(thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())))->FUN_000f7d30((hulk_intptr)code));   // the argument is evaluated before the receiver
+        w = ((unsigned short *)((owners::C_f7220 *)(thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())))->FUN_000f7220((hulk_intptr)wn));
     }
     Loader_1bb0b0 *inv = (*(Loader_1bb0b0**)&DAT_004dd9c8);
-    content::LoadInventory::DynamicCaster<pure3d::TextureFont> *caster =
-        new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::TextureFont>();
+    content::LoadInventory::DynamicCaster<pure3d::TextureFont_1bb0b0> *caster =
+        new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::TextureFont_1bb0b0>();
     Font *font = inv->v3(caster, FUN_002672f0("font_serpentine_lt_med", 0));
     if (w != 0) {
         unsigned short *d = f.text;
@@ -271,13 +268,13 @@ extern "C" void __cdecl FUN_001bb0b0(const char *code)
                 (*(Renderer_1bb0b0**)&DAT_0052c2ac)->cam->v21(0);
                 (*(Renderer_1bb0b0**)&DAT_0052c2ac)->FUN_00293d40(f.u0.x - 2.0f, f.y + 2.0f, 2.0f);
                 (*(Renderer_1bb0b0**)&DAT_0052c2ac)->FUN_00293da0(1.5f, -1.5f, 1.0f);
-                (*(TextObj**)&DAT_004e2268)->FUN_0029b380(0xff000000);
+                ((owners::Obj_29b380 *)((*(TextObj**)&DAT_004e2268)))->FUN_0029b380(0xff000000);
                 (*(TextObj**)&DAT_004e2268)->Draw();
                 (*(Renderer_1bb0b0**)&DAT_0052c2ac)->cam->v16(0);
                 (*(Renderer_1bb0b0**)&DAT_0052c2ac)->cam->v21(0);
                 (*(Renderer_1bb0b0**)&DAT_0052c2ac)->FUN_00293d40(f.u0.x, f.y, 2.0f);
                 (*(Renderer_1bb0b0**)&DAT_0052c2ac)->FUN_00293da0(1.5f, -1.5f, 1.0f);
-                (*(TextObj**)&DAT_004e2268)->FUN_0029b380(0xffffffff);
+                ((owners::Obj_29b380 *)((*(TextObj**)&DAT_004e2268)))->FUN_0029b380(0xffffffff);
                 (*(TextObj**)&DAT_004e2268)->Draw();
                 (*(Renderer_1bb0b0**)&DAT_0052c2ac)->cam->v16(0);
                 f.y = f.y + 25.0f;

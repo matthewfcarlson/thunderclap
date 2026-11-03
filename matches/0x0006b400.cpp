@@ -1,11 +1,6 @@
-class X_6b400 {
-  public:
-    char Set(int v);
-    char pad[0x54];
-    int m54;
-};
+#include "gen/owners.h"
 
-char X_6b400::Set(int v) {
+char owners::X_6b400::FUN_0006b400(int v) {
     m54 = v;
     return 1;
 }

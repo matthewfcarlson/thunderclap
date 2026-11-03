@@ -1,14 +1,9 @@
 #include "gen/global.h"
+#include "gen/owners.h"
 struct CSPManager_nv_1dc1f0 {
     int FUN_001dc070(void*);
 };
-class Obj_1dc1f0 {
-  public:
-    char pad[0x62a];
-    short values[1];
-    bool target(void* param);
-};
-bool Obj_1dc1f0::target(void* param) {
+bool owners::Obj_1dc1f0::FUN_001dc1f0(void* param) {
     if (param) {
         int i = ((CSPManager_nv_1dc1f0*)(((CSPManager*)this)))->FUN_001dc070((char*)param + 8);
         if (i >= 0) {

@@ -1,11 +1,6 @@
-class X_11bc60 {
-  public:
-    char pad[0x20];
-    int m;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char X_11bc60::Set(int v) {
+char owners::X_11bc60::FUN_0011bc60(int v) {
     m = v;
     return 1;
 }

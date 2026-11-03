@@ -1,11 +1,5 @@
-class Obj {
-    char pad[0x28];
-    int value;
-
-  public:
-    char Set(int n);
-};
-char Obj::Set(int n) {
+#include "gen/owners.h"
+char owners::Obj_60b10::FUN_00060b10(int n) {
     value = n;
     if (n > 6)
         n = 6;

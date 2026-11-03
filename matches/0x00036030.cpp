@@ -1,10 +1,4 @@
-class C_36030 {
-    char pad[0x630];
-
-  public:
-    unsigned int value;
-    unsigned int target();
-};
-unsigned int C_36030::target() {
+#include "gen/owners.h"
+hulk_uintptr owners::C_36030::FUN_00036030() {
     return value;
 }

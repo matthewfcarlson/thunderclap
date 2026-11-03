@@ -1,11 +1,6 @@
-class X_68040 {
-  public:
-    char pad[0x24];
-    int mField;
-    char Set(int x);
-};
+#include "gen/owners.h"
 
-char X_68040::Set(int x) {
+char owners::X_68040::FUN_00068040(int x) {
     mField = x;
     return 1;
 }

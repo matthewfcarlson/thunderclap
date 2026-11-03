@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 179 inputs, branch coverage 52/54, incomplete)
 // FUN_0026eab0 @ 0x0026eab0
+#include "gen/owners.h"
 struct Node {
     char reserved[0x10];
     Node* next;
@@ -58,15 +59,13 @@ struct Connection {
     Packet_26eab0* pending;
     Event_26eab0 event;
     Node* nodes;
-    void FUN_0026e030();
     void FUN_0026e0e0();
     void FUN_0026e140(void*, unsigned);
-    bool FUN_0026e200(EventTarget*);
     void FUN_0026eab0();
 };
 void Connection::FUN_0026eab0() {
     if (state == 0) {
-        FUN_0026e030();
+        ((owners::Device_26e030 *)this)->FUN_0026e030();
     } else if (state == 1) {
         if (FUN_0026eed0()) {
             if (FUN_0026ef10(input) < 0) {
@@ -98,7 +97,7 @@ void Connection::FUN_0026eab0() {
                         Packet_26eab0* packet = pending;
                         if (FUN_0026ef40(output, packet, packet->size, 0) < 0) {
                             FUN_0026e0e0();
-                            FUN_0026e030();
+                            ((owners::Device_26e030 *)this)->FUN_0026e030();
                             queue->finish();
                             break;
                         }
@@ -120,22 +119,22 @@ void Connection::FUN_0026eab0() {
             do {
                 if (FUN_0026ef30(output, &event, 0x108, 0) < 0) {
                     FUN_0026e0e0();
-                    FUN_0026e030();
+                    ((owners::Device_26e030 *)this)->FUN_0026e030();
                     break;
                 }
                 EventTarget* target = event.target;
                 switch (event.type) {
                 case 9:
-                    if (FUN_0026e200(target))
+                    if (((owners::X_26e200 *)this)->FUN_0026e200((EventTarget *)target))
                         target->FUN_0026e8f0(event.value);
                     break;
                 case 10:
-                    if (FUN_0026e200(target))
+                    if (((owners::X_26e200 *)this)->FUN_0026e200((EventTarget *)target))
                         target->FUN_0026e920(event.value, event.options.flags[0] != 0,
                             event.options.flags[1] != 0, event.options.flags[2] != 0);
                     break;
                 case 11:
-                    if (FUN_0026e200(target))
+                    if (((owners::X_26e200 *)this)->FUN_0026e200((EventTarget *)target))
                         target->FUN_0026e970(event.value, event.options.word, event.arg2,
                             event.arg3, event.arg4, event.components[0], event.components[1],
                             event.components[2], event.components[3]);

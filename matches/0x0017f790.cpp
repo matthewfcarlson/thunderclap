@@ -1,11 +1,6 @@
-class Obj_17f790 {
-  public:
-    char Set(int);
-    char pad[12];
-    int mValue;
-};
+#include "gen/owners.h"
 
-char Obj_17f790::Set(int arg) {
+char owners::Obj_17f790::FUN_0017f790(int arg) {
     mValue = arg;
     return 1;
 }

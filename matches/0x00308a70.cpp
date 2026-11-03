@@ -1,10 +1,4 @@
-class C_308a70 {
-    char pad[0x60];
-    int value;
-
-  public:
-    void Set(int x);
-};
-void C_308a70::Set(int x) {
-    value = x;
+#include "gen/owners.h"
+void owners::C_308a70::FUN_00308a70(hulk_intptr x) {
+    value = ((int)x);
 }

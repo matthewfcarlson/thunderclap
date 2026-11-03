@@ -1,10 +1,4 @@
-class C_1d4e70 {
-    char pad[0xb6];
-
-  public:
-    unsigned char field;
-    unsigned char f();
-};
-unsigned char C_1d4e70::f() {
+#include "gen/owners.h"
+unsigned char owners::C_1d4e70::FUN_001d4e70() {
     return field;
 }

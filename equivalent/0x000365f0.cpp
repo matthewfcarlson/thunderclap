@@ -2,11 +2,11 @@
 // FUN_000365f0 @ 0x000365f0
 #include "decls/address.h"
 #include "decls/data/game/hulkfight.h"
+#include "gen/owners.h"
 typedef unsigned long U32_365f0;
 struct Matrix {
  U32_365f0 elements[16];
  void FUN_0022b980();
- void FUN_0022ca90(const Matrix*,const Matrix*);
 };
 struct Names_365f0 { int FUN_0027b200(U32_365f0,U32_365f0); };
 struct Skeleton { char pad[8]; Names_365f0* names; char pad2[16]; Matrix* matrices; };
@@ -31,7 +31,7 @@ void Actor_365f0::target(int,int) {
   Matrix identity;
   identity.FUN_0022b980();
   Matrix result;
-  result.FUN_0022ca90(&identity,&bone);
+  ((owners::Matrix_22ca90 *)&result)->FUN_0022ca90((const owners::Matrix_22ca90 *)(const Matrix *)(&identity), (const owners::Matrix_22ca90 *)(const Matrix *)(&bone));
   w->FUN_00080e50(&result);
  }
 }

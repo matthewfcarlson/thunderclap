@@ -1,17 +1,12 @@
-class Thing_1b6e60 {
-  public:
-    int a[6];
-    void fallback(int);
-    void target(int);
-};
-void Thing_1b6e60::target(int param) {
+#include "gen/owners.h"
+void owners::Thing_1b6e60::FUN_001b6e60(hulk_intptr param) {
     int i = 0;
     do {
-        if (a[i * 2] == param) {
+        if (a[i * 2] == ((int)param)) {
             a[i * 2 + 1] = 0x3e800000;
             return;
         }
         ++i;
     } while (i < 3);
-    fallback(param);
+    fallback(((int)param));
 }

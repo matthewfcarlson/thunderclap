@@ -1,11 +1,6 @@
-class Obj_14c5e0 {
-  public:
-    char pad[0xc];
-    char m;
-    char Set(char v);
-};
+#include "gen/owners.h"
 
-char Obj_14c5e0::Set(char v) {
+char owners::Obj_14c5e0::FUN_0014c5e0(char v) {
     m = v;
     return 1;
 }

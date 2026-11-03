@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 6/6)
 // hulkfight::motion::JointTrackerAction::vfunc_3 @ 0x001710d0
+#include "gen/owners.h"
 struct V3_1710d0 {
     float x, y, z;
     float FUN_0022d110();
@@ -14,12 +15,10 @@ struct Mat4_1710d0 {
     float w2;
     float t[4];
     void FUN_0022b980();
-    void FUN_0022c0b0();
 };
 
 struct Name_1710d0 {
     char data[8];
-    void FUN_0027b040(const char *s);
 };
 
 class JointDriver {
@@ -92,7 +91,7 @@ bool JointTrackerAction::vfunc_3(int a, int b)
     if (d)
         d = d->FUN_002248a0();
     driver = d;
-    driver->name.FUN_0027b040("jointTracker");
+    ((owners::Target_27b040 *)&(driver->name))->FUN_0027b040((hulk_uintptr)"jointTracker");
     driver->v0();
     driver->f14 = 2;
     driver->f10 = id;
@@ -120,6 +119,6 @@ bool JointTrackerAction::vfunc_3(int a, int b)
     mat.r0 = e;
     mat.r1 = c;
     mat.r2 = axis;
-    mat.FUN_0022c0b0();
+    ((owners::M_22c0b0 *)&mat)->FUN_0022c0b0();
     return true;
 }

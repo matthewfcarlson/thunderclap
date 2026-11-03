@@ -1,10 +1,6 @@
-class Obj_192f30 {
-  public:
-    char m[0x12c];
-    char Set(char c);
-};
+#include "gen/owners.h"
 
-char Obj_192f30::Set(char c) {
+char owners::Obj_192f30::FUN_00192f30(char c) {
     m[0x12c] = c;
     return 1;
 }

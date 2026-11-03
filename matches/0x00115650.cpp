@@ -1,9 +1,5 @@
-class Obj_115650 {
-  public:
-    char m[0x29];
-    char Fn(char a);
-};
-char Obj_115650::Fn(char a) {
+#include "gen/owners.h"
+char owners::Obj_115650::FUN_00115650(char a) {
     m[0x29] = a;
     return 1;
 }

@@ -1,11 +1,5 @@
-class Obj_481e0 {
-  public:
-    char pad[12];
-    void* mP;
-    int mFlag;
-    char Set(void* p);
-};
-char Obj_481e0::Set(void* p) {
+#include "gen/owners.h"
+char owners::Obj_481e0::FUN_000481e0(void* p) {
     mP = p;
     return 1;
 }

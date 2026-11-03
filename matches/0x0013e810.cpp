@@ -1,11 +1,6 @@
-class X_13e810 {
-  public:
-    char pad[0xc];
-    int m12;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool X_13e810::Set(int v) {
+bool owners::X_13e810::FUN_0013e810(int v) {
     m12 = v;
     return true;
 }

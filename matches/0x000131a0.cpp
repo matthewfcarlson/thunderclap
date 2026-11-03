@@ -1,9 +1,5 @@
-class Obj_131a0 {
-  public:
-    char pad[0x30];
-    char* Get30();
-};
+#include "gen/owners.h"
 
-char* Obj_131a0::Get30() {
+char* owners::Obj_131a0::FUN_000131a0() {
     return (char*)this + 0x30;
 }

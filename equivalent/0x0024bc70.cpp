@@ -2,6 +2,7 @@
 // FUN_0024bc70 @ 0x0024bc70
 // FUN_0024bc70 @ 0x0024bc70
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class Sink_24bc70 {
 public:
     virtual void v0();
@@ -28,8 +29,6 @@ struct Queue_24bc70 {
     unsigned char current;
     unsigned char enabled;
     unsigned char count;
-    Slot_24bc70 *FUN_0024b2d0();
-    Slot_24bc70 *FUN_0024b310(Slot_24bc70 *cur);
 };
 
 struct Span_24bc70 {
@@ -87,7 +86,7 @@ extern "C" void FUN_0024bc70(void *p)
     } else if (state == 5) {
         if (((int)(hulk_uintptr)FUN_00259c50((void *)(hulk_uintptr)(int)(((Player_24bc70 *)p)->handle))) == 0 && ((Player_24bc70 *)p)->f0c4 == 0 && ((Player_24bc70 *)p)->f0c8 == 0) {
             int found = 0;
-            for (Slot_24bc70 *s = ((Player_24bc70 *)p)->queue.FUN_0024b2d0(); s != 0; s = ((Player_24bc70 *)p)->queue.FUN_0024b310(s)) {
+            for (Slot_24bc70 *s = ((Slot_24bc70 *)((owners::Obj_24b2d0 *)&(((Player_24bc70 *)p)->queue))->FUN_0024b2d0()); s != 0; s = ((Slot_24bc70 *)((owners::X_24b310 *)&(((Player_24bc70 *)p)->queue))->FUN_0024b310((Slot_24bc70 *)s))) {
                 Sink_24bc70 *sink = s->sink;
                 if (sink != 0) {
                     int r = sink->state();

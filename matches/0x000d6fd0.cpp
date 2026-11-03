@@ -1,9 +1,5 @@
-struct Thing_d6fd0 {
-    char pad[8];
-    char* p;
-    char GetByte();
-};
+#include "gen/owners.h"
 
-char Thing_d6fd0::GetByte() {
+char owners::Thing_d6fd0::FUN_000d6fd0() {
     return p[4];
 }

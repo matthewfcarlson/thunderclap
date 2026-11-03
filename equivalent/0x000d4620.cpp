@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // FUN_000d4620 @ 0x000d4620
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 extern "C" char* __cdecl strncpy(char*,const char*,unsigned int);
-struct Lookup_d4620 { int FUN_000f7d30(const char*); const char* FUN_000f7220(int); };
+struct Lookup_d4620 {   };
 extern void __cdecl FUN_000fb690(char*,const char*,int);
 extern "C" void __cdecl FUN_000fc020(char*,int,const char*,int);
 extern int __cdecl FUN_00294b80(const char*);
@@ -13,9 +14,9 @@ void Object::FUN_000d4620(int index,const char* name,int mode,int value,float du
  if (!enabled || index<0 || index>=3 || !name) return;
  strncpy(((char*)&DAT_004de000),name,255);
  DAT_004de0ff=0;
- int id=lookup->FUN_000f7d30(((char*)&DAT_004de000));
+ int id=((int)((owners::A_f7d30 *)lookup)->FUN_000f7d30((hulk_intptr)(((char*)&DAT_004de000))));
  if(id==-1) return;
- const char* source=lookup->FUN_000f7220(id);
+ const char* source=((const char *)((owners::C_f7220 *)lookup)->FUN_000f7220((hulk_intptr)id));
  Slot_d4620& slot=slots[index];
  if(mode<0) FUN_000fb690(slot.text,source,128);
  else FUN_000fc020(slot.text,128,source,mode);

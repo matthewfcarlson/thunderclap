@@ -1,17 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 417 inputs, branch coverage 30/32, incomplete)
 // FUN_0007bbd0 @ 0x0007bbd0
+#include "gen/owners.h"
 struct Mat4_7bbd0;
 
 struct Vec3_7bbd0 {
     float x, y, z;
-    void FUN_0022d210(Mat4_7bbd0* m);
 };
 
 struct Mat4_7bbd0 {
     float m[16];
     void FUN_0022b980();
     void FUN_0022baf0(Vec3_7bbd0* axis, float angle);
-    void FUN_0022be40(Vec3_7bbd0* t);
 };
 
 struct Tile_7bbd0 {
@@ -136,15 +135,15 @@ void HexBoard::FUN_0007bbd0(int idx)
     f.axis.z = 0;
     f.pos.z = ((float)f.l1c - 0.5f) * -135.0f;
     f.mat.FUN_0022baf0(&f.axis, (float)f.l14 * 1.04719758f);
-    f.mat.FUN_0022be40(&f.pos);
+    ((owners::Target_22be40 *)&(f.mat))->FUN_0022be40((const int *)(Vec3_7bbd0 *)(&f.pos));
 
     if (f.count > 0) {
         Entry_7bbd0* e = &entries[slot * 14];
         f.slotBase = slot * 14;
         for (int k = 0; k < f.count; k++) {
             f.cur = &e->t;
-            e->a.FUN_0022d210(&f.mat);
-            e->t.b.FUN_0022d210(&f.mat);
+            ((owners::Obj_22d210 *)&(e->a))->FUN_0022d210((owners::Obj_22d210 *)(Mat4_7bbd0 *)(&f.mat));
+            ((owners::Obj_22d210 *)&(e->t.b))->FUN_0022d210((owners::Obj_22d210 *)(Mat4_7bbd0 *)(&f.mat));
             int sgn = ((k % 2) != 0) ? -1 : 1;
             FUN_0007a840(slot, k, &f.l14, &f.l1c);
             f.cur->p = f.l14;

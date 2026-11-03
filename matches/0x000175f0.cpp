@@ -1,4 +1,5 @@
 #include "gen/global.h"
+#include "gen/owners.h"
 
 class Obj_175f0 {
   public:
@@ -10,11 +11,10 @@ class Obj_175f0 {
 };
 class Factory_175f0 {
   public:
-    Obj_175f0* first();
 };
 
 void CInvulnerableAction::vfunc_4() {
-    Obj_175f0* x = (*(Factory_175f0 * *)&this->f_1c)->first();
+    Obj_175f0* x = ((Obj_175f0 *)((owners::Object_592a0 *)((*(Factory_175f0 * *)&this->f_1c)))->FUN_000592a0());
     Obj_175f0* s = x->second();
     s->m40(0);
     s->mC0(0);

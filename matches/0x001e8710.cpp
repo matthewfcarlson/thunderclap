@@ -1,11 +1,6 @@
-class Obj_1e8710 {
-  public:
-    char pad[0xaec];
-    void* member;
-    bool IsSet();
-};
+#include "gen/owners.h"
 
-bool Obj_1e8710::IsSet() {
+bool owners::Obj_1e8710::FUN_001e8710() {
     void* p = member;
     return p != 0;
 }

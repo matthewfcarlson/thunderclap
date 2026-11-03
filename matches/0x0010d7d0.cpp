@@ -1,6 +1,7 @@
 #include "gen/hulkfight.h"
 #include "decls/data/game/global.h"
 // data: gZero_10d7d0 = DAT_003f32e0
+#include "gen/owners.h"
 
 class Action_10d7d0 {
   public:
@@ -22,7 +23,6 @@ class State_10d7d0 {
 };
 class Manager_10d7d0 {
   public:
-    void* First();
     char* Second();
 };
 
@@ -31,7 +31,7 @@ void hulkfight::ai::ButtonAction::vfunc_4() {
         float f = (*(Action_10d7d0 * *)&this->f_1c)->Get();
         if (f < DAT_003f32e0 || f > DAT_003f32e0) {
             Manager_10d7d0* m = (Manager_10d7d0*)(*(State_10d7d0 * *)&this->f_20);
-            char* v = ((Manager_10d7d0*)m->First())->Second() + 0x1f58;
+            char* v = ((Manager_10d7d0*)((void *)((owners::Object_592a0 *)m)->FUN_000592a0()))->Second() + 0x1f58;
             *(int*)(v + (*(Action_10d7d0 * *)&this->f_1c)->m14 * 12) = 0;
         }
     }

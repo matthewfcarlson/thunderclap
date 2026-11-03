@@ -2,6 +2,7 @@
 // CGrappleUninterruptibleTrack::vfunc_12 @ 0x0005b350
 #include "compat/ptr.h"
 #include "gen/global.h"
+#include "gen/owners.h"
 
 void *FUN_0008d690(unsigned int size);
 
@@ -19,7 +20,6 @@ struct Link2_5b350 {
     Body_5b350 *FUN_00059a30();
 };
 struct Link1_5b350 {
-    Link2_5b350 *FUN_000592a0();
 };
 struct CUninterruptibleAction_5b350 {
     void *FUN_00020020(Weapon *weapon, int value);
@@ -29,7 +29,7 @@ hulk_intptr CGrappleUninterruptibleTrack::vfunc_12(hulk_intptr __p0) { Link1_5b3
 
     if (owner == 0)
         return (int)(0);
-    Link2_5b350 *l2 = owner->FUN_000592a0();
+    Link2_5b350 *l2 = ((Link2_5b350 *)((owners::Object_592a0 *)owner)->FUN_000592a0());
     if (l2 == 0)
         return (int)(0);
     Body_5b350 *body = l2->FUN_00059a30();

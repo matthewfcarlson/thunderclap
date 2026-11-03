@@ -3,8 +3,9 @@
 // cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 struct Item_d9e80 { char data[0x38]; int FUN_000f83f0(void*, int); };
-struct Save { int FUN_000f7d30(int); int FUN_000f7220(int); };
+struct Save {   };
 struct Menu_d9e80 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35(); virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39(); virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43(); virtual Save* v44();
  void FUN_000be310(const char*, char*, const char*, const char*, const char*, int, const char*, const char*);
@@ -21,8 +22,8 @@ void FEMemCardControl_d9e80::FUN_000d9e80(int index) {
  char buffer[1024];
  Menu_d9e80* menu=FUN_000fc3d0();
  Save* save=menu->v44();
- int a=save->FUN_000f7d30((*(int*)&DAT_004de650));
- int b=save->FUN_000f7220(a);
+ int a=((int)((owners::A_f7d30 *)save)->FUN_000f7d30((hulk_intptr)((*(int*)&DAT_004de650))));
+ int b=((int)((owners::C_f7220 *)save)->FUN_000f7220((hulk_intptr)a));
  int c=items[index].FUN_000f83f0(save,0);
  FUN_000fc020(buffer,512,b,c);
  const char* text;

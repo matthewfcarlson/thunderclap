@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_b3c90[];
 class Controller_b3c90 {
@@ -6,7 +7,6 @@ class Controller_b3c90 {
 };
 class Arg_b3c90 {
   public:
-    int Get(int);
 };
 void* operator new(unsigned int);
 struct CSimController_b3c90 {
@@ -25,7 +25,7 @@ CSimControllerManager_b3c90* CSimControllerManager_b3c90::ctor(Arg_b3c90* a) {
     void* p = operator new(0x224);
     Controller_b3c90* c;
     if (p) {
-        c = ((CSimController_b3c90*)p)->Build(a->Get(0));
+        c = ((CSimController_b3c90*)p)->Build(((int)((owners::C_ae640 *)a)->FUN_000ae640(0)));
     } else
         c = 0;
     controller = c;

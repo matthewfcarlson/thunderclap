@@ -1,17 +1,11 @@
+#include "gen/owners.h"
 extern "C" void* __cdecl Allocate(unsigned int);
-class Buffer_30ec70 {
-  public:
-    char pad[12];
-    int count;
-    unsigned int* data;
-    bool Add(unsigned int);
-};
-bool Buffer_30ec70::Add(unsigned int value) {
+bool owners::Buffer_30ec70::FUN_0030ec70(hulk_uintptr value) {
     if (data == 0) {
         data = (unsigned int*)Allocate(count << 2);
         count = 0;
     }
-    data[count] = value;
+    data[count] = ((unsigned int)value);
     ++count;
     return true;
 }

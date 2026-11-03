@@ -1,10 +1,10 @@
 #include "compat/ptr.h"
 #include "gen/global.h"
+#include "gen/owners.h"
 
 class A_5dc10;
 class Arg_5dc10 {
   public:
-    A_5dc10* A1();
 };
 class A_5dc10 {
   public:
@@ -23,7 +23,7 @@ extern void* __cdecl FUN_0008d690(unsigned int);
 
 hulk_intptr COpportunityBallTrack::vfunc_12(hulk_intptr __p0) { void * arg = (void *)__p0;
 
-    A_5dc10* a = ((Arg_5dc10*)arg)->A1();
+    A_5dc10* a = ((A_5dc10 *)((owners::Object_592a0 *)(((Arg_5dc10*)arg)))->FUN_000592a0());
     a = a->B();
     if (!a)
         return 0;

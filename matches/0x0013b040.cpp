@@ -1,4 +1,5 @@
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 class PhaseObj {
   public:
@@ -7,14 +8,13 @@ class PhaseObj {
 };
 class Helper_13b040 {
   public:
-    void* get();
     void* next();
     void act(void*, int);
 };
 
 void hulkfight::motion::AnimationPhaseMatchedAction::vfunc_4() {
     if ((*(void * *)&this->f_24)) {
-        void* x = ((Helper_13b040*)(*(void * *)&this->f_20))->get();
+        void* x = ((void *)((owners::Object_592a0 *)(((Helper_13b040*)(*(void * *)&this->f_20))))->FUN_000592a0());
         x = ((Helper_13b040*)x)->next();
         if (x) {
             ((Helper_13b040*)x)->act((*(void * *)&this->f_24), 0);

@@ -3,6 +3,7 @@
 // Group method: copy a value taken from a named pawn (or, failing that, a spawned prop)
 // into the first pawn's controller and raise the controller's mode to at least 3.
 #include "decls/address.h"
+#include "gen/owners.h"
 
 class Controller_296a0 {
 public:
@@ -26,7 +27,6 @@ struct Pawn_296a0 {
 };
 
 struct Prop_296a0 {
-    int FUN_001d72e0();
 };
 
 struct Manager_296a0 {
@@ -55,7 +55,7 @@ void Group_296a0::FUN_000296a0(const char *nameA, const char *nameB, int flag)
         } else {
             Prop_296a0 *prop = env->manager->FUN_001def30(nameB);
             if (prop)
-                value = prop->FUN_001d72e0();
+                value = ((int)((owners::C_1d72e0 *)prop)->FUN_001d72e0());
         }
         Controller_296a0 *c = pawn->controller;
         if (c) {

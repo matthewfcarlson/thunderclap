@@ -1,10 +1,5 @@
-class X_11be90 {
-    char pad[0x24];
-
-  public:
-    char Set(int a);
-};
-char X_11be90::Set(int a) {
+#include "gen/owners.h"
+char owners::X_11be90::FUN_0011be90(int a) {
     *(int*)((char*)this + 0x24) = a;
     return 1;
 }

@@ -1,14 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 6/6)
 // pure3d::CompressedQuaternionChannel<math::CompressedQuaternion8>::vfunc_5 @ 0x0028d2d0
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Quat_28d2d0 {
     float x, y, z, w;
-    void FUN_0022b750(const Quat_28d2d0 *a, const Quat_28d2d0 *b, float t);
 };
 
 struct CompressedQuaternion8 {
     short v[4];
-    Quat_28d2d0 *FUN_0028d220(Quat_28d2d0 *tmp);
 };
 
 struct Frame_28d2d0 {
@@ -47,13 +46,13 @@ void CompressedQuaternionChannel::vfunc_5(float time, Quat_28d2d0 *out)
             int span = times[hi] - times[f.lo];
             hulk_freg frac = dt / (float)span;
             CompressedQuaternion8 *vals = values;
-            f.q0 = *vals[f.lo].FUN_0028d220(&f.tmp);
-            f.q1 = *vals[hi].FUN_0028d220(&f.tmp);
-            out->FUN_0022b750(&f.q0, &f.q1, frac);
+            f.q0 = *((Quat_28d2d0 *)((owners::Quat16_28d220 *)&(vals[f.lo]))->FUN_0028d220((float *)(Quat_28d2d0 *)(&f.tmp)));
+            f.q1 = *((Quat_28d2d0 *)((owners::Quat16_28d220 *)&(vals[hi]))->FUN_0028d220((float *)(Quat_28d2d0 *)(&f.tmp)));
+            ((owners::Quaternion_22b750 *)out)->FUN_0022b750((const owners::Quaternion_22b750 *)(const Quat_28d2d0 *)(&f.q0), (const owners::Quaternion_22b750 *)(const Quat_28d2d0 *)(&f.q1), frac);
             return;
         }
-        *out = *values[f.lo].FUN_0028d220(&f.q0);
+        *out = *((Quat_28d2d0 *)((owners::Quat16_28d220 *)&(values[f.lo]))->FUN_0028d220((float *)(Quat_28d2d0 *)(&f.q0)));
         return;
     }
-    *out = *values[f.lo].FUN_0028d220(&f.tmp);
+    *out = *((Quat_28d2d0 *)((owners::Quat16_28d220 *)&(values[f.lo]))->FUN_0028d220((float *)(Quat_28d2d0 *)(&f.tmp)));
 }

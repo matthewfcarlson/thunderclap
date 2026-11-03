@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 24/24)
 // FUN_000385a0 @ 0x000385a0
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Handle_385a0;
 struct Entity;
-struct Resolver_385a0 { Handle_385a0* FUN_001d6490(); };
+struct Resolver_385a0 {  };
 struct Manager_385a0 { bool FUN_000242d0(void* object); };
 struct World { char pad[0x20]; Manager_385a0* manager; };
 struct Handle_385a0 {
@@ -29,8 +30,8 @@ void Entity::FUN_000385a0(Handle_385a0* replacement, bool force) {
  if (!replacement) return;
  if (replacement->kind == 5) {
   Resolver_385a0* resolver = static_cast<Resolver_385a0*>(replacement->object);
-  if (resolver->FUN_001d6490()) {
-   Handle_385a0* resolved = resolver->FUN_001d6490();
+  if (((Handle_385a0 *)((owners::C_1d6490 *)resolver)->FUN_001d6490())) {
+   Handle_385a0* resolved = ((Handle_385a0 *)((owners::C_1d6490 *)resolver)->FUN_001d6490());
    FUN_00018810(&handle, resolved);
   }
  } else if (replacement->kind == 1) {

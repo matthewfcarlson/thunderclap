@@ -1,13 +1,12 @@
 // FUN_001edf60 @ 0x001edf60
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 class Volume_1edf60 {
   public:
-    void FUN_001f3950(float v);
 };
 class Loader_1edf60 {
   public:
-    void FUN_001eb060(int a, int b);
 };
 class Engine_1edf60 {
   public:
@@ -31,11 +30,11 @@ class Boot {
 void Boot::FUN_001edf60() {
     if ((*(unsigned char*)&DAT_004e36e0))
         return;
-    engine->loader->FUN_001eb060(0, 0);
+    ((owners::Manager_1eb060 *)(engine->loader))->FUN_001eb060((const char *)(hulk_uintptr)(int)0, (const char *)(hulk_uintptr)(int)0);
     engine->FUN_001efa40(1, "frontend", 0);
     float v = level;
     if (!(v < 0.0f) && !(v > 100.0f))
-        engine->volume->FUN_001f3950(v);
+        ((owners::Obj_1f3950 *)(engine->volume))->FUN_001f3950(v);
     FUN_001ec480("", "Enter");
     FUN_001ec480("", "Boot");
     for (int i = 0; i < 10; i++) {

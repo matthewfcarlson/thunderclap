@@ -2,6 +2,7 @@
 // FUN_000d8410 @ 0x000d8410
 // cl-flags: /GS
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 
 struct Dummy_d8410 {
@@ -10,7 +11,6 @@ struct Dummy_d8410 {
 };
 
 struct Mid_d8410 {
-    Dummy_d8410 *FUN_00089a50();
 };
 
 struct Mgr_d8410 {
@@ -111,8 +111,8 @@ void FEMemCardControl_d8410::FUN_000d8410()
     unsigned int o1;
     int o2;
 
-    mgr->FUN_000b5000()->FUN_00089a50()->FUN_0008c920();
-    int r = mgr->FUN_000b5000()->FUN_00089a50()->FUN_0008c740(0, &o1, &o2);
+    ((Dummy_d8410 *)((owners::Obj_89a50 *)(mgr->FUN_000b5000()))->FUN_00089a50())->FUN_0008c920();
+    int r = ((Dummy_d8410 *)((owners::Obj_89a50 *)(mgr->FUN_000b5000()))->FUN_00089a50())->FUN_0008c740(0, &o1, &o2);
     if (r == 0 && o1 < 4)
         r = 7;
     prevState = state;

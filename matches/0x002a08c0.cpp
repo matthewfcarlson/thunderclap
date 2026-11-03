@@ -1,13 +1,7 @@
+#include "gen/owners.h"
 extern "C" double sin(double);
 extern "C" double cos(double);
-class Obj {
-    char pad[0x48];
-    float s, c;
-
-  public:
-    void Set(float x);
-};
-void Obj::Set(float x) {
+void owners::Obj_2a08c0::FUN_002a08c0(float x) {
     s = (float)sin(x);
     c = (float)cos(x);
 }

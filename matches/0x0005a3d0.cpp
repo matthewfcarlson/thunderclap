@@ -1,10 +1,6 @@
-struct Obj_5a3d0 {
-    char pad[0x34];
-    char m34;
-    char Fn(int value);
-};
+#include "gen/owners.h"
 
-char Obj_5a3d0::Fn(int value) {
+char owners::Obj_5a3d0::FUN_0005a3d0(int value) {
     m34 = (char)value;
     return 1;
 }

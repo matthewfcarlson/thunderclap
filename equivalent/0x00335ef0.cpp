@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3031 inputs, branch coverage 12/12)
 // FUN_00335ef0 @ 0x00335ef0
+#include "gen/owners.h"
 struct Column {
     char pad0[8];
     int type;
@@ -7,7 +8,6 @@ struct Column {
 };
 
 struct Schema_335ef0 {
-    Column *FUN_00337090(int index);
 
     char pad0[0x44];
     int count;
@@ -29,11 +29,11 @@ bool Table_335ef0::FUN_00335ef0(int index, int column, char *out) {
     if (index < 0 || index >= schema->count) {
         return false;
     }
-    if (schema->FUN_00337090(index)->type != 9) {
+    if (((Column *)((owners::Thing_337090 *)schema)->FUN_00337090(index))->type != 9) {
         return false;
     }
     char *row = rows[index] + 4;
-    if (*schema->FUN_00337090(index)->kind != 0xa) {
+    if (*((Column *)((owners::Thing_337090 *)schema)->FUN_00337090(index))->kind != 0xa) {
         return false;
     }
     char *src = *(char **)(row + FUN_00337f20(0xa) * column);

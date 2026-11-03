@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 8/8)
 // FUN_000a1930 @ 0x000a1930
 #include "decls/address.h"
+#include "gen/owners.h"
 struct V3_a1930 {
     float x, y, z;
 };
@@ -36,7 +37,6 @@ struct Block_a1930 {
     float f22c;
     float f230;
     char pad234[0x248 - 0x234];
-    Block_a1930* FUN_000a06d0(const Block_a1930* src);
 };
 
 struct World;
@@ -145,7 +145,7 @@ void Mover_a1930::FUN_000a1930(V3_a1930 pos, int newMode)
     b.f214 = 0;
     b.f230 = 0;
     b.f22c = 0;
-    f248.FUN_000a06d0(&b);
+    ((Block_a1930 *)((owners::Obj000a06d0_a06d0 *)&f248)->FUN_000a06d0((const owners::Obj000a06d0_a06d0 *)(const Block_a1930 *)(&b)));
     f490 = 0;
     f4ac = 0;
     f4b0 = 0;

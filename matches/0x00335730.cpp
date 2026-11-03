@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Entry {
     int a, b;
 };
@@ -9,7 +10,6 @@ class Owner {
   public:
     char pad[0x44];
     int count;
-    Item* Get(int);
 };
 class Target {
   public:
@@ -23,7 +23,7 @@ bool Target::Fetch(int index, int* outA, int* outB) {
         return false;
     if (index >= owner->count)
         return false;
-    Item* item = owner->Get(index);
+    Item* item = ((Item *)((owners::Thing_337090 *)owner)->FUN_00337090(index));
     if (item->type != 7)
         return false;
     Entry* e = entries[index];

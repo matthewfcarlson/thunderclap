@@ -1,16 +1,12 @@
+#include "gen/owners.h"
 typedef unsigned int u32_265340;
 struct Pair_265340 {
     char data[24];
     void First(u32_265340);
     int Second(u32_265340, u32_265340);
 };
-struct Thing_265340 {
-    char pad[12];
-    u32_265340 field;
-    int Target(char*);
-};
 extern unsigned long long __cdecl Parse(char*, int, int);
-int Thing_265340::Target(char* text) {
+hulk_intptr owners::Thing_265340::FUN_00265340(char* text) {
     if (*text == '.')
         ++text;
     unsigned long long value = Parse(text, 0, 0);

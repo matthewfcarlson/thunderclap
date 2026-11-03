@@ -3,6 +3,7 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 extern "C" int __cdecl FUN_0034483c();
 extern "C" double __cdecl sqrt(double);
 
@@ -18,7 +19,6 @@ struct V3_1da540 {
     float x, y, z;
     float FUN_0022d110();
     float FUN_00018990();
-    void FUN_00011160(float s, V3_1da540 *d);
 };
 
 struct RefObj_1da540 {
@@ -144,7 +144,6 @@ struct Actor_1da540 {
 };
 
 struct Ready_1da540 {
-    int FUN_001d4de0();
     int FUN_001d5e80(int v);
     unsigned __int64 FUN_001d4f70();
 };
@@ -164,7 +163,6 @@ struct Sink30 {
 struct Fx34_1da540;
 
 struct Reqs {
-    Mover_1da540 *FUN_0007ad00(void *p);
 };
 
 struct World {
@@ -179,8 +177,6 @@ struct World {
 
 struct Sub1a4_1da540 {
     char FUN_001b6e90(Ref_1da540 *a);
-    void FUN_001b6e60(Ref_1da540 *a);
-    void FUN_001b6de0(Ref_1da540 *a);
 };
 
 struct Sub240_1da540 {
@@ -243,7 +239,6 @@ public:
     void FUN_001d82d0();
     void FUN_001d6ec0(int a, Ref_1da540 *b, int c);
     int FUN_001d73f0();
-    Sub_1da540 *FUN_001d72e0();
     char FUN_001d7300();
     void FUN_001d86d0(V3_1da540 *v, V3_1da540 *w);
     void FUN_001d66b0(V3_1da540 *a, V3_1da540 *b);
@@ -325,8 +320,8 @@ int Entity::FUN_001da540(Ref_1da540 *a1, V3_1da540 *a2, V3_1da540 *a3, float a4)
                         f.b12 = 1;
                         f.b13 = 1;
                     }
-                    if (o->b14d && o->FUN_001d72e0()->f6c == 0) {
-                        Mover_1da540 *m = DAT_004dd700->p4c->FUN_0007ad00((char *)o + 8);
+                    if (o->b14d && ((Sub_1da540 *)((owners::C_1d72e0 *)o)->FUN_001d72e0())->f6c == 0) {
+                        Mover_1da540 *m = ((Mover_1da540 *)((owners::Obj_7ad00 *)(DAT_004dd700->p4c))->FUN_0007ad00((hulk_intptr)((char *)o + 8)));
                         if (m) {
                             f.v = v200;
                             f.v.FUN_0022d110();
@@ -361,7 +356,7 @@ int Entity::FUN_001da540(Ref_1da540 *a1, V3_1da540 *a2, V3_1da540 *a3, float a4)
                 Handle_1da540 *slot = 0;
                 if (p238) {
                     if (tgt->f3a4 == 0)
-                        tgt->FUN_0003a9d0(FUN_001d72e0());
+                        tgt->FUN_0003a9d0(((Sub_1da540 *)((owners::C_1d72e0 *)this)->FUN_001d72e0()));
                     f.rq.req.FUN_00059820();
                     f.rq.req.target = *a2;
                     f.rq.req.aim = *a3;
@@ -375,7 +370,7 @@ int Entity::FUN_001da540(Ref_1da540 *a1, V3_1da540 *a2, V3_1da540 *a3, float a4)
                     f.rq.req.vel.x = f.rq.req.vel.x * f22c;
                     f.rq.req.vel.y = f.rq.req.vel.y * f22c;
                     f.rq.req.vel.z = f.rq.req.vel.z * f22c;
-                    FUN_00018810(&f.rq.req.f60, FUN_001d72e0());
+                    FUN_00018810(&f.rq.req.f60, ((Sub_1da540 *)((owners::C_1d72e0 *)this)->FUN_001d72e0()));
                     if (f1fc)
                         FUN_00018810(&f.rq.req.f4c, f1fc);
                     FUN_00018810(&f.rq.req.f50, tgt->f12c);
@@ -383,7 +378,7 @@ int Entity::FUN_001da540(Ref_1da540 *a1, V3_1da540 *a2, V3_1da540 *a3, float a4)
                     if (job)
                         job = job->FUN_000598e0(*tgt->f10, &f.rq.req);
                     job->AddRef();
-                    job->FUN_00059790(FUN_001d72e0());
+                    job->FUN_00059790(((Sub_1da540 *)((owners::C_1d72e0 *)this)->FUN_001d72e0()));
                     slot = p238->Submit(job, 0);
                     if (slot)
                         slot->FUN_00231ad0(&tgt->fdc, job, -1);
@@ -396,8 +391,8 @@ int Entity::FUN_001da540(Ref_1da540 *a1, V3_1da540 *a2, V3_1da540 *a3, float a4)
                         f.w.y = 0.0f;
                         f.w.z = 0.0f;
                         tgt->FUN_000350c0(&f.w);
-                        f.w.FUN_00011160(-1.0f, &v200);
-                        tgt->FUN_00043ae0(f1fc, &f.w, f22c + 90.0f, f234, f230, 0, 0, 1, FUN_001d72e0());
+                        ((owners::Vec3_11160 *)&(f.w))->FUN_00011160(-1.0f, (const owners::Vec3_11160 *)(V3_1da540 *)(&v200));
+                        tgt->FUN_00043ae0(f1fc, &f.w, f22c + 90.0f, f234, f230, 0, 0, 1, ((Sub_1da540 *)((owners::C_1d72e0 *)this)->FUN_001d72e0()));
                     }
                 }
             }
@@ -408,8 +403,8 @@ int Entity::FUN_001da540(Ref_1da540 *a1, V3_1da540 *a2, V3_1da540 *a3, float a4)
     FUN_001d66b0(a2, a3);
     DAT_004dd700->p34->FUN_001ebd80(this, "impact_big", 100.0f, 0);
     f.sp = &s1a4;
-    f.sp->FUN_001b6e60(a1);
-    int kind = ready->FUN_001d4de0();
+    ((owners::Thing_1b6e60 *)(f.sp))->FUN_001b6e60((hulk_intptr)(Ref_1da540 *)a1);
+    int kind = ((owners::C_1d4de0 *)ready)->FUN_001d4de0();
     int k = ready->FUN_001d5e80(f40);
     char bl = (kind == 5);
     f.flagA = (k == 3);
@@ -510,7 +505,7 @@ int Entity::FUN_001da540(Ref_1da540 *a1, V3_1da540 *a2, V3_1da540 *a3, float a4)
             FUN_001da350(f1fc, &f.v2, &v20c, 100.0f, f1fc, f220 * 3.0f, 1, f228, f22c, f230, f234, p238,
                          &s240);
             FUN_001d71e0(0);
-            f.sp->FUN_001b6de0(f1fc);
+            ((owners::C_1b6de0 *)(f.sp))->FUN_001b6de0((hulk_intptr)(Ref_1da540 *)f1fc);
             return 1;
         }
     }

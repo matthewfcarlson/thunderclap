@@ -1,15 +1,6 @@
-class C_207150 {
-  public:
-    char pad[0x570];
-    int a[2];
-    bool Check(int);
-    int Get(int);
-    void Do(int);
-    void Finish(int);
-    bool Run();
-};
+#include "gen/owners.h"
 
-bool C_207150::Run() {
+bool owners::C_207150::FUN_00207150() {
     for (;;) {
         int n = 0;
         if (a[0] > 0)

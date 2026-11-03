@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 62 inputs, branch coverage 21/22, incomplete)
 // choreo2::AnimationDriver::vfunc_10 @ 0x00225300
+#include "gen/owners.h"
 struct Quat_225300 {
     float x, y, z, w;
-    void FUN_0022b750(const Quat_225300* a, const Quat_225300* b, float t);
 };
 
 struct Vec3_225300 {
@@ -34,7 +34,6 @@ public:
     int state;
     Quat_225300* FUN_00221cd0();
     void FUN_00221cf0(Quat_225300* q);
-    void FUN_0022be40(Vec3_225300* v);
 };
 
 struct PoseData_225300 {
@@ -136,7 +135,7 @@ void AnimationDriver::vfunc_10(Pose* from, Pose* to, PoseData_225300* data, floa
             f.qa = *from->FUN_00221cd0();
             FUN_0022b080((float *)(Quat_225300 *)(&f.qa), (const float *)(Quat_225300 *)(&f.qa), (const float *)(Quat_225300 *)(&f.root));
             f.qb = *to->FUN_00221cd0();
-            f.qb.FUN_0022b750(&f.qb, &f.qa, t);
+            ((owners::Quaternion_22b750 *)&(f.qb))->FUN_0022b750((const owners::Quaternion_22b750 *)(const Quat_225300 *)(&f.qb), (const owners::Quaternion_22b750 *)(const Quat_225300 *)(&f.qa), t);
             to->FUN_00221cf0(&f.qb);
         }
         if (doPosition) {
@@ -152,7 +151,7 @@ void AnimationDriver::vfunc_10(Pose* from, Pose* to, PoseData_225300* data, floa
             f.cur.x = f.tgt.x * t + cx;
             f.cur.y = f.tgt.y * t + f.cur.y;
             f.cur.z = f.tgt.z * t + f.cur.z;
-            to->FUN_0022be40(&f.cur);
+            ((owners::Target_22be40 *)to)->FUN_0022be40((const int *)(Vec3_225300 *)(&f.cur));
         }
         i = 1;
     }
@@ -172,7 +171,7 @@ void AnimationDriver::vfunc_10(Pose* from, Pose* to, PoseData_225300* data, floa
             f.src = source->quats[i];
         }
         f.dst = data->quats[i];
-        f.dst.FUN_0022b750(&f.dst, &f.src, t);
+        ((owners::Quaternion_22b750 *)&(f.dst))->FUN_0022b750((const owners::Quaternion_22b750 *)(const Quat_225300 *)(&f.dst), (const owners::Quaternion_22b750 *)(const Quat_225300 *)(&f.src), t);
         data->quats[i] = f.dst;
 
         if (pairs[i].pos) {

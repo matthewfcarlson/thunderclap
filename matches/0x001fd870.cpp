@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 typedef unsigned __int64 U64;
 struct Data {
     int a, b, c;
@@ -5,7 +6,6 @@ struct Data {
 U64 __cdecl Convert(int);
 class Item {
   public:
-    void Update(Data*);
 };
 class CTriggerVolumeManager_1fd870 {
   public:
@@ -17,6 +17,6 @@ bool CTriggerVolumeManager_1fd870::Do(int n, Data d) {
     Item* item = Find(id);
     if (!item)
         return false;
-    item->Update(&d);
+    ((owners::Target_1fb990 *)item)->FUN_001fb990((const int *)(Data *)(&d));
     return true;
 }

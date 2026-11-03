@@ -1,11 +1,6 @@
-class Obj_5d7a0 {
-  public:
-    char pad[0x48];
-    int value;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool Obj_5d7a0::Set(int v) {
+bool owners::Obj_5d7a0::FUN_0005d7a0(int v) {
     value = v;
     return true;
 }

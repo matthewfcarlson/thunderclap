@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Matrix {
     unsigned int words[16];
 };
@@ -8,7 +9,6 @@ struct Source_3dc40 {
     Receiver_3dc40* FUN_00059a40();
 };
 struct Child_3dc40 {
-    void FUN_001c4d60(Matrix*);
 };
 struct Node {
     virtual void slot0();
@@ -60,7 +60,7 @@ void CCharacter_3dc40::FUN_0003dc40(unsigned int a, unsigned int b) {
             Matrix matrix;
             FUN_00035160(&matrix);
             node->FUN_001d6b60(matrix, 0);
-            node->child->FUN_001c4d60(&matrix);
+            ((owners::X_1c4d60 *)(node->child))->FUN_001c4d60((unsigned int *)(Matrix *)(&matrix));
         } else {
             unsigned int result = node->slot15();
             receiver->FUN_002226e0(result);

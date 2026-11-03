@@ -1,15 +1,10 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern void* Alloc(hulk_uintptr);
 extern "C" int * __cdecl FUN_002904d0(int *, int, const int *);
 
-class Buffer_290790 {
-  public:
-    int* begin;
-    int* end;
-    bool Create(unsigned int count, void* arg);
-};
 
-bool Buffer_290790::Create(unsigned int count, void* arg) {
+bool owners::Buffer_290790::FUN_00290790(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {

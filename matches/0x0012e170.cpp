@@ -1,11 +1,6 @@
-class Obj_12e170 {
-  public:
-    char Set(char c);
-    char pad[0x24];
-    char m24;
-};
+#include "gen/owners.h"
 
-char Obj_12e170::Set(char c) {
+char owners::Obj_12e170::FUN_0012e170(char c) {
     m24 = c;
     return 1;
 }

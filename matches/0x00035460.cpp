@@ -1,11 +1,5 @@
-class C_35460 {
-    char pad[0xa8];
-    unsigned a, b, c;
-
-  public:
-    bool F(unsigned* out);
-};
-bool C_35460::F(unsigned* out) {
+#include "gen/owners.h"
+bool owners::C_35460::FUN_00035460(unsigned* out) {
     out[0] = a;
     out[1] = b;
     out[2] = c;

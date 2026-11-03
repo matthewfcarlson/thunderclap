@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // hulkfight::motion::GroundSlideAction::vfunc_5 @ 0x001513d0
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/owners.h"
 
 extern "C" double sqrt(double);
 struct V3_1513d0 {
@@ -10,7 +11,6 @@ struct V3_1513d0 {
 
 struct Mat4_1513d0 {
     float m[16];
-    void FUN_0022be40(const V3_1513d0 *pos);
 };
 
 struct Timing_1513d0 {
@@ -27,7 +27,6 @@ struct Clock_1513d0 {
 };
 
 struct Target_1513d0 {
-    Clock_1513d0 *FUN_000592a0();
 };
 
 struct Config_1513d0 {
@@ -78,7 +77,7 @@ bool GroundSlideAction::vfunc_5(int a, float dt)
     if (driver == 0)
         return false;
     Frame_1513d0 f;
-    Clock_1513d0 *clock = target->FUN_000592a0();
+    Clock_1513d0 *clock = ((Clock_1513d0 *)((owners::Object_592a0 *)target)->FUN_000592a0());
     Timing_1513d0 *timing = clock->FUN_00059a30();
     f.fwd.x = (*(float*)&DAT_004afa08);
     f.fwd.y = (*(float*)((char*)&DAT_004afa08 + 4));
@@ -132,7 +131,7 @@ bool GroundSlideAction::vfunc_5(int a, float dt)
     f.e.x = f.o.x + f.e.x;
     f.e.y = f.o.y + f.e.y;
     f.e.z = f.o.z + f.e.z;
-    driver->xform.FUN_0022be40(&f.e);
+    ((owners::Target_22be40 *)&(driver->xform))->FUN_0022be40((const int *)(const V3_1513d0 *)(&f.e));
     if (f.limit < 0.0f)
         return true;
     speed = sqrt(f.d.z * f.d.z + f.d.y * f.d.y + f.d.x * f.d.x);

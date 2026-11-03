@@ -2,17 +2,9 @@
 // FUN_001ae150 @ 0x001ae150
 // FUN_001ae150 @ 0x001ae150: removes the first occurrence of a value from a ring buffer, rotating the older entries
 #include "compat/ptr.h"
-class Ring_1ae150 {
-public:
-    char pad00[0x18];
-    int *head;
-    int *tail;
-    int *begin;
-    int *end;
-    void FUN_001ae150(int value);
-};
+#include "gen/owners.h"
 
-void Ring_1ae150::FUN_001ae150(int value)
+void owners::Ring_1ae150::FUN_001ae150(hulk_intptr value)
 {
     hulk_intptr count;
     if (head > tail)
@@ -27,7 +19,7 @@ void Ring_1ae150::FUN_001ae150(int value)
         head++;
         if (head == end)
             head = begin;
-        if (value == v)
+        if (((int)value) == v)
             return;
         if (tail < end) {
             if (tail)

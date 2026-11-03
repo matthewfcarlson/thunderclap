@@ -1,10 +1,6 @@
-struct X_14ccb0 {
-    int pad[3];
-    int m;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char X_14ccb0::Set(int v) {
+char owners::X_14ccb0::FUN_0014ccb0(int v) {
     m = v;
     return 1;
 }

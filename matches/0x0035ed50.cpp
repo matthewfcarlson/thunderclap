@@ -1,12 +1,12 @@
+#include "gen/owners.h"
 class Registry {
   public:
-    void Register(const char* name, int value);
 };
 
 extern Registry g_registry;
 extern void Cleanup();
 
 void Init() {
-    g_registry.Register("sound/rsd", 0);
+    ((owners::String_23fc40 *)&g_registry)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
     atexit(Cleanup);
 }

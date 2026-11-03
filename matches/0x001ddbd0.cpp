@@ -1,5 +1,5 @@
+#include "gen/owners.h"
 struct Obj {
-    void Fn(int);
 };
 struct Item {
     char pad[0x18];
@@ -23,7 +23,7 @@ void CSPManager_1ddbd0::Run(int id, int v) {
         if (((char*)this)[k * 20] & 1) {
             Obj* o = p->obj;
             if (o)
-                o->Fn(v);
+                ((owners::C_1d6cc0 *)o)->FUN_001d6cc0(v);
         }
     }
 }

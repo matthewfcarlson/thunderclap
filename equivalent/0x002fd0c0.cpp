@@ -1,20 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 2/2)
 // FUN_002fd0c0 @ 0x002fd0c0
 #include "compat/ptr.h"
-struct Sym3 {
-    char pad0[4];
-    float xx;       // 0x4
-    float xy;       // 0x8
-    float xz;       // 0xc
-    float yy;       // 0x10
-    float yz;       // 0x14
-    float zz;       // 0x18
-    void FUN_002fd0c0(const Sym3 *a);
-};
 
 // Inverse of a symmetric 3x3 matrix stored as six floats; zero when the pivot product vanishes.
 // Intermediates are kept as double (the original keeps them unrounded on the x87 stack).
-void Sym3::FUN_002fd0c0(const Sym3 *a)
+#include "gen/owners.h"
+void owners::Sym3_2fd0c0::FUN_002fd0c0(const owners::Sym3_2fd0c0 *a)
 {
     double inv = 1.0 / a->xx;
     double piv = inv * a->xx;

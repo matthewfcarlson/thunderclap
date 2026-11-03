@@ -1,8 +1,4 @@
-class Obj_5a380 {
-  public:
-    char pad[0x18];
-    void* Data();
-};
-void* Obj_5a380::Data() {
+#include "gen/owners.h"
+void* owners::Obj_5a380::FUN_0005a380() {
     return (void*)((char*)this + 0x18);
 }

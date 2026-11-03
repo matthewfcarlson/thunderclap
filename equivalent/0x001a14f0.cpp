@@ -4,6 +4,7 @@
 #include "gen/hulkfight.h"
 
 #include "compat/ptr.h"
+#include "gen/owners.h"
 namespace fight {
 class Params_1a14f0 {
 public:
@@ -18,7 +19,6 @@ public:
 
 struct Blob_1a14f0 {
     char data[0xe0];
-    void FUN_001cb170();
 };
 
 class CScenarioParams_1a14f0 : public fight::Params_1a14f0 {
@@ -33,10 +33,8 @@ struct LuaMgr {
     char pad0[8];
     void *L;
     bool FUN_001d1cb0();
-    void FUN_001d1d50(const char *name, char *buf);
     bool FUN_001d1d30();
     void FUN_001d2ee0(CFightParams_1a14f0 *p);
-    int FUN_001d35a0(const char *chunk, char *name, hulk_intptr len);
 };
 
 extern "C" LuaMgr *FUN_001d4c90();
@@ -63,7 +61,7 @@ bool hulkfight::scenario::LuaCondition::vfunc_6(void* __p0, void* __p1, void* __
     fr.buf[0] = 0;
     FUN_00267760(fr.buf, 0x100, "DO NOT USE THIS IN RELEASE MODE!  Talk to Kevin...");
     mgr->FUN_001d1cb0();
-    mgr->FUN_001d1d50("node", fr.buf);
+    ((owners::Thing_1d1d50 *)mgr)->FUN_001d1d50((hulk_uintptr)"node", (hulk_uintptr)(fr.buf));
     mgr->FUN_001d1d30();
     CScenarioParams_1a14f0 *sp = dynamic_cast<CScenarioParams_1a14f0 *>(params);
     if (sp != 0) {
@@ -71,7 +69,7 @@ bool hulkfight::scenario::LuaCondition::vfunc_6(void* __p0, void* __p1, void* __
         if (FUN_001d0440() != v) {
             FUN_001d0430(sp->f8);
             fr.copy = *sp->FUN_001d03c0();
-            fr.copy.FUN_001cb170();
+            ((owners::Dispatcher_1cb170 *)&(fr.copy))->FUN_001cb170();
         }
     } else {
         CFightParams_1a14f0 *fp = dynamic_cast<CFightParams_1a14f0 *>(params);
@@ -94,7 +92,7 @@ bool hulkfight::scenario::LuaCondition::vfunc_6(void* __p0, void* __p1, void* __
             e++;
         len = e - tmp;
     }
-    int rc = mgr->FUN_001d35a0(chunk, fr.buf, len);
+    int rc = ((owners::Obj_1d35a0 *)mgr)->FUN_001d35a0(chunk, (hulk_intptr)(fr.buf), (hulk_intptr)len);
     if (allocated)
         FUN_0008d340((void *)chunk);
     if (rc != 3) {

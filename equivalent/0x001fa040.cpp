@@ -1,14 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_001fa040 @ 0x001fa040
+#include "gen/owners.h"
 struct Name_1fa040 {
     unsigned int lo, hi;
-    void FUN_0027b040(const char* s);
 };
 struct Tree_1fa040 {
     void FUN_00230f50(void (__cdecl *cb)(void*, void*), void* user);
 };
 struct Pool_1fa040 {
-    bool FUN_001d1900(int n);
 };
 Pool_1fa040* FUN_001d4c90();
 void FUN_00267760(char* dst, int n, const char* fmt, ...);
@@ -80,7 +79,7 @@ void Table_1fa040::FUN_001fa040()
     f410 = 0;
     f414 = -1;
     f418 = 0;
-    name.FUN_0027b040("CONSTRUCTED, BUT NOT YET NAMED");
+    ((owners::Target_27b040 *)&name)->FUN_0027b040((hulk_uintptr)"CONSTRUCTED, BUT NOT YET NAMED");
     FUN_00267760(title, 0x20, "%s", "CONSTRUCTED, BUT NOT YET NAMED");
     f43c = 0;
     f450 = 0;
@@ -102,7 +101,7 @@ void Table_1fa040::FUN_001fa040()
         s.a1c = 0;
         s.a24 = 0;
         Pool_1fa040* p = FUN_001d4c90();
-        p->FUN_001d1900(s.a20);
+        ((owners::Obj_1d1900 *)p)->FUN_001d1900((hulk_intptr)(s.a20));
         s.a20 = -1;
     }
     for (int j = 0; j < 16; j++) {
@@ -114,7 +113,7 @@ void Table_1fa040::FUN_001fa040()
         s.f40 = 0;
         s.f44 = 0;
         s.c30 = 0xff;
-        s.name.FUN_0027b040("");
+        ((owners::Target_27b040 *)&(s.name))->FUN_0027b040((hulk_uintptr)"");
         s.c31 = 0xff;
         s.f48 = 0;
         s.f49 = 1;
@@ -125,9 +124,9 @@ void Table_1fa040::FUN_001fa040()
     Tree_1fa040* tree = slotsB[15].tree54;
     tree->FUN_00230f50(FUN_001f9f80, tree);
     Pool_1fa040* pool = FUN_001d4c90();
-    pool->FUN_001d1900(f448);
+    ((owners::Obj_1d1900 *)pool)->FUN_001d1900((hulk_intptr)f448);
     int old = f44c;
     f448 = -1;
-    pool->FUN_001d1900(old);
+    ((owners::Obj_1d1900 *)pool)->FUN_001d1900((hulk_intptr)old);
     f44c = -1;
 }

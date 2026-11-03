@@ -1,16 +1,10 @@
 #include "compat/ptr.h"
-class Obj_261ef0;
+#include "gen/owners.h"
 extern "C" bool __cdecl FUN_0025abd0(const char*, unsigned int*);
 extern "C" bool __cdecl FUN_0025ac10(const char*, unsigned int*);
 extern "C" void* __cdecl FUN_00247530(void*);
 extern int gBss_261ef0;
-class Obj_261ef0 {
-  public:
-    int* mHead;
-    int* mTail;
-    bool Fn(const char*);
-};
-bool Obj_261ef0::Fn(const char* name) {
+bool owners::Obj_261ef0::FUN_00261ef0(const char* name) {
     unsigned int count;
     if (!FUN_0025abd0(name, &count))
         return false;

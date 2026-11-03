@@ -1,10 +1,10 @@
+#include "gen/owners.h"
 class Ret_89830 {
   public:
     void Last(bool);
 };
 class Sub_89830 {
   public:
-    void First(int);
     int a;
     int b;
 };
@@ -27,7 +27,7 @@ class Manager_89830 {
 extern Root_89830* g_89830;
 void Manager_89830::Target(int p) {
     Sub_89830* s = &sub;
-    s->First(p);
+    ((owners::Obj_88fe0 *)s)->FUN_00088fe0((unsigned int)p);
     Ret_89830* r = g_89830->m->Get();
     bool f = s->a != -1 && s->b != -1;
     r->Last(f);

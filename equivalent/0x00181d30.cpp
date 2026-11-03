@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3055 inputs, branch coverage 34/34)
 // FUN_00181d30 @ 0x00181d30
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Vec3_181d30 {
     float x, y, z;
 };
@@ -47,9 +48,7 @@ struct Entity {
     Ptr11c *f11c;
     char pad120[0x148 - 0x120];
     Actor_181d30 *f148;
-    int FUN_001d6c70();
     void FUN_001d6cc0(float v);
-    Node70 *FUN_001d72e0();
     void FUN_001d7510();
     void FUN_001d7e70();
 };
@@ -64,7 +63,6 @@ struct Actor_181d30 {
     char b22e8;
     void FUN_0003a570();
     char FUN_00035660(Vec3_181d30 *out);
-    Entity *FUN_00035ef0(int idx);
     void FUN_00037420(int v);
     void FUN_000385a0(void *a, int v);
 };
@@ -82,7 +80,6 @@ struct Res_181d30 {
 };
 
 struct T20 {
-    Res_181d30 *FUN_000592a0();
 };
 
 struct Target_181d30 {
@@ -119,7 +116,7 @@ public:
 
 char Thing_181d30::FUN_00181d30()
 {
-    Actor_181d30 *ebp = f20->FUN_000592a0()->FUN_00059a30();
+    Actor_181d30 *ebp = ((Res_181d30 *)((owners::Object_592a0 *)f20)->FUN_000592a0())->FUN_00059a30();
     int idx = f1c->idx;
     Entity *e = 0;
 
@@ -127,7 +124,7 @@ char Thing_181d30::FUN_00181d30()
         if (idx < 0)
             e = ebp->f128;
         else if (idx < 8)
-            e = ebp->FUN_00035ef0(idx);
+            e = ((Entity *)((owners::C_35ef0 *)ebp)->FUN_00035ef0((hulk_intptr)idx));
     }
     if (!e) {
         Holder_181d30 *h = ebp->f3a4;
@@ -153,15 +150,15 @@ char Thing_181d30::FUN_00181d30()
         e->FUN_001d7e70();
         e->FUN_001d7510();
         a->FUN_00035660(&v);
-        e->FUN_001d72e0()->f70->FUN_002f5a20(&v);
+        ((Node70 *)((owners::C_1d72e0 *)e)->FUN_001d72e0())->f70->FUN_002f5a20(&v);
         e->FUN_001d6cc0(3.0f);
     }
     Mgr0c *m = DAT_004dd700->f0c;
-    m->FUN_001dcd30(e->FUN_001d6c70());
+    m->FUN_001dcd30(((owners::C_1d6c70 *)e)->FUN_001d6c70());
     DAT_004dd700->f0c->FUN_001dc170(e, 0);
     Target_181d30 *t = DAT_004dd700->f20->f124;
     if (t && t->f328 && t->f328 == a->f12c)
-        t->FUN_0003ffa0(e->FUN_001d72e0(), 0);
+        t->FUN_0003ffa0(((Node70 *)((owners::C_1d72e0 *)e)->FUN_001d72e0()), 0);
     if (a) {
         if (a != ebp && ebp->f12c)
             a->FUN_000385a0(ebp->f12c, 0);

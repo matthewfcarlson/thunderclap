@@ -1,10 +1,5 @@
-class T_61dd0 {
-  public:
-    char Pad[0xa8];
-    char Value;
-    char Set(char x);
-};
-char T_61dd0::Set(char x) {
+#include "gen/owners.h"
+char owners::T_61dd0::FUN_00061dd0(char x) {
     Value = x;
     return 1;
 }

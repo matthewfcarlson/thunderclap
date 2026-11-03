@@ -1,11 +1,6 @@
-class C_15ac10 {
-  public:
-    char pad[0x30];
-    int flag;
-    bool SetFlag(int x);
-};
+#include "gen/owners.h"
 
-bool C_15ac10::SetFlag(int x) {
+bool owners::C_15ac10::FUN_0015ac10(int x) {
     flag = x;
     return true;
 }

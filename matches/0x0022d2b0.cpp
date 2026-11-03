@@ -1,9 +1,5 @@
-class V {
-  public:
-    float x, y, z;
-    int Contains(V* other, float limit);
-};
-int V::Contains(V* other, float limit) {
+#include "gen/owners.h"
+int owners::V_22d2b0::FUN_0022d2b0(owners::V_22d2b0* other, float limit) {
     float d = x - other->x;
     *(int*)&d &= 0x7fffffff;
     if (d <= limit) {

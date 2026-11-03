@@ -1,14 +1,8 @@
-class C_30a260 {
-    char pad[0x18];
-    int value;
-
-  public:
-    void set(int);
-};
+#include "gen/owners.h"
 struct ThisCall_003099d0 {
     void called();
 };
-void C_30a260::set(int x) {
-    value = x;
+void owners::C_30a260::FUN_0030a260(hulk_intptr x) {
+    value = ((int)x);
     ((ThisCall_003099d0*)(this))->called();
 }

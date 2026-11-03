@@ -1,12 +1,12 @@
 #include "decls/data/game/global.h"
 // data: zero = DAT_004c6068
+#include "gen/owners.h"
 
 struct Vec {
     float x, y, z;
 };
 struct View {
     char bytes[64];
-    void calc(const float*, Vec*);
 };
 struct Obj {
     virtual void a();
@@ -27,6 +27,6 @@ void __cdecl output(Vec*);
 void Owner::fn() {
     View local = *obj->get();
     Vec v;
-    local.calc(((float*)&DAT_004c6068), &v);
+    ((owners::M_22c3b0 *)&local)->FUN_0022c3b0((float *)(((float*)&DAT_004c6068)), (float *)(Vec *)(&v));
     output(&v);
 }

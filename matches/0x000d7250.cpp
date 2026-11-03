@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class Sub_d7250 {
   public:
     char pad[4];
@@ -6,7 +7,6 @@ class Sub_d7250 {
 class Inner_d7250 {
   public:
     unsigned Get();
-    void Set(unsigned);
 };
 class Obj_d7250 {
   public:
@@ -23,7 +23,7 @@ void Obj_d7250::Run(unsigned bits) {
     if (b)
         x |= 0x100;
     unsigned result = x | bits;
-    inner->Set(result);
+    ((owners::Target_cae40 *)inner)->FUN_000cae40((int)result);
     a->flag = (result >> 7) & 1;
     b->flag = (result >> 8) & 1;
 }

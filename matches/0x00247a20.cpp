@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class Obj_247a20 {
   public:
-    int Check();
     void Start(hulk_intptr, int);
 };
 class State_247a20 {
@@ -29,7 +29,7 @@ extern "C" void FUN_00247a20(Owner_247a20* owner, State_247a20* state, Obj_247a2
     state->mValue = value;
     state->mStatus = 1;
     if (obj) {
-        if (state->mObj->Check() == 0) {
+        if (((owners::Object_25d3e0 *)(state->mObj))->FUN_0025d3e0() == 0) {
             state->mObj->Start((hulk_intptr)obj, flag);
             if (FUN_0024afe0(obj) == 2) {
                 state->mStatus = 3;

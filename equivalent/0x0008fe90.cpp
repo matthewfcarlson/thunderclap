@@ -1,17 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)
 // FUN_0008fe90 @ 0x0008fe90
-struct BitPool {
-    char pad00[4];
-    unsigned int elemSize;
-    unsigned int count;
-    char pad0c[4];
-    int base;
-    unsigned int *bitmap;
-    unsigned int cursor;
-    int FUN_0008fe90(int unused);
-};
+#include "gen/owners.h"
 
-int BitPool::FUN_0008fe90(int unused)
+hulk_intptr owners::BitPool_8fe90::FUN_0008fe90(int unused)
 {
     unsigned int index = cursor;
     unsigned int mask = 1u << (index & 0x1f);

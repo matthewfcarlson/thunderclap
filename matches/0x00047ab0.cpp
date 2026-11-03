@@ -1,9 +1,5 @@
-class Obj_47ab0 {
-  public:
-    char Fn(int x);
-    char pad[0xc];
-};
-char Obj_47ab0::Fn(int x) {
+#include "gen/owners.h"
+char owners::Obj_47ab0::FUN_00047ab0(int x) {
     *(int*)((char*)this + 0xc) = x;
     return 1;
 }

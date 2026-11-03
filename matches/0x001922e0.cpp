@@ -1,9 +1,5 @@
-struct Target_1922e0 {
-    char pad[0x58];
-    float value;
-    bool Set(float degrees);
-};
-bool Target_1922e0::Set(float degrees) {
+#include "gen/owners.h"
+bool owners::Target_1922e0::FUN_001922e0(float degrees) {
     value = degrees * *(const float*)(0x3f32b8);
     return true;
 }

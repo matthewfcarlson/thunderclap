@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 61 inputs, branch coverage 25/26, incomplete)
 // physics::HairclubPhysicsObject::vfunc_35 @ 0x00309680
 #include "gen/physics.h"
+#include "gen/owners.h"
 
 struct Strand {
  char pad[0x28];
@@ -8,7 +9,6 @@ struct Strand {
  char extra[4];
  unsigned char active;
  char tail[3];
- void FUN_002fcb80(float scale);
 };
 namespace physics {
 struct HairclubPhysicsObject_nv_309680 {
@@ -28,7 +28,7 @@ void physics::HairclubPhysicsObject::vfunc_35(float value) {
     Strand* s = &(*(Strand * *)&this->f_1f8)[i];
     if(s->active) {
      s->weight = s->weight * value;
-     s->FUN_002fcb80(value);
+     ((owners::X_2fcb80 *)s)->FUN_002fcb80(value);
     }
    }
   }

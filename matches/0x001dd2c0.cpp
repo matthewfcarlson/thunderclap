@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class Node {
   public:
     int a[4];
@@ -6,7 +7,6 @@ class Node {
 };
 class Search_1dd2c0 {
   public:
-    Node* First();
 };
 class Worker_1dd2c0 {
   public:
@@ -18,7 +18,7 @@ class Obj_1dd2c0 {
     void Target(Search_1dd2c0*, int);
 };
 void Obj_1dd2c0::Target(Search_1dd2c0* search, int value) {
-    Node* p = search->First();
+    Node* p = ((Node *)((owners::C_1d6660 *)search)->FUN_001d6660());
     while (p) {
         char* rec = (char*)this + (p->a[0] * 0x28) + 0x608;
         short n = *(short*)(rec + 0x22);

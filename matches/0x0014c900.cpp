@@ -1,10 +1,5 @@
-class Obj_14c900 {
-  public:
-    char pad[0x20];
-    int field;
-    bool Fn(int x);
-};
-bool Obj_14c900::Fn(int x) {
+#include "gen/owners.h"
+bool owners::Obj_14c900::FUN_0014c900(int x) {
     field = x;
     return true;
 }

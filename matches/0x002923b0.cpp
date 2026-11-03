@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Config_2923b0 {
     int a;
     int b;
@@ -7,10 +8,9 @@ struct Config_2923b0 {
     char pad[0x10];
     int f;
     int g;
-    void Init();
 };
 Config_2923b0* __fastcall FUN_002923b0(Config_2923b0* p) {
-    p->Init();
+    ((owners::Settings_292330 *)p)->FUN_00292330();
     p->a = 0x280;
     p->b = 0x1e0;
     p->c = 0x20;

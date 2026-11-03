@@ -1,10 +1,5 @@
-class Obj_16e9e0 {
-  public:
-    char pad[0x14];
-    int mVal;
-    unsigned char Set(int v);
-};
-unsigned char Obj_16e9e0::Set(int v) {
+#include "gen/owners.h"
+unsigned char owners::Obj_16e9e0::FUN_0016e9e0(int v) {
     mVal = v;
     return 1;
 }

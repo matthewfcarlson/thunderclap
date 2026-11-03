@@ -1,10 +1,6 @@
-class O_192700 {
-  public:
-    char F(float x);
-    char pad[0x3c];
-};
+#include "gen/owners.h"
 
-char O_192700::F(float x) {
+char owners::O_192700::FUN_00192700(float x) {
     *(float*)((char*)this + 0x3c) = x * 0.017453292f;
     return 1;
 }

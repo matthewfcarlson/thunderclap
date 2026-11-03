@@ -1,8 +1,5 @@
-struct Thing_240170 {
-    void Helper(int);
-    Thing_240170* Run(int);
-};
-Thing_240170* Thing_240170::Run(int x) {
-    Helper(x);
+#include "gen/owners.h"
+owners::Thing_240170* owners::Thing_240170::FUN_00240170(hulk_intptr x) {
+    Helper(((int)x));
     return this;
 }

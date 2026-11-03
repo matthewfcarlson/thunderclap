@@ -2,6 +2,7 @@
 // FUN_0003ba60 @ 0x0003ba60
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct V3_3ba60 {
     float x, y, z;
@@ -10,13 +11,10 @@ struct Mat4_3ba60 {
     float m[12];
     V3_3ba60 trans;
     float w;
-    void FUN_0022c120();
-    void FUN_0022ca90(const Mat4_3ba60* a, const Mat4_3ba60* b);
 };
 struct Xform_3ba60 {
     char data[0x54];
     void FUN_00221b70(const Mat4_3ba60* m);
-    void FUN_00221e60(const Mat4_3ba60* m);
     Mat4_3ba60* FUN_00221c40();
 };
 struct EventFlags {
@@ -53,7 +51,6 @@ struct Holder_3ba60 {
     Effect_3ba60* effect;
 };
 struct Bank {
-    hulk_intptr FUN_000446c0(int index);
 };
 struct Prop_3ba60 {
     virtual void v0();
@@ -82,7 +79,6 @@ struct Prop_3ba60 {
     char b1ec;
     char pad1ed[3];
     V3_3ba60 offset;
-    Event_3ba60* FUN_001d72e0();
     V3_3ba60* FUN_001d6b40();
     void FUN_001d6b60(Mat4_3ba60 m, int flag);
 };
@@ -143,11 +139,11 @@ void Fighter_3ba60::FUN_0003ba60(Args_3ba60* args, int arg2) {
         if (!prop)
             continue;
 
-        if (prop->FUN_001d72e0() && !prop->FUN_001d72e0()->mid->flags->flag18) {
+        if (((Event_3ba60 *)((owners::C_1d72e0 *)prop)->FUN_001d72e0()) && !((Event_3ba60 *)((owners::C_1d72e0 *)prop)->FUN_001d72e0())->mid->flags->flag18) {
             bool release = true;
             if (bank) {
                 Link_3ba60* link = prop->link;
-                release = link != (Link_3ba60*)bank->FUN_000446c0(i);
+                release = link != (Link_3ba60*)((owners::Obj_446c0 *)bank)->FUN_000446c0(i);
             }
             if (release) {
                 FUN_0003acf0(i, 0, -1, 0, 0, 0);
@@ -155,7 +151,7 @@ void Fighter_3ba60::FUN_0003ba60(Args_3ba60* args, int arg2) {
             }
         }
 
-        Event_3ba60* event = prop->FUN_001d72e0();
+        Event_3ba60* event = ((Event_3ba60 *)((owners::C_1d72e0 *)prop)->FUN_001d72e0());
         if (event)
             event->FUN_002ef8b0(0);
         if (prop->link->FUN_001d5e80(prop->f40) == 4) {
@@ -193,19 +189,19 @@ void Fighter_3ba60::FUN_0003ba60(Args_3ba60* args, int arg2) {
         Mat4_3ba60 relative;
         if (source->idLo | source->idHi) {
             Mat4_3ba60 adjustedBone = boneTransform;
-            adjustedBone.FUN_0022c120();
+            ((owners::Matrix_22c120 *)&adjustedBone)->FUN_0022c120();
             Mat4_3ba60 slotTransform = source->mat;
-            slotTransform.FUN_0022c120();
+            ((owners::Matrix_22c120 *)&slotTransform)->FUN_0022c120();
             Xform_3ba60 composition;
             composition.FUN_00221b70(&slotTransform);
-            composition.FUN_00221e60(&objectTransform);
-            composition.FUN_00221e60(&adjustedBone);
+            ((owners::Obj_221e60 *)&composition)->FUN_00221e60((hulk_uintptr)(const Mat4_3ba60 *)(&objectTransform));
+            ((owners::Obj_221e60 *)&composition)->FUN_00221e60((hulk_uintptr)(const Mat4_3ba60 *)(&adjustedBone));
             scene->FUN_00224260(source->idLo, source->idHi, &composition);
-            relative.FUN_0022ca90(&source->mat, composition.FUN_00221c40());
+            ((owners::Matrix_22ca90 *)&relative)->FUN_0022ca90((const owners::Matrix_22ca90 *)(const Mat4_3ba60 *)(&source->mat), (const owners::Matrix_22ca90 *)(const Mat4_3ba60 *)(composition.FUN_00221c40()));
         } else {
             relative = source->mat;
         }
-        objectTransform.FUN_0022ca90(&relative, &boneTransform);
+        ((owners::Matrix_22ca90 *)&objectTransform)->FUN_0022ca90((const owners::Matrix_22ca90 *)(const Mat4_3ba60 *)(&relative), (const owners::Matrix_22ca90 *)(const Mat4_3ba60 *)(&boneTransform));
         if (event)
             event->v6(&objectTransform, arg2);
         prop->FUN_001d6b60(objectTransform, 0);

@@ -2,6 +2,7 @@
 // FUN_000bc3c0 @ 0x000bc3c0
 // cl-flags: /GS
 #include "decls/data/engine/content.h"
+#include "gen/owners.h"
 
 extern "C" char* strncpy(char*, const char*, unsigned int);
 
@@ -20,7 +21,6 @@ class Manager_bc3c0 {
   public:
     void FUN_00265810(const char* name, struct RequestState* state);
     int FUN_00264870();
-    void FUN_00264860(int value);
 };
 struct RequestState {
     Request* request;
@@ -49,13 +49,13 @@ void __stdcall FUN_000bc3c0(const char* src, Target_bc3c0* target, int arg) {
     st.field110 = 0;
     (*(Manager_bc3c0**)&DAT_00527c58)->FUN_00265810(st.name, &st);
     int saved = (*(Manager_bc3c0**)&DAT_00527c58)->FUN_00264870();
-    (*(Manager_bc3c0**)&DAT_00527c58)->FUN_00264860(0x3d090);
+    ((owners::C_264860 *)((*(Manager_bc3c0**)&DAT_00527c58)))->FUN_00264860(0x3d090);
     if (!st.request->FUN_00266750()) {
         do {
             FUN_00087990();
         } while (!st.request->FUN_00266750());
     }
-    (*(Manager_bc3c0**)&DAT_00527c58)->FUN_00264860(saved);
+    ((owners::C_264860 *)((*(Manager_bc3c0**)&DAT_00527c58)))->FUN_00264860(saved);
     target->FUN_00266220(st.request->FUN_00266700());
     Request* r = st.request;
     if (r != 0)

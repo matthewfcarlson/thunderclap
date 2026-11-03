@@ -1,16 +1,9 @@
 #include "decls/data/game/unknown.h"
 // data: gRandom = DAT_004de948
+#include "gen/owners.h"
 
 typedef float(__cdecl* RandomFn)();
-class Obj_de1d0 {
-  public:
-    char pad[0x2c];
-    float second;
-    char pad2[4];
-    float first;
-    void Update();
-};
-void Obj_de1d0::Update() {
+void owners::Obj_de1d0::FUN_000de1d0() {
     first += (*(RandomFn*)&DAT_004de948)();
     second += (*(RandomFn*)&DAT_004de948)();
 }

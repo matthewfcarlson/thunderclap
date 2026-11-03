@@ -1,10 +1,5 @@
-class X_11bed0 {
-  public:
-    char Set(int a);
-    char mPad[0x14];
-    int m14;
-};
-char X_11bed0::Set(int a) {
+#include "gen/owners.h"
+char owners::X_11bed0::FUN_0011bed0(int a) {
     m14 = a;
     return 1;
 }

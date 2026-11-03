@@ -2,6 +2,7 @@
 // CSmartPropWeaponTypeCondition::vfunc_7 @ 0x000493b0
 // CSmartPropWeaponTypeCondition::vfunc_7: does the held weapon's type match
 #include "gen/global.h"
+#include "gen/owners.h"
 
 struct Weapon_493b0 {
     int FUN_001d5e80(int id);
@@ -16,7 +17,6 @@ struct Item_493b0 {
 
 struct Player_493b0 {
     char FUN_00035f20();
-    Item_493b0 *FUN_00035ef0(int slot);
 };
 
 struct Anchor_493b0 {
@@ -24,23 +24,22 @@ struct Anchor_493b0 {
 };
 
 struct Owner_493b0 {
-    Anchor_493b0 *FUN_000592a0();
 };
 
 bool CSmartPropWeaponTypeCondition::vfunc_7(void* __p0) { Owner_493b0 * owner = (Owner_493b0 *)__p0;
 
-    Player_493b0 *p = owner->FUN_000592a0()->FUN_00059a30();
+    Player_493b0 *p = ((Anchor_493b0 *)((owners::Object_592a0 *)owner)->FUN_000592a0())->FUN_00059a30();
     if (this->f_10 == -1) {
         if (!p->FUN_00035f20())
             return (bool)(0);
         for (int i = 0; i < 8; i++) {
-            Item_493b0 *it = p->FUN_00035ef0(i);
+            Item_493b0 *it = ((Item_493b0 *)((owners::C_35ef0 *)p)->FUN_00035ef0((hulk_intptr)i));
             if (it != 0)
                 return (bool)(it->weapon->FUN_001d5e80(it->id) == this->f_0c);
         }
         return (bool)(0);
     }
-    Item_493b0 *it = p->FUN_00035ef0(this->f_10);
+    Item_493b0 *it = ((Item_493b0 *)((owners::C_35ef0 *)p)->FUN_00035ef0((hulk_intptr)(this->f_10)));
     if (it == 0)
         return (bool)(0);
     return (bool)(it->weapon->FUN_001d5e80(it->id) == this->f_0c);

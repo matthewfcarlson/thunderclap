@@ -1,11 +1,6 @@
-class Base_146f70 {
-  public:
-    char pad[0x3c];
-    int m3c;
-    bool Init(int x);
-};
+#include "gen/owners.h"
 
-bool Base_146f70::Init(int x) {
+bool owners::Base_146f70::FUN_00146f70(int x) {
     m3c = x;
     return true;
 }

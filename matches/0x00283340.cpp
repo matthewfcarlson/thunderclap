@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class Obj_283340 {
   public:
     virtual void f0();
@@ -13,7 +14,6 @@ class Obj_283340 {
 };
 class Hlp {
   public:
-    void FUN_00280160();
     void FUN_00280800();
 };
 class Holder_283340 {
@@ -35,7 +35,7 @@ class C_283340 {
     void run();
 };
 void C_283340::run() {
-    x->FUN_00280160();
+    ((owners::Owner_280160 *)x)->FUN_00280160();
     y->FUN_00280800();
     Holder_283340* s = h;
     if (s->a) {

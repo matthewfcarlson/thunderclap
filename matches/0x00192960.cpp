@@ -1,12 +1,6 @@
-class Obj_192960 {
-    char pad[0x54];
+#include "gen/owners.h"
 
-  public:
-    float rads;
-    char SetRads(float deg);
-};
-
-char Obj_192960::SetRads(float deg) {
+char owners::Obj_192960::FUN_00192960(float deg) {
     rads = deg * 0.017453293f;
     return 1;
 }

@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3073 inputs, branch coverage 26/26)
 // FUN_000c2990 @ 0x000c2990
 // cl-flags: /GS
+#include "gen/owners.h"
 struct Track { const char* FUN_00092330(); int FUN_00092310(); void FUN_00092360(int); };
-struct Lookup_c2990 { Track* FUN_00092ad0(int); };
-struct Manager_c2990 { void FUN_001d3600(const char*,int); };
+struct Lookup_c2990 {  };
+struct Manager_c2990 {  };
 struct Group_c2990 { void FUN_001bdff0(const char*); };
 struct Output_c2990 { void FUN_001b7310(const char*,int,int); };
 extern int DAT_0049dab8, DAT_0049db80;
@@ -16,13 +17,13 @@ struct Target_c2990 {
  void run(Output_c2990* out);
 };
 void Target_c2990::run(Output_c2990* out) {
- Track* track = FUN_00344e74(lookup->FUN_00092ad0(id),0,&DAT_0049dab8,&DAT_0049db80,0);
+ Track* track = FUN_00344e74(((Track *)((owners::C_92ad0 *)lookup)->FUN_00092ad0((hulk_intptr)id)),0,&DAT_0049dab8,&DAT_0049db80,0);
  if (track) {
   if (!active) {
    char path[64];
    Manager_c2990* manager = FUN_001d4c90();
    FUN_000964a0(path,64,"frontend/lang/subtitles/timings/%s.lua",track->FUN_00092330());
-   manager->FUN_001d3600(path,0);
+   ((owners::Object_1d3600 *)manager)->FUN_001d3600(path, 0);
    const char* names[8] = {"mog1","mog2","mog3","mog4","mog5","mog6","mog7","mog8"};
    for (int block=0; block<2; ++block) {
     bool matched=false;

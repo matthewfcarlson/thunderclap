@@ -1,11 +1,5 @@
-class C_36d40 {
-    char pad[0x2144];
-    int value;
-
-  public:
-    void f(int x);
-};
-void C_36d40::f(int x) {
+#include "gen/owners.h"
+void owners::C_36d40::FUN_00036d40(int x) {
     if (x >= 0 && x < 0xe)
         value = x;
 }

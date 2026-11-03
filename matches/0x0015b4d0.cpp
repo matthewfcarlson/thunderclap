@@ -1,10 +1,5 @@
-class Obj_15b4d0 {
-  public:
-    char pad[0x60];
-    int mValue;
-    bool SetBool(int param);
-};
-bool Obj_15b4d0::SetBool(int param) {
+#include "gen/owners.h"
+bool owners::Obj_15b4d0::FUN_0015b4d0(int param) {
     mValue = param;
     return true;
 }

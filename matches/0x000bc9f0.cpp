@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 31/32, incomplete)
 // FUN_000bc9f0 @ 0x000bc9f0
 // cl-flags: /GS
+#include "gen/owners.h"
 
 struct Label_bc9f0 {
     char pad0[0x10];
-    void FUN_000f79a0(const unsigned short* text, int flag);
 };
 
 struct Owner_bc9f0 {
@@ -14,16 +14,11 @@ struct Owner_bc9f0 {
 
 Owner_bc9f0* FUN_000fc260(int id);
 
-class MenuScreen_bc9f0 {
-  public:
-    int FUN_000bc900(unsigned short* out, int pos, const char* name, int flag);
-    void FUN_000bc9f0(int id, int code);
-};
 
-void MenuScreen_bc9f0::FUN_000bc9f0(int id, int code)
+void owners::MenuScreen_bc9f0::FUN_000bc9f0(hulk_intptr id, int code)
 {
     unsigned short text[0x100];
-    Owner_bc9f0* owner = FUN_000fc260(id);
+    Owner_bc9f0* owner = FUN_000fc260(((int)id));
     if (owner) {
         Label_bc9f0* label = &owner->label;
         if (label) {
@@ -61,7 +56,7 @@ void MenuScreen_bc9f0::FUN_000bc9f0(int id, int code)
                 if (code == 1 || code == 2)
                     FUN_000bc900(text, pos, "TBS_MENU_ITEM_BUTTON_BACK", 1);
             }
-            label->FUN_000f79a0(text, 0);
+            ((owners::Obj_f79a0 *)label)->FUN_000f79a0((const short *)text, (hulk_intptr)0);
         }
     }
 }

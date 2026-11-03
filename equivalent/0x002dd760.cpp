@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_002dd760 @ 0x002dd760
+#include "gen/owners.h"
 struct Stream {
-    void FUN_002647e0(void *dest, unsigned count, unsigned size, int flag);
 };
 
 struct Header_2dd760 {
@@ -26,28 +26,28 @@ extern "C" void FUN_002dd760(void *out, void *s)
 {
     unsigned int tmp;
 
-    ((Stream *)s)->FUN_002647e0(&tmp, 1, 1, 1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 1, (hulk_intptr)1);
     ((Header_2dd760 *)out)->b0 = *(unsigned char *)&tmp;
-    ((Stream *)s)->FUN_002647e0(&tmp, 1, 1, 1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 1, (hulk_intptr)1);
     ((Header_2dd760 *)out)->b1 = *(unsigned char *)&tmp;
-    ((Stream *)s)->FUN_002647e0(&tmp, 1, 1, 1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 1, (hulk_intptr)1);
     ((Header_2dd760 *)out)->b2 = *(unsigned char *)&tmp;
-    ((Stream *)s)->FUN_002647e0(&tmp, 1, 2, 1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 2, (hulk_intptr)1);
     ((Header_2dd760 *)out)->w4 = *(unsigned short *)&tmp;
-    ((Stream *)s)->FUN_002647e0(&tmp, 1, 2, 1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 2, (hulk_intptr)1);
     ((Header_2dd760 *)out)->w6 = *(unsigned short *)&tmp;
-    ((Stream *)s)->FUN_002647e0(&tmp, 1, 1, 1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 1, (hulk_intptr)1);
     ((Header_2dd760 *)out)->b8 = *(unsigned char *)&tmp;
-    ((Stream *)s)->FUN_002647e0(&tmp, 1, 2, 1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 2, (hulk_intptr)1);
     ((Header_2dd760 *)out)->wA = *(unsigned short *)&tmp;
-    ((Stream *)s)->FUN_002647e0(&tmp, 1, 2, 1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 2, (hulk_intptr)1);
     ((Header_2dd760 *)out)->wC = *(unsigned short *)&tmp;
-    ((Stream *)s)->FUN_002647e0(&tmp, 1, 2, 1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 2, (hulk_intptr)1);
     ((Header_2dd760 *)out)->wE = *(unsigned short *)&tmp;
-    ((Stream *)s)->FUN_002647e0(&tmp, 1, 2, 1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 2, (hulk_intptr)1);
     ((Header_2dd760 *)out)->w10 = *(unsigned short *)&tmp;
-    ((Stream *)s)->FUN_002647e0(&tmp, 1, 1, 1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 1, (hulk_intptr)1);
     ((Header_2dd760 *)out)->b12 = *(unsigned char *)&tmp;
-    ((Stream *)s)->FUN_002647e0(&tmp, 1, 1, 1);
+    ((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&tmp), (hulk_intptr)1, 1, (hulk_intptr)1);
     ((Header_2dd760 *)out)->b13 = *(unsigned char *)&tmp;
 }

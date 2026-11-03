@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 30/30)
 // pure3d::LightAnimationController::vfunc_27 @ 0x002a8840
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Vec3_2a8840 { float x, y, z; };
 
@@ -17,7 +18,6 @@ public:
     virtual void vf2();
     virtual void vf3();
     virtual void sampleVec3(float frame, Vec3_2a8840 *out);
-    void FUN_0028ad20(float frame, int *out);
     void FUN_0028ac90(float frame, unsigned char *out);
 };
 
@@ -26,12 +26,10 @@ struct ChannelSet_2a8840 {
 };
 
 struct Source_2a8840 {
-    ChannelSet_2a8840 *FUN_00288a10(int index);
 };
 
 struct Track {
     char data[0x110 - 0x2c];
-    Source_2a8840 *FUN_00284f50();
     float FUN_00284f70();
 };
 
@@ -57,7 +55,6 @@ public:
 };
 
 struct Sink_2a8840 {
-    void FUN_00293e90(int color);
 };
 
 struct Globals_2a8840 {
@@ -109,17 +106,17 @@ void LightAnimationController::vfunc_27()
         Scalar_2a8840 s;
         Vec3_2a8840 v;
     } fr;
-    Source_2a8840 *src = track.FUN_00284f50();
+    Source_2a8840 *src = ((Source_2a8840 *)((owners::Target_284f50 *)&track)->FUN_00284f50());
     fr.s.f = track.FUN_00284f70();
-    ChannelSet_2a8840 *cs = src->FUN_00288a10(0);
+    ChannelSet_2a8840 *cs = ((ChannelSet_2a8840 *)((owners::Target_288a10 *)src)->FUN_00288a10(0));
     Channel *c;
 
     if (light == 0) {
         c = cs->FUN_00288960(0x524c43, 0x524c43);
         if (c != 0) {
-            c->FUN_0028ad20(fr.s.f, &fr.s.i);
+            ((owners::Track_28ad20 *)c)->FUN_0028ad20(fr.s.f, (unsigned int *)(&fr.s.i));
             if ((*(Globals_2a8840**)&DAT_0052c2b4)->sink != 0) {
-                (*(Globals_2a8840**)&DAT_0052c2b4)->sink->FUN_00293e90(fr.s.i);
+                ((owners::C_293e90 *)((*(Globals_2a8840**)&DAT_0052c2b4)->sink))->FUN_00293e90(fr.s.i);
             }
         }
         return;
@@ -128,7 +125,7 @@ void LightAnimationController::vfunc_27()
     c = cs->FUN_00288960(0x524c43, 0x524c43);
     float frame = fr.s.f;
     if (c != 0) {
-        c->FUN_0028ad20(frame, &fr.s.i);
+        ((owners::Track_28ad20 *)c)->FUN_0028ad20(frame, (unsigned int *)(&fr.s.i));
         light->FUN_002a07a0(fr.s.i);
     }
 

@@ -2,6 +2,7 @@
 // FUN_001d6ec0 @ 0x001d6ec0
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 unsigned __int64 FUN_0027afb0(const char* s) throw();
 
 struct IdBlock {
@@ -25,8 +26,6 @@ struct Boss {
 };
 
 struct Level_1d6ec0 {
-    Scene_1d6ec0* FUN_00086310();
-    Boss* FUN_00086340();
 };
 
 struct Meter_1d6ec0 {
@@ -114,7 +113,7 @@ bool Receiver_1d6ec0::FUN_001d6ec0(int amount, Ref_1d6ec0* victim, bool forced)
     if (tagBlock) {
         unsigned int lo = tagBlock->idLo;
         unsigned int hi = tagBlock->idHi;
-        Scene_1d6ec0* scene = DAT_004dd700->level->FUN_00086310();
+        Scene_1d6ec0* scene = ((Scene_1d6ec0 *)((owners::C_86310 *)(DAT_004dd700->level))->FUN_00086310());
         if (scene) {
             int a = scene->stats.FUN_00088fa0();
             int b = scene->stats.FUN_00088fb0();
@@ -163,7 +162,7 @@ bool Receiver_1d6ec0::FUN_001d6ec0(int amount, Ref_1d6ec0* victim, bool forced)
         }
         World* g = DAT_004dd700;
         if (ft == g->roster->player) {
-            if (g->level->FUN_00086340()->FUN_00092940(0x14))
+            if (((Boss *)((owners::A_86340 *)(g->level))->FUN_00086340())->FUN_00092940(0x14))
                 dmg += dmg;
         }
     }

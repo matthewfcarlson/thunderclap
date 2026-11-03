@@ -1,5 +1,5 @@
+#include "gen/owners.h"
 struct Item_adc30 {
-    int go();
 };
 struct Obj_adc30 {
     char pad[0x10];
@@ -15,7 +15,7 @@ int Obj_adc30::run() {
         Item_adc30** p = base;
         do {
             if (*p != 0)
-                return base[i]->go();
+                return ((int)((owners::C_b0ef0 *)(base[i]))->FUN_000b0ef0());
             ++i;
             ++p;
         } while (i < n);

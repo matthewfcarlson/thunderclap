@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2829 inputs, branch coverage 78/83, incomplete)
 // FUN_003369c0 @ 0x003369c0
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Entry {
     char pad0[8];
     int type;
@@ -12,10 +13,8 @@ struct Header {
     char name[0x40];
     int count;
     Entry entries[1];
-    Entry* FUN_00337090(int index);
 };
 struct Pool {
-    char* FUN_00337d60(unsigned int size, unsigned int align);
 };
 extern Pool DAT_0055dbb0;
 extern unsigned int DAT_0055dbb4;
@@ -33,7 +32,7 @@ class Relocator {
 void Relocator::FUN_003369c0(char swap) {
     int count = hdr->count;
     for (int i = 0; i < count; i++) {
-        Entry* e = hdr->FUN_00337090(i);
+        Entry* e = ((Entry *)((owners::Thing_337090 *)hdr)->FUN_00337090(i));
         unsigned int* p;
         hulk_uintptr v;
         switch (e->type) {
@@ -164,7 +163,7 @@ void Relocator::FUN_003369c0(char swap) {
     while (*t++ != 0) {
     }
     unsigned int len = (unsigned int)(t - s - 1);
-    char* dst = DAT_0055dbb0.FUN_00337d60(len + 1, 4);
+    char* dst = ((char *)((owners::Allocator_337d60 *)&DAT_0055dbb0)->FUN_00337d60(len + 1, 4));
     char* d = dst;
     const char* r = hdr->name;
     char c;
@@ -176,7 +175,7 @@ void Relocator::FUN_003369c0(char swap) {
     off = REBASE(off);
     if (swap)
         off = FUN_00335270(off);
-    unsigned int* out = (unsigned int*)DAT_0055dbb0.FUN_00337d60(0xc, 4);
+    unsigned int* out = (unsigned int*)((char *)((owners::Allocator_337d60 *)&DAT_0055dbb0)->FUN_00337d60(0xc, 4));
     out[0] = (hulk_uintptr)arr;
     out[1] = data2;
     out[2] = off;

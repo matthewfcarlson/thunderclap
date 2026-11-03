@@ -1,16 +1,11 @@
-class C_25720 {
-  public:
-    char pad[0x58c];
-    int count;
-    void f(int);
-};
+#include "gen/owners.h"
 struct E_25720 {
     char x[0x50];
     int key;
     char y[0x10];
     char flag;
 };
-void C_25720::f(int key) {
+void owners::C_25720::FUN_00025720(int key) {
     int n = count;
     int i = 0;
     if (n > 0) {

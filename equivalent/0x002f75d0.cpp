@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_002f75d0 @ 0x002f75d0
 #include "decls/data/engine/physics.h"
+#include "gen/owners.h"
 
 struct Name_2f75d0 {
     char data[8];
@@ -20,7 +21,6 @@ class Obj_2f75d0;
 struct Sub_2f75d0 {
     char data[0x64];
     void FUN_002f7530(Sub_2f75d0 *other);
-    void FUN_00308a70(Obj_2f75d0 *owner);
 };
 
 
@@ -183,7 +183,7 @@ void Obj_2f75d0::FUN_002f75d0(Obj_2f75d0 *dst, int arg)
     dst->f12c = f12c;
     dst->b148 = 1;
     dst->sub.FUN_002f7530(&sub);
-    dst->sub.FUN_00308a70(dst);
+    ((owners::C_308a70 *)&(dst->sub))->FUN_00308a70((hulk_intptr)(Obj_2f75d0 *)dst);
     dst->fc8 = 0;
     dst->fc4 = 0;
     dst->fc0 = 0;

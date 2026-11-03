@@ -1,11 +1,10 @@
 #include "decls/data/game/global.h"
 // data: gState_1ebc80 = DAT_004e36d8, sDialogue = DAT_00424220, sObjects = DAT_00424208
+#include "gen/owners.h"
 
 class Builder {
   public:
-    void Init();
     void Add(const char*);
-    void Finish();
 };
 class Runner_1ebc80 {
   public:
@@ -26,12 +25,12 @@ void __stdcall target(void* param1, const char* param2) {
     if (!*param2)
         return;
     Builder* b = (Builder*)local;
-    b->Init();
+    ((owners::Obj_1ef320 *)b)->FUN_001ef320();
     b->Add(DAT_00424208);
     b->Add(DAT_00424220);
     b->Add(DAT_0042424c);
     State_1ebc80* s = (*(State_1ebc80**)&DAT_004e36d8);
     if (s->enabled)
         s->runner->Run(local, (char*)param1 + 8, param2, 100.0f);
-    b->Finish();
+    ((owners::C_1ef350 *)b)->FUN_001ef350();
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 599 inputs, branch coverage 14/14)
 // FUN_00024840 @ 0x00024840
+#include "gen/owners.h"
 union Hash_24840 {
     unsigned __int64 q;
     unsigned int w[2];
@@ -18,7 +19,6 @@ struct Actor_24840 {
 };
 
 struct Registry_24840 {
-    Actor_24840 *FUN_00059c10(int id);
 };
 
 struct Manager_24840 {
@@ -45,7 +45,7 @@ int Group_24840::FUN_00024840(const char *name)
     Hash_24840 h;
     h.q = FUN_0027b020(name).q;
     for (int i = 0; i < count; i++) {
-        Actor_24840 *a = manager->registry->FUN_00059c10(ids[i]);
+        Actor_24840 *a = ((Actor_24840 *)((owners::ThisWrap_00059c10 *)(manager->registry))->FUN_00059c10((void *)(hulk_uintptr)(int)(ids[i])));
         if (a != 0 && a != self) {
             Target_24840 *t = a->target;
             if (t != 0 && t->hashLo == h.w[0] && t->hashHi == h.w[1])

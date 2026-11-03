@@ -1,9 +1,4 @@
-class Obj_12f10 {
-  public:
-    char pad[0x70];
-    int m70;
-    int* Get70();
-};
-int* Obj_12f10::Get70() {
+#include "gen/owners.h"
+int* owners::Obj_12f10::FUN_00012f10() {
     return &m70;
 }

@@ -1,11 +1,6 @@
-class Obj_77df0 {
-  public:
-    char pad[0xc];
-    int value;
-    bool Set(int x);
-};
+#include "gen/owners.h"
 
-bool Obj_77df0::Set(int x) {
+bool owners::Obj_77df0::FUN_00077df0(int x) {
     value = x;
     return true;
 }

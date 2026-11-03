@@ -1,11 +1,6 @@
-class Obj_139ff0 {
-  public:
-    char Pad[0x50];
-    int mField;
-    char Fn(int value);
-};
+#include "gen/owners.h"
 
-char Obj_139ff0::Fn(int value) {
+char owners::Obj_139ff0::FUN_00139ff0(int value) {
     mField = value;
     return 1;
 }

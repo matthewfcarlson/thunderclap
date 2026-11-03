@@ -1,11 +1,6 @@
-class X_68c30 {
-  public:
-    char pad[0x28];
-    int m28;
-    char Fn(int a);
-};
+#include "gen/owners.h"
 
-char X_68c30::Fn(int a) {
+char owners::X_68c30::FUN_00068c30(int a) {
     m28 = a;
     return 1;
 }

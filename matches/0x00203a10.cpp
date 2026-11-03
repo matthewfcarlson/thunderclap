@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 class Obj_203a10 {
   public:
@@ -6,7 +7,6 @@ class Obj_203a10 {
 };
 class Manager_203a10 {
   public:
-    Obj_203a10* Get();
 };
 class Root_203a10 {
   public:
@@ -14,16 +14,9 @@ class Root_203a10 {
     Manager_203a10* mgr;
 };
 extern Root_203a10* gRoot_203a10;
-class C_203a10 {
-  public:
-    char pad[0xaa4];
-    char name[0x20];
-    void Apply(int);
-    void Run();
-};
-void C_203a10::Run() {
+void owners::C_203a10::FUN_00203a10() {
     strncpy(name, "hulk", 0x20);
-    Obj_203a10* o = gRoot_203a10->mgr->Get();
+    Obj_203a10* o = ((Obj_203a10 *)((owners::A_86340 *)(gRoot_203a10->mgr))->FUN_00086340());
     if (o != 0) {
         int i = 0;
         while (o->A(i) || !o->B(i)) {

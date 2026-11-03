@@ -2,10 +2,11 @@
 // FUN_00117da0 @ 0x00117da0
 // cl-flags: /GS
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Bounds_117da0 { char pad[0x18]; float lowX, highX, lowY, highY; };
 struct Result_117da0;
 struct Link_117da0 { Result_117da0* FUN_00059a30(); };
-struct Source_117da0 { Link_117da0* FUN_000592a0(); };
+struct Source_117da0 {  };
 struct Item_117da0 { char pad[0xb4]; unsigned valueB4, valueB8; unsigned FUN_001034d0(); };
 struct Provider_117da0 { Item_117da0* FUN_000fdc40(); };
 struct Result_117da0 { char pad[0x10]; unsigned* id; char pad2[0x1ca0-0x14]; Provider_117da0* provider; };
@@ -21,7 +22,7 @@ bool Target_117da0::run() {
  absolute.f = magnitude; absolute.u &= 0x7fffffff;
  bool ok = inX && inY && absolute.f <= 1e-05f;
  if (source) {
-  Link_117da0* link = source->FUN_000592a0();
+  Link_117da0* link = ((Link_117da0 *)((owners::Object_592a0 *)source)->FUN_000592a0());
   Result_117da0* result = link->FUN_00059a30();
   if (result && ok) {
    Item_117da0* item = result->provider->FUN_000fdc40();

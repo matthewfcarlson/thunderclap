@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 22/22)
 // hulkfight::motion::WallExitAction::vfunc_5 @ 0x001401c0
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Vec3_1401c0 {
     float x, y, z;
     bool FUN_0022d2b0(const Vec3_1401c0* other, float eps);
@@ -17,7 +18,6 @@ float __cdecl FUN_00224fc0(float from, float to);
 void __cdecl FUN_00224d70(float angle, Vec3_1401c0* v);
 
 struct Xform_1401c0 {
-    void FUN_0022be40(Vec3_1401c0* pos);
     void FUN_00221d20(float v);
 };
 
@@ -44,8 +44,6 @@ struct Fighter_1401c0 {
     Vec3_1401c0 d;
     char pad1b04[0x2064 - 0x1b04];
     Vec3_1401c0 vel;
-    void FUN_000359c0(int v);
-    void FUN_000357a0(Vec3_1401c0* v);
 };
 
 struct Anchor_1401c0 {
@@ -54,7 +52,6 @@ struct Anchor_1401c0 {
 };
 
 struct Owner_1401c0 {
-    Anchor_1401c0* FUN_000592a0();
 };
 
 struct Params {
@@ -89,9 +86,9 @@ bool WallExitAction::vfunc_5(int skip, float dt)
     if (target == 0) {
         return false;
     }
-    Anchor_1401c0* anchor = owner->FUN_000592a0();
+    Anchor_1401c0* anchor = ((Anchor_1401c0 *)((owners::Object_592a0 *)owner)->FUN_000592a0());
     Fighter_1401c0* fighter = anchor->FUN_00059a30();
-    fighter->FUN_000359c0(3);
+    ((owners::C_359c0 *)fighter)->FUN_000359c0(3);
 
     hulk_freg s1 = FUN_00224f10(&vel);
     Vec3_1401c0 fv = fighter->vel;
@@ -175,10 +172,10 @@ bool WallExitAction::vfunc_5(int skip, float dt)
             h.x = n.x * d;
             h.y = n.y * d;
             h.z = n.z * d;
-            fighter->FUN_000357a0(&h);
+            ((owners::C_357a0 *)fighter)->FUN_000357a0((float *)(Vec3_1401c0 *)(&h));
         }
     }
-    target->xform.FUN_0022be40(&push);
+    ((owners::Target_22be40 *)&(target->xform))->FUN_0022be40((const int *)(Vec3_1401c0 *)(&push));
     float arg1 = FUN_00224f10(&vel);
     target->xform.FUN_00221d20(arg1);
     return true;

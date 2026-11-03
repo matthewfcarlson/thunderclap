@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Sub_204350 {
     int Count();
 };
@@ -8,7 +9,6 @@ struct Item_204350 {
 struct Obj_204350 {
     char pad[4];
     Obj_204350* child;
-    hulk_intptr Find(int);
 };
 extern Obj_204350* GetQuery();
 char __stdcall Target(int a, int b, int c) {
@@ -29,7 +29,7 @@ char __stdcall Target(int a, int b, int c) {
     for (int i = 0; i < n; ++i) {
         q = GetQuery();
         h = q->child;
-        Item_204350* item = (Item_204350*)h->Find(i);
+        Item_204350* item = (Item_204350*)((hulk_intptr)((owners::Thing_1c7f80 *)h)->FUN_001c7f80((unsigned int)i));
         if (item && item->Check(args))
             return 1;
     }

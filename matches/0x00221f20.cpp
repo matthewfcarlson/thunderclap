@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class Obj;
 struct Sub {
     void reset(Obj*);
@@ -9,19 +10,18 @@ class Obj {
     int state;
 
   public:
-    void work(int a, int b);
     void dispatch(int a, int b);
 };
 void Obj::dispatch(int a, int b) {
     switch (state) {
     case 0:
     case 2:
-        work(a, b);
+        ((owners::Mat_22c2b0 *)this)->FUN_0022c2b0((float *)(hulk_uintptr)(int)a, (float *)(hulk_uintptr)(int)b);
         break;
     case 1:
         sub.reset(this);
         state = 0;
-        work(a, b);
+        ((owners::Mat_22c2b0 *)this)->FUN_0022c2b0((float *)(hulk_uintptr)(int)a, (float *)(hulk_uintptr)(int)b);
         break;
     }
 }

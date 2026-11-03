@@ -2,6 +2,7 @@
 // FUN_001ecda0 @ 0x001ecda0
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 extern "C" int strcmp(const char *a, const char *b);
 extern "C" double sqrt(double);
 
@@ -15,7 +16,6 @@ struct Id_1ecda0 {
     void FUN_0027af50();
     void FUN_0027af60(unsigned __int64 value);
     void FUN_0027af70(const Id_1ecda0 *src);
-    void FUN_0027b040(const char *name);
     Id_1ecda0 *FUN_0027b0e0(const char *name);
 };
 
@@ -54,8 +54,6 @@ struct Actor_1ecda0 {
 
 struct Query_1ecda0 {
     char data[0x44];
-    Query_1ecda0 *FUN_001ef320();
-    void FUN_001ef350();
     void FUN_001ef370(const char *name);
     void FUN_001ef3c0(IdCopy_1ecda0 id);
 };
@@ -79,11 +77,9 @@ struct Flags_1ecda0 {
 };
 
 struct Singleton_4dd6ec {
-    Flags_1ecda0 *FUN_00086340();
 };
 
 struct Lookup_1ecda0 {
-    void *FUN_00086310();
 };
 
 struct Spawner_1ecda0 {
@@ -143,14 +139,14 @@ void Handler_1ecda0::FUN_001ecda0(const char *a1, int a2, const char *a3, const 
             f.id1.FUN_0027af70(f.tb.temp.FUN_0027b0e0(a1));
             f.tb.temp.FUN_0027af50();
         }
-        online = DAT_004dd6ec->FUN_00086340()->FUN_00092de0(2);
+        online = ((Flags_1ecda0 *)((owners::A_86340 *)DAT_004dd6ec)->FUN_00086340())->FUN_00092de0(2);
 
         // A named target other than hulk/joefixit skips the lookup; the nearest actor's
         // name is looked up even when it is null.
         const char *name;
         bool lookup = true;
         if (a3 != 0 && a3[0] != 0) {
-            f.id2.FUN_0027b040(a3);
+            ((owners::Target_27b040 *)&(f.id2))->FUN_0027b040((hulk_uintptr)a3);
             if (strcmp(a3, "hulk") != 0 && strcmp(a3, "joefixit") != 0)
                 lookup = false;
             else {
@@ -197,16 +193,16 @@ void Handler_1ecda0::FUN_001ecda0(const char *a1, int a2, const char *a3, const 
             break;
         if (a4 == 0 || a4[0] == 0)
             break;
-        f.q.FUN_001ef320();
+        ((Query_1ecda0 *)((owners::Obj_1ef320 *)&(f.q))->FUN_001ef320());
         f.q.FUN_001ef370("Objects");
         f.q.FUN_001ef370("Dialogue");
         f.q.FUN_001ef3c0(f.id1);
-        void *target = f.self->lookup->FUN_00086310();
+        void *target = ((void *)((owners::C_86310 *)(f.self->lookup))->FUN_00086310());
         if (target != 0)
             FUN_001eb440(target, &f.q);
         if ((*(SpawnGlobals_1ecda0**)&DAT_004e36d8)->enabled)
             (*(SpawnGlobals_1ecda0**)&DAT_004e36d8)->spawner->FUN_001efe20(&f.q, &f.id2, a4, 100.0f);
-        f.q.FUN_001ef350();
+        ((owners::C_1ef350 *)&(f.q))->FUN_001ef350();
     } while (0);
     f.id2.FUN_0027af50();
     f.id1.FUN_0027af50();

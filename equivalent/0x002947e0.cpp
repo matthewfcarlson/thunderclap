@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19853 inputs, branch coverage 4/4)
 // FUN_002947e0 @ 0x002947e0
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct V3_2947e0 {
     float x, y, z;
 };
 
 struct Matrix4_2947e0 {
     float m[16];
-    void FUN_0022c2b0(const V3_2947e0 *in, V3_2947e0 *out);
 };
 
 class Frame_2947e0 {
@@ -41,7 +41,7 @@ void Holder_2947e0::FUN_002947e0(V3_2947e0 in, V3_2947e0 *out) {
         return;
     }
     V3_2947e0 local;
-    frame->GetMatrix()->FUN_0022c2b0(&in, &local);
+    ((owners::Mat_22c2b0 *)(frame->GetMatrix()))->FUN_0022c2b0((float *)(const V3_2947e0 *)(&in), (float *)(V3_2947e0 *)(&local));
     if (local.z == 0.0f) {
         out->x = 0;
         out->y = 0;

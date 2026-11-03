@@ -1,5 +1,6 @@
 // FUN_001e54b0 @ 0x001e54b0
 #include "gen/global.h"
+#include "gen/owners.h"
 
 struct Id_1e54b0 {
     unsigned int lo, hi;
@@ -14,7 +15,6 @@ struct Vec3_1e54b0 {
 struct Transform_1e54b0 {
     char data[0x3c];
     void FUN_0022b980();
-    void FUN_0022be40(const Vec3_1e54b0 *pos);
 };
 
 struct CSPManager_nv_1e54b0 {
@@ -37,7 +37,7 @@ void CSPManager::FUN_001e54b0(const char* nameA, const char* nameB, float x, flo
     f.u.pos.x = x;
     f.u.pos.y = y;
     f.u.pos.z = z;
-    f.xf.FUN_0022be40(&f.u.pos);
+    ((owners::Target_22be40 *)&(f.xf))->FUN_0022be40((const int *)(const Vec3_1e54b0 *)(&f.u.pos));
     f.u.b.FUN_0027b0e0(nameB);
     f.a.FUN_0027b0e0(nameA);
     ((CSPManager_nv_1e54b0*)this)->FUN_001e43b0(&f.a, &f.u.b, &f.xf, 0);

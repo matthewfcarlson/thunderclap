@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19683 inputs, branch coverage 62/64, incomplete)
 // FUN_0002a4b0 @ 0x0002a4b0
 // cl-flags: /GS
+#include "gen/owners.h"
 struct Pair_2a4b0 {
     int x, y;
 };
@@ -43,11 +44,9 @@ struct Obj_2a4b0 {
     Q_2a4b0 *f1ca0;
     char pad1ca4[0x20b0 - 0x1ca4];
     int f20b0;
-    int FUN_00036c60(int i);
     int FUN_00036d00();
     void FUN_000385a0(int a, int b);
     void FUN_0003a680(int a, int b, int c, int d, int e, int f, int g, int h);
-    void FUN_0003ea10(int v);
 };
 
 struct Inner_2a4b0 {
@@ -56,7 +55,6 @@ struct Inner_2a4b0 {
 };
 
 struct List_2a4b0 {
-    Obj_2a4b0 *FUN_00059c10(int id);
     void FUN_00059e50(int id);
 };
 
@@ -67,7 +65,6 @@ struct Cursor_2a4b0 {
 struct UI_2a4b0 {
     char pad0[0x88];
     Cursor_2a4b0 *f88;
-    Cursor_2a4b0 *FUN_000cae70();
 };
 
 struct Ctx_2a4b0;
@@ -87,7 +84,6 @@ struct CtxC {
 
 struct Buf_2a4b0 {
     char data[0xb0];
-    void FUN_001c9a20(int v);
 };
 
 struct Ctx30 {
@@ -137,7 +133,6 @@ public:
     char padd4[0x124 - 0xd4];
     Holder_2a4b0 *f124;
     char FUN_0002a4b0(int index, char flag);
-    void FUN_00024720(int a, int b);
 };
 
 struct Frame_2a4b0 {
@@ -151,13 +146,13 @@ char Mgr_2a4b0::FUN_0002a4b0(int index, char flag)
     if (index < 0 || index >= count) {
         return 0;
     }
-    Obj_2a4b0 *o = ctx->list->FUN_00059c10(ids[index]);
+    Obj_2a4b0 *o = ((Obj_2a4b0 *)((owners::ThisWrap_00059c10 *)(ctx->list))->FUN_00059c10((void *)(hulk_uintptr)(int)(ids[index])));
     if (o) {
         Sink_2a4b0 *sink = FUN_0027f250();
         if (sink) {
             for (unsigned int i = 0; i < FUN_00036c80(); i++)
             {
-                int tmp1 = o->FUN_00036c60(i);
+                int tmp1 = ((int)((owners::C_36c60 *)o)->FUN_00036c60((unsigned int)i));
                 sink->FUN_0027ffb0(tmp1);
             }
         }
@@ -167,14 +162,14 @@ char Mgr_2a4b0::FUN_0002a4b0(int index, char flag)
         }
         Inner_2a4b0 *inner = o->f11c;
         UI_2a4b0 *ui = ctx->c3c->ui;
-        if (inner && inner->f1b0 != 1 && ui && ui->FUN_000cae70()) {
+        if (inner && inner->f1b0 != 1 && ui && ((Cursor_2a4b0 *)((owners::C_cae70 *)ui)->FUN_000cae70())) {
             int v = o->FUN_00036d00();
             int arg1_ = v;
-            int slot = ui->FUN_000cae70()->FUN_000c7c60(1, arg1_);
+            int slot = ((Cursor_2a4b0 *)((owners::C_cae70 *)ui)->FUN_000cae70())->FUN_000c7c60(1, arg1_);
             if (slot >= 0)
             {
                 int arg2_ = slot;
-                ui->FUN_000cae70()->FUN_000c9100(arg2_);
+                ((Cursor_2a4b0 *)((owners::C_cae70 *)ui)->FUN_000cae70())->FUN_000c9100(arg2_);
             }
         }
         if (o->f128 && ctx->cc)
@@ -190,11 +185,11 @@ char Mgr_2a4b0::FUN_0002a4b0(int index, char flag)
     f.pair.y = o->fc;
     Pair_2a4b0 * arg4_ = &f.pair;
     FUN_000678d0()->FUN_00065e20(arg4_);
-    FUN_00024720(o->f8, o->fc);
+    ((owners::ItemList_24720 *)this)->FUN_00024720(o->f8, o->fc);
     ctx->c8->FUN_00098e30(ctx, o->f8, o->fc);
 
     for (int i = 0; i < count; i++) {
-        Obj_2a4b0 *other = ctx->list->FUN_00059c10(ids[i]);
+        Obj_2a4b0 *other = ((Obj_2a4b0 *)((owners::ThisWrap_00059c10 *)(ctx->list))->FUN_00059c10((void *)(hulk_uintptr)(int)(ids[i])));
         if (i != index && other) {
             if (other->f330 == o)
                 other->f330 = 0;
@@ -226,8 +221,8 @@ char Mgr_2a4b0::FUN_0002a4b0(int index, char flag)
         FUN_001b6580()->FUN_001b4c40(arg5_);
     }
     if (o->f20b0 == 0)
-        o->FUN_0003ea10(1);
-    o->FUN_0003ea10(2);
+        ((owners::Controller_3ea10 *)o)->FUN_0003ea10(1);
+    ((owners::Controller_3ea10 *)o)->FUN_0003ea10(2);
 
     if (index < count) {
         count--;
@@ -242,7 +237,7 @@ char Mgr_2a4b0::FUN_0002a4b0(int index, char flag)
 
     Ctx30 *c30 = ctx->c30;
     if (c30) {
-        f.buf.FUN_001c9a20(*o->f10);
+        ((owners::Obj_1c9a20 *)&(f.buf))->FUN_001c9a20((unsigned int)(*o->f10));
         c30->FUN_001cbc20(&f.buf);
     }
     ctx->list->FUN_00059e50(*o->f10);

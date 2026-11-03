@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 75 inputs, branch coverage 30/30)
 // FUN_0030f870 @ 0x0030f870
+#include "gen/owners.h"
 class Elem_30f870 {
 public:
     int index;
@@ -9,8 +10,6 @@ public:
     char pad10[0xc0 - 0x10];
     void FUN_0030ebd0();
     void FUN_0030ebe0(const Elem_30f870 *src);
-    void FUN_0030ec20(int depth);
-    void FUN_0030ec70(Elem_30f870 *child);
 };
 
 void FUN_0030eba0();
@@ -77,9 +76,9 @@ void Skeleton::FUN_0030f870(Skeleton *other)
     for (int i = 1; i < n; i++) {
         elems[i].index = i;
         elems[i].parent = &elems[shared->parents[i]];
-        elems[i].parent->FUN_0030ec20(elems[i].parent->depth + 1);
+        ((owners::A_30ec20 *)(elems[i].parent))->FUN_0030ec20(elems[i].parent->depth + 1);
         elems[i].FUN_0030ebe0(&other->elems[i]);
     }
     for (int i = 1; i < n; i++)
-        elems[shared->parents[i]].FUN_0030ec70(&elems[i]);
+        ((owners::Buffer_30ec70 *)&(elems[shared->parents[i]]))->FUN_0030ec70((hulk_uintptr)(Elem_30f870 *)(&elems[i]));
 }

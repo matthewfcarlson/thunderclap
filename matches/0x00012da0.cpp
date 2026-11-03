@@ -1,9 +1,4 @@
-class Obj_12da0 {
-  public:
-    char pad[0x30];
-    char data;
-    char* Get();
-};
-char* Obj_12da0::Get() {
+#include "gen/owners.h"
+char* owners::Obj_12da0::FUN_00012da0() {
     return &data;
 }

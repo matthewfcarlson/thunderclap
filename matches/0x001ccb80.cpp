@@ -1,9 +1,5 @@
-class C_1ccb80 {
-  public:
-    char pad[0x1190];
-    void Init();
-};
-void C_1ccb80::Init() {
+#include "gen/owners.h"
+void owners::C_1ccb80::FUN_001ccb80() {
     char* p = (char*)this + 0x214;
     int i = 0x10;
     do {

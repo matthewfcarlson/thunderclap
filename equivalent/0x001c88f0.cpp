@@ -6,6 +6,7 @@
 #include "decls/data/game/Render.h"
 #include "decls/data/game/Render/Canvas.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 
 struct Vec3_1c88f0 {
@@ -24,7 +25,6 @@ struct Mode_1c88f0 {
 };
 
 struct Singleton_4dd6ec {
-    Mode_1c88f0 *FUN_00086310();
 };
 
 class Gfx_1c88f0 {
@@ -143,7 +143,6 @@ struct ItemB {
     char pad18[0xa8 - 0x18];
     char bA8;
     void FUN_001c4b50(Vec3_1c88f0 *out);
-    void FUN_001c4b20();
 };
 
 struct SubObj_1c88f0 {
@@ -269,7 +268,7 @@ void Mgr_1c88f0::FUN_001c88f0(Ctx_1c88f0 *ctx)
                 it->FUN_001c68c0(ctx);
         }
         char bl = 0;
-        char *mode = DAT_004dd6ec->FUN_00086310()->FUN_000897f0();
+        char *mode = ((Mode_1c88f0 *)((owners::C_86310 *)DAT_004dd6ec)->FUN_00086310())->FUN_000897f0();
         bool skipNear = false;
         if (mode[0] == 'd' && mode[1] == 't') {
             if ((*(char*)&DAT_004e23a0))
@@ -358,7 +357,7 @@ void Mgr_1c88f0::FUN_001c88f0(Ctx_1c88f0 *ctx)
             continue;
         m->FUN_001c4b50(&f.v);
         if (!ctx->vis.FUN_001c2820(&f.v)) {
-            m->FUN_001c4b20();
+            ((owners::Target_1c4b20 *)m)->FUN_001c4b20();
             continue;
         }
         if (m->f14 == 0) {

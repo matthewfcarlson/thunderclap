@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 10/10)
 // pure3d::CompositeDrawable::vfunc_12 @ 0x002992c0
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 
 struct Mat_2992c0 { float m[16]; };
 
@@ -8,7 +9,6 @@ struct Box_2992c0 {
     float min[3];
     float max[3];
     void FUN_00298530(const Mat_2992c0 *m, const Box_2992c0 *src);
-    void FUN_000a87f0(const float *p);
     float *FUN_000a8890(float *tmp);
 };
 
@@ -53,11 +53,10 @@ struct Layout_2992c0 {
 struct Skeleton_2992c0 {
     char pad0[0x1c];
     Mat_2992c0 *matrices;
-    void FUN_00284820(int n);
 };
 
 void pure3d::CompositeDrawable::vfunc_12() {
-    (*(Skeleton_2992c0 * *)&this->f_40)->FUN_00284820(0);
+    ((owners::C_284820 *)((*(Skeleton_2992c0 * *)&this->f_40)))->FUN_00284820((hulk_intptr)0);
 
     (*(Box_2992c0 *)&this->f_14).min[0] = 1e12f;
     (*(Box_2992c0 *)&this->f_14).min[1] = 1e12f;
@@ -80,8 +79,8 @@ void pure3d::CompositeDrawable::vfunc_12() {
             box = d->bounds;
             if (d->vfunc_15() != 2 && d->vfunc_15() != 0x40)
                 box.FUN_00298530(&(*(Skeleton_2992c0 * *)&this->f_40)->matrices[e->matrixIndex], &box);
-            (*(Box_2992c0 *)&this->f_14).FUN_000a87f0(box.min);
-            (*(Box_2992c0 *)&this->f_14).FUN_000a87f0(box.max);
+            ((owners::V_a87f0 *)&((*(Box_2992c0 *)&this->f_14)))->FUN_000a87f0((owners::V_a87f0 *)(box.min));
+            ((owners::V_a87f0 *)&((*(Box_2992c0 *)&this->f_14)))->FUN_000a87f0((owners::V_a87f0 *)(box.max));
         }
     }
 

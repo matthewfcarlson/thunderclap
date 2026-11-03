@@ -1,9 +1,4 @@
-class C_2287a0 {
-    char pad[0x854];
-
-  public:
-    float Get(int i);
-};
-float C_2287a0::Get(int i) {
+#include "gen/owners.h"
+float owners::C_2287a0::FUN_002287a0(int i) {
     return ((float*)(pad + 0x854))[i];
 }

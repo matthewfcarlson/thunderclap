@@ -1,18 +1,8 @@
 #include "decls/data/game/hulkfight.h"
 // data: gCounter_362f0 = DAT_004dc2a8
+#include "gen/owners.h"
 
-class Obj_362f0 {
-    char pad0[0x398];
-
-  public:
-    unsigned char flag;
-    char pad1[3];
-    int mode;
-    char pad2[0x1d4c - 0x3a0];
-    unsigned char enabled;
-    void Update();
-};
-void Obj_362f0::Update() {
+void owners::Obj_362f0::FUN_000362f0() {
     if (enabled) {
         int n = ++(*(int*)&DAT_004dc2a8);
         flag = (n % 2 == 0);

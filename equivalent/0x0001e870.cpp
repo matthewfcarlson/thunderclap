@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20022 inputs, branch coverage 20/20)
 // FUN_0001e870 @ 0x0001e870
 #include "gen/global.h"
+#include "gen/owners.h"
 struct V3_1e870 {
     float x, y, z;
 };
@@ -15,7 +16,6 @@ struct Drawable_1e870;
 struct Source_1e870 {
     char pad0[0xfc];
     int state;
-    RefObj_1e870 *FUN_001d72e0();
 };
 
 struct Request_1e870 {
@@ -70,8 +70,6 @@ struct Pad_1e870 {
     RefObj_1e870 *f12c;
     char pad130[0x334 - 0x130];
     int f334;
-    unsigned int FUN_00036020();
-    int FUN_00035ef0(int a);
     void FUN_0003a9d0(RefObj_1e870 *obj);
 };
 
@@ -114,17 +112,17 @@ bool Spawner_1e870::FUN_0001e870(Source_1e870 *src, const V3_1e870 *pos)
         return false;
 
     Pad_1e870 *pad = FUN_00059a30(FUN_000592a0(owner));
-    if (pad->FUN_00036020())
+    if (((unsigned int)((owners::Thing_36020 *)pad)->FUN_00036020()))
         return false;
     if (pad->f334)
         return false;
-    if (pad->FUN_00035ef0(0))
+    if (((int)((owners::C_35ef0 *)pad)->FUN_00035ef0((hulk_intptr)0)))
         return false;
-    pad->FUN_0003a9d0(src->FUN_001d72e0());
+    pad->FUN_0003a9d0(((RefObj_1e870 *)((owners::C_1d72e0 *)src)->FUN_001d72e0()));
 
     Request_1e870 req;
     req.FUN_00059820();
-    FUN_00018810(&req.f4c, src->FUN_001d72e0());
+    FUN_00018810(&req.f4c, ((RefObj_1e870 *)((owners::C_1d72e0 *)src)->FUN_001d72e0()));
     FUN_00018810(&req.f50, pad->f12c);
     FUN_000187a0(&req.f6c, ref);
     req.active = 1;
@@ -134,7 +132,7 @@ bool Spawner_1e870::FUN_0001e870(Source_1e870 *src, const V3_1e870 *pos)
     if (job)
         job = ((CFightParamsCollision_nv_1e870*)(((CFightParamsCollision*)(job))))->FUN_000598e0(*pad->chain, &req);
     job->vfunc_0();
-    ((CFightParamsCollision_nv_1e870*)(((CFightParamsCollision*)(job))))->FUN_00059790(src->FUN_001d72e0());
+    ((CFightParamsCollision_nv_1e870*)(((CFightParamsCollision*)(job))))->FUN_00059790(((RefObj_1e870 *)((owners::C_1d72e0 *)src)->FUN_001d72e0()));
     Slot_1e870 *slot = holder->queue->Submit(job, 0);
     if (slot) {
         slot->FUN_00231ad0((Sink *)&pad->f0dc, job, 0);

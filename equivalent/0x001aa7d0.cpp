@@ -2,6 +2,7 @@
 // FUN_001aa7d0 @ 0x001aa7d0
 // cl-flags: /GS
 #include "decls/data/game/hulkfight/scenario.h"
+#include "gen/owners.h"
 
 extern "C" int __cdecl sprintf(char *, const char *, ...);
 struct Resource_1aa7d0 {
@@ -10,7 +11,6 @@ struct Resource_1aa7d0 {
 struct Controller_1aa7d0 {
  void FUN_00207960(const char *, unsigned int, int);
  const char *FUN_00203840();
- void FUN_002078d0();
 };
 struct Object {
  char pad[0x1c]; Resource_1aa7d0 *resource; char pad20[0x1ec]; Controller_1aa7d0 *controller;
@@ -31,7 +31,7 @@ bool Object::FUN_001aa7d0() {
  if(current) {
  unsigned int i=0;
  while((unsigned char)current[i]==(unsigned char)path[i] && current[i]) ++i;
- if((unsigned char)current[i]==(unsigned char)path[i]) controller->FUN_002078d0();
+ if((unsigned char)current[i]==(unsigned char)path[i]) ((owners::Obj_2078d0 *)controller)->FUN_002078d0();
  }
  }
  FUN_001aa150(); FUN_001aa2a0(); FUN_001a9f10();

@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001f4ba0 @ 0x001f4ba0
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct State_1f4ba0 {
  unsigned int first, second, value, handle, limit, extra;
  unsigned char flag;
  char pad[7];
  void FUN_0027af00();
- void FUN_0027af60(int, int);
 };
 extern unsigned int __cdecl FUN_002673a0(int,int);
 struct Object;
@@ -26,7 +26,7 @@ struct Object {
 };
 Object* Object::FUN_001f4ba0(unsigned int arg) {
  state.FUN_0027af00();
- state.FUN_0027af60(0,0);
+ ((owners::Pair_27af60 *)&state)->FUN_0027af60(0, 0);
  state.value=0;
  state.handle=FUN_002673a0(0,0);
  state.extra=0;

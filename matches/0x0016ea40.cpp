@@ -1,11 +1,6 @@
-class Foo_16ea40 {
-  public:
-    char pad[0x10];
-    int m;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char Foo_16ea40::Set(int v) {
+char owners::Foo_16ea40::FUN_0016ea40(int v) {
     m = v;
     return 1;
 }

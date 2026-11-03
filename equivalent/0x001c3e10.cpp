@@ -3,6 +3,7 @@
 #include "compat/ptr.h"
 #include "decls/data/game/Render/Canvas.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Console_1c3e10 {
     void FUN_0023f730(const char *section);
@@ -21,7 +22,6 @@ struct Target_1c3e10 {
 };
 
 struct DebugView {
-    hulk_intptr FUN_001b4420(int id);
 };
 
 struct Hub_1c3e10 {
@@ -41,7 +41,6 @@ struct Level_1c3e10 {
 };
 
 struct World {
-    Level_1c3e10 *FUN_000862a0();
     int *FUN_00086270();
 };
 
@@ -147,10 +146,10 @@ void DebugRender::FUN_001c3e10()
     if ((*(char*)&DAT_004e2321))
         FUN_002fa5b0((*(hulk_intptr*)&DAT_00554c14));
     if (DAT_004e2320 && DAT_004dd6ec) {
-        Level_1c3e10 *level = DAT_004dd6ec->FUN_000862a0();
+        Level_1c3e10 *level = ((Level_1c3e10 *)((owners::Target_862a0 *)DAT_004dd6ec)->FUN_000862a0());
         if (level) {
             int id = level->id;
-            Frame_1c3e10 *f = (Frame_1c3e10 *)DAT_004dd700->debug->FUN_001b4420(id);
+            Frame_1c3e10 *f = (Frame_1c3e10 *)((hulk_intptr)((owners::C_1b4420 *)(DAT_004dd700->debug))->FUN_001b4420(id));
             if (f)
                 f->target->SetColor(0xff000000, 0);
         }

@@ -2,12 +2,12 @@
 // data: gmgr = DAT_0052c2b0
 
 // a..c: a vector passed by value.
+#include "gen/owners.h"
 struct Vec3_294500 {
     float x, y, z;
 };
 struct Buf_294500 {
     char pad[12];
-    void put(void* p, unsigned int v);
 };
 struct Sub_294500 {
     unsigned int getval();
@@ -39,9 +39,9 @@ class Target_294500 {
 };
 void Target_294500::run(Vec3_294500 a, Buf_294500* out) {
     Buf_294500 local;
-    local.put(&a, (*(Mgr_294500**)&DAT_0052c2b0)->sub->getval());
+    ((owners::C_22d240 *)&local)->FUN_0022d240((hulk_intptr)(&a), (hulk_intptr)((*(Mgr_294500**)&DAT_0052c2b0)->sub->getval()));
     if (obj) {
         unsigned int v = obj->get();
-        out->put(&local, v);
+        ((owners::C_22d240 *)out)->FUN_0022d240((hulk_intptr)(&local), (hulk_intptr)v);
     }
 }

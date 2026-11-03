@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 30/30)
 // FUN_00097540 @ 0x00097540
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 
 struct V3_97540 {
     float x, y, z;
     float FUN_0022d110();
     float FUN_00018990();
-    void FUN_00095e80(float s, const V3_97540 *v);
 };
 
 struct Stats_97540 {
@@ -165,7 +165,7 @@ extern "C" char FUN_00097540(Level_97540 *a1, V3_97540 *a2, V3_97540 *a3, float 
     if (f.c4c.FUN_00018990() < 2.0f)
         return 1;
     f.q3.FUN_0022d110();
-    a7->FUN_00095e80(a4, &f.q3);
+    ((owners::Vec3_95e80 *)a7)->FUN_00095e80(a4, (float const *)(const V3_97540 *)(&f.q3));
     if (a9) {
         a7->y = (float)(((double)t * t * a5 * 0.5f + f.c40.y) / t);
     }

@@ -1,8 +1,4 @@
-class Thing_235960 {
-  public:
-    char pad[0x10];
-    char* Get();
-};
-char* Thing_235960::Get() {
+#include "gen/owners.h"
+char* owners::Thing_235960::FUN_00235960() {
     return (char*)this + 0x10;
 }

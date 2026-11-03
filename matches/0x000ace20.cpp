@@ -1,9 +1,4 @@
-class C_ace20 {
-  public:
-    char pad[0x14];
-    int* items;
-    int Get(int i);
-};
-int C_ace20::Get(int i) {
+#include "gen/owners.h"
+hulk_intptr owners::C_ace20::FUN_000ace20(int i) {
     return items[i];
 }

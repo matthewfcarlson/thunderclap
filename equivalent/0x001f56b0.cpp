@@ -1,14 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20011 inputs, branch coverage 16/16)
 // FUN_001f56b0 @ 0x001f56b0
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 struct Resource_1f56b0 {
  char pad0[4]; void* handle; void* owner; char pad12[12]; int active;
- void FUN_001f3400(int);
- void FUN_001f4940();
  void FUN_001f34f0();
  void FUN_001f32b0(void*,int,int);
- void FUN_001f3370(int*);
- void FUN_001f33b0(int);
 };
 extern bool __cdecl FUN_00249b40(void*);
 extern int __cdecl FUN_002673a0(const char*,int);
@@ -23,17 +20,17 @@ struct Object {
 bool Object::FUN_001f56b0(void* owner,int value) {
  if (!resource || !owner) return false;
  if (resource->handle && !FUN_00249b40(resource->handle)) {
- resource->FUN_001f3400(0); resource->FUN_001f4940();
+ ((owners::Obj_1f3400 *)resource)->FUN_001f3400(0); ((owners::Thing_1f4940 *)resource)->FUN_001f4940();
  }
  if (resource->active) {
  if (resource->owner == owner) return false;
- resource->FUN_001f3400(0); resource->FUN_001f4940();
+ ((owners::Obj_1f3400 *)resource)->FUN_001f3400(0); ((owners::Thing_1f4940 *)resource)->FUN_001f4940();
  }
  resource->FUN_001f34f0();
  resource->FUN_001f32b0(owner,0,0);
  int init = FUN_002673a0("init",0);
- resource->FUN_001f3370(&init);
- resource->FUN_001f33b0(value);
+ ((owners::Obj_1f3370 *)resource)->FUN_001f3370((hulk_intptr)(&init));
+ ((owners::Obj_1f33b0 *)resource)->FUN_001f33b0((unsigned int)value);
  if (resource->handle) FUN_00247890(resource->handle,DAT_004c7df8 * scale * 0.01f);
  if (!resource->active) return false;
  thunk_FUN_00270a50();

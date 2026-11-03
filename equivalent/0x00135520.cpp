@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20019 inputs, branch coverage 14/14)
 // hulkfight::motion::FlyingAttackAction::vfunc_3 @ 0x00135520
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct V3_135520 {
     float x, y, z;
     float FUN_0022d110();
@@ -8,11 +9,9 @@ struct V3_135520 {
 
 struct Name_135520 {
     unsigned int lo, hi;
-    void FUN_0027b040(const char* s);
 };
 
 struct Matrix {
-    void FUN_0022c3b0(const V3_135520* in, V3_135520* out);
 };
 
 struct Xform_135520 {
@@ -66,7 +65,6 @@ struct Fighter_135520 {
 };
 
 struct Holder_135520 {
-    Fighter_135520* FUN_000592a0();
 };
 
 struct Config_135520 {
@@ -109,7 +107,7 @@ bool FlyingAttackAction::vfunc_3(int a, int b)
         V3_135520 pos;
         V3_135520 tmp;
     } fr;
-    Fighter_135520* fighter = holder->FUN_000592a0();
+    Fighter_135520* fighter = ((Fighter_135520 *)((owners::Object_592a0 *)holder)->FUN_000592a0());
     Stats_135520* stats = fighter->FUN_00059a30();
     Tracker_135520* tr = fighter->FUN_00059a40();
     if (tr == 0)
@@ -125,13 +123,13 @@ bool FlyingAttackAction::vfunc_3(int a, int b)
     else
         d = 0;
     driver = d;
-    d->name.FUN_0027b040("flyingAttack");
+    ((owners::Target_27b040 *)&(d->name))->FUN_0027b040((hulk_uintptr)"flyingAttack");
     driver->AddRef();
     driver->xform.FUN_00221be0(&tr->xf);
     tr->FUN_00222890(driver, -1.0f, fr.f34, 1.0f, fr.f38, fr.f3c, -1.0f);
 
     fr.tmp = cfg->vec14;
-    tr->xf.FUN_00221c40()->FUN_0022c3b0(&fr.tmp, &dir);
+    ((owners::M_22c3b0 *)(tr->xf.FUN_00221c40()))->FUN_0022c3b0((float *)(const V3_135520 *)(&fr.tmp), (float *)(V3_135520 *)(&dir));
     dir.FUN_0022d110();
 
     fr.pos.x = 0.0f;

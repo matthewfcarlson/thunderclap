@@ -4,6 +4,7 @@
 #include "gen/audio.h"
 
 #include "decls/data/engine/audio.h"
+#include "gen/owners.h"
 
 typedef unsigned int size_t;
 inline void* __cdecl operator new(size_t, void* ptr) { return ptr; }
@@ -15,7 +16,7 @@ struct SeqCommandLogicOr_255210 {
     char reserved[4];
     audio::SeqEventLogicOr* event;
 };
-struct Context_255210 { void FUN_0025dba0(SeqCommandLogicOr_255210*); };
+struct Context_255210 {  };
 
 void audio::SeqEventLogicOr::vfunc_2(hulk_intptr __p0) { Context_255210 * context = (Context_255210 *)__p0;
 
@@ -24,5 +25,5 @@ void audio::SeqEventLogicOr::vfunc_2(hulk_intptr __p0) { Context_255210 * contex
         new(command) SeqCommandLogicOr_255210;
         command->event = this;
     }
-    context->FUN_0025dba0(command);
+    ((owners::Queue_25dba0 *)context)->FUN_0025dba0((int *)(SeqCommandLogicOr_255210 *)command);
 }

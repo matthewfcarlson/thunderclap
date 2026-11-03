@@ -1,11 +1,6 @@
-class Obj_14cc20 {
-  public:
-    char pad[0x34];
-    void* m;
-    char Set(void* v);
-};
+#include "gen/owners.h"
 
-char Obj_14cc20::Set(void* v) {
+char owners::Obj_14cc20::FUN_0014cc20(void* v) {
     m = v;
     return 1;
 }

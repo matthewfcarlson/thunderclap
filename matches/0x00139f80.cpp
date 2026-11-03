@@ -1,10 +1,6 @@
-class Obj_139f80 {
-  public:
-    char pad[0x3c];
-    char SetX(int value);
-};
+#include "gen/owners.h"
 
-char Obj_139f80::SetX(int value) {
+char owners::Obj_139f80::FUN_00139f80(int value) {
     *(int*)((char*)this + 0x3c) = value;
     return 1;
 }

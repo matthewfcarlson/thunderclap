@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 12/12)
 // FUN_002dd890 @ 0x002dd890
+#include "gen/owners.h"
 struct Reader {
-    void FUN_002647e0(void *dst, int size, int count, int flag);
 };
 
 struct Device_2dd890 {
@@ -49,18 +49,18 @@ extern "C" void FUN_002dd890(void *info, void *r, void *dev)
     }
     if (((ImageInfo_2dd890 *)info)->bpp == 0x18) {
         for (i = 0; i < n; i++) {
-            ((Reader *)r)->FUN_002647e0(&f.c0, 1, 1, 1);
-            ((Reader *)r)->FUN_002647e0(&f.c1, 1, 1, 1);
-            ((Reader *)r)->FUN_002647e0(&f.c2, 1, 1, 1);
+            ((owners::X_2647e0 *)(((Reader *)r)))->FUN_002647e0((hulk_intptr)(&f.c0), (hulk_intptr)1, 1, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(((Reader *)r)))->FUN_002647e0((hulk_intptr)(&f.c1), (hulk_intptr)1, 1, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(((Reader *)r)))->FUN_002647e0((hulk_intptr)(&f.c2), (hulk_intptr)1, 1, (hulk_intptr)1);
             palette[i] = (((0xffffff00u | f.c2) << 8 | f.c1) << 8) | f.c0;
         }
     } else {
-        ((Reader *)r)->FUN_002647e0(palette, n * 4, 1, 1);
+        ((owners::X_2647e0 *)(((Reader *)r)))->FUN_002647e0((hulk_intptr)palette, (hulk_intptr)(n * 4), 1, (hulk_intptr)1);
     }
     ((Device_2dd890 *)dev)->FUN_slot0(((ImageInfo_2dd890 *)info)->width, ((ImageInfo_2dd890 *)info)->height, 8, !((((ImageInfo_2dd890 *)info)->flags >> 5) & 1), palette);
     void *row = FUN_00266e00(1, ((ImageInfo_2dd890 *)info)->width);
     for (i = 0; i < ((ImageInfo_2dd890 *)info)->height; i++) {
-        ((Reader *)r)->FUN_002647e0(row, ((ImageInfo_2dd890 *)info)->width, 1, 1);
+        ((owners::X_2647e0 *)(((Reader *)r)))->FUN_002647e0((hulk_intptr)row, (hulk_intptr)(((ImageInfo_2dd890 *)info)->width), 1, (hulk_intptr)1);
         ((Device_2dd890 *)dev)->FUN_slot2(row);
     }
     FUN_00267090(row);

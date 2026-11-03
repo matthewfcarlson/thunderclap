@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 extern "C" __int64 __cdecl Lookup(const char*, int, int) throw();
 class Key {
     __int64 n;
@@ -10,7 +11,6 @@ class Data {
     char pad[12];
 
   public:
-    Data* Init(const char*, int) throw();
     ~Data() throw();
 };
 class SeqEventType_24ed10 {
@@ -24,4 +24,4 @@ class SeqEventChannelSendVolumesType_24ed10 : public SeqEventType_24ed10 {
     virtual void f();
 };
 SeqEventChannelSendVolumesType_24ed10::SeqEventChannelSendVolumesType_24ed10() throw()
-    : SeqEventType_24ed10(Data().Init("ChSendVol", 0), Key(Lookup("SeqEventChannelSendVolumes", 0, 0)), 0x50, 4) {}
+    : SeqEventType_24ed10(((Data *)((owners::String_23fc40 *)&(Data()))->FUN_0023fc40("ChSendVol", (hulk_intptr)0)), Key(Lookup("SeqEventChannelSendVolumes", 0, 0)), 0x50, 4) {}

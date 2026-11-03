@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00297500 @ 0x00297500
+#include "gen/owners.h"
 struct VisibilityNode;
 struct Resource {
     virtual void addRef();
@@ -7,7 +8,6 @@ struct Resource {
     virtual void reserved2();
     virtual void reserved3();
     virtual Resource* clone();
-    void FUN_002a7cf0(VisibilityNode* node);
 };
 struct BranchNode_297500 {};
 struct VisibilityNode : BranchNode_297500 {
@@ -28,6 +28,6 @@ VisibilityNode::VisibilityNode(VisibilityNode* other)
         if (copy) copy->addRef();
         if (resource) resource->release();
         resource = copy;
-        if (copy) copy->FUN_002a7cf0(this);
+        if (copy) ((owners::Thing_2a7cf0 *)copy)->FUN_002a7cf0((hulk_intptr)(VisibilityNode *)this);
     }
 }

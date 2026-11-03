@@ -1,8 +1,5 @@
-class X_5d590 {
-  public:
-    bool Set(int v);
-};
-bool X_5d590::Set(int v) {
+#include "gen/owners.h"
+bool owners::X_5d590::FUN_0005d590(int v) {
     *((int*)((char*)this + 0x44)) = v;
     return true;
 }

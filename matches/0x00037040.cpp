@@ -1,10 +1,6 @@
-class C_37040 {
-  public:
-    int Find(int);
-    bool Set(int key, int a, int b);
-};
-bool C_37040::Set(int key, int a, int b) {
-    int n = Find(key);
+#include "gen/owners.h"
+bool owners::C_37040::FUN_00037040(hulk_intptr key, int a, int b) {
+    int n = Find(((int)key));
     if (n < 0)
         return false;
     ((char*)this)[(n + 0x226) * 16] = (char)a;

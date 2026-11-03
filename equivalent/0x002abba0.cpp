@@ -2,6 +2,7 @@
 // FUN_002abba0 @ 0x002abba0
 #include "decls/data/engine/content.h"
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 
 extern char DAT_0049c7dc[];
 extern char DAT_004ce974[];
@@ -19,12 +20,10 @@ public:
     virtual void Release();
     char pad4[0x24];
     int count;
-    void *FUN_00288a10(int index);
 };
 
 class Stream_2abba0 {
 public:
-    void FUN_002647e0(void *dst, int a, int b, int c);
 };
 
 class Reader_2abba0 {
@@ -51,12 +50,10 @@ public:
 struct NodeVec_2abba0 {
     pure3d::ParticlePointGenerator::GeneratorBlendState **data;
     char pad4[8];
-    void FUN_002ab940(int count, int *fill);
 };
 
 class Factory_2abba0 {
 public:
-    void *FUN_00265310(int id);
 };
 
 class ParticlePointGenerator_2abba0 {
@@ -85,24 +82,24 @@ struct Frame_2abba0 {
 ParticlePointGenerator_2abba0 *__stdcall FUN_002abba0(Reader_2abba0 *r, int arg)
 {
     Frame_2abba0 f;
-    r->stream->FUN_002647e0(&f.state, 1, 4, 1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.state), (hulk_intptr)1, 4, (hulk_intptr)1);
     void *mem = FUN_00263ea0(0x50);
     ParticlePointGenerator_2abba0 *res;
     if (mem)
         res = ((ParticlePointGenerator_2abba0 *)mem)->FUN_002d3740();
     else
         res = 0;
-    r->stream->FUN_002647e0(&f.count, 1, 4, 1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.count), (hulk_intptr)1, 4, (hulk_intptr)1);
     res->a38 = f.count;
-    r->stream->FUN_002647e0(&f.count, 1, 4, 1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.count), (hulk_intptr)1, 4, (hulk_intptr)1);
     res->a3c = f.count;
-    r->stream->FUN_002647e0(&f.count, 1, 4, 1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.count), (hulk_intptr)1, 4, (hulk_intptr)1);
     res->a40 = f.count;
 
     while (r->FUN_002669f0()) {
         int id = r->FUN_00266a30();
         if (id == 0x121000) {
-            Parser_2abba0 *p = (Parser_2abba0 *)FUN_00344e74((*(Factory_2abba0**)&DAT_00527c58)->FUN_00265310(id), 0, DAT_0049c7dc, DAT_004ce974, 0);
+            Parser_2abba0 *p = (Parser_2abba0 *)FUN_00344e74(((void *)((owners::Obj_265310 *)((*(Factory_2abba0**)&DAT_00527c58)))->FUN_00265310((hulk_intptr)id)), 0, DAT_0049c7dc, DAT_004ce974, 0);
             p->AddRef();
             f.state = p->FUN_00288e90();
             p->FUN_00288e80(1);
@@ -115,12 +112,12 @@ ParticlePointGenerator_2abba0 *__stdcall FUN_002abba0(Reader_2abba0 *r, int arg)
                 res->item = it;
                 f.count = f.it->count;
                 f.fill = 0;
-                res->nodes.FUN_002ab940(f.count, &f.fill);
+                ((owners::Buffer_2ab940 *)&(res->nodes))->FUN_002ab940((unsigned int)(f.count), &f.fill);
                 for (int i = 0; i < f.count; i++) {
                     pure3d::ParticlePointGenerator::GeneratorBlendState *n;
                     void *m = FUN_0008d690(0x14);
                     if (m)
-                        n = ((GeneratorBlendState_nv_2abba0*)(((pure3d::ParticlePointGenerator::GeneratorBlendState*)(((pure3d::ParticlePointGenerator::GeneratorBlendState *)m)))))->FUN_002d2130(f.it->FUN_00288a10(i));
+                        n = ((GeneratorBlendState_nv_2abba0*)(((pure3d::ParticlePointGenerator::GeneratorBlendState*)(((pure3d::ParticlePointGenerator::GeneratorBlendState *)m)))))->FUN_002d2130(((void *)((owners::Target_288a10 *)(f.it))->FUN_00288a10(i)));
                     else
                         n = 0;
                     res->nodes.data[res->used] = n;

@@ -1,14 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_001ec3d0 @ 0x001ec3d0
+#include "gen/owners.h"
 struct StringList_1ec3d0 {
     char data[0x44];
-    void FUN_001ef320();
-    void FUN_001ef350();
     void FUN_001ef370(const char *s);
 };
 
 struct Level_1ec3d0 {
-    void *FUN_00086310();
 };
 
 struct Handler_1ec3d0 {
@@ -36,11 +34,11 @@ void LevelEnter::FUN_001ec3d0()
 {
     if (!active)
         return;
-    void *id = level->FUN_00086310();
+    void *id = ((void *)((owners::C_86310 *)level)->FUN_00086310());
     if (!id)
         return;
     StringList_1ec3d0 path;
-    path.FUN_001ef320();
+    ((owners::Obj_1ef320 *)&path)->FUN_001ef320();
     path.FUN_001ef370("Objects");
     path.FUN_001ef370("World");
     FUN_001eb440(id, &path);
@@ -50,5 +48,5 @@ void LevelEnter::FUN_001ec3d0()
     } else if (active) {
         sink->FUN_001efe20(&path, 0, "EnterLevel", 100.0f);
     }
-    path.FUN_001ef350();
+    ((owners::C_1ef350 *)&path)->FUN_001ef350();
 }

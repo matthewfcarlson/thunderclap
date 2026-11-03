@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 16690 inputs, branch coverage 10/10)
 // FUN_00204880 @ 0x00204880
 #include "gen/content.h"
+#include "gen/owners.h"
 struct LoadInventory_nv_204880 {
-    void FUN_002647e0(void *dest, int a, int b, int c);
 };
 
 struct Entry_204880 {
@@ -17,7 +17,6 @@ struct Table_204880 {
     Entry_204880 *entries;
     char pad590[4];
     int count;
-    Entry_204880 *FUN_00204060(unsigned int a, unsigned int b);
 };
 
 struct Reader_204880 {
@@ -49,14 +48,14 @@ void Loader_204880::FUN_00204880(Slot_204880 arg, int unused)
         unsigned int junk;
     } fr;
 
-    ((LoadInventory_nv_204880*)(rd->stream))->FUN_002647e0(&arg.value, 1, 4, 1);
-    ((LoadInventory_nv_204880*)(rd->stream))->FUN_002647e0(&fr.second, 1, 4, 1);
-    ((LoadInventory_nv_204880*)(rd->stream))->FUN_002647e0(&fr.junk, 1, 4, 1);
-    ((LoadInventory_nv_204880*)(rd->stream))->FUN_002647e0(&fr.junk, 1, 4, 1);
+    ((owners::X_2647e0 *)(((LoadInventory_nv_204880*)(rd->stream))))->FUN_002647e0((hulk_intptr)(&arg.value), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((LoadInventory_nv_204880*)(rd->stream))))->FUN_002647e0((hulk_intptr)(&fr.second), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((LoadInventory_nv_204880*)(rd->stream))))->FUN_002647e0((hulk_intptr)(&fr.junk), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(((LoadInventory_nv_204880*)(rd->stream))))->FUN_002647e0((hulk_intptr)(&fr.junk), (hulk_intptr)1, 4, (hulk_intptr)1);
 
     unsigned int second = fr.second;
     Table_204880 *t = table;
-    Entry_204880 *e = t->FUN_00204060(arg.value, second);
+    Entry_204880 *e = ((Entry_204880 *)((owners::Owner_204060 *)t)->FUN_00204060((int)(arg.value), (int)second));
     if (e == 0) {
         t->entries[t->count].FUN_00208ac0(arg.value, second);
         e = t->entries + t->count;
@@ -65,10 +64,10 @@ void Loader_204880::FUN_00204880(Slot_204880 arg, int unused)
     while (rd->FUN_002669f0()) {
         rd->FUN_00266a30();
         if (rd->FUN_00266c30() == 0x60000724) {
-            ((LoadInventory_nv_204880*)(rd->stream))->FUN_002647e0(&arg.value, 1, 4, 1);
+            ((owners::X_2647e0 *)(((LoadInventory_nv_204880*)(rd->stream))))->FUN_002647e0((hulk_intptr)(&arg.value), (hulk_intptr)1, 4, (hulk_intptr)1);
             e->FUN_00208b40(arg.value);
         } else if (rd->FUN_00266c30() == 0x60000725) {
-            ((LoadInventory_nv_204880*)(rd->stream))->FUN_002647e0(&fr.second, 1, 4, 1);
+            ((owners::X_2647e0 *)(((LoadInventory_nv_204880*)(rd->stream))))->FUN_002647e0((hulk_intptr)(&fr.second), (hulk_intptr)1, 4, (hulk_intptr)1);
             e->FUN_00208b60(fr.second);
         }
         rd->FUN_00266be0();

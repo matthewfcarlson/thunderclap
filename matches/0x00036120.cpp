@@ -1,10 +1,4 @@
-class C_36120 {
-    char pad[0x110];
-
-  public:
-    float value;
-    void Add(float x);
-};
-void C_36120::Add(float x) {
+#include "gen/owners.h"
+void owners::C_36120::FUN_00036120(float x) {
     value += x;
 }

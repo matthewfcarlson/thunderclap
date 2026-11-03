@@ -1,9 +1,5 @@
-struct Obj_11bea0 {
-    char pad[12];
-    int mValue;
-    char Fn(int x);
-};
-char Obj_11bea0::Fn(int x) {
+#include "gen/owners.h"
+char owners::Obj_11bea0::FUN_0011bea0(int x) {
     mValue = x;
     return 1;
 }

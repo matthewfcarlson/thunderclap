@@ -1,7 +1,4 @@
-struct A_180450 {
-    char pad[0x18];
-    A_180450* Get();
-};
-A_180450* A_180450::Get() {
-    return (A_180450*)((char*)this + 0x18);
+#include "gen/owners.h"
+owners::A_180450* owners::A_180450::FUN_00180450() {
+    return (owners::A_180450*)((char*)this + 0x18);
 }

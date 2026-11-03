@@ -1,9 +1,4 @@
-class C_1d4f30 {
-  public:
-    char pad[0x98];
-    int value;
-    int get();
-};
-int C_1d4f30::get() {
+#include "gen/owners.h"
+int owners::C_1d4f30::FUN_001d4f30() {
     return value;
 }

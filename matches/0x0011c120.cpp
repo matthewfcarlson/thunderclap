@@ -1,10 +1,5 @@
-class Obj_11c120 {
-  public:
-    char pad[0x48];
-    unsigned char field;
-    unsigned char Fn(unsigned char value);
-};
-unsigned char Obj_11c120::Fn(unsigned char value) {
+#include "gen/owners.h"
+unsigned char owners::Obj_11c120::FUN_0011c120(unsigned char value) {
     field = value;
     return 1;
 }

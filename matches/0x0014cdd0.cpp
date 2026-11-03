@@ -1,11 +1,5 @@
-class Obj {
-    char pad[12];
-    int field;
-
-  public:
-    char Set(int v);
-};
-char Obj::Set(int v) {
+#include "gen/owners.h"
+char owners::Obj_14cdd0::FUN_0014cdd0(int v) {
     field = v;
     return 1;
 }

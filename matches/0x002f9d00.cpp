@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 inline unsigned short* cp(unsigned short* a, unsigned short* b, unsigned short* out) {
     for (; a != b; ++a, ++out)
         *out = *a;
@@ -8,13 +9,12 @@ class Str_2f9d00 {
     unsigned short* first;
     unsigned short* last;
     unsigned short* cap;
-    void init(unsigned);
     void grow(unsigned short*, unsigned, unsigned short*);
     void fn(unsigned n, unsigned short* p);
 };
 void Str_2f9d00::fn(unsigned n, unsigned short* p) {
     if (!first)
-        init(n);
+        ((owners::Buffer_2f9340 *)this)->FUN_002f9340((unsigned int)n);
     unsigned count = (unsigned)(last - first);
     if (n > count) {
         grow(last, n - count, p);

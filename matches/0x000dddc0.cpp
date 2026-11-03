@@ -1,5 +1,5 @@
+#include "gen/owners.h"
 struct Helper_dddc0 {
-    void run(int, const float*);
 };
 class Obj_dddc0 {
   public:
@@ -9,6 +9,6 @@ class Obj_dddc0 {
     void f(void* a, void* b);
 };
 void Obj_dddc0::f(void* a, void* b) {
-    helper->run(0x8fc, (const float*)0x27290);
+    ((owners::Obj_f86f0 *)helper)->FUN_000f86f0(0x8fc, (hulk_intptr)((const float*)0x27290));
     stored = b;
 }

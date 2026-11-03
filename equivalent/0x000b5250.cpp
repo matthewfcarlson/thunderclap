@@ -1,14 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 7848 inputs, branch coverage 14/14)
 // FUN_000b5250 @ 0x000b5250
 // cl-flags: /GS
+#include "gen/owners.h"
 
 struct Locale {
-    int FUN_000f7d30(const char *key);
-    const char *FUN_000f7220(int id);
 };
 
 struct TextEntry_b5250 {
-    void FUN_000f79a0(const char *text, int flag);
 };
 
 Locale *__cdecl FUN_000fc1b0();
@@ -29,60 +27,60 @@ void __stdcall FUN_000b5250(TextEntry_b5250 *entry, const char *key, const char 
     const char *a7;
 
     L = FUN_000fc1b0();
-    id = L->FUN_000f7d30(key);
-    const char *text = L->FUN_000f7220(id);
+    id = ((int)((owners::A_f7d30 *)L)->FUN_000f7d30((hulk_intptr)key));
+    const char *text = ((const char *)((owners::C_f7220 *)L)->FUN_000f7220((hulk_intptr)id));
     a2 = k2;
     L = FUN_000fc1b0();
-    id = L->FUN_000f7d30(k2);
-    if (L->FUN_000f7220(id) != 0) {
+    id = ((int)((owners::A_f7d30 *)L)->FUN_000f7d30((hulk_intptr)k2));
+    if (((const char *)((owners::C_f7220 *)L)->FUN_000f7220((hulk_intptr)id)) != 0) {
         L = FUN_000fc1b0();
-        id = L->FUN_000f7d30(k2);
-        a2 = L->FUN_000f7220(id);
+        id = ((int)((owners::A_f7d30 *)L)->FUN_000f7d30((hulk_intptr)k2));
+        a2 = ((const char *)((owners::C_f7220 *)L)->FUN_000f7220((hulk_intptr)id));
     }
     a3 = k3;
     L = FUN_000fc1b0();
-    id = L->FUN_000f7d30(k3);
-    if (L->FUN_000f7220(id) != 0) {
+    id = ((int)((owners::A_f7d30 *)L)->FUN_000f7d30((hulk_intptr)k3));
+    if (((const char *)((owners::C_f7220 *)L)->FUN_000f7220((hulk_intptr)id)) != 0) {
         L = FUN_000fc1b0();
-        id = L->FUN_000f7d30(k3);
-        a3 = L->FUN_000f7220(id);
+        id = ((int)((owners::A_f7d30 *)L)->FUN_000f7d30((hulk_intptr)k3));
+        a3 = ((const char *)((owners::C_f7220 *)L)->FUN_000f7220((hulk_intptr)id));
     }
     a4 = k4;
     L = FUN_000fc1b0();
-    id = L->FUN_000f7d30(k4);
-    if (L->FUN_000f7220(id) != 0) {
+    id = ((int)((owners::A_f7d30 *)L)->FUN_000f7d30((hulk_intptr)k4));
+    if (((const char *)((owners::C_f7220 *)L)->FUN_000f7220((hulk_intptr)id)) != 0) {
         L = FUN_000fc1b0();
-        id = L->FUN_000f7d30(k4);
-        a4 = L->FUN_000f7220(id);
+        id = ((int)((owners::A_f7d30 *)L)->FUN_000f7d30((hulk_intptr)k4));
+        a4 = ((const char *)((owners::C_f7220 *)L)->FUN_000f7220((hulk_intptr)id));
     }
     a5 = k5;
     L = FUN_000fc1b0();
-    id = L->FUN_000f7d30(k5);
-    if (L->FUN_000f7220(id) != 0) {
+    id = ((int)((owners::A_f7d30 *)L)->FUN_000f7d30((hulk_intptr)k5));
+    if (((const char *)((owners::C_f7220 *)L)->FUN_000f7220((hulk_intptr)id)) != 0) {
         L = FUN_000fc1b0();
-        id = L->FUN_000f7d30(k5);
-        a5 = L->FUN_000f7220(id);
+        id = ((int)((owners::A_f7d30 *)L)->FUN_000f7d30((hulk_intptr)k5));
+        a5 = ((const char *)((owners::C_f7220 *)L)->FUN_000f7220((hulk_intptr)id));
     }
     a6 = k6;
     L = FUN_000fc1b0();
-    id = L->FUN_000f7d30(k6);
-    if (L->FUN_000f7220(id) != 0) {
+    id = ((int)((owners::A_f7d30 *)L)->FUN_000f7d30((hulk_intptr)k6));
+    if (((const char *)((owners::C_f7220 *)L)->FUN_000f7220((hulk_intptr)id)) != 0) {
         L = FUN_000fc1b0();
-        id = L->FUN_000f7d30(k6);
-        a6 = L->FUN_000f7220(id);
+        id = ((int)((owners::A_f7d30 *)L)->FUN_000f7d30((hulk_intptr)k6));
+        a6 = ((const char *)((owners::C_f7220 *)L)->FUN_000f7220((hulk_intptr)id));
     }
     a7 = k7;
     L = FUN_000fc1b0();
-    id = L->FUN_000f7d30(k7);
-    if (L->FUN_000f7220(id) != 0) {
+    id = ((int)((owners::A_f7d30 *)L)->FUN_000f7d30((hulk_intptr)k7));
+    if (((const char *)((owners::C_f7220 *)L)->FUN_000f7220((hulk_intptr)id)) != 0) {
         L = FUN_000fc1b0();
-        id = L->FUN_000f7d30(k7);
-        a7 = L->FUN_000f7220(id);
+        id = ((int)((owners::A_f7d30 *)L)->FUN_000f7d30((hulk_intptr)k7));
+        a7 = ((const char *)((owners::C_f7220 *)L)->FUN_000f7220((hulk_intptr)id));
     }
 
     if (text != 0)
         FUN_000fc020(buf, 0x100, text, a2, a3, a4, a5, a6, a7);
     else
         FUN_000fc000(buf, 0x100, key, a2, a3, a4, a5, a6, a7);
-    entry->FUN_000f79a0(buf, 0);
+    ((owners::Obj_f79a0 *)entry)->FUN_000f79a0((const short *)buf, (hulk_intptr)0);
 }

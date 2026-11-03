@@ -1,10 +1,5 @@
-class C_146ac0 {
-  public:
-    char pad[0x20];
-    int m;
-    bool Fn(int x);
-};
-bool C_146ac0::Fn(int x) {
+#include "gen/owners.h"
+bool owners::C_146ac0::FUN_00146ac0(int x) {
     m = x;
     return true;
 }

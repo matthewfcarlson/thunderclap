@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 796 inputs, branch coverage 61/62, incomplete)
 // FUN_001e6f10 @ 0x001e6f10
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Vec3_1e6f10 {
     float x, y, z;
@@ -13,12 +14,10 @@ public:
 
 class ObjSub {
 public:
-    void FUN_001b6d70(float dt);
 };
 
 class Zone_1e6f10 {
 public:
-    int FUN_0007ad00(const void *pos);
 };
 
 class Ground_1e6f10 {
@@ -30,7 +29,6 @@ public:
 
 class Holder_1e6f10 {
 public:
-    Ground_1e6f10 *FUN_000862a0();
 };
 
 class Caster_1e6f10 {
@@ -48,12 +46,8 @@ public:
     char FUN_001d62a0();
     char FUN_001d6980();
     int FUN_001d6990();
-    char FUN_001d69b0();
-    int FUN_001d69d0();
     void FUN_001d69c0(int v);
-    void FUN_001d69e0(int v);
     Vec3_1e6f10 *FUN_001d6b40();
-    int FUN_001d6c70();
     void FUN_001d7590();
     void FUN_001d7810(Vec3_1e6f10 v);
     void FUN_001d7ff0();
@@ -114,7 +108,7 @@ public:
 
 void World::FUN_001e6f10(int unused, float dt)
 {
-    if (globals->holder->FUN_000862a0()->FUN_002043e0() == 0)
+    if (((Ground_1e6f10 *)((owners::Target_862a0 *)(globals->holder))->FUN_000862a0())->FUN_002043e0() == 0)
         return;
     FUN_001e57a0();
     FUN_001e6390();
@@ -139,7 +133,7 @@ void World::FUN_001e6f10(int unused, float dt)
             obj->timer = d;
         }
         if (obj->zoned) {
-            if (!DAT_004dd700->zone->FUN_0007ad00(&obj->pos[0])) {
+            if (!((int)((owners::Obj_7ad00 *)(DAT_004dd700->zone))->FUN_0007ad00((hulk_intptr)(&obj->pos[0])))) {
                 obj->FUN_001d7ff0();
                 obj->FUN_001d6290(1);
             }
@@ -149,11 +143,11 @@ void World::FUN_001e6f10(int unused, float dt)
             Vec3_1e6f10 v = *obj->FUN_001d6b40();
             bool done = false;
             if (v.y < threshold && obj->mode != 2 && obj->mode != 3 && obj->held == 0) {
-                if (obj->FUN_001d69b0()) {
+                if (((char)((owners::C_1d69b0 *)obj)->FUN_001d69b0())) {
                     Globals_1e6f10 *g = DAT_004dd700;
                     Holder_1e6f10 *h = g->holder;
-                    int id = obj->FUN_001d69d0();
-                    if (h->FUN_000862a0()->FUN_00204440(id)) {
+                    int id = ((owners::Obj_1d69d0 *)obj)->FUN_001d69d0();
+                    if (((Ground_1e6f10 *)((owners::Target_862a0 *)h)->FUN_000862a0())->FUN_00204440(id)) {
                         Vec3_1e6f10 *pos = obj->FUN_001d6b40();
                         Vec3_1e6f10 from;
                         from.x = pos->x;
@@ -175,8 +169,8 @@ void World::FUN_001e6f10(int unused, float dt)
                     Vec3_1e6f10 *q = obj->FUN_001d6b40();
                     float qx = q->x;
                     float qz = q->z;
-                    int id = DAT_004dd700->holder->FUN_000862a0()->FUN_00204200(qx, 0, qz);
-                    obj->FUN_001d69e0(id);
+                    int id = ((Ground_1e6f10 *)((owners::Target_862a0 *)(DAT_004dd700->holder))->FUN_000862a0())->FUN_00204200(qx, 0, qz);
+                    ((owners::A_1d69e0 *)obj)->FUN_001d69e0(id);
                     if (id == -1)
                         remove = true;
                 } else {
@@ -195,11 +189,11 @@ void World::FUN_001e6f10(int unused, float dt)
         }
         if (obj->held == 0)
             obj->FUN_001d8fc0(dt * 1000.0f);
-        obj->sub.FUN_001b6d70(dt);
+        ((owners::Obj_1b6d70 *)&(obj->sub))->FUN_001b6d70(dt);
     }
     for (int i = count - 1; i >= 0; i--) {
         Obj_1e6f10 *obj = objs[i];
         if (obj && obj->FUN_001d62a0())
-            FUN_001e5bc0(obj->FUN_001d6c70());
+            FUN_001e5bc0(((owners::C_1d6c70 *)obj)->FUN_001d6c70());
     }
 }

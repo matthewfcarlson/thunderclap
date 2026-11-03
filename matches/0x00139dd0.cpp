@@ -1,9 +1,6 @@
-class Obj_139dd0 {
-  public:
-    char f(int v);
-};
+#include "gen/owners.h"
 
-char Obj_139dd0::f(int v) {
+char owners::Obj_139dd0::FUN_00139dd0(int v) {
     *(int*)((char*)this + 0x24) = v;
     return 1;
 }

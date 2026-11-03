@@ -1,9 +1,4 @@
-class Obj_37300 {
-  public:
-    char pad[0x1c8c];
-    char value;
-    void Set(unsigned char b);
-};
-void Obj_37300::Set(unsigned char b) {
+#include "gen/owners.h"
+void owners::Obj_37300::FUN_00037300(unsigned char b) {
     value = b;
 }

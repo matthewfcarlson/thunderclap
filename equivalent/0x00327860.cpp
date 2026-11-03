@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00327860 @ 0x00327860
 #include "decls/data/platform/xbox/pure3d.h"
+#include "gen/owners.h"
 
 struct SkinSource_327860 {
     void *FUN_00321da0(const char *name, int index, unsigned int flags, int one);
@@ -15,7 +16,6 @@ struct Skin_327860 {
     SkinSource_327860 *source;
     void *result;
     void FUN_003270c0(int a);
-    void FUN_00327130(int a);
     void FUN_00327860(int index, unsigned int flags, int unused, int a4, int a5, const char *name);
 };
 
@@ -34,5 +34,5 @@ void Skin_327860::FUN_00327860(int idx, unsigned int fl, int unused, int a4, int
     }
     result = source->FUN_00321da0(s, idx, fl, 1);
     FUN_003270c0(a4);
-    FUN_00327130(a5);
+    ((owners::Buffer_327130 *)this)->FUN_00327130(a5);
 }

@@ -1,10 +1,5 @@
-class C_34e60 {
-    char pad[0x18];
+#include "gen/owners.h"
 
-  public:
-    float Get();
-};
-
-float C_34e60::Get() {
+float owners::C_34e60::FUN_00034e60() {
     return *(float*)((char*)this + 0x18);
 }

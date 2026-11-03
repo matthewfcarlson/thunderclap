@@ -1,10 +1,5 @@
-class O_1239a0 {
-  public:
-    char pad[0x10];
-    int m;
-    bool Fn(int a);
-};
-bool O_1239a0::Fn(int a) {
+#include "gen/owners.h"
+bool owners::O_1239a0::FUN_001239a0(int a) {
     m = a;
     return true;
 }

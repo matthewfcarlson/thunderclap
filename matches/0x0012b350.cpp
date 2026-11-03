@@ -1,9 +1,5 @@
-struct X_12b350 {
-    char pad[0x10];
-    int m10;
-    char Set(int v);
-};
-char X_12b350::Set(int v) {
+#include "gen/owners.h"
+char owners::X_12b350::FUN_0012b350(int v) {
     m10 = v;
     return 1;
 }

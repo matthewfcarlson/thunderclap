@@ -6,15 +6,14 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 extern "C" int __cdecl _sprintf(char*, const char*, ...);
 struct V3_1b1710 {
     float x, y, z;
-    void FUN_00011160(float, V3_1b1710*);
 };
 struct Id64_1b1710 {
     unsigned int lo, hi;
     void FUN_0027af00();
-    void FUN_0027b040(const char*);
     void FUN_0027af50();
 };
 struct Body_1b1710;
@@ -43,7 +42,6 @@ struct Thing114 {
 struct Sub1a4_1b1710 {
     char pad[0x25];
     char FUN_001b6e90(Thing_1b1710*);
-    void FUN_001b6e60(Thing_1b1710*);
 };
 struct Sub11c_1b1710 {
     unsigned __int64 FUN_000443c0();
@@ -54,8 +52,6 @@ struct Reg_1b1710 {
     char FUN_00079950(void*);
     int FUN_00079800(void*);
     void FUN_0007ba60(int);
-    float FUN_0007a820(int);
-    int FUN_0007ad00(void*);
 };
 struct F58 {
     float FUN_00086080();
@@ -141,12 +137,10 @@ struct Body_1b1710 {
     float f1e54;
     char pad1e58[0x20b0 - 0x1e58];
     int f20b0;
-    Thing_1b1710* FUN_001d72e0();
     char FUN_000373d0();
     char FUN_001d6a80();
     void FUN_001d7510();
     void FUN_001d6ec0(int, Thing_1b1710*, int);
-    Body_1b1710* FUN_00035ef0(int);
     int FUN_00035f40();
     void FUN_0003acf0(int, Body_1b1710*, unsigned int, int, int, int);
     char FUN_001d6640();
@@ -174,7 +168,7 @@ int Handler_1b1710::FUN_001b1710(Thing_1b1710* sourceThing, Thing_1b1710* hitThi
     Body_1b1710* hit = hitThing->f8;
     if (DAT_004dd700)
         hit->f1b88 = DAT_004dd700->f58->FUN_00086080();
-    if (hit->f128 && sourceThing != hit->f128->FUN_001d72e0())
+    if (hit->f128 && sourceThing != ((Thing_1b1710 *)((owners::C_1d72e0 *)(hit->f128))->FUN_001d72e0()))
         return 1;
     hit->FUN_000373d0();
     unsigned __int64 identity = hit->f11c->FUN_000443c0();
@@ -184,29 +178,29 @@ int Handler_1b1710::FUN_001b1710(Thing_1b1710* sourceThing, Thing_1b1710* hitThi
     if (source->FUN_001d6a80())
         return 1;
 
-    if (source->b14c && source->FUN_001d72e0()->f6c == 0) {
+    if (source->b14c && ((Thing_1b1710 *)((owners::C_1d72e0 *)source)->FUN_001d72e0())->f6c == 0) {
         Reg_1b1710* registry = DAT_004dd700->f4c;
         if (registry->FUN_00079950(source->name8)) {
             source->FUN_001d7510();
             int slot = registry->FUN_00079800(source->name8);
             if (slot != -1) {
                 registry->FUN_0007ba60(slot);
-                if (registry->FUN_0007a820(slot) > DAT_004c3734)
+                if (((owners::Thing_7a820 *)registry)->FUN_0007a820(slot) > DAT_004c3734)
                     source->FUN_001d6ec0((int)DAT_004c3730, hitThing, 0);
             }
         }
     }
-    if (source->b14d && source->FUN_001d72e0()->f6c == 0 && DAT_004dd700->f4c->FUN_0007ad00(source->name8))
+    if (source->b14d && ((Thing_1b1710 *)((owners::C_1d72e0 *)source)->FUN_001d72e0())->f6c == 0 && ((int)((owners::Obj_7ad00 *)(DAT_004dd700->f4c))->FUN_0007ad00((hulk_intptr)(source->name8))))
         return 1;
     if (hit->f20b0)
         return 1;
     for (int i = 0; i < 8; ++i)
-        if (hit->FUN_00035ef0(i) == source)
+        if (((Body_1b1710 *)((owners::C_35ef0 *)hit)->FUN_00035ef0((hulk_intptr)i)) == source)
             return 1;
     Body_1b1710* parent = hit->f334;
     if (parent)
         for (int i = 0; i < 8; ++i)
-            if (parent->FUN_00035ef0(i) == source)
+            if (((Body_1b1710 *)((owners::C_35ef0 *)parent)->FUN_00035ef0((hulk_intptr)i)) == source)
                 return 1;
 
     if (source->b1ed && (float)(int)hit->b1ced != 0.0f) {
@@ -217,7 +211,7 @@ int Handler_1b1710::FUN_001b1710(Thing_1b1710* sourceThing, Thing_1b1710* hitThi
             int slot = hit->FUN_00035f40() + 1;
             char shieldName[0x80];
             _sprintf(shieldName, "%s%d", "object_shield_", slot);
-            shieldId.FUN_0027b040(shieldName);
+            ((owners::Target_27b040 *)&shieldId)->FUN_0027b040((hulk_uintptr)shieldName);
             unsigned int shield = part->f64->f8->FUN_0027b200(shieldId.lo, shieldId.hi);
             hit->FUN_0003acf0(hit->FUN_00035f40() + 1, source, shield, 0, 0, 0);
             shieldId.FUN_0027af50();
@@ -225,7 +219,7 @@ int Handler_1b1710::FUN_001b1710(Thing_1b1710* sourceThing, Thing_1b1710* hitThi
         }
         shieldId.FUN_0027af50();
     }
-    if (hit->f128 && hit->f128->FUN_001d72e0() == otherThing)
+    if (hit->f128 && ((Thing_1b1710 *)((owners::C_1d72e0 *)(hit->f128))->FUN_001d72e0()) == otherThing)
         return 1;
     Body_1b1710* linked = source->f148;
     if (linked && (hit->f338 == linked || linked->f338 == hit))
@@ -249,7 +243,7 @@ int Handler_1b1710::FUN_001b1710(Thing_1b1710* sourceThing, Thing_1b1710* hitThi
         *(unsigned int*)&hit->name8[4] == *(unsigned int*)((char*)&DAT_004dc0e0 + 4)) {
         if (previouslyHit)
             return 1;
-        source->s1a4.FUN_001b6e60(hitThing);
+        ((owners::Thing_1b6e60 *)&(source->s1a4))->FUN_001b6e60((hulk_intptr)(Thing_1b1710 *)hitThing);
         V3_1b1710 point = *position;
         hit->FUN_00043ae0(otherThing, &point, *(float*)&DAT_0048e06c, 0, *(float*)&DAT_0048e070, DAT_004e1808,
                           DAT_004e180c, 0, 0);
@@ -283,7 +277,7 @@ int Handler_1b1710::FUN_001b1710(Thing_1b1710* sourceThing, Thing_1b1710* hitThi
                         otherThing->f70->FUN_0016fc90(&direction);
                     else
                         direction = otherThing->f50;
-                    rebound.FUN_00011160(-1.0f, &direction);
+                    ((owners::Vec3_11160 *)&rebound)->FUN_00011160(-1.0f, (const owners::Vec3_11160 *)(V3_1b1710 *)(&direction));
                     volatile float impact = FUN_001b0470(source, hit, &rebound);
                     if (impact > 0.0f)
                         source->FUN_001d66b0(position, normal);
@@ -296,7 +290,7 @@ int Handler_1b1710::FUN_001b1710(Thing_1b1710* sourceThing, Thing_1b1710* hitThi
                     DAT_004dd700->f34->FUN_001ebd80(source, "Bounce", 100.0f, 0);
                 }
             }
-            source->s1a4.FUN_001b6e60(hitThing);
+            ((owners::Thing_1b6e60 *)&(source->s1a4))->FUN_001b6e60((hulk_intptr)(Thing_1b1710 *)hitThing);
         }
         if ((hulk_intptr)hitThing == source->f118)
             return 1;

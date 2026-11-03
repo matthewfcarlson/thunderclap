@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_0022baf0 @ 0x0022baf0
+#include "gen/owners.h"
 extern "C" double __cdecl sin(double);
 extern "C" double __cdecl cos(double);
-struct Vec_22baf0 { float x,y,z; void FUN_0022d1c0(const Vec_22baf0*); };
+struct Vec_22baf0 { float x,y,z;  };
 struct Matrix { float m[16]; void build(const Vec_22baf0* axis,float angle); };
 void Matrix::build(const Vec_22baf0* axis,float angle) {
- Vec_22baf0 v; v.FUN_0022d1c0(axis);
+ Vec_22baf0 v; ((owners::Vec3_22d1c0 *)&v)->FUN_0022d1c0((const owners::Vec3_22d1c0 *)(const Vec_22baf0 *)axis);
  double s=sin((double)angle*0.5), c=cos((double)angle*0.5);
  float x=(float)(v.x*s), y=(float)(v.y*s);
  double z=v.z*s;

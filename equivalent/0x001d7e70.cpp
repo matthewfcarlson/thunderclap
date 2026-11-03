@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001d7e70 @ 0x001d7e70
+#include "gen/owners.h"
 struct Source_1d7e70 {
-    float FUN_001d4ea0(unsigned int key);
 };
 class Sink_1d7e70 {
   public:
@@ -41,8 +41,8 @@ void Obj_1d7e70::FUN_001d7e70() {
         return;
     if (owner->mid->sink == 0)
         return;
-    if (source->FUN_001d4ea0(key) > 0.0f) {
+    if (((owners::Target_1d4ea0 *)source)->FUN_001d4ea0((int)key) > 0.0f) {
         Sink_1d7e70* sink = owner->mid->sink;
-        sink->SetValue(source->FUN_001d4ea0(key));
+        sink->SetValue(((owners::Target_1d4ea0 *)source)->FUN_001d4ea0((int)key));
     }
 }

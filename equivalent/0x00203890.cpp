@@ -1,10 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 18/19, incomplete)
 // FUN_00203890 @ 0x00203890
-struct Object {
- void FUN_00203870(const char* name);
- void FUN_00203890(int index);
-};
-void Object::FUN_00203890(int index) {
+#include "gen/owners.h"
+void owners::Object_203890::FUN_00203890(int index) {
  switch (index) {
  case 0: FUN_00203870("hulk_australia"); break;
  case 1: FUN_00203870("grey_hulk"); break;

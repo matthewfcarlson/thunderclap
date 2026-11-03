@@ -1,9 +1,5 @@
-class Obj_1656a0 {
-  public:
-    char m[0xc];
-    char Set(int v);
-};
-char Obj_1656a0::Set(int v) {
+#include "gen/owners.h"
+char owners::Obj_1656a0::FUN_001656a0(int v) {
     *(int*)((char*)this + 0xc) = v;
     return 1;
 }

@@ -2,6 +2,7 @@
 // FUN_001f8b40 @ 0x001f8b40
 #include "compat/ptr.h"
 #include "decls/address.h"
+#include "gen/owners.h"
 struct V3_1f8b40 {
     float x, y, z;
 };
@@ -13,7 +14,6 @@ struct Sub_1f8b40 {
 };
 
 struct Tracker_1f8b40 {
-    Sub_1f8b40 *FUN_000862a0();
 };
 
 struct Mgr_1f8b40 {
@@ -55,12 +55,12 @@ hulk_intptr __stdcall FUN_001f8b40(int a1, Obj_1f8b40 *obj, float x, float y, fl
     if (a1 == 1) {
         obj->getPos(&f.q);
         obj->getPos(&f.p);
-        int idx = DAT_004dd700->tracker->FUN_000862a0()->FUN_00204200(f.p.x, f.p.y, f.p.z);
+        int idx = ((Sub_1f8b40 *)((owners::Target_862a0 *)(DAT_004dd700->tracker))->FUN_000862a0())->FUN_00204200(f.p.x, f.p.y, f.p.z);
         if (idx == -1) {
             f.p.x = x; f.p.y = y; f.p.z = z;
         } else {
-            char b1 = DAT_004dd700->tracker->FUN_000862a0()->FUN_00204440(idx);
-            char b2 = DAT_004dd700->tracker->FUN_000862a0()->FUN_00204470(idx);
+            char b1 = ((Sub_1f8b40 *)((owners::Target_862a0 *)(DAT_004dd700->tracker))->FUN_000862a0())->FUN_00204440(idx);
+            char b2 = ((Sub_1f8b40 *)((owners::Target_862a0 *)(DAT_004dd700->tracker))->FUN_000862a0())->FUN_00204470(idx);
             if (!b1 && !b2) {
                 f.p.x = x; f.p.y = y; f.p.z = z;
             }
@@ -73,12 +73,12 @@ hulk_intptr __stdcall FUN_001f8b40(int a1, Obj_1f8b40 *obj, float x, float y, fl
 
     if (a1 > 1 && a1 <= 5) {
         obj->getPos(&f.p);
-        int idx = DAT_004dd700->tracker->FUN_000862a0()->FUN_00204200(f.p.x, f.p.y, f.p.z);
+        int idx = ((Sub_1f8b40 *)((owners::Target_862a0 *)(DAT_004dd700->tracker))->FUN_000862a0())->FUN_00204200(f.p.x, f.p.y, f.p.z);
         if (idx == -1) {
             f.p.x = x; f.p.y = y; f.p.z = z;
         } else {
-            char b1 = DAT_004dd700->tracker->FUN_000862a0()->FUN_00204440(idx);
-            char b2 = DAT_004dd700->tracker->FUN_000862a0()->FUN_00204470(idx);
+            char b1 = ((Sub_1f8b40 *)((owners::Target_862a0 *)(DAT_004dd700->tracker))->FUN_000862a0())->FUN_00204440(idx);
+            char b2 = ((Sub_1f8b40 *)((owners::Target_862a0 *)(DAT_004dd700->tracker))->FUN_000862a0())->FUN_00204470(idx);
             if (!b1 && !b2) {
                 f.p.x = x; f.p.y = y; f.p.z = z;
             }

@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 22/22)
 // FUN_00093020 @ 0x00093020
+#include "gen/owners.h"
 extern char DAT_0049dab8;
 extern char DAT_0049dafc;
-struct Value_93020 { void FUN_0027b040(void* source); char bytes[20]; };
+struct Value_93020 {  char bytes[20]; };
 struct Item_93020 { char pad[16]; Value_93020 value; int kind; char data[8]; };
 extern Item_93020* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 extern void __cdecl FUN_00267760(void*, int, void*);
@@ -11,7 +12,7 @@ void Container_93020::FUN_00093020(int index, void* source, void* data) {
  if (index < 0 || index > 49) return;
  Item_93020* item = FUN_00344e74(items[index], 0, &DAT_0049dab8, &DAT_0049dafc, 0);
  if (!item) return;
- item->value.FUN_0027b040(source);
+ ((owners::Target_27b040 *)&(item->value))->FUN_0027b040((hulk_uintptr)source);
  FUN_00267760(item->data, 8, data);
  switch(index) {
  case 2: item->kind=0x58; break;

@@ -1,14 +1,8 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 typedef unsigned char bool8_27aac0;
-class Obj_27aac0 {
-  public:
-    char pad[0x10];
-    int index;
-    bool8_27aac0 Check(int);
-    bool8_27aac0 Target(int, int*);
-};
-bool8_27aac0 Obj_27aac0::Target(int a, int* out) {
-    if (Check(a)) {
+bool8_27aac0 owners::Obj_27aac0::FUN_0027aac0(hulk_intptr a, int* out) {
+    if (Check(((int)a))) {
         *(hulk_intptr*)out = index * 0x60 + (hulk_intptr)this + 0xd38;
         return 1;
     }

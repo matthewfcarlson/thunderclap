@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20024 inputs, branch coverage 12/12)
 // FUN_00315620 @ 0x00315620
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Vec3_315620 {
     float x, y, z;
-    void FUN_00011160(float amount, Vec3_315620* dir);
     float FUN_0022d110();
 };
 
@@ -70,8 +70,8 @@ bool Resolver_315620::FUN_00315620(Vec3_315620* p0, Vec3_315620* axis0, float k0
     p1->y = v1->y + p1->y;
     p1->z = v1->z + p1->z;
 
-    p0->FUN_00011160(-(t1 * k0), axis0);
-    p1->FUN_00011160(-(t0 * k1), axis1);
+    ((owners::Vec3_11160 *)p0)->FUN_00011160(-(t1 * k0), (const owners::Vec3_11160 *)(Vec3_315620 *)axis0);
+    ((owners::Vec3_11160 *)p1)->FUN_00011160(-(t0 * k1), (const owners::Vec3_11160 *)(Vec3_315620 *)axis1);
 
     d.x = p0->x - p1->x;
     d.y = p0->y - p1->y;

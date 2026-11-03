@@ -1,12 +1,6 @@
-class C_35ef0 {
-    char pad[0x3a8];
-    int values[8][20];
-
-  public:
-    int f(int);
-};
-int C_35ef0::f(int i) {
-    if (i >= 0 && i < 8)
-        return values[i][0];
+#include "gen/owners.h"
+hulk_intptr owners::C_35ef0::FUN_00035ef0(hulk_intptr i) {
+    if (((int)i) >= 0 && ((int)i) < 8)
+        return values[((int)i)][0];
     return 0;
 }

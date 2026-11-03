@@ -1,16 +1,7 @@
+#include "gen/owners.h"
 typedef unsigned int size_t;
 extern "C" void* memset(void*, int, size_t);
-class Thing_2c7070 {
-  public:
-    char pad0[0x0c];
-    int count;
-    void* a;
-    void* b;
-    void* c[4];
-    void* d[2];
-    void Clear();
-};
-void Thing_2c7070::Clear() {
+void owners::Thing_2c7070::FUN_002c7070() {
     if (a)
         memset(a, 0, count * 12);
     if (b)

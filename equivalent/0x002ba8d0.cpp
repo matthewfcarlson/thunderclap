@@ -2,6 +2,7 @@
 // FUN_002ba8d0 @ 0x002ba8d0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" double cos(double);
 
 void *thunk_FUN_0008d690(unsigned int size);
@@ -20,13 +21,11 @@ struct Reader {
 
 struct NameHolder_2ba8d0 {
     char pad[8];
-    void FUN_0027b040(const char *name);
 };
 
 struct Sub40_2ba8d0 {
     char pad[0x40];
     void FUN_0022ba20(const void *q);
-    void FUN_0022be40(const void *v);
 };
 
 struct Obj_2ba8d0 {
@@ -146,7 +145,7 @@ Obj_2ba8d0 *__stdcall FUN_002ba8d0(Reader *r, int unused)
         else
             o = 0;
     }
-    o->nameHolder.FUN_0027b040(f.name);
+    ((owners::Target_27b040 *)&(o->nameHolder))->FUN_0027b040((hulk_uintptr)(f.name));
 
     r->stream->FUN_002647e0(&f.t1a4, 1, 4, 1);
     o->b8c = (f.t1a4 != 0);
@@ -187,7 +186,7 @@ Obj_2ba8d0 *__stdcall FUN_002ba8d0(Reader *r, int unused)
             r->stream->FUN_002647e0(f.q110, 4, 4, 1);
             o->f40.FUN_0022ba20(f.q110);
             r->stream->FUN_002647e0(f.t11c, 3, 4, 1);
-            o->f40.FUN_0022be40(f.t11c);
+            ((owners::Target_22be40 *)&(o->f40))->FUN_0022be40((const int *)(f.t11c));
             break;
         case 0x17008:
             r->stream->FUN_002647e0(&f.t120, 1, 4, 1);

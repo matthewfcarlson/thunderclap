@@ -1,13 +1,8 @@
+#include "gen/owners.h"
 struct Sub_22ef20 {
     void Update(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int);
 };
-class Obj_22ef20 {
-  public:
-    unsigned int mCache[67];
-    unsigned int mSize, mDiv, mBase;
-    char Fn(int index, float value);
-};
-char Obj_22ef20::Fn(int index, float value) {
+char owners::Obj_22ef20::FUN_0022ef20(int index, float value) {
     int i = (int)value;
     if (i == (int)mCache[index])
         return 0;

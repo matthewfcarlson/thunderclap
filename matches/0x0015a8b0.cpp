@@ -1,12 +1,6 @@
-class C_15a8b0 {
-    char pad[0x10];
-    int m;
+#include "gen/owners.h"
 
-  public:
-    char Set(int x);
-};
-
-char C_15a8b0::Set(int x) {
+char owners::C_15a8b0::FUN_0015a8b0(int x) {
     m = x;
     return 1;
 }

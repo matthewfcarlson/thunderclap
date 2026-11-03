@@ -1,9 +1,4 @@
-class Obj_192500 {
-  public:
-    char pad[0xa8];
-    int value;
-    int* Get();
-};
-int* Obj_192500::Get() {
+#include "gen/owners.h"
+int* owners::Obj_192500::FUN_00192500() {
     return &value;
 }

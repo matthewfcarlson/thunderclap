@@ -1,4 +1,5 @@
 #include "gen/global.h"
+#include "gen/owners.h"
 
 class CAction_17630 {
   public:
@@ -16,12 +17,11 @@ class Obj_17630 {
   public:
     void* first();
     void* second();
-    void third(int);
 };
 
 bool CRageModeAction::vfunc_6(int arg) {
     Obj_17630* x = (Obj_17630*)(*(Obj_17630 * *)&this->f_1c)->first();
     x = (Obj_17630*)x->second();
-    x->third(this->f_20);
+    ((owners::C_36250 *)x)->FUN_00036250(this->f_20);
     return true;
 }

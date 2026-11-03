@@ -2,6 +2,7 @@
 // FUN_000a3040 @ 0x000a3040
 #include "decls/data/game/global.h"
 #include "compat/ptr.h"
+#include "gen/owners.h"
 
 extern "C" double __cdecl sqrt(double);
 struct V3_a3040 { float x, y, z; };
@@ -32,7 +33,6 @@ struct Input32c_a3040 {
     float fc;
     float f10;
     char b14;
-    char FUN_000a2370(float dt, float *outA, float *outB, char *outC);
 };
 
 struct Frame_a3040 {
@@ -141,7 +141,7 @@ void CChaseCamera_a3040::Update(float unused, float dt)
     bool gotoFinal = false;
 
     if (!(DAT_0049ec60 - 2.0f > f.pitch) && !(DAT_0049ec5c + 2.0f < f.pitch)) {
-        char got = in32c.FUN_000a2370(dt, &f.outA, &f.outB, &f.flag);
+        char got = ((char)((owners::Obj_a2370 *)&in32c)->FUN_000a2370(dt, &f.outA, &f.outB, (unsigned char *)(&f.flag)));
         if (got) {
             f.yaw = f.outA + f.yaw;
             f.inv = f448;

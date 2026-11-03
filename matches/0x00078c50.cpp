@@ -1,9 +1,4 @@
-class C_78c50 {
-  public:
-    char pad[0x382c];
-    int value;
-    void Set(int x);
-};
-void C_78c50::Set(int x) {
-    value = x;
+#include "gen/owners.h"
+void owners::C_78c50::FUN_00078c50(hulk_intptr x) {
+    value = ((int)x);
 }

@@ -1,11 +1,6 @@
-class X_16ec30 {
-  public:
-    char pad[0x44];
-    int m44;
-    char Set(int a);
-};
+#include "gen/owners.h"
 
-char X_16ec30::Set(int a) {
+char owners::X_16ec30::FUN_0016ec30(int a) {
     m44 = a;
     return 1;
 }

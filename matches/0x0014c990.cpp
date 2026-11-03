@@ -1,11 +1,6 @@
-class O_14c990 {
-  public:
-    char pad[0x30];
-    int m30;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool O_14c990::Set(int v) {
+bool owners::O_14c990::FUN_0014c990(int v) {
     m30 = v;
     return true;
 }

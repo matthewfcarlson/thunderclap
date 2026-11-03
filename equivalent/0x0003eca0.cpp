@@ -2,12 +2,12 @@
 // FUN_0003eca0 @ 0x0003eca0
 // FUN_0003eca0: look up a named value by key, -1 when absent
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Key_3eca0 {
     int lo;
     int hi;
     void FUN_0027af00();
-    void FUN_0027b040(const char *name);
 };
 
 struct Entry_3eca0 {
@@ -37,7 +37,7 @@ float Table_3eca0::FUN_0003eca0(const char *name)
         (*(Key_3eca0*)&DAT_004dc2c8).FUN_0027af00();
         atexit(FUN_00363ba0);
     }
-    (*(Key_3eca0*)&DAT_004dc2c8).FUN_0027b040(name);
+    ((owners::Target_27b040 *)&((*(Key_3eca0*)&DAT_004dc2c8)))->FUN_0027b040((hulk_uintptr)name);
     for (int i = 0; i < count; i++) {
         if (entries[i].lo == (*(Key_3eca0*)&DAT_004dc2c8).lo && entries[i].hi == (*(Key_3eca0*)&DAT_004dc2c8).hi)
             return entries[i].value;

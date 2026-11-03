@@ -1,11 +1,6 @@
-class Obj_16efb0 {
-  public:
-    char pad[0x40];
-    void* field;
-    char Set(void* x);
-};
+#include "gen/owners.h"
 
-char Obj_16efb0::Set(void* x) {
+char owners::Obj_16efb0::FUN_0016efb0(void* x) {
     field = x;
     return 1;
 }

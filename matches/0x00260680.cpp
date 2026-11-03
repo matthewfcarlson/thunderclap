@@ -2,11 +2,11 @@
 // data: gCount_260680 = DAT_004e7a2c
 
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" char DAT_0042aa7c[];
 typedef unsigned int u32_260680;
 extern "C" void __cdecl FUN_002603e0(void *, void *);
 struct Sub_260680 {
-    void Close();
 };
 struct Obj_260680 {
     hulk_uintptr vf;
@@ -18,6 +18,6 @@ extern "C" void __fastcall FUN_00260680(Obj_260680* self) {
     self->vf = ((hulk_intptr)DAT_0042aa7c);
     FUN_002603e0(p, self);
     --(*(int*)&DAT_004e7a2c);
-    ((Sub_260680*)((char*)self + 0x58))->Close();
+    ((owners::Str_240060 *)(((Sub_260680*)((char*)self + 0x58))))->FUN_00240060();
     self->Tail();
 }

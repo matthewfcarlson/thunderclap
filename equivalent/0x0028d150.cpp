@@ -2,13 +2,13 @@
 // FUN_0028d150 @ 0x0028d150
 // 0x0028d150: channel constructor holding 8-byte elements, allocated from the parent pool or the heap
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern char DAT_0042caa8[];
 void* __cdecl FUN_0008d6d0(unsigned size);
 void __stdcall FUN_00011520(void* base, unsigned size, int count, void* ctor);
 extern char FUN_00289ed0;
 
 struct Pool_28d150 {
-    void* FUN_002888c0(int size, int tag);
 };
 
 class CompressedQuaternionChannel_28d150 {
@@ -40,6 +40,6 @@ CompressedQuaternionChannel_28d150* CompressedQuaternionChannel_28d150::Construc
         data = mem;
         return this;
     }
-    data = parent->FUN_002888c0(count * 8, 3);
+    data = ((void *)((owners::C_2888c0 *)parent)->FUN_002888c0((unsigned)(count * 8), 3));
     return this;
 }

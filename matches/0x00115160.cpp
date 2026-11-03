@@ -1,10 +1,5 @@
-class Obj_115160 {
-  public:
-    char f(float x);
-    char pad[0x14];
-    float value;
-};
-char Obj_115160::f(float x) {
+#include "gen/owners.h"
+char owners::Obj_115160::FUN_00115160(float x) {
     value = x * 0.0174532925f;
     return 1;
 }

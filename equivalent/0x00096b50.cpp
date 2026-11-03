@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 189 inputs, branch coverage 48/48)
 // FUN_00096b50 @ 0x00096b50
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Vec3_96b50 { float x, y, z; };
 struct Part_96b50 { char pad[0x1b0]; int f1b0; };
 struct Prop_96b50 {
@@ -22,7 +23,6 @@ struct Actor_96b50 {
     float f1b0c;
     char pad4[0x20b0 - 0x1b10];
     int busy;
-    bool FUN_001d7450();
     bool FUN_001d6980();
     int FUN_001d73f0();
     void FUN_001d69f0(Vec3_96b50 *out);
@@ -31,7 +31,6 @@ struct Actor_96b50 {
 };
 struct Checker_96b50 {
     char pad[0x20];
-    bool FUN_00024540(Actor_96b50 *a);
 };
 struct World {
     char pad[0x20];
@@ -58,7 +57,7 @@ extern "C" bool FUN_00096b50(void *ev, void * out_, int *result)
         if (a->part == 0) return false;
         if (a->part->f1b0 == 0) return false;
         Checker_96b50 *c = DAT_004dd700->checker;
-        if (c->FUN_00024540(a)) return false;
+        if (((owners::Obj_24540 *)c)->FUN_00024540((hulk_intptr)(Actor_96b50 *)a)) return false;
         a->FUN_000350c0(out);
         *result = a->FUN_00035cf0();
         return true;
@@ -67,7 +66,7 @@ extern "C" bool FUN_00096b50(void *ev, void * out_, int *result)
         Actor_96b50 *a = ((Event_96b50 *)ev)->target.actor;
         if (a == 0) return false;
         if (a->mode == 2 || a->mode == 3 || a->mode == 1) return false;
-        if (!a->FUN_001d7450()) return false;
+        if (!((owners::Self_1d7450 *)a)->FUN_001d7450()) return false;
         if (a->FUN_001d6980()) return false;
         Actor_96b50 *p = a->parent;
         if (p != 0) {

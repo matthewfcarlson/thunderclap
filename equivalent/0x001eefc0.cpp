@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2983 inputs, branch coverage 6/6)
 // FUN_001eefc0 @ 0x001eefc0
-struct Sub { void FUN_0027b040(int value); };
+#include "gen/owners.h"
+struct Sub {  };
 struct Entry {
     char pad0[8];
     int field8;
@@ -28,7 +29,7 @@ Entry* Owner::FUN_001eefc0() {
             entry->active = 0;
             entry->field20 = 100.0f;
             entry->field24 = 0;
-            entry->sub.FUN_0027b040(0);
+            ((owners::Target_27b040 *)&(entry->sub))->FUN_0027b040((hulk_uintptr)0);
             return entry;
         }
         Entry *previous = entry;

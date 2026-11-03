@@ -1,10 +1,5 @@
-class C_13e880 {
-  public:
-    char pad[0x18];
-    int mValue;
-    bool Set(int value);
-};
-bool C_13e880::Set(int value) {
+#include "gen/owners.h"
+bool owners::C_13e880::FUN_0013e880(int value) {
     mValue = value;
     return true;
 }

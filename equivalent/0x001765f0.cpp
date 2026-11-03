@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 16/16)
 // hulkfight::motion::SurfAction::vfunc_3 @ 0x001765f0
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 void* FUN_00263ea0(unsigned int size);
 
@@ -7,7 +8,6 @@ struct Vec3_1765f0 { float x, y, z; };
 
 struct Name_1765f0 {
     char data[8];
-    void FUN_0027b040(const char* s);
 };
 
 class JointDriver {
@@ -27,7 +27,6 @@ struct Controller_1765f0 {
 
 struct Stats_1765f0 {
     char pad00[4];
-    bool FUN_000356c0(Vec3_1765f0* out);
     bool FUN_00035550(Vec3_1765f0* out);
     float FUN_000354c0();
 };
@@ -77,7 +76,7 @@ bool SurfAction::vfunc_3(int a, int b)
     if (d)
         d = d->FUN_002248a0();
     driver = d;
-    d->name.FUN_0027b040("surf");
+    ((owners::Target_27b040 *)&(d->name))->FUN_0027b040((hulk_uintptr)"surf");
     driver->v0();
     driver->f10 = 0;
     ctl->FUN_00222890(driver, -1.0f, params->p3c, 1.0f, params->p40, params->p44, -1.0f);
@@ -85,7 +84,7 @@ bool SurfAction::vfunc_3(int a, int b)
     v.x = 0.0f;
     v.y = 0.0f;
     v.z = 0.0f;
-    stats->FUN_000356c0(&v);
+    ((owners::Thing_356c0 *)stats)->FUN_000356c0((unsigned int *)(Vec3_1765f0 *)(&v));
     float len = (float)sqrt((double)(v.x * v.x + v.z * v.z));
     v.y = 0.0f;
     float limit = params->limit;

@@ -2,12 +2,12 @@
 // FUN_001f0090 @ 0x001f0090
 // cl-flags: /GS
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" char* __cdecl strchr(const char*, int);
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 struct Name {
     unsigned int lo, hi;
     void FUN_0027af00();
-    void FUN_0027b040(const char* s);
 };
 struct NamePath {
     Name names[8];
@@ -28,14 +28,14 @@ NamePath::NamePath(const char* path) {
         strncpy(fr.buf, segment, len);
         fr.buf[len] = 0;
         if (count < 8) {
-            names[count].FUN_0027b040(fr.buf);
+            ((owners::Target_27b040 *)&(names[count]))->FUN_0027b040((hulk_uintptr)(fr.buf));
             count++;
         }
         segment = dot + 1;
         dot = strchr(segment, '.');
     }
     if (count < 8) {
-        names[count].FUN_0027b040(segment);
+        ((owners::Target_27b040 *)&(names[count]))->FUN_0027b040((hulk_uintptr)segment);
         count++;
     }
 }

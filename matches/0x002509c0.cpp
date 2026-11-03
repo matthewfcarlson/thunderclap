@@ -2,6 +2,7 @@
 // data: expr = DAT_00429ca4
 
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" char DAT_00429c8c[];
 class SeqEvent_2509c0 {
   public:
@@ -9,7 +10,6 @@ class SeqEvent_2509c0 {
 };
 class Text_2509c0 {
   public:
-    void Set(const char*, int);
 };
 class SeqEventExpression : public SeqEvent_2509c0 {
   public:
@@ -20,5 +20,5 @@ class SeqEventExpression : public SeqEvent_2509c0 {
 };
 SeqEventExpression::SeqEventExpression() {
     vptr = ((hulk_intptr)DAT_00429c8c);
-    text.Set(DAT_00429ca4, 2);
+    ((owners::String_23fc40 *)&text)->FUN_0023fc40(DAT_00429ca4, (hulk_intptr)2);
 }

@@ -1,17 +1,12 @@
-class Obj_e2ac0 {
-  public:
-    char pad[0xac];
-    volatile int field;
-    void Set(int);
-};
+#include "gen/owners.h"
 void ReleaseThing(int);
-void Obj_e2ac0::Set(int value) {
+void owners::Obj_e2ac0::FUN_000e2ac0(hulk_intptr value) {
     int old = field;
     if (old != 0) {
         ReleaseThing(old);
         field = 0;
-        field = value;
+        field = ((int)value);
     } else {
-        field = value;
+        field = ((int)value);
     }
 }

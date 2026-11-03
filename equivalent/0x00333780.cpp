@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00333780 @ 0x00333780
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Object {
     char pad[0x30];
     float value;
-    void FUN_003335e0();
     void FUN_00333780(float input);
 };
 void Object::FUN_00333780(float input) {
@@ -15,5 +15,5 @@ void Object::FUN_00333780(float input) {
         value = (*(float*)&DAT_003f32dc);
     else
         value = input;
-    FUN_003335e0();
+    ((owners::Obj_3335e0 *)this)->FUN_003335e0();
 }

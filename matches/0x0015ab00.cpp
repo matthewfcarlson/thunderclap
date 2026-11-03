@@ -1,10 +1,6 @@
-class Target_15ab00 {
-  public:
-    char Set(int value);
-    char pad[16];
-};
+#include "gen/owners.h"
 
-char Target_15ab00::Set(int value) {
+char owners::Target_15ab00::FUN_0015ab00(int value) {
     *(int*)((char*)this + 0x10) = value;
     return 1;
 }

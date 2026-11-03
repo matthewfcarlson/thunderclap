@@ -2,6 +2,7 @@
 // FUN_00097a30 @ 0x00097a30
 #include "decls/data/game/hulkfight.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
 extern "C" double cos(double);
 
@@ -16,11 +17,9 @@ struct Mat_97a30 {
     float m[16];
     void FUN_0022b980();
     void FUN_0022baf0(const V3_97a30 *axis, float angle);
-    void FUN_0022c3b0(const V3_97a30 *in, V3_97a30 *out);
 };
 
 struct Rng_97a30 {
-    int FUN_00011380(int a, int b);
     float FUN_000787e0(float lo, float hi);
 };
 
@@ -69,7 +68,7 @@ int __cdecl FUN_00097a30(float a0, float a1, float a2, void *a3, float a4, V3_97
     if (a9 != 0.0f && a10 != 0.0f) {
         Rng_97a30 *rng = (*(Rng_97a30**)&DAT_004e5acc);
         if (mode == 1)
-            mode = rng->FUN_00011380(2, 0xb);
+            mode = ((owners::Random_11380 *)rng)->FUN_00011380(2, 0xb);
         switch (mode) {
         case 2:
             f.v.x = rng->FUN_000787e0(a9, a10) + f.v.x;
@@ -175,7 +174,7 @@ int __cdecl FUN_00097a30(float a0, float a1, float a2, void *a3, float a4, V3_97
             if (f.axis.FUN_000111f0() > 0.0f) {
                 f.m.FUN_0022b980();
                 f.m.FUN_0022baf0(&f.axis, f.s);
-                f.m.FUN_0022c3b0(a7, &f.p);
+                ((owners::M_22c3b0 *)&(f.m))->FUN_0022c3b0((float *)(const V3_97a30 *)a7, (float *)(V3_97a30 *)(&f.p));
             }
         }
     }
@@ -210,7 +209,7 @@ int __cdecl FUN_00097a30(float a0, float a1, float a2, void *a3, float a4, V3_97
         f.cross.FUN_000111b0(&f.axis, a7);
         f.m.FUN_0022b980();
         f.m.FUN_0022baf0(&f.cross, f.s);
-        f.m.FUN_0022c3b0(a7, &f.p);
+        ((owners::M_22c3b0 *)&(f.m))->FUN_0022c3b0((float *)(const V3_97a30 *)a7, (float *)(V3_97a30 *)(&f.p));
         a7->y = f.p.y;
         a7->x = f.p.x;
         a7->z = f.p.z;

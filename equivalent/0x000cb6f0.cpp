@@ -2,6 +2,7 @@
 // FUN_000cb6f0 @ 0x000cb6f0
 #include "decls/data/game/global.h"
 #include "compat/ptr.h"
+#include "gen/owners.h"
 
 struct Segment {
     virtual void unused0(); virtual void unused1(); virtual void unused2(); virtual void unused3();
@@ -12,7 +13,6 @@ struct Segment {
 struct Table {
     char reserved[0x24];
     Segment* segments[1];
-    void* FUN_000f7220(int position);
 };
 struct Object {
     Table* table;
@@ -29,7 +29,7 @@ hulk_freg Object::FUN_000cb6f0(int position, int index) {
     // the original loads the vptr before the table lookup call and the slot after it
     typedef float (__fastcall *EvalFn)(Segment*, int, void*);
     void** vtable = *(void***)item;
-    void* arg = table->FUN_000f7220(position);
+    void* arg = ((void *)((owners::C_f7220 *)table)->FUN_000f7220((hulk_intptr)position));
     float result = ((EvalFn)vtable[9])(item, 0, arg);
     float divisor = base->getDivisor();
     double product = (*value / divisor) * result; // keep the original's multiplication order

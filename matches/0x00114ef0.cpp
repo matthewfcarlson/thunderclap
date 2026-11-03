@@ -1,10 +1,5 @@
-class A_114ef0 {
-  public:
-    char pad[0x10];
-    int m10;
-    bool Init(int value);
-};
-bool A_114ef0::Init(int value) {
+#include "gen/owners.h"
+bool owners::A_114ef0::FUN_00114ef0(int value) {
     m10 = value;
     return true;
 }

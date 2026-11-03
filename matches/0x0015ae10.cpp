@@ -1,11 +1,6 @@
-class C_15ae10 {
-  public:
-    char pad[0x20];
-    float mAngle;
-    char Set(float a);
-};
+#include "gen/owners.h"
 
-char C_15ae10::Set(float a) {
+char owners::C_15ae10::FUN_0015ae10(float a) {
     mAngle = a * 0.017453292f;
     return 1;
 }

@@ -1,8 +1,8 @@
+#include "gen/owners.h"
 struct SrcItem {
     char pad[0x40];
 };
 struct DstItem {
-    void copy(SrcItem*);
     char pad[0xc0];
 };
 struct Src {
@@ -26,5 +26,5 @@ void Obj::run() {
     else
         n = source->count;
     for (int i = 0; i < n; ++i)
-        dest[i].copy(&source->items[i]);
+        ((owners::C_30efa0 *)&(dest[i]))->FUN_0030efa0((hulk_intptr)(SrcItem *)(&source->items[i]));
 }

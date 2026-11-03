@@ -1,11 +1,6 @@
-class T_180000 {
-  public:
-    char pad[0x48];
-    int m48;
-    bool Fn(int a);
-};
+#include "gen/owners.h"
 
-bool T_180000::Fn(int a) {
+bool owners::T_180000::FUN_00180000(int a) {
     m48 = a;
     return true;
 }

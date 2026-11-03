@@ -2,6 +2,7 @@
 // audio::SeqActionWait::vfunc_6 @ 0x00250160
 #include "compat/ptr.h"
 #include "gen/audio.h"
+#include "gen/owners.h"
 
 struct Str_250160 {
     char *data;
@@ -10,7 +11,6 @@ struct Str_250160 {
     short len;
     short pad10;
     Str_250160 *FUN_0023fac0();
-    Str_250160 *FUN_0023fc40(const char *text, int len);
     bool FUN_00240310(const Str_250160 *other);
 };
 extern "C" void __fastcall FUN_00240060(Str_250160 *s);
@@ -59,7 +59,7 @@ void audio::SeqActionWait::vfunc_6(hulk_intptr __p0) { Ctx_250160 * ctx = (Ctx_2
     case 3: {
         value.FUN_0023fac0();
         FUN_002613b0(&ctx->mgr->table, &value, &(*(WaitData * *)&this->f_08)->name);
-        bool same = probe.FUN_0023fc40("t", 2)->FUN_00240310(&value);
+        bool same = ((Str_250160 *)((owners::String_23fc40 *)&probe)->FUN_0023fc40("t", (hulk_intptr)2))->FUN_00240310(&value);
         FUN_00240060(&probe);
         if (same)
             this->f_0c = 0;

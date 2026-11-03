@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct A_13a5c0 {
-    void* Get();
 };
 struct B_13a5c0 {
     int Check();
@@ -15,7 +15,7 @@ struct Target_13a5c0 {
     bool Run();
 };
 bool Target_13a5c0::Run() {
-    void* value = field20->Get();
+    void* value = ((void *)((owners::Object_592a0 *)field20)->FUN_000592a0());
     hulk_intptr result = ((B_13a5c0*)value)->Check();
     if (!result)
         return true;

@@ -1,11 +1,5 @@
-class C_35660 {
-    char pad[0x74];
-    int a, b, c;
-
-  public:
-    bool f(int* out);
-};
-bool C_35660::f(int* out) {
+#include "gen/owners.h"
+bool owners::C_35660::FUN_00035660(int* out) {
     out[0] = a;
     out[1] = b;
     out[2] = c;

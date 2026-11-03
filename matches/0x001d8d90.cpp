@@ -1,4 +1,5 @@
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Bounds_1d8d90 {
     unsigned int values[4];
 };
@@ -32,7 +33,6 @@ struct Link_1d8d90 {
     unsigned int type;
 };
 struct Component_1d8d90 {
-    void FUN_0027b040(int);
 };
 struct Object {
     char pad0[0x118];
@@ -58,7 +58,7 @@ void Object::FUN_001d8d90(unsigned char enabled) {
             handle = 0;
         }
         FUN_001d8cd0();
-        component.FUN_0027b040(0);
+        ((owners::Target_27b040 *)&component)->FUN_0027b040((hulk_uintptr)0);
         FUN_001d71e0(0);
         return;
     }

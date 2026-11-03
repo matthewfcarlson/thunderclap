@@ -1,13 +1,5 @@
-class C_fde20 {
-  public:
-    char pad[0x74];
-    int value;
-    int a;
-    int b;
-    int c;
-    int f(int* out);
-};
-int C_fde20::f(int* out) {
+#include "gen/owners.h"
+hulk_intptr owners::C_fde20::FUN_000fde20(int* out) {
     out[0] = a;
     out[1] = b;
     out[2] = c;

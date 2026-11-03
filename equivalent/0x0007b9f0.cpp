@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0007b9f0 @ 0x0007b9f0
+#include "gen/owners.h"
 class Item_7b9f0 {
 public:
-    void FUN_00083d20(int v);
 };
 class Obj_7b9f0 {
 public:
@@ -22,7 +22,7 @@ void Manager_7b9f0::FUN_0007b9f0(int key) {
     int idx = FUN_00079800(key);
     if (idx == -1)
         return;
-    items[idx]->FUN_00083d20(0x13);
+    ((owners::Thing_83d20 *)(items[idx]))->FUN_00083d20(0x13);
     Item_7b9f0* item = items[idx];
     for (int i = 0; i < 20; i++) {
         if ((Item_7b9f0*)objs[i] == item) {

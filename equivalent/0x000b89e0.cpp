@@ -4,6 +4,7 @@
 #include "decls/data/game/global.h"
 
 // MSVC 7.1 expands memcmp inline (repe cmpsb); so does this.
+#include "gen/owners.h"
 static inline int memcmp_inline(const void *a, const void *b, unsigned n)
 {
     const unsigned char *p = (const unsigned char *)a;
@@ -71,7 +72,6 @@ struct Mission_b89e0 {
     char pad0[0x80];
     Progress_b89e0 progress;          // 0x80
     const char* FUN_0008a2d0();
-    const char* FUN_0008a060(const char* id);
 };
 
 class MissionFailMenu {
@@ -91,7 +91,7 @@ void MissionFailMenu::FUN_000b89e0()
 
     hint[0] = 0;
     const char* id = mission->FUN_0008a2d0();
-    const char* state = mission->FUN_0008a060(id);
+    const char* state = ((const char *)((owners::Obj_8a060 *)mission)->FUN_0008a060((hulk_intptr)id));
     if (memcmp_inline(state, "complete", 9) != 0) {
         Script_b89e0* script = FUN_001d4c90();
         if (script != 0) {

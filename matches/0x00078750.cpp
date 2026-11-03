@@ -1,8 +1,5 @@
-struct Vec3_78750 {
-    float x, y, z;
-    Vec3_78750* Add(Vec3_78750* out, Vec3_78750* other);
-};
-Vec3_78750* Vec3_78750::Add(Vec3_78750* out, Vec3_78750* other) {
+#include "gen/owners.h"
+owners::Vec3_78750* owners::Vec3_78750::FUN_00078750(owners::Vec3_78750* out, owners::Vec3_78750* other) {
     float z = other->z + this->z;
     float y = other->y + this->y;
     float x = other->x + this->x;

@@ -1,12 +1,6 @@
-class Obj_88530 {
-  public:
-    void A();
-    void B();
-    void C();
-    void D();
-};
-extern Obj_88530* g_88530;
-void Obj_88530::C() {
+#include "gen/owners.h"
+extern owners::Obj_88530* g_88530;
+void owners::Obj_88530::FUN_00088530() {
     g_88530 = this;
     A();
     B();

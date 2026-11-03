@@ -1,11 +1,6 @@
-class X_17f370 {
-  public:
-    char pad[0x16];
-    char m;
-    char Set(char c);
-};
+#include "gen/owners.h"
 
-char X_17f370::Set(char c) {
+char owners::X_17f370::FUN_0017f370(char c) {
     m = c;
     return 1;
 }

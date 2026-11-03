@@ -1,10 +1,5 @@
-class O_61dc0 {
-  public:
-    char pad[12];
-    int mC;
-    char Fn(int a);
-};
-char O_61dc0::Fn(int a) {
+#include "gen/owners.h"
+char owners::O_61dc0::FUN_00061dc0(int a) {
     mC = a;
     return 1;
 }

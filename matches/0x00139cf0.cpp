@@ -1,10 +1,5 @@
-class C_139cf0 {
-  public:
-    char pad[0x28];
-    int m28;
-    bool Set(int v);
-};
-bool C_139cf0::Set(int v) {
+#include "gen/owners.h"
+bool owners::C_139cf0::FUN_00139cf0(int v) {
     m28 = v;
     return true;
 }

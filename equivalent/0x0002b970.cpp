@@ -3,6 +3,7 @@
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 extern "C" int memcmp(const void *a, const void *b, unsigned int n);
 // MSVC 7.1 expands memcmp against a string literal inline (repe cmpsb); so does this.
 static inline int memcmp_lit(const char *a, const char *b, unsigned n)
@@ -24,7 +25,6 @@ struct V3_2b970 {
 };
 
 struct Name_2b970 {
-    void FUN_0027b040(const char *s);
 };
 
 struct Comp_2b970;
@@ -56,7 +56,6 @@ struct Registry_2b970 {
     char pad0[0xc];
     int count;
     Def *FUN_00044ad0(unsigned int lo, unsigned int hi);
-    Def *FUN_00044ab0(int i);
 };
 
 struct Owner_2b970 {
@@ -70,7 +69,6 @@ struct Slot8b {
     void FUN_000c7d10(int a, const char *name);
 };
 struct Slot8_2b970 {
-    Slot8b *FUN_000cae70();
 };
 struct P3c_2b970 {
     char pad0[8];
@@ -116,10 +114,8 @@ public:
     char pad1ca4[0x1d7c - 0x1ca4];
     int f1d7c;
     CCharacter_2b970 *FUN_00037860(int *x);
-    void FUN_00036d60(char *name);
     void FUN_00042b40(Def *d);
     void FUN_0003f650();
-    void FUN_000362f0();
     char FUN_00035a90();
     void FUN_000368d0(int a);
     void FUN_00035fa0(int a);
@@ -194,7 +190,7 @@ char Spawner_2b970::F(const char *defName, V3_2b970 pos, float angle, const char
         bool found = false;
         if (n > 0) {
             do {
-                unsigned __int64 id = p4->FUN_00044ab0(i)->FUN_000443c0();
+                unsigned __int64 id = ((Def *)((owners::C_44ab0 *)p4)->FUN_00044ab0(i))->FUN_000443c0();
                 if (id == dh2) {
                     found = true;
                     break;
@@ -206,7 +202,7 @@ char Spawner_2b970::F(const char *defName, V3_2b970 pos, float angle, const char
             FUN_00266da0(old);
             return 0;
         }
-        def = p4->FUN_00044ab0(i);
+        def = ((Def *)((owners::C_44ab0 *)p4)->FUN_00044ab0(i));
         if (!def) {
             FUN_00266da0(old);
             return 0;
@@ -224,10 +220,10 @@ char Spawner_2b970::F(const char *defName, V3_2b970 pos, float angle, const char
     Owner_2b970 *ow = fac->FUN_00059ba0(fx);
     if (ow)
         ow->FUN_00059cd0(ch);
-    ch->FUN_00036d60(name);
+    ((owners::Obj_36d60 *)ch)->FUN_00036d60((const char *)name);
     ch->FUN_00042b40(def);
     ch->FUN_0003f650();
-    ch->FUN_000362f0();
+    ((owners::Obj_362f0 *)ch)->FUN_000362f0();
     if (arg10 && !ch->FUN_00035a90()) {
         V3_2b970 A, B;
         ch->FUN_000368d0(0);
@@ -261,7 +257,7 @@ char Spawner_2b970::F(const char *defName, V3_2b970 pos, float angle, const char
                     ent->FUN_000fdbd0(c);
                 }
             }
-            ent->name.FUN_0027b040(name2);
+            ((owners::Target_27b040 *)&(ent->name))->FUN_0027b040((hulk_uintptr)name2);
             ent->be8 = flag8;
         }
         if (ch->p128 == 0)
@@ -280,7 +276,7 @@ char Spawner_2b970::F(const char *defName, V3_2b970 pos, float angle, const char
                     c->FUN_001034b0(1);
             }
             ent->FUN_000fdbd0(c);
-            ent->name.FUN_0027b040(name2);
+            ((owners::Target_27b040 *)&(ent->name))->FUN_0027b040((hulk_uintptr)name2);
             ent->be8 = flag8;
         }
         Def *cd2 = ch->p11c;
@@ -316,8 +312,8 @@ char Spawner_2b970::F(const char *defName, V3_2b970 pos, float angle, const char
     Slot8_2b970 *s8 = p0->p3c->p8;
     Def *cd4 = ch->p11c;
     if (cd4 && cd4->f1b0 != 1 && s8) {
-        if (s8->FUN_000cae70())
-            s8->FUN_000cae70()->FUN_000c7d10(1, name9);
+        if (((Slot8b *)((owners::C_cae70 *)s8)->FUN_000cae70()))
+            ((Slot8b *)((owners::C_cae70 *)s8)->FUN_000cae70())->FUN_000c7d10(1, name9);
     }
     ch->v1();
     FUN_0002b590();

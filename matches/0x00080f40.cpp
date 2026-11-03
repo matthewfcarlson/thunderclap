@@ -1,11 +1,5 @@
-class C_80f40 {
-    char pad[0x28];
-    unsigned int flags;
-
-  public:
-    void F(bool b);
-};
-void C_80f40::F(bool b) {
+#include "gen/owners.h"
+void owners::C_80f40::FUN_00080f40(bool b) {
     if (b)
         flags |= 0x10;
     else

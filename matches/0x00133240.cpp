@@ -1,10 +1,6 @@
-struct Obj_133240 {
-    char pad[0x18];
-    int value;
-    bool Set(int x);
-};
+#include "gen/owners.h"
 
-bool Obj_133240::Set(int x) {
+bool owners::Obj_133240::FUN_00133240(int x) {
     value = x;
     return true;
 }

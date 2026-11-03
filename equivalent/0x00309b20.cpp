@@ -1,3 +1,4 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00309b20 @ 0x00309b20
-struct Node { char pad0[8]; int value; char pad1[16]; Node* next; bool FUN_00309b20(Node* other); }; bool Node::FUN_00309b20(Node* other) { int valueToFind = value; if (valueToFind >= other->value) return false; while (other->value > valueToFind) { other = other->next; if (!other) return false; if (other->value == valueToFind) return true; } return false; }
+#include "gen/owners.h"
+ bool owners::Node_309b20::FUN_00309b20(owners::Node_309b20* other) { int valueToFind = value; if (valueToFind >= other->value) return false; while (other->value > valueToFind) { other = other->next; if (!other) return false; if (other->value == valueToFind) return true; } return false; }

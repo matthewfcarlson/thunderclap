@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // hulkfight::motion::SmartPropIsCargoCondition::vfunc_6 @ 0x00181ae0
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 extern "C" void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 extern char DAT_00494b44[];
@@ -17,7 +18,6 @@ struct Part_181ae0 {
 struct Fighter_181ae0 {
     char pad[0x128];
     Part_181ae0 *part;
-    Part_181ae0 *FUN_00035ef0(int index);
 };
 
 struct Owner_181ae0 {
@@ -38,7 +38,7 @@ bool hulkfight::motion::SmartPropIsCargoCondition::vfunc_6(void* __p0, void* __p
         if (this->f_0c < 0) {
             part = f->part;
         } else if (this->f_0c < 8) {
-            part = (Part_181ae0 *)f->FUN_00035ef0(this->f_0c);
+            part = (Part_181ae0 *)((Part_181ae0 *)((owners::C_35ef0 *)f)->FUN_00035ef0((hulk_intptr)(this->f_0c)));
         } else {
             return result;
         }

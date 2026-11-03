@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 struct ObjC_11ca80 {
     char pad[0x10];
@@ -13,14 +14,13 @@ struct ObjA_11ca80 {
 struct ObjB_11ca80 {
     char pad[0x10];
     void* child;
-    ObjA_11ca80* get();
 };
 struct Child_11ca80 {
     void run(void*);
 };
 
 bool hulkfight::ai::RoutAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
-    ObjA_11ca80* x = (*(ObjB_11ca80 * *)&this->f_38)->get();
+    ObjA_11ca80* x = ((ObjA_11ca80 *)((owners::Object_592a0 *)((*(ObjB_11ca80 * *)&this->f_38)))->FUN_000592a0());
     ObjC_11ca80* y = x->step();
     (*(void * *)&this->f_5c) = y;
     float f = (*(ObjA_11ca80 * *)&this->f_34)->value;

@@ -1,9 +1,8 @@
 // Same code shape as 0x00147a50 (propagated; names are from that function)
+#include "gen/owners.h"
 typedef unsigned char u8;
 struct P_147ab0 {
-    P_147ab0* A();
     P_147ab0* B();
-    int C();
 };
 extern int __cdecl TypeCheck(void* a, int b, void* c, void* d, int e);
 extern char kDesc1;
@@ -22,9 +21,9 @@ struct CivilianTargetCondition_147ab0 {
 bool CivilianTargetCondition_147ab0::vfunc_6(void* a, void* b, void* c) {
     if (!TypeCheck(b, 0, &kDesc1, &kDesc2, 0))
         return false;
-    P_147ab0* p = ((P_147ab0*)b)->A();
+    P_147ab0* p = ((P_147ab0 *)((owners::Object_592a0 *)(((P_147ab0*)b)))->FUN_000592a0());
     p = p->B();
-    int x = p->C();
+    int x = ((int)((owners::C_36030 *)p)->FUN_00036030());
     bool r = (x != 0);
     return r == flag;
 }

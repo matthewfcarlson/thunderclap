@@ -3,6 +3,7 @@
 // Charge action update: track which action step is running and publish its progress ratio.
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 class ActionDef {
 public:
@@ -35,11 +36,10 @@ public:
 
 class Owner_171860 {
 public:
-    FighterRef_171860* FUN_000592a0();
 };
 
 bool hulkfight::motion::ChargeAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
-    Fighter_171860* fighter = (*(Owner_171860 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();
+    Fighter_171860* fighter = ((FighterRef_171860 *)((owners::Object_592a0 *)((*(Owner_171860 * *)&this->f_20)))->FUN_000592a0())->FUN_00059a30();
     int step = (*(ActionDef * *)&this->f_1c)->step;
     if ((*(ActionDef * *)&this->f_1c)->restart != 0 || step != fighter->lastStep) {
         fighter->baseline = 0;

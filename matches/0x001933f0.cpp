@@ -1,11 +1,6 @@
-class X_1933f0 {
-  public:
-    char Set(int value);
-    char mPad[0xa0];
-    int mValue;
-};
+#include "gen/owners.h"
 
-char X_1933f0::Set(int value) {
+char owners::X_1933f0::FUN_001933f0(int value) {
     mValue = value;
     return 1;
 }

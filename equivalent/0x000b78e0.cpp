@@ -4,8 +4,9 @@
 // equiv-map: ??_R0?AVTextSelector@@@8 = 0x0049dbbc
 // equiv-map: ??_R0?AVCUnlockable@@@8 = 0x0049dab8
 // equiv-map: ??_R0?AVCUnlockableBlonskyFile@@@8 = 0x0049dad4
+#include "gen/owners.h"
 
-class FEObject {
+class FEObject_b78e0 {
 public:
     virtual void f0();
 };
@@ -16,13 +17,12 @@ public:
     virtual void f49(int v);
 };
 
-class CUnlockable {
+class CUnlockable_b78e0 {
 public:
     virtual void u0();
-    int FUN_00091d20();
 };
 
-class CUnlockableBlonskyFile : public CUnlockable {
+class CUnlockableBlonskyFile_b78e0 : public CUnlockable_b78e0 {
 public:
     virtual void u1();
 };
@@ -37,7 +37,7 @@ struct Link14 {
     Link8_b78e0 *next;             // 0x08
 };
 
-class TextSelector : public FEObject {
+class TextSelector_b78e0 : public FEObject_b78e0 {
 public:
     char pad04[0x14 - 4];
     Link14 *link;            // 0x14
@@ -48,14 +48,13 @@ public:
 };
 
 struct Store {
-    CUnlockable *FUN_00092ad0(char *name);
 };
 
 struct Cursor_b78e0 {
     void FUN_001be060();
 };
 
-FEObject *__cdecl FUN_000fc260(const char *name);
+FEObject_b78e0 *__cdecl FUN_000fc260(const char *name);
 
 class Screen_b78e0 {
 public:
@@ -70,15 +69,15 @@ void Screen_b78e0::FUN_000b78e0(const char *name)
 {
     if (store == 0)
         return;
-    TextSelector *sel = dynamic_cast<TextSelector *>(FUN_000fc260(name));
+    TextSelector_b78e0 *sel = dynamic_cast<TextSelector_b78e0 *>(FUN_000fc260(name));
     if (sel == 0)
         return;
     if (sel->count == 0)
         return;
     if (cursor != 0)
         cursor->FUN_001be060();
-    CUnlockableBlonskyFile *file = dynamic_cast<CUnlockableBlonskyFile *>(store->FUN_00092ad0(sel->list + 0x34));
+    CUnlockableBlonskyFile_b78e0 *file = dynamic_cast<CUnlockableBlonskyFile_b78e0 *>(((CUnlockable_b78e0 *)((owners::C_92ad0 *)store)->FUN_00092ad0((hulk_intptr)(sel->list + 0x34))));
     if (file == 0)
         return;
-    sel->link->next->target->f49(file->FUN_00091d20());
+    sel->link->next->target->f49(((int)(hulk_uintptr)((owners::C_91d20 *)(CUnlockable_b78e0 *)file)->FUN_00091d20()));
 }

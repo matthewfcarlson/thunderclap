@@ -3,6 +3,7 @@
   // 0.0
   // 0.5
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct V3_15e7d0 {
     float x, y, z;
@@ -32,7 +33,6 @@ struct Mgr_15e7d0 {
 };
 
 struct Holder_15e7d0 {
-    Mgr_15e7d0 *FUN_000592a0();
 };
 
 struct CurObj {
@@ -93,7 +93,7 @@ bool LocomotionSteerAction::vfunc_5(Arg1_15e7d0 a, float dt)
     if (!cur)
         return false;
 
-    Mgr_15e7d0 *mgr = owner->FUN_000592a0();
+    Mgr_15e7d0 *mgr = ((Mgr_15e7d0 *)((owners::Object_592a0 *)owner)->FUN_000592a0());
     Player_15e7d0 *pl = mgr->FUN_00059a30();
     float f = pl->FUN_000354c0();
     cur->f8a8 = f;

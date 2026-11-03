@@ -1,8 +1,8 @@
+#include "gen/owners.h"
 struct C_13ec0 {
     int second();
 };
 struct B_13ec0 {
-    C_13ec0* first();
 };
 struct Obj_13ec0 {
     char pad[0x1c];
@@ -10,5 +10,5 @@ struct Obj_13ec0 {
     int target();
 };
 int Obj_13ec0::target() {
-    return member->first()->second();
+    return ((C_13ec0 *)((owners::Object_592a0 *)member)->FUN_000592a0())->second();
 }

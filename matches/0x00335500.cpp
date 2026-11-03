@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct C_335500 {
     char pad[8];
     int type;
@@ -5,7 +6,6 @@ struct C_335500 {
 struct B_335500 {
     char pad[0x44];
     int count;
-    C_335500* lookup(int);
 };
 struct A_335500 {
     char pad[4];
@@ -18,7 +18,7 @@ bool A_335500::run(int index, unsigned int* out) {
         return false;
     if (index >= b->count)
         return false;
-    if (b->lookup(index)->type != 2)
+    if (((C_335500 *)((owners::Thing_337090 *)b)->FUN_00337090(index))->type != 2)
         return false;
     *out = values[index];
     return true;

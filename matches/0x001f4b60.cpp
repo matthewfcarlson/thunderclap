@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class Obj_1f4b60 {
   public:
     char pad[8];
@@ -7,12 +8,11 @@ class Obj_1f4b60 {
     int d;
     char e;
     void first();
-    void second(int, int);
 };
 extern int f2(int, int);
 Obj_1f4b60* __fastcall target(Obj_1f4b60* self, void*) {
     self->first();
-    self->second(0, 0);
+    ((owners::Pair_27af60 *)self)->FUN_0027af60(0, 0);
     self->a = 0;
     self->b = f2(0, 0);
     self->c = 999;

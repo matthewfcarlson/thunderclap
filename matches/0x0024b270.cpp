@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class Obj_24b270 {
   public:
     virtual void f0();
@@ -14,15 +15,7 @@ class Obj_24b270 {
     virtual void f11();
     virtual void f12();
 };
-class Target_24b270 {
-  public:
-    char pad[0x78];
-    unsigned char index;
-    unsigned char count;
-    unsigned char divisor;
-    int Run();
-};
-int Target_24b270::Run() {
+int owners::Target_24b270::FUN_0024b270() {
     Obj_24b270* o = ((Obj_24b270**)this)[index * 3];
     if (o)
         o->f12();

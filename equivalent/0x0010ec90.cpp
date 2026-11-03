@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 22/22)
 // hulkfight::ai::HulkActionCountCondition::vfunc_6 @ 0x0010ec90
 #include "decls/data/game/hulkfight/ai.h"
+#include "gen/owners.h"
 
 extern "C" int atexit(void (*)());
 
@@ -8,7 +9,6 @@ struct Key_10ec90 {
     unsigned lo;
     unsigned hi;
     void FUN_0027af00();
-    void FUN_0027b040(int word);
 };
 
 extern "C" void FUN_00363e70();
@@ -29,7 +29,7 @@ struct Stats_10ec90 {
 Stats_10ec90 *FUN_000678d0();
 
 namespace fight {
-class Params {
+class Params_10ec90 {
   public:
     virtual void v0();
     virtual void v1();
@@ -37,7 +37,7 @@ class Params {
 };
 }
 
-class CFightParams : public fight::Params {
+class CFightParams_10ec90 : public fight::Params_10ec90 {
   public:
     virtual void v2();
 };
@@ -46,21 +46,21 @@ class HulkActionCountCondition {
   public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5();
-    virtual bool FUN_0010ec90(int a1, fight::Params *params, int a3);
+    virtual bool FUN_0010ec90(int a1, fight::Params_10ec90 *params, int a3);
     char pad4[8];
     unsigned mode;
     int keyword;
     float threshold;
 };
 
-bool HulkActionCountCondition::FUN_0010ec90(int a1, fight::Params *params, int a3)
+bool HulkActionCountCondition::FUN_0010ec90(int a1, fight::Params_10ec90 *params, int a3)
 {
     if (((*(unsigned*)&DAT_004e0bb8) & 1) == 0) {
         (*(unsigned*)&DAT_004e0bb8) |= 1;
         (*(Key_10ec90*)&DAT_004e0bb0).FUN_0027af00();
         atexit(FUN_00363e70);
     }
-    if (dynamic_cast<CFightParams *>(params) == 0)
+    if (dynamic_cast<CFightParams_10ec90 *>(params) == 0)
         return false;
 
     Fighter_10ec90 *fighter = params->FUN_000592a0()->FUN_00059a30();
@@ -69,7 +69,7 @@ bool HulkActionCountCondition::FUN_0010ec90(int a1, fight::Params *params, int a
 
     FUN_000678d0()->FUN_00067730();
 
-    (*(Key_10ec90*)&DAT_004e0bb0).FUN_0027b040(keyword);
+    ((owners::Target_27b040 *)&((*(Key_10ec90*)&DAT_004e0bb0)))->FUN_0027b040((hulk_uintptr)keyword);
 
     Key_10ec90 k;
     k.lo = (*(Key_10ec90*)&DAT_004e0bb0).lo;

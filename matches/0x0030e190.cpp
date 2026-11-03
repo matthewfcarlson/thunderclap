@@ -1,11 +1,5 @@
-class A_30e190 {
-  public:
-    char pad[12];
-    int value;
-    void refresh();
-    void set(int);
-};
-void A_30e190::set(int x) {
+#include "gen/owners.h"
+void owners::A_30e190::FUN_0030e190(int x) {
     value = x;
     refresh();
 }

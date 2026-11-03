@@ -1,10 +1,5 @@
-class O_165970 {
-  public:
-    char pad[0xc];
-    int m;
-    bool Fn(int v);
-};
-bool O_165970::Fn(int v) {
+#include "gen/owners.h"
+bool owners::O_165970::FUN_00165970(int v) {
     m = v;
     return true;
 }

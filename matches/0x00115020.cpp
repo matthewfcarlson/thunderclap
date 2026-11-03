@@ -1,11 +1,6 @@
-class Obj_115020 {
-  public:
-    char pad[0x10];
-    unsigned char mVal;
-    unsigned char Fn(unsigned char arg);
-};
+#include "gen/owners.h"
 
-unsigned char Obj_115020::Fn(unsigned char arg) {
+unsigned char owners::Obj_115020::FUN_00115020(unsigned char arg) {
     mVal = arg;
     return 1;
 }

@@ -1,11 +1,6 @@
-class C_15af40 {
-  public:
-    char pad[0x3c];
-    int m3c;
-    bool Set(int x);
-};
+#include "gen/owners.h"
 
-bool C_15af40::Set(int x) {
+bool owners::C_15af40::FUN_0015af40(int x) {
     m3c = x;
     return true;
 }

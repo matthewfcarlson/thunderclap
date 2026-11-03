@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 12/12)
 // FUN_00098190 @ 0x00098190
 #include "decls/data/game/hulkfight.h"
+#include "gen/owners.h"
 
 extern "C" double cos(double);
 
@@ -12,7 +13,6 @@ struct Mat_98190 {
     float m[16];
     void FUN_0022b980();
     void FUN_0022baf0(const V3_98190 *axis, float angle);
-    void FUN_0022c3b0(const V3_98190 *in, V3_98190 *out);
 };
 
 
@@ -46,7 +46,7 @@ extern "C" int FUN_00098190(float a1, int a2, float a3, int a4, int a5, int a6, 
             Mat_98190 m;
             m.FUN_0022b980();
             m.FUN_0022baf0(&cross, p);
-            m.FUN_0022c3b0(&a, io);
+            ((owners::M_22c3b0 *)&m)->FUN_0022c3b0((float *)(const V3_98190 *)(&a), (float *)(V3_98190 *)io);
         }
     }
     return result;

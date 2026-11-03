@@ -1,12 +1,6 @@
-class C_f7220 {
-  public:
-    char pad0[0x0c];
-    int* items;
-    int max;
-    int Get(int index);
-};
-int C_f7220::Get(int index) {
-    if (index < 0 || index > max)
+#include "gen/owners.h"
+hulk_intptr owners::C_f7220::FUN_000f7220(hulk_intptr index) {
+    if (((int)index) < 0 || ((int)index) > max)
         return 0;
-    return items[index];
+    return items[((int)index)];
 }

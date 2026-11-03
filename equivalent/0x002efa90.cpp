@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 23/24, incomplete)
 // FUN_002efa90 @ 0x002efa90
+#include "gen/owners.h"
 struct SimState_2efa90; struct Source_2efa90; struct Parent_2efa90;
 struct Service_2efa90 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10();
@@ -11,7 +12,6 @@ struct Parent_2efa90 {
 struct Source_2efa90 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual Source_2efa90* v5(SimState_2efa90*);
  char pad[20]; SimState_2efa90* owner; char pad2[4]; Service_2efa90* service; char pad3[68]; unsigned char flag1; unsigned char flag2;
- void FUN_00304740(void*);
 };
 struct SimState_2efa90 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(Parent_2efa90*); virtual void v14(Source_2efa90*);
@@ -37,7 +37,7 @@ extern "C" SimState_2efa90* __cdecl FUN_002efa90(Source_2efa90* source, Parent_2
    if (source->flag1 || source->flag2) source->service->v10();
    source->service->v8();
   }
-  if (parent && source) source->FUN_00304740(parent->data);
+  if (parent && source) ((owners::C_304740 *)source)->FUN_00304740((hulk_intptr)(parent->data));
  }
  return result;
 }

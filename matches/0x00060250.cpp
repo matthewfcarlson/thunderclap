@@ -1,9 +1,5 @@
-class Obj_60250 {
-  public:
-    char pad[0x30];
-    void* Get();
-};
+#include "gen/owners.h"
 
-void* Obj_60250::Get() {
+void* owners::Obj_60250::FUN_00060250() {
     return (char*)this + 0x30;
 }

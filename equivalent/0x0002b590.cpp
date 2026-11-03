@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 437 inputs, branch coverage 28/28)
 // FUN_0002b590 @ 0x0002b590
+#include "gen/owners.h"
 struct Item_2b590 {
  char pad[0x1d78];
  unsigned char protectedFlag;
@@ -8,7 +9,7 @@ struct Item_2b590 {
  void FUN_00036a20();
  void FUN_0003e640();
 };
-struct Registry_2b590 { Item_2b590* FUN_00059c10(int id); };
+struct Registry_2b590 {  };
 struct Owner_2b590 { char pad[0x44]; Registry_2b590* registry; };
 extern unsigned char DAT_0048e0e1;
 struct Manager_2b590 {
@@ -24,7 +25,7 @@ struct Manager_2b590 {
 };
 void Manager_2b590::FUN_0002b590() {
  for (int i=0;i<count;++i) {
-  Item_2b590* item=owner->registry->FUN_00059c10(ids[i]);
+  Item_2b590* item=((Item_2b590 *)((owners::ThisWrap_00059c10 *)(owner->registry))->FUN_00059c10((void *)(hulk_uintptr)(int)(ids[i])));
   if(item) {
    item->FUN_00036a20();
    item->FUN_0003e640();
@@ -35,7 +36,7 @@ void Manager_2b590::FUN_0002b590() {
   int best=0x7fffffff;
   int index=-1;
   for(int j=0;j<count;++j) {
-   Item_2b590* item=owner->registry->FUN_00059c10(ids[j]);
+   Item_2b590* item=((Item_2b590 *)((owners::ThisWrap_00059c10 *)(owner->registry))->FUN_00059c10((void *)(hulk_uintptr)(int)(ids[j])));
    if(item!=keep && !item->protectedFlag && item->priority<=best) {
     best=item->priority;
     index=j;

@@ -1,11 +1,6 @@
-class X_14c7c0 {
-  public:
-    char pad[0x14];
-    char mX;
-    char SetX(char value);
-};
+#include "gen/owners.h"
 
-char X_14c7c0::SetX(char value) {
+char owners::X_14c7c0::FUN_0014c7c0(char value) {
     mX = value;
     return 1;
 }

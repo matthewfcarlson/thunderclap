@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001cd5b0 @ 0x001cd5b0
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Target_1cd5b0 {
     void FUN_000d4620(int a, void *buf, int count, int key, float scale);
 };
@@ -12,7 +13,7 @@ struct Owner_1cd5b0 {
     char pad40[0x54 - 0x40];
     P54 *p54;
 };
-struct Clock_1cd5b0 { int *FUN_00025930(float *out, int n); };
+struct Clock_1cd5b0 {  };
 struct World { char pad[0x20]; Clock_1cd5b0 *clock; };
 
 class CScenarioManager_1cd5b0 {
@@ -39,7 +40,7 @@ void CScenarioManager_1cd5b0::FUN_001cd5b0(float dt)
         if (p) {
             Target_1cd5b0 *t = p->target;
             if (t && count > 2)
-                t->FUN_000d4620(0, buf, count, *DAT_004dd700->clock->FUN_00025930(&dt, 3), -1.0f);
+                t->FUN_000d4620(0, buf, count, *((int *)((owners::Palette_25930 *)(DAT_004dd700->clock))->FUN_00025930((unsigned int *)(&dt), 3)), -1.0f);
         }
     }
 }

@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 23/24, incomplete)
 // FUN_000d5290 @ 0x000d5290
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct MessageSink {
-    void FUN_001ebd00(const char *kind, const char *name);
 };
 
 
@@ -43,7 +43,7 @@ void MessageOverlay_d5290::Update(float dt)
         a.f = slide;
         a.u &= 0x7fffffff;
         if (a.f <= 1e-5f)
-            sink->FUN_001ebd00("MessageBox", "HUD_new_message");
+            ((owners::Owner_1ebd00 *)sink)->FUN_001ebd00("MessageBox", "HUD_new_message");
 
         a.f = slide - DAT_004a06d4;
         a.u &= 0x7fffffff;
@@ -59,7 +59,7 @@ void MessageOverlay_d5290::Update(float dt)
         a.f = slide - DAT_004a06d4;
         a.u &= 0x7fffffff;
         if (a.f <= 1e-5f)
-            sink->FUN_001ebd00("MessageBox", "HUD_new_message");
+            ((owners::Owner_1ebd00 *)sink)->FUN_001ebd00("MessageBox", "HUD_new_message");
 
         a.f = slide;
         a.u &= 0x7fffffff;

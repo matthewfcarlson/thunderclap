@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_00328bf0 @ 0x00328bf0
 #include "decls/data/platform/xbox/pure3d.h"
+#include "gen/owners.h"
 
 typedef unsigned long DWORD;
 namespace D3D8 {
@@ -14,7 +15,6 @@ void __stdcall D3DDevice_SetPixelShader(DWORD);
 void __stdcall D3DDevice_SetTextureState_BumpEnv(DWORD stage, DWORD type, DWORD value);
 }
 struct Texture {
-    void FUN_00326b00(int stage);
 };
 struct TexModeEntry {
     int v;
@@ -77,7 +77,7 @@ void Material_328bf0::FUN_00328bf0() {
     StageRegs_328bf0* regs = (StageRegs_328bf0*)(DAT_0039db1c - 0xc);
     for (unsigned int i = 0; i < 4; i++) {
         if (tex[i]) {
-            tex[i]->FUN_00326b00(i);
+            ((owners::Obj_326b00 *)(tex[i]))->FUN_00326b00((unsigned long)i);
         } else {
             D3D8::D3DDevice_SetTexture(i, 0);
             D3D8::D3DDevice_SetPalette(i, 0);

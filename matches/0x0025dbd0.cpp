@@ -1,17 +1,11 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class Ref_25dbd0 {
   public:
     virtual void A();
     virtual void Release(int);
 };
-class Owner_25dbd0 {
-  public:
-    char pad[0x4c];
-    int* head;
-    int* tail;
-    void Remove(int*);
-};
-void Owner_25dbd0::Remove(int* p) {
+void owners::Owner_25dbd0::FUN_0025dbd0(int* p) {
     int* next = p + 1;
     int* prev = 0;
     int* cur = head;

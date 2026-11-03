@@ -1,8 +1,8 @@
+#include "gen/owners.h"
 struct Obj;
 void* __cdecl Alloc(int n);
 struct Closure1_1d45f0 {
     Closure1_1d45f0* Init(int a, int b, int c);
-    void Setup(int a);
 };
 struct List_1d45f0 {
     void Add(Closure1_1d45f0* n);
@@ -28,7 +28,7 @@ void Owner_1d45f0::Create(int a, int b, int c) {
     } else {
         n = 0;
     }
-    n->Setup(a);
+    ((owners::CAgent_1d04b0 *)n)->FUN_001d04b0((hulk_intptr)a);
     mList.Add(n);
     int h = mHandle;
     FnA(h, n);

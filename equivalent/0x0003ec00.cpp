@@ -1,13 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0003ec00 @ 0x0003ec00
-struct Progress_3ec00 {
-    char pad00[0x1e58];
-    float value;          // 0x1e58
-    int key;              // 0x1e5c
-    float Consume(int k);
-};
+#include "gen/owners.h"
 
-float Progress_3ec00::Consume(int k)
+float owners::Progress_3ec00::FUN_0003ec00(int k)
 {
     float v = value;
     if (k != key) {

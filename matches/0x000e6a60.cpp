@@ -1,8 +1,8 @@
 #include "gen/global.h"
+#include "gen/owners.h"
 
 class Obj_e6a60 {
   public:
-    void run(int);
 };
 
 void FEThingsBase::vfunc_13() {
@@ -11,6 +11,6 @@ void FEThingsBase::vfunc_13() {
         vfunc_48(4);
         this->f_17f8 = 0;
         this->f_176c = 2;
-        (*(Obj_e6a60 * *)&this->f_175c)->run(2);
+        ((owners::Fader_e5440 *)((*(Obj_e6a60 * *)&this->f_175c)))->FUN_000e5440(2);
     }
 }

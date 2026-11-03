@@ -1,11 +1,6 @@
-class X_15b510 {
-  public:
-    char p14[0x14];
-    int m14;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char X_15b510::Set(int v) {
+char owners::X_15b510::FUN_0015b510(int v) {
     m14 = v;
     return 1;
 }

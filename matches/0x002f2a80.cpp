@@ -1,12 +1,9 @@
 // FUN_002f2a80 @ 0x002f2a80
 // physics property table defaults @ 0x002f2a80
 #include "decls/address.h"
+#include "gen/owners.h"
 typedef unsigned __int64 Key_2f2a80;
-struct PhysicsTable_2f2a80 {
-    void FUN_002f27c0(Key_2f2a80, float, float, float, float);
-    void FUN_002f2a80();
-};
-void PhysicsTable_2f2a80::FUN_002f2a80() {
+void owners::PhysicsTable_2f2a80::FUN_002f2a80() {
     FUN_002f27c0(FUN_0027b020("defaultPhysicsProperties"), 1.5f, 1.0f, -0.75f, 1.0f);
     FUN_002f27c0(FUN_0027b020("defaultArtPhysicsProperties"), 1.05f, 10.0f, -0.25f, 1.0f);
     FUN_002f27c0(FUN_0027b020("hardwood"), 1.5f, 2.0f, -0.75f, 0.97f);

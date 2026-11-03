@@ -2,6 +2,7 @@
 // FUN_00241390 @ 0x00241390
 #include "compat/ptr.h"
 #include "decls/data/platform/xbox/unknown.h"
+#include "gen/owners.h"
 
 typedef unsigned int uint;
 struct Environment {
@@ -22,7 +23,7 @@ namespace DSOUND { int __stdcall DirectSoundCreate(void *, void *, void *); }
 extern "C" void __cdecl FUN_002411b0(); extern "C" void __cdecl FUN_0024c9c0(); extern "C" void __cdecl FUN_0024c7f0(int);
 uint __stdcall FUN_0020c731(uint, hulk_uintptr, uint);
 uint __cdecl FUN_00267f80(); extern "C" void __cdecl FUN_00257dd0(void *);
-struct Message_241390 { void FUN_0023fe50(const char *); };
+struct Message_241390 {  };
 extern "C" bool __cdecl FUN_00241390(Config_241390 *config, Message_241390 *message) {
  hulk_uintptr size = FUN_0026fd50(config->second, 0x1000) + sizeof(SoundState_241390);
  uint first[2] = {((uint*)&DAT_004e5ce8)[0],((uint*)&DAT_004e5ce8)[1]};
@@ -59,6 +60,6 @@ extern "C" bool __cdecl FUN_00241390(Config_241390 *config, Message_241390 *mess
  (*(Environment*)&DAT_004e5cb0).reverb=-10000; (*(Environment*)&DAT_004e5cb0).reverbDelay=0.0f;
  (*(Environment*)&DAT_004e5cb0).diffusion=0.0f; (*(Environment*)&DAT_004e5cb0).density=0.0f; (*(Environment*)&DAT_004e5cb0).reference=20.0f;
  state->environment=(*(Environment*)&DAT_004e5cb0);
- if(message) message->FUN_0023fe50("Ok");
+ if(message) ((owners::String_23fe50 *)message)->FUN_0023fe50("Ok");
  return true;
 }

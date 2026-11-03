@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Node {
     int first;
     int dummy;
@@ -7,7 +8,6 @@ struct Node {
 struct Manager_335f70 {
     char pad[0x44];
     int count;
-    Node* Get(int);
 };
 extern int Size(int);
 class Obj_335f70 {
@@ -22,10 +22,10 @@ int Obj_335f70::Fetch(int index, int n) {
         return 0;
     if (index >= mgr->count)
         return 0;
-    if (mgr->Get(index)->kind != 9)
+    if (((Node *)((owners::Thing_337090 *)mgr)->FUN_00337090(index))->kind != 9)
         return 0;
     int* p = (int*)((char*)data[index] + 4);
-    if (mgr->Get(index)->child->first != 10)
+    if (((Node *)((owners::Thing_337090 *)mgr)->FUN_00337090(index))->child->first != 10)
         return 0;
     p = (int*)((char*)p + Size(10) * n);
     return *p;

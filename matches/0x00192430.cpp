@@ -1,10 +1,5 @@
-class X_192430 {
-  public:
-    char pad[0x78];
-    void* m78;
-    bool Set(void* p);
-};
-bool X_192430::Set(void* p) {
+#include "gen/owners.h"
+bool owners::X_192430::FUN_00192430(void* p) {
     m78 = p;
     return true;
 }

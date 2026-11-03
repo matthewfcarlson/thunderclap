@@ -1,11 +1,6 @@
-class C_14d1b0 {
-  public:
-    char pad[0x24];
-    float m_rad;
-    bool SetRadians(float deg);
-};
+#include "gen/owners.h"
 
-bool C_14d1b0::SetRadians(float deg) {
+bool owners::C_14d1b0::FUN_0014d1b0(float deg) {
     m_rad = deg * 0.01745329252f;
     return true;
 }

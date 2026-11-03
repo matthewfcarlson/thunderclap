@@ -1,14 +1,9 @@
-class A_222bf0 {
-  public:
-    char pad[0x68];
-    unsigned count;
-    int f(int key);
-};
-int A_222bf0::f(int key) {
+#include "gen/owners.h"
+int owners::A_222bf0::FUN_00222bf0(hulk_intptr key) {
     unsigned n = count;
     unsigned i = 0;
     if (n > 0) {
-        int k = key;
+        int k = ((int)key);
         int* p = (int*)((char*)this + 0x6c);
         do {
             if (*p == k)

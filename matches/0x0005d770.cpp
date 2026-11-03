@@ -1,10 +1,5 @@
-class T_5d770 {
-  public:
-    char F(int a);
-    char pad[0x30];
-    int m;
-};
-char T_5d770::F(int a) {
+#include "gen/owners.h"
+char owners::T_5d770::FUN_0005d770(int a) {
     m = a;
     return 1;
 }

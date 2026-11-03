@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 22/22)
 // FUN_001f7320 @ 0x001f7320
 #include "decls/data/game/hulkfight.h"
+#include "gen/owners.h"
 
 struct Vec3_1f7320 {
     float x, y, z;
@@ -11,13 +12,11 @@ struct Matrix {
     void FUN_0022b980();
     void FUN_0022b9c0();
     void FUN_0022baf0(Vec3_1f7320 *axis, float angle);
-    void FUN_0022c2b0(Vec3_1f7320 *in, Vec3_1f7320 *out);
 };
 
 class Rng_1f7320 {
 public:
     float FUN_000787e0(float lo, float hi);
-    float FUN_00143100();
 };
 
 class Actor_1f7320 {
@@ -106,8 +105,8 @@ void Spawner_1f7320::FUN_001f7320(Scene_1f7320 *scene, float dt)
             Vec3_1f7320 p;
             scene->controlled->actor->FUN_000352b0(&p);
             p.y = p.y + 5.0f;
-            p.x = rng->FUN_00143100() * 10.0f + p.x;
-            p.z = rng->FUN_00143100() * 10.0f + p.z;
+            p.x = ((owners::RandomGen_143100 *)rng)->FUN_00143100() * 10.0f + p.x;
+            p.z = ((owners::RandomGen_143100 *)rng)->FUN_00143100() * 10.0f + p.z;
             if (scene->caster->FUN_00201f20(&p, 0, &hit1, &normal1, &hitObj, &hitPart)) {
                 if (hitObj != 0) {
                     Vec3_1f7320 axis;
@@ -148,7 +147,7 @@ void Spawner_1f7320::FUN_001f7320(Scene_1f7320 *scene, float dt)
             v.x = rng->FUN_000787e0(10.0f, 50.0f);
             v.y = 5.0f;
             v.z = 0.0f;
-            m.FUN_0022c2b0(&v, &v);
+            ((owners::Mat_22c2b0 *)&m)->FUN_0022c2b0((float *)(Vec3_1f7320 *)(&v), (float *)(Vec3_1f7320 *)(&v));
             p.x = p.x + v.x;
             p.y = p.y + v.y;
             p.z = p.z + v.z;

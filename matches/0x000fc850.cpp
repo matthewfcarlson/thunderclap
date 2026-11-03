@@ -1,11 +1,5 @@
-class Obj {
-  public:
-    char pad[16];
-    char a, b, c, d;
-    float x;
-    int Test();
-};
-int Obj::Test() {
+#include "gen/owners.h"
+int owners::Obj_fc850::FUN_000fc850() {
     if ((!c && !(x < 0.1f) && !a) || !d) {
         if (!b)
             return 0;

@@ -1,10 +1,5 @@
-class T_17fc40 {
-  public:
-    char pad[0x10];
-    int value;
-    bool Set(int x);
-};
-bool T_17fc40::Set(int x) {
+#include "gen/owners.h"
+bool owners::T_17fc40::FUN_0017fc40(int x) {
     value = x;
     return true;
 }

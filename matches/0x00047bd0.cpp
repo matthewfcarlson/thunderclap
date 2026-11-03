@@ -1,11 +1,6 @@
-class X_47bd0 {
-  public:
-    char pad[0x18];
-    int m;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char X_47bd0::Set(int v) {
+char owners::X_47bd0::FUN_00047bd0(int v) {
     m = v;
     return 1;
 }

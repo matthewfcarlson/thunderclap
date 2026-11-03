@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class Inner_221ee0 {
   public:
-    void Step();
     char pad[0x10];
 };
 class Obj_221ee0 {
@@ -14,11 +14,11 @@ class Obj_221ee0 {
 void Obj_221ee0::Run() {
     switch (state) {
     case 0:
-        inner.Step();
+        ((owners::Vec4_22b120 *)&inner)->FUN_0022b120();
         state = 1;
         break;
     case 1:
-        inner.Step();
+        ((owners::Vec4_22b120 *)&inner)->FUN_0022b120();
         break;
     case 2:
         Other();

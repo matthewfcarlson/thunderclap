@@ -1,11 +1,6 @@
-class Obj_11b930 {
-  public:
-    char pad[0x1f];
-    char mFlag;
-    bool Set(bool x);
-};
+#include "gen/owners.h"
 
-bool Obj_11b930::Set(bool x) {
+bool owners::Obj_11b930::FUN_0011b930(bool x) {
     mFlag = x;
     return true;
 }

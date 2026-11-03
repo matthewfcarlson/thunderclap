@@ -1,10 +1,9 @@
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Text_1ec980 {
     char storage[0x48];
-    void FUN_001ef320();
     void FUN_001ef370(const char*);
-    void FUN_001ef350();
 };
 struct Object {
     const char* FUN_000443b0();
@@ -17,7 +16,6 @@ struct Actor_1ec980 {
     void* alternate;
 };
 struct Service_1ec980 {
-    void FUN_00086310();
 };
 struct Output_1ec980 {
     void FUN_001efe20(Text_1ec980*, void*, int, float);
@@ -41,12 +39,12 @@ void Target_1ec980::FUN_001ec980(Actor_1ec980* actor, int value) {
         return;
     }
     Text_1ec980 text;
-    text.FUN_001ef320();
+    ((owners::Obj_1ef320 *)&text)->FUN_001ef320();
     text.FUN_001ef370("Objects");
     text.FUN_001ef370("Actors");
     text.FUN_001ef370(actor->object->FUN_000443b0());
-    service->FUN_00086310();
+    ((owners::C_86310 *)service)->FUN_00086310();
     if ((*(Global_1ec980**)&DAT_004e36d8)->enabled)
         (*(Global_1ec980**)&DAT_004e36d8)->output->FUN_001efe20(&text, actor->location, value, 100.0f);
-    text.FUN_001ef350();
+    ((owners::C_1ef350 *)&text)->FUN_001ef350();
 }

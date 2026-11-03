@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_00265a20 @ 0x00265a20
+#include "gen/owners.h"
 struct Table_265a20;
 
 class Object {
@@ -16,7 +17,6 @@ struct Probe_265a20 {
 };
 
 struct Table_265a20 {
-    int FUN_00231770(Object *obj);
 };
 
 unsigned __int64 __cdecl FUN_00267340(const char *name, int a, int b);
@@ -39,7 +39,7 @@ void Registry_265a20::FUN_00265a20(const char *name)
     first.FUN_00231160(table);
     Object *obj = first.FUN_00231180((unsigned int)id, (unsigned int)(id >> 32));
     while (obj != 0) {
-        int n = table->FUN_00231770(obj);
+        int n = ((owners::Obj_231770 *)table)->FUN_00231770((hulk_uintptr)(Object *)obj);
         if (n > 0) {
             do {
                 obj->v1();

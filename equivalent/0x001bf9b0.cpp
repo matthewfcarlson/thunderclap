@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 53/58, incomplete)
 // FUN_001bf9b0 @ 0x001bf9b0
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Owner_1bf9b0 {
     int FUN_000f7240(int a, int b);
-    int FUN_000f7220(int index);
 };
 
 struct SubObj_1bf9b0 {
@@ -145,7 +145,7 @@ void Track::FUN_001bf9b0()
                         FUN_000fb690(&sink->sub, handles[subIndex], 0x80);
                     } else if (current != 0) {
                         int slot = current->FUN_000f7240(keyA, keyB);
-                        FUN_000fb690(&sink->sub, current->FUN_000f7220(slot), 0x80);
+                        FUN_000fb690(&sink->sub, ((int)((owners::C_f7220 *)current)->FUN_000f7220((hulk_intptr)slot)), 0x80);
                     }
                 }
             }

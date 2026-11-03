@@ -1,11 +1,6 @@
-class Obj_13e8e0 {
-  public:
-    char pad[36];
-    char m24;
-    char Fn(unsigned char a);
-};
+#include "gen/owners.h"
 
-char Obj_13e8e0::Fn(unsigned char a) {
+char owners::Obj_13e8e0::FUN_0013e8e0(unsigned char a) {
     m24 = a;
     return 1;
 }

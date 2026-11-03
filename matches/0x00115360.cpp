@@ -1,11 +1,6 @@
-class X_115360 {
-  public:
-    char pad[0x28];
-    char m;
-    bool Set(char c);
-};
+#include "gen/owners.h"
 
-bool X_115360::Set(char c) {
+bool owners::X_115360::FUN_00115360(char c) {
     m = c;
     return true;
 }

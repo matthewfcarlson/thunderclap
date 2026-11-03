@@ -1,15 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20007 inputs, branch coverage 6/6)
 // FUN_0028a0b0 @ 0x0028a0b0
-struct Track {
-    int unknown;
-    int interpolate;
-    char padding[12];
-    short* times;
-    int* values;
-    bool FUN_00289f80(float time, int* first, int* second);
-    void sample(float time, int* result);
-};
-void Track::sample(float time, int* result) {
+#include "gen/owners.h"
+void owners::Track_28a0b0::FUN_0028a0b0(float time, int* result) {
     int first, second;
     bool found = FUN_00289f80(time, &first, &second);
     if (!found || !interpolate) {

@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct A_86420 {
     void f();
 };
@@ -15,11 +16,7 @@ struct Manager_86420 {
     Hub_86420* hub;
 };
 extern Manager_86420* gManager_86420;
-struct Target_86420 {
-    int value;
-    void run(int);
-};
-void Target_86420::run(int v) {
+void owners::Target_86420::FUN_00086420(int v) {
     value = v;
     if (v == 1)
         gManager_86420->hub->a->f();

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001df4c0 @ 0x001df4c0
 // FUN_001df4c0: is the entry's owner away from the origin
+#include "gen/owners.h"
 struct V3_1df4c0 {
     float x, y, z;
     float FUN_000111f0();
@@ -12,7 +13,6 @@ struct Holder_1df4c0 {
 };
 
 struct Owner_1df4c0 {
-    Holder_1df4c0 *FUN_001d72e0();
 };
 
 struct Entry_1df4c0 {
@@ -49,9 +49,9 @@ char Manager_1df4c0::FUN_001df4c0(int index)
         return 0;
     if (e->owner == 0)
         return 0;
-    if (e->owner->FUN_001d72e0() == 0)
+    if (((Holder_1df4c0 *)((owners::C_1d72e0 *)(e->owner))->FUN_001d72e0()) == 0)
         return 0;
-    V3_1df4c0 v = e->owner->FUN_001d72e0()->pos;
+    V3_1df4c0 v = ((Holder_1df4c0 *)((owners::C_1d72e0 *)(e->owner))->FUN_001d72e0())->pos;
     if (FUN_00018960(v.FUN_000111f0(), 0.0f, 1e-5f))
         return 0;
     return 1;

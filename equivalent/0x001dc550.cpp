@@ -1,12 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 6/6)
 // FUN_001dc550 @ 0x001dc550
+#include "gen/owners.h"
 struct Matrix {
  float m[16];
  void FUN_0022b980();
- void FUN_0022be40(const Matrix*);
- void FUN_0022bc20(float,float,float);
 };
-struct Vector { float x,y,z; void FUN_0022b220(float,float,float); };
+struct Vector { float x,y,z;  };
 struct Rotation_1dc550 { char data[8]; void FUN_001db780(const Vector*); };
 struct Node { Matrix* FUN_001d6b40(); void FUN_001d6b60(Matrix,int); };
 struct Record_1dc550 { char pad[16]; Rotation_1dc550 rotation; Node* node; char pad2[6]; short id; char pad3[4]; };
@@ -26,12 +25,12 @@ bool CSPManager_1dc550::target(int key,float x,float y,float z) {
  if((status.flags[record->id].bits&1) && record->node) {
   Matrix transform;
   transform.FUN_0022b980();
-  transform.FUN_0022be40(record->node->FUN_001d6b40());
-  transform.FUN_0022bc20(x*0.0174532924f,y*0.0174532924f,z*0.0174532924f);
+  ((owners::Target_22be40 *)&transform)->FUN_0022be40((const int *)(const Matrix *)(record->node->FUN_001d6b40()));
+  ((owners::Matrix_22bc20 *)&transform)->FUN_0022bc20(x*0.0174532924f, y*0.0174532924f, z*0.0174532924f);
   record->node->FUN_001d6b60(transform,0);
  } else {
   Vector angles;
-  angles.FUN_0022b220(x*0.0174532924f,y*0.0174532924f,z*0.0174532924f);
+  ((owners::Quaternion_22b220 *)&angles)->FUN_0022b220(x*0.0174532924f, y*0.0174532924f, z*0.0174532924f);
   record->rotation.FUN_001db780(&angles);
  }
  return true;

@@ -1,13 +1,5 @@
-class C_2d1280 {
-    char pad0[0xc];
-    int a;
-    char pad1[0xc];
-    int b;
-
-  public:
-    void Set(int x, int y);
-};
-void C_2d1280::Set(int x, int y) {
+#include "gen/owners.h"
+void owners::C_2d1280::FUN_002d1280(int x, int y) {
     a = x;
     b = y;
 }

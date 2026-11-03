@@ -5,6 +5,7 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" double __cdecl sqrt(double);
 extern "C" void * __cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 
@@ -15,13 +16,11 @@ struct Mat_1bcef0;
 struct V3_1bcef0 {
     float x, y, z;
     float FUN_0022d110();
-    void FUN_0022d210(Mat_1bcef0 *m);
 };
 
 struct Mat_1bcef0 {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022bab0(float a);
 };
 
 struct Item_1bcef0 {
@@ -184,7 +183,6 @@ float __cdecl FUN_00018a20(float v);
 char FUN_00035da0();
 
 struct Obj3c_1bcef0 {
-    char FUN_000d6fd0();
     int FUN_000d6f50();
 };
 
@@ -328,7 +326,7 @@ void Fx_1bcef0::FUN_001bcef0()
     Obj3c_1bcef0 *p3c = w->f3c;
     if (!w->f8->FUN_000997a0())
         return;
-    if (!p3c->FUN_000d6fd0())
+    if (!((owners::Thing_d6fd0 *)p3c)->FUN_000d6fd0())
         return;
     if ((p3c->FUN_000d6f50() & 0xfffffc7f) == 0)
         return;
@@ -349,7 +347,7 @@ void Fx_1bcef0::FUN_001bcef0()
             Mat_1bcef0 *m = h->FUN_001c12c0();
             f.mat = *m;
             o20->FUN_001bc3e0(&f.v);
-            f.v.FUN_0022d210(&f.mat);
+            ((owners::Obj_22d210 *)&(f.v))->FUN_0022d210((owners::Obj_22d210 *)(Mat_1bcef0 *)(&f.mat));
             f.v.z = 0.0f;
             f.v.FUN_0022d110();
             f.u8.r = FUN_00018a20(f.v.y);
@@ -361,7 +359,7 @@ void Fx_1bcef0::FUN_001bcef0()
             if (f.v.x > 0.0f)
                 f.u8.r = -f.u8.r;
             f.u68.M2.FUN_0022b980();
-            f.u68.M2.FUN_0022bab0(f.u8.r);
+            ((owners::Mat_22bab0 *)&(f.u68.M2))->FUN_0022bab0(f.u8.r);
             (*(Wrapper_1bcef0**)&DAT_0052c2ac)->dev->v15(0);
             (*(Wrapper_1bcef0**)&DAT_0052c2ac)->dev->v13(0);
             f.v.z = (*(float*)&DAT_004c4be4);

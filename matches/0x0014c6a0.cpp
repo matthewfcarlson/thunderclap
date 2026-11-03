@@ -1,9 +1,5 @@
-class Obj_14c6a0 {
-  public:
-    char pad[0x10];
-    int* Field();
-};
+#include "gen/owners.h"
 
-int* Obj_14c6a0::Field() {
+int* owners::Obj_14c6a0::FUN_0014c6a0() {
     return (int*)((char*)this + 0x10);
 }

@@ -1,10 +1,6 @@
-class X_192d00 {
-  public:
-    char m[0xf0];
-    char Fn(char v);
-};
+#include "gen/owners.h"
 
-char X_192d00::Fn(char v) {
+char owners::X_192d00::FUN_00192d00(char v) {
     m[0xf0] = v;
     return 1;
 }

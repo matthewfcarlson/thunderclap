@@ -1,10 +1,5 @@
-class Obj_15acd0 {
-  public:
-    char pad[0x78];
-    void* mField;
-    void* GetField();
-};
+#include "gen/owners.h"
 
-void* Obj_15acd0::GetField() {
+void* owners::Obj_15acd0::FUN_0015acd0() {
     return (char*)this + 0x78;
 }

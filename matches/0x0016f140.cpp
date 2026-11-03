@@ -1,11 +1,6 @@
-class X_16f140 {
-  public:
-    char pad[0x25];
-    char m;
-    bool Set(char c);
-};
+#include "gen/owners.h"
 
-bool X_16f140::Set(char c) {
+bool owners::X_16f140::FUN_0016f140(char c) {
     m = c;
     return true;
 }

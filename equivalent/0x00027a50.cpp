@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 18/18)
 // FUN_00027a50 @ 0x00027a50
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
-struct Key_27a50 { unsigned int first, second; void FUN_0027af00(); void FUN_0027b040(const char*); };
+struct Key_27a50 { unsigned int first, second; void FUN_0027af00();  };
 extern void __cdecl FUN_00363b30();
 extern int __cdecl atexit(void (__cdecl*)());
 extern void* __cdecl memmove(void*, const void*, unsigned int);
@@ -14,7 +15,7 @@ bool Object::FUN_00027a50(char* destination, const char* suffix) {
  unsigned int length=0; do { ++length; } while(suffix[length-1]);
  char* end=destination; while(*end) ++end;
  for(unsigned int j=0;j<length;++j) end[j]=suffix[j];
- (*(Key_27a50*)&DAT_004dc118).FUN_0027b040(destination);
+ ((owners::Target_27b040 *)&((*(Key_27a50*)&DAT_004dc118)))->FUN_0027b040((hulk_uintptr)destination);
  int oldCount=count;
  if(oldCount>0) {
  unsigned int first=(*(Key_27a50*)&DAT_004dc118).first, second=(*(Key_27a50*)&DAT_004dc118).second;

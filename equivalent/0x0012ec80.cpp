@@ -1,14 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0012ec80 @ 0x0012ec80
 #include "compat/ptr.h"
+#include "gen/owners.h"
 int __cdecl FUN_0008d340(void *);
 void * __cdecl FUN_0008d6d0(unsigned int);
-struct Item {
-    char pad[0x1c];
-    char *text;
-    hulk_intptr FUN_0012ec80(const char *source);
-};
-hulk_intptr Item::FUN_0012ec80(const char *source) {
+hulk_intptr owners::Item_12ec80::FUN_0012ec80(const char *source) {
     int result = FUN_0008d340(text);
     if (!source) {
         text = 0;

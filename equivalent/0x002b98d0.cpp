@@ -1,16 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2785 inputs, branch coverage 2/2)
 // FUN_002b98d0 @ 0x002b98d0
+#include "gen/owners.h"
 struct Mat4_2b98d0 {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022ba30(float angle);
-    void FUN_0022ca90(Mat4_2b98d0 *a, Mat4_2b98d0 *b);
 };
 
 struct Vec3_2b98d0 {
     float x, y, z;
     void FUN_0022d180();
-    void FUN_0022d260(Mat4_2b98d0 *m);
 };
 
 float FUN_00018a20(float x);
@@ -44,8 +42,8 @@ void Box_2b98d0::FUN_002b98d0(Mat4_2b98d0 *a, Mat4_2b98d0 *c, Mat4_2b98d0 *b, Ma
     fwd.x = 0.0f;
     fwd.y = 0.0f;
     fwd.z = -1.0f;
-    up.FUN_0022d260(c);
-    fwd.FUN_0022d260(c);
+    ((owners::Obj_22d260 *)&up)->FUN_0022d260((owners::Obj_22d260 *)(Mat4_2b98d0 *)c);
+    ((owners::Obj_22d260 *)&fwd)->FUN_0022d260((owners::Obj_22d260 *)(Mat4_2b98d0 *)c);
 
     double dx = (double)pb.x - (double)pa.x;
     double dy = (double)pb.y - (double)pa.y;
@@ -71,7 +69,7 @@ void Box_2b98d0::FUN_002b98d0(Mat4_2b98d0 *a, Mat4_2b98d0 *c, Mat4_2b98d0 *b, Ma
         ang = FUN_00018a20(c2);
     else
         ang = -FUN_00018a20(c2);
-    rot.FUN_0022ba30(ang);
-    comb.FUN_0022ca90(&rot, c);
+    ((owners::Matrix_22ba30 *)&rot)->FUN_0022ba30(ang);
+    ((owners::Matrix_22ca90 *)&comb)->FUN_0022ca90((const owners::Matrix_22ca90 *)(Mat4_2b98d0 *)(&rot), (const owners::Matrix_22ca90 *)(Mat4_2b98d0 *)c);
     FUN_002b8f60(a, &comb, b, d, scale);
 }

@@ -1,8 +1,8 @@
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 
 struct CompressedQuaternion8_28d1d0 {
     unsigned char data[8];
-    float* decode(float*);
 };
 struct RotationChannel_28d1d0 {
     virtual void a();
@@ -17,6 +17,6 @@ template <> void pure3d::CompressedQuaternionChannel<math::CompressedQuaternion8
 
     *time = (float)(*(short * *)&this->f_14)[index];
     float temp[4];
-    float* p = ((*(CompressedQuaternion8_28d1d0 * *)&this->f_18) + index)->decode(temp);
+    float* p = ((owners::Quat16_28d220 *)(((*(CompressedQuaternion8_28d1d0 * *)&this->f_18) + index)))->FUN_0028d220(temp);
     *(Quaternion_28d1d0*)out = *(Quaternion_28d1d0*)p;
 }

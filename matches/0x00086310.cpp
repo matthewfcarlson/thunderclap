@@ -1,10 +1,4 @@
-class C_86310 {
-    char pad[0x38];
-
-  public:
-    unsigned int value;
-    unsigned int f();
-};
-unsigned int C_86310::f() {
+#include "gen/owners.h"
+hulk_uintptr owners::C_86310::FUN_00086310() {
     return value;
 }

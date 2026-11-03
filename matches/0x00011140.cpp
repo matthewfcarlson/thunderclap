@@ -1,9 +1,5 @@
-class Vec3_11140 {
-  public:
-    float x, y, z;
-    void Scale(float);
-};
-void Vec3_11140::Scale(float value) {
+#include "gen/owners.h"
+void owners::Vec3_11140::FUN_00011140(float value) {
     x *= value;
     y *= value;
     z *= value;

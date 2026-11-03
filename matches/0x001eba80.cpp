@@ -1,9 +1,9 @@
 #include "decls/data/game/global.h"
 // data: Limit = DAT_003f32d8, Zero_1eba80 = DAT_003f32e0
+#include "gen/owners.h"
 
 class Inner_1eba80 {
   public:
-    void Set(float);
 };
 struct Holder_1eba80 {
     Inner_1eba80* obj;
@@ -17,7 +17,7 @@ class C_1eba80 {
 };
 void C_1eba80::F(float x) {
     if (!(x < DAT_003f32e0) && !(x > DAT_003f32d8)) {
-        holder->obj->Set(x);
+        ((owners::Thing_1f3990 *)(holder->obj))->FUN_001f3990(x);
         value = x;
     }
 }

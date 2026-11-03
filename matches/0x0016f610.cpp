@@ -1,11 +1,6 @@
-class Obj_16f610 {
-  public:
-    char pad[0x14];
-    int m14;
-    bool Fn(int x);
-};
+#include "gen/owners.h"
 
-bool Obj_16f610::Fn(int x) {
+bool owners::Obj_16f610::FUN_0016f610(int x) {
     m14 = x;
     return true;
 }

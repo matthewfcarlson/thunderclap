@@ -2,13 +2,13 @@
 // FUN_0028c0b0 @ 0x0028c0b0
 // 0x0028c0b0: quaternion channel constructor holding 16-byte elements, allocated from the parent pool or the heap
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern char DAT_0042ca2c[];
 void* __cdecl FUN_0008d6d0(unsigned size);
 void __stdcall FUN_00011520(void* base, unsigned size, int count, void* ctor);
 extern char FUN_00011450;
 
 struct Pool_28c0b0 {
-    void* FUN_002888c0(int size, int tag);
 };
 
 class QuaternionChannel {
@@ -40,6 +40,6 @@ QuaternionChannel* QuaternionChannel::Construct(int a, int b)
         data = mem;
         return this;
     }
-    data = parent->FUN_002888c0(count * 16, 3);
+    data = ((void *)((owners::C_2888c0 *)parent)->FUN_002888c0((unsigned)(count * 16), 3));
     return this;
 }

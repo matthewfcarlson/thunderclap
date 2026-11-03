@@ -1,11 +1,6 @@
-class Obj_193200 {
-  public:
-    char pad[0x76];
-    char mField;
-    bool SetX(char b);
-};
+#include "gen/owners.h"
 
-bool Obj_193200::SetX(char b) {
+bool owners::Obj_193200::FUN_00193200(char b) {
     mField = b;
     return true;
 }

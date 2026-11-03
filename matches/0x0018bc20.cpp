@@ -1,5 +1,6 @@
 // Same code shape as 0x00122f30 (propagated; names are from that function)
 #include "gen/fight.h"
+#include "gen/owners.h"
 
 void* __cdecl operator new(unsigned int size);
 inline void* __cdecl operator new(unsigned int, void* where) {
@@ -13,7 +14,6 @@ struct InitHelper {
 struct TrackImpl {
     int m0;
     int m1;
-    void setup(void* arg);
 };
 
 class TrackFactoryTemplate_18bc20 {
@@ -33,7 +33,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::Smart
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_18bc20* t = new (mem) TrackFactoryTemplate_18bc20();
-        t->mTrack.setup(arg);
+        ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
         FUN_00187d40();
         return (void*)(t);
     }

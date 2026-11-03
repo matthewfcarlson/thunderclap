@@ -1,11 +1,6 @@
-class C_16eea0 {
-  public:
-    char pad[0x10];
-    int m10;
-    char f(int a);
-};
+#include "gen/owners.h"
 
-char C_16eea0::f(int a) {
+char owners::C_16eea0::FUN_0016eea0(int a) {
     m10 = a;
     return 1;
 }

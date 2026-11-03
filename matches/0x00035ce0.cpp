@@ -1,10 +1,4 @@
-class Target_35ce0 {
-    char pad[0x1cf4];
-
-  public:
-    unsigned char value;
-    void Set(unsigned char x);
-};
-void Target_35ce0::Set(unsigned char x) {
+#include "gen/owners.h"
+void owners::Target_35ce0::FUN_00035ce0(unsigned char x) {
     value = x;
 }

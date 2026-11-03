@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Obj_b8c90 {
     virtual void a0();
     virtual void a1();
@@ -11,12 +12,7 @@ struct Obj_b8c90 {
 };
 Obj_b8c90* GetObj();
 extern "C" int strcmp(const char*, const char*);
-struct Foo_b8c90 {
-    char pad[0x1cfc];
-    float v;
-    bool Check();
-};
-bool Foo_b8c90::Check() {
+bool owners::Foo_b8c90::FUN_000b8c90() {
     if (GetObj()) {
         const char* s = GetObj()->Name();
         if (s) {

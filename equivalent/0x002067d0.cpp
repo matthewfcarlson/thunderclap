@@ -3,13 +3,14 @@
 // cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" int __cdecl sprintf(char *, const char *, ...);
 
 typedef unsigned __int64 ID;
 
-namespace pure3d { class Geometry; class Shadow; class LightGroup; }
-namespace physics { class WorldCollisionObject; }
+namespace pure3d { class Geometry_2067d0; class Shadow_2067d0; class LightGroup_2067d0; }
+namespace physics { class WorldCollisionObject_2067d0; }
 
 namespace content {
 namespace LoadInventory {
@@ -51,7 +52,7 @@ struct Item_2067d0 {
 };
 
 struct SlotA_2067d0 { void FUN_001dd320(int idx); };
-struct SlotB_2067d0 { void FUN_001fd180(int idx); };
+struct SlotB_2067d0 {  };
 struct SlotC_2067d0 { void FUN_001fb300(Factory_2067d0 *f); };
 struct SlotD { void FUN_0007da70(int idx); };
 struct SlotE { void FUN_001b5ec0(void *obj, int idx); };
@@ -107,7 +108,6 @@ struct Loader_2067d0 {
     char pad594[0x5a4 - 0x594];
     char flags[0x100];      // 0x5a4
     Item_2067d0 *FUN_00204540(const char *name);
-    int FUN_00203db0(int v);
     void FUN_002067d0(int idx, char flag);
 };
 
@@ -130,25 +130,25 @@ void Loader_2067d0::FUN_002067d0(int idx, char flag)
     nm.FUN_0027b0e0(f.name);
     Entry_2067d0 *entry = FUN_001c3d90()->table->FUN_001c7f70(&nm);
     nm.FUN_0027af50();
-    fac->FUN_002660a0(FUN_00203db0(entry->f56));
+    fac->FUN_002660a0(((int)((owners::Obj_203db0 *)this)->FUN_00203db0((hulk_intptr)(entry->f56))));
     mid->bank->a->FUN_001dd320(idx);
-    mid->bank->b->FUN_001fd180(idx);
+    ((owners::C_1fd180 *)(mid->bank->b))->FUN_001fd180(idx);
     mid->bank->c->FUN_001fb300(fac);
 
     sprintf(f.buf, "%sScene", f.name);
     ID sceneKey = FUN_002672f0(f.buf, 0, 0);
     {
-        content::LoadInventory::DynamicCaster<pure3d::Geometry> *c = new (&f.casters[4]) content::LoadInventory::DynamicCaster<pure3d::Geometry>;
+        content::LoadInventory::DynamicCaster<pure3d::Geometry_2067d0> *c = new (&f.casters[4]) content::LoadInventory::DynamicCaster<pure3d::Geometry_2067d0>;
         entry->FUN_001c6cb0(fac->f3(c, (unsigned int)sceneKey, (unsigned int)(sceneKey >> 32)));
     }
     sprintf(f.buf, "%sShadow", f.name);
     {
         ID k = FUN_002672f0(f.buf, 0, 0);
-        content::LoadInventory::DynamicCaster<pure3d::Shadow> *c = new (&f.casters[0]) content::LoadInventory::DynamicCaster<pure3d::Shadow>;
+        content::LoadInventory::DynamicCaster<pure3d::Shadow_2067d0> *c = new (&f.casters[0]) content::LoadInventory::DynamicCaster<pure3d::Shadow_2067d0>;
         entry->FUN_001c6ce0(fac->f3(c, (unsigned int)k, (unsigned int)(k >> 32)));
     }
     {
-        content::LoadInventory::DynamicCaster<pure3d::LightGroup> *c = new (&f.casters[0]) content::LoadInventory::DynamicCaster<pure3d::LightGroup>;
+        content::LoadInventory::DynamicCaster<pure3d::LightGroup_2067d0> *c = new (&f.casters[0]) content::LoadInventory::DynamicCaster<pure3d::LightGroup_2067d0>;
         entry->FUN_001c6950(fac->f3(c, (unsigned int)sceneKey, (unsigned int)(sceneKey >> 32)));
     }
     if (f590 && *f590 != 0 && !flag)
@@ -159,7 +159,7 @@ void Loader_2067d0::FUN_002067d0(int idx, char flag)
     sprintf(f.buf, "%sWorldCollision", f.name);
     {
         ID k = FUN_002672f0(f.buf, 0, 0);
-        content::LoadInventory::DynamicCaster<physics::WorldCollisionObject> *c = new (&f.casters[0]) content::LoadInventory::DynamicCaster<physics::WorldCollisionObject>;
+        content::LoadInventory::DynamicCaster<physics::WorldCollisionObject_2067d0> *c = new (&f.casters[0]) content::LoadInventory::DynamicCaster<physics::WorldCollisionObject_2067d0>;
         void *wc = fac->f3(c, (unsigned int)k, (unsigned int)(k >> 32));
         if (wc)
             mid->bank->e->FUN_001b5ec0(wc, idx);

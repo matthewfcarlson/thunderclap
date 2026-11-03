@@ -1,11 +1,6 @@
-class Obj_12b390 {
-  public:
-    char pad[0x18];
-    char m;
-    bool Set(char c);
-};
+#include "gen/owners.h"
 
-bool Obj_12b390::Set(char c) {
+bool owners::Obj_12b390::FUN_0012b390(char c) {
     m = c;
     return true;
 }

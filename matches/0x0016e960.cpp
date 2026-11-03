@@ -1,11 +1,6 @@
-class Obj_16e960 {
-  public:
-    char pad[0x5c];
-    int mVal;
-    char Fn(int x);
-};
+#include "gen/owners.h"
 
-char Obj_16e960::Fn(int x) {
+char owners::Obj_16e960::FUN_0016e960(int x) {
     mVal = x;
     return 1;
 }

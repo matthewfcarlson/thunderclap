@@ -1,10 +1,5 @@
-class CGrabAction {
-  public:
-    int Get(int index);
-    char pad[0x1e820];
-    int mCount;
-};
-int CGrabAction::Get(int index) {
+#include "gen/owners.h"
+hulk_intptr owners::CGrabAction_1dc0b0::FUN_001dc0b0(int index) {
     int r = 0;
     if (index < mCount) {
         if (index >= 0)

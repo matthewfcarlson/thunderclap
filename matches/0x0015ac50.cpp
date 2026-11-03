@@ -1,11 +1,6 @@
-class O_15ac50 {
-    char p[0x38];
+#include "gen/owners.h"
 
-  public:
-    bool Set(int x);
-};
-
-bool O_15ac50::Set(int x) {
+bool owners::O_15ac50::FUN_0015ac50(int x) {
     *(int*)(p + 0x38) = x;
     return true;
 }

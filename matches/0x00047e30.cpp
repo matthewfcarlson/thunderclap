@@ -1,11 +1,6 @@
-class X_47e30 {
-  public:
-    char Pad[12];
-    int Value;
-    char Method(int arg);
-};
+#include "gen/owners.h"
 
-char X_47e30::Method(int arg) {
+char owners::X_47e30::FUN_00047e30(int arg) {
     Value = arg;
     return 1;
 }

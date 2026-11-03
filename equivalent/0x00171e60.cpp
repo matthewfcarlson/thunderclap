@@ -4,10 +4,9 @@
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "compat/ptr.h"
 #include "decls/address.h"
+#include "gen/owners.h"
 struct V3_171e60 {
     float x, y, z;
-    void FUN_00011220(V3_171e60 *v);
-    void FUN_00011140(float s);
 };
 
 struct Id64_171e60 {
@@ -19,7 +18,6 @@ struct Id64_171e60 {
 struct Xform_171e60 {
     char data[0x54];
     void FUN_00221d20(float a);
-    void FUN_0022be40(const V3_171e60 *pos);
 };
 
 struct Name_171e60 {
@@ -63,7 +61,6 @@ struct Clock_171e60 {
 };
 
 struct Target_171e60 {
-    Clock_171e60 *FUN_000592a0();
 };
 
 class Located {
@@ -106,7 +103,6 @@ public:
 };
 
 struct Registry_171e60 {
-    int FUN_001d35a0(const char *name, const char *tag, int v);
     char FUN_001d19f0(char *buf, int size, int flag);
 };
 extern "C" Registry_171e60 *FUN_001d4c90();
@@ -158,7 +154,7 @@ bool SyncToLocatorAction::vfunc_3(int a, int b)
     if (target == 0 || cfg->v7() <= 0.0f) {
         return false;
     }
-    Clock_171e60 *clock = target->FUN_000592a0();
+    Clock_171e60 *clock = ((Clock_171e60 *)((owners::Object_592a0 *)target)->FUN_000592a0());
     Skeleton *skel = clock->FUN_00059a40();
     if (skel == 0) {
         return false;
@@ -176,7 +172,7 @@ bool SyncToLocatorAction::vfunc_3(int a, int b)
     driver->AddRef();
     f.d = ((SubSkel *)skel->sub10)->FUN_002220d0();
     driver->xform.FUN_00221d20(f.d);
-    driver->xform.FUN_0022be40((V3_171e60 *)((char *)skel + 0x40));
+    ((owners::Target_22be40 *)&(driver->xform))->FUN_0022be40((const int *)(const V3_171e60 *)((V3_171e60 *)((char *)skel + 0x40)));
     skel->FUN_00222890(driver, -1.0f, c44, 1.0f, c48, c4c, -1.0f);
 
     id.FUN_0027af70(&cfg->id20);
@@ -187,7 +183,7 @@ bool SyncToLocatorAction::vfunc_3(int a, int b)
             return false;
         }
         Registry_171e60 *reg = FUN_001d4c90();
-        if (reg->FUN_001d35a0(name, "syncToLocator", tag) != 3 || !reg->FUN_001d19f0(f.buf, 0x400, 1)) {
+        if (((owners::Obj_1d35a0 *)reg)->FUN_001d35a0(name, (hulk_intptr)"syncToLocator", (hulk_intptr)tag) != 3 || !reg->FUN_001d19f0(f.buf, 0x400, 1)) {
             return false;
         }
         id.FUN_0027b040(f.buf);
@@ -220,7 +216,7 @@ bool SyncToLocatorAction::vfunc_3(int a, int b)
     v38.y = pos->y;
     v38.z = pos->z;
     f.tmp = cfg->v38;
-    v38.FUN_00011220(&f.tmp);
+    ((owners::Vec3_11220 *)&v38)->FUN_00011220((const owners::Vec3_11220 *)(V3_171e60 *)(&f.tmp));
     timing->anchor->FUN_00059a50(&f.p);
     hulk_freg nx = v38.x - f.p.x;
     hulk_freg ny = v38.y - f.p.y;
@@ -231,8 +227,8 @@ bool SyncToLocatorAction::vfunc_3(int a, int b)
     hulk_freg c18 = cfg->f18;
     hulk_freg y = c18 - cfg->v6();
     if (!(y <= 0.0f))
-        v48.FUN_00011140(1.0f / y);
+        ((owners::Vec3_11140 *)&v48)->FUN_00011140(1.0f / y);
     else
-        v48.FUN_00011140(1.0f / cfg->v7());
+        ((owners::Vec3_11140 *)&v48)->FUN_00011140(1.0f / cfg->v7());
     return true;
 }

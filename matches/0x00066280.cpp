@@ -1,17 +1,12 @@
 #include "decls/address.h"
 #include "decls/data/game/hulkfight.h"
+#include "gen/owners.h"
 struct World {
     char pad[0x2c];
     int value;
 };
 extern "C" float __fastcall Run(int);
-class Obj {
-  public:
-    int cached;
-    int enabled;
-    float Get();
-};
-float Obj::Get() {
+float owners::Obj_66280::FUN_00066280() {
     if (!enabled)
         return DAT_003f3388;
     if (!cached) {

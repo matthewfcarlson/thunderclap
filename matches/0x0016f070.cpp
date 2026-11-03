@@ -1,10 +1,6 @@
-struct Obj_16f070 {
-    char pad[0x5c];
-    int mFlag;
-    bool SetFlag(int value);
-};
+#include "gen/owners.h"
 
-bool Obj_16f070::SetFlag(int value) {
+bool owners::Obj_16f070::FUN_0016f070(int value) {
     mFlag = value;
     return true;
 }

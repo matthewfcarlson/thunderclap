@@ -1,11 +1,6 @@
-class Obj_15ad40 {
-  public:
-    char pad[0x9c];
-    int m9c;
-    bool SetX(int x);
-};
+#include "gen/owners.h"
 
-bool Obj_15ad40::SetX(int x) {
+bool owners::Obj_15ad40::FUN_0015ad40(int x) {
     m9c = x;
     return true;
 }

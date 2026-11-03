@@ -1,11 +1,6 @@
-class C_18ee60 {
-  public:
-    char pad[0x1c];
-    int m;
-    bool Set(int x);
-};
+#include "gen/owners.h"
 
-bool C_18ee60::Set(int x) {
+bool owners::C_18ee60::FUN_0018ee60(int x) {
     m = x;
     return true;
 }

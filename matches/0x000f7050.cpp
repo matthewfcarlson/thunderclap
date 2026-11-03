@@ -1,10 +1,4 @@
-class C_f7050 {
-    char pad[0x114];
-    int field;
-
-  public:
-    void Set(int value);
-};
-void C_f7050::Set(int value) {
-    field = value;
+#include "gen/owners.h"
+void owners::C_f7050::FUN_000f7050(hulk_intptr value) {
+    field = ((int)value);
 }

@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct ItemList {
     char pad[0x10];
     int capacity;
@@ -5,7 +6,6 @@ struct ItemList {
     void** items;
 };
 struct Grow_29e640 {
-    void FUN_002a1180(int);
 };
 void __stdcall FUN_0029e640(ItemList* list) {
     if (!list)
@@ -18,5 +18,5 @@ void __stdcall FUN_0029e640(ItemList* list) {
         ++n;
         ++i;
     }
-    ((Grow_29e640*)list)->FUN_002a1180(n);
+    ((owners::A_2a1180 *)(((Grow_29e640*)list)))->FUN_002a1180(n);
 }

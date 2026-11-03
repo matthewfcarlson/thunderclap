@@ -1,12 +1,6 @@
-class O_1431a0 {
-    char pad[0x10];
-    int m10;
+#include "gen/owners.h"
 
-  public:
-    char Set(int v);
-};
-
-char O_1431a0::Set(int v) {
+char owners::O_1431a0::FUN_001431a0(int v) {
     m10 = v;
     return 1;
 }

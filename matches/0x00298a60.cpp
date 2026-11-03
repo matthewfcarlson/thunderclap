@@ -1,19 +1,7 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" void _ReadWriteBarrier();
-class Mapping {
-  public:
-    char pad0[8];
-    unsigned char count;
-    char pad1[3];
-    unsigned char* forward;
-    char pad2[8];
-    unsigned char* reverse;
-    char pad3[8];
-    void** first;
-    void** last;
-    void Build();
-};
-void Mapping::Build() {
+void owners::Mapping_298a60::FUN_00298a60() {
     count = 0;
     _ReadWriteBarrier();
     hulk_uintptr n = last - first;

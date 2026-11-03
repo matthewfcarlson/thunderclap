@@ -1,10 +1,5 @@
-class Obj_67f30 {
-    char pad[12];
-
-  public:
-    bool Set(void* p);
-};
-bool Obj_67f30::Set(void* p) {
+#include "gen/owners.h"
+bool owners::Obj_67f30::FUN_00067f30(void* p) {
     *(void**)((char*)this + 12) = p;
     return true;
 }

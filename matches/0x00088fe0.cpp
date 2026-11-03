@@ -1,5 +1,6 @@
 #include "decls/data/game/unknown.h"
 // data: gCheckObj = DAT_004dd830
+#include "gen/owners.h"
 
 extern void __cdecl Scan(unsigned int, const char*, ...);
 extern "C" void __cdecl FUN_00267760(char*, int, const char*, ...);
@@ -10,7 +11,6 @@ struct CO {
 };
 extern "C" void __cdecl FUN_001bb0b0(const char*);
 struct Res_88fe0 {
-    void Done(unsigned int);
 };
 struct Svc_88fe0 {
     Res_88fe0* Run();
@@ -20,16 +20,10 @@ struct Glob_88fe0 {
     Svc_88fe0* svc;
 };
 extern Glob_88fe0* gGlob_88fe0;
-struct Obj_88fe0 {
-    int a;
-    int b;
-    char buf[32];
-    void target(unsigned int);
-};
-void Obj_88fe0::target(unsigned int arg) {
+void owners::Obj_88fe0::FUN_00088fe0(unsigned int arg) {
     Scan(arg, "c%dm%d", &a, &b);
     FUN_00267760(buf, 32, "c%02dm%02d", a, b);
-    gGlob_88fe0->svc->Run()->Done(arg);
+    ((owners::K_b4c10 *)(gGlob_88fe0->svc->Run()))->FUN_000b4c10((const char *)(hulk_uintptr)(unsigned int)arg);
     if (a > 1) {
         if (Check(((CO*)&DAT_004dd830)) != (*(CO*)&DAT_004dd830).val) {
             do {

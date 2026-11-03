@@ -1,17 +1,8 @@
-class C_1d1c10 {
-    char a[8];
-    int obj;
-    char b[0x5464];
-    int vals[8];
-    int idx;
-
-  public:
-    bool f(int);
-};
+#include "gen/owners.h"
 int __cdecl FUN_00212d70(int);
 int __cdecl FUN_00212d80(int, int);
 extern "C" int __cdecl FUN_00213c50(int, int);
-bool C_1d1c10::f(int p) {
+bool owners::C_1d1c10::FUN_001d1c10(int p) {
     if (idx < 0)
         return false;
     int n = FUN_00212d70(obj);

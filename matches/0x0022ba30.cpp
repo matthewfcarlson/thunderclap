@@ -1,10 +1,7 @@
-struct Matrix {
-    unsigned int m[11];
-    void Set(float);
-};
+#include "gen/owners.h"
 extern "C" double __cdecl sin(double);
 extern "C" double __cdecl cos(double);
-void Matrix::Set(float angle) {
+void owners::Matrix_22ba30::FUN_0022ba30(float angle) {
     double s = sin(angle);
     m[0] = 0x3f800000;
     m[1] = 0;

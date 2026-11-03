@@ -1,11 +1,6 @@
-class X_10c470 {
-  public:
-    char pad[0x18];
-    int m18;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool X_10c470::Set(int v) {
+bool owners::X_10c470::FUN_0010c470(int v) {
     m18 = v;
     return true;
 }

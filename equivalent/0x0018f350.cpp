@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // hulkfight::motion::TankLocomotionAction::vfunc_3 @ 0x0018f350
+#include "gen/owners.h"
 struct Vec3_18f350 {
     float x, y, z;
 };
@@ -7,7 +8,6 @@ struct Vec3_18f350 {
 struct Key_18f350 {
     unsigned lo;
     unsigned hi;
-    void FUN_0027b040(const char *name);
 };
 
 void *__cdecl FUN_00263ea0(unsigned int size);
@@ -38,7 +38,6 @@ struct Holder_18f350 {
 };
 
 struct HolderSource_18f350 {
-    Holder_18f350 *FUN_000592a0();
 };
 
 struct Target_18f350 {
@@ -72,7 +71,7 @@ public:
 
 bool TankLocomotionAction::vfunc_3(int a, int b)
 {
-    Holder_18f350 *holder = source->FUN_000592a0();
+    Holder_18f350 *holder = ((Holder_18f350 *)((owners::Object_592a0 *)source)->FUN_000592a0());
     Fighter_18f350 *fighter = holder->FUN_00059a30();
     Skeleton *skel = holder->FUN_00059a40();
     if (skel == 0)
@@ -87,7 +86,7 @@ bool TankLocomotionAction::vfunc_3(int a, int b)
     if (mem != 0)
         drv = ((JointDriver *)mem)->FUN_002248f0(0);
     driver = drv;
-    drv->name.FUN_0027b040("tankLocomotion");
+    ((owners::Target_27b040 *)&(drv->name))->FUN_0027b040((hulk_uintptr)"tankLocomotion");
     driver->AddRef();
     skel->FUN_00222890(driver, -1.0f, ax, 1.0f, ay, az, -1.0f);
 

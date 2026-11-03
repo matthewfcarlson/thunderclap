@@ -1,11 +1,6 @@
-class X_133350 {
-  public:
-    char pad[0x14];
-    int m14;
-    unsigned char Set(int x);
-};
+#include "gen/owners.h"
 
-unsigned char X_133350::Set(int x) {
+unsigned char owners::X_133350::FUN_00133350(int x) {
     m14 = x;
     return 1;
 }

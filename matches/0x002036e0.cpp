@@ -1,9 +1,4 @@
-class Obj_2036e0 {
-  public:
-    char pad[0xaf8];
-    int mAf8;
-    void Set(int x);
-};
-void Obj_2036e0::Set(int x) {
+#include "gen/owners.h"
+void owners::Obj_2036e0::FUN_002036e0(int x) {
     mAf8 = x;
 }

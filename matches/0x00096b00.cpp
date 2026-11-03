@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 struct Helper_96b00 {
     char pad[8];
-    bool Check(void*);
 };
 struct Obj_96b00 {
     char pad0[8];
@@ -20,7 +20,7 @@ extern "C" void __cdecl FUN_00096b00(void * self, int* out) {
         out[2] = ((Obj_96b00 *)self)->c;
         return;
     }
-    if (!((Obj_96b00 *)self)->helper->Check(out)) {
+    if (!((owners::C_35660 *)(((Obj_96b00 *)self)->helper))->FUN_00035660((int *)out)) {
         out[0] = ((Obj_96b00 *)self)->a;
         out[1] = ((Obj_96b00 *)self)->b;
         out[2] = ((Obj_96b00 *)self)->c;

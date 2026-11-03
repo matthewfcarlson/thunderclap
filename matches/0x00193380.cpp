@@ -1,11 +1,6 @@
-class Obj_193380 {
-  public:
-    char pad[0x96];
-    char m96;
-    char Fn(char x);
-};
+#include "gen/owners.h"
 
-char Obj_193380::Fn(char x) {
+char owners::Obj_193380::FUN_00193380(char x) {
     m96 = x;
     return 1;
 }

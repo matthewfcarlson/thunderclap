@@ -1,16 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3294 inputs, branch coverage 27/28, incomplete; Wine build 689 inputs, 27/28)
 // hulkfight::ai::CanSeeTargetCondition::vfunc_6 @ 0x001247d0
 #include "decls/address.h"
+#include "gen/owners.h"
 struct V3_1247d0 { float x, y, z; };
 
 namespace fight {
-class Params {
+class Params_1247d0 {
 public:
     virtual void vfunc_0();
 };
 }
 
-class CFightParams : public fight::Params {
+class CFightParams_1247d0 : public fight::Params_1247d0 {
 public:
     virtual void vfunc_0();
 };
@@ -48,7 +49,6 @@ struct Owner_1247d0 {
 };
 
 struct Clock_1247d0 {
-    float FUN_00066280();
 };
 
 struct Ctl_1247d0 {
@@ -74,15 +74,15 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual char vfunc_6(int a, fight::Params* params, int c);
+    virtual char vfunc_6(int a, fight::Params_1247d0* params, int c);
     char pad04[8];
     char expected;
     char flag;
 };
 
-char CanSeeTargetCondition::vfunc_6(int a, fight::Params* params, int c)
+char CanSeeTargetCondition::vfunc_6(int a, fight::Params_1247d0* params, int c)
 {
-    if (dynamic_cast<CFightParams*>(params) == 0)
+    if (dynamic_cast<CFightParams_1247d0*>(params) == 0)
         return 0;
     Owner_1247d0* owner = FUN_00059a30(FUN_000592a0(params));
     V3_1247d0 pos;
@@ -91,7 +91,7 @@ char CanSeeTargetCondition::vfunc_6(int a, fight::Params* params, int c)
     pos.z = 0.0f;
     owner->FUN_00036ac0(&pos);
     pos.y = pos.y + 1.0f;
-    float now = FUN_000678d0()->FUN_00066280();
+    float now = ((owners::Obj_66280 *)(FUN_000678d0()))->FUN_00066280();
     Body_1247d0* body = owner->body;
     float last = owner->lastTime;
     if (body == 0)

@@ -1,16 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20029 inputs, branch coverage 8/10, incomplete)
 // FUN_0022b370 @ 0x0022b370
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 
-struct Quat_22b370 {
-    float x, y, z, w;
-    void FUN_0022b370(const float *m);
-};
 
 // Rotation matrix (row-major 4x4) to quaternion; the result has its w negated.
 // x87: the trace, the sums and the differences stay in registers (53 bits) until they are stored
-void Quat_22b370::FUN_0022b370(const float *m)
+void owners::Quat_22b370::FUN_0022b370(const float *m)
 {
     int next[3];
     float q[4];

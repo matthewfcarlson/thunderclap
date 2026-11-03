@@ -1,16 +1,8 @@
 #include "decls/data/engine/physics.h"
 // data: threshold_30e8a0 = DAT_004d2fb8
+#include "gen/owners.h"
 
-class Obj_30e8a0 {
-  public:
-    char pad[0x38];
-    float a;
-    float b;
-    float c;
-    int state;
-    void Update();
-};
-void Obj_30e8a0::Update() {
+void owners::Obj_30e8a0::FUN_0030e8a0() {
     state = 0;
     if (a > (*(const float*)&DAT_004d2fb8)) {
         state = 2;

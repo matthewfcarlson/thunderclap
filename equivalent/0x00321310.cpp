@@ -1,12 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_00321310 @ 0x00321310
 #include "decls/data/platform/xbox/pure3d.h"
+#include "gen/owners.h"
 
 typedef unsigned long DWORD;
 struct Vec3_321310 {
     float x, y, z;
-    void FUN_0022d290(Vec3_321310* v, void* matrix);
-    void FUN_0022d240(Vec3_321310* v, void* matrix);
 };
 struct Color4 {
     float r, g, b, a;
@@ -75,9 +74,9 @@ void LightingState::FUN_00321310() {
         dirty[i] = 0;
         LightSource_321310* src = &set->lights[i];
         Vec3_321310 dir;
-        dir.FUN_0022d290(&src->direction, &matrices[i]);
+        ((owners::C_22d290 *)&dir)->FUN_0022d290((hulk_intptr)(Vec3_321310 *)(&src->direction), (hulk_intptr)(&matrices[i]));
         Vec3_321310 pos;
-        pos.FUN_0022d240(&src->position, &matrices[i]);
+        ((owners::C_22d240 *)&pos)->FUN_0022d240((hulk_intptr)(Vec3_321310 *)(&src->position), (hulk_intptr)(&matrices[i]));
         LightSource_321310* cur = &set->lights[i];
         Light8_321310 light;
         Color4 zero;

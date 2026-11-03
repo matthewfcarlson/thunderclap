@@ -1,11 +1,6 @@
-class X_15b660 {
-  public:
-    char pad[0x5c];
-    int m5c;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool X_15b660::Set(int v) {
+bool owners::X_15b660::FUN_0015b660(int v) {
     m5c = v;
     return true;
 }

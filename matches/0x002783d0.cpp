@@ -1,14 +1,5 @@
-class Obj_2783d0 {
-    char pad[0xcc];
-
-  public:
-    char flag;
-    char pad2[6];
-    char x;
-    char y;
-    void f(int* a, int* b);
-};
-void Obj_2783d0::f(int* a, int* b) {
+#include "gen/owners.h"
+void owners::Obj_2783d0::FUN_002783d0(int* a, int* b) {
     if (flag == 0x55) {
         *a = -1;
         *b = -1;

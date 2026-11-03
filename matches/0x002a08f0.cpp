@@ -1,9 +1,4 @@
-class Obj_2a08f0 {
-  public:
-    char pad[0x50];
-    int field;
-    void Set(int v);
-};
-void Obj_2a08f0::Set(int v) {
+#include "gen/owners.h"
+void owners::Obj_2a08f0::FUN_002a08f0(int v) {
     field = v;
 }

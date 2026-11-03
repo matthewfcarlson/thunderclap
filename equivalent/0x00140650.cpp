@@ -3,6 +3,7 @@
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/owners.h"
 extern "C" double __cdecl sqrt(double);
 extern "C" double __cdecl sin(double);
 
@@ -16,12 +17,10 @@ struct Mat4_140650 {
     float m[16];
     void FUN_0022b980();
     void FUN_0022baf0(V3_140650 *axis, float angle);
-    void FUN_0022c3b0(V3_140650 *in, V3_140650 *out);
 };
 
 struct NameHolder_140650 {
     char pad[8];
-    void FUN_0027b040(const char *name);
 };
 
 class JointDriver {
@@ -63,7 +62,6 @@ struct Stats_140650 {
     void FUN_00035550(V3_140650 *out);
     float FUN_000354c0();
     char FUN_000356c0(V3_140650 *out);
-    float FUN_0003ec00(int a);
 };
 
 struct Anchor_140650 {
@@ -241,7 +239,7 @@ bool WallJumpAction::vfunc_3(int a, int b)
         f.t10.z = 0;
         f.m.FUN_0022b980();
         f.m.FUN_0022baf0(&dir, data->f3c);
-        f.m.FUN_0022c3b0(&f.t10, &f.w);
+        ((owners::M_22c3b0 *)&(f.m))->FUN_0022c3b0((float *)(V3_140650 *)(&f.t10), (float *)(V3_140650 *)(&f.w));
     }
     f.rv = f.w;
 
@@ -252,9 +250,9 @@ bool WallJumpAction::vfunc_3(int a, int b)
         f.qv.x = 0;
         f.qv.y = 1.0f;
         f.qv.z = 0;
-        f.m.FUN_0022c3b0(&f.qv, &f.av);
+        ((owners::M_22c3b0 *)&(f.m))->FUN_0022c3b0((float *)(V3_140650 *)(&f.qv), (float *)(V3_140650 *)(&f.av));
         f.m.FUN_0022baf0(&dir, -f.f1c);
-        f.m.FUN_0022c3b0(&f.w, &f.bq);
+        ((owners::M_22c3b0 *)&(f.m))->FUN_0022c3b0((float *)(V3_140650 *)(&f.w), (float *)(V3_140650 *)(&f.bq));
         if (f.bq.y < f.av.y) {
             if (f.bq.z * f.av.z + f.bq.x * f.av.x + f.av.y * f.bq.y > 0.0f) {
                 f.bq = f.av;
@@ -265,7 +263,7 @@ bool WallJumpAction::vfunc_3(int a, int b)
             }
         }
         f.m.FUN_0022baf0(&dir, f.f1c);
-        f.m.FUN_0022c3b0(&f.w, &f.t10);
+        ((owners::M_22c3b0 *)&(f.m))->FUN_0022c3b0((float *)(V3_140650 *)(&f.w), (float *)(V3_140650 *)(&f.t10));
         if (f.t10.y < f.av.y) {
             if (f.t10.z * f.av.z + f.t10.x * f.av.x + f.t10.y * f.av.y > 0.0f) {
                 f.t10 = f.av;
@@ -310,8 +308,8 @@ bool WallJumpAction::vfunc_3(int a, int b)
     f.m.FUN_0022b980();
     f.m.FUN_0022baf0(&f.qv, f.ang);
     f.t10 = f.rv;
-    f.m.FUN_0022c3b0(&f.t10, &f.rv);
-    f.ang = st->FUN_0003ec00(0);
+    ((owners::M_22c3b0 *)&(f.m))->FUN_0022c3b0((float *)(V3_140650 *)(&f.t10), (float *)(V3_140650 *)(&f.rv));
+    f.ang = ((owners::Progress_3ec00 *)st)->FUN_0003ec00(0);
     Data_140650 *d2 = data;
     float lo = d2->f14;
     if (lo < f.s38)
@@ -356,7 +354,7 @@ bool WallJumpAction::vfunc_3(int a, int b)
     else
         drv = 0;
     driver = drv;
-    drv->name.FUN_0027b040("wallJump");
+    ((owners::Target_27b040 *)&(drv->name))->FUN_0027b040((hulk_uintptr)"wallJump");
     driver->AddRef();
     rig->FUN_00222890(driver, -1.0f, e48, 1.0f, e4c, e50, -1.0f);
     World *world = DAT_004dd700;

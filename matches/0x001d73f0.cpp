@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "gen/global.h"
+#include "gen/owners.h"
 struct Val_1d73f0 {
     char pad[0x18];
     float value;
@@ -11,7 +12,6 @@ struct Global_1d73f0 {
 extern Global_1d73f0* g_1d73f0;
 class Helper_1d73f0 {
   public:
-    int get();
 };
 class Other_1d73f0 {
   public:
@@ -39,7 +39,7 @@ int __fastcall target(Self_1d73f0* s) {
     float limit = g_1d73f0->p->value;
     hulk_intptr r;
     if (s->a)
-        r = s->a->get() + 0x30;
+        r = ((int)((owners::C_2fc6f0 *)(s->a))->FUN_002fc6f0()) + 0x30;
     else
         r = ((Other_1d73f0*)s->b)->f4();
     if (*(float*)(r + 4) < limit)

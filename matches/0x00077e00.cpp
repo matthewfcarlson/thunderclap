@@ -1,11 +1,6 @@
-class C_77e00 {
-  public:
-    char pad[0x10];
-    int mValue;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool C_77e00::Set(int v) {
+bool owners::C_77e00::FUN_00077e00(int v) {
     mValue = v;
     return true;
 }

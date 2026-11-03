@@ -3,21 +3,17 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 struct V3_84c40 {
     float x, y, z;
     float FUN_0022d110();
     void FUN_0022d180();
     float FUN_000111f0();
-    V3_84c40 *FUN_00011250(V3_84c40 *out, V3_84c40 *other);
-    void FUN_000110d0(V3_84c40 *other);
-    void FUN_000110f0(V3_84c40 *other);
     void FUN_00083be0(V3_84c40 *a, V3_84c40 *b);
-    void FUN_00083ba0(V3_84c40 *a);
 };
 
 struct Matrix {
     float m[16];
-    void FUN_0022c3b0(V3_84c40 *in, V3_84c40 *out);
 };
 
 struct NameHolder_84c40 {
@@ -33,7 +29,6 @@ struct Args_84c40 {
 struct Rng_84c40 {
     int s0, s1;
     float FUN_000787e0(float lo, float hi);
-    unsigned int FUN_00011330(unsigned int n);
 };
 
 struct Probe_84c40 {
@@ -41,7 +36,6 @@ struct Probe_84c40 {
 };
 
 struct Holder_84c40 {
-    Probe_84c40 *FUN_00086340();
 };
 
 struct Volume_84c40 {
@@ -55,7 +49,6 @@ struct CamSub {
 struct Camera {
     char pad00[0x10];
     CamSub *sub;
-    void FUN_00035660(V3_84c40 *out);
 };
 
 struct CamOwner {
@@ -66,7 +59,6 @@ struct CamOwner {
 struct Registry_84c40 {
     void FUN_001dd520(int key, Matrix *out);
     bool FUN_001dd930(int key, NameHolder_84c40 *name);
-    int FUN_001dc0d0(int key);
     bool FUN_001dd800(int key);
 };
 
@@ -171,7 +163,7 @@ void Mover_84c40::FUN_00084c40(float dt)
 {
     Frame_84c40 fr;
     World *g = DAT_004dd700;
-    Probe_84c40 *probe = g->holder->FUN_00086340();
+    Probe_84c40 *probe = ((Probe_84c40 *)((owners::A_86340 *)(g->holder))->FUN_00086340());
     fr.b13 = probe->FUN_00092940(0x25);
     fr.s38.reg = DAT_004dd700->registry;
     fr.s28.ctrl = DAT_004dd700->controller;
@@ -202,7 +194,7 @@ void Mover_84c40::FUN_00084c40(float dt)
     fr.fwd.x = -1.0f;
     fr.fwd.y = 0;
     fr.fwd.z = 0;
-    fr.m.FUN_0022c3b0(&fr.fwd, &fr.dir);
+    ((owners::M_22c3b0 *)&(fr.m))->FUN_0022c3b0((float *)(V3_84c40 *)(&fr.fwd), (float *)(V3_84c40 *)(&fr.dir));
 
     if (!active) {
         fr.s18.dyu &= 0x7fffffff;
@@ -211,11 +203,11 @@ void Mover_84c40::FUN_00084c40(float dt)
                 || (fr.s48.len < f24
                     && ((fr.dir.y * fr.d.y + fr.dir.x * fr.d.x) + fr.dir.z * fr.d.z) > 0.7f))) {
             active = 1;
-            cam->FUN_00035660(&fr.hdir);
+            ((owners::C_35660 *)cam)->FUN_00035660((int *)(V3_84c40 *)(&fr.hdir));
             if (((fr.hdir.y * fr.d.y + fr.hdir.x * fr.d.x) + fr.hdir.z * fr.d.z) < 0.0f) {
                 state = 0xf;
                 f78.FUN_00083be0(&fr.d, &fr.dir);
-                f78.FUN_00083ba0(&fr.dir);
+                ((owners::Vec_83ba0 *)&f78)->FUN_00083ba0((const owners::Vec_83ba0 *)(V3_84c40 *)(&fr.dir));
                 f78.FUN_0022d180();
                 V3_84c40 &p = fr.fwd;
                 fr.s18.dy = f28;
@@ -232,7 +224,7 @@ void Mover_84c40::FUN_00084c40(float dt)
                 fr.s48.name.FUN_0027af00();
                 if (fr.s38.reg->FUN_001dd930(key, &fr.s48.name)) {
                     fr.s28.ctrl->FUN_001ebe10(this, &fr.s48.name, "skid");
-                    if (fr.s14.rng->FUN_00011330(2) == 0)
+                    if (((owners::Random_11330 *)(fr.s14.rng))->FUN_00011330(2) == 0)
                         fr.s28.ctrl->FUN_001ebe10(this, &fr.s48.name, "horn");
                 }
                 fr.s48.name.FUN_0027af50();
@@ -251,7 +243,7 @@ void Mover_84c40::FUN_00084c40(float dt)
     }
 
     if (active) {
-        if (fr.s38.reg->FUN_001dc0d0(key) == 0)
+        if (((int)((owners::Obj_1dc0d0 *)(fr.s38.reg))->FUN_001dc0d0((hulk_intptr)key)) == 0)
             return;
     }
 
@@ -267,7 +259,7 @@ void Mover_84c40::FUN_00084c40(float dt)
         if (FUN_000843c0(f78, dt))
             break;
         f6c = fr.dir;
-        pos.FUN_000110d0(FUN_00083dd0(&fr.tmp, dt * f18, &f6c));
+        ((owners::V3_110d0 *)&pos)->FUN_000110d0((owners::V3_110d0 *)(V3_84c40 *)(FUN_00083dd0(&fr.tmp, dt * f18, &f6c)));
         break;
     }
     case 0x10: {
@@ -278,7 +270,7 @@ void Mover_84c40::FUN_00084c40(float dt)
         double cr = (double)f78.z * f84.x - (double)f84.z * f78.x;
         if (cr == 0.0)
 {
-            fr.s14.i = (int)(fr.s14.rng->FUN_00011330(1) * 2 - 1);
+            fr.s14.i = (int)(((owners::Random_11330 *)(fr.s14.rng))->FUN_00011330(1) * 2 - 1);
             cr = fr.s14.i;
             if (fr.s14.i < 0)
                 cr += 4294967296.0;
@@ -290,7 +282,7 @@ void Mover_84c40::FUN_00084c40(float dt)
             FUN_00224d70(fr.s18.B, &f6c);
         else
             FUN_00224d70(-fr.s18.B, &f6c);
-        pos.FUN_000110d0(FUN_00083dd0(&fr.tmp, fr.s28.t28, &f84));
+        ((owners::V3_110d0 *)&pos)->FUN_000110d0((owners::V3_110d0 *)(V3_84c40 *)(FUN_00083dd0(&fr.tmp, fr.s28.t28, &f84)));
         if (f18 == 0.0f) {
             if (((fr.dir.y * fr.d.y + fr.dir.x * fr.d.x) + fr.dir.z * fr.d.z) < 0.0f) {
                 state = 0xf;
@@ -309,7 +301,7 @@ void Mover_84c40::FUN_00084c40(float dt)
         f6c = fr.dir;
         if (fr.b13)
             f18 = f1c;
-        pos.FUN_000110d0(FUN_00083dd0(&fr.tmp, dt * f18, &f6c));
+        ((owners::V3_110d0 *)&pos)->FUN_000110d0((owners::V3_110d0 *)(V3_84c40 *)(FUN_00083dd0(&fr.tmp, dt * f18, &f6c)));
         if (FUN_00018960(f18, 0.0f, 1e-05f)) {
             state = 0x12;
             f84 = f6c;
@@ -363,11 +355,11 @@ void Mover_84c40::FUN_00084c40(float dt)
         f6c.x = -f6c.x;
         f6c.y = -f6c.y;
         f6c.z = fr.tmp.z;
-        pos.FUN_000110f0(FUN_00083dd0(&fr.tmp, dt * f18, &f6c));
+        ((owners::Vec3_110f0 *)&pos)->FUN_000110f0((owners::Vec3_110f0 *)(V3_84c40 *)(FUN_00083dd0(&fr.tmp, dt * f18, &f6c)));
         break;
     }
     case 5: {
-        V3_84c40 *r = f9c.FUN_00011250(&fr.tmp, &pos);
+        V3_84c40 *r = ((V3_84c40 *)((owners::Vec3_11250 *)&f9c)->FUN_00011250((owners::Vec3_11250 *)(V3_84c40 *)(&fr.tmp), (owners::Vec3_11250 *)(V3_84c40 *)(&pos)));
         fr.s14.t = dt * f18;
         if (fr.tmp.FUN_000111f0() <= fr.s14.t * fr.s14.t) {
             state = 7;
@@ -379,11 +371,11 @@ void Mover_84c40::FUN_00084c40(float dt)
         f6c = fr.dir;
         if (fr.b13)
             f18 = f1c;
-        pos.FUN_000110d0(FUN_00083dd0(&fr.tmp, dt * f18, &f6c));
+        ((owners::V3_110d0 *)&pos)->FUN_000110d0((owners::V3_110d0 *)(V3_84c40 *)(FUN_00083dd0(&fr.tmp, dt * f18, &f6c)));
         break;
     }
     case 6: {
-        V3_84c40 *r = f9c.FUN_00011250(&fr.tmp, &pos);
+        V3_84c40 *r = ((V3_84c40 *)((owners::Vec3_11250 *)&f9c)->FUN_00011250((owners::Vec3_11250 *)(V3_84c40 *)(&fr.tmp), (owners::Vec3_11250 *)(V3_84c40 *)(&pos)));
         fr.s14.t = dt * f18;
         if (fr.tmp.FUN_000111f0() <= fr.s14.t * fr.s14.t) {
             state = 8;
@@ -395,7 +387,7 @@ void Mover_84c40::FUN_00084c40(float dt)
         f6c = fr.dir;
         if (fr.b13)
             f18 = f1c;
-        pos.FUN_000110d0(FUN_00083dd0(&fr.tmp, dt * f18, &f6c));
+        ((owners::V3_110d0 *)&pos)->FUN_000110d0((owners::V3_110d0 *)(V3_84c40 *)(FUN_00083dd0(&fr.tmp, dt * f18, &f6c)));
         break;
     }
     case 7: {
@@ -403,11 +395,11 @@ void Mover_84c40::FUN_00084c40(float dt)
             DAT_004dd700->manager->FUN_0007da40((char *)this + 8);
             return;
         }
-        V3_84c40 *r = f50.FUN_00011250(&fr.tmp, &f44);
+        V3_84c40 *r = ((V3_84c40 *)((owners::Vec3_11250 *)&f50)->FUN_00011250((owners::Vec3_11250 *)(V3_84c40 *)(&fr.tmp), (owners::Vec3_11250 *)(V3_84c40 *)(&f44)));
         if (FUN_000843c0(*r, dt))
             break;
         state = 11;
-        r = f50.FUN_00011250(&fr.tmp, &fa8);
+        r = ((V3_84c40 *)((owners::Vec3_11250 *)&f50)->FUN_00011250((owners::Vec3_11250 *)(V3_84c40 *)(&fr.tmp), (owners::Vec3_11250 *)(V3_84c40 *)(&fa8)));
         f6c = *r;
         pos = fa8;
         break;
@@ -417,49 +409,49 @@ void Mover_84c40::FUN_00084c40(float dt)
             DAT_004dd700->manager->FUN_0007da40((char *)this + 8);
             return;
         }
-        V3_84c40 *r = f50.FUN_00011250(&fr.tmp, &f44);
+        V3_84c40 *r = ((V3_84c40 *)((owners::Vec3_11250 *)&f50)->FUN_00011250((owners::Vec3_11250 *)(V3_84c40 *)(&fr.tmp), (owners::Vec3_11250 *)(V3_84c40 *)(&f44)));
         if (FUN_000843c0(*r, dt))
             break;
         state = 12;
-        r = f50.FUN_00011250(&fr.tmp, &fa8);
+        r = ((V3_84c40 *)((owners::Vec3_11250 *)&f50)->FUN_00011250((owners::Vec3_11250 *)(V3_84c40 *)(&fr.tmp), (owners::Vec3_11250 *)(V3_84c40 *)(&fa8)));
         f6c = *r;
         pos = fa8;
         break;
     }
     case 9: {
-        V3_84c40 *r = f44.FUN_00011250(&fr.tmp, &pos);
+        V3_84c40 *r = ((V3_84c40 *)((owners::Vec3_11250 *)&f44)->FUN_00011250((owners::Vec3_11250 *)(V3_84c40 *)(&fr.tmp), (owners::Vec3_11250 *)(V3_84c40 *)(&pos)));
         fr.s14.t = dt * f18;
         if (fr.tmp.FUN_000111f0() <= fr.s14.t * fr.s14.t) {
             state = 11;
-            r = f50.FUN_00011250(&fr.tmp, &f44);
+            r = ((V3_84c40 *)((owners::Vec3_11250 *)&f50)->FUN_00011250((owners::Vec3_11250 *)(V3_84c40 *)(&fr.tmp), (owners::Vec3_11250 *)(V3_84c40 *)(&f44)));
             f6c = *r;
             pos = f44;
             break;
         }
-        r = f44.FUN_00011250(&fr.tmp, &pos);
+        r = ((V3_84c40 *)((owners::Vec3_11250 *)&f44)->FUN_00011250((owners::Vec3_11250 *)(V3_84c40 *)(&fr.tmp), (owners::Vec3_11250 *)(V3_84c40 *)(&pos)));
         f6c = *r;
         f6c.FUN_0022d180();
         if (fr.b13)
             f18 = f1c;
-        pos.FUN_000110d0(FUN_00083dd0(&fr.tmp, dt * f18, &f6c));
+        ((owners::V3_110d0 *)&pos)->FUN_000110d0((owners::V3_110d0 *)(V3_84c40 *)(FUN_00083dd0(&fr.tmp, dt * f18, &f6c)));
         break;
     }
     case 10: {
-        V3_84c40 *r = f44.FUN_00011250(&fr.tmp, &pos);
+        V3_84c40 *r = ((V3_84c40 *)((owners::Vec3_11250 *)&f44)->FUN_00011250((owners::Vec3_11250 *)(V3_84c40 *)(&fr.tmp), (owners::Vec3_11250 *)(V3_84c40 *)(&pos)));
         fr.s14.t = dt * f18;
         if (fr.tmp.FUN_000111f0() <= fr.s14.t * fr.s14.t) {
             state = 12;
-            r = f50.FUN_00011250(&fr.tmp, &f44);
+            r = ((V3_84c40 *)((owners::Vec3_11250 *)&f50)->FUN_00011250((owners::Vec3_11250 *)(V3_84c40 *)(&fr.tmp), (owners::Vec3_11250 *)(V3_84c40 *)(&f44)));
             f6c = *r;
             pos = f44;
             break;
         }
-        r = f44.FUN_00011250(&fr.tmp, &pos);
+        r = ((V3_84c40 *)((owners::Vec3_11250 *)&f44)->FUN_00011250((owners::Vec3_11250 *)(V3_84c40 *)(&fr.tmp), (owners::Vec3_11250 *)(V3_84c40 *)(&pos)));
         f6c = *r;
         f6c.FUN_0022d180();
         if (fr.b13)
             f18 = f1c;
-        pos.FUN_000110d0(FUN_00083dd0(&fr.tmp, dt * f18, &f6c));
+        ((owners::V3_110d0 *)&pos)->FUN_000110d0((owners::V3_110d0 *)(V3_84c40 *)(FUN_00083dd0(&fr.tmp, dt * f18, &f6c)));
         break;
     }
     case 0xe: {
@@ -470,25 +462,25 @@ void Mover_84c40::FUN_00084c40(float dt)
         V3_84c40 *r;
         if (FUN_00018960(fb8, 0.0f, 1e-05f)) {
             state = 0;
-            r = f44.FUN_00011250(&fr.tmp, &pos);
+            r = ((V3_84c40 *)((owners::Vec3_11250 *)&f44)->FUN_00011250((owners::Vec3_11250 *)(V3_84c40 *)(&fr.tmp), (owners::Vec3_11250 *)(V3_84c40 *)(&pos)));
             f6c = *r;
             f6c.FUN_0022d180();
             if (fr.b13)
                 f18 = f1c;
-            pos.FUN_000110d0(FUN_00083dd0(&fr.tmp, dt * f18, &f6c));
+            ((owners::V3_110d0 *)&pos)->FUN_000110d0((owners::V3_110d0 *)(V3_84c40 *)(FUN_00083dd0(&fr.tmp, dt * f18, &f6c)));
             break;
         }
-        r = f50.FUN_00011250(&fr.tmp, &f44);
+        r = ((V3_84c40 *)((owners::Vec3_11250 *)&f50)->FUN_00011250((owners::Vec3_11250 *)(V3_84c40 *)(&fr.tmp), (owners::Vec3_11250 *)(V3_84c40 *)(&f44)));
         if (FUN_000843c0(*r, dt))
             break;
         state = 0;
-        r = f50.FUN_00011250(&fr.tmp, &fa8);
+        r = ((V3_84c40 *)((owners::Vec3_11250 *)&f50)->FUN_00011250((owners::Vec3_11250 *)(V3_84c40 *)(&fr.tmp), (owners::Vec3_11250 *)(V3_84c40 *)(&fa8)));
         f6c = *r;
         pos = fa8;
         break;
     }
     case 1: {
-        V3_84c40 *r = f50.FUN_00011250(&fr.tmp, &pos);
+        V3_84c40 *r = ((V3_84c40 *)((owners::Vec3_11250 *)&f50)->FUN_00011250((owners::Vec3_11250 *)(V3_84c40 *)(&fr.tmp), (owners::Vec3_11250 *)(V3_84c40 *)(&pos)));
         f6c = *r;
         if (f6c.FUN_000111f0() <= 16.0f) {
             f18 = 0;
@@ -501,11 +493,11 @@ void Mover_84c40::FUN_00084c40(float dt)
         f6c.FUN_0022d180();
         if (fr.b13)
             f18 = f1c;
-        pos.FUN_000110d0(FUN_00083dd0(&fr.tmp, dt * f18, &f6c));
+        ((owners::V3_110d0 *)&pos)->FUN_000110d0((owners::V3_110d0 *)(V3_84c40 *)(FUN_00083dd0(&fr.tmp, dt * f18, &f6c)));
         break;
     }
     case 2: {
-        V3_84c40 *r = f50.FUN_00011250(&fr.tmp, &pos);
+        V3_84c40 *r = ((V3_84c40 *)((owners::Vec3_11250 *)&f50)->FUN_00011250((owners::Vec3_11250 *)(V3_84c40 *)(&fr.tmp), (owners::Vec3_11250 *)(V3_84c40 *)(&pos)));
         f6c = *r;
         if (f6c.FUN_000111f0() <= 16.0f) {
             f18 = 0;
@@ -518,11 +510,11 @@ void Mover_84c40::FUN_00084c40(float dt)
         f6c.FUN_0022d180();
         if (fr.b13)
             f18 = f1c;
-        pos.FUN_000110d0(FUN_00083dd0(&fr.tmp, dt * f18, &f6c));
+        ((owners::V3_110d0 *)&pos)->FUN_000110d0((owners::V3_110d0 *)(V3_84c40 *)(FUN_00083dd0(&fr.tmp, dt * f18, &f6c)));
         break;
     }
     case 0: {
-        V3_84c40 *r = f50.FUN_00011250(&fr.tmp, &pos);
+        V3_84c40 *r = ((V3_84c40 *)((owners::Vec3_11250 *)&f50)->FUN_00011250((owners::Vec3_11250 *)(V3_84c40 *)(&fr.tmp), (owners::Vec3_11250 *)(V3_84c40 *)(&pos)));
         f6c = *r;
         int t = f40;
         if (t == 0 || t == 5) {
@@ -540,7 +532,7 @@ void Mover_84c40::FUN_00084c40(float dt)
         f6c.FUN_0022d180();
         if (fr.b13)
             f18 = f1c;
-        pos.FUN_000110d0(FUN_00083dd0(&fr.tmp, dt * f18, &f6c));
+        ((owners::V3_110d0 *)&pos)->FUN_000110d0((owners::V3_110d0 *)(V3_84c40 *)(FUN_00083dd0(&fr.tmp, dt * f18, &f6c)));
         break;
     }
     }

@@ -1,5 +1,6 @@
 #include "decls/data/game/global.h"
 // data: gValue_25470 = DAT_003f5bac
+#include "gen/owners.h"
 
 class Item_25470 {
   public:
@@ -7,11 +8,9 @@ class Item_25470 {
     int id;
     char pad1[0x20b4 - 0x12c];
     float value;
-    void Set(int);
 };
 class Manager_25470 {
   public:
-    Item_25470* Find(int);
 };
 class Context {
   public:
@@ -30,9 +29,9 @@ void Owner_25470::Run(int id) {
     for (int i = 0; i < count; ++i) {
         Context* c = ctx;
         Manager_25470* m = c->mgr;
-        Item_25470* item = m->Find(entries[i]);
+        Item_25470* item = ((Item_25470 *)((owners::ThisWrap_00059c10 *)m)->FUN_00059c10((void *)(hulk_uintptr)(int)(entries[i])));
         if (item && item->id == id) {
-            item->Set(1);
+            ((owners::Controller_3ea10 *)item)->FUN_0003ea10(1);
             item->value = (*(float*)&DAT_003f5bac);
         }
     }

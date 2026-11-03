@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19978 inputs, branch coverage 29/30, incomplete)
 // FUN_002fddf0 @ 0x002fddf0
 #include "gen/physics.h"
+#include "gen/owners.h"
 struct Pose_2fddf0 {
     int words[21];
 };
@@ -34,7 +35,6 @@ struct Item_2fddf0 {
     char pad51[0x68 - 0x51];
     unsigned char dirtyA;
     unsigned char dirtyB;
-    void FUN_00304740(int handle);
 };
 
 struct Flagged_2fddf0 {
@@ -189,7 +189,7 @@ extern "C" Sink_2fddf0 *__cdecl FUN_002fddf0(Chain_2fddf0 *chain, Source_2fddf0 
             item->dirtyB = 1;
         }
         if (binding != 0)
-            item->FUN_00304740(binding->handle);
+            ((owners::C_304740 *)item)->FUN_00304740((hulk_intptr)(binding->handle));
     }
     return sink;
 }

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 12/12)
 // CJumpAttackAction::vfunc_6 @ 0x00017050
 #include "gen/global.h"
+#include "gen/owners.h"
 
 struct V3_17050 {
     float x, y, z;
@@ -8,7 +9,6 @@ struct V3_17050 {
 };
 
 struct NameField_17050 {
-    void FUN_0027b040(const char *s);
 };
 
 struct TrackerSub_17050;
@@ -30,7 +30,6 @@ public:
 };
 
 struct Aimed_17050 {
-    void FUN_0022c3b0(V3_17050 *from, V3_17050 *to);
 };
 
 struct TrackerSub_17050 {
@@ -60,7 +59,6 @@ struct Mgr_17050 {
 };
 
 struct Holder_17050 {
-    Mgr_17050 *FUN_000592a0();
 };
 
 struct Cfg_17050 {
@@ -85,7 +83,7 @@ bool CJumpAttackAction::vfunc_6(int arg) {
         V3_17050 w;
         V3_17050 l;
     } fr;
-    Mgr_17050 *mgr = (*(Holder_17050 * *)&this->f_1c)->FUN_000592a0();
+    Mgr_17050 *mgr = ((Mgr_17050 *)((owners::Object_592a0 *)((*(Holder_17050 * *)&this->f_1c)))->FUN_000592a0());
     Player_17050 *pl = mgr->FUN_00059a30();
     Tracker_17050 *tr = mgr->FUN_00059a40();
     if (tr == 0)
@@ -99,14 +97,14 @@ bool CJumpAttackAction::vfunc_6(int arg) {
     if (mem)
         o = ((JointDriver_17050 *)mem)->FUN_002248f0(0);
     (*(JointDriver_17050 * *)&this->f_24) = o;
-    o->name.FUN_0027b040("jumpAttack");
+    ((owners::Target_27b040 *)&(o->name))->FUN_0027b040((hulk_uintptr)"jumpAttack");
     (*(JointDriver_17050 * *)&this->f_24)->v0();
     TrackerSub_17050 *sub = &tr->sub;
     (*(JointDriver_17050 * *)&this->f_24)->s18.FUN_00221be0(sub);
     tr->FUN_00222890((*(JointDriver_17050 * *)&this->f_24), -1.0f, fr.c[2], 1.0f, fr.c[1], fr.c[0], -1.0f);
 
     fr.l = (*(Cfg_17050 * *)&this->f_20)->f14;
-    sub->FUN_00221c40()->FUN_0022c3b0(&fr.l, &(*(V3_17050 *)&this->f_28));
+    ((owners::M_22c3b0 *)(sub->FUN_00221c40()))->FUN_0022c3b0((float *)(V3_17050 *)(&fr.l), (float *)(V3_17050 *)(&(*(V3_17050 *)&this->f_28)));
     (*(V3_17050 *)&this->f_28).FUN_0022d110();
 
     fr.w.x = 0.0f;
@@ -129,7 +127,7 @@ bool CJumpAttackAction::vfunc_6(int arg) {
 
     if ((*(V3_17050 *)&this->f_28).y >= -0.1f) {
         fr.l = (*(Cfg_17050 * *)&this->f_20)->f14;
-        sub->FUN_00221c40()->FUN_0022c3b0(&fr.l, &(*(V3_17050 *)&this->f_28));
+        ((owners::M_22c3b0 *)(sub->FUN_00221c40()))->FUN_0022c3b0((float *)(V3_17050 *)(&fr.l), (float *)(V3_17050 *)(&(*(V3_17050 *)&this->f_28)));
         (*(V3_17050 *)&this->f_28).FUN_0022d110();
         if ((*(V3_17050 *)&this->f_28).y >= -0.1f) {
             (*(V3_17050 *)&this->f_28).y = -0.1f;

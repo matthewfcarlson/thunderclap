@@ -1,11 +1,5 @@
-class Obj {
-    char pad[0x50];
-    float value;
-
-  public:
-    bool Set(float x);
-};
-bool Obj::Set(float x) {
+#include "gen/owners.h"
+bool owners::Obj_18f000::FUN_0018f000(float x) {
     value = x * 0.017453292f;
     return true;
 }

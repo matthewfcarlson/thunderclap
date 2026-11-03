@@ -1,6 +1,6 @@
 // Same code shape as 0x0030d980 (propagated; names are from that function)
+#include "gen/owners.h"
 struct Sub_30d9b0 {
-    void Process();
 };
 struct Item_30d9b0 {
     char pad[0x10];
@@ -16,7 +16,7 @@ void Owner_30d9b0::Target() {
     Item_30d9b0* p = begin;
     if (p <= end) {
         do {
-            p->sub->Process();
+            ((owners::Thing_319ef0 *)(p->sub))->FUN_00319ef0();
             Item_30d9b0* old = p;
             p = (Item_30d9b0*)((char*)p + 0x14);
             if (old == end)

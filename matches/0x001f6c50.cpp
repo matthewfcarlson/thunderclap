@@ -1,7 +1,6 @@
+#include "gen/owners.h"
 struct Obj_1f6c50;
 struct Sub_1f6c50 {
-    Sub_1f6c50* Get();
-    void* Make();
 };
 struct Mgr_1f6c50 {
     char pad[0x54];
@@ -20,8 +19,8 @@ struct Obj_1f6c50 {
 };
 void __fastcall FUN_001f6c50(Obj_1f6c50* self, void*, int unused) {
     Sub_1f6c50* a = gManager_1f6c50->s;
-    Sub_1f6c50* b = a->Get();
-    void* v = b->Make();
+    Sub_1f6c50* b = ((Sub_1f6c50 *)((owners::Target_862a0 *)a)->FUN_000862a0());
+    void* v = ((void *)((owners::Target_203d70 *)b)->FUN_00203d70());
     self->Init(v);
     self->a = 0;
     self->x = 0;

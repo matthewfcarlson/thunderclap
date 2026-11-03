@@ -1,11 +1,5 @@
-class Obj_89980 {
-  public:
-    char pad[0x10c];
-    int field10c;
-    int fields[10];
-    void Init();
-};
-void Obj_89980::Init() {
+#include "gen/owners.h"
+void owners::Obj_89980::FUN_00089980() {
     fields[0] = -1;
     fields[1] = -1;
     fields[2] = -1;

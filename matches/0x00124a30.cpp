@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class Condition {
   public:
     virtual void vfunc_0();
@@ -28,14 +29,13 @@ struct Actor_124a30 {
     unsigned char flag;
 };
 struct Obj_124a30 {
-    Actor_124a30* FUN_000592a0();
 };
 struct ActorRef {
     int FUN_00059a30();
 };
 unsigned char TargetFirstShotCondition::vfunc_6(void* a, void* b, void* c) {
     if (FUN_00344e74(b, 0, &RTTI_Params_124a30, &RTTI_CFightParams_124a30, 0)) {
-        Actor_124a30* p = ((Obj_124a30*)b)->FUN_000592a0();
+        Actor_124a30* p = ((Actor_124a30 *)((owners::Object_592a0 *)(((Obj_124a30*)b)))->FUN_000592a0());
         hulk_intptr x = ((ActorRef*)p)->FUN_00059a30();
         if (x) {
             unsigned char old = *(unsigned char*)(x + 0x1b74);

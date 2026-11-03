@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern char gEmpty_248e0;
 struct Sub_248e0 {
-    void* Lookup(int);
 };
 struct Item_248e0 {
     void* Get();
@@ -26,7 +26,7 @@ void* Thing_248e0::run(int index) {
         int* p = items;
         do {
             Sub_248e0* s = owner->sub;
-            Item_248e0* v = (Item_248e0*)s->Lookup(*p);
+            Item_248e0* v = (Item_248e0*)((void *)((owners::ThisWrap_00059c10 *)s)->FUN_00059c10((void *)(hulk_uintptr)(int)(*p)));
             if (v && (hulk_intptr)v != excluded) {
                 if (found == index)
                     return v->Get();

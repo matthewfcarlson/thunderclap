@@ -3,12 +3,12 @@
 
 // Components are plain ints: the original copies them with integer moves.
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Vec3_2bfd0 {
     int x, y, z;
 };
 
 struct Pawn_2bfd0 {
-    void FUN_000359c0(int mode);
 };
 
 struct Group_2bfd0 {
@@ -26,6 +26,6 @@ bool Group_2bfd0::FUN_0002bfd0(int a1, int x, int y, int z, int a5, int a6, int 
     bool result = FUN_0002b970(a1, pos, a5, a6, a7, a8, name, 0);
     Pawn_2bfd0 *pawn = FUN_00024280(FUN_002672f0(name, 0, 0));
     if (pawn)
-        pawn->FUN_000359c0(3);
+        ((owners::C_359c0 *)pawn)->FUN_000359c0(3);
     return result;
 }

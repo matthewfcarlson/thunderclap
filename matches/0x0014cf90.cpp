@@ -1,10 +1,5 @@
-class Obj_14cf90 {
-  public:
-    char pad[0x10];
-    int mValue;
-    bool Set(int value);
-};
-bool Obj_14cf90::Set(int value) {
+#include "gen/owners.h"
+bool owners::Obj_14cf90::FUN_0014cf90(int value) {
     mValue = value;
     return true;
 }

@@ -1,4 +1,5 @@
 // Same code shape as 0x00221eb0 (propagated; names are from that function)
+#include "gen/owners.h"
 struct Sub_30f370 {
     void call(struct Obj_30f370*);
 };
@@ -7,7 +8,6 @@ struct Obj_30f370 {
     Sub_30f370 sub;
     char pad2[0xc];
     int state;
-    void next();
     void target();
 };
 void Obj_30f370::target() {
@@ -15,6 +15,6 @@ void Obj_30f370::target() {
         sub.call(this);
         state = 0;
     }
-    next();
+    ((owners::Matrix_22c120 *)this)->FUN_0022c120();
     state = 2;
 }

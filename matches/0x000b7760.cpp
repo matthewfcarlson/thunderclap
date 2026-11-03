@@ -1,9 +1,9 @@
 #include "decls/data/game/global.h"
 // data: key = DAT_004080a8
+#include "gen/owners.h"
 
 class Mgr_b7760 {
   public:
-    char Check(int);
 };
 class Obj_b7760 {
     char pad[0x4c];
@@ -24,7 +24,7 @@ void Obj_b7760::Run() {
     if (b) {
         int count = 0;
         for (int i = 0x266; i <= 0x2c9; ++i)
-            if (!mgr->Check(i))
+            if (!((char)((owners::C_92860 *)mgr)->FUN_00092860((hulk_intptr)i)))
                 ++count;
         b->flag = count > 0;
     }

@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 128 inputs, branch coverage 33/34, incomplete)
 // FUN_00262460 @ 0x00262460
+#include "gen/owners.h"
 struct PathString {
     unsigned int FUN_0023f990();
-    char* FUN_0023fbb0();
     void FUN_0023fb10(unsigned int length);
 };
 extern "C" void * __cdecl FUN_00262460(void * path) {
     unsigned int length = ((PathString *)path)->FUN_0023f990();
     if (length != 0) {
-        char* buffer = ((PathString *)path)->FUN_0023fbb0();
+        char* buffer = ((owners::String_23fbb0 *)(((PathString *)path)))->FUN_0023fbb0();
         char* end = buffer + length + 1;
         char* read = buffer;
         char* write = buffer;

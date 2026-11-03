@@ -1,13 +1,8 @@
+#include "gen/owners.h"
 extern "C" int __cdecl GetLen(void*);
 extern "C" int __cdecl Check(void*, int);
 extern "C" int __cdecl Modify(void*, int, int, int);
-class Obj_1d2b10 {
-  public:
-    char pad[8];
-    void* data;
-    int Run(int, int);
-};
-int Obj_1d2b10::Run(int start, int end) {
+int owners::Obj_1d2b10::FUN_001d2b10(int start, int end) {
     int len = GetLen(data);
     if (len == 0)
         return -1;

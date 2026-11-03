@@ -1,11 +1,11 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 typedef void(__fastcall* Callback_28be20)(void*);
 extern void __fastcall ElemCtor(void*);
 extern void* Alloc(hulk_uintptr);
 extern void __stdcall VecNew(void*, int, int, Callback_28be20);
 class Mem_28be20 {
   public:
-    void* Make(unsigned int, int);
 };
 class VectorChannel_28be20 {
   public:
@@ -40,5 +40,5 @@ Vector2DOFChannel_28be20::Vector2DOFChannel_28be20(int x, int y) : VectorChannel
         m28 = (hulk_intptr)(p ? (VecNew(p, 8, n, ElemCtor), p) : 0);
         return;
     }
-    m28 = (hulk_intptr)mc->Make(m10 << 3, 3);
+    m28 = (hulk_intptr)((void *)((owners::C_2888c0 *)mc)->FUN_002888c0((unsigned)(m10 << 3), 3));
 }

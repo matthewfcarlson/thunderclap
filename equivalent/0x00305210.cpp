@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 53 inputs, branch coverage 20/20)
 // FUN_00305210 @ 0x00305210
+#include "gen/owners.h"
 struct Pair_305210 { unsigned int a,b; };
 struct Item_305210 { int count, capacity; Pair_305210* data; int spare; void FUN_00304a10(int); };
-struct Bytes { int count, capacity; unsigned char* data; void FUN_003048a0(int); };
+struct Bytes { int count, capacity; unsigned char* data;  };
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
 extern "C" void __stdcall FUN_00304b00(void*);
 extern "C" void __stdcall FUN_00011520(void*, int, int, void (__stdcall *)(void*));
@@ -32,7 +33,7 @@ Container_305210* Container_305210::FUN_00305210(const Container_305210* source)
     dst[j].b=src[j].b;
    }
   }
-  if(bytes.capacity < source->bytes.capacity) bytes.FUN_003048a0(source->bytes.capacity);
+  if(bytes.capacity < source->bytes.capacity) ((owners::Buffer_3048a0 *)&bytes)->FUN_003048a0(source->bytes.capacity);
   bytes.count=source->bytes.count;
   for(int k=0;k<bytes.count;++k) bytes.data[k]=source->bytes.data[k];
  }

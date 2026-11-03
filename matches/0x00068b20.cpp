@@ -1,12 +1,6 @@
-class Obj_68b20 {
-  public:
-    char pad[0x10];
-    void* mValue;
-    char mFlag;
-    char Set(void* p);
-};
+#include "gen/owners.h"
 
-char Obj_68b20::Set(void* p) {
+char owners::Obj_68b20::FUN_00068b20(void* p) {
     mValue = p;
     return 1;
 }

@@ -2,6 +2,7 @@
 // FUN_0001c430 @ 0x0001c430
 #include "compat/ptr.h"
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Vec3_1c430 {
     float x, y, z;
     float FUN_0022d110();
@@ -47,7 +48,6 @@ struct Xform_1c430 {
 struct Source_1c430 {
     char pad0[0x30];
     Vec3_1c430 pos;
-    void FUN_0022c3b0(Vec3_1c430* in, Vec3_1c430* out);
     void FUN_0022c2b0(Vec3_1c430* in, Vec3_1c430* out);
 };
 
@@ -83,7 +83,7 @@ void CWeaponCollisionAction_1c430::FUN_0001c430(Source_1c430* src)
     Vec3_1c430 p;
     Vec3_1c430 q;
     t.x = 0.0f; t.y = 3.5f; t.z = 0.0f;
-    src->FUN_0022c3b0(&t, &aux);
+    ((owners::M_22c3b0 *)src)->FUN_0022c3b0((float *)(Vec3_1c430 *)(&t), (float *)(Vec3_1c430 *)(&aux));
     t.x = 0.0f; t.y = 3.5f; t.z = 0.0f;
     src->FUN_0022c2b0(&t, &p);
     t.x = 0.0f; t.y = 3.5f; t.z = 0.0f;

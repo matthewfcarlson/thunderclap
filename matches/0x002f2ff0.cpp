@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "gen/physics.h"
+#include "gen/owners.h"
 
 typedef unsigned int u32_2f2ff0;
 struct Obj_2f2ff0 {
@@ -22,13 +23,11 @@ struct Obj_2f2ff0 {
 namespace physics {
 } // namespace physics
 struct Helper_2f2ff0 {
-    void first(void*, void*);
-    void second(hulk_uintptr, hulk_uintptr);
 };
 void physics::CollisionCylinder::vfunc_11(void* __p0) { void * p = (void *)__p0;
 
     Helper_2f2ff0* h = (Helper_2f2ff0*)p;
-    h->first(&this->f_44, &this->f_44);
+    ((owners::M_22c3b0 *)h)->FUN_0022c3b0((float *)(&this->f_44), (float *)(&this->f_44));
     hulk_uintptr a = vfunc_4();
-    h->second(vfunc_4(), a);
+    ((owners::Mat_22c2b0 *)h)->FUN_0022c2b0((float *)(hulk_uintptr)(hulk_uintptr)(vfunc_4()), (float *)(hulk_uintptr)(hulk_uintptr)a);
 }

@@ -1,13 +1,7 @@
+#include "gen/owners.h"
 extern "C" int FUN_000969d0(int);
-class Thing_35c30 {
-  public:
-    char pad[0x200];
-    int values[64];
-    int count;
-    bool Has(int x);
-};
-bool Thing_35c30::Has(int x) {
-    int v = FUN_000969d0(x);
+bool owners::Thing_35c30::FUN_00035c30(hulk_intptr x) {
+    int v = FUN_000969d0(((int)x));
     int i = 0;
     if (count > 0) {
         do {

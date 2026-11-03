@@ -1,5 +1,5 @@
+#include "gen/owners.h"
 struct Entry {
-    void Set(int);
     char pad[8];
 };
 class Obj {
@@ -13,8 +13,8 @@ void Obj::Fn(int a, int b, int v) {
     if (a < 4 && b < 32) {
         if (b == -1) {
             for (int i = 0; i < 32; i++)
-                entries[a * 32 + i].Set(v);
+                ((owners::Target_27b040 *)&(entries[a * 32 + i]))->FUN_0027b040((hulk_uintptr)v);
         } else
-            entries[a * 32 + b].Set(v);
+            ((owners::Target_27b040 *)&(entries[a * 32 + b]))->FUN_0027b040((hulk_uintptr)v);
     }
 }

@@ -1,11 +1,11 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 typedef void(__fastcall* Callback_28d750)(void*);
 extern void __fastcall ElemCtor(void*);
 extern void* Alloc(hulk_uintptr);
 extern void __stdcall VecNew(void*, int, int, Callback_28d750);
 class Mem_28d750 {
   public:
-    void* Make(unsigned int, int);
 };
 class RotationChannel_28d750 {
   public:
@@ -29,5 +29,5 @@ CompressedQuaternionChannel_28d750::CompressedQuaternionChannel_28d750(int x, in
         m18 = (p ? (VecNew(p, 4, n, ElemCtor), p) : 0);
         return;
     }
-    m18 = mc->Make(m10 << 2, 3);
+    m18 = ((void *)((owners::C_2888c0 *)mc)->FUN_002888c0((unsigned)(m10 << 2), 3));
 }

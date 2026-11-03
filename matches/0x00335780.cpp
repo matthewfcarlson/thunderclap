@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Item {
     char pad[8];
     int type;
@@ -5,7 +6,6 @@ struct Item {
 struct Manager {
     char pad[0x44];
     int count;
-    Item* get(int);
 };
 struct Obj {
     char pad[4];
@@ -18,7 +18,7 @@ char Obj::fn(int index, int* x, int* y, int* z) {
         return 0;
     if (index >= mgr->count)
         return 0;
-    if (mgr->get(index)->type != 8)
+    if (((Item *)((owners::Thing_337090 *)mgr)->FUN_00337090(index))->type != 8)
         return 0;
     int* v = entries[index];
     *x = *v;

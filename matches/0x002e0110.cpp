@@ -1,6 +1,7 @@
 #include "decls/data/game/global.h"
 
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class PrimGroupOptimized_2e0110 {
   public:
     virtual void f0();
@@ -30,7 +31,6 @@ struct Base_2e0110 {
 };
 class Manager_2e0110 {
   public:
-    PrimGroupOptimized_2e0110* get();
 };
 class PrimGroupSkinnedOptimized_2e0110 : public PrimGroupOptimized_2e0110 {
   public:
@@ -44,7 +44,7 @@ class PrimGroupSkinnedOptimized_2e0110 : public PrimGroupOptimized_2e0110 {
     void f6();
 };
 void PrimGroupSkinnedOptimized_2e0110::f6() {
-    PrimGroupOptimized_2e0110* s = (*(Manager_2e0110**)&DAT_0052c2b4)->get();
+    PrimGroupOptimized_2e0110* s = ((PrimGroupOptimized_2e0110 *)((owners::Obj_28fad0 *)((*(Manager_2e0110**)&DAT_0052c2b4)))->FUN_0028fad0());
     s->f2();
     Vec_2e0110* vv = &p64->v;
     unsigned n = vv->size();

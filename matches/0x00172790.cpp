@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 struct Obj_172790 {
     char pad[0x1b0c];
@@ -11,7 +12,6 @@ struct Mid_172790 {
     Obj_172790* GetObj();
 };
 struct Source_172790 {
-    Mid_172790* GetMid();
 };
 struct Param_172790 {
     char pad[0x10];
@@ -25,7 +25,7 @@ namespace motion {
 bool hulkfight::motion::CriticalMassDrainAction::vfunc_3(hulk_intptr x, hulk_intptr y) {
     if (!(*(Source_172790 * *)&this->f_20))
         return (bool)(0);
-    Mid_172790* m = (*(Source_172790 * *)&this->f_20)->GetMid();
+    Mid_172790* m = ((Mid_172790 *)((owners::Object_592a0 *)((*(Source_172790 * *)&this->f_20)))->FUN_000592a0());
     if (!m)
         return (bool)(0);
     Obj_172790* o = m->GetObj();

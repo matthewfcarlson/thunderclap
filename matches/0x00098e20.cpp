@@ -1,10 +1,4 @@
-class A_98e20 {
-    char pad[12];
-    int value;
-
-  public:
-    void Set(int x);
-};
-void A_98e20::Set(int x) {
-    value = x;
+#include "gen/owners.h"
+void owners::A_98e20::FUN_00098e20(hulk_intptr x) {
+    value = ((int)x);
 }

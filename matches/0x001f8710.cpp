@@ -1,9 +1,4 @@
-class Target_1f8710 {
-  public:
-    char pad[0x43c];
-    int value;
-    void Set(int);
-};
-void Target_1f8710::Set(int x) {
+#include "gen/owners.h"
+void owners::Target_1f8710::FUN_001f8710(int x) {
     value = x;
 }

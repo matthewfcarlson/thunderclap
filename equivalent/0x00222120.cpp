@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00222120 @ 0x00222120
 #include "decls/data/engine/unknown.h"
+#include "gen/owners.h"
 
 struct Vec3 { float x, y, z; };
 struct Helper { void FUN_0022b4d0(float *source, Vec3 *out); };
@@ -10,12 +11,11 @@ struct Object {
     char pad2[0x0f];
     int mode;
     Vec3 *FUN_00222120(Vec3 *result);
-    void FUN_0022c3b0(float *source, Vec3 *out);
 };
 Vec3 *Object::FUN_00222120(Vec3 *result) {
     Vec3 value;
     if (mode == 0 || mode == 2)
-        FUN_0022c3b0(((float*)&DAT_004c9d60), &value);
+        ((owners::M_22c3b0 *)this)->FUN_0022c3b0(((float*)&DAT_004c9d60), (float *)(Vec3 *)(&value));
     else if (mode == 1)
         helper.FUN_0022b4d0(((float*)&DAT_004c9d60), &value);
     *result = value;

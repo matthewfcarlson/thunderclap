@@ -1,5 +1,5 @@
+#include "gen/owners.h"
 struct Sub_292a50 {
-    void h(void*, void*);
 };
 class Camera {
   public:
@@ -39,6 +39,6 @@ void Camera::vfunc_18(void* a, void* b) {
     char local[12];
     if (!flag)
         f26();
-    sub.h(a, local);
+    ((owners::Mat_22c2b0 *)&sub)->FUN_0022c2b0((float *)a, (float *)local);
     f16(local, b);
 }

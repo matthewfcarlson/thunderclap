@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 12/12)
 // FUN_002af670 @ 0x002af670
+#include "gen/owners.h"
 struct Stream {
- void FUN_002647e0(void*, int, int, int);
  int FUN_00263fc0();
- void FUN_00264510(int);
 };
 struct Info_2af670 { char pad0[8]; int position; char pad1[4]; int width; int height; char pad2[20]; int paletteCount; };
 struct Image {
@@ -20,18 +19,18 @@ extern "C" int __cdecl FUN_002af670(void * info, void * stream, void * image) {
  unsigned int palette[256] = {0};
  int count = ((Info_2af670 *)info)->paletteCount;
  if (!count) count = 256;
- ((Stream *)stream)->FUN_002647e0(palette,count,4,1);
+ ((owners::X_2647e0 *)(((Stream *)stream)))->FUN_002647e0((hulk_intptr)palette, (hulk_intptr)count, 4, (hulk_intptr)1);
  for(int i=0;i<count;++i) palette[i] |= 0xff000000;
  ((Image *)image)->init(((Info_2af670 *)info)->width,((Info_2af670 *)info)->height,8,1,palette);
  int position=((Stream *)stream)->FUN_00263fc0();
- ((Stream *)stream)->FUN_00264510(((Info_2af670 *)info)->position-position);
+ ((owners::S_264510 *)(((Stream *)stream)))->FUN_00264510((unsigned)(((Info_2af670 *)info)->position-position));
  int width=((Info_2af670 *)info)->width;
  int padding=(width & 3) ? 4-(width & 3):0;
  void* buffer=FUN_00266e00(1,width);
  for(int y=0;y<((Info_2af670 *)info)->height;++y) {
- ((Stream *)stream)->FUN_002647e0(buffer,width,1,1);
+ ((owners::X_2647e0 *)(((Stream *)stream)))->FUN_002647e0((hulk_intptr)buffer, (hulk_intptr)width, 1, (hulk_intptr)1);
  ((Image *)image)->row(buffer);
- ((Stream *)stream)->FUN_00264510(padding);
+ ((owners::S_264510 *)(((Stream *)stream)))->FUN_00264510((unsigned)padding);
  }
  FUN_00267090(buffer);
  return ((Image *)image)->finish();

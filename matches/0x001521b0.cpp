@@ -1,4 +1,5 @@
 // Same code shape as 0x00135700 (propagated; names are from that function)
+#include "gen/owners.h"
 struct P8 {
     int Get();
     void Set(int);
@@ -11,7 +12,6 @@ struct Mid_1521b0 {
     Tail_1521b0* GetTail();
 };
 struct Obj_1521b0 {
-    Mid_1521b0* GetMid();
 };
 struct Inner_1521b0 {
     virtual void f0();
@@ -30,7 +30,7 @@ class Target_1521b0 {
 };
 void Target_1521b0::Run() {
     if (mItem != 0 && mItem->kind == 1) {
-        Tail_1521b0* t = mA->GetMid()->GetTail();
+        Tail_1521b0* t = ((Mid_1521b0 *)((owners::Object_592a0 *)mA)->FUN_000592a0())->GetTail();
         P8* p = mItem->p8;
         if (p != 0) {
             int v = t->field;

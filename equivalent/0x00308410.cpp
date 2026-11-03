@@ -4,9 +4,9 @@
 #include "compat/ptr.h"
 #include "gen/physics.h"
 #include "decls/address.h"
+#include "gen/owners.h"
 
 struct Stream_308410 {
-    char FUN_002647e0(void *dest, unsigned int count, unsigned int size, int flag);
 };
 
 struct Reader_308410 {
@@ -19,7 +19,6 @@ struct Reader_308410 {
 };
 
 struct NameField_308410 {
-    void FUN_0027b040(const char *s);
 };
 
 struct NameKey_308410 {
@@ -72,7 +71,6 @@ public:
     CollisionObject_308410 *FUN_00304ed0();
     void FUN_00305190(int v1, int v2, bool b1, bool b2);
     void FUN_00304b40(int x);
-    void FUN_00304740(int x);
 };
 
 void *thunk_FUN_0008d690(unsigned int size);
@@ -121,24 +119,24 @@ void physics::CollisionObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2,
     if (mem)
         obj = ((CollisionObject_308410 *)mem)->FUN_00304ed0();
 
-    r->stream->FUN_002647e0(&f.len, 1, 1, 1);
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1));
     unsigned int l1 = f.len;
-    r->stream->FUN_002647e0(f.name1, l1, 1, 1);
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(f.name1), (hulk_intptr)l1, 1, (hulk_intptr)1));
     f.name1[l1] = 0;
     f.savedName = (NameKey_308410 *)&obj->name;
-    obj->name.FUN_0027b040(f.name1);
+    ((owners::Target_27b040 *)&(obj->name))->FUN_0027b040((hulk_uintptr)(f.name1));
 
-    r->stream->FUN_002647e0(&f.tmp, 1, 4, 1);
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.tmp), (hulk_intptr)1, 4, (hulk_intptr)1));
     obj->f78 = f.tmp;
-    r->stream->FUN_002647e0(&f.len, 1, 1, 1);
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1));
     unsigned int l2 = f.len;
-    r->stream->FUN_002647e0(f.name2, l2, 1, 1);
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(f.name2), (hulk_intptr)l2, 1, (hulk_intptr)1));
     f.name2[l2] = 0;
-    obj->name2.FUN_0027b040(f.name2);
+    ((owners::Target_27b040 *)&(obj->name2))->FUN_0027b040((hulk_uintptr)(f.name2));
 
-    r->stream->FUN_002647e0(&f.tmp, 1, 4, 1);
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.tmp), (hulk_intptr)1, 4, (hulk_intptr)1));
     obj->f24 = f.tmp;
-    r->stream->FUN_002647e0(&f.tmp, 1, 4, 1);
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.tmp), (hulk_intptr)1, 4, (hulk_intptr)1));
     if (f.tmp > 0)
         obj->sub.FUN_00307f30(f.tmp);
 
@@ -152,21 +150,21 @@ void physics::CollisionObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2,
                 obj->FUN_00304b40(FUN_003080a0(r));
                 break;
             case 0x7010020:
-                r->stream->FUN_002647e0(&f.v1, 1, 4, 1);
-                r->stream->FUN_002647e0(&f.v2, 1, 4, 1);
-                r->stream->FUN_002647e0(&f.s1, 1, 2, 1);
-                r->stream->FUN_002647e0(&f.s2, 1, 2, 1);
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v1), (hulk_intptr)1, 4, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v2), (hulk_intptr)1, 4, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.s1), (hulk_intptr)1, 2, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.s2), (hulk_intptr)1, 2, (hulk_intptr)1));
                 obj->FUN_00305190(f.v1, f.v2, f.s1 != 0, f.s2 != 0);
                 break;
             case 0x7010021:
-                r->stream->FUN_002647e0(&f.n, 1, 4, 1);
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.n), (hulk_intptr)1, 4, (hulk_intptr)1));
                 if (f.n > 0 && r->FUN_002669f0()) {
                     do {
                         r->FUN_00266a30();
                         if (r->FUN_00266c30() == 0x7010022) {
-                            r->stream->FUN_002647e0(&f.len, 1, 1, 1);
+                            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1));
                             unsigned int l3 = f.len;
-                            r->stream->FUN_002647e0(f.name3, l3, 1, 1);
+                            ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(f.name3), (hulk_intptr)l3, 1, (hulk_intptr)1));
                             f.name3[l3] = 0;
                             HashList *list = (HashList *)((char *)obj->lists + f.tmp);
                             if (list->count >= list->cap)
@@ -181,20 +179,20 @@ void physics::CollisionObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2,
                 f.tmp += 0x10;
                 break;
             case 0x7010023: {
-                r->stream->FUN_002647e0(&f.sD, 1, 2, 1);
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.sD), (hulk_intptr)1, 2, (hulk_intptr)1));
                 obj->b50 = f.sD != 0;
-                r->stream->FUN_002647e0(&f.v3, 1, 4, 1);
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v3), (hulk_intptr)1, 4, (hulk_intptr)1));
                 obj->f54 = f.v3;
-                r->stream->FUN_002647e0(&f.s3, 1, 2, 1);
-                r->stream->FUN_002647e0(&f.s4, 1, 2, 1);
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.s3), (hulk_intptr)1, 2, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.s4), (hulk_intptr)1, 2, (hulk_intptr)1));
                 bool b4 = f.s4 != 0;
-                r->stream->FUN_002647e0(&f.s5, 1, 2, 1);
-                r->stream->FUN_002647e0(&f.s6, 1, 2, 1);
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.s5), (hulk_intptr)1, 2, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.s6), (hulk_intptr)1, 2, (hulk_intptr)1));
                 f.flag5 = f.s5 != 0;
-                r->stream->FUN_002647e0(&f.i1, 1, 4, 1);
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.i1), (hulk_intptr)1, 4, (hulk_intptr)1));
                 f.flag6 = f.s6 != 0;
-                r->stream->FUN_002647e0(&f.i2, 1, 4, 1);
-                r->stream->FUN_002647e0(&f.i3, 1, 4, 1);
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.i2), (hulk_intptr)1, 4, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.i3), (hulk_intptr)1, 4, (hulk_intptr)1));
                 int m = f.s3 != 0 ? 0xf : 0xb;
                 if (!b4)
                     m -= 2;
@@ -213,7 +211,7 @@ void physics::CollisionObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2,
     }
 
     unsigned __int64 key = FUN_0027b020(f.name2);
-    obj->FUN_00304740(FUN_002f2750((unsigned int)key, (unsigned int)(key >> 32)));
+    ((owners::C_304740 *)obj)->FUN_00304740((hulk_intptr)(FUN_002f2750((unsigned int)key, (unsigned int)(key >> 32))));
     if (obj->b50) {
         obj->f20->FUN_00306300();
         obj->b68 = 0;

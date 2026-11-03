@@ -1,11 +1,6 @@
-class Obj_17f930 {
-  public:
-    char pad[0x14];
-    int mValue;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool Obj_17f930::Set(int v) {
+bool owners::Obj_17f930::FUN_0017f930(int v) {
     mValue = v;
     return true;
 }

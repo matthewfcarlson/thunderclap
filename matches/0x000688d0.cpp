@@ -1,11 +1,6 @@
-class C_688d0 {
-  public:
-    bool Set(int value);
-    char pad[0x24];
-    int m24;
-};
+#include "gen/owners.h"
 
-bool C_688d0::Set(int value) {
+bool owners::C_688d0::FUN_000688d0(int value) {
     m24 = value;
     return true;
 }

@@ -1,11 +1,6 @@
-class C_17f6a0 {
-  public:
-    char pad[12];
-    unsigned char mValue;
-    bool Set(unsigned char x);
-};
+#include "gen/owners.h"
 
-bool C_17f6a0::Set(unsigned char x) {
+bool owners::C_17f6a0::FUN_0017f6a0(unsigned char x) {
     mValue = x;
     return true;
 }

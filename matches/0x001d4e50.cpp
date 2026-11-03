@@ -1,9 +1,4 @@
-class C_1d4e50 {
-    char pad[0xb4];
-
-  public:
-    unsigned char f();
-};
-unsigned char C_1d4e50::f() {
+#include "gen/owners.h"
+unsigned char owners::C_1d4e50::FUN_001d4e50() {
     return pad[0xb4];
 }

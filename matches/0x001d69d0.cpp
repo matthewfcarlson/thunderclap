@@ -1,9 +1,5 @@
-struct Obj_1d69d0 {
-    char pad[0x1d4];
-    int mValue;
-    int GetValue();
-};
+#include "gen/owners.h"
 
-int Obj_1d69d0::GetValue() {
+int owners::Obj_1d69d0::FUN_001d69d0() {
     return mValue;
 }

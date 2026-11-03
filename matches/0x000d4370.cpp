@@ -1,18 +1,10 @@
 #include "compat/ptr.h"
-class Obj_d4370 {
-  public:
-    char pad[0x10];
-    int a;
-    char rest[0x7f8];
-    unsigned char b;
-    void Target(hulk_intptr);
-};
+#include "gen/owners.h"
 class Other_d4370 {
   public:
-    void Help(Obj_d4370*);
 };
-void Obj_d4370::Target(hulk_intptr x) {
-    ((Other_d4370*)x)->Help(this);
+void owners::Obj_d4370::FUN_000d4370(hulk_intptr x) {
+    ((owners::Slots_d6dd0 *)(((Other_d4370*)x)))->FUN_000d6dd0((hulk_intptr)(owners :: Obj_d4370 *)this);
     a = 0;
     b = 1;
 }

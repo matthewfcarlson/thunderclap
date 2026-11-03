@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2834 inputs, branch coverage 12/12)
 // FUN_0007f310 @ 0x0007f310
 #include "compat/ptr.h"
+#include "gen/owners.h"
 void *__cdecl FUN_00263ea0(unsigned int size);
 extern "C" void *__cdecl FUN_00266da0(hulk_intptr n);
 
@@ -30,7 +31,6 @@ public:
     virtual void v1();
     char pad4[4];
     Node *FUN_000810f0(int a, Resource_7f310 *r, int b, int sum, float f, int flag);
-    void FUN_00080e70(void *p);
 };
 
 struct Clock_7f310 {
@@ -82,7 +82,7 @@ Node *Manager_7f310::FUN_0007f310(int a0, int a1, int count, int base)
         FUN_001c3d90()->FUN_001c3a40(sub, res);
         void *found = FUN_001c3d90()->sub->FUN_001c59d0(sub);
         if (found != 0) {
-            node->FUN_00080e70(found);
+            ((owners::Target_80e70 *)node)->FUN_00080e70((char *)found);
         } else {
             node->v0();
             node->v1();

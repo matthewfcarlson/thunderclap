@@ -3,6 +3,7 @@
 #include "gen/pure3d.h"
 
 #include "compat/ptr.h"
+#include "gen/owners.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" void *__cdecl memset(void *, int, unsigned int);
 extern "C" void *FUN_0008d690(unsigned int size);
@@ -11,7 +12,6 @@ extern "C" void *FUN_0008d6d0(unsigned int size);
 struct StrField_288eb0 {
     int a, b;
     void FUN_0027af00();
-    void FUN_0027b040(const char *s);
     StrField_288eb0() { FUN_0027af00(); }
 };
 
@@ -88,7 +88,7 @@ void* pure3d::AnimationLoader::FUN_00288eb0(void* __p0, int ctx, void* __p2) { R
     pure3d::AnimationGroup_288eb0 *obj = 0;
     if (mem)
         obj = new (mem) pure3d::AnimationGroup_288eb0();
-    obj->name.FUN_0027b040(fr.name);
+    ((owners::Target_27b040 *)&(obj->name))->FUN_0027b040((hulk_uintptr)(fr.name));
     r->stream->FUN_002647e0(&fr.v, 1, 4, 1);
     obj->f10 = fr.v;
     r->stream->FUN_002647e0(&fr.v, 1, 4, 1);

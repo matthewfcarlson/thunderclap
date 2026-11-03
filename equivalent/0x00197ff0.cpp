@@ -2,6 +2,7 @@
 // FUN_00197ff0 @ 0x00197ff0
 #include "compat/ptr.h"
 #include "decls/address.h"
+#include "gen/owners.h"
 struct V3_197ff0 {
     float x, y, z;
     float FUN_0022d110();
@@ -25,7 +26,6 @@ struct Obj_197ff0 {
 };
 
 struct List_197ff0 {
-    Obj_197ff0 *FUN_00059c10(int id);
 };
 
 struct Sub38_197ff0 {
@@ -40,7 +40,6 @@ struct World {
 };
 
 struct Owner_197ff0 {
-    Obj_197ff0 *FUN_001d72e0();
 };
 
 struct Collider_197ff0 {
@@ -55,7 +54,6 @@ struct Hit_197ff0 {
 };
 
 struct Rng_197ff0 {
-    unsigned int FUN_00011380(int lo, int hi);
 };
 
 struct Scene_197ff0 {
@@ -184,7 +182,7 @@ void Proj_197ff0::FUN_00197ff0(float dt)
     L.w.z = t.z + f18.z;
 
     void *owner = 0;
-    Obj_197ff0 *o = world->list->FUN_00059c10(f10);
+    Obj_197ff0 *o = ((Obj_197ff0 *)((owners::ThisWrap_00059c10 *)(world->list))->FUN_00059c10((void *)(hulk_uintptr)(int)f10));
     if (o != 0)
         owner = o->f12c;
 
@@ -196,7 +194,7 @@ void Proj_197ff0::FUN_00197ff0(float dt)
     Hit_197ff0 *hit;
     Collider_197ff0 *col = (Collider_197ff0 *)L.b.out2;
     if (col != 0 && col->kind == 5)
-        hit = (Hit_197ff0 *)col->owner->FUN_001d72e0();
+        hit = (Hit_197ff0 *)((Obj_197ff0 *)((owners::C_1d72e0 *)(col->owner))->FUN_001d72e0());
     else
         hit = L.a.hit;
 
@@ -264,7 +262,7 @@ void Proj_197ff0::FUN_00197ff0(float dt)
     L.m1.m[14] = L.hitPos.z;
     if (!scene->FUN_0027ffc0(fc, &L.m1))
         fc = scene->FUN_00283a40((V3_197ff0 *)&params->f70, &L.m1, params->f64, 0x3f800000);
-    if (FUN_000964d0()->FUN_00011380(0, 0x32) < 1) {
+    if (((unsigned int)((owners::Random_11380 *)(FUN_000964d0()))->FUN_00011380(0, 0x32)) < 1) {
         if (L.owner != 0 && params->fa4 > 0) {
             ((World *)L.g)->f38->FUN_001f6cd0(L.owner, L.b.out2, &L.hitPos, &L.c, &f24, params->fa4 - 1, 1.0f, 1.0f, 0, 0);
         }

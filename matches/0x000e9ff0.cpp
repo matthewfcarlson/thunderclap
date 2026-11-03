@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_e9ff0[];
 extern void* g_vftable2[];
@@ -8,7 +9,6 @@ class Ref_e9ff0 {
 };
 void operator delete[](void*) throw();
 struct Mgr_e9ff0 {
-    void Rem(void* p) throw();
 };
 struct Own_e9ff0 {
     char p[8];
@@ -16,7 +16,6 @@ struct Own_e9ff0 {
 };
 struct Sub_e9ff0 {
     char c;
-    void Fin() throw();
 };
 class HSlider_e9ff0 {
   public:
@@ -42,7 +41,7 @@ class HSlider_e9ff0 {
 HSlider_e9ff0::~HSlider_e9ff0() throw() {
     vptr = g_vftable_e9ff0;
     if (m180)
-        ma8->m8->Rem(m180 + 0x18);
+        ((owners::Obj_f8c30 *)(ma8->m8))->FUN_000f8c30((const char *)(m180 + 0x18));
     if (m190)
         m190->Release();
     for (int i = 0; i < 10; i++)
@@ -69,5 +68,5 @@ HSlider_e9ff0::~HSlider_e9ff0() throw() {
         operator delete[](mac);
         mac = 0;
     }
-    s18.Fin();
+    ((owners::Thing_f7960 *)&s18)->FUN_000f7960();
 }

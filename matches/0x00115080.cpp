@@ -1,12 +1,6 @@
-class O_115080 {
-    char pad[0x18];
-    int m18;
+#include "gen/owners.h"
 
-  public:
-    bool Fn(int a);
-};
-
-bool O_115080::Fn(int a) {
+bool owners::O_115080::FUN_00115080(int a) {
     m18 = a;
     return true;
 }

@@ -1,10 +1,5 @@
-class O_5d640 {
-  public:
-    char pad[0xdc];
-    int m;
-    bool Set(int x);
-};
-bool O_5d640::Set(int x) {
+#include "gen/owners.h"
+bool owners::O_5d640::FUN_0005d640(int x) {
     m = x;
     return true;
 }

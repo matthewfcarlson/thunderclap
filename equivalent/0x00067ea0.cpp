@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1751 inputs, branch coverage 2/2)
 // FUN_00067ea0 @ 0x00067ea0
+#include "gen/owners.h"
 struct Key_67ea0 {
     unsigned int lo;
     unsigned int hi;
     void FUN_0027af00();
-    void FUN_0027b040(const char *name);
 };
 
 struct Entry_67ea0 {
@@ -34,13 +34,13 @@ Table_67ea0::Table_67ea0()
     for (int i = 0; i < 0x40; i++) {
         Entry_67ea0 *e = &entries[i];
         e->key.FUN_0027af00();
-        e->key.FUN_0027b040("");
+        ((owners::Target_27b040 *)&(e->key))->FUN_0027b040((hulk_uintptr)"");
         e->f00 = 0;
         e->f0c = 0;
         e->f08 = 0;
         e->f04 = 0;
         e->f10 = 0;
-        e->key.FUN_0027b040("");
+        ((owners::Target_27b040 *)&(e->key))->FUN_0027b040((hulk_uintptr)"");
     }
     FUN_00067a40();
 }

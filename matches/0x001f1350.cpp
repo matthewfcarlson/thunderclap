@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 struct Child_1f1350 {
     char pad[8];
-    void Init(int);
 };
 struct Item_1f1350 {
     char pad0[8];
@@ -31,7 +31,7 @@ void Owner_1f1350::Run(int arg) {
             p->flag = 0;
             p->value = 100.0f;
             p->pad24 = 0;
-            p->child.Init(0);
+            ((owners::Target_27b040 *)&(p->child))->FUN_0027b040((hulk_uintptr)0);
         }
         i += 0x28;
     } while (i < 4000);

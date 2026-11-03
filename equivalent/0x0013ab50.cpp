@@ -1,20 +1,21 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3099 inputs, branch coverage 36/36; Wine build 3048 inputs, 36/36)
 // hulkfight::motion::FrameReachedCondition::vfunc_6 @ 0x0013ab50
 #include "decls/address.h"
+#include "gen/owners.h"
 namespace fight {
-class Params {
+class Params_13ab50 {
 public:
     virtual void vfunc_0();
 };
 }
 
-class CFightParams : public fight::Params {
+class CFightParams_13ab50 : public fight::Params_13ab50 {
 public:
     virtual void vfunc_0();
 };
 
 namespace choreo2 {
-class Driver {
+class Driver_13ab50 {
 public:
     virtual void vfunc_0();
 };
@@ -29,7 +30,7 @@ struct DriverInfo_13ab50 {
 };
 
 namespace choreo2 {
-class AnimationDriver : public Driver {
+class AnimationDriver_13ab50 : public Driver_13ab50 {
 public:
     virtual void vfunc_0();
     char pad04[0x1c];
@@ -51,7 +52,6 @@ Context *__fastcall FUN_000592a0(void *obj);
 struct DriverSet_13ab50 {
     char pad0[0x68];
     unsigned int count;
-    choreo2::Driver *FUN_00222e20(unsigned int index);
 };
 DriverSet_13ab50 *__fastcall FUN_00059a40(Context *ctx);
 
@@ -71,23 +71,23 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual char vfunc_6(int a, fight::Params *params, int c);
+    virtual char vfunc_6(int a, fight::Params_13ab50 *params, int c);
     char pad04[0xc];
     int idLo;
     int idHi;
     float threshold;
 };
 
-char FrameReachedCondition::vfunc_6(int a, fight::Params *params, int c)
+char FrameReachedCondition::vfunc_6(int a, fight::Params_13ab50 *params, int c)
 {
-    if (dynamic_cast<CFightParams *>(params) == 0)
+    if (dynamic_cast<CFightParams_13ab50 *>(params) == 0)
         return 0;
     DriverSet_13ab50 *drivers = FUN_00059a40(FUN_000592a0(params));
     if (drivers == 0)
         return 0;
     unsigned int count = drivers->count;
     for (unsigned int i = 0; i < count; i++) {
-        choreo2::AnimationDriver *drv = dynamic_cast<choreo2::AnimationDriver *>(drivers->FUN_00222e20(i));
+        choreo2::AnimationDriver_13ab50 *drv = dynamic_cast<choreo2::AnimationDriver_13ab50 *>(((choreo2 :: Driver_13ab50 *)((owners::C_222e20 *)drivers)->FUN_00222e20((unsigned)i)));
         if (drv == 0 || drv->info == 0)
             continue;
         if (drv->info->idLo != idLo || drv->info->idHi != idHi)

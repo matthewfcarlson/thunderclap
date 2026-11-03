@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 34 inputs, branch coverage 19/24, incomplete)
 // FUN_002e6340 @ 0x002e6340
 #include "compat/ptr.h"
+#include "gen/owners.h"
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 extern "C" void* FUN_0008d690(unsigned int size);
 extern "C" void* FUN_0008d6d0(unsigned int size);
 extern "C" void* memset(void* dst, int c, unsigned int n);
 
 struct Stream {
-    void FUN_002647e0(void* dest, unsigned int count, unsigned int size, int flag);
 };
 
 struct Reader {
@@ -36,28 +36,26 @@ struct KeyVec {
     unsigned int* begin;
     unsigned int* end;
     int cap;
-    void FUN_002e16f0(unsigned int n, const unsigned int* fill);
 };
 
 struct TrackVec {
     Track* begin;
     Track* end;
     int cap;
-    void FUN_002e6160(unsigned int n, const __int64* fill);
 };
 
 struct Parent;
 
 namespace pure3d {
 
-class VertexAnimKeyFrameList {
+class VertexAnimKeyFrameList_2e6340 {
 public:
     virtual void v0();
     int field04;
     KeyVec keys;
     TrackVec tracks;
 
-    VertexAnimKeyFrameList()
+    VertexAnimKeyFrameList_2e6340()
     {
         field04 = 0;
         keys.begin = 0;
@@ -74,16 +72,16 @@ public:
 class KeyFrameLoader {
 public:
     RefCounted_2e6340* FUN_002e5b20(Reader* r, Parent* parent);
-    pure3d::VertexAnimKeyFrameList* FUN_002e6340(Reader* r, Parent* parent);
+    pure3d::VertexAnimKeyFrameList_2e6340* FUN_002e6340(Reader* r, Parent* parent);
 };
 
-pure3d::VertexAnimKeyFrameList* KeyFrameLoader::FUN_002e6340(Reader* r, Parent* parent)
+pure3d::VertexAnimKeyFrameList_2e6340* KeyFrameLoader::FUN_002e6340(Reader* r, Parent* parent)
 {
     struct Frame {
         unsigned int scratch;
         unsigned int count;
         unsigned int offset;
-        pure3d::VertexAnimKeyFrameList* list;
+        pure3d::VertexAnimKeyFrameList_2e6340* list;
         KeyFrameLoader* self;
         __int64 zeroFill;
         unsigned int spare;
@@ -91,25 +89,25 @@ pure3d::VertexAnimKeyFrameList* KeyFrameLoader::FUN_002e6340(Reader* r, Parent* 
     } f;
 
     f.self = this;
-    r->stream->FUN_002647e0(&f.scratch, 1, 4, 1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.scratch), (hulk_intptr)1, 4, (hulk_intptr)1);
 
     f.list = 0;
     void* mem = FUN_0008d690(0x20);
     if (mem)
-        f.list = new (mem) pure3d::VertexAnimKeyFrameList();
+        f.list = new (mem) pure3d::VertexAnimKeyFrameList_2e6340();
 
-    r->stream->FUN_002647e0(&f.count, 1, 4, 1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.count), (hulk_intptr)1, 4, (hulk_intptr)1);
 
     unsigned int n = f.count;
     f.scratch = 0;
-    f.list->keys.FUN_002e16f0(n, &f.scratch);
+    ((owners::Buffer_2e16f0 *)&(f.list->keys))->FUN_002e16f0(n, (void *)(&f.scratch));
     f.zeroFill = 0;
-    f.list->tracks.FUN_002e6160(n, &f.zeroFill);
-    r->stream->FUN_002647e0(f.list->keys.begin, n, 4, 1);
+    ((owners::Buffer_2e6160 *)&(f.list->tracks))->FUN_002e6160(n, (hulk_intptr)(&f.zeroFill));
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(f.list->keys.begin), (hulk_intptr)n, 4, (hulk_intptr)1);
 
     f.offset = 0;
     for (f.scratch = n; f.scratch != 0; f.scratch--, f.offset += sizeof(Track)) {
-        r->stream->FUN_002647e0(&f.count, 1, 4, 1);
+        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.count), (hulk_intptr)1, 4, (hulk_intptr)1);
         Track* track = (Track*)((char*)f.list->tracks.begin + f.offset);
         if (track->begin == 0) {
             if (f.count == 0) {

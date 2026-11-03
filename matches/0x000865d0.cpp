@@ -1,11 +1,11 @@
 #include "decls/data/game/global.h"
 // data: flag_865d0 = DAT_004dd6f0
+#include "gen/owners.h"
 
 struct A_865d0 {
     void f2();
     void f4();
     void f6(int);
-    void f7();
     void f8(void*, int);
 };
 struct B_865d0 {
@@ -35,6 +35,6 @@ void __fastcall target(Obj_865d0* self) {
     edi->f4();
     self->p30->f5();
     edi->f6(1);
-    edi->f7();
+    ((owners::Thing_1d3c50 *)edi)->FUN_001d3c50();
     self->p20->f8(self, self->v4);
 }

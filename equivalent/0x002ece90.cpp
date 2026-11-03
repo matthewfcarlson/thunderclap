@@ -3,6 +3,7 @@
 #include "decls/data/engine/physics.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 extern "C" double sqrt(double);
 
@@ -18,16 +19,8 @@ struct SystemB {
     Listener_2ece90 listener;
 };
 
-class ScaledVec {
-public:
-    char pad00[0x10];
-    float x, y, z;
-    float sx, sy, sz;
-    float length;
-    void Set(float vx, float vy, float vz);
-};
 
-void ScaledVec::Set(float vx, float vy, float vz)
+void owners::ScaledVec_2ece90::FUN_002ece90(float vx, float vy, float vz)
 {
     x = vx;
     y = vy;

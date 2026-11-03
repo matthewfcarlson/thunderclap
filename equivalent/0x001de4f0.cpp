@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3148 inputs, branch coverage 111/112, incomplete)
 // FUN_001de4f0 @ 0x001de4f0
+#include "gen/owners.h"
 typedef unsigned __int64 u64;
 
 struct V3 { float x, y, z; };
@@ -8,7 +9,6 @@ struct Mat4 { float m[16]; };
 struct ResName {
     char data[12];
     const char *FUN_0027b010();
-    void FUN_0027b040(const char *s);
     void FUN_0027af70(const ResName *other);
 };
 
@@ -18,7 +18,6 @@ struct Sub {
     int FUN_001d5e80(int a);
     int FUN_001d5dd0(int a);
     u64 FUN_001d4f40();
-    float FUN_001d4ea0(int a);
     u64 FUN_001d4f70();
 };
 
@@ -57,10 +56,8 @@ struct Obj {
 
     void FUN_001d6b60(Mat4 m, int z);
     void FUN_001d6270();
-    void FUN_0027cb80(int v);
     void FUN_001d7b80(int a, int b);
     void *FUN_001d6b40();
-    Q *FUN_001d72e0();
 };
 
 struct Hook {
@@ -141,7 +138,7 @@ Obj *World::FUN_001de4f0(Registry *reg, ResName *rn, int v, const Mat4 *m)
     if (o == 0)
         return o;
 
-    o->name.FUN_0027b040(rn->FUN_0027b010());
+    ((owners::Target_27b040 *)&(o->name))->FUN_0027b040((hulk_uintptr)(rn->FUN_0027b010()));
     o->name.FUN_0027af70(rn);
     o->FUN_001d6b60(*m, 0);
     o->FUN_001d6270();
@@ -149,7 +146,7 @@ Obj *World::FUN_001de4f0(Registry *reg, ResName *rn, int v, const Mat4 *m)
         o->f198 = 2;
         o->f19c = 0;
     }
-    o->FUN_0027cb80(f1e824);
+    ((owners::C_27cb80 *)o)->FUN_0027cb80((void *)(hulk_uintptr)(int)f1e824);
     ((Hook *)FUN_001b6580())->FUN_001b4540(o);
     o->FUN_001d7b80(0, 5);
 
@@ -171,27 +168,27 @@ Obj *World::FUN_001de4f0(Registry *reg, ResName *rn, int v, const Mat4 *m)
     if (o->fec->FUN_001d5e80(o->f40) == 3 || o->fec->FUN_001d5dd0(o->f40) == 3) {
         FUN_002f28d0("bowling_ball", 1.05f, 100.0f, -0.25f, 1000.0f);
         void *w = FUN_002f2750(FUN_0027b020("bowling_ball"));
-        o->FUN_001d72e0()->FUN_002ef440(w);
-        Dyn *d = o->FUN_001d72e0()->f70;
+        ((Q *)((owners::C_1d72e0 *)o)->FUN_001d72e0())->FUN_002ef440(w);
+        Dyn *d = ((Q *)((owners::C_1d72e0 *)o)->FUN_001d72e0())->f70;
         d->f1b8 = 5.0f;
         d->f1bc = 5.0f;
         d->f1c0 = 5.0f;
         d->b1c4 = 1;
-    } else if (o->FUN_001d72e0() != 0) {
+    } else if (((Q *)((owners::C_1d72e0 *)o)->FUN_001d72e0()) != 0) {
         Sub *s = o->fec;
         u64 none = FUN_0027b020("NONE");
         if (s->FUN_001d4f40() != none) {
             void *w = FUN_002f2750(o->fec->FUN_001d4f40());
             if (w != 0)
-                o->FUN_001d72e0()->FUN_002ef440(w);
+                ((Q *)((owners::C_1d72e0 *)o)->FUN_001d72e0())->FUN_002ef440(w);
         }
     }
 
-    if (o->FUN_001d72e0() == 0)
+    if (((Q *)((owners::C_1d72e0 *)o)->FUN_001d72e0()) == 0)
         return o;
-    if (o->FUN_001d72e0()->f70 == 0)
+    if (((Q *)((owners::C_1d72e0 *)o)->FUN_001d72e0())->f70 == 0)
         return o;
-    Dyn *p = o->FUN_001d72e0()->f70;
+    Dyn *p = ((Q *)((owners::C_1d72e0 *)o)->FUN_001d72e0())->f70;
     p->f164 = 1.0f;
 
     u64 key = reg->id;
@@ -216,7 +213,7 @@ Obj *World::FUN_001de4f0(Registry *reg, ResName *rn, int v, const Mat4 *m)
         INIT(2, DAT_004e2710, "bus");
         INIT(4, DAT_004e2708, "small_object");
         INIT(8, DAT_004e2700, "large_vehicle");
-        volatile float v = o->fec->FUN_001d4ea0(o->f40);
+        volatile float v = ((owners::Target_1d4ea0 *)(o->fec))->FUN_001d4ea0(o->f40);
         if (v > 0.0f) {
             int j = -1;
             for (i = 0; i < 16; i++) {
@@ -290,7 +287,7 @@ Obj *World::FUN_001de4f0(Registry *reg, ResName *rn, int v, const Mat4 *m)
     if (st == DAT_004dc0c0 || st == DAT_004dc098 || st == DAT_004dc078) {
         V3 dir;
         dir.x = 0.0f; dir.y = -0.5f; dir.z = 0.0f;
-        o->FUN_001d72e0()->f70->FUN_002f57d0(&dir);
+        ((Q *)((owners::C_1d72e0 *)o)->FUN_001d72e0())->f70->FUN_002f57d0(&dir);
     }
     return o;
 }

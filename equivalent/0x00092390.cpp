@@ -2,12 +2,12 @@
 // FUN_00092390 @ 0x00092390
 // cl-flags: /GS
 #include "compat/ptr.h"
+#include "gen/owners.h"
 
 int __cdecl FUN_00345475(int c);
 
 class Sink_92390 {
 public:
-    void FUN_001d1dd0(char *text, int arg);
 };
 
 void __stdcall FUN_00092390(Sink_92390 *sink, const char *src, int arg)
@@ -23,5 +23,5 @@ void __stdcall FUN_00092390(Sink_92390 *sink, const char *src, int arg)
     for (i = 0; i < len; i++)
         fr.buf[i] = (char)FUN_00345475(src[i]);
     fr.buf[i] = 0;
-    sink->FUN_001d1dd0(fr.buf, arg);
+    ((owners::Obj_1d1dd0 *)sink)->FUN_001d1dd0((hulk_intptr)(fr.buf), arg);
 }

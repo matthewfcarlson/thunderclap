@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19413 inputs, branch coverage 7/8, incomplete)
 // FUN_001efe20 @ 0x001efe20
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
 typedef unsigned int uint_1efe20;
 struct Key_1efe20 { uint_1efe20 a,b; void FUN_0027b0e0(const char*); void FUN_0027af50(); };
-struct Entry_1efe20 { char pad[24]; float probability; void FUN_001ef2a0(uint_1efe20,uint_1efe20); };
+struct Entry_1efe20 { char pad[24]; float probability;  };
 struct Group_1efe20 { Entry_1efe20* FUN_001ef1e0(Key_1efe20*); };
 struct ThisWrap_001efe20 {
     Group_1efe20* FUN_001efb80(uint_1efe20);
@@ -25,7 +26,7 @@ bool ThisWrap_001efe20::FUN_001efe20(uint_1efe20 group,uint_1efe20 arg,const cha
  uint_1efe20 value=((r->a<<16)+(r->b & 65535))%1000;
  ++(*(uint_1efe20*)&DAT_004e3734);
  if ((double)value * (double)0.1f > e->probability) { ++(*(uint_1efe20*)&DAT_004e373c); key.FUN_0027af50(); return false; }
- e->FUN_001ef2a0(arg,last);
+ ((owners::Spawner_1ef2a0 *)e)->FUN_001ef2a0((int)arg, (int)last);
  key.FUN_0027af50();
  return true;
 }

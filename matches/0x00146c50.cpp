@@ -1,10 +1,5 @@
-class A_146c50 {
-  public:
-    char f(int x);
-    char pad[0x1c];
-    int mVal;
-};
-char A_146c50::f(int x) {
+#include "gen/owners.h"
+char owners::A_146c50::FUN_00146c50(int x) {
     mVal = x;
     return 1;
 }

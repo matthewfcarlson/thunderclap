@@ -1,13 +1,6 @@
-class C_11ba70 {
-  public:
-    char Set(int x);
+#include "gen/owners.h"
 
-  private:
-    char pad[0x2c];
-    int m;
-};
-
-char C_11ba70::Set(int x) {
+char owners::C_11ba70::FUN_0011ba70(int x) {
     m = x;
     return 1;
 }

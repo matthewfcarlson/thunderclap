@@ -1,11 +1,6 @@
-class A_11c180 {
-  public:
-    char pad[0x50];
-    int mValue;
-    bool Set(int v) throw();
-};
+#include "gen/owners.h"
 
-bool A_11c180::Set(int v) throw() {
+bool owners::A_11c180::FUN_0011c180(int v) throw() {
     mValue = v;
     return true;
 }

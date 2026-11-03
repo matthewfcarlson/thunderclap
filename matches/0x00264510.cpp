@@ -1,17 +1,5 @@
-struct S_264510 {
-    char p0[0xc];
-    char m0c;
-    char pd;
-    char m0e;
-    char pf[5];
-    unsigned m14;
-    char p18[0x14];
-    unsigned m2c, m30;
-    void A(unsigned);
-    void B();
-    void f(unsigned n);
-};
-void S_264510::f(unsigned n) {
+#include "gen/owners.h"
+void owners::S_264510::FUN_00264510(unsigned n) {
     if (m0c && n) {
         if (!m0e) {
             A(n);

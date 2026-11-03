@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class Item_29f340 {
   public:
     virtual void a();
@@ -17,7 +18,6 @@ struct Arr_29f340 {
     Item_29f340** items;
 };
 struct Context {
-    void prepare(int);
     void process(int, Item_29f340*);
 };
 struct Obj_29f340 {
@@ -29,7 +29,7 @@ struct Obj_29f340 {
     hulk_intptr run();
 };
 hulk_intptr Obj_29f340::run() {
-    ctx->prepare(n);
+    ((owners::A_2a1180 *)ctx)->FUN_002a1180(n);
     int i = 0;
     if (n > 0)
         do {

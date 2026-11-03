@@ -1,10 +1,5 @@
-class Obj_5d5b0 {
-  public:
-    char pad[0xb8];
-    int mValue;
-    bool Set(int value);
-};
-bool Obj_5d5b0::Set(int value) {
+#include "gen/owners.h"
+bool owners::Obj_5d5b0::FUN_0005d5b0(int value) {
     mValue = value;
     return true;
 }

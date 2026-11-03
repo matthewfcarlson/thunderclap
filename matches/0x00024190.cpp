@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class Obj_24190 {
   public:
     virtual int f0();
@@ -26,12 +27,11 @@ class Obj_24190 {
 };
 class Helper_24190 {
   public:
-    int apply(int x);
 };
 int Obj_24190::get(int index) {
     if (index >= 0 && index < count) {
         Helper_24190* h = (Helper_24190*)*(hulk_intptr*)((hulk_intptr)*(int*)this + 0x44);
-        return h->apply(items[index]);
+        return ((int)((owners::ThisWrap_00059c10 *)h)->FUN_00059c10((void *)(hulk_uintptr)(int)(items[index])));
     }
     return 0;
 }

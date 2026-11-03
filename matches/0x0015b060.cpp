@@ -1,10 +1,5 @@
-class C_15b060 {
-  public:
-    char pad[0x5c];
-    int value;
-    bool Set(int x);
-};
-bool C_15b060::Set(int x) {
+#include "gen/owners.h"
+bool owners::C_15b060::FUN_0015b060(int x) {
     value = x;
     return true;
 }

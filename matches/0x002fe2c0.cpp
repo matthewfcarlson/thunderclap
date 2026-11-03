@@ -1,7 +1,7 @@
+#include "gen/owners.h"
 struct Inner_2fe2c0 {
     char pad[0x24];
     int value;
-    void Check();
 };
 
 struct Obj_2fe2c0 {
@@ -12,6 +12,6 @@ struct Obj_2fe2c0 {
 
 void Obj_2fe2c0::Fn() {
     if (p != 0 && p->value == 2) {
-        p->Check();
+        ((owners::C_308e00 *)p)->FUN_00308e00();
     }
 }

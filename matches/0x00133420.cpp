@@ -1,10 +1,5 @@
-class Obj_133420 {
-  public:
-    char pad[0x2c];
-    int mFlag;
-    bool Fn(int x) throw();
-};
-bool Obj_133420::Fn(int x) throw() {
+#include "gen/owners.h"
+bool owners::Obj_133420::FUN_00133420(int x) throw() {
     mFlag = x;
     return true;
 }

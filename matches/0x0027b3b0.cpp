@@ -1,10 +1,6 @@
+#include "gen/owners.h"
 extern "C" void* __cdecl Allocate(unsigned int);
-class Buffer_27b3b0 {
-  public:
-    int *mStart, *mCurrent, *mEnd;
-    bool Create(int count);
-};
-bool Buffer_27b3b0::Create(int count) {
+bool owners::Buffer_27b3b0::FUN_0027b3b0(int count) {
     int* p;
     if (count != 0) {
         p = (int*)Allocate(count * 24);

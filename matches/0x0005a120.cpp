@@ -1,10 +1,5 @@
-class C_5a120 {
-  public:
-    char pad[12];
-    int m;
-    bool Init(int x);
-};
-bool C_5a120::Init(int x) {
+#include "gen/owners.h"
+bool owners::C_5a120::FUN_0005a120(int x) {
     m = x;
     return true;
 }

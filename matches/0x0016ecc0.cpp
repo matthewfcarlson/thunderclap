@@ -1,10 +1,4 @@
-class Obj_16ecc0 {
-    char pad[0x20];
-    int m;
-
-  public:
-    int* Get();
-};
-int* Obj_16ecc0::Get() {
+#include "gen/owners.h"
+int* owners::Obj_16ecc0::FUN_0016ecc0() {
     return &m;
 }

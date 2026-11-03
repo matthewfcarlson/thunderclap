@@ -1,9 +1,5 @@
-struct Stats_90130 {
-    int Find(const char* n);
-    void SetXp(int v);
-    char p[0x38];
-};
-void Stats_90130::SetXp(int v) {
+#include "gen/owners.h"
+void owners::Stats_90130::FUN_00090130(int v) {
     int i = Find("xp");
     if (i != -1) {
         int* q = (int*)((char*)this + i * 0x40 + 0x38);

@@ -3,17 +3,18 @@
 // cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 struct Movie {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4();
  virtual void open(const char*, const char*, int, float);
  virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual void slot9();
  virtual void volume(float); virtual void slot11(); virtual int state();
 };
-struct Audio_1b7f40 { void FUN_001eb870(); void FUN_001eb2a0(float,int); float FUN_001eba20(); };
+struct Audio_1b7f40 { void FUN_001eb870(); void FUN_001eb2a0(float,int);  };
 struct Other_1b7f40 { void FUN_000bb670(); };
 struct Manager_1b7f40 { Audio_1b7f40* FUN_000862e0(); Other_1b7f40* FUN_00086280(); };
 struct World { char pad[0x54]; Manager_1b7f40* manager; };
-struct Resource_1b7f40 { void FUN_002078d0(); void FUN_0008db60(int); };
+struct Resource_1b7f40 {  void FUN_0008db60(int); };
 extern "C" int __cdecl FUN_00266da0(int);
 extern int __cdecl sprintf(char*,const char*,...);
 struct Target_1b7f40 {
@@ -32,7 +33,7 @@ void Target_1b7f40::run(const char* name, unsigned char useName) {
  for(int i=0;i<10;++i) DAT_004dd700->manager->FUN_000862e0()->FUN_001eb2a0(0.01f,0);
  }
  active=0;
- resource2->FUN_002078d0();
+ ((owners::Obj_2078d0 *)resource2)->FUN_002078d0();
  int previous=FUN_00266da0(7);
  FUN_001b77e0();
  if(movie) {
@@ -46,7 +47,7 @@ void Target_1b7f40::run(const char* name, unsigned char useName) {
  movie->open(path,result,0,scale[0]);
  if(movie->state()==0) FUN_001b7970();
  else {
- float vol=DAT_004dd700->manager->FUN_000862e0()->FUN_001eba20()*0.01f;
+ float vol=((owners::CHapticTrack_1eba20 *)(DAT_004dd700->manager->FUN_000862e0()))->FUN_001eba20()*0.01f;
  if(movie) movie->volume(vol);
  resource->FUN_0008db60(1);
  }

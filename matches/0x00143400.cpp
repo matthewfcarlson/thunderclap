@@ -1,11 +1,6 @@
-class A_143400 {
-  public:
-    char pad[0xc];
-    int m;
-    bool Set(int x);
-};
+#include "gen/owners.h"
 
-bool A_143400::Set(int x) {
+bool owners::A_143400::FUN_00143400(int x) {
     m = x;
     return true;
 }

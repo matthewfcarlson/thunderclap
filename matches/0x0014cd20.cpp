@@ -1,11 +1,6 @@
-class X_14cd20 {
-  public:
-    char pad[12];
-    int mField;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char X_14cd20::Set(int v) {
+char owners::X_14cd20::FUN_0014cd20(int v) {
     mField = v;
     return 1;
 }

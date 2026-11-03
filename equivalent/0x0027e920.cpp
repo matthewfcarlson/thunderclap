@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 16356 inputs, branch coverage 66/66)
 // pure3d::prop::StateProp::vfunc_6 @ 0x0027e920
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct V3_27e920 {
     float x, y, z;
 };
@@ -55,7 +56,6 @@ struct Table_27e920 {
 };
 
 struct Sink84 {
-    void FUN_00284820(int r);
 };
 class Obj18_27e920 {
   public:
@@ -73,7 +73,6 @@ struct Entry_27e920 {
     MatSource_27e920 *obj;
     char pad14[4];
     void FUN_002fc580(float t, int flag);
-    Mat16 *FUN_002fc6f0();
 };
 
 class MatOwner {
@@ -101,7 +100,6 @@ class Ctl88 : public Obj18_27e920 {
     virtual void v20();
     virtual void v21();
     virtual char v22();
-    char FUN_00284ae0();
 };
 
 struct Slot48 {
@@ -217,10 +215,10 @@ void StateProp::v6(float dt, Arg2_27e920 a2)
         p88->v6(dt, a2.v);
         if (pa0)
             pa0->FUN_002fc580(dt * 0.001f, 0);
-        if (p88->FUN_00284ae0() || flag) {
+        if (((char)((owners::C_284ae0 *)p88)->FUN_00284ae0()) || flag) {
             Ctl9c *p = p9c;
             int r = v15();
-            p->v11()->FUN_00284820(r);
+            ((owners::C_284820 *)(p->v11()))->FUN_00284820((hulk_intptr)r);
         }
         if (flag == 1 && p88->v22() == flag) {
             if (p88) {
@@ -306,7 +304,7 @@ void StateProp::v6(float dt, Arg2_27e920 a2)
                 unsigned char row = p9c->table->FUN_00298960(&fr.pair);
                 Ctl9c *pp = p9c;
                 int dstIndex = pp->table->rows[row * 3 + 1];
-                Mat16 *src = ((Entry_27e920 *)((char *)pa4 + off))->FUN_002fc6f0();
+                Mat16 *src = ((Mat16 *)((owners::C_2fc6f0 *)(((Entry_27e920 *)((char *)pa4 + off))))->FUN_002fc6f0());
                 MatOwner *owner = (MatOwner *)pp->v11();
                 owner->mats[dstIndex] = *src;
             }

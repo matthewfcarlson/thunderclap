@@ -1,11 +1,6 @@
-class Obj_16f470 {
-  public:
-    char Pad[0x38];
-    float Value;
-    char Set(float x);
-};
+#include "gen/owners.h"
 
-char Obj_16f470::Set(float x) {
+char owners::Obj_16f470::FUN_0016f470(float x) {
     Value = x * 0.017453292519943295f;
     return 1;
 }

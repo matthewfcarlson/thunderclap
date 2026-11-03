@@ -1,5 +1,6 @@
 #include "decls/data/game/global.h"
 // data: name = DAT_00407b14
+#include "gen/owners.h"
 
 class Widget {
   public:
@@ -33,14 +34,7 @@ class Widget {
 extern "C" void* __cdecl lookup(const char*);
 extern "C" Widget* __cdecl convert(void*, int, void*, void*, int);
 extern int r1, r2;
-class Owner {
-    char pad[0x44];
-    char* state;
-
-  public:
-    void run();
-};
-void Owner::run() {
+void owners::Owner_b5a30::FUN_000b5a30() {
     Widget* w = convert(lookup(((char*)&DAT_00407b14)), 0, &r1, &r2, 0);
     if (w && state)
         w->set(state[5] == 0);

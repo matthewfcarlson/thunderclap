@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001dc660 @ 0x001dc660
+#include "gen/owners.h"
 struct Vec_1dc660 { unsigned int x,y,z; };
 struct Transform_1dc660 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
@@ -10,7 +11,7 @@ struct Node {
  char pad4[12]; Transform_1dc660* transform; char pad14[132]; unsigned char data[1];
 };
 struct Result_1dc660 { char pad[112]; Node* node; };
-struct Handle_1dc660 { Result_1dc660* FUN_001d72e0(); Vec_1dc660* FUN_001d77c0(); };
+struct Handle_1dc660 {  Vec_1dc660* FUN_001d77c0(); };
 struct Record_1dc660 { char pad0[24]; Handle_1dc660* handle; char pad1[6]; short index; char pad2[4]; };
 struct Flag_1dc660 { unsigned char bits; char pad[19]; };
 struct CSPManager_1dc660 {
@@ -24,7 +25,7 @@ Vec_1dc660* CSPManager_1dc660::target(Vec_1dc660* out, int id) {
  if(i>=0) {
   Record_1dc660* rec=&entries.records[i];
   if ((flags[rec->index+0x104e].bits&1) && rec->handle) {
-   Node* node=rec->handle->FUN_001d72e0()->node;
+   Node* node=((Result_1dc660 *)((owners::C_1d72e0 *)(rec->handle))->FUN_001d72e0())->node;
    if(node) {
     node->update(0);
     node->transform->apply(node->data,&value,-1);

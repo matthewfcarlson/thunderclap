@@ -2,6 +2,7 @@
 // FUN_001b0310 @ 0x001b0310
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight.h"
+#include "gen/owners.h"
 
 extern "C" int atexit(void (*)());
 
@@ -9,7 +10,6 @@ struct Key_1b0310 {
     unsigned lo;
     unsigned hi;
     void FUN_0027af00();
-    void FUN_0027b040(const char *name);
 };
 
 extern "C" void FUN_00363fd0();
@@ -24,7 +24,6 @@ struct Inner_1b0310 {
 struct Attacker_1b0310 {
     char pad0[0x11c];
     Inner_1b0310 *f11c;
-    int FUN_00036e40(Key_1b0310 *k);
 };
 
 struct Victim {
@@ -43,8 +42,8 @@ float FUN_001b0310(Attacker_1b0310 *atk, Victim *vic)
             (*(Key_1b0310*)((char*)&DAT_004e17c0 + 56)).FUN_0027af00();
             atexit(FUN_00363fd0);
         }
-        (*(Key_1b0310*)((char*)&DAT_004e17c0 + 56)).FUN_0027b040("no_thrown_damage");
-        if (atk->FUN_00036e40(((Key_1b0310*)((char*)&DAT_004e17c0 + 56))) != 0)
+        ((owners::Target_27b040 *)&((*(Key_1b0310*)((char*)&DAT_004e17c0 + 56))))->FUN_0027b040((hulk_uintptr)"no_thrown_damage");
+        if (((int)((owners::Obj_36e40 *)atk)->FUN_00036e40((hulk_uintptr)(Key_1b0310 *)(((Key_1b0310*)((char*)&DAT_004e17c0 + 56))))) != 0)
             return (*(float*)&DAT_003f32e0);
     }
     v = vic->f230;

@@ -1,4 +1,5 @@
 #include "gen/global.h"
+#include "gen/owners.h"
 
 class FEDoAction_e1760 {
   public:
@@ -19,14 +20,13 @@ class Obj_e1760 {
     virtual float g();
 };
 struct FEDoAnimation_nv_e1760 {
-    void helper();
 };
 
 void FEDoAnimation::vfunc_3() {
     if ((*(Obj_e1760 * *)&this->f_34)) {
         if (this->f_3c < 0.0f) {
             this->f_3c = (*(Obj_e1760 * *)&this->f_34)->g();
-            ((FEDoAnimation_nv_e1760*)this)->helper();
+            ((owners::Obj_e0100 *)(((FEDoAnimation_nv_e1760*)this)))->FUN_000e0100();
             return;
         }
         if (this->f_3c > -1.0f)

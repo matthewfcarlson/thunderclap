@@ -3,6 +3,7 @@
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
 #include "decls/address.h"
+#include "gen/owners.h"
 
 struct Player_172220 {
     char pad[0x1e58];
@@ -23,7 +24,6 @@ struct Game_172220 {
     Player_172220* FUN_00059a30();
 };
 struct Holder_172220 {
-    Game_172220* FUN_000592a0();
 };
 struct Range_172220 {
     char pad[0x14];
@@ -35,7 +35,7 @@ struct Range_172220 {
 bool hulkfight::motion::TargetIconDistanceAction::vfunc_5(hulk_intptr arg, int unused) {
     if (arg != 0)
         return (bool)(1);
-    Game_172220* g = (*(Holder_172220 * *)&this->f_20)->FUN_000592a0();
+    Game_172220* g = ((Game_172220 *)((owners::Object_592a0 *)((*(Holder_172220 * *)&this->f_20)))->FUN_000592a0());
     if (g == 0)
         return (bool)(0);
     Player_172220* p = g->FUN_00059a30();

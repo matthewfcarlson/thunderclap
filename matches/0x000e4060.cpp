@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Worker_e4060 {
-    int* Find(void*);
 };
 struct Z {
     char pad[8];
@@ -23,7 +23,7 @@ class Owner_e4060 {
     void Update(void* arg);
 };
 void Owner_e4060::Update(void* arg) {
-    int* p = mA->y->z->w->Find(arg);
+    int* p = ((int *)((owners::Obj_f8d70 *)(mA->y->z->w))->FUN_000f8d70((hulk_intptr)arg));
     slot = p;
     if (p) {
         int i = 0;

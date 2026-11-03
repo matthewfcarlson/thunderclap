@@ -2,6 +2,7 @@
 // FUN_00087a90 @ 0x00087a90
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 
@@ -16,10 +17,10 @@ class __declspec(novtable) MethodBase_87a90 {
 };
 
 template <class R>
-class Function0 : public MethodBase_87a90 {
+class Function0_87a90 : public MethodBase_87a90 {
   public:
     typedef R (*Fn)();
-    Function0(const char* name, Fn f) : MethodBase_87a90(name, 0) {
+    Function0_87a90(const char* name, Fn f) : MethodBase_87a90(name, 0) {
         fn = f;
         enabled = FUN_001d04d0(((const char*)&DAT_0048e128));
     }
@@ -27,14 +28,13 @@ class Function0 : public MethodBase_87a90 {
 };
 
 struct Registry_87a90 {
-    void FUN_001d3b70(const char*, void*);
     void FUN_00087a90(const char* name, float (*fn)());
 };
 
 void Registry_87a90::FUN_00087a90(const char* name, float (*fn)()) {
     void* mem = FUN_0008d690(0x20);
-    Function0<float>* c = 0;
+    Function0_87a90<float>* c = 0;
     if (mem)
-        c = new (mem) Function0<float>(name, fn);
-    FUN_001d3b70(name, c);
+        c = new (mem) Function0_87a90<float>(name, fn);
+    ((owners::Obj_1d3b70 *)this)->FUN_001d3b70((hulk_uintptr)name, (hulk_intptr)c);
 }

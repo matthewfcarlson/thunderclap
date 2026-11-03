@@ -1,5 +1,6 @@
 // FUN_00117ce0 @ 0x00117ce0
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" char DAT_0040ed74[];
 
 struct RefObj_117ce0 {
@@ -9,7 +10,6 @@ struct RefObj_117ce0 {
 struct Name_117ce0 {
     char data[8];
     void FUN_0027af00();
-    void FUN_0027b040(const char *s);
 };
 
 struct MotionClosestWaypointAction {
@@ -51,6 +51,6 @@ MotionClosestWaypointAction *MotionClosestWaypointAction::FUN_00117ce0(int a, Re
     if (f20)
         f20->release();
     f20 = target;
-    name.FUN_0027b040("waypoint_stuck");
+    ((owners::Target_27b040 *)&name)->FUN_0027b040((hulk_uintptr)"waypoint_stuck");
     return this;
 }

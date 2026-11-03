@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 4/4)
 // FUN_001af150 @ 0x001af150
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Pair_1af150 {
     union {
         int first;
@@ -22,7 +23,6 @@ struct Node {
 
 struct Map_1af150 {
     int link[6];
-    void FUN_00230b60();
     void FUN_00230f50(void (*fn)(void *, void *), void *param);
     Pair_1af150 *FUN_001ae9e0(Pair_1af150 *out, const Key_1af150 *key);
     Pair_1af150 *FUN_001aecb0(Pair_1af150 *out, const Pair_1af150 *key);
@@ -55,8 +55,8 @@ extern "C" char FUN_001ad5c0(Owner *o, Node *n);
 float FUN_001af150(Owner *o, const int *in, int c, int d, int *outId)
 {
     Frame_1af150 f;
-    f.mapA.FUN_00230b60();
-    f.mapB.FUN_00230b60();
+    ((owners::X_230b60 *)&(f.mapA))->FUN_00230b60();
+    ((owners::X_230b60 *)&(f.mapB))->FUN_00230b60();
     f.k.w[0] = in[0];
     f.k.w[1] = in[1];
     f.k.w[2] = in[2];

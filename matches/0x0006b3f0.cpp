@@ -1,11 +1,6 @@
-class A_6b3f0 {
-    char pad[0x34];
+#include "gen/owners.h"
 
-  public:
-    bool Set(int x);
-};
-
-bool A_6b3f0::Set(int x) {
+bool owners::A_6b3f0::FUN_0006b3f0(int x) {
     *(int*)((char*)this + 0x34) = x;
     return true;
 }

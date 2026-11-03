@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class Ca {
   public:
     void Run();
@@ -69,7 +70,6 @@ class Cn2 {
 };
 class Cx {
   public:
-    int Get();
 };
 class Cq {
   public:
@@ -99,7 +99,7 @@ struct Obj_88b80 {
     void f(Cx*);
 };
 void Obj_88b80::f(Cx* x) {
-    int q = x->Get();
+    int q = ((int)((owners::C_862b0 *)x)->FUN_000862b0());
     p3c->Use(q);
     p2c->Run();
     p30->Run();

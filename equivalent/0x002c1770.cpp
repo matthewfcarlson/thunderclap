@@ -2,6 +2,7 @@
 // pure3d::LocatorLoader::vfunc_5 @ 0x002c1770
 #include "compat/ptr.h"
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 
 unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
 void *__cdecl FUN_00263ea0(unsigned int size);
@@ -9,7 +10,6 @@ inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 struct Name_2c1770 {
     char data[8];
-    void FUN_0027b040(const char *s);
 };
 
 struct Vec3_2c1770 { float x, y, z; };
@@ -43,7 +43,6 @@ public:
 }
 
 struct Reader_2c1770 {
-    void FUN_002647e0(void *dst, int count, int size, int flag);
 };
 
 struct Stream_2c1770 {
@@ -72,23 +71,23 @@ void pure3d::LocatorLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_int
 
     Frame_2c1770 f;
     Reader_2c1770 *rd = s->reader;
-    rd->FUN_002647e0(&f.len, 1, 1, 1);
-    s->reader->FUN_002647e0(f.name, f.len, 1, 1);
-    s->reader->FUN_002647e0(&f.count, 1, 4, 1);
+    ((owners::X_2647e0 *)rd)->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(f.name), (hulk_intptr)(f.len), 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.count), (hulk_intptr)1, 4, (hulk_intptr)1);
     f.name[f.len] = 0;
-    s->reader->FUN_002647e0(&f.pos, 3, 4, 1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.pos), (hulk_intptr)3, 4, (hulk_intptr)1);
 
     void *mem = FUN_00263ea0(0x30);
     pure3d::Locator_2c1770 *loc = 0;
     if (mem)
         loc = new (mem) pure3d::Locator_2c1770();
-    loc->name.FUN_0027b040(f.name);
+    ((owners::Target_27b040 *)&(loc->name))->FUN_0027b040((hulk_uintptr)(f.name));
     f.tmp.pos = f.pos;
     loc->position = f.tmp.pos;
 
     while (s->FUN_002669f0()) {
         if (s->FUN_00266a30() == 0x14001) {
-            s->reader->FUN_002647e0(&f.quat, 4, 4, 1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.quat), (hulk_intptr)4, 4, (hulk_intptr)1);
             f.tmp.quat = f.quat;
             loc->rotation = f.tmp.quat;
         }

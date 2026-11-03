@@ -1,10 +1,6 @@
-struct Obj_12e1c0 {
-    char pad[12];
-    int m;
-    char Fn(int v);
-};
+#include "gen/owners.h"
 
-char Obj_12e1c0::Fn(int v) {
+char owners::Obj_12e1c0::FUN_0012e1c0(int v) {
     m = v;
     return 1;
 }

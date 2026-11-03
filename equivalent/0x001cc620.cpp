@@ -3,6 +3,7 @@
 #include "gen/global.h"
 
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Fader_1cc620 {
     void FUN_000d6fb0(char flag);
 };
@@ -38,7 +39,6 @@ struct Singleton_4dd6ec {
     char pad2[0x38 - 0x24];
     Stats_1cc620 *stats;
     Hud_1cc620 *FUN_00086280();
-    Stats_1cc620 *FUN_00086310();
 };
 
 void __fastcall FUN_001cc600(char flag);
@@ -53,7 +53,7 @@ void CScenarioManager::FUN_001cc620(int next) {
     case 2: {
         if (DAT_004dd6ec != 0 && DAT_004dd6ec->panel != 0 && DAT_004dd6ec->panel->fader != 0)
             DAT_004dd6ec->panel->fader->FUN_000d6fb0(0);
-        Stats_1cc620 *stats = DAT_004dd6ec->FUN_00086310();
+        Stats_1cc620 *stats = ((Stats_1cc620 *)((owners::C_86310 *)DAT_004dd6ec)->FUN_00086310());
         if (stats->counter.FUN_00088fa0() >= 10) {
             DAT_004dd6ec->FUN_00086280()->FUN_000bc1e0("side_mission_fail");
             int cur = this->f_0c;
@@ -73,7 +73,7 @@ void CScenarioManager::FUN_001cc620(int next) {
         return;
     case 3: {
         FUN_001cc600(0);
-        Stats_1cc620 *stats = DAT_004dd6ec->FUN_00086310();
+        Stats_1cc620 *stats = ((Stats_1cc620 *)((owners::C_86310 *)DAT_004dd6ec)->FUN_00086310());
         if (stats->counter.FUN_00088fa0() >= 10) {
             DAT_004dd6ec->FUN_00086280()->FUN_000bc1e0("side_mission_success");
             this->f_0c = next;

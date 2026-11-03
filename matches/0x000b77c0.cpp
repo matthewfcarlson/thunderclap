@@ -1,4 +1,5 @@
 // FUN_000b77c0 @ 0x000b77c0
+#include "gen/owners.h"
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
 class Settings_b77c0 {
@@ -52,8 +53,6 @@ public:
 
 struct Lookup_b77c0 {
     char data[0x24];
-    void FUN_000f7930();
-    void FUN_000f7960();
     void FUN_000f8500(int key, int language, int flag);
     const unsigned short *FUN_000f83f0(int language, int flag);
 };
@@ -65,15 +64,15 @@ extern "C" int __cdecl FUN_00294b80(const unsigned short *s);
 bool __stdcall FUN_000b77c0(int key, unsigned short *buf, int maxLength, int unused)
 {
     Lookup_b77c0 lookup;
-    lookup.FUN_000f7930();
+    ((owners::State_f7930 *)&lookup)->FUN_000f7930();
     lookup.FUN_000f8500(key, FUN_000fc3d0()->GetLanguage(), 1);
     const unsigned short *text = lookup.FUN_000f83f0(FUN_000fc3d0()->GetLanguage(), 0);
     int length = FUN_00294b80(text);
     if (length > maxLength) {
-        lookup.FUN_000f7960();
+        ((owners::Thing_f7960 *)&lookup)->FUN_000f7960();
         return false;
     }
     memcpy(buf, text, (length + 1) * 2);
-    lookup.FUN_000f7960();
+    ((owners::Thing_f7960 *)&lookup)->FUN_000f7960();
     return true;
 }

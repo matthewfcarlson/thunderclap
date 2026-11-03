@@ -1,9 +1,4 @@
-class O_12080 {
-    char pad[0x20];
-
-  public:
-    void* Get();
-};
-void* O_12080::Get() {
+#include "gen/owners.h"
+void* owners::O_12080::FUN_00012080() {
     return (char*)this + 0x20;
 }

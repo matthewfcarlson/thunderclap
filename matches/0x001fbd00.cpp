@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_001fbd00 @ 0x001fbd00
+#include "gen/owners.h"
 struct V3_1fbd00 {
     float x, y, z;
 };
@@ -8,14 +9,10 @@ struct Mat4_1fbd00 {
     float m[16];
     void FUN_0022b980();
     void FUN_0022be60(float x, float y, float z);
-    void FUN_0022be40(const V3_1fbd00 *pos);
-    void FUN_0022ca90(const Mat4_1fbd00 *a, const Mat4_1fbd00 *b);
-    void FUN_0022c2b0(V3_1fbd00 *in, V3_1fbd00 *out);
 };
 
 struct NameHolder_1fbd00 {
     char data[8];
-    void FUN_0027b040(const char *name);
 };
 
 struct Element_1fbd00 {
@@ -42,7 +39,7 @@ public:
 void Marker_1fbd00::FUN_001fbd00(Element_1fbd00 *elem)
 {
     const char *name = elem->name;
-    nameHolder.FUN_0027b040(name);
+    ((owners::Target_27b040 *)&nameHolder)->FUN_0027b040((hulk_uintptr)name);
     FUN_000964a0(label, 0x20, "%s", name);
     flagCe = 0;
 
@@ -75,11 +72,11 @@ void Marker_1fbd00::FUN_001fbd00(Element_1fbd00 *elem)
     pos.x = tx;
     pos.y = ty;
     pos.z = -tz;
-    moveM.FUN_0022be40(&pos);
-    tmp.FUN_0022ca90(&identity, &scaleM);
-    full.FUN_0022ca90(&tmp, &moveM);
+    ((owners::Target_22be40 *)&moveM)->FUN_0022be40((const int *)(const V3_1fbd00 *)(&pos));
+    ((owners::Matrix_22ca90 *)&tmp)->FUN_0022ca90((const owners::Matrix_22ca90 *)(const Mat4_1fbd00 *)(&identity), (const owners::Matrix_22ca90 *)(const Mat4_1fbd00 *)(&scaleM));
+    ((owners::Matrix_22ca90 *)&full)->FUN_0022ca90((const owners::Matrix_22ca90 *)(const Mat4_1fbd00 *)(&tmp), (const owners::Matrix_22ca90 *)(const Mat4_1fbd00 *)(&moveM));
     tmp = full;
-    tmp.FUN_0022c2b0(&origin, &origin);
-    tmp.FUN_0022c2b0(&up, &up);
+    ((owners::Mat_22c2b0 *)&tmp)->FUN_0022c2b0((float *)(V3_1fbd00 *)(&origin), (float *)(V3_1fbd00 *)(&origin));
+    ((owners::Mat_22c2b0 *)&tmp)->FUN_0022c2b0((float *)(V3_1fbd00 *)(&up), (float *)(V3_1fbd00 *)(&up));
     FUN_001fbb80(&origin, &up, ry * -0.0174532924f);
 }

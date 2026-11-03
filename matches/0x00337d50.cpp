@@ -1,11 +1,4 @@
-class A_337d50 {
-  public:
-    char pad0[4];
-    int x;
-    char pad8[4];
-    int y;
-    void f();
-};
-void A_337d50::f() {
+#include "gen/owners.h"
+void owners::A_337d50::FUN_00337d50() {
     y = x;
 }

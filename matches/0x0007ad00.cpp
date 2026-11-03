@@ -1,11 +1,6 @@
-struct Obj_7ad00 {
-    char pad[0x3800];
-    int vals[1];
-    int helper(int);
-    int target(int);
-};
-int Obj_7ad00::target(int arg) {
-    int i = helper(arg);
+#include "gen/owners.h"
+hulk_intptr owners::Obj_7ad00::FUN_0007ad00(hulk_intptr arg) {
+    int i = helper(((int)arg));
     if (i >= 0)
         return vals[i];
     return 0;

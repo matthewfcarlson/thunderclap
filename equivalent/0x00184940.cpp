@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 20/20)
 // hulkfight::motion::BallAndChainShootAction::vfunc_3 @ 0x00184940
 #include "decls/address.h"
+#include "gen/owners.h"
 struct V3_184940 {
     float x, y, z;
     float FUN_0022d110();
@@ -15,7 +16,6 @@ public:
 struct Xform_184940 {
     char data[0x54];
     Xform_184940 *FUN_00221c40();
-    void FUN_0022c2b0(const V3_184940 *in, V3_184940 *out);
 };
 
 struct Skeleton {
@@ -26,15 +26,12 @@ struct Skeleton {
 class Weapon_184940 {
 public:
     void FUN_001d8c70(Obj_184940 *attached);
-    int FUN_001d72e0();
 };
 
 class Fighter_184940 {
 public:
     char pad0[0x328];
     Obj_184940 *held;
-    Weapon_184940 *FUN_00035ef0(int slot);
-    float FUN_0003ec00(int mode);
     float FUN_000354c0();
 };
 
@@ -45,7 +42,6 @@ struct Holder_184940 {
 
 class Params {
 public:
-    Holder_184940 *FUN_000592a0();
 };
 
 struct Manager_184940 {
@@ -95,13 +91,13 @@ bool BallAndChainShootAction::vfunc_3(int a, int b)
     if (owner == 0)
         return false;
 
-    Holder_184940 *holder = owner->FUN_000592a0();
+    Holder_184940 *holder = ((Holder_184940 *)((owners::Object_592a0 *)owner)->FUN_000592a0());
     Fighter_184940 *fighter = holder->FUN_00059a30();
-    Weapon_184940 *weapon = fighter->FUN_00035ef0(cfg->slot);
+    Weapon_184940 *weapon = ((Weapon_184940 *)((owners::C_35ef0 *)fighter)->FUN_00035ef0((hulk_intptr)(cfg->slot)));
     if (weapon == 0)
         return true;
 
-    float t = fighter->FUN_0003ec00(2);
+    float t = ((owners::Progress_3ec00 *)fighter)->FUN_0003ec00(2);
     ShootConfig *c = cfg;
     cur[0] = (c->lerp[0][1] - c->lerp[0][0]) * t + c->lerp[0][0];
     cur[1] = (c->lerp[1][1] - c->lerp[1][0]) * t + c->lerp[1][0];
@@ -115,7 +111,7 @@ bool BallAndChainShootAction::vfunc_3(int a, int b)
     attached = held;
 
     V3_184940 origin = cfg->origin;
-    holder->FUN_00059a40()->xform.FUN_00221c40()->FUN_0022c2b0(&origin, &pos);
+    ((owners::Mat_22c2b0 *)(holder->FUN_00059a40()->xform.FUN_00221c40()))->FUN_0022c2b0((float *)(const V3_184940 *)(&origin), (float *)(V3_184940 *)(&pos));
 
     origin = cfg->direction;
     dir = origin;
@@ -131,7 +127,7 @@ bool BallAndChainShootAction::vfunc_3(int a, int b)
             Manager_184940 *m = w->manager;
             if (m != 0) {
                 if (m->active != 0 && m->active == fighter)
-                    m->FUN_00029b50(weapon->FUN_001d72e0(), attached, cur[0]);
+                    m->FUN_00029b50(((int)((owners::C_1d72e0 *)weapon)->FUN_001d72e0()), attached, cur[0]);
             }
         }
     }

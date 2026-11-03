@@ -1,5 +1,5 @@
+#include "gen/owners.h"
 struct Sub_d7d60 {
-    void Clear();
 };
 struct Obj_d7d60 {
     char pad[0x10];
@@ -9,7 +9,7 @@ struct Obj_d7d60 {
     Obj_d7d60* Run();
 };
 Obj_d7d60* Obj_d7d60::Run() {
-    sub.Clear();
+    ((owners::State_f7930 *)&sub)->FUN_000f7930();
     flag = 0;
     return this;
 }

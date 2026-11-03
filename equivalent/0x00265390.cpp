@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 124 inputs, branch coverage 30/30)
 // FUN_00265390 @ 0x00265390
+#include "gen/owners.h"
 extern "C" char *strrchr(const char *s, int c);
 
 struct Sink_265390 {
@@ -44,7 +45,6 @@ public:
     int *ringTail;            // 0x2c
     int *ringBegin;           // 0x30
     int *ringEnd;             // 0x34
-    void FUN_00264d20();
     void FUN_00265390();
 };
 
@@ -57,7 +57,7 @@ void Queue_265390::FUN_00265390()
         else
             count = (int)(tail - head);
         if (count == 0) {
-            FUN_00264d20();
+            ((owners::Q_264d20 *)this)->FUN_00264d20();
         } else {
             Job_265390 *job = head->job;
             int arg = head->arg;

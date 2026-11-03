@@ -1,4 +1,5 @@
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct F_1b42b0 {
     unsigned lo, hi;
@@ -18,7 +19,6 @@ struct Obj_1b42b0 {
     Inner_1b42b0* in;
 };
 struct Mgr_1b42b0 {
-    void Apply(Inner_1b42b0*);
 };
 struct Foo_1b42b0 {
     char pad[8];
@@ -33,6 +33,6 @@ bool Foo_1b42b0::Fn(Obj_1b42b0* o) {
         return false;
     i->a = (*(F_1b42b0*)&DAT_004c3a10);
     i->b = Or((*(F_1b42b0*)&DAT_004c3a20), Or((*(F_1b42b0*)&DAT_004c3a18), Or((*(F_1b42b0*)&DAT_004c39f0), (*(F_1b42b0*)&DAT_004c39e8))));
-    mgr->Apply(i);
+    ((owners::Obj_2ee6b0 *)mgr)->FUN_002ee6b0((hulk_intptr)(Inner_1b42b0 *)i);
     return true;
 }

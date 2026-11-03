@@ -1,22 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 8/8)
 // FUN_002b93f0 @ 0x002b93f0
 #include "decls/data/engine/pure3d.h"
+#include "gen/owners.h"
 
 struct RandomState_2b93f0 {
  unsigned int first;
  unsigned int second;
- void FUN_0022aba0(int);
 };
-struct Object {
- char padding[0xc4];
- unsigned int limit;
- void target(float* result, unsigned int* value, unsigned int input, unsigned char randomize);
-};
-void Object::target(float* result, unsigned int* value, unsigned int input, unsigned char randomize) {
+void owners::Object_2b93f0::FUN_002b93f0(float* result, unsigned int* value, unsigned int input, unsigned char randomize) {
  if (randomize == 1) {
   if (!(DAT_00554bc0 & 1)) {
    DAT_00554bc0 |= 1;
-   (*(RandomState_2b93f0*)&DAT_00554bb8).FUN_0022aba0(0);
+   ((owners::Random_22aba0 *)&((*(RandomState_2b93f0*)&DAT_00554bb8)))->FUN_0022aba0(0);
   }
   unsigned int bound = limit;
   unsigned int first = ((*(RandomState_2b93f0*)&DAT_00554bb8).first & 0xffff) * 0x9069u + ((*(RandomState_2b93f0*)&DAT_00554bb8).first >> 16);

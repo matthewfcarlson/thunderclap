@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 32/32)
 // FUN_0029ea40 @ 0x0029ea40
+#include "gen/owners.h"
 struct Vec3_29ea40 {
     float x, y, z;
 };
@@ -58,7 +59,6 @@ struct LightList_29ea40 {
     int count;
     Light** items;
     void FUN_002a0fc0(int index, Light* light);
-    void FUN_002a1180(int n);
 };
 
 class LightSetup_29ea40 {
@@ -134,5 +134,5 @@ void LightSetup_29ea40::FUN_0029ea40(LightList_29ea40* list)
         }
         list->FUN_002a0fc0(i, light);
     }
-    list->FUN_002a1180(count);
+    ((owners::A_2a1180 *)list)->FUN_002a1180(count);
 }

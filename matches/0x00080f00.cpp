@@ -1,10 +1,4 @@
-class C_80f00 {
-    char pad[0xc0];
-    int field;
-
-  public:
-    void Set(int x);
-};
-void C_80f00::Set(int x) {
+#include "gen/owners.h"
+void owners::C_80f00::FUN_00080f00(int x) {
     field = x;
 }

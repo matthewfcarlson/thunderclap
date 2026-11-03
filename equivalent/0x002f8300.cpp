@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20013 inputs, branch coverage 12/12)
 // FUN_002f8300 @ 0x002f8300
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 struct V3_2f8300 {
     float x, y, z;
@@ -15,11 +16,8 @@ struct SymMatrix {
     char pad[4];
     float f4;
     char rest[0x14];
-    void FUN_002fcb30(void *a, void *b) throw();
     void FUN_002fca90() throw();
     void FUN_002fcaa0() throw();
-    void FUN_002fd0c0(SymMatrix *src) throw();
-    void FUN_002fd020(V3_2f8300 *in, V3_2f8300 *out) throw();
 };
 
 struct Target_2f8300 {
@@ -83,7 +81,7 @@ int ImpulseBasedCollisionSolver_2f8300::FUN_002f8300()
     r->z = 0.0f;
     r->y = 0.0f;
     r->x = 0.0f;
-    mat.FUN_002fcb30(a94, ab0);
+    ((owners::V_2fcb30 *)&mat)->FUN_002fcb30((owners::V_2fcb30 *)a94, (owners::V_2fcb30 *)ab0);
     if (mat.f4 == 0.0f)
         return 1;
     fr.f1c = v4() - 1.0f;
@@ -94,8 +92,8 @@ int ImpulseBasedCollisionSolver_2f8300::FUN_002f8300()
     fr.f20 = FUN_002f7ca0();
     fr.d = dir;
     fr.m54.FUN_002fca90();
-    fr.m54.FUN_002fd0c0(&mat);
-    mat.FUN_002fd020(&fr.d, &fr.v3c);
+    ((owners::Sym3_2fd0c0 *)&(fr.m54))->FUN_002fd0c0((const owners::Sym3_2fd0c0 *)(SymMatrix *)(&mat));
+    ((owners::Transform_2fd020 *)&mat)->FUN_002fd020((float *)(V3_2f8300 *)(&fr.d), (float *)(V3_2f8300 *)(&fr.v3c));
     hulk_freg s = (-1.0f / (fr.v3c.z * fr.d.z + fr.v3c.y * fr.d.y + fr.v3c.x * fr.d.x)) * f80;
     fr.a30.x = fr.d.x * s;
     fr.a30.y = fr.d.y * s;
@@ -106,7 +104,7 @@ int ImpulseBasedCollisionSolver_2f8300::FUN_002f8300()
             r->y = fr.a30.y;
             r->z = fr.a30.z;
         } else {
-            fr.m54.FUN_002fd020(&vec74, &fr.v48);
+            ((owners::Transform_2fd020 *)&(fr.m54))->FUN_002fd020((float *)(V3_2f8300 *)(&vec74), (float *)(V3_2f8300 *)(&fr.v48));
             r->x = fr.v48.x + fr.a30.x;
             r->y = fr.v48.y + fr.a30.y;
             r->z = fr.v48.z + fr.a30.z;
@@ -119,7 +117,7 @@ int ImpulseBasedCollisionSolver_2f8300::FUN_002f8300()
             r->z = fr.a30.z * w + r->z;
         }
     } else {
-        fr.m54.FUN_002fd020(&vec74, &fr.v48);
+        ((owners::Transform_2fd020 *)&(fr.m54))->FUN_002fd020((float *)(V3_2f8300 *)(&vec74), (float *)(V3_2f8300 *)(&fr.v48));
         double x0 = fr.v48.x + fr.a30.x;
         r->x = (float)x0;
         fr.f14 = fr.v48.y + fr.a30.y;

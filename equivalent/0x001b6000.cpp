@@ -3,6 +3,7 @@
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight.h"
+#include "gen/owners.h"
 
 struct Rec_1b6000 {
     char pad0[0x18];
@@ -23,15 +24,8 @@ public:
 };
 
 
-class Tracker_1b6000 {
-public:
-    char pad0[0x594];
-    void **itemsBegin;
-    void **itemsEnd;
-    char FUN_001b6000(int id, void ***outList, int *outId);
-};
 
-char Tracker_1b6000::FUN_001b6000(int id, void ***outList, int *outId)
+char owners::Tracker_1b6000::FUN_001b6000(int id, void ***outList, int *outId)
 {
     Registry_1b6000 *reg = (*(Registry_1b6000**)&DAT_00554c14);
     if (!reg->FUN_002edb90(id, 10))

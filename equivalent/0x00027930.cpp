@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 20/20)
 // FUN_00027930 @ 0x00027930
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
 struct Key_27930 {
  unsigned int first;
  void FUN_0027af00();
- void FUN_0027b040(const char* text);
 };
 extern "C" void __cdecl FUN_00363b20();
 extern "C" int __cdecl atexit(void (__cdecl*)());
@@ -31,7 +31,7 @@ bool Owner_27930::FUN_00027930(char* destination, const char* suffix) {
  for (unsigned int j=0; j<words; ++j)
   reinterpret_cast<unsigned int*>(end)[j] = reinterpret_cast<const unsigned int*>(suffix)[j];
  for (unsigned int k=words*4; k<length; ++k) end[k]=suffix[k];
- (*(Key_27930*)&DAT_004dc108).FUN_0027b040(destination);
+ ((owners::Target_27b040 *)&((*(Key_27930*)&DAT_004dc108)))->FUN_0027b040((hulk_uintptr)destination);
  int oldCount = count;
  if (oldCount > 0) {
   unsigned int first = (*(Key_27930*)&DAT_004dc108).first;

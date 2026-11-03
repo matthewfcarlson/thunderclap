@@ -1,11 +1,6 @@
-class Obj_12b2b0 {
-  public:
-    char Set(int x);
-    char pad[0x14];
-    int m14;
-};
+#include "gen/owners.h"
 
-char Obj_12b2b0::Set(int x) {
+char owners::Obj_12b2b0::FUN_0012b2b0(int x) {
     m14 = x;
     return 1;
 }

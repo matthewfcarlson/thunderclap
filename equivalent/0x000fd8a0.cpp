@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 83 inputs, branch coverage 8/8)
 // FUN_000fd8a0 @ 0x000fd8a0
+#include "gen/owners.h"
 struct Vec3_fd8a0 { float x, y, z; };
 
 struct Mat_fd8a0 {
@@ -16,7 +17,6 @@ struct ViewSource {
 
 struct ViewTable {
     char pad0[4];
-    ViewSource *FUN_000b3d20(int slot);
 };
 
 struct Owner_fd8a0 {
@@ -88,7 +88,7 @@ void Sweep_fd8a0::Start(Args_fd8a0 *args, const Mat_fd8a0 *m, int a, int b)
     int slot = o->slot;
     if (slot >= 0 && slot < 4) {
         View view;
-        args->table->FUN_000b3d20(slot)->FUN_000b3660(&view);
+        ((ViewSource *)((owners::C_b3d20 *)(args->table))->FUN_000b3d20(slot))->FUN_000b3660(&view);
     }
 
     fd4 = o->f1ff8;

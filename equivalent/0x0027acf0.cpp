@@ -1,19 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 119 inputs, branch coverage 31/38, incomplete)
 // FUN_0027acf0 @ 0x0027acf0
+#include "gen/owners.h"
 int __cdecl FUN_00345804(const char* src, const char* fmt, ...);
-class ConfigParser {
-public:
-    char pad0[4];
-    void* source;
-    char* buf;
-    int pos;
-    int end;
-    char pad1[0x34 - 0x14];
-    char key[0x20];
-    char value[0x100];
-    bool ReadEntry(char** outKey, char** outValue);
-};
-bool ConfigParser::ReadEntry(char** outKey, char** outValue) {
+bool owners::ConfigParser_27acf0::FUN_0027acf0(char** outKey, char** outValue) {
     if (!source)
         return false;
     while (buf[pos] <= ' ' && pos != end)

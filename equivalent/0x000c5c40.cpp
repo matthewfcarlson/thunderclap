@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000c5c40 @ 0x000c5c40
+#include "gen/owners.h"
 struct Triple_c5c40 { unsigned int x,y,z; };
 struct Object {
  virtual void slot0();
@@ -17,9 +18,7 @@ struct Object {
  Triple_c5c40 position;
  Triple_c5c40 first;
  Triple_c5c40 second;
- void FUN_00293a90(Triple_c5c40* value);
  void FUN_00293ac0(Triple_c5c40* value);
- void FUN_00293af0(Triple_c5c40* value);
 };
 void __cdecl FUN_000c5c40(Object* source,Object* destination) {
  destination->setFirst(source->getFirst());
@@ -28,9 +27,9 @@ void __cdecl FUN_000c5c40(Object* source,Object* destination) {
  source->getPair(&a,&b);
  destination->setPair(a,b);
  Triple_c5c40 value = source->first;
- destination->FUN_00293a90(&value);
+ ((owners::C_293a90 *)destination)->FUN_00293a90((int *)(Triple_c5c40 *)(&value));
  value = source->second;
  destination->FUN_00293ac0(&value);
  value = source->position;
- destination->FUN_00293af0(&value);
+ ((owners::C_293af0 *)destination)->FUN_00293af0((int *)(Triple_c5c40 *)(&value));
 }

@@ -1,19 +1,10 @@
+#include "gen/owners.h"
 typedef unsigned long DWORD;
 namespace D3D8 {
 void __stdcall D3DDevice_SetPalette(DWORD, DWORD);
 void __stdcall D3DDevice_SetTexture(DWORD, DWORD);
 } // namespace D3D8
-class Obj_326b00 {
-  public:
-    char pad[0x10];
-    DWORD texA;
-    DWORD texB;
-    DWORD texC;
-    char pad2[0x4c];
-    DWORD palette;
-    void Apply(DWORD);
-};
-void Obj_326b00::Apply(DWORD stage) {
+void owners::Obj_326b00::FUN_00326b00(DWORD stage) {
     D3D8::D3DDevice_SetPalette(stage, palette);
     DWORD texture = texB;
     if (texture == 0)

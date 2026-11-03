@@ -2,6 +2,7 @@
 // FUN_0029d5d0 @ 0x0029d5d0
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct V3 {
     float x, y, z;
@@ -17,7 +18,6 @@ struct Source {
     char pad24[0x3c];
     float scale;
     float falloff;
-    void FUN_002c3d20(float *a, float *b, float *c);
 };
 
 struct SourceList {
@@ -67,7 +67,7 @@ float Mixer::FUN_0029d5d0(const V3 *pos, unsigned int mask)
             Slot *slot = &s->slots[i];
             if (!(d.z * d.z + d.y * d.y + d.x * d.x >= slot->radiusSq)) {
                 float unusedA, unusedB, factor;
-                src->FUN_002c3d20(&unusedA, &unusedB, &factor);
+                ((owners::C_2c3d20 *)src)->FUN_002c3d20((hulk_intptr)(&unusedA), (hulk_intptr)(&unusedB), (int *)(&factor));
                 float len = d.FUN_0022d110();
                 unsigned int color = (*(unsigned int*)&DAT_004cf730);
                 volatile float t = len * len * factor;

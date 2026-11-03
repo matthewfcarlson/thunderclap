@@ -1,19 +1,6 @@
-class X_264c70 {
-  public:
-    int f0;
-    int f4;
-    int f8;
-    int fc;
-    int f10;
-    unsigned int f14;
-    unsigned int f18;
-    unsigned int f1c;
-    unsigned int f20;
+#include "gen/owners.h"
 
-    int Fn();
-};
-
-int X_264c70::Fn() {
+int owners::X_264c70::FUN_00264c70() {
     unsigned int edx = f14;
     unsigned int eax = f18;
     int count;

@@ -1,11 +1,6 @@
-class C_14ce20 {
-  public:
-    char pad[0x18];
-    float mRadians;
-    bool Convert(float deg);
-};
+#include "gen/owners.h"
 
-bool C_14ce20::Convert(float deg) {
+bool owners::C_14ce20::FUN_0014ce20(float deg) {
     mRadians = deg * 0.0174532925f;
     return true;
 }

@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Data_2b46c0 {
     int a;
     int flag;
@@ -12,7 +13,6 @@ struct Data_2b46c0 {
 };
 class Source_2b46c0 {
   public:
-    Data_2b46c0* Get(int);
 };
 class Obj_2b46c0 {
     char pad[0x54];
@@ -26,7 +26,7 @@ class Obj_2b46c0 {
     void Do(int p, Source_2b46c0* q);
 };
 void Obj_2b46c0::Do(int p, Source_2b46c0* q) {
-    Data_2b46c0* d = q->Get(p);
+    Data_2b46c0* d = ((Data_2b46c0 *)((owners::C_29c550 *)q)->FUN_0029c550(p));
     if (d->flag == 0) {
         active = 0;
         x = d->e;

@@ -5,16 +5,15 @@
 
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Matrix_298cb0 {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022be40(const struct V3_298cb0 *translation);
 };
 
 struct V3_298cb0 {
     float x, y, z;
-    void FUN_0022d210(const Matrix_298cb0 *m);
 };
 
 class Part_298cb0 {
@@ -28,19 +27,16 @@ public:
     virtual void SetVisible(int a, int b);
     char pad04[0x10 - 4];
     char flag;
-    char FUN_00284ae0();
 };
 
 struct Transforms {
     char pad0[0x1c];
     Matrix_298cb0 *matrices;
-    void FUN_00284820(int a);
 };
 
 struct Anchor_298cb0 {
     char pad0[0x4c];
     V3_298cb0 offset;
-    void FUN_0029fd20(pure3d::CompositeDrawable *d);
 };
 
 struct Owner_298cb0 {
@@ -125,13 +121,13 @@ struct CameraRef { Camera_298cb0 *camera; };
 void pure3d::CompositeDrawable::vfunc_8(hulk_intptr __p0, int arg) { Owner_298cb0 * owner = (Owner_298cb0 *)__p0;
 
     if ((*(Part_298cb0 * *)&this->f_4c) != 0) {
-        if (!(*(Part_298cb0 * *)&this->f_4c)->FUN_00284ae0()) {
+        if (!((char)((owners::C_284ae0 *)((*(Part_298cb0 * *)&this->f_4c)))->FUN_00284ae0())) {
             (*(Part_298cb0 * *)&this->f_4c)->SetVisible(0, 1);
-            (*(Transforms * *)&this->f_40)->FUN_00284820(0);
+            ((owners::C_284820 *)((*(Transforms * *)&this->f_40)))->FUN_00284820((hulk_intptr)0);
         }
     }
     if ((*(Part_298cb0 * *)&this->f_50) != 0) {
-        if (!(*(Part_298cb0 * *)&this->f_50)->FUN_00284ae0())
+        if (!((char)((owners::C_284ae0 *)((*(Part_298cb0 * *)&this->f_50)))->FUN_00284ae0()))
             (*(Part_298cb0 * *)&this->f_50)->SetVisible(0, 1);
     }
     if (owner != 0) {
@@ -139,12 +135,12 @@ void pure3d::CompositeDrawable::vfunc_8(hulk_intptr __p0, int arg) { Owner_298cb
             Matrix_298cb0 m;
             V3_298cb0 v;
             m.FUN_0022b980();
-            m.FUN_0022be40(&(*(CameraRef**)&DAT_0052c2b0)->camera->FUN_0028faa0()->pos);
+            ((owners::Target_22be40 *)&m)->FUN_0022be40((const int *)(const struct V3_298cb0 *)(&(*(CameraRef**)&DAT_0052c2b0)->camera->FUN_0028faa0()->pos));
             v = (*(V3_298cb0 *)&this->f_2c);
-            v.FUN_0022d210((*(Transforms * *)&this->f_40)->matrices);
-            v.FUN_0022d210(&m);
+            ((owners::Obj_22d210 *)&v)->FUN_0022d210((owners::Obj_22d210 *)(const Matrix_298cb0 *)((*(Transforms * *)&this->f_40)->matrices));
+            ((owners::Obj_22d210 *)&v)->FUN_0022d210((owners::Obj_22d210 *)(const Matrix_298cb0 *)(&m));
             owner->FUN_0029b490()->offset = v;
-            owner->FUN_0029b490()->FUN_0029fd20(this);
+            ((owners::Caller_29fd20 *)(owner->FUN_0029b490()))->FUN_0029fd20((hulk_intptr)(pure3d :: CompositeDrawable *)this);
         }
     }
     unsigned int n = (*(DrawList * *)&this->f_44)->count;

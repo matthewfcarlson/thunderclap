@@ -1,8 +1,5 @@
-class X_1237f0 {
-  public:
-    bool F(int a);
-};
-bool X_1237f0::F(int a) {
+#include "gen/owners.h"
+bool owners::X_1237f0::FUN_001237f0(int a) {
     *(int*)((char*)this + 0xc) = a;
     return true;
 }

@@ -2,6 +2,7 @@
 // hulkfight::motion::GrapplePropDamageAction::vfunc_3 @ 0x00182380
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 struct Pad_182380 {
     void FUN_001d6ec0(int a, int b, int c);
@@ -11,7 +12,6 @@ struct Fighter_182380 {
     char pad0[0x128];
     Pad_182380 *selfPad;
     int val;
-    Pad_182380 *FUN_00035ef0(int idx);
 };
 
 struct Stats_182380 {
@@ -57,7 +57,7 @@ bool hulkfight::motion::GrapplePropDamageAction::vfunc_3(hulk_intptr a, hulk_int
     } else if (idx >= 8) {
         return false;
     } else {
-        pad = fighter->FUN_00035ef0(idx);
+        pad = ((Pad_182380 *)((owners::C_35ef0 *)fighter)->FUN_00035ef0((hulk_intptr)idx));
     }
     if (pad == 0)
         return false;

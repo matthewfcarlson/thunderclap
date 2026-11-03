@@ -1,10 +1,6 @@
-class C_133140 {
-  public:
-    char Set(int x);
-    char pad[0x18];
-};
+#include "gen/owners.h"
 
-char C_133140::Set(int x) {
+char owners::C_133140::FUN_00133140(int x) {
     *(int*)((char*)this + 0x18) = x;
     return 1;
 }

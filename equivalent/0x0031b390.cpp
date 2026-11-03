@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_0031b390 @ 0x0031b390
+#include "gen/owners.h"
 struct GammaRamp {
     unsigned char red[256];
     unsigned char green[256];
@@ -9,18 +10,7 @@ namespace D3D8 {
 void __stdcall D3DDevice_SetGammaRamp(unsigned long flags, GammaRamp* ramp);
 }
 extern "C" double pow(double, double);
-struct GammaControl {
-    char pad0[0x12c];
-    unsigned char srcRed[256];
-    unsigned char srcGreen[256];
-    unsigned char srcBlue[256];
-    char pad1[0x484 - 0x42c];
-    float gammaR;
-    float gammaG;
-    float gammaB;
-    void Apply(float r, float g, float b);
-};
-void GammaControl::Apply(float r, float g, float b) {
+void owners::GammaControl_31b390::FUN_0031b390(float r, float g, float b) {
     GammaRamp ramp;
     gammaR = r;
     gammaG = g;

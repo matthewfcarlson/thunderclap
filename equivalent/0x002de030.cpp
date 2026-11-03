@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3092 inputs, branch coverage 35/35)
 // FUN_002de030 @ 0x002de030
+#include "gen/owners.h"
 struct Stream {
     char pad00[0xf];
     unsigned char flag;       // 0x0f
-    char FUN_002647e0(void *dst, int count, int size, int flags);
 };
 
 class Texture {
@@ -49,10 +49,10 @@ extern "C" void FUN_00267090(void *p);
 extern "C" void FUN_002de030(void *s, void *tex)
 {
     DdsFile f;
-    ((Stream *)s)->FUN_002647e0(&f.magic, 1, 4, 1);
+    ((char)((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&f.magic), (hulk_intptr)1, 4, (hulk_intptr)1));
     if (f.magic == 0x44445320)
         ((Stream *)s)->flag = (((Stream *)s)->flag == 0);
-    ((Stream *)s)->FUN_002647e0(&f.header, 0x1f, 4, 1);
+    ((char)((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)(&f.header), (hulk_intptr)0x1f, 4, (hulk_intptr)1));
 
     int format;
     switch (f.header.fourCC) {
@@ -73,7 +73,7 @@ extern "C" void FUN_002de030(void *s, void *tex)
         void *dst = ((Texture *)tex)->v4();
         if (dst == 0)
             return;
-        ((Stream *)s)->FUN_002647e0(dst, f.header.pitchOrLinear, 1, 1);
+        ((char)((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)dst, (hulk_intptr)(f.header.pitchOrLinear), 1, (hulk_intptr)1));
         ((Texture *)tex)->v10();
         return;
     }
@@ -84,7 +84,7 @@ extern "C" void FUN_002de030(void *s, void *tex)
         return;
     char *row = buf;
     for (unsigned int y = 0; y < f.header.height; y++) {
-        ((Stream *)s)->FUN_002647e0(row, rowBytes, 1, 1);
+        ((char)((owners::X_2647e0 *)(((Stream *)s)))->FUN_002647e0((hulk_intptr)row, (hulk_intptr)rowBytes, 1, (hulk_intptr)1));
         row += f.header.pitchOrLinear;
     }
     ((Texture *)tex)->v3(buf, f.header.pitchOrLinear * f.header.height);

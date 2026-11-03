@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1096 inputs, branch coverage 6/6)
 // FUN_001efa40 @ 0x001efa40
 // cl-flags: /GS
+#include "gen/owners.h"
 extern "C" int sprintf(char *buf, const char *fmt, ...);
 extern "C" void *__cdecl FUN_0008d710(unsigned int size, int tag);
 
 struct StrTable {
     void FUN_0027af00();
-    void FUN_0027b040(const char *name);
 };
 
 struct Pool_1efa40 {
@@ -28,7 +28,6 @@ struct Slot_1efa40 {
 };
 
 struct Loader_1efa40 {
-    void FUN_001d3600(const char *path, int flag);
 };
 extern "C" Loader_1efa40 *FUN_001d4c90();
 
@@ -57,15 +56,15 @@ void SoundObjects::FUN_001efa40(char load, int id1, int id2)
             p->table.FUN_0027af00();
         }
         pool = p;
-        p->table.FUN_0027b040("Objects");
+        ((owners::Target_27b040 *)&(p->table))->FUN_0027b040((hulk_uintptr)"Objects");
 
         char path1[64] = {0};
         sprintf(path1, "sound\\scripts\\%s.obj", id2);
-        FUN_001d4c90()->FUN_001d3600(path1, 0);
+        ((owners::Object_1d3600 *)(FUN_001d4c90()))->FUN_001d3600(path1, 0);
 
         char path2[64] = {0};
         sprintf(path2, "sound\\scripts\\%s.obj", id1);
-        FUN_001d4c90()->FUN_001d3600(path2, 0);
+        ((owners::Object_1d3600 *)(FUN_001d4c90()))->FUN_001d3600(path2, 0);
     }
     registry->FUN_001f4c50();
     for (int off = 0; off < 0xfa0; off += 0x28) {
@@ -76,6 +75,6 @@ void SoundObjects::FUN_001efa40(char load, int id1, int id2)
         s->f14 = 0;
         s->f20 = 100.0f;
         s->f24 = 0;
-        s->name.FUN_0027b040(0);
+        ((owners::Target_27b040 *)&(s->name))->FUN_0027b040((hulk_uintptr)0);
     }
 }

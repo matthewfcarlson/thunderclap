@@ -1,6 +1,7 @@
 // cl-flags: /O2 /GR /GX
 #include "decls/data/game/global.h"
 // data: g_GlobalFloatBits_004a0fec = DAT_004a0fec
+#include "gen/owners.h"
 
 class Callback_e7b90 {
   public:
@@ -14,7 +15,6 @@ class Manager_e7b90 {
     bool CheckFlag();
     void Action1();
     int Action2();
-    bool CheckCondition();
     void Cleanup();
     void AltCleanup();
 };
@@ -34,7 +34,7 @@ void __stdcall ProcessManager(Manager_e7b90* mgr, Callback_e7b90* cb) {
 
     mgr->Action1();
 
-    while (mgr->CheckCondition()) {
+    while (((owners::ThisWrap_000f9e50 *)mgr)->FUN_000f9e50()) {
         int result = mgr->Action2();
         if (flag) {
             if (cb) {

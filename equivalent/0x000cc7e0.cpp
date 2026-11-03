@@ -4,6 +4,7 @@
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 struct Vec3_cc7e0 {
     float x, y, z;
 };
@@ -21,7 +22,6 @@ struct Handle_cc7e0 {
     char pad1[4];
     unsigned int *col;  // 0x10
     void FUN_0008ef00();
-    void FUN_0008ef90(const Vec3_cc7e0 *p, unsigned int color);
 };
 
 struct Gfx {
@@ -110,7 +110,7 @@ static __forceinline void EmitP(Handle_cc7e0 *h, Vec3_cc7e0 &v, float x, float z
     v.x = x;
     v.y = 0.0f;
     v.z = z;
-    h->FUN_0008ef90(&v, color);
+    ((owners::Obj_8ef90 *)h)->FUN_0008ef90((unsigned int *)(const Vec3_cc7e0 *)(&v), color);
 }
 
 static __forceinline float Clamp01(float v)

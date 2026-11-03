@@ -1,20 +1,13 @@
+#include "gen/owners.h"
 class Sub_311060 {
   public:
     void second(int);
     void third();
 };
-class C_311060 {
-    char pad[0x20c];
-    int a;
-    int b;
-
-  public:
-    void f();
-};
 struct ThisCall_00310550 {
     void FUN_00310550();
 };
-void C_311060::f() {
+void owners::C_311060::FUN_00311060() {
     a = b;
     ((ThisCall_00310550*)(this))->FUN_00310550();
     b = 0x4e6e6b28;

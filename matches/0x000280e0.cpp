@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 struct Sub {
     char f[0xdc];
-    char Check();
 };
 struct Obj {
     char pad[0x338];
@@ -22,5 +22,5 @@ char Host::Test(void* x) {
     Sub* q = (Sub*)((char*)p + 0xdc);
     if (!q)
         return 0;
-    return q->Check();
+    return ((char)((owners::C_231ee0 *)q)->FUN_00231ee0());
 }

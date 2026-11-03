@@ -1,10 +1,5 @@
-class X_17fa10 {
-  public:
-    char pad[0x34];
-    int value;
-    bool Set(int v);
-};
-bool X_17fa10::Set(int v) {
+#include "gen/owners.h"
+bool owners::X_17fa10::FUN_0017fa10(int v) {
     value = v;
     return true;
 }

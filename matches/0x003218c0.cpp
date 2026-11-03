@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 
 struct RTTI {
     char data[1];
@@ -7,7 +8,6 @@ struct RTTI {
 extern RTTI DAT_004d3c0c, DAT_004d3bec;
 extern void* __cdecl FUN_00344e74(void*, int, RTTI*, RTTI*, int);
 struct Special_3218c0 {
-    void FUN_003285d0(int);
 };
 struct Shader_3218c0 {
     virtual void s0();
@@ -50,7 +50,7 @@ void pure3d::d3dContext::vfunc_32(hulk_intptr __p0, hulk_intptr __p1) { Shader_3
 
     Special_3218c0* special = (Special_3218c0*)FUN_00344e74(shader, 0, &DAT_004d3bec, &DAT_004d3c0c, 0);
     if (special) {
-        special->FUN_003285d0(0);
+        ((owners::AccumulatorSource_3285d0 *)special)->FUN_003285d0(0);
         return;
     }
     if (!shader)

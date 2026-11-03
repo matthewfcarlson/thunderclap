@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19543 inputs, branch coverage 28/28)
 // pure3d::d3dRefractVertexShader::vfunc_14 @ 0x0032efa0
 #include "decls/data/platform/xbox/pure3d.h"
+#include "gen/owners.h"
 
 namespace D3D8 {
 void __stdcall D3DDevice_SetRenderState_TextureFactor(unsigned int);
@@ -24,14 +25,8 @@ extern unsigned int DAT_0039de18;
 class TexObj_32efa0 {
   public:
     void FUN_00326300(Surface* s);
-    void FUN_00326b00(int stage);
 };
 struct StageCache_32efa0 {
-    void FUN_00329e50(int a, int b, int c, int d);
-    void FUN_00329c90(int stage, int value);
-    void FUN_00329cf0(int a, int b, int c);
-    void FUN_00329da0(int a, int b, int c);
-    void FUN_00329bb0(int a);
     void FUN_00329f70(int a, int b, const void* p);
     char pad0[8];
     TexObj_32efa0* tex[4];
@@ -160,7 +155,7 @@ void d3dRefractVertexShader_32efa0::vfunc_14(int) {
         cache->textureFactor = factor;
         D3D8::D3DDevice_SetRenderState_TextureFactor(factor);
     }
-    cache->FUN_00329e50(0, 4, 3, 2);
+    ((owners::Obj_329e50 *)cache)->FUN_00329e50(0, 4, 3, 2);
     if (cache->texCoordIndex[0] != 0) {
         cache->texCoordIndex[0] = 0;
         D3D8::D3DDevice_SetTextureState_TexCoordIndex(0, 0);
@@ -178,7 +173,7 @@ void d3dRefractVertexShader_32efa0::vfunc_14(int) {
         DAT_0039db10[0].v4 = t;
         DAT_0039db10[0].v8 = t;
     }
-    cache->FUN_00329c90(0, f44);
+    ((owners::Obj_329c90 *)cache)->FUN_00329c90(0, f44);
     if (cache->fe4 != 5) {
         cache->fe4 = 5;
         DAT_0039db08 |= 0x800;
@@ -188,18 +183,18 @@ void d3dRefractVertexShader_32efa0::vfunc_14(int) {
     if (t0 != cache->tex[0]) {
         cache->tex[0] = t0;
         if (t0) {
-            t0->FUN_00326b00(0);
+            ((owners::Obj_326b00 *)t0)->FUN_00326b00(0);
         } else {
             D3D8::D3DDevice_SetTexture(0, 0);
             D3D8::D3DDevice_SetPalette(0, 0);
         }
     }
-    cache->FUN_00329e50(1, (b48 != 0) + 3, 0, 2);
+    ((owners::Obj_329e50 *)cache)->FUN_00329e50(1, (b48 != 0) + 3, 0, 2);
     TexObj_32efa0* t1 = tex80;
     if (t1 != cache->tex[1]) {
         cache->tex[1] = t1;
         if (t1) {
-            t1->FUN_00326b00(1);
+            ((owners::Obj_326b00 *)t1)->FUN_00326b00(1);
         } else {
             D3D8::D3DDevice_SetTexture(1, 0);
             D3D8::D3DDevice_SetPalette(1, 0);
@@ -207,19 +202,19 @@ void d3dRefractVertexShader_32efa0::vfunc_14(int) {
     }
     FUN_0032a320(1, 0);
     StageCache_32efa0* c2 = cache;
-    c2->FUN_00329cf0(2, 0xf, 5);
+    ((owners::C_329cf0 *)c2)->FUN_00329cf0(2, 0xf, 5);
     if (c2->f9c != 1) {
         c2->f9c = 1;
         DAT_0039db08 |= 0x800;
         DAT_0039dc4c = 1;
     }
-    cache->FUN_00329da0(2, 2, 0);
+    ((owners::C_329da0 *)cache)->FUN_00329da0(2, 2, 0);
     if (cache->tex[2] != 0) {
         cache->tex[2] = 0;
         D3D8::D3DDevice_SetTexture(2, 0);
         D3D8::D3DDevice_SetPalette(2, 0);
     }
-    cache->FUN_00329bb0(3);
+    ((owners::State_329bb0 *)cache)->FUN_00329bb0(3);
     f94 = f1c;
     b98 = b28;
     b99 = ctx->Slot63();

@@ -1,17 +1,5 @@
-class Obj_2988e0 {
-  public:
-    char pad0[0x20];
-    unsigned char flag;
-    char pad21[3];
-    unsigned char* a;
-    char pad28[8];
-    unsigned char* b;
-    char pad34[8];
-    int start;
-    int end;
-    void Clear();
-};
-void Obj_2988e0::Clear() {
+#include "gen/owners.h"
+void owners::Obj_2988e0::FUN_002988e0() {
     unsigned int n = (end - start) / 12;
     unsigned int i = 0;
     if (n != 0) {

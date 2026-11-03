@@ -1,10 +1,5 @@
-class Target_18edf0 {
-  public:
-    char pad[12];
-    int value;
-    unsigned char Fn(int x);
-};
-unsigned char Target_18edf0::Fn(int x) {
+#include "gen/owners.h"
+unsigned char owners::Target_18edf0::FUN_0018edf0(int x) {
     value = x;
     return 1;
 }

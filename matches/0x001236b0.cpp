@@ -1,10 +1,5 @@
-class Obj_1236b0 {
-  public:
-    char pad[12];
-    int m;
-    unsigned char Fn(int x);
-};
-unsigned char Obj_1236b0::Fn(int x) {
+#include "gen/owners.h"
+unsigned char owners::Obj_1236b0::FUN_001236b0(int x) {
     m = x;
     return 1;
 }

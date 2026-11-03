@@ -2,12 +2,12 @@
 // data: gCount_260950 = DAT_004e7a2c, gSource = DAT_004cd380
 
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" char DAT_0042aa7c[];
 extern "C" void FUN_002603e0(void*, void*);
 void DestroySeq(void*);
 class Sub_260950 {
   public:
-    void Clean();
 };
 class Type {
   public:
@@ -28,7 +28,7 @@ SeqEventType* SeqEventType::vfunc2(unsigned int flags) {
     *(void**)this = (void*)((hulk_intptr)DAT_0042aa7c);
     FUN_002603e0(p, this);
     --(*(int*)&DAT_004e7a2c);
-    sub.Clean();
+    ((owners::Str_240060 *)&sub)->FUN_00240060();
     Finish();
     if (flags & 1)
         DestroySeq(this);

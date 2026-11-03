@@ -1,8 +1,8 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 void* __cdecl FUN_0008d6d0(hulk_uintptr) throw();
 class Mem_28bab0 {
   public:
-    void* Make(unsigned int, int) throw();
 };
 struct SimpleChannel_28bab0 {
     virtual void a();
@@ -22,5 +22,5 @@ Float1Channel_28bab0::Float1Channel_28bab0(int x, int y) throw() : SimpleChannel
     if (mc == 0)
         m18 = FUN_0008d6d0(m10 * 4);
     else
-        m18 = mc->Make(m10 * 4, 3);
+        m18 = ((void *)((owners::C_2888c0 *)mc)->FUN_002888c0((unsigned)(m10 * 4), 3));
 }

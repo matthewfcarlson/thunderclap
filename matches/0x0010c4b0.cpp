@@ -1,11 +1,6 @@
-class Obj_10c4b0 {
-  public:
-    char pad[0x1d];
-    char value;
-    bool Set(unsigned char x);
-};
+#include "gen/owners.h"
 
-bool Obj_10c4b0::Set(unsigned char x) {
+bool owners::Obj_10c4b0::FUN_0010c4b0(unsigned char x) {
     value = x;
     return true;
 }

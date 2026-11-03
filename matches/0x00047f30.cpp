@@ -1,11 +1,6 @@
-class X_47f30 {
-  public:
-    char pad[12];
-    int mField;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char X_47f30::Set(int v) {
+char owners::X_47f30::FUN_00047f30(int v) {
     mField = v;
     return 1;
 }

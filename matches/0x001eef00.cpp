@@ -1,14 +1,8 @@
+#include "gen/owners.h"
 class Helper_1eef00 {
   public:
-    void init(int);
 };
-class Obj_1eef00 {
-  public:
-    char pad[12];
-    char* data;
-    void run();
-};
-void Obj_1eef00::run() {
+void owners::Obj_1eef00::FUN_001eef00() {
     int i = 0;
     do {
         char* a = data + i;
@@ -18,7 +12,7 @@ void Obj_1eef00::run() {
         a[20] = 0;
         *(float*)(a + 32) = 100.0f;
         *(int*)(a + 36) = 0;
-        ((Helper_1eef00*)(a + 24))->init(0);
+        ((owners::Target_27b040 *)(((Helper_1eef00*)(a + 24))))->FUN_0027b040((hulk_uintptr)0);
         i += 40;
     } while (i < 4000);
 }

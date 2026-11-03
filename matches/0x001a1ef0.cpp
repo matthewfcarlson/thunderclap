@@ -1,11 +1,6 @@
-class T_1a1ef0 {
-  public:
-    char pad[0xc];
-    unsigned char field;
-    bool Set(unsigned char x);
-};
+#include "gen/owners.h"
 
-bool T_1a1ef0::Set(unsigned char x) {
+bool owners::T_1a1ef0::FUN_001a1ef0(unsigned char x) {
     field = x;
     return true;
 }

@@ -3,12 +3,12 @@
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
 #include "compat/ptr.h"
+#include "gen/owners.h"
 
 struct V3_3d350 {
     float x, y, z;
     float FUN_0022d110();
     char FUN_0022d2b0(const V3_3d350 *other, float eps);
-    void FUN_00011160(float s, const V3_3d350 *d);
     char FUN_000375a0();
 };
 
@@ -32,7 +32,6 @@ struct Obj1d72_3d350 {
     Slot74 *f74;
 };
 struct Obj128_3d350 {
-    Obj1d72_3d350 *FUN_001d72e0();
 };
 struct Hold10 {
     Mover_3d350 *FUN_00059a40();
@@ -224,7 +223,7 @@ void Fighter_3d350::Update(Arg1_3d350 *a1, float a2)
         s.y = 0;
         s.z = 0;
         FUN_00035550(&s);
-        P3.FUN_00011160(-g34, &s);
+        ((owners::Vec3_11160 *)&P3)->FUN_00011160(-g34, (const owners::Vec3_11160 *)(const V3_3d350 *)(&s));
     }
     V3_3d350 D;
     D.x = P3.x - r.x;
@@ -289,17 +288,17 @@ void Fighter_3d350::Update(Arg1_3d350 *a1, float a2)
     Ee *world = a1->f10->f8;
     f12c->f74->b72 = 0;
     if (f128)
-        f128->FUN_001d72e0()->f74->b72 = 0;
+        ((Obj1d72_3d350 *)((owners::C_1d72e0 *)f128)->FUN_001d72e0())->f74->b72 = 0;
     if (f334) {
         f334->f12c->f74->b72 = 0;
         if (f334->f128)
-            f334->f128->FUN_001d72e0()->f74->b72 = 0;
+            ((Obj1d72_3d350 *)((owners::C_1d72e0 *)(f334->f128))->FUN_001d72e0())->f74->b72 = 0;
         f334->FUN_00035fa0(0);
     }
     if (f338) {
         f338->f12c->f74->b72 = 0;
         if (f338->f128)
-            f338->f128->FUN_001d72e0()->f74->b72 = 0;
+            ((Obj1d72_3d350 *)((owners::C_1d72e0 *)(f338->f128))->FUN_001d72e0())->f74->b72 = 0;
         f338->FUN_00035fa0(0);
     }
     FUN_00035fa0(0);
@@ -311,16 +310,16 @@ void Fighter_3d350::Update(Arg1_3d350 *a1, float a2)
     if (f338) {
         f338->FUN_00035fa0(1);
         if (f338->f128)
-            f338->f128->FUN_001d72e0()->f74->b72 = 1;
+            ((Obj1d72_3d350 *)((owners::C_1d72e0 *)(f338->f128))->FUN_001d72e0())->f74->b72 = 1;
         f338->f12c->f74->b72 = 1;
     }
     if (f334) {
         f334->FUN_00035fa0(1);
         if (f334->f128)
-            f334->f128->FUN_001d72e0()->f74->b72 = 1;
+            ((Obj1d72_3d350 *)((owners::C_1d72e0 *)(f334->f128))->FUN_001d72e0())->f74->b72 = 1;
         f334->f12c->f74->b72 = 1;
     }
     if (f128)
-        f128->FUN_001d72e0()->f74->b72 = 1;
+        ((Obj1d72_3d350 *)((owners::C_1d72e0 *)f128)->FUN_001d72e0())->f74->b72 = 1;
     f12c->f74->b72 = 1;
 }

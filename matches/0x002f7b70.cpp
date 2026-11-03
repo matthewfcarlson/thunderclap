@@ -1,6 +1,7 @@
 #include "gen/physics.h"
 
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class O_2f7b70 {
   public:
     virtual void v0();
@@ -26,7 +27,6 @@ class O_2f7b70 {
     virtual void v20(int, int, int, int, int);
 };
 struct Q_2f7b70 {
-    void Fb();
 };
 
 void physics::ImpulseBasedCollisionSolver::FUN_002f7b70(void* __p0, int a3, int a4, hulk_intptr a5, int a6, int a7) { O_2f7b70 * p = (O_2f7b70 *)__p0;
@@ -35,6 +35,6 @@ void physics::ImpulseBasedCollisionSolver::FUN_002f7b70(void* __p0, int a3, int 
         p->v17(a4, (hulk_intptr)this + 0x24, a3, a6, a7);
         p->v20(a4, a5, a3, a6, a7);
     } else {
-        ((Q_2f7b70*)a5)->Fb();
+        ((owners::C_2fd0a0 *)(((Q_2f7b70*)a5)))->FUN_002fd0a0();
     }
 }

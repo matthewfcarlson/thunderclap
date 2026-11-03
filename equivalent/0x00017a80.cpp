@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 6/6)
 // CSnapToWallAction::vfunc_6 @ 0x00017a80
 #include "gen/global.h"
+#include "gen/owners.h"
 
 struct V3_17a80 {
     float x, y, z;
@@ -8,12 +9,10 @@ struct V3_17a80 {
 };
 
 struct NameField_17a80 {
-    void FUN_0027b040(const char *s);
 };
 
 struct Sub18_17a80 {
     void FUN_00221d20(float a);
-    void FUN_0022be40(const V3_17a80 *v);
 };
 
 class Obj70_17a80 {
@@ -46,7 +45,6 @@ struct Mgr_17a80 {
 };
 
 struct Holder_17a80 {
-    Mgr_17a80 *FUN_000592a0();
 };
 
 struct Cfg_17a80 {
@@ -80,7 +78,7 @@ bool CSnapToWallAction::vfunc_6(int arg) {
             float cf28;     // (dead until t is used: the original keeps cf28 in this frame's spare room)
         };
     } fr;
-    fr.mgr = (*(Holder_17a80 * *)&this->f_1c)->FUN_000592a0();
+    fr.mgr = ((Mgr_17a80 *)((owners::Object_592a0 *)((*(Holder_17a80 * *)&this->f_1c)))->FUN_000592a0());
     Player_17a80 *pl = fr.mgr->FUN_00059a30();
     Tracker_17a80 *tr = fr.mgr->FUN_00059a40();
     if (tr == 0)
@@ -94,7 +92,7 @@ bool CSnapToWallAction::vfunc_6(int arg) {
     if (mem)
         o = ((Obj70_17a80 *)mem)->FUN_002248f0(0);
     (*(Obj70_17a80 * *)&this->f_24) = o;
-    o->name.FUN_0027b040("snapToWall");
+    ((owners::Target_27b040 *)&(o->name))->FUN_0027b040((hulk_uintptr)"snapToWall");
     (*(Obj70_17a80 * *)&this->f_24)->v0();
     tr->FUN_00222890((*(Obj70_17a80 * *)&this->f_24), -1.0f, fr.cf28, 1.0f, fr.cf2c, fr.cf30, -1.0f);
 
@@ -119,6 +117,6 @@ bool CSnapToWallAction::vfunc_6(int arg) {
         fr.mgr->FUN_00059a50(&fr.t);
         fr.w.y = fr.t.y;
     }
-    (*(Obj70_17a80 * *)&this->f_24)->s18.FUN_0022be40(&fr.w);
+    ((owners::Target_22be40 *)&((*(Obj70_17a80 * *)&this->f_24)->s18))->FUN_0022be40((const int *)(const V3_17a80 *)(&fr.w));
     return true;
 }

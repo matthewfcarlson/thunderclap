@@ -1,11 +1,6 @@
-class Obj_68730 {
-  public:
-    char pad[0x90];
-    int field;
-    bool Set(int value);
-};
+#include "gen/owners.h"
 
-bool Obj_68730::Set(int value) {
+bool owners::Obj_68730::FUN_00068730(int value) {
     field = value;
     return true;
 }

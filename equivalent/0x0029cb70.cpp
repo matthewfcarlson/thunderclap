@@ -3,6 +3,7 @@
 // Age the pool's entries by the time elapsed since `since`: expire the ones whose lifetime is used up
 // and queue the finished ones for reuse.
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Entry_29cb70 {
     char pad0[0x14];
@@ -13,7 +14,6 @@ struct Entry_29cb70 {
 class Sub_29cb70 {
 public:
     char pad0[0x28];
-    void FUN_00231070();
     void FUN_00231590(int payload, int flag, Entry_29cb70* entry);
 };
 
@@ -38,7 +38,7 @@ void Pool_29cb70::FUN_0029cb70(unsigned int since)
     } else {
         since = 1;
     }
-    sub.FUN_00231070();
+    ((owners::X_231070 *)&sub)->FUN_00231070();
     for (int i = 0; i < count; ++i) {
         Entry_29cb70* e = &entries[i];
         if (e->lifetime != 0) {

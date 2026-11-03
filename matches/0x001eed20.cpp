@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class Sub_1eed20 {
   public:
-    void Init(int);
 };
 class Obj_1eed20 {
   public:
@@ -20,5 +20,5 @@ void __fastcall FUN_001eed20(Obj_1eed20* self) {
     self->d = 0;
     self->f = 100.0f;
     self->g = 0;
-    ((Sub_1eed20*)((char*)self + 0x18))->Init(0);
+    ((owners::Target_27b040 *)(((Sub_1eed20*)((char*)self + 0x18))))->FUN_0027b040((hulk_uintptr)0);
 }

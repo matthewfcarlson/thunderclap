@@ -2,13 +2,13 @@
 // FUN_002ac180 @ 0x002ac180
 #include "compat/ptr.h"
 #include "decls/data/engine/content.h"
+#include "gen/owners.h"
 
 void* FUN_00263ea0(unsigned int size);
 extern "C" void* FUN_0008d690(unsigned int size);
 
 struct Stream {
     char pad[0xc];
-    char FUN_002647e0(void* dst, int a, int size, int b);
 };
 
 struct Source_2ac180;
@@ -30,7 +30,7 @@ public:
 };
 
 namespace content {
-class ObjectLoader {
+class ObjectLoader_2ac180 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -42,7 +42,7 @@ public:
 }
 
 namespace pure3d {
-class AnimationLoader : public content::ObjectLoader {
+class AnimationLoader_2ac180 : public content::ObjectLoader_2ac180 {
 public:
     int FUN_00288e90();
     void FUN_00288e80(int v);
@@ -50,7 +50,6 @@ public:
 }
 
 struct Registry_2ac180 {
-    content::ObjectLoader* FUN_00265310(int id);
 };
 
 
@@ -66,7 +65,6 @@ struct Source_2ac180 : public Releasable_2ac180 {
     char pad04[0x24];
     int count;
     Item_2ac180** items;
-    Item_2ac180* FUN_00288a10(int index);
 };
 
 struct ElementList_2ac180 {
@@ -93,7 +91,7 @@ public:
 
 struct Frame_2ac180 {
     Source_2ac180* out0;
-    pure3d::AnimationLoader* loader;
+    pure3d::AnimationLoader_2ac180* loader;
     void* z;
     unsigned int old;
     unsigned int out1[2];
@@ -102,8 +100,8 @@ struct Frame_2ac180 {
 Generator_2ac180* __stdcall FUN_002ac180(Reader* r, void* arg, int kind)
 {
     Frame_2ac180 f;
-    r->stream->FUN_002647e0(&f.old, 1, 4, 1);
-    f.loader = dynamic_cast<pure3d::AnimationLoader*>((*(Registry_2ac180**)&DAT_00527c58)->FUN_00265310(0x121000));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.old), (hulk_intptr)1, 4, (hulk_intptr)1));
+    f.loader = dynamic_cast<pure3d::AnimationLoader_2ac180*>(((content :: ObjectLoader_2ac180 *)((owners::Obj_265310 *)((*(Registry_2ac180**)&DAT_00527c58)))->FUN_00265310((hulk_intptr)0x121000)));
     f.loader->AddRef();
     f.old = f.loader->FUN_00288e90();
     f.loader->FUN_00288e80(1);
@@ -132,7 +130,7 @@ Generator_2ac180* __stdcall FUN_002ac180(Reader* r, void* arg, int kind)
                             Element_2ac180* e = (Element_2ac180*)FUN_0008d690(0x10);
                             f.z = e;
                             if (e != 0)
-                                e = e->FUN_002d2bd0(f.out0->FUN_00288a10(i));
+                                e = e->FUN_002d2bd0(((Item_2ac180 *)((owners::Target_288a10 *)(f.out0))->FUN_00288a10(i)));
                             gen->elements.begin[gen->used] = e;
                             gen->elements.begin[gen->used]->AddRef();
                             gen->used++;
@@ -155,7 +153,7 @@ Generator_2ac180* __stdcall FUN_002ac180(Reader* r, void* arg, int kind)
                             Element_2ac180* e = (Element_2ac180*)FUN_0008d690(0x1c);
                             f.z = e;
                             if (e != 0)
-                                e = e->FUN_002d2570(f.out0->FUN_00288a10(i));
+                                e = e->FUN_002d2570(((Item_2ac180 *)((owners::Target_288a10 *)(f.out0))->FUN_00288a10(i)));
                             gen->elements.begin[gen->used] = e;
                             gen->elements.begin[gen->used]->AddRef();
                             gen->used++;
@@ -178,7 +176,7 @@ Generator_2ac180* __stdcall FUN_002ac180(Reader* r, void* arg, int kind)
                             Element_2ac180* e = (Element_2ac180*)FUN_0008d690(0x14);
                             f.z = e;
                             if (e != 0)
-                                e = e->FUN_002d2130(f.out0->FUN_00288a10(i));
+                                e = e->FUN_002d2130(((Item_2ac180 *)((owners::Target_288a10 *)(f.out0))->FUN_00288a10(i)));
                             gen->elements.begin[gen->used] = e;
                             gen->elements.begin[gen->used]->AddRef();
                             gen->used++;

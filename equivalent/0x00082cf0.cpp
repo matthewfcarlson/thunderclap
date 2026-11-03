@@ -2,4 +2,5 @@
 // FUN_00082cf0 @ 0x00082cf0
 // FUN_00082cf0 @ 0x00082cf0
 #include "decls/address.h"
-struct Recipient { int FUN_001dc3b0(int); }; struct World { char pad[12]; Recipient* recipient; };  struct Owner { char pad[16]; int value; int FUN_00082cf0(); }; int Owner::FUN_00082cf0() { return DAT_004dd700->recipient->FUN_001dc3b0(value); }
+#include "gen/owners.h"
+struct Recipient { int FUN_001dc3b0(int); }; struct World { char pad[12]; Recipient* recipient; };   hulk_intptr owners::Owner_82cf0::FUN_00082cf0() { return DAT_004dd700->recipient->FUN_001dc3b0(value); }

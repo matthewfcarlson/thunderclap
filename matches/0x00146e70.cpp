@@ -1,11 +1,6 @@
-class A_146e70 {
-  public:
-    char pad[0x14];
-    int value;
-    bool Set(int x);
-};
+#include "gen/owners.h"
 
-bool A_146e70::Set(int x) {
+bool owners::A_146e70::FUN_00146e70(int x) {
     value = x;
     return true;
 }

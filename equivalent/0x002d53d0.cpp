@@ -2,6 +2,7 @@
 // FUN_002d53d0 @ 0x002d53d0
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Stream;
 
@@ -13,7 +14,6 @@ struct Matrix {
     float m[12];
     Vec3_2d53d0 pos;
     float w;
-    void FUN_0022ca90(Matrix* a, Matrix* b);
 };
 
 class PositionReader {
@@ -129,9 +129,9 @@ void Emitter_2d53d0::FUN_002d53d0(Stream* s, Desc_2d53d0* d, Matrix* parent)
     if (extra)
         extra->FUN_0028ac90(s, &f90);
 
-    local.FUN_0022ca90(parent, &orient);
+    ((owners::Matrix_22ca90 *)&local)->FUN_0022ca90((const owners::Matrix_22ca90 *)(Matrix *)parent, (const owners::Matrix_22ca90 *)(Matrix *)(&orient));
     Matrix combined;
-    combined.FUN_0022ca90(&local, (*(CameraHolder**)&DAT_0052c2b0)->camera->FUN_0028faa0());
+    ((owners::Matrix_22ca90 *)&combined)->FUN_0022ca90((const owners::Matrix_22ca90 *)(Matrix *)(&local), (const owners::Matrix_22ca90 *)(Matrix *)((*(CameraHolder**)&DAT_0052c2b0)->camera->FUN_0028faa0()));
     local = combined;
 
     d->c08->FUN_0028a1c0(s, &fac);

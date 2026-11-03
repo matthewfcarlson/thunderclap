@@ -1,8 +1,4 @@
-struct Obj_14cb50 {
-    char pad[0x18];
-    int* value;
-    int** Get();
-};
-int** Obj_14cb50::Get() {
+#include "gen/owners.h"
+int** owners::Obj_14cb50::FUN_0014cb50() {
     return &value;
 }

@@ -2,13 +2,13 @@
 // FUN_002abfb0 @ 0x002abfb0
 #include "decls/data/engine/content.h"
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 
 void* FUN_00263ea0(unsigned int size);
 extern "C" void* FUN_0008d690(unsigned int size);
 
 struct Stream_2abfb0 {
     char pad[0xc];
-    char FUN_002647e0(void* dst, int a, int size, int b);
 };
 
 struct Source_2abfb0;
@@ -50,7 +50,6 @@ public:
 }
 
 struct Registry_2abfb0 {
-    content::ObjectLoader_2abfb0* FUN_00265310(int id);
 };
 
 
@@ -62,7 +61,6 @@ struct Source_2abfb0 : public Releasable_2abfb0 {
     char pad04[0x24];
     int count;
     Item_2abfb0** items;
-    Item_2abfb0* FUN_00288a10(int index);
 };
 
 struct ElementList_2abfb0 {
@@ -98,18 +96,18 @@ struct Frame_2abfb0 {
 ParticleSphereGenerator_2abfb0* __stdcall FUN_002abfb0(Reader_2abfb0* r, void* arg)
 {
     Frame_2abfb0 f;
-    r->stream->FUN_002647e0(&f.old, 1, 4, 1);
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.old), (hulk_intptr)1, 4, (hulk_intptr)1));
     ParticleSphereGenerator_2abfb0* gen = 0;
     void* mem = FUN_00263ea0(0x48);
     if (mem != 0)
         gen = ((ParticleSphereGenerator_2abfb0*)mem)->FUN_002d3b40();
-    r->stream->FUN_002647e0(&f.y, 1, 4, 1);
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.y), (hulk_intptr)1, 4, (hulk_intptr)1));
     gen->dim0 = f.y;
-    r->stream->FUN_002647e0(&f.y, 1, 4, 1);
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.y), (hulk_intptr)1, 4, (hulk_intptr)1));
     gen->dim1 = f.y;
     while (r->FUN_002669f0() != 0) {
         if (r->FUN_00266a30() == 0x121000) {
-            pure3d::AnimationLoader_2abfb0* loader = dynamic_cast<pure3d::AnimationLoader_2abfb0*>((*(Registry_2abfb0**)&DAT_00527c58)->FUN_00265310(0x121000));
+            pure3d::AnimationLoader_2abfb0* loader = dynamic_cast<pure3d::AnimationLoader_2abfb0*>(((content :: ObjectLoader_2abfb0 *)((owners::Obj_265310 *)((*(Registry_2abfb0**)&DAT_00527c58)))->FUN_00265310((hulk_intptr)0x121000)));
             loader->AddRef();
             f.old = loader->FUN_00288e90();
             loader->FUN_00288e80(1);
@@ -127,7 +125,7 @@ ParticleSphereGenerator_2abfb0* __stdcall FUN_002abfb0(Reader_2abfb0* r, void* a
                     ::pure3d::ParticleSphereGenerator::GeneratorBlendState* e = (::pure3d::ParticleSphereGenerator::GeneratorBlendState*)FUN_0008d690(0x10);
                     f.z = e;
                     if (e != 0)
-                        e = ((GeneratorBlendState_nv_2abfb0*)(((::pure3d::ParticleSphereGenerator::GeneratorBlendState*)(e))))->FUN_002d2bd0(f.out0->FUN_00288a10(i));
+                        e = ((GeneratorBlendState_nv_2abfb0*)(((::pure3d::ParticleSphereGenerator::GeneratorBlendState*)(e))))->FUN_002d2bd0(((Item_2abfb0 *)((owners::Target_288a10 *)(f.out0))->FUN_00288a10(i)));
                     gen->elements.begin[gen->used] = e;
                     gen->elements.begin[gen->used]->vfunc_0();
                     gen->used++;

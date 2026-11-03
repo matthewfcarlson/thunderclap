@@ -1,9 +1,5 @@
-struct X_14d0e0 {
-    char pad[0x34];
-    int m34;
-    bool Set(int v);
-};
-bool X_14d0e0::Set(int v) {
+#include "gen/owners.h"
+bool owners::X_14d0e0::FUN_0014d0e0(int v) {
     m34 = v;
     return true;
 }

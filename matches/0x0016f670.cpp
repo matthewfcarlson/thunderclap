@@ -1,11 +1,6 @@
-class O_16f670 {
-  public:
-    char pad[0x20];
-    int m20;
-    bool Set(int);
-};
+#include "gen/owners.h"
 
-bool O_16f670::Set(int x) {
+bool owners::O_16f670::FUN_0016f670(int x) {
     m20 = x;
     return true;
 }

@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class B_1c6200 {
   public:
-    void g(void*, int, int, int);
 };
 class A_1c6200 {
   public:
@@ -9,5 +9,5 @@ class A_1c6200 {
     void f(void*);
 };
 void A_1c6200::f(void* param) {
-    member->g(param, 3, 4, 1);
+    ((owners::X_2647e0 *)member)->FUN_002647e0((hulk_intptr)param, (hulk_intptr)3, 4, (hulk_intptr)1);
 }

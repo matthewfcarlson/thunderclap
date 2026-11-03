@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 10/10)
 // FUN_002b1490 @ 0x002b1490
+#include "gen/owners.h"
 struct IntVec_2b1490 {
     int* begin;
     int* end;
@@ -26,7 +27,6 @@ struct RecList {
 
 struct Index_2b1490 {
     char pad[12];
-    void FUN_002b1070(int first, Scratch_2b1490* s);
 };
 
 class Packer {
@@ -49,7 +49,7 @@ void Packer::run()
     if (count < 2 || vec->begin[0] >= 0) {
         for (int i = 0; i < 6; i++)
             s.w[i] = 0;
-        index.FUN_002b1070(count, &s);
+        ((owners::Buffer_2b1070 *)&index)->FUN_002b1070((unsigned)count, (hulk_intptr)(Scratch_2b1490 *)(&s));
         return;
     }
 
@@ -58,7 +58,7 @@ void Packer::run()
     list.FUN_002b1330(-vec->begin[0], &s);
     for (int i = 0; i < 6; i++)
         s.w[i] = 0;
-    index.FUN_002b1070(vec->begin[1], &s);
+    ((owners::Buffer_2b1070 *)&index)->FUN_002b1070((unsigned)(vec->begin[1]), (hulk_intptr)(Scratch_2b1490 *)(&s));
 
     int prev = -1;
     int start = vec->begin[1];

@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00060170 @ 0x00060170
+#include "gen/owners.h"
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 
 struct Sub_60170 {
     char data[8];
-    void FUN_0027b040(int arg);
 };
 
 struct Object {
@@ -27,7 +27,7 @@ void Object::FUN_00060170() {
     f130 = 0;
     f12c = 0;
     f128 = 0;
-    sub.FUN_0027b040(0);
+    ((owners::Target_27b040 *)&sub)->FUN_0027b040((hulk_uintptr)0);
     flag = 0;
     f13c = 0;
     f138 = 0;

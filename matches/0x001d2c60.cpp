@@ -1,23 +1,18 @@
+#include "gen/owners.h"
 void F1(int s, int a);
 void F2(int s, int a);
 int F3(int s, int a);
 void F4(int s, int a);
 void Out(int a, int b, const char* fmt, int v);
-class K_1d2c60 {
-  public:
-    int pad[2];
-    int state;
-    bool Run(int a, int b, int c);
-};
-bool K_1d2c60::Run(int a, int b, int c) {
-    F1(state, a);
+bool owners::K_1d2c60::FUN_001d2c60(hulk_intptr a, hulk_intptr b, int c) {
+    F1(state, ((int)a));
     F2(state, -2);
     int v = F3(state, -1);
     bool r = true;
     if (v == 0)
         r = false;
     else
-        Out(b, c, "%s", v);
+        Out(((int)b), c, "%s", v);
     F4(state, -2);
     return r;
 }

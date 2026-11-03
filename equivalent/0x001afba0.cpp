@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3055 inputs, branch coverage 42/42)
 // FUN_001afba0 @ 0x001afba0
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Vec3_1afba0 {
     float x, y, z;
 };
@@ -53,7 +54,6 @@ struct Target_1afba0 {
     char f14d;
     char pad14e[0x1c9 - 0x14e];
     char f1c9;
-    Hit_1afba0 *FUN_001d72e0();
     char FUN_001d6a80();
     void FUN_001d82d0();
     void FUN_001d74c0(int a, int b, float c, int d);
@@ -73,7 +73,6 @@ struct Fx_1afba0 {
 };
 
 struct Sys4c {
-    Fx_1afba0 *FUN_0007ad00(int *key);
 };
 
 struct Clock_1afba0 {
@@ -137,7 +136,7 @@ int __stdcall FUN_001afba0(Controller_1afba0 *ctl, Hit_1afba0 *hit, int a, int b
 
     Body_1afba0 *body = f->FUN_00013ec0();
     if (body->owner != 0) {
-        if (body->owner->FUN_001d72e0() == hit)
+        if (((Hit_1afba0 *)((owners::C_1d72e0 *)(body->owner))->FUN_001d72e0()) == hit)
             return 1;
     }
 
@@ -170,8 +169,8 @@ int __stdcall FUN_001afba0(Controller_1afba0 *ctl, Hit_1afba0 *hit, int a, int b
         tgt->FUN_001d82d0();
 
     if (tgt->f14d) {
-        if (tgt->FUN_001d72e0()->f6c == 0) {
-            Fx_1afba0 *fx = DAT_004dd700->sys->FUN_0007ad00(&tgt->f8);
+        if (((Hit_1afba0 *)((owners::C_1d72e0 *)tgt)->FUN_001d72e0())->f6c == 0) {
+            Fx_1afba0 *fx = ((Fx_1afba0 *)((owners::Obj_7ad00 *)(DAT_004dd700->sys))->FUN_0007ad00((hulk_intptr)(&tgt->f8)));
             if (fx != 0) {
                 Probe_1afba0 *p = f->stats->FUN_00012f50(&tmp);
                 fx->FUN_00083320(a, b, t, 1, p, 0);

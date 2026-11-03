@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19806 inputs, branch coverage 2/2)
 // FUN_000872a0 @ 0x000872a0
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Vec3_872a0 {
     float x, y, z;
 };
@@ -50,7 +51,6 @@ struct World {
 struct Camera {
     void FUN_00089900(float angle);
     void FUN_000898a0(Vec3_872a0 v);
-    char FUN_00089a40();
 };
 
 struct Sub0_872a0 {
@@ -92,8 +92,8 @@ void Tracker_872a0::FUN_000872a0()
     float angle = holder->entity->body->FUN_000354c0() * 57.295776f;
     camera->FUN_00089900(angle);
     sub1->FUN_000bd1b0(0);
-    FUN_00086980(camera->FUN_00089a40());
-    if (camera->FUN_00089a40()) {
+    FUN_00086980(((char)((owners::Target_89a40 *)camera)->FUN_00089a40()));
+    if (((char)((owners::Target_89a40 *)camera)->FUN_00089a40())) {
         status->state = 1;
         DAT_004dd700->display->a->FUN_000ae990();
         DAT_004dd700->display->b->FUN_000afe80();

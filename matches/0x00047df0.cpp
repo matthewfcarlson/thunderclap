@@ -1,10 +1,5 @@
-class X_47df0 {
-  public:
-    char Fn(int a);
-    char pad[16];
-    int m10;
-};
-char X_47df0::Fn(int a) {
+#include "gen/owners.h"
+char owners::X_47df0::FUN_00047df0(int a) {
     m10 = a;
     return 1;
 }

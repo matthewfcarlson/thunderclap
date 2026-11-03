@@ -1,11 +1,6 @@
-class Obj_18cad0 {
-  public:
-    char m[0x14];
-    int mVal;
-    bool Fn(int x);
-};
+#include "gen/owners.h"
 
-bool Obj_18cad0::Fn(int x) {
+bool owners::Obj_18cad0::FUN_0018cad0(int x) {
     mVal = x;
     return true;
 }

@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct P8 {
     int Get();
     void Set(int);
@@ -10,7 +11,6 @@ struct Mid_135700 {
     Tail_135700* GetTail();
 };
 struct Obj_135700 {
-    Mid_135700* GetMid();
 };
 struct Inner_135700 {
     virtual void f0();
@@ -29,7 +29,7 @@ class FlyingAttackAction_135700 {
 };
 void FlyingAttackAction_135700::Run() {
     if (mItem != 0 && mItem->kind == 1) {
-        Tail_135700* t = mA->GetMid()->GetTail();
+        Tail_135700* t = ((Mid_135700 *)((owners::Object_592a0 *)mA)->FUN_000592a0())->GetTail();
         P8* p = mItem->p8;
         if (p != 0) {
             int v = t->field;

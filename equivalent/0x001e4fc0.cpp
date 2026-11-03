@@ -2,6 +2,7 @@
 // FUN_001e4fc0 @ 0x001e4fc0
 // FUN_001e4fc0 @ 0x001e4fc0: like 0x001e5070 but skips a missing entry
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Settings_1e4fc0 {
     int FUN_00088fa0();
     int FUN_00088fb0();
@@ -11,7 +12,6 @@ struct Config_1e4fc0 {
     Settings_1e4fc0 settings;
 };
 struct Manager_1e4fc0 {
-    Config_1e4fc0 *FUN_00086310();
 };
 struct World {
     char pad00[0x54];
@@ -34,8 +34,8 @@ public:
 
 void CSPManager_1e4fc0::FUN_001e4fc0(unsigned kind, unsigned a, unsigned b, unsigned c)
 {
-    int flag = DAT_004dd700->manager->FUN_00086310()->settings.FUN_00088fa0();
-    int mode = DAT_004dd700->manager->FUN_00086310()->settings.FUN_00088fb0();
+    int flag = ((Config_1e4fc0 *)((owners::C_86310 *)(DAT_004dd700->manager))->FUN_00086310())->settings.FUN_00088fa0();
+    int mode = ((Config_1e4fc0 *)((owners::C_86310 *)(DAT_004dd700->manager))->FUN_00086310())->settings.FUN_00088fb0();
     if (flag == 0 && (mode == 1 || mode == 10)) {
         if (kind == 1 || kind == 2 || kind == 3 || kind == 4)
             return;

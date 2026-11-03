@@ -1,10 +1,5 @@
-class Obj_29b380 {
-  public:
-    char pad[0x44];
-    int mX;
-    void SetX(int x);
-};
+#include "gen/owners.h"
 
-void Obj_29b380::SetX(int x) {
+void owners::Obj_29b380::FUN_0029b380(int x) {
     mX = x;
 }

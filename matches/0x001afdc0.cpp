@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Candidate_1afdc0;
 struct Owner_1afdc0;
 struct Group_1afdc0 {
@@ -5,7 +6,6 @@ struct Group_1afdc0 {
     unsigned id;
 };
 struct Link_1afdc0 {
-    Candidate_1afdc0* FUN_001d72e0();
 };
 struct Entity {
     char p0[0x114];
@@ -40,7 +40,7 @@ int __stdcall FUN_001afdc0(Context* context, Candidate_1afdc0* candidate, unsign
         Owner_1afdc0* owner = context->owner;
         if (!(owner->FUN_00015a20() < threshold)) {
             Entity* source = owner->FUN_00015a30();
-            if (source->link && source->link->FUN_001d72e0() == candidate)
+            if (source->link && ((Candidate_1afdc0 *)((owners::C_1d72e0 *)(source->link))->FUN_001d72e0()) == candidate)
                 return 1;
             Entity* target = candidate->entity;
             if (target->parent && source->group->id == target->parent->group->id)

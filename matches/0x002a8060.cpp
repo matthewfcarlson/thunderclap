@@ -1,13 +1,8 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
 extern "C" char * __cdecl FUN_002a7f60(char *, int, const char *);
-class Buffer_2a8060 {
-  public:
-    void* mData;
-    char* mEnd;
-    bool Init(unsigned int size, unsigned int arg);
-};
-bool Buffer_2a8060::Init(unsigned int size, unsigned int arg) {
+bool owners::Buffer_2a8060::FUN_002a8060(unsigned int size, hulk_uintptr arg) {
     if (mData != 0)
         return false;
     if (size > 0) {
@@ -15,7 +10,7 @@ bool Buffer_2a8060::Init(unsigned int size, unsigned int arg) {
         mData = p;
         if (p != 0) {
             mEnd = (char*)p + size;
-            FUN_002a7f60((char *)(void *)p, (unsigned int)size, (const char *)(hulk_uintptr)(unsigned int)arg);
+            FUN_002a7f60((char *)(void *)p, (unsigned int)size, (const char *)(hulk_uintptr)(unsigned int)((unsigned int)arg));
             return true;
         }
     }

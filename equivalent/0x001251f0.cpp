@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3037 inputs, branch coverage 42/42)
 // hulkfight::ai::TargetDistanceCondition::vfunc_6 @ 0x001251f0
 #include "decls/address.h"
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 
 extern char DAT_00494b44[];
@@ -53,7 +54,6 @@ struct Mgr_1251f0 {
 };
 
 struct Source_1251f0 {
-    Mgr_1251f0 *FUN_000592a0();
 };
 
 struct Mid_1251f0 {
@@ -105,7 +105,7 @@ char TargetDistanceCondition::vfunc_6(int a, Source_1251f0 *source, int c)
     if (!FUN_00344e74(source, 0, DAT_00494b44, DAT_00494b60, 0))
         return false;
 
-    Player_1251f0 *pl = source->FUN_000592a0()->FUN_00059a30();
+    Player_1251f0 *pl = ((Mgr_1251f0 *)((owners::Object_592a0 *)source)->FUN_000592a0())->FUN_00059a30();
     A.x = 0.0f;
     A.y = 0.0f;
     A.z = 0.0f;

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 16764 inputs, branch coverage 4/4)
 // pure3d::PrimGroupSkinnedStreamed::vfunc_10 @ 0x002e0560
 // 0x002e0560: PrimGroupSkinnedStreamed::vfunc_10: rebuild the bounding box and sphere from the skin points
+#include "gen/owners.h"
 struct Vec3_2e0560 {
     float x, y, z;
 };
@@ -12,7 +13,6 @@ struct Sphere_2e0560 {
 struct BBox {
     Vec3_2e0560 lo;
     Vec3_2e0560 hi;
-    void FUN_000a87f0(const Vec3_2e0560* p);
     Sphere_2e0560* FUN_000a8890(Sphere_2e0560* out);
 };
 
@@ -44,7 +44,7 @@ void PrimGroupSkinnedStreamed_2e0560::FUN_002e0560()
     box.lo = pts[0];
     box.hi = pts[0];
     for (unsigned int i = 1; i < count; i++)
-        box.FUN_000a87f0(&pts[i]);
+        ((owners::V_a87f0 *)&box)->FUN_000a87f0((owners::V_a87f0 *)(const Vec3_2e0560 *)(&pts[i]));
     const Sphere_2e0560* s = box.FUN_000a8890(&tmp);
     sphere = *s;
 }

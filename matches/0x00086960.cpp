@@ -1,10 +1,10 @@
 #include "decls/data/game/global.h"
 // data: gFlag_86960 = DAT_004dd6f0
+#include "gen/owners.h"
 
 class Other_86960 {
   public:
     void First();
-    void Second();
 };
 class Thing_86960 {
   public:
@@ -16,5 +16,5 @@ class Thing_86960 {
 void Thing_86960::Run() {
     (*(unsigned char*)&DAT_004dd6f0) = 1;
     a->First();
-    b->Second();
+    ((owners::Object_1b83c0 *)b)->FUN_001b83c0();
 }

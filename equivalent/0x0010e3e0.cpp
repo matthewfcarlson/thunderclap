@@ -1,14 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3247 inputs, branch coverage 30/30; Wine build 697 inputs, 30/30)
 // hulkfight::ai::InActiveCondition::vfunc_6 @ 0x0010e3e0
 #include "decls/address.h"
+#include "gen/owners.h"
 namespace fight {
-class Params {
+class Params_10e3e0 {
 public:
     virtual void vfunc_0();
 };
 }
 
-class CFightParams : public fight::Params {
+class CFightParams_10e3e0 : public fight::Params_10e3e0 {
 public:
     virtual void vfunc_0();
 };
@@ -24,7 +25,6 @@ struct Anim_10e3e0 {
 };
 
 struct Holder_10e3e0 {
-    Anim_10e3e0 *FUN_00086310();
 };
 
 struct World {
@@ -61,14 +61,14 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual char vfunc_6(int a, fight::Params *params, int c);
+    virtual char vfunc_6(int a, fight::Params_10e3e0 *params, int c);
     char pad04[0xc];
     char invert;
 };
 
-char InActiveCondition::vfunc_6(int a, fight::Params *params, int c)
+char InActiveCondition::vfunc_6(int a, fight::Params_10e3e0 *params, int c)
 {
-    if (dynamic_cast<CFightParams *>(params) == 0)
+    if (dynamic_cast<CFightParams_10e3e0 *>(params) == 0)
         return 0;
     Fighter_10e3e0 *f = FUN_00059a30(FUN_000592a0(params));
     if (f == 0)
@@ -76,7 +76,7 @@ char InActiveCondition::vfunc_6(int a, fight::Params *params, int c)
 
     int kind = -1;
     int sub = -1;
-    Anim_10e3e0 *anim = DAT_004dd700->holder->FUN_00086310();
+    Anim_10e3e0 *anim = ((Anim_10e3e0 *)((owners::C_86310 *)(DAT_004dd700->holder))->FUN_00086310());
     if (anim) {
         kind = anim->state.FUN_00088fa0();
         sub = anim->state.FUN_00088fb0();

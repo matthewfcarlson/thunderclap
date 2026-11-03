@@ -1,13 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_0022aba0 @ 0x0022aba0
-class Random_22aba0 {
-public:
-    void FUN_0022aba0(unsigned int seed);
-    unsigned int a;
-    unsigned int b;
-};
+#include "gen/owners.h"
 
-void Random_22aba0::FUN_0022aba0(unsigned int seed)
+void owners::Random_22aba0::FUN_0022aba0(unsigned int seed)
 {
     if (seed == 0)
         seed = 0xfc7d2ba2;

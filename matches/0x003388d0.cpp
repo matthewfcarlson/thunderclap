@@ -1,6 +1,7 @@
 #include "decls/data/engine/movie.h"
 
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct T3 {
     char c[3];
 };
@@ -33,7 +34,6 @@ class O_3388d0 {
     char c872;
     O_3388d0(int a, int b) throw();
     void F1(char* p, const unsigned short* w) throw();
-    void F2() throw();
 };
 O_3388d0::O_3388d0(int a, int b) throw() {
     m8 = b;
@@ -52,7 +52,7 @@ O_3388d0::O_3388d0(int a, int b) throw() {
     c872 = 0;
     c1c = 0;
     c41c = 0;
-    F2();
+    ((owners::C_3388c0 *)this)->FUN_003388c0();
     m824 = 0;
     c828 = 0;
     m82c = 0;

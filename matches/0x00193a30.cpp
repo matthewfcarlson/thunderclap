@@ -1,9 +1,5 @@
-struct O_193a30 {
-    char pad[0x6c];
-    int m;
-    bool Set(int x);
-};
-bool O_193a30::Set(int x) {
+#include "gen/owners.h"
+bool owners::O_193a30::FUN_00193a30(int x) {
     m = x;
     return true;
 }

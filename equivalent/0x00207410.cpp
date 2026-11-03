@@ -2,6 +2,7 @@
 // FUN_00207410 @ 0x00207410
 #include "decls/data/game/global.h"
 #include "gen/content.h"
+#include "gen/owners.h"
 
 struct Slot_207410 {
     void FUN_00266220(int v);
@@ -33,7 +34,6 @@ public:
 
     int FUN_00203a80();
     Node_207410 *FUN_00204540(int a);
-    void FUN_00207130();
     int FUN_00203bb0();
     void FUN_00204720(int v);
     void FUN_002067d0(int v, int w);
@@ -71,7 +71,7 @@ char Player_207410::FUN_00207410()
     }
 
     if (!pending && !locked)
-        FUN_00207130();
+        ((owners::Obj_207130 *)this)->FUN_00207130();
 
     if (flag) {
         Node_207410 *n = FUN_00204540(id);

@@ -1,10 +1,6 @@
-struct Obj_14d100 {
-    char pad[0x10];
-    int m;
-    bool Set(int x);
-};
+#include "gen/owners.h"
 
-bool Obj_14d100::Set(int x) {
+bool owners::Obj_14d100::FUN_0014d100(int x) {
     m = x;
     return true;
 }

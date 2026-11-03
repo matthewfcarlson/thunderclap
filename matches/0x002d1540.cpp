@@ -1,11 +1,11 @@
 // FUN_002d1540 @ 0x002d1540
 // FUN_002d1540 @ 0x002d1540: re-rolls an entry's random byte once enough time has passed since the last roll
 #include "decls/data/engine/pure3d.h"
+#include "gen/owners.h"
 
 struct RandomState_2d1540 {
     unsigned int first;
     unsigned int second;
-    void FUN_0022aba0(int seed);
 };
 
 struct Limits_2d1540 {
@@ -32,7 +32,7 @@ extern "C" void __cdecl FUN_002d1540(int a, Owner_2d1540 *owner, Entry_2d1540 *e
 {
     if (!(DAT_00554bf8 & 1)) {
         DAT_00554bf8 |= 1;
-        (*(RandomState_2d1540*)&DAT_00554bf0).FUN_0022aba0(0);
+        ((owners::Random_22aba0 *)&((*(RandomState_2d1540*)&DAT_00554bf0)))->FUN_0022aba0(0);
     }
     Limits_2d1540 *limits = owner->limits;
     if (entry->now - entry->last > limits->interval) {

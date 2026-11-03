@@ -1,11 +1,6 @@
-class Obj_16e9c0 {
-  public:
-    char pad[0x10];
-    int* mPtr;
-    char Set(int* p);
-};
+#include "gen/owners.h"
 
-char Obj_16e9c0::Set(int* p) {
+char owners::Obj_16e9c0::FUN_0016e9c0(int* p) {
     mPtr = p;
     return 1;
 }

@@ -5,6 +5,7 @@
 #include "gen/hulkfight.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/owners.h"
 
 
 struct Vec3_1820d0 {
@@ -15,9 +16,6 @@ struct Mat_1820d0 {
     float m[16];
     void FUN_0022ba00();
     void FUN_0022bc20(Vec3_1820d0 euler);
-    void FUN_0022ca90(const Mat_1820d0* a, const Mat_1820d0* b);
-    void FUN_0022c3b0(const Vec3_1820d0* in, Vec3_1820d0* out);
-    void FUN_0022c2b0(const Vec3_1820d0* in, Vec3_1820d0* out);
 };
 
 struct BoneTable_1820d0 {
@@ -42,7 +40,6 @@ struct Clock_1820d0 {
 };
 
 struct Owner_1820d0 {
-    Clock_1820d0* FUN_000592a0();
 };
 
 struct Config_1820d0 {
@@ -66,7 +63,6 @@ struct Prop_1820d0 {
     char pad0[0xa0];
     void* node;
     void FUN_001d6b60(Mat_1820d0 m, int flag);
-    int FUN_001d72e0();
     void FUN_001d7510();
     void FUN_001d86d0(Vec3_1820d0* dir, Vec3_1820d0* pos);
 };
@@ -89,7 +85,7 @@ bool hulkfight::motion::PropSpawnAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
         char name[0x80];
     } fr;
     if ((*(Owner_1820d0 * *)&this->f_20)) {
-        Holder_1820d0* h = (*(Owner_1820d0 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();
+        Holder_1820d0* h = ((Clock_1820d0 *)((owners::Object_592a0 *)((*(Owner_1820d0 * *)&this->f_20)))->FUN_000592a0())->FUN_00059a30();
         Skel_1820d0* skel = h->skel;
         BoneTable_1820d0* table = skel->table;
         unsigned int bone = 0;
@@ -107,7 +103,7 @@ bool hulkfight::motion::PropSpawnAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
         fr.local.m[13] = fr.tmp.y;
         fr.local.m[14] = fr.tmp.z;
         fr.local.FUN_0022bc20((*(Config_1820d0 * *)&this->f_1c)->rot);
-        fr.world.FUN_0022ca90(&fr.local, parent);
+        ((owners::Matrix_22ca90 *)&(fr.world))->FUN_0022ca90((const owners::Matrix_22ca90 *)(const Mat_1820d0 *)(&fr.local), (const owners::Matrix_22ca90 *)(const Mat_1820d0 *)parent);
         FUN_00267760(fr.name, 0x80, "propSpawn%d", DAT_004e1504);
         Spawner_1820d0* spawner = DAT_004dd700->spawner;
         DAT_004e1504++;
@@ -119,12 +115,12 @@ bool hulkfight::motion::PropSpawnAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
         Prop_1820d0* prop = (Prop_1820d0*)spawner->FUN_001def30(fr.name);
         if (prop) {
             prop->FUN_001d6b60(fr.world, 0);
-            if (prop->FUN_001d72e0()) {
+            if (((int)((owners::C_1d72e0 *)prop)->FUN_001d72e0())) {
                 prop->FUN_001d7510();
                 fr.tmp = (*(Config_1820d0 * *)&this->f_1c)->dir;
-                fr.world.FUN_0022c3b0(&fr.tmp, &fr.dir);
+                ((owners::M_22c3b0 *)&(fr.world))->FUN_0022c3b0((float *)(const Vec3_1820d0 *)(&fr.tmp), (float *)(Vec3_1820d0 *)(&fr.dir));
                 fr.tmp = (*(Config_1820d0 * *)&this->f_1c)->pt;
-                fr.world.FUN_0022c2b0(&fr.tmp, &fr.pos);
+                ((owners::Mat_22c2b0 *)&(fr.world))->FUN_0022c2b0((float *)(const Vec3_1820d0 *)(&fr.tmp), (float *)(Vec3_1820d0 *)(&fr.pos));
                 prop->FUN_001d86d0(&fr.dir, &fr.pos);
             }
         }

@@ -1,7 +1,7 @@
+#include "gen/owners.h"
 class C {
   public:
     char pad[0x38];
-    int Lookup(int id);
     int Get(int id);
 };
 
@@ -11,7 +11,7 @@ struct E {
 };
 
 int C::Get(int id) {
-    int r = Lookup(id);
+    int r = ((owners::Table_90050 *)this)->FUN_00090050((char *)(hulk_uintptr)(int)id);
     if (r == -1)
         return 0;
     E* p = (E*)((char*)this + 0x38);

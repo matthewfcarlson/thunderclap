@@ -1,13 +1,5 @@
-class C_231ee0 {
-    char p[4];
-
-  public:
-    int a;
-    char q[0x18];
-    int b;
-    unsigned char F();
-};
-unsigned char C_231ee0::F() {
+#include "gen/owners.h"
+unsigned char owners::C_231ee0::FUN_00231ee0() {
     if (a)
         return 1;
     return b != 0;

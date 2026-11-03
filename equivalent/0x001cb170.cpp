@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3029 inputs, branch coverage 37/37)
 // FUN_001cb170 @ 0x001cb170
-class Dispatcher_1cb170;
+#include "gen/owners.h"
 class Context {
 public:
     bool FUN_001d1cb0();
@@ -9,40 +9,8 @@ public:
 };
 Context *FUN_001d4c90();
 
-class Dispatcher_1cb170 {
-public:
-    int pad0;
-    int type;               // 0x4
-    void FUN_001c9840();
-    void FUN_001c9970();
-    void FUN_001c9aa0();
-    void FUN_001c9b80();
-    void FUN_001c9c50();
-    void FUN_001c9d20();
-    void FUN_001c9df0();
-    void FUN_001c9ec0();
-    void FUN_001c9fb0();
-    void FUN_001ca090();
-    void FUN_001ca170();
-    void FUN_001ca250();
-    void FUN_001ca330();
-    void FUN_001ca430();
-    void FUN_001ca5b0();
-    void FUN_001ca730();
-    void FUN_001ca890();
-    void FUN_001caa10();
-    void FUN_001cab60();
-    void FUN_001cacc0();
-    void FUN_001cad40();
-    void FUN_001cadb0();
-    void FUN_001cae90();
-    void FUN_001caf40();
-    void FUN_001cafd0();
-    void FUN_001cb0a0();
-    bool FUN_001cb170();
-};
 
-bool Dispatcher_1cb170::FUN_001cb170()
+bool owners::Dispatcher_1cb170::FUN_001cb170()
 {
     Context *ctx = FUN_001d4c90();
     if (ctx == 0) return false;

@@ -1,10 +1,6 @@
-class X_11b910 {
-  public:
-    char f(char v);
-    char m[0x1e];
-};
+#include "gen/owners.h"
 
-char X_11b910::f(char v) {
+char owners::X_11b910::FUN_0011b910(char v) {
     m[0x1e] = v;
     return 1;
 }

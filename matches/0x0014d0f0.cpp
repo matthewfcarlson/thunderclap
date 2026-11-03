@@ -1,10 +1,5 @@
-class X_14d0f0 {
-  public:
-    char pad[12];
-    int m;
-    bool Set(int v);
-};
-bool X_14d0f0::Set(int v) {
+#include "gen/owners.h"
+bool owners::X_14d0f0::FUN_0014d0f0(int v) {
     m = v;
     return true;
 }

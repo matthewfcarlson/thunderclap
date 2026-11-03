@@ -1,11 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 12048 inputs, branch coverage 64/68, incomplete; run with --inputs 12000)
 // FUN_001ec480 @ 0x001ec480
+#include "gen/owners.h"
 extern "C" int __cdecl strncmp(const char*, const char*, unsigned);
 struct Path {
     char data[72];
-    void FUN_001ef320();
     void FUN_001ef370(const char*);
-    void FUN_001ef350();
 };
 struct Screen {
     void FUN_001f4610(int, int, int);
@@ -17,7 +16,7 @@ struct UI {
     void FUN_001efe20(Path*, int, const char*, float);
 };
 struct Info { const char* FUN_0008a2f0(); };
-struct Owner { Info* FUN_00086310(); };
+struct Owner {  };
 struct Target {
     UI* ui;
     Owner* owner;
@@ -32,7 +31,7 @@ struct Target {
          (result) = (*a == *b); } while (0)
 void Target::run(const char* name, const char* value) {
     Path path;
-    path.FUN_001ef320();
+    ((owners::Obj_1ef320 *)&path)->FUN_001ef320();
     path.FUN_001ef370("Objects");
     path.FUN_001ef370("FE");
     path.FUN_001ef370(name);
@@ -104,7 +103,7 @@ void Target::run(const char* name, const char* value) {
             UI* current = ui;
             active = 1;
             current->screen->FUN_001f4610(0, 1, 1);
-            const char* briefing = owner->FUN_00086310()->FUN_0008a2f0();
+            const char* briefing = ((Info *)((owners::C_86310 *)owner)->FUN_00086310())->FUN_0008a2f0();
             FUN_001ec480("Briefings", briefing);
         }
         EQUAL(equal, value, "FE_back");
@@ -130,5 +129,5 @@ void Target::run(const char* name, const char* value) {
             }
         }
     }
-    path.FUN_001ef350();
+    ((owners::C_1ef350 *)&path)->FUN_001ef350();
 }

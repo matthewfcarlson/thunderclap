@@ -3,13 +3,12 @@
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
 #include "decls/address.h"
+#include "gen/owners.h"
 
 struct Vec3_12b910 { float x, y, z; };
 
 struct Mat_12b910 {
     float m[16];
-    void FUN_0022ca90(Mat_12b910 *src, int arg);
-    void FUN_0022c2b0(const Vec3_12b910 *in, Vec3_12b910 *out);
 };
 
 struct JointFinder_12b910 {
@@ -47,7 +46,6 @@ public:
 struct Stats_12b910 {
     char pad0[0x120];
     Skeleton_12b910 *skeleton;
-    Attach_12b910 *FUN_00035ef0(int slot);
 };
 
 struct Fighter_12b910 { char pad[4]; };
@@ -102,7 +100,7 @@ bool hulkfight::ai::ThreatBallAction::vfunc_5(hulk_intptr msg, int unused) {
         Attach_12b910 *att = 0;
         unsigned int joint = 0;
         if (slot >= 0 && slot < 8) {
-            att = stats->FUN_00035ef0(slot);
+            att = ((Attach_12b910 *)((owners::C_35ef0 *)stats)->FUN_00035ef0((hulk_intptr)slot));
             if (att != 0) skel = att->FUN_001d68d0();
         }
         if (skel != 0) {
@@ -118,12 +116,12 @@ bool hulkfight::ai::ThreatBallAction::vfunc_5(hulk_intptr msg, int unused) {
         if (skel != 0) {
             Mat_12b910 *src = skel->matrices + joint;
             if (att != 0) {
-                M.FUN_0022ca90(src, att->v15());
+                ((owners::Matrix_22ca90 *)&M)->FUN_0022ca90((const owners::Matrix_22ca90 *)(Mat_12b910 *)src, (const owners::Matrix_22ca90 *)(hulk_uintptr)(int)(att->v15()));
             } else {
                 M = *src;
             }
             Vec3_12b910 local = (*(Data_12b910 * *)&this->f_1c)->offset;
-            M.FUN_0022c2b0(&local, &world);
+            ((owners::Mat_22c2b0 *)&M)->FUN_0022c2b0((float *)(const Vec3_12b910 *)(&local), (float *)(Vec3_12b910 *)(&world));
         }
         Request_12b910 req;
         req.FUN_00067e20();

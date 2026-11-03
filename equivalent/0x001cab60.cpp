@@ -2,11 +2,9 @@
 // FUN_001cab60 @ 0x001cab60
 // cl-flags: /GS
 #include "decls/data/game/hulkfight/scenario.h"
+#include "gen/owners.h"
 
 struct Writer_1cab60 {
- bool FUN_001d2e80();
- void FUN_001d1d50(const char*, const char*);
- void FUN_001d1dd0(const char*, int);
  void FUN_001d1d10();
 };
 extern void __cdecl FUN_00096d50(char*, int, unsigned int, unsigned int);
@@ -20,20 +18,20 @@ struct Object {
 };
 bool Object::FUN_001cab60() {
  Writer_1cab60* w = FUN_001d4c90();
- if (!w || !w->FUN_001d2e80()) {
+ if (!w || !((owners::Obj_1d2e80 *)w)->FUN_001d2e80()) {
  return false;
  }
  char buffer[32];
  FUN_00096d50(buffer, 32, propLow, propHigh);
- w->FUN_001d1d50("prop", buffer);
+ ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"prop", (hulk_uintptr)buffer);
  FUN_00096d50(buffer, 32, typeLow, typeHigh);
- w->FUN_001d1d50("prop_type", buffer);
+ ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"prop_type", (hulk_uintptr)buffer);
  FUN_00096d50(buffer, 32, originLow, originHigh);
- w->FUN_001d1d50("origin", buffer);
- w->FUN_001d1d50("state_desc", state == -1 ? "unDEfiNeD - tell Zaven!" : ((const char**)&DAT_004c165c)[state]);
- w->FUN_001d1dd0("ers_increase", increase);
- w->FUN_001d1d50("prop_DANGEROUS", "prop_DANGEROUS is not defined in RELEASE!");
- w->FUN_001d1d50("prop_type_DANGEROUS", "prop_type_DANGEROUS is not defined in RELEASE!");
+ ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"origin", (hulk_uintptr)buffer);
+ ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"state_desc", (hulk_uintptr)(state == -1 ? "unDEfiNeD - tell Zaven!" : ((const char**)&DAT_004c165c)[state]));
+ ((owners::Obj_1d1dd0 *)w)->FUN_001d1dd0((hulk_intptr)"ers_increase", increase);
+ ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"prop_DANGEROUS", (hulk_uintptr)"prop_DANGEROUS is not defined in RELEASE!");
+ ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"prop_type_DANGEROUS", (hulk_uintptr)"prop_type_DANGEROUS is not defined in RELEASE!");
  w->FUN_001d1d10();
  return true;
 }

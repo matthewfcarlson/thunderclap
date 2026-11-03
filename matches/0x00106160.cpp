@@ -1,10 +1,4 @@
-class Target_106160 {
-    char pad[0x10];
-    int value;
-
-  public:
-    int Get(int index);
-};
-int Target_106160::Get(int index) {
+#include "gen/owners.h"
+hulk_intptr owners::Target_106160::FUN_00106160(int index) {
     return value + index * 0x24;
 }

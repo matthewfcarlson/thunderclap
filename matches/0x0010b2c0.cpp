@@ -2,6 +2,7 @@
 #include "decls/data/game/hulkfight/ai.h"
 
 #include "compat/ptr.h"
+#include "gen/owners.h"
 
 extern "C" void __cdecl FUN_0010b2a0();
 extern "C" void __cdecl FUN_0010b2b0();
@@ -9,7 +10,6 @@ class List_10b2c0;
 
 class ColorHolder {
   public:
-    void Set(float* c);
 };
 
 struct Context_10b2c0 {
@@ -39,13 +39,13 @@ extern "C" void __cdecl FUN_00238330(hulk_intptr a, int b);
 This_10b2c0* This_10b2c0::Build() {
     List_10b2c0* list = GetList();
     Context_10b2c0* a = new Context_10b2c0();
-    a->ch.Set(((float**)&DAT_004a1f60)[0]);
+    ((owners::Target_27b040 *)&(a->ch))->FUN_0027b040((hulk_uintptr)(((float**)&DAT_004a1f60)[0]));
     list->Add(a);
     Context_10b2c0* b = new Context_10b2c0();
-    b->ch.Set(((float**)&DAT_004a1f60)[1]);
+    ((owners::Target_27b040 *)&(b->ch))->FUN_0027b040((hulk_uintptr)(((float**)&DAT_004a1f60)[1]));
     list->Add(b);
     Context_10b2c0* c = new Context_10b2c0();
-    c->ch.Set(((float**)&DAT_004a1f60)[2]);
+    ((owners::Target_27b040 *)&(c->ch))->FUN_0027b040((hulk_uintptr)(((float**)&DAT_004a1f60)[2]));
     list->Add(c);
     FUN_00238b60(((hulk_intptr)(void (__cdecl*)())&FUN_0010b2a0), 0);
     FUN_00238330(((hulk_intptr)(void (__cdecl*)())&FUN_0010b2b0), 0);

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 341 inputs, branch coverage 21/22, incomplete)
 // FUN_0022f7e0 @ 0x0022f7e0
+#include "gen/owners.h"
 typedef unsigned int uint_22f7e0;
 struct Point_22f7e0 { float x,y,z,w; };
 struct Segment_22f7e0 {
@@ -17,7 +18,6 @@ struct Curve_22f7e0 {
  uint_22f7e0 count;
  Point_22f7e0* points;
  float* cache;
- void FUN_0022ef20(uint_22f7e0, float);
  float FUN_0022f7e0(uint_22f7e0 index);
 };
 float Curve_22f7e0::FUN_0022f7e0(uint_22f7e0 index) {
@@ -29,7 +29,7 @@ float Curve_22f7e0::FUN_0022f7e0(uint_22f7e0 index) {
   cache=(float*)FUN_0008d690(size*4);
   for(uint_22f7e0 i=0;i<size;++i) cache[i]=-1.0f;
  }
- FUN_0022ef20(0,(float)index);
+ ((owners::Obj_22ef20 *)this)->FUN_0022ef20(0, (float)index);
  uint_22f7e0 n=count;
  Point_22f7e0* p=points;
  Segment_22f7e0 segment;

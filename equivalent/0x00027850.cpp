@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 20/20)
 // FUN_00027850 @ 0x00027850
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
-struct Key_27850 { unsigned int first; unsigned int second; void FUN_0027af00(); void FUN_0027b040(const char*); };
+struct Key_27850 { unsigned int first; unsigned int second; void FUN_0027af00();  };
 extern void __cdecl FUN_00363b10();
 extern int __cdecl _atexit(void (__cdecl*)());
 struct Entry_27850 { unsigned int first, second; unsigned char enabled; char pad[7]; };
@@ -19,7 +20,7 @@ bool Object::FUN_00027850(char* destination, const char* source) {
  for(unsigned int j=0;j<words;++j) out[j]=in[j];
  char* tail=append+words*4; const char* rest=source+words*4;
  for(unsigned int k=0;k<(length&3);++k) tail[k]=rest[k];
- (*(Key_27850*)&DAT_004dc0f8).FUN_0027b040(destination);
+ ((owners::Target_27b040 *)&((*(Key_27850*)&DAT_004dc0f8)))->FUN_0027b040((hulk_uintptr)destination);
  for(int i=0;i<count;++i) { if(entries[i].first==(*(Key_27850*)&DAT_004dc0f8).first && entries[i].second==(*(Key_27850*)&DAT_004dc0f8).second) return entries[i].enabled != 0; }
  return false;
 }

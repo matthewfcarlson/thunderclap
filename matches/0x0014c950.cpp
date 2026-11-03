@@ -1,10 +1,6 @@
-class X_14c950 {
-  public:
-    bool Set(int a);
-    char pad[0x28];
-};
+#include "gen/owners.h"
 
-bool X_14c950::Set(int a) {
+bool owners::X_14c950::FUN_0014c950(int a) {
     *(int*)((char*)this + 0x28) = a;
     return true;
 }

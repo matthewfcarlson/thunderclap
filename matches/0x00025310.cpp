@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Info {
     char a[0x1b0];
     int key;
@@ -8,14 +9,13 @@ struct Item {
     void Act(int);
 };
 struct Finder {
-    Item* Find(int);
 };
 struct Root {
     char pad[0x44];
     Finder* finder;
     Item* Get(const int* id) {
         Finder* f = finder;
-        return f->Find(*id);
+        return ((Item *)((owners::ThisWrap_00059c10 *)f)->FUN_00059c10((void *)(hulk_uintptr)(int)(*id)));
     }
 };
 class Host {

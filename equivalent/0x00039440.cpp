@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 217 inputs, branch coverage 79/96, incomplete)
 // FUN_00039440 @ 0x00039440
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Fighter_39440;
 
 struct Event_39440 {
@@ -12,7 +13,6 @@ struct Event_39440 {
 struct Handle_39440 {
     char pad0[0xa0];
     void *link;
-    Event_39440 *FUN_001d72e0();
 };
 
 struct Slot_39440 {
@@ -74,7 +74,7 @@ bool Fighter_39440::FUN_00039440(Event_39440 *ev, void *out, int *result, char f
 
     for (int i = 0; i < 8; i++) {
         if (slots[i].handle != 0) {
-            if (ev == slots[i].handle->FUN_001d72e0())
+            if (ev == ((Event_39440 *)((owners::C_1d72e0 *)(slots[i].handle))->FUN_001d72e0()))
                 return false;
         }
     }
@@ -82,11 +82,11 @@ bool Fighter_39440::FUN_00039440(Event_39440 *ev, void *out, int *result, char f
     if (partner != 0) {
         if (ev == partner->heldEvent)
             return false;
-        if (partner->held != 0 && ev == partner->held->FUN_001d72e0())
+        if (partner->held != 0 && ev == ((Event_39440 *)((owners::C_1d72e0 *)(partner->held))->FUN_001d72e0()))
             return false;
         for (int i = 0; i < 8; i++) {
             Handle_39440 *h = partner->slots[i].handle;
-            if (h != 0 && ev == h->FUN_001d72e0())
+            if (h != 0 && ev == ((Event_39440 *)((owners::C_1d72e0 *)h)->FUN_001d72e0()))
                 return false;
         }
     }
@@ -94,11 +94,11 @@ bool Fighter_39440::FUN_00039440(Event_39440 *ev, void *out, int *result, char f
     if (partner2 != 0) {
         if (ev == partner2->heldEvent)
             return false;
-        if (partner2->held != 0 && ev == partner2->held->FUN_001d72e0())
+        if (partner2->held != 0 && ev == ((Event_39440 *)((owners::C_1d72e0 *)(partner2->held))->FUN_001d72e0()))
             return false;
         for (int i = 0; i < 8; i++) {
             Handle_39440 *h = partner2->slots[i].handle;
-            if (h != 0 && ev == h->FUN_001d72e0())
+            if (h != 0 && ev == ((Event_39440 *)((owners::C_1d72e0 *)h)->FUN_001d72e0()))
                 return false;
         }
     }

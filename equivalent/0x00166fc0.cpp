@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 25/26, incomplete)
 // hulkfight::motion::RayCastTargetCondition::vfunc_6 @ 0x00166fc0
 #include "decls/address.h"
+#include "gen/owners.h"
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
@@ -12,8 +13,6 @@ struct Vec3_166fc0 {
 
 struct Matrix {
     float m[16];
-    void FUN_0022c2b0(const Vec3_166fc0* in, Vec3_166fc0* out);
-    void FUN_0022c3b0(const Vec3_166fc0* in, Vec3_166fc0* out);
 };
 
 struct Skeleton {
@@ -128,9 +127,9 @@ char RayCastTargetCondition::vfunc_6(int arg0, Obj1_166fc0* target, int arg2)
         mtx = *src;
 
         tmp = offset;
-        mtx.FUN_0022c2b0(&tmp, &from);
+        ((owners::Mat_22c2b0 *)&mtx)->FUN_0022c2b0((float *)(const Vec3_166fc0 *)(&tmp), (float *)(Vec3_166fc0 *)(&from));
         tmp = direction;
-        mtx.FUN_0022c3b0(&tmp, &dir);
+        ((owners::M_22c3b0 *)&mtx)->FUN_0022c3b0((float *)(const Vec3_166fc0 *)(&tmp), (float *)(Vec3_166fc0 *)(&dir));
         dir.FUN_0022d110();
 
         float len = length;

@@ -3,6 +3,7 @@
 // equiv-map: ??0Key@@QAE@ABU0@@Z = 0x0027af30
 #include "decls/address.h"
 #include "decls/data/game/hulkfight.h"
+#include "gen/owners.h"
 struct V3_40550 {
     float x, y, z;
     bool FUN_0022d2b0(V3_40550 *other, float eps);
@@ -31,7 +32,6 @@ struct Gate_40550 {
 };
 
 struct Hud_40550 {
-    void FUN_001ebd00(const char *a, const char *b);
 };
 
 class Fighter_40550;
@@ -51,7 +51,6 @@ struct World {
 };
 
 struct Mgr_40550 {
-    V3_40550 *FUN_001c39d0();
     V3_40550 *FUN_001c39c0();
 };
 Mgr_40550 *__cdecl FUN_001c3d90();
@@ -113,7 +112,7 @@ void Fighter_40550::FUN_00040550(float dt) throw()
         b32c = 1;
     } else if (m == 3 || m == 0) {
         if (b32c != 0 && m == 3)
-            DAT_004dd700->hud->FUN_001ebd00("targetting", "lost");
+            ((owners::Owner_1ebd00 *)(DAT_004dd700->hud))->FUN_001ebd00("targetting", "lost");
         b32c = 0;
     }
     b32d = b32c;
@@ -149,7 +148,7 @@ void Fighter_40550::FUN_00040550(float dt) throw()
                 k.FUN_0027af50();
             }
         }
-        DAT_004dd700->hud->FUN_001ebd00("targetting", "switched");
+        ((owners::Owner_1ebd00 *)(DAT_004dd700->hud))->FUN_001ebd00("targetting", "switched");
         return;
     }
 
@@ -176,7 +175,7 @@ void Fighter_40550::FUN_00040550(float dt) throw()
         }
         if (!direct) {
             Mgr_40550 *mgr = FUN_001c3d90();
-            a = *mgr->FUN_001c39d0();
+            a = *((V3_40550 *)((owners::Object_1c39d0 *)mgr)->FUN_001c39d0());
             b = *mgr->FUN_001c39c0();
         }
     } else {
@@ -194,7 +193,7 @@ void Fighter_40550::FUN_00040550(float dt) throw()
     if (f328 == 0) {
         b32c = 0;
         b32d = 0;
-        DAT_004dd700->hud->FUN_001ebd00("targetting", "lost");
+        ((owners::Owner_1ebd00 *)(DAT_004dd700->hud))->FUN_001ebd00("targetting", "lost");
         return;
     }
     if (DAT_004dd700->gate->FUN_001ccff0()) {
@@ -206,5 +205,5 @@ void Fighter_40550::FUN_00040550(float dt) throw()
         s->FUN_001cbc20(&ev);
         k.FUN_0027af50();
     }
-    DAT_004dd700->hud->FUN_001ebd00("targetting", "acquired");
+    ((owners::Owner_1ebd00 *)(DAT_004dd700->hud))->FUN_001ebd00("targetting", "acquired");
 }

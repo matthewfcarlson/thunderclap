@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 212 inputs, branch coverage 64/68, incomplete)
 // FUN_00311d50 @ 0x00311d50
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" void *memset(void *, int, unsigned int);
 
 struct Z;
@@ -24,7 +25,6 @@ struct Source_311d50 {
     char pad00[8];
     SkeletonData_311d50 *data;
     X_311d50 *FUN_0030f490(int id);
-    int FUN_0030f450();
 };
 
 class Bone_311d50 {
@@ -92,7 +92,7 @@ void SkeletonBuilder::FUN_00311d50()
         FUN_00310ec0();
         return;
     }
-    capacity = source->FUN_0030f450();
+    capacity = ((owners::C_30f450 *)source)->FUN_0030f450();
     Bone_311d50 **mem = (Bone_311d50 **)FUN_0008d6d0(capacity * 4);
     table = mem;
     memset(mem, 0, capacity * 4);

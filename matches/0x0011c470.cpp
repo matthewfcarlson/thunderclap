@@ -1,16 +1,10 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" void __cdecl release(void*);
 extern "C" void* __cdecl alloc(hulk_uintptr);
 extern "C" unsigned int __cdecl strlen(const char*);
 extern "C" char* __cdecl strcpy(char*, const char*);
-class Obj {
-    char pad[0x34];
-    char* str;
-
-  public:
-    char Set(const char* s);
-};
-char Obj::Set(const char* s) {
+char owners::Obj_11c470::FUN_0011c470(const char* s) {
     release(str);
     if (!s) {
         str = (char*)s;

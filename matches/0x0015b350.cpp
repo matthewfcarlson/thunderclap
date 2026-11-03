@@ -1,11 +1,6 @@
-class C_15b350 {
-  public:
-    char pad[0x10];
-    int mValue;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool C_15b350::Set(int v) {
+bool owners::C_15b350::FUN_0015b350(int v) {
     mValue = v;
     return true;
 }

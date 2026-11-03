@@ -1,19 +1,13 @@
+#include "gen/owners.h"
 extern "C" void* memset(void*, int, unsigned int);
 struct Elem_1e11d0 {
-    void Init(int);
 };
-struct Obj_1e11d0 {
-    char pad[0x1ed68];
-    void Dec();
-    void Df();
-    void Target();
-};
-void Obj_1e11d0::Target() {
+void owners::Obj_1e11d0::FUN_001e11d0() {
     memset((char*)this + 8, 0, 0x600);
     char* s = (char*)this + 0x1ed68;
     int i;
     for (i = 0; i < 16; ++i) {
-        ((Elem_1e11d0*)(s - 8))->Init(0);
+        ((owners::Target_27b040 *)(((Elem_1e11d0*)(s - 8))))->FUN_0027b040((hulk_uintptr)0);
         *(int*)s = 0;
         *(int*)(s + 4) = 0;
         *(int*)(s + 8) = 0xff;
@@ -27,7 +21,7 @@ void Obj_1e11d0::Target() {
     int j, k;
     for (j = 0; j < 4; ++j)
         for (k = 0; k < 32; ++k) {
-            ((Elem_1e11d0*)t)->Init(0);
+            ((owners::Target_27b040 *)(((Elem_1e11d0*)t)))->FUN_0027b040((hulk_uintptr)0);
             t += 8;
         }
 }

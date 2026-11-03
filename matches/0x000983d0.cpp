@@ -2,6 +2,7 @@
 // data: gName_983d0 = DAT_0049e108
 
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" char DAT_00404b3c[];
 class CamInit {
   public:
@@ -13,7 +14,6 @@ class CamSetup {
 };
 class CamCfg {
   public:
-    void ConfigPart(const char*);
 };
 struct Blend_983d0 {
     hulk_intptr vft;
@@ -30,7 +30,7 @@ extern "C" Blend_983d0* __fastcall FUN_000983d0(Blend_983d0* self) {
     c = (CamCfg*)((char*)self + 8);
     const char* n = DAT_0049e108;
     *(int*)((char*)self + 0xd0) = 5;
-    c->ConfigPart(n);
+    ((owners::Target_27b040 *)c)->FUN_0027b040((hulk_uintptr)n);
     *(int*)p = 0;
     *(int*)((char*)self + 0x174) = 0;
     *(int*)((char*)self + 0x170) = 0;

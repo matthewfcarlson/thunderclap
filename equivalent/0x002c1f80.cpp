@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 24/28, incomplete)
 // FUN_002c1f80 @ 0x002c1f80
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" int sprintf(char *buf, const char *fmt, ...);
 extern "C" void *FUN_0008d6d0(unsigned int size);
 void FUN_0008d340(void *p);
@@ -12,7 +13,6 @@ public:
 };
 
 struct Stream {
-    void FUN_002647e0(void *dst, int count, int size, int flag);
 };
 
 struct Reader {
@@ -21,13 +21,11 @@ struct Reader {
     char FUN_002669f0();
     hulk_intptr FUN_00266a30();
     void FUN_00266be0();
-    int FUN_00266c90();
     void FUN_00266ca0(int handle);
 };
 
 struct Factory_2c1f80 {
     Ref_2c1f80 *FUN_002aecb0(char *name);
-    Ref_2c1f80 *FUN_002aed60(int handle, int arg);
 };
 
 class Sink_2c1f80 {
@@ -68,18 +66,18 @@ void *Loader_2c1f80::FUN_002c1f80(Reader *r, Factory_2c1f80 *factory, hulk_intpt
     } f;
 
     f.self = this;
-    r->stream->FUN_002647e0(&f.len, 1, 1, 1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
     int len = f.len;
-    r->stream->FUN_002647e0(f.buf1, len, 1, 1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(f.buf1), (hulk_intptr)len, 1, (hulk_intptr)1);
     f.buf1[len] = 0;
-    r->stream->FUN_002647e0(&f.v0, 1, 4, 1);
-    r->stream->FUN_002647e0(&f.v0, 1, 4, 1);
-    r->stream->FUN_002647e0(&f.v0, 1, 4, 1);
-    r->stream->FUN_002647e0(&f.count, 1, 4, 1);
-    r->stream->FUN_002647e0(&f.v0, 1, 4, 1);
-    r->stream->FUN_002647e0(&f.v0, 1, 4, 1);
-    r->stream->FUN_002647e0(&f.v0, 1, 4, 1);
-    r->stream->FUN_002647e0(&f.v0, 1, 4, 1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v0), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v0), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v0), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.count), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v0), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v0), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v0), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v0), (hulk_intptr)1, 4, (hulk_intptr)1);
 
     f.result = (void *)a3;
     f.items = (Ref_2c1f80 **)FUN_0008d6d0(f.count * 4);
@@ -92,18 +90,18 @@ void *Loader_2c1f80::FUN_002c1f80(Reader *r, Factory_2c1f80 *factory, hulk_intpt
                 while (r->FUN_002669f0() && !found) {
                     int id = r->FUN_00266a30();
                     if (id == 0x19002) {
-                        r->stream->FUN_002647e0(&f.v2, 1, 4, 1);
-                        int h = r->FUN_00266c90();
-                        Ref_2c1f80 *obj = factory->FUN_002aed60(h, f.v0);
+                        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v2), (hulk_intptr)1, 4, (hulk_intptr)1);
+                        int h = ((int)((owners::Target_266c90 *)r)->FUN_00266c90());
+                        Ref_2c1f80 *obj = ((Ref_2c1f80 *)((owners::SomeClass_2aed60 *)factory)->FUN_002aed60((void *)(hulk_uintptr)(int)h, (void *)(hulk_uintptr)(int)(f.v0)));
                         f.items[n] = obj;
                         obj->AddRef();
                         r->FUN_00266ca0(h);
                         n++;
                         found = true;
                     } else if (id == 0x19003) {
-                        r->stream->FUN_002647e0(&f.len, 1, 1, 1);
+                        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
                         int l2 = f.len;
-                        r->stream->FUN_002647e0(f.buf2, l2, 1, 1);
+                        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(f.buf2), (hulk_intptr)l2, 1, (hulk_intptr)1);
                         f.buf2[l2] = 0;
                         Ref_2c1f80 *obj = factory->FUN_002aecb0(f.buf2);
                         f.items[n] = obj;

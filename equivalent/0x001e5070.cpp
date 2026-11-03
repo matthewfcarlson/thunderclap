@@ -2,6 +2,7 @@
 // FUN_001e5070 @ 0x001e5070
 // FUN_001e5070 @ 0x001e5070: same as 0x001e5110 with the trailing flag set
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Settings_1e5070 {
     int FUN_00088fa0();
     int FUN_00088fb0();
@@ -11,7 +12,6 @@ struct Config_1e5070 {
     Settings_1e5070 settings;
 };
 struct Manager_1e5070 {
-    Config_1e5070 *FUN_00086310();
 };
 struct World {
     char pad00[0x54];
@@ -34,8 +34,8 @@ public:
 
 void CSPManager_1e5070::FUN_001e5070(unsigned kind, unsigned a, unsigned b, unsigned c, unsigned w)
 {
-    int flag = DAT_004dd700->manager->FUN_00086310()->settings.FUN_00088fa0();
-    int mode = DAT_004dd700->manager->FUN_00086310()->settings.FUN_00088fb0();
+    int flag = ((Config_1e5070 *)((owners::C_86310 *)(DAT_004dd700->manager))->FUN_00086310())->settings.FUN_00088fa0();
+    int mode = ((Config_1e5070 *)((owners::C_86310 *)(DAT_004dd700->manager))->FUN_00086310())->settings.FUN_00088fb0();
     if (flag == 0 && (mode == 1 || mode == 10)) {
         if (kind == 1 || kind == 2 || kind == 3 || kind == 4)
             return;

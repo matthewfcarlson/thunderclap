@@ -1,10 +1,5 @@
-class Thing {
-  public:
-    char pad[0x50];
-    int value;
-    char Set(int v);
-};
-char Thing::Set(int v) {
+#include "gen/owners.h"
+char owners::Thing_192940::FUN_00192940(int v) {
     value = v;
     return 1;
 }

@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 10/10)
 // physics::CollisionAnalyser::vfunc_4 @ 0x0030e320
 #include "gen/physics.h"
+#include "gen/owners.h"
 
 struct PairKey { unsigned first, firstData, second, secondData; };
 struct Entry_30e320 {
  char pad[0x84]; unsigned char active;
- void FUN_0031a380(unsigned, unsigned, unsigned, unsigned, unsigned);
  void FUN_0030d760(unsigned, void*, unsigned, unsigned, unsigned);
  void FUN_0030d7c0(unsigned, void*, unsigned, unsigned);
 };
-struct Link_30e320 { void FUN_0030d850(unsigned, unsigned, unsigned, unsigned, Entry_30e320*); };
+struct Link_30e320 {  };
 namespace physics {
 struct CollisionAnalyser_nv_30e320 {
     Entry_30e320* FUN_0030d900(PairKey*);
@@ -28,9 +28,9 @@ int physics::CollisionAnalyser::vfunc_4(int __p0, int __p1, int __p2, int __p3, 
  if (!entry) {
  entry=((CollisionAnalyser_nv_30e320*)this)->FUN_0030df50();
  unsigned flags=(((this->f_64 << 8) | this->f_60) << 8) | this->f_68;
- entry->FUN_0031a380(a,ad,b,bd,flags);
+ ((owners::Thing_31a380 *)entry)->FUN_0031a380((int)a, (int)ad, (int)b, (int)bd, (int)flags);
  Link_30e320* link=((CollisionAnalyser_nv_30e320*)this)->FUN_0030e280();
- link->FUN_0030d850(a, ad, b, bd, entry);
+ ((owners::Range_30d850 *)link)->FUN_0030d850((unsigned int)a, (unsigned int)ad, (unsigned int)b, (unsigned int)bd, (hulk_uintptr)(Entry_30e320 *)entry);
  }
  if (entry->active) entry->FUN_0030d760(x,(*(unsigned int (*)[3])&this->f_54),y,z,this->f_0c);
  else entry->FUN_0030d7c0(x,(*(unsigned int (*)[3])&this->f_54),y,z);

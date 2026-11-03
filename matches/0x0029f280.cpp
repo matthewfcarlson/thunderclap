@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Item_29f280 {
     virtual void f0();
     virtual void f1();
@@ -14,7 +15,6 @@ struct Container_29f280 {
     Item_29f280** items;
 };
 struct Receiver_29f280 {
-    void first(int);
     void second(int, Item_29f280*);
 };
 struct Obj_29f280 {
@@ -24,7 +24,7 @@ struct Obj_29f280 {
     int n;
 };
 int* __fastcall FUN_0029f280(Obj_29f280* self) {
-    self->receiver->first(self->n);
+    ((owners::A_2a1180 *)(self->receiver))->FUN_002a1180(self->n);
     for (int i = 0; i < self->n; ++i) {
         Container_29f280* c = self->container;
         Item_29f280* item = i < c->count ? c->items[i] : (Item_29f280*)0;

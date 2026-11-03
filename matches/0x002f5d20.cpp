@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class Sub_2f5d20 {
   public:
-    void helper(void*, unsigned long);
     char pad[0x34];
 };
 class PhysicsObject {
@@ -18,6 +18,6 @@ bool PhysicsObject::vfunc_25(unsigned long* out, unsigned long arg, unsigned lon
     out[0] = a;
     out[1] = b;
     out[2] = c;
-    sub.helper((char*)this + 0x158, arg);
+    ((owners::Transform_2fd020 *)&sub)->FUN_002fd020((float *)((char*)this + 0x158), (float *)(hulk_uintptr)(unsigned long)arg);
     return true;
 }

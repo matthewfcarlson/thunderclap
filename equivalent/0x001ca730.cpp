@@ -1,10 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_001ca730 @ 0x001ca730
 // cl-flags: /GS
+#include "gen/owners.h"
 struct Reporter_1ca730 {
- bool FUN_001d2e80();
- void FUN_001d1d50(const char*, const char*);
- void FUN_001d1dd0(const char*, unsigned int);
  void FUN_001d1d10();
 };
 void __cdecl FUN_00096d50(char*, unsigned int, unsigned int, unsigned int);
@@ -20,19 +18,19 @@ struct Object {
 };
 bool Object::target() {
  Reporter_1ca730* r = FUN_001d4c90();
- if (!r || !r->FUN_001d2e80()) {
+ if (!r || !((owners::Obj_1d2e80 *)r)->FUN_001d2e80()) {
  return false;
  }
  char buffer[32];
  FUN_00096d50(buffer, 32, propLo, propHi);
- r->FUN_001d1d50("prop", buffer);
+ ((owners::Thing_1d1d50 *)r)->FUN_001d1d50((hulk_uintptr)"prop", (hulk_uintptr)buffer);
  FUN_00096d50(buffer, 32, typeLo, typeHi);
- r->FUN_001d1d50("prop_type", buffer);
+ ((owners::Thing_1d1d50 *)r)->FUN_001d1d50((hulk_uintptr)"prop_type", (hulk_uintptr)buffer);
  FUN_00096d50(buffer, 32, originLo, originHi);
- r->FUN_001d1d50("origin", buffer);
- r->FUN_001d1dd0("ers_increase", increase);
- r->FUN_001d1d50("prop_DANGEROUS", "prop_DANGEROUS is not defined in RELEASE!");
- r->FUN_001d1d50("prop_type_DANGEROUS", "prop_type_DANGEROUS is not defined in RELEASE!");
+ ((owners::Thing_1d1d50 *)r)->FUN_001d1d50((hulk_uintptr)"origin", (hulk_uintptr)buffer);
+ ((owners::Obj_1d1dd0 *)r)->FUN_001d1dd0((hulk_intptr)"ers_increase", (int)increase);
+ ((owners::Thing_1d1d50 *)r)->FUN_001d1d50((hulk_uintptr)"prop_DANGEROUS", (hulk_uintptr)"prop_DANGEROUS is not defined in RELEASE!");
+ ((owners::Thing_1d1d50 *)r)->FUN_001d1d50((hulk_uintptr)"prop_type_DANGEROUS", (hulk_uintptr)"prop_type_DANGEROUS is not defined in RELEASE!");
  r->FUN_001d1d10();
  return true;
 }

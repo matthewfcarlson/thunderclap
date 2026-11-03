@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 extern "C" int strcmp(const char*, const char*);
 
 struct Obj2_b7590 {
@@ -6,7 +7,6 @@ struct Obj2_b7590 {
 };
 
 struct Inner_b7590 {
-    const char* GetState(const char* n);
     const char* GetName();
 };
 
@@ -31,7 +31,7 @@ void Menu_b7590::Func() {
     char r = 1;
     if (n) {
         if (strcmp(n, "c00m01") != 0) {
-            const char* s = mInner->GetState(n);
+            const char* s = ((const char *)((owners::Obj_8a060 *)mInner)->FUN_0008a060((hulk_intptr)n));
             if (strcmp(s, "complete") == 0)
                 r = 0;
         }

@@ -1,7 +1,4 @@
-struct T_15a9e0 {
-    char pad[0x38];
-    void* Value();
-};
-void* T_15a9e0::Value() {
+#include "gen/owners.h"
+void* owners::T_15a9e0::FUN_0015a9e0() {
     return (void*)((char*)this + 0x38);
 }

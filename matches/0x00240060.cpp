@@ -1,13 +1,9 @@
 #include "decls/data/engine/audio.h"
 // data: sentinel = DAT_004cc02c
+#include "gen/owners.h"
 
 extern "C" void freebuf(void*);
-struct Str {
-    char* data;
-    short type;
-    void release();
-};
-void Str::release() {
+void owners::Str_240060::FUN_00240060() {
     if (type == 2) {
         char* p = data;
         if (*(volatile short*)(p - 4) == 1) {

@@ -1,10 +1,4 @@
-class C_1d69b0 {
-    char pad[0x1d0];
-
-  public:
-    unsigned char value;
-    unsigned char f();
-};
-unsigned char C_1d69b0::f() {
+#include "gen/owners.h"
+unsigned char owners::C_1d69b0::FUN_001d69b0() {
     return value;
 }

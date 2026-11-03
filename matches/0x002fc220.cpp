@@ -1,7 +1,7 @@
 // physics::RootMatrixDriver::vfunc_9 @ 0x002fc220
+#include "gen/owners.h"
 struct Mat4_2fc220 {
     float m[16];
-    void FUN_0022ca90(Mat4_2fc220* a, Mat4_2fc220* b);
 };
 
 struct Joint_2fc220 {
@@ -10,7 +10,6 @@ struct Joint_2fc220 {
 
 struct Link_2fc220 {
     Joint_2fc220* FUN_0030ef30();
-    void FUN_0030ee70(Mat4_2fc220* m);
 };
 
 struct Skeleton {
@@ -44,7 +43,7 @@ void RootMatrixDriver::vfunc_9(Skeleton* skeleton)
     Frame_2fc220 f;
     Link_2fc220* link = skeleton->FUN_0030f490(0);
     f.cur = *link->FUN_0030ef30()->FUN_0030f100();
-    f.out.FUN_0022ca90(&f.cur, root);
+    ((owners::Matrix_22ca90 *)&(f.out))->FUN_0022ca90((const owners::Matrix_22ca90 *)(Mat4_2fc220 *)(&f.cur), (const owners::Matrix_22ca90 *)(Mat4_2fc220 *)root);
     f.cur = f.out;
-    link->FUN_0030ee70(&f.cur);
+    ((owners::A_30ee70 *)link)->FUN_0030ee70((hulk_intptr)(Mat4_2fc220 *)(&f.cur));
 }

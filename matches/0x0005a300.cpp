@@ -1,9 +1,5 @@
-class Obj_5a300 {
-  public:
-    char pad[0x18];
-    void* Get();
-};
+#include "gen/owners.h"
 
-void* Obj_5a300::Get() {
+void* owners::Obj_5a300::FUN_0005a300() {
     return (char*)this + 0x18;
 }

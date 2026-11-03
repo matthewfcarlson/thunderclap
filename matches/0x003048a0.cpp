@@ -1,22 +1,12 @@
 // cl-flags: /O2 /GR /GX
+#include "gen/owners.h"
 
-class Buffer_3048a0 {
-  public:
-    int mSize;
-    int mCapacity;
-    void* mData;
-    char _pad;
-    char mFlag;
-    char _pad2[2];
-
-    void Grow(int newCapacity);
-};
 
 extern "C" void* __cdecl AllocFunc(int size);
 extern "C" void __cdecl FreeFunc(void* ptr);
 extern "C" void* __cdecl memcpy(void* dst, const void* src, size_t size);
 
-void Buffer_3048a0::Grow(int newCapacity) {
+void owners::Buffer_3048a0::FUN_003048a0(int newCapacity) {
     if (newCapacity == 0)
         newCapacity = 2;
     if (mCapacity >= newCapacity)

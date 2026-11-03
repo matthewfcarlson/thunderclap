@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00294670 @ 0x00294670
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Vec3_294670 { float x, y, z; };
 struct Matrix { float m[16]; };
 
 struct Vec3Ops_294670 : Vec3_294670 {
-    void FUN_0022d240(const Vec3_294670* in, const Matrix* matrix);
 };
 
 struct Camera {
@@ -45,9 +45,9 @@ void View::Project(Vec3_294670 pos, float* out)
     if (target == 0)
         return;
     Vec3Ops_294670 local;
-    local.FUN_0022d240(&pos, (*(*(Camera***)&DAT_0052c2b0))->FUN_0028faa0());
+    ((owners::C_22d240 *)&local)->FUN_0022d240((hulk_intptr)(const Vec3_294670 *)(&pos), (hulk_intptr)(const Matrix *)((*(*(Camera***)&DAT_0052c2b0))->FUN_0028faa0()));
     if (target != 0)
-        local.FUN_0022d240(&local, target->v13());
+        ((owners::C_22d240 *)&local)->FUN_0022d240((hulk_intptr)(const Vec3_294670 *)(&local), (hulk_intptr)(const Matrix *)(target->v13()));
     FUN_002940f0(&local, &local);
     FUN_002941b0(&local, out);
 }

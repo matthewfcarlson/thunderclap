@@ -1,9 +1,5 @@
-class Obj_129f0 {
-  public:
-    char pad[0x18];
-    void* GetPtr();
-};
+#include "gen/owners.h"
 
-void* Obj_129f0::GetPtr() {
+void* owners::Obj_129f0::FUN_000129f0() {
     return (char*)this + 0x18;
 }

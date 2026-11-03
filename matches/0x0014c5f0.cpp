@@ -1,9 +1,5 @@
-class X_14c5f0 {
-  public:
-    char pad[0x10];
-    char* Get();
-};
+#include "gen/owners.h"
 
-char* X_14c5f0::Get() {
+char* owners::X_14c5f0::FUN_0014c5f0() {
     return (char*)((char*)this + 0x10);
 }

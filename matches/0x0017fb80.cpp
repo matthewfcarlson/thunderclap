@@ -1,10 +1,5 @@
-class C_17fb80 {
-  public:
-    char pad[0x58];
-    int mVal;
-    bool Set(int x);
-};
-bool C_17fb80::Set(int x) {
+#include "gen/owners.h"
+bool owners::C_17fb80::FUN_0017fb80(int x) {
     mVal = x;
     return true;
 }

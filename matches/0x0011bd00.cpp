@@ -1,11 +1,6 @@
-class Obj_11bd00 {
-  public:
-    char pad[0x30];
-    int m30;
-    bool Fn(int arg);
-};
+#include "gen/owners.h"
 
-bool Obj_11bd00::Fn(int arg) {
+bool owners::Obj_11bd00::FUN_0011bd00(int arg) {
     m30 = arg;
     return true;
 }

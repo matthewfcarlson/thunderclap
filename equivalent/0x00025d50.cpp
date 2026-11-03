@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 569 inputs, branch coverage 16/16)
 // FUN_00025d50 @ 0x00025d50
+#include "gen/owners.h"
 struct Vec_25d50 { float x,y,z; };
 struct Actor_25d50 { bool FUN_00035ab0(); int FUN_00036d00(); };
 struct Entry_25d50 { Actor_25d50* FUN_00059a30(); void FUN_00059a50(Vec_25d50*); };
-struct Manager_25d50 { Entry_25d50* FUN_00059ba0(int); Actor_25d50* FUN_00059c10(int); };
+struct Manager_25d50 { Entry_25d50* FUN_00059ba0(int);  };
 struct Owner_25d50 { char pad[0x44]; Manager_25d50* manager; };
 extern "C" double __cdecl sqrt(double);
 struct Selection_25d50 { Owner_25d50* owner; char pad[8]; int count; int ids[1]; int FUN_00025d50(float x,float y,float z); };
@@ -20,5 +21,5 @@ int Selection_25d50::FUN_00025d50(float x,float y,float z) {
   if(best<0.0f || distance<best) {best=(float)distance;selected=i;}
  }
  if(selected<0) return 0;
- return owner->manager->FUN_00059c10(ids[selected])->FUN_00036d00();
+ return ((Actor_25d50 *)((owners::ThisWrap_00059c10 *)(owner->manager))->FUN_00059c10((void *)(hulk_uintptr)(int)(ids[selected])))->FUN_00036d00();
 }

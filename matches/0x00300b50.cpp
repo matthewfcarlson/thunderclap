@@ -1,24 +1,6 @@
+#include "gen/owners.h"
 extern void __cdecl Release(void*);
-class Obj_300b50 {
-  public:
-    void Init();
-    void* p0;
-    void* q0;
-    char x[8];
-    void* p1;
-    void* q1;
-    char y[8];
-    void* p2;
-    void* q2;
-    char z[8];
-    void* p3;
-    void* q3;
-    char w[8];
-    void* p4;
-    void* q4;
-    void Run();
-};
-void Obj_300b50::Run() {
+void owners::Obj_300b50::FUN_00300b50() {
     Init();
     void* p = p4;
     q4 = p;

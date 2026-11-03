@@ -1,4 +1,5 @@
 // FUN_001f7080 @ 0x001f7080
+#include "gen/owners.h"
 struct Id64_1f7080 {
     unsigned int lo, hi;
     void FUN_0027b0e0(const char *name);
@@ -13,13 +14,7 @@ struct Fx_1f7080 {
     void FUN_0027ffb0(int handle);
 };
 Fx_1f7080 *FUN_0027f250();
-struct Weather_1f7080 {
-    char pad[0x4c];
-    char rainOn; char dustOn;
-    int hRain; int hDust;
-    char Toggle(char on);
-};
-char Weather_1f7080::Toggle(char on) {
+char owners::Weather_1f7080::FUN_001f7080(char on) {
     char was = dustOn;
     dustOn = on;
     Fx_1f7080 *fx = FUN_0027f250();

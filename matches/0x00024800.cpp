@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class Worker_24800 {
   public:
-    int DoIt(int);
 };
 
 struct Container_24800 {
@@ -27,7 +27,7 @@ int Owner_24800::func() {
         int* p = arr;
         do {
             Worker_24800* w = mCont->worker;
-            int r = w->DoIt(*p);
+            int r = ((int)((owners::ThisWrap_00059c10 *)w)->FUN_00059c10((void *)(hulk_uintptr)(int)(*p)));
             if (r != 0 && r != cmpVal)
                 ++sum;
             ++i;

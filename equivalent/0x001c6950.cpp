@@ -1,12 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 28/28)
 // FUN_001c6950 @ 0x001c6950
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
 extern char DAT_004c5368, DAT_004c534c, DAT_004c532c;
 struct Object {
  char padding[0x28]; unsigned char category;
- int FUN_002a0850();
- void FUN_002a0840(int);
  void FUN_002a0ba0(float*,float*);
 };
 extern Object* __cdecl FUN_00344e74(Object*,int,void*,void*,int);
@@ -22,11 +21,11 @@ void __stdcall FUN_001c6950(List_1c6950* list) {
  for(int i=0;i<list->count;++i) {
   if(i<list->capacity) {
    Object* object=list->objects[i];
-   if(object && object->FUN_002a0850()==0) {
+   if(object && ((int)((owners::C_2a0850 *)object)->FUN_002a0850())==0) {
     Object* first=FUN_00344e74(object,0,&DAT_004c534c,&DAT_004c5368,0);
     Object* second=FUN_00344e74(object,0,&DAT_004c534c,&DAT_004c532c,0);
     Object* selected=first?first:second;
-    if(selected) { selected->FUN_002a0840(1); selected->FUN_002a0ba0(&DAT_004e2360,&DAT_004e2354); }
+    if(selected) { ((owners::Obj_2a0840 *)selected)->FUN_002a0840(1); selected->FUN_002a0ba0(&DAT_004e2360,&DAT_004e2354); }
    }
   }
  }

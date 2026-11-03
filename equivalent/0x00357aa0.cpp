@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_00357aa0 @ 0x00357aa0
+#include "gen/owners.h"
 struct Vec3_357aa0 {
     float x, y, z;
 };
 
 struct Mat4_357aa0 {
     float m[4][4];
-    void FUN_0022c2b0(Vec3_357aa0 *in, Vec3_357aa0 *out);
 };
 
 struct Frame_357aa0 {
@@ -40,7 +40,7 @@ bool FUN_00357aa0(Vec3_357aa0 *origin, Vec3_357aa0 *half, Vec3_357aa0 *ax, Vec3_
     f.mat.m[3][2] = 0;
     f.mat.m[3][3] = 1.0f;
 
-    f.mat.FUN_0022c2b0(&f.d, &f.out);
+    ((owners::Mat_22c2b0 *)&(f.mat))->FUN_0022c2b0((float *)(Vec3_357aa0 *)(&f.d), (float *)(Vec3_357aa0 *)(&f.out));
 
     if (-half->x > f.out.x) return false;
     if (half->x < f.out.x) return false;

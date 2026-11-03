@@ -1,12 +1,7 @@
 #include "decls/data/game/global.h"
 // data: scale = DAT_003ffaa4
+#include "gen/owners.h"
 
-class Obj {
-  public:
-    char pad[24];
-    unsigned __int64 ticks;
-    double Get();
-};
-double Obj::Get() {
+double owners::Obj_86080::FUN_00086080() {
     return (double)ticks * DAT_003ffaa4;
 }

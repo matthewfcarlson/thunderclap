@@ -1,11 +1,6 @@
-class X_12b270 {
-  public:
-    char pad[0x10];
-    int mThing;
-    bool SetThing(int value);
-};
+#include "gen/owners.h"
 
-bool X_12b270::SetThing(int value) {
+bool owners::X_12b270::FUN_0012b270(int value) {
     mThing = value;
     return true;
 }

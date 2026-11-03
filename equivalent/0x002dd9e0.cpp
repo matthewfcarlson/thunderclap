@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 12/12)
 // FUN_002dd9e0 @ 0x002dd9e0
+#include "gen/owners.h"
 struct Reader {
-    void FUN_002647e0(void *dst, int a, int b, int c);
 };
 
 struct Device {
@@ -55,18 +55,18 @@ extern "C" void FUN_002dd9e0(void *dev, void *rd, void * infoArg_)
     fr.row = (unsigned char *)FUN_00266e00(1, info->width * 4);
     if (info->bpp == 0x20) {
         for (arg.count = 0; arg.count < info->height; arg.count++) {
-            ((Reader *)rd)->FUN_002647e0(fr.row, info->width, 4, 1);
+            ((owners::X_2647e0 *)(((Reader *)rd)))->FUN_002647e0((hulk_intptr)(fr.row), (hulk_intptr)(info->width), 4, (hulk_intptr)1);
             ((Device *)dev)->FUN_slot1(fr.row);
         }
     } else {
         for (fr.y = 0; fr.y < info->height; fr.y++) {
             unsigned char *p = fr.row;
             for (fr.x = info->width; fr.x != 0; fr.x--) {
-                ((Reader *)rd)->FUN_002647e0(&arg.byte, 1, 1, 1);
+                ((owners::X_2647e0 *)(((Reader *)rd)))->FUN_002647e0((hulk_intptr)(&arg.byte), (hulk_intptr)1, 1, (hulk_intptr)1);
                 p[0] = arg.byte;
-                ((Reader *)rd)->FUN_002647e0(&fr.c1, 1, 1, 1);
+                ((owners::X_2647e0 *)(((Reader *)rd)))->FUN_002647e0((hulk_intptr)(&fr.c1), (hulk_intptr)1, 1, (hulk_intptr)1);
                 p[1] = fr.c1;
-                ((Reader *)rd)->FUN_002647e0(&fr.c2, 1, 1, 1);
+                ((owners::X_2647e0 *)(((Reader *)rd)))->FUN_002647e0((hulk_intptr)(&fr.c2), (hulk_intptr)1, 1, (hulk_intptr)1);
                 p[2] = fr.c2;
                 p[3] = 0xff;
                 p += 4;

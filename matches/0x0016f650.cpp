@@ -1,11 +1,6 @@
-class Target_16f650 {
-  public:
-    char pad[0x1c];
-    int m1c;
-    char Fun(int value);
-};
+#include "gen/owners.h"
 
-char Target_16f650::Fun(int value) {
+char owners::Target_16f650::FUN_0016f650(int value) {
     m1c = value;
     return 1;
 }

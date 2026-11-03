@@ -1,10 +1,6 @@
-struct C_15aed0 {
-    char pad[0x30];
-    float m;
-    bool Convert(float deg);
-};
+#include "gen/owners.h"
 
-bool C_15aed0::Convert(float deg) {
+bool owners::C_15aed0::FUN_0015aed0(float deg) {
     m = deg * 0.0174532925f;
     return true;
 }

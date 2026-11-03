@@ -2,6 +2,7 @@
 // FUN_003010a0 @ 0x003010a0
 #include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
+#include "gen/owners.h"
 
 struct Object {
  virtual void addRef();
@@ -14,7 +15,7 @@ struct Service_3010a0 {
  virtual bool single(Object*);
 };
 struct Global_3010a0 { char pad[0x6c]; Service_3010a0* service; };
-struct Pair_3010a0 { char data[20]; Pair_3010a0* FUN_002f8ef0(Object*, Object*); };
+struct Pair_3010a0 { char data[20];  };
 struct Queue_3010a0 { void FUN_002ee0c0(Pair_3010a0*); };
 extern "C" void __cdecl FUN_00300bc0(int *, int *, int);
 struct Container_3010a0 {
@@ -41,8 +42,8 @@ void Container_3010a0::target(Object* object, unsigned flags) {
     if ((*(Global_3010a0**)&DAT_0055547c)->service->pair(object,other)) {
      unsigned char a=object->flag50;
      if (!(a && other->flag50) && (object->flag51 || !other->flag50) && (other->flag51 || !a)) {
-      if(a) { Pair_3010a0 p; queue.FUN_002ee0c0(p.FUN_002f8ef0(object,other)); }
-      else { Pair_3010a0 p; queue.FUN_002ee0c0(p.FUN_002f8ef0(other,object)); }
+      if(a) { Pair_3010a0 p; queue.FUN_002ee0c0(((Pair_3010a0 *)((owners::X_2f8ef0 *)&p)->FUN_002f8ef0((hulk_uintptr)(Object *)object, (hulk_uintptr)(Object *)other))); }
+      else { Pair_3010a0 p; queue.FUN_002ee0c0(((Pair_3010a0 *)((owners::X_2f8ef0 *)&p)->FUN_002f8ef0((hulk_uintptr)(Object *)other, (hulk_uintptr)(Object *)object))); }
      }
     }
     ++i;

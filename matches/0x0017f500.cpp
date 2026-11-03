@@ -1,10 +1,5 @@
-class A_17f500 {
-  public:
-    char pad[12];
-    char mField;
-    char Set(char p);
-};
-char A_17f500::Set(char p) {
+#include "gen/owners.h"
+char owners::A_17f500::FUN_0017f500(char p) {
     mField = p;
     return 1;
 }

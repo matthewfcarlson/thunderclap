@@ -1,8 +1,4 @@
-class C_12950 {
-  public:
-    char pad[0x40];
-    void* Get();
-};
-void* C_12950::Get() {
+#include "gen/owners.h"
+void* owners::C_12950::FUN_00012950() {
     return (char*)this + 0x40;
 }

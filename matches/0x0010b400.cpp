@@ -1,11 +1,6 @@
-class Obj_10b400 {
-  public:
-    char pad[16];
-    int m10;
-    char Fn(int value);
-};
+#include "gen/owners.h"
 
-char Obj_10b400::Fn(int value) {
+char owners::Obj_10b400::FUN_0010b400(int value) {
     m10 = value;
     return 1;
 }

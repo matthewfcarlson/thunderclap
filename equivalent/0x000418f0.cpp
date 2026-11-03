@@ -3,6 +3,7 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" double __cdecl sqrt(double);
 
 // the value a float slot holds after a store: the original reloads it (rounded) where MSVC 7.1 would reuse the
@@ -48,7 +49,6 @@ struct Cell_418f0 {
     char FUN_00204440(int c);
 };
 struct Holder_418f0 {
-    Cell_418f0 *FUN_000862a0();
 };
 struct Flt {
     float FUN_00099b70();
@@ -196,9 +196,9 @@ void Chara_418f0::FUN_000418f0(Ctx_418f0 *a1, float a2)
     Chara_418f0 *own = a1->f20->f124;
     f.b66 = 0;
     if (!(own == this || ignoreA == own || ignoreB == own)) {
-        Cell_418f0 *cell = a1->f54->FUN_000862a0();
+        Cell_418f0 *cell = ((Cell_418f0 *)((owners::Target_862a0 *)(a1->f54))->FUN_000862a0());
         int idx = cell->FUN_00204200(f.pos.x, f.pos.y, f.pos.z);
-        if (!a1->f54->FUN_000862a0()->FUN_00204440(idx))
+        if (!((Cell_418f0 *)((owners::Target_862a0 *)(a1->f54))->FUN_000862a0())->FUN_00204440(idx))
             return;
     } else {
         f.b66 = 1;

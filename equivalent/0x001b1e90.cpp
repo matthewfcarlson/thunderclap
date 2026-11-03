@@ -3,6 +3,7 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 typedef unsigned __int64 u64_1b1e90;
 
 struct V3_1b1e90 {
@@ -67,7 +68,6 @@ struct Actor_1b1e90 {
 
     int FUN_001da540(Holder_1b1e90 *h, int v, V3_1b1e90 *dir, float s);
     int FUN_001d82d0();
-    float FUN_001afb00();
     void FUN_001d6ec0(int a, int b, int c);
     char FUN_001d6a80();
     char FUN_001d7300();
@@ -86,8 +86,6 @@ struct Hit_1b1e90 {
 };
 
 struct Mon {
-    float FUN_0007a820(int i);
-    Hit_1b1e90 *FUN_0007ad00(V3_1b1e90 *p);
 };
 
 struct Fx_1b1e90 {
@@ -163,13 +161,13 @@ int Self_1b1e90::FUN_001b1e90(Holder_1b1e90 *h1, Holder_1b1e90 *h2, int arg3, in
         a5.mag = 0.0f;
         int ai = A->FUN_001d82d0();
         if (ai >= 0) {
-            if (mon->FUN_0007a820(ai) > 15.0f)
-                a5.mag = A->FUN_001afb00();
+            if (((owners::Thing_7a820 *)mon)->FUN_0007a820(ai) > 15.0f)
+                a5.mag = ((owners::Obj_1afb00 *)A)->FUN_001afb00();
         }
         int bi = B->FUN_001d82d0();
         if (bi >= 0) {
-            if (mon->FUN_0007a820(bi) > 15.0f)
-                a5.mag = B->FUN_001afb00();
+            if (((owners::Thing_7a820 *)mon)->FUN_0007a820(bi) > 15.0f)
+                a5.mag = ((owners::Obj_1afb00 *)B)->FUN_001afb00();
         }
         if (a5.mag > 0.0f) {
             int m = (int)a5.mag;
@@ -181,7 +179,7 @@ int Self_1b1e90::FUN_001b1e90(Holder_1b1e90 *h1, Holder_1b1e90 *h2, int arg3, in
     if (A->b14d != 0 || B->b14d != 0) {
         a5.mon = DAT_004dd700->f4c;
         if (A->b14d != 0 && h1->f6c == 0) {
-            Hit_1b1e90 *q = a5.mon->FUN_0007ad00(&A->v8);
+            Hit_1b1e90 *q = ((Hit_1b1e90 *)((owners::Obj_7ad00 *)(a5.mon))->FUN_0007ad00((hulk_intptr)(V3_1b1e90 *)(&A->v8)));
             if (q != 0) {
                 if (h2->v50.FUN_000111f0() > 16.0f && B->b14d == 0)
                     q->FUN_00083320(arg3, dir, arg6, 1, &h2->v50, 1);
@@ -194,7 +192,7 @@ int Self_1b1e90::FUN_001b1e90(Holder_1b1e90 *h1, Holder_1b1e90 *h2, int arg3, in
             }
         }
         if (B->b14d != 0 && h2->f6c == 0) {
-            Hit_1b1e90 *q = a5.mon->FUN_0007ad00(&B->v8);
+            Hit_1b1e90 *q = ((Hit_1b1e90 *)((owners::Obj_7ad00 *)(a5.mon))->FUN_0007ad00((hulk_intptr)(V3_1b1e90 *)(&B->v8)));
             if (q != 0) {
                 if (h1->v50.FUN_000111f0() > 16.0f && A->b14d == 0) {
                     f.n1.x = -dir->x;

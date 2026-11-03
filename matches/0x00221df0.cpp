@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 extern "C" void* memcpy(void*, const void*, unsigned int);
 class Obj_221df0;
 class Sub_221df0 {
@@ -16,7 +17,6 @@ class Obj_221df0 {
 class Tmp_221df0 {
   public:
     char data[0x40];
-    void Make(Obj_221df0*, Obj_221df0*);
 };
 void Obj_221df0::Run(Obj_221df0* other) {
     Obj_221df0* self = this;
@@ -29,7 +29,7 @@ void Obj_221df0::Run(Obj_221df0* other) {
         other->state = 0;
     }
     Tmp_221df0 tmp;
-    tmp.Make(self, other);
+    ((owners::Matrix_22ca90 *)&tmp)->FUN_0022ca90((const owners::Matrix_22ca90 *)(Obj_221df0 *)self, (const owners::Matrix_22ca90 *)(Obj_221df0 *)other);
     memcpy(self, &tmp, 0x40);
     self->state = 2;
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 13977 inputs, branch coverage 120/122, incomplete)
 // FUN_001b4d00 @ 0x001b4d00
+#include "gen/owners.h"
 extern "C" double __cdecl sqrt(double);
 extern unsigned int DAT_004dc0e0;
 extern unsigned int DAT_004dc0e4;
@@ -126,12 +127,7 @@ struct Slot {
     char FUN_001b3440(int a);
     void FUN_001b3420();
     char FUN_001b32b0(Obj *o);
-    char FUN_001b3670(V3 *v);
-    void FUN_001b32e0(Obj *o);
-    float FUN_001b3620(float d);
     Obj *FUN_001b3300();
-    float FUN_001b35d0(float d);
-    int FUN_001b3250(float d);
 };
 
 struct Vec {
@@ -192,7 +188,7 @@ void Combat::FUN_001b4d00(Ctx1f4 *ctx, int arg2)
                 posA = obj->f70->v98;
             else
                 posA = obj->v40;
-            if (!slot->FUN_001b3670(&posA)) {
+            if (!((char)((owners::Vec_1b3670 *)slot)->FUN_001b3670((const owners::Vec_1b3670 *)(V3 *)(&posA)))) {
                 if (obj->fc != 7)
                     continue;
                 Ent *E7 = obj->f8;
@@ -208,7 +204,7 @@ void Combat::FUN_001b4d00(Ctx1f4 *ctx, int arg2)
                     ((ThisCall_00080cd0*)E7)->FUN_00080cd0(&d, 0);   // ecx = obj->f8 (the civilian), not this
                 continue;
             }
-            slot->FUN_001b32e0(obj);
+            ((owners::Thing_1b32e0 *)slot)->FUN_001b32e0((hulk_intptr)(Obj *)obj);
             V3 sp = slot->pos;
             float maxDist = 32768.0f;
             Obj *el2 = vec->begin[i];
@@ -242,7 +238,7 @@ void Combat::FUN_001b4d00(Ctx1f4 *ctx, int arg2)
                 dirB.FUN_0022d110();
             }
 
-            float distF = slot->FUN_001b3620(maxDist);
+            float distF = ((owners::SampleTable_1b3620 *)slot)->FUN_001b3620(maxDist);
             if (obj->fc == 5) {
                 if (slot->fc == 4 || slot->fc == 5)
                     continue;
@@ -265,7 +261,7 @@ void Combat::FUN_001b4d00(Ctx1f4 *ctx, int arg2)
                     continue;
                 if (obj->f70 == 0)
                     continue;
-                float t = slot->FUN_001b35d0(maxDist);
+                float t = ((owners::Obj_1b35d0 *)slot)->FUN_001b35d0(maxDist);
                 if (!(t > 0.0f))
                     continue;
                 V3 dd = dirB;
@@ -300,7 +296,7 @@ void Combat::FUN_001b4d00(Ctx1f4 *ctx, int arg2)
                     hi.neg28.y = dirB.y * -1.0f;
                     hi.neg28.z = dirB.z * -1.0f;
                     hi.b90 = 1;
-                    float t = slot->FUN_001b35d0(maxDist);
+                    float t = ((owners::Obj_1b35d0 *)slot)->FUN_001b35d0(maxDist);
                     if (t <= 1e-05f)
                         hi.f7c = 1.0f;
                     E->FUN_000437a0(0, &hi, 0, 0, 1);
@@ -310,7 +306,7 @@ void Combat::FUN_001b4d00(Ctx1f4 *ctx, int arg2)
                         continue;
                     if (ctx->f20->FUN_00024300(E))
                         continue;
-                    float t = slot->FUN_001b35d0(maxDist);
+                    float t = ((owners::Obj_1b35d0 *)slot)->FUN_001b35d0(maxDist);
                     if (t <= 0.0f)
                         continue;
                     Obj *r = slot->FUN_001b3300();
@@ -325,8 +321,8 @@ void Combat::FUN_001b4d00(Ctx1f4 *ctx, int arg2)
                     E->FUN_00043ae0(0, slot, t, 0, distF, 0, 0, 1, 0);
                     if (!ctx->f20->FUN_000242d0(E))
                         continue;
-                    int rr = slot->FUN_001b3250(maxDist);
-                    if (rr == 1 || slot->FUN_001b3250(maxDist) == 0)
+                    int rr = ((owners::Object_1b3250 *)slot)->FUN_001b3250(maxDist);
+                    if (rr == 1 || ((owners::Object_1b3250 *)slot)->FUN_001b3250(maxDist) == 0)
                         ctx->f54->FUN_00086330()->FUN_000afea0(0, 90.0f, 90.0f, 0.4f);
                 }
             } else if (obj->fc == 7) {

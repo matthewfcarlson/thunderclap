@@ -1,10 +1,5 @@
-class Obj_11bf50 {
-  public:
-    char pad[0x24];
-    int mX;
-    bool SetX(int x);
-};
-bool Obj_11bf50::SetX(int x) {
+#include "gen/owners.h"
+bool owners::Obj_11bf50::FUN_0011bf50(int x) {
     mX = x;
     return true;
 }

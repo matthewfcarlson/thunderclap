@@ -1,9 +1,9 @@
+#include "gen/owners.h"
 struct Pair {
     int a, b;
 };
 struct Sub {
     int q, r;
-    void Set(int, int);
 };
 struct Obj {
     char pad0[8];
@@ -25,7 +25,7 @@ void Obj::Fn(int x, Pair* p, int y, float z) {
     other = y;
     old = z;
     if (p)
-        sub.Set(p->a, p->b);
+        ((owners::Pair_27af60 *)&sub)->FUN_0027af60(p->a, p->b);
     else
-        sub.Set(0, 0);
+        ((owners::Pair_27af60 *)&sub)->FUN_0027af60(0, 0);
 }

@@ -1,9 +1,5 @@
-struct Obj_16e720 {
-    char pad[12];
-    int m;
-    bool Set(int x);
-};
-bool Obj_16e720::Set(int x) {
+#include "gen/owners.h"
+bool owners::Obj_16e720::FUN_0016e720(int x) {
     m = x;
     return true;
 }

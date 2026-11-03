@@ -1,8 +1,4 @@
-class A_129e0 {
-  public:
-    char pad[0x10];
-    int* Get();
-};
-int* A_129e0::Get() {
+#include "gen/owners.h"
+int* owners::A_129e0::FUN_000129e0() {
     return (int*)((char*)this + 0x10);
 }

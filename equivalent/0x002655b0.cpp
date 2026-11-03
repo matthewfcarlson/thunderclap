@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 14/14)
 // FUN_002655b0 @ 0x002655b0
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class Task_2655b0 {
 public:
     virtual void v0();
@@ -23,7 +24,6 @@ public:
     Task_2655b0 **ring2End;          // 0x2c
     Task_2655b0 **ring2Base;         // 0x30
     Task_2655b0 **ring2Limit;        // 0x34
-    void FUN_00264d20();
     void FUN_002655b0();
 };
 
@@ -44,7 +44,7 @@ static hulk_intptr Ring2Count(Task_2655b0 **cur, Task_2655b0 **end, Task_2655b0 
 void TaskQueue::FUN_002655b0()
 {
     if (Ring1Count(ring1Cur, ring1End, ring1Base, ring1Limit) != 0 || busy != 0)
-        FUN_00264d20();
+        ((owners::Q_264d20 *)this)->FUN_00264d20();
     while (Ring2Count(ring2Cur, ring2End, ring2Base, ring2Limit) != 0) {
         Task_2655b0 *t = *ring2Cur;
         if (ring2End >= ring2Limit)

@@ -1,10 +1,5 @@
-class Obj_146f90 {
-  public:
-    char pad[0x40];
-    float value;
-    char Set(float deg);
-};
-char Obj_146f90::Set(float deg) {
+#include "gen/owners.h"
+char owners::Obj_146f90::FUN_00146f90(float deg) {
     value = deg * 0.01745329238474369f;
     return 1;
 }

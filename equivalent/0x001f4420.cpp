@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 4899 inputs, branch coverage 28/28)
 // FUN_001f4420 @ 0x001f4420
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Name_1f4420 {
     unsigned int lo, hi;
-    void FUN_0027b040(const char *s);
 };
 
 struct Ptr_1f4420 {
@@ -126,8 +126,8 @@ void ThisWrap_001f4420::FUN_001f4420(int arg) {
     obj->f64 = 0;
     obj->f60 = 0;
     obj->f68 = 0;
-    obj->nameA.FUN_0027b040(0);
-    obj->nameB.FUN_0027b040(0);
+    ((owners::Target_27b040 *)&(obj->nameA))->FUN_0027b040((hulk_uintptr)0);
+    ((owners::Target_27b040 *)&(obj->nameB))->FUN_0027b040((hulk_uintptr)0);
     obj->active[0] = 0;
     obj->slots[0] = 0;
     obj->active[1] = 0;

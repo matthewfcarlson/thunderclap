@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class Result {
   public:
-    char Apply(int);
 };
 class Obj {
   public:
@@ -13,5 +13,5 @@ char Obj::Run(int a, int b) {
     Result* r = Find(v);
     if (!r)
         return 0;
-    return r->Apply(b);
+    return ((char)((owners::A_36950 *)r)->FUN_00036950(b));
 }

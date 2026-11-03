@@ -1,8 +1,4 @@
-struct X_28fa30 {
-    int pad;
-    unsigned int value;
-    unsigned int Get(unsigned int arg);
-};
-unsigned int X_28fa30::Get(unsigned int arg) {
+#include "gen/owners.h"
+hulk_uintptr owners::X_28fa30::FUN_0028fa30(unsigned int arg) {
     return value;
 }

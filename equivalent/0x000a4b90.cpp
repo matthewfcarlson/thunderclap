@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 45/46, incomplete)
 // FUN_000a4b90 @ 0x000a4b90
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct V3_a4b90 {
     float x, y, z;
@@ -26,7 +27,6 @@ struct Input32c_a4b90 {
     float fc;
     float f10;
     char b14;
-    char FUN_000a2370(float dt, float *outA, float *outB, char *outC);
 };
 
 struct Frame_a4b90 {
@@ -144,7 +144,7 @@ void CChaseCamera_a4b90::Update(float unused, float dt)
         f.f18 = 600.0f;
         f488 = 0.0f;
     } else {
-        char got = in32c.FUN_000a2370(dt, &f.f20, &f.f1c, &f.b13);
+        char got = ((char)((owners::Obj_a2370 *)&in32c)->FUN_000a2370(dt, &f.f20, &f.f1c, (unsigned char *)(&f.b13)));
         if (got) {
             f.f14 = f.f20 + f478;       // the new yaw/pitch round-trip through stack temps
             f478 = f.f14;

@@ -1,9 +1,5 @@
-struct Obj_123910 {
-    char pad[0xc];
-    unsigned char m;
-    unsigned char Set(unsigned char x);
-};
-unsigned char Obj_123910::Set(unsigned char x) {
+#include "gen/owners.h"
+unsigned char owners::Obj_123910::FUN_00123910(unsigned char x) {
     m = x;
     return 1;
 }

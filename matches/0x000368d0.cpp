@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class Obj_368d0 {
   public:
     char pad[0x72];
@@ -15,7 +16,6 @@ class Result_368d0 {
 };
 class Context {
   public:
-    Result_368d0* Get();
 };
 class Thing_368d0 {
   public:
@@ -28,7 +28,7 @@ void Thing_368d0::Set(unsigned char value) {
     if (holder && holder->obj)
         holder->obj->flag = value;
     if (context) {
-        Result_368d0* b = context->Get();
+        Result_368d0* b = ((Result_368d0 *)((owners::C_1d72e0 *)context)->FUN_001d72e0());
         if (b && b->obj)
             b->obj->flag = value;
     }

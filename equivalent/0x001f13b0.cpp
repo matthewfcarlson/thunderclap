@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 14/14)
 // FUN_001f13b0 @ 0x001f13b0
+#include "gen/owners.h"
 struct Value_1f13b0 {
     unsigned int data[2];
     void FUN_0027af00();
     void FUN_0027af50();
-    void FUN_0027b040(void* value);
 };
 struct Key_1f13b0 {
     Value_1f13b0 elements[8];
@@ -37,7 +37,7 @@ void Object::FUN_001f13b0(void* value, void* source) {
             node->next = 0;
             node->value.FUN_0027af00();
         }
-        node->value.FUN_0027b040(value);
+        ((owners::Target_27b040 *)&(node->value))->FUN_0027b040((hulk_uintptr)value);
         node->next = 0;
         node->owner = bucket;
         Node* tail = bucket->first;

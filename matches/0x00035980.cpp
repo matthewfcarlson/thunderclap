@@ -1,11 +1,5 @@
-class C_35980 {
-    char pad[0x138];
-    int value;
-
-  public:
-    void f(bool x);
-};
-void C_35980::f(bool x) {
+#include "gen/owners.h"
+void owners::C_35980::FUN_00035980(bool x) {
     if (x)
         ++value;
     else

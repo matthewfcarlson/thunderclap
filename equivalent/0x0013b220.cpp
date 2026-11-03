@@ -2,6 +2,7 @@
 // hulkfight::motion::AnimationChargeAction::vfunc_5 @ 0x0013b220
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 struct Mixer_13b220 {
     char pad0[0x1e58];
@@ -13,7 +14,6 @@ struct Context_13b220 {
 };
 
 struct Manager_13b220 {
-    Context_13b220* FUN_000592a0();
 };
 
 struct Dial {
@@ -29,7 +29,7 @@ namespace motion {
 }
 bool hulkfight::motion::AnimationChargeAction::vfunc_5(hulk_intptr skip, int unused) {
     if (skip == 0) {
-        float t = (*(Manager_13b220 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30()->blend;
+        float t = ((Context_13b220 *)((owners::Object_592a0 *)((*(Manager_13b220 * *)&this->f_20)))->FUN_000592a0())->FUN_00059a30()->blend;
         if (t >= 0.0f && t <= 1.0f) {
         } else if (t > 1.0f) {
             t = 1.0f;

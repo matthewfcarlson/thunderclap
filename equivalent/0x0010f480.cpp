@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20027 inputs, branch coverage 38/38)
 // hulkfight::ai::AIHistoryNameCondition::vfunc_6 @ 0x0010f480
 #include "decls/data/game/hulkfight/ai.h"
+#include "gen/owners.h"
 
 extern "C" int atexit(void (*)());
 
@@ -9,7 +10,6 @@ struct Key_10f480 {
     unsigned hi;
     void FUN_0027af00();
     void FUN_0027af70(Key_10f480 *src);
-    void FUN_0027b040(int word);
     char FUN_0027af90(Key_10f480 *other);
 };
 
@@ -27,7 +27,7 @@ struct Holder_10f480 {
 };
 
 namespace fight {
-class Params {
+class Params_10f480 {
   public:
     virtual void v0();
     virtual void v1();
@@ -35,7 +35,7 @@ class Params {
 };
 }
 
-class CFightParams : public fight::Params {
+class CFightParams_10f480 : public fight::Params_10f480 {
   public:
     virtual void v2();
 };
@@ -47,12 +47,12 @@ class AIHistoryNameCondition {
     int name;
     float threshold;
 
-    char FUN_0010f480(int a1, fight::Params *params, int a3);
+    char FUN_0010f480(int a1, fight::Params_10f480 *params, int a3);
 };
 
-char AIHistoryNameCondition::FUN_0010f480(int a1, fight::Params *params, int a3)
+char AIHistoryNameCondition::FUN_0010f480(int a1, fight::Params_10f480 *params, int a3)
 {
-    if (dynamic_cast<CFightParams *>(params) == 0)
+    if (dynamic_cast<CFightParams_10f480 *>(params) == 0)
         return 0;
 
     Fighter_10f480 *fighter = params->FUN_000592a0()->FUN_00059a30();
@@ -71,7 +71,7 @@ char AIHistoryNameCondition::FUN_0010f480(int a1, fight::Params *params, int a3)
     }
 
     (*(Key_10f480*)&DAT_004e0c00).FUN_0027af70(&fighter->history);
-    (*(Key_10f480*)&DAT_004e0c08).FUN_0027b040(name);
+    ((owners::Target_27b040 *)&((*(Key_10f480*)&DAT_004e0c08)))->FUN_0027b040((hulk_uintptr)name);
 
     int limit = (int)(__int64)threshold;
     int count = fighter->count;

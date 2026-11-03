@@ -3,6 +3,7 @@
 #include "decls/address.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 
 struct V3_195290 {
@@ -43,9 +44,6 @@ struct Probe_195290 {
     Ent_195290 *ent128;
     void FUN_000368d0(int v);
     void FUN_00035fa0(int v);
-    Ent_195290 *FUN_00035ef0(int i);
-    bool FUN_00035c30(Shape_195290 *s);
-    void FUN_00035c70(Shape_195290 *s);
 };
 
 struct Handle_195290 {
@@ -135,7 +133,7 @@ bool FUN_00195290(V3_195290 *self, void **out2, void **out1, V3_195290 *origin, 
                         process = false;
                     } else {
                         for (int j = 0; j < 8; j++) {
-                            if (obj->FUN_00035ef0(j) == ent) {
+                            if (((Ent_195290 *)((owners::C_35ef0 *)obj)->FUN_00035ef0((hulk_intptr)j)) == ent) {
                                 process = false;
                                 break;
                             }
@@ -148,10 +146,10 @@ bool FUN_00195290(V3_195290 *self, void **out2, void **out1, V3_195290 *origin, 
             if (!process)
                 continue;
             if (obj != 0 && flag != 0) {
-                if (obj->FUN_00035c30(shape))
+                if (((owners::Thing_35c30 *)obj)->FUN_00035c30((hulk_intptr)(Shape_195290 *)shape))
                     *flagOut = 1;
                 else
-                    obj->FUN_00035c70(shape);
+                    ((owners::Queue_35c70 *)obj)->FUN_00035c70((hulk_intptr)(Shape_195290 *)shape);
             }
             if (f.rec.t > 0.0f && f.rec.t < dist) {
                 Shape_195290 *shape2 = node->shape;

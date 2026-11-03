@@ -2,6 +2,7 @@
 // FUN_00081420 @ 0x00081420
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 struct Vec3_81420 {
     float x, y, z;
@@ -10,7 +11,6 @@ struct Vec3_81420 {
 
 struct Matrix {
     char pad[0x40];
-    void FUN_0022ba70(float angle);
 };
 
 struct Clock_81420 {
@@ -132,7 +132,7 @@ void Fx_81420::FUN_00081420(Source_81420* src)
         f9c = FUN_000113e0(0, 1);
     }
 
-    m34.FUN_0022ba70(angle + f8c);
+    ((owners::Mat_22ba70 *)&m34)->FUN_0022ba70(angle + f8c);
     f20 -= (int)(__int64)src->f78;
 
     if (src->f84) {

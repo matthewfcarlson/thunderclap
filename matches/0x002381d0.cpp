@@ -1,11 +1,6 @@
-class A_2381d0 {
-  public:
-    char pad[0xc];
-    int mValue;
-    bool Fn(int v);
-};
+#include "gen/owners.h"
 
-bool A_2381d0::Fn(int v) {
+bool owners::A_2381d0::FUN_002381d0(int v) {
     mValue = v;
     return true;
 }

@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19951 inputs, branch coverage 8/8)
 // hulkfight::motion::FlyingBrakeAction::vfunc_3 @ 0x00134190
+#include "gen/owners.h"
 struct V3_134190 {
     float x, y, z;
     float FUN_0022d110();
 };
 struct Name_134190 {
     unsigned int lo, hi;
-    void FUN_0027b040(const char* s);
 };
 struct Xform_134190 {
     char data[0x54];
@@ -26,7 +26,6 @@ public:
 };
 
 struct Timing_134190 {
-    bool FUN_000356c0(V3_134190* out);
 };
 struct Skeleton {
     char pad0[0x10];
@@ -38,7 +37,6 @@ struct Clock_134190 {
     Skeleton* FUN_00059a40();
 };
 struct Target_134190 {
-    Clock_134190* FUN_000592a0();
 };
 class Config_134190 {
 public:
@@ -74,7 +72,7 @@ public:
 
 bool FlyingBrakeAction::vfunc_3(int a, int b)
 {
-    Clock_134190* clock = target->FUN_000592a0();
+    Clock_134190* clock = ((Clock_134190 *)((owners::Object_592a0 *)target)->FUN_000592a0());
     Timing_134190* timing = clock->FUN_00059a30();
     Skeleton* skel = clock->FUN_00059a40();
     if (skel == 0)
@@ -90,12 +88,12 @@ bool FlyingBrakeAction::vfunc_3(int a, int b)
     else
         d = 0;
     driver = d;
-    d->name.FUN_0027b040("flyingBrake");
+    ((owners::Target_27b040 *)&(d->name))->FUN_0027b040((hulk_uintptr)"flyingBrake");
     driver->AddRef();
     driver->enabled = 1;
     driver->xform.FUN_00221be0(&skel->xform);
     skel->FUN_00222890(driver, -1.0f, c24, 1.0f, c28, c2c, -1.0f);
-    timing->FUN_000356c0(&pos);
+    ((owners::Thing_356c0 *)timing)->FUN_000356c0((unsigned int *)(V3_134190 *)(&pos));
     float f = cfg->GetSpeed();
     if (f > 0.0f) {
         V3_134190 dir;

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 25/26, incomplete)
 // hulkfight::motion::WallJumpAction::vfunc_5 @ 0x00141040
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/owners.h"
 
 extern "C" double sqrt(double);
 
@@ -17,7 +18,6 @@ struct Plane_141040 {
 
 struct Mat4_141040 {
     float m[16];
-    void FUN_0022be40(const V3_141040 *pos);
     void FUN_00221d20(float angle);
 };
 
@@ -39,8 +39,6 @@ struct Stats_141040 {
     V3_141040 v1af8;
     char pad1b04[0x2064 - 0x1b04];
     V3_141040 v2064;
-    void FUN_000359c0(int v);
-    void FUN_000357a0(V3_141040 *v);
 };
 
 struct Clock_141040 {
@@ -49,7 +47,6 @@ struct Clock_141040 {
 };
 
 struct OwnerObj_141040 {
-    Clock_141040 *FUN_000592a0();
 };
 
 struct Driver {
@@ -124,9 +121,9 @@ bool WallJumpAction::vfunc_5(Slot_141040 a1, Slot_141040 a2)
     if (target == 0)
         return false;
 
-    f.clk = owner->FUN_000592a0();
+    f.clk = ((Clock_141040 *)((owners::Object_592a0 *)owner)->FUN_000592a0());
     Stats_141040 *st = f.clk->FUN_00059a30();
-    st->FUN_000359c0(3);
+    ((owners::C_359c0 *)st)->FUN_000359c0(3);
     f.s0 = (float)FUN_00224f10(&vel2);
     f.vcopy = st->v2064;
     f.s4 = (float)FUN_00224f10(&f.vcopy);
@@ -179,7 +176,7 @@ bool WallJumpAction::vfunc_5(Slot_141040 a1, Slot_141040 a2)
     f.v0.x = (float)(f.v0.x * u);
     f.v0.y = (float)(f.v0.y * u);
     f.v0.z = (float)(f.v0.z * u);
-    st->FUN_000357a0(&f.v0);
+    ((owners::C_357a0 *)st)->FUN_000357a0((float *)(V3_141040 *)(&f.v0));
 
     V3_141040 tv = vel2;
     f.p.x = 0.0f;
@@ -232,12 +229,12 @@ bool WallJumpAction::vfunc_5(Slot_141040 a1, Slot_141040 a2)
                 f.a.x = (float)(n.x * k);
                 f.a.y = (float)(n.y * k);
                 f.a.z = (float)(n.z * k);
-                st->FUN_000357a0(&f.a);
+                ((owners::C_357a0 *)st)->FUN_000357a0((float *)(V3_141040 *)(&f.a));
             }
         }
     }
 
-    target->xform.FUN_0022be40(&f.d);
+    ((owners::Target_22be40 *)&(target->xform))->FUN_0022be40((const int *)(const V3_141040 *)(&f.d));
     float len4 = (float)FUN_00224f10(&vel2);
     target->xform.FUN_00221d20(len4);
     return true;

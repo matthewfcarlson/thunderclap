@@ -1,9 +1,9 @@
 // FUN_0029b9d0 @ 0x0029b9d0
 #include "decls/data/engine/pure3d/prop.h"
+#include "gen/owners.h"
 
 struct Mat64 {
     int w[16];
-    void FUN_0022ca90(Mat64 *a, Mat64 *b);
 };
 
 class Counted_29b9d0 {
@@ -93,7 +93,7 @@ void Mixer::FUN_0029b9d0(Anim_29b9d0 *anim, int idx, Mat64 *m, Counted_29b9d0 *q
     if (m) {
         Entry_29b9d0 *e = &entries[cur];
         Mat64 *src = (*(*(Provider_29b9d0***)&DAT_0052c2ac))->getMatrix(0);
-        e->mat.FUN_0022ca90(m, src);
+        ((owners::Matrix_22ca90 *)&(e->mat))->FUN_0022ca90((const owners::Matrix_22ca90 *)(Mat64 *)m, (const owners::Matrix_22ca90 *)(Mat64 *)src);
     } else {
         Entry_29b9d0 *e = &entries[cur];
         Mat64 *src = (*(*(Provider_29b9d0***)&DAT_0052c2ac))->getMatrix(0);

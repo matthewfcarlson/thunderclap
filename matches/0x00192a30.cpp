@@ -1,10 +1,5 @@
-class Thing_192a30 {
-  public:
-    char pad[0x70];
-    void* field;
-    void* GetField();
-};
+#include "gen/owners.h"
 
-void* Thing_192a30::GetField() {
+void* owners::Thing_192a30::FUN_00192a30() {
     return &field;
 }

@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20011 inputs, branch coverage 8/8)
 // FUN_001a5840 @ 0x001a5840
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 struct Matrix_1a5840 {
  unsigned int data[16];
  void FUN_0022b980();
- void FUN_0022ca90(const Matrix_1a5840* a, const Matrix_1a5840* b);
 };
 struct Source_1a5840 {
  char pad[0x1c];
@@ -33,6 +33,6 @@ void hulkfight::scenario::EffectAction::FUN_001a5840(void* __p0, unsigned int a,
  Matrix_1a5840* other=(*(Transform_1a5840 * *)&this->f_28)->slot17();
  Matrix_1a5840 second;
  for(int k=0;k<16;++k) second.data[k]=other->data[k];
- output->FUN_0022ca90(&first,&second);
+ ((owners::Matrix_22ca90 *)output)->FUN_0022ca90((const owners::Matrix_22ca90 *)(const Matrix_1a5840 *)(&first), (const owners::Matrix_22ca90 *)(const Matrix_1a5840 *)(&second));
  }
 }

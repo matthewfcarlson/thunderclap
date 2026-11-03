@@ -1,10 +1,5 @@
-class C_2fd4a0 {
-  public:
-    char pad[0x70];
-    int* p;
-    void f();
-};
-void C_2fd4a0::f() {
+#include "gen/owners.h"
+void owners::C_2fd4a0::FUN_002fd4a0() {
     int* p = this->p;
     if (p) {
         p[0x44 / 4] = 0;

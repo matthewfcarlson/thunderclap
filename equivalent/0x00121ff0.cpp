@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 16/16)
 // hulkfight::ai::PathFormationAction::vfunc_3 @ 0x00121ff0
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Fighter_121ff0 { char pad[4]; };
 
 struct Holder_121ff0 {
@@ -24,7 +25,6 @@ struct Item_121ff0 {
 
 struct ResourceName_121ff0 {
     char data[8];
-    void FUN_0027b040(const char *name);
 };
 
 struct Pair_121ff0 {
@@ -134,7 +134,7 @@ bool PathFormationAction::vfunc_3(int a, int b)
             r->last = r->last + (end - r->buff);
     }
 
-    name.FUN_0027b040(owner->name);
+    ((owners::Target_27b040 *)&name)->FUN_0027b040((hulk_uintptr)(owner->name));
     Stats_121ff0 *s2 = FUN_00059a30(fighter);
     int count = owner->count;
     FUN_000678d0()->value = count;

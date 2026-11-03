@@ -1,12 +1,5 @@
-class Obj {
-  public:
-    char pad[0xf0];
-    int a;
-    int b;
-    int c;
-    char Copy(int* p);
-};
-char Obj::Copy(int* p) {
+#include "gen/owners.h"
+char owners::Obj_1935a0::FUN_001935a0(int* p) {
     a = p[0];
     b = p[1];
     c = p[2];

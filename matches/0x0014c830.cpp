@@ -1,11 +1,6 @@
-class Obj_14c830 {
-  public:
-    char Pad[0x20];
-    int Value;
-    char Fn(int arg);
-};
+#include "gen/owners.h"
 
-char Obj_14c830::Fn(int arg) {
+char owners::Obj_14c830::FUN_0014c830(int arg) {
     Value = arg;
     return 1;
 }

@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class Inner_264270 {
   public:
     virtual void f0();
@@ -13,7 +14,6 @@ class Obj_264270 {
     int mCount;
     char r[4];
     void FUN_002640f0();
-    void FUN_00264140(int, int, int);
     bool fnB(int, int, int, int);
 };
 bool Obj_264270::fnB(int a, int b, int c, int d) {
@@ -21,6 +21,6 @@ bool Obj_264270::fnB(int a, int b, int c, int d) {
     mInner->f3(a, n, d);
     mCount += n;
     FUN_002640f0();
-    FUN_00264140(a, b, c);
+    ((owners::Converter_264140 *)this)->FUN_00264140((unsigned char *)(hulk_uintptr)(int)a, (unsigned int)b, (unsigned int)c);
     return true;
 }

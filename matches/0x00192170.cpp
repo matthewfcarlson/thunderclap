@@ -1,11 +1,6 @@
-class X_192170 {
-  public:
-    char mPad[12];
-    int mField;
-    char Fn(int a);
-};
+#include "gen/owners.h"
 
-char X_192170::Fn(int a) {
+char owners::X_192170::FUN_00192170(int a) {
     mField = a;
     return 1;
 }

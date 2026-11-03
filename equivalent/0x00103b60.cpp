@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00103b60 @ 0x00103b60
+#include "gen/owners.h"
 struct COccupationAgent_103b60;
 struct Vector { float x,y,z; };
 struct Source_103b60 { void FUN_00059a50(Vector*); };
 struct View { char pad[0x10]; Source_103b60* source; };
 struct Provider_103b60 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual View* v6(); };
-struct Resource_103b60 { int FUN_00106160(int); };
+struct Resource_103b60 {  };
 struct Lookup_103b60 { Resource_103b60* FUN_00106230(const char*); };
 struct Context { char pad[0x18]; Lookup_103b60* lookup; };
 struct Manager_103b60 { void FUN_001048d0(COccupationAgent_103b60*); int FUN_00104c60(Context*,Vector*,int,int,unsigned int,int,int); };
@@ -25,6 +26,6 @@ int COccupationAgent_103b60::target(Context* context,const char* text,unsigned c
  Vector position;
  provider->v6()->source->FUN_00059a50(&position);
  if(mode) { selection=0; manager->FUN_001048d0(this); } else FUN_00103a50();
- int result=resource->FUN_00106160(selection);
+ int result=((int)((owners::Target_106160 *)resource)->FUN_00106160(selection));
  return manager->FUN_00104c60(context,&position,result,option,flag,extra,0);
 }

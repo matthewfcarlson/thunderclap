@@ -1,15 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 12/12)
 // FUN_000843c0 @ 0x000843c0
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Matrix {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022ba70(float angle);
 };
 
 struct Vec3_843c0 {
     float x, y, z;
-    void FUN_0022d260(Matrix* m);
 };
 
 struct NameHolder_843c0 {
@@ -104,15 +103,15 @@ bool Mover_843c0::FUN_000843c0(Args_843c0 args)
 
     Matrix m;
     m.FUN_0022b980();
-    m.FUN_0022ba70((float)args.sign * s);
+    ((owners::Mat_22ba70 *)&m)->FUN_0022ba70((float)args.sign * s);
 
     axis = heading;
-    axis.FUN_0022d260(&m);
+    ((owners::Obj_22d260 *)&axis)->FUN_0022d260((owners::Obj_22d260 *)(Matrix *)(&m));
 
     d.x = from.x - origin.x;
     d.y = from.y - origin.y;
     d.z = from.z - origin.z;
-    d.FUN_0022d260(&m);
+    ((owners::Obj_22d260 *)&d)->FUN_0022d260((owners::Obj_22d260 *)(Matrix *)(&m));
 
     pos.x = d.x + origin.x;
     pos.y = d.y + origin.y;

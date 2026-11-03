@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2969 inputs, branch coverage 6/6)
 // FUN_0032a320 @ 0x0032a320
 #include "decls/data/platform/xbox/pure3d.h"
+#include "gen/owners.h"
 
 typedef unsigned long DWORD;
 namespace D3D8 {
@@ -12,7 +13,6 @@ struct StageState2 {
     volatile int addrMode[4];
     char pad1[0xf4 - 0x38];
     volatile int field_f4[4];
-    void FUN_00329c90(int, int);
 };
 struct StageRegs_32a320 {
     int a, b, c;
@@ -51,5 +51,5 @@ void Stage_32a320::Set(int stage, int coord) {
         DAT_0039db10[stage].c = v;
         DAT_0039db08 |= 1 << stage;
     }
-    st->FUN_00329c90(stage, value);
+    ((owners::Obj_329c90 *)st)->FUN_00329c90(stage, value);
 }

@@ -1,4 +1,5 @@
 // FUN_00035190 @ 0x00035190
+#include "gen/owners.h"
 struct Vec3_35190 { float x, y, z; };
 
 struct Transform_35190 {
@@ -9,7 +10,6 @@ struct Transform_35190 {
 class Effect_35190 {
 public:
     void FUN_001c5e80(const Vec3_35190* position);
-    void FUN_001c5ed0(void* target);
     void FUN_001c5ef0(bool enabled);
 };
 
@@ -56,7 +56,7 @@ bool Entity::FUN_00035190(Transform_35190* t) {
     scene->FUN_002226e0(t);
     if (effect) {
         effect->FUN_001c5e80(&t->position);
-        effect->FUN_001c5ed0(effectTarget);
+        ((owners::Owner_1c5ed0 *)effect)->FUN_001c5ed0(effectTarget);
         effect->FUN_001c5ef0(mode == 3);
     }
     if (listener)

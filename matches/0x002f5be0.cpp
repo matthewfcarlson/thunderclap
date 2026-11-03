@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class BlockA {
   public:
     int m_x;
@@ -8,7 +9,6 @@ class BlockA {
 
 class BlockB {
   public:
-    void Copy(BlockA* a);
 };
 
 class PhysicsObject {
@@ -73,5 +73,5 @@ void PhysicsObject::vfunc_39() {
     p->m_data[3] = ps[3];
     p->m_data[4] = ps[4];
     p->Set(&m_58);
-    m_blockB.Copy(p);
+    ((owners::Sym3_2fd0c0 *)&m_blockB)->FUN_002fd0c0((const owners::Sym3_2fd0c0 *)(BlockA *)p);
 }

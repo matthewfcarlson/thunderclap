@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 42/42)
 // FUN_00195560 @ 0x00195560
 #include "decls/address.h"
+#include "gen/owners.h"
 struct V3_195560 {
     float x, y, z;
 };
@@ -90,7 +91,6 @@ struct Src_195560 {
 };
 
 struct List_195560 {
-    Obj_195560 *FUN_00059c10(int id);
 };
 
 struct World {
@@ -117,7 +117,7 @@ bool FUN_00195560(V3_195560 *self, Src_195560 *src, V3_195560 *b, int id, Mgr_19
 {
     Frame_195560 f;
     Obj_195560 *esi = src->obj;
-    Obj_195560 *o = DAT_004dd700->list->FUN_00059c10(id);
+    Obj_195560 *o = ((Obj_195560 *)((owners::ThisWrap_00059c10 *)(DAT_004dd700->list))->FUN_00059c10((void *)(hulk_uintptr)(int)id));
     f.o = o;
     f.same = 0;
     if (esi == 0)

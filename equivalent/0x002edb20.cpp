@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 131 inputs, branch coverage 6/6)
 // FUN_002edb20 @ 0x002edb20
+#include "gen/owners.h"
 class Handler_2edb20 {
   public:
     virtual void v0(); virtual void v1(); virtual void v2();
@@ -15,7 +16,6 @@ struct Entry_2edb20 {
     Handler_2edb20* handler;
 };
 struct Sub_2edb20 {
-    void FUN_003037e0();
 };
 class Mgr_2edb20 {
   public:
@@ -28,7 +28,7 @@ class Mgr_2edb20 {
 };
 unsigned char Mgr_2edb20::FUN_002edb20(int a, int b, int c) {
     unsigned char result = 0;
-    sub.FUN_003037e0();
+    ((owners::Obj_3037e0 *)&sub)->FUN_003037e0();
     for (unsigned int i = 0; i < (unsigned int)(end - begin); i++) {
         Handler_2edb20* h = begin[i]->handler;
         if (h->GetKind() == 4)

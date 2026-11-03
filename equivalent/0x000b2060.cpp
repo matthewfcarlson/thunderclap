@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 114 inputs, branch coverage 40/40)
 // FUN_000b2060 @ 0x000b2060
+#include "gen/owners.h"
 struct Str_b2060 {
     int cap;
     char *buf;
-    void FUN_000b1020(int n);
 };
 
 extern void __cdecl FUN_00267830(char *dst, const char *src, int n);
@@ -29,7 +29,7 @@ public:
 void Mapper_b2060::assign(Str_b2060 *s, const char *v)
 {
     if (!(s->cap > 0))
-        s->FUN_000b1020(1);
+        ((owners::StringTable_b1020 *)s)->FUN_000b1020(1);
     FUN_00267830(s->buf, v, 0x20);
     dirty = 1;
 }

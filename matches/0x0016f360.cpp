@@ -1,10 +1,6 @@
-class Obj_16f360 {
-  public:
-    char m[0xc];
-    char Set(int x);
-};
+#include "gen/owners.h"
 
-char Obj_16f360::Set(int x) {
+char owners::Obj_16f360::FUN_0016f360(int x) {
     *(int*)(m + 0xc) = x;
     return 1;
 }

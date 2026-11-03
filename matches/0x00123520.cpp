@@ -1,11 +1,6 @@
-class X_123520 {
-  public:
-    char Fn(int a);
-    char pad[0x10];
-    int m_10;
-};
+#include "gen/owners.h"
 
-char X_123520::Fn(int a) {
+char owners::X_123520::FUN_00123520(int a) {
     m_10 = a;
     return 1;
 }

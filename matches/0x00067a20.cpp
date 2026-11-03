@@ -1,11 +1,8 @@
+#include "gen/owners.h"
 struct Item_67a20 {
     void tick();
 };
-struct C_67a20 {
-    char pad[0x920];
-    void run();
-};
-void C_67a20::run() {
+void owners::C_67a20::FUN_00067a20() {
     Item_67a20* p = (Item_67a20*)((char*)this + 0x920);
     int i = 0x40;
     do {

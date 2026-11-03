@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 6/6)
 // FUN_00099470 @ 0x00099470
+#include "gen/owners.h"
 struct Scaler_99470 {
-    void FUN_00086100(float v);
 };
 
 struct Holder_99470 {
@@ -62,7 +62,7 @@ void Handler_99470::FUN_00099470(Ctx_99470 *ctx)
     if ((flags >> 4 & 1) == 0)
         return;
     flags &= ~0x10u;
-    holder->FUN_00086320()->FUN_00086100(1.0f);
+    ((owners::Thing_86100 *)(holder->FUN_00086320()))->FUN_00086100(1.0f);
     if (!FUN_001c3d90()->FUN_001c3cb0())
         ctx->status->flag = 1;
     Anim_99470 *a = ctx->actor->anim;

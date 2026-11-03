@@ -1,8 +1,8 @@
 #include "gen/global.h"
+#include "gen/owners.h"
 
 struct Manager_179b0;
 struct Ctx_179b0 {
-    Manager_179b0* f();
 };
 struct Manager_179b0 {
     Manager_179b0* g();
@@ -21,7 +21,7 @@ class X_179b0 {
 };
 
 bool CAlertStatusAction::vfunc_6(int ) {
-    Manager_179b0* p = (*(Ctx_179b0 * *)&this->f_1c)->f();
+    Manager_179b0* p = ((Manager_179b0 *)((owners::Object_592a0 *)((*(Ctx_179b0 * *)&this->f_1c)))->FUN_000592a0());
     p = p->g();
     X_179b0* x = *(X_179b0**)((char*)p + 0x1ca0);
     if (x)

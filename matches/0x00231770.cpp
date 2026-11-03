@@ -1,23 +1,10 @@
 #include "compat/ptr.h"
-class Obj_231770 {
-  public:
-    unsigned int count;
-    unsigned int remaining;
-    unsigned int found;
-    unsigned char flag;
-    unsigned char pad0[3];
-    unsigned int limit;
-    unsigned int pad14;
-    unsigned int* keys;
-    unsigned int* data;
-    void Resize();
-    int Remove(unsigned int key);
-};
-int Obj_231770::Remove(unsigned int key) {
+#include "gen/owners.h"
+int owners::Obj_231770::FUN_00231770(hulk_uintptr key) {
     int n = 0;
     unsigned int i = 0;
     while (i < count) {
-        if (keys[i] == key) {
+        if (keys[i] == ((unsigned int)key)) {
             keys[i] = (hulk_uintptr)((char*)this + 0x20);
             unsigned int* d = data;
             d[i * 2] = 0;

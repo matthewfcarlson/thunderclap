@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 17/18, incomplete)
 // hulkfight::motion::PhaseCondition::vfunc_6 @ 0x0015d0c0
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
@@ -30,7 +31,6 @@ struct Item;
 struct Track {
     char pad0[0x68];
     unsigned int count;
-    Item *FUN_00222e20(unsigned int index);
 };
 
 struct Timeline_15d0c0 {
@@ -38,7 +38,6 @@ struct Timeline_15d0c0 {
 };
 
 struct Source_15d0c0 {
-    Timeline_15d0c0 *FUN_000592a0();
 };
 
 class PhaseCondition {
@@ -59,7 +58,7 @@ bool PhaseCondition::vfunc_6(int unused1, Source_15d0c0 *source, int unused3)
 {
     if (!FUN_00344e74(source, 0, DAT_00494b44, DAT_00494b60, 0))
         return false;
-    Track *track = source->FUN_000592a0()->FUN_00059a40();
+    Track *track = ((Timeline_15d0c0 *)((owners::Object_592a0 *)source)->FUN_000592a0())->FUN_00059a40();
     if (!track)
         return false;
 
@@ -72,7 +71,7 @@ bool PhaseCondition::vfunc_6(int unused1, Source_15d0c0 *source, int unused3)
             x = zero - phase;
             break;
         }
-        Item *item = track->FUN_00222e20(i);
+        Item *item = ((Item *)((owners::C_222e20 *)track)->FUN_00222e20((unsigned)i));
         Marker_15d0c0 *m = (Marker_15d0c0 *)FUN_00344e74(item, 0, DAT_0048d534, DAT_004ac1d0, 0);
         if (m) {
             x = m->value - phase;

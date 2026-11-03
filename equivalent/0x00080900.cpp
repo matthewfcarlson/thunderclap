@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19094 inputs, branch coverage 42/42)
 // FUN_00080900 @ 0x00080900
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Vec3_80900 {
     float x, y, z;
@@ -66,7 +67,6 @@ public:
     char pad_364d[0x382c - 0x364d];
     World *world;
 
-    void FUN_00080820();
     void FUN_0007b3e0(int index);
     void FUN_0007bf80(int index);
 };
@@ -79,7 +79,7 @@ void PropList_80900::FUN_00080900(int arg)
     if (n >= 3)
         limit = limit - (int)(__int64)((double)n / DAT_0049b894 * DAT_004dd040);
     if (count < limit && pending > 0)
-        FUN_00080820();
+        ((owners::Actor_80820 *)this)->FUN_00080820();
 
     float best;
     int bestIdx;

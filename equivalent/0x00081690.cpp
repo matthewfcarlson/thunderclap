@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 40/40)
 // FUN_00081690 @ 0x00081690
 #include "decls/address.h"
+#include "gen/owners.h"
 struct V3_81690 {
     float x, y, z;
     void FUN_00023750(const V3_81690* other);
-    void FUN_00011160(float scale, const V3_81690* dir);
 };
 
 union FloatBits_81690 {
@@ -16,7 +16,6 @@ struct Matrix {
     float m[12];
     V3_81690 pos;
     float w;
-    void FUN_0022ba70(float angle);
     void FUN_0022cc90(const V3_81690* dir);
 };
 
@@ -54,7 +53,6 @@ public:
 };
 
 struct Sink_81690 {
-    void FUN_001c4d60(Matrix* m);
 };
 
 struct Slot_81690 {
@@ -150,7 +148,7 @@ void Entity::FUN_00081690(int a0, V3_81690* dir, float step, bool lock, int a4)
                     f.w.x = -dir->z;
                 }
                 fdc = m34.pos;
-                fdc.FUN_00011160(100.0f, &f.w);
+                ((owners::Vec3_11160 *)&fdc)->FUN_00011160(100.0f, (const owners::Vec3_11160 *)(const V3_81690 *)(&f.w));
             }
             break;
         case 5:
@@ -166,11 +164,11 @@ void Entity::FUN_00081690(int a0, V3_81690* dir, float step, bool lock, int a4)
             if (nearY) {
                 if (f90 < 0.0f) {
                     if (f94 > 5.0f) {
-                        m34.FUN_0022ba70(f8c + 3.1415927f);
+                        ((owners::Mat_22ba70 *)&m34)->FUN_0022ba70(f8c + 3.1415927f);
                         flags = flags | 2;
                         state = 0xb;
                     } else if (f94 > 3.0f) {
-                        m34.FUN_0022ba70(f8c + 3.1415927f);
+                        ((owners::Mat_22ba70 *)&m34)->FUN_0022ba70(f8c + 3.1415927f);
                         flags = flags | 2;
                         state = 0xf;
                     } else {
@@ -216,6 +214,6 @@ void Entity::FUN_00081690(int a0, V3_81690* dir, float step, bool lock, int a4)
         m34.pos.z = step * dir->z + m34.pos.z;
     }
     f100->v6(&m34, 0);
-    fec->FUN_001c4d60(&m34);
+    ((owners::X_1c4d60 *)fec)->FUN_001c4d60((unsigned int *)(Matrix *)(&m34));
     *fe8->v11()->mat = m34;
 }

@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct EventSource {
     char pad[0xfc];
     int kind;
@@ -15,15 +16,12 @@ struct Actor_15a40 {
     Position_15a40 position;
     char pad1[0x334 - 0xdc - 12];
     int busy;
-    int FUN_00036020();
-    int FUN_00035ef0(int);
     void FUN_0003a9d0(Event_15a40*);
 };
 struct Intermediate_15a40 {
     Actor_15a40* FUN_00059a30();
 };
 struct Owner_15a40 {
-    Intermediate_15a40* FUN_000592a0();
     void FUN_00059790(Event_15a40*);
 };
 struct Effect_15a40 {
@@ -56,8 +54,8 @@ struct Target_15a40 {
 void Target_15a40::run(Event_15a40* event, int, int) {
     if (done || event->kind != 5 || !event->source || event->source->kind == 2 || event->source->kind == 3)
         return;
-    Actor_15a40* actor = owner->FUN_000592a0()->FUN_00059a30();
-    if (actor->FUN_00036020() || actor->busy || actor->FUN_00035ef0(0))
+    Actor_15a40* actor = ((Intermediate_15a40 *)((owners::Object_592a0 *)owner)->FUN_000592a0())->FUN_00059a30();
+    if (((int)((owners::Thing_36020 *)actor)->FUN_00036020()) || actor->busy || ((int)((owners::C_35ef0 *)actor)->FUN_00035ef0((hulk_intptr)0)))
         return;
     int previous = FUN_00266da0(13);
     actor->FUN_0003a9d0(event);

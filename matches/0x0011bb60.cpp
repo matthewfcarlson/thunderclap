@@ -1,11 +1,6 @@
-class X_11bb60 {
-  public:
-    char pad[0x28];
-    int value;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool X_11bb60::Set(int v) {
+bool owners::X_11bb60::FUN_0011bb60(int v) {
     value = v;
     return true;
 }

@@ -1,9 +1,9 @@
 #include "decls/data/game/global.h"
 // data: globalV = DAT_004dcf00, zero = DAT_003f335c
+#include "gen/owners.h"
 
 struct V {
     int value;
-    void set(const float*);
 };
 struct Elem {
     int a, b, c, d, e;
@@ -18,7 +18,7 @@ struct X {
     void run();
 };
 void X::run() {
-    (*(V*)&DAT_004dcf00).set(&DAT_003f335c);
+    ((owners::Target_27b040 *)&((*(V*)&DAT_004dcf00)))->FUN_0027b040((hulk_uintptr)(&DAT_003f335c));
     int* p = first;
     volatile int* q = &elems[0].c;
     int n = 64;
@@ -29,7 +29,7 @@ void X::run() {
         q[0] = 0;
         q[-1] = 0;
         q[2] = 0;
-        ((V*)(q + 4))->set(&DAT_003f335c);
+        ((owners::Target_27b040 *)(((V*)(q + 4))))->FUN_0027b040((hulk_uintptr)(&DAT_003f335c));
         ++p;
         q += 8;
     } while (--n);

@@ -1,7 +1,6 @@
+#include "gen/owners.h"
 class Writer_1cafd0 {
   public:
-    bool Open();
-    void Put(const char* k, const void* v);
     void Close();
 };
 class Mgr_1cafd0 {
@@ -14,7 +13,6 @@ class Info_1cafd0 {
 };
 class Look_1cafd0 {
   public:
-    Info_1cafd0* Find(int id);
 };
 struct G_1cafd0 {
     char pad[0x44];
@@ -22,20 +20,13 @@ struct G_1cafd0 {
 };
 extern G_1cafd0* g_game_1cafd0;
 Writer_1cafd0* GetWriter();
-class Actor_1cafd0 {
-  public:
-    char pad[0x10];
-    int mId;
-    char mName[4];
-    bool Save();
-};
-bool Actor_1cafd0::Save() {
+bool owners::Actor_1cafd0::FUN_001cafd0() {
     Writer_1cafd0* w = GetWriter();
     if (!w)
         return false;
-    if (!w->Open())
+    if (!((owners::Obj_1d2e80 *)w)->FUN_001d2e80())
         return false;
-    w->Put("tv", &mName);
+    ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"tv", (hulk_uintptr)(&mName));
     G_1cafd0* g = g_game_1cafd0;
     int id = mId;
     if (!g) {
@@ -43,11 +34,11 @@ bool Actor_1cafd0::Save() {
         return false;
     }
     Look_1cafd0* l = g->look;
-    Info_1cafd0* i = l->Find(id);
+    Info_1cafd0* i = ((Info_1cafd0 *)((owners::ThisWrap_00059c10 *)l)->FUN_00059c10((void *)(hulk_uintptr)(int)id));
     if (i)
-        w->Put("actor", i->Name());
+        ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"actor", (hulk_uintptr)(i->Name()));
     else
-        w->Put("actor", "UNKNOWN");
+        ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"actor", (hulk_uintptr)"UNKNOWN");
     w->Close();
     return true;
 }

@@ -1,11 +1,6 @@
-class C_15b030 {
-  public:
-    char pad[0x58];
-    float mDeg;
-    bool Fn(float x);
-};
+#include "gen/owners.h"
 
-bool C_15b030::Fn(float x) {
+bool owners::C_15b030::FUN_0015b030(float x) {
     mDeg = x * 0.017453292f;
     return true;
 }

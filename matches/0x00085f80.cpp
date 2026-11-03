@@ -1,12 +1,7 @@
 #include "decls/data/game/global.h"
 // data: scale = DAT_003ffaa4
+#include "gen/owners.h"
 
-class Counter {
-  public:
-    char pad[0x20];
-    unsigned __int64 value;
-    double Get();
-};
-double Counter::Get() {
+double owners::Counter_85f80::FUN_00085f80() {
     return (double)value * DAT_003ffaa4;
 }

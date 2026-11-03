@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 13/14, incomplete)
 // FUN_0007c930 @ 0x0007c930
+#include "gen/owners.h"
 struct V3_7c930 {
     float x, y, z;
     void FUN_0022d180();
 };
 struct Mat_7c930 {
     float m[16];
-    void FUN_0022c3b0(V3_7c930* in, V3_7c930* out);
 };
 struct Body_7c930 {
     char pad0[0x34];
@@ -39,7 +39,7 @@ bool Group_7c930::FUN_0007c930(V3_7c930 pos, int skip)
         axis.x = -1.0f;
         axis.y = 0.0f;
         axis.z = 0.0f;
-        basis.FUN_0022c3b0(&axis, &ref);
+        ((owners::M_22c3b0 *)&basis)->FUN_0022c3b0((float *)(V3_7c930 *)(&axis), (float *)(V3_7c930 *)(&ref));
     }
     for (int i = 0; i < count; i++) {
         if (i == skip)

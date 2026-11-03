@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3023 inputs, branch coverage 14/14)
 // FUN_0009bb50 @ 0x0009bb50
+#include "gen/owners.h"
 class Camera {
 public:
     int FUN_001c3970(int v);
-    void FUN_001c38b0(float a, float b);
-    void FUN_001c3910(float a, float b);
 };
 
 class View {
@@ -100,6 +99,6 @@ void CCameraManager_9bb50::FUN_0009bb50(int a, int b)
     cam->FUN_001c3970(view->vf14());
     float x, y;
     view->vf6(&x, &y);
-    cam->FUN_001c38b0(x, y);
-    cam->FUN_001c3910(view->vf8(), view->vf10());
+    ((owners::Obj_1c38b0 *)cam)->FUN_001c38b0(x, y);
+    ((owners::Obj_1c3910 *)cam)->FUN_001c3910(view->vf8(), view->vf10());
 }

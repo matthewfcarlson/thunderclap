@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3029 inputs, branch coverage 68/68)
 // FUN_0002ab40 @ 0x0002ab40
 // FUN_0002ab40 @ 0x0002ab40
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 
 struct Vec3_2ab40 {
@@ -10,7 +11,6 @@ struct Vec3_2ab40 {
 
 class Selector_2ab40 {
 public:
-    int FUN_000fdc80();
     int FUN_000fdc40();
     char pad0[0xe8];
     char armed;
@@ -23,7 +23,6 @@ public:
     void FUN_0003b7d0(int a0, float v);
     void FUN_00040970(int a0, float v);
     void FUN_0003e2a0(int a0, Vec3_2ab40 dir, int a1, float v, unsigned int flags);
-    void FUN_00042930(int a0, float v);
     int FUN_00035660(Vec3_2ab40 *out);
 
     char pad0[0x1ca0];
@@ -41,7 +40,6 @@ public:
 
 class Lookup_2ab40 {
 public:
-    Agent_2ab40 *FUN_00059c10(int id);
 };
 
 struct Registry_2ab40 {
@@ -72,27 +70,27 @@ void AgentSet::FUN_0002ab40(int a0, int a1)
     FUN_00025ff0(a0, a1);
     for (int i = 0; i < count; i++) {
         if ((flags[i] & 1) || modes[i] != 0) {
-            Agent_2ab40 *agent = registry->lookup->FUN_00059c10(ids[i]);
+            Agent_2ab40 *agent = ((Agent_2ab40 *)((owners::ThisWrap_00059c10 *)(registry->lookup))->FUN_00059c10((void *)(hulk_uintptr)(int)(ids[i])));
             if (agent)
                 agent->FUN_000363f0(a0, args[i]);
         }
     }
     for (int i = 0; i < count; i++) {
         if ((flags[i] & 1) || modes[i] != 0) {
-            Agent_2ab40 *agent = registry->lookup->FUN_00059c10(ids[i]);
+            Agent_2ab40 *agent = ((Agent_2ab40 *)((owners::ThisWrap_00059c10 *)(registry->lookup))->FUN_00059c10((void *)(hulk_uintptr)(int)(ids[i])));
             if (agent)
                 agent->FUN_00036430(a0, args[i]);
         }
     }
     for (int i = 0; i < count; i++) {
         if ((flags[i] & 1) || modes[i] != 0) {
-            Agent_2ab40 *agent = registry->lookup->FUN_00059c10(ids[i]);
+            Agent_2ab40 *agent = ((Agent_2ab40 *)((owners::ThisWrap_00059c10 *)(registry->lookup))->FUN_00059c10((void *)(hulk_uintptr)(int)(ids[i])));
             if (agent)
                 agent->FUN_0003b7d0(a0, args[i]);
         }
     }
     for (int i = 0; i < count; i++) {
-        Agent_2ab40 *agent = registry->lookup->FUN_00059c10(ids[i]);
+        Agent_2ab40 *agent = ((Agent_2ab40 *)((owners::ThisWrap_00059c10 *)(registry->lookup))->FUN_00059c10((void *)(hulk_uintptr)(int)(ids[i])));
         if ((flags[i] & 1) && modes[i] == 0) {
             if (agent)
                 agent->FUN_00040970(a0, args[i]);
@@ -113,7 +111,7 @@ void AgentSet::FUN_0002ab40(int a0, int a1)
                 Selector_2ab40 *sel = agent->selector;
                 if (sel) {
                     char armed = sel->armed;
-                    int current = sel->FUN_000fdc80();
+                    int current = ((owners::C_fdc80 *)sel)->FUN_000fdc80();
                     int found = sel->FUN_000fdc40();
                     if (agent->forced || (current != 0 && current == found && armed)) {
                         // x uses the unrounded product, y and z the value rounded to float.
@@ -130,9 +128,9 @@ void AgentSet::FUN_0002ab40(int a0, int a1)
     }
     for (int i = 0; i < count; i++) {
         if ((flags[i] & 1) && modes[i] == 0) {
-            Agent_2ab40 *agent = registry->lookup->FUN_00059c10(ids[i]);
+            Agent_2ab40 *agent = ((Agent_2ab40 *)((owners::ThisWrap_00059c10 *)(registry->lookup))->FUN_00059c10((void *)(hulk_uintptr)(int)(ids[i])));
             if (agent)
-                agent->FUN_00042930(a0, args[i]);
+                ((owners::C_42930 *)agent)->FUN_00042930(a0, args[i]);
         }
     }
 }

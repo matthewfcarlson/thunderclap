@@ -2,6 +2,7 @@
 // CGrappleInvincibleTrack::vfunc_12 @ 0x0005b280
 #include "compat/ptr.h"
 #include "gen/global.h"
+#include "gen/owners.h"
 
 void *FUN_0008d690(unsigned int size);
 
@@ -19,7 +20,6 @@ struct Link2_5b280 {
     Body_5b280 *FUN_00059a30();
 };
 struct Link1_5b280 {
-    Link2_5b280 *FUN_000592a0();
 };
 struct CInvincibleAction_5b280 {
     void *FUN_0001f4e0(Weapon *weapon, int value);
@@ -29,7 +29,7 @@ hulk_intptr CGrappleInvincibleTrack::vfunc_12(hulk_intptr __p0) { Link1_5b280 * 
 
     if (owner == 0)
         return (int)(0);
-    Link2_5b280 *l2 = owner->FUN_000592a0();
+    Link2_5b280 *l2 = ((Link2_5b280 *)((owners::Object_592a0 *)owner)->FUN_000592a0());
     if (l2 == 0)
         return (int)(0);
     Body_5b280 *body = l2->FUN_00059a30();

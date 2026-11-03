@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class SubObj_caf10 {
   public:
-    void Helper(int arg);
 };
 
 class Obj_caf10 {
@@ -12,5 +12,5 @@ class Obj_caf10 {
 
 void Obj_caf10::Target(int arg) {
     if (mThing)
-        mThing->Helper(arg);
+        ((owners::C_c7ae0 *)mThing)->FUN_000c7ae0(arg);
 }

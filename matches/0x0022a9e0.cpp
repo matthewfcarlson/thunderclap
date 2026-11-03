@@ -1,12 +1,6 @@
-struct Thing_22a9e0 {
-    char pad[0x20];
-    int a;
-    int b;
-    Thing_22a9e0* CopyFrom(Thing_22a9e0*);
-    Thing_22a9e0* FUN_00222460(Thing_22a9e0*);
-};
+#include "gen/owners.h"
 
-Thing_22a9e0* Thing_22a9e0::CopyFrom(Thing_22a9e0* other) {
+owners::Thing_22a9e0* owners::Thing_22a9e0::FUN_0022a9e0(owners::Thing_22a9e0* other) {
     FUN_00222460(other);
     a = other->a;
     b = other->b;

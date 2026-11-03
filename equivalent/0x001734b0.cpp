@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3104 inputs, branch coverage 65/68, incomplete)
 // hulkfight::motion::JointTrackerAction::vfunc_5 @ 0x001734b0
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/owners.h"
 extern "C" int __cdecl _isnan(double);
 extern "C" double fabs(double);
 struct V3_1734b0 {
@@ -12,10 +13,7 @@ struct Mat_1734b0 {
     float m[16];
     void FUN_0022b980();
     void FUN_0022baf0(const V3_1734b0*, float);
-    void FUN_0022c3b0(const V3_1734b0*, V3_1734b0*);
-    void FUN_0022ca90(Mat_1734b0*, Mat_1734b0*);
     void FUN_0022bec0(const V3_1734b0*, const V3_1734b0*);
-    void FUN_0022c0b0();
 };
 struct A24;
 struct Part8 {
@@ -23,7 +21,6 @@ struct Part8 {
     void FUN_00035020(V3_1734b0*);
 };
 struct Obj2c {
-    void FUN_0022c2b0(float*, V3_1734b0*);
 };
 struct Obj11c_1734b0 {
     virtual void v0();
@@ -92,7 +89,6 @@ struct XObj_1734b0 {
     ZObj* FUN_00059a40();
 };
 struct F20_1734b0 {
-    XObj_1734b0* FUN_000592a0();
 };
 struct Sub18_1734b0 {
     void FUN_00221c60(Mat_1734b0*);
@@ -155,7 +151,7 @@ bool JointTrackerAction::v5(int phase, float dt) {
     TrackerWork w;
     if (phase)
         return true;
-    XObj_1734b0* actor = p20->FUN_000592a0();
+    XObj_1734b0* actor = ((XObj_1734b0 *)((owners::Object_592a0 *)p20)->FUN_000592a0());
     YObj_1734b0* tracker = actor->FUN_00059a30();
     w.tracker = tracker;
     ZObj* controller = actor->FUN_00059a40();
@@ -219,7 +215,7 @@ bool JointTrackerAction::v5(int phase, float dt) {
                             w.rotationAxis.y = *(float*)(data + 0x30);
                             w.rotationAxis.z = *(float*)(data + 0x34);
                             w.axisPadding = *(float*)(data + 0x38);
-                            body->v15()->FUN_0022c2b0((float*)&w.rotationAxis, &w.target);
+                            ((owners::Mat_22c2b0 *)(body->v15()))->FUN_0022c2b0((float*)&w.rotationAxis, (float *)(V3_1734b0 *)(&w.target));
                         }
                     }
                 }
@@ -248,7 +244,7 @@ bool JointTrackerAction::v5(int phase, float dt) {
             w.direction.FUN_0022d110();
         }
     }
-    w.joint.FUN_0022c3b0(&v28, &w.forward);
+    ((owners::M_22c3b0 *)&(w.joint))->FUN_0022c3b0((float *)(const V3_1734b0 *)(&v28), (float *)(V3_1734b0 *)(&w.forward));
     w.step = p1c->f38;
     if (w.step <= 0.0f)
         w.aim = w.direction;
@@ -268,7 +264,7 @@ bool JointTrackerAction::v5(int phase, float dt) {
         else {
             w.rotationAxis.FUN_000111b0(&w.direction, &w.forward);
             w.rotation.FUN_0022baf0(&w.rotationAxis, w.step);
-            w.rotation.FUN_0022c3b0(&w.forward, &w.aim);
+            ((owners::M_22c3b0 *)&(w.rotation))->FUN_0022c3b0((float *)(const V3_1734b0 *)(&w.forward), (float *)(V3_1734b0 *)(&w.aim));
         }
     }
     float pitch = FUN_000189c0(w.aim.y);
@@ -282,7 +278,7 @@ bool JointTrackerAction::v5(int phase, float dt) {
         w.jointPosition.y = 0.0f;
         w.rotation.FUN_0022baf0(&w.jointPosition, w.step - w.temporary);
         w.rotationAxis = w.aim;
-        w.rotation.FUN_0022c3b0(&w.rotationAxis, &w.aim);
+        ((owners::M_22c3b0 *)&(w.rotation))->FUN_0022c3b0((float *)(const V3_1734b0 *)(&w.rotationAxis), (float *)(V3_1734b0 *)(&w.aim));
     } else if (w.temporary > w.setting.scalar) {
         w.rotation.FUN_0022b980();
         w.rotationAxis.z = -w.aim.x;
@@ -290,7 +286,7 @@ bool JointTrackerAction::v5(int phase, float dt) {
         w.rotationAxis.y = 0.0f;
         w.rotation.FUN_0022baf0(&w.rotationAxis, w.setting.scalar - w.temporary);
         w.jointPosition = w.aim;
-        w.rotation.FUN_0022c3b0(&w.jointPosition, &w.aim);
+        ((owners::M_22c3b0 *)&(w.rotation))->FUN_0022c3b0((float *)(const V3_1734b0 *)(&w.jointPosition), (float *)(V3_1734b0 *)(&w.aim));
     }
     w.setting.scalar = FUN_00224ea0(w.aim.x, w.aim.z);
     w.temporary = tracker->FUN_000354c0();
@@ -317,13 +313,13 @@ bool JointTrackerAction::v5(int phase, float dt) {
     w.rotationAxis.y = 1.0f;
     w.rotationAxis.z = 0.0f;
     w.orientation.FUN_0022bec0(&w.aim, &w.rotationAxis);
-    w.combined.FUN_0022ca90(&m34, &w.orientation);
+    ((owners::Matrix_22ca90 *)&(w.combined))->FUN_0022ca90((const owners::Matrix_22ca90 *)(Mat_1734b0 *)(&m34), (const owners::Matrix_22ca90 *)(Mat_1734b0 *)(&w.orientation));
     w.parent = w.skeleton->f1c[w.skeleton->f8->f28[w.jointIndex]];
     w.parent.m[14] = 0.0f;
     w.parent.m[13] = 0.0f;
     w.parent.m[12] = 0.0f;
-    w.parent.FUN_0022c0b0();
-    w.result.FUN_0022ca90(&w.combined, &w.parent);
+    ((owners::M_22c0b0 *)&(w.parent))->FUN_0022c0b0();
+    ((owners::Matrix_22ca90 *)&(w.result))->FUN_0022ca90((const owners::Matrix_22ca90 *)(Mat_1734b0 *)(&w.combined), (const owners::Matrix_22ca90 *)(Mat_1734b0 *)(&w.parent));
     p24->sub18.FUN_00221c60(&w.result);
     w.controller->FUN_00222890(p24, -1.0f, p1c->f5c, 1.0f, p1c->f60, p1c->f64, -1.0f);
     return true;

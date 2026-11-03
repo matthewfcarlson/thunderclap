@@ -1,11 +1,5 @@
 // Same code shape as 0x001fb9b0 (propagated; names are from that function)
-class C_304740 {
-    char pad[0x1c];
-    int value;
-
-  public:
-    void Set(int x);
-};
-void C_304740::Set(int x) {
-    value = x;
+#include "gen/owners.h"
+void owners::C_304740::FUN_00304740(hulk_intptr x) {
+    value = ((int)x);
 }

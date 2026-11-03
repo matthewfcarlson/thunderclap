@@ -1,10 +1,9 @@
 // FUN_001ec060 @ 0x001ec060
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct StringList_1ec060 {
     char data[0x48];
-    void FUN_001ef320();
-    void FUN_001ef350();
     void FUN_001ef370(const char *s);
 };
 
@@ -38,10 +37,10 @@ void __stdcall FUN_001ec060(Entity *entity, int name)
         return;
 
     StringList_1ec060 path;
-    path.FUN_001ef320();
+    ((owners::Obj_1ef320 *)&path)->FUN_001ef320();
     path.FUN_001ef370("Objects");
     path.FUN_001ef370("FE");
     if ((*(EventConfig_1ec060**)&DAT_004e36d8)->enabled)
         (*(EventConfig_1ec060**)&DAT_004e36d8)->sink->FUN_001efe20(&path, entity->pos, name, 100.0f);
-    path.FUN_001ef350();
+    ((owners::C_1ef350 *)&path)->FUN_001ef350();
 }

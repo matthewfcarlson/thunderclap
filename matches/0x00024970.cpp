@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Obj_24970 {
     char pad[0x20a8];
     int a;
@@ -5,7 +6,6 @@ struct Obj_24970 {
 };
 class Context {
   public:
-    Obj_24970* Find(int);
 };
 class Manager_24970 {
   public:
@@ -43,7 +43,7 @@ bool Thing_24970::Set(int value) {
     int n = count;
     for (int i = 0; i < n; ++i) {
         Context* c = mgr->ctx;
-        Obj_24970* o = c->Find(items[i]);
+        Obj_24970* o = ((Obj_24970 *)((owners::ThisWrap_00059c10 *)c)->FUN_00059c10((void *)(hulk_uintptr)(int)(items[i])));
         if (o) {
             o->b = o->a;
             o->a = value;

@@ -1,4 +1,5 @@
 #include "gen/global.h"
+#include "gen/owners.h"
 struct A_1d4530 {
     char pad[8];
 };
@@ -10,7 +11,6 @@ struct ScriptHandler_nv_1d4530 {
     void Run();
 };
 struct H {
-    R_1d4530* First();
 };
 struct T_1d4530 {
     char pad[12];
@@ -26,7 +26,7 @@ void __fastcall target(ScriptHandler* self) {
         (*(unsigned char *)&self->f_1064) = 1;
         ((ScriptHandler_nv_1d4530*)(self))->Init((A_1d4530*)((char*)self + 8));
         ((ScriptHandler_nv_1d4530*)(self))->Run();
-        g1_1d4530->First()->Middle();
+        ((R_1d4530 *)((owners::A_86340 *)g1_1d4530)->FUN_00086340())->Middle();
         ((End_1d4530*)g2_1d4530->r)->Finish();
     }
 }

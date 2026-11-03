@@ -1,9 +1,4 @@
-class Obj_f72c0 {
-  public:
-    char pad[0x18];
-    unsigned long* data;
-    unsigned long long Get(int index);
-};
-unsigned long long Obj_f72c0::Get(int index) {
+#include "gen/owners.h"
+unsigned long long owners::Obj_f72c0::FUN_000f72c0(int index) {
     return ((unsigned long long*)data)[index];
 }

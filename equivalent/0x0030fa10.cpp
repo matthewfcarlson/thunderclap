@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 110 inputs, branch coverage 30/30)
 // FUN_0030fa10 @ 0x0030fa10
+#include "gen/owners.h"
 struct Mat;
 
 struct Elem_30fa10 {
@@ -10,8 +11,6 @@ struct Elem_30fa10 {
     char pad10[0xc0 - 0x10];
     void FUN_0030ebd0();
     void FUN_0030edc0(void *m);
-    void FUN_0030ec20(int depth);
-    void FUN_0030ec70(Elem_30fa10 *child);
 };
 
 class Skeleton {
@@ -29,7 +28,6 @@ struct Source_30fa10 {
     Skeleton *skeleton;
     char pad0c[8];
     char *data;
-    void FUN_00284820(int flag);
 };
 
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
@@ -59,7 +57,7 @@ public:
 void Pose::FUN_0030fa10(Source_30fa10 *src)
 {
     Frame_30fa10 f;
-    src->FUN_00284820(0);
+    ((owners::C_284820 *)src)->FUN_00284820((hulk_intptr)0);
     Skeleton *sk = src->skeleton;
     if (sk == skeleton) {
         unsigned int n = 0;
@@ -110,11 +108,11 @@ void Pose::FUN_0030fa10(Source_30fa10 *src)
         elems[i].index = i;
         Elem_30fa10 *parent = &elems[skeleton->parents[i]];
         elems[i].parent = parent;
-        parent->FUN_0030ec20(parent->depth + 1);
+        ((owners::A_30ec20 *)parent)->FUN_0030ec20(parent->depth + 1);
         void * tmp3 = f.tmp.FUN_0030f070(src->data + f.off);
         elems[i].FUN_0030edc0(tmp3);
         f.off += 0x40;
     }
     for (int i = 1; i < count; i++)
-        elems[skeleton->parents[i]].FUN_0030ec70(&elems[i]);
+        ((owners::Buffer_30ec70 *)&(elems[skeleton->parents[i]]))->FUN_0030ec70((hulk_uintptr)(Elem_30fa10 *)(&elems[i]));
 }

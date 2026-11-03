@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Item;
 struct Inner_29f840 {
     int pad[5];
@@ -18,7 +19,7 @@ struct Grow_29f840 { int Grow(int n); }; // FUN_002a1180
 struct Owner_29f840 {
     char pad[0x24];
     int mTotal;
-    Entry_29f840* Find(Item* it); // FUN_0029c450
+     // FUN_0029c450
     void Run(Src_29f840* s);
 };
 
@@ -31,7 +32,7 @@ void Owner_29f840::Run(Src_29f840* s) {
         Item* it = s->mItems[i];
         if (!it)
             continue;
-        Entry_29f840* e = Find(it);
+        Entry_29f840* e = ((Entry_29f840 *)((owners::Object_29c450 *)this)->FUN_0029c450((Item *)it));
         if (!e)
             continue;
         int c = *(int*)((char*)e->mInner + 0x14);

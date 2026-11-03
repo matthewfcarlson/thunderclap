@@ -1,12 +1,12 @@
 // FUN_0007f560 @ 0x0007f560
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Vec3_7f560 {
     float x, y, z;
 };
 
 struct Emitter_7f560 {
-    void FUN_001c5080(float a, float b);
 };
 
 struct Obj_7f560 {
@@ -16,11 +16,6 @@ struct Obj_7f560 {
     Emitter_7f560 *emitter;
 
     void FUN_00080ea0(Vec3_7f560 *a, Vec3_7f560 *b);
-    void FUN_00080ef0(int a);
-    void FUN_00080f00(int a);
-    void FUN_00080f20(int a);
-    void FUN_00080e30(Vec3_7f560 *a);
-    void FUN_00080f30(int a);
     void FUN_00081b20(int a);
 };
 
@@ -62,15 +57,15 @@ void Mgr_7f560::FUN_0007f560(int a1, int a2, int a3, int a4, int a5)
     if (o == 0)
         return;
     o->v0();
-    o->emitter->FUN_001c5080((*(float*)&DAT_00421898), (*(float*)&DAT_004218c0));
+    ((owners::Blend_1c5080 *)(o->emitter))->FUN_001c5080((*(float*)&DAT_00421898), (*(float*)&DAT_004218c0));
     FUN_0007afb0(a2orig, a3, a4, a5, &lc, &lb);
     FUN_00078ee0(&lc, &lb);
     o->FUN_00080ea0(&lc, &lb);
-    o->FUN_00080ef0(rows[a2orig].cells[0].head);
-    o->FUN_00080f00(a3);
-    o->FUN_00080f20(a4);
-    o->FUN_00080e30(&lc);
-    o->FUN_00080f30(a5);
+    ((owners::C_80ef0 *)o)->FUN_00080ef0(rows[a2orig].cells[0].head);
+    ((owners::C_80f00 *)o)->FUN_00080f00(a3);
+    ((owners::C_80f20 *)o)->FUN_00080f20(a4);
+    ((owners::C_80e30 *)o)->FUN_00080e30((int *)(Vec3_7f560 *)(&lc));
+    ((owners::Thing_80f30 *)o)->FUN_00080f30(a5);
     FUN_0007b380(o);
     Cell_7f560 *c = &rows[a2orig].cells[a3];
     c->counts[a4]++;

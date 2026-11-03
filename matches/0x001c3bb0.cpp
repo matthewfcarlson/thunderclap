@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class B_1c3bb0 {
   public:
-    void g(int);
 };
 class A_1c3bb0 {
   public:
@@ -17,5 +17,5 @@ class C_1c3bb0 {
 void C_1c3bb0::run(int a, int b) {
     B_1c3bb0* p = (B_1c3bb0*)member->f(a);
     if (p)
-        p->g(b);
+        ((owners::X_1c4d60 *)p)->FUN_001c4d60((unsigned int *)(hulk_uintptr)(int)b);
 }

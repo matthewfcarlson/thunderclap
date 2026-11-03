@@ -1,10 +1,4 @@
-class Target_65aa0 {
-    char pad[0x36c];
-    unsigned char field;
-
-  public:
-    void f();
-};
-void Target_65aa0::f() {
+#include "gen/owners.h"
+void owners::Target_65aa0::FUN_00065aa0() {
     field = 0;
 }

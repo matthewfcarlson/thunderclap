@@ -1,32 +1,20 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class Item_280160 {
   public:
     virtual void A();
     virtual void Release();
 };
-class Owner_280160 {
-  public:
-    char pad0[0x10];
-    int state;
-    char pad14[4];
-    int clear;
-    char pad1c[0x44];
-    hulk_intptr first;
-    hulk_intptr second;
-    int x;
-    int y;
-    void Init();
-};
-void Owner_280160::Init() {
-    Owner_280160* p = this;
+void owners::Owner_280160::FUN_00280160() {
+    owners::Owner_280160* p = this;
     int n = 100;
     state = 1;
     do {
         p->clear = 0;
         p->x = 0;
         p->y = 0;
-        p = (Owner_280160*)((char*)p + 0x60);
-        p = (Owner_280160*)((char*)p - 0x60);
+        p = (owners::Owner_280160*)((char*)p + 0x60);
+        p = (owners::Owner_280160*)((char*)p - 0x60);
         if (p->first) {
             ((Item_280160*)p->first)->Release();
             p->first = 0;
@@ -35,7 +23,7 @@ void Owner_280160::Init() {
             ((Item_280160*)p->second)->Release();
             p->second = 0;
         }
-        p = (Owner_280160*)((unsigned char*)p + 0x60);
+        p = (owners::Owner_280160*)((unsigned char*)p + 0x60);
         --n;
     } while (n != 0);
 }

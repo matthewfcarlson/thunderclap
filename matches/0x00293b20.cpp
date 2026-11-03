@@ -1,9 +1,9 @@
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 
 struct H {
     void init();
     void combine(void*, void*);
-    void finish();
 };
 struct M_293b20 {
     unsigned int v[16];
@@ -18,6 +18,6 @@ void pure3d::VectorCamera::vfunc_26() {
     *(volatile int*)(b + 0xc0) = *(volatile int*)(b + 0xd4);
     *(volatile int*)(b + 0xc4) = *(volatile int*)(b + 0xd8);
     *(M_293b20*)(b + 0x4c) = *(M_293b20*)(b + 0x8c);
-    ((H*)(b + 0x4c))->finish();
+    ((owners::Matrix_22c120 *)(((H*)(b + 0x4c))))->FUN_0022c120();
     b[0xcc] = 1;
 }

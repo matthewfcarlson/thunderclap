@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class Item_29f590 {
   public:
     virtual void A();
@@ -6,7 +7,6 @@ class Item_29f590 {
 };
 class End_29f590 {
   public:
-    void Finish();
 };
 class CacheManager_29f590 {
   public:
@@ -33,5 +33,5 @@ CacheManager_29f590::~CacheManager_29f590() {
     if (m2c != 0)
         Free2((char*)m2c - 4);
     Free3((void*)m28);
-    ((End_29f590*)((char*)this + 4))->Finish();
+    ((owners::C_231050 *)(((End_29f590*)((char*)this + 4))))->FUN_00231050();
 }

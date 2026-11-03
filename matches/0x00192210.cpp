@@ -1,11 +1,6 @@
-class Obj_192210 {
-  public:
-    char pad[0x2c];
-    int m2c;
-    bool Set(int value);
-};
+#include "gen/owners.h"
 
-bool Obj_192210::Set(int value) {
+bool owners::Obj_192210::FUN_00192210(int value) {
     m2c = value;
     return true;
 }

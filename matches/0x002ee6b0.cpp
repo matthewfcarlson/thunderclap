@@ -1,11 +1,5 @@
-class Obj_2ee6b0 {
-  public:
-    char pad[0x6c];
-    unsigned char flag;
-    void callee(int);
-    void target(int);
-};
-void Obj_2ee6b0::target(int arg) {
-    callee(arg);
+#include "gen/owners.h"
+void owners::Obj_2ee6b0::FUN_002ee6b0(hulk_intptr arg) {
+    callee(((int)arg));
     flag = 1;
 }

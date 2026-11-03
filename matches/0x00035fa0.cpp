@@ -1,10 +1,10 @@
+#include "gen/owners.h"
 typedef unsigned char u8_35fa0;
 struct Item_35fa0 {
     char pad[0x74];
     void* sub;
 };
 struct Slot_35fa0 {
-    Item_35fa0* Get();
 };
 struct Sub_35fa0 {
     char pad[0x72];
@@ -23,7 +23,7 @@ void Obj_35fa0::Set(u8_35fa0 value) {
     for (int i = 0; i < 8; ++i) {
         Slot_35fa0* s = entries[i].slot;
         if (s) {
-            Item_35fa0* p = s->Get();
+            Item_35fa0* p = ((Item_35fa0 *)((owners::C_1d72e0 *)s)->FUN_001d72e0());
             if (p && p->sub)
                 ((Sub_35fa0*)p->sub)->value = value;
         }

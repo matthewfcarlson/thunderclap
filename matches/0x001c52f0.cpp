@@ -2,6 +2,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 22/22)
 // FUN_001c52f0 @ 0x001c52f0
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Clock_1c52f0 {
     float FUN_00085f80();
 };
@@ -12,23 +13,8 @@ struct World {
 };
 
 
-class Blender_1c52f0 {
-public:
-    char pad0[0x80];
-    float value;
-    float limit;
-    float accel;
-    char fresh;
-    char pad8d[3];
-    float current;
-    float target;
-    float rate;
-    char pad9c[4];
-    float timer;
-    void FUN_001c52f0(float unused);
-};
 
-void Blender_1c52f0::FUN_001c52f0(float unused)
+void owners::Blender_1c52f0::FUN_001c52f0(float unused)
 {
     hulk_freg dt = DAT_004dd700->clock->FUN_00085f80();
     if (!(dt < 0.1f))

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 18/18)
 // hulkfight::motion::FireBeamAction::vfunc_5 @ 0x0019b5f0
+#include "gen/owners.h"
 struct Vec3_19b5f0 {
     float x, y, z;
     float FUN_0022d110();
@@ -7,9 +8,6 @@ struct Vec3_19b5f0 {
 
 struct Mat_19b5f0 {
     float m[16];
-    void FUN_0022c2b0(const Vec3_19b5f0* in, Vec3_19b5f0* out);
-    void FUN_0022c3b0(const Vec3_19b5f0* in, Vec3_19b5f0* out);
-    void FUN_0022ca90(Mat_19b5f0* a, Mat_19b5f0* b);
 };
 
 struct RefObj_19b5f0 {
@@ -128,14 +126,14 @@ bool FireBeamAction::vfunc_5(int phase, float dt)
             Mat_19b5f0* src = &skeleton->mats[jointIndex];
             if (source != 0) {
                 Mat_19b5f0* other = source->vfunc_15();
-                m.FUN_0022ca90(src, other);
+                ((owners::Matrix_22ca90 *)&m)->FUN_0022ca90((const owners::Matrix_22ca90 *)(Mat_19b5f0 *)src, (const owners::Matrix_22ca90 *)(Mat_19b5f0 *)other);
             } else {
                 m = *src;
             }
             Vec3_19b5f0 local = cfg->v38;
-            m.FUN_0022c2b0(&local, &origin);
+            ((owners::Mat_22c2b0 *)&m)->FUN_0022c2b0((float *)(const Vec3_19b5f0 *)(&local), (float *)(Vec3_19b5f0 *)(&origin));
             local = cfg->v44;
-            m.FUN_0022c3b0(&local, &dir);
+            ((owners::M_22c3b0 *)&m)->FUN_0022c3b0((float *)(const Vec3_19b5f0 *)(&local), (float *)(Vec3_19b5f0 *)(&dir));
             dir.FUN_0022d110();
         }
 

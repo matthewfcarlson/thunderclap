@@ -1,10 +1,6 @@
-struct Obj_15abf0 {
-    char pad[0x2c];
-    int m2c;
-    bool Set(int x);
-};
+#include "gen/owners.h"
 
-bool Obj_15abf0::Set(int x) {
+bool owners::Obj_15abf0::FUN_0015abf0(int x) {
     m2c = x;
     return true;
 }

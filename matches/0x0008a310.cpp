@@ -1,12 +1,5 @@
-class C_8a310 {
-    char pad[0xd0];
-    int a;
-    int b;
-
-  public:
-    int* F();
-};
-int* C_8a310::F() {
+#include "gen/owners.h"
+int* owners::C_8a310::FUN_0008a310() {
     if (a == -1)
         return 0;
     if (b == -1)

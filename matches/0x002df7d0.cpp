@@ -1,5 +1,5 @@
+#include "gen/owners.h"
 struct X_2df7d0 {
-    void f();
 };
 struct C_2df7d0 {
     char pad[0x5c];
@@ -7,5 +7,5 @@ struct C_2df7d0 {
     void target();
 };
 void C_2df7d0::target() {
-    member->f();
+    ((owners::Thing_2c7070 *)member)->FUN_002c7070();
 }

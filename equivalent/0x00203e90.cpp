@@ -2,6 +2,7 @@
 // FUN_00203e90 @ 0x00203e90
 // cl-flags: /GS
 #include "decls/data/engine/content.h"
+#include "gen/owners.h"
 
 extern "C" char* strncpy(char* dst, const char* src, unsigned int n);
 
@@ -26,7 +27,6 @@ struct Mgr_203e90 {
     int limit;
     void FUN_00265810(Request* r, Handle_203e90** out);
     int FUN_00264870();
-    void FUN_00264860(int v);
 };
 
 struct Target_203e90 {
@@ -97,7 +97,7 @@ Handle_203e90* Owner_203e90::Run(const char* name, bool a2, bool a3, Actor_203e9
         if (a3 && item && !fAF5)
             item->FUN_000bd1b0(0);
         f.saved = (*(Mgr_203e90**)&DAT_00527c58)->FUN_00264870();
-        (*(Mgr_203e90**)&DAT_00527c58)->FUN_00264860(250000);
+        ((owners::C_264860 *)((*(Mgr_203e90**)&DAT_00527c58)))->FUN_00264860(250000);
         while (!f.out->FUN_00266750()) {
             if (item) {
                 if ((a3 && !fAF5) || (fAFC != 0 && FUN_00267f80() - fAFC > 3000))
@@ -105,7 +105,7 @@ Handle_203e90* Owner_203e90::Run(const char* name, bool a2, bool a3, Actor_203e9
             }
             FUN_00087990();
         }
-        (*(Mgr_203e90**)&DAT_00527c58)->FUN_00264860(f.saved);
+        ((owners::C_264860 *)((*(Mgr_203e90**)&DAT_00527c58)))->FUN_00264860(f.saved);
         int n = f.out->FUN_00266700();
         Target_203e90* t = actor ? actor->f38 : target;
         t->FUN_00266220(n);

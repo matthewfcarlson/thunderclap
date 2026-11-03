@@ -1,10 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00011750 @ 0x00011750
-struct Color_11750 {
- unsigned int value;
- void FUN_00011750(unsigned int from, unsigned int to, float amount);
-};
-void Color_11750::FUN_00011750(unsigned int from, unsigned int to, float amount) {
+#include "gen/owners.h"
+void owners::Color_11750::FUN_00011750(unsigned int from, unsigned int to, float amount) {
  int red = (from >> 16) & 255;
  int green = (from >> 8) & 255;
  int alpha = from >> 24;

@@ -1,10 +1,6 @@
 #include "compat/ptr.h"
-class C_2393f0 {
-  public:
-    char pad[0x24];
-    char* Get();
-};
+#include "gen/owners.h"
 
-char* C_2393f0::Get() {
+char* owners::C_2393f0::FUN_002393f0() {
     return (char*)((hulk_intptr)this + 0x24);
 }

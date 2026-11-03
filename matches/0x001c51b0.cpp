@@ -1,4 +1,5 @@
 #include "decls/data/engine/pure3d/prop.h"
+#include "gen/owners.h"
 
 struct Data_1c51b0 {
     char pad[0x74];
@@ -21,9 +22,8 @@ struct Item_1c51b0 {
     virtual void v13();
     virtual void v14();
     virtual void* v15();
-    Data_1c51b0* FUN_001d72e0();
 };
-struct Render {
+struct Render_1c51b0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -67,13 +67,13 @@ struct Object_1c51b0 {
     int target(Context* context);
 };
 int Object_1c51b0::target(Context* context) {
-    (*(*(Render***)&DAT_0052c2ac))->v15(0);
+    (*(*(Render_1c51b0***)&DAT_0052c2ac))->v15(0);
     if (!parent || parent->flag)
-        (*(*(Render***)&DAT_0052c2ac))->v17(0, state);
+        (*(*(Render_1c51b0***)&DAT_0052c2ac))->v17(0, state);
     if (enabled && item) {
-        if (!item->FUN_001d72e0() || !item->FUN_001d72e0()->field74) {
+        if (!((Data_1c51b0 *)((owners::C_1d72e0 *)item)->FUN_001d72e0()) || !((Data_1c51b0 *)((owners::C_1d72e0 *)item)->FUN_001d72e0())->field74) {
             void* value = item->v15();
-            (*(*(Render***)&DAT_0052c2ac))->v17(0, value);
+            (*(*(Render_1c51b0***)&DAT_0052c2ac))->v17(0, value);
         }
         float value = a < b ? b : a;
         context->FUN_001c25c0(item, this, value);
@@ -81,5 +81,5 @@ int Object_1c51b0::target(Context* context) {
         float value = a < b ? b : a;
         context->FUN_001c25c0(fallback, this, value);
     }
-    return (*(*(Render***)&DAT_0052c2ac))->v16(0);
+    return (*(*(Render_1c51b0***)&DAT_0052c2ac))->v16(0);
 }

@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2533 inputs, branch coverage 8/8)
 // FUN_002844f0 @ 0x002844f0
+#include "gen/owners.h"
 struct Row16_2844f0 {
     int a, b, c, d;
-    void FUN_0022b370(const Row16_2844f0 *src);
 };
 
 extern "C" void __cdecl FUN_0022b080(float *, const float *, const float *);
@@ -29,7 +29,7 @@ void Pose::FUN_002844f0(const Row16_2844f0 *root)
         return;
     if (root != 0) {
         Row16_2844f0 rootCopy;
-        rootCopy.FUN_0022b370(root);
+        ((owners::Quat_22b370 *)&rootCopy)->FUN_0022b370((const float *)(const Row16_2844f0 *)root);
         FUN_0022b080((float *)(Row16_2844f0 *)world, (const float *)(Row16_2844f0 *)local, (const float *)(Row16_2844f0 *)(&rootCopy));
     } else {
         world[0] = local[0];

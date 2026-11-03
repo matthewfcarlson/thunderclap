@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 121 inputs, branch coverage 53/54, incomplete)
 // FUN_0003b7d0 @ 0x0003b7d0
+#include "gen/owners.h"
 extern char DAT_0048e090[];
 extern char DAT_0048e0ac[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
@@ -40,7 +41,6 @@ public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual Link_3b7d0 *Make(int v, int flag);
-    Link_3b7d0 *FUN_00233320(int lo, int hi);
 };
 
 class Listener_3b7d0 {
@@ -173,7 +173,7 @@ void CCharacter_3b7d0::FUN_0003b7d0(int a, float dt)
     if (f2 != 0 && !current.FUN_00231ee0() && lock == 0) {
         Link_3b7d0 *l = 0;
         if (hasId && (idLo | idHi) != 0) {
-            Link_3b7d0 *r = f2->FUN_00233320(idLo, idHi);
+            Link_3b7d0 *r = ((Link_3b7d0 *)((owners::Node_233320 *)f2)->FUN_00233320(idLo, idHi));
             if (r != 0)
                 l = (Link_3b7d0 *)FUN_00344e74(r, 0, DAT_0048e090, DAT_0048e0ac, 0);
         }

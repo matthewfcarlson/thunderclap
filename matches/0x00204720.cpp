@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Item {
     void Go(void*);
 };
@@ -6,7 +7,6 @@ class Obj {
     void* m;
     char b[0x570 - 0x48];
     void* slots[2];
-    Item* Fetch(void*);
 
   public:
     void Add(void* p);
@@ -22,5 +22,5 @@ void Obj::Add(void* p) {
         ++i;
         ++q;
     } while (i < 2);
-    Fetch(p)->Go(m);
+    ((Item *)((owners::Obj_203db0 *)this)->FUN_00203db0((hulk_intptr)p))->Go(m);
 }

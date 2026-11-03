@@ -1,11 +1,6 @@
-class T_12b260 {
-  public:
-    char pad[12];
-    int m;
-    bool Set(int x);
-};
+#include "gen/owners.h"
 
-bool T_12b260::Set(int x) {
+bool owners::T_12b260::FUN_0012b260(int x) {
     m = x;
     return true;
 }

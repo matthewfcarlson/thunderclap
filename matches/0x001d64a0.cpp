@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class B_1d64a0 {
   public:
-    int G();
 };
 class A_1d64a0 {
   public:
@@ -9,5 +9,5 @@ class A_1d64a0 {
     int F();
 };
 int A_1d64a0::F() {
-    return p->G();
+    return ((owners::C_1d4de0 *)p)->FUN_001d4de0();
 }

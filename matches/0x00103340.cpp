@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 extern "C" void _ReadWriteBarrier();
 class Thing_103340 {
   public:
@@ -5,7 +6,6 @@ class Thing_103340 {
 };
 class Str_103340 {
   public:
-    Thing_103340* Find();
 };
 class CCharacterAgent_103340 {
   public:
@@ -58,7 +58,7 @@ COccupationAgent_103340::COccupationAgent_103340(const char* name) : CCharacterA
     _ReadWriteBarrier();
     mEC = 0;
     m64 = 0;
-    Thing_103340* t = ((Str_103340*)name)->Find();
+    Thing_103340* t = ((Thing_103340 *)((owners::Obj_fefc0 *)(((Str_103340*)name)))->FUN_000fefc0());
     m5c = t;
     t->Use();
 }

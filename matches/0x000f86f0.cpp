@@ -1,25 +1,10 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" void* FUN_0008d6d0(hulk_uintptr n);
 
-class Obj_f86f0 {
-  public:
-    void Init(int a, int b);
-    char* m0;
-    unsigned m4;
-    char pad8[4];
-    int* mC;
-    unsigned m10;
-    char pad14[4];
-    void* m18;
-    int m1c;
-    char pad20[0x110 - 0x20];
-    char m110;
-    char pad111[0x11c - 0x111];
-    unsigned* m11c;
-};
 
-void Obj_f86f0::Init(int a, int b) {
-    m4 = b * 2;
+void owners::Obj_f86f0::FUN_000f86f0(int a, hulk_intptr b) {
+    m4 = ((int)b) * 2;
     m0 = (char*)FUN_0008d6d0((unsigned)(m4 >> 1) * 2);
     m10 = a;
     mC = (int*)FUN_0008d6d0(a * 4);

@@ -2,6 +2,7 @@
 // FUN_002fa290 @ 0x002fa290
 #include "compat/ptr.h"
 #include "decls/data/engine/physics.h"
+#include "gen/owners.h"
 
 struct Vec3_2fa290 {
     float x, y, z;
@@ -9,7 +10,6 @@ struct Vec3_2fa290 {
 
 struct Box_2fa290 {
     float x, y, z;
-    bool FUN_002f90c0(Vec3_2fa290* p);
 };
 
 struct Matrix {
@@ -56,7 +56,6 @@ struct ShortVec {
     unsigned short* begin;
     unsigned short* end;
     unsigned short* cap;
-    void FUN_002f9930(unsigned short* pos, hulk_intptr count, unsigned short* src);
 };
 
 Entry_2fa290* FUN_002f9460(Entry_2fa290* first, Entry_2fa290* last, Entry_2fa290* dest);
@@ -79,7 +78,7 @@ public:
 
 void VisCache::FUN_002fa290(Frame_2fa290 frame, Item_2fa290* item, Entry_2fa290* out)
 {
-    if (box.FUN_002f90c0(&frame.in.pos)) {
+    if (((owners::Vec_2f90c0 *)&box)->FUN_002f90c0((owners::Vec_2f90c0 *)(Vec3_2fa290 *)(&frame.in.pos))) {
         frame.it = begin;
         if (frame.it != end) {
             for (;;) {
@@ -149,7 +148,7 @@ void VisCache::FUN_002fa290(Frame_2fa290 frame, Item_2fa290* item, Entry_2fa290*
     }
 
     unsigned short* oldEnd = shorts.end;
-    shorts.FUN_002f9930(oldEnd, out->last - out->first, out->first);
+    ((owners::Buffer_2f9930 *)&shorts)->FUN_002f9930(oldEnd, (int)(out->last - out->first), (hulk_intptr)(out->first));
 
     if (end < cap) {
         Entry_2fa290* slot = end;

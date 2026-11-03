@@ -1,11 +1,6 @@
-class C_1921a0 {
-  public:
-    char pad[0x10];
-    int m;
-    bool Set(int x);
-};
+#include "gen/owners.h"
 
-bool C_1921a0::Set(int x) {
+bool owners::C_1921a0::FUN_001921a0(int x) {
     m = x;
     return true;
 }

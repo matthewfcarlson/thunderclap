@@ -1,11 +1,6 @@
-class Obj_1937a0 {
-  public:
-    char f(int x);
-    char pad[0x144];
-    int mVal;
-};
+#include "gen/owners.h"
 
-char Obj_1937a0::f(int x) {
+char owners::Obj_1937a0::FUN_001937a0(int x) {
     mVal = x;
     return 1;
 }

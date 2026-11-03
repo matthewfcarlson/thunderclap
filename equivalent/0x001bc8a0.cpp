@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 143 inputs, branch coverage 36/36)
 // FUN_001bc8a0 @ 0x001bc8a0
 // FUN_001bc8a0 @ 0x001bc8a0
+#include "gen/owners.h"
 struct V3_1bc8a0 {
     float x, y, z;
-    void FUN_00011160(float s, V3_1bc8a0 *d);
     void FUN_00011090();
 };
 
@@ -14,7 +14,6 @@ struct V4_1bc8a0 {
 struct Mat4_1bc8a0 {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022c2b0(V3_1bc8a0 *in, V3_1bc8a0 *out);
 };
 
 struct Corners {
@@ -79,10 +78,10 @@ extern "C" void FUN_001bc8a0(void * obj_, void *q)
         if (obj->c.b58)
             t = t - obj->c.f54;
         p = obj->pos;
-        p.FUN_00011160(t, (V3_1bc8a0 *)&obj->dx);
+        ((owners::Vec3_11160 *)&p)->FUN_00011160(t, (const owners::Vec3_11160 *)(V3_1bc8a0 *)((V3_1bc8a0 *)&obj->dx));
         FUN_001bc5b0((V4_1bc8a0 *)((V4_1bc8a0 *)q), (V3_1bc8a0 *)(&p), obj->c.f54);
         p = obj->pos;
-        p.FUN_00011160(-t, (V3_1bc8a0 *)&obj->dx);
+        ((owners::Vec3_11160 *)&p)->FUN_00011160(-t, (const owners::Vec3_11160 *)(V3_1bc8a0 *)((V3_1bc8a0 *)&obj->dx));
         FUN_001bc5b0((V4_1bc8a0 *)((V4_1bc8a0 *)q), (V3_1bc8a0 *)(&p), obj->c.f54);
         break;
     }
@@ -120,7 +119,7 @@ extern "C" void FUN_001bc8a0(void * obj_, void *q)
                 f.in.y = f.pt[b].y;
                 for (int c = 0; c < 2; c++) {
                     f.in.z = f.pt[c].z;
-                    f.m.FUN_0022c2b0(&f.in, &f.out);
+                    ((owners::Mat_22c2b0 *)&(f.m))->FUN_0022c2b0((float *)(V3_1bc8a0 *)(&f.in), (float *)(V3_1bc8a0 *)(&f.out));
                     FUN_001bc530(((V4_1bc8a0 *)q), &f.out);
                 }
             }

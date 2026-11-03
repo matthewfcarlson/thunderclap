@@ -1,10 +1,4 @@
-class C_23fb10 {
-    char pad[8];
-    unsigned short value;
-
-  public:
-    void Set(unsigned short x);
-};
-void C_23fb10::Set(unsigned short x) {
+#include "gen/owners.h"
+void owners::C_23fb10::FUN_0023fb10(unsigned short x) {
     value = x;
 }

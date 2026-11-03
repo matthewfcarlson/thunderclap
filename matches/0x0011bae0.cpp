@@ -1,11 +1,6 @@
-class T_11bae0 {
-  public:
-    char pad[0x10];
-    int m10;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char T_11bae0::Set(int v) {
+char owners::T_11bae0::FUN_0011bae0(int v) {
     m10 = v;
     return 1;
 }

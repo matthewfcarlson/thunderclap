@@ -1,16 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 7/8, incomplete)
 // FUN_00208040 @ 0x00208040
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Sink_208040 {
-    void FUN_00086310();
 };
 
 struct Table_208040 {
     char pad[0x588];
     Sink_208040 *sink;
     // equiv-conv absent: plain thiscall members
-    unsigned short *FUN_00204060(int a, int b);
     void FUN_00207e80();
     void FUN_00207a00(unsigned short *entry);
     bool FUN_00208040(int a, int b);
@@ -19,10 +18,10 @@ struct Table_208040 {
 
 bool Table_208040::FUN_00208040(int a, int b)
 {
-    unsigned short *entry = FUN_00204060(a, b);
-    sink->FUN_00086310();
+    unsigned short *entry = ((unsigned short *)((owners::Owner_204060 *)this)->FUN_00204060(a, b));
+    ((owners::C_86310 *)sink)->FUN_00086310();
     if (entry == 0) {
-        entry = FUN_00204060(0, b);
+        entry = ((unsigned short *)((owners::Owner_204060 *)this)->FUN_00204060(0, b));
         if (entry == 0)
             return false;
     }

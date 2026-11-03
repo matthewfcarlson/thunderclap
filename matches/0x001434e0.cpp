@@ -1,11 +1,6 @@
-class A_1434e0 {
-  public:
-    char pad[0x34];
-    float mAngle;
-    char SetAngle(float x);
-};
+#include "gen/owners.h"
 
-char A_1434e0::SetAngle(float x) {
+char owners::A_1434e0::FUN_001434e0(float x) {
     mAngle = x * 0.017453292f;
     return 1;
 }

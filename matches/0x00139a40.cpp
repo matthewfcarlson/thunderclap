@@ -1,10 +1,6 @@
-struct S_139a40 {
-    char pad[16];
-    int m;
-    char Fn(int x);
-};
+#include "gen/owners.h"
 
-char S_139a40::Fn(int x) {
+char owners::S_139a40::FUN_00139a40(int x) {
     m = x;
     return 1;
 }

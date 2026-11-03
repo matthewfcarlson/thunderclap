@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2535 inputs, branch coverage 87/90, incomplete)
 // FUN_002a0050 @ 0x002a0050
 #include "decls/data/engine/unknown.h"
+#include "gen/owners.h"
 
 struct Item {
     void FUN_002a0820(int v);
@@ -29,7 +30,6 @@ struct A {
     int m;
     Item **arr18;
     void FUN_002a0fc0(int idx, void *item);
-    void FUN_002a1180(int idx);
 };
 
 struct B {
@@ -98,7 +98,7 @@ void Skin::FUN_002a0050(A *a, B *b, C *c)
                             i++;
                         } while (i < m);
                     }
-                    a->FUN_002a1180(start);
+                    ((owners::A_2a1180 *)a)->FUN_002a1180(start);
                     lim = m;
                 }
                 i++;
@@ -156,7 +156,7 @@ void Skin::FUN_002a0050(A *a, B *b, C *c)
                     int start = i + 1;
                     for (; i < m; i++)
                         a->FUN_002a0fc0(i, 0);
-                    a->FUN_002a1180(start);
+                    ((owners::A_2a1180 *)a)->FUN_002a1180(start);
                 }
                 i++;
             } while (i < m);

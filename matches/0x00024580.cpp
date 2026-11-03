@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class Inner_24580 {
   public:
-    void Call(int);
 };
 class Holder_24580 {
   public:
@@ -17,5 +17,5 @@ class Obj_24580 {
 };
 void Obj_24580::Target(int unused) {
     for (int i = 0; i < count; ++i)
-        owner->inner->Call(values[i]);
+        ((owners::ThisWrap_00059c10 *)(owner->inner))->FUN_00059c10((void *)(hulk_uintptr)(int)(values[i]));
 }

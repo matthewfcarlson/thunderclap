@@ -1,11 +1,6 @@
-class X_16edb0 {
-  public:
-    char Set(int value);
-    char pad[0x48];
-    int m48;
-};
+#include "gen/owners.h"
 
-char X_16edb0::Set(int value) {
+char owners::X_16edb0::FUN_0016edb0(int value) {
     m48 = value;
     return 1;
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 30/40, incomplete)
 // FUN_000ae2f0 @ 0x000ae2f0
+#include "gen/owners.h"
 struct Item_ae2f0 {
     virtual void v0();
     virtual void v1();
@@ -23,7 +24,6 @@ struct Entry_ae2f0 {
     char pad1[6];
     char name[0x120];
     char str134[1];
-    void FUN_000b0740(const char *s);
     void FUN_000b2810();
 };
 struct CController_ae2f0 {
@@ -57,7 +57,7 @@ void CController_ae2f0::FUN_000ae2f0(const char *key)
             break;
         }
         if (e->name[0] == 0) {
-            e->FUN_000b0740(key);
+            ((owners::Dev_b0740 *)e)->FUN_000b0740(key);
             found = true;
             break;
         }
@@ -85,7 +85,7 @@ void CController_ae2f0::FUN_000ae2f0(const char *key)
             arg = FUN_002684b0()->Get(i)->v6();
         else
             arg = "";
-        en->FUN_000b0740(arg);
+        ((owners::Dev_b0740 *)en)->FUN_000b0740(arg);
         en->FUN_000b2810();
     }
 }

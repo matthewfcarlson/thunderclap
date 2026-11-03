@@ -1,9 +1,9 @@
 #include "decls/data/game/DollyScript.h"
+#include "gen/owners.h"
 
 struct Item_fa870 {
     int a;
     Item_fa870* next;
-    void Append(Item_fa870*);
 };
 struct Hdr_fa870 {
     int count;
@@ -27,7 +27,7 @@ void Lst::Put(Item_fa870* it) {
     if (last != it) {
         Item_fa870* n = last->next;
         if (n) {
-            n->Append(it);
+            ((owners::Node_f9b40 *)n)->FUN_000f9b40((owners::Node_f9b40 *)(Item_fa870 *)it);
             last = it;
             return;
         }

@@ -1,8 +1,4 @@
-class O_5a320 {
-  public:
-    char pad[0x28];
-    void* Get();
-};
-void* O_5a320::Get() {
+#include "gen/owners.h"
+void* owners::O_5a320::FUN_0005a320() {
     return (char*)this + 0x28;
 }

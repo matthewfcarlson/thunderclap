@@ -1,10 +1,5 @@
-class C_1b8860 {
-  public:
-    char pad[0x4c];
-    int a, b, c, d, e, f;
-    void Get(int* p1, int* p2, int* p3, int* p4, int* p5, int* p6);
-};
-void C_1b8860::Get(int* p1, int* p2, int* p3, int* p4, int* p5, int* p6) {
+#include "gen/owners.h"
+void owners::C_1b8860::FUN_001b8860(int* p1, int* p2, int* p3, int* p4, int* p5, int* p6) {
     *p1 = a;
     *p2 = b;
     *p3 = c;

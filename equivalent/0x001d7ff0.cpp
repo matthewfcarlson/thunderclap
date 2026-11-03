@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2975 inputs, branch coverage 26/26)
 // FUN_001d7ff0 @ 0x001d7ff0
+#include "gen/owners.h"
 struct Owner_1d7ff0;
 struct Slots_1d7ff0 {
- Owner_1d7ff0* FUN_00035ef0(int);
  void FUN_0003acf0(int,int,int,int,int,int);
- void* FUN_00036c60(int);
 };
 struct Link_1d7ff0 { char pad[8]; Slots_1d7ff0* slots; int kind; };
 struct Resource_1d7ff0 { char pad[16]; void* identity; };
@@ -35,11 +34,11 @@ void Owner_1d7ff0::target() {
   if (link->kind == 1) {
    Slots_1d7ff0* slots = link->slots;
    for (int i=0;i<8;++i) {
-    if (slots->FUN_00035ef0(i)==this) {
+    if (((Owner_1d7ff0 *)((owners::C_35ef0 *)slots)->FUN_00035ef0((hulk_intptr)i))==this) {
      slots->FUN_0003acf0(i,0,-1,0,0,0);
      if(marked) {
       Manager_1d7ff0* manager=FUN_0027f250();
-      void* entry=slots->FUN_00036c60(i+20);
+      void* entry=((void *)((owners::C_36c60 *)slots)->FUN_00036c60((unsigned int)(i+20)));
       manager->FUN_0027ffb0(entry);
       marked=0;
      }

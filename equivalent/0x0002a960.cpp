@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 402 inputs, branch coverage 32/32)
 // FUN_0002a960 @ 0x0002a960
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Vec3_2a960 {
     float x, y, z;
     float FUN_000111f0();
@@ -23,7 +24,6 @@ struct Zone_2a960 {
 
 struct ZoneTest {
     bool FUN_00204440(Zone_2a960 *z);
-    bool FUN_00204470(Zone_2a960 *z);
 };
 
 struct Fighter_2a960 {
@@ -43,7 +43,6 @@ struct Fighter_2a960 {
 };
 
 struct Roster_2a960 {
-    Fighter_2a960 *FUN_00059c10(int id);
 };
 
 struct Holder_2a960 {
@@ -83,7 +82,7 @@ void SpawnWatcher::FUN_0002a960(Context *ctx)
 {
     for (int i = count - 1; i >= 0; i--) {
         state[i] = 0;
-        Fighter_2a960 *f = ctx->roster->FUN_00059c10(ids[i]);
+        Fighter_2a960 *f = ((Fighter_2a960 *)((owners::ThisWrap_00059c10 *)(ctx->roster))->FUN_00059c10((void *)(hulk_uintptr)(int)(ids[i])));
         if (f == self)
             continue;
         unsigned __int64 nm = f->name->FUN_000443c0();
@@ -97,7 +96,7 @@ void SpawnWatcher::FUN_0002a960(Context *ctx)
             continue;
         Zone_2a960 *zone = ((Zone_2a960 *)FUN_000862a0(ctx->holder))->FUN_00204200(fr.pos.x, fr.pos.y, fr.pos.z);
         bool a = FUN_000862a0(ctx->holder)->FUN_00204440((Zone_2a960 *)zone);
-        bool b = FUN_000862a0(ctx->holder)->FUN_00204470((Zone_2a960 *)zone);
+        bool b = ((owners::C_204470 *)(FUN_000862a0(ctx->holder)))->FUN_00204470((hulk_intptr)(Zone_2a960 *)((Zone_2a960 *)zone));
         if (a)
             continue;
         if (b) {

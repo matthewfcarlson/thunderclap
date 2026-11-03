@@ -1,11 +1,6 @@
-class Obj_16ec90 {
-  public:
-    char pad[0x14];
-    int field;
-    bool Set(int value);
-};
+#include "gen/owners.h"
 
-bool Obj_16ec90::Set(int value) {
+bool owners::Obj_16ec90::FUN_0016ec90(int value) {
     field = value;
     return true;
 }

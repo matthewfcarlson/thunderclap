@@ -1,5 +1,5 @@
+#include "gen/owners.h"
 struct B_d6f10 {
-    void x(int);
 };
 struct C_d6f10 {
     void y(int);
@@ -11,6 +11,6 @@ struct A_d6f10 {
     void run(int);
 };
 void A_d6f10::run(int v) {
-    b->x(v);
+    ((owners::Obj_d4370 *)b)->FUN_000d4370((hulk_intptr)v);
     c->y(v);
 }

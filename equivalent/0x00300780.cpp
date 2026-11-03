@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 123 inputs, branch coverage 22/22)
 // FUN_00300780 @ 0x00300780
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Vec3_300780 {
     float x, y, z;
 };
@@ -12,7 +13,6 @@ struct Edge_300780 {
     int d;
     char e;
     char pad11[3];
-    Edge_300780 *FUN_002f8ef0(void *first, void *second);
 };
 
 struct Body_300780 {
@@ -93,7 +93,7 @@ void Broadphase_300780::FUN_00300780(int arg)
                 while (ax != 0xffff) {
                     int b = (short)ax;
                     Edge_300780 tmp;
-                    Edge_300780 *e = tmp.FUN_002f8ef0(g->begin[a], g->begin[b]);
+                    Edge_300780 *e = ((Edge_300780 *)((owners::X_2f8ef0 *)&tmp)->FUN_002f8ef0((hulk_uintptr)(g->begin[a]), (hulk_uintptr)(g->begin[b])));
                     Edge_300780 *end = g->edgeEnd;
                     if (end < g->edgeCap) {
                         g->edgeEnd = end + 1;

@@ -1,5 +1,5 @@
+#include "gen/owners.h"
 struct Inner_24e550 {
-    void Init(const char*, int);
 };
 class SeqEvent_24e550 {
   public:
@@ -14,5 +14,5 @@ class SeqEventNestTrack_24e550 : public SeqEvent_24e550 {
     Inner_24e550 in;
 };
 SeqEventNestTrack_24e550::SeqEventNestTrack_24e550() {
-    in.Init("MySeqTrack", 2);
+    ((owners::String_23fc40 *)&in)->FUN_0023fc40("MySeqTrack", (hulk_intptr)2);
 }

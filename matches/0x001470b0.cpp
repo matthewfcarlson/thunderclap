@@ -1,11 +1,6 @@
-class Target_1470b0 {
-  public:
-    char pad[0x10];
-    int mField;
-    bool Set(int x);
-};
+#include "gen/owners.h"
 
-bool Target_1470b0::Set(int x) {
+bool owners::Target_1470b0::FUN_001470b0(int x) {
     mField = x;
     return true;
 }

@@ -2,6 +2,7 @@
 // FUN_002abd90 @ 0x002abd90
 #include "decls/data/engine/content.h"
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 
 struct Stream_2abd90 {
     bool FUN_002647e0(void *dst, int a, int b, int c);
@@ -21,7 +22,6 @@ public:
     virtual void v1();
     char pad04[0x28 - 4];
     int count;
-    void *FUN_00288a10(int index);
 };
 
 struct GeneratorBlendState_nv_2abd90 {
@@ -31,7 +31,6 @@ struct GeneratorBlendState_nv_2abd90 {
 struct ElemArray_2abd90 {
     ::pure3d::ParticlePlaneGenerator::GeneratorBlendState **data;
     char pad[8];
-    bool FUN_002ab9a0(unsigned int count, int *init);
 };
 
 class ParticlePlaneGenerator_2abd90 {
@@ -72,7 +71,6 @@ public:
 }
 
 struct Registry_2abd90 {
-    content::ObjectLoader_2abd90 *FUN_00265310(int key);
 };
 
 
@@ -109,7 +107,7 @@ ParticlePlaneGenerator_2abd90 * __stdcall FUN_002abd90(Reader_2abd90 *r, int fla
         do {
             int id = r->FUN_00266a30();
             if (id == 0x121000) {
-                pure3d::AnimationLoader_2abd90 *al = dynamic_cast<pure3d::AnimationLoader_2abd90 *>((*(Registry_2abd90**)&DAT_00527c58)->FUN_00265310(id));
+                pure3d::AnimationLoader_2abd90 *al = dynamic_cast<pure3d::AnimationLoader_2abd90 *>(((content :: ObjectLoader_2abd90 *)((owners::Obj_265310 *)((*(Registry_2abd90**)&DAT_00527c58)))->FUN_00265310((hulk_intptr)id)));
                 al->v0();
                 fr.a = al->FUN_00288e90();
                 al->FUN_00288e80(1);
@@ -122,11 +120,11 @@ ParticlePlaneGenerator_2abd90 * __stdcall FUN_002abd90(Reader_2abd90 *r, int fla
                     g->anim = o;
                     fr.b = fr.obj->count;
                     fr.d = 0;
-                    g->array.FUN_002ab9a0(fr.b, &fr.d);
+                    ((owners::Buffer_2ab9a0 *)&(g->array))->FUN_002ab9a0(fr.b, &fr.d);
                     for (int i = 0; i < fr.b; i++) {
                         ::pure3d::ParticlePlaneGenerator::GeneratorBlendState *e = (::pure3d::ParticlePlaneGenerator::GeneratorBlendState *)FUN_0008d690(0x1c);
                         if (e != 0)
-                            e = ((GeneratorBlendState_nv_2abd90*)(((::pure3d::ParticlePlaneGenerator::GeneratorBlendState*)(e))))->FUN_002d2570(fr.obj->FUN_00288a10(i));
+                            e = ((GeneratorBlendState_nv_2abd90*)(((::pure3d::ParticlePlaneGenerator::GeneratorBlendState*)(e))))->FUN_002d2570(((void *)((owners::Target_288a10 *)(fr.obj))->FUN_00288a10(i)));
                         g->array.data[g->used] = e;
                         g->array.data[g->used]->vfunc_0();
                         g->used++;

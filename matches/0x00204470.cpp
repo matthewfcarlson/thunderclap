@@ -1,13 +1,8 @@
-class C_204470 {
-  public:
-    char pad[0x5a4];
-    char a[0x400];
-    bool f(int i);
-};
-bool C_204470::f(int i) {
-    if (i < 0)
+#include "gen/owners.h"
+bool owners::C_204470::FUN_00204470(hulk_intptr i) {
+    if (((int)i) < 0)
         return false;
-    if (i >= 0x400)
+    if (((int)i) >= 0x400)
         return false;
-    return a[i] == 2;
+    return a[((int)i)] == 2;
 }

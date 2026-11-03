@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 143 inputs, branch coverage 6/6)
 // FUN_00207f60 @ 0x00207f60
 // cl-flags: /GS
+#include "gen/owners.h"
 extern "C" int __cdecl sprintf(char *, const char *, ...);
 struct Item_207f60 { char pad[0x54]; short id; };
 struct ListPart { int FUN_001c7520(); };
-struct Manager_207f60 { char pad[0x18]; ListPart list; Item_207f60 *FUN_001c7f80(int); };
+struct Manager_207f60 { char pad[0x18]; ListPart list;  };
 struct Context { char pad[4]; Manager_207f60 *manager; };
 Context * __cdecl FUN_001c3d90();
 struct Resource_207f60 {
@@ -26,7 +27,7 @@ void Object::FUN_00207f60() {
  Manager_207f60 *manager=FUN_001c3d90()->manager;
  int count=manager->list.FUN_001c7520();
  for(int i=0;i<count;++i) {
-  int id=manager->FUN_001c7f80(i)->id;
+  int id=((Item_207f60 *)((owners::Thing_1c7f80 *)manager)->FUN_001c7f80((unsigned int)i))->id;
   char buffer[32];
   sprintf(buffer,"%s_r%03d",name,id);
   FUN_00207580(id,1);

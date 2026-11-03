@@ -1,8 +1,4 @@
-class X_127d0 {
-  public:
-    char pad[0xc8];
-    char* Get(void);
-};
-char* X_127d0::Get(void) {
+#include "gen/owners.h"
+char* owners::X_127d0::FUN_000127d0(void) {
     return (char*)((char*)this + 0xc8);
 }

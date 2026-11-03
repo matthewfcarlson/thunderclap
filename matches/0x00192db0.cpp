@@ -1,11 +1,6 @@
-class X_192db0 {
-  public:
-    char pad[0xfe];
-    char m0fe;
-    char Set(char b);
-};
+#include "gen/owners.h"
 
-char X_192db0::Set(char b) {
+char owners::X_192db0::FUN_00192db0(char b) {
     m0fe = b;
     return 1;
 }

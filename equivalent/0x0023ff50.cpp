@@ -2,12 +2,12 @@
 // FUN_0023ff50 @ 0x0023ff50
 #include "decls/data/engine/audio.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 extern "C" void __cdecl FUN_0023fa40(int *, char *, unsigned int, int);
 extern void __cdecl FUN_00247570(void *allocation);
 struct Header_23ff50 { unsigned int reserved; unsigned short references; unsigned short capacity; };
-struct String { char *data; unsigned short kind; unsigned short unused; unsigned short length; String *append(String *other); };
-String *String::append(String *other) {
+owners::String_23ff50 *owners::String_23ff50::FUN_0023ff50(owners::String_23ff50 *other) {
  unsigned int oldLength = length;
  unsigned int total = oldLength + other->length;
  Header_23ff50 *header = reinterpret_cast<Header_23ff50 *>(data) - 1;

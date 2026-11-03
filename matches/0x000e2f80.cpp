@@ -1,8 +1,8 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class W_e2f80 {
   public:
     char p[8];
-    int* Get(int);
 };
 class Z {
   public:
@@ -28,7 +28,7 @@ class Obj_e2f80 {
     void f(int);
 };
 void Obj_e2f80::f(int arg) {
-    int* p = x->y->z->w->Get(arg);
+    int* p = ((int *)((owners::Obj_f8d70 *)(x->y->z->w))->FUN_000f8d70((hulk_intptr)arg));
     arr = p;
     if (p) {
         int i = 0;

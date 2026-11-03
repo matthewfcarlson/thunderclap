@@ -1,6 +1,5 @@
+#include "gen/owners.h"
 struct Sub {
-    void A(int);
-    void B(int);
 };
 struct Obj {
     char pad[0xc4];
@@ -9,7 +8,7 @@ struct Obj {
 };
 void Obj::Fn(int a, int b) {
     Sub* q = (Sub*)((char*)p + 0x170);
-    q->A(a);
+    ((owners::Target_ac780 *)q)->FUN_000ac780(a);
     q = (Sub*)((char*)p + 0x170);
-    q->B(b);
+    ((owners::Target_ac790 *)q)->FUN_000ac790(b);
 }

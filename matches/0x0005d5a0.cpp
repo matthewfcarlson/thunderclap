@@ -1,12 +1,7 @@
 // cl-flags: /O2
-class C_5d5a0 {
-  public:
-    char Set(int v);
-    char pad[0x48];
-    int m;
-};
+#include "gen/owners.h"
 
-char C_5d5a0::Set(int v) {
+char owners::C_5d5a0::FUN_0005d5a0(int v) {
     m = v;
     return 1;
 }

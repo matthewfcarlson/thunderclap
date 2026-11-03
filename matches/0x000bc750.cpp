@@ -1,9 +1,9 @@
 #include "gen/global.h"
+#include "gen/owners.h"
 class Manager_bc750 {
   public:
     void A(int);
     void* B();
-    void C(int);
     void D(void*);
 };
 class Other_bc750 {
@@ -17,7 +17,6 @@ class Obj_bc750 {
     Other_bc750* m38;
     char pad40[0x10];
     Other_bc750* m4c;
-    int Get(void*);
     void End();
 };
 extern "C" void FUN_000fc300();
@@ -27,11 +26,11 @@ void Obj_bc750::End() {
         m34->A(0);
         void* edi = m34->B();
         if (edi) {
-            int ebx = Get(edi);
+            int ebx = ((int)((owners::NameTable_b4cf0 *)this)->FUN_000b4cf0((const char *)edi));
             if (ebx) {
                 if (m4c)
                     m4c->F(edi);
-                m34->C(ebx);
+                ((owners::LevelName_895e0 *)m34)->FUN_000895e0((const char *)(hulk_uintptr)(int)ebx);
                 m34->D(edi);
                 FUN_000fc300();
             }

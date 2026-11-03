@@ -1,10 +1,6 @@
-class Obj_1153c0 {
-  public:
-    char m[0x2b];
-    char SetB(unsigned char value);
-};
+#include "gen/owners.h"
 
-char Obj_1153c0::SetB(unsigned char value) {
+char owners::Obj_1153c0::FUN_001153c0(unsigned char value) {
     m[0x2b] = value;
     return 1;
 }

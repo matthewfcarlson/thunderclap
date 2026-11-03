@@ -1,8 +1,4 @@
-class Obj_47d30 {
-  public:
-    char pad[16];
-    void* Get();
-};
-void* Obj_47d30::Get() {
+#include "gen/owners.h"
+void* owners::Obj_47d30::FUN_00047d30() {
     return (char*)this + 16;
 }

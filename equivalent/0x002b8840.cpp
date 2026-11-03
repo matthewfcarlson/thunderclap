@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // FUN_002b8840 @ 0x002b8840
+#include "gen/owners.h"
 struct Mat4_2b8840 {
     float m[16];
 };
@@ -11,7 +12,6 @@ struct Range_2b8840 {
 
 struct Vec3_2b8840 {
     float x, y, z;
-    void FUN_0022d260(Mat4_2b8840 *m);
     bool FUN_0022d2b0(Vec3_2b8840 *other, float eps);
     void FUN_0022d180();
 };
@@ -30,7 +30,7 @@ extern "C" void FUN_002b8840(float *out1, float *out2, int flags, void *range1, 
     v.x = 0.0f;
     v.y = 0.0f;
     v.z = 1.0f;
-    v.FUN_0022d260(((Mat4_2b8840 *)m));
+    ((owners::Obj_22d260 *)&v)->FUN_0022d260((owners::Obj_22d260 *)(Mat4_2b8840 *)(((Mat4_2b8840 *)m)));
     if (axis->FUN_0022d2b0(&v, 1e-5f))
         return;
 
@@ -50,7 +50,7 @@ extern "C" void FUN_002b8840(float *out1, float *out2, int flags, void *range1, 
         u.x = (float)i;
         u.y = (float)(1 - i);
         u.z = 0.0f;
-        u.FUN_0022d260(((Mat4_2b8840 *)m));
+        ((owners::Obj_22d260 *)&u)->FUN_0022d260((owners::Obj_22d260 *)(Mat4_2b8840 *)(((Mat4_2b8840 *)m)));
 
         double dotU = (double)u.y * axis->y + (double)u.x * axis->x + (double)u.z * axis->z;
         double lenU = (double)u.z * u.z + (double)u.y * u.y + (double)u.x * u.x;

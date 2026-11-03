@@ -1,8 +1,8 @@
 #include "decls/data/engine/audio.h"
+#include "gen/owners.h"
 
 class Elem_250350 {
   public:
-    void Init();
 };
 class SeqEvent {
   public:
@@ -26,7 +26,7 @@ class SeqEventWait : public SeqEvent {
 };
 extern "C" void __cdecl FUN_00247550(void*, void*);
 SeqEventWait* SeqEventWait::f4(int flags) {
-    sub.Init();
+    ((owners::Str_240060 *)&sub)->FUN_00240060();
     Finish();
     if (flags & 1)
         FUN_00247550(((int*)&DAT_004e69b0), this);

@@ -1,10 +1,5 @@
-class O_16f7b0 {
-  public:
-    char Pad[0x3c];
-    int m3c;
-    char Set(int v);
-};
-char O_16f7b0::Set(int v) {
+#include "gen/owners.h"
+char owners::O_16f7b0::FUN_0016f7b0(int v) {
     m3c = v;
     return 1;
 }

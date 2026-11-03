@@ -1,4 +1,5 @@
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 class C2_45670 {
   public:
@@ -6,7 +7,6 @@ class C2_45670 {
 };
 class C1_45670 {
   public:
-    C2_45670* Sub();
 };
 class Mgr_45670 {
   public:
@@ -14,19 +14,13 @@ class Mgr_45670 {
     C1_45670* m54;
 };
 extern Mgr_45670* gMgr_45670;
-class Obj_45670 {
-  public:
-    char pad[0x314];
-    float f314, f318, f31c;
-    float Fn();
-};
-float Obj_45670::Fn() {
+float owners::Obj_45670::FUN_00045670() {
     float r = DAT_003f32dc;
     Mgr_45670* m = gMgr_45670;
     if (m && m->m54) {
-        C2_45670* s = m->m54->Sub();
+        C2_45670* s = ((C2_45670 *)((owners::C_86310 *)(m->m54))->FUN_00086310());
         if (s) {
-            int k = m->m54->Sub()->Get();
+            int k = ((C2_45670 *)((owners::C_86310 *)(m->m54))->FUN_00086310())->Get();
             switch (k) {
             case 0:
                 r = f314;

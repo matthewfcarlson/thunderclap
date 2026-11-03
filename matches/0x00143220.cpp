@@ -1,10 +1,6 @@
-struct Obj_143220 {
-    char pad[0x34];
-    int value;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char Obj_143220::Set(int v) {
+char owners::Obj_143220::FUN_00143220(int v) {
     value = v;
     return 1;
 }

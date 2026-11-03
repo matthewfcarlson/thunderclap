@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3033 inputs, branch coverage 36/36)
 // FUN_00325fd0 @ 0x00325fd0
 // equiv-conv: FUN_00325fd0 ecx edx eax stack
+#include "gen/owners.h"
 class Device_325fd0 {
   public:
-    bool Supports(int d3dFormat);
 };
 extern int g_formatTable[];      // 0x4d3e14
 // equiv-map: ?g_formatTable@@3PAHA = 0x004d3e14
@@ -34,7 +34,7 @@ int FUN_00325fd0(int fmt, int depth, int bits, Device_325fd0* dev) {
             idx = bits > 16 ? 13 : 11;
         break;
     }
-    if (!dev->Supports(g_formatTable[idx]))
+    if (!((owners::Holder_320d00 *)dev)->FUN_00320d00(g_formatTable[idx]))
         return -1;
     return g_formatTable[idx];
 }

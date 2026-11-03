@@ -2,6 +2,7 @@
 // CChaseAgent::vfunc_3 @ 0x000fc970
 #include "compat/ptr.h"
 #include "gen/global.h"
+#include "gen/owners.h"
 
 struct Binding_fc970;
 
@@ -18,8 +19,6 @@ struct Unit_fc970 {
     char flag70;
     char flag71;
     bool FUN_000fc900();
-    float FUN_000fc890();
-    float FUN_000fc830();
 };
 
 struct Stats_fc970 {
@@ -30,7 +29,6 @@ struct Stats_fc970 {
 struct Weapon_fc970 {
     char pad0[0x11c];
     Stats_fc970 *stats;
-    int FUN_00035ef0(int a);
 };
 
 struct Mode_fc970 {
@@ -85,7 +83,7 @@ hulk_freg CChaseAgent::vfunc_3(hulk_intptr __p0, int a) { Unit_fc970 * arg = (Un
     bool is3 = (kind == 3);
     bool is2 = (kind == 2);
     bool ready = false;
-    if (w->FUN_00035ef0(0)) {
+    if (((int)((owners::C_35ef0 *)w)->FUN_00035ef0((hulk_intptr)0))) {
         if (w->stats->limit >= 4.0f)
             ready = true;
     }
@@ -95,11 +93,11 @@ hulk_freg CChaseAgent::vfunc_3(hulk_intptr __p0, int a) { Unit_fc970 * arg = (Un
         if (u->FUN_000fc900() && (!ready || !u->flag45))
             reset = true;
         if (!reset && ready) {
-            if (u->FUN_000fc890() > 1.5f)
+            if (((owners::Obj_fc890 *)u)->FUN_000fc890() > 1.5f)
                 reset = true;
         }
         if (!reset && u->flag70) {
-            if (u->FUN_000fc830() > 2.5f)
+            if (((owners::C_fc830 *)u)->FUN_000fc830() > 2.5f)
                 reset = true;
         }
     }

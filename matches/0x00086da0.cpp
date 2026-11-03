@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class B_86da0 {
   public:
     void a();
@@ -8,7 +9,6 @@ void thunk();
 void f656a0();
 class C_86da0 {
   public:
-    void d(int, int);
 };
 class A_86da0 {
   public:
@@ -27,7 +27,7 @@ void A_86da0::run() {
         f656a0();
     }
     if (y)
-        y->d(0, 0);
+        ((owners::Thing_1eb2a0 *)y)->FUN_001eb2a0(0, 0);
     if (x) {
         while (b80()) {
             FUN_0008db90();

@@ -1,11 +1,6 @@
-class X_1929e0 {
-  public:
-    char pad[0x60];
-    unsigned char m;
-    bool Set(unsigned char v);
-};
+#include "gen/owners.h"
 
-bool X_1929e0::Set(unsigned char v) {
+bool owners::X_1929e0::FUN_001929e0(unsigned char v) {
     m = v;
     return true;
 }

@@ -1,22 +1,18 @@
+#include "gen/owners.h"
 class Path_262700 {
   public:
     unsigned int Length();
-    char* Buffer();
     void SetLength(unsigned int);
     char* Data();
-    void Append(Path_262700*);
-    void AppendText(char*);
     void Finish();
 };
 struct Temp_262700 {
     char pad[12];
-    char* Make(const char*, int);
-    void Destroy();
 };
 extern "C" Path_262700* FUN_00262700(Path_262700* self, Path_262700* other) {
     unsigned int n = self->Length();
     if (n > 0) {
-        char* s = self->Buffer();
+        char* s = ((owners::String_23fbb0 *)self)->FUN_0023fbb0();
         char c = s[n - 1];
         if (c == '\\' || c == '/') {
             s[n - 1] = 0;
@@ -31,12 +27,12 @@ extern "C" Path_262700* FUN_00262700(Path_262700* self, Path_262700* other) {
         if (c != '\\' && c != '/') {
             if (self->Length() > 0) {
                 Temp_262700 t;
-                char* x = t.Make("\\", 0);
-                self->AppendText(x);
-                t.Destroy();
+                char* x = ((char *)((owners::String_23fc40 *)&t)->FUN_0023fc40("\\", (hulk_intptr)0));
+                ((owners::String_23ff50 *)self)->FUN_0023ff50((owners::String_23ff50 *)x);
+                ((owners::Str_240060 *)&t)->FUN_00240060();
             }
         }
-        self->Append(other);
+        ((owners::String_23ff50 *)self)->FUN_0023ff50((owners::String_23ff50 *)(Path_262700 *)other);
     }
     return self;
 }

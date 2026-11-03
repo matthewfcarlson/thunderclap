@@ -1,9 +1,9 @@
+#include "gen/owners.h"
 class C {
   public:
-    void f2(int, int*);
     void target(int);
 };
 void C::target(int x) {
     int y = 0;
-    f2(x, &y);
+    ((owners::Buffer_2b1010 *)this)->FUN_002b1010((unsigned int)x, &y);
 }

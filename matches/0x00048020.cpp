@@ -1,11 +1,6 @@
-class X_48020 {
-  public:
-    char Fn(int v);
-    char pad[12];
-    int m;
-};
+#include "gen/owners.h"
 
-char X_48020::Fn(int v) {
+char owners::X_48020::FUN_00048020(int v) {
     m = v;
     return 1;
 }

@@ -2,13 +2,13 @@
 // FUN_0028bf20 @ 0x0028bf20
 // 0x0028bf20: channel constructor holding 12-byte elements, allocated from the parent pool or the heap
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern char DAT_0042c9f0[];
 void* __cdecl FUN_0008d6d0(unsigned size);
 void __stdcall FUN_00011520(void* base, unsigned size, int count, void* ctor);
 extern char FUN_00011090;
 
 struct Pool_28bf20 {
-    void* FUN_002888c0(int size, int tag);
 };
 
 class Vector3DOFChannel_28bf20 {
@@ -40,6 +40,6 @@ Vector3DOFChannel_28bf20* Vector3DOFChannel_28bf20::Construct(int a, int b)
         data = mem;
         return this;
     }
-    data = parent->FUN_002888c0(count * 12, 3);
+    data = ((void *)((owners::C_2888c0 *)parent)->FUN_002888c0((unsigned)(count * 12), 3));
     return this;
 }

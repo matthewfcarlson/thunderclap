@@ -1,11 +1,6 @@
+#include "gen/owners.h"
 extern "C" char* strncpy(char*, const char*, unsigned int);
-class C_e5540 {
-    char pad[0xb80];
-
-  public:
-    void f(const char* p);
-};
-void C_e5540::f(const char* p) {
+void owners::C_e5540::FUN_000e5540(const char* p) {
     if (p)
         strncpy((char*)this + 0xb80, p, 0x40);
     else

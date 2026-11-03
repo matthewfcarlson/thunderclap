@@ -2,6 +2,7 @@
 // FUN_000a38c0 @ 0x000a38c0
 #include "decls/data/game/global.h"
 #include "compat/ptr.h"
+#include "gen/owners.h"
 
 extern "C" double __cdecl sqrt(double);
 
@@ -17,8 +18,6 @@ struct V3_a38c0 {
     float x, y, z;
     float FUN_000259c0();
     float FUN_0022d110();
-    void FUN_00011160(float s, V3_a38c0 *d);
-    void FUN_00011250(V3_a38c0 *out, V3_a38c0 *other);
 };
 
 V3_a38c0 *__cdecl FUN_0009f8c0(V3_a38c0 *out, float yaw, float pitch, float scale);
@@ -34,7 +33,6 @@ float __cdecl FUN_000a05b0(float a, float b, float c, float d, float e);
 
 struct Input32c_a38c0 {
     char pad00[0x14];
-    char FUN_000a2370(float dt, float *outA, float *outB, char *outC);
 };
 
 struct Frame_a38c0 {
@@ -223,14 +221,14 @@ void CChaseCamera_a38c0::Update(float unused, float dt)
                         p3f4.x = p1b8.x;
                         p3f4.y = p1b8.y;
                         p3f4.z = p1b8.z;
-                        p3f4.FUN_00011160(f.outA, &f.dv);
+                        ((owners::Vec3_11160 *)&p3f4)->FUN_00011160(f.outA, (const owners::Vec3_11160 *)(V3_a38c0 *)(&f.dv));
                         p3f4.y = f.angA;
                         f.outA = f.dv.FUN_000259c0();
                         if (!FUN_00018960(f.outA, 0.0f, 1e-005f)) {
                             f.angA = f.dv.y / f.outA;
                             f.angA = AbsF(f.angA);
                             if (f.angA < 0.95f) {
-                                p1c4.FUN_00011250(&f.o, &p3f4);
+                                ((owners::Vec3_11250 *)&p1c4)->FUN_00011250((owners::Vec3_11250 *)(V3_a38c0 *)(&f.o), (owners::Vec3_11250 *)(V3_a38c0 *)(&p3f4));
                                 FUN_000a04c0(&f.o, &f.outA, &f.angA, &f.angB);
                                 f.yaw = FUN_000a03c0(f.yaw, f.outA - 45.0f, f.outA + 45.0f);
                                 f.pitch = f.angA;
@@ -267,7 +265,7 @@ void CChaseCamera_a38c0::Update(float unused, float dt)
         dt = (dt > 1.0f) ? 1.0f : -1.0f;
     f.angC = FUN_000189c0(dt) * 57.2957764f;
 
-    if (!in32c.FUN_000a2370(dt0, &f.outA, &f.outB, (char *)&dt) && !(f488 > 0.0f)) {
+    if (!((char)((owners::Obj_a2370 *)&in32c)->FUN_000a2370(dt0, &f.outA, &f.outB, (unsigned char *)((char *)&dt))) && !(f488 > 0.0f)) {
         f3bc = FUN_000a05b0(f3bc, f.yaw, (*(float*)&DAT_0049ec44), dt0, 5.0f);
         if (f.pitch < f.angC)
             f.pitch = f.angC;

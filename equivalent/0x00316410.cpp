@@ -7,18 +7,14 @@
 // The locals live in one Frame at the original's stack slots (several slots hold different values in
 // different blocks), because the callees get pointers into it.
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" double __cdecl sqrt(double);
 
 struct Vec3 {
     float x, y, z;
     float FUN_0022d110();
-    void FUN_000110d0(const Vec3 *v);
     void FUN_00011110(const Vec3 *a, const Vec3 *b);
-    void FUN_00011140(float s);
-    void FUN_00011160(float s, const Vec3 *v);
     void FUN_000111b0(const Vec3 *a, const Vec3 *b);
-    void FUN_00034440(const Vec3 *a, const Vec3 *b);
-    void FUN_00095e80(float s, const Vec3 *v);
     void FUN_001f6bc0(const Vec3 *base, float s, const Vec3 *dir);
 };
 
@@ -129,7 +125,7 @@ void Resolver::FUN_00316410(Body *a, Vec3 *vel, Vec3 *axis, float range, Body *b
             fr.self->dir.FUN_001f6bc0(&fr.P, -lat, &b->n);
             fr.s0c.f = ((fr.self->dir.z * vel->z + fr.self->dir.y * vel->y) + fr.self->dir.x * vel->x);
             vel->FUN_001f6bc0(&fr.self->dir, FUN_00083d90(&lat) * b->f50, &b->n);
-            vel->FUN_000110d0(b->vfunc_4());
+            ((owners::V3_110d0 *)vel)->FUN_000110d0((owners::V3_110d0 *)(const Vec3 *)(b->vfunc_4()));
             fr.s10.f = fr.self->dir.FUN_0022d110();
             if (!(FUN_00083d90(&fr.s0c.f) < 0.0f)
                 && !(((fr.s00.off->z * fr.self->dir.z + fr.s00.off->y * fr.self->dir.y) + fr.s00.off->x * fr.self->dir.x) > 0.0f)) {
@@ -145,9 +141,9 @@ void Resolver::FUN_00316410(Body *a, Vec3 *vel, Vec3 *axis, float range, Body *b
             fr.s0c.f = FUN_00083d90(&lat);
             fr.s00.w.f = ((fr.P.x * axis->x + fr.P.z * axis->z) + fr.P.y * axis->y);
             vel->FUN_001f6bc0(&fr.P, -(FUN_00083d90(&fr.s00.w.f) * range), axis);
-            vel->FUN_000110d0(b->vfunc_4());
+            ((owners::V3_110d0 *)vel)->FUN_000110d0((owners::V3_110d0 *)(const Vec3 *)(b->vfunc_4()));
             fr.P.FUN_001f6bc0(vel, -(fr.s0c.f * fr.s10.f), &b->n);
-            fr.self->dir.FUN_00095e80(fr.s0c.f, &b->n);
+            ((owners::Vec3_95e80 *)&(fr.self->dir))->FUN_00095e80(fr.s0c.f, (float const *)(const Vec3 *)(&b->n));
         }
         fr.self->FUN_00314be0(a, vel, b, &fr.P, fr.s10.f, &fr.self->dir);
         return;
@@ -201,9 +197,9 @@ void Resolver::FUN_00316410(Body *a, Vec3 *vel, Vec3 *axis, float range, Body *b
                 fr.s0c.f = range - (fr.s20.f - FUN_000186f0(&fr.s0c.f, &fr.s04.f) * fr.s00.w.f);
                 vel->FUN_001f6bc0(&fr.P, -(FUN_00083d90(&fr.pa) * fr.s0c.f), axis);
             }
-            vel->FUN_000110d0(b->vfunc_4());
-            fr.self->dir.FUN_00095e80(FUN_00083d90(&fr.dp), &b->n);
-            fr.P.FUN_00095e80(-fr.s08.f, &fr.self->dir);
+            ((owners::V3_110d0 *)vel)->FUN_000110d0((owners::V3_110d0 *)(const Vec3 *)(b->vfunc_4()));
+            ((owners::Vec3_95e80 *)&(fr.self->dir))->FUN_00095e80(FUN_00083d90(&fr.dp), (float const *)(const Vec3 *)(&b->n));
+            ((owners::Vec3_95e80 *)&(fr.P))->FUN_00095e80(-fr.s08.f, (float const *)(const Vec3 *)(&fr.self->dir));
             fr.P.x = fr.P.x + vel->x;
             fr.P.y = fr.P.y + vel->y;
             fr.P.z = fr.P.z + vel->z;
@@ -213,15 +209,15 @@ void Resolver::FUN_00316410(Body *a, Vec3 *vel, Vec3 *axis, float range, Body *b
         if (fr.s00.w.f > 0.0f) {
             // Hitting b's end cap.
             vel->FUN_001f6bc0(&fr.P, (AbsIn(fr.s04, fr.pp) < AbsIn(fr.s08, fr.pm) ? 1.0f : -1.0f) * range, axis);
-            fr.P.FUN_00095e80(fr.dp, &b->n);
+            ((owners::Vec3_95e80 *)&(fr.P))->FUN_00095e80(fr.dp, (float const *)(const Vec3 *)(&b->n));
             fr.self->dir.FUN_00011110(vel, &fr.P);
             fr.s10.f = fr.self->dir.FUN_0022d110() - b->f54;
-            vel->FUN_000110d0(b->vfunc_4());
+            ((owners::V3_110d0 *)vel)->FUN_000110d0((owners::V3_110d0 *)(const Vec3 *)(b->vfunc_4()));
             Vec3 *c = b->vfunc_4();
             fr.P.x = fr.P.x + c->x;
             fr.P.y = fr.P.y + c->y;
             fr.P.z = fr.P.z + c->z;
-            fr.P.FUN_00011160(b->f54, &fr.self->dir);
+            ((owners::Vec3_11160 *)&(fr.P))->FUN_00011160(b->f54, (const owners::Vec3_11160 *)(const Vec3 *)(&fr.self->dir));
         } else {
             // Hitting b's rim.
             if (((fr.P.z * fr.self->dir.z + fr.P.y * fr.self->dir.y) + fr.P.x * fr.self->dir.x) < 0.0f) {
@@ -230,9 +226,9 @@ void Resolver::FUN_00316410(Body *a, Vec3 *vel, Vec3 *axis, float range, Body *b
                 fr.self->dir.z = fr.self->dir.z * -1.0f;
             }
             vel->FUN_001f6bc0(b->vfunc_4(), fr.dp, &b->n);
-            vel->FUN_00011160(fr.s10.f + b->f54, &fr.self->dir);
+            ((owners::Vec3_11160 *)vel)->FUN_00011160(fr.s10.f + b->f54, (const owners::Vec3_11160 *)(const Vec3 *)(&fr.self->dir));
             fr.P.FUN_001f6bc0(b->vfunc_4(), FUN_00083d90(&fr.dp) * b->f50, &b->n);
-            fr.P.FUN_00011160(b->f54, &fr.self->dir);
+            ((owners::Vec3_11160 *)&(fr.P))->FUN_00011160(b->f54, (const owners::Vec3_11160 *)(const Vec3 *)(&fr.self->dir));
         }
         fr.self->FUN_00314be0(a, vel, b, &fr.P, fr.s10.f, &fr.self->dir);
         return;
@@ -240,7 +236,7 @@ void Resolver::FUN_00316410(Body *a, Vec3 *vel, Vec3 *axis, float range, Body *b
 
     if (fr.inside && sweep) {
         // Swept both ways along the axis.
-        fr.P.FUN_00034440(fr.s00.off, vel);
+        ((owners::Vec3_34440 *)&(fr.P))->FUN_00034440((owners::Vec3_34440 *)(const Vec3 *)(fr.s00.off), (owners::Vec3_34440 *)(const Vec3 *)vel);
         for (fr.count = 2; fr.count != 0; range = range * -1.0f, fr.count--) {
             fr.Q.x = range * axis->x + fr.P.x;
             fr.Q.y = range * axis->y + fr.P.y;
@@ -264,13 +260,13 @@ void Resolver::FUN_00316410(Body *a, Vec3 *vel, Vec3 *axis, float range, Body *b
             vel->z = fr.Q.z + c->z;
             if (fr.s08.f > fr.dist) {
                 fr.self->dir = b->n;
-                fr.self->dir.FUN_00011140(fr.s0c.f);
+                ((owners::Vec3_11140 *)&(fr.self->dir))->FUN_00011140(fr.s0c.f);
                 fr.R.FUN_001f6bc0(vel, AbsIn(fr.s04, fr.s08.f) * fr.s0c.f, &b->n);
             } else {
                 fr.self->dir.FUN_001f6bc0(&fr.Q, -fr.s04.f, &b->n);
                 fr.self->dir.FUN_0022d110();
                 fr.R.FUN_001f6bc0(b->vfunc_4(), fr.s04.f, &b->n);
-                fr.R.FUN_00011160(b->f54, &fr.self->dir);
+                ((owners::Vec3_11160 *)&(fr.R))->FUN_00011160(b->f54, (const owners::Vec3_11160 *)(const Vec3 *)(&fr.self->dir));
                 fr.s08.f = fr.dist;
             }
             fr.self->FUN_00314be0(a, vel, b, &fr.R, fr.s08.f, &fr.self->dir);
@@ -368,7 +364,7 @@ void Resolver::FUN_00316410(Body *a, Vec3 *vel, Vec3 *axis, float range, Body *b
             }
             fr.sv = ((b->n.z * vel->z + b->n.y * vel->y) + b->n.x * vel->x);
             fr.s00.w.f = FUN_00083d90(&fr.sv);
-            fr.self->dir.FUN_00095e80(fr.s00.w.f, &b->n);
+            ((owners::Vec3_95e80 *)&(fr.self->dir))->FUN_00095e80(fr.s00.w.f, (float const *)(const Vec3 *)(&b->n));
             // x87: the distance is stored (fst) and compared unrounded
             hulk_freg dx = ((fr.X.z * b->n.z + fr.X.y * b->n.y) + fr.X.x * b->n.x) * fr.s00.w.f - b->f50;
             fr.s20.f = dx;
@@ -381,11 +377,11 @@ void Resolver::FUN_00316410(Body *a, Vec3 *vel, Vec3 *axis, float range, Body *b
                 if (dy >= fr.self->threshold * 1.03f)
                     continue;
             }
-            vel->FUN_000110d0(b->vfunc_4());
+            ((owners::V3_110d0 *)vel)->FUN_000110d0((owners::V3_110d0 *)(const Vec3 *)(b->vfunc_4()));
         } else {
-            vel->FUN_000110d0(b->vfunc_4());
+            ((owners::V3_110d0 *)vel)->FUN_000110d0((owners::V3_110d0 *)(const Vec3 *)(b->vfunc_4()));
             if (fr.s00.w.f != 0.0f)
-                fr.self->dir.FUN_00011140(1.0f / fr.s00.w.f);
+                ((owners::Vec3_11140 *)&(fr.self->dir))->FUN_00011140(1.0f / fr.s00.w.f);
             else
                 fr.self->dir = b->n;
             fr.s20.f = fr.s00.w.f - b->f54;

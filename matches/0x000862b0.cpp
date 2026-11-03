@@ -1,9 +1,4 @@
-class C_862b0 {
-    char pad[0x2c];
-
-  public:
-    unsigned int f();
-};
-unsigned int C_862b0::f() {
+#include "gen/owners.h"
+hulk_uintptr owners::C_862b0::FUN_000862b0() {
     return *(unsigned int*)((char*)this + 0x2c);
 }

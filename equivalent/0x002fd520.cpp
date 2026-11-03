@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2977 inputs, branch coverage 6/6)
 // physics::SimStateArticulated::vfunc_7 @ 0x002fd520
 #include "gen/physics.h"
+#include "gen/owners.h"
 
 struct Joint_2fd520 {
     char pad0[4];
@@ -11,7 +12,6 @@ struct Joint_2fd520 {
 
 struct Chain_2fd520 {
     char pad0[8];
-    int FUN_0030f450();
 };
 
 namespace physics {
@@ -25,7 +25,7 @@ void physics::SimStateArticulated::vfunc_7() {
     this->f_5c = 0;
     this->f_80 = 0;
     if ((*(Chain_2fd520 * *)&this->f_88) != 0) {
-        for (int i = 0; i < (*(Chain_2fd520 * *)&this->f_88)->FUN_0030f450(); i++) {
+        for (int i = 0; i < ((owners::C_30f450 *)((*(Chain_2fd520 * *)&this->f_88)))->FUN_0030f450(); i++) {
             Joint_2fd520 *j = &(*(Joint_2fd520 * *)&this->f_8c)[i];
             j->f1c = 1;
             j->fc = 0;

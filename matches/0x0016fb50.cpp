@@ -1,11 +1,6 @@
-class X_16fb50 {
-  public:
-    char pad[0x2c];
-    float value;
-    unsigned char Set(float angle);
-};
+#include "gen/owners.h"
 
-unsigned char X_16fb50::Set(float angle) {
+unsigned char owners::X_16fb50::FUN_0016fb50(float angle) {
     value = angle * 0.017453292f;
     return 1;
 }

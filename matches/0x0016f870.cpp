@@ -1,10 +1,6 @@
-struct X_16f870 {
-    char pad[0x1c];
-    int mField;
-    bool Set(int value);
-};
+#include "gen/owners.h"
 
-bool X_16f870::Set(int value) {
+bool owners::X_16f870::FUN_0016f870(int value) {
     mField = value;
     return true;
 }

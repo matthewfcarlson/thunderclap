@@ -1,11 +1,6 @@
-class Obj_15adc0 {
-  public:
-    char pad[24];
-    int mField;
-    char Fn(int x);
-};
+#include "gen/owners.h"
 
-char Obj_15adc0::Fn(int x) {
+char owners::Obj_15adc0::FUN_0015adc0(int x) {
     mField = x;
     return 1;
 }

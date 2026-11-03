@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 16746 inputs, branch coverage 92/102, incomplete)
 // FUN_0023a6b0 @ 0x0023a6b0
 // cl-flags: /GS
+#include "gen/owners.h"
 extern "C" int isalpha(int c);
 extern "C" int isalnum(int c);
 extern "C" int isdigit(int c);
@@ -9,7 +10,6 @@ extern "C" long atol(const char *s);
 struct NameKey {
     unsigned int lo;
     unsigned int hi;
-    void FUN_0027b040(const char *s);
 };
 
 struct Chunk {
@@ -56,7 +56,6 @@ public:
     Entry entries[0x200];
 
     int FUN_0023a610();
-    int FUN_0023a660(const char *name);
     void FUN_0023a6b0();
 };
 
@@ -97,7 +96,7 @@ void ScriptReader_23a6b0::FUN_0023a6b0()
                     int idx = -1;
                     if (count < 0x200) {
                         idx = count;
-                        entries[idx].name.FUN_0027b040(buf);
+                        ((owners::Target_27b040 *)&(entries[idx].name))->FUN_0027b040((hulk_uintptr)buf);
                         entries[idx].type = 0;
                         count++;
                     }
@@ -152,12 +151,12 @@ void ScriptReader_23a6b0::FUN_0023a6b0()
                         }
                     }
                 } else if (ch != '"') {
-                    name120.FUN_0027b040(buf);
+                    ((owners::Target_27b040 *)&name120)->FUN_0027b040((hulk_uintptr)buf);
                     f128 = ws;
                     FUN_00266da0(old);
                     return;
                 } else {
-                    int idx = FUN_0023a660(buf);
+                    int idx = ((owners::Owner_23a660 *)this)->FUN_0023a660((void *)buf);
                     if (idx >= 0) {
                         entries[idx].type = 4;
                         entries[idx].val.s = 0;

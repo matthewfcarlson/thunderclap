@@ -1,7 +1,4 @@
-struct Obj_1431b0 {
-    char pad[0x18];
-    void* Get();
-};
-void* Obj_1431b0::Get() {
+#include "gen/owners.h"
+void* owners::Obj_1431b0::FUN_001431b0() {
     return (char*)this + 0x18;
 }

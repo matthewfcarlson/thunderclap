@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 14/18, incomplete)
 // FUN_002788c0 @ 0x002788c0
 #include "decls/data/platform/xbox/core.h"
+#include "gen/owners.h"
 
-struct XboxSaveDrive_2788c0 { char pad[0xb4]; unsigned int status; char pad2[0x10]; unsigned int mountedCount; char deviceType; char pad3[6]; signed char slot; signed char unit; char pad4[8]; unsigned char mounted; char drive; void FUN_002783d0(unsigned int*, unsigned int*); void FUN_00278410(); unsigned int FUN_002787c0(unsigned int); bool FUN_002788c0(); };
+struct XboxSaveDrive_2788c0 { char pad[0xb4]; unsigned int status; char pad2[0x10]; unsigned int mountedCount; char deviceType; char pad3[6]; signed char slot; signed char unit; char pad4[8]; unsigned char mounted; char drive;  void FUN_00278410(); unsigned int FUN_002787c0(unsigned int); bool FUN_002788c0(); };
 struct MountRegistry { void FUN_00278060(); unsigned char FUN_002780c0(unsigned int, unsigned int); };
 namespace XAPILIB { unsigned int __stdcall XMountMUA(int, int, char*); }
 bool XboxSaveDrive_2788c0::FUN_002788c0() {
@@ -16,7 +17,7 @@ bool XboxSaveDrive_2788c0::FUN_002788c0() {
    if (mountedCount > 0) {
     (*(MountRegistry*)&DAT_0052a228).FUN_00278060();
     unsigned int first, second;
-    FUN_002783d0(&second, &first);
+    ((owners::Obj_2783d0 *)this)->FUN_002783d0((int *)(&second), (int *)(&first));
     status = (*(MountRegistry*)&DAT_0052a228).FUN_002780c0(second, first) ? 3 : 4;
     return false;
    }

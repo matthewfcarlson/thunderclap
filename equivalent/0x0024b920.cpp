@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 17486 inputs, branch coverage 25/26, incomplete)
 // FUN_0024b920 @ 0x0024b920
 // FUN_0024b920 @ 0x0024b920
+#include "gen/owners.h"
 class Sink_24b920 {
 public:
     virtual void v0();
@@ -29,7 +30,6 @@ struct Slot_24b920 {
 
 struct Queue_24b920 {
     Slot_24b920 slots[10];
-    void FUN_0024b270();
 };
 
 extern "C" char FUN_0025e450(Source_24b920 *src, int size);
@@ -94,7 +94,7 @@ extern "C" void FUN_0024b920(void * p_)
             return;
         FUN_0025e0b0(p->source, got, 0);
         if (p->pending > got)
-            p->queue.FUN_0024b270();
+            ((owners::Target_24b270 *)&(p->queue))->FUN_0024b270();
         p->pending = 0;
         p->started = 0;
     }

@@ -1,14 +1,7 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" unsigned int __cdecl strlen(const char*);
-class Obj {
-    char pad[0x83a];
-    char text[1];
-
-  public:
-    char Match(const char*, const char*, hulk_intptr);
-    char* Find(const char*);
-};
-char* Obj::Find(const char* name) {
+char* owners::Obj_338800::FUN_00338800(const char* name) {
     char* s = text;
     hulk_uintptr len = strlen(name);
     while (*s) {

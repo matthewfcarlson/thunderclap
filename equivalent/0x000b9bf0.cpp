@@ -3,6 +3,7 @@
 // cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 extern char DAT_0049dba4[];          // FEObject type descriptor
 extern char DAT_0049dbbc[];          // TextSelector type descriptor
 extern char DAT_0049f4a4[];          // TextButton type descriptor
@@ -20,18 +21,18 @@ extern "C" int __cdecl strcmp(const char *, const char *);
 #define strcmp(s, e) (*(s) != 0)
 #endif
 
-class FEObject {
+class FEObject_b9bf0 {
 public:
     virtual void vfunc_0();
 };
 
-class FEControl : public FEObject {
+class FEControl_b9bf0 : public FEObject_b9bf0 {
 public:
     char pad04[0x141 - 4];
     char flag141;
 };
 
-class TextButton : public FEControl {
+class TextButton_b9bf0 : public FEControl_b9bf0 {
 };
 
 class Manager_b9bf0 {
@@ -41,9 +42,6 @@ public:
 
 struct Label_b9bf0 {
     char data[0x24];
-    void FUN_000f7930();
-    void FUN_000f7960();
-    void FUN_000f7a10(int index, int flag);
     void FUN_000f8500(const char *name, Manager_b9bf0 *manager, char flag);
 };
 
@@ -73,11 +71,9 @@ public:
 };
 
 struct Progress_b9bf0 {
-    const char *FUN_0008a060(const char *key);
-    char FUN_000893c0();
 };
 
-FEObject *__cdecl FUN_000fc260(const char *name);
+FEObject_b9bf0 *__cdecl FUN_000fc260(const char *name);
 Manager_b9bf0 *__cdecl FUN_000fc1b0();
 void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 int __cdecl FUN_000964a0(char *dst, int size, const char *fmt, ...);
@@ -114,23 +110,23 @@ void SideMissionMenu::FUN_000b9bf0()
 
     char done = 0;
     if (progress != 0) {
-        const char *state = progress->FUN_0008a060("c00m01");
+        const char *state = ((const char *)((owners::Obj_8a060 *)progress)->FUN_0008a060((hulk_intptr)"c00m01"));
         if (state != 0 && memcmp(state, "complete", 9) == 0)
             done = 1;
-        else if (progress->FUN_000893c0() != 0)
+        else if (((char)((owners::Target_893c0 *)progress)->FUN_000893c0()) != 0)
             done = 1;
         else
             done = 0;
     }
-    FEControl *cont = (FEControl *)FUN_00344e74(FUN_000fc260("story_mode_continue_game"), 0, DAT_0049dba4, DAT_0049f4f0, 0);
+    FEControl_b9bf0 *cont = (FEControl_b9bf0 *)FUN_00344e74(FUN_000fc260("story_mode_continue_game"), 0, DAT_0049dba4, DAT_0049f4f0, 0);
     if (cont != 0)
         cont->flag141 = done;
-    FEControl *save = (FEControl *)FUN_00344e74(FUN_000fc260("options_save"), 0, DAT_0049dba4, DAT_0049f4f0, 0);
+    FEControl_b9bf0 *save = (FEControl_b9bf0 *)FUN_00344e74(FUN_000fc260("options_save"), 0, DAT_0049dba4, DAT_0049f4f0, 0);
     if (save != 0)
         save->flag141 = done;
 
     if (progress != 0) {
-        f.label.FUN_000f7930();
+        ((owners::State_f7930 *)&(f.label))->FUN_000f7930();
         f.sel = (SelectorView_b9bf0 *)FUN_00344e74(FUN_000fc260("side_mission_selector"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
         if (f.sel != 0) {
             f.sel->FUN_000e36c0();
@@ -142,13 +138,13 @@ void SideMissionMenu::FUN_000b9bf0()
                     f.b = -1;
                     FUN_00345804(*f.entry, "c%dm%d", &f.a, &f.b);
                     FUN_000964a0(f.u.name, 0x20, "%s_score", *f.entry);
-                    const char *score = progress->FUN_0008a060(f.u.name);
+                    const char *score = ((const char *)((owners::Obj_8a060 *)progress)->FUN_0008a060((hulk_intptr)(f.u.name)));
                     if (strcmp(score, "") != 0) {
                         FUN_000964a0(f.u.name, 0x20, "TBS_C%dM%d_NAME", f.a, f.b);
                         unsigned __int64 key = FUN_0027b020(f.u.name);
                         int idx = FUN_000fc1b0()->FUN_000f7240((int)key, (int)(key >> 32));
                         if (idx != -1)
-                            f.label.FUN_000f7a10(idx, 0);
+                            ((owners::Obj_f7a10 *)&(f.label))->FUN_000f7a10((hulk_intptr)idx, 0);
                         else
                             f.label.FUN_000f8500(f.u.name, FUN_000fc1b0(), 0);
                         f.sel->v19(&f.label, 0, 0);
@@ -159,10 +155,10 @@ void SideMissionMenu::FUN_000b9bf0()
                         if (reg->FUN_001d3b00("kmcGetSideMissionAward", f.args) == 3) {
                             const char *medal = reg->FUN_001d27b0("__SIDEMISSION_MEDAL__");
                             if (medal != 0) {
-                                f.medal.FUN_000f7930();
+                                ((owners::State_f7930 *)&(f.medal))->FUN_000f7930();
                                 f.medal.FUN_000f8500(medal, 0, 1);
                                 f.sel->v20(f.count, &f.medal);
-                                f.medal.FUN_000f7960();
+                                ((owners::Thing_f7960 *)&(f.medal))->FUN_000f7960();
                             }
                         }
                         f.count++;
@@ -171,20 +167,20 @@ void SideMissionMenu::FUN_000b9bf0()
                 } while (*f.entry != 0);
             }
             f.sel->v3();
-            TextButton *btn = (TextButton *)FUN_00344e74(FUN_000fc260("menu_item_side_missions"), 0, DAT_0049dba4, DAT_0049f4a4, 0);
+            TextButton_b9bf0 *btn = (TextButton_b9bf0 *)FUN_00344e74(FUN_000fc260("menu_item_side_missions"), 0, DAT_0049dba4, DAT_0049f4a4, 0);
             if (btn != 0)
                 btn->flag141 = f.count != 0;
         }
-        f.label.FUN_000f7960();
+        ((owners::Thing_f7960 *)&(f.label))->FUN_000f7960();
     } else {
-        f.u.story.FUN_000f7930();
+        ((owners::State_f7930 *)&(f.u.story))->FUN_000f7930();
         SelectorView_b9bf0 *story = (SelectorView_b9bf0 *)FUN_00344e74(FUN_000fc260("story_mission_selector"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
         if (story != 0) {
             story->FUN_000e36c0();
             unsigned __int64 key = FUN_0027b020("TBS_CHPT_GEN_60");
             int idx = FUN_000fc1b0()->FUN_000f7240((int)key, (int)(key >> 32));
             if (idx != -1)
-                f.u.story.FUN_000f7a10(idx, 0);
+                ((owners::Obj_f7a10 *)&(f.u.story))->FUN_000f7a10((hulk_intptr)idx, 0);
             else
                 f.u.story.FUN_000f8500("TBS_CHPT_GEN_60", FUN_000fc1b0(), 0);
             story->v19(&f.u.story, 0, 0);
@@ -196,12 +192,12 @@ void SideMissionMenu::FUN_000b9bf0()
             unsigned __int64 key = FUN_0027b020("TBS_CHPT_GEN_11");
             int idx = FUN_000fc1b0()->FUN_000f7240((int)key, (int)(key >> 32));
             if (idx != -1)
-                f.u.story.FUN_000f7a10(idx, 0);
+                ((owners::Obj_f7a10 *)&(f.u.story))->FUN_000f7a10((hulk_intptr)idx, 0);
             else
                 f.u.story.FUN_000f8500("TBS_CHPT_GEN_11", FUN_000fc1b0(), 0);
             side->v19(&f.u.story, 0, 0);
             side->v3();
         }
-        f.u.story.FUN_000f7960();
+        ((owners::Thing_f7960 *)&(f.u.story))->FUN_000f7960();
     }
 }

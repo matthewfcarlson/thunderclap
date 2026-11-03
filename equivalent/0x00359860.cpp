@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20021 inputs, branch coverage 18/18)
 // FUN_00359860 @ 0x00359860
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" double __cdecl fabs(double);
 
 struct Vec3_359860 {
@@ -9,7 +10,6 @@ struct Vec3_359860 {
 
 struct Matrix {
     float m[16];
-    void FUN_0022c2b0(const Vec3_359860 *in, Vec3_359860 *out);
 };
 
 static inline float fabsf_(float f)
@@ -50,8 +50,8 @@ hulk_freg FUN_00359860(Vec3_359860 *origin, Vec3_359860 *extent, Vec3_359860 *ax
     f.v.x = point->x - origin->x;
     f.v.y = point->y - origin->y;
     f.v.z = point->z - origin->z;
-    f.m.FUN_0022c2b0(&f.v, &f.p);
-    f.m.FUN_0022c2b0(dir, &f.q);
+    ((owners::Mat_22c2b0 *)&(f.m))->FUN_0022c2b0((float *)(const Vec3_359860 *)(&f.v), (float *)(Vec3_359860 *)(&f.p));
+    ((owners::Mat_22c2b0 *)&(f.m))->FUN_0022c2b0((float *)(const Vec3_359860 *)dir, (float *)(Vec3_359860 *)(&f.q));
 
     float best = 1.0e12f;
 

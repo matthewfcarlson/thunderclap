@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class Inner_99b90 {
   public:
-    void Go(int a);
 };
 class Obj_99b90 {
   public:
@@ -10,5 +10,5 @@ class Obj_99b90 {
 };
 void Obj_99b90::Fn(int a) {
     if (m)
-        m->Go(a);
+        ((owners::Thing_a0c10 *)m)->FUN_000a0c10(a);
 }

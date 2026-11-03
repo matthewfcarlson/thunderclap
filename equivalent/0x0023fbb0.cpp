@@ -1,22 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 10/10)
 // FUN_0023fbb0 @ 0x0023fbb0
 #include "decls/data/engine/audio.h"
+#include "gen/owners.h"
 
 struct StringHeader_23fbb0 { unsigned int capacity; unsigned short references; unsigned short reserved; };
 extern void __cdecl FUN_00247570(StringHeader_23fbb0*);
 extern "C" void __cdecl FUN_0023fa40(int *, char *, unsigned int, int);
 
-struct String {
-    char* data;
-    unsigned short kind;
-    unsigned short pad6;
-    unsigned short length;
-    unsigned short pad10;
-    char* FUN_0023fbb0();
-};
 
 // Makes the text private to this string (copy on write) and returns it.
-char* String::FUN_0023fbb0()
+char* owners::String_23fbb0::FUN_0023fbb0()
 {
     int fresh;
     if (kind == 0) {

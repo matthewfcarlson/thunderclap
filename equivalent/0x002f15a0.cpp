@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20100 inputs, branch coverage 62/68, incomplete)
 // FUN_002f15a0 @ 0x002f15a0
 #include "compat/ptr.h"
+#include "gen/owners.h"
 union Bits_2f15a0 {
     float f;
     unsigned int u;
@@ -8,7 +9,6 @@ union Bits_2f15a0 {
 
 struct V3_2f15a0 {
     float x, y, z;
-    void FUN_000110d0(V3_2f15a0 *v);
     void FUN_00011160(unsigned int t, void *arg);
 };
 
@@ -185,7 +185,7 @@ bool FUN_002f15a0(V3_2f15a0 *p, V3_2f15a0 *dir, V3_2f15a0 *a3, int a4, Arg5 a5, 
         if (!FUN_002f08d0(&fr.q, &fr.r, &obj->box44, v + st->f4.f, obj->f54 + st->f4.f, &st->pos))
             return false;
         st->obj = obj;
-        st->pos.FUN_000110d0(obj->getCenter());
+        ((owners::V3_110d0 *)&(st->pos))->FUN_000110d0((owners::V3_110d0 *)(V3_2f15a0 *)(obj->getCenter()));
         return true;
     }
     if (obj->kind() != 7 && st->mode != 0) {

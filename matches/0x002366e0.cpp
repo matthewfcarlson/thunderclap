@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class Item_2366e0 {
   public:
     virtual void V0();
@@ -5,7 +6,6 @@ class Item_2366e0 {
 };
 class Owner_2366e0 {
   public:
-    void Finish();
 };
 class Temp_2366e0 {
     char pad[8];
@@ -23,5 +23,5 @@ void __fastcall FUN_002366e0(Owner_2366e0* self) {
         item->V1();
         item = t.Next();
     }
-    self->Finish();
+    ((owners::X_231070 *)self)->FUN_00231070();
 }

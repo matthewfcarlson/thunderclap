@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 16742 inputs, branch coverage 24/24)
 // FUN_000e7d90 @ 0x000e7d90
+#include "gen/owners.h"
 struct LanguageInfo { char pad[0x10c]; unsigned language; };
 struct Reader {
  bool FUN_000f9e90();
  const char* FUN_000fad90();
  bool FUN_000f9ef0();
  void FUN_000f9f30();
- bool FUN_000f9e50();
  int FUN_000fb110();
  void FUN_000fa0a0();
  void FUN_000f9fb0();
@@ -33,7 +33,7 @@ void FEThingsBase_e7d90::target(Reader* reader, Handler_e7d90* handler) {
  }
  if(reader->FUN_000f9ef0()) {
  reader->FUN_000f9f30();
- while(reader->FUN_000f9e50()) {
+ while(((owners::ThisWrap_000f9e50 *)reader)->FUN_000f9e50()) {
  int value=reader->FUN_000fb110();
  if(match) {
  if(!handler) { reader->FUN_000fa0a0(); break; }

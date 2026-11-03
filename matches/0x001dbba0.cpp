@@ -1,5 +1,5 @@
+#include "gen/owners.h"
 struct Init {
-    void Set(int);
 };
 struct State_1dbba0 {
     char x[0x10];
@@ -17,8 +17,8 @@ struct Setup_1dbba0 {
     void Init(float*);
 };
 void __fastcall FUN_001dbba0(State_1dbba0* s) {
-    ((Init*)s)->Set(0);
-    ((Init*)((char*)s + 8))->Set(0);
+    ((owners::Target_27b040 *)(((Init*)s)))->FUN_0027b040((hulk_uintptr)0);
+    ((owners::Target_27b040 *)(((Init*)((char*)s + 8))))->FUN_0027b040((hulk_uintptr)0);
     float local[4];
     s->at1c = 0;
     local[0] = 0;

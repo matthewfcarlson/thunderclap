@@ -1,9 +1,4 @@
-class Obj_12680 {
-  public:
-    char pad[0x20];
-    void* member;
-    void* Get();
-};
-void* Obj_12680::Get() {
+#include "gen/owners.h"
+void* owners::Obj_12680::FUN_00012680() {
     return &member;
 }

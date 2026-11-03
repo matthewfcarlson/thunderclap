@@ -3,6 +3,7 @@
 // cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
 struct Tuning_401a0 {
     bool FUN_00092940(int id);
@@ -44,7 +45,6 @@ struct World {
 };
 
 struct Registry_401a0 {
-    Tuning_401a0* FUN_00086340();
 };
 
 
@@ -71,7 +71,7 @@ void Character_401a0::FUN_000401a0()
         f20b0 = 0;
     } else {
         f20b0 = 0;
-        Tuning_401a0* tuning = DAT_004dd700->registry->FUN_00086340();
+        Tuning_401a0* tuning = ((Tuning_401a0 *)((owners::A_86340 *)(DAT_004dd700->registry))->FUN_00086340());
         Rig_401a0* r = rig;
         // the load of f128 happens before the null test (hidden from the compiler)
         f1b10 = r->f128;

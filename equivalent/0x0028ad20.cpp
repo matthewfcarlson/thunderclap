@@ -1,11 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2628 inputs, branch coverage 6/6)
 // FUN_0028ad20 @ 0x0028ad20
-struct Track {
- char pad0[4]; int enabled; char pad8[12]; short* times; unsigned int* colors;
- bool FUN_00289f80(float value,int* lower,int* upper);
- void sample(float value,unsigned int* output);
-};
-void Track::sample(float value,unsigned int* output) {
+#include "gen/owners.h"
+void owners::Track_28ad20::FUN_0028ad20(float value,unsigned int* output) {
  int lower,upper;
  if (!FUN_00289f80(value,&lower,&upper) || !enabled) { *output=colors[lower]; return; }
  int start=times[lower];

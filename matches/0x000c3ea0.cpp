@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_000c3ea0 @ 0x000c3ea0
+#include "gen/owners.h"
 extern char DAT_0049dba4[];
 extern char DAT_0049dbbc[];
 extern char DAT_0049f4a4[];
@@ -49,13 +50,11 @@ struct Button_c3ea0 {
     unsigned char f141;
 };
 struct Panel_c3ea0 {
-    unsigned char FUN_000893c0();
 };
 struct Inner_c3ea0 {
     void FUN_000adc30();
 };
 struct Holder_c3ea0 {
-    Inner_c3ea0* FUN_000b3ec0(int index);
 };
 class Screen_c3ea0 {
   public:
@@ -79,7 +78,6 @@ class Screen_c3ea0 {
     void FUN_000b9bf0();
     void FUN_000ba040();
     void FUN_000bb600();
-    void FUN_000c3ce0();
     void FUN_000c21b0(int id);
     void FUN_000c3ea0();
 };
@@ -95,8 +93,8 @@ void Screen_c3ea0::FUN_000c3ea0() {
         int off = FUN_00035da0() == 0;
         targeting->vfunc_25(off);
     }
-    holder->FUN_000b3ec0(0)->FUN_000adc30();
-    FUN_000c3ce0();
+    ((Inner_c3ea0 *)((owners::C_b3ec0 *)holder)->FUN_000b3ec0(0))->FUN_000adc30();
+    ((owners::Object_c3ce0 *)this)->FUN_000c3ce0();
     FUN_000b9930();
     FUN_000b5b90();
     FUN_000b9ad0();
@@ -113,7 +111,7 @@ void Screen_c3ea0::FUN_000c3ea0() {
     Button_c3ea0* replay =
         (Button_c3ea0*)FUN_00344e74(FUN_000fc260("replay_story_mode_button"), 0, DAT_0049dba4, DAT_0049f4a4, 0);
     if (panel && replay) {
-        unsigned char v = panel->FUN_000893c0();
+        unsigned char v = ((owners::Target_893c0 *)panel)->FUN_000893c0();
         replay->f141 = v;
         replay->f74 = v;
     }

@@ -1,10 +1,6 @@
-struct Obj_14d140 {
-    char pad[0x18];
-    int value;
-    char Fn(int x);
-};
+#include "gen/owners.h"
 
-char Obj_14d140::Fn(int x) {
+char owners::Obj_14d140::FUN_0014d140(int x) {
     value = x;
     return 1;
 }

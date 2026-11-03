@@ -1,10 +1,5 @@
-class O_10c430 {
-  public:
-    char pad[16];
-    int m;
-    char Set(int x);
-};
-char O_10c430::Set(int x) {
+#include "gen/owners.h"
+char owners::O_10c430::FUN_0010c430(int x) {
     m = x;
     return 1;
 }

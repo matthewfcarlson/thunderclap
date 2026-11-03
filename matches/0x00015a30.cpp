@@ -1,9 +1,9 @@
 // Same code shape as 0x00013ec0 (propagated; names are from that function)
+#include "gen/owners.h"
 struct C_15a30 {
     int second();
 };
 struct B_15a30 {
-    C_15a30* first();
 };
 struct Obj_15a30 {
     char pad[0x1c];
@@ -11,5 +11,5 @@ struct Obj_15a30 {
     int target();
 };
 int Obj_15a30::target() {
-    return member->first()->second();
+    return ((C_15a30 *)((owners::Object_592a0 *)member)->FUN_000592a0())->second();
 }

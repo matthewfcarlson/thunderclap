@@ -1,11 +1,6 @@
-class Obj_15a990 {
-  public:
-    bool SetX(int value);
-    char pad[0x28];
-    int mValue;
-};
+#include "gen/owners.h"
 
-bool Obj_15a990::SetX(int value) {
+bool owners::Obj_15a990::FUN_0015a990(int value) {
     mValue = value;
     return true;
 }

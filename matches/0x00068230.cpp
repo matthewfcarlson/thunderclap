@@ -1,11 +1,6 @@
-class Obj_68230 {
-  public:
-    char pad[0x6c];
-    int value;
-    bool FUN_00068230(int x);
-};
+#include "gen/owners.h"
 
-bool Obj_68230::FUN_00068230(int x) {
+bool owners::Obj_68230::FUN_00068230(int x) {
     value = x;
     return true;
 }

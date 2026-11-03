@@ -1,10 +1,6 @@
-struct Obj_68c60 {
-    char pad[0x10];
-    int mValue;
-    unsigned char Set(int v);
-};
+#include "gen/owners.h"
 
-unsigned char Obj_68c60::Set(int v) {
+unsigned char owners::Obj_68c60::FUN_00068c60(int v) {
     mValue = v;
     return 1;
 }

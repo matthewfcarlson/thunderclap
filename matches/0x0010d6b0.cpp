@@ -1,11 +1,11 @@
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 extern "C" char DAT_00494b44[];
 extern "C" char DAT_00494b60[];
 class P_10d6b0 {
   public:
-    void* get();
 };
 class Q_10d6b0 {
   public:
@@ -18,7 +18,7 @@ bool hulkfight::ai::LeashedCondition::vfunc_6(void* __p0, void* __p1, void* __p2
     int ok = FUN_00344e74(params, 0, ((hulk_intptr)DAT_00494b44), ((hulk_intptr)DAT_00494b60), 0);
     if (!ok)
         return false;
-    void* a = ((P_10d6b0*)params)->get();
+    void* a = ((void *)((owners::Object_592a0 *)(((P_10d6b0*)params)))->FUN_000592a0());
     void* b = ((Q_10d6b0*)a)->query();
     if (!b)
         return false;

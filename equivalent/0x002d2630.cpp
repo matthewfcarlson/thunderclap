@@ -2,10 +2,10 @@
 // pure3d::ParticlePlaneGenerator::vfunc_6 @ 0x002d2630
 #include "compat/ptr.h"
 #include "decls/data/engine/pure3d.h"
+#include "gen/owners.h"
 
 struct Vec3_2d2630 {
     float x, y, z;
-    void FUN_0022d260(struct Mat4_2d2630 *m);
     float FUN_0022d110();
 };
 
@@ -13,7 +13,6 @@ struct Mat4_2d2630 {
     float m[12];
     Vec3_2d2630 pos;
     float w;
-    void FUN_0022c3b0(const Vec3_2d2630 *in, Vec3_2d2630 *out);
 };
 
 struct RandState_2d2630 {
@@ -146,14 +145,14 @@ unsigned int ParticlePlaneGenerator::vfunc_6(unsigned int count, MatArg from, Ma
         from.f = r2;
         em.f = (f.u3 - 1.0f) * f.v3;
         FUN_00356bf0(1.0f, to.f * f.v1 + 1.5707964f, from.f * f.v2 + 1.5707964f, &f.w.x, &f.w.y, &f.w.z);
-        f.w.FUN_0022d260(fromMat);
+        ((owners::Obj_22d260 *)&(f.w))->FUN_0022d260((owners::Obj_22d260 *)(struct Mat4_2d2630 *)fromMat);
         f.w.FUN_0022d110();
         f.u4 = NextRaw(((RandState_2d2630*)&DAT_00554bfc));
         f.u5 = NextRaw(((RandState_2d2630*)&DAT_00554bfc));
         f.q.x = (f.u5 - 1.0f) * f38 + f.c60;
         f.q.y = 0.0f;
         f.q.z = (f.u4 - 1.0f) * f3c + f.c68;
-        fromMat->FUN_0022c3b0(&f.q, &f.r);
+        ((owners::M_22c3b0 *)fromMat)->FUN_0022c3b0((float *)(const Vec3_2d2630 *)(&f.q), (float *)(Vec3_2d2630 *)(&f.r));
         hulk_freg ax = (hulk_freg)f.r.x + f.p.x;
         hulk_freg ay = (hulk_freg)f.r.y + f.p.y;
         f.r.z = f.r.z + f.p.z;

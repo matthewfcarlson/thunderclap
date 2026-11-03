@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20036 inputs, branch coverage 68/68)
 // FUN_000b7ff0 @ 0x000b7ff0
 // cl-flags: /GS
+#include "gen/owners.h"
 
 class Manager_b7ff0 { public: char pad[4]; };
 
@@ -34,15 +35,8 @@ public:
 int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, ...);
 FEObject* __cdecl FUN_000fc260(const char* name);
 
-class HintMenu_b7ff0 {
-public:
-    void FUN_000b7ff0();
 
-    char pad00[0x1a0c];
-    int hintIds[1];             // 0x1a0c
-};
-
-void HintMenu_b7ff0::FUN_000b7ff0()
+void owners::HintMenu_b7ff0::FUN_000b7ff0()
 {
     char buf[0x40];
 

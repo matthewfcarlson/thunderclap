@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 57 inputs, branch coverage 12/12)
 // pure3d::SceneGraphTransformAnimationController::vfunc_28 @ 0x002a78c0
+#include "gen/owners.h"
 struct V3_2a78c0 { float x, y, z; };
 
 struct Matrix {
@@ -10,7 +11,6 @@ struct Matrix {
 
 struct Quat_2a78c0 {
     float x, y, z, w;
-    void FUN_0022b750(const Quat_2a78c0* a, const Quat_2a78c0* b, float t);
     void FUN_0022b650(Matrix* m);
 };
 
@@ -31,7 +31,6 @@ public:
 
 class Source_2a78c0 {
 public:
-    ChannelSet_2a78c0* FUN_00288a10(int index);
 };
 
 class Node {
@@ -65,9 +64,7 @@ struct Track {
     int a20;
     int f24;
     Source_2a78c0* owner;
-    Source_2a78c0* FUN_00284f50();
     float FUN_00284f70();
-    float FUN_00284f60();
 };
 
 class SceneGraphTransformAnimationController {
@@ -132,15 +129,15 @@ void SceneGraphTransformAnimationController::vfunc_28()
     if (count != 0) {
         Track* trk = &tracks[0];
         do {
-            Source_2a78c0* src = trk->FUN_00284f50();
-            ChannelSet_2a78c0* cs = src->FUN_00288a10(0);
+            Source_2a78c0* src = ((Source_2a78c0 *)((owners::Target_284f50 *)trk)->FUN_00284f50());
+            ChannelSet_2a78c0* cs = ((ChannelSet_2a78c0 *)((owners::Target_288a10 *)src)->FUN_00288a10(0));
             fr.cur = trk->FUN_00284f70();
-            fr.w = trk->FUN_00284f60();
+            fr.w = ((owners::CJumpTrack_284f60 *)trk)->FUN_00284f60();
             fr.inv = 1.0f - fr.w;
             Channel* rot = cs->FUN_00288960(0x544f52, 0x544f52);
             if (rot != 0) {
                 rot->vf5(fr.cur, &fr.r);
-                fr.q.FUN_0022b750(&fr.q, &fr.r, fr.w);
+                ((owners::Quaternion_22b750 *)&(fr.q))->FUN_0022b750((const owners::Quaternion_22b750 *)(const Quat_2a78c0 *)(&fr.q), (const owners::Quaternion_22b750 *)(const Quat_2a78c0 *)(&fr.r), fr.w);
             }
             Channel* pos = cs->FUN_00288960(0x4e415254, 0x54434556);
             if (pos != 0) {

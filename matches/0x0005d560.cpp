@@ -1,11 +1,6 @@
-class X_5d560 {
-  public:
-    char Set(char v);
-    char pad[0x3b];
-    char m3b;
-};
+#include "gen/owners.h"
 
-char X_5d560::Set(char v) {
+char owners::X_5d560::FUN_0005d560(char v) {
     m3b = v;
     return 1;
 }

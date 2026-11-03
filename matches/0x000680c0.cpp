@@ -1,8 +1,5 @@
-struct Target_680c0 {
-    char data[0x51];
-    char Set(char v);
-};
-char Target_680c0::Set(char v) {
+#include "gen/owners.h"
+char owners::Target_680c0::FUN_000680c0(char v) {
     data[0x50] = v;
     return 1;
 }

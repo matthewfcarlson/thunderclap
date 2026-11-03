@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 8/8)
 // FUN_000d88f0 @ 0x000d88f0
+#include "gen/owners.h"
 struct Query_d88f0 {
     int FUN_000890a0(int key, int index);
 };
 
 struct Table_d88f0 {
-    void *FUN_00089a50();
 };
 
 struct Source_d88f0 {
@@ -34,7 +34,7 @@ void FEMemCardControl_d88f0::FUN_000d88f0(int key, char *foundNone, char *foundO
     *foundOther = 0;
     // the bound is a constant; the original still fetches the table before asking for it
     unsigned int i = 0;
-    source->FUN_000b5000()->FUN_00089a50();
+    ((void *)((owners::Obj_89a50 *)(source->FUN_000b5000()))->FUN_00089a50());
     unsigned int count = FUN_0008c580();
     for (; i < count; i++) {
         int r = ((Query_d88f0 *)source->FUN_000b5000())->FUN_000890a0(key, i);
@@ -44,7 +44,7 @@ void FEMemCardControl_d88f0::FUN_000d88f0(int key, char *foundNone, char *foundO
             *foundOther = 1;
             rows[i].flag = 1;
         }
-        source->FUN_000b5000()->FUN_00089a50();
+        ((void *)((owners::Obj_89a50 *)(source->FUN_000b5000()))->FUN_00089a50());
         count = FUN_0008c580();
     }
 }

@@ -1,10 +1,6 @@
-class O_11b8b0 {
-  public:
-    char p[0x1b];
-    unsigned char F(unsigned char x);
-};
+#include "gen/owners.h"
 
-unsigned char O_11b8b0::F(unsigned char x) {
+unsigned char owners::O_11b8b0::FUN_0011b8b0(unsigned char x) {
     p[0x1b] = x;
     return 1;
 }

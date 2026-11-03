@@ -1,14 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 30/30)
 // FUN_001c62f0 @ 0x001c62f0
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Mode_1c62f0 { int FUN_000897e0(); };
-struct Manager_1c62f0 { Mode_1c62f0* FUN_00086310(); };
+struct Manager_1c62f0 {  };
 struct World { char pad[0x54]; Manager_1c62f0* manager; };
 extern "C" long __cdecl atol(const char*);
 extern "C" int __cdecl FUN_001c62c0(char *, char *);
 extern "C" long __cdecl FUN_001c62f0(const char* text, char marker) {
  if (!text) return -1;
- if (DAT_004dd700->manager->FUN_00086310()->FUN_000897e0()) {
+ if (((Mode_1c62f0 *)((owners::C_86310 *)(DAT_004dd700->manager))->FUN_00086310())->FUN_000897e0()) {
   if (marker != 'R') return -1;
   const char* end = text;
   while (*end) ++end;

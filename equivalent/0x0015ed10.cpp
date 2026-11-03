@@ -4,13 +4,13 @@
 // equiv-map: ??_R0?AVDriver@choreo2@@@8 = 0x0048d534
 // equiv-map: ??_R0?AVLocomotionStrafeDriver@choreo2@@@8 = 0x0048d554
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct V3_15ed10 {
     float x, y, z;
 };
 
 struct Name_15ed10 {
     unsigned int lo, hi;
-    void FUN_0027b040(const char *s);
 };
 
 class JointDriver {
@@ -24,7 +24,7 @@ public:
 };
 
 namespace choreo2 {
-class Driver {
+class Driver_15ed10 {
 public:
     virtual void AddRef();
     virtual void v1();
@@ -33,7 +33,7 @@ public:
     unsigned int hi;       // 0xc
 };
 
-class LocomotionStrafeDriver : public Driver {
+class LocomotionStrafeDriver_15ed10 : public Driver_15ed10 {
 public:
     virtual void v2();
     char pad10[0x24 - 0x10];
@@ -47,7 +47,6 @@ struct SubSkel {
 };
 
 struct Timing_15ed10 {
-    void FUN_00035660(V3_15ed10 *out);
     void FUN_00035980(int v);
 };
 
@@ -58,7 +57,6 @@ struct Skeleton {
     int f64;
     unsigned int f68;
     int FUN_002226b0();
-    choreo2::Driver *FUN_00222e20(unsigned int i);
     void FUN_00222890(void *driver, float a, int b, float c, float d, float e, float f);
 };
 
@@ -68,7 +66,6 @@ struct Clock_15ed10 {
 };
 
 struct Target_15ed10 {
-    Clock_15ed10 *FUN_000592a0();
 };
 
 struct Frame_15ed10 {
@@ -76,7 +73,7 @@ struct Frame_15ed10 {
     char padx;
     float a;               // 0x10
     float best;            // 0x14
-    choreo2::LocomotionStrafeDriver *found;  // 0x18
+    choreo2::LocomotionStrafeDriver_15ed10 *found;  // 0x18
     float s1c;             // 0x1c
     float s20;             // 0x20
     int n24;               // 0x24
@@ -143,7 +140,7 @@ public:
 bool ClimbLocomotionAction::vfunc_3(int a, int b)
 {
     Frame_15ed10 f;
-    Clock_15ed10 *clock = target->FUN_000592a0();
+    Clock_15ed10 *clock = ((Clock_15ed10 *)((owners::Object_592a0 *)target)->FUN_000592a0());
     Timing_15ed10 *timing = clock->FUN_00059a30();
     Skeleton *skel = clock->FUN_00059a40();
     if (skel == 0)
@@ -157,8 +154,8 @@ bool ClimbLocomotionAction::vfunc_3(int a, int b)
     f.best = -1.0f;
     f.found = 0;
     for (unsigned int i = 0; i < skel->f68; i++) {
-        choreo2::Driver *node = skel->FUN_00222e20(i);
-        choreo2::LocomotionStrafeDriver *c = dynamic_cast<choreo2::LocomotionStrafeDriver *>(node);
+        choreo2::Driver_15ed10 *node = ((choreo2 :: Driver_15ed10 *)((owners::C_222e20 *)skel)->FUN_00222e20((unsigned)i));
+        choreo2::LocomotionStrafeDriver_15ed10 *c = dynamic_cast<choreo2::LocomotionStrafeDriver_15ed10 *>(node);
         if (c) {
             if (f.best < 0.0f)
                 f.best = c->f24;
@@ -197,7 +194,7 @@ bool ClimbLocomotionAction::vfunc_3(int a, int b)
     f.q.x = 0.0f;
     f.q.y = 0.0f;
     f.q.z = 0.0f;
-    tm->FUN_00035660(&f.q);
+    ((owners::C_35660 *)tm)->FUN_00035660((int *)(V3_15ed10 *)(&f.q));
     climb->FUN_002268f0(&f.q);
     f.t48 = *(unsigned int *)&climb->f12e0;
     f.x44 = *(int *)&climb->f12e4;
@@ -215,7 +212,7 @@ bool ClimbLocomotionAction::vfunc_3(int a, int b)
     if (mem)
         drv = ((JointDriver *)mem)->FUN_002248f0(0);
     driver = drv;
-    drv->name.FUN_0027b040("climbLocomotion");
+    ((owners::Target_27b040 *)&(drv->name))->FUN_0027b040((hulk_uintptr)"climbLocomotion");
     driver->f14 = 1;
     driver->AddRef();
     skel->FUN_00222890(driver, -1.0f, f.n24 - 1, 1.0f, f.s20, f.s1c, -1.0f);

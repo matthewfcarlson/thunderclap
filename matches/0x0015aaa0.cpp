@@ -1,10 +1,5 @@
-class Target_15aaa0 {
-  public:
-    char pad[0x90];
-    int value;
-    unsigned char Set(int x);
-};
-unsigned char Target_15aaa0::Set(int x) {
+#include "gen/owners.h"
+unsigned char owners::Target_15aaa0::FUN_0015aaa0(int x) {
     value = x;
     return 1;
 }

@@ -1,10 +1,11 @@
 // FUN_000bf160 @ 0x000bf160
-class FEObject {
+#include "gen/owners.h"
+class FEObject_bf160 {
 public:
     virtual void v0();
 };
 
-class TextButton : public FEObject {
+class TextButton_bf160 : public FEObject_bf160 {
 public:
     char pad04[0x74 - 4];
     unsigned char f74;
@@ -52,7 +53,6 @@ public:
 struct Settings_bf160 {
     char pad0[0xabf];
     unsigned char difficulty;
-    unsigned char FUN_000893c0();
 };
 
 Manager_bf160 *__cdecl FUN_000fc3d0();
@@ -73,9 +73,9 @@ void DifficultyScreen::FUN_000bf160()
         if (normal != 0)
             sel->Select(normal->id);
     }
-    TextButton *hard = dynamic_cast<TextButton *>((FEObject *)FUN_000fc260("difficulty_hard"));
+    TextButton_bf160 *hard = dynamic_cast<TextButton_bf160 *>((FEObject_bf160 *)FUN_000fc260("difficulty_hard"));
     if (hard != 0) {
-        unsigned char v = settings->FUN_000893c0();
+        unsigned char v = ((owners::Target_893c0 *)settings)->FUN_000893c0();
         hard->f141 = v;
         hard->f74 = v;
     }

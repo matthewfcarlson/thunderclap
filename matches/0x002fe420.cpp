@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class A_2fe420 {
   public:
     virtual void f0();
@@ -16,7 +17,6 @@ class B_2fe420 {
   public:
     char pad[0x24];
     int state;
-    void Apply(hulk_intptr, unsigned char);
 };
 class C_2fe420 {
   public:
@@ -31,7 +31,7 @@ void C_2fe420::Run(int x) {
         if (b && b->state == 2) {
             int n = a->count;
             for (hulk_intptr i = 0; i < n; ++i)
-                b->Apply(i, *(unsigned char*)(result[2] + i));
+                ((owners::C_308e10 *)b)->FUN_00308e10((int)i, *(unsigned char*)(result[2] + i));
         }
     }
 }

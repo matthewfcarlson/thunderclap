@@ -1,7 +1,6 @@
+#include "gen/owners.h"
 struct API {
-    void A(int);
     int B(int, int);
-    void C(int, int, int*);
 };
 struct V {
     int a;
@@ -17,7 +16,7 @@ struct S_f6370 {
 };
 V S_f6370::Target() {
     V local;
-    api->A(0);
-    api->C(api->B(c, d), 0, (int*)&local);
+    ((owners::C_284820 *)api)->FUN_00284820((hulk_intptr)0);
+    ((owners::Obj_2848b0 *)api)->FUN_002848b0((hulk_intptr)(api->B(c, d)), 0, (int*)&local);
     return local;
 }

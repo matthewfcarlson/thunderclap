@@ -1,11 +1,6 @@
-class Obj_14ce00 {
-  public:
-    char pad[0x14];
-    char m;
-    bool Set(unsigned char x);
-};
+#include "gen/owners.h"
 
-bool Obj_14ce00::Set(unsigned char x) {
+bool owners::Obj_14ce00::FUN_0014ce00(unsigned char x) {
     m = x;
     return true;
 }

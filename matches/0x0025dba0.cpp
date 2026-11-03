@@ -1,13 +1,7 @@
 #include "compat/ptr.h"
-class Queue_25dba0 {
-  public:
-    char pad[0x4c];
-    int* head;
-    int* tail;
-    void Add(int* item);
-};
+#include "gen/owners.h"
 
-void Queue_25dba0::Add(int* item) {
+void owners::Queue_25dba0::FUN_0025dba0(int* item) {
     int* node = item + 1;
     *node = 0;
     if (tail == 0) {

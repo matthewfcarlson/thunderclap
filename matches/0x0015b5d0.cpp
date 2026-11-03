@@ -1,11 +1,6 @@
-class A_15b5d0 {
-  public:
-    char pad[0x28];
-    void* mThing;
-    bool SetThing(void* p);
-};
+#include "gen/owners.h"
 
-bool A_15b5d0::SetThing(void* p) {
+bool owners::A_15b5d0::FUN_0015b5d0(void* p) {
     mThing = p;
     return true;
 }

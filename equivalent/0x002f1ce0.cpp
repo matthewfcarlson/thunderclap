@@ -2,6 +2,7 @@
 // FUN_002f1ce0 @ 0x002f1ce0
 #include "compat/ptr.h"
 #include "decls/data/engine/physics.h"
+#include "gen/owners.h"
 
 extern "C" double sqrt(double);
 
@@ -9,16 +10,12 @@ struct V3_2f1ce0 {
     float x, y, z;
     float FUN_0022d110();
     float FUN_00018990();
-    void FUN_0022d260(const struct Mat4_2f1ce0 *m);
-    void FUN_0022d210(const struct Mat4_2f1ce0 *m);
 };
 
 struct Mat4_2f1ce0 {
     float m[16];
     void FUN_0022b980();
     void FUN_0022baf0(const V3_2f1ce0 *axis, float angle);
-    void FUN_0022c120();
-    void FUN_0022cdb0();
 };
 
 union Bits_2f1ce0 {
@@ -173,8 +170,8 @@ extern "C" Shape_2f1ce0 *__cdecl FUN_002f1ce0(const V3_2f1ce0 *p, Shape_2f1ce0 *
             f.M.m[13] = c->y;
             f.M.m[14] = c->z;
             f.M2 = f.M;
-            f.M2.FUN_0022c120();
-            f.q.FUN_0022d210(&f.M2);
+            ((owners::Matrix_22c120 *)&(f.M2))->FUN_0022c120();
+            ((owners::Obj_22d210 *)&(f.q))->FUN_0022d210((owners::Obj_22d210 *)(const struct Mat4_2f1ce0 *)(&f.M2));
         } else {
             const V3_2f1ce0 *c;
             if (shape->f60.i == 3) {
@@ -220,7 +217,7 @@ extern "C" Shape_2f1ce0 *__cdecl FUN_002f1ce0(const V3_2f1ce0 *p, Shape_2f1ce0 *
         *dist = out->FUN_00018990();
         int sel = shape->f60.i;
         if (sel == 0) {
-            out->FUN_0022d260(&f.M);
+            ((owners::Obj_22d260 *)out)->FUN_0022d260((owners::Obj_22d260 *)(const struct Mat4_2f1ce0 *)(&f.M));
         } else if (sel == 2) {
             float t = out->x;
             out->x = out->y;
@@ -252,8 +249,8 @@ extern "C" Shape_2f1ce0 *__cdecl FUN_002f1ce0(const V3_2f1ce0 *p, Shape_2f1ce0 *
             f.M.m[13] = c->y;
             f.M.m[14] = c->z;
             f.M2 = f.M;
-            f.M2.FUN_0022cdb0();
-            f.q.FUN_0022d210(&f.M2);
+            ((owners::Matrix_22cdb0 *)&(f.M2))->FUN_0022cdb0();
+            ((owners::Obj_22d210 *)&(f.q))->FUN_0022d210((owners::Obj_22d210 *)(const struct Mat4_2f1ce0 *)(&f.M2));
         } else {
             const V3_2f1ce0 *c = shape->v4();
             f.q.x = f.q.x - c->x;
@@ -294,7 +291,7 @@ extern "C" Shape_2f1ce0 *__cdecl FUN_002f1ce0(const V3_2f1ce0 *p, Shape_2f1ce0 *
         out->z = f.q.z - f.w.z;
         *dist = (float)sqrt(out->z * out->z + out->y * out->y + out->x * out->x);
         if (shape->f38.i == 0)
-            out->FUN_0022d260(&f.M);
+            ((owners::Obj_22d260 *)out)->FUN_0022d260((owners::Obj_22d260 *)(const struct Mat4_2f1ce0 *)(&f.M));
         out->FUN_0022d110();
         if (bl && f.u20.b.flagB && f.u20.b.flagC)
             *dist = -*dist;

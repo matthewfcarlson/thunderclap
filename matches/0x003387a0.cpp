@@ -1,10 +1,5 @@
-class Obj_3387a0 {
-  public:
-    char pad[0x832];
-    char str[1];
-    bool contains(char c);
-};
-bool Obj_3387a0::contains(char c) {
+#include "gen/owners.h"
+bool owners::Obj_3387a0::FUN_003387a0(char c) {
     char* p = str;
     while (*p) {
         if (*p == c)

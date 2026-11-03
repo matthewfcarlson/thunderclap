@@ -1,11 +1,11 @@
 #include "decls/data/engine/core.h"
 
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" hulk_intptr FUN_00266e00(hulk_intptr, int);
 class Obj_2702a0 {
   public:
     virtual void Finish();
-    void Init(int, int, int, int, int, int, int);
 };
 class MemoryPool_2702a0 {
   public:
@@ -19,7 +19,7 @@ void Target(Obj_2702a0** out, int a, int b, int c, int d, int e, int f) {
         obj = p->Create();
     else
         obj = 0;
-    obj->Init(0, a, b, c, d, e, f);
+    ((owners::Pool_270020 *)obj)->FUN_00270020((void *)(hulk_uintptr)(int)0, (unsigned)a, (unsigned)b, (unsigned)c, (void *)(hulk_uintptr)(int)d, (hulk_uintptr)e, (unsigned)f);
     obj->Finish();
     *out = obj;
 }

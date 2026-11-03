@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 struct ObjEnd {
     char pad[0x1b28];
@@ -9,12 +10,11 @@ struct ObjMid {
     ObjEnd* Call2();
 };
 struct ObjA_1673c0 {
-    ObjMid* Call1();
 };
 
 bool hulkfight::motion::RageModeStateCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; hulk_intptr b = (hulk_intptr)__p1; hulk_intptr c = (hulk_intptr)__p2;
 
-    ObjMid* m = ((ObjA_1673c0*)b)->Call1();
+    ObjMid* m = ((ObjMid *)((owners::Object_592a0 *)(((ObjA_1673c0*)b)))->FUN_000592a0());
     ObjEnd* e = m->Call2();
     int v = e->field;
     switch (this->f_0c) {

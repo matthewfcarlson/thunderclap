@@ -1,4 +1,5 @@
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 class Obj_136d60 {
   public:
@@ -9,11 +10,10 @@ class Obj_136d60 {
 };
 class Source_136d60 {
   public:
-    Obj_136d60* get();
 };
 
 void hulkfight::motion::AirToGroundTargetAction::vfunc_4() {
-    Obj_136d60* x = (*(Source_136d60 * *)&this->f_20)->get();
+    Obj_136d60* x = ((Obj_136d60 *)((owners::Object_592a0 *)((*(Source_136d60 * *)&this->f_20)))->FUN_000592a0());
     x = x->query();
     if (x) {
         x->act((*(void * *)&this->f_24), 0);

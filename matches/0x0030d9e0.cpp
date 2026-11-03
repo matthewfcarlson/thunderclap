@@ -1,5 +1,5 @@
+#include "gen/owners.h"
 struct Object {
-    void run();
 };
 struct Entry_30d9e0 {
     int a;
@@ -19,7 +19,7 @@ void Container_30d9e0::scan(int key) {
     if (p <= end) {
         do {
             if (p->a == key || p->key == key)
-                p->object->run();
+                ((owners::Thing_319ef0 *)(p->object))->FUN_00319ef0();
             Entry_30d9e0* last = end;
             Entry_30d9e0* old = p;
             p = (Entry_30d9e0*)((char*)p + 20);

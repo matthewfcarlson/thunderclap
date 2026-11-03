@@ -4,6 +4,7 @@
 // equiv-dead: +0x59 not taken, +0x405 not taken: a2 < 0 (or NaN) cannot also be > 2pi; ii < 100 with bestRank >= 100 is skipped at +0x26e before +0x405
 #include "compat/ptr.h"
 #include "decls/address.h"
+#include "gen/owners.h"
 extern "C" double cos(double);
 
 struct V3 {
@@ -45,7 +46,6 @@ struct Ray {
 };
 
 struct Cam {
-    V3 *FUN_001c39d0();
 };
 Cam *FUN_001c3d90();
 
@@ -306,7 +306,7 @@ Thing *Picker::FUN_00039c60(V3 *a0, V3 *a1, float a2, float a3, int a4, Thing **
 
         char bl = 0;
         if (FUN_00035e70(th, f.score)) {
-            V3 *cp = FUN_001c3d90()->FUN_001c39d0();
+            V3 *cp = ((V3 *)((owners::Object_1c39d0 *)(FUN_001c3d90()))->FUN_001c39d0());
             f.r24.x = cp->x;
             f.r24.y = cp->y;
             f.r24.z = cp->z;

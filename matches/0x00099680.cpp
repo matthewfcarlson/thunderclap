@@ -1,7 +1,6 @@
+#include "gen/owners.h"
 class Sub {
   public:
-    void First(int);
-    void Second(int);
 };
 class Owner {
     char pad[0x1e0];
@@ -17,6 +16,6 @@ class Obj {
     void Fn(int a, int b);
 };
 void Obj::Fn(int a, int b) {
-    m->sub.First(a);
-    m->sub.Second(b);
+    ((owners::Target_ac780 *)&(m->sub))->FUN_000ac780(a);
+    ((owners::Target_ac790 *)&(m->sub))->FUN_000ac790(b);
 }

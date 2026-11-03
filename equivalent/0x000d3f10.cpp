@@ -4,9 +4,10 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-namespace pure3d { class DrawableHierarchy; }
+#include "gen/owners.h"
+namespace pure3d { class DrawableHierarchy_d3f10; }
 namespace content {
-class LoadInventory {
+class LoadInventory_d3f10 {
   public:
     template <class T> class DynamicCaster {
       public:
@@ -15,7 +16,7 @@ class LoadInventory {
     virtual void l0();
     virtual void l1();
     virtual void l2();
-    virtual void* Find(const DynamicCaster<pure3d::DrawableHierarchy>& c, __int64 uid);
+    virtual void* Find(const DynamicCaster<pure3d::DrawableHierarchy_d3f10>& c, __int64 uid);
 };
 }
 struct Lookup_d3f10 {
@@ -36,7 +37,6 @@ const char* __cdecl FUN_000b08a0(int a, int b);
 struct Finder_d3f10 {
     char pad[4];
     Finder_d3f10* sub;
-    Provider_d3f10* FUN_000ae640(int i);
     void* FUN_000d3f10(const char* name);
 };
 
@@ -61,7 +61,7 @@ void* Finder_d3f10::FUN_000d3f10(const char* name) {
         Provider_d3f10* p;
         int n = 0;
         do {
-            p = sub->FUN_000ae640(n);
+            p = ((Provider_d3f10 *)((owners::C_ae640 *)sub)->FUN_000ae640(n));
             if (p) break;
             n++;
         } while (n < 1);
@@ -78,8 +78,8 @@ void* Finder_d3f10::FUN_000d3f10(const char* name) {
         text += strlen((*(const char**)&DAT_004a06a4));
     const char* prefix = (((Lookup_d3f10*)&DAT_004a0560)[i].kind == 3) ? "" : "xbox_ctrlr_btn_";
     sprintf(buf, "%s%s%s", prefix, text, (*(const char**)&DAT_004a06a0));
-    content::LoadInventory* ld = (*(content::LoadInventory**)&DAT_004dd9cc);
+    content::LoadInventory_d3f10* ld = (*(content::LoadInventory_d3f10**)&DAT_004dd9cc);
     __int64 uid = FUN_0027b020(buf);
-    void* r = ld->Find(content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>(), uid);
+    void* r = ld->Find(content::LoadInventory_d3f10::DynamicCaster<pure3d::DrawableHierarchy_d3f10>(), uid);
     return r;
 }

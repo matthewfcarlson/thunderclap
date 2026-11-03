@@ -2,10 +2,10 @@
 // FUN_00067b00 @ 0x00067b00
 // FUN_00067b00 @ 0x00067b00: allocate a handle (serial << 8 | slot) in a ring of 64 slots
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Name_67b00 {
     char data[8];
-    void FUN_0027b040(const char *s);
     void FUN_0027af70(int v);
 };
 
@@ -45,7 +45,7 @@ unsigned int HandlePool::FUN_00067b00(int arg)
     r->f8 = 0;
     r->f4 = 0;
     r->f10 = 0;
-    r->name.FUN_0027b040(((const char*)&DAT_003f335c));
+    ((owners::Target_27b040 *)&(r->name))->FUN_0027b040((hulk_uintptr)(((const char*)&DAT_003f335c)));
     records[slot].name.FUN_0027af70(arg);
 
     unsigned int id = (serial << 8) | slot;

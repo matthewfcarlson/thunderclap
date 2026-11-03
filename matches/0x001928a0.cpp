@@ -1,8 +1,4 @@
-class Obj_1928a0 {
-  public:
-    char pad[0x30];
-    void* Get();
-};
-void* Obj_1928a0::Get() {
+#include "gen/owners.h"
+void* owners::Obj_1928a0::FUN_001928a0() {
     return (void*)((char*)this + 0x30);
 }

@@ -1,7 +1,7 @@
+#include "gen/owners.h"
 typedef unsigned int U_99d60;
 typedef unsigned char B;
 struct Obj_99d60 {
-    int A(U_99d60* p);
     int B(U_99d60* p);
 };
 extern Obj_99d60* __cdecl FUN_001c3d90(void);
@@ -16,6 +16,6 @@ extern "C" int __stdcall FUN_00099d60(U_99d60 a, U_99d60 b, U_99d60 c, U_99d60 d
     x[6] = d;
     Obj_99d60* o = FUN_001c3d90();
     if (flag)
-        return o->A(&x[3]);
+        return ((owners::Thing_1c4050 *)o)->FUN_001c4050((hulk_intptr)(&x[3]));
     return o->B(&x[3]);
 }

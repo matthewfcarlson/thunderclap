@@ -1,9 +1,5 @@
-struct Widget_35910 {
-    char pad[0x134];
-    int mValue;
-    int GetValue();
-};
+#include "gen/owners.h"
 
-int Widget_35910::GetValue() {
+hulk_intptr owners::Widget_35910::FUN_00035910() {
     return mValue;
 }

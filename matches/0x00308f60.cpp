@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class PhysicsObject {
   public:
     virtual void f0();
@@ -18,7 +19,6 @@ struct Elem_308f60 {
     float a;
     float b;
     char pad2[4];
-    void Fn(float);
 };
 class HairclubPhysicsObject : public PhysicsObject {
   public:
@@ -36,6 +36,6 @@ void HairclubPhysicsObject::vfunc_7() {
         float old = arr[i].a;
         arr[i].a = p18->scale * arr[i].b;
         if (old > 0.0f)
-            arr[i].Fn(arr[i].a / old);
+            ((owners::X_2fcb80 *)&(arr[i]))->FUN_002fcb80(arr[i].a / old);
     }
 }

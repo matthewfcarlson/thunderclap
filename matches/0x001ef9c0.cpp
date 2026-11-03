@@ -1,9 +1,9 @@
 // FUN_001ef9c0 @ 0x001ef9c0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d330
+#include "gen/owners.h"
 void __cdecl thunk_FUN_00267090(void* p);
 
 struct Id_1ef9c0 {
-    void FUN_0027b040(int v);
 };
 
 struct Slot_1ef9c0 {
@@ -43,7 +43,7 @@ void Pool_1ef9c0::FUN_001ef9c0(bool release) {
         s->flag = 0;
         s->weight = 100.0f;
         s->d = 0;
-        s->id.FUN_0027b040(0);
+        ((owners::Target_27b040 *)&(s->id))->FUN_0027b040((hulk_uintptr)0);
     }
     if (release) {
         Resource_1ef9c0* r = resource;

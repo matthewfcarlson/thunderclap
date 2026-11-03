@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 440 inputs, branch coverage 18/18)
 // FUN_00308fe0 @ 0x00308fe0
+#include "gen/owners.h"
 struct V3_308fe0 {
     float x, y, z;
     void Scale(float s) { x = s * x; y = s * y; z = s * z; }
@@ -8,9 +9,6 @@ struct V3_308fe0 {
 
 struct Matrix4_308fe0 {
     float m[16];
-    void FUN_0022c0b0();
-    void FUN_0022c2b0(const V3_308fe0 *in, V3_308fe0 *out);
-    void FUN_0022c3b0(const V3_308fe0 *in, V3_308fe0 *out);
 };
 
 struct SymMatrix {
@@ -18,10 +16,7 @@ struct SymMatrix {
     float m[6];
     void FUN_002fca90();
     void FUN_002fcaa0();
-    void FUN_002fcaf0(const SymMatrix *src);
     void FUN_002fcd60(const Matrix4_308fe0 *rot);
-    void FUN_002fd0a0();
-    void FUN_002fd0c0(const SymMatrix *src);
 };
 
 struct Part_308fe0 {
@@ -91,7 +86,7 @@ void Hairclub::FUN_00308fe0()
     center.x = 0;
     for (int i = 0; i < count; i++) {
         if (parts[i].mass > 0.0f && parts[i].active) {
-            body->mat.FUN_0022c2b0(&parts[i].pos, &fr.a);
+            ((owners::Mat_22c2b0 *)&(body->mat))->FUN_0022c2b0((float *)(const V3_308fe0 *)(&parts[i].pos), (float *)(V3_308fe0 *)(&fr.a));
             float m = parts[i].mass;
             center.x = fr.a.x * m + center.x;
             center.y = fr.a.y * m + center.y;
@@ -102,16 +97,16 @@ void Hairclub::FUN_00308fe0()
     center.Scale(f44);
     fr.b.Sub(center, *(const V3_308fe0 *)&body->mat.m[12]);
     fr.mt = mat;
-    fr.mt.FUN_0022c0b0();
-    fr.mt.FUN_0022c3b0(&fr.b, &va8);
+    ((owners::M_22c0b0 *)&(fr.mt))->FUN_0022c0b0();
+    ((owners::M_22c3b0 *)&(fr.mt))->FUN_0022c3b0((float *)(const V3_308fe0 *)(&fr.b), (float *)(V3_308fe0 *)(&va8));
     flagA4 = 0;
 
     fr.s2.FUN_002fca90();
     fr.s1.FUN_002fca90();
-    symF8.FUN_002fd0a0();
+    ((owners::C_2fd0a0 *)&symF8)->FUN_002fd0a0();
     for (int i = 0; i < count; i++) {
         if (parts[i].mass > 0.0f && parts[i].active) {
-            body->mat.FUN_0022c2b0(&parts[i].pos, &fr.a);
+            ((owners::Mat_22c2b0 *)&(body->mat))->FUN_0022c2b0((float *)(const V3_308fe0 *)(&parts[i].pos), (float *)(V3_308fe0 *)(&fr.a));
             fr.a.x = fr.a.x - center.x;
             fr.a.y = fr.a.y - center.y;
             fr.a.z = fr.a.z - center.z;
@@ -123,8 +118,8 @@ void Hairclub::FUN_00308fe0()
             fr.s1.m[4] = parts[i].inertia.m[4];
             fr.s1.m[5] = parts[i].inertia.m[5];
             fr.s1.FUN_002fcd60(body->GetRotation(i));
-            fr.s2.FUN_002fcaf0(&fr.s1);
-            symF8.FUN_002fcaf0(&fr.s2);
+            ((owners::V_2fcaf0 *)&(fr.s2))->FUN_002fcaf0((owners::V_2fcaf0 *)(const SymMatrix *)(&fr.s1));
+            ((owners::V_2fcaf0 *)&symF8)->FUN_002fcaf0((owners::V_2fcaf0 *)(const SymMatrix *)(&fr.s2));
         }
     }
 
@@ -135,10 +130,10 @@ void Hairclub::FUN_00308fe0()
     symDC.m[4] = symF8.m[4];
     symDC.m[5] = symF8.m[5];
     fr.mt = mat;
-    fr.mt.FUN_0022c0b0();
+    ((owners::M_22c0b0 *)&(fr.mt))->FUN_0022c0b0();
     symDC.FUN_002fcd60(&fr.mt);
-    sym114.FUN_002fd0c0(&symF8);
-    mat.FUN_0022c3b0(&vb4, &fr.a);
+    ((owners::Sym3_2fd0c0 *)&sym114)->FUN_002fd0c0((const owners::Sym3_2fd0c0 *)(const SymMatrix *)(&symF8));
+    ((owners::M_22c3b0 *)&mat)->FUN_0022c3b0((float *)(const V3_308fe0 *)(&vb4), (float *)(V3_308fe0 *)(&fr.a));
     center.x = fr.a.x + center.x;
     center.y = fr.a.y + center.y;
     center.z = fr.a.z + center.z;

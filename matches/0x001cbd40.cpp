@@ -1,10 +1,6 @@
-struct Obj_1cbd40 {
-    char pad[4];
-    unsigned int* mEnd;
-    void Copy(unsigned int* dst, unsigned int* src);
-};
+#include "gen/owners.h"
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
-void Obj_1cbd40::Copy(unsigned int* dst, unsigned int* src) {
+void owners::Obj_1cbd40::FUN_001cbd40(unsigned int* dst, unsigned int* src) {
     unsigned int* end = mEnd;
     unsigned int* out = dst;
     while (src != end) {

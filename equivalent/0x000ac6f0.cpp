@@ -2,6 +2,7 @@
 // FUN_000ac6f0 @ 0x000ac6f0
 // FUN_000ac6f0 @ 0x000ac6f0
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct ThisCall_000ac6a0 {
     float FUN_000ac6a0(float t);
 };
@@ -17,7 +18,6 @@ public:
     float before;
     float after;
     char dirty;
-    void FUN_000ac610();
     hulk_freg Evaluate(float t, float end);
 };
 
@@ -26,7 +26,7 @@ hulk_freg Curve_ac6f0::Evaluate(float t, float end)
     if (mode == 0)
         return constant;
     if (dirty) {
-        FUN_000ac610();
+        ((owners::Thing_ac610 *)this)->FUN_000ac610();
         dirty = 0;
     }
     if (length < 0.01f || length > end)

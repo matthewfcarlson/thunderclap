@@ -1,15 +1,6 @@
 #include "compat/ptr.h"
-struct X_230b60 {
-    int a;
-    int b;
-    int c;
-    int d;
-    unsigned char e;
-    char pad[3];
-    int f;
-    void Init();
-};
-void X_230b60::Init() {
+#include "gen/owners.h"
+void owners::X_230b60::FUN_00230b60() {
     int* p = &b;
     a = (hulk_intptr)p;
     b = (hulk_intptr)p;

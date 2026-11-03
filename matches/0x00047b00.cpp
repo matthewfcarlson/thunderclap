@@ -1,11 +1,6 @@
-class C_47b00 {
-  public:
-    char pad[12];
-    int mValue;
-    bool Fn(int x);
-};
+#include "gen/owners.h"
 
-bool C_47b00::Fn(int x) {
+bool owners::C_47b00::FUN_00047b00(int x) {
     mValue = x;
     return true;
 }

@@ -1,10 +1,5 @@
-class A_139df0 {
-  public:
-    char pad[0x28];
-    int m28;
-    char Set(int x);
-};
-char A_139df0::Set(int x) {
+#include "gen/owners.h"
+char owners::A_139df0::FUN_00139df0(int x) {
     m28 = x;
     return 1;
 }

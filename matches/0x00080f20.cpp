@@ -1,10 +1,4 @@
-class C_80f20 {
-    char pad[0xc8];
-
-  public:
-    int m;
-    void Set(int);
-};
-void C_80f20::Set(int x) {
+#include "gen/owners.h"
+void owners::C_80f20::FUN_00080f20(int x) {
     m = x;
 }

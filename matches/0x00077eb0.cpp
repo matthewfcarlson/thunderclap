@@ -1,12 +1,7 @@
 // cl-flags: /O2
-class X_77eb0 {
-  public:
-    char pad[0x30];
-    int m30;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool X_77eb0::Set(int v) {
+bool owners::X_77eb0::FUN_00077eb0(int v) {
     m30 = v;
     return true;
 }

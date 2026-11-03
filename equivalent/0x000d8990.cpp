@@ -3,6 +3,7 @@
 // cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 struct Manager_d8990;
 struct Entry_d8990 {
  char prefix[0x1c]; unsigned char marked; char suffix[0x1b];
@@ -21,8 +22,6 @@ struct Manager_d8990 {
  virtual void slot36(); virtual void slot37(); virtual void slot38(); virtual void slot39();
  virtual void slot40(); virtual void slot41(); virtual void slot42(); virtual void slot43();
  virtual Manager_d8990* slot44();
- int FUN_000f7d30(const char*);
- const char* FUN_000f7220(int);
  void FUN_000be310(const char*, char*, const float*, const char*, const char*, int, const char*, const char*);
 };
 extern Manager_d8990* __cdecl FUN_000fc3d0();
@@ -36,8 +35,8 @@ struct FEMemCardControl_d8990 {
 void FEMemCardControl_d8990::FUN_000d8990(int index) {
  char text[1024];
  Manager_d8990* manager = FUN_000fc3d0()->slot44();
- int key = manager->FUN_000f7d30((*(const char**)&DAT_004a0cb8));
- const char* format = manager->FUN_000f7220(key);
+ int key = ((int)((owners::A_f7d30 *)manager)->FUN_000f7d30((hulk_intptr)((*(const char**)&DAT_004a0cb8))));
+ const char* format = ((const char *)((owners::C_f7220 *)manager)->FUN_000f7220((hulk_intptr)key));
  const char* value = entries[index].FUN_000f83f0(manager,0);
  FUN_000fc020(text,512,format,value);
  Manager_d8990* ui = FUN_000fc3d0();

@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2772 inputs, branch coverage 8/8)
 // FUN_001b4060 @ 0x001b4060
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 typedef unsigned int uint;
 struct State_1b4060 { char pad[0x58]; uint firstLow, firstHigh, secondLow, secondHigh; };
 struct Link_1b4060 { char pad[0x74]; State_1b4060* state; };
 struct Input_1b4060 { char pad[0x12c]; Link_1b4060* primary; Link_1b4060* secondary; };
-struct Manager_1b4060 { void FUN_002ee6b0(State_1b4060* state); };
+struct Manager_1b4060 {  };
 struct Owner_1b4060 { char pad[8]; Manager_1b4060* manager; bool FUN_001b4060(Input_1b4060* input); };
 bool Owner_1b4060::FUN_001b4060(Input_1b4060* input) {
     if (!input->primary) return false;
@@ -24,7 +25,7 @@ bool Owner_1b4060::FUN_001b4060(Input_1b4060* input) {
         secondary->secondLow = (*(uint*)&DAT_004c39e8);
         secondary->secondHigh = (*(uint*)((char*)&DAT_004c39e8 + 4));
     }
-    manager->FUN_002ee6b0(primary);
-    if (secondary) manager->FUN_002ee6b0(secondary);
+    ((owners::Obj_2ee6b0 *)manager)->FUN_002ee6b0((hulk_intptr)(State_1b4060 *)primary);
+    if (secondary) ((owners::Obj_2ee6b0 *)manager)->FUN_002ee6b0((hulk_intptr)(State_1b4060 *)secondary);
     return true;
 }

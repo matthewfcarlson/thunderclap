@@ -3,14 +3,12 @@
 // cl-flags: /GS
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 extern "C" int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
 
 struct Script_12f400 {
     char FUN_001d2ba0(const char* name, int a, int b);
-    char FUN_001d2da0(const char* name, int* out);
-    void FUN_001d2cd0(int value, char* buf, int size);
-    void FUN_001d19d0(int n);
 };
 
 extern "C" Script_12f400* __cdecl FUN_001d4c90();
@@ -29,13 +27,13 @@ bool hulkfight::GameStateCondition::vfunc_6(void* __p0, void* __p1, void* __p2) 
             buf[i] = 0;
         int value;
         if (script->FUN_001d2ba0("game_state_current", 1, 0)) {
-            char got = script->FUN_001d2da0((*(const char * *)&this->f_0c), &value);
-            script->FUN_001d19d0(1);
+            char got = ((char)((owners::Converter_1d2da0 *)script)->FUN_001d2da0((hulk_uintptr)((*(const char * *)&this->f_0c)), &value));
+            ((owners::Obj_1d19d0 *)script)->FUN_001d19d0(1);
             if (got && script->FUN_001d2ba0("game_state_list", 1, 0)) {
                 char found = script->FUN_001d2ba0((*(const char * *)&this->f_0c), 0, 0);
                 if (found)
-                    script->FUN_001d19d0(1);
-                script->FUN_001d19d0(1);
+                    ((owners::Obj_1d19d0 *)script)->FUN_001d19d0(1);
+                ((owners::Obj_1d19d0 *)script)->FUN_001d19d0(1);
                 if (found) {
                     if (value == 0) {
                         FUN_00267760(buf, 0x80, "unassigned");
@@ -46,10 +44,10 @@ bool hulkfight::GameStateCondition::vfunc_6(void* __p0, void* __p1, void* __p2) 
                     } else {
                         if (script->FUN_001d2ba0("game_state_list", 1, 0)) {
                             if (script->FUN_001d2ba0((*(const char * *)&this->f_0c), 0, 0)) {
-                                script->FUN_001d2cd0(value, buf, 0x80);
-                                script->FUN_001d19d0(1);
+                                ((owners::C_1d2cd0 *)script)->FUN_001d2cd0(value, (hulk_intptr)buf, 0x80);
+                                ((owners::Obj_1d19d0 *)script)->FUN_001d19d0(1);
                             }
-                            script->FUN_001d19d0(1);
+                            ((owners::Obj_1d19d0 *)script)->FUN_001d19d0(1);
                         }
                     }
                     if (this->f_10 == 0 || this->f_10 == 1) {

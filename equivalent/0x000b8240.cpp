@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 42/42)
 // FUN_000b8240 @ 0x000b8240
+#include "gen/owners.h"
 extern char DAT_0049dba4[];
 extern char DAT_0049dbbc[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
@@ -17,9 +18,7 @@ struct Label_b8240 {
     char pad19[3];
     float f1c;
     int f20;
-    void FUN_000f7930();
     void FUN_000f8500(const char *text, int a, char flag);
-    void FUN_000f7960();
 };
 
 class Anim_b8240 {
@@ -98,7 +97,6 @@ public:
 };
 
 struct CodeTable_b8240 {
-    char FUN_00092860(int index);
 };
 
 class HintMenu_b8240 {
@@ -119,7 +117,7 @@ void HintMenu_b8240::FUN_000b8240()
         FUN_000fc3d0()->v44();
         int *out = shown;
         for (int id = 0x2e9; id <= 0x2fd; id++) {
-            if (codes->FUN_00092860(id))
+            if (((char)((owners::C_92860 *)codes)->FUN_00092860((hulk_intptr)id)))
                 continue;
             const char *name = 0;
             switch (id) {
@@ -144,12 +142,12 @@ void HintMenu_b8240::FUN_000b8240()
             }
             if (name == 0)
                 continue;
-            label.FUN_000f7930();
+            ((owners::State_f7930 *)&label)->FUN_000f7930();
             label.FUN_000f8500(name, 0, 1);
             list->vfunc_19(&label, 0, 0);
             *out = id;
             out++;
-            label.FUN_000f7960();
+            ((owners::Thing_f7960 *)&label)->FUN_000f7960();
         }
         list->vfunc_3();
     }

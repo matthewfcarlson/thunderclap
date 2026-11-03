@@ -1,26 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001eb220 @ 0x001eb220
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Resource_1eb220 {
     void* FUN_001f1270();
 };
 extern "C" Resource_1eb220* __cdecl FUN_0008d710(int size, int category);
-struct State_1eb220 {
-    void* resource;
-    unsigned int owner;
-    unsigned char mode;
-    unsigned char active;
-    char padding[2];
-    float first;
-    float second;
-    float third;
-    unsigned int count;
-    State_1eb220* FUN_001eb220(unsigned int ownerValue, unsigned int unused, unsigned char modeValue);
-};
-State_1eb220* State_1eb220::FUN_001eb220(unsigned int ownerValue, unsigned int unused, unsigned char modeValue) {
+owners::State_1eb220* owners::State_1eb220::FUN_001eb220(hulk_uintptr ownerValue, hulk_uintptr unused, unsigned char modeValue) {
     mode = modeValue;
-    (*(State_1eb220**)&DAT_004e36d8) = this;
+    (*(owners::State_1eb220**)&DAT_004e36d8) = this;
     active = 0;
     first = 100.0f;
     third = 100.0f;
@@ -31,6 +20,6 @@ State_1eb220* State_1eb220::FUN_001eb220(unsigned int ownerValue, unsigned int u
     if (allocated)
         result = allocated->FUN_001f1270();
     resource = result;
-    owner = ownerValue;
+    owner = ((unsigned int)ownerValue);
     return this;
 }

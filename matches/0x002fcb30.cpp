@@ -1,9 +1,5 @@
-struct V {
-    int pad;
-    float x1, x2, x3, x4, x5, x6;
-    void Add(V*, V*);
-};
-void V::Add(V* a, V* b) {
+#include "gen/owners.h"
+void owners::V_2fcb30::FUN_002fcb30(owners::V_2fcb30* a, owners::V_2fcb30* b) {
     x1 = a->x1 + b->x1;
     x2 = a->x2 + b->x2;
     x3 = a->x3 + b->x3;

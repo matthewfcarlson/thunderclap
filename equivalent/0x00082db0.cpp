@@ -2,12 +2,11 @@
 // FUN_00082db0 @ 0x00082db0
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 struct V3_82db0 { float x, y, z; };
 
 struct Quat_82db0 {
     float x, y, z, w;
-    void FUN_0022b370(struct Xform_82db0 *m);
-    void FUN_0022b120();
     void FUN_0022b650(struct Xform_82db0 *m);
 };
 
@@ -20,7 +19,6 @@ struct Body_82db0 {
     char pad0[0x10];
     V3_82db0 *rot;                // 0x10 (x,y,z,w quaternion storage)
     V3_82db0 *vec;                // 0x14
-    void FUN_00284820(Xform_82db0 *m);
 };
 
 struct Node {
@@ -35,7 +33,6 @@ struct Src_82db0;
 struct Link_82db0 {
     char pad0[0x9c];
     Src_82db0 *src;        // 0x9c
-    Node *FUN_001d72e0();
     void FUN_001d7510();
 };
 
@@ -47,7 +44,6 @@ struct Src_82db0 {
 };
 
 struct Player_82db0 {
-    Link_82db0 *FUN_001dc0d0(int id);
 };
 
 struct World {
@@ -103,12 +99,12 @@ void Fx_82db0::FUN_00082db0(float dt, Xform_82db0 *x)
 {
     if (link == 0)
         return;
-    Link_82db0 *lk = DAT_004dd700->players->FUN_001dc0d0(owner);
+    Link_82db0 *lk = ((Link_82db0 *)((owners::Obj_1dc0d0 *)(DAT_004dd700->players))->FUN_001dc0d0((hulk_intptr)owner));
     Body_82db0 *body = lk->src->s11();
     if (skipAnim == 0) {
         anim->FUN_00288080(body);
         anim->v24(link, 0, 0);
-        lk->FUN_001d72e0()->FUN_002ef8b0(0);
+        ((Node *)((owners::C_1d72e0 *)lk)->FUN_001d72e0())->FUN_002ef8b0(0);
     }
     float f1 = anim->v13();
     anim->v6(dt * 1000.0f, 1);
@@ -120,10 +116,10 @@ void Fx_82db0::FUN_00082db0(float dt, Xform_82db0 *x)
     if (orient != 0)
         orient->FUN_0028a8f0(f1, f2, &q);
     Quat_82db0 r;
-    r.FUN_0022b370(x);
+    ((owners::Quat_22b370 *)&r)->FUN_0022b370((const float *)(struct Xform_82db0 *)x);
     FUN_0022b080(&r, &r, &q);
     FUN_00080f60(kind, orient, x, f1, f2, &vel);
-    r.FUN_0022b120();
+    ((owners::Vec4_22b120 *)&r)->FUN_0022b120();
     r.FUN_0022b650(x);
     *p = v;
     V3_82db0 *rot = (V3_82db0 *)body->rot;
@@ -131,9 +127,9 @@ void Fx_82db0::FUN_00082db0(float dt, Xform_82db0 *x)
     ((float *)rot)[3] = 1.0f;
     V3_82db0 *bv = (V3_82db0 *)((char *)body->vec + 0x30);
     bv->x = 0.0f; bv->y = 0.0f; bv->z = 0.0f;
-    body->FUN_00284820(x);
-    if (lk->FUN_001d72e0()->link != 0) {
-        Node *n = lk->FUN_001d72e0();
+    ((owners::C_284820 *)body)->FUN_00284820((hulk_intptr)(Xform_82db0 *)x);
+    if (((Node *)((owners::C_1d72e0 *)lk)->FUN_001d72e0())->link != 0) {
+        Node *n = ((Node *)((owners::C_1d72e0 *)lk)->FUN_001d72e0());
         vel.x = n->vel.x;
         vel.y = n->vel.y;
         vel.z = n->vel.z;

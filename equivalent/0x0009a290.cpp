@@ -2,6 +2,7 @@
 // FUN_0009a290 @ 0x0009a290
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_00263ea0(unsigned int size);
@@ -10,8 +11,6 @@ void* FUN_00263ea0(unsigned int size);
 struct Matrix {
     char data[0x40];
     Matrix() { FUN_0022b980(); }
-    void FUN_0022ba70(float angle);
-    void FUN_0022be40(void* v);
     void FUN_0022b980();
 };
 
@@ -51,11 +50,11 @@ public:
     char body[0x480 - 4];
 };
 
-struct Obj1_9a290 { void FUN_00085f50(char a); };
+struct Obj1_9a290 {  };
 struct Obj2_9a290 { void FUN_001bf860(char a); };
 struct Obj5 { void FUN_000afe80(); };
 struct Obj4_9a290 { Obj5* FUN_00086330(); };
-struct Obj6_9a290 { void FUN_000361c0(char a); void FUN_00036140(char a); };
+struct Obj6_9a290 {   };
 struct Obj3_9a290 { int FUN_000d6f50(); void FUN_000d7030(int a); };
 struct Owner_9a290 {
     Obj1_9a290* FUN_00086320();
@@ -101,8 +100,8 @@ void CCameraManager_9a290::FUN_0009a290(Ctx_9a290* ctx)
 {
     Matrix m;
     if (angle != (*(float*)&DAT_003f32e0))
-        m.FUN_0022ba70(angle * (*(float*)&DAT_003f32b8));
-    m.FUN_0022be40(vec80);
+        ((owners::Mat_22ba70 *)&m)->FUN_0022ba70(angle * (*(float*)&DAT_003f32b8));
+    ((owners::Target_22be40 *)&m)->FUN_0022be40((const int *)vec80);
     if (emitter == 0) {
         void* mem = FUN_00263ea0(0x480);
         CHypnoticCamera_9a290* e = 0;
@@ -114,7 +113,7 @@ void CCameraManager_9a290::FUN_0009a290(Ctx_9a290* ctx)
     }
     Obj6_9a290* obj6 = ctx->p20->obj;
     if (emitter->FUN_000aa450(ctx, &m, vecA0, f9c, obj6, f94, f90)) {
-        owner->FUN_00086320()->FUN_00085f50(1);
+        ((owners::Thing_85f50 *)(owner->FUN_00086320()))->FUN_00085f50(1);
         f98 = ctx->p3c->FUN_000d6f50();
         int bit = f98 & 0x100;
         owner->FUN_00086380()->FUN_001bf860(1);
@@ -122,8 +121,8 @@ void CCameraManager_9a290::FUN_0009a290(Ctx_9a290* ctx)
         ctx->flag->value = 0;
         ctx->p54->FUN_00086330()->FUN_000afe80();
         if (obj6) {
-            obj6->FUN_000361c0(1);
-            obj6->FUN_00036140(1);
+            ((owners::C_361c0 *)obj6)->FUN_000361c0(1);
+            ((owners::C_36140 *)obj6)->FUN_00036140(1);
         }
         CHypnoticCamera_9a290* e = emitter;
         CHypnoticCamera_9a290* old = slot10;

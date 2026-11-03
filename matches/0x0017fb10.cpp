@@ -1,11 +1,6 @@
-class Target_17fb10 {
-  public:
-    char pad0[0x4c];
-    int value;
-    bool Set(int x);
-};
+#include "gen/owners.h"
 
-bool Target_17fb10::Set(int x) {
+bool owners::Target_17fb10::FUN_0017fb10(int x) {
     value = x;
     return true;
 }

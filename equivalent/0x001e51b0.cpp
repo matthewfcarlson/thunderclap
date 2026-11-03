@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 13/13)
 // FUN_001e51b0 @ 0x001e51b0
+#include "gen/owners.h"
 struct Vec3_1e51b0 {
     float x, y, z;
 };
@@ -9,7 +10,6 @@ struct Entity;
 struct Entity {
     char pad00[0x164];
     Vec3_1e51b0 pos;
-    int FUN_001d69a0();
     // equiv-conv: FUN_001d6990 ecx stack
     int FUN_001d6990(int extra);
 };
@@ -51,7 +51,7 @@ void CSPManager_1e51b0::FUN_001e51b0(Entity* e, int extra)
 
     f.p = *FUN_001dcb00(&f.snapped, &f.hit);
 
-    int shape = e->FUN_001d69a0();
+    int shape = ((owners::Target_1d69a0 *)e)->FUN_001d69a0();
     f.corners[0] = f.p;
     f.corners[1] = f.p;
     f.corners[2] = f.p;

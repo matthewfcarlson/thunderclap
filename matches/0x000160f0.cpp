@@ -1,4 +1,5 @@
 #include "gen/global.h"
+#include "gen/owners.h"
 
 class CAction_160f0 {
   public:
@@ -13,14 +14,13 @@ class CAction_160f0 {
     virtual void a8();
 };
 struct Obj_160f0 {
-    Obj_160f0* f592a0();
     Obj_160f0* f59a30();
     unsigned int f40140(int, int, int, int, int);
 };
 
 bool CSmartPropDetachAction::vfunc_6(int unused) {
     Obj_160f0* o = *(Obj_160f0**)((char*)this + 0x1c);
-    o = o->f592a0();
+    o = ((Obj_160f0 *)((owners::Object_592a0 *)o)->FUN_000592a0());
     o = o->f59a30();
     o->f40140(0, -1, 0, 0, 0);
     return false;

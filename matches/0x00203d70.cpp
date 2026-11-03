@@ -1,10 +1,4 @@
-class Target_203d70 {
-    char pad[0x44];
-
-  public:
-    int value;
-    int f();
-};
-int Target_203d70::f() {
+#include "gen/owners.h"
+hulk_intptr owners::Target_203d70::FUN_00203d70() {
     return value;
 }

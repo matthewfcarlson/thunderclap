@@ -1,10 +1,5 @@
-class Obj_11b810 {
-  public:
-    char pad[0x10];
-    int field;
-    char Fn(int x);
-};
-char Obj_11b810::Fn(int x) {
+#include "gen/owners.h"
+char owners::Obj_11b810::FUN_0011b810(int x) {
     field = x;
     return 1;
 }

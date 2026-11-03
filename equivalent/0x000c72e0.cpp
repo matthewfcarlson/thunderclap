@@ -3,17 +3,16 @@
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 
 struct Mat_c72e0 {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022bab0(float angle);
 };
 
 struct V3_c72e0 {
     float x, y, z;
-    void FUN_0022d210(const Mat_c72e0 *m);
     void FUN_0022d110();
 };
 
@@ -137,7 +136,7 @@ void Self_c72e0::FUN_000c72e0()
         P.x = px;
         P.y = e->p.y;
         P.z = pz;
-        P.FUN_0022d210(&M);
+        ((owners::Obj_22d210 *)&P)->FUN_0022d210((owners::Obj_22d210 *)(const Mat_c72e0 *)(&M));
         P.z = 0.0f;
         P.FUN_0022d110();
         float c = (*(float*)&DAT_0049fb8c);
@@ -150,7 +149,7 @@ void Self_c72e0::FUN_000c72e0()
             angle = -angle;
         Mat_c72e0 Q;
         Q.FUN_0022b980();
-        Q.FUN_0022bab0(angle);
+        ((owners::Mat_22bab0 *)&Q)->FUN_0022bab0(angle);
         (*(Holder_c72e0**)&DAT_0052c2ac)->mgr->v15(0);
         (*(Holder_c72e0**)&DAT_0052c2ac)->mgr->v13(0);
         (*(Holder_c72e0**)&DAT_0052c2ac)->FUN_00293d00(&P);

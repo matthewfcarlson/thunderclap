@@ -3,6 +3,7 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Vec3_109df0 {
     float x, y, z;
@@ -46,7 +47,6 @@ struct SweepList_109df0 {
 };
 
 struct HitLink {
-    int FUN_001d72e0();
 };
 
 struct Hit_109df0 {
@@ -148,7 +148,7 @@ bool __stdcall FUN_00109df0(Context* ctx, Vec3_109df0* from, Vec3_109df0* to, in
     if (!(outNormal->z * dir->z + dir->y * outNormal->y + outNormal->x * dir->x < 0.0f))
         return true;
 
-    if (out.hit && out.hit->kind == 5 && out.hit->link && out.hit->link->FUN_001d72e0() == (hulk_intptr)ignore)
+    if (out.hit && out.hit->kind == 5 && out.hit->link && ((int)((owners::C_1d72e0 *)(out.hit->link))->FUN_001d72e0()) == (hulk_intptr)ignore)
         return true;
     return false;
 }

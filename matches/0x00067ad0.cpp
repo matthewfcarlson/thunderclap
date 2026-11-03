@@ -1,10 +1,5 @@
-class C_67ad0 {
-  public:
-    char pad[8];
-    unsigned int slots[256];
-    void* f(unsigned int x);
-};
-void* C_67ad0::f(unsigned int x) {
+#include "gen/owners.h"
+void* owners::C_67ad0::FUN_00067ad0(unsigned int x) {
     if (x == 0)
         return 0;
     int i = (int)(x & 255);

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 34/36, incomplete)
 // FUN_0003b620 @ 0x0003b620
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Mat;
 
 struct Ref_3b620 {
@@ -27,7 +28,6 @@ struct Bank {
     char pad00[0xa8];
     char flagA8;
     char pada9[3];
-    hulk_intptr FUN_000446c0(int index);
 };
 
 struct Link124_3b620 {
@@ -115,7 +115,7 @@ char CCharacter_3b620::FUN_0003b620(char reset)
             Weapon_3b620 *w = slots[i].weapon;
             if (w && bank) {
                 int cur = w->fec;
-                if (cur == bank->FUN_000446c0(i))
+                if (cur == ((owners::Obj_446c0 *)bank)->FUN_000446c0(i))
                     continue;
             }
             FUN_0003acf0(i, 0, -1, 0, 0, 0);

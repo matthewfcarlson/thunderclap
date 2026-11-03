@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19923 inputs, branch coverage 30/30)
 // FUN_00248670 @ 0x00248670
+#include "gen/owners.h"
 extern "C" double __cdecl sqrt(double);
 struct Sound_248670 {
  float volume;
- unsigned FUN_0025d3e0();
 };
 // the sound's Run functions take no argument (matches/0x0025d740.cpp, 0x0025d780.cpp: thiscall, plain `ret`); the
 // original reaches them with a tail jump that leaves this function's own stack word in place
@@ -53,7 +53,7 @@ extern "C" void __cdecl FUN_00248670(void * owner, void * fade, unsigned ticks) 
   }
  }
  ((Fade_248670 *)fade)->sound->volume = (float)sqrt(((Fade_248670 *)fade)->progress);
- unsigned state = ((Fade_248670 *)fade)->sound->FUN_0025d3e0();
+ unsigned state = ((unsigned)((owners::Object_25d3e0 *)(((Fade_248670 *)fade)->sound))->FUN_0025d3e0());
  switch (state) {
  case 2:
  case 4:

@@ -484,3 +484,77 @@ owner stubs have only builtin fields (7,423 aliases), 450 more only builtin fiel
 "pinned types" with layouts, one class per definition, canonical member prototypes with pointers where callers pass
 pointers: the `Target_27b040` callers pass `const char*` to its `unsigned int`), after which `member-apply` handles
 their callers unchanged.
+
+## 11. Owner classes: include/gen/owners.h (x64-10, name unification batch 5, 2026-11-02)
+
+Section 10's remainder: definitions that are members of the defining source's own stub, of classes RTTI never names.
+Design:
+
+- **One header, one namespace.** `include/gen/owners.h` declares `namespace owners { ... }`, one class per such
+  definition: `owners::<Stub>_<addr>` (the stub's name, with the definition's address appended unless it already
+  ends in it: `owners::Target_27b040`, `owners::Object_592a0`). Keyed by definition, not by real class: without RTTI
+  nothing proves that two sources' stubs are one class, so each class is the definition's own view of it; merging
+  views of one real class is later work. The namespace keeps the generated names out of the sources' top-level names
+  (a caller's own stub `Target_27b040` does not collide with `owners::Target_27b040`, so `member-apply` renames
+  nothing, and gen_tree sees one new top-level name, `owners`).
+- **Generated, not written.** `tools/owner_classes.py plan` reads a Wine build's link outputs (the same input as
+  `name_unify.py member`) and writes `include/gen/evidence-owners.json`; `tools/gen_headers.py` emits owners.h from it
+  (`emit_owners`; all.h includes it). Each class holds its stub's members in source order (layout preserved), typedef
+  names said as the builtin types they name, the defined member named `FUN_<addr>` (b9's convention), the stub's other
+  member declarations kept as they are (the definition's body may call them). Each field carries its 32-bit offset
+  and, where it differs, its 64-bit one (`// +0x04 (+0x08)`), from clang's record layouts for i686 and x86_64
+  windows-msvc; the class comment gives the defining source and the sizes.
+- **First scope: self-contained stubs.** Fields and member signatures of builtin types, pointers to them or to the
+  stub itself; no bases, virtual or static members, nested types, inline bodies, constructors or destructors;
+  member types `type_info` understands (no references). Not: definitions whose stub the rename map names as an RTTI
+  class (they belong on include/gen/'s real class), the replay pins, sources in other agents' hands.
+- **Signatures: pointer beats integer.** A 4-byte integer parameter (or return) of the definition that some caller
+  declares as a pointer becomes `hulk_uintptr` / `hulk_intptr` (`hulk_ulongptr` / `hulk_longptr` for `long`), in the
+  header and in the definition: the same type on the 32-bit builds, so the code and the mangled name do not change,
+  and pointer-sized on the 64-bit ones (include/compat/ptr.h). `Target_27b040::FUN_0027b040(hulk_uintptr)`: its 584
+  callers pass `const char*`. A real pointer type would need the body's uses cast and the callees' prototypes
+  settled first; the pointer-sized integer is the step that is exact on both builds. Pointer fields stay as the
+  stub declares them (copied, so the 32-bit layout is the stub's; the 64-bit offsets are what a real pointer gives).
+- **The definition source** loses its stub, includes `gen/owners.h` and defines `R owners::X::FUN_<addr>(P...)`
+  (other uses of the stub's name say `owners::X`). **Callers**: `name_unify.py member --moved` (the plan's
+  `moved.txt`) and `member-apply`, unchanged but for two fixes: `header_member` reads a `hulk_*` spelling from the
+  header text (cxx_items' tokenizer says those types as the 32-bit ones, so a header's `hulk_uintptr` parameter
+  never reached `member_arg_cast`'s pointer bridge), and `member_ret_cast` casts a `hulk_*` return to a caller's
+  pointer type.
+- **gen_tree.** A wrapped source on include/gen/ goes to its own TU because its definition (`void ns::X::f()`) can't
+  sit in a `fn_<addr>` namespace. A caller whose only include/gen/ header is owners.h and whose own definition is not
+  a member of an include/gen/ name has no such definition: it stays wrapped, owners.h included at the top of the TU
+  (`gen_isolates`; off-switch `HULK_GEN_TREE_OFF=ownwrap`). Without the rule the first dry run isolated 707 sources
+  (HEAD 244), with it 297; on HEAD's sources the rule changes nothing.
+- **Uses of a reconciled parameter** keep the old type: each use in the body becomes `((unsigned int)value)`
+  (`name_unify.param_use_casts`), so the 32-bit code is unchanged and no call in the body narrows or turns
+  ambiguous on 64 bits (the first native compile of the batch lost 4 TUs: a body that took `&index`, an `f1(member,
+  arg)` that matched two overloads once `arg` was 64-bit). A parameter the body assigns or takes the address of keeps
+  its integer type (its pointer-passing callers then stay on their stubs).
+
+Batch 5 (applied, x64-10). Planned from control 39773's link (HEAD 80bc25b2a), proven on HEAD 44d83331c (control 42322
+vs batch 42344, mac2, both fresh, `--map full`, play3 to 60,000):
+
+| | control 42322 | batch 42344 |
+|---|---|---|
+| owner classes (include/gen/owners.h) | - | 2,666 (7,150 aliases planned; 237 with pointer-sized integer signatures, 248 whose 64-bit layout differs) |
+| sources | - | 4,836: 2,666 definitions (2,501 matches/, 165 equivalent/) + callers (3,130 calls: 1,207 matches/, 1,013 equivalent/) |
+| strict link rc / unbound | 0 / 1,328 | 0 / 1,324 |
+| play3 checkpoints | 2,013 to 60,360 | identical at all 2,002 common frames (0..60,030) |
+| name audit, game (symbols / references) | 49,401 / 51,271 | 46,339 / 48,222 |
+| native arm64 link, unbound (front-end failures) | 49,429 (3) | 46,370 (3) |
+
+Verification: every touched match MATCH + verify_relocs ok, every touched equivalent promotable at 3,000 inputs and at
+600 with `--wine`. Left out (not promotable after the rewrite): 3 definitions (0x001acfa0 `--wine` fail and 0x00320540
+unsupported, both failing the same way at HEAD; 0x002f9bc0 `--wine` inconclusive, promotable at HEAD), ~130 callers (most: a stub renamed for colliding with an include/gen/
+name whose vftable or RTTI symbol the checker then can't resolve, `Method0_306e0`; 7 `SeqEvent*Type` constructors
+whose `Temp().Init(...)` temporaries the cast changes), 0x0012ebc0 / 0x0012f030 (merged, they flip GameStateCondition's
+canonical `FUN_0008d6d0` to `extern "C" (hulk_uintptr)`, which conflicts on 64 bits with a wrapped source's
+`unsigned int` declaration), the replay pins and sources other agents held. A caller that build_tree isolates
+(`lost its match in the tree`) now keeps a TU namespace (owners.h before it): isolated plain, `Obj::run` of 0x0030f4c0
+collided with HEAD's plain-isolated 0x000aa680 in the strict link of a preview build.
+
+Not yet reached: definitions whose stub's members name other stubs (2,091 / 5,736 aliases: next, with those stubs as
+classes of their own or `void *`), stubs with virtual members, bases or nested types, reference-typed members
+(`Pair_27af70::Assign`), and the callers member-apply refuses (arity 620 calls, return size or bool 177, float/int 100).
+Classes are per definition: merging the views of one real class is later work.

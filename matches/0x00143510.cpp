@@ -1,10 +1,5 @@
-class Obj_143510 {
-  public:
-    char pad[0x38];
-    float value;
-    bool Set(float a);
-};
-bool Obj_143510::Set(float a) {
+#include "gen/owners.h"
+bool owners::Obj_143510::FUN_00143510(float a) {
     value = a * (float)0.017453292f;
     return true;
 }

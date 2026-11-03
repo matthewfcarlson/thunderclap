@@ -1,8 +1,8 @@
 #include "gen/global.h"
+#include "gen/owners.h"
 
 class H1 {
   public:
-    void* f1();
 };
 class H2_14890 {
   public:
@@ -14,7 +14,7 @@ class H3_14890 {
 };
 
 bool CProceduralDurationAnimationAction::vfunc_8(int ) {
-    void* x = ((H1*)(*(void * *)&this->f_1c))->f1();
+    void* x = ((void *)((owners::Object_592a0 *)(((H1*)(*(void * *)&this->f_1c))))->FUN_000592a0());
     void* y = ((H2_14890*)x)->f2();
     bool r;
     if (y == 0)

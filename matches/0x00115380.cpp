@@ -1,11 +1,6 @@
-class X_115380 {
-  public:
-    char m[0x29];
-    char m29;
-    char Set(int a);
-};
+#include "gen/owners.h"
 
-char X_115380::Set(int a) {
+char owners::X_115380::FUN_00115380(int a) {
     m29 = (char)a;
     return 1;
 }

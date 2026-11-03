@@ -1,10 +1,6 @@
-struct Obj_17faf0 {
-    char pad[0x48];
-    int mValue;
-    bool Set(int value);
-};
+#include "gen/owners.h"
 
-bool Obj_17faf0::Set(int value) {
+bool owners::Obj_17faf0::FUN_0017faf0(int value) {
     mValue = value;
     return true;
 }

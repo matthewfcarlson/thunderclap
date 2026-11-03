@@ -1,8 +1,8 @@
+#include "gen/owners.h"
 class Item_36e70 {
   public:
     char pad[0x10];
     char Check(int key);
-    void Clear(int x);
 };
 class Owner_36e70 {
   public:
@@ -16,7 +16,7 @@ char Owner_36e70::Update(int key, int value) {
     if (value == 0) {
         for (i = 0; i < 16; ++i) {
             if (items[i].Check(key)) {
-                items[i].Clear(0);
+                ((owners::Target_27b040 *)&(items[i]))->FUN_0027b040((hulk_uintptr)0);
                 *(int*)((char*)this + 0x2158 + i * 16) = 0;
                 return 1;
             }

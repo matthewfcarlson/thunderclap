@@ -1,11 +1,6 @@
-class Obj_11be10 {
-  public:
-    char pad[0x14];
-    int mValue;
-    char Fn(int x);
-};
+#include "gen/owners.h"
 
-char Obj_11be10::Fn(int x) {
+char owners::Obj_11be10::FUN_0011be10(int x) {
     mValue = x;
     return 1;
 }

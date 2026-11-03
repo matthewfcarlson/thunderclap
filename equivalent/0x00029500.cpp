@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19977 inputs, branch coverage 10/10)
 // FUN_00029500 @ 0x00029500
 #include "decls/address.h"
+#include "gen/owners.h"
 typedef unsigned __int64 Key_29500;
 extern Key_29500 __cdecl FUN_00096d80(const char*);
 
@@ -10,7 +11,6 @@ struct Slot_29500 {
 };
 
 struct Item_29500 {
-    int FUN_001d72e0();
 };
 
 struct Registry_29500 {
@@ -50,7 +50,7 @@ void Owner_29500::FUN_00029500(const char* name, const char* other)
             Key_29500 tmp1 = FUN_00096d80(other);
             Item_29500* item = core->registry->FUN_001dee40(tmp1);
             if (item) {
-                value = item->FUN_001d72e0();
+                value = ((int)((owners::C_1d72e0 *)item)->FUN_001d72e0());
             }
         }
         Slot_29500* slot = entry->slot;

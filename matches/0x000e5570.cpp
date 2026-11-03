@@ -1,12 +1,5 @@
-class C_e5570 {
-    char pad[0xaa4];
-    unsigned a, b, c;
-    unsigned char flag;
-
-  public:
-    void f(unsigned x, unsigned y, unsigned z, unsigned q, unsigned r);
-};
-void C_e5570::f(unsigned x, unsigned y, unsigned z, unsigned q, unsigned r) {
+#include "gen/owners.h"
+void owners::C_e5570::FUN_000e5570(unsigned x, unsigned y, unsigned z, unsigned q, unsigned r) {
     a = x;
     b = y;
     flag = 1;

@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Node {
     char pad[0x6c];
     int field6c;
@@ -9,7 +10,6 @@ struct Holder_1d82d0 {
 };
 class Manager_1d82d0 {
   public:
-    bool Check(void*);
     int Find(void*);
     void Use(int);
 };
@@ -40,7 +40,7 @@ int Obj_1d82d0::Run() {
     Prepare();
     Manager_1d82d0* m = gRoot_1d82d0->manager;
     void* q = (char*)this + 8;
-    if (!m->Check(q))
+    if (!((owners::C_79950 *)m)->FUN_00079950((hulk_intptr)q))
         return -1;
     int r = m->Find(q);
     if (r != -1)

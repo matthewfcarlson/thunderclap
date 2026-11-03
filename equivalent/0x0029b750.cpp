@@ -3,6 +3,7 @@
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
 struct Mat_29b750 {
     float m[16];
@@ -10,7 +11,6 @@ struct Mat_29b750 {
 
 struct V3_29b750 {
     float x, y, z;
-    void FUN_0022d210(const Mat_29b750 *m);
 };
 
 struct Box_29b750 {
@@ -26,7 +26,6 @@ struct Elem_29b750 {
     Mat_29b750 mat;
     RefObj_29b750 *ref0;
     RefObj_29b750 *ref1;
-    void FUN_0022ca90(const Mat_29b750 *a, const Mat_29b750 *b);
 };
 
 struct Provider_29b750 {
@@ -50,7 +49,6 @@ struct CamHolder {
 struct Hdr_29b750 {
     char pad[0x4c];
     V3_29b750 pos;
-    void FUN_0029fd20(void *arg);
 };
 
 struct Culler {
@@ -129,14 +127,14 @@ int Binder_29b750::FUN_0029b750(Node *a1, const Mat_29b750 *a2, RefObj_29b750 *a
     if (hdr != 0 && a1->parent == a1) {
         fr.u.v3 = (*(*(CamHolder***)&DAT_0052c2b0))->FUN_0028faa0()->pos;
         if (a2 != 0)
-            fr.u.v3.FUN_0022d210(a2);
+            ((owners::Obj_22d210 *)&(fr.u.v3))->FUN_0022d210((owners::Obj_22d210 *)(const Mat_29b750 *)a2);
         hdr->pos = fr.u.v3;
-        hdr->FUN_0029fd20(a1->parent);
+        ((owners::Caller_29fd20 *)hdr)->FUN_0029fd20((hulk_intptr)(a1->parent));
     }
 
     if (a2 != 0) {
         Elem_29b750 *e = &elems[index];
-        e->FUN_0022ca90(a2, (*(*(Provider_29b750***)&DAT_0052c2ac))->v18(0));
+        ((owners::Matrix_22ca90 *)e)->FUN_0022ca90((const owners::Matrix_22ca90 *)(const Mat_29b750 *)a2, (const owners::Matrix_22ca90 *)(const Mat_29b750 *)((*(*(Provider_29b750***)&DAT_0052c2ac))->v18(0)));
     } else {
         Elem_29b750 *e = &elems[index];
         e->mat = *(*(*(Provider_29b750***)&DAT_0052c2ac))->v18(0);

@@ -8,9 +8,9 @@
 // equiv-conv: FUN_002dd9e0 ebx edi stack
 #include "compat/ptr.h"
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 
 struct Stream_2ddb40 {
-    void FUN_00264510(int skip);
 };
 
 struct TgaHeader {
@@ -41,7 +41,7 @@ void pure3d::TargaHandler::vfunc_9(hulk_intptr __p0, hulk_intptr __p1) { Stream_
         return;
     if (hdr.width > 0x1000 || hdr.height > 0x1000)
         return;
-    stream->FUN_00264510(hdr.idLength);
+    ((owners::S_264510 *)stream)->FUN_00264510((unsigned)(hdr.idLength));
     if (type == 1)
         FUN_002dd890((TgaHeader *)(&hdr), (Stream_2ddb40 *)stream, out);
     else if (type == 2)

@@ -1,7 +1,7 @@
+#include "gen/owners.h"
 void* Alloc(int n);
 struct Node {
     Node* Init_001d4210(int a, int b, int c);
-    void Set(int a);
 };
 struct Q_1d4660 {
     void Add(Node* n);
@@ -24,7 +24,7 @@ void Owner_1d4660::Fn(int a, int b, int c) {
         n = p->Init_001d4210(a, b, c);
     else
         n = 0;
-    n->Set(a);
+    ((owners::CAgent_1d04b0 *)n)->FUN_001d04b0((hulk_intptr)a);
     q.Add(n);
     Mgr_1d4660* m = mgr;
     Reg(m, n);

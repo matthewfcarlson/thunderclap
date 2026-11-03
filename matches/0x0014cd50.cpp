@@ -1,11 +1,6 @@
-class C_14cd50 {
-  public:
-    char pad[0x14];
-    float mAngle;
-    bool Set(float v);
-};
+#include "gen/owners.h"
 
-bool C_14cd50::Set(float v) {
+bool owners::C_14cd50::FUN_0014cd50(float v) {
     mAngle = v * 0.01745329252f;
     return true;
 }

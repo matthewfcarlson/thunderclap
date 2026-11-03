@@ -1,10 +1,5 @@
-class Obj_192570 {
-  public:
-    char pad[0xc];
-    int mVal;
-    bool Set(int v);
-};
-bool Obj_192570::Set(int v) {
+#include "gen/owners.h"
+bool owners::Obj_192570::FUN_00192570(int v) {
     mVal = v;
     return true;
 }

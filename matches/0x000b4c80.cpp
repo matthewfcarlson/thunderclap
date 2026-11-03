@@ -1,11 +1,6 @@
+#include "gen/owners.h"
 extern "C" int __cdecl strcmp(const char*, const char*);
-class Table_b4c80 {
-  public:
-    bool Has(const char* name);
-    char pad[0x6c];
-    const char* names[0x80];
-};
-bool Table_b4c80::Has(const char* name) {
+bool owners::Table_b4c80::FUN_000b4c80(const char* name) {
     for (int i = 0; i < 0x80; i++) {
         const char* s = names[i];
         if (!s)

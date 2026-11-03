@@ -1,8 +1,4 @@
-class X_208b80 {
-  public:
-    short data[1];
-    int f(int i);
-};
-int X_208b80::f(int i) {
+#include "gen/owners.h"
+int owners::X_208b80::FUN_00208b80(int i) {
     return data[i + 3];
 }

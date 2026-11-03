@@ -1,17 +1,10 @@
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 extern float gScale_1f3950;
 void __cdecl Apply(int, float);
-class Obj_1f3950 {
-  public:
-    char pad0[0xc0];
-    hulk_intptr mPtr;
-    char pad1[0x268];
-    int mBusy;
-    void Set(float value);
-};
-void Obj_1f3950::Set(float value) {
+void owners::Obj_1f3950::FUN_001f3950(float value) {
     *(volatile float*)((hulk_intptr)((char*)&DAT_004c7df0)) = value;
     if (mPtr != 0 && mBusy == 0) {
         int x = *(int*)(mPtr + 4);

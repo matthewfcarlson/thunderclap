@@ -1,9 +1,5 @@
-struct S_139b90 {
-    char pad[0xc];
-    int m;
-    char Target(int v);
-};
-char S_139b90::Target(int v) {
+#include "gen/owners.h"
+char owners::S_139b90::FUN_00139b90(int v) {
     m = v;
     return 1;
 }

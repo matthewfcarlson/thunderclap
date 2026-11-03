@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_001dd330 @ 0x001dd330
+#include "gen/owners.h"
 struct Source_1dd330 { char pad[0x30]; unsigned int x,y,z; };
-struct Temp_1dd330 { unsigned int data[4]; void FUN_0022b370(Source_1dd330*); };
+struct Temp_1dd330 { unsigned int data[4];  };
 struct Link_1dd330 { unsigned int data[2]; void FUN_0027af70(void*); };
 struct State_1dd330 { char pad[6]; unsigned short id; char rest[10]; unsigned short recordIndex; char pad2[2]; unsigned char active,inverted; void FUN_001db780(Temp_1dd330*); };
 struct Item_1dd330 { Link_1dd330 first,second; State_1dd330 state; void FUN_001dbba0(); };
@@ -16,7 +17,7 @@ int CSPManager_1dd330::target(void* a,void* b,Source_1dd330* source,unsigned cha
  record->distance=3.402823466e+38f; record->flags=0;
  item->state.recordIndex=(unsigned short)count;
  record->itemIndex=(unsigned short)nextItem;
- Temp_1dd330 temp; temp.FUN_0022b370(source);
+ Temp_1dd330 temp; ((owners::Quat_22b370 *)&temp)->FUN_0022b370((const float *)(Source_1dd330 *)source);
  item->first.FUN_0027af70(a);
  item->state.FUN_001db780(&temp);
  item->state.active=0;

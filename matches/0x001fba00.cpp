@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class A_1fba00 {
   public:
     virtual void f0();
@@ -15,7 +16,6 @@ struct S_1fba00 {
 };
 // FUN_001c3d90 is the 0-argument singleton getter; the pushed pointer is the argument of FUN_001c4010.
 struct Registry_1fba00 {
-    int FUN_001c4010(unsigned*);
 };
 extern "C" Registry_1fba00* FUN_001c3d90();
 int __fastcall FUN_001fba00(A_1fba00* p) {
@@ -25,5 +25,5 @@ int __fastcall FUN_001fba00(A_1fba00* p) {
     x.e = x.b;
     x.f = x.c;
     x.g = 0x3f800000;
-    return FUN_001c3d90()->FUN_001c4010(&x.d);
+    return ((owners::Thing_1c4010 *)(FUN_001c3d90()))->FUN_001c4010((hulk_intptr)(&x.d));
 }

@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_a_ee000[];
 extern void* g_b_ee000[];
@@ -8,7 +9,6 @@ class Ref_ee000 {
     virtual void Release();
 };
 struct Pool_ee000 {
-    void Free(void*) throw();
 };
 struct Mgr_ee000 {
     char pad[8];
@@ -19,7 +19,6 @@ struct Item_ee000 {
     int f;
 };
 struct Sub_ee000 {
-    void Fin() throw();
 };
 class ImageSelector_ee000 {
   public:
@@ -44,7 +43,7 @@ void ImageSelector_ee000::f() {
     Item_ee000* it = m2ac;
     vptr = g_a_ee000;
     if (it) {
-        ma8->pool->Free(&it->f);
+        ((owners::Obj_f8c30 *)(ma8->pool))->FUN_000f8c30((const char *)(&it->f));
         m2ac = 0;
     }
     for (int i = 0; i < 8; i++)
@@ -71,5 +70,5 @@ void ImageSelector_ee000::f() {
         operator delete(mac);
         mac = 0;
     }
-    sub.Fin();
+    ((owners::Thing_f7960 *)&sub)->FUN_000f7960();
 }

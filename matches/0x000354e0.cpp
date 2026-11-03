@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class A_354e0 {
     char pad[16];
 
@@ -11,7 +12,6 @@ class Tmp_354e0 {
   public:
     void Init();
     void SetArg(int);
-    void SetPtr(int);
 };
 class Obj_354e0 {
     char pad[16];
@@ -27,6 +27,6 @@ bool Obj_354e0::target(int arg) {
     Tmp_354e0 t;
     t.Init();
     t.SetArg(arg);
-    t.SetPtr(p + 0x40);
+    ((owners::Target_22be40 *)&t)->FUN_0022be40((const int *)(hulk_uintptr)(int)(p + 0x40));
     return Run(&t);
 }

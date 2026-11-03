@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 21 inputs, branch coverage 12/12)
 // FUN_00225f30 @ 0x00225f30
+#include "gen/owners.h"
 struct Ref_225f30 { virtual void FUN_ref0(); };
 struct Inner_225f30 { char pad[0x10]; unsigned count; };
 struct Pair_225f30 { unsigned a, b; };
@@ -22,12 +23,11 @@ struct Obj_225f30 {
     unsigned f12e0, f12e4, f12e8, f12ec;
     Vec3_225f30 v0, v1, v2, v3;
     unsigned f1320, f1324, f1328;
-    void FUN_0022a9e0(Obj_225f30 *src);
     Obj_225f30 *FUN_00225f30(Obj_225f30 *src);
 };
 Obj_225f30 *Obj_225f30::FUN_00225f30(Obj_225f30 *src)
 {
-    FUN_0022a9e0(src);
+    ((owners::Thing_22a9e0 *)this)->FUN_0022a9e0((owners::Thing_22a9e0 *)(Obj_225f30 *)src);
     w = src->w;
     h = src->h;
     n = src->n;

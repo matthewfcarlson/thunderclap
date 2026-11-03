@@ -1,10 +1,5 @@
 // Same code shape as 0x001cc840 (propagated; names are from that function)
-class C_277cd0 {
-  public:
-    char pad[12];
-    unsigned int value;
-    unsigned int get();
-};
-unsigned int C_277cd0::get() {
+#include "gen/owners.h"
+unsigned int owners::C_277cd0::FUN_00277cd0() {
     return value;
 }

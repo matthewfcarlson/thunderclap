@@ -1,7 +1,4 @@
-class C_92860 {
-  public:
-    unsigned char Get(int i);
-};
-unsigned char C_92860::Get(int i) {
-    return *((unsigned char*)(((char**)this)[i]) + 8);
+#include "gen/owners.h"
+unsigned char owners::C_92860::FUN_00092860(hulk_intptr i) {
+    return *((unsigned char*)(((char**)this)[((int)i)]) + 8);
 }

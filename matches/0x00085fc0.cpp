@@ -1,12 +1,7 @@
 #include "decls/data/game/global.h"
 // data: scale = DAT_003ffaa4
+#include "gen/owners.h"
 
-class Timer {
-  public:
-    char pad[0x28];
-    unsigned __int64 ticks;
-    double GetTime();
-};
-double Timer::GetTime() {
+double owners::Timer_85fc0::FUN_00085fc0() {
     return (double)ticks * DAT_003ffaa4;
 }

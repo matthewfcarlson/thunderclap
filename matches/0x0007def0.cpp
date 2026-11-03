@@ -1,11 +1,6 @@
-class C_7def0 {
-  public:
-    int ac30(int);
-    void ccf0(int);
-    void target(int);
-};
-void C_7def0::target(int p) {
-    int i = ac30(p);
+#include "gen/owners.h"
+void owners::C_7def0::FUN_0007def0(hulk_intptr p) {
+    int i = ac30(((int)p));
     if (i != -1)
         ccf0(i);
 }

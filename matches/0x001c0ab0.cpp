@@ -2,6 +2,7 @@
 // FUN_001c0ab0 @ 0x001c0ab0
 // cl-flags: /GS
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 extern "C" int strcmp(const char *a, const char *b);
 
@@ -16,7 +17,6 @@ struct Label_1c0ab0 {
 };
 
 struct Printer_1c0ab0 {
-    void FUN_001d3600(const char *text, int flag);
 };
 extern "C" Printer_1c0ab0 *__cdecl FUN_001d4c90();
 
@@ -71,7 +71,7 @@ void Menu_1c0ab0::FUN_001c0ab0(const char *name)
             f40 = 0;
             Printer_1c0ab0 *p = FUN_001d4c90();
             int t2 = FUN_00266da0(1);
-            p->FUN_001d3600((*(const char**)&DAT_004c4c70), 0);
+            ((owners::Object_1d3600 *)p)->FUN_001d3600((*(const char**)&DAT_004c4c70), 0);
             FUN_00266da0(t2);
         }
     } else {
@@ -90,9 +90,9 @@ void Menu_1c0ab0::FUN_001c0ab0(const char *name)
             f40 = 0;
             Printer_1c0ab0 *p = FUN_001d4c90();
             int t2 = FUN_00266da0(1);
-            p->FUN_001d3600((*(const char**)&DAT_004c4c60), 0);
+            ((owners::Object_1d3600 *)p)->FUN_001d3600((*(const char**)&DAT_004c4c60), 0);
             FUN_000964a0(buf, 0x40, (*(const char**)&DAT_004c4c78), name, name);
-            p->FUN_001d3600(buf, 0);
+            ((owners::Object_1d3600 *)p)->FUN_001d3600(buf, 0);
             FUN_00266da0(t2);
         }
     }

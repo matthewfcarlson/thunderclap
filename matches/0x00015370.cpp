@@ -1,4 +1,5 @@
 #include "gen/global.h"
+#include "gen/owners.h"
 
 struct R5;
 struct R4;
@@ -20,7 +21,6 @@ struct T2 {
 struct R3 {
     char pad[0x68];
     unsigned int f68;
-    void* GetElem(unsigned int i);
 };
 
 struct R5 {
@@ -61,7 +61,7 @@ bool CGrappleLocoStrafe4Action::vfunc_7(int arg) {
     if (!r3)
         return false;
     for (unsigned int i = 0; i < r3->f68; i++) {
-        void* e = r3->GetElem(i);
+        void* e = ((void *)((owners::C_222e20 *)r3)->FUN_00222e20((unsigned)i));
         T2* p = (T2*)FUN_00344e74(e, 0, g1_15370, g2_15370, 0);
         if (p) {
             (*(T2 * *)&this->f_24)->f24 = p->f24;

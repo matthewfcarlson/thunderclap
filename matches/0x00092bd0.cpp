@@ -1,9 +1,4 @@
-class C_92bd0 {
-    char pad[0xd88];
-
-  public:
-    void Set(int value);
-};
-void C_92bd0::Set(int value) {
-    *(int*)(pad + 0xd88) = value;
+#include "gen/owners.h"
+void owners::C_92bd0::FUN_00092bd0(hulk_intptr value) {
+    *(int*)(pad + 0xd88) = ((int)value);
 }

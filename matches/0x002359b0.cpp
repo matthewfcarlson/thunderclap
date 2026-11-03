@@ -1,10 +1,6 @@
-class Obj_2359b0 {
-  public:
-    char m[0x10];
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char Obj_2359b0::Set(int v) {
+char owners::Obj_2359b0::FUN_002359b0(int v) {
     *(int*)(m + 0x10) = v;
     return 1;
 }

@@ -1,7 +1,7 @@
 // FUN_001fc3c0 @ 0x001fc3c0
+#include "gen/owners.h"
 struct Name_1fc3c0 {
     int word;
-    void FUN_0027b040(const char *name);
 };
 
 class XmlNode {
@@ -30,7 +30,7 @@ void Transform_1fc3c0::FUN_001fc3c0(XmlNode *node)
 {
     const char *nodeName = node->name;
     FUN_000964a0(label, 0x20, "%s", nodeName);
-    name.FUN_0027b040(nodeName);
+    ((owners::Target_27b040 *)&name)->FUN_0027b040((hulk_uintptr)nodeName);
 
     float x, y, z;
     if (node->FUN_00336600("translate", &x, &y, &z)) {

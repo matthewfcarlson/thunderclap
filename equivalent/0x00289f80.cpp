@@ -1,12 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 11/12, incomplete)
 // FUN_00289f80 @ 0x00289f80
-struct Table_289f80 {
- char padding[16];
- int count;
- short* values;
- bool FUN_00289f80(float value, int* lower, int* upper);
-};
-bool Table_289f80::FUN_00289f80(float value, int* lower, int* upper) {
+#include "gen/owners.h"
+bool owners::Table_289f80::FUN_00289f80(float value, int* lower, int* upper) {
  short* data = values;
  if (!((float)data[0] < value)) { *upper = 0; *lower = 0; return false; }
  int n = count;

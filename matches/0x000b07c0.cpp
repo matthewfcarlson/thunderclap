@@ -1,11 +1,5 @@
-class Obj_b07c0 {
-    char pad[0x494];
-    int value;
-
-  public:
-    unsigned char Set(int x);
-};
-unsigned char Obj_b07c0::Set(int x) {
+#include "gen/owners.h"
+unsigned char owners::Obj_b07c0::FUN_000b07c0(int x) {
     value = x;
     return 1;
 }

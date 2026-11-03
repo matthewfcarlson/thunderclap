@@ -2,6 +2,7 @@
 // FUN_0003acf0 @ 0x0003acf0
 // equiv-map: ??0Key@@QAE@ABU0@@Z = 0x0027af30
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Key {
     int lo;
     int hi;
@@ -69,7 +70,6 @@ struct CCharacter_3acf0 {
     Slot_3acf0 slots[8];
     char pad628[0x1f51 - 0x628];
     char b1f51;
-    Obj_3acf0 *FUN_00035ef0(int i);
     char FUN_0003acf0(int slot, Obj_3acf0 *newObj, int a3, int a4, int a5, Matrix *m);
 };
 
@@ -96,7 +96,7 @@ char CCharacter_3acf0::FUN_0003acf0(int slot, Obj_3acf0 *newObj, int a3, int a4,
         if (o != 0 && o->count == 1 && o->holder != 0) {
             CCharacter_3acf0 *h = o->holder;
             for (int j = 0; j < 8; j++) {
-                if (h->FUN_00035ef0(j) == newObj && (h != this || j != slot)) {
+                if (((Obj_3acf0 *)((owners::C_35ef0 *)h)->FUN_00035ef0((hulk_intptr)j)) == newObj && (h != this || j != slot)) {
                     h->FUN_0003acf0(j, 0, -1, 0, 0, 0);
                     break;
                 }

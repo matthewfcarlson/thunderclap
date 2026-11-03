@@ -1,8 +1,4 @@
-class X_1934e0 {
-  public:
-    char pad[0xc8];
-    void* Get();
-};
-void* X_1934e0::Get() {
+#include "gen/owners.h"
+void* owners::X_1934e0::FUN_001934e0() {
     return (char*)this + 0xc8;
 }

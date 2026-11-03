@@ -2,6 +2,7 @@
 // hulkfight::ai::MotionBoostAction::vfunc_5 @ 0x00117150
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/ai.h"
+#include "gen/owners.h"
 struct V3_117150 {
     float x, y, z;
     float FUN_0022d110();
@@ -61,7 +62,6 @@ struct Pad_117150 {
     char pad2074[0x20a8 - 0x2074];
     int f20a8;
     void FUN_0003ffa0(RefCounted_117150 *t, int flag);
-    void FUN_000353d0(V3_117150 *from);
 };
 
 struct Fighter_117150 {
@@ -69,7 +69,6 @@ struct Fighter_117150 {
 };
 
 struct Owner20_117150 {
-    Fighter_117150 *FUN_000592a0();
 };
 
 class MotionBoostAction {
@@ -100,7 +99,7 @@ char MotionBoostAction::FUN_00117150(int a, int b)
     if (pos.FUN_0022d2b0(((V3_117150*)&DAT_004e0c98), 1e-5f))
         return 0;
 
-    Pad_117150 *pad = owner->FUN_000592a0()->FUN_00059a30();
+    Pad_117150 *pad = ((Fighter_117150 *)((owners::Object_592a0 *)owner)->FUN_000592a0())->FUN_00059a30();
     RefCounted_117150 *target = pad->lock;
     if (target == 0) {
         target = held;
@@ -150,6 +149,6 @@ char MotionBoostAction::FUN_00117150(int a, int b)
     pad->push[1] = ey;
     pad->push[2] = ez;
     pad->pushExtra = extra;
-    pad->FUN_000353d0(&pos);
+    ((owners::C_353d0 *)pad)->FUN_000353d0((const int *)(V3_117150 *)(&pos));
     return 1;
 }

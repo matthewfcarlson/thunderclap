@@ -1,16 +1,7 @@
-class C_1b7260 {
-  public:
-    char pad[0x118];
-    int a;
-    int b;
-    int c;
-    char gap[8];
-    int d;
-    void f(int x, int y, int z, int w);
-};
-void C_1b7260::f(int x, int y, int z, int w) {
-    a = x;
-    b = y;
-    c = z;
-    d = w;
+#include "gen/owners.h"
+void owners::C_1b7260::FUN_001b7260(hulk_intptr x, hulk_intptr y, hulk_intptr z, hulk_intptr w) {
+    a = ((int)x);
+    b = ((int)y);
+    c = ((int)z);
+    d = ((int)w);
 }

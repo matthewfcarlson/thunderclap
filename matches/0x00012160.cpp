@@ -1,7 +1,4 @@
-struct T_12160 {
-    char pad[0x58];
-    void* f();
-};
-void* T_12160::f() {
+#include "gen/owners.h"
+void* owners::T_12160::FUN_00012160() {
     return (char*)this + 0x58;
 }

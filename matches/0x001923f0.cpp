@@ -1,11 +1,6 @@
-class Obj_1923f0 {
-  public:
-    char m0[0x74];
-    char m74;
-    char Set(char value);
-};
+#include "gen/owners.h"
 
-char Obj_1923f0::Set(char value) {
+char owners::Obj_1923f0::FUN_001923f0(char value) {
     m74 = value;
     return 1;
 }

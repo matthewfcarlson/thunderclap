@@ -1,18 +1,5 @@
-class Thing_ac610 {
-  public:
-    char pad[0x14];
-    float a;
-    float b;
-    char gap[4];
-    float c;
-    float d;
-    float out1;
-    float out2;
-    int copy1;
-    int copy2;
-    void f();
-};
-void Thing_ac610::f() {
+#include "gen/owners.h"
+void owners::Thing_ac610::FUN_000ac610() {
     copy1 = *(int*)&c;
     copy2 = *(int*)&a;
     out1 = (a + a) - (b + b) + d + c;

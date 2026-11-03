@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3041 inputs, branch coverage 38/38; --wine 668 inputs)
 // FUN_001c4b50 @ 0x001c4b50
 #include "decls/data/game/Render.h"
+#include "gen/owners.h"
 
 struct V3_1c4b50 {
     float x, y, z;
@@ -8,12 +9,10 @@ struct V3_1c4b50 {
 
 struct Out_1c4b50 : V3_1c4b50 {
     float w;
-    void FUN_000110d0(const V3_1c4b50 *p);
 };
 
 struct Mat_1c4b50 {
     float m[16];
-    void FUN_0022c2b0(const V3_1c4b50 *in, V3_1c4b50 *out);
 };
 
 struct Mgr_1c4b50 {
@@ -24,7 +23,6 @@ struct Mgr_1c4b50 {
     char pad20[3];
     char flag23;
     unsigned int FUN_002843a0(int lo, int hi);
-    void FUN_00284820(Mat_1c4b50 *m);
 };
 
 struct HashPair {
@@ -60,7 +58,6 @@ public:
     char pad4[0xec - 4];
     HashPair *hash;
     char FUN_001d64c0();
-    Info_1c4b50 *FUN_001d72e0();
 };
 
 extern "C" unsigned __int64 __cdecl FUN_0027b020(const char *name) throw();
@@ -87,7 +84,7 @@ void Locator::FUN_001c4b50(Out_1c4b50 *out)
         return;
     out->w = f7c;
     if (!mgr || mgr->count == 0) {
-        mat30.FUN_0022c2b0(&vec70, out);
+        ((owners::Mat_22c2b0 *)&mat30)->FUN_0022c2b0((float *)(const V3_1c4b50 *)(&vec70), (float *)(V3_1c4b50 *)out);
         return;
     }
     static unsigned __int64 cowHash = FUN_0027b020("cow_male_cow_male");
@@ -113,29 +110,29 @@ void Locator::FUN_001c4b50(Out_1c4b50 *out)
         out->y = p->y;
         out->z = p->z;
         if (mgr->flag23)
-            out->FUN_000110d0((const V3_1c4b50 *)&mat30.m[12]);
+            ((owners::V3_110d0 *)out)->FUN_000110d0((owners::V3_110d0 *)(const V3_1c4b50 *)((const V3_1c4b50 *)&mat30.m[12]));
         return;
     }
     V3_1c4b50 v;
     if (mgr->flag23) {
-        mat30.FUN_0022c2b0(&vec70, &v);
+        ((owners::Mat_22c2b0 *)&mat30)->FUN_0022c2b0((float *)(const V3_1c4b50 *)(&vec70), (float *)(V3_1c4b50 *)(&v));
     } else {
         v.x = vec70.x;
         v.y = vec70.y;
         v.z = vec70.z;
     }
     if (hasBody && body) {
-        Info_1c4b50 *info = body->FUN_001d72e0();
-        if (!info || !body->FUN_001d72e0()->flag84) {
-            Info_1c4b50 *info2 = body->FUN_001d72e0();
-            if (info2 && body->FUN_001d72e0()->flag85) {
+        Info_1c4b50 *info = ((Info_1c4b50 *)((owners::C_1d72e0 *)body)->FUN_001d72e0());
+        if (!info || !((Info_1c4b50 *)((owners::C_1d72e0 *)body)->FUN_001d72e0())->flag84) {
+            Info_1c4b50 *info2 = ((Info_1c4b50 *)((owners::C_1d72e0 *)body)->FUN_001d72e0());
+            if (info2 && ((Info_1c4b50 *)((owners::C_1d72e0 *)body)->FUN_001d72e0())->flag85) {
                 Mat_1c4b50 *bm = body->v15();
-                mgr->FUN_00284820(bm);
+                ((owners::C_284820 *)mgr)->FUN_00284820((hulk_intptr)(Mat_1c4b50 *)bm);
             } else {
-                body->v15()->FUN_0022c2b0(&vec70, out);
+                ((owners::Mat_22c2b0 *)(body->v15()))->FUN_0022c2b0((float *)(const V3_1c4b50 *)(&vec70), (float *)(V3_1c4b50 *)out);
                 return;
             }
         }
     }
-    mgr->elems->FUN_0022c2b0(&v, out);
+    ((owners::Mat_22c2b0 *)(mgr->elems))->FUN_0022c2b0((float *)(const V3_1c4b50 *)(&v), (float *)(V3_1c4b50 *)out);
 }

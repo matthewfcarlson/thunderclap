@@ -1,13 +1,6 @@
-class Obj_16f250 {
-  public:
-    void* vptr;
-    float f;
-    char pad[4];
-    int mC;
-    char Fn(int x);
-};
+#include "gen/owners.h"
 
-char Obj_16f250::Fn(int x) {
+char owners::Obj_16f250::FUN_0016f250(int x) {
     mC = x;
     return 1;
 }

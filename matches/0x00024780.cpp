@@ -1,9 +1,9 @@
+#include "gen/owners.h"
 struct Item_24780 {
     char pad[8];
     unsigned __int64 v;
 };
 struct Mgr_24780 {
-    Item_24780* Get(int id);
 };
 struct Owner_24780 {
     char pad[0x44];
@@ -22,7 +22,7 @@ int C_24780::Target(unsigned a) {
     unsigned __int64 h = Hash(a);
     for (int i = 0; i < count; i++) {
         Mgr_24780* m = owner->mgr;
-        Item_24780* it = m->Get(ids[i]);
+        Item_24780* it = ((Item_24780 *)((owners::ThisWrap_00059c10 *)m)->FUN_00059c10((void *)(hulk_uintptr)(int)(ids[i])));
         if (it->v == h)
             n++;
     }

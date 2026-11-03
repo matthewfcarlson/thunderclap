@@ -1,6 +1,7 @@
 // FUN_001a8e60 @ 0x001a8e60
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/scenario.h"
+#include "gen/owners.h"
 struct Item_1a8e60 {
     char data[0x18];
     void FUN_001a5d50();
@@ -22,7 +23,6 @@ struct Inner_1a8e60 {
     void FUN_001b92c0(int arg);
 };
 struct Selector_1a8e60 {
-    Inner_1a8e60 *FUN_00086290();
 };
 struct World {
     char pad0[0x54];
@@ -42,7 +42,7 @@ struct Owner_1a8e60 {
 
 void Owner_1a8e60::FUN_001a8e60()
 {
-    DAT_004dd700->f54->FUN_00086290()->FUN_001b92c0(0);
+    ((Inner_1a8e60 *)((owners::Obj_86290 *)(DAT_004dd700->f54))->FUN_00086290())->FUN_001b92c0(0);
     for (int i = 0; i < 20; i++)
         items[i].FUN_001a5d50();
     if (f28) {

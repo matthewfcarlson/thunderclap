@@ -1,4 +1,5 @@
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 typedef unsigned char u8;
 struct Inner_10e000;
@@ -9,7 +10,6 @@ struct Ret_10e000 {
     void last();
 };
 struct Obj_10e000 {
-    Inner_10e000* getA();
 };
 struct Inner_10e000 {
     Mid_10e000* getB();
@@ -22,7 +22,7 @@ Ret_10e000* FUN_678d0();
 
 void hulkfight::ai::TokenAction::vfunc_4() {
     if ((*(Obj_10e000 * *)&this->f_20)) {
-        Inner_10e000* a = (*(Obj_10e000 * *)&this->f_20)->getA();
+        Inner_10e000* a = ((Inner_10e000 *)((owners::Object_592a0 *)((*(Obj_10e000 * *)&this->f_20)))->FUN_000592a0());
         Mid_10e000* b = a->getB();
         *((u8*)b + 0x1b84) = 0;
         if ((*(State_10e000 * *)&this->f_1c)->flag) {

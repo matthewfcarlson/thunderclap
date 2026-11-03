@@ -1,10 +1,5 @@
-class Pair_27af60 {
-  public:
-    int a;
-    int b;
-    void Set(int x, int y);
-};
-void Pair_27af60::Set(int x, int y) {
+#include "gen/owners.h"
+void owners::Pair_27af60::FUN_0027af60(int x, int y) {
     this->a = x;
     this->b = y;
 }

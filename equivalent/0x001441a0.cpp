@@ -2,11 +2,11 @@
 // hulkfight::motion::SlowMotionAction::vfunc_5 @ 0x001441a0
 #include "decls/address.h"
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" double __cdecl sin(double);
 
 class Clock_1441a0 {
 public:
-    void FUN_00086100(float v);
 };
 
 struct World {
@@ -73,6 +73,6 @@ char SlowMotionAction::vfunc_5(int mode, float dt)
         else
             val = (sin((r - 0.5f) * 3.14159265f) + 1.0f) * (base - val) * 0.5f + val;
     }
-    DAT_004dd700->clock->FUN_00086100(val);
+    ((owners::Thing_86100 *)(DAT_004dd700->clock))->FUN_00086100(val);
     return 1;
 }

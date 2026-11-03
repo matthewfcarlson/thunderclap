@@ -1,10 +1,5 @@
-class Obj_18cb10 {
-  public:
-    char Pad[0x1c];
-    int mVal;
-    char Set(int x);
-};
-char Obj_18cb10::Set(int x) {
+#include "gen/owners.h"
+char owners::Obj_18cb10::FUN_0018cb10(int x) {
     mVal = x;
     return 1;
 }

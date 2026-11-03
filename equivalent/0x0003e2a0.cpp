@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1287 inputs, branch coverage 22/22)
 // FUN_0003e2a0 @ 0x0003e2a0
 #include "decls/data/game/hulkfight.h"
+#include "gen/owners.h"
 
 struct Vec3_3e2a0 {
     float x, y, z;
@@ -17,14 +18,12 @@ struct Anchor_3e2a0 {
 };
 
 struct Target_3e2a0 {
-    void FUN_001c5080(float a, float b);
 };
 
 struct MatSource_3e2a0 {
     char pad00[0x10];
     Target_3e2a0* target;
     Mat_3e2a0* FUN_001c5e60();
-    void FUN_001c5e40(Mat_3e2a0* m);
 };
 
 struct PosSource_3e2a0 {
@@ -83,7 +82,7 @@ void CCharacter_3e2a0::FUN_0003e2a0(int a, Vec3_3e2a0 off, float scale, int unus
         m.t.x = m.t.x + off.x;
         m.t.y = m.t.y + off.y;
         m.t.z = m.t.z + off.z;
-        matSource->FUN_001c5e40(&m);
+        ((owners::Obj_1c5e40 *)matSource)->FUN_001c5e40((hulk_uintptr)(Mat_3e2a0 *)(&m));
     } else if (posSource) {
         pos = *posSource->FUN_001d6b40();
         pos.x = pos.x + off.x;
@@ -112,7 +111,7 @@ void CCharacter_3e2a0::FUN_0003e2a0(int a, Vec3_3e2a0 off, float scale, int unus
         else
             t = posSource->target;
         if (t)
-            t->FUN_001c5080((*(float*)&DAT_00421894), 1.5f);
+            ((owners::Blend_1c5080 *)t)->FUN_001c5080((*(float*)&DAT_00421894), 1.5f);
     }
 
     FUN_0003ba60(a, scale);

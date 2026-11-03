@@ -1,10 +1,6 @@
-class X_17f780 {
-  public:
-    char m[0x11];
-    bool Set(char c);
-};
+#include "gen/owners.h"
 
-bool X_17f780::Set(char c) {
+bool owners::X_17f780::FUN_0017f780(char c) {
     m[0x10] = c;
     return true;
 }

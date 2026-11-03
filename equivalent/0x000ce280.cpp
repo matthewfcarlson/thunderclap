@@ -3,6 +3,7 @@
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 struct Vec3_ce280 {
     float x, y, z;
 };
@@ -22,7 +23,6 @@ struct Source_ce280 {
 };
 
 struct Handle_ce280 {
-    void FUN_0008ef90(const Vec3_ce280 *pos, int color);
 };
 
 struct Gfx {
@@ -149,10 +149,10 @@ void Billboard_ce280::FUN_000ce280()
             f.v[3].x = f.w;
             f.v[3].y = f.v[0].y;
             f.v[3].z = 0.0f;
-            h->FUN_0008ef90(&f.v[0], 0x7f000000);
-            h->FUN_0008ef90(&f.v[2], 0x7f000000);
-            h->FUN_0008ef90(&f.v[3], 0x7f000000);
-            h->FUN_0008ef90(&f.v[1], 0x7f000000);
+            ((owners::Obj_8ef90 *)h)->FUN_0008ef90((unsigned int *)(const Vec3_ce280 *)(&f.v[0]), 0x7f000000);
+            ((owners::Obj_8ef90 *)h)->FUN_0008ef90((unsigned int *)(const Vec3_ce280 *)(&f.v[2]), 0x7f000000);
+            ((owners::Obj_8ef90 *)h)->FUN_0008ef90((unsigned int *)(const Vec3_ce280 *)(&f.v[3]), 0x7f000000);
+            ((owners::Obj_8ef90 *)h)->FUN_0008ef90((unsigned int *)(const Vec3_ce280 *)(&f.v[1]), 0x7f000000);
             DAT_0052c2a8->v31(h);
             (*(PassHolder_ce280**)&DAT_0052c2ac)->pass->v16(0);
             DAT_0052c2a8->v58(1);

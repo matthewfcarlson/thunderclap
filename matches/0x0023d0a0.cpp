@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" char DAT_00428a7c[];
 class ConditionFactoryCaster {
   public:
@@ -11,7 +12,6 @@ class BaseAllocated {
 };
 class Elem_23d0a0 {
   public:
-    void Build(int);
 };
 extern "C" void* __cdecl alloc(hulk_uintptr);
 class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
@@ -25,7 +25,7 @@ ConditionFactoryCasterTemplate* ConditionFactoryCasterTemplate::V1(int x) {
     if (p) {
         p->Init();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_00428a7c);
-        ((Elem_23d0a0*)((char*)p + 8))->Build(x);
+        ((owners::Target_27b040 *)(((Elem_23d0a0*)((char*)p + 8))))->FUN_0027b040((hulk_uintptr)x);
         return (ConditionFactoryCasterTemplate*)p;
     }
     return 0;

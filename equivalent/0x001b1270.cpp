@@ -2,6 +2,7 @@
 // FUN_001b1270 @ 0x001b1270
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 struct Vec3_1b1270 {
     float x, y, z;
 };
@@ -26,7 +27,6 @@ struct Slot_1b1270 {
 
 struct Joint_1b1270 {
     char FUN_001b6e90(Body_1b1270* other);
-    void FUN_001b6e60(Body_1b1270* other);
 };
 
 struct Sink_1b1270 {
@@ -50,10 +50,8 @@ struct Actor_1b1270 {
     Joint_1b1270 joint;
     char pad1a4[0x1c9 - 0x1a4 - sizeof(Joint_1b1270)];
     char flag;
-    int FUN_001d72e0();
     int FUN_001d73f0();
     float FUN_001d6670();
-    float FUN_001afb00();
     void FUN_001d66b0(Vec3_1b1270* a, Vec3_1b1270* b);
     void FUN_001d6ec0(int a, int b, int c);
     void FUN_001d8d90(int v);
@@ -72,17 +70,17 @@ int __stdcall FUN_001b1270(Actor_1b1270* a, Actor_1b1270* b, Vec3_1b1270* v, Con
         return 0;
     float sqA = bodyA->vel.x * bodyA->vel.x + bodyA->vel.y * bodyA->vel.y + bodyA->vel.z * bodyA->vel.z;
     float sqB = bodyB->vel.x * bodyB->vel.x + bodyB->vel.y * bodyB->vel.y + bodyB->vel.z * bodyB->vel.z;
-    int owner = b->FUN_001d72e0();
+    int owner = ((int)((owners::C_1d72e0 *)b)->FUN_001d72e0());
     if (!(sqA > 25.0f) && !(sqB > 25.0f))
         return 0;
     if (owner != 0) {
-        a->joint.FUN_001b6e60(bodyB);
-        b->joint.FUN_001b6e60(bodyA);
+        ((owners::Thing_1b6e60 *)&(a->joint))->FUN_001b6e60((hulk_intptr)(Body_1b1270 *)bodyB);
+        ((owners::Thing_1b6e60 *)&(b->joint))->FUN_001b6e60((hulk_intptr)(Body_1b1270 *)bodyA);
     }
     if (a->slot->FUN_001d4f70() == (*(unsigned __int64*)&DAT_004e1828) || b->slot->FUN_001d4f70() == (*(unsigned __int64*)&DAT_004e1828))
         DAT_004dd700->sink->FUN_001cbd10("golf_stroke");
     Actor_1b1270* heavy = sqA > sqB ? a : b;
-    float mult = heavy->FUN_001afb00();
+    float mult = ((owners::Obj_1afb00 *)heavy)->FUN_001afb00();
     int aN = a->FUN_001d73f0();
     int bN = b->FUN_001d73f0();
     float fA = a->FUN_001d6670();

@@ -1,9 +1,5 @@
-class C_328250 {
-  public:
-    int value;
-    C_328250* Set(int x);
-};
-C_328250* C_328250::Set(int x) {
-    value = x;
+#include "gen/owners.h"
+owners::C_328250* owners::C_328250::FUN_00328250(hulk_intptr x) {
+    value = ((int)x);
     return this;
 }

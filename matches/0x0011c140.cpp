@@ -1,11 +1,6 @@
-class O_11c140 {
-  public:
-    char pad[0x49];
-    char value;
-    char Fn(char v);
-};
+#include "gen/owners.h"
 
-char O_11c140::Fn(char v) {
+char owners::O_11c140::FUN_0011c140(char v) {
     value = v;
     return 1;
 }

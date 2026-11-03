@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 38/38)
 // FUN_002e0cc0 @ 0x002e0cc0
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct V3_2e0cc0 {
     int x, y, z;
 };
@@ -21,7 +22,6 @@ struct Pair8 {
 
 struct Entry8 {
     int a, b;
-    void FUN_002c6d60(int *src);
 };
 
 struct VtxVec {
@@ -54,7 +54,6 @@ struct Mesh_2e0cc0 {
     V3_2e0cc0 *f14;
     Pair8 *uv[4];          // 0x18
     Entry8 *ext[2];        // 0x28
-    void FUN_002c7070();
 };
 
 class Model_2e0cc0 {
@@ -67,7 +66,7 @@ public:
 void Model_2e0cc0::FUN_002e0cc0(Src_2e0cc0 *src, char flag)
 {
     if (flag == 1)
-        mesh->FUN_002c7070();
+        ((owners::Thing_2c7070 *)mesh)->FUN_002c7070();
     unsigned int i;
     if (mesh->f10 != 0) {
         hulk_uintptr n = src->vend - src->vbegin;
@@ -110,7 +109,7 @@ void Model_2e0cc0::FUN_002e0cc0(Src_2e0cc0 *src, char flag)
             hulk_intptr n = src->ext[k].end - src->ext[k].begin;
             for (int j = 0; j < n; j++) {
                 UvRec *e = &src->ext[k].begin[j];
-                mesh->ext[k][e->idx].FUN_002c6d60(&e->a);
+                ((owners::S_2c6d60 *)&(mesh->ext[k][e->idx]))->FUN_002c6d60((const owners::S_2c6d60 *)(&e->a));
             }
         }
     }

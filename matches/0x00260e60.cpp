@@ -1,8 +1,8 @@
+#include "gen/owners.h"
 extern void* vA[];
 extern void* vB[];
 class Part_260e60 {
   public:
-    void Fini() throw();
 };
 struct TypeT_260e60 {
     char b[0x48];
@@ -19,7 +19,7 @@ struct DynAttrT_260e60 {
 };
 DynAttrT_260e60* DynAttrT_260e60::Dtor(unsigned char flag) throw() {
     vf = vA;
-    part.Fini();
+    ((owners::Str_240060 *)&part)->FUN_00240060();
     vf = vB;
     if (flag & 1) {
         TypeT_260e60 l;

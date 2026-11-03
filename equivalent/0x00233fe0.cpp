@@ -1,13 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 26/28, incomplete)
 // FUN_00233fe0 @ 0x00233fe0
+#include "gen/owners.h"
 struct Item_233fe0 {
  virtual void AddRef() = 0;
  virtual void Release() = 0;
- Item_233fe0* FUN_00232fe0();
 };
 struct Source_233fe0 {
  Item_233fe0* FUN_00233650(unsigned key);
- Item_233fe0* FUN_00232f60();
 };
 struct Handle_233fe0 {
  Item_233fe0* object;
@@ -25,11 +24,11 @@ bool Handle_233fe0::FUN_00233fe0(Source_233fe0* source) {
   if (object) object->Release();
   object = found;
  } else if (index >= 0) {
-  Item_233fe0* current = source->FUN_00232f60();
+  Item_233fe0* current = ((Item_233fe0 *)((owners::Node_232f60 *)source)->FUN_00232f60());
   if (!current) return false;
   int remaining = index;
   while (remaining > 0) {
-   current = current->FUN_00232fe0();
+   current = ((Item_233fe0 *)((owners::Node_232fe0 *)current)->FUN_00232fe0());
    --remaining;
    if (!current) break;
   }

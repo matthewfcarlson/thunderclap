@@ -1,4 +1,5 @@
 #include "gen/global.h"
+#include "gen/owners.h"
 
 class CAction_13b70 {
   public:
@@ -13,14 +14,13 @@ class CAction_13b70 {
     virtual void a8();
 };
 struct X_13b70 {
-    X_13b70* f1();
     X_13b70* f2();
     int f3(int);
 };
 
 bool CClimbingAction::vfunc_7(int ) {
     X_13b70* x = (X_13b70*)(*(void * *)&this->f_1c);
-    x = x->f1();
+    x = ((X_13b70 *)((owners::Object_592a0 *)x)->FUN_000592a0());
     x = x->f2();
     x->f3(4);
     return true;

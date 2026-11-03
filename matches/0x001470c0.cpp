@@ -1,9 +1,5 @@
-struct A_1470c0 {
-    char pad[0x18];
-    void* data;
-    void* Get();
-};
+#include "gen/owners.h"
 
-void* A_1470c0::Get() {
+void* owners::A_1470c0::FUN_001470c0() {
     return &data;
 }

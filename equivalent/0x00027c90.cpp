@@ -4,6 +4,7 @@
 #include "decls/address.h"
 #include "decls/data/engine/fight.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 typedef unsigned __int64 Key_27c90;
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, const void *srcType, const void *dstType, int isRef);
 extern char DAT_0048e090;
@@ -29,7 +30,6 @@ struct Pawn2 {
     char slot[4];                   // 0xdc
     char pad0e0[0x104 - 0xe0];
     int arg;                        // 0x104
-    Flags_27c90 *FUN_00036a80(int on);
 };
 
 struct Tree_27c90 {
@@ -70,7 +70,7 @@ void Group_27c90::FUN_00027c90(const char *name, const char *path)
         if (!node)
             return;
     }
-    Flags_27c90 *f = pawn->FUN_00036a80(1);
+    Flags_27c90 *f = ((Flags_27c90 *)((owners::Obj_36a80 *)pawn)->FUN_00036a80(1));
     if (f)
         f->flag = 1;
     node->FUN_00231ad0(pawn->slot, arg, 0x80000000);

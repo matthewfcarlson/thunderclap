@@ -1,12 +1,6 @@
-class C_231050 {
-  public:
-    char pad[0x18];
-    int a;
-    int b;
-    void f();
-};
+#include "gen/owners.h"
 void thunk(int);
-void C_231050::f() {
+void owners::C_231050::FUN_00231050() {
     thunk(a);
     thunk(b);
 }

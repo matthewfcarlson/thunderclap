@@ -1,9 +1,4 @@
-class Obj_17fda0 {
-  public:
-    char pad[0x48];
-    int* m;
-    int* Get();
-};
-int* Obj_17fda0::Get() {
+#include "gen/owners.h"
+int* owners::Obj_17fda0::FUN_0017fda0() {
     return (int*)((char*)this + 0x48);
 }

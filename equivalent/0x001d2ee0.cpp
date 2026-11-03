@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 13662 inputs, branch coverage 4/4)
 // FUN_001d2ee0 @ 0x001d2ee0
 // cl-flags: /GS
+#include "gen/owners.h"
 
 struct LuaState;
 struct Vec3 {
@@ -13,7 +14,6 @@ void __cdecl FUN_00212d80(LuaState *L, int index);
 extern "C" void __cdecl FUN_001d0870(LuaState *L, Vec3 *v);
 
 struct NodeName {
-    void FUN_00233460(char *out, int size);
 };
 
 struct Node {
@@ -62,7 +62,7 @@ char ScriptTable::FUN_001d2ee0(Actor *actor)
             char name[0x100];
             for (int i = 0; i < 0x100; i++)
                 name[i] = 0;
-            src->FUN_00233460(name, 0x100);
+            ((owners::Node_233460 *)src)->FUN_00233460(name, 0x100);
             FUN_002133d0(L, "sourceMotionNode");
             FUN_002133d0(L, name);
             FUN_00213800(L, -3);

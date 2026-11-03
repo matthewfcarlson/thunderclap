@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
+#include "gen/owners.h"
 typedef unsigned __int64 Key_2ab030;
 extern char DAT_0049c7dc[];
 extern char DAT_004ce770[];
@@ -18,7 +19,6 @@ struct V3_2ab030 {
 
 struct Mat4_2ab030 {
     float m[16];
-    void FUN_0022be40(const V3_2ab030 *pos);
 };
 
 struct Quat_2ab030 {
@@ -28,12 +28,10 @@ struct Quat_2ab030 {
 
 struct NameHolder_2ab030 {
     char data[8];
-    void FUN_0027b040(const char *name);
     void FUN_0027af70(const NameHolder_2ab030 *other);
 };
 
 struct Stream {
-    void FUN_002647e0(void *dst, int count, int size, int one);
 };
 
 struct Reader {
@@ -62,7 +60,6 @@ public:
 };
 
 struct Manager_2ab030 {
-    void *FUN_00265310(unsigned id);
 };
 
 class Emitter_2ab030 {
@@ -187,45 +184,45 @@ unsigned ParticleSystemLoader_2ab030::FUN_002ab030(ParticleSystem_2ab030 **out, 
 {
     Frame_2ab030 f;
     f.self = this;
-    reader->stream->FUN_002647e0(&f.f28, 1, 4, 1);
-    reader->stream->FUN_002647e0(&f.nameLen, 1, 1, 1);
+    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.f28), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.nameLen), (hulk_intptr)1, 1, (hulk_intptr)1);
     unsigned char len = f.nameLen;
-    reader->stream->FUN_002647e0(f.name, len, 1, 1);
+    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(f.name), (hulk_intptr)len, 1, (hulk_intptr)1);
     f.name[len] = 0;
-    reader->stream->FUN_002647e0(&f.f1c, 1, 4, 1);
-    reader->stream->FUN_002647e0(&f.f18, 1, 4, 1);
-    reader->stream->FUN_002647e0(&f.f14, 1, 4, 1);
+    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.f1c), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.f18), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.f14), (hulk_intptr)1, 4, (hulk_intptr)1);
     bool flag = f.f14 != 0;
-    reader->stream->FUN_002647e0(&f.quat, 4, 4, 1);
-    reader->stream->FUN_002647e0(&f.pos, 3, 4, 1);
-    reader->stream->FUN_002647e0(&f.f14, 1, 4, 1);
+    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.quat), (hulk_intptr)4, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.pos), (hulk_intptr)3, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.f14), (hulk_intptr)1, 4, (hulk_intptr)1);
     void *mem = FUN_00263ea0(0xb0);
     ParticleSystem_2ab030 *p;
     if (mem)
         p = ((ParticleSystem_2ab030 *)mem)->FUN_002a3660(f.f14);
     else
         p = 0;
-    p->name.FUN_0027b040(f.name);
+    ((owners::Target_27b040 *)&(p->name))->FUN_0027b040((hulk_uintptr)(f.name));
     p->f60 = f.f1c;
     p->f5c = (float)f.f18;
     p->b58 = flag;
     f.quat.FUN_0022b650(&p->mat);
-    p->mat.FUN_0022be40(&f.pos);
+    ((owners::Target_22be40 *)&(p->mat))->FUN_0022be40((const int *)(const V3_2ab030 *)(&f.pos));
     int off = 0;
     while (reader->FUN_002669f0()) {
         int id = reader->FUN_00266a30();
         switch (id) {
         case 0x10003:
-            reader->stream->FUN_002647e0(&p->v14, 3, 4, 1);
-            reader->stream->FUN_002647e0(&p->v20, 3, 4, 1);
+            ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&p->v14), (hulk_intptr)3, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&p->v20), (hulk_intptr)3, 4, (hulk_intptr)1);
             break;
         case 0x10004:
-            reader->stream->FUN_002647e0(&p->v2c, 3, 4, 1);
-            reader->stream->FUN_002647e0(&f.f2c, 1, 4, 1);
+            ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&p->v2c), (hulk_intptr)3, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.f2c), (hulk_intptr)1, 4, (hulk_intptr)1);
             p->f38 = f.f2c;
             break;
         case 0x121201: {
-            Factory_2ab030 *factory = (Factory_2ab030 *)FUN_00344e74((*(Manager_2ab030**)&DAT_00527c58)->FUN_00265310(0x121201), 0, DAT_0049c7dc, DAT_004ce770, 0);
+            Factory_2ab030 *factory = (Factory_2ab030 *)FUN_00344e74(((void *)((owners::Obj_265310 *)((*(Manager_2ab030**)&DAT_00527c58)))->FUN_00265310((hulk_intptr)0x121201)), 0, DAT_0049c7dc, DAT_004ce770, 0);
             factory->retain();
             f.f20 = 0;
             factory->create(&f.f20, &f.aux, reader, arg);
@@ -245,8 +242,8 @@ unsigned ParticleSystemLoader_2ab030::FUN_002ab030(ParticleSystem_2ab030 **out, 
             break;
         }
         case 0x122000: {
-            reader->stream->FUN_002647e0(&f.f34, 1, 4, 1);
-            reader->stream->FUN_002647e0(&f.f28, 1, 4, 1);
+            ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.f34), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(reader->stream))->FUN_002647e0((hulk_intptr)(&f.f28), (hulk_intptr)1, 4, (hulk_intptr)1);
             float v = f.f28;
             if (v >= 0.0f) {
                 if (!(v <= 1.0f))

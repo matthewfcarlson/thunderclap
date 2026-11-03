@@ -1,9 +1,5 @@
-class C_1ca020 {
-  public:
-    void callee(int, int, int);
-    C_1ca020* wrap(int, int);
-};
-C_1ca020* C_1ca020::wrap(int a, int b) {
-    callee(11, a, b);
+#include "gen/owners.h"
+owners::C_1ca020* owners::C_1ca020::FUN_001ca020(hulk_intptr a, hulk_intptr b) {
+    callee(11, ((int)a), ((int)b));
     return this;
 }

@@ -1,11 +1,5 @@
-class Obj {
-    char pad[0x38];
-    float angle;
-
-  public:
-    char SetAngle(float v);
-};
-char Obj::SetAngle(float v) {
+#include "gen/owners.h"
+char owners::Obj_16f780::FUN_0016f780(float v) {
     angle = v * 0.017453292f;
     return 1;
 }

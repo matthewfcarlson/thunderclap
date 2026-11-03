@@ -1,11 +1,6 @@
-class Obj_68720 {
-  public:
-    char pad[0x8c];
-    int value;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char Obj_68720::Set(int v) {
+char owners::Obj_68720::FUN_00068720(int v) {
     value = v;
     return 1;
 }

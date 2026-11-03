@@ -1,5 +1,6 @@
 // FUN_00029820 @ 0x00029820
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Owner_29820 {
     char pad[0x9e];
     char hasId;
@@ -19,14 +20,13 @@ union Id64_29820 {
 };
 
 struct ThisWrap_00029820 {
-    Holder_29820 * FUN_000259f0(const char *name);
     bool FUN_00029820(const char *a, const char *b);
 };
 
 bool ThisWrap_00029820::FUN_00029820(const char *a, const char *b) {
     if (a == 0 || a[0] == 0 || b == 0 || b[0] == 0)
         return false;
-    Holder_29820 *h = this->FUN_000259f0(a);
+    Holder_29820 *h = ((Holder_29820 *)((owners::Obj_259f0 *)this)->FUN_000259f0((hulk_intptr)a));
     if (h == 0)
         return false;
     Owner_29820 *o = h->owner;

@@ -2,18 +2,19 @@
 // audio::SeqEventLogicRepeat::vfunc_2 @ 0x00254dd0
 #include "decls/data/engine/audio.h"
 #include "gen/audio.h"
+#include "gen/owners.h"
 
 extern "C" void* __cdecl FUN_00247530(void*);
 struct SeqEventLogicRepeat_254dd0;
 struct SeqCommandLogicRepeat_nv_254dd0 {
     void* FUN_00254c80(SeqEventLogicRepeat_254dd0*);
 };
-struct Receiver { void FUN_0025dba0(void*); };
+struct Receiver {  };
 struct SeqEventLogicRepeat_254dd0 {
     void vfunc_2(Receiver* receiver);
 };
 void SeqEventLogicRepeat_254dd0::vfunc_2(Receiver* receiver) {
     audio::SeqCommandLogicRepeat* helper = (audio::SeqCommandLogicRepeat*)FUN_00247530(((char*)((char*)&DAT_004e72f8 + 104)));
-    if (helper) receiver->FUN_0025dba0(((SeqCommandLogicRepeat_nv_254dd0*)(((audio::SeqCommandLogicRepeat*)(helper))))->FUN_00254c80(this));
-    else receiver->FUN_0025dba0(0);
+    if (helper) ((owners::Queue_25dba0 *)receiver)->FUN_0025dba0((int *)(((SeqCommandLogicRepeat_nv_254dd0*)(((audio::SeqCommandLogicRepeat*)(helper))))->FUN_00254c80(this)));
+    else ((owners::Queue_25dba0 *)receiver)->FUN_0025dba0((int *)0);
 }

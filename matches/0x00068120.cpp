@@ -1,12 +1,6 @@
-class O_68120 {
-  public:
-    char p[12];
-    int mF12;
-    char y[4];
-    bool F(int);
-};
+#include "gen/owners.h"
 
-bool O_68120::F(int a) {
+bool owners::O_68120::FUN_00068120(int a) {
     mF12 = a;
     return true;
 }

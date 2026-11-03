@@ -2,6 +2,7 @@
 // hulkfight::motion::SurfAction::vfunc_5 @ 0x00176770
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/owners.h"
 extern "C" double cos(double);
 extern "C" double fabs(double);
 
@@ -16,9 +17,6 @@ struct Mat_176770 {
     float m[16];
     void FUN_0022b980();
     void FUN_0022baf0(const V3_176770 *axis, float angle);
-    void FUN_0022c3b0(const V3_176770 *in, V3_176770 *out);
-    void FUN_0022ba70(float angle);
-    void FUN_0022ca90(Mat_176770 *a, Mat_176770 *b);
 };
 
 struct YObj_176770 {
@@ -37,7 +35,6 @@ struct XObj_176770 {
 };
 
 struct F20_176770 {
-    XObj_176770 *FUN_000592a0();
 };
 
 struct Sub18_176770 {
@@ -135,7 +132,7 @@ bool SurfAction::v5(int a0, float dt)
     if (p24 == 0)
         return false;
 
-    f.u64.X = p20->FUN_000592a0();
+    f.u64.X = ((XObj_176770 *)((owners::Object_592a0 *)p20)->FUN_000592a0());
     YObj_176770 *Y = f.u64.X->FUN_00059a30();
     f.g.x = (*(float*)&DAT_004b7d18);
     f.g.y = (*(float*)&DAT_004b7d1c);
@@ -291,7 +288,7 @@ bool SurfAction::v5(int a0, float dt)
             f.q.x = v38.x;
             f.q.y = v38.y;
             f.q.z = v38.z;
-            f.M2.FUN_0022c3b0(&f.q, &v38);
+            ((owners::M_22c3b0 *)&(f.M2))->FUN_0022c3b0((float *)(const V3_176770 *)(&f.q), (float *)(V3_176770 *)(&v38));
         }
     }
     if (v38.y > 0.0f && v38.y < 0.9999899864196777f) {
@@ -301,14 +298,14 @@ bool SurfAction::v5(int a0, float dt)
         FUN_00224db0(&f.M4, &f.z, &v38);
     }
     f.M3.FUN_0022b980();
-    f.M3.FUN_0022ba70(f.ang);
+    ((owners::Mat_22ba70 *)&(f.M3))->FUN_0022ba70(f.ang);
     f28 = f.ang;
     f.M5.FUN_0022b980();
     f.M5.FUN_0022baf0(&f.w, f30);
     f.M1 = f.M3;
-    f.M2.FUN_0022ca90(&f.M1, &f.M4);
+    ((owners::Matrix_22ca90 *)&(f.M2))->FUN_0022ca90((const owners::Matrix_22ca90 *)(Mat_176770 *)(&f.M1), (const owners::Matrix_22ca90 *)(Mat_176770 *)(&f.M4));
     f.M1 = f.M2;
-    f.M2.FUN_0022ca90(&f.M1, &f.M5);
+    ((owners::Matrix_22ca90 *)&(f.M2))->FUN_0022ca90((const owners::Matrix_22ca90 *)(Mat_176770 *)(&f.M1), (const owners::Matrix_22ca90 *)(Mat_176770 *)(&f.M5));
     f.M1 = f.M2;
     f.M1.m[12] = f.h.x;
     f.M1.m[14] = f.h.z;

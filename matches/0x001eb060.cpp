@@ -2,19 +2,10 @@
 // FUN_001eb060 @ 0x001eb060
 // cl-flags: /GS
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 extern "C" int __cdecl sprintf(char *, const char *, ...);
-struct Manager_1eb060 {
- char pad[0x514];
- int mainMix;
- char pad518[8];
- unsigned char loaded;
- void FUN_001eab10(const char *);
- int FUN_001e9960(const char *);
- void FUN_001e9a90(const char *, int);
- void target(const char *first, const char *second);
-};
-void Manager_1eb060::target(const char *first, const char *second) {
+void owners::Manager_1eb060::FUN_001eb060(const char *first, const char *second) {
  char firstPath[32];
  char secondPath[32];
  (*(int*)&DAT_004e36ac) = 0;

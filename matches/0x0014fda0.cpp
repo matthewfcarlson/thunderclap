@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 class Mid_14fda0 {
   public:
@@ -27,14 +28,13 @@ class Ref_14fda0 {
     virtual void b();
     virtual void c();
     virtual Thing_14fda0* d();
-    Mid_14fda0* GetSub();
 };
 
 bool hulkfight::motion::HitDamageAction::vfunc_3(hulk_intptr , hulk_intptr ) {
     if ((*(Ref_14fda0 * *)&this->f_20)) {
         Thing_14fda0* t = (*(Ref_14fda0 * *)&this->f_20)->d();
         if (t) {
-            Mid_14fda0* m = (*(Ref_14fda0 * *)&this->f_20)->GetSub()->Touch();
+            Mid_14fda0* m = ((Mid_14fda0 *)((owners::Object_592a0 *)((*(Ref_14fda0 * *)&this->f_20)))->FUN_000592a0())->Touch();
             m->Draw(*(float*)((char*)(*(void * *)&this->f_1c) + 0x10) * t->x78, t->x4c, t->x48, t->x7c, 0, t->x91);
         }
     }

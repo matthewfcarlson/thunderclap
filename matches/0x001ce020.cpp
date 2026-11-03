@@ -1,15 +1,5 @@
-class Obj_1ce020 {
-  public:
-    char pad[0x1198];
-    float value;
-    char pad2[4];
-    unsigned char flag;
-    int Check();
-    void First(float);
-    void Second(float);
-    void Target(float);
-};
-void Obj_1ce020::Target(float x) {
+#include "gen/owners.h"
+void owners::Obj_1ce020::FUN_001ce020(float x) {
     if (Check()) {
         if (!flag)
             value += x;

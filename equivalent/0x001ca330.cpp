@@ -1,39 +1,29 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001ca330 @ 0x001ca330
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Actor_1ca330 { const char* FUN_00036d00(); };
-struct ActorTable_1ca330 { Actor_1ca330* FUN_00059c10(int id); };
+struct ActorTable_1ca330 {  };
 struct World { char pad[0x44]; ActorTable_1ca330* actors; };
 struct Writer_1ca330 {
-    bool FUN_001d2e80();
-    void FUN_001d1d50(const char* key, const char* value);
-    void FUN_001d1dd0(const char* key, int value);
     void FUN_001d1e10(const char* key, int value);
     void FUN_001d1d10();
 };
 Writer_1ca330* FUN_001d4c90();
 
-struct WaypointEvent {
-    char pad[0x10];
-    int actorId;
-    char path[0x54 - 0x14];
-    int waypoint;
-    unsigned char firstTime;
-    bool Write();
-};
 
-bool WaypointEvent::Write()
+bool owners::WaypointEvent_1ca330::FUN_001ca330()
 {
     Writer_1ca330* w = FUN_001d4c90();
-    if (w && w->FUN_001d2e80()) {
-        w->FUN_001d1d50("path", path);
-        w->FUN_001d1dd0("waypoint", waypoint);
+    if (w && ((owners::Obj_1d2e80 *)w)->FUN_001d2e80()) {
+        ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"path", (hulk_uintptr)path);
+        ((owners::Obj_1d1dd0 *)w)->FUN_001d1dd0((hulk_intptr)"waypoint", waypoint);
         w->FUN_001d1e10("first_time", firstTime);
         int id = actorId;
         if (DAT_004dd700) {
-            Actor_1ca330* a = DAT_004dd700->actors->FUN_00059c10(id);
+            Actor_1ca330* a = ((Actor_1ca330 *)((owners::ThisWrap_00059c10 *)(DAT_004dd700->actors))->FUN_00059c10((void *)(hulk_uintptr)(int)id));
             const char* name = a ? a->FUN_00036d00() : "UNKNOWN";
-            w->FUN_001d1d50("actor", name);
+            ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"actor", (hulk_uintptr)name);
             w->FUN_001d1d10();
             return true;
         }

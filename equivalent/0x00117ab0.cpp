@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 21/24, incomplete)
 // hulkfight::ai::MotionClosestWaypointAction::vfunc_3 @ 0x00117ab0
 #include "decls/address.h"
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 
 struct Vec3_117ab0 { float x, y, z; };
@@ -8,7 +9,6 @@ struct Vec3_117ab0 { float x, y, z; };
 struct WaypointList {
     char pad[0x14];
     int count;
-    Vec3_117ab0 *FUN_00106160(int index);
 };
 
 struct Registry_117ab0 {
@@ -30,7 +30,6 @@ struct Selector_117ab0 {
 };
 
 struct Name_117ab0 {
-    void FUN_0027b040(const char *s);
 };
 
 struct Fighter_117ab0 {
@@ -44,7 +43,6 @@ struct Fighter_117ab0 {
     unsigned char flag2149;
     void FUN_00036e70(Name_117ab0 *n, int v);
     int FUN_00036d30();
-    void FUN_000353d0(Vec3_117ab0 *p);
 };
 
 struct Owner_117ab0 {
@@ -53,7 +51,6 @@ struct Owner_117ab0 {
 };
 
 struct Finder_117ab0 {
-    void *FUN_000592a0();
 };
 struct Finder2 {
     Fighter_117ab0 *FUN_00059a30();
@@ -80,7 +77,7 @@ public:
 
 bool MotionClosestWaypointAction::vfunc_3(int a, int b)
 {
-    Fighter_117ab0 *fighter = ((Finder2 *)finder->FUN_000592a0())->FUN_00059a30();
+    Fighter_117ab0 *fighter = ((Finder2 *)((void *)((owners::Object_592a0 *)finder)->FUN_000592a0()))->FUN_00059a30();
     float best;
     Vec3_117ab0 *first;
     Vec3_117ab0 firstCopy;
@@ -98,7 +95,7 @@ bool MotionClosestWaypointAction::vfunc_3(int a, int b)
     fighter->locator->FUN_00059a50(&unused);
     fighter->locator->FUN_00059a50(&savedPos);
     fighter->flag2140 = 1;
-    name.FUN_0027b040("waypoint_stuck");
+    ((owners::Target_27b040 *)&name)->FUN_0027b040((hulk_uintptr)"waypoint_stuck");
     fighter->FUN_00036e70(&name, 0);
 
     Registry_117ab0 *reg = DAT_004dd700->registry;
@@ -115,7 +112,7 @@ bool MotionClosestWaypointAction::vfunc_3(int a, int b)
         }
     }
 
-    first = list->FUN_00106160(index);
+    first = ((Vec3_117ab0 *)((owners::Target_106160 *)list)->FUN_00106160(index));
     firstCopy = *first;
     fighter->locator->FUN_00059a50(&pos);
     {
@@ -126,7 +123,7 @@ bool MotionClosestWaypointAction::vfunc_3(int a, int b)
     }
     count = list->count;
     for (i = 1; i < count; i++) {
-        Vec3_117ab0 *v = list->FUN_00106160(i);
+        Vec3_117ab0 *v = ((Vec3_117ab0 *)((owners::Target_106160 *)list)->FUN_00106160(i));
         volatile float dx = v->x - pos.x;
         double dy = v->y - pos.y;
         double dz = v->z - pos.z;
@@ -138,12 +135,12 @@ bool MotionClosestWaypointAction::vfunc_3(int a, int b)
     }
 
     if (index != 0) {
-        target = *list->FUN_00106160(index);
+        target = *((Vec3_117ab0 *)((owners::Target_106160 *)list)->FUN_00106160(index));
     } else {
         target = *first;
     }
     if (owner->enabled) {
-        fighter->FUN_000353d0(&target);
+        ((owners::C_353d0 *)fighter)->FUN_000353d0((const int *)(Vec3_117ab0 *)(&target));
     }
     fighter->flag2149 = 1;
     return true;

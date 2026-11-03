@@ -1,12 +1,5 @@
-class Obj_2a0800 {
-  public:
-    char pad[0x18];
-    int a;
-    int b;
-    int c;
-    void Get(int* x, int* y, int* z);
-};
-void Obj_2a0800::Get(int* x, int* y, int* z) {
+#include "gen/owners.h"
+void owners::Obj_2a0800::FUN_002a0800(int* x, int* y, int* z) {
     *x = a;
     *y = b;
     *z = c;

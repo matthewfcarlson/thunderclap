@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class Manager {
   public:
 #define V(n) virtual int v##n();
@@ -15,13 +16,7 @@ class Manager {
     V(71) virtual int v72(int);
 };
 extern Manager* gManager;
-class Target {
-  public:
-    int pad[2];
-    int value;
-    void Fn();
-};
-void Target::Fn() {
+void owners::Target_2a31d0::FUN_002a31d0() {
     Manager* m = gManager;
     m->v62(0);
     value = gManager->v55();

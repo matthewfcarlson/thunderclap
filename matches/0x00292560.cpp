@@ -1,5 +1,6 @@
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Context {
     virtual void v0();
@@ -31,7 +32,6 @@ struct Object {
     void* c;
     Object* FUN_0028f800(Device_292560*, Context*, void*);
     void FUN_0028f980();
-    void* FUN_0028fa30(int);
 };
 extern "C" void __cdecl FUN_0028fcc0(const char*, ...);
 extern void __cdecl FUN_0031ba60(int, int, Device_292560**);
@@ -60,7 +60,7 @@ Object* Owner_292560::FUN_00292560(void* window) {
     object->FUN_0028f980();
     Object* current = object;
     (*(Object**)&DAT_0052c2b4) = current;
-    (*(void**)&DAT_0052c2ac) = current->FUN_0028fa30(0);
+    (*(void**)&DAT_0052c2ac) = ((void *)((owners::X_28fa30 *)current)->FUN_0028fa30(0));
     DAT_0052c2a8 = current->b;
     (*(void**)&DAT_0052c2a0) = current->a;
     (*(void**)&DAT_0052c2a4) = current->c;

@@ -1,11 +1,6 @@
-class Obj_61b70 {
-  public:
-    char pad[0x18];
-    unsigned int mValue;
-    bool SetX(unsigned int x);
-};
+#include "gen/owners.h"
 
-bool Obj_61b70::SetX(unsigned int x) {
+bool owners::Obj_61b70::FUN_00061b70(unsigned int x) {
     mValue = x;
     return true;
 }

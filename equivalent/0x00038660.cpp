@@ -2,13 +2,13 @@
 // FUN_00038660 @ 0x00038660
 #include "compat/ptr.h"
 #include "decls/address.h"
+#include "gen/owners.h"
 struct V3_38660 {
     float x, y, z;
     float FUN_0022d110();
 };
 
 struct Rng_38660 {
-    int FUN_00011380(int a, int b);
 };
 extern "C" Rng_38660* FUN_000964d0();
 
@@ -30,7 +30,6 @@ struct Link_38660 {
     Sub74_38660* p74;
 };
 struct Ent_38660 {
-    Sub_38660* FUN_001d72e0();
 };
 
 struct Player_38660 {
@@ -103,7 +102,7 @@ char Mover_38660::F(V3_38660* a1, int a2, V3_38660* a3, V3_38660* a4, V3_38660* 
             x->b72 = 0;
     }
     if (p128) {
-        Sub_38660* r = p128->FUN_001d72e0();
+        Sub_38660* r = ((Sub_38660 *)((owners::C_1d72e0 *)p128)->FUN_001d72e0());
         if (r) {
             Sub74_38660* y = r->p74;
             if (y)
@@ -191,7 +190,7 @@ char Mover_38660::F(V3_38660* a1, int a2, V3_38660* a3, V3_38660* a4, V3_38660* 
                 fr.D.z = a9->z - a1->z;
                 float len = fr.D.FUN_0022d110();
                 if (FUN_00018960(len, 0.0f, 1.0e-5f)) {
-                    int r = FUN_000964d0()->FUN_00011380(0, 0xb);
+                    int r = ((owners::Random_11380 *)(FUN_000964d0()))->FUN_00011380(0, 0xb);
                     unsigned int u = r;
                     float ang = (float)(((double)u + 0.5f) * 60.0f * 0.017453292f);
                     fr.D.x = 0;
@@ -258,7 +257,7 @@ char Mover_38660::F(V3_38660* a1, int a2, V3_38660* a3, V3_38660* a4, V3_38660* 
             x->b72 = 1;
     }
     if (p128) {
-        Sub_38660* r = p128->FUN_001d72e0();
+        Sub_38660* r = ((Sub_38660 *)((owners::C_1d72e0 *)p128)->FUN_001d72e0());
         if (r) {
             Sub74_38660* y = r->p74;
             if (y)

@@ -1,10 +1,10 @@
+#include "gen/owners.h"
 extern "C" long __cdecl atol(const char*);
 struct Arg {
     char* name;
     char* value;
 };
 struct Obj {
-    void Apply(char*, long);
 };
 struct Handler {
     char pad[4];
@@ -17,6 +17,6 @@ int Handler::Process(int mode, Arg* arg) {
     if (mode != 2)
         return -1;
     if (arg->value)
-        ptr->Apply(arg->name, atol(arg->value));
+        ((owners::MenuScreen_bc9f0 *)ptr)->FUN_000bc9f0((hulk_intptr)(arg->name), (int)(atol(arg->value)));
     return 0;
 }

@@ -1,11 +1,6 @@
-class X_16ea90 {
-  public:
-    char pad[0x24];
-    int m24;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char X_16ea90::Set(int v) {
+char owners::X_16ea90::FUN_0016ea90(int v) {
     m24 = v;
     return 1;
 }

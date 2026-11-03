@@ -1,10 +1,4 @@
-class Target_1d4df0 {
-    char pad[0xa8];
-
-  public:
-    int value;
-    int Check();
-};
-int Target_1d4df0::Check() {
+#include "gen/owners.h"
+int owners::Target_1d4df0::FUN_001d4df0() {
     return value != 0;
 }

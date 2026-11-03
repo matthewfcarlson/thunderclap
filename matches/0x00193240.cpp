@@ -1,10 +1,5 @@
-class X_193240 {
-  public:
-    char Set(int v);
-    char pad[0x78];
-    char m78;
-};
-char X_193240::Set(int v) {
+#include "gen/owners.h"
+char owners::X_193240::FUN_00193240(int v) {
     *(int*)&m78 = v;
     return 1;
 }

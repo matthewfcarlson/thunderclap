@@ -1,5 +1,6 @@
 // FUN_000af8e0 @ 0x000af8e0
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 class Voice_af8e0 {
 public:
@@ -41,7 +42,6 @@ struct Entry_af8e0 {
 };
 
 struct EntryList_af8e0 {
-    Entry_af8e0 *FUN_000ace20(int index);
 };
 
 struct Group_af8e0 {
@@ -76,11 +76,11 @@ void Mixer::FUN_000af8e0(float dt)
         return;
 
     for (int i = 0; i < groupCount; i++) {
-        if (entries->FUN_000ace20(i)->skip != 0) {
+        if (((Entry_af8e0 *)((owners::C_ace20 *)entries)->FUN_000ace20(i))->skip != 0) {
             FUN_000af700(i, 0);
             continue;
         }
-        FUN_000af700(i, entries->FUN_000ace20(i)->value);
+        FUN_000af700(i, ((Entry_af8e0 *)((owners::C_ace20 *)entries)->FUN_000ace20(i))->value);
 
         for (unsigned int j = 0; j < groups[i].count; j++) {
             Group_af8e0 *g = groups;

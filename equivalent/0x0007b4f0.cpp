@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3046 inputs, branch coverage 26/26)
 // FUN_0007b4f0 @ 0x0007b4f0
+#include "gen/owners.h"
 struct Raw3_7b4f0 {
     int a;
     int b;
@@ -14,7 +15,6 @@ public:
     int f38;
     int f3c;
     void FUN_00084920(Raw3_7b4f0 d1, Raw3_7b4f0 d2, Raw3_7b4f0 d3);
-    void FUN_00083d20(int v);
 };
 
 struct Cell_7b4f0 {
@@ -91,11 +91,11 @@ void Grid_7b4f0::FUN_0007b4f0(int idx)
     } else if (o->state == 11) {
         int j = FUN_0007a200(o->f38);
         flags[j].a = 0;
-        objs[idx]->FUN_00083d20(0);
+        ((owners::Thing_83d20 *)(objs[idx]))->FUN_00083d20(0);
     } else if (o->state == 12) {
         int j = FUN_0007a200(o->f38);
         flags[j].b = 0;
-        objs[idx]->FUN_00083d20(0);
+        ((owners::Thing_83d20 *)(objs[idx]))->FUN_00083d20(0);
     } else if (o->state == 13) {
         int j = FUN_0007a200(o->f38);
         int b = o->f3c;

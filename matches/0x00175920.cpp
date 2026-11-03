@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/owners.h"
 
 class Obj_175920 {
   public:
@@ -9,7 +10,6 @@ class Obj_175920 {
 class Inner_175920 {
   public:
     void Init();
-    void SetName(const char*);
 };
 class Action_175920 {
   public:
@@ -36,5 +36,5 @@ TeleportRelativeAction_175920::TeleportRelativeAction_175920(int arg, Obj_175920
     if (field20)
         field20->V1();
     field20 = obj;
-    inner.SetName((const char*)((hulk_intptr)((char*)&DAT_00417da4)));
+    ((owners::Target_27b040 *)&inner)->FUN_0027b040((hulk_uintptr)((const char*)((hulk_intptr)((char*)&DAT_00417da4))));
 }

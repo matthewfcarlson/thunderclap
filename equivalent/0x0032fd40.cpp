@@ -1,12 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0032fd40 @ 0x0032fd40
+#include "gen/owners.h"
 struct Vec4_32fd40 {
     float x, y, z, w;
 };
 struct Matrix {
     float m[16];
-    void FUN_0022ca90(Matrix*, Matrix*);
-    void FUN_0022cdb0();
     void FUN_0022c310(Vec4_32fd40* in, Vec4_32fd40* out);
 };
 namespace D3D8 {
@@ -25,9 +24,9 @@ extern "C" void __stdcall FUN_0032fd40(void * result) {
     origin.w = 1.0f;
     D3D8::D3DDevice_GetTransform(6, &view);
     D3D8::D3DDevice_GetTransform(0, &world);
-    product.FUN_0022ca90(&view, &world);
+    ((owners::Matrix_22ca90 *)&product)->FUN_0022ca90((const owners::Matrix_22ca90 *)(Matrix *)(&view), (const owners::Matrix_22ca90 *)(Matrix *)(&world));
     inverse = product;
-    inverse.FUN_0022cdb0();
+    ((owners::Matrix_22cdb0 *)&inverse)->FUN_0022cdb0();
     inverse.FUN_0022c310(&origin, &transformed);
     ((Vec4_32fd40 *)result)->x = transformed.x;
     ((Vec4_32fd40 *)result)->y = transformed.y;

@@ -1,10 +1,6 @@
-class O_2393e0 {
-  public:
-    char pad[0x20];
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool O_2393e0::Set(int v) {
+bool owners::O_2393e0::FUN_002393e0(int v) {
     *(int*)((char*)this + 0x20) = v;
     return true;
 }

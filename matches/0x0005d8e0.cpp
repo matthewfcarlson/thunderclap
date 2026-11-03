@@ -1,11 +1,6 @@
-class Obj_5d8e0 {
-  public:
-    char pad[0x30];
-    int m30;
-    char Fn(int v);
-};
+#include "gen/owners.h"
 
-char Obj_5d8e0::Fn(int v) {
+char owners::Obj_5d8e0::FUN_0005d8e0(int v) {
     m30 = v;
     return 1;
 }

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3034 inputs, branch coverage 64/66, incomplete)
 // FUN_0024b550 @ 0x0024b550
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class Sink_24b550 {
 public:
     virtual void v0();
@@ -31,7 +32,6 @@ struct Queue_24b550 {
     Slot_24b550 slots[10];
     unsigned char current;
     unsigned char enabled;
-    void FUN_0024b270();
 };
 
 struct Chunk {
@@ -190,7 +190,7 @@ extern "C" void FUN_0024b550(void * p_)
         }
         FUN_0025d0f0(p->h0c, f.x);
         if (p->pos > f.x) {
-            q->FUN_0024b270();
+            ((owners::Target_24b270 *)q)->FUN_0024b270();
             p->pos = f.x;
         }
         p->state = 4;

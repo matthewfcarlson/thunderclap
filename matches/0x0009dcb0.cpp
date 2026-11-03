@@ -1,4 +1,5 @@
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
 void* operator new(unsigned int) throw();
 struct Function_9dcb0 {
@@ -19,7 +20,6 @@ struct Closure0_9dcb0 : Method0_9dcb0 {
 };
 char GetFlag(void*) throw();
 struct Owner_9dcb0 {
-    void Set(int, Closure0_9dcb0*) throw();
     void Make(int id, int a, int b) throw();
 };
 Method0_9dcb0::Method0_9dcb0(int id, int x, int y) throw() : Function_9dcb0(id, 0) {
@@ -32,5 +32,5 @@ void Method0_9dcb0::h() {}
 void Closure0_9dcb0::h() {}
 void Owner_9dcb0::Make(int id, int a, int b) throw() {
     Closure0_9dcb0* p = new Closure0_9dcb0(id, a, b);
-    Set(id, p);
+    ((owners::Obj_1d3b70 *)this)->FUN_001d3b70((hulk_uintptr)id, (hulk_intptr)(Closure0_9dcb0 *)p);
 }

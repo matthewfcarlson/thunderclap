@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2056 inputs, branch coverage 18/20, incomplete)
 // FUN_000895e0 @ 0x000895e0
 #include "decls/address.h"
+#include "gen/owners.h"
 int __cdecl FUN_00267760(char* dest, int size, const char* fmt, ...);
 int __cdecl strncmp(const char*, const char*, unsigned int);
 struct LevelInfo {
-    bool FUN_000b4c80(const char* name);
 };
 struct LevelTable {
     LevelInfo* FUN_00086280();
@@ -17,15 +17,7 @@ struct LevelAbbrev {
     const char* name;
     const char* abbrev;
 };
-class LevelName {
-public:
-    char pad0[0x20];
-    char name[0x20];
-    char shortName[0x20];
-    char displayName[0x20];
-    void SetName(const char* levelName);
-};
-void LevelName::SetName(const char* levelName) {
+void owners::LevelName_895e0::FUN_000895e0(const char* levelName) {
     char* cur = name;
     if (cur && cur[0])
         FUN_00267760(displayName, 0x20, "%s", cur);
@@ -36,7 +28,7 @@ void LevelName::SetName(const char* levelName) {
         shortName[0] = 0;
         return;
     }
-    if (!DAT_004dd700->levels->FUN_00086280()->FUN_000b4c80(levelName))
+    if (!((owners::Table_b4c80 *)(DAT_004dd700->levels->FUN_00086280()))->FUN_000b4c80(levelName))
         return;
     LevelAbbrev table[16] = {
         { "downtown", "dt" },

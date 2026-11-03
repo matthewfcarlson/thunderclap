@@ -1,12 +1,5 @@
-class Owner_204060 {
-  public:
-    char pad[0x58c];
-    short* items;
-    int gap;
-    int count;
-    short* find_item(int a, int b);
-};
-short* Owner_204060::find_item(int a, int b) {
+#include "gen/owners.h"
+short* owners::Owner_204060::FUN_00204060(int a, int b) {
     if (a < 0 || b < 0)
         return 0;
     int i = 0;

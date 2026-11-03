@@ -1,8 +1,5 @@
-struct X_12540 {
-    char pad[0x38];
-    char* Get();
-};
+#include "gen/owners.h"
 
-char* X_12540::Get() {
+char* owners::X_12540::FUN_00012540() {
     return (char*)this + 0x38;
 }

@@ -1,10 +1,5 @@
-class Obj_1c4ac0 {
-  public:
-    char pad[0x9c];
-    unsigned a, b, c;
-    void Set(unsigned* p, unsigned v);
-};
-void Obj_1c4ac0::Set(unsigned* p, unsigned v) {
+#include "gen/owners.h"
+void owners::Obj_1c4ac0::FUN_001c4ac0(unsigned* p, unsigned v) {
     a = *p;
     b = v;
     unsigned* q = &b;

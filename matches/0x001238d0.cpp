@@ -1,11 +1,6 @@
-class Obj_1238d0 {
-  public:
-    char pad[12];
-    unsigned int value;
-    bool Set(unsigned int v);
-};
+#include "gen/owners.h"
 
-bool Obj_1238d0::Set(unsigned int v) {
+bool owners::Obj_1238d0::FUN_001238d0(unsigned int v) {
     value = v;
     return true;
 }

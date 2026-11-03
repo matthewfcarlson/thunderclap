@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 struct Item_1ef370 {
     char pad[8];
-    void add(int);
 };
 class C_1ef370 {
   public:
@@ -10,7 +10,7 @@ class C_1ef370 {
 };
 void C_1ef370::f(int x) {
     if (count < 8) {
-        items[count].add(x);
+        ((owners::Target_27b040 *)&(items[count]))->FUN_0027b040((hulk_uintptr)x);
         ++count;
     }
 }

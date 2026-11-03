@@ -2,10 +2,10 @@
 // FUN_0003b1c0 @ 0x0003b1c0
 // cl-flags: /GS
 #include "decls/address.h"
+#include "gen/owners.h"
 
 struct Msg_3b1c0 {
     char data[0xb0];
-    Msg_3b1c0 *FUN_001c9a40(int id);
 };
 
 struct Dispatcher_3b1c0 {
@@ -74,7 +74,7 @@ bool Timer::FUN_0003b1c0(float dt, bool force)
         if (value <= 0.0f && !wasZero) {
             Dispatcher_3b1c0 *d = sys->dispatcher;
             if (d) {
-                msg.FUN_001c9a40(source->id);
+                ((Msg_3b1c0 *)((owners::C_1c9a40 *)&msg)->FUN_001c9a40((unsigned)(source->id)));
                 d->FUN_001cbc20(&msg);
             }
         }

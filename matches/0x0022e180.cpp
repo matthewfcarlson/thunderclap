@@ -1,11 +1,11 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct V3_22e180 {
     float x, y, z;
 };
 struct Mat_22e180 {
     char pad[0x30];
     V3_22e180 t;
-    void Xform(void* p, void* n);
 };
 struct P4 {
     float x, y, z, w;
@@ -16,7 +16,7 @@ struct Plane_22e180 {
 };
 #if defined(__clang__)
 void Plane_22e180::Set(Mat_22e180* m, P4* p) {
-    m->Xform(p, this);
+    ((owners::M_22c3b0 *)m)->FUN_0022c3b0((float *)p, (float *)this);
     hulk_freg f = -p->w;
     // x stays in an x87 register; y and z products are stored (rounded), their sums are not
     float py = f * y;
@@ -28,7 +28,7 @@ void Plane_22e180::Set(Mat_22e180* m, P4* p) {
 }
 #else
 void Plane_22e180::Set(Mat_22e180* m, P4* p) {
-    m->Xform(p, this);
+    ((owners::M_22c3b0 *)m)->FUN_0022c3b0((float *)p, (float *)this);
     hulk_freg f = -p->w;
     V3_22e180 v;
     v.x = f * x;

@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3064 inputs, branch coverage 52/56, incomplete)
 // hulkfight::ai::MotionClosestWaypointAction::vfunc_5 @ 0x0011a250
 #include "decls/address.h"
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 
 struct Vec3_11a250 {
     float x, y, z;
     float FUN_0022d110() throw();
-    void FUN_000344b0(float s) throw();   // scale in place
+       // scale in place
 };
 
 struct Fighter_11a250 {
@@ -213,7 +214,7 @@ bool MotionClosestWaypointAction::vfunc_5(Arg1_11a250 a1, float dt)
             f.W.FUN_0022d110();
             a1.f = (a1.f - f.N) / a1.f;
             f.N = 1.0f;
-            f.W.FUN_000344b0(FUN_000186f0(&f.N, &a1.f));
+            ((owners::Vec3_344b0 *)&(f.W))->FUN_000344b0(FUN_000186f0(&f.N, &a1.f));
         }
         edi->f1ca4->v4(&v3c, &f.Q, (Stats_11a250 *)edi, DAT_004dd700, dt, &v4c, &f.W);
     }

@@ -1,11 +1,6 @@
-class C_18f030 {
-  public:
-    char pad[0x54];
-    float m;
-    char Set(float x);
-};
+#include "gen/owners.h"
 
-char C_18f030::Set(float x) {
+char owners::C_18f030::FUN_0018f030(float x) {
     m = x * 0.0174532925f;
     return 1;
 }

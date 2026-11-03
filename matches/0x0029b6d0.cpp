@@ -1,12 +1,5 @@
-class X_29b6d0 {
-  public:
-    char pad0[0x10];
-    unsigned count;
-    char pad14[8];
-    unsigned* items;
-    unsigned get(unsigned i);
-};
-unsigned X_29b6d0::get(unsigned i) {
+#include "gen/owners.h"
+hulk_uintptr owners::X_29b6d0::FUN_0029b6d0(unsigned i) {
     if (i < count)
         return items[i];
     return 0;

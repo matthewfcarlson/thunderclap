@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 2/2)
 // FUN_000cb750 @ 0x000cb750
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class Curve_cb750 {
 public:
     virtual void v0();
@@ -19,7 +20,6 @@ public:
 struct Bank {
     char pad00[0x24];
     Curve_cb750* curves[1];         // 0x24
-    int FUN_000f7220(int a);
 };
 
 struct Slot_cb750 { float value; float pad[3]; };
@@ -44,6 +44,6 @@ hulk_freg Sampler_cb750::Sample(int a, int b)
     // the original loads the curve's vptr before the bank lookup call and the slot after it
     typedef float (__fastcall *EvalFn)(Curve_cb750*, int, int);
     void** vtable = *(void***)curve;
-    int arg = bank->FUN_000f7220(a);
+    int arg = ((int)((owners::C_f7220 *)bank)->FUN_000f7220((hulk_intptr)a));
     return ((EvalFn)vtable[10])(curve, 0, arg) * slot->value * inv;
 }

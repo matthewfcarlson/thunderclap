@@ -1,5 +1,5 @@
+#include "gen/owners.h"
 struct Curve_2d3340 {
-    void Fn(float, float*);
 };
 struct Elem_2d3340 {
     char pad[8];
@@ -43,8 +43,8 @@ void ParticlePointGenerator::f(float arg) {
         out[2] = Mix(a->c[2], b->c[2], amount, arg);
     } else {
         Elem_2d3340* p = points[index];
-        p->c[0]->Fn(arg, &out[0]);
-        p->c[1]->Fn(arg, &out[1]);
-        p->c[2]->Fn(arg, &out[2]);
+        ((owners::Curve_28a1c0 *)(p->c[0]))->FUN_0028a1c0(arg, &out[0]);
+        ((owners::Curve_28a1c0 *)(p->c[1]))->FUN_0028a1c0(arg, &out[1]);
+        ((owners::Curve_28a1c0 *)(p->c[2]))->FUN_0028a1c0(arg, &out[2]);
     }
 }

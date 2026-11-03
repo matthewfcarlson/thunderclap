@@ -1,14 +1,7 @@
-class Thing_1b32e0 {
-    char pad[0x34];
-    int count;
-    int vals[64];
-
-  public:
-    void Add(int value);
-};
-void Thing_1b32e0::Add(int value) {
+#include "gen/owners.h"
+void owners::Thing_1b32e0::FUN_001b32e0(hulk_intptr value) {
     if (count < 0x40) {
-        vals[count] = value;
+        vals[count] = ((int)value);
         ++count;
     }
 }

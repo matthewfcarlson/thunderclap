@@ -2,6 +2,7 @@
 // CGrappleKeyPoseTrack::vfunc_12 @ 0x0005a6d0
 #include "compat/ptr.h"
 #include "gen/global.h"
+#include "gen/owners.h"
 
 struct Settings;
 struct Slot_5a6d0 {
@@ -17,7 +18,6 @@ struct Context_5a6d0 {
     Fighter_5a6d0* FUN_00059a30();
 };
 struct Owner_5a6d0 {
-    Context_5a6d0* FUN_000592a0();
 };
 
 struct Created_5a6d0 {
@@ -29,7 +29,7 @@ hulk_intptr CGrappleKeyPoseTrack::vfunc_12(hulk_intptr __p0) { Owner_5a6d0 * own
 
     if (owner == 0)
         return (int)(0);
-    Context_5a6d0* ctx = owner->FUN_000592a0();
+    Context_5a6d0* ctx = ((Context_5a6d0 *)((owners::Object_592a0 *)owner)->FUN_000592a0());
     if (ctx == 0)
         return (int)(0);
     Fighter_5a6d0* fighter = ctx->FUN_00059a30();

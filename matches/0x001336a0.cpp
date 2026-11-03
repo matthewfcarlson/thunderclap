@@ -1,11 +1,6 @@
-class O_1336a0 {
-  public:
-    char pad[0x10];
-    int mField;
-    bool Fn(int a);
-};
+#include "gen/owners.h"
 
-bool O_1336a0::Fn(int a) {
+bool owners::O_1336a0::FUN_001336a0(int a) {
     mField = a;
     return true;
 }

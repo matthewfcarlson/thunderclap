@@ -1,11 +1,6 @@
-class C_17f9d0 {
-  public:
-    char pad[0x2c];
-    int mValue;
-    bool Set(int value);
-};
+#include "gen/owners.h"
 
-bool C_17f9d0::Set(int value) {
+bool owners::C_17f9d0::FUN_0017f9d0(int value) {
     mValue = value;
     return true;
 }

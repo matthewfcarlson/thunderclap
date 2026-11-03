@@ -1,15 +1,7 @@
+#include "gen/owners.h"
 extern int __cdecl FUN_00212d70(int);
 extern "C" void __cdecl FUN_00213320(int);
-class Obj_1d1bc0 {
-  public:
-    char pad0[8];
-    int value;
-    char padc[0x5470 - 12];
-    int items[8];
-    int index;
-    bool f();
-};
-bool Obj_1d1bc0::f() {
+bool owners::Obj_1d1bc0::FUN_001d1bc0() {
     if (index < 7 && index >= -1) {
         ++index;
         items[index] = FUN_00212d70(value);

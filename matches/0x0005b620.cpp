@@ -1,9 +1,9 @@
 // Same code shape as 0x0005a4c0 (propagated; names are from that function)
 #include "compat/ptr.h"
 #include "gen/global.h"
+#include "gen/owners.h"
 
 struct A_5b620 {
-    void* first();
 };
 struct B_5b620 {
     void* second();
@@ -16,7 +16,7 @@ struct Data_5b620 {
 
 void* CGrappleSmartPropDropTrack::vfunc_11(hulk_intptr param) {
     if (param) {
-        void* a = ((A_5b620*)param)->first();
+        void* a = ((void *)((owners::Object_592a0 *)(((A_5b620*)param)))->FUN_000592a0());
         if (a) {
             void* b = ((B_5b620*)a)->second();
             if (b) {

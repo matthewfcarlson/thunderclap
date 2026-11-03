@@ -1,11 +1,6 @@
-class X_146c30 {
-  public:
-    char f(char* p);
-    char pad[0x18];
-    char* m18;
-};
+#include "gen/owners.h"
 
-char X_146c30::f(char* p) {
+char owners::X_146c30::FUN_00146c30(char* p) {
     m18 = p;
     return 1;
 }

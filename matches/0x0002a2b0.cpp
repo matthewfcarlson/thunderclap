@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Vec_2a2b0 {
     unsigned a, b;
 };
@@ -9,7 +10,6 @@ struct Obj_2a2b0 {
     int id;
     char pad2[0xa8];
     Sub_2a2b0* ptr;
-    Obj_2a2b0* Get(int);
 };
 extern "C" Vec_2a2b0 __cdecl Decode(int, int, int);
 extern float* table_2a2b0[];
@@ -24,7 +24,7 @@ float* C_2a2b0::Fn(int x) {
     Obj_2a2b0* o = Find(v.a, v.b);
     if (!o)
         return &zero_2a2b0;
-    o = o->Get(0);
+    o = ((Obj_2a2b0 *)((owners::C_35ef0 *)o)->FUN_00035ef0((hulk_intptr)0));
     if (!o)
         return &zero_2a2b0;
     Sub_2a2b0* p = o->ptr;

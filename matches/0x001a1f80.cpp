@@ -1,11 +1,6 @@
-class C_1a1f80 {
-  public:
-    char pad[12];
-    int m;
-    char Fn(int x);
-};
+#include "gen/owners.h"
 
-char C_1a1f80::Fn(int x) {
+char owners::C_1a1f80::FUN_001a1f80(int x) {
     m = x;
     return 1;
 }

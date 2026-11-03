@@ -1,5 +1,6 @@
 // cl-flags: /O2 /GR /GX
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" char DAT_0042e184[];
 
 class ImageBuilder {
@@ -33,15 +34,8 @@ struct ThisCall_002ae9d0 {
     Iface_2aed60* FUN_002ae9d0(void* param);
 };
 
-class SomeClass {
-  public:
-    char pad[0x8C];
-    int field_8C;
 
-    int Method(void* param2, void* param3);
-};
-
-int SomeClass::Method(void* param2, void* param3) {
+hulk_intptr owners::SomeClass_2aed60::FUN_002aed60(void* param2, void* param3) {
     Iface_2aed60* iface = ((ThisCall_002ae9d0*)(this))->FUN_002ae9d0(param3);
     if (!iface)
         return 0;

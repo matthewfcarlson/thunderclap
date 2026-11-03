@@ -1,10 +1,5 @@
-class Holder_320d00 {
-    char pad[0x184];
-
-  public:
-    bool Find(int value);
-};
-bool Holder_320d00::Find(int value) {
+#include "gen/owners.h"
+bool owners::Holder_320d00::FUN_00320d00(int value) {
     int i = 0;
     int* p = (int*)((char*)this + 0x184);
     do {

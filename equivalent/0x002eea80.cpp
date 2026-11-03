@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 51/51)
 // FUN_002eea80 @ 0x002eea80
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" void *memset(void *dst, int c, unsigned int n);
 
 struct Info {
@@ -100,7 +101,6 @@ struct Bits {
 };
 
 struct Solver {
-    void FUN_00302ed0(int a, int b, int *c);
 };
 
 class Mgr {
@@ -195,7 +195,7 @@ void Mgr::FUN_002eea80()
     for (int i = 0; i < nlinks; ++i) {
         dirty = 0;
         Link *l = &linksBegin[i];
-        solver.FUN_00302ed0(l->a->ref, l->b->ref, &value);
+        ((owners::Obj_302ed0 *)&solver)->FUN_00302ed0((hulk_intptr)(l->a->ref), (hulk_intptr)(l->b->ref), (hulk_intptr)(&value));
     }
 
     hulk_uintptr nitems = end - begin;

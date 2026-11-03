@@ -1,10 +1,5 @@
-class A_16e740 {
-  public:
-    char pad[0x18];
-    int m18;
-    int* Get();
-};
+#include "gen/owners.h"
 
-int* A_16e740::Get() {
+int* owners::A_16e740::FUN_0016e740() {
     return &m18;
 }

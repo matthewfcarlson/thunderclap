@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 96 inputs, branch coverage 26/28, incomplete)
 // hulkfight::ai::TargetAngleYCondition::vfunc_6 @ 0x001265c0
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
@@ -39,7 +40,6 @@ struct Resolver_1265c0 {
 };
 
 struct Target_1265c0 {
-    Resolver_1265c0 *FUN_000592a0();
 };
 
 float __fastcall FUN_0022d110(Vec3_1265c0 *v);
@@ -48,7 +48,7 @@ bool hulkfight::ai::TargetAngleYCondition::vfunc_6(void* __p0, void* __p1, void*
 
     if (!FUN_00344e74(obj, 0, DAT_00494b44, DAT_00494b60, 0))
         return (bool)(0);
-    Res_1265c0 *r = ((Target_1265c0 *)obj)->FUN_000592a0()->FUN_00059a30();
+    Res_1265c0 *r = ((Resolver_1265c0 *)((owners::Object_592a0 *)(((Target_1265c0 *)obj)))->FUN_000592a0())->FUN_00059a30();
     Body_1265c0 *body = r->body;
     if (!body)
         return (bool)(0);

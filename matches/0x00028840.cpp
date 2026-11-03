@@ -1,6 +1,7 @@
 // FUN_00028840 @ 0x00028840
 #include "decls/address.h"
 #include "gen/global.h"
+#include "gen/owners.h"
 typedef unsigned __int64 Key_28840;
 
 struct Focus_28840 {
@@ -12,7 +13,6 @@ struct Root_28840 {
 
 struct Entry_28840 {
     void FUN_0003b1c0(float value, int flag);
-    void FUN_0003ea10(int flag);
 };
 
 struct Owner_28840 {
@@ -32,7 +32,7 @@ void Owner_28840::FUN_00028840(const char* name, float value)
             if (entry == current) {
                 ((::CScenarioManager *)(root->focus))->FUN_001cc620(2);
             } else {
-                entry->FUN_0003ea10(1);
+                ((owners::Controller_3ea10 *)entry)->FUN_0003ea10(1);
             }
         }
     }

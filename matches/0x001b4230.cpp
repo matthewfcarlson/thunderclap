@@ -1,4 +1,5 @@
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 typedef unsigned int u32_1b4230;
 struct Obj_1b4230 {
@@ -6,7 +7,6 @@ struct Obj_1b4230 {
     void* child;
 };
 struct Worker_1b4230 {
-    void Finish(void*);
 };
 struct Ctx_1b4230 {
     char pad[8];
@@ -24,6 +24,6 @@ bool Ctx_1b4230::Target(Obj_1b4230* p) {
     q[0x5c / 4] = (*(u32_1b4230*)&DAT_004c3a04);
     q[0x60 / 4] = (*(u32_1b4230*)&DAT_004c39e8);
     q[0x64 / 4] = (*(u32_1b4230*)((char*)&DAT_004c39e8 + 4));
-    worker->Finish(q);
+    ((owners::Obj_2ee6b0 *)worker)->FUN_002ee6b0((hulk_intptr)q);
     return true;
 }

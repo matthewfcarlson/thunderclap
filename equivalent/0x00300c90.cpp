@@ -2,9 +2,10 @@
 // FUN_00300c90 @ 0x00300c90
 #include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
+#include "gen/owners.h"
 
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int size);
-struct A_300c90 { char data[16]; void FUN_00304300(); };
+struct A_300c90 { char data[16];  };
 struct CollisionDetector_300c90 { char data[64]; void FUN_00301290(); };
 struct ImpulseBasedCollisionSolver_300c90 { char data[256]; void FUN_002f7ee0(); };
 struct D { char data[0x2030]; void FUN_00312d50(); };
@@ -15,7 +16,7 @@ struct Object {
 };
 Object* Object::FUN_00300c90() {
  begin=0; end=0; limit=0;
- a.FUN_00304300(); b.FUN_00301290(); c.FUN_002f7ee0(); d.FUN_00312d50();
+ ((owners::Buffer_304300 *)&a)->FUN_00304300(); b.FUN_00301290(); c.FUN_002f7ee0(); d.FUN_00312d50();
  flag=0; mode=18;
  int n=DAT_004d2eec; count=n;
  unsigned int* allocation=(unsigned int*)FUN_0008d6d0((unsigned int)n*0x6c+4);

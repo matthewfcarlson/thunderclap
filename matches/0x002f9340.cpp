@@ -1,12 +1,6 @@
+#include "gen/owners.h"
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
-class Buffer {
-  public:
-    short* start;
-    short* current;
-    short* end;
-    bool Init(unsigned int count);
-};
-bool Buffer::Init(unsigned int count) {
+bool owners::Buffer_2f9340::FUN_002f9340(unsigned int count) {
     if (count) {
         start = (short*)FUN_0008d6d0(count * sizeof(short));
         if (start) {

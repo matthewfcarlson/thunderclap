@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_001dd1e0 @ 0x001dd1e0
 #include "decls/address.h"
+#include "gen/owners.h"
 typedef unsigned __int64 KeyValue;
-struct Key_1dd1e0 { unsigned low, high; void FUN_0027b040(const char* name); };
+struct Key_1dd1e0 { unsigned low, high;  };
 struct Entry_1dd1e0 { Key_1dd1e0 key; float value; unsigned mode; int priority; unsigned unused; };
 struct Object { char padding[0x1ed60]; Entry_1dd1e0 entries[16]; bool update(const char* name, float value, unsigned mode, int priority); };
 bool Object::update(const char* name, float value, unsigned mode, int priority) {
@@ -14,7 +15,7 @@ bool Object::update(const char* name, float value, unsigned mode, int priority) 
    e.value = value; e.mode = mode; e.priority = priority; return true;
   }
   if ((e.key.low | e.key.high) == 0) {
-   e.key.FUN_0027b040(name);
+   ((owners::Target_27b040 *)&(e.key))->FUN_0027b040((hulk_uintptr)name);
    e.mode = mode; e.priority = priority; e.value = value; return true;
   }
  }

@@ -1,6 +1,7 @@
 #include "gen/global.h"
 #include "decls/data/game/global.h"
 // data: gFlag_208820 = DAT_004c91da
+#include "gen/owners.h"
 
 class Subject_208820 {
   public:
@@ -15,7 +16,6 @@ struct CWorldStreamManager_nv_208820 {
     void Step3();
     void Step4();
     void Step5();
-    void Step6();
 };
 
 void CWorldStreamManager::FUN_00208820() {
@@ -34,7 +34,7 @@ void CWorldStreamManager::FUN_00208820() {
     ((CWorldStreamManager_nv_208820*)this)->Step3();
     ((CWorldStreamManager_nv_208820*)this)->Step4();
     ((CWorldStreamManager_nv_208820*)this)->Step5();
-    ((CWorldStreamManager_nv_208820*)this)->Step6();
+    ((owners::C_203a10 *)(((CWorldStreamManager_nv_208820*)this)))->FUN_00203a10();
     this->f_04 = 0;
     this->f_24 = 0;
 }

@@ -1,11 +1,11 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 // data: gText_1f9230 = DAT_00424f08, gZero_1f9230 = DAT_003f335c
+#include "gen/owners.h"
 
 extern void InitText(char*, unsigned int, const char*);
 class Sub_1f9230 {
   public:
-    void Init(const float*);
 };
 class Obj_1f9230 {
   public:
@@ -26,7 +26,7 @@ void __fastcall Target(Obj_1f9230* self) {
     self->x48 = 0;
     self->x4c = 0;
     self->a = 0xff;
-    ((Sub_1f9230*)((char*)self + 0x30))->Init(&DAT_003f335c);
+    ((owners::Target_27b040 *)(((Sub_1f9230*)((char*)self + 0x30))))->FUN_0027b040((hulk_uintptr)(&DAT_003f335c));
     self->x50 = 0;
     self->b = 0xff;
     self->x51 = 1;

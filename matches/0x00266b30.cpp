@@ -1,7 +1,7 @@
+#include "gen/owners.h"
 class Manager_266b30 {
   public:
     int Get();
-    void Fn(int*, int, int, int);
 };
 struct E_266b30 {
     int a, b, c, d;
@@ -19,9 +19,9 @@ int Obj_266b30::Target(int arg) {
     count++;
     e[count].d = mgr->Get() - 4;
     e[count].a = arg;
-    mgr->Fn(&arg, 1, 4, 1);
+    ((owners::X_2647e0 *)mgr)->FUN_002647e0((hulk_intptr)(&arg), (hulk_intptr)1, 4, (hulk_intptr)1);
     e[count].b = arg;
-    mgr->Fn(&arg, 1, 4, 1);
+    ((owners::X_2647e0 *)mgr)->FUN_002647e0((hulk_intptr)(&arg), (hulk_intptr)1, 4, (hulk_intptr)1);
     e[count].c = arg;
     return e[count].a;
 }

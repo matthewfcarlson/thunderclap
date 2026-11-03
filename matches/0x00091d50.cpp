@@ -1,7 +1,4 @@
-struct Obj_91d50 {
-    char pad[0x68];
-    Obj_91d50* Get();
-};
-Obj_91d50* Obj_91d50::Get() {
-    return (Obj_91d50*)((char*)this + 0x68);
+#include "gen/owners.h"
+owners::Obj_91d50* owners::Obj_91d50::FUN_00091d50() {
+    return (owners::Obj_91d50*)((char*)this + 0x68);
 }

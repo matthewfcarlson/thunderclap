@@ -1,11 +1,6 @@
-class Obj_60230 {
-  public:
-    char pad[0x14];
-    int m;
-    char Fn(int x);
-};
+#include "gen/owners.h"
 
-char Obj_60230::Fn(int x) {
+char owners::Obj_60230::FUN_00060230(int x) {
     m = x;
     return 1;
 }

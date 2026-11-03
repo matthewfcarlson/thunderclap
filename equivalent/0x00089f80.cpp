@@ -2,10 +2,9 @@
 // FUN_00089f80 @ 0x00089f80
 // cl-flags: /GS
 #include "decls/address.h"
+#include "gen/owners.h"
 struct InfoReader {
  bool FUN_001d2ba0(const char*, int, int);
- bool FUN_001d2c60(const char*, char*, int);
- void FUN_001d19d0(int);
 };
 extern "C" InfoReader* __cdecl FUN_001d4c90();
 void __cdecl FUN_000964a0(char*, int, const char*, ...);
@@ -29,12 +28,12 @@ void Manager_89f80::FUN_00089f80(const char* name) {
  }
  InfoReader* reader = FUN_001d4c90();
  if(reader && reader->FUN_001d2ba0(name,1,0)) {
-  if(reader->FUN_001d2c60("info", info, 64)) {
+  if(((owners::K_1d2c60 *)reader)->FUN_001d2c60((hulk_intptr)"info", (hulk_intptr)info, 64)) {
    unsigned __int64 key = FUN_0027b020(name);
    entries[index].high = (unsigned int)(key >> 32);
    entries[index].low = (unsigned int)key;
    FUN_000964a0(entries[index].text,16,"%s",info);
   }
-  reader->FUN_001d19d0(1);
+  ((owners::Obj_1d19d0 *)reader)->FUN_001d19d0(1);
  }
 }

@@ -3,6 +3,7 @@
 // cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 extern char DAT_0049dba4[];
 extern char DAT_0049dab8[];
 extern char DAT_0049db1c[];
@@ -31,14 +32,11 @@ struct Name_c2c20 {
 
 struct Loc_c2c20 {
     int FUN_000f7240(unsigned int lo, unsigned int hi);
-    const char *FUN_00088ea0(const char *id);
 };
 extern Loc_c2c20 *__cdecl FUN_000fc1b0();
 
 struct Label_c2c20 {
     void FUN_000f8500(const char *text, Loc_c2c20 *loc, char flag);
-    void FUN_000f7a10(int idx, int z);
-    void FUN_000f79a0(const char *text, int z);
 };
 
 class Widget_c2c20 {
@@ -67,18 +65,13 @@ struct Unlockable {
     Name_c2c20 *FUN_00092070();
     const char *FUN_00092090();
     char FUN_00091f40();
-    char FUN_00091fb0();
 };
 
 struct Unlockables_c2c20 {
-    Unlockable *FUN_00092ad0(int id);
-    char FUN_00092860(int id);
-    int FUN_000932a0(int idx);
     void FUN_000929a0(int id, int z);
 };
 
 struct Gate_c2c20 {
-    char FUN_000893c0();
 };
 
 struct Shader {
@@ -125,7 +118,7 @@ void MovesMenu::F()
     if (!p4c) {
         return;
     }
-    Unlockable *unl = (Unlockable *)FUN_00344e74(p4c->FUN_00092ad0(0x266), 0, DAT_0049dab8, DAT_0049db1c, 0);
+    Unlockable *unl = (Unlockable *)FUN_00344e74(((Unlockable *)((owners::C_92ad0 *)p4c)->FUN_00092ad0((hulk_intptr)0x266)), 0, DAT_0049dab8, DAT_0049db1c, 0);
     if (!unl) {
         return;
     }
@@ -139,7 +132,7 @@ void MovesMenu::F()
     }
     int idx = sel->sel;
     f0e = 0;
-    if (p34->FUN_000893c0()) {
+    if (((char)((owners::Target_893c0 *)p34)->FUN_000893c0())) {
         if (idx == 0)
             f0e = 1;
         idx--;
@@ -157,13 +150,13 @@ void MovesMenu::F()
         combo = &A;
         nameDesc = &B;
         image = "savage_banner";
-        flagD = p4c->FUN_00092860(id) == 0;
+        flagD = ((char)((owners::C_92860 *)p4c)->FUN_00092860((hulk_intptr)id)) == 0;
         flagF = 0;
         C.FUN_0027af70(E.FUN_0027b0e0("TBS_CHEAT_SAVAGE_BANNER"));
         E.FUN_0027af50();
     } else {
-        id = p4c->FUN_000932a0(idx);
-        Unlockable *u2 = (Unlockable *)FUN_00344e74(p4c->FUN_00092ad0(id), 0, DAT_0049dab8, DAT_0049db1c, 0);
+        id = ((owners::C_932a0 *)p4c)->FUN_000932a0(idx);
+        Unlockable *u2 = (Unlockable *)FUN_00344e74(((Unlockable *)((owners::C_92ad0 *)p4c)->FUN_00092ad0((hulk_intptr)id)), 0, DAT_0049dab8, DAT_0049db1c, 0);
         if (!u2) {
             C.FUN_0027af50();
             B.FUN_0027af50();
@@ -174,7 +167,7 @@ void MovesMenu::F()
         nameDesc = u2->FUN_00092070();
         image = u2->FUN_00092090();
         flagD = u2->FUN_00091f40();
-        flagF = u2->FUN_00091fb0();
+        flagF = ((char)((owners::A_91fb0 *)u2)->FUN_00091fb0());
         C.FUN_0027af70(&u2->id);
     }
     p4c->FUN_000929a0(id, 0);
@@ -190,7 +183,7 @@ void MovesMenu::F()
             if (r == -1)
                 lbl->FUN_000f8500(C.FUN_0027b010(), FUN_000fc1b0(), 1);
             else
-                lbl->FUN_000f7a10(r, 0);
+                ((owners::Obj_f7a10 *)lbl)->FUN_000f7a10((hulk_intptr)r, 0);
         }
     }
     if (combo) {
@@ -205,7 +198,7 @@ void MovesMenu::F()
                 if (r == -1)
                     lbl->FUN_000f8500(combo->FUN_0027b010(), FUN_000fc1b0(), 1);
                 else
-                    lbl->FUN_000f7a10(r, 0);
+                    ((owners::Obj_f7a10 *)lbl)->FUN_000f7a10((hulk_intptr)r, 0);
             }
         }
     }
@@ -219,7 +212,7 @@ void MovesMenu::F()
             if (r == -1)
                 lbl->FUN_000f8500(desc->FUN_0027b010(), FUN_000fc1b0(), 1);
             else
-                lbl->FUN_000f7a10(r, 0);
+                ((owners::Obj_f7a10 *)lbl)->FUN_000f7a10((hulk_intptr)r, 0);
             t->vfunc_3();
         }
     }
@@ -245,22 +238,22 @@ void MovesMenu::F()
         }
         Label_c2c20 *lbl = &btn->label;
         if (bl && flagD)
-            FUN_000fc020(buf, 0x40, FUN_000fc1b0()->FUN_00088ea0("TBS_MENU_ITEM_TUTORIAL"));
+            FUN_000fc020(buf, 0x40, ((const char *)((owners::A_88ea0 *)(FUN_000fc1b0()))->FUN_00088ea0((hulk_uintptr)"TBS_MENU_ITEM_TUTORIAL")));
         else
-            FUN_000fc020(buf, 0x40, FUN_000fc1b0()->FUN_00088ea0("TBS_MENU_ITEM_PURCHASE_MOVE"));
-        lbl->FUN_000f79a0(buf, 0);
+            FUN_000fc020(buf, 0x40, ((const char *)((owners::A_88ea0 *)(FUN_000fc1b0()))->FUN_00088ea0((hulk_uintptr)"TBS_MENU_ITEM_PURCHASE_MOVE")));
+        ((owners::Obj_f79a0 *)lbl)->FUN_000f79a0((const short *)buf, (hulk_intptr)0);
         btn->vfunc_3();
     }
     Widget_c2c20 *pts = (Widget_c2c20 *)FUN_00344e74(FUN_000fc260("enabled_moves_smash_points"), 0, DAT_0049dba4, DAT_0049f48c, 0);
     if (pts) {
         int p = DAT_004dd700->p54->FUN_00086370()->FUN_00090110();
-        FUN_000fc020(buf, 0x40, FUN_000fc1b0()->FUN_00088ea0("TBS_SMASH_POINTS_TOTAL"), p);
-        pts->label.FUN_000f79a0(buf, 0);
+        FUN_000fc020(buf, 0x40, ((const char *)((owners::A_88ea0 *)(FUN_000fc1b0()))->FUN_00088ea0((hulk_uintptr)"TBS_SMASH_POINTS_TOTAL")), p);
+        ((owners::Obj_f79a0 *)&(pts->label))->FUN_000f79a0((const short *)buf, (hulk_intptr)0);
     }
     if (FUN_00344e74(FUN_000fc260("moves_list_smash_points"), 0, DAT_0049dba4, DAT_0049f48c, 0)) {
         int p = DAT_004dd700->p54->FUN_00086370()->FUN_00090110();
-        FUN_000fc020(buf, 0x40, FUN_000fc1b0()->FUN_00088ea0("TBS_SMASH_POINTS_TOTAL"), p);
-        pts->label.FUN_000f79a0(buf, 0);
+        FUN_000fc020(buf, 0x40, ((const char *)((owners::A_88ea0 *)(FUN_000fc1b0()))->FUN_00088ea0((hulk_uintptr)"TBS_SMASH_POINTS_TOTAL")), p);
+        ((owners::Obj_f79a0 *)&(pts->label))->FUN_000f79a0((const short *)buf, (hulk_intptr)0);
     }
     if (!bl && flagD)
         FUN_000b8c50("MovesDescription", "return_to_move_list");

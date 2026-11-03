@@ -1,22 +1,9 @@
 // FUN_000e5440 @ 0x000e5440
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
-class Fader_e5440 {
-public:
-    char pad00[0xa74];
-    float level;             // 0xa74
-    int state;               // 0xa78
-    int stateTime;           // 0xa7c
-    char padA80[0x10];
-    float base;              // 0xa90
-    char padA94[0xc];
-    float output;            // 0xaa0
-    void FUN_000e5330();
-    void FUN_000e53e0(int oldState);
-    void FUN_000e5440(int newState);
-};
 
-void Fader_e5440::FUN_000e5440(int newState) {
+void owners::Fader_e5440::FUN_000e5440(int newState) {
     int old = state;
     state = newState;
     switch (newState) {

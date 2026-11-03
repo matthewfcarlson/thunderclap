@@ -1,11 +1,6 @@
-class Obj_16e9b0 {
-  public:
-    char Fn(int v);
-    char mPad[12];
-    int mVal;
-};
+#include "gen/owners.h"
 
-char Obj_16e9b0::Fn(int v) {
+char owners::Obj_16e9b0::FUN_0016e9b0(int v) {
     mVal = v;
     return 1;
 }

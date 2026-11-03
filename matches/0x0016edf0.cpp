@@ -1,11 +1,6 @@
-class Obj_16edf0 {
-  public:
-    char Set(int x);
-    char pad[0x10];
-    int mValue;
-};
+#include "gen/owners.h"
 
-char Obj_16edf0::Set(int x) {
+char owners::Obj_16edf0::FUN_0016edf0(int x) {
     mValue = x;
     return 1;
 }

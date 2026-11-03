@@ -3,8 +3,9 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 struct Clock_1e9bf0 { float FUN_001e8730(); };
-struct Entry_1e9bf0 { int state; int unused; unsigned int amount; int blockedC; int blocked10; void FUN_001e8d40(); };
+struct Entry_1e9bf0 { int state; int unused; unsigned int amount; int blockedC; int blocked10;  };
 struct Worker_1e9bf0 { bool FUN_00266750(); void FUN_00263e90(); };
 struct Item_1e9bf0 { void FUN_000bd1b0(int); };
 struct Manager_1e9bf0 { Item_1e9bf0* FUN_00086280(); };
@@ -24,7 +25,7 @@ bool Owner_1e9bf0::FUN_001e9bf0() {
     int v=(int)e->amount;
     (*(float*)&DAT_004e36ac)=(v<0 ? (double)v+DAT_003f3f18 : (double)v)+(*(float*)&DAT_004e36ac);
    } else {
-    e->FUN_001e8d40();
+    ((owners::Clip_1e8d40 *)e)->FUN_001e8d40();
     while(entries[i]->state!=3) {
      FUN_002656a0();
      thunk_FUN_00270a50();

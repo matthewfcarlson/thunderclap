@@ -1,10 +1,6 @@
-struct Obj_16faa0 {
-    char pad[0xc];
-    int m;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char Obj_16faa0::Set(int v) {
+char owners::Obj_16faa0::FUN_0016faa0(int v) {
     int x = v;
     m = x;
     return 1;

@@ -1,4 +1,5 @@
 // FUN_001b8e40 @ 0x001b8e40
+#include "gen/owners.h"
 struct V3_1b8e40 { float x, y, z; };
 struct Id64_1b8e40 {
     unsigned int lo;
@@ -9,7 +10,6 @@ struct Id64_1b8e40 {
 struct Matrix {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022be40(const V3_1b8e40* v);
 };
 struct Spawned;
 struct Spawner_1b8e40 {
@@ -28,7 +28,7 @@ Spawned* __stdcall FUN_001b8e40(const char* name, float x, float y, float z) {
     u.pos.x = x;
     u.pos.y = y;
     u.pos.z = z;
-    mat.FUN_0022be40(&u.pos);
+    ((owners::Target_22be40 *)&mat)->FUN_0022be40((const int *)(const V3_1b8e40 *)(&u.pos));
     u.id.FUN_0027b0e0(name);
     Spawned* result = spawner->FUN_00283a40(&u.id, &mat, -1.0f, 1.0f);
     u.id.FUN_0027af50();

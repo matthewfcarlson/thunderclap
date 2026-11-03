@@ -1,11 +1,6 @@
-class C_15aea0 {
-  public:
-    bool Set(float deg);
-    char pad[0x2c];
-    float mRad;
-};
+#include "gen/owners.h"
 
-bool C_15aea0::Set(float deg) {
+bool owners::C_15aea0::FUN_0015aea0(float deg) {
     mRad = deg * 0.0174532925f;
     return true;
 }

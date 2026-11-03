@@ -1,11 +1,6 @@
-class Body_115110 {
-  public:
-    char pad[0xc];
-    int mValue;
-    bool Set(int x);
-};
+#include "gen/owners.h"
 
-bool Body_115110::Set(int x) {
+bool owners::Body_115110::FUN_00115110(int x) {
     mValue = x;
     return true;
 }

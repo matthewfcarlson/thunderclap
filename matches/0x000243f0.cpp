@@ -1,9 +1,6 @@
+#include "gen/owners.h"
 void InitGlobal();
-struct X_243f0 {
-    int value;
-    void Set(int);
-};
-void X_243f0::Set(int x) {
-    value = x;
+void owners::X_243f0::FUN_000243f0(hulk_intptr x) {
+    value = ((int)x);
     InitGlobal();
 }

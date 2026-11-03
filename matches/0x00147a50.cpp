@@ -1,8 +1,7 @@
+#include "gen/owners.h"
 typedef unsigned char u8;
 struct P_147a50 {
-    P_147a50* A();
     P_147a50* B();
-    int C();
 };
 extern int __cdecl TypeCheck(void* a, int b, void* c, void* d, int e);
 extern char kDesc1;
@@ -21,9 +20,9 @@ struct CivilianAttachedCondition {
 bool CivilianAttachedCondition::vfunc_6(void* a, void* b, void* c) {
     if (!TypeCheck(b, 0, &kDesc1, &kDesc2, 0))
         return false;
-    P_147a50* p = ((P_147a50*)b)->A();
+    P_147a50* p = ((P_147a50 *)((owners::Object_592a0 *)(((P_147a50*)b)))->FUN_000592a0());
     p = p->B();
-    int x = p->C();
+    int x = ((int)((owners::Thing_36020 *)p)->FUN_00036020());
     bool r = (x != 0);
     return r == flag;
 }

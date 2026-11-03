@@ -1,23 +1,17 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern void* Alloc(hulk_uintptr);
 class Factory_f27a0 {
   public:
     int Create(int, int);
 };
-class Holder_f27a0 {
-  public:
-    int field;
-    int data;
-    int slots[32];
-    int Run(int arg);
-};
-int Holder_f27a0::Run(int arg) {
+hulk_intptr owners::Holder_f27a0::FUN_000f27a0(hulk_intptr arg) {
     if (data == 0)
         return 0;
     Factory_f27a0* obj = (Factory_f27a0*)Alloc(100);
     int result;
     if (obj != 0)
-        result = obj->Create(data, arg);
+        result = obj->Create(data, ((int)arg));
     else
         result = 0;
     int i;

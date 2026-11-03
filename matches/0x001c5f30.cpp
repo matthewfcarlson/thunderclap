@@ -1,15 +1,8 @@
 #include "compat/ptr.h"
-class Thing_1c5f30 {
-  public:
-    int pad0;
-    unsigned int* data;
-    unsigned int count;
-    unsigned int capacity;
-    void Add(unsigned int value);
-};
+#include "gen/owners.h"
 extern "C" void* Alloc(hulk_uintptr);
 extern "C" void Free(void*);
-void Thing_1c5f30::Add(unsigned int value) {
+void owners::Thing_1c5f30::FUN_001c5f30(hulk_uintptr value) {
     unsigned int* p;
     unsigned int n;
     if (count >= capacity) {
@@ -27,6 +20,6 @@ void Thing_1c5f30::Add(unsigned int value) {
         }
         data = p;
     }
-    data[count] = value;
+    data[count] = ((unsigned int)value);
     ++count;
 }

@@ -1,17 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 2/2)
 // FUN_0022cdb0 @ 0x0022cdb0
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 
-struct Matrix {
-    float m[16];
-    void FUN_0022c120();
-    void FUN_0022cdb0();
-};
 
 // x87: the determinant and its reciprocal stay in registers (53 bits); the products p1-p5 and the result go
 // through the frame (rounded)
-void Matrix::FUN_0022cdb0()
+void owners::Matrix_22cdb0::FUN_0022cdb0()
 {
     float t[16];
     volatile float p1 = m[6] * m[8];

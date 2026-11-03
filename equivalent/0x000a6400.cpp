@@ -2,6 +2,7 @@
 // FUN_000a6400 @ 0x000a6400
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 extern "C" double sqrt(double);
 
@@ -36,7 +37,6 @@ class Ent {
     Sub338* f338;
     void FUN_000382c0(V3* out);
     void FUN_00035550(V3* out);
-    int FUN_00035910();
 };
 
 class Actor {
@@ -316,7 +316,7 @@ void Camera::FUN_000a6400(float a1, float a2) {
         }
     }
 
-    if (f350->FUN_00035910() == 2 || f350->FUN_00035910() == 3) {
+    if (((int)((owners::Widget_35910 *)f350)->FUN_00035910()) == 2 || ((int)((owners::Widget_35910 *)f350)->FUN_00035910()) == 3) {
         hulk_freg R = FUN_000a02a0(f238 + 180.0f); // st(0) for both limits
         f.p1c = FUN_000a03c0(f.p1c, (float)(R - 70.0f), (float)(70.0f + R));
     }
@@ -343,7 +343,7 @@ void Camera::FUN_000a6400(float a1, float a2) {
 
     if (FUN_0009ffc0(f.hd, f46c, f.dist, &f.o48)) {
         bool pass = true;
-        if (f350->FUN_00035910() == 2 || f350->FUN_00035910() == 3) {
+        if (((int)((owners::Widget_35910 *)f350)->FUN_00035910()) == 2 || ((int)((owners::Widget_35910 *)f350)->FUN_00035910()) == 3) {
             f350->FUN_00035550(&f.nv);
             f.nv.FUN_0022d110();
             f350->FUN_000382c0(&f.o);
@@ -465,7 +465,7 @@ void Camera::FUN_000a6400(float a1, float a2) {
         f.k4 = FUN_000a00e0(f2fc + f2e8, f.k4, (*(float*)&DAT_0049eca8), a2, 10.0f);
 
     f.k5 = f46c;
-    if (f350->FUN_00035910() == 2 || f350->FUN_00035910() == 3)
+    if (((int)((owners::Widget_35910 *)f350)->FUN_00035910()) == 2 || ((int)((owners::Widget_35910 *)f350)->FUN_00035910()) == 3)
         f.k5 = f474;
 
     f.d3.x = pos.x - v194.x;

@@ -2,17 +2,14 @@
 // FUN_00233460 @ 0x00233460
 // cl-flags: /GS
 #include "decls/data/engine/fight.h"
+#include "gen/owners.h"
 
 extern "C" int __cdecl FUN_00267760(char*, int, const char*, ...);
-struct Node {
- char pad[8]; unsigned low; unsigned high; char pad10[4]; Node* next;
- bool FUN_00233460(char* output, int capacity);
-};
-bool Node::FUN_00233460(char* output, int capacity) {
+bool owners::Node_233460::FUN_00233460(char* output, int capacity) {
  char temporary[1024];
  if ((low | high) == 0) { if (capacity > 0) output[0] = 0; }
  else FUN_00267760(output, capacity, "%08x%08x", high, low);
- Node* current = next;
+ owners::Node_233460* current = next;
  while (current) {
   if ((current->low | current->high) == 0)
    FUN_00267760(temporary, 1024, "%s%s", (*(const char**)&DAT_004ca248), output);

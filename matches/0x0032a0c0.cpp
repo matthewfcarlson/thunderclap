@@ -1,17 +1,9 @@
 #include "decls/data/platform/xbox/pure3d.h"
+#include "gen/owners.h"
 
-struct State_32a0c0 {
-    char pad[0x4c];
-    unsigned char flag;
-    char pad2[3];
-    int a;
-    int b;
-    int c;
-    void Fn(unsigned char, int, int, int);
-};
 extern void __fastcall SetRenderState(unsigned int state, unsigned int value);
 extern unsigned int g0_32a0c0, g1, g2, g3;
-void State_32a0c0::Fn(unsigned char flag, int a, int b, int c) {
+void owners::State_32a0c0::FUN_0032a0c0(unsigned char flag, int a, int b, int c) {
     if (flag != this->flag) {
         this->flag = flag;
         SetRenderState(0x40304, flag);

@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Sub_2c3930 {
-    void Set(int);
     char p[8];
 };
 struct Entity_2c3930 {
@@ -30,7 +30,7 @@ TextBible::TextBible(int a, int n) {
     mA = -1;
     mB = 0;
     if (a)
-        s.Set(a);
+        ((owners::Target_27b040 *)&s)->FUN_0027b040((hulk_uintptr)a);
     if (n) {
         mBegin = (int*)FUN_0008d6d0(n * 4);
         if (mBegin) {

@@ -1,4 +1,5 @@
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 extern void* __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
 extern const int RTTI_Params_10dbb0;
@@ -19,13 +20,12 @@ struct Mid_10dbb0 {
     Owner_10dbb0* GetOwner();
 };
 struct P_10dbb0 {
-    Mid_10dbb0* GetMid();
 };
 
 bool hulkfight::ai::AIFightNodeCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { P_10dbb0 * p = (P_10dbb0 *)__p1;
 
     if (FUN_00344e74(p, 0, &RTTI_Params_10dbb0, &RTTI_CFightParams_10dbb0, 0)) {
-        Owner_10dbb0* o = p->GetMid()->GetOwner();
+        Owner_10dbb0* o = ((Mid_10dbb0 *)((owners::Object_592a0 *)p)->FUN_000592a0())->GetOwner();
         if (o) {
             Holder_10dbb0* n = (*(Holder_10dbb0 * *)&this->f_0c);
             if (n) {

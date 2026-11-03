@@ -1,17 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 16/16)
 // FUN_002401f0 @ 0x002401f0
 #include "decls/data/engine/audio.h"
+#include "gen/owners.h"
 
 struct StringHeader_2401f0 { unsigned int capacity; unsigned short references; unsigned short reserved; };
 extern void __cdecl FUN_00247570(StringHeader_2401f0*);
-struct String {
-    char* data; unsigned short kind; unsigned short pad6; unsigned short length; unsigned short pad10;
-    void FUN_00240090(const String* src);
-    char* FUN_0023fbb0();
-    String* ToLower(String* out);
-};
-String* String::ToLower(String* out) {
-    String tmp;
+owners::String_2401f0* owners::String_2401f0::FUN_002401f0(owners::String_2401f0* out) {
+    owners::String_2401f0 tmp;
     tmp.FUN_00240090(this);
     char* p = tmp.FUN_0023fbb0();
     if (p) {

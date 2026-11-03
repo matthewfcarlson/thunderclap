@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3054 inputs, branch coverage 42/42)
 // FUN_0028c910 @ 0x0028c910
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" void *FUN_0008d690(unsigned int size);
 
 struct Stream {
-    void FUN_002647e0(void *dst, int count, int size, int flag);
 };
 
 struct Reader {
@@ -22,7 +22,6 @@ struct Obj_28c910 {
     int field8;
     char padc[8];
     short *data14;
-    void *FUN_002888c0(int size, int tag);
 };
 struct Vector3DOFChannel_28c910 : public Obj_28c910 {
     int *data18;
@@ -48,13 +47,13 @@ Obj_28c910 *__stdcall FUN_0028c910(Arg1_28c910 a1, int a2, Arg3_28c910 a3) {
     int id;
     switch (r->FUN_00266c30()) {
     case 0x121102:
-        r->stream->FUN_002647e0(&a1.id, 1, 4, 1);
-        r->stream->FUN_002647e0(&f.l1c, 1, 4, 1);
-        r->stream->FUN_002647e0(&a1.count16, 1, 2, 1);
+        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
+        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.l1c), (hulk_intptr)1, 4, (hulk_intptr)1);
+        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a1.count16), (hulk_intptr)1, 2, (hulk_intptr)1);
         {
             int s = a1.count16;
-            r->stream->FUN_002647e0(&f.l20, 3, 4, 1);
-            r->stream->FUN_002647e0(&a1.id, 1, 4, 1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.l20), (hulk_intptr)3, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
             id = a1.id;
             ObjA_28c910 *o;
             if (a3.obj == 0) {
@@ -63,7 +62,7 @@ Obj_28c910 *__stdcall FUN_0028c910(Arg1_28c910 a1, int a2, Arg3_28c910 a3) {
                 if (mem)
                     o = ((ObjA_28c910 *)mem)->FUN_0028bd40(id, 0);
             } else {
-                o = (ObjA_28c910 *)a3.obj->FUN_002888c0(0x2c, 7);
+                o = (ObjA_28c910 *)((void *)((owners::C_2888c0 *)(Obj_28c910 *)(a3.obj))->FUN_002888c0(0x2c, 7));
                 if (o)
                     o = o->FUN_0028bd40(id, a3.obj);
             }
@@ -72,21 +71,21 @@ Obj_28c910 *__stdcall FUN_0028c910(Arg1_28c910 a1, int a2, Arg3_28c910 a3) {
             o->field1c = f.l20;
             o->field20 = f.l24;
             o->field24 = f.l28;
-            r->stream->FUN_002647e0(o->data14, id, 2, 1);
-            r->stream->FUN_002647e0(o->data28, id, 4, 1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(o->data14), (hulk_intptr)id, 2, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(o->data28), (hulk_intptr)id, 4, (hulk_intptr)1);
             obj = o;
         }
         break;
     case 0x121103:
-        r->stream->FUN_002647e0(&a1.id, 1, 4, 1);
-        r->stream->FUN_002647e0(&f.l10, 1, 4, 1);
-        r->stream->FUN_002647e0(&a1.count16, 1, 2, 1);
+        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
+        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.l10), (hulk_intptr)1, 4, (hulk_intptr)1);
+        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a1.count16), (hulk_intptr)1, 2, (hulk_intptr)1);
         {
             int s = a1.count16;
-            r->stream->FUN_002647e0(&f.l14, 1, 4, 1);
-            r->stream->FUN_002647e0(&f.l18, 1, 4, 1);
-            r->stream->FUN_002647e0(&f.l1c, 1, 4, 1);
-            r->stream->FUN_002647e0(&a1.id, 1, 4, 1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.l14), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.l18), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.l1c), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
             id = a1.id;
             Vector2DOFChannel_28c910 *o;
             if (a3.obj == 0) {
@@ -95,7 +94,7 @@ Obj_28c910 *__stdcall FUN_0028c910(Arg1_28c910 a1, int a2, Arg3_28c910 a3) {
                 if (mem)
                     o = ((Vector2DOFChannel_28c910 *)mem)->FUN_0028be20(id, 0);
             } else {
-                o = (Vector2DOFChannel_28c910 *)a3.obj->FUN_002888c0(0x2c, 7);
+                o = (Vector2DOFChannel_28c910 *)((void *)((owners::C_2888c0 *)(Obj_28c910 *)(a3.obj))->FUN_002888c0(0x2c, 7));
                 if (o)
                     o = o->FUN_0028be20(id, a3.obj);
             }
@@ -104,15 +103,15 @@ Obj_28c910 *__stdcall FUN_0028c910(Arg1_28c910 a1, int a2, Arg3_28c910 a3) {
             o->field1c = f.l14;
             o->field20 = f.l18;
             o->field24 = f.l1c;
-            r->stream->FUN_002647e0(o->data14, id, 2, 1);
-            r->stream->FUN_002647e0(o->data28, id * 2, 4, 1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(o->data14), (hulk_intptr)id, 2, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(o->data28), (hulk_intptr)(id * 2), 4, (hulk_intptr)1);
             obj = o;
         }
         break;
     case 0x121104:
-        r->stream->FUN_002647e0(&a1.id, 1, 4, 1);
-        r->stream->FUN_002647e0(&f.l10, 1, 4, 1);
-        r->stream->FUN_002647e0(&a1.id, 1, 4, 1);
+        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
+        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.l10), (hulk_intptr)1, 4, (hulk_intptr)1);
+        ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
         {
             id = a1.id;
             Vector3DOFChannel_28c910 *o;
@@ -122,13 +121,13 @@ Obj_28c910 *__stdcall FUN_0028c910(Arg1_28c910 a1, int a2, Arg3_28c910 a3) {
                 if (mem)
                     o = ((Vector3DOFChannel_28c910 *)mem)->FUN_0028bf20(id, 0);
             } else {
-                o = (Vector3DOFChannel_28c910 *)a3.obj->FUN_002888c0(0x1c, 7);
+                o = (Vector3DOFChannel_28c910 *)((void *)((owners::C_2888c0 *)(Obj_28c910 *)(a3.obj))->FUN_002888c0(0x1c, 7));
                 if (o)
                     o = o->FUN_0028bf20(id, a3.obj);
             }
             o->field8 = f.l10;
-            r->stream->FUN_002647e0(o->data14, id, 2, 1);
-            r->stream->FUN_002647e0(o->data18, id * 3, 4, 1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(o->data14), (hulk_intptr)id, 2, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(o->data18), (hulk_intptr)(id * 3), 4, (hulk_intptr)1);
             obj = o;
         }
         break;
@@ -137,8 +136,8 @@ Obj_28c910 *__stdcall FUN_0028c910(Arg1_28c910 a1, int a2, Arg3_28c910 a3) {
     }
     while (r->FUN_002669f0()) {
         if (r->FUN_00266a30() == 0x121110) {
-            r->stream->FUN_002647e0(&a1.id, 1, 4, 1);
-            r->stream->FUN_002647e0(&a3.value, 1, 4, 1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a1.id), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&a3.value), (hulk_intptr)1, 4, (hulk_intptr)1);
             obj->field4 = a3.value;
         }
         r->FUN_00266be0();

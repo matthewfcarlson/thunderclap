@@ -1,11 +1,6 @@
-class O_16ea20 {
-    char pad[0x1c];
+#include "gen/owners.h"
 
-  public:
-    unsigned char Set(unsigned int x);
-};
-
-unsigned char O_16ea20::Set(unsigned int x) {
+unsigned char owners::O_16ea20::FUN_0016ea20(unsigned int x) {
     *(unsigned int*)(&pad[0x1c]) = x;
     return 1;
 }

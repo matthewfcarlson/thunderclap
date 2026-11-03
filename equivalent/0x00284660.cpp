@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_00284660 @ 0x00284660
+#include "gen/owners.h"
 struct Quat_284660 {
     float x, y, z, w;
-    void FUN_0022b750(const Quat_284660* a, const Quat_284660* b, float t);
 };
 
 struct Vec3Pad {
@@ -42,7 +42,7 @@ bool Pose::FUN_00284660(Pose* other, float t, unsigned int only)
 {
     for (unsigned int i = 0; i < info->count; i++) {
         if (i != only) {
-            quats[i].FUN_0022b750(&quats[i], &other->quats[i], t);
+            ((owners::Quaternion_22b750 *)&(quats[i]))->FUN_0022b750((const owners::Quaternion_22b750 *)(const Quat_284660 *)(&quats[i]), (const owners::Quaternion_22b750 *)(const Quat_284660 *)(&other->quats[i]), t);
             Vec3Pad* d = &mats[i].pos;
             const Vec3Pad* s = &other->mats[i].pos;
             d->x = (s->x - d->x) * t + d->x;
@@ -54,7 +54,7 @@ bool Pose::FUN_00284660(Pose* other, float t, unsigned int only)
             q.y = 0.0f;
             q.z = 0.0f;
             q.w = 1.0f;
-            q.FUN_0022b750(&q, &other->quats[i], t);
+            ((owners::Quaternion_22b750 *)&q)->FUN_0022b750((const owners::Quaternion_22b750 *)(const Quat_284660 *)(&q), (const owners::Quaternion_22b750 *)(const Quat_284660 *)(&other->quats[i]), t);
             FUN_0022b080((float *)(Quat_284660 *)(&q), (const float *)(const Quat_284660 *)(&q), (const float *)(const Quat_284660 *)(&quats[i]));
             quats[i] = q;
             Vec3Pad* d = &mats[i].pos;

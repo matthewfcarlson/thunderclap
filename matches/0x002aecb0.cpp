@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Input;
 struct LoadStream_2aecb0 {
     virtual void slot0() = 0;
@@ -6,14 +7,13 @@ struct LoadStream_2aecb0 {
 };
 void* __cdecl thunk_FUN_0008d690(unsigned int);
 struct Sub_2aecb0 {
-    void FUN_0027b040(Input*);
 };
 struct Result_2aecb0 {
     char pad[8];
     Sub_2aecb0 sub;
 };
 namespace pure3d {
-struct ImageBuilder {
+struct ImageBuilder_2aecb0 {
     virtual void slot0();
     Result_2aecb0* result;
     int a, b, c, d;
@@ -30,7 +30,7 @@ struct Container_2aecb0 {
     virtual void s6() = 0;
     virtual void s7() = 0;
     virtual void s8() = 0;
-    virtual void s9(LoadStream_2aecb0*, pure3d::ImageBuilder*) = 0;
+    virtual void s9(LoadStream_2aecb0*, pure3d::ImageBuilder_2aecb0*) = 0;
 };
 struct Owner_2aecb0 {
     char pad[0x8c];
@@ -47,7 +47,7 @@ Result_2aecb0* Owner_2aecb0::target(Input* input) {
         r->slot1();
         return 0;
     }
-    pure3d::ImageBuilder builder;
+    pure3d::ImageBuilder_2aecb0 builder;
     builder.result = 0;
     builder.a = 0;
     builder.b = 0;
@@ -57,7 +57,7 @@ Result_2aecb0* Owner_2aecb0::target(Input* input) {
     c->s9(r, &builder);
     Result_2aecb0* result = builder.result;
     if (result)
-        result->sub.FUN_0027b040(input);
+        ((owners::Target_27b040 *)&(result->sub))->FUN_0027b040((hulk_uintptr)(Input *)input);
     r->slot1();
     return result;
 }

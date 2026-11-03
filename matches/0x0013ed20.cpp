@@ -1,11 +1,6 @@
-class Obj_13ed20 {
-  public:
-    char pad[0x1c];
-    int m1c;
-    bool Fn(int x);
-};
+#include "gen/owners.h"
 
-bool Obj_13ed20::Fn(int x) {
+bool owners::Obj_13ed20::FUN_0013ed20(int x) {
     m1c = x;
     return true;
 }

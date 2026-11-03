@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Vector {
     unsigned int x, y, z;
 };
@@ -15,13 +16,11 @@ struct Filter_1fccf0 {
 struct Item_1fccf0 {
     char pad[0x114];
     int excluded;
-    void FUN_001d72e0();
     bool FUN_001d7300();
     Vector* FUN_001d6b40();
 };
 struct Collection_1fccf0 {
     int FUN_001dcf50();
-    Item_1fccf0* FUN_001dc0b0(int index);
 };
 struct Owner_1fccf0 {
     char pad[12];
@@ -44,8 +43,8 @@ void CTriggerVolumeManager_1fccf0::FUN_001fccf0(unsigned int arg, unsigned char 
     Collection_1fccf0* collection = owner->collection;
     int n = collection->FUN_001dcf50();
     for (int i = n - 1; i >= 0; --i) {
-        Item_1fccf0* item = collection->FUN_001dc0b0(i);
-        item->FUN_001d72e0();
+        Item_1fccf0* item = ((Item_1fccf0 *)((owners::CGrabAction_1dc0b0 *)collection)->FUN_001dc0b0(i));
+        ((owners::C_1d72e0 *)item)->FUN_001d72e0();
         if (active && !item->FUN_001d7300())
             continue;
         if (item->excluded)

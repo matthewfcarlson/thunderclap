@@ -1,15 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1567 inputs, branch coverage 10/10)
 // FUN_000b63a0 @ 0x000b63a0
 // cl-flags: /GS
+#include "gen/owners.h"
 extern char DAT_0049dba4[];
 extern char DAT_0049dbbc[];
 
-class FEObject {
+class FEObject_b63a0 {
 public:
     virtual void vfunc_0();
 };
 
-class TextSelector : public FEObject {
+class TextSelector_b63a0 : public FEObject_b63a0 {
 public:
     virtual void vfunc_1();
 };
@@ -21,9 +22,6 @@ public:
 
 struct Label_b63a0 {
     char data[0x24];
-    void FUN_000f7930();
-    void FUN_000f7960();
-    void FUN_000f7a10(int index, int flag);
     void FUN_000f8500(const char *name, Manager_b63a0 *manager, char flag);
 };
 
@@ -57,12 +55,12 @@ public:
     void FUN_000b63a0();
 };
 
-class Selector_b63a0 : public TextSelector {
+class Selector_b63a0 : public TextSelector_b63a0 {
 public:
     virtual void vfunc_2(); virtual void vfunc_3();
 };
 
-FEObject *__cdecl FUN_000fc260(const char *name);
+FEObject_b63a0 *__cdecl FUN_000fc260(const char *name);
 Manager_b63a0 *__cdecl FUN_000fc1b0();
 void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 int __cdecl FUN_000964a0(char *dst, int size, const char *fmt, ...);
@@ -87,7 +85,7 @@ void Owner_b63a0::FUN_000b63a0()
         if (sel) {
             Label_b63a0 label;
             char number[16];
-            label.FUN_000f7930();
+            ((owners::State_f7930 *)&label)->FUN_000f7930();
             sel->FUN_000e36c0();
             for (int i = 1; i < table->count; i++) {
                 int value = table->FUN_00090250(i)->value;
@@ -96,7 +94,7 @@ void Owner_b63a0::FUN_000b63a0()
                 int kb = row->keyB;
                 int idx = FUN_000fc1b0()->FUN_000f7240(ka, kb);
                 if (idx != -1) {
-                    label.FUN_000f7a10(idx, 0);
+                    ((owners::Obj_f7a10 *)&label)->FUN_000f7a10((hulk_intptr)idx, 0);
                 } else {
                     Manager_b63a0 *m = FUN_000fc1b0();
                     RowName *rn = (RowName *)table->FUN_00090250(i);
@@ -108,7 +106,7 @@ void Owner_b63a0::FUN_000b63a0()
                 sel->v20(i - 1, &label);
             }
             sel->v3();
-            label.FUN_000f7960();
+            ((owners::Thing_f7960 *)&label)->FUN_000f7960();
         }
     }
 }

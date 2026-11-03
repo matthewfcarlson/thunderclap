@@ -2,6 +2,7 @@
 // hulkfight::ai::FormationReadyCondition::vfunc_6 @ 0x0010e040
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
@@ -38,7 +39,6 @@ struct Chain_10e040 {
 };
 
 struct Owner_10e040 {
-    Chain_10e040 *FUN_000592a0();
 };
 
 struct Registry_10e040 {
@@ -57,7 +57,7 @@ bool hulkfight::ai::FormationReadyCondition::vfunc_6(void* __p0, void* __p1, voi
 
     if (!FUN_00344e74(owner, 0, DAT_00494b44, DAT_00494b60, 0))
         return (bool)(0);
-    Actor_10e040 *actor = owner->FUN_000592a0()->FUN_00059a30();
+    Actor_10e040 *actor = ((Chain_10e040 *)((owners::Object_592a0 *)owner)->FUN_000592a0())->FUN_00059a30();
     if (!actor)
         return (bool)(0);
     Body_10e040 *body = actor->body;

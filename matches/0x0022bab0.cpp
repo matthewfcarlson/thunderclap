@@ -1,10 +1,7 @@
+#include "gen/owners.h"
 extern "C" double __cdecl sin(double);
 extern "C" double __cdecl cos(double);
-struct Mat_22bab0 {
-    float v[11];
-    void Set(float);
-};
-void Mat_22bab0::Set(float angle) {
+void owners::Mat_22bab0::FUN_0022bab0(float angle) {
     float s = sin(angle);
     v[2] = 0.0f;
     v[6] = 0.0f;

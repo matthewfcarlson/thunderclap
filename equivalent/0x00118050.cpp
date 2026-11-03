@@ -2,6 +2,7 @@
 // hulkfight::ai::HasGroundPointExtendedCondition::vfunc_6 @ 0x00118050
 #include "decls/address.h"
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
@@ -33,7 +34,6 @@ struct Resolver_118050 {
 };
 
 struct Target_118050 {
-    Resolver_118050 *FUN_000592a0();
 };
 
 struct Hit_118050 {
@@ -42,7 +42,6 @@ struct Hit_118050 {
 };
 
 struct Slot_118050 {
-    void FUN_00025260(int a, int b, int c);
 };
 
 struct Mgr_118050 {
@@ -95,7 +94,7 @@ char HasGroundPointExtendedCondition::vfunc_6(int a, void *obj, int c)
     Frame_118050 f;
     if (!FUN_00344e74(obj, 0, DAT_00494b44, DAT_00494b60, 0))
         return 0;
-    Res_118050 *r = ((Target_118050 *)obj)->FUN_000592a0()->FUN_00059a30();
+    Res_118050 *r = ((Resolver_118050 *)((owners::Object_592a0 *)(((Target_118050 *)obj)))->FUN_000592a0())->FUN_00059a30();
     if (!r)
         return 0;
     if (!useBody) {
@@ -123,10 +122,10 @@ char HasGroundPointExtendedCondition::vfunc_6(int a, void *obj, int c)
         f.w.x = f.pos.x + p->x;
         f.w.y = f.pos.y + p->y;
     }
-    DAT_004dd700->slot->FUN_00025260(0, 0, 0);
+    ((owners::C_25260 *)(DAT_004dd700->slot))->FUN_00025260(0, 0, 0);
     DAT_004dd700->mgr->FUN_001dcf60(0);
     char found = FUN_00202560(&f.w, 20.0f, 1, &f.outA, &f.outB, 0, 0, &hit);
-    DAT_004dd700->slot->FUN_00025260(1, 0, 0);
+    ((owners::C_25260 *)(DAT_004dd700->slot))->FUN_00025260(1, 0, 0);
     DAT_004dd700->mgr->FUN_001dcf60(1);
     if (found) {
         hulk_freg v = f.outA.y - f.w.y;

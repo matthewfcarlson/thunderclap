@@ -3,6 +3,7 @@
 // cl-flags: /GS
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
 extern "C" int __cdecl _sprintf(char *, const char *, ...);
 extern int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
@@ -49,11 +50,9 @@ public:
     Handle_207580 *handle;         // 0xaec
     char padaf0[2];
     char pending;           // 0xaf2
-    void FUN_00207150();
     int FUN_00204c10(int v);
     void FUN_00207080(int v);
     Handle_207580 *FUN_00203e90(char *path, int a, int b, char *slot, int c, int d, int e);
-    Thing_207580 *FUN_00203db0(int key);
     void FUN_002067d0(int id, int v);
     bool FUN_00207580(int a1, bool a2);
 };
@@ -82,7 +81,7 @@ bool MapLoader::FUN_00207580(int a1, bool a2)
         if (j >= 2) {
             FUN_000964a0(f.path, 0x100, "art/locations/%s/%s_district_%d.p3d", str1, str2, f.key);
             _sprintf(f.name, "%s_district_%d", str2, f.key);
-            FUN_00207150();
+            ((owners::C_207150 *)this)->FUN_00207150();
             if ((*(char*)((char*)&DAT_004c91d8 + 1)) != 0) {
                 int s = 0;
                 while (s < 2 && slots[20 + s].used != 0)
@@ -156,6 +155,6 @@ bool MapLoader::FUN_00207580(int a1, bool a2)
         if (q < 2)
             keys[q] = f.key;
         int arg2_ = f44;
-        FUN_00203db0(f.key)->FUN_002660a0(arg2_);
+        ((Thing_207580 *)((owners::Obj_203db0 *)this)->FUN_00203db0((hulk_intptr)(f.key)))->FUN_002660a0(arg2_);
     }
 }

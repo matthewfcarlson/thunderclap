@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 typedef unsigned int u32_11c920;
 struct Action_11c920 {
     virtual void a();
@@ -23,10 +24,8 @@ struct Obj_11c920 {
     void P2(Pair_11c920*);
 };
 struct Mid_11c920 {
-    Obj_11c920* H();
 };
 struct Manager_11c920 {
-    void Reg(void*);
 };
 struct Root_11c920 {
     char pad[0x1c];
@@ -41,9 +40,9 @@ struct PathFormationAction : Action_11c920 {
 };
 void PathFormationAction::vfunc_4() {
     if (mid) {
-        Info_11c920* i = mid->H()->G();
+        Info_11c920* i = ((Obj_11c920 *)((owners::Object_592a0 *)mid)->FUN_000592a0())->G();
         Conv()->P1(&Pair_11c920(i->x, i->y));
         Conv()->P2(&Pair_11c920(i->x, i->y));
-        gRoot_11c920->m->Reg((char*)this + 0x1c);
+        ((owners::Ring_1ae150 *)(gRoot_11c920->m))->FUN_001ae150((hulk_intptr)((char*)this + 0x1c));
     }
 }

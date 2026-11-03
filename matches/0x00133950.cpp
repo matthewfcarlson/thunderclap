@@ -1,11 +1,6 @@
-class O_133950 {
-  public:
-    char pad[0x3c];
-    int mVal;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char O_133950::Set(int v) {
+char owners::O_133950::FUN_00133950(int v) {
     char r = 1;
     int* q = &mVal;
     *q = v;

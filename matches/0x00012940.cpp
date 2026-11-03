@@ -1,9 +1,7 @@
+#include "gen/owners.h"
 struct Sub_12940 {
     char data[0x38];
 };
-struct Obj_12940 {
-    void* Target();
-};
-void* Obj_12940::Target() {
+void* owners::Obj_12940::FUN_00012940() {
     return (void*)((char*)this + 0x38);
 }

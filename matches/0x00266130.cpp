@@ -1,9 +1,4 @@
-class X_266130 {
-  public:
-    char pad[9];
-    unsigned char field;
-    void Set(unsigned char value);
-};
-void X_266130::Set(unsigned char value) {
+#include "gen/owners.h"
+void owners::X_266130::FUN_00266130(unsigned char value) {
     field = value;
 }

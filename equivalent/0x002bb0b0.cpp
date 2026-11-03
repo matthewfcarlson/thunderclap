@@ -1,16 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2639 inputs, branch coverage 39/48, incomplete)
 // FUN_002bb0b0 @ 0x002bb0b0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "gen/owners.h"
 void *thunk_FUN_0008d690(unsigned int size);
 extern "C" double cos(double);
 
 struct Name {
     char data[8];
-    void FUN_0027b040(const char *s);
 };
 
 struct Reader {
-    void FUN_002647e0(void *dst, int count, int size, int flag);
 };
 
 struct Stream {
@@ -22,7 +21,6 @@ struct Stream {
 };
 
 struct Xform {
-    void FUN_0022be40(float *pos);
     void FUN_0022ba20(float *quat);
 };
 
@@ -95,7 +93,7 @@ Base *__stdcall FUN_002bb0b0(Stream *s, void *ctx)
 {
     Frame f;
     Reader *r = s->reader;
-    r->FUN_002647e0(&f.v16, 1, 4, 1);
+    ((owners::X_2647e0 *)r)->FUN_002647e0((hulk_intptr)(&f.v16), (hulk_intptr)1, 4, (hulk_intptr)1);
     int kind = 0;
     for (int i = 0; i < 3; i++)
         f.pos[i] = 0;
@@ -106,34 +104,34 @@ Base *__stdcall FUN_002bb0b0(Stream *s, void *ctx)
     f.f4.f = 1.0f;
     f.f8.f = 1.0f;
     f.flag = true;
-    s->reader->FUN_002647e0(&f.len, 1, 1, 1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
     unsigned int len = f.len;
-    s->reader->FUN_002647e0(f.name, len, 1, 1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(f.name), (hulk_intptr)len, 1, (hulk_intptr)1);
     f.name[len] = 0;
-    s->reader->FUN_002647e0(&f.type, 1, 4, 1);
-    s->reader->FUN_002647e0(f.pos, 3, 4, 1);
-    s->reader->FUN_002647e0(&f.v16, 1, 4, 1);
-    s->reader->FUN_002647e0(f.m88, 8, 4, 1);
-    s->reader->FUN_002647e0(&f.v40, 1, 4, 1);
-    s->reader->FUN_002647e0(&f.v20, 1, 4, 1);
-    s->reader->FUN_002647e0(&f.v24, 1, 4, 1);
-    s->reader->FUN_002647e0(f.w80, 2, 4, 1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.type), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(f.pos), (hulk_intptr)3, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.v16), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(f.m88), (hulk_intptr)8, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.v40), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.v20), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.v24), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(f.w80), (hulk_intptr)2, 4, (hulk_intptr)1);
 
     while (s->FUN_002669f0()) {
         int id = s->FUN_00266a30();
         if (id == 0x17003) {
-            s->reader->FUN_002647e0(&f.dummy120[1], 1, 4, 1);
-            s->reader->FUN_002647e0(f.quat, 4, 4, 1);
-            s->reader->FUN_002647e0(&f.id44, 1, 4, 1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.dummy120[1]), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(f.quat), (hulk_intptr)4, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.id44), (hulk_intptr)1, 4, (hulk_intptr)1);
             kind = f.id44;
-            s->reader->FUN_002647e0(&f.dummy120[2], 2, 4, 1);
-            s->reader->FUN_002647e0(&f.v48, 1, 4, 1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.dummy120[2]), (hulk_intptr)2, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.v48), (hulk_intptr)1, 4, (hulk_intptr)1);
             f.f4.i = f.v48;
-            s->reader->FUN_002647e0(&f.v28, 1, 4, 1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.v28), (hulk_intptr)1, 4, (hulk_intptr)1);
             f.f8.i = f.v28;
         } else if (id == 0x17004) {
-            s->reader->FUN_002647e0(&f.dummy120[0], 1, 4, 1);
-            s->reader->FUN_002647e0(&f.v32, 1, 4, 1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.dummy120[0]), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.v32), (hulk_intptr)1, 4, (hulk_intptr)1);
             f.flag = (f.v32 != 0);
         }
         s->FUN_00266be0();
@@ -193,7 +191,7 @@ Base *__stdcall FUN_002bb0b0(Stream *s, void *ctx)
             obj = ((Base *)mem)->FUN_002b8e80();
     }
 
-    obj->name.FUN_0027b040(f.name);
+    ((owners::Target_27b040 *)&(obj->name))->FUN_0027b040((hulk_uintptr)(f.name));
 
     int mode;
     switch (f.type) {
@@ -206,7 +204,7 @@ Base *__stdcall FUN_002bb0b0(Stream *s, void *ctx)
     }
     obj->b8c = f.flag;
     obj->i90 = mode;
-    obj->xf.FUN_0022be40(f.pos);
+    ((owners::Target_22be40 *)&(obj->xf))->FUN_0022be40((const int *)(f.pos));
     obj->xf.FUN_0022ba20(f.quat);
     obj->f80 = f.v40 * 0.5f;
     obj->i88 = f.v24;

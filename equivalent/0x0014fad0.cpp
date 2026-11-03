@@ -4,6 +4,7 @@
 #include "compat/ptr.h"
 #include "decls/data/game/hulkfight.h"
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/owners.h"
 
 struct V3_14fad0 {
     float x, y, z;
@@ -12,7 +13,6 @@ struct V3_14fad0 {
 };
 
 struct Transform_14fad0 {
-    void FUN_0022be40(const V3_14fad0 *pos);
 };
 
 class FloatObject_14fad0 {
@@ -45,9 +45,7 @@ struct Player_14fad0 {
     V3_14fad0 v1ae0;
     char pad1aec[0x1af8 - 0x1aec];
     V3_14fad0 v1af8;
-    void FUN_000359c0(int a);
     void FUN_00035550(V3_14fad0 *out);
-    void FUN_000357a0(const V3_14fad0 *v);
 };
 
 struct Mgr_14fad0 {
@@ -56,7 +54,6 @@ struct Mgr_14fad0 {
 };
 
 struct Holder_14fad0 {
-    Mgr_14fad0 *FUN_000592a0();
 };
 
 struct Grav {
@@ -113,9 +110,9 @@ bool HitFloatAction::vfunc_5(Arg1_14fad0 a, float dt)
         return false;
 
     Holder_14fad0 *holder = (Holder_14fad0 *)owner;
-    Mgr_14fad0 *mgr = holder->FUN_000592a0();
+    Mgr_14fad0 *mgr = ((Mgr_14fad0 *)((owners::Object_592a0 *)holder)->FUN_000592a0());
     Player_14fad0 *pl = mgr->FUN_00059a30();
-    pl->FUN_000359c0(3);
+    ((owners::C_359c0 *)pl)->FUN_000359c0(3);
     a.angle = FUN_00224f10(&target->size);
     dir = (*(V3_14fad0*)&DAT_004afa08);
     FUN_00224d70(a.angle, &dir);
@@ -146,7 +143,7 @@ bool HitFloatAction::vfunc_5(Arg1_14fad0 a, float dt)
         vecA.x = vecA.x * s;
         vecA.y = vecA.y * s;
         vecA.z = vecA.z * s;
-        pl->FUN_000357a0(&vecA);
+        ((owners::C_357a0 *)pl)->FUN_000357a0((float *)(const V3_14fad0 *)(&vecA));
     } else if (pl->mode != 3) {
         dir.y = dir.y + pl->cfg->f2c;
     }
@@ -167,6 +164,6 @@ bool HitFloatAction::vfunc_5(Arg1_14fad0 a, float dt)
     hulk_freg v = f30 - dt * f34;
     f30 = v;
     dir.y = v * dt + dir.y;
-    floatObj->transform.FUN_0022be40(&dir);
+    ((owners::Target_22be40 *)&(floatObj->transform))->FUN_0022be40((const int *)(const V3_14fad0 *)(&dir));
     return true;
 }

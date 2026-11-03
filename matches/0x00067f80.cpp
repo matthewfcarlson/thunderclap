@@ -1,12 +1,6 @@
-class Obj_67f80 {
-    char pad[0x30];
-    unsigned char m;
+#include "gen/owners.h"
 
-  public:
-    unsigned char Set(unsigned char v);
-};
-
-unsigned char Obj_67f80::Set(unsigned char v) {
+unsigned char owners::Obj_67f80::FUN_00067f80(unsigned char v) {
     m = v;
     return 1;
 }

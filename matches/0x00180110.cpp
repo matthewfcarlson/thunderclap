@@ -1,9 +1,5 @@
-class Obj_180110 {
-  public:
-    char pad[0x78];
-    void* Get() throw();
-};
+#include "gen/owners.h"
 
-void* Obj_180110::Get() throw() {
+void* owners::Obj_180110::FUN_00180110() throw() {
     return (void*)((char*)this + 0x78);
 }

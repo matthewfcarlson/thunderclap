@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 8/8)
 // hulkfight::motion::CSMPropIsCharacterCondition::vfunc_6 @ 0x00181a70
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
@@ -14,7 +15,6 @@ struct Ctx_181a70 {
 
 class Owner_181a70 {
 public:
-    Ctx_181a70 *FUN_000592a0();
 };
 
 struct Target_181a70 {
@@ -36,7 +36,7 @@ bool hulkfight::motion::CSMPropIsCharacterCondition::vfunc_6(void* __p0, void* _
 
     if (FUN_00344e74(owner, 0, DAT_00494b44, DAT_00494b60, 0) == 0)
         return false;
-    Stats_181a70::Slot *slot = owner->FUN_000592a0()->FUN_00059a30()->f3a4;
+    Stats_181a70::Slot *slot = ((Ctx_181a70 *)((owners::Object_592a0 *)owner)->FUN_000592a0())->FUN_00059a30()->f3a4;
     if (slot == 0 || slot->fc != 5)
         return false;
     return (slot->f8->f148 != 0) == (int)(*(unsigned char *)&this->f_0c);

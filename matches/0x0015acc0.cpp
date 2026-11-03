@@ -1,9 +1,4 @@
-class C_15acc0 {
-  public:
-    char pad[0x70];
-    char m;
-    char* Get();
-};
-char* C_15acc0::Get() {
+#include "gen/owners.h"
+char* owners::C_15acc0::FUN_0015acc0() {
     return &m;
 }

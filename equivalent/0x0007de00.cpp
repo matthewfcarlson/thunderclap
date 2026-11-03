@@ -2,6 +2,7 @@
 // FUN_0007de00 @ 0x0007de00
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 typedef unsigned __int64 U64_7de00;
 struct Vec3_7de00 { float x,y,z; };
 struct Name_7de00 { void FUN_0027b0e0(const char*); };
@@ -9,7 +10,7 @@ extern "C" void __cdecl FUN_00363c40();
 extern int __cdecl _atexit(void (__cdecl*)());
 struct Loaded_7de00 { void FUN_001dd8e0(int,int); };
 struct Container_7de00 { char pad[12]; Loaded_7de00* loaded; };
-struct Factory_7de00 { void FUN_00011330(int); };
+struct Factory_7de00 {  };
 extern Factory_7de00* __cdecl FUN_000964d0();
 struct Object { virtual void slot0(); virtual void slot1(); Object* FUN_000831c0(const char*,int,int,Vec3_7de00*,Vec3_7de00*); };
 extern Object* __cdecl FUN_00263ea0(unsigned);
@@ -27,7 +28,7 @@ void Manager_7de00::target(const char* name,int unused,Vec3_7de00 a,Vec3_7de00 b
  int id=FUN_000796e0(((Name_7de00*)&DAT_004dd068),name,&a,&b,0,0,1);
  if(id==-1) return;
  container->loaded->FUN_001dd8e0(id,1);
- FUN_000964d0()->FUN_00011330(3);
+ ((owners::Random_11330 *)(FUN_000964d0()))->FUN_00011330(3);
  Object* obj=FUN_00263ea0(0x50);
  if(!obj) return;
  obj=obj->FUN_000831c0(name,id,0,&a,&b);

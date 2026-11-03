@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 15598 inputs, branch coverage 10/10)
 // FUN_00083e60 @ 0x00083e60
+#include "gen/owners.h"
 extern "C" double sin(double);
 extern "C" double cos(double);
 extern "C" double tan(double);
@@ -8,13 +9,11 @@ extern "C" double sqrt(double);
 struct Mat {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022ba70(float angle);
 };
 
 struct Vec3 {
     float x, y, z;
     void FUN_0022d180();
-    void FUN_0022d260(Mat *m);
 };
 
 union FloatBits {
@@ -128,9 +127,9 @@ void Rig::FUN_00083e60(Vec3 U, Vec3 V, Vec3 P)
         sign = -1;
     Mat M;
     M.FUN_0022b980();
-    M.FUN_0022ba70(sign * 1.57079637f);
+    ((owners::Mat_22ba70 *)&M)->FUN_0022ba70(sign * 1.57079637f);
     Vec3 Uc = U;
-    Uc.FUN_0022d260(&M);
+    ((owners::Obj_22d260 *)&Uc)->FUN_0022d260((owners::Obj_22d260 *)(Mat *)(&M));
     Uc.FUN_0022d180();
     float r3 = rad;
     volatile float ux = Uc.x * r3;

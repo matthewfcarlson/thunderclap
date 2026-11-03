@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19273 inputs, branch coverage 20/20)
 // FUN_00204ad0 @ 0x00204ad0
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 
 struct Vec3_204ad0 {
@@ -23,7 +24,6 @@ struct ItemSub {
 struct ItemList_204ad0 {
     char pad00[0x18];
     ItemSub sub;
-    Item_204ad0 *FUN_001c7f80(unsigned int index);
 };
 
 struct Manager_204ad0 {
@@ -80,7 +80,7 @@ int Owner_204ad0::FUN_00204ad0(int count, int *ignore)
     int bestId = -1;
     hulk_freg bestDist = -999999.0f;
     for (int i = 0; i < total; i++) {
-        Item_204ad0 *it = items->FUN_001c7f80(i);
+        Item_204ad0 *it = ((Item_204ad0 *)((owners::Thing_1c7f80 *)items)->FUN_001c7f80(i));
         if (it->skip != 0)
             continue;
         int id = it->id;

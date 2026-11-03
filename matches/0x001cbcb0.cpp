@@ -1,14 +1,10 @@
+#include "gen/owners.h"
 struct Entry_1cbcb0 {
     void Set(int, int);
     void Reset(int);
     void Finish(int);
 };
-struct Owner_1cbcb0 {
-    char pad[0x3e4];
-    unsigned char active[0x18];
-    bool Run(int);
-};
-bool Owner_1cbcb0::Run(int arg) {
+bool owners::Owner_1cbcb0::FUN_001cbcb0(int arg) {
     int i = 0;
     Entry_1cbcb0* entry = (Entry_1cbcb0*)((char*)this + 0x24);
     do {

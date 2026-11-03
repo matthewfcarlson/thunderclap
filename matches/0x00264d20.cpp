@@ -1,25 +1,15 @@
 #include "decls/data/engine/audio.h"
 #include "decls/data/engine/content.h"
 // data: g_cur_264d20 = DAT_00527c4c, g_obj_264d20 = DAT_00527c28
+#include "gen/owners.h"
 
 int GetId();
 int Conv(int);
 void __cdecl Use(int);
 void __cdecl Use2(void*);
 
-class Q_264d20 {
-  public:
-    void Fn();
-    char pad[8];
-    int m8;
-    char pad2[8];
-    unsigned m14;
-    unsigned m18;
-    int m1c;
-    int m20;
-};
 
-void Q_264d20::Fn() {
+void owners::Q_264d20::FUN_00264d20() {
     if (GetId() == (*(int*)&DAT_00527c4c)) {
         unsigned s = m14;
         unsigned e = m18;

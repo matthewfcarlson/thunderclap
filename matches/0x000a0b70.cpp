@@ -1,10 +1,4 @@
-class C_a0b70 {
-    char pad[0x350];
-
-  public:
-    unsigned int value;
-    unsigned int target();
-};
-unsigned int C_a0b70::target() {
+#include "gen/owners.h"
+hulk_uintptr owners::C_a0b70::FUN_000a0b70() {
     return value;
 }

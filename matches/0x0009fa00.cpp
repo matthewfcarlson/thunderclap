@@ -1,5 +1,6 @@
 #include "decls/data/game/global.h"
 // data: gFlag_9fa00 = DAT_004e222c
+#include "gen/owners.h"
 
 struct St_9fa00 {
     int a;
@@ -12,10 +13,8 @@ struct St_9fa00 {
     char p4[0xa4 - 0x4c];
 };
 struct Dev_9fa00 {
-    void G(St_9fa00* s);
 };
 struct Mgr_9fa00 {
-    Dev_9fa00* F(int i);
 };
 struct Root_9fa00 {
     char pad[0x54];
@@ -34,8 +33,8 @@ extern "C" bool FUN_0009fa00() {
     int i = 0;
     do {
         St_9fa00 s;
-        Dev_9fa00* d = m->F(i);
-        d->G(&s);
+        Dev_9fa00* d = ((Dev_9fa00 *)((owners::C_af3a0 *)m)->FUN_000af3a0(i));
+        ((owners::C_af0f0 *)d)->FUN_000af0f0((St_9fa00 *)(&s));
         if (s.a == 1 || s.c == 1 || s.b == 1 || s.d == 1) {
             DAT_004e222c = 1;
             return true;

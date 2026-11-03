@@ -2,6 +2,7 @@
 // FUN_00197610 @ 0x00197610
 #include "compat/ptr.h"
 #include "decls/address.h"
+#include "gen/owners.h"
 extern "C" double __cdecl sqrt(double);
 
 struct V3_197610 {
@@ -36,7 +37,6 @@ struct Pos10_197610 {
 struct Target_197610 {
     char pad00[0x10];
     Pos10_197610 *f10;
-    void FUN_000356c0(V3_197610 *out);
     void FUN_00035550(V3_197610 *out);
 };
 
@@ -75,7 +75,6 @@ struct Anchor_197610 {
     Fighter_197610 *FUN_00059a30();
 };
 struct Ref20_197610 {
-    Anchor_197610 *FUN_000592a0();
 };
 
 struct Sink64 {
@@ -118,7 +117,7 @@ void Proj_197610::FUN_00197610(float dt)
 {
     if (f20 == 0)
         return;
-    Fighter_197610 *owner = f20->FUN_000592a0()->FUN_00059a30();
+    Fighter_197610 *owner = ((Anchor_197610 *)((owners::Object_592a0 *)f20)->FUN_000592a0())->FUN_00059a30();
     if (!owner)
         return;
     f64->FUN_001d7590();
@@ -141,7 +140,7 @@ void Proj_197610::FUN_00197610(float dt)
             d.x = 0;
             d.y = 0;
             d.z = 0;
-            tg->FUN_000356c0(&d);
+            ((owners::Thing_356c0 *)tg)->FUN_000356c0((unsigned int *)(V3_197610 *)(&d));
             hulk_freg len = d.FUN_0022d110();
             hulk_freg sc;
             if (len <= 0.0f) {

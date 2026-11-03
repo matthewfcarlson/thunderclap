@@ -2,6 +2,7 @@
 // FUN_000c9810 @ 0x000c9810
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 struct V3_c9810 {
     float x, y, z;
 };
@@ -13,14 +14,10 @@ struct V2_c9810 {
 struct Mat4_c9810 {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022be40(const V3_c9810 *pos);
-    void FUN_0022bc20(float x, float y, float z);
-    void FUN_0022bab0(float angle);
 };
 
 struct Planar {
     float x, y, z;
-    void FUN_0022d260(const Mat4_c9810 *m);
 };
 
 struct Body_c9810 {
@@ -93,7 +90,6 @@ public:
     void FUN_000c9720(V3_c9810 v);
     V2_c9810 *FUN_000c9460(V2_c9810 *out, V3_c9810 v);
     void FUN_000c9100(int idx);
-    void FUN_000c8f50(float v);
     void FUN_000c9810(float dt);
 };
 
@@ -144,11 +140,11 @@ void Tracker_c9810::FUN_000c9810(float dt)
         Probe_c9810 *probe = DAT_004dd700->f20->FUN_00024280(s->a28, s->b2c);
         probe->FUN_00035550(&f.p);
         f.mat.FUN_0022b980();
-        f.mat.FUN_0022bab0(4.712389f);
+        ((owners::Mat_22bab0 *)&(f.mat))->FUN_0022bab0(4.712389f);
         s->w.x = f.p.x;
         s->w.y = f.p.z;
         s->w.z = 0.0f;
-        s->w.FUN_0022d260(&f.mat);
+        ((owners::Obj_22d260 *)&(s->w))->FUN_0022d260((owners::Obj_22d260 *)(const Mat4_c9810 *)(&f.mat));
         if (!b2958)
             continue;
         float t = probe->FUN_00035690();
@@ -164,9 +160,9 @@ void Tracker_c9810::FUN_000c9810(float dt)
         }
         if (!b224 && f220 >= DAT_0049fbd4) {
             if (t > DAT_0049fbcc)
-                FUN_000c8f50(DAT_0049fbbc);
+                ((owners::Obj_c8f50 *)this)->FUN_000c8f50(DAT_0049fbbc);
             else
-                FUN_000c8f50(DAT_0049fbb8);
+                ((owners::Obj_c8f50 *)this)->FUN_000c8f50(DAT_0049fbb8);
         }
     }
 
@@ -189,8 +185,8 @@ void Tracker_c9810::FUN_000c9810(float dt)
         f.p.y = f.tmp.y + e->f1c;
         f.p.z = f.tmp.z + e->f20;
         f.mat.FUN_0022b980();
-        f.mat.FUN_0022be40(&f.p);
-        f.mat.FUN_0022bc20(f.u.euler.x * 0.017453292f, f.u.euler.y * 0.017453292f, f.u.euler.z * 0.017453292f);
+        ((owners::Target_22be40 *)&(f.mat))->FUN_0022be40((const int *)(const V3_c9810 *)(&f.p));
+        ((owners::Matrix_22bc20 *)&(f.mat))->FUN_0022bc20(f.u.euler.x * 0.017453292f, f.u.euler.y * 0.017453292f, f.u.euler.z * 0.017453292f);
         DAT_004dd700->f0c->FUN_001dd470(e->handle, &f.mat, 0);
     }
 }

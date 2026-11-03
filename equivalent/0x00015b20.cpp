@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 142 inputs, branch coverage 38/40, incomplete)
 // CSmartPropAttachAction::vfunc_4 @ 0x00015b20
 #include "gen/global.h"
+#include "gen/owners.h"
 
 struct V3_15b20 {
     float x, y, z;
@@ -12,9 +13,6 @@ struct Matrix_15b20 {
     V3_15b20 pos;
     float w;
     void FUN_0022b980();
-    void FUN_0022bc20(float x, float y, float z);
-    void FUN_0022c120();
-    void FUN_0022ca90(Matrix_15b20* a, Matrix_15b20* b);
 };
 
 struct Key {
@@ -54,7 +52,6 @@ struct Anchor_15b20 {
 };
 
 struct Owner_15b20 {
-    Anchor_15b20* FUN_000592a0();
 };
 
 struct Link_15b20 {
@@ -72,7 +69,6 @@ struct Handle_15b20 {
 };
 
 struct Part_15b20 {
-    int FUN_001d4de0();
 };
 
 struct Target {
@@ -83,7 +79,6 @@ struct Target {
     void FUN_0027d4f0(int v);
     void FUN_001d8fc0(float v);
     Handle_15b20* FUN_001d6c90();
-    void FUN_001d6ca0(int v);
     bool FUN_001d7300();
     void thunk_FUN_0027d410(const Key* k);
 };
@@ -137,13 +132,13 @@ void CSmartPropAttachAction::vfunc_4() {
         return;
     if (t->state == 2 || t->state == 3)
         return;
-    if (t->partEc->FUN_001d4de0() == 0) {
+    if (((owners::C_1d4de0 *)(t->partEc))->FUN_001d4de0() == 0) {
         t->FUN_0027d4f0(5);
         t->FUN_001d8fc0(0.001f);
         if (t->FUN_001d6c90() != 0) {
             if (t->FUN_001d6c90()->kind == 5) {
                 Target* nt = t->FUN_001d6c90()->target;
-                t->FUN_001d6ca0(0);
+                ((owners::A_1d6ca0 *)t)->FUN_001d6ca0(0);
                 f.target = nt;
                 t = nt;
             }
@@ -155,7 +150,7 @@ void CSmartPropAttachAction::vfunc_4() {
         return;
 
     unsigned int joint = 0xffff;
-    Anchor_15b20* anchor = (*(Owner_15b20 * *)&this->f_1c)->FUN_000592a0();
+    Anchor_15b20* anchor = ((Anchor_15b20 *)((owners::Object_592a0 *)((*(Owner_15b20 * *)&this->f_1c)))->FUN_000592a0());
     f.fighter = anchor->FUN_00059a30();
     Rig* rig = anchor->FUN_00059a40();
     Skeleton_15b20* skel = 0;
@@ -168,7 +163,7 @@ void CSmartPropAttachAction::vfunc_4() {
     f.p20 = (*(Attach * *)&this->f_20)->f20;
     if ((*(Attach * *)&this->f_20)->hasLocal) {
         f.m.FUN_0022b980();
-        f.m.FUN_0022bc20((*(Attach * *)&this->f_20)->localPos.x, (*(Attach * *)&this->f_20)->localPos.y, (*(Attach * *)&this->f_20)->localPos.z);
+        ((owners::Matrix_22bc20 *)&(f.m))->FUN_0022bc20((*(Attach * *)&this->f_20)->localPos.x, (*(Attach * *)&this->f_20)->localPos.y, (*(Attach * *)&this->f_20)->localPos.z);
         f.d = (*(Attach * *)&this->f_20)->offset;
         f.m.pos = (*(Attach * *)&this->f_20)->offset;
     } else {
@@ -176,9 +171,9 @@ void CSmartPropAttachAction::vfunc_4() {
             f.m2 = *(Matrix_15b20*)(skel->table + joint * 64);
         else
             f.fighter->FUN_00035160(&f.m2);
-        f.m2.FUN_0022c120();
+        ((owners::Matrix_22c120 *)&(f.m2))->FUN_0022c120();
         f.m3 = (*(Holder_15b20 * *)&this->f_24)->mat;
-        f.m.FUN_0022ca90(&f.m3, &f.m2);
+        ((owners::Matrix_22ca90 *)&(f.m))->FUN_0022ca90((const owners::Matrix_22ca90 *)(Matrix_15b20 *)(&f.m3), (const owners::Matrix_22ca90 *)(Matrix_15b20 *)(&f.m2));
         f.dist = (*(Attach * *)&this->f_20)->dist;
         if (f.dist > 0.0f) {
             f.d = f.m.pos;

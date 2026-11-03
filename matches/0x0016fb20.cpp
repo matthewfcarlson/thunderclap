@@ -1,12 +1,5 @@
-class A_16fb20 {
-  public:
-    char pad[0x20];
-    int a;
-    int b;
-    int c;
-    bool Set(int* x);
-};
-bool A_16fb20::Set(int* x) {
+#include "gen/owners.h"
+bool owners::A_16fb20::FUN_0016fb20(int* x) {
     a = x[0];
     b = x[1];
     c = x[2];

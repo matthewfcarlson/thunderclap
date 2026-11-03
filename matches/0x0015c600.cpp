@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 class Obj_15c600 {
   public:
@@ -8,7 +9,6 @@ class Obj_15c600 {
 };
 class Manager_15c600 {
   public:
-    Obj_15c600* get();
 };
 class Setter_15c600 {
   public:
@@ -21,7 +21,7 @@ class Fin {
 
 void hulkfight::motion::LocomotionSteerAction::vfunc_4() {
     if ((*(void * *)&this->f_24)) {
-        Obj_15c600* edi = ((Manager_15c600*)(*(void * *)&this->f_20))->get();
+        Obj_15c600* edi = ((Obj_15c600 *)((owners::Object_592a0 *)(((Manager_15c600*)(*(void * *)&this->f_20))))->FUN_000592a0());
         Obj_15c600* p = edi->first();
         if (p) {
             ((Setter_15c600*)p)->set((hulk_intptr)(*(void * *)&this->f_24), 0, (int)0xbf800000);

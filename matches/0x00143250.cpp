@@ -1,11 +1,6 @@
-class X_143250 {
-  public:
-    char pad[0x10];
-    int value;
-    unsigned char Set(int v);
-};
+#include "gen/owners.h"
 
-unsigned char X_143250::Set(int v) {
+unsigned char owners::X_143250::FUN_00143250(int v) {
     value = v;
     return 1;
 }

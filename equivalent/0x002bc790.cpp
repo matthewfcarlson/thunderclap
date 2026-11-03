@@ -2,6 +2,7 @@
 // FUN_002bc790 @ 0x002bc790
 #include "decls/address.h"
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 struct Vec3_2bc790 {
     float x, y, z;
@@ -23,7 +24,6 @@ struct LoadInventory_2bc790 {
 
 class Stream_2bc790 {
 public:
-    void FUN_002647e0(void *dst, int count, int size, int flag);
 };
 
 class Reader_2bc790 {
@@ -38,7 +38,6 @@ public:
 class NameHolder_2bc790 {
 public:
     char pad00[8];
-    void FUN_0027b040(const char *name);
 };
 
 class Child_2bc790 {
@@ -51,14 +50,12 @@ class ChildList_2bc790 {
 public:
     Child_2bc790 **begin;
     char pad04[8];
-    void FUN_002bc520(int n, Child_2bc790 **value);
 };
 
 class Mat4_2bc790 {
 public:
     float m[16];
     void FUN_0022ba20(const float *q);
-    void FUN_0022be40(const Vec3_2bc790 *t);
 };
 
 class BillboardCutOffQuadGroup_2bc790 {
@@ -168,16 +165,16 @@ void Group_2bc790::FUN_002bc790(Parent_2bc790 *parent, Reader_2bc790 *r, Factory
     char *name1 = (char *)fr.name1;
     char *name2 = (char *)fr.name2;
     fr.self = this;
-    r->stream->FUN_002647e0(&fr.f, 1, 4, 1);
-    r->stream->FUN_002647e0(&fr.len, 1, 1, 1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.f), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.len), (hulk_intptr)1, 1, (hulk_intptr)1);
     unsigned int n1 = fr.len;
-    r->stream->FUN_002647e0(name1, n1, 1, 1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)name1, (hulk_intptr)n1, 1, (hulk_intptr)1);
     name1[n1] = 0;
-    r->stream->FUN_002647e0(&fr.len, 1, 1, 1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.len), (hulk_intptr)1, 1, (hulk_intptr)1);
     unsigned int n2 = fr.len;
-    r->stream->FUN_002647e0(name2, n2, 1, 1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)name2, (hulk_intptr)n2, 1, (hulk_intptr)1);
     name2[n2] = 0;
-    r->stream->FUN_002647e0(&fr.count, 1, 4, 1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.count), (hulk_intptr)1, 4, (hulk_intptr)1);
     fr.len = fr.count != 0;
     BillboardCutOffQuadGroup_2bc790 *o;
     if (fr.len == 1) {
@@ -192,8 +189,8 @@ void Group_2bc790::FUN_002bc790(Parent_2bc790 *parent, Reader_2bc790 *r, Factory
             o = ((BillboardCutOffQuadGroup_2bc790 *)mem)->FUN_002bc580();
     }
     FUN_002a46d0(parent->p48, o);
-    parent->name.FUN_0027b040(name1);
-    o->name.FUN_0027b040(name1);
+    ((owners::Target_27b040 *)&(parent->name))->FUN_0027b040((hulk_uintptr)name1);
+    ((owners::Target_27b040 *)&(o->name))->FUN_0027b040((hulk_uintptr)name1);
     unsigned __int64 id = FUN_0027b020(name2);
     new (&fr.count) content::LoadInventory_2bc790::DynamicCaster<pure3d::Shader_2bc790>();
     ::pure3d::Shader *shader = factory->v3((content::LoadInventory_2bc790::DynamicCaster<pure3d::Shader_2bc790> *)&fr.count, id);
@@ -205,28 +202,28 @@ void Group_2bc790::FUN_002bc790(Parent_2bc790 *parent, Reader_2bc790 *r, Factory
             shader = ((Shader_nv_2bc790*)(((::pure3d::Shader *)mem2)))->FUN_0028edf0("error", 0);
     }
     o->v8(shader);
-    r->stream->FUN_002647e0(&fr.count, 1, 4, 1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.count), (hulk_intptr)1, 4, (hulk_intptr)1);
     o->b88 = fr.count != 0;
-    r->stream->FUN_002647e0(&fr.count, 1, 4, 1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.count), (hulk_intptr)1, 4, (hulk_intptr)1);
     o->b89 = fr.count != 0;
-    r->stream->FUN_002647e0(&fr.count, 1, 4, 1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.count), (hulk_intptr)1, 4, (hulk_intptr)1);
     o->b8a = fr.count != 0;
-    r->stream->FUN_002647e0(&fr.count, 1, 4, 1);
+    ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.count), (hulk_intptr)1, 4, (hulk_intptr)1);
     fr.slot1c = 0;
     fr.idx = 0;
-    o->list.FUN_002bc520(fr.count, (Child_2bc790 **)&fr.slot1c);
+    ((owners::Buffer_2bc520 *)&(o->list))->FUN_002bc520((unsigned int)(fr.count), (Child_2bc790 * *)((Child_2bc790 **)&fr.slot1c));
 
     if (!r->FUN_002669f0())
         return;
     do {
         int chunk = r->FUN_00266a30();
         if (chunk == 0x10004) {
-            r->stream->FUN_002647e0(&o->v2c, 3, 4, 1);
-            r->stream->FUN_002647e0(&fr.slot1c, 1, 4, 1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&o->v2c), (hulk_intptr)3, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.slot1c), (hulk_intptr)1, 4, (hulk_intptr)1);
             o->i38 = fr.slot1c;
         } else if (chunk == 0x10003) {
-            r->stream->FUN_002647e0(&o->v14, 3, 4, 1);
-            r->stream->FUN_002647e0(&o->v20, 3, 4, 1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&o->v14), (hulk_intptr)3, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&o->v20), (hulk_intptr)3, 4, (hulk_intptr)1);
         } else if (chunk == 0x17005) {
             if ((unsigned int)fr.idx < (unsigned int)fr.count) {
                 Child_2bc790 **slot = o->list.begin + fr.idx;
@@ -239,15 +236,15 @@ void Group_2bc790::FUN_002bc790(Parent_2bc790 *parent, Reader_2bc790 *r, Factory
                 *slot = child;
             }
         } else if (chunk == 0x17007) {
-            r->stream->FUN_002647e0(&fr.junkA, 1, 4, 1);
-            r->stream->FUN_002647e0(fr.q4, 4, 4, 1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.junkA), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(fr.q4), (hulk_intptr)4, 4, (hulk_intptr)1);
             o->mat40.FUN_0022ba20(fr.q4);
-            r->stream->FUN_002647e0(&fr.pos, 3, 4, 1);
-            o->mat40.FUN_0022be40(&fr.pos);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.pos), (hulk_intptr)3, 4, (hulk_intptr)1);
+            ((owners::Target_22be40 *)&(o->mat40))->FUN_0022be40((const int *)(const Vec3_2bc790 *)(&fr.pos));
         } else if (chunk == 0x1700a) {
             if (fr.len == 1) {
-                r->stream->FUN_002647e0(&fr.j5, 1, 4, 1);
-                r->stream->FUN_002647e0(&fr.tag1, 1, 4, 1);
+                ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.j5), (hulk_intptr)1, 4, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.tag1), (hulk_intptr)1, 4, (hulk_intptr)1);
                 if (fr.tag1 == 0x48544f42)
                     o->f98 = 3;
                 else if (fr.tag1 == 0x54524556)
@@ -256,29 +253,29 @@ void Group_2bc790::FUN_002bc790(Parent_2bc790 *parent, Reader_2bc790 *r, Factory
                     o->f98 = 2;
                 else
                     o->f98 = 0;
-                r->stream->FUN_002647e0(&fr.c0, 1, 4, 1);
+                ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.c0), (hulk_intptr)1, 4, (hulk_intptr)1);
                 o->fa4 = (float)cos(fr.c0);
-                r->stream->FUN_002647e0(&fr.c1, 1, 4, 1);
+                ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.c1), (hulk_intptr)1, 4, (hulk_intptr)1);
                 o->fa8 = (float)cos(fr.c1);
-                r->stream->FUN_002647e0(&fr.c2, 1, 4, 1);
+                ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.c2), (hulk_intptr)1, 4, (hulk_intptr)1);
                 o->fac = (float)cos(fr.c2);
-                r->stream->FUN_002647e0(&fr.c3, 1, 4, 1);
+                ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.c3), (hulk_intptr)1, 4, (hulk_intptr)1);
                 o->fb0 = (float)cos(fr.c3);
             }
         } else if (chunk == 0x1700c) {
             if (fr.len == 1) {
-                r->stream->FUN_002647e0(&fr.j4, 1, 4, 1);
-                r->stream->FUN_002647e0(&fr.e2, 1, 4, 1);
+                ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.j4), (hulk_intptr)1, 4, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.e2), (hulk_intptr)1, 4, (hulk_intptr)1);
                 o->fa0 = fr.e2 == 0x454e494c;
-                r->stream->FUN_002647e0(&fr.e3, 1, 4, 1);
+                ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.e3), (hulk_intptr)1, 4, (hulk_intptr)1);
                 o->fc4 = fr.e3;
-                r->stream->FUN_002647e0(&fr.e4, 1, 4, 1);
+                ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.e4), (hulk_intptr)1, 4, (hulk_intptr)1);
                 o->fc8 = fr.e4;
             }
         } else if (chunk == 0x1700b) {
             if (fr.len == 1) {
-                r->stream->FUN_002647e0(&fr.j3, 1, 4, 1);
-                r->stream->FUN_002647e0(&fr.tag2, 1, 4, 1);
+                ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.j3), (hulk_intptr)1, 4, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.tag2), (hulk_intptr)1, 4, (hulk_intptr)1);
                 if (fr.tag2 == 0x48544f42)
                     o->f9c = 3;
                 else if (fr.tag2 == 0x54524556)
@@ -287,20 +284,20 @@ void Group_2bc790::FUN_002bc790(Parent_2bc790 *parent, Reader_2bc790 *r, Factory
                     o->f9c = 2;
                 else
                     o->f9c = 0;
-                r->stream->FUN_002647e0(&fr.d1, 1, 4, 1);
+                ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.d1), (hulk_intptr)1, 4, (hulk_intptr)1);
                 o->fb4 = (float)cos(fr.d1);
-                r->stream->FUN_002647e0(&fr.d2, 1, 4, 1);
+                ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.d2), (hulk_intptr)1, 4, (hulk_intptr)1);
                 o->fb8 = (float)cos(fr.d2);
-                r->stream->FUN_002647e0(&fr.d3, 1, 4, 1);
+                ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.d3), (hulk_intptr)1, 4, (hulk_intptr)1);
                 o->fbc = (float)cos(fr.d3);
-                r->stream->FUN_002647e0(&fr.c4, 1, 4, 1);
+                ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.c4), (hulk_intptr)1, 4, (hulk_intptr)1);
                 o->fc0 = (float)cos(fr.c4);
             }
         } else if (chunk == 0x121204) {
             FUN_002a4b00(parent->p48, r, factory);
         } else if (chunk == 0x122000) {
-            r->stream->FUN_002647e0(&fr.junk2, 1, 4, 1);
-            r->stream->FUN_002647e0(&fr.f, 1, 4, 1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.junk2), (hulk_intptr)1, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&fr.f), (hulk_intptr)1, 4, (hulk_intptr)1);
             float v = fr.f;
             if (!(v >= 0.0f))
                 v = 0.0f;

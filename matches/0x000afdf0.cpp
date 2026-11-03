@@ -1,10 +1,5 @@
-class A_afdf0 {
-  public:
-    char pad[4];
-    unsigned char flag;
-    void f();
-};
-void A_afdf0::f() {
+#include "gen/owners.h"
+void owners::A_afdf0::FUN_000afdf0() {
     if (!flag)
         flag = 1;
 }

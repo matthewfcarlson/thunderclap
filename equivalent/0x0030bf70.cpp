@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 204 inputs, branch coverage 12/12)
 // FUN_0030bf70 @ 0x0030bf70
+#include "gen/owners.h"
 struct Vec3_30bf70 {
     float x, y, z;
 };
@@ -8,7 +9,6 @@ struct Item_30bf70 {
     char pad[0x10];
     Vec3_30bf70 pos;
     char pad2[0x64 - 0x1c];
-    void FUN_002fd730();
 };
 
 struct ItemTable_30bf70 {
@@ -82,7 +82,7 @@ void Mover_30bf70::FUN_0030bf70()
         afterDelta();
         Item_30bf70 *item = &store->table->items[index];
         pending = 0.0f;
-        item->FUN_002fd730();
+        ((owners::Obj_2fd730 *)item)->FUN_002fd730();
         item->pos.x += v.x;
         item->pos.y += v.y;
         item->pos.z += v.z;

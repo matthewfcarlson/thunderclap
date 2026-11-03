@@ -3,7 +3,8 @@
 // cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-struct Profile_d9680 { int FUN_000f7d30(int); void* FUN_000f7220(int); };
+#include "gen/owners.h"
+struct Profile_d9680 {   };
 struct Item_d9680 { char data[0x1c]; unsigned char active; char rest[0x1b]; void* FUN_000f83f0(Profile_d9680*, int); };
 struct State_d9680 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d9680* FUN_00086280(); };
@@ -22,8 +23,8 @@ void FEMemCardControl_d9680::target(int index) {
 char buffer[1024];
 Dialog_d9680* dialog=FUN_000fc3d0();
 Profile_d9680* profile=dialog->v44();
-int id=profile->FUN_000f7d30(DAT_004de64c);
-void* text=profile->FUN_000f7220(id);
+int id=((int)((owners::A_f7d30 *)profile)->FUN_000f7d30((hulk_intptr)DAT_004de64c));
+void* text=((void *)((owners::C_f7220 *)profile)->FUN_000f7220((hulk_intptr)id));
 void* item=items[index].FUN_000f83f0(profile,0);
 FUN_000fc020(buffer,512,text,item);
 if(flag) {

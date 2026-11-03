@@ -1,11 +1,6 @@
-class Obj_60420 {
-  public:
-    char pad[0xcc];
-    int mValue;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool Obj_60420::Set(int v) {
+bool owners::Obj_60420::FUN_00060420(int v) {
     mValue = v;
     return true;
 }

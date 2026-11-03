@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2874 inputs, branch coverage 75/78, incomplete)
 // FUN_0001df20 @ 0x0001df20
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Vec3 {
     float x, y, z;
 };
@@ -70,7 +71,6 @@ struct Info {
 };
 
 struct Holder {
-    int FUN_001d72e0() throw();
 };
 
 struct Entity {
@@ -96,8 +96,6 @@ struct Entity {
     void FUN_0003a680(Entity *t, int a, int b, int c, void *m, float e5, float e6, float e7) throw();
     void FUN_0003a9d0(int v) throw();
     float FUN_000354c0() throw();
-    int FUN_00036020() throw();
-    int FUN_00035ef0(int z) throw();
     void FUN_0003b160(struct Prop *p) throw();
     void FUN_0003b190(struct Prop *p) throw();
 };
@@ -126,7 +124,6 @@ struct Prop {
     Vec3 pos;
     char pad70[0x100 - 0x70];
     struct P100 *f100;
-    void FUN_00080cb0(int v) throw();
 };
 
 struct P20 { char pad[0x20]; struct P34 *f20; };
@@ -136,7 +133,6 @@ struct P100 { };
 
 struct Mgr {
     int FUN_00079270() throw();
-    Prop *FUN_00079280(int i) throw();
 };
 
 struct World {
@@ -223,11 +219,11 @@ void Ctrl::FUN_0001df20(Vec3 *a1, Vec3 *a2)
         } while (idx < count);
     }
     if (!found) {
-        if (edi->FUN_00036020() != 0)
+        if (((int)((owners::Thing_36020 *)edi)->FUN_00036020()) != 0)
             return;
         if (edi->f334 != 0)
             return;
-        if (edi->FUN_00035ef0(0) != 0)
+        if (((int)((owners::C_35ef0 *)edi)->FUN_00035ef0((hulk_intptr)0)) != 0)
             return;
         if (list->player != edi)
             return;
@@ -237,7 +233,7 @@ void Ctrl::FUN_0001df20(Vec3 *a1, Vec3 *a2)
             return;
         int i = 0;
         do {
-            Prop *p = m->FUN_00079280(i);
+            Prop *p = ((Prop *)((owners::Target_79280 *)m)->FUN_00079280(i));
             if (!((p->f28 >> 7) & 1)) {
                 double dx = a1->x - p->pos.x;
                 double dy = a1->y - p->pos.y;
@@ -253,7 +249,7 @@ void Ctrl::FUN_0001df20(Vec3 *a1, Vec3 *a2)
                                 b->FUN_00231ad0(&edi->fdc, (CFightParamsCollision_1df20 *)f1c, 0x80000000);
                                 if (edi->fdc.cur == b) {
                                     edi->FUN_0003b160(p);
-                                    p->FUN_00080cb0(5);
+                                    ((owners::C_80cb0 *)p)->FUN_00080cb0(5);
                                 }
                             }
                         }
@@ -279,7 +275,7 @@ void Ctrl::FUN_0001df20(Vec3 *a1, Vec3 *a2)
     FUN_00018840(&fr.o.s70, edi->fdc.ref);
     edi->f330 = esi;
     if (edi->info->f1b0 == 3 && esi != player && esi->f128 != 0)
-        edi->FUN_0003a9d0(esi->f128->FUN_001d72e0());
+        edi->FUN_0003a9d0(((int)((owners::C_1d72e0 *)(esi->f128))->FUN_001d72e0()));
     edi->FUN_000354c0();
     esi->f330 = edi;
     Factory *fac = f20->f44;

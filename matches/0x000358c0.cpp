@@ -1,17 +1,5 @@
-class C_358c0 {
-    char pad[0x1e4];
-    int a;
-    int d;
-    int c;
-    int b;
-    int e;
-    int f;
-    int count;
-
-  public:
-    void Set(bool x);
-};
-void C_358c0::Set(bool x) {
+#include "gen/owners.h"
+void owners::C_358c0::FUN_000358c0(bool x) {
     if (x) {
         ++count;
         if (count > 0) {

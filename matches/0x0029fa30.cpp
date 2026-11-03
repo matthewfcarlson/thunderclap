@@ -1,10 +1,10 @@
 #include "decls/data/engine/unknown.h"
+#include "gen/owners.h"
 
 struct Container_29fa30 {
     char pad[0x14];
     int count;
     void FUN_002a0fc0(int index, int value);
-    void FUN_002a1180(int value);
 };
 struct Entry_29fa30 {
     unsigned int value;
@@ -41,7 +41,7 @@ void Object::FUN_0029fa30() {
             group->entries[i].b = 0;
             group->entries[i].a = 0;
         }
-        group->container->FUN_002a1180(0);
+        ((owners::A_2a1180 *)(group->container))->FUN_002a1180(0);
     }
     ++generation;
 }

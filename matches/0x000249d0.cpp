@@ -1,10 +1,10 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct B_249d0 {
     char pad[0x44];
     struct Lookuper* lk;
 };
 struct Lookuper {
-    hulk_intptr Lookup(int key);
 };
 struct Node {
     char pad[0x20a8];
@@ -28,7 +28,7 @@ bool Target_249d0::Process() {
         int* p = mArr;
         do {
             Lookuper* l = mB->lk;
-            Node* node = (Node*)l->Lookup(*p);
+            Node* node = (Node*)((hulk_intptr)((owners::ThisWrap_00059c10 *)l)->FUN_00059c10((void *)(hulk_uintptr)(int)(*p)));
             if (node != 0) {
                 node->a = node->b;
             }

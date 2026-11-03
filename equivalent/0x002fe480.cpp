@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 15/16, incomplete)
 // FUN_002fe480 @ 0x002fe480
+#include "gen/owners.h"
 extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 
 struct Source_2fe480 {
@@ -31,7 +32,6 @@ struct Item_2fe480 {
     char pad51[0x68 - 0x51];
     char active;              // 0x68
     char pending;             // 0x69
-    void FUN_00304740(int value);
 };
 
 class SimStateHairclub_2fe480 {
@@ -123,7 +123,7 @@ extern "C" SimStateHairclub_2fe480 *__cdecl FUN_002fe480(int a, Owner_2fe480 *ow
             item->pending = 1;
         }
         if (src)
-            item->FUN_00304740(src->value);
+            ((owners::C_304740 *)item)->FUN_00304740((hulk_intptr)(src->value));
     }
     return e;
 }

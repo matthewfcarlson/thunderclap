@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class Item_29f2e0 {
   public:
     virtual void f0();
@@ -15,7 +16,6 @@ class List_29f2e0 {
     int count;
     char pad14[4];
     Item_29f2e0** items;
-    void init(int);
     void process(int, Item_29f2e0*);
 };
 class Obj_29f2e0 {
@@ -28,7 +28,7 @@ class Obj_29f2e0 {
     hulk_intptr run();
 };
 hulk_intptr Obj_29f2e0::run() {
-    list->init(n);
+    ((owners::A_2a1180 *)list)->FUN_002a1180(n);
     int i = 0;
     if (n > 0) {
         do {

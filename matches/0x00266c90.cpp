@@ -1,8 +1,4 @@
-struct Target_266c90 {
-    char pad[0x284];
-    unsigned int value;
-    unsigned int Get();
-};
-unsigned int Target_266c90::Get() {
+#include "gen/owners.h"
+unsigned int owners::Target_266c90::FUN_00266c90() {
     return value;
 }

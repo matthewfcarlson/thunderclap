@@ -3,6 +3,7 @@
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "gen/physics.h"
+#include "gen/owners.h"
 
 typedef unsigned int U_27db30;
 struct Spawned_27db30;
@@ -17,7 +18,7 @@ struct Entity_27db30 {
  char pad[0x80]; unsigned char active;
  Spawned_27db30* FUN_002fdf40(U_27db30 id,U_27db30 a,U_27db30 b);
  U_27db30 FUN_002ef4a0();
- void FUN_002fd4a0(); void FUN_002fd4b0(U_27db30 id,U_27db30 zero); void FUN_002fd4f0();
+  void FUN_002fd4b0(U_27db30 id,U_27db30 zero); void FUN_002fd4f0();
 };
 struct Holder_27db30 { char pad[0x10]; Entity_27db30* entity; };
 struct Spawned_27db30 {
@@ -44,7 +45,7 @@ void Target_27db30::run(physics::PhysicsInstance* parent,U_27db30 a,U_27db30 b,U
  SpawnVtable* table = *reinterpret_cast<SpawnVtable**>(object);
  value = entity->v4(id,0);
  table->slots[6](object,0,value);
- entity->FUN_002fd4a0();
+ ((owners::C_2fd4a0 *)entity)->FUN_002fd4a0();
  entity->FUN_002fd4b0(id,0);
  entity->FUN_002fd4f0();
  Child_27db30* child = parent ? ((PhysicsInstance_nv_27db30*)(((physics::PhysicsInstance*)(parent))))->FUN_002fc880(object,0) : 0;

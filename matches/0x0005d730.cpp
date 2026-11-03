@@ -1,10 +1,5 @@
-class Obj_5d730 {
-  public:
-    char pad[0x20];
-    int m20;
-    bool Set(int v);
-};
-bool Obj_5d730::Set(int v) {
+#include "gen/owners.h"
+bool owners::Obj_5d730::FUN_0005d730(int v) {
     m20 = v;
     return true;
 }

@@ -1,15 +1,11 @@
+#include "gen/owners.h"
 struct Temp_265310 {
     char x[0x18];
     void f(int);
     int g(int, int);
 };
-struct Obj_265310 {
-    char pad[0x10];
-    int value;
-    int run(int);
-};
-int Obj_265310::run(int param) {
+hulk_intptr owners::Obj_265310::FUN_00265310(hulk_intptr param) {
     Temp_265310 t;
     t.f(value);
-    return t.g(param, 0);
+    return t.g(((int)param), 0);
 }

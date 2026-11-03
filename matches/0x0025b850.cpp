@@ -1,8 +1,8 @@
 #include "decls/data/platform/xbox/audio.h"
 // data: bss = DAT_004e7778
+#include "gen/owners.h"
 
 struct Elem {
-    void clean();
     char pad[12];
 };
 struct Obj {
@@ -20,10 +20,10 @@ void __cdecl target(void* p, Obj* o) {
         int n = 10;
         do {
             --e;
-            e->clean();
+            ((owners::Str_240060 *)e)->FUN_00240060();
         } while (--n);
-        o->b.clean();
-        o->a.clean();
+        ((owners::Str_240060 *)&(o->b))->FUN_00240060();
+        ((owners::Str_240060 *)&(o->a))->FUN_00240060();
         freeobj(((char*)((char*)&DAT_004e76e8 + 144)), o);
     }
 }

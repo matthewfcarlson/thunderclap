@@ -1,7 +1,7 @@
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 struct H {
-    void* get();
     void* next();
     void invoke(int, int);
 };
@@ -11,7 +11,7 @@ struct HitThrowAction_nv_152450 {
 
 void hulkfight::motion::HitThrowAction::vfunc_4() {
     H* x = (*(H * *)&this->f_20);
-    void* p = x->get();
+    void* p = ((void *)((owners::Object_592a0 *)x)->FUN_000592a0());
     H* q = (H*)p;
     p = q->next();
     if (p) {

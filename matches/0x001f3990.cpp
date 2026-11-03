@@ -2,16 +2,9 @@
 // data: gHundred = DAT_004c7df4
 
 #include "compat/ptr.h"
+#include "gen/owners.h"
 void Apply(int, float);
-class Thing_1f3990 {
-  public:
-    char pad0[0x8c];
-    hulk_intptr mA;
-    char pad1[0x32c - 0x90];
-    int mB;
-    void Set(float);
-};
-void Thing_1f3990::Set(float x) {
+void owners::Thing_1f3990::FUN_001f3990(float x) {
     DAT_004c7df4 = x;
     if (mA && !mB) {
         int v = *(int*)(mA + 4);

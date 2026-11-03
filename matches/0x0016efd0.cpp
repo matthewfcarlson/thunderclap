@@ -1,11 +1,6 @@
-class Thing_16efd0 {
-  public:
-    char pad[0x44];
-    int mValue;
-    bool Set(int x);
-};
+#include "gen/owners.h"
 
-bool Thing_16efd0::Set(int x) {
+bool owners::Thing_16efd0::FUN_0016efd0(int x) {
     mValue = x;
     return true;
 }

@@ -1,10 +1,5 @@
-class Obj_5d680 {
-  public:
-    char Fn(int x);
-    char mPad[0xec];
-    int mField;
-};
-char Obj_5d680::Fn(int x) {
+#include "gen/owners.h"
+char owners::Obj_5d680::FUN_0005d680(int x) {
     mField = x;
     return 1;
 }

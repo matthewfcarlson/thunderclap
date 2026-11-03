@@ -1,12 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2862 inputs, branch coverage 48/50, incomplete)
 // FUN_002fdf40 @ 0x002fdf40
+#include "gen/owners.h"
 class CollisionObject_2fdf40;
 
 struct Name_2fdf40 {
     int lo;
     int hi;
-    void FUN_0027af60(int lo, int hi);
-    void FUN_0027b040(const char *s);
 };
 
 class Node;
@@ -154,9 +153,9 @@ void *Builder::FUN_002fdf40(int id, int nameLo, int nameHi)
                 shape = ((CollisionObject_2fdf40 *)mem)->FUN_00304f50(copy);
             shape->vfunc_6(0, 1);
             if ((nameLo | nameHi) != 0)
-                shape->name.FUN_0027af60(nameLo, nameHi);
+                ((owners::Pair_27af60 *)&(shape->name))->FUN_0027af60(nameLo, nameHi);
             else
-                shape->name.FUN_0027b040("JointObjectDefaultName");
+                ((owners::Target_27b040 *)&(shape->name))->FUN_0027b040((hulk_uintptr)"JointObjectDefaultName");
         }
     }
 
@@ -169,9 +168,9 @@ void *Builder::FUN_002fdf40(int id, int nameLo, int nameHi)
             else
                 made = 0;
             if ((nameLo | nameHi) != 0)
-                made->name.FUN_0027af60(nameLo, nameHi);
+                ((owners::Pair_27af60 *)&(made->name))->FUN_0027af60(nameLo, nameHi);
             else
-                made->name.FUN_0027b040("JointObjectDefaultName");
+                ((owners::Target_27b040 *)&(made->name))->FUN_0027b040((hulk_uintptr)"JointObjectDefaultName");
         }
     }
 

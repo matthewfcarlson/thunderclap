@@ -1,11 +1,6 @@
-class T_14c530 {
-  public:
-    char pad[0x10];
-    int value;
-    bool Set(int x);
-};
+#include "gen/owners.h"
 
-bool T_14c530::Set(int x) {
+bool owners::T_14c530::FUN_0014c530(int x) {
     value = x;
     return true;
 }

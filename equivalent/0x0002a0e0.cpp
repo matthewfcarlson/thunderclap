@@ -2,6 +2,7 @@
 // FUN_0002a0e0 @ 0x0002a0e0
 // Group method: look up a named pawn and run a collision sweep between two points, caching the result.
 #include "decls/address.h"
+#include "gen/owners.h"
 
 struct Vec3_2a0e0 {
     float x, y, z;
@@ -12,7 +13,6 @@ struct HitExtra_2a0e0 {
 };
 
 struct Pawn_2a0e0 {
-    char FUN_00038de0(Vec3_2a0e0 *from, Vec3_2a0e0 *to, int a, int foreign, HitExtra_2a0e0 *outB, Vec3_2a0e0 *outN, int *outC, int hit);
 };
 
 // The name pointer's argument slot is reused as an out-int for the sweep.
@@ -53,6 +53,6 @@ char Group_2a0e0::FUN_0002a0e0(NameSlot_2a0e0 name, float fx, float fy, float fz
         foreign = 1;
     Vec3_2a0e0 normal;
     name.out = 0;
-    hit = pawn->FUN_00038de0(&from, &to, 0, foreign, &extra, &normal, &name.out, 0);
+    hit = ((char)((owners::Obj_38de0 *)pawn)->FUN_00038de0((hulk_uintptr)(Vec3_2a0e0 *)(&from), (hulk_uintptr)(Vec3_2a0e0 *)(&to), 0, (unsigned int)foreign, (hulk_uintptr)(HitExtra_2a0e0 *)(&extra), (hulk_uintptr)(Vec3_2a0e0 *)(&normal), (hulk_uintptr)(&name.out), (hulk_uintptr)0));
     return hit;
 }

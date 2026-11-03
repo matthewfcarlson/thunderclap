@@ -1,15 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_003285d0 @ 0x003285d0
 #include "decls/data/platform/xbox/pure3d.h"
+#include "gen/owners.h"
 
-struct AccumulatorSource {
-    char padding[0x80];
-    float x, y, z, w;
-    unsigned char red, green, blue, alpha;
-    unsigned char enabled;
-    void FUN_003285d0(unsigned int unused);
-};
-void AccumulatorSource::FUN_003285d0(unsigned int unused) {
+void owners::AccumulatorSource_3285d0::FUN_003285d0(unsigned int unused) {
     if (enabled) {
         ++DAT_00555b84;
         DAT_00555b68 = DAT_00555b68 + x;

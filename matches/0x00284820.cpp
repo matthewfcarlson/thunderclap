@@ -1,17 +1,8 @@
-class C_284820 {
-  public:
-    char pad[0x24];
-    int count;
-    void A(int);
-    void B(int);
-    void D(int);
-    void E(int);
-    void Target(int);
-};
-void C_284820::Target(int x) {
-    A(x);
-    B(x);
-    D(x);
-    E(x);
+#include "gen/owners.h"
+void owners::C_284820::FUN_00284820(hulk_intptr x) {
+    A(((int)x));
+    B(((int)x));
+    D(((int)x));
+    E(((int)x));
     ++count;
 }

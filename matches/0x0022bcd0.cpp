@@ -1,10 +1,7 @@
+#include "gen/owners.h"
 extern "C" double __cdecl sin(double);
 extern "C" double __cdecl cos(double);
-struct Matrix {
-    float m[3][4];
-    void FUN_0022bcd0(float x, float y, float z);
-};
-void Matrix::FUN_0022bcd0(float x, float y, float z) {
+void owners::Matrix_22bcd0::FUN_0022bcd0(float x, float y, float z) {
     double sx = sin(x), cx = cos(x);
     float sy = (float)sin(y);
     double cy = cos(y);

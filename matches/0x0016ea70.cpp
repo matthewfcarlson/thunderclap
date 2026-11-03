@@ -1,11 +1,6 @@
-class O_16ea70 {
-  public:
-    char pad[0x20];
-    int m20;
-    char Fn(int x);
-};
+#include "gen/owners.h"
 
-char O_16ea70::Fn(int x) {
+char owners::O_16ea70::FUN_0016ea70(int x) {
     m20 = x;
     return 1;
 }

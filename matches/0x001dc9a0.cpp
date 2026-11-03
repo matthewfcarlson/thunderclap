@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Entry_1dc9a0 {
     char pad[0x18];
     struct Item_1dc9a0* item;
@@ -6,7 +7,6 @@ struct Entry_1dc9a0 {
     short value;
 };
 struct Item_1dc9a0 {
-    void Set(int);
 };
 struct Flag_1dc9a0 {
     char pad[16];
@@ -25,7 +25,7 @@ void CSPManager_1dc9a0::Func(int key, int val) {
         Entry_1dc9a0* e = &entries[n];
         Flag_1dc9a0* f = (Flag_1dc9a0*)((char*)this + 0x14608 + e->index * 20);
         if ((f->bits & 1) && e->item) {
-            e->item->Set(val);
+            ((owners::C_1d63b0 *)(e->item))->FUN_001d63b0(val);
             return;
         }
         e->value = (short)val;

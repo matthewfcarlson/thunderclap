@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2979 inputs, branch coverage 8/8)
 // FUN_002fd950 @ 0x002fd950
-struct CountSource { int FUN_0030f450(); };
+#include "gen/owners.h"
+struct CountSource {  };
 struct Matrix { unsigned int words[16]; };
 struct Transform_2fd950 { Matrix* FUN_0030f100(); };
 struct Node { Transform_2fd950* FUN_0030edf0(); };
@@ -22,7 +23,7 @@ struct Owner_2fd950 {
 void Owner_2fd950::FUN_002fd950(float value) {
  if (!source) return;
  int index = 0;
- if (source->FUN_0030f450() <= 0) return;
+ if (((owners::C_30f450 *)source)->FUN_0030f450() <= 0) return;
  do {
   Entry_2fd950* entry = entries + index;
   if (value == 0.0f) {
@@ -41,5 +42,5 @@ void Owner_2fd950::FUN_002fd950(float value) {
    entry->reset = 0;
   }
   ++index;
- } while (index < source->FUN_0030f450());
+ } while (index < ((owners::C_30f450 *)source)->FUN_0030f450());
 }

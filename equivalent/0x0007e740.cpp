@@ -4,6 +4,7 @@
 #include "decls/data/game/global.h"
 
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" double sin(double);
 extern "C" double cos(double);
 
@@ -26,7 +27,6 @@ struct Mgr10_7e740 {
 struct Player_7e740 {
     char pad0[0x10];
     Mgr10_7e740 *f10;
-    void FUN_00035660(V3_7e740 *out);
     void FUN_00035550(V3_7e740 *out);
 };
 
@@ -44,7 +44,6 @@ struct Cells {
 };
 
 struct Grid_7e740 {
-    Cells *FUN_000862a0();
 };
 
 struct Mgr382c {
@@ -55,7 +54,6 @@ struct Mgr382c {
 };
 
 struct Item_7e740 {
-    V3_7e740 *FUN_00082cf0();
 };
 
 struct Cell_7e740 {
@@ -94,7 +92,7 @@ void Game_7e740::FUN_0007e740()
 
     Player_7e740 *pl = mgr->zone->player;
     pl->f10->FUN_00059a50(&f.p);
-    pl->FUN_00035660(&f.q);
+    ((owners::C_35660 *)pl)->FUN_00035660((int *)(V3_7e740 *)(&f.q));
     if (f.q.x == (*(float*)&DAT_003f32e0) && f.q.z == (*(float*)&DAT_003f32e0))
         pl->FUN_00035550(&f.q);
     f.q.y = 0.0f;
@@ -110,7 +108,7 @@ void Game_7e740::FUN_0007e740()
     f.q.y = f.p.y + sy;
     f.q.z = f.p.z + sz;
 
-    Cells *grid = mgr->grid->FUN_000862a0();
+    Cells *grid = ((Cells *)((owners::Target_862a0 *)(mgr->grid))->FUN_000862a0());
     int idx = grid->FUN_00204200(f.q);
     if (cells[idx].flag) {
         f.q.y = f.q.y + (*(float*)&DAT_003fef48);
@@ -119,7 +117,7 @@ void Game_7e740::FUN_0007e740()
                 f.q.y = f.r2.y;
                 bool blocked = false;
                 for (int i = count - 1; i >= 0; i--) {
-                    V3_7e740 *wp = items[i]->FUN_00082cf0();
+                    V3_7e740 *wp = ((V3_7e740 *)((owners::Owner_82cf0 *)(items[i]))->FUN_00082cf0());
                     f.w = *wp;
                     if ((f.w.y - f.q.y) * (f.w.y - f.q.y) + (f.w.z - f.q.z) * (f.w.z - f.q.z) + (f.w.x - f.q.x) * (f.w.x - f.q.x) < DAT_0049b8b4) {
                         blocked = true;

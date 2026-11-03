@@ -1,10 +1,4 @@
-class A_1d69e0 {
-    char pad[0x1d4];
-    int x;
-
-  public:
-    void f(int a);
-};
-void A_1d69e0::f(int a) {
+#include "gen/owners.h"
+void owners::A_1d69e0::FUN_001d69e0(int a) {
     x = a;
 }

@@ -1,8 +1,4 @@
-class X_15aa60 {
-  public:
-    char pad[0x78];
-    int* Get();
-};
-int* X_15aa60::Get() {
+#include "gen/owners.h"
+int* owners::X_15aa60::FUN_0015aa60() {
     return (int*)((char*)this + 0x78);
 }

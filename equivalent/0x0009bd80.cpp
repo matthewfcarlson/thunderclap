@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 126 inputs, branch coverage 30/32, incomplete)
 // FUN_0009bd80 @ 0x0009bd80
+#include "gen/owners.h"
 void* FUN_00263ea0(unsigned int size);
 
 struct V3_9bd80 {
@@ -8,7 +9,6 @@ struct V3_9bd80 {
 
 struct Matrix {
     float m[16];
-    void FUN_0022c2b0(const V3_9bd80* in, V3_9bd80* out);
 };
 
 struct Releasable_9bd80 {
@@ -112,7 +112,7 @@ int Tracker_9bd80::FUN_0009bd80(Owner_9bd80* owner, Matrix* m, V3_9bd80 pos, int
                 handle->FUN_00098480(owner);
             flags = flags & ~0x20u;
             Frame_9bd80 f;
-            m->FUN_0022c2b0(&pos, &f.local);
+            ((owners::Mat_22c2b0 *)m)->FUN_0022c2b0((float *)(const V3_9bd80 *)(&pos), (float *)(V3_9bd80 *)(&f.local));
             f.mat = *m;
             f.mat.m[12] = f.local.x;
             f.mat.m[13] = f.local.y;

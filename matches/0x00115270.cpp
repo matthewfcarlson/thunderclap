@@ -1,11 +1,6 @@
-class Target_115270 {
-  public:
-    char pad[0x24];
-    int mValue;
-    bool Set(int x);
-};
+#include "gen/owners.h"
 
-bool Target_115270::Set(int x) {
+bool owners::Target_115270::FUN_00115270(int x) {
     mValue = x;
     return true;
 }

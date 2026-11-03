@@ -1,11 +1,6 @@
-class C_139a30 {
-  public:
-    char pad[0xc];
-    int m;
-    bool f(int x);
-};
+#include "gen/owners.h"
 
-bool C_139a30::f(int x) {
+bool owners::C_139a30::FUN_00139a30(int x) {
     m = x;
     return true;
 }

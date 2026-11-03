@@ -1,10 +1,5 @@
 // Same code shape as 0x00069050 (propagated; names are from that function)
-class CJumpTrack {
-  public:
-    char pad[0x14];
-    float value;
-    float vfunc_15();
-};
-float CJumpTrack::vfunc_15() {
+#include "gen/owners.h"
+float owners::CJumpTrack_284f60::FUN_00284f60() {
     return value;
 }

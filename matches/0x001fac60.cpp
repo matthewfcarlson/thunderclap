@@ -1,18 +1,5 @@
-class X_1fac60 {
-  public:
-    int pad[2];
-    int a;
-    int b;
-    int c;
-    int d;
-    int e;
-    int f;
-    int g;
-    int h;
-    int i;
-    void Init();
-};
-void X_1fac60::Init() {
+#include "gen/owners.h"
+void owners::X_1fac60::FUN_001fac60() {
     a = 0;
     b = 0;
     c = 0;

@@ -1,13 +1,8 @@
 // cl-flags: /O2
+#include "gen/owners.h"
 
-class O_5a230 {
-  public:
-    char pad[0x20];
-    char m20;
-    char Set(char v);
-};
 
-char O_5a230::Set(char v) {
+char owners::O_5a230::FUN_0005a230(char v) {
     m20 = v;
     return 1;
 }

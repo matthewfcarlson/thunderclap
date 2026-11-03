@@ -1,10 +1,5 @@
-class Obj_14d200 {
-  public:
-    char pad[0x2c];
-    int m2c;
-    char Set(int n);
-};
-char Obj_14d200::Set(int n) {
+#include "gen/owners.h"
+char owners::Obj_14d200::FUN_0014d200(int n) {
     m2c = n;
     return 1;
 }

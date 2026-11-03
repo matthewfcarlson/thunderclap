@@ -1,10 +1,5 @@
-class Obj_11bcc0 {
-  public:
-    char pad[0x2c];
-    char value;
-    unsigned char Set(unsigned char x);
-};
-unsigned char Obj_11bcc0::Set(unsigned char x) {
+#include "gen/owners.h"
+unsigned char owners::Obj_11bcc0::FUN_0011bcc0(unsigned char x) {
     value = x;
     return 1;
 }

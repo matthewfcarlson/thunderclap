@@ -1,11 +1,6 @@
-class X_18caf0 {
-  public:
-    char pad[0x18];
-    char m18;
-    char Set(char c);
-};
+#include "gen/owners.h"
 
-char X_18caf0::Set(char c) {
+char owners::X_18caf0::FUN_0018caf0(char c) {
     m18 = c;
     return 1;
 }

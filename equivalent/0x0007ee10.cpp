@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 83 inputs, branch coverage 26/26)
 // FUN_0007ee10 @ 0x0007ee10
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 extern "C" double floor(double);
 
@@ -39,7 +40,6 @@ struct Objs_7ee10 {
 };
 
 struct Slots_7ee10 {
-    Objs_7ee10 *FUN_000862a0();
 };
 
 struct Mgr_7ee10 {
@@ -60,7 +60,6 @@ public:
     char pad00[0x10];
     int id;
     int f14;
-    Pos_7ee10 *FUN_00082cf0();
     void FUN_00082cd0(Vec3_7ee10 *v);
     void FUN_000835a0(int arg);
 };
@@ -87,7 +86,7 @@ void World::FUN_0007ee10(int arg)
 {
     Ctx_7ee10 *c = ctx;
     Scene_7ee10 *scene = c->scene;
-    int idx = c->slots->FUN_000862a0()->index;
+    int idx = ((Objs_7ee10 *)((owners::Target_862a0 *)(c->slots))->FUN_000862a0())->index;
     if (flags[idx].on) {
         int n = scene->count;
         int limit = DAT_004dd044;
@@ -102,7 +101,7 @@ void World::FUN_0007ee10(int arg)
     Item_7ee10 **p = &items[0];
     while (i < count) {
         Item_7ee10 *item = *p;
-        Pos_7ee10 *q = item->FUN_00082cf0();
+        Pos_7ee10 *q = ((Pos_7ee10 *)((owners::Owner_82cf0 *)item)->FUN_00082cf0());
         float dz = pos.z - q->z;
         FloatBits_7ee10 dy;
         dy.f = pos.y - q->y;

@@ -3,6 +3,7 @@
 // FUN_001f3040: look up an entry and fetch two sound handles from it (or default to "hulk")
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 typedef unsigned __int64 u64_1f3040;
 
 struct Node {
@@ -28,7 +29,6 @@ struct Dest_1f3040 {
 
 struct Sound_1f3040 {
     int FUN_001e9860(int a, int b);
-    int FUN_001ea010(const char *name);
 };
 
 
@@ -45,8 +45,8 @@ extern "C" void __cdecl FUN_001f3040(void *d, void *k)
     }
     u64_1f3040 hulk = FUN_0027b020("hulk"); // MSVC calls it before reading k->key
     if (((Key_1f3040 *)k)->key == hulk) {
-        ((Dest_1f3040 *)d)->handleA = (*(Sound_1f3040**)&DAT_004e3690)->FUN_001ea010("hulk_sfx");
-        ((Dest_1f3040 *)d)->handleB = (*(Sound_1f3040**)&DAT_004e3690)->FUN_001ea010("hulk_vox");
+        ((Dest_1f3040 *)d)->handleA = ((owners::X_1ea010 *)((*(Sound_1f3040**)&DAT_004e3690)))->FUN_001ea010((hulk_intptr)"hulk_sfx");
+        ((Dest_1f3040 *)d)->handleB = ((owners::X_1ea010 *)((*(Sound_1f3040**)&DAT_004e3690)))->FUN_001ea010((hulk_intptr)"hulk_vox");
         ((Dest_1f3040 *)d)->flag = 1;
     }
 }

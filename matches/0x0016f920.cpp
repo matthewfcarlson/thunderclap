@@ -1,11 +1,6 @@
-class C_16f920 {
-  public:
-    char F(int v);
-    char pad[0x1c];
-    int m;
-};
+#include "gen/owners.h"
 
-char C_16f920::F(int v) {
+char owners::C_16f920::FUN_0016f920(int v) {
     m = v;
     return 1;
 }

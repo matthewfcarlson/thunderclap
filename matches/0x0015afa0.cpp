@@ -1,11 +1,6 @@
-class C_15afa0 {
-  public:
-    char pad[0x4c];
-    float mRad;
-    bool SetDeg(float deg);
-};
+#include "gen/owners.h"
 
-bool C_15afa0::SetDeg(float deg) {
+bool owners::C_15afa0::FUN_0015afa0(float deg) {
     mRad = deg * 0.0174532925f;
     return true;
 }

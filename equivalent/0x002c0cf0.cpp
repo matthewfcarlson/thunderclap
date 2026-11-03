@@ -4,12 +4,12 @@
 #include "compat/ptr.h"
 #include "gen/pure3d.h"
 #include "decls/address.h"
+#include "gen/owners.h"
 
 typedef unsigned __int64 u64_2c0cf0;
 void *thunk_FUN_0008d690(unsigned int size);
 
 struct Reader_2c0cf0 {
-    void FUN_002647e0(void *dst, int count, int size, int flag);
 };
 
 struct Stream_2c0cf0 {
@@ -22,7 +22,6 @@ struct Stream_2c0cf0 {
 };
 
 struct NameField_2c0cf0 {
-    void FUN_0027b040(const char *name);
 };
 
 class Light_2c0cf0 {
@@ -44,10 +43,8 @@ public:
     char flag28;
     void FUN_002a07a0(unsigned int v);
     void FUN_002a0820(unsigned int v);
-    void FUN_002a0840(unsigned int v);
     void FUN_002a0ba0(unsigned int *a, unsigned int *b);
     void FUN_002a08c0(unsigned int v);
-    void FUN_002a08f0(unsigned int v);
 };
 
 class Light0 : public Light_2c0cf0 {
@@ -112,18 +109,18 @@ void pure3d::LightLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intpt
     int mode;
     Light_2c0cf0 *obj;
     Light_2c0cf0 *result;
-    s->reader->FUN_002647e0(&F.b13, 1, 1, 1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&F.b13), (hulk_intptr)1, 1, (hulk_intptr)1);
     unsigned int len = (unsigned char)F.b13;
-    s->reader->FUN_002647e0(F.name, len, 1, 1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(F.name), (hulk_intptr)len, 1, (hulk_intptr)1);
     F.name[len] = 0;
     *id = FUN_002672f0(F.name, 0, 0);
-    s->reader->FUN_002647e0(&F.type, 1, 4, 1);
-    s->reader->FUN_002647e0(&F.type, 1, 4, 1);
-    s->reader->FUN_002647e0(&F.a18, 1, 4, 1);
-    s->reader->FUN_002647e0(&F.s34, 1, 4, 1);
-    s->reader->FUN_002647e0(&F.s30, 1, 4, 1);
-    s->reader->FUN_002647e0(&F.s38, 1, 4, 1);
-    s->reader->FUN_002647e0(&F.v20, 1, 4, 1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&F.type), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&F.type), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&F.a18), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&F.s34), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&F.s30), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&F.s38), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&F.v20), (hulk_intptr)1, 4, (hulk_intptr)1);
     F.f1c.b = (F.v20 != 0);
     F.dir[0] = 0;
     F.dir[1] = 0xbf800000;
@@ -149,27 +146,27 @@ void pure3d::LightLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intpt
         s->FUN_00266a30();
         switch (s->FUN_00266c30()) {
         case 0x13001:
-            s->reader->FUN_002647e0(F.dir, 3, 4, 1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(F.dir), (hulk_intptr)3, 4, (hulk_intptr)1);
             break;
         case 0x13002:
-            s->reader->FUN_002647e0(F.pos, 3, 4, 1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(F.pos), (hulk_intptr)3, 4, (hulk_intptr)1);
             break;
         case 0x13003:
-            s->reader->FUN_002647e0(&F.t7c, 1, 4, 1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&F.t7c), (hulk_intptr)1, 4, (hulk_intptr)1);
             F.t58 = F.t7c;
-            s->reader->FUN_002647e0(&F.t70, 1, 4, 1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&F.t70), (hulk_intptr)1, 4, (hulk_intptr)1);
             F.t6c = F.t70;
-            s->reader->FUN_002647e0(&F.t74, 1, 4, 1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&F.t74), (hulk_intptr)1, 4, (hulk_intptr)1);
             F.t54 = F.t74;
-            s->reader->FUN_002647e0(&F.t78, 1, 4, 1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&F.t78), (hulk_intptr)1, 4, (hulk_intptr)1);
             F.v20 = F.t78;
             break;
         case 0x13004:
-            s->reader->FUN_002647e0(&F.t8c, 1, 4, 1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&F.t8c), (hulk_intptr)1, 4, (hulk_intptr)1);
             F.b13 = 1;
             break;
         case 0x13006:
-            s->reader->FUN_002647e0(&F.t80, 1, 4, 1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&F.t80), (hulk_intptr)1, 4, (hulk_intptr)1);
             if (F.t80 == 1)
                 shapeKind = 1;
             else if (F.t80 == 2)
@@ -178,19 +175,19 @@ void pure3d::LightLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intpt
                 shapeKind = 3;
             else
                 shapeKind = 0;
-            s->reader->FUN_002647e0(F.e5c, 3, 4, 1);
-            s->reader->FUN_002647e0(F.e3c, 3, 4, 1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(F.e5c), (hulk_intptr)3, 4, (hulk_intptr)1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(F.e3c), (hulk_intptr)3, 4, (hulk_intptr)1);
             while (s->FUN_002669f0()) {
                 s->FUN_00266a30();
                 if (s->FUN_00266c30() == 0x13007) {
-                    s->reader->FUN_002647e0(&F.t88, 1, 4, 1);
+                    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&F.t88), (hulk_intptr)1, 4, (hulk_intptr)1);
                     F.i14 = F.t88;
                 }
                 s->FUN_00266be0();
             }
             break;
         case 0x13008:
-            s->reader->FUN_002647e0(&F.t84, 1, 4, 1);
+            ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&F.t84), (hulk_intptr)1, 4, (hulk_intptr)1);
             if (F.t84 == 1)
                 mode = 1;
             else if (F.t84 == 2)
@@ -206,14 +203,14 @@ void pure3d::LightLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intpt
     case 0: {
         void *mem = thunk_FUN_0008d690(0x58);
         obj = mem ? ((Light0 *)mem)->FUN_002a1230() : 0;
-        obj->name.FUN_0027b040(F.name);
+        ((owners::Target_27b040 *)&(obj->name))->FUN_0027b040((hulk_uintptr)(F.name));
         obj->FUN_002a07a0(F.a18);
         obj->v8(F.pos);
         obj->FUN_002a0820(F.f1c.w);
-        obj->FUN_002a0840(shapeKind);
+        ((owners::Obj_2a0840 *)(Light_2c0cf0 *)obj)->FUN_002a0840((int)shapeKind);
         obj->FUN_002a0ba0(F.e5c, F.e3c);
         obj->FUN_002a08c0(F.i14);
-        obj->FUN_002a08f0(mode);
+        ((owners::Obj_2a08f0 *)(Light_2c0cf0 *)obj)->FUN_002a08f0((int)mode);
         result = obj;
         break;
     }
@@ -221,16 +218,16 @@ void pure3d::LightLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intpt
         void *mem = thunk_FUN_0008d690(0x68);
         Light1 *o = mem ? ((Light1 *)mem)->FUN_002c3e10() : 0;
         obj = o;
-        obj->name.FUN_0027b040(F.name);
+        ((owners::Target_27b040 *)&(obj->name))->FUN_0027b040((hulk_uintptr)(F.name));
         obj->FUN_002a07a0(F.a18);
         obj->v7(F.pos[0], F.pos[1], F.pos[2]);
         obj->FUN_002a0820(F.f1c.w);
         o->FUN_002c3f00(F.s34, F.s30, F.s38);
-        obj->FUN_002a0840(shapeKind);
+        ((owners::Obj_2a0840 *)(Light_2c0cf0 *)obj)->FUN_002a0840((int)shapeKind);
         obj->FUN_002a0ba0(F.e5c, F.e3c);
         obj->flag12 = F.b13;
         obj->FUN_002a08c0(F.i14);
-        obj->FUN_002a08f0(mode);
+        ((owners::Obj_2a08f0 *)(Light_2c0cf0 *)obj)->FUN_002a08f0((int)mode);
         result = obj;
         break;
     }
@@ -238,16 +235,16 @@ void pure3d::LightLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intpt
         void *mem = thunk_FUN_0008d690(0x68);
         Light2 *o = mem ? ((Light2 *)mem)->FUN_002a2e70() : 0;
         obj = o;
-        obj->name.FUN_0027b040(F.name);
+        ((owners::Target_27b040 *)&(obj->name))->FUN_0027b040((hulk_uintptr)(F.name));
         obj->FUN_002a07a0(F.a18);
         obj->v8(F.pos);
         o->FUN_002a2ef0(F.dir[0], F.dir[1], F.dir[2]);
         obj->FUN_002a0820(F.f1c.w);
-        obj->FUN_002a0840(shapeKind);
+        ((owners::Obj_2a0840 *)(Light_2c0cf0 *)obj)->FUN_002a0840((int)shapeKind);
         obj->FUN_002a0ba0(F.e5c, F.e3c);
         obj->flag12 = F.b13;
         obj->FUN_002a08c0(F.i14);
-        obj->FUN_002a08f0(mode);
+        ((owners::Obj_2a08f0 *)(Light_2c0cf0 *)obj)->FUN_002a08f0((int)mode);
         result = obj;
         break;
     }
@@ -255,7 +252,7 @@ void pure3d::LightLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intpt
         void *mem = thunk_FUN_0008d690(0x80);
         Light3 *o = mem ? ((Light3 *)mem)->FUN_002c4020() : 0;
         obj = o;
-        obj->name.FUN_0027b040(F.name);
+        ((owners::Target_27b040 *)&(obj->name))->FUN_0027b040((hulk_uintptr)(F.name));
         obj->FUN_002a07a0(F.a18);
         o->FUN_002c4130(F.dir[0], F.dir[1], F.dir[2]);
         obj->v7(F.pos[0], F.pos[1], F.pos[2]);
@@ -263,11 +260,11 @@ void pure3d::LightLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intpt
         o->FUN_002c4170(F.v20);
         obj->FUN_002a0820(F.f1c.w);
         o->FUN_002c41a0(F.s34, F.s30, F.s38);
-        obj->FUN_002a0840(shapeKind);
+        ((owners::Obj_2a0840 *)(Light_2c0cf0 *)obj)->FUN_002a0840((int)shapeKind);
         obj->FUN_002a0ba0(F.e5c, F.e3c);
         obj->flag12 = F.b13;
         obj->FUN_002a08c0(F.i14);
-        obj->FUN_002a08f0(mode);
+        ((owners::Obj_2a08f0 *)(Light_2c0cf0 *)obj)->FUN_002a08f0((int)mode);
         result = obj;
         break;
     }
@@ -275,18 +272,18 @@ void pure3d::LightLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intpt
         void *mem = thunk_FUN_0008d690(0x68);
         Light4 *o = mem ? ((Light4 *)mem)->FUN_002c3c10() : 0;
         obj = o;
-        obj->name.FUN_0027b040(F.name);
+        ((owners::Target_27b040 *)&(obj->name))->FUN_0027b040((hulk_uintptr)(F.name));
         obj->FUN_002a07a0(F.a18);
         obj->v7(F.pos[0], F.pos[1], F.pos[2]);
         obj->FUN_002a0820(F.f1c.w);
         o->FUN_002c3d00(F.s34, F.s30, F.s38);
-        obj->FUN_002a0840(shapeKind);
+        ((owners::Obj_2a0840 *)(Light_2c0cf0 *)obj)->FUN_002a0840((int)shapeKind);
         obj->FUN_002a0ba0(F.e5c, F.e3c);
         if (shapeKind != 0)
             o->FUN_002c3ce0(F.e3c[0]);
         obj->flag12 = F.b13;
         obj->FUN_002a08c0(F.i14);
-        obj->FUN_002a08f0(mode);
+        ((owners::Obj_2a08f0 *)(Light_2c0cf0 *)obj)->FUN_002a08f0((int)mode);
         result = obj;
         break;
     }

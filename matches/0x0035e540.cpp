@@ -3,13 +3,13 @@
 // data: hulk_at_004e1768 = DAT_004e1768
 
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" void _atexit(void (*)());
 class C {
   public:
-    void Reg(const char*, void*);
 };
 void __cdecl Cleanup() throw();
 void __cdecl Hook() {
-    ((C*)((hulk_intptr)((char*)&DAT_004e1768)))->Reg(((char*)&DAT_003f3ea0), 0);
+    ((owners::String_23fc40 *)(((C*)((hulk_intptr)((char*)&DAT_004e1768)))))->FUN_0023fc40(((char*)&DAT_003f3ea0), (hulk_intptr)0);
     _atexit(Cleanup);
 }

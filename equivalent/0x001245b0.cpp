@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 12028 inputs, branch coverage 34/34; run with --inputs 12000)
 // hulkfight::ai::AcquireTargetCondition::vfunc_6 @ 0x001245b0
 #include "decls/address.h"
+#include "gen/owners.h"
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
@@ -55,7 +56,6 @@ struct Chain_1245b0 {
 };
 
 struct Owner_1245b0 {
-    Chain_1245b0 *FUN_000592a0();
 };
 
 struct Globals_1245b0 {
@@ -92,7 +92,7 @@ char AcquireTargetCondition::vfunc_6(int unused1, Owner_1245b0 *owner, int unuse
 {
     if (!FUN_00344e74(owner, 0, DAT_00494b44, DAT_00494b60, 0))
         return 0;
-    Actor_1245b0 *self = owner->FUN_000592a0()->FUN_00059a30();
+    Actor_1245b0 *self = ((Chain_1245b0 *)((owners::Object_592a0 *)owner)->FUN_000592a0())->FUN_00059a30();
     Target_1245b0 *target = self->target;
     Actor_1245b0 *other = DAT_004dd700->holder->actor;
 

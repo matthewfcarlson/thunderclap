@@ -3,6 +3,7 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "compat/ptr.h"
+#include "gen/owners.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
@@ -16,9 +17,6 @@ struct Matrix {
     float m[16];
     void FUN_0022b980();
     void FUN_0022baf0(const V3_19ae50 *axis, float angle);
-    void FUN_0022ca90(const Matrix *src, void *arg);
-    void FUN_0022c2b0(const V3_19ae50 *in, V3_19ae50 *out);
-    void FUN_0022c3b0(const V3_19ae50 *in, V3_19ae50 *out);
 };
 
 class Refd_19ae50 {
@@ -38,7 +36,6 @@ struct World {
 };
 
 struct Allocator {
-    void *FUN_0008fe90(unsigned int size);
 };
 
 struct Cfg_19ae50 {
@@ -91,7 +88,6 @@ struct Ctx_19ae50 {
 struct OwnerObj_19ae50 {
     char pad0[8];
     void *f8;
-    Ctx_19ae50 *FUN_000592a0();
 };
 
 struct Rng_19ae50 {
@@ -168,7 +164,7 @@ bool FireProjectileAction::vfunc_5(int a1, Slot_19ae50 a2)
     if (a1 != 1)
         return true;
     f.pool = DAT_004dd700->pool;
-    f.ctx = owner->FUN_000592a0();
+    f.ctx = ((Ctx_19ae50 *)((owners::Object_592a0 *)owner)->FUN_000592a0());
     f.fighter = f.ctx->FUN_00059a30();
     double sum = (double)a2.f + f24;
     f24 = (float)sum;
@@ -194,20 +190,20 @@ bool FireProjectileAction::vfunc_5(int a1, Slot_19ae50 a2)
             Weapon_19ae50 *w = f28;
             if (w != 0) {
                 const Matrix *src = (const Matrix *)(ctrl->mats + idx6);
-                f.M.FUN_0022ca90(src, w->v15());
+                ((owners::Matrix_22ca90 *)&(f.M))->FUN_0022ca90((const owners::Matrix_22ca90 *)(const Matrix *)src, (const owners::Matrix_22ca90 *)(w->v15()));
             } else {
                 memcpy(&f.M, ctrl->mats + idx6, sizeof(Matrix));
             }
             f.tmp = cfg->v40;
-            f.M.FUN_0022c2b0(&f.tmp, &f.a);
+            ((owners::Mat_22c2b0 *)&(f.M))->FUN_0022c2b0((float *)(const V3_19ae50 *)(&f.tmp), (float *)(V3_19ae50 *)(&f.a));
             f.tmp2 = cfg->v4c;
-            f.M.FUN_0022c3b0(&f.tmp2, &f.b);
+            ((owners::M_22c3b0 *)&(f.M))->FUN_0022c3b0((float *)(const V3_19ae50 *)(&f.tmp2), (float *)(V3_19ae50 *)(&f.b));
             f.b.FUN_0022d110();
         }
         int id = cfg->f7c;
         int slot = f.pool->FUN_001b6b00(id, &f.a);
         if (slot >= 0) {
-            void *mem = (*(Allocator*)&DAT_004e2210).FUN_0008fe90(0x50);
+            void *mem = ((void *)((owners::BitPool_8fe90 *)&((*(Allocator*)&DAT_004e2210)))->FUN_0008fe90(0x50));
             ProjectileEffect_19ae50 *proj;
             if (mem)
                 proj = ((ProjectileEffect_19ae50 *)mem)->FUN_00195a90(cfg);
@@ -260,8 +256,8 @@ bool FireProjectileAction::vfunc_5(int a1, Slot_19ae50 a2)
                 f.M2.FUN_0022baf0(&f.c, f.r1);
                 f.M3.FUN_0022b980();
                 f.M3.FUN_0022baf0(&f.b, f.r2);
-                f.M2.FUN_0022c3b0(&f.b, &f.v);
-                f.M3.FUN_0022c3b0(&f.v, &f.b);
+                ((owners::M_22c3b0 *)&(f.M2))->FUN_0022c3b0((float *)(const V3_19ae50 *)(&f.b), (float *)(V3_19ae50 *)(&f.v));
+                ((owners::M_22c3b0 *)&(f.M3))->FUN_0022c3b0((float *)(const V3_19ae50 *)(&f.v), (float *)(V3_19ae50 *)(&f.b));
             }
             proj->f40 = f.b;
             Cfg_19ae50 *c4 = cfg;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00204200 @ 0x00204200
+#include "gen/owners.h"
 struct Query_204200 {
     int a;
     int b;
@@ -20,7 +21,6 @@ class Items_204200 {
 public:
     char pad0[0x18];
     Counter_204200 counter;
-    Item_204200 *FUN_001c7f80(int i);
 };
 
 struct Sys_204200 {
@@ -42,7 +42,7 @@ int __stdcall FUN_00204200(int a, int b, int c)
     q.b = b;
     q.c = c;
     for (int i = 0; i < count; i++) {
-        Item_204200 *item = items->FUN_001c7f80(i);
+        Item_204200 *item = ((Item_204200 *)((owners::Thing_1c7f80 *)items)->FUN_001c7f80((unsigned int)i));
         if (item != 0 && item->FUN_001c6660(&q)) {
             return item->index;
         }

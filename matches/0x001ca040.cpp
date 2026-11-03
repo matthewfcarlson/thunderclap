@@ -1,9 +1,5 @@
-class Obj_1ca040 {
-  public:
-    Obj_1ca040* f(int, int);
-    void helper(int, int, int);
-};
-Obj_1ca040* Obj_1ca040::f(int a, int b) {
-    helper(12, a, b);
+#include "gen/owners.h"
+owners::Obj_1ca040* owners::Obj_1ca040::FUN_001ca040(hulk_intptr a, hulk_intptr b) {
+    helper(12, ((int)a), ((int)b));
     return this;
 }

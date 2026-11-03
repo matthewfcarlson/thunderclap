@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 6/6)
 // hulkfight::motion::JointPivotTrackerAction::vfunc_3 @ 0x001712c0
+#include "gen/owners.h"
 struct V3_1712c0 {
     float x, y, z;
     float FUN_0022d110();
@@ -14,12 +15,10 @@ struct Mat4_1712c0 {
     float w2;
     float t[4];
     void FUN_0022b980();
-    void FUN_0022c0b0();
 };
 
 struct Name_1712c0 {
     char data[8];
-    void FUN_0027b040(const char *s);
 };
 
 class JointDriver {
@@ -93,7 +92,7 @@ bool JointPivotTrackerAction::vfunc_3(int a, int b)
     if (d)
         d = d->FUN_002248a0();
     driver = d;
-    driver->name.FUN_0027b040("jointPivotTracker");
+    ((owners::Target_27b040 *)&(driver->name))->FUN_0027b040((hulk_uintptr)"jointPivotTracker");
     driver->v0();
     driver->f14 = 2;
     driver->f10 = id;
@@ -120,6 +119,6 @@ bool JointPivotTrackerAction::vfunc_3(int a, int b)
     mat.r0 = c;
     mat.r1 = axis;
     mat.r2 = side;
-    mat.FUN_0022c0b0();
+    ((owners::M_22c0b0 *)&mat)->FUN_0022c0b0();
     return true;
 }

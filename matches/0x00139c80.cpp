@@ -1,9 +1,5 @@
-class Obj_139c80 {
-  public:
-    char m[0x10];
-    char Set(int x);
-};
-char Obj_139c80::Set(int x) {
+#include "gen/owners.h"
+char owners::Obj_139c80::FUN_00139c80(int x) {
     *(int*)(m + 0x10) = x;
     return 1;
 }

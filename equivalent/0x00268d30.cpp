@@ -2,15 +2,9 @@
 // FUN_00268d30 @ 0x00268d30
 #include "compat/ptr.h"
 #include "decls/data/platform/xbox/core.h"
+#include "gen/owners.h"
 
-struct InputValue {
-    char padding[0x20];
-    void *kind;
-    char gap[4];
-    unsigned int data;
-    double FUN_00268d30(unsigned int *source);
-};
-double InputValue::FUN_00268d30(unsigned int *source)
+double owners::InputValue_268d30::FUN_00268d30(unsigned int *source)
 {
     if (!source) return 0.0;
     if (kind == (*(void**)&DAT_004cd698)) return ((*source & data) != 0) ? 1.0f : 0.0f;

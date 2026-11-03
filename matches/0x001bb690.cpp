@@ -1,5 +1,6 @@
 #include "decls/data/game/global.h"
 // data: gInfo = DAT_0048e100
+#include "gen/owners.h"
 
 void* operator new(unsigned int) throw();
 struct Info_1bb690 {};
@@ -25,9 +26,8 @@ struct Closure0_1bb690 : Method0_1bb690 {
 };
 struct Owner_1bb690 {
     void Make(void* h, int x, int y);
-    void Reg(void* h, Method0_1bb690* c);
 };
 void Owner_1bb690::Make(void* h, int x, int y) {
     Closure0_1bb690* c = new Closure0_1bb690(h, y, x);
-    Reg(h, c);
+    ((owners::Obj_1d3b70 *)this)->FUN_001d3b70((hulk_uintptr)h, (hulk_intptr)(Method0_1bb690 *)c);
 }

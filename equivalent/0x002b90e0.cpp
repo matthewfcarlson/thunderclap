@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 12000 inputs, branch coverage 4/4)
 // FUN_002b90e0 @ 0x002b90e0
+#include "gen/owners.h"
 struct Matrix;
 
 struct V3_2b90e0 {
     float x, y, z;
     float FUN_0022d110();
-    void FUN_0022d210(Matrix *m);
 };
 
 struct Node {
@@ -44,7 +44,7 @@ void Billboard_2b90e0::FUN_002b90e0(Quad_2b90e0 *out, Node *from, Matrix *m, Nod
         p.y = dy + p.y;
         p.z = dz + p.z;
     }
-    p.FUN_0022d210(m);
+    ((owners::Obj_22d210 *)&p)->FUN_0022d210((owners::Obj_22d210 *)(Matrix *)m);
     double w = size * halfWidth;
     double h = size * halfHeight;
     if (!fixedSize) {

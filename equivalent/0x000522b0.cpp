@@ -2,7 +2,8 @@
 // CGrappleFightNodeCondition::vfunc_7 @ 0x000522b0
 #include "compat/ptr.h"
 #include "gen/global.h"
+#include "gen/owners.h"
 
-struct Actor { char pad[0x330]; char *first; char *second; char *third; }; struct Stage { Actor * FUN_00059a30(); }; struct Input { Stage * FUN_000592a0(); };  
+struct Actor { char pad[0x330]; char *first; char *second; char *third; }; struct Stage { Actor * FUN_00059a30(); }; struct Input {  };  
 hulk_intptr CGrappleFightNodeCondition::vfunc_7(void* __p0) { Input * input = (Input *)__p0;
- if (!input) return (int)(0); Actor *a = input->FUN_000592a0()->FUN_00059a30(); char *p = a->second; if (!p) p = a->first; if (!p) p = a->third; return (hulk_intptr)(p ? p + 0xdc : 0); }
+ if (!input) return (int)(0); Actor *a = ((Stage *)((owners::Object_592a0 *)input)->FUN_000592a0())->FUN_00059a30(); char *p = a->second; if (!p) p = a->first; if (!p) p = a->third; return (hulk_intptr)(p ? p + 0xdc : 0); }

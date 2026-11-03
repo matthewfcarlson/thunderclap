@@ -1,11 +1,5 @@
-class Obj {
-    char pad[0x14];
-    void* value;
-
-  public:
-    char Set(void* p);
-};
-char Obj::Set(void* p) {
+#include "gen/owners.h"
+char owners::Obj_68000::FUN_00068000(void* p) {
     value = p;
     return 1;
 }

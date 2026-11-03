@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class B_b3d40 {
   public:
-    void call(int);
 };
 class A_b3d40 {
   public:
@@ -9,5 +9,5 @@ class A_b3d40 {
     void target();
 };
 void A_b3d40::target() {
-    member->call(1);
+    ((owners::Obj_b3b50 *)member)->FUN_000b3b50(1);
 }

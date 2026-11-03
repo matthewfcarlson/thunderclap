@@ -1,10 +1,6 @@
-class Obj_68c40 {
-  public:
-    char pad[0x2c];
-    unsigned char Set(int x);
-};
+#include "gen/owners.h"
 
-unsigned char Obj_68c40::Set(int x) {
+unsigned char owners::Obj_68c40::FUN_00068c40(int x) {
     *(int*)((char*)this + 0x2c) = x;
     return 1;
 }

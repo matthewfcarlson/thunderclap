@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002d1a00 @ 0x002d1a00
-struct Particle_2d1a00 { float x,y,z; char pad0[0x14]; float vx,vy,vz; char pad1[0xc]; float drift; short factor; void FUN_0022d260(void*); };
+#include "gen/owners.h"
+struct Particle_2d1a00 { float x,y,z; char pad0[0x14]; float vx,vy,vz; char pad1[0xc]; float drift; short factor;  };
 struct Curves_2d1a00 { char pad0[0x14]; float* speed; char pad1[8]; float* drift; };
 struct Emitter_2d1a00 { char pad0[0xe0]; float x,y,z; char pad1[0x54]; void* transform; char pad2[0x60]; float driftScale; char pad3[4]; float speedScale; char pad4[0xc]; Curves_2d1a00* curves; };
 extern "C" void __cdecl FUN_002d1a00(float dt, int index, float fraction, Emitter_2d1a00* emitter, Particle_2d1a00* p) {
@@ -12,6 +13,6 @@ extern "C" void __cdecl FUN_002d1a00(float dt, int index, float fraction, Emitte
  float y=(float)((speed*p->vy+p->drift)*scale*dt+p->y); p->y=y;
  double z=speed*p->vz*scale*dt+p->z; p->z=(float)z;
  p->x=x-emitter->x; p->y=y-emitter->y; p->z=(float)(z-emitter->z);
- p->FUN_0022d260(emitter->transform);
+ ((owners::Obj_22d260 *)p)->FUN_0022d260((owners::Obj_22d260 *)(emitter->transform));
  p->x=emitter->x+p->x; p->y=emitter->y+p->y; p->z=emitter->z+p->z;
 }

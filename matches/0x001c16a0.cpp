@@ -1,11 +1,5 @@
 #include "compat/ptr.h"
-class Target_1c16a0 {
-    char pad[0xbc];
-    hulk_intptr value;
-
-  public:
-    void f(void*);
-};
+#include "gen/owners.h"
 class Other_1c16a0 {
   public:
     virtual void a();
@@ -18,7 +12,7 @@ class Other_1c16a0 {
     virtual void i();
     virtual void j(void*, int);
 };
-void Target_1c16a0::f(void* p) {
+void owners::Target_1c16a0::FUN_001c16a0(void* p) {
     if (p)
         ((Other_1c16a0*)p)->j((void*)value, 0);
 }

@@ -4,6 +4,7 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight.h"
 #include "decls/data/game/om.h"
+#include "gen/owners.h"
 
 struct V3_1e6390 {
     float x, y, z;
@@ -40,7 +41,6 @@ struct Inner_1e6390 {
 struct Gen_1e6390 {
     char pad0[0x80];
     float f80;
-    void FUN_001c5080(float a, float b);
 };
 
 struct Obj_1e6390 {
@@ -48,9 +48,7 @@ struct Obj_1e6390 {
     int f114;
     char pad118[4];
     Gen_1e6390 *f11c;
-    int FUN_001d6c70();
     V3_1e6390 *FUN_001d6b40();
-    Inner_1e6390 *FUN_001d72e0();
 };
 
 struct Slot_1e6390 {
@@ -62,7 +60,6 @@ struct Slot_1e6390 {
 };
 
 struct Listener_1e6390 {
-    V3_1e6390 *FUN_001c39d0();
     char FUN_001c4010(V3_1e6390 *v);
 };
 
@@ -134,7 +131,7 @@ void Mgr_1e6390::FUN_001e6390()
         Obj_1e6390 **po = objs;
         do {
             Obj_1e6390 *o = *po;
-            int sid = o->FUN_001d6c70();
+            int sid = ((owners::C_1d6c70 *)o)->FUN_001d6c70();
             Entry_1e6390 *e = &entries[slots[sid].s22];
             V3_1e6390 *pos = o->FUN_001d6b40();
             e->pos.x = pos->x;
@@ -148,7 +145,7 @@ void Mgr_1e6390::FUN_001e6390()
             f.u20.cntA--;
         } while (f.u20.cntA != 0);
     }
-    V3_1e6390 *lp = FUN_001c3d90()->FUN_001c39d0();
+    V3_1e6390 *lp = ((V3_1e6390 *)((owners::Object_1c39d0 *)(FUN_001c3d90()))->FUN_001c39d0());
     f.L.x = lp->x;
     f.L.y = lp->y;
     f.L.z = lp->z;
@@ -316,10 +313,10 @@ void Mgr_1e6390::FUN_001e6390()
                 } else {
                     Slot_1e6390 *sl = &slots[ee->slot];
                     if (sl->f18 != f.u20.cur) {
-                        Inner_1e6390 *in = sl->f18->FUN_001d72e0();
+                        Inner_1e6390 *in = ((Inner_1e6390 *)((owners::C_1d72e0 *)(sl->f18))->FUN_001d72e0());
                         if (in != 0 && in->f6c != 0 && in->f70 != 0 && !in->f70->v11())
                             continue;
-                        sl->f18->f11c->FUN_001c5080((*(float*)&DAT_00421894), (*(float*)&DAT_0042189c));
+                        ((owners::Blend_1c5080 *)(sl->f18->f11c))->FUN_001c5080((*(float*)&DAT_00421894), (*(float*)&DAT_0042189c));
                         ee->flags = ee->flags | 0x4000;
                     }
                 }
@@ -346,7 +343,7 @@ void Mgr_1e6390::FUN_001e6390()
                 idx++;
                 if (flagA || (alv && !bl)) {
                     if (ee->flags & 0x4000) {
-                        slots[ee->slot].f18->f11c->FUN_001c5080((*(float*)&DAT_00421898), (*(float*)&DAT_0042189c));
+                        ((owners::Blend_1c5080 *)(slots[ee->slot].f18->f11c))->FUN_001c5080((*(float*)&DAT_00421898), (*(float*)&DAT_0042189c));
                         ee->flags = ee->flags & 0xbfff;
                     }
                 } else if (alv) {
@@ -359,13 +356,13 @@ void Mgr_1e6390::FUN_001e6390()
                             }
                         }
                     } else {
-                        slots[ee->slot].f18->f11c->FUN_001c5080((*(float*)&DAT_00421894), (*(float*)&DAT_0042189c));
+                        ((owners::Blend_1c5080 *)(slots[ee->slot].f18->f11c))->FUN_001c5080((*(float*)&DAT_00421894), (*(float*)&DAT_0042189c));
                         ee->flags = ee->flags | 0x4000;
                     }
                 } else {
                     Slot_1e6390 *sl = &slots[ee->slot];
                     if (sl->f18 != f.u20.cur) {
-                        Inner_1e6390 *in = sl->f18->FUN_001d72e0();
+                        Inner_1e6390 *in = ((Inner_1e6390 *)((owners::C_1d72e0 *)(sl->f18))->FUN_001d72e0());
                         if (in != 0 && in->f6c != 0 && in->f70 != 0 && !in->f70->v11())
                             continue;
                         if (ebp < L) {

@@ -1,10 +1,5 @@
-class Obj_139d90 {
-  public:
-    char pad[0x18];
-    int mValue;
-    void* Get();
-};
+#include "gen/owners.h"
 
-void* Obj_139d90::Get() {
+void* owners::Obj_139d90::FUN_00139d90() {
     return (void*)&mValue;
 }

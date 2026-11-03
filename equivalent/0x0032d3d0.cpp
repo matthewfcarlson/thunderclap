@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // pure3d::d3dPointSpriteShader::vfunc_14 @ 0x0032d3d0
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 
 struct Texture_32d3d0 {
-    void FUN_00326b00(int stage);
 };
 struct CullState {
     void FUN_003219c0();
@@ -18,7 +18,6 @@ struct Context_32d3d0 {
     char pad18[0x104 - 0x18];
     unsigned char lit;
     unsigned char twoSided;
-    void FUN_00329e50(int a, int b, int c, int d);
 };
 extern void __stdcall D3DDevice_SetTexture(int stage, Texture_32d3d0* tex);
 extern void __stdcall D3DDevice_SetPalette(int stage, void* palette);
@@ -72,17 +71,17 @@ void pure3d::d3dPointSpriteShader::vfunc_14(int unused) {
     if (tex != c->tex3) {
         c->tex3 = tex;
         if (tex) {
-            tex->FUN_00326b00(3);
+            ((owners::Obj_326b00 *)tex)->FUN_00326b00(3);
         } else {
             D3DDevice_SetTexture(3, 0);
             D3DDevice_SetPalette(3, 0);
         }
     }
     ((d3dPointSpriteShader_nv_32d3d0*)this)->FUN_0032a320(3, 0);
-    (*(Context_32d3d0 * *)&this->f_14)->FUN_00329e50(3, 4, 0, 2);
-    (*(Context_32d3d0 * *)&this->f_14)->FUN_00329e50(0, 4, 0, 2);
-    (*(Context_32d3d0 * *)&this->f_14)->FUN_00329e50(1, 4, 0, 2);
-    (*(Context_32d3d0 * *)&this->f_14)->FUN_00329e50(2, 4, 0, 2);
+    ((owners::Obj_329e50 *)((*(Context_32d3d0 * *)&this->f_14)))->FUN_00329e50(3, 4, 0, 2);
+    ((owners::Obj_329e50 *)((*(Context_32d3d0 * *)&this->f_14)))->FUN_00329e50(0, 4, 0, 2);
+    ((owners::Obj_329e50 *)((*(Context_32d3d0 * *)&this->f_14)))->FUN_00329e50(1, 4, 0, 2);
+    ((owners::Obj_329e50 *)((*(Context_32d3d0 * *)&this->f_14)))->FUN_00329e50(2, 4, 0, 2);
     c = (*(Context_32d3d0 * *)&this->f_14);
     if (c->twoSided || c->lit) {
         c->twoSided = 0;

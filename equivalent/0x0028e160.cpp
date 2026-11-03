@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20158 inputs, branch coverage 84/84)
 // FUN_0028e160 @ 0x0028e160
 #include "compat/ptr.h"
+#include "gen/owners.h"
 void *__cdecl FUN_0008d690(unsigned int size);
 
 struct Stream {
@@ -41,7 +42,6 @@ struct Mem_28e160 {
 };
 
 struct Parent_28e160 {
-    Mem_28e160 *FUN_002888c0(int size, int tag);
 };
 
 Prim_28e160 *__stdcall FUN_0028e160(Reader *R, int unused, Parent_28e160 *parent)
@@ -65,7 +65,7 @@ Prim_28e160 *__stdcall FUN_0028e160(Reader *R, int unused, Parent_28e160 *parent
             Mem_28e160 *m = (Mem_28e160 *)FUN_0008d690(0x1c);
             obj = m ? m->FUN_0028c0b0(count, 0) : 0;
         } else {
-            Mem_28e160 *m = par->FUN_002888c0(0x1c, 7);
+            Mem_28e160 *m = ((Mem_28e160 *)((owners::C_2888c0 *)par)->FUN_002888c0(0x1c, 7));
             obj = m ? m->FUN_0028c0b0(count, par) : 0;
         }
         obj->f8 = f.l14;
@@ -101,7 +101,7 @@ Prim_28e160 *__stdcall FUN_0028e160(Reader *R, int unused, Parent_28e160 *parent
             Mem_28e160 *m = (Mem_28e160 *)FUN_0008d690(0x1c);
             obj = m ? m->FUN_0028d150(count, 0) : 0;
         } else {
-            Mem_28e160 *m = par->FUN_002888c0(0x1c, 7);
+            Mem_28e160 *m = ((Mem_28e160 *)((owners::C_2888c0 *)par)->FUN_002888c0(0x1c, 7));
             obj = m ? m->FUN_0028d150(count, par) : 0;
         }
         obj->f8 = f.l10;
@@ -128,7 +128,7 @@ Prim_28e160 *__stdcall FUN_0028e160(Reader *R, int unused, Parent_28e160 *parent
             Mem_28e160 *m = (Mem_28e160 *)FUN_0008d690(0x1c);
             obj = m ? m->FUN_0028d490(count, 0) : 0;
         } else {
-            Mem_28e160 *m = par->FUN_002888c0(0x1c, 7);
+            Mem_28e160 *m = ((Mem_28e160 *)((owners::C_2888c0 *)par)->FUN_002888c0(0x1c, 7));
             obj = m ? m->FUN_0028d490(count, par) : 0;
         }
         obj->f8 = f.l10;
@@ -143,7 +143,7 @@ Prim_28e160 *__stdcall FUN_0028e160(Reader *R, int unused, Parent_28e160 *parent
             Mem_28e160 *m = (Mem_28e160 *)FUN_0008d690(0x1c);
             obj = m ? m->FUN_0028d750(count, 0) : 0;
         } else {
-            Mem_28e160 *m = par->FUN_002888c0(0x1c, 7);
+            Mem_28e160 *m = ((Mem_28e160 *)((owners::C_2888c0 *)par)->FUN_002888c0(0x1c, 7));
             obj = m ? m->FUN_0028d750(count, par) : 0;
         }
         obj->f8 = f.l10;
@@ -158,7 +158,7 @@ Prim_28e160 *__stdcall FUN_0028e160(Reader *R, int unused, Parent_28e160 *parent
             Mem_28e160 *m = (Mem_28e160 *)FUN_0008d690(0x1c);
             obj = m ? m->FUN_0028dae0(count, 0) : 0;
         } else {
-            Mem_28e160 *m = par->FUN_002888c0(0x1c, 7);
+            Mem_28e160 *m = ((Mem_28e160 *)((owners::C_2888c0 *)par)->FUN_002888c0(0x1c, 7));
             obj = m ? m->FUN_0028dae0(count, par) : 0;
         }
         obj->f8 = f.l10;

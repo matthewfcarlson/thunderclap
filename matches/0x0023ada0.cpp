@@ -1,7 +1,7 @@
 #include "gen/fight.h"
+#include "gen/owners.h"
 
 struct B_23ada0 {
-    void Take(void* p);
 };
 extern "C" void* F238190(int a);
 extern "C" void* F266e00(void* a, int n);
@@ -20,7 +20,7 @@ bool fight::ScriptReader::FUN_0023ada0(int a, void* __p1) { B_23ada0 * b = (B_23
     bool r = ((fight::ScriptReader *)(((ScriptReader_nv_23ada0*)this)))->FUN_0023ad30(a, (char *)p, len);
     if (!r)
         return false;
-    b->Take(p);
+    ((owners::Target_27b040 *)b)->FUN_0027b040((hulk_uintptr)p);
     F267090(p);
     return r;
 }

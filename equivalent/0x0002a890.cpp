@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 132 inputs, branch coverage 16/18, incomplete)
 // FUN_0002a890 @ 0x0002a890
 #include "decls/data/engine/fight.h"
+#include "gen/owners.h"
 
 struct Item_2a890 { void FUN_0003b620(int); };
-struct Registry_2a890 { Item_2a890* FUN_00059c10(int); };
+struct Registry_2a890 {  };
 struct Owner_2a890 { char pad[0x44]; Registry_2a890* registry; };
 struct Component_2a890 { void FUN_00044c30(); void FUN_00046230(); };
 struct Interface_2a890 { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); };
@@ -24,7 +25,7 @@ struct Target_2a890 {
 void Target_2a890::FUN_0002a890() {
  for (int i = 0; i < count; ++i) {
   if (i >= 0 && i < count) {
-   Item_2a890* item = owner->registry->FUN_00059c10(ids[i]);
+   Item_2a890* item = ((Item_2a890 *)((owners::ThisWrap_00059c10 *)(owner->registry))->FUN_00059c10((void *)(hulk_uintptr)(int)(ids[i])));
    if (item) item->FUN_0003b620(1);
   }
  }

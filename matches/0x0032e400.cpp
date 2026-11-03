@@ -1,13 +1,11 @@
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 
 struct Vec4_32e400 {
     float x, y, z, w;
 };
 struct Matrix_32e400 {
     float m[16];
-    void FUN_0022ca90(const Matrix_32e400* a, const Matrix_32e400* b);
-    void FUN_0022cc10(const Matrix_32e400* a, const Matrix_32e400* b);
-    void FUN_0022c0b0();
 };
 namespace D3D8 {
 void __stdcall D3DDevice_GetTransform(int type, Matrix_32e400* out);
@@ -41,12 +39,12 @@ void pure3d::d3dLayeredShader::vfunc_24() {
     D3D8::D3DDevice_GetTransform(6, &F.view);
     D3D8::D3DDevice_GetTransform(0, &F.world);
     D3D8::D3DDevice_GetTransform(1, &F.proj);
-    F.worldView.FUN_0022ca90(&F.view, &F.world);
-    F.worldViewProj.FUN_0022cc10(&F.worldView, &F.proj);
+    ((owners::Matrix_22ca90 *)&(F.worldView))->FUN_0022ca90((const owners::Matrix_22ca90 *)(const Matrix_32e400 *)(&F.view), (const owners::Matrix_22ca90 *)(const Matrix_32e400 *)(&F.world));
+    ((owners::Matrix_22cc10 *)&(F.worldViewProj))->FUN_0022cc10((const owners::Matrix_22cc10 *)(const Matrix_32e400 *)(&F.worldView), (const owners::Matrix_22cc10 *)(const Matrix_32e400 *)(&F.proj));
     F.worldViewT = F.worldViewProj;
-    F.worldViewT.FUN_0022c0b0();
+    ((owners::M_22c0b0 *)&(F.worldViewT))->FUN_0022c0b0();
     F.viewT = F.view;
-    F.viewT.FUN_0022c0b0();
+    ((owners::M_22c0b0 *)&(F.viewT))->FUN_0022c0b0();
     D3D8::D3DDevice_SetVertexShaderConstant4(0x6a, &F.viewT);
     D3D8::D3DDevice_SetVertexShaderConstant4(0x6e, &F.worldViewT);
     ((d3dLayeredShader_nv_32e400*)this)->FUN_0032db00();

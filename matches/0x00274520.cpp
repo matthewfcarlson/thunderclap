@@ -1,4 +1,5 @@
 #include "gen/core.h"
+#include "gen/owners.h"
 
 struct Obj8_274520 {
     virtual void v0();
@@ -9,7 +10,6 @@ struct Obj8_274520 {
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    unsigned int* Get();
 };
 struct Obj2_274520 {
     virtual void v0();
@@ -30,7 +30,7 @@ struct Data_274520 {
 int core::DriveMediaRequest::vfunc_1() {
     Obj8_274520* a = (*(Drive_274520 * *)&this->f_08)->a;
     a->v7();
-    Data_274520* p = (Data_274520*)a->Get();
+    Data_274520* p = (Data_274520*)((unsigned int *)((owners::ProjectileMissile_2728d0 *)a)->FUN_002728d0());
     *(*(Data_274520 * *)&this->f_0c) = *p;
     (*(Drive_274520 * *)&this->f_08)->b.v0();
     (*(Drive_274520 * *)&this->f_08)->z = 0;

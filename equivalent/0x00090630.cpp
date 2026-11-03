@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2978 inputs, branch coverage 6/6)
 // FUN_00090630 @ 0x00090630
+#include "gen/owners.h"
 struct Text_90630 {
     unsigned int data;
     unsigned int size;
@@ -21,11 +22,10 @@ struct Entry_90630 {
 struct Table_90630 {
     Entry_90630 entries[50];
     int count;
-    int FUN_00090050(const char* name);
     void FUN_00090630(const char* name, const char* value, int third, int fourth, int fifth, int sixth);
 };
 void Table_90630::FUN_00090630(const char* name, const char* value, int third, int fourth, int fifth, int sixth) {
-    int index = FUN_00090050(name);
+    int index = ((owners::Table_90050 *)this)->FUN_00090050((char *)name);
     if (index == -1) {
         index = count;
         if (index >= 50) return;

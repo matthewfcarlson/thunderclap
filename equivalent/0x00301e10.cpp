@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3041 inputs, branch coverage 30/30)
 // FUN_00301e10 @ 0x00301e10
 #include "decls/data/engine/unknown.h"
+#include "gen/owners.h"
 
 extern "C" double sqrt(double);
 struct Vec3_301e10 {
     float x, y, z;
     float FUN_0022d110();
-    void FUN_00011160(float s, Vec3_301e10* dir);
     void FUN_001f6bc0(Vec3_301e10* base, float s, Vec3_301e10* dir);
 };
 union FloatBits_301e10 {
@@ -131,7 +131,7 @@ void Collider_301e10::FUN_00301e10(Cap* a, Cap* b) {
                         contactA.x = axial.x * a->radius;
                         contactA.y = axial.y * a->radius;
                         contactA.z = axial.z * a->radius;
-                        contactA.FUN_00011160(a->half, &radial);
+                        ((owners::Vec3_11160 *)&contactA)->FUN_00011160(a->half, (const owners::Vec3_11160 *)(Vec3_301e10 *)(&radial));
                         Vec3_301e10* origin = a->GetPos();
                         contactA.x = contactA.x + origin->x;
                         contactA.y = contactA.y + origin->y;

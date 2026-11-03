@@ -2,6 +2,7 @@
 // FUN_00240a10 @ 0x00240a10
 #include "decls/data/engine/audio.h"
 #include "decls/data/engine/content.h"
+#include "gen/owners.h"
 
 class Singleton_240a10 {
 public:
@@ -19,7 +20,6 @@ struct Pool_240a10 {
 };
 
 struct Resource_240a10 {
-    void FUN_00240060();
 };
 
 
@@ -88,7 +88,7 @@ extern "C" void FUN_00240a10()
     FUN_0024e540()->v1();
     Resource_240a10 *res = (*(Resource_240a10**)&DAT_004e5ca0);
     if (res) {
-        res->FUN_00240060();
+        ((owners::Str_240060 *)res)->FUN_00240060();
         FUN_0008d330(res);
     }
     (*(Resource_240a10**)&DAT_004e5ca0) = 0;

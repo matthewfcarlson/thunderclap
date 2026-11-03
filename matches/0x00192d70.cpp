@@ -1,11 +1,6 @@
-class Obj_192d70 {
-  public:
-    char m0[0xfc];
-    char m1;
-    unsigned char Set(unsigned char v);
-};
+#include "gen/owners.h"
 
-unsigned char Obj_192d70::Set(unsigned char v) {
+unsigned char owners::Obj_192d70::FUN_00192d70(unsigned char v) {
     m1 = v;
     return 1;
 }

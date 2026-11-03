@@ -4,6 +4,7 @@
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 extern "C" unsigned int __cdecl strlen(const char *);
 extern "C" char *__cdecl strstr(const char *, const char *);
@@ -13,7 +14,7 @@ extern "C" unsigned int __cdecl FUN_00267f80();
 extern "C" int __cdecl FUN_001b8970(unsigned short *s, int n);
 extern "C" void __cdecl FUN_00294c70(const char *src, unsigned short *dst, int n);
 
-namespace pure3d { class TextureFont; }
+namespace pure3d { class TextureFont_1baab0; }
 namespace content {
 namespace LoadInventory {
 template <class T>
@@ -41,7 +42,7 @@ struct Loader_1baab0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Font *v3(content::LoadInventory::DynamicCaster<pure3d::TextureFont> *caster, unsigned __int64 hash);
+    virtual Font *v3(content::LoadInventory::DynamicCaster<pure3d::TextureFont_1baab0> *caster, unsigned __int64 hash);
 };
 
 struct TextObj {
@@ -54,7 +55,6 @@ struct TextObj {
     virtual void Draw();
     TextObj *FUN_0029b120(Font *font, const unsigned short *s, float f, int n);
     void FUN_0029b330(const unsigned short *s, int n);
-    void FUN_0029b380(unsigned int color);
 };
 
 class Cam_1baab0 {
@@ -173,8 +173,6 @@ struct Res;
 struct Obj1_1baab0 {
     char pad000[0x10c];
     int f10c;
-    unsigned short *FUN_000f7d30(const char *name);
-    unsigned short *FUN_000f7220(unsigned short *p);
 };
 Obj1_1baab0 *__fastcall thunk_FUN_000fc1b0(Res *r);
 
@@ -253,8 +251,8 @@ void Credits_1baab0::FUN_001baab0(bool flag)
         } else {
             unsigned short *w = 0;
             if (strstr("TBS_CREDIT", s) == 0) {
-                unsigned short *wn = thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())->FUN_000f7d30(s);   // the argument is evaluated before the receiver
-                w = thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())->FUN_000f7220(wn);
+                unsigned short *wn = ((unsigned short *)((owners::A_f7d30 *)(thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())))->FUN_000f7d30((hulk_intptr)s));   // the argument is evaluated before the receiver
+                w = ((unsigned short *)((owners::C_f7220 *)(thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())))->FUN_000f7220((hulk_intptr)wn));
             }
             if (w != 0) {
                 unsigned short *d = f.line;
@@ -271,8 +269,8 @@ void Credits_1baab0::FUN_001baab0(bool flag)
                 if (f.height + 30.0f < f.y)
                     break;
                 Loader_1baab0 *inv = (*(Loader_1baab0**)&DAT_004dd9c8);
-                content::LoadInventory::DynamicCaster<pure3d::TextureFont> *caster =
-                    new (&f.casterSlot) content::LoadInventory::DynamicCaster<pure3d::TextureFont>();
+                content::LoadInventory::DynamicCaster<pure3d::TextureFont_1baab0> *caster =
+                    new (&f.casterSlot) content::LoadInventory::DynamicCaster<pure3d::TextureFont_1baab0>();
                 f.font = inv->v3(caster, FUN_002672f0("font_serpentine_lt_med", 0));
                 if (f.line[0] != 0) {
                     float negScale = -f.scale;
@@ -296,7 +294,7 @@ void Credits_1baab0::FUN_001baab0(bool flag)
                             (*(TextObj**)&DAT_004e226c)->FUN_0029b330(f.lineBuf, 0);
                         }
                         f.u14.x = (f.width - f.font->Width(f.lineBuf) * f.scale) * 0.5f;
-                        (*(TextObj**)&DAT_004e226c)->FUN_0029b380(0xff000000);
+                        ((owners::Obj_29b380 *)((*(TextObj**)&DAT_004e226c)))->FUN_0029b380(0xff000000);
                         (*(Renderer_1baab0**)&DAT_0052c2ac)->cam->v21(0);
                         (*(Renderer_1baab0**)&DAT_0052c2ac)->FUN_00293d40(f.u14.x - 2.0f, f.y, 2.0f);
                         (*(Renderer_1baab0**)&DAT_0052c2ac)->FUN_00293da0(f.scale, negScale, 1.0f);
@@ -317,7 +315,7 @@ void Credits_1baab0::FUN_001baab0(bool flag)
                         (*(Renderer_1baab0**)&DAT_0052c2ac)->FUN_00293da0(f.scale, negScale, 1.0f);
                         (*(TextObj**)&DAT_004e226c)->Draw();
                         (*(Renderer_1baab0**)&DAT_0052c2ac)->cam->v16(0);
-                        (*(TextObj**)&DAT_004e226c)->FUN_0029b380(f.color);
+                        ((owners::Obj_29b380 *)((*(TextObj**)&DAT_004e226c)))->FUN_0029b380((int)(f.color));
                         (*(Renderer_1baab0**)&DAT_0052c2ac)->cam->v21(0);
                         (*(Renderer_1baab0**)&DAT_0052c2ac)->FUN_00293d40(f.u14.x, f.y, 2.0f);
                         (*(Renderer_1baab0**)&DAT_0052c2ac)->FUN_00293da0(f.scale, negScale, 1.0f);

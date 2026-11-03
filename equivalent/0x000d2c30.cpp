@@ -2,6 +2,7 @@
 // FUN_000d2c30 @ 0x000d2c30
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 namespace content {
 namespace LoadInventory {
 template <class T>
@@ -12,8 +13,8 @@ struct DynamicCaster {
 }
 
 namespace pure3d {
-class CompositeDrawable;
-class Locator;
+class CompositeDrawable_d2c30;
+class Locator_d2c30;
 }
 
 class Res_d2c30 {
@@ -42,7 +43,6 @@ struct Flags_d2c30 {
 };
 
 struct Holder_d2c30 {
-    Flags_d2c30 *FUN_00086340();
 };
 
 struct World {
@@ -55,7 +55,7 @@ static Res_d2c30 *GetLocator(const char *name)
 {
     Inventory_d2c30 *inv = (*(Inventory_d2c30**)&DAT_004dd9cc);
     unsigned __int64 h = FUN_0027b020(name);
-    content::LoadInventory::DynamicCaster<pure3d::Locator> c;
+    content::LoadInventory::DynamicCaster<pure3d::Locator_d2c30> c;
     return inv->get(&c, (unsigned int)h, (unsigned int)(h >> 32));
 }
 
@@ -80,7 +80,7 @@ public:
 
 void HealthBar::FUN_000d2c30()
 {
-    Flags_d2c30 *fl = DAT_004dd700->holder->FUN_00086340();
+    Flags_d2c30 *fl = ((Flags_d2c30 *)((owners::A_86340 *)(DAT_004dd700->holder))->FUN_00086340());
     const char *n1;
     const char *n2;
     const char *n3;
@@ -106,7 +106,7 @@ void HealthBar::FUN_000d2c30()
     {
         Inventory_d2c30 *inv = (*(Inventory_d2c30**)&DAT_004dd9cc);
         unsigned __int64 h = FUN_0027b020(n1);
-        content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> c;
+        content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable_d2c30> c;
         comp = (Composite_d2c30 *)inv->get(&c, (unsigned int)h, (unsigned int)(h >> 32));
     }
     Res_d2c30 *r = GetLocator(n2);

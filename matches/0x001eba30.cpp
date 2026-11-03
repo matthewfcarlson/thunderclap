@@ -1,5 +1,5 @@
+#include "gen/owners.h"
 struct Deep {
-    void Run(float);
 };
 struct Inner_1eba30 {
     Deep* d;
@@ -14,5 +14,5 @@ void Obj_1eba30::set(float v) {
     if (v < 0.0f || v > 100.0f)
         return;
     value = v;
-    inner->d->Run(v);
+    ((owners::Obj_1f39d0 *)(inner->d))->FUN_001f39d0(v);
 }

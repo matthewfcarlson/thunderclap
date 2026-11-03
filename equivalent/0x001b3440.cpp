@@ -2,21 +2,10 @@
 // FUN_001b3440 @ 0x001b3440
 #include "decls/data/game/global.h"
 #include "compat/ptr.h"
+#include "gen/owners.h"
 
-class Timeline_1b3440 {
-public:
-    char pad0[0xc];
-    int track;
-    char pad10[8];
-    float rate;
-    float pos;
-    char pad20[4];
-    float time;
-    int FUN_001b3250(float t);
-    bool FUN_001b3440(float dt);
-};
 
-bool Timeline_1b3440::FUN_001b3440(float dt)
+bool owners::Timeline_1b3440::FUN_001b3440(float dt)
 {
     int t = track;
     if (t < 0)

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 118 inputs, branch coverage 41/44, incomplete)
 // FUN_002998d0 @ 0x002998d0
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 void *__cdecl FUN_0008d690(unsigned int size);
 
 class RefCounted_2998d0 {
@@ -46,7 +47,6 @@ struct Source_2998d0 {
 
 struct ActiveControllerList_nv_2998d0 {
     pure3d::CompositeDrawable::ActiveControllerList *FUN_00299680(unsigned count);
-    void FUN_00298a60();
 };
 
 class Owner_2998d0 {
@@ -135,5 +135,5 @@ void Owner_2998d0::FUN_002998d0(unsigned char release)
             old->release();
         *slot = r;
     }
-    ((ActiveControllerList_nv_2998d0*)(bundle))->FUN_00298a60();
+    ((owners::Mapping_298a60 *)(((ActiveControllerList_nv_2998d0*)(bundle))))->FUN_00298a60();
 }

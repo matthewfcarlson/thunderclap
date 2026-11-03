@@ -1,10 +1,5 @@
-class Obj_60290 {
-  public:
-    char pad[0x50];
-    int value;
-    int* GetValue();
-};
+#include "gen/owners.h"
 
-int* Obj_60290::GetValue() {
+int* owners::Obj_60290::FUN_00060290() {
     return &value;
 }

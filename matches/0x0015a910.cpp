@@ -1,11 +1,6 @@
-class C_15a910 {
-  public:
-    char pad[0x18];
-    int m;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char C_15a910::Set(int v) {
+char owners::C_15a910::FUN_0015a910(int v) {
     m = v;
     return 1;
 }

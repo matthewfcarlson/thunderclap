@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class Name_250dc0 {
   public:
-    void Init(const char*, int);
     int a;
     int b;
     int c;
@@ -23,6 +23,6 @@ class SeqEventStopTrack : public SeqEvent_250dc0 {
 SeqEventStopTrack::SeqEventStopTrack() : SeqEvent_250dc0() {
     b = 0;
     c = 0;
-    name.Init("MySeqTrack", 2);
+    ((owners::String_23fc40 *)&name)->FUN_0023fc40("MySeqTrack", (hulk_intptr)2);
     flag = 0;
 }

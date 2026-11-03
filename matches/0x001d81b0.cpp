@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Vec_1d81b0 {
     unsigned x, y, z;
 };
@@ -19,7 +20,6 @@ struct Body_1d81b0 {
 struct Object {
     char pad[0x10];
     Body_1d81b0* body;
-    Pose* FUN_002fc6f0();
 };
 struct Gate_1d81b0 {
     bool FUN_001d4ef0();
@@ -54,7 +54,7 @@ bool Target_1d81b0::run(unsigned arg, bool reset) {
     if (state)
         FUN_001d7ee0(0);
     FUN_001d7510();
-    Vec_1d81b0* p = object ? &object->FUN_002fc6f0()->pos : provider->v4();
+    Vec_1d81b0* p = object ? &((Pose *)((owners::C_2fc6f0 *)object)->FUN_002fc6f0())->pos : provider->v4();
     position.x = p->x;
     position.y = p->y;
     position.z = p->z;

@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Mat_2fd400 {
     int v[16];
     void Op();
@@ -19,7 +20,6 @@ struct B74 {
     void G();
 };
 struct C70 {
-    void H();
 };
 
 class Obj_2fd400 {
@@ -55,7 +55,7 @@ void Obj_2fd400::Fn() {
         b->f69 = 1;
     }
     if (p70)
-        p70->H();
+        ((owners::C_311060 *)p70)->FUN_00311060();
     m = saved;
     f94 = 1;
     f84 = 0;

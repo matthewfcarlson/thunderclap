@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class Item_1fc790 {
   public:
-    void Clear();
 };
 class Thing_1fc790 {
   public:
@@ -11,5 +11,5 @@ class Thing_1fc790 {
 };
 void Thing_1fc790::ClearAll() {
     for (int i = 0; i < count; ++i)
-        items[i]->Clear();
+        ((owners::Obj_1fb940 *)(items[i]))->FUN_001fb940();
 }

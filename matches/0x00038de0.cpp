@@ -1,15 +1,10 @@
-class Obj_38de0 {
-  public:
-    void Lock(int);
-    unsigned char Wrap(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int,
-                       unsigned int, unsigned int);
-};
+#include "gen/owners.h"
 extern unsigned char Work(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int,
                           unsigned int, unsigned int);
-unsigned char Obj_38de0::Wrap(unsigned int a, unsigned int b, unsigned int c, unsigned int d, unsigned int e,
-                        unsigned int f, unsigned int g, unsigned int h) {
+unsigned char owners::Obj_38de0::FUN_00038de0(hulk_uintptr a, hulk_uintptr b, unsigned int c, unsigned int d, hulk_uintptr e,
+                        hulk_uintptr f, hulk_uintptr g, hulk_uintptr h) {
     Lock(0);
-    unsigned char r = Work(a, b, c, d, e, f, g, h);
+    unsigned char r = Work(((unsigned int)a), ((unsigned int)b), c, d, ((unsigned int)e), ((unsigned int)f), ((unsigned int)g), ((unsigned int)h));
     Lock(1);
     return r;
 }

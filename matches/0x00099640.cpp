@@ -1,6 +1,5 @@
+#include "gen/owners.h"
 struct Part {
-    void First(int);
-    void Second(int);
 };
 struct Obj {
     char pad[0xc4];
@@ -11,6 +10,6 @@ struct Obj {
     void Fn(int a, int b);
 };
 void Obj::Fn(int a, int b) {
-    holder->part.First(a);
-    holder->part.Second(b);
+    ((owners::Target_ac780 *)&(holder->part))->FUN_000ac780(a);
+    ((owners::Target_ac790 *)&(holder->part))->FUN_000ac790(b);
 }

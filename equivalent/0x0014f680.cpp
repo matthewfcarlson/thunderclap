@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 29/30, incomplete)
 // hulkfight::motion::HitPushbackAction::vfunc_3 @ 0x0014f680
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "gen/owners.h"
 struct V3_14f680 {
     float x, y, z;
     float FUN_0022d110();
@@ -8,11 +9,9 @@ struct V3_14f680 {
 };
 
 struct Str_14f680 {
-    void FUN_0027b040(const char *s);
 };
 
 struct Sub18_14f680 {
-    void FUN_0022be40(V3_14f680 *v);
     void FUN_00221d20(float f);
 };
 
@@ -72,7 +71,6 @@ struct Owner_14f680 {
 };
 
 struct Link_14f680 {
-    Owner_14f680 *FUN_000592a0();
     virtual void v0(); virtual void v1(); virtual void v2();
     virtual Hit_14f680 *v3();
 };
@@ -103,7 +101,7 @@ bool HitPushbackAction::vfunc_3(void *a, void *b)
 {
     if (link == 0)
         return false;
-    Owner_14f680 *own = link->FUN_000592a0();
+    Owner_14f680 *own = ((Owner_14f680 *)((owners::Object_592a0 *)link)->FUN_000592a0());
     Player_14f680 *pl = own->FUN_00059a30();
     Body_14f680 *body = own->FUN_00059a40();
     if (body == 0)
@@ -124,14 +122,14 @@ bool HitPushbackAction::vfunc_3(void *a, void *b)
     else
         o = 0;
     push = o;
-    o->name.FUN_0027b040("hitPushback");
+    ((owners::Target_27b040 *)&(o->name))->FUN_0027b040((hulk_uintptr)"hitPushback");
     int flag = 1;
     if (params->flag != 0 || (mode == 2 && f24 > 0.0f))
         flag = 3;
     push->flags = flag;
     push->v0();
     V3_14f680 *bp = &body->pos;
-    push->sub.FUN_0022be40(bp);
+    ((owners::Target_22be40 *)&(push->sub))->FUN_0022be40((const int *)(V3_14f680 *)bp);
     float arg;
     if (params->flag != 0)
         arg = FUN_00224f10(&hit->vec) + params->f20;

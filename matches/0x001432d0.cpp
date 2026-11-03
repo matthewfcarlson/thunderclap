@@ -1,11 +1,6 @@
-class C_1432d0 {
-  public:
-    char pad[0x20];
-    char m20;
-    char Set(char value);
-};
+#include "gen/owners.h"
 
-char C_1432d0::Set(char value) {
+char owners::C_1432d0::FUN_001432d0(char value) {
     m20 = value;
     return 1;
 }

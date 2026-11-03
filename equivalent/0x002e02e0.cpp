@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 59 inputs, branch coverage 12/12)
 // pure3d::PrimGroupStreamed::vfunc_10 @ 0x002e02e0
+#include "gen/owners.h"
 struct V3_2e02e0 { float x, y, z; };
 struct V4_2e02e0 { float x, y, z, w; };
 
 struct Bounds_2e02e0 {
     V3_2e02e0 lo;
     V3_2e02e0 hi;
-    void FUN_000a87f0(V3_2e02e0 *p);
     V4_2e02e0 *FUN_000a8890(V4_2e02e0 *out);
 };
 
@@ -51,13 +51,13 @@ void PrimGroupStreamed::FUN_002e02e0()
             tmp.x = pts[i].x + off->x;
             tmp.y = pts[i].y + off->y;
             tmp.z = off->z + pts[i].z;
-            bounds.FUN_000a87f0((V3_2e02e0 *)&tmp);
+            ((owners::V_a87f0 *)&bounds)->FUN_000a87f0((owners::V_a87f0 *)(V3_2e02e0 *)((V3_2e02e0 *)&tmp));
         }
     } else {
         bounds.lo = *pts;
         bounds.hi = *pts;
         for (unsigned int i = 1; i < count; i++)
-            bounds.FUN_000a87f0(&pts[i]);
+            ((owners::V_a87f0 *)&bounds)->FUN_000a87f0((owners::V_a87f0 *)(V3_2e02e0 *)(&pts[i]));
     }
     sphere = *bounds.FUN_000a8890(&tmp);
 }

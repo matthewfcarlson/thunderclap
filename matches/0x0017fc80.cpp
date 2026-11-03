@@ -1,11 +1,6 @@
-class Obj_17fc80 {
-  public:
-    char pad[0x18];
-    void* m18;
-    bool Set(void* x);
-};
+#include "gen/owners.h"
 
-bool Obj_17fc80::Set(void* x) {
+bool owners::Obj_17fc80::FUN_0017fc80(void* x) {
     m18 = x;
     return true;
 }

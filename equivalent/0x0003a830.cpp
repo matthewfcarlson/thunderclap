@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 160 inputs, branch coverage 51/66, incomplete)
 // FUN_0003a830 @ 0x0003a830
+#include "gen/owners.h"
 struct Event_3a830;
 
 struct Slot_3a830 {
-    Event_3a830 *FUN_001d72e0();
 };
 
 struct Weapon_3a830 {
@@ -70,13 +70,13 @@ bool Fighter_3a830::FUN_0003a830(Event_3a830 *ev, int arg)
             continue;
         if (ev == f->ev12c)
             return false;
-        if (f->slot128 && ev == f->slot128->FUN_001d72e0())
+        if (f->slot128 && ev == ((Event_3a830 *)((owners::C_1d72e0 *)(f->slot128))->FUN_001d72e0()))
             return false;
         for (i = 0; i < 8; i++) {
             // the callee may modify the table, so the pointer is re-read each time
             Fighter_3a830 *g = (k == 0) ? t334 : t338;
             Slot_3a830 *s = g->slots[i].slot;
-            if (s && ev == s->FUN_001d72e0())
+            if (s && ev == ((Event_3a830 *)((owners::C_1d72e0 *)s)->FUN_001d72e0()))
                 return false;
         }
     }

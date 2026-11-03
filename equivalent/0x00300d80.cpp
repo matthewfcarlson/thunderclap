@@ -1,22 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 292 inputs, branch coverage 20/20)
 // FUN_00300d80 @ 0x00300d80
+#include "gen/owners.h"
 void __cdecl FUN_0008d330(void*);
 void __cdecl FUN_0008d340(void*);
-struct Item_300d80 {
- void* a; void* aEnd; char pad0[8];
- void* b; void* bEnd; char pad1[8];
- void* c; void* cEnd; char pad2[8];
- void* d; void* dEnd; char pad3[8];
- void* e; void* eEnd; char pad4[36];
- void FUN_00300360();
- void FUN_00300b50();
- void* destroy(unsigned char flags);
-};
-void* Item_300d80::destroy(unsigned char flags) {
+void* owners::Item_300d80::FUN_00300d80(unsigned char flags) {
  if(flags & 2) {
   int* header = reinterpret_cast<int*>(this)-1;
   int count = *header;
-  Item_300d80* p = this + count;
+  owners::Item_300d80* p = this + count;
   if(count > 0) {
    do {
     --p;

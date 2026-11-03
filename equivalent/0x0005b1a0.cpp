@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8; --wine 600 inputs)
 // CGrabTrack::vfunc_10 @ 0x0005b1a0
 #include "gen/global.h"
+#include "gen/owners.h"
 
 struct Table_5b1a0;
 
 // the game's CFightParams (from gen/global.h) with the one method this function calls
 struct FightParamsView_5b1a0 {
-    Table_5b1a0 *FUN_000592a0();
 };
 
 struct Skeleton_5b1a0 {
@@ -34,7 +34,7 @@ hulk_intptr CGrabTrack::vfunc_10(hulk_intptr a1, hulk_intptr a2, hulk_intptr __p
     CFightParams *fp = dynamic_cast<CFightParams *>(params);
     if (fp == 0)
         return (hulk_intptr)(0);
-    Table_5b1a0 *table = ((FightParamsView_5b1a0 *)fp)->FUN_000592a0();
+    Table_5b1a0 *table = ((Table_5b1a0 *)((owners::Object_592a0 *)(((FightParamsView_5b1a0 *)fp)))->FUN_000592a0());
     Binding_5b1a0 *binding = table->FUN_00059a40();
     if (binding == 0)
         return (hulk_intptr)(0);

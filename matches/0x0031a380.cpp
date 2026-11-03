@@ -1,15 +1,5 @@
-class Thing_31a380 {
-  public:
-    int mVptr, mCopy;
-    char p[0x30 - 8];
-    int u, v;
-    char p2[0x70 - 0x38];
-    int a, b, c, d, e;
-    char p3[4];
-    int x[7];
-    void Init(int, int, int, int, int);
-};
-void Thing_31a380::Init(int p1, int p2, int p3, int p4, int p5) {
+#include "gen/owners.h"
+void owners::Thing_31a380::FUN_0031a380(int p1, int p2, int p3, int p4, int p5) {
     mCopy = mVptr;
     a = p1;
     b = p3;

@@ -1,10 +1,5 @@
-class C_f8c00 {
-  public:
-    int pad;
-    int a[128];
-    int f(int x);
-};
-int C_f8c00::f(int x) {
+#include "gen/owners.h"
+int owners::C_f8c00::FUN_000f8c00(hulk_intptr x) {
     int i = 0;
     do {
         if (a[i] == 0)
@@ -13,6 +8,6 @@ int C_f8c00::f(int x) {
             return 0;
         ++i;
     } while (i < 128);
-    a[i] = x;
-    return x;
+    a[i] = ((int)x);
+    return ((int)x);
 }

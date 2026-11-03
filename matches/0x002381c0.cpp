@@ -1,11 +1,6 @@
-class Obj_2381c0 {
-  public:
-    char pad[12];
-    int mX;
-    bool SetX(int v);
-};
+#include "gen/owners.h"
 
-bool Obj_2381c0::SetX(int v) {
+bool owners::Obj_2381c0::FUN_002381c0(int v) {
     mX = v;
     return true;
 }

@@ -1,8 +1,5 @@
-class Table_f9670 {
-  public:
-    int Find(int a, int b);
-};
-int Table_f9670::Find(int a, int b) {
+#include "gen/owners.h"
+hulk_intptr owners::Table_f9670::FUN_000f9670(int a, int b) {
     int i = 0;
     do {
         int x = ((int*)this)[i * 4];

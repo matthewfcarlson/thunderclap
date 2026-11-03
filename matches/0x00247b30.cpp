@@ -1,8 +1,7 @@
+#include "gen/owners.h"
 class Sub_247b30 {
   public:
     int x;
-    int Query();
-    void Process(int*);
 };
 class Obj_247b30 {
   public:
@@ -29,9 +28,9 @@ extern "C" void __cdecl FUN_00247b30(int p1, Obj_247b30* p2, unsigned int* p3, i
     p2->a28 = 0;
     p2->a20 = 0;
     if (p4) {
-        int t = p2->sub->Query();
+        int t = ((owners::Object_25d3e0 *)(p2->sub))->FUN_0025d3e0();
         if (t == 1 || t == 2 || t == 3 || t == 4)
-            p2->sub->Process(p4);
+            ((owners::Obj_25d3f0 *)(p2->sub))->FUN_0025d3f0(p4);
         else
             *p4 = 0;
     }

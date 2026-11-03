@@ -1,8 +1,4 @@
-class Obj_37170 {
-  public:
-    char pad[0x22dc];
-    void Set(int x);
-};
-void Obj_37170::Set(int x) {
+#include "gen/owners.h"
+void owners::Obj_37170::FUN_00037170(int x) {
     *(int*)((char*)this + 0x22dc) = x;
 }

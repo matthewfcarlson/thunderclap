@@ -1,10 +1,4 @@
-class Target_83d60 {
-    char pad[0x24];
-    int value;
-
-  public:
-    void Set(int v);
-};
-void Target_83d60::Set(int v) {
+#include "gen/owners.h"
+void owners::Target_83d60::FUN_00083d60(int v) {
     value = v;
 }

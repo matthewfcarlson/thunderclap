@@ -1,10 +1,5 @@
-class X_165500 {
-  public:
-    char pad[0x34];
-    char m34;
-    char Set(char v);
-};
-char X_165500::Set(char v) {
+#include "gen/owners.h"
+char owners::X_165500::FUN_00165500(char v) {
     m34 = v;
     return 1;
 }

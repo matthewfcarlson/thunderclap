@@ -1,11 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_002f0e80 @ 0x002f0e80
+#include "gen/owners.h"
 struct Vec3_2f0e80 { float x, y, z; };
 struct Mat4_2f0e80 {
     float m[4][4];
     void FUN_0022b980();
-    void FUN_0022c120();
-    void FUN_0022c3b0(const Vec3_2f0e80 *in, Vec3_2f0e80 *out);
 };
 struct Volume_2f0e80 {
     char pad0[0x38];
@@ -39,10 +38,10 @@ bool FUN_002f0e80(const Vec3_2f0e80 *p0, const Vec3_2f0e80 *p1, const Vec3_2f0e8
         mat.m[2][0] = vol->rot[6];
         mat.m[2][1] = vol->rot[7];
         mat.m[2][2] = vol->rot[8];
-        mat.FUN_0022c120();
-        mat.FUN_0022c3b0(p0, &a);
-        mat.FUN_0022c3b0(p2, &b);
-        mat.FUN_0022c3b0(p1, &c);
+        ((owners::Matrix_22c120 *)&mat)->FUN_0022c120();
+        ((owners::M_22c3b0 *)&mat)->FUN_0022c3b0((float *)(const Vec3_2f0e80 *)p0, (float *)(Vec3_2f0e80 *)(&a));
+        ((owners::M_22c3b0 *)&mat)->FUN_0022c3b0((float *)(const Vec3_2f0e80 *)p2, (float *)(Vec3_2f0e80 *)(&b));
+        ((owners::M_22c3b0 *)&mat)->FUN_0022c3b0((float *)(const Vec3_2f0e80 *)p1, (float *)(Vec3_2f0e80 *)(&c));
         if (FUN_002f0080(&a, &c, &e))
             return false;
     }

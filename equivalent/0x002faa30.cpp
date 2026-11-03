@@ -2,6 +2,7 @@
 // FUN_002faa30 @ 0x002faa30
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct V3_2faa30 {
     float x, y, z;
@@ -10,7 +11,6 @@ struct V3_2faa30 {
 struct Box_2faa30 {
     V3_2faa30 lo;
     V3_2faa30 hi;
-    char FUN_002f3360(Box_2faa30 *other);
 };
 
 struct Tri_2faa30;
@@ -158,7 +158,7 @@ char Tri_2faa30::FUN_002faa30(Shape_2faa30 *shape, Context *ctx, int flags)
     f.sb.lo.x = f.pt.x - shape->half.x;
     f.sb.lo.y = f.pt.y - shape->half.y;
     f.sb.lo.z = f.pt.z - shape->half.z;
-    if (!f.tri.FUN_002f3360(&f.sb))
+    if (!((char)((owners::Box_2f3360 *)&(f.tri))->FUN_002f3360((owners::Box_2f3360 *)(Box_2faa30 *)(&f.sb))))
         return 0;
 
     FUN_002fa6b0((V3_2faa30 *)(&f.v0), (V3_2faa30 *)(&f.v1), (V3_2faa30 *)(&f.v2), (V3_2faa30 *)(&f.normal));

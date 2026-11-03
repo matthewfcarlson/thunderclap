@@ -1,11 +1,6 @@
-class C_143560 {
-  public:
-    char Set(int v);
-    char pad[0x40];
-    int mVal;
-};
+#include "gen/owners.h"
 
-char C_143560::Set(int v) {
+char owners::C_143560::FUN_00143560(int v) {
     mVal = v;
     return 1;
 }

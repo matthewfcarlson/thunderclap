@@ -1,17 +1,10 @@
+#include "gen/owners.h"
 extern "C" void __stdcall D3DResource_Release(int);
 extern "C" void FreeOld(int);
 extern "C" int __stdcall CreateIndexBuffer(int);
 extern "C" void CheckError(unsigned int);
 extern "C" void InitIndex(int, int);
-class Buffer_327130 {
-  public:
-    char pad0[0x20];
-    int count;
-    char pad24[8];
-    int resource;
-    void Set(int n);
-};
-void Buffer_327130::Set(int n) {
+void owners::Buffer_327130::FUN_00327130(int n) {
     int old = resource;
     count = n;
     if (old) {

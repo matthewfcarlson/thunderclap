@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3059 inputs, branch coverage 34/34)
 // FUN_001fe080 @ 0x001fe080
 #include "decls/address.h"
+#include "gen/owners.h"
 struct V3_1fe080 {
     float x, y, z;
 };
@@ -25,7 +26,6 @@ struct Group_1fe080 {
 };
 
 struct Rng_1fe080 {
-    int FUN_00011330(int maxValue);
 };
 extern "C" Rng_1fe080 *__cdecl FUN_000964d0();
 
@@ -34,7 +34,6 @@ struct Zones {
 };
 
 struct Holder54_1fe080 {
-    Zones *FUN_000862a0();
 };
 
 struct World {
@@ -47,7 +46,6 @@ public:
     char pad00[0x214];
     Group_1fe080 *groups[6];        // 0x214
 
-    int FUN_001fd360(int zone);
     Elem_1fe080 *FUN_001fe080(float x, float y, float z, int type, int mode, float yMin, float yMax);
 };
 
@@ -60,16 +58,16 @@ Elem_1fe080 *ElemSet::FUN_001fe080(float x, float y, float z, int type, int mode
     float bestDist = 3.4028235e38f;
 
     if (mode == 2) {
-        int zone = DAT_004dd700->holder->FUN_000862a0()->FUN_00204200(x, y, z);
+        int zone = ((Zones *)((owners::Target_862a0 *)(DAT_004dd700->holder))->FUN_000862a0())->FUN_00204200(x, y, z);
         if (zone == -1)
             return 0;
-        int idx = FUN_001fd360(zone);
+        int idx = ((owners::X_1fd360 *)this)->FUN_001fd360(zone);
         if (idx == -1)
             return 0;
         int count = groups[type][idx].count;
         if (count <= 0)
             return 0;
-        int pick = FUN_000964d0()->FUN_00011330(count - 1);
+        int pick = ((int)((owners::Random_11330 *)(FUN_000964d0()))->FUN_00011330((unsigned int)(count - 1)));
         return groups[type][idx].data + pick;
     }
 

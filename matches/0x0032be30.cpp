@@ -1,13 +1,11 @@
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 
 struct Vec4_32be30 {
     float x, y, z, w;
 };
 struct Matrix_32be30 {
     float m[16];
-    void FUN_0022ca90(Matrix_32be30*, Matrix_32be30*);
-    void FUN_0022cc10(Matrix_32be30*, Matrix_32be30*);
-    void FUN_0022c0b0();
 };
 namespace D3D8 {
 void __stdcall D3DDevice_GetTransform(unsigned long type, Matrix_32be30* out);
@@ -31,12 +29,12 @@ void pure3d::d3dLightMapShader::vfunc_24() {
     D3D8::D3DDevice_GetTransform(6, &m6);
     D3D8::D3DDevice_GetTransform(0, &m0);
     D3D8::D3DDevice_GetTransform(1, &m1);
-    prod.FUN_0022ca90(&m6, &m0);
-    full.FUN_0022cc10(&prod, &m1);
+    ((owners::Matrix_22ca90 *)&prod)->FUN_0022ca90((const owners::Matrix_22ca90 *)(Matrix_32be30 *)(&m6), (const owners::Matrix_22ca90 *)(Matrix_32be30 *)(&m0));
+    ((owners::Matrix_22cc10 *)&full)->FUN_0022cc10((const owners::Matrix_22cc10 *)(Matrix_32be30 *)(&prod), (const owners::Matrix_22cc10 *)(Matrix_32be30 *)(&m1));
     a = full;
-    a.FUN_0022c0b0();
+    ((owners::M_22c0b0 *)&a)->FUN_0022c0b0();
     b = m6;
-    b.FUN_0022c0b0();
+    ((owners::M_22c0b0 *)&b)->FUN_0022c0b0();
     D3D8::D3DDevice_SetVertexShaderConstant4(0x6a, &b);
     D3D8::D3DDevice_SetVertexShaderConstant4(0x6e, &a);
     ((d3dLightMapShader_nv_32be30*)this)->FUN_0032b990();

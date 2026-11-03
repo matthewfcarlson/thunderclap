@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class Obj_262400 {
   public:
     hulk_uintptr A();
@@ -6,7 +7,6 @@ class Obj_262400 {
 };
 class P2_262400 {
   public:
-    void SetExt(char*);
 };
 
 extern "C" void* FUN_00262400(void * obj, void * p2) {
@@ -16,7 +16,7 @@ extern "C" void* FUN_00262400(void * obj, void * p2) {
         p += (hulk_uintptr)((Obj_262400 *)obj)->B();
         while (p >= start) {
             if (*p == '.') {
-                ((P2_262400 *)p2)->SetExt(p + 1);
+                ((owners::String_23fe50 *)(((P2_262400 *)p2)))->FUN_0023fe50((const char *)(p + 1));
                 return (void*)((P2_262400 *)p2);
             }
             --p;

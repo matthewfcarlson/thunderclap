@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 12/12)
 // FUN_00287e20 @ 0x00287e20
+#include "gen/owners.h"
 struct Node { unsigned FUN_00288960(unsigned,unsigned); };
 struct Map_287e20 { Node* FUN_00288ad0(unsigned,unsigned); };
-struct Group_287e20 { Map_287e20* FUN_00284f50(); char data[0x2c]; };
+struct Group_287e20 {  char data[0x2c]; };
 struct Key_287e20 { unsigned a,b; };
 struct Keys_287e20 { char pad[0x24]; Key_287e20* entries; };
 struct Info_287e20 { char pad[8]; Keys_287e20* keys; unsigned count; };
@@ -16,7 +17,7 @@ void PoseAnimationController_287e20::update() {
  if (!dirty) return;
  dirty=0;
  for(unsigned i=0;i<count;++i) {
- Map_287e20* map=groups[i].FUN_00284f50();
+ Map_287e20* map=((Map_287e20 *)((owners::Target_284f50 *)&(groups[i]))->FUN_00284f50());
  for(unsigned j=0;j<info->count;++j) {
  Node* node=map->FUN_00288ad0(info->keys->entries[j].a,info->keys->entries[j].b);
  if(node) {

@@ -1,13 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 212 inputs, branch coverage 22/22)
 // FUN_00310550 @ 0x00310550
+#include "gen/owners.h"
 struct Vec3_310550 {
     float x, y, z;
 };
 
 struct Mat4_310550 {
     float m[16];
-    void FUN_0022c0b0();
-    void FUN_0022c3b0(Vec3_310550* in, Vec3_310550* out);
 };
 
 struct SymMatrix {
@@ -15,10 +14,7 @@ struct SymMatrix {
     int m[6];
     void FUN_002fca90();
     void FUN_002fcaa0();
-    void FUN_002fd0a0();
-    void FUN_002fcaf0(SymMatrix* other);
     void FUN_002fcd60(void* basis);
-    void FUN_002fd0c0(SymMatrix* total);
 };
 
 struct Joint_310550 {
@@ -126,12 +122,12 @@ void Rigid::FUN_00310550()
     f.w.y = cy - op->y;
     f.w.z = cz - op->z;
     f.m = mat;
-    f.m.FUN_0022c0b0();
-    f.m.FUN_0022c3b0(&f.w, &localCenter);
+    ((owners::M_22c0b0 *)&(f.m))->FUN_0022c0b0();
+    ((owners::M_22c3b0 *)&(f.m))->FUN_0022c3b0((float *)(Vec3_310550 *)(&f.w), (float *)(Vec3_310550 *)(&localCenter));
     flaga4 = 0;
     f.s1.FUN_002fca90();
     f.s2.FUN_002fca90();
-    total.FUN_002fd0a0();
+    ((owners::C_2fd0a0 *)&total)->FUN_002fd0a0();
     for (int i = 0; i < count; i++) {
         Body_310550* b = bodies[i];
         if (b->mass > 0.0f && b->active) {
@@ -149,8 +145,8 @@ void Rigid::FUN_00310550()
             f.s2.m[4] = b2->inertia[4];
             f.s2.m[5] = b2->inertia[5];
             f.s2.FUN_002fcd60(manager->FUN_0030f490(i)->FUN_0030edf0()->FUN_0030f100());
-            f.s1.FUN_002fcaf0(&f.s2);
-            total.FUN_002fcaf0(&f.s1);
+            ((owners::V_2fcaf0 *)&(f.s1))->FUN_002fcaf0((owners::V_2fcaf0 *)(SymMatrix *)(&f.s2));
+            ((owners::V_2fcaf0 *)&total)->FUN_002fcaf0((owners::V_2fcaf0 *)(SymMatrix *)(&f.s1));
         }
     }
     inertiaBody.m[0] = total.m[0];
@@ -160,10 +156,10 @@ void Rigid::FUN_00310550()
     inertiaBody.m[4] = total.m[4];
     inertiaBody.m[5] = total.m[5];
     f.m = mat;
-    f.m.FUN_0022c0b0();
+    ((owners::M_22c0b0 *)&(f.m))->FUN_0022c0b0();
     inertiaBody.FUN_002fcd60(&f.m);
-    inertiaWorld.FUN_002fd0c0(&total);
-    mat.FUN_0022c3b0(&refPoint, &f.v);
+    ((owners::Sym3_2fd0c0 *)&inertiaWorld)->FUN_002fd0c0((const owners::Sym3_2fd0c0 *)(SymMatrix *)(&total));
+    ((owners::M_22c3b0 *)&mat)->FUN_0022c3b0((float *)(Vec3_310550 *)(&refPoint), (float *)(Vec3_310550 *)(&f.v));
     cx = f.v.x + cx;
     cy = f.v.y + cy;
     cz = f.v.z + cz;

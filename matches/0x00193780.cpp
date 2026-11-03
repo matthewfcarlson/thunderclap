@@ -1,11 +1,6 @@
-class C_193780 {
-  public:
-    char pad[0x140];
-    int m;
-    bool Set(int x);
-};
+#include "gen/owners.h"
 
-bool C_193780::Set(int x) {
+bool owners::C_193780::FUN_00193780(int x) {
     m = x;
     return true;
 }

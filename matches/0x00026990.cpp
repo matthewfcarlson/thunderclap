@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class Item {
   public:
-    Item* Act();
 };
 class Owner {
   public:
@@ -13,5 +13,5 @@ Item* Owner::Run(int x) {
     Item* p = Find(v);
     if (!p)
         return p;
-    return p->Act();
+    return ((Item *)((owners::Widget_35910 *)p)->FUN_00035910());
 }

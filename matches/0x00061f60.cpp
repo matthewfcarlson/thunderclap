@@ -1,10 +1,5 @@
-class A_61f60 {
-  public:
-    char pad[0x10];
-    int m;
-    bool Set(int v);
-};
-bool A_61f60::Set(int v) {
+#include "gen/owners.h"
+bool owners::A_61f60::FUN_00061f60(int v) {
     m = v;
     return true;
 }

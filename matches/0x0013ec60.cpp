@@ -1,9 +1,5 @@
-struct Obj_13ec60 {
-    char pad[0x48];
-    int value;
-    bool Set(int v);
-};
-bool Obj_13ec60::Set(int v) {
+#include "gen/owners.h"
+bool owners::Obj_13ec60::FUN_0013ec60(int v) {
     value = v;
     return true;
 }

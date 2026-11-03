@@ -3,6 +3,7 @@
 #include "compat/ptr.h"
 // the value a float slot holds after a store: the original reloads it (rounded) where MSVC 7.1 would reuse the
 // unrounded register
+#include "gen/owners.h"
 static inline float Stored_40dc0(const float &v)
 {
     return *(const volatile float *)&v;
@@ -18,10 +19,6 @@ struct Mat4_40dc0 {
     float m[12];
     V3_40dc0 trans;
     float w;
-    void FUN_0022c120();
-    void FUN_0022ca90(const Mat4_40dc0 *a, const Mat4_40dc0 *b);
-    void FUN_0022c2b0(const V3_40dc0 *in, V3_40dc0 *out);
-    void FUN_0022c3b0(const V3_40dc0 *in, V3_40dc0 *out);
 };
 
 struct Xform_40dc0 {
@@ -30,7 +27,6 @@ struct Xform_40dc0 {
     int type;
     void FUN_00221b70(const Mat4_40dc0 *m);
     void FUN_00221be0(const Xform_40dc0 *other);
-    void FUN_00221e60(const Mat4_40dc0 *m);
     void FUN_00221c60(const Mat4_40dc0 *m);
     Mat4_40dc0 *FUN_00221c40();
     void FUN_00222120(V3_40dc0 *out);
@@ -210,15 +206,15 @@ void CCharacter_40dc0::FUN_00040dc0(Args_40dc0 *a1, float a2)
             f.M98 = *src;
             if ((lo340 | hi344) != 0) {
                 f.M15c = f.M98;
-                f.M15c.FUN_0022c120();
+                ((owners::Matrix_22c120 *)&(f.M15c))->FUN_0022c120();
                 f.x.FUN_00221b70(p388->xf.FUN_00221c40());
-                f.x.FUN_00221e60(&f.M15c);
+                ((owners::Obj_221e60 *)&(f.x))->FUN_00221e60((hulk_uintptr)(const Mat4_40dc0 *)(&f.M15c));
                 s2->FUN_00224260(lo340, hi344, &f.x);
-                f.M58.FUN_0022ca90(&m348, f.x.FUN_00221c40());
+                ((owners::Matrix_22ca90 *)&(f.M58))->FUN_0022ca90((const owners::Matrix_22ca90 *)(const Mat4_40dc0 *)(&m348), (const owners::Matrix_22ca90 *)(const Mat4_40dc0 *)(f.x.FUN_00221c40()));
             } else {
                 f.M58 = m348;
             }
-            f.M19c.FUN_0022ca90(&f.M58, &f.M98);
+            ((owners::Matrix_22ca90 *)&(f.M19c))->FUN_0022ca90((const owners::Matrix_22ca90 *)(const Mat4_40dc0 *)(&f.M58), (const owners::Matrix_22ca90 *)(const Mat4_40dc0 *)(&f.M98));
             p388->xf.FUN_00221c60(&f.M19c);
         }
     }
@@ -258,15 +254,15 @@ void CCharacter_40dc0::FUN_00040dc0(Args_40dc0 *a1, float a2)
                 f.M58 = *src;
                 f.M19c = *scene->xf.FUN_00221c40();
                 f.M98 = f.M58;
-                f.M98.FUN_0022c120();
-                f.M15c.FUN_0022ca90(&f.M19c, &f.M98);
+                ((owners::Matrix_22c120 *)&(f.M98))->FUN_0022c120();
+                ((owners::Matrix_22ca90 *)&(f.M15c))->FUN_0022ca90((const owners::Matrix_22ca90 *)(const Mat4_40dc0 *)(&f.M19c), (const owners::Matrix_22ca90 *)(const Mat4_40dc0 *)(&f.M98));
                 if ((lo340 | hi344) != 0) {
                     f.x.FUN_00221b70(p388->xf.FUN_00221c40());
-                    f.x.FUN_00221e60(&f.M98);
+                    ((owners::Obj_221e60 *)&(f.x))->FUN_00221e60((hulk_uintptr)(const Mat4_40dc0 *)(&f.M98));
                     s2->FUN_00224260(lo340, hi344, &f.x);
                     f.M58 = *f.x.FUN_00221c40();
-                    f.M58.FUN_0022c120();
-                    m348.FUN_0022ca90(&f.M15c, &f.M58);
+                    ((owners::Matrix_22c120 *)&(f.M58))->FUN_0022c120();
+                    ((owners::Matrix_22ca90 *)&m348)->FUN_0022ca90((const owners::Matrix_22ca90 *)(const Mat4_40dc0 *)(&f.M15c), (const owners::Matrix_22ca90 *)(const Mat4_40dc0 *)(&f.M58));
                 } else {
                     m348 = f.M15c;
                 }
@@ -374,14 +370,14 @@ void CCharacter_40dc0::FUN_00040dc0(Args_40dc0 *a1, float a2)
 
     if (p14c != 0) {
         f.M98 = m150;
-        f.M98.FUN_0022c120();
+        ((owners::Matrix_22c120 *)&(f.M98))->FUN_0022c120();
         f.M58 = *(Mat4_40dc0 *)(p14c + 0x10);
         V3_40dc0 &w4 = f.vB;
         w4 = *sp;
         V3_40dc0 &od8 = f.od8;
-        f.M98.FUN_0022c2b0(&w4, &od8);
+        ((owners::Mat_22c2b0 *)&(f.M98))->FUN_0022c2b0((float *)(const V3_40dc0 *)(&w4), (float *)(V3_40dc0 *)(&od8));
         V3_40dc0 &o18 = f.vA;
-        f.M58.FUN_0022c2b0(&od8, &o18);
+        ((owners::Mat_22c2b0 *)&(f.M58))->FUN_0022c2b0((float *)(const V3_40dc0 *)(&od8), (float *)(V3_40dc0 *)(&o18));
         if (!(absA2 <= 1e-05f)) {
             v190 = *sp;
             v190.x = v190.x - o18.x;
@@ -402,9 +398,9 @@ void CCharacter_40dc0::FUN_00040dc0(Args_40dc0 *a1, float a2)
         V3_40dc0 &oe4 = f.oe4;
         scene->xf.FUN_00222120(&oe4);
         V3_40dc0 &ofc = f.ofc;
-        f.M98.FUN_0022c3b0(&oe4, &ofc);
+        ((owners::M_22c3b0 *)&(f.M98))->FUN_0022c3b0((float *)(const V3_40dc0 *)(&oe4), (float *)(V3_40dc0 *)(&ofc));
         V3_40dc0 &of0 = f.of0;
-        f.M58.FUN_0022c3b0(&ofc, &of0);
+        ((owners::M_22c3b0 *)&(f.M58))->FUN_0022c3b0((float *)(const V3_40dc0 *)(&ofc), (float *)(V3_40dc0 *)(&of0));
         scene->FUN_00222710(&of0);
     } else {
         v190.z = 0.0f;

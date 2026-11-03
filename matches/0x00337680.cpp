@@ -1,16 +1,7 @@
 #include "compat/ptr.h"
-class Thing_337680 {
-  public:
-    char pad0[4];
-    int count;
-    char pad8[0x5108 - 8];
-    int state;
-    int Check(int);
-    void Init(int);
-    hulk_intptr Target(int);
-};
-hulk_intptr Thing_337680::Target(int arg) {
-    if (Check(arg)) {
+#include "gen/owners.h"
+hulk_intptr owners::Thing_337680::FUN_00337680(hulk_intptr arg) {
+    if (Check(((int)arg))) {
         state = 7;
         return 0;
     }
@@ -19,7 +10,7 @@ hulk_intptr Thing_337680::Target(int arg) {
         state = 5;
         return 0;
     }
-    ((Thing_337680*)((char*)this + i * 0x288 + 8))->Init(arg);
+    ((owners::Thing_337680*)((char*)this + i * 0x288 + 8))->Init(((int)arg));
     count++;
     return (hulk_intptr)((char*)this + i * 0x288 + 8);
 }

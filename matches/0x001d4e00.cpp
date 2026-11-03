@@ -1,10 +1,5 @@
+#include "gen/owners.h"
 typedef unsigned int u32_1d4e00;
-class C_1d4e00 {
-  public:
-    char pad[0xa8];
-    u32_1d4e00 value;
-    u32_1d4e00 f();
-};
-u32_1d4e00 C_1d4e00::f() {
+hulk_uintptr owners::C_1d4e00::FUN_001d4e00() {
     return value;
 }

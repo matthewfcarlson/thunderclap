@@ -1,10 +1,4 @@
-class C_83d70 {
-    char pad[0x28];
-    int value;
-
-  public:
-    void Set(int x);
-};
-void C_83d70::Set(int x) {
+#include "gen/owners.h"
+void owners::C_83d70::FUN_00083d70(int x) {
     value = x;
 }

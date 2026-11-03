@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 156 inputs, branch coverage 25/26, incomplete; run with --inputs 12000)
 // FUN_002ed240 @ 0x002ed240
+#include "gen/owners.h"
 struct Vec3_2ed240 { float x, y, z; };
 
 class Body_2ed240 {
@@ -33,7 +34,6 @@ struct Span_2ed240 {
 
 struct Resolver_2ed240 {
     char pad0[0x30];
-    void FUN_00302ed0(Body_2ed240 *a, Body_2ed240 *b, void *out);
 };
 
 class Broadphase_2ed240 {
@@ -83,6 +83,6 @@ void Broadphase_2ed240::FUN_002ed240(int index)
         if ((o->maskB_lo & maskA_lo) == 0 && (o->maskB_hi & maskA_hi) == 0)
             continue;
         resultCount = 0;
-        resolver.FUN_00302ed0(en->body, s->other->body, field2c);
+        ((owners::Obj_302ed0 *)&resolver)->FUN_00302ed0((hulk_intptr)(Body_2ed240 *)(en->body), (hulk_intptr)(Body_2ed240 *)(s->other->body), (hulk_intptr)field2c);
     }
 }

@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0030c690 @ 0x0030c690
+#include "gen/owners.h"
 struct IntVec_30c690 {
     char data[0x10];
-    void FUN_0030c580(const IntVec_30c690 *other);
 };
 
 struct State_30c690 {
@@ -68,7 +68,7 @@ State_30c690 *State_30c690::FUN_0030c690(const State_30c690 *other)
     f14 = other->f14;
     f18 = other->f18;
     f1c = other->f1c;
-    vec20.FUN_0030c580(&other->vec20);
+    ((owners::Buffer_30c580 *)&vec20)->FUN_0030c580((owners::Buffer_30c580 *)(const IntVec_30c690 *)(&other->vec20));
     f30 = other->f30;
     f34 = other->f34;
     f38 = other->f38;

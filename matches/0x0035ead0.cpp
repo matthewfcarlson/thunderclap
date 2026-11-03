@@ -1,13 +1,13 @@
 #include "decls/data/game/global.h"
 // data: g_reg = DAT_004e2538
+#include "gen/owners.h"
 
 extern "C" int __cdecl atexit(void (*)(void));
 class Reg {
   public:
-    void Register(const char* name, int a);
 };
 void F2() {}
 void RegF() {
-    (*(Reg*)((char*)&DAT_004e2530 + 8)).Register("sound/rsd", 0);
+    ((owners::String_23fc40 *)&((*(Reg*)((char*)&DAT_004e2530 + 8))))->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
     atexit(F2);
 }

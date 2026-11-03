@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class Thing_d7ef0 {
   public:
     virtual void f0();
@@ -49,7 +50,6 @@ class Thing_d7ef0 {
 Thing_d7ef0* __cdecl GetThing();
 class Control_d7ef0 {
   public:
-    void SetLabel(const char*, int);
 };
 class FEMemCardControl_d7ef0 {
   public:
@@ -64,7 +64,7 @@ class FEMemCardControl_d7ef0 {
 void FEMemCardControl_d7ef0::Run(int unused) {
     Thing_d7ef0* p = GetThing();
     p->f44();
-    mControl->SetLabel("DynamicControlButtonLabel", 3);
+    ((owners::MenuScreen_bc9f0 *)mControl)->FUN_000bc9f0((hulk_intptr)"DynamicControlButtonLabel", 3);
     mFlag = 1;
     mState = 0;
 }

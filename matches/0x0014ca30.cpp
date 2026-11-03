@@ -1,11 +1,6 @@
-class Obj_14ca30 {
-  public:
-    char pad[0x44];
-    int mVal;
-    bool Init(int x);
-};
+#include "gen/owners.h"
 
-bool Obj_14ca30::Init(int x) {
+bool owners::Obj_14ca30::FUN_0014ca30(int x) {
     mVal = x;
     return true;
 }

@@ -1,9 +1,4 @@
-class X_2775f0 {
-  public:
-    int data[4];
-    int value;
-    void f(int i);
-};
-void X_2775f0::f(int i) {
+#include "gen/owners.h"
+void owners::X_2775f0::FUN_002775f0(int i) {
     value = data[i];
 }

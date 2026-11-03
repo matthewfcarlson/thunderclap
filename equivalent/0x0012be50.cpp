@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 16/18, incomplete)
 // hulkfight::ai::ThreatDistanceCondition::vfunc_6 @ 0x0012be50
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
@@ -27,7 +28,6 @@ struct Chain_12be50 {
 };
 
 struct Owner_12be50 {
-    Chain_12be50 *FUN_000592a0();
 };
 
 class ThreatDistanceCondition {
@@ -51,7 +51,7 @@ char ThreatDistanceCondition::vfunc_6(int unused1, Owner_12be50 *owner, int unus
 {
     if (!FUN_00344e74(owner, 0, DAT_00494b44, DAT_00494b60, 0))
         return 0;
-    Actor_12be50 *actor = owner->FUN_000592a0()->FUN_00059a30();
+    Actor_12be50 *actor = ((Chain_12be50 *)((owners::Object_592a0 *)owner)->FUN_000592a0())->FUN_00059a30();
     if (!actor->FUN_00037080(key, keyFlag))
         return 0;
 

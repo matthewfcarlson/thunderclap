@@ -1,12 +1,7 @@
 // cl-flags: /O2
-class X_1330a0 {
-  public:
-    char pad[0x20];
-    int mVal;
-    char Set(int p);
-};
+#include "gen/owners.h"
 
-char X_1330a0::Set(int p) {
+char owners::X_1330a0::FUN_001330a0(int p) {
     mVal = p;
     return 1;
 }

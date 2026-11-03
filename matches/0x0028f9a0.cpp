@@ -1,4 +1,5 @@
 #include "decls/data/engine/pure3d/prop.h"
+#include "gen/owners.h"
 
 class A_28f9a0 {
   public:
@@ -34,16 +35,7 @@ class B_28f9a0 {
     virtual void G13(int);
 };
 extern A_28f9a0* gA_28f9a0;
-class X_28f9a0 {
-  public:
-    int refs;
-    char pad[0xc8];
-    int a, b, c, d;
-    char pad2[0x18];
-    unsigned char flag;
-    void Fn();
-};
-void X_28f9a0::Fn() {
+void owners::X_28f9a0::FUN_0028f9a0() {
     ++refs;
     gA_28f9a0->F4();
     if (d) {

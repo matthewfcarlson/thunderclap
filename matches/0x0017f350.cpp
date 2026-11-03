@@ -1,11 +1,6 @@
-class X_17f350 {
-  public:
-    char Set(unsigned char b);
-    char pad[0x15];
-    unsigned char value;
-};
+#include "gen/owners.h"
 
-char X_17f350::Set(unsigned char b) {
+char owners::X_17f350::FUN_0017f350(unsigned char b) {
     value = b;
     return 1;
 }

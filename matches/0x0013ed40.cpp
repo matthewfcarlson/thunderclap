@@ -1,12 +1,6 @@
-class Obj_13ed40 {
-    char pad[0x20];
-    float mAngle;
+#include "gen/owners.h"
 
-  public:
-    bool SetAngle(float angle);
-};
-
-bool Obj_13ed40::SetAngle(float angle) {
+bool owners::Obj_13ed40::FUN_0013ed40(float angle) {
     mAngle = angle * 0.0174532925f;
     return true;
 }

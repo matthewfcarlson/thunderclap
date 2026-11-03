@@ -1,5 +1,6 @@
 #include "decls/data/engine/content.h"
 // data: gThing_2640f0 = DAT_00527c58
+#include "gen/owners.h"
 
 class Inner_2640f0 {
   public:
@@ -28,7 +29,6 @@ class Inner_2640f0 {
 };
 class Manager_2640f0 {
   public:
-    void update();
 };
 extern int getThing();
 class Target_2640f0 {
@@ -48,7 +48,7 @@ void Target_2640f0::run() {
             return;
         }
         while (!obj->f20()) {
-            (*(Manager_2640f0**)&DAT_00527c58)->update();
+            ((owners::Q_264d20 *)((*(Manager_2640f0**)&DAT_00527c58)))->FUN_00264d20();
             result = getThing();
         }
     }

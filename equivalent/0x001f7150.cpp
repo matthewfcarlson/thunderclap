@@ -2,6 +2,7 @@
 // FUN_001f7150 @ 0x001f7150
 // equiv-map: ??0Name@@QAE@H@Z = 0x0027b0e0
 // equiv-map: ??1Name@@QAE@XZ = 0x0027af50
+#include "gen/owners.h"
 
 struct Vec3_1f7150 {
     float x, y, z;
@@ -16,8 +17,6 @@ struct Name {
 struct Mat_1f7150 {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022bc20(float x, float y, float z);
-    void FUN_0022be40(Vec3_1f7150 *pos);
 };
 
 struct Placer_1f7150 {
@@ -30,8 +29,8 @@ void * __stdcall FUN_001f7150(int key, Vec3_1f7150 pos, float rx, float ry, floa
 {
     Mat_1f7150 m;
     m.FUN_0022b980();
-    m.FUN_0022bc20(rx * 0.01745329238474369f, ry * 0.01745329238474369f, rz * 0.01745329238474369f);
-    m.FUN_0022be40(&pos);
+    ((owners::Matrix_22bc20 *)&m)->FUN_0022bc20(rx * 0.01745329238474369f, ry * 0.01745329238474369f, rz * 0.01745329238474369f);
+    ((owners::Target_22be40 *)&m)->FUN_0022be40((const int *)(Vec3_1f7150 *)(&pos));
     Placer_1f7150 *placer = FUN_0027f250();
     if (placer == 0)
         return 0;

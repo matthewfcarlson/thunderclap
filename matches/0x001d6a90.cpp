@@ -1,9 +1,4 @@
-class Target_1d6a90 {
-  public:
-    char pad[0x1e0];
-    unsigned char value;
-    unsigned char GetValue();
-};
-unsigned char Target_1d6a90::GetValue() {
+#include "gen/owners.h"
+unsigned char owners::Target_1d6a90::FUN_001d6a90() {
     return value;
 }

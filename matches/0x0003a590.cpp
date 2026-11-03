@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Vec_3a590 {
     float x, y, z;
 };
@@ -14,7 +15,6 @@ struct Result_3a590 {
     Flag_3a590* flag;
 };
 struct Link_3a590 {
-    Result_3a590* FUN_001d72e0();
 };
 bool __cdecl FUN_002027c0(Vec_3a590*, Vec_3a590*, int, int, Vec_3a590*, Vec_3a590*, int, int);
 struct Object {
@@ -39,7 +39,7 @@ bool Object::target(int unused, Object* other) {
     other->FUN_00035fa0(0);
     Flag_3a590* flag = 0;
     if (other->link) {
-        Result_3a590* result = other->link->FUN_001d72e0();
+        Result_3a590* result = ((Result_3a590 *)((owners::C_1d72e0 *)(other->link))->FUN_001d72e0());
         if (result) {
             flag = result->flag;
             if (flag)

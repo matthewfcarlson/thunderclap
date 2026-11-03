@@ -1,9 +1,4 @@
-class Target_862a0 {
-  public:
-    char pad[0x28];
-    unsigned int value;
-    unsigned int Get();
-};
-unsigned int Target_862a0::Get() {
+#include "gen/owners.h"
+hulk_uintptr owners::Target_862a0::FUN_000862a0() {
     return value;
 }

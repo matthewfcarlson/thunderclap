@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 518 inputs, branch coverage 30/33, incomplete)
 // FUN_002bbb40 @ 0x002bbb40
+#include "gen/owners.h"
 extern "C" void __fastcall FUN_00011090(void *p);
 extern "C" void __fastcall FUN_000c7920(void *p);
 void __stdcall FUN_00011520(void *p, unsigned int size, int count, void(__fastcall *ctor)(void *));
@@ -28,7 +29,6 @@ struct Quad {
 
 struct Mat {
     char d[0x40];
-    void FUN_0022ca90(const void *t, int a);
 };
 
 class Emitter {
@@ -101,7 +101,7 @@ struct Frame {
 void Emitter::FUN_002bbb40(Quad *q, int a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6)
 {
     Frame f;
-    f.mat.FUN_0022ca90(xform, a2);
+    ((owners::Matrix_22ca90 *)&(f.mat))->FUN_0022ca90((const owners::Matrix_22ca90 *)xform, (const owners::Matrix_22ca90 *)(hulk_uintptr)(int)a2);
     f.s10.u = a6;
     f.s14.u = a5;
     v6(&f.s14.u, &f.s10.u, &f.mat, a3);

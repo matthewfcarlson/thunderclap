@@ -4,9 +4,10 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 struct State_d94e0 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d94e0* FUN_00086280(); };
-struct Label_d94e0 { void FUN_000bc9f0(const char*, int); };
+struct Label_d94e0 {  };
 struct Service_d94e0 {
 virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35(); virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39(); virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43(); virtual void v44();
 void FUN_000be310(const char*, char*, const float*, const float*, const float*, int, unsigned int, unsigned int);
@@ -29,5 +30,5 @@ unsigned int setting=(*(hulk_uintptr*)&DAT_004a0c60);
 service->FUN_000be310(text,buffer,&zero_d94e0,&zero_d94e0,&zero_d94e0,3,setting,setting);
 active=1;
 value=0;
-label->FUN_000bc9f0("DynamicControlButtonLabel",0);
+((owners::MenuScreen_bc9f0 *)label)->FUN_000bc9f0((hulk_intptr)"DynamicControlButtonLabel", 0);
 }

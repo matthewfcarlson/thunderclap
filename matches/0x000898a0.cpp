@@ -1,11 +1,5 @@
-class Obj_898a0 {
-    char pad[0xf8];
-    unsigned int a, b, c;
-
-  public:
-    void Set(unsigned int x, unsigned int y, unsigned int z);
-};
-void Obj_898a0::Set(unsigned int x, unsigned int y, unsigned int z) {
+#include "gen/owners.h"
+void owners::Obj_898a0::FUN_000898a0(unsigned int x, unsigned int y, unsigned int z) {
     a = x;
     b = y;
     c = z;

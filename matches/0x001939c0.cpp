@@ -1,11 +1,6 @@
-class C_1939c0 {
-  public:
-    char pad[0x60];
-    int m60;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool C_1939c0::Set(int v) {
+bool owners::C_1939c0::FUN_001939c0(int v) {
     m60 = v;
     return true;
 }

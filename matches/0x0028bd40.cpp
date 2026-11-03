@@ -1,6 +1,7 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 void* Alloc(int n);
-struct Allocator_28bd40 { void* AllocAlign(int n, int a); };
+struct Allocator_28bd40 {  };
 class VectorChannel_28bd40 {
   public:
     VectorChannel_28bd40(int a, int b);
@@ -28,5 +29,5 @@ Vector1DOFChannel::Vector1DOFChannel(int a, int b) : VectorChannel_28bd40(a, b) 
     if (c == 0)
         m28 = Alloc(m10 << 2);
     else
-        m28 = ((Allocator_28bd40*)c)->AllocAlign(m10 << 2, 3);
+        m28 = ((void *)((owners::C_2888c0 *)(((Allocator_28bd40*)c)))->FUN_002888c0((unsigned)(m10 << 2), 3));
 }

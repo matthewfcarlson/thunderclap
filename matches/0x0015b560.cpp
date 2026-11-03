@@ -1,10 +1,5 @@
-class Angle {
-  public:
-    char pad[0x1c];
-    float value;
-    char Set(float angle);
-};
-char Angle::Set(float angle) {
+#include "gen/owners.h"
+char owners::Angle_15b560::FUN_0015b560(float angle) {
     value = angle * 0.0174532925f;
     return 1;
 }

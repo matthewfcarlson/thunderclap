@@ -1,8 +1,8 @@
+#include "gen/owners.h"
 void* operator new(unsigned int) throw();
 class Owner;
 class Registry_30290 {
   public:
-    void FUN_001d3b70(const char*, void*);
     void FUN_00030290(const char* a1, Owner* a2, void (*a3)());
 };
 class Closure2_30290 {
@@ -12,5 +12,5 @@ class Closure2_30290 {
 };
 void Registry_30290::FUN_00030290(const char* a1, Owner* a2, void (*a3)()) {
     Closure2_30290* e = new Closure2_30290(a1, a2, a3);
-    FUN_001d3b70(a1, e);
+    ((owners::Obj_1d3b70 *)this)->FUN_001d3b70((hulk_uintptr)a1, (hulk_intptr)e);
 }

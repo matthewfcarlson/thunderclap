@@ -1,10 +1,5 @@
-class C_13ea10 {
-  public:
-    bool Set(int x);
-    char pad[0x58];
-    int m;
-};
-bool C_13ea10::Set(int x) {
+#include "gen/owners.h"
+bool owners::C_13ea10::FUN_0013ea10(int x) {
     m = x;
     return true;
 }

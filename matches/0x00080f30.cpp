@@ -1,10 +1,4 @@
-class Thing_80f30 {
-    char pad[0xcc];
-
-  public:
-    int value;
-    void Set(int);
-};
-void Thing_80f30::Set(int x) {
+#include "gen/owners.h"
+void owners::Thing_80f30::FUN_00080f30(int x) {
     value = x;
 }

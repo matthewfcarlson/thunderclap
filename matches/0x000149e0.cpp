@@ -1,7 +1,6 @@
 // FUN_000149e0 @ 0x000149e0
+#include "gen/owners.h"
 struct Table_149e0 {
-    float FUN_00069620(int i);
-    float FUN_000695e0(int i);
 };
 
 struct Info_149e0 {
@@ -33,16 +32,16 @@ char Segmenter::FUN_000149e0(int idx)
         return 0;
     index = idx;
 
-    float lo = table->FUN_00069620(idx - 1);
-    float span = table->FUN_00069620(idx) - lo;
+    float lo = ((owners::Thing_69620 *)table)->FUN_00069620(idx - 1);
+    float span = ((owners::Thing_69620 *)table)->FUN_00069620(idx) - lo;
     if (span <= 0.0f)
         return 0;
 
     float limit = anim->info->limit - 1.0f;
-    float e = table->FUN_000695e0(idx - 1);
+    float e = ((owners::A_695e0 *)table)->FUN_000695e0(idx - 1);
     if (e < 0.0f || e > limit)
         return 0;
-    float f = table->FUN_000695e0(idx);
+    float f = ((owners::A_695e0 *)table)->FUN_000695e0(idx);
     if (f < 0.0f || f > limit)
         return 0;
 

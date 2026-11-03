@@ -1,13 +1,6 @@
-class Obj_1922b0 {
-  public:
-    char pad[0x4c];
-    int a;
-    int b;
-    int c;
-    unsigned char Fn(int* src);
-};
+#include "gen/owners.h"
 
-unsigned char Obj_1922b0::Fn(int* src) {
+unsigned char owners::Obj_1922b0::FUN_001922b0(int* src) {
     a = src[0];
     b = src[1];
     c = src[2];

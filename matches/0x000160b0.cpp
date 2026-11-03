@@ -1,4 +1,5 @@
 #include "gen/global.h"
+#include "gen/owners.h"
 
 class Obj_160b0 {
   public:
@@ -22,7 +23,6 @@ class Obj_160b0 {
 };
 class A_160b0 {
   public:
-    Obj_160b0* get();
 };
 class B_160b0 {
   public:
@@ -30,7 +30,6 @@ class B_160b0 {
 };
 class C_160b0 {
   public:
-    Obj_160b0* find(int);
 };
 struct Data_160b0 {
     char pad[16];
@@ -38,11 +37,11 @@ struct Data_160b0 {
 };
 
 bool CSmartPropSetStateAction::vfunc_7(int arg) {
-    Obj_160b0* a = (*(A_160b0 * *)&this->f_1c)->get();
+    Obj_160b0* a = ((Obj_160b0 *)((owners::Object_592a0 *)((*(A_160b0 * *)&this->f_1c)))->FUN_000592a0());
     B_160b0* b = (B_160b0*)a;
     a = b->next();
     C_160b0* c = (C_160b0*)a;
-    Obj_160b0* p = c->find(0);
+    Obj_160b0* p = ((Obj_160b0 *)((owners::C_35ef0 *)c)->FUN_00035ef0((hulk_intptr)0));
     if (p)
         p->h((*(Data_160b0 * *)&this->f_20)->value, 1);
     return false;

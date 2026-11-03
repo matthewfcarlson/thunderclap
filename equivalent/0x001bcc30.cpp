@@ -2,6 +2,7 @@
 // FUN_001bcc30 @ 0x001bcc30
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 struct V3_1bcc30 {
     float x, y, z;
 };
@@ -24,7 +25,6 @@ struct Names_1bcc30 {
 struct Node;
 
 struct Link_1bcc30 {
-    Node *FUN_001d72e0();
 };
 
 struct Node {
@@ -129,7 +129,7 @@ void Rig_1bcc30::FUN_001bcc30()
         Child_1bcc30 *child = f.ctl->child;
         if (child != 0) {
             if (child->link != 0) {
-                Node *n = child->link->FUN_001d72e0();
+                Node *n = ((Node *)((owners::C_1d72e0 *)(child->link))->FUN_001d72e0());
                 if (n != 0)
                     f.target = n->target;
             } else if (child->skel != 0) {

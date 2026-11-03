@@ -1,12 +1,5 @@
-class Thing_16fc60 {
-  public:
-    char pad[0x98];
-    int a;
-    int b;
-    int c;
-    void f(int* out);
-};
-void Thing_16fc60::f(int* out) {
+#include "gen/owners.h"
+void owners::Thing_16fc60::FUN_0016fc60(int* out) {
     out[0] = a;
     out[1] = b;
     out[2] = c;

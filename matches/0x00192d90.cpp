@@ -1,10 +1,5 @@
-class Obj_192d90 {
-  public:
-    char pad[0xfd];
-    unsigned char value;
-    unsigned char Set(unsigned char v);
-};
-unsigned char Obj_192d90::Set(unsigned char v) {
+#include "gen/owners.h"
+unsigned char owners::Obj_192d90::FUN_00192d90(unsigned char v) {
     value = v;
     return 1;
 }

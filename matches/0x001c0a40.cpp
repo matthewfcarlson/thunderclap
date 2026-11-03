@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct State_1c0a40 {
     char pad[0xd0];
     unsigned value;
@@ -6,7 +7,6 @@ struct Context {
     State_1c0a40*** FUN_000862e0();
 };
 struct Effect_1c0a40 {
-    void FUN_000f86f0(int, int);
 };
 extern int __cdecl FUN_00266da0(int);
 struct Object {
@@ -25,9 +25,9 @@ int Object::FUN_001c0a40(Context* arg) {
     State_1c0a40*** result = arg->FUN_000862e0();
     (**result)->value = value;
     if (first)
-        first->FUN_000f86f0(900, 50400);
+        ((owners::Obj_f86f0 *)first)->FUN_000f86f0(900, (hulk_intptr)50400);
     if (second)
-        second->FUN_000f86f0(250, 13000);
+        ((owners::Obj_f86f0 *)second)->FUN_000f86f0(250, (hulk_intptr)13000);
     FUN_001c0360(2, 0);
     return FUN_00266da0(previous);
 }

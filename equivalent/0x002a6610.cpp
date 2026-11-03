@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1194 inputs, branch coverage 16/16)
 // FUN_002a6610 @ 0x002a6610
 #include "compat/ptr.h"
-class Overlay;
+#include "gen/owners.h"
+class Overlay_2a6610;
 struct Vec3_2a6610 {
     float x, y, z;
     float FUN_0022d110();
@@ -21,19 +22,16 @@ public:
     virtual void direction(float v, Vec3_2a6610 *out);
     char pad4[8 - 4];
     int subtype;
-    void FUN_0028a1c0(float v, float *target);
 };
 
 class List_2a6610 {
 public:
     char pad0[0x14];
     int count;
-    Node *FUN_00288950(int index);
 };
 
-class Overlay {
+class Overlay_2a6610 {
 public:
-    List_2a6610 *FUN_00288a10(int flag);
 };
 
 class Controller_2a6610 {
@@ -63,7 +61,7 @@ public:
     virtual void s22();
     virtual void s23();
     virtual void s24();
-    virtual Overlay *f25();
+    virtual Overlay_2a6610 *f25();
 };
 
 struct Settings_2a6610 {
@@ -86,7 +84,7 @@ void FUN_002a6610(Controller_2a6610 *c, unsigned int a2, unsigned int a3, unsign
     float t = c->f13();
     fr.timeB = t;
     fr.timeA = t;
-    List_2a6610 *list = c->f25()->FUN_00288a10(0);
+    List_2a6610 *list = ((List_2a6610 *)((owners::Target_288a10 *)(c->f25()))->FUN_00288a10(0));
     fr.s.sp = 0.1f;
     fr.s.su = 0.1f;
     fr.s.dir.x = 1.0f;
@@ -97,7 +95,7 @@ void FUN_002a6610(Controller_2a6610 *c, unsigned int a2, unsigned int a3, unsign
 
     for (int i = 0; i < list->count; i++) {
         float v = fr.timeB;
-        Node *n = list->FUN_00288950(i);
+        Node *n = ((Node *)((owners::C_288950 *)list)->FUN_00288950(i));
         int ty = n->type();
         if (ty == 0x31544c46) {
             float *target;
@@ -109,7 +107,7 @@ void FUN_002a6610(Controller_2a6610 *c, unsigned int a2, unsigned int a3, unsign
                 target = &fr.timeA;
             else
                 continue;
-            n->FUN_0028a1c0(v, target);
+            ((owners::Curve_28a1c0 *)n)->FUN_0028a1c0(v, target);
         } else if (ty == 0x54434556) {
             if (n->subtype == 0x52494453) {
                 n->direction(v, &fr.s.dir);

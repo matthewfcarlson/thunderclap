@@ -1,14 +1,5 @@
-class Obj {
-  public:
-    char pad[0x150];
-    float value;
-    char pad2[8];
-    float low;
-    float high;
-    void update();
-    void set(float x);
-};
-void Obj::set(float x) {
+#include "gen/owners.h"
+void owners::Obj_f1a70::FUN_000f1a70(float x) {
     if (x >= low && x <= high) {
         value = x;
         update();

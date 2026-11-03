@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3081 inputs, branch coverage 41/41)
 // FUN_003027b0 @ 0x003027b0
 #include "decls/data/engine/unknown.h"
+#include "gen/owners.h"
 
 struct Body_3027b0 {
     virtual void v0();
@@ -27,7 +28,6 @@ public:
     void FUN_00301410(Body_3027b0 *a, Body_3027b0 *b, float c);
     void FUN_00301460(Body_3027b0 *a, Body_3027b0 *b);
     void FUN_003014f0(Body_3027b0 *a, Body_3027b0 *b);
-    void FUN_003012d0(Body_3027b0 *a, Body_3027b0 *b);
     void FUN_00301310(Body_3027b0 *a, Body_3027b0 *b);
     void FUN_00301e10(Body_3027b0 *a, Body_3027b0 *b);
     void FUN_00302200(Body_3027b0 *a, Body_3027b0 *b);
@@ -90,7 +90,7 @@ char Resolver_3027b0::FUN_003027b0(Body_3027b0 *a1, Body_3027b0 *a2)
             if (t == 2)
                 FUN_00301310(a1, a2);
             else if (t == 5)
-                FUN_003012d0(a1, a2);
+                ((owners::C_3012d0 *)this)->FUN_003012d0((hulk_intptr)(Body_3027b0 *)a1, (hulk_intptr)(Body_3027b0 *)a2);
             break;
         }
         case 7: {

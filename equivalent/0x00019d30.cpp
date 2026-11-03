@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // FUN_00019d30 @ 0x00019d30
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Vec3_19d30 {
     float x, y, z;
     float FUN_0022d110();
@@ -40,9 +41,7 @@ struct Fighter_19d30 {
     RefObj_19d30* ref12c;
     char pad130[0x328 - 0x130];
     int f328;
-    void FUN_00035230(Vec3_19d30* out);
     void FUN_0003ffa0(void* obj, int zero);
-    void FUN_00035c70(void* obj);
 };
 
 struct Anchor_19d30 {
@@ -51,7 +50,6 @@ struct Anchor_19d30 {
 };
 
 struct Owner_19d30 {
-    Anchor_19d30* FUN_000592a0();
 };
 
 struct Params {
@@ -109,7 +107,7 @@ public:
 
 void SpawnAction::FUN_00019d30(Target_19d30* t, Vec3_19d30* p1, Vec3_19d30* p2)
 {
-    Anchor_19d30* anchor = owner->FUN_000592a0();
+    Anchor_19d30* anchor = ((Anchor_19d30 *)((owners::Object_592a0 *)owner)->FUN_000592a0());
     Fighter_19d30* fighter = anchor->FUN_00059a30();
     if (t == 0)
         return;
@@ -121,7 +119,7 @@ void SpawnAction::FUN_00019d30(Target_19d30* t, Vec3_19d30* p1, Vec3_19d30* p2)
     f.b.x = 0.0f;
     f.b.y = 0.0f;
     f.b.z = 0.0f;
-    fighter->FUN_00035230(&f.b);
+    ((owners::Obj_35230 *)fighter)->FUN_00035230((unsigned *)(Vec3_19d30 *)(&f.b));
     f.req.FUN_00059820();
 
     Vec3_19d30 mid;
@@ -174,6 +172,6 @@ void SpawnAction::FUN_00019d30(Target_19d30* t, Vec3_19d30* p1, Vec3_19d30* p2)
     t->FUN_00081420(&f.req);
     if (fighter->f328 == 0)
         fighter->FUN_0003ffa0(t->obj, 0);
-    fighter->FUN_00035c70(t->obj);
+    ((owners::Queue_35c70 *)fighter)->FUN_00035c70((hulk_intptr)(t->obj));
     f.req.FUN_00059300();
 }

@@ -1,9 +1,9 @@
+#include "gen/owners.h"
 struct Args_caea0 {
     int a, b, c;
 };
 class Inner_caea0 {
   public:
-    void A();
     void B(Args_caea0);
 };
 class Obj_caea0 {
@@ -14,7 +14,7 @@ class Obj_caea0 {
 };
 void Obj_caea0::Run(Args_caea0 x) {
     if (m) {
-        m->A();
+        ((owners::Target_c7ad0 *)m)->FUN_000c7ad0();
         m->B(x);
     }
 }

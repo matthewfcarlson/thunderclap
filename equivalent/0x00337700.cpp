@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 28/28)
 // FUN_00337700 @ 0x00337700
+#include "gen/owners.h"
 extern "C" long atol(const char* s);
 void* __cdecl FUN_0008d690(unsigned int size);
 
@@ -23,7 +24,6 @@ class XmlLoader {
     XmlReader* reader;
     const char* FUN_00337460();
     void FUN_003374a0();
-    AttrDef_337700* FUN_00337680(const char* name);
     bool Load(void* src, void* arg);
 };
 
@@ -62,7 +62,7 @@ bool XmlLoader::Load(void* src, void* arg) {
                 const char* name = FUN_00337460();
                 if (name == 0)
                     break;
-                definition = FUN_00337680(name);
+                definition = ((AttrDef_337700 *)((owners::Thing_337680 *)this)->FUN_00337680((hulk_intptr)name));
                 if (definition == 0)
                     break;
                 FUN_003374a0();

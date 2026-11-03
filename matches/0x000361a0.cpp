@@ -1,10 +1,4 @@
-class A_361a0 {
-    char pad[0x1b18];
-
-  public:
-    float x;
-    void f(float);
-};
-void A_361a0::f(float v) {
+#include "gen/owners.h"
+void owners::A_361a0::FUN_000361a0(float v) {
     x += v;
 }

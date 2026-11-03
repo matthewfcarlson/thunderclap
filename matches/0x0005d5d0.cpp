@@ -1,11 +1,6 @@
-class Obj {
-  public:
-    char pad[0xc0];
-    int a, b, c;
-    bool Fn(int* p);
-};
+#include "gen/owners.h"
 
-bool Obj::Fn(int* p) {
+bool owners::Obj_5d5d0::FUN_0005d5d0(int* p) {
     a = p[0];
     b = p[1];
     c = p[2];

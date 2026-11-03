@@ -1,8 +1,8 @@
+#include "gen/owners.h"
 struct Temp_25ccf0 {
     char pad[12];
     void Init();
     int Get();
-    void Cleanup();
 };
 unsigned char __cdecl Work(int, Temp_25ccf0*);
 struct Receiver_25ccf0 {
@@ -14,6 +14,6 @@ unsigned char Target(int a, Receiver_25ccf0* b) {
     unsigned char r = Work(a, &t);
     if (b)
         b->Send(t.Get());
-    t.Cleanup();
+    ((owners::Str_240060 *)&t)->FUN_00240060();
     return r;
 }

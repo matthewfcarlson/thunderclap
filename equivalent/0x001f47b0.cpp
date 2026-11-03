@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 10/10)
 // FUN_001f47b0 @ 0x001f47b0
+#include "gen/owners.h"
 struct Key_1f47b0 {
     int lo, hi;
 };
@@ -11,13 +12,11 @@ struct Timer {
     int field10;
     int field14;
     char field18;
-    void FUN_0027af60(int a, int b);
 };
 
 struct Target_1f47b0 {
     char pad00[0x10];
     int expected;            // 0x10
-    void FUN_001f3400(int amount);
 };
 
 int __cdecl FUN_002673a0(int a, int b);
@@ -34,7 +33,7 @@ public:
 
 bool Owner_1f47b0::FUN_001f47b0(Key_1f47b0 *key) {
     if (key && key->lo == timer.key.lo && key->hi == timer.key.hi) {
-        timer.FUN_0027af60(0, 0);
+        ((owners::Pair_27af60 *)&timer)->FUN_0027af60(0, 0);
         timer.field08 = 0;
         timer.field0c = FUN_002673a0(0, 0);
         timer.field10 = 999;
@@ -45,7 +44,7 @@ bool Owner_1f47b0::FUN_001f47b0(Key_1f47b0 *key) {
     if (t) {
         int current = FUN_001f31a0(key); // MSVC calls this before reading t->expected; clang would read t->expected first
         if (t->expected == current) {
-            t->FUN_001f3400(250);
+            ((owners::Obj_1f3400 *)t)->FUN_001f3400(250);
             return true;
         }
     }

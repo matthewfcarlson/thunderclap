@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class Res2 {
   public:
-    void Set(void* a, int b);
 };
 
 class Mgr_306490 {
@@ -58,7 +58,7 @@ void Cls_306490::Run() {
         if (GetId() != 1 && !mOwn->mFlag) {
             int id = m8;
             Res2* r = mOwn->mMgr->Get(id);
-            r->Set(mBuf, GetKind());
+            ((owners::Mat_22c2b0 *)r)->FUN_0022c2b0((float *)mBuf, (float *)(hulk_uintptr)(int)(GetKind()));
         }
     } else {
         mDone = 1;

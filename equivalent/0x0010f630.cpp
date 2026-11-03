@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 83 inputs, branch coverage 22/24, incomplete)
 // hulkfight::ai::KeyWordWaitCondition::vfunc_6 @ 0x0010f630
 #include "decls/data/game/hulkfight/ai.h"
+#include "gen/owners.h"
 
 extern "C" int atexit(void (*)());
 
@@ -8,7 +9,6 @@ struct Key_10f630 {
     unsigned lo;
     unsigned hi;
     void FUN_0027af00();
-    void FUN_0027b040(int word);
 };
 
 extern "C" void FUN_00363ef0();
@@ -22,7 +22,7 @@ struct Holder_10f630 {
 };
 
 namespace fight {
-class Params {
+class Params_10f630 {
   public:
     virtual void v0();
     virtual void v1();
@@ -30,7 +30,7 @@ class Params {
 };
 }
 
-class CFightParams : public fight::Params {
+class CFightParams_10f630 : public fight::Params_10f630 {
   public:
     virtual void v2();
 };
@@ -42,12 +42,12 @@ class KeyWordWaitCondition {
     int keyword;
     float threshold;
 
-    bool FUN_0010f630(int a1, fight::Params *params, int a3);
+    bool FUN_0010f630(int a1, fight::Params_10f630 *params, int a3);
 };
 
-bool KeyWordWaitCondition::FUN_0010f630(int a1, fight::Params *params, int a3)
+bool KeyWordWaitCondition::FUN_0010f630(int a1, fight::Params_10f630 *params, int a3)
 {
-    if (dynamic_cast<CFightParams *>(params) == 0)
+    if (dynamic_cast<CFightParams_10f630 *>(params) == 0)
         return false;
 
     Fighter_10f630 *fighter = params->FUN_000592a0()->FUN_00059a30();
@@ -59,7 +59,7 @@ bool KeyWordWaitCondition::FUN_0010f630(int a1, fight::Params *params, int a3)
         (*(Key_10f630*)&DAT_004e0c18).FUN_0027af00();
         atexit(FUN_00363ef0);
     }
-    (*(Key_10f630*)&DAT_004e0c18).FUN_0027b040(keyword);
+    ((owners::Target_27b040 *)&((*(Key_10f630*)&DAT_004e0c18)))->FUN_0027b040((hulk_uintptr)keyword);
 
     float limit = threshold;
     float value = fighter->FUN_00037290((*(Key_10f630*)&DAT_004e0c18).lo, (*(Key_10f630*)&DAT_004e0c18).hi);

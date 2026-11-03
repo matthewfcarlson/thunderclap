@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 630 inputs, branch coverage 8/8)
 // FUN_001dd090 @ 0x001dd090
 // 0x001dd090: push a three word value into the control block of every registered item
+#include "gen/owners.h"
 struct Block_1dd090 {
     char pad[0x1b8];
     int v0;
@@ -16,7 +17,6 @@ struct Info_1dd090 {
 };
 
 struct Item_1dd090 {
-    Info_1dd090* FUN_001d72e0();
 };
 
 class Registry_1dd090 {
@@ -31,8 +31,8 @@ void Registry_1dd090::FUN_001dd090(int a, int b, int c)
 {
     for (int i = 0; i < count; i++) {
         Item_1dd090* it = items[i];
-        if (it->FUN_001d72e0() != 0 && it->FUN_001d72e0()->block != 0) {
-            Block_1dd090* blk = it->FUN_001d72e0()->block;
+        if (((Info_1dd090 *)((owners::C_1d72e0 *)it)->FUN_001d72e0()) != 0 && ((Info_1dd090 *)((owners::C_1d72e0 *)it)->FUN_001d72e0())->block != 0) {
+            Block_1dd090* blk = ((Info_1dd090 *)((owners::C_1d72e0 *)it)->FUN_001d72e0())->block;
             blk->v0 = a;
             blk->v1 = b;
             blk->v2 = c;

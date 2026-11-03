@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Entry {
     char pad[8];
     int type;
@@ -5,7 +6,6 @@ struct Entry {
 struct Manager {
     char pad[0x44];
     int count;
-    Entry* FUN_00337090(int index);
 };
 struct Object {
     char pad[4];
@@ -18,7 +18,7 @@ int Object::FUN_00335640(int index) {
         return 0;
     if (index >= manager->count)
         return 0;
-    if (manager->FUN_00337090(index)->type != 4)
+    if (((Entry *)((owners::Thing_337090 *)manager)->FUN_00337090(index))->type != 4)
         return 0;
     return values[index];
 }

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 6/6)
 // FUN_001ebd80 @ 0x001ebd80
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Id_1ebd80 {
     unsigned __int64 key;
@@ -14,8 +15,6 @@ struct IdCopy_1ebd80 {
 
 struct StringList_1ebd80 {
     char data[0x48];
-    void FUN_001ef320();
-    void FUN_001ef350();
     void FUN_001ef370(const char *s);
     void FUN_001ef3c0(IdCopy_1ebd80 id);
 };
@@ -49,11 +48,11 @@ void __stdcall FUN_001ebd80(Prop_1ebd80 *prop, int name, float delay, int unused
     if (prop == 0 || prop->descriptor == 0)
         return;
     StringList_1ebd80 path;
-    path.FUN_001ef320();
+    ((owners::Obj_1ef320 *)&path)->FUN_001ef320();
     path.FUN_001ef370("Objects");
     path.FUN_001ef370("Props");
     path.FUN_001ef3c0(IdCopy_1ebd80(prop->descriptor->id));
     if ((*(EventConfig_1ebd80**)&DAT_004e36d8)->enabled)
         (*(EventConfig_1ebd80**)&DAT_004e36d8)->sink->FUN_001efe20(&path, prop->where, name, delay);
-    path.FUN_001ef350();
+    ((owners::C_1ef350 *)&path)->FUN_001ef350();
 }

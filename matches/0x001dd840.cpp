@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class Result_1dd840 {
   public:
     char pad[0x74];
@@ -5,7 +6,6 @@ class Result_1dd840 {
 };
 class Context {
   public:
-    Result_1dd840* Get();
 };
 class Obj_1dd840 {
   public:
@@ -24,7 +24,7 @@ void Obj_1dd840::Set(int n, unsigned char value) {
         Entry* e = &entries[n];
         int i = e->index;
         if ((*(unsigned char*)((char*)this + (i + 0x104e) * 0x14) & 1) && e->p) {
-            Result_1dd840* r = e->p->Get();
+            Result_1dd840* r = ((Result_1dd840 *)((owners::C_1d72e0 *)(e->p))->FUN_001d72e0());
             if (r && r->p)
                 *((unsigned char*)r->p + 0x72) = value;
         }

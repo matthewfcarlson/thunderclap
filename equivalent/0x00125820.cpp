@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 104 inputs, branch coverage 27/30, incomplete)
 // hulkfight::ai::TargetDistanceYCondition::vfunc_6 @ 0x00125820
 #include "decls/address.h"
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
@@ -63,7 +64,6 @@ struct Chain_125820 {
 };
 
 struct Owner_125820 {
-    Chain_125820 *FUN_000592a0();
 };
 
 class TargetDistanceYCondition {
@@ -87,7 +87,7 @@ char TargetDistanceYCondition::vfunc_6(int unused1, Owner_125820 *owner, int unu
 {
     if (!FUN_00344e74(owner, 0, DAT_00494b44, DAT_00494b60, 0))
         return 0;
-    Actor_125820 *actor = owner->FUN_000592a0()->FUN_00059a30();
+    Actor_125820 *actor = ((Chain_125820 *)((owners::Object_592a0 *)owner)->FUN_000592a0())->FUN_00059a30();
     Vec3_125820 origin;
     origin.x = 0.0f;
     origin.y = 0.0f;

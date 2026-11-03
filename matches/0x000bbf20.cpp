@@ -1,7 +1,7 @@
+#include "gen/owners.h"
 extern "C" long __cdecl atol(const char*);
 class H {
   public:
-    void Go(long);
 };
 class C_bbf20 {
   public:
@@ -16,7 +16,7 @@ int C_bbf20::F(int p, char** q) {
         return -1;
     if (*q != 0) {
         long v = atol(*q);
-        field->Go(v);
+        ((owners::Obj_b4b00 *)field)->FUN_000b4b00((int)v);
     }
     return 0;
 }

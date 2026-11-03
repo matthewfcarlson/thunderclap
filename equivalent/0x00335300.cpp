@@ -2,10 +2,11 @@
 // FUN_00335300 @ 0x00335300
 #include "compat/ptr.h"
 #include "decls/data/engine/movie.h"
+#include "gen/owners.h"
 
 struct Stream { const char* FUN_00337980(); void FUN_003379b0(); };
 struct Entry_335300 { char pad[8]; int type; };
-struct Registry_335300 { int FUN_00337130(const char*); Entry_335300* FUN_00337090(int); };
+struct Registry_335300 { int FUN_00337130(const char*);  };
 bool __cdecl FUN_003379c0(const char*);
 struct Parser_335300 { void* reserved; Registry_335300* registry; unsigned int* values; bool run(Stream*); };
 typedef bool (Parser_335300::*Handler_335300)(unsigned int*, Stream*, Entry_335300*, unsigned int);
@@ -22,7 +23,7 @@ bool Parser_335300::run(Stream* stream) {
    if (FUN_003379c0(token)) return true;
   }
  }
- Entry_335300* entry = registry->FUN_00337090(index);
+ Entry_335300* entry = ((Entry_335300 *)((owners::Thing_337090 *)registry)->FUN_00337090(index));
  stream->FUN_003379b0();
  int kind = entry->type;
  unsigned int flag = (kind >= 4 && kind <= 8) ? 0 : 1;

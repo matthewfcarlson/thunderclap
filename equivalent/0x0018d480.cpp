@@ -1,26 +1,26 @@
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 26/26)
 // hulkfight::motion::TimerCondition::vfunc_6 @ 0x0018d480
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/owners.h"
 
 struct Timing_18d480 {
     char pad0[0x1e60];
     float values[14];
     unsigned char valid[14];
     float FUN_0003eca0(const char* name);
-    void FUN_00036350(int idx, float v);
 };
 struct Clock_18d480 {
     Timing_18d480* FUN_00059a30();
 };
 namespace fight {
-class Params {
+class Params_18d480 {
 public:
     virtual void vfunc_0();
     char pad4[4];
     Clock_18d480* FUN_000592a0();
 };
 }
-class CFightParams : public fight::Params {
+class CFightParams_18d480 : public fight::Params_18d480 {
 public:
     virtual void vfunc_0();
 };
@@ -34,7 +34,7 @@ public:
     virtual void f3();
     virtual void f4();
     virtual void f5();
-    virtual bool vfunc_6(int a, fight::Params* params, int c);
+    virtual bool vfunc_6(int a, fight::Params_18d480* params, int c);
     char pad04[8];
     int index;
     int mode;
@@ -44,11 +44,11 @@ public:
     int nameIndex;
 };
 
-bool TimerCondition::vfunc_6(int a, fight::Params* params, int c)
+bool TimerCondition::vfunc_6(int a, fight::Params_18d480* params, int c)
 {
     if (index < 0 || index >= 14)
         return false;
-    if (dynamic_cast<CFightParams*>(params) == 0)
+    if (dynamic_cast<CFightParams_18d480*>(params) == 0)
         return false;
     Timing_18d480* timing = params->FUN_000592a0()->FUN_00059a30();
     float target = limit;
@@ -59,7 +59,7 @@ bool TimerCondition::vfunc_6(int a, fight::Params* params, int c)
         } else {
             target = v;
             if (timing->valid[index] == 0)
-                timing->FUN_00036350(index, v);
+                ((owners::Owner_36350 *)timing)->FUN_00036350(index, v);
         }
     }
     float cur = timing->values[index];

@@ -1,5 +1,5 @@
+#include "gen/owners.h"
 struct C3_30c0a0 {
-    void Fn(void* a, void* b);
 };
 struct C2_30c0a0 {
     C3_30c0a0* G();
@@ -68,7 +68,7 @@ class PhysicsJoint1D : public PhysicsJoint {
 void PhysicsJoint1D::vfunc_10(int a) {
     PhysicsJoint::vfunc_10(a);
     C3_30c0a0* c = mOwn->Find(mC)->F()->G();
-    c->Fn(mOwn->tbl->data + m8 * 0x1c + 0xc, blob);
+    ((owners::M_22c3b0 *)c)->FUN_0022c3b0((float *)(mOwn->tbl->data + m8 * 0x1c + 0xc), (float *)blob);
     Fin();
     f25();
 }

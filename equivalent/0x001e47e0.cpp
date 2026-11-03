@@ -2,6 +2,7 @@
 // FUN_001e47e0 @ 0x001e47e0
 // cl-flags: /GS
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 
 struct Id_1e47e0 {
@@ -15,10 +16,6 @@ struct Vec3_1e47e0 { float x, y, z; bool FUN_0022d2b0(const Vec3_1e47e0 *other, 
 struct Matrix {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022be40(const void *src);
-    void FUN_0022bc20(float x, float y, float z);
-    void FUN_0022ca90(const Matrix *a, const void *b);
-    void FUN_0022c3b0(const Vec3_1e47e0 *in, Vec3_1e47e0 *out);
 };
 
 
@@ -103,8 +100,8 @@ Part_1e47e0 *CSPManager_1e47e0::FUN_001e47e0(Owner_1e47e0 *owner, Attach_1e47e0 
     switch (a->mode) {
     case 0: {
         mat78.FUN_0022b980();
-        mat78.FUN_0022be40(a);
-        mat78.FUN_0022bc20(a->tx, a->ty, a->tz);
+        ((owners::Target_22be40 *)&mat78)->FUN_0022be40((const int *)a);
+        ((owners::Matrix_22bc20 *)&mat78)->FUN_0022bc20(a->tx, a->ty, a->tz);
         Skel_1e47e0 *sk = (Skel_1e47e0 *)owner->holder->v11();
         unsigned int r = sk->FUN_002843a0(a->boneLo, a->boneHi);
         const void *p;
@@ -112,19 +109,19 @@ Part_1e47e0 *CSPManager_1e47e0::FUN_001e47e0(Owner_1e47e0 *owner, Attach_1e47e0 
             p = owner->v15();
         else
             p = sk->base + r * 64;
-        mat38.FUN_0022ca90(&mat78, p);
+        ((owners::Matrix_22ca90 *)&mat38)->FUN_0022ca90((const owners::Matrix_22ca90 *)(const Matrix *)(&mat78), (const owners::Matrix_22ca90 *)p);
         break;
     }
     case 1:
         mat78.FUN_0022b980();
-        mat78.FUN_0022be40(a);
-        mat78.FUN_0022bc20(a->tx, a->ty, a->tz);
-        mat38.FUN_0022ca90(&mat78, owner->v15());
+        ((owners::Target_22be40 *)&mat78)->FUN_0022be40((const int *)a);
+        ((owners::Matrix_22bc20 *)&mat78)->FUN_0022bc20(a->tx, a->ty, a->tz);
+        ((owners::Matrix_22ca90 *)&mat38)->FUN_0022ca90((const owners::Matrix_22ca90 *)(const Matrix *)(&mat78), (const owners::Matrix_22ca90 *)(owner->v15()));
         break;
     case 2:
         mat38.FUN_0022b980();
-        mat38.FUN_0022be40(a);
-        mat38.FUN_0022bc20(a->tx, a->ty, a->tz);
+        ((owners::Target_22be40 *)&mat38)->FUN_0022be40((const int *)a);
+        ((owners::Matrix_22bc20 *)&mat38)->FUN_0022bc20(a->tx, a->ty, a->tz);
         break;
     }
 
@@ -144,7 +141,7 @@ Part_1e47e0 *CSPManager_1e47e0::FUN_001e47e0(Owner_1e47e0 *owner, Attach_1e47e0 
         zero.y = 0.0f;
         zero.z = 0.0f;
         if (!pos.FUN_0022d2b0(&zero, 1e-05f)) {
-            mat38.FUN_0022c3b0(&pos, &pos);
+            ((owners::M_22c3b0 *)&mat38)->FUN_0022c3b0((float *)(const Vec3_1e47e0 *)(&pos), (float *)(Vec3_1e47e0 *)(&pos));
             part->FUN_001d86d0(&pos, (Matrix *)&mat38.m[12]);
         }
 

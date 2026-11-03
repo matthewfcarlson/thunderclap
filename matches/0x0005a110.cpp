@@ -1,11 +1,6 @@
-class Obj_5a110 {
-  public:
-    char pad[0x78];
-    int m78;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char Obj_5a110::Set(int v) {
+char owners::Obj_5a110::FUN_0005a110(int v) {
     m78 = v;
     return 1;
 }

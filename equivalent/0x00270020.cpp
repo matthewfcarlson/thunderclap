@@ -1,22 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 41 inputs, branch coverage 6/6)
 // FUN_00270020 @ 0x00270020
 #include "compat/ptr.h"
-struct Pool_270020 {
-    char pad0[0x10];
-    void* freeHead;
-    void* owner;
-    void* blocks;
-    hulk_uintptr stride;
-    unsigned count;
-    unsigned flags;
-    unsigned zero28;
-    unsigned zero2c;
-    unsigned zero30;
-    void FUN_00270020(void* buffer, unsigned itemSize, unsigned itemCount, unsigned flagsValue, void* allocator, unsigned unused6, unsigned itemAdjustment);
-};
+#include "gen/owners.h"
 extern "C" hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr, unsigned);
 extern "C" void* __cdecl FUN_00266eb0(void*, hulk_uintptr, unsigned);
-void Pool_270020::FUN_00270020(void* buffer, unsigned itemSize, unsigned itemCount, unsigned flagsValue, void* allocator, unsigned unused6, unsigned itemAdjustment) {
+void owners::Pool_270020::FUN_00270020(void* buffer, unsigned itemSize, unsigned itemCount, unsigned flagsValue, void* allocator, hulk_uintptr unused6, unsigned itemAdjustment) {
     stride = FUN_0026fd50(itemSize, itemAdjustment);
     count = itemCount;
     flags = flagsValue;

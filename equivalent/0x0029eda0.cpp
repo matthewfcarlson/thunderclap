@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 18/18)
 // FUN_0029eda0 @ 0x0029eda0
 #include "decls/data/engine/unknown.h"
+#include "gen/owners.h"
 
 struct Source_29eda0 {
-    int FUN_002a0850();
     float *FUN_002a0870();
     char pad0[0x12];
     char flag12;
@@ -43,15 +43,15 @@ void EntryTable_29eda0::FUN_0029eda0(int index, Source_29eda0 *src)
     if (!src)
         return;
 
-    if (src->FUN_002a0850() == 1) {
+    if (((int)((owners::C_2a0850 *)src)->FUN_002a0850()) == 1) {
         float *p = src->FUN_002a0870();
         entries[index].radiusSq = *p;
         float v = entries[index].radiusSq;
         entries[index].radiusSq = v * v;
-    } else if (src->FUN_002a0850() == 2) {
+    } else if (((int)((owners::C_2a0850 *)src)->FUN_002a0850()) == 2) {
         float *p = src->FUN_002a0870();
         entries[index].radiusSq = p[0] * p[0] + p[1] * p[1] + p[2] * p[2];
-    } else if (src->FUN_002a0850() == 3) {
+    } else if (((int)((owners::C_2a0850 *)src)->FUN_002a0850()) == 3) {
         float *p = src->FUN_002a0870();
         entries[index].radiusSq = p[0] * p[0] + p[1] * p[1] + p[2] * p[2];
     } else {

@@ -1,10 +1,4 @@
-class C_2c3d20 {
-    char pad[0x60];
-    int value;
-
-  public:
-    void f(int a, int b, int* out);
-};
-void C_2c3d20::f(int a, int b, int* out) {
+#include "gen/owners.h"
+void owners::C_2c3d20::FUN_002c3d20(hulk_intptr a, hulk_intptr b, int* out) {
     *out = value;
 }

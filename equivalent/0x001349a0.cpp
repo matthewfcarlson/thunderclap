@@ -3,13 +3,13 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 struct V3_1349a0 {
     float x, y, z;
     float FUN_0022d110();
 };
 struct Name_1349a0 {
     unsigned int lo, hi;
-    void FUN_0027b040(const char* s);
 };
 struct Xform_1349a0 {
     char data[0x54];
@@ -29,7 +29,6 @@ public:
 
 struct Timing_1349a0 {
     bool FUN_00035550(V3_1349a0* out);
-    bool FUN_000356c0(V3_1349a0* out);
 };
 struct Skeleton {
     char pad0[0x10];
@@ -41,7 +40,6 @@ struct Clock_1349a0 {
     Skeleton* FUN_00059a40();
 };
 struct Target_1349a0 {
-    Clock_1349a0* FUN_000592a0();
 };
 struct Config_1349a0 {
     char pad0[0x20];
@@ -76,7 +74,7 @@ public:
 
 bool AirToGroundTargetAction::vfunc_3(int a, int b)
 {
-    Clock_1349a0* clock = target->FUN_000592a0();
+    Clock_1349a0* clock = ((Clock_1349a0 *)((owners::Object_592a0 *)target)->FUN_000592a0());
     Timing_1349a0* timing = clock->FUN_00059a30();
     Skeleton* skel = clock->FUN_00059a40();
     if (skel == 0)
@@ -92,7 +90,7 @@ bool AirToGroundTargetAction::vfunc_3(int a, int b)
     else
         d = 0;
     driver = d;
-    d->name.FUN_0027b040("airToGroundTarget");
+    ((owners::Target_27b040 *)&(d->name))->FUN_0027b040((hulk_uintptr)"airToGroundTarget");
     driver->AddRef();
     driver->xform.FUN_00221be0(&skel->xform);
     skel->FUN_00222890(driver, -1.0f, c2c, 1.0f, c30, c34, -1.0f);
@@ -107,7 +105,7 @@ bool AirToGroundTargetAction::vfunc_3(int a, int b)
     vel.x = 0.0f;
     vel.y = 0.0f;
     vel.z = 0.0f;
-    timing->FUN_000356c0(&vel);
+    ((owners::Thing_356c0 *)timing)->FUN_000356c0((unsigned int *)(V3_1349a0 *)(&vel));
     lateral = vel.y;
     vel.y = 0.0f;
     hulk_freg s = vel.x * fwd.x + vel.z * fwd.z + fwd.y * 0.0f;

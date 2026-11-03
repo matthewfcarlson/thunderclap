@@ -1,11 +1,6 @@
-class X_481f0 {
-  public:
-    char Set(char b);
-    char pad[0x10];
-    char m10;
-};
+#include "gen/owners.h"
 
-char X_481f0::Set(char b) {
+char owners::X_481f0::FUN_000481f0(char b) {
     m10 = b;
     return 1;
 }

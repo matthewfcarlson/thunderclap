@@ -1,10 +1,11 @@
 // FUN_000b8e70 @ 0x000b8e70
-class FEObject {
+#include "gen/owners.h"
+class FEObject_b8e70 {
 public:
     virtual void v0();
 };
 
-class TextSelector : public FEObject {
+class TextSelector_b8e70 : public FEObject_b8e70 {
 public:
     char pad4[0x154 - 4];
     int selection;          // 0x154
@@ -12,7 +13,7 @@ public:
     void *items;            // 0x1d58
 };
 
-class MapThing : public FEObject {
+class MapThing_b8e70 : public FEObject_b8e70 {
 public:
     virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();
     virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8();
@@ -20,10 +21,9 @@ public:
     virtual void SetMarker(int marker);     // slot 11
 };
 
-FEObject *__cdecl FUN_000fc260(const char *name);
+FEObject_b8e70 *__cdecl FUN_000fc260(const char *name);
 
 struct MarkerIndex {
-    int FUN_00089960(int selection);
 };
 
 struct MarkerTable {
@@ -44,14 +44,14 @@ void JumpMarkers::FUN_000b8e70(int unused)
 {
     if (table == 0)
         return;
-    TextSelector *selector = dynamic_cast<TextSelector *>(FUN_000fc260("jump_marker_selector"));
+    TextSelector_b8e70 *selector = dynamic_cast<TextSelector_b8e70 *>(FUN_000fc260("jump_marker_selector"));
     if (selector == 0 || selector->items == 0)
         return;
-    int i = index->FUN_00089960(selector->selection);
+    int i = ((owners::C_89960 *)index)->FUN_00089960(selector->selection);
     if (i == -1)
         return;
     int marker = table->FUN_00093260(i);
-    MapThing *map = dynamic_cast<MapThing *>(FUN_000fc260("jump_marker_map"));
+    MapThing_b8e70 *map = dynamic_cast<MapThing_b8e70 *>(FUN_000fc260("jump_marker_map"));
     if (map != 0)
         map->SetMarker(marker);
 }

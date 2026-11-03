@@ -1,15 +1,7 @@
-class C_30efa0 {
-  public:
-    char pad[0xbc];
-    int value;
-    void first();
-    void second(int);
-    void third();
-    void target(int);
-};
-void C_30efa0::target(int arg) {
+#include "gen/owners.h"
+void owners::C_30efa0::FUN_0030efa0(hulk_intptr arg) {
     first();
-    ((C_30efa0*)((char*)this + 0x14))->second(arg);
+    ((owners::C_30efa0*)((char*)this + 0x14))->second(((int)arg));
     value = 2;
     third();
 }

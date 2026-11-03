@@ -1,11 +1,6 @@
-class Obj_18cc00 {
-  public:
-    char pad[0x18];
-    int mValue;
-    unsigned char Set(int value);
-};
+#include "gen/owners.h"
 
-unsigned char Obj_18cc00::Set(int value) {
+unsigned char owners::Obj_18cc00::FUN_0018cc00(int value) {
     mValue = value;
     return 1;
 }

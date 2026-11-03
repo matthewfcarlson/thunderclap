@@ -3,6 +3,7 @@
 
 #include "compat/ptr.h"
 #include "gen/audio.h"
+#include "gen/owners.h"
 
 extern "C" char DAT_00429d1c[];
 typedef unsigned int u32_250fe0;
@@ -10,7 +11,6 @@ struct E_250fe0 {
     void init();
 };
 struct S_250fe0 {
-    void setup(char*, int);
 };
 extern "C" void* FUN_00247530(void*);
 
@@ -21,7 +21,7 @@ void* audio::SeqEventStopTrackType::vfunc_3() {
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_00429d1c);
         ((u32_250fe0*)p)[2] = 0;
         ((u32_250fe0*)p)[3] = 0;
-        ((S_250fe0*)((char*)p + 0x10))->setup(((char*)&DAT_0042989c), 2);
+        ((owners::String_23fc40 *)(((S_250fe0*)((char*)p + 0x10))))->FUN_0023fc40((const char *)(((char*)&DAT_0042989c)), (hulk_intptr)2);
         *((char*)p + 0x1c) = 0;
         return (void*)(p);
     }

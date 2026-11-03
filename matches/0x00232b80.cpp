@@ -1,13 +1,10 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct B_232b80 {
     int f();
 };
-struct A_232b80 {
-    int g(int, hulk_intptr, int, int);
-    int target(int, hulk_intptr, int);
-};
-int A_232b80::target(int a, hulk_intptr b, int c) {
-    B_232b80* x = (B_232b80*)b;
+int owners::A_232b80::FUN_00232b80(hulk_intptr a, hulk_intptr b, int c) {
+    B_232b80* x = (B_232b80*)((hulk_intptr)b);
     int r = x->f();
-    return g(a, b, r, c);
+    return g(((int)a), ((hulk_intptr)b), r, c);
 }

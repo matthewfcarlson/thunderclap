@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3035 inputs, branch coverage 24/24)
 // FUN_00045da0 @ 0x00045da0
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Key_45da0 {
     unsigned lo;
     unsigned hi;
-    void FUN_0027af10(unsigned a, unsigned b);
     void FUN_0027af50();
 };
 
@@ -115,7 +115,7 @@ char Tracker_45da0::FUN_00045da0(Owner_45da0 *newOwner)
 
     {
         Key_45da0 k;
-        k.FUN_0027af10(owner->keyLo, owner->keyHi);
+        ((owners::Pair_27af10 *)&k)->FUN_0027af10((unsigned int)(owner->keyLo), (unsigned int)(owner->keyHi));
         bool found = FUN_001c3d90()->registry->FUN_001c5b00(&k) == 0;
         k.FUN_0027af50();
         if (!found)
@@ -123,7 +123,7 @@ char Tracker_45da0::FUN_00045da0(Owner_45da0 *newOwner)
     }
     {
         Key_45da0 k;
-        k.FUN_0027af10(owner->keyLo, owner->keyHi);
+        ((owners::Pair_27af10 *)&k)->FUN_0027af10((unsigned int)(owner->keyLo), (unsigned int)(owner->keyHi));
         FUN_001c3d90()->FUN_001c4190(&k);
         k.FUN_0027af50();
     }

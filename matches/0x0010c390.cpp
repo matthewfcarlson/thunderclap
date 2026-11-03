@@ -1,11 +1,6 @@
-class Obj_10c390 {
-  public:
-    char pad[0xd];
-    char v;
-    char Set(unsigned char x);
-};
+#include "gen/owners.h"
 
-char Obj_10c390::Set(unsigned char x) {
+char owners::Obj_10c390::FUN_0010c390(unsigned char x) {
     v = x;
     return 1;
 }

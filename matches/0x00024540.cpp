@@ -1,11 +1,6 @@
-struct Obj_24540 {
-    char pad[0xe0];
-    int values[1];
-    bool Check(int);
-    int Lookup(int);
-};
-bool Obj_24540::Check(int x) {
-    int i = Lookup(x);
+#include "gen/owners.h"
+bool owners::Obj_24540::FUN_00024540(hulk_intptr x) {
+    int i = Lookup(((int)x));
     if (i == -1)
         return false;
     return values[i] == 1;

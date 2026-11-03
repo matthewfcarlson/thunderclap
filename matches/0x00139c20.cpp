@@ -1,11 +1,6 @@
-class T_139c20 {
-  public:
-    char pad[0x30];
-    int m30;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool T_139c20::Set(int v) {
+bool owners::T_139c20::FUN_00139c20(int v) {
     m30 = v;
     return true;
 }

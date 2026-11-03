@@ -2,6 +2,7 @@
 // FUN_0003c1d0 @ 0x0003c1d0
 // cl-flags: /GS
 #include "compat/ptr.h"
+#include "gen/owners.h"
 
 struct V3_3c1d0 {
     float x, y, z;
@@ -16,7 +17,6 @@ struct V4_3c1d0 : V3_3c1d0 {
 
 struct Mtx {
     float m[16];
-    void FUN_0022c3b0(V3_3c1d0 *in, V3_3c1d0 *out);
 };
 
 struct Kin {
@@ -45,7 +45,6 @@ struct Info_3c1d0 {
 };
 
 struct Mgr_3c1d0 {
-    Info_3c1d0 *FUN_001d72e0();
 };
 
 struct Hook_3c1d0 {
@@ -195,7 +194,7 @@ void Character_3c1d0::FUN_0003c1d0(int unused, float dt)
     Body_3c1d0 *body = part->FUN_00059a40();
     fr.body = body;
     if (f128 != 0) {
-        Info_3c1d0 *info = f128->FUN_001d72e0();
+        Info_3c1d0 *info = ((Info_3c1d0 *)((owners::C_1d72e0 *)f128)->FUN_001d72e0());
         if (info != 0 && info->f6c == 1)
             body->FUN_002226e0((Kin *)((char *)info + 0x10));
     }
@@ -304,7 +303,7 @@ void Character_3c1d0::FUN_0003c1d0(int unused, float dt)
                 fr.up.x = 0;
                 fr.up.y = 1.0f;
                 fr.up.z = 0;
-                fr.mtx.FUN_0022c3b0(&fr.up, &fr.out);
+                ((owners::M_22c3b0 *)&(fr.mtx))->FUN_0022c3b0((float *)(V3_3c1d0 *)(&fr.up), (float *)(V3_3c1d0 *)(&fr.out));
                 if (((fr.P.z * fr.out.z + fr.P.y * fr.out.y) + fr.out.x * fr.P.x)
                         + (-((fr.mtx.m[14] * fr.out.z + fr.mtx.m[13] * fr.out.y)
                              + fr.mtx.m[12] * fr.out.x))

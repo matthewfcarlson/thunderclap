@@ -1,10 +1,5 @@
-class O_68ad0 {
-  public:
-    char pad[0x50];
-    int m50;
-    bool Set(int v);
-};
-bool O_68ad0::Set(int v) {
+#include "gen/owners.h"
+bool owners::O_68ad0::FUN_00068ad0(int v) {
     m50 = v;
     return true;
 }

@@ -1,12 +1,6 @@
-class X_115410 {
-  public:
-    char flag;
-    char pad[19];
-    float radians;
-    char Set(float degrees);
-};
+#include "gen/owners.h"
 
-char X_115410::Set(float degrees) {
+char owners::X_115410::FUN_00115410(float degrees) {
     radians = degrees * 0.017453292f;
     return 1;
 }

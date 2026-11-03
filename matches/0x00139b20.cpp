@@ -1,8 +1,4 @@
-class X_139b20 {
-  public:
-    char pad[0x38];
-    void* Get();
-};
-void* X_139b20::Get() {
+#include "gen/owners.h"
+void* owners::X_139b20::FUN_00139b20() {
     return (char*)this + 0x38;
 }

@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Entry {
     char pad[8];
     int type;
@@ -5,7 +6,6 @@ struct Entry {
 struct Table {
     char pad[0x44];
     int count;
-    Entry* FUN_00337090(int index);
 };
 struct Pair {
     int first;
@@ -22,7 +22,7 @@ bool Owner::FUN_00335680(int index, int* first, int* second) {
         return false;
     if (index >= table->count)
         return false;
-    if (table->FUN_00337090(index)->type != 5)
+    if (((Entry *)((owners::Thing_337090 *)table)->FUN_00337090(index))->type != 5)
         return false;
     Pair* pair = pairs[index];
     *first = pair->first;

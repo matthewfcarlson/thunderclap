@@ -1,26 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 23/23)
 // FUN_003335e0 @ 0x003335e0
+#include "gen/owners.h"
 typedef unsigned int U_3335e0;
 extern "C" U_3335e0* __cdecl FUN_0031c680(U_3335e0* out, U_3335e0 color, U_3335e0 mask, U_3335e0 alpha);
 
-struct Obj_3335e0 {
-    char p0[0x18];
-    U_3335e0 mode;             // 0x18
-    U_3335e0 activeMode;       // 0x1c
-    char p20[0x10];
-    float scale;        // 0x30
-    float result;       // 0x34
-    U_3335e0 alpha;            // 0x38
-    char p3c[0xc];
-    unsigned char enabled;  // 0x48
-    char p49[7];
-    U_3335e0 c50, c54, c58, c5c;
-    char p60[4];
-    U_3335e0 c64, c68, c6c, c70;
-    void FUN_003335e0();
-};
 
-void Obj_3335e0::FUN_003335e0()
+void owners::Obj_3335e0::FUN_003335e0()
 {
     // Frame slots: t1 shares the slot the original uses for the int->float conversion of 255 - alpha.
     struct Locals { U_3335e0 t1, t2, t3, t4, t5; } local;

@@ -3,6 +3,7 @@
 #include "gen/hulkfight.h"
 
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
@@ -34,14 +35,13 @@ struct Chain_126450 {
 };
 
 struct Owner_126450 {
-    Chain_126450 *FUN_000592a0();
 };
 
 bool hulkfight::ai::TargetDirectionYCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int unused1 = (int)__p0; Owner_126450 * owner = (Owner_126450 *)__p1; int unused3 = (int)__p2;
 
     if (!FUN_00344e74(owner, 0, DAT_00494b44, DAT_00494b60, 0))
         return (bool)(0);
-    Actor_126450 *actor = owner->FUN_000592a0()->FUN_00059a30();
+    Actor_126450 *actor = ((Chain_126450 *)((owners::Object_592a0 *)owner)->FUN_000592a0())->FUN_00059a30();
     Target_126450 *t = actor->target;
     if (!t)
         return (bool)(0);

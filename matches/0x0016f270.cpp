@@ -1,8 +1,5 @@
-struct Obj_16f270 {
-    char pad[0x18];
-    void* Get();
-};
+#include "gen/owners.h"
 
-void* Obj_16f270::Get() {
+void* owners::Obj_16f270::FUN_0016f270() {
     return (char*)this + 0x18;
 }

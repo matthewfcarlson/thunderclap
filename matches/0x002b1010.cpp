@@ -1,16 +1,11 @@
 // Same code shape as 0x00290790 (propagated; names are from that function)
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern void* Alloc(hulk_uintptr);
 extern void Init(void*, unsigned int, void*);
 
-class Buffer_2b1010 {
-  public:
-    int* begin;
-    int* end;
-    bool Create(unsigned int count, void* arg);
-};
 
-bool Buffer_2b1010::Create(unsigned int count, void* arg) {
+bool owners::Buffer_2b1010::FUN_002b1010(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {

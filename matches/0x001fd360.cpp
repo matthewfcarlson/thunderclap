@@ -1,10 +1,5 @@
-class X_1fd360 {
-  public:
-    char pad[0x22c];
-    int* items;
-    int Find(int value);
-};
-int X_1fd360::Find(int value) {
+#include "gen/owners.h"
+int owners::X_1fd360::FUN_001fd360(int value) {
     int r = -1;
     int i = 0;
     do {

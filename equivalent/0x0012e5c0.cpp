@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0012e5c0 @ 0x0012e5c0
-struct Object { char pad[12]; char* name; bool FUN_0012e5c0(const char* text); };
+#include "gen/owners.h"
 void __cdecl FUN_0008d340(void*);
 void* __cdecl FUN_0008d6d0(unsigned int);
-bool Object::FUN_0012e5c0(const char* text) {
+bool owners::Object_12e5c0::FUN_0012e5c0(const char* text) {
     FUN_0008d340(name);
     if (!text) { name = 0; return true; }
     unsigned int length = 0;

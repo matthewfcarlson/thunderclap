@@ -1,11 +1,6 @@
-class C_14c7e0 {
-  public:
-    char pad[0x18];
-    float mDeg;
-    char Fn(float x);
-};
+#include "gen/owners.h"
 
-char C_14c7e0::Fn(float x) {
+char owners::C_14c7e0::FUN_0014c7e0(float x) {
     mDeg = x * 0.0174532925f;
     return 1;
 }

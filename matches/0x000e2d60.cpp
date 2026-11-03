@@ -1,10 +1,10 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Result_e2d60 {
     int header;
     int slots[4];
 };
 struct Final_e2d60 {
-    Result_e2d60* Get(int);
 };
 struct Mid_e2d60 {
     char pad[8];
@@ -27,7 +27,7 @@ class Owner_e2d60 {
     void Run(int);
 };
 void Owner_e2d60::Run(int arg) {
-    Result_e2d60* p = root->first->m->f->Get(arg);
+    Result_e2d60* p = ((Result_e2d60 *)((owners::ThisWrap_000f8d40 *)(root->first->m->f))->FUN_000f8d40(arg));
     result = p;
     if (p) {
         int i = 0;

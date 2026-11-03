@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0022bc20 @ 0x0022bc20
+#include "gen/owners.h"
 extern "C" double __cdecl sin(double);
 extern "C" double __cdecl cos(double);
-struct Matrix { float m[3][4]; void FUN_0022bc20(float x,float y,float z); };
-void Matrix::FUN_0022bc20(float x,float y,float z) {
+void owners::Matrix_22bc20::FUN_0022bc20(float x,float y,float z) {
  double sx=sin(x), cx=cos(x), sy=sin(y);
  float cy=(float)cos(y);
  double sz=sin(z), cz=cos(z);

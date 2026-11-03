@@ -2,6 +2,7 @@
 // FUN_00025f10 @ 0x00025f10
 // 0x00025f10: set a flag on the controller(s) selected by name ("all" or one named entry)
 #include "decls/address.h"
+#include "gen/owners.h"
 int __cdecl FUN_00096600(const char* a, const char* b);
 
 struct Pawn_25f10 {
@@ -15,7 +16,6 @@ struct Ctl_25f10 {
     char flag;
 };
 struct Pawns {
-    Pawn_25f10* FUN_00059c10(int id);
 };
 struct World {
     char pad[0x44];
@@ -39,7 +39,7 @@ void Group_25f10::SetFlag(const char* name, char flag)
 
     if (FUN_00096600(name, "all") == 0) {
         for (int i = 0; i < count; i++) {
-            Pawn_25f10* p = world->pawns->FUN_00059c10(ids[i]);
+            Pawn_25f10* p = ((Pawn_25f10 *)((owners::ThisWrap_00059c10 *)(world->pawns))->FUN_00059c10((void *)(hulk_uintptr)(int)(ids[i])));
             if (p == 0 || p->FUN_00035ab0() == 0) {
                 Ctl_25f10* c = p->ctl;
                 if (c != 0)

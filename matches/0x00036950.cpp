@@ -1,12 +1,5 @@
-class A_36950 {
-    char pad[0x1d78];
-    unsigned char a;
-    unsigned char b;
-
-  public:
-    unsigned char f(int x);
-};
-unsigned char A_36950::f(int x) {
+#include "gen/owners.h"
+unsigned char owners::A_36950::FUN_00036950(int x) {
     if (a)
         return 0;
     return b;

@@ -2,20 +2,13 @@
 // FUN_001b3620 @ 0x001b3620
 // FUN_001b3620 @ 0x001b3620
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct ThisCall_001b3250 {
-    int FUN_001b3250(float value);
 };
 
-struct SampleTable {
-    char padding[12];
-    int row;
-    char padding2[12];
-    float limit;
-    float FUN_001b3620(float value);
-};
 
-float SampleTable::FUN_001b3620(float value) {
+float owners::SampleTable_1b3620::FUN_001b3620(float value) {
     int index = row;
     if (index < 0)
         return (*(float*)&DAT_003f32e0);
@@ -23,6 +16,6 @@ float SampleTable::FUN_001b3620(float value) {
         value = 0.02f;
     if (value >= limit)
         return (*(float*)&DAT_003f32e0);
-    int column = ((ThisCall_001b3250*)(this))->FUN_001b3250(value);
+    int column = ((owners::Object_1b3250 *)(((ThisCall_001b3250*)(this))))->FUN_001b3250(value);
     return ((float*)((char*)&DAT_004e1830 + 160))[column + index * 45];
 }

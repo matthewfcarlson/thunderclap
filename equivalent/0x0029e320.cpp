@@ -5,6 +5,7 @@
   // 0.333
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 extern char DAT_004c534c[];
 extern char DAT_004cf658[];
@@ -31,7 +32,6 @@ struct Container_29e320 {
 };
 
 struct List_29e320 {
-    void FUN_002a1180(int n);
 };
 
 struct Rec_29e320 {                // 0x20 bytes
@@ -82,7 +82,7 @@ void Effect_29e320::FUN_0029e320(Container_29e320 *c, V3_29e320 *p, Arg3_29e320 
         return;
 
     f40->FUN_0029c660();
-    f40->list->FUN_002a1180(n + 1);
+    ((owners::A_2a1180 *)(f40->list))->FUN_002a1180(n + 1);
     float scale = FUN_0029dcc0(a3.value, 4);
 
     float x = p->x < (*(float*)&DAT_003f32e0) ? p->x : (*(float*)&DAT_003f32e0);

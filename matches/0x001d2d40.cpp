@@ -1,16 +1,11 @@
+#include "gen/owners.h"
 void f133d0(int, int);
 void f13600(int, int);
 int f12f00(int, int);
 float f130e0(int, int);
 void f12d80(int, int);
-class Obj_1d2d40 {
-  public:
-    char pad[8];
-    int field;
-    bool target(int arg, float* out);
-};
-bool Obj_1d2d40::target(int arg, float* out) {
-    f133d0(field, arg);
+bool owners::Obj_1d2d40::FUN_001d2d40(hulk_intptr arg, float* out) {
+    f133d0(field, ((int)arg));
     f13600(field, -2);
     bool result = true;
     if (f12f00(field, -1) != 3)

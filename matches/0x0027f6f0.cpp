@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class Buffer_27f6f0 {
   public:
     virtual void f0();
@@ -12,7 +13,6 @@ class Buffer_27f6f0 {
 };
 class Conv {
   public:
-    void Run(void*, void*);
 };
 struct Obj_27f6f0 {
     char p0[4];
@@ -26,7 +26,7 @@ extern "C" void __stdcall FUN_0027f6f0(void * self) {
     char local[12];
     if (((Obj_27f6f0 *)self)->index != 0xffff) {
         Conv* c = (Conv*)((char*)*((void**)((char*)((Obj_27f6f0 *)self)->a + 0x1c)) + (((Obj_27f6f0 *)self)->index << 6));
-        c->Run((char*)((Obj_27f6f0 *)self) + 0x14, local);
+        ((owners::Mat_22c2b0 *)c)->FUN_0022c2b0((float *)((char*)((Obj_27f6f0 *)self) + 0x14), (float *)local);
         ((Obj_27f6f0 *)self)->buffer->f8(local);
     } else {
         ((Obj_27f6f0 *)self)->buffer->f8((char*)((Obj_27f6f0 *)self) + 0x14);

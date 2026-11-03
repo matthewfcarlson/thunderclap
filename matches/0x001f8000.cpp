@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 void* FUN_0008d690(unsigned int) throw();
 class Owner;
 class Closure2_1f8000 {
@@ -8,10 +9,9 @@ class Closure2_1f8000 {
 };
 class Registry_1f8000 {
   public:
-    void FUN_001d3b70(const char*, Closure2_1f8000*);
     void FUN_001f8000(const char* a1, Owner* a2, void (*a3)());
 };
 void Registry_1f8000::FUN_001f8000(const char* a1, Owner* a2, void (*a3)()) {
     Closure2_1f8000* e = new Closure2_1f8000(a1, a2, a3);
-    FUN_001d3b70(a1, e);
+    ((owners::Obj_1d3b70 *)this)->FUN_001d3b70((hulk_uintptr)a1, (hulk_intptr)(Closure2_1f8000 *)e);
 }

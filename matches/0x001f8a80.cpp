@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class Helper_1f8a80 {
   public:
-    void Release(int);
 };
 class Owner_1f8a80 {
   public:
@@ -11,6 +11,6 @@ class Owner_1f8a80 {
 };
 void Owner_1f8a80::Set(int value) {
     Helper_1f8a80* h = GetHelper();
-    h->Release(member);
+    ((owners::Obj_1d1900 *)h)->FUN_001d1900((hulk_intptr)member);
     member = value;
 }

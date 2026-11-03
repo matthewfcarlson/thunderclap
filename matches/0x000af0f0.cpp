@@ -1,10 +1,5 @@
+#include "gen/owners.h"
 extern "C" void* memcpy(void*, const void*, unsigned int);
-class C_af0f0 {
-  public:
-    char pad[12];
-    char data[1];
-    void Copy(void* p);
-};
-void C_af0f0::Copy(void* p) {
+void owners::C_af0f0::FUN_000af0f0(void* p) {
     memcpy(p, this->data, 0xa4);
 }

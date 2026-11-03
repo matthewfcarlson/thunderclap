@@ -1,16 +1,10 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" void __cdecl Free(void*);
 extern "C" void* __cdecl Alloc(hulk_uintptr);
 extern "C" unsigned int __cdecl strlen(const char*);
 extern "C" char* __cdecl strcpy(char*, const char*);
-class X {
-    char pad[16];
-    char* p;
-
-  public:
-    unsigned char Set(const char* s);
-};
-unsigned char X::Set(const char* s) {
+unsigned char owners::X_181670::FUN_00181670(const char* s) {
     Free(p);
     if (!s) {
         p = 0;

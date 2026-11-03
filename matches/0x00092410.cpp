@@ -1,10 +1,10 @@
 #include "decls/data/game/unknown.h"
 // data: gItems_92410 = DAT_0049ceb0
+#include "gen/owners.h"
 
 class Obj_92410 {
   public:
     void Setup(const char*, int, int);
-    void Finish(int);
 };
 class Host_92410 {
   public:
@@ -22,6 +22,6 @@ void Host_92410::Target() {
             AddThing(obj, ((const char**)&DAT_0049ceb0)[i], i);
             ++i;
         } while (i < 0x2fe);
-        obj->Finish(2);
+        ((owners::Obj_1d19d0 *)obj)->FUN_001d19d0(2);
     }
 }

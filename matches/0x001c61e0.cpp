@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 typedef float F_1c61e0;
 struct O_1c61e0 {
-    void Fill(F_1c61e0*, int, int, int);
 };
 struct C_1c61e0 {
     char pad[0x284];
@@ -9,6 +9,6 @@ struct C_1c61e0 {
 };
 F_1c61e0 C_1c61e0::Run() {
     F_1c61e0 x;
-    m->Fill(&x, 1, 4, 1);
+    ((owners::X_2647e0 *)m)->FUN_002647e0((hulk_intptr)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
     return x;
 }

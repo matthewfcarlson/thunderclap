@@ -1,8 +1,8 @@
 // Same code shape as 0x00221cd0 (propagated; names are from that function)
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Sub_30f190 {
     char pad[0x10];
-    void f(hulk_intptr);
 };
 struct C_30f190 {
     char pad[0x40];
@@ -12,7 +12,7 @@ struct C_30f190 {
 };
 void* C_30f190::target() {
     if (state == 2) {
-        sub.f((hulk_intptr)this);
+        ((owners::Quat_22b370 *)&sub)->FUN_0022b370((const float *)(hulk_uintptr)(hulk_intptr)((hulk_intptr)this));
         state = 0;
     }
     return (void*)&sub;

@@ -1,8 +1,4 @@
-class X_192240 {
-  public:
-    char pad[0x38];
-    void* Get();
-};
-void* X_192240::Get() {
+#include "gen/owners.h"
+void* owners::X_192240::FUN_00192240() {
     return (char*)this + 0x38;
 }

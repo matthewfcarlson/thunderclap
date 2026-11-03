@@ -1,13 +1,5 @@
-class ItemList_24320 {
-  public:
-    int pad0[3];
-    int count;
-    int values[17];
-    int field54[16];
-    int field94[16];
-    bool Remove(int index);
-};
-bool ItemList_24320::Remove(int index) {
+#include "gen/owners.h"
+bool owners::ItemList_24320::FUN_00024320(int index) {
     if (index < 0 || index >= count)
         return false;
     --count;

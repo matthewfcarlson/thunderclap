@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1166 inputs, branch coverage 20/20)
 // FUN_002a58e0 @ 0x002a58e0
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Node {
     virtual void v0();
     virtual void v1();
@@ -9,17 +10,14 @@ struct Node {
     virtual void Apply(float t, float *out);
     int pad4;
     unsigned sub;
-    void FUN_0028a1c0(float t, float *value);
 };
 
 struct NodeList_2a58e0 {
     char pad0[0x14];
     int count;
-    Node *FUN_00288950(int index);
 };
 
 struct Source_2a58e0 {
-    NodeList_2a58e0 *FUN_00288a10(int index);
 };
 
 class Target_2a58e0 {
@@ -77,26 +75,26 @@ void FUN_002a58e0(Target_2a58e0 *self, Target_2a58e0 *obj, int a, int b)
     f.time = self->GetTime();
     f.timeCopy = f.time;
 
-    NodeList_2a58e0 *list = self->GetSource()->FUN_00288a10(0);
+    NodeList_2a58e0 *list = ((NodeList_2a58e0 *)((owners::Target_288a10 *)(self->GetSource()))->FUN_00288a10(0));
     for (int i = 0; i < list->count; i++) {
-        Node *n = list->FUN_00288950(i);
+        Node *n = ((Node *)((owners::C_288950 *)list)->FUN_00288950(i));
         unsigned id = n->GetId();
         if (id == 0x31544c46) {
             switch (n->sub) {
             case 0x53505052:
-                n->FUN_0028a1c0(f.timeCopy, &f.one);
+                ((owners::Curve_28a1c0 *)n)->FUN_0028a1c0(f.timeCopy, &f.one);
                 break;
             case 0x4c414652:
-                n->FUN_0028a1c0(f.timeCopy, &f.zero);
+                ((owners::Curve_28a1c0 *)n)->FUN_0028a1c0(f.timeCopy, &f.zero);
                 break;
             case 0x4d415052:
-                n->FUN_0028a1c0(f.timeCopy, &f.half);
+                ((owners::Curve_28a1c0 *)n)->FUN_0028a1c0(f.timeCopy, &f.half);
                 break;
             case 0x4d415552:
-                n->FUN_0028a1c0(f.timeCopy, &f.fifth);
+                ((owners::Curve_28a1c0 *)n)->FUN_0028a1c0(f.timeCopy, &f.fifth);
                 break;
             case 0x454d4954:
-                n->FUN_0028a1c0(f.timeCopy, &f.time);
+                ((owners::Curve_28a1c0 *)n)->FUN_0028a1c0(f.timeCopy, &f.time);
                 break;
             }
         } else if (id == 0x54434556) {

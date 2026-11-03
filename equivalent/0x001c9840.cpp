@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_001c9840 @ 0x001c9840
 // cl-flags: /GS
+#include "gen/owners.h"
 struct Vec3_1c9840 { float x,y,z; };
 struct Writer_1c9840 {
- bool FUN_001d2e80();
- void FUN_001d1d50(const char*, const char*);
  void FUN_001d1e50(const char*, Vec3_1c9840);
  void FUN_001d1d10();
 };
@@ -22,16 +21,16 @@ struct Actor_1c9840 {
 };
 bool Actor_1c9840::target() {
  Writer_1c9840* writer = FUN_001d4c90();
- if (!writer || !writer->FUN_001d2e80()) {
+ if (!writer || !((owners::Obj_1d2e80 *)writer)->FUN_001d2e80()) {
  return false;
  }
- writer->FUN_001d1d50("actor", actor);
- writer->FUN_001d1d50("template", templ);
- writer->FUN_001d1d50("template_variation", variation);
+ ((owners::Thing_1d1d50 *)writer)->FUN_001d1d50((hulk_uintptr)"actor", (hulk_uintptr)actor);
+ ((owners::Thing_1d1d50 *)writer)->FUN_001d1d50((hulk_uintptr)"template", (hulk_uintptr)templ);
+ ((owners::Thing_1d1d50 *)writer)->FUN_001d1d50((hulk_uintptr)"template_variation", (hulk_uintptr)variation);
  writer->FUN_001d1e50("position", position);
  char team[32];
  FUN_00096d50(team,32,teamLow,teamHigh);
- writer->FUN_001d1d50("team",team);
+ ((owners::Thing_1d1d50 *)writer)->FUN_001d1d50((hulk_uintptr)"team", (hulk_uintptr)team);
  writer->FUN_001d1d10();
  return true;
 }

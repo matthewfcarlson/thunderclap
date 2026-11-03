@@ -1,11 +1,4 @@
-class X_fc900 {
-    char pad[0x70];
-    unsigned char a;
-    unsigned char b;
-
-  public:
-    int f();
-};
-int X_fc900::f() {
+#include "gen/owners.h"
+int owners::X_fc900::FUN_000fc900() {
     return a && b;
 }

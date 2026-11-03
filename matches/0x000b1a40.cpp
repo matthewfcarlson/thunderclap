@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 struct Cell {
     char pad[8];
-    void Set(int, int);
 };
 class Obj {
   public:
@@ -13,7 +13,7 @@ class Obj {
 bool Obj::Fn(int a, int b, int c, int d) {
     if (a < 0 || a >= 2 || b < 0 || b >= 2 || c < 0 || c >= 3)
         return false;
-    cells[(a * 2 + b) * 3 + c].Set(0, d);
+    ((owners::Target_b10a0 *)&(cells[(a * 2 + b) * 3 + c]))->FUN_000b10a0(0, (const void *)(hulk_uintptr)(int)d);
     flag = 1;
     return true;
 }

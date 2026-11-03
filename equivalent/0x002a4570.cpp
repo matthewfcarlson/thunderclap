@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 8 inputs, branch coverage 6/6)
 // pure3d::DrawableContainer::vfunc_12 @ 0x002a4570
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 
 struct V3_2a4570 { float x, y, z; };
 
@@ -9,7 +10,6 @@ struct Sphere_2a4570 { float x, y, z, r; };
 struct Box_2a4570 {
     V3_2a4570 min;
     V3_2a4570 max;
-    void FUN_000a87f0(V3_2a4570* p);
     Sphere_2a4570* FUN_000a8890(Sphere_2a4570* out);
 };
 
@@ -59,8 +59,8 @@ void pure3d::DrawableContainer::vfunc_12() {
             Child_2a4570* c = (*(Slot_2a4570 * *)&this->f_48)[i].child;
             c->v10();
             t.box = c->box;
-            (*(Box_2a4570 *)&this->f_14).FUN_000a87f0(&t.box.min);
-            (*(Box_2a4570 *)&this->f_14).FUN_000a87f0(&t.box.max);
+            ((owners::V_a87f0 *)&((*(Box_2a4570 *)&this->f_14)))->FUN_000a87f0((owners::V_a87f0 *)(V3_2a4570 *)(&t.box.min));
+            ((owners::V_a87f0 *)&((*(Box_2a4570 *)&this->f_14)))->FUN_000a87f0((owners::V_a87f0 *)(V3_2a4570 *)(&t.box.max));
         }
     }
     Sphere_2a4570* s = (*(Box_2a4570 *)&this->f_14).FUN_000a8890(&t.sphere);

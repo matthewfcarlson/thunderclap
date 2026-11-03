@@ -1,10 +1,4 @@
-class A_31b180 {
-    char pad[0x434];
-
-  public:
-    unsigned char value;
-    unsigned char f();
-};
-unsigned char A_31b180::f() {
+#include "gen/owners.h"
+unsigned char owners::A_31b180::FUN_0031b180() {
     return value;
 }

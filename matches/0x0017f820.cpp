@@ -1,9 +1,5 @@
-struct Obj_17f820 {
-    char pad[0x20];
-    int m;
-    bool Fn(int a);
-};
-bool Obj_17f820::Fn(int a) {
+#include "gen/owners.h"
+bool owners::Obj_17f820::FUN_0017f820(int a) {
     m = a;
     return true;
 }

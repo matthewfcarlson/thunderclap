@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3016 inputs, branch coverage 13/14, incomplete)
 // FUN_002b4b40 @ 0x002b4b40
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Vec3_2b4b40 {
     float x, y, z;
-    void FUN_0022c3b0(const Vec3_2b4b40*, Vec3_2b4b40*);
     void FUN_0022d180();
 };
 
@@ -89,7 +89,7 @@ void Tracer_2b4b40::FUN_002b4b40(Node *node)
     f.pos.z = f.pos.z + shift->z;
     space->FUN_002940d0((Vec3_2b4b40 *)&f.pos, (Vec3_2b4b40 *)&f.pos);
     if (!useOffset) {
-        probe->Direction()->FUN_0022c3b0(&point, &f.dir);
+        ((owners::M_22c3b0 *)(probe->Direction()))->FUN_0022c3b0((float *)(const Vec3_2b4b40 *)(&point), (float *)(Vec3_2b4b40 *)(&f.dir));
     } else {
         space->FUN_002940d0(&point, &f.tmp);
         f.dir.x = f.pos.x - f.tmp.x;

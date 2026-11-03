@@ -2,6 +2,7 @@
 // hulkfight::motion::WallRunAction::vfunc_5 @ 0x0013fa80
 #include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/owners.h"
 
 extern "C" double cos(double);
 extern "C" double sqrt(double);
@@ -21,7 +22,6 @@ static double Length_13fa80(const Vec3_13fa80 *v)
 
 struct Quat_13fa80 {
     float q[4];
-    void FUN_0022b170(float angle, Vec3_13fa80 *axis) throw();
     void FUN_0022b4d0(Vec3_13fa80 *in, Vec3_13fa80 *out) throw();
 };
 
@@ -38,7 +38,6 @@ struct Stats2_13fa80 {
     float f2008;
     char pad200c[0x2064 - 0x200c];
     Vec3_13fa80 v2064;
-    void FUN_000359c0(int a) throw();
 };
 
 struct Obj24_13fa80 {
@@ -50,7 +49,6 @@ struct Obj24_13fa80 {
 };
 
 struct Sub18_13fa80 {
-    void FUN_0022be40(Vec3_13fa80 *p) throw();
     void FUN_00222180(Vec3_13fa80 *p) throw();
 };
 
@@ -173,7 +171,7 @@ char WallRunAction::vfunc_5(Arg1_13fa80 a1, Arg2_13fa80 a2)
         v38 = f.U;
     }
     v44 = f.U;
-    stats->FUN_000359c0(4);
+    ((owners::C_359c0 *)stats)->FUN_000359c0(4);
     if (b50 == 0) {
         float diff = FUN_00224fc0(stats->f2008, f54);
         a1.f = diff;
@@ -194,7 +192,7 @@ char WallRunAction::vfunc_5(Arg1_13fa80 a1, Arg2_13fa80 a2)
             a1.f = (float)maxStep;
             if (maxStep > ang)
                 a1.f = (float)ang;
-            f.M.FUN_0022b170(a1.f, &f.Y);
+            ((owners::Vec4_22b170 *)&(f.M))->FUN_0022b170(a1.f, (float *)(Vec3_13fa80 *)(&f.Y));
             f.M.FUN_0022b4d0(&v2c, &v2c);
         }
     }
@@ -238,7 +236,7 @@ char WallRunAction::vfunc_5(Arg1_13fa80 a1, Arg2_13fa80 a2)
     f.X.x = xs + f.P.x;
     f.X.y = ys + f.P.y;
     f.X.z = zs + f.P.z;
-    f28->sub.FUN_0022be40(&f.X);
+    ((owners::Target_22be40 *)&(f28->sub))->FUN_0022be40((const int *)(Vec3_13fa80 *)(&f.X));
     f.Y2.x = f.U.x * -1.0f;
     f.Y2.y = 0.0f;
     f.Y2.z = f.U.z * -1.0f;

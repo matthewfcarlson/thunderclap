@@ -1,11 +1,6 @@
-class Obj_16fb80 {
-  public:
-    char pad[0x30];
-    float angle;
-    char SetAngle(float deg);
-};
+#include "gen/owners.h"
 
-char Obj_16fb80::SetAngle(float deg) {
+char owners::Obj_16fb80::FUN_0016fb80(float deg) {
     float rad = deg * 0.0174532925f;
     angle = rad;
     return 1;

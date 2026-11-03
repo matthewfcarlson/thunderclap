@@ -1,4 +1,5 @@
 // FUN_000d7890 @ 0x000d7890
+#include "gen/owners.h"
 class Handler_d7890;
 struct Item_d7890 {
     virtual void v0();
@@ -7,7 +8,6 @@ struct Item_d7890 {
 struct Cursor_d7890 {
     bool FUN_000f9ef0();
     void FUN_000f9f30();
-    bool FUN_000f9e50();
     Item_d7890* FUN_000fb110();
     void FUN_000fa0a0();
     void FUN_000f9fb0();
@@ -36,7 +36,7 @@ bool Handler_d7890::FUN_000d7890(Cursor_d7890* c, Dispatcher_d7890* d, int flag)
 {
     if (c->FUN_000f9ef0()) {
         c->FUN_000f9f30();
-        while (c->FUN_000f9e50()) {
+        while (((owners::ThisWrap_000f9e50 *)c)->FUN_000f9e50()) {
             Item_d7890* it = c->FUN_000fb110();
             it->v1();
             if (d->v35(c, flag, this, it))

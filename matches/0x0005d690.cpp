@@ -1,11 +1,6 @@
-class Obj_5d690 {
-  public:
-    char pad[12];
-    int mX;
-    bool SetX(int x);
-};
+#include "gen/owners.h"
 
-bool Obj_5d690::SetX(int x) {
+bool owners::Obj_5d690::FUN_0005d690(int x) {
     mX = x;
     return true;
 }

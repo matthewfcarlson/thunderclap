@@ -1,4 +1,5 @@
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 struct Sub_15c940 {
     void setA(int a, int b, float c);
@@ -12,7 +13,6 @@ struct Obj_15c940 {
     Child_15c940* child();
 };
 struct Mgr_15c940 {
-    Obj_15c940* get();
 };
 
 namespace hulkfight {
@@ -22,7 +22,7 @@ namespace motion {
 } // namespace hulkfight
 void hulkfight::motion::ClimbLocomotionAction::vfunc_4() {
     if (this->f_20) {
-        Obj_15c940* o = (*(Mgr_15c940 * *)&this->f_1c)->get();
+        Obj_15c940* o = ((Obj_15c940 *)((owners::Object_592a0 *)((*(Mgr_15c940 * *)&this->f_1c)))->FUN_000592a0());
         Sub_15c940* s = o->make();
         if (s) {
             s->setA(this->f_20, 0, -1.0f);

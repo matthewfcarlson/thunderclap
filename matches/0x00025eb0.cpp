@@ -1,27 +1,9 @@
 #include "decls/data/game/unknown.h"
 // data: gValue_25eb0 = DAT_004dc0d8
+#include "gen/owners.h"
 
 extern void __fastcall InitThing(void*);
-class Thing_25eb0 {
-  public:
-    char pad000[4];
-    void* mChild;
-    char pad008[0x48];
-    unsigned char mFlag50;
-    char pad051[0x83];
-    int mA;
-    int mB;
-    int mC;
-    char pad0e0[0x270];
-    unsigned char m350;
-    unsigned char m351;
-    unsigned char m352;
-    char pad353[0x231];
-    int m584;
-    unsigned char m588;
-    void Run();
-};
-void Thing_25eb0::Run() {
+void owners::Thing_25eb0::FUN_00025eb0() {
     mFlag50 = 1;
     mA = 4;
     mB = 3;

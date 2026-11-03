@@ -1,8 +1,8 @@
 #include "compat/ptr.h"
 // FUN_003099d0 @ 0x003099d0
+#include "gen/owners.h"
 struct Sub_3099d0 {
     char data[0x1c];
-    void FUN_002fcb80(float scale);
 };
 
 struct Source_3099d0 {
@@ -43,7 +43,7 @@ void Anim_3099d0::FUN_003099d0()
         length = newLength;
         inverse = 1.0f / newLength;
         weight = ratio * weight;
-        subA.FUN_002fcb80(ratio);
-        subB.FUN_002fcb80(ratio);
+        ((owners::X_2fcb80 *)&subA)->FUN_002fcb80(ratio);
+        ((owners::X_2fcb80 *)&subB)->FUN_002fcb80(ratio);
     }
 }

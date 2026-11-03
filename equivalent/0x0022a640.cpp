@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 47 inputs, branch coverage 12/12)
 // choreo2::RestPoseDriver::vfunc_10 @ 0x0022a640
+#include "gen/owners.h"
 struct Quat_22a640 {
     float x, y, z, w;
-    void FUN_0022b750(const Quat_22a640 *a, const Quat_22a640 *b, float t);
 };
 
 struct Mat_22a640 {
@@ -72,7 +72,7 @@ void RestPoseDriver::vfunc_10(Blend_22a640 *a, Blend_22a640 *b, Pose *pose, floa
             continue;
         Quat_22a640 qa = pose->quats[i];
         Quat_22a640 qb = rest->quats[i];
-        qa.FUN_0022b750(&qa, &qb, t);
+        ((owners::Quaternion_22b750 *)&qa)->FUN_0022b750((const owners::Quaternion_22b750 *)(const Quat_22a640 *)(&qa), (const owners::Quaternion_22b750 *)(const Quat_22a640 *)(&qb), t);
         pose->quats[i] = qa;
 
         Mat_22a640 *pm = &pose->mats[i];

@@ -2,6 +2,7 @@
 // FUN_001e5110 @ 0x001e5110
 // FUN_001e5110 @ 0x001e5110: spawns an effect entry for a kind unless suppressed by settings
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Settings_1e5110 {
     int FUN_00088fa0();
     int FUN_00088fb0();
@@ -11,7 +12,6 @@ struct Config_1e5110 {
     Settings_1e5110 settings;
 };
 struct Manager_1e5110 {
-    Config_1e5110 *FUN_00086310();
 };
 struct World {
     char pad00[0x54];
@@ -34,8 +34,8 @@ public:
 
 void CSPManager_1e5110::FUN_001e5110(unsigned kind, unsigned a, unsigned b, unsigned c, unsigned w)
 {
-    int flag = DAT_004dd700->manager->FUN_00086310()->settings.FUN_00088fa0();
-    int mode = DAT_004dd700->manager->FUN_00086310()->settings.FUN_00088fb0();
+    int flag = ((Config_1e5110 *)((owners::C_86310 *)(DAT_004dd700->manager))->FUN_00086310())->settings.FUN_00088fa0();
+    int mode = ((Config_1e5110 *)((owners::C_86310 *)(DAT_004dd700->manager))->FUN_00086310())->settings.FUN_00088fb0();
     if (flag == 0 && (mode == 1 || mode == 10)) {
         if (kind == 1 || kind == 2 || kind == 3 || kind == 4)
             return;

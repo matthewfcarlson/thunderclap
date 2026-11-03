@@ -1,10 +1,5 @@
-class Pair_27af10 {
-  public:
-    unsigned int a;
-    unsigned int b;
-    Pair_27af10* Set(unsigned int x, unsigned int y);
-};
-Pair_27af10* Pair_27af10::Set(unsigned int x, unsigned int y) {
+#include "gen/owners.h"
+owners::Pair_27af10* owners::Pair_27af10::FUN_0027af10(unsigned int x, unsigned int y) {
     a = x;
     b = y;
     return this;

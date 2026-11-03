@@ -1,11 +1,6 @@
-class Obj_15b750 {
-  public:
-    char pad[0x48];
-    char flag;
-    char Set(int a);
-};
+#include "gen/owners.h"
 
-char Obj_15b750::Set(int a) {
+char owners::Obj_15b750::FUN_0015b750(int a) {
     *(int*)((char*)this + 0x48) = a;
     return 1;
 }

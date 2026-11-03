@@ -1,20 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 24/24)
 // FUN_002fbf20 @ 0x002fbf20
 #include "decls/data/engine/physics.h"
+#include "gen/owners.h"
 
 extern "C" double fabs(double);
 
-class AxisRemap {
-public:
-    char pad0[0x38];
-    int snapped;           // 0x38
-    char pad3c[0x48 - 0x3c];
-    float scale[3];        // 0x48
-    float m[3][3];         // 0x54, row-major
-    void FUN_002fbf20();
-};
 
-void AxisRemap::FUN_002fbf20()
+void owners::AxisRemap_2fbf20::FUN_002fbf20()
 {
     int pickA = 0;
     int pickB = 0;

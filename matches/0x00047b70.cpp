@@ -1,10 +1,5 @@
-class C_47b70 {
-  public:
-    char pad[0x18];
-    int m18;
-    bool Set(int x);
-};
-bool C_47b70::Set(int x) {
+#include "gen/owners.h"
+bool owners::C_47b70::FUN_00047b70(int x) {
     m18 = x;
     return true;
 }

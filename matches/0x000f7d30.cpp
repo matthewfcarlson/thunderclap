@@ -1,10 +1,7 @@
-struct A_f7d30 {
-    int f(unsigned long long);
-    int target(int p);
-};
+#include "gen/owners.h"
 extern unsigned long long __cdecl FUN_0027b020(int);
-int A_f7d30::target(int p) {
-    int r = f(FUN_0027b020(p));
+hulk_intptr owners::A_f7d30::FUN_000f7d30(hulk_intptr p) {
+    int r = f(FUN_0027b020(((int)p)));
     if (r != -1)
         return r;
     return r | r;

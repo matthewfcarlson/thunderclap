@@ -1,4 +1,5 @@
 #include "gen/global.h"
+#include "gen/owners.h"
 class Mgr_f8df0 {
   public:
     int Check_000dfa60(int x);
@@ -19,13 +20,11 @@ void* operator new(unsigned int n);
 class Owner_f8df0 {
   public:
     Inner_f8df0* mInner;
-    int Find(int a);
-    void Add(NamedValueFloat* it);
     NamedValueFloat* Create(int a, int b, int c);
 };
 
 NamedValueFloat* Owner_f8df0::Create(int a, int b, int c) {
-    if (Find(a))
+    if (((owners::Table_f8cc0 *)this)->FUN_000f8cc0((const char *)(hulk_uintptr)(int)a))
         return 0;
     NamedValueFloat* r = 0;
     if (c && mInner->mMgr->Check_000dfa60(c)) {
@@ -35,7 +34,7 @@ NamedValueFloat* Owner_f8df0::Create(int a, int b, int c) {
         } else {
             r = 0;
         }
-        Add(r);
+        ((owners::C_f8c00 *)this)->FUN_000f8c00((hulk_intptr)(NamedValueFloat *)r);
     }
     return r;
 }

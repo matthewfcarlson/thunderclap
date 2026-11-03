@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // FUN_002d1cc0 @ 0x002d1cc0
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Particle_2d1cc0 {
  float x,y,z;
  char pad0[0x14];
@@ -8,7 +9,6 @@ struct Particle_2d1cc0 {
  char pad1[0xc];
  float acceleration;
  short factor;
- void FUN_0022d210(void* transform);
 };
 struct Emitter_2d1cc0 {
  char pad0[0xe0];
@@ -32,7 +32,7 @@ extern "C" void __cdecl FUN_002d1cc0(float dt, Emitter_2d1cc0* emitter, Particle
  particle->x = x - emitter->x;
  particle->y = y - emitter->y;
  particle->z = z - emitter->z;
- particle->FUN_0022d210(emitter->transform);
+ ((owners::Obj_22d210 *)particle)->FUN_0022d210((owners::Obj_22d210 *)(emitter->transform));
  particle->x = emitter->x + particle->x;
  particle->y = emitter->y + particle->y;
  particle->z = emitter->z + particle->z;

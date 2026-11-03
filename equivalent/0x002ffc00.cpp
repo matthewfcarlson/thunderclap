@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 18/18)
 // FUN_002ffc00 @ 0x002ffc00
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Object { char pad[0x50]; unsigned char flag; };
-struct Pair_2ffc00 { Object* first; Object* second; unsigned int a,b,c; Pair_2ffc00* FUN_002f8ef0(Object*,Object*); };
+struct Pair_2ffc00 { Object* first; Object* second; unsigned int a,b,c;  };
 struct Container_2ffc00 { char pad[0x30]; Pair_2ffc00* begin; Pair_2ffc00* end; Pair_2ffc00* capacity; void FUN_002ffc00(Object* first, Object* second); };
 void Container_2ffc00::FUN_002ffc00(Object* first,Object* second) {
  for(Pair_2ffc00* p=begin;p!=end;++p) {
@@ -10,8 +11,8 @@ void Container_2ffc00::FUN_002ffc00(Object* first,Object* second) {
  }
  Pair_2ffc00 local;
  Pair_2ffc00* source;
- if(first->flag) source=local.FUN_002f8ef0(first,second);
- else source=local.FUN_002f8ef0(second,first);
+ if(first->flag) source=((Pair_2ffc00 *)((owners::X_2f8ef0 *)&local)->FUN_002f8ef0((hulk_uintptr)(Object *)first, (hulk_uintptr)(Object *)second));
+ else source=((Pair_2ffc00 *)((owners::X_2f8ef0 *)&local)->FUN_002f8ef0((hulk_uintptr)(Object *)second, (hulk_uintptr)(Object *)first));
  Pair_2ffc00* dest=end;
  if((hulk_uintptr)dest >= (hulk_uintptr)capacity) return;
  end=(Pair_2ffc00*)((hulk_uintptr)dest+sizeof(Pair_2ffc00));

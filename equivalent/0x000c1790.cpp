@@ -3,16 +3,16 @@
 // cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 
 extern "C" int strncmp(const char* a, const char* b, unsigned int n);
 extern "C" int strcmp(const char* a, const char* b);
 extern "C" char* strncpy(char* d, const char* s, unsigned int n);
 
-namespace pure3d { class TextureFont; }
+namespace pure3d { class TextureFont_c1790; }
 
 struct Font {
-    void FUN_00295250(int v);
 };
 
 namespace content {
@@ -28,18 +28,16 @@ struct Loader_c1790 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Font* v3(content::LoadInventory::DynamicCaster<pure3d::TextureFont>* caster, unsigned __int64 hash);
+    virtual Font* v3(content::LoadInventory::DynamicCaster<pure3d::TextureFont_c1790>* caster, unsigned __int64 hash);
     void FUN_002665a0();
 };
 
 struct Ui_c1790 {
     void FUN_000f7850();
     void FUN_000f89e0();
-    void FUN_000f6fe0(int index);
 };
 
 struct Label_c1790 {
-    void FUN_000f79a0(const unsigned short* s, int n);
 };
 
 struct DynamicLabel {
@@ -48,7 +46,6 @@ struct DynamicLabel {
 };
 
 struct Panel_c1790 {
-    void FUN_001bde50(int index);
     void FUN_001bde90();
     void FUN_001bdeb0();
 };
@@ -62,7 +59,7 @@ bool __cdecl FUN_000fc1c0(const char* path);
 DynamicLabel* __cdecl FUN_000fc260(const char* name);
 
 struct Frame_c1790 {
-    content::LoadInventory::DynamicCaster<pure3d::TextureFont> caster;
+    content::LoadInventory::DynamicCaster<pure3d::TextureFont_c1790> caster;
     void* self;
     Ui_c1790* ui;
     int oldMode;
@@ -111,7 +108,7 @@ bool FrontEnd_c1790::FUN_000c1790(const char* code)
         }
     }
     if (panel)
-        panel->FUN_001bde50(idx);
+        ((owners::Thing_1bde50 *)panel)->FUN_001bde50(idx);
     (*(Loader_c1790**)&DAT_004dd9c8)->FUN_002665a0();
     if (f.ui)
         f.ui->FUN_000f7850();
@@ -132,14 +129,14 @@ bool FrontEnd_c1790::FUN_000c1790(const char* code)
     {
         Loader_c1790* ld = (*(Loader_c1790**)&DAT_004dd9c8);
         unsigned __int64 h = FUN_0027b020(first);
-        new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::TextureFont>;
-        ld->v3(&f.caster, h)->FUN_00295250(0xfa0);
+        new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::TextureFont_c1790>;
+        ((owners::C_295250 *)(ld->v3(&f.caster, h)))->FUN_00295250(0xfa0);
     }
     {
         Loader_c1790* ld = (*(Loader_c1790**)&DAT_004dd9c8);
         unsigned __int64 h = FUN_0027b020(second);
-        new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::TextureFont>;
-        ld->v3(&f.caster, h)->FUN_00295250(0xfa0);
+        new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::TextureFont_c1790>;
+        ((owners::C_295250 *)(ld->v3(&f.caster, h)))->FUN_00295250(0xfa0);
     }
     Ui_c1790* ui = f.ui;
     if (ui) {
@@ -152,7 +149,7 @@ bool FrontEnd_c1790::FUN_000c1790(const char* code)
         } while (i < 6);
         if (i >= 6)
             i = 0;
-        ui->FUN_000f6fe0(i);
+        ((owners::C_f6fe0 *)ui)->FUN_000f6fe0(i);
     }
     if (panel)
         panel->FUN_001bdeb0();
@@ -162,7 +159,7 @@ bool FrontEnd_c1790::FUN_000c1790(const char* code)
         if (lbl) {
             int p = this->FUN_000bc900(f.text, 0, "TBS_MENU_ITEM_BONUS_FEATURES_SELECT", 0);
             this->FUN_000bc900(f.text, p, "TBS_MENU_ITEM_BUTTON_BACK", 1);
-            lbl->FUN_000f79a0(f.text, 0);
+            ((owners::Obj_f79a0 *)lbl)->FUN_000f79a0((const short *)(f.text), (hulk_intptr)0);
         }
     }
     FUN_00266da0(f.oldMode);

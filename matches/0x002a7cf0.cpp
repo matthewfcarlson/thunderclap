@@ -1,10 +1,5 @@
-class Thing_2a7cf0 {
-  public:
-    char pad[0x44];
-    int value;
-    void Set(int x);
-};
+#include "gen/owners.h"
 
-void Thing_2a7cf0::Set(int x) {
-    value = x;
+void owners::Thing_2a7cf0::FUN_002a7cf0(hulk_intptr x) {
+    value = ((int)x);
 }

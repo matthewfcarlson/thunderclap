@@ -1,11 +1,6 @@
-class X_5d520 {
-  public:
-    char pad[0x34];
-    int value;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool X_5d520::Set(int v) {
+bool owners::X_5d520::FUN_0005d520(int v) {
     value = v;
     return true;
 }

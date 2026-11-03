@@ -1,11 +1,6 @@
-class Obj_15b290 {
-  public:
-    char pad[0xc0];
-    int mValue;
-    char Fn(int value);
-};
+#include "gen/owners.h"
 
-char Obj_15b290::Fn(int value) {
+char owners::Obj_15b290::FUN_0015b290(int value) {
     mValue = value;
     return 1;
 }

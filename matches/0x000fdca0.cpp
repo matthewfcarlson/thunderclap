@@ -1,10 +1,5 @@
-class Obj_fdca0 {
-  public:
-    char pad[0xec];
-    int value;
-    int Get();
-};
+#include "gen/owners.h"
 
-int Obj_fdca0::Get() {
+int owners::Obj_fdca0::FUN_000fdca0() {
     return value;
 }

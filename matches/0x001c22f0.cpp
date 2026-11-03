@@ -2,6 +2,7 @@
 #include "decls/data/game/global.h"
 // data: g_obj_1c22f0 = DAT_004e2318, kZero_1c22f0 = DAT_003f32e0
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 
 struct Sub_1c22f0 {
     void A(int);
@@ -19,7 +20,6 @@ struct Parent_1c22f0 {
 class Thing_1c22f0 {
   public:
     void Fn();
-    void Set(float a, float b);
     char pad0[4];
     Parent_1c22f0* mParent;
     char pad1[0xb4];
@@ -35,7 +35,7 @@ void Thing_1c22f0::Fn() {
     mSub->B();
     ((pure3d::DisplayList *)mSub)->FUN_0029bba0();
     if ((*(Obj2_1c22f0**)&DAT_004e2318) && mF != DAT_003f32e0) {
-        Set(mF, mG);
+        ((owners::Obj_1c16e0 *)this)->FUN_001c16e0(mF, mG);
         (*(Obj2_1c22f0**)&DAT_004e2318)->v2();
     }
     mParent->Done();

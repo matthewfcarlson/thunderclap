@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class Thing_29f800 {
   public:
     virtual void v0();
@@ -7,7 +8,6 @@ class Thing_29f800 {
     virtual void v4();
     char pad[0x10];
     int field;
-    void Prepare(int);
 };
 class Item_29f800 {
   public:
@@ -19,15 +19,14 @@ class Manager_29f800 {
 
   public:
     int count;
-    Item_29f800* Get(int);
     void Run(int);
 };
 void Manager_29f800::Run(int arg) {
     if (arg) {
-        Item_29f800* p = Get(arg);
+        Item_29f800* p = ((Item_29f800 *)((owners::Object_29c450 *)this)->FUN_0029c450((void *)(hulk_uintptr)(int)arg));
         if (p) {
             int value = p->owner->field;
-            p->owner->Prepare(value + 1);
+            ((owners::A_2a1180 *)(p->owner))->FUN_002a1180(value + 1);
             p->Apply(value, arg);
             ++count;
         }

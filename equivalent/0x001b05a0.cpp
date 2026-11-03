@@ -4,6 +4,7 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
 struct V3_1b05a0 {
     float x, y, z;
@@ -69,7 +70,6 @@ struct Reg4c {
     char FUN_00079950(void* pos);
     int FUN_00079800(void* pos);
     void FUN_0007ba60(int i);
-    float FUN_0007a820(int i);
     struct Sparks* FUN_0007ad00(void* pos);
 };
 struct Sparks {
@@ -80,7 +80,6 @@ struct Grid38 {
                       float r1, float r2, int* out, int z);
 };
 struct Grid34 {
-    void FUN_001ebea0(int a, Entity* e);
 };
 struct World {
     char pad00[0x20];
@@ -118,10 +117,8 @@ struct Ob74 {
     Body72* f20;
 };
 struct Ob70 {
-    void FUN_0016fc60(V3_1b05a0* out);
 };
 struct Chk {
-    char FUN_001d4e40();
     int FUN_001d5e80(int a);
 };
 struct Dummy964 {
@@ -158,11 +155,8 @@ struct Entity {
     int FUN_001d64a0();
     char FUN_001d6980();
     V3_1b05a0* FUN_001d6b40();
-    V3_1b05a0* FUN_001d6b30();
     void FUN_00035660(V3_1b05a0* out);
     char FUN_000373d0();
-    Obj1d72_1b05a0* FUN_001d72e0();
-    void FUN_001d6ad0(V3_1b05a0* p);
     float FUN_001d8160();
     void FUN_0027d4f0(int a);
     void FUN_001d69f0(V3_1b05a0* out);
@@ -213,7 +207,7 @@ int __stdcall FUN_001b05a0(Entity* self, HitObj_1b05a0* hit, Contact_1b05a0* c) 
     Entity* current = world->f20->cur;
     Entity* other = self->other;
     bool checkTriangle = other ? (other != current && other->ign338 != current && other->ign334 != current)
-                               : !self->fec->FUN_001d4e40();
+                               : !((char)((owners::Obj_1d4e40 *)(self->fec))->FUN_001d4e40());
     if (checkTriangle) {
         Geo* geo = 0;
         unsigned int index = 0;
@@ -265,7 +259,7 @@ int __stdcall FUN_001b05a0(Entity* self, HitObj_1b05a0* hit, Contact_1b05a0* c) 
             registered = world->f4c->FUN_00079950(&self->pos8);
         if (body || !registered) {
             V3_1b05a0* previous = self->FUN_001d6b40();
-            V3_1b05a0* position = self->FUN_001d6b30();
+            V3_1b05a0* position = ((V3_1b05a0 *)((owners::Thing_1d6b30 *)self)->FUN_001d6b30());
             s.direction.x = position->x - previous->x;
             s.direction.y = position->y - previous->y;
             s.direction.z = position->z - previous->z;
@@ -276,7 +270,7 @@ int __stdcall FUN_001b05a0(Entity* self, HitObj_1b05a0* hit, Contact_1b05a0* c) 
                 speedSquared = s.normal.z * s.normal.z + s.normal.y * s.normal.y + s.normal.x * s.normal.x;
                 threshold = 64.0f;
             } else {
-                Obj1d72_1b05a0* state = self->FUN_001d72e0();
+                Obj1d72_1b05a0* state = ((Obj1d72_1b05a0 *)((owners::C_1d72e0 *)self)->FUN_001d72e0());
                 V3_1b05a0* velocity = &state->v50;
                 speedSquared =
                     velocity->x * velocity->x + velocity->y * velocity->y + velocity->z * velocity->z;
@@ -289,7 +283,7 @@ int __stdcall FUN_001b05a0(Entity* self, HitObj_1b05a0* hit, Contact_1b05a0* c) 
                 if (c->FUN_002f8e10(&geo, &index)) {
                     Tri_1b05a0* tri = &geo->f44->tris[(unsigned short)index];
                     if (tri && !(tri->b16 & 8)) {
-                        self->FUN_001d6ad0(self->FUN_001d6b40());
+                        ((owners::Target_1d6ad0 *)self)->FUN_001d6ad0((int *)(V3_1b05a0 *)(self->FUN_001d6b40()));
                         s.upper = 2.0f;
                         s.lower = 0.5f;
                         s.radius = self->FUN_001d8160() * 0.01f;
@@ -306,13 +300,13 @@ int __stdcall FUN_001b05a0(Entity* self, HitObj_1b05a0* hit, Contact_1b05a0* c) 
                             if (body)
                                 ((Entity*)body)->FUN_00035660(&s.direction);
                             else
-                                s.direction = self->FUN_001d72e0()->v50;
+                                s.direction = ((Obj1d72_1b05a0 *)((owners::C_1d72e0 *)self)->FUN_001d72e0())->v50;
                             s.direction.FUN_0022d180();
                         }
                         s.index.particleResult = 0;
                         world->f38->FUN_001f6cd0(tri, geo, &s.point, &s.normal, &s.direction, 8, s.lower,
                                                  s.lower, &s.index.particleResult, 0);
-                        world->f34->FUN_001ebea0(s.index.particleResult, self);
+                        ((owners::Crusher_1ebea0 *)(world->f34))->FUN_001ebea0((const char *)(hulk_uintptr)(int)(s.index.particleResult), (hulk_intptr)(Entity *)self);
                     }
                 }
             }
@@ -321,17 +315,17 @@ int __stdcall FUN_001b05a0(Entity* self, HitObj_1b05a0* hit, Contact_1b05a0* c) 
     if (self->b1c9 && self->f1fc != 0 && self->fec->FUN_001d5e80(self->f40) == 4 && !(self->f218 < 10.0f))
         self->FUN_0027d4f0(9);
     if (hit->kind != 5 && self->b1c9) {
-        Obj1d72_1b05a0* state = self->FUN_001d72e0();
+        Obj1d72_1b05a0* state = ((Obj1d72_1b05a0 *)((owners::C_1d72e0 *)self)->FUN_001d72e0());
         V3_1b05a0* velocity = &state->v50;
         if (velocity->x * velocity->x + velocity->y * velocity->y + velocity->z * velocity->z > 25.0f) {
             bool activate = false;
             if (self->fec->FUN_001d5e80(self->f40) != 3)
                 activate = true;
             else {
-                Obj1d72_1b05a0* state2 = self->FUN_001d72e0();
+                Obj1d72_1b05a0* state2 = ((Obj1d72_1b05a0 *)((owners::C_1d72e0 *)self)->FUN_001d72e0());
                 s.normal.x = s.normal.y = s.normal.z = 0;
                 if (state2->f70)
-                    state2->f70->FUN_0016fc60(&s.normal);
+                    ((owners::Thing_16fc60 *)(state2->f70))->FUN_0016fc60((int *)(V3_1b05a0 *)(&s.normal));
                 else
                     self->FUN_001d69f0(&s.normal);
                 hulk_freg height = 0.0f;
@@ -355,19 +349,19 @@ int __stdcall FUN_001b05a0(Entity* self, HitObj_1b05a0* hit, Contact_1b05a0* c) 
             int id = registry->FUN_00079800(&self->pos8);
             if (id != -1) {
                 registry->FUN_0007ba60(id);
-                if (registry->FUN_0007a820(id) > DAT_004c3734)
+                if (((owners::Thing_7a820 *)registry)->FUN_0007a820(id) > DAT_004c3734)
                     self->FUN_001d6ec0((int)DAT_004c372c, 0, 0);
             }
         }
     }
     if (self->b14d) {
         void* contactOwner = c->info->f18;
-        s.normal = (void*)self->FUN_001d72e0() == contactOwner ? c->q : c->p;
+        s.normal = (void*)((Obj1d72_1b05a0 *)((owners::C_1d72e0 *)self)->FUN_001d72e0()) == contactOwner ? c->q : c->p;
         Sparks* sparks = world->f4c->FUN_0007ad00(&self->pos8);
         if (sparks) {
             s.point.x = s.point.y = s.point.z = 0;
             sparks->FUN_00083320(&s.normal, &c->n, c->f24, 0, &s.point, 0);
-            if (self->FUN_001d72e0()->f6c == 0)
+            if (((Obj1d72_1b05a0 *)((owners::C_1d72e0 *)self)->FUN_001d72e0())->f6c == 0)
                 return 1;
         }
     }

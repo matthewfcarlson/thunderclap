@@ -1,5 +1,6 @@
 #include "decls/data/game/unknown.h"
 // data: g_lang = DAT_0049caa4
+#include "gen/owners.h"
 
 extern "C" int strcmp(const char*, const char*);
 struct S7 {
@@ -10,8 +11,6 @@ struct S8_1ebaf0 {
 };
 struct Obj_1ebaf0 {
     char d[12];
-    Obj_1ebaf0* Make(const char*, int);
-    void Cleanup();
 };
 void Use(void*);
 void __stdcall Fn(const char* s) {
@@ -23,6 +22,6 @@ void __stdcall Fn(const char* s) {
     } else {
         *(S8_1ebaf0*)DAT_0049caa4 = *(const S8_1ebaf0*)"english";
     }
-    Use(o.Make(DAT_0049caa4, 2));
-    o.Cleanup();
+    Use(((Obj_1ebaf0 *)((owners::String_23fc40 *)&o)->FUN_0023fc40(DAT_0049caa4, (hulk_intptr)2)));
+    ((owners::Str_240060 *)&o)->FUN_00240060();
 }

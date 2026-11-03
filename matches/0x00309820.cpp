@@ -1,9 +1,9 @@
+#include "gen/owners.h"
 struct Obj_309820 {
     int x;
-    void helper();
     int* target();
 };
 int* Obj_309820::target() {
-    helper();
+    ((owners::Obj_2fd730 *)this)->FUN_002fd730();
     return &x + 1;
 }

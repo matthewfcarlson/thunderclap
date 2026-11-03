@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 11/11)
 // FUN_001b0470 @ 0x001b0470
 // FUN_001b0470 @ 0x001b0470
+#include "gen/owners.h"
 struct Item_1b0470 {
-    int FUN_001d72e0();
     int FUN_001d64a0();
 };
 struct State_1b0470 {
@@ -23,7 +23,7 @@ extern bool __cdecl FUN_00044500(int);
 extern "C" float __cdecl FUN_001b0470(Item_1b0470* item, Actor_1b0470* self, int argument)
 {
     float result = FUN_001b0310(self, item);
-    int identifier = item->FUN_001d72e0();
+    int identifier = ((int)((owners::C_1d72e0 *)item)->FUN_001d72e0());
     unsigned int type = (unsigned int)item->FUN_001d64a0() - 2;
     if (type <= 9) {
         float angle = 90.0f;

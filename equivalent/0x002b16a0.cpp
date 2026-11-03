@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // pure3d::VertexOffsetExpressionMixerLoader::vfunc_5 @ 0x002b16a0
+#include "gen/owners.h"
 void *__cdecl FUN_00263ea0(unsigned int size);
 extern "C" unsigned __int64 __cdecl FUN_0027b020(const char *s);
 extern "C" unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
 extern "C" void __cdecl FUN_0028fcc0(const char *fmt, ...);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
-namespace pure3d { class ExpressionGroup; class PolySkin; }
+namespace pure3d { class ExpressionGroup_2b16a0; class PolySkin_2b16a0; }
 
 namespace content {
 namespace LoadInventory {
@@ -25,7 +26,6 @@ public:
 
 struct Name_2b16a0 {
     char data[8];
-    void FUN_0027b040(const char *s);
 };
 
 struct ExprGroup;
@@ -55,7 +55,6 @@ public:
 };
 
 struct Reader {
-    void FUN_002647e0(void *dst, int count, int size, int flag);
 };
 
 struct Stream {
@@ -85,23 +84,23 @@ public:
 void VertexOffsetExpressionMixerLoader::vfunc_5(VertexOffsetExpressionMixer_2b16a0 **out, unsigned __int64 *outId, Stream *s, LoadContext_2b16a0 *ctx)
 {
     Frame_2b16a0 f;
-    s->reader->FUN_002647e0(&f.cell, 1, 4, 1);
-    s->reader->FUN_002647e0(&f.len, 1, 1, 1);
-    s->reader->FUN_002647e0(f.mixerName, f.len, 1, 1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.cell), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(f.mixerName), (hulk_intptr)(f.len), 1, (hulk_intptr)1);
     f.mixerName[f.len] = 0;
 
-    s->reader->FUN_002647e0(&f.cell, 1, 4, 1);
-    s->reader->FUN_002647e0(&f.len, 1, 1, 1);
-    s->reader->FUN_002647e0(f.skinName, f.len, 1, 1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.cell), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(f.skinName), (hulk_intptr)(f.len), 1, (hulk_intptr)1);
     f.skinName[f.len] = 0;
 
-    s->reader->FUN_002647e0(&f.len, 1, 1, 1);
-    s->reader->FUN_002647e0(f.groupName, f.len, 1, 1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(f.groupName), (hulk_intptr)(f.len), 1, (hulk_intptr)1);
     f.groupName[f.len] = 0;
 
     unsigned __int64 groupId = FUN_0027b020(f.groupName);
-    content::LoadInventory::DynamicCaster<pure3d::ExpressionGroup> *groupCaster =
-        new (&f.cell) content::LoadInventory::DynamicCaster<pure3d::ExpressionGroup>();
+    content::LoadInventory::DynamicCaster<pure3d::ExpressionGroup_2b16a0> *groupCaster =
+        new (&f.cell) content::LoadInventory::DynamicCaster<pure3d::ExpressionGroup_2b16a0>();
     ExprGroup *group = (ExprGroup *)ctx->lookup(groupCaster, groupId);
     if (group == 0)
         FUN_0028fcc0("Warning : can't find expression group '%s' for mixer '%s'\n", f.groupName, f.mixerName);
@@ -110,11 +109,11 @@ void VertexOffsetExpressionMixerLoader::vfunc_5(VertexOffsetExpressionMixer_2b16
     VertexOffsetExpressionMixer_2b16a0 *mixer = 0;
     if (mem)
         mixer = static_cast<VertexOffsetExpressionMixer_2b16a0 *>(mem)->FUN_002b15d0(group);
-    mixer->name.FUN_0027b040(f.mixerName);
+    ((owners::Target_27b040 *)&(mixer->name))->FUN_0027b040((hulk_uintptr)(f.mixerName));
 
     unsigned __int64 skinId = FUN_0027b020(f.skinName);
-    content::LoadInventory::DynamicCaster<pure3d::PolySkin> *skinCaster =
-        new (&f.cell) content::LoadInventory::DynamicCaster<pure3d::PolySkin>();
+    content::LoadInventory::DynamicCaster<pure3d::PolySkin_2b16a0> *skinCaster =
+        new (&f.cell) content::LoadInventory::DynamicCaster<pure3d::PolySkin_2b16a0>();
     Skin_2b16a0 *skin = (Skin_2b16a0 *)ctx->lookup(skinCaster, skinId);
     if (skin && skin->holder)
         skin->holder->FUN_002a9ea0(mixer);

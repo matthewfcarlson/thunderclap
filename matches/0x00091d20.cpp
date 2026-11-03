@@ -1,8 +1,4 @@
-class C_91d20 {
-  public:
-    char pad[0x28];
-    char* f();
-};
-char* C_91d20::f() {
+#include "gen/owners.h"
+char* owners::C_91d20::FUN_00091d20() {
     return (char*)this + 0x28;
 }

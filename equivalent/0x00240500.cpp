@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 7/8, incomplete)
 // FUN_00240500 @ 0x00240500
 #include "decls/data/engine/audio.h"
+#include "gen/owners.h"
 
 extern "C" int __cdecl sprintf(char *, const char *, ...);
 struct StringValue_240500 { char *text; unsigned int flags; unsigned short length; unsigned short padding; };
@@ -9,7 +10,6 @@ extern "C" void __cdecl FUN_0023fa40(int *, char *, unsigned int, int);
 extern void __cdecl FUN_00247570(void *allocation);
 struct Object {
  Object *FUN_00240500(unsigned int value);
- void FUN_0023ff50(StringValue_240500 *value);
 };
 Object *Object::FUN_00240500(unsigned int value) {
  char buffer[64];
@@ -20,7 +20,7 @@ Object *Object::FUN_00240500(unsigned int value) {
  char *text;
  FUN_0023fa40((int *)(char * *)(&text), (char *)(const char *)buffer, (int)length, length);
  temporary.text = text;
- FUN_0023ff50(&temporary);
+ ((owners::String_23ff50 *)this)->FUN_0023ff50((owners::String_23ff50 *)(StringValue_240500 *)(&temporary));
  if ((unsigned short)temporary.flags == 2) {
   StringHeader_240500 *header = reinterpret_cast<StringHeader_240500 *>(text) - 1;
   if (header->references == 1) {

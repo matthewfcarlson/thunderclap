@@ -1,10 +1,5 @@
-class A_47d70 {
-  public:
-    char pad[12];
-    int m;
-    bool Set(int x);
-};
-bool A_47d70::Set(int x) {
+#include "gen/owners.h"
+bool owners::A_47d70::FUN_00047d70(int x) {
     m = x;
     return true;
 }

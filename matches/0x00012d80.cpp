@@ -1,8 +1,4 @@
-class C_12d80 {
-  public:
-    char pad[0x28];
-    void* GetThing();
-};
-void* C_12d80::GetThing() {
+#include "gen/owners.h"
+void* owners::C_12d80::FUN_00012d80() {
     return (char*)this + 0x28;
 }

@@ -1,9 +1,4 @@
-class C_1d4e10 {
-  public:
-    char pad[0xac];
-    unsigned int value;
-    unsigned int get();
-};
-unsigned int C_1d4e10::get() {
+#include "gen/owners.h"
+unsigned int owners::C_1d4e10::FUN_001d4e10() {
     return value;
 }

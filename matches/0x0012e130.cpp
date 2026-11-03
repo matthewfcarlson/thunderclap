@@ -1,10 +1,6 @@
-class X_12e130 {
-  public:
-    char Set(int v);
-    char pad[0x18];
-};
+#include "gen/owners.h"
 
-char X_12e130::Set(int v) {
+char owners::X_12e130::FUN_0012e130(int v) {
     *(int*)((char*)this + 0x18) = v;
     return 1;
 }

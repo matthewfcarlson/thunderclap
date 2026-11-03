@@ -1,11 +1,6 @@
-class A_13ea90 {
-  public:
-    char pad[0x1c];
-    int m;
-    char f(int x);
-};
+#include "gen/owners.h"
 
-char A_13ea90::f(int x) {
+char owners::A_13ea90::FUN_0013ea90(int x) {
     m = x;
     return 1;
 }

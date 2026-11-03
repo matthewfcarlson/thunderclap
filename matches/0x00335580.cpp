@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class Item {
   public:
     char pad[8];
@@ -8,7 +9,6 @@ class Store {
   public:
     char pad[0x44];
     int count;
-    Item* get(int);
 };
 class Obj {
   public:
@@ -22,7 +22,7 @@ bool Obj::length(int index, int* out) {
         return false;
     if (index >= store->count)
         return false;
-    if (store->get(index)->type != 4)
+    if (((Item *)((owners::Thing_337090 *)store)->FUN_00337090(index))->type != 4)
         return false;
     const char* s = strings[index];
     if (!s) {

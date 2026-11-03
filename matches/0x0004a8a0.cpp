@@ -1,4 +1,5 @@
 #include "gen/global.h"
+#include "gen/owners.h"
 
 struct Node_4a8a0 {
     char pad[0x108];
@@ -7,7 +8,6 @@ struct Node_4a8a0 {
 };
 class Manager_4a8a0 {
   public:
-    Node_4a8a0* First();
 };
 class Helper_4a8a0 {
   public:
@@ -17,7 +17,7 @@ class Helper_4a8a0 {
 bool CFightNodePrevCondition::vfunc_7(void* __p0) { void * arg = (void *)__p0;
 
     Manager_4a8a0* m = (Manager_4a8a0*)arg;
-    Node_4a8a0* n = m->First();
+    Node_4a8a0* n = ((Node_4a8a0 *)((owners::Object_592a0 *)m)->FUN_000592a0());
     Node_4a8a0* r = ((Helper_4a8a0*)n)->Get();
     int x = r->a;
     if (this->f_1c == 0)

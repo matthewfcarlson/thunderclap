@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 17260 inputs, branch coverage 14/14)
 // FUN_00280be0 @ 0x00280be0
+#include "gen/owners.h"
 struct Vtx_280be0 {
     float x, y, z;
     int w0, w1, w2;
-    void FUN_0027f070(Vtx_280be0* a, Vtx_280be0* b, float t);
 };
 
 struct Plane_280be0 {
@@ -27,7 +27,7 @@ void FUN_00280be0(Plane_280be0* plane, Vtx_280be0* verts, int count, Vtx_280be0*
             if (!curInside) {
                 f.dstOut = &out[*outCount];
                 plane->FUN_0022e1f0(prev, cur, &f.tOutgoing);
-                f.dstOut->FUN_0027f070(prev, cur, f.tOutgoing);
+                ((owners::Vertex_27f070 *)(f.dstOut))->FUN_0027f070((const owners::Vertex_27f070 *)(Vtx_280be0 *)prev, (const owners::Vertex_27f070 *)(Vtx_280be0 *)cur, f.tOutgoing);
                 (*outCount)++;
             } else {
                 out[*outCount] = *cur;
@@ -36,7 +36,7 @@ void FUN_00280be0(Plane_280be0* plane, Vtx_280be0* verts, int count, Vtx_280be0*
         } else if (curInside) {
             f.dstIn = &out[*outCount];
             plane->FUN_0022e1f0(prev, cur, &f.tIncoming);
-            f.dstIn->FUN_0027f070(prev, cur, f.tIncoming);
+            ((owners::Vertex_27f070 *)(f.dstIn))->FUN_0027f070((const owners::Vertex_27f070 *)(Vtx_280be0 *)prev, (const owners::Vertex_27f070 *)(Vtx_280be0 *)cur, f.tIncoming);
             (*outCount)++;
             out[*outCount] = *cur;
             (*outCount)++;

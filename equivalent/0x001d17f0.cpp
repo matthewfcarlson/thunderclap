@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_001d17f0 @ 0x001d17f0
+#include "gen/owners.h"
 extern "C" {
 int __cdecl FUN_00213290(void*, int);
 void __cdecl FUN_00213380(void*, const char*, int);
@@ -10,12 +11,7 @@ void __cdecl FUN_002139f0(void*, int, int, int);
 const char* __cdecl FUN_00213190(void*, int);
 void __cdecl FUN_00212d80(void*, int);
 }
-struct Object {
-char padding[8];
-void* state;
-int status(void* context);
-};
-int Object::status(void* context) {
+int owners::Object_1d17f0::FUN_001d17f0(void* context) {
 if (!FUN_00213290(state, -1)) return 0;
 FUN_00213380(context, "coroutine", 9);
 FUN_00213600(context, -10001);

@@ -1,9 +1,5 @@
-struct X_15a9d0 {
-    char pad[0x30];
-    int m30;
-    bool Set(int v);
-};
-bool X_15a9d0::Set(int v) {
+#include "gen/owners.h"
+bool owners::X_15a9d0::FUN_0015a9d0(int v) {
     m30 = v;
     return true;
 }

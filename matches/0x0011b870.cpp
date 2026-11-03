@@ -1,10 +1,6 @@
-class C_11b870 {
-  public:
-    char m[0x19];
-    char f(char c);
-};
+#include "gen/owners.h"
 
-char C_11b870::f(char c) {
+char owners::C_11b870::FUN_0011b870(char c) {
     m[0x19] = c;
     return 1;
 }

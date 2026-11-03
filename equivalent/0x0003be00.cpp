@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3051 inputs, branch coverage 20/20)
 // FUN_0003be00 @ 0x0003be00
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Vec3_3be00 {
     float x, y, z;
 };
 
 struct Quat_3be00 {
     float x, y, z, w;
-    void FUN_0022b220(float a, float b, float c);
     char FUN_000375f0(const Quat_3be00 *other, float eps);
 };
 
@@ -36,7 +36,6 @@ struct Rig_3be00 {
     char padc[4];
     Skeleton *skeleton;
     Pose *pose;
-    void FUN_00034d80(int mode, Vec3_3be00 *v);
 };
 
 struct Actor_3be00 {
@@ -49,11 +48,9 @@ struct Owner_3be00 {
 };
 
 struct Pad_3be00 {
-    char FUN_00092de0(int button);
 };
 
 struct Input_3be00 {
-    Pad_3be00 *FUN_00086340();
 };
 
 struct Holder_3be00 {
@@ -84,18 +81,18 @@ void Controller_3be00::FUN_0003be00()
     if (g->holder->current != this) {
         return;
     }
-    Pad_3be00 *pad = g->input->FUN_00086340();
+    Pad_3be00 *pad = ((Pad_3be00 *)((owners::A_86340 *)(g->input))->FUN_00086340());
     Rig_3be00 *rig = owner->FUN_00059a40()->rig;
     Reference *ref = rig->ref;
     Quat_3be00 q;
     Quat_3be00 l;
-    if (pad->FUN_00092de0(4)) {
-        l.FUN_0022b220(0.0f, 0.0f, -0.7853982f);
+    if (((char)((owners::ThisWrap_00092de0 *)pad)->FUN_00092de0(4))) {
+        ((owners::Quaternion_22b220 *)&l)->FUN_0022b220(0.0f, 0.0f, -0.7853982f);
         q = rig->skeleton->qa;
         FUN_0022b080(&q, &q, &l);
         rig->skeleton->qa = q;
 
-        l.FUN_0022b220(0.0f, 0.0f, -0.7853982f);
+        ((owners::Quaternion_22b220 *)&l)->FUN_0022b220(0.0f, 0.0f, -0.7853982f);
         q = rig->skeleton->qb;
         FUN_0022b080(&q, &q, &l);
         rig->skeleton->qb = q;
@@ -103,7 +100,7 @@ void Controller_3be00::FUN_0003be00()
         q = rig->skeleton->qc;
         l = ref->skeleton->qc;
         if (!q.FUN_000375f0(&l, 1e-05f)) {
-            l.FUN_0022b220(0.0f, 0.0f, 1.2217305f);
+            ((owners::Quaternion_22b220 *)&l)->FUN_0022b220(0.0f, 0.0f, 1.2217305f);
             FUN_0022b080(&q, &q, &l);
             rig->skeleton->qc = q;
         }
@@ -119,7 +116,7 @@ void Controller_3be00::FUN_0003be00()
             v.x = 0.0f;
             v.y = 1.3125f;
             v.z = -0.6f;
-            rig->FUN_00034d80(2, &v);
+            ((owners::C_34d80 *)rig)->FUN_00034d80(2, (unsigned int *)(Vec3_3be00 *)(&v));
             return;
         }
         Pose *pose = rig->pose;
@@ -129,8 +126,8 @@ void Controller_3be00::FUN_0003be00()
         pose->pos.z = p.z;
         return;
     }
-    if (pad->FUN_00092de0(3)) {
-        l.FUN_0022b220(0.0f, 0.0f, -0.69813174f);
+    if (((char)((owners::ThisWrap_00092de0 *)pad)->FUN_00092de0(3))) {
+        ((owners::Quaternion_22b220 *)&l)->FUN_0022b220(0.0f, 0.0f, -0.69813174f);
         q = rig->skeleton->qa;
         FUN_0022b080(&q, &q, &l);
         rig->skeleton->qa = q;
@@ -138,7 +135,7 @@ void Controller_3be00::FUN_0003be00()
         q = rig->skeleton->qc;
         l = ref->skeleton->qc;
         if (!q.FUN_000375f0(&l, 1e-05f)) {
-            l.FUN_0022b220(0.0f, 0.0f, 0.5235988f);
+            ((owners::Quaternion_22b220 *)&l)->FUN_0022b220(0.0f, 0.0f, 0.5235988f);
             FUN_0022b080(&q, &q, &l);
             rig->skeleton->qc = q;
         }
@@ -149,7 +146,7 @@ void Controller_3be00::FUN_0003be00()
             v.x = p.x;
             v.y = p.y + 0.6375f;
             v.z = p.z;
-            rig->FUN_00034d80(2, &v);
+            ((owners::C_34d80 *)rig)->FUN_00034d80(2, (unsigned int *)(Vec3_3be00 *)(&v));
         }
     }
 }

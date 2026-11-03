@@ -1,10 +1,6 @@
-struct Obj_114f30 {
-    char pad[0x10];
-    void* m;
-    bool Set(void* p);
-};
+#include "gen/owners.h"
 
-bool Obj_114f30::Set(void* p) {
+bool owners::Obj_114f30::FUN_00114f30(void* p) {
     m = p;
     return true;
 }

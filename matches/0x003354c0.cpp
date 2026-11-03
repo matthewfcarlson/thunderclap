@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 typedef unsigned int u32_3354c0;
 struct Item_3354c0 {
     char pad[8];
@@ -6,7 +7,6 @@ struct Item_3354c0 {
 struct Info_3354c0 {
     char pad[0x44];
     int count;
-    Item_3354c0* Find(int);
 };
 class C_3354c0 {
   public:
@@ -20,7 +20,7 @@ bool C_3354c0::Get(int index, u32_3354c0* out) {
         return false;
     if (index >= info->count)
         return false;
-    if (info->Find(index)->kind != 1)
+    if (((Item_3354c0 *)((owners::Thing_337090 *)info)->FUN_00337090(index))->kind != 1)
         return false;
     *out = values[index];
     return true;

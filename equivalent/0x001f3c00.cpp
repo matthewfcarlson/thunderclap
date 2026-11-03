@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19351 inputs, branch coverage 50/50)
 // FUN_001f3c00 @ 0x001f3c00
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Id_1f3c00 {
     int lo;
@@ -16,7 +17,6 @@ struct Sound_1f3c00 {
 };
 
 struct Notifier_1f3c00 {
-    void FUN_001e9a90(const char* name, int arg);
 };
 
 struct Channel {
@@ -28,8 +28,6 @@ struct Channel {
     char b14;                   // 0x14
     char pad15[3];
 
-    void FUN_001f3400(int arg);
-    int FUN_001f3370(int* a);
 };
 
 struct Slot_1f3c00 {
@@ -41,7 +39,6 @@ struct Slot_1f3c00 {
     char flag;                  // 0x18
     char pad19[3];
 
-    void FUN_0027af60(int lo, int hi);
     void FUN_001f3720(Id_1f3c00* id, Voice_1f3c00* voice, int value, int qty, const char* name, int flag);
 };
 
@@ -73,7 +70,7 @@ bool Player_1f3c00::FUN_001f3c00(Voice_1f3c00* voice, int* value, Id_1f3c00* id,
         if (qty > count)
             return false;
         int v = *value;
-        slot.FUN_0027af60(id->lo, id->hi);
+        ((owners::Pair_27af60 *)&slot)->FUN_0027af60(id->lo, id->hi);
         slot.voice = voice;
         slot.value = v;
         slot.qty = qty;
@@ -96,7 +93,7 @@ bool Player_1f3c00::FUN_001f3c00(Voice_1f3c00* voice, int* value, Id_1f3c00* id,
 
     if (channel->voice) {
         if (channel->sound && !FUN_00249b40(channel->sound)) {
-            channel->FUN_001f3400(0xfa);
+            ((owners::Obj_1f3400 *)channel)->FUN_001f3400(0xfa);
             slot.FUN_001f3720(id, voice, *value, qty, name, flag);
             return true;
         }
@@ -114,12 +111,12 @@ bool Player_1f3c00::FUN_001f3c00(Voice_1f3c00* voice, int* value, Id_1f3c00* id,
     channel->f10 = found;
     if (channel->sound)
         FUN_00247890(channel->sound, DAT_004c7df4 * volume * 0.01f);
-    if (channel->FUN_001f3370(value) == 0)
+    if (((owners::Obj_1f3370 *)channel)->FUN_001f3370((hulk_intptr)value) == 0)
         return false;
 
     limit = qty;
     if (channel->sound && !FUN_00249b40(channel->sound) && name && *name) {
-        notifier->FUN_001e9a90(name, 0x1f4);
+        ((owners::ThisWrap_001e9a90 *)notifier)->FUN_001e9a90((hulk_intptr)name, 0x1f4);
         b94 = 1;
     }
     return true;

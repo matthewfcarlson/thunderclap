@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 extern const char kRttiA[];
 extern const char kRttiB[];
@@ -11,7 +12,6 @@ class Obj2_12b780 {
 };
 class Obj_12b780 {
   public:
-    Obj_12b780* Get();
     Obj2_12b780* Next();
 };
 
@@ -19,7 +19,7 @@ bool hulkfight::ai::ThreatCondition::vfunc_6(void* __p0, void* __p1, void* __p2)
 
     if (!CheckFn(c, 0, kRttiA, kRttiB, 0))
         return false;
-    Obj_12b780* o = ((Obj_12b780*)c)->Get();
+    Obj_12b780* o = ((Obj_12b780 *)((owners::Object_592a0 *)(((Obj_12b780*)c)))->FUN_000592a0());
     Obj2_12b780* x = o->Next();
     unsigned char r = x->Test((*(char (*)[8])&this->f_10), this->f_18);
     unsigned char m = this->f_0c;

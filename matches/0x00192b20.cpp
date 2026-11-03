@@ -1,10 +1,6 @@
-class X_192b20 {
-  public:
-    char Set(int v);
-    char pad[0xa0];
-};
+#include "gen/owners.h"
 
-char X_192b20::Set(int v) {
+char owners::X_192b20::FUN_00192b20(int v) {
     *(int*)((char*)this + 0xa0) = v;
     return 1;
 }

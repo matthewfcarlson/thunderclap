@@ -1,11 +1,5 @@
-class C_44ab0 {
-  public:
-    char pad[12];
-    int count;
-    int* items;
-    int get(int i);
-};
-int C_44ab0::get(int i) {
+#include "gen/owners.h"
+hulk_intptr owners::C_44ab0::FUN_00044ab0(int i) {
     if (i >= 0 && i < count)
         return items[i];
     return 0;

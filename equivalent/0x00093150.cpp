@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1169 inputs, branch coverage 12/12)
 // FUN_00093150 @ 0x00093150
+#include "gen/owners.h"
 struct Name_93150 {
     char data[8];
-    void FUN_0027b040(const char *s);
 };
 
-class CUnlockable {
+class CUnlockable_93150 {
 public:
     virtual void v0();
 };
-class CUnlockableGallery : public CUnlockable {
+class CUnlockableGallery_93150 : public CUnlockable_93150 {
 public:
     char pad04[0xc];
     Name_93150 title;
@@ -23,7 +23,7 @@ public:
 
 class UnlockableList_93150 {
 public:
-    CUnlockable *items[1];
+    CUnlockable_93150 *items[1];
     void FUN_00092c80(const char *s, int idx);
     void FUN_00093150(const char *id, int idx, const char *title, const char *subtitle,
                       const char *caption, const char *path, int flags);
@@ -32,11 +32,11 @@ public:
 void UnlockableList_93150::FUN_00093150(const char *id, int idx, const char *title, const char *subtitle,
                                   const char *caption, const char *path, int flags)
 {
-    CUnlockableGallery *g = dynamic_cast<CUnlockableGallery *>(items[idx]);
+    CUnlockableGallery_93150 *g = dynamic_cast<CUnlockableGallery_93150 *>(items[idx]);
     if (g == 0)
         return;
-    g->title.FUN_0027b040(title);
-    g->subtitle.FUN_0027b040(subtitle);
+    ((owners::Target_27b040 *)&(g->title))->FUN_0027b040((hulk_uintptr)title);
+    ((owners::Target_27b040 *)&(g->subtitle))->FUN_0027b040((hulk_uintptr)subtitle);
     if (caption) {
         const char *s = caption;
         char *d = g->caption;

@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 0/0)
 // FUN_00298530 @ 0x00298530
+#include "gen/owners.h"
 struct Matrix3_298530 { float r[3][4]; };
 struct Box_298530 { float min[3]; float max[3]; void FUN_00298530(const Matrix3_298530* m, const Box_298530* src); };
-struct Pt_298530 { float v[3]; void FUN_0022d210(const Matrix3_298530* m); };
+struct Pt_298530 { float v[3];  };
 
 static inline float fabsf_(float f)
 {
@@ -34,7 +35,7 @@ void Box_298530::FUN_00298530(const Matrix3_298530* m, const Box_298530* src)
     for (j = 0; j < 3; j++) {
         ext[j] = (fabsf_(p[2][j]) + fabsf_(p[1][j])) + fabsf_(p[0][j]);
     }
-    c.FUN_0022d210(m);
+    ((owners::Obj_22d210 *)&c)->FUN_0022d210((owners::Obj_22d210 *)(const Matrix3_298530 *)m);
     max[0] = ext[0] + c.v[0];
     max[1] = ext[1] + c.v[1];
     max[2] = ext[2] + c.v[2];

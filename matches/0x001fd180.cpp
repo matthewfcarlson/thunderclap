@@ -1,12 +1,5 @@
-class C_1fd180 {
-  public:
-    char pad0[0x214];
-    int* a[6];
-    int* slots;
-    int last;
-    void Set(int);
-};
-void C_1fd180::Set(int value) {
+#include "gen/owners.h"
+void owners::C_1fd180::FUN_001fd180(int value) {
     int i;
     int found = -1;
     for (i = 0; i < 20; i++) {

@@ -1,10 +1,5 @@
-class Obj_47ec0 {
-  public:
-    char Set(float x);
-    char mPad[12];
-    float mAngle;
-};
-char Obj_47ec0::Set(float x) {
+#include "gen/owners.h"
+char owners::Obj_47ec0::FUN_00047ec0(float x) {
     mAngle = x * 0.017453292519943295f;
     return 1;
 }

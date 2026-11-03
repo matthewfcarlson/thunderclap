@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20024 inputs, branch coverage 69/70, incomplete)
 // hulkfight::motion::LocomotionStrafeAction::vfunc_5 @ 0x0015d920
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" double fabs(double);
 
 struct V3 {
@@ -64,7 +65,6 @@ struct XObj {
     YObj *FUN_00059a30();
 };
 struct F1c {
-    XObj *FUN_000592a0();
 };
 
 struct State {
@@ -126,7 +126,7 @@ bool LocomotionStrafeAction::v5(int a0, float dt)
 
     if (f20 == 0)
         return false;
-    YObj *Y = f1c->FUN_000592a0()->FUN_00059a30();
+    YObj *Y = ((XObj *)((owners::Object_592a0 *)f1c)->FUN_000592a0())->FUN_00059a30();
     f.s1c = -1.0f;
     f.s18 = -1.0f;
     f.b3 = 0;

@@ -1,14 +1,9 @@
 // cl-flags: /O2
+#include "gen/owners.h"
 const float RAD_CONST = 0.017453292f;
 
-class Obj_123550 {
-  public:
-    char pad[0x10];
-    float mAngle;
-    char Set(float deg);
-};
 
-char Obj_123550::Set(float deg) {
+char owners::Obj_123550::FUN_00123550(float deg) {
     mAngle = deg * RAD_CONST;
     return 1;
 }

@@ -1,15 +1,5 @@
-class V {
-  public:
-    float a;
-    float b;
-    float c;
-    float d;
-    float e;
-    float f;
-    float g;
-    void Add(V*);
-};
-void V::Add(V* p) {
+#include "gen/owners.h"
+void owners::V_2fcaf0::FUN_002fcaf0(owners::V_2fcaf0* p) {
     b += p->b;
     c += p->c;
     d += p->d;

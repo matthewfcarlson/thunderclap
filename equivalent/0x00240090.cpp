@@ -1,22 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 4/4)
 // FUN_00240090 @ 0x00240090
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" void __cdecl FUN_0023fa40(int *, char *, unsigned int, int);
 
-struct Handle_240090 {
-    hulk_intptr text;                   // 0x00
-    unsigned short kind;        // 0x04
-    unsigned short pad6;
-    unsigned short extra;       // 0x08
-    void FUN_00240090(const Handle_240090* other);
-};
 
 // Copy-constructs a handle: kind 0 is copied as is, kind 1 is converted through FUN_0023fa40
 // (which writes its result over the incoming argument slot), anything else shares the text and
 // bumps its reference count.
-void Handle_240090::FUN_00240090(const Handle_240090* other)
+void owners::Handle_240090::FUN_00240090(const owners::Handle_240090* other)
 {
-    const Handle_240090* src = other;
+    const owners::Handle_240090* src = other;
     unsigned short k = src->kind;
     if (k == 0) {
         text = src->text;

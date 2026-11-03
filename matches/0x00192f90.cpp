@@ -1,9 +1,5 @@
-class Obj_192f90 {
-  public:
-    char pad[16];
-    int* Get();
-};
+#include "gen/owners.h"
 
-int* Obj_192f90::Get() {
+int* owners::Obj_192f90::FUN_00192f90() {
     return (int*)((char*)this + 16);
 }

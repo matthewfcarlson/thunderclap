@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 18665 inputs, branch coverage 43/44, incomplete)
 // FUN_000145b0 @ 0x000145b0
 #include "decls/address.h"
+#include "gen/owners.h"
 extern "C" void *FUN_0008d690(unsigned int size);
 
 struct Vec3_145b0 {
@@ -52,7 +53,6 @@ struct Actor_145b0 {
     void *f11c;
     char pad120[0x20b0 - 0x120];
     int f20b0;
-    bool FUN_000360f0();
     int FUN_00038f90(int a1, int f2c, int zero);   // tested as a full int (test eax,eax)
 };
 
@@ -90,7 +90,6 @@ struct World {
 struct Owner_145b0 {
     char pad00[8];
     void *f08;
-    Handle_145b0 *FUN_000592a0();
 };
 
 class Tracker_145b0 {
@@ -108,7 +107,7 @@ public:
 
 void Tracker_145b0::FUN_000145b0(int a1, int a2, int a3)
 {
-    Handle_145b0 *handle = owner->FUN_000592a0();
+    Handle_145b0 *handle = ((Handle_145b0 *)((owners::Object_592a0 *)owner)->FUN_000592a0());
     Body_145b0 *self = handle->FUN_00059a30();
     handle->FUN_00059a40();
     Vec3_145b0 v;
@@ -125,7 +124,7 @@ void Tracker_145b0::FUN_000145b0(int a1, int a2, int a3)
             continue;
         if (cand->f20b0 != 0)
             continue;
-        if (cand->FUN_000360f0())
+        if (((owners::Thing_360f0 *)cand)->FUN_000360f0())
             continue;
         if (cand->f11c == 0)
             continue;

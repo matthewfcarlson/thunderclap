@@ -2,6 +2,7 @@
 // FUN_000a1ca0 @ 0x000a1ca0
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 float __cdecl FUN_000a0450(void *v) throw();
 
@@ -35,7 +36,6 @@ struct Stats_a1ca0 {
     int f338;
     char pad33c[0x1a64 - 0x33c];
     Bits_a1ca0 f1a64;
-    Node *FUN_00035ef0(int index);
     char FUN_00035550(V3_a1ca0 *out);
 };
 
@@ -163,7 +163,7 @@ void CChaseCamera_a1ca0::FUN_000a1ca0(Owner_a1ca0 *owner, float dt)
             (*(unsigned int*)&DAT_004dd9f8) |= 1;
             (*(unsigned __int64*)&DAT_004dd9f0) = FUN_0027b020("gorilla_gorilla");
         }
-        Node *n = stats->FUN_00035ef0(0);
+        Node *n = ((Node *)((owners::C_35ef0 *)stats)->FUN_00035ef0((hulk_intptr)0));
         if (n != 0 && n->info->id == (*(unsigned __int64*)&DAT_004dd9f0))
             b348 = 1;
     } else {

@@ -4,10 +4,11 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
+#include "gen/owners.h"
 extern "C" int sprintf(char *buf, const char *fmt, ...);
 
 namespace core {
-struct IRefCount {
+struct IRefCount_1eab10 {
     virtual void r0();
     virtual void r1();
     virtual void r2();
@@ -19,17 +20,17 @@ struct Pair_1eab10 {
 };
 
 namespace audio {
-class Sequence : public core::IRefCount {
+class Sequence_1eab10 : public core::IRefCount_1eab10 {
 public:
     Pair_1eab10 *FUN_00243390();
 };
-class Mix : public core::IRefCount {
+class Mix_1eab10 : public core::IRefCount_1eab10 {
 public:
     Pair_1eab10 *FUN_00243390();
 };
-class Mixer : public core::IRefCount {
+class Mixer_1eab10 : public core::IRefCount_1eab10 {
 };
-class ListenerEffectXBox : public core::IRefCount {
+class ListenerEffectXBox_1eab10 : public core::IRefCount_1eab10 {
 public:
     Pair_1eab10 *FUN_00243390();
 };
@@ -46,20 +47,18 @@ struct Cursor_1eab10 {
     int b;
     struct Group_1eab10 *c;
     void FUN_002314a0(unsigned int v);
-    core::IRefCount *FUN_00231640();
-    core::IRefCount *FUN_002314c0();
+    core::IRefCount_1eab10 *FUN_00231640();
+    core::IRefCount_1eab10 *FUN_002314c0();
 };
 
 struct Group_1eab10 {
     char pad0[0xc];
     unsigned int f0c;
-    void FUN_00266090();
 };
 
 struct Loader_1eab10 {
     void FUN_00265920(const char *path, Handle_1eab10 **out, int flag);
     int FUN_00264870();
-    void FUN_00264860(int v);
 };
 
 struct Flags_1eab10 {
@@ -67,7 +66,6 @@ struct Flags_1eab10 {
 };
 
 struct Singleton_4dd6ec {
-    Flags_1eab10 *FUN_00086340();
 };
 
 struct Item_1eab10 {
@@ -87,19 +85,19 @@ struct Track {
     char pad0[0x10];
     int f10;
     int f14;
-    void FUN_001ea6b0(audio::Sequence *s, int v);
+    void FUN_001ea6b0(audio::Sequence_1eab10 *s, int v);
     void FUN_001e9bf0();
 };
 
 struct Voice_1eab10 {
     char pad0[8];
-    audio::Mix *mix;        // 0x8
+    audio::Mix_1eab10 *mix;        // 0x8
     int fc;                 // 0xc
 };
 
 struct Sink_1eab10 {
     virtual void k0(); virtual void k1(); virtual void k2(); virtual void k3();
-    virtual void k4(int a, int b, core::IRefCount *e);
+    virtual void k4(int a, int b, core::IRefCount_1eab10 *e);
 };
 
 extern "C" void FUN_00087990();
@@ -126,25 +124,25 @@ void Player_1eab10::FUN_001eab10(const char *name)
     sprintf(buf, "sound\\%s", name);
     (*(Loader_1eab10**)&DAT_00527c58)->FUN_00265920(buf, &h, 1);
     int saved = (*(Loader_1eab10**)&DAT_00527c58)->FUN_00264870();
-    (*(Loader_1eab10**)&DAT_00527c58)->FUN_00264860(250000);
+    ((owners::C_264860 *)((*(Loader_1eab10**)&DAT_00527c58)))->FUN_00264860(250000);
     while (!h->FUN_00266750()) {
         FUN_00087990();
         DAT_004dd700->scene->FUN_00086280()->FUN_000bd1b0(0);
     }
-    (*(Loader_1eab10**)&DAT_00527c58)->FUN_00264860(saved);
+    ((owners::C_264860 *)((*(Loader_1eab10**)&DAT_00527c58)))->FUN_00264860(saved);
     if (h->FUN_00266700() != 0) {
-        h->FUN_00266700()->FUN_00266090();
+        ((owners::A_266090 *)(h->FUN_00266700()))->FUN_00266090();
         Group_1eab10 *g = h->FUN_00266700();
         Cursor_1eab10 it;
         it.FUN_002314a0(g->f0c);
         it.c = g;
-        core::IRefCount *e = it.FUN_00231640();
+        core::IRefCount_1eab10 *e = it.FUN_00231640();
         while (e != 0) {
-            audio::Sequence *seq = 0;
-            audio::Mix *mix = 0;
-            audio::ListenerEffectXBox *fx = 0;
-            if (dynamic_cast<audio::Sequence *>(e)) {
-                seq = dynamic_cast<audio::Sequence *>(e);
+            audio::Sequence_1eab10 *seq = 0;
+            audio::Mix_1eab10 *mix = 0;
+            audio::ListenerEffectXBox_1eab10 *fx = 0;
+            if (dynamic_cast<audio::Sequence_1eab10 *>(e)) {
+                seq = dynamic_cast<audio::Sequence_1eab10 *>(e);
                 Pair_1eab10 *pr = seq->FUN_00243390();
                 Pair_1eab10 p;
                 int ca = pr->a;
@@ -152,7 +150,7 @@ void Player_1eab10::FUN_001eab10(const char *name)
                 p.b = pr->b;
                 if (FUN_001e98b0(&p) == 0) {
                     bool skip = false;
-                    if (!DAT_004dd6ec->FUN_00086340()->FUN_00092de0(2)) {
+                    if (!((Flags_1eab10 *)((owners::A_86340 *)DAT_004dd6ec)->FUN_00086340())->FUN_00092de0(2)) {
                         Pair_1eab10 arg;
                         arg.a = ca;
                         arg.b = p.b;
@@ -169,18 +167,18 @@ void Player_1eab10::FUN_001eab10(const char *name)
                         sink->k4(q->a, q->b, e);
                     }
                 }
-            } else if (dynamic_cast<audio::Mix *>(e)) {
-                mix = dynamic_cast<audio::Mix *>(e);
+            } else if (dynamic_cast<audio::Mix_1eab10 *>(e)) {
+                mix = dynamic_cast<audio::Mix_1eab10 *>(e);
                 Voice_1eab10 *v = FUN_001e8960();
                 v->mix = mix;
                 void *mgr = FUN_00240750();
                 v->fc = FUN_00242c30(mgr, (hulk_intptr)v->mix);
                 Pair_1eab10 *q = mix->FUN_00243390();
                 sink->k4(q->a, q->b, e);
-            } else if (dynamic_cast<audio::Mixer *>(e)) {
-                dynamic_cast<audio::Mixer *>(e);
-            } else if (dynamic_cast<audio::ListenerEffectXBox *>(e)) {
-                fx = dynamic_cast<audio::ListenerEffectXBox *>(e);
+            } else if (dynamic_cast<audio::Mixer_1eab10 *>(e)) {
+                dynamic_cast<audio::Mixer_1eab10 *>(e);
+            } else if (dynamic_cast<audio::ListenerEffectXBox_1eab10 *>(e)) {
+                fx = dynamic_cast<audio::ListenerEffectXBox_1eab10 *>(e);
                 Pair_1eab10 *q = fx->FUN_00243390();
                 sink->k4(q->a, q->b, e);
             }

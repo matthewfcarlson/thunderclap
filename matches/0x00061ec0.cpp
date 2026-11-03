@@ -1,11 +1,6 @@
+#include "gen/owners.h"
 const float k = 0.017453292f;
-class Obj {
-  public:
-    char pad[0x28];
-    float angle;
-    char Set(float x);
-};
-char Obj::Set(float x) {
+char owners::Obj_61ec0::FUN_00061ec0(float x) {
     angle = x * k;
     return 1;
 }

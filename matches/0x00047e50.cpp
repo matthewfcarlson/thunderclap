@@ -1,10 +1,6 @@
-struct Target_47e50 {
-    char pad[12];
-    int mField;
-    bool Set(int value);
-};
+#include "gen/owners.h"
 
-bool Target_47e50::Set(int value) {
+bool owners::Target_47e50::FUN_00047e50(int value) {
     mField = value;
     return true;
 }

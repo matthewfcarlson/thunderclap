@@ -1,11 +1,6 @@
-class T_123510 {
-  public:
-    char pad[12];
-    unsigned char flag;
-    unsigned char Set(void* p);
-};
+#include "gen/owners.h"
 
-unsigned char T_123510::Set(void* p) {
+unsigned char owners::T_123510::FUN_00123510(void* p) {
     *(void**)((char*)this + 0xc) = p;
     return 1;
 }

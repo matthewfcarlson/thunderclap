@@ -5,8 +5,9 @@
 #include "gen/global.h"
 
 #include "decls/address.h"
+#include "gen/owners.h"
 inline void* __cdecl operator new(unsigned, void* p) { return p; }
-struct StreamBackend { void FUN_002647e0(void*, unsigned, unsigned, unsigned); };
+struct StreamBackend {  };
 struct Stream_1fb050 { char pad[0x284]; StreamBackend* backend; void FUN_00266c40(); };
 struct Counter_1fb050 { char pad[0x30]; unsigned count; };
 struct CDataHandlerObject_1fb050 { virtual void vfunc_0(); unsigned refs; unsigned size; void* data; };
@@ -19,10 +20,10 @@ void DataHandlerRawLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intp
 
  int old = FUN_00266da0(1);
  unsigned size;
- stream->backend->FUN_002647e0(&size,1,4,1);
+ ((owners::X_2647e0 *)(stream->backend))->FUN_002647e0((hulk_intptr)(&size), (hulk_intptr)1, 4, (hulk_intptr)1);
  stream->FUN_00266c40();
  void* data = FUN_0008d6d0(size);
- stream->backend->FUN_002647e0(data,size,1,1);
+ ((owners::X_2647e0 *)(stream->backend))->FUN_002647e0((hulk_intptr)data, (hulk_intptr)size, 1, (hulk_intptr)1);
  CDataHandlerObject_1fb050* obj = (CDataHandlerObject_1fb050*)FUN_00263ea0(16);
  if(obj) { new (obj) CDataHandlerObject_1fb050; obj->refs=0; obj->size=size; obj->data=data; }
  char name[64]; unsigned n=(*(Counter_1fb050 * *)&this->f_14)->count++;

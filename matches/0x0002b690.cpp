@@ -1,7 +1,7 @@
+#include "gen/owners.h"
 struct Ref_2b690 {
     virtual void x();
     virtual void Release(int);
-    void Clear();
 };
 struct Ref0 {
     virtual void x();
@@ -29,7 +29,7 @@ void T_2b690::A() {
     fini();
     Ref_2b690* z = q;
     if (z) {
-        z->Clear();
+        ((owners::C_67a20 *)z)->FUN_00067a20();
         dispose(z);
     }
     if (r)

@@ -1,13 +1,5 @@
-class Obj_e03c0 {
-  public:
-    char pad[0x1840];
-    unsigned a;
-    unsigned b;
-    unsigned c;
-    unsigned char flag;
-    void Set(unsigned x, unsigned y, unsigned z, unsigned w, unsigned v);
-};
-void Obj_e03c0::Set(unsigned x, unsigned y, unsigned z, unsigned w, unsigned v) {
+#include "gen/owners.h"
+void owners::Obj_e03c0::FUN_000e03c0(unsigned x, unsigned y, unsigned z, unsigned w, unsigned v) {
     a = x;
     b = y;
     flag = 1;

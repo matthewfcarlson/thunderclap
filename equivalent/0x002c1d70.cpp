@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 16754 inputs, branch coverage 16/16)
 // FUN_002c1d70 @ 0x002c1d70
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 struct StrField_2c1d70 {
     int a, b;
-    void FUN_0027b040(const char *s);
 };
 
 struct Sprite_2c1d70 {
@@ -28,7 +28,6 @@ struct Reader_2c1d70 {
     bool FUN_002669f0();
     int FUN_00266a30();
     void FUN_00266be0();
-    int FUN_00266c90();
     void FUN_00266ca0(int v);
 };
 
@@ -68,7 +67,7 @@ Sprite_2c1d70 *Loader_2c1d70::FUN_002c1d70(Reader_2c1d70 *r, pure3d::TextureBuil
             int id = r->FUN_00266a30();
             if (id == 0x19002) {
                 r->stream->FUN_002647e0(&fr.a, 1, 4, 1);
-                int h = r->FUN_00266c90();
+                int h = ((int)((owners::Target_266c90 *)r)->FUN_00266c90());
                 if (existing == 0)
                     existing = ((TextureBuilder_nv_2c1d70*)(((pure3d::TextureBuilder*)(sd))))->FUN_002aeec0(h, fr.a, fr.b);
                 else
@@ -89,6 +88,6 @@ Sprite_2c1d70 *Loader_2c1d70::FUN_002c1d70(Reader_2c1d70 *r, pure3d::TextureBuil
         } while (r->FUN_002669f0());
     }
     if (existing != 0)
-        existing->name.FUN_0027b040(fr.buf);
+        ((owners::Target_27b040 *)&(existing->name))->FUN_0027b040((hulk_uintptr)(fr.buf));
     return existing;
 }

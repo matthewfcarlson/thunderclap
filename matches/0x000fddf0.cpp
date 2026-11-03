@@ -1,10 +1,5 @@
-class C_fddf0 {
-    char pad[0x74];
-
-  public:
-    void F(void* a, unsigned* b);
-};
-void C_fddf0::F(void* a, unsigned* b) {
+#include "gen/owners.h"
+void owners::C_fddf0::FUN_000fddf0(void* a, unsigned* b) {
     *(void**)(pad + 0x74) = a;
     if (!a) {
         *(unsigned*)(pad + 0x78) = b[0];

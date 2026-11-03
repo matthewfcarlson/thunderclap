@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
 // FUN_001d3600 @ 0x001d3600
+#include "gen/owners.h"
 struct Stream {
  virtual void slot0(); virtual void release(); virtual void slot2(); virtual void read(char*, unsigned int, int);
  virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual void slot9(); virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual unsigned int size();
@@ -8,12 +9,7 @@ struct Stream {
 extern void __cdecl thunk_FUN_002710d0(Stream**, const char*, int,int,int,int,int,int);
 extern "C" char* __cdecl FUN_0008d6d0(unsigned int);
 extern void __cdecl FUN_0008d340(void*);
-struct Object {
- int unknown; int status; unsigned int context;
- int FUN_001d2810(unsigned int, char*, unsigned int, const char*);
- int target(const char* name, unsigned int unused);
-};
-int Object::target(const char* name, unsigned int unused) {
+int owners::Object_1d3600::FUN_001d3600(const char* name, unsigned int unused) {
  const char* savedName = name;
  Stream* stream;
  thunk_FUN_002710d0(&stream, savedName,0,0,1,0,1,1);

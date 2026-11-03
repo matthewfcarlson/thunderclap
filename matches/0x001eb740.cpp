@@ -4,6 +4,7 @@
 // equiv-map: ??1StrList@@QAE@XZ = 0x001ef350
 // equiv-map: ??0Name@@QAE@PBD@Z = 0x0027b0e0
 // equiv-map: ??1Name@@QAE@XZ = 0x0027af50
+#include "gen/owners.h"
 struct StrList {
     char data[0x48];
     StrList() throw();
@@ -18,7 +19,6 @@ struct Name {
 };
 
 struct Finder_1eb740 {
-    int FUN_00086310() throw();
 };
 
 struct Sink_1eb740 {
@@ -42,7 +42,7 @@ void Loader_1eb740::FUN_001eb740(const char *dir, int a, const char *name)
     list.FUN_001ef370("Objects");
     list.FUN_001ef370("Dialogue");
     list.FUN_001ef370(dir);
-    int found = finder->FUN_00086310();
+    int found = ((int)((owners::C_86310 *)finder)->FUN_00086310());
     if (found != 0)
         FUN_001eb440(found, &list);
     Name n(name);

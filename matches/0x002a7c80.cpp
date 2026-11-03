@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/pure3d.h"
+#include "gen/owners.h"
 
 class SimpleFrameController {
   public:
@@ -37,7 +38,6 @@ class D {
 };
 class C_2a7c80 {
   public:
-    D* go(int);
 };
 class SceneGraphVisibilityAnimationController : public SimpleFrameController {
   public:
@@ -47,6 +47,6 @@ class SceneGraphVisibilityAnimationController : public SimpleFrameController {
 };
 void SceneGraphVisibilityAnimationController::vfunc_24(int a, int b, int c) {
     SimpleFrameController::vfunc_24(a, b, c);
-    D* d = field3c->go(0);
+    D* d = ((D *)((owners::Target_288a10 *)field3c)->FUN_00288a10(0));
     field40 = d->get((void*)((hulk_intptr)((char*)0x534956)), 0x4c4f4f42);
 }

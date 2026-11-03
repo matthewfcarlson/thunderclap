@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 233 inputs, branch coverage 10/10)
 // FUN_00067ba0 @ 0x00067ba0
+#include "gen/owners.h"
 struct Name_67ba0 {
     char pad[8];
-    void FUN_0027b040(const char* s);
 };
 struct Entry_67ba0 {
     int a, b, c, d, e;
@@ -27,7 +27,7 @@ unsigned HandleTable::Alloc() {
     Entry_67ba0* e = &entry[i];
     e->a = 0; e->d = 0; e->c = 0; e->b = 0;
     e->e = 0;
-    e->name.FUN_0027b040("");
+    ((owners::Target_27b040 *)&(e->name))->FUN_0027b040((hulk_uintptr)"");
     unsigned gen = counter;
     unsigned handle = (gen << 8) | i;
     slot[i] = handle;

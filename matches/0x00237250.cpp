@@ -1,9 +1,5 @@
-struct Obj_237250 {
-    char pad[0x14];
-    int value;
-    bool Set(int v);
-};
-bool Obj_237250::Set(int v) {
+#include "gen/owners.h"
+bool owners::Obj_237250::FUN_00237250(int v) {
     value = v;
     return true;
 }

@@ -1,10 +1,5 @@
-class O_192180 {
-  public:
-    char pad[0x10];
-    char m;
-    char Fn(char c);
-};
-char O_192180::Fn(char c) {
+#include "gen/owners.h"
+char owners::O_192180::FUN_00192180(char c) {
     m = c;
     return 1;
 }

@@ -1,10 +1,5 @@
-class X_18ee80 {
-  public:
-    char pad[0x20];
-    void* m;
-    bool Set(void* v);
-};
-bool X_18ee80::Set(void* v) {
+#include "gen/owners.h"
+bool owners::X_18ee80::FUN_0018ee80(void* v) {
     m = v;
     return true;
 }

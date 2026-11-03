@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 16169 inputs, branch coverage 27/27)
 // FUN_000faf80 @ 0x000faf80
 // cl-flags: /GS
+#include "gen/owners.h"
 
 extern "C" unsigned char DAT_004e09f8[4];
 extern "C" unsigned char DAT_004e09fc[4];
 struct Item_faf80 {
     char pad0[4];
     Item_faf80 *next;
-    void FUN_000f9b40(Item_faf80 *other);
 };
 
 class Script_faf80;
@@ -89,7 +89,7 @@ Head_faf80 *Script_faf80::FUN_000faf80(Lines *lines)
                         hd->first = it;
                     } else if (last != it) {
                         if (last->next)
-                            last->next->FUN_000f9b40(it);
+                            ((owners::Node_f9b40 *)(last->next))->FUN_000f9b40((owners::Node_f9b40 *)(Item_faf80 *)it);
                         else
                             last->next = it;
                     }

@@ -1,11 +1,6 @@
-class X_139e60 {
-  public:
-    char pad[0x3d];
-    int m40;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char X_139e60::Set(int v) {
+char owners::X_139e60::FUN_00139e60(int v) {
     m40 = v;
     return 1;
 }

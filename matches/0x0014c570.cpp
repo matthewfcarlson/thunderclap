@@ -1,10 +1,5 @@
-struct X_14c570 {
-    char pad[0xc];
-    unsigned char mValue;
-    bool mSet;
-    unsigned char Set(unsigned char v);
-};
-unsigned char X_14c570::Set(unsigned char v) {
+#include "gen/owners.h"
+unsigned char owners::X_14c570::FUN_0014c570(unsigned char v) {
     mValue = v;
     return 1;
 }

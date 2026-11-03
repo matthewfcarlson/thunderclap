@@ -4,6 +4,7 @@
 #include "gen/hulkfight.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/owners.h"
 
 struct V3_143b20 {
     float x, y, z;
@@ -13,7 +14,6 @@ struct V3_143b20 {
 
 struct Matrix_143b20 {
     float m[16];
-    void FUN_0022c2b0(const V3_143b20 *in, V3_143b20 *out);
 };
 
 struct Skeleton_143b20 {
@@ -45,7 +45,6 @@ struct Sweeper_143b20 {
     void FUN_001f6cd0(void *p1, void *p2, V3_143b20 *hit, V3_143b20 *normal, V3_143b20 *dir, int n, int a, int b, int *outv, int z);
 };
 struct Sink_143b20 {
-    void FUN_001ecd00(int v, Entity_143b20 *e);
 };
 struct World {
     char pad0[0x24];
@@ -56,7 +55,6 @@ struct World {
 };
 
 struct Owner_143b20 {
-    Handle_143b20 *FUN_000592a0();
 };
 
 struct Data_143b20 {
@@ -95,7 +93,7 @@ bool hulkfight::motion::WorldDamageAction::vfunc_5(hulk_intptr a1, int a2) {
     f.n = (*(Data_143b20 * *)&this->f_1c)->count;
     if (f.n <= 0)
         return false;
-    Handle_143b20 *y = (*(Owner_143b20 * *)&this->f_20)->FUN_000592a0();
+    Handle_143b20 *y = ((Handle_143b20 *)((owners::Object_592a0 *)((*(Owner_143b20 * *)&this->f_20)))->FUN_000592a0());
     Handle_143b20 *yy = y;
     Entity_143b20 *x = y->FUN_00059a30();
     Skeleton_143b20 *skel = x->skel;
@@ -105,7 +103,7 @@ bool hulkfight::motion::WorldDamageAction::vfunc_5(hulk_intptr a1, int a2) {
     else
         f.m = skel->mats[idx];
     f.pa = (*(Data_143b20 * *)&this->f_1c)->posA;
-    f.m.FUN_0022c2b0(&f.pa, &f.w1);
+    ((owners::Mat_22c2b0 *)&(f.m))->FUN_0022c2b0((float *)(const V3_143b20 *)(&f.pa), (float *)(V3_143b20 *)(&f.w1));
     f.vb = (*(Data_143b20 * *)&this->f_1c)->vecB;
     if (f.vb.z * f.vb.z + f.vb.y * f.vb.y + f.vb.x * f.vb.x <= (*(float*)&DAT_00412ec0)) {
         f.vb.x = 0;
@@ -145,6 +143,6 @@ bool hulkfight::motion::WorldDamageAction::vfunc_5(hulk_intptr a1, int a2) {
     }
     f.outv = 0;
     DAT_004dd700->sweeper->FUN_001f6cd0(f.ptr1, f.ptr2, &f.hit, &f.normal, &f.out14, n1, f.d38, f.d3c, &f.outv, 0);
-    DAT_004dd700->sink->FUN_001ecd00(f.outv, x);
+    ((owners::Crusher_1ecd00 *)(DAT_004dd700->sink))->FUN_001ecd00((const char *)(hulk_uintptr)(int)(f.outv), (hulk_intptr)(Entity_143b20 *)x);
     return true;
 }

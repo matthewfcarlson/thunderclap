@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // fight::ScriptReader::vfunc_16 @ 0x0023b140
 #include "gen/fight.h"
+#include "gen/owners.h"
 
 struct Pair_23b140 {
  unsigned int low, high;
  void FUN_0027af70(Pair_23b140*);
- void FUN_0027b040(int);
 };
 namespace fight {
 struct ScriptReader_nv_23b140 {
@@ -24,7 +24,7 @@ __int64 fight::ScriptReader::vfunc_16(int __p0, int __p1) { unsigned int low = (
      ((low | high) == 0 || ((*(Pair_23b140 *)&this->f_120).low == low && (*(Pair_23b140 *)&this->f_120).high == high))) {
    (*(Pair_23b140 *)&this->f_118).FUN_0027af70(&(*(Pair_23b140 *)&this->f_120));
    (&this->f_10)[this->f_10 + 1] = this->f_128;
-   (*(Pair_23b140 *)&this->f_120).FUN_0027b040(0);
+   ((owners::Target_27b040 *)&((*(Pair_23b140 *)&this->f_120)))->FUN_0027b040((hulk_uintptr)0);
    this->f_128 = 0;
    ((ScriptReader_nv_23b140*)this)->FUN_0023a6b0();
    return (__int64)(((unsigned __int64)(*(Pair_23b140 *)&this->f_118).high << 32) | (*(Pair_23b140 *)&this->f_118).low);

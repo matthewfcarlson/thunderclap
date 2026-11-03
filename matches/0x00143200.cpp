@@ -1,10 +1,5 @@
-class T_143200 {
-  public:
-    char pad[0x30];
-    int m;
-    bool Set(int x);
-};
-bool T_143200::Set(int x) {
+#include "gen/owners.h"
+bool owners::T_143200::FUN_00143200(int x) {
     m = x;
     return true;
 }

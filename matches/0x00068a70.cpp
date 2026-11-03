@@ -1,9 +1,6 @@
-class C_68a70 {
-  public:
-    char f(float x);
-};
+#include "gen/owners.h"
 
-char C_68a70::f(float x) {
+char owners::C_68a70::FUN_00068a70(float x) {
     *(float*)((char*)this + 0x40) = x * 0.0174532925f;
     return 1;
 }

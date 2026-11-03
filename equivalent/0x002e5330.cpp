@@ -1,14 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // FUN_002e5330 @ 0x002e5330
 #include "compat/ptr.h"
-class SortedArray {
-public:
-    char pad0[8];
-    unsigned int* begin;
-    unsigned int* end;
-    bool FUN_002e5330(unsigned int key, unsigned int* outIndex);
-};
-bool SortedArray::FUN_002e5330(unsigned int key, unsigned int* outIndex) {
+#include "gen/owners.h"
+bool owners::SortedArray_2e5330::FUN_002e5330(unsigned int key, unsigned int* outIndex) {
     unsigned int* b = begin;
     hulk_intptr n = end - b;
     if (n == 0)

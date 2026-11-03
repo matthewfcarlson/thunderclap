@@ -1,10 +1,5 @@
-class C_35f20 {
-  public:
-    char pad[0x3a8];
-    int a[8][0x14];
-    bool f();
-};
-bool C_35f20::f() {
+#include "gen/owners.h"
+bool owners::C_35f20::FUN_00035f20() {
     int i = 0;
     do {
         if (a[i][0] != 0)

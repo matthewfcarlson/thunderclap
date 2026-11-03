@@ -1,11 +1,6 @@
+#include "gen/owners.h"
 const float kFactor = 0.017453292f;
-class X_77e20 {
-  public:
-    char Set(float v);
-    char mPad[0x18];
-    float mVal;
-};
-char X_77e20::Set(float v) {
+char owners::X_77e20::FUN_00077e20(float v) {
     mVal = v * kFactor;
     return 1;
 }

@@ -1,15 +1,9 @@
 #include "decls/data/game/global.h"
 // data: gOne_3ebb0 = DAT_003f32dc, gZero_3ebb0 = DAT_003f32e0
+#include "gen/owners.h"
 
-class ClampOwner {
-  public:
-    char pad[0x1e58];
-    float mValue;
-    int mKey;
-    float Get(int key);
-};
 
-float ClampOwner::Get(int key) {
+float owners::ClampOwner_3ebb0::FUN_0003ebb0(int key) {
     float value = mValue;
     if (key != mKey)
         return DAT_003f32e0;

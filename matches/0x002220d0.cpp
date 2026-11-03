@@ -1,6 +1,7 @@
 #include "decls/data/engine/unknown.h"
 
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Result {
     char data[12];
 };
@@ -14,14 +15,13 @@ struct Obj {
     Sub sub;
     int mode;
     hulk_freg FUN_002220d0();
-    void FUN_0022c3b0(float*, Result*);
 };
 hulk_freg Obj::FUN_002220d0() {
     Result result;
     switch (mode) {
     case 0:
     case 2:
-        FUN_0022c3b0(((float*)&DAT_004c9d60), &result);
+        ((owners::M_22c3b0 *)this)->FUN_0022c3b0(((float*)&DAT_004c9d60), (float *)(Result *)(&result));
         break;
     case 1:
         sub.FUN_0022b4d0(((float*)&DAT_004c9d60), &result);

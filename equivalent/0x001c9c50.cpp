@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
 // FUN_001c9c50 @ 0x001c9c50
 // cl-flags: /GS
+#include "gen/owners.h"
 struct Properties_1c9c50 {
-    bool FUN_001d2e80();
-    void FUN_001d1d50(const char* name, const char* value);
     void FUN_001d1d10();
 };
 extern "C" void __cdecl FUN_00096d50(char* buffer, int size, unsigned int low, unsigned int high);
@@ -19,11 +18,11 @@ struct Object {
 bool Object::target() {
     Frame_1c9c50 fr;
     Properties_1c9c50* properties = FUN_001d4c90();
-    if (!properties || !properties->FUN_001d2e80()) {
+    if (!properties || !((owners::Obj_1d2e80 *)properties)->FUN_001d2e80()) {
         return false;
     }
     FUN_00096d50(fr.buffer, 32, idLow, idHigh);
-    properties->FUN_001d1d50("civilian", fr.buffer);
+    ((owners::Thing_1d1d50 *)properties)->FUN_001d1d50((hulk_uintptr)"civilian", (hulk_uintptr)(fr.buffer));
     properties->FUN_001d1d10();
     return true;
 }

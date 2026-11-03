@@ -1,9 +1,5 @@
-class X_13140 {
-  public:
-    char pad[16];
-    char* Get10();
-};
+#include "gen/owners.h"
 
-char* X_13140::Get10() {
+char* owners::X_13140::FUN_00013140() {
     return (char*)this + 0x10;
 }

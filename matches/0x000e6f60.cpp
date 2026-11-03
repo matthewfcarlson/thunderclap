@@ -1,6 +1,7 @@
 #include "gen/global.h"
 #include "decls/data/game/global.h"
 // data: gByte = DAT_004e222c, gFlag_e6f60 = DAT_004e2518
+#include "gen/owners.h"
 
 class Sub_e6f60 {
   public:
@@ -20,7 +21,6 @@ class Sub_e6f60 {
     virtual void n();
     virtual void o();
     virtual void p();
-    void helper(int);
 };
 class Obj_e6f60 {
   public:
@@ -42,7 +42,7 @@ void FEThingsBase::vfunc_23() {
     *(int*)((char*)this + 0x176c) = 2;
     if (*(Sub_e6f60**)((char*)this + 0x175c)) {
         (*(Sub_e6f60**)((char*)this + 0x175c))->p();
-        (*(Sub_e6f60**)((char*)this + 0x175c))->helper(*(int*)((char*)this + 0x176c));
+        ((owners::Fader_e5440 *)((*(Sub_e6f60**)((char*)this + 0x175c))))->FUN_000e5440(*(int*)((char*)this + 0x176c));
     }
     vfunc_24();
     Manager_e6f60* m = gManager_e6f60;

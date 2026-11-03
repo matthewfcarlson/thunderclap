@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 13/14, incomplete)
 // FUN_00203190 @ 0x00203190
 #include "decls/address.h"
+#include "gen/owners.h"
 struct V3_203190 {
     float x, y, z;
 };
@@ -41,8 +42,6 @@ struct Probe_203190 {
 };
 
 struct Camera {
-    void FUN_00025260(int a, int b, int c);
-    void FUN_000253c0(int a);
     void FUN_00025310(int a, int b);
 };
 
@@ -91,8 +90,8 @@ extern "C" bool FUN_00203190(V3_203190 *a1, V3_203190 *a2, int a3, Target_203190
         return false;
 
     Camera *cam = game->camera;
-    cam->FUN_00025260(0, 0, 0);
-    cam->FUN_000253c0(0);
+    ((owners::C_25260 *)cam)->FUN_00025260(0, 0, 0);
+    ((owners::Target_253c0 *)cam)->FUN_000253c0(0);
     if (a6) {
         cam->FUN_00025310(a6->weapon->f1b0, 1);
         a6->FUN_000368d0(0);
@@ -105,7 +104,7 @@ extern "C" bool FUN_00203190(V3_203190 *a1, V3_203190 *a2, int a3, Target_203190
     f.hit.pad4[4] = 0;
     f.hit.flag = 1;
     bool hit = game->holder->exec->FUN_002edce0(&f.hit, a1, a2, 0);
-    cam->FUN_000253c0(1);
-    cam->FUN_00025260(1, 0, 0);
+    ((owners::Target_253c0 *)cam)->FUN_000253c0(1);
+    ((owners::C_25260 *)cam)->FUN_00025260(1, 0, 0);
     return !hit;
 }

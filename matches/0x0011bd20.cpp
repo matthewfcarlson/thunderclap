@@ -1,10 +1,5 @@
-class A_11bd20 {
-  public:
-    char Set(int v);
-    char pad[0x33];
-    int m34;
-};
-char A_11bd20::Set(int v) {
+#include "gen/owners.h"
+char owners::A_11bd20::FUN_0011bd20(int v) {
     m34 = v;
     return 1;
 }

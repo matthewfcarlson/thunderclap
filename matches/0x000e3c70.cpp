@@ -1,14 +1,6 @@
+#include "gen/owners.h"
 extern "C" void* memcpy(void*, const void*, unsigned int);
-class Obj_e3c70 {
-  public:
-    char pad[0x118];
-    int block[10];
-    char pad2[0x495c - 0x140];
-    int vals[13];
-    void Base(Obj_e3c70*);
-    void Fn(Obj_e3c70*);
-};
-void Obj_e3c70::Fn(Obj_e3c70* p) {
+void owners::Obj_e3c70::FUN_000e3c70(owners::Obj_e3c70* p) {
     Base(p);
     memcpy((char*)this + 0x118, (char*)p + 0x118, 40);
     vals[0] = p->vals[0];

@@ -1,10 +1,10 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
+#include "gen/owners.h"
 
 extern "C" char DAT_00428afc[];
 class Sub_23d360 {
   public:
-    void Setup(void*);
 };
 class Obj_23d360 {
   public:
@@ -29,7 +29,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<fight::FalseCondition>::
     if (p) {
         p->Init();
         *((void**)p) = (void*)((hulk_intptr)DAT_00428afc);
-        p->sub.Setup(a);
+        ((owners::Target_27b040 *)&(p->sub))->FUN_0027b040((hulk_uintptr)a);
         return (void*)(p);
     }
     return (void*)(0);

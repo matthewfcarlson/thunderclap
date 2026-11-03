@@ -3,15 +3,11 @@
 // cl-flags: /GS
 // equiv-map: ___security_cookie = 0x004d9968
 // FUN_001ecd00: build "crush_<name>" and hand it to FUN_001ec980
+#include "gen/owners.h"
 extern "C" char *__cdecl strcat(char *dst, const char *src);
 
-class Crusher_1ecd00 {
-public:
-    void FUN_001ec980(int a, const char *name);
-    void FUN_001ecd00(const char *name, int a);
-};
 
-void Crusher_1ecd00::FUN_001ecd00(const char *name, int a)
+void owners::Crusher_1ecd00::FUN_001ecd00(const char *name, hulk_intptr a)
 {
     struct Frame {
         char buf[70];
@@ -19,6 +15,6 @@ void Crusher_1ecd00::FUN_001ecd00(const char *name, int a)
     } f = { "crush_" };
     if (name != 0) {
         strcat(f.buf, name);
-        FUN_001ec980(a, f.buf);
+        FUN_001ec980(((int)a), f.buf);
     }
 }

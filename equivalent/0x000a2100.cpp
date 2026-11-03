@@ -5,6 +5,7 @@
 // defaults passed in), and ramps a charge value `c` towards 1 / -1 / 0 depending on whether the axis keeps its
 // direction.
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
 struct Sample_a2100 {
     unsigned pad0[0x1e];
@@ -21,7 +22,6 @@ struct Source_a2100 {
 };
 
 struct Table_a2100 {
-    Source_a2100 *FUN_000b3d20(int index);
 };
 
 struct Owner_a2100 {
@@ -68,7 +68,7 @@ void Axis_a2100::FUN_000a2100(Owner_a2100 *owner, char enable, float dt, float d
 
     float oldX = ax.f;
     Sample_a2100 s;
-    owner->table->FUN_000b3d20(0)->FUN_000b3660(&s);
+    ((Source_a2100 *)((owners::C_b3d20 *)(owner->table))->FUN_000b3d20(0))->FUN_000b3660(&s);
 
     x = s.a;
     y = s.b;

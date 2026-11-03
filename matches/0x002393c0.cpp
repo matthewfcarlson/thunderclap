@@ -1,10 +1,5 @@
-class X_2393c0 {
-  public:
-    char pad[0x14];
-    int* m;
-    int** Get();
-};
+#include "gen/owners.h"
 
-int** X_2393c0::Get() {
+int** owners::X_2393c0::FUN_002393c0() {
     return &m;
 }

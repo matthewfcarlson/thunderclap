@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 2/2)
 // FUN_00044430 @ 0x00044430
+#include "gen/owners.h"
 struct Id64_44430 {
     unsigned int lo, hi;
-    void FUN_0027af10(unsigned int lo, unsigned int hi);
     void FUN_0027af50() throw();
 };
 struct Pair_44430 {
@@ -29,11 +29,11 @@ struct Owner_44430 {
 void Owner_44430::FUN_00044430()
 {
     Id64_44430 id;
-    id.FUN_0027af10(pair->f08, pair->f0c);
+    ((owners::Pair_27af10 *)&id)->FUN_0027af10(pair->f08, pair->f0c);
     int found = FUN_001c3d90()->sub->FUN_001c5b00(&id);
     id.FUN_0027af50();
     if (found) {
-        id.FUN_0027af10(pair->f08, pair->f0c);
+        ((owners::Pair_27af10 *)&id)->FUN_0027af10(pair->f08, pair->f0c);
         FUN_001c3d90()->FUN_001c3740(&id);
         id.FUN_0027af50();
     }

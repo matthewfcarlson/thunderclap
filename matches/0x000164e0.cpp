@@ -1,4 +1,5 @@
 #include "gen/global.h"
+#include "gen/owners.h"
 
 struct Sub_164e0 {
     int query(int);
@@ -16,7 +17,6 @@ struct A_164e0 {
 };
 struct B_164e0 {
     void* next();
-    Obj_164e0* find(void*);
 };
 
 bool CSmartPropEventAction::vfunc_6(int x) {
@@ -24,7 +24,7 @@ bool CSmartPropEventAction::vfunc_6(int x) {
     void* p = a->next();
     B_164e0* b = (B_164e0*)p;
     p = b->next();
-    Obj_164e0* o = ((B_164e0*)p)->find((*(void * *)&this->f_24));
+    Obj_164e0* o = ((Obj_164e0 *)((owners::C_35ef0 *)(((B_164e0*)p)))->FUN_00035ef0((hulk_intptr)((*(void * *)&this->f_24))));
     if (o) {
         int old = o->value;
         o->mutate(this->f_20);

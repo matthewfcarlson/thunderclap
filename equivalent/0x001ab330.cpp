@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 10/10)
 // hulkfight::scenario::Event_TriggerVolumeNameCondition::vfunc_6 @ 0x001ab330
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 namespace fight {
 class Params_1ab330 {
@@ -14,7 +15,6 @@ struct Id64_1ab330 {
     unsigned int hi;
     void FUN_0027af00();
     void FUN_0027af50();
-    void FUN_0027b040(const char *name);
 };
 
 struct VolumeInfo {
@@ -43,7 +43,7 @@ bool hulkfight::scenario::Event_TriggerVolumeNameCondition::vfunc_6(void* __p0, 
     if (sp != 0) {
         VolumeInfo *info = sp->FUN_001d03c0();
         if (info->type == 0x1d || info->type == 0x1e) {
-            name.FUN_0027b040(info->name);
+            ((owners::Target_27b040 *)&name)->FUN_0027b040((hulk_uintptr)(info->name));
             if (name.lo == (*(unsigned int *)&this->f_10) && name.hi == (*(unsigned int *)&this->f_14)) {
                 name.FUN_0027af50();
                 return true;

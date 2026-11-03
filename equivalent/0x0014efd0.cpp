@@ -2,6 +2,7 @@
 // FUN_0014efd0 @ 0x0014efd0
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/owners.h"
 
 struct Vec3_14efd0 {
     float x, y, z;
@@ -26,7 +27,6 @@ public:
     virtual void v1();
     virtual void v2();
     virtual Marker *GetMarker();
-    Clock_14efd0 *FUN_000592a0();
 };
 
 struct Config_14efd0 {
@@ -81,7 +81,7 @@ extern "C" void FUN_0014efd0(void *owner, void *cfg, void * st_)
 {
     State_14efd0 * st = (State_14efd0 *)st_;
     Frame_14efd0 f;
-    f.t = ((Owner_14efd0 *)owner)->FUN_000592a0()->FUN_00059a30()->FUN_000354c0();
+    f.t = ((Clock_14efd0 *)((owners::Object_592a0 *)(((Owner_14efd0 *)owner)))->FUN_000592a0())->FUN_00059a30()->FUN_000354c0();
     Marker *m = ((Owner_14efd0 *)owner)->GetMarker();
     if (m != 0 && ((Config_14efd0 *)cfg)->f44 == 0) {
         st->FUN_00059370(m);

@@ -1,12 +1,7 @@
 // cl-flags: /O2
-class C_61d70 {
-  public:
-    char pad[0x14];
-    volatile int m;
-    bool Set(int x);
-};
+#include "gen/owners.h"
 
-bool C_61d70::Set(int x) {
+bool owners::C_61d70::FUN_00061d70(int x) {
     m = x;
     return true;
 }

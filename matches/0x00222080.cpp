@@ -1,4 +1,5 @@
 // Same code shape as 0x0030f3d0 (propagated; names are from that function)
+#include "gen/owners.h"
 class Base_222080 {
   public:
     Base_222080();
@@ -12,7 +13,6 @@ class Thing_222080 : public Base_222080 {
     float d;
     int e;
     Thing_222080(int);
-    void Finish(int);
 };
 Thing_222080::Thing_222080(int x) : Base_222080() {
     c = 0;
@@ -21,5 +21,5 @@ Thing_222080::Thing_222080(int x) : Base_222080() {
     d = 1.0f;
     int* q = &e;
     *q = 0;
-    Finish(x);
+    ((owners::Target_22be40 *)this)->FUN_0022be40((const int *)(hulk_uintptr)(int)x);
 }

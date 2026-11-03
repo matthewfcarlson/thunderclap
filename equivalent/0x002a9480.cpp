@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 222 inputs, branch coverage 8/8)
 // pure3d::TextureAnimationController::vfunc_7 @ 0x002a9480
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 
 namespace pure3d {
 class Channel_2a9480 {
@@ -29,11 +30,9 @@ public:
 struct ChannelList_2a9480 {
     char pad00[0x14];
     int count;               // 0x14
-    pure3d::Channel_2a9480 *FUN_00288950(int index);
 };
 
 struct ChannelSource {
-    ChannelList_2a9480 *FUN_00288a10(int flag);
 };
 
 class Receiver_2a9480 {
@@ -48,9 +47,9 @@ struct Binding_2a9480 {
 };
 
 void pure3d::TextureAnimationController::vfunc_7() {
-    ChannelList_2a9480 *list = (*(ChannelSource * *)&this->f_3c)->FUN_00288a10(0);
+    ChannelList_2a9480 *list = ((ChannelList_2a9480 *)((owners::Target_288a10 *)((*(ChannelSource * *)&this->f_3c)))->FUN_00288a10(0));
     for (int i = list->count - 1; i >= 0; i--) {
-        pure3d::EntityChannel_2a9480 *channel = dynamic_cast<pure3d::EntityChannel_2a9480 *>(list->FUN_00288950(i));
+        pure3d::EntityChannel_2a9480 *channel = dynamic_cast<pure3d::EntityChannel_2a9480 *>(((pure3d :: Channel_2a9480 *)((owners::C_288950 *)list)->FUN_00288950(i)));
         if (channel == 0)
             continue;
         pure3d::Entity_2a9480 *entity;

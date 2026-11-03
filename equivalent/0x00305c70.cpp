@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00305c70 @ 0x00305c70
+#include "gen/owners.h"
 extern "C" double sqrt(double); extern "C" double sin(double); extern "C" double cos(double);
 float __cdecl FUN_00018a20(float);
 struct Vec_305c70 { float x,y,z; float FUN_0022d110(); };
-struct Quat_305c70 { float x,y,z,w; void FUN_0022b1c0(float); void FUN_0022b120(); };
+struct Quat_305c70 { float x,y,z,w;   };
 bool __cdecl FUN_00305c70(const Vec_305c70* a,const Vec_305c70* b,Quat_305c70* out,bool* opposite) {
  *opposite=false;
  double lengths=sqrt(a->x*a->x+a->y*a->y+a->z*a->z)*sqrt(b->x*b->x+b->y*b->y+b->z*b->z);
@@ -23,14 +24,14 @@ bool __cdecl FUN_00305c70(const Vec_305c70* a,const Vec_305c70* b,Quat_305c70* o
   axis.x=a->z*0.0f-a->y*0.0f;
   axis.y=a->x*0.0f-a->z;
   axis.z=a->y-a->x*0.0f;
-  if(sqrt(axis.z*axis.z+axis.x*axis.x+axis.y*axis.y)<0.000001f) {out->FUN_0022b1c0(3.141592741012573242f);return true;}
+  if(sqrt(axis.z*axis.z+axis.x*axis.x+axis.y*axis.y)<0.000001f) {((owners::X_22b1c0 *)out)->FUN_0022b1c0(3.141592741012573242f);return true;}
  }
  if(axis.FUN_0022d110()!=0.0f) {
   double half=angle*0.5f;
   out->w=(float)cos(half);
   double s=sin(half);
   out->x=(float)(axis.x*s);out->y=(float)(axis.y*s);out->z=(float)(axis.z*s);
-  out->FUN_0022b120();
+  ((owners::Vec4_22b120 *)out)->FUN_0022b120();
  } else {out->z=0;out->y=0;out->x=0;out->w=1;}
  return true;
 }

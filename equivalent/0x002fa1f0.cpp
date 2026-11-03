@@ -2,6 +2,7 @@
 // FUN_002fa1f0 @ 0x002fa1f0
 // FUN_002fa1f0: set up a range over a shared u16 buffer and fill it from two descriptors
 #include "decls/data/engine/physics.h"
+#include "gen/owners.h"
 
 struct Desc_2fa1f0 {
     char data[12];
@@ -32,7 +33,6 @@ struct Skeleton {
     Holder_2fa1f0 *holder;
     char pad48[0xd0 - 0x48];
     int fd0;
-    void FUN_002f3960(Pair6 *out, Desc_2fa1f0 *d);
 };
 
 
@@ -56,8 +56,8 @@ void Range_2fa1f0::FUN_002fa1f0(Desc_2fa1f0 *d, Skeleton *s)
     end = oldBegin;
     f4 = s->fd0;
     Frame_2fa1f0 f;
-    s->FUN_002f3960(&f.first, d);
-    s->FUN_002f3960(&f.second, d + 1);
+    ((owners::Quantizer_2f3960 *)s)->FUN_002f3960((unsigned short *)(Pair6 *)(&f.first), (const float *)(Desc_2fa1f0 *)d);
+    ((owners::Quantizer_2f3960 *)s)->FUN_002f3960((unsigned short *)(Pair6 *)(&f.second), (const float *)(Desc_2fa1f0 *)(d + 1));
     begin = (*(unsigned short**)&DAT_00555440);
     end = (*(unsigned short**)&DAT_00555440);
     s->holder->worker->FUN_00307060(&f.first, this);

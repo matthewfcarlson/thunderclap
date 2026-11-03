@@ -1,14 +1,5 @@
-class Obj_1b6d70 {
-  public:
-    int a;
-    float b;
-    int c;
-    float d;
-    int e;
-    float f;
-    void Tick(float);
-};
-void Obj_1b6d70::Tick(float dt) {
+#include "gen/owners.h"
+void owners::Obj_1b6d70::FUN_001b6d70(float dt) {
     if (a != 0) {
         b -= dt;
         if (b <= 0.0f)

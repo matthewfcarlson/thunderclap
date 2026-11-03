@@ -1,11 +1,6 @@
-class X_1153a0 {
-  public:
-    char pad[0x2a];
-    char m2a;
-    char Set(char v);
-};
+#include "gen/owners.h"
 
-char X_1153a0::Set(char v) {
+char owners::X_1153a0::FUN_001153a0(char v) {
     m2a = v;
     return 1;
 }

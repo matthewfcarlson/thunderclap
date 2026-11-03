@@ -1,10 +1,4 @@
-class C_65ab0 {
-    char pad[0x36c];
-
-  public:
-    unsigned char value;
-    unsigned char f();
-};
-unsigned char C_65ab0::f() {
+#include "gen/owners.h"
+unsigned char owners::C_65ab0::FUN_00065ab0() {
     return value;
 }

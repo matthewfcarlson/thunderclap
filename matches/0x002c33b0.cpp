@@ -1,16 +1,6 @@
 // Same code shape as 0x00293a90 (propagated; names are from that function)
-class C_2c33b0 {
-    char pad[0xcc];
-    unsigned char flag;
-    char pad2[0xf];
-    int a;
-    int b;
-    int c;
-
-  public:
-    void f(int* p);
-};
-void C_2c33b0::f(int* p) {
+#include "gen/owners.h"
+void owners::C_2c33b0::FUN_002c33b0(int* p) {
     a = p[0];
     b = p[1];
     c = p[2];

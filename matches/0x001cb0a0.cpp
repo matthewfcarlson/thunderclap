@@ -1,8 +1,7 @@
 #include "decls/address.h"
+#include "gen/owners.h"
 class Writer_1cb0a0 {
   public:
-    bool Open();
-    void Put(const char* k, const void* v);
     void Close();
 };
 class Mgr_1cb0a0 {
@@ -15,27 +14,19 @@ class Info_1cb0a0 {
 };
 class Look_1cb0a0 {
   public:
-    Info_1cb0a0* Find(int id);
 };
 struct World {
     char pad[0x44];
     Look_1cb0a0* look;
 };
 Writer_1cb0a0* FUN_001d4c90();
-class Actor_1cb0a0 {
-  public:
-    char pad[0x10];
-    int mId;
-    char mName[4];
-    bool Save();
-};
-bool Actor_1cb0a0::Save() {
+bool owners::Actor_1cb0a0::FUN_001cb0a0() {
     Writer_1cb0a0* w = FUN_001d4c90();
     if (!w)
         return false;
-    if (!w->Open())
+    if (!((owners::Obj_1d2e80 *)w)->FUN_001d2e80())
         return false;
-    w->Put("tv", &mName);
+    ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"tv", (hulk_uintptr)(&mName));
     World* g = DAT_004dd700;
     int id = mId;
     if (!g) {
@@ -43,11 +34,11 @@ bool Actor_1cb0a0::Save() {
         return false;
     }
     Look_1cb0a0* l = g->look;
-    Info_1cb0a0* i = l->Find(id);
+    Info_1cb0a0* i = ((Info_1cb0a0 *)((owners::ThisWrap_00059c10 *)l)->FUN_00059c10((void *)(hulk_uintptr)(int)id));
     if (i)
-        w->Put("actor", i->Name());
+        ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"actor", (hulk_uintptr)(i->Name()));
     else
-        w->Put("actor", "UNKNOWN");
+        ((owners::Thing_1d1d50 *)w)->FUN_001d1d50((hulk_uintptr)"actor", (hulk_uintptr)"UNKNOWN");
     w->Close();
     return true;
 }

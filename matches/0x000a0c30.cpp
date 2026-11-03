@@ -1,9 +1,4 @@
-class C_a0c30 {
-  public:
-    char pad[0x49c];
-    int value;
-    void Set(int);
-};
-void C_a0c30::Set(int x) {
+#include "gen/owners.h"
+void owners::C_a0c30::FUN_000a0c30(int x) {
     value = x;
 }

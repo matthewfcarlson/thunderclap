@@ -3,9 +3,9 @@
 #include "compat/ptr.h"
 #include "gen/pure3d.h"
 #include "decls/address.h"
+#include "gen/owners.h"
 
 struct Stream_27c720 {
-    char FUN_002647e0(void* dest, unsigned count, unsigned size, int flag);
 };
 
 struct Reader_27c720 {
@@ -18,7 +18,6 @@ struct Reader_27c720 {
 };
 
 struct NameField_27c720 {
-    void FUN_0027b040(const char* name);
 };
 
 struct Skeleton_27c720 {
@@ -55,12 +54,12 @@ void pure3d::LegacySkeletonLoader::vfunc_5(void* __p0, void* __p1, void* __p2, h
 
     Frame_27c720 f;
 
-    r->stream->FUN_002647e0(&f.len, 1, 1, 1);
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1));
     unsigned int n = f.len;
-    r->stream->FUN_002647e0(f.name, n, 1, 1);
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(f.name), (hulk_intptr)n, 1, (hulk_intptr)1));
     f.name[n] = 0;
-    r->stream->FUN_002647e0(&f.w18, 1, 4, 1);
-    r->stream->FUN_002647e0(&f.w10, 1, 4, 1);
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.w18), (hulk_intptr)1, 4, (hulk_intptr)1));
+    ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.w10), (hulk_intptr)1, 4, (hulk_intptr)1));
     int nJoints = f.w10;
     if (nJoints < 1)
         FUN_0028fcc0("LegacySkeletonLoader - skipping skeleton: '%s' because nJoints < 1\n", f.name);
@@ -69,7 +68,7 @@ void pure3d::LegacySkeletonLoader::vfunc_5(void* __p0, void* __p1, void* __p2, h
     Skeleton_27c720* skel = 0;
     if (mem)
         skel = ((Skeleton_27c720*)mem)->FUN_0027bee0(nJoints, 0, 0);
-    skel->name.FUN_0027b040(f.name);
+    ((owners::Target_27b040 *)&(skel->name))->FUN_0027b040((hulk_uintptr)(f.name));
 
     if (r->FUN_002669f0()) {
         f.w10 = 0;
@@ -78,19 +77,19 @@ void pure3d::LegacySkeletonLoader::vfunc_5(void* __p0, void* __p1, void* __p2, h
         do {
             r->FUN_00266a30();
             if (r->FUN_00266c30() == 0x4501) {
-                r->stream->FUN_002647e0(&f.len, 1, 1, 1);
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1));
                 unsigned int m = f.len;
-                r->stream->FUN_002647e0(f.jointName, m, 1, 1);
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(f.jointName), (hulk_intptr)m, 1, (hulk_intptr)1));
                 f.jointName[m] = 0;
                 skel->hashes[off8 / 8] = FUN_002672f0(f.jointName, 0, 0);
-                r->stream->FUN_002647e0(&f.w18, 1, 4, 1);
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.w18), (hulk_intptr)1, 4, (hulk_intptr)1));
                 *(unsigned short*)((char*)skel->parents + f.w10) = (unsigned short)f.w18;
-                r->stream->FUN_002647e0(&f.w2c, 1, 4, 1);
-                r->stream->FUN_002647e0(&f.w1c, 1, 4, 1);
-                r->stream->FUN_002647e0(&f.w28, 1, 4, 1);
-                r->stream->FUN_002647e0(&f.w20, 1, 4, 1);
-                r->stream->FUN_002647e0(&f.w24, 1, 4, 1);
-                r->stream->FUN_002647e0(skel->matrices + f.w14, 0x10, 4, 1);
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.w2c), (hulk_intptr)1, 4, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.w1c), (hulk_intptr)1, 4, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.w28), (hulk_intptr)1, 4, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.w20), (hulk_intptr)1, 4, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.w24), (hulk_intptr)1, 4, (hulk_intptr)1));
+                ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(skel->matrices + f.w14), (hulk_intptr)0x10, 4, (hulk_intptr)1));
                 off8 += 8;
                 f.w10 += 2;
                 f.w14 += 0x40;

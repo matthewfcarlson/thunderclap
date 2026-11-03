@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 706 inputs, branch coverage 13/14, incomplete)
 // FUN_001dd660 @ 0x001dd660
+#include "gen/owners.h"
 struct V3_1dd660 { float x, y, z; };
 
 struct Matrix {
@@ -7,7 +8,6 @@ struct Matrix {
     V3_1dd660 pos;
     float w;
     void FUN_0022b980();
-    void FUN_0022c2b0(V3_1dd660 *in, V3_1dd660 *out);
 };
 
 struct Quat_1dd660 {
@@ -39,7 +39,7 @@ public:
     virtual BoneTable_1dd660 *v11();
 };
 
-class BoneIndexer { public: int FUN_001d4f30(); };
+class BoneIndexer { public:  };
 
 class Skeleton {
 public:
@@ -108,19 +108,19 @@ bool Registry_1dd660::FUN_001dd660(Key_1dd660 *key, V3_1dd660 *out)
     f.v.y = 0.75f;
     f.v.z = 0.0f;
     if ((s->flags & 1) && e->skel) {
-        int bone = e->skel->indexer->FUN_001d4f30();
+        int bone = ((owners::C_1d4f30 *)(e->skel->indexer))->FUN_001d4f30();
         if (bone != 0xffff) {
             BoneTable_1dd660 *t = e->skel->source->v11();
             *out = t->bones[bone].pos;
             return true;
         }
-        e->skel->v15()->FUN_0022c2b0(&f.v, out);
+        ((owners::Mat_22c2b0 *)(e->skel->v15()))->FUN_0022c2b0((float *)(V3_1dd660 *)(&f.v), (float *)(V3_1dd660 *)out);
         return true;
     }
     f.m.FUN_0022b980();
     e->rot.FUN_001db820(&f.q);
     f.q.FUN_0022b650(&f.m);
     f.m.pos = s->pos;
-    f.m.FUN_0022c2b0(&f.v, out);
+    ((owners::Mat_22c2b0 *)&(f.m))->FUN_0022c2b0((float *)(V3_1dd660 *)(&f.v), (float *)(V3_1dd660 *)out);
     return true;
 }

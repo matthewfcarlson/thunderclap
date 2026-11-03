@@ -3,6 +3,7 @@
 // CGrappleDrainHealthTrack::vfunc_12: spawn the drain effect for the grappled opponent
 #include "compat/ptr.h"
 #include "gen/global.h"
+#include "gen/owners.h"
 
 struct Cfg;
 
@@ -30,7 +31,6 @@ struct Anchor_5a5e0 {
 };
 
 struct Owner_5a5e0 {
-    Anchor_5a5e0 *FUN_000592a0();
 };
 
 extern "C" void *__cdecl FUN_0008d690(unsigned int size);
@@ -42,7 +42,7 @@ hulk_intptr CGrappleDrainHealthTrack::vfunc_12(hulk_intptr __p0) { Owner_5a5e0 *
         return (int)(0);
     if (owner == 0)
         return (int)(0);
-    Anchor_5a5e0 *anchor = owner->FUN_000592a0();
+    Anchor_5a5e0 *anchor = ((Anchor_5a5e0 *)((owners::Object_592a0 *)owner)->FUN_000592a0());
     if (anchor == 0)
         return (int)(0);
     Fighter_5a5e0 *fighter = anchor->FUN_00059a30();

@@ -1,11 +1,5 @@
-class Obj_fddb0 {
-    char pad[0x34];
-    int zero, a, b, c;
-
-  public:
-    void Set(int* p);
-};
-void Obj_fddb0::Set(int* p) {
+#include "gen/owners.h"
+void owners::Obj_fddb0::FUN_000fddb0(int* p) {
     zero = 0;
     a = p[0];
     b = p[1];

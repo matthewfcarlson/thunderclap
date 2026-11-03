@@ -3,12 +3,12 @@
 #include "decls/data/game/global.h"
 #include "gen/global.h"
 #include "compat/ptr.h"
+#include "gen/owners.h"
 
 struct Vec3_390e0 { float x, y, z; };
 
 struct Mat_390e0 {
     float m[16];
-    void FUN_0022c2b0(const Vec3_390e0* in, Vec3_390e0* out);
 };
 
 struct Holder_390e0 {
@@ -16,9 +16,7 @@ struct Holder_390e0 {
 };
 
 struct CCharacter_390e0 {
-    int FUN_00044630(int id);
     Vec3_390e0* FUN_00044650(int id);
-    float FUN_000446a0(int id);
 };
 
 struct Skeleton_390e0 {
@@ -45,12 +43,12 @@ int Probe_390e0::FUN_000390e0(const Vec3_390e0* origin, const Vec3_390e0* dir, f
         return 0;
     for (int i = 0; i < 3; i++) {
         int id = ((int*)&DAT_003f5bc4)[i];
-        int bone = ((CCharacter_390e0*)(table))->FUN_00044630(id);
+        int bone = ((owners::C_44630 *)(((CCharacter_390e0*)(table))))->FUN_00044630(id);
         if (bone == 0xffff)
             continue;
         Vec3_390e0 pos;
         Mat_390e0* m = skel->matrices + bone;
-        m->FUN_0022c2b0(((CCharacter_390e0*)(table))->FUN_00044650(id), &pos);
+        ((owners::Mat_22c2b0 *)m)->FUN_0022c2b0((float *)(const Vec3_390e0 *)(((CCharacter_390e0*)(table))->FUN_00044650(id)), (float *)(Vec3_390e0 *)(&pos));
         Vec3_390e0 d;
         d.x = pos.x - origin->x;
         d.y = pos.y - origin->y;
@@ -69,7 +67,7 @@ int Probe_390e0::FUN_000390e0(const Vec3_390e0* origin, const Vec3_390e0* dir, f
                 d.z = d.z - dir->z;
             }
         }
-        float radius = ((CCharacter_390e0*)(table))->FUN_000446a0(id) + extra;
+        float radius = ((owners::C_446a0 *)(((CCharacter_390e0*)(table))))->FUN_000446a0(id) + extra;
         if (radius * radius > d.z * d.z + d.x * d.x + d.y * d.y) {
             *out = pos;
             return id;

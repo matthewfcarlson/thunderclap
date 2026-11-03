@@ -1,10 +1,4 @@
-class C_91f30 {
-    char pad[0x20];
-
-  public:
-    unsigned char value;
-    void Set(unsigned char x);
-};
-void C_91f30::Set(unsigned char x) {
+#include "gen/owners.h"
+void owners::C_91f30::FUN_00091f30(unsigned char x) {
     value = x;
 }

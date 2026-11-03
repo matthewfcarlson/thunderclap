@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20009 inputs, branch coverage 6/6)
 // pure3d::CompressedQuaternionChannel<math::CompressedQuaternion3>::vfunc_5 @ 0x0028dc90
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Quat_28dc90 {
     float x, y, z, w;
-    void FUN_0022b750(const Quat_28dc90 *a, const Quat_28dc90 *b, float t);
 };
 
 struct CompressedQuaternion3 {
@@ -49,7 +49,7 @@ void CompressedQuaternionChannel::vfunc_5(float time, Quat_28dc90 *out)
             CompressedQuaternion3 *vals = values;
             f.q0 = *vals[f.lo].FUN_0028dbb0(&f.tmp);
             f.q1 = *vals[hi].FUN_0028dbb0(&f.tmp);
-            out->FUN_0022b750(&f.q0, &f.q1, frac);
+            ((owners::Quaternion_22b750 *)out)->FUN_0022b750((const owners::Quaternion_22b750 *)(const Quat_28dc90 *)(&f.q0), (const owners::Quaternion_22b750 *)(const Quat_28dc90 *)(&f.q1), frac);
             return;
         }
         *out = *values[f.lo].FUN_0028dbb0(&f.q0);

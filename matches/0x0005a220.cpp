@@ -1,11 +1,6 @@
-class C_5a220 {
-  public:
-    char fn(int a);
-    char pad[12];
-    int m;
-};
+#include "gen/owners.h"
 
-char C_5a220::fn(int a) {
+char owners::C_5a220::FUN_0005a220(int a) {
     m = a;
     return 1;
 }

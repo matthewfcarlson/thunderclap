@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Data_1c5e80 {
     unsigned int a, b, c;
 };
@@ -9,7 +10,6 @@ struct Buffer_1c5e80 {
 };
 class Child_1c5e80 {
   public:
-    void Run(Buffer_1c5e80*);
 };
 class Obj_1c5e80 {
   public:
@@ -24,6 +24,6 @@ void Obj_1c5e80::f(Data_1c5e80* p) {
         b.a = p->a;
         b.b = p->b;
         b.c = p->c;
-        m->Run(&b);
+        ((owners::X_1c4d60 *)m)->FUN_001c4d60((unsigned int *)(Buffer_1c5e80 *)(&b));
     }
 }

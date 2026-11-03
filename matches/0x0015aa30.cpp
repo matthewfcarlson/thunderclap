@@ -1,9 +1,4 @@
-class Obj_15aa30 {
-  public:
-    char pad[0x60];
-    int m;
-    int* Get();
-};
-int* Obj_15aa30::Get() {
+#include "gen/owners.h"
+int* owners::Obj_15aa30::FUN_0015aa30() {
     return &m;
 }

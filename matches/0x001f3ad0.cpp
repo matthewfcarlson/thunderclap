@@ -1,7 +1,7 @@
+#include "gen/owners.h"
 struct Child_1f3ad0 {
     char pad[8];
     int value;
-    void FUN(int);
 };
 struct Obj_1f3ad0 {
     char pad[0xc8];
@@ -10,7 +10,7 @@ struct Obj_1f3ad0 {
 };
 bool Obj_1f3ad0::run() {
     if (child && child->value) {
-        child->FUN(0);
+        ((owners::Obj_1f3400 *)child)->FUN_001f3400(0);
         return true;
     }
     return false;

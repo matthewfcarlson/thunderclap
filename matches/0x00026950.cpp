@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class Item {
   public:
-    void Act(int);
 };
 extern "C" __int64 __cdecl Lookup(int, int, int);
 class Owner {
@@ -13,6 +13,6 @@ char Owner::Run(int key, int value) {
     Item* item = Get(id);
     if (!item)
         return 0;
-    item->Act(value);
+    ((owners::Obj_35930 *)item)->FUN_00035930(value);
     return 1;
 }

@@ -1,12 +1,6 @@
-class C_1801b0 {
-    char pad[0x90];
-    unsigned int m;
+#include "gen/owners.h"
 
-  public:
-    bool Set(unsigned int x);
-};
-
-bool C_1801b0::Set(unsigned int x) {
+bool owners::C_1801b0::FUN_001801b0(unsigned int x) {
     m = x;
     return true;
 }

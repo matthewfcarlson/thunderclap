@@ -2,14 +2,15 @@
 // FUN_001cccc0 @ 0x001cccc0
 // cl-flags: /GS
 #include "decls/address.h"
+#include "gen/owners.h"
 
-struct Overlay {
+struct Overlay_1cccc0 {
     void FUN_000d4620(int one, const char *text, int minusOne, unsigned color, float minusOneF);
 };
 
 struct Holder_1cccc0 {
     char pad0[4];
-    Overlay *overlay;
+    Overlay_1cccc0 *overlay;
 };
 
 struct Checker_1cccc0 {
@@ -24,7 +25,6 @@ struct Parent_1cccc0 {
 };
 
 struct Palette_1cccc0 {
-    unsigned *FUN_00025930(unsigned *out, int which);
 };
 
 struct World {
@@ -66,7 +66,7 @@ void ComboTracker::FUN_001cccc0()
     Frame_1cccc0 f;
     if (count > 1 && parent && parent->checker && parent->checker->FUN_00086280()
         && parent->holder) {
-        Overlay *overlay = parent->holder->overlay;
+        Overlay_1cccc0 *overlay = parent->holder->overlay;
         if (overlay) {
             if (tierCount > 0) {
                 f.slot.level = (float)count;
@@ -77,7 +77,7 @@ void ComboTracker::FUN_001cccc0()
                             idx = i;
                     }
                     FUN_00267830(f.text, labels[idx], 0x100);
-                    unsigned *c = DAT_004dd700->palette->FUN_00025930(&f.slot.color, 3);
+                    unsigned *c = ((unsigned *)((owners::Palette_25930 *)(DAT_004dd700->palette))->FUN_00025930((unsigned int *)(&f.slot.color), 3));
                     overlay->FUN_000d4620(1, f.text, -1, *c, -1.0f);
                 }
             }

@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // FUN_000e2c90 @ 0x000e2c90
 #include "decls/address.h"
-struct State_e2c90 { bool FUN_000b4f20(); bool FUN_000b8c90(); };
+#include "gen/owners.h"
+struct State_e2c90 { bool FUN_000b4f20();  };
 struct Manager_e2c90 { State_e2c90* FUN_00086280(); };
 struct World { char pad[0x54]; Manager_e2c90* manager; };
 struct Controller_e2c90 {
@@ -18,7 +19,7 @@ struct Target_e2c90 {
 void Target_e2c90::FUN_000e2c90(int mode,int arg2,int arg3) {
  if (enabled && (mode==0 || mode==1)) {
  State_e2c90* s=DAT_004dd700->manager->FUN_00086280();
- if(s->FUN_000b4f20() && s->FUN_000b8c90()) return;
+ if(s->FUN_000b4f20() && ((owners::Foo_b8c90 *)s)->FUN_000b8c90()) return;
  }
  if(enabled && mode==0) owner->link->controller->setMode(mode);
  for(int i=0;i<10;++i) {

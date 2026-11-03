@@ -2,6 +2,7 @@
 // hulkfight::motion::AccuracyLatencyAction::vfunc_4 @ 0x00194cb0
 #include "gen/hulkfight.h"
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/owners.h"
 
 struct Player_194cb0 {
     char pad0[0x1d54];
@@ -15,12 +16,11 @@ struct PlayerRef_194cb0 {
     Player_194cb0 *FUN_00059a30();
 };
 struct Owner_194cb0 {
-    PlayerRef_194cb0 *FUN_000592a0();
 };
 
 
 void hulkfight::motion::AccuracyLatencyAction::vfunc_4() {
-    PlayerRef_194cb0 *ref = (*(Owner_194cb0 * *)&this->f_20)->FUN_000592a0();
+    PlayerRef_194cb0 *ref = ((PlayerRef_194cb0 *)((owners::Object_592a0 *)((*(Owner_194cb0 * *)&this->f_20)))->FUN_000592a0());
     Player_194cb0 *player = ref->FUN_00059a30();
 
     // function-local static zero vector

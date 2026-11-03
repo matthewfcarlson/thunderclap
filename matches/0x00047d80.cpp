@@ -1,10 +1,5 @@
-class X_47d80 {
-  public:
-    char pad[0x10];
-    int m;
-    bool Set(int v);
-};
-bool X_47d80::Set(int v) {
+#include "gen/owners.h"
+bool owners::X_47d80::FUN_00047d80(int v) {
     m = v;
     return true;
 }

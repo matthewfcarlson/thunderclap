@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 85 inputs, branch coverage 14/14)
 // FUN_001aa2a0 @ 0x001aa2a0
+#include "gen/owners.h"
 namespace core {
-struct IRefCount {
+struct IRefCount_1aa2a0 {
     virtual void r0();
     virtual void r1();
     virtual void r2();
@@ -9,16 +10,16 @@ struct IRefCount {
 }
 
 namespace pure3d {
-class Camera : public core::IRefCount {
+class Camera_1aa2a0 : public core::IRefCount_1aa2a0 {
 };
-class CameraAnimationController : public core::IRefCount {
+class CameraAnimationController_1aa2a0 : public core::IRefCount_1aa2a0 {
 public:
-    Camera *FUN_00292f20();
+    Camera_1aa2a0 *FUN_00292f20();
 };
 }
 
 namespace content {
-class LoadInventory {
+class LoadInventory_1aa2a0 {
   public:
     template <class T> class DynamicCaster {
       public:
@@ -27,7 +28,7 @@ class LoadInventory {
     virtual void l0();
     virtual void l1();
     virtual void l2();
-    virtual void *Find(const DynamicCaster<pure3d::Camera> &c, __int64 uid);
+    virtual void *Find(const DynamicCaster<pure3d::Camera_1aa2a0> &c, __int64 uid);
     char pad04[8];
     unsigned int f0c;
 };
@@ -38,11 +39,9 @@ unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
 struct Cursor_1aa2a0 {
     unsigned int a;
     int b;
-    content::LoadInventory *c;
+    content::LoadInventory_1aa2a0 *c;
     void FUN_002314a0(unsigned int v);
-    core::IRefCount *FUN_00231640();
-    pure3d::CameraAnimationController *FUN_001a6e50();
-    pure3d::Camera *FUN_001a92e0();
+    core::IRefCount_1aa2a0 *FUN_00231640();
 };
 
 struct Owner_1aa2a0 {
@@ -55,13 +54,12 @@ struct Owner_1aa2a0 {
 };
 
 struct Registry_1aa2a0 {
-    content::LoadInventory *FUN_00203d60(int index);
 };
 
 struct Scene_1aa2a0 {
     void FUN_0009a400(struct Manager_1aa2a0 *m);
     void FUN_000990d0(int a, int b, int c, int d, int e, int f);
-    void FUN_0009bf50(struct Manager_1aa2a0 *m, pure3d::Camera *cam);
+    void FUN_0009bf50(struct Manager_1aa2a0 *m, pure3d::Camera_1aa2a0 *cam);
 };
 
 struct Ent_1aa2a0 {
@@ -70,7 +68,6 @@ struct Ent_1aa2a0 {
 };
 
 struct EntList_1aa2a0 {
-    Ent_1aa2a0 *FUN_00086290();
 };
 
 struct Manager_1aa2a0 {
@@ -87,8 +84,8 @@ public:
     char pad00[0x1c];
     Owner_1aa2a0 *owner;
     char pad20[4];
-    pure3d::CameraAnimationController *controller;
-    pure3d::Camera *camera;
+    pure3d::CameraAnimationController_1aa2a0 *controller;
+    pure3d::Camera_1aa2a0 *camera;
     char pad2c[0x20c - 0x2c];
     Registry_1aa2a0 *registry;
     char pad210[4];
@@ -108,29 +105,29 @@ void CameraRig::FUN_001aa2a0()
         idx = 0;
     else
         idx = owner->f54;
-    content::LoadInventory *inv = registry->FUN_00203d60(idx);
+    content::LoadInventory_1aa2a0 *inv = ((content :: LoadInventory_1aa2a0 *)((owners::C_203d60 *)registry)->FUN_00203d60(idx));
 
     Cursor_1aa2a0 it;
     it.FUN_002314a0(inv->f0c);
     it.c = inv;
-    core::IRefCount *e = it.FUN_00231640();
-    pure3d::CameraAnimationController *cc = dynamic_cast<pure3d::CameraAnimationController *>(e);
+    core::IRefCount_1aa2a0 *e = it.FUN_00231640();
+    pure3d::CameraAnimationController_1aa2a0 *cc = dynamic_cast<pure3d::CameraAnimationController_1aa2a0 *>(e);
     if (cc != 0)
-        controller = (pure3d::CameraAnimationController *)e;
+        controller = (pure3d::CameraAnimationController_1aa2a0 *)e;
     else
-        controller = it.FUN_001a6e50();
+        controller = ((pure3d :: CameraAnimationController_1aa2a0 *)((owners::Obj_1a6e50 *)&it)->FUN_001a6e50());
 
     if (controller != 0) {
         controller->r0();
         camera = controller->FUN_00292f20();
     }
     if (camera == 0) {
-        camera = (pure3d::Camera *)inv->Find(content::LoadInventory::DynamicCaster<pure3d::Camera>(), FUN_002672f0("nis_camera", 0));
+        camera = (pure3d::Camera_1aa2a0 *)inv->Find(content::LoadInventory_1aa2a0::DynamicCaster<pure3d::Camera_1aa2a0>(), FUN_002672f0("nis_camera", 0));
         if (camera == 0) {
             Cursor_1aa2a0 it2;
             it2.FUN_002314a0(inv->f0c);
             it2.c = inv;
-            camera = it2.FUN_001a92e0();
+            camera = ((pure3d :: Camera_1aa2a0 *)((owners::Obj_1a92e0 *)&it2)->FUN_001a92e0());
         }
         FUN_001a55d0();
     }
@@ -142,5 +139,5 @@ void CameraRig::FUN_001aa2a0()
     Owner_1aa2a0 *o = owner;
     DAT_004dd700->scene->FUN_000990d0(o->f34, o->f38, o->f3c, o->f40, o->f44, o->f48);
     DAT_004dd700->scene->FUN_0009bf50(DAT_004dd700, camera);
-    DAT_004dd700->ents->FUN_00086290()->flag31 = 0;
+    ((Ent_1aa2a0 *)((owners::Obj_86290 *)(DAT_004dd700->ents))->FUN_00086290())->flag31 = 0;
 }

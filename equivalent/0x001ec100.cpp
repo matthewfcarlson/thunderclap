@@ -4,6 +4,7 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 static inline int strcmp_inline(const char *a, const char *b)
 {
     while (*a && *a == *b) {
@@ -22,8 +23,6 @@ static inline char *strcpy_inline(char *d, const char *s)
 
 struct Query_1ec100 {
     char data[0x44];
-    Query_1ec100 *FUN_001ef320();
-    void FUN_001ef350();
     void FUN_001ef370(const char *name);
 };
 struct Vec3_1ec100 { float x, y, z; };
@@ -41,7 +40,6 @@ struct Flags_1ec100 {
     bool FUN_00092de0(int v);
 };
 struct Singleton_4dd6ec {
-    Flags_1ec100 *FUN_00086340();
 };
 struct Logic_1ec100 {
     bool FUN_00027fc0(const char *a, const char *b);
@@ -51,7 +49,6 @@ struct Env_1ec100 {
     Logic_1ec100 *logic;            // 0x20
 };
 struct Lookup_1ec100 {
-    void *FUN_00086310();
 };
 struct Spawner_1ec100 {
     void FUN_001efe20(Query_1ec100 *q, Vec3_1ec100 *pos, const char *name, float radius);
@@ -84,7 +81,7 @@ void Handler_1ec100::FUN_001ec100(Entity *entity, const char *name)
     if (entity != 0 && entity->info != 0) {
         int i;
         for (i = 0; i < 0x40; i++) f.buf[i] = 0;
-        bool flag = DAT_004dd6ec->FUN_00086340()->FUN_00092de0(2);
+        bool flag = ((Flags_1ec100 *)((owners::A_86340 *)DAT_004dd6ec)->FUN_00086340())->FUN_00092de0(2);
         long long id = entity->info->FUN_000443c0();
         if ((int)(__int64)id == (*(int*)&DAT_004dc0e0) && (int)(__int64)(id >> 32) == (*(int*)((char*)&DAT_004dc0e0 + 4))) {
             if (!flag) {
@@ -99,15 +96,15 @@ void Handler_1ec100::FUN_001ec100(Entity *entity, const char *name)
                 return;
             }
         }
-        f.q.FUN_001ef320();
+        ((Query_1ec100 *)((owners::Obj_1ef320 *)&(f.q))->FUN_001ef320());
         f.q.FUN_001ef370("Objects");
         f.q.FUN_001ef370("Dialogue");
         f.q.FUN_001ef370(f.buf);
-        void *target = lookup->FUN_00086310();
+        void *target = ((void *)((owners::C_86310 *)lookup)->FUN_00086310());
         if (target != 0)
             FUN_001eb440(target, &f.q);
         if ((*(SpawnGlobals_1ec100**)&DAT_004e36d8)->enabled)
             (*(SpawnGlobals_1ec100**)&DAT_004e36d8)->spawner->FUN_001efe20(&f.q, &entity->pos, name, 100.0f);
-        f.q.FUN_001ef350();
+        ((owners::C_1ef350 *)&(f.q))->FUN_001ef350();
     }
 }

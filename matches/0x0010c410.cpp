@@ -1,11 +1,6 @@
-class Obj_10c410 {
-  public:
-    char pad[0x21];
-    char m;
-    unsigned char Fn(unsigned char x);
-};
+#include "gen/owners.h"
 
-unsigned char Obj_10c410::Fn(unsigned char x) {
+unsigned char owners::Obj_10c410::FUN_0010c410(unsigned char x) {
     m = x;
     return 1;
 }

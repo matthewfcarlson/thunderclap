@@ -1,13 +1,5 @@
-class X_231070 {
-  public:
-    unsigned count;
-    unsigned a;
-    unsigned b;
-    char pad[0x18 - 12];
-    unsigned* data;
-    void Clear();
-};
-void X_231070::Clear() {
+#include "gen/owners.h"
+void owners::X_231070::FUN_00231070() {
     unsigned i = 0;
     while (i < count) {
         data[i] = 0;

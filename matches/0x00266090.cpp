@@ -1,9 +1,4 @@
-class A_266090 {
-  public:
-    char pad[12];
-    int* p;
-    int f();
-};
-int A_266090::f() {
+#include "gen/owners.h"
+int owners::A_266090::FUN_00266090() {
     return p[1];
 }

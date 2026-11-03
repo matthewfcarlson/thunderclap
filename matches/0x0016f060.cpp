@@ -1,10 +1,5 @@
-class X_16f060 {
-  public:
-    char pad[0x58];
-    int value;
-    char SetX(int value);
-};
-char X_16f060::SetX(int value) {
+#include "gen/owners.h"
+char owners::X_16f060::FUN_0016f060(int value) {
     this->value = value;
     return 1;
 }

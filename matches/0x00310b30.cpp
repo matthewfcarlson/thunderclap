@@ -1,10 +1,10 @@
 // FUN_00310b30 @ 0x00310b30
+#include "gen/owners.h"
 struct Node {
     char pad00[8];
     int key;
     char pad0c[0x1c - 0xc];
     Node *next;
-    bool FUN_00309b20(Node *other);
 };
 
 class ArticulatedPhysicsObject_310b30 {
@@ -37,7 +37,7 @@ void ArticulatedPhysicsObject_310b30::FUN_00310b30(ArticulatedPhysicsObject_310b
         other = first;
     }
     while (cursor) {
-        if (cursor->FUN_00309b20(other))
+        if (((owners::Node_309b20 *)cursor)->FUN_00309b20((owners::Node_309b20 *)(Node *)other))
             return;
         cursor = cursor->next;
     }

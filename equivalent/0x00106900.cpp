@@ -2,8 +2,8 @@
 // FUN_00106900 @ 0x00106900
 // 0x00106900: register a new named entry (with a flag and a size) unless the name is already known
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "gen/owners.h"
 struct Name_106900 {
-    void FUN_0027b040(const char* s);
 };
 
 class CPatrolPath_106900 {
@@ -40,7 +40,7 @@ bool Registry_106900::Add(const char* name, char flag, int n)
     if (mem != 0)
         e = ((CPatrolPath_106900*)mem)->FUN_00106510(n);
     e->v0();
-    e->name.FUN_0027b040(name);
+    ((owners::Target_27b040 *)&(e->name))->FUN_0027b040((hulk_uintptr)name);
     e->flag = flag;
     FUN_001062d0(e);
     e->v1();

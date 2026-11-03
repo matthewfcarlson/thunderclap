@@ -1,9 +1,5 @@
-struct Obj_146a40 {
-    char pad[12];
-    int value;
-    unsigned char Set(int x);
-};
-unsigned char Obj_146a40::Set(int x) {
+#include "gen/owners.h"
+unsigned char owners::Obj_146a40::FUN_00146a40(int x) {
     value = x;
     return 1;
 }

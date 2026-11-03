@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_002804f0 @ 0x002804f0
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 
 struct Vec3_2804f0 {
@@ -11,9 +12,7 @@ struct Mat4_2804f0 {
     float m[16];
     void FUN_0022b980();
     void FUN_0022bec0(Vec3_2804f0 *dir, Vec3_2804f0 *up);
-    void FUN_0022be40(Vec3_2804f0 *pos);
     void FUN_0022be60(float x, float y, float z);
-    void FUN_0022ca90(Mat4_2804f0 *a, Mat4_2804f0 *b);
 };
 
 struct Slot_2804f0 {
@@ -56,14 +55,14 @@ int Holder_2804f0::FUN_002804f0(int id, Vec3_2804f0 *from, Vec3_2804f0 *to, int 
     up.y = 1.0f;
     up.z = 0.0f;
     look.FUN_0022bec0(&dir, &up);
-    look.FUN_0022be40(from);
+    ((owners::Target_22be40 *)&look)->FUN_0022be40((const int *)(Vec3_2804f0 *)from);
 
     Mat4_2804f0 scale;
     scale.FUN_0022b980();
     scale.FUN_0022be60(1.0f, 1.0f, (float)sqrt(lenSq));
 
     Mat4_2804f0 result;
-    result.FUN_0022ca90(&scale, &look);
+    ((owners::Matrix_22ca90 *)&result)->FUN_0022ca90((const owners::Matrix_22ca90 *)(Mat4_2804f0 *)(&scale), (const owners::Matrix_22ca90 *)(Mat4_2804f0 *)(&look));
     slots[i].matrix = result;
     slots[i].value = 1000.0f;
     return id;

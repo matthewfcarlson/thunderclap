@@ -1,8 +1,4 @@
-class O_12bd0 {
-  public:
-    char pad[0x38];
-    void* Get();
-};
-void* O_12bd0::Get() {
+#include "gen/owners.h"
+void* owners::O_12bd0::FUN_00012bd0() {
     return (char*)this + 0x38;
 }

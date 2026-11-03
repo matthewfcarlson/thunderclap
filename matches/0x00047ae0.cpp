@@ -1,11 +1,6 @@
-class O_47ae0 {
-  public:
-    char pad[0x18];
-    int mValue;
-    bool Fn(int x);
-};
+#include "gen/owners.h"
 
-bool O_47ae0::Fn(int x) {
+bool owners::O_47ae0::FUN_00047ae0(int x) {
     mValue = x;
     return true;
 }

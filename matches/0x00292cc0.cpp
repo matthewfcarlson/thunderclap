@@ -3,12 +3,12 @@
 // Screen-space scale of a point: projects the point through the view, then writes
 // (x, y) scale factors derived from the field of view and aspect ratio, and the depth.
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Vec3_292cc0 { float x, y, z; };
 struct Matrix { float m[16]; };
 
 struct Vec3Ops : Vec3_292cc0 {
-    void FUN_0022d240(const Vec3_292cc0 *in, const Matrix *matrix);
 };
 
 class Display {
@@ -44,7 +44,7 @@ void View::FUN_00292cc0(PosArg pos, Out *out)
         float a;
         Vec3Ops v;
     } fr;
-    fr.v.FUN_0022d240(pos.p, GetMatrix());
+    ((owners::C_22d240 *)&(fr.v))->FUN_0022d240((hulk_intptr)(const Vec3_292cc0 *)(pos.p), (hulk_intptr)(const Matrix *)(GetMatrix()));
     if (fr.v.z != 0.0f) {
         pos.f = 1.0f / fr.v.z;      // the argument slot is reused for 1/z
         GetFov(&fr.a, &fr.b);

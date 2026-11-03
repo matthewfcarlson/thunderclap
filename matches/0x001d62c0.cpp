@@ -1,9 +1,4 @@
-class Obj_1d62c0 {
-  public:
-    char pad[0x100];
-    unsigned char value;
-    unsigned char get();
-};
-unsigned char Obj_1d62c0::get() {
+#include "gen/owners.h"
+unsigned char owners::Obj_1d62c0::FUN_001d62c0() {
     return value;
 }

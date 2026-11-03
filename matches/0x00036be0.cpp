@@ -1,11 +1,11 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 class Builder {
   public:
     void Make(void*);
 };
 class Dest_36be0 {
   public:
-    void Send(int, void*);
 };
 class Obj_36be0 {
   public:
@@ -22,7 +22,7 @@ void Obj_36be0::Run(int arg) {
         Dest_36be0* p = (Dest_36be0*)(value + 0x58);
         if (p) {
             builder->Make(local);
-            p->Send(arg, local);
+            ((owners::C_fddf0 *)p)->FUN_000fddf0((void *)(hulk_uintptr)(int)arg, (unsigned *)local);
         }
     }
 }

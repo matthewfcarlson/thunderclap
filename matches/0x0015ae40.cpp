@@ -1,11 +1,6 @@
-class C_15ae40 {
-  public:
-    char pad[0x24];
-    float mVal;
-    char Fn(float x);
-};
+#include "gen/owners.h"
 
-char C_15ae40::Fn(float x) {
+char owners::C_15ae40::FUN_0015ae40(float x) {
     mVal = x * 0.0174532925f;
     return 1;
 }

@@ -3,6 +3,7 @@
 // FUN_001f4140 @ 0x001f4140
 #include "decls/data/game/global.h"
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Sound;
 struct Voice_1f4140 {
     char pad0[4];
@@ -12,15 +13,11 @@ struct Voice_1f4140 {
     int owner;              // 0x10
     char finished;          // 0x14
     void FUN_001f32b0(int id, bool flag, int vol);
-    int FUN_001f3370(void *state);
 };
 struct Names_1f4140 {
-    void FUN_001e9a90(const char *name, int len);
-    int FUN_001ea010(const char *group);
 };
 struct State_1f4140 {
     char pad[8];
-    void FUN_001f36e0();
 };
 struct ThisNote_001e8ac0 {
     void FUN_001e8ac0();
@@ -57,7 +54,7 @@ void Player_1f4140::FUN_001f4140(bool force)
     }
     if (count >= 999) return;
     int r = FUN_001f31a0(&state);
-    int group = names->FUN_001ea010("front_end");
+    int group = ((owners::X_1ea010 *)names)->FUN_001ea010((hulk_intptr)"front_end");
     if (!force) {
         if (id != group) return;
     }
@@ -75,18 +72,18 @@ void Player_1f4140::FUN_001f4140(bool force)
     if (voice->sound != 0) {
         FUN_00247890(voice->sound, DAT_004c7df4 * gain * 0.01f);
     }
-    if (voice->FUN_001f3370(&fac) != 0) {
+    if (((owners::Obj_1f3370 *)voice)->FUN_001f3370((hulk_intptr)(&fac)) != 0) {
         f90 = count;
         if (voice->sound != 0) {
             if (!FUN_00249b40(voice->sound)) {
                 if (name != 0) {
                     if (*name != 0) {
-                        names->FUN_001e9a90(name, 0x32);
+                        ((owners::ThisWrap_001e9a90 *)names)->FUN_001e9a90((hulk_intptr)name, 0x32);
                         f94 = 1;
                     }
                 }
             }
         }
     }
-    state.FUN_001f36e0();
+    ((owners::Object_1f36e0 *)&state)->FUN_001f36e0();
 }

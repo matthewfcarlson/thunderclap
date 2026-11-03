@@ -1,17 +1,12 @@
 #include "compat/ptr.h"
 #include "gen/global.h"
+#include "gen/owners.h"
 typedef unsigned int uint;
 extern "C" void* __cdecl FUN_0008d690(uint);
 struct FEPoseAnimationInvisible_nv_f2740 {
     int make(void*, void*);
 };
-struct Y_f2740 {
-    int pad;
-    void* field;
-    void* slots[32];
-    hulk_intptr f(void*);
-};
-hulk_intptr Y_f2740::f(void* p) {
+hulk_intptr owners::Y_f2740::FUN_000f2740(void* p) {
     if (!field)
         return 0;
     FEPoseAnimationInvisible* x = (FEPoseAnimationInvisible*)FUN_0008d690(0x60);

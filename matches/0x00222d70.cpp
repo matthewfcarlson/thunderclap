@@ -1,15 +1,9 @@
-class Obj_222d70 {
-  public:
-    char pad[0x68];
-    unsigned count;
-    char rest[0x100];
-    bool FindSet(int key, int value);
-};
-bool Obj_222d70::FindSet(int key, int value) {
+#include "gen/owners.h"
+bool owners::Obj_222d70::FUN_00222d70(hulk_intptr key, int value) {
     unsigned i = 0;
     while (i < count) {
         int* p = (int*)((char*)this + 0x6c + i * 0x28);
-        if (*p == key) {
+        if (*p == ((int)key)) {
             p[8] = value;
             return true;
         }

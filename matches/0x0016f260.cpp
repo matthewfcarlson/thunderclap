@@ -1,11 +1,6 @@
-class X_16f260 {
-  public:
-    char pad[0x10];
-    int mValue;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char X_16f260::Set(int v) {
+char owners::X_16f260::FUN_0016f260(int v) {
     mValue = v;
     return 1;
 }

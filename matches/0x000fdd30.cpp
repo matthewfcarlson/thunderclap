@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 int __cdecl GetVal(int elem);
 
 class Other_fdd30 {
@@ -6,16 +7,9 @@ class Other_fdd30 {
     int Check(int v);
 };
 
-class Container_fdd30 {
-  public:
-    int FindSomething(hulk_intptr arg);
-    char pad[8];
-    int mCount;
-    int mArray[1];
-};
 
-int Container_fdd30::FindSomething(hulk_intptr arg) {
-    Other_fdd30* o = (Other_fdd30*)arg;
+hulk_intptr owners::Container_fdd30::FUN_000fdd30(hulk_intptr arg) {
+    Other_fdd30* o = (Other_fdd30*)((hulk_intptr)arg);
     int e;
     int i = 0;
     if (mCount > 0) {

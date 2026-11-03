@@ -1,9 +1,5 @@
-struct Thing {
-    char pad[0x44];
-    float value;
-    unsigned char Set(float angle);
-};
-unsigned char Thing::Set(float angle) {
+#include "gen/owners.h"
+unsigned char owners::Thing_17fac0::FUN_0017fac0(float angle) {
     value = angle * 0.0174532925f;
     return 1;
 }

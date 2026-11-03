@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2244 inputs, branch coverage 10/10)
 // FUN_000bf5c0 @ 0x000bf5c0
-class CUnlockable {
+#include "gen/owners.h"
+class CUnlockable_bf5c0 {
   public:
     virtual void v0();
 };
-class CUnlockableMove : public CUnlockable {
+class CUnlockableMove_bf5c0 : public CUnlockable_bf5c0 {
   public:
     char pad[4];
     char flag;
@@ -12,7 +13,6 @@ class CUnlockableMove : public CUnlockable {
 };
 class ItemTable_bf5c0 {
   public:
-    CUnlockable* FUN_00092ad0(int index);
 };
 struct Game_bf5c0 {
     char FUN_000be230(const char* cls, const char* msg, const char* title, const char* ok,
@@ -43,7 +43,7 @@ char Screen_bf5c0::FUN_000bf5c0(int lastRow) {
         const int* p = table[i];
         if (*p != -1) {
             do {
-                CUnlockableMove* m = dynamic_cast<CUnlockableMove*>(items->FUN_00092ad0(*p));
+                CUnlockableMove_bf5c0* m = dynamic_cast<CUnlockableMove_bf5c0*>(((CUnlockable_bf5c0 *)((owners::C_92ad0 *)items)->FUN_00092ad0((hulk_intptr)(*p))));
                 if (m) {
                     m->flag = 0;
                     m->FUN_00091f30(1);

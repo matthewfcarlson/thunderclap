@@ -1,8 +1,4 @@
-struct A_15acb0 {
-    char pad[0x68];
-    int* m;
-    int* Get();
-};
-int* A_15acb0::Get() {
+#include "gen/owners.h"
+int* owners::A_15acb0::FUN_0015acb0() {
     return (int*)((char*)this + 0x68);
 }

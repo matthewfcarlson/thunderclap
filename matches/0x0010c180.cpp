@@ -1,10 +1,5 @@
-class A_10c180 {
-  public:
-    char Pad[12];
-    int mVal;
-    char Fn(int x);
-};
-char A_10c180::Fn(int x) {
+#include "gen/owners.h"
+char owners::A_10c180::FUN_0010c180(int x) {
     mVal = x;
     return 1;
 }

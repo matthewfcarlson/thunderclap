@@ -1,9 +1,4 @@
-class Target_89a30 {
-    char pad[0xabd];
-
-  public:
-    void Set(unsigned char value);
-};
-void Target_89a30::Set(unsigned char value) {
+#include "gen/owners.h"
+void owners::Target_89a30::FUN_00089a30(unsigned char value) {
     *((unsigned char*)this + 0xabd) = value;
 }

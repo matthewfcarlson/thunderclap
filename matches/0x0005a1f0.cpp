@@ -1,11 +1,6 @@
-class Obj_5a1f0 {
-  public:
-    char pad[0x5c];
-    char m5c;
-    char Set(unsigned char x);
-};
+#include "gen/owners.h"
 
-char Obj_5a1f0::Set(unsigned char x) {
+char owners::Obj_5a1f0::FUN_0005a1f0(unsigned char x) {
     m5c = x;
     return 1;
 }

@@ -1,19 +1,8 @@
 #include "decls/data/game/global.h"
 // data: gZero_1c05d0 = DAT_003f32e0
+#include "gen/owners.h"
 
-class Obj_1c05d0 {
-  public:
-    float value;
-    void* ptr;
-    char pad08[4];
-    char active;
-    char up;
-    char pad0e[0x42];
-    int amount;
-    void Tick();
-    void Update(float a, float b);
-};
-void Obj_1c05d0::Update(float a, float b) {
+void owners::Obj_1c05d0::FUN_001c05d0(float a, float b) {
     if (!active || !ptr)
         return;
     if (value < DAT_003f32e0)

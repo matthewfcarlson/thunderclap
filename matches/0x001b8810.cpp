@@ -1,10 +1,4 @@
-class Obj_1b8810 {
-    char pad[0x33];
-
-  public:
-    unsigned char field;
-    unsigned char Get();
-};
-unsigned char Obj_1b8810::Get() {
+#include "gen/owners.h"
+unsigned char owners::Obj_1b8810::FUN_001b8810() {
     return field;
 }

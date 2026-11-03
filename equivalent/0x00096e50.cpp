@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 6/6)
 // FUN_00096e50 @ 0x00096e50
+#include "gen/owners.h"
 struct Id64_96e50 {
     unsigned int lo;
     unsigned int hi;
     void FUN_0027af00();
-    Id64_96e50* FUN_0027af10(unsigned int lo, unsigned int hi);
     void FUN_0027af30(Id64_96e50* src);
     void FUN_0027af50();
     void FUN_0027af70(Id64_96e50* src);
@@ -23,7 +23,7 @@ extern "C" Id64_96e50* FUN_00096e50(Id64_96e50* result, const char* text)
         Id64_96e50* parsed;
         if (text[0] == '0' && text[1] == 'x') {
             unsigned __int64 v = FUN_00096d80(text);
-            parsed = tmp.FUN_0027af10((unsigned int)v, (unsigned int)(v >> 32));
+            parsed = ((Id64_96e50 *)((owners::Pair_27af10 *)&tmp)->FUN_0027af10((unsigned int)v, (unsigned int)(v >> 32)));
         } else {
             parsed = tmp.FUN_0027b0e0(text);
         }

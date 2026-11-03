@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 8/8)
 // FUN_000e36c0 @ 0x000e36c0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
-struct Label { char pad[0x24]; void FUN_000f7960(); };
+#include "gen/owners.h"
+struct Label { char pad[0x24];  };
 void __cdecl thunk_FUN_00267090(void* p);
 struct Group {
     Label* items;
@@ -28,7 +29,7 @@ void HintList::FUN_000e36c0() {
             Label* p = e->items + n;
             for (int k = n; k > 0; k--) {
                 p--;
-                p->FUN_000f7960();
+                ((owners::Thing_f7960 *)p)->FUN_000f7960();
             }
             thunk_FUN_00267090(hdr);
             e->items = 0;

@@ -1,10 +1,5 @@
-class Obj_11c060 {
-  public:
-    char pad[0x28];
-    void* mVal;
-    bool Set(void* v);
-};
-bool Obj_11c060::Set(void* v) {
+#include "gen/owners.h"
+bool owners::Obj_11c060::FUN_0011c060(void* v) {
     mVal = v;
     return 1;
 }

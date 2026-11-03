@@ -1,5 +1,6 @@
 #include "decls/data/engine/fight.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
 extern "C" void* __cdecl thunk_FUN_0008d690(unsigned int);
 class Thing_24400 {
@@ -15,7 +16,6 @@ class LoadStream_24400 {
 };
 class Manager_24400 {
   public:
-    int Run(const char*, Thing_24400*, int);
 };
 extern "C" LoadStream_24400* gMaker;
 LoadStream_24400* gMaker;
@@ -34,7 +34,7 @@ int __stdcall FUN_00024400(int param, char skip) {
         p->B();
         return 0;
     }
-    result = (*(Manager_24400**)&DAT_004e5af8)->Run("fig0", p, 0);
+    result = ((owners::A_232b80 *)((*(Manager_24400**)&DAT_004e5af8)))->FUN_00232b80((hulk_intptr)"fig0", (hulk_intptr)(Thing_24400 *)p, 0);
     p->B();
     return result;
 }

@@ -1,7 +1,7 @@
 // Same code shape as 0x001d64a0 (propagated; names are from that function)
+#include "gen/owners.h"
 class B_1d6990 {
   public:
-    int G();
 };
 class A_1d6990 {
   public:
@@ -10,5 +10,5 @@ class A_1d6990 {
     int F();
 };
 int A_1d6990::F() {
-    return p->G();
+    return ((int)((owners::C_1d4e00 *)p)->FUN_001d4e00());
 }

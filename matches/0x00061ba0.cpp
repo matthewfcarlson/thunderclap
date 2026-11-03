@@ -1,11 +1,6 @@
-class Obj_61ba0 {
-  public:
-    char pad[0x24];
-    char mFlag;
-    char SetFlag(char v);
-};
+#include "gen/owners.h"
 
-char Obj_61ba0::SetFlag(char v) {
+char owners::Obj_61ba0::FUN_00061ba0(char v) {
     mFlag = v;
     return 1;
 }

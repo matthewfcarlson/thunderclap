@@ -5,6 +5,7 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/motion.h"
+#include "gen/owners.h"
 extern "C" int atexit(void (*)());
 extern "C" int __cdecl FUN_00267760(char *buf, int n, const char *fmt, ...);
 extern "C" int __cdecl FUN_0034483c();
@@ -15,8 +16,6 @@ struct Key {
     unsigned int lo, hi;
     void FUN_0027af00();
     void FUN_0027af50();
-    void FUN_0027af10(unsigned int lo, unsigned int hi);
-    void FUN_0027b040(const char *name);
     void FUN_0027b0e0(const char *name);
 };
 
@@ -25,13 +24,11 @@ struct V3_1966f0 {
     float FUN_0022d110();
     float FUN_00018990();
     char FUN_0022d2b0(V3_1966f0 *other, float eps);
-    void FUN_00011220(V3_1966f0 *v);
 };
 
 struct Mat_1966f0 {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022be40(V3_1966f0 *pos);
 };
 
 struct RefObj_1966f0 {
@@ -48,7 +45,6 @@ struct Ref4c : RefObj_1966f0 {
 struct Rng_1966f0 {
     unsigned int s0, s1;
     float FUN_00078780();
-    int FUN_00011380(int a, int b);
 };
 extern "C" Rng_1966f0 *__cdecl FUN_000964d0();
 
@@ -94,7 +90,6 @@ struct Other_1966f0 {
     void *f12c;
     char pad130[0x140 - 0x130];
     int f140;
-    void FUN_000356c0(V3_1966f0 *out);
     void FUN_00035550(V3_1966f0 *out);
 };
 struct Obj20 {
@@ -123,11 +118,8 @@ struct Pad_1966f0 {
     V3_1966f0 f1d54;
     unsigned int f1d60;
     unsigned int f1d64;
-    Ent_1966f0 *FUN_00035ef0(int i);
     void FUN_0003ffa0(Sub74 *s, int z);
     void FUN_00035550(V3_1966f0 *out);
-    void FUN_00035660(V3_1966f0 *out);
-    void FUN_00124500(V3_1966f0 *out);
 };
 
 struct Beam {
@@ -280,7 +272,7 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
         f84 = f1c->v7();
         if (!(f84 <= 0.0f)) {
             if (idx >= 0 && idx < 8) {
-                Ent_1966f0 *e = a->FUN_00035ef0(idx);
+                Ent_1966f0 *e = ((Ent_1966f0 *)((owners::C_35ef0 *)a)->FUN_00035ef0((hulk_intptr)idx));
                 if (e) {
                     if (!e->FUN_001d72e0() || e->FUN_001d72e0()->f74 == 0)
                         FUN_000188e0(f34, e);
@@ -303,7 +295,7 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
             DAT_004e16e4 = DAT_004e16e4 + 1;
             a->f10->FUN_00059a50(&f.p0);
             f.M.FUN_0022b980();
-            f.M.FUN_0022be40(&f.p0);
+            ((owners::Target_22be40 *)&(f.M))->FUN_0022be40((const int *)(V3_1966f0 *)(&f.p0));
             f.u1c.key.FUN_0027b0e0(f.buf);
             mg->FUN_001e43b0(&f.u1c.key, f1c->fc0, &f.M, 1);
             f.u1c.key.FUN_0027af50();
@@ -319,7 +311,7 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
                     (*(Key*)&DAT_004e16d8).FUN_0027af00();
                     atexit(FUN_00363fa0);
                 }
-                (*(Key*)&DAT_004e16d8).FUN_0027b040("invisible");
+                ((owners::Target_27b040 *)&((*(Key*)&DAT_004e16d8)))->FUN_0027b040((hulk_uintptr)"invisible");
                 f64->thunk_FUN_0027d410(((Key*)&DAT_004e16d8));
                 Sub74 *sub = f64->FUN_001d72e0();
                 if (sub) {
@@ -334,7 +326,7 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
                     }
                     f58 = f50->f08;
                     f5c = f50->f0c;
-                    f.u1c.key.FUN_0027af10(f58, f5c);
+                    ((owners::Pair_27af10 *)&(f.u1c.key))->FUN_0027af10(f58, f5c);
                     a->f1d60 = f.u1c.key.lo;
                     a->f1d64 = f.u1c.key.hi;
                     f.u1c.key.FUN_0027af50();
@@ -342,13 +334,13 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
                     a->FUN_0003ffa0(sub, 0);
                     f60 = sub;
                     a->FUN_00035550(&f.va);
-                    a->FUN_00035660(&f.vb);
+                    ((owners::C_35660 *)a)->FUN_00035660((int *)(V3_1966f0 *)(&f.vb));
                     f.vb.FUN_0022d110();
                     f.va.FUN_0022d110();
                     Rng_1966f0 *rng = FUN_000964d0();
                     f90 = -1;
                     if (f50) {
-                        a->FUN_00124500(&f.vc);
+                        ((owners::X_124500 *)a)->FUN_00124500((int *)(V3_1966f0 *)(&f.vc));
                         if (FUN_00065870(&f.vc, &f24)) {
                             f.vd = f.vc;
                         } else {
@@ -365,7 +357,7 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
                         if (bm->bf0) {
                             f.m44 = bm->ff4;
                             if (bm->bfc) {
-                                if (FUN_000964d0()->FUN_00011380(0, 1) != 1) {
+                                if (((owners::Random_11380 *)(FUN_000964d0()))->FUN_00011380(0, 1) != 1) {
                                     f90 = 1;
                                     f.m44 = f.m44 * -1.0f;
                                 } else {
@@ -390,7 +382,7 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
                         char onPath = FUN_00065870(bm->FUN_00192bb0((V3_1966f0 *)f.arr), &f24);
                         Beam *cur = f1c;
                         if (onPath) {
-                            f.w.FUN_00011220(cur->FUN_00192bb0((V3_1966f0 *)f.arr));
+                            ((owners::Vec3_11220 *)&(f.w))->FUN_00011220((const owners::Vec3_11220 *)(V3_1966f0 *)(cur->FUN_00192bb0((V3_1966f0 *)f.arr)));
                         } else if (FUN_00065870(cur->FUN_00192c70((V3_1966f0 *)f.arr), &f24)) {
                             f1c->FUN_00192ea0(&f.delta);
                             if (f50) {
@@ -483,7 +475,7 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
                                 f.delta.x = 0.0f;
                                 f.delta.y = 0.0f;
                                 f.delta.z = 0.0f;
-                                tg->FUN_000356c0(&f.delta);
+                                ((owners::Thing_356c0 *)tg)->FUN_000356c0((unsigned int *)(V3_1966f0 *)(&f.delta));
                                 f.u1c.len = f.delta.FUN_0022d110();
                                 if (f.u1c.len <= 0.0f)
                                     tg->FUN_00035550(&f.delta);

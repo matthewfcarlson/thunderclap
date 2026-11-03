@@ -3,9 +3,10 @@
 // FUN_001aa150 @ 0x001aa150
 #include "compat/ptr.h"
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Placement_1aa150;
 namespace core {
-struct IRefCount {
+struct IRefCount_1aa150 {
     virtual void r0();
     virtual void r1();
     virtual void r2();
@@ -14,15 +15,15 @@ struct IRefCount {
 
 namespace pure3d {
 namespace scenegraph {
-class Scenegraph : public core::IRefCount {
+class Scenegraph_1aa150 : public core::IRefCount_1aa150 {
 public:
     virtual void s3();
 };
-class Node : public core::IRefCount {
+class Node_1aa150 : public core::IRefCount_1aa150 {
 public:
     virtual void n3();
 };
-class TransformNode : public Node {
+class TransformNode_1aa150 : public Node_1aa150 {
 public:
     virtual void t4();
     Placement_1aa150 *FUN_001a4990();
@@ -39,16 +40,13 @@ struct Vec3_1aa150 {
 struct Transform_1aa150 {
     char data[0x40];
     void FUN_0022b980();
-    void FUN_0022be40(const Vec3_1aa150 *pos);
-    void FUN_0022ba70(float v);
 };
 
 struct Placement_1aa150 {
-    void FUN_00098380(const Transform_1aa150 *xf);
 };
 
 // Anything the controller can track; slot 9 is called on it.
-class Entity : public core::IRefCount {
+class Entity : public core::IRefCount_1aa150 {
 public:
     virtual void e3();
     virtual void e4();
@@ -74,7 +72,7 @@ public:
     virtual void q9();
     virtual void q10();
     virtual int q11();
-    virtual Node *q12(int a);
+    virtual Node_1aa150 *q12(int a);
 };
 
 struct Cursor_1aa150 {
@@ -83,7 +81,6 @@ struct Cursor_1aa150 {
     void *c;
     void FUN_002314a0(unsigned int v);
     Entity *FUN_00231640();
-    Entity *FUN_001a6e10();
 };
 
 struct Inner_1aa150 {
@@ -92,7 +89,6 @@ struct Inner_1aa150 {
 };
 
 struct Registry_1aa150 {
-    Inner_1aa150 *FUN_00203d60(int index);
 };
 
 struct Owner_1aa150 {
@@ -107,7 +103,6 @@ struct Finish_1aa150 {
 };
 
 struct Handle_1aa150 {
-    Finish_1aa150 *FUN_00086290();
 };
 
 struct World {
@@ -145,32 +140,32 @@ void Controller_1aa150::FUN_001aa150()
         idx = 0;
     else
         idx = owner->f54;
-    Inner_1aa150 *inner = registry->FUN_00203d60(idx);
+    Inner_1aa150 *inner = ((Inner_1aa150 *)((owners::C_203d60 *)registry)->FUN_00203d60(idx));
     fr.it.FUN_002314a0(inner->f0c);
     fr.it.c = inner;
     Entity *e = fr.it.FUN_00231640();
-    core::IRefCount *r = e;
-    if (dynamic_cast<Scenegraph *>(r) != 0)
+    core::IRefCount_1aa150 *r = e;
+    if (dynamic_cast<Scenegraph_1aa150 *>(r) != 0)
         entity = e;
     else
-        entity = fr.it.FUN_001a6e10();
+        entity = ((Entity *)((owners::Owner_1a6e10 *)&(fr.it))->FUN_001a6e10());
     if (entity != 0) {
         entity->e9();
         Sequence *seq = entity->FUN_002961d0();
         if (seq != 0 && seq->q11() != 0) {
-            Node *n = seq->q12(0);
-            TransformNode *tn = dynamic_cast<TransformNode *>(n);
+            Node_1aa150 *n = seq->q12(0);
+            TransformNode_1aa150 *tn = dynamic_cast<TransformNode_1aa150 *>(n);
             if (tn != 0) {
                 FUN_001a54a0(&fr.out1, &fr.extra);
                 fr.f = owner->f2c;
                 fr.xf.FUN_0022b980();
-                fr.xf.FUN_0022be40(&fr.out1);
-                fr.xf.FUN_0022ba70(fr.f + fr.extra);
+                ((owners::Target_22be40 *)&(fr.xf))->FUN_0022be40((const int *)(const Vec3_1aa150 *)(&fr.out1));
+                ((owners::Mat_22ba70 *)&(fr.xf))->FUN_0022ba70(fr.f + fr.extra);
                 const Transform_1aa150 * arg1_ = &fr.xf;
-                tn->FUN_001a4990()->FUN_00098380(arg1_);
+                ((owners::Obj_98380 *)(tn->FUN_001a4990()))->FUN_00098380((hulk_uintptr)(const Transform_1aa150 *)arg1_);
             }
         }
     }
     Entity * arg2_ = entity;
-    DAT_004dd700->handle->FUN_00086290()->FUN_001b92c0(arg2_);
+    ((Finish_1aa150 *)((owners::Obj_86290 *)(DAT_004dd700->handle))->FUN_00086290())->FUN_001b92c0(arg2_);
 }

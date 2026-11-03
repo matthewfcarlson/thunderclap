@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 94/94)
 // FUN_000cb870 @ 0x000cb870
+#include "gen/owners.h"
 class Iface_cb870 {
 public:
     virtual void v0();
@@ -27,13 +28,11 @@ public:
 
 struct Sub_cb870 {
     char data[0x34];
-    void FUN_000f7a10(int a, int b);
 };
 
 class Owner;
 
 struct Bits_cb870 {
-    void FUN_000d6dd0(void *who);
 };
 
 static inline void Drop(Iface_cb870 *&p)
@@ -109,7 +108,7 @@ public:
 
 void Resources_cb870::FUN_000cb870(Bits_cb870 *bits)
 {
-    sub54.FUN_000f7a10(-1, 0);
+    ((owners::Obj_f7a10 *)&sub54)->FUN_000f7a10((hulk_intptr)(-1), 0);
     Drop(r14);
     Drop(r18);
     Drop(r88);
@@ -167,5 +166,5 @@ void Resources_cb870::FUN_000cb870(Bits_cb870 *bits)
     Drop(r4b0);
     Drop(r4b4);
     Drop(r508);
-    bits->FUN_000d6dd0(this);
+    ((owners::Slots_d6dd0 *)bits)->FUN_000d6dd0((hulk_intptr)this);
 }

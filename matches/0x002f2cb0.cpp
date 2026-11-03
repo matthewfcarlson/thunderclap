@@ -1,11 +1,5 @@
-struct Obj_2f2cb0 {
-    int pad[3];
-    int data[509];
-    int end;
-    void finish();
-    void target();
-};
-void Obj_2f2cb0::target() {
+#include "gen/owners.h"
+void owners::Obj_2f2cb0::FUN_002f2cb0() {
     int* q = data;
     int n = 64;
     do {

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2938 inputs, branch coverage 11/11)
 // FUN_000b92f0 @ 0x000b92f0
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Label_b92f0 { void FUN_000f8500(const char*, int, int); };
 struct Item_b92f0 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); char pad[20]; Label_b92f0 label; };
@@ -14,7 +15,7 @@ extern "C" void __cdecl FUN_000fc2e0();
 void __cdecl FUN_000fc1a0();
 extern "C" unsigned int __cdecl FUN_00267f80();
 extern "C" void __cdecl FUN_000fc300();
-struct Renderer_b92f0 { char pad[0xd8]; int state; void FUN_0028f9a0(); void FUN_0028faf0(int); };
+struct Renderer_b92f0 { char pad[0xd8]; int state;  void FUN_0028faf0(int); };
 struct Scene_b92f0 { void FUN_00293ef0(); void FUN_00294080(); };
 struct Owner_b92f0 { char pad[0x20]; Scene_b92f0* scene; void target(int,int,int); };
 void Owner_b92f0::target(int a,int b,int flag) {
@@ -28,7 +29,7 @@ void Owner_b92f0::target(int a,int b,int flag) {
  if(FUN_000fc320()) FUN_000fc2e0();
  for(int i=0;i<3;++i) {
   (*(Renderer_b92f0**)&DAT_0052c2b4)->state=-1;
-  (*(Renderer_b92f0**)&DAT_0052c2b4)->FUN_0028f9a0();
+  ((owners::X_28f9a0 *)((*(Renderer_b92f0**)&DAT_0052c2b4)))->FUN_0028f9a0();
   scene->FUN_00293ef0();
   FUN_000fc1a0();
   scene->FUN_00294080();

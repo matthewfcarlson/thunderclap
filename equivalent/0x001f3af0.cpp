@@ -1,12 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19971 inputs, branch coverage 16/16)
 // FUN_001f3af0 @ 0x001f3af0
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 struct Item_1f3af0 { void FUN_001e8ac0(); };
 struct State_1f3af0 {
  char pad0[4]; void* handle; Item_1f3af0* item; char padC[8]; bool active;
- void FUN_001f3400(int);
  void FUN_001f32b0(Item_1f3af0*,int,int);
- void FUN_001f3370(void*);
 };
 struct Input_1f3af0 { char pad[0x6c]; float value; };
 extern bool __cdecl FUN_00249b40(void*);
@@ -22,7 +21,7 @@ bool Object::run(Item_1f3af0* item,void* arg,Input_1f3af0* input) {
  if (input->value > 75.0f) return false;
  if (state->item) {
   if (state->item != item) {
-   state->FUN_001f3400(250);
+   ((owners::Obj_1f3400 *)state)->FUN_001f3400(250);
    state->item->FUN_001e8ac0();
    state->item=0;
    FUN_0024af00(state->handle);
@@ -32,6 +31,6 @@ bool Object::run(Item_1f3af0* item,void* arg,Input_1f3af0* input) {
   }
  } else state->FUN_001f32b0(item,0,0);
  if(state->handle) FUN_00247890(state->handle,DAT_004c7df8 * scale * 0.01f);
- state->FUN_001f3370(arg);
+ ((owners::Obj_1f3370 *)state)->FUN_001f3370((hulk_intptr)arg);
  return true;
 }

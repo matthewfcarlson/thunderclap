@@ -1,13 +1,8 @@
-class X_146b80 {
-  public:
-    bool Set(float v);
-    char pad[0x34];
-    float angle;
-};
+#include "gen/owners.h"
 
 const float kScale_146b80 = 0.0174532924f;
 
-bool X_146b80::Set(float v) {
+bool owners::X_146b80::FUN_00146b80(float v) {
     angle = v * kScale_146b80;
     return true;
 }

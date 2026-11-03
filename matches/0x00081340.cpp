@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 extern "C" void _ReadWriteBarrier();
 extern void* gV[];
 class Ref_81340 {
@@ -15,8 +16,6 @@ class Plr {
   public:
     char pad[0x328];
     Ref_81340* m328;
-    CCivilian_81340* F36020();
-    CCivilian_81340* F36030();
     void F3b160(int);
     void F3b190(int);
     void F3ffa0(int, int);
@@ -59,9 +58,9 @@ CCivilian_81340::~CCivilian_81340() {
     if (pl) {
         Plr* p = pl->m124;
         if (p) {
-            if (p->F36020() == this)
+            if (((CCivilian_81340 *)((owners::Thing_36020 *)p)->FUN_00036020()) == this)
                 p->F3b160(0);
-            if (p->F36030() == this)
+            if (((CCivilian_81340 *)((owners::C_36030 *)p)->FUN_00036030()) == this)
                 p->F3b190(0);
             if (p->m328 == m100)
                 p->F3ffa0(0, 0);

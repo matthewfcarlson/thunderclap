@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3075 inputs, branch coverage 34/36, incomplete)
 // FUN_0024a9c0 @ 0x0024a9c0
 #include "decls/data/engine/audio.h"
+#include "gen/owners.h"
 
 extern "C" int __cdecl _sprintf(char *buf, const char *fmt, ...);
 
@@ -74,7 +75,6 @@ struct Ctx_24a9c0 {
 };
 
 struct Extra_24a9c0 {
-    Extra_24a9c0 *FUN_0025df40(Node *node, Z *z, Ctx_24a9c0 *ctx);
 };
 
 extern "C" unsigned int __cdecl FUN_002673a0(const char *s, int flag);
@@ -196,7 +196,7 @@ extern "C" void *FUN_0024a9c0(void * ctx_, void * y_)
     e->node = node;
     void *pool = FUN_00247530(FUN_0025d3d0());
     if (pool != 0)
-        e->extra = ((Extra_24a9c0 *)pool)->FUN_0025df40(node, y->z, ctx);
+        e->extra = ((Extra_24a9c0 *)((owners::Scheduler_25df40 *)(((Extra_24a9c0 *)pool)))->FUN_0025df40((hulk_intptr)(Node *)node, (hulk_intptr)(Z *)(y->z), (hulk_intptr)(Ctx_24a9c0 *)ctx));
     else
         e->extra = 0;
     y->count++;

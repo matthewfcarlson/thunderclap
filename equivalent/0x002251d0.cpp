@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 6630 inputs, branch coverage 6/6)
 // FUN_002251d0 @ 0x002251d0
+#include "gen/owners.h"
 struct Vec_2251d0 { float x,y,z; };
 // The single source fills a 16-byte vector (the real callee writes w = 1.0f after z).
 struct Vec4_2251d0 { float x,y,z,w; };
-struct Matrix { float m[16]; void FUN_0022c3b0(Vec_2251d0*,Vec_2251d0*); };
+struct Matrix { float m[16];  };
 struct Quat_2251d0 { float x,y,z,w; void FUN_0022b650(Matrix*); };
 extern "C" void __cdecl FUN_0022b080(float *, const float *, const float *);
 struct Input_2251d0 { Quat_2251d0* FUN_00221cd0(); Matrix* FUN_00221c40(); };
@@ -25,5 +26,5 @@ void AnimationDriver_2251d0::run(Input_2251d0* input, void* a, void* b, Vec_2251
   FUN_0022b080((float *)(Quat_2251d0 *)(&q),(const float *)(Quat_2251d0 *)(&q),(const float *)(Vec4_2251d0 *)(&v));
   q.FUN_0022b650(&matrix);
  } else matrix=*input->FUN_00221c40();
- matrix.FUN_0022c3b0(&offset,out);
+ ((owners::M_22c3b0 *)&matrix)->FUN_0022c3b0((float *)(Vec_2251d0 *)(&offset), (float *)(Vec_2251d0 *)out);
 }

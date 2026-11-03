@@ -1,13 +1,6 @@
-class Obj {
-  public:
-    char pad[0xac];
-    int a;
-    int b;
-    int c;
-    bool Set(int* p);
-};
+#include "gen/owners.h"
 
-bool Obj::Set(int* p) {
+bool owners::Obj_15b220::FUN_0015b220(int* p) {
     a = p[0];
     b = p[1];
     c = p[2];

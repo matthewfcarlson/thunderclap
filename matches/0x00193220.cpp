@@ -1,11 +1,6 @@
-class Obj_193220 {
-  public:
-    char pad[0x77];
-    char flag;
-    unsigned char Set(unsigned char v);
-};
+#include "gen/owners.h"
 
-unsigned char Obj_193220::Set(unsigned char v) {
+unsigned char owners::Obj_193220::FUN_00193220(unsigned char v) {
     flag = v;
     return 1;
 }

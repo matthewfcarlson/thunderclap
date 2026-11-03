@@ -1,7 +1,7 @@
+#include "gen/owners.h"
 class Item_1c2870 {
   public:
     char pad[16];
-    bool Check(int);
 };
 class Container_1c2870 {
   public:
@@ -12,7 +12,7 @@ class Container_1c2870 {
 bool Container_1c2870::Find(int x) {
     int i = count;
     while (--i >= 0) {
-        if (!items[i].Check(x))
+        if (!((owners::Plane_22e080 *)&(items[i]))->FUN_0022e080((const float *)(hulk_uintptr)(int)x))
             return false;
     }
     return true;

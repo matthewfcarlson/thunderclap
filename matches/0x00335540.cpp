@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Item {
     char pad[8];
     int kind;
@@ -5,7 +6,6 @@ struct Item {
 struct Manager {
     char pad[0x44];
     int count;
-    Item* Get(int);
 };
 class Obj {
   public:
@@ -19,7 +19,7 @@ bool Obj::Fetch(int index, int* out) {
         return false;
     if (index >= mgr->count)
         return false;
-    if (mgr->Get(index)->kind != 3)
+    if (((Item *)((owners::Thing_337090 *)mgr)->FUN_00337090(index))->kind != 3)
         return false;
     *out = values[index];
     return true;

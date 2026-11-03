@@ -4,6 +4,7 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 extern "C" int __cdecl sprintf(char *,const char *,...);
 struct Gfx {
 #define V(n) virtual void v##n();
@@ -20,7 +21,7 @@ V(80) V(81) V(82) V(83) V(84) V(85) V(86) V(87) V(88) V(89) V(90) V(91)
 };
 struct State { unsigned current, previous; };
 struct GameData { char pad0[16]; unsigned a,b,c,d; char pad1[24]; unsigned mode, extra; char pad2[8]; unsigned char active; };
-struct Subsystem { void FUN_0008db60(int); void *FUN_000b4cf0(const char*); void FUN_00093c40(const char*); void FUN_00089810(const char*); void FUN_000895e0(void*); void FUN_00089300(const char*); void FUN_001ec3d0(); void FUN_000afe80(); void FUN_001eb4e0(); void FUN_001eb4d0(); void FUN_001b83c0(); };
+struct Subsystem { void FUN_0008db60(int);  void FUN_00093c40(const char*); void FUN_00089810(const char*);  void FUN_00089300(const char*); void FUN_001ec3d0(); void FUN_000afe80(); void FUN_001eb4e0(); void FUN_001eb4d0();  };
 struct Main {
 unsigned unknown; State *state; GameData *data; char pad[12]; Subsystem *s18,*s1c,*s20; char pad2[12]; Subsystem *s30,*s34,*s38,*s3c;
 void FUN_000865d0(); void FUN_00086630(); void FUN_00086790(); void FUN_000872a0(); void update();
@@ -36,11 +37,11 @@ case 1:
 if((*(unsigned char*)&DAT_004dd8d0)) {
 if(((char*)&DAT_004dd890)[0]) {
 FUN_000865d0();
-void *item=s20->FUN_000b4cf0(((char*)&DAT_004dd890));
+void *item=((void *)((owners::NameTable_b4cf0 *)s20)->FUN_000b4cf0(((char*)&DAT_004dd890)));
 if(!item) { return; }
 s3c->FUN_00093c40(((char*)&DAT_004dd890));
 s38->FUN_00089810(((char*)&DAT_004dd890));
-s38->FUN_000895e0(item);
+((owners::LevelName_895e0 *)s38)->FUN_000895e0((const char *)item);
 s38->FUN_00089300("oneshot");
 } else { FUN_000865d0(); s38->FUN_00089810("C00M01"); s38->FUN_00089300("story"); }
 } else { FUN_000865d0(); sprintf(text[1],"Entering %s state\n","GS_FRONTEND"); }
@@ -50,7 +51,7 @@ case 3: sprintf(text[3],"Entering %s state\n","GS_PRESSSTART"); FUN_00086790(); 
 case 4: sprintf(text[4],"Entering %s state\n","GS_GAME"); s1c->FUN_0008db60(0); (*(unsigned char*)&DAT_004dd6f0)=0; data->active=0; data->mode=0x10000; data->extra=0; data->a=0; data->b=0; data->c=0; data->d=0; s30->FUN_001ec3d0(); break;
 case 5: sprintf(text[5],"Entering %s state\n","GS_POSTGAME"); FUN_000872a0(); break;
 case 6: sprintf(text[6],"Entering %s state\n","GS_PAUSE"); s18->FUN_000afe80(); s30->FUN_001eb4e0(); break;
-case 7: sprintf(text[7],"Entering %s state\n","GS_FMV"); (*(unsigned char*)&DAT_004dd6f0)=1; s30->FUN_001eb4d0(); s34->FUN_001b83c0(); break;
+case 7: sprintf(text[7],"Entering %s state\n","GS_FMV"); (*(unsigned char*)&DAT_004dd6f0)=1; s30->FUN_001eb4d0(); ((owners::Object_1b83c0 *)s34)->FUN_001b83c0(); break;
 case 8: sprintf(text[8],"Entering %s state\n","GS_QUIT"); break;
 }
 }

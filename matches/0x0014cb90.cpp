@@ -1,10 +1,6 @@
-struct T_14cb90 {
-    char pad[0x24];
-    int mVal;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool T_14cb90::Set(int v) {
+bool owners::T_14cb90::FUN_0014cb90(int v) {
     mVal = v;
     return true;
 }

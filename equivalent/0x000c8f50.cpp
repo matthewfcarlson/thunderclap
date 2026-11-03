@@ -1,20 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20037 inputs, branch coverage 17/18, incomplete)
 // FUN_000c8f50 @ 0x000c8f50
 #include "compat/ptr.h"
-class Obj {
-public:
-    void run(float target);
-    char p0[0x210];
-    float f210;
-    char p1[4];
-    float f218;
-    char p2[0x224 - 0x21c];
-    char c224;
-    char p3[0x2959 - 0x225];
-    char c2959;
-};
+#include "gen/owners.h"
 
-void Obj::run(float target)
+void owners::Obj_c8f50::FUN_000c8f50(float target)
 {
     hulk_freg d = target - f218;
     hulk_freg s;

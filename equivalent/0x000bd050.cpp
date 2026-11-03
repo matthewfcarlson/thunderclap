@@ -4,6 +4,7 @@
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 class Gfx {
   public:
     virtual void v0();
@@ -159,14 +160,9 @@ struct Canvas {
     void FUN_00293d40(float x, float y, float z);
     void FUN_00293da0(float x, float y, float z);
 };
-class MenuScreen_bd050 {
-  public:
-    void FUN_000bc900(char* out, int a, const char* name, int b);
-    void FUN_000bd050();
-};
 extern "C" TextManager_bd050* FUN_000fc3d0();
 
-void MenuScreen_bd050::FUN_000bd050() {
+void owners::MenuScreen_bd050::FUN_000bd050() {
     char text[0x200];
     int saved = DAT_0052c2a8->v25();
     DAT_0052c2a8->v24(2);

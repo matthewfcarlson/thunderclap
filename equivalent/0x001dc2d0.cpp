@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001dc2d0 @ 0x001dc2d0
+#include "gen/owners.h"
 struct Tracker_1dc2d0 {
     int FUN_001d5c70(int value);
 };
@@ -23,7 +24,6 @@ public:
     virtual void v14();
     virtual void v15();
     virtual void Play(int value, int mode);
-    void FUN_001d63b0(int handle);
 
     char pad04[0xe8];
     Tracker_1dc2d0 *tracker;   // +0xec
@@ -64,7 +64,7 @@ int Mixer::FUN_001dc2d0(int index, int value) {
         voice->player->Play(value, 1);
         int handle = voice->player->tracker->FUN_001d5c70(value);
         if (handle > 0) {
-            voice->player->FUN_001d63b0(handle);
+            ((owners::C_1d63b0 *)(voice->player))->FUN_001d63b0(handle);
         }
     } else {
         voice->value = (unsigned char)value;

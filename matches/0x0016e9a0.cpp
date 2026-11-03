@@ -1,11 +1,6 @@
-class Obj_16e9a0 {
-  public:
-    char SetX(int v);
-    char pad[0x64];
-    int m64;
-};
+#include "gen/owners.h"
 
-char Obj_16e9a0::SetX(int v) {
+char owners::Obj_16e9a0::FUN_0016e9a0(int v) {
     m64 = v;
     return 1;
 }

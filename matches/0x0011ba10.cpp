@@ -1,11 +1,6 @@
-class Obj_11ba10 {
-  public:
-    char pad[0x20];
-    int m20;
-    bool Set(int value);
-};
+#include "gen/owners.h"
 
-bool Obj_11ba10::Set(int value) {
+bool owners::Obj_11ba10::FUN_0011ba10(int value) {
     m20 = value;
     return true;
 }

@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 12/12)
 // FUN_00265280 @ 0x00265280
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Item_265280 {
     virtual void unused();
     virtual void release();
     void FUN_00266950(int);
 };
-struct Owner_265280 { void FUN_002666e0(); };
+struct Owner_265280 {  };
 struct Entry_265280 { Item_265280* item; unsigned value; };
 struct Queue_265280 {
     char pad0[8];
@@ -36,5 +37,5 @@ void Queue_265280::clear() {
             item->release();
         }
     }
-    if (owner) owner->FUN_002666e0();
+    if (owner) ((owners::C_2666e0 *)owner)->FUN_002666e0();
 }

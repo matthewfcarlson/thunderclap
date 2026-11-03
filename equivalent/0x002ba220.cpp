@@ -4,9 +4,9 @@
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Vec3_2ba220 {
     float x, y, z;
-    void FUN_0022d240(Vec3_2ba220 *v, void *matrix);
 };
 
 struct Matrix {
@@ -257,7 +257,7 @@ hulk_freg BillboardQuadGroup::FUN_002ba220()
     Scene_2ba220 *scene = (*(Camera**)&DAT_0052c2b4)->scene;
     Vec3_2ba220 tmp;
     void * tmp1 = (*(Camera**)&DAT_0052c2b4)->FUN_0028faa0();
-    tmp.FUN_0022d240(&pos70, tmp1);
+    ((owners::C_22d240 *)&tmp)->FUN_0022d240((hulk_intptr)(Vec3_2ba220 *)(&pos70), (hulk_intptr)tmp1);
     scene->FUN_002940d0(&tmp, &fr.out);
     hulk_freg r = fr.out.z * 0.01f;
     fr.x0 = fr.out.x - r;

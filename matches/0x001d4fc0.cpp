@@ -1,9 +1,4 @@
-class C_1d4fc0 {
-  public:
-    char pad[0x90];
-    unsigned int value;
-    unsigned int get();
-};
-unsigned int C_1d4fc0::get() {
+#include "gen/owners.h"
+hulk_uintptr owners::C_1d4fc0::FUN_001d4fc0() {
     return value;
 }

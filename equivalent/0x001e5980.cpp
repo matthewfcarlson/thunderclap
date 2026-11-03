@@ -2,6 +2,7 @@
 // FUN_001e5980 @ 0x001e5980
 #include "decls/address.h"
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct V3_1e5980 {
     float x, y, z;
 };
@@ -58,7 +59,6 @@ struct Link_1e5980 {
 
 struct Quat_1e5980 {
     float v[4];
-    void FUN_0022b370(Matrix *m);
 };
 
 struct Slot_1e5980 {
@@ -96,12 +96,9 @@ struct Entity {
     unsigned char flag144;          // 0x144
 
     int FUN_001d62c0();
-    void FUN_0027cf40(int a);
     char FUN_001d7300();
-    Link_1e5980 *FUN_001d72e0();
     float FUN_001d6cd0();
     void FUN_001d6770();
-    int FUN_001d6c70();
 };
 
 struct Pose {
@@ -180,7 +177,7 @@ void Manager_1e5980::FUN_001e5980(int idx)
 
     Entity *e = (Entity *)slot->slot;
     e->v0();
-    e->FUN_0027cf40(e->FUN_001d62c0());
+    ((owners::Owner_27cf40 *)e)->FUN_0027cf40(e->FUN_001d62c0());
 
     fr.found = false;
     bool first = true;
@@ -224,7 +221,7 @@ void Manager_1e5980::FUN_001e5980(int idx)
     bool noBlock;
     if (!e->FUN_001d7300())
         noBlock = true;
-    else if (!e->FUN_001d72e0()->holder->check())
+    else if (!((Link_1e5980 *)((owners::C_1d72e0 *)e)->FUN_001d72e0())->holder->check())
         noBlock = false;
     else
         noBlock = e->FUN_001d6cd0() <= 0.0f;
@@ -233,7 +230,7 @@ void Manager_1e5980::FUN_001e5980(int idx)
     if (e->flag144)
         ent->flagsHi |= 0x20;
 
-    fr.rot.FUN_0022b370(e->worldMatrix());
+    ((owners::Quat_22b370 *)&(fr.rot))->FUN_0022b370((const float *)(Matrix *)(e->worldMatrix()));
     slot->pose.FUN_001db780(&fr.rot);
 
     fr.pos = e->worldMatrix()->pos;
@@ -252,11 +249,11 @@ void Manager_1e5980::FUN_001e5980(int idx)
     if (fr.pos.y < DAT_004dd700->limits->maxY) {
         e->FUN_001d6770();
         FUN_001e5720(e);
-        FUN_001e5bc0(e->FUN_001d6c70());
+        FUN_001e5bc0(((owners::C_1d6c70 *)e)->FUN_001d6c70());
     }
     if (fr.found) {
         FUN_001e5720(e);
-        FUN_001e5bc0(e->FUN_001d6c70());
+        FUN_001e5bc0(((owners::C_1d6c70 *)e)->FUN_001d6c70());
     }
     e->v1();
 }

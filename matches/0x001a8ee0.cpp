@@ -1,11 +1,11 @@
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 struct Obj31 {
     char p[0x31];
     char f;
 };
 struct Mgr_1a8ee0 {
-    Obj31* Get();
 };
 struct Hnd {
     void Rel();
@@ -15,7 +15,6 @@ struct Ent_1a8ee0 {
     char f;
 };
 struct Hulk {
-    Ent_1a8ee0* Fn(int);
     void Fn2(int);
 };
 struct Sub_1a8ee0 {
@@ -34,7 +33,7 @@ struct NISAnimationAction_nv_1a8ee0 {
 };
 
 void hulkfight::scenario::NISAnimationAction::vfunc_4() {
-    g_1a8ee0->m->Get()->f = 1;
+    ((Obj31 *)((owners::Obj_86290 *)(g_1a8ee0->m))->FUN_00086290())->f = 1;
     ((NISAnimationAction_nv_1a8ee0*)this)->Inner();
     if (this->f_214) {
         (*(Hnd * *)&this->f_20c)->Rel();
@@ -42,7 +41,7 @@ void hulkfight::scenario::NISAnimationAction::vfunc_4() {
     }
     Hulk* x = g_1a8ee0->s->h;
     if (x) {
-        x->Fn(1)->f = 1;
+        ((Ent_1a8ee0 *)((owners::Obj_36a80 *)x)->FUN_00036a80(1))->f = 1;
         x->Fn2(0);
     }
 }

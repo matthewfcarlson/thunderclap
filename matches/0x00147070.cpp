@@ -1,10 +1,6 @@
-class Obj_147070 {
-  public:
-    char m[0x20];
-    char Set(void* x);
-};
+#include "gen/owners.h"
 
-char Obj_147070::Set(void* x) {
+char owners::Obj_147070::FUN_00147070(void* x) {
     *(void**)(m + 0x20) = x;
     return 1;
 }

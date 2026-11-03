@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 55 inputs, branch coverage 8/8)
 // FUN_00281fd0 @ 0x00281fd0
+#include "gen/owners.h"
 struct V3_281fd0 { float x, y, z; };
 struct V2_281fd0 { float x, y; };
 struct Tri_281fd0 {
@@ -20,7 +21,6 @@ struct Palette_281fd0 {
     Tri_281fd0* tris;
 };
 struct Xform_281fd0 {
-    void FUN_0022c2b0(V3_281fd0* in, V3_281fd0* out);
 };
 struct Ctx_281fd0 {
     char pad0[0x44];
@@ -42,7 +42,7 @@ void FUN_00281fd0(Ctx_281fd0* ctx, V2_281fd0* scale, Xform_281fd0* xf, int n, Tr
             V3_281fd0 p;
             V3_281fd0 q;
             ctx->FUN_001af890(&p, (*items)->idx[j]);
-            xf->FUN_0022c2b0(&p, &q);
+            ((owners::Mat_22c2b0 *)xf)->FUN_0022c2b0((float *)(V3_281fd0 *)(&p), (float *)(V3_281fd0 *)(&q));
             out->x = p.x + off.x;
             out->y = p.y + off.y;
             out->z = p.z + off.z;

@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 30/33, incomplete)
 // FUN_00083320 @ 0x00083320
 #include "decls/address.h"
+#include "gen/owners.h"
 struct Vec3_83320 {
     float x, y, z;
-    void FUN_00011220(Vec3_83320* delta);
 };
 
 // 4x4 transform; the last row is the translation
@@ -37,13 +37,11 @@ public:
     virtual void v13();
     virtual void v14();
     virtual Xform_83320* GetXform();      // slot 15
-    Part_83320* FUN_001d72e0();
     void FUN_001d7510();
     void FUN_001d6b60(Xform_83320 pose, int flag);
 };
 
 struct Registry_83320 {
-    Body_83320* FUN_001dc0d0(int id);
 };
 
 struct World {
@@ -75,7 +73,7 @@ void Mover_83320::FUN_00083320(Vec3_83320* anchor, Vec3_83320* dir, float scale,
 {
     b1c = 1;
     f28 = 0;
-    Body_83320* body = DAT_004dd700->registry->FUN_001dc0d0(id);
+    Body_83320* body = ((Body_83320 *)((owners::Obj_1dc0d0 *)(DAT_004dd700->registry))->FUN_001dc0d0((hulk_intptr)id));
     Xform_83320 pose = *body->GetXform();
 
     bool grounded = false;
@@ -87,7 +85,7 @@ void Mover_83320::FUN_00083320(Vec3_83320* anchor, Vec3_83320* dir, float scale,
         b.u &= 0x7fffffff;
         if (b.f <= 0.1f) {
             grounded = true;
-            if (body->FUN_001d72e0()->f6c == 0)
+            if (((Part_83320 *)((owners::C_1d72e0 *)body)->FUN_001d72e0())->f6c == 0)
                 pose.pos.y = anchor->y;
         }
     }
@@ -100,7 +98,7 @@ void Mover_83320::FUN_00083320(Vec3_83320* anchor, Vec3_83320* dir, float scale,
                 v.x = -(scale * dir->x);
                 v.y = 0.0f;
                 v.z = -(scale * dir->z);
-                pose.pos.FUN_00011220(&v);
+                ((owners::Vec3_11220 *)&(pose.pos))->FUN_00011220((const owners::Vec3_11220 *)(Vec3_83320 *)(&v));
                 state = 3;
                 f24 = 0.0f;
             }
@@ -111,7 +109,7 @@ void Mover_83320::FUN_00083320(Vec3_83320* anchor, Vec3_83320* dir, float scale,
                 v.x = -(scale * dir->x);
                 v.y = 0.0f;
                 v.z = -(scale * dir->z);
-                pose.pos.FUN_00011220(&v);
+                ((owners::Vec3_11220 *)&(pose.pos))->FUN_00011220((const owners::Vec3_11220 *)(Vec3_83320 *)(&v));
             }
             break;
         case 4:
@@ -120,7 +118,7 @@ void Mover_83320::FUN_00083320(Vec3_83320* anchor, Vec3_83320* dir, float scale,
                 v.x = -(scale * dir->x);
                 v.y = 0.0f;
                 v.z = -(scale * dir->z);
-                pose.pos.FUN_00011220(&v);
+                ((owners::Vec3_11220 *)&(pose.pos))->FUN_00011220((const owners::Vec3_11220 *)(Vec3_83320 *)(&v));
                 state = 1;
                 f24 = 0.0f;
             }
@@ -131,7 +129,7 @@ void Mover_83320::FUN_00083320(Vec3_83320* anchor, Vec3_83320* dir, float scale,
                     FUN_00082d30(&pose);
                     pose.pos.y = anchor->y;
                     vel.y = 0.0f;
-                    body->FUN_001d72e0()->FUN_002ef8b0(0);
+                    ((Part_83320 *)((owners::C_1d72e0 *)body)->FUN_001d72e0())->FUN_002ef8b0(0);
                     state = 8;
                     f24 = 0.0f;
                 } else {
@@ -148,6 +146,6 @@ void Mover_83320::FUN_00083320(Vec3_83320* anchor, Vec3_83320* dir, float scale,
         }
     }
 
-    if (body->FUN_001d72e0()->f6c == 0)
+    if (((Part_83320 *)((owners::C_1d72e0 *)body)->FUN_001d72e0())->f6c == 0)
         body->FUN_001d6b60(pose, 0);
 }

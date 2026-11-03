@@ -1,11 +1,6 @@
-class C_47b50 {
-  public:
-    char pad[0x18];
-    int mValue;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char C_47b50::Set(int v) {
+char owners::C_47b50::FUN_00047b50(int v) {
     mValue = v;
     return 1;
 }

@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class Callee {
   public:
-    void Fn(void*, void*, int, void*);
 };
 class Obj {
   public:
@@ -8,5 +8,5 @@ class Obj {
     Callee* ptr;
 };
 extern "C" void FUN_002469f0(Obj* o, void* a, void* b, void* c) {
-    o->ptr->Fn(a, b, 1, c);
+    ((owners::X_2647e0 *)(o->ptr))->FUN_002647e0((hulk_intptr)a, (hulk_intptr)b, 1, (hulk_intptr)c);
 }

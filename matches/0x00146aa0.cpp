@@ -1,11 +1,6 @@
-class Obj_146aa0 {
-  public:
-    char pad[0x1c];
-    int field;
-    bool f(int x);
-};
+#include "gen/owners.h"
 
-bool Obj_146aa0::f(int x) {
+bool owners::Obj_146aa0::FUN_00146aa0(int x) {
     field = x;
     return true;
 }

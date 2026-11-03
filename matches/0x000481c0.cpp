@@ -1,11 +1,6 @@
-class Obj_481c0 {
-  public:
-    char pad[12];
-    void* mObj;
-    bool Set(void* p);
-};
+#include "gen/owners.h"
 
-bool Obj_481c0::Set(void* p) {
+bool owners::Obj_481c0::FUN_000481c0(void* p) {
     mObj = p;
     return true;
 }

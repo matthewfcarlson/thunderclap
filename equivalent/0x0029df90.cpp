@@ -2,27 +2,28 @@
 // FUN_0029df90 @ 0x0029df90
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct V3 {
     float x, y, z;
 };
 
 namespace pure3d {
-class Entity {
+class Entity_29df90 {
 public:
     virtual void v0();
 };
 
-class Light : public Entity {
+class Light_29df90 : public Entity_29df90 {
 public:
     virtual void v1();
 };
 
-class DirectionalLight : public Light {
+class DirectionalLight_29df90 : public Light_29df90 {
 public:
     char pad04[0x13 - 4];
     char flag13;
     char pad14[0x68 - 0x14];
-    DirectionalLight *FUN_002a2e70();
+    DirectionalLight_29df90 *FUN_002a2e70();
     void FUN_002a07a0(unsigned int color);
     void FUN_002a2fc0(V3 *v);
 };
@@ -32,8 +33,8 @@ struct Group {
     char pad0[0x10];
     int size;                   // 0x10
     int count;                  // 0x14
-    pure3d::Light **items;      // 0x18
-    void FUN_002a0fc0(int index, pure3d::Light *light);
+    pure3d::Light_29df90 **items;      // 0x18
+    void FUN_002a0fc0(int index, pure3d::Light_29df90 *light);
 };
 
 struct Entry {
@@ -46,7 +47,6 @@ struct Entry {
 };
 
 struct Slots {
-    void FUN_002a1180(int n);
 };
 
 struct Table {
@@ -80,7 +80,7 @@ void Manager::FUN_0029df90(Group *group, Arg2 a2, Arg3 a3)
 {
     int count = group->count;
     table->FUN_0029c660();
-    table->slots->FUN_002a1180(count + 1);
+    ((owners::A_2a1180 *)(table->slots))->FUN_002a1180(count + 1);
     hulk_freg k = FUN_0029dcc0(a3.mode, 0x10);
     float *rgb = a2.rgb;
     hulk_freg a = rgb[0] < 0.0f ? rgb[0] : 0.0f;
@@ -116,14 +116,14 @@ void Manager::FUN_0029df90(Group *group, Arg2 a2, Arg3 a3)
             group->FUN_002a0fc0(i, 0);
             continue;
         }
-        pure3d::Light *item = 0;
+        pure3d::Light_29df90 *item = 0;
         if (i < group->size)
             item = group->items[i];
-        pure3d::DirectionalLight *light = dynamic_cast<pure3d::DirectionalLight *>(item);
+        pure3d::DirectionalLight_29df90 *light = dynamic_cast<pure3d::DirectionalLight_29df90 *>(item);
         if (light == 0) {
             void *mem = thunk_FUN_0008d690(0x68);
             if (mem != 0)
-                light = ((pure3d::DirectionalLight *)mem)->FUN_002a2e70();
+                light = ((pure3d::DirectionalLight_29df90 *)mem)->FUN_002a2e70();
             else
                 light = 0;
             group->FUN_002a0fc0(i, light);

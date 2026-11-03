@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 152 inputs, branch coverage 24/24)
 // pure3d::d3dReflShader::vfunc_14 @ 0x0032c520
 #include "decls/data/platform/xbox/pure3d.h"
+#include "gen/owners.h"
 
 namespace D3D8 {
 void __stdcall D3DDevice_SetRenderState_TextureFactor(unsigned int);
@@ -24,8 +25,6 @@ extern unsigned int DAT_0039dc58;
 extern unsigned int DAT_0039dc5c;
 extern unsigned int DAT_0039de18;
 struct StageCache_32c520 {
-    void FUN_00329e50(int a, int b, int c, int d);
-    void FUN_00329c90(int stage, int value);
     void FUN_0032a920(int a, int b, int c, int d, int e);
     void FUN_00329f70(int a, int b, const void* p);
     char pad0[0x18];
@@ -82,14 +81,14 @@ void d3dReflShader_32c520::vfunc_14(int) {
         cache->textureFactor = factor;
         D3D8::D3DDevice_SetRenderState_TextureFactor(factor);
     }
-    cache->FUN_00329e50(0, 4, 0, 2);
+    ((owners::Obj_329e50 *)cache)->FUN_00329e50(0, 4, 0, 2);
     if (cache->fe4 != 5) {
         cache->fe4 = 5;
         DAT_0039db08 |= 0x800;
         DAT_0039db60 = 5;
     }
     FUN_0032a320(0, 0);
-    cache->FUN_00329e50(1, 4, 3, 2);
+    ((owners::Obj_329e50 *)cache)->FUN_00329e50(1, 4, 3, 2);
     if (cache->texCoordIndex[1] != 0x30000) {
         cache->texCoordIndex[1] = 0x30000;
         D3D8::D3DDevice_SetTextureState_TexCoordIndex(1, 0x30000);
@@ -107,7 +106,7 @@ void d3dReflShader_32c520::vfunc_14(int) {
         DAT_0039db10[1].v4 = t;
         DAT_0039db10[1].v8 = t;
     }
-    cache->FUN_00329c90(1, f44);
+    ((owners::Obj_329c90 *)cache)->FUN_00329c90(1, f44);
     if (cache->f6c != 0x12) {
         cache->f6c = 0x12;
         DAT_0039db08 |= 0x800;

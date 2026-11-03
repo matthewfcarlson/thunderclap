@@ -1,9 +1,5 @@
-struct Obj_193010 {
-    char pad[0x34];
-    int m34;
-    char Set(int v);
-};
-char Obj_193010::Set(int v) {
+#include "gen/owners.h"
+char owners::Obj_193010::FUN_00193010(int v) {
     m34 = v;
     return 1;
 }

@@ -2,6 +2,7 @@
 // hulkfight::motion::FlyingAttackAction::vfunc_5 @ 0x00135760
 #include "compat/ptr.h"
 #include "decls/data/game/hulkfight.h"
+#include "gen/owners.h"
 
 extern "C" double cos(double);
 
@@ -21,12 +22,10 @@ struct Matrix {
     float m[16];
     void FUN_0022b980();
     void FUN_0022baf0(V3_135760 *axis, float angle);
-    void FUN_0022c3b0(const V3_135760 *in, V3_135760 *out);
 };
 
 struct Xform_135760 {
     char data[0x54];
-    void FUN_0022be40(V3_135760 *v);
     void FUN_00222180(V3_135760 *v);
     void FUN_00221d20(float v);
 };
@@ -44,7 +43,6 @@ struct Stats_135760 {
     char pad1a8c[0x2064 - 0x1a8c];
     V3_135760 v2064;
     float f2070;
-    void FUN_000359c0(int n);
 };
 
 struct Fighter_135760 {
@@ -53,7 +51,6 @@ struct Fighter_135760 {
 };
 
 struct Holder_135760 {
-    Fighter_135760 *FUN_000592a0();
 };
 
 struct Config_135760 {
@@ -107,9 +104,9 @@ bool FlyingAttackAction::vfunc_5(int a, float dt)
     if (driver == 0)
         return false;
 
-    Fighter_135760 *fighter = holder->FUN_000592a0();
+    Fighter_135760 *fighter = ((Fighter_135760 *)((owners::Object_592a0 *)holder)->FUN_000592a0());
     Stats_135760 *stats = fighter->FUN_00059a30();
-    stats->FUN_000359c0(3);
+    ((owners::C_359c0 *)stats)->FUN_000359c0(3);
     fr.vel.x = 0.0f;
     fr.vel.y = 0.0f;
     fr.vel.z = 0.0f;
@@ -156,7 +153,7 @@ bool FlyingAttackAction::vfunc_5(int a, float dt)
                 if (fr.w.FUN_000111f0() > 0.0f) {
                     fr.m.FUN_0022b980();
                     fr.m.FUN_0022baf0(&fr.w, fr.acc);
-                    fr.m.FUN_0022c3b0(&dir, &dir);
+                    ((owners::M_22c3b0 *)&(fr.m))->FUN_0022c3b0((float *)(const V3_135760 *)(&dir), (float *)(V3_135760 *)(&dir));
                 }
             }
         }
@@ -193,12 +190,12 @@ bool FlyingAttackAction::vfunc_5(int a, float dt)
                 fr.m.FUN_0022b980();
                 fr.m.FUN_0022baf0(&fr.w2, fr.acc);
                 fr.w = dir;
-                fr.m.FUN_0022c3b0(&fr.w, &dir);
+                ((owners::M_22c3b0 *)&(fr.m))->FUN_0022c3b0((float *)(const V3_135760 *)(&fr.w), (float *)(V3_135760 *)(&dir));
             }
         }
     }
 
-    driver->xform.FUN_0022be40(&fr.vel);
+    ((owners::Target_22be40 *)&(driver->xform))->FUN_0022be40((const int *)(V3_135760 *)(&fr.vel));
     if (cfg->flag30)
         driver->xform.FUN_00222180(&dir);
     else

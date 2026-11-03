@@ -1,10 +1,6 @@
-class X_193340 {
-  public:
-    char field[0x94];
-    char f(char value);
-};
+#include "gen/owners.h"
 
-char X_193340::f(char value) {
+char owners::X_193340::FUN_00193340(char value) {
     field[0x94] = value;
     return 1;
 }

@@ -2,6 +2,7 @@
 // FUN_001e9960 @ 0x001e9960
 // cl-flags: /GS
 #include "decls/address.h"
+#include "gen/owners.h"
 extern "C" char *strcpy(char *, const char *);
 extern "C" char *strcat(char *, const char *);
 
@@ -11,7 +12,6 @@ struct IdPair_1e9960 {
 };
 
 struct Resource_1e9960 {
-    IdPair_1e9960 *FUN_00243390();
 };
 
 struct Slot_1e9960 {
@@ -43,7 +43,7 @@ Slot_1e9960 *Registry_1e9960::FUN_001e9960(const char *name)
     for (int i = 0; i < count; i++) {
         if (slots[i]) {
             unsigned __int64 id = FUN_002672f0(fr.buf, 0, 0);
-            IdPair_1e9960 *found = slots[i]->resource->FUN_00243390();
+            IdPair_1e9960 *found = ((IdPair_1e9960 *)((owners::CFightParamsCollision_243390 *)(slots[i]->resource))->FUN_00243390());
             if (found->lo == (unsigned int)id && found->hi == (unsigned int)(id >> 32)) {
                 return self->slots[i];
             }

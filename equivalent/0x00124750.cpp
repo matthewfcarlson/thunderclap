@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 16/16)
 // hulkfight::ai::TargetTypeCondition::vfunc_6 @ 0x00124750
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 extern "C" char DAT_00494b44[];
 extern "C" char DAT_00494b60[];
@@ -21,7 +22,6 @@ struct Context_124750 {
 };
 
 struct Entity_124750 {
-    Context_124750* FUN_000592a0();
 };
 
 namespace hulkfight {
@@ -32,7 +32,7 @@ bool hulkfight::ai::TargetTypeCondition::vfunc_6(void* __p0, void* __p1, void* _
 
     if (!FUN_00344e74(entity, 0, DAT_00494b44, DAT_00494b60, 0))
         return false;
-    Kind_124750* target = entity->FUN_000592a0()->FUN_00059a30()->target;
+    Kind_124750* target = ((Context_124750 *)((owners::Object_592a0 *)entity)->FUN_000592a0())->FUN_00059a30()->target;
     if (!target)
         return false;
     int want;

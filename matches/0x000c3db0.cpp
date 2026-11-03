@@ -1,19 +1,18 @@
 // FUN_000c3db0 @ 0x000c3db0
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
-class CUnlockable {
+class CUnlockable_c3db0 {
   public:
     virtual void v0();
 };
-class CUnlockableGallery : public CUnlockable {
+class CUnlockableGallery_c3db0 : public CUnlockable_c3db0 {
   public:
     const char* FUN_00092320();
     const char* FUN_00092330();
-    void FUN_00092360(char flag);
 };
 class ItemTable_c3db0 {
   public:
-    CUnlockable* FUN_00092ad0(int index);
 };
 
 class Screen_c3db0 {
@@ -36,14 +35,14 @@ class Screen_c3db0 {
 };
 
 void Screen_c3db0::FUN_000c3db0() {
-    CUnlockableGallery* g = dynamic_cast<CUnlockableGallery*>(items->FUN_00092ad0(selected));
+    CUnlockableGallery_c3db0* g = dynamic_cast<CUnlockableGallery_c3db0*>(((CUnlockable_c3db0 *)((owners::C_92ad0 *)items)->FUN_00092ad0((hulk_intptr)selected)));
     if (g == 0)
         return;
     if (FUN_000c3900(g->FUN_00092330(), DAT_0049fb34, DAT_0049fb38, 1, g->FUN_00092320(), 0, 1000)) {
         flag1a04 = 0;
         flag1878 = 1;
         field10 = 0;
-        g->FUN_00092360(0);
+        ((owners::Target_92360 *)g)->FUN_00092360(0);
         FUN_000ba040();
         field1a08 = 0;
     }

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 28/28)
 // hulkfight::motion::HitThrowAction::vfunc_3 @ 0x00151fd0
 #include "decls/address.h"
+#include "gen/owners.h"
 struct V3_151fd0 {
     float x, y, z;
     float FUN_0022d110();
@@ -8,12 +9,10 @@ struct V3_151fd0 {
 
 struct Name_151fd0 {
     unsigned int lo, hi;
-    void FUN_0027b040(const char *s);
 };
 
 struct Xform_151fd0 {
     char data[0x54];
-    void FUN_0022be40(const V3_151fd0 *pos);
     void FUN_00221d20(float v);
 };
 
@@ -145,7 +144,7 @@ bool HitThrowAction::vfunc_3(int a, int b)
     else
         d = 0;
     driver = d;
-    d->name.FUN_0027b040("hitThrow");
+    ((owners::Target_27b040 *)&(d->name))->FUN_0027b040((hulk_uintptr)"hitThrow");
     int mode = 1;
     if (cfg->flag14) {
         mode = 3;
@@ -154,7 +153,7 @@ bool HitThrowAction::vfunc_3(int a, int b)
     }
     driver->mode = mode;
     driver->AddRef();
-    driver->xform.FUN_0022be40(&origin);
+    ((owners::Target_22be40 *)&(driver->xform))->FUN_0022be40((const int *)(const V3_151fd0 *)(&origin));
     body->FUN_00222890(driver, -1.0f, c20, 1.0f, c24, c28, -1.0f);
 
     handle = t->handle;

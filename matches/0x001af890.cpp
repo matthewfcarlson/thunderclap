@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct V {
     float x, y, z;
 };
@@ -6,7 +7,6 @@ struct M_1af890 {
     V* items;
 };
 struct S_1af890 {
-    void Xf(V* src, V* dst);
 };
 struct T_1af890 {
     char p0[0x44];
@@ -20,7 +20,7 @@ struct T_1af890 {
 V T_1af890::Get(unsigned short i) {
     if (flag) {
         V t;
-        sub.Xf(&mgr->items[i], &t);
+        ((owners::Mat_22c2b0 *)&sub)->FUN_0022c2b0((float *)(V *)(&mgr->items[i]), (float *)(V *)(&t));
         return t;
     }
     return mgr->items[i];

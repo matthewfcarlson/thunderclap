@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 4343 inputs, branch coverage 22/22)
 // FUN_00201850 @ 0x00201850
 // cl-flags: /GS
+#include "gen/owners.h"
 extern "C" void *memset(void *dst, int c, unsigned int n);
 
 class File {
@@ -9,7 +10,6 @@ public:
     virtual void vfunc_1();
     char pad04[8];
     char ok;
-    void FUN_002647e0(void *out, int a, int b, int c);
 };
 
 class Loader_201850 {
@@ -77,23 +77,23 @@ struct Frame_201850 {
 extern "C" void FUN_00201850(Loader_201850 *l, Ctx_201850 *ctx)
 {
     Frame_201850 f;
-    l->file->FUN_002647e0(&f.u18.a, 1, 4, 1);
-    l->file->FUN_002647e0(&f.u18.a, 1, 4, 1);
+    ((owners::X_2647e0 *)(l->file))->FUN_002647e0((hulk_intptr)(&f.u18.a), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(l->file))->FUN_002647e0((hulk_intptr)(&f.u18.a), (hulk_intptr)1, 4, (hulk_intptr)1);
     while (l->FUN_002669f0()) {
         int id = l->FUN_00266a30();
         if (id == 0x7016010) {
-            l->file->FUN_002647e0(&f.b2, 1, 4, 1);
+            ((owners::X_2647e0 *)(l->file))->FUN_002647e0((hulk_intptr)(&f.b2), (hulk_intptr)1, 4, (hulk_intptr)1);
             memset(f.buf2, 0, 0x100);
-            l->file->FUN_002647e0(&f.len2, 1, 1, 1);
+            ((owners::X_2647e0 *)(l->file))->FUN_002647e0((hulk_intptr)(&f.len2), (hulk_intptr)1, 1, (hulk_intptr)1);
             unsigned int len = f.len2;
-            l->file->FUN_002647e0(f.buf2, len, 1, 1);
+            ((owners::X_2647e0 *)(l->file))->FUN_002647e0((hulk_intptr)(f.buf2), (hulk_intptr)len, 1, (hulk_intptr)1);
             f.buf2[len] = 0;
             f.u18.h = FUN_00201780(f.buf2);
             if (f.u18.h >= 0) {
-                l->file->FUN_002647e0(&f.e2, 1, 4, 1);
+                ((owners::X_2647e0 *)(l->file))->FUN_002647e0((hulk_intptr)(&f.e2), (hulk_intptr)1, 4, (hulk_intptr)1);
                 unsigned int n = f.e2;
                 f.u1c.f2 = (unsigned short *)FUN_00266e00(1, n * 2);
-                l->file->FUN_002647e0(f.u1c.f2, n, 2, 1);
+                ((owners::X_2647e0 *)(l->file))->FUN_002647e0((hulk_intptr)(f.u1c.f2), (hulk_intptr)n, 2, (hulk_intptr)1);
                 f.c = 0;
                 if (n != 0) {
                     f.u14.mask = 1 << f.u18.h;
@@ -101,7 +101,7 @@ extern "C" void FUN_00201850(Loader_201850 *l, Ctx_201850 *ctx)
                         unsigned short v = f.u1c.f2[f.c];
                         Rec_201850 *r = &ctx->table->recs[v];
                         unsigned int bits = r->bits >> 3;
-                        l->file->FUN_002647e0(&f.flag, 1, 2, 1);
+                        ((owners::X_2647e0 *)(l->file))->FUN_002647e0((hulk_intptr)(&f.flag), (hulk_intptr)1, 2, (hulk_intptr)1);
                         if (f.flag != 0)
                             bits |= f.u14.mask;
                         else
@@ -113,25 +113,25 @@ extern "C" void FUN_00201850(Loader_201850 *l, Ctx_201850 *ctx)
                 FUN_00266f00(1, f.u1c.f2);
             }
         } else if (id == 0x7016012) {
-            l->file->FUN_002647e0(&f.b, 1, 4, 1);
+            ((owners::X_2647e0 *)(l->file))->FUN_002647e0((hulk_intptr)(&f.b), (hulk_intptr)1, 4, (hulk_intptr)1);
             memset(f.buf, 0, 0x100);
-            l->file->FUN_002647e0(&f.len1, 1, 1, 1);
+            ((owners::X_2647e0 *)(l->file))->FUN_002647e0((hulk_intptr)(&f.len1), (hulk_intptr)1, 1, (hulk_intptr)1);
             unsigned int len = f.len1;
-            l->file->FUN_002647e0(f.buf, len, 1, 1);
+            ((owners::X_2647e0 *)(l->file))->FUN_002647e0((hulk_intptr)(f.buf), (hulk_intptr)len, 1, (hulk_intptr)1);
             f.buf[len] = 0;
             f.u1c.d = -1;
             f.c = 0;
             if (FUN_002017d0(f.buf, &f.u1c.d, &f.c)) {
-                l->file->FUN_002647e0(&f.e, 1, 4, 1);
+                ((owners::X_2647e0 *)(l->file))->FUN_002647e0((hulk_intptr)(&f.e), (hulk_intptr)1, 4, (hulk_intptr)1);
                 unsigned int n = f.e;
                 unsigned short *list = (unsigned short *)FUN_00266e00(1, n * 2);
                 f.u14.f = list;
-                l->file->FUN_002647e0(list, n, 2, 1);
+                ((owners::X_2647e0 *)(l->file))->FUN_002647e0((hulk_intptr)list, (hulk_intptr)n, 2, (hulk_intptr)1);
                 unsigned int i = 0;
                 if (f.e != 0) {
                     f.u18.notC = ~f.c;
                     do {
-                        l->file->FUN_002647e0(&f.g, 1, 2, 1);
+                        ((owners::X_2647e0 *)(l->file))->FUN_002647e0((hulk_intptr)(&f.g), (hulk_intptr)1, 2, (hulk_intptr)1);
                         Rec_201850 *r = &ctx->table->recs[f.u14.f[i]];
                         unsigned int old = r->bits;
                         unsigned int val = ((f.g << f.u1c.d) & f.c) << 3;

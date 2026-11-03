@@ -2,14 +2,13 @@
 // FUN_000c8200 @ 0x000c8200
 // cl-flags: /GS
 #include "decls/address.h"
+#include "gen/owners.h"
 
 struct Vec3 { float x, y, z; };
 
 struct Matrix {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022be40(const Vec3 *pos);
-    void FUN_0022bc20(float x, float y, float z);
 };
 
 struct Key {
@@ -78,8 +77,8 @@ int Obj_c8200::FUN_000c8200(int a0, unsigned int *a1, float a2, float a3, float 
         f.tmp.y = a6 + a3;
         f.tmp.z = a7 + a4;
         f.m.FUN_0022b980();
-        f.m.FUN_0022be40(&f.tmp);
-        f.m.FUN_0022bc20(a8 * 0.0174532924f, a9 * 0.0174532924f, a10 * 0.0174532924f);
+        ((owners::Target_22be40 *)&(f.m))->FUN_0022be40((const int *)(const Vec3 *)(&f.tmp));
+        ((owners::Matrix_22bc20 *)&(f.m))->FUN_0022bc20(a8 * 0.0174532924f, a9 * 0.0174532924f, a10 * 0.0174532924f);
         Mgr *mgr = DAT_004dd700->mgr;
         s->f30 = mgr->FUN_001dd330(f.keyB.FUN_0027b0e0(f.name),
                                    f.keyA.FUN_0027b0e0("markerObjective_markerObjective"),

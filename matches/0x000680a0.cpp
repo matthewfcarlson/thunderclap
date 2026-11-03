@@ -1,11 +1,6 @@
-class Obj_680a0 {
-  public:
-    char pad[0x48];
-    int mValue;
-    char Fn(int v);
-};
+#include "gen/owners.h"
 
-char Obj_680a0::Fn(int v) {
+char owners::Obj_680a0::FUN_000680a0(int v) {
     mValue = v;
     return 1;
 }

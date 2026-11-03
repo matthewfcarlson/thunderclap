@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 2/2)
 // FUN_001d69f0 @ 0x001d69f0
+#include "gen/owners.h"
 struct V3_1d69f0 { float x, y, z; };
 
 struct Matrix {
-    void FUN_0022c2b0(V3_1d69f0 *in, V3_1d69f0 *out);
 };
 
 struct Bone_1d69f0 {
@@ -25,7 +25,7 @@ public:
     virtual BoneTable_1d69f0 *v11();
 };
 
-class BoneIndexer { public: int FUN_001d4f30(); };
+class BoneIndexer { public:  };
 
 class Skeleton {
 public:
@@ -48,11 +48,11 @@ void Skeleton::FUN_001d69f0(V3_1d69f0 *out)
     offset.x = 0.0f;
     offset.y = 0.75f;
     offset.z = 0.0f;
-    int bone = indexer->FUN_001d4f30();
+    int bone = ((owners::C_1d4f30 *)indexer)->FUN_001d4f30();
     if (bone != 0xffff) {
         BoneTable_1d69f0 *t = source->v11();
         *out = t->bones[bone].pos;
         return;
     }
-    v15()->FUN_0022c2b0(&offset, out);
+    ((owners::Mat_22c2b0 *)(v15()))->FUN_0022c2b0((float *)(V3_1d69f0 *)(&offset), (float *)(V3_1d69f0 *)out);
 }

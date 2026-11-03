@@ -1,13 +1,7 @@
+#include "gen/owners.h"
 extern int gFlags_329cf0;
 extern int gCache_329cf0[4096];
-class C_329cf0 {
-  public:
-    char pad[0x64];
-    int a[8];
-    int b[8];
-    void f(int index, int value1, int value2);
-};
-void C_329cf0::f(int index, int value1, int value2) {
+void owners::C_329cf0::FUN_00329cf0(int index, int value1, int value2) {
     if (a[index] != value1) {
         a[index] = value1;
         gFlags_329cf0 |= 0x800;

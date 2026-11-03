@@ -1,7 +1,4 @@
-class Obj_15ac60 {
-  public:
-    void* Get();
-};
-void* Obj_15ac60::Get() {
+#include "gen/owners.h"
+void* owners::Obj_15ac60::FUN_0015ac60() {
     return (char*)this + 0x40;
 }

@@ -1,4 +1,5 @@
 #include "gen/physics.h"
+#include "gen/owners.h"
 
 extern "C" void* ALLOC(int);
 extern int PhysicsJoint_vftable;
@@ -18,7 +19,6 @@ struct Obj_30d650 {
     Sub_30d650 s1;
     Sub_30d650 s2;
     char pad3[0xdc];
-    void Copy(void*);
 };
 
 class PhysicsJoint_30d650 {
@@ -67,7 +67,7 @@ void* physics::PhysicsJoint3D::vfunc_27() {
     } else {
         p = 0;
     }
-    p->Copy(this);
+    ((owners::Obj_30c8c0 *)p)->FUN_0030c8c0((owners::Obj_30c8c0 *)this);
     this->vfunc_28(p);
     return (void*)(p);
 }

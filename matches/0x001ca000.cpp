@@ -1,10 +1,6 @@
 #include "compat/ptr.h"
-class C_1ca000 {
-  public:
-    void helper(int, int, int);
-    hulk_intptr target(int, int);
-};
-hulk_intptr C_1ca000::target(int a, int b) {
-    helper(10, a, b);
+#include "gen/owners.h"
+hulk_intptr owners::C_1ca000::FUN_001ca000(hulk_intptr a, hulk_intptr b) {
+    helper(10, ((int)a), ((int)b));
     return (hulk_intptr)this;
 }

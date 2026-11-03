@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 22/22)
 // hulkfight::motion::PropStateByNameCondition::vfunc_6 @ 0x00183510
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 struct Mgr_183510;
 struct Actor_183510;
@@ -40,7 +41,6 @@ struct Actor_183510 {
 struct Player_183510 {
     char pad0[0x128];
     Actor_183510 *self;            // 0x128
-    Actor_183510 *FUN_00035ef0(int index);
 };
 
 struct Mgr_183510 {
@@ -64,7 +64,7 @@ bool hulkfight::motion::PropStateByNameCondition::vfunc_6(void* __p0, void* __p1
     } else {
         if (this->f_0c >= 8)
             return false;
-        actor = player->FUN_00035ef0(this->f_0c);
+        actor = ((Actor_183510 *)((owners::C_35ef0 *)player)->FUN_00035ef0((hulk_intptr)(this->f_0c)));
     }
     if (actor == 0)
         return false;

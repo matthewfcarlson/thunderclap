@@ -1,10 +1,10 @@
+#include "gen/owners.h"
 extern "C" int __cdecl _atexit(void (*)());
 struct Sound {
-    void Reg(const char*, int);
 };
 Sound gSound;
 void Handler() {}
 void Init() {
-    gSound.Reg("sound/rsd", 0);
+    ((owners::String_23fc40 *)&gSound)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
     _atexit(Handler);
 }

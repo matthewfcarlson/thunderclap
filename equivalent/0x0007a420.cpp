@@ -2,6 +2,7 @@
 // FUN_0007a420 @ 0x0007a420
 #include "decls/data/game/unknown.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct V3_7a420 {
     float x, y, z;
@@ -10,7 +11,6 @@ struct V3_7a420 {
 struct Rng_7a420 {
     unsigned int s0;
     unsigned int s1;
-    int FUN_00011330(int maxValue);
 };
 
 struct Cell_7a420 {
@@ -37,7 +37,6 @@ struct Probe_7a420 {
 struct Actor_7a420 {
     char pad00[0x10];
     Probe_7a420 *probe;
-    void FUN_00035660(V3_7a420 *out);
 };
 
 struct Ctx_7a420 {
@@ -85,7 +84,7 @@ char Grid_7a420::FUN_0007a420(int *outRow, int *outCol, int *outSlot, int *outFl
     fr.self = this;
     Actor_7a420 *actor = owner->ctx->actor;
     actor->probe->FUN_00059a50(&fr.A);
-    actor->FUN_00035660(&fr.B);
+    ((owners::C_35660 *)actor)->FUN_00035660((int *)(V3_7a420 *)(&fr.B));
 
     Rng_7a420 *r0 = (*(Rng_7a420**)&DAT_004e5acc);
     r0->s0 = (r0->s0 & 0xffff) * 0x9069 + (r0->s0 >> 16);
@@ -121,7 +120,7 @@ char Grid_7a420::FUN_0007a420(int *outRow, int *outCol, int *outSlot, int *outFl
                     int flag;
                     if (!(dot <= 0.0))
                         flag = 0;
-                    else if (FUN_000964d0()->FUN_00011330(1))
+                    else if (((int)((owners::Random_11330 *)(FUN_000964d0()))->FUN_00011330(1)))
                         flag = 1;
                     else
                         flag = 0;
@@ -133,7 +132,7 @@ char Grid_7a420::FUN_0007a420(int *outRow, int *outCol, int *outSlot, int *outFl
                     int flag;
                     if (!(dot <= 0.0))
                         flag = 1;
-                    else if (FUN_000964d0()->FUN_00011330(1))
+                    else if (((int)((owners::Random_11330 *)(FUN_000964d0()))->FUN_00011330(1)))
                         flag = 0;
                     else
                         flag = 1;

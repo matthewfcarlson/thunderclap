@@ -1,12 +1,6 @@
-class T_10c680 {
-  public:
-    char pad[8];
-    char gap[4];
-    int m_c;
-    bool Return(int a);
-};
+#include "gen/owners.h"
 
-bool T_10c680::Return(int a) {
+bool owners::T_10c680::FUN_0010c680(int a) {
     m_c = a;
     return true;
 }

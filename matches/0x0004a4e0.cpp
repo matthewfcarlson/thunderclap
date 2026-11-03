@@ -1,5 +1,6 @@
 // Same code shape as 0x0004a260 (propagated; names are from that function)
 #include "gen/global.h"
+#include "gen/owners.h"
 
 class CCondition_4a4e0 {
   public:
@@ -14,11 +15,10 @@ class CCondition_4a4e0 {
     virtual void v8(void*);
 };
 struct H {
-    H* first();
     void second();
 };
 
 void CAlertStatusCondition::vfunc_8(void* __p0) { void * p = (void *)__p0;
 
-    ((H*)p)->first()->second();
+    ((H *)((owners::Object_592a0 *)(((H*)p)))->FUN_000592a0())->second();
 }

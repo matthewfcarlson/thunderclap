@@ -1,11 +1,6 @@
-class A_77e70 {
-  public:
-    char pad[0x24];
-    int mField;
-    bool Set(int x);
-};
+#include "gen/owners.h"
 
-bool A_77e70::Set(int x) {
+bool owners::A_77e70::FUN_00077e70(int x) {
     mField = x;
     return true;
 }

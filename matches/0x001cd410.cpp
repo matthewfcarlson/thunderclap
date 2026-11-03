@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3034 inputs, branch coverage 24/24)
 // FUN_001cd410 @ 0x001cd410
 // cl-flags: /GS
+#include "gen/owners.h"
 extern "C" int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 
 struct Node { void FUN_001dcac0(); };
@@ -18,7 +19,7 @@ struct Target_1cd410 {
     char flag32;
     void FUN_001b9160(int v);
 };
-struct Part54_1cd410 { Target_1cd410 *FUN_00086290(); };
+struct Part54_1cd410 {  };
 struct Session_1cd410;
 struct Holder_1cd410 { void FUN_0009bc60(Session_1cd410 *s); };
 struct Session_1cd410 {
@@ -43,7 +44,7 @@ struct Session_1cd410 {
     Part54_1cd410 *p54;
 };
 struct Names_1cd410 { const char *FUN_0008a2d0(); };
-struct Singleton_1cd410 { void FUN_001d40b0(); };
+struct Singleton_1cd410 {  };
 extern Singleton_1cd410 *FUN_001d4c90();
 
 struct Controller_1cd410 {
@@ -82,14 +83,14 @@ void Controller_1cd410::FUN_001cd410() {
         session->p30->FUN_001cc230();
         session->p44->FUN_00059db0();
     }
-    if (session->p54 != 0 && session->p54->FUN_00086290() != 0) {
-        session->p54->FUN_00086290()->FUN_001b9160(0);
-        session->p54->FUN_00086290()->flag32 = 0;
+    if (session->p54 != 0 && ((Target_1cd410 *)((owners::Obj_86290 *)(session->p54))->FUN_00086290()) != 0) {
+        ((Target_1cd410 *)((owners::Obj_86290 *)(session->p54))->FUN_00086290())->FUN_001b9160(0);
+        ((Target_1cd410 *)((owners::Obj_86290 *)(session->p54))->FUN_00086290())->flag32 = 0;
     }
     Singleton_1cd410 *s = FUN_001d4c90();
     if (s != 0) {
         FUN_001cd220(0);
-        s->FUN_001d40b0();
+        ((owners::Obj_1d40b0 *)s)->FUN_001d40b0();
     }
     if (session != 0 && session->holder != 0)
         session->holder->FUN_0009bc60(session);

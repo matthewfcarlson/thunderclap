@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class Inner_292a10 {
   public:
-    void work(int, void*);
 };
 class Camera {
   public:
@@ -38,6 +38,6 @@ void Camera::f17(int arg) {
     char t[12];
     if (!flag)
         f26();
-    ((Inner_292a10*)((char*)this + 0x4c))->work(arg, t);
+    ((owners::Mat_22c2b0 *)(((Inner_292a10*)((char*)this + 0x4c))))->FUN_0022c2b0((float *)(hulk_uintptr)(int)arg, (float *)t);
     f15(t);
 }

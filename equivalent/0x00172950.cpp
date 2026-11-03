@@ -2,11 +2,12 @@
 // hulkfight::motion::SnapToGroundAction::vfunc_3 @ 0x00172950
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 struct Vec_172950 { float x,y,z; };
 struct Actor_172950;
 struct Entity_172950 { Actor_172950* FUN_00059a30(); void FUN_00059a50(Vec_172950*); };
-struct Handle_172950 { Entity_172950* FUN_000592a0(); };
+struct Handle_172950 {  };
 struct Actor_172950 {
  char pad[0x1a39];
  unsigned char grounded;
@@ -22,7 +23,7 @@ namespace hulkfight { namespace motion {
 }}
 bool hulkfight::motion::SnapToGroundAction::vfunc_3(hulk_intptr , hulk_intptr ) {
  if((*(Handle_172950 * *)&this->f_20)) {
- Entity_172950* entity=(*(Handle_172950 * *)&this->f_20)->FUN_000592a0();
+ Entity_172950* entity=((Entity_172950 *)((owners::Object_592a0 *)((*(Handle_172950 * *)&this->f_20)))->FUN_000592a0());
  if(entity) {
  Actor_172950* actor=entity->FUN_00059a30();
  if(actor) {

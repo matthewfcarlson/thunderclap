@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 14682 inputs, branch coverage 14/14)
 // FUN_000a8670 @ 0x000a8670
+#include "gen/owners.h"
 struct Matrix;
 
 struct Vec3_a8670 {
     float x, y, z;
     char FUN_0022d2b0(const Vec3_a8670 *other, float eps) const;
-    void FUN_0022d210(const Matrix *m);
 };
 
 class Curve_a8670 {
@@ -68,7 +68,7 @@ int PathSampler::FUN_000a8670(Vec3_a8670 *out, int count)
                     continue;
             }
             last = pos;
-            pos.FUN_0022d210(&transform);
+            ((owners::Obj_22d210 *)&pos)->FUN_0022d210((owners::Obj_22d210 *)(const Matrix *)(&transform));
             out[written] = pos;
             written++;
         }

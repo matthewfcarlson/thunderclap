@@ -1,11 +1,6 @@
-class C_12e220 {
-  public:
-    char pad[0x10];
-    int mValue;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool C_12e220::Set(int v) {
+bool owners::C_12e220::FUN_0012e220(int v) {
     mValue = v;
     return true;
 }

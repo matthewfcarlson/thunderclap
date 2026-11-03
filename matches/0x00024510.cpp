@@ -1,7 +1,7 @@
 // Same code shape as 0x000244e0 (propagated; names are from that function)
+#include "gen/owners.h"
 class Helper_24510 {
   public:
-    void Call(int);
 };
 class Owner_24510 {
   public:
@@ -21,7 +21,7 @@ void Outer_24510::run() {
     if (count > 0) {
         int* p = items;
         do {
-            mOwner->mHelper->Call(*p);
+            ((owners::ThisWrap_00059c10 *)(mOwner->mHelper))->FUN_00059c10((void *)(hulk_uintptr)(int)(*p));
             ++i;
             ++p;
         } while (i < count);

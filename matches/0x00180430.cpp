@@ -1,11 +1,6 @@
-class C_180430 {
-  public:
-    bool Set(int value);
-    char pad[12];
-    int mValue;
-};
+#include "gen/owners.h"
 
-bool C_180430::Set(int value) {
+bool owners::C_180430::FUN_00180430(int value) {
     mValue = value;
     return true;
 }

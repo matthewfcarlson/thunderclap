@@ -3,6 +3,7 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/scenario.h"
+#include "gen/owners.h"
 extern char DAT_0041cf24[];
 
 struct RefObj_1a8d10 {
@@ -13,7 +14,7 @@ struct SlotEntry_1a8d10 {
     char b0, b1, b2, b3;
     int v0, v1, v2, v3, v4;
 };
-struct Holder54_1a8d10 { int FUN_000862a0(); };
+struct Holder54_1a8d10 {  };
 struct World { char pad[0x54]; Holder54_1a8d10* holder; };
 
 struct NISAnimationAction;
@@ -59,7 +60,7 @@ NISAnimationAction* NISAnimationAction::FUN_001a8d10(int arg, RefObj_1a8d10* tar
     if (f20)
         f20->release();
     f20 = target;
-    f20c = DAT_004dd700->holder->FUN_000862a0();
+    f20c = ((int)((owners::Target_862a0 *)(DAT_004dd700->holder))->FUN_000862a0());
     (*(NISAnimationAction**)&DAT_004e1760) = this;
     return this;
 }

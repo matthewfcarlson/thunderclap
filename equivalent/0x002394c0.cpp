@@ -2,6 +2,7 @@
 // fight::ExecuteAction::vfunc_3 @ 0x002394c0
 // cl-flags: /GS
 #include "compat/ptr.h"
+#include "gen/owners.h"
 
 struct Item_2394c0 {
     char pad0[0xc];
@@ -53,7 +54,6 @@ struct Sub_2394c0 {
     void FUN_00232290(Item_2394c0 *item);
     void FUN_00232030(Owner_2394c0 *owner);
     void FUN_002322f0(int a, int b);
-    char FUN_00231ee0();
 };
 
 int __cdecl FUN_00238190(int n);
@@ -144,7 +144,7 @@ char ExecuteAction::FUN_002394c0(int a1, int a2)
     }
     sub.FUN_002322f0(field60, a2);
     done = 1;
-    char res = sub.FUN_00231ee0();
+    char res = ((char)((owners::C_231ee0 *)&sub)->FUN_00231ee0());
     FUN_00266da0(handle);
     return res;
 }

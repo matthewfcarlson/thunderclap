@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 373 inputs, branch coverage 11/12, incomplete)
 // FUN_00257b30 @ 0x00257b30
 #include "decls/data/engine/audio.h"
+#include "gen/owners.h"
 
-struct Text_257b30 { char data[12]; void FUN_0023fac0(); const char* FUN_0023fb00(); void FUN_00240060(); };
+struct Text_257b30 { char data[12]; void FUN_0023fac0(); const char* FUN_0023fb00();  };
 struct Entry_257b30 { char pad[16]; void* name; };
 struct List_257b30 { char opaque; };
 extern bool __cdecl FUN_0025abd0(void*, unsigned*);
@@ -23,7 +24,7 @@ bool Owner_257b30::target(void* input) {
   bool ok = FUN_0025bce0(input,&text);
   void** slot = &item->name;
   if (slot) *slot = FUN_002673a0(text.FUN_0023fb00(),0);
-  text.FUN_00240060();
+  ((owners::Str_240060 *)&text)->FUN_00240060();
   if (!ok) { FUN_00247550(((char*)&DAT_004e7690),item); return false; }
   FUN_00257780((List_257b30 *)(&list),(Entry_257b30 *)item,(const unsigned *)(void * *)slot);
  }

@@ -1,11 +1,11 @@
 // FUN_00313450 @ 0x00313450
+#include "gen/owners.h"
 extern "C" void *__cdecl memset(void *dst, int value, unsigned int n);
 
 struct Ids_313450 {
     short *table;                   // +0x2000 (relative to the owner)
     char enabled;                   // +0x2004
     char pad05[3];
-    int FUN_00312ed0(int count, int limit);
 };
 
 class Table_313450 {
@@ -35,5 +35,5 @@ int Table_313450::FUN_00313450(int count) {
         FUN_003130a0(param, count);
     }
     FUN_003132d0(param, count);
-    return ids.FUN_00312ed0(count, limit);
+    return ((owners::Groups_312ed0 *)&ids)->FUN_00312ed0(count, (short *)(hulk_uintptr)(int)limit);
 }

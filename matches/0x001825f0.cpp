@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 class A_1825f0 {
   public:
     char pad[0x14];
@@ -5,7 +6,6 @@ class A_1825f0 {
 };
 class Mid_1825f0 {
   public:
-    void* find(int);
 };
 class Obj_1825f0 {
   public:
@@ -13,12 +13,10 @@ class Obj_1825f0 {
 };
 class First_1825f0 {
   public:
-    Obj_1825f0* get();
 };
 class Entity {
   public:
     void trigger();
-    int value();
 };
 class Sink_1825f0 {
   public:
@@ -48,17 +46,17 @@ class BallAndChainShootAction_1825f0 {
 };
 void BallAndChainShootAction_1825f0::vfunc_4() {
     First_1825f0* f = first;
-    Obj_1825f0* o = f->get();
+    Obj_1825f0* o = ((Obj_1825f0 *)((owners::Object_592a0 *)f)->FUN_000592a0());
     Mid_1825f0* m = o->val();
     int x = a->x;
-    Entity* e = (Entity*)m->find(x);
+    Entity* e = (Entity*)((void *)((owners::C_35ef0 *)m)->FUN_00035ef0((hulk_intptr)x));
     if (e) {
         e->trigger();
         Sink_1825f0* root = gSink;
         if (root) {
             Sink_1825f0* s = (Sink_1825f0*)root->ptr;
             if (s)
-                s->send(e->value());
+                s->send(((int)((owners::C_1d72e0 *)e)->FUN_001d72e0()));
         }
     }
     End_1825f0* end = getEnd();

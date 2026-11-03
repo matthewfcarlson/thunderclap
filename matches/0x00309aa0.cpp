@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Vec_309aa0 {
     char p[4];
     float a;
@@ -6,7 +7,6 @@ struct Vec_309aa0 {
     float b;
     char r[4];
     float c;
-    void apply(float);
 };
 class PhysicsJoint_309aa0;
 struct Manager_309aa0 {
@@ -44,7 +44,7 @@ void PhysicsJoint_309aa0::v13(void* x, Vec_309aa0* y) {
     if (other)
         other->v13(x, y);
     if (limit > 1e-5f && flag) {
-        y->apply(1.0f - limit);
+        ((owners::X_2fcb80 *)y)->FUN_002fcb80(1.0f - limit);
         hulk_freg t = force * limit;
         y->a += t;
         y->b += t;

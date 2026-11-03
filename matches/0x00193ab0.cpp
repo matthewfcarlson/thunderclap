@@ -1,11 +1,6 @@
-class X_193ab0 {
-  public:
-    char pad[0x7c];
-    int m7c;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool X_193ab0::Set(int v) {
+bool owners::X_193ab0::FUN_00193ab0(int v) {
     m7c = v;
     return true;
 }

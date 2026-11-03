@@ -1,11 +1,6 @@
-class A_14d230 {
-  public:
-    char pad[12];
-    int mField;
-    char Set(int value);
-};
+#include "gen/owners.h"
 
-char A_14d230::Set(int value) {
+char owners::A_14d230::FUN_0014d230(int value) {
     mField = value;
     return 1;
 }

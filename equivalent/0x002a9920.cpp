@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 126 inputs, branch coverage 29/30, incomplete)
 // pure3d::BillboardQuadGroupAnimationController::vfunc_7 @ 0x002a9920
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 
 struct Vec3_2a9920 { float x, y, z; };
 
@@ -19,9 +20,6 @@ public:
     virtual void sampleVec3(float frame, Vec3_2a9920 *out);
     virtual void sampleRot(float frame, Vec3_2a9920 *out);
     void FUN_0028ac90(float frame, unsigned char *out);
-    void FUN_0028a1c0(float frame, Scalar_2a9920 *out);
-    void FUN_0028ad20(float frame, int *out);
-    void FUN_0028a0b0(float frame, unsigned int *out);
     void FUN_0028a2c0(float frame, int *out);
 };
 
@@ -30,7 +28,6 @@ struct ChannelSet_2a9920 {
 };
 
 struct Transform_2a9920 {
-    void FUN_0022be40(Vec3_2a9920 *v);
     void FUN_0022ba20(Vec3_2a9920 *v);
 };
 
@@ -98,7 +95,7 @@ void pure3d::BillboardQuadGroupAnimationController::vfunc_7() {
         c = cs->FUN_00288960(0x4e415254, 0x54434556);
         if (c != 0) {
             c->sampleVec3(this->f_34, &fr.v1);
-            item->xform.FUN_0022be40(&fr.v1);
+            ((owners::Target_22be40 *)&(item->xform))->FUN_0022be40((const int *)(Vec3_2a9920 *)(&fr.v1));
         }
         c = cs->FUN_00288960(0x544f52, 0x544f52);
         if (c != 0) {
@@ -107,27 +104,27 @@ void pure3d::BillboardQuadGroupAnimationController::vfunc_7() {
         }
         c = cs->FUN_00288960(0x544457, 0x31544c46);
         if (c != 0) {
-            c->FUN_0028a1c0(this->f_34, &fr.a);
+            ((owners::Curve_28a1c0 *)c)->FUN_0028a1c0(this->f_34, (float *)(Scalar_2a9920 *)(&fr.a));
             item->width = fr.a.f * 0.5f;
         }
         c = cs->FUN_00288960(0x544748, 0x31544c46);
         if (c != 0) {
-            c->FUN_0028a1c0(this->f_34, (Scalar_2a9920 *)&fr.f2);
+            ((owners::Curve_28a1c0 *)c)->FUN_0028a1c0(this->f_34, (float *)(Scalar_2a9920 *)((Scalar_2a9920 *)&fr.f2));
             item->height = fr.f2 * 0.5f;
         }
         c = cs->FUN_00288960(0x54534944, 0x31544c46);
         if (c != 0) {
-            c->FUN_0028a1c0(this->f_34, (Scalar_2a9920 *)&fr.i3);
+            ((owners::Curve_28a1c0 *)c)->FUN_0028a1c0(this->f_34, (float *)(Scalar_2a9920 *)((Scalar_2a9920 *)&fr.i3));
             item->dist.i = fr.i3;
         }
         c = cs->FUN_00288960(0x524c43, 0x524c43);
         if (c != 0) {
-            c->FUN_0028ad20(this->f_34, &fr.i4);
+            ((owners::Track_28ad20 *)c)->FUN_0028ad20(this->f_34, (unsigned int *)(&fr.i4));
             item->color = fr.i4;
         }
         c = cs->FUN_00288960(0x465346, 0x544e49);
         if (c != 0) {
-            c->FUN_0028a0b0(this->f_34, &fr.u5);
+            ((owners::Track_28a0b0 *)c)->FUN_0028a0b0(this->f_34, (int *)(&fr.u5));
             unsigned int lim = item->cur;
             if (fr.u5 <= lim)
                 lim = fr.u5;

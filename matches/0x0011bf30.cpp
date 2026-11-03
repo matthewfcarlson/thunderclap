@@ -1,11 +1,6 @@
-class Obj_11bf30 {
-  public:
-    char pad[0x20];
-    int mX;
-    char SetX(int v);
-};
+#include "gen/owners.h"
 
-char Obj_11bf30::SetX(int v) {
+char owners::Obj_11bf30::FUN_0011bf30(int v) {
     mX = v;
     return 1;
 }

@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Child_2edb90 {
     virtual void v0();
     virtual void v1();
@@ -24,7 +25,6 @@ struct Item_2edb90 {
     Child_2edb90* c;
 };
 struct Sub_2edb90 {
-    void Prep();
 };
 struct Vec_2edb90 {
     Item_2edb90** b;
@@ -41,7 +41,7 @@ struct T_2edb90 {
 };
 bool T_2edb90::Run(int a, int p) {
     bool r = false;
-    sub.Prep();
+    ((owners::Obj_3037e0 *)&sub)->FUN_003037e0();
     for (unsigned i = 0; i < v.size(); i++) {
         Child_2edb90* c = v[i]->c;
         if (c->GetType() == 4)

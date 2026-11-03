@@ -3,6 +3,7 @@
 // cl-flags: /GS
 #include "decls/data/engine/content.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 extern "C" char* __cdecl _strncpy(char* dst, const char* src, unsigned int n);
 
@@ -21,7 +22,6 @@ class Streamer {
 public:
     void FUN_00265810(char* name, Request** out);
     int FUN_00264870();
-    void FUN_00264860(int value);
 };
 
 class Inventory {
@@ -40,13 +40,8 @@ struct Frame {
     char flag;
 };
 
-class Loader {
-public:
-    void FUN_000bd1b0(int arg);
-    void FUN_000befc0(const char* name, int param, bool pump);
-};
 
-void Loader::FUN_000befc0(const char* name, int param, bool pump)
+void owners::Loader_befc0::FUN_000befc0(const char* name, int param, bool pump)
 {
     Frame fr;
     fr.inventory = (*(Inventory**)&DAT_004dd9cc);
@@ -61,13 +56,13 @@ void Loader::FUN_000befc0(const char* name, int param, bool pump)
     fr.param = param;
     (*(Streamer**)&DAT_00527c58)->FUN_00265810(fr.name, &fr.request);
     int saved = (*(Streamer**)&DAT_00527c58)->FUN_00264870();
-    (*(Streamer**)&DAT_00527c58)->FUN_00264860(250000);
+    ((owners::C_264860 *)((*(Streamer**)&DAT_00527c58)))->FUN_00264860(250000);
     while (!fr.request->FUN_00266750()) {
         FUN_00087990();
         if (pump)
             FUN_000bd1b0(0);
     }
-    (*(Streamer**)&DAT_00527c58)->FUN_00264860(saved);
+    ((owners::C_264860 *)((*(Streamer**)&DAT_00527c58)))->FUN_00264860(saved);
     (*(Inventory**)&DAT_004dd9cc)->FUN_00266220(fr.request->FUN_00266700());
     if (fr.request != 0)
         fr.request->Release();

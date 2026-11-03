@@ -1,12 +1,7 @@
 // cl-flags: /O1
-class Obj_14c4b0 {
-  public:
-    char pad[0x10];
-    int mValue;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool Obj_14c4b0::Set(int v) {
+bool owners::Obj_14c4b0::FUN_0014c4b0(int v) {
     mValue = v;
     return true;
 }

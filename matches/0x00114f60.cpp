@@ -1,9 +1,5 @@
-struct Obj_114f60 {
-    char pad[0x18];
-    int mFlag;
-    bool SetFlag(int v);
-};
-bool Obj_114f60::SetFlag(int v) {
+#include "gen/owners.h"
+bool owners::Obj_114f60::FUN_00114f60(int v) {
     mFlag = v;
     return true;
 }

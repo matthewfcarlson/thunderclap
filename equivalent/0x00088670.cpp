@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20023 inputs, branch coverage 34/34)
 // FUN_00088670 @ 0x00088670
 #include "gen/global.h"
+#include "gen/owners.h"
 struct Sim_88670;
 struct Cfg_88670 { char pad[0x2c]; int v2c; };
 struct Ctx_88670 {
@@ -13,7 +14,6 @@ struct CSimControllerManager_nv_88670 {
 };
 struct CCameraManager_nv_88670 {
     CCameraManager *FUN_0009dd20();
-    void FUN_00098e20(Ctx_88670 *c);
 };
 struct Sys10 { void FUN_001b3fc0(); };
 struct CSPManager_nv_88670 {
@@ -28,7 +28,7 @@ struct CPathManager_nv_88670 {
     CPathManager *FUN_001aec00();
     void FUN_001acd80();
 };
-struct F_88670 { F_88670 *FUN_00025a90(); void FUN_000243f0(Sim_88670 *s); };
+struct F_88670 { F_88670 *FUN_00025a90();  };
 struct CWorldCollisionManager_nv_88670 {
     CWorldCollisionManager *FUN_002023e0();
     void FUN_00203490();
@@ -43,13 +43,11 @@ struct CScenarioManager_nv_88670 {
 };
 struct CEventManager_nv_88670 {
     CEventManager *FUN_001cc360();
-    void FUN_001cb3f0(Sim_88670 *s);
 };
-struct K_88670 { K_88670 *FUN_001ebba0(Sim_88670 *s, Ctx_88670 *c); void FUN_001eebc0(); };
+struct K_88670 {  void FUN_001eebc0(); };
 struct L_88670 { L_88670 *FUN_001f6c30(); void FUN_001f81c0(); };
 struct CSimOverlayManager_nv_88670 {
     CSimOverlayManager *FUN_000d75c0();
-    void FUN_000d6f00(int v);
 };
 struct CExtraRenderingCallback_nv_88670 {
     CExtraRenderingCallback *FUN_001bceb0();
@@ -61,7 +59,6 @@ struct CGameDataHandler_nv_88670 {
 };
 struct CAmbientsManager_nv_88670 {
     CAmbientsManager *FUN_0007f950();
-    void FUN_00078c50(Sim_88670 *s);
 };
 struct R_88670 { void FUN_00066c20(Sim_88670 *s); };
 
@@ -115,7 +112,7 @@ void Sim_88670::FUN_00088670(Ctx_88670 *arg0, int arg1)
     if (tb)
         tb = ((CCameraManager_nv_88670*)(tb))->FUN_0009dd20();
     b = tb;
-    ((CCameraManager_nv_88670*)(tb))->FUN_00098e20(arg0);
+    ((owners::A_98e20 *)(((CCameraManager_nv_88670*)(tb))))->FUN_00098e20((hulk_intptr)(Ctx_88670 *)arg0);
 
     s10 = FUN_001b6580();
     s10->FUN_001b3fc0();
@@ -144,7 +141,7 @@ void Sim_88670::FUN_00088670(Ctx_88670 *arg0, int arg1)
     if (tf)
         tf = tf->FUN_00025a90();
     f = tf;
-    tf->FUN_000243f0(this);
+    ((owners::X_243f0 *)tf)->FUN_000243f0((hulk_intptr)(Sim_88670 *)this);
 
     CWorldCollisionManager *tg = (CWorldCollisionManager *)FUN_0008d690(0x68);
     if (tg)
@@ -168,11 +165,11 @@ void Sim_88670::FUN_00088670(Ctx_88670 *arg0, int arg1)
     if (tj)
         tj = ((CEventManager_nv_88670*)(tj))->FUN_001cc360();
     j = tj;
-    ((CEventManager_nv_88670*)(tj))->FUN_001cb3f0(this);
+    ((owners::C_1cb3f0 *)(((CEventManager_nv_88670*)(tj))))->FUN_001cb3f0((hulk_intptr)(Sim_88670 *)this);
 
     K_88670 *tk = (K_88670 *)FUN_0008d690(8);
     if (tk)
-        tk = tk->FUN_001ebba0(this, arg0);
+        tk = ((K_88670 *)((owners::C_1ebba0 *)tk)->FUN_001ebba0((hulk_intptr)(Sim_88670 *)this, (hulk_intptr)(Ctx_88670 *)arg0));
     k = tk;
     tk->FUN_001eebc0();
 
@@ -187,7 +184,7 @@ void Sim_88670::FUN_00088670(Ctx_88670 *arg0, int arg1)
         tm = ((CSimOverlayManager_nv_88670*)(tm))->FUN_000d75c0();
     m = tm;
     int arg_v2c = ctx->FUN_00086380()->v2c; // MSVC evaluates the argument before loading the receiver m
-    ((CSimOverlayManager_nv_88670*)(m))->FUN_000d6f00(arg_v2c);
+    ((owners::A_d6f00 *)(((CSimOverlayManager_nv_88670*)(m))))->FUN_000d6f00(arg_v2c);
 
     CExtraRenderingCallback *tn = (CExtraRenderingCallback *)FUN_0008d690(0x2c);
     if (tn)
@@ -209,7 +206,7 @@ void Sim_88670::FUN_00088670(Ctx_88670 *arg0, int arg1)
     if (tq)
         tq = ((CAmbientsManager_nv_88670*)(tq))->FUN_0007f950();
     q = tq;
-    ((CAmbientsManager_nv_88670*)(tq))->FUN_00078c50(this);
+    ((owners::C_78c50 *)(((CAmbientsManager_nv_88670*)(tq))))->FUN_00078c50((hulk_intptr)(Sim_88670 *)this);
 
     FUN_000678d0()->FUN_00066c20(this);
     ready = 1;

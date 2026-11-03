@@ -1,10 +1,5 @@
-class C_1d72e0 {
-  public:
-    char pad[0xa0];
-    void* p;
-    int get();
-};
-int C_1d72e0::get() {
+#include "gen/owners.h"
+hulk_intptr owners::C_1d72e0::FUN_001d72e0() {
     if (p)
         return *(int*)((char*)p + 0x10);
     return 0;

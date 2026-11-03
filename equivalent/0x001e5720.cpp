@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20006 inputs, branch coverage 8/8)
 // FUN_001e5720 @ 0x001e5720
+#include "gen/owners.h"
 class Thing_1e5720 {
   public:
     char pad0[0x14c];
@@ -13,7 +14,6 @@ class Manager_1e5720 {
   public:
     char pad[0x4c];
     void A(void*);
-    void B(void*);
 };
 class CSPManager_1e5720 {
   public:
@@ -39,6 +39,6 @@ void CSPManager_1e5720::Run(Thing_1e5720* p) {
     }
     if (p->f14d) {
         p->Set(1);
-        mgr->m->B(&p->pad0[8]);
+        ((owners::C_7def0 *)(mgr->m))->FUN_0007def0((hulk_intptr)(&p->pad0[8]));
     }
 }

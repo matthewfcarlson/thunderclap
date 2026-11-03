@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 170 inputs, branch coverage 20/20)
 // FUN_00265810 @ 0x00265810
+#include "gen/owners.h"
 struct Request { char pad[0x100]; void* context; char pad104[8]; unsigned char flags; };
-struct LoadRequest_265810 { virtual void slot0(); LoadRequest_265810* FUN_00266890(Request*); void FUN_00266800(Request*); void FUN_00266950(int); void FUN_00266850(void*); int FUN_00266710(); };
+struct LoadRequest_265810 { virtual void slot0(); LoadRequest_265810* FUN_00266890(Request*);  void FUN_00266950(int); void FUN_00266850(void*); int FUN_00266710(); };
 extern "C" void* __cdecl FUN_00263ed0(unsigned int,int);
 extern void __cdecl thunk_FUN_00270a50();
 struct Entry_265810 { LoadRequest_265810* task; unsigned int value; };
@@ -17,7 +18,7 @@ void Manager_265810::FUN_00265810(Request* request,LoadRequest_265810** output) 
   if(tail==end) tail=begin;
   if(head==tail) tail = tail+(end-begin);
  }
- task->FUN_00266800(request);
+ ((owners::C_266800 *)task)->FUN_00266800((char *)(Request *)request);
  task->FUN_00266950(1);
  if(request->context) task->FUN_00266850(request->context);
  if(request->flags) {

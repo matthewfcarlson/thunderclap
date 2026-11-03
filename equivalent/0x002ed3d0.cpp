@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 37/40, incomplete)
 // FUN_002ed3d0 @ 0x002ed3d0
+#include "gen/owners.h"
 struct Vec3_2ed3d0 {
     float x, y, z;
 };
@@ -33,7 +34,6 @@ struct BitSet_2ed3d0 {
 
 struct Pairs {
     char pad0[0x2c];
-    void FUN_00302ed0(Shape_2ed3d0 *a, Shape_2ed3d0 *b, void *extra);
 };
 
 class SweepAndPrune {
@@ -90,7 +90,7 @@ void SweepAndPrune::FUN_002ed3d0(unsigned int index)
                     }
                     if (hit) {
                         found = 0;
-                        pairs.FUN_00302ed0(self->shape, other->shape, contact);
+                        ((owners::Obj_302ed0 *)&pairs)->FUN_00302ed0((hulk_intptr)(Shape_2ed3d0 *)(self->shape), (hulk_intptr)(Shape_2ed3d0 *)(other->shape), (hulk_intptr)contact);
                     }
                 }
             }
@@ -131,7 +131,7 @@ void SweepAndPrune::FUN_002ed3d0(unsigned int index)
                 }
                 if (hit) {
                     found = 0;
-                    pairs.FUN_00302ed0(self->shape, other->shape, contact);
+                    ((owners::Obj_302ed0 *)&pairs)->FUN_00302ed0((hulk_intptr)(Shape_2ed3d0 *)(self->shape), (hulk_intptr)(Shape_2ed3d0 *)(other->shape), (hulk_intptr)contact);
                 }
             }
         }

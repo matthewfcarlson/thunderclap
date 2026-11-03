@@ -1,6 +1,6 @@
+#include "gen/owners.h"
 class Helper_24380 {
   public:
-    int Lookup(int);
 };
 class Obj_24380 {
   public:
@@ -8,7 +8,6 @@ class Obj_24380 {
     char pad[8];
     int count;
     int items[1];
-    void removeAt(int);
     bool find(int);
 };
 bool Obj_24380::find(int value) {
@@ -16,9 +15,9 @@ bool Obj_24380::find(int value) {
     if (count > 0) {
         do {
             Helper_24380* h = *(Helper_24380**)((char*)*(int**)this + 0x44);
-            int result = h->Lookup(items[i]);
+            int result = ((int)((owners::ThisWrap_00059c10 *)h)->FUN_00059c10((void *)(hulk_uintptr)(int)(items[i])));
             if (result != 0 && result == value) {
-                removeAt(i);
+                ((owners::ItemList_24320 *)this)->FUN_00024320(i);
                 return true;
             }
             ++i;

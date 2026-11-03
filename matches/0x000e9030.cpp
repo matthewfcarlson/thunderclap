@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable_e9030[];
 class Ref_e9030 {
@@ -8,7 +9,6 @@ class Ref_e9030 {
 void operator delete[](void*) throw();
 struct Sub_e9030 {
     char c;
-    void Fin() throw();
 };
 class FEObject_e9030 {
   public:
@@ -43,5 +43,5 @@ FEObject_e9030::~FEObject_e9030() throw() {
         operator delete[](mac);
         mac = 0;
     }
-    s18.Fin();
+    ((owners::Thing_f7960 *)&s18)->FUN_000f7960();
 }

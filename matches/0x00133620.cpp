@@ -1,11 +1,6 @@
-class T_133620 {
-  public:
-    char pad[0x3c];
-    char m3c;
-    char Set(char c);
-};
+#include "gen/owners.h"
 
-char T_133620::Set(char c) {
+char owners::T_133620::FUN_00133620(char c) {
     m3c = c;
     return 1;
 }

@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 10/10)
 // hulkfight::motion::FallAction::vfunc_3 @ 0x00133fc0
 #include "decls/address.h"
+#include "gen/owners.h"
 struct V3_133fc0 {
     float x, y, z;
 };
 struct Name_133fc0 {
     unsigned int lo, hi;
-    void FUN_0027b040(const char* s);
 };
 struct Xform_133fc0 {
     char data[0x54];
@@ -31,9 +31,6 @@ struct Attach_133fc0 {
     float height;
 };
 struct Timing_133fc0 {
-    int FUN_00035910();
-    bool FUN_000356c0(V3_133fc0* out);
-    void FUN_000357a0(V3_133fc0* v);
     char pad0[0x11c];
     Attach_133fc0* attach;
     char pad120[0x140 - 0x120];
@@ -49,7 +46,6 @@ struct Clock_133fc0 {
     Skeleton* FUN_00059a40();
 };
 struct Target_133fc0 {
-    Clock_133fc0* FUN_000592a0();
 };
 struct Config_133fc0 {
     char pad0[0x24];
@@ -85,7 +81,7 @@ public:
 
 bool FallAction::vfunc_3(int a, int b)
 {
-    Clock_133fc0* clock = target->FUN_000592a0();
+    Clock_133fc0* clock = ((Clock_133fc0 *)((owners::Object_592a0 *)target)->FUN_000592a0());
     Timing_133fc0* timing = clock->FUN_00059a30();
     Skeleton* skel = clock->FUN_00059a40();
     if (skel == 0)
@@ -97,7 +93,7 @@ bool FallAction::vfunc_3(int a, int b)
         move.x = 0.0f;
         move.y = 0.0f;
         move.z = 0.0f;
-        timing->FUN_000356c0(&move);
+        ((owners::Thing_356c0 *)timing)->FUN_000356c0((unsigned int *)(V3_133fc0 *)(&move));
         pos.x = move.x + pos.x;
         pos.y = move.y + pos.y;
         pos.z = move.z + pos.z;
@@ -113,17 +109,17 @@ bool FallAction::vfunc_3(int a, int b)
     else
         d = 0;
     driver = d;
-    d->name.FUN_0027b040("fall");
+    ((owners::Target_27b040 *)&(d->name))->FUN_0027b040((hulk_uintptr)"fall");
     driver->AddRef();
     driver->xform.FUN_00221be0(&skel->xform);
     skel->FUN_00222890(driver, -1.0f, c40, 1.0f, c44, c48, -1.0f);
     DAT_004dd700->sink->FUN_00099d40(DAT_004dd700, timing, cfg->f34);
-    if (timing->FUN_00035910() == 7 && timing->mode == 1) {
+    if (((int)((owners::Widget_35910 *)timing)->FUN_00035910()) == 7 && timing->mode == 1) {
         V3_133fc0 lift;
         lift.x = 0.0f;
         lift.y = timing->attach->height * 0.5f;
         lift.z = 0.0f;
-        timing->FUN_000357a0(&lift);
+        ((owners::C_357a0 *)timing)->FUN_000357a0((float *)(V3_133fc0 *)(&lift));
     }
     return true;
 }

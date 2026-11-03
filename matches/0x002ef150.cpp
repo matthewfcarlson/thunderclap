@@ -1,4 +1,5 @@
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 class CollisionDetector_2ef150 {
   public:
@@ -16,7 +17,6 @@ class C {
 };
 class Obj {
   public:
-    void clean();
     char p0[0x70];
     CollisionDetector_2ef150 a;
     ImpulseBasedCollisionSolver_2ef150 b;
@@ -29,7 +29,7 @@ void destroyObj() {
         p->c.f();
         p->b.f();
         p->a.f();
-        p->clean();
+        ((owners::Obj_2eefc0 *)p)->FUN_002eefc0();
         freeObj(p);
     }
     (*(Obj**)&DAT_00554c14) = 0;

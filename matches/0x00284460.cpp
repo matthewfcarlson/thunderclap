@@ -1,7 +1,7 @@
 // FUN_00284460 @ 0x00284460
+#include "gen/owners.h"
 struct Mat_284460 {
     float m[16];
-    void FUN_0022ca90(const Mat_284460 *a, const Mat_284460 *b);
 };
 
 struct Skeleton {
@@ -26,7 +26,7 @@ public:
 void Pose::Update(const Mat_284460 *root)
 {
     if (root != 0) {
-        world->FUN_0022ca90(local, root);
+        ((owners::Matrix_22ca90 *)world)->FUN_0022ca90((const owners::Matrix_22ca90 *)(const Mat_284460 *)local, (const owners::Matrix_22ca90 *)(const Mat_284460 *)root);
     } else {
         if (!dirty)
             return;
@@ -35,7 +35,7 @@ void Pose::Update(const Mat_284460 *root)
     Mat_284460 *out = world + 1;
     Mat_284460 *in = local + 1;
     for (unsigned int i = 1; i < count; i++) {
-        out->FUN_0022ca90(in, world + skeleton->parent[i]);
+        ((owners::Matrix_22ca90 *)out)->FUN_0022ca90((const owners::Matrix_22ca90 *)(const Mat_284460 *)in, (const owners::Matrix_22ca90 *)(const Mat_284460 *)(world + skeleton->parent[i]));
         out++;
         in++;
     }

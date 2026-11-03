@@ -2,6 +2,7 @@
 // FUN_00013f20 @ 0x00013f20
 #include "decls/address.h"
 #include "compat/ptr.h"
+#include "gen/owners.h"
 struct Slot_13f20;
 struct Slot_13f20 {
     int FUN_001d5e80(int id);
@@ -37,14 +38,11 @@ struct Player_13f20 {
     int val;                // 0x12c
     char pad130[0x1b28 - 0x130];
     int flag;               // 0x1b28
-    float FUN_0003ebb0(int a);
-    Pad_13f20 *FUN_00035ef0(int idx);
 };
 struct PlayerRef_13f20 {
     Player_13f20 *FUN_00059a30();
 };
 struct Owner_13f20 {
-    PlayerRef_13f20 *FUN_000592a0();
 };
 struct Item_13f20 {
     char pad0[0x10];
@@ -73,7 +71,6 @@ struct Flags_13f20 {
     bool FUN_00092940(int id);
 };
 struct Opt_13f20 {
-    Flags_13f20 *FUN_00086340();
 };
 struct World {
     char pad0[0x20];
@@ -86,8 +83,6 @@ struct World {
 struct Me_13f20 {
     char pad0[0x124];
     Player_13f20 *player;         // 0x124
-    const char *FUN_00025890(int a);
-    int *FUN_00025930(void *out, int a);
 };
 
 
@@ -104,8 +99,8 @@ void Self_13f20::FUN_00013f20(float k, Target_13f20 *t, float *outA, float *outB
 {
     World *g = DAT_004dd700;
     Me_13f20 *me = g->me;
-    Player_13f20 *p = owner->FUN_000592a0()->FUN_00059a30();
-    float r = p->FUN_0003ebb0(1);
+    Player_13f20 *p = ((PlayerRef_13f20 *)((owners::Object_592a0 *)owner)->FUN_000592a0())->FUN_00059a30();
+    float r = ((owners::ClampOwner_3ebb0 *)p)->FUN_0003ebb0(1);
     *outB = r;
     float v = cfg->lo;
     *outA = v;
@@ -118,15 +113,15 @@ void Self_13f20::FUN_00013f20(float k, Target_13f20 *t, float *outA, float *outB
     int count = cfg->count;
     if (count > 0) {
         int f0, f1;
-        if (p->FUN_00035ef0(0) != 0) {
-            int id = p->FUN_00035ef0(0)->id;
-            f0 = p->FUN_00035ef0(0)->slot->FUN_001d5e80(id) == 1;
+        if (((Pad_13f20 *)((owners::C_35ef0 *)p)->FUN_00035ef0((hulk_intptr)0)) != 0) {
+            int id = ((Pad_13f20 *)((owners::C_35ef0 *)p)->FUN_00035ef0((hulk_intptr)0))->id;
+            f0 = ((Pad_13f20 *)((owners::C_35ef0 *)p)->FUN_00035ef0((hulk_intptr)0))->slot->FUN_001d5e80(id) == 1;
         } else {
             f0 = 0;
         }
-        if (p->FUN_00035ef0(1) != 0) {
-            int id = p->FUN_00035ef0(1)->id;
-            int r = p->FUN_00035ef0(1)->slot->FUN_001d5e80(id);
+        if (((Pad_13f20 *)((owners::C_35ef0 *)p)->FUN_00035ef0((hulk_intptr)1)) != 0) {
+            int id = ((Pad_13f20 *)((owners::C_35ef0 *)p)->FUN_00035ef0((hulk_intptr)1))->id;
+            int r = ((Pad_13f20 *)((owners::C_35ef0 *)p)->FUN_00035ef0((hulk_intptr)1))->slot->FUN_001d5e80(id);
             f1 = (r == 1) ? 1 : 0;
         } else {
             f1 = 0;
@@ -137,10 +132,10 @@ void Self_13f20::FUN_00013f20(float k, Target_13f20 *t, float *outA, float *outB
             *outA = *outA + *outA;
             *outB = 1.0f;
             if (state == 1) {
-                if ((f0 & m) != 0 && p->FUN_00035ef0(0) != 0)
-                    p->FUN_00035ef0(0)->FUN_001d6ec0(4, p->val, 1);
-                if ((f1 & m) != 0 && p->FUN_00035ef0(1) != 0)
-                    p->FUN_00035ef0(1)->FUN_001d6ec0(4, p->val, 1);
+                if ((f0 & m) != 0 && ((Pad_13f20 *)((owners::C_35ef0 *)p)->FUN_00035ef0((hulk_intptr)0)) != 0)
+                    ((Pad_13f20 *)((owners::C_35ef0 *)p)->FUN_00035ef0((hulk_intptr)0))->FUN_001d6ec0(4, p->val, 1);
+                if ((f1 & m) != 0 && ((Pad_13f20 *)((owners::C_35ef0 *)p)->FUN_00035ef0((hulk_intptr)1)) != 0)
+                    ((Pad_13f20 *)((owners::C_35ef0 *)p)->FUN_00035ef0((hulk_intptr)1))->FUN_001d6ec0(4, p->val, 1);
             }
         }
     }
@@ -170,11 +165,11 @@ void Self_13f20::FUN_00013f20(float k, Target_13f20 *t, float *outA, float *outB
                 }
                 if (ok) {
                     *outA = *outA + *outA;
-                    const char *s = me->FUN_00025890(mode - 1);
+                    const char *s = ((const char *)((owners::C_25890 *)me)->FUN_00025890(mode - 1));
                     if (s != 0 && *s != 0) {
                         int sink[2];
                         Text_13f20 *txt = g->hud->text;
-                        int *r = me->FUN_00025930(sink, 1);
+                        int *r = ((int *)((owners::Palette_25930 *)me)->FUN_00025930((unsigned int *)sink, 1));
                         txt->FUN_000d4620(1, s, -1, *r, -1.0f);
                     }
                 }
@@ -182,7 +177,7 @@ void Self_13f20::FUN_00013f20(float k, Target_13f20 *t, float *outA, float *outB
         }
     }
     if (me->player == p) {
-        if (g->opt->FUN_00086340()->FUN_00092940(0x2e1))
+        if (((Flags_13f20 *)((owners::A_86340 *)(g->opt))->FUN_00086340())->FUN_00092940(0x2e1))
             *outA = 100000.0f;
     }
 }

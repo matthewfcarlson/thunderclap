@@ -1,11 +1,6 @@
-class Target_193550 {
-  public:
-    char pad[0xe0];
-    int value;
-    char Set(int x);
-};
+#include "gen/owners.h"
 
-char Target_193550::Set(int x) {
+char owners::Target_193550::FUN_00193550(int x) {
     value = x;
     return 1;
 }

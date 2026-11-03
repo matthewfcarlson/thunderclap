@@ -1,4 +1,5 @@
 #include "decls/data/engine/content.h"
+#include "gen/owners.h"
 
 struct Manager_1c4230 {
     void FUN_002659a0(unsigned int);
@@ -14,7 +15,6 @@ struct Holder_1c4230 {
     Resource_1c4230* resource;
 };
 struct EnginePart {
-    void FUN_001c5f20();
 };
 struct Owned_1c4230 {
     virtual void destroy(int);
@@ -58,7 +58,7 @@ void Engine_1c4230::cleanup() {
     EnginePart* p = part;
     holder14 = 0;
     if (p) {
-        p->FUN_001c5f20();
+        ((owners::Target_1c5f20 *)p)->FUN_001c5f20();
         thunk_FUN_00267090(p);
     }
     Owned_1c4230* o = second;

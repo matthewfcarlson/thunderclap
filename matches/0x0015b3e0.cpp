@@ -1,10 +1,5 @@
-class O_15b3e0 {
-  public:
-    char f(int x);
-    char pad[0x20];
-    int m;
-};
-char O_15b3e0::f(int x) {
+#include "gen/owners.h"
+char owners::O_15b3e0::FUN_0015b3e0(int x) {
     m = x;
     return 1;
 }

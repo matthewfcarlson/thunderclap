@@ -2,6 +2,7 @@
 // FUN_0003e780 @ 0x0003e780
 #include "decls/address.h"
 #include "gen/global.h"
+#include "gen/owners.h"
 extern "C" double sqrt(double);
 extern "C" double cos(double);
 extern "C" double fabs(double);
@@ -55,7 +56,6 @@ struct Gesture {
 };
 
 struct Probe_3e780 {
-    Slot_3e780 *FUN_001d72e0();
 };
 
 struct Actor_3e780 {
@@ -152,7 +152,7 @@ bool Actor_3e780::FUN_0003e780(void *a1, Vec3_3e780 *target, float maxDist, bool
     FlagHolder *saved = 0;
     char savedFlag = 0;
     if (probe) {
-        Slot_3e780 *s = probe->FUN_001d72e0();
+        Slot_3e780 *s = ((Slot_3e780 *)((owners::C_1d72e0 *)probe)->FUN_001d72e0());
         saved = s->holder;
         if (saved) {
             savedFlag = saved->flag;

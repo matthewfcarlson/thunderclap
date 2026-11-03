@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" void* __cdecl Alloc(hulk_intptr);
 extern "C" void __cdecl Free(void*);
 extern "C" void __cdecl Print(const char*);
@@ -6,7 +7,6 @@ struct Maker_1c3a40 {
     void* Make(int, int);
 };
 struct Store {
-    void Put(void*);
 };
 struct Obj_1c3a40 {
     char pad[4];
@@ -19,7 +19,7 @@ void Obj_1c3a40::Create(int a, int b) {
     void* p = Alloc(15);
     void* q = maker->Make(a, b);
     if (q)
-        store->Put(q);
+        ((owners::Bag_1c8810 *)store)->FUN_001c8810((hulk_intptr)q);
     else
         Print("Object creation failed!\n");
     Free(p);

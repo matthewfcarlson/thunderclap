@@ -1,4 +1,5 @@
 // a..c: a vector passed by value.
+#include "gen/owners.h"
 struct Vec3_2946e0 {
     unsigned int x, y, z;
 };
@@ -21,7 +22,6 @@ class Source_2946e0 {
 };
 struct Scratch_2946e0 {
     char data[12];
-    void Build(void*, unsigned int);
 };
 class Owner_2946e0 {
   public:
@@ -34,7 +34,7 @@ void Owner_2946e0::Run(Vec3_2946e0 a, unsigned int d) {
     if (source) {
         unsigned int x = source->Get();
         Scratch_2946e0 temp;
-        temp.Build(&a, x);
+        ((owners::C_22d240 *)&temp)->FUN_0022d240((hulk_intptr)(&a), (hulk_intptr)x);
         Process(&temp, d);
     }
 }

@@ -2,6 +2,7 @@
 // FUN_000cbc40 @ 0x000cbc40
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 extern char DAT_0049fd74[];
 extern char DAT_0049fd9c[];
 
@@ -58,7 +59,6 @@ struct Pawn_cbc40 {
 };
 
 struct Obj54_cbc40 {
-    Probe_cbc40 *FUN_00086340();
 };
 struct World {
     char pad0[0x54];
@@ -189,7 +189,7 @@ void HUDOverlay_cbc40::FUN_000cbc40(float dt)
     bool bl = false;
     f.w[2].f = 0.0f;            // A
     f.w[1].f = 0.0f;            // B
-    f.w[3].p = DAT_004dd700->f54->FUN_00086340();
+    f.w[3].p = ((Probe_cbc40 *)((owners::A_86340 *)(DAT_004dd700->f54))->FUN_00086340());
     int st = state;
     bool doLists = true;
     if (st == 0) {

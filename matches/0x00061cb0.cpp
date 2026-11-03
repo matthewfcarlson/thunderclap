@@ -1,12 +1,6 @@
-class Obj_61cb0 {
-    char pad[0xc];
-    void* mPtr;
+#include "gen/owners.h"
 
-  public:
-    bool Set(void* p);
-};
-
-bool Obj_61cb0::Set(void* p) {
+bool owners::Obj_61cb0::FUN_00061cb0(void* p) {
     mPtr = p;
     return true;
 }

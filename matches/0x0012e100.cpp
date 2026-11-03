@@ -1,10 +1,6 @@
-struct Obj_12e100 {
-    char pad[12];
-    int mField;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char Obj_12e100::Set(int v) {
+char owners::Obj_12e100::FUN_0012e100(int v) {
     mField = v;
     return 1;
 }

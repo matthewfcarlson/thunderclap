@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 4/4)
 // FUN_0009a400 @ 0x0009a400
+#include "gen/owners.h"
 struct Method0_9a400 {
     void FUN_000361c0(int flag);
     void FUN_00036140(int flag);
 };
 struct Scene_9a400 { void FUN_000ac560(int v); };
-struct Stage_9a400 { void FUN_00086100(float v); };
+struct Stage_9a400 {  };
 struct StageOwner { Stage_9a400* FUN_00086320(); };
 struct Cast { char pad[0x124]; Method0_9a400* camera; };
 struct Hud;
@@ -28,7 +29,7 @@ void Widget_9a400::FUN_0009a400(Player_9a400* p) {
     if (((flags >> 3) & 1) == 0)
         return;
     flags &= 0xfffffff7;
-    owner->FUN_00086320()->FUN_00086100(1.0f);
+    ((owners::Thing_86100 *)(owner->FUN_00086320()))->FUN_00086100(1.0f);
     scene->FUN_000ac560(0);
     Method0_9a400* camera = p->cast->camera;
     if (camera != 0) {

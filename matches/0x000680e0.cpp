@@ -1,9 +1,5 @@
-struct Obj_680e0 {
-    char pad[0x30];
-    float value;
-    char Fn(float x);
-};
-char Obj_680e0::Fn(float x) {
+#include "gen/owners.h"
+char owners::Obj_680e0::FUN_000680e0(float x) {
     value = x * 0.01745329252f;
     return 1;
 }

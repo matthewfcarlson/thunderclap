@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2544 inputs, branch coverage 12/12)
 // FUN_00264140 @ 0x00264140
-struct Converter { char pad[15]; unsigned char reverse; void FUN_00264140(unsigned char* data, unsigned int count, unsigned int size); };
-void Converter::FUN_00264140(unsigned char* data, unsigned int count, unsigned int size)
+#include "gen/owners.h"
+void owners::Converter_264140::FUN_00264140(unsigned char* data, unsigned int count, unsigned int size)
 {
     if (!reverse || size == 1) return;
     for (unsigned int i = 0; i < count; ++i) {

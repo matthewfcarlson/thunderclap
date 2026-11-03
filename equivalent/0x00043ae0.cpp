@@ -2,6 +2,7 @@
 // FUN_00043ae0 @ 0x00043ae0
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "gen/owners.h"
 
 extern "C" double __cdecl sqrt(double);
 
@@ -15,7 +16,6 @@ struct V3_43ae0 {
     float x, y, z;
     float FUN_00018990();
     float FUN_0022d110();
-    void FUN_000344b0(float v);
 };
 
 struct Request {
@@ -181,15 +181,15 @@ void Obj_43ae0::FUN_00043ae0(RefObj_43ae0 *a1, V3_43ae0 *p, float dt, int a4, fl
                     f.x.vec28.x = f.e.x;
                     f.x.vec28.z = f.e.z;
                     if (f8 == (*(int*)&DAT_004dc0e0) && fc == (*(int*)((char*)&DAT_004dc0e0 + 4)))
-                        f.x.vec28.FUN_000344b0(f.s * t->f4 * 0.5f);
+                        ((owners::Vec3_344b0 *)&(f.x.vec28))->FUN_000344b0(f.s * t->f4 * 0.5f);
                     else
-                        f.x.vec28.FUN_000344b0(f.s * t->f4);
+                        ((owners::Vec3_344b0 *)&(f.x.vec28))->FUN_000344b0(f.s * t->f4);
                 } else {
                     f.x.vec28.x = f.d.x;
                     f.x.vec28.z = f.d.z;
                     f.x.vec28.y = f.x.vec28.FUN_00018990() * f.s;
                     f.x.vec28.FUN_0022d110();
-                    f.x.vec28.FUN_000344b0(f.s * t->f4);
+                    ((owners::Vec3_344b0 *)&(f.x.vec28))->FUN_000344b0(f.s * t->f4);
                 }
             }
         }

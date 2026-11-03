@@ -2,6 +2,7 @@
 // FUN_001958c0 @ 0x001958c0
 // FUN_001958c0 @ 0x001958c0
 #include "decls/address.h"
+#include "gen/owners.h"
 struct V3_1958c0 {
     float x, y, z;
 };
@@ -37,7 +38,6 @@ struct Info_1958c0 {
     char pad120[0x128 - 0x120];
     Entity *f128;
     int f12c;
-    Entity *FUN_00035ef0(int i);
 };
 
 struct Scale_1958c0 {
@@ -45,7 +45,6 @@ struct Scale_1958c0 {
 };
 
 struct Mgr_1958c0 {
-    Info_1958c0 *FUN_00059c10(int id);
 };
 
 struct World {
@@ -75,12 +74,12 @@ bool FUN_001958c0(int id, Holder_1958c0 *h, int a2, int a3, int a4, int a5, V3_1
     if (e->f148)
         return FUN_00195560(a6, e->f148->id, a4, id, a2, a3, a5, a7, a8, a9, a10, 0, 1.0f, 0);
 
-    Info_1958c0 *p = DAT_004dd700->mgr->FUN_00059c10(id);
+    Info_1958c0 *p = ((Info_1958c0 *)((owners::ThisWrap_00059c10 *)(DAT_004dd700->mgr))->FUN_00059c10((void *)(hulk_uintptr)(int)id));
     if (p) {
         if (e == p->f128)
             return false;
         for (int i = 0; i < 8; i++) {
-            if (e == p->FUN_00035ef0(i))
+            if (e == ((Entity *)((owners::C_35ef0 *)p)->FUN_00035ef0((hulk_intptr)i)))
                 return false;
         }
         int kind = p->tag->kind;
@@ -93,7 +92,7 @@ bool FUN_001958c0(int id, Holder_1958c0 *h, int a2, int a3, int a4, int a5, V3_1
         return false;
     e->FUN_001d82d0();
     if (a8 > 0.0f) {
-        Info_1958c0 *q = DAT_004dd700->mgr->FUN_00059c10(id);
+        Info_1958c0 *q = ((Info_1958c0 *)((owners::ThisWrap_00059c10 *)(DAT_004dd700->mgr))->FUN_00059c10((void *)(hulk_uintptr)(int)id));
         int v = q ? q->f12c : 0;
         e->FUN_001d6ec0((int)a8, v, 0);
     }

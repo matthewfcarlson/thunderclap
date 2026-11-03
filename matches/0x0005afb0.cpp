@@ -1,5 +1,6 @@
 // Same code shape as 0x0005adb0 (propagated; names are from that function)
 #include "gen/global.h"
+#include "gen/owners.h"
 
 struct Obj_5afb0 {
     char pad[0x330];
@@ -7,7 +8,6 @@ struct Obj_5afb0 {
     int* p334;
 };
 struct Context_5afb0 {
-    Obj_5afb0* first();
     Obj_5afb0* second();
 };
 
@@ -15,7 +15,7 @@ void* CGrappleSequenceTrack::vfunc_8(void* __p0, void* __p1) { void * p = (void 
 
     if (!p)
         return (void*)(0);
-    Obj_5afb0* a = ((Context_5afb0*)p)->first();
+    Obj_5afb0* a = ((Obj_5afb0 *)((owners::Object_592a0 *)(((Context_5afb0*)p)))->FUN_000592a0());
     if (!a)
         return (void*)(0);
     Obj_5afb0* b = ((Context_5afb0*)a)->second();

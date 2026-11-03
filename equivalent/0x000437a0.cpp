@@ -3,6 +3,7 @@
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "gen/global.h"
+#include "gen/owners.h"
 
 extern "C" int atexit(void (*)());
 extern "C" int __cdecl FUN_00266da0(hulk_intptr mode);
@@ -17,7 +18,6 @@ struct Key_437a0 {
     unsigned lo;
     unsigned hi;
     void FUN_0027af00();
-    void FUN_0027b040(const char* name);
 };
 
 
@@ -130,8 +130,6 @@ public:
     int FUN_00035fe0();
     char FUN_00043350(float dt, Target_437a0* t, int a, int b, int c, int d);
     Actor_437a0* FUN_000392e0(CFightParamsCollision* ev);
-    void FUN_00035930(int v);
-    int FUN_00036e40(Key_437a0* k);
     void FUN_00037000();
     char FUN_000437a0(float dt, Params_437a0* p, Vec3_437a0* where, Actor_437a0* actor, char flag5);
 };
@@ -208,14 +206,14 @@ char Unit_437a0::FUN_000437a0(float dt, Params_437a0* p, Vec3_437a0* where, Acto
                 w = &fdc;
             act->FUN_00231ad0(w, ev, -(int)dt);
             if (act->FUN_00231a40(w, ev) && ok) {
-                FUN_00035930(6);
+                ((owners::Obj_35930 *)this)->FUN_00035930(6);
                 if ((DAT_004dc318 & 1) == 0) {
                     DAT_004dc318 |= 1;
                     (*(Key_437a0*)&DAT_004dc310).FUN_0027af00();
                     atexit(FUN_00363b90);
                 }
-                (*(Key_437a0*)&DAT_004dc310).FUN_0027b040("no_ai_reset");
-                int r = FUN_00036e40(((Key_437a0*)&DAT_004dc310));
+                ((owners::Target_27b040 *)&((*(Key_437a0*)&DAT_004dc310)))->FUN_0027b040((hulk_uintptr)"no_ai_reset");
+                int r = ((int)((owners::Obj_36e40 *)this)->FUN_00036e40((hulk_uintptr)(Key_437a0 *)(((Key_437a0*)&DAT_004dc310))));
                 Sub_437a0* sub = &subB4;
                 if (sub != 0 && r == 0) {
                     FUN_00037000();

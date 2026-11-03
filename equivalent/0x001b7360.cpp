@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001b7360 @ 0x001b7360
-struct State { int mode; void FUN_000863e0(int); };
+#include "gen/owners.h"
+struct State { int mode;  };
 struct Object {
     char pad0[8];
     unsigned char active;
@@ -22,7 +23,7 @@ void Object::FUN_001b7360(const char *source, int number) {
             c = *source++;
             *dest++ = c;
         } while (c);
-        state->FUN_000863e0(7);
+        ((owners::Target_863e0 *)state)->FUN_000863e0(7);
         active = 1;
     }
 }

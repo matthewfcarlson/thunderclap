@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 struct Entry_37000 {
     unsigned char a;
     unsigned char flag;
@@ -9,7 +10,6 @@ struct Obj_37000 {
 };
 class Helper_37000 {
   public:
-    void Do(int, int);
 };
 void __fastcall target(Obj_37000* self) {
     Entry_37000* p = self->entries;
@@ -18,7 +18,7 @@ void __fastcall target(Obj_37000* self) {
         if (p->flag) {
             p->a = 0;
             Helper_37000* h = (Helper_37000*)((char*)p - 8);
-            h->Do(0, 0);
+            ((owners::Pair_27af60 *)h)->FUN_0027af60(0, 0);
         }
         ++p;
         --n;

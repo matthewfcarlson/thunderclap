@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 14/14)
 // pure3d::d3dProjectedTextureShader::vfunc_14 @ 0x0032cc50
 #include "decls/data/platform/xbox/pure3d.h"
+#include "gen/owners.h"
 
 namespace D3D8 {
 void __stdcall D3DDevice_SetTextureState_TexCoordIndex(unsigned long stage, unsigned long value);
@@ -33,8 +34,6 @@ public:
     int colorOp0;
     int colorOp1;
     void FUN_0032a920(int mode, Texture* t0, Texture* t1, Texture* t2, Texture* t3);
-    void FUN_00329e50(int i, int x, int y, int v);
-    void FUN_00329c90(int i, int v);
     void FUN_00329f70(int a, int b, const void* p);
 };
 class d3dProjectedTextureShader;
@@ -75,7 +74,7 @@ public:
 };
 void d3dProjectedTextureShader_32cc50::vf14(int arg) {
     dev->FUN_0032a920(2, tex0, tex1, 0, 0);
-    dev->FUN_00329e50(0, 4, 1, 2);
+    ((owners::Obj_329e50 *)dev)->FUN_00329e50(0, 4, 1, 2);
     if (dev->texCoord0 != 0) {
         dev->texCoord0 = 0;
         D3D8::D3DDevice_SetTextureState_TexCoordIndex(0, 0);
@@ -92,8 +91,8 @@ void d3dProjectedTextureShader_32cc50::vf14(int arg) {
         DAT_0039db08 |= 1;
         DAT_0039db10[0].c = (*(unsigned int*)&DAT_004d4efc);
     }
-    dev->FUN_00329c90(0, stageValue);
-    dev->FUN_00329e50(1, 4, 1, 2);
+    ((owners::Obj_329c90 *)dev)->FUN_00329c90(0, stageValue);
+    ((owners::Obj_329e50 *)dev)->FUN_00329e50(1, 4, 1, 2);
     if (dev->texCoord1 != 0x20000) {
         dev->texCoord1 = 0x20000;
         D3D8::D3DDevice_SetTextureState_TexCoordIndex(1, 0x20000);
@@ -110,7 +109,7 @@ void d3dProjectedTextureShader_32cc50::vf14(int arg) {
         DAT_0039db08 |= 2;
         DAT_0039db10[1].c = (*(unsigned int*)((char*)&DAT_004d4efc + 4));
     }
-    dev->FUN_00329c90(1, stageValue);
+    ((owners::Obj_329c90 *)dev)->FUN_00329c90(1, stageValue);
     if (renderIndex != dev->renderMode) {
         dev->renderMode = renderIndex;
         unsigned int value = ((unsigned int*)&DAT_004d4f24)[renderIndex];

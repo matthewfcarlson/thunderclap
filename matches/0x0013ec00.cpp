@@ -1,11 +1,6 @@
-class X_13ec00 {
-  public:
-    char pad[0x40];
-    float angle;
-    bool SetAngleDegrees(float degrees);
-};
+#include "gen/owners.h"
 
-bool X_13ec00::SetAngleDegrees(float degrees) {
+bool owners::X_13ec00::FUN_0013ec00(float degrees) {
     angle = degrees * 0.017453292519943295f;
     return true;
 }

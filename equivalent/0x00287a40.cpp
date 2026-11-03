@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 16/16)
 // FUN_00287a40 @ 0x00287a40
+#include "gen/owners.h"
 struct Quat_287a40 {
     float x, y, z, w;
-    void FUN_0022b750(const Quat_287a40* a, const Quat_287a40* b, float t);
 };
 
 struct Vec3_287a40 {
@@ -107,7 +107,7 @@ void PoseAnimationController_287a40::FUN_00287a40(int unused, float v, float t, 
         } else {
             qa = base->quats[i];
         }
-        qa.FUN_0022b750(&qa, &set->quats[i], t);
+        ((owners::Quaternion_22b750 *)&qa)->FUN_0022b750((const owners::Quaternion_22b750 *)(const Quat_287a40 *)(&qa), (const owners::Quaternion_22b750 *)(const Quat_287a40 *)(&set->quats[i]), t);
 
         if (pairs[i].vec != 0) {
             if (selected == (int)i)

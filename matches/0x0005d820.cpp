@@ -1,10 +1,5 @@
-class Obj_5d820 {
-  public:
-    char pad[0x38];
-    int mField;
-    bool Set(int value);
-};
-bool Obj_5d820::Set(int value) {
+#include "gen/owners.h"
+bool owners::Obj_5d820::FUN_0005d820(int value) {
     mField = value;
     return true;
 }

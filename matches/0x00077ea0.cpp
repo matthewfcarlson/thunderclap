@@ -1,11 +1,6 @@
-class Obj_77ea0 {
-  public:
-    char pad[0x2c];
-    int m2c;
-    char Set(int v);
-};
+#include "gen/owners.h"
 
-char Obj_77ea0::Set(int v) {
+char owners::Obj_77ea0::FUN_00077ea0(int v) {
     m2c = v;
     return 1;
 }

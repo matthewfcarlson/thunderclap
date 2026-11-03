@@ -1,10 +1,5 @@
-class Foo_147050 {
-  public:
-    char pad[0x14];
-    int mVal;
-    int* Get();
-};
+#include "gen/owners.h"
 
-int* Foo_147050::Get() {
+int* owners::Foo_147050::FUN_00147050() {
     return &mVal;
 }

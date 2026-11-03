@@ -1,5 +1,5 @@
+#include "gen/owners.h"
 struct Texture {
-    void Bind(int);
 };
 struct DeviceState_32a220 {
     char pad[8];
@@ -12,7 +12,7 @@ void DeviceState_32a220::SetTexture(int stage, Texture* value) {
     if (value != textures[stage]) {
         textures[stage] = value;
         if (value) {
-            value->Bind(stage);
+            ((owners::Obj_326b00 *)value)->FUN_00326b00((unsigned long)stage);
             return;
         }
         D3DDevice_SetTexture(stage, 0);

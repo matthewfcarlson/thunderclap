@@ -1,11 +1,5 @@
-class Obj_1c1750 {
-  public:
-    char pad[0xd0];
-    int a;
-    int b;
-    void Get(int* x, int* y);
-};
-void Obj_1c1750::Get(int* x, int* y) {
+#include "gen/owners.h"
+void owners::Obj_1c1750::FUN_001c1750(int* x, int* y) {
     if (x)
         *x = a;
     if (y)

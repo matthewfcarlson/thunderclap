@@ -1,9 +1,9 @@
+#include "gen/owners.h"
 struct Item_241c0 {
     char pad[8];
     unsigned __int64 id;
 };
 struct Sub_241c0 {
-    Item_241c0* Get(int);
 };
 struct Mgr_241c0 {
     char pad[0x44];
@@ -25,7 +25,7 @@ int List_241c0::Find(int key) {
         int* p = mIds;
         do {
             Sub_241c0* s = mMgr->sub;
-            Item_241c0* it = s->Get(*p);
+            Item_241c0* it = ((Item_241c0 *)((owners::ThisWrap_00059c10 *)s)->FUN_00059c10((void *)(hulk_uintptr)(int)(*p)));
             if (it && it->id == h)
                 return i;
             i++;

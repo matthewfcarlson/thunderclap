@@ -1,5 +1,5 @@
+#include "gen/owners.h"
 struct Item {
-    void Set(int);
 };
 struct X {
     Item* Get(unsigned __int64);
@@ -10,5 +10,5 @@ void X::Fn(int id, int arg) {
     unsigned __int64 v = Hash(id, 0, 0);
     Item* p = Get(v);
     if (p)
-        p->Set(arg);
+        ((owners::C_36d40 *)p)->FUN_00036d40(arg);
 }

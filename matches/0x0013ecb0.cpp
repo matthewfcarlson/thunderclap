@@ -1,11 +1,6 @@
-class Obj_13ecb0 {
-  public:
-    char Fn(int x);
-    char pad[12];
-    int mValue;
-};
+#include "gen/owners.h"
 
-char Obj_13ecb0::Fn(int x) {
+char owners::Obj_13ecb0::FUN_0013ecb0(int x) {
     mValue = x;
     return 1;
 }

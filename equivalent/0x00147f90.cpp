@@ -3,6 +3,7 @@
 // hulkfight::motion::CivilianAnimationAction::vfunc_3
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 union FlagWord {
     unsigned char b;
@@ -40,7 +41,6 @@ struct Target_147f90 {
 };
 
 struct Player_147f90 {
-    Target_147f90 *FUN_00036020();
 };
 
 struct Anchor_147f90 {
@@ -48,14 +48,13 @@ struct Anchor_147f90 {
 };
 
 struct Owner_147f90 {
-    Anchor_147f90 *FUN_000592a0();
 };
 
 bool hulkfight::motion::CivilianAnimationAction::vfunc_3(hulk_intptr unused1, hulk_intptr unused2) {
-    Player_147f90 *p = (*(Owner_147f90 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();
+    Player_147f90 *p = ((Anchor_147f90 *)((owners::Object_592a0 *)((*(Owner_147f90 * *)&this->f_20)))->FUN_000592a0())->FUN_00059a30();
     if (p == 0)
         return (bool)(0);
-    Target_147f90 *t = p->FUN_00036020();
+    Target_147f90 *t = ((Target_147f90 *)((owners::Thing_36020 *)p)->FUN_00036020());
     if (t == 0)
         return (bool)(0);
     Source_147f90 *s = (*(Source_147f90 * *)&this->f_1c);

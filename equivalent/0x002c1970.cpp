@@ -2,6 +2,7 @@
 // pure3d::CameraLoader::vfunc_5 @ 0x002c1970
 #include "compat/ptr.h"
 #include "gen/pure3d.h"
+#include "gen/owners.h"
 
 unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
 void *__cdecl FUN_00263ea0(unsigned int size);
@@ -9,7 +10,6 @@ inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 struct Name_2c1970 {
     char data[8];
-    void FUN_0027b040(const char *s);
 };
 
 struct Vec3_2c1970 { float x, y, z; };
@@ -38,7 +38,6 @@ public:
 }
 
 struct Reader_2c1970 {
-    void FUN_002647e0(void *dst, int count, int size, int flag);
 };
 
 struct Stream_2c1970 {
@@ -64,26 +63,26 @@ struct Frame_2c1970 {
 void pure3d::CameraLoader::vfunc_5(void* __p0, void* __p1, void* __p2, hulk_intptr __p3) { pure3d::Camera_2c1970 ** out = (pure3d::Camera_2c1970 **)__p0; unsigned long long * outId = (unsigned long long *)__p1; Stream_2c1970 * s = (Stream_2c1970 *)__p2; void * ctx = (void *)__p3;
 
     Frame_2c1970 f;
-    s->reader->FUN_002647e0(&f.len, 1, 1, 1);
-    s->reader->FUN_002647e0(f.name, f.len, 1, 1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.len), (hulk_intptr)1, 1, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(f.name), (hulk_intptr)(f.len), 1, (hulk_intptr)1);
     f.name[f.len] = 0;
 
     void *mem = FUN_00263ea0(0xf8);
     pure3d::Camera_2c1970 *cam = 0;
     if (mem)
         cam = static_cast<pure3d::Camera_2c1970 *>(mem)->FUN_002939a0();
-    cam->name.FUN_0027b040(f.name);
+    ((owners::Target_27b040 *)&(cam->name))->FUN_0027b040((hulk_uintptr)(f.name));
 
-    s->reader->FUN_002647e0(&f.version, 1, 4, 1);
-    s->reader->FUN_002647e0(&f.nearClip, 1, 4, 1);
-    s->reader->FUN_002647e0(&f.fov, 1, 4, 1);
-    s->reader->FUN_002647e0(&f.aspect, 1, 4, 1);
-    s->reader->FUN_002647e0(&f.farClip, 1, 4, 1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.version), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.nearClip), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.fov), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.aspect), (hulk_intptr)1, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.farClip), (hulk_intptr)1, 4, (hulk_intptr)1);
     if (f.version <= 2)
         f.fov = 1.0f;
-    s->reader->FUN_002647e0(&f.position, 3, 4, 1);
-    s->reader->FUN_002647e0(&f.up, 3, 4, 1);
-    s->reader->FUN_002647e0(&f.target, 3, 4, 1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.position), (hulk_intptr)3, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.up), (hulk_intptr)3, 4, (hulk_intptr)1);
+    ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.target), (hulk_intptr)3, 4, (hulk_intptr)1);
 
     cam->setClip(f.nearClip, f.fov);
     cam->setFov(f.aspect);

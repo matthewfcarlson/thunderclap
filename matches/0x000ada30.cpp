@@ -1,11 +1,5 @@
-class C_ada30 {
-    char pad[0x5c];
-    int a[13];
-
-  public:
-    void f(int);
-};
-void C_ada30::f(int i) {
+#include "gen/owners.h"
+void owners::C_ada30::FUN_000ada30(int i) {
     if (i >= 0 && i < 13)
         a[i] = 0;
 }

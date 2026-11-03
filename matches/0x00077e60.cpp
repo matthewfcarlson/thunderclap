@@ -1,10 +1,6 @@
-struct X_77e60 {
-    char pad[32];
-    int m;
-    bool Set(int v);
-};
+#include "gen/owners.h"
 
-bool X_77e60::Set(int v) {
+bool owners::X_77e60::FUN_00077e60(int v) {
     m = v;
     return true;
 }

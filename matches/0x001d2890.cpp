@@ -1,4 +1,5 @@
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 typedef unsigned int U_1d2890;
 extern "C" {
@@ -13,14 +14,7 @@ int __cdecl FUN_00213290(void*, int);
 void __cdecl FUN_00212e20(void*, int);
 void __cdecl FUN_00213870(void*, int, U_1d2890);
 }
-struct Object {
-    char pad[8];
-    void* state;
-    char pad2[0x546c - 12];
-    U_1d2890 counter;
-    U_1d2890 run(U_1d2890 a, U_1d2890 b, U_1d2890 c);
-};
-U_1d2890 Object::run(U_1d2890 a, U_1d2890 b, U_1d2890 c) {
+U_1d2890 owners::Object_1d2890::FUN_001d2890(U_1d2890 a, U_1d2890 b, U_1d2890 c) {
     FUN_00213380(state, "coroutine", 9);
     FUN_00213600(state, -10001);
     FUN_002133d0(state, "create");

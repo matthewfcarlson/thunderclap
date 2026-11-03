@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002fa180 @ 0x002fa180
+#include "gen/owners.h"
 struct BoundsData {
     char reserved[24];
     unsigned int lower[3];
@@ -9,7 +10,6 @@ struct BoundsData {
     unsigned int second[3];
 };
 struct Transform {
-    void FUN_002fa080(unsigned int, BoundsData *);
     void FUN_002fa180(unsigned int value);
 };
 void Transform::FUN_002fa180(unsigned int value)
@@ -27,5 +27,5 @@ void Transform::FUN_002fa180(unsigned int value)
     bounds.second[0] = 0;
     bounds.second[1] = 0;
     bounds.second[2] = 0;
-    FUN_002fa080(value, &bounds);
+    ((owners::Buffer_2fa080 *)this)->FUN_002fa080(value, (BoundsData *)(&bounds));
 }

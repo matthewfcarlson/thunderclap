@@ -2,18 +2,17 @@
 // FUN_000b79a0 @ 0x000b79a0
 // cl-flags: /GS
 #include "decls/address.h"
+#include "gen/owners.h"
 extern "C" int __cdecl _sprintf(char*, const char*, ...);
 extern char DAT_0049dba4[];
 extern char DAT_0049dbbc[];
 extern char DAT_0049f470[];
 
 struct Manager_b79a0 {
-    unsigned __int64 FUN_000f72c0(unsigned int id);
     int FUN_000f7240(int a, int b);
 };
 
 struct Label_b79a0 {
-    void FUN_000f7a10(int id, int flag);
     void FUN_000f8500(const char* text, Manager_b79a0* mgr, int flag);
 };
 
@@ -111,7 +110,6 @@ struct Entry_b79a0 {
 };
 
 struct Counter_b79a0 {
-    void FUN_0008baf0(int* a, int* b);
 };
 
 struct Briefings {
@@ -159,7 +157,7 @@ void Briefing::FUN_000b79a0(Slot_b79a0 a1, Slot_b79a0 a2)
         Item_b79a0* item = &sel->items[sel->cur];
         UiMgr_b79a0* ui = FUN_000fc3d0();
         unsigned int itemId = item->f14;
-        unsigned __int64 key = ui->v44()->FUN_000f72c0(itemId);
+        unsigned __int64 key = ((unsigned __int64)((owners::Obj_f72c0 *)(ui->v44()))->FUN_000f72c0((int)itemId));
         unsigned __int64 key2 = 0;
         if (sel == missions)
             key2 = FUN_0027b020(names[sel->cur]);
@@ -182,7 +180,7 @@ void Briefing::FUN_000b79a0(Slot_b79a0 a1, Slot_b79a0 a2)
         }
     } else if (counter != 0) {
         int a;
-        counter->FUN_0008baf0(&a, &a2.value);
+        ((owners::ThisWrap_0008baf0 *)counter)->FUN_0008baf0(&a, &a2.value);
         char buf[8] = "";
         _sprintf(buf, "c%2dm%2d", a, a2.value);
         briefings->FUN_001ec480("Briefings", buf);
@@ -202,7 +200,7 @@ void Briefing::FUN_000b79a0(Slot_b79a0 a1, Slot_b79a0 a2)
         }
     }
     if (id != -1) {
-        menu->label.FUN_000f7a10(id, 0);
+        ((owners::Obj_f7a10 *)&(menu->label))->FUN_000f7a10((hulk_intptr)id, 0);
     } else {
         NameSource_b79a0* ns = (NameSource_b79a0*)((char*)this + a1.index * 0x28 + 0x480);
         menu->label.FUN_000f8500(ns->FUN_0027b010(), FUN_000fc1b0(), 1);

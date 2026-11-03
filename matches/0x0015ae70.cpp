@@ -1,11 +1,6 @@
-class Foo_15ae70 {
-  public:
-    char pad[0x28];
-    float mRadians;
-    bool SetDeg(float deg);
-};
+#include "gen/owners.h"
 
-bool Foo_15ae70::SetDeg(float deg) {
+bool owners::Foo_15ae70::FUN_0015ae70(float deg) {
     mRadians = deg * 0.017453292f;
     return true;
 }

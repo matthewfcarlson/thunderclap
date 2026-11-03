@@ -1,11 +1,6 @@
-class C_1154e0 {
-  public:
-    char pad[0x18];
-    void* mPtr;
-    bool Set(void* p);
-};
+#include "gen/owners.h"
 
-bool C_1154e0::Set(void* p) {
+bool owners::C_1154e0::FUN_001154e0(void* p) {
     mPtr = p;
     return true;
 }

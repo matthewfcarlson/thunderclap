@@ -1,8 +1,5 @@
+#include "gen/owners.h"
 extern "C" void* __cdecl Cast(void*, int, const void*, const void*, int);
-struct Owner_929a0 {
-    void* items[1];
-    void Set(int index, char value);
-};
 struct Gallery {
     char pad[0xb0];
     char value;
@@ -19,7 +16,7 @@ extern int typeUnlockable;
 extern int typeGallery;
 extern int typeMove;
 extern int typeFile;
-void Owner_929a0::Set(int index, char value) {
+void owners::Owner_929a0::FUN_000929a0(int index, char value) {
     Gallery* a = (Gallery*)Cast(items[index], 0, &typeUnlockable, &typeGallery, 0);
     if (a && a->value != value)
         a->value = value;

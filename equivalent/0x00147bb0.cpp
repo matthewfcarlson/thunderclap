@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 117 inputs, branch coverage 26/28, incomplete)
 // hulkfight::motion::GrappleStruggleAction::vfunc_5 @ 0x00147bb0
+#include "gen/owners.h"
 struct Source_147bb0 {
     char pad[0x334];
     Source_147bb0* a334;
@@ -16,7 +17,7 @@ struct Source_147bb0 {
 };
 
 struct Node { Source_147bb0* FUN_00059a30(); };
-struct Owner_147bb0 { Node* FUN_000592a0(); };
+struct Owner_147bb0 {  };
 
 class Config_147bb0 {
 public:
@@ -45,7 +46,7 @@ public:
 
 bool GrappleStruggleAction::run(int mode, float dt)
 {
-    Source_147bb0* s = owner->FUN_000592a0()->FUN_00059a30();
+    Source_147bb0* s = ((Node *)((owners::Object_592a0 *)owner)->FUN_000592a0())->FUN_00059a30();
 
     if (mode == 1) {
         if (s->a334 != 0) {

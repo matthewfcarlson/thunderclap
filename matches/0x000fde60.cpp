@@ -1,11 +1,5 @@
-class C_fde60 {
-    char pad[0x38];
-
-  public:
-    int a, b, c;
-    bool f(int* out);
-};
-bool C_fde60::f(int* out) {
+#include "gen/owners.h"
+bool owners::C_fde60::FUN_000fde60(int* out) {
     out[0] = a;
     out[1] = b;
     out[2] = c;

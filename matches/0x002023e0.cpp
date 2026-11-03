@@ -2,6 +2,7 @@
 // data: global64 = DAT_004d293c
 
 #include "compat/ptr.h"
+#include "gen/owners.h"
 extern "C" char DAT_004259f8[];
 struct Head_2023e0 {
     int x, y, z;
@@ -11,9 +12,8 @@ struct Head_2023e0 {
 struct Obj_2023e0 {
     int v;
     void A();
-    void B(int);
 };
-class CWorldCollisionManager {
+class CWorldCollisionManager_2023e0 {
   public:
     void* vf;
     char pad4[4];
@@ -24,7 +24,7 @@ class CWorldCollisionManager {
     char pad24[4];
     char flag;
 };
-CWorldCollisionManager* __fastcall FUN_002023e0(CWorldCollisionManager* s, void*) {
+CWorldCollisionManager_2023e0* __fastcall FUN_002023e0(CWorldCollisionManager_2023e0* s, void*) {
     Head_2023e0* h = &s->head;
     s->vf = (void*)((hulk_intptr)DAT_004259f8);
     h->x = 0;
@@ -34,7 +34,7 @@ CWorldCollisionManager* __fastcall FUN_002023e0(CWorldCollisionManager* s, void*
     h->e = 0;
     s->part.A();
     s->value = (int)0xc61c4000;
-    s->part.B(0);
+    ((owners::Target_27b040 *)&(s->part))->FUN_0027b040((hulk_uintptr)0);
     s->flag = 0;
     h->C(DAT_004d293c);
     return s;

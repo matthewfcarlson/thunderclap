@@ -3,6 +3,7 @@
 #include "compat/ptr.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 extern "C" double __cdecl sqrt(double);
 
@@ -42,7 +43,6 @@ struct World {
 };
 
 struct Camera {
-    void FUN_00025260(int a, int b, int c);
 };
 
 struct Holder_2027c0 {
@@ -97,7 +97,7 @@ extern "C" bool FUN_002027c0(V3_2027c0 *from, V3_2027c0 *to, float radius, int a
     (*(char*)&DAT_004d2a40) = 0;
     (*(char*)&DAT_00554c1c) = 1;
     (*(float*)&DAT_00554c18) = radius;
-    fr.game->camera->FUN_00025260(0, 0, 0);
+    ((owners::C_25260 *)(fr.game->camera))->FUN_00025260(0, 0, 0);
 
     bool result = fr.hit1;
     if (fr.game->holder->world->FUN_002ee140(list, from, to, 0)) {
@@ -131,6 +131,6 @@ extern "C" bool FUN_002027c0(V3_2027c0 *from, V3_2027c0 *to, float radius, int a
             result = true;
         }
     }
-    fr.game->camera->FUN_00025260(1, 0, 0);
+    ((owners::C_25260 *)(fr.game->camera))->FUN_00025260(1, 0, 0);
     return result;
 }

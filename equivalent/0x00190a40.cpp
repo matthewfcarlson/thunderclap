@@ -2,6 +2,7 @@
 // hulkfight::motion::ImpulseVelocityAction::vfunc_5 @ 0x00190a40
 #include "compat/ptr.h"
 #include "gen/hulkfight.h"
+#include "gen/owners.h"
 
 struct V3_190a40 {
     float x, y, z;
@@ -10,8 +11,6 @@ struct V3_190a40 {
 
 struct Mat_190a40 {
     float m[16];
-    void FUN_0022c2b0(const V3_190a40 *in, V3_190a40 *out);
-    void FUN_0022c3b0(const V3_190a40 *in, V3_190a40 *out);
 };
 
 extern "C" float __cdecl FUN_000186b0(float *v, float *lo, float *hi);
@@ -74,7 +73,6 @@ struct Owner_190a40 {
     virtual void v1();
     virtual void v2();
     virtual Source_190a40 *GetSource();
-    Handle_190a40 *FUN_000592a0();
 };
 
 struct ArgBlock {
@@ -85,7 +83,7 @@ struct ArgBlock {
 bool hulkfight::motion::ImpulseVelocityAction::vfunc_5(hulk_intptr a, int b) {
     if (a != 0)
         return true;
-    Holder_190a40 *holder = (*(Owner_190a40 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();
+    Holder_190a40 *holder = ((Handle_190a40 *)((owners::Object_592a0 *)((*(Owner_190a40 * *)&this->f_20)))->FUN_000592a0())->FUN_00059a30();
     Skeleton_190a40 *skel = holder->skel;
     if (skel == 0)
         return false;
@@ -101,7 +99,7 @@ bool hulkfight::motion::ImpulseVelocityAction::vfunc_5(hulk_intptr a, int b) {
     zero.y = 0;
     zero.z = 0;
     V3_190a40 t1 = (*(Params_190a40 * *)&this->f_1c)->anchor;
-    m.FUN_0022c2b0(&t1, &zero);
+    ((owners::Mat_22c2b0 *)&m)->FUN_0022c2b0((float *)(const V3_190a40 *)(&t1), (float *)(V3_190a40 *)(&zero));
     V3_190a40 p = (*(Params_190a40 * *)&this->f_1c)->start;
     t1 = (*(Params_190a40 * *)&this->f_1c)->end;
     if (t1.z * t1.z + t1.y * t1.y + t1.x * t1.x > 0.0f) {
@@ -128,7 +126,7 @@ bool hulkfight::motion::ImpulseVelocityAction::vfunc_5(hulk_intptr a, int b) {
     w.x = 0;
     w.y = 0;
     w.z = 0;
-    m.FUN_0022c3b0(&p, &w);
+    ((owners::M_22c3b0 *)&m)->FUN_0022c3b0((float *)(const V3_190a40 *)(&p), (float *)(V3_190a40 *)(&w));
     bool doSet = (*(Params_190a40 * *)&this->f_1c)->pad3c != 0;
     if (!doSet) {
         t1.x = 0;

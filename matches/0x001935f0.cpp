@@ -1,9 +1,5 @@
-class T_1935f0 {
-  public:
-    char pad[0x100];
-    char* Get();
-};
+#include "gen/owners.h"
 
-char* T_1935f0::Get() {
+char* owners::T_1935f0::FUN_001935f0() {
     return pad + 0x100;
 }

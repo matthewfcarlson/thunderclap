@@ -1,11 +1,6 @@
-class O_68700 {
-  public:
-    char pad[0x84];
-    char mFlag;
-    bool SetFlag(char value);
-};
+#include "gen/owners.h"
 
-bool O_68700::SetFlag(char value) {
+bool owners::O_68700::FUN_00068700(char value) {
     mFlag = value;
     return true;
 }

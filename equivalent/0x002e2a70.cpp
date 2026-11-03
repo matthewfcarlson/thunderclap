@@ -3,6 +3,7 @@
 // FUN_002e2a70 @ 0x002e2a70
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/data/engine/pure3d/prop.h"
+#include "gen/owners.h"
 
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
@@ -11,7 +12,6 @@ void *__cdecl FUN_00266e00(int a, unsigned int n);
 extern "C" void __cdecl FUN_00267090(void *p);
 
 struct Reader {
-    void FUN_002647e0(void *dst, int count, int size, int flag);
 };
 
 struct Stream {
@@ -33,7 +33,6 @@ struct RefObj_2e2a70 {
 struct IntVec_2e2a70 {
     unsigned int *begin;
     unsigned int *end;
-    void FUN_002e18c0(unsigned int n);
 };
 
 // The reference count sits after the vptr and is cleared before the vptr is stored.
@@ -241,14 +240,14 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5
                 self->FUN_002a4b00(a1, stream, a3);
         } else if (id == 0x1001c) {
             if (self->flags & 0x4000) {
-                stream->reader->FUN_002647e0(&f.cnt, 1, 4, 1);
-                stream->reader->FUN_002647e0(&f.idx, 1, 4, 1);
+                ((owners::X_2647e0 *)(stream->reader))->FUN_002647e0((hulk_intptr)(&f.cnt), (hulk_intptr)1, 4, (hulk_intptr)1);
+                ((owners::X_2647e0 *)(stream->reader))->FUN_002647e0((hulk_intptr)(&f.idx), (hulk_intptr)1, 4, (hulk_intptr)1);
                 unsigned int index = f.idx;
                 if (index < f.vA) {
                     if (f.cnt > 0) {
                         unsigned int i = 0;
                         do {
-                            stream->reader->FUN_002647e0(vd->uv[index] + i * 4, 1, 4, 1);
+                            ((owners::X_2647e0 *)(stream->reader))->FUN_002647e0((hulk_intptr)(vd->uv[index] + i * 4), (hulk_intptr)1, 4, (hulk_intptr)1);
                             i++;
                         } while (i < f.cnt);
                     }
@@ -270,7 +269,7 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5
                     if (n > 0) {
                         unsigned int off = 0;
                         do {
-                            stream->reader->FUN_002647e0(vd->f18 + off, 3, 4, 1);
+                            ((owners::X_2647e0 *)(stream->reader))->FUN_002647e0((hulk_intptr)(vd->f18 + off), (hulk_intptr)3, 4, (hulk_intptr)1);
                             off += 0xc;
                         } while (--n != 0);
                     }
@@ -282,7 +281,7 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5
                     if (n > 0) {
                         unsigned int off = 0;
                         do {
-                            stream->reader->FUN_002647e0(vd->f1c + off, 3, 4, 1);
+                            ((owners::X_2647e0 *)(stream->reader))->FUN_002647e0((hulk_intptr)(vd->f1c + off), (hulk_intptr)3, 4, (hulk_intptr)1);
                             off += 0xc;
                         } while (--n != 0);
                     }
@@ -296,7 +295,7 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5
                         unsigned int i = 0;
                         if (n > 0) {
                             do {
-                                stream->reader->FUN_002647e0(vd->tex[a2.cnt] + i * 8, 2, 4, 1);
+                                ((owners::X_2647e0 *)(stream->reader))->FUN_002647e0((hulk_intptr)(vd->tex[a2.cnt] + i * 8), (hulk_intptr)2, 4, (hulk_intptr)1);
                                 i++;
                             } while (i < n);
                         }
@@ -309,7 +308,7 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5
                     unsigned int i = 0;
                     if (n > 0) {
                         do {
-                            stream->reader->FUN_002647e0(vd->uv[0] + i * 4, 1, 4, 1);
+                            ((owners::X_2647e0 *)(stream->reader))->FUN_002647e0((hulk_intptr)(vd->uv[0] + i * 4), (hulk_intptr)1, 4, (hulk_intptr)1);
                             i++;
                         } while (i < n);
                     }
@@ -321,7 +320,7 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5
                 unsigned int i = 0;
                 if (n > 0) {
                     do {
-                        stream->reader->FUN_002647e0(&f.tmpw, 1, 4, 1);
+                        ((owners::X_2647e0 *)(stream->reader))->FUN_002647e0((hulk_intptr)(&f.tmpw), (hulk_intptr)1, 4, (hulk_intptr)1);
                         a2.buf[i] = (unsigned short)f.tmpw;
                         i++;
                     } while (i < n);
@@ -336,7 +335,7 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5
                     if (n > 0) {
                         unsigned int off = 0;
                         do {
-                            stream->reader->FUN_002647e0(vd->uv[3] + off, 3, 4, 1);
+                            ((owners::X_2647e0 *)(stream->reader))->FUN_002647e0((hulk_intptr)(vd->uv[3] + off), (hulk_intptr)3, 4, (hulk_intptr)1);
                             off += 0xc;
                         } while (--n != 0);
                     }
@@ -348,7 +347,7 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5
                     unsigned int i = 0;
                     if (n > 0) {
                         do {
-                            stream->reader->FUN_002647e0(&a5.u, 1, 4, 1);
+                            ((owners::X_2647e0 *)(stream->reader))->FUN_002647e0((hulk_intptr)(&a5.u), (hulk_intptr)1, 4, (hulk_intptr)1);
                             vd->uv[2][i * 4] = (char)(a5.u >> 24);
                             vd->uv[2][i * 4 + 1] = (char)(a5.u >> 16);
                             vd->uv[2][i * 4 + 2] = (char)(a5.u >> 8);
@@ -366,11 +365,11 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5
                     if (m != 0)
                         list = new (m) MatrixPaletteList();
                     a2.list = list;
-                    a2.list->vec.FUN_002e18c0(n);
+                    ((owners::Object_2e18c0 *)&(a2.list->vec))->FUN_002e18c0((int)n);
                     unsigned int i = 0;
                     if (n > 0) {
                         do {
-                            stream->reader->FUN_002647e0(&f.tmpd, 1, 4, 1);
+                            ((owners::X_2647e0 *)(stream->reader))->FUN_002647e0((hulk_intptr)(&f.tmpd), (hulk_intptr)1, 4, (hulk_intptr)1);
                             a2.list->vec.begin[i] = f.tmpd;
                             i++;
                         } while (i < n);
@@ -396,7 +395,7 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5
                     if (n > 0) {
                         unsigned int off = 0;
                         do {
-                            stream->reader->FUN_002647e0(vd->f30 + off, 3, 4, 1);
+                            ((owners::X_2647e0 *)(stream->reader))->FUN_002647e0((hulk_intptr)(vd->f30 + off), (hulk_intptr)3, 4, (hulk_intptr)1);
                             off += 0xc;
                         } while (--n != 0);
                     }
@@ -408,7 +407,7 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5
                     if (n > 0) {
                         unsigned int off = 0;
                         do {
-                            stream->reader->FUN_002647e0(vd->f28 + off, 3, 4, 1);
+                            ((owners::X_2647e0 *)(stream->reader))->FUN_002647e0((hulk_intptr)(vd->f28 + off), (hulk_intptr)3, 4, (hulk_intptr)1);
                             off += 0xc;
                         } while (--n != 0);
                     }

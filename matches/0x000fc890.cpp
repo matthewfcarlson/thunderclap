@@ -1,16 +1,6 @@
-class Obj_fc890 {
-public:
-    char pad0[0x10];
-    bool flag10;
-    bool flag11;
-    bool flag12;
-    bool flag13;
-    float threshold;
-    float value;
-    float Get();
-};
+#include "gen/owners.h"
 
-float Obj_fc890::Get()
+float owners::Obj_fc890::FUN_000fc890()
 {
     bool direct = !flag12 && !(threshold < 0.1f) && !flag10;
     if ((!direct && flag13) || flag11)

@@ -1,8 +1,4 @@
-class Obj {
-  public:
-    void fn(int, int, int, int, int, int);
-    void target(int, int, int, float, int);
-};
-void Obj::target(int a, int b, int c, float d, int e) {
-    fn(a, b, c, 0, (int)d, e);
+#include "gen/owners.h"
+void owners::Obj_1f3e90::FUN_001f3e90(int a, hulk_intptr b, int c, float d, int e) {
+    fn(a, ((int)b), c, 0, (int)d, e);
 }

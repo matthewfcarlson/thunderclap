@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_0022e930 @ 0x0022e930
+#include "gen/owners.h"
 struct V3_22e930 {
     float x, y, z;
 };
@@ -10,7 +11,6 @@ struct Matrix {
 
 struct Vec4_22e930 {
     unsigned int w[4];
-    void FUN_002306c0(const Matrix* mat);
 };
 
 class Segment_22e930 {
@@ -61,9 +61,9 @@ V3_22e930* Segment_22e930::FUN_0022e930(V3_22e930* out, unsigned int n)
     pos.w[1] = b.w[3];
     pos.w[2] = c.w[3];
     ((float*)pos.w)[3] = 1.0f;
-    a.FUN_002306c0(&d);
-    b.FUN_002306c0(&d);
-    c.FUN_002306c0(&d);
+    ((owners::Obj_2306c0 *)&a)->FUN_002306c0((hulk_intptr)(const Matrix *)(&d));
+    ((owners::Obj_2306c0 *)&b)->FUN_002306c0((hulk_intptr)(const Matrix *)(&d));
+    ((owners::Obj_2306c0 *)&c)->FUN_002306c0((hulk_intptr)(const Matrix *)(&d));
     ((unsigned int*)out)[0] = pos.w[0];
     ((unsigned int*)out)[1] = pos.w[1];
     ((unsigned int*)out)[2] = pos.w[2];

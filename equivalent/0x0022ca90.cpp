@@ -1,11 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0022ca90 @ 0x0022ca90
-struct Matrix {
- float m[4][4];
- void FUN_0022ca90(const Matrix* a, const Matrix* b);
-};
-void Matrix::FUN_0022ca90(const Matrix* a, const Matrix* b) {
- Matrix r;
+#include "gen/owners.h"
+void owners::Matrix_22ca90::FUN_0022ca90(const owners::Matrix_22ca90* a, const owners::Matrix_22ca90* b) {
+ owners::Matrix_22ca90 r;
  r.m[0][0]=(a->m[0][0]*b->m[0][0]+a->m[0][2]*b->m[2][0])+b->m[1][0]*a->m[0][1];
  r.m[0][1]=(b->m[0][1]*a->m[0][0]+a->m[0][2]*b->m[2][1])+b->m[1][1]*a->m[0][1];
  r.m[0][2]=(b->m[2][2]*a->m[0][2]+b->m[1][2]*a->m[0][1])+a->m[0][0]*b->m[0][2];

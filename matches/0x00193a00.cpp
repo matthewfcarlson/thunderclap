@@ -1,11 +1,6 @@
-class O_193a00 {
-  public:
-    char pad[0x68];
-    float value;
-    bool Set(float angle);
-};
+#include "gen/owners.h"
 
-bool O_193a00::Set(float angle) {
+bool owners::O_193a00::FUN_00193a00(float angle) {
     value = angle * 0.017453292f;
     return true;
 }

@@ -1,14 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_0012ece0 @ 0x0012ece0
+#include "gen/owners.h"
 typedef unsigned int size_t;
 void __cdecl FUN_0008d340(void*);
 void* __cdecl FUN_0008d6d0(unsigned int);
-struct Thing {
-    char pad[0x20];
-    char* text;
-    unsigned char FUN_0012ece0(const char* value);
-};
-unsigned char Thing::FUN_0012ece0(const char* value) {
+unsigned char owners::Thing_12ece0::FUN_0012ece0(const char* value) {
     FUN_0008d340(text);
     if (!value) {
         text = 0;

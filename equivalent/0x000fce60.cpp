@@ -3,13 +3,13 @@
 // local is the 3x3 rotation matrix (0x2c bytes) built by Matrix::build (0x0022baf0)
 // FUN_000fce60 @ 0x000fce60
 #include "decls/data/game/global.h"
+#include "gen/owners.h"
 
 struct Vec3_fce60 { float x, y, z; };
 
 struct Matrix_fce60 {
     float m[16];
     void FUN_0022baf0(const Vec3_fce60 *axis, float angle);
-    void FUN_0022c3b0(const Vec3_fce60 *in, Vec3_fce60 *out);
 };
 
 extern "C" float FUN_00224ea0(float y, float x);
@@ -33,14 +33,14 @@ void FUN_000fce60(Matrix_fce60 *rot, Vec3_fce60 *axis, int unused2, int unused3,
         up.x = 0.0f;
         up.y = 1.0f;
         up.z = 0.0f;
-        q.FUN_0022c3b0(&up, out);
+        ((owners::M_22c3b0 *)&q)->FUN_0022c3b0((float *)(const Vec3_fce60 *)(&up), (float *)(Vec3_fce60 *)out);
     } else {
         Vec3_fce60 fwd;
         Vec3_fce60 w;
         fwd.x = 0.0f;
         fwd.y = 0.0f;
         fwd.z = 1.0f;
-        rot->FUN_0022c3b0(&fwd, &w);
+        ((owners::M_22c3b0 *)rot)->FUN_0022c3b0((float *)(const Vec3_fce60 *)(&fwd), (float *)(Vec3_fce60 *)(&w));
         float heading = FUN_00224ea0(w.x, w.z);
         float angle = (FUN_00224ea0(a4, a5) + 3.14159274101257f) + heading;
         out->x = DAT_004a1aa0;

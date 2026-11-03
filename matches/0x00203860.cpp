@@ -1,7 +1,4 @@
-struct Thing_203860 {
-    char pad[0xaa4];
-    void* Get();
-};
-void* Thing_203860::Get() {
+#include "gen/owners.h"
+void* owners::Thing_203860::FUN_00203860() {
     return (char*)this + 0xaa4;
 }

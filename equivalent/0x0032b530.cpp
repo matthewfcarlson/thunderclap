@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2969 inputs, branch coverage 6/6)
 // FUN_0032b530 @ 0x0032b530
 #include "decls/data/platform/xbox/pure3d.h"
+#include "gen/owners.h"
 
 namespace D3D8 {
 void __stdcall D3DDevice_SetTextureState_TexCoordIndex(int stage, int value);
@@ -14,7 +15,6 @@ struct TexSlot {
 extern unsigned int DAT_0039db08;
 extern TexSlot DAT_0039db10[];
 struct StageCache_32b530 {
-    void FUN_00329c90(int stage, int value);
     char pad0[0x18];
     int texCoordIndex[4];
     int modes[4];
@@ -48,5 +48,5 @@ void TextureStage::Set(int stage, int texCoord, int value) {
         DAT_0039db10[stage].v4 = t;
         DAT_0039db10[stage].v8 = t;
     }
-    cache->FUN_00329c90(stage, arg);
+    ((owners::Obj_329c90 *)cache)->FUN_00329c90(stage, arg);
 }
