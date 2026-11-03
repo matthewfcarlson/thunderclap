@@ -3,6 +3,7 @@
 
   build/venv/bin/python tools/equiv.py SRC 0xADDR --x64 [--inputs N] [--json]
   build/venv/bin/python tools/equiv64.py SRC 0xADDR [--inputs N] [--json] [--seeds 3,7] [--verbose]
+  build/venv/bin/python tools/equiv64.py batch LIST OUT.jsonl [--name ME] [-- --inputs 200]   # through the job queue
 
 Design (docs/equivalence.md "64-bit check (--x64)"): the chain is original == Wine object (equiv.py --wine, the
 promotion gate) and Wine object == x64 object (this). Both objects come from the same source through the same clang
@@ -2683,13 +2684,13 @@ def verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120, 
         rep.update(status="compile_error", error=str(e)[-1500:], time=round(time.time() - t0, 2))
         return rep
     except Unsupported as e:
-        rep.update(status="unsupported", error=str(e), **{"class": "tool"}, time=round(time.time() - t0, 2))
+        rep.update(status="unsupported", error="[tool] " + str(e), **{"class": "tool"}, time=round(time.time() - t0, 2))
         return rep
     rep["symbol32"], rep["symbol64"] = chk.sym32, chk.sym64
     try:
         res = chk.run(n_inputs, seeds, time_budget)
     except Unsupported as e:
-        rep.update(status="unsupported", error=str(e), **{"class": "tool"}, time=round(time.time() - t0, 2))
+        rep.update(status="unsupported", error="[tool] " + str(e), **{"class": "tool"}, time=round(time.time() - t0, 2))
         return rep
     rep["inputs"], rep["completed"], rep["skipped"] = res["inputs"], res["completed"], res["skipped"]
     if res.get("skip_first"):
@@ -2712,12 +2713,16 @@ def verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120, 
     elif res["completed"] == 0:
         rep["status"] = "unsupported"
         rep["class"] = "tool"
-        rep["error"] = "no input completed on the 32-bit side (%s; first: %s)" % (res["skipped"], res.get("skip_first"))
+        rep["error"] = "[tool] no input completed on the 32-bit side (%s; first: %s)" % (res["skipped"], res.get("skip_first"))
     elif res["completed"] < 8:
         rep["status"] = "inconclusive"
     else:
         rep["status"] = "equivalent"
     rep["time"] = round(time.time() - t0, 2)
+    # (the fields tools/equiv_batch.py reads from a level-3 report: batches keep the class and the first difference)
+    rep["level3"] = {"inputs_run": rep.get("completed"), "coverage": rep.get("coverage"), "statuses": rep.get("skipped"),
+                     "mismatches": [{"input": f["seed"], "diffs": ["[%s] %s" % (f["class"], f["diff"])]}
+                                    for f in rep.get("fails", [])]}
     chk.tmp.cleanup()
     return rep
 
@@ -2737,7 +2742,30 @@ def render(rep):
     return "\n".join(lines)
 
 
+def batch(argv):
+    """`equiv64.py batch LIST OUT.jsonl [--name ME] [--per N] [-- equiv.py args]`: tools/jobq_equiv.py with --x64,
+    shipping libclang's Python binding with each job (job_files) for hosts whose venv lacks it."""
+    import jobq
+    import jobq_equiv
+    extra = argv[argv.index("--") + 1:] if "--" in argv else []
+    argv = argv[:argv.index("--")] if "--" in argv else argv
+    p = argparse.ArgumentParser(prog="equiv64.py batch")
+    p.add_argument("list")
+    p.add_argument("out")
+    p.add_argument("--name", default="eq64")
+    p.add_argument("--per", type=int, default=4)
+    a = p.parse_args(argv)
+    orig = jobq.collect_files
+    jobq.collect_files = lambda specs, dirty=False, **kw: {**orig(specs, dirty, **kw), **job_files()}
+    items = [tuple(l.split()[:2]) for l in open(a.list) if l.strip()]
+    res = jobq_equiv.run_items(a.name, items, a.out, ["--x64"] + (extra or ["--inputs", "200", "--time-budget", "60"]), per=a.per)
+    print("%d results in %s" % (len(res), a.out))
+    return 0 if len(res) == len(items) else 1
+
+
 def main(argv):
+    if argv[:1] == ["batch"]:
+        return batch(argv[1:])
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("src")
     p.add_argument("addr")

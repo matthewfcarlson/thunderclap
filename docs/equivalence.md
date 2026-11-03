@@ -1618,8 +1618,12 @@ objects (windows are 16 bytes), branch joins of registers that are undefined on 
 ```sh
 build/venv/bin/python tools/equiv.py SRC 0xADDR --x64 [--inputs 200] [--time-budget 120] [--json]
 build/venv/bin/python tools/equiv64.py SRC 0xADDR [--seeds 3,7]          # the same, plus a seed list (regression)
-build/venv/bin/python tools/jobq_equiv.py LIST OUT.jsonl --name ME -- --x64 --inputs 200    # batches (see below)
+build/venv/bin/python tools/equiv64.py batch LIST OUT.jsonl --name ME [-- --inputs 200]    # batches through the queue
 ```
+
+`batch` is tools/jobq_equiv.py with `--x64` that also ships libclang's Python binding (`clang`, docs/toolchain.md) with
+each job, for checker hosts whose venv lacks it (`jobq_equiv.py ... -- --x64` works once the hosts have `pip install
+clang`). libclang itself comes from the host's LLVM (`clang_probe.LLVM`'s `lib/`).
 
 **What it proves.** The supported targets are 64-bit (x86-64 SteamOS, arm64 macOS; MS C++ ABI on both,
 docs/native-mac.md). `--x64` checks the source's **x86-64 object against its own 32-bit clang object** (the object
