@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 20014 inputs, branch coverage 12/12)
 // CAvoidBehaviour::vfunc_4 @ 0x00109c00
+#include "compat/ptr.h"
 struct V3_109c00 {
     float x, y, z;
     float FUN_0022d110();
@@ -27,7 +28,7 @@ public:
     V3_109c00 p2074;
     char pad2080[0x208c - 0x2080];
     V3_109c00 p208c;
-    float FUN_00035700();
+    hulk_freg FUN_00035700();
 };
 
 struct Frame_109c00 {
@@ -100,10 +101,11 @@ bool CAvoidBehaviour::vfunc_4(V3_109c00 *a, V3_109c00 *b, Ctx_109c00 *ctx, Targe
         fr.diff.FUN_0022d110();
         ctx->limit = ratio;
     } else {
-        float r = ctx->FUN_00035700();
+        // x87: the speed (FUN_00035700's st0) and the quotient stay unrounded; only peak and ratio are stored
+        hulk_freg r = ctx->FUN_00035700();
         if (r > peak)
             peak = r;
-        float q = r / peak;
+        hulk_freg q = r / peak;
         if (q > ctx->limit)
             q = ctx->limit;
         ratio = q;
