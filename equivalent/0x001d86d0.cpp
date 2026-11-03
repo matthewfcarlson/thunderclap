@@ -2,6 +2,7 @@
 // FUN_001d86d0 @ 0x001d86d0
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct V3_1d86d0 {
@@ -176,7 +177,7 @@ void Thing_1d86d0::F(V3_1d86d0 *vin, void *arg2)
     if (match) {
         if (V.y > 0.4f && V.y < 0.97f) {
             V.y = 0;
-            float l = V.FUN_000111f0();
+            hulk_freg l = V.FUN_000111f0();   // the original divides by the unrounded st0 (fdivr on the call result)
             V.y = 0.4f;
             double k = sqrt((double)0.84f / (double)l);
             V.x = V.x * k;
