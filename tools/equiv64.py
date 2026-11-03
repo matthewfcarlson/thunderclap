@@ -378,7 +378,7 @@ class TU:
         self.records = {}       # record spelling (no spaces) -> definition cursor
         self._walk(self.tu.cursor, 0)
 
-    def _walk(self, c, depth):
+    def _walk(self, c, depth, templ=False):
         K = ci().CursorKind
         for ch in c.get_children():
             k = ch.kind
@@ -388,8 +388,8 @@ class TU:
                 except Exception:   # noqa: BLE001
                     mn = None
                 names = [mn] if mn else []
-                if k in (K.CONSTRUCTOR, K.DESTRUCTOR):
-                    names += cxx_manglings(ch)
+                if k in (K.CONSTRUCTOR, K.DESTRUCTOR) and not templ and mn:
+                    names += cxx_manglings(ch)     # (never inside a template: libclang crashes on dependent ones)
                 for mn in names:
                     self.by_mangled.setdefault(mn, ch)
                     if self.bits == 32 and not mn.startswith("?"):
@@ -397,12 +397,12 @@ class TU:
                     if mn.startswith("_") and self.bits == 32 and "@" in mn and not mn.startswith("?"):
                         self.by_mangled.setdefault(mn, ch)
             if k in (K.NAMESPACE, K.LINKAGE_SPEC, K.UNEXPOSED_DECL):
-                self._walk(ch, depth + 1)
+                self._walk(ch, depth + 1, templ)
             elif k in (K.CLASS_DECL, K.STRUCT_DECL, K.UNION_DECL, K.CLASS_TEMPLATE_PARTIAL_SPECIALIZATION) or \
                     k.name == "CLASS_TEMPLATE":
                 if ch.is_definition() and k.name != "CLASS_TEMPLATE":
                     self.records.setdefault(ch.type.get_canonical().spelling.replace(" ", ""), ch)
-                self._walk(ch, depth + 1)
+                self._walk(ch, depth + 1, templ or k.name in ("CLASS_TEMPLATE", "CLASS_TEMPLATE_PARTIAL_SPECIALIZATION"))
 
 
 class Leaf:
@@ -811,9 +811,12 @@ class Heap:
         if o is not None:
             return o
         if count is None:
-            # a record is one object (indexing past it is out of bounds, and the input is not used); scalars
-            # (int*, float*, T**) are arrays of up to KMAX
-            count = 1 if glob or (lay.record and ident == ("arg", "this")) else max(1, min(KMAX, RAW_SIZE // max(1, lay.size32)))
+            # a record is one object (indexing past it is out of bounds, and the input is not used: the element
+            # after it would be another record whose 64-bit fields are elsewhere, so `(Hdr*)p + 1` or an index past a
+            # member array would read as layout differences); scalars (int*, float*, T**) are arrays of up to KMAX.
+            # EQ64_OFF=recone: records as arrays too
+            one = lay.record and ("recone" not in OFF or ident == ("arg", "this"))
+            count = 1 if glob or one else max(1, min(KMAX, RAW_SIZE // max(1, lay.size32)))
         if lay.raw:
             n = alloc[0] if alloc else RAW_SIZE
             s32 = s64 = max(1, n)
@@ -1065,6 +1068,7 @@ def gen_byte(r):
 # ------------------------------------------------------------------------------------------------- stubs
 CRT_SEMANTIC = {"memcpy", "memmove", "memset", "memcmp", "strlen", "strcmp", "strcpy", "strncpy", "strcat", "_stricmp",
                 "stricmp", "strncmp", "_strnicmp", "strchr", "wcslen"}
+CRT_STRIPPED = {n.lstrip("_") for n in CRT_SEMANTIC}
 I386_HELPERS = {"__alldiv", "__aulldiv", "__allrem", "__aullrem", "__allmul", "__allshl", "__allshr", "__aullshr",
                 "__aulldvrm", "__alldvrm"}
 SKIP_CALLS = {"__security_check_cookie", "__chkstk", "_alloca_probe", "__alloca_probe", "_RTC_CheckEsp"}
@@ -1375,8 +1379,9 @@ class Checker:
         res = {"inputs": 0, "completed": 0, "skipped": {}, "fails": [], "classes": {}}
         cov = set()
         seq = seeds if seeds else range(n_inputs)
+        w0 = time.time()
         for seed in seq:
-            if time.process_time() - t0 > time_budget and not seeds:
+            if (time.process_time() - t0 > time_budget or time.time() - w0 > 3 * time_budget) and not seeds:
                 res["stopped"] = "time budget"
                 break
             res["inputs"] += 1
@@ -2038,8 +2043,8 @@ class Side:
             return self._ret(sp, retaddr, 0, None, None)
         if cname in I386_HELPERS or (name or "") in I386_HELPERS:
             return self.helper386(name, sp, retaddr)
-        if cname in CRT_SEMANTIC:
-            return self.crt(cname, sp, retaddr)
+        if cname is not None and cname.lstrip("_") in CRT_STRIPPED:
+            return self.crt(cname.lstrip("_"), sp, retaddr)
         if st.kind == "vslot" and st.sig == ("deleting",):
             sig = None
         else:
@@ -2299,7 +2304,7 @@ class Side:
         elif name in ("strlen", "wcslen"):
             a, = self.int_args(sp, 1)
             rv = len(self.cstr(a, wide=name == "wcslen")) // (2 if name == "wcslen" else 1)
-        elif name in ("strcmp", "_stricmp", "stricmp", "strncmp", "_strnicmp"):
+        elif name in ("strcmp", "stricmp", "strncmp", "strnicmp"):
             a, c = self.int_args(sp, 2)
             lim = self.int_args(sp, 3)[2] if "n" in name[3:] else 0x10000
             x, y = self.cstr(a, lim), self.cstr(c, lim)

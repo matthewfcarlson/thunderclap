@@ -1695,6 +1695,35 @@ reached / instructions of the function), and for a fail `diff` (the first differ
 `layout`, `ptrtrunc` and `crash64` are 64-bit bugs in the source (or in a header it uses) until shown otherwise;
 `untyped` and `tool` are gaps of the checker.
 
+**Pilot (eq64, 2026-11-03).** 400 random sources (200 `matches/`, 200 `equivalent/`), 200 inputs, 60 s budget, through the
+queue (`equiv64.py batch`; every non-equivalent one and 60 of the equivalent ones re-run locally with the final checker:
+59 of the 60 stayed equivalent): **322 equivalent (80%; matches 170/200, equivalent 152/200)**, 51 fail, 26 unsupported,
+1 inconclusive. Fails by class: layout 25, untyped 12, int 4, crash64 3, ptrtrunc 2, intwidth 2, call 2, float 1;
+unsupported: tool 18, stubsize 8. Reading the sources behind the layout / ptrtrunc / crash64 / int fails, most are real
+64-bit bugs of the source or of the declarations it uses (list: build/eq64/final2.txt of that run); the common shapes:
+
+- an allocation sized by the 32-bit size (`operator new(0x10)`, `FUN_0008d690(0x14)`) for a class with a vfptr or pointer
+  fields (the TrackFactoryTemplate/ConditionFactory family, `MethodBase`, `ParamValueName`, `ColourChannel`, ...);
+- a byte offset that is the 32-bit layout's (`(char*)this + 4` as a tree's end sentinel, `this + 0x1a8` into a pad,
+  `(char*)&DAT_x + 7364` into a `void*[]` data declaration);
+- a pointer kept in, or read through, a 4-byte int (`*(int**)&this->f_10`, `volatile int* p = this; *p = (hulk_intptr)&vt`,
+  `x < *(unsigned int*)&this->f_0c` comparing an address with a truncated bound, a pointer returned as `unsigned int`);
+- a member-function pointer in a 4-byte field (`*(bool (T::**)(int))&this->f_18`): 8 bytes on 64-bit;
+- the `__fastcall` trick that calls a thiscall slot with a dummy `edx` argument: on Win64 the dummy is the method's first
+  argument (core::TimerList::vfunc_5).
+
+Known false positives: a pointer computed past an object from a fuzzed index that lands in another object on one side
+(0x00038f90 at some seeds), and an uninitialised local passed by pointer whose leftover stack bytes differ (0x000a89c0,
+`float`). `untyped` fails are mostly the checker not knowing what a `void*` or a pad holds (but also stub classes whose `char pad[]`
+stands for a vfptr); `tool`/`stubsize` sources are ones whose 32-bit run never completes (calls through member pointers
+kept in int fields, stub classes smaller than what the function writes, null-object writes).
+
+**What a promotion gate needs.** (1) `pip install clang` in the checker hosts' venvs (or keep `batch`/`job_files`);
+(2) a policy: `equivalent` required except for an allow-list of `unsupported`/`untyped` sources reviewed by hand, and
+the existing fails fixed or listed (they are the 64-bit work list); (3) a regress run of `X64_CASES` after any change to
+tools/equiv64.py; (4) for arm64: running the AArch64 object (same front end and layouts; the calling convention and
+Unicorn's arm64 mode are the new part).
+
 **Limits.** The check is per source: a source's own stub types are laid out consistently on both targets, so a stub
 class whose `char pad[0x1c]` stands for a pointer and two ints of the real class passes here while the real 64-bit
 class puts its fields elsewhere. Agreement of stub types with the real classes across sources is
