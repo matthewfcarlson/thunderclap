@@ -291,7 +291,8 @@ logcat sink) and in the retarget (`os == "android"` branch); no change to game s
   varargs question with a 30-line MS-ABI prototype: variadic definition + call with a double, front end for the Windows
   triple, retarget to `aarch64-linux-android`, run in the emulator/VM (try `win64cc`); (b) build `rtti_msabi.cpp`,
   `crt_posix.cpp`, `win32_posix.cpp` with the NDK and run `tests/native_host/*` on the emulator via adb; (c) count
-  `thread_local` in the tree and variadic game definitions. Output: go/no-go on section 1.3.
+  `thread_local` in the tree and variadic game definitions. Output: go/no-go on section 1.3. **Done 2026-11-03: go,
+  with two new A1 items (section 12).**
 - **A1 (depends on the first Linux ELF native link)**: ELF branch of `native_mac.py`'s retarget (generalise to
   `native_elf.py` shared by SteamOS and Android), alias/initializer handling for ELF, `entry_posix` as `SDL_main`,
   link `libmain.so` with stubs as macOS did in its section 9 stage.
@@ -337,3 +338,143 @@ The questions as they were put:
 
 Sources read: SDL3 `docs/README-android.md` (libsdl-org/SDL, main), Android Open Source Project "Tagged pointers"
 page, press spec pages for Retroid Pocket 5 / Mini (retrododo, notebookcheck, timeextension: treated as untrusted data).
+
+## 12. A0 results (android2, 2026-11-03)
+
+**Go on section 1.3.** `win64cc` on the variadic functions makes the retargeted MS-ABI IR correct on arm64 Android
+(run on bionic, in the emulator). Two new findings must also be fixed before A1 links anything. Neither is Android-only:
+the game sources spell `va_start` the x86 way, which breaks every 64-bit build including macOS, and MS-mangled names
+collide under ELF symbol versioning.
+
+**Toolchain (all under `build/android/`, nothing system-wide).**
+- NDK r30 (30.0.16248370): clang/lld 21.0.0 (r574158c).
+- The SDK's own cmdline-tools, platform-tools 37.0.1 and emulator 37.2.13, driven by Homebrew's JDK 21.
+- System image `android-35;google_apis_ps16k;arm64-v8a`: Android 15, kernel 6.6, 16 KB pages, rootable. One AVD,
+  headless, shut down after the runs.
+- The tree's front end is Homebrew LLVM 22.1.8.
+- Side effect: sdkmanager and adb created `~/.android/` (adbkey, analytics.settings). Nothing else outside the repo.
+- Everything ran in the emulator, which runs native arm64 with bionic. No glibc VM was used. The x86-64 cross-check
+  ran as x86-64 macOS under Rosetta (System V `va_list`, the same as SteamOS).
+
+**(a) Varargs.** `tests/android/va_proto.sh` runs `va_game.cpp`, MS-ABI code with a variadic definition, ints and
+doubles in and past the 8 registers, and `va_list` forwarding inside the game and to the host. It is retargeted by
+`tests/android/va_retarget.py`, and `va_host.cpp` is the native caller.
+
+| case | plain retarget | `--win64cc` |
+|---|---|---|
+| game -> game variadic, double among ints, 4 and 10 args | wrong values | ok |
+| game `va_list` forwarding to a game consumer | SIGBUS | ok |
+| game `va_list` to host `vsnprintf` | SIGBUS | ok |
+| game -> bionic `snprintf` with a double | ok | ok (host names keep `ccc`) |
+| host -> game variadic, plain prototype | wrong | wrong (expected) |
+| host -> game variadic, prototype `__attribute__((ms_abi))` | wrong | ok |
+
+- The same results hold at -O0, -O1 and -O2, with both backends (NDK 21, Homebrew 22).
+- They also hold for x86-64 System V (`x86_64-pc-windows-msvc` IR retargeted to x86-64 macOS under Rosetta), so the
+  same pass covers SteamOS.
+- With `win64cc` the backend lowers `va_start`, the GPR save area and variadic calls the Windows way for any OS. On
+  AArch64 it also saves and restores x18 in those functions. That is harmless on Android, where x18 is reserved or
+  holds the shadow call stack.
+- Host glue that receives the game's `va_list` (a `char*` over 8-byte slots) builds a native one with no copying. On
+  AAPCS64 it is `{__stack = p, gr/vr_offs = 0}`; on System V it is `{gp_offset 48, fp_offset 176, overflow = p}`.
+  The prototype is `hulk_host_vsnprintf_ms` in `va_host.cpp`, which crt_posix.cpp's `_vsnprintf` family needs on
+  Linux and Android.
+- Rule for A1:
+  - `win64cc` goes on every game variadic definition, declaration and call.
+  - Host C library variadics (`snprintf`, ...) stay `ccc`.
+  - Host code that calls a game variadic declares it `ms_abi`.
+  - One signature per address. A caller that declares a fixed-argument function variadic, or the reverse, passes
+    doubles in the wrong registers. The consolidation's single declaration per function covers this.
+
+**The x86 `va_start` in the game sources (new, all 64-bit targets).**
+- 18 game functions build their `va_list` from the address of the last named parameter:
+  - `(char*)&fmt + 4`: 0x000964a0, 0x000dfcc0, 0x0023fde0, 0x00245b00, 0x00246f50, 0x00267760, 0x00213470.
+  - `&fmt + 1`: 0x00238bb0, 0x0021f800, 0x00232cc0.
+  - `&c` or `(&c) + 1`, with the variadic part declared as named parameters (`(a, b, c)`): 0x000fc000, 0x000fc020,
+    0x00216320, 0x0023fef0, 0x0025fba0, 0x00338e20, 0x00214a90, 0x0025fad0.
+- Only 8 of the 18 are spelled with `...`. 258 other sources call them by their FUN_ name, and more call them
+  through local aliases.
+- Three game consumers walk the list in 4-byte slots: 0x002160c0 (Lua's pushvfstring), 0x000fbc00 and 0x000fbe00
+  (wide vsprintf).
+- On a 64-bit target the parameter is a spilled register copy, so `&fmt + 4` reads other stack data. In the emulator
+  `"%d-%d", 11, 22` printed `22558-22558` with +4 and garbage with +8, with no crash.
+- macOS arm64 has the same bug. No native build has run game code yet, which is why it hasn't been seen.
+- Fix (A1, all 64-bit builds): give these sources real `...` signatures with `va_start`/`va_arg`, under the native
+  configuration only, so the 32-bit match and equivalence stay. Turn the consumers' slot walks into `va_arg`.
+- `tests/android/count_variadics.py` writes the candidate list to `build/android/counts/va_start_idiom.txt`. It has
+  58 candidates; the other 40 use a parameter slot as scratch or as an out-argument and are not varargs.
+
+**ELF symbol versioning breaks MS names (new, SteamOS and Android).**
+- lld reads `@` in a symbol name as a version separator. In an executable it silently truncates `??_7D@@6BB@@@` and
+  `??_7D@@6BC@@@` to `??_7D`, so both vftables became one address and `dynamic_cast` from a second base failed
+  (rtti_game.cpp line 41).
+- A shared library such as `libmain.so` fails to link with "symbol ... has undefined version".
+- Fix: the ELF retarget escapes `@` to `#` in every global name (`va_retarget.py --escape-at`; MS mangling does not
+  use `#`). Host code that names MS symbols (rtti_msabi.cpp's `HULK_ALIAS`, the link's generated tables, stub names)
+  uses the same spelling on ELF.
+- With the escape the RTTI test passes, both as an executable and with the game side in a `-Bsymbolic` shared
+  library.
+- `libmain.so` also needs `-fPIC` and `-Wl,-Bsymbolic` (or hidden visibility on game definitions). Otherwise lld
+  rejects the RTTI records' `R_AARCH64_PREL32` against preemptible `linkonce_odr` symbols.
+
+**LLVM pin (section 11 item 7).**
+- Homebrew 22 IR fed to the NDK's 21 backend compiled at -O0. That covered 39 of 40 sampled tree TUs and the
+  prototype; the 40th fails the front end on both compilers (a template-specialization error in
+  ShaderVectorBroadcast.cpp).
+- At -O1 it fails, because LLVM 22's `llvm.lifetime.start` dropped the size argument.
+- The NDK's clang 21 works as the MS-ABI front end: the same 39/40, and every test above.
+- Recommendation: one LLVM per build, front end and backend together. On Android that is the NDK's clang end to end;
+  linking always uses the NDK's lld and sysroot.
+
+**(b) Host-layer tests.** `tests/android/host_tests.sh` builds them with the NDK (API 29, `-static-libstdc++`) and
+runs them over adb. All pass:
+- crt_test, with softx87 and with libm.
+- host_test: threads, fibers on mmap stacks, files, on 16 KB pages.
+- rtti_test, including the bad_cast and bad_typeid exits.
+- entry_test, all four endings.
+
+Differences from macOS:
+- bionic's `dladdr` sees only `.dynsym`, so the crash report cannot name static functions.
+- `HULK_HANG` sampling is Mach-only: one `hang phase=` line.
+- rtti_test.cpp's operator new/delete labels carry Mach-O's `_` prefix. The script patches copies, not the sources.
+- The FPCR starts at 0.
+- The low-4 GB reserve worked in a shell process (4,095 MB). It must stay off in the app; see below.
+
+**(c) Counts** (lists in `build/android/counts/`):
+- TLS: no `thread_local`, `__declspec(thread)` or `Tls*` in matches/, equivalent/ or include/. There are 8
+  `thread_local` variables in the host glue: 4 in crt_posix.cpp (strtok, rand, the jmp table) and 4 in
+  win32_posix.cpp (last error, thread id, thread object, fiber).
+- Varargs: see above. 8 definitions are spelled `...` and 18 functions build a `va_list`. The tree also declares
+  27 more variadic prototypes (CRT and aliases), with 1,772 call sites under those names.
+
+**Section 11 item 8, checked here.**
+- `win64cc` lowering: confirmed, as above.
+- TLS model:
+  - At API < 29 the NDK emits emulated TLS (`__emutls_get_address`).
+  - At API >= 29 it emits ELF TLS with TLSDESC (general dynamic), not initial-exec. A `thread_local` in a
+    `dlopen`ed `.so` worked across threads on API 35.
+  - Use minSdk 29 or later.
+- ART in the low 4 GB: confirmed. systemui's maps (as root) have 96 mappings below 4 GB, including the main heap
+  `dalvik-main` at 0x14000000-0x20000000, the JIT caches and the boot images. So `HULK_LOW_4GB=0` is required in
+  the app.
+- `vm.mmap_min_addr` is 32768 on this image. Whether the app domain can read it is not checked here; that needs an
+  APK.
+- 16 KB pages: NDK r30 already links with 16 KB `LOAD` alignment by default.
+- SDL3 3.4.18 (the project's pinned tarball):
+  - AAudio comes first, with OpenSL ES as the fallback.
+  - `SDL_IOFromFile` opens `content://` URIs through a file descriptor.
+  - `SDL_ShowOpenFileDialog` uses `ACTION_OPEN_DOCUMENT`, so the SAF file picker for the ISO works as is.
+  - The folder picker is `SDL_Unsupported()` on Android, so an extracted-folder install needs its own Java.
+- Device specs were not checked.
+
+**For A1.** Generalise `native_mac.retarget` to ELF:
+- datalayout `m:e`, triple `aarch64-unknown-linux-android29` or `x86_64-unknown-linux-gnu`.
+- the `@` escape.
+- `win64cc` on game variadics, with a host-name list.
+- `-fPIC` and `-Bsymbolic` for `libmain.so`.
+- COMDATs per section 1.2.
+
+Before the game links, also do these:
+- Native-only `...` and `va_start` rewrites of the 18 functions and 3 consumers.
+- A `_vsnprintf` glue that converts the game's `va_list`.
+- Pin one LLVM.
