@@ -17,11 +17,11 @@ bool hulkfight::motion::RageModeStateCondition::vfunc_6(void* __p0, void* __p1, 
     ObjMid* m = ((ObjMid *)((owners::Object_592a0 *)(((ObjA_1673c0*)b)))->FUN_000592a0());
     ObjEnd* e = m->Call2();
     int v = e->field;
-    switch (this->f_0c) {
+    switch (this->compare) {
     case 0:
-        return v == this->f_10;
+        return v == this->rageMode;
     case 1:
-        return v != this->f_10;
+        return v != this->rageMode;
     default:
         return false;
     }

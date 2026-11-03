@@ -2,5 +2,5 @@
 #include "gen/global.h"
 
 hulk_freg CSmartPropEventTrack::vfunc_6() {
-    return this->f_10;
+    return this->timeBegin;
 }

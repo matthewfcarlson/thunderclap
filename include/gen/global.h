@@ -549,8 +549,8 @@ public:
     virtual hulk_intptr vfunc_12(hulk_intptr); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
     int f_08;
-    float f_0c;
-    float f_10;
+    float timeBegin;
+    float timeEnd;
 };
 
 // .?AVCAgent@@  vftable 0x40cf84 (11)
@@ -636,8 +636,8 @@ public:
     virtual bool vfunc_7(void*); // overrides CCondition slot 7
     virtual void vfunc_8(void*); // slot 8
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int compare;
+    int status;
 };
 
 // .?AVCAlertStatusTrack@@  vftable 0x3fc10c (14)
@@ -789,7 +789,7 @@ public:
     virtual void vfunc_8(hulk_intptr); // overrides CControllerCondition slot 8
     virtual bool vfunc_9(int, int) = 0; // slot 9
     char _pad_08[0x4];
-    int f_0c;
+    int axis;
 };
 
 // .?AVCAxisTimeCondition@@  vftable 0x3f6e4c (11)
@@ -799,8 +799,8 @@ public:
     virtual ~CAxisTimeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_9(int, int); // overrides CAxisCondition slot 9
     virtual bool vfunc_10(void*, hulk_intptr) = 0; // slot 10
-    int f_10;
-    char _pad_14[0x4];
+    int compareTime;
+    float time;
     int f_18;
     float f_1c;
 };
@@ -820,9 +820,9 @@ public:
     virtual ~CAxisDirectionCondition(); // overrides fight::Param slot 5
     virtual void vfunc_8(hulk_intptr); // overrides CControllerCondition slot 8
     char _pad_08[0x4];
-    int f_0c;
-    float f_10;
-    float f_14;
+    int axis;
+    float direction;
+    float arc;
 };
 
 // .?AVCAxisDoubleTapCondition@@  vftable 0x3f6f08 (10)
@@ -872,8 +872,8 @@ public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CAxisSpeedCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_9(int, int); // overrides CAxisCondition slot 9
-    int f_10;
-    float f_14;
+    int compareSpeed;
+    float speed;
 };
 
 // .?AVCAxisUpCondition@@  vftable 0x3f9198 (11)
@@ -1029,9 +1029,9 @@ public:
     virtual hulk_intptr vfunc_12(hulk_intptr); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
     int f_08;
-    float f_0c;
-    float f_10;
-    int f_14;
+    float timeBegin;
+    float timeEnd;
+    int hint;
 };
 
 // .?AVCCameraManager@@  vftable 0x404bf4 (1)
@@ -1091,10 +1091,10 @@ public:
     virtual hulk_intptr vfunc_12(hulk_intptr); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
     int f_08;
-    float f_0c;
-    int f_10;
-    int f_14;
-    int f_18;
+    float timeBegin;
+    int timeEnd;
+    int amplitude;
+    int frequency;
 };
 
 // .?AVCCharacter@@  vftable 0x3f5c9c (5)
@@ -1487,8 +1487,8 @@ public:
     virtual ~CCharacterSizeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_7(void*); // overrides CCondition slot 7
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int compare;
+    int size;
 };
 
 // .?AVCCharacterTemplate@@  vftable 0x3f6320 (3)
@@ -1912,9 +1912,10 @@ public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CClimbableCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_7(void*); // overrides CCondition slot 7
-    char _pad_08[0x8];
-    float f_10;
-    char f_14;
+    char _pad_08[0x4];
+    float angle;
+    float arc;
+    char useIntentionMotion;
 };
 
 // .?AVCClimbingAction@@  vftable 0x3f33e0 (9)
@@ -2202,9 +2203,9 @@ public:
     virtual hulk_intptr vfunc_12(hulk_intptr); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
     int f_08;
-    float f_0c;
-    float f_10;
-    unsigned int f_14;
+    float timeBegin;
+    float timeEnd;
+    unsigned int comboTimer;
 };
 
 // .?AVCController@@  vftable 0x405d38 (3)
@@ -2307,9 +2308,9 @@ public:
     virtual hulk_intptr vfunc_12(hulk_intptr); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
     int f_08;
-    float f_0c;
-    int f_10;
-    int f_14;
+    float timeBegin;
+    int damage;
+    int damageMax;
 };
 
 // .?AVCDataHandlerObject@@  vftable 0x42501c (3)
@@ -2533,9 +2534,9 @@ public:
     virtual hulk_intptr vfunc_12(hulk_intptr); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
     int f_08;
-    float f_0c;
-    int f_10;
-    int f_14;
+    float timeBegin;
+    int slot;
+    int slotMax;
 };
 
 // .?AVCEffectTrack@@  vftable 0x3faa80 (12)
@@ -2629,8 +2630,8 @@ public:
     virtual hulk_intptr vfunc_12(hulk_intptr); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
     char _pad_08[0x4];
-    float f_0c;
-    int f_10;
+    float timeBegin;
+    int explosion;
     int f_14;
     int f_18;
     int f_1c;
@@ -2781,10 +2782,10 @@ public:
     virtual ~CFightNodePrevCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_7(void*); // overrides CCondition slot 7
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int compare;
+    int fightNode;
     char _pad_14[0x8];
-    unsigned char f_1c;
+    unsigned char lastFrame;
 };
 
 // .?AVCFightNodeTimeCondition@@  vftable 0x3f8544 (8)
@@ -3236,8 +3237,8 @@ public:
     virtual bool vfunc_7(void*); // overrides CCondition slot 7
     virtual int vfunc_8(hulk_intptr); // slot 8
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int compare;
+    int motionState;
 };
 
 // .?AVCGrappleMotionStateCondition@@  vftable 0x3f94c4 (9)
@@ -3414,11 +3415,11 @@ public:
     virtual ~CGrappleTimerCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_7(void*); // overrides CCondition slot 7
     char _pad_08[0x4];
-    int f_0c;
-    float f_10;
-    char f_14;
+    int compare;
+    float time;
+    char useKeyWordWait;
     char _pad_15[0x3];
-    int f_18;
+    int keyWord;
 };
 
 // .?AVCUninterruptibleTrack@@  vftable 0x3fbfe0 (14)
@@ -3431,9 +3432,9 @@ public:
     virtual hulk_intptr vfunc_12(hulk_intptr); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
     int f_08;
-    float f_0c;
-    float f_10;
-    int f_14;
+    float timeBegin;
+    float timeEnd;
+    int extensionTime;
 };
 
 // .?AVCGrappleUninterruptibleTrack@@  vftable 0x3fe930 (14)
@@ -4154,9 +4155,9 @@ public:
     virtual ~CMotionClimbAngleCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_7(void*); // overrides CCondition slot 7
     char _pad_08[0x4];
-    float f_0c;
-    float f_10;
-    float f_14;
+    float angle;
+    float arc;
+    float minVelocity;
 };
 
 // .?AVCMotionHitCondition@@  vftable 0x3f73bc (8)
@@ -4166,8 +4167,8 @@ public:
     virtual ~CMotionHitCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_7(void*); // overrides CCondition slot 7
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int compare;
+    int motionHit;
 };
 
 // .?AVCMotionHitGroundHeightAction@@  vftable 0x3f3d58 (9)
@@ -4190,9 +4191,9 @@ public:
     virtual hulk_intptr vfunc_12(hulk_intptr); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
     int f_08;
-    float f_0c;
-    float f_10;
-    unsigned int f_14;
+    float timeBegin;
+    float timeEnd;
+    unsigned int height;
 };
 
 // .?AVCMotionTrailAction@@  vftable 0x3f3a34 (9)
@@ -4264,9 +4265,9 @@ public:
     virtual hulk_intptr vfunc_12(hulk_intptr); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
     int f_08;
-    float f_0c;
-    float f_10;
-    float f_14;
+    float timeBegin;
+    float timeEnd;
+    float distance;
     int f_18;
 };
 
@@ -5333,8 +5334,9 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_12(hulk_intptr); // overrides CTrack slot 12
     virtual void vfunc_13(void*); // slot 13
-    char _pad_08[0x8];
-    float f_10;
+    char _pad_08[0x4];
+    int event;
+    float timeBegin;
 };
 
 // .?AVCSmartPropGrabbableNameCondition@@  vftable 0x3f7208 (8)
@@ -5356,8 +5358,8 @@ public:
     virtual ~CSmartPropNameCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_7(void*); // overrides CCondition slot 7
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int compare;
+    int attachmentIndex;
     char _pad_14[0x8];
     int f_1c;
 };
@@ -5525,8 +5527,8 @@ public:
     virtual ~CSmartPropTypeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_7(void*); // overrides CCondition slot 7
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int compare;
+    int type;
 };
 
 // .?AVCSmartPropUpdateAttachmentAction@@  vftable 0x3f3844 (9)

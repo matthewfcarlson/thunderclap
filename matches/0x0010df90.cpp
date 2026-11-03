@@ -17,5 +17,5 @@ struct Track_10df90 {
 };
 
 hulk_freg hulkfight::ai::TokenTrack::vfunc_7() {
-    return (hulk_freg)this->f_10 - this->f_0c;
+    return (hulk_freg)this->timeEnd - this->timeBegin;
 }

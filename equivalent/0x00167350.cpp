@@ -35,8 +35,8 @@ bool hulkfight::motion::TargetLocomotionMotionStateCondition::vfunc_6(void* __p0
     Locomotion_167350* loco = ((Body_167350 *)((owners::Object_592a0 *)target)->FUN_000592a0())->FUN_00059a30()->locomotion;
     if (loco == 0 || loco->state == 0 || loco->kind != 1)
         return false;
-    int want = this->f_10;
-    switch (this->f_0c) {
+    int want = this->locomotionMotionState;
+    switch (this->compare) {
     case 0:
         return ((int)((owners::Widget_35910 *)(loco->state))->FUN_00035910()) == want;
     case 1:

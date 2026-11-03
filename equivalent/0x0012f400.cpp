@@ -50,7 +50,7 @@ bool hulkfight::GameStateCondition::vfunc_6(void* __p0, void* __p1, void* __p2) 
                             ((owners::Obj_1d19d0 *)script)->FUN_001d19d0(1);
                         }
                     }
-                    if (this->f_10 == 0 || this->f_10 == 1) {
+                    if (this->compare == 0 || this->compare == 1) {
                         const char* p = buf;
                         const char* q = (*(const char * *)&this->f_14);
                         int cmp;
@@ -68,7 +68,7 @@ bool hulkfight::GameStateCondition::vfunc_6(void* __p0, void* __p1, void* __p2) 
                             p++;
                             q++;
                         }
-                        if (this->f_10 == 0)
+                        if (this->compare == 0)
                             result = (cmp == 0);
                         else
                             result = (cmp != 0);

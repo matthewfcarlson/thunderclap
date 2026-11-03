@@ -558,3 +558,60 @@ Not yet reached: definitions whose stub's members name other stubs (2,091 / 5,73
 classes of their own or `void *`), stubs with virtual members, bases or nested types, reference-typed members
 (`Pair_27af70::Assign`), and the callers member-apply refuses (arity 620 calls, return size or bool 177, float/int 100).
 Classes are per definition: merging the views of one real class is later work.
+
+## 12. Names: locals, parameters and include/gen/ fields (clean1, 2026-11-03)
+
+Naming and cleanup of matches/ and equivalent/, in batches that keep every byte and every proof. Two kinds so far:
+
+- **Locals and parameters** (batch 1): Ghidra placeholders (`param_N`, `local_x`, `uVarN`, `piVarN`, ...) in 709
+  sources (707 matches/, 2 equivalent/) named from their use. `tools/rename_ids.py MAP.json` renames tokens outside
+  comments and literals and refuses a file where a new name is already an identifier (a local can't capture another
+  name). 531 sources are scalar deleting destructors whose flag parameter (`if (param_2 & 1) delete(this)`) is now
+  `flags`; the other 178 (154 code shapes) were named by hand and propagated to sources of the same shape: Lua C
+  functions' state `L` (the first argument of the Lua API calls, as in the sources that already say `lua_State *L`),
+  red-black tree rotations `tree`/`node`/`child`/`parent`, `first`/`last` of insertion sorts, `alignment` of the
+  round-up helpers, `inserted`/`removed` masks of `XGetDeviceChanges`, `length`/`spacing`/`maxCount`/`out` of the
+  sample-spacing helper 0x000a0010. No placeholder of those kinds is left in either tree.
+- **include/gen/ fields** (batch 2): `include/gen/evidence-names.json` names a unit's field with its evidence;
+  `tools/gen_headers.py` emits that name instead of `f_<offset>` (`field_name`). The first evidence tool is
+  `tools/param_fields.py`: a fight parameter registration passes a string literal to a `fight::ParamValue*`
+  constructor and registers a setter; the setter (disassembled from the XBE) stores its argument once through `ecx`
+  (or returns `&this->x`, `lea eax,[ecx+X]; ret`), which gives the offset, and gen_headers' model gives the unit
+  that declares a field there (the class or a non-virtual base). Refused: setters with no or several stores, classes
+  RTTI doesn't name, offsets no unit declares (25: the field isn't in the header yet), a store size other than the
+  field's, two names for a field, one name for two fields, a name another member of the hierarchy has.
+  `tools/rename_fields.py` then rewrites the references: each candidate source (on include/gen/, naming a renamed
+  unit's class or a class derived from one, and spelling an old name) is parsed by libclang as tools/equiv64.py
+  prepares it, against the headers before the rename; a member reference whose field is a renamed include/gen/
+  field is rewritten in place (`this->f_0c` -> `this->compare`; an implicit reference becomes `this->name` when
+  the source uses the name for anything else). A token spelled like an old name that the parse doesn't account
+  for refuses the source. 211 fields of 86 classes (CClimbableCondition +0x10 `arc`, +0x14 `useIntentionMotion`;
+  CAxisCondition +0x0c `axis`; hulkfight::motion::PropDamageTrack +0x0c `timeBegin`, +0x10 `attachmentIndex`,
+  +0x14 `damage`); 481 candidate sources, 83 rewritten (137 references; 74 matches/, 9 equivalent/), none refused.
+- **Fields the header lacked** (batch 3): when no unit declares the offset, `param_fields.py` adds the field
+  ("added" in evidence-names.json, with its type: the store's width, float for an x87 store or a
+  `fight::ParamValueFloat` parameter) if it lies in the class's own part, inside its size and clear of every
+  declared field, so no layout changes. 7 fields: CClimbableCondition +0x0c `angle`, CAxisTimeCondition +0x14
+  `time`, fight::PlatformCondition +0x0c/+0x0e/+0x0f `pS2`/`gameCube`/`win32` (+0x0d `xBox` was renamed),
+  CSmartPropEventTrack +0x0c `event`, fight::SequenceTrack +0x18 `priority`.
+
+Gates: batch 1, 707/707 matches MATCH + verify_relocs ok, 2/2 equivalents promotable (3,000; `--wine` 600);
+batch 2, 74/74 and 9/9. `--x64` as at HEAD for all 11 equivalents (equivalent, except 0x002151e0 unsupported/tool,
+0x00183510 crash64 and 0x0012f400 int, which fail the same way at HEAD).
+
+| | control 42501 (HEAD ccfd11419, mac2) | batches 1-3, 42504 (mac1) |
+|---|---|---|
+| TUs / matches still matching | 2,658 / 22,340 | 2,658 / 22,340 |
+| equivalents identical to standalone (merged / wrapped / isolated) | 2,864 / 2,020 / 250 | same |
+| strict link rc / unbound | 0 / 1,324 | 0 / 1,324 |
+| image (PE time stamp zeroed) | - | identical to the control's |
+| play3 checkpoints | 2,005 to 60,120 | identical at all 2,005 common frames (batch to 60,150) |
+| name audit, game (symbols / references) | 46,339 / 48,222 (x64-10) | 46,339 / 48,222 |
+| native arm64 link, unbound | 46,370 (x64-10) | 46,370 (same groups, same 3 front-end failures) |
+
+Not reached yet: registrations whose setter stores more than once or calls (18), whose class the source names
+only by a template parameter or a stub (23), 18 offsets outside the class's own part or without a store type;
+the fields of the other include/gen/ classes (no string evidence; usage across sources is the next source of
+names); function and member names (they need a name-to-address convention the checkers understand: equiv.py's
+`name_address` reads the address from `FUN_<addr>`-style names only, so a renamed callee must keep that form or
+the checker must learn a new one, with a regress run).

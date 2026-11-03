@@ -36,7 +36,7 @@ bool hulkfight::ai::TargetTypeCondition::vfunc_6(void* __p0, void* __p1, void* _
     if (!target)
         return false;
     int want;
-    switch (this->f_10) {
+    switch (this->type) {
     case 0:
         want = 1;
         break;
@@ -47,7 +47,7 @@ bool hulkfight::ai::TargetTypeCondition::vfunc_6(void* __p0, void* __p1, void* _
         return false;
     }
     int kind = target->kind;
-    switch (this->f_0c) {
+    switch (this->compare) {
     case 0:
         return kind == want;
     case 1:

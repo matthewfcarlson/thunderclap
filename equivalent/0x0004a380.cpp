@@ -19,19 +19,19 @@ bool CMotionHitCondition::vfunc_7(void* __p0) { FightHandle_4a380 * h = (FightHa
 
     Fighter_4a380 *f = ((Anchor_4a380 *)((owners::Object_592a0 *)h)->FUN_000592a0())->FUN_00059a30();
     unsigned int mask = 0;
-    if ((*(unsigned int *)&this->f_10) != 0)
-        mask = 1u << ((*(unsigned int *)&this->f_10) - 1);
+    if ((*(unsigned int *)&this->motionHit) != 0)
+        mask = 1u << ((*(unsigned int *)&this->motionHit) - 1);
     unsigned int hits = f->hits;
     if (mask == 0) {
-        if (this->f_0c == 0)
+        if (this->compare == 0)
             return hits == 0;
-        if (this->f_0c == 1)
+        if (this->compare == 1)
             return hits != 0;
         return false;
     }
-    if (this->f_0c == 0)
+    if (this->compare == 0)
         return (hits & mask) != 0;
-    if (this->f_0c == 1)
+    if (this->compare == 1)
         return (hits & mask) == 0;
     return false;
 }

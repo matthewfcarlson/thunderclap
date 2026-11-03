@@ -7,5 +7,5 @@ namespace ai {
 } // namespace ai
 }; // namespace hulkfight
 hulk_freg hulkfight::motion::InterruptPriorityTrack::vfunc_6() {
-    return this->f_0c;
+    return this->timeBegin;
 }

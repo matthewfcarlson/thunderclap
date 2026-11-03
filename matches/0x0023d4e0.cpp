@@ -12,11 +12,11 @@ class Condition_23d4e0 {
 };
 
 bool fight::DebugCondition::vfunc_6(void* __p0, void* __p1, void* __p2) {
-    switch (this->f_0c) {
+    switch (this->compare) {
     case 0:
-        return this->f_10 == 2;
+        return this->mode == 2;
     case 1:
-        return this->f_10 != 2;
+        return this->mode != 2;
     default:
         return false;
     }

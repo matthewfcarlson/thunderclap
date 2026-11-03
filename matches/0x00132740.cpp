@@ -16,7 +16,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::MissionProgressCond
         ((GameStateCondition_nv_132740*)(p))->Init(0);
         *(int**)p = &AIHistoryNameCondition_vftable;
         (*(int *)&p->f_0c) = 0;
-        p->f_10 = 0;
+        p->compare = 0;
         (*(int *)&p->f_14) = 0;
         result = p;
     } else

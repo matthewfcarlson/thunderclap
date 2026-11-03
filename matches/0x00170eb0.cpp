@@ -17,5 +17,5 @@ struct Track_170eb0 {
 };
 
 hulk_freg hulkfight::motion::ChargeClearTrack::vfunc_7() {
-    return (hulk_freg)this->f_10 - this->f_0c;
+    return (hulk_freg)this->timeEnd - this->timeBegin;
 }

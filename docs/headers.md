@@ -211,6 +211,12 @@ compiled still matched: the generated layouts never changed codegen. The failure
   (`*(T**)&p->f_20`, `tools/ptr_fields.py`) is `hulk_intptr` / `hulk_uintptr` (`tools/rn_ptrfields.py`,
   evidence-rn.json "ptr_fields"): `int` / `unsigned int` on the 32-bit builds, pointer-sized on the
   64-bit ones. The `_pad_` arrays after such a field still assume 32-bit offsets.
+- **Field names**: a field is `f_<offset>` unless `include/gen/evidence-names.json` names it, with its
+  evidence (clean1). `tools/param_fields.py` names the fields of the fight Track/Condition classes from their
+  parameter registrations: the string literal passed to a `fight::ParamValue*` constructor and the setter
+  registered with it, whose one store through `this` gives the offset (CClimbableCondition +0x10 `arc`).
+  `tools/rename_fields.py` rewrites the sources' references (libclang-resolved, so `f_10` of another class is
+  never touched). See docs/consolidation-plan.md section 12.
 - **Fields of embedded objects**, arrays, and fields reached through raw `(char*)this + N`
   arithmetic aren't mined. Fields of non-RTTI classes (anything the game doesn't `dynamic_cast`
   or `typeid`) have no home yet.

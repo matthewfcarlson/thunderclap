@@ -33,11 +33,11 @@ bool hulkfight::motion::TargetMotionStateCondition::vfunc_6(void* __p0, void* __
     Stats_167290::Slot *slot = st->f328;
     if (slot == 0 || slot->f8 == 0 || slot->fc != 1)
         return (bool)(1);
-    unsigned int want = (*(unsigned int *)&this->f_10);
+    unsigned int want = (*(unsigned int *)&this->motionState);
     unsigned int cur = slot->f8->f140;
-    if (this->f_0c == 0)
+    if (this->compare == 0)
         return (bool)(cur == want);
-    if (this->f_0c == 1)
+    if (this->compare == 1)
         return (bool)(cur != want);
     return (bool)(0);
 }

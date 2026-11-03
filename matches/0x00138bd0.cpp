@@ -12,7 +12,7 @@ hulk_intptr hulkfight::motion::GrappleHoverTrack::vfunc_10(hulk_intptr a, hulk_i
     if (x) {
         hulkfight::motion::HoverAction* p = Alloc(0x24);
         if (p) {
-            int f = this->f_14;
+            int f = this->groundFixup;
             return ((HoverAction_nv_138bd0*)(((hulkfight::motion::HoverAction*)(p))))->build(f, x);
         }
     }

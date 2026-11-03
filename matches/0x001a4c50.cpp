@@ -23,11 +23,11 @@ bool hulkfight::scenario::Event_LocomotionStateNamePreviousCondition::vfunc_6(vo
     if (q->type != 15)
         return false;
     int n = q->name;
-    switch (this->f_0c) {
+    switch (this->compare) {
     case 0:
-        return n == this->f_10;
+        return n == this->oldState;
     case 1:
-        return n != this->f_10;
+        return n != this->oldState;
     }
     return false;
 }

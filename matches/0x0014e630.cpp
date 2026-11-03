@@ -29,7 +29,7 @@ bool hulkfight::motion::CollisionSourceTypeCondition::vfunc_6(void* __p0, void* 
         return false;
     int d = t->q->d;
     int c = 0;
-    switch (this->f_10) {
+    switch (this->type) {
     case 0:
         c = 1;
         break;
@@ -37,7 +37,7 @@ bool hulkfight::motion::CollisionSourceTypeCondition::vfunc_6(void* __p0, void* 
         c = 5;
         break;
     }
-    switch (this->f_0c) {
+    switch (this->compare) {
     case 0:
         return c == d;
     case 1:

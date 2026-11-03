@@ -45,11 +45,11 @@ bool CSmartPropTypeCondition::vfunc_7(void* __p0) { Owner_494c0 * owner = (Owner
     if (item != 0 && item->kind == 5)
         current = item->holder->FUN_001d64a0();
 
-    switch (this->f_0c) {
+    switch (this->compare) {
     case 0:
-        return this->f_10 == current;
+        return this->type == current;
     case 1:
-        return this->f_10 != current;
+        return this->type != current;
     }
     return false;
 }

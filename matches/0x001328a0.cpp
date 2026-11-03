@@ -16,7 +16,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::GameStateCondition>
         ((GameStateCondition_nv_1328a0*)(p))->Init(0);
         *(int**)p = &AIHistoryNameCondition_vftable;
         (*(int *)&p->f_0c) = 0;
-        p->f_10 = 0;
+        p->compare = 0;
         (*(int *)&p->f_14) = 0;
         result = p;
     } else

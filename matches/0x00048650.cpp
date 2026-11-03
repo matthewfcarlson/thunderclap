@@ -10,5 +10,5 @@ class Helper_48650 {
 void CAxisCondition::vfunc_8(hulk_intptr arg) {
     Helper_48650* h = ((Helper_48650 *)((owners::Object_592a0 *)(((Helper_48650*)arg)))->FUN_000592a0());
     int v = h->second();
-    vfunc_9(v, v + this->f_0c * 0x38 + 0x1ff4);
+    vfunc_9(v, v + this->axis * 0x38 + 0x1ff4);
 }

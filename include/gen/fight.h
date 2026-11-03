@@ -1281,8 +1281,8 @@ public:
     virtual ~DebugCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int compare;
+    int mode;
 };
 
 // .?AVExecuteAction@fight@@  vftable 0x428448 (6)
@@ -1352,9 +1352,9 @@ public:
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     FightNodeParentCondition* FUN_00235b00(); // non-virtual
     char _pad_08[0x4];
-    int f_0c;
+    int compare;
     char _pad_10[0xc];
-    char f_1c;
+    char recurse;
 };
 
 // .?AVFightNodeTimeCondition@fight@@  vftable 0x427d38 (8)
@@ -2838,8 +2838,11 @@ public:
     virtual hulk_intptr vfunc_0(int); // overrides fight::Param slot 0
     virtual ~PlatformCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
-    char _pad_08[0x5];
-    char f_0d;
+    char _pad_08[0x4];
+    char pS2;
+    char xBox;
+    char gameCube;
+    char win32;
 };
 
 // .?AVPrintAction@fight@@  vftable 0x428330 (6)
@@ -2874,7 +2877,7 @@ public:
     virtual void vfunc_11(); // slot 11
     void FUN_00238a50(); // non-virtual
     int f_08;
-    float f_0c;
+    float timeBegin;
     int f_10;
     int f_14;
 };
@@ -2978,8 +2981,9 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     int f_08;
-    char _pad_0c[0x10];
-    char f_1c;
+    char _pad_0c[0xc];
+    int priority;
+    char conditionGroup;
 };
 
 // .?AVSpawnAction@fight@@  vftable 0x428eb0 (6)
@@ -3004,8 +3008,8 @@ public:
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     void FUN_0023eaf0(); // non-virtual
     int f_08;
-    float f_0c;
-    float f_10;
+    float timeBegin;
+    float timeEnd;
 };
 
 // .?AVStopAction@fight@@  vftable 0x428de0 (6)
@@ -3030,8 +3034,8 @@ public:
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     void FUN_0023e580(); // non-virtual
     char _pad_08[0x4];
-    float f_0c;
-    float f_10;
+    float timeBegin;
+    float timeEnd;
 };
 
 // .?AVStore@fight@@  vftable 0x42886c (10)

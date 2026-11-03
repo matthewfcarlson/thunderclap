@@ -17,5 +17,5 @@ struct Track_193fe0 {
 };
 
 hulk_freg hulkfight::motion::AccuracyLatencyTrack::vfunc_7() {
-    return (hulk_freg)this->f_10 - this->f_0c;
+    return (hulk_freg)this->timeEnd - this->timeBegin;
 }

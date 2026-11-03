@@ -729,6 +729,20 @@ class Gen:
                         u.fields[int(off, 16)] = "hulk_intptr" if t == "int" else "hulk_uintptr"
                     else:
                         self.report["evidence_dropped"].append("ptr_fields %s +%s: field is %s" % (uid, off, t))
+        # include/gen/evidence-names.json "added" (clean1, tools/param_fields.py): fields no source declares yet,
+        # proven by a setter's store; {unit uid: {offset: {name, type, evidence}}}. Only inside the class's own
+        # part and size, clear of other fields (the planner checks), so no layout changes.
+        nm = os.path.join(OUT_DIR, "evidence-names.json")
+        for uid, offs in (json.load(open(nm)).get("added", {}) if os.path.exists(nm) else {}).items():
+            u = self.unit_by_uid.get(uid)
+            if u is None or uid.startswith("_"):
+                self.report["evidence_dropped"].append("evidence-names added: unknown unit %s" % uid)
+                continue
+            for off, v in offs.items():
+                if int(off, 16) in u.fields:
+                    self.report["evidence_dropped"].append("evidence-names added %s +%s: declared already" % (uid, off))
+                    continue
+                u.fields[int(off, 16)] = v["type"]
         # overlapping fields: keep the earlier one
         for u in self.units.values():
             end = -1
@@ -867,7 +881,7 @@ class Gen:
                 continue
             if off > cur:
                 flines.append("    char _pad_%02x[0x%x];" % (cur, off - cur))
-            fl = decl_field(t, "f_%02x" % off)
+            fl = decl_field(t, self.field_name(unit, off))
             if concrete is not None:
                 fl = re.sub(r"\b[TN](\d+)\b", lambda m: render_type(concrete[int(m.group(1))]), fl)
             flines.append("    %s;" % fl)
@@ -877,6 +891,17 @@ class Gen:
         if tail and tail > cur:
             flines.append("    char _pad_%02x[0x%x]; // size 0x%x proven by a derived class's base offset" % (cur, tail - cur, tail))
         return lines + flines
+
+    def field_name(self, unit, off):
+        """f_<offset>, or the name include/gen/evidence-names.json gives the unit's field (clean1: names proven by
+        tools/param_fields.py and other evidence tools; each entry records its evidence)."""
+        if not hasattr(self, "_field_names"):
+            p = os.path.join(OUT_DIR, "evidence-names.json")
+            fn = json.load(open(p)).get("fields", {}) if os.path.exists(p) else {}
+            ad = json.load(open(p)).get("added", {}) if os.path.exists(p) else {}
+            self._field_names = {(uid, int(o, 16)): v["name"] for d in (fn, ad) for uid, offs in d.items()
+                                 if not uid.startswith("_") for o, v in offs.items()}
+        return self._field_names.get((unit.uid, off), "f_%02x" % off)
 
     def shape(self, c):
         return (tuple(self.base_text(c, c.targs)), tuple(self.member_lines(c, "@", c.unit)))

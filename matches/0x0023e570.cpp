@@ -17,5 +17,5 @@ struct Track_23e570 {
 };
 
 hulk_freg fight::StopTrack::vfunc_7() {
-    return (hulk_freg)this->f_10 - this->f_0c;
+    return (hulk_freg)this->timeEnd - this->timeBegin;
 }

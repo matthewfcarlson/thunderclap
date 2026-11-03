@@ -10,6 +10,6 @@ hulk_intptr CComboTimerTrack::vfunc_12(hulk_intptr __p0) { unsigned int param = 
 
     void* p = FUN_0008d690(0x24);
     if (p)
-        return ((Worker_6a010*)p)->go(param, this->f_14);
+        return ((Worker_6a010*)p)->go(param, this->comboTimer);
     return 0;
 }

@@ -59,22 +59,22 @@ bool hulkfight::motion::PropStateByNameCondition::vfunc_6(void* __p0, void* __p1
     if (player == 0)
         return false;
     Actor_183510 *actor;
-    if (this->f_0c < 0) {
+    if (this->attachmentIndex < 0) {
         actor = player->self;
     } else {
-        if (this->f_0c >= 8)
+        if (this->attachmentIndex >= 8)
             return false;
-        actor = ((Actor_183510 *)((owners::C_35ef0 *)player)->FUN_00035ef0((hulk_intptr)(this->f_0c)));
+        actor = ((Actor_183510 *)((owners::C_35ef0 *)player)->FUN_00035ef0((hulk_intptr)(this->attachmentIndex)));
     }
     if (actor == 0)
         return false;
     StateInfo_183510 *info = actor->table->states[actor->state];
     unsigned int lo = info->idLo;
     unsigned int hi = info->idHi;
-    bool same = (lo == (*(unsigned int *)&this->f_18) && hi == (*(unsigned int *)&this->f_1c));
-    if (this->f_10 == 0)
+    bool same = (lo == (*(unsigned int *)&this->state) && hi == (*(unsigned int *)&this->f_1c));
+    if (this->compare == 0)
         return same;
-    if (this->f_10 == 1)
+    if (this->compare == 1)
         return !same;
     return false;
 }

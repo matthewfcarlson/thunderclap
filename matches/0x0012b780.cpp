@@ -21,7 +21,7 @@ bool hulkfight::ai::ThreatCondition::vfunc_6(void* __p0, void* __p1, void* __p2)
         return false;
     Obj_12b780* o = ((Obj_12b780 *)((owners::Object_592a0 *)(((Obj_12b780*)c)))->FUN_000592a0());
     Obj2_12b780* x = o->Next();
-    unsigned char r = x->Test((*(char (*)[8])&this->f_10), this->f_18);
-    unsigned char m = this->f_0c;
+    unsigned char r = x->Test((*(char (*)[8])&this->threatName), this->threatRespondOnlyOnce);
+    unsigned char m = this->threat;
     return r == m;
 }

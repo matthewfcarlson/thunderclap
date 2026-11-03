@@ -11,6 +11,6 @@ hulk_intptr CMotionHitGroundHeightTrack::vfunc_12(hulk_intptr __p0) { unsigned i
 
     void* p = FUN_0008d690(0x24);
     if (p)
-        return ((Worker_6b110*)p)->go(param, this->f_14);
+        return ((Worker_6b110*)p)->go(param, this->height);
     return 0;
 }

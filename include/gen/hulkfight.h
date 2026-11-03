@@ -518,7 +518,7 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     int f_08;
-    float f_0c;
+    float timeBegin;
 };
 
 // .?AVDialogueAction@hulkfight@@  vftable 0x41146c (6)
@@ -557,7 +557,7 @@ public:
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
     void* f_0c;
-    int f_10;
+    int compare;
     void* f_14;
     int f_18;
 };
@@ -569,9 +569,9 @@ public:
     virtual ~LocationCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
+    int environmentCompare;
     void* f_10;
-    int f_14;
+    int timeOfDayCompare;
     void* f_18;
 };
 
@@ -721,8 +721,8 @@ public:
     virtual ~UnlockableCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    char f_10;
+    int unlockable;
+    char locked;
 };
 
 // .?AVXPAction@hulkfight@@  vftable 0x4114f8 (6)
@@ -781,9 +781,9 @@ public:
     virtual ~AIHistoryNameCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
+    int compare;
     char _pad_10[0x4];
-    float f_14;
+    float value;
 };
 
 // .?AVAIHistorySetAction@ai@hulkfight@@  vftable 0x40dda4 (6)
@@ -806,9 +806,9 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     char _pad_08[0x4];
-    float f_0c;
-    float f_10;
-    char f_14;
+    float timeBegin;
+    float timeEnd;
+    char onlySetAtEnd;
 };
 
 // .?AVAcquireTargetAction@ai@hulkfight@@  vftable 0x410004 (6)
@@ -912,9 +912,9 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     int f_08;
-    float f_0c;
-    float f_10;
-    char f_14;
+    float timeBegin;
+    float timeEnd;
+    char clearEveryFrame;
 };
 
 // .?AVComputeDropZoneCondition@ai@hulkfight@@  vftable 0x40eae0 (7)
@@ -1064,9 +1064,9 @@ public:
     virtual ~HulkActionCountCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
+    int compare;
     char _pad_10[0x4];
-    float f_14;
+    float value;
 };
 
 // .?AVHulkActionLargestCondition@ai@hulkfight@@  vftable 0x40da04 (7)
@@ -1094,10 +1094,10 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     int f_08;
-    float f_0c;
-    float f_10;
+    float timeBegin;
+    float timeEnd;
     char _pad_14[0xc];
-    int f_20;
+    int value;
 };
 
 // .?AVInActiveCondition@ai@hulkfight@@  vftable 0x40dac4 (7)
@@ -1117,9 +1117,9 @@ public:
     virtual ~KeyWordWaitCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
+    int compare;
     char _pad_10[0x4];
-    float f_14;
+    float value;
 };
 
 // .?AVKeywordWaitAction@ai@hulkfight@@  vftable 0x40ddf8 (6)
@@ -1143,10 +1143,10 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     int f_08;
-    float f_0c;
-    float f_10;
+    float timeBegin;
+    float timeEnd;
     char _pad_14[0xc];
-    char f_20;
+    char randomIntroWait;
 };
 
 // .?AVLeashedCondition@ai@hulkfight@@  vftable 0x40da64 (7)
@@ -1318,9 +1318,9 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     int f_08;
-    float f_0c;
-    float f_10;
-    float f_14;
+    float timeBegin;
+    float timeEnd;
+    float speed;
 };
 
 // .?AVMotionLocatorAction@ai@hulkfight@@  vftable 0x40ed2c (6)
@@ -1412,8 +1412,8 @@ public:
     virtual ~OnBlockedTriangleCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    char f_10;
+    int compare;
+    char target;
     char _pad_11[0x3];
     short f_14;
 };
@@ -1594,10 +1594,10 @@ public:
     virtual ~ProjectileDistanceCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    float f_10;
-    char f_14;
-    char f_15;
+    int compare;
+    float distance;
+    char onlyRespondtoEvil;
+    char onlyRespondtoProps;
 };
 
 // .?AVPropsToChuckCondition@ai@hulkfight@@  vftable 0x40da24 (7)
@@ -1955,10 +1955,10 @@ public:
     virtual ~TargetDistanceCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    float f_10;
-    char f_14;
-    char f_15;
+    int compare;
+    float distance;
+    char useHulk;
+    char useGroundPoint;
 };
 
 // .?AVTargetDistanceXZCondition@ai@hulkfight@@  vftable 0x40fe94 (7)
@@ -2024,8 +2024,8 @@ public:
     virtual ~TargetTypeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int compare;
+    int type;
 };
 
 // .?AVTargetVelocityCondition@ai@hulkfight@@  vftable 0x40fe74 (7)
@@ -2067,10 +2067,10 @@ public:
     virtual ~ThreatAngleCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    float f_0c;
-    float f_10;
+    float angle;
+    float arc;
     char _pad_14[0xc];
-    char f_20;
+    char threatRespondOnlyOnce;
 };
 
 // .?AVThreatBallAction@ai@hulkfight@@  vftable 0x410cb4 (6)
@@ -2113,11 +2113,11 @@ public:
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     void FUN_0012b410(); // non-virtual
     char _pad_08[0x4];
-    unsigned char f_0c;
+    unsigned char threat;
     char _pad_0d[0x3];
-    char f_10;
+    char threatName;
     char _pad_11[0x7];
-    unsigned char f_18;
+    unsigned char threatRespondOnlyOnce;
 };
 
 // .?AVThreatDistanceCondition@ai@hulkfight@@  vftable 0x410bf4 (7)
@@ -2218,9 +2218,9 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     int f_08;
-    float f_0c;
-    float f_10;
-    char f_14;
+    float timeBegin;
+    float timeEnd;
+    char floatDelayOnEnd;
 };
 
 }} // namespace hulkfight::ai
@@ -2247,10 +2247,10 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     int f_08;
-    float f_0c;
-    float f_10;
-    int f_14;
-    float f_18;
+    float timeBegin;
+    float timeEnd;
+    int decay;
+    float decayScaler;
 };
 
 // .?AVAirToGroundTargetAction@motion@hulkfight@@  vftable 0x411e34 (6)
@@ -2719,9 +2719,9 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     int f_08;
-    float f_0c;
-    float f_10;
-    char f_14;
+    float timeBegin;
+    float timeEnd;
+    char clearOnBegin;
 };
 
 // .?AVChargeCondition@motion@hulkfight@@  vftable 0x416658 (7)
@@ -2731,9 +2731,9 @@ public:
     virtual ~ChargeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    float f_10;
-    int f_14;
+    int compare;
+    float charge;
+    int type;
 };
 
 // .?AVChargeTrack@motion@hulkfight@@  vftable 0x4178c8 (11)
@@ -2956,9 +2956,9 @@ public:
     virtual ~CollisionChargeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    float f_10;
-    char f_14;
+    int compare;
+    float charge;
+    char useArmorValue;
 };
 
 // .?AVCollisionDamageHealthCompareCondition@motion@hulkfight@@  vftable 0x414190 (7)
@@ -3056,8 +3056,8 @@ public:
     virtual ~CollisionSourceSizeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int compare;
+    int size;
 };
 
 // .?AVCollisionSourceTypeCondition@motion@hulkfight@@  vftable 0x413ff0 (7)
@@ -3067,8 +3067,8 @@ public:
     virtual ~CollisionSourceTypeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int compare;
+    int type;
 };
 
 // .?AVCollisionTargetIsTargetCondition@motion@hulkfight@@  vftable 0x414070 (7)
@@ -3111,8 +3111,8 @@ public:
     virtual ~CollisionTargetSizeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     int f_08;
-    int f_0c;
-    int f_10;
+    int compare;
+    int size;
 };
 
 // .?AVCollisionTargetTypeCondition@motion@hulkfight@@  vftable 0x4141b0 (7)
@@ -3122,8 +3122,8 @@ public:
     virtual ~CollisionTargetTypeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int compare;
+    int type;
 };
 
 // .?AVCollisionThrowCondition@motion@hulkfight@@  vftable 0x413fb0 (7)
@@ -3852,9 +3852,9 @@ public:
     virtual ~GrappleHealthCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
-    int f_14;
+    int compare;
+    int health;
+    int constant;
 };
 
 // .?AVGrappleHitReactionAction@motion@hulkfight@@  vftable 0x4137b4 (6)
@@ -3913,9 +3913,9 @@ public:
     virtual void* vfunc_8(void*, void*); // overrides fight::Track slot 8
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     int f_08;
-    float f_0c;
-    float f_10;
-    int f_14;
+    float timeBegin;
+    float timeEnd;
+    int groundFixup;
 };
 
 // .?AVGrappleLocomotionSteerAction@motion@hulkfight@@  vftable 0x415bb4 (6)
@@ -3978,10 +3978,10 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     int f_08;
-    float f_0c;
-    int f_10;
-    int f_14;
-    int f_18;
+    float timeBegin;
+    int attachmentIndex;
+    int damage;
+    int damageMax;
 };
 
 // .?AVGrapplePropStateByNameCondition@motion@hulkfight@@  vftable 0x41916c (7)
@@ -3991,8 +3991,8 @@ public:
     virtual ~GrapplePropStateByNameCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int attachmentIndex;
+    int compare;
     char _pad_14[0x8];
     int f_1c;
 };
@@ -4004,8 +4004,8 @@ public:
     virtual ~GrappleReactionTypeCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int compare;
+    int constant;
 };
 
 // .?AVGrappleStruggleAction@motion@hulkfight@@  vftable 0x413798 (6)
@@ -4139,9 +4139,9 @@ public:
     virtual ~HealthCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    void* f_0c;
-    int f_10;
-    int f_14;
+    void* compare;
+    int health;
+    int constant;
 };
 
 // .?AVHealthPercentCondition@motion@hulkfight@@  vftable 0x416998 (7)
@@ -4334,9 +4334,9 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     int f_08;
-    float f_0c;
-    int f_10;
-    int f_14;
+    float timeBegin;
+    int pauseTime;
+    int blendOutTime;
 };
 
 // .?AVHitPushbackAction@motion@hulkfight@@  vftable 0x41460c (6)
@@ -4728,8 +4728,8 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     char _pad_08[0x4];
-    float f_0c;
-    float f_10;
+    float timeBegin;
+    float timeEnd;
 };
 
 // .?AVJointPivotTrackerAction@motion@hulkfight@@  vftable 0x417e0c (6)
@@ -4915,8 +4915,8 @@ public:
     virtual ~LocomotionMotionStateCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int compare;
+    int locomotionMotionState;
 };
 
 // .?AVLocomotionSprintAction@motion@hulkfight@@  vftable 0x415b78 (6)
@@ -5083,9 +5083,9 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     char _pad_08[0x4];
-    float f_0c;
-    float f_10;
-    float f_14;
+    float timeBegin;
+    float timeEnd;
+    float arc;
 };
 
 // .?AVMissileThrowAction@motion@hulkfight@@  vftable 0x41b4c4 (6)
@@ -5148,9 +5148,9 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     int f_08;
-    float f_0c;
-    float f_10;
-    float f_14;
+    float timeBegin;
+    float timeEnd;
+    float finalVelocity;
 };
 
 // .?AVMotionBlurAction@motion@hulkfight@@  vftable 0x413088 (6)
@@ -5201,9 +5201,9 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     int f_08;
-    float f_0c;
-    float f_10;
-    int f_14;
+    float timeBegin;
+    float timeEnd;
+    int motionState;
 };
 
 // .?AVMotionTrailStopAction@motion@hulkfight@@  vftable 0x4130a4 (6)
@@ -5466,10 +5466,10 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     char _pad_08[0x4];
-    float f_0c;
-    int f_10;
-    char f_14;
-    char f_15;
+    float timeBegin;
+    int attachmentIndex;
+    char simulate;
+    char atEnd;
 };
 
 // .?AVPropAddToCollisionAction@motion@hulkfight@@  vftable 0x419678 (6)
@@ -5515,9 +5515,9 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     int f_08;
-    float f_0c;
-    int f_10;
-    int f_14;
+    float timeBegin;
+    int attachmentIndex;
+    int missiles;
 };
 
 // .?AVPropAnimationAction@motion@hulkfight@@  vftable 0x419640 (6)
@@ -5591,9 +5591,9 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     char _pad_08[0x4];
-    float f_0c;
-    int f_10;
-    int f_14;
+    float timeBegin;
+    int attachmentIndex;
+    int damage;
 };
 
 // .?AVPropDestroyAction@motion@hulkfight@@  vftable 0x41973c (6)
@@ -5741,9 +5741,9 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     int f_08;
-    float f_0c;
-    int f_10;
-    int f_14;
+    float timeBegin;
+    int attachmentIndex;
+    int state;
 };
 
 // .?AVPropSetStateByNameAction@motion@hulkfight@@  vftable 0x4196b0 (6)
@@ -5812,9 +5812,9 @@ public:
     virtual ~PropStateByIndexCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
-    int f_14;
+    int attachmentIndex;
+    int compare;
+    int state;
 };
 
 // .?AVPropStateByNameCondition@motion@hulkfight@@  vftable 0x41920c (7)
@@ -5824,10 +5824,10 @@ public:
     virtual ~PropStateByNameCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int attachmentIndex;
+    int compare;
     char _pad_14[0x4];
-    int f_18;
+    int state;
     int f_1c;
 };
 
@@ -5921,8 +5921,8 @@ public:
     virtual ~RageModeStateCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int compare;
+    int rageMode;
 };
 
 // .?AVRayCastCondition@motion@hulkfight@@  vftable 0x4168d8 (7)
@@ -6396,8 +6396,8 @@ public:
     virtual ~TargetLocomotionMotionStateCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int compare;
+    int locomotionMotionState;
 };
 
 // .?AVTargetMotionStateCondition@motion@hulkfight@@  vftable 0x416678 (7)
@@ -6407,8 +6407,8 @@ public:
     virtual ~TargetMotionStateCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int compare;
+    int motionState;
 };
 
 // .?AVTargetingCondition@motion@hulkfight@@  vftable 0x4167d8 (7)
@@ -6453,7 +6453,7 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     int f_08;
-    float f_0c;
+    float timeBegin;
 };
 
 // .?AVTeleportToLocatorAction@motion@hulkfight@@  vftable 0x417f48 (6)
@@ -6541,9 +6541,9 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     char _pad_08[0x4];
-    float f_0c;
-    int f_10;
-    int f_14;
+    float timeBegin;
+    int timer;
+    int value;
 };
 
 // .?AVTurningVelocityCondition@motion@hulkfight@@  vftable 0x416738 (7)
@@ -6592,8 +6592,8 @@ public:
     virtual ~VarCompareCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x10];
-    int f_18;
-    int f_1c;
+    int compare;
+    int value;
 };
 
 // .?AVVelocityAnimatedCondition@motion@hulkfight@@  vftable 0x4169d8 (7)
@@ -7027,8 +7027,8 @@ public:
     virtual ~Event_LocomotionStateNameCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int compare;
+    int newState;
 };
 
 // .?AVEvent_LocomotionStateNamePreviousCondition@scenario@hulkfight@@  vftable 0x41c530 (7)
@@ -7038,8 +7038,8 @@ public:
     virtual ~Event_LocomotionStateNamePreviousCondition(); // overrides fight::Param slot 5
     virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
     char _pad_08[0x4];
-    int f_0c;
-    int f_10;
+    int compare;
+    int oldState;
 };
 
 // .?AVEvent_PathNameCondition@scenario@hulkfight@@  vftable 0x41d48c (7)
@@ -7160,8 +7160,8 @@ public:
     virtual hulk_freg vfunc_7(); // overrides fight::Track slot 7
     virtual hulk_intptr vfunc_10(hulk_intptr, hulk_intptr, hulk_intptr); // overrides fight::Track slot 10
     char _pad_08[0x4];
-    float f_0c;
-    float f_10;
+    float timeBegin;
+    float timeEnd;
     int f_14;
     int f_18;
 };

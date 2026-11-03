@@ -17,5 +17,5 @@ struct Track_193f40 {
 };
 
 hulk_freg hulkfight::motion::MissilePunchTrack::vfunc_7() {
-    return (hulk_freg)this->f_10 - this->f_0c;
+    return (hulk_freg)this->timeEnd - this->timeBegin;
 }

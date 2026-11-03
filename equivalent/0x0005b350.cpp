@@ -47,5 +47,5 @@ hulk_intptr CGrappleUninterruptibleTrack::vfunc_12(hulk_intptr __p0) { Link1_5b3
     CUninterruptibleAction_5b350 *effect = (CUninterruptibleAction_5b350 *)FUN_0008d690(0x24);
     if (effect == 0)
         return (int)(0);
-    return (hulk_intptr)(effect->FUN_00020020(weapon, this->f_14));
+    return (hulk_intptr)(effect->FUN_00020020(weapon, this->extensionTime));
 }

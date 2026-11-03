@@ -17,5 +17,5 @@ struct CTrack_6a910 {
 };
 
 hulk_freg CUninterruptibleTrack::vfunc_7() {
-    return (hulk_freg)this->f_10 - this->f_0c;
+    return (hulk_freg)this->timeEnd - this->timeBegin;
 }

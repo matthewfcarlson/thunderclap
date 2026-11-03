@@ -6,8 +6,8 @@ bool CMotionStateCondition::vfunc_7(void* __p0) { hulk_intptr p = (hulk_intptr)_
     hulk_intptr result = vfunc_8(p);
     if (!result)
         return false;
-    int expected = this->f_10;
-    int op = this->f_0c;
+    int expected = this->motionState;
+    int op = this->compare;
     switch (op) {
     case 0:
         return *(int*)(result + 0x140) == expected;

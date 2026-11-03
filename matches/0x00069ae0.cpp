@@ -5,7 +5,7 @@
 float zero_69ae0 = 0.0f;
 
 hulk_freg CMoveAddYTrack::vfunc_7() {
-    hulk_freg d = this->f_10 - this->f_0c;
+    hulk_freg d = this->timeEnd - this->timeBegin;
     if (d < zero_69ae0)
         d = zero_69ae0;
     return d;

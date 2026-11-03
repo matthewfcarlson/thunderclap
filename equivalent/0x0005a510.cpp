@@ -56,5 +56,5 @@ hulk_intptr CGrappleDamageTrack::vfunc_12(hulk_intptr __p0) { Target_5a510 * tar
     if (mem == 0) {
         return (int)(0);
     }
-    return (hulk_intptr)(mem->FUN_0001d9b0(anim, this->f_10, this->f_14));
+    return (hulk_intptr)(mem->FUN_0001d9b0(anim, this->damage, this->damageMax));
 }
