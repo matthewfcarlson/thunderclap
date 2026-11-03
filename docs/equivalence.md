@@ -9,6 +9,7 @@ build/venv/bin/python tools/equiv.py SRC 0xADDR --json          # one-line JSON 
 build/venv/bin/python tools/equiv.py SRC 0xADDR --map map.json  # bind our symbols to original addresses
 build/venv/bin/python tools/equiv.py SRC 0xADDR -- /Oy-         # extra cl flags
 build/venv/bin/python tools/equiv.py SRC 0xADDR --wine          # the clang object the Wine build runs (--native is the old name)
+build/venv/bin/python tools/equiv.py SRC 0xADDR --x64           # the x86-64 object against the 32-bit clang object (64-bit check below)
 ```
 
 Library: `equiv.verify(src, addr, symbol=None, flags=(), n_inputs=64, mapping=None, use_names=True, ...)`
@@ -27,6 +28,7 @@ input cap to at least N.
 | 2 | same references: callees, globals, vftables, strings, float constants (in memory and in immediates), the initializers of globals the source defines | a missing or extra callee or global, an unresolvable symbol, a float constant a few ulps off the original's, a defined global whose initial bytes aren't the original's |
 | 3 | differential execution in Unicorn on fuzzed inputs | any difference in calls, memory writes, return value, callee-saved registers or stack balance |
 | Wine mode (`--wine`) | levels 1-3 with SRC compiled by clang the way the Wine build compiles it (i686, -O0, x87, `hulk_freg` = double), run against the original | the same, plus the Wine-specific rules (rounds 18-22) |
+| 64-bit mode (`--x64`) | SRC's x86-64 object against its own 32-bit clang object (the `--wine` object), from typed inputs laid out for each target ("64-bit check" below) | layout, pointer truncation, 64-bit-only faults, float and integer differences |
 
 `status` is `equivalent` (levels 1–3 pass), `fail`, `inconclusive` (no difference, but fewer than 8 inputs
 ran to completion or branch coverage is under 25%; byte-identical code is exempt), `unsupported` (level 3
@@ -1610,6 +1612,92 @@ dynamic indexing of a stack array, spills of a layout the other side does not ha
 counterpart differs in call order or arity, stack slots written by callees through pointers inside bigger
 objects (windows are 16 bytes), branch joins of registers that are undefined on one path.
 
+
+## 64-bit check (`--x64`, eq64)
+
+```sh
+build/venv/bin/python tools/equiv.py SRC 0xADDR --x64 [--inputs 200] [--time-budget 120] [--json]
+build/venv/bin/python tools/equiv64.py SRC 0xADDR [--seeds 3,7]          # the same, plus a seed list (regression)
+build/venv/bin/python tools/jobq_equiv.py LIST OUT.jsonl --name ME -- --x64 --inputs 200    # batches (see below)
+```
+
+**What it proves.** The supported targets are 64-bit (x86-64 SteamOS, arm64 macOS; MS C++ ABI on both,
+docs/native-mac.md). `--x64` checks the source's **x86-64 object against its own 32-bit clang object** (the object
+`--wine` checks against the original). With the promotion gate's `--wine` run (original == Wine object), the chain
+gives original == x86-64 object, without ever comparing 4-byte-pointer memory with 8-byte-pointer memory directly.
+
+**Design choices, and why.**
+
+- *Reference side: the Wine object, not the original.* Both objects come from the same text through the same clang
+  front end, so they share every declaration, mangled name (modulo `__ptr64`) and type; only the target differs. The
+  original has no types: its memory could only be mapped to 64-bit layouts by guessing. The original's own quirks
+  (MSVC evaluation order, x87 temporaries) are the Wine check's business and stay there.
+- *What is compiled.* SRC in the tree's native spelling (`gen_tree.native_spelling` + `crt_guard_text`, behind
+  `tree_prelude.h`: what the native builds compile). 32-bit: `equiv.compile_native` (i686-pc-windows-msvc, SSE with
+  clang_probe's IR passes, the x87-keep list: exactly the `--wine` object). 64-bit: the native front end of
+  tools/native_mac.py (`-O0`, `compat/native.h`, `-fno-strict-aliasing -fwrapv`, `-fcheck-new`,
+  `-ffp-eval-method=double -ffp-contract=off`) for `x86_64-pc-windows-msvc`, plus `-fdump-vtable-layouts`. arm64
+  shares this front end and layouts (only the retarget differs); running AArch64 code is not done yet (Unicorn
+  supports it; the call/return conventions would be the new part).
+- *Typed inputs, laid out twice.* libclang parses the prepared source once per target. Every input is an object
+  graph generated from the source's types: `this`, arguments, the globals the object references, what stubs return.
+  Each object has a type and is generated once as abstract values per *leaf* (scalar, float, pointer, vfptr, a run
+  of raw bytes for `char` arrays and pads) and written into each side's memory at that target's offsets. Pointers
+  are objects (or null); a pointer field of a record type points to one object, a scalar pointer to an array of up to
+  16; the later of two pointers of one record with the same pointee type (`begin`/`end`) points into the earlier's
+  array, so `end - begin` is an element count on both. A pointer the 32-bit run decides is the same object for the
+  64-bit run. The 64-bit heap is above 4 GB (as on arm64 macOS), so a truncated pointer never works by accident.
+  An untyped parameter (`void*`, `char*`, a pointer-width integer such as the `hulk_intptr __p0` of generated
+  wrappers) that the body casts to a typed pointer (`(LexState *)ls`, `{ T * x = (T *)__p0;`) is generated as that
+  pointer (libclang finds the first such cast; `EQ64_OFF=casts` turns it off).
+- *Nothing typed is compared by byte offset.* Everything observed is decoded back through the types into
+  target-independent values: pointers become (object, 32-bit offset) (a 64-bit offset maps through the paired
+  layouts; one that lands inside a field is a difference), floats are bits, records are their leaves. Compared:
+  every call to a function the object doesn't define, in order, with its arguments (and the contents of a const or
+  record local passed by pointer); the return value; the final value of every leaf either side wrote outside its
+  stack; callee-saved registers and the stack pointer.
+- *Stubs* are keyed by declaration (file:line:column of the first declaration in either parse), so the two mangled
+  names of one function meet. Their signature (libclang) places arguments per ABI: thiscall/stdcall/fastcall/cdecl
+  pops on i386, rcx/rdx/r8/r9/xmm0-3 and the stack on Win64, records by value inline or by reference, hidden return
+  pointers (MS rules: always for methods, else unless a C++03 POD of 1/2/4/8 bytes). Both sides get the same
+  abstract return value (a float via st(0) / xmm0); a typed non-const local passed by pointer gets the same fresh
+  contents (out-parameters). Virtual calls through input objects reach a stub per (class, slot); the slot's method
+  comes from the vftable dump, its signature from libclang. The memory/string CRT routines run on each side's memory;
+  `operator new` / `malloc` / the game's allocators return a raw object of the size each side asked for; it and any
+  other untyped object (a `void*` a stub returned) is typed after the run by the vftable the 32-bit run stored at +0
+  or the largest type it was passed as. A pointer outside every object (an index from fuzzed data) is not compared
+  (`wildptr`); one into a null object (`&((T*)0)->field`) compares as `nullrel`, since its value is the layout. The scalar deleting
+  destructor clang doesn't emit is synthesized as tools/wine_link.py does (both targets).
+- *Inputs that are not comparable are not used* (reported in `skipped`): the 32-bit run faults, runs away, writes or
+  reads past an object its source types (a stub class smaller than the real one, an index from a fuzzed int), or
+  reads memory no object covers at an address the 64-bit run doesn't (32-bit address arithmetic wraps).
+
+**Report.** `status` `equivalent` / `fail` / `inconclusive` (< 8 completed) / `unsupported` / `compile_error`;
+`inputs`, `completed`, `skipped` (by reason, `skip_first` gives the first of each), `coverage` (32-bit instructions
+reached / instructions of the function), and for a fail `diff` (the first difference) and `class`:
+
+| class | meaning |
+| --- | --- |
+| `layout` | a 64-bit access lands elsewhere: an allocation smaller than its type on 64-bit, a write or read past an object's 64-bit end, a pointer into the middle of a 64-bit field, a field read at its 32-bit byte offset (a 4-byte read of an 8-byte pointer), a store only one side made |
+| `ptrtrunc` | a pointer kept in 32 bits (`(int)p`, a pointer in an `int` field) |
+| `crash64` / `hang64` | the 64-bit run faults (e.g. an address assembled from 32-bit data) or runs away where the 32-bit run returned |
+| `float` | only float values differ (the faithful spellings should give the same bits; float->int overflow and anything the x87-keep list runs differently show here) |
+| `int` / `call` | integer values, or a different callee sequence |
+| `untyped` | a difference in memory no type describes (a raw allocation never typed, a `void*` the code casts) |
+| `tool` | a construct this checker doesn't model (status `unsupported`) |
+
+`layout`, `ptrtrunc` and `crash64` are 64-bit bugs in the source (or in a header it uses) until shown otherwise;
+`untyped` and `tool` are gaps of the checker.
+
+**Limits.** The check is per source: a source's own stub types are laid out consistently on both targets, so a stub
+class whose `char pad[0x1c]` stands for a pointer and two ints of the real class passes here while the real 64-bit
+class puts its fields elsewhere. Agreement of stub types with the real classes across sources is
+tools/stub_layout.py's and tools/layout64.py's business (and the include/gen/ typing). Fuzzing, not proof, as for level 3. Callees are opaque. A `void*` whose pointee the code casts to a record
+is raw memory (byte for byte the same on both sides), so a punned pointer behind it shows as `untyped`. Classes
+whose vftable codegen never laid out get unknown slots. Virtual bases, `long double`, varargs callees beyond their
+fixed parameters, member-function pointers in records (compared as raw words) are not modelled. Unicorn's x86-64
+SSE is exact; transcendental CRT functions are stubs (same value both sides), so they never differ here (the
+Wine/replay checks cover them).
 
 ## Limits
 

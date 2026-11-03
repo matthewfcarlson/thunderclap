@@ -857,10 +857,42 @@ DECL_CASES = {
     "0x000f2f50_declarity_structret": (set(), {}),
 }
 
+# (eq64) the 64-bit check, tools/equiv64.py (`equiv.py --x64`): name -> (status, class or None, text the difference
+# must contain or None, minimum completed inputs). The x86-64 object against the 32-bit clang object of the same source.
+X64_CASES = {
+    # a plain setter: a typed `this`, an int and a byte field
+    "0x000ac780_x64_setter": ("equivalent", None, None, 50),
+    # vftables of input objects (slot by MS vftable index on both targets), float returns of stubs (st0 / xmm0), an
+    # empty member's address (no leaf at its offset)
+    "0x00015090_x64_vcall": ("equivalent", None, None, 50),
+    # matches/0x0013e520: `operator new(0x10)` for a class of 0x10 bytes on 32-bit and 0x18 on 64-bit (vfptr 8 bytes):
+    # a real 64-bit bug; the class comes from the vftable the inline constructor stores at +0
+    "0x0013e520_x64_small_new": ("fail", "layout", "allocation of 0x10 bytes holds a TrackFactoryTemplate_13e520", 0),
+    # ... and with `operator new(sizeof(...))` it passes
+    "0x0013e520_x64_sizeof_new": ("equivalent", None, None, 50),
+    # mutants of 0x000ac780: a pointer kept in an int field; a field read at its 32-bit byte offset behind a pointer
+    # field; a struct holding a pointer copied by its 32-bit size
+    "0x000ac780_x64_ptr_in_int": ("fail", "ptrtrunc", "[0].value", 0),
+    "0x000ac780_x64_raw_offset": ("fail", "layout", "of the 8-byte pointer p", 0),
+    "0x000ac780_x64_raw_offset_typed": ("equivalent", None, None, 50),
+    "0x000ac780_x64_memcpy_size": ("fail", "layout", "[0].a.v", 0),
+}
+
 # cases that must also complete this many inputs (the promotion bar is 50)
 MIN_RUN = {"0x0028c2a0_rep_count": 50, "0x000e36c0_small_counts": 50, "0x002155f0_diff_bound": 50,
            "0x0024a800_walk_end": 50, "0x001fe380_tiny_counts": 50, "0x002a4e40_static_count": 50,
            "0x00242da0_nil_addr_walk": 50, "0x002165c0_xlocal_ptr": 50}
+
+
+def x64_job(name):
+    """(eq64) one X64_CASES case: (ok, status, class, difference or error)."""
+    import equiv64
+    want, cls, text, min_done = X64_CASES[name]
+    r = equiv64.verify64(os.path.join(CASES_DIR, name + ".cpp"), int(name.split("_")[0], 16), n_inputs=100)
+    got = r.get("diff") or r.get("error") or ""
+    ok = r["status"] == want and (cls is None or r.get("class") == cls) and (text is None or text in got) and \
+        r.get("completed", 0) >= min_done
+    return ok, r["status"], r.get("class"), got
 
 
 def decl_job(name, equiv=None):
@@ -935,6 +967,9 @@ def run_jobq(a, names):
     per = a.per
     commit = jobq.head_commit()
     files = jobq.collect_files([], True)
+    if any(n in X64_CASES for n in names):
+        import equiv64
+        files.update(equiv64.job_files())     # (libclang's Python binding, for hosts whose venv lacks it)
     jobs = [jobq.make_job(a.name, ["python", "tests/equiv/regress.py", "--names", ",".join(names[i:i + per]), "--jobs", "2"] +
                           (["--module", a.module] if a.module else []),
                           "equiv", files, [], 3600, 2, 3, 0, commit) for i in range(0, len(names), per)]
@@ -981,7 +1016,8 @@ def main():
         os.environ["EQUIV_MODULE"] = a.module
     sel = set(a.names.split(",")) if a.names else None
     if a.jobq:
-        return run_jobq(a, [n for n in list(CASES) + list(RELOC_CASES) + list(DECL_CASES) if (not a.only or a.only in n) and (not sel or n in sel)])
+        return run_jobq(a, [n for n in list(CASES) + list(RELOC_CASES) + list(DECL_CASES) + list(X64_CASES)
+                            if (not a.only or a.only in n) and (not sel or n in sel)])
     if not os.path.exists(os.path.join(ROOT, "isos/extracted/default.xbe")):
         print("skip: no isos/extracted/default.xbe")
         return 0
@@ -1009,6 +1045,11 @@ def main():
         bad += not ok
         names.append(name)
         print("%-4s %-32s %-12s %s" % ("ok" if ok else "FAIL", name, status, "" if ok else sorted(got)))
+    for name in [n for n in X64_CASES if (not a.only or a.only in n) and (not sel or n in sel)]:
+        ok, status, cls, got = x64_job(name)
+        bad += not ok
+        names.append(name)
+        print("%-4s %-32s %-12s %s" % ("ok" if ok else "FAIL", name, status, "" if ok else "%s: %s" % (cls, got[:300])))
     print("%d/%d cases ok" % (len(names) - bad, len(names)))
     return 1 if bad else 0
 

@@ -11640,6 +11640,10 @@ def main(argv):
     p.add_argument("--wine", "--native", dest="native", action="store_true",
                    help="(round 18) check the object the Wine build runs: compile SRC with clang (the Wine build's "
                         "flags, hulk_freg = double) and run it against the original (--native is the old name)")
+    p.add_argument("--x64", action="store_true",
+                   help="(eq64) the 64-bit check: SRC's x86-64 object (the native builds' front end) against its 32-bit clang "
+                        "object, from typed inputs laid out for each target (tools/equiv64.py, docs/equivalence.md "
+                        "\"64-bit check\"); --inputs, --time-budget, --symbol and --json apply")
     p.add_argument("--strict-decl", action="store_true",
                    help="(round 23) a callee whose stack arity our declaration states wrongly (decl_arity) fails level 2")
     p.add_argument("--json", action="store_true")
@@ -11649,6 +11653,12 @@ def main(argv):
                    help="(perf1) with --wine under sse: the x87-keep list (default build/clang-probe/x87_keep.txt, the "
                         "last probe's; HULK_WINE_X87_KEEP)")
     a = p.parse_args(argv)
+    if a.x64:
+        import equiv64
+        rep = equiv64.verify64(a.src, int(a.addr, 16), symbol=a.symbol, n_inputs=a.inputs if a.inputs != 64 else 200,
+                               time_budget=a.time_budget)
+        print(json.dumps(rep, default=str) if a.json else equiv64.render(rep))
+        return 0 if rep["status"] == "equivalent" else 1
     if a.float:
         os.environ["HULK_WINE_FLOAT"] = a.float
     if a.x87_keep:
