@@ -30,6 +30,7 @@ python tools/packet.py show 0xADDR               # asm, Ghidra hint and referenc
 python tools/build_tree.py --rounds 16           # generate and verify the merged tree (slow)
 python tools/wine_link.py --reuse-map --gfx      # Wine build image link; see docs/wine-build.md
 python tools/equiv.py SRC.cpp 0xADDR --wine     # check the clang object the Wine build runs (--native is the old name); tools/x87_order.py checks float order
+python tools/equiv.py SRC.cpp 0xADDR --x64 --json      # 64-bit check: x86-64 object vs the 32-bit clang object (batches: tools/equiv64.py batch LIST OUT)
 python tools/hybrid_test.py compare ...          # hybrid build vs baseline in xemu; see docs/hybrid-build.md
 python tests/equiv/regress.py                    # checker regression cases (run after any change to equiv.py)
 ```
