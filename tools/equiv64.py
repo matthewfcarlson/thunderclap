@@ -556,7 +556,12 @@ class Types:
                 raise Unsupported("long double of %d bytes" % a.get_size())
             out.append(Leaf(path, o32, o64, "d", 8, 8))
         elif ka == K.MEMBERPOINTER:
-            out.append(Leaf(path, o32, o64, "u", a.get_size(), b.get_size()))
+            pa, pb = self.canon(a.get_pointee()), self.canon(b.get_pointee())
+            if pa.kind in (K.FUNCTIONPROTO, K.FUNCTIONNOPROTO) and a.get_size() == 4 and b.get_size() == 8:
+                # a member-function pointer of a single-inheritance class: just the function's address (MS ABI)
+                out.append(Leaf(path, o32, o64, "mfp", 4, 8, (pa, pb, a.get_class_type(), b.get_class_type())))
+            else:
+                out.append(Leaf(path, o32, o64, "u", a.get_size(), b.get_size()))
         else:
             raise Unsupported("type kind %s (%s)" % (ka.name, a.spelling))
 
@@ -914,6 +919,11 @@ class Heap:
             if r.below(4) == 0:
                 return ("p", None, 0)
             st = self.chk.fnptr_stub(("fnptr", o.id, e, l.o32), l.extra)
+            return ("fn", st.key)
+        if k == "mfp":
+            if r.below(8) == 0:
+                return ("p", None, 0)
+            st = self.chk.fnptr_stub(("mfp", o.id, e, l.o32), l.extra[:2], method=l.extra[2:])
             return ("fn", st.key)
         if k == "vp":
             vt = self.chk.vtable_obj(self, l.extra)
@@ -1299,10 +1309,13 @@ class Checker:
     def stub_addr(self, key):
         return STUBS + 16 * self.stub_by_key[key].idx
 
-    def fnptr_stub(self, key, ftypes):
+    def fnptr_stub(self, key, ftypes, method=None):
         st = self.stub_by_key.get(key)
         if st is None:
-            st = self.new_stub(key, Sig.of(ftypes[0], ftypes[1], "fnptr"), "fnptr", "fnptr")
+            sig = Sig.of(ftypes[0], ftypes[1], "fnptr")
+            if method is not None:
+                sig.has_this, sig.method_record = True, method      # (a member function: this first; thiscall on i386)
+            st = self.new_stub(key, sig, "fnptr", "mfptr" if method is not None else "fnptr")
         return st
 
     def vtable_obj(self, heap, vkey):
@@ -1532,6 +1545,7 @@ class Side:
         self.fault = None
         self.wild = set()
         self.ptrpart = None
+        self.rawread = None
         uc = self.uc = Uc(UC_ARCH_X86, UC_MODE_32 if bits == 32 else UC_MODE_64)
         img = chk.img[bits]
 
@@ -1673,6 +1687,8 @@ class Side:
         if off + size > o.size(self.bits) and o.init is None:
             self.oob = (describe(o), off)
             return
+        if self.bits == 64 and o.lay.raw and size == 8 and self.rawread is None and o.init is None:
+            self.rawread = "%s: an 8-byte read at +0x%x of untyped memory" % (describe(o), off)
         if self.bits == 64 and self.ptrpart is None and not o.lay.raw:
             lay = o.lay
             l = lay.leaf_at(64, off % lay.size64)
@@ -2135,7 +2151,7 @@ class Side:
 
     def decode_bytes(self, l, data):
         k = l.kind
-        if k in ("p", "fp", "vp"):
+        if k in ("p", "fp", "vp", "mfp"):
             return self.canon_ptr(int.from_bytes(data, "little"))
         if k == "f":
             return fcanon("f", data)
@@ -2608,6 +2624,8 @@ def ptrnote(s64, text, cls):
     inside an 8-byte pointer: a raw offset or a pointer kept in an int) is a layout difference."""
     if s64.ptrpart:
         return text + " (after: %s)" % s64.ptrpart, "layout"
+    if s64.rawread and cls in ("int", "call"):
+        return text + " (after: %s)" % s64.rawread, "untyped"
     return text, cls
 
 
@@ -2641,6 +2659,21 @@ def _floats_only_differ(a, b):
     return False
 
 
+def _ints_wrap(a, b):
+    """A and B differ, and every differing pair of integers is equal modulo 2^32 (one of them 64-bit)."""
+    if isinstance(a, tuple) and isinstance(b, tuple):
+        if len(a) == 2 and len(b) == 2 and a[0] == b[0] == "i" and isinstance(a[1], int) and isinstance(b[1], int):
+            return a[1] != b[1] and (a[1] - b[1]) % (1 << 32) == 0
+        if len(a) != len(b):
+            return False
+        pairs = [(x, y) for x, y in zip(a, b) if x != y]
+        return bool(pairs) and all(_ints_wrap(x, y) for x, y in pairs)
+    if isinstance(a, list) and isinstance(b, list):
+        pairs = [(x, y) for x, y in zip(a, b) if x != y]
+        return len(a) == len(b) and bool(pairs) and all(_ints_wrap(x, y) for x, y in pairs)
+    return False
+
+
 def classify(a, b, s64):
     def has(v, pred):
         if isinstance(v, tuple):
@@ -2665,6 +2698,8 @@ def classify(a, b, s64):
     if has(a, lambda t: len(t) > 1 and t[0] in ("f", "d")) or has(b, lambda t: len(t) > 1 and t[0] in ("f", "d")):
         if not has(a, lambda t: t[:1] in (("obj",), ("i",), ("int",))) or _floats_only_differ(a, b):
             return "float"
+    if _ints_wrap(a, b):
+        return "intwidth"   # equal modulo 2^32: pointer-width integer arithmetic wraps at 2^32 on one side only
     if "wild" in s64.flags and not has(a, lambda t: t[0] == "int"):
         return "untyped"
     if isinstance(a, tuple) and isinstance(b, tuple) and a and b and a[0] == "call" and b[0] == "call" and a[1] != b[1]:
@@ -2712,8 +2747,10 @@ def verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120, 
         rep["fails"] = res["fails"]
     elif res["completed"] == 0:
         rep["status"] = "unsupported"
-        rep["class"] = "tool"
-        rep["error"] = "[tool] no input completed on the 32-bit side (%s; first: %s)" % (res["skipped"], res.get("skip_first"))
+        first = res.get("skip_first") or {}
+        stub = res["skipped"].get("oob", 0) >= res["inputs"] // 2 and "write past" in (first.get("oob") or "")
+        rep["class"] = "stubsize" if stub else "tool"
+        rep["error"] = "[%s] no input completed on the 32-bit side (%s; first: %s)" % (rep["class"], res["skipped"], res.get("skip_first"))
     elif res["completed"] < 8:
         rep["status"] = "inconclusive"
     else:

@@ -1686,8 +1686,10 @@ reached / instructions of the function), and for a fail `diff` (the first differ
 | `ptrtrunc` | a pointer kept in 32 bits (`(int)p`, a pointer in an `int` field) |
 | `crash64` / `hang64` | the 64-bit run faults (e.g. an address assembled from 32-bit data) or runs away where the 32-bit run returned |
 | `float` | only float values differ (the faithful spellings should give the same bits; float->int overflow and anything the x87-keep list runs differently show here) |
+| `intwidth` | integers equal modulo 2^32: pointer-width integer arithmetic (`hulk_uintptr b - x`) that wraps on 32-bit only; usually an input no game state has (a small "address"), sometimes a real difference |
 | `int` / `call` | integer values, or a different callee sequence |
 | `untyped` | a difference in memory no type describes (a raw allocation never typed, a `void*` the code casts) |
+| `stubsize` | (status `unsupported`) the 32-bit run itself writes past the end of an object the source types (a stub class smaller than the real one: an empty class whose vfptr the source stores by hand, a `unsigned char DAT_x[4]` data declaration): the source's types are too small to judge |
 | `tool` | a construct this checker doesn't model (status `unsupported`) |
 
 `layout`, `ptrtrunc` and `crash64` are 64-bit bugs in the source (or in a header it uses) until shown otherwise;
