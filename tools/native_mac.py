@@ -642,6 +642,22 @@ def code_owned64(defs, crt_addr, defined64):
     return "\n".join(out) + "\n", dict(st), undefined
 
 
+LINK_STATE = {}
+
+
+def hook_report(game_syms, fmt):
+    """The replay hooks (src/platform/sdl/host/native_hooks.h) planned on the image's objects: which rows the link
+    could apply today. Report only: the image does not link the replay layer (replay_native.cpp, the shim, SDL3) yet,
+    so applying them would send the game's calls to missing hooks (docs/native-android.md section 14)."""
+    import native_bind as nb
+    defs = LINK_STATE.get("defs")
+    if defs is None:
+        return {}
+    _ren, thunks, rep = nb.plan_hooks(game_syms, defs.sym64, fmt)
+    return {"applied": "no (report only)", "rows": rep,
+            "game definitions the thunks reach": sum(1 for f in thunks.values() if f), "thunks": len(thunks)}
+
+
 def cmd_link(a):
     rep = json.load(open(os.path.join(OUT, "report.json")))
     objs = sorted(os.path.join(CACHE, os.path.basename(o)) for o in rep["objects"].values())
@@ -658,6 +674,7 @@ def cmd_link(a):
     rtti, n_td, td_names = type_descriptors(defined)
     defined |= td_names | set(RTTI_RUNTIME_NAMES)
     defs = TreeDefs(defined)
+    LINK_STATE["defs"] = defs     # (ld64's replay hook plan: the tree's definitions by XBE address)
     owned, owned_st, owned_undef = code_owned64(defs, crt_bindings()[1], defined)
     rtti += owned
     defined |= set(re.findall(r'^"_(DAT_[0-9a-f]{8})":', owned, re.M))
@@ -729,7 +746,7 @@ def cmd_link(a):
     with open(os.path.join(OUT, "link-report.json"), "w") as f:
         json.dump(lk, f, indent=1)
     print(json.dumps(lk, indent=1))
-    return 0
+    return 1 if a.ld and lk["ld64"].get("native CRT binding problems") else 0
 
 
 def cp_shape(s, d):
@@ -747,43 +764,65 @@ def cp_shape(s, d):
 
 
 def ld64(objs, aliases, unbound, extra_asm=()):
-    """Link the objects into an arm64 executable with every unbound symbol stubbed (an inventory of what ld64
-    itself refuses: duplicate symbols, relocation kinds); the image is not meant to run."""
+    """Link the objects into an arm64 executable (docs/native-android.md section 14, a2s1): the game's objects with
+    the native CRT table bound by name (tools/native_bind.py: their references to the table's names renamed to the
+    rows' targets), the link tables, the host glue (native_bind.HOST_SRCS: entry_posix's main, the CRT glue, the
+    Win32 subset, the MS ABI runtime, soft x87) and a stub for every unbound name that neither the host glue nor
+    libSystem / libc++ define: code stubs report their name through hulk_native_missing (entry_posix.cpp), data stubs
+    are 64 zero bytes, the shim hooks the host glue calls (not linked yet) are null functions. As native_elf.py's lld
+    step."""
+    import native_bind as nb
+    import native_elf as ne
     d = os.path.join(OUT, "link")
-    stub = os.path.join(d, "stubs.s")
-    with open(stub, "w") as f:
-        f.write("\t.text\n\t.p2align 2\n")
-        code = sorted(x for x in set(unbound) | {"hulk_native_missing"} if not DATA_LIKE.search(x))
-        for s in code:   # (hulk_native_missing: entry_posix.cpp's, not linked yet)
-            # (16-aligned: a C-named data symbol the patterns miss is loaded with 8-byte LDR/STR)
-            f.write('\t.p2align 4\n\t.globl "_%s"\n"_%s":\n\tbrk #1\n' % (s, s))
-        f.write("\t.data\n")
-        for s in sorted(x for x in set(unbound) if DATA_LIKE.search(x)):   # data: pointer-aligned, zero
-            f.write('\t.p2align 4\n\t.globl "_%s"\n"_%s":\n\t.space 16\n' % (s, s))
-        f.write("\t.text\n")
-        f.write("\t.globl _main\n_main:\n\tbrk #1\n")
     clang = cp.tool("clang")
-    r = subprocess.run([clang, "--target=" + TRIPLE, "-c", stub, "-o", stub + ".o"], capture_output=True, text=True)
-    if r.returncode:
-        return {"status": "stubs failed", "log": r.stderr[-2000:]}
     extra = []
     for src in extra_asm:
         r = subprocess.run([clang, "--target=" + TRIPLE, "-c", src, "-o", src + ".o"], capture_output=True, text=True)
         if r.returncode:
             return {"status": "%s failed" % os.path.basename(src), "log": r.stderr[-2000:]}
         extra.append(src + ".o")
-    # the host side the image links (so far: the MS ABI runtime, which defines RTTI_RUNTIME_NAMES)
-    for src in (os.path.join(ROOT, "src/platform/sdl/host/rtti_msabi.cpp"),):
-        o = os.path.join(d, os.path.basename(src) + ".o")
-        r = subprocess.run(["xcrun", "clang++", "-std=c++17", "-O1", "-mmacosx-version-min=" + MACOS_MIN, "-c", src,
-                            "-o", o], capture_output=True, text=True)
-        if r.returncode:
-            return {"status": "%s failed" % os.path.basename(src), "log": r.stderr[-2000:]}
-        extra.append(o)
+    host, errs = nb.macos_host_objects(os.path.join(d, "host"))
+    if errs:
+        return {"status": "host glue failed", "errors": errs}
+    host_syms = nm_macho(host)
+    host_def = set().union(*(dd for dd, _u in host_syms.values()))
+    host_undef = {s for _dd, u in host_syms.values() for s in u if s.startswith("hulk_")}
+    game_syms = nm_macho(objs)
+    game_def = set().union(*(dd for dd, _u in game_syms.values()))
+    asm_def = set().union(*(dd for dd, _u in nm_macho(extra).values())) if extra else set()
+    sys_def = nb.macos_system_names()
+    table = nb.Table()
+    binding = nb.plan(set().union(*(u for _dd, u in game_syms.values())) - game_def - asm_def, table)
+    objs, bind_st = nb.apply(objs, binding, game_syms, os.path.join(d, "bound"), "macho")
+    hooks = host_undef - game_def - asm_def - host_def - sys_def - {"hulk_game_main"}
+    want = ((set(unbound) - set(binding)) | (host_undef - game_def - asm_def)) - host_def - sys_def - hooks
+    dem = cp.undname(sorted(s for s in want if s.startswith("?")))
+    data = {s for s in want | hooks if ne.is_data(s, dem)}
+    stub = os.path.join(d, "stubs.s")
+    with open(stub, "w") as f:
+        f.write("\t.text\n")
+        for s in sorted(hooks - data):
+            f.write('\t.p2align 4\n\t.globl "_%s"\n"_%s":\n\tmov x0, #0\n\tret\n' % (s, s))
+        code = sorted(want - data)
+        for i, s in enumerate(code):
+            f.write('\t.p2align 4\n\t.globl "_%s"\n"_%s":\n\tadrp x0, Lsn%d@PAGE\n\tadd x0, x0, Lsn%d@PAGEOFF\n'
+                    '\tb _hulk_native_missing\n' % (s, s, i, i))
+        f.write("\t.section\t__TEXT,__cstring,cstring_literals\n")
+        for i, s in enumerate(code):
+            f.write('Lsn%d:\n\t.asciz "%s"\n' % (i, s.replace("\\", "\\\\").replace('"', '\\"')))
+        f.write("\t.data\n")
+        for s in sorted(data):   # data: pointer-aligned, zero
+            f.write('\t.p2align 4\n\t.globl "_%s"\n"_%s":\n\t.space 64\n' % (s, s))
+    r = subprocess.run([clang, "--target=" + TRIPLE, "-c", stub, "-o", stub + ".o"], capture_output=True, text=True)
+    if r.returncode:
+        return {"status": "stubs failed", "log": r.stderr[-2000:]}
+    bound_syms = nm_macho([o for o in objs if os.path.dirname(o) == os.path.join(d, "bound")])
+    after = {o: bound_syms[o] if o in bound_syms else game_syms[o] for o in objs}
+    crt_st, problems = nb.check(binding, after, host_syms, asm_def | want | hooks, sys_def, table)
     al = os.path.join(d, "aliases.txt")
     rsp = os.path.join(d, "objects.rsp")
     with open(rsp, "w") as f:
-        f.write("\n".join(objs + [stub + ".o"] + extra) + "\n")
+        f.write("\n".join(objs + [stub + ".o"] + extra + host) + "\n")
     cmd = ["xcrun", "ld", "-arch", "arm64", "-no_fixup_chains", "-platform_version", "macos", MACOS_MIN, MACOS_MIN, "-o",
            os.path.join(d, "hulk-mac"), "-alias_list", al, "-filelist", rsp, "-e", "_main", "-no_uuid", "-syslibroot",
            subprocess.run(["xcrun", "--show-sdk-path"], capture_output=True, text=True).stdout.strip(), "-lSystem", "-lc++"]
@@ -798,7 +837,12 @@ def ld64(objs, aliases, unbound, extra_asm=()):
         elif l.startswith("ld:") or l.startswith("Undefined"):
             kinds[re.sub(r"'[^']*'|\S+\.o\b", "X", l)[:120]] += 1
     return {"rc": r.returncode, "log_lines": len(log.splitlines()), "kinds": dict(kinds.most_common(20)),
-            "first": "\n".join(l for l in log.splitlines()[:40] if not l.startswith("    /"))[:3000]}
+            "first": "\n".join(l for l in log.splitlines()[:40] if not l.startswith("    /"))[:3000],
+            "stubs: code": len(want - data), "stubs: data": len(data), "null hooks": sorted(hooks - data),
+            "native CRT binding": dict(crt_st, apply=bind_st), "native CRT binding problems": problems[:40],
+            "unbound names the system libraries define (not CRT rows: bound to the system's)":
+                sorted((set(unbound) - set(binding)) & sys_def),
+            "replay hooks": hook_report(game_syms, "macho")}
 
 
 # ---------------------------------------------------------------------------------------------- the C runtime table

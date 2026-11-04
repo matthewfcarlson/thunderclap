@@ -54,6 +54,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import clang_probe as cp  # noqa: E402
 import native_mac as nmac  # noqa: E402
+import native_bind as nb  # noqa: E402
 
 ROOT = cp.ROOT
 # (a queue job whose host checkout's src/ is older than the table: the job ships its own copy)
@@ -66,9 +67,7 @@ TARGETS = {
                           toolchain="ndk", image="libmain.so", shared=True),
 }
 VERSION = "1"   # bump when retarget_elf() changes (cache key; native_mac.VERSION is in the key too)
-HOST_SRCS = ["src/platform/sdl/host/entry_posix.cpp", "src/platform/sdl/host/rtti_msabi.cpp",
-             "src/platform/sdl/host/crt_posix.cpp", "src/platform/sdl/host/win32_posix.cpp",
-             "src/platform/sdl/crt/softx87.cpp"]
+HOST_SRCS = nb.HOST_SRCS   # the host glue every native image links
 # the C library's variadic functions the game reaches by name (with the native CRT table's names: host convention)
 LIBC_VARIADIC = {"printf", "fprintf", "sprintf", "snprintf", "scanf", "fscanf", "sscanf", "swprintf", "fwprintf",
                  "wprintf", "swscanf", "open", "fcntl", "ioctl", "execl", "execlp", "_snprintf", "_snwprintf",
@@ -448,11 +447,13 @@ def lld(tc, d, objs, unbound, extra_asm):
     host_def = defined_syms(tc.nm, host)
     shared, static = tc.system_libs()
     sys_def = defined_syms(tc.nm, shared, dynamic=True) | defined_syms(tc.nm, static)
+    host_syms = nm_elf(host, tc.nm)
     host_undef = set()
-    for o, (_d, u) in nm_elf(host, tc.nm).items():
+    for o, (_d, u) in host_syms.items():
         host_undef |= {s for s in u if s.startswith("hulk_")}
+    game_syms = nm_elf(objs, tc.nm)
     game_def = set()
-    for o, (dd, _u) in nm_elf(objs, tc.nm).items():
+    for o, (dd, _u) in game_syms.items():
         game_def |= dd
     asm_objs, asm_def = [], set()
     for src in extra_asm:
@@ -465,14 +466,28 @@ def lld(tc, d, objs, unbound, extra_asm):
             return {"status": "%s failed" % os.path.basename(e), "log": r.stderr[-2000:]}
         asm_objs.append(e + ".o")
     asm_def = defined_syms(tc.nm, asm_objs)
+    # the native CRT table bound by name (tools/native_bind.py): the game's references to the table's names are
+    # renamed to the rows' targets in copies of the objects (link/bound/), so the C library's functions of those names
+    # take no game reference
+    table = nb.Table()
+    binding = nb.plan(set().union(*(u for _dd, u in game_syms.values())) - game_def - asm_def, table)
+    objs, bind_st = nb.apply(objs, binding, game_syms, os.path.join(d, "bound"), "elf")
     # the shim's hooks the host glue calls (null stubs); the game's main is a missing stub (reported) like any other
     hooks = host_undef - game_def - asm_def - host_def - sys_def - {"hulk_game_main"}
     dem = cp.undname(sorted(s for s in set(unbound) if s.startswith("?")))
-    want = ((set(unbound) | (host_undef - game_def - asm_def)) - host_def - sys_def) - hooks
+    want = (((set(unbound) - set(binding)) | (host_undef - game_def - asm_def)) - host_def - sys_def) - hooks
     data = {s for s in want | hooks if is_data(s, dem)}
+    bound_dir = os.path.join(d, "bound")
+    bound_syms = nm_elf([o for o in objs if os.path.dirname(o) == bound_dir], tc.nm)
+    after = {o: bound_syms[o] if o in bound_syms else game_syms[o] for o in objs}
+    crt_st, problems = nb.check(binding, after, host_syms, asm_def | want | hooks, sys_def, table)
     st = {"stubs: code": len(want - data), "stubs: data": len(data), "null hooks": sorted(hooks),
           "unbound names the host glue defines": len(set(unbound) & host_def),
-          "unbound names the C library defines": len(set(unbound) & sys_def - host_def)}
+          "unbound names the C library defines": len((set(unbound) - set(binding)) & sys_def - host_def),
+          "native CRT binding": dict(crt_st, apply=bind_st), "native CRT binding problems": problems[:40],
+          "unbound names the C library defines (not CRT rows: bound to the C library's)":
+              sorted((set(unbound) - set(binding)) & sys_def - host_def),
+          "replay hooks": nmac.hook_report(game_syms, "elf")}
     stub = os.path.join(d, "stubs.elf.s")
     with open(stub, "w") as f:
         f.write(stub_asm(tc.target, want - data, data, hooks - data))
@@ -532,7 +547,7 @@ def cmd_link(a):
     with open(os.path.join(out, "link-report.json"), "w") as f:
         json.dump(lk, f, indent=1)
     print(json.dumps(lk, indent=1))
-    return 0 if not a.ld or lk.get("lld", {}).get("rc") == 0 else 1
+    return 0 if not a.ld or (lk.get("lld", {}).get("rc") == 0 and not lk["lld"].get("native CRT binding problems")) else 1
 
 
 def main(argv=None):

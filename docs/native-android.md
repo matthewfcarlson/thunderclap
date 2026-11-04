@@ -610,13 +610,168 @@ the tools) are part of it.
 **What A2 (the headless replay) needs.**
 1. **The unbound names.** These are x64-6's name unification and the consolidation. The run stops at the first
    initializer that calls an undefined name.
-2. **The native CRT table bound by name.** The 374 rows' tree names have to reach their glue targets: the host
-   defines them, or the sources name them. Today, for example, the game's `atexit` would bind to libc's, not to the
-   glue's list that `entry_posix` runs.
+2. ~~**The native CRT table bound by name.**~~ Done by a2s1 (section 14): `tools/native_bind.py` renames the game's
+   references in both link steps; `tests/native_host/crt_bind_test.py` checks every row on all three targets.
 3. ~~**The 18 x86-style `va_list` producers and the 3 consumers.**~~ Done by va1 ([native-build.md](native-build.md)
    "Varargs"; `tests/native_host/va_tree_test.sh` passes on arm64 macOS, x86-64 under Rosetta and the emulator).
-4. **The shim on native.** `hulk_xdk_*`, the file layer with `HULK_DATA_DIR` on the device (the extracted disc pushed
-   to the emulator's app storage, never committed), SDL3 for Android (`libSDL3.so`), bgfx's null renderer, and the
-   replay driver and checkpoint hashing. `replay_hooks.cpp` is a Wine-build bridge.
+4. **The shim on native.** Started by a2s1 (section 14): the shim and the replay driver build, link and pass their
+   harness tests; linking them into the image is the next step. Still open: SDL3 for Android (`libSDL3.so`) and for
+   Linux, bgfx's null renderer in the image, the data install on the device.
 5. **A place to run x86-64 Linux.** This means a SteamOS/Linux box, or a Linux VM. On this Mac that would be arm64
    Linux plus Rosetta for x86-64 binaries.
+
+## 14. A2 groundwork (a2s1, 2026-11-04): the CRT table bound by name, the shim and the replay driver on native
+
+Items 2 and 4 of the list above. Inputs for the image numbers: va1's compiles (`build/va1/nb-mac`, `nb-linux`), the
+same objects before and after. Nothing here is a Wine build input (`src/platform/sdl/host/`, `tests/native_host/` and
+the native tools are not part of it), and the native compile is unchanged (retarget, flags and cache keys untouched):
+only the native link steps change, on purpose.
+
+### 14.1 The native CRT table bound by name (item 2)
+
+**The bug.** The game reaches the C runtime under the table's tree names (`atexit`, `_atexit`, `sin`, `malloc`, ...)
+and under names that carry a row's XBE address (`FUN_0034511c`, `?FUN_00344e74@fn_000505c0@@YAH...`,
+`?DAT_004d9968@fn_000bd1b0@@3IA`). Nothing bound them. On ELF the linker took whatever the C library had: the game's
+`atexit` was libc's, not the list `entry_posix` runs; `sin` was libm's, not soft x87's; `malloc` did not zero; `rand`
+was glibc's sequence. Everything else was a missing stub. On macOS all 374 names, `memcpy` included, were `brk`
+stubs.
+
+**The binding** (`tools/native_bind.py`). The link renames every undefined name of the game's objects that the table
+binds to the row's target. The rule is native_mac's inventory rule: the tree name, `_` + the name, or a row's XBE
+address in the name. `llvm-objcopy --redefine-sym` makes the renamed copies in `link/bound/`, so the cache objects
+stay as they are. Only the game's objects are renamed. The host glue and the system libraries keep their own
+references: the glue's malloc still calls the host's calloc, and libc++ still registers with the host's atexit. A
+linker alias (`-alias_list`, `--defsym`, `--wrap`) would have caught those references too.
+
+| row kind | the game's name becomes | defined by (check()) |
+|---|---|---|
+| libc | the host function | the system libraries only; no stub, glue or game object may define it |
+| glue, math, abi, data | `hulk_ncrt_*` | the host glue, exactly once |
+| na | not bound | none referenced on any target |
+
+`check()` runs in both link steps (`link-report.json`: "native CRT binding"), and the link fails on a problem.
+
+**The macOS link now links the host glue** as the ELF links do: `entry_posix`'s main, crt_posix, win32_posix,
+rtti_msabi and softx87. Stubs report through `hulk_native_missing`, and names that libSystem or libc++ export (read
+from the SDK's `.tbd` stubs, the arm64/arm64e export blocks) are not stubbed. The image runs on arm64 macOS and stops
+where Android's does: `init 1 0x0035c6e0 -> missing ?FUN_0027b020@fn_0035c6e0@@...`, exit 3 (item 1).
+
+| | arm64 macOS (va1 nb-mac) | x86-64 Linux (va1 nb-linux) |
+|---|---|---|
+| inventory (`unbound.txt`, groups, counts) | identical to before | identical to before |
+| names bound | 374 (the inventory's 373 + `__RTDynamicCast`, which it counts as the runtime's own) | 375 (+ `floor`) |
+| renamed / the host's own | 347 / 27, in 435 objects (845 references) | 347 / 28 |
+| by target kind | abi 238 (mostly dynamic_cast by address), libc 79, glue 31, math 14, data 12 | libc 80 |
+| problems | 0 | 0 |
+| link | ld64 rc 0, 44,855 code + 5,725 data stubs | lld rc 0 (before: 45,166 + 5,737; 52 names went to the C library) |
+
+Left bound to the system on purpose or by accident (reported): `bzero` on macOS (Apple's own memset lowering), and
+**`send`**: a game C name that is not a CRT row and binds to the C library's socket `send` on every target (item 1:
+the name must reach the game's definition).
+
+**Test** (`tests/native_host/crt_bind_test.py --target mac|linux-x64|android-arm64`). A generated game TU goes
+through the tree's pipeline (MS-ABI front end, the target's retarget, its backend). It takes the address of all 319
+names the table binds: every tree name, the plain form of `_` names, `FUN_`/`DAT_` names at each row's address, and
+those addresses inside MS-mangled names. Each address must be the row's definition:
+
+- glue: the `hulk_ncrt_*` symbol;
+- libc: the host side's own reference to the function, at an address inside a system library, never the image's.
+
+On macOS the checker runs. On the ELF images the slots are read from the dynamic relocations: RELA, and Android's
+RELR. Results: 319/319 on all three targets. The `--no-bind` control fails, as it must: on macOS 264 are wrong
+(`atexit` -> libsystem_c, `malloc` -> libsystem_malloc, `sin` -> libsystem_m, `rand`, ...).
+
+### 14.2 The shim, the file layer and the replay driver (item 4)
+
+**Host layer for the shim.** Two new host files:
+
+- `src/platform/sdl/host/host_crt_posix.cpp`: the C-runtime half of `crt/host_crt.h` that the shim calls (malloc,
+  `_msize`, getenv, `_snprintf` with msvcrt's -1, stdio). It also has `hulk_crt_host_path`, which uses crt_posix's
+  `D:\` / `T:\` / `U:\` / `Z:\` mapping (`HULK_DATA_DIR`, `HULK_TDATA_DIR`, `HULK_SAVE_DIR`).
+- `src/platform/sdl/host/shim_posix.cpp`: the syncio interface threads.cpp calls (no lockstep I/O: the drive runs
+  free) and a weak no-op event pump for headless images.
+
+`tests/native_host/shim_test.py --target mac|linux-x64|android-arm64` builds the 15 stand-in files of
+`src/platform/sdl/xdk/` as host code with these. That is every file but `startup.cpp` (entry_posix replaces it) and
+`replay_hooks.cpp` (replay_native replaces it); the build has no `HULK_NATIVE_SDL`.
+
+- All three targets compile and link with no undefined name.
+- On macOS the test runs: the Xbox counter frequency, a moving QPC, `D:\data\hello.txt` through `HULK_DATA_DIR`
+  (open, size, read, seek, missing file), a `T:\` save under `HULK_SAVE_DIR`, and the import list of the start-up
+  trace.
+- Finding: the stand-in `file_io.cpp` makes a save's directories by splitting the host path at `\`, and a POSIX path
+  has `/`. The test makes the directory itself. The native builds should use the SDL3 file backend
+  (`HULK_NATIVE_SDL`, `fs/hulk_fs.cpp`). A fix in `file_io.cpp` would be a Wine build input.
+
+**The replay driver** (`src/platform/sdl/host/replay_native.cpp`, host side) does for the 64-bit images what
+`xdk/replay_hooks.cpp` does for the Wine build:
+
+- **The frame hook.** `hulk_nhook_clock_update` is GameClock::Update's entry hook. It hashes the frame with
+  `hulk_ckpt_update` (`replay/hulk_replay.cpp`, unchanged: the same FNV-1a over the same 76 bytes), then calls the
+  update through `hulk_orig_00086450`.
+- **The hashed regions** are read from the 64-bit objects and copied into the 32-bit image the recordings hash
+  (`hulk_nreplay_ckpt_image`, with the 64-bit offsets in one table). The logic view (0x001c34c0's class) and the
+  GameClock (0x00086450's `Timer`) have no pointer before the hashed fields, so the offsets are 0x4c and 0x10 on both
+  builds. A class that gains a pointer there changes that table.
+- **Trace lines.** It writes the Wine build's lines: `ckpt frame %u hash %08x recording ... ok|DIVERGED` and the
+  regions of the first checkpoint and of the first divergence.
+- **`hulk_replay_startup`.** It opens the recording and applies skip-intro and the seq-rng pointer.
+- **Hooks that need no object layout.** The seed, sound-rng, `rand` and seq-rng hooks.
+
+**Hooks on the native link** (`src/platform/sdl/host/native_hooks.h`, `native_bind.plan_hooks`). One table replaces
+wine_link's `ENTRY_HOOKS`, `EXIT_HOOKS`, `SITE_REBIND` and the clock wrapper. The link uses the same renaming as the
+CRT binding:
+
+- **entry**: every reference to the function outside its defining object goes to the hook. The link writes a
+  `hulk_orig_<addr>` thunk to the tree's definition, and reports calls inside the defining object.
+- **site** and **data**: in the caller's object, the references to the callee or data item go to the hook, but only
+  when the relocations show no other function of that object uses it.
+
+Host code calls game functions through `hulk_orig_<addr>` thunks. The shim's existing `FUN_<addr>` spelling is
+matched by the same pattern.
+
+Statuses:
+
+- `ready`: 14 rows.
+- `layout`: 5 rows. Pad poll +0x12a0/+0x12a4, the two no-fmv hooks, and syncio's drive post and pump read objects
+  at 32-bit offsets, so they need the 64-bit class layouts.
+- `gfx`: 1 row.
+
+On the real macOS image (report only, because the image does not link the replay layer yet), 10 of the 14 ready
+rows apply:
+
+| status | rows |
+|---|---|
+| apply | Update's entry hook and its virtual-clock site; sound-rng ×3; sound `rand`; seq-rng pointer ×2 (0x2526b0, 0x255250); RandInt ×2 |
+| blocked | 0x87e30 and 0x86630: merged TUs whose other functions call the same callee (needs per-function rebinding, at IR level); 0x2692c0: the caller does not name XInputGetState by its address (XDK import binding, below); 0x253680: does not name 0x4e5acc by address (item 1) |
+
+**Test** (`tests/native_host/replay_native_test.py`, arm64 macOS).
+
+- **Inputs.** The real `matches/0x00086450.cpp` (GameClock::Update) goes through the tree's pipeline with a
+  stand-in world (`replay_native_world.cpp`: the debug menu, the data items, a game loop).
+- **Link.** `native_bind` binds and applies the two 0x00086450 rows: the entry hook, and Update's GetMicroseconds64
+  call sent to the shim's virtual clock (`xdk/timing.cpp` as host code, `HULK_VCLOCK=1`). The host side is linked
+  with host SDL3.
+- **Recording.** It carries the checkpoints that a Python model of the 32-bit layout computes. The camera singleton
+  is null until frame 30 and moves after that.
+- **Result.** 4/4 checkpoints match (frames 0, 30, 60, 90), and skip-intro sets the boot step. The control, with one
+  recorded hash off, reports one divergence at frame 30.
+
+### 14.3 What still blocks an end-to-end native replay (besides item 1)
+
+1. **The replay layer is not linked into the image.** That layer is replay_native, shim_posix, host_crt_posix, the
+   shim, the input/replay reader with SDL3 (macOS: `build/third_party/out/sdl-host`; there is no Linux SDL3 build
+   yet, and Android needs `libSDL3.so`), and bgfx's noop renderer (`HULK_GFX_RENDERER=noop` exists in
+   `pddi/sdl_platform.cpp`) if the image draws. After that, the hook plan is applied instead of reported.
+2. **XDK import binding.** The game's references to `imports.h` addresses and names have to go to `hulk_xdk_*`. This
+   is the same mechanism as the CRT table: a second table for `native_bind`.
+3. **The `layout` hooks**, as listed in 14.2. Entry hooks of virtual functions (the pad poll, the drive pump) also
+   need the link's vftable slots (`rtti.s`) pointed at the hook.
+4. **Site rebinds in merged TUs** need per-function renaming (IR level) for 0x87e30 and 0x86630.
+5. **Data items named by address must be the storage the game uses, at pointer width.** Today 0x4e231c is both the
+   data TU's 4-byte `DAT_004e231c` and 0x001c3d90's own `?gObj@fn_001c3d90@@...`. The same applies to 0x4e5acc
+   (item 1 and ptr1).
+6. **Float.** The Wine build's checkpoints come from x87 (53-bit control word, `volatile` pins). The native builds
+   evaluate in double on SSE and NEON (`-ffp-eval-method=double`), and how far the checkpoints agree is unmeasured
+   until the game loop runs.
+7. **No Linux machine.** The ELF images and tests are checked statically only.
