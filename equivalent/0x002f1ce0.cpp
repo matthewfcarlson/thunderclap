@@ -286,10 +286,14 @@ extern "C" Shape_2f1ce0 *__cdecl FUN_002f1ce0(const V3_2f1ce0 *p, Shape_2f1ce0 *
             }
             *selp = val;
         }
-        out->x = f.q.x - f.w.x;
-        out->y = f.q.y - f.w.y;
-        out->z = f.q.z - f.w.z;
-        *dist = (float)sqrt(out->z * out->z + out->y * out->y + out->x * out->x);
+        // x87: the differences are stored to out (rounded) but the length is taken from the unrounded register copies
+        hulk_freg dx = f.q.x - f.w.x;
+        out->x = dx;
+        hulk_freg dy = f.q.y - f.w.y;
+        out->y = dy;
+        hulk_freg dz = f.q.z - f.w.z;
+        out->z = dz;
+        *dist = (float)sqrt(dz * dz + dy * dy + dx * dx);
         if (shape->f38.i == 0)
             ((owners::Obj_22d260 *)out)->FUN_0022d260((owners::Obj_22d260 *)(const struct Mat4_2f1ce0 *)(&f.M));
         out->FUN_0022d110();

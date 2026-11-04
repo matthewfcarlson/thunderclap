@@ -588,6 +588,31 @@ platform layer, and paths play3 does not take (other levels, menus, missions): r
 an int64 truncation with the indefinite for NaN/|x| >= 2^63) is the fully portable alternative if a site ever needs the
 >= 2^63 case. Run this variant again once div5 moves the frontier and with every new recording.
 
+## 15. play3 frontier 40260 -> 43200: a length taken from unrounded differences (div8, 2026-11-04)
+
+**Cause.** `FUN_002f1ce0` (point-to-shape distance), kind 4 (`CollisionOBB`): the original computes `q - w` per axis,
+stores each difference to `out` (`fstp`/`fst`, rounded to float) and takes the length from the **unrounded** register
+copies (`fsqrt` of `(dz*dz + dy*dy) + dx*dx` at 0x5a1). The source took the length from the stored floats. A tank wheel's
+ground ray (`FUN_00202560`) that hit an OBB got a hit height 1 float ULP off at 40122; the wheel suspension, the tank's
+tilt, the body matrix of a prop attached to the tank (`FUN_00036480` overlay), the prop's rest test
+(`PhysicsObject::vfunc_12`, flags bit 1) and finally one extra `FUN_001d8fc0` RNG draw at 40259 followed. Fix: the three
+differences are `hulk_freg`. Proof (HEAD 06bcabc77 + fix, `--map full`): play3 checkpoints 0-43170 match except the known
+camera-only 5880/5910/34260; first persistent divergence 43200.
+
+**Also found (not committed).** `CPathAgent::vfunc_4` (0x001050d0): `m = (L - r) / L` stays in st0 through the three
+products that scale the avoid normal (`f.v3`, argument 7 of `CAvoidBehaviour::vfunc_4`); the source rounds it to a float
+(`float m`). With `hulk_freg m` the avoid inputs match xemu at 39969-39980, but the change alone moves no checkpoint. It is
+held back because `equiv.py --wine` fails for this function before and after the change: where the source falls off the
+end (the original returns whatever st0 holds; `FUN_000fc550` is void), clang -O0 emits `ud2`. HEAD's source additionally
+fails `--wine` with "argument 7 differs", which is exactly this rounding.
+
+**Not a transcendental.** The trail passed through `RotX/RotZ/RotY` (0x0022bab0/30/70: `fsin`/`fcos`) and the tank's
+`atan` tilt; their inputs already differed, and their outputs agreed wherever their inputs did.
+
+**Lesson for the hunt.** The Wine build compiles with `-ffp-eval-method=double` (tools/clang_probe.py), so a float
+*expression* is already evaluated at double precision; only named `float` locals and stores round. The bug class to look
+for is a value the original stores (rounded) next to a register copy it keeps using unrounded, or the reverse.
+
 ## Files
 
 - `tools/x87_scan.py`: the scanner (tracked).
