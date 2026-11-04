@@ -32,6 +32,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
+import addr_names  # noqa: E402
 
 # fight::ParamValue* constructors that take the parameter's name (include/gen/fight.h, docs/consolidation-plan.md s.10)
 NAME_CTORS = {"FUN_00234860", "FUN_00234960", "FUN_00234a90", "FUN_00234ba0", "FUN_00235170", "FUN_002348e0",
@@ -63,7 +64,10 @@ def registrations(paths):
         whole = ts[0] if len(ts) == 1 else None
         for i, (pos, ct, name) in enumerate(lits):
             seg = t[pos:lits[i + 1][0] if i + 1 < len(lits) else len(t)]
-            fns = re.findall(r'(?:=|\(|,)\s*&?\s*(?:\([^()]*\)\s*)*&?(FUN_[0-9a-f]{8})\b(?!\s*\()', seg)
+            # (clean2) the setter named by the suffix convention (`SetArc_000480a0`) too; said as FUN_<addr> here
+            fns = ["FUN_%08x" % addr_names.ident_address(x) for x in
+                   re.findall(r'(?:=|\(|,)\s*&?\s*(?:\([^()]*\)\s*)*&?(FUN_[0-9a-f]{8}|[A-Za-z]\w*_00[0-9a-f]{6})\b(?!\s*\()',
+                              seg) if addr_names.ident_address(x) is not None]
             tm = [k for k in re.findall(r'<\s*(?:class\s+)?([A-Za-z_][\w:]*)\s*>', seg) if k not in TPARAMS]
             if fns:
                 out.append((os.path.relpath(f, ROOT), ct, name, fns[0], tm[0] if tm else whole))

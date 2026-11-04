@@ -32,6 +32,7 @@ import tempfile
 from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import addr_names  # noqa: E402
 import compare  # noqa: E402
 import data_inventory as di  # noqa: E402
 from xbe import Xbe  # noqa: E402
@@ -925,6 +926,8 @@ def resolve(model, c, tsym, add, by_sec):
     m = re.fullmatch(r"FUN_([0-9a-f]{8})", n)
     if m:
         return int(m.group(1), 16) + add
+    if addr_names.suffix_address(n) is not None:        # (clean2) `SetArc_000480a0` (tools/addr_names.py)
+        return addr_names.suffix_address(n) + add
     it = model.by_cname.get(n)
     if it is None:
         return None

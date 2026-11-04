@@ -30,6 +30,7 @@ import capstone
 from capstone import x86_const as cx
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import addr_names  # noqa: E402
 from compare import CompileError, DEFAULT_FLAGS, compile_obj, diff as asm_diff, strip_padding  # noqa: E402
 from msvc_demangle import DemangleError, _Parser  # noqa: E402
 from xbe import Xbe  # noqa: E402
@@ -6808,6 +6809,12 @@ def name_address(prog, name):
     m = HEX_NAME.search(base.split("::")[-1])
     if m:
         return int(m.group(1), 16), "name"
+    if "sufname" not in EQUIV_OFF:
+        # (clean2, sufname) a meaningful function name keeps the address as a suffix, `SetArc_000480a0`
+        # (tools/addr_names.py): read from the leaf only, and only for an address in .text
+        a_ = addr_names.suffix_address(base.split("::")[-1])
+        if a_ is not None and prog.text[0] <= a_ < prog.text[1]:
+            return a_, "name"
     if not q and base in prog.xbsyms:
         return prog.xbsyms[base], "xdk"
     return None

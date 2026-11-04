@@ -85,6 +85,7 @@ import shutil
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import addr_names  # noqa: E402
 import cxx_items  # noqa: E402
 import stub_layout  # noqa: E402
 
@@ -372,6 +373,13 @@ def block_variants_of(decls):
 
 
 ADDR_NAME = re.compile(r"(?:^|_)(?:FUN|DAT|LAB|PTR|thunk_FUN)_[0-9a-fA-F]{6,8}$")
+
+
+def addr_named(n, func=True):
+    """A name that says its address: ADDR_NAME, or for a function the suffix convention `SetArc_000480a0`
+    (tools/addr_names.py; clean2). Linkage and spelling differences of such names are bound by the address."""
+    return bool(ADDR_NAME.search(n)) or (func and "sufname" not in GEN_OFF and
+                                         addr_names.suffix_address(n.split("::")[-1]) is not None)
 # CRT functions sources declare by hand, some with C++ linkage: one declaration per name, the C one when the
 # TU's functions use it (the most-used spelling is the representative)
 CRT_NAMES = {"__security_check_cookie", "atexit", "_atexit", "_purecall", "memset", "memcpy", "memcmp", "strlen",
@@ -434,7 +442,7 @@ def canonical_variant(nk, var, it):
                 return var
             ret, ps, quals = parts
             sig = "%s(%s)%s" % (ret, ",".join(ps), quals)
-            if ADDR_NAME.search(nk) or nk in CRT_NAMES:
+            if addr_named(nk) or nk in CRT_NAMES:
                 return ("func", "|" + sig, ",".join(ps), sig)
             return (kind, ("C:" if kind == "cfunc" else "") + "|" + sig, ",".join(ps), sig)
         if kind == "var" and it is not None and not it.scope and ADDR_NAME.search(nk):
@@ -1532,7 +1540,7 @@ class CLinkage:
         n = it.name
         if keeps_c_linkage(n):
             return False
-        if not ADDR_NAME.search(n):
+        if not addr_named(n, it.kind != "var"):
             return True
         shape, builtin = _c_shape(it)
         if n in self.globals_cpp:

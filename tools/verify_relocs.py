@@ -30,6 +30,7 @@ from multiprocessing import Pool
 sys.path.insert(0, os.path.dirname(__file__))
 from compare import Coff, CompileError, DEFAULT_FLAGS, compare, compile_obj, strip_padding  # noqa: E402
 from xbe import Xbe  # noqa: E402
+import addr_names  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 REL32, DIR32 = 0x14, 0x06
@@ -254,6 +255,14 @@ def check(src, addr):
         if mapping.get(name, target) != target:
             issues.append(("inconsistent", name))
         mapping[name] = target
+        # (clean2) a function named by the suffix convention (`SetArc_000480a0`, tools/addr_names.py) must be the
+        # function its name says: the byte match masks the relocation, so nothing else would tell
+        na = addr_names.symbol_suffix_address(name) if kind == "symbol" and \
+            "sufname" not in os.environ.get("RELOC_OFF", "") else None
+        if na is not None and na != target:
+            sec = xbe.section_of(na)
+            if sec is not None and sec.name == ".text":
+                issues.append(("name_address_mismatch", name))
         if kind == "string":
             ours = literal_bytes(coff, target_sym)
             o = xbe.offset(target)

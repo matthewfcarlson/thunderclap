@@ -52,6 +52,7 @@ import subprocess
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import addr_names  # noqa: E402
 import hulk_env  # noqa: E402,F401  (HULK_NATIVE_* -> HULK_WINE_*)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -410,7 +411,10 @@ def compute_x87_keep(jobs, clang, bindings=None):
             if n[i] == "N" and n[:i] + "M" + n[i + 1:] in addr:
                 return int(addr[n[:i] + "M" + n[i + 1:]], 16)
         m = re.search(r"FUN_([0-9a-f]{8})", n)
-        return int(m.group(1), 16) if m else n
+        if m:
+            return int(m.group(1), 16)
+        a_ = addr_names.symbol_suffix_address(n)       # (clean2) `SetArc_000480a0`
+        return a_ if a_ is not None else n
     keep = {n for n, v in allf.items() if any(c in _X87_FNS for c, _ in v[1])}
     while True:
         ext = {key(n) for n in keep if allf[n][0] in ("float", "double")}
@@ -898,6 +902,10 @@ class Grouper:
         qn = q.group(1).split()[-1] if q else s
         return re.sub(r"^fn_[0-9a-f]{8}::", "", qn)
 
+    def func_group_known(self, a):
+        """Is a the address of a function with a verified source (the suffix convention's check)?"""
+        return a in self.man.verified
+
     def func_group(self, a):
         if any(lo <= a < hi for lo, hi in LIB_SPANS):
             return {"platform": G_PLAT, "crt": G_CRT}.get(self.plat.get(a), G_LIBADDR)
@@ -932,6 +940,9 @@ class Grouper:
                 g = G_DCPP
             else:
                 g = G_DOUT
+        elif addr_names.symbol_suffix_address(s) is not None and self.func_group_known(addr_names.symbol_suffix_address(s)):
+            # (clean2) a meaningful function name with the address as a suffix, `SetArc_000480a0` (tools/addr_names.py)
+            g = self.func_group(addr_names.symbol_suffix_address(s))
         else:
             hit = self.by_name.get(b)
             if hit:

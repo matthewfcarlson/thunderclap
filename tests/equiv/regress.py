@@ -819,6 +819,12 @@ CASES = {
     "0x0018f6d0_c_callee_local": ("equivalent", None, 0.8, {"n_inputs": 300}),
     "0x0018f6d0_c_callee_local_wrong": ("fail", "the local passed as argument 1 differs at +0x4", 0, {"n_inputs": 300}),
     "0x0018f6d0_c_callee_local_off": ("fail", "the local passed as argument 1 differs at +0xc", 0, {"src": "0x0018f6d0_c_callee_local", "n_inputs": 300, "equiv_off": "cdeclret"}),
+    # (clean2, sufname) callees renamed by the suffix convention (`Intermediate_000592a0`, tools/addr_names.py) bind by
+    # the address in their names: two callees of one shape whose names carry each other's addresses are caught (the
+    # original calls 0x000592a0 first); without the rule, pairing by position binds each to the original's call there
+    "0x000139b0_suffix_names": ("equivalent", None, 0.75, {"n_inputs": 300}),
+    "0x000139b0_suffix_names_swapped": ("fail", "call #1 went to 0x00059a30 instead of 0x000592a0", 0, {"n_inputs": 300}),
+    "0x000139b0_suffix_names_swapped_off": ("equivalent", None, 0, {"src": "0x000139b0_suffix_names_swapped", "n_inputs": 300, "equiv_off": "sufname"}),
 }
 
 # verify_relocs.py cases: name -> (expected status, issue kind it must report or None)
@@ -831,6 +837,10 @@ RELOC_CASES = {
     "0x00042930_thiscall_decl": ("ok", None),
     "0x00042930_thiscall_decl_wrong": ("bad", "free_decl_of_thiscall"),
     "0x00336f10_thiscall_decl_wrong": ("bad", "free_decl_of_thiscall"),      # `void FUN_00019420()` for 0x003352b0
+    # (clean2) a callee named by the suffix convention must be the function its name says: Init_001d4320 for the
+    # original's call to 0x001d43b0 byte-matches (the relocation is masked) and was ok before
+    "0x001d47c0_suffix_name": ("ok", None),
+    "0x001d47c0_suffix_name_wrong": ("bad", "name_address_mismatch"),
 }
 
 # (round 23, declarity) decl_arity cases, level 2 only: name -> ({(kind, callee)} the diagnostic must report, exactly;

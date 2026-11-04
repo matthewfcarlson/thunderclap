@@ -46,6 +46,7 @@ import capstone
 from capstone import x86 as X
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import addr_names  # noqa: E402
 from xbe import Xbe  # noqa: E402
 
 sys.setrecursionlimit(6000)
@@ -1907,7 +1908,7 @@ def own_conv(src, addr):
             m = re.match(r"\s*//\s*equiv-conv:\s*(\S+)\s+(.+?)\s*$", line)
             if m:
                 nm = NAME_ADDR.search(" " + m.group(1))
-                if (nm and int(nm.group(1), 16) == addr) or re.fullmatch(r"(0x)?0*%x" % addr, m.group(1).lower()):
+                if (nm and int(nm.group(1), 16) == addr) or addr_names.suffix_address(m.group(1)) == addr or re.fullmatch(r"(0x)?0*%x" % addr, m.group(1).lower()):
                     return m.group(2).split()
     except OSError:
         pass
@@ -2208,6 +2209,11 @@ def explicit_binds(src, names=()):
             m = NAME_ADDR.search(nm)
             if m:
                 out[nm] = int(m.group(1), 16)
+            elif addr_names.symbol_suffix_address(nm) is not None:     # (clean2) `SetArc_000480a0`, as equiv.py
+                a_ = addr_names.symbol_suffix_address(nm)
+                sec_ = glob()["xbe"].section_of(a_)
+                if sec_ is not None and sec_.name == ".text":
+                    out[nm] = a_
     try:
         for line in open(src, errors="replace"):
             m = re.match(r"\s*//\s*equiv-map:\s*(\S+)\s*=\s*(0x[0-9a-fA-F]+)", line)

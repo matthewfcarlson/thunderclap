@@ -26,6 +26,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import addr_names  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 NATIVE = os.path.join(ROOT, "build/native")
@@ -285,7 +286,7 @@ def main(argv=None):
         a = int(b["addr"], 16) if b else None
         if a is None:
             m = ADDR_RX.search(sym)
-            a = int(m.group(1), 16) if m else None
+            a = int(m.group(1), 16) if m else addr_names.symbol_suffix_address(sym)   # (clean2) `SetArc_000480a0`
         name = simple_name(sym, dem)
         if grp == "library data":
             sub = data_sub.get(a) or data_sub.get(name) or data_sub.get(sym.lstrip("_"))

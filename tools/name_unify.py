@@ -76,14 +76,28 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import addr_names  # noqa: E402
 import cxx_items  # noqa: E402
+import gen_tree  # noqa: E402
 import migrate_data  # noqa: E402
 import name_audit  # noqa: E402
 import rn_transform  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 WIDE = re.compile(r"\b(hulk_u?intptr|hulk_freg|size_t|ptrdiff_t|u?intptr_t|U?LONG_PTR|DWORD_PTR|U?INT_PTR|SIZE_T|long)\b")
-ADDR_NAME = re.compile(r"(?:^|_)(?:FUN|thunk_FUN|LAB)_[0-9a-fA-F]{6,8}$")
+_ADDR_NAME = re.compile(r"(?:^|_)(?:FUN|thunk_FUN|LAB)_[0-9a-fA-F]{6,8}$")
+
+
+class _AddrName:
+    """A function name that says an address: Ghidra's (`FUN_x`, `thunk_FUN_x`, `LAB_x`) or the suffix convention
+    (`SetArc_000480a0`, tools/addr_names.py; clean2). `.search(n)` as the regex it replaces."""
+    @staticmethod
+    def search(n):
+        return _ADDR_NAME.search(n) or (addr_names.suffix_address(n.split("::")[-1]) is not None
+                                        and "sufname" not in gen_tree.GEN_OFF)
+
+
+ADDR_NAME = _AddrName()
 DATA_SYM = re.compile(r"\?([A-Za-z_]\w*)@((?:[A-Za-z_]\w*@)*)@[23]")
 
 
@@ -531,7 +545,7 @@ def tu_consistency(per_src, manifest, root, excl, detail=None):
                 # (gen_tree's spelling is the 32-bit one: `hulk_uintptr` = `unsigned int`; a 64-bit build sees
                 # two C declarations of other types)
                 k += repr(WIDE.findall(src[it.toks[0].s:it.toks[-1].e]))
-                if not gen_tree.ADDR_NAME.search(n):
+                if not gen_tree.addr_named(n):
                     # (C vs C++ linkage counts as one spelling only for address names)
                     k += " C" if (it.c_linkage or it.name in ren) else " C++"
                 sigs[n].add(k)
@@ -1839,6 +1853,131 @@ def cmd_member_apply(a):
     return 0
 
 
+_FUN_TOKEN = re.compile(r"\bFUN_00[0-9a-f]{6}\b")
+
+
+def rename_plan(names, defs, root, excl):
+    """(clean2) {file: {old: new}} and [plan rows] for evidence names {0xADDR: {name, ...}} (cmd_rename)."""
+    import glob
+    import rename_ids
+    files = sorted(glob.glob(os.path.join(root, "matches/*.cpp")) + glob.glob(os.path.join(root, "equivalent/*.cpp")))
+    others = sorted(p for p in glob.glob(os.path.join(root, "include/**/*"), recursive=True) +
+                    glob.glob(os.path.join(root, "src/**/*"), recursive=True)
+                    if os.path.isfile(p) and p.endswith((".h", ".hpp", ".inc", ".c", ".cpp", ".cc", ".mm", ".m")))
+    # (evidence files, include/gen/evidence-*.json, record the address names they were made from: not users)
+    texts, idx = {}, collections.defaultdict(set)
+    for f in files + others:
+        rel = os.path.relpath(f, root)
+        try:
+            t = open(f, encoding="latin1").read()
+        except (OSError, UnicodeDecodeError):
+            continue
+        for m in set(_FUN_TOKEN.findall(t)):
+            idx[m].add(rel)
+            texts.setdefault(rel, t)
+    edits, rows = collections.defaultdict(dict), []
+    for key, e in sorted(names.items()):
+        A, N = int(key, 16), e["name"]
+        fun = "FUN_%08x" % A
+        row = {"addr": key, "name": N}
+        rows.append(row)
+        if addr_names.suffix_address(N) != A:
+            row["refused"] = "the name does not carry the address"
+            continue
+        D = next((r for r in ("matches/0x%08x.cpp" % A, "equivalent/0x%08x.cpp" % A)
+                  if os.path.exists(os.path.join(root, r))), None)
+        sym = defs.get(key)
+        L = addr_names.leaf_of_symbol(sym) if sym else None
+        if D is None or L is None:
+            row["refused"] = "no definition source" if D is None else "no definition symbol, or a special member"
+            continue
+        texts.setdefault(D, open(os.path.join(root, D), encoding="latin1").read())
+        users = sorted(idx.get(fun, set()) | {D})
+        row.update(definition=D, old=L, users=users)
+        bad = [u for u in users if not u.startswith(("matches/", "equivalent/"))]
+        if bad:
+            row["refused"] = "named outside matches/ and equivalent/ (%s)" % ", ".join(bad[:3])
+            continue
+        bad = [u for u in users if u in excl]
+        if bad:
+            row["refused"] = "a user is excluded (%s)" % ", ".join(bad[:3])
+            continue
+        if any(N in rename_ids.identifiers(texts[u]) for u in users):
+            row["refused"] = "the name is in use"
+            continue
+        if L != fun:
+            n = sum(1 for t in rename_ids.TOKEN.findall(texts[D]) if t == L)
+            if n != 2 or not re.search(r"::\s*%s\s*\(" % re.escape(L), texts[D]):
+                row["refused"] = "the definition's own name %s is used %d times in it (declaration + definition only)" % (L, n)
+                continue
+            if fun in rename_ids.identifiers(texts[D]):
+                row["refused"] = "the definition source spells both %s and %s" % (L, fun)
+                continue
+        for u in users:
+            if u in edits and N in edits[u].values():
+                row["refused"] = "two renames to one name"
+                break
+        if row.get("refused"):
+            continue
+        for u in users:
+            if fun in rename_ids.identifiers(texts[u]) or fun in texts[u]:
+                edits[u][fun] = N
+        if L != fun:
+            edits[D][L] = N
+        row["ok"] = True
+    return edits, rows
+
+
+def rename_text(text, mapping, comment_names):
+    """mapping {old: new} for identifier tokens; in comments only the names of comment_names (`FUN_<addr>`)."""
+    import rename_ids
+    out, n = [], 0
+    for t in rename_ids.TOKEN.findall(text):
+        if t in mapping:
+            out.append(mapping[t])
+            n += 1
+        elif t.startswith(("//", "/*")) and any(c in t for c in comment_names):
+            out.append(re.sub(r"\b(%s)\b" % "|".join(map(re.escape, comment_names)), lambda m: mapping[m.group(1)], t))
+        else:
+            out.append(t)
+    return "".join(out), n
+
+
+def cmd_rename(a):
+    """(clean2) `rename`: evidence names (include/gen/evidence-fnames.json) for functions. The definition's own name
+    (`Obj_480a0::Set`, or `FUN_000480a0`) and every `FUN_<addr>` token (code, comments, `// equiv-*` lines) take the
+    name: one name for the definition and every caller that spells the address. Refused: a name without its address
+    suffix, a definition whose own invented name is used for anything else in its source, any user outside matches/
+    and equivalent/ (include/gen/ headers are generated: their members are named through their evidence files),
+    excluded users (all or none), names already in use."""
+    names = json.load(open(a.names))["functions"]
+    if a.only:
+        names = {k: v for k, v in names.items() if k in set(a.only)}
+    defs = json.load(open(a.bindings))["definitions"]
+    excl = set()
+    for f in a.exclude or []:
+        excl |= {l.split()[0] for l in open(f) if l.strip()}
+    edits, rows = rename_plan(names, defs, a.root, excl)
+    os.makedirs(a.out, exist_ok=True)
+    tokens = 0
+    for rel, mp in sorted(edits.items()):
+        text = open(os.path.join(a.root, rel), encoding="latin1").read()
+        new, n = rename_text(text, mp, [k for k in mp if k.startswith("FUN_")])
+        tokens += n
+        if new != text:
+            p = os.path.join(a.out, rel)
+            os.makedirs(os.path.dirname(p), exist_ok=True)
+            open(p, "w", encoding="latin1").write(new)
+    with open(os.path.join(a.out, "rename-plan.jsonl"), "w") as f:
+        for r in rows:
+            f.write(json.dumps(r) + "\n")
+    ok = [r for r in rows if r.get("ok")]
+    why = collections.Counter(re.sub(r"\(.*\)|\b\w+_[0-9a-f]{5,8}\b|\b\d+\b", "N", r["refused"]) for r in rows if r.get("refused"))
+    print("%d names: %d applied (%d files, %d tokens), %d refused %s" % (len(rows), len(ok), len(edits), tokens,
+                                                                         len(rows) - len(ok), dict(why)))
+    return 0
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -1877,8 +2016,15 @@ def main(argv=None):
     ma.add_argument("--out", required=True)
     ma.add_argument("--root", default=ROOT)
     ma.add_argument("--exclude", nargs="*")
+    rn = sub.add_parser("rename")
+    rn.add_argument("--names", required=True, help="include/gen/evidence-fnames.json (tools/fn_names.py)")
+    rn.add_argument("--bindings", required=True, help="bindings.json of a Wine build of the same sources (definitions)")
+    rn.add_argument("--out", required=True)
+    rn.add_argument("--root", default=ROOT)
+    rn.add_argument("--exclude", nargs="*")
+    rn.add_argument("--only", nargs="*", help="addresses (0x%%08x) to apply")
     a = ap.parse_args(argv)
-    return {"data": cmd_data, "free": cmd_free, "free-apply": cmd_free_apply, "member": cmd_member,
+    return {"rename": cmd_rename, "data": cmd_data, "free": cmd_free, "free-apply": cmd_free_apply, "member": cmd_member,
             "member-apply": cmd_member_apply}[a.cmd](a)
 
 

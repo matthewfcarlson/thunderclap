@@ -72,6 +72,7 @@ import time
 from concurrent.futures import ProcessPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import addr_names  # noqa: E402
 import compare  # noqa: E402
 import wine_host  # noqa: E402
 import hulk_env  # noqa: E402,F401  (HULK_NATIVE_* -> HULK_WINE_*)
@@ -502,7 +503,17 @@ def jmp_target(a, hops=3):
 
 def name_address(s):
     m = ADDR_RX.search(s if s.startswith("?") else "_" + s.lstrip("_@"))
-    return int(m.group(1), 16) if m else None
+    if m:
+        return int(m.group(1), 16)
+    if "sufname" not in os.environ.get("HULK_WINE_LINK_OFF", ""):
+        # (clean2) a meaningful function name with the address as a suffix, `SetArc_000480a0` (tools/addr_names.py):
+        # the symbol's leaf only, and only an address in the XBE's .text
+        a = addr_names.symbol_suffix_address(s)
+        if a is not None:
+            sec = xbe().section_of(a)
+            if sec is not None and sec.name == ".text":
+                return a
+    return None
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1403,7 +1414,7 @@ def graphics_backend(outdir):
     for s in sorted(u_all - d_all):
         if s in GFX_KEEP or s.startswith("_hulk_native_"):
             continue          # (the image's own: the trace sink in src/platform/sdl/xdk/startup.cpp, ...)
-        if ADDR_RX.search(s if s.startswith("?") else "_" + s.lstrip("_@")):
+        if name_address(s) is not None:
             out["game_refs"].add(s)
             continue
         r = gfx_import(s)

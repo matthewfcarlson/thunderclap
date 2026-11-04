@@ -44,6 +44,7 @@ import subprocess
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import addr_names  # noqa: E402
 import clang_probe as cp  # noqa: E402
 
 ROOT = cp.ROOT
@@ -738,8 +739,8 @@ def cp_shape(s, d):
         return "vftable"
     if re.search(r"hulk_at_|DAT_00[0-9a-f]{6}", s):
         return "data by XBE address"
-    if re.search(r"FUN_00[0-9a-f]{6}", s):
-        return "function by address (FUN_)"
+    if re.search(r"FUN_00[0-9a-f]{6}", s) or addr_names.symbol_suffix_address(s) is not None:
+        return "function by address (FUN_)"    # (clean2: or the suffix convention, `SetArc_000480a0`)
     if s.startswith("?"):
         return "C++ name"
     return "C name"

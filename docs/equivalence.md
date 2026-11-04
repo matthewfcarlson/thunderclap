@@ -86,6 +86,10 @@ order. The report's `level2.mapping` says which rule fired.
    - an exact `build/functions.csv` name (`Class::vfunc_3`, `thunk_FUN_…`, or a mangled name it keeps
      as is, like the CRT's `?getBasicDataType@UnDecorator@@…`);
    - an address in the name (`FUN_00123456`, `DAT_004dd6e4`, `g_00491234`, …);
+   - (clean2, `sufname`) a meaningful function name that keeps the address as a suffix, `SetArc_000480a0`:
+     the leaf name only (not its class: `Obj_480a0::SetArc_000480a0`), `_` and eight lowercase hex digits
+     starting `00`, at least two characters before them, not a placeholder or data prefix (`DAT_`, `tbl_`, …),
+     and an address in `.text` (`tools/addr_names.py`, docs/consolidation-plan.md section 13);
    - an XDK symbol;
    - a fixed CRT helper (`__ftol2`, `__chkstk`);
    - a CRT routine found in the XBE by behaviour (below).
