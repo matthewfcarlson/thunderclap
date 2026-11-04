@@ -28,7 +28,7 @@ struct NameHolder_1fa630 {
 };
 
 Tracker_1fa630 *__cdecl FUN_001d4c90();
-void __cdecl FUN_00267760(char *dst, int size, const char *src);
+void __cdecl FUN_00267760(char *dst, int size, const char *src, ...);
 void __cdecl FUN_002702a0(Pool_1fa630 **out, int a, int b, int c, int d, const char *name, int e);
 
 struct ElemA {

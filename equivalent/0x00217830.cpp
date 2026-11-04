@@ -33,7 +33,7 @@ TObject_217830* __cdecl FUN_00219e90(Table_217830* h, TObject_217830* key);
 TObject_217830* __cdecl FUN_00217580(Table_217830* mt, int event, void* name);
 TObject_217830* __cdecl FUN_002175b0(lua_State_217830* L, TObject_217830* o, int event);
 extern "C" void __cdecl FUN_00214c90(void *, const void *, const char *);
-void __cdecl FUN_00214a90(lua_State_217830* L, const char* msg);
+void __cdecl FUN_00214a90(lua_State_217830* L, const char* msg, ...);
 extern "C" void __cdecl FUN_00215460(void *, int);
 void __cdecl FUN_002159e0(lua_State_217830* L, TObject_217830* func, int nresults);
 

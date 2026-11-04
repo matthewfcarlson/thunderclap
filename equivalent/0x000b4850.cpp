@@ -6,8 +6,8 @@
 #include "gen/global.h"
 struct Manager_b4850 { int FUN_000f7d30(const char*); const char* FUN_000f7220(int); }; extern "C" Manager_b4850* __cdecl FUN_000fc1b0();
   extern char DAT_0049dba4, DAT_0049f48c, DAT_0049f470;
-extern "C" void __cdecl FUN_000fc020(char*,int,const char*,const char*,const char*,const char*,const char*,const char*);
-extern "C" void __cdecl FUN_000fc000(char*,int,const char*,const char*,const char*,const char*,const char*,const char*);
+extern "C" void __cdecl FUN_000fc020(char*,int,const char*,...);
+extern "C" void __cdecl FUN_000fc000(char*,int,const char*,...);
 extern "C" int __cdecl FUN_00267760(char*,int,const char*,...);
 extern void* __cdecl FUN_000fc260(const char*);
 struct Value_b4850 { void FUN_000f8500(const char*,Manager_b4850*,int); void FUN_000f79a0(const char*,Manager_b4850*); };

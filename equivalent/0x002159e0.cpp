@@ -10,7 +10,7 @@ struct lua_State_2159e0 {
 };
 struct TObject;
 
-void __cdecl FUN_00214a90(lua_State_2159e0 *L, const char *msg);
+void __cdecl FUN_00214a90(lua_State_2159e0 *L, const char *msg, ...);
 void __cdecl FUN_002152b0(lua_State_2159e0 *L, int errcode);
 TObject *__cdecl FUN_00215790(lua_State_2159e0 *L, TObject *func);
 TObject *__cdecl FUN_00218350(lua_State_2159e0 *L, int nresults);

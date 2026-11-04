@@ -11,7 +11,7 @@ struct LoadState_220220 {
 };
 int __cdecl FUN_0021a550(ZIO_220220 *z);
 // equiv-conv: FUN_0021f800 esi stack
-void __cdecl FUN_0021f800(LoadState_220220 *S, const char *msg);
+void __cdecl FUN_0021f800(LoadState_220220 *S, const char *msg, ...);
 
 // equiv-conv: FUN_00220220 eax
 extern "C" void FUN_00220220(void *S)

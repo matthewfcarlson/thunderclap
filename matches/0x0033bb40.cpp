@@ -8,7 +8,7 @@ int FUN_00212d70(lua_State *L);
 int FUN_00339f70(lua_State *L, int arg);
 int FUN_00339c30(lua_State *L, int arg, const char *msg);
 void FUN_00213340(lua_State *L, float n);
-int FUN_00338e20(lua_State *L, const char *msg);
+int FUN_00338e20(lua_State *L, const char *msg, ...);
 
 // math.random
 extern "C" int FUN_0033bb40(lua_State *L)

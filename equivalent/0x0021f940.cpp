@@ -7,7 +7,7 @@ struct Reader { int unused; Stream *stream; int unused2; int reversed; };
 extern int __cdecl FUN_0021a550(Stream *);
 extern "C" unsigned int __cdecl FUN_0021a610(void *, void *, unsigned int);
 // equiv-conv: FUN_0021f800 esi stack
-extern void __cdecl FUN_0021f800(Reader *, const char *);
+extern void __cdecl FUN_0021f800(Reader *, const char *, ...);
 // equiv-conv: FUN_0021f940 eax ecx edx stack
 extern "C" void __cdecl FUN_0021f940(unsigned int count, unsigned char *destination, void *reader, unsigned int size)
 {

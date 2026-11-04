@@ -13,7 +13,7 @@ struct Status_d9f80 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { Status_d9f80* FUN_00086280(); };
 struct Entry_d9f80 { char pad[0x38]; void* FUN_000f83f0(Resource_d9f80*,int); };
    
-extern void __cdecl FUN_000fc020(char*,int,void*,void*);
+extern void __cdecl FUN_000fc020(char*,int,void*,...);
 struct FEMemCardControl_d9f80 {
  char pad0[0x21c]; int state; char pad1[0x13c]; Entry_d9f80 entries[2]; char pad2[0x1f]; unsigned char special;
  Menu_d9f80* FUN_000fc3d0();

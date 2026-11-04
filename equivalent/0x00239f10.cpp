@@ -17,7 +17,7 @@ struct Reader {
  void FUN_00232c90();
 };
 struct Factory_239f10 { Node* FUN_002367f0(unsigned __int64 id); };
-extern void __cdecl FUN_00232cc0(Reader*, const char*);
+extern void __cdecl FUN_00232cc0(Reader*, const char*, ...);
 extern unsigned int __cdecl FUN_00238190(int);
 extern "C" unsigned int __cdecl FUN_00266da0(unsigned int);
 struct List_239f10 { Node* head; bool FUN_00239f10(Factory_239f10*, Reader*, int); };

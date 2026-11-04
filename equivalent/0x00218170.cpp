@@ -41,7 +41,7 @@ struct Frame_218170 {
 
 int FUN_00215ff0(const char* str, int* out);
 TV* FUN_00219e50(int a, int b);
-void FUN_00214a90(Ctx_218170* ctx, const char* msg);
+void FUN_00214a90(Ctx_218170* ctx, const char* msg, ...);
 // equiv-conv: FUN_00217750 ecx stack eax edx
 extern "C" void __cdecl FUN_00217750(void *, const void *, const void *, const void *);
 // equiv-conv: FUN_00217790 ecx eax

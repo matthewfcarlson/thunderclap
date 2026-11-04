@@ -149,7 +149,7 @@ extern "C" int __cdecl FUN_00217cf0(void *, const void *, const void *);
 extern "C" int __cdecl FUN_00217d80(const void *, const void *, void *);
 StkId __cdecl FUN_00215790(lua_State* L, StkId func);
 void __cdecl FUN_00215970(lua_State* L, int nresults, StkId firstResult);
-void __cdecl FUN_00214a90(lua_State* L, const char* msg);
+void __cdecl FUN_00214a90(lua_State* L, const char* msg, ...);
 void __cdecl FUN_002159e0(lua_State* L, StkId func, int nresults);
 void* __cdecl FUN_00219430(lua_State* L, const char* str, int l);
 TObject* __cdecl FUN_00219e50(Table* t, void* key);

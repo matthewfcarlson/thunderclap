@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 4/4)
 // FUN_0003f650 @ 0x0003f650
 // cl-flags: /GS
-extern "C" int FUN_00267760(char *buf, int size, const char *fmt, int n);
+extern "C" int FUN_00267760(char *buf, int size, const char *fmt, ...);
 
 class Src_3f650 {
 public:

@@ -12,6 +12,6 @@ struct State_d9890 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d9890* FUN_00086280(); };
 struct Control_d9890 {  };
     
-extern void __cdecl FUN_000fc020(char*,int,int,int);
+extern void __cdecl FUN_000fc020(char*,int,int,...);
 struct FEMemCardControl_d9890 { char p0[0x150]; Control_d9890* control; char p1[0x21c-0x154]; int field21c; char p2[0x35c-0x220]; Item_d9890 items[2]; char p3[0x3eb-0x3cc]; unsigned char flag; Manager_d9890* FUN_000fc3d0(); void run(int); };
 void FEMemCardControl_d9890::run(int index) { char buffer[1024];  Manager_d9890* manager=FUN_000fc3d0(); View* view=manager->v44(); int a=((int)((owners::A_f7d30 *)view)->FUN_000f7d30((hulk_intptr)((*(const char**)&DAT_004a0cac)))); int b=((int)((owners::C_f7220 *)view)->FUN_000f7220((hulk_intptr)a)); int c=items[index].FUN_000f83f0(view,0); FUN_000fc020(buffer,512,b,c); const char* label; if(flag) label=(*(const char**)&DAT_004a0ce8); else { State_d9890* state=DAT_004dd6ec->FUN_00086280(); label=state->flag?(*(const char**)&DAT_004a0ce4):(*(const char**)&DAT_004a0ce0); } const char* value=(*(const char**)&DAT_004a0c60); manager->FUN_000be310(label,buffer,&DAT_003f335c,&DAT_003f335c,&DAT_003f335c,3,value,value); items[1].active=1; field21c=0; ((owners::MenuScreen_bc9f0 *)control)->FUN_000bc9f0((hulk_intptr)"DynamicControlButtonLabel", 0);  }

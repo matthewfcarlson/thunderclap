@@ -9,7 +9,7 @@ virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virt
 void FUN_000be310(const char*, const unsigned short*, const float*, const char*, const char*, int, const char*, const char*);
 };
 extern Menu_d9d40* __cdecl FUN_000fc3d0();
-extern void __cdecl FUN_000fc020(unsigned short*, int, const char*, const char*);
+extern void __cdecl FUN_000fc020(unsigned short*, int, const char*, ...);
 struct State_d9d40 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d9d40* FUN_00086280(); };
 struct FEMemCardControl_d9d40 { char pad0[0x21c]; int value; char pad1[0x190]; unsigned char active; char pad2[0x3a]; unsigned char mode; void FUN_000d9d40(); };

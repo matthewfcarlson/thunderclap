@@ -16,7 +16,7 @@ struct CUnlockableCheat_91de0 {
     char p21[7];
     CUnlockableCheat_91de0* ctor(const char* arg);
 };
-extern "C" void FUN_00267760(void*, int, const char*, const char*);
+extern "C" void FUN_00267760(void*, int, const char*, ...);
 CUnlockableCheat_91de0* CUnlockableCheat_91de0::ctor(const char* arg) {
     vptr = (int*)&vtBase_91de0;
     flag = 1;

@@ -13,7 +13,7 @@ virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virt
 void FUN_000be310(void*, void*, const char*, const char*, const char*, int, void*, void*);
 };
      
-void __cdecl FUN_000fc020(void*, int, void*, void*);
+void __cdecl FUN_000fc020(void*, int, void*, ...);
 struct FEMemCardControl_d9680 {
 char pad0[0x21c]; int status; char pad1[0x35c-0x220]; Item_d9680 items[2]; char pad2[0x3eb-0x3cc]; unsigned char flag;
 Dialog_d9680* FUN_000fc3d0();

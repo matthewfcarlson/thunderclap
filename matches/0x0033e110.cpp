@@ -2,7 +2,7 @@ typedef unsigned int uint;
 extern void f339dc0(void*, int);
 extern int f213160(void*, int);
 extern int f339e60(void*, int, const char*, int);
-extern int f338e20(void*, const char*, int);
+extern int f338e20(void*, const char*, ...);
 extern void f212d80(void*, int);
 extern "C" int FUN_0033e110(void* self, int arg) {
     f339dc0(self, 1);

@@ -14,7 +14,7 @@ extern char DAT_0049f4a4[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 extern void *__cdecl FUN_000fc260(const char *name);
 extern int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
-extern int __cdecl FUN_000fc020(char *buf, int size, ...);
+extern int __cdecl FUN_000fc020(char *buf, int size, const char *fmt, ...);
 extern "C" void __cdecl FUN_000fc280(const char *name);
 
 struct Shader;

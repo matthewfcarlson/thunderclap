@@ -37,7 +37,8 @@ extern "C" void __cdecl FUN_00217f20(void *, int, int);
 // equiv-conv: FUN_00216060 esi edx
 extern "C" void __cdecl FUN_00216060(void *, const char *);
 
-// Lua 5.0 luaO_pushvfstring: fmt supports %s %c %d %f %%, arguments come from the va_list pointer.
+// Lua 5.0 luaO_pushvfstring: fmt supports %s %c %d %f %%, arguments come from the va_list pointer
+// (4-byte slots on the 32-bit builds; va_arg over the 64-bit builds' 8-byte slots, HULK_PTR64).
 extern "C" const char *FUN_002160c0(void *L, const char *fmt, char *argp)
 {
     struct Frame {
@@ -63,25 +64,37 @@ extern "C" const char *FUN_002160c0(void *L, const char *fmt, char *argp)
             TValue_2160c0 *slot = ((lua_State_2160c0 *)L)->top;
             switch (f.e[1]) {
             case 's': {
+#if defined(HULK_PTR64)
+                const char *s = __builtin_va_arg(argp, const char *);
+#else
                 const char *s = *(const char **)argp;
                 argp += 4;
                 f.ap2 += 4;
+#endif
                 FUN_00216060((lua_State_2160c0 *)((lua_State_2160c0 *)L), s);
                 break;
             }
             case 'c': {
                 char buff[2];
+#if defined(HULK_PTR64)
+                buff[0] = (char)__builtin_va_arg(argp, int);
+#else
                 buff[0] = (char)*(int *)argp;
                 argp += 4;
                 f.ap2 += 4;
+#endif
                 buff[1] = 0;
                 FUN_00216060((lua_State_2160c0 *)((lua_State_2160c0 *)L), buff);
                 break;
             }
             case 'd': {
+#if defined(HULK_PTR64)
+                slot->value.n = (hulk_freg)__builtin_va_arg(argp, int);
+#else
                 slot->value.n = (hulk_freg)*(int *)argp;
                 argp += 4;
                 f.ap2 += 4;
+#endif
                 slot->tt = 3;
                 if ((char *)((lua_State_2160c0 *)L)->stack_last - (char *)((lua_State_2160c0 *)L)->top <= 8)
                     FUN_00215460((lua_State_2160c0 *)((lua_State_2160c0 *)L), 1);
@@ -89,9 +102,13 @@ extern "C" const char *FUN_002160c0(void *L, const char *fmt, char *argp)
                 break;
             }
             case 'f': {
+#if defined(HULK_PTR64)
+                slot->value.n = (hulk_freg)__builtin_va_arg(argp, double);
+#else
                 slot->value.n = (hulk_freg)*(double *)(f.ap2 + 8);
                 argp += 8;
                 f.ap2 += 8;
+#endif
                 slot->tt = 3;
                 if ((char *)((lua_State_2160c0 *)L)->stack_last - (char *)((lua_State_2160c0 *)L)->top <= 8)
                     FUN_00215460((lua_State_2160c0 *)((lua_State_2160c0 *)L), 1);

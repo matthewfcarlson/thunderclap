@@ -15,7 +15,7 @@ class FEDoSound {
     char name[0x20];
     FEDoSound* Init(u32_e1970, const char*);
 };
-extern void __cdecl FUN_000dfcc0(char*, int, const char*, const char*);
+extern void __cdecl FUN_000dfcc0(char*, int, const char*, ...);
 FEDoSound* FEDoSound::Init(u32_e1970 id, const char* soundName) {
     a = -1;
     b = -1;

@@ -1,4 +1,4 @@
-extern int __cdecl FUN_00246f50(void*, const char*, const char*);
+extern int __cdecl FUN_00246f50(void*, const char*, ...);
 extern "C" int __cdecl FUN_0025aa50(void** value, char flag) {
     const char* s = "true";
     if (!flag)

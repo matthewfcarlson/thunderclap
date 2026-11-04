@@ -25,7 +25,7 @@ struct Manager_d8990 {
  void FUN_000be310(const char*, char*, const float*, const char*, const char*, int, const char*, const char*);
 };
 extern Manager_d8990* __cdecl FUN_000fc3d0();
-extern void __cdecl FUN_000fc020(char*,int,const char*,const char*);
+extern void __cdecl FUN_000fc020(char*,int,const char*,...);
 struct Settings_d8990 { char pad[0x1bc8]; unsigned char active; };
 struct Singleton_4dd6ec { Settings_d8990* FUN_00086280(); };
 struct FEMemCardControl_d8990 {

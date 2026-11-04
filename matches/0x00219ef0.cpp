@@ -2,7 +2,7 @@
 #include "decls/data/engine/unknown.h"
 
 extern int Find(void*, void*);
-extern void Error(void*, const char*);
+extern void Error(void*, const char*, ...);
 extern void* Finish(void*, void*, void*);
 extern const float Zero_219ef0;
 

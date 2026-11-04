@@ -9,7 +9,7 @@ extern unsigned char* __cdecl FUN_00213190(void*, int);
 extern unsigned int __cdecl FUN_002131f0(void*, int);
 extern void __cdecl FUN_00339470(Buffer_33cec0*);
 extern int __cdecl _isdigit(int);
-extern int __cdecl FUN_00338e20(void*, const char*);
+extern int __cdecl FUN_00338e20(void*, const char*, ...);
 // equiv-conv: FUN_0033cb10 eax esi
 extern void* FUN_0033cb10(int, Context*);
 extern void FUN_00339590(Buffer_33cec0*);

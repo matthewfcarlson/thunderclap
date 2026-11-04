@@ -36,7 +36,7 @@ struct Writer_23b570 {
     void FUN_00232c40(unsigned __int64 key, fight::Chunk *c);
 };
 
-extern void __cdecl FUN_00232cc0(Writer_23b570 *w, const char *msg);
+extern void __cdecl FUN_00232cc0(Writer_23b570 *w, const char *msg, ...);
 
 struct Holder_23b570 {
     int FUN_00233050();

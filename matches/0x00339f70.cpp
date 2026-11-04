@@ -2,7 +2,7 @@ extern "C" int f213120(void*, void*);
 extern "C" int f212f70(void*, void*);
 extern "C" int f212f20(void*, int);
 extern "C" int f212f00(void*, void*);
-extern "C" int f213470(void*, const char*, int, int);
+extern "C" int f213470(void*, const char*, ...);
 extern "C" void f339c30(void*, void*, int);
 int g339f70(void* L, void* o) {
     int r = f213120(L, o);

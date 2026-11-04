@@ -10,7 +10,7 @@ struct Receiver_1fb6a0 { void FUN_001cbc20(Key_1fb6a0*); };
 struct World { char pad[48]; Receiver_1fb6a0* receiver; };
 extern Manager_1fb6a0* __cdecl FUN_001d4c90();
 extern int __cdecl _sprintf(char*, const char*, ...);
-extern void __cdecl FUN_000964a0(char*, int, const char*, int);
+extern void __cdecl FUN_000964a0(char*, int, const char*, ...);
 struct CTriggerVolume {
 virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(int,int,int); virtual void vfunc_10(); virtual void vfunc_11(); virtual void vfunc_12(); virtual void vfunc_13(); virtual void vfunc_14(Input_1fb6a0*); virtual void vfunc_15();
 char pad[140]; char name[1];

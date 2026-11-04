@@ -43,7 +43,7 @@ extern "C" Str *FUN_0021fa80(Reader *S);
 // equiv-conv: FUN_0021f8c0 ecx eax edx
 extern "C" void __cdecl FUN_0021f8c0(char *, unsigned int, void *);
 // equiv-conv: FUN_0021f800 esi stack
-void FUN_0021f800(Reader *r, const char *msg);
+void FUN_0021f800(Reader *r, const char *msg, ...);
 int FUN_0021a550(Zio_220050 *z);
 // equiv-conv: FUN_0021fcb0 eax ebx
 extern "C" void __cdecl FUN_0021fcb0(void *, void *);

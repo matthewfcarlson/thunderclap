@@ -1,6 +1,6 @@
 #include "gen/owners.h"
 extern "C" void* __cdecl memset(void*, int, unsigned int);
-int __cdecl Fmt(char*, unsigned int, const char*, const char*);
+int __cdecl Fmt(char*, unsigned int, const char*, ...);
 owners::Obj_1c9f40* owners::Obj_1c9f40::FUN_001c9f40(int a, const char* b, const char* c) {
     memset(this, 0, 0x54);
     this->a = a;

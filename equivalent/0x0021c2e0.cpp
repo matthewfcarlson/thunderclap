@@ -3,7 +3,7 @@
 struct Parser { char pad0[4]; int position; int previous; int token; int value; int lookahead; int lookaheadValue; char pad1[4]; int errorContext; };
 extern "C" int __cdecl FUN_0021bbc0(void *, void *);
 int __cdecl FUN_0021af00(Parser *, int);
-int __cdecl FUN_00216320(int, const char *, int);
+int __cdecl FUN_00216320(int, const char *, ...);
 void __cdecl FUN_0021b060(Parser *, int);
 // equiv-conv: FUN_0021c2e0 esi eax
 extern "C" void FUN_0021c2e0(void * parser_, int expected)

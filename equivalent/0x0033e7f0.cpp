@@ -8,7 +8,7 @@ extern "C" int __cdecl FUN_00212c50(lua_State* L, int n);                       
 extern "C" void __cdecl FUN_00212cb0(lua_State* from, lua_State* to, int n);      // lua_xmove
 extern "C" int __cdecl FUN_00215d10(lua_State* co, int narg);                     // lua_resume
 extern "C" int __cdecl FUN_00212d70(lua_State* L);                                // lua_gettop
-extern "C" int __cdecl FUN_00338e20(lua_State* L, const char* msg);               // luaL_error
+extern "C" int __cdecl FUN_00338e20(lua_State* L, const char* msg, ...);               // luaL_error
 
 int FUN_0033e7f0(int narg, lua_State* co, lua_State* L) {
     if (!FUN_00212c50(co, narg))

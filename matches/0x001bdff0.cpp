@@ -4,7 +4,7 @@
 #include "decls/data/game/unknown.h"
 
 void* __cdecl FUN_000f7120(int key);
-int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, int a, void* b);
+int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, ...);
 class Console_1bdff0 {
 public:
     void FUN_000f7110();

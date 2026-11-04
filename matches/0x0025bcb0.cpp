@@ -2,7 +2,7 @@ class C_25bcb0 {
   public:
     int Get();
 };
-extern int FUN_00246f50(int, const char*, int);
+extern int FUN_00246f50(int, const char*, ...);
 const char format[] = "\"%s\"";
 int target(int* stream, C_25bcb0* item) {
     int value = *stream;

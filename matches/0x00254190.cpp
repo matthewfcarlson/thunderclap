@@ -5,7 +5,7 @@ struct Stm_254190 {
     char pad[0x24];
     int depth;
 };
-extern bool Match(Stm_254190*, const char*);
+extern bool Match(Stm_254190*, const char*, ...);
 extern bool ReadTrack_00254000(Stm_254190**, const char*, void*);
 class SeqEvent {
   public:

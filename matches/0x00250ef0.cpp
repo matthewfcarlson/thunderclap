@@ -2,9 +2,9 @@
 #include "decls/data/engine/audio.h"
 #include "decls/data/game/global.h"
 
-extern "C" bool Check(const char*, const char*, int);
+extern "C" bool Check(const char*, const char*, ...);
 extern "C" bool CheckByte(void*, unsigned char);
-extern "C" bool EndCheck(const char*, const char*);
+extern "C" bool EndCheck(const char*, const char*, ...);
 
 struct Obj_250ef0 {
     const char* mName;

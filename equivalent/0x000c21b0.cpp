@@ -141,8 +141,8 @@ Manager* __cdecl FUN_000fc1b0();
 FEObject* __cdecl FUN_000fc260(const char* name);
 void __cdecl FUN_000fb690(unsigned short* dst, const unsigned short* src, int count);
 void __cdecl FUN_000fb790(unsigned short* dst, const char* src, int count);
-void __cdecl FUN_000fc020(unsigned short* dst, int count, const unsigned short* fmt, int arg);
-void __cdecl FUN_000964a0(char* dst, int size, const char* fmt, int value);
+void __cdecl FUN_000fc020(unsigned short* dst, int count, const unsigned short* fmt, ...);
+void __cdecl FUN_000964a0(char* dst, int size, const char* fmt, ...);
 
 class UnlockMenu {
   public:

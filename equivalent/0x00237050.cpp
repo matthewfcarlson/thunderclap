@@ -6,7 +6,7 @@ struct Registry_237050;
 struct OpportunityAction_237050 { OpportunityAction_237050* next; virtual void v0(); virtual void v1(); virtual void v2(); virtual bool parse(Token_237050, Registry_237050*, Stream*); void FUN_002344a0(OpportunityAction_237050*); };
 struct Factory_237050 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual OpportunityAction_237050* create(); };
 struct Registry_237050 { Factory_237050* FUN_00236790(Token_237050); };
-void __cdecl FUN_00232cc0(Stream*, const char*);
+void __cdecl FUN_00232cc0(Stream*, const char*, ...);
 int __cdecl FUN_00238190(int);
 extern "C" int __cdecl FUN_00266da0(int);
 struct List_237050 { OpportunityAction_237050* head; bool FUN_00237050(Registry_237050*, Stream*, int); };

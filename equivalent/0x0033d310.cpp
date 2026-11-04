@@ -4,7 +4,7 @@
 extern "C" char* __cdecl strchr(const char*, int);
 extern "C" int __cdecl isdigit(int);
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
-void __cdecl FUN_00338e20(void*, const char*);
+void __cdecl FUN_00338e20(void*, const char*, ...);
 // equiv-conv: FUN_0033d310 ebx stack stack stack
 char* __cdecl FUN_0033d310(char* input, void* context, char* output, int* precision)
 {

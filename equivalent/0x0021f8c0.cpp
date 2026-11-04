@@ -14,7 +14,7 @@ struct LoadState_21f8c0 {
 int __cdecl FUN_0021a550(ZIO_21f8c0 *z);
 extern "C" unsigned int __cdecl FUN_0021a610(void *, void *, unsigned int);
 // equiv-conv: FUN_0021f800 esi stack
-void FUN_0021f800(LoadState_21f8c0 *S, const char *msg);
+void FUN_0021f800(LoadState_21f8c0 *S, const char *msg, ...);
 
 // LoadBlock: reads n bytes into buf, reversed when the state asks for byte swapping.
 // equiv-conv: FUN_0021f8c0 ecx eax edx

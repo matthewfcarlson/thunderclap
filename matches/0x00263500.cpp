@@ -6,7 +6,7 @@ struct Obj_263500 {
     int a;
     int b;
 };
-extern bool8 __cdecl Check(int, const char*);
+extern bool8 __cdecl Check(int, const char*, ...);
 extern "C" bool8 __cdecl FUN_0025ac30(int*, int, int);
 extern "C" int __cdecl FUN_00263500(int* p, Obj_263500* o) {
     int a;

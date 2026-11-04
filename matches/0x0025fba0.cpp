@@ -6,14 +6,14 @@ struct MetaTypeAttribBase {
     char pad[0x10];
     U_25fba0 a;
     U_25fba0 b;
-    MetaTypeAttribBase* init(void*, U_25fba0, U_25fba0);
+    MetaTypeAttribBase* init(void*, hulk_uintptr, hulk_uintptr);
 };
 extern "C" bool __cdecl FUN_0025f450(void *, void *, const char **);
-MetaTypeAttribBase* MetaTypeAttribBase::init(void* p, U_25fba0 c, U_25fba0 d) {
+MetaTypeAttribBase* MetaTypeAttribBase::init(void* p, hulk_uintptr c, hulk_uintptr d) {
     a = d;
     vptr = (void*)((hulk_intptr)DAT_00429420);
     b = c;
     d = c;
-    FUN_0025f450((char*)p + 0x14, (MetaTypeAttribBase *)this, (const char **)(unsigned int *)(&d));
+    FUN_0025f450((char*)p + 0x14, (MetaTypeAttribBase *)this, (const char **)(&d));
     return this;
 }

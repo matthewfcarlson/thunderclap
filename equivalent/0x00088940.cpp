@@ -13,7 +13,7 @@ struct Context {   Other_88940* FUN_00086280(); };
 extern "C" int __cdecl sprintf(char*,const char*,const char*,const char*);
 #endif
 // equiv-conv: FUN_00267760 stack stack stack stack
-int __cdecl FUN_00267760(char*,unsigned,const char*,const char*,const char*);
+int __cdecl FUN_00267760(char*,unsigned,const char*,...);
 struct Obj_88940 { char pad0[8]; Component_88940 *p08,*p0c,*p10,*p14,*p18,*p1c,*p20,*p24,*p28,*p2c,*p30,*p34,*p38,*p3c,*p40,*p44,*p48,*p4c,*p50; char pad54[8]; unsigned char flag5c; char pad5d[63]; unsigned char flag9c; void run(Context*,Mission_88940*); };
 void Obj_88940::run(Context* context,Mission_88940* mission) {
   flag5c=0; flag9c=0;

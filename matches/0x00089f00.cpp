@@ -3,7 +3,7 @@ struct Entry_89f00 {
     char name[16];
 };
 extern "C" __int64 F27b020(int s);
-extern "C" int F267760(char* buf, int n, const char* fmt, int a);
+extern "C" int F267760(char* buf, int n, const char* fmt, ...);
 class T_89f00 {
   public:
     char pad[0x158];

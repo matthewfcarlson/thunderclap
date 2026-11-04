@@ -132,7 +132,7 @@ Loc *__cdecl FUN_000fc1b0();
 Dlg *__cdecl FUN_000fc3d0();
 extern "C" int __cdecl FUN_000fb720(const wchar_t *s);
 void __cdecl FUN_000fb690(wchar_t *dst, const wchar_t *src, int n);
-void __cdecl FUN_000964a0(char *dst, int n, const char *fmt, int v);
+void __cdecl FUN_000964a0(char *dst, int n, const char *fmt, ...);
 extern "C" int strcmp(const char *a, const char *b);
 
 struct Frame {

@@ -11,7 +11,7 @@ struct Dialog_d99a0 {
 };
 struct State_d99a0 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d99a0* FUN_00086280(); };
-void __cdecl FUN_000fc020(unsigned short*, int, const unsigned short*);
+void __cdecl FUN_000fc020(unsigned short*, int, const unsigned short*, ...);
 struct FEMemCardControl_d99a0 {
  char pad0[0x21c]; int value; char pad1[0x190]; unsigned char active; char pad2[0x3a]; unsigned char alternate;
  Dialog_d99a0* FUN_000fc3d0();

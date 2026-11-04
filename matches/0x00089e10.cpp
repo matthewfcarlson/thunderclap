@@ -5,7 +5,7 @@ struct Root_89e10 {
     Sub_89e10* sub;
 };
 extern Root_89e10* g_root;
-int fmt(char* buf, int n, const char* f, int a, int b);
+int fmt(char* buf, int n, const char* f, ...);
 struct R_89e10 {
     void Go();
 };

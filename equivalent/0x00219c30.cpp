@@ -36,7 +36,7 @@ struct Table_219c30 {
 };
 
 void *__cdecl FUN_0021add0(lua_State_219c30 *L, void *block, unsigned int oldsize, unsigned int newsize);
-void __cdecl FUN_00214a90(lua_State_219c30 *L, const char *msg);
+void __cdecl FUN_00214a90(lua_State_219c30 *L, const char *msg, ...);
 
 // Lua 5.0 setnodevector: L arrives in ebx and the table in esi.
 // equiv-conv: FUN_00219c30 ebx esi stack

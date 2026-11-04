@@ -1,5 +1,5 @@
 extern "C" void* __cdecl Cast(void*, int, void*, void*, int);
-void __cdecl Setup(void* p, int n, int v);
+void __cdecl Setup(void* p, int n, int v, ...);
 extern char TdA[], TdB[];
 inline void Copy(char* d, const char* s) {
     char c;

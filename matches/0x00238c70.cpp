@@ -6,7 +6,7 @@ class Action_238c70 {
 };
 class NonCopyable_238c70 {};
 class IRefCount_238c70 {};
-extern int FUN_00238bb0(int, int, const char*, int);
+extern int FUN_00238bb0(int, int, const char*, ...);
 const char formatString_238c70[] = "%s\n";
 
 bool fight::PrintAction::vfunc_3(hulk_intptr a, hulk_intptr b) {

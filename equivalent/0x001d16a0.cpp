@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 6/6)
 // FUN_001d16a0 @ 0x001d16a0
-int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, const char *arg);
+int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
 struct Target_1d16a0 {
     char pad0[0x1068];
     int count;

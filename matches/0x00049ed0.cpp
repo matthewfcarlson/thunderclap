@@ -1,5 +1,5 @@
 // cl-flags: /O2
-extern "C" void __cdecl FUN_000964a0(char*, int, const char*, const char*);
+extern "C" void __cdecl FUN_000964a0(char*, int, const char*, ...);
 class Obj_49ed0 {
     char pad[0x10];
 

@@ -2,7 +2,7 @@
 // FUN_0033c6e0 @ 0x0033c6e0
 struct CaptureEntry { int value; int auxiliary; };
 struct CaptureState { char reserved[8]; void *context; int count; CaptureEntry captures[32]; };
-void __cdecl FUN_00338e20(void *, const char *);
+void __cdecl FUN_00338e20(void *, const char *, ...);
 int __cdecl FUN_0033c7e0(CaptureState *, int, int);
 // equiv-conv: FUN_0033c6e0 esi ebx stack stack
 int FUN_0033c6e0(CaptureState *state, int value, int arg1, int arg2)

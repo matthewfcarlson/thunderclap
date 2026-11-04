@@ -15,7 +15,7 @@ extern "C" void __cdecl FUN_00339d70(lua_State* L, int narg, int type);         
 extern "C" void __cdecl FUN_00339630(lua_State* L, luaL_Buffer_33c1d0* B);                   // luaL_buffinit
 extern "C" int __cdecl FUN_00213b60(lua_State* L, int (*writer)(), void* data);       // lua_dump
 extern "C" int __cdecl FUN_0033c1b0();                                                // writer
-extern "C" int __cdecl FUN_00338e20(lua_State* L, const char* msg);                   // luaL_error
+extern "C" int __cdecl FUN_00338e20(lua_State* L, const char* msg, ...);                   // luaL_error
 extern "C" void __cdecl FUN_00339540(luaL_Buffer_33c1d0* B);                                 // luaL_pushresult
 
 struct Frame_33c1d0 {

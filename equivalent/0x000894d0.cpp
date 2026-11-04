@@ -5,8 +5,8 @@
 struct NameList_894d0 { const char** FUN_000b4f40(); };
 struct Manager_894d0 { NameList_894d0* FUN_00086280(); };
 struct World { char pad[0x54]; Manager_894d0* manager; };
-extern "C" int __cdecl FUN_000964a0(char*, int, const char*, const char*);
-extern "C" int __cdecl FUN_00267760(char*, int, const char*, const char*);
+extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);
+extern "C" int __cdecl FUN_00267760(char*, int, const char*, ...);
 struct Entry_894d0 { unsigned low, high; char text[16]; };
 struct Object { char pad[0x158]; Entry_894d0 entries[100]; void FUN_000894d0(); };
 void Object::FUN_000894d0() {

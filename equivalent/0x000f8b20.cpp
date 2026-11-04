@@ -2,7 +2,7 @@
 // FUN_000f8b20 @ 0x000f8b20
 struct Helper_f8b20 { int FUN_000df9e0(const char *s); };
 struct Owner_f8b20 { char pad[4]; Helper_f8b20 *helper; };
-int __cdecl FUN_000dfcc0(char *buf, int size, const char *fmt, const char *arg);
+int __cdecl FUN_000dfcc0(char *buf, int size, const char *fmt, ...);
 
 class NamedValue {
 public:

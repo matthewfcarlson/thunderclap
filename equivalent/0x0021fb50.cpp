@@ -29,7 +29,7 @@ struct Reader {
 // equiv-conv: FUN_0021f8c0 ecx eax edx
 extern "C" void __cdecl FUN_0021f8c0(char *, unsigned int, void *);
 // equiv-conv: FUN_0021f800 esi stack
-void FUN_0021f800(Reader *r, const char *msg);
+void FUN_0021f800(Reader *r, const char *msg, ...);
 void *FUN_0021add0(State *L, void *block, unsigned int oldSize, unsigned int newSize);
 extern "C" void * __cdecl FUN_0021a6b0(void *, void **, hulk_uintptr);
 extern "C" unsigned int __cdecl FUN_0021a610(void *, void *, unsigned int);

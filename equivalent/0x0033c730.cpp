@@ -2,7 +2,7 @@
 // FUN_0033c730 @ 0x0033c730
 struct Capture { int start; int length; };
 struct Pattern { char padding[8]; void* errorContext; int captureCount; Capture captures[1]; };
-extern "C" int __cdecl FUN_00338e20(void*, const char*);
+extern "C" int __cdecl FUN_00338e20(void*, const char*, ...);
 extern "C" int __cdecl FUN_0033c7e0(Pattern*, int, int);
 // equiv-conv: FUN_0033c730 esi ebx stack
 int FUN_0033c730(Pattern* pattern, int position, int argument)

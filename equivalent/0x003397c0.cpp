@@ -4,7 +4,7 @@
 extern "C" int __cdecl FUN_00213190(void*, void*);
 extern "C" int* __cdecl FUN_00347ba4();
 extern "C" const char* __cdecl FUN_00347b53(int);
-extern "C" void __cdecl FUN_00213470(void*, const char*, int, const char*);
+extern "C" void __cdecl FUN_00213470(void*, const char*, ...);
 extern "C" void __cdecl FUN_00212de0(void*, void*);
 
 // equiv-conv: FUN_003397c0 edi ebx

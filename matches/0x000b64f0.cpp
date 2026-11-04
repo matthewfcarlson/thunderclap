@@ -78,7 +78,7 @@ struct World {
 
 FEObject *__cdecl FUN_000fc260(const char *name);
 Language *__cdecl FUN_000fc1b0();
-void __cdecl FUN_000fc020(char *buf, int size, const char *fmt, int value);
+void __cdecl FUN_000fc020(char *buf, int size, const char *fmt, ...);
 
 struct Frame {
     String s;

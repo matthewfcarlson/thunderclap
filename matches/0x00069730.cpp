@@ -1,4 +1,4 @@
-extern "C" int FUN_00267760(void* buf, int size, const char* fmt, int arg);
+extern "C" int FUN_00267760(void* buf, int size, const char* fmt, ...);
 
 class A_69730 {
   public:

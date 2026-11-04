@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 #include "gen/owners.h"
 extern "C" void* memset(void*, int, unsigned int);
-extern void Copy(void*, unsigned int, const char*, const char*);
+extern void Copy(void*, unsigned int, const char*, ...);
 owners::Obj_1cb050* owners::Obj_1cb050::FUN_001cb050(hulk_intptr a, unsigned int b) {
     memset(data, 0, 84);
     data[0] = 0x54;

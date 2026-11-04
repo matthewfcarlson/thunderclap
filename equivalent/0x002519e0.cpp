@@ -9,7 +9,7 @@ struct Writer_2519e0 {
     Stream *stream;
 };
 
-char __cdecl FUN_00246f50(Stream *s, const char *text);
+char __cdecl FUN_00246f50(Stream *s, const char *text, ...);
 extern "C" char __cdecl FUN_0025aaf0(Writer_2519e0 *w, int value);
 
 bool FUN_002519e0(Writer_2519e0 *w, const unsigned char *bytes)

@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1600 inputs, branch coverage 14/14)
 // audio::SeqEventStopTrack::vfunc_1 @ 0x00251060
 struct Stream { char pad[0x24]; unsigned int depth; };
-char __cdecl FUN_00246f50(Stream*, const char*);
+char __cdecl FUN_00246f50(Stream*, const char*, ...);
 extern "C" char __cdecl FUN_0024eb60(Stream**, const char*, unsigned int*);
 struct NameBuffer { char data[12]; };
 extern "C" char __cdecl FUN_0024e600(Stream**, const char*, NameBuffer*);

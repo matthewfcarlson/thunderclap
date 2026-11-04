@@ -2,7 +2,7 @@
 // FUN_0033c790 @ 0x0033c790
 struct Capture { const char *text; unsigned length; };
 struct Matcher { char pad[4]; const char *end; void *context; int count; Capture captures[1]; };
-int __cdecl FUN_00338e20(void *, const char *);
+int __cdecl FUN_00338e20(void *, const char *, ...);
 // equiv-conv: FUN_0033c790 eax ecx ebx
 const char *FUN_0033c790(int index, Matcher *self, const char *position)
 {

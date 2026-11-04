@@ -14,7 +14,7 @@ void* __cdecl FUN_000fc260(const char*);
 Item_becd0* __cdecl FUN_00344e74(void*,int,int*,int*,int);
 Service_becd0* __cdecl FUN_000fc3d0();
 struct Object {  };
-void __cdecl FUN_000964a0(char*,int,const char*,int,int);
+void __cdecl FUN_000964a0(char*,int,const char*,...);
 struct Target_becd0 { int unknown; Manager_becd0* manager; int run(int,const char**); };
 int Target_becd0::run(int argc,const char** argv) {
  unsigned cookie=DAT_004d9968;

@@ -5,7 +5,7 @@ struct Value_214bd0 { int type; unsigned int data; };
 struct CallInfo_214bd0 { Value_214bd0 *base; char pad[12]; };
 struct State_214bd0 { char pad0[8]; Value_214bd0 *top; char pad1[12]; Value_214bd0 *limit; char pad2[12]; CallInfo_214bd0 *frames; };
 struct DebugInfo_214bd0 { char pad[0x5c]; unsigned int frameIndex; };
-extern void __cdecl FUN_00214a90(State_214bd0 *, const char *);
+extern void __cdecl FUN_00214a90(State_214bd0 *, const char *, ...);
 // equiv-conv: FUN_00214ac0 eax esi edi stack stack
 extern "C" int __cdecl FUN_00214ac0(const char *, void *, void *, void *, const void *);
 // equiv-conv: FUN_002141d0 esi stack

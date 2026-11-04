@@ -11,7 +11,7 @@ struct State_d8dd0 { char pad[0x1bc8]; unsigned char active; };
 struct Singleton_4dd6ec { State_d8dd0* FUN_00086280(); };
 struct Widget_d8dd0 {  };
 extern Provider_d8dd0* __cdecl FUN_000fc3d0();
-extern void __cdecl FUN_000fc020(unsigned short*, int, const char*);
+extern void __cdecl FUN_000fc020(unsigned short*, int, const char*, ...);
 struct FEMemCardControl_d8dd0 { char pad0[0x150]; Widget_d8dd0* widget; char pad1[0x21c-0x154]; int value; char pad2[0x3b0-0x220]; unsigned char enabled; char pad3[0x3eb-0x3b1]; unsigned char mode; void run(int); };
 void FEMemCardControl_d8dd0::run(int) {
  unsigned short buffer[512];

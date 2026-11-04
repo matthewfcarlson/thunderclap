@@ -8,7 +8,7 @@ struct MatchState_33c520 {
     State *L;               // 0x8
 };
 
-void FUN_00338e20(State *L, const char *msg);
+void FUN_00338e20(State *L, const char *msg, ...);
 
 // equiv-conv: FUN_0033c520 eax ecx ebx
 const char *FUN_0033c520(const char *p, const char *s, MatchState_33c520 *ms)

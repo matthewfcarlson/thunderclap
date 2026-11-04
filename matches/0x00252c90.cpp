@@ -1,5 +1,5 @@
-extern "C" char __cdecl parse(const char*, const char*, char*);
-extern "C" char __cdecl parse2(const char*, const char*);
+extern "C" char __cdecl parse(const char*, const char*, ...);
+extern "C" char __cdecl parse2(const char*, const char*, ...);
 class Reader {
   public:
     char consume(char**);

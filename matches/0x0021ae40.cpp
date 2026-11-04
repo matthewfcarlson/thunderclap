@@ -1,4 +1,4 @@
-void Grow(int a, int b);
+void Grow(int a, int b, ...);
 void* Move(int a, int b, int c, int d);
 void* Resize(int a, int b, int* cnt, int size, int cap, int e) {
     int c = *cnt;

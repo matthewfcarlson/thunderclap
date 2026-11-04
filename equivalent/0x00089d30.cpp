@@ -6,7 +6,7 @@ struct Entries_89d30 { void FUN_00093600(int,int); void FUN_00092870(int,float);
 struct Final_89d30 { void FUN_000c3ea0(); };
 struct Manager_89d30 { Control_89d30* FUN_00086370(); Entries_89d30* FUN_00086340(); Final_89d30* FUN_00086280(); };
 struct World { char pad[0x54]; Manager_89d30* manager; };
-extern "C" void __cdecl FUN_00267760(char*,int,const char*,int,int);
+extern "C" void __cdecl FUN_00267760(char*,int,const char*,...);
 struct Item_89d30 { int first,second; char pad[16]; };
 struct Target_89d30 {
  char p0[0x80]; int f80,f84; char p88[0x20]; int fa8,fac; char pb0[0x20]; int fd0,fd4; char name[0x20]; char pf8[0x60]; Item_89d30 items[100]; char pab8[7]; unsigned char flag;

@@ -10,7 +10,7 @@ extern int __cdecl f5(void*, int);
 extern int __cdecl f6(void*, int);
 extern int __cdecl f7(void*, int);
 extern int __cdecl f8(void*, int);
-extern int __cdecl f10(void*, const char*);
+extern int __cdecl f10(void*, const char*, ...);
 int __cdecl FUN_0033df70(void* a, Data_33df70* d, int* out) {
     f1(a, d->b, 0xffffd8f0);
     f2(a, 0xffffd8f0, d->a);

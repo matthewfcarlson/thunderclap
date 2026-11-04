@@ -9,7 +9,7 @@ class SeqEventContainer_24fd90 {
   public:
     char vfunc_1(int*);
 };
-extern "C" char Parse(const char*, const char*);
+extern "C" char Parse(const char*, const char*, ...);
 extern "C" char Expr(int*, const char*, char*);
 
 int audio::SeqEventCondition::vfunc_1(void* __p0) { int * p = (int *)__p0;

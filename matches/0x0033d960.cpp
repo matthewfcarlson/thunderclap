@@ -2,7 +2,7 @@ extern "C" int F212f00(void* L, int i);
 extern "C" void F339d70(void* L, int i, int t);
 extern "C" void F339c30(void* L, int i, const char* m);
 extern "C" int F339010(void* L, int i, const char* e);
-extern "C" void F338e20(void* L, const char* m);
+extern "C" void F338e20(void* L, const char* m, ...);
 extern "C" void F212d80(void* L, int i);
 extern "C" void F2138e0(void* L, int i);
 extern "C" int FUN_0033d960(void* L) {

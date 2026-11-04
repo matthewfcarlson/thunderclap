@@ -10,7 +10,7 @@ virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virt
 void FUN_000be310(const char*, const unsigned short*, const float*, const char*, const char*, int, const char*, const char*);
 };
 UI_d8a90* __cdecl FUN_000fc3d0();
-void __cdecl FUN_000fc020(unsigned short*, int, const char*, const char*);
+void __cdecl FUN_000fc020(unsigned short*, int, const char*, ...);
 struct Entry_d8a90 { char data[0x38]; const char* FUN_000f83f0(UI_d8a90*,int); };
 struct State_d8a90 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d8a90* FUN_00086280(); };

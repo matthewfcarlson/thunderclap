@@ -3,7 +3,7 @@
 // data: gText_1f9230 = DAT_00424f08, gZero_1f9230 = DAT_003f335c
 #include "gen/owners.h"
 
-extern void InitText(char*, unsigned int, const char*);
+extern void InitText(char*, unsigned int, const char*, ...);
 class Sub_1f9230 {
   public:
 };

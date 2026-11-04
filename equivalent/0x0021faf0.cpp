@@ -8,7 +8,7 @@ struct Destination { char pad0[12]; int data; char pad1[28]; int count; };
 // equiv-conv: FUN_0021f8c0 ecx eax edx
 extern "C" void __cdecl FUN_0021f8c0(char *, unsigned int, void *);
 // equiv-conv: FUN_0021f800 esi stack
-void __cdecl FUN_0021f800(Source *source, const char *message);
+void __cdecl FUN_0021f800(Source *source, const char *message, ...);
 int __cdecl FUN_0021add0(int data, int a, int b, int bytes);
 // equiv-conv: FUN_0021f940 eax ecx edx stack
 extern "C" void __cdecl FUN_0021f940(unsigned int, unsigned char *, void *, unsigned int);

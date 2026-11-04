@@ -8,7 +8,7 @@ class FEDoScreen {
     char pad[31];
     FEDoScreen(int, const char*);
 };
-extern void Format(char*, int, const char*, const char*);
+extern void Format(char*, int, const char*, ...);
 FEDoScreen::FEDoScreen(int x, const char* s) {
     a = -1;
     b = -1;

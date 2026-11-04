@@ -476,8 +476,11 @@ Differences from macOS:
 - COMDATs per section 1.2.
 
 Before the game links, also do these:
-- Native-only `...` and `va_start` rewrites of the 18 functions and 3 consumers.
-- A `_vsnprintf` glue that converts the game's `va_list`.
+- ~~Native-only `...` and `va_start` rewrites of the 18 functions and 3 consumers.~~ Done (va1,
+  [native-build.md](native-build.md) "Varargs"): the definitions are `...` on both builds with `va_start` under
+  `HULK_PTR64`, the consumers use `va_arg`, and 138 callers declare the same variadic shape. Left: 4 callers (one
+  needs its owner class's parameter type, three are not promotable at HEAD).
+- ~~A `_vsnprintf` glue that converts the game's `va_list`.~~ Done (elf1, section 13).
 - Pin one LLVM.
 
 ## 13. A1 results (elf1, 2026-11-03): the ELF retarget and the first lld links
@@ -610,8 +613,8 @@ the tools) are part of it.
 2. **The native CRT table bound by name.** The 374 rows' tree names have to reach their glue targets: the host
    defines them, or the sources name them. Today, for example, the game's `atexit` would bind to libc's, not to the
    glue's list that `entry_posix` runs.
-3. **The 18 x86-style `va_list` producers and the 3 consumers.** These are the native-only `...` rewrites from
-   section 12, a later agent's work. `win64cc` and the glue are ready for them.
+3. ~~**The 18 x86-style `va_list` producers and the 3 consumers.**~~ Done by va1 ([native-build.md](native-build.md)
+   "Varargs"; `tests/native_host/va_tree_test.sh` passes on arm64 macOS, x86-64 under Rosetta and the emulator).
 4. **The shim on native.** `hulk_xdk_*`, the file layer with `HULK_DATA_DIR` on the device (the extracted disc pushed
    to the emulator's app storage, never committed), SDL3 for Android (`libSDL3.so`), bgfx's null renderer, and the
    replay driver and checkpoint hashing. `replay_hooks.cpp` is a Wine-build bridge.

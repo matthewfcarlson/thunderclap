@@ -60,7 +60,7 @@ struct ScopeNode {
 
 extern "C" int FUN_00238190(int mode);
 extern "C" int FUN_00266da0(hulk_intptr v);
-extern "C" void FUN_00232cc0(Lexer *lexer, const char *msg);
+extern "C" void FUN_00232cc0(Lexer *lexer, const char *msg, ...);
 void *__cdecl FUN_00263ea0(unsigned int size);
 
 class Branch_2337c0 {

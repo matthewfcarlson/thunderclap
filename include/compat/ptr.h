@@ -16,6 +16,9 @@
 
 #if defined(_WIN64) || defined(_M_X64) || defined(_M_ARM64) || defined(__LP64__) || defined(__x86_64__) || \
     defined(__aarch64__)
+// HULK_PTR64: this test, for a source that must say something else on a 64-bit build (the variadic functions
+// va_start / va_arg, docs/native-build.md "Varargs"). Defined only here: `#if defined(HULK_PTR64)` is false on the 32-bit builds.
+#define HULK_PTR64 1
 #if defined(__INTPTR_TYPE__)
 typedef __INTPTR_TYPE__ hulk_intptr;
 typedef __UINTPTR_TYPE__ hulk_uintptr;

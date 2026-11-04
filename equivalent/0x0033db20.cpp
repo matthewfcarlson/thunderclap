@@ -7,7 +7,7 @@ extern "C" int __cdecl f213720(void*, int);
 extern "C" void __cdecl f213380(void*, const char*, int);
 extern "C" void __cdecl f213600(void*, int);
 extern "C" int __cdecl f212f00(void*, int);
-extern "C" void __cdecl f338e20(void*, const char*);
+extern "C" void __cdecl f338e20(void*, const char*, ...);
 extern "C" void __cdecl f212d80(void*, int);
 extern "C" void __cdecl f212ed0(void*, int);
 extern "C" int __cdecl f212f70(void*, int);

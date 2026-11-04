@@ -8,7 +8,7 @@ struct Result { char pad0[0x14]; unsigned int data; char pad1[0x18]; int count; 
 // equiv-conv: FUN_0021f8c0 ecx eax edx
 extern "C" void __cdecl FUN_0021f8c0(char *, unsigned int, void *);
 // equiv-conv: FUN_0021f800 esi stack
-void __cdecl FUN_0021f800(Source *, const char *);
+void __cdecl FUN_0021f800(Source *, const char *, ...);
 unsigned int __cdecl FUN_0021add0(unsigned int, int, int, int);
 // equiv-conv: FUN_0021f940 eax ecx edx stack
 extern "C" void __cdecl FUN_0021f940(unsigned int, unsigned char *, void *, unsigned int);

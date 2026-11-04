@@ -2,7 +2,7 @@
 // data: gBuffer_2726e0 = DAT_0052a1a4, gCallback_2726e0 = DAT_004cdcf8, gFlag_2726e0 = DAT_004cdcf4
 // data: gHandler = DAT_0052a1c4, gState_2726e0 = DAT_0052a1c0
 
-extern "C" void __cdecl FUN_00267760(char*, unsigned int, const char*, const char*, int, const char*);
+extern "C" void __cdecl FUN_00267760(char*, unsigned int, const char*, ...);
 extern "C" void __cdecl FUN_0026d850(void*);
 extern "C" void __cdecl FUN_0026d840(void*);
 typedef void(__cdecl* Handler_2726e0)(char*);

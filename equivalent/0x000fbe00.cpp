@@ -29,13 +29,21 @@ hulk_intptr FUN_000fbe00(unsigned short *buf, unsigned int count, const unsigned
                 fmt++;
                 if ((unsigned int)(fr.c - 0x53) <= 0x22) {
                     if (fr.c == 'c') {
+#if defined(HULK_PTR64)
+                        *out = (unsigned short)__builtin_va_arg(ap, unsigned int);
+#else
                         *out = *(unsigned short *)(args + 4);
                         args += 4;
+#endif
                         out++;
                         store = false;
                     } else if (fr.c == 's') {
+#if defined(HULK_PTR64)
+                        const char *s = __builtin_va_arg(ap, const char *);
+#else
                         const char *s = *(const char **)(args + 4);
                         args += 4;
+#endif
                         char ch = *s;
                         while (ch != 0) {
                             *out = (short)(signed char)ch;
@@ -47,8 +55,12 @@ hulk_intptr FUN_000fbe00(unsigned short *buf, unsigned int count, const unsigned
                         }
                         store = false;
                     } else if (fr.c == 'S') {
+#if defined(HULK_PTR64)
+                        const unsigned short *ws = __builtin_va_arg(ap, const unsigned short *);
+#else
                         const unsigned short *ws = *(const unsigned short **)(args + 4);
                         args += 4;
+#endif
                         unsigned short wc = *ws;
                         while (wc != 0) {
                             *out = wc;
@@ -60,8 +72,12 @@ hulk_intptr FUN_000fbe00(unsigned short *buf, unsigned int count, const unsigned
                         }
                         store = false;
                     } else if (fr.c == 'u') {
+#if defined(HULK_PTR64)
+                        unsigned int v = __builtin_va_arg(ap, unsigned int);
+#else
                         unsigned int v = *(unsigned int *)(args + 4);
                         args += 4;
+#endif
                         fr.savedAp = args;
                         char *p = fr.tmp;
                         do {

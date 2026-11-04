@@ -56,7 +56,7 @@ extern "C" int * __cdecl FUN_0021a3e0(void *, void *, void *);
 void *__cdecl FUN_0021add0(lua_State_21a0f0 *L, void *block, unsigned int oldsize, unsigned int newsize);
 extern "C" void * __cdecl FUN_002198b0(void *, const void *);
 extern "C" int __cdecl FUN_00215fa0(const void *, const void *);
-void __cdecl FUN_00214a90(lua_State_21a0f0 *L, const char *msg);
+void __cdecl FUN_00214a90(lua_State_21a0f0 *L, const char *msg, ...);
 
 // Lua 5.0 luaH_resize: nasize arrives in eax, the table in ecx.
 // equiv-conv: FUN_0021a0f0 eax ecx stack stack

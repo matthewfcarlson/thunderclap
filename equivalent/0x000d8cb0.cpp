@@ -10,7 +10,7 @@ struct UI_d8cb0 {
  void FUN_000be310(const char*, const unsigned short*, const char*, const char*, const char*, int, const char*, const char*);
 };
 UI_d8cb0* __cdecl FUN_000fc3d0();
-void __cdecl FUN_000fc020(unsigned short*, int, const char*);
+void __cdecl FUN_000fc020(unsigned short*, int, const char*, ...);
 struct State_d8cb0 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d8cb0* FUN_00086280(); };
 struct Widget_d8cb0 {  };

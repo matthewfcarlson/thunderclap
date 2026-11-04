@@ -3,7 +3,7 @@
 #include "gen/owners.h"
 
 extern int __cdecl Query(int, int);
-extern int __cdecl Format(int, int, const char*, int);
+extern int __cdecl Format(int, int, const char*, ...);
 extern void __cdecl Finish(int, int);
 bool owners::Obj_1d19f0::FUN_001d19f0(hulk_intptr a, int b, char flag) {
     int x = Query(field, -1);

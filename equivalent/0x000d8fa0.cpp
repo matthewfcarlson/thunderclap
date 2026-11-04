@@ -11,7 +11,7 @@ struct Manager_d8fa0 {
 };
 struct Menu_d8fa0 {   };
 Manager_d8fa0* __cdecl FUN_000fc3d0();
-void __cdecl FUN_000fc020(unsigned short*,int,const char*);
+void __cdecl FUN_000fc020(unsigned short*,int,const char*,...);
 struct State_d8fa0 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d8fa0* FUN_00086280(); };
 struct FEMemCardControl_d8fa0 { char pad[0x21c]; int field21c; char pad2[0x190]; unsigned char field3b0; char pad3[0x3a]; unsigned char field3eb; void FUN_000d8fa0(int,int); };

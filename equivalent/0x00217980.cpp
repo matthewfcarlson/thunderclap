@@ -43,7 +43,7 @@ TObject_217980 *__cdecl FUN_00217580(Table_217980 *mt, int event, void *name);
 TObject_217980 *__cdecl FUN_002175b0(LState_217980 *L, TObject_217980 *t, int event);
 void __cdecl FUN_00217100(LState_217980 *L, Table_217980 *h, GCObject_217980 *v);
 extern "C" void __cdecl FUN_00214c90(void *, const void *, const char *);
-void __cdecl FUN_00214a90(LState_217980 *L, const char *msg);
+void __cdecl FUN_00214a90(LState_217980 *L, const char *msg, ...);
 extern "C" void __cdecl FUN_00215460(void *, int);
 void __cdecl FUN_002159e0(LState_217980 *L, TObject_217980 *func, int nresults);
 

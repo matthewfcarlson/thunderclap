@@ -10,7 +10,7 @@ extern void __cdecl FUN_002139a0(int, int, int);
 extern int __cdecl FUN_00213190(hulk_intptr, int);
 extern void __cdecl FUN_00347eed(const void*, const void*);
 extern void __cdecl FUN_00212d80(int, int);
-extern int __cdecl FUN_00338e20(int, const char*);
+extern int __cdecl FUN_00338e20(int, const char*, ...);
 extern float zero_33d6e0;
 extern "C" int __cdecl FUN_0033d6e0(int value) {
     int esi = value;

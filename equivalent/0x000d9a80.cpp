@@ -23,7 +23,7 @@ struct Dialog_d9a80 {
 };
 struct Status_d9a80 { char pad[0x1bc8]; unsigned char active; };
 struct Singleton_4dd6ec { Status_d9a80* FUN_00086280(); };
-void __cdecl FUN_000fc020(unsigned short*, int, const unsigned short*);
+void __cdecl FUN_000fc020(unsigned short*, int, const unsigned short*, ...);
 struct FEMemCardControl_d9a80 {
  char pad0[0x21c]; int state;
  char pad1[0x3b0-0x220]; unsigned char visible;

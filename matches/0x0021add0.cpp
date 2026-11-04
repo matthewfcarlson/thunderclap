@@ -9,7 +9,7 @@ struct State_21add0 {
     char pad[0x10];
     Alloc_21add0* g;
 };
-void Error(State_21add0* L, const char* msg);
+void Error(State_21add0* L, const char* msg, ...);
 void ErrMem(State_21add0* L, int code);
 void* Realloc(State_21add0* L, void* block, int osize, unsigned nsize) {
     Alloc_21add0* g = L->g;

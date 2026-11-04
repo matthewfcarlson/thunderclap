@@ -26,7 +26,7 @@ struct LState_215b60 {
     unsigned char yielded;
 };
 
-void __cdecl FUN_00214a90(LState_215b60 *L, const char *msg);
+void __cdecl FUN_00214a90(LState_215b60 *L, const char *msg, ...);
 
 extern "C" int __cdecl FUN_00215b60(LState_215b60 *L, int nresults)
 {

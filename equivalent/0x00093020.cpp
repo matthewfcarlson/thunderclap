@@ -6,7 +6,7 @@ extern char DAT_0049dafc;
 struct Value_93020 {  char bytes[20]; };
 struct Item_93020 { char pad[16]; Value_93020 value; int kind; char data[8]; };
 extern Item_93020* __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern void __cdecl FUN_00267760(void*, int, void*);
+extern void __cdecl FUN_00267760(void*, int, void*, ...);
 struct Container_93020 { void* items[50]; void FUN_00093020(int index, void* source, void* data); };
 void Container_93020::FUN_00093020(int index, void* source, void* data) {
  if (index < 0 || index > 49) return;

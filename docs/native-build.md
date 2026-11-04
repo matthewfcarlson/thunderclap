@@ -37,3 +37,85 @@ On the first run, check:
 - the start-up trace's `low-4gb reserved` line (about 4,095 MB; the reservation is on by default on Linux);
 - the game-`va_list` glue on glibc (it ran as x86-64 macOS under Rosetta: the same System V convention);
 - `tests/native_host/*`.
+
+## Varargs on the 64-bit builds (va1, 2026-11-03)
+
+**The problem** (A0, [native-android.md](native-android.md) section 12). 18 game functions built their `va_list` the
+32-bit x86 way, from the address of their last named parameter (`(char*)&fmt + 4`, `&fmt + 1`, `&c`), 10 of them
+with the variadic part declared as fixed parameters, and three consumers walked lists in 4-byte slots. On a 64-bit
+target the parameter is a spilled register copy, so the list was garbage (`"%d-%d", 11, 22` printed `22558-22558`).
+Callers also had to agree with the definition: 142 caller sources declared these functions with fixed parameters,
+which on arm64 macOS (variadic arguments on the stack) and with `win64cc` on ELF (a different register order from the
+host's System V convention) passes the arguments where the callee does not look.
+
+**The conditional.** `include/compat/ptr.h`'s pointer-size test (the one that makes `hulk_intptr` 64-bit) now also
+defines `HULK_PTR64`. A source that must say something else on a 64-bit build includes `compat/ptr.h` and tests
+`#if defined(HULK_PTR64)` *inside the function body*. A top-level `#if` would make gen_tree wrap the source ("macros"),
+so the signatures carry no conditional: they are what they are on both builds.
+
+**Definitions: variadic on both builds.** MSVC 7.1's `__cdecl` code is the same for `f(a, b, ...)` and `f(a, b, c)`,
+so every producer is now spelled with `...` on both builds; the body keeps the 32-bit spelling under `#else` and uses
+`__builtin_va_start` on 64-bit (the MS front ends' `va_list` is a `char*` over 8-byte slots on every 64-bit target).
+All 15 matches/ definitions still MATCH with verify_relocs ok; the 7 equivalents stay promotable.
+
+| pattern | functions | 64-bit spelling |
+|---|---|---|
+| `...` with `(char*)&fmt + 4` / `&fmt + 1` | 0x000964a0, 0x000dfcc0, 0x0023fde0 `Fn`, 0x00245b00 `Err`, 0x00246f50, 0x00238bb0, 0x0021f800, 0x00232cc0 | `va_start(ap, fmt)`, pass `ap` |
+| fake fixed parameters, list after the last one (`&c + 1`) | 0x00267760, 0x00213470, 0x000fc000, 0x000fc020 | `, ...` appended; `va_start(ap, c)` |
+| fake fixed parameters, list *at* the last one (`&c`) | 0x00216320, 0x00214a90, 0x0023fef0 `Target`, 0x00338e20 `target` | `c` dropped for `...`; 32-bit `(char*)&b + 4` (same bytes); `va_start(ap, b)` |
+| a pointer read through a 4-byte parameter slot (not varargs) | 0x0025fba0, 0x0025fad0 | the parameter is `hulk_uintptr` / `hulk_intptr`, so `&p` holds the whole pointer |
+| consumers walking 4-byte slots | 0x002160c0 (Lua's pushvfstring), 0x000fbc00, 0x000fbe00 (wide formatters) | `__builtin_va_arg(ap, T)` per conversion |
+| `va_list` passed as `int` | 0x00213440 (lua_pushvfstring wrapper) | `hulk_intptr` parameters |
+
+Named parameters that carry a pointer (formats, the Lua state, buffers) became `hulk_uintptr` / `hulk_intptr` where the
+32-bit type was an integer (the consolidation's "pointer beats integer" rule: the same type on 32-bit).
+
+**Callers: one shape per address.** Every caller's declaration (by relocation: `verify_relocs.py --json`'s map for
+matches/, the binding map for equivalent/) keeps the definition's named parameters and ends in `...` on both builds:
+138 sources (57 matches/, 81 equivalent/), names kept (`F2`, `Match`, `Check`, `fmt`, `c`, ...). The callers keep
+their own parameter types; what must agree across a call on the 64-bit targets is the variadic shape (the number of
+named parameters, then `...`), which this makes one per address. `build/va1/scripts/rewrite.py` did the rewrite;
+`census.py` lists the candidates from a Wine build's binding map.
+
+**Tests.** `tests/native_host/va_tree_test.sh` compiles the real sources of the producers and consumers one TU each
+through the tree's front end and the target's retarget, with `tests/native_host/va_tree_game.cpp` as their callers and
+callees (a small vsnprintf over the game's list, a Lua stack, the wide formatters, recording stubs): 17 cases, ints,
+doubles, chars, narrow and wide strings, up to 12 arguments (past the registers).
+
+| mode | target | result |
+|---|---|---|
+| `mac` | arm64 macOS, `native_mac.py retarget` (Darwin variadics) | 17/17 |
+| `x64` | x86-64 macOS under Rosetta, System V host + `native_elf.add_win64cc` (SteamOS's convention) | 17/17 |
+| `android` | arm64 Android 15 emulator, `native_elf.py retarget --target android-arm64`, NDK r30 | 17/17 |
+
+With HEAD's 0x000964a0 linked in instead, the `mac` binary dies with SIGBUS.
+
+**Gates.** Batch gates: 72 matches/ sources MATCH + verify_relocs ok; 88 equivalent/ sources promotable at 3,000 inputs and
+at 600 with `--wine`; `--x64` (equiv64 batch) on the 88 against their HEAD versions: 63 -> 64 equivalent (0x0025fad0
+newly passes), no new failure. gen_tree (`--fresh`, `PYTHONHASHSEED=0`) against HEAD: 6 mode changes, all
+canonical-variant ties in three TUs (0x00089f80 / 0x0008b560 swap, 0x0033c2b0 and 0x0033cb70 to wrapped, 0x0033c7e0
+to merged, 0x0025c6d0 to wrapped).
+
+| | control 42913 (HEAD 362e4aa7a, mac2) | batch 42914 (mac2) |
+|---|---|---|
+| strict link rc / Wine unbound | 0 / 1,324 | 0 / 1,324 (the same set) |
+| build_tree fallbacks | 20 compile-error wraps, 213 isolated | 0 compile-error wraps (the overload ambiguities between fixed and variadic declarations are gone), 214 isolated (0x000b86b0: code differs from its standalone build, isolated plain) |
+| image (PE time stamp zeroed) | - | differs (the merges above) |
+| x87 keep list | - | identical |
+| play3 checkpoints | 2,004 to 60,090 | identical at all 2,004 common frames (batch to 60,150) |
+| native arm64 macOS unbound (front-end failures) | 46,370 (3) | 46,350 (3) |
+| native x86-64 Linux / arm64 Android unbound | 46,369 / 46,369 (3) | 46,349 / 46,349 (3) |
+
+All native links rc 0 (ld64, lld). The batch has one more tree TU (0x000b86b0's isolation): 2,656 / 2,659.
+
+**Left.**
+- Four callers keep a fixed-parameter declaration: 0x00062180 (`owners.h` types its parameter `float`, so `...` would
+  push a double: its owner class needs the real type, `const char*`), and 0x000c9bd0, 0x001fa3a0, 0x00233c50, whose
+  equivalence checks are not promotable at HEAD either (30 `--wine` inputs; a `--wine` fault; unsupported, every
+  input a frame overrun).
+- Pointer-size problems next to the varargs: callers that pass a pointer through an `int` parameter of their own
+  declaration (`Format(int, int, const char*, ...)`, `Setup(void*, int, int, ...)`, `Grow(int, int, ...)`), the Lua
+  stub structs whose 32-bit pads put `Obj_213470::p` where the 64-bit `lua_State` keeps `base`, and 0x00213470 /
+  0x00216320 returning a `const char*` as `int`.
+- The game's `snprintf` (0x000964a0 bound under the C name `snprintf` in 0x00203740) binds to the C library's on the
+  native link; harmless (same contract).

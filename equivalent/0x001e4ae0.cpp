@@ -42,8 +42,8 @@ struct Mat_1e4ae0 {
     void FUN_0022b980();
 };
 
-int __cdecl FUN_000964a0(char *buf, int n, const char *fmt, const char *a, const char *b);
-extern "C" int __cdecl FUN_00267760(char *buf, int n, const char *fmt, const char *a, int b);
+int __cdecl FUN_000964a0(char *buf, int n, const char *fmt, ...);
+extern "C" int __cdecl FUN_00267760(char *buf, int n, const char *fmt, ...);
 
 struct Frame_1e4ae0 {
     char caster[4];

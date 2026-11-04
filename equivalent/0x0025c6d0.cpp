@@ -6,7 +6,7 @@
 struct Stream { char pad[0x24]; int depth; };
 struct Context { Stream* stream; };
 struct Entry_25c6d0 { const char* text; unsigned int other; };
-bool __cdecl FUN_00246f50(Stream*, const char*);
+bool __cdecl FUN_00246f50(Stream*, const char*, ...);
 struct Temp_25c6d0 { char data[12];   };
 bool __cdecl FUN_0025bcb0(Context*, Temp_25c6d0*);
 bool __cdecl FUN_0025c6d0(Context* context, const unsigned int* values) {

@@ -9,7 +9,7 @@ extern int __cdecl FUN_00339fe0(LuaState*, int, int);
 extern void __cdecl FUN_00339c30(LuaState*, int, const char*);
 extern int __cdecl FUN_00213fc0(LuaState*, int, DebugInfo_33d9e0*);
 extern void __cdecl FUN_00214bd0(LuaState*, const char*, DebugInfo_33d9e0*);
-extern void __cdecl FUN_00338e20(LuaState*, const char*, int);
+extern void __cdecl FUN_00338e20(LuaState*, const char*, ...);
 // equiv-conv: FUN_0033d9e0 esi
 void __cdecl FUN_0033d9e0(LuaState* state) {
     DebugInfo_33d9e0 info;

@@ -6,7 +6,7 @@ extern int CheckThing(void*, void*);
 extern int GetName(void*, int);
 extern int GetType(void*, void*);
 extern int GetNameByType(void*, int);
-extern int Format(void*, const char*, int, int);
+extern int Format(void*, const char*, ...);
 extern void Report(void*, void*, int);
 float Target(void* a, void* b) {
     float f = GetThing(a, b);
