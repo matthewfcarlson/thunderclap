@@ -54,6 +54,8 @@ class Placement(unittest.TestCase):
         self.sv = {"hA": {"lineage": 100.0, "inputs": True}, "hB": {"lineage": None, "inputs": True}}
         self.assertEqual(wbj.placement(args(state="resume"), "L", "s")[:2], ("hA", None))
         self.assertEqual(wbj.placement(args(map="reuse"), "L", "s")[:2], ("hA", None))
+        self.assertEqual(wbj.placement(args(stages="link,replay"), "L", "s")[:2], ("hA", None))
+        self.assertEqual(wbj.placement(args(stages="build,probe"), "L", "s")[:2], (None, "hA"))
         self.sv = {"hA": {"lineage": None, "inputs": True}}           # nowhere: a fresh build anywhere (decide() says so)
         self.assertEqual(wbj.placement(args(state="resume"), "L", "s")[:2], (None, None))
 

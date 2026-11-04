@@ -183,7 +183,7 @@ $J $N sync | lineages   # inputs on the hosts (submit does it) | lineage workspa
   - *lineage state*: the lineage workspace is per host. If a host has the lineage's last good tree build (`.nb/built.json`;
     the newest one if several do), the job gets an **affinity** for it: only that host may take it for `--affinity-wait`
     seconds (default 900), after that any host may (a fresh build there), the affinity host still first when it has room.
-    `--affinity-wait 0` drops it; `--state fresh` has none. `--state resume` or `--map reuse` need that state: they **pin** to
+    `--affinity-wait 0` drops it; `--state fresh` has none. `--state resume`, `--map reuse` or `--stages` without `build` need that state: they **pin** to
     the host that has it (a lineage nowhere means a fresh build anywhere, as `decide()` already did).
   - *slots*: 8 on a remote unless `--slots` (no longer sized from the submit-time free capacity of one host).
   - `--host H` still pins (and syncs H only).

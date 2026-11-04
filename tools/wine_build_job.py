@@ -266,7 +266,7 @@ def survey(hosts, lineage, stamp):
 def placement(a, lineage, stamp):
     """(pin, affinity, hosts to sync now, note). --host pins. Otherwise the daemon picks the host at dispatch: a
     lineage with derived state on a host gives that host an affinity (only it may take the job for --affinity-wait
-    seconds), or a pin when the state is required (--state resume / --map reuse)."""
+    seconds), or a pin when the state is required (--state resume / --map reuse, or --stages without build)."""
     if a.host:
         return a.host, None, [a.host], "pinned (--host)"
     hosts = build_hosts(a.replay)
@@ -275,8 +275,10 @@ def placement(a, lineage, stamp):
     sv = survey(hosts, lineage, stamp)
     have = sorted((v["lineage"], h) for h, v in sv.items() if v["lineage"])
     sync = [h for h in hosts if not sv.get(h, {}).get("inputs")]
-    if have and (a.state == "resume" or a.map == "reuse"):
-        return have[-1][1], None, [have[-1][1]], "pinned: --state resume/--map reuse needs lineage %s, which is on %s" % (lineage, have[-1][1])
+    later = bool(getattr(a, "stages", None)) and "build" not in a.stages.split(",")     # probe/link/replay of an earlier build
+    if have and (a.state == "resume" or a.map == "reuse" or later):
+        return have[-1][1], None, [have[-1][1]], "pinned: %s needs lineage %s, which is on %s" % (
+            "--stages without build" if later else "--state resume/--map reuse", lineage, have[-1][1])
     if have and a.state != "fresh" and a.affinity_wait != 0:
         return None, have[-1][1], sync, "dispatch-time host; lineage state on %s (affinity %ds)" % (have[-1][1], a.affinity_wait)
     return None, None, sync, "dispatch-time host" + ("; lineage %s is new" % lineage if not have else "")
