@@ -53,3 +53,10 @@ int hulk_game_main(void) {
     return 0;
 }
 }
+
+#if defined(__ANDROID__)
+// Android: entry_posix.cpp's entry is SDL_main (SDL3's activity calls it from libmain.so); a plain process calls it
+// the same way
+extern "C" int SDL_main(int argc, char** argv);
+int main(int argc, char** argv) { return SDL_main(argc, argv); }
+#endif

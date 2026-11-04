@@ -24,22 +24,16 @@ build crt_test tests/native_host/crt_test.cpp src/platform/sdl/host/crt_posix.cp
 build crt_test_libm -DHULK_NO_SOFT_X87 tests/native_host/crt_test.cpp src/platform/sdl/host/crt_posix.cpp
 build host_test -Isrc/platform/sdl tests/native_host/host_test.cpp src/platform/sdl/host/win32_posix.cpp
 build entry_test -rdynamic tests/native_host/entry_test.cpp src/platform/sdl/host/entry_posix.cpp
-# rtti: the game side through the MS-ABI front end and the retarget (as tests/native_host/rtti_test.sh), ELF/Android
+# rtti: the game side through the MS-ABI front end and the ELF retarget (tools/native_elf.py, as the tree is
+# compiled for android-arm64), the runtime and the test with their ELF spellings of the MS names (`@` -> `#`)
 FE=${FE:-$BIN/clang++}
 BE=$(dirname "$FE")/clang
 "$FE" --version | head -1
-DL=$(echo 'int x;' | "$BIN/clang" --target=$TGT -x c -S -emit-llvm - -o - | sed -n 's/^target datalayout = "\(.*\)"/\1/p')
 "$FE" --target=aarch64-pc-windows-msvc -fms-extensions -fms-compatibility -fms-compatibility-version=13.10 -std=c++14 \
     -O1 -S -emit-llvm tests/native_host/rtti_game.cpp -o "$out/rtti_game.ll" &&
-$PY tests/android/va_retarget.py "$out/rtti_game.ll" "$out/rtti_game.m.ll" --triple aarch64-unknown-linux-android$API \
-    --datalayout "$DL" --escape-at &&
+HULK_ELF_CLANG=$BE $PY tools/native_elf.py retarget --target android-arm64 "$out/rtti_game.ll" "$out/rtti_game.m.ll" &&
 "$BE" --target=$TGT -O1 -c -Wno-override-module "$out/rtti_game.m.ll" -o "$out/rtti_game.o" &&
-# ELF: the MS names' `@` read as symbol versions, so the retarget escapes them (`@` -> `#`, --escape-at) and the
-# host side's MS-name labels are rewritten the same way here (rtti_msabi.cpp's aliases; rtti_test.cpp's Mach-O
-# `_??2@...` labels): copies in $out, the sources are unchanged
-sed -E '/HULK_ALIAS\("|HULK_SYM\("\?\?_7/s/@/#/g' src/platform/sdl/host/rtti_msabi.cpp > "$out/rtti_msabi.elf.cpp" &&
-sed -e 's/__asm__("_??\([23]\)@YA\([A-Z_]*\)@Z")/__asm__("??\1#YA\2#Z")/' tests/native_host/rtti_test.cpp > "$out/rtti_test.elf.cpp" &&
-build rtti_test -Isrc/platform/sdl/host -Itests/native_host "$out/rtti_test.elf.cpp" "$out/rtti_msabi.elf.cpp" "$out/rtti_game.o" ||
+build rtti_test -Isrc/platform/sdl/host -Itests/native_host tests/native_host/rtti_test.cpp src/platform/sdl/host/rtti_msabi.cpp "$out/rtti_game.o" ||
     { echo "BUILD FAIL rtti_game"; fail=1; }
 
 adb shell "rm -rf $DEV && mkdir -p $DEV/tmp" || exit 1
@@ -74,7 +68,7 @@ entry() {   # mode, expected exit, grep patterns...
 entry ok 0 "^init 0 0x00011000" "^skip 1 0x00349000" "^init 2 0x00012000" "^first 1 CreateFileA" "^main returned 0" "^end returned code=0" "^called CreateFileA 1"
 entry missing 3 "^missing ?FUN_00123456@@YAXXZ caller=.* phase=main" "^frame 0 ret=" "^end missing code=3"
 # (bionic's dladdr sees .dynsym only: the static game_crash has no name there, unlike macOS)
-entry crash 4 "^crash signal=1[01] addr=0x10 pc=" "^regs .*hulk_game_main" "^frame 0 ret=.* main" "^end crash"
+entry crash 4 "^crash signal=1[01] addr=0x10 pc=" "^regs .*hulk_game_main" "^frame 0 ret=.*main" "^end crash"
 entry hang 6 "^hang phase=" "^end hang"
 grep -h "low-4gb\|fpcr" "$out/entry-ok.txt" 2>/dev/null
 [ $fail = 0 ] && echo "host_tests.sh: ok"

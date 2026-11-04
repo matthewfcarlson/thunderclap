@@ -449,23 +449,30 @@ extern const void* const hulk_ncrt_type_info_vftable[2] = {nullptr, (const void*
 
 // The MS names the game's objects use for these (Mach-O: a leading underscore). The table's tree names
 // (__RTDynamicCast, __RTtypeid, __CxxFrameHandler3) and the by-address rows are bound by the native link; these are
-// the names clang itself emits.
+// the names clang itself emits. On ELF the retarget (tools/native_elf.py) spells every `@` of an MS name `#` (lld
+// reads `name@ver` as a symbol version), so HULK_MS gives both spellings.
 #if defined(__APPLE__)
 #define HULK_SYM(s) "_" s
 #else
 #define HULK_SYM(s) s
+#endif
+#if defined(__ELF__)
+#define HULK_MS(at, hash) hash
+#else
+#define HULK_MS(at, hash) at
 #endif
 #define HULK_ALIAS(ms, ours) __asm__(".globl \"" HULK_SYM(ms) "\"\n.set \"" HULK_SYM(ms) "\", " HULK_SYM(#ours) "\n")
 HULK_ALIAS("__RTDynamicCast", hulk_ncrt_RTDynamicCast);
 HULK_ALIAS("__RTCastToVoid", hulk_ncrt_RTCastToVoid);
 HULK_ALIAS("__RTtypeid", hulk_ncrt_RTtypeid);
 HULK_ALIAS("__CxxFrameHandler3", hulk_ncrt_CxxFrameHandler3);
-HULK_ALIAS("??8type_info@@QEBAHAEBV0@@Z", hulk_ncrt_type_info_eq);       // int operator==(const type_info&) const
-HULK_ALIAS("??9type_info@@QEBAHAEBV0@@Z", hulk_ncrt_type_info_ne);
-HULK_ALIAS("?before@type_info@@QEBAHAEBV1@@Z", hulk_ncrt_type_info_before);
-HULK_ALIAS("?name@type_info@@QEBAPEBDXZ", hulk_ncrt_type_info_name);
-HULK_ALIAS("?raw_name@type_info@@QEBAPEBDXZ", hulk_ncrt_type_info_raw_name);
-HULK_ALIAS("??1type_info@@UEAA@XZ", hulk_ncrt_type_info_dtor);
-__asm__(".globl \"" HULK_SYM("??_7type_info@@6B@") "\"\n.set \"" HULK_SYM("??_7type_info@@6B@") "\", "
+HULK_ALIAS(HULK_MS("??8type_info@@QEBAHAEBV0@@Z", "??8type_info##QEBAHAEBV0##Z"), hulk_ncrt_type_info_eq);       // int operator==(const type_info&) const
+HULK_ALIAS(HULK_MS("??9type_info@@QEBAHAEBV0@@Z", "??9type_info##QEBAHAEBV0##Z"), hulk_ncrt_type_info_ne);
+HULK_ALIAS(HULK_MS("?before@type_info@@QEBAHAEBV1@@Z", "?before#type_info##QEBAHAEBV1##Z"), hulk_ncrt_type_info_before);
+HULK_ALIAS(HULK_MS("?name@type_info@@QEBAPEBDXZ", "?name#type_info##QEBAPEBDXZ"), hulk_ncrt_type_info_name);
+HULK_ALIAS(HULK_MS("?raw_name@type_info@@QEBAPEBDXZ", "?raw_name#type_info##QEBAPEBDXZ"), hulk_ncrt_type_info_raw_name);
+HULK_ALIAS(HULK_MS("??1type_info@@UEAA@XZ", "??1type_info##UEAA#XZ"), hulk_ncrt_type_info_dtor);
+#define HULK_TYPE_INFO_VFT HULK_MS("??_7type_info@@6B@", "??_7type_info##6B#")
+__asm__(".globl \"" HULK_SYM(HULK_TYPE_INFO_VFT) "\"\n.set \"" HULK_SYM(HULK_TYPE_INFO_VFT) "\", "
         HULK_SYM("hulk_ncrt_type_info_vftable") " + 8\n");
 #endif

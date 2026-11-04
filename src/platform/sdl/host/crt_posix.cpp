@@ -140,9 +140,36 @@ int hulk_ncrt_fprintf(void* f, const char* fmt, ...) {
     return r;
 }
 
+// The game's va_list is the MS one on every native target (the front end is the Windows triple's): a char* walking
+// 8-byte slots. On arm64 macOS that is the host's va_list too; on ELF (AAPCS64, x86-64 System V) the host's is a
+// struct, so the glue that takes a game va_list builds one whose register save areas count as used up, which makes
+// the host read every argument from the game's slots (docs/native-android.md section 12, tests/android/va_host.cpp).
+typedef char* hulk_ms_va_list;
+#if defined(__aarch64__) && !defined(__APPLE__)
+#define HULK_MS_VA(ap, ms)                                                                                      \
+    va_list ap;                                                                                                  \
+    do {                                                                                                         \
+        struct Aapcs { void* stack; void* gr_top; void* vr_top; int gr_offs; int vr_offs; };                     \
+        static_assert(sizeof(va_list) == sizeof(Aapcs), "AAPCS64 va_list");                                     \
+        Aapcs a_ = {(void*)(ms), 0, 0, 0, 0}; /* offsets >= 0: registers used up, all from `stack` */            \
+        memcpy(&ap, &a_, sizeof a_);                                                                             \
+    } while (0)
+#elif defined(__x86_64__)
+#define HULK_MS_VA(ap, ms)                                                                                      \
+    va_list ap;                                                                                                  \
+    do {                                                                                                         \
+        struct SysV { unsigned gp_offset, fp_offset; void* overflow; void* save; };                             \
+        static_assert(sizeof(va_list) == sizeof(SysV), "System V va_list");                                     \
+        SysV s_ = {48, 176, (void*)(ms), 0}; /* 6 GPRs * 8, + 8 XMM * 16: used up */                             \
+        memcpy(&ap, &s_, sizeof s_);                                                                             \
+    } while (0)
+#else
+#define HULK_MS_VA(ap, ms) va_list ap = (va_list)(ms)
+#endif
+
 // _vsnprintf / _snprintf: at most `count` characters; a NUL only if there is room for it; -1 when the output
 // (without its NUL) did not fit
-int hulk_ncrt_vsnprintf_ms(char* buf, size_t count, const char* fmt, va_list ap) {
+static int vsnprintf_ms(char* buf, size_t count, const char* fmt, va_list ap) {
     va_list ap2;
     va_copy(ap2, ap);
     int need = vsnprintf(0, 0, fmt, ap2);
@@ -162,10 +189,21 @@ int hulk_ncrt_vsnprintf_ms(char* buf, size_t count, const char* fmt, va_list ap)
     return (size_t)need == count ? need : -1;
 }
 
+// the game's _vsnprintf (0x00345774) and vsprintf: the va_list is the game's
+int hulk_ncrt_vsnprintf_ms(char* buf, size_t count, const char* fmt, hulk_ms_va_list ms) {
+    HULK_MS_VA(ap, ms);
+    return vsnprintf_ms(buf, count, fmt, ap);
+}
+
+int hulk_ncrt_vsprintf_ms(char* buf, const char* fmt, hulk_ms_va_list ms) {
+    HULK_MS_VA(ap, ms);
+    return vsnprintf(buf, INT_MAX, fmt, ap);   // (vsprintf: unbounded; the host marks vsprintf deprecated)
+}
+
 int hulk_ncrt_snprintf_ms(char* buf, size_t count, const char* fmt, ...) {
     va_list ap;
     va_start(ap, fmt);
-    int r = hulk_ncrt_vsnprintf_ms(buf, count, fmt, ap);
+    int r = vsnprintf_ms(buf, count, fmt, ap);
     va_end(ap);
     return r;
 }

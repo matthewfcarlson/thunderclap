@@ -15,6 +15,8 @@ void hulk_native_missing(const char* name) { printf("missing %s\n", name); exit(
 int hulk_ncrt_rand(void);
 void hulk_ncrt_srand(unsigned);
 int hulk_ncrt_snprintf_ms(char*, size_t, const char*, ...);
+int hulk_ncrt_vsnprintf_ms(char*, size_t, const char*, char*);
+int hulk_ncrt_vsprintf_ms(char*, const char*, char*);
 char* hulk_ncrt_strtok(char*, const char*);
 size_t hulk_ncrt_wcslen16(const unsigned short*);
 int hulk_ncrt_strtol(const char*, char**, int);
@@ -91,6 +93,23 @@ int main() {
     CHECK(hulk_ncrt_snprintf_ms(b, 4, "%s", "abc") == 3 && !strcmp(b, "abc"));
     memset(b, 'x', 8);
     CHECK(hulk_ncrt_snprintf_ms(b, 4, "%s", "abcdef") == -1 && !memcmp(b, "abcdx", 5));
+    // _vsnprintf / vsprintf with the game's va_list: a char* over 8-byte slots (the MS layout on every native target;
+    // ELF hosts convert it to their own va_list)
+    {
+        double d = 2.5;
+        uint64_t slots[12];
+        slots[0] = 7;
+        memcpy(&slots[1], &d, 8);
+        slots[2] = (uint64_t)(uintptr_t)"xy";
+        for (int i = 3; i < 12; i++)
+            slots[i] = (uint64_t)i;       // past the 8 argument registers of either convention
+        char v[64];
+        CHECK(hulk_ncrt_vsnprintf_ms(v, sizeof v, "%d/%.2f/%s/%d/%d/%d/%d/%d/%d/%d/%d/%d", (char*)slots) == 29 &&
+              !strcmp(v, "7/2.50/xy/3/4/5/6/7/8/9/10/11"));
+        memset(v, 'x', 8);
+        CHECK(hulk_ncrt_vsnprintf_ms(v, 3, "%d/%d", (char*)&slots[3]) == 3 && !memcmp(v, "3/4x", 4));   // full: no NUL
+        CHECK(hulk_ncrt_vsprintf_ms(v, "%.1f %s", (char*)&slots[1]) == 6 && !strcmp(v, "2.5 xy"));
+    }
     // strings, numbers
     char s[] = "a,b,,c";
     CHECK(!strcmp(hulk_ncrt_strtok(s, ","), "a") && !strcmp(hulk_ncrt_strtok(0, ","), "b") &&

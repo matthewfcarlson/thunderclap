@@ -130,7 +130,7 @@
     N(0, glue, hulk_ncrt_purecall, "_purecall") \
     N(0, glue, hulk_ncrt_terminate, "terminate") \
     N(0, glue, hulk_ncrt_snprintf_ms, "_snprintf") \
-    N(0, libc, vsprintf, "vsprintf") \
+    N(0, glue, hulk_ncrt_vsprintf_ms, "vsprintf") \
     N(0, libc, printf, "printf") \
     N(0, libc, strcasecmp, "stricmp") \
     N(0, libc, strncasecmp, "_strnicmp strnicmp") \

@@ -24,10 +24,18 @@ void* hulk_ncrt_RTDynamicCast(void*, int32_t, void*, void*, int);
 extern const void* const hulk_ncrt_type_info_vftable[2];
 }
 
-// the game side's operator new / delete (MS names; the tree defines its own in the image)
-void* ms_new(size_t n) __asm__("_??2@YAPEAX_K@Z");
+// the game side's operator new / delete (MS names; the tree defines its own in the image). Mach-O prefixes `_`; on
+// ELF the retarget spells the MS names' `@` as `#` (tools/native_elf.py)
+#if defined(__ELF__)
+#define MS_NEW "??2#YAPEAX_K#Z"
+#define MS_DELETE "??3#YAXPEAX_K#Z"
+#else
+#define MS_NEW "_??2@YAPEAX_K@Z"
+#define MS_DELETE "_??3@YAXPEAX_K@Z"
+#endif
+void* ms_new(size_t n) __asm__(MS_NEW);
 void* ms_new(size_t n) { return malloc(n); }
-void ms_delete(void* p, size_t) __asm__("_??3@YAXPEAX_K@Z");
+void ms_delete(void* p, size_t) __asm__(MS_DELETE);
 void ms_delete(void* p, size_t) { free(p); }
 
 struct GameTD { const void* vft; void* spare; char name[40]; };   // the 64-bit type_info layout

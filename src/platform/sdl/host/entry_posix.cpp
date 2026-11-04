@@ -136,6 +136,9 @@ static void summary(const char* how, hulk_u32 code) {
 
 // A call to a symbol the image still lacks (the native link's stubs: `hulk_native_missing("name")`).
 extern "C" void hulk_native_missing(const char* name) {
+    static volatile int in;
+    if (in++)
+        _exit(3);   // (a stub reached from the report itself, e.g. the shim's hulk_xdk_called still missing)
     char s[256];
     uintptr_t caller = (uintptr_t)__builtin_return_address(0);
     trace_line("missing %s caller=%p %s phase=%s", name, (void*)caller, sym_of(caller, s, sizeof(s)), g_phase);
@@ -274,9 +277,15 @@ static void* watchdog(void* arg) {
 // happens to be mapped there: every free range below 4 GB is reserved PROT_NONE before the game runs (a constructor,
 // ahead of the C++ initializers). Needs a PIE image (the default on SteamOS's toolchains): a non-PIE one sits at
 // 0x400000, and what is mapped already is left alone. HULK_LOW_4GB=0 turns it off.
+// Android: off unless HULK_LOW_4GB=1. ART keeps its heaps, JIT caches and boot images below 4 GB (docs/native-android.md
+// sections 2 and 12): a reservation of every free range there would starve its later requests.
 static unsigned g_low_reserved_mb;
 __attribute__((constructor(101))) static void low_4gb_reserve(void) {
     const char* e = getenv("HULK_LOW_4GB");
+#if defined(__ANDROID__)
+    if (!e || *e != '1')
+        return;
+#endif
     if (e && *e == '0')
         return;
     const uintptr_t top = 1ull << 32;
@@ -328,8 +337,14 @@ static void fpu_init(void) {
 #endif
 }
 
-// The entry: main() of the host's C runtime (the native link names this object's main as the image's entry).
+// The entry: main() of the host's C runtime (the native link names this object's main as the image's entry). On
+// Android the image is libmain.so and SDL3's activity calls SDL_main (exported: -Bsymbolic keeps the game's own names
+// inside the library, the activity finds this one by dlsym).
+#if defined(__ANDROID__)
+extern "C" __attribute__((visibility("default"))) int SDL_main(int argc, char** argv) {
+#else
 int main(int argc, char** argv) {
+#endif
     (void)argc; (void)argv;
     const char* path = getenv("HULK_TRACE_FILE");
     g_trace = fopen(path && *path ? path : "hulk-startup-trace.txt", "w");

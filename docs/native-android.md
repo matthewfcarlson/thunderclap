@@ -295,7 +295,8 @@ logcat sink) and in the retarget (`os == "android"` branch); no change to game s
   with two new A1 items (section 12).**
 - **A1 (depends on the first Linux ELF native link)**: ELF branch of `native_mac.py`'s retarget (generalise to
   `native_elf.py` shared by SteamOS and Android), alias/initializer handling for ELF, `entry_posix` as `SDL_main`,
-  link `libmain.so` with stubs as macOS did in its section 9 stage.
+  link `libmain.so` with stubs as macOS did in its section 9 stage. **Done 2026-11-03 (elf1, section 13), with the
+  x86-64 Linux link alongside.**
 - **A2**: headless replay of play3 on the arm64 Linux VM then in the Android emulator; checkpoints equal to the Wine build
   to the current frontier. This is the proof-chain milestone, and needs no GUI.
 - **A3**: SDL3 Android shell: Gradle project, `SDLActivity` subclass, manifest (pointer tagging opt-out, landscape,
@@ -478,3 +479,141 @@ Before the game links, also do these:
 - Native-only `...` and `va_start` rewrites of the 18 functions and 3 consumers.
 - A `_vsnprintf` glue that converts the game's `va_list`.
 - Pin one LLVM.
+
+## 13. A1 results (elf1, 2026-11-03): the ELF retarget and the first lld links
+
+**Both ELF targets link.** The tree compiles and links for arm64 Android (`libmain.so`) and for x86-64 Linux (a PIE
+executable), at the stage macOS reached in [native-mac.md](native-mac.md) section 9: every name the tree does not
+define yet is stubbed. On Android the library starts in the emulator and runs the game's start-up up to the first
+missing stub. Input: the clang-probe snapshot of clean1's proof build 42504, the same snapshot as macOS's 46,370.
+
+| target | toolchain | tree TUs (front-end failures) | data TUs | unbound | link | image |
+|---|---|---|---|---|---|---|
+| arm64 macOS (control) | Homebrew LLVM 22.1.8, ld64 | 2,655 / 2,658 (3) | 1,078 / 1,078 | 46,370 | rc 0 | 29 MB executable |
+| arm64 Android (API 29) | NDK r30 clang/lld 21, end to end | 2,655 / 2,658 (the same 3) | 1,078 / 1,078 | 46,369 | rc 0 | 42 MB `libmain.so` |
+| x86-64 Linux (glibc 2.31) | Homebrew LLVM 22.1.8 + lld, Debian 11 sysroot | 2,655 / 2,658 (the same 3) | 1,078 / 1,078 | 46,369 | rc 0 | 41 MB PIE |
+
+- "Unbound" means undefined names less the native CRT table's rows. It is the same metric as macOS's.
+- The three unbound sets are macOS's set with one name changed:
+  - Android lacks `bzero`. That is a Darwin artifact: Apple's backend lowers memset to `bzero`.
+  - Linux also lacks `bzero`, and it has `floor` as a host-libm row. The x86-64 backend calls `floor` where AArch64
+    has an instruction.
+- The 3 front-end failures are the same TUs on all three targets: Track.cpp, CSoundSequence.GS.cpp and the
+  held-back `_alloca` source. The 64-bit diagnostics are the same too: 454 truncations and 274 pointer/int casts.
+- The compiles ran as queue jobs: 70 s for Linux and 88 s for Android, at 4 slots. The Android job ships the
+  NDK's `clang-21`, thinned to arm64, with its resource headers. The links ran locally.
+
+**Design: `tools/native_elf.py`.** It is a new tool, and `tools/native_mac.py` is unchanged. Its retarget calls
+`native_mac.retarget()` itself, so the vftable, RTTI and initializer rewrites are shared and macOS's output cannot
+change. It shields the COMDATs from the Mach-O step and then adds the ELF steps:
+
+- **Triple and datalayout.** The triples are `aarch64-unknown-linux-android29` and `x86_64-unknown-linux-gnu`. The
+  datalayout (`m:e`) comes from the backend clang itself.
+- **COMDATs are kept.** MS `largest`, `samesize` and `exactmatch` become `any`, the kind ELF supports. Vftables are in
+  clang's `largest` group, so one copy per class survives the link.
+- **`win64cc` on game variadics.** It goes on definitions, declarations, direct calls and indirect calls with a
+  variadic type. Host names keep the platform's convention: the native CRT table's tree names and targets, names
+  that carry a row's XBE address, and the C library's variadics.
+- **`@` is escaped to `#`** in every quoted global and COMDAT name. A single left-to-right scan does it, so a name's
+  closing `@"` is never read as an opening one. The link reads names back with `#` -> `@`, so the inventory stays in
+  MS spelling.
+- **`-fPIC` objects.** `libmain.so` links with `-shared -Wl,-Bsymbolic -Wl,-z,defs` and libc++ static, and its soname
+  is `libmain.so`. Linux links `-pie --export-dynamic`, so the crash report's `dladdr` names game functions.
+- **Aliases and initializers.** These need no ELF-specific change. Vftable aliases are `linkonce_odr` ELF aliases.
+  The TU initializers leave `llvm.global_ctors` (`.init_array`) and are run from the XBE-ordered table that `link`
+  writes. `native_mac`'s link tables (`startup.s`, `rtti.s`) are converted to ELF assembly: no `_` prefix, `.data` and
+  `.rodata`, and the `#` spelling.
+- **The link.** It is `native_mac`'s inventory (name groups, type descriptors, vftables and RTTI records, the start-up
+  table) with the ELF symbol reader and an lld step swapped in. It links:
+  - the host glue: `entry_posix`, `crt_posix`, `win32_posix`, `rtti_msabi` and `softx87`;
+  - a stub for every unbound name that the glue, libc, libm, libdl and the start files do not define.
+- **Stubs.** A code stub calls `hulk_native_missing("name")`. A data stub is 64 zero bytes in `.bss`. Code and data
+  are told apart by the demangled form: native_mac's `DATA_LIKE` pattern takes `?f@ns@@YA?AUPair@1@...` for data
+  because of its `@1` back reference.
+- **Shim hooks.** The ones the host glue calls but nothing links yet (`hulk_xdk_called`,
+  `hulk_xdk_first_call_sink`) are null stubs. `hulk_game_main` is a reporting stub.
+
+Host side:
+- `rtti_msabi.cpp` spells its MS aliases through `HULK_MS(at, hash)`: `#` on ELF, `@` elsewhere. On macOS the
+  object's symbols are unchanged.
+- `entry_posix.cpp`:
+  - On Android its entry is the exported `SDL_main`.
+  - The low-4 GB reservation stays on by default on Linux and is off on Android unless `HULK_LOW_4GB=1`.
+  - `hulk_native_missing` exits on re-entry (a stub reached from its own report).
+- `crt_posix.cpp`:
+  - `_vsnprintf` and `vsprintf` now take the game's `va_list`, a `char*` over 8-byte slots, and build the host's on
+    ELF. On AAPCS64 that is `{stack, 0, 0, 0, 0}`. On System V it is `{48, 176, overflow, 0}`.
+  - The table's `vsprintf` row became glue.
+- TLS is ELF TLS. Our 8 `thread_local` variables use TLSDESC: there are 8 TLSDESC relocations and a `PT_TLS` segment.
+  The one emulated-TLS variable in the image is libc++abi's own, from the NDK's static library.
+
+Files:
+- `tools/native_elf.py`.
+- `tools/linux_sysroot.py`: the pinned Debian 11 sysroot, about 70 MB.
+- `tests/android/libmain_loader.c` and `tests/android/libmain_smoke.sh`.
+- `tests/linux/host_link.sh`.
+- `host_tests.sh` and `va_proto.sh` now run the tree's retarget. `va_proto.sh` has an `elf` mode, which gives the
+  same results as `win64cc`.
+
+```sh
+PY=build/venv/bin/python; export HULK_CLANG_PROBE_DIR=<dir with snap/>
+$PY tools/native_elf.py compile --target android-arm64 --jobs 4     # or linux-x64; output build/native-<target>/
+$PY tools/native_elf.py link --target android-arm64 --ld            # link-report.json, unbound.txt, link/libmain.so
+sh tests/android/libmain_smoke.sh build/native-android-arm64/link/libmain.so   # adb device: start-up trace
+sh tests/android/host_tests.sh; sh tests/android/va_proto.sh                   # host layer, varargs
+$PY tools/linux_sysroot.py && sh tests/linux/host_link.sh                       # Linux: link only
+```
+
+**Emulator smoke tests.** The emulator was the same AVD as A0: Android 15, arm64, 16 KB pages.
+
+- `host_tests.sh` passes:
+  - `crt_test` with softx87 and with libm, including the new game-`va_list` cases on bionic;
+  - `host_test`;
+  - `rtti_test`, with the game side through `native_elf.py` and the real sources, not sed copies;
+  - its `ref` and `typeid` exits;
+  - `entry_test`, all four endings, through `SDL_main`.
+- Low-4 GB: 0 MB by default, and 4,095 MB with `HULK_LOW_4GB=1`.
+- `va_proto.sh`: `plain` fails as before, and `win64cc` and `elf` pass every case except the expected `hostcall`.
+- `libmain_smoke.sh` on the game's `libmain.so` stands in for the activity: dlopen, then `dlsym("SDL_main")`.
+  - The library loads, with every relocation resolved and `-z defs` clean.
+  - The start-up trace runs, and initializer 0 (a library one) is skipped.
+  - Initializer 1 (`FUN_0035c6e0`) calls the stub of `FUN_0027b020` and ends with
+    `missing ?FUN_0027b020@fn_0035c6e0@@YA?AUPair_35c6e0@1@PEBD@Z ... phase=init 1 0x0035c6e0`, exit 3.
+  - This is the first missing name. It is the same frontier any native target has today.
+
+**Linux x86-64: link only.** No Linux machine was available, so nothing ran on Linux.
+- `hulk-linux` is checked with llvm-readelf and llvm-nm:
+  - it is an x86-64 `DYN` PIE with interpreter `/lib64/ld-linux-x86-64.so.2`;
+  - it needs libpthread, libdl, libstdc++, libm, libgcc_s and libc;
+  - `main` is exported, and no symbol name contains `@`.
+- `tests/linux/host_link.sh` links the five host tests (crt, crt_libm, host, entry, rtti) for glibc. The build has no
+  warnings.
+- The System V `va_list` conversion in `crt_posix.cpp` ran as x86-64 macOS under Rosetta. That is the same convention
+  but not glibc.
+
+**macOS before and after.** `native_mac.py link --ld` on the same objects gives the same result before and after:
+- undefined 46,744 and unbound 46,370, with the same 3 front-end failures;
+- `link.out` and `unbound.txt` identical;
+- `rtti.s`, `startup.s` and `stubs.s` identical;
+- the `rtti_msabi.cpp` object's symbols identical;
+- the 29 MB `hulk-mac` image byte-identical.
+
+`native_mac.py` is untouched, so the macOS compile cannot change. `tests/native_host/rtti_test.sh` and
+`entry_test.sh` pass on arm64 macOS. `crt_test` passes on arm64 macOS and on x86-64 macOS under Rosetta.
+
+The Wine build is not affected. None of the changed files (`src/platform/sdl/host/*`, `crt/native_crt_table.h`,
+the tools) are part of it.
+
+**What A2 (the headless replay) needs.**
+1. **The unbound names.** These are x64-6's name unification and the consolidation. The run stops at the first
+   initializer that calls an undefined name.
+2. **The native CRT table bound by name.** The 374 rows' tree names have to reach their glue targets: the host
+   defines them, or the sources name them. Today, for example, the game's `atexit` would bind to libc's, not to the
+   glue's list that `entry_posix` runs.
+3. **The 18 x86-style `va_list` producers and the 3 consumers.** These are the native-only `...` rewrites from
+   section 12, a later agent's work. `win64cc` and the glue are ready for them.
+4. **The shim on native.** `hulk_xdk_*`, the file layer with `HULK_DATA_DIR` on the device (the extracted disc pushed
+   to the emulator's app storage, never committed), SDL3 for Android (`libSDL3.so`), bgfx's null renderer, and the
+   replay driver and checkpoint hashing. `replay_hooks.cpp` is a Wine-build bridge.
+5. **A place to run x86-64 Linux.** This means a SteamOS/Linux box, or a Linux VM. On this Mac that would be arm64
+   Linux plus Rosetta for x86-64 binaries.
