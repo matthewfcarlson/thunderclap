@@ -46,6 +46,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import addr_names  # noqa: E402
 import clang_probe as cp  # noqa: E402
+import native_unbound as nu  # noqa: E402
 
 ROOT = cp.ROOT
 OUT = os.environ.get("HULK_NATIVE_MAC_DIR") or os.path.join(ROOT, "build/native-mac")
@@ -147,7 +148,7 @@ def compile_one(rel, digest, clang, cver=None):
     if os.path.exists(res_p):
         r = json.load(open(res_p))
         r["obj"] = os.path.join(CACHE, os.path.basename(r["obj"]))  # (a cache made on another host)
-        if r["rc"] != 0 or os.path.exists(r["obj"]):
+        if r["rc"] != 0 or (os.path.exists(r["obj"]) and nu.has_signatures(r["obj"])):
             return r
     obj = os.path.join(CACHE, key + ".o")
     ll = os.path.join(CACHE, key + ".ll")
@@ -161,6 +162,7 @@ def compile_one(rel, digest, clang, cver=None):
             stage = "retarget"
             inits = []
             ir = retarget(open(ll, errors="surrogateescape").read(), rel, inits)
+            nu.save_signatures(ir, obj)     # (the link's address bindings check calls by these: native_unbound.py)
             with open(ll + ".m.ll", "w", errors="surrogateescape") as f:
                 f.write(ir)
             stage = "back"
@@ -679,6 +681,12 @@ def cmd_link(a):
     rtti += owned
     defined |= set(re.findall(r'^"_(DAT_[0-9a-f]{8})":', owned, re.M))
     undef = {s for s in refs if s not in defined}
+    # names that carry an XBE address bound to the tree's definition there where the IR signatures agree
+    # (native_unbound.py; per object, applied by renaming in the link step), verified against the Wine build's
+    # binding map of the same tree (--bindings)
+    addr_ren, addr_why, addr_bound = ({}, {}, set()) if getattr(a, "no_addr", False) else nu.plan_link(
+        objs, syms, nu.Defs(defined), defined, set(td_names) | set(re.findall(r'^"_(DAT_[0-9a-f]{8})":', owned, re.M)),
+        verify=nu.wine_index(a.bindings) if a.bindings and os.path.exists(a.bindings) else None)
     if not a.name_table:
         table, why, amb = None, {}, set()
     else:
@@ -699,6 +707,11 @@ def cmd_link(a):
             groups[g] += 1
             unbound.append((g, refs[s], s, dem.get(s, s)))
             continue
+        if s in addr_bound:
+            groups["bound by the address in the name"] += 1
+            continue
+        if s in addr_why and addr_why[s][0] == "bound in some objects only":
+            groups["bound by the address in the name in some objects only (stubbed for the others)"] += 1
         t = table.get(k) if table is not None else None
         if t:
             aliases[s] = t
@@ -741,6 +754,11 @@ def cmd_link(a):
         f.write(startup)
     with open(os.path.join(OUT, "link", "tu-inits-not-run.txt"), "w") as f:
         f.write("".join(u + "\n" for u in unused))
+    crt_like = {u for g, _n, u, _d in unbound if g.startswith("native CRT table")}
+    LINK_STATE["addr_renames"] = {o: {r: t for r, t in m.items() if r not in crt_like} for o, m in addr_ren.items()}
+    lk["address bindings"] = nu.plan_report(addr_why, addr_bound, refs)
+    lk["address bindings"]["verified against"] = (a.bindings if a.bindings and os.path.exists(a.bindings) else None) \
+        if not getattr(a, "no_addr", False) else "off (--no-addr)"
     if a.ld:
         lk["ld64"] = ld64(objs, aliases, [u for _, _, u, _ in unbound], [os.path.join(OUT, "link", "startup.s"), os.path.join(OUT, "link", "rtti.s")])
     with open(os.path.join(OUT, "link-report.json"), "w") as f:
@@ -793,7 +811,8 @@ def ld64(objs, aliases, unbound, extra_asm=()):
     sys_def = nb.macos_system_names()
     table = nb.Table()
     binding = nb.plan(set().union(*(u for _dd, u in game_syms.values())) - game_def - asm_def, table)
-    objs, bind_st = nb.apply(objs, binding, game_syms, os.path.join(d, "bound"), "macho")
+    objs, bind_st = nb.apply(objs, binding, game_syms, os.path.join(d, "bound"), "macho",
+                             extra=LINK_STATE.get("addr_renames"))   # (+ the address bindings: native_unbound.py)
     hooks = host_undef - game_def - asm_def - host_def - sys_def - {"hulk_game_main"}
     want = ((set(unbound) - set(binding)) | (host_undef - game_def - asm_def)) - host_def - sys_def - hooks
     dem = cp.undname(sorted(s for s in want if s.startswith("?")))
@@ -921,8 +940,10 @@ def main(argv=None):
     sub.add_parser("sites")
     sub.add_parser("crt", help="check src/platform/sdl/crt/native_crt_table.h and resolve its targets on this host")
     lk = sub.add_parser("link")
-    lk.add_argument("--bindings", default=os.path.join(ROOT, "build/native/bindings.json"))
+    lk.add_argument("--bindings", default=os.path.join(ROOT, "build/native/bindings.json"),
+                    help="the Wine build's binding map of the same tree (verifies the address bindings)")
     lk.add_argument("--ld", action="store_true", help="also try ld64 with every unbound symbol stubbed")
+    lk.add_argument("--no-addr", action="store_true", help="no bindings by the address in the name (native_unbound.py)")
     lk.add_argument("--name-table", action="store_true",
                     help="also bind through the Wine build's binding map (x64-3's inventory; rejected as a link step, "
                          "for comparison only)")

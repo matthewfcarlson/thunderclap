@@ -208,3 +208,138 @@ byte offsets into include/gen/ classes' pads that need the real fields (0x00292b
 record with a destructor on Win64 (0x001f8670); 0x00277500 (crash64 at one seed after its slot is typed), 0x002e9880
 (png `pCAL`: the `sizeof(char*)` fix is in, an aliasing artefact remains). va1's caller declarations that pass the Lua
 state through `int` (`Format`, `Setup`, `Grow`, owners `Obj_1d19f0::field`) need the script classes' 64-bit layout.
+
+## Unbound names of the 64-bit links (unb1, 2026-11-04)
+
+A2 item 1 ([native-android.md](native-android.md) section 13). Before this work the native links had 46,350 unbound
+names on arm64 macOS and 46,349 on x86-64 Linux and arm64 Android. The Wine build's strict link had 1,324. Five
+name-unification batches had barely moved the native number.
+
+**Why the two numbers differ.** They are not comparable. Before binding, the Wine build's strict link has about the
+same undefined names as the native links: 47,639 symbols with 53,291 references (its `report.json`,
+`undefined_before`). Its 1,324 is what is left *after* `tools/wine_link.py` binds 49,137 aliases. 39,129 of those
+aliases come from the binding map, where each relocation is bound to the address it was proven to reach. Another
+6,208 are stub-vftable slot aliases, and 1,488 are stand-in bodies. The native links bound nothing by name, by
+design ([native-mac.md](native-mac.md) section 9).
+
+Most names are undefined because of the tree, not because of how they are spelled:
+- gen_tree puts every TU's own declarations in a TU namespace (`fn_f<7 hex>`), and wraps sources in `fn_<addr>`
+  ([source-tree.md](source-tree.md)).
+- So a call from one TU to a function another TU defines names a symbol nobody defines:
+  `fn_00031310::FUN_0002b380` for the definition `fn_ff0a839e::FUN_0002b380`. Only include/gen/ and include/decls/
+  names are global.
+- A caller that spells its callee perfectly still does not meet the definition by name. That is why renaming alone
+  moved the number so little.
+
+**Classification** (`tools/native_unbound.py classify`; the same snapshot as ptr1's batch 2 build, HEAD d02bb4336).
+The "Wine build" column says how the Wine link binds the same names: its binding map, looked up by demangled form.
+
+| class | macOS | Linux | Android | how the Wine build binds them | fix |
+|---|---|---|---|---|---|
+| **A. the name carries an address, the tree defines it, the IR signatures agree, and the Wine map binds the name there** | 11,420 (11,809 refs) | 11,428 | 11,427 | equiv.py by name: 9,471; relocation position: 1,949 | **bound now** (below) |
+| B. the name carries an address, but the caller's declaration passes differently on 64-bit | 9,961 (10,088 refs) | 9,953 | 9,954 | by name / position (on 32-bit the two shapes are the same stack and `eax`) | the sources' declarations (below) |
+| C. the name carries an address, other reasons: the Wine map has no binding (474) or says another address (113); no tree definition (303); interior data address (250); a class named by address (126); no unique 64-bit definition (99); outside .text (36); bound in some objects only (19); ambiguous in the map (12) | 1,432 | 1,432 | 1,432 | by position, or stubbed | per case |
+| D1. invented: virtual members of stub classes, referenced only by clang's stub vftables | 7,570 | 7,570 | 7,570 | stub-vftable slot aliases 6,224; stubbed 1,170 | include/gen/ classes (consolidation) |
+| D2. invented: non-virtual members of stub classes | 6,908 | 6,908 | 6,908 | relocation position 6,374 | names that carry the address (clean2's convention) |
+| D3. invented: free functions (`thunk_FUN_` included: the thunk is not at the address in its name) | 3,357 | 3,357 | 3,357 | relocation position 2,981 | the same |
+| D4. invented: vftable variables (`CondVtable`, `g_vftable_1916c0`) | 2,121 | 2,121 | 2,121 | relocation position | `DAT_<addr>` / the class's own vftable |
+| D5. invented: variables | 1,902 | 1,902 | 1,902 | relocation position | `DAT_<addr>` (include/decls/data) |
+| D6. invented: constructors / destructors of stub classes | 1,308 | 1,308 | 1,308 | relocation position | include/gen/ classes |
+| D7. invented C names (311) and RTTI descriptors (60) | 371 | 370 | 370 | relocation position, ambiguous renames | names in the sources |
+| total | 46,350 | 46,349 | 46,349 | | |
+
+Class B, by kind (macOS; the ELF targets differ by a few names):
+
+| kind | names |
+|---|---|
+| argument count (`FUN_00019420()` called on a destructor that takes `this`; a member declared as a free function) | 3,504 |
+| pointer / `int` argument | 2,721 |
+| pointer / `int` result | 833 |
+| `float` result for a `hulk_freg` (double) definition | 676 |
+| `float` / `int` argument | 468 |
+| pointer / `__int64` and `int` / `__int64` arguments | 526 |
+| integers of other widths (`bool` / `char` / `short` / `int` / `__int64` results and arguments) | 1,011 |
+| the rest (a void definition read for a result 102, `float` / pointer 48, code / data 15, sret and by-value aggregates, variadic / fixed) | 222 |
+
+The B and D classes are the sources' work, not the link's. Two measurements:
+- Even the rejected name table would not do it. Use the Wine map to bind the D names, with the same IR check:
+  4,876 would bind. 7,452 have no binding in the map, 5,997 are bound to an address with no 64-bit definition, and
+  the rest pass differently on 64-bit (`classify --whatif`).
+- A definition-side fix would bind 2,585 B names in one go. These are 733 definitions that take or return an `int`
+  where every caller passes a pointer (`build/unb1/scripts/defside.py`): 487 members, 148 free C++ functions, 87 C
+  names and 11 `owners::` members. The fix is `hulk_intptr` / `hulk_uintptr` or the pointer type. Those spell the
+  same on the 32-bit builds, so the MSVC and Wine objects stay identical.
+
+**The fix: binding by the address in the name** (tools/native_unbound.py, called by both native links).
+
+1. **Which names.** A name binds if it carries an address: `FUN_<addr>`, the suffix convention (`SetArc_000480a0`),
+   or `DAT_<addr>` / `PTR_` / `hulk_at_` (tools/addr_names.py).
+   - Every checker reads these names the same way (equiv.py name_address, wine_link name_address).
+   - The tree's definition at that address is the tree build's report matched to the 64-bit symbols, as
+     native_mac.TreeDefs does. If the types differ (a `hulk_freg` result, `hulk_intptr` parameters), the one
+     function with that qualified name is used.
+   - A data name binds to the data TU's item. A vftable or RTTI record binds to its link-table label.
+2. **The ABI check.** Both native compiles now write `<obj>.sig.json` beside every object:
+   - It holds the IR signature of every function the TU defines or declares, after the MS front end's lowering
+     (`this`, sret / byval with their sizes, a constructor's returned `this`, `signext` / `zeroext` / `inreg`,
+     `win64cc`), and the size of every global.
+   - A reference binds only where its signature in that object equals the definition's.
+   - `ptr` and `i64` count as equal: one 64-bit integer register or stack slot on all three ABIs.
+   - A caller that ignores a result the definition returns is accepted.
+   - Data binds when the referenced global is no larger than the item.
+   - Signatures are compared per object, so a C name declared two ways in two TUs binds only where it agrees.
+3. **The verification.** The sources' `FUN_` names are claims that no checker verifies. verify_relocs checks only
+   the suffix convention.
+   - 113 of them are wrong. Sources propagated from a function of the same code shape keep that function's callee
+     names: matches/0x00024170.cpp calls `ThisCall_00067a20::FUN_00019420()`, and the call goes to 0x00067a20.
+   - So the link takes the Wine build's binding map of the same tree (`--bindings`) and binds only names that the
+     map binds to the address the name says.
+   - Without a map, nothing binds by address.
+   - The map is a check here and never a source of bindings: a name it binds elsewhere stays unbound.
+   - All 11,420 bound names agree with the map (`classify`'s cross-check).
+4. **Applying it.** The link renames, per object, the references to the definition's symbol (`llvm-objcopy
+   --redefine-sym` on copies). This uses the step native_bind.py uses for the CRT table (its `extra` renames), on
+   Mach-O and ELF alike. `--no-addr` turns it off.
+
+`thunk_FUN_<x>` names carry no address. Ghidra names the thunk *to* x; the thunk sits elsewhere: 0x00263ea0 for
+`thunk_FUN_0008d690`.
+
+| | before (ptr1 batch 2's objects) | after |
+|---|---|---|
+| native compile | - | objects byte-identical to ptr1's (3,736 / 3,736 per target), plus a `.sig.json` sidecar |
+| arm64 macOS unbound / ld64 | 46,350 / rc 0 | **34,930** / rc 0, 0 CRT binding problems |
+| x86-64 Linux unbound / lld | 46,349 / rc 0 | **34,921** / rc 0, 0 problems |
+| arm64 Android unbound / lld | 46,349 / rc 0 | **34,922** / rc 0, 0 problems |
+| references renamed | - | 12,686 in 1,333 objects (macOS) |
+| tests/native_host | - | crt_bind (3 targets), shim (3), replay_native, va_tree (mac, x64), rtti, entry: all ok; native_unbound_test 4/4 |
+| macOS start-up | stops in init 1 at `FUN_0027b020` | init 1 runs; init 2 (0x0035c700) stops at `owners::String_23fc40::FUN_0023fb20`, a class B name: the definition takes `unsigned int` for the caller's `const char*` |
+
+No Wine build input changed. The Wine build does not import the native tools, and no source, header or gen_tree
+changed.
+
+```sh
+PY=build/venv/bin/python; export HULK_CLANG_PROBE_DIR=<dir with snap/>
+$PY tools/native_mac.py link --ld --bindings <Wine build's bindings.json of the same tree>
+$PY tools/native_elf.py link --target linux-x64 --ld --bindings B.json
+$PY tools/native_unbound.py classify --dir build/native-mac [--fmt elf] [--unbound U.txt] --bindings B.json \
+    --wine-unbound <Wine unbound.txt> [--whatif] [--json OUT]     # the table above
+$PY tests/native_host/native_unbound_test.py
+```
+
+The Wine build's binding map lives in the lineage workspace on the build host: `~/hulk-jobs/nb/ws/<lineage>/build/native/bindings.json`.
+
+**Left, largest first.**
+1. **Stub vftables (D1, 7,570).** Clang emits vftables for stub classes, and their slots reference stub members. The
+   Wine link points those vftables at the game's and aliases their slots by the binding map. Native code that
+   installs a stub vftable would call stubs. The consolidation (include/gen/ classes with their real vftables) is
+   the fix.
+2. **Invented callee names (D2, D3, D6: 11,573).** Callers name the callee by an invented stub name. The fix is
+   renaming to the clean2 convention (`Fin_00165d30`), which the link now binds. name_unify.py has the machinery. At
+   most about 4,900 of them have a matching IR signature today.
+3. **Declarations that pass differently (B, 9,961).**
+   - The definition-side batch: 733 definitions, 2,585 names.
+   - Callers' declarations: the argument-count class, and 676 `float` callers of `hulk_freg` functions.
+   - These are real 64-bit bugs, not naming problems.
+4. **Data and vftable variables (D4, D5: 4,023).** `DAT_<addr>` names and include/decls/data.
+5. **Class C (1,432).** Of these, 113 `FUN_` names in sources are wrong. A `name_address_mismatch` sweep of
+   verify_relocs over `FUN_` names (clean2's open item) would find them in matches/.

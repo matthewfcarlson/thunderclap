@@ -54,6 +54,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import clang_probe as cp  # noqa: E402
 import native_mac as nmac  # noqa: E402
+import native_unbound as nu  # noqa: E402
 import native_bind as nb  # noqa: E402
 
 ROOT = cp.ROOT
@@ -235,7 +236,7 @@ def compile_one(rel, digest, tc, cache, is_host):
     if os.path.exists(res_p):
         r = json.load(open(res_p))
         r["obj"] = os.path.join(cache, os.path.basename(r["obj"]))
-        if r["rc"] != 0 or os.path.exists(r["obj"]):
+        if r["rc"] != 0 or (os.path.exists(r["obj"]) and nu.has_signatures(r["obj"])):
             return r
     obj = os.path.join(cache, key + ".o")
     ll = os.path.join(cache, key + ".ll")
@@ -248,6 +249,7 @@ def compile_one(rel, digest, tc, cache, is_host):
         if rc == 0:
             stage = "retarget"
             ir = retarget_elf(open(ll, errors="surrogateescape").read(), tc, rel, inits, is_host)
+            nu.save_signatures(ir, obj, unescape)     # (the link's address bindings: native_unbound.py)
             with open(ll + ".e.ll", "w", errors="surrogateescape") as f:
                 f.write(ir)
             stage = "back"
@@ -471,7 +473,8 @@ def lld(tc, d, objs, unbound, extra_asm):
     # take no game reference
     table = nb.Table()
     binding = nb.plan(set().union(*(u for _dd, u in game_syms.values())) - game_def - asm_def, table)
-    objs, bind_st = nb.apply(objs, binding, game_syms, os.path.join(d, "bound"), "elf")
+    objs, bind_st = nb.apply(objs, binding, game_syms, os.path.join(d, "bound"), "elf",
+                             extra=nmac.LINK_STATE.get("addr_renames"))   # (+ the address bindings: native_unbound.py)
     # the shim's hooks the host glue calls (null stubs); the game's main is a missing stub (reported) like any other
     hooks = host_undef - game_def - asm_def - host_def - sys_def - {"hulk_game_main"}
     dem = cp.undname(sorted(s for s in set(unbound) if s.startswith("?")))
@@ -537,11 +540,12 @@ def cmd_link(a):
     import contextlib
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
-        nmac.cmd_link(argparse.Namespace(name_table=False, bindings=None, ld=a.ld))
+        nmac.cmd_link(argparse.Namespace(name_table=False, bindings=a.bindings, ld=a.ld, no_addr=a.no_addr))
     lk = json.load(open(os.path.join(out, "link-report.json")))
     crt = sum(n for g, n in lk["groups"].items() if g.startswith("native CRT table"))
     lk["target"] = a.target
-    lk["unbound (undefined less the native CRT table's rows)"] = lk["undefined"] - crt
+    lk["unbound (undefined less the native CRT table's rows)"] = lk["undefined"] - crt - lk["groups"].get(
+        "bound by the address in the name", 0)     # (the address bindings: native_unbound.py)
     if "ld64" in lk:
         lk["lld"] = lk.pop("ld64")
     with open(os.path.join(out, "link-report.json"), "w") as f:
@@ -561,6 +565,9 @@ def main(argv=None):
     r = sub.add_parser("report")
     lk = sub.add_parser("link")
     lk.add_argument("--ld", action="store_true", help="also link the image with lld (every unbound name stubbed)")
+    lk.add_argument("--no-addr", action="store_true", help="no bindings by the address in the name (native_unbound.py)")
+    lk.add_argument("--bindings", default=os.path.join(ROOT, "build/native/bindings.json"),
+                    help="the Wine build's binding map of the same tree (verifies the address bindings)")
     rt = sub.add_parser("retarget")
     rt.add_argument("inp")
     rt.add_argument("out")
