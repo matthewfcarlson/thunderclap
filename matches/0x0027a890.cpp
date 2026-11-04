@@ -1,7 +1,8 @@
 #include "compat/ptr.h"
 class RDLObject {
   public:
-    char pad[0x10];
+    hulk_intptr vtable;
+    char pad[0x10 - 4];
     int a;
     int b;
     char pad2[0x1f];

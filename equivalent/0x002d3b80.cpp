@@ -25,7 +25,7 @@ struct ParticleSphereGenerator : ParticleGenerator {
 void* __cdecl FUN_0008d6d0(uint);
 pure3d::ParticleSphereGenerator::ParticleSphereGenerator(const ParticleSphereGenerator& source) : ParticleGenerator(source) {
  object=0;
- uint size=source.count*4;
+ uint size=source.count*sizeof(Ref_2d3b80*);
  if(source.count) {
  entries=(Ref_2d3b80**)FUN_0008d6d0(size);
  if(entries) end=(Ref_2d3b80**)((char*)entries+size);

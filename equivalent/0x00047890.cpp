@@ -39,7 +39,7 @@ CCharacterTemplateManager::CCharacterTemplateManager(uint_47890 arg,uint_47890 n
  for(uint_47890 i=0;i<total;++i) p[i]=0;
  Registry_47890* r=FUN_001d4c90();
  if(r) {
-  void* mem=FUN_0008d690(36);
+  void* mem=FUN_0008d690((int)sizeof(Closure1<CCharacterTemplateManager,void,const char*>));
   Closure1<CCharacterTemplateManager,void,const char*>* cb=0;
   if(mem) {
    ((CallbackBase*)mem)->FUN_001d0480("ctm_UnloadCharacterTemplate",1);

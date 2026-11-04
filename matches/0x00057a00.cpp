@@ -4,7 +4,7 @@
 extern "C" char DAT_003f6fec[];
 class CCollisionPushbackDirectionCondition_57a00 {
   public:
-    int pad0;
+    hulk_intptr pad0;
     int pad4;
     int pad8;
     int mA;
@@ -17,9 +17,9 @@ template <> void* fight::ConditionFactoryTemplate<CCollisionPushbackDirectionCon
     CCollisionPushbackDirectionCondition_57a00* p = (CCollisionPushbackDirectionCondition_57a00*)FUN_0008d690((int)sizeof(CCollisionPushbackDirectionCondition_57a00));
     if (p) {
         p->Init(0);
-        *(hulk_intptr*)p = ((hulk_intptr)DAT_003f6fec);
-        *(int*)((char*)p + 0xc) = 0;
-        *(int*)((char*)p + 0x10) = 0x3fc90fdb;
+        p->pad0 = ((hulk_intptr)DAT_003f6fec);
+        p->mA = 0;
+        p->mB = 0x3fc90fdb;
         return (void*)(p);
     }
     return (void*)((void*)0);

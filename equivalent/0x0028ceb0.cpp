@@ -13,7 +13,7 @@ BoolChannel_28ceb0* __stdcall FUN_0028ceb0(Owner_28ceb0* owner, unsigned unused,
  ((owners::X_2647e0 *)(owner->stream))->FUN_002647e0((hulk_intptr)(&count), (hulk_intptr)1, 2, (hulk_intptr)1);
  bool active = (unsigned short)count == 1;
  ((owners::X_2647e0 *)(owner->stream))->FUN_002647e0((hulk_intptr)(&count), (hulk_intptr)1, 4, (hulk_intptr)1);
- BoolChannel_28ceb0* storage = (BoolChannel_28ceb0*)(pool ? ((void *)((owners::C_2888c0 *)pool)->FUN_002888c0(0x1c, 7)) : FUN_0008d690(0x1c));
+ BoolChannel_28ceb0* storage = (BoolChannel_28ceb0*)(pool ? ((void *)((owners::C_2888c0 *)pool)->FUN_002888c0((int)sizeof(BoolChannel_28ceb0), 7)) : FUN_0008d690((int)sizeof(BoolChannel_28ceb0)));
  BoolChannel_28ceb0* result = storage ? storage->FUN_0028c370(count+1,pool) : 0;
  unsigned short* destination = result->entries + 1;
  result->value = value;

@@ -35,7 +35,7 @@ bool Registry_106900::Add(const char* name, char flag, int n)
     if (n <= 0)
         return false;
 
-    void* mem = thunk_FUN_0008d690(0x20);
+    void* mem = thunk_FUN_0008d690((int)sizeof(CPatrolPath_106900));
     CPatrolPath_106900* e = 0;
     if (mem != 0)
         e = ((CPatrolPath_106900*)mem)->FUN_00106510(n);

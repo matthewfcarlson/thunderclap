@@ -135,15 +135,15 @@ void SkeletonLoader::F(Skeleton **out, unsigned __int64 *outId, Loader_27c140 *l
             fr.v14 = (hulk_intptr)sp;
         }
         sp->f4 = FUN_0027b340(fr.N);
-        sp->names8 = (char **)FUN_0008d6d0(nJoints * 4);
+        sp->names8 = (char **)FUN_0008d6d0(nJoints * sizeof(char *));
         unsigned int b2 = fr.v10;
         if (b2 != 0) {
             sp->fc = b2;
-            sp->names10 = (char **)FUN_0008d6d0(b2 * 4);
+            sp->names10 = (char **)FUN_0008d6d0(b2 * sizeof(char *));
         }
         unsigned int b3 = fr.v18;
         if (b3 != 0)
-            sp->names14 = (char **)FUN_0008d6d0(b3 * 4);
+            sp->names14 = (char **)FUN_0008d6d0(b3 * sizeof(char *));
         sk->info = sp;
         sp = 0;
     }

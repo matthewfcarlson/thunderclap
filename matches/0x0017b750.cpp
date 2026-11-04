@@ -15,15 +15,16 @@ class TeleportAction_17b750 {
     TeleportAction_17b750* vfunc_2(int flag);
 
   private:
-    char pad[0x1c];
+    hulk_intptr vtable;
+    char pad[0x1c - 4];
     int m_1c;
     RefCounted_17b750* m_20;
 };
 
 TeleportAction_17b750* TeleportAction_17b750::vfunc_2(int flag) {
-    volatile int* p = (volatile int*)this;
+    volatile hulk_intptr* p = (volatile hulk_intptr*)this;
     *p = (hulk_intptr)&g_vt_17b750;
-    RefCounted_17b750* q = (RefCounted_17b750*)p[8];
+    RefCounted_17b750* q = *(RefCounted_17b750* volatile*)&m_20;
     if (q != 0) {
         q->Release();
         m_20 = 0;

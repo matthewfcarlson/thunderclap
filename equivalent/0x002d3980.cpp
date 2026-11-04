@@ -19,7 +19,7 @@ pure3d::ParticlePlaneGenerator* pure3d::ParticlePlaneGenerator::copy(const Parti
  data.FUN_0027af70(&src.data);
  new(this) ParticlePlaneGenerator;
  object=0;
- unsigned int bytes=src.count*4;
+ unsigned int bytes=src.count*sizeof(Ref_2d3980*);
  if(src.count>0) { items=(Ref_2d3980**)FUN_0008d6d0(bytes); if(items) end=(Ref_2d3980**)((char*)items+bytes); else {items=0;end=0;} } else {items=0;end=0;}
  for(unsigned int j=0;j<10;++j) fields[j]=src.fields[j];
  Ref_2d3980* r=src.object; if(r) r->AddRef(); if(object) object->Release(); object=r;

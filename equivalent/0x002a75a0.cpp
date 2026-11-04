@@ -76,7 +76,7 @@ void Holder_2a75a0::FUN_002a75a0(const Source_2a75a0 *src)
             begin = 0;
             end = 0;
         } else {
-            Owned_2a75a0 **mem = (Owned_2a75a0 **)FUN_0008d6d0(n * 4);
+            Owned_2a75a0 **mem = (Owned_2a75a0 **)FUN_0008d6d0(n * sizeof(Owned_2a75a0 *));
             begin = mem;
             if (mem == 0) {
                 begin = 0;

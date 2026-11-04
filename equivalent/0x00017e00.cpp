@@ -99,7 +99,7 @@ bool CHeliDeathSpiralAction::vfunc_6(int arg)
     float cf2c = c0->f2c;
     float cf30 = c0->f30;
     float cf34 = c0->f34;
-    void *mem = thunk_FUN_0008d690(0x70);
+    void *mem = thunk_FUN_0008d690((int)sizeof(JointDriver_17e00));
     JointDriver_17e00 *o = 0;
     if (mem)
         o = ((JointDriver_17e00 *)mem)->FUN_002248f0(0);

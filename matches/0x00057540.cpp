@@ -3,7 +3,7 @@
 
 class CCharacterSizeCondition_57540 {
   public:
-    int x;
+    hulk_intptr x;
     int a;
     int b;
     int c;
@@ -17,9 +17,9 @@ template <> void* fight::ConditionFactoryTemplate<CCharacterSizeCondition>::vfun
     CCharacterSizeCondition_57540* p = (CCharacterSizeCondition_57540*)FUN_0008d690((int)sizeof(CCharacterSizeCondition_57540));
     if (p) {
         p->Init(0);
-        *(hulk_intptr*)p = (hulk_intptr)g_vtable_57540;
-        *(int*)((char*)p + 0xc) = 0;
-        *(int*)((char*)p + 0x10) = 0;
+        p->x = (hulk_intptr)g_vtable_57540;
+        p->c = 0;
+        p->d = 0;
         return (void*)(p);
     }
     return (void*)(0);

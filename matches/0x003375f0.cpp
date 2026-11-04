@@ -10,7 +10,7 @@ class Elem_3375f0 {
 
 class Container_3375f0 {
   public:
-    int m_vptr;         // 0x00
+    hulk_intptr m_vptr;         // 0x00
     int field4;         // 0x04
     char elems[0x5100]; // 0x08 .. 0x5108
     int f5108;          // 0x5108
@@ -20,7 +20,7 @@ class Container_3375f0 {
 };
 
 Container_3375f0* Container_3375f0::Init() {
-    *(hulk_intptr*)this = (hulk_intptr)((char*)&DAT_00434574);
+    this->m_vptr = (hulk_intptr)((char*)&DAT_00434574);
     char* p = elems;
     for (int i = 0x20; i != 0; --i) {
         ((Elem_3375f0*)p)->Init();

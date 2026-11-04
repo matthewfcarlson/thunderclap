@@ -1,7 +1,11 @@
 #include "compat/ptr.h"
 class Obj_213440 {
   public:
-    char pad[0x10];
+    // lua_State's head: CommonHeader (next, tt, marked), top, base, then l_G (pointers: +0x10 on i386, +0x20 on x64)
+    void* next;
+    unsigned char tt, marked;
+    void* top;
+    void* base;
     void* state;
 };
 struct State_213440 {

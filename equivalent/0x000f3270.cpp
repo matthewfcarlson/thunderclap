@@ -168,7 +168,7 @@ bool FEThingsBase::vfunc_35(Reader *r, int unused, Dest_f3270 *dst, Key_f3270 *k
         u64_f3270 id = r->FUN_000faeb0();
         if ((unsigned int)id != 0xa6dce4eb)
             return false;
-        void *mem = FUN_0008d690(0x1c);
+        void *mem = FUN_0008d690((int)sizeof(Item_f3270));
         Item_f3270 *it = 0;
         if (mem != 0)
             it = ((Item_f3270 *)mem)->FUN_000dee10();

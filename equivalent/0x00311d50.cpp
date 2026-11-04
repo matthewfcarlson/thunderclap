@@ -93,7 +93,7 @@ void SkeletonBuilder::FUN_00311d50()
         return;
     }
     capacity = ((owners::C_30f450 *)source)->FUN_0030f450();
-    Bone_311d50 **mem = (Bone_311d50 **)FUN_0008d6d0(capacity * 4);
+    Bone_311d50 **mem = (Bone_311d50 **)FUN_0008d6d0(capacity * sizeof(Bone_311d50 *));
     table = mem;
     memset(mem, 0, capacity * 4);
     for (int i = 0; i < count; i++) {
@@ -124,7 +124,7 @@ void SkeletonBuilder::FUN_00311d50()
         int n = counts[list[i]->id];
         Bone_311d50 **begin;
         if (n != 0) {
-            begin = (Bone_311d50 **)FUN_0008d6d0(n * 4);
+            begin = (Bone_311d50 **)FUN_0008d6d0(n * sizeof(Bone_311d50 *));
             b->childBegin = begin;
             if (begin != 0) {
                 b->childCapEnd = begin + n;

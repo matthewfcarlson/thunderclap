@@ -15,15 +15,16 @@ class CivilianAnimationAction_14b030 {
     CivilianAnimationAction_14b030* vfunc_2(int flag);
 
   private:
-    char pad[0x1c];
+    hulk_intptr vtable;
+    char pad[0x1c - 4];
     int m_1c;
     RefCounted_14b030* m_20;
 };
 
 CivilianAnimationAction_14b030* CivilianAnimationAction_14b030::vfunc_2(int flag) {
-    volatile int* p = (volatile int*)this;
+    volatile hulk_intptr* p = (volatile hulk_intptr*)this;
     *p = (hulk_intptr)&g_vt_14b030;
-    RefCounted_14b030* q = (RefCounted_14b030*)p[8];
+    RefCounted_14b030* q = *(RefCounted_14b030* volatile*)&m_20;
     if (q != 0) {
         q->Release();
         m_20 = 0;

@@ -2242,7 +2242,7 @@ struct Obj_61fd0 {
 // matches/0x00062180.cpp (stub Obj_62180), size 0x50
 struct Obj_62180 {
     char pad[0x50]; // +0x00
-    char FUN_00062180(float v);
+    char FUN_00062180(const char* v);
 };
 // matches/0x000626c0.cpp (stub X_626c0), size 0x90
 struct X_626c0 {

@@ -65,8 +65,8 @@ void ParticleBuffers::FUN_000dc810(int newCount)
     flags[0] = 0;
     positions = (Vec3_dc810 *)FUN_0008d6d0(count * 12);
     velocities = (Vec3_dc810 *)FUN_0008d6d0(count * 12);
-    links0 = (void **)FUN_0008d6d0(count * 4);
-    links1 = (void **)FUN_0008d6d0(count * 4);
+    links0 = (void **)FUN_0008d6d0(count * sizeof(void *));
+    links1 = (void **)FUN_0008d6d0(count * sizeof(void *));
     ids = (int *)FUN_0008d6d0(count * 4);
 
     for (int i = 0; i < count; i++) {

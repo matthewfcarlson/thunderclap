@@ -2,7 +2,8 @@
 extern "C" char DAT_0042ba20[];
 class FileOpenByKeyRequest_274fc0 {
   public:
-    char pad[12];
+    hulk_intptr vtable;
+    char pad[12 - 4];
     int y;
     int z;
     void Init(int);

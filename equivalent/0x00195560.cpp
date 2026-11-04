@@ -162,7 +162,7 @@ bool FUN_00195560(V3_195560 *self, Src_195560 *src, V3_195560 *b, int id, Mgr_19
     f.x.p50 = r;
 
     if (m1) {
-        void *mem = FUN_0008d690(0xb0);
+        void *mem = FUN_0008d690((int)sizeof(CFightParamsCollision_195560));
         CFightParamsCollision_195560 *e = 0;
         if (mem)
             e = ((CFightParamsCollision_195560 *)mem)->FUN_000598e0(*esi->f10, &f.x);
@@ -185,7 +185,7 @@ bool FUN_00195560(V3_195560 *self, Src_195560 *src, V3_195560 *b, int id, Mgr_19
 
     Obj_195560 *p = f.o;
     if (p && m2) {
-        void *mem = FUN_0008d690(0xb0);
+        void *mem = FUN_0008d690((int)sizeof(CFightParamsCollision_195560));
         CFightParamsCollision_195560 *e = 0;
         if (mem)
             e = ((CFightParamsCollision_195560 *)mem)->FUN_000598e0(id, &f.x);

@@ -209,7 +209,7 @@ bool CGrappleLocoStrafe4Action::vfunc_6(int arg)
         f.anims[9] = a6;
         f.anims[10] = a7;
         f.anims[11] = a8;
-        void *mem = thunk_FUN_0008d690(0x1330);
+        void *mem = thunk_FUN_0008d690((int)sizeof(choreo2::LocomotionStrafeDriver));
         choreo2::LocomotionStrafeDriver *nd = 0;
         if (mem)
             nd = ((choreo2::LocomotionStrafeDriver *)mem)->FUN_00227590(f.layers->FUN_002226b0(), 4, f.n, f.anims, 0);

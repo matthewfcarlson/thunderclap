@@ -17,7 +17,15 @@ class CamCfg {
 };
 struct Blend_983d0 {
     hulk_intptr vft;
-    char pad1[0x1a8 - 4];
+    char pad04[0x8 - 4];
+    char cfg08[0xd0 - 0x8];
+    int fieldd0;
+    char padd4[0x170 - 0xd4];
+    int field170;
+    int field174;
+    char pad178[0x17c - 0x178];
+    int field17c;
+    char pad180[0x1a8 - 0x180];
     int field1a8;
 };
 extern "C" Blend_983d0* __fastcall FUN_000983d0(Blend_983d0* self) {
@@ -25,15 +33,15 @@ extern "C" Blend_983d0* __fastcall FUN_000983d0(Blend_983d0* self) {
     CamCfg* c;
     ((CamInit*)self)->InitBase();
     self->vft = ((hulk_intptr)DAT_00404b3c);
-    p = (char*)self + 0x1a8;
+    p = (char*)&self->field1a8;
     ((CamSetup*)p)->SetupPart();
-    c = (CamCfg*)((char*)self + 8);
+    c = (CamCfg*)self->cfg08;
     const char* n = DAT_0049e108;
-    *(int*)((char*)self + 0xd0) = 5;
+    self->fieldd0 = 5;
     ((owners::Target_27b040 *)c)->FUN_0027b040((hulk_uintptr)n);
     *(int*)p = 0;
-    *(int*)((char*)self + 0x174) = 0;
-    *(int*)((char*)self + 0x170) = 0;
-    *(int*)((char*)self + 0x17c) = 0;
+    self->field174 = 0;
+    self->field170 = 0;
+    self->field17c = 0;
     return self;
 }

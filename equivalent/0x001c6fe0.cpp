@@ -143,7 +143,7 @@ void RoomLoader::vfunc_5(int *out0, unsigned __int64 *out1, Stream *s, void *inv
     s->reader->FUN_002647e0(&f.vC, 3, 4, 1);
     s->reader->FUN_002647e0(&f.x4, 1, 4, 1);
 
-    void *mem = FUN_0008d690(0x60);
+    void *mem = FUN_0008d690((int)sizeof(Obj_1c6fe0));
     Obj_1c6fe0 *obj;
     if (mem) {
         f.nm.FUN_0027b0e0(f.b1);

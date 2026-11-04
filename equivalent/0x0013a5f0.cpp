@@ -6,7 +6,7 @@
 
 struct AnimationState;
 struct AnimationResult {
-    bool FUN_00222a00(unsigned int value);
+    bool FUN_00222a00(void* clip);
 };
 struct AnimationState {
     AnimationResult* FUN_00059a40();
@@ -21,5 +21,5 @@ bool hulkfight::motion::AnimationAction::vfunc_5(hulk_intptr event, int unused) 
     AnimationState* state = ((AnimationState *)((owners::Object_592a0 *)((*(AnimationSource * *)&this->f_20)))->FUN_000592a0());
     AnimationResult* result = state->FUN_00059a40();
     if (!result) return false;
-    return !result->FUN_00222a00((*(unsigned int *)&this->f_24));
+    return !result->FUN_00222a00(this->f_24);
 }

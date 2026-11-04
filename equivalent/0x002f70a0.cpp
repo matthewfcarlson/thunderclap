@@ -123,7 +123,7 @@ void physics::PhysicsObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, h
     int count = 0;
     if (f.b > 0) {
         int prev = FUN_00266da0(1);
-        parts = (Part_2f70a0 **)FUN_0008d6d0(f.b * 4);
+        parts = (Part_2f70a0 **)FUN_0008d6d0(f.b * sizeof(Part_2f70a0 *));
         FUN_00266da0(prev);
     }
     f.sm.FUN_002fca90();

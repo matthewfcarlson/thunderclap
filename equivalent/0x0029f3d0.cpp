@@ -35,7 +35,7 @@ pure3d::LightsChooser::CacheManager::CacheManager(void* context,int n) {
   }
  }
  entries=result;
- pointers=(Entry_29f3d0**)FUN_0008d6d0(count*4);
+ pointers=(Entry_29f3d0 **)FUN_0008d6d0(count * sizeof(Entry_29f3d0 *));
  for(int i=0;i<count;++i) {
   Light* light=(Light*)FUN_00263ea0(0x48);
   if(light) light=light->FUN_0029e6c0(context);

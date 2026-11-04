@@ -114,7 +114,7 @@ public:
     virtual void vfunc_4() = 0; // slot 4
     virtual void vfunc_5(void*, int) = 0; // slot 5
     virtual bool vfunc_6() = 0; // slot 6
-    virtual void vfunc_7(int, int, int, int, int, int) = 0; // slot 7
+    virtual void vfunc_7(hulk_intptr, int, int, int, int, int) = 0; // slot 7
     virtual void vfunc_8(void*, int, int, int, int, int) = 0; // slot 8
     virtual ~ICementLibrary() = 0; // overrides core::IRefCount slot 2
 };
@@ -156,7 +156,7 @@ public:
     virtual void vfunc_4(); // overrides core::ICementLibrary slot 4
     virtual void vfunc_5(void*, int); // overrides core::ICementLibrary slot 5
     virtual bool vfunc_6(); // overrides core::ICementLibrary slot 6
-    virtual void vfunc_7(int, int, int, int, int, int); // overrides core::ICementLibrary slot 7
+    virtual void vfunc_7(hulk_intptr, int, int, int, int, int); // overrides core::ICementLibrary slot 7
     virtual void vfunc_8(void*, int, int, int, int, int); // overrides core::ICementLibrary slot 8
     virtual void vfunc_3(int); // overrides core::IFileCompletionCallback slot 3
     virtual void vfunc_0_IMutable(); // overrides core::IMutable slot 0
@@ -1137,8 +1137,8 @@ public:
     virtual bool vfunc_9(void*, void*, void*, void*); // overrides core::IMemoryAllocator slot 9
     virtual void vfunc_10(); // overrides core::IMemoryAllocator slot 10
     virtual int vfunc_11(); // overrides core::IMemoryAllocator slot 11
-    int f_0c;
-    int f_10;
+    hulk_intptr f_0c;
+    hulk_intptr f_10;
     int f_14;
     int f_18;
     char _pad_1c[0x474];

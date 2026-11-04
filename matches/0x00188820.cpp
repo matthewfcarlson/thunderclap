@@ -15,15 +15,16 @@ class PropActorToPropAction_188820 {
     PropActorToPropAction_188820* vfunc_2(int flag);
 
   private:
-    char pad[0x1c];
+    hulk_intptr vtable;
+    char pad[0x1c - 4];
     int m_1c;
     RefCounted_188820* m_20;
 };
 
 PropActorToPropAction_188820* PropActorToPropAction_188820::vfunc_2(int flag) {
-    volatile int* p = (volatile int*)this;
+    volatile hulk_intptr* p = (volatile hulk_intptr*)this;
     *p = (hulk_intptr)&g_vt_188820;
-    RefCounted_188820* q = (RefCounted_188820*)p[8];
+    RefCounted_188820* q = *(RefCounted_188820* volatile*)&m_20;
     if (q != 0) {
         q->Release();
         m_20 = 0;

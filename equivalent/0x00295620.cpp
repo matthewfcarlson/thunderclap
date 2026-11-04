@@ -216,7 +216,7 @@ void TextureFontLoader::F(pure3d::TextureFont **out, unsigned __int64 *outId, St
     s->reader->FUN_002647e0(&fr.v14, 1, 4, 1);
     unsigned int cnt = fr.v14;
     font->pageCount = cnt;
-    font->pages = (Texture **)FUN_0008d6d0(cnt * 4);
+    font->pages = (Texture **)FUN_0008d6d0(cnt * sizeof(Texture *));
     memset(font->pages, 0, font->pageCount * 4);
     TextureLoader *tl = dynamic_cast<TextureLoader *>((*(Registry_295620**)&DAT_00527c58)->FUN_00265310(0x19000));
     tl->v0();

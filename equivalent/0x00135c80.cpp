@@ -114,7 +114,7 @@ char FlyingDashAction::vfunc_3(int a, int b)
     float f1c = cfg->f1c;
     float f20 = cfg->f20;
 
-    void* mem = thunk_FUN_0008d690(0x70);
+    void* mem = thunk_FUN_0008d690((int)sizeof(JointDriver_135c80));
     JointDriver_135c80* obj = 0;
     if (mem)
         obj = ((JointDriver_135c80*)mem)->FUN_002248f0(0);

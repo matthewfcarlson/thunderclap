@@ -82,12 +82,12 @@ EntityChannel_28ea80 *__stdcall FUN_0028ea80(Reader *r, LoadContext_28ea80 *ctx,
     r->stream->FUN_002647e0(&f.x, 1, 4, 1);
 
     if (parent == 0) {
-        void *mem = FUN_0008d690(0x1c);
+        void *mem = FUN_0008d690((int)sizeof(EntityChannel_28ea80));
         node = 0;
         if (mem)
             node = ((EntityChannel_28ea80 *)mem)->FUN_0028c2a0(f.x, 0);
     } else {
-        void *mem = parent->FUN_002888c0(0x1c, 7);
+        void *mem = parent->FUN_002888c0((int)sizeof(EntityChannel_28ea80), 7);
         node = 0;
         if (mem)
             node = ((EntityChannel_28ea80 *)mem)->FUN_0028c2a0(f.x, parent);

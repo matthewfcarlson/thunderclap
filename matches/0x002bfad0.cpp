@@ -2,7 +2,8 @@
 extern "C" char DAT_0042ea40[];
 class Image {
   public:
-    char pad0[0x10];
+    hulk_intptr vtable;
+    char pad0[0x10 - 4];
     int f10, f14, f18, f1c, f20, f24;
     char b28, b29;
     void InitBase();

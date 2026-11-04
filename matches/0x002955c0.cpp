@@ -2,7 +2,7 @@
 extern "C" char DAT_0042d1b0[];
 class TextureFontLoader {
   public:
-    int a;
+    hulk_intptr a;
     int m4;
     int m8;
     int mc;
@@ -14,5 +14,5 @@ TextureFontLoader::TextureFontLoader() {
     m8 = 0x22000;
     mc = 0;
     m10 = 0;
-    *(hulk_intptr*)this = ((hulk_intptr)DAT_0042d1b0);
+    this->a = ((hulk_intptr)DAT_0042d1b0);
 }

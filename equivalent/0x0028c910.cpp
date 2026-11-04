@@ -57,12 +57,12 @@ Obj_28c910 *__stdcall FUN_0028c910(Arg1_28c910 a1, int a2, Arg3_28c910 a3) {
             id = a1.id;
             ObjA_28c910 *o;
             if (a3.obj == 0) {
-                void *mem = FUN_0008d690(0x2c);
+                void *mem = FUN_0008d690((int)sizeof(ObjA_28c910));
                 o = 0;
                 if (mem)
                     o = ((ObjA_28c910 *)mem)->FUN_0028bd40(id, 0);
             } else {
-                o = (ObjA_28c910 *)((void *)((owners::C_2888c0 *)(Obj_28c910 *)(a3.obj))->FUN_002888c0(0x2c, 7));
+                o = (ObjA_28c910 *)((void *)((owners::C_2888c0 *)(Obj_28c910 *)(a3.obj))->FUN_002888c0((int)sizeof(ObjA_28c910), 7));
                 if (o)
                     o = o->FUN_0028bd40(id, a3.obj);
             }
@@ -89,12 +89,12 @@ Obj_28c910 *__stdcall FUN_0028c910(Arg1_28c910 a1, int a2, Arg3_28c910 a3) {
             id = a1.id;
             Vector2DOFChannel_28c910 *o;
             if (a3.obj == 0) {
-                void *mem = FUN_0008d690(0x2c);
+                void *mem = FUN_0008d690((int)sizeof(Vector2DOFChannel_28c910));
                 o = 0;
                 if (mem)
                     o = ((Vector2DOFChannel_28c910 *)mem)->FUN_0028be20(id, 0);
             } else {
-                o = (Vector2DOFChannel_28c910 *)((void *)((owners::C_2888c0 *)(Obj_28c910 *)(a3.obj))->FUN_002888c0(0x2c, 7));
+                o = (Vector2DOFChannel_28c910 *)((void *)((owners::C_2888c0 *)(Obj_28c910 *)(a3.obj))->FUN_002888c0((int)sizeof(Vector2DOFChannel_28c910), 7));
                 if (o)
                     o = o->FUN_0028be20(id, a3.obj);
             }
@@ -116,12 +116,12 @@ Obj_28c910 *__stdcall FUN_0028c910(Arg1_28c910 a1, int a2, Arg3_28c910 a3) {
             id = a1.id;
             Vector3DOFChannel_28c910 *o;
             if (a3.obj == 0) {
-                void *mem = FUN_0008d690(0x1c);
+                void *mem = FUN_0008d690((int)sizeof(Vector3DOFChannel_28c910));
                 o = 0;
                 if (mem)
                     o = ((Vector3DOFChannel_28c910 *)mem)->FUN_0028bf20(id, 0);
             } else {
-                o = (Vector3DOFChannel_28c910 *)((void *)((owners::C_2888c0 *)(Obj_28c910 *)(a3.obj))->FUN_002888c0(0x1c, 7));
+                o = (Vector3DOFChannel_28c910 *)((void *)((owners::C_2888c0 *)(Obj_28c910 *)(a3.obj))->FUN_002888c0((int)sizeof(Vector3DOFChannel_28c910), 7));
                 if (o)
                     o = o->FUN_0028bf20(id, a3.obj);
             }

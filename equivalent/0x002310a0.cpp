@@ -19,7 +19,7 @@ void Table_2310a0::FUN_002310a0(unsigned int newCapacity) {
  void** oldSlots = slots;
  Entry_2310a0* oldEntries = entries;
  capacity = newCapacity;
- slots = (void**)FUN_0008d690(newCapacity * 4);
+ slots = (void **)FUN_0008d690(newCapacity * sizeof(void *));
  entries = (Entry_2310a0*)FUN_0008d690(capacity * 8);
  used = 0;
  count = 0;

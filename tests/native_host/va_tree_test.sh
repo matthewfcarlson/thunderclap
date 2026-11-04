@@ -41,10 +41,10 @@ for s in $SRCS; do
     n=$(basename $s)
     src=$s.cpp
     if [ $n = 0x0021f800 ]; then
-        sed -e 's/^void __cdecl FUN_00216320(const char\*, const char\*, \.\.\.);/int __cdecl FUN_00216320(hulk_uintptr, hulk_uintptr, ...);/' \
+        sed -e 's/^void __cdecl FUN_00216320(const char\*, const char\*, \.\.\.);/const char* __cdecl FUN_00216320(hulk_uintptr, hulk_uintptr, ...);/' \
             -e 's/FUN_00216320(context->name, "%s: %s",/FUN_00216320((hulk_uintptr)context->name, (hulk_uintptr)"%s: %s",/' \
             $src > "$out/$n.cpp"; src=$out/$n.cpp
-        grep -q "int __cdecl FUN_00216320(hulk_uintptr, hulk_uintptr, ...);" $src || { echo "0x0021f800: declaration not found"; exit 1; }
+        grep -q "const char\* __cdecl FUN_00216320(hulk_uintptr, hulk_uintptr, ...);" $src || { echo "0x0021f800: declaration not found"; exit 1; }
     fi
     "$FE" --target=$FT $FLAGS $src -o "$out/$n.ll" || { echo "FRONT END FAIL $s"; exit 1; }
     case $mode in

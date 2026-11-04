@@ -2,11 +2,11 @@
 extern int vftable_2a3e80;
 class RenderObjectLoader {
   public:
-    int pad;
+    hulk_intptr pad;
     int mValue;
     RenderObjectLoader();
 };
 RenderObjectLoader::RenderObjectLoader() {
     mValue = 0;
-    *(hulk_intptr*)this = (hulk_intptr)&vftable_2a3e80;
+    this->pad = (hulk_intptr)&vftable_2a3e80;
 }

@@ -767,22 +767,22 @@ CCharacter::CCharacter(int a)
     f20f8 = 0;
     FUN_000964d0();
     {
-        void* mem = FUN_0008d690(0x14);
+        void* mem = FUN_0008d690((int)sizeof(Obj59260));
         Obj59260* p = 0;
         if (mem) p = ((Obj59260*)mem)->FUN_00059260(a);
         f104 = p;
         p->AddRef();
-        mem = FUN_0008d690(0x130);
+        mem = FUN_0008d690((int)sizeof(Obj0fee10));
         Obj0fee10* q = 0;
         if (mem) q = ((Obj0fee10*)mem)->FUN_000fee10(this);
         f1ca0 = q;
         q->AddRef();
-        mem = FUN_0008d690(0x38);
+        mem = FUN_0008d690((int)sizeof(Obj109ba0));
         Obj109ba0* r = 0;
         if (mem) r = ((Obj109ba0*)mem)->FUN_00109ba0();
         f1ca4 = r;
         r->AddRef();
-        mem = FUN_0008d690(0x120);
+        mem = FUN_0008d690((int)sizeof(Obj120));
         Obj120* s = 0;
         if (mem) s = ((Obj120*)mem)->FUN_000fcd30(f1ca0);
         f1ca0->FUN_000fdc00(s);

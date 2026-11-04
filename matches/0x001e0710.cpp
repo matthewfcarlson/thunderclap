@@ -6,7 +6,8 @@ extern "C" char DAT_0048e10c[];
 class CSPManager;
 class Method4_1e0710 {
   public:
-    char p00[0x10];
+    hulk_intptr vtable;
+    char p00[0x10 - 4];
     unsigned char b10, b11, b12, b13;
     char p14[4];
     unsigned char b18;

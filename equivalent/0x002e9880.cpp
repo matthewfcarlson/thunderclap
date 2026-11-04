@@ -84,7 +84,7 @@ void png_handle_pCAL(png_struct_2e9880 *png_ptr, png_info_2e9880 *info_ptr, unsi
         while (*p) {
             p++;
         }
-        params = (char **)FUN_002e6c00(png_ptr, nparams * 4);
+        params = (char **)FUN_002e6c00(png_ptr, nparams * sizeof(char *));
         for (i = 0; i < nparams; i++) {
             p++;
             params[i] = p;

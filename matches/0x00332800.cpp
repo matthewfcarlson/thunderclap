@@ -2,7 +2,8 @@
 extern "C" char DAT_00433eec[];
 class d3dBuildingShader_332800 {
   public:
-    char pad[0x80];
+    hulk_intptr vtable;
+    char pad[0x80 - 4];
     int a, b, c;
     unsigned char d;
     void BaseCtor(int);

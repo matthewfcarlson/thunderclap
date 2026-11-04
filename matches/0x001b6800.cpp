@@ -1,7 +1,7 @@
 #include "compat/ptr.h"
 class CProjectile {
   public:
-    int a;
+    hulk_intptr a;
     int b;
     int c;
     int d;
@@ -12,7 +12,7 @@ class CProjectile {
 extern int projectile_vftable;
 CProjectile::CProjectile() {
     b = 0;
-    *(hulk_intptr*)this = (hulk_intptr)&projectile_vftable;
+    this->a = (hulk_intptr)&projectile_vftable;
     c = -1;
     d = 0;
     e = 0;

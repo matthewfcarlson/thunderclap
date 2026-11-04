@@ -121,7 +121,7 @@ void Manager::FUN_0029df90(Group *group, Arg2 a2, Arg3 a3)
             item = group->items[i];
         pure3d::DirectionalLight_29df90 *light = dynamic_cast<pure3d::DirectionalLight_29df90 *>(item);
         if (light == 0) {
-            void *mem = thunk_FUN_0008d690(0x68);
+            void *mem = thunk_FUN_0008d690((int)sizeof(pure3d::DirectionalLight_29df90));
             if (mem != 0)
                 light = ((pure3d::DirectionalLight_29df90 *)mem)->FUN_002a2e70();
             else

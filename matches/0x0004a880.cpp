@@ -6,7 +6,8 @@ class Sub_4a880 {
 };
 class CFightNodePrevCondition_4a880 {
   public:
-    char pad[0x10];
+    hulk_intptr vtable;
+    char pad[0x10 - 4];
     Sub_4a880 sub;
     void Finish();
     void Run();

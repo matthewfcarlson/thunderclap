@@ -40,12 +40,12 @@ IntChannel_28c580 * __stdcall FUN_0028c580(Reader *r, unsigned unused, Parent_28
     ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
 
     if (parent == 0) {
-        void *mem = FUN_0008d690(0x1c);
+        void *mem = FUN_0008d690((int)sizeof(IntChannel_28c580));
         node = 0;
         if (mem)
             node = ((IntChannel_28c580 *)mem)->FUN_0028b9c0(x, 0);
     } else {
-        void *mem = ((void *)((owners::C_2888c0 *)parent)->FUN_002888c0(0x1c, 7));
+        void *mem = ((void *)((owners::C_2888c0 *)parent)->FUN_002888c0((int)sizeof(IntChannel_28c580), 7));
         node = 0;
         if (mem)
             node = ((IntChannel_28c580 *)mem)->FUN_0028b9c0(x, (IntChannel_28c580 *)parent);

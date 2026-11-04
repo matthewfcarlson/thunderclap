@@ -15,7 +15,7 @@ void __stdcall resizeArray(Array_2a4a50* a, unsigned int count) {
     a->begin=0;
     a->end=0;
     if(count) {
-        Element_2a4a50** p=(Element_2a4a50**)FUN_0008d6d0(count*4);
+        Element_2a4a50** p=(Element_2a4a50 **)FUN_0008d6d0(count * sizeof(Element_2a4a50 *));
         a->begin=p;
         if(p) {
             a->end=(Element_2a4a50**)((char*)p+count*4);

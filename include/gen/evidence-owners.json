@@ -46596,7 +46596,7 @@
    "aliases": 1,
    "members": [
     "char pad[0x50];",
-    "char FUN_00062180(float v);"
+    "char FUN_00062180(const char* v);"
    ],
    "offsets": {
     "pad": [

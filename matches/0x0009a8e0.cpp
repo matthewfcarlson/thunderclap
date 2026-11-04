@@ -8,7 +8,8 @@ class Method3_9a8e0 {
   public:
     void Init(void*, int);
     Method3_9a8e0(void*, int);
-    char a[0x10];
+    hulk_intptr vtable;
+    char a[0x10 - 4];
     char b10;
     char b11;
     char b12;

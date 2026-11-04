@@ -80,7 +80,7 @@ pure3d::DrawableContainer::DrawableContainer(const DrawableContainer &src)
             if (m != 0) {
                 Elem_2a4e40 *de = (Elem_2a4e40 *)((char *)elems.begin + offset);
                 if (de->begin == 0) {
-                    Drawable **p = (Drawable **)FUN_0008d6d0(m * 4);
+                    Drawable **p = (Drawable **)FUN_0008d6d0(m * sizeof(Drawable *));
                     de->begin = p;
                     if (p == 0) {
                         de->begin = 0;

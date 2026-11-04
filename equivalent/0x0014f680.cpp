@@ -115,7 +115,7 @@ bool HitPushbackAction::vfunc_3(void *a, void *b)
     int mode = pl->mode;
     float w1 = pa->w1;
     float w0 = pa->w0;
-    void *mem = thunk_FUN_0008d690(0x70);
+    void *mem = thunk_FUN_0008d690((int)sizeof(JointDriver_14f680));
     JointDriver_14f680 *o;
     if (mem != 0)
         o = ((JointDriver_14f680 *)mem)->FUN_002248f0(0);

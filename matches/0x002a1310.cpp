@@ -6,7 +6,8 @@ class Sub_2a1310 {
 };
 class IRefCount_2a1310 {
   public:
-    char pad[8];
+    hulk_intptr vtable;
+    char pad[8 - 4];
     Sub_2a1310 sub;
     void Init();
 };

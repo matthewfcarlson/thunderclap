@@ -1641,7 +1641,7 @@ public:
     virtual ~ParamBool(); // overrides fight::ParamValue slot 0
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual bool vfunc_6(hulk_intptr, int); // overrides fight::ParamValueBool slot 6
-    int f_10;
+    hulk_intptr f_10;
 };
 
 // template family fight::ParamBoolPtr: 2 instantiation(s), 0 with their own specialization
@@ -1923,7 +1923,7 @@ public:
     virtual bool vfunc_8(int, int); // overrides fight::ParamValueEnum slot 8
     void* f_10;
     int f_14;
-    int f_18;
+    hulk_intptr f_18;
 };
 
 // .?AVParamValueFloat@fight@@  vftable 0x427a58 (7)
@@ -1947,7 +1947,7 @@ public:
     virtual ~ParamFloat(); // overrides fight::ParamValue slot 0
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual bool vfunc_6(hulk_intptr, int); // overrides fight::ParamValueFloat slot 6
-    int f_10;
+    hulk_intptr f_10;
 };
 
 // template family fight::ParamFloatConstRange: 308 instantiation(s), 0 with their own specialization
@@ -2265,7 +2265,7 @@ public:
     virtual ~ParamFloatConstRange(); // overrides fight::ParamValue slot 0
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual bool vfunc_6(hulk_intptr, int); // overrides fight::ParamValueFloat slot 6
-    int f_10;
+    hulk_intptr f_10;
 };
 
 // template family fight::ParamFloatPtrConstRange: 2 instantiation(s), 0 with their own specialization
@@ -2438,7 +2438,7 @@ public:
     virtual ~ParamIntConstRange(); // overrides fight::ParamValue slot 0
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual bool vfunc_6(hulk_intptr, int); // overrides fight::ParamValueInt slot 6
-    int f_10;
+    hulk_intptr f_10;
 };
 
 // .?AVParamValueString@fight@@  vftable 0x427a78 (7)
@@ -2689,7 +2689,7 @@ public:
     virtual ~ParamString(); // overrides fight::ParamValue slot 0
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual bool vfunc_6(hulk_intptr, int); // overrides fight::ParamValueString slot 6
-    int f_10;
+    hulk_intptr f_10;
 };
 
 // template family fight::ParamStringConstList: 1 instantiation(s), 0 with their own specialization
@@ -2700,7 +2700,7 @@ public:
     virtual ~ParamStringConstList(); // overrides fight::ParamValue slot 0
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual bool vfunc_6(hulk_intptr, int); // overrides fight::ParamValueStringList slot 6
-    int f_10;
+    hulk_intptr f_10;
 };
 
 // .?AVParamValueColour@fight@@  vftable 0x427bb4 (7)
@@ -2823,7 +2823,7 @@ public:
     virtual ~ParamVector(); // overrides fight::ParamValue slot 0
     virtual bool vfunc_2(); // overrides fight::ParamValue slot 2
     virtual bool vfunc_6(hulk_intptr, int); // overrides fight::ParamValueVector slot 6
-    int f_10;
+    hulk_intptr f_10;
 };
 
 // .?AVParams@fight@@  vftable 0x427f28 (3)

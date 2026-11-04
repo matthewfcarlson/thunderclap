@@ -8305,6 +8305,17 @@
     "int",
     "int"
    ]
+  ],
+  "core::ICementLibrary::vfunc_7": [
+   "void",
+   [
+    "hulk_intptr",
+    "int",
+    "int",
+    "int",
+    "int",
+    "int"
+   ]
   ]
  },
  "members": {
@@ -9554,6 +9565,34 @@
   },
   "pure3d::d3dDevice": {
    "0xc": "pointer pun (int4 1, pointer 1)"
+  },
+  "core::MemoryDlAllocator": {
+   "0x0c": "pointer pun (ptr1: the arena start, compared with an address: 0x0026cb20, 0x0026cb40)",
+   "0x10": "pointer pun (ptr1: the arena end, compared with an address: 0x0026cb20, 0x0026cb40)"
+  },
+  "fight::ParamFloatConstRange": {
+   "0x10": "member-function pointer (ptr1: the setter the parameter calls, `*(R (T::**)(A))&this->f_10`; 8 bytes on the 64-bit MS ABI)"
+  },
+  "fight::ParamEnumConstList": {
+   "0x18": "member-function pointer (ptr1: the setter the parameter calls, `*(R (T::**)(A))&this->f_18`; 8 bytes on the 64-bit MS ABI)"
+  },
+  "fight::ParamBool": {
+   "0x10": "member-function pointer (ptr1: the setter the parameter calls, `*(R (T::**)(A))&this->f_10`; 8 bytes on the 64-bit MS ABI)"
+  },
+  "fight::ParamIntConstRange": {
+   "0x10": "member-function pointer (ptr1: the setter the parameter calls, `*(R (T::**)(A))&this->f_10`; 8 bytes on the 64-bit MS ABI)"
+  },
+  "fight::ParamVector": {
+   "0x10": "member-function pointer (ptr1: the setter the parameter calls, `*(R (T::**)(A))&this->f_10`; 8 bytes on the 64-bit MS ABI)"
+  },
+  "fight::ParamString": {
+   "0x10": "member-function pointer (ptr1: the setter the parameter calls, `*(R (T::**)(A))&this->f_10`; 8 bytes on the 64-bit MS ABI)"
+  },
+  "fight::ParamFloat": {
+   "0x10": "member-function pointer (ptr1: the setter the parameter calls, `*(R (T::**)(A))&this->f_10`; 8 bytes on the 64-bit MS ABI)"
+  },
+  "fight::ParamStringConstList": {
+   "0x10": "member-function pointer (ptr1: the setter the parameter calls, `*(R (T::**)(A))&this->f_10`; 8 bytes on the 64-bit MS ABI)"
   }
  }
 }

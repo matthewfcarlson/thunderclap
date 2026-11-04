@@ -149,7 +149,7 @@ int pure3d::SpriteLoader::vfunc_5(pure3d::SpriteObject** out, unsigned __int64* 
     r->stream->FUN_002647e0(&f.r5, 1, 4, 1);
     r->stream->FUN_002647e0(&f.r6, 1, 4, 1);
     if (f.r5 > 1 || f.r6 != 0)
-        f.arr = (Image**)FUN_0008d6d0(f.r5 * 4);
+        f.arr = (Image **)FUN_0008d6d0(f.r5 * sizeof(Image *));
     int more = r->FUN_002669f0();
     if ((char)more) {
         Image** cursor = f.arr;

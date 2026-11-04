@@ -15,15 +15,16 @@ class NISSoundAction_131f20 {
     NISSoundAction_131f20* vfunc_2(int flag);
 
   private:
-    char pad[0x1c];
+    hulk_intptr vtable;
+    char pad[0x1c - 4];
     int m_1c;
     RefCounted_131f20* m_20;
 };
 
 NISSoundAction_131f20* NISSoundAction_131f20::vfunc_2(int flag) {
-    volatile int* p = (volatile int*)this;
+    volatile hulk_intptr* p = (volatile hulk_intptr*)this;
     *p = (hulk_intptr)&g_vt_131f20;
-    RefCounted_131f20* q = (RefCounted_131f20*)p[8];
+    RefCounted_131f20* q = *(RefCounted_131f20* volatile*)&m_20;
     if (q != 0) {
         q->Release();
         m_20 = 0;

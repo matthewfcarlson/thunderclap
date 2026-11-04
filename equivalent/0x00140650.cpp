@@ -347,7 +347,7 @@ bool WallJumpAction::vfunc_3(int a, int b)
     int e4c = dd->f4c;
     int e50 = dd->f50;
     int e48 = dd->f48;
-    void *mem = thunk_FUN_0008d690(0x70);
+    void *mem = thunk_FUN_0008d690((int)sizeof(JointDriver));
     JointDriver *drv;
     if (mem)
         drv = ((JointDriver *)mem)->FUN_002248f0(0);

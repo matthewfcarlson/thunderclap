@@ -9,7 +9,8 @@ struct Part_297460 {
     char pad[0x40];
 };
 struct TransformNode {
-    char pad[0x28];
+    hulk_intptr vtable;
+    char pad[0x28 - 4];
     Part_297460 a;
     Part_297460 b;
     u32_297460 field;

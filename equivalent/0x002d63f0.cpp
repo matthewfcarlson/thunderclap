@@ -75,7 +75,7 @@ SpriteParticleEmitter::SpriteParticleEmitter(const SpriteParticleEmitter &other)
 
     hulk_uintptr m = other.vec1d8 - other.vec1d4;
     if (m != 0) {
-        RefCounted_2d63f0 **p = (RefCounted_2d63f0 **)FUN_0008d6d0(m * 4);
+        RefCounted_2d63f0 **p = (RefCounted_2d63f0 **)FUN_0008d6d0(m * sizeof(RefCounted_2d63f0 *));
         vec1d4 = p;
         if (p) {
             vec1d8 = (RefCounted_2d63f0 **)((char *)p + m * 4);

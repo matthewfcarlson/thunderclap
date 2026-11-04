@@ -34,7 +34,7 @@ MultiController::MultiController(const MultiController& source) : FUN_00284a90(s
  count=source.count;
  unsigned int n=(unsigned int)((int)((hulk_uintptr)source.end-(hulk_uintptr)source.begin)>>2);
  if(n>0) {
- begin=(Item_2b27d0**)FUN_0008d6d0(n*4);
+ begin=(Item_2b27d0 **)FUN_0008d6d0(n * sizeof(Item_2b27d0 *));
  if(begin) end=begin+n;
  else {begin=0;end=0;}
  } else {begin=0;end=0;}

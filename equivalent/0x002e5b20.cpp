@@ -89,7 +89,7 @@ VertexAnimKeyFrame_2e5b20 *__stdcall FUN_002e5b20(Stream *s, int unused)
 {
     Frame_2e5b20 f;
     ((owners::X_2647e0 *)(s->reader))->FUN_002647e0((hulk_intptr)(&f.t88), (hulk_intptr)1, 4, (hulk_intptr)1);
-    void *mem = FUN_0008d690(0x74);
+    void *mem = FUN_0008d690((int)sizeof(VertexAnimKeyFrame_2e5b20));
     VertexAnimKeyFrame_2e5b20 *m;
     if (mem != 0) {
         m = ((VertexAnimKeyFrame_2e5b20 *)mem)->FUN_002e5a10();

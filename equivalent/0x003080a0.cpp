@@ -94,7 +94,7 @@ Node* __cdecl FUN_003080a0(Reader* r)
     case 0x07010002: {
         ((char)((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.u4.d), (hulk_intptr)1, 4, (hulk_intptr)1));
         FUN_00307810(r, &f.v[0]);
-        void* mem = FUN_0008d690(0x48);
+        void* mem = FUN_0008d690((int)sizeof(CollisionSphere_3080a0));
         if (mem == 0) {
             obj = 0;
             break;
@@ -108,7 +108,7 @@ Node* __cdecl FUN_003080a0(Reader* r)
         f.u4.flag = r->FUN_00201750() != 0;
         FUN_00307810(r, &f.v[3]);
         FUN_00307810(r, &f.v[5]);
-        void* mem = FUN_0008d690(0x8c);
+        void* mem = FUN_0008d690((int)sizeof(CollisionCylinder_3080a0));
         if (mem == 0) {
             obj = 0;
             break;
@@ -127,7 +127,7 @@ Node* __cdecl FUN_003080a0(Reader* r)
         FUN_00307810(r, &f.v[2]);
         FUN_00307810(r, &f.v[1]);
         FUN_00307810(r, &f.v[7]);
-        void* mem = FUN_0008d690(0xbc);
+        void* mem = FUN_0008d690((int)sizeof(CollisionOBB_3080a0));
         if (mem == 0) {
             obj = 0;
             break;
@@ -138,7 +138,7 @@ Node* __cdecl FUN_003080a0(Reader* r)
     case 0x07010005: {
         FUN_00307810(r, &f.v[8]);
         FUN_00307810(r, &f.v[6]);
-        void* mem = FUN_0008d690(0x60);
+        void* mem = FUN_0008d690((int)sizeof(CollisionWall_3080a0));
         if (mem == 0) {
             obj = 0;
             break;
@@ -147,7 +147,7 @@ Node* __cdecl FUN_003080a0(Reader* r)
         break;
     }
     case 0x07010006: {
-        void* mem = FUN_0008d690(0x44);
+        void* mem = FUN_0008d690((int)sizeof(CollisionAABB_3080a0));
         if (mem != 0)
             obj = ((CollisionAABB_3080a0*)mem)->FUN_00312900();
         else

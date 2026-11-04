@@ -80,7 +80,7 @@ void *Loader_2c1f80::FUN_002c1f80(Reader *r, Factory_2c1f80 *factory, hulk_intpt
     ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.v0), (hulk_intptr)1, 4, (hulk_intptr)1);
 
     f.result = (void *)a3;
-    f.items = (Ref_2c1f80 **)FUN_0008d6d0(f.count * 4);
+    f.items = (Ref_2c1f80 **)FUN_0008d6d0(f.count * sizeof(Ref_2c1f80 *));
     int n = 0;
     if (r->FUN_002669f0()) {
         do {

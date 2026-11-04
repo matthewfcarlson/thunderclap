@@ -910,6 +910,9 @@ X64_CASES = {
     "0x002d3980_x64_count4": ("fail", "layout", "write past the end of alloc#6(Ref_2d3980*)", 0),
     # ... and `count * sizeof(Ref*)` passes
     "0x002d3980_x64_count_sizeof": ("equivalent", None, None, 40),
+    # (ptr1) a pointer-sized integer field (hulk_intptr: core::MemoryDlAllocator's arena bounds) holds a small integer
+    # or an object's address: an address compared with the bounds gives the same answer on both targets
+    "0x0026cb40_x64_ptr_bounds": ("equivalent", None, None, 50),
 }
 
 # cases that must also complete this many inputs (the promotion bar is 50)

@@ -16,7 +16,7 @@ void ProceduralVertexAnimController_2a6930::target(Source_2a6930* input) {
  FUN_002a68b0(); source=input;
  if (!input) return;
  count=(unsigned int)(((int)((char*)input->end-(char*)input->begin))>>4);
- items=(pure3d::VertexList**)FUN_0008d6d0(count*4);
+ items=(pure3d::VertexList **)FUN_0008d6d0(count * sizeof(pure3d::VertexList *));
  unsigned int index=0, offset=0;
  while(index<count) {
   items[index]=0;

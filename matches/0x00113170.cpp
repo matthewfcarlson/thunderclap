@@ -15,15 +15,16 @@ class HulkAction_113170 {
     HulkAction_113170* vfunc_2(int flag);
 
   private:
-    char pad[0x1c];
+    hulk_intptr vtable;
+    char pad[0x1c - 4];
     int m_1c;
     RefCounted_113170* m_20;
 };
 
 HulkAction_113170* HulkAction_113170::vfunc_2(int flag) {
-    volatile int* p = (volatile int*)this;
+    volatile hulk_intptr* p = (volatile hulk_intptr*)this;
     *p = (hulk_intptr)&g_vt_113170;
-    RefCounted_113170* q = (RefCounted_113170*)p[8];
+    RefCounted_113170* q = *(RefCounted_113170* volatile*)&m_20;
     if (q != 0) {
         q->Release();
         m_20 = 0;

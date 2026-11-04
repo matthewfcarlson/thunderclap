@@ -28,7 +28,7 @@ public:
 
 Object_1c5960 *Mgr_1c5960::FUN_001c5960(int a, int b)
 {
-    void *mem = FUN_0008d690(0xb0);
+    void *mem = FUN_0008d690((int)sizeof(Object_1c5960));
     if (mem == 0)
         return 0;
     Object_1c5960 *n = ((Object_1c5960 *)mem)->FUN_001c4eb0(a, b);

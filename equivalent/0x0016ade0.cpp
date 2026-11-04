@@ -19,7 +19,7 @@ template<class T> struct ParamFloatConstRange_16ade0 : ParamBase_16ade0 { virtua
 }
 extern "C" void __cdecl FUN_0016ade0() {
  if ((*(uint*)&DAT_004e11dc) == 0) {
- void* params[3]; void* memory=FUN_0008d690(32); params[0]=memory;
+ void* params[3]; void* memory=FUN_0008d690((int)sizeof(fight::ParamEnumConstList_16ade0<hulkfight::motion::ChargeCondition_16ade0>)); params[0]=memory;
  if(memory) {
  uint count=(*(uint*)&DAT_00427754);
  ((ParamBase_16ade0*)memory)->FUN_00234cc0("compare");
@@ -27,13 +27,13 @@ extern "C" void __cdecl FUN_0016ade0() {
  E* p=new(memory) E;
  p->count=count; p->list="lwB"; p->callback=SetCompare_00165380;
  }
- memory=FUN_0008d690(24); params[1]=memory;
+ memory=FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_16ade0<hulkfight::motion::ChargeCondition_16ade0>)); params[1]=memory;
  if(memory) {
  ((fight::ParamValueFloat *)(ParamBase_16ade0 *)(((ParamBase_16ade0*)memory)))->FUN_00234960("charge");
  typedef fight::ParamFloatConstRange_16ade0<hulkfight::motion::ChargeCondition_16ade0> F;
  F* p=new(memory) F; p->callback=SetCharge_00165390;
  }
- memory=FUN_0008d690(32); params[2]=memory;
+ memory=FUN_0008d690((int)sizeof(fight::ParamEnumConstList_16ade0<hulkfight::motion::ChargeCondition_16ade0>)); params[2]=memory;
  if(memory) {
  ((ParamBase_16ade0*)memory)->FUN_00234cc0("type");
  typedef fight::ParamEnumConstList_16ade0<hulkfight::motion::ChargeCondition_16ade0> E;

@@ -40,12 +40,12 @@ Float1Channel_28c6b0 * __stdcall FUN_0028c6b0(Reader *r, unsigned unused, Parent
     ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&x), (hulk_intptr)1, 4, (hulk_intptr)1);
 
     if (parent == 0) {
-        void *mem = FUN_0008d690(0x1c);
+        void *mem = FUN_0008d690((int)sizeof(Float1Channel_28c6b0));
         node = 0;
         if (mem)
             node = ((Float1Channel_28c6b0 *)mem)->FUN_0028bab0(x, 0);
     } else {
-        void *mem = ((void *)((owners::C_2888c0 *)parent)->FUN_002888c0(0x1c, 7));
+        void *mem = ((void *)((owners::C_2888c0 *)parent)->FUN_002888c0((int)sizeof(Float1Channel_28c6b0), 7));
         node = 0;
         if (mem)
             node = ((Float1Channel_28c6b0 *)mem)->FUN_0028bab0(x, (Float1Channel_28c6b0 *)parent);

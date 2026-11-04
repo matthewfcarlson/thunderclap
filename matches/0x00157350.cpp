@@ -15,15 +15,16 @@ class HitDamageAction_157350 {
     HitDamageAction_157350* vfunc_2(int flag);
 
   private:
-    char pad[0x1c];
+    hulk_intptr vtable;
+    char pad[0x1c - 4];
     int m_1c;
     RefCounted_157350* m_20;
 };
 
 HitDamageAction_157350* HitDamageAction_157350::vfunc_2(int flag) {
-    volatile int* p = (volatile int*)this;
+    volatile hulk_intptr* p = (volatile hulk_intptr*)this;
     *p = (hulk_intptr)&g_vt_157350;
-    RefCounted_157350* q = (RefCounted_157350*)p[8];
+    RefCounted_157350* q = *(RefCounted_157350* volatile*)&m_20;
     if (q != 0) {
         q->Release();
         m_20 = 0;

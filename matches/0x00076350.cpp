@@ -4,7 +4,8 @@
 extern "C" char DAT_003fbd50[];
 class CDrainHealthTrack_76350 {
   public:
-    int a, b, c, d, e, f;
+    hulk_intptr a;
+    int b, c, d, e, f;
     void init();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
@@ -33,7 +34,7 @@ template <> void* fight::TrackFactoryTemplate<CDrainHealthTrack>::vfunc_5() {
     CDrainHealthTrack_76350* p = (CDrainHealthTrack_76350*)FUN_0008d690((int)sizeof(CDrainHealthTrack_76350));
     if (p) {
         p->init();
-        *(hulk_intptr*)p = ((hulk_intptr)DAT_003fbd50);
+        p->a = ((hulk_intptr)DAT_003fbd50);
         p->d = 0;
         p->e = 0x3f800000;
         p->f = 0;

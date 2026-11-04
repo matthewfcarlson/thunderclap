@@ -201,9 +201,9 @@ int __cdecl FUN_00246f50(Writer* w, const char* fmt, ...);
 void __cdecl FUN_00232cc0(Reader* reader, const char* format, ...);
 extern "C" void FUN_000fc020(hulk_uintptr a, unsigned b, hulk_uintptr c, ...);
 hulk_intptr FUN_000fbe00(unsigned short* buf, unsigned int count, const unsigned short* fmt, char* ap);
-int __cdecl FUN_00216320(hulk_uintptr a, hulk_uintptr b, ...);
+const char* __cdecl FUN_00216320(hulk_uintptr a, hulk_uintptr b, ...);
 void __cdecl FUN_00214a90(hulk_intptr first, hulk_intptr second, ...);
-extern "C" int FUN_00213470(Obj_213470* self, hulk_intptr arg, ...);
+extern "C" const char* FUN_00213470(Obj_213470* self, hulk_intptr arg, ...);
 int __cdecl target(hulk_uintptr a, hulk_uintptr b, ...);   // 0x00338e20
 struct LogContext { const char* name; char padding[12]; const char* message; };
 void __cdecl FUN_0021f800(LogContext* context, const char* format, ...);
@@ -282,7 +282,7 @@ extern "C" int __cdecl va_tree_run(char* rep) {
     L = new_lua();
     FUN_00214a90((hulk_intptr)L, (hulk_intptr)"err %s at %d", "x.lua", 8);
     report("0x00214a90 -> 0x002160c0", g_lua, "err x.lua at 8");
-    // 0x00213470: Obj_213470 is the Lua state here (its own view puts p where the 64-bit lua_State keeps base)
+    // 0x00213470: Obj_213470 is the Lua state here (its own view: next, tt/marked, top, base, then l_G)
     L = new_lua();
     FUN_00213470((Obj_213470*)L, (hulk_intptr)"%d+%f", 2, 0.5);
     report("0x00213470 -> 0x002160c0", g_lua, "2+0.500");

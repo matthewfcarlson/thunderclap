@@ -3,7 +3,7 @@
 
 extern "C" char DAT_003fbc24[];
 struct CMoveAddTrack_771a0 {
-    unsigned int vf;
+    hulk_intptr vf;
     unsigned int x4;
     unsigned int x8;
     unsigned int xc;
@@ -20,7 +20,7 @@ template <> void* fight::TrackFactoryTemplate<CMoveAddTrack>::vfunc_5() {
         p->Init();
         p->x10 = 1.0f;
         p->x14 = 1.0f;
-        *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fbc24);
+        p->vf = ((hulk_intptr)DAT_003fbc24);
         p->xc = 0;
         p->x18 = 0;
         p->x8 = 1;

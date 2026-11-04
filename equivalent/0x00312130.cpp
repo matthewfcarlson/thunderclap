@@ -27,7 +27,7 @@ struct Obj_312130 {
 void Obj_312130::FUN_00312130(Obj_312130* dst, Context* context) {
  FUN_002f75d0(dst,context);
  dst->count=count;
- if(count>0) dst->children=(Child_312130**)FUN_0008d6d0((unsigned)count*4);
+ if(count>0) dst->children=(Child_312130 **)FUN_0008d6d0((unsigned)count * sizeof(Child_312130 *));
  for(int i=0;i<count;++i) {
    Child_312130* result=children[i]->Clone();
    dst->children[i]=result;
