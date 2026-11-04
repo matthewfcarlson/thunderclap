@@ -55,7 +55,9 @@ is appended as results arrive and addresses already in it are skipped (rerun to 
 | `xemu` | mac2 only, one at a time, never the laptop |
 
 Hosts and capabilities: `build/jobs/hosts.json` (untracked: it holds user and host names; created from
-`build/agent-tools/hosts.json` on first use; fields `slots`, `caps`, `pref` (lower is preferred), `path`, `xemu_max`).
+`build/agent-tools/hosts.json` on first use; fields `slots`, `caps`, `pref` (lower is preferred), `path`, `xemu_max`,
+`python` (the host's interpreter for the runner, default `python3`; a host without the Command Line Tools names its venv's)).
+A host added to `hosts.json` joins the running daemon within 30 s (no restart); see "Adding a host" below.
 
 ## Workspaces
 
@@ -115,8 +117,9 @@ $J tools/wine_replay_job.py compare ID1 ID2 ...           # common checkpoint fr
 ## Wine builds
 
 `tools/wine_build_job.py` runs a whole Wine build as one queue job: MSVC tree build (`build_tree`), clang probe, Wine
-link, and optionally a headless replay on the host. Builds default to mac2/mac1 (the one with more free slots); `--host local`
-only on purpose; graphics and screenshot runs stay on the laptop (`wine-gfx`).
+link, and optionally a headless replay on the host. The queue picks the host when the job starts (any remote with the caps
+and room; see "Placement" below); `--host H` pins it, `--host local` only on purpose; graphics and screenshot runs stay on
+the laptop (`wine-gfx`).
 
 ```sh
 J=build/venv/bin/python; N=tools/wine_build_job.py
@@ -169,3 +172,74 @@ $J $N sync | lineages   # inputs on the hosts (submit does it) | lineage workspa
   cached errors); and `PYTHONHASHSEED=0` for the build.
 - **Big jobs.** A queued job of 4+ slots now reserves the hosts it could run on (`BIG_SLOTS` in `jobq.py`), else one-slot jobs
   starve it. This needs the daemon restarted; until then a build waits for an idle remote (or use `--slots 2`).
+- **Placement (jq3, 2026-11-04).** `submit` no longer picks a host. Without `--host` the job is unpinned and the daemon
+  starts it on whichever build host (remote, `msvc` + `clang`, plus `wine` for a replay) has room. What used to be decided at
+  submit is now host-independent or done at dispatch:
+  - *inputs*: `submit` asks every build host (one ssh each, in parallel) whether it has the inputs `STAMP` and the lineage's
+    state, and syncs the inputs to the ones lacking them. The job also carries a `prep` command (`wine_build_job.py prep
+    --host H --stamp S`) that the daemon runs on the laptop before the job starts on H: a host that was down at submit gets
+    the inputs then. If this checkout's inputs changed meanwhile (the stamp differs), prep fails and the attempt is retried
+    on another host.
+  - *lineage state*: the lineage workspace is per host. If a host has the lineage's last good tree build (`.nb/built.json`;
+    the newest one if several do), the job gets an **affinity** for it: only that host may take it for `--affinity-wait`
+    seconds (default 900), after that any host may (a fresh build there), the affinity host still first when it has room.
+    `--affinity-wait 0` drops it; `--state fresh` has none. `--state resume` or `--map reuse` need that state: they **pin** to
+    the host that has it (a lineage nowhere means a fresh build anywhere, as `decide()` already did).
+  - *slots*: 8 on a remote unless `--slots` (no longer sized from the submit-time free capacity of one host).
+  - `--host H` still pins (and syncs H only).
+- **Slots during the replay (jq3).** The replay is one Wine process. Before it starts, `wine_build_run.py` writes `1` to
+  `$JOBQ_RUN_DIR/.jq-slots` and releases the lineage lock (the replay runs on its own copy of the image, so the next job of
+  the lineage can start). The daemon's 30 s probe (`jobq_run.py probe slots`) reports the file and the job then holds 1
+  slot (`status` shows `1 of 8 slots`; DB column `slots_now`); the other 7 go back to the host at once. Slots are only ever
+  lowered; any job can do this by writing a smaller number to `$JOBQ_RUN_DIR/.jq-slots`. One job, one id, one result:
+  `wait`, `compare` and `nb-out/` are unchanged. (With SSE float the play3 replay to 60000 is about 150 s of a 60+ min build,
+  so the gain is small today; it was most of the job with x87.)
+- **Generic queue fields (jq3).** `jobq.make_job(..., prep=ARGV, affinity=HOST, affinity_wait=S)`, and `jobq.py submit
+  --affinity HOST --affinity-wait S`. `prep` runs on the laptop in the checkout before each attempt with `{host}` replaced;
+  a non-zero exit is an infrastructure failure (requeued, `--attempts` applies).
+
+## Adding a host
+
+`tools/jobq_host_setup.sh` brings up a macOS Apple-silicon host for the queue. Run it on the laptop from the repo root; it
+works over ssh, checks before it changes anything and can be rerun at any time (`--check` only reports):
+
+```sh
+tools/jobq_host_setup.sh --check USER@NEWHOST                 # what is there, what is missing
+tools/jobq_host_setup.sh --name NAME [--slots N] USER@NEWHOST  # install what is missing
+tools/jobq_host_setup.sh --name NAME --register USER@NEWHOST   # once all is ok: add it to build/jobs/hosts.json
+```
+
+What it puts on the host (the same pieces the existing hosts have):
+
+| piece | where | how |
+| --- | --- | --- |
+| Rosetta 2 | system | checked (`arch -x86_64 /usr/bin/true`); wibo and Wine are x86-64. Installing it needs sudo: the user |
+| Python 3.12 venv | `~/hulk-permute/build/venv` | an existing 3.12 (uv's, Homebrew's or python.org's), else uv + `uv python install 3.12` (downloads); `pip install capstone==5.0.9 unicorn==2.1.4 clang==21.1.7` |
+| LLVM 22.1.8 | `~/llvm` | copied from a reference queue host (`--ref`, default the first clang host in `hosts.json`; llvm.org's release build, the same bytes on every host), streamed through the laptop |
+| MSVC 7.1 + wibo | `~/hulk-permute/build/compilers`, `build/tools/wibo` | rsync from the laptop's `build/` (checked by sha1) |
+| Wine | `~/wine-whisky` | rsync of the laptop's Whisky `Libraries/Wine` and `WhiskyWineVersion.plist` (read-only use of the app's folder) |
+| sources | `~/hulk-permute/{matches,equivalent,include,src,tools,config,tests}` | `git archive HEAD` (what jobs symlink from the host's checkout) |
+| queue runner | `~/hulk-jobs/jobq_run.py` | copied (the daemon reinstalls it on every connect) |
+| hosts.json entry | laptop `build/jobs/hosts.json` | `--register`: caps `equiv msvc clang wine` (never `xemu`: it stays on the one xemu host), `slots` = cores unless `--slots`, `path ["~/llvm/bin"]`, `python` = the venv's when the host has no Command Line Tools |
+
+The Wine build's inputs (`~/hulk-jobs/nb/inputs-*`), the Wine prefix template and the base trees arrive through the queue
+on first use, as on the other hosts. A running daemon picks the new `hosts.json` entry up within 30 s; jobs start going there
+at once (Wine builds are unpinned, so it gets builds as soon as it has room). `tools/jobq.py status` shows it.
+
+What the user does (the script stops or prints the command):
+
+1. On the new Mac: System Settings > General > Sharing > **Remote Login** on; keep it awake on power (Energy settings: prevent
+   automatic sleeping; build stages also run under `caffeinate`).
+2. On the laptop: `ssh-copy-id USER@NEWHOST` (the queue uses `BatchMode=yes`: key login only). Add a fallback route (LAN
+   address) to the entry's `routes` by hand if wanted.
+3. Rosetta: `ssh USER@NEWHOST 'sudo softwareupdate --install-rosetta --agree-to-license'`.
+4. If the script cannot download Python (permission or network): `ssh USER@NEWHOST 'curl -LsSf https://astral.sh/uv/install.sh | sh &&
+   ~/.local/bin/uv python install 3.12'`, then rerun the script. If no reference host has `~/llvm`: `ssh USER@NEWHOST 'mkdir -p
+   ~/llvm && curl -L https://github.com/llvm/llvm-project/releases/download/llvmorg-22.1.8/LLVM-22.1.8-macOS-ARM64.tar.xz | tar
+   -xJ -C ~/llvm --strip-components 1'`. If the laptop has no Whisky: install Whisky and let it fetch its Wine.
+5. **Game data**, the player's own copy, never shipped by the script or the queue:
+   `rsync -a isos/extracted/ USER@NEWHOST:hulk-permute/isos/extracted/` (2.3 GB, with `default.xbe`) and
+   `rsync -a build/functions.csv build/rtti.json USER@NEWHOST:hulk-permute/build/` (equivalence jobs read them from the
+   host's checkout). Then rerun the script: its smoke test byte-matches one function there.
+6. `--register`, then `tools/jobq.py status` (the host appears with its slots). A first `tools/wine_build_job.py submit
+   --host NAME ...` with a short replay checks the Wine side (the first job on a host makes the Wine prefix, about a minute).

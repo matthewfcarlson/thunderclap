@@ -50,6 +50,7 @@ KEEP_BASES = 4
 BIG_SLOTS = 4       # a queued job this big reserves the hosts it could run on (dispatch), so small jobs cannot starve it
 PER_NAME_HEAD = 400  # dispatch looks at each submitter's first N queued jobs (per name, so nobody is hidden behind a long queue)
 SSH_SPACING = 0.3   # seconds between new ssh connections to one host (Host.ssh_gate)
+FEATURES = ["prep", "affinity", "slots_now", "add_hosts"]   # what this daemon does (hosts-state.json: submitters check)
 FORBIDDEN = ("drive-backup", "blockdev-backup", "blockdev-create", "drive-mirror", "Application Support/xemu")
 
 SCHEMA = """
@@ -59,7 +60,8 @@ CREATE TABLE IF NOT EXISTS jobs (
   limit_s INTEGER NOT NULL DEFAULT 1800, slots INTEGER NOT NULL DEFAULT 1, prio INTEGER NOT NULL DEFAULT 0,
   attempts INTEGER NOT NULL DEFAULT 0, max_attempts INTEGER NOT NULL DEFAULT 3, state TEXT NOT NULL DEFAULT 'queued',
   host TEXT, tried TEXT NOT NULL DEFAULT '[]', submitted REAL, started REAL, finished REAL, exit_code INTEGER,
-  reason TEXT, wall REAL, pin TEXT, cancel INTEGER NOT NULL DEFAULT 0, out_dir TEXT, log_path TEXT);
+  reason TEXT, wall REAL, pin TEXT, cancel INTEGER NOT NULL DEFAULT 0, out_dir TEXT, log_path TEXT, prep TEXT,
+  affinity TEXT, affinity_until REAL, slots_now INTEGER);
 CREATE INDEX IF NOT EXISTS jobs_state ON jobs(state, id);
 CREATE INDEX IF NOT EXISTS jobs_name ON jobs(name, id);
 """
@@ -76,11 +78,21 @@ def conn():
     c.execute("PRAGMA journal_mode=WAL")
     c.execute("PRAGMA synchronous=NORMAL")
     c.executescript(SCHEMA)
-    try:
-        c.execute("ALTER TABLE jobs ADD COLUMN pin TEXT")
-    except sqlite3.OperationalError:
-        pass
+    for col in ("pin TEXT", "prep TEXT", "affinity TEXT", "affinity_until REAL", "slots_now INTEGER"):
+        try:
+            c.execute("ALTER TABLE jobs ADD COLUMN " + col)
+        except sqlite3.OperationalError:
+            pass
     return c
+
+
+def jget(job, k, default=None):
+    """A field of a job given as a dict or a sqlite3.Row (rows only carry the columns their query selected)."""
+    try:
+        v = job[k]
+    except (KeyError, IndexError):
+        return default
+    return default if v is None else v
 
 
 # ---------------------------------------------------------------------------------------------------- safety
@@ -206,7 +218,12 @@ def head_commit():
 
 
 def make_job(name, cmd, needs="any", files=None, outs=None, limit=1800, slots=1, attempts=3, prio=0,
-             commit=None, paths=None, pin=None):
+             commit=None, paths=None, pin=None, prep=None, affinity=None, affinity_wait=0):
+    """PIN: the only host the job may run on. PREP: argv run on this machine by the daemon before each attempt, "{host}"
+    replaced by the chosen host's name (it puts host-specific inputs there: `wine_build_job.py prep`); a non-zero exit
+    is an infrastructure failure (the attempt is retried, preferably elsewhere). AFFINITY: the host the job would rather
+    run on (where its state is); for AFFINITY_WAIT seconds after submission no other host takes it, after that any
+    host may, the affinity host still first when it has room."""
     if needs not in NEEDS:
         raise SystemExit("--needs must be one of %s" % ", ".join(NEEDS))
     if not cmd:
@@ -217,7 +234,9 @@ def make_job(name, cmd, needs="any", files=None, outs=None, limit=1800, slots=1,
     return dict(name=name, cmd=json.dumps(cmd), needs=needs, files=json.dumps(files or {}),
                 outs=json.dumps(outs or []), limit_s=int(limit), slots=max(1, int(slots)),
                 max_attempts=max(1, int(attempts)), prio=int(prio), base_commit=commit,
-                base_paths=json.dumps(paths or BASE_PATHS), submitted=time.time(), pin=pin)
+                base_paths=json.dumps(paths or BASE_PATHS), submitted=time.time(), pin=pin,
+                prep=json.dumps(prep) if prep else None, affinity=affinity,
+                affinity_until=(time.time() + affinity_wait) if affinity else None)
 
 
 def insert_jobs(jobs):
@@ -257,13 +276,16 @@ def add_job_opts(p):
     p.add_argument("--attempts", type=int, default=3)
     p.add_argument("--prio", type=int, default=0)
     p.add_argument("--host", help="run only on this host (debugging)")
+    p.add_argument("--affinity", help="prefer this host: only it may take the job for --affinity-wait seconds")
+    p.add_argument("--affinity-wait", type=float, default=0)
     p.add_argument("--base", nargs="*", default=BASE_PATHS, help="tracked paths of the base workspace")
 
 
 def cmd_submit(a, cmd):
     commit = head_commit()
     files = collect_files(a.files, a.dirty, a.base)
-    j = make_job(a.name, cmd, a.needs, files, a.out, a.limit, a.slots, a.attempts, a.prio, commit, a.base, a.host)
+    j = make_job(a.name, cmd, a.needs, files, a.out, a.limit, a.slots, a.attempts, a.prio, commit, a.base, a.host,
+                 affinity=a.affinity, affinity_wait=a.affinity_wait)
     print(submit_jobs([j])[0])
     return 0
 
@@ -355,11 +377,13 @@ def cmd_status(a, _c):
             print("%-14s %s" % (n, "  ".join("%s=%d" % kv for kv in sorted(d.items()))))
     if not by:
         print("no jobs")
-    run = c.execute("SELECT id,name,host,started,attempts,cmd FROM jobs WHERE state='running'" +
+    run = c.execute("SELECT id,name,host,started,attempts,cmd,slots,slots_now,limit_s FROM jobs WHERE state='running'" +
                     (" AND name=?" if a.name else "") + " ORDER BY started LIMIT 40", (a.name,) if a.name else ()).fetchall()
     for r in run:
-        print("  running %d %s on %s for %s (attempt %d): %s" % (r["id"], r["name"], r["host"], fmt_age(r["started"]),
-                                                                 r["attempts"], " ".join(json.loads(r["cmd"]))[:80]))
+        sl = "%d slots" % r["slots"] if r["slots_now"] is None else "%d of %d slots" % (r["slots_now"], r["slots"])
+        print("  running %d %s on %s for %s of %ds (attempt %d, %s): %s" % (
+            r["id"], r["name"], r["host"], fmt_age(r["started"]), r["limit_s"], r["attempts"], sl,
+            " ".join(json.loads(r["cmd"]))[:80]))
     print_hosts()
     return 0
 
@@ -466,6 +490,9 @@ class Host:
         self.xemu_max = cfg.get("xemu_max", 1) if "xemu" in self.caps else 0
         self.dir = cfg.get("dir", "hulk-permute")
         self.paths = cfg.get("path", [])
+        self.python = cfg.get("python", "python3")   # the host's interpreter for jobq_run.py (stdlib only, 3.9+)
+        self.run_slots = {}                          # run id -> slots its job declared it still uses (probe)
+        self.on_slots = None                         # Daemon.apply_slots
         self.route = None
         self.cap = self.slots_cfg
         self.used = 0
@@ -490,7 +517,7 @@ class Host:
         """Command line that runs jobq_run.py with ARGS on this host."""
         if self.local:
             return [sys.executable, RUNNER_SRC] + args
-        remote = 'python3 "$HOME/hulk-jobs/jobq_run.py" ' + " ".join(shlex.quote(x) for x in args)
+        remote = '%s "$HOME/hulk-jobs/jobq_run.py" ' % self.python + " ".join(shlex.quote(x) for x in args)
         return SSH + (route or self.route) + [remote]
 
     def ssh_gate(self):
@@ -530,13 +557,18 @@ class Host:
 
     def probe(self):
         try:
-            p = self.call(["probe"], timeout=60)
+            p = self.call(["probe", "slots"], timeout=60)
         except subprocess.TimeoutExpired:
             return False
         if p.returncode:
             return False
-        load, ncpu = p.stdout.split()
+        lines = p.stdout.decode().splitlines()
+        load, ncpu = lines[0].split()
         self.load, self.ncpu = float(load), int(ncpu)
+        # "slots RUNID N": a running job says it now needs only N slots (wine_build_run.py before its replay)
+        self.run_slots = {x.split()[1]: int(x.split()[2]) for x in lines[1:] if x.startswith("slots ") and len(x.split()) == 3}
+        if self.on_slots:
+            self.on_slots(self)
         foreign = max(0.0, self.load - 0.9 * self.used)
         self.cap = max(self.min_slots, min(self.slots_cfg, int(self.ncpu - foreign) + 2))
         # Idle reserved slots: a big job (a Wine build reserves 8) spends long phases on one core. While the load shows
@@ -550,9 +582,11 @@ class Host:
         if now < self.down_until or not self.ready:
             return False
         needs = job["needs"]
-        if job.get("pin") if isinstance(job, dict) else job["pin"]:
-            if job["pin"] != self.name:
-                return False
+        if jget(job, "pin") and job["pin"] != self.name:
+            return False
+        aff = jget(job, "affinity")
+        if aff and aff != self.name and now < jget(job, "affinity_until", 0):
+            return False
         if needs != "any" and needs not in self.caps:
             return False
         if needs == "xemu" or "xemu" in job["cmd"].lower():
@@ -580,7 +614,7 @@ def choose_host(job, hosts, now=None, blocked=()):
     best, bk = None, None
     for h in hosts:
         if h.eligible(job, now, lend_only=h.name in blocked):
-            k = (h.name in tried, h.pref, h.used / max(1, h.cap))
+            k = (h.name in tried, h.name != jget(job, "affinity", h.name), h.pref, h.used / max(1, h.cap))
             if bk is None or k < bk:
                 best, bk = h, k
     return best
@@ -593,9 +627,13 @@ class Infra(Exception):
 
 
 class Daemon:
-    def __init__(self, hosts):
+    def __init__(self, hosts, only=None):
         self.hosts = hosts
+        self.only = only         # daemon --only: hosts.json entries outside it are never added
         self.live = {}           # job id -> cancel Event
+        self.cur = {}            # job id -> (host, slots it holds now): a job may lower its slots while it runs
+        for h in hosts:
+            h.on_slots = self.apply_slots
         self.lock = threading.Lock()
         self.idle_since = time.time()
         self.last_gc = 0
@@ -605,7 +643,7 @@ class Daemon:
     def claim(self, c, job, h):
         with c:
             tried = json.loads(job["tried"]) + [h.name]
-            cur = c.execute("UPDATE jobs SET state='running', host=?, attempts=attempts+1, started=?, tried=?, reason=NULL "
+            cur = c.execute("UPDATE jobs SET state='running', host=?, attempts=attempts+1, started=?, tried=?, reason=NULL, slots_now=NULL "
                             "WHERE id=? AND state='queued'", (h.name, time.time(), json.dumps(tried), job["id"]))
         return cur.rowcount == 1
 
@@ -625,6 +663,44 @@ class Daemon:
             else:
                 c.execute("UPDATE jobs SET state='queued', reason=? WHERE id=?", (reason, jid))
         c.close()
+
+    def apply_slots(self, h):
+        """Running jobs on H that declared fewer slots (probe) give the rest back. Only ever lowered."""
+        changed = []
+        with self.lock:
+            for runid, n in h.run_slots.items():
+                try:
+                    jid = int(runid.split("-a")[0])
+                except ValueError:
+                    continue
+                cur = self.cur.get(jid)
+                if cur and cur[0] is h and 1 <= n < cur[1]:
+                    h.used -= cur[1] - n
+                    self.cur[jid] = (h, n)
+                    changed.append((jid, n, cur[1]))
+        if changed:
+            c = conn()
+            with c:
+                for jid, n, old in changed:
+                    c.execute("UPDATE jobs SET slots_now=? WHERE id=?", (n, jid))
+            c.close()
+            for jid, n, old in changed:
+                log("%s: job %d now holds %d slots (was %d)" % (h.name, jid, n, old))
+
+    def run_prep(self, h, job):
+        """The job's PREP command (host-specific inputs) for host H, on this machine."""
+        argv = [h.name if x == "{host}" else x for x in json.loads(job["prep"])]
+        if argv[0] in ("python", "python3"):
+            argv[0] = sys.executable
+        t0 = time.time()
+        try:
+            p = subprocess.run(argv, cwd=ROOT, capture_output=True, timeout=3600)
+        except subprocess.TimeoutExpired:
+            raise Infra("prep for %s timed out" % h.name)
+        if p.returncode:
+            raise Infra("prep for %s exit %d: %s" % (h.name, p.returncode, (p.stderr or p.stdout).decode(errors="replace")[-200:].strip()))
+        if time.time() - t0 > 5:
+            log("%s: job %d prep took %.0f s" % (h.name, job["id"], time.time() - t0))
 
     # --- one attempt ---
     def ensure_base(self, h, commit, paths, key):
@@ -652,6 +728,8 @@ class Daemon:
         why = guard(cmd, job["needs"])
         if why or ((job["needs"] == "xemu" or "xemu" in " ".join(cmd).lower()) and h.local):
             return "failed", 98, 0, why or "xemu never runs on the laptop"
+        if jget(job, "prep"):
+            self.run_prep(h, job)
         paths = json.loads(job["base_paths"] or "null") or BASE_PATHS
         commit = job["base_commit"] or head_commit()
         key = base_key(commit, paths)
@@ -766,7 +844,7 @@ class Daemon:
                 self.finish(jid, state, code, wall, reason, h.name)
         finally:
             with self.lock:
-                h.used -= job["slots"]
+                h.used -= self.cur.pop(jid, (h, job["slots"]))[1]
                 if job["needs"] == "xemu" or "xemu" in job["cmd"].lower():
                     h.xemu_used -= 1
                 self.live.pop(jid, None)
@@ -779,12 +857,12 @@ class Daemon:
         names = [r["name"] for r in c.execute("SELECT DISTINCT name FROM jobs WHERE state='queued'")]
         rows = []
         for nm in names:
-            rows += c.execute("SELECT id,name,needs,slots,prio,tried,cmd,pin FROM jobs WHERE state='queued' AND name=? "
+            rows += c.execute("SELECT id,name,needs,slots,prio,tried,cmd,pin,affinity,affinity_until FROM jobs WHERE state='queued' AND name=? "
                               "ORDER BY prio DESC, id LIMIT ?", (nm, PER_NAME_HEAD)).fetchall()
         if not rows:
             return 0
         running = {}          # slots held per submitter
-        for r in c.execute("SELECT name,sum(slots) n FROM jobs WHERE state='running' GROUP BY name"):
+        for r in c.execute("SELECT name,sum(coalesce(slots_now,slots)) n FROM jobs WHERE state='running' GROUP BY name"):
             running[r["name"]] = r["n"] or 0
         # Fair share: while more than one submitter is waiting, none may hold more than its share of the total slots.
         # A second pass then hands out whatever the share left idle, so capacity is never wasted.
@@ -823,6 +901,7 @@ class Daemon:
                 if h.cap - h.used < job["slots"]:        # beyond the cap: it borrowed an idle reserved slot
                     h.lend_budget -= job["slots"]
                 h.used += job["slots"]
+                self.cur[job["id"]] = (h, job["slots"])
                 if job["needs"] == "xemu" or "xemu" in job["cmd"].lower():
                     h.xemu_used += 1
                 self.live[job["id"]] = threading.Event()
@@ -832,7 +911,7 @@ class Daemon:
         return n
 
     def write_state(self):
-        st = {"time": time.time(), "hosts": [dict(name=h.name, used=h.used, cap=h.cap, cfg=h.slots_cfg, load=h.load,
+        st = {"time": time.time(), "features": FEATURES, "hosts": [dict(name=h.name, used=h.used, cap=h.cap, cfg=h.slots_cfg, load=h.load,
               ncpu=h.ncpu, ok=h.ok, bad=h.bad, down=time.time() < h.down_until or not h.ready) for h in self.hosts]}
         tmp = HOSTS_STATE + ".tmp"
         with open(tmp, "w") as f:
@@ -840,7 +919,8 @@ class Daemon:
         os.replace(tmp, HOSTS_STATE)
 
     def reload_caps(self):
-        """hosts.json edits to a known host's caps / xemu_max / slots take effect without a restart (running jobs keep going)."""
+        """hosts.json edits to a known host's caps / xemu_max / slots / python take effect without a restart (running jobs
+        keep going), and a host added to hosts.json joins (it is connected on the next loop). Removing one needs a restart."""
         path = os.environ.get("JOBQ_HOSTS") or os.path.join(JOBS, "hosts.json")
         try:
             m = os.path.getmtime(path)
@@ -850,12 +930,23 @@ class Daemon:
             cfgs = {h["name"]: h for h in json.load(open(path))["hosts"]}
         except (OSError, ValueError):
             return
+        known = {h.name for h in self.hosts}
+        for name, cfg in cfgs.items():
+            if name not in known and (not self.only or name in self.only) and (cfg.get("local") or cfg.get("routes")):
+                h = Host(cfg)
+                h.on_slots = self.apply_slots
+                h.down_until = 1          # the loop connects it (installs the runner, probes)
+                self.hosts.append(h)
+                log("%s: new host in hosts.json (caps %s)" % (name, ",".join(sorted(h.caps))))
         for h in self.hosts:
             cfg = cfgs.get(h.name)
             if cfg is not None and set(cfg.get("caps", [])) != h.caps:
                 h.caps = set(cfg.get("caps", []))
                 h.xemu_max = cfg.get("xemu_max", 1) if "xemu" in h.caps else 0
                 log("%s: caps now %s" % (h.name, ",".join(sorted(h.caps))))
+            if cfg is not None and cfg.get("python", "python3") != h.python:
+                h.python = cfg.get("python", "python3")
+                log("%s: runner interpreter now %s" % (h.name, h.python))
             if cfg is not None and cfg.get("slots", h.slots_cfg) != h.slots_cfg:
                 h.slots_cfg = cfg["slots"]
                 log("%s: configured slots now %d" % (h.name, h.slots_cfg))
@@ -920,6 +1011,17 @@ class Daemon:
             time.sleep(1)
 
 
+def daemon_features():
+    """FEATURES of the daemon that is running now ([] for an older daemon, None when none runs or its state is stale)."""
+    try:
+        st = json.load(open(HOSTS_STATE))
+    except (OSError, ValueError):
+        return None
+    if not daemon_running() or time.time() - st.get("time", 0) > 120:
+        return None
+    return st.get("features", [])
+
+
 def daemon_running():
     try:
         fd = os.open(LOCK, os.O_RDWR | os.O_CREAT)
@@ -960,7 +1062,7 @@ def cmd_daemon(a, _c):
     open(PIDF, "w").write(str(os.getpid()))
     log("daemon started, pid %d" % os.getpid())
     hosts = [Host(h) for h in load_hosts() if not a.only or h["name"] in a.only.split(",")]
-    Daemon(hosts).loop()
+    Daemon(hosts, a.only.split(",") if a.only else None).loop()
     return 0
 
 

@@ -171,6 +171,100 @@ class Lending(unittest.TestCase):
         self.assertEqual(max(0, min(int(h.used - h.load) - 1, h.ncpu - 1 - int(h.load))), 0)
 
 
+class Affinity(unittest.TestCase):
+    """jq3: a job with an affinity host waits for it until affinity_until, then goes anywhere (the affinity host first)."""
+
+    def setUp(self):
+        self.m2 = mkhost("m2", ["msvc"], 16)
+        self.m1 = mkhost("m1", ["msvc"], 8)
+
+    def aj(self, until, slots=8):
+        j = job("msvc", slots=slots)
+        j.update(affinity="m2", affinity_until=until)
+        return j
+
+    def test_waits_for_affinity_host(self):
+        now = time.time()
+        self.m2.used = 16
+        self.assertIsNone(jobq.choose_host(self.aj(now + 60), [self.m2, self.m1], now))      # m1 is free but must not take it
+        self.assertIs(jobq.choose_host(self.aj(now - 1), [self.m2, self.m1], now), self.m1)   # after the wait: anywhere
+        self.m2.used = 0
+        self.m1.used = 0
+        self.assertIs(jobq.choose_host(self.aj(now - 1), [self.m1, self.m2], now), self.m2)   # the affinity host still first
+        self.assertIs(jobq.choose_host(self.aj(now + 60), [self.m1, self.m2], now), self.m2)
+
+    def test_unpinned_goes_where_there_is_room(self):
+        self.m2.used = 12
+        self.assertIs(jobq.choose_host(job("msvc", slots=8), [self.m2, self.m1]), self.m1)
+        self.m1.used = 8
+        self.assertIsNone(jobq.choose_host(job("msvc", slots=8), [self.m2, self.m1]))
+        self.assertFalse(self.m1.eligible(self.aj(time.time() + 60), time.time(), capacity=False))   # only m2 is held for it
+        self.assertTrue(self.m2.eligible(self.aj(time.time() + 60), time.time(), capacity=False))
+
+    def test_make_job_fields(self):
+        j = jobq.make_job("t", ["true"], affinity="m2", affinity_wait=100, prep=["python", "x", "{host}"])
+        self.assertEqual(j["affinity"], "m2")
+        self.assertAlmostEqual(j["affinity_until"], time.time() + 100, delta=5)
+        self.assertEqual(json.loads(j["prep"]), ["python", "x", "{host}"])
+        self.assertIsNone(jobq.make_job("t", ["true"])["affinity_until"])
+
+
+class SlotRelease(unittest.TestCase):
+    """jq3: a running job that declares fewer slots (RUNDIR/.jq-slots, read by `probe slots`) gives the rest back."""
+
+    def test_apply_slots_lowers_only(self):
+        h = mkhost("h", ["msvc"], 16)
+        d = jobq.Daemon([h])
+        jid = jobq.insert_jobs([jobq.make_job("t-slots", ["true"], slots=8)])[0]
+        h.used = 9
+        d.cur[jid] = (h, 8)
+        h.run_slots = {"%d-a1" % jid: 1, "999999-a1": 1, "junk": 3}
+        d.apply_slots(h)
+        self.assertEqual((h.used, d.cur[jid][1]), (2, 1))
+        c = jobq.conn()
+        self.assertEqual(c.execute("SELECT slots_now FROM jobs WHERE id=?", (jid,)).fetchone()[0], 1)
+        h.run_slots = {"%d-a1" % jid: 4}                       # never raised again
+        d.apply_slots(h)
+        self.assertEqual((h.used, d.cur[jid][1]), (2, 1))
+
+    def test_probe_reads_run_slots(self):
+        run = os.path.join(os.path.expanduser("~/hulk-jobs/run"), "jq3test-%d-a1" % os.getpid())
+        os.makedirs(run, exist_ok=True)
+        try:
+            open(os.path.join(run, ".jq-slots"), "w").write("1\n")
+            h = jobq.Host({"name": "local", "local": True, "slots": 2, "caps": ["equiv"]})
+            h.route = []
+            seen = []
+            h.on_slots = lambda x: seen.append(dict(x.run_slots))
+            self.assertTrue(h.probe())
+            self.assertEqual(seen[0].get(os.path.basename(run)), 1)
+        finally:
+            import shutil
+            shutil.rmtree(run, ignore_errors=True)
+
+
+class NewHost(unittest.TestCase):
+    """jq3: a host added to hosts.json joins a running daemon (no restart, so no running job is lost)."""
+
+    def test_reload_adds_host(self):
+        p = os.path.join(TMP, "hosts-new.json")
+        json.dump({"hosts": [{"name": "old", "routes": [["x"]], "caps": ["equiv"]},
+                             {"name": "new", "routes": [["y"]], "caps": ["equiv", "wine"], "slots": 24, "python": "/v/python"}]}, open(p, "w"))
+        os.environ["JOBQ_HOSTS"] = p
+        try:
+            d = jobq.Daemon([jobq.Host({"name": "old", "routes": [["x"]], "caps": ["equiv"]})])
+            d.reload_caps()
+            self.assertEqual([h.name for h in d.hosts], ["old", "new"])
+            n = d.hosts[1]
+            self.assertEqual((n.slots_cfg, n.down_until, n.python, n.ready), (24, 1, "/v/python", False))
+            self.assertIn("/v/python ", n.argv(["probe"], ["u@h"])[-1])
+            d2 = jobq.Daemon([jobq.Host({"name": "old", "routes": [["x"]], "caps": ["equiv"]})], only=["old"])
+            d2.reload_caps()
+            self.assertEqual([h.name for h in d2.hosts], ["old"])
+        finally:
+            del os.environ["JOBQ_HOSTS"]
+
+
 class RoundTrip(unittest.TestCase):
     """A real daemon with the local host only: success, failure exit, overlay file, output fetch, timeout retry, cancel."""
 
@@ -218,6 +312,28 @@ class RoundTrip(unittest.TestCase):
         r = self.wait(self.sub(["sleep", "60"], limit=2, attempts=2))
         self.assertEqual((r["state"], r["attempts"]), ("gaveup", 2))
         self.assertIn("wall-clock", r["reason"])
+
+    def test_prep_runs_before_and_failure_retries(self):
+        mark = os.path.join(TMP, "prep-mark")
+        jid = self.sub(["true"], prep=["sh", "-c", 'echo "$0" > %s' % mark, "{host}"])
+        self.assertEqual(self.wait(jid)["state"], "done")
+        self.assertEqual(open(mark).read().strip(), "local")
+        r = self.wait(self.sub(["true"], prep=["sh", "-c", "exit 2"], attempts=2))
+        self.assertEqual((r["state"], r["attempts"]), ("gaveup", 2))
+        self.assertIn("prep", r["reason"])
+
+    def test_slots_file_released_while_running(self):
+        jid = self.sub(["sh", "-c", 'echo 1 > "$JOBQ_RUN_DIR/.jq-slots"; sleep 4'], slots=2)
+        c = jobq.conn()
+        while c.execute("SELECT state FROM jobs WHERE id=?", (jid,)).fetchone()[0] != "running":
+            time.sleep(0.2)
+        time.sleep(1)
+        h = self.d.hosts[0]
+        h.probe()
+        self.assertEqual(c.execute("SELECT slots_now FROM jobs WHERE id=?", (jid,)).fetchone()[0], 1)
+        self.assertEqual(self.wait(jid)["state"], "done")
+        time.sleep(0.5)
+        self.assertEqual(h.used, 0)
 
     def test_cancel_running(self):
         jid = self.sub(["sleep", "60"])

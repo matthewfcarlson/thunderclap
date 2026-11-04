@@ -3,7 +3,7 @@
 optionally a headless replay, on mac2/mac1 instead of this laptop (docs/compute.md "Wine builds").
 
   # submit (prints the job id). Sources: HEAD + this checkout's dirty files, or --workspace DIR (only the files that
-  # differ from HEAD travel). Default host: whichever of mac2/mac1 has more free capacity; --host local builds here.
+  # differ from HEAD travel). The queue picks the host when the job starts (jq3); --host H pins it, --host local builds here.
   build/venv/bin/python tools/wine_build_job.py submit --name ME [--workspace DIR] [--gfx]
         [--replay play3 --frames 1000] [--fetch image] [--host mac2|mac1|local] [--lineage L]
         [--state auto|fresh|resume] [--map auto|full|reuse] [--slots N] [--env K=V ...] [--stages build,probe,link]
@@ -11,6 +11,12 @@ optionally a headless replay, on mac2/mac1 instead of this laptop (docs/compute.
   build/venv/bin/python tools/wine_build_job.py compare ID|DIR ...   # image hashes and replay checkpoints must agree
   build/venv/bin/python tools/wine_build_job.py sync [--host H ...]  # put the local-only inputs on the hosts (submit does it)
   build/venv/bin/python tools/wine_build_job.py lineages [--host H]  # the hosts' lineage workspaces and their sizes
+
+Placement (jq3): without --host the job is not pinned. submit asks the build hosts which have the lineage's state and the
+inputs, ships the inputs to those lacking them, and the daemon takes the first build host with room; it runs `prep`
+(the inputs again, for a host that missed them) before the job starts there. A lineage with state on a host makes that
+host the only candidate for --affinity-wait seconds (default 900), then the preferred one; --state resume / --map reuse pin
+to it. The replay stage runs on 1 slot: wine_build_run.py tells the queue (RUNDIR/.jq-slots) and drops the lineage lock.
 
 Where things live (tools/wine_build_run.py is the host side):
   * the job's base tree is `git archive HEAD` of matches equivalent include src tools config (jobq caches it per host,
@@ -191,7 +197,7 @@ def sync_host(name, stamp, quiet=False):
     fin = ("cd ~/hulk-jobs/nb && touch inputs-%s.tmp/.complete && rm -rf inputs-%s && mv inputs-%s.tmp inputs-%s && "
            "ls -dt inputs-*/ | tail -n +5 | xargs rm -rf") % ((stamp,) * 4)
     subprocess.run(ssh + [dest, "sh -c " + shlex.quote(fin)], check=True)
-    print("synced inputs %s to %s in %.0f s" % (stamp, name, time.time() - t0))
+    print("synced inputs %s to %s in %.0f s" % (stamp, name, time.time() - t0), file=sys.stderr if quiet else sys.stdout)
 
 
 def cmd_sync(a):
@@ -202,33 +208,83 @@ def cmd_sync(a):
     return 0
 
 
+def cmd_prep(a):
+    """Run by the queue daemon when it dispatches a build to a host (jobq `prep`): make the job's inputs STAMP complete
+    there. The inputs are rebuilt from this checkout, so they must still hash to STAMP (exit 2 otherwise: another host
+    that has them can still take the job)."""
+    if a.data_src:
+        os.environ["HULK_NB_DATA_SRC"] = a.data_src
+    cfg = host_cfg(a.host)
+    if cfg.get("local"):
+        return 0
+    opts, dest = ssh_parts(cfg)
+    if subprocess.run(jobq.SSH + opts + [dest, "test -f ~/hulk-jobs/nb/inputs-%s/.complete" % a.stamp], capture_output=True).returncode == 0:
+        return 0
+    now = inputs_stamp()
+    if now != a.stamp:
+        print("inputs %s are not on %s and this checkout's are now %s" % (a.stamp, a.host, now), file=sys.stderr)
+        return 2
+    sync_host(a.host, a.stamp, quiet=True)
+    return 0
+
+
 # ---------------------------------------------------------------------------------------------- submit
-def pick_host(a):
+def build_hosts(replay):
+    """Remote hosts that can run a Wine build (the laptop only with --host local)."""
+    return [h["name"] for h in jobq.load_hosts() if not h.get("local") and {"msvc", "clang"} <= set(h.get("caps", []))
+            and (not replay or "wine" in h.get("caps", []))]
+
+
+def survey(hosts, lineage, stamp):
+    """{host: {"lineage": mtime of the lineage's last good tree build or None, "inputs": bool}} for the hosts that answer
+    (one ssh each, in parallel)."""
+    import threading
+    out = {}
+    py = ("import os,sys\nb=os.path.expanduser('~/hulk-jobs/nb')\np=os.path.join(b,'ws',sys.argv[1],'.nb/built.json')\n"
+          "print(os.path.getmtime(p) if os.path.exists(p) else '-', os.path.exists(os.path.join(b,'inputs-'+sys.argv[2],'.complete')))")
+
+    def one(h):
+        cfg = host_cfg(h)
+        for r in cfg["routes"]:
+            try:
+                p = subprocess.run(jobq.SSH + r + ["%s -c %s %s %s" % (cfg.get("python", "python3"), shlex.quote(py), shlex.quote(lineage), stamp)],
+                                   capture_output=True, text=True, timeout=90)
+            except subprocess.TimeoutExpired:
+                continue
+            if p.returncode == 0 and len(p.stdout.split()) == 2:
+                m, i = p.stdout.split()
+                out[h] = {"lineage": None if m == "-" else float(m), "inputs": i == "True"}
+                return
+    ts = [threading.Thread(target=one, args=(h,)) for h in hosts]
+    for t in ts:
+        t.start()
+    for t in ts:
+        t.join()
+    return out
+
+
+def placement(a, lineage, stamp):
+    """(pin, affinity, hosts to sync now, note). --host pins. Otherwise the daemon picks the host at dispatch: a
+    lineage with derived state on a host gives that host an affinity (only it may take the job for --affinity-wait
+    seconds), or a pin when the state is required (--state resume / --map reuse)."""
     if a.host:
-        return a.host
-    try:
-        st = {h["name"]: h for h in json.load(open(jobq.HOSTS_STATE))["hosts"]}
-    except (OSError, ValueError):
-        st = {}
-    best = None
-    for h in jobq.load_hosts():
-        if h.get("local") or not {"msvc", "clang"} <= set(h.get("caps", [])) or (a.replay and "wine" not in h.get("caps", [])):
-            continue
-        s = st.get(h["name"], {})
-        free = s.get("cap", 8) - s.get("used", 0)
-        k = (-free, h.get("pref", 0), h["name"] != "mac2")
-        if best is None or k < best[0]:
-            best = (k, h["name"])
-    if not best:
-        sys.exit("no remote host can run native builds; use --host local")
-    return best[1]
+        return a.host, None, [a.host], "pinned (--host)"
+    hosts = build_hosts(a.replay)
+    if not hosts:
+        sys.exit("no remote host can run Wine builds; use --host local")
+    sv = survey(hosts, lineage, stamp)
+    have = sorted((v["lineage"], h) for h, v in sv.items() if v["lineage"])
+    sync = [h for h in hosts if not sv.get(h, {}).get("inputs")]
+    if have and (a.state == "resume" or a.map == "reuse"):
+        return have[-1][1], None, [have[-1][1]], "pinned: --state resume/--map reuse needs lineage %s, which is on %s" % (lineage, have[-1][1])
+    if have and a.state != "fresh" and a.affinity_wait != 0:
+        return None, have[-1][1], sync, "dispatch-time host; lineage state on %s (affinity %ds)" % (have[-1][1], a.affinity_wait)
+    return None, None, sync, "dispatch-time host" + ("; lineage %s is new" % lineage if not have else "")
 
 
 def cmd_submit(a):
     if a.data_src:
         os.environ["HULK_NB_DATA_SRC"] = a.data_src
-    host = pick_host(a)
-    cfg = host_cfg(host)
     ws = os.path.abspath(a.workspace or ROOT)
     for d in ("tools", "matches", "include"):
         if not os.path.isdir(os.path.join(ws, d)):
@@ -237,14 +293,36 @@ def cmd_submit(a):
     files, dele = overlay(ws, a.live or [])
     lineage = re.sub(r"[^A-Za-z0-9_.-]", "_", a.lineage or "%s-%s" % (a.name, os.path.basename(ws) if a.workspace else "head"))
     stamp = inputs_stamp()
-    if not cfg.get("local"):
-        sync_host(host, stamp, quiet=True)
-    try:
-        cap = {h["name"]: h for h in json.load(open(jobq.HOSTS_STATE))["hosts"]}.get(host, {}).get("cap", 8)
-    except (OSError, ValueError):
-        cap = 8
-    slots = a.slots or (min(cap, 8) if not cfg.get("local") else 2)
-    slots = max(1, min(slots, cap) if cfg.get("local") else slots)
+    host, affinity, to_sync, note = placement(a, lineage, stamp)
+    feats = jobq.daemon_features()
+    if affinity and feats is not None and "affinity" not in feats:
+        # a daemon from before jq3 ignores affinities: pin as submit used to (until it is restarted)
+        host, affinity, to_sync, note = affinity, None, [affinity], "pinned to %s (the running daemon predates affinities)" % affinity
+    local = bool(host and host_cfg(host).get("local"))
+    # inputs: put them on every candidate now (in parallel; a host that fails here gets them at dispatch, jobq `prep`)
+    import threading
+    errs = {}
+
+    def sync1(h):
+        try:
+            sync_host(h, stamp, quiet=True)
+        except (SystemExit, subprocess.CalledProcessError) as e:
+            errs[h] = str(e)
+    ts = [threading.Thread(target=sync1, args=(h,)) for h in to_sync if not host_cfg(h).get("local")]
+    for t in ts:
+        t.start()
+    for t in ts:
+        t.join()
+    for h, e in errs.items():
+        print("sync to %s failed (%s): the queue retries it when the job goes there" % (h, e[-120:]), file=sys.stderr)
+    if local:
+        try:
+            cap = {h["name"]: h for h in json.load(open(jobq.HOSTS_STATE))["hosts"]}.get(host, {}).get("cap", 2)
+        except (OSError, ValueError):
+            cap = 2
+        slots = max(1, min(a.slots or 2, cap))
+    else:
+        slots = a.slots or 8
     spec = {"lineage": lineage, "stages": stages, "gfx": bool(a.gfx), "state": a.state, "map": a.map, "jobs": slots,
             "inputs_stamp": stamp, "deletions": dele, "env": dict(e.split("=", 1) for e in a.env or []),
             "fetch": a.fetch or []}
@@ -262,12 +340,15 @@ def cmd_submit(a):
     ov.update(files)
     store = {dest: [jobq.store_file(p), os.stat(p).st_mode & 0o777] for dest, p in ov.items()}
     os.unlink(tf.name)
+    prep = None if local else (["python", "tools/wine_build_job.py", "prep", "--host", "{host}", "--stamp", stamp] +
+                               (["--data-src", os.path.abspath(a.data_src)] if a.data_src else []))
     job = jobq.make_job(a.name, ["python", "nbrun/wine_build_run.py"], "msvc" if not a.replay else "wine", store, ["nb-out"],
-                        a.limit, slots, a.attempts, a.prio, jobq.head_commit(), SRC_DIRS, host)
+                        a.limit, slots, a.attempts, a.prio, jobq.head_commit(), SRC_DIRS, host, prep=prep,
+                        affinity=affinity, affinity_wait=max(0, a.affinity_wait))
     jid = jobq.submit_jobs([job])[0]
     print(jid)
-    print("host %s, lineage %s, %d overlay files, %d deletions, %d slots, inputs %s" % (host, lineage, len(files), len(dele), slots, stamp),
-          file=sys.stderr)
+    print("%s, lineage %s, %d overlay files, %d deletions, %d slots, inputs %s" % (
+        "host " + host if host else note, lineage, len(files), len(dele), slots, stamp), file=sys.stderr)
     return 0
 
 
@@ -345,7 +426,9 @@ def main():
     s = sp.add_parser("submit")
     s.add_argument("--name", required=True)
     s.add_argument("--workspace", help="a private workspace (default: this checkout); only files differing from HEAD travel")
-    s.add_argument("--host", help="mac2, mac1 or local (default: the remote with more free capacity)")
+    s.add_argument("--host", help="pin to this host (a hosts.json name, or local); default: the queue picks a host when the job starts")
+    s.add_argument("--affinity-wait", type=int, default=900,
+                   help="seconds only the host with this lineage's state may take the job (0: any host at once)")
     s.add_argument("--live", nargs="*", metavar="PATH", help="paths (tools, src/platform...) taken from this checkout, not the workspace")
     s.add_argument("--lineage")
     s.add_argument("--gfx", action="store_true", help="link with the pddi/bgfx backend (wine_link.py --gfx)")
@@ -359,7 +442,7 @@ def main():
     s.add_argument("--replay-env", action="append", help="K=V for the replay only")
     s.add_argument("--env", action="append", help="K=V for the build and link (e.g. HULK_WINE_SANITIZE=float-cast)")
     s.add_argument("--fetch", nargs="*", choices=["image"], help="also bring the image and DLLs back")
-    s.add_argument("--slots", type=int, help="cores (default 8 on a remote, capped by its free capacity)")
+    s.add_argument("--slots", type=int, help="cores for the build stages (default 8 on a remote, 2 local); the replay gives all but one back")
     s.add_argument("--limit", type=int, default=7200, help="wall-clock seconds per attempt")
     s.add_argument("--attempts", type=int, default=2)
     s.add_argument("--prio", type=int, default=0)
@@ -371,9 +454,13 @@ def main():
     s.add_argument("--host", action="append")
     s = sp.add_parser("lineages")
     s.add_argument("--host", action="append")
+    s = sp.add_parser("prep", help="(queue daemon) make the inputs STAMP complete on HOST")
+    s.add_argument("--host", required=True)
+    s.add_argument("--stamp", required=True)
+    s.add_argument("--data-src")
     a = ap.parse_args()
     return {"submit": cmd_submit, "wait": cmd_wait, "compare": cmd_compare, "sync": cmd_sync,
-            "lineages": cmd_lineages}[a.c](a) or 0
+            "lineages": cmd_lineages, "prep": cmd_prep}[a.c](a) or 0
 
 
 if __name__ == "__main__":

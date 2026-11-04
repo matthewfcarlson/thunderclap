@@ -20,6 +20,8 @@ list names callees by address through it; the link then reuses it.
 
 Outputs (fetched by the queue): nb-out/{summary.json,*.log,link-report.json,unbound.txt,image.sha256,ckpt.txt,
 trace.txt,result.json,x87_keep.txt} and, when the spec asks for it, the image and its DLLs in nb-out/image/.
+Before the replay (one Wine process) the job writes 1 to RUNDIR/.jq-slots so the queue gives its other slots back, and
+releases the lineage lock (the replay runs on a copy of the image in the run directory).
 Exit status: 0 all requested stages done, 3 inputs stale/missing, 4 a build stage failed, 5 the replay failed.
 """
 import fcntl
@@ -350,6 +352,21 @@ def gc(keep_days=10):
             pass
 
 
+def release_for_replay(run, lock, summ):
+    """The replay is one Wine process (about one core) and reads only its own copy of the image: give the queue back all
+    slots but one (jobq_run.py's `probe slots` reads RUNDIR/.jq-slots; the daemon lowers the job's slots) and let the next
+    job of this lineage start."""
+    d = os.environ.get("JOBQ_RUN_DIR") or run
+    try:
+        with open(os.path.join(d, ".jq-slots"), "w") as f:
+            f.write("1\n")
+        summ["replay_slots"] = 1
+    except OSError as e:
+        log("could not release slots: %s" % e)
+    lock.close()
+    log("replay: lineage unlocked, 1 slot")
+
+
 def image_src(n, lin, inp):
     return os.path.join(lin, "build/native/link", n) if n == "hulk-strict.exe" else os.path.join(inp, TP, DLL_SRC[n])
 
@@ -525,6 +542,7 @@ def main():
         for n in IMAGE_FILES:
             if os.path.exists(image_src(n, lin, inp)):
                 shutil.copyfile(image_src(n, lin, inp), os.path.join(img, n))
+        release_for_replay(run, lock, summ)
         t = time.time()
         r, ck = wine_replay_job.replay(run, img, os.path.join(run, "nbrun/rec.hrp"), home, rpl.get("timeout", 300),
                                          False, rpl.get("env", {}), rpl.get("frames"), os.path.join(out, "replay"))

@@ -10,7 +10,8 @@ jobq.py copies this file to ~/hulk-jobs/jobq_run.py and calls it over ssh:
                               .jq/exit.json, .jq/log and the OUTS paths, and removes the run directory.
   kill RUNID                  kill the run's process group and remove its directory
   gc KEEP                     keep the KEEP newest base workspaces; remove stale run directories
-  probe                       print "load1 ncpu"
+  probe [slots]               print "load1 ncpu"; with slots also "slots RUNID N" for each run whose command wrote
+                              N to RUNDIR/.jq-slots (it now needs only N of its slots: the daemon gives the rest back)
 Exit status 97 from run: base workspace missing (the caller ships it and retries).
 """
 import json
@@ -198,6 +199,13 @@ def cmd_gc(a):
 
 def cmd_probe(a):
     print("%.2f %d" % (os.getloadavg()[0], os.cpu_count() or 1))
+    if a[:1] == ["slots"] and os.path.isdir(RUN):
+        for n in sorted(os.listdir(RUN)):
+            try:
+                k = int(open(os.path.join(RUN, n, ".jq-slots")).read().split()[0])
+            except (OSError, ValueError, IndexError):
+                continue
+            print("slots %s %d" % (n, k))
 
 
 def main():
