@@ -19,7 +19,7 @@ class CClearCollisionStun_75f20 {
 };
 
 template <> void* fight::TrackFactoryTemplate<CClearCollisionStun>::vfunc_5() {
-    CClearCollisionStun_75f20* p = (CClearCollisionStun_75f20*)operator new(0x14);
+    CClearCollisionStun_75f20* p = (CClearCollisionStun_75f20*)operator new(sizeof(CClearCollisionStun_75f20));
     if (p) {
         p->Init();
         *(volatile hulk_intptr*)p = ((hulk_intptr)DAT_003fc1c0);

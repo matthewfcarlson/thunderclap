@@ -244,7 +244,7 @@ unsigned __int64 pure3d::ShadowSkinLoader::v5(Target_2b7020 **objOut, unsigned _
     Mesh_2b7020 *A = obj->holder->mesh;
     f.A = (hulk_intptr)A;
 
-    void *m1 = FUN_0008d690(0x18);
+    void *m1 = FUN_0008d690((int)sizeof(pure3d::ShadowMeshTopology));
     pure3d::ShadowMeshTopology *topo;
     if (m1)
         topo = new (m1) pure3d::ShadowMeshTopology(nvv, nfv);
@@ -349,7 +349,7 @@ unsigned __int64 pure3d::ShadowSkinLoader::v5(Target_2b7020 **objOut, unsigned _
             n2++;
     }
 
-    void *m3 = FUN_0008d690(0x20);
+    void *m3 = FUN_0008d690((int)sizeof(pure3d::ShadowSkinTopology));
     pure3d::ShadowSkinTopology *stop;
     if (m3)
         stop = new (m3) pure3d::ShadowSkinTopology(n0, n1, n2);

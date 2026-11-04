@@ -75,23 +75,23 @@ extern "C" void FUN_001288e0()
         void* params[5];
         void* mem;
 
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(ParamEnumConstList<TargetDistanceYCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamEnumConstList<TargetDistanceYCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &TargetDistanceYCondition::FUN_001236d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TargetDistanceYCondition>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<TargetDistanceYCondition>("distance", &TargetDistanceYCondition::FUN_001236e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<TargetDistanceYCondition>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamBool<TargetDistanceYCondition>("absoluteValue", &TargetDistanceYCondition::FUN_001236f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<TargetDistanceYCondition>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamBool<TargetDistanceYCondition>("useHulk", &TargetDistanceYCondition::FUN_00123710);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<TargetDistanceYCondition>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamBool<TargetDistanceYCondition>("useGroundPoint", &TargetDistanceYCondition::FUN_00123730);

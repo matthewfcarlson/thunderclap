@@ -122,7 +122,7 @@ ParticleSphereGenerator_2abfb0* __stdcall FUN_002abfb0(Reader_2abfb0* r, void* a
                 f.z = 0;
                 gen->elements.FUN_002aba00(f.y, (::pure3d::ParticleSphereGenerator::GeneratorBlendState* const*)&f.z);
                 for (int i = 0; i < (int)f.y; i++) {
-                    ::pure3d::ParticleSphereGenerator::GeneratorBlendState* e = (::pure3d::ParticleSphereGenerator::GeneratorBlendState*)FUN_0008d690(0x10);
+                    ::pure3d::ParticleSphereGenerator::GeneratorBlendState* e = (::pure3d::ParticleSphereGenerator::GeneratorBlendState*)FUN_0008d690((int)sizeof(::pure3d::ParticleSphereGenerator::GeneratorBlendState));
                     f.z = e;
                     if (e != 0)
                         e = ((GeneratorBlendState_nv_2abfb0*)(((::pure3d::ParticleSphereGenerator::GeneratorBlendState*)(e))))->FUN_002d2bd0(((Item_2abfb0 *)((owners::Target_288a10 *)(f.out0))->FUN_00288a10(i)));

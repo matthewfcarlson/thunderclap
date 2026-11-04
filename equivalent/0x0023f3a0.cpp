@@ -56,11 +56,11 @@ extern "C" void FUN_0023f3a0()
     if (DAT_004e5c8c == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_23f3a0<fight::BreakPointTrack_23f3a0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_23f3a0<fight::BreakPointTrack_23f3a0>("timeBegin", &fight::BreakPointTrack_23f3a0::FUN_0023f0d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamConditionGroup_23f3a0<fight::BreakPointTrack_23f3a0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamConditionGroup_23f3a0<fight::BreakPointTrack_23f3a0>("conditionGroup", &fight::BreakPointTrack_23f3a0::FUN_0023f0e0);

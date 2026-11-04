@@ -8,7 +8,7 @@ struct CSmartPropThrowingAction_nv_62a00 {
 extern CSmartPropThrowingAction* FUN_0008d690(int);
 
 hulk_intptr CSmartPropThrowingTrack::vfunc_12(hulk_intptr param) {
-    CSmartPropThrowingAction* p = FUN_0008d690(0x24);
+    CSmartPropThrowingAction* p = FUN_0008d690((int)sizeof(CSmartPropThrowingAction));
     if (p)
         return ((CSmartPropThrowingAction_nv_62a00*)(((CSmartPropThrowingAction*)(p))))->invoke(this, param);
     return 0;

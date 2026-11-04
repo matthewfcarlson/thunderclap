@@ -36,7 +36,7 @@ unsigned char Renderer_320d30::FUN_00320d30() {
      if (i!=27) ++count;
    }
  }
- ::pure3d::d3dPrimStream* allocated=(::pure3d::d3dPrimStream*)FUN_0008d690(0x160);
+ ::pure3d::d3dPrimStream* allocated=(::pure3d::d3dPrimStream*)FUN_0008d690((int)sizeof(::pure3d::d3dPrimStream));
  object=allocated ? ((d3dPrimStream_nv_320d30*)(((::pure3d::d3dPrimStream*)(allocated))))->FUN_0031bfa0(this) : 0;
  v99();
  FUN_00320c60();

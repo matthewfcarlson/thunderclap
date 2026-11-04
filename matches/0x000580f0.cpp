@@ -29,7 +29,7 @@ extern "C" void FUN_00053170();
 
 template <> void* fight::ConditionFactoryCasterTemplate<CGroundDistanceCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(TrackFactoryTemplate_580f0));
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_580f0* t = new (mem) TrackFactoryTemplate_580f0();

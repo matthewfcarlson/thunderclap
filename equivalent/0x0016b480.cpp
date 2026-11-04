@@ -26,7 +26,7 @@ extern "C" void __cdecl FUN_002347b0(void*, Param**, int);
 extern "C" void __cdecl FUN_0016b480() {
  if (!DAT_004e122c) {
   Param* entries[2];
-  Param* p = (Param*)FUN_0008d690(32);
+  Param* p = (Param*)FUN_0008d690((int)sizeof(Param));
   if (p) {
    unsigned int count = (*(unsigned int*)&DAT_00427754);
    p->FUN_00234cc0("compare");
@@ -36,7 +36,7 @@ extern "C" void __cdecl FUN_0016b480() {
    p->callback = SetCompare_001655a0;
   }
   entries[0] = p;
-  p = (Param*)FUN_0008d690(32);
+  p = (Param*)FUN_0008d690((int)sizeof(Param));
   if(p) {
    p->FUN_00234cc0("constant");
    p = new(p) Param;

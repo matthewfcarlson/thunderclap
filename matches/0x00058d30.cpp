@@ -29,7 +29,7 @@ extern "C" void FUN_00056990();
 
 template <> void* fight::ConditionFactoryCasterTemplate<CCharacterTemplateVariationCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(TrackFactoryTemplate_58d30));
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_58d30* t = new (mem) TrackFactoryTemplate_58d30();

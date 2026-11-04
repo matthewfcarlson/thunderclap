@@ -12,7 +12,7 @@ struct InitClass {
 };
 
 template <> void* fight::TrackFactoryTemplate<CSweepTrack>::vfunc_5() {
-    CSweepTrack_776d0* p = (CSweepTrack_776d0*)FUN_0008d690(0x24);
+    CSweepTrack_776d0* p = (CSweepTrack_776d0*)FUN_0008d690((int)sizeof(CSweepTrack_776d0));
     if (p) {
         ((InitClass*)p)->Init();
         *(unsigned long*)((char*)p + 0x0c) = 0;

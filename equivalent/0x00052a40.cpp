@@ -34,7 +34,7 @@ extern "C" void __cdecl FUN_00052a40() {
  void* params[3];
  typedef fight::ParamEnumConstList<CAxisTimeCondition> Enum;
  typedef fight::ParamFloatConstRange<CAxisTimeCondition> Range;
- Enum* axis = (Enum*)FUN_0008d690(32);
+ Enum* axis = (Enum*)FUN_0008d690((int)sizeof(Enum));
  if(axis) {
  axis->FUN_00234cc0("axis");
  new(axis) Enum;
@@ -43,7 +43,7 @@ extern "C" void __cdecl FUN_00052a40() {
  axis->callback=FUN_00047b00;
  }
  params[0]=axis;
- Enum* compare=(Enum*)FUN_0008d690(32);
+ Enum* compare=(Enum*)FUN_0008d690((int)sizeof(Enum));
  if(compare) {
  unsigned int count=(*(unsigned int*)&DAT_00427754);
  compare->FUN_00234cc0("compareTime");
@@ -53,7 +53,7 @@ extern "C" void __cdecl FUN_00052a40() {
  compare->callback=FUN_00047b10;
  }
  params[1]=compare;
- Range* time=(Range*)FUN_0008d690(24);
+ Range* time=(Range*)FUN_0008d690((int)sizeof(Range));
  if(time) {
  time->FUN_00234960("time");
  new(time) Range;

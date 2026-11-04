@@ -18,13 +18,13 @@ void __cdecl FUN_002347b0(int*, void**, int);
 void target() {
  if (DAT_004e0b44 == 0) {
  void* params[4]; typedef hulkfight::ai::PropsToSuckCondition T;
- fight::ParamEnumConstList<T>* a=(fight::ParamEnumConstList<T>*)FUN_0008d690(32);
+ fight::ParamEnumConstList<T>* a=(fight::ParamEnumConstList<T>*)FUN_0008d690((int)sizeof(fight::ParamEnumConstList<T>));
  if(a) { int count=(*(int*)&DAT_00427754); a->FUN_00234cc0("compare"); a->count=count; new(a) fight::ParamEnumConstList<T>; a->list="lwB"; a->callback=SetCompare_0010c2c0; } params[0]=a;
- fight::ParamFloatConstRange<T>* b=(fight::ParamFloatConstRange<T>*)FUN_0008d690(24);
+ fight::ParamFloatConstRange<T>* b=(fight::ParamFloatConstRange<T>*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<T>));
  if(b) { b->FUN_00234960("distance"); new(b) fight::ParamFloatConstRange<T>; b->callback=SetDistance_0010c2e0; } params[1]=b;
- fight::ParamBool<T>* c=(fight::ParamBool<T>*)FUN_0008d690(24);
+ fight::ParamBool<T>* c=(fight::ParamBool<T>*)FUN_0008d690((int)sizeof(fight::ParamBool<T>));
  if(c) { c->FUN_00234860("numberofAttachedProps"); new(c) fight::ParamBool<T>; c->callback=SetNumberofAttachedProps_0010c300; } params[2]=c;
- fight::ParamIntConstRange<T>* d=(fight::ParamIntConstRange<T>*)FUN_0008d690(24);
+ fight::ParamIntConstRange<T>* d=(fight::ParamIntConstRange<T>*)FUN_0008d690((int)sizeof(fight::ParamIntConstRange<T>));
  if(d) { d->FUN_002348e0("number"); new(d) fight::ParamIntConstRange<T>; d->callback=SetNumber_0010c320; } params[3]=d;
  FUN_002347b0(&DAT_004e0b40,params,4);
  } ++DAT_004e0b44;

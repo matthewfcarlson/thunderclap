@@ -64,11 +64,11 @@ void FUN_001abf50()
     if (DAT_004e179c == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::scenario::Event_WaypointCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList<hulkfight::scenario::Event_WaypointCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::scenario::Event_WaypointCondition::FUN_001aad10);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<hulkfight::scenario::Event_WaypointCondition>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamIntConstRange<hulkfight::scenario::Event_WaypointCondition>("waypoint", &hulkfight::scenario::Event_WaypointCondition::FUN_001aad20);

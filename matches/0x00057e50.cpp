@@ -10,7 +10,7 @@ extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern void* conditionVtable;
 
 template <> void* fight::ConditionFactoryTemplate<CGrappleAlertStatusCondition>::vfunc_5() {
-    CFightNodeTimeCondition_57e50* p = (CFightNodeTimeCondition_57e50*)FUN_0008d690(0x14);
+    CFightNodeTimeCondition_57e50* p = (CFightNodeTimeCondition_57e50*)FUN_0008d690((int)sizeof(CFightNodeTimeCondition_57e50));
     if (p) {
         p->Initialize();
         *(void**)p = &conditionVtable;

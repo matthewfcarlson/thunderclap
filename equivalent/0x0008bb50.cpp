@@ -42,7 +42,7 @@ struct Registry_8bb50 {
 };
 
 void Registry_8bb50::FUN_0008bb50(const char* name, CGameFlowManager* owner, int (CGameFlowManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CGameFlowManager, int>));
     Closure0<CGameFlowManager, int>* c = 0;
     if (mem)
         c = new (mem) Closure0<CGameFlowManager, int>(name, owner, fn);

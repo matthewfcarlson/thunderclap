@@ -886,6 +886,30 @@ X64_CASES = {
     "0x000ac780_x64_raw_offset": ("fail", "layout", "of the 8-byte pointer p", 0),
     "0x000ac780_x64_raw_offset_typed": ("equivalent", None, None, 50),
     "0x000ac780_x64_memcpy_size": ("fail", "layout", "[0].a.v", 0),
+    # (ptr1) a fight parameter registration: the game's allocator declared with C++ linkage (?FUN_0008d690@@YAPAXI@Z),
+    # a template class typed by its vftable at +0 (`??_7?$ParamEnumConstList@...`, llvm-undname), a string literal
+    # whose mangled hash holds `PE` (`??_C@_07DIJKPEDD@compare?$AA@`, not a __ptr64 qualifier): 32 bytes for a class
+    # of 0x38 on 64-bit ...
+    "0x00053220_x64_tmpl_new": ("fail", "layout", "allocation of 0x20 bytes holds a fight::ParamEnumConstList<CCharacterSizeCondition>", 0),
+    # ... and with FUN_0008d690(sizeof(...)) it passes
+    "0x00053220_x64_tmpl_sizeof": ("equivalent", None, None, 50),
+    # (ptr1) a pointer advanced by a byte count inside an `unsigned` array: the same place on both targets
+    "0x0026a050_x64_inner_offset": ("equivalent", None, None, 50),
+    # (ptr1) pure3d's bump allocator (a member, size first) sized by the 32-bit size; hulk_intptr arguments holding
+    # the address of a local compare as stack pointers ...
+    "0x0028cfd0_x64_pool_small": ("fail", "layout", "allocation of 0x1c bytes holds a ColourChannel_28cfd0", 0),
+    # ... and sized by sizeof it passes
+    "0x0028cfd0_x64_pool_sizeof": ("equivalent", None, None, 50),
+    # (ptr1) a stub's `void*` result the source casts to a record (`(CClosure *)FUN_00219520(L, n)`) is that record:
+    # lua_pushcclosure's closure fields compare by name ...
+    "0x002134a0_x64_retcast": ("equivalent", None, None, 8),
+    # ... and a store at the closure's 32-bit byte offset is found
+    "0x002134a0_x64_retcast_raw": ("fail", None, "[0].f", 0),
+    # (ptr1) an array of pointers allocated as `count * 4` bytes (the allocator's result cast to Ref**: typed as an
+    # array of pointers; a fuzzed count asking for more than 16 MB sets the input aside) ...
+    "0x002d3980_x64_count4": ("fail", "layout", "write past the end of alloc#6(Ref_2d3980*)", 0),
+    # ... and `count * sizeof(Ref*)` passes
+    "0x002d3980_x64_count_sizeof": ("equivalent", None, None, 40),
 }
 
 # cases that must also complete this many inputs (the promotion bar is 50)

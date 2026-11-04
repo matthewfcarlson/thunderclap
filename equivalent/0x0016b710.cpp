@@ -64,11 +64,11 @@ extern "C" void FUN_0016b710()
     if (DAT_004e1254 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_16b710<hulkfight::motion::TargetHealthPercentCondition_16b710>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList_16b710<hulkfight::motion::TargetHealthPercentCondition_16b710>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::motion::TargetHealthPercentCondition_16b710::FUN_001656e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_16b710<hulkfight::motion::TargetHealthPercentCondition_16b710>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_16b710<hulkfight::motion::TargetHealthPercentCondition_16b710>("percent", &hulkfight::motion::TargetHealthPercentCondition_16b710::FUN_00165700);

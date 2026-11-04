@@ -39,11 +39,11 @@ extern "C" void FUN_00070620()
     if (DAT_004dcf1c == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70620<::CClimbingTrack_70620>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_70620<::CClimbingTrack_70620>("timeBegin", &::CClimbingTrack_70620::FUN_00067fc0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70620<::CClimbingTrack_70620>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_70620<::CClimbingTrack_70620>("timeEnd", &::CClimbingTrack_70620::FUN_00067fd0);

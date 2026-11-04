@@ -43,11 +43,11 @@ void FUN_0010bc00()
     if (DAT_004e0ad4 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_10bc00<hulkfight::ai::FaceTargetTrack_10bc00>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_10bc00<hulkfight::ai::FaceTargetTrack_10bc00>("timeBegin", &hulkfight::ai::FaceTargetTrack_10bc00::FUN_0010b3d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_10bc00<hulkfight::ai::FaceTargetTrack_10bc00>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_10bc00<hulkfight::ai::FaceTargetTrack_10bc00>("timeEnd", &hulkfight::ai::FaceTargetTrack_10bc00::FUN_0010b3e0);

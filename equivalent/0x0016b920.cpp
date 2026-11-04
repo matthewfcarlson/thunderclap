@@ -64,11 +64,11 @@ extern "C" void FUN_0016b920()
     if (DAT_004e126c == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_16b920<hulkfight::motion::CharacterPropStatusCondition_16b920>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList_16b920<hulkfight::motion::CharacterPropStatusCondition_16b920>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::motion::CharacterPropStatusCondition_16b920::FUN_00165750);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_16b920<hulkfight::motion::CharacterPropStatusCondition_16b920>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_16b920<hulkfight::motion::CharacterPropStatusCondition_16b920>("number", &hulkfight::motion::CharacterPropStatusCondition_16b920::FUN_00165770);

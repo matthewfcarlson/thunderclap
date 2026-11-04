@@ -18,7 +18,7 @@ struct Raw_57d70 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<CFightNodePrevCondition>::vfunc_5() {
-    Raw_57d70* p = (Raw_57d70*)FUN_0008d690(0x20);
+    Raw_57d70* p = (Raw_57d70*)FUN_0008d690((int)sizeof(Raw_57d70));
     if (p != 0) {
         ((Obj_57d70*)p)->Init(0);
         p->vptr = ((hulk_intptr)DAT_003f74e0);

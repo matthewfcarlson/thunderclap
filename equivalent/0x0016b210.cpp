@@ -64,11 +64,11 @@ extern "C" void FUN_0016b210()
     if (DAT_004e1214 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_16b210<hulkfight::motion::TurningVelocityCondition_16b210>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList_16b210<hulkfight::motion::TurningVelocityCondition_16b210>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::motion::TurningVelocityCondition_16b210::FUN_00165510);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_16b210<hulkfight::motion::TurningVelocityCondition_16b210>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_16b210<hulkfight::motion::TurningVelocityCondition_16b210>("turningVelocity", &hulkfight::motion::TurningVelocityCondition_16b210::FUN_00165520);

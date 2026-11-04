@@ -15,7 +15,7 @@ extern int climbVftable;
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::ConditionFactoryTemplate<CClimbableCondition>::vfunc_5() {
-    CClimbableCondition_575f0* p = (CClimbableCondition_575f0*)FUN_0008d690(0x18);
+    CClimbableCondition_575f0* p = (CClimbableCondition_575f0*)FUN_0008d690((int)sizeof(CClimbableCondition_575f0));
     if (p) {
         p->Init(0);
         p->vt = (hulk_intptr)&climbVftable;

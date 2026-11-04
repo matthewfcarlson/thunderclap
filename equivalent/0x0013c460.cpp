@@ -57,11 +57,11 @@ void FUN_0013c460()
     if (DAT_004e0f0c == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_13c460<hulkfight::motion::FrameReachedCondition_13c460>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamName_13c460<hulkfight::motion::FrameReachedCondition_13c460>("animation", &hulkfight::motion::FrameReachedCondition_13c460::FUN_001399d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_13c460<hulkfight::motion::FrameReachedCondition_13c460>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_13c460<hulkfight::motion::FrameReachedCondition_13c460>("frame", &hulkfight::motion::FrameReachedCondition_13c460::FUN_001399e0);

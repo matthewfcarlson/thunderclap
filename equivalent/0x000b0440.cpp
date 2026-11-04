@@ -42,7 +42,7 @@ struct Registry_b0440 {
 };
 
 void Registry_b0440::FUN_000b0440(const char* name, CHapticControllerManager* owner, void (CHapticControllerManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CHapticControllerManager, void>));
     Closure0<CHapticControllerManager, void>* c = 0;
     if (mem)
         c = new (mem) Closure0<CHapticControllerManager, void>(name, owner, fn);

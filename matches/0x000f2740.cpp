@@ -9,7 +9,7 @@ struct FEPoseAnimationInvisible_nv_f2740 {
 hulk_intptr owners::Y_f2740::FUN_000f2740(void* p) {
     if (!field)
         return 0;
-    FEPoseAnimationInvisible* x = (FEPoseAnimationInvisible*)FUN_0008d690(0x60);
+    FEPoseAnimationInvisible* x = (FEPoseAnimationInvisible*)FUN_0008d690((int)sizeof(FEPoseAnimationInvisible));
     hulk_intptr r = x ? ((FEPoseAnimationInvisible_nv_f2740*)(((FEPoseAnimationInvisible*)(x))))->make(field, p) : 0;
     int i = 0;
     do {

@@ -45,7 +45,7 @@ struct Registry_8bd40 {
 };
 
 void Registry_8bd40::FUN_0008bd40(const char* name, CGameFlowManager* owner, math::Vector (CGameFlowManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CGameFlowManager, math::Vector>));
     Closure0<CGameFlowManager, math::Vector>* c = 0;
     if (mem)
         c = new (mem) Closure0<CGameFlowManager, math::Vector>(name, owner, fn);

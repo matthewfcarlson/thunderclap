@@ -83,47 +83,47 @@ void FUN_00120fe0()
     if (DAT_004e0cbc == 0) {
         void* params[11];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_120fe0<PathFormationTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_120fe0<PathFormationTrack>("timeBegin", &PathFormationTrack::FUN_0011bad0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_120fe0<PathFormationTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_120fe0<PathFormationTrack>("timeEnd", &PathFormationTrack::FUN_0011bae0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_120fe0<PathFormationTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_120fe0<PathFormationTrack>("distance", &PathFormationTrack::FUN_0011baf0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_120fe0<PathFormationTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_120fe0<PathFormationTrack>("turnRate", &PathFormationTrack::FUN_0011bb00);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_120fe0<PathFormationTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_120fe0<PathFormationTrack>("heightMin", &PathFormationTrack::FUN_0011bb20);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_120fe0<PathFormationTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_120fe0<PathFormationTrack>("heightMax", &PathFormationTrack::FUN_0011bb30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_120fe0<PathFormationTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_120fe0<PathFormationTrack>("speed", &PathFormationTrack::FUN_0011bb40);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_120fe0<PathFormationTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamIntConstRange_120fe0<PathFormationTrack>("minMembers", &PathFormationTrack::FUN_0011bb60);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_120fe0<PathFormationTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamIntConstRange_120fe0<PathFormationTrack>("maxMembers", &PathFormationTrack::FUN_0011bb80);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_120fe0<PathFormationTrack>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_120fe0<PathFormationTrack>("engagementDistance", &PathFormationTrack::FUN_0011bba0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamString_120fe0<PathFormationTrack>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamString_120fe0<PathFormationTrack>("tactic", &PathFormationTrack::FUN_0011c470);

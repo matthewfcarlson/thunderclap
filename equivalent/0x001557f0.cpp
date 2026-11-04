@@ -16,11 +16,11 @@ void __cdecl FUN_002347b0(unsigned int*, void**, int);
 void target() {
  if (!(*(unsigned int*)&DAT_004e109c)) {
  void* params[3]; typedef hulkfight::motion::CollisionSourceNodeCondition Node;
- fight::ParamEnumConstList<Node>* a=(fight::ParamEnumConstList<Node>*)FUN_0008d690(32);
+ fight::ParamEnumConstList<Node>* a=(fight::ParamEnumConstList<Node>*)FUN_0008d690((int)sizeof(fight::ParamEnumConstList<Node>));
  if(a) { unsigned int count=(*(unsigned int*)&DAT_00427760); a->FUN_00234cc0("compare"); a->count=count; new(a) fight::ParamEnumConstList<Node>; a->values=((unsigned int*)&DAT_00427758); a->callback=SetCompare_0014c610; } params[0]=a;
- fight::ParamBranch<Node>* b=(fight::ParamBranch<Node>*)FUN_0008d690(24);
+ fight::ParamBranch<Node>* b=(fight::ParamBranch<Node>*)FUN_0008d690((int)sizeof(fight::ParamBranch<Node>));
  if(b) { b->FUN_00235170("branch"); new(b) fight::ParamBranch<Node>; b->callback=GetBranch_0014c620; } params[1]=b;
- fight::ParamBool<Node>* c=(fight::ParamBool<Node>*)FUN_0008d690(24);
+ fight::ParamBool<Node>* c=(fight::ParamBool<Node>*)FUN_0008d690((int)sizeof(fight::ParamBool<Node>));
  if(c) { c->FUN_00234860("checkAncestors"); new(c) fight::ParamBool<Node>; c->callback=SetCheckAncestors_0014c630; } params[2]=c;
  FUN_002347b0(((unsigned int*)&DAT_004e1098),params,3);
  } ++(*(unsigned int*)&DAT_004e109c);

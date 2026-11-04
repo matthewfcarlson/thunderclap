@@ -24,13 +24,13 @@ void target() {
  if(DAT_004dcfa4==0) {
  Param* params[4];
  Param* p;
- p=(Param*)FUN_0008d690(24);
+ p=(Param*)FUN_0008d690((int)sizeof(Param));
  if(p) { p->FUN_00234960("timeBegin"); new(p) Param; p->callback=SetTimeBegin_000685f0; } params[0]=p;
- p=(Param*)FUN_0008d690(24);
+ p=(Param*)FUN_0008d690((int)sizeof(Param));
  if(p) { p->FUN_00234960("timeEnd"); new(p) Param; p->callback=SetTimeEnd_00068600; } params[1]=p;
- p=(Param*)FUN_0008d690(24);
+ p=(Param*)FUN_0008d690((int)sizeof(Param));
  if(p) { p->FUN_00234960("amplitude"); new(p) Param; p->callback=SetAmplitude_00068610; } params[2]=p;
- p=(Param*)FUN_0008d690(24);
+ p=(Param*)FUN_0008d690((int)sizeof(Param));
  if(p) { p->FUN_00234960("frequency"); new(p) Param; p->callback=SetFrequency_00068620; } params[3]=p;
  FUN_002347b0(&DAT_004dcfa0,params,4);
  }

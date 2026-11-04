@@ -104,27 +104,27 @@ void FUN_0018e6e0()
         void* params[6];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18e6e0<VarAssignTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_18e6e0<VarAssignTrack>("timeBegin", &VarAssignTrack::FUN_0018cbd0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_18e6e0<VarAssignTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamName_18e6e0<VarAssignTrack>("variable", &VarAssignTrack::FUN_0018cbe0);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_18e6e0<VarAssignTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamEnumConstList_18e6e0<VarAssignTrack>("operator", ((const char**)&DAT_004beb94), 8, &VarAssignTrack::FUN_0018cc00);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_18e6e0<VarAssignTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamIntConstRange_18e6e0<VarAssignTrack>("value", &VarAssignTrack::FUN_0018cc20);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_18e6e0<VarAssignTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamIntConstRange_18e6e0<VarAssignTrack>("valueAtEnd", &VarAssignTrack::FUN_0018cc40);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_18e6e0<VarAssignTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamBool_18e6e0<VarAssignTrack>("setToValueAtEnd", &VarAssignTrack::FUN_0018cc60);

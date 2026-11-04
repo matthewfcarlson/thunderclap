@@ -29,7 +29,7 @@ void postInit();
 
 template <> void* fight::TrackFactoryCasterTemplate<fight::CommentTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(TrackFactoryTemplate_23de90));
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_23de90* t = new (mem) TrackFactoryTemplate_23de90();

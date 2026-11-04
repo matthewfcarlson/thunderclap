@@ -94,99 +94,99 @@ extern "C" void FUN_00161d80()
     if (DAT_004e117c == 0) {
         void* params[24];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("timeBegin", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015a8c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("timeEnd", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015a8d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("acceleration", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015a8f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("velocityLowNorth", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015a910);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("velocityLowStrafe", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015a930);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("velocityLowSouth", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015a950);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("velocityHighNorth", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015a970);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("velocityHighStrafe", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015a990);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("velocityHighSouth", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015a9b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("phase", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015a9d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("locomotion", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015a9e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("animIdle", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015a9f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[12] = 0;
         if (mem)
             params[12] = new (mem) fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("animLowNorth", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015aa00);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[13] = 0;
         if (mem)
             params[13] = new (mem) fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("animLowEast", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015aa10);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[14] = 0;
         if (mem)
             params[14] = new (mem) fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("animLowSouth", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015aa20);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[15] = 0;
         if (mem)
             params[15] = new (mem) fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("animLowWest", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015aa30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[16] = 0;
         if (mem)
             params[16] = new (mem) fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("animHighNorth", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015aa40);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[17] = 0;
         if (mem)
             params[17] = new (mem) fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("animHighEast", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015aa50);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[18] = 0;
         if (mem)
             params[18] = new (mem) fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("animHighSouth", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015aa60);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[19] = 0;
         if (mem)
             params[19] = new (mem) fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("animHighWest", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015aa70);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[20] = 0;
         if (mem)
             params[20] = new (mem) fight::ParamName_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("partition", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015aa80);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[21] = 0;
         if (mem)
             params[21] = new (mem) fight::ParamIntConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("priority", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015aaa0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[22] = 0;
         if (mem)
             params[22] = new (mem) fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("blendInTime", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015aac0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>));
         params[23] = 0;
         if (mem)
             params[23] = new (mem) fight::ParamFloatConstRange_161d80<hulkfight::motion::ClimbLocomotion4Track_161d80>("blendOutTime", &hulkfight::motion::ClimbLocomotion4Track_161d80::FUN_0015aae0);

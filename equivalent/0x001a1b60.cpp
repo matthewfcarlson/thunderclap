@@ -30,13 +30,13 @@ void FUN_001a1b60() {
  void* items[3];
  typedef fight::ParamFloatConstRange<hulkfight::scenario::LuaTrack> FloatParam;
  typedef fight::ParamScript<hulkfight::scenario::LuaTrack> ScriptParam;
- FloatParam* a = (FloatParam*)FUN_0008d690(24);
+ FloatParam* a = (FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
  if(a) { a->FUN_00234960("timeBegin"); new (a) FloatParam; a->callback = SetTimeBegin_001a1290; }
  items[0] = a;
- FloatParam* b = (FloatParam*)FUN_0008d690(24);
+ FloatParam* b = (FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
  if(b) { b->FUN_00234960("timeEnd"); new (b) FloatParam; b->callback = SetTimeEnd_001a12a0; }
  items[1] = b;
- ScriptParam* c = (ScriptParam*)FUN_0008d690(24);
+ ScriptParam* c = (ScriptParam*)FUN_0008d690((int)sizeof(ScriptParam));
  if(c) { c->FUN_00234c00("script"); new (c) ScriptParam; c->callback = SetScript_001a1460; }
  items[2] = c;
  FUN_002347b0(&DAT_004e16fc, items, 3);

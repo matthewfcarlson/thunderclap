@@ -23,7 +23,7 @@ struct TokenSupressTrack_114910 {
 namespace fight {
 }
 template <> void* fight::TrackFactoryTemplate<hulkfight::ai::TokenSupressTrack>::vfunc_5() {
-    hulkfight::ai::TokenSupressTrack_114910* track = (hulkfight::ai::TokenSupressTrack_114910*)FUN_0008d690(0x20);
+    hulkfight::ai::TokenSupressTrack_114910* track = (hulkfight::ai::TokenSupressTrack_114910*)FUN_0008d690((int)sizeof(hulkfight::ai::TokenSupressTrack_114910));
     if (track) {
         track->FUN_00236d40();
         new(track) hulkfight::ai::TokenSupressTrack_114910;

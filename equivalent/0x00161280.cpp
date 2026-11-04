@@ -42,7 +42,7 @@ extern "C" void FUN_00161280()
     if (DAT_004e115c == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_161280<hulkfight::motion::LocomotingCondition_161280>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_161280<hulkfight::motion::LocomotingCondition_161280>("isLocomoting", &hulkfight::motion::LocomotingCondition_161280::FUN_0015a820);

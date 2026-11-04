@@ -56,27 +56,27 @@ void FUN_00118f90()
         void* params[6];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ComputeDropZoneCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<ComputeDropZoneCondition>("increment", &ComputeDropZoneCondition::FUN_00114f10);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ComputeDropZoneCondition>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<ComputeDropZoneCondition>("heightMax", &ComputeDropZoneCondition::FUN_00114f30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ComputeDropZoneCondition>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamFloatConstRange<ComputeDropZoneCondition>("dropDistance", &ComputeDropZoneCondition::FUN_00114f50);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ComputeDropZoneCondition>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamFloatConstRange<ComputeDropZoneCondition>("boostHeightTolerance", &ComputeDropZoneCondition::FUN_00114f60);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<ComputeDropZoneCondition>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamBool<ComputeDropZoneCondition>("useOffset", &ComputeDropZoneCondition::FUN_00114f80);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ComputeDropZoneCondition>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamFloatConstRange<ComputeDropZoneCondition>("offset", &ComputeDropZoneCondition::FUN_00114fa0);

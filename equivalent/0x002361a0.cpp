@@ -61,11 +61,11 @@ extern "C" void FUN_002361a0()
     if (DAT_004e5be0 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_2361a0<fight::FightNodeCondition_2361a0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList_2361a0<fight::FightNodeCondition_2361a0>("compare", ((const char**)&DAT_00427758), (*(int*)&DAT_00427760), &fight::FightNodeCondition_2361a0::FUN_00235950);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBranch_2361a0<fight::FightNodeCondition_2361a0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamBranch_2361a0<fight::FightNodeCondition_2361a0>("fightNode", &fight::FightNodeCondition_2361a0::FUN_00235960);

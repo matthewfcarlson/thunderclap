@@ -13,7 +13,7 @@ struct Obj_16dfc0 {
 extern "C" Obj_16dfc0* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::VelocityXZCondition>::vfunc_5() {
-    Obj_16dfc0* p = FUN_0008d690(0x14);
+    Obj_16dfc0* p = FUN_0008d690((int)sizeof(Obj_16dfc0));
     if (p) {
         p->Init(0);
         p->vt = ((hulk_intptr)DAT_00416918);

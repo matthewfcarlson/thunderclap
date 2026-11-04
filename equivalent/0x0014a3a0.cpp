@@ -20,13 +20,13 @@ void FUN_0014a3a0() {
  void* items[3];
  typedef fight::ParamFloatConstRange<hulkfight::motion::CivilianDetachTrack> FloatParam;
  typedef fight::ParamVector<hulkfight::motion::CivilianDetachTrack> VectorParam;
- FloatParam* a = (FloatParam*)FUN_0008d690(24);
+ FloatParam* a = (FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
  if(a) { a = new(a) FloatParam("timeBegin"); a->callback = FUN_00146990; }
  items[0]=a;
- VectorParam* b=(VectorParam*)FUN_0008d690(24);
+ VectorParam* b=(VectorParam*)FUN_0008d690((int)sizeof(VectorParam));
  if(b) { b = new(b) VectorParam("offset"); b->callback=FUN_001469c0; }
  items[1]=b;
- VectorParam* c=(VectorParam*)FUN_0008d690(24);
+ VectorParam* c=(VectorParam*)FUN_0008d690((int)sizeof(VectorParam));
  if(c) { c = new(c) VectorParam("orient"); c->callback=FUN_00146a00; }
  items[2]=c;
  FUN_002347b0(&DAT_004e0fe4,items,3);

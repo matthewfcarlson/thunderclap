@@ -42,7 +42,7 @@ extern "C" void FUN_00155680()
     if (DAT_004e107c == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_155680<hulkfight::motion::CollisionSourceIsMissileCondition_155680>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_155680<hulkfight::motion::CollisionSourceIsMissileCondition_155680>("isMissile", &hulkfight::motion::CollisionSourceIsMissileCondition_155680::FUN_0014c5a0);

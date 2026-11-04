@@ -92,7 +92,7 @@ pure3d::VertexAnimKeyFrameList_2e6340* KeyFrameLoader::FUN_002e6340(Reader* r, P
     ((owners::X_2647e0 *)(r->stream))->FUN_002647e0((hulk_intptr)(&f.scratch), (hulk_intptr)1, 4, (hulk_intptr)1);
 
     f.list = 0;
-    void* mem = FUN_0008d690(0x20);
+    void* mem = FUN_0008d690((int)sizeof(pure3d::VertexAnimKeyFrameList_2e6340));
     if (mem)
         f.list = new (mem) pure3d::VertexAnimKeyFrameList_2e6340();
 

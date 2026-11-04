@@ -19,7 +19,7 @@ class CIntangibleTrack_76be0 {
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<CIntangibleTrack>::vfunc_5() {
-    CIntangibleTrack_76be0* p = (CIntangibleTrack_76be0*)FUN_0008d690(0x14);
+    CIntangibleTrack_76be0* p = (CIntangibleTrack_76be0*)FUN_0008d690((int)sizeof(CIntangibleTrack_76be0));
     if (p) {
         p->Init();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_003fbe04);

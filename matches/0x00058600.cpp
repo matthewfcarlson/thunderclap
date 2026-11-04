@@ -11,7 +11,7 @@ struct CPropActorStateCondition_58600 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<CPropActorStateCondition>::vfunc_5() {
-    CPropActorStateCondition_58600* p = (CPropActorStateCondition_58600*)FUN_0008d690(0x14);
+    CPropActorStateCondition_58600* p = (CPropActorStateCondition_58600*)FUN_0008d690((int)sizeof(CPropActorStateCondition_58600));
     if (p) {
         p->setup(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f7274);

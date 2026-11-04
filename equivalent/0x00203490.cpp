@@ -70,13 +70,13 @@ void CWorldCollisionManager::FUN_00203490()
     if (reg) {
         void* mem;
 
-        mem = FUN_0008d690(0x24);
+        mem = FUN_0008d690((int)sizeof(Closure1<CWorldCollisionManager, math::Vector, math::Vector>));
         Closure1<CWorldCollisionManager, math::Vector, math::Vector>* c1 = 0;
         if (mem)
             c1 = new (mem) Closure1<CWorldCollisionManager, math::Vector, math::Vector>("wcm_IntersectGround", this, &CWorldCollisionManager::FUN_00202500);
         reg->FUN_001d3b70("wcm_IntersectGround", c1);
 
-        mem = FUN_0008d690(0x24);
+        mem = FUN_0008d690((int)sizeof(Closure1<CWorldCollisionManager, void, float>));
         Closure1<CWorldCollisionManager, void, float>* c2 = 0;
         if (mem)
             c2 = new (mem) Closure1<CWorldCollisionManager, void, float>("wcm_SetWaterHeight", this, &CWorldCollisionManager::FUN_00201bc0);
@@ -84,13 +84,13 @@ void CWorldCollisionManager::FUN_00203490()
 
         reg->FUN_002033d0("wcm_GetWaterHeight", this, &CWorldCollisionManager::FUN_00034e60);
 
-        mem = FUN_0008d690(0x24);
+        mem = FUN_0008d690((int)sizeof(Closure1<CWorldCollisionManager, void, const char*>));
         Closure1<CWorldCollisionManager, void, const char*>* c3 = 0;
         if (mem)
             c3 = new (mem) Closure1<CWorldCollisionManager, void, const char*>("wcm_SetWaterEffectName", this, &CWorldCollisionManager::FUN_00201bd0);
         reg->FUN_001d3b70("wcm_SetWaterEffectName", c3);
 
-        mem = FUN_0008d690(0x24);
+        mem = FUN_0008d690((int)sizeof(Closure1<CWorldCollisionManager, void, const char*>));
         Closure1<CWorldCollisionManager, void, const char*>* c4 = 0;
         if (mem)
             c4 = new (mem) Closure1<CWorldCollisionManager, void, const char*>("wcm_SetWaterSound", this, &CWorldCollisionManager::FUN_00201be0);

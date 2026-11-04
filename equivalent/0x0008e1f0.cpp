@@ -255,7 +255,7 @@ char MyDriveErrorCallback::vfunc_0(unsigned int code, int a1, int a2, int a3, in
     (*(char*)&DAT_004e222d) = 1;
     DAT_004e222c = 1;
     if (!c) {
-        void *m = FUN_0008d690(0xc);
+        void *m = FUN_0008d690((int)sizeof(MyControllerCallback));
         if (m)
             c = new (m) MyControllerCallback;
         else

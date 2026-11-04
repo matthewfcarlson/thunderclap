@@ -18,7 +18,7 @@ struct TrackFactoryTemplate {
 };
 inline void* operator new(size_t, void* p) throw() { return p; }
 FlyingBrakeTrack* TrackFactoryTemplate::vfunc_5() {
-    void* storage = FUN_0008d690(0x30);
+    void* storage = FUN_0008d690((int)sizeof(FlyingBrakeTrack));
     if (!storage) return 0;
     FlyingBrakeTrack* track = (FlyingBrakeTrack*)storage;
     track->FUN_00236d40();

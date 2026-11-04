@@ -28,7 +28,7 @@ NamedValueFloat* Owner_f8df0::Create(int a, int b, int c) {
         return 0;
     NamedValueFloat* r = 0;
     if (c && mInner->mMgr->Check_000dfa60(c)) {
-        NamedValueFloat* p = (NamedValueFloat*)operator new(0x4c);
+        NamedValueFloat* p = (NamedValueFloat*)operator new(sizeof(NamedValueFloat));
         if (p) {
             r = ((NamedValueFloat_nv_f8df0*)(((NamedValueFloat*)(p))))->Init_000f8a90(mInner, a, b, c);
         } else {

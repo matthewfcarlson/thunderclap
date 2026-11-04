@@ -42,7 +42,7 @@ struct Registry_d12e0 {
 };
 
 void Registry_d12e0::FUN_000d12e0(const char* name, HUDOverlay* owner, int (HUDOverlay::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<HUDOverlay, int>));
     Closure0<HUDOverlay, int>* c = 0;
     if (mem)
         c = new (mem) Closure0<HUDOverlay, int>(name, owner, fn);

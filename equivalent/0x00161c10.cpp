@@ -22,9 +22,9 @@ void target() {
  typedef fight::ParamNameConstList<hulkfight::motion::JointPlantedCondition> A;
  typedef fight::ParamFloatConstRange<hulkfight::motion::JointPlantedCondition> B;
  typedef fight::ParamBool<hulkfight::motion::JointPlantedCondition> C;
- A* a=(A*)FUN_0008d690(24); if(a) { new(a) A; a->callback=FUN_0015a830; } params[0]=a;
- B* b=(B*)FUN_0008d690(24); if(b) { new(b) B; b->callback=FUN_0015a840; } params[1]=b;
- C* c=(C*)FUN_0008d690(24); if(c) { new(c) C; c->callback=FUN_0015a850; } params[2]=c;
+ A* a=(A*)FUN_0008d690((int)sizeof(A)); if(a) { new(a) A; a->callback=FUN_0015a830; } params[0]=a;
+ B* b=(B*)FUN_0008d690((int)sizeof(B)); if(b) { new(b) B; b->callback=FUN_0015a840; } params[1]=b;
+ C* c=(C*)FUN_0008d690((int)sizeof(C)); if(c) { new(c) C; c->callback=FUN_0015a850; } params[2]=c;
  FUN_002347b0(&DAT_004e1160,params,3);
  }
  ++DAT_004e1164;

@@ -38,7 +38,7 @@ extern "C" void FUN_00054300()
     if (DAT_004dc544 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_54300<::CRageModeCondition_54300>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_54300<::CRageModeCondition_54300>("rageModeOn", &::CRageModeCondition_54300::FUN_00048100);

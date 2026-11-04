@@ -58,11 +58,11 @@ extern "C" void FUN_00188730()
     if (DAT_004e14ec == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_188730<hulkfight::motion::PropDestroyTrack_188730>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_188730<hulkfight::motion::PropDestroyTrack_188730>("timeBegin", &hulkfight::motion::PropDestroyTrack_188730::FUN_00180580);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_188730<hulkfight::motion::PropDestroyTrack_188730>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamIntConstRange_188730<hulkfight::motion::PropDestroyTrack_188730>("attachmentIndex", &hulkfight::motion::PropDestroyTrack_188730::FUN_001805a0);

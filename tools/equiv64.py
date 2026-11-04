@@ -378,6 +378,32 @@ class TU:
         self.records = {}       # record spelling (no spaces) -> definition cursor
         self._walk(self.tu.cursor, 0)
 
+    def record(self, name):
+        """The definition of record NAME (canonical spelling, no spaces), including implicit template
+        instantiations the source uses (found through the types of its expressions and declarations, once)."""
+        r = self.records.get(name)
+        if r is not None or getattr(self, "_inst_done", False):
+            return r
+        self._inst_done = True
+        for c in self.tu.cursor.walk_preorder():
+            try:
+                t = c.type
+            except Exception:   # noqa: BLE001
+                continue
+            for _ in range(4):
+                if t is None or t.kind.name == "INVALID":
+                    break
+                tc = t.get_canonical()
+                if tc.kind.name in ("POINTER", "LVALUEREFERENCE"):
+                    t = tc.get_pointee()
+                    continue
+                if tc.kind.name == "RECORD":
+                    d = tc.get_declaration()
+                    if d is not None and d.is_definition():
+                        self.records.setdefault(tc.spelling.replace(" ", ""), d)
+                break
+        return self.records.get(name)
+
     def _walk(self, c, depth, templ=False):
         K = ci().CursorKind
         for ch in c.get_children():
@@ -403,6 +429,11 @@ class TU:
                 if ch.is_definition() and k.name != "CLASS_TEMPLATE":
                     self.records.setdefault(ch.type.get_canonical().spelling.replace(" ", ""), ch)
                 self._walk(ch, depth + 1, templ or k.name in ("CLASS_TEMPLATE", "CLASS_TEMPLATE_PARTIAL_SPECIALIZATION"))
+
+
+# leaf kinds whose bytes are the same on both targets when their sizes agree: a pointer into the middle of one (a byte
+# offset into an `unsigned` array, `(char*)&i + 1`) is the same place on both
+SAME_WIDTH = ("i", "f", "d")
 
 
 class Leaf:
@@ -446,7 +477,7 @@ class Layout:
         if r in self.m64:
             return e * self.size32 + self.m64[r]
         l = self.leaf_at(64, r)
-        if l is not None and l.kind == "b":
+        if l is not None and (l.kind == "b" or l.kind in SAME_WIDTH and l.s32 == l.s64):
             return e * self.size32 + l.o32 + (r - l.o64)
         return None
 
@@ -455,7 +486,7 @@ class Layout:
         if r in self.m32:
             return e * self.size64 + self.m32[r]
         l = self.leaf_at(32, r)
-        if l is not None and l.kind == "b":
+        if l is not None and (l.kind == "b" or l.kind in SAME_WIDTH and l.s32 == l.s64):
             return e * self.size64 + l.o64 + (r - l.o32)
         return None
 
@@ -891,6 +922,15 @@ class Heap:
         pointer ("p", obj or None, 32-bit offset) / ("fn", stub key) / ("vt", vtable obj)."""
         r = Rng(self.seed, "leaf", o.id, e, l.o32)
         k = l.kind
+        if k == "i" and l.s32 == 4 and l.s64 == 8:
+            # a pointer-sized integer (hulk_intptr / hulk_uintptr: a pointer the code keeps in an integer): a small
+            # integer or an object's address, never a large 32-bit number (that compares with addresses one way
+            # on i386 and the other above 4 GB)
+            key = (e, l.o32)
+            if key not in o.ptrs:
+                o.ptrs[key] = ("i", r.below(NULL_HI)) if r.below(2) else \
+                    self.choose_ptr(r, ("leaf", o.id, e, l.o32), None)
+            return o.ptrs[key]
         if k == "i" or k == "u":
             return ("i", gen_int(r, min(l.s32, l.s64), l.signed))
         if k == "f":
@@ -1073,7 +1113,14 @@ I386_HELPERS = {"__alldiv", "__aulldiv", "__allrem", "__aullrem", "__allmul", "_
                 "__aulldvrm", "__alldvrm"}
 SKIP_CALLS = {"__security_check_cookie", "__chkstk", "_alloca_probe", "__alloca_probe", "_RTC_CheckEsp"}
 ALLOCATORS = {"??2@YAPAXI@Z", "??_U@YAPAXI@Z", "??2@YAPEAX_K@Z", "??_U@YAPEAX_K@Z", "_malloc", "malloc",
-              "FUN_0008d690", "_FUN_0008d690", "FUN_0008d6d0", "_FUN_0008d6d0"}
+              "FUN_0008d690", "_FUN_0008d690", "FUN_0008d6d0", "_FUN_0008d6d0", "thunk_FUN_0008d690", "_thunk_FUN_0008d690"}
+ALLOC_MAX = 16 << 20                # a larger 32-bit allocation sets the input aside (a fuzzed count)
+# the game's allocators declared with C++ linkage (`void* __cdecl FUN_0008d690(unsigned)`: ?FUN_0008d690@@YAPAXI@Z)
+ALLOCATOR_CXX = re.compile(r"^\?(thunk_)?FUN_0008d6[9d]0@@YA")
+# member allocators whose first parameter is the size: pure3d's bump allocator (0x002888c0, `pool->Alloc(n, align)`)
+ALLOCATOR_MEMBER = re.compile(r"^\?FUN_002888c0@")
+# allocators whose size is a later parameter: Lua's luaM_realloc (0x0021add0: L, block, oldsize, newsize)
+ALLOCATOR_AT = {"FUN_0021add0": 3}
 
 
 # implicitly declared functions (no declaration for libclang): i386 name -> (x64 name, signature)
@@ -1099,8 +1146,28 @@ def c_name(name, bits):
     return name
 
 
+def allocator_at(name, cname):
+    """The size parameter's index when NAME / CNAME is one of ALLOCATOR_AT (C or C++ linkage), else None."""
+    for f, i in ALLOCATOR_AT.items():
+        if cname in (f, "_" + f) or (name or "").startswith("?%s@@" % f) or name in (f, "_" + f):
+            return i
+    return None
+
+
+def ptr_width_int(tt):
+    """(T32, T64) is one integer type of pointer width on each target (hulk_intptr / hulk_uintptr)."""
+    try:
+        a, b = tt[0].get_canonical(), tt[1].get_canonical()
+        return a.kind.name in INT_KINDS and b.kind.name in INT_KINDS and a.get_size() == 4 and b.get_size() == 8
+    except Exception:   # noqa: BLE001
+        return False
+
+
 def norm_mangled(name):
-    """Fallback pairing of an x64 MS mangled name with its i386 spelling (no __ptr64 `E`, thiscall members)."""
+    """Fallback pairing of an x64 MS mangled name with its i386 spelling (no __ptr64 `E`, thiscall members).
+    String literals (`??_C@_07DIJKPEDD@compare?$AA@`) are named alike on both targets: their hash may hold `PE`."""
+    if name.startswith("??_C@"):
+        return name
     n = re.sub(r"@@([ABEFIJMNQRUV])E([ABCD])A", r"@@\1\2E", name)
     n = re.sub(r"(?<=[PQRSA])E(?=[ABCD])", "", n)
     n = n.replace("_K", "I").replace("_J", "H")
@@ -1227,6 +1294,12 @@ class Checker:
             for k in a32:
                 if k in a64:
                     self.param_casts[k] = (a32[k], a64[k])
+        self.ret_casts = {}
+        if "retcasts" not in OFF:
+            r32, r64 = return_casts(c32.get_definition() or c32), return_casts(c64.get_definition() or c64)
+            for k in r32:
+                if k in r64:
+                    self.ret_casts[k] = (r32[k].get_pointee(), r64[k].get_pointee())
         self.range32 = self.img[32].func_range(name32)
 
     def _pick_by_original(self):
@@ -1503,6 +1576,42 @@ def param_casts(fn):
     return out
 
 
+def return_casts(fn):
+    """{callee declaration key: T*} for the calls in FN's body whose `void*` result the body casts straight to a
+    pointer to a record or to a pointer (`(CClosure *)FUN_00219520(L, n)`, `(Ref **)FUN_0008d6d0(bytes)`): the stub's
+    object is generated as a T (an allocation is typed as an array of T). The first such cast of a callee wins."""
+    K = ci().CursorKind
+    out = {}
+
+    def strip(c):
+        while c.kind in (K.PAREN_EXPR, K.UNEXPOSED_EXPR):
+            k = list(c.get_children())
+            if len(k) != 1:
+                break
+            c = k[0]
+        return c
+
+    def walk(c, depth=0):
+        if depth > 200:
+            return
+        if c.kind in (K.CSTYLE_CAST_EXPR, K.CXX_STATIC_CAST_EXPR, K.CXX_REINTERPRET_CAST_EXPR):
+            t = c.type.get_canonical()
+            pk = t.get_pointee().get_canonical() if t.kind.name == "POINTER" else None
+            if pk is not None and (pk.kind.name in ("RECORD", "POINTER") or pk.kind.name in INT_KINDS and pk.get_size() >= 4):
+                kids = [k for k in c.get_children() if k.kind != K.TYPE_REF]
+                inner = strip(kids[-1]) if kids else None
+                if inner is not None and inner.kind == K.CALL_EXPR and inner.referenced is not None:
+                    rt = inner.type.get_canonical()
+                    if rt.kind.name == "POINTER" and rt.get_pointee().get_canonical().kind.name == "VOID":
+                        out.setdefault("decl:" + loc_key(inner.referenced), t)
+        for ch in c.get_children():
+            walk(ch, depth + 1)
+    for ch in fn.get_children():
+        if ch.kind == K.COMPOUND_STMT:
+            walk(ch)
+    return out
+
+
 def split_params(s):
     out, depth, cur = [], 0, ""
     for ch in s:
@@ -1750,8 +1859,9 @@ class Side:
         v = lay.to32(off)
         return v if v is not None else ("in64", off)
 
-    def canon_value(self, t, data):
-        """DATA (bytes of type T on this side) as a target-independent value."""
+    def canon_value(self, t, data, ptrwidth=False):
+        """DATA (bytes of type T on this side) as a target-independent value. PTRWIDTH: T is an integer of pointer
+        width on both targets (hulk_intptr: 4 bytes on i386, 8 on x64)."""
         tc = t.get_canonical()
         k = tc.kind.name
         if k in ("POINTER", "LVALUEREFERENCE", "RVALUEREFERENCE"):
@@ -1772,6 +1882,9 @@ class Side:
         if n >= 4:
             o_, off_ = self.heap.find(self.bits, v)
             if (o_ is not None and off_ < o_.size(self.bits)) or (STUBS <= v < self.stub_hi) or (CODE <= v < self.code_end):
+                return self.canon_ptr(v)
+            # a pointer-width integer (hulk_intptr) holding the address of a local: its value is the stack's layout
+            if ptrwidth and STACK_LO <= v < STACK_HI:
                 return self.canon_ptr(v)
         signed = INT_KINDS.get(k, k == "ENUM")
         if signed and v >= 1 << (8 * n - 1):
@@ -2049,7 +2162,10 @@ class Side:
             sig = None
         else:
             sig = st.sig
-        if name in ALLOCATORS or cname in ALLOCATORS:
+        if name in ALLOCATORS or cname in ALLOCATORS or ALLOCATOR_CXX.match(name or "") or \
+                (ALLOCATOR_MEMBER.match(name or "") and isinstance(sig, Sig) and sig.has_this and sig.params) or \
+                (allocator_at(name, cname) is not None and isinstance(sig, Sig) and not sig.has_this and
+                 len(sig.params) > allocator_at(name, cname)):
             return self.allocator(st, n, sp, retaddr)
         if cname in ("_CxxThrowException", "CxxThrowException") or (name or "").startswith("__CxxThrowException"):
             self.events.append(("throw", st.label))
@@ -2086,7 +2202,7 @@ class Side:
                     # i386 passes such a record in an argument block clang builds in place (inalloca)
                     raise Unsupported("record with a copy constructor or destructor passed by value (%s)" % st.label)
                 data = self.value_bytes(t, loc, sp)
-                cv = self.canon_value(t, data)
+                cv = self.canon_value(t, data, ptr_width_int(tt))
                 if cv[0] == "rec":
                     cv = self.canon_record(tt, data)
                 args.append(cv)
@@ -2205,6 +2321,8 @@ class Side:
             if p[0].get_canonical().kind.name in ("FUNCTIONPROTO", "FUNCTIONNOPROTO"):
                 s2 = self.chk.fnptr_stub(("fnret", repr(st.key), n), p)
                 return ("int", self.chk.stub_addr(s2.key))
+            if k == "POINTER" and p[0].get_canonical().kind.name == "VOID" and st.key in self.chk.ret_casts:
+                p = self.chk.ret_casts[st.key]
             v = self.heap.choose_ptr(r, ("ret", repr(st.key), n), p) if k == "POINTER" else \
                 ("p", self.heap.get(("ret", repr(st.key), n), "heap", self.chk.types.layout(p[0], p[1])), 0)
             return ("int", self.heap.ptr_value(b, v))
@@ -2383,14 +2501,37 @@ class Side:
         """operator new / malloc / the game's allocators: a fresh raw object of the requested size (each side's)."""
         b = self.bits
         sig = st.sig
-        size = self.int_args(sp, 1)[0] if self.bits == 64 or sig is None or sig.cc32 != CC_THIS else 0
+        at = None
+        for bits_, nm in st.names.items():
+            at = allocator_at(nm, c_name(nm, bits_))
+            if at is not None:
+                break
+        if isinstance(sig, Sig) and (sig.has_this and sig.params or at is not None):
+            kinds, locs, _ = self.arg_locs(sig, False)
+            loc = [lc for (k, _t), lc in zip(kinds, locs) if k == "param"][at or 0]
+            size = int.from_bytes(self.read_loc(loc, 4, sp), "little")
+        else:
+            size = self.int_args(sp, 1)[0] if self.bits == 64 or sig is None or sig.cc32 != CC_THIS else 0
         if b == 32 and sig is not None and sig.cc32 in (CC_FAST,):
             size = self.reg(X.UC_X86_REG_ECX)
         size &= (1 << (8 * self.ps)) - 1
+        if b == 32 and size > ALLOC_MAX:
+            # a size from a fuzzed count (`count * 4` of an unchecked count): no game state asks for this much
+            self.stop = ("wild", "32-bit allocation of 0x%x bytes" % size)
+            raise Stop()
         ident = ("new", repr(st.key), n)
         o = self.heap.by_ident.get(ident)
         if o is None:
             o = self.heap.get(ident, "alloc", RAW, alloc=(size, size))
+            # (ptr1) the source casts the allocator's result: an array of that type (a later vftable or a larger
+            # type it is passed as still wins)
+            if st.key in self.chk.ret_casts and o.hint is None:
+                try:
+                    lay = self.chk.types.layout(*self.chk.ret_casts[st.key])
+                    if not lay.raw:
+                        o.hint = lay
+                except Unsupported:
+                    pass
         if b == 64 and o.alloc[1] != size or b == 32 and o.alloc[0] != size:
             o.alloc = (o.alloc[0], size) if b == 64 else (size, o.alloc[1])
             o.size64 = max(1, o.alloc[1])
@@ -2505,11 +2646,35 @@ def retypable(o):
 
 
 def vftable_class(name):
-    """`??_7Inner@Outer@@6B@` -> `Outer::Inner` (non-template names only)."""
+    """`??_7Inner@Outer@@6B@` -> `Outer::Inner`; a template's (`??_7?$T@VA@@@ns@@6B@`) -> `ns::T<A>` (llvm-undname)."""
     m = VT_NAME.match(name or "")
-    if not m or "?" in m.group(1) or "$" in m.group(1):
+    if not m:
         return None
+    if "?" in m.group(1) or "$" in m.group(1):
+        return undname_class(name)
     return "::".join(reversed(m.group(1).split("@")))
+
+
+_UNDNAME = {}
+
+
+def undname_class(name):
+    """A template class's vftable symbol -> its canonical spelling without spaces (`fight::ParamList<CFoo>`)."""
+    if name not in _UNDNAME:
+        r = None
+        try:
+            out = subprocess.run([cp.tool("llvm-undname"), name], capture_output=True, text=True, timeout=20).stdout
+            line = [x for x in out.splitlines() if "`vftable'" in x]
+            if line:
+                t = line[0].strip()
+                t = re.sub(r"^const ", "", t)
+                t = re.sub(r"::`vftable'.*$", "", t)
+                t = re.sub(r"\b(class|struct|union|enum) ", "", t)
+                r = t.replace(" ", "")
+        except Exception:   # noqa: BLE001
+            r = None
+        _UNDNAME[name] = r
+    return _UNDNAME[name]
 
 
 def type_allocations(chk, heap, s32):
@@ -2530,7 +2695,7 @@ def type_allocations(chk, heap, s32):
             if t is not None and t.ident[0] == "vt":
                 cls = t.ident[1][0]
         if cls:
-            r32, r64 = chk.tu[32].records.get(cls), chk.tu[64].records.get(cls)
+            r32, r64 = chk.tu[32].record(cls), chk.tu[64].record(cls)
             if r32 is not None and r64 is not None:
                 try:
                     lay = chk.types.layout(r32.type, r64.type)

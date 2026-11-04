@@ -56,27 +56,27 @@ void FUN_00145540()
         void* params[6];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SlowMotionTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<SlowMotionTrack>("timeBegin", &SlowMotionTrack::FUN_00143230);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SlowMotionTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<SlowMotionTrack>("timeOn", &SlowMotionTrack::FUN_00143250);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SlowMotionTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamFloatConstRange<SlowMotionTrack>("timeOff", &SlowMotionTrack::FUN_00143270);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SlowMotionTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamFloatConstRange<SlowMotionTrack>("timeEnd", &SlowMotionTrack::FUN_00143290);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SlowMotionTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<SlowMotionTrack>("simulationRate", &SlowMotionTrack::FUN_001432b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<SlowMotionTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamBool<SlowMotionTrack>("fromScenario", &SlowMotionTrack::FUN_001432d0);

@@ -22,11 +22,11 @@ extern void __cdecl FUN_002347b0(int*, Param**, int);
 extern "C" void FUN_00072740() {
  if (!DAT_004dd01c) {
  Param* params[3];
- Param* p = (Param*)FUN_0008d690(24);
+ Param* p = (Param*)FUN_0008d690((int)sizeof(Param));
  if (p) { p->FUN_00234960("timeBegin"); new(p) Param; p->callback=SetTimeBegin_00068b90; } params[0]=p;
- p = (Param*)FUN_0008d690(24);
+ p = (Param*)FUN_0008d690((int)sizeof(Param));
  if (p) { p->FUN_00234960("timeEnd"); new(p) Param; p->callback=SetTimeEnd_00068ba0; } params[1]=p;
- p = (Param*)FUN_0008d690(24);
+ p = (Param*)FUN_0008d690((int)sizeof(Param));
  if (p) { p->FUN_00234960("height"); new(p) Param; p->callback=SetHeight_00068bb0; } params[2]=p;
  FUN_002347b0(&DAT_004dd018, params, 3);
  }

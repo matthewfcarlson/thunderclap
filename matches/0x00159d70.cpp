@@ -13,7 +13,7 @@ extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 extern int HitWaitTrack_vftable;
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitWaitTrack>::vfunc_5() {
-    HitWaitTrack_159d70* p = (HitWaitTrack_159d70*)FUN_0008d690(0x14);
+    HitWaitTrack_159d70* p = (HitWaitTrack_159d70*)FUN_0008d690((int)sizeof(HitWaitTrack_159d70));
     if (p) {
         p->HitWaitTrack_159d70::HitWaitTrack_159d70();
         *(hulk_intptr*)p = (hulk_intptr)&HitWaitTrack_vftable;

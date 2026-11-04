@@ -65,47 +65,47 @@ void FUN_0014a480()
     if (DAT_004e0ff0 == 0) {
         void* params[11];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a480<GrappleThrowTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("timeBegin", &GrappleThrowTrack::FUN_00146a40);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_14a480<GrappleThrowTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamVector_14a480<GrappleThrowTrack>("direction", &GrappleThrowTrack::FUN_00146a70);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a480<GrappleThrowTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("distanceMin", &GrappleThrowTrack::FUN_00146aa0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a480<GrappleThrowTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("distanceMax", &GrappleThrowTrack::FUN_00146ac0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a480<GrappleThrowTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("velocityMin", &GrappleThrowTrack::FUN_00146ae0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a480<GrappleThrowTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("velocityMax", &GrappleThrowTrack::FUN_00146b00);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a480<GrappleThrowTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("trackingMin", &GrappleThrowTrack::FUN_00146b20);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a480<GrappleThrowTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("trackingMax", &GrappleThrowTrack::FUN_00146b50);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a480<GrappleThrowTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("yFixupAngle", &GrappleThrowTrack::FUN_00146b80);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a480<GrappleThrowTrack>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("stunTimeMin", &GrappleThrowTrack::FUN_00146bb0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a480<GrappleThrowTrack>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_14a480<GrappleThrowTrack>("stunTimeMax", &GrappleThrowTrack::FUN_00146bd0);

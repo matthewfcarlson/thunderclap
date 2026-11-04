@@ -59,11 +59,11 @@ extern "C" void FUN_00053a50()
     if (DAT_004dc4b4 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<::CSmartPropWeaponTypeCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList<::CSmartPropWeaponTypeCondition>("type", ((const char**)&DAT_003f6b9c), 7, &::CSmartPropWeaponTypeCondition::FUN_00047e50);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<::CSmartPropWeaponTypeCondition>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamIntConstRange<::CSmartPropWeaponTypeCondition>("attachmentIndex", &::CSmartPropWeaponTypeCondition::FUN_00047e60);

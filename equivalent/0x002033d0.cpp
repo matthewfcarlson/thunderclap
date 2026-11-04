@@ -42,7 +42,7 @@ struct Registry_2033d0 {
 };
 
 void Registry_2033d0::FUN_002033d0(const char* name, CWorldCollisionManager* owner, float (CWorldCollisionManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CWorldCollisionManager, float>));
     Closure0<CWorldCollisionManager, float>* c = 0;
     if (mem)
         c = new (mem) Closure0<CWorldCollisionManager, float>(name, owner, fn);

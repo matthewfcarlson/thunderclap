@@ -20,7 +20,7 @@ extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int cvtable_76d40;
 
 template <> void* fight::TrackFactoryTemplate<CInvincibleTrack>::vfunc_5() {
-    CInvincibleTrack_76d40* p = (CInvincibleTrack_76d40*)FUN_0008d690(0x18);
+    CInvincibleTrack_76d40* p = (CInvincibleTrack_76d40*)FUN_0008d690((int)sizeof(CInvincibleTrack_76d40));
     CInvincibleTrack_76d40* r;
     if (p) {
         p->Init();

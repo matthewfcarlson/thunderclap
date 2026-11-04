@@ -126,7 +126,7 @@ FEObject* FEContainer::vfunc_23(FEObject* obj, const char* name)
     }
 
     if (layout == 0) {
-        void* mem = FUN_0008d690(0x48);
+        void* mem = FUN_0008d690((int)sizeof(SingleLayout));
         if (mem)
             layout = new (mem) SingleLayout(this, name);
         AddLayout(layout);

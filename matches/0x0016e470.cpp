@@ -21,7 +21,7 @@ class Condition_16e470 {
 extern int AIHistoryNameCondition_vftable;
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::HealthCondition>::vfunc_5() {
-    Condition_16e470* p = (Condition_16e470*)FUN_0008d690(0x18);
+    Condition_16e470* p = (Condition_16e470*)FUN_0008d690((int)sizeof(Condition_16e470));
     void* result;
     if (p) {
         p->Init(0);

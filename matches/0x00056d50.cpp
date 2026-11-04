@@ -16,7 +16,7 @@ struct CAxisDoubleTapCondition_56d50 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<CAxisDoubleTapCondition>::vfunc_5() {
-    CAxisDoubleTapCondition_56d50* p = (CAxisDoubleTapCondition_56d50*)FUN_0008d690(0x20);
+    CAxisDoubleTapCondition_56d50* p = (CAxisDoubleTapCondition_56d50*)FUN_0008d690((int)sizeof(CAxisDoubleTapCondition_56d50));
     if (p) {
         p->Init(0);
         p->x0 = 0;

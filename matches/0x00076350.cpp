@@ -30,7 +30,7 @@ class IRefCount_76350 {
 };
 
 template <> void* fight::TrackFactoryTemplate<CDrainHealthTrack>::vfunc_5() {
-    CDrainHealthTrack_76350* p = (CDrainHealthTrack_76350*)FUN_0008d690(0x18);
+    CDrainHealthTrack_76350* p = (CDrainHealthTrack_76350*)FUN_0008d690((int)sizeof(CDrainHealthTrack_76350));
     if (p) {
         p->init();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_003fbd50);

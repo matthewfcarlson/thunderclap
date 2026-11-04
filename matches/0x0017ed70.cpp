@@ -18,7 +18,7 @@ struct Track_17ed70 {
 extern void __fastcall init(Track_17ed70*);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::VisibilityTrack>::vfunc_5() {
-    Track_17ed70* p = (Track_17ed70*)FUN_0008d690(0x14);
+    Track_17ed70* p = (Track_17ed70*)FUN_0008d690((int)sizeof(Track_17ed70));
     if (p) {
         init(p);
         p->z = 1;

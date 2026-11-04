@@ -29,13 +29,13 @@ extern "C" void FUN_00236250() {
  typedef fight::ParamEnumConstList<fight::FightNodeParentCondition> Enum;
  typedef fight::ParamBranch<fight::FightNodeParentCondition> Branch;
  typedef fight::ParamBool<fight::FightNodeParentCondition> Bool;
- Enum* a = (Enum*)FUN_0008d690(32);
+ Enum* a = (Enum*)FUN_0008d690((int)sizeof(Enum));
  if (a) { int count = (*(int*)&DAT_00427760); a->FUN_00234cc0("compare"); a->count=count; new(a) Enum; a->values=((char*)&DAT_00427758); a->callback=SetCompare_00235970; }
  params[0]=a;
- Branch* b=(Branch*)FUN_0008d690(24);
+ Branch* b=(Branch*)FUN_0008d690((int)sizeof(Branch));
  if(b) { b->FUN_00235170("parent"); new(b) Branch; b->callback=GetParent_00235980; }
  params[1]=b;
- Bool* c=(Bool*)FUN_0008d690(24);
+ Bool* c=(Bool*)FUN_0008d690((int)sizeof(Bool));
  if(c) { c->FUN_00234860("recurse"); new(c) Bool; c->callback=SetRecurse_00235990; }
  params[2]=c;
  FUN_002347b0(&DAT_004e5be4,params,3);

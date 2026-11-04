@@ -10,7 +10,7 @@ extern "C" void FUN_0027b8f0(){
     long long hash = FUN_002672f0("root", 0, 0);
     (*(unsigned int*)&DAT_004ce408) = (unsigned int)hash;
     (*(unsigned int*)&DAT_004ce40c) = (unsigned int)(hash >> 32);
-    Bitset* b = FUN_0008d6d0(0x48);
+    Bitset* b = FUN_0008d6d0((int)sizeof(Bitset));
     b->bits = 0x201;
     for (int i = 0; i < 17; i++) b->words[i] = 0;
     (*(Bitset**)&DAT_004ce410) = b;

@@ -16,13 +16,13 @@ template<class T> struct ParamVector { virtual void slot0(); char pad[12]; void 
 extern "C" void FUN_00078610() {
  if (DAT_004dd03c == 0) {
  void* items[3];
- fight::ParamFloatConstRange<CExplosionTrack>* a = (fight::ParamFloatConstRange<CExplosionTrack>*)FUN_0008d690(24);
+ fight::ParamFloatConstRange<CExplosionTrack>* a = (fight::ParamFloatConstRange<CExplosionTrack>*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CExplosionTrack>));
  if(a) { a->FUN_00234960("timeBegin"); new(a) fight::ParamFloatConstRange<CExplosionTrack>; a->callback=SetTimeBegin_00077ed0; }
  items[0]=a;
- fight::ParamEnumConstList<CExplosionTrack>* b=(fight::ParamEnumConstList<CExplosionTrack>*)FUN_0008d690(32);
+ fight::ParamEnumConstList<CExplosionTrack>* b=(fight::ParamEnumConstList<CExplosionTrack>*)FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CExplosionTrack>));
  if(b) { b->FUN_00234cc0("explosion"); new(b) fight::ParamEnumConstList<CExplosionTrack>; b->list=((char*)&DAT_0049b6b4); b->count=13; b->callback=SetExplosion_00077ee0; }
  items[1]=b;
- fight::ParamVector<CExplosionTrack>* c=(fight::ParamVector<CExplosionTrack>*)FUN_0008d690(24);
+ fight::ParamVector<CExplosionTrack>* c=(fight::ParamVector<CExplosionTrack>*)FUN_0008d690((int)sizeof(fight::ParamVector<CExplosionTrack>));
  if(c) { c->FUN_00234e50("offset"); new(c) fight::ParamVector<CExplosionTrack>; c->callback=SetOffset_00077ef0; }
  items[2]=c;
  FUN_002347b0(((char*)&DAT_004dd038),items,3);

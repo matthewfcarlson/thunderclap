@@ -31,7 +31,7 @@ typedef fight::ParamEnumConstList<hulkfight::motion::TargetLocomotionMotionState
 extern "C" void __cdecl FUN_0016b650() {
     if (!(*(uint*)&DAT_004e124c)) {
         List_16b650* lists[2];
-        void* p = FUN_0008d690(32);
+        void* p = FUN_0008d690((int)sizeof(List_16b650));
         if (p) {
             uint n = (*(uint*)&DAT_00427760);
             ((List_16b650*)p)->FUN_00234cc0("compare");
@@ -42,7 +42,7 @@ extern "C" void __cdecl FUN_0016b650() {
             lists[0] = x;
         } else
             lists[0] = 0;
-        p = FUN_0008d690(32);
+        p = FUN_0008d690((int)sizeof(List_16b650));
         if (p) {
             uint n = (*(uint*)&DAT_003f5bbc);
             ((List_16b650*)p)->FUN_00234cc0("locomotionMotionState");

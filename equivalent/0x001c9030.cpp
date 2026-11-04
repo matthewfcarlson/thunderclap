@@ -22,7 +22,7 @@ last.FUN_0027af00();
 for(int k=0;k<4;++k) fields53c[k]=0;
 field538=0; field54c=0; field8=0; fieldC=0;
 Shader_1c9030* r=(Shader_1c9030*)FUN_00263ea0(32); if(r) r=r->FUN_0028edb0(); resource=r; r->init(); resource->stream->s6(0x444d4c42,4);
-pure3d::ShadowGenerator* s=(pure3d::ShadowGenerator*)FUN_0008d690(20);
+pure3d::ShadowGenerator* s=(pure3d::ShadowGenerator*)FUN_0008d690((int)sizeof(pure3d::ShadowGenerator));
 if(s) { s->value=0; new(s) pure3d::ShadowGenerator; s->data.FUN_002a30a0(); }
 shadow=s; s->init();
 }

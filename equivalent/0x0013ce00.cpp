@@ -81,43 +81,43 @@ void FUN_0013ce00()
     if (DAT_004e0f34 == 0) {
         void* params[10];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_13ce00<AnimationPhaseMatchedTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_13ce00<AnimationPhaseMatchedTrack>("timeBegin", &AnimationPhaseMatchedTrack::FUN_00139d70);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_13ce00<AnimationPhaseMatchedTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_13ce00<AnimationPhaseMatchedTrack>("timeEnd", &AnimationPhaseMatchedTrack::FUN_00139d80);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_13ce00<AnimationPhaseMatchedTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamName_13ce00<AnimationPhaseMatchedTrack>("animation", &AnimationPhaseMatchedTrack::FUN_00139d90);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_13ce00<AnimationPhaseMatchedTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_13ce00<AnimationPhaseMatchedTrack>("syncFrame", &AnimationPhaseMatchedTrack::FUN_00139db0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_13ce00<AnimationPhaseMatchedTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_13ce00<AnimationPhaseMatchedTrack>("startFrame", &AnimationPhaseMatchedTrack::FUN_00139dd0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_13ce00<AnimationPhaseMatchedTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_13ce00<AnimationPhaseMatchedTrack>("endFrame", &AnimationPhaseMatchedTrack::FUN_00139df0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_13ce00<AnimationPhaseMatchedTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamName_13ce00<AnimationPhaseMatchedTrack>("partition", &AnimationPhaseMatchedTrack::FUN_00139e00);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_13ce00<AnimationPhaseMatchedTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamIntConstRange_13ce00<AnimationPhaseMatchedTrack>("priority", &AnimationPhaseMatchedTrack::FUN_00139e20);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_13ce00<AnimationPhaseMatchedTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamFloatConstRange_13ce00<AnimationPhaseMatchedTrack>("blendInTime", &AnimationPhaseMatchedTrack::FUN_00139e40);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_13ce00<AnimationPhaseMatchedTrack>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_13ce00<AnimationPhaseMatchedTrack>("blendOutTime", &AnimationPhaseMatchedTrack::FUN_00139e60);

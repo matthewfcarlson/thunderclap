@@ -60,7 +60,7 @@ template <class T> struct ParamFloatConstRange {
 extern "C" void __cdecl FUN_00064660() {
     if (!DAT_004dc664) {
         void* params[3];
-        void* mem = FUN_0008d690(24);
+        void* mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<CSmartPropEventTrack>));
         if (mem) {
             fight::ParamIntConstRange<CSmartPropEventTrack>* p =
                 (fight::ParamIntConstRange<CSmartPropEventTrack>*)mem;
@@ -70,7 +70,7 @@ extern "C" void __cdecl FUN_00064660() {
             params[0] = p;
         } else
             params[0] = 0;
-        mem = FUN_0008d690(32);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CSmartPropEventTrack>));
         if (mem) {
             fight::ParamEnumConstList<CSmartPropEventTrack>* p =
                 (fight::ParamEnumConstList<CSmartPropEventTrack>*)mem;
@@ -82,7 +82,7 @@ extern "C" void __cdecl FUN_00064660() {
             params[1] = p;
         } else
             params[1] = 0;
-        mem = FUN_0008d690(24);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CSmartPropEventTrack>));
         if (mem) {
             fight::ParamFloatConstRange<CSmartPropEventTrack>* p =
                 (fight::ParamFloatConstRange<CSmartPropEventTrack>*)mem;

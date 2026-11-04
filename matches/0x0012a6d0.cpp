@@ -15,7 +15,7 @@ struct Init_12a6d0 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetOrientationCondition>::vfunc_5() {
-    Target_12a6d0* p = (Target_12a6d0*)FUN_0008d690(0x14);
+    Target_12a6d0* p = (Target_12a6d0*)FUN_0008d690((int)sizeof(Target_12a6d0));
     if (p) {
         ((Init_12a6d0*)p)->initialize(0);
         p->vt = ((hulk_intptr)DAT_0040fdf4);

@@ -40,7 +40,7 @@ void FUN_00238610()
     if (DAT_004e5c18 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_238610<fight::RandomCondition_238610>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_238610<fight::RandomCondition_238610>("weight", &fight::RandomCondition_238610::FUN_002381d0);

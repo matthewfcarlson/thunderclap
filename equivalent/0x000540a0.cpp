@@ -25,7 +25,7 @@ void __cdecl FUN_002347b0(void*,Entry_540a0**,int);
 void __cdecl target() {
  if (DAT_004dc52c == 0) {
   Entry_540a0* entries[2];
-  Entry_540a0* p = (Entry_540a0*)FUN_0008d690(32);
+  Entry_540a0* p = (Entry_540a0*)FUN_0008d690((int)sizeof(Entry_540a0));
   if (p) {
    int n = (*(int*)&DAT_00427760);
    p->FUN_00234cc0("compare");
@@ -35,7 +35,7 @@ void __cdecl target() {
    p->callback=SetCompare_00048060;
   }
   entries[0]=p;
-  p=(Entry_540a0*)FUN_0008d690(32);
+  p=(Entry_540a0*)FUN_0008d690((int)sizeof(Entry_540a0));
   if (p) {
    p->FUN_00234cc0("motionHit");
    new (p) Entry_540a0;

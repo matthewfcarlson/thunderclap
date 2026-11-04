@@ -49,7 +49,7 @@ template <class T> struct ParamString : Base_239010 {
 void FUN_00239010() {
     if (!DAT_004e5c2c) {
         Base_239010* params[3];
-        void* mem = FUN_0008d690(24);
+        void* mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<fight::PrintTrack>));
         if (mem) {
             ((Base_239010*)mem)->FUN_00234960("timeBegin");
             fight::ParamFloatConstRange<fight::PrintTrack>* p =
@@ -58,7 +58,7 @@ void FUN_00239010() {
             params[0] = p;
         } else
             params[0] = 0;
-        mem = FUN_0008d690(24);
+        mem = FUN_0008d690((int)sizeof(fight::ParamString<fight::PrintTrack>));
         if (mem) {
             ((Base_239010*)mem)->FUN_002349e0("channel");
             fight::ParamString<fight::PrintTrack>* p = new (mem) fight::ParamString<fight::PrintTrack>;
@@ -66,7 +66,7 @@ void FUN_00239010() {
             params[1] = p;
         } else
             params[1] = 0;
-        mem = FUN_0008d690(24);
+        mem = FUN_0008d690((int)sizeof(fight::ParamString<fight::PrintTrack>));
         if (mem) {
             ((Base_239010*)mem)->FUN_002349e0("text");
             fight::ParamString<fight::PrintTrack>* p = new (mem) fight::ParamString<fight::PrintTrack>;

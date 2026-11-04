@@ -29,7 +29,7 @@ extern "C" void FUN_001127d0();
 
 template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::TokenSupressTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(TrackFactoryTemplate_1148d0));
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_1148d0* t = new (mem) TrackFactoryTemplate_1148d0();

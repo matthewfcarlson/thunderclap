@@ -15,7 +15,7 @@ class Condition {
     void Init(int);
 };
 Condition* Condition::vfunc_5() {
-    Condition* p = (Condition*)FUN_0008d690(0x14);
+    Condition* p = (Condition*)FUN_0008d690((int)sizeof(Condition));
     if (p) {
         p->Init(0);
         *(void**)p = &vtable_1591f0;

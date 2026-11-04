@@ -42,7 +42,7 @@ struct Registry_1ee5b0 {
 };
 
 void Registry_1ee5b0::FUN_001ee5b0(const char* name, CSoundRealTimeManager* owner, void (CSoundRealTimeManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CSoundRealTimeManager, void>));
     Closure0<CSoundRealTimeManager, void>* c = 0;
     if (mem)
         c = new (mem) Closure0<CSoundRealTimeManager, void>(name, owner, fn);

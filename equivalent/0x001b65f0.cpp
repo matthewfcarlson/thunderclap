@@ -90,7 +90,7 @@ char Mgr_1b65f0::FUN_001b65f0(int id, int slot)
     r.z = r.z + mz;
 
     if ((*(Locator**)&DAT_004e2158) == 0) {
-        void *mem = FUN_0008d690(0x5ac);
+        void *mem = FUN_0008d690((int)sizeof(Locator));
         Locator *loc = 0;
         if (mem)
             loc = new (mem) Locator();

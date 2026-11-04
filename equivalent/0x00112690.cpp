@@ -70,23 +70,23 @@ extern "C" void FUN_00112690()
         void* params[5];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SemaphoreClearTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<SemaphoreClearTrack>("timeBegin", &SemaphoreClearTrack::FUN_0010c3b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SemaphoreClearTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<SemaphoreClearTrack>("timeEnd", &SemaphoreClearTrack::FUN_0010c3c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamName<SemaphoreClearTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamName<SemaphoreClearTrack>("semaphore", &SemaphoreClearTrack::FUN_0010c3d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<SemaphoreClearTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamBool<SemaphoreClearTrack>("clearEveryFrame", &SemaphoreClearTrack::FUN_0010c3f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<SemaphoreClearTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamBool<SemaphoreClearTrack>("clearAll", &SemaphoreClearTrack::FUN_0010c410);

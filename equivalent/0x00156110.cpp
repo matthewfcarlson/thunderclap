@@ -57,27 +57,27 @@ extern "C" void FUN_00156110()
         void* params[6];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitOrientToPushbackTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<HitOrientToPushbackTrack>("timeBegin", &HitOrientToPushbackTrack::FUN_0014cd20);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitOrientToPushbackTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<HitOrientToPushbackTrack>("timeEnd", &HitOrientToPushbackTrack::FUN_0014cd30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitOrientToPushbackTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamFloatConstRange<HitOrientToPushbackTrack>("turningVelocity", &HitOrientToPushbackTrack::FUN_0014cd50);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<HitOrientToPushbackTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamIntConstRange<HitOrientToPushbackTrack>("priority", &HitOrientToPushbackTrack::FUN_0014cd80);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitOrientToPushbackTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<HitOrientToPushbackTrack>("blendInTime", &HitOrientToPushbackTrack::FUN_0014cda0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitOrientToPushbackTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamFloatConstRange<HitOrientToPushbackTrack>("blendOutTime", &HitOrientToPushbackTrack::FUN_0014cdc0);

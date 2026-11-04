@@ -28,7 +28,7 @@ NamedValueInt* Owner_f8e70::Create(int a, int b, int c) {
         return 0;
     NamedValueInt* r = 0;
     if (c && mInner->mMgr->Check(c)) {
-        NamedValueInt* p = (NamedValueInt*)operator new(0x4c);
+        NamedValueInt* p = (NamedValueInt*)operator new(sizeof(NamedValueInt));
         if (p) {
             r = ((NamedValueInt_nv_f8e70*)(((NamedValueInt*)(p))))->Init(mInner, a, b, c);
         } else {

@@ -192,7 +192,7 @@ bool AnimationAction::vfunc_3(int a, int b)
     }
 
     bool created;
-    choreo2::AnimationDriver *nd = (choreo2::AnimationDriver *)thunk_FUN_0008d690(0x240);
+    choreo2::AnimationDriver *nd = (choreo2::AnimationDriver *)thunk_FUN_0008d690((int)sizeof(choreo2::AnimationDriver));
     if (nd != 0)
         nd = nd->FUN_00225950(rig, anim);
     if (nd != 0)

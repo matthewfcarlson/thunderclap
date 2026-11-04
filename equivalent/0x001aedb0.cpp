@@ -109,7 +109,7 @@ extern "C" void * FUN_001aedb0(void * visited, void * open_, void * goal, void *
             void* insertionPoint = ((Map *)visited)->FUN_00230be0((void*)FUN_001ad4f0, &state.candidate);
             ANode* allocated = 0;
             if (insertionPoint) {
-                allocated = (ANode*)FUN_0008d6d0(0x38);
+                allocated = (ANode*)FUN_0008d6d0((int)sizeof(ANode));
                 if (allocated)
                     allocated->rec = state.candidate;
                 ((Map *)visited)->FUN_00230c30(allocated, (void*)FUN_001ad4d0, insertionPoint);
@@ -156,7 +156,7 @@ extern "C" void * FUN_001aedb0(void * visited, void * open_, void * goal, void *
                 }
                 void* position = open->FUN_00230be0((void*)FUN_001aeae0, &state.candidateNode);
                 if (position) {
-                    BNode* entry = (BNode*)FUN_0008d6d0(0x18);
+                    BNode* entry = (BNode*)FUN_0008d6d0((int)sizeof(BNode));
                     if (entry) {
                         entry->an = state.candidateNode;
                         entry->map = state.candidateMap;

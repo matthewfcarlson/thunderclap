@@ -14,7 +14,7 @@ extern "C" void* FUN_0008d690(unsigned int);
 extern void* orient_vtable;
 
 template <> void* fight::TrackFactoryTemplate<COrientTargetTrack>::vfunc_5() {
-    COrientTargetTrack_77420* p = (COrientTargetTrack_77420*)FUN_0008d690(0x2c);
+    COrientTargetTrack_77420* p = (COrientTargetTrack_77420*)FUN_0008d690((int)sizeof(COrientTargetTrack_77420));
     if (p) {
         p->init();
         *(void**)p = &orient_vtable;

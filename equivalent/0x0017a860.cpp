@@ -40,23 +40,23 @@ extern "C" void FUN_0017a860()
         void* params[5];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TargetIconDistanceTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<TargetIconDistanceTrack>("timeBegin", &TargetIconDistanceTrack::FUN_0016f800);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TargetIconDistanceTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<TargetIconDistanceTrack>("timeEnd", &TargetIconDistanceTrack::FUN_0016f810);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TargetIconDistanceTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamFloatConstRange<TargetIconDistanceTrack>("distanceMin", &TargetIconDistanceTrack::FUN_0016f830);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TargetIconDistanceTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamFloatConstRange<TargetIconDistanceTrack>("distanceMax", &TargetIconDistanceTrack::FUN_0016f850);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TargetIconDistanceTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<TargetIconDistanceTrack>("extensionTime", &TargetIconDistanceTrack::FUN_0016f870);

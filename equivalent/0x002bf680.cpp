@@ -148,7 +148,7 @@ int pure3d::ImageFontLoader::vfunc_5(ImageFont **out, unsigned __int64 *outKey, 
     } f;
 
     r->stream->FUN_002647e0(&f.u1.x1, 1, 4, 1);
-    void *mem = thunk_FUN_0008d690(0x38);
+    void *mem = thunk_FUN_0008d690((int)sizeof(ImageFont));
     ImageFont *font = 0;
     if (mem)
         font = new (mem) ImageFont();

@@ -40,7 +40,7 @@ extern void __cdecl FUN_002347b0(int*, void**, int);
 extern "C" void FUN_00128ed0() {
     if (!DAT_004e0dd0) {
         void* p[3];
-        void* mem = FUN_0008d690(24);
+        void* mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::ai::AcquireTargetCondition>));
         if (mem) {
             fight::ParamFloatConstRange<hulkfight::ai::AcquireTargetCondition>* a =
                 new (mem) fight::ParamFloatConstRange<hulkfight::ai::AcquireTargetCondition>("arc");
@@ -48,7 +48,7 @@ extern "C" void FUN_00128ed0() {
             p[0] = a;
         } else
             p[0] = 0;
-        mem = FUN_0008d690(24);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::ai::AcquireTargetCondition>));
         if (mem) {
             fight::ParamFloatConstRange<hulkfight::ai::AcquireTargetCondition>* a =
                 new (mem) fight::ParamFloatConstRange<hulkfight::ai::AcquireTargetCondition>("distance");
@@ -56,7 +56,7 @@ extern "C" void FUN_00128ed0() {
             p[1] = a;
         } else
             p[1] = 0;
-        mem = FUN_0008d690(24);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool<hulkfight::ai::AcquireTargetCondition>));
         if (mem) {
             fight::ParamBool<hulkfight::ai::AcquireTargetCondition>* a =
                 new (mem) fight::ParamBool<hulkfight::ai::AcquireTargetCondition>("validateTarget");

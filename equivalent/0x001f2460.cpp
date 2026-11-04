@@ -12,7 +12,7 @@ template<class C, class R, class A1, class A2, class A3, class A4, class A5, cla
 template<> class Closure6_1f2460<CSoundSystem_1f2460, void, char*, char*, float, float, float, float> { public: virtual void v(); char pad[0x1c]; CSoundSystem_1f2460* owner; Closure6_1f2460(CSoundSystem_1f2460* o) { owner = o; } };
 class Raw_1f2460 { public: void FUN_001f0c00(const char*, void (*)()); };
 void Registry_1f2460::FUN_001f2460(const char* a1, CSoundSystem_1f2460* a2, void (*a3)()) {
-    void* m = FUN_0008d690(0x24);
+    void* m = FUN_0008d690((int)sizeof(Closure6_1f2460<CSoundSystem_1f2460, void, char*, char*, float, float, float, float>));
     void* x = 0;
     if (m) {
         ((Raw_1f2460*)m)->FUN_001f0c00(a1, a3);

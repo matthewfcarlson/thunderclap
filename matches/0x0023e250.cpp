@@ -25,13 +25,13 @@ extern "C" void __cdecl FUN_002347b0(int*, FUN_00234960**, int);
 extern "C" void FUN_0023e250() {
     if (!DAT_004e5c70) {
         FUN_00234960* items[3];
-        void* mem = FUN_0008d690(24);
+        void* mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<fight::WaitTrack>));
         items[0] =
             mem ? new (mem) fight::ParamFloatConstRange<fight::WaitTrack>("timeBegin", FUN_0023df40) : 0;
-        mem = FUN_0008d690(24);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<fight::WaitTrack>));
         items[1] =
             mem ? new (mem) fight::ParamFloatConstRange<fight::WaitTrack>("timeEndMin", FUN_0023df60) : 0;
-        mem = FUN_0008d690(24);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<fight::WaitTrack>));
         items[2] =
             mem ? new (mem) fight::ParamFloatConstRange<fight::WaitTrack>("timeEndMax", FUN_0023df80) : 0;
         FUN_002347b0(&DAT_004e5c6c, items, 3);

@@ -32,16 +32,16 @@ void __cdecl FUN_002347b0(int*, void**, int);
 void __cdecl FUN_0019aba0() {
  if (DAT_004e156c == 0) {
   void* params[4];
-  FloatParam* p = (FloatParam*)FUN_0008d690(24);
+  FloatParam* p = (FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
   if(p) { p->FUN_00234960("timeBegin"); new(p) FloatParam; p->callback = SetTimeBegin_00192770; }
   params[0] = p;
-  p = (FloatParam*)FUN_0008d690(24);
+  p = (FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
   if(p) { p->FUN_00234960("timeEnd"); new(p) FloatParam; p->callback = SetTimeEnd_00192780; }
   params[1] = p;
-  p = (FloatParam*)FUN_0008d690(24);
+  p = (FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
   if(p) { p->FUN_00234960("arc"); new(p) FloatParam; p->callback = SetArc_001927a0; }
   params[2] = p;
-  BranchParam* b = (BranchParam*)FUN_0008d690(24);
+  BranchParam* b = (BranchParam*)FUN_0008d690((int)sizeof(BranchParam));
   if(b) { b->FUN_00235170("giverBranch"); new(b) BranchParam; b->callback = GetGiverBranch_001927c0; }
   params[3] = b;
   FUN_002347b0(&DAT_004e1568, params, 4);

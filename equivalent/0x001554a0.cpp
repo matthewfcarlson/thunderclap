@@ -42,7 +42,7 @@ extern "C" void FUN_001554a0()
     if (DAT_004e105c == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_1554a0<hulkfight::motion::CollisionDevastatorCondition_1554a0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_1554a0<hulkfight::motion::CollisionDevastatorCondition_1554a0>("isDevastator", &hulkfight::motion::CollisionDevastatorCondition_1554a0::FUN_0014c540);

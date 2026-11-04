@@ -31,13 +31,13 @@ void __cdecl target() {
  void* entries[4];
  typedef fight::ParamFloatConstRange<hulkfight::DebugPrintTrack> Float;
  typedef fight::ParamString<hulkfight::DebugPrintTrack> String;
- Float* a=(Float*)FUN_0008d690(24);
+ Float* a=(Float*)FUN_0008d690((int)sizeof(Float));
  if(a) { a->FUN_00234960("timeBegin"); new(a) Float; a->callback=SetTimeBegin_0012e180; } entries[0]=a;
- Float* b=(Float*)FUN_0008d690(24);
+ Float* b=(Float*)FUN_0008d690((int)sizeof(Float));
  if(b) { b->FUN_00234960("timeEnd"); new(b) Float; b->callback=SetTimeEnd_0012e190; } entries[1]=b;
- String* c=(String*)FUN_0008d690(24);
+ String* c=(String*)FUN_0008d690((int)sizeof(String));
  if(c) { c->FUN_002349e0("text"); new(c) String; c->callback=FUN_0012edf0; } entries[2]=c;
- String* d=(String*)FUN_0008d690(24);
+ String* d=(String*)FUN_0008d690((int)sizeof(String));
  if(d) { d->FUN_002349e0("channel"); new(d) String; d->callback=SetChannel_0012ee50; } entries[3]=d;
  FUN_002347b0(&DAT_004e0e94, entries, 4);
  }

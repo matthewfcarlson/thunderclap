@@ -35,7 +35,7 @@ struct Registry_87b40 {
 };
 
 void Registry_87b40::FUN_00087b40(const char* name, const char* (*fn)(const char*)) {
-    void* mem = FUN_0008d690(0x20);
+    void* mem = FUN_0008d690((int)sizeof(Function1<const char*, const char*>));
     Function1<const char*, const char*>* c = 0;
     if (mem)
         c = new (mem) Function1<const char*, const char*>(name, fn);

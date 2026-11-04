@@ -87,23 +87,23 @@ extern "C" void FUN_00239a90()
         void* params[5];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ExecuteTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<ExecuteTrack>("timeBegin", &ExecuteTrack::FUN_002393a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ExecuteTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<ExecuteTrack>("timeEnd", &ExecuteTrack::FUN_002393b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBranch<ExecuteTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamBranch<ExecuteTrack>("branch", &ExecuteTrack::FUN_002393c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<ExecuteTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamIntConstRange<ExecuteTrack>("priority", &ExecuteTrack::FUN_002393e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamConditionGroup<ExecuteTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamConditionGroup<ExecuteTrack>("conditionGroup", &ExecuteTrack::FUN_002393f0);

@@ -23,7 +23,7 @@ Entry_e67b0* Registry_e67b0::findOrCreate(const char* name) {
  }
  for (int slot = 0; slot < 64; ++slot) {
   if (!entries[slot]) {
-   Entry_e67b0* memory = (Entry_e67b0*)FUN_0008d690(0x38);
+   Entry_e67b0* memory = (Entry_e67b0*)FUN_0008d690((int)sizeof(Entry_e67b0));
    Entry_e67b0* result = memory ? ((Entry_e67b0 *)((owners::Thing_fb470 *)memory)->FUN_000fb470(name)) : 0;
    entries[slot] = result;
    return result;

@@ -19,7 +19,7 @@ class CSmartPropWeaponTypeCondition_58b60 {
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::ConditionFactoryTemplate<CSmartPropWeaponTypeCondition>::vfunc_5() {
-    CSmartPropWeaponTypeCondition_58b60* p = (CSmartPropWeaponTypeCondition_58b60*)FUN_0008d690(0x14);
+    CSmartPropWeaponTypeCondition_58b60* p = (CSmartPropWeaponTypeCondition_58b60*)FUN_0008d690((int)sizeof(CSmartPropWeaponTypeCondition_58b60));
     if (p) {
         p->Init(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_003f7154);

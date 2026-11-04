@@ -38,7 +38,7 @@ extern "C" void FUN_0005ef60()
     if (DAT_004dc5fc == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CClearHitRecordsTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange<::CClearHitRecordsTrack>("timeBegin", &::CClearHitRecordsTrack::FUN_0005d8f0);

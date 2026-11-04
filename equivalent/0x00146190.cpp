@@ -92,35 +92,35 @@ void FUN_00146190()
         void* params[8];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<WorldDamageTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<WorldDamageTrack>("timeBegin", &WorldDamageTrack::FUN_001432e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamNameConstList<WorldDamageTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamNameConstList<WorldDamageTrack>("joint", &WorldDamageTrack::FUN_001432f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<WorldDamageTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamVector<WorldDamageTrack>("position", &WorldDamageTrack::FUN_00143320);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<WorldDamageTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamVector<WorldDamageTrack>("direction", &WorldDamageTrack::FUN_00143360);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<WorldDamageTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<WorldDamageTrack>("distance", &WorldDamageTrack::FUN_00143390);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(ParamEnumConstList<WorldDamageTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamEnumConstList<WorldDamageTrack>("damageType", ((char**)&DAT_004ad788), 7, &WorldDamageTrack::FUN_001433b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<WorldDamageTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamFloatConstRange<WorldDamageTrack>("scaleX", &WorldDamageTrack::FUN_001433d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<WorldDamageTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) ParamFloatConstRange<WorldDamageTrack>("scaleY", &WorldDamageTrack::FUN_001433f0);

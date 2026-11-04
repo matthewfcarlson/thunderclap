@@ -75,7 +75,7 @@ void Loader_1c4190::FUN_001c4190(Key_1c4190 *key)
     content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> caster;
     Res_1c4190 *res = inv->get(&caster, key->lo, key->hi);
     if (res) {
-        Entry_1c4190 *e = (Entry_1c4190 *)FUN_0008d690(0x10);
+        Entry_1c4190 *e = (Entry_1c4190 *)FUN_0008d690((int)sizeof(Entry_1c4190));
         if (e)
             e = e->FUN_001c5cf0(key, res);
         if (e->res)

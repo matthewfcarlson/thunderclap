@@ -96,47 +96,47 @@ extern "C" void FUN_0005fef0()
     if (DAT_004dc5ec == 0) {
         void* params[11];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("timeBegin", &CStunAnimationTrack_5fef0::FUN_0005d7c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_5fef0<CStunAnimationTrack_5fef0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamName_5fef0<CStunAnimationTrack_5fef0>("animation", &CStunAnimationTrack_5fef0::FUN_00013140);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("speed", &CStunAnimationTrack_5fef0::FUN_0005d7d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("initFrame", &CStunAnimationTrack_5fef0::FUN_0005d7e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("startFrame", &CStunAnimationTrack_5fef0::FUN_0005d7f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("endFrame", &CStunAnimationTrack_5fef0::FUN_0005d800);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_5fef0<CStunAnimationTrack_5fef0>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamEnumConstList_5fef0<CStunAnimationTrack_5fef0>("cyclic", ((const char**)&DAT_004abf70), (*(int*)&DAT_004123d4), &CStunAnimationTrack_5fef0::FUN_0005d810);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_5fef0<CStunAnimationTrack_5fef0>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamName_5fef0<CStunAnimationTrack_5fef0>("partition", &CStunAnimationTrack_5fef0::FUN_000131a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_5fef0<CStunAnimationTrack_5fef0>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamIntConstRange_5fef0<CStunAnimationTrack_5fef0>("priority", &CStunAnimationTrack_5fef0::FUN_0005d820);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("blendInTime", &CStunAnimationTrack_5fef0::FUN_0005d830);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_5fef0<CStunAnimationTrack_5fef0>("blendOutTime", &CStunAnimationTrack_5fef0::FUN_0005d840);

@@ -40,7 +40,7 @@ void FUN_0023dc90()
     if (DAT_004e5c60 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamString<fight::CommentCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamString<fight::CommentCondition>("text", &fight::CommentCondition::FUN_0023d880);

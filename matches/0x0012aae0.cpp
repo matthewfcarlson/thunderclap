@@ -20,7 +20,7 @@ struct AcquireTargetCondition_12aae0 {
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::AcquireTargetCondition>::vfunc_5() {
-    AcquireTargetCondition_12aae0* p = (AcquireTargetCondition_12aae0*)FUN_0008d690(0x18);
+    AcquireTargetCondition_12aae0* p = (AcquireTargetCondition_12aae0*)FUN_0008d690((int)sizeof(AcquireTargetCondition_12aae0));
     if (p) {
         p->Initialize(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0040feb4);

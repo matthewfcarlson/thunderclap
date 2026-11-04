@@ -42,7 +42,7 @@ struct Registry_1bb700 {
 };
 
 void Registry_1bb700::FUN_001bb700(const char* name, CRenderManager* owner, bool (CRenderManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CRenderManager, bool>));
     Closure0<CRenderManager, bool>* c = 0;
     if (mem)
         c = new (mem) Closure0<CRenderManager, bool>(name, owner, fn);

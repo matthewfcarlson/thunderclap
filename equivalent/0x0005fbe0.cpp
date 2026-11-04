@@ -113,59 +113,59 @@ extern "C" void FUN_0005fbe0()
     if (DAT_004dc5e4 == 0) {
         void* params[14];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("timeBegin", &CProceduralDurationAnimationTrack_5fbe0::FUN_0005d700);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("timeScale", &CProceduralDurationAnimationTrack_5fbe0::FUN_0005d710);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("timeEndMin", &CProceduralDurationAnimationTrack_5fbe0::FUN_0005d720);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamName_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("animation", &CProceduralDurationAnimationTrack_5fbe0::FUN_00013090);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("speed", &CProceduralDurationAnimationTrack_5fbe0::FUN_0005d730);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("initFrame", &CProceduralDurationAnimationTrack_5fbe0::FUN_0005d740);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("startFrame", &CProceduralDurationAnimationTrack_5fbe0::FUN_0005d750);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("endFrame", &CProceduralDurationAnimationTrack_5fbe0::FUN_0005d760);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamEnumConstList_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("cyclic", ((const char**)&DAT_004abf70), (*(int*)&DAT_004123d4), &CProceduralDurationAnimationTrack_5fbe0::FUN_0005d770);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamName_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("partition", &CProceduralDurationAnimationTrack_5fbe0::FUN_000130f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamIntConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("priority", &CProceduralDurationAnimationTrack_5fbe0::FUN_0005d780);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("blendInTime", &CProceduralDurationAnimationTrack_5fbe0::FUN_0005d790);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
         params[12] = 0;
         if (mem)
             params[12] = new (mem) fight::ParamFloatConstRange_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("blendOutTime", &CProceduralDurationAnimationTrack_5fbe0::FUN_0005d7a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_5fbe0<CProceduralDurationAnimationTrack_5fbe0>));
         params[13] = 0;
         if (mem)
             params[13] = new (mem) fight::ParamBool_5fbe0<CProceduralDurationAnimationTrack_5fbe0>("useRootMotion", &CProceduralDurationAnimationTrack_5fbe0::FUN_0005d7b0);

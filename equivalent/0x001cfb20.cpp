@@ -111,7 +111,7 @@ void CScenarioManager::FUN_001cfb20(int arg)
     Registry_1cfb20 *reg = FUN_001d4c90();
     if (reg) {
     {
-        void *mem = FUN_0008d690(0x24);
+        void *mem = FUN_0008d690((int)sizeof(Closure1<CScenarioManager, void, int>));
         Closure1<CScenarioManager, void, int> *c = 0;
         if (mem)
             c = new (mem) Closure1<CScenarioManager, void, int>("sm_SetMissionState", this, &CScenarioManager::FUN_001cc620);
@@ -120,7 +120,7 @@ void CScenarioManager::FUN_001cfb20(int arg)
     reg->FUN_001cf160("sm_GetMissionState", this, &CScenarioManager::FUN_001cc840);
     reg->FUN_001cf1d0("sm_GetTimeElapsed", this, &CScenarioManager::FUN_001cc860);
     {
-        void *mem = FUN_0008d690(0x24);
+        void *mem = FUN_0008d690((int)sizeof(Closure1<CScenarioManager, void, float>));
         Closure1<CScenarioManager, void, float> *c = 0;
         if (mem)
             c = new (mem) Closure1<CScenarioManager, void, float>("sm_SetTimeElapsed", this, &CScenarioManager::FUN_001cc870);
@@ -129,14 +129,14 @@ void CScenarioManager::FUN_001cfb20(int arg)
     reg->FUN_001cf1d0("sm_GetTime", this, &CScenarioManager::FUN_001cc8a0);
     reg->FUN_001cf1d0("sm_GetScenarioEndTime", this, &CScenarioManager::FUN_001cc880);
     {
-        void *mem = FUN_0008d690(0x24);
+        void *mem = FUN_0008d690((int)sizeof(Closure1<CScenarioManager, void, float>));
         Closure1<CScenarioManager, void, float> *c = 0;
         if (mem)
             c = new (mem) Closure1<CScenarioManager, void, float>("sm_SetScenarioEndTime", this, &CScenarioManager::FUN_001cc890);
         reg->FUN_001d3b70("sm_SetScenarioEndTime", c);
     }
     {
-        void *mem = FUN_0008d690(0x24);
+        void *mem = FUN_0008d690((int)sizeof(Closure1<CScenarioManager, void, bool>));
         Closure1<CScenarioManager, void, bool> *c = 0;
         if (mem)
             c = new (mem) Closure1<CScenarioManager, void, bool>("sm_FreezeTime", this, &CScenarioManager::FUN_001cc8e0);
@@ -145,14 +145,14 @@ void CScenarioManager::FUN_001cfb20(int arg)
     reg->FUN_001cf2e0("sm_IsTimeFrozen", this, &CScenarioManager::FUN_001cc8f0);
     reg->FUN_001cf160("sm_GetCheckpoint", this, &CScenarioManager::FUN_001cc900);
     {
-        void *mem = FUN_0008d690(0x24);
+        void *mem = FUN_0008d690((int)sizeof(Closure1<CScenarioManager, void, int>));
         Closure1<CScenarioManager, void, int> *c = 0;
         if (mem)
             c = new (mem) Closure1<CScenarioManager, void, int>("sm_SetCheckpoint", this, &CScenarioManager::FUN_001cc910);
         reg->FUN_001d3b70("sm_SetCheckpoint", c);
     }
     {
-        void *mem = FUN_0008d690(0x24);
+        void *mem = FUN_0008d690((int)sizeof(Closure1<CScenarioManager, float, int>));
         Closure1<CScenarioManager, float, int> *c = 0;
         if (mem)
             c = new (mem) Closure1<CScenarioManager, float, int>("sm_GetVar", this, &CScenarioManager::FUN_001cc990);
@@ -178,7 +178,7 @@ void CScenarioManager::FUN_001cfb20(int arg)
         reg->FUN_001d3b70("sm_StartTimer", c);
     }
     {
-        void *mem = FUN_0008d690(0x24);
+        void *mem = FUN_0008d690((int)sizeof(Closure1<CScenarioManager, void, int>));
         Closure1<CScenarioManager, void, int> *c = 0;
         if (mem)
             c = new (mem) Closure1<CScenarioManager, void, int>("sm_CancelTimer", this, &CScenarioManager::FUN_001cca80);
@@ -189,35 +189,35 @@ void CScenarioManager::FUN_001cfb20(int arg)
     reg->FUN_001cf160("sm_GetComboHitCount", this, &CScenarioManager::FUN_001ccc80);
     reg->FUN_001cf1d0("sm_GetComboScore", this, &CScenarioManager::FUN_001ccca0);
     {
-        void *mem = FUN_0008d690(0x24);
+        void *mem = FUN_0008d690((int)sizeof(Closure1<CScenarioManager, void, float>));
         Closure1<CScenarioManager, void, float> *c = 0;
         if (mem)
             c = new (mem) Closure1<CScenarioManager, void, float>("sm_SetComboTimerLimit", this, &CScenarioManager::FUN_001ccc10);
         reg->FUN_001d3b70("sm_SetComboTimerLimit", c);
     }
     {
-        void *mem = FUN_0008d690(0x24);
+        void *mem = FUN_0008d690((int)sizeof(Closure1<CScenarioManager, void, float>));
         Closure1<CScenarioManager, void, float> *c = 0;
         if (mem)
             c = new (mem) Closure1<CScenarioManager, void, float>("sm_SetComboTimerCurrent", this, &CScenarioManager::FUN_001ccc30);
         reg->FUN_001d3b70("sm_SetComboTimerCurrent", c);
     }
     {
-        void *mem = FUN_0008d690(0x24);
+        void *mem = FUN_0008d690((int)sizeof(Closure1<CScenarioManager, void, int>));
         Closure1<CScenarioManager, void, int> *c = 0;
         if (mem)
             c = new (mem) Closure1<CScenarioManager, void, int>("sm_SetComboHitCount", this, &CScenarioManager::FUN_001ccc90);
         reg->FUN_001d3b70("sm_SetComboHitCount", c);
     }
     {
-        void *mem = FUN_0008d690(0x24);
+        void *mem = FUN_0008d690((int)sizeof(Closure1<CScenarioManager, void, float>));
         Closure1<CScenarioManager, void, float> *c = 0;
         if (mem)
             c = new (mem) Closure1<CScenarioManager, void, float>("sm_SetComboScore", this, &CScenarioManager::FUN_001cccb0);
         reg->FUN_001d3b70("sm_SetComboScore", c);
     }
     {
-        void *mem = FUN_0008d690(0x24);
+        void *mem = FUN_0008d690((int)sizeof(Closure1<CScenarioManager, void, float>));
         Closure1<CScenarioManager, void, float> *c = 0;
         if (mem)
             c = new (mem) Closure1<CScenarioManager, void, float>("sm_Combo", this, &CScenarioManager::FUN_001cd5b0);
@@ -234,14 +234,14 @@ void CScenarioManager::FUN_001cfb20(int arg)
     }
     reg->FUN_001cf490("sm_ResetComboSystem", this, &CScenarioManager::FUN_001cced0);
     {
-        void *mem = FUN_0008d690(0x24);
+        void *mem = FUN_0008d690((int)sizeof(Closure1<CScenarioManager, void, const char *>));
         Closure1<CScenarioManager, void, const char *> *c = 0;
         if (mem)
             c = new (mem) Closure1<CScenarioManager, void, const char *>("sm_SetComboHitText", this, &CScenarioManager::FUN_001cce60);
         reg->FUN_001d3b70("sm_SetComboHitText", c);
     }
     {
-        void *mem = FUN_0008d690(0x24);
+        void *mem = FUN_0008d690((int)sizeof(Closure1<CScenarioManager, const char *, int>));
         Closure1<CScenarioManager, const char *, int> *c = 0;
         if (mem)
             c = new (mem) Closure1<CScenarioManager, const char *, int>("sm_GetMissionObjective", this, &CScenarioManager::FUN_001ccf50);
@@ -257,7 +257,7 @@ void CScenarioManager::FUN_001cfb20(int arg)
         reg->FUN_001d3b70("sm_SetMissionObjective", c);
     }
     {
-        void *mem = FUN_0008d690(0x24);
+        void *mem = FUN_0008d690((int)sizeof(Closure1<CScenarioManager, eMissionObjectiveState, int>));
         Closure1<CScenarioManager, eMissionObjectiveState, int> *c = 0;
         if (mem)
             c = new (mem) Closure1<CScenarioManager, eMissionObjectiveState, int>("sm_GetMissionObjectiveState", this, &CScenarioManager::FUN_001ccfa0);
@@ -273,7 +273,7 @@ void CScenarioManager::FUN_001cfb20(int arg)
         reg->FUN_001d3b70("sm_SetMissionObjectiveState", c);
     }
     {
-        void *mem = FUN_0008d690(0x24);
+        void *mem = FUN_0008d690((int)sizeof(Closure1<CScenarioManager, void, bool>));
         Closure1<CScenarioManager, void, bool> *c = 0;
         if (mem)
             c = new (mem) Closure1<CScenarioManager, void, bool>("sm_SetTutorialMode", this, &CScenarioManager::FUN_001ccfe0);

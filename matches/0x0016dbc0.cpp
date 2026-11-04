@@ -12,7 +12,7 @@ class TargetHealthPercentCondition_16dbc0 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::TargetHealthPercentCondition>::vfunc_5() {
-    TargetHealthPercentCondition_16dbc0* p = (TargetHealthPercentCondition_16dbc0*)FUN_0008d690(0x14);
+    TargetHealthPercentCondition_16dbc0* p = (TargetHealthPercentCondition_16dbc0*)FUN_0008d690((int)sizeof(TargetHealthPercentCondition_16dbc0));
     if (p) {
         p->Init(0);
         p->vt = ((hulk_intptr)DAT_00416838);

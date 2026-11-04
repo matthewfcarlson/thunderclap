@@ -20,16 +20,16 @@ extern "C" void FUN_00128ad0() {
  typedef fight::ParamEnumConstList<hulkfight::ai::ProjectileDistanceCondition> Enum;
  typedef fight::ParamFloatConstRange<hulkfight::ai::ProjectileDistanceCondition> Float;
  typedef fight::ParamBool<hulkfight::ai::ProjectileDistanceCondition> Bool;
- Enum* e=(Enum*)FUN_0008d690(32);
+ Enum* e=(Enum*)FUN_0008d690((int)sizeof(Enum));
  if(e) { int n=(*(int*)&DAT_00427754); e->FUN_00234cc0("compare"); new(e) Enum; e->count=n; e->values=((char*)&DAT_0042773c); e->callback=SetCompare_00123780; }
  params[0]=e;
- Float* f=(Float*)FUN_0008d690(24);
+ Float* f=(Float*)FUN_0008d690((int)sizeof(Float));
  if(f) { f->FUN_00234960("distance"); new(f) Float; f->callback=SetDistance_00123790; }
  params[1]=f;
- Bool* b=(Bool*)FUN_0008d690(24);
+ Bool* b=(Bool*)FUN_0008d690((int)sizeof(Bool));
  if(b) { b->FUN_00234860("onlyRespondtoEvil"); new(b) Bool; b->callback=SetOnlyRespondtoEvil_001237b0; }
  params[2]=b;
- b=(Bool*)FUN_0008d690(24);
+ b=(Bool*)FUN_0008d690((int)sizeof(Bool));
  if(b) { b->FUN_00234860("onlyRespondtoProps"); new(b) Bool; b->callback=SetOnlyRespondtoProps_001237d0; }
  params[3]=b;
  FUN_002347b0(((int*)&DAT_004e0da4),params,4);

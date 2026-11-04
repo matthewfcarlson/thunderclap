@@ -64,11 +64,11 @@ void FUN_00118ee0()
     if (DAT_004e0c30 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_118ee0<hulkfight::ai::LocatorDistanceCondition_118ee0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList_118ee0<hulkfight::ai::LocatorDistanceCondition_118ee0>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::ai::LocatorDistanceCondition_118ee0::FUN_00114ee0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_118ee0<hulkfight::ai::LocatorDistanceCondition_118ee0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_118ee0<hulkfight::ai::LocatorDistanceCondition_118ee0>("distance", &hulkfight::ai::LocatorDistanceCondition_118ee0::FUN_00114ef0);

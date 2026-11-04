@@ -173,13 +173,13 @@ void ScriptReader_23a6b0::FUN_0023a6b0()
                             stream->peek();
                         }
                         if (chunk == 0) {
-                            chunk = (Chunk *)FUN_0008d690(0x104);
+                            chunk = (Chunk *)FUN_0008d690((int)sizeof(Chunk));
                             chunk->next = 0;
                             entries[idx].val.s = chunk;
                             pos = 0;
                         } else if (pos >= 0xff) {
                             chunk->data[pos] = 0;
-                            Chunk *nc = (Chunk *)FUN_0008d690(0x104);
+                            Chunk *nc = (Chunk *)FUN_0008d690((int)sizeof(Chunk));
                             chunk->next = nc;
                             chunk = nc;
                             chunk->next = 0;

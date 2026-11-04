@@ -29,7 +29,7 @@ extern "C" void FUN_00187da0();
 
 template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::CSMPropIsCharacterCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(TrackFactoryTemplate_18bcc0));
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_18bcc0* t = new (mem) TrackFactoryTemplate_18bcc0();

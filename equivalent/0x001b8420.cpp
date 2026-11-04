@@ -42,7 +42,7 @@ struct Registry_1b8420 {
 };
 
 void Registry_1b8420::FUN_001b8420(const char* name, CFMVManager* owner, bool (CFMVManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CFMVManager, bool>));
     Closure0<CFMVManager, bool>* c = 0;
     if (mem)
         c = new (mem) Closure0<CFMVManager, bool>(name, owner, fn);

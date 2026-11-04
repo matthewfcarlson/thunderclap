@@ -29,7 +29,7 @@ void postInit();
 
 template <> void* fight::TrackFactoryCasterTemplate<fight::StopTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(TrackFactoryTemplate_23e960));
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_23e960* t = new (mem) TrackFactoryTemplate_23e960();

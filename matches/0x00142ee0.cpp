@@ -16,7 +16,7 @@ class Obj_142ee0 {
 };
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 Obj_142ee0* Obj_142ee0::v5() {
-    Obj_142ee0* p = (Obj_142ee0*)FUN_0008d690(0x14);
+    Obj_142ee0* p = (Obj_142ee0*)FUN_0008d690((int)sizeof(Obj_142ee0));
     if (p) {
         p->Init(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_00412ab0);

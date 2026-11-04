@@ -28,7 +28,7 @@ extern "C" void __cdecl FUN_002347b0(void*, Base_54240**, int);
 extern "C" void FUN_00054240() {
     if ((*(int*)&DAT_004dc53c) == 0) {
         Base_54240* entries[2];
-        void* mem = FUN_0008d690(32);
+        void* mem = FUN_0008d690((int)sizeof(Param));
         if (mem) {
             int count = (*(int*)&DAT_00427760);
             ((Base_54240*)mem)->FUN_00234cc0("compare");
@@ -39,7 +39,7 @@ extern "C" void FUN_00054240() {
             entries[0] = p;
         } else
             entries[0] = 0;
-        mem = FUN_0008d690(32);
+        mem = FUN_0008d690((int)sizeof(Param));
         if (mem) {
             int count = (*(int*)&DAT_0040d0e4);
             ((Base_54240*)mem)->FUN_00234cc0("status");

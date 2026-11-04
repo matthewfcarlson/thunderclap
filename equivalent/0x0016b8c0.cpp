@@ -42,7 +42,7 @@ extern "C" void FUN_0016b8c0()
     if (DAT_004e1264 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamString<hulkfight::motion::TargetCharacterTemplateCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamString<hulkfight::motion::TargetCharacterTemplateCondition>("text", &hulkfight::motion::TargetCharacterTemplateCondition::FUN_00166230);

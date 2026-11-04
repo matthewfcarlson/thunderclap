@@ -23,7 +23,7 @@ class StatTrack : public Track_132ef0 {
 };
 StatTrack::StatTrack() : Track_132ef0(), a(0), b(0) {}
 StatTrack* StatTrack::Create() {
-    StatTrack* p = (StatTrack*)FUN_0008d690(0x14);
+    StatTrack* p = (StatTrack*)FUN_0008d690((int)sizeof(StatTrack));
     if (p) {
         p->StatTrack::StatTrack();
         return p;

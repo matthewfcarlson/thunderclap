@@ -93,35 +93,35 @@ extern "C" void FUN_0018a100()
         void* params[8];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PropAnimationTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<PropAnimationTrack>("timeBegin", &PropAnimationTrack::FUN_0017f7c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PropAnimationTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<PropAnimationTrack>("timeEnd", &PropAnimationTrack::FUN_0017f7d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<PropAnimationTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamIntConstRange<PropAnimationTrack>("attachmentIndex", &PropAnimationTrack::FUN_0017f7f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamName<PropAnimationTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamName<PropAnimationTrack>("animation", &PropAnimationTrack::FUN_0017f800);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PropAnimationTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<PropAnimationTrack>("speed", &PropAnimationTrack::FUN_0017f820);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PropAnimationTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamFloatConstRange<PropAnimationTrack>("startFrame", &PropAnimationTrack::FUN_0017f840);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PropAnimationTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamFloatConstRange<PropAnimationTrack>("endFrame", &PropAnimationTrack::FUN_0017f860);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(ParamEnumConstList<PropAnimationTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) ParamEnumConstList<PropAnimationTrack>("cyclic", ((char**)&DAT_004abf70), (*(int*)&DAT_004123d4), &PropAnimationTrack::FUN_0017f880);

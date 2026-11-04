@@ -22,7 +22,7 @@ void ProceduralVertexAnimController_2a6930::target(Source_2a6930* input) {
   items[index]=0;
   Resource_2a6930* resource=FUN_00344e74(*(void**)((char*)source->begin+offset),0,&DAT_004cf8e8,&DAT_004cf908,0);
   if(resource) {
-   pure3d::VertexList* memory=(pure3d::VertexList*)FUN_0008d690(0x5c);
+   pure3d::VertexList* memory=(pure3d::VertexList*)FUN_0008d690((int)sizeof(pure3d::VertexList));
    pure3d::VertexList* obj=memory ? ((VertexList_nv_2a6930*)(((pure3d::VertexList*)(memory))))->FUN_002c8730(resource->data) : 0;
    pure3d::VertexList** slot=items+index;
    if(obj) obj->vfunc_0();

@@ -17,12 +17,12 @@ void __cdecl FUN_002347b0(void*,void**,int);
 void target() {
  if (!DAT_004dc4c4) {
  void* params[3];
- fight::ParamEnumConstList<CSmartPropNameCondition>* a = (fight::ParamEnumConstList<CSmartPropNameCondition>*)FUN_0008d690(32);
+ fight::ParamEnumConstList<CSmartPropNameCondition>* a = (fight::ParamEnumConstList<CSmartPropNameCondition>*)FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CSmartPropNameCondition>));
  if(a) { int count=(*(int*)&DAT_00427760); a->FUN_00234cc0("compare"); a->count=count; new (a) fight::ParamEnumConstList<CSmartPropNameCondition>; a->list=((int*)&DAT_00427758); a->callback=SetCompare_00047e90; }
  params[0]=a;
- fight::ParamName<CSmartPropNameCondition>* b=(fight::ParamName<CSmartPropNameCondition>*)FUN_0008d690(24);
+ fight::ParamName<CSmartPropNameCondition>* b=(fight::ParamName<CSmartPropNameCondition>*)FUN_0008d690((int)sizeof(fight::ParamName<CSmartPropNameCondition>));
  if(b) { b->FUN_00234a90("name"); new (b) fight::ParamName<CSmartPropNameCondition>; b->callback=GetName_00047ea0; } params[1]=b;
- fight::ParamIntConstRange<CSmartPropNameCondition>* c=(fight::ParamIntConstRange<CSmartPropNameCondition>*)FUN_0008d690(24);
+ fight::ParamIntConstRange<CSmartPropNameCondition>* c=(fight::ParamIntConstRange<CSmartPropNameCondition>*)FUN_0008d690((int)sizeof(fight::ParamIntConstRange<CSmartPropNameCondition>));
  if(c) { c->FUN_002348e0("attachmentIndex"); new (c) fight::ParamIntConstRange<CSmartPropNameCondition>; c->callback=SetAttachmentIndex_00047eb0; } params[2]=c;
  FUN_002347b0(&DAT_004dc4c0,params,3);
  }

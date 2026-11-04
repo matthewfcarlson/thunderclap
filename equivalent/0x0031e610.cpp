@@ -9,7 +9,7 @@ struct pddiMatrixStack : pddiStack<math::Matrix> { virtual void vfunc_0(); virtu
 struct pddiBaseContext { char pad[32]; pddiMatrixStack* stacks[5]; void vfunc_100(); };
 void pddiBaseContext::vfunc_100() {
  for(int s=0;s<5;++s) {
-  void* memory=FUN_0008d690(16);
+  void* memory=FUN_0008d690((int)sizeof(pddiStack<math::Matrix>));
   pddiMatrixStack* stack=0;
   if(memory) {
    pddiStack<math::Matrix>* base=new(memory) pddiStack<math::Matrix>;

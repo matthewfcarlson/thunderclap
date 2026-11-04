@@ -10,7 +10,7 @@ struct FETextureAnimation_nv_f2860 {
 hulk_intptr owners::Y_f2860::FUN_000f2860(void* p) {
     if (!field)
         return 0;
-    FETextureAnimation* x = (FETextureAnimation*)FUN_0008d690(0x60);
+    FETextureAnimation* x = (FETextureAnimation*)FUN_0008d690((int)sizeof(FETextureAnimation));
     hulk_intptr r = x ? ((FETextureAnimation_nv_f2860*)(((FETextureAnimation*)(x))))->make(field, p) : 0;
     int i = 0;
     do {

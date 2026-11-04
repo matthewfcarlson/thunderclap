@@ -164,7 +164,7 @@ CWorldStreamManager::CWorldStreamManager()
     if (reg) {
         void* mem;
 
-        mem = FUN_0008d690(0x24);
+        mem = FUN_0008d690((int)sizeof(Closure1<CWorldStreamManager, void, int>));
         Closure1<CWorldStreamManager, void, int>* setSync = 0;
         if (mem)
             setSync = new (mem) Closure1<CWorldStreamManager, void, int>("wsm_SetSynchronous", this, &CWorldStreamManager::FUN_002036c0);
@@ -182,7 +182,7 @@ CWorldStreamManager::CWorldStreamManager()
             adjacent = ((Closure2_208210*)mem)->FUN_00205e30("wm_GetAdjacentRoom", this, &CWorldStreamManager::FUN_002042a0);
         reg->FUN_001d3b70("wm_GetAdjacentRoom", adjacent);
 
-        mem = FUN_0008d690(0x24);
+        mem = FUN_0008d690((int)sizeof(Closure1<CWorldStreamManager, int, int>));
         Closure1<CWorldStreamManager, int, int>* numAdjacent = 0;
         if (mem)
             numAdjacent = new (mem) Closure1<CWorldStreamManager, int, int>("wm_GetNumAdjacentRoom", this, &CWorldStreamManager::FUN_002042f0);
@@ -190,13 +190,13 @@ CWorldStreamManager::CWorldStreamManager()
 
         reg->FUN_00206e60("wm_GetNumRoomsLoaded", this, &CWorldStreamManager::FUN_002043e0);
 
-        mem = FUN_0008d690(0x24);
+        mem = FUN_0008d690((int)sizeof(Closure1<CWorldStreamManager, int, int>));
         Closure1<CWorldStreamManager, int, int>* loadedNum = 0;
         if (mem)
             loadedNum = new (mem) Closure1<CWorldStreamManager, int, int>("wm_GetLoadedRoomNum", this, &CWorldStreamManager::FUN_00204410);
         reg->FUN_001d3b70("wm_GetLoadedRoomNum", loadedNum);
 
-        mem = FUN_0008d690(0x24);
+        mem = FUN_0008d690((int)sizeof(Closure1<CWorldStreamManager, bool, int>));
         Closure1<CWorldStreamManager, bool, int>* roomLoaded = 0;
         if (mem)
             roomLoaded = new (mem) Closure1<CWorldStreamManager, bool, int>("wm_IsRoomLoaded", this, &CWorldStreamManager::FUN_00204440);
@@ -204,13 +204,13 @@ CWorldStreamManager::CWorldStreamManager()
 
         reg->FUN_00206f20("wsm_IsLoading", this, &CWorldStreamManager::FUN_001e8710);
 
-        mem = FUN_0008d690(0x24);
+        mem = FUN_0008d690((int)sizeof(Closure1<CWorldStreamManager, void, int>));
         Closure1<CWorldStreamManager, void, int>* setRoom = 0;
         if (mem)
             setRoom = new (mem) Closure1<CWorldStreamManager, void, int>("wsm_SetCurrentRoom", this, &CWorldStreamManager::FUN_002036e0);
         reg->FUN_001d3b70("wsm_SetCurrentRoom", setRoom);
 
-        mem = FUN_0008d690(0x24);
+        mem = FUN_0008d690((int)sizeof(Closure1<CWorldStreamManager, void, int>));
         Closure1<CWorldStreamManager, void, int>* loadRoom = 0;
         if (mem)
             loadRoom = new (mem) Closure1<CWorldStreamManager, void, int>("wsm_LoadRoomTemp", this, &CWorldStreamManager::FUN_00203780);
@@ -222,7 +222,7 @@ CWorldStreamManager::CWorldStreamManager()
 
         reg->FUN_00207000("wsm_LoadTempFile", this, &CWorldStreamManager::FUN_00207960);
 
-        mem = FUN_0008d690(0x24);
+        mem = FUN_0008d690((int)sizeof(Closure1<CWorldStreamManager, void, int>));
         Closure1<CWorldStreamManager, void, int>* unloadTemp = 0;
         if (mem)
             unloadTemp = new (mem) Closure1<CWorldStreamManager, void, int>("wsm_UnloadTempFile", this, &CWorldStreamManager::FUN_00203e00);
@@ -230,7 +230,7 @@ CWorldStreamManager::CWorldStreamManager()
 
         reg->FUN_00206f90("wsm_SetupTempMemory", this, &CWorldStreamManager::FUN_00207b90);
 
-        mem = FUN_0008d690(0x24);
+        mem = FUN_0008d690((int)sizeof(Closure1<CWorldStreamManager, void, int>));
         Closure1<CWorldStreamManager, void, int>* setupTempEx = 0;
         if (mem)
             setupTempEx = new (mem) Closure1<CWorldStreamManager, void, int>("wsm_SetupTempMemoryEx", this, &CWorldStreamManager::FUN_002071e0);
@@ -242,7 +242,7 @@ CWorldStreamManager::CWorldStreamManager()
 
         reg->FUN_00206e60("wsm_GetLastRoom", this, &CWorldStreamManager::FUN_002036f0);
 
-        mem = FUN_0008d690(0x24);
+        mem = FUN_0008d690((int)sizeof(Closure1<CWorldStreamManager, int, int>));
         Closure1<CWorldStreamManager, int, int>* districtFromRoom = 0;
         if (mem)
             districtFromRoom = new (mem) Closure1<CWorldStreamManager, int, int>("wsm_GetDistrictFromRoom", this, &CWorldStreamManager::FUN_00204320);

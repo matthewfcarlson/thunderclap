@@ -45,7 +45,7 @@ struct Registry_1bb880 {
 };
 
 void Registry_1bb880::FUN_001bb880(const char* name, CRenderManager* owner, math::Vector (CRenderManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CRenderManager, math::Vector>));
     Closure0<CRenderManager, math::Vector>* c = 0;
     if (mem)
         c = new (mem) Closure0<CRenderManager, math::Vector>(name, owner, fn);

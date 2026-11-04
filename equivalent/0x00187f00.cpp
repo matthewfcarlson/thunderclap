@@ -57,11 +57,11 @@ extern "C" void FUN_00187f00()
     if (DAT_004e147c == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_187f00<hulkfight::motion::PropActorThinkingTrack_187f00>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_187f00<hulkfight::motion::PropActorThinkingTrack_187f00>("timeBegin", &hulkfight::motion::PropActorThinkingTrack_187f00::FUN_0017f760);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_187f00<hulkfight::motion::PropActorThinkingTrack_187f00>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamBool_187f00<hulkfight::motion::PropActorThinkingTrack_187f00>("thinking", &hulkfight::motion::PropActorThinkingTrack_187f00::FUN_0017f780);

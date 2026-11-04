@@ -57,11 +57,11 @@ extern "C" void FUN_0017aee0()
     if (DAT_004e13b4 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17aee0<hulkfight::motion::VisibilityTrack_17aee0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_17aee0<hulkfight::motion::VisibilityTrack_17aee0>("timeBegin", &hulkfight::motion::VisibilityTrack_17aee0::FUN_0016faa0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17aee0<hulkfight::motion::VisibilityTrack_17aee0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamBool_17aee0<hulkfight::motion::VisibilityTrack_17aee0>("visible", &hulkfight::motion::VisibilityTrack_17aee0::FUN_0016fac0);

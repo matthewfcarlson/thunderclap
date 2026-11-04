@@ -122,7 +122,7 @@ ParticlePlaneGenerator_2abd90 * __stdcall FUN_002abd90(Reader_2abd90 *r, int fla
                     fr.d = 0;
                     ((owners::Buffer_2ab9a0 *)&(g->array))->FUN_002ab9a0(fr.b, &fr.d);
                     for (int i = 0; i < fr.b; i++) {
-                        ::pure3d::ParticlePlaneGenerator::GeneratorBlendState *e = (::pure3d::ParticlePlaneGenerator::GeneratorBlendState *)FUN_0008d690(0x1c);
+                        ::pure3d::ParticlePlaneGenerator::GeneratorBlendState *e = (::pure3d::ParticlePlaneGenerator::GeneratorBlendState *)FUN_0008d690((int)sizeof(::pure3d::ParticlePlaneGenerator::GeneratorBlendState));
                         if (e != 0)
                             e = ((GeneratorBlendState_nv_2abd90*)(((::pure3d::ParticlePlaneGenerator::GeneratorBlendState*)(e))))->FUN_002d2570(((void *)((owners::Target_288a10 *)(fr.obj))->FUN_00288a10(i)));
                         g->array.data[g->used] = e;

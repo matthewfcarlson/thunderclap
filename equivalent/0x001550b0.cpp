@@ -64,11 +64,11 @@ extern "C" void FUN_001550b0()
     if (DAT_004e102c == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_1550b0<hulkfight::motion::InterruptAccumulatorCondition_1550b0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList_1550b0<hulkfight::motion::InterruptAccumulatorCondition_1550b0>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::motion::InterruptAccumulatorCondition_1550b0::FUN_0014c470);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1550b0<hulkfight::motion::InterruptAccumulatorCondition_1550b0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_1550b0<hulkfight::motion::InterruptAccumulatorCondition_1550b0>("percent", &hulkfight::motion::InterruptAccumulatorCondition_1550b0::FUN_0014c480);

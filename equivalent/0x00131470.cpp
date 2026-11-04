@@ -21,13 +21,13 @@ void __cdecl FUN_002347b0(int*, void**, int);
 void __cdecl FUN_00131470() {
  if (!DAT_004e0e60) {
  void* params[3];
- fight::ParamString<hulkfight::GameStateCondition>* a = (fight::ParamString<hulkfight::GameStateCondition>*)FUN_0008d690(24);
+ fight::ParamString<hulkfight::GameStateCondition>* a = (fight::ParamString<hulkfight::GameStateCondition>*)FUN_0008d690((int)sizeof(fight::ParamString<hulkfight::GameStateCondition>));
  if(a) { a->FUN_002349e0("mission"); new (a) fight::ParamString<hulkfight::GameStateCondition>; a->callback=SetMission_0012e470; }
  params[0]=a;
- fight::ParamEnumConstList<hulkfight::GameStateCondition>* b=(fight::ParamEnumConstList<hulkfight::GameStateCondition>*)FUN_0008d690(32);
+ fight::ParamEnumConstList<hulkfight::GameStateCondition>* b=(fight::ParamEnumConstList<hulkfight::GameStateCondition>*)FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::GameStateCondition>));
  if(b) { int count=(*(int*)&DAT_00427760); b->FUN_00234cc0("compare"); b->count=count; new (b) fight::ParamEnumConstList<hulkfight::GameStateCondition>; b->values=((int*)&DAT_00427758); b->callback=SetCompare_0012e010; }
  params[1]=b;
- fight::ParamString<hulkfight::GameStateCondition>* c=(fight::ParamString<hulkfight::GameStateCondition>*)FUN_0008d690(24);
+ fight::ParamString<hulkfight::GameStateCondition>* c=(fight::ParamString<hulkfight::GameStateCondition>*)FUN_0008d690((int)sizeof(fight::ParamString<hulkfight::GameStateCondition>));
  if(c) { c->FUN_002349e0("gameState"); new (c) fight::ParamString<hulkfight::GameStateCondition>; c->callback=FUN_0012e4d0; }
  params[2]=c;
  FUN_002347b0(((int*)&DAT_004e0e5c),params,3);

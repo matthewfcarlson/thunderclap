@@ -81,43 +81,43 @@ extern "C" void FUN_00163790()
     if (DAT_004e11a4 == 0) {
         void* params[10];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_163790<GrappleLocomotionSteerTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_163790<GrappleLocomotionSteerTrack>("timeBegin", &GrappleLocomotionSteerTrack::FUN_0015b690);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_163790<GrappleLocomotionSteerTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_163790<GrappleLocomotionSteerTrack>("timeEnd", &GrappleLocomotionSteerTrack::FUN_0015b6a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_163790<GrappleLocomotionSteerTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamName_163790<GrappleLocomotionSteerTrack>("locomotion", &GrappleLocomotionSteerTrack::FUN_0015b6b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_163790<GrappleLocomotionSteerTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamName_163790<GrappleLocomotionSteerTrack>("animIdle", &GrappleLocomotionSteerTrack::FUN_0015b6c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_163790<GrappleLocomotionSteerTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamName_163790<GrappleLocomotionSteerTrack>("animWalk", &GrappleLocomotionSteerTrack::FUN_0015b6d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_163790<GrappleLocomotionSteerTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamName_163790<GrappleLocomotionSteerTrack>("animRun", &GrappleLocomotionSteerTrack::FUN_0015b6e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_163790<GrappleLocomotionSteerTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamName_163790<GrappleLocomotionSteerTrack>("partition", &GrappleLocomotionSteerTrack::FUN_0015b6f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_163790<GrappleLocomotionSteerTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamIntConstRange_163790<GrappleLocomotionSteerTrack>("priority", &GrappleLocomotionSteerTrack::FUN_0015b710);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_163790<GrappleLocomotionSteerTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamFloatConstRange_163790<GrappleLocomotionSteerTrack>("blendInTime", &GrappleLocomotionSteerTrack::FUN_0015b730);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_163790<GrappleLocomotionSteerTrack>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_163790<GrappleLocomotionSteerTrack>("blendOutTime", &GrappleLocomotionSteerTrack::FUN_0015b750);

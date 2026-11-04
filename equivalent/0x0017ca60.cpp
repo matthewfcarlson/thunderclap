@@ -72,27 +72,27 @@ extern "C" void FUN_0017ca60()
         void* params[6];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RestPoseTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<RestPoseTrack>("timeBegin", &RestPoseTrack::FUN_0016ea30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RestPoseTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<RestPoseTrack>("timeEnd", &RestPoseTrack::FUN_0016ea40);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamName<RestPoseTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamName<RestPoseTrack>("partition", &RestPoseTrack::FUN_0016ea50);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<RestPoseTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamIntConstRange<RestPoseTrack>("priority", &RestPoseTrack::FUN_0016ea70);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RestPoseTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<RestPoseTrack>("blendInTime", &RestPoseTrack::FUN_0016ea90);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RestPoseTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamFloatConstRange<RestPoseTrack>("blendOutTime", &RestPoseTrack::FUN_0016eab0);

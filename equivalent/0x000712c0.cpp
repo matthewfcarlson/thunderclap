@@ -57,27 +57,27 @@ extern "C" void FUN_000712c0()
         void* params[6];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSweepTrack_712c0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<CSweepTrack_712c0>("timeBegin", &CSweepTrack_712c0::FUN_00068340);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSweepTrack_712c0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<CSweepTrack_712c0>("timeEnd", &CSweepTrack_712c0::FUN_00068350);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSweepTrack_712c0>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamFloatConstRange<CSweepTrack_712c0>("arc", &CSweepTrack_712c0::FUN_00068360);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<CSweepTrack_712c0>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamIntConstRange<CSweepTrack_712c0>("priority", &CSweepTrack_712c0::FUN_00068380);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSweepTrack_712c0>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<CSweepTrack_712c0>("rootBlendInTime", &CSweepTrack_712c0::FUN_00068390);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSweepTrack_712c0>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamFloatConstRange<CSweepTrack_712c0>("rootBlendOutTime", &CSweepTrack_712c0::FUN_000683a0);

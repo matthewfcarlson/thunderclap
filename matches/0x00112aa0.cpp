@@ -38,7 +38,7 @@ extern void __cdecl FUN_002347b0(int*, ParamBase_112aa0**, int);
 extern "C" void __cdecl FUN_00112aa0() {
     if (DAT_004e0b84 == 0) {
         ParamBase_112aa0* params[4];
-        void* mem = FUN_0008d690(24);
+        void* mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::ai::KeywordWaitTrack>));
         if (mem) {
             ParamBase_112aa0* p = (ParamBase_112aa0*)mem;
             p->FUN_00234960("timeBegin");
@@ -47,7 +47,7 @@ extern "C" void __cdecl FUN_00112aa0() {
             params[0] = p;
         } else
             params[0] = 0;
-        mem = FUN_0008d690(24);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::ai::KeywordWaitTrack>));
         if (mem) {
             ParamBase_112aa0* p = (ParamBase_112aa0*)mem;
             p->FUN_00234960("timeEnd");
@@ -56,7 +56,7 @@ extern "C" void __cdecl FUN_00112aa0() {
             params[1] = p;
         } else
             params[1] = 0;
-        mem = FUN_0008d690(24);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName<hulkfight::ai::KeywordWaitTrack>));
         if (mem) {
             ParamBase_112aa0* p = (ParamBase_112aa0*)mem;
             p->FUN_00234a90("keyword");
@@ -65,7 +65,7 @@ extern "C" void __cdecl FUN_00112aa0() {
             params[2] = p;
         } else
             params[2] = 0;
-        mem = FUN_0008d690(24);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool<hulkfight::ai::KeywordWaitTrack>));
         if (mem) {
             ParamBase_112aa0* p = (ParamBase_112aa0*)mem;
             p->FUN_00234860("randomIntroWait");

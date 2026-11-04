@@ -56,27 +56,27 @@ extern "C" void FUN_001127d0()
         void* params[6];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TokenSupressTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<TokenSupressTrack>("timeBegin", &TokenSupressTrack::FUN_0010c420);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TokenSupressTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<TokenSupressTrack>("timeEnd", &TokenSupressTrack::FUN_0010c430);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<TokenSupressTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamBool<TokenSupressTrack>("supressEveryFrame", &TokenSupressTrack::FUN_0010c450);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TokenSupressTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamFloatConstRange<TokenSupressTrack>("floatDelayDuration", &TokenSupressTrack::FUN_0010c470);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<TokenSupressTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamBool<TokenSupressTrack>("floatDelayDurationPermenant", &TokenSupressTrack::FUN_0010c490);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<TokenSupressTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamBool<TokenSupressTrack>("floatDelayEndOnTrackFinish", &TokenSupressTrack::FUN_0010c4b0);

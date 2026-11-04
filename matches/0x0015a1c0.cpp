@@ -17,7 +17,7 @@ class Track {
     void* Make();
 };
 void* Track::Make() {
-    Track* p = (Track*)FUN_0008d690(0x18);
+    Track* p = (Track*)FUN_0008d690((int)sizeof(Track));
     if (p) {
         p->Init();
         p->a = 0;

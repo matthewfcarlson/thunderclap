@@ -386,7 +386,7 @@ void Attack::FUN_00019470(Fighter_19470* t, int a2, Vec3_19470* P, Vec3_19470* N
         Chooser_19470* targetChooser = params->f4c;
         bool found = false;
         if (targetChooser) {
-            CFightParamsCollision_19470* allocated = (CFightParamsCollision_19470*)FUN_0008d690(0xb0);
+            CFightParamsCollision_19470* allocated = (CFightParamsCollision_19470*)FUN_0008d690((int)sizeof(CFightParamsCollision_19470));
             RefObj_19470* copy =
                 allocated ? (RefObj_19470*)allocated->FUN_000598e0(t->f10->first, &request) : 0;
             copy->AddRef();
@@ -413,7 +413,7 @@ void Attack::FUN_00019470(Fighter_19470* t, int a2, Vec3_19470* P, Vec3_19470* N
 
     Chooser_19470* attackerChooser = params->f58;
     if (attackerChooser) {
-        CFightParamsCollision_19470* allocated = (CFightParamsCollision_19470*)FUN_0008d690(0xb0);
+        CFightParamsCollision_19470* allocated = (CFightParamsCollision_19470*)FUN_0008d690((int)sizeof(CFightParamsCollision_19470));
         RefObj_19470* copy = allocated ? (RefObj_19470*)allocated->FUN_000598e0(owner->f8, &request) : 0;
         copy->AddRef();
         RefObj_19470* result = attackerChooser->v8(copy, 0);

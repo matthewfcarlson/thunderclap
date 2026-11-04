@@ -23,7 +23,7 @@ class HitPushbackTrack_15a3b0 {
 extern "C" HitPushbackTrack_15a3b0* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitPushbackTrack>::vfunc_5() {
-    HitPushbackTrack_15a3b0* p = FUN_0008d690(0x34);
+    HitPushbackTrack_15a3b0* p = FUN_0008d690((int)sizeof(HitPushbackTrack_15a3b0));
     if (p) {
         p->init();
         p->x10 = -1.0f;

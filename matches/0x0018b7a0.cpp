@@ -24,7 +24,7 @@ class SmartPropGrabbableCondition {
 };
 
 SmartPropGrabbableCondition* vfunc_5() {
-    SmartPropGrabbableCondition* p = (SmartPropGrabbableCondition*)operator new(0x2c);
+    SmartPropGrabbableCondition* p = (SmartPropGrabbableCondition*)operator new(sizeof(SmartPropGrabbableCondition));
     if (p) {
         p->Init(0);
         p->b0c = 0;

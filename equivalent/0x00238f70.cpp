@@ -41,11 +41,11 @@ void FUN_00238f70()
     if (DAT_004e5c24 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamString<fight::PrintCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamString<fight::PrintCondition>("channel", &fight::PrintCondition::FUN_00238910);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamString<fight::PrintCondition>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamString<fight::PrintCondition>("text", &fight::PrintCondition::FUN_00238970);

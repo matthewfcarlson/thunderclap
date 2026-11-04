@@ -11,7 +11,7 @@ struct IntentionInputCondition_16d7b0 {
 extern u32_16d7b0 gVft;
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::IntentionInputCondition>::vfunc_5() {
-    IntentionInputCondition_16d7b0* p = (IntentionInputCondition_16d7b0*)FUN_0008d690(0x10);
+    IntentionInputCondition_16d7b0* p = (IntentionInputCondition_16d7b0*)FUN_0008d690((int)sizeof(IntentionInputCondition_16d7b0));
     if (p) {
         p->Init(0);
         ((u8*)p)[0xd] = 1;

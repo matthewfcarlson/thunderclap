@@ -64,11 +64,11 @@ void FUN_0014b340()
     if (DAT_004e0fc0 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_14b340<hulkfight::motion::GrappleAttachJointCondition_14b340>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList_14b340<hulkfight::motion::GrappleAttachJointCondition_14b340>("compare", ((const char**)&DAT_00427758), (*(int*)&DAT_00427760), &hulkfight::motion::GrappleAttachJointCondition_14b340::FUN_00146900);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_14b340<hulkfight::motion::GrappleAttachJointCondition_14b340>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamNameConstList_14b340<hulkfight::motion::GrappleAttachJointCondition_14b340>("joint", &hulkfight::motion::GrappleAttachJointCondition_14b340::FUN_00146910);

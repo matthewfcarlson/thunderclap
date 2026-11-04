@@ -73,35 +73,35 @@ extern "C" void FUN_00155cd0()
     if (DAT_004e10dc == 0) {
         void* params[8];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitThrowTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<HitThrowTrack>("timeBegin", &HitThrowTrack::FUN_0014c790);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitThrowTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<HitThrowTrack>("timeEnd", &HitThrowTrack::FUN_0014c7a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<HitThrowTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamBool<HitThrowTrack>("snapToPushback", &HitThrowTrack::FUN_0014c7c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitThrowTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamFloatConstRange<HitThrowTrack>("orientation", &HitThrowTrack::FUN_0014c7e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitThrowTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<HitThrowTrack>("gravity", &HitThrowTrack::FUN_0014c810);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<HitThrowTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamIntConstRange<HitThrowTrack>("priority", &HitThrowTrack::FUN_0014c830);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitThrowTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamFloatConstRange<HitThrowTrack>("blendInTime", &HitThrowTrack::FUN_0014c850);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HitThrowTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) ParamFloatConstRange<HitThrowTrack>("blendOutTime", &HitThrowTrack::FUN_0014c870);

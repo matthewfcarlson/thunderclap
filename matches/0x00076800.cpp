@@ -10,7 +10,7 @@ extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern void* conditionVtable;
 
 template <> void* fight::TrackFactoryTemplate<CGrappleIntangibleTrack>::vfunc_5() {
-    CFightNodeTimeCondition_76800* p = (CFightNodeTimeCondition_76800*)FUN_0008d690(0x14);
+    CFightNodeTimeCondition_76800* p = (CFightNodeTimeCondition_76800*)FUN_0008d690((int)sizeof(CFightNodeTimeCondition_76800));
     if (p) {
         p->Initialize();
         *(void**)p = &conditionVtable;

@@ -139,55 +139,55 @@ extern "C" void FUN_00061850()
     if (DAT_004dc60c == 0) {
         void* params[13];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_61850<CEffectTrack_61850>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_61850<CEffectTrack_61850>("timeBegin", &CEffectTrack_61850::FUN_00060430);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_61850<CEffectTrack_61850>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_61850<CEffectTrack_61850>("timeEnd", &CEffectTrack_61850::FUN_00060440);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_61850<CEffectTrack_61850>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamName_61850<CEffectTrack_61850>("effectName", &CEffectTrack_61850::FUN_00012db0);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_61850<CEffectTrack_61850>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamEnumConstList_61850<CEffectTrack_61850>("emitSpace", ((const char**)&DAT_00495d60), 5, &CEffectTrack_61850::FUN_00060470);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_61850<CEffectTrack_61850>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamNameConstList_61850<CEffectTrack_61850>("emitJoint", &CEffectTrack_61850::FUN_00012d80);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_61850<CEffectTrack_61850>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamVector_61850<CEffectTrack_61850>("offset", &CEffectTrack_61850::FUN_00060450);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_61850<CEffectTrack_61850>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamVector_61850<CEffectTrack_61850>("orientation", &CEffectTrack_61850::FUN_000607d0);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_61850<CEffectTrack_61850>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamEnumConstList_61850<CEffectTrack_61850>("attachSpace", ((const char**)&DAT_00495d50), 4, &CEffectTrack_61850::FUN_00060480);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_61850<CEffectTrack_61850>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamNameConstList_61850<CEffectTrack_61850>("attachJoint", &CEffectTrack_61850::FUN_00012da0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_61850<CEffectTrack_61850>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamBool_61850<CEffectTrack_61850>("abortWhenInterrupted", &CEffectTrack_61850::FUN_00060490);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_61850<CEffectTrack_61850>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamBool_61850<CEffectTrack_61850>("runTillStop", &CEffectTrack_61850::FUN_000604a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_61850<CEffectTrack_61850>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamIntConstRange_61850<CEffectTrack_61850>("slot", &CEffectTrack_61850::FUN_000604b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_61850<CEffectTrack_61850>));
         params[12] = 0;
         if (mem)
             params[12] = new (mem) fight::ParamFloatConstRange_61850<CEffectTrack_61850>("scale", &CEffectTrack_61850::FUN_000604c0);

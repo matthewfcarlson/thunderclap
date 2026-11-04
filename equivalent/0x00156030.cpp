@@ -30,13 +30,13 @@ extern "C" void __cdecl FUN_00156030() {
   void* params[3];
   typedef fight::ParamFloatConstRange<hulkfight::motion::InterruptPriorityTrack> FloatParam;
   typedef fight::ParamIntConstRange<hulkfight::motion::InterruptPriorityTrack> IntParam;
-  FloatParam* a = (FloatParam*)FUN_0008d690(24);
+  FloatParam* a = (FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
   if(a) { a->FUN_00234960("timeBegin"); new(a) FloatParam; a->callback = SetTimeBegin_0014cce0; }
   params[0]=a;
-  FloatParam* b = (FloatParam*)FUN_0008d690(24);
+  FloatParam* b = (FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
   if(b) { b->FUN_00234960("timeEnd"); new(b) FloatParam; b->callback = SetTimeEnd_0014ccf0; }
   params[1]=b;
-  IntParam* c = (IntParam*)FUN_0008d690(24);
+  IntParam* c = (IntParam*)FUN_0008d690((int)sizeof(IntParam));
   if(c) { c->FUN_002348e0("interruptPriority"); new(c) IntParam; c->callback = SetInterruptPriority_0014cd10; }
   params[2]=c;
   FUN_002347b0(&DAT_004e1100,params,3);

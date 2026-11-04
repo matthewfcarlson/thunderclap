@@ -11,7 +11,7 @@ struct Obj_16e320 {
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::ThinkingCondition>::vfunc_5() {
-    Obj_16e320* p = (Obj_16e320*)FUN_0008d690(0x10);
+    Obj_16e320* p = (Obj_16e320*)FUN_0008d690((int)sizeof(Obj_16e320));
     if (p) {
         p->Init(0);
         p->vf = ((hulk_intptr)DAT_004169b8);

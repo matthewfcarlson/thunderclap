@@ -122,7 +122,7 @@ ScriptHandler::ScriptHandler() {
     FUN_001d3c90(&L);
 
     void *mem;
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure2<ScriptHandler, void, const char *, const char *>));
     Closure2<ScriptHandler, void, const char *, const char *> *doString = 0;
     if (mem)
         doString = new (mem) Closure2<ScriptHandler, void, const char *, const char *>("sh_DoString", this, &ScriptHandler::FUN_001d3f00);
@@ -133,7 +133,7 @@ ScriptHandler::ScriptHandler() {
     FUN_002134a0(l_doString, FUN_001d22a0, 1);
     FUN_00213790(l_doString, -10001, "sh_DoString");
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<ScriptHandler, float, const char *>));
     Closure1<ScriptHandler, float, const char *> *getNumber = 0;
     if (mem)
         getNumber = new (mem) Closure1<ScriptHandler, float, const char *>("sh_GetNumber", this, &ScriptHandler::FUN_001d2790);
@@ -144,7 +144,7 @@ ScriptHandler::ScriptHandler() {
     FUN_002134a0(l_getNumber, FUN_001d22a0, 1);
     FUN_00213790(l_getNumber, -10001, "sh_GetNumber");
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<ScriptHandler, const char *, const char *>));
     Closure1<ScriptHandler, const char *, const char *> *getString = 0;
     if (mem)
         getString = new (mem) Closure1<ScriptHandler, const char *, const char *>("sh_GetString", this, &ScriptHandler::FUN_001d27b0);
@@ -157,7 +157,7 @@ ScriptHandler::ScriptHandler() {
 
     FUN_001d46d0("sh_CallFuncInGlobalState", this, FUN_001d4460);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<ScriptHandler, ScriptHandler::script_state, const char *>));
     Closure1<ScriptHandler, ScriptHandler::script_state, const char *> *processFile = 0;
     if (mem)
         processFile = new (mem) Closure1<ScriptHandler, ScriptHandler::script_state, const char *>("sh_ProcessFile", this, &ScriptHandler::FUN_001d36e0);
@@ -168,7 +168,7 @@ ScriptHandler::ScriptHandler() {
     FUN_002134a0(l_processFile, FUN_001d22a0, 1);
     FUN_00213790(l_processFile, -10001, "sh_ProcessFile");
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<ScriptHandler, bool, const char *>));
     Closure1<ScriptHandler, bool, const char *> *addWatch = 0;
     if (mem)
         addWatch = new (mem) Closure1<ScriptHandler, bool, const char *>("dbg_AddWatch", this, &ScriptHandler::FUN_001d1140);
@@ -179,7 +179,7 @@ ScriptHandler::ScriptHandler() {
     FUN_002134a0(l_addWatch, FUN_001d22a0, 1);
     FUN_00213790(l_addWatch, -10001, "dbg_AddWatch");
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<ScriptHandler, bool, const char *>));
     Closure1<ScriptHandler, bool, const char *> *delWatch = 0;
     if (mem)
         delWatch = new (mem) Closure1<ScriptHandler, bool, const char *>("dbg_DeleteWatch", this, &ScriptHandler::FUN_001d1150);

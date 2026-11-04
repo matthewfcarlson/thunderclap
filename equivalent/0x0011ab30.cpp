@@ -82,51 +82,51 @@ void FUN_0011ab30()
     if (DAT_004e0c68 == 0) {
         void* params[12];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("timeBegin", &MotionLocatorTrack::FUN_00115290);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("timeEnd", &MotionLocatorTrack::FUN_001152a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("speed", &MotionLocatorTrack::FUN_001152c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("distanceMin", &MotionLocatorTrack::FUN_001152e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("distanceMax", &MotionLocatorTrack::FUN_00115300);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("heightMin", &MotionLocatorTrack::FUN_00115320);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_11ab30<MotionLocatorTrack>("heightMax", &MotionLocatorTrack::FUN_00115340);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_11ab30<MotionLocatorTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamBool_11ab30<MotionLocatorTrack>("stringParamLocator", &MotionLocatorTrack::FUN_00115360);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_11ab30<MotionLocatorTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamBool_11ab30<MotionLocatorTrack>("myLocator", &MotionLocatorTrack::FUN_00115380);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_11ab30<MotionLocatorTrack>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamBool_11ab30<MotionLocatorTrack>("defendLocator", &MotionLocatorTrack::FUN_001153a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_11ab30<MotionLocatorTrack>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamBool_11ab30<MotionLocatorTrack>("namedLocator", &MotionLocatorTrack::FUN_001153c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_11ab30<MotionLocatorTrack>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamName_11ab30<MotionLocatorTrack>("locatorName", &MotionLocatorTrack::FUN_001153d0);

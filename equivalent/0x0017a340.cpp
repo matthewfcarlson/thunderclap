@@ -22,13 +22,13 @@ void __cdecl FUN_002347b0(unsigned int*, Param**, int);
 void target() {
  if (DAT_004e134c == 0) {
   Param* params[3];
-  Param* p = (Param*)FUN_0008d690(24);
+  Param* p = (Param*)FUN_0008d690((int)sizeof(Param));
   if (p) { p->FUN_00234960("timeBegin"); new (p) Param; p->callback = SetTimeBegin_0016f200; }
   params[0] = p;
-  p = (Param*)FUN_0008d690(24);
+  p = (Param*)FUN_0008d690((int)sizeof(Param));
   if (p) { p->FUN_00234960("timeEnd"); new (p) Param; p->callback = SetTimeEnd_0016f210; }
   params[1] = p;
-  p = (Param*)FUN_0008d690(24);
+  p = (Param*)FUN_0008d690((int)sizeof(Param));
   if (p) { p->FUN_00234960("finalVelocity"); new (p) Param; p->callback = SetFinalVelocity_0016f230; }
   params[2] = p;
   FUN_002347b0(&DAT_004e1348, params, 3);

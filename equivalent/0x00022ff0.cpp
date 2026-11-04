@@ -122,7 +122,7 @@ bool CKeyPoseAction::vfunc_6(int arg)
     if (anim == 0)
         return false;
 
-    AnimationDriver_22ff0 *nd = (AnimationDriver_22ff0 *)thunk_FUN_0008d690(0x240);
+    AnimationDriver_22ff0 *nd = (AnimationDriver_22ff0 *)thunk_FUN_0008d690((int)sizeof(AnimationDriver_22ff0));
     if (nd != 0)
         nd = nd->FUN_00225950(layers->FUN_002226b0(), anim);
     driver = nd;

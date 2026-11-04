@@ -44,21 +44,21 @@ template <class T> struct ParamBool : FUN_00234860 {
 extern "C" void FUN_00070d50() {
     if (DAT_004dcf3c == 0) {
         void* params[3];
-        void* mem = FUN_0008d690(24);
+        void* mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CSoundTrack>));
         if (mem) {
             fight::ParamFloatConstRange<CSoundTrack>* p = new (mem) fight::ParamFloatConstRange<CSoundTrack>;
             p->callback = FUN_00068250;
             params[0] = p;
         } else
             params[0] = 0;
-        mem = FUN_0008d690(24);
+        mem = FUN_0008d690((int)sizeof(fight::ParamString<CSoundTrack>));
         if (mem) {
             fight::ParamString<CSoundTrack>* p = new (mem) fight::ParamString<CSoundTrack>;
             p->callback = FUN_00069730;
             params[1] = p;
         } else
             params[1] = 0;
-        mem = FUN_0008d690(24);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool<CSoundTrack>));
         if (mem) {
             fight::ParamBool<CSoundTrack>* p = new (mem) fight::ParamBool<CSoundTrack>;
             p->callback = FUN_00069750;

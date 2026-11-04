@@ -8,7 +8,7 @@ struct CGrappleDetachAction_nv_5aca0 {
 extern CGrappleDetachAction* FUN_0008d690(int);
 
 hulk_intptr CGrappleDetachTrack::vfunc_12(hulk_intptr param) {
-    CGrappleDetachAction* p = FUN_0008d690(0x24);
+    CGrappleDetachAction* p = FUN_0008d690((int)sizeof(CGrappleDetachAction));
     if (p)
         return ((CGrappleDetachAction_nv_5aca0*)(((CGrappleDetachAction*)(p))))->invoke(this, param);
     return 0;

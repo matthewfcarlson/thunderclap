@@ -12,7 +12,7 @@ template<class C, class R, class A1, class A2, class A3> class Closure3_30430;
 template<> class Closure3_30430<CActorManager_30430, void, const char*, float, const char*> { public: virtual void v(); char pad[0x1c]; CActorManager_30430* owner; Closure3_30430(CActorManager_30430* o) { owner = o; } };
 class Raw_30430 { public: void FUN_0002c8b0(const char*, void (*)()); };
 void Registry_30430::FUN_00030430(const char* a1, CActorManager_30430* a2, void (*a3)()) {
-    void* m = FUN_0008d690(0x24);
+    void* m = FUN_0008d690((int)sizeof(Closure3_30430<CActorManager_30430, void, const char*, float, const char*>));
     void* x = 0;
     if (m) {
         ((Raw_30430*)m)->FUN_0002c8b0(a1, a3);

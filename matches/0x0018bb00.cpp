@@ -21,7 +21,7 @@ class Condition_18bb00 {
 extern int AIHistoryNameCondition_vftable;
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::PropMissileCountCondition>::vfunc_5() {
-    Condition_18bb00* p = (Condition_18bb00*)FUN_0008d690(0x18);
+    Condition_18bb00* p = (Condition_18bb00*)FUN_0008d690((int)sizeof(Condition_18bb00));
     void* result;
     if (p) {
         p->Init(0);

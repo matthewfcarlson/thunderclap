@@ -35,15 +35,15 @@ void target() {
  typedef hulkfight::scenario::Event_CharacterTemplateCondition E;
  if (!DAT_004e17a4) {
  void* items[3];
- void* p=FUN_0008d690(24);
+ void* p=FUN_0008d690((int)sizeof(fight::ParamIntConstRange<E>));
  fight::ParamIntConstRange<E>* a=0;
  if(p) { a=new(p) fight::ParamIntConstRange<E>; a->callback=FUN_001aad30; }
  items[0]=a;
- p=FUN_0008d690(32);
+ p=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<E>));
  fight::ParamEnumConstList<E>* b=0;
  if(p) { int count=(*(int*)&DAT_00427760); b=new(p) fight::ParamEnumConstList<E>; b->count=count; b->list=((int*)&DAT_00427758); b->callback=FUN_001aad40; }
  items[1]=b;
- p=FUN_0008d690(24);
+ p=FUN_0008d690((int)sizeof(fight::ParamName<E>));
  fight::ParamName<E>* c=0;
  if(p) { c=new(p) fight::ParamName<E>; c->callback=FUN_001aad50; }
  items[2]=c;

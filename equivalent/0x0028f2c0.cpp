@@ -166,7 +166,7 @@ void ShaderLoader::vfunc_5(Shader **out, Pair_28f2c0 *outId, Reader *r, Factory_
     r->stream->FUN_002647e0(&fr.v4, 1, 4, 1);
     r->stream->FUN_002647e0(&fr.v4, 1, 4, 1);
 
-    void *mem = thunk_FUN_0008d690(0x20);
+    void *mem = thunk_FUN_0008d690((int)sizeof(Shader));
     Shader *obj = 0;
     if (mem) {
         obj = new (mem) Shader();
@@ -189,7 +189,7 @@ void ShaderLoader::vfunc_5(Shader **out, Pair_28f2c0 *outId, Reader *r, Factory_
                 char *data = (char *)FUN_00266e00(1, count + 1);
                 r->stream->FUN_002647e0(data, count, 1, 1);
                 data[count] = 0;
-                void *mem2 = thunk_FUN_0008d690(0x20);
+                void *mem2 = thunk_FUN_0008d690((int)sizeof(Shader));
                 if (mem2) {
                     obj = new (mem2) Shader();
                     obj->f10 = (*(Dev_28f2c0**)&DAT_0052c2a0)->v11(fr.buf2, data);

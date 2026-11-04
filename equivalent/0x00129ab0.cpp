@@ -87,27 +87,27 @@ extern "C" void FUN_00129ab0()
         void* params[6];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TargetArcCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<TargetArcCondition>("angle", &TargetArcCondition::FUN_00123530);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<TargetArcCondition>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<TargetArcCondition>("arc", &TargetArcCondition::FUN_00123550);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<TargetArcCondition>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamBool<TargetArcCondition>("useCameraDirection", &TargetArcCondition::FUN_00123580);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamName<TargetArcCondition>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamName<TargetArcCondition>("joint", &TargetArcCondition::FUN_00123590);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<TargetArcCondition>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamVector<TargetArcCondition>("direction", &TargetArcCondition::FUN_001235c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<TargetArcCondition>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamBool<TargetArcCondition>("useHulk", &TargetArcCondition::FUN_001235f0);

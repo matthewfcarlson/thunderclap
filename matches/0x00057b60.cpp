@@ -19,7 +19,7 @@ struct Initializer_57b60 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<CCollisionPushbackYCondition>::vfunc_5() {
-    CCollisionPushbackYCondition_57b60* p = (CCollisionPushbackYCondition_57b60*)FUN_0008d690(0x14);
+    CCollisionPushbackYCondition_57b60* p = (CCollisionPushbackYCondition_57b60*)FUN_0008d690((int)sizeof(CCollisionPushbackYCondition_57b60));
     if (p) {
         ((Initializer_57b60*)p)->init(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003f70a0);

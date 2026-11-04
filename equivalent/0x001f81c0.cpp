@@ -143,7 +143,7 @@ void CEffectManager::FUN_001f81c0()
     Registry_1f81c0 *reg = FUN_001d4c90();
     reg->FUN_001e12b0("SetXBoxGamma", thunk_FUN_001b8750);
 
-    void *mem = FUN_0008d690(0x20);
+    void *mem = FUN_0008d690((int)sizeof(Function2<void, float, float>));
     Function2<void, float, float> *blur = 0;
     if (mem)
         blur = new (mem) Function2<void, float, float>("em_SetMotionBlur", FUN_001f7120);
@@ -155,7 +155,7 @@ void CEffectManager::FUN_001f81c0()
         world = ((ClosureWorld *)mem)->FUN_001f7b20("em_AddWorldEffect", this, &CEffectManager::FUN_001f7200);
     reg->FUN_001d3b70("em_AddWorldEffect", world);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure3<CEffectManager, int, const char *, math::Vector, math::Vector>));
     Closure3<CEffectManager, int, const char *, math::Vector, math::Vector> *oriented = 0;
     if (mem)
         oriented = new (mem) Closure3<CEffectManager, int, const char *, math::Vector, math::Vector>(
@@ -168,7 +168,7 @@ void CEffectManager::FUN_001f81c0()
         setpos = ((Closure2_1f81c0 *)mem)->FUN_001f7c40("em_SetPositionWorldEffect", this, &CEffectManager::FUN_001f7280);
     reg->FUN_001d3b70("em_SetPositionWorldEffect", setpos);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure3<CEffectManager, unsigned int, char *, float, float>));
     Closure3<CEffectManager, unsigned int, char *, float, float> *decal = 0;
     if (mem)
         decal = new (mem) Closure3<CEffectManager, unsigned int, char *, float, float>(
@@ -177,25 +177,25 @@ void CEffectManager::FUN_001f81c0()
 
     reg->FUN_001f80b0("CDQ_Nearest", this, &CEffectManager::FUN_001f6fc0);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<CEffectManager, unsigned int, char *>));
     Closure1<CEffectManager, unsigned int, char *> *addps = 0;
     if (mem)
         addps = new (mem) Closure1<CEffectManager, unsigned int, char *>("CPS_AddPS", this, &CEffectManager::FUN_001f6e60);
     reg->FUN_001d3b70("CPS_AddPS", addps);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<CEffectManager, bool, bool>));
     Closure1<CEffectManager, bool, bool> *rain = 0;
     if (mem)
         rain = new (mem) Closure1<CEffectManager, bool, bool>("em_EnableRain", this, &CEffectManager::FUN_001f6ff0);
     reg->FUN_001d3b70("em_EnableRain", rain);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<CEffectManager, bool, bool>));
     Closure1<CEffectManager, bool, bool> *dust = 0;
     if (mem)
         dust = new (mem) Closure1<CEffectManager, bool, bool>("em_EnableDust", this, &CEffectManager::FUN_001f7080);
     reg->FUN_001d3b70("em_EnableDust", dust);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<CEffectManager, bool, bool>));
     Closure1<CEffectManager, bool, bool> *debris = 0;
     if (mem)
         debris = new (mem) Closure1<CEffectManager, bool, bool>("em_EnableDebris", this, &CEffectManager::FUN_001f7110);

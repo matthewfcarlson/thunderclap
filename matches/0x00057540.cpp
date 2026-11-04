@@ -14,7 +14,7 @@ extern "C" void* FUN_0008d690(unsigned int);
 extern int g_vtable_57540[];
 
 template <> void* fight::ConditionFactoryTemplate<CCharacterSizeCondition>::vfunc_5() {
-    CCharacterSizeCondition_57540* p = (CCharacterSizeCondition_57540*)FUN_0008d690(0x14);
+    CCharacterSizeCondition_57540* p = (CCharacterSizeCondition_57540*)FUN_0008d690((int)sizeof(CCharacterSizeCondition_57540));
     if (p) {
         p->Init(0);
         *(hulk_intptr*)p = (hulk_intptr)g_vtable_57540;

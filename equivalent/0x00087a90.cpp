@@ -32,7 +32,7 @@ struct Registry_87a90 {
 };
 
 void Registry_87a90::FUN_00087a90(const char* name, float (*fn)()) {
-    void* mem = FUN_0008d690(0x20);
+    void* mem = FUN_0008d690((int)sizeof(Function0_87a90<float>));
     Function0_87a90<float>* c = 0;
     if (mem)
         c = new (mem) Function0_87a90<float>(name, fn);

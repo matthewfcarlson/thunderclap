@@ -42,7 +42,7 @@ struct Registry_aee00 {
 };
 
 void Registry_aee00::FUN_000aee00(const char* name, CControllerManager* owner, bool (CControllerManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CControllerManager, bool>));
     Closure0<CControllerManager, bool>* c = 0;
     if (mem)
         c = new (mem) Closure0<CControllerManager, bool>(name, owner, fn);

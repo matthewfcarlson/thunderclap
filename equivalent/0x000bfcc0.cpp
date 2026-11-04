@@ -34,7 +34,7 @@ struct Registry_bfcc0 {
 };
 
 void Registry_bfcc0::FUN_000bfcc0(const char* name, void (*fn)()) {
-    void* mem = FUN_0008d690(0x20);
+    void* mem = FUN_0008d690((int)sizeof(Function0_bfcc0<void>));
     Function0_bfcc0<void>* c = 0;
     if (mem)
         c = new (mem) Function0_bfcc0<void>(name, fn);

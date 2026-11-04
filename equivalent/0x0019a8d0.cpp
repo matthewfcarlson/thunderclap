@@ -85,55 +85,55 @@ void FUN_0019a8d0()
     if (DAT_004e1564 == 0) {
         void* params[13];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("timeBegin", &MissileThrowTrack::FUN_00192570);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_19a8d0<MissileThrowTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamIntConstRange_19a8d0<MissileThrowTrack>("attachmentIndex", &MissileThrowTrack::FUN_00192590);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_19a8d0<MissileThrowTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamVector_19a8d0<MissileThrowTrack>("direction", &MissileThrowTrack::FUN_001925c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("distanceMin", &MissileThrowTrack::FUN_001925f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("distanceMax", &MissileThrowTrack::FUN_00192610);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("velocityMin", &MissileThrowTrack::FUN_00192630);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("velocityMax", &MissileThrowTrack::FUN_00192650);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("spinMin", &MissileThrowTrack::FUN_00192670);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("spinMax", &MissileThrowTrack::FUN_001926a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("trackingMin", &MissileThrowTrack::FUN_001926d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("trackingMax", &MissileThrowTrack::FUN_00192700);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("yFixupAngle", &MissileThrowTrack::FUN_00192730);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>));
         params[12] = 0;
         if (mem)
             params[12] = new (mem) fight::ParamFloatConstRange_19a8d0<MissileThrowTrack>("reigniteCharge", &MissileThrowTrack::FUN_00192760);

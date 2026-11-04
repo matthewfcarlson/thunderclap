@@ -25,7 +25,7 @@ extern void __cdecl FUN_002347b0(int*, Param**, int);
 extern "C" void FUN_00155330() {
  if (DAT_004e104c == 0) {
   Param* params[2];
-  void* storage = FUN_0008d690(32);
+  void* storage = FUN_0008d690((int)sizeof(Param));
   if (storage) {
    int count = (*(int*)&DAT_00427760);
    ((Base_155330*)storage)->FUN_00234cc0("compare");
@@ -35,7 +35,7 @@ extern "C" void FUN_00155330() {
    p->callback = &SetCompare_0014c4f0;
    params[0] = p;
   } else params[0] = 0;
-  storage = FUN_0008d690(32);
+  storage = FUN_0008d690((int)sizeof(Param));
   if (storage) {
    ((Base_155330*)storage)->FUN_00234cc0("type");
    Param* p = new (storage) Param;

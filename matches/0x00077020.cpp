@@ -14,7 +14,7 @@ extern int vtable_77020;
 extern "C" void* FUN_0008d690(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<CMotionHitGroundHeightTrack>::vfunc_5() {
-    CMotionHitGroundHeightTrack_77020* p = (CMotionHitGroundHeightTrack_77020*)FUN_0008d690(0x18);
+    CMotionHitGroundHeightTrack_77020* p = (CMotionHitGroundHeightTrack_77020*)FUN_0008d690((int)sizeof(CMotionHitGroundHeightTrack_77020));
     if (p) {
         p->construct();
         p->vptr = (hulk_intptr)&vtable_77020;

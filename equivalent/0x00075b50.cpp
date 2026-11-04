@@ -23,21 +23,21 @@ void __cdecl FUN_002347b0(int*, ParamBase_75b50**, int);
 extern "C" void __cdecl FUN_00075b50() {
  if (DAT_004dd00c == 0) {
   ParamBase_75b50* params[3];
-  ParamBase_75b50* p = (ParamBase_75b50*)FUN_0008d690(24);
+  ParamBase_75b50* p = (ParamBase_75b50*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_75b50<CAIHintTrack_75b50>));
   if(p) {
    ((fight::ParamValueFloat *)(ParamBase_75b50 *)p)->FUN_00234960("timeBegin");
    new(p) fight::ParamFloatConstRange_75b50<CAIHintTrack_75b50>;
    p->callback = SetTimeBegin_00068b40;
   }
   params[0]=p;
-  p=(ParamBase_75b50*)FUN_0008d690(24);
+  p=(ParamBase_75b50*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_75b50<CAIHintTrack_75b50>));
   if(p) {
    ((fight::ParamValueFloat *)(ParamBase_75b50 *)p)->FUN_00234960("timeEnd");
    new(p) fight::ParamFloatConstRange_75b50<CAIHintTrack_75b50>;
    p->callback=SetTimeEnd_00068b50;
   }
   params[1]=p;
-  p=(ParamBase_75b50*)FUN_0008d690(24);
+  p=(ParamBase_75b50*)FUN_0008d690((int)sizeof(fight::ParamName_75b50<CAIHintTrack_75b50>));
   if(p) {
    ((fight::ParamValueName *)(ParamBase_75b50 *)p)->FUN_00234a90("hint");
    new(p) fight::ParamName_75b50<CAIHintTrack_75b50>;

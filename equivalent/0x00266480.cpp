@@ -35,7 +35,7 @@ content::LoadInventory::LoadInventory(unsigned int capacity) {
     field4 = 0;
     flag8 = 1;
     flag9 = 1;
-    Pool_266480* p = (Pool_266480*)FUN_0008d690(0x24);
+    Pool_266480* p = (Pool_266480*)FUN_0008d690((int)sizeof(Pool_266480));
     if (p != 0) {
         if (capacity == 0 || (capacity & (capacity - 1)) != 0)
             capacity = 1u << (FUN_00356c30(capacity) + 1);

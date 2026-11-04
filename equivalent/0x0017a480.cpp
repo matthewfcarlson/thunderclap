@@ -58,11 +58,11 @@ extern "C" void FUN_0017a480()
     if (DAT_004e1364 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17a480<hulkfight::motion::TeleportTrack_17a480>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_17a480<hulkfight::motion::TeleportTrack_17a480>("timeBegin", &hulkfight::motion::TeleportTrack_17a480::FUN_0016f360);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17a480<hulkfight::motion::TeleportTrack_17a480>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamVector_17a480<hulkfight::motion::TeleportTrack_17a480>("vector", &hulkfight::motion::TeleportTrack_17a480::FUN_0016f390);

@@ -360,7 +360,7 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5
             case 10:
                 if (self->flags & 0x80) {
                     unsigned int n = stream->FUN_001c61c0();
-                    void *m = FUN_0008d690(0x14);
+                    void *m = FUN_0008d690((int)sizeof(MatrixPaletteList));
                     MatrixPaletteList *list = 0;
                     if (m != 0)
                         list = new (m) MatrixPaletteList();

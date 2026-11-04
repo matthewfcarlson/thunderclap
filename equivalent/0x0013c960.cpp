@@ -74,39 +74,39 @@ void FUN_0013c960()
     if (DAT_004e0f24 == 0) {
         void* params[9];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<AnimationChargeTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<AnimationChargeTrack>("timeBegin", &AnimationChargeTrack::FUN_00139b90);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<AnimationChargeTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<AnimationChargeTrack>("timeEnd", &AnimationChargeTrack::FUN_00139ba0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamStringName<AnimationChargeTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamStringName<AnimationChargeTrack>("animation", &AnimationChargeTrack::FUN_00139bb0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<AnimationChargeTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamFloatConstRange<AnimationChargeTrack>("startFrame", &AnimationChargeTrack::FUN_00139bd0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<AnimationChargeTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<AnimationChargeTrack>("endFrame", &AnimationChargeTrack::FUN_00139bf0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamStringName<AnimationChargeTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamStringName<AnimationChargeTrack>("partition", &AnimationChargeTrack::FUN_00139c00);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<AnimationChargeTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamIntConstRange<AnimationChargeTrack>("priority", &AnimationChargeTrack::FUN_00139c20);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<AnimationChargeTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) ParamFloatConstRange<AnimationChargeTrack>("blendInTime", &AnimationChargeTrack::FUN_00139c40);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<AnimationChargeTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) ParamFloatConstRange<AnimationChargeTrack>("blendOutTime", &AnimationChargeTrack::FUN_00139c60);

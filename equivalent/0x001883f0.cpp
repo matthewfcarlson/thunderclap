@@ -43,11 +43,11 @@ extern "C" void FUN_001883f0()
     if (DAT_004e14c4 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1883f0<hulkfight::motion::ShieldArcTrack_1883f0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_1883f0<hulkfight::motion::ShieldArcTrack_1883f0>("timeBegin", &hulkfight::motion::ShieldArcTrack_1883f0::FUN_00180300);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1883f0<hulkfight::motion::ShieldArcTrack_1883f0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_1883f0<hulkfight::motion::ShieldArcTrack_1883f0>("arc", &hulkfight::motion::ShieldArcTrack_1883f0::FUN_00180320);

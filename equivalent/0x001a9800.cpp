@@ -121,47 +121,47 @@ void FUN_001a9800()
     if (DAT_004e1754 == 0) {
         void* params[11];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1a9800<EffectTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_1a9800<EffectTrack>("timeBegin", &EffectTrack::FUN_001a1f80);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1a9800<EffectTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_1a9800<EffectTrack>("timeEnd", &EffectTrack::FUN_001a1fa0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_1a9800<EffectTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamName_1a9800<EffectTrack>("characterName", &EffectTrack::FUN_001a1fb0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_1a9800<EffectTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamName_1a9800<EffectTrack>("effectName", &EffectTrack::FUN_001a1fc0);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_1a9800<EffectTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamEnumConstList_1a9800<EffectTrack>("emitSpace", ((const char**)&DAT_00495d60), (*(int*)&DAT_003fa9e8), &EffectTrack::FUN_001a1fe0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_1a9800<EffectTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamNameConstList_1a9800<EffectTrack>("emitJoint", &EffectTrack::FUN_001a1ff0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_1a9800<EffectTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamVector_1a9800<EffectTrack>("offset", &EffectTrack::FUN_001a2020);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_1a9800<EffectTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamVector_1a9800<EffectTrack>("orientation", &EffectTrack::FUN_001a2060);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_1a9800<EffectTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamEnumConstList_1a9800<EffectTrack>("attachSpace", ((const char**)&DAT_00495d50), (*(int*)&DAT_003fa9e4), &EffectTrack::FUN_001a20b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_1a9800<EffectTrack>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamNameConstList_1a9800<EffectTrack>("attachJoint", &EffectTrack::FUN_001a20c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1a9800<EffectTrack>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_1a9800<EffectTrack>("scale", &EffectTrack::FUN_001a20e0);

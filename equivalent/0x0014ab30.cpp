@@ -87,23 +87,23 @@ void FUN_0014ab30()
         void* params[5];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<GrappleExecuteTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<GrappleExecuteTrack>("timeBegin", &GrappleExecuteTrack::FUN_00147030);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<GrappleExecuteTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<GrappleExecuteTrack>("timeEnd", &GrappleExecuteTrack::FUN_00147040);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBranch<GrappleExecuteTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamBranch<GrappleExecuteTrack>("branch", &GrappleExecuteTrack::FUN_00147050);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<GrappleExecuteTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamIntConstRange<GrappleExecuteTrack>("priority", &GrappleExecuteTrack::FUN_00147070);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamConditionGroup<GrappleExecuteTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamConditionGroup<GrappleExecuteTrack>("conditionGroup", &GrappleExecuteTrack::FUN_00147080);

@@ -42,7 +42,7 @@ struct Registry_206f90 {
 };
 
 void Registry_206f90::FUN_00206f90(const char* name, CWorldStreamManager* owner, void (CWorldStreamManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CWorldStreamManager, void>));
     Closure0<CWorldStreamManager, void>* c = 0;
     if (mem)
         c = new (mem) Closure0<CWorldStreamManager, void>(name, owner, fn);

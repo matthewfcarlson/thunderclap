@@ -42,7 +42,7 @@ struct Registry_1c08c0 {
 };
 
 void Registry_1c08c0::FUN_001c08c0(const char* name, CSubtitleManager* owner, bool (CSubtitleManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CSubtitleManager, bool>));
     Closure0<CSubtitleManager, bool>* c = 0;
     if (mem)
         c = new (mem) Closure0<CSubtitleManager, bool>(name, owner, fn);

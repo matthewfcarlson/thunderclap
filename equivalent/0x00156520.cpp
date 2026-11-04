@@ -55,23 +55,23 @@ extern "C" void FUN_00156520()
         void* params[5];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HealthTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<HealthTrack>("timeBegin", &HealthTrack::FUN_0014cee0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HealthTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<HealthTrack>("hitPoints", &HealthTrack::FUN_0014cf00);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<HealthTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamBool<HealthTrack>("directDamage", &HealthTrack::FUN_0014cf20);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<HealthTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamBool<HealthTrack>("addTheseHitPoints", &HealthTrack::FUN_0014cf40);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<HealthTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamBool<HealthTrack>("subtractTheseHitPoints", &HealthTrack::FUN_0014cf60);

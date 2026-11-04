@@ -42,7 +42,7 @@ void target() {
  typedef fight::ParamEnumConstList<hulkfight::ai::TargetDistanceCondition> Enum;
  typedef fight::ParamFloatConstRange<hulkfight::ai::TargetDistanceCondition> Float;
  typedef fight::ParamBool<hulkfight::ai::TargetDistanceCondition> Bool;
- Enum* e=(Enum*)FUN_0008d690(32);
+ Enum* e=(Enum*)FUN_0008d690((int)sizeof(Enum));
  if(e) {
  int n=(*(int*)&DAT_00427754);
  e->FUN_00234cc0("compare");
@@ -52,21 +52,21 @@ void target() {
  e->callback=SetCompare_00123620;
  }
  entries[0]=e;
- Float* f=(Float*)FUN_0008d690(24);
+ Float* f=(Float*)FUN_0008d690((int)sizeof(Float));
  if(f) {
  f->FUN_00234960("distance");
  new(f) Float;
  f->callback=SetDistance_00123630;
  }
  entries[1]=f;
- Bool* b=(Bool*)FUN_0008d690(24);
+ Bool* b=(Bool*)FUN_0008d690((int)sizeof(Bool));
  if(b) {
  b->FUN_00234860("useHulk");
  new(b) Bool;
  b->callback=SetUseHulk_00123650;
  }
  entries[2]=b;
- b=(Bool*)FUN_0008d690(24);
+ b=(Bool*)FUN_0008d690((int)sizeof(Bool));
  if(b) {
  b->FUN_00234860("useGroundPoint");
  new(b) Bool;

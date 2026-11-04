@@ -23,7 +23,7 @@ struct DriftToPositionTrack_17e350 {
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::DriftToPositionTrack>::vfunc_5() {
-    DriftToPositionTrack_17e350* track = (DriftToPositionTrack_17e350*)FUN_0008d690(0x2c);
+    DriftToPositionTrack_17e350* track = (DriftToPositionTrack_17e350*)FUN_0008d690((int)sizeof(DriftToPositionTrack_17e350));
     if (track) {
         track->FUN_00236d40();
         new(track) DriftToPositionTrack_17e350;

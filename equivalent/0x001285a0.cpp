@@ -23,7 +23,7 @@ void target() {
  typedef fight::ParamEnumConstList<hulkfight::ai::TargetTypeCondition> Param;
  if (!DAT_004e0d78) {
   Param* list[2];
-  list[0]=(Param*)FUN_0008d690(32);
+  list[0]=(Param*)FUN_0008d690((int)sizeof(Param));
   if(list[0]) {
    int count=(*(int*)&DAT_00427760);
    list[0]->FUN_00234cc0("compare");
@@ -32,7 +32,7 @@ void target() {
    list[0]->values=((int*)&DAT_00427758);
    list[0]->callback=SetCompare_00123600;
   }
-  list[1]=(Param*)FUN_0008d690(32);
+  list[1]=(Param*)FUN_0008d690((int)sizeof(Param));
   if(list[1]) {
    list[1]->FUN_00234cc0("type");
    new(list[1]) Param;

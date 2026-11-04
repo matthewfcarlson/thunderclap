@@ -28,16 +28,16 @@ void __cdecl target() {
  typedef fight::ParamFloatConstRange<hulkfight::motion::PropActorToPropTrack> FloatParam;
  typedef fight::ParamIntConstRange<hulkfight::motion::PropActorToPropTrack> IntParam;
  typedef fight::ParamBool<hulkfight::motion::PropActorToPropTrack> BoolParam;
- ParamBase_187e00* p = (ParamBase_187e00*)FUN_0008d690(24);
+ ParamBase_187e00* p = (ParamBase_187e00*)FUN_0008d690((int)sizeof(FloatParam));
  if(p) { p->FUN_00234960("timeBegin"); new(p) FloatParam; p->callback=SetTimeBegin_0017f6b0; }
  params[0]=p;
- p=(ParamBase_187e00*)FUN_0008d690(24);
+ p=(ParamBase_187e00*)FUN_0008d690((int)sizeof(IntParam));
  if(p) { p->FUN_002348e0("attachmentIndex"); new(p) IntParam; p->callback=SetAttachmentIndex_0017f6d0; }
  params[1]=p;
- p=(ParamBase_187e00*)FUN_0008d690(24);
+ p=(ParamBase_187e00*)FUN_0008d690((int)sizeof(BoolParam));
  if(p) { p->FUN_00234860("simulate"); new(p) BoolParam; p->callback=SetSimulate_0017f6f0; }
  params[2]=p;
- p=(ParamBase_187e00*)FUN_0008d690(24);
+ p=(ParamBase_187e00*)FUN_0008d690((int)sizeof(BoolParam));
  if(p) { p->FUN_00234860("atEnd"); new(p) BoolParam; p->callback=SetAtEnd_0017f710; }
  params[3]=p;
  FUN_002347b0(&DAT_004e1468,params,4);

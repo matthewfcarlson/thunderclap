@@ -42,7 +42,7 @@ struct Registry_c0740 {
 };
 
 void Registry_c0740::FUN_000c0740(const char* name, CFEManager* owner, void (CFEManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CFEManager, void>));
     Closure0<CFEManager, void>* c = 0;
     if (mem)
         c = new (mem) Closure0<CFEManager, void>(name, owner, fn);

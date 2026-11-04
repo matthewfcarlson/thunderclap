@@ -87,27 +87,27 @@ extern "C" void FUN_0016c830()
         void* params[6];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamNameConstList<RayCastConeCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamNameConstList<RayCastConeCondition>("joint", &RayCastConeCondition::FUN_001655c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<RayCastConeCondition>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamVector<RayCastConeCondition>("offset", &RayCastConeCondition::FUN_001655f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RayCastConeCondition>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamFloatConstRange<RayCastConeCondition>("length", &RayCastConeCondition::FUN_00165620);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RayCastConeCondition>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamFloatConstRange<RayCastConeCondition>("angle", &RayCastConeCondition::FUN_00165640);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RayCastConeCondition>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<RayCastConeCondition>("stepSize", &RayCastConeCondition::FUN_00165660);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<RayCastConeCondition>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamBool<RayCastConeCondition>("hitFound", &RayCastConeCondition::FUN_00165680);

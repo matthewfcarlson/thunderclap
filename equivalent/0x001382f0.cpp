@@ -39,15 +39,15 @@ void __cdecl FUN_001382f0() {
   void* entries[3];
   typedef fight::ParamFloatConstRange<hulkfight::motion::HoverTrack> F;
   typedef fight::ParamIntConstRange<hulkfight::motion::HoverTrack> I;
-  void* p=FUN_0008d690(24);
+  void* p=FUN_0008d690((int)sizeof(F));
   F* a = p ? new (p) F("timeBegin") : 0;
   if(a) a->callback=FUN_00133470;
   entries[0]=a;
-  p=FUN_0008d690(24);
+  p=FUN_0008d690((int)sizeof(F));
   F* b = p ? new (p) F("timeEnd") : 0;
   if(b) b->callback=FUN_00133480;
   entries[1]=b;
-  p=FUN_0008d690(24);
+  p=FUN_0008d690((int)sizeof(I));
   I* c = p ? new (p) I("groundFixup") : 0;
   if(c) c->callback=FUN_001334a0;
   entries[2]=c;

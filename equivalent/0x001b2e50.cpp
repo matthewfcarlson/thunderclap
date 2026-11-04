@@ -71,19 +71,19 @@ class AICollisionSolverAgent : public CollisionSolverAgent_1b2e50 {
 AICollisionSolverAgent::AICollisionSolverAgent() {
     Registry_1b2e50* reg = (Registry_1b2e50*)FUN_001d4c90();
     if (reg) {
-        void* mem = FUN_0008d690(0x20);
+        void* mem = FUN_0008d690((int)sizeof(Function2<void, float, float>));
         Function2<void, float, float>* a = 0;
         if (mem) a = new (mem) Function2<void, float, float>("phy_SetCharVsSmallPropDamage", FUN_001afa70);
         reg->FUN_001d3b70("phy_SetCharVsSmallPropDamage", a);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(Function2<void, float, float>));
         Function2<void, float, float>* b = 0;
         if (mem) b = new (mem) Function2<void, float, float>("phy_SetCharVsLargePropDamage", FUN_001afa90);
         reg->FUN_001d3b70("phy_SetCharVsLargePropDamage", b);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(Function2<void, float, float>));
         Function2<void, float, float>* c = 0;
         if (mem) c = new (mem) Function2<void, float, float>("phy_SetCharVsHeavyPropDamage", FUN_001afab0);
         reg->FUN_001d3b70("phy_SetCharVsHeavyPropDamage", c);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(Function2<void, const char*, float>));
         Function2<void, const char*, float>* d = 0;
         if (mem) d = new (mem) Function2<void, const char*, float>("phy_SetElectrifiedDamage", FUN_001afad0);
         reg->FUN_001d3b70("phy_SetElectrifiedDamage", d);

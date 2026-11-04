@@ -16,7 +16,7 @@ class IntentionClearTrack {
     void Init();
 };
 void* __cdecl TrackFactoryTemplate_vfunc_5() {
-    IntentionClearTrack* p = (IntentionClearTrack*)FUN_0008d690(0x14);
+    IntentionClearTrack* p = (IntentionClearTrack*)FUN_0008d690((int)sizeof(IntentionClearTrack));
     if (p) {
         p->Init();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_00417cb8);

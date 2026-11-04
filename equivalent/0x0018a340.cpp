@@ -137,99 +137,99 @@ extern "C" void FUN_0018a340()
     if (DAT_004e149c == 0) {
         void* params[24];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("timeBegin", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017f900);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("timeEnd", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017f910);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamIntConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("attachmentIndex", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017f930);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamBool_18a340<hulkfight::motion::PropThrowTrack_18a340>("useCameraDirection", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017f950);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamVector_18a340<hulkfight::motion::PropThrowTrack_18a340>("direction", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017f980);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("distanceMin", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017f9b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("distanceMax", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017f9d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("velocityMin", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017f9f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("velocityMax", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017fa10);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("spinMin", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017fa30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("spinMax", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017fa60);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("trackingMin", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017fa90);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[12] = 0;
         if (mem)
             params[12] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("trackingMax", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017fac0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[13] = 0;
         if (mem)
             params[13] = new (mem) fight::ParamIntConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("bounceMin", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017faf0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[14] = 0;
         if (mem)
             params[14] = new (mem) fight::ParamIntConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("bounceMax", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017fb10);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[15] = 0;
         if (mem)
             params[15] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("yFixupAngle", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017fb30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[16] = 0;
         if (mem)
             params[16] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("forceMin", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017fb60);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[17] = 0;
         if (mem)
             params[17] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("forceMax", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017fb80);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[18] = 0;
         if (mem)
             params[18] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("damageMin", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017fba0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[19] = 0;
         if (mem)
             params[19] = new (mem) fight::ParamFloatConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("damageMax", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017fbc0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[20] = 0;
         if (mem)
             params[20] = new (mem) fight::ParamIntConstRange_18a340<hulkfight::motion::PropThrowTrack_18a340>("interruptPriority", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017fbe0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBranch_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[21] = 0;
         if (mem)
             params[21] = new (mem) fight::ParamBranch_18a340<hulkfight::motion::PropThrowTrack_18a340>("hitBranch", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017fbf0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[22] = 0;
         if (mem)
             params[22] = new (mem) fight::ParamName_18a340<hulkfight::motion::PropThrowTrack_18a340>("hitEffect", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017fc00);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_18a340<hulkfight::motion::PropThrowTrack_18a340>));
         params[23] = 0;
         if (mem)
             params[23] = new (mem) fight::ParamBool_18a340<hulkfight::motion::PropThrowTrack_18a340>("clearCharge", &hulkfight::motion::PropThrowTrack_18a340::FUN_0017fc20);

@@ -103,55 +103,55 @@ void FUN_001456b0()
     if (DAT_004e0f9c == 0) {
         void* params[13];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>("timeBegin", &hulkfight::motion::WorldConeDamageTrack_1456b0::FUN_00143400);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamVector_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>("position", &hulkfight::motion::WorldConeDamageTrack_1456b0::FUN_00143430);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamVector_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>("direction", &hulkfight::motion::WorldConeDamageTrack_1456b0::FUN_00143470);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamVector_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>("up", &hulkfight::motion::WorldConeDamageTrack_1456b0::FUN_001434b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>("minAngle", &hulkfight::motion::WorldConeDamageTrack_1456b0::FUN_001434e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>("maxAngle", &hulkfight::motion::WorldConeDamageTrack_1456b0::FUN_00143510);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>("startDistance", &hulkfight::motion::WorldConeDamageTrack_1456b0::FUN_00143540);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>("length", &hulkfight::motion::WorldConeDamageTrack_1456b0::FUN_00143560);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamIntConstRange_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>("minDecals", &hulkfight::motion::WorldConeDamageTrack_1456b0::FUN_00143580);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamIntConstRange_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>("maxDecals", &hulkfight::motion::WorldConeDamageTrack_1456b0::FUN_001435a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>("minDecalScale", &hulkfight::motion::WorldConeDamageTrack_1456b0::FUN_001435c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamFloatConstRange_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>("maxDecalScale", &hulkfight::motion::WorldConeDamageTrack_1456b0::FUN_001435e0);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>));
         params[12] = 0;
         if (mem)
             params[12] = new (mem) fight::ParamEnumConstList_1456b0<hulkfight::motion::WorldConeDamageTrack_1456b0>("damageType", ((const char**)&DAT_004ad788), 7, &hulkfight::motion::WorldConeDamageTrack_1456b0::FUN_00143600);

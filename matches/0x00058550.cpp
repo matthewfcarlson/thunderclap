@@ -14,7 +14,7 @@ struct CMotionStateCondition_58550 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<CMotionStateCondition>::vfunc_5() {
-    CMotionStateCondition_58550* p = (CMotionStateCondition_58550*)FUN_0008d690(0x14);
+    CMotionStateCondition_58550* p = (CMotionStateCondition_58550*)FUN_0008d690((int)sizeof(CMotionStateCondition_58550));
     if (p) {
         p->Initialize(0);
         p->vtable = ((hulk_intptr)DAT_003f7394);

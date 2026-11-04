@@ -64,11 +64,11 @@ void FUN_001ac5b0()
     if ((*(int*)&DAT_004e17b4) == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_1ac5b0<hulkfight::scenario::Event_PathNameCondition_1ac5b0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList_1ac5b0<hulkfight::scenario::Event_PathNameCondition_1ac5b0>("compare", ((const char**)&DAT_00427758), (*(int*)&DAT_00427760), &hulkfight::scenario::Event_PathNameCondition_1ac5b0::FUN_001aada0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_1ac5b0<hulkfight::scenario::Event_PathNameCondition_1ac5b0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamName_1ac5b0<hulkfight::scenario::Event_PathNameCondition_1ac5b0>("pathName", &hulkfight::scenario::Event_PathNameCondition_1ac5b0::FUN_001aadb0);

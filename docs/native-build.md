@@ -119,3 +119,42 @@ All native links rc 0 (ld64, lld). The batch has one more tree TU (0x000b86b0's 
   0x00216320 returning a `const char*` as `int`.
 - The game's `snprintf` (0x000964a0 bound under the C name `snprintf` in 0x00203740) binds to the C library's on the
   native link; harmless (same contract).
+
+## 64-bit pointer and layout fixes (ptr1, 2026-11-04)
+
+The `--x64` check ([equivalence.md](equivalence.md) "64-bit check") runs a source's x86-64 object against its own
+32-bit clang object. eq64's pilot, clean2's registration batch and va1's leftovers left a work list of 107 sources.
+Most of their failures are shapes that recur across the tree, so ptr1 fixes the shapes tree-wide, most common first.
+Every fix spells the same code on the 32-bit builds: MSVC 7.1's object is identical to HEAD's (`tools/ptr1.py proof`)
+or the source still byte-matches, and equivalents stay promotable.
+
+**Checker fixes first** (tools/equiv64.py, listed in equivalence.md "ptr1's checker changes"; regress `X64_CASES` 8 -> 17
+cases, all ok; the full suite 423/424, the one failure 0x000ffef0_compare_chain fails on mac2 at HEAD too). 15 of the list's `int` failures were the checker pairing string literals by a rule meant
+for `__ptr64` qualifiers; the game's allocators under C++ linkage, template classes' vftables and `void*` results the
+source casts were not typed, so many real layout bugs showed as `untyped` or not at all.
+
+**Batch 1: allocation sizes.** `operator new(0x10)` / `FUN_0008d690(24)` with the 32-bit size of the class the
+memory becomes (placement-new'd or cast right after): every class with a vfptr or a pointer field is larger on 64-bit
+(the TrackFactoryTemplate and ConditionFactory families, the fight parameter registrations' `ParamFloatConstRange` /
+`ParamEnumConstList` / `ParamValueName` stubs, ...). The literal becomes `sizeof(T)`, kept only where MSVC's object
+stays identical (the literal *is* the 32-bit `sizeof`): `build/ptr1/scripts/sizeof_rw.py` proposed 1,540 sources, the
+object identity kept 1,238 (619 matches/, 619 equivalent/); the other 302 allocate more than their stub class
+declares (the stub is short of the real class) and keep their literal.
+
+| | control 44161 (06bcabc77, mac1) | batch 44162 (mac2) |
+|---|---|---|
+| gates | - | 619/619 MATCH + verify_relocs ok; 619/619 promotable at 3,000; 619/619 equivalent at 600 `--wine` |
+| `--x64` over the 1,238 (same checker) | 99 equivalent | 1,182 equivalent, none newly failing |
+| gen_tree merge modes | - | 0 changes |
+| strict link rc / Wine unbound | 0 / 1,324 | 0 / 1,324 (the same set) |
+| x87 keep list | 268 | identical |
+| image | - | differs: 0x002b5770 no longer needs a compile-error wrap (one fewer: 737) |
+| play3 checkpoints | 2,004 to 60,090 | identical at all 2,004 common frames |
+| native unbound (macOS / Linux / Android) | 46,350 / 46,349 / 46,349 (va1) | 46,350 / 46,349 / 46,349, 3 front-end failures each (the same 3), all links rc 0 |
+
+The first native compile of the batch lost 10 TUs: in a merged TU that declares the allocator twice
+(`FUN_0008d690(int)` and `FUN_0008d690(hulk_uintptr)`), a 64-bit `size_t` argument converts to both. The argument is
+now `(int)sizeof(T)`, the type the replaced literal had, so every TU resolves the call as before (the objects are
+still identical: 1,238 / 1,238). Native numbers without a Wine build: `build/ptr1/scripts/mksnap.sh` makes a clang-probe
+snapshot from a workspace's gen_tree output with a proof build's `state.json` (on the batch's own sources it
+reproduced that build's snapshot exactly), and the queue compiles it for the three targets (`native_jobs.sh`).

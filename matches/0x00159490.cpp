@@ -17,7 +17,7 @@ class Condition_159490 {
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionTargetIsTargetCondition>::vfunc_5() {
-    Condition_159490* p = (Condition_159490*)FUN_0008d690(0x10);
+    Condition_159490* p = (Condition_159490*)FUN_0008d690((int)sizeof(Condition_159490));
     if (p) {
         p->Init(0);
         *((hulk_intptr*)p) = ((hulk_intptr)DAT_00414070);

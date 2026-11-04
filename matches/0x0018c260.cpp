@@ -9,7 +9,7 @@ struct PropTrack_18c260 {
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::PropAddToCollisionTrack>::vfunc_5() {
-    PropTrack_18c260* p = (PropTrack_18c260*)FUN_0008d690(0x18);
+    PropTrack_18c260* p = (PropTrack_18c260*)FUN_0008d690((int)sizeof(PropTrack_18c260));
     if (p) {
         p->Init();
         p->pad[0x14] = 1;

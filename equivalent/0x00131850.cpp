@@ -56,11 +56,11 @@ void FUN_00131850()
     if (DAT_004e0e80 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_131850<hulkfight::StatBeginTrialTrack_131850>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_131850<hulkfight::StatBeginTrialTrack_131850>("timeBegin", &hulkfight::StatBeginTrialTrack_131850::FUN_0012e0a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamString_131850<hulkfight::StatBeginTrialTrack_131850>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamString_131850<hulkfight::StatBeginTrialTrack_131850>("stat", &hulkfight::StatBeginTrialTrack_131850::FUN_0012e8d0);

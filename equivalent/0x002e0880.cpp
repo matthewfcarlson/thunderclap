@@ -98,7 +98,7 @@ VertexAnimPrimGroup::VertexAnimPrimGroup(const VertexAnimPrimGroup &src) : Drawa
     prov58 = (Provider_2e0880 *)p;
 
     if (src.sub5c) {
-        VertexOffsetList_2e0880 *mem = (VertexOffsetList_2e0880 *)FUN_0008d690(0x30);
+        VertexOffsetList_2e0880 *mem = (VertexOffsetList_2e0880 *)FUN_0008d690((int)sizeof(VertexOffsetList_2e0880));
         VertexOffsetList_2e0880 *s;
         if (mem)
             s = mem->FUN_002c84a0(src.sub5c);

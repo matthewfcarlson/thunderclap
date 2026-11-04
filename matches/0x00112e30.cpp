@@ -32,7 +32,7 @@ void __cdecl FUN_002347b0(int*, fight::ParamBase_112e30**, int);
 extern "C" void __cdecl FUN_00112e30() {
     if (!DAT_004e0b9c) {
         fight::ParamBase_112e30* params[3];
-        void* p = FUN_0008d690(24);
+        void* p = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::ai::TokenTrack>));
         if (p) {
             fight::ParamBase_112e30* b = (fight::ParamBase_112e30*)p;
             b->FUN_00234960("timeBegin");
@@ -41,7 +41,7 @@ extern "C" void __cdecl FUN_00112e30() {
             params[0] = b;
         } else
             params[0] = 0;
-        p = FUN_0008d690(24);
+        p = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::ai::TokenTrack>));
         if (p) {
             fight::ParamBase_112e30* b = (fight::ParamBase_112e30*)p;
             b->FUN_00234960("timeEnd");
@@ -50,7 +50,7 @@ extern "C" void __cdecl FUN_00112e30() {
             params[1] = b;
         } else
             params[1] = 0;
-        p = FUN_0008d690(24);
+        p = FUN_0008d690((int)sizeof(fight::ParamBool<hulkfight::ai::TokenTrack>));
         if (p) {
             fight::ParamBase_112e30* b = (fight::ParamBase_112e30*)p;
             b->FUN_00234860("floatDelayOnEnd");

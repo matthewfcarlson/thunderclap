@@ -59,39 +59,39 @@ void FUN_00137c40()
     if (DAT_004e0ed4 == 0) {
         void* params[9];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<FlyingBrakeTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<FlyingBrakeTrack>("timeBegin", &FlyingBrakeTrack::FUN_001330f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<FlyingBrakeTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<FlyingBrakeTrack>("timeEnd", &FlyingBrakeTrack::FUN_00133100);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<FlyingBrakeTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamFloatConstRange<FlyingBrakeTrack>("velocityXZ", &FlyingBrakeTrack::FUN_00133120);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<FlyingBrakeTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamFloatConstRange<FlyingBrakeTrack>("gravity", &FlyingBrakeTrack::FUN_00133140);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<FlyingBrakeTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<FlyingBrakeTrack>("gravityUp", &FlyingBrakeTrack::FUN_00133160);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<FlyingBrakeTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamFloatConstRange<FlyingBrakeTrack>("terminalVelocity", &FlyingBrakeTrack::FUN_00133180);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<FlyingBrakeTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamIntConstRange<FlyingBrakeTrack>("priority", &FlyingBrakeTrack::FUN_001331a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<FlyingBrakeTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) ParamFloatConstRange<FlyingBrakeTrack>("blendInTime", &FlyingBrakeTrack::FUN_001331c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<FlyingBrakeTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) ParamFloatConstRange<FlyingBrakeTrack>("blendOutTime", &FlyingBrakeTrack::FUN_001331e0);

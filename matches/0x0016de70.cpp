@@ -19,7 +19,7 @@ class VelocityXZAngleCondition_16de70 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::VelocityXZAngleCondition>::vfunc_5() {
-    VelocityXZAngleCondition_16de70* p = (VelocityXZAngleCondition_16de70*)FUN_0008d690(0x14);
+    VelocityXZAngleCondition_16de70* p = (VelocityXZAngleCondition_16de70*)FUN_0008d690((int)sizeof(VelocityXZAngleCondition_16de70));
     if (p) {
         p->Init(0);
         *(hulk_intptr*)p = (hulk_intptr)&velocityVtable;

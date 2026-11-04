@@ -54,11 +54,11 @@ extern "C" void FUN_000641e0()
     if (DAT_004dc63c == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CSmartPropSetStateTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange<::CSmartPropSetStateTrack>("timeBegin", &::CSmartPropSetStateTrack::FUN_00061e30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<::CSmartPropSetStateTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamIntConstRange<::CSmartPropSetStateTrack>("state", &::CSmartPropSetStateTrack::FUN_00061e40);

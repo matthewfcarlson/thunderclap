@@ -20,7 +20,7 @@ void Owner_8c470::FUN_0008c470(unsigned value) {
  parameter=value;
  state=FUN_0008d6d0(0xc8);
  unsigned saved=FUN_00266da0(1);
- Pair_8c470* pair=FUN_0008d690(8);
+ Pair_8c470* pair=FUN_0008d690((int)sizeof(Pair_8c470));
  pair->a=0; pair->b=0;
  FUN_00266da0(saved);
  state->zero=0;

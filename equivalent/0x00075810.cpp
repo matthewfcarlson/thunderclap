@@ -97,63 +97,63 @@ extern "C" void FUN_00075810()
     if (DAT_004dcff4 == 0) {
         void* params[15];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CHeadTrackerTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange<::CHeadTrackerTrack>("timeBegin", &::CHeadTrackerTrack::FUN_000689d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CHeadTrackerTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange<::CHeadTrackerTrack>("timeEnd", &::CHeadTrackerTrack::FUN_000689e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList<::CHeadTrackerTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamNameConstList<::CHeadTrackerTrack>("joint", &::CHeadTrackerTrack::FUN_00012310);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector<::CHeadTrackerTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamVector<::CHeadTrackerTrack>("north", &::CHeadTrackerTrack::FUN_000689f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector<::CHeadTrackerTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamVector<::CHeadTrackerTrack>("east", &::CHeadTrackerTrack::FUN_00068a10);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CHeadTrackerTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange<::CHeadTrackerTrack>("turnRate", &::CHeadTrackerTrack::FUN_00068a30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CHeadTrackerTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange<::CHeadTrackerTrack>("verticalMinAngle", &::CHeadTrackerTrack::FUN_00068a50);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CHeadTrackerTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange<::CHeadTrackerTrack>("verticalMaxAngle", &::CHeadTrackerTrack::FUN_00068a70);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CHeadTrackerTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamFloatConstRange<::CHeadTrackerTrack>("horizontalMinAngle", &::CHeadTrackerTrack::FUN_00068a90);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CHeadTrackerTrack>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange<::CHeadTrackerTrack>("horizontalMaxAngle", &::CHeadTrackerTrack::FUN_00068ab0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CHeadTrackerTrack>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange<::CHeadTrackerTrack>("arc", &::CHeadTrackerTrack::FUN_0006ad10);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CHeadTrackerTrack>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamFloatConstRange<::CHeadTrackerTrack>("distance", &::CHeadTrackerTrack::FUN_00068ad0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<::CHeadTrackerTrack>));
         params[12] = 0;
         if (mem)
             params[12] = new (mem) fight::ParamIntConstRange<::CHeadTrackerTrack>("priority", &::CHeadTrackerTrack::FUN_00068ae0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CHeadTrackerTrack>));
         params[13] = 0;
         if (mem)
             params[13] = new (mem) fight::ParamFloatConstRange<::CHeadTrackerTrack>("blendInTime", &::CHeadTrackerTrack::FUN_00068af0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CHeadTrackerTrack>));
         params[14] = 0;
         if (mem)
             params[14] = new (mem) fight::ParamFloatConstRange<::CHeadTrackerTrack>("blendOutTime", &::CHeadTrackerTrack::FUN_00068b00);

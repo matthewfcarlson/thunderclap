@@ -123,7 +123,7 @@ void SkeletonLoader::F(Skeleton **out, unsigned __int64 *outId, Loader_27c140 *l
     Info_27c140 *sp = 0;
     fr.v14 = 0;
     if (b14) {
-        Info_27c140 *p = (Info_27c140 *)FUN_0008d690(0x18);
+        Info_27c140 *p = (Info_27c140 *)FUN_0008d690((int)sizeof(Info_27c140));
         if (p) {
             p->f4 = 0;
             p->names8 = 0;

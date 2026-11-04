@@ -42,7 +42,7 @@ struct Registry_c0960 {
 };
 
 void Registry_c0960::FUN_000c0960(const char* name, CFEManager* owner, int (CFEManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CFEManager, int>));
     Closure0<CFEManager, int>* c = 0;
     if (mem)
         c = new (mem) Closure0<CFEManager, int>(name, owner, fn);

@@ -28,13 +28,13 @@ void FUN_001ac490() {
  if (!DAT_004e17ac) {
  void* params[3];
  typedef hulkfight::scenario::Event_CharacterTemplateVariationCondition T;
- fight::ParamIntConstRange<T>* a = (fight::ParamIntConstRange<T>*)FUN_0008d690(24);
+ fight::ParamIntConstRange<T>* a = (fight::ParamIntConstRange<T>*)FUN_0008d690((int)sizeof(fight::ParamIntConstRange<T>));
  if(a){ a->FUN_002348e0("objectIndex"); new(a) fight::ParamIntConstRange<T>; a->callback=SetObjectIndex_001aad60; }
  params[0]=a;
- fight::ParamEnumConstList<T>* b = (fight::ParamEnumConstList<T>*)FUN_0008d690(32);
+ fight::ParamEnumConstList<T>* b = (fight::ParamEnumConstList<T>*)FUN_0008d690((int)sizeof(fight::ParamEnumConstList<T>));
  if(b){ int count=(*(int*)&DAT_00427760); b->FUN_00234cc0("compare"); b->count=count; new(b) fight::ParamEnumConstList<T>; b->list=((int*)&DAT_00427758); b->callback=SetCompare_001aad70; }
  params[1]=b;
- fight::ParamName<T>* c = (fight::ParamName<T>*)FUN_0008d690(24);
+ fight::ParamName<T>* c = (fight::ParamName<T>*)FUN_0008d690((int)sizeof(fight::ParamName<T>));
  if(c){ c->FUN_00234a90("characterTemplate"); new(c) fight::ParamName<T>; c->callback=GetCharacterTemplate_001aad80; }
  params[2]=c;
  FUN_002347b0(&DAT_004e17a8,params,3);

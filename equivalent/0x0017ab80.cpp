@@ -20,13 +20,13 @@ extern "C" void __cdecl FUN_0017ab80() {
  void* params[4];
  typedef fight::ParamFloatConstRange_17ab80<hulkfight::motion::TeleportRelativeTrack_17ab80> F;
  typedef fight::ParamVector_17ab80<hulkfight::motion::TeleportRelativeTrack_17ab80> V;
- F* a = (F*)FUN_0008d690(24);
+ F* a = (F*)FUN_0008d690((int)sizeof(F));
  if(a) { ((fight::ParamValueFloat *)(BaseFloat_17ab80 *)a)->FUN_00234960("timeBegin"); new(a) F; a->callback=SetTimeBegin_0016f930; } params[0]=a;
- V* b = (V*)FUN_0008d690(24);
+ V* b = (V*)FUN_0008d690((int)sizeof(V));
  if(b) { b->FUN_00234e50("offset"); new(b) V; b->callback=SetOffset_0016f960; } params[1]=b;
- V* c = (V*)FUN_0008d690(24);
+ V* c = (V*)FUN_0008d690((int)sizeof(V));
  if(c) { c->FUN_00234e50("minimum"); new(c) V; c->callback=SetMinimum_0016f9a0; } params[2]=c;
- F* d = (F*)FUN_0008d690(24);
+ F* d = (F*)FUN_0008d690((int)sizeof(F));
  if(d) { ((fight::ParamValueFloat *)(BaseFloat_17ab80 *)d)->FUN_00234960("traceWidth"); new(d) F; d->callback=SetTraceWidth_0016f9d0; } params[3]=d;
  FUN_002347b0(&DAT_004e1390, params, 4);
  }

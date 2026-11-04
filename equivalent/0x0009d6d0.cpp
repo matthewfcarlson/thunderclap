@@ -12,7 +12,7 @@ template<class C, class R, class A1, class A2, class A3, class A4, class A5, cla
 template<> class Closure7_9d6d0<CCameraManager_9d6d0, void, bool, bool, bool, bool, bool, bool, float> { public: virtual void v(); char pad[0x1c]; CCameraManager_9d6d0* owner; Closure7_9d6d0(CCameraManager_9d6d0* o) { owner = o; } };
 class Raw_9d6d0 { public: void FUN_0009ae50(const char*, void (*)()); };
 void Registry_9d6d0::FUN_0009d6d0(const char* a1, CCameraManager_9d6d0* a2, void (*a3)()) {
-    void* m = FUN_0008d690(0x24);
+    void* m = FUN_0008d690((int)sizeof(Closure7_9d6d0<CCameraManager_9d6d0, void, bool, bool, bool, bool, bool, bool, float>));
     void* x = 0;
     if (m) {
         ((Raw_9d6d0*)m)->FUN_0009ae50(a1, a3);

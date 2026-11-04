@@ -42,7 +42,7 @@ void FUN_001a6f30()
     if (DAT_004e170c == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_1a6f30<hulkfight::scenario::NodeIsNotRunningCondition_1a6f30>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_1a6f30<hulkfight::scenario::NodeIsNotRunningCondition_1a6f30>("nodeIsNotRunning", &hulkfight::scenario::NodeIsNotRunningCondition_1a6f30::FUN_001a1ed0);

@@ -42,7 +42,7 @@ extern "C" void FUN_0016ba70()
     if (DAT_004e1284 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_16ba70<hulkfight::motion::InLoadedRoomCondition_16ba70>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_16ba70<hulkfight::motion::InLoadedRoomCondition_16ba70>("isInLoadedRoom", &hulkfight::motion::InLoadedRoomCondition_16ba70::FUN_001658d0);

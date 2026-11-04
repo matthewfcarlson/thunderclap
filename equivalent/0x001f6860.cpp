@@ -12,7 +12,7 @@ template<class C, class R, class A1, class A2, class A3> class Closure3_1f6860;
 template<> class Closure3_1f6860<CSoundVoiceManager_1f6860, void, bool, bool, bool> { public: virtual void v(); char pad[0x1c]; CSoundVoiceManager_1f6860* owner; Closure3_1f6860(CSoundVoiceManager_1f6860* o) { owner = o; } };
 class Raw_1f6860 { public: void FUN_001f4980(const char*, void (*)()); };
 void Registry_1f6860::FUN_001f6860(const char* a1, CSoundVoiceManager_1f6860* a2, void (*a3)()) {
-    void* m = FUN_0008d690(0x24);
+    void* m = FUN_0008d690((int)sizeof(Closure3_1f6860<CSoundVoiceManager_1f6860, void, bool, bool, bool>));
     void* x = 0;
     if (m) {
         ((Raw_1f6860*)m)->FUN_001f4980(a1, a3);

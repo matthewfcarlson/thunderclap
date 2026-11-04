@@ -12,7 +12,7 @@ template<class C, class R, class A1, class A2, class A3, class A4, class A5, cla
 template<> class Closure7_c0850<CFEManager_c0850, void, const char*, const char*, const char*, const char*, const char*, const char*, const char*> { public: virtual void v(); char pad[0x1c]; CFEManager_c0850* owner; Closure7_c0850(CFEManager_c0850* o) { owner = o; } };
 class Raw_c0850 { public: void FUN_000be840(const char*, void (*)()); };
 void Registry_c0850::FUN_000c0850(const char* a1, CFEManager_c0850* a2, void (*a3)()) {
-    void* m = FUN_0008d690(0x24);
+    void* m = FUN_0008d690((int)sizeof(Closure7_c0850<CFEManager_c0850, void, const char*, const char*, const char*, const char*, const char*, const char*, const char*>));
     void* x = 0;
     if (m) {
         ((Raw_c0850*)m)->FUN_000be840(a1, a3);

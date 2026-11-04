@@ -17,11 +17,11 @@ void __cdecl FUN_002347b0(int*, fight::Base_129480**, int);
 void target() {
  if (DAT_004e0e10 == 0) {
  fight::Base_129480* entries[3];
- void* p = FUN_0008d690(24);
+ void* p = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::ai::ClearProjectileDistanceTrack>));
  if(p) { ((fight::Base_129480*)p)->FUN_00234960("timeBegin"); entries[0] = new(p) fight::ParamFloatConstRange<hulkfight::ai::ClearProjectileDistanceTrack>; entries[0]->callback = SetTimeBegin_00123a60; } else entries[0]=0;
- p=FUN_0008d690(24);
+ p=FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::ai::ClearProjectileDistanceTrack>));
  if(p) { ((fight::Base_129480*)p)->FUN_00234960("timeEnd"); entries[1] = new(p) fight::ParamFloatConstRange<hulkfight::ai::ClearProjectileDistanceTrack>; entries[1]->callback = SetTimeEnd_00123a70; } else entries[1]=0;
- p=FUN_0008d690(24);
+ p=FUN_0008d690((int)sizeof(fight::ParamBool<hulkfight::ai::ClearProjectileDistanceTrack>));
  if(p) { ((fight::Base_129480*)p)->FUN_00234860("clearEveryFrame"); entries[2] = new(p) fight::ParamBool<hulkfight::ai::ClearProjectileDistanceTrack>; entries[2]->callback = SetClearEveryFrame_00123a90; } else entries[2]=0;
  FUN_002347b0(&DAT_004e0e0c,entries,3);
  }

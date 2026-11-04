@@ -41,7 +41,7 @@ FrameControllerLoader::FrameControllerLoader() {
     handlers[1] = 0;
     handlers[2] = 0;
     handlers[3] = 0;
-    void* mem = FUN_0008d690(8);
+    void* mem = FUN_0008d690((int)sizeof(DefaultFrameControllerHandler));
     if (mem) {
         DefaultFrameControllerHandler* h = new (mem) DefaultFrameControllerHandler();
         unsigned int n = handlerCount;

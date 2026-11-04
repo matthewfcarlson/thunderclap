@@ -18,7 +18,7 @@ class TargetVelocityYCondition_12a8d0 {
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetVelocityYCondition>::vfunc_5() {
-    TargetVelocityYCondition_12a8d0* p = (TargetVelocityYCondition_12a8d0*)FUN_0008d690(0x14);
+    TargetVelocityYCondition_12a8d0* p = (TargetVelocityYCondition_12a8d0*)FUN_0008d690((int)sizeof(TargetVelocityYCondition_12a8d0));
     if (p) {
         p->TargetVelocityYCondition_12a8d0::TargetVelocityYCondition_12a8d0(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_0040fe54);

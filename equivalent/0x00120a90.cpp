@@ -115,51 +115,51 @@ void FUN_00120a90()
     if (DAT_004e0cac == 0) {
         void* params[12];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamString_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamString_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>("locatorType", &hulkfight::ai::PathLocatorTestCondition_120a90::FUN_0011c290);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamEnumConstList_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::ai::PathLocatorTestCondition_120a90::FUN_0011b810);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>("distance", &hulkfight::ai::PathLocatorTestCondition_120a90::FUN_0011b830);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamBool_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>("distanceTest", &hulkfight::ai::PathLocatorTestCondition_120a90::FUN_0011b850);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamBool_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>("min", &hulkfight::ai::PathLocatorTestCondition_120a90::FUN_0011b870);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamBool_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>("max", &hulkfight::ai::PathLocatorTestCondition_120a90::FUN_0011b890);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamBool_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>("defendLocator", &hulkfight::ai::PathLocatorTestCondition_120a90::FUN_0011b8b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamBool_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>("myLocator", &hulkfight::ai::PathLocatorTestCondition_120a90::FUN_0011b8d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamBool_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>("namedLocator", &hulkfight::ai::PathLocatorTestCondition_120a90::FUN_0011b8f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamBool_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>("testLocatorExists", &hulkfight::ai::PathLocatorTestCondition_120a90::FUN_0011b910);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamBool_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>("defaulttoVicinityCheck", &hulkfight::ai::PathLocatorTestCondition_120a90::FUN_0011b930);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamVector_120a90<hulkfight::ai::PathLocatorTestCondition_120a90>("vicinityLimits", &hulkfight::ai::PathLocatorTestCondition_120a90::FUN_0011b960);

@@ -42,7 +42,7 @@ void FUN_001a6f90()
     if (DAT_004e171c == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_1a6f90<hulkfight::scenario::NodeShouldRunImmediatelyCondition_1a6f90>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_1a6f90<hulkfight::scenario::NodeShouldRunImmediatelyCondition_1a6f90>("thisBooleanDoesNothing", &hulkfight::scenario::NodeShouldRunImmediatelyCondition_1a6f90::FUN_001a1ef0);

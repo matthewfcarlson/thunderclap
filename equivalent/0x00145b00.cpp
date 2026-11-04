@@ -58,11 +58,11 @@ void FUN_00145b00()
     if (DAT_004e0fac == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_145b00<hulkfight::motion::MotionTrailStopTrack_145b00>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_145b00<hulkfight::motion::MotionTrailStopTrack_145b00>("timeBegin", &hulkfight::motion::MotionTrailStopTrack_145b00::FUN_001436c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_145b00<hulkfight::motion::MotionTrailStopTrack_145b00>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamIntConstRange_145b00<hulkfight::motion::MotionTrailStopTrack_145b00>("slot", &hulkfight::motion::MotionTrailStopTrack_145b00::FUN_001436e0);

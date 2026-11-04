@@ -70,23 +70,23 @@ void FUN_0012d310()
         void* params[5];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ThreatDodgeTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<ThreatDodgeTrack>("timeBegin", &ThreatDodgeTrack::FUN_0012b340);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ThreatDodgeTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<ThreatDodgeTrack>("timeEnd", &ThreatDodgeTrack::FUN_0012b350);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ThreatDodgeTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamFloatConstRange<ThreatDodgeTrack>("speed", &ThreatDodgeTrack::FUN_0012b370);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<ThreatDodgeTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamBool<ThreatDodgeTrack>("threatRespondOnlyOnce", &ThreatDodgeTrack::FUN_0012b390);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamName<ThreatDodgeTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamName<ThreatDodgeTrack>("threatName", &ThreatDodgeTrack::FUN_0012b3a0);

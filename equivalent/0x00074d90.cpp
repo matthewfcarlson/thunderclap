@@ -104,91 +104,91 @@ extern "C" void FUN_00074d90()
     if (DAT_004dcf34 == 0) {
         void* params[22];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName<::CKeyPoseTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamName<::CKeyPoseTrack>("animation", &::CKeyPoseTrack::FUN_00011e20);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CKeyPoseTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange<::CKeyPoseTrack>("key0", &::CKeyPoseTrack::FUN_0006b310);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CKeyPoseTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange<::CKeyPoseTrack>("map0", &::CKeyPoseTrack::FUN_0006b320);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CKeyPoseTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange<::CKeyPoseTrack>("key1", &::CKeyPoseTrack::FUN_0006b330);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CKeyPoseTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange<::CKeyPoseTrack>("map1", &::CKeyPoseTrack::FUN_0006b340);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CKeyPoseTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange<::CKeyPoseTrack>("key2", &::CKeyPoseTrack::FUN_0006b350);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CKeyPoseTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange<::CKeyPoseTrack>("map2", &::CKeyPoseTrack::FUN_0006b360);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CKeyPoseTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange<::CKeyPoseTrack>("key3", &::CKeyPoseTrack::FUN_0006b370);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CKeyPoseTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamFloatConstRange<::CKeyPoseTrack>("map3", &::CKeyPoseTrack::FUN_0006b380);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CKeyPoseTrack>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange<::CKeyPoseTrack>("key4", &::CKeyPoseTrack::FUN_0006b390);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CKeyPoseTrack>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange<::CKeyPoseTrack>("map4", &::CKeyPoseTrack::FUN_0006b3a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CKeyPoseTrack>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamFloatConstRange<::CKeyPoseTrack>("key5", &::CKeyPoseTrack::FUN_0006b3b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CKeyPoseTrack>));
         params[12] = 0;
         if (mem)
             params[12] = new (mem) fight::ParamFloatConstRange<::CKeyPoseTrack>("map5", &::CKeyPoseTrack::FUN_0006b3c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CKeyPoseTrack>));
         params[13] = 0;
         if (mem)
             params[13] = new (mem) fight::ParamFloatConstRange<::CKeyPoseTrack>("key6", &::CKeyPoseTrack::FUN_0006b3d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CKeyPoseTrack>));
         params[14] = 0;
         if (mem)
             params[14] = new (mem) fight::ParamFloatConstRange<::CKeyPoseTrack>("map6", &::CKeyPoseTrack::FUN_0006b3e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CKeyPoseTrack>));
         params[15] = 0;
         if (mem)
             params[15] = new (mem) fight::ParamFloatConstRange<::CKeyPoseTrack>("key7", &::CKeyPoseTrack::FUN_0006b3f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CKeyPoseTrack>));
         params[16] = 0;
         if (mem)
             params[16] = new (mem) fight::ParamFloatConstRange<::CKeyPoseTrack>("map7", &::CKeyPoseTrack::FUN_0006b400);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool<::CKeyPoseTrack>));
         params[17] = 0;
         if (mem)
             params[17] = new (mem) fight::ParamBool<::CKeyPoseTrack>("rootMotion", &::CKeyPoseTrack::FUN_00068210);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName<::CKeyPoseTrack>));
         params[18] = 0;
         if (mem)
             params[18] = new (mem) fight::ParamName<::CKeyPoseTrack>("partition", &::CKeyPoseTrack::FUN_00011e40);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<::CKeyPoseTrack>));
         params[19] = 0;
         if (mem)
             params[19] = new (mem) fight::ParamIntConstRange<::CKeyPoseTrack>("priority", &::CKeyPoseTrack::FUN_00068220);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CKeyPoseTrack>));
         params[20] = 0;
         if (mem)
             params[20] = new (mem) fight::ParamFloatConstRange<::CKeyPoseTrack>("blendInTime", &::CKeyPoseTrack::FUN_00068230);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CKeyPoseTrack>));
         params[21] = 0;
         if (mem)
             params[21] = new (mem) fight::ParamFloatConstRange<::CKeyPoseTrack>("blendOutTime", &::CKeyPoseTrack::FUN_00068240);

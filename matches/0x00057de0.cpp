@@ -29,7 +29,7 @@ extern "C" void FUN_00054240();
 
 template <> void* fight::ConditionFactoryCasterTemplate<CGrappleAlertStatusCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(TrackFactoryTemplate_57de0));
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_57de0* t = new (mem) TrackFactoryTemplate_57de0();

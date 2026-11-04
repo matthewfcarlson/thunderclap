@@ -9,7 +9,7 @@ extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern void* conditionVtable;
 
 template <> void* fight::ConditionFactoryTemplate<CFightNodeTimeCondition>::vfunc_5() {
-    CFightNodeTimeCondition_521a0* p = (CFightNodeTimeCondition_521a0*)FUN_0008d690(0x14);
+    CFightNodeTimeCondition_521a0* p = (CFightNodeTimeCondition_521a0*)FUN_0008d690((int)sizeof(CFightNodeTimeCondition_521a0));
     if (p) {
         p->Initialize();
         *(void**)p = &conditionVtable;

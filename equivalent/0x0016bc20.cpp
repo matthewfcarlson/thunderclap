@@ -25,7 +25,7 @@ extern "C" void __cdecl FUN_002347b0(void*, Entry_16bc20**, unsigned int);
 extern "C" void __cdecl FUN_0016bc20() {
  if (!DAT_004e129c) {
  Entry_16bc20* entries[2];
- Entry_16bc20* p = (Entry_16bc20*)FUN_0008d690(32);
+ Entry_16bc20* p = (Entry_16bc20*)FUN_0008d690((int)sizeof(Entry_16bc20));
  if (p) {
  unsigned int n = (*(unsigned int*)&DAT_00427760);
  p->FUN_00234cc0("compare");
@@ -35,7 +35,7 @@ extern "C" void __cdecl FUN_0016bc20() {
  p->callback = SetCompare_00165940;
  }
  entries[0] = p;
- p = (Entry_16bc20*)FUN_0008d690(32);
+ p = (Entry_16bc20*)FUN_0008d690((int)sizeof(Entry_16bc20));
  if (p) {
  unsigned int n = (*(unsigned int*)&DAT_003fb900);
  p->FUN_00234cc0("rageMode");

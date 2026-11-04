@@ -58,11 +58,11 @@ extern "C" void FUN_00187a20()
     if (DAT_004e1434 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_187a20<hulkfight::motion::PropIsAttachedCondition_187a20>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamIntConstRange_187a20<hulkfight::motion::PropIsAttachedCondition_187a20>("attachmentIndex", &hulkfight::motion::PropIsAttachedCondition_187a20::FUN_0017f520);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_187a20<hulkfight::motion::PropIsAttachedCondition_187a20>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamBool_187a20<hulkfight::motion::PropIsAttachedCondition_187a20>("isAttached", &hulkfight::motion::PropIsAttachedCondition_187a20::FUN_0017f530);

@@ -17,7 +17,7 @@ extern int chargeVtable;
 void* operator new(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::ChargeTrack>::vfunc_5() {
-    ChargeTrack_17e070* p = (ChargeTrack_17e070*)operator new(0x20);
+    ChargeTrack_17e070* p = (ChargeTrack_17e070*)operator new(sizeof(ChargeTrack_17e070));
     if (p) {
         p->Init();
         p->vt = (hulk_intptr)&chargeVtable;

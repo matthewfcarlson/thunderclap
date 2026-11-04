@@ -12,7 +12,7 @@ template<class C, class R, class A1, class A2, class A3, class A4, class A5, cla
 template<> class Closure7_d6410<MessageOverlay_d6410, void, const char*, const char*, const char*, const char*, const char*, const char*, const char*> { public: virtual void v(); char pad[0x1c]; MessageOverlay_d6410* owner; Closure7_d6410(MessageOverlay_d6410* o) { owner = o; } };
 class Raw_d6410 { public: void FUN_000d5550(const char*, void (*)()); };
 void Registry_d6410::FUN_000d6410(const char* a1, MessageOverlay_d6410* a2, void (*a3)()) {
-    void* m = FUN_0008d690(0x24);
+    void* m = FUN_0008d690((int)sizeof(Closure7_d6410<MessageOverlay_d6410, void, const char*, const char*, const char*, const char*, const char*, const char*, const char*>));
     void* x = 0;
     if (m) {
         ((Raw_d6410*)m)->FUN_000d5550(a1, a3);

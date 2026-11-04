@@ -88,31 +88,31 @@ extern "C" void FUN_00179fe0()
     if (DAT_004e1334 == 0) {
         void* params[7];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<DriftToPositionTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<DriftToPositionTrack>("timeBegin", &DriftToPositionTrack::FUN_0016f090);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<DriftToPositionTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<DriftToPositionTrack>("timeEnd", &DriftToPositionTrack::FUN_0016f0a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<DriftToPositionTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamBool<DriftToPositionTrack>("letMeSpecifyPosition", &DriftToPositionTrack::FUN_0016f0c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<DriftToPositionTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamVector<DriftToPositionTrack>("position", &DriftToPositionTrack::FUN_0016f0f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<DriftToPositionTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamBool<DriftToPositionTrack>("ditchYIfInDefaultMode", &DriftToPositionTrack::FUN_0016f120);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<DriftToPositionTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamBool<DriftToPositionTrack>("teleportAtEnd", &DriftToPositionTrack::FUN_0016f140);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamString<DriftToPositionTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamString<DriftToPositionTrack>("variable", &DriftToPositionTrack::FUN_00170480);

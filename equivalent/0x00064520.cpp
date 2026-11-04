@@ -39,11 +39,11 @@ extern "C" void FUN_00064520()
     if (DAT_004dc654 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CSmartPropThrowingTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange<::CSmartPropThrowingTrack>("timeBegin", &::CSmartPropThrowingTrack::FUN_00061f30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CSmartPropThrowingTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange<::CSmartPropThrowingTrack>("timeEnd", &::CSmartPropThrowingTrack::FUN_00061f40);

@@ -65,47 +65,47 @@ extern "C" void FUN_00156700()
     if (DAT_004e113c == 0) {
         void* params[11];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156700<GroundSlideTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_156700<GroundSlideTrack>("timeBegin", &GroundSlideTrack::FUN_0014cfa0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156700<GroundSlideTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_156700<GroundSlideTrack>("timeEnd", &GroundSlideTrack::FUN_0014cfb0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156700<GroundSlideTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_156700<GroundSlideTrack>("facing", &GroundSlideTrack::FUN_0014cfd0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156700<GroundSlideTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_156700<GroundSlideTrack>("friction", &GroundSlideTrack::FUN_0014d000);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156700<GroundSlideTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_156700<GroundSlideTrack>("deceleration", &GroundSlideTrack::FUN_0014d020);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156700<GroundSlideTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_156700<GroundSlideTrack>("minInitVelocity", &GroundSlideTrack::FUN_0014d040);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156700<GroundSlideTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_156700<GroundSlideTrack>("minVelocity", &GroundSlideTrack::FUN_0014d060);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156700<GroundSlideTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange_156700<GroundSlideTrack>("maxVelocity", &GroundSlideTrack::FUN_0014d080);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_156700<GroundSlideTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamIntConstRange_156700<GroundSlideTrack>("priority", &GroundSlideTrack::FUN_0014d0a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156700<GroundSlideTrack>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_156700<GroundSlideTrack>("blendInTime", &GroundSlideTrack::FUN_0014d0c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156700<GroundSlideTrack>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_156700<GroundSlideTrack>("blendOutTime", &GroundSlideTrack::FUN_0014d0e0);

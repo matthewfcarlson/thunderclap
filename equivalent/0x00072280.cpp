@@ -23,13 +23,13 @@ extern "C" void FUN_00072280() {
  if (!DAT_004dcfd4) {
  Param* params[3];
  Param* p;
- p = (Param*)FUN_0008d690(24);
+ p = (Param*)FUN_0008d690((int)sizeof(Param));
  if(p) { p->FUN_00234960("timeBegin"); new (p) Param; p->callback=SetTimeBegin_00068930; }
  params[0]=p;
- p = (Param*)FUN_0008d690(24);
+ p = (Param*)FUN_0008d690((int)sizeof(Param));
  if(p) { p->FUN_00234960("timeEnd"); new (p) Param; p->callback=SetTimeEnd_00068940; }
  params[1]=p;
- p = (Param*)FUN_0008d690(24);
+ p = (Param*)FUN_0008d690((int)sizeof(Param));
  if(p) { p->FUN_00234960("extensionTime"); new (p) Param; p->callback=SetExtensionTime_00068950; }
  params[2]=p;
  FUN_002347b0(&DAT_004dcfd0,params,3);

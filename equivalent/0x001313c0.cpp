@@ -30,14 +30,14 @@ extern "C" void __cdecl FUN_002347b0(int*,void**,int);
 void __cdecl FUN_001313c0() {
  if (!DAT_004e0e58) {
   void* params[2];
-  fight::ParamEnumConstList<hulkfight::UnlockableCondition>* e = (fight::ParamEnumConstList<hulkfight::UnlockableCondition>*)FUN_0008d690(32);
+  fight::ParamEnumConstList<hulkfight::UnlockableCondition>* e = (fight::ParamEnumConstList<hulkfight::UnlockableCondition>*)FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::UnlockableCondition>));
   if(e) {
    e->FUN_00234cc0("unlockable");
    e = new(e) fight::ParamEnumConstList<hulkfight::UnlockableCondition>;
    e->list=((char*)&DAT_0049ceb0); e->count=766; e->callback=SetUnlockable_0012dff0;
   }
   params[0]=e;
-  fight::ParamBool<hulkfight::UnlockableCondition>* b=(fight::ParamBool<hulkfight::UnlockableCondition>*)FUN_0008d690(24);
+  fight::ParamBool<hulkfight::UnlockableCondition>* b=(fight::ParamBool<hulkfight::UnlockableCondition>*)FUN_0008d690((int)sizeof(fight::ParamBool<hulkfight::UnlockableCondition>));
   if(b) {
    b->FUN_00234860("locked");
    b = new(b) fight::ParamBool<hulkfight::UnlockableCondition>;

@@ -28,21 +28,21 @@ void __cdecl FUN_002347b0(void*, void**, int);
 void __cdecl FUN_0023e7a0() {
  if (!DAT_004e5c78) {
   void* items[3];
-  ParamBase_23e7a0* a = (ParamBase_23e7a0*)FUN_0008d690(24);
+  ParamBase_23e7a0* a = (ParamBase_23e7a0*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<fight::StopTrack>));
   if(a) {
    a->FUN_00234960("timeBegin");
    fight::ParamFloatConstRange<fight::StopTrack>* p = new(a) fight::ParamFloatConstRange<fight::StopTrack>;
    p->callback = SetTimeBegin_0023e4d0;
   }
   items[0]=a;
-  ParamBase_23e7a0* b = (ParamBase_23e7a0*)FUN_0008d690(24);
+  ParamBase_23e7a0* b = (ParamBase_23e7a0*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<fight::StopTrack>));
   if(b) {
    b->FUN_00234960("timeEnd");
    fight::ParamFloatConstRange<fight::StopTrack>* p = new(b) fight::ParamFloatConstRange<fight::StopTrack>;
    p->callback = SetTimeEnd_0023e4e0;
   }
   items[1]=b;
-  ParamBase_23e7a0* c = (ParamBase_23e7a0*)FUN_0008d690(24);
+  ParamBase_23e7a0* c = (ParamBase_23e7a0*)FUN_0008d690((int)sizeof(fight::ParamConditionGroup<fight::StopTrack>));
   if(c) {
    c->FUN_00235220("conditionGroup");
    fight::ParamConditionGroup<fight::StopTrack>* p = new(c) fight::ParamConditionGroup<fight::StopTrack>;

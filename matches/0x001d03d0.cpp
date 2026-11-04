@@ -32,7 +32,7 @@ class CScenarioParams : public Params_1d03d0 {
     virtual CScenarioParams* v3();
 };
 CScenarioParams* CScenarioParams::v3() {
-    CScenarioParams* q = (CScenarioParams*)operator new(0xf0);
+    CScenarioParams* q = (CScenarioParams*)operator new(sizeof(CScenarioParams));
     if (q) {
         Payload_1d03d0* src = &payload;
         q = new (q) CScenarioParams;

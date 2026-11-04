@@ -42,7 +42,7 @@ void FUN_0014aad0()
     if (DAT_004e1008 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14aad0<hulkfight::motion::CivilianAttachTrack_14aad0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_14aad0<hulkfight::motion::CivilianAttachTrack_14aad0>("timeBegin", &hulkfight::motion::CivilianAttachTrack_14aad0::FUN_00146e20);

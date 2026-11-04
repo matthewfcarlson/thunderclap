@@ -44,7 +44,7 @@ void CollisionVolume::vfunc_14(CollisionVolume* dest) {
  dest->field20 = field20;
  dest->field24 = field24;
  if (children) {
-  VolumeArray* a = (VolumeArray*)FUN_0008d690(16);
+  VolumeArray* a = (VolumeArray*)FUN_0008d690((int)sizeof(VolumeArray));
   if (a) { a->begin=0; a->end=0; a->limit=0; }
   dest->children=a;
   dest->children->FUN_002ede00((int)((char*)children->end-(char*)children->begin)>>2);

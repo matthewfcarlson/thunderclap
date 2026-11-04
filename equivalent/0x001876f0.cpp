@@ -68,43 +68,43 @@ extern "C" void FUN_001876f0()
     if (DAT_004e140c == 0) {
         void* params[10];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("matchObjectClass", &hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f2f0);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamEnumConstList_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("objectClass", ((const char**)&DAT_004c5fd0), 23, &hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f310);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("matchCargo", &hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f330);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("isCargo", &hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f350);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("matchWeaponType", &hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f370);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamEnumConstList_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("weaponType", ((const char**)&DAT_004c6028), 7, &hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f390);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("matchWeaponizableType", &hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f3b0);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamEnumConstList_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("weaponizableType", ((const char**)&DAT_004c6028), 7, &hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f3d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamBool_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("matchHasEvent", &hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f3f0);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamEnumConstList_1876f0<hulkfight::motion::SmartPropGrabbableCondition_1876f0>("event", ((const char**)&DAT_00496168), 16, &hulkfight::motion::SmartPropGrabbableCondition_1876f0::FUN_0017f410);

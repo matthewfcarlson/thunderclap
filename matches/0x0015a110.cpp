@@ -13,7 +13,7 @@ struct HitPushbackAddTrack_15a110 {
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitPushbackAddTrack>::vfunc_5() {
-    HitPushbackAddTrack_15a110* p = (HitPushbackAddTrack_15a110*)FUN_0008d690(0x14);
+    HitPushbackAddTrack_15a110* p = (HitPushbackAddTrack_15a110*)FUN_0008d690((int)sizeof(HitPushbackAddTrack_15a110));
     if (p) {
         p->Init();
         p->vt = ((hulk_intptr)DAT_004143f0);

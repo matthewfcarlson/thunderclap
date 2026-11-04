@@ -26,16 +26,16 @@ namespace fight {
 extern "C" void __cdecl FUN_001129a0() {
  if (DAT_004e0b7c == 0) {
   Base_1129a0* entries[4];
-  Base_1129a0* p = (Base_1129a0*)FUN_0008d690(24);
+  Base_1129a0* p = (Base_1129a0*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::ai::HulkActionTrack>));
   if (p) { p->FUN_00234960("timeBegin"); new(p) fight::ParamFloatConstRange<hulkfight::ai::HulkActionTrack>; p->callback=SetTimeBegin_0010c4d0; }
   entries[0]=p;
-  p=(Base_1129a0*)FUN_0008d690(24);
+  p=(Base_1129a0*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::ai::HulkActionTrack>));
   if(p) { p->FUN_00234960("timeEnd"); new(p) fight::ParamFloatConstRange<hulkfight::ai::HulkActionTrack>; p->callback=SetTimeEnd_0010c4e0; }
   entries[1]=p;
-  p=(Base_1129a0*)FUN_0008d690(24);
+  p=(Base_1129a0*)FUN_0008d690((int)sizeof(fight::ParamName<hulkfight::ai::HulkActionTrack>));
   if(p) { p->FUN_00234a90("text"); new(p) fight::ParamName<hulkfight::ai::HulkActionTrack>; p->callback=GetText_0010c4f0; }
   entries[2]=p;
-  p=(Base_1129a0*)FUN_0008d690(24);
+  p=(Base_1129a0*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::ai::HulkActionTrack>));
   if(p) { p->FUN_00234960("value"); new(p) fight::ParamFloatConstRange<hulkfight::ai::HulkActionTrack>; p->callback=SetValue_0010c510; }
   entries[3]=p;
   FUN_002347b0(&DAT_004e0b78,entries,4);

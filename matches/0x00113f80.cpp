@@ -20,7 +20,7 @@ class Condition_113f80 {
 extern int AIHistoryNameCondition_vftable;
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::AIHistoryNameCondition>::vfunc_5() {
-    Condition_113f80* p = (Condition_113f80*)FUN_0008d690(0x18);
+    Condition_113f80* p = (Condition_113f80*)FUN_0008d690((int)sizeof(Condition_113f80));
     void* result;
     if (p) {
         p->Init(0);

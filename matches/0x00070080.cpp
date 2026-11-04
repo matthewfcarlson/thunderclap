@@ -29,7 +29,7 @@ extern "C" void FUN_00064660();
 
 template <> void* fight::TrackFactoryCasterTemplate<CSmartPropEventTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(TrackFactoryTemplate_70080));
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_70080* t = new (mem) TrackFactoryTemplate_70080();

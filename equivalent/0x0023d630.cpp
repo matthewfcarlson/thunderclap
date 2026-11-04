@@ -24,7 +24,7 @@ extern void __cdecl FUN_002347b0(void*, void*, int);
 void FUN_0023d630() {
  if (!DAT_004e5c58) {
   fight::ParamEnumConstList<fight::DebugCondition>* items[2];
-  void* p = FUN_0008d690(32);
+  void* p = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<fight::DebugCondition>));
   if(p) {
    int n = (*(int*)&DAT_00427760);
    ((Base_23d630*)p)->FUN_00234cc0("compare");
@@ -33,7 +33,7 @@ void FUN_0023d630() {
    items[0]->entries=((int*)&DAT_00427758);
    items[0]->callback=SetCompare_0023d450;
   } else items[0]=0;
-  p=FUN_0008d690(32);
+  p=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<fight::DebugCondition>));
   if(p) {
    ((Base_23d630*)p)->FUN_00234cc0("mode");
    items[1]=new(p) fight::ParamEnumConstList<fight::DebugCondition>;

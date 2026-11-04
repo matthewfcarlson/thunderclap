@@ -10,7 +10,7 @@ struct WaitTrack_23e460 {
 };
 
 template <> void* fight::TrackFactoryTemplate<fight::WaitTrack>::vfunc_5() {
-    WaitTrack_23e460* p = (WaitTrack_23e460*)operator new(0x18);
+    WaitTrack_23e460* p = (WaitTrack_23e460*)operator new(sizeof(WaitTrack_23e460));
     if (p) {
         InitTrack(p);
         p->vptr = (int*)&WaitTrackVtable;

@@ -1722,6 +1722,25 @@ Known false positives: a pointer computed past an object from a fuzzed index tha
 stands for a vfptr); `tool`/`stubsize` sources are ones whose 32-bit run never completes (calls through member pointers
 kept in int fields, stub classes smaller than what the function writes, null-object writes).
 
+**ptr1's checker changes (2026-11-04)**, made while fixing the pilot's work list (docs/native-build.md "64-bit pointer
+and layout fixes"); each has an `X64_CASES` regress case:
+
+- string literals keep their names when the x64 symbol is paired with the i386 one (`??_C@_07DIJKPEDD@compare`'s hash
+  holds `PE`, which the `__ptr64` rule stripped: 15 false `int` failures among the fight registrations);
+- more allocators: the game's allocators declared with C++ linkage (`?FUN_0008d690@@YAPAXI@Z`) and the
+  `thunk_FUN_0008d690` operator-new thunk, pure3d's bump allocator (0x002888c0, a member, size first) and Lua's
+  `luaM_realloc` (0x0021add0, size fourth); a 32-bit request over 16 MB (a size computed from a fuzzed count) sets the
+  input aside as `wild`;
+- allocations are typed by a template class's vftable at +0 too (`??_7?$ParamEnumConstList@...`, demangled with
+  llvm-undname; the class is the implicit instantiation the source uses);
+- a stub's `void*` result that the source casts straight to `T*` (a record, a pointer or a pointer-width integer)
+  is generated as a `T`; from an allocator, the allocation is typed as an array of `T` (`(CClosure *)FUN_00219520(L,
+  n)`, `(Ref **)FUN_0008d6d0(bytes)`); the casts are read from the definition, not an in-class declaration;
+- a pointer into the middle of a scalar of the same size on both targets (a byte offset into an `unsigned` array) is
+  the same place on both; a `hulk_intptr` argument holding a local's address compares as a stack pointer;
+- a pointer-sized integer leaf (a `hulk_intptr` field) is generated as a small integer or an object's address, never as
+  a large 32-bit number (which compares with heap addresses one way on i386 and the other above 4 GB).
+
 **What a promotion gate needs.** (1) `pip install clang` in the checker hosts' venvs (or keep `batch`/`job_files`);
 (2) a policy: `equivalent` required except for an allow-list of `unsupported`/`untyped` sources reviewed by hand, and
 the existing fails fixed or listed (they are the 64-bit work list); (3) a regress run of `X64_CASES` after any change to

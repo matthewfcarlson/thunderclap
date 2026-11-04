@@ -56,11 +56,11 @@ extern "C" void FUN_00131c90()
     if (DAT_004e0ea0 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_131c90<hulkfight::StatEndTrialTrack_131c90>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_131c90<hulkfight::StatEndTrialTrack_131c90>("timeBegin", &hulkfight::StatEndTrialTrack_131c90::FUN_0012e1c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamString_131c90<hulkfight::StatEndTrialTrack_131c90>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamString_131c90<hulkfight::StatEndTrialTrack_131c90>("stat", &hulkfight::StatEndTrialTrack_131c90::FUN_0012ef40);

@@ -21,7 +21,7 @@ FEMenuBase* Manager_efca0::FUN_000efca0(const char* name,int arg) {
  if(found) return found;
  int slot=0; while(slot<256 && menus[slot]) ++slot;
  if(slot==256) return found;
- found=(FEMenuBase*)FUN_0008d690(0xbc4);
+ found=(FEMenuBase*)FUN_0008d690((int)sizeof(FEMenuBase));
  if(found) {
  found->FUN_000ef180(this,name);
  found->FEMenuBase::FEMenuBase();

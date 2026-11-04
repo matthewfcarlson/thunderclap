@@ -14,7 +14,7 @@ class Prop_1a0dd0 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::PropIsMissileCondition>::vfunc_5() {
-    Prop_1a0dd0* p = (Prop_1a0dd0*)FUN_0008d690(0x14);
+    Prop_1a0dd0* p = (Prop_1a0dd0*)FUN_0008d690((int)sizeof(Prop_1a0dd0));
     if (p) {
         p->Init(0);
         p->m0 = (hulk_intptr)missile_vftable;

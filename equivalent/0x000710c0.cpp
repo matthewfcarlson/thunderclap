@@ -18,7 +18,7 @@ extern "C" void __cdecl FUN_000710c0() {
  const char* names[4] = {"timeBegin","timeEnd","distance","direction"};
  void (__cdecl *callbacks[4])() = {FUN_000682e0,FUN_000682f0,FUN_00068300,FUN_0006b750};
  for (unsigned i=0;i<4;++i) {
- Range* p = (Range*)FUN_0008d690(24);
+ Range* p = (Range*)FUN_0008d690((int)sizeof(Range));
  if(p) { p->FUN_00234960(names[i]); p->fight::ParamFloatConstRange<CMoveAddTrack>::ParamFloatConstRange(); p->callback=callbacks[i]; }
  items[i]=p;
  }

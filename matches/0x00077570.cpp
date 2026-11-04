@@ -29,7 +29,7 @@ class CSoundTrack_77570 : public Base_77570 {
 extern "C" void* FUN_0008d690(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<CSoundTrack>::vfunc_5() {
-    CSoundTrack_77570* p = (CSoundTrack_77570*)FUN_0008d690(0x54);
+    CSoundTrack_77570* p = (CSoundTrack_77570*)FUN_0008d690((int)sizeof(CSoundTrack_77570));
     if (p) {
         p->CSoundTrack_77570::CSoundTrack_77570();
         return (void*)(p);

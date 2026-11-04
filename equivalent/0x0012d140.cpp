@@ -107,31 +107,31 @@ void FUN_0012d140()
     if (DAT_004e0e38 == 0) {
         void* params[7];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::ai::ThreatBallTrack_12d140>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<hulkfight::ai::ThreatBallTrack_12d140>("timeBegin", &hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b280);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::ai::ThreatBallTrack_12d140>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<hulkfight::ai::ThreatBallTrack_12d140>("timeEnd", &hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b290);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<hulkfight::ai::ThreatBallTrack_12d140>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamIntConstRange<hulkfight::ai::ThreatBallTrack_12d140>("attachmentIndex", &hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b2b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamNameConstList<hulkfight::ai::ThreatBallTrack_12d140>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamNameConstList<hulkfight::ai::ThreatBallTrack_12d140>("joint", &hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b2c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<hulkfight::ai::ThreatBallTrack_12d140>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamVector<hulkfight::ai::ThreatBallTrack_12d140>("offset", &hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b2f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::ai::ThreatBallTrack_12d140>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamFloatConstRange<hulkfight::ai::ThreatBallTrack_12d140>("radius", &hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b320);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamName<hulkfight::ai::ThreatBallTrack_12d140>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamName<hulkfight::ai::ThreatBallTrack_12d140>("threatName", &hulkfight::ai::ThreatBallTrack_12d140::FUN_0012b330);

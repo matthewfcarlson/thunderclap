@@ -104,35 +104,35 @@ extern "C" void FUN_0005fa10()
     if (DAT_004dc5dc == 0) {
         void* params[8];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<COpportunityBallTrack_5fa10>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<COpportunityBallTrack_5fa10>("timeBegin", &COpportunityBallTrack_5fa10::FUN_0005d690);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<COpportunityBallTrack_5fa10>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<COpportunityBallTrack_5fa10>("timeEnd", &COpportunityBallTrack_5fa10::FUN_0005d6a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamNameConstList<COpportunityBallTrack_5fa10>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamNameConstList<COpportunityBallTrack_5fa10>("joint", &COpportunityBallTrack_5fa10::FUN_0005d6b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<COpportunityBallTrack_5fa10>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamVector<COpportunityBallTrack_5fa10>("offset", &COpportunityBallTrack_5fa10::FUN_0005d6c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<COpportunityBallTrack_5fa10>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<COpportunityBallTrack_5fa10>("radius", &COpportunityBallTrack_5fa10::FUN_0005d6e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<COpportunityBallTrack_5fa10>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamIntConstRange<COpportunityBallTrack_5fa10>("maxHitCount", &COpportunityBallTrack_5fa10::FUN_0005d6f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBranch<COpportunityBallTrack_5fa10>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamBranch<COpportunityBallTrack_5fa10>("receiver", &COpportunityBallTrack_5fa10::FUN_00013050);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBranch<COpportunityBallTrack_5fa10>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) ParamBranch<COpportunityBallTrack_5fa10>("giver", &COpportunityBallTrack_5fa10::FUN_00013060);

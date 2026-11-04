@@ -39,11 +39,11 @@ extern "C" void FUN_0005c280()
     if (DAT_004dc5ac == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5c280<::CGrappleDetachTrack_5c280>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_5c280<::CGrappleDetachTrack_5c280>("timeBegin", &::CGrappleDetachTrack_5c280::FUN_0005a2b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5c280<::CGrappleDetachTrack_5c280>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_5c280<::CGrappleDetachTrack_5c280>("rootBlendOutTime", &::CGrappleDetachTrack_5c280::FUN_0005a2c0);

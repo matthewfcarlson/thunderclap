@@ -28,7 +28,7 @@ void Factory_18bda0::f2() {}
 void Factory_18bda0::f3() {}
 void Factory_18bda0::f4() {}
 PropTrack* Factory_18bda0::f5() {
-    PropTrack* p = (PropTrack*)FUN_0008d690(0x18);
+    PropTrack* p = (PropTrack*)FUN_0008d690((int)sizeof(PropTrack));
     if (p) {
         p->PropTrack::PropTrack();
         p->v = ((hulk_intptr)DAT_004192cc);

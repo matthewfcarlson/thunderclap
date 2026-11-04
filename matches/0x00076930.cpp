@@ -29,7 +29,7 @@ extern "C" void FUN_00072360();
 
 template <> void* fight::TrackFactoryCasterTemplate<CGrappleInvulnerableTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(TrackFactoryTemplate_76930));
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_76930* t = new (mem) TrackFactoryTemplate_76930();

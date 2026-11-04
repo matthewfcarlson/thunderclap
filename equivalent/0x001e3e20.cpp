@@ -42,7 +42,7 @@ struct Registry_1e3e20 {
 };
 
 void Registry_1e3e20::FUN_001e3e20(const char* name, CSPManager* owner, int (CSPManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CSPManager, int>));
     Closure0<CSPManager, int>* c = 0;
     if (mem)
         c = new (mem) Closure0<CSPManager, int>(name, owner, fn);

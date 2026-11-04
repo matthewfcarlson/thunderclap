@@ -13,7 +13,7 @@ class CollisionThrowCondition_1590a0 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionThrowCondition>::vfunc_5() {
-    CollisionThrowCondition_1590a0* p = (CollisionThrowCondition_1590a0*)FUN_0008d690(0x10);
+    CollisionThrowCondition_1590a0* p = (CollisionThrowCondition_1590a0*)FUN_0008d690((int)sizeof(CollisionThrowCondition_1590a0));
     if (p) {
         p->Init(0);
         p->vt = ((hulk_intptr)DAT_00413fb0);

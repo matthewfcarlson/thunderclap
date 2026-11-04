@@ -29,7 +29,7 @@ void postInit();
 
 template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::PropGrabbableIsMissileCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(TrackFactoryTemplate_1a0cf0));
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_1a0cf0* t = new (mem) TrackFactoryTemplate_1a0cf0();

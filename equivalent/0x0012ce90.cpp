@@ -21,14 +21,14 @@ void initialize() {
  if (DAT_004e0e20 == 0) {
  void* params[4];
  typedef hulkfight::ai::ThreatDistanceCondition T;
- fight::ParamEnumConstList<T>* a=(fight::ParamEnumConstList<T>*)FUN_0008d690(32);
+ fight::ParamEnumConstList<T>* a=(fight::ParamEnumConstList<T>*)FUN_0008d690((int)sizeof(fight::ParamEnumConstList<T>));
  if(a) { int count=(*(int*)&DAT_00427754); a->FUN_00234cc0("compare"); new (a) fight::ParamEnumConstList<T>; a->count=count; a->values="lwB"; a->callback=SetCompare_0012b1c0; }
  params[0]=a;
- fight::ParamFloatConstRange<T>* b=(fight::ParamFloatConstRange<T>*)FUN_0008d690(24);
+ fight::ParamFloatConstRange<T>* b=(fight::ParamFloatConstRange<T>*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<T>));
  if(b) { b->FUN_00234960("distance"); new (b) fight::ParamFloatConstRange<T>; b->callback=SetDistance_0012b1d0; } params[1]=b;
- fight::ParamName<T>* c=(fight::ParamName<T>*)FUN_0008d690(24);
+ fight::ParamName<T>* c=(fight::ParamName<T>*)FUN_0008d690((int)sizeof(fight::ParamName<T>));
  if(c) { c->FUN_00234a90("threatName"); new (c) fight::ParamName<T>; c->callback=GetThreatName_0012b1e0; } params[2]=c;
- fight::ParamBool<T>* d=(fight::ParamBool<T>*)FUN_0008d690(24);
+ fight::ParamBool<T>* d=(fight::ParamBool<T>*)FUN_0008d690((int)sizeof(fight::ParamBool<T>));
  if(d) { d->FUN_00234860("threatRespondOnlyOnce"); new (d) fight::ParamBool<T>; d->callback=SetThreatRespondOnlyOnce_0012b1f0; } params[3]=d;
  FUN_002347b0(&DAT_004e0e1c,params,4);
  }

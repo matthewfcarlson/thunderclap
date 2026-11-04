@@ -84,75 +84,75 @@ extern "C" void FUN_000706c0()
     if (DAT_004dcf24 == 0) {
         void* params[18];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("timeBegin", &CJumpTrack_706c0::FUN_00067fe0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("timeEnd", &CJumpTrack_706c0::FUN_00067ff0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("minFlightTime", &CJumpTrack_706c0::FUN_00068000);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("maxFlightTime", &CJumpTrack_706c0::FUN_00068010);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("upDistanceMin", &CJumpTrack_706c0::FUN_00068020);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("upDistanceMax", &CJumpTrack_706c0::FUN_00068030);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("forwardDistanceMin", &CJumpTrack_706c0::FUN_00068040);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("forwardDistanceMax", &CJumpTrack_706c0::FUN_00068050);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("drift", &CJumpTrack_706c0::FUN_00068060);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("turningVelocityMin", &CJumpTrack_706c0::FUN_000680e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("turningVelocityMinForwardSpeedCap", &CJumpTrack_706c0::FUN_00068070);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("turningVelocityMax", &CJumpTrack_706c0::FUN_00068100);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[12] = 0;
         if (mem)
             params[12] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("turningVelocityMaxForwardSpeedCap", &CJumpTrack_706c0::FUN_00068080);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_706c0<CJumpTrack_706c0>));
         params[13] = 0;
         if (mem)
             params[13] = new (mem) fight::ParamIntConstRange_706c0<CJumpTrack_706c0>("priority", &CJumpTrack_706c0::FUN_00068090);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[14] = 0;
         if (mem)
             params[14] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("blendInTime", &CJumpTrack_706c0::FUN_000680a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>));
         params[15] = 0;
         if (mem)
             params[15] = new (mem) fight::ParamFloatConstRange_706c0<CJumpTrack_706c0>("blendOutTime", &CJumpTrack_706c0::FUN_000680b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_706c0<CJumpTrack_706c0>));
         params[16] = 0;
         if (mem)
             params[16] = new (mem) fight::ParamBool_706c0<CJumpTrack_706c0>("stopTrackAtApex", &CJumpTrack_706c0::FUN_000680c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_706c0<CJumpTrack_706c0>));
         params[17] = 0;
         if (mem)
             params[17] = new (mem) fight::ParamBool_706c0<CJumpTrack_706c0>("redirect", &CJumpTrack_706c0::FUN_000680d0);

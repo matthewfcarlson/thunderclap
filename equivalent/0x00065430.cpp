@@ -105,39 +105,39 @@ extern "C" void FUN_00065430()
     if (DAT_004dc62c == 0) {
         void* params[9];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSmartPropUpdateAttachmentTrack_65430>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<CSmartPropUpdateAttachmentTrack_65430>("timeBegin", &CSmartPropUpdateAttachmentTrack_65430::FUN_00061d50);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSmartPropUpdateAttachmentTrack_65430>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<CSmartPropUpdateAttachmentTrack_65430>("timeAttach", &CSmartPropUpdateAttachmentTrack_65430::FUN_00061d60);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<CSmartPropUpdateAttachmentTrack_65430>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamIntConstRange<CSmartPropUpdateAttachmentTrack_65430>("attachmentIndex", &CSmartPropUpdateAttachmentTrack_65430::FUN_00061d70);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamNameConstList<CSmartPropUpdateAttachmentTrack_65430>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamNameConstList<CSmartPropUpdateAttachmentTrack_65430>("joint", &CSmartPropUpdateAttachmentTrack_65430::FUN_00012740);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamNameConstList<CSmartPropUpdateAttachmentTrack_65430>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamNameConstList<CSmartPropUpdateAttachmentTrack_65430>("channel", &CSmartPropUpdateAttachmentTrack_65430::FUN_00012750);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<CSmartPropUpdateAttachmentTrack_65430>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamBool<CSmartPropUpdateAttachmentTrack_65430>("useOffset", &CSmartPropUpdateAttachmentTrack_65430::FUN_00061d80);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<CSmartPropUpdateAttachmentTrack_65430>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamVector<CSmartPropUpdateAttachmentTrack_65430>("offset", &CSmartPropUpdateAttachmentTrack_65430::FUN_00061d90);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<CSmartPropUpdateAttachmentTrack_65430>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) ParamVector<CSmartPropUpdateAttachmentTrack_65430>("orientation", &CSmartPropUpdateAttachmentTrack_65430::FUN_00062480);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSmartPropUpdateAttachmentTrack_65430>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) ParamFloatConstRange<CSmartPropUpdateAttachmentTrack_65430>("minDistance", &CSmartPropUpdateAttachmentTrack_65430::FUN_00061db0);

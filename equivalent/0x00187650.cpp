@@ -58,11 +58,11 @@ extern "C" void FUN_00187650()
     if (DAT_004e1404 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_187650<hulkfight::motion::PropMissionCriticalCondition_187650>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamIntConstRange_187650<hulkfight::motion::PropMissionCriticalCondition_187650>("attachmentIndex", &hulkfight::motion::PropMissionCriticalCondition_187650::FUN_0017f2b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_187650<hulkfight::motion::PropMissionCriticalCondition_187650>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamBool_187650<hulkfight::motion::PropMissionCriticalCondition_187650>("missionCritical", &hulkfight::motion::PropMissionCriticalCondition_187650::FUN_0017f2d0);

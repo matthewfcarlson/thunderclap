@@ -13,7 +13,7 @@ template<class C, class R, class A1, class A2, class A3> class Closure3_d1590;
 template<> class Closure3_d1590<HUDOverlay_d1590, void, int, int, math::Vector_d1590> { public: virtual void v(); char pad[0x1c]; HUDOverlay_d1590* owner; Closure3_d1590(HUDOverlay_d1590* o) { owner = o; } };
 class Raw_d1590 { public: void FUN_000cf160(const char*, void (*)()); };
 void Registry_d1590::FUN_000d1590(const char* a1, HUDOverlay_d1590* a2, void (*a3)()) {
-    void* m = FUN_0008d690(0x24);
+    void* m = FUN_0008d690((int)sizeof(Closure3_d1590<HUDOverlay_d1590, void, int, int, math::Vector_d1590>));
     void* x = 0;
     if (m) {
         ((Raw_d1590*)m)->FUN_000cf160(a1, a3);

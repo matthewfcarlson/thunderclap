@@ -28,13 +28,13 @@ typedef fight::ParamIntConstRange<hulkfight::ChapterMissionCondition> Range_1317
 void FUN_00131720() {
  if ((*(int*)&DAT_004e0e78) == 0) {
   void* list[4];
-  Enum_131720* a=(Enum_131720*)FUN_0008d690(32);
+  Enum_131720* a=(Enum_131720*)FUN_0008d690((int)sizeof(Enum_131720));
   if(a) { int count=(*(int*)&DAT_00427754); a=new(a) Enum_131720("chapterCompare"); a->values="lwB"; a->count=count; a->callback=FUN_0012e050; } list[0]=a;
-  Range_131720* b=(Range_131720*)FUN_0008d690(24);
+  Range_131720* b=(Range_131720*)FUN_0008d690((int)sizeof(Range_131720));
   if(b) { b=new(b) Range_131720("chapter"); b->callback=FUN_0012e060; } list[1]=b;
-  Enum_131720* c=(Enum_131720*)FUN_0008d690(32);
+  Enum_131720* c=(Enum_131720*)FUN_0008d690((int)sizeof(Enum_131720));
   if(c) { int count=(*(int*)&DAT_00427754); c=new(c) Enum_131720("missionCompare"); c->values="lwB"; c->count=count; c->callback=FUN_0012e080; } list[2]=c;
-  Range_131720* d=(Range_131720*)FUN_0008d690(24);
+  Range_131720* d=(Range_131720*)FUN_0008d690((int)sizeof(Range_131720));
   if(d) { d=new(d) Range_131720("mission"); d->callback=FUN_0012e090; } list[3]=d;
   FUN_002347b0(((int*)&DAT_004e0e74),list,4);
  }

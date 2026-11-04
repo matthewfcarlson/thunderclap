@@ -42,7 +42,7 @@ struct Registry_2006f0 {
 };
 
 void Registry_2006f0::FUN_002006f0(const char* name, CTriggerVolumeManager* owner, int (CTriggerVolumeManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CTriggerVolumeManager, int>));
     Closure0<CTriggerVolumeManager, int>* c = 0;
     if (mem)
         c = new (mem) Closure0<CTriggerVolumeManager, int>(name, owner, fn);

@@ -12,7 +12,7 @@ template<class C, class R, class A1, class A2, class A3> class Closure3_94e40;
 template<> class Closure3_94e40<CUnlockablesManager_94e40, void, int, const char*, const char*> { public: virtual void v(); char pad[0x1c]; CUnlockablesManager_94e40* owner; Closure3_94e40(CUnlockablesManager_94e40* o) { owner = o; } };
 class Raw_94e40 { public: void FUN_000942a0(const char*, void (*)()); };
 void Registry_94e40::FUN_00094e40(const char* a1, CUnlockablesManager_94e40* a2, void (*a3)()) {
-    void* m = FUN_0008d690(0x24);
+    void* m = FUN_0008d690((int)sizeof(Closure3_94e40<CUnlockablesManager_94e40, void, int, const char*, const char*>));
     void* x = 0;
     if (m) {
         ((Raw_94e40*)m)->FUN_000942a0(a1, a3);

@@ -27,7 +27,7 @@ extern "C" void __cdecl FUN_000717e0() {
         const char* names[3] = {"timeBegin", "timeEnd", "damage"};
         void (__cdecl *callbacks[3])() = {FUN_00068520,FUN_00068530,FUN_00068540};
         for (int i=0;i<3;++i) {
-            void* memory=FUN_0008d690(24);
+            void* memory=FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_717e0<CDrainHealthTrack_717e0>));
             if (memory) {
                 ((fight::ParamValueFloat *)(ParamBase_717e0 *)(((ParamBase_717e0*)memory)))->FUN_00234960(names[i]);
                 params[i]=new(memory) fight::ParamFloatConstRange_717e0<CDrainHealthTrack_717e0>;

@@ -8,7 +8,7 @@ struct GameStateCondition_132a00 {
     void Init(int);
 };
 void* FactoryVfunc5() {
-    GameStateCondition_132a00* p = (GameStateCondition_132a00*)FUN_0008d690(0x1c);
+    GameStateCondition_132a00* p = (GameStateCondition_132a00*)FUN_0008d690((int)sizeof(GameStateCondition_132a00));
     if (p) {
         p->Init(0);
         p->a = 0;

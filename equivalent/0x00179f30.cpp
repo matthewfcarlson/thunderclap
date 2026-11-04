@@ -64,11 +64,11 @@ extern "C" void FUN_00179f30()
     if (DAT_004e1324 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_179f30<hulkfight::motion::LocomotionStateTrack_179f30>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_179f30<hulkfight::motion::LocomotionStateTrack_179f30>("timeBegin", &hulkfight::motion::LocomotionStateTrack_179f30::FUN_0016ee80);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_179f30<hulkfight::motion::LocomotionStateTrack_179f30>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamEnumConstList_179f30<hulkfight::motion::LocomotionStateTrack_179f30>("locomotionState", ((const char**)&DAT_0048f590), (*(int*)&DAT_003f5bbc), &hulkfight::motion::LocomotionStateTrack_179f30::FUN_0016eea0);

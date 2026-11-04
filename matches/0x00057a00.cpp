@@ -14,7 +14,7 @@ class CCollisionPushbackDirectionCondition_57a00 {
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::ConditionFactoryTemplate<CCollisionPushbackDirectionCondition>::vfunc_5() {
-    CCollisionPushbackDirectionCondition_57a00* p = (CCollisionPushbackDirectionCondition_57a00*)FUN_0008d690(0x14);
+    CCollisionPushbackDirectionCondition_57a00* p = (CCollisionPushbackDirectionCondition_57a00*)FUN_0008d690((int)sizeof(CCollisionPushbackDirectionCondition_57a00));
     if (p) {
         p->Init(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_003f6fec);

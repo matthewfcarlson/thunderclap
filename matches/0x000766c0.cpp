@@ -29,7 +29,7 @@ extern "C" void FUN_000717e0();
 
 template <> void* fight::TrackFactoryCasterTemplate<CGrappleDrainHealthTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(TrackFactoryTemplate_766c0));
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_766c0* t = new (mem) TrackFactoryTemplate_766c0();

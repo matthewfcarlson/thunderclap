@@ -105,39 +105,39 @@ extern "C" void FUN_0005cd20()
     if (DAT_004dc5a4 == 0) {
         void* params[9];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrappleSwapTrack_5cd20>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<CGrappleSwapTrack_5cd20>("timeBegin", &CGrappleSwapTrack_5cd20::FUN_0005a220);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamNameConstList<CGrappleSwapTrack_5cd20>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamNameConstList<CGrappleSwapTrack_5cd20>("joint", &CGrappleSwapTrack_5cd20::FUN_00012ae0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamNameConstList<CGrappleSwapTrack_5cd20>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamNameConstList<CGrappleSwapTrack_5cd20>("channel", &CGrappleSwapTrack_5cd20::FUN_00012af0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<CGrappleSwapTrack_5cd20>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamBool<CGrappleSwapTrack_5cd20>("useOffset", &CGrappleSwapTrack_5cd20::FUN_0005a230);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<CGrappleSwapTrack_5cd20>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamVector<CGrappleSwapTrack_5cd20>("offsetPosition", &CGrappleSwapTrack_5cd20::FUN_0005a240);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrappleSwapTrack_5cd20>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamFloatConstRange<CGrappleSwapTrack_5cd20>("offsetOrientation", &CGrappleSwapTrack_5cd20::FUN_0005a260);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<CGrappleSwapTrack_5cd20>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamIntConstRange<CGrappleSwapTrack_5cd20>("rootPriority", &CGrappleSwapTrack_5cd20::FUN_0005a280);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrappleSwapTrack_5cd20>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) ParamFloatConstRange<CGrappleSwapTrack_5cd20>("rootBlendInTime", &CGrappleSwapTrack_5cd20::FUN_0005a290);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrappleSwapTrack_5cd20>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) ParamFloatConstRange<CGrappleSwapTrack_5cd20>("rootBlendOutTime", &CGrappleSwapTrack_5cd20::FUN_0005a2a0);

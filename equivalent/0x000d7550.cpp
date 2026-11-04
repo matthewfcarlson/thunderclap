@@ -42,7 +42,7 @@ struct Registry_d7550 {
 };
 
 void Registry_d7550::FUN_000d7550(const char* name, CSimOverlayManager* owner, int (CSimOverlayManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CSimOverlayManager, int>));
     Closure0<CSimOverlayManager, int>* c = 0;
     if (mem)
         c = new (mem) Closure0<CSimOverlayManager, int>(name, owner, fn);

@@ -136,71 +136,71 @@ extern "C" void FUN_0017c650()
     if (DAT_004e12ec == 0) {
         void* params[17];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("timeBegin", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e720);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("timeEnd", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e730);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamNameConstList_17c650<hulkfight::motion::JointTrackerTrack_17c650>("joint", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e740);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamVector_17c650<hulkfight::motion::JointTrackerTrack_17c650>("north", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e770);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamVector_17c650<hulkfight::motion::JointTrackerTrack_17c650>("east", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e7b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("turnRate", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e7e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("vertMinAngle", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e810);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("vertMaxAngle", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e840);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("horzMinAngle", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e870);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("horzMaxAngle", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e8a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamBool_17c650<hulkfight::motion::JointTrackerTrack_17c650>("targetRequired", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e8d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("targetArc", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e8f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
         params[12] = 0;
         if (mem)
             params[12] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("targetDistance", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e920);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
         params[13] = 0;
         if (mem)
             params[13] = new (mem) fight::ParamEnumConstList_17c650<hulkfight::motion::JointTrackerTrack_17c650>("targetLocation", ((const char**)&DAT_004b7cf0), 3, &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e940);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
         params[14] = 0;
         if (mem)
             params[14] = new (mem) fight::ParamIntConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("priority", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e960);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
         params[15] = 0;
         if (mem)
             params[15] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("blendInTime", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e980);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
         params[16] = 0;
         if (mem)
             params[16] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("blendOutTime", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e9a0);

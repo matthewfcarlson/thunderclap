@@ -13,7 +13,7 @@ template<class C, class R, class A1, class A2, class A3, class A4> class Closure
 template<> class Closure4_1e3d10<CSPManager_1e3d10, void, const char*, const char*, math::Vector_1e3d10, math::Vector_1e3d10> { public: virtual void v(); char pad[0x1c]; CSPManager_1e3d10* owner; Closure4_1e3d10(CSPManager_1e3d10* o) { owner = o; } };
 class Raw_1e3d10 { public: void FUN_001e0710(const char*, void (*)()); };
 void Registry_1e3d10::FUN_001e3d10(const char* a1, CSPManager_1e3d10* a2, void (*a3)()) {
-    void* m = FUN_0008d690(0x24);
+    void* m = FUN_0008d690((int)sizeof(Closure4_1e3d10<CSPManager_1e3d10, void, const char*, const char*, math::Vector_1e3d10, math::Vector_1e3d10>));
     void* x = 0;
     if (m) {
         ((Raw_1e3d10*)m)->FUN_001e0710(a1, a3);

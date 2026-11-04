@@ -76,31 +76,31 @@ extern "C" void FUN_00156280()
     if (DAT_004e1114 == 0) {
         void* params[7];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>("timeBegin", &hulkfight::motion::HitFloatTrack_156280::FUN_0014cdd0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>("timeEnd", &hulkfight::motion::HitFloatTrack_156280::FUN_0014cde0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<hulkfight::motion::HitFloatTrack_156280>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamBool<hulkfight::motion::HitFloatTrack_156280>("snapToPushback", &hulkfight::motion::HitFloatTrack_156280::FUN_0014ce00);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>("orientation", &hulkfight::motion::HitFloatTrack_156280::FUN_0014ce20);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<hulkfight::motion::HitFloatTrack_156280>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamIntConstRange<hulkfight::motion::HitFloatTrack_156280>("priority", &hulkfight::motion::HitFloatTrack_156280::FUN_0014ce50);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>("blendInTime", &hulkfight::motion::HitFloatTrack_156280::FUN_0014ce70);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamFloatConstRange<hulkfight::motion::HitFloatTrack_156280>("blendOutTime", &hulkfight::motion::HitFloatTrack_156280::FUN_0014ce90);

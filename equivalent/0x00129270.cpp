@@ -57,11 +57,11 @@ extern "C" void FUN_00129270()
     if (DAT_004e0e00 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_129270<hulkfight::ai::TargetClearTrack_129270>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_129270<hulkfight::ai::TargetClearTrack_129270>("timeBegin", &hulkfight::ai::TargetClearTrack_129270::FUN_00123960);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_129270<hulkfight::ai::TargetClearTrack_129270>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamBool_129270<hulkfight::ai::TargetClearTrack_129270>("forceClear", &hulkfight::ai::TargetClearTrack_129270::FUN_00123980);

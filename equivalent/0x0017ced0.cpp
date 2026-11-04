@@ -129,51 +129,51 @@ extern "C" void FUN_0017ced0()
     if (DAT_004e1314 == 0) {
         void* params[12];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("timeBegin", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ec60);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("timeEnd", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ec70);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("rotationEnd", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ec90);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("translationEnd", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ecb0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamName_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("locatorName", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ecc0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamScript_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamScript_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("locatorInitScript", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_00170130);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamEnumConstList_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("rotationOverride", ((const char**)&DAT_004b7cfc), 3, &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ed00);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("orientOffset", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ed20);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamVector_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("positionOffset", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ed60);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamIntConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("priority", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ed90);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("blendInTime", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016edb0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("blendOutTime", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016edd0);

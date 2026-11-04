@@ -12,7 +12,7 @@ template<class C, class R, class A1, class A2, class A3> class Closure3_206c90;
 template<> class Closure3_206c90<CWorldStreamManager_206c90, bool, float, float, float> { public: virtual void v(); char pad[0x1c]; CWorldStreamManager_206c90* owner; Closure3_206c90(CWorldStreamManager_206c90* o) { owner = o; } };
 class Raw_206c90 { public: void FUN_002050f0(const char*, void (*)()); };
 void Registry_206c90::FUN_00206c90(const char* a1, CWorldStreamManager_206c90* a2, void (*a3)()) {
-    void* m = FUN_0008d690(0x24);
+    void* m = FUN_0008d690((int)sizeof(Closure3_206c90<CWorldStreamManager_206c90, bool, float, float, float>));
     void* x = 0;
     if (m) {
         ((Raw_206c90*)m)->FUN_002050f0(a1, a3);

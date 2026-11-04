@@ -104,7 +104,7 @@ pure3d::LightsChooser::LightsChooser(int a, int b) throw()
     mem = FUN_0008d690(0x18);
     lookup = mem ? ((Lookup_29f600 *)mem)->FUN_0029ef40(maxA, maxB) : 0;
 
-    TreeNode_29f600 *node = (TreeNode_29f600 *)FUN_0008d690(0x28);
+    TreeNode_29f600 *node = (TreeNode_29f600 *)FUN_0008d690((int)sizeof(TreeNode_29f600));
     if (node != 0) {
         node->isHead = 1;
         node->parent = 0;

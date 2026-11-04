@@ -42,7 +42,7 @@ extern "C" void FUN_0017a420()
     if (DAT_004e1354 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17a420<hulkfight::motion::TargetBreakTrack_17a420>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_17a420<hulkfight::motion::TargetBreakTrack_17a420>("timeBegin", &hulkfight::motion::TargetBreakTrack_17a420::FUN_0016f240);

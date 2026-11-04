@@ -64,11 +64,11 @@ extern "C" void FUN_001124c0()
     if (DAT_004e0b4c == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::ai::RandomKeyWordWaitCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::RandomKeyWordWaitCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::ai::RandomKeyWordWaitCondition::FUN_0010c330);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<hulkfight::ai::RandomKeyWordWaitCondition>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamIntConstRange<hulkfight::ai::RandomKeyWordWaitCondition>("value", &hulkfight::ai::RandomKeyWordWaitCondition::FUN_0010c350);

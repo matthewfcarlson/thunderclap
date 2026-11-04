@@ -40,7 +40,7 @@ extern "C" void FUN_00053c60()
 {
     if (DAT_004dc4e4 == 0) {
         void* params[1];
-        void* mem = FUN_0008d690(0x20);
+        void* mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CSmartPropCSMableCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList<CSmartPropCSMableCondition>("type", ((const char**)&DAT_003f6b40), 23, &CSmartPropCSMableCondition::FUN_00047f50);

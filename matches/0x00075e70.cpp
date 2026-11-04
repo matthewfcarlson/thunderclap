@@ -21,7 +21,7 @@ class CCameraShakeTrack_75e70 {
 };
 
 template <> void* fight::TrackFactoryTemplate<CCameraShakeTrack>::vfunc_5() {
-    CCameraShakeTrack_75e70* p = (CCameraShakeTrack_75e70*)FUN_0008d690(0x1c);
+    CCameraShakeTrack_75e70* p = (CCameraShakeTrack_75e70*)FUN_0008d690((int)sizeof(CCameraShakeTrack_75e70));
     if (p) {
         p->Init();
         p->x = 0;

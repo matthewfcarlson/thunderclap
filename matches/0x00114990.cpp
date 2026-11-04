@@ -29,7 +29,7 @@ extern "C" void FUN_00112940();
 
 template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::AIHistoryCountTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(TrackFactoryTemplate_114990));
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_114990* t = new (mem) TrackFactoryTemplate_114990();

@@ -12,7 +12,7 @@ class CollisionDevastatorCondition_159350 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionDevastatorCondition>::vfunc_5() {
-    CollisionDevastatorCondition_159350* p = (CollisionDevastatorCondition_159350*)FUN_0008d690(0x10);
+    CollisionDevastatorCondition_159350* p = (CollisionDevastatorCondition_159350*)FUN_0008d690((int)sizeof(CollisionDevastatorCondition_159350));
     if (p) {
         p->CollisionDevastatorCondition_159350::CollisionDevastatorCondition_159350(0);
         p->vptr = ((hulk_intptr)DAT_00414030);

@@ -30,7 +30,7 @@ void __cdecl FUN_002347b0(uint*, List_1555c0**, int);
 extern "C" void __cdecl FUN_001555c0() {
     if (!(*(uint*)&DAT_004e1074)) {
         List_1555c0* lists[2];
-        void* memory = FUN_0008d690(32);
+        void* memory = FUN_0008d690((int)sizeof(List_1555c0));
         if (memory) {
             List_1555c0* p = (List_1555c0*)memory;
             uint count = (*(uint*)&DAT_00427760);
@@ -42,7 +42,7 @@ extern "C" void __cdecl FUN_001555c0() {
             lists[0] = p;
         } else
             lists[0] = 0;
-        memory = FUN_0008d690(32);
+        memory = FUN_0008d690((int)sizeof(List_1555c0));
         if (memory) {
             List_1555c0* p = (List_1555c0*)memory;
             uint count = (*(uint*)&DAT_003f5eb4);

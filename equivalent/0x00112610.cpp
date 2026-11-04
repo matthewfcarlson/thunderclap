@@ -42,7 +42,7 @@ extern "C" void FUN_00112610()
 {
     if (DAT_004e0b5c == 0) {
         void* params[1];
-        void* mem = FUN_0008d690(0x20);
+        void* mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::ai::FightingOtherNPCCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::FightingOtherNPCCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::ai::FightingOtherNPCCondition::FUN_0010c3a0);

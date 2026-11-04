@@ -40,7 +40,7 @@ void FUN_002385b0()
     if (DAT_004e5c10 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_2385b0<fight::MaybeCondition_2385b0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_2385b0<fight::MaybeCondition_2385b0>("percent", &fight::MaybeCondition_2385b0::FUN_002381c0);

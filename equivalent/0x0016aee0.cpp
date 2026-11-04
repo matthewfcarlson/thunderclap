@@ -16,10 +16,10 @@ void __cdecl FUN_002347b0(void*,Entry_16aee0**,int);
 void target() {
 if (!DAT_004e11e4) {
 Entry_16aee0* items[2];
-Entry_16aee0* p=(Entry_16aee0*)FUN_0008d690(32);
+Entry_16aee0* p=(Entry_16aee0*)FUN_0008d690((int)sizeof(Entry_16aee0));
 if(p) { int count=(*(int*)&DAT_00427760); p->FUN_00234cc0("compare"); new(p) Entry_16aee0; p->values=((char*)&DAT_00427758); p->count=count; p->callback=SetCompare_001653b0; }
 items[0]=p;
-p=(Entry_16aee0*)FUN_0008d690(32);
+p=(Entry_16aee0*)FUN_0008d690((int)sizeof(Entry_16aee0));
 if(p) { int count=(*(int*)&DAT_003f5bb8); p->FUN_00234cc0("motionState"); new(p) Entry_16aee0; p->values=((char*)&DAT_0048f57c); p->count=count; p->callback=SetMotionState_001653c0; }
 items[1]=p;
 FUN_002347b0(((int*)&DAT_004e11e0),items,2);

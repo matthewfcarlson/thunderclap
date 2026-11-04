@@ -42,7 +42,7 @@ struct Registry_91450 {
 };
 
 void Registry_91450::FUN_00091450(const char* name, CStatsManager* owner, int (CStatsManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CStatsManager, int>));
     Closure0<CStatsManager, int>* c = 0;
     if (mem)
         c = new (mem) Closure0<CStatsManager, int>(name, owner, fn);

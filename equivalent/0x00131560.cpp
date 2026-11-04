@@ -41,11 +41,11 @@ void FUN_00131560()
     if (DAT_004e0e68 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamString<hulkfight::DebugPrintCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamString<hulkfight::DebugPrintCondition>("text", &hulkfight::DebugPrintCondition::FUN_0012e5c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamString<hulkfight::DebugPrintCondition>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamString<hulkfight::DebugPrintCondition>("channel", &hulkfight::DebugPrintCondition::FUN_0012e620);

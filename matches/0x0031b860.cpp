@@ -10,7 +10,7 @@ extern pure3d::d3dContext* __cdecl FUN_0008d690(int);
 
 void* pure3d::d3dDevice::vfunc_8(void* __p0) { void * p = (void *)__p0;
 
-    pure3d::d3dContext* m = FUN_0008d690(0x450);
+    pure3d::d3dContext* m = FUN_0008d690((int)sizeof(pure3d::d3dContext));
     Result_31b860* r;
     if (m)
         r = ((d3dContext_nv_31b860*)(((pure3d::d3dContext*)(m))))->make(p, this);

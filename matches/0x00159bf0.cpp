@@ -19,7 +19,7 @@ struct HitThrowTrack_159bf0 {
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitThrowTrack>::vfunc_5() {
-    HitThrowTrack_159bf0* p = (HitThrowTrack_159bf0*)FUN_0008d690(0x2c);
+    HitThrowTrack_159bf0* p = (HitThrowTrack_159bf0*)FUN_0008d690((int)sizeof(HitThrowTrack_159bf0));
     if (p) {
         p->InitTrack();
         p->f0c = 0;

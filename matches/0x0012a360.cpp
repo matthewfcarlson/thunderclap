@@ -12,7 +12,7 @@ class Cond {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetTypeCondition>::vfunc_5() {
-    Cond* p = (Cond*)FUN_0008d690(0x14);
+    Cond* p = (Cond*)FUN_0008d690((int)sizeof(Cond));
     if (p) {
         p->Cond::Cond(0);
         *(void* volatile*)p = TargetTypeCondition_vftable;

@@ -19,7 +19,7 @@ struct TargetDistanceYCondition_12a620 : InitBase_12a620 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetDistanceYCondition>::vfunc_5() {
-    TargetDistanceYCondition_12a620* p = (TargetDistanceYCondition_12a620*)FUN_0008d690(0x18);
+    TargetDistanceYCondition_12a620* p = (TargetDistanceYCondition_12a620*)FUN_0008d690((int)sizeof(TargetDistanceYCondition_12a620));
     if (p != 0) {
         p->Init(0);
         p->a = 0;

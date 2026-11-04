@@ -42,7 +42,7 @@ void FUN_001ac250()
     if (DAT_004e1784 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_1ac250<hulkfight::scenario::Event_TriggerVolumeNameCondition_1ac250>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamName_1ac250<hulkfight::scenario::Event_TriggerVolumeNameCondition_1ac250>("triggerVolumeName", &hulkfight::scenario::Event_TriggerVolumeNameCondition_1ac250::FUN_001aace0);

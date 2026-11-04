@@ -12,7 +12,7 @@ struct Init_6f7c0 {
 };
 
 template <> void* fight::TrackFactoryTemplate<CGrappleMotionTrailTrack>::vfunc_5() {
-    Track_6f7c0* p = (Track_6f7c0*)FUN_0008d690(0xd0);
+    Track_6f7c0* p = (Track_6f7c0*)FUN_0008d690((int)sizeof(Track_6f7c0));
     if (p) {
         ((Init_6f7c0*)p)->init();
         *(void**)p = (void*)((hulk_intptr)DAT_003fd108);

@@ -81,43 +81,43 @@ extern "C" void FUN_00156970()
     if (DAT_004e1144 == 0) {
         void* params[10];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156970<HitPushbackTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_156970<HitPushbackTrack>("timeBegin", &HitPushbackTrack::FUN_0014d0f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156970<HitPushbackTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_156970<HitPushbackTrack>("timeEnd", &HitPushbackTrack::FUN_0014d100);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156970<HitPushbackTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_156970<HitPushbackTrack>("weight", &HitPushbackTrack::FUN_0014d120);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156970<HitPushbackTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_156970<HitPushbackTrack>("maxDistance", &HitPushbackTrack::FUN_0014d140);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_156970<HitPushbackTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamBool_156970<HitPushbackTrack>("snapToPushback", &HitPushbackTrack::FUN_0014d160);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156970<HitPushbackTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_156970<HitPushbackTrack>("orientation", &HitPushbackTrack::FUN_0014d180);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156970<HitPushbackTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_156970<HitPushbackTrack>("proneSpin", &HitPushbackTrack::FUN_0014d1b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_156970<HitPushbackTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamIntConstRange_156970<HitPushbackTrack>("priority", &HitPushbackTrack::FUN_0014d1e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156970<HitPushbackTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamFloatConstRange_156970<HitPushbackTrack>("blendInTime", &HitPushbackTrack::FUN_0014d200);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_156970<HitPushbackTrack>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_156970<HitPushbackTrack>("blendOutTime", &HitPushbackTrack::FUN_0014d220);

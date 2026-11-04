@@ -88,27 +88,27 @@ extern "C" void FUN_00237870()
         void* params[6];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<OpportunityTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<OpportunityTrack>("timeBegin", &OpportunityTrack::FUN_00237230);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<OpportunityTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<OpportunityTrack>("timeEnd", &OpportunityTrack::FUN_00237240);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<OpportunityTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamFloatConstRange<OpportunityTrack>("timeHook", &OpportunityTrack::FUN_00237250);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBranch<OpportunityTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamBranch<OpportunityTrack>("branch", &OpportunityTrack::FUN_00237260);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<OpportunityTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamIntConstRange<OpportunityTrack>("priority", &OpportunityTrack::FUN_00237270);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamConditionGroup<OpportunityTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamConditionGroup<OpportunityTrack>("conditionGroup", &OpportunityTrack::FUN_00237280);

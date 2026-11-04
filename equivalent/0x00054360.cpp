@@ -18,13 +18,13 @@ void __cdecl FUN_002347b0(void*, Base_54360**, int);
 extern "C" void FUN_00054360() {
  if (!DAT_004dc54c) {
  Base_54360* items[4];
- void* mem=FUN_0008d690(32);
+ void* mem=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CGrappleTimerCondition>));
  if(mem) { unsigned int n=(*(unsigned int*)&DAT_00427754); ((Base_54360*)mem)->FUN_00234cc0("compare"); fight::ParamEnumConstList<CGrappleTimerCondition>* p=new(mem) fight::ParamEnumConstList<CGrappleTimerCondition>; p->count=n; p->list="lwB"; p->callback=SetCompare_00048110; items[0]=p; } else items[0]=0;
- mem=FUN_0008d690(24);
+ mem=FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CGrappleTimerCondition>));
  if(mem) { ((Base_54360*)mem)->FUN_00234960("time"); fight::ParamFloatConstRange<CGrappleTimerCondition>* p=new(mem) fight::ParamFloatConstRange<CGrappleTimerCondition>; p->callback=SetTime_00048120; items[1]=p; } else items[1]=0;
- mem=FUN_0008d690(24);
+ mem=FUN_0008d690((int)sizeof(fight::ParamBool<CGrappleTimerCondition>));
  if(mem) { ((Base_54360*)mem)->FUN_00234860("useKeyWordWait"); fight::ParamBool<CGrappleTimerCondition>* p=new(mem) fight::ParamBool<CGrappleTimerCondition>; p->callback=SetUseKeyWordWait_00048140; items[2]=p; } else items[2]=0;
- mem=FUN_0008d690(32);
+ mem=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CGrappleTimerCondition>));
  if(mem) { ((Base_54360*)mem)->FUN_00234cc0("keyWord"); fight::ParamEnumConstList<CGrappleTimerCondition>* p=new(mem) fight::ParamEnumConstList<CGrappleTimerCondition>; p->list=((char*)&DAT_0048f9d4); p->count=10; p->callback=SetKeyWord_00048160; items[3]=p; } else items[3]=0;
  FUN_002347b0(&DAT_004dc548,items,4);
  }

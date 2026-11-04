@@ -30,13 +30,13 @@ extern void __cdecl FUN_002347b0(void*,void**,int);
 extern "C" void FUN_00053080() {
  if (!DAT_004dc43c) {
  void* items[3];
- fight::ParamEnumConstList<CAxisDirectionCondition>* a = (fight::ParamEnumConstList<CAxisDirectionCondition>*)FUN_0008d690(32);
+ fight::ParamEnumConstList<CAxisDirectionCondition>* a = (fight::ParamEnumConstList<CAxisDirectionCondition>*)FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CAxisDirectionCondition>));
  if(a) { a->FUN_00234cc0("axis"); new(a) fight::ParamEnumConstList<CAxisDirectionCondition>; a->values=DAT_0048f9b0; a->count=4; a->callback=SetAxis_00047bf0; }
  items[0]=a;
- fight::ParamFloatConstRange<CAxisDirectionCondition>* b = (fight::ParamFloatConstRange<CAxisDirectionCondition>*)FUN_0008d690(24);
+ fight::ParamFloatConstRange<CAxisDirectionCondition>* b = (fight::ParamFloatConstRange<CAxisDirectionCondition>*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CAxisDirectionCondition>));
  if(b) { b->FUN_00234960("direction"); new(b) fight::ParamFloatConstRange<CAxisDirectionCondition>; b->callback=SetDirection_00047c00; }
  items[1]=b;
- fight::ParamFloatConstRange<CAxisDirectionCondition>* c = (fight::ParamFloatConstRange<CAxisDirectionCondition>*)FUN_0008d690(24);
+ fight::ParamFloatConstRange<CAxisDirectionCondition>* c = (fight::ParamFloatConstRange<CAxisDirectionCondition>*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CAxisDirectionCondition>));
  if(c) { c->FUN_00234960("arc"); new(c) fight::ParamFloatConstRange<CAxisDirectionCondition>; c->callback=SetArc_00047c20; }
  items[2]=c;
  FUN_002347b0(&DAT_004dc438,items,3);

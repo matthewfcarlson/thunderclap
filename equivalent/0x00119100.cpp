@@ -74,39 +74,39 @@ void FUN_00119100()
     if (DAT_004e0c40 == 0) {
         void* params[9];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<HasGroundPointExtendedCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamBool<HasGroundPointExtendedCondition>("groundPoint", &HasGroundPointExtendedCondition::FUN_00114fb0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<HasGroundPointExtendedCondition>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamBool<HasGroundPointExtendedCondition>("useMyVelocity", &HasGroundPointExtendedCondition::FUN_00114fd0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<HasGroundPointExtendedCondition>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamBool<HasGroundPointExtendedCondition>("useMyFacing", &HasGroundPointExtendedCondition::FUN_00114fe0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<HasGroundPointExtendedCondition>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamBool<HasGroundPointExtendedCondition>("target", &HasGroundPointExtendedCondition::FUN_00115000);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<HasGroundPointExtendedCondition>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamBool<HasGroundPointExtendedCondition>("useCustomOffset", &HasGroundPointExtendedCondition::FUN_00115020);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<HasGroundPointExtendedCondition>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamBool<HasGroundPointExtendedCondition>("absolute", &HasGroundPointExtendedCondition::FUN_00115040);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HasGroundPointExtendedCondition>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamFloatConstRange<HasGroundPointExtendedCondition>("distance", &HasGroundPointExtendedCondition::FUN_00115060);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<HasGroundPointExtendedCondition>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) ParamFloatConstRange<HasGroundPointExtendedCondition>("allowedHeight", &HasGroundPointExtendedCondition::FUN_00115080);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<HasGroundPointExtendedCondition>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) ParamVector<HasGroundPointExtendedCondition>("customOffset", &HasGroundPointExtendedCondition::FUN_001150b0);

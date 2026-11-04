@@ -59,11 +59,11 @@ extern "C" void FUN_00072440()
     if (DAT_004dcfe4 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_72440<::CRageModeTrack_72440>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_72440<::CRageModeTrack_72440>("timeBegin", &::CRageModeTrack_72440::FUN_00068990);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_72440<::CRageModeTrack_72440>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamEnumConstList_72440<::CRageModeTrack_72440>("rageMode", ((const char**)&DAT_00496fd8), 3, &::CRageModeTrack_72440::FUN_000689a0);

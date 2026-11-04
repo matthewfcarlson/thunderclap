@@ -42,7 +42,7 @@ struct Registry_7eaa0 {
 };
 
 void Registry_7eaa0::FUN_0007eaa0(const char* name, CAmbientsManager* owner, void (CAmbientsManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CAmbientsManager, void>));
     Closure0<CAmbientsManager, void>* c = 0;
     if (mem)
         c = new (mem) Closure0<CAmbientsManager, void>(name, owner, fn);

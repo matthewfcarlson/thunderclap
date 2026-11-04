@@ -58,31 +58,31 @@ extern "C" void FUN_00070f20()
     if (DAT_004dcf4c == 0) {
         void* params[7];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>("timeBegin", &CMoveTrack_70f20::FUN_00068280);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>("timeEnd", &CMoveTrack_70f20::FUN_00068290);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>("distance", &CMoveTrack_70f20::FUN_000682a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>("direction", &CMoveTrack_70f20::FUN_0006b6f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_70f20<CMoveTrack_70f20>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamIntConstRange_70f20<CMoveTrack_70f20>("priority", &CMoveTrack_70f20::FUN_000682b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>("blendInTime", &CMoveTrack_70f20::FUN_000682c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_70f20<CMoveTrack_70f20>("blendOutTime", &CMoveTrack_70f20::FUN_000682d0);

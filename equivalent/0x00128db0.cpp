@@ -17,16 +17,16 @@ void __cdecl FUN_002347b0(void*, void**, int);
 extern "C" void FUN_00128db0() {
  if (DAT_004e0dc8 == 0) {
   void* params[4]; typedef hulkfight::ai::TargetDistanceXZCondition T;
-  fight::ParamEnumConstList<T>* a = (fight::ParamEnumConstList<T>*)FUN_0008d690(32);
+  fight::ParamEnumConstList<T>* a = (fight::ParamEnumConstList<T>*)FUN_0008d690((int)sizeof(fight::ParamEnumConstList<T>));
   if(a) { int count = (*(int*)&DAT_00427754); a->FUN_00234cc0("compare"); a->count = count; new (a) fight::ParamEnumConstList<T>; a->choices = "lwB"; a->callback = SetCompare_00123830; }
   params[0] = a;
-  fight::ParamFloatConstRange<T>* b = (fight::ParamFloatConstRange<T>*)FUN_0008d690(24);
+  fight::ParamFloatConstRange<T>* b = (fight::ParamFloatConstRange<T>*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<T>));
   if(b) { b->FUN_00234960("distance"); new (b) fight::ParamFloatConstRange<T>; b->callback = SetDistance_00123840; }
   params[1] = b;
-  fight::ParamBool<T>* c = (fight::ParamBool<T>*)FUN_0008d690(24);
+  fight::ParamBool<T>* c = (fight::ParamBool<T>*)FUN_0008d690((int)sizeof(fight::ParamBool<T>));
   if(c) { c->FUN_00234860("useHulk"); new (c) fight::ParamBool<T>; c->callback = SetUseHulk_00123860; }
   params[2] = c;
-  fight::ParamBool<T>* d = (fight::ParamBool<T>*)FUN_0008d690(24);
+  fight::ParamBool<T>* d = (fight::ParamBool<T>*)FUN_0008d690((int)sizeof(fight::ParamBool<T>));
   if(d) { d->FUN_00234860("useGroundPoint"); new (d) fight::ParamBool<T>; d->callback = SetUseGroundPoint_00123880; }
   params[3] = d; FUN_002347b0(&DAT_004e0dc4, params, 4);
  }

@@ -65,47 +65,47 @@ void FUN_00141f60()
     if (DAT_004e0f5c == 0) {
         void* params[11];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_141f60<WallExitTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_141f60<WallExitTrack>("timeBegin", &WallExitTrack::FUN_0013ecb0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_141f60<WallExitTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_141f60<WallExitTrack>("timeEnd", &WallExitTrack::FUN_0013ecc0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_141f60<WallExitTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_141f60<WallExitTrack>("velocityMin", &WallExitTrack::FUN_0013ece0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_141f60<WallExitTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_141f60<WallExitTrack>("velocityMax", &WallExitTrack::FUN_0013ed00);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_141f60<WallExitTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_141f60<WallExitTrack>("gravity", &WallExitTrack::FUN_0013ed20);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_141f60<WallExitTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_141f60<WallExitTrack>("upAngleMin", &WallExitTrack::FUN_0013ed40);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_141f60<WallExitTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_141f60<WallExitTrack>("upAngleMax", &WallExitTrack::FUN_0013ed70);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_141f60<WallExitTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange_141f60<WallExitTrack>("turningVelocity", &WallExitTrack::FUN_0013eda0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_141f60<WallExitTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamIntConstRange_141f60<WallExitTrack>("priority", &WallExitTrack::FUN_0013edd0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_141f60<WallExitTrack>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_141f60<WallExitTrack>("blendInTime", &WallExitTrack::FUN_0013edf0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_141f60<WallExitTrack>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_141f60<WallExitTrack>("blendOutTime", &WallExitTrack::FUN_0013ee10);

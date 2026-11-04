@@ -46,19 +46,19 @@ public:
 physics::PhysicsJoint *__cdecl FUN_0030d4f0(int type, int a, int b, int c)
 {
     if (type == 0) {
-        void *mem = FUN_0008d690(0xf8);
+        void *mem = FUN_0008d690((int)sizeof(physics::PhysicsJoint0D));
         if (mem)
             return new (mem) physics::PhysicsJoint0D(a, b, c);
         return 0;
     }
     if (type == 1) {
-        void *mem = FUN_0008d690(0x120);
+        void *mem = FUN_0008d690((int)sizeof(physics::PhysicsJoint1D));
         if (mem)
             return new (mem) physics::PhysicsJoint1D(a, b, c);
         return 0;
     }
     if (type == 3) {
-        void *mem = FUN_0008d690(0x15c);
+        void *mem = FUN_0008d690((int)sizeof(physics::PhysicsJoint3D));
         if (mem)
             return new (mem) physics::PhysicsJoint3D(a, b, c);
         return 0;

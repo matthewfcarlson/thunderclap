@@ -42,7 +42,7 @@ struct Registry_1f80b0 {
 };
 
 void Registry_1f80b0::FUN_001f80b0(const char* name, CEffectManager* owner, float (CEffectManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CEffectManager, float>));
     Closure0<CEffectManager, float>* c = 0;
     if (mem)
         c = new (mem) Closure0<CEffectManager, float>(name, owner, fn);

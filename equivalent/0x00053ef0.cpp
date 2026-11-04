@@ -21,15 +21,15 @@ extern "C" void __cdecl FUN_002347b0(int*, void**, int);
 extern "C" void FUN_00053ef0() {
  if (!DAT_004dc504) {
  void* params[3];
- void* mem=FUN_0008d690(24);
+ void* mem=FUN_0008d690((int)sizeof(fight::ParamString<CLuaNumberCondition>));
  fight::ParamString<CLuaNumberCondition>* a = mem ? new(mem) fight::ParamString<CLuaNumberCondition> : 0;
  params[0]=a;
  if(a) a->callback=FUN_00049ed0;
- mem=FUN_0008d690(32);
+ mem=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CLuaNumberCondition>));
  fight::ParamEnumConstList<CLuaNumberCondition>* b=0;
  if(mem) { int count=(*(int*)&DAT_00427754); b=new(mem) fight::ParamEnumConstList<CLuaNumberCondition>; b->count=count; b->names="lwB"; b->callback=FUN_00047fc0; }
  params[1]=b;
- mem=FUN_0008d690(24);
+ mem=FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CLuaNumberCondition>));
  fight::ParamFloatConstRange<CLuaNumberCondition>* c = mem ? new(mem) fight::ParamFloatConstRange<CLuaNumberCondition> : 0;
  params[2]=c;
  if(c) c->callback=FUN_00047fd0;

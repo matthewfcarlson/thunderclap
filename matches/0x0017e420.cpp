@@ -13,7 +13,7 @@ class InitObj_17e420 {
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::DriftToHulkTrack>::vfunc_5() {
-    DriftTrack* p = (DriftTrack*)FUN_0008d690(0x20);
+    DriftTrack* p = (DriftTrack*)FUN_0008d690((int)sizeof(DriftTrack));
     if (p) {
         ((InitObj_17e420*)p)->Init();
         p->a[3] = 0;

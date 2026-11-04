@@ -42,7 +42,7 @@ void FUN_0014a1e0()
     if (DAT_004e0fc8 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_14a1e0<hulkfight::motion::GrappleAttachedCondition_14a1e0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_14a1e0<hulkfight::motion::GrappleAttachedCondition_14a1e0>("isAttached", &hulkfight::motion::GrappleAttachedCondition_14a1e0::FUN_00146920);

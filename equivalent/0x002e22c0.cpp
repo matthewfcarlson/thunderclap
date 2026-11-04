@@ -450,7 +450,7 @@ void Loader_2e22c0::FUN_002e22c0(void *a0, Reader *rd, int a2, VecObj *a3, int a
             case 0x1000d:
                 if ((signed char)f1c < 0) {
                     ebp->stream->FUN_002647e0(&fr.x8, 1, 4, 1);
-                    void *mem = FUN_0008d690(0x14);
+                    void *mem = FUN_0008d690((int)sizeof(pure3d::MatrixPaletteList));
                     if (mem != 0)
                         fr.mpl = new (mem) pure3d::MatrixPaletteList();
                     else

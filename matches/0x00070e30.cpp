@@ -65,7 +65,7 @@ void __cdecl FUN_002347b0(int*, void**, int);
 extern "C" void FUN_00070e30() {
     if (!DAT_004dcf44) {
         void* entries[3];
-        void* p = FUN_0008d690(24);
+        void* p = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CComboMessageTrack>));
         if (p) {
             fight::ParamFloatConstRange<CComboMessageTrack>* b =
                 new (p) fight::ParamFloatConstRange<CComboMessageTrack>;
@@ -73,14 +73,14 @@ extern "C" void FUN_00070e30() {
             entries[0] = b;
         } else
             entries[0] = 0;
-        p = FUN_0008d690(24);
+        p = FUN_0008d690((int)sizeof(fight::ParamString<CComboMessageTrack>));
         if (p) {
             fight::ParamString<CComboMessageTrack>* b = new (p) fight::ParamString<CComboMessageTrack>;
             b->callback = FUN_00069830;
             entries[1] = b;
         } else
             entries[1] = 0;
-        p = FUN_0008d690(32);
+        p = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CComboMessageTrack>));
         if (p) {
             fight::ParamEnumConstList<CComboMessageTrack>* b =
                 new (p) fight::ParamEnumConstList<CComboMessageTrack>;

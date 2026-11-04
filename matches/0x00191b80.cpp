@@ -18,7 +18,7 @@ class SimulationTrack_191b80 {
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::SimulationTrack>::vfunc_5() {
-    SimulationTrack_191b80* p = (SimulationTrack_191b80*)FUN_0008d690(0x14);
+    SimulationTrack_191b80* p = (SimulationTrack_191b80*)FUN_0008d690((int)sizeof(SimulationTrack_191b80));
     if (p) {
         p->SimulationTrack_191b80::SimulationTrack_191b80();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_0041af08);

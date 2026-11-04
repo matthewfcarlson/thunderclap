@@ -42,7 +42,7 @@ extern "C" void FUN_001879c0()
     if (DAT_004e142c == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_1879c0<hulkfight::motion::PropAtRestCondition_1879c0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_1879c0<hulkfight::motion::PropAtRestCondition_1879c0>("atRest", &hulkfight::motion::PropAtRestCondition_1879c0::FUN_0017f500);

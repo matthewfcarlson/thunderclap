@@ -18,7 +18,7 @@ class DialogueTrack_132cc0 {
 void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::DialogueTrack>::vfunc_5() {
-    DialogueTrack_132cc0* p = (DialogueTrack_132cc0*)FUN_0008d690(0x28);
+    DialogueTrack_132cc0* p = (DialogueTrack_132cc0*)FUN_0008d690((int)sizeof(DialogueTrack_132cc0));
     int z = 0;
     if (p != 0) {
         p->Init();

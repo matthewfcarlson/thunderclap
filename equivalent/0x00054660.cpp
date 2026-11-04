@@ -28,7 +28,7 @@ void __cdecl FUN_002347b0(int*, void**, int);
 extern "C" void FUN_00054660() {
  if (!DAT_004dc56c) {
  void* list[3];
- void* p=FUN_0008d690(32);
+ void* p=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CFightNodePrevCondition>));
  if(p) {
  int count=(*(int*)&DAT_00427760);
  ((fight::ParamEnumConstList<CFightNodePrevCondition>*)p)->FUN_00234cc0("compare");
@@ -36,14 +36,14 @@ extern "C" void FUN_00054660() {
  obj->count=count; obj->values=((int*)&DAT_00427758); obj->callback=SetCompare_00048190;
  }
  list[0]=p;
- p=FUN_0008d690(24);
+ p=FUN_0008d690((int)sizeof(fight::ParamBranch<CFightNodePrevCondition>));
  if(p) {
  ((fight::ParamBranch<CFightNodePrevCondition>*)p)->FUN_00235170("fightNode");
  fight::ParamBranch<CFightNodePrevCondition>* obj=new(p) fight::ParamBranch<CFightNodePrevCondition>;
  obj->callback=GetFightNode_000481a0;
  }
  list[1]=p;
- p=FUN_0008d690(24);
+ p=FUN_0008d690((int)sizeof(fight::ParamBool<CFightNodePrevCondition>));
  if(p) {
  ((fight::ParamBool<CFightNodePrevCondition>*)p)->FUN_00234860("lastFrame");
  fight::ParamBool<CFightNodePrevCondition>* obj=new(p) fight::ParamBool<CFightNodePrevCondition>;

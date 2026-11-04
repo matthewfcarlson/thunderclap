@@ -60,11 +60,11 @@ extern "C" void FUN_000535f0()
     if (DAT_004dc484 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_535f0<::CCollisionPushbackVelocityCondition_535f0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList_535f0<::CCollisionPushbackVelocityCondition_535f0>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &::CCollisionPushbackVelocityCondition_535f0::FUN_00047d70);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_535f0<::CCollisionPushbackVelocityCondition_535f0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_535f0<::CCollisionPushbackVelocityCondition_535f0>("velocity", &::CCollisionPushbackVelocityCondition_535f0::FUN_00047d80);

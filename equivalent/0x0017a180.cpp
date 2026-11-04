@@ -18,11 +18,11 @@ void target() {
  void* params[3];
  typedef fight::ParamFloatConstRange<hulkfight::motion::DriftToHulkTrack> FloatParam;
  typedef fight::ParamVector<hulkfight::motion::DriftToHulkTrack> VectorParam;
- FloatParam* a = (FloatParam*)FUN_0008d690(24);
+ FloatParam* a = (FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
  if(a) { new(a) FloatParam("timeBegin"); a->callback=FUN_0016f160; } params[0]=a;
- FloatParam* b = (FloatParam*)FUN_0008d690(24);
+ FloatParam* b = (FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
  if(b) { new(b) FloatParam("timeEnd"); b->callback=FUN_0016f170; } params[1]=b;
- VectorParam* c = (VectorParam*)FUN_0008d690(24);
+ VectorParam* c = (VectorParam*)FUN_0008d690((int)sizeof(VectorParam));
  if(c) { new(c) VectorParam("offset"); c->callback=FUN_0016f1a0; } params[2]=c;
  FUN_002347b0(((unsigned int*)&DAT_004e1338),params,3);
  } ++DAT_004e133c;

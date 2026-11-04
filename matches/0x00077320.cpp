@@ -23,7 +23,7 @@ struct Orient_77320 {
 };
 
 template <> void* fight::TrackFactoryTemplate<COrientTrack>::vfunc_5() {
-    Orient_77320* p = (Orient_77320*)FUN_0008d690(0x2c);
+    Orient_77320* p = (Orient_77320*)FUN_0008d690((int)sizeof(Orient_77320));
     if (p) {
         ((Helper_77320*)p)->Init();
         p->xC = 0;

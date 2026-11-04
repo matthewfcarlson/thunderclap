@@ -133,63 +133,63 @@ extern "C" void FUN_0017d8d0()
     if (DAT_004e136c == 0) {
         void* params[15];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("timeBegin", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f3b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("timeEnd", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f3c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamNameConstList_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("joint", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f3d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamVector_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("trackAxis", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f400);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamVector_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("pivotAxis", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f440);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("turnRate", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f470);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("angleMin", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f4a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("angleMax", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f4d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamBool_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("targetRequired", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f500);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("targetArc", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f520);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("targetDistance", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f550);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamEnumConstList_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("targetLocation", ((const char**)&DAT_004b7cf0), 3, &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f570);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
         params[12] = 0;
         if (mem)
             params[12] = new (mem) fight::ParamIntConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("priority", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f590);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
         params[13] = 0;
         if (mem)
             params[13] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("blendInTime", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f5b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
         params[14] = 0;
         if (mem)
             params[14] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("blendOutTime", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f5d0);

@@ -292,7 +292,7 @@ Obj_2acd70 *Loader_2acd70::FUN_002acd70(Reader *R, Inv_2acd70 *a1)
                 }
             }
             if (*(float *)&f.x18 > 0.0f || *(float *)&f.x10 > 0.0f) {
-                Mat_2acd70 *m = (Mat_2acd70 *)FUN_0008d690(0x40);
+                Mat_2acd70 *m = (Mat_2acd70 *)FUN_0008d690((int)sizeof(Mat_2acd70));
                 obj->f140 = m;
                 m->FUN_0022b980();
             }

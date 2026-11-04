@@ -135,51 +135,51 @@ extern "C" void FUN_00065190()
     if (DAT_004dc624 == 0) {
         void* params[12];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_65190<CSmartPropAttachTrack_65190>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_65190<CSmartPropAttachTrack_65190>("timeBegin", &CSmartPropAttachTrack_65190::FUN_00061cb0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_65190<CSmartPropAttachTrack_65190>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_65190<CSmartPropAttachTrack_65190>("timeAttach", &CSmartPropAttachTrack_65190::FUN_00061cc0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_65190<CSmartPropAttachTrack_65190>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamIntConstRange_65190<CSmartPropAttachTrack_65190>("attachmentIndex", &CSmartPropAttachTrack_65190::FUN_00061cd0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_65190<CSmartPropAttachTrack_65190>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamNameConstList_65190<CSmartPropAttachTrack_65190>("joint", &CSmartPropAttachTrack_65190::FUN_00012670);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_65190<CSmartPropAttachTrack_65190>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamNameConstList_65190<CSmartPropAttachTrack_65190>("channel", &CSmartPropAttachTrack_65190::FUN_00012680);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_65190<CSmartPropAttachTrack_65190>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamBool_65190<CSmartPropAttachTrack_65190>("useOffset", &CSmartPropAttachTrack_65190::FUN_00061ce0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_65190<CSmartPropAttachTrack_65190>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamVector_65190<CSmartPropAttachTrack_65190>("offset", &CSmartPropAttachTrack_65190::FUN_00061cf0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_65190<CSmartPropAttachTrack_65190>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamVector_65190<CSmartPropAttachTrack_65190>("orientation", &CSmartPropAttachTrack_65190::FUN_000622d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_65190<CSmartPropAttachTrack_65190>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamFloatConstRange_65190<CSmartPropAttachTrack_65190>("minDistance", &CSmartPropAttachTrack_65190::FUN_00061d20);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_65190<CSmartPropAttachTrack_65190>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamBool_65190<CSmartPropAttachTrack_65190>("useCharacterArray", &CSmartPropAttachTrack_65190::FUN_00061d10);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_65190<CSmartPropAttachTrack_65190>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamVector_65190<CSmartPropAttachTrack_65190>("velocityOffset", &CSmartPropAttachTrack_65190::FUN_00061d30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_65190<CSmartPropAttachTrack_65190>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamName_65190<CSmartPropAttachTrack_65190>("state", &CSmartPropAttachTrack_65190::FUN_00012720);

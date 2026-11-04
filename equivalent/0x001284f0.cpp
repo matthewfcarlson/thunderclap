@@ -64,11 +64,11 @@ extern "C" void FUN_001284f0()
     if (DAT_004e0d68 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::ai::TargetDirectionYCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::TargetDirectionYCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::ai::TargetDirectionYCondition::FUN_00123510);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<hulkfight::ai::TargetDirectionYCondition>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamIntConstRange<hulkfight::ai::TargetDirectionYCondition>("direction", &hulkfight::ai::TargetDirectionYCondition::FUN_00123520);

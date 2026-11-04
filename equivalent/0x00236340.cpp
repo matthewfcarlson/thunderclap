@@ -62,11 +62,11 @@ extern "C" void FUN_00236340()
     if (DAT_004e5bf0 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_236340<fight::FightNodeTimeCondition_236340>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList_236340<fight::FightNodeTimeCondition_236340>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &fight::FightNodeTimeCondition_236340::FUN_002359a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_236340<fight::FightNodeTimeCondition_236340>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_236340<fight::FightNodeTimeCondition_236340>("time", &fight::FightNodeTimeCondition_236340::FUN_002359b0);

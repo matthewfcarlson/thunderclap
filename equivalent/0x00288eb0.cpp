@@ -79,7 +79,7 @@ void* pure3d::AnimationLoader::FUN_00288eb0(void* __p0, int ctx, void* __p2) { R
 
     void *mem;
     if (alloc == 0) {
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(pure3d::AnimationGroup_288eb0));
     } else {
         unsigned int off = (alloc->cur10 + 7) & 0xfffffff8;
         mem = alloc->base18 + off;

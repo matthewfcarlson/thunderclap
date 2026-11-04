@@ -187,7 +187,7 @@ void CSoundSystem::FUN_001f2730()
         obj = ((Closure2_1f2730 *)mem)->FUN_001f1cf0("snd_CreateObject", this, &CSoundSystem::FUN_001f13b0);
     reg->FUN_001d3b70("snd_CreateObject", obj);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure3<CSoundSystem, void, char *, char *, float>));
     Closure3<CSoundSystem, void, char *, char *, float> *trig = 0;
     if (mem)
         trig = new (mem) Closure3<CSoundSystem, void, char *, char *, float>("snd_CreateTrigger", this, &CSoundSystem::FUN_001f1480);
@@ -195,91 +195,91 @@ void CSoundSystem::FUN_001f2730()
 
     reg->FUN_001f23f0("snd_StopAllTriggers", this, &CSoundSystem::FUN_001eef00);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure3<CSoundSystem, void, char *, char *, float>));
     Closure3<CSoundSystem, void, char *, char *, float> *seq = 0;
     if (mem)
         seq = new (mem) Closure3<CSoundSystem, void, char *, char *, float>("snd_AddCommand_PlaySequenceEvent", this, &CSoundSystem::FUN_001f1540);
     reg->FUN_001d3b70("snd_AddCommand_PlaySequenceEvent", seq);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure3<CSoundSystem, void, char *, char *, float>));
     Closure3<CSoundSystem, void, char *, char *, float> *intr = 0;
     if (mem)
         intr = new (mem) Closure3<CSoundSystem, void, char *, char *, float>("snd_AddCommand_PlayInterruptEvent", this, &CSoundSystem::FUN_001f15a0);
     reg->FUN_001d3b70("snd_AddCommand_PlayInterruptEvent", intr);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure6<CSoundSystem, void, char *, char *, float, float, float, float>));
     Closure6<CSoundSystem, void, char *, char *, float, float, float, float> *tun = 0;
     if (mem)
         tun = new (mem) Closure6<CSoundSystem, void, char *, char *, float, float, float, float>("snd_AddCommand_PlayTunableEvent", this, &CSoundSystem::FUN_001f1600);
     reg->FUN_001d3b70("snd_AddCommand_PlayTunableEvent", tun);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure4<CSoundSystem, void, char *, char *, float, float>));
     Closure4<CSoundSystem, void, char *, char *, float, float> *stoptun = 0;
     if (mem)
         stoptun = new (mem) Closure4<CSoundSystem, void, char *, char *, float, float>("snd_AddCommand_StopTunableEvent", this, &CSoundSystem::FUN_001f16e0);
     reg->FUN_001d3b70("snd_AddCommand_StopTunableEvent", stoptun);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure5<CSoundSystem, void, char *, char *, float, float, float>));
     Closure5<CSoundSystem, void, char *, char *, float, float, float> *pitch = 0;
     if (mem)
         pitch = new (mem) Closure5<CSoundSystem, void, char *, char *, float, float, float>("snd_AddCommand_SetLoopPitchEvent", this, &CSoundSystem::FUN_001f1670);
     reg->FUN_001d3b70("snd_AddCommand_SetLoopPitchEvent", pitch);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure4<CSoundSystem, void, char *, char *, float, float>));
     Closure4<CSoundSystem, void, char *, char *, float, float> *dlg = 0;
     if (mem)
         dlg = new (mem) Closure4<CSoundSystem, void, char *, char *, float, float>("snd_AddCommand_PlayDialogueEvent", this, &CSoundSystem::FUN_001f1740);
     reg->FUN_001d3b70("snd_AddCommand_PlayDialogueEvent", dlg);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure6<CSoundSystem, void, char *, char *, char *, float, float, float>));
     Closure6<CSoundSystem, void, char *, char *, char *, float, float, float> *mdlg = 0;
     if (mem)
         mdlg = new (mem) Closure6<CSoundSystem, void, char *, char *, char *, float, float, float>("snd_AddCommand_PlayMissionDialogueEvent", this, &CSoundSystem::FUN_001f17f0);
     reg->FUN_001d3b70("snd_AddCommand_PlayMissionDialogueEvent", mdlg);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure5<CSoundSystem, void, char *, char *, float, float, float>));
     Closure5<CSoundSystem, void, char *, char *, float, float, float> *fdlg = 0;
     if (mem)
         fdlg = new (mem) Closure5<CSoundSystem, void, char *, char *, float, float, float>("snd_AddCommand_PlayFightDialogueEvent", this, &CSoundSystem::FUN_001f18b0);
     reg->FUN_001d3b70("snd_AddCommand_PlayFightDialogueEvent", fdlg);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure3<CSoundSystem, void, char *, char *, float>));
     Closure3<CSoundSystem, void, char *, char *, float> *music = 0;
     if (mem)
         music = new (mem) Closure3<CSoundSystem, void, char *, char *, float>("snd_AddCommand_PlayMusicEvent", this, &CSoundSystem::FUN_001f1970);
     reg->FUN_001d3b70("snd_AddCommand_PlayMusicEvent", music);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure3<CSoundSystem, void, char *, char *, float>));
     Closure3<CSoundSystem, void, char *, char *, float> *amb = 0;
     if (mem)
         amb = new (mem) Closure3<CSoundSystem, void, char *, char *, float>("snd_AddCommand_PlayAmbienceEvent", this, &CSoundSystem::FUN_001f1a20);
     reg->FUN_001d3b70("snd_AddCommand_PlayAmbienceEvent", amb);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure3<CSoundSystem, void, char *, char *, float>));
     Closure3<CSoundSystem, void, char *, char *, float> *sfx = 0;
     if (mem)
         sfx = new (mem) Closure3<CSoundSystem, void, char *, char *, float>("snd_AddCommand_PlaySFXEvent", this, &CSoundSystem::FUN_001f1ad0);
     reg->FUN_001d3b70("snd_AddCommand_PlaySFXEvent", sfx);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure3<CSoundSystem, void, char *, char *, float>));
     Closure3<CSoundSystem, void, char *, char *, float> *cue = 0;
     if (mem)
         cue = new (mem) Closure3<CSoundSystem, void, char *, char *, float>("snd_AddCommand_CueNISEvent", this, &CSoundSystem::FUN_001f1b80);
     reg->FUN_001d3b70("snd_AddCommand_CueNISEvent", cue);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<CSoundSystem, void, float>));
     Closure1<CSoundSystem, void, float> *play = 0;
     if (mem)
         play = new (mem) Closure1<CSoundSystem, void, float>("snd_AddCommand_PlayCuedNISEvent", this, &CSoundSystem::FUN_001efca0);
     reg->FUN_001d3b70("snd_AddCommand_PlayCuedNISEvent", play);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<CSoundSystem, void, float>));
     Closure1<CSoundSystem, void, float> *stop = 0;
     if (mem)
         stop = new (mem) Closure1<CSoundSystem, void, float>("snd_AddCommand_StopNISEvent", this, &CSoundSystem::FUN_001efd00);
     reg->FUN_001d3b70("snd_AddCommand_StopNISEvent", stop);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure3<CSoundSystem, void, char *, float, float>));
     Closure3<CSoundSystem, void, char *, float, float> *mixer = 0;
     if (mem)
         mixer = new (mem) Closure3<CSoundSystem, void, char *, float, float>("snd_AddCommand_InstallMixer", this, &CSoundSystem::FUN_001efd60);

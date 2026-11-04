@@ -33,7 +33,7 @@ class Derived_17e850 : public Base_17e850 {
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::TargetIconDistanceTrack>::vfunc_5() {
-    Derived_17e850* p = (Derived_17e850*)FUN_0008d690(0x20);
+    Derived_17e850* p = (Derived_17e850*)FUN_0008d690((int)sizeof(Derived_17e850));
     if (p) {
         new (p) Derived_17e850();
         return (void*)(p);

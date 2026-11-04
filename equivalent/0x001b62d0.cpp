@@ -12,7 +12,7 @@ template<class C, class R, class A1, class A2, class A3> class Closure3_1b62d0;
 template<> class Closure3_1b62d0<CCollisionManager_1b62d0, void, float, float, float> { public: virtual void v(); char pad[0x1c]; CCollisionManager_1b62d0* owner; Closure3_1b62d0(CCollisionManager_1b62d0* o) { owner = o; } };
 class Raw_1b62d0 { public: void FUN_001b5bc0(const char*, void (*)()); };
 void Registry_1b62d0::FUN_001b62d0(const char* a1, CCollisionManager_1b62d0* a2, void (*a3)()) {
-    void* m = FUN_0008d690(0x24);
+    void* m = FUN_0008d690((int)sizeof(Closure3_1b62d0<CCollisionManager_1b62d0, void, float, float, float>));
     void* x = 0;
     if (m) {
         ((Raw_1b62d0*)m)->FUN_001b5bc0(a1, a3);

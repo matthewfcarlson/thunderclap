@@ -60,11 +60,11 @@ extern "C" void FUN_00052720()
     if ((*(int*)&DAT_004dc3fc) == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<::CStageCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList<::CStageCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &::CStageCondition::FUN_00047a90);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<::CStageCondition>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamIntConstRange<::CStageCondition>("stage", &::CStageCondition::FUN_00047aa0);

@@ -155,19 +155,19 @@ void CSoundVoiceManager::FUN_001f6990()
     }
 
     Registry_1f6990 *reg = FUN_001d4c90();
-    void *mem = FUN_0008d690(0x24);
+    void *mem = FUN_0008d690((int)sizeof(Closure3<CSoundVoiceManager, void, bool, bool, bool>));
     Closure3<CSoundVoiceManager, void, bool, bool, bool> *pause = 0;
     if (mem)
         pause = new (mem) Closure3<CSoundVoiceManager, void, bool, bool, bool>("snd_Pause", this, &CSoundVoiceManager::FUN_001f4610);
     reg->FUN_001d3b70("snd_Pause", pause);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure0<CSoundVoiceManager, void>));
     Closure0<CSoundVoiceManager, void> *unpause = 0;
     if (mem)
         unpause = new (mem) Closure0<CSoundVoiceManager, void>("snd_UnPause", this, &CSoundVoiceManager::FUN_001f46a0);
     reg->FUN_001d3b70("snd_UnPause", unpause);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure4<CSoundVoiceManager, void, char *, char *, char *, int>));
     Closure4<CSoundVoiceManager, void, char *, char *, char *, int> *mapInst = 0;
     if (mem)
         mapInst = new (mem) Closure4<CSoundVoiceManager, void, char *, char *, char *, int>("snd_MapInstance", this, &CSoundVoiceManager::FUN_001f30e0);

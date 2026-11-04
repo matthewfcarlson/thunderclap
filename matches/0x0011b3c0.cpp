@@ -29,7 +29,7 @@ void postInit();
 
 template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::MotionFacingTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(TrackFactoryTemplate_11b3c0));
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_11b3c0* t = new (mem) TrackFactoryTemplate_11b3c0();

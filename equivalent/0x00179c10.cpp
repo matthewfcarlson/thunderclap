@@ -75,23 +75,23 @@ void FUN_00179c10()
         void* params[5];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ChargeTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<ChargeTrack>("timeBegin", &ChargeTrack::FUN_0016e9b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ChargeTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<ChargeTrack>("timeEnd", &ChargeTrack::FUN_0016e9c0);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(ParamEnumConstList<ChargeTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamEnumConstList<ChargeTrack>("type", ((const char**)&DAT_004b4d7c), (*(int*)&DAT_00416640), &ChargeTrack::FUN_0016e9e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<ChargeTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamBool<ChargeTrack>("clearOnBegin", &ChargeTrack::FUN_0016ea00);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ChargeTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<ChargeTrack>("finalCharge", &ChargeTrack::FUN_0016ea20);

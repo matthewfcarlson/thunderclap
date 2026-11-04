@@ -23,11 +23,11 @@ void __cdecl FUN_002347b0(void*, Param**, int);
 extern "C" void __cdecl FUN_000548b0() {
  if (DAT_004dc584 == 0) {
   Param* params[3];
-  Param* p = (Param*)FUN_0008d690(24);
+  Param* p = (Param*)FUN_0008d690((int)sizeof(Param));
   if(p) {p->FUN_00234960("angle"); new(p) Param; p->callback = SetAngle_00048200;} params[0]=p;
-  p = (Param*)FUN_0008d690(24);
+  p = (Param*)FUN_0008d690((int)sizeof(Param));
   if(p) {p->FUN_00234960("arc"); new(p) Param; p->callback = SetArc_00048220;} params[1]=p;
-  p = (Param*)FUN_0008d690(24);
+  p = (Param*)FUN_0008d690((int)sizeof(Param));
   if(p) {p->FUN_00234960("minVelocity"); new(p) Param; p->callback = SetMinVelocity_00048240;} params[2]=p;
   FUN_002347b0(&DAT_004dc580, params, 3);
  }

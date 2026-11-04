@@ -88,31 +88,31 @@ extern "C" void FUN_0018b140()
     if (DAT_004e14e4 == 0) {
         void* params[7];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PropSpawnTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<PropSpawnTrack>("timeBegin", &PropSpawnTrack::FUN_00180430);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamString<PropSpawnTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamString<PropSpawnTrack>("propName", &PropSpawnTrack::FUN_00181670);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamNameConstList<PropSpawnTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamNameConstList<PropSpawnTrack>("joint", &PropSpawnTrack::FUN_00180450);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<PropSpawnTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamVector<PropSpawnTrack>("offset", &PropSpawnTrack::FUN_00180480);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<PropSpawnTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamVector<PropSpawnTrack>("orient", &PropSpawnTrack::FUN_001804c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<PropSpawnTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamVector<PropSpawnTrack>("impulse", &PropSpawnTrack::FUN_00180520);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<PropSpawnTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamVector<PropSpawnTrack>("impulseOffset", &PropSpawnTrack::FUN_00180560);

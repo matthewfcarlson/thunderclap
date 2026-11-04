@@ -86,23 +86,23 @@ extern "C" void FUN_0016c600()
         void* params[5];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamNameConstList<RayCastTargetCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamNameConstList<RayCastTargetCondition>("joint", &RayCastTargetCondition::FUN_00165440);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<RayCastTargetCondition>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamVector<RayCastTargetCondition>("offset", &RayCastTargetCondition::FUN_00165470);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<RayCastTargetCondition>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamVector<RayCastTargetCondition>("direction", &RayCastTargetCondition::FUN_001654b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RayCastTargetCondition>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamFloatConstRange<RayCastTargetCondition>("length", &RayCastTargetCondition::FUN_001654e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<RayCastTargetCondition>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamBool<RayCastTargetCondition>("hitFound", &RayCastTargetCondition::FUN_00165500);

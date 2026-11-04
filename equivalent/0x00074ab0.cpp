@@ -116,43 +116,43 @@ extern "C" void FUN_00074ab0()
     if (DAT_004dcf0c == 0) {
         void* params[10];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_74ab0<CJointTrack_74ab0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_74ab0<CJointTrack_74ab0>("timeBegin", &CJointTrack_74ab0::FUN_00067f30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_74ab0<CJointTrack_74ab0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_74ab0<CJointTrack_74ab0>("timeEnd", &CJointTrack_74ab0::FUN_00067f40);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_74ab0<CJointTrack_74ab0>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamNameConstList_74ab0<CJointTrack_74ab0>("joint", &CJointTrack_74ab0::FUN_00011ce0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_74ab0<CJointTrack_74ab0>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamBool_74ab0<CJointTrack_74ab0>("hasTranslation", &CJointTrack_74ab0::FUN_00067f50);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_74ab0<CJointTrack_74ab0>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamVector_74ab0<CJointTrack_74ab0>("translation", &CJointTrack_74ab0::FUN_00067f60);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_74ab0<CJointTrack_74ab0>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamBool_74ab0<CJointTrack_74ab0>("hasRotation", &CJointTrack_74ab0::FUN_00067f80);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_74ab0<CJointTrack_74ab0>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamVector_74ab0<CJointTrack_74ab0>("rotation", &CJointTrack_74ab0::FUN_00068d90);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_74ab0<CJointTrack_74ab0>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamIntConstRange_74ab0<CJointTrack_74ab0>("priority", &CJointTrack_74ab0::FUN_00067f90);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_74ab0<CJointTrack_74ab0>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamFloatConstRange_74ab0<CJointTrack_74ab0>("blendInTime", &CJointTrack_74ab0::FUN_00067fa0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_74ab0<CJointTrack_74ab0>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_74ab0<CJointTrack_74ab0>("blendOutTime", &CJointTrack_74ab0::FUN_00067fb0);

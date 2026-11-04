@@ -119,7 +119,7 @@ void ShadowMeshLoader::vfunc_5(Target_2b6170 **out, unsigned __int64 *outId, Str
     f.dest->name.FUN_0027b040(f.name);
     f.r0 = *f.dest->f48;
 
-    void *mem = FUN_0008d690(0x18);
+    void *mem = FUN_0008d690((int)sizeof(ShadowMeshTopology));
     ShadowMeshTopology *topo = 0;
     if (mem != 0)
         topo = new (mem) ShadowMeshTopology(f.cntA, f.nf);

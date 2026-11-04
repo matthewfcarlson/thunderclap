@@ -58,11 +58,11 @@ extern "C" void FUN_00187ca0()
     if (DAT_004e1454 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_187ca0<hulkfight::motion::PropCollidedWithWorldCondition_187ca0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamIntConstRange_187ca0<hulkfight::motion::PropCollidedWithWorldCondition_187ca0>("attachmentIndex", &hulkfight::motion::PropCollidedWithWorldCondition_187ca0::FUN_0017f660);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_187ca0<hulkfight::motion::PropCollidedWithWorldCondition_187ca0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamBool_187ca0<hulkfight::motion::PropCollidedWithWorldCondition_187ca0>("collided", &hulkfight::motion::PropCollidedWithWorldCondition_187ca0::FUN_0017f670);

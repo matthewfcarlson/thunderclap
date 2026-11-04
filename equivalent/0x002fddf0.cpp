@@ -145,7 +145,7 @@ extern "C" Sink_2fddf0 *__cdecl FUN_002fddf0(Chain_2fddf0 *chain, Source_2fddf0 
     Pose_2fddf0 *pose = chain->FUN_0030f490(0)->FUN_0030ef30();
     chain->FUN_0030f490(0)->FUN_0030ee40(pose);
 
-    physics::SimStateArticulated *mem = (physics::SimStateArticulated *)FUN_0008d690(0x98);
+    physics::SimStateArticulated *mem = (physics::SimStateArticulated *)FUN_0008d690((int)sizeof(physics::SimStateArticulated));
     if (mem == 0)
         return 0;
     Sink_2fddf0 *sink = ((SimStateArticulated_nv_2fddf0*)(((physics::SimStateArticulated*)(mem))))->FUN_002fdc90(chain, 0);

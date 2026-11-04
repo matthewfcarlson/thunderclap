@@ -11,7 +11,7 @@ struct CCollisionDirectionCondition_57750 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<CCollisionDirectionCondition>::vfunc_5() {
-    CCollisionDirectionCondition_57750* p = (CCollisionDirectionCondition_57750*)FUN_0008d690(0x14);
+    CCollisionDirectionCondition_57750* p = (CCollisionDirectionCondition_57750*)FUN_0008d690((int)sizeof(CCollisionDirectionCondition_57750));
     if (p) {
         p->Init(0);
         p->vptr = ((hulk_intptr)DAT_003f6fc8);

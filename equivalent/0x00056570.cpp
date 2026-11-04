@@ -60,11 +60,11 @@ extern "C" void FUN_00056570()
     if (DAT_004dc46c == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<::CNameFlagConditionBase>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList<::CNameFlagConditionBase>("compare", ((const char**)&DAT_00427758), (*(int*)&DAT_00427760), &::CNameFlagConditionBase::FUN_00047d20);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName<::CNameFlagConditionBase>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamName<::CNameFlagConditionBase>("flag", &::CNameFlagConditionBase::FUN_00047d30);

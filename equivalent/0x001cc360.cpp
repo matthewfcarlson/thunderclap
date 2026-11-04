@@ -100,19 +100,19 @@ CEventManager::CEventManager()
     if (reg) {
         void *mem;
 
-        mem = FUN_0008d690(0x24);
+        mem = FUN_0008d690((int)sizeof(Closure1<CEventManager, bool, const char *>));
         Closure1<CEventManager, bool, const char *> *post = 0;
         if (mem)
             post = new (mem) Closure1<CEventManager, bool, const char *>("em_PostEventString", this, &CEventManager::FUN_001cbd10);
         reg->FUN_001d3b70("em_PostEventString", post);
 
-        mem = FUN_0008d690(0x24);
+        mem = FUN_0008d690((int)sizeof(Closure1<CEventManager, void, bool>));
         Closure1<CEventManager, void, bool> *tick = 0;
         if (mem)
             tick = new (mem) Closure1<CEventManager, void, bool>("em_SetTickEnabled", this, &CEventManager::FUN_001cb540);
         reg->FUN_001d3b70("em_SetTickEnabled", tick);
 
-        mem = FUN_0008d690(0x24);
+        mem = FUN_0008d690((int)sizeof(Closure1<CEventManager, void, const char *>));
         Closure1<CEventManager, void, const char *> *print = 0;
         if (mem)
             print = new (mem) Closure1<CEventManager, void, const char *>("em_PrintAllEvents", this, &CEventManager::FUN_001cb550);

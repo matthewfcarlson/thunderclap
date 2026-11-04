@@ -61,23 +61,23 @@ extern "C" void FUN_00052f20()
         void* params[5];
         void* mem;
 
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_52f20<CAxisDoubleTapCondition_52f20>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList_52f20<CAxisDoubleTapCondition_52f20>("axis", ((const char**)&DAT_0049ee74), 2, &CAxisDoubleTapCondition_52f20::FUN_00047b00);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_52f20<CAxisDoubleTapCondition_52f20>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamEnumConstList_52f20<CAxisDoubleTapCondition_52f20>("compareArc", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &CAxisDoubleTapCondition_52f20::FUN_00047ba0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_52f20<CAxisDoubleTapCondition_52f20>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_52f20<CAxisDoubleTapCondition_52f20>("arc", &CAxisDoubleTapCondition_52f20::FUN_00047bb0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_52f20<CAxisDoubleTapCondition_52f20>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_52f20<CAxisDoubleTapCondition_52f20>("timeMin", &CAxisDoubleTapCondition_52f20::FUN_00047bd0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_52f20<CAxisDoubleTapCondition_52f20>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_52f20<CAxisDoubleTapCondition_52f20>("timeMax", &CAxisDoubleTapCondition_52f20::FUN_00047be0);

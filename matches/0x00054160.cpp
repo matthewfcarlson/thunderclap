@@ -29,7 +29,7 @@ extern void __cdecl FUN_002347b0(unsigned*, ParamBase_54160**, unsigned);
 extern "C" void __cdecl FUN_00054160() {
     if (DAT_004dc534 == 0) {
         ParamBase_54160* parameters[3];
-        void* storage = FUN_0008d690(24);
+        void* storage = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CClimbableCondition>));
         if (storage) {
             ((ParamBase_54160*)storage)->FUN_00234960("angle");
             fight::ParamFloatConstRange<CClimbableCondition>* p =
@@ -38,7 +38,7 @@ extern "C" void __cdecl FUN_00054160() {
             parameters[0] = p;
         } else
             parameters[0] = 0;
-        storage = FUN_0008d690(24);
+        storage = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CClimbableCondition>));
         if (storage) {
             ((ParamBase_54160*)storage)->FUN_00234960("arc");
             fight::ParamFloatConstRange<CClimbableCondition>* p =
@@ -47,7 +47,7 @@ extern "C" void __cdecl FUN_00054160() {
             parameters[1] = p;
         } else
             parameters[1] = 0;
-        storage = FUN_0008d690(24);
+        storage = FUN_0008d690((int)sizeof(fight::ParamBool<CClimbableCondition>));
         if (storage) {
             ((ParamBase_54160*)storage)->FUN_00234860("useIntentionMotion");
             fight::ParamBool<CClimbableCondition>* p = new (storage) fight::ParamBool<CClimbableCondition>;

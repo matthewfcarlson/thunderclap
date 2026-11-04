@@ -56,23 +56,23 @@ extern "C" void FUN_0017aa40()
         void* params[5];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SuckInPropsTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<SuckInPropsTrack>("timeBegin", &SuckInPropsTrack::FUN_0016f8b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SuckInPropsTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<SuckInPropsTrack>("timeEnd", &SuckInPropsTrack::FUN_0016f8c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<SuckInPropsTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamIntConstRange<SuckInPropsTrack>("number", &SuckInPropsTrack::FUN_0016f8e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SuckInPropsTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamFloatConstRange<SuckInPropsTrack>("velocity", &SuckInPropsTrack::FUN_0016f900);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SuckInPropsTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<SuckInPropsTrack>("distance", &SuckInPropsTrack::FUN_0016f920);

@@ -42,7 +42,7 @@ struct Registry_d6520 {
 };
 
 void Registry_d6520::FUN_000d6520(const char* name, MessageOverlay* owner, void (MessageOverlay::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<MessageOverlay, void>));
     Closure0<MessageOverlay, void>* c = 0;
     if (mem)
         c = new (mem) Closure0<MessageOverlay, void>(name, owner, fn);

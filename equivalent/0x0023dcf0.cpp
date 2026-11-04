@@ -40,7 +40,7 @@ void FUN_0023dcf0()
     if (DAT_004e5c68 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamString<fight::CommentTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamString<fight::CommentTrack>("text", &fight::CommentTrack::FUN_0023d970);

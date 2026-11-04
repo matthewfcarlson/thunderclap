@@ -27,7 +27,7 @@ template<class T> struct ParamEnumConstList : Base_53220 {
 extern "C" void __cdecl FUN_00053220() {
  if (!DAT_004dc44c) {
   fight::ParamEnumConstList<CCharacterSizeCondition>* list[2];
-  void* mem = FUN_0008d690(32);
+  void* mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CCharacterSizeCondition>));
   if(mem) {
    int count = (*(int*)&DAT_00427760);
    Base_53220* b=(Base_53220*)mem;
@@ -37,7 +37,7 @@ extern "C" void __cdecl FUN_00053220() {
    list[0]->count=count;
    list[0]->callback=SetCompare_00047c60;
   } else list[0]=0;
-  mem = FUN_0008d690(32);
+  mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CCharacterSizeCondition>));
   if(mem) {
    int count = (*(int*)&DAT_003f5eb4);
    Base_53220* b=(Base_53220*)mem;

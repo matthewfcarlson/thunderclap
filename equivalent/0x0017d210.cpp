@@ -115,67 +115,67 @@ extern "C" void FUN_0017d210()
     if (DAT_4e132c == 0) {
         void* params[16];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("timeBegin", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016eeb0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("timeEnd", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016eed0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamIntConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("attachmentIndex", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016eef0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_17d210<hulkfight::motion::MoveJointTrack_17d210>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamNameConstList_17d210<hulkfight::motion::MoveJointTrack_17d210>("moveJoint", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016ef00);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_17d210<hulkfight::motion::MoveJointTrack_17d210>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamNameConstList_17d210<hulkfight::motion::MoveJointTrack_17d210>("startJoint", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016ef10);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17d210<hulkfight::motion::MoveJointTrack_17d210>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamVector_17d210<hulkfight::motion::MoveJointTrack_17d210>("offset", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016ef40);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17d210<hulkfight::motion::MoveJointTrack_17d210>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamVector_17d210<hulkfight::motion::MoveJointTrack_17d210>("direction", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016ef80);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("distanceStart", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016efb0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("distanceEnd", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016efd0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("initVelocity", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016eff0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("maxVelocity", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016f010);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("acceleration", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016f030);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17d210<hulkfight::motion::MoveJointTrack_17d210>));
         params[12] = 0;
         if (mem)
             params[12] = new (mem) fight::ParamBool_17d210<hulkfight::motion::MoveJointTrack_17d210>("simulateMotion", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016f050);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
         params[13] = 0;
         if (mem)
             params[13] = new (mem) fight::ParamIntConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("priority", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016f060);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
         params[14] = 0;
         if (mem)
             params[14] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("blendInTime", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016f070);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
         params[15] = 0;
         if (mem)
             params[15] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("blendOutTime", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016f080);

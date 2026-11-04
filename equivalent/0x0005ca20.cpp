@@ -120,59 +120,59 @@ extern "C" void FUN_0005ca20()
     if (DAT_004dc59c == 0) {
         void* params[14];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>("timeBegin", &CGrappleAttachTrack_5ca20::FUN_0005a120);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_5ca20<CGrappleAttachTrack_5ca20>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamNameConstList_5ca20<CGrappleAttachTrack_5ca20>("joint", &CGrappleAttachTrack_5ca20::FUN_000129e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_5ca20<CGrappleAttachTrack_5ca20>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamNameConstList_5ca20<CGrappleAttachTrack_5ca20>("channel", &CGrappleAttachTrack_5ca20::FUN_000129f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_5ca20<CGrappleAttachTrack_5ca20>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamBool_5ca20<CGrappleAttachTrack_5ca20>("useOffset", &CGrappleAttachTrack_5ca20::FUN_0005a130);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>("offsetPosition", &CGrappleAttachTrack_5ca20::FUN_0005a140);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>("offsetOrientation", &CGrappleAttachTrack_5ca20::FUN_0005a160);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>("offsetAngle", &CGrappleAttachTrack_5ca20::FUN_0005a180);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_5ca20<CGrappleAttachTrack_5ca20>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamNameConstList_5ca20<CGrappleAttachTrack_5ca20>("orientJoint", &CGrappleAttachTrack_5ca20::FUN_00012a60);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamVector_5ca20<CGrappleAttachTrack_5ca20>("orientJointOffset", &CGrappleAttachTrack_5ca20::FUN_0005a1b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>("orientJointMinDistance", &CGrappleAttachTrack_5ca20::FUN_0005a1d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>("orientJointMaxDistance", &CGrappleAttachTrack_5ca20::FUN_0005a1e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_5ca20<CGrappleAttachTrack_5ca20>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamBool_5ca20<CGrappleAttachTrack_5ca20>("attachToGrapplee", &CGrappleAttachTrack_5ca20::FUN_0005a1f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_5ca20<CGrappleAttachTrack_5ca20>));
         params[12] = 0;
         if (mem)
             params[12] = new (mem) fight::ParamIntConstRange_5ca20<CGrappleAttachTrack_5ca20>("rootPriority", &CGrappleAttachTrack_5ca20::FUN_0005a200);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>));
         params[13] = 0;
         if (mem)
             params[13] = new (mem) fight::ParamFloatConstRange_5ca20<CGrappleAttachTrack_5ca20>("rootBlendInTime", &CGrappleAttachTrack_5ca20::FUN_0005a210);

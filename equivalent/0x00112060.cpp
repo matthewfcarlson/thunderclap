@@ -43,7 +43,7 @@ extern "C" void FUN_00112060() {
   typedef fight::ParamEnumConstList<hulkfight::ai::KeyWordWaitCondition> E;
   typedef fight::ParamString<hulkfight::ai::KeyWordWaitCondition> S;
   typedef fight::ParamFloatConstRange<hulkfight::ai::KeyWordWaitCondition> F;
-  E* e=(E*)FUN_0008d690(32);
+  E* e=(E*)FUN_0008d690((int)sizeof(E));
   if(e) {
    uint count=(*(uint*)&DAT_00427754);
    e->FUN_00234cc0("compare");
@@ -53,14 +53,14 @@ extern "C" void FUN_00112060() {
    e->callback=SetCompare_0010c200;
   }
   items[0]=e;
-  S* s=(S*)FUN_0008d690(24);
+  S* s=(S*)FUN_0008d690((int)sizeof(S));
   if(s) {
    s->FUN_002349e0("text");
    new(s) S;
    s->callback=SetText_0010cc40;
   }
   items[1]=s;
-  F* f=(F*)FUN_0008d690(24);
+  F* f=(F*)FUN_0008d690((int)sizeof(F));
   if(f) {
    f->FUN_00234960("value");
    new(f) F;

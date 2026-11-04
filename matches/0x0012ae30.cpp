@@ -14,7 +14,7 @@ class CanSeeTargetCondition_12ae30 {
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::CanSeeTargetCondition>::vfunc_5() {
-    CanSeeTargetCondition_12ae30* p = (CanSeeTargetCondition_12ae30*)FUN_0008d690(16);
+    CanSeeTargetCondition_12ae30* p = (CanSeeTargetCondition_12ae30*)FUN_0008d690((int)sizeof(CanSeeTargetCondition_12ae30));
     if (p) {
         p->Init(0);
         p->a = 1;

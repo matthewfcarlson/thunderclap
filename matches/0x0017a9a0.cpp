@@ -24,7 +24,7 @@ struct Base_17a9a0 {
 extern "C" void FUN_0017a9a0() {
     if ((*(int*)&DAT_004e1384) == 0) {
         Param* arr[2];
-        Param* a = (Param*)operator new(0x18);
+        Param* a = (Param*)operator new(sizeof(Param));
         if (a) {
             ((Param *)((fight::ParamValueFloat *)a)->FUN_00234960("timeBegin"));
             *(hulk_intptr*)a = ((hulk_intptr)DAT_0041872c);
@@ -33,7 +33,7 @@ extern "C" void FUN_0017a9a0() {
         } else {
             arr[0] = 0;
         }
-        Param* b = (Param*)operator new(0x18);
+        Param* b = (Param*)operator new(sizeof(Param));
         if (b) {
             ((Param *)((fight::ParamValueFloat *)b)->FUN_00234960("power"));
             *(hulk_intptr*)b = ((hulk_intptr)DAT_0041872c);

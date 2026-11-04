@@ -64,47 +64,47 @@ void FUN_00121830()
     if (DAT_004e0cdc == 0) {
         void* params[11];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121830<StrafeCircleTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_121830<StrafeCircleTrack>("timeBegin", &StrafeCircleTrack::FUN_0011bea0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121830<StrafeCircleTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_121830<StrafeCircleTrack>("timeEnd", &StrafeCircleTrack::FUN_0011beb0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121830<StrafeCircleTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_121830<StrafeCircleTrack>("distanceMin", &StrafeCircleTrack::FUN_0011bed0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121830<StrafeCircleTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_121830<StrafeCircleTrack>("distanceMax", &StrafeCircleTrack::FUN_0011bef0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121830<StrafeCircleTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_121830<StrafeCircleTrack>("heightMin", &StrafeCircleTrack::FUN_0011bf10);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121830<StrafeCircleTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_121830<StrafeCircleTrack>("heightMax", &StrafeCircleTrack::FUN_0011bf30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121830<StrafeCircleTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_121830<StrafeCircleTrack>("groundHeightCutoff", &StrafeCircleTrack::FUN_0011bf50);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121830<StrafeCircleTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange_121830<StrafeCircleTrack>("cutoffExponent", &StrafeCircleTrack::FUN_0011bf70);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_121830<StrafeCircleTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamBool_121830<StrafeCircleTrack>("useGroundHeightCutoff", &StrafeCircleTrack::FUN_0011bf90);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121830<StrafeCircleTrack>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_121830<StrafeCircleTrack>("speed", &StrafeCircleTrack::FUN_0011bfb0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_121830<StrafeCircleTrack>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamBool_121830<StrafeCircleTrack>("useDefendLocation", &StrafeCircleTrack::FUN_0011bfc0);

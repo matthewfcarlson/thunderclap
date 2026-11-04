@@ -58,7 +58,7 @@ ImpulseBasedCollisionSolver_2f7ee0::ImpulseBasedCollisionSolver_2f7ee0() throw()
     mf8 = 3;
     me8 = (*(Cfg_2f7ee0**)&DAT_00554c10)->b;
     mec = (*(Cfg_2f7ee0**)&DAT_00554c10)->a;
-    CollisionWall_2f7ee0* p = (CollisionWall_2f7ee0*)FUN_0008d690(0x60);
+    CollisionWall_2f7ee0* p = (CollisionWall_2f7ee0*)FUN_0008d690((int)sizeof(CollisionWall_2f7ee0));
     CollisionWall_2f7ee0* q = p ? p->Ctor() : 0;
     CollisionObject_2f7ee0* r = (CollisionObject_2f7ee0*)thunk_FUN_0008d690(0x80);
     CollisionObject_2f7ee0* t = r ? r->Ctor(q) : 0;

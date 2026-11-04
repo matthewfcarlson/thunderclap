@@ -42,7 +42,7 @@ void FUN_001abef0()
     if (DAT_004e1794 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_1abef0<hulkfight::scenario::Event_FirstTimeCondition_1abef0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_1abef0<hulkfight::scenario::Event_FirstTimeCondition_1abef0>("firstTime", &hulkfight::scenario::Event_FirstTimeCondition_1abef0::FUN_001aad00);

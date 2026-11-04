@@ -71,27 +71,27 @@ extern "C" void FUN_00112f10()
         void* params[6];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SemaphoreWaitTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<SemaphoreWaitTrack>("timeBegin", &SemaphoreWaitTrack::FUN_0010c680);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SemaphoreWaitTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<SemaphoreWaitTrack>("timeEnd", &SemaphoreWaitTrack::FUN_0010c690);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamName<SemaphoreWaitTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamName<SemaphoreWaitTrack>("semaphore", &SemaphoreWaitTrack::FUN_0010c6a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<SemaphoreWaitTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamBool<SemaphoreWaitTrack>("interuptable", &SemaphoreWaitTrack::FUN_0010c6c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<SemaphoreWaitTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamBool<SemaphoreWaitTrack>("useCharacterTimeout", &SemaphoreWaitTrack::FUN_0010c6e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<SemaphoreWaitTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamFloatConstRange<SemaphoreWaitTrack>("timeoutOverride", &SemaphoreWaitTrack::FUN_0010c700);

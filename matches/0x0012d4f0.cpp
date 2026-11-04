@@ -29,7 +29,7 @@ void postInit();
 
 template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::ai::ShotFailCountCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(ConditionFactoryTemplate_12d4f0));
     if (mem) {
         ((InitHelper*)mem)->init();
         ConditionFactoryTemplate_12d4f0* t = new (mem) ConditionFactoryTemplate_12d4f0();

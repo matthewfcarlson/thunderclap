@@ -57,23 +57,23 @@ extern "C" void FUN_0005d370()
         void* params[5];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CHapticTrack_5d370>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<CHapticTrack_5d370>("timeBegin", &CHapticTrack_5d370::FUN_0005d120);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CHapticTrack_5d370>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<CHapticTrack_5d370>("timeEnd", &CHapticTrack_5d370::FUN_0005d130);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CHapticTrack_5d370>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamFloatConstRange<CHapticTrack_5d370>("rumbleStrengthBig", &CHapticTrack_5d370::FUN_0005d140);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CHapticTrack_5d370>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamFloatConstRange<CHapticTrack_5d370>("rumbleStrengthSmall", &CHapticTrack_5d370::FUN_0005d150);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<CHapticTrack_5d370>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamBool<CHapticTrack_5d370>("abortWhenInterrupted", &CHapticTrack_5d370::FUN_0005d160);

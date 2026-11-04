@@ -39,11 +39,11 @@ extern "C" void FUN_000726a0()
     if (DAT_004dd014 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CClearCollisionStun>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange<::CClearCollisionStun>("timeBegin", &::CClearCollisionStun::FUN_00068b70);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CClearCollisionStun>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange<::CClearCollisionStun>("timeEnd", &::CClearCollisionStun::FUN_00068b80);

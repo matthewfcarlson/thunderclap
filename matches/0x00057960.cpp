@@ -14,7 +14,7 @@ struct Initializer_57960 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<CCollisionInterruptCondition>::vfunc_5() {
-    CCollisionInterruptCondition_57960* p = (CCollisionInterruptCondition_57960*)FUN_0008d690(0x10);
+    CCollisionInterruptCondition_57960* p = (CCollisionInterruptCondition_57960*)FUN_0008d690((int)sizeof(CCollisionInterruptCondition_57960));
     if (p) {
         ((Initializer_57960*)p)->init(0);
         p->vf = ((hulk_intptr)DAT_003f7034);

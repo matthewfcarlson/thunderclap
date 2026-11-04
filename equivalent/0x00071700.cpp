@@ -22,13 +22,13 @@ extern "C" void __cdecl FUN_00071700() {
  if (!DAT_004dcf74) {
   typedef fight::ParamFloatConstRange<CDamageTrack> Param;
   Param* params[3];
-  Param* p = (Param*)FUN_0008d690(24);
+  Param* p = (Param*)FUN_0008d690((int)sizeof(Param));
   if (p) { p->FUN_00234960("timeBegin"); new(p) Param; p->getter = SetTimeBegin_000684f0; }
   params[0] = p;
-  p = (Param*)FUN_0008d690(24);
+  p = (Param*)FUN_0008d690((int)sizeof(Param));
   if (p) { p->FUN_00234960("damage"); new(p) Param; p->getter = SetDamage_00068500; }
   params[1] = p;
-  p = (Param*)FUN_0008d690(24);
+  p = (Param*)FUN_0008d690((int)sizeof(Param));
   if (p) { p->FUN_00234960("damageMax"); new(p) Param; p->getter = SetDamageMax_00068510; }
   params[2] = p;
   FUN_002347b0(&DAT_004dcf70, params, 3);

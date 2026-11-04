@@ -13,7 +13,7 @@ struct CAxisDirectionCondition_56ca0 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<CAxisDirectionCondition>::vfunc_5() {
-    CAxisDirectionCondition_56ca0* p = (CAxisDirectionCondition_56ca0*)FUN_0008d690(0x18);
+    CAxisDirectionCondition_56ca0* p = (CAxisDirectionCondition_56ca0*)FUN_0008d690((int)sizeof(CAxisDirectionCondition_56ca0));
     if (p) {
         p->Init(0);
         p->vt = ((hulk_intptr)DAT_003f6f34);

@@ -119,59 +119,59 @@ extern "C" void FUN_00158700()
     if (DAT_004e10f4 == 0) {
         void* params[14];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_158700<hulkfight::motion::HitReactionTrack_158700>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_158700<hulkfight::motion::HitReactionTrack_158700>("timeBegin", &hulkfight::motion::HitReactionTrack_158700::FUN_0014caf0);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_158700<hulkfight::motion::HitReactionTrack_158700>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamEnumConstList_158700<hulkfight::motion::HitReactionTrack_158700>("hitLocation", ((const char**)&DAT_0048f6cc), (*(int*)&DAT_003f5ed0), &hulkfight::motion::HitReactionTrack_158700::FUN_0014cb10);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_158700<hulkfight::motion::HitReactionTrack_158700>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_158700<hulkfight::motion::HitReactionTrack_158700>("direction", &hulkfight::motion::HitReactionTrack_158700::FUN_0014cb30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_158700<hulkfight::motion::HitReactionTrack_158700>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamName_158700<hulkfight::motion::HitReactionTrack_158700>("flag", &hulkfight::motion::HitReactionTrack_158700::FUN_0014cb50);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_158700<hulkfight::motion::HitReactionTrack_158700>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_158700<hulkfight::motion::HitReactionTrack_158700>("damage", &hulkfight::motion::HitReactionTrack_158700::FUN_0014cb70);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_158700<hulkfight::motion::HitReactionTrack_158700>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamIntConstRange_158700<hulkfight::motion::HitReactionTrack_158700>("interruptPriority", &hulkfight::motion::HitReactionTrack_158700::FUN_0014cb90);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_158700<hulkfight::motion::HitReactionTrack_158700>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamBool_158700<hulkfight::motion::HitReactionTrack_158700>("interrupt", &hulkfight::motion::HitReactionTrack_158700::FUN_0014cbb0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_158700<hulkfight::motion::HitReactionTrack_158700>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange_158700<hulkfight::motion::HitReactionTrack_158700>("hitReactionTime", &hulkfight::motion::HitReactionTrack_158700::FUN_0014cbd0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_158700<hulkfight::motion::HitReactionTrack_158700>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamFloatConstRange_158700<hulkfight::motion::HitReactionTrack_158700>("pushbackDirection", &hulkfight::motion::HitReactionTrack_158700::FUN_0014cbf0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_158700<hulkfight::motion::HitReactionTrack_158700>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_158700<hulkfight::motion::HitReactionTrack_158700>("pushbackDistance", &hulkfight::motion::HitReactionTrack_158700::FUN_0014cc20);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_158700<hulkfight::motion::HitReactionTrack_158700>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_158700<hulkfight::motion::HitReactionTrack_158700>("pushbackTime", &hulkfight::motion::HitReactionTrack_158700::FUN_0014cc40);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_158700<hulkfight::motion::HitReactionTrack_158700>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamFloatConstRange_158700<hulkfight::motion::HitReactionTrack_158700>("height", &hulkfight::motion::HitReactionTrack_158700::FUN_0014cc60);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_158700<hulkfight::motion::HitReactionTrack_158700>));
         params[12] = 0;
         if (mem)
             params[12] = new (mem) fight::ParamFloatConstRange_158700<hulkfight::motion::HitReactionTrack_158700>("stunTime", &hulkfight::motion::HitReactionTrack_158700::FUN_0014cc80);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_158700<hulkfight::motion::HitReactionTrack_158700>));
         params[13] = 0;
         if (mem)
             params[13] = new (mem) fight::ParamBool_158700<hulkfight::motion::HitReactionTrack_158700>("ignoreHitRecord", &hulkfight::motion::HitReactionTrack_158700::FUN_0014cca0);

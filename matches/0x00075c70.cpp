@@ -9,7 +9,7 @@ struct Obj_75c70 {
 };
 
 template <> void* fight::TrackFactoryTemplate<CAlertStatusTrack>::vfunc_5() {
-    Obj_75c70* p = (Obj_75c70*)FUN_0008d690(0x14);
+    Obj_75c70* p = (Obj_75c70*)FUN_0008d690((int)sizeof(Obj_75c70));
     if (p) {
         p->Init();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_003fc10c);

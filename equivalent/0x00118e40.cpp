@@ -43,11 +43,11 @@ void FUN_00118e40()
     if (DAT_004e0c28 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_118e40<hulkfight::ai::HasGroundPointCondition_118e40>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_118e40<hulkfight::ai::HasGroundPointCondition_118e40>("groundPoint", &hulkfight::ai::HasGroundPointCondition_118e40::FUN_00114eb0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_118e40<hulkfight::ai::HasGroundPointCondition_118e40>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamBool_118e40<hulkfight::ai::HasGroundPointCondition_118e40>("useMyTargetInstead", &hulkfight::ai::HasGroundPointCondition_118e40::FUN_00114ed0);

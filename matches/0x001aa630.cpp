@@ -19,7 +19,7 @@ class Event_1aa630 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::scenario::Event_LocomotionStateNameCondition>::vfunc_5() {
-    Event_1aa630* p = (Event_1aa630*)FUN_0008d690(0x14);
+    Event_1aa630* p = (Event_1aa630*)FUN_0008d690((int)sizeof(Event_1aa630));
     if (p) {
         p->Init(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0041c550);

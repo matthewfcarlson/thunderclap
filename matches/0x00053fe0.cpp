@@ -26,7 +26,7 @@ extern void __cdecl FUN_002347b0(void*, Base_53fe0**, int);
 extern "C" void __cdecl FUN_00053fe0() {
     if (!DAT_004dc524) {
         Base_53fe0* items[2];
-        void* p = FUN_0008d690(32);
+        void* p = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CMotionStateCondition>));
         if (p) {
             unsigned int count = (*(unsigned int*)&DAT_00427760);
             Base_53fe0* b = (Base_53fe0*)p;
@@ -39,7 +39,7 @@ extern "C" void __cdecl FUN_00053fe0() {
             items[0] = q;
         } else
             items[0] = 0;
-        p = FUN_0008d690(32);
+        p = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CMotionStateCondition>));
         if (p) {
             unsigned int count = (*(unsigned int*)&DAT_003f5bb8);
             Base_53fe0* b = (Base_53fe0*)p;

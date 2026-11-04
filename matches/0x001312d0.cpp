@@ -47,11 +47,11 @@ void target() {
         void* params[3];
         typedef fight::ParamString<hulkfight::MissionProgressCondition> S;
         typedef fight::ParamEnumConstList<hulkfight::MissionProgressCondition> E;
-        void* p = FUN_0008d690(24);
+        void* p = FUN_0008d690((int)sizeof(S));
         params[0] = p ? new (p) S("mission", FUN_0012e2c0) : 0;
-        p = FUN_0008d690(32);
+        p = FUN_0008d690((int)sizeof(E));
         params[1] = p ? new (p) E("compare", (*(int*)&DAT_00427760)) : 0;
-        p = FUN_0008d690(24);
+        p = FUN_0008d690((int)sizeof(S));
         params[2] = p ? new (p) S("progress", FUN_0012e320) : 0;
         FUN_002347b0(&DAT_004e0e4c, params, 3);
     }

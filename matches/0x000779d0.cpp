@@ -12,7 +12,7 @@ struct CAIHintTrack_779d0 {
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<CAIHintTrack>::vfunc_5() {
-    CAIHintTrack_779d0* p = (CAIHintTrack_779d0*)FUN_0008d690(0x20);
+    CAIHintTrack_779d0* p = (CAIHintTrack_779d0*)FUN_0008d690((int)sizeof(CAIHintTrack_779d0));
     if (p) {
         p->init();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_003fc184);

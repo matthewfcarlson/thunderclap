@@ -42,7 +42,7 @@ void FUN_001a9500()
     if (DAT_004e1714 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_1a9500<hulkfight::scenario::Event_StringCondition_1a9500>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamName_1a9500<hulkfight::scenario::Event_StringCondition_1a9500>("string", &hulkfight::scenario::Event_StringCondition_1a9500::FUN_001a1ee0);

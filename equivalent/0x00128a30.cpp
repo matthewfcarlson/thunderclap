@@ -43,11 +43,11 @@ extern "C" void FUN_00128a30()
     if (DAT_004e0da0 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_128a30<hulkfight::ai::TargetOrientationCondition_128a30>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_128a30<hulkfight::ai::TargetOrientationCondition_128a30>("orientation", &hulkfight::ai::TargetOrientationCondition_128a30::FUN_00123740);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_128a30<hulkfight::ai::TargetOrientationCondition_128a30>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_128a30<hulkfight::ai::TargetOrientationCondition_128a30>("arc", &hulkfight::ai::TargetOrientationCondition_128a30::FUN_00123760);

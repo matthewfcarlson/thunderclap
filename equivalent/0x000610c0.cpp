@@ -19,13 +19,13 @@ extern "C" void __cdecl FUN_002347b0(void*, void**, int);
 extern "C" void __cdecl FUN_000610c0() {
  if (!DAT_004dc614) {
   void* items[3];
-  void* p = FUN_0008d690(24);
+  void* p = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_610c0<CEffectStopTrack_610c0>));
   if(p) { ((fight::ParamValueFloat *)(FloatBase_610c0 *)(((FloatBase_610c0*)p)))->FUN_00234960("timeBegin"); fight::ParamFloatConstRange_610c0<CEffectStopTrack_610c0>* obj = new(p) fight::ParamFloatConstRange_610c0<CEffectStopTrack_610c0>; obj->callback=SetTimeBegin_000604d0; }
   items[0]=p;
-  p=FUN_0008d690(24);
+  p=FUN_0008d690((int)sizeof(fight::ParamIntConstRange_610c0<CEffectStopTrack_610c0>));
   if(p) { ((IntBase_610c0*)p)->FUN_002348e0("slot"); fight::ParamIntConstRange_610c0<CEffectStopTrack_610c0>* obj = new(p) fight::ParamIntConstRange_610c0<CEffectStopTrack_610c0>; obj->callback=SetSlot_000604e0; }
   items[1]=p;
-  p=FUN_0008d690(24);
+  p=FUN_0008d690((int)sizeof(fight::ParamIntConstRange_610c0<CEffectStopTrack_610c0>));
   if(p) { ((IntBase_610c0*)p)->FUN_002348e0("slotMax"); fight::ParamIntConstRange_610c0<CEffectStopTrack_610c0>* obj = new(p) fight::ParamIntConstRange_610c0<CEffectStopTrack_610c0>; obj->callback=SetSlotMax_000604f0; }
   items[2]=p;
   FUN_002347b0(&DAT_004dc610,items,3);

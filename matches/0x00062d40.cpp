@@ -8,7 +8,7 @@ struct CPropActorSetStateAction_nv_62d40 {
 extern CPropActorSetStateAction* FUN_0008d690(int);
 
 hulk_intptr CPropActorSetStateTrack::vfunc_12(hulk_intptr param) {
-    CPropActorSetStateAction* p = FUN_0008d690(0x24);
+    CPropActorSetStateAction* p = FUN_0008d690((int)sizeof(CPropActorSetStateAction));
     if (p)
         return ((CPropActorSetStateAction_nv_62d40*)(((CPropActorSetStateAction*)(p))))->invoke(this, param);
     return 0;

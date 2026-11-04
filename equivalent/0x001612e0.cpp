@@ -43,11 +43,11 @@ extern "C" void FUN_001612e0()
     if (DAT_004e116c == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1612e0<hulkfight::motion::PhaseCondition_1612e0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_1612e0<hulkfight::motion::PhaseCondition_1612e0>("phase", &hulkfight::motion::PhaseCondition_1612e0::FUN_0015a870);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_1612e0<hulkfight::motion::PhaseCondition_1612e0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_1612e0<hulkfight::motion::PhaseCondition_1612e0>("arc", &hulkfight::motion::PhaseCondition_1612e0::FUN_0015a890);

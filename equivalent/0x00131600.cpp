@@ -15,16 +15,16 @@ void __cdecl FUN_00131600() {
  void* entries[4];
  typedef fight::ParamEnumConstList<hulkfight::LocationCondition> Enum;
  typedef fight::ParamStringConstList<hulkfight::LocationCondition> String;
- Enum* a = (Enum*)FUN_0008d690(32);
+ Enum* a = (Enum*)FUN_0008d690((int)sizeof(Enum));
  if(a) { a->FUN_00234cc0("environmentCompare"); a->Enum::ParamEnumConstList(); a->values=((int*)&DAT_004a9bb4); a->count=3; a->callback=SetEnvironmentCompare_0012e020; }
  entries[0]=a;
- String* b=(String*)FUN_0008d690(24);
+ String* b=(String*)FUN_0008d690((int)sizeof(String));
  if(b) { b->FUN_00234af0("environment"); b->String::ParamStringConstList(); b->callback=SetEnvironment_0012e710; }
  entries[1]=b;
- Enum* c=(Enum*)FUN_0008d690(32);
+ Enum* c=(Enum*)FUN_0008d690((int)sizeof(Enum));
  if(c) { c->FUN_00234cc0("timeOfDayCompare"); c->Enum::ParamEnumConstList(); c->values=((int*)&DAT_004a9bb4); c->count=3; c->callback=SetTimeOfDayCompare_0012e030; }
  entries[2]=c;
- String* d=(String*)FUN_0008d690(24);
+ String* d=(String*)FUN_0008d690((int)sizeof(String));
  if(d) { d->FUN_00234af0("timeOfDay"); d->String::ParamStringConstList(); d->callback=SetTimeOfDay_0012e770; }
  entries[3]=d;
  FUN_002347b0(((int*)&DAT_004e0e6c),entries,4);

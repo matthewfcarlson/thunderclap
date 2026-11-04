@@ -42,7 +42,7 @@ extern "C" void FUN_00112000()
     if (DAT_004e0b1c == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_112000<hulkfight::ai::LeashedCondition_112000>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_112000<hulkfight::ai::LeashedCondition_112000>("leashed", &hulkfight::ai::LeashedCondition_112000::FUN_0010c1f0);

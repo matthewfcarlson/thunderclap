@@ -13,7 +13,7 @@ template<class C, class R, class A1, class A2, class A3> class Closure3_106e30;
 template<> class Closure3_106e30<CPatrolPathManager_106e30, bool, const char*, int, math::Vector_106e30> { public: virtual void v(); char pad[0x1c]; CPatrolPathManager_106e30* owner; Closure3_106e30(CPatrolPathManager_106e30* o) { owner = o; } };
 class Raw_106e30 { public: void FUN_00106af0(const char*, void (*)()); };
 void Registry_106e30::FUN_00106e30(const char* a1, CPatrolPathManager_106e30* a2, void (*a3)()) {
-    void* m = FUN_0008d690(0x24);
+    void* m = FUN_0008d690((int)sizeof(Closure3_106e30<CPatrolPathManager_106e30, bool, const char*, int, math::Vector_106e30>));
     void* x = 0;
     if (m) {
         ((Raw_106e30*)m)->FUN_00106af0(a1, a3);

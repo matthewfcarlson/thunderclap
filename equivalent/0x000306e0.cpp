@@ -42,7 +42,7 @@ struct Registry_306e0 {
 };
 
 void Registry_306e0::FUN_000306e0(const char* name, CActorManager* owner, const char* (CActorManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CActorManager, const char*>));
     Closure0<CActorManager, const char*>* c = 0;
     if (mem)
         c = new (mem) Closure0<CActorManager, const char*>(name, owner, fn);

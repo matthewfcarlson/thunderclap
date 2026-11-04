@@ -9,7 +9,7 @@ class DefendingCondition {
 };
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
 void* FactoryVfunc5() {
-    DefendingCondition* p = (DefendingCondition*)FUN_0008d690(0x10);
+    DefendingCondition* p = (DefendingCondition*)FUN_0008d690((int)sizeof(DefendingCondition));
     if (p) {
         p->Init(0);
         p->vptr = ((hulk_intptr)DAT_0040d9c4);

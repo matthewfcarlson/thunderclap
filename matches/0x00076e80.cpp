@@ -29,7 +29,7 @@ extern "C" void FUN_000706c0();
 
 template <> void* fight::TrackFactoryCasterTemplate<CJumpTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(TrackFactoryTemplate_76e80));
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_76e80* t = new (mem) TrackFactoryTemplate_76e80();

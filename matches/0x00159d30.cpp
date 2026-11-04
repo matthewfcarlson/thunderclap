@@ -29,7 +29,7 @@ extern "C" void FUN_00155f80();
 
 template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::HitWaitTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(TrackFactoryTemplate_159d30));
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_159d30* t = new (mem) TrackFactoryTemplate_159d30();

@@ -42,7 +42,7 @@ void FUN_0019a7d0()
     if (DAT_004e154c == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_19a7d0<hulkfight::motion::PropGrabbableIsMissileCondition_19a7d0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_19a7d0<hulkfight::motion::PropGrabbableIsMissileCondition_19a7d0>("isMissile", &hulkfight::motion::PropGrabbableIsMissileCondition_19a7d0::FUN_00192160);

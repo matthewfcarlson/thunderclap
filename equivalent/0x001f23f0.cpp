@@ -42,7 +42,7 @@ struct Registry_1f23f0 {
 };
 
 void Registry_1f23f0::FUN_001f23f0(const char* name, CSoundSystem* owner, void (CSoundSystem::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CSoundSystem, void>));
     Closure0<CSoundSystem, void>* c = 0;
     if (mem)
         c = new (mem) Closure0<CSoundSystem, void>(name, owner, fn);

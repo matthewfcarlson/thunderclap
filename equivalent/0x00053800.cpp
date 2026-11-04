@@ -60,11 +60,11 @@ extern "C" void FUN_00053800()
     if (DAT_004dc49c == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_53800<::CCollisionStunTimeCondition_53800>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList_53800<::CCollisionStunTimeCondition_53800>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &::CCollisionStunTimeCondition_53800::FUN_00047de0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_53800<::CCollisionStunTimeCondition_53800>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_53800<::CCollisionStunTimeCondition_53800>("stunTime", &::CCollisionStunTimeCondition_53800::FUN_00047df0);

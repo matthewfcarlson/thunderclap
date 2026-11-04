@@ -16,7 +16,7 @@ class CAxisArcCondition_56be0 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<CAxisArcCondition>::vfunc_5() {
-    CAxisArcCondition_56be0* p = (CAxisArcCondition_56be0*)FUN_0008d690(0x20);
+    CAxisArcCondition_56be0* p = (CAxisArcCondition_56be0*)FUN_0008d690((int)sizeof(CAxisArcCondition_56be0));
     if (p) {
         p->Init(0);
         *(int*)((char*)p + 0xc) = 0;

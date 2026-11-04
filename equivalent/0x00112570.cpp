@@ -43,11 +43,11 @@ extern "C" void FUN_00112570()
     if (DAT_004e0b54 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_112570<hulkfight::ai::TokenCondition_112570>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_112570<hulkfight::ai::TokenCondition_112570>("oRNoOneHas", &hulkfight::ai::TokenCondition_112570::FUN_0010c370);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_112570<hulkfight::ai::TokenCondition_112570>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamBool_112570<hulkfight::ai::TokenCondition_112570>("have", &hulkfight::ai::TokenCondition_112570::FUN_0010c390);

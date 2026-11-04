@@ -28,7 +28,7 @@ void T_1aecb0::Run(Out_1aecb0* out, Src_1aecb0* s) {
         out->t = 0;
         return;
     }
-    Obj_1aecb0* p = (Obj_1aecb0*)FUN_0008d6d0(0x18);
+    Obj_1aecb0* p = (Obj_1aecb0*)FUN_0008d6d0((int)sizeof(Obj_1aecb0));
     Obj_1aecb0* o;
     if (p) {
         p->a = s->a;

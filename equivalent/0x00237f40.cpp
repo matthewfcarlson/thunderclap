@@ -16,11 +16,11 @@ extern "C" void __cdecl FUN_002347b0(int*, void**, int);
 void target() {
  if (!DAT_004e5c08) {
  void* values[3];
- fight::ParamBranch<fight::SequenceTrack>* a = (fight::ParamBranch<fight::SequenceTrack>*)FUN_0008d690(24);
+ fight::ParamBranch<fight::SequenceTrack>* a = (fight::ParamBranch<fight::SequenceTrack>*)FUN_0008d690((int)sizeof(fight::ParamBranch<fight::SequenceTrack>));
  if(a) { a->FUN_00235170("branch"); new(a) fight::ParamBranch<fight::SequenceTrack>; a->callback=GetBranch_00237b70; } values[0]=a;
- fight::ParamIntConstRange<fight::SequenceTrack>* b = (fight::ParamIntConstRange<fight::SequenceTrack>*)FUN_0008d690(24);
+ fight::ParamIntConstRange<fight::SequenceTrack>* b = (fight::ParamIntConstRange<fight::SequenceTrack>*)FUN_0008d690((int)sizeof(fight::ParamIntConstRange<fight::SequenceTrack>));
  if(b) { b->FUN_002348e0("priority"); new(b) fight::ParamIntConstRange<fight::SequenceTrack>; b->callback=SetPriority_00237b80; } values[1]=b;
- fight::ParamConditionGroup<fight::SequenceTrack>* c = (fight::ParamConditionGroup<fight::SequenceTrack>*)FUN_0008d690(24);
+ fight::ParamConditionGroup<fight::SequenceTrack>* c = (fight::ParamConditionGroup<fight::SequenceTrack>*)FUN_0008d690((int)sizeof(fight::ParamConditionGroup<fight::SequenceTrack>));
  if(c) { c->FUN_00235220("conditionGroup"); new(c) fight::ParamConditionGroup<fight::SequenceTrack>; c->callback=GetConditionGroup_00237b90; } values[2]=c;
  FUN_002347b0(&DAT_004e5c04,values,3);
  }

@@ -13,7 +13,7 @@ template<class C, class R, class A1, class A2, class A3, class A4, class A5> cla
 template<> class Closure5_d65e0<MessageOverlay_d65e0, void, int, const char*, int, math::Vector_d65e0, float> { public: virtual void v(); char pad[0x1c]; MessageOverlay_d65e0* owner; Closure5_d65e0(MessageOverlay_d65e0* o) { owner = o; } };
 class Raw_d65e0 { public: void FUN_000d5890(const char*, void (*)()); };
 void Registry_d65e0::FUN_000d65e0(const char* a1, MessageOverlay_d65e0* a2, void (*a3)()) {
-    void* m = FUN_0008d690(0x24);
+    void* m = FUN_0008d690((int)sizeof(Closure5_d65e0<MessageOverlay_d65e0, void, int, const char*, int, math::Vector_d65e0, float>));
     void* x = 0;
     if (m) {
         ((Raw_d65e0*)m)->FUN_000d5890(a1, a3);

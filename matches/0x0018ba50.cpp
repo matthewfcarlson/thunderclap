@@ -15,7 +15,7 @@ class PropStateByIndexCondition_18ba50 {
 extern "C" void* FUN_0008d690(hulk_uintptr);
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::PropStateByIndexCondition>::vfunc_5() {
-    PropStateByIndexCondition_18ba50* p = (PropStateByIndexCondition_18ba50*)FUN_0008d690(0x18);
+    PropStateByIndexCondition_18ba50* p = (PropStateByIndexCondition_18ba50*)FUN_0008d690((int)sizeof(PropStateByIndexCondition_18ba50));
     if (p) {
         p->Init(0);
         p->a = ((hulk_intptr)DAT_0041922c);

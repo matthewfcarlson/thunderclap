@@ -22,7 +22,7 @@ class CCameraShakeTrack_18bfb0 {
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::GrapplePropDamageTrack>::vfunc_5() {
-    CCameraShakeTrack_18bfb0* p = (CCameraShakeTrack_18bfb0*)FUN_0008d690(0x1c);
+    CCameraShakeTrack_18bfb0* p = (CCameraShakeTrack_18bfb0*)FUN_0008d690((int)sizeof(CCameraShakeTrack_18bfb0));
     if (p) {
         p->Init();
         p->x = 0;

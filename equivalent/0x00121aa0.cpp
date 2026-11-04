@@ -106,91 +106,91 @@ void FUN_00121aa0()
     if (DAT_004e0ce4 == 0) {
         void* params[22];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>("timeBegin", &hulkfight::ai::PathTrack_121aa0::FUN_0011bfd0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>("timeEnd", &hulkfight::ai::PathTrack_121aa0::FUN_0011bfe0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>("distance", &hulkfight::ai::PathTrack_121aa0::FUN_0011c000);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>("turnRate", &hulkfight::ai::PathTrack_121aa0::FUN_0011c010);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>("heightMin", &hulkfight::ai::PathTrack_121aa0::FUN_0011c030);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>("heightMax", &hulkfight::ai::PathTrack_121aa0::FUN_0011c040);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>("speed", &hulkfight::ai::PathTrack_121aa0::FUN_0011c050);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>("destinationX", &hulkfight::ai::PathTrack_121aa0::FUN_0011c060);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>("destinationY", &hulkfight::ai::PathTrack_121aa0::FUN_0011c070);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>("destinationZ", &hulkfight::ai::PathTrack_121aa0::FUN_0011c080);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>("engagementDistance", &hulkfight::ai::PathTrack_121aa0::FUN_0011c0a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamString_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamString_121aa0<hulkfight::ai::PathTrack_121aa0>("tactic", &hulkfight::ai::PathTrack_121aa0::FUN_0011c870);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[12] = 0;
         if (mem)
             params[12] = new (mem) fight::ParamBool_121aa0<hulkfight::ai::PathTrack_121aa0>("defendLocator", &hulkfight::ai::PathTrack_121aa0::FUN_0011c0d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[13] = 0;
         if (mem)
             params[13] = new (mem) fight::ParamBool_121aa0<hulkfight::ai::PathTrack_121aa0>("myLocator", &hulkfight::ai::PathTrack_121aa0::FUN_0011c0f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[14] = 0;
         if (mem)
             params[14] = new (mem) fight::ParamName_121aa0<hulkfight::ai::PathTrack_121aa0>("locatorName", &hulkfight::ai::PathTrack_121aa0::FUN_0011c100);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[15] = 0;
         if (mem)
             params[15] = new (mem) fight::ParamBool_121aa0<hulkfight::ai::PathTrack_121aa0>("useAvoidanceCode", &hulkfight::ai::PathTrack_121aa0::FUN_0011c120);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[16] = 0;
         if (mem)
             params[16] = new (mem) fight::ParamBool_121aa0<hulkfight::ai::PathTrack_121aa0>("useFormationPoints", &hulkfight::ai::PathTrack_121aa0::FUN_0011c140);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[17] = 0;
         if (mem)
             params[17] = new (mem) fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>("formationOffset", &hulkfight::ai::PathTrack_121aa0::FUN_0011c160);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[18] = 0;
         if (mem)
             params[18] = new (mem) fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>("seperationBufferStart", &hulkfight::ai::PathTrack_121aa0::FUN_0011c180);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[19] = 0;
         if (mem)
             params[19] = new (mem) fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>("seperationBufferStop", &hulkfight::ai::PathTrack_121aa0::FUN_0011c1a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[20] = 0;
         if (mem)
             params[20] = new (mem) fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>("width", &hulkfight::ai::PathTrack_121aa0::FUN_0011c1c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>));
         params[21] = 0;
         if (mem)
             params[21] = new (mem) fight::ParamFloatConstRange_121aa0<hulkfight::ai::PathTrack_121aa0>("formationWidth", &hulkfight::ai::PathTrack_121aa0::FUN_0011c1e0);

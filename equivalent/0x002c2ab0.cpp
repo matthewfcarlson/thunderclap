@@ -189,7 +189,7 @@ u64_2c2ab0 GeometryLoader::vfunc_5(Geometry** out, u64_2c2ab0* hashOut, Loader_2
     ld->stream->FUN_002647e0(&fr.version, 1, 4, 1);
     fr.lenFlag = (fr.version != 1);
     Geometry* g;
-    void* mem = thunk_FUN_0008d690(0x68);
+    void* mem = thunk_FUN_0008d690((int)sizeof(Geometry));
     if (mem) {
         ld->stream->FUN_002647e0(&fr.version, 1, 4, 1);
         g = new (mem) Geometry(fr.version);

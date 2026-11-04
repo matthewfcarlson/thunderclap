@@ -6,7 +6,7 @@ struct PropAnimationTrack_nv_18c820 {
     void* init();
 };
 void* f() {
-    hulkfight::motion::PropAnimationTrack* p = (hulkfight::motion::PropAnimationTrack*)FUN_0008d690(0x30);
+    hulkfight::motion::PropAnimationTrack* p = (hulkfight::motion::PropAnimationTrack*)FUN_0008d690((int)sizeof(hulkfight::motion::PropAnimationTrack));
     if (p)
         return ((PropAnimationTrack_nv_18c820*)(((hulkfight::motion::PropAnimationTrack*)(p))))->init();
     return 0;

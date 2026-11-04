@@ -29,7 +29,7 @@ void postInit();
 
 template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::ChapterMissionCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(ConditionFactoryTemplate_132a70));
     if (mem) {
         ((InitHelper*)mem)->init();
         ConditionFactoryTemplate_132a70* t = new (mem) ConditionFactoryTemplate_132a70();

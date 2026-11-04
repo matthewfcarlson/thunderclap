@@ -46,7 +46,7 @@ extern "C" void __cdecl FUN_002347b0(void*, void**, int);
 extern "C" void __cdecl FUN_000538b0() {
     if (!DAT_004dc4a4) {
         void* params[3];
-        void* mem = FUN_0008d690(24);
+        void* mem = FUN_0008d690((int)sizeof(fight::ParamBool<CSmartPropAttachedCondition>));
         if (mem) {
             fight::ParamBool<CSmartPropAttachedCondition>* p =
                 new (mem) fight::ParamBool<CSmartPropAttachedCondition>;
@@ -54,7 +54,7 @@ extern "C" void __cdecl FUN_000538b0() {
             params[0] = p;
         } else
             params[0] = 0;
-        mem = FUN_0008d690(32);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CSmartPropAttachedCondition>));
         if (mem) {
             fight::ParamEnumConstList<CSmartPropAttachedCondition>* p =
                 new (mem) fight::ParamEnumConstList<CSmartPropAttachedCondition>;
@@ -64,7 +64,7 @@ extern "C" void __cdecl FUN_000538b0() {
             params[1] = p;
         } else
             params[1] = 0;
-        mem = FUN_0008d690(24);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<CSmartPropAttachedCondition>));
         if (mem) {
             fight::ParamIntConstRange<CSmartPropAttachedCondition>* p =
                 new (mem) fight::ParamIntConstRange<CSmartPropAttachedCondition>;

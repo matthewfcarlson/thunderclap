@@ -42,7 +42,7 @@ extern "C" void FUN_00111c40()
     if (DAT_004e0aec == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBranch_111c40<hulkfight::ai::AIFightNodeCondition_111c40>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBranch_111c40<hulkfight::ai::AIFightNodeCondition_111c40>("branch", &hulkfight::ai::AIFightNodeCondition_111c40::FUN_0010c120);

@@ -25,21 +25,21 @@ void __cdecl FUN_002347b0(void* registry, ParamBase_718c0** params, int count);
 extern "C" void __cdecl FUN_000718c0() {
  if (!DAT_004dcf84) {
   ParamBase_718c0* params[3];
-  ParamBase_718c0* p = (ParamBase_718c0*)FUN_0008d690(24);
+  ParamBase_718c0* p = (ParamBase_718c0*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CComboTimerTrack>));
   if (p) {
    p->FUN_00234960("timeBegin");
    new (p) fight::ParamFloatConstRange<CComboTimerTrack>;
    p->callback = SetTimeBegin_00068550;
   }
   params[0] = p;
-  p = (ParamBase_718c0*)FUN_0008d690(24);
+  p = (ParamBase_718c0*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CComboTimerTrack>));
   if (p) {
    p->FUN_00234960("timeEnd");
    new (p) fight::ParamFloatConstRange<CComboTimerTrack>;
    p->callback = SetTimeEnd_00068560;
   }
   params[1] = p;
-  p = (ParamBase_718c0*)FUN_0008d690(24);
+  p = (ParamBase_718c0*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CComboTimerTrack>));
   if (p) {
    p->FUN_00234960("comboTimer");
    new (p) fight::ParamFloatConstRange<CComboTimerTrack>;

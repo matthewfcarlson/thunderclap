@@ -19,13 +19,13 @@ extern "C" void FUN_00071cc0() {
   void* entries[3];
   typedef fight::ParamFloatConstRange<CCameraHintTrack> FloatParam;
   typedef fight::ParamEnumConstList<CCameraHintTrack> EnumParam;
-  FloatParam* a = (FloatParam*)FUN_0008d690(24);
+  FloatParam* a = (FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
   if (a) { a->FUN_00234960("timeBegin"); new (a) FloatParam; a->callback=SetTimeBegin_00068770; }
   entries[0]=a;
-  FloatParam* b = (FloatParam*)FUN_0008d690(24);
+  FloatParam* b = (FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
   if (b) { b->FUN_00234960("timeEnd"); new (b) FloatParam; b->callback=SetTimeEnd_00068780; }
   entries[1]=b;
-  EnumParam* c = (EnumParam*)FUN_0008d690(32);
+  EnumParam* c = (EnumParam*)FUN_0008d690((int)sizeof(EnumParam));
   if (c) { c->FUN_00234cc0("hint"); new (c) EnumParam; c->list=((unsigned int*)&DAT_00496fb4); c->count=9; c->callback=SetHint_00068790; }
   entries[2]=c;
   FUN_002347b0(&DAT_004dcfb0, entries,3);

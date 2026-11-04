@@ -13,7 +13,7 @@ template<class C, class R, class A1, class A2, class A3, class A4, class A5> cla
 template<> class Closure5_200b10<CTriggerVolumeManager_200b10, const char*, const math::Vector_200b10, int, int, float, float> { public: virtual void v(); char pad[0x1c]; CTriggerVolumeManager_200b10* owner; Closure5_200b10(CTriggerVolumeManager_200b10* o) { owner = o; } };
 class Raw_200b10 { public: void FUN_001ff360(const char*, void (*)()); };
 void Registry_200b10::FUN_00200b10(const char* a1, CTriggerVolumeManager_200b10* a2, void (*a3)()) {
-    void* m = FUN_0008d690(0x24);
+    void* m = FUN_0008d690((int)sizeof(Closure5_200b10<CTriggerVolumeManager_200b10, const char*, const math::Vector_200b10, int, int, float, float>));
     void* x = 0;
     if (m) {
         ((Raw_200b10*)m)->FUN_001ff360(a1, a3);

@@ -15,7 +15,7 @@ struct CMoveAddTrack_771a0 {
 extern "C" void* FUN_0008d690(hulk_uintptr);
 
 template <> void* fight::TrackFactoryTemplate<CMoveAddTrack>::vfunc_5() {
-    CMoveAddTrack_771a0* p = (CMoveAddTrack_771a0*)FUN_0008d690(0x1c);
+    CMoveAddTrack_771a0* p = (CMoveAddTrack_771a0*)FUN_0008d690((int)sizeof(CMoveAddTrack_771a0));
     if (p != 0) {
         p->Init();
         p->x10 = 1.0f;

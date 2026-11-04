@@ -29,7 +29,7 @@ void postInit();
 
 template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::FireProjectileTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(TrackFactoryTemplate_1a1050));
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_1a1050* t = new (mem) TrackFactoryTemplate_1a1050();

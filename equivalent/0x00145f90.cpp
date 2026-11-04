@@ -76,31 +76,31 @@ void FUN_00145f90()
     if (DAT_004e0f84 == 0) {
         void* params[7];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::HitEffectTrack_145f90>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<hulkfight::motion::HitEffectTrack_145f90>("timeBegin", &hulkfight::motion::HitEffectTrack_145f90::FUN_00143180);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::HitEffectTrack_145f90>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<hulkfight::motion::HitEffectTrack_145f90>("timeEnd", &hulkfight::motion::HitEffectTrack_145f90::FUN_001431a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamName<hulkfight::motion::HitEffectTrack_145f90>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamName<hulkfight::motion::HitEffectTrack_145f90>("hitEffectName", &hulkfight::motion::HitEffectTrack_145f90::FUN_001431b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::HitEffectTrack_145f90>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamFloatConstRange<hulkfight::motion::HitEffectTrack_145f90>("hitEffectScale", &hulkfight::motion::HitEffectTrack_145f90::FUN_001431d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamName<hulkfight::motion::HitEffectTrack_145f90>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamName<hulkfight::motion::HitEffectTrack_145f90>("whiffEffectName", &hulkfight::motion::HitEffectTrack_145f90::FUN_001431e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::motion::HitEffectTrack_145f90>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamFloatConstRange<hulkfight::motion::HitEffectTrack_145f90>("whiffEffectScale", &hulkfight::motion::HitEffectTrack_145f90::FUN_00143200);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<hulkfight::motion::HitEffectTrack_145f90>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamIntConstRange<hulkfight::motion::HitEffectTrack_145f90>("priority", &hulkfight::motion::HitEffectTrack_145f90::FUN_00143220);

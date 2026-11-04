@@ -21,15 +21,15 @@ void target() {
  if (!DAT_004e1514) {
   void* params[3];
   typedef hulkfight::motion::GrappleVarCompareCondition T;
-  void* mem = FUN_0008d690(24);
+  void* mem = FUN_0008d690((int)sizeof(fight::ParamName<T>));
   fight::ParamName<T>* a=0;
   if (mem) { a = new(mem) fight::ParamName<T>; a->callback = FUN_0018cb20; }
   params[0]=a;
-  mem=FUN_0008d690(32);
+  mem=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<T>));
   fight::ParamEnumConstList<T>* b=0;
   if (mem) { int count = (*(int*)&DAT_00427754); b = new(mem) fight::ParamEnumConstList<T>; b->count=count; b->values="lwB"; b->callback=FUN_0018cb30; }
   params[1]=b;
-  mem=FUN_0008d690(24);
+  mem=FUN_0008d690((int)sizeof(fight::ParamIntConstRange<T>));
   fight::ParamIntConstRange<T>* c=0;
   if (mem) { c = new(mem) fight::ParamIntConstRange<T>; c->callback=FUN_0018cb40; }
   params[2]=c;

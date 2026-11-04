@@ -129,7 +129,7 @@ CEncounterGenerator::CEncounterGenerator()
     Pool_1fa630 *pool;
     bool held = false;
     FUN_002702a0(&pool, 0x28, 0x100, 0, 0, "encounterGenerator: Memory Map Pool", 4);
-    EncObj *obj = (EncObj *)FUN_0008d690(0x1c);
+    EncObj *obj = (EncObj *)FUN_0008d690((int)sizeof(EncObj));
     if (obj) {
         Pool_1fa630 *p = pool;
         held = true;

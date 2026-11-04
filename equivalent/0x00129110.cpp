@@ -42,7 +42,7 @@ extern "C" void FUN_00129110()
     if (DAT_004e0de8 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_129110<hulkfight::ai::TargetFirstShotCondition_129110>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_129110<hulkfight::ai::TargetFirstShotCondition_129110>("firstShot", &hulkfight::ai::TargetFirstShotCondition_129110::FUN_00123910);

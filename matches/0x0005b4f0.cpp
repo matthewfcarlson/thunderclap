@@ -39,7 +39,7 @@ hulk_intptr CGrappleIntangibleTrack::vfunc_12(hulk_intptr __p0) { Input_5b4f0 * 
                 if (x) {
                     int y = x->field;
                     if (y) {
-                        CIntangibleAction* z = (CIntangibleAction*)FUN_0008d690(0x20);
+                        CIntangibleAction* z = (CIntangibleAction*)FUN_0008d690((int)sizeof(CIntangibleAction));
                         if (z)
                             return (hulk_intptr)(((CIntangibleAction_nv_5b4f0*)(((CIntangibleAction*)(z))))->Init(y));
                     }

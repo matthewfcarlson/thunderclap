@@ -29,7 +29,7 @@ extern "C" void FUN_0005cd20();
 
 template <> void* fight::TrackFactoryCasterTemplate<CGrappleSwapTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(TrackFactoryTemplate_6f9f0));
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_6f9f0* t = new (mem) TrackFactoryTemplate_6f9f0();

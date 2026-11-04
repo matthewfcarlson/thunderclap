@@ -28,13 +28,13 @@ template<class T> struct ParamEnumConstList : FUN_00234cc0 {
 extern "C" void FUN_00053e30() {
  if (!DAT_004dc4fc) {
   fight::ParamEnumConstList<CGrappleSizeCondition>* p[2];
-  void* mem=FUN_0008d690(32);
+  void* mem=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CGrappleSizeCondition>));
   if(mem) {
    int count=(*(int*)&DAT_00427760);
    p[0]=new(mem) fight::ParamEnumConstList<CGrappleSizeCondition>("compare");
    p[0]->values=((char*)&DAT_00427758); p[0]->count=count; p[0]->callback=FUN_00047fa0;
   } else p[0]=0;
-  mem=FUN_0008d690(32);
+  mem=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CGrappleSizeCondition>));
   if(mem) {
    int count=(*(int*)&DAT_003f5eb4);
    p[1]=new(mem) fight::ParamEnumConstList<CGrappleSizeCondition>("size");

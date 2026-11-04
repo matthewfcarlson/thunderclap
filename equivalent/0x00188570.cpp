@@ -24,13 +24,13 @@ void __cdecl FUN_002347b0(unsigned*, ParamBase_188570**, int);
 extern "C" void __cdecl FUN_00188570() {
  if (!DAT_004e14d4) {
   ParamBase_188570* params[3];
-  ParamBase_188570* p=(ParamBase_188570*)FUN_0008d690(24);
+  ParamBase_188570* p=(ParamBase_188570*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::motion::PropAddToMissileCountTrack>));
   if(p) { p->FUN_00234960("timeBegin"); new(p) fight::ParamFloatConstRange<hulkfight::motion::PropAddToMissileCountTrack>; p->callback=SetTimeBegin_00180390; }
   params[0]=p;
-  p=(ParamBase_188570*)FUN_0008d690(24);
+  p=(ParamBase_188570*)FUN_0008d690((int)sizeof(fight::ParamIntConstRange<hulkfight::motion::PropAddToMissileCountTrack>));
   if(p) { p->FUN_002348e0("attachmentIndex"); new(p) fight::ParamIntConstRange<hulkfight::motion::PropAddToMissileCountTrack>; p->callback=SetAttachmentIndex_001803b0; }
   params[1]=p;
-  p=(ParamBase_188570*)FUN_0008d690(24);
+  p=(ParamBase_188570*)FUN_0008d690((int)sizeof(fight::ParamIntConstRange<hulkfight::motion::PropAddToMissileCountTrack>));
   if(p) { p->FUN_002348e0("missiles"); new(p) fight::ParamIntConstRange<hulkfight::motion::PropAddToMissileCountTrack>; p->callback=SetMissiles_001803d0; }
   params[2]=p;
   FUN_002347b0(&DAT_004e14d0,params,3);

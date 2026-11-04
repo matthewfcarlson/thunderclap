@@ -72,27 +72,27 @@ extern "C" void FUN_00129310()
         void* params[6];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<AcquireTargetTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<AcquireTargetTrack>("timeBegin", &AcquireTargetTrack::FUN_00123990);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<AcquireTargetTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<AcquireTargetTrack>("timeEnd", &AcquireTargetTrack::FUN_001239a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<AcquireTargetTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamFloatConstRange<AcquireTargetTrack>("targetArc", &AcquireTargetTrack::FUN_001239c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<AcquireTargetTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamFloatConstRange<AcquireTargetTrack>("targetDistance", &AcquireTargetTrack::FUN_001239f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<AcquireTargetTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamBool<AcquireTargetTrack>("useDirection", &AcquireTargetTrack::FUN_00123a10);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<AcquireTargetTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamVector<AcquireTargetTrack>("direction", &AcquireTargetTrack::FUN_00123a40);

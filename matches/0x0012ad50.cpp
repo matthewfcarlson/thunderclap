@@ -29,7 +29,7 @@ extern "C" void FUN_00129170();
 
 template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetInvincibleCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(TrackFactoryTemplate_12ad50));
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_12ad50* t = new (mem) TrackFactoryTemplate_12ad50();

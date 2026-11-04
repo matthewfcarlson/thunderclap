@@ -53,7 +53,7 @@ Head_faf80 *Script_faf80::FUN_000faf80(Lines *lines)
     Frame_faf80 f;
     f.ts.owner = this;
     lines->mark18 = lines->mark10;
-    Head_faf80 *h = (Head_faf80 *)FUN_0008d690(8);
+    Head_faf80 *h = (Head_faf80 *)FUN_0008d690((int)sizeof(Head_faf80));
     if (h) {
         h->first = 0;
         h->last = 0;

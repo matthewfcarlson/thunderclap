@@ -43,11 +43,11 @@ void FUN_0014a300()
     if (DAT_004e0fe0 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a300<hulkfight::motion::GrappleOrientationCondition_14a300>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_14a300<hulkfight::motion::GrappleOrientationCondition_14a300>("angle", &hulkfight::motion::GrappleOrientationCondition_14a300::FUN_00146950);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a300<hulkfight::motion::GrappleOrientationCondition_14a300>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_14a300<hulkfight::motion::GrappleOrientationCondition_14a300>("arc", &hulkfight::motion::GrappleOrientationCondition_14a300::FUN_00146970);

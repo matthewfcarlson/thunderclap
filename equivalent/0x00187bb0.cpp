@@ -20,15 +20,15 @@ void target() {
  void* params[3];
  typedef fight::ParamIntConstRange<hulkfight::motion::PropMissileCountCondition> I;
  typedef fight::ParamEnumConstList<hulkfight::motion::PropMissileCountCondition> E;
- void* mem=FUN_0008d690(24);
+ void* mem=FUN_0008d690((int)sizeof(I));
  I* a=mem ? new(mem) I("attachmentIndex") : 0;
  if(a) a->callback=FUN_0017f600;
  params[0]=a;
- mem=FUN_0008d690(32);
+ mem=FUN_0008d690((int)sizeof(E));
  E* b=0;
  if(mem) { int count=(*(int*)&DAT_00427754); b=new(mem) E("compare"); b->count=count; b->list=((char*)&DAT_0042773c); b->callback=FUN_0017f620; }
  params[1]=b;
- mem=FUN_0008d690(24);
+ mem=FUN_0008d690((int)sizeof(I));
  I* c=mem ? new(mem) I("missiles") : 0;
  if(c) c->callback=FUN_0017f640;
  params[2]=c;

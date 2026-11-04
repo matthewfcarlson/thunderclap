@@ -29,7 +29,7 @@ void postInit();
 
 template <> void* fight::ConditionFactoryCasterTemplate<fight::DebugCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(ConditionFactoryTemplate_23d740));
     if (mem) {
         ((InitHelper*)mem)->init();
         ConditionFactoryTemplate_23d740* t = new (mem) ConditionFactoryTemplate_23d740();

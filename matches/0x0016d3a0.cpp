@@ -13,7 +13,7 @@ class Temp_16d3a0 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::TargetMotionStateCondition>::vfunc_5() {
-    Temp_16d3a0* p = (Temp_16d3a0*)FUN_0008d690(0x14);
+    Temp_16d3a0* p = (Temp_16d3a0*)FUN_0008d690((int)sizeof(Temp_16d3a0));
     if (p) {
         p->Init(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_00416678);

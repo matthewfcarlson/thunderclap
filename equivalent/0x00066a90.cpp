@@ -30,7 +30,7 @@ void Owner_66a90::FUN_00066a90(Result_66a90 *out, const Key_66a90 *key)
         out->owner = 0;
         return;
     }
-    Node *node = (Node *)FUN_0008d6d0(0x20);
+    Node *node = (Node *)FUN_0008d6d0((int)sizeof(Node));
     if (node)
         node->key = *key;
     FUN_00230c30(node, FUN_000668c0, found);

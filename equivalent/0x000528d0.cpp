@@ -61,23 +61,23 @@ extern "C" void FUN_000528d0()
     if (DAT_004dc40c == 0) {
         void* params[5];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_528d0<CButtonValueCondition_528d0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList_528d0<CButtonValueCondition_528d0>("button", ((const char**)&DAT_0049ee30), 13, &CButtonValueCondition_528d0::FUN_00047ab0);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_528d0<CButtonValueCondition_528d0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamEnumConstList_528d0<CButtonValueCondition_528d0>("compareTime", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &CButtonValueCondition_528d0::FUN_00047ac0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_528d0<CButtonValueCondition_528d0>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_528d0<CButtonValueCondition_528d0>("time", &CButtonValueCondition_528d0::FUN_00047ad0);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_528d0<CButtonValueCondition_528d0>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamEnumConstList_528d0<CButtonValueCondition_528d0>("compareValue", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &CButtonValueCondition_528d0::FUN_00047ae0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_528d0<CButtonValueCondition_528d0>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_528d0<CButtonValueCondition_528d0>("value", &CButtonValueCondition_528d0::FUN_00047af0);

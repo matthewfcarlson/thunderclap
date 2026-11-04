@@ -128,111 +128,111 @@ extern "C" void FUN_00075230()
     if (DAT_004dcfac == 0) {
         void* params[27];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CCameraDramaticTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange<::CCameraDramaticTrack>("timeBegin", &::CCameraDramaticTrack::FUN_00068630);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CCameraDramaticTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange<::CCameraDramaticTrack>("timeEnd", &::CCameraDramaticTrack::FUN_00068640);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector<::CCameraDramaticTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamVector<::CCameraDramaticTrack>("targetOffset", &::CCameraDramaticTrack::FUN_00068650);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CCameraDramaticTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange<::CCameraDramaticTrack>("noCamWeight", &::CCameraDramaticTrack::FUN_000686f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName<::CCameraDramaticTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamName<::CCameraDramaticTrack>("animation0", &::CCameraDramaticTrack::FUN_00012080);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CCameraDramaticTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange<::CCameraDramaticTrack>("weight0", &::CCameraDramaticTrack::FUN_00068670);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName<::CCameraDramaticTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamName<::CCameraDramaticTrack>("animation1", &::CCameraDramaticTrack::FUN_000120a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CCameraDramaticTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange<::CCameraDramaticTrack>("weight1", &::CCameraDramaticTrack::FUN_00068680);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName<::CCameraDramaticTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamName<::CCameraDramaticTrack>("animation2", &::CCameraDramaticTrack::FUN_000120c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CCameraDramaticTrack>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange<::CCameraDramaticTrack>("weight2", &::CCameraDramaticTrack::FUN_00068690);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName<::CCameraDramaticTrack>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamName<::CCameraDramaticTrack>("animation3", &::CCameraDramaticTrack::FUN_000120e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CCameraDramaticTrack>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamFloatConstRange<::CCameraDramaticTrack>("weight3", &::CCameraDramaticTrack::FUN_000686a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName<::CCameraDramaticTrack>));
         params[12] = 0;
         if (mem)
             params[12] = new (mem) fight::ParamName<::CCameraDramaticTrack>("animation4", &::CCameraDramaticTrack::FUN_00012100);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CCameraDramaticTrack>));
         params[13] = 0;
         if (mem)
             params[13] = new (mem) fight::ParamFloatConstRange<::CCameraDramaticTrack>("weight4", &::CCameraDramaticTrack::FUN_000686b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName<::CCameraDramaticTrack>));
         params[14] = 0;
         if (mem)
             params[14] = new (mem) fight::ParamName<::CCameraDramaticTrack>("animation5", &::CCameraDramaticTrack::FUN_00012120);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CCameraDramaticTrack>));
         params[15] = 0;
         if (mem)
             params[15] = new (mem) fight::ParamFloatConstRange<::CCameraDramaticTrack>("weight5", &::CCameraDramaticTrack::FUN_000686c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName<::CCameraDramaticTrack>));
         params[16] = 0;
         if (mem)
             params[16] = new (mem) fight::ParamName<::CCameraDramaticTrack>("animation6", &::CCameraDramaticTrack::FUN_00012140);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CCameraDramaticTrack>));
         params[17] = 0;
         if (mem)
             params[17] = new (mem) fight::ParamFloatConstRange<::CCameraDramaticTrack>("weight6", &::CCameraDramaticTrack::FUN_000686d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName<::CCameraDramaticTrack>));
         params[18] = 0;
         if (mem)
             params[18] = new (mem) fight::ParamName<::CCameraDramaticTrack>("animation7", &::CCameraDramaticTrack::FUN_00012160);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CCameraDramaticTrack>));
         params[19] = 0;
         if (mem)
             params[19] = new (mem) fight::ParamFloatConstRange<::CCameraDramaticTrack>("weight7", &::CCameraDramaticTrack::FUN_000686e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool<::CCameraDramaticTrack>));
         params[20] = 0;
         if (mem)
             params[20] = new (mem) fight::ParamBool<::CCameraDramaticTrack>("abortWhenInterrupted", &::CCameraDramaticTrack::FUN_00068700);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<::CCameraDramaticTrack>));
         params[21] = 0;
         if (mem)
             params[21] = new (mem) fight::ParamEnumConstList<::CCameraDramaticTrack>("blendInTransition", ((const char**)&DAT_00496f9c), 2, &::CCameraDramaticTrack::FUN_00068710);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<::CCameraDramaticTrack>));
         params[22] = 0;
         if (mem)
             params[22] = new (mem) fight::ParamEnumConstList<::CCameraDramaticTrack>("blendInBlend", ((const char**)&DAT_00496fa4), 4, &::CCameraDramaticTrack::FUN_00068720);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CCameraDramaticTrack>));
         params[23] = 0;
         if (mem)
             params[23] = new (mem) fight::ParamFloatConstRange<::CCameraDramaticTrack>("blendInDuration", &::CCameraDramaticTrack::FUN_00068730);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<::CCameraDramaticTrack>));
         params[24] = 0;
         if (mem)
             params[24] = new (mem) fight::ParamEnumConstList<::CCameraDramaticTrack>("blendOutTransition", ((const char**)&DAT_00496f9c), 2, &::CCameraDramaticTrack::FUN_00068740);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<::CCameraDramaticTrack>));
         params[25] = 0;
         if (mem)
             params[25] = new (mem) fight::ParamEnumConstList<::CCameraDramaticTrack>("blendOutBlend", ((const char**)&DAT_00496fa4), 4, &::CCameraDramaticTrack::FUN_00068750);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CCameraDramaticTrack>));
         params[26] = 0;
         if (mem)
             params[26] = new (mem) fight::ParamFloatConstRange<::CCameraDramaticTrack>("blendOutDuration", &::CCameraDramaticTrack::FUN_00068760);

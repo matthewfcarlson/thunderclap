@@ -41,7 +41,7 @@ struct Registry_87d50 {
 };
 
 void Registry_87d50::FUN_00087d50(const char* name, CTimeManager* owner, float (CTimeManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CTimeManager, float>));
     Closure0<CTimeManager, float>* c = 0;
     if (mem)
         c = new (mem) Closure0<CTimeManager, float>(name, owner, fn);

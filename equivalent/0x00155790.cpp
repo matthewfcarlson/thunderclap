@@ -42,7 +42,7 @@ extern "C" void FUN_00155790()
     if (DAT_004e1094 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_155790<hulkfight::motion::CollisionExplosionCondition_155790>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_155790<hulkfight::motion::CollisionExplosionCondition_155790>("explosion", &hulkfight::motion::CollisionExplosionCondition_155790::FUN_0014c600);

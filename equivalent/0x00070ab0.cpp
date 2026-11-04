@@ -83,51 +83,51 @@ extern "C" void FUN_00070ab0()
     if (DAT_004dcf2c == 0) {
         void* params[12];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("timeBegin", &CDropTrack_70ab0::FUN_00068120);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("timeEnd", &CDropTrack_70ab0::FUN_00068130);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("facing", &CDropTrack_70ab0::FUN_00068140);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("facingVelocity", &CDropTrack_70ab0::FUN_00068160);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("turningVelocity", &CDropTrack_70ab0::FUN_00068180);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_70ab0<CDropTrack_70ab0>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamBool_70ab0<CDropTrack_70ab0>("useInitialVelocity", &CDropTrack_70ab0::FUN_000681a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("initialVelocity", &CDropTrack_70ab0::FUN_000681b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("gravity", &CDropTrack_70ab0::FUN_000681c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("maxVelocity", &CDropTrack_70ab0::FUN_000681d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_70ab0<CDropTrack_70ab0>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamIntConstRange_70ab0<CDropTrack_70ab0>("priority", &CDropTrack_70ab0::FUN_000681e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("rootBlendInTime", &CDropTrack_70ab0::FUN_000681f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamFloatConstRange_70ab0<CDropTrack_70ab0>("rootBlendOutTime", &CDropTrack_70ab0::FUN_00068200);

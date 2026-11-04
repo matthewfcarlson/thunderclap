@@ -24,7 +24,7 @@ void target() {
  const char* names[4] = {"buttonDown", "buttonPressed", "axisDown", "axisPressed"};
  void (*callbacks[4])() = {FUN_00165540,FUN_00165550,FUN_00165560,FUN_00165570};
  for(int i=0;i<4;++i) {
- void* memory=FUN_0008d690(24);
+ void* memory=FUN_0008d690((int)sizeof(Param));
  if(memory) {
  Param* p=(Param*)memory;
  p->FUN_00234860(names[i]);

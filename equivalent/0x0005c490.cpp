@@ -38,15 +38,15 @@ extern "C" void __cdecl FUN_002347b0(void**,void**,int);
 extern "C" void __cdecl FUN_0005c490() {
  if (!DAT_004dc5bc) {
   void* entries[3];
-  void* mem = FUN_0008d690(24);
+  void* mem = FUN_0008d690((int)sizeof(fight::ParamBranch<CGrappleSequenceTrack>));
   fight::ParamBranch<CGrappleSequenceTrack>* a = mem ? new(mem) fight::ParamBranch<CGrappleSequenceTrack> : 0;
   if(a) a->callback = FUN_0005a330;
   entries[0]=a;
-  mem = FUN_0008d690(24);
+  mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<CGrappleSequenceTrack>));
   fight::ParamIntConstRange<CGrappleSequenceTrack>* b = mem ? new(mem) fight::ParamIntConstRange<CGrappleSequenceTrack> : 0;
   if(b) b->callback = FUN_0005a340;
   entries[1]=b;
-  mem = FUN_0008d690(24);
+  mem = FUN_0008d690((int)sizeof(fight::ParamConditionGroup<CGrappleSequenceTrack>));
   fight::ParamConditionGroup<CGrappleSequenceTrack>* c = mem ? new(mem) fight::ParamConditionGroup<CGrappleSequenceTrack> : 0;
   if(c) c->callback = FUN_0005a350;
   entries[2]=c;

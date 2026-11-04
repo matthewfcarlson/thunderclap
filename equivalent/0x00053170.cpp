@@ -60,11 +60,11 @@ extern "C" void FUN_00053170()
     if (DAT_004dc444 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_53170<::CGroundDistanceCondition_53170>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList_53170<::CGroundDistanceCondition_53170>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &::CGroundDistanceCondition_53170::FUN_00047c40);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_53170<::CGroundDistanceCondition_53170>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_53170<::CGroundDistanceCondition_53170>("distance", &::CGroundDistanceCondition_53170::FUN_00047c50);

@@ -42,7 +42,7 @@ extern "C" void FUN_00129170()
     if (DAT_004e0df0 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_129170<hulkfight::ai::TargetInvincibleCondition_129170>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_129170<hulkfight::ai::TargetInvincibleCondition_129170>("invincible", &hulkfight::ai::TargetInvincibleCondition_129170::FUN_00123920);

@@ -13,7 +13,7 @@ template<class C, class R, class A1, class A2, class A3> class Closure3_d6470;
 template<> class Closure3_d6470<MessageOverlay_d6470, void, const char*, int, math::Vector_d6470> { public: virtual void v(); char pad[0x1c]; MessageOverlay_d6470* owner; Closure3_d6470(MessageOverlay_d6470* o) { owner = o; } };
 class Raw_d6470 { public: void FUN_000d5660(const char*, void (*)()); };
 void Registry_d6470::FUN_000d6470(const char* a1, MessageOverlay_d6470* a2, void (*a3)()) {
-    void* m = FUN_0008d690(0x24);
+    void* m = FUN_0008d690((int)sizeof(Closure3_d6470<MessageOverlay_d6470, void, const char*, int, math::Vector_d6470>));
     void* x = 0;
     if (m) {
         ((Raw_d6470*)m)->FUN_000d5660(a1, a3);

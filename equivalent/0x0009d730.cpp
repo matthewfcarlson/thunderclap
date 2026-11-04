@@ -42,7 +42,7 @@ struct Registry_9d730 {
 };
 
 void Registry_9d730::FUN_0009d730(const char* name, CCameraManager* owner, void (CCameraManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CCameraManager, void>));
     Closure0<CCameraManager, void>* c = 0;
     if (mem)
         c = new (mem) Closure0<CCameraManager, void>(name, owner, fn);

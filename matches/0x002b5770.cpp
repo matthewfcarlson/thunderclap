@@ -8,7 +8,7 @@ struct ShadowSkinImpl_nv_2b5770 {
 extern pure3d::ShadowSkinImpl* __cdecl thunk_FUN_0008d690(unsigned int);
 
 void* pure3d::ShadowSkinImpl::vfunc_4() {
-    pure3d::ShadowSkinImpl* p = thunk_FUN_0008d690(0x80);
+    pure3d::ShadowSkinImpl* p = thunk_FUN_0008d690((int)sizeof(pure3d::ShadowSkinImpl));
     if (p)
         return (void*)(((ShadowSkinImpl_nv_2b5770*)(((pure3d::ShadowSkinImpl*)(p))))->run(this));
     return (void*)(0);

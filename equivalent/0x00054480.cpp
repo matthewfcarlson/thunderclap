@@ -60,11 +60,11 @@ extern "C" void FUN_00054480()
     if (DAT_004dc554 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_54480<::CInactivityTimerCondition_54480>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList_54480<::CInactivityTimerCondition_54480>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &::CInactivityTimerCondition_54480::FUN_00048170);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_54480<::CInactivityTimerCondition_54480>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_54480<::CInactivityTimerCondition_54480>("time", &::CInactivityTimerCondition_54480::FUN_00048180);

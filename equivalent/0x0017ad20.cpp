@@ -16,11 +16,11 @@ void __cdecl FUN_002347b0(void*, void**, int);
 extern "C" void FUN_0017ad20() {
  if (!DAT_004e13a4) {
  void* params[3]; typedef hulkfight::motion::TeleportToLocatorTrack Track;
- fight::ParamFloatConstRange<Track>* a = (fight::ParamFloatConstRange<Track>*)FUN_0008d690(24);
+ fight::ParamFloatConstRange<Track>* a = (fight::ParamFloatConstRange<Track>*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<Track>));
  if(a) { a->FUN_00234960("timeBegin"); new(a) fight::ParamFloatConstRange<Track>; a->callback=SetTimeBegin_0016fa00; } params[0]=a;
- fight::ParamString<Track>* b = (fight::ParamString<Track>*)FUN_0008d690(24);
+ fight::ParamString<Track>* b = (fight::ParamString<Track>*)FUN_0008d690((int)sizeof(fight::ParamString<Track>));
  if(b) { b->FUN_002349e0("text"); new(b) fight::ParamString<Track>; b->callback=SetText_00170de0; } params[1]=b;
- fight::ParamVector<Track>* c = (fight::ParamVector<Track>*)FUN_0008d690(24);
+ fight::ParamVector<Track>* c = (fight::ParamVector<Track>*)FUN_0008d690((int)sizeof(fight::ParamVector<Track>));
  if(c) { c->FUN_00234e50("offset"); new(c) fight::ParamVector<Track>; c->callback=SetOffset_0016fa40; } params[2]=c;
  FUN_002347b0(&DAT_004e13a0,params,3);
  }

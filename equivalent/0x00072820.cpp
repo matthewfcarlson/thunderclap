@@ -59,39 +59,39 @@ extern "C" void FUN_00072820()
     if (DAT_004dd024 == 0) {
         void* params[9];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CWallSlideTrack_72820>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("timeBegin", &CWallSlideTrack_72820::FUN_00068bc0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CWallSlideTrack_72820>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("maxTimeEnd", &CWallSlideTrack_72820::FUN_00068bd0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CWallSlideTrack_72820>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("friction", &CWallSlideTrack_72820::FUN_00068be0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CWallSlideTrack_72820>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("gravity", &CWallSlideTrack_72820::FUN_00068bf0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CWallSlideTrack_72820>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("deceleration", &CWallSlideTrack_72820::FUN_00068c00);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CWallSlideTrack_72820>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("minVelocity", &CWallSlideTrack_72820::FUN_00068c10);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<CWallSlideTrack_72820>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamIntConstRange<CWallSlideTrack_72820>("priority", &CWallSlideTrack_72820::FUN_00068c20);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CWallSlideTrack_72820>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("blendInTime", &CWallSlideTrack_72820::FUN_00068c30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CWallSlideTrack_72820>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) ParamFloatConstRange<CWallSlideTrack_72820>("blendOutTime", &CWallSlideTrack_72820::FUN_00068c40);

@@ -18,7 +18,7 @@ class CMoveAddYTrack {
 extern "C" void* __cdecl FUN_0008d690(int);
 extern int vtable_77260;
 CMoveAddYTrack* __fastcall target(void* self) {
-    CMoveAddYTrack* p = (CMoveAddYTrack*)FUN_0008d690(0x1c);
+    CMoveAddYTrack* p = (CMoveAddYTrack*)FUN_0008d690((int)sizeof(CMoveAddYTrack));
     if (p) {
         p->Init();
         p->m10 = 1.0f;

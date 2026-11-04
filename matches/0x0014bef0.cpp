@@ -10,7 +10,7 @@ struct CDTrack {
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::CivilianDetachTrack>::vfunc_5() {
-    CDTrack* p = (CDTrack*)FUN_0008d690(0x28);
+    CDTrack* p = (CDTrack*)FUN_0008d690((int)sizeof(CDTrack));
     if (p != 0) {
         p->Init();
         *(volatile int*)&p->fc = 0;

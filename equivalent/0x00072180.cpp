@@ -22,7 +22,7 @@ extern "C" void FUN_00072180() {
   const char* names[4] = {"timeBegin", "timeEnd", "minVelocity", "maxVelocity"};
   void (*callbacks[4])() = {FUN_000688f0,FUN_00068900,FUN_00068910,FUN_00068920};
   for (int i=0;i<4;++i) {
-   fight::ParamFloatConstRange<CDriftTrack>* p=(fight::ParamFloatConstRange<CDriftTrack>*)FUN_0008d690(24);
+   fight::ParamFloatConstRange<CDriftTrack>* p=(fight::ParamFloatConstRange<CDriftTrack>*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CDriftTrack>));
    if(p) {
     p->FUN_00234960(names[i]);
     p = new(p) fight::ParamFloatConstRange<CDriftTrack>;

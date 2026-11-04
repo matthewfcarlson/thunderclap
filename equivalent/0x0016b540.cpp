@@ -42,7 +42,7 @@ extern "C" void FUN_0016b540()
     if (DAT_004e123c == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_16b540<hulkfight::motion::TargetingCondition_16b540>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_16b540<hulkfight::motion::TargetingCondition_16b540>("isTargeting", &hulkfight::motion::TargetingCondition_16b540::FUN_00165690);

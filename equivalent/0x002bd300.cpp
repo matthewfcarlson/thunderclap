@@ -54,7 +54,7 @@ void OldBillboardObjectLoader::vfunc_5(DrawableContainer_2bd300** out, IdPair_2b
 {
     if (chunk->FUN_00266c30() != 0x17002)
         return;
-    void* mem = thunk_FUN_0008d690(0x60);
+    void* mem = thunk_FUN_0008d690((int)sizeof(pure3d::BillboardObject));
     DrawableContainer_2bd300* obj = 0;
     if (mem != 0)
         obj = new (mem) pure3d::BillboardObject(1);

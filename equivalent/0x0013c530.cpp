@@ -20,11 +20,11 @@ extern "C" void __cdecl FUN_002347b0(void*,void**,int);
 void __cdecl FUN_0013c530() {
  if (!DAT_004e0f14) {
  void* items[3];
- void* p=FUN_0008d690(24);
+ void* p=FUN_0008d690((int)sizeof(fight::ParamName<hulkfight::motion::FrameCondition>));
  if(p) { fight::ParamName<hulkfight::motion::FrameCondition>* b=new(p) fight::ParamName<hulkfight::motion::FrameCondition>; b->callback=FUN_001399f0; items[0]=b; } else items[0]=0;
- p=FUN_0008d690(32);
+ p=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::motion::FrameCondition>));
  if(p) { int n=(*(int*)&DAT_00427754); fight::ParamEnumConstList<hulkfight::motion::FrameCondition>* b=new(p) fight::ParamEnumConstList<hulkfight::motion::FrameCondition>; b->count=n; b->names="lwB"; b->callback=FUN_00139a10; items[1]=b; } else items[1]=0;
- p=FUN_0008d690(24);
+ p=FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::motion::FrameCondition>));
  if(p) { fight::ParamFloatConstRange<hulkfight::motion::FrameCondition>* b=new(p) fight::ParamFloatConstRange<hulkfight::motion::FrameCondition>; b->callback=FUN_00139a20; items[2]=b; } else items[2]=0;
  FUN_002347b0(&DAT_004e0f10,items,3);
  }

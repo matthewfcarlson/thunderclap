@@ -56,23 +56,23 @@ void FUN_00119480()
         void* params[5];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionFacingTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<MotionFacingTrack>("timeBegin", &MotionFacingTrack::FUN_00115130);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionFacingTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<MotionFacingTrack>("timeEnd", &MotionFacingTrack::FUN_00115140);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionFacingTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamFloatConstRange<MotionFacingTrack>("angle", &MotionFacingTrack::FUN_00115160);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<MotionFacingTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamVector<MotionFacingTrack>("vector", &MotionFacingTrack::FUN_001151a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionFacingTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<MotionFacingTrack>("speed", &MotionFacingTrack::FUN_001151d0);

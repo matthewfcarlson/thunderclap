@@ -60,11 +60,11 @@ extern "C" void FUN_00072590()
     if (DAT_004dcffc == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CAlertStatusTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange<::CAlertStatusTrack>("timeBegin", &::CAlertStatusTrack::FUN_00068b10);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<::CAlertStatusTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamEnumConstList<::CAlertStatusTrack>("status", ((const char**)&DAT_004a1ab4), (*(int*)&DAT_0040d0e4), &::CAlertStatusTrack::FUN_00068b20);

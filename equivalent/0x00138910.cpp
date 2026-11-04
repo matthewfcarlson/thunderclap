@@ -100,47 +100,47 @@ extern "C" void FUN_00138910()
     if (DAT_004e0f04 == 0) {
         void* params[11];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138910<FlyingAttackTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("timeBegin", &FlyingAttackTrack::FUN_001337f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138910<FlyingAttackTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("timeEnd", &FlyingAttackTrack::FUN_00133800);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_138910<FlyingAttackTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamVector_138910<FlyingAttackTrack>("direction", &FlyingAttackTrack::FUN_00133830);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138910<FlyingAttackTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("velocity", &FlyingAttackTrack::FUN_00133860);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138910<FlyingAttackTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("acceleration", &FlyingAttackTrack::FUN_00133880);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138910<FlyingAttackTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("heightMin", &FlyingAttackTrack::FUN_001338a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138910<FlyingAttackTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("tracking", &FlyingAttackTrack::FUN_001338c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_138910<FlyingAttackTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamBool_138910<FlyingAttackTrack>("faceDirection", &FlyingAttackTrack::FUN_001338f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_138910<FlyingAttackTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamIntConstRange_138910<FlyingAttackTrack>("priority", &FlyingAttackTrack::FUN_00133910);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138910<FlyingAttackTrack>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("blendInTime", &FlyingAttackTrack::FUN_00133930);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138910<FlyingAttackTrack>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_138910<FlyingAttackTrack>("blendOutTime", &FlyingAttackTrack::FUN_00133950);

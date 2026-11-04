@@ -37,7 +37,7 @@ public:
 extern "C" void *__stdcall FUN_001c23c0(void *canvas, bool create)
 {
     if (((Canvas *)canvas)->callback == 0 && create) {
-        HulkShaderCallback *cb = (HulkShaderCallback *)FUN_0008d690(0x1c);
+        HulkShaderCallback *cb = (HulkShaderCallback *)FUN_0008d690((int)sizeof(HulkShaderCallback));
         if (cb) {
             cb->f04 = 0;
             cb->vptr = (hulk_intptr)DAT_004216d4;

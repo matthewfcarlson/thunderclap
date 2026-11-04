@@ -39,11 +39,11 @@ extern "C" void FUN_00053440()
     if (DAT_004dc464 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_53440<::CCollisionPushbackDirectionCondition_53440>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_53440<::CCollisionPushbackDirectionCondition_53440>("direction", &::CCollisionPushbackDirectionCondition_53440::FUN_00047ce0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_53440<::CCollisionPushbackDirectionCondition_53440>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_53440<::CCollisionPushbackDirectionCondition_53440>("arc", &::CCollisionPushbackDirectionCondition_53440::FUN_00047d00);

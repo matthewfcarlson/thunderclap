@@ -88,35 +88,35 @@ extern "C" void FUN_0017d6a0()
     if (DAT_004e135c == 0) {
         void* params[8];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PushOutTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<PushOutTrack>("timeBegin", &PushOutTrack::FUN_0016f250);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PushOutTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<PushOutTrack>("timeEnd", &PushOutTrack::FUN_0016f260);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamNameConstList<PushOutTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamNameConstList<PushOutTrack>("joint", &PushOutTrack::FUN_0016f270);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<PushOutTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamVector<PushOutTrack>("offset", &PushOutTrack::FUN_0016f2a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<PushOutTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamVector<PushOutTrack>("direction", &PushOutTrack::FUN_0016f2e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PushOutTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamFloatConstRange<PushOutTrack>("distance", &PushOutTrack::FUN_0016f310);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PushOutTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamFloatConstRange<PushOutTrack>("velocity", &PushOutTrack::FUN_0016f330);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<PushOutTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) ParamBool<PushOutTrack>("allowY", &PushOutTrack::FUN_0016f350);

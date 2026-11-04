@@ -22,13 +22,13 @@ extern "C" void FUN_000711c0() {
  if (DAT_004dcf5c == 0) {
  ParamBase_711c0* items[4];
  ParamBase_711c0* p;
- p = (ParamBase_711c0*)FUN_0008d690(24);
+ p = (ParamBase_711c0*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>));
  if(p) { ((fight::ParamValueFloat *)(ParamBase_711c0 *)p)->FUN_00234960("timeBegin"); new(p) fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>; p->callback=SetTimeBegin_00068310; } items[0]=p;
- p = (ParamBase_711c0*)FUN_0008d690(24);
+ p = (ParamBase_711c0*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>));
  if(p) { ((fight::ParamValueFloat *)(ParamBase_711c0 *)p)->FUN_00234960("timeEnd"); new(p) fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>; p->callback=SetTimeEnd_00068320; } items[1]=p;
- p = (ParamBase_711c0*)FUN_0008d690(24);
+ p = (ParamBase_711c0*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>));
  if(p) { ((fight::ParamValueFloat *)(ParamBase_711c0 *)p)->FUN_00234960("distance"); new(p) fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>; p->callback=SetDistance_00068330; } items[2]=p;
- p = (ParamBase_711c0*)FUN_0008d690(24);
+ p = (ParamBase_711c0*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>));
  if(p) { ((fight::ParamValueFloat *)(ParamBase_711c0 *)p)->FUN_00234960("direction"); new(p) fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>; p->callback=SetDirection_0006b7b0; } items[3]=p;
  FUN_002347b0(&DAT_004dcf58,items,4);
  }

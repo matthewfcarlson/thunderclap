@@ -65,51 +65,51 @@ void FUN_00120d40()
     if (DAT_004e0cb4 == 0) {
         void* params[12];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_120d40<RoutTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_120d40<RoutTrack>("timeBegin", &RoutTrack::FUN_0011b980);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_120d40<RoutTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_120d40<RoutTrack>("timeEnd", &RoutTrack::FUN_0011b990);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_120d40<RoutTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_120d40<RoutTrack>("turnRate", &RoutTrack::FUN_0011b9a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_120d40<RoutTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_120d40<RoutTrack>("speed", &RoutTrack::FUN_0011b9d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_120d40<RoutTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_120d40<RoutTrack>("routRadius", &RoutTrack::FUN_0011b9f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_120d40<RoutTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_120d40<RoutTrack>("maxTimeInSamePosition", &RoutTrack::FUN_0011ba10);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_120d40<RoutTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_120d40<RoutTrack>("minSpeedToKeepRunning", &RoutTrack::FUN_0011ba30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_120d40<RoutTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamBool_120d40<RoutTrack>("useAvoidanceCode", &RoutTrack::FUN_0011ba50);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_120d40<RoutTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamFloatConstRange_120d40<RoutTrack>("seperationBufferStart", &RoutTrack::FUN_0011ba70);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_120d40<RoutTrack>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_120d40<RoutTrack>("seperationBufferStop", &RoutTrack::FUN_0011ba90);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_120d40<RoutTrack>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_120d40<RoutTrack>("width", &RoutTrack::FUN_0011bab0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_120d40<RoutTrack>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamFloatConstRange_120d40<RoutTrack>("formationWidth", &RoutTrack::FUN_0011bac0);

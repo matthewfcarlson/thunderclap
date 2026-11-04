@@ -16,7 +16,7 @@ struct Obj_12a980 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetVelocityCondition>::vfunc_5() {
-    Obj_12a980* p = (Obj_12a980*)FUN_0008d690(0x14);
+    Obj_12a980* p = (Obj_12a980*)FUN_0008d690((int)sizeof(Obj_12a980));
     if (p) {
         ((Init_12a980*)p)->Start(0);
         p->vt = ((hulk_intptr)DAT_0040fe74);

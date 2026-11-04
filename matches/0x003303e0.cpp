@@ -28,7 +28,7 @@ void d3dToon2VertexShader_3303e0::FUN_003303e0() {
         D3D8::D3DSurface_GetDesc(surface, description);
         D3D8::D3DResource_Release(surface);
         void* createdTexture = D3D8::D3DDevice_CreateTexture2(0x40, 1, 1, 1, 0, description[0], 3);
-        d3dTexture_3303e0* memory = (d3dTexture_3303e0*)FUN_0008d690(0xf8);
+        d3dTexture_3303e0* memory = (d3dTexture_3303e0*)FUN_0008d690((int)sizeof(d3dTexture_3303e0));
         texture = memory != 0 ? memory->FUN_00326110(device, createdTexture) : 0;
         FUN_0032fe00();
     }

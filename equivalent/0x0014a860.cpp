@@ -65,47 +65,47 @@ void FUN_0014a860()
     if (DAT_004e1000 == 0) {
         void* params[11];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a860<CivilianThrowTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("timeBegin", &CivilianThrowTrack::FUN_00146c80);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_14a860<CivilianThrowTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamVector_14a860<CivilianThrowTrack>("direction", &CivilianThrowTrack::FUN_00146cb0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a860<CivilianThrowTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("distanceMin", &CivilianThrowTrack::FUN_00146ce0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a860<CivilianThrowTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("distanceMax", &CivilianThrowTrack::FUN_00146d00);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a860<CivilianThrowTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("velocityMin", &CivilianThrowTrack::FUN_00146d20);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a860<CivilianThrowTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("velocityMax", &CivilianThrowTrack::FUN_00146d40);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a860<CivilianThrowTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("trackingMin", &CivilianThrowTrack::FUN_00146d60);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a860<CivilianThrowTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("trackingMax", &CivilianThrowTrack::FUN_00146d90);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a860<CivilianThrowTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("yFixupAngle", &CivilianThrowTrack::FUN_00146dc0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a860<CivilianThrowTrack>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("stunTimeMin", &CivilianThrowTrack::FUN_00146df0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_14a860<CivilianThrowTrack>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_14a860<CivilianThrowTrack>("stunTimeMax", &CivilianThrowTrack::FUN_00146e10);

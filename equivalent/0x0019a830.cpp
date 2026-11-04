@@ -58,11 +58,11 @@ void FUN_0019a830()
     if (DAT_004e1554 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_19a830<hulkfight::motion::PropIsMissileCondition_19a830>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamIntConstRange_19a830<hulkfight::motion::PropIsMissileCondition_19a830>("attachmentIndex", &hulkfight::motion::PropIsMissileCondition_19a830::FUN_00192170);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_19a830<hulkfight::motion::PropIsMissileCondition_19a830>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamBool_19a830<hulkfight::motion::PropIsMissileCondition_19a830>("isMissile", &hulkfight::motion::PropIsMissileCondition_19a830::FUN_00192180);

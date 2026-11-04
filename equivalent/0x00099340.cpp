@@ -19,7 +19,7 @@ public:
 void Panel_99340::FUN_00099340()
 {
     if (range == 0) {
-        CScriptCamera *r = (CScriptCamera *)thunk_FUN_0008d690(0x2d0);
+        CScriptCamera *r = (CScriptCamera *)thunk_FUN_0008d690((int)sizeof(CScriptCamera));
         if (r != 0)
             r = ((CScriptCamera_nv_99340*)(((CScriptCamera*)(r))))->FUN_000ac7d0();
         range = r;

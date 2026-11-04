@@ -12,7 +12,7 @@ template<class C, class R, class A1, class A2, class A3> class Closure3_d1280;
 template<> class Closure3_d1280<HUDOverlay_d1280, int, const char*, const char*, float> { public: virtual void v(); char pad[0x1c]; HUDOverlay_d1280* owner; Closure3_d1280(HUDOverlay_d1280* o) { owner = o; } };
 class Raw_d1280 { public: void FUN_000ceb80(const char*, void (*)()); };
 void Registry_d1280::FUN_000d1280(const char* a1, HUDOverlay_d1280* a2, void (*a3)()) {
-    void* m = FUN_0008d690(0x24);
+    void* m = FUN_0008d690((int)sizeof(Closure3_d1280<HUDOverlay_d1280, int, const char*, const char*, float>));
     void* x = 0;
     if (m) {
         ((Raw_d1280*)m)->FUN_000ceb80(a1, a3);

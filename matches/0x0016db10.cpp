@@ -16,7 +16,7 @@ class TargetCondition {
     TargetCondition(int);
 };
 void* TargetCondition::Create() {
-    TargetCondition* p = (TargetCondition*)FUN_0008d690(0x14);
+    TargetCondition* p = (TargetCondition*)FUN_0008d690((int)sizeof(TargetCondition));
     if (p) {
         p->TargetCondition::TargetCondition(0);
         *(void**)p = VT_16db10;

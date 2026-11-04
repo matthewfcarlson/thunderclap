@@ -29,7 +29,7 @@ extern "C" void FUN_001883f0();
 
 template <> void* fight::TrackFactoryCasterTemplate<hulkfight::motion::ShieldArcTrack>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
 
-    void* mem = operator new(0x10);
+    void* mem = operator new(sizeof(TrackFactoryTemplate_18c170));
     if (mem) {
         ((InitHelper*)mem)->init();
         TrackFactoryTemplate_18c170* t = new (mem) TrackFactoryTemplate_18c170();

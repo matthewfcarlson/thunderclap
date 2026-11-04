@@ -54,11 +54,11 @@ extern "C" void FUN_00064750()
     if (DAT_004dc66c == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<::CSmartPropRemoveInstanceTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamIntConstRange<::CSmartPropRemoveInstanceTrack>("attachmentIndex", &::CSmartPropRemoveInstanceTrack::FUN_00061fb0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CSmartPropRemoveInstanceTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange<::CSmartPropRemoveInstanceTrack>("timeBegin", &::CSmartPropRemoveInstanceTrack::FUN_00061fa0);

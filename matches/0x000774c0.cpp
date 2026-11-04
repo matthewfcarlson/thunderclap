@@ -13,7 +13,7 @@ struct Obj_774c0 {
 };
 
 template <> void* fight::TrackFactoryTemplate<CRageModeTrack>::vfunc_5() {
-    Obj_774c0* p = (Obj_774c0*)FUN_0008d690(0x14);
+    Obj_774c0* p = (Obj_774c0*)FUN_0008d690((int)sizeof(Obj_774c0));
     if (p) {
         p->Init();
         p->vptr = ((hulk_intptr)DAT_003fc058);

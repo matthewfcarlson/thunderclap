@@ -24,7 +24,7 @@ extern "C" void __cdecl FUN_002347b0(void*, Param**, int);
 extern "C" void FUN_00155af0() {
  if (!DAT_004e10bc) {
   Param* list[2];
-  Param* p = (Param*)FUN_0008d690(32);
+  Param* p = (Param*)FUN_0008d690((int)sizeof(Param));
   if (p) {
    unsigned int count = (*(unsigned int*)&DAT_00427760);
    p->FUN_00234cc0("compare");
@@ -34,7 +34,7 @@ extern "C" void FUN_00155af0() {
    p->callback = SetCompare_0014c710;
   }
   list[0] = p;
-  p = (Param*)FUN_0008d690(32);
+  p = (Param*)FUN_0008d690((int)sizeof(Param));
   if (p) {
    p->FUN_00234cc0("type");
    new (p) Param;

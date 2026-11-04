@@ -228,13 +228,13 @@ CRenderManager::CRenderManager()
     Registry_1bb990* reg = FUN_001d4c90();
     void* mem;
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<CRenderManager, void, bool>));
     Closure1<CRenderManager, void, bool>* enableFog = 0;
     if (mem)
         enableFog = new (mem) Closure1<CRenderManager, void, bool>("rm_EnableFog", this, &CRenderManager::FUN_001b8770);
     reg->FUN_001d3b70("rm_EnableFog", enableFog);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure3<CRenderManager, void, int, int, int>));
     Closure3<CRenderManager, void, int, int, int>* fogColour = 0;
     if (mem)
         fogColour = new (mem) Closure3<CRenderManager, void, int, int, int>("rm_SetFogColour", this, &CRenderManager::FUN_001b9ab0);
@@ -246,31 +246,31 @@ CRenderManager::CRenderManager()
         fogPlanes = ((Closure2_1bb990*)mem)->FUN_001ba510("rm_SetFogPlanes", this, &CRenderManager::FUN_001b88c0);
     reg->FUN_001d3b70("rm_SetFogPlanes", fogPlanes);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure3<CRenderManager, void, int, int, int>));
     Closure3<CRenderManager, void, int, int, int>* shadowColour = 0;
     if (mem)
         shadowColour = new (mem) Closure3<CRenderManager, void, int, int, int>("rm_SetShadowColour", this, &CRenderManager::FUN_001b9b40);
     reg->FUN_001d3b70("rm_SetShadowColour", shadowColour);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<CRenderManager, void, bool>));
     Closure1<CRenderManager, void, bool>* enableBloom = 0;
     if (mem)
         enableBloom = new (mem) Closure1<CRenderManager, void, bool>("rm_EnableBloom", this, &CRenderManager::FUN_001b8780);
     reg->FUN_001d3b70("rm_EnableBloom", enableBloom);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure3<CRenderManager, void, int, int, int>));
     Closure3<CRenderManager, void, int, int, int>* bloomColour = 0;
     if (mem)
         bloomColour = new (mem) Closure3<CRenderManager, void, int, int, int>("rm_SetBloomColour", this, &CRenderManager::FUN_001b87d0);
     reg->FUN_001d3b70("rm_SetBloomColour", bloomColour);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure3<CRenderManager, void, int, int, int>));
     Closure3<CRenderManager, void, int, int, int>* bloomWeights = 0;
     if (mem)
         bloomWeights = new (mem) Closure3<CRenderManager, void, int, int, int>("rm_SetBloomWeights", this, &CRenderManager::FUN_001b87f0);
     reg->FUN_001d3b70("rm_SetBloomWeights", bloomWeights);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure6<CRenderManager, void, float, float, float, float, float, float>));
     Closure6<CRenderManager, void, float, float, float, float, float, float>* bloomParams = 0;
     if (mem)
         bloomParams = new (mem) Closure6<CRenderManager, void, float, float, float, float, float, float>("rm_SetBloomParameters", this, &CRenderManager::FUN_001b98e0);
@@ -279,19 +279,19 @@ CRenderManager::CRenderManager()
     reg->FUN_001bb690("rm_DoCredits", this, &CRenderManager::FUN_001b8ab0);
     reg->FUN_001bb700("rm_IsCredits", this, &CRenderManager::FUN_001b8b30);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure4<CRenderManager, unsigned int, const char*, float, float, float>));
     Closure4<CRenderManager, unsigned int, const char*, float, float, float>* addEffect = 0;
     if (mem)
         addEffect = new (mem) Closure4<CRenderManager, unsigned int, const char*, float, float, float>("rm_AddAnEffect", this, &CRenderManager::FUN_001b8e40);
     reg->FUN_001d3b70("rm_AddAnEffect", addEffect);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure4<CRenderManager, unsigned int, const char*, math::Vector, math::Vector, float>));
     Closure4<CRenderManager, unsigned int, const char*, math::Vector, math::Vector, float>* addEffectEx = 0;
     if (mem)
         addEffectEx = new (mem) Closure4<CRenderManager, unsigned int, const char*, math::Vector, math::Vector, float>("rm_AddAnEffectEx", this, &CRenderManager::FUN_001b8dc0);
     reg->FUN_001d3b70("rm_AddAnEffectEx", addEffectEx);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<CRenderManager, void, unsigned int>));
     Closure1<CRenderManager, void, unsigned int>* removeEffect = 0;
     if (mem)
         removeEffect = new (mem) Closure1<CRenderManager, void, unsigned int>("rm_RemoveAnEffect", this, &CRenderManager::FUN_001b8ec0);
@@ -310,7 +310,7 @@ CRenderManager::CRenderManager()
 
     reg->FUN_001bb700("rm_GetDrawEffectsWithWorld", this, &CRenderManager::FUN_001b88f0);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<CRenderManager, void, bool>));
     Closure1<CRenderManager, void, bool>* drawEffects = 0;
     if (mem)
         drawEffects = new (mem) Closure1<CRenderManager, void, bool>("rm_SetDrawEffectsWithWorld", this, &CRenderManager::FUN_001b8900);
@@ -319,25 +319,25 @@ CRenderManager::CRenderManager()
     reg->FUN_001bb690("nism_LetterBoxOn", this, &CRenderManager::FUN_001b9020);
     reg->FUN_001bb690("nism_LetterBoxOff", this, &CRenderManager::FUN_001b90b0);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<CRenderManager, void, float>));
     Closure1<CRenderManager, void, float>* fadeToBlack = 0;
     if (mem)
         fadeToBlack = new (mem) Closure1<CRenderManager, void, float>("nism_FadeToBlack", this, &CRenderManager::FUN_001b9130);
     reg->FUN_001d3b70("nism_FadeToBlack", fadeToBlack);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<CRenderManager, void, float>));
     Closure1<CRenderManager, void, float>* fadeFromBlack = 0;
     if (mem)
         fadeFromBlack = new (mem) Closure1<CRenderManager, void, float>("nism_FadeFromBlack", this, &CRenderManager::FUN_001b9160);
     reg->FUN_001d3b70("nism_FadeFromBlack", fadeFromBlack);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<CRenderManager, void, float>));
     Closure1<CRenderManager, void, float>* fadeToWhite = 0;
     if (mem)
         fadeToWhite = new (mem) Closure1<CRenderManager, void, float>("nism_FadeToWhite", this, &CRenderManager::FUN_001b9180);
     reg->FUN_001d3b70("nism_FadeToWhite", fadeToWhite);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<CRenderManager, void, float>));
     Closure1<CRenderManager, void, float>* fadeFromWhite = 0;
     if (mem)
         fadeFromWhite = new (mem) Closure1<CRenderManager, void, float>("nism_FadeFromWhite", this, &CRenderManager::FUN_001b91b0);

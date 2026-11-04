@@ -41,7 +41,7 @@ struct Registry_87dc0 {
 };
 
 void Registry_87dc0::FUN_00087dc0(const char* name, CGame* owner, void (CGame::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CGame, void>));
     Closure0<CGame, void>* c = 0;
     if (mem)
         c = new (mem) Closure0<CGame, void>(name, owner, fn);

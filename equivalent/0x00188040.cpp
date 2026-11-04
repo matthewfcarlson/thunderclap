@@ -25,16 +25,16 @@ extern void __cdecl FUN_002347b0(void*, ParamBase_188040**, int);
 extern "C" void __cdecl FUN_00188040() {
  if (!DAT_004e1494) {
   ParamBase_188040* params[4];
-  ParamBase_188040* p = (ParamBase_188040*)FUN_0008d690(24);
+  ParamBase_188040* p = (ParamBase_188040*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::motion::GrapplePropDamageTrack>));
   if(p) { p->FUN_00234960("timeBegin"); new(p) fight::ParamFloatConstRange<hulkfight::motion::GrapplePropDamageTrack>; p->callback=SetTimeBegin_0017f890; }
   params[0]=p;
-  p=(ParamBase_188040*)FUN_0008d690(24);
+  p=(ParamBase_188040*)FUN_0008d690((int)sizeof(fight::ParamIntConstRange<hulkfight::motion::GrapplePropDamageTrack>));
   if(p) { p->FUN_002348e0("attachmentIndex"); new(p) fight::ParamIntConstRange<hulkfight::motion::GrapplePropDamageTrack>; p->callback=SetAttachmentIndex_0017f8b0; }
   params[1]=p;
-  p=(ParamBase_188040*)FUN_0008d690(24);
+  p=(ParamBase_188040*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::motion::GrapplePropDamageTrack>));
   if(p) { p->FUN_00234960("damage"); new(p) fight::ParamFloatConstRange<hulkfight::motion::GrapplePropDamageTrack>; p->callback=SetDamage_0017f8d0; }
   params[2]=p;
-  p=(ParamBase_188040*)FUN_0008d690(24);
+  p=(ParamBase_188040*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::motion::GrapplePropDamageTrack>));
   if(p) { p->FUN_00234960("damageMax"); new(p) fight::ParamFloatConstRange<hulkfight::motion::GrapplePropDamageTrack>; p->callback=SetDamageMax_0017f8f0; }
   params[3]=p;
   FUN_002347b0(&DAT_004e1490,params,4);

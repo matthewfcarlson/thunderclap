@@ -115,25 +115,25 @@ int CSoundResourceManager::FUN_001ea8b0(int arg)
     Registry_1ea8b0 *reg = FUN_001d4c90();
     void *mem;
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<CSoundResourceManager, void, const char *>));
     Closure1<CSoundResourceManager, void, const char *> *c1 = 0;
     if (mem)
         c1 = new (mem) Closure1<CSoundResourceManager, void, const char *>("snd_PreloadSequenceOfRankN", this, &CSoundResourceManager::FUN_001ea0c0);
     reg->FUN_001d3b70("snd_PreloadSequenceOfRankN", c1);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<CSoundResourceManager, void, const char *>));
     Closure1<CSoundResourceManager, void, const char *> *c2 = 0;
     if (mem)
         c2 = new (mem) Closure1<CSoundResourceManager, void, const char *>("snd_PrepareSequence", this, &CSoundResourceManager::FUN_001ea050);
     reg->FUN_001d3b70("snd_PrepareSequence", c2);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<CSoundResourceManager, void, char *>));
     Closure1<CSoundResourceManager, void, char *> *c3 = 0;
     if (mem)
         c3 = new (mem) Closure1<CSoundResourceManager, void, char *>("snd_SetDefaultMix", this, &CSoundResourceManager::FUN_001e9b00);
     reg->FUN_001d3b70("snd_SetDefaultMix", c3);
 
-    mem = FUN_0008d690(0x24);
+    mem = FUN_0008d690((int)sizeof(Closure1<CSoundResourceManager, void, int>));
     Closure1<CSoundResourceManager, void, int> *c4 = 0;
     if (mem)
         c4 = new (mem) Closure1<CSoundResourceManager, void, int>("snd_ReturnToDefaultMix", this, &CSoundResourceManager::FUN_001e9b20);

@@ -20,7 +20,7 @@ class Condition_18bbb0 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::PropCollidedWithWorldCondition>::vfunc_5() {
-    Condition_18bbb0* p = (Condition_18bbb0*)FUN_0008d690(0x14);
+    Condition_18bbb0* p = (Condition_18bbb0*)FUN_0008d690((int)sizeof(Condition_18bbb0));
     if (p) {
         p->init(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0041926c);

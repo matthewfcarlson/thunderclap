@@ -21,7 +21,7 @@ class StatEndTrialTrack_132e40 {
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::StatEndTrialTrack>::vfunc_5() {
-    StatEndTrialTrack_132e40* p = (StatEndTrialTrack_132e40*)FUN_0008d690(0x14);
+    StatEndTrialTrack_132e40* p = (StatEndTrialTrack_132e40*)FUN_0008d690((int)sizeof(StatEndTrialTrack_132e40));
     if (p) {
         p->StatEndTrialTrack_132e40::StatEndTrialTrack_132e40();
         *(hulk_intptr*)p = (hulk_intptr)statVftable;

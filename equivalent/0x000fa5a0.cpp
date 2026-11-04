@@ -106,7 +106,7 @@ DollyScript::CToken * __stdcall FUN_000fa5a0(char **cur, const char *base, int a
         char *buf = FUN_0008d6d0(len + 1);
         strncpy(buf, start, len);
         buf[len] = 0;
-        void *mem = FUN_0008d690(0x14);
+        void *mem = FUN_0008d690((int)sizeof(DollyScript::CTokenStatement));
         DollyScript::CTokenStatement *t = 0;
         if (mem != 0)
             t = new (mem) DollyScript::CTokenStatement(buf, a, b);
@@ -177,7 +177,7 @@ DollyScript::CToken * __stdcall FUN_000fa5a0(char **cur, const char *base, int a
             }
         }
         *dst = 0;
-        void *mem = FUN_0008d690(0x14);
+        void *mem = FUN_0008d690((int)sizeof(DollyScript::CTokenString));
         DollyScript::CTokenString *t = 0;
         if (mem != 0)
             t = new (mem) DollyScript::CTokenString(out, a, b);
@@ -194,11 +194,11 @@ DollyScript::CToken * __stdcall FUN_000fa5a0(char **cur, const char *base, int a
     }
     void *res = 0;
     if (c == '{') {
-        void *mem = FUN_0008d690(0x10);
+        void *mem = FUN_0008d690((int)sizeof(DollyScript::CTokenSectionStart));
         if (mem != 0)
             res = new (mem) DollyScript::CTokenSectionStart(b);
     } else if (c == '}') {
-        void *mem = FUN_0008d690(0x10);
+        void *mem = FUN_0008d690((int)sizeof(DollyScript::CTokenSectionEnd));
         if (mem != 0)
             res = new (mem) DollyScript::CTokenSectionEnd(b);
     } else if (isdigit((int)c) == 0 && **cur != '-' && **cur != '+' && **cur != '.') {

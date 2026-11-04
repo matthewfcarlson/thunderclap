@@ -19,7 +19,7 @@ class AIHistorySetTrack {
     void BaseInit();
 };
 AIHistorySetTrack* Factory() {
-    AIHistorySetTrack* p = (AIHistorySetTrack*)FUN_0008d690(0x20);
+    AIHistorySetTrack* p = (AIHistorySetTrack*)FUN_0008d690((int)sizeof(AIHistorySetTrack));
     if (p) {
         p->BaseInit();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_0040dca4);

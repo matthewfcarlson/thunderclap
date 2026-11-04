@@ -12,7 +12,7 @@ struct GameStateCondition_132ab0 {
     void InitBase(int);
 };
 GameStateCondition_132ab0* Factory_vfunc5(void) {
-    GameStateCondition_132ab0* p = (GameStateCondition_132ab0*)FUN_0008d690(0x1c);
+    GameStateCondition_132ab0* p = (GameStateCondition_132ab0*)FUN_0008d690((int)sizeof(GameStateCondition_132ab0));
     if (p) {
         p->InitBase(0);
         p->x10 = -1;

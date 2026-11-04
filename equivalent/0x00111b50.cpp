@@ -41,13 +41,13 @@ void target() {
  typedef fight::ParamEnumConstList<hulkfight::ai::OnBlockedTriangleCondition> E;
  typedef fight::ParamBool<hulkfight::ai::OnBlockedTriangleCondition> B;
  typedef fight::ParamIntConstRange<hulkfight::ai::OnBlockedTriangleCondition> I;
- E* e=(E*)FUN_0008d690(32);
+ E* e=(E*)FUN_0008d690((int)sizeof(E));
  if(e) { int count=(*(int*)&DAT_00427754); e->FUN_00234cc0("compare"); new (e) E; e->count=count; e->names=((char*)&DAT_0042773c); e->callback=SetCompare_0010c0d0; }
  params[0]=e;
- B* b=(B*)FUN_0008d690(24);
+ B* b=(B*)FUN_0008d690((int)sizeof(B));
  if(b) { b->FUN_00234860("target"); new (b) B; b->callback=SetTarget_0010c0f0; }
  params[1]=b;
- I* i=(I*)FUN_0008d690(24);
+ I* i=(I*)FUN_0008d690((int)sizeof(I));
  if(i) { i->FUN_002348e0("smartPropIndex"); new (i) I; i->callback=SetSmartPropIndex_0010c110; }
  params[2]=i;
  FUN_002347b0(&DAT_004e0ae0,params,3);

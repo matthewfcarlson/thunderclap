@@ -16,7 +16,7 @@ struct LocomotionStateTrack_17e2a0 {
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::LocomotionStateTrack>::vfunc_5() {
-    LocomotionStateTrack_17e2a0* p = (LocomotionStateTrack_17e2a0*)FUN_0008d690(0x14);
+    LocomotionStateTrack_17e2a0* p = (LocomotionStateTrack_17e2a0*)FUN_0008d690((int)sizeof(LocomotionStateTrack_17e2a0));
     if (p) {
         ((Base_17e2a0*)p)->init();
         p->vf = ((hulk_intptr)DAT_004179e8);

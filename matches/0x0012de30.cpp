@@ -48,7 +48,7 @@ extern "C" void __cdecl FUN_002347b0(int*, void**, int);
 extern "C" void FUN_0012de30() {
     if (DAT_004e0e48 == 0) {
         void* items[4];
-        void* p = FUN_0008d690(24);
+        void* p = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::PostEvent_StringTrack>));
         if (p) {
             fight::ParamFloatConstRange<hulkfight::PostEvent_StringTrack>* a =
                 new (p) fight::ParamFloatConstRange<hulkfight::PostEvent_StringTrack>;
@@ -56,7 +56,7 @@ extern "C" void FUN_0012de30() {
             items[0] = a;
         } else
             items[0] = 0;
-        p = FUN_0008d690(24);
+        p = FUN_0008d690((int)sizeof(fight::ParamName<hulkfight::PostEvent_StringTrack>));
         if (p) {
             fight::ParamName<hulkfight::PostEvent_StringTrack>* a =
                 new (p) fight::ParamName<hulkfight::PostEvent_StringTrack>;
@@ -64,7 +64,7 @@ extern "C" void FUN_0012de30() {
             items[1] = a;
         } else
             items[1] = 0;
-        p = FUN_0008d690(24);
+        p = FUN_0008d690((int)sizeof(fight::ParamBool<hulkfight::PostEvent_StringTrack>));
         if (p) {
             fight::ParamBool<hulkfight::PostEvent_StringTrack>* a =
                 new (p) fight::ParamBool<hulkfight::PostEvent_StringTrack>("onlyInTutorialMode");
@@ -72,7 +72,7 @@ extern "C" void FUN_0012de30() {
             items[2] = a;
         } else
             items[2] = 0;
-        p = FUN_0008d690(24);
+        p = FUN_0008d690((int)sizeof(fight::ParamBool<hulkfight::PostEvent_StringTrack>));
         if (p) {
             fight::ParamBool<hulkfight::PostEvent_StringTrack>* a =
                 new (p) fight::ParamBool<hulkfight::PostEvent_StringTrack>("unique");

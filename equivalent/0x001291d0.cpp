@@ -43,11 +43,11 @@ extern "C" void FUN_001291d0()
     if (DAT_004e0df8 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_1291d0<hulkfight::ai::CanSeeTargetCondition_1291d0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_1291d0<hulkfight::ai::CanSeeTargetCondition_1291d0>("canSee", &hulkfight::ai::CanSeeTargetCondition_1291d0::FUN_00123930);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_1291d0<hulkfight::ai::CanSeeTargetCondition_1291d0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamBool_1291d0<hulkfight::ai::CanSeeTargetCondition_1291d0>("ignoreFriendInTheWay", &hulkfight::ai::CanSeeTargetCondition_1291d0::FUN_00123950);

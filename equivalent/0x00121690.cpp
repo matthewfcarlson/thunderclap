@@ -47,31 +47,31 @@ extern "C" void FUN_00121690()
     if (DAT_004e0cd4 == 0) {
         void* params[7];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>("timeBegin", &hulkfight::ai::StrafeCircleHBTrack_121690::FUN_0011bde0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>("timeEnd", &hulkfight::ai::StrafeCircleHBTrack_121690::FUN_0011bdf0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>("distanceMin", &hulkfight::ai::StrafeCircleHBTrack_121690::FUN_0011be10);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>("distanceMax", &hulkfight::ai::StrafeCircleHBTrack_121690::FUN_0011be30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>("heightMin", &hulkfight::ai::StrafeCircleHBTrack_121690::FUN_0011be50);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>("heightMax", &hulkfight::ai::StrafeCircleHBTrack_121690::FUN_0011be70);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_121690<hulkfight::ai::StrafeCircleHBTrack_121690>("speed", &hulkfight::ai::StrafeCircleHBTrack_121690::FUN_0011be90);

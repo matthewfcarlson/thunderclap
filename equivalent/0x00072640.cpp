@@ -38,7 +38,7 @@ extern "C" void FUN_00072640()
     if (DAT_004dd004 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CDeathTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange<::CDeathTrack>("timeBegin", &::CDeathTrack::FUN_00068b30);

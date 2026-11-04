@@ -18,13 +18,13 @@ void target() {
  typedef fight::ParamFloatConstRange<hulkfight::ai::AIHistorySetTrack> FloatParam;
  typedef fight::ParamBool<hulkfight::ai::AIHistorySetTrack> BoolParam;
  typedef fight::ParamName<hulkfight::ai::AIHistorySetTrack> NameParam;
- FloatParam* a=(FloatParam*)FUN_0008d690(24);
+ FloatParam* a=(FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
  if(a) { a->FUN_00234960("timeBegin"); new(a) FloatParam; a->callback=SetTimeBegin_0010c600; } items[0]=a;
- a=(FloatParam*)FUN_0008d690(24);
+ a=(FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
  if(a) { a->FUN_00234960("timeEnd"); new(a) FloatParam; a->callback=SetTimeEnd_0010c610; } items[1]=a;
- BoolParam* b=(BoolParam*)FUN_0008d690(24);
+ BoolParam* b=(BoolParam*)FUN_0008d690((int)sizeof(BoolParam));
  if(b) { b->FUN_00234860("onlySetAtEnd"); new(b) BoolParam; b->callback=SetOnlySetAtEnd_0010c620; } items[2]=b;
- NameParam* c=(NameParam*)FUN_0008d690(24);
+ NameParam* c=(NameParam*)FUN_0008d690((int)sizeof(NameParam));
  if(c) { c->FUN_00234a90("text"); new(c) NameParam; c->callback=GetText_0010c630; } items[3]=c;
  FUN_002347b0(((unsigned int*)&DAT_004e0b90),items,4);
  }

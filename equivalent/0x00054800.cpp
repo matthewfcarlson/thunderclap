@@ -58,11 +58,11 @@ extern "C" void FUN_00054800()
     if (DAT_004dc57c == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_54800<::CClimbEdgeCondition_54800>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList_54800<::CClimbEdgeCondition_54800>("edge", ((const char**)&DAT_0048f9fc), 6, &::CClimbEdgeCondition_54800::FUN_000481e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_54800<::CClimbEdgeCondition_54800>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamBool_54800<::CClimbEdgeCondition_54800>("checkCorner", &::CClimbEdgeCondition_54800::FUN_000481f0);

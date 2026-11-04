@@ -24,7 +24,7 @@ extern "C" void __cdecl FUN_00072360() {
  const char* names[3]={"timeBegin","timeEnd","extensionTime"};
  void (__cdecl *callbacks[3])()={FUN_00068960,FUN_00068970,FUN_00068980};
  for(int i=0;i<3;++i) {
- Param* p=(Param*)FUN_0008d690(24);
+ Param* p=(Param*)FUN_0008d690((int)sizeof(Param));
  if(p) {
  p->FUN_00234960(names[i]);
  p->fight::ParamFloatConstRange<CInvulnerableTrack>::ParamFloatConstRange();

@@ -42,7 +42,7 @@ extern "C" void FUN_00187960()
     if (DAT_004e141c == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_187960<hulkfight::motion::PropGrabbableIsThrownCondition_187960>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_187960<hulkfight::motion::PropGrabbableIsThrownCondition_187960>("isThrown", &hulkfight::motion::PropGrabbableIsThrownCondition_187960::FUN_0017f470);

@@ -33,13 +33,13 @@ template<class T> struct ParamFloatConstRange: FloatBase_52b40 {
 extern "C" void FUN_00052b40() {
  if (!DAT_004dc41c) {
  void* list[3];
- fight::ParamEnumConstList<CAxisSpeedCondition>* a=(fight::ParamEnumConstList<CAxisSpeedCondition>*)FUN_0008d690(32);
+ fight::ParamEnumConstList<CAxisSpeedCondition>* a=(fight::ParamEnumConstList<CAxisSpeedCondition>*)FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CAxisSpeedCondition>));
  if(a) { a->FUN_00234cc0("axis"); a = new(a) fight::ParamEnumConstList<CAxisSpeedCondition>; a->values=DAT_0049ee74; a->count=2; a->callback=FUN_00047b00; }
  list[0]=a;
- fight::ParamEnumConstList<CAxisSpeedCondition>* b=(fight::ParamEnumConstList<CAxisSpeedCondition>*)FUN_0008d690(32);
+ fight::ParamEnumConstList<CAxisSpeedCondition>* b=(fight::ParamEnumConstList<CAxisSpeedCondition>*)FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CAxisSpeedCondition>));
  if(b) { int count=(*(int*)&DAT_00427754); b->FUN_00234cc0("compareSpeed"); b = new(b) fight::ParamEnumConstList<CAxisSpeedCondition>; b->count=count; b->values=((char*)&DAT_0042773c); b->callback=SetCompareSpeed_00047b30; }
  list[1]=b;
- fight::ParamFloatConstRange<CAxisSpeedCondition>* c=(fight::ParamFloatConstRange<CAxisSpeedCondition>*)FUN_0008d690(24);
+ fight::ParamFloatConstRange<CAxisSpeedCondition>* c=(fight::ParamFloatConstRange<CAxisSpeedCondition>*)FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CAxisSpeedCondition>));
  if(c) { c->FUN_00234960("speed"); c = new(c) fight::ParamFloatConstRange<CAxisSpeedCondition>; c->callback=SetSpeed_00047b40; }
  list[2]=c;
  FUN_002347b0(&DAT_004dc418,list,3);

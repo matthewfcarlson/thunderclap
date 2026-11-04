@@ -88,27 +88,27 @@ extern "C" void FUN_0005c320()
         void* params[6];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrappleOpportunityTrack_5c320>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<CGrappleOpportunityTrack_5c320>("timeBegin", &CGrappleOpportunityTrack_5c320::FUN_0005a2d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrappleOpportunityTrack_5c320>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<CGrappleOpportunityTrack_5c320>("timeEnd", &CGrappleOpportunityTrack_5c320::FUN_0005a2e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrappleOpportunityTrack_5c320>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamFloatConstRange<CGrappleOpportunityTrack_5c320>("timeHook", &CGrappleOpportunityTrack_5c320::FUN_0005a2f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBranch<CGrappleOpportunityTrack_5c320>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamBranch<CGrappleOpportunityTrack_5c320>("branch", &CGrappleOpportunityTrack_5c320::FUN_0005a300);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<CGrappleOpportunityTrack_5c320>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamIntConstRange<CGrappleOpportunityTrack_5c320>("priority", &CGrappleOpportunityTrack_5c320::FUN_0005a310);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamConditionGroup<CGrappleOpportunityTrack_5c320>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamConditionGroup<CGrappleOpportunityTrack_5c320>("conditionGroup", &CGrappleOpportunityTrack_5c320::FUN_0005a320);

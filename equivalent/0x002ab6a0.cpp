@@ -29,7 +29,7 @@ ParticleEmitterLoader* ParticleEmitterLoader::init() {
  new (this) ParticleEmitterLoader;
  value=0; loader=0;
  for(int i=0;i<8;++i) values[i]=0;
- ParticleGeneratorLoader* p=(ParticleGeneratorLoader*)FUN_0008d690(44);
+ ParticleGeneratorLoader* p=(ParticleGeneratorLoader*)FUN_0008d690((int)sizeof(ParticleGeneratorLoader));
  if(p) {
   new (p) ParticleGeneratorLoader;
   p->value=0; p->count=0;
@@ -38,7 +38,7 @@ ParticleEmitterLoader* ParticleEmitterLoader::init() {
  if(p) p->slot0();
  if(loader) loader->slot1();
  loader=p;
- DefaultParticleGeneratorHandler* h=(DefaultParticleGeneratorHandler*)FUN_0008d690(8);
+ DefaultParticleGeneratorHandler* h=(DefaultParticleGeneratorHandler*)FUN_0008d690((int)sizeof(DefaultParticleGeneratorHandler));
  if(h) { new(h) DefaultParticleGeneratorHandler; h->value=0; }
  p=loader;
  if(h) {

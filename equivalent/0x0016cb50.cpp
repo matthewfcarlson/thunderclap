@@ -87,31 +87,31 @@ extern "C" void FUN_0016cb50()
     if (DAT_004e127c == 0) {
         void* params[7];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamNameConstList<RayCastCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamNameConstList<RayCastCondition>("joint", &RayCastCondition::FUN_001657c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<RayCastCondition>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamVector<RayCastCondition>("offset", &RayCastCondition::FUN_001657f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<RayCastCondition>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamVector<RayCastCondition>("direction", &RayCastCondition::FUN_00165830);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RayCastCondition>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamFloatConstRange<RayCastCondition>("length", &RayCastCondition::FUN_00165860);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<RayCastCondition>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamBool<RayCastCondition>("hitFound", &RayCastCondition::FUN_00165880);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<RayCastCondition>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamBool<RayCastCondition>("testForGroundPointAtEnd", &RayCastCondition::FUN_001658a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RayCastCondition>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamFloatConstRange<RayCastCondition>("allowedHeightAtEnd", &RayCastCondition::FUN_001658c0);

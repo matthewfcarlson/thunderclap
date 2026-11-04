@@ -43,11 +43,11 @@ extern "C" void FUN_0016b9d0()
     if (DAT_004e1274 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_16b9d0<hulkfight::motion::VelocityXZAngleCondition_16b9d0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_16b9d0<hulkfight::motion::VelocityXZAngleCondition_16b9d0>("angle", &hulkfight::motion::VelocityXZAngleCondition_16b9d0::FUN_00165780);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_16b9d0<hulkfight::motion::VelocityXZAngleCondition_16b9d0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_16b9d0<hulkfight::motion::VelocityXZAngleCondition_16b9d0>("arc", &hulkfight::motion::VelocityXZAngleCondition_16b9d0::FUN_001657a0);

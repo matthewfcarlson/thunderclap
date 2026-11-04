@@ -120,39 +120,39 @@ extern "C" void FUN_0005cf20()
     if (DAT_004dc5c4 == 0) {
         void* params[9];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrabTrack_5cf20>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<CGrabTrack_5cf20>("timeBegin", &CGrabTrack_5cf20::FUN_0005a360);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrabTrack_5cf20>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<CGrabTrack_5cf20>("timeEnd", &CGrabTrack_5cf20::FUN_0005a370);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamNameConstList<CGrabTrack_5cf20>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamNameConstList<CGrabTrack_5cf20>("joint", &CGrabTrack_5cf20::FUN_0005a380);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<CGrabTrack_5cf20>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamVector<CGrabTrack_5cf20>("offset", &CGrabTrack_5cf20::FUN_0005a390);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CGrabTrack_5cf20>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<CGrabTrack_5cf20>("radius", &CGrabTrack_5cf20::FUN_0005a3b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<CGrabTrack_5cf20>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamIntConstRange<CGrabTrack_5cf20>("interruptPriority", &CGrabTrack_5cf20::FUN_0005a3c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<CGrabTrack_5cf20>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamBool<CGrabTrack_5cf20>("missileCatch", &CGrabTrack_5cf20::FUN_0005a3d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBranch<CGrabTrack_5cf20>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) ParamBranch<CGrabTrack_5cf20>("receiver", &CGrabTrack_5cf20::FUN_00012bd0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBranch<CGrabTrack_5cf20>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) ParamBranch<CGrabTrack_5cf20>("giver", &CGrabTrack_5cf20::FUN_00012be0);

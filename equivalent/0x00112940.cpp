@@ -42,7 +42,7 @@ extern "C" void FUN_00112940()
     if (DAT_004e0b74 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_112940<hulkfight::ai::AIHistoryCountTrack_112940>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_112940<hulkfight::ai::AIHistoryCountTrack_112940>("value", &hulkfight::ai::AIHistoryCountTrack_112940::FUN_0010c4c0);

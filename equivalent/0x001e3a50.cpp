@@ -12,7 +12,7 @@ template<class C, class R, class A1, class A2, class A3> class Closure3_1e3a50;
 template<> class Closure3_1e3a50<CSPManager_1e3a50, void, const char*, bool, float> { public: virtual void v(); char pad[0x1c]; CSPManager_1e3a50* owner; Closure3_1e3a50(CSPManager_1e3a50* o) { owner = o; } };
 class Raw_1e3a50 { public: void FUN_001e0130(const char*, void (*)()); };
 void Registry_1e3a50::FUN_001e3a50(const char* a1, CSPManager_1e3a50* a2, void (*a3)()) {
-    void* m = FUN_0008d690(0x24);
+    void* m = FUN_0008d690((int)sizeof(Closure3_1e3a50<CSPManager_1e3a50, void, const char*, bool, float>));
     void* x = 0;
     if (m) {
         ((Raw_1e3a50*)m)->FUN_001e0130(a1, a3);

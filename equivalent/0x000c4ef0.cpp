@@ -219,7 +219,7 @@ void Frontend_c4ef0::FUN_000c4ef0(void *a1, void *a2, void *a3, Input_c4ef0 *a4,
     ctl->FUN_000b3e00(a1);
     field_58 = a1;
 
-    p = FUN_0008d690(8);
+    p = FUN_0008d690((int)sizeof(CFESoundManager_c4ef0));
     CFESoundManager_c4ef0 *snd = 0;
     if (p)
         snd = new (p) CFESoundManager_c4ef0();

@@ -24,17 +24,17 @@ template<class T> struct ParamVector : FUN_00234e50 { virtual void slot(); };
 void __cdecl target() {
  if (!DAT_004dc4d4) {
  void* list[4];
- void* p=FUN_0008d690(32);
+ void* p=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CSmartPropDistanceCondition>));
  if(p) {
  int n=(*(int*)&DAT_00427754);
  fight::ParamEnumConstList<CSmartPropDistanceCondition>* a=new(p) fight::ParamEnumConstList<CSmartPropDistanceCondition>;
  a->count=n; a->values="lwB"; a->callback=FUN_00047ee0; list[0]=a;
  } else list[0]=0;
- p=FUN_0008d690(24);
+ p=FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CSmartPropDistanceCondition>));
  if(p) { fight::ParamFloatConstRange<CSmartPropDistanceCondition>* a=new(p) fight::ParamFloatConstRange<CSmartPropDistanceCondition>; a->callback=FUN_00047ef0; list[1]=a; } else list[1]=0;
- p=FUN_0008d690(24);
+ p=FUN_0008d690((int)sizeof(fight::ParamNameConstList<CSmartPropDistanceCondition>));
  if(p) { fight::ParamNameConstList<CSmartPropDistanceCondition>* a=new(p) fight::ParamNameConstList<CSmartPropDistanceCondition>; a->callback=FUN_00047f00; list[2]=a; } else list[2]=0;
- p=FUN_0008d690(24);
+ p=FUN_0008d690((int)sizeof(fight::ParamVector<CSmartPropDistanceCondition>));
  if(p) { fight::ParamVector<CSmartPropDistanceCondition>* a=new(p) fight::ParamVector<CSmartPropDistanceCondition>; a->callback=FUN_00047f10; list[3]=a; } else list[3]=0;
  FUN_002347b0(&DAT_004dc4d0,list,4);
  }

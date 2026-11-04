@@ -27,13 +27,13 @@ void __cdecl FUN_002347b0(void*,void**,uint);
 void target() {
  if (!(*(uint*)&DAT_004e1424)) {
  void* params[4];
- void* p=FUN_0008d690(24);
+ void* p=FUN_0008d690((int)sizeof(fight::ParamIntConstRange<hulkfight::motion::PropMassCondition>));
  if(p) { BInt* v=new(p) fight::ParamIntConstRange<hulkfight::motion::PropMassCondition>; v->callback=FUN_0017f490; params[0]=v; } else params[0]=0;
- p=FUN_0008d690(32);
+ p=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<hulkfight::motion::PropMassCondition>));
  if(p) { uint n=(*(uint*)&DAT_00427754); BEnum* v=new(p) fight::ParamEnumConstList<hulkfight::motion::PropMassCondition>; v->count=n; v->names=((char*)&DAT_0042773c); v->callback=FUN_0017f4b0; params[1]=v; } else params[1]=0;
- p=FUN_0008d690(24);
+ p=FUN_0008d690((int)sizeof(fight::ParamNameConstList<hulkfight::motion::PropMassCondition>));
  if(p) { BName* v=new(p) fight::ParamNameConstList<hulkfight::motion::PropMassCondition>; v->callback=FUN_0017f4c0; params[2]=v; } else params[2]=0;
- p=FUN_0008d690(24);
+ p=FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<hulkfight::motion::PropMassCondition>));
  if(p) { BFloat* v=new(p) fight::ParamFloatConstRange<hulkfight::motion::PropMassCondition>; v->callback=FUN_0017f4e0; params[3]=v; } else params[3]=0;
  FUN_002347b0(((uint*)&DAT_004e1420),params,4);
  }

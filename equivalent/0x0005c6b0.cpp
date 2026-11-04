@@ -82,67 +82,67 @@ extern "C" void FUN_0005c6b0()
     if (DAT_4dc594 == 0) {
         void* params[16];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("timeBegin", &::CGrappleLocoStrafe4Track_5c6b0::FUN_0005a0d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("timeEnd", &::CGrappleLocoStrafe4Track_5c6b0::FUN_0005a0e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("locomotion", &::CGrappleLocoStrafe4Track_5c6b0::FUN_00012900);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("animIdle", &::CGrappleLocoStrafe4Track_5c6b0::FUN_00012910);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("animWalkNorth", &::CGrappleLocoStrafe4Track_5c6b0::FUN_00012920);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("animWalkEast", &::CGrappleLocoStrafe4Track_5c6b0::FUN_00012930);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("animWalkSouth", &::CGrappleLocoStrafe4Track_5c6b0::FUN_00012940);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("animWalkWest", &::CGrappleLocoStrafe4Track_5c6b0::FUN_00012950);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("animRunNorth", &::CGrappleLocoStrafe4Track_5c6b0::FUN_00012960);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("animRunEast", &::CGrappleLocoStrafe4Track_5c6b0::FUN_00012970);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("animRunSouth", &::CGrappleLocoStrafe4Track_5c6b0::FUN_00012980);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("animRunWest", &::CGrappleLocoStrafe4Track_5c6b0::FUN_00012990);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
         params[12] = 0;
         if (mem)
             params[12] = new (mem) fight::ParamName_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("partition", &::CGrappleLocoStrafe4Track_5c6b0::FUN_000129a0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
         params[13] = 0;
         if (mem)
             params[13] = new (mem) fight::ParamIntConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("priority", &::CGrappleLocoStrafe4Track_5c6b0::FUN_0005a0f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
         params[14] = 0;
         if (mem)
             params[14] = new (mem) fight::ParamFloatConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("blendInTime", &::CGrappleLocoStrafe4Track_5c6b0::FUN_0005a100);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>));
         params[15] = 0;
         if (mem)
             params[15] = new (mem) fight::ParamFloatConstRange_5c6b0<::CGrappleLocoStrafe4Track_5c6b0>("blendOutTime", &::CGrappleLocoStrafe4Track_5c6b0::FUN_0005a110);

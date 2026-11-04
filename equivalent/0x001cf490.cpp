@@ -42,7 +42,7 @@ struct Registry_1cf490 {
 };
 
 void Registry_1cf490::FUN_001cf490(const char* name, CScenarioManager* owner, void (CScenarioManager::*fn)()) {
-    void* mem = FUN_0008d690(0x24);
+    void* mem = FUN_0008d690((int)sizeof(Closure0<CScenarioManager, void>));
     Closure0<CScenarioManager, void>* c = 0;
     if (mem)
         c = new (mem) Closure0<CScenarioManager, void>(name, owner, fn);

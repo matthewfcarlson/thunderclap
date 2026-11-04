@@ -12,7 +12,7 @@ template<class C, class R, class A1, class A2, class A3> class Closure3_200ab0;
 template<> class Closure3_200ab0<CTriggerVolumeManager_200ab0, void, const char*, int, bool> { public: virtual void v(); char pad[0x1c]; CTriggerVolumeManager_200ab0* owner; Closure3_200ab0(CTriggerVolumeManager_200ab0* o) { owner = o; } };
 class Raw_200ab0 { public: void FUN_001ff2c0(const char*, void (*)()); };
 void Registry_200ab0::FUN_00200ab0(const char* a1, CTriggerVolumeManager_200ab0* a2, void (*a3)()) {
-    void* m = FUN_0008d690(0x24);
+    void* m = FUN_0008d690((int)sizeof(Closure3_200ab0<CTriggerVolumeManager_200ab0, void, const char*, int, bool>));
     void* x = 0;
     if (m) {
         ((Raw_200ab0*)m)->FUN_001ff2c0(a1, a3);

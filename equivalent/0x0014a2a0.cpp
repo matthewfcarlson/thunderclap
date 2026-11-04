@@ -42,7 +42,7 @@ void FUN_0014a2a0()
     if (DAT_004e0fd8 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_14a2a0<hulkfight::motion::CivilianTargetCondition_14a2a0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_14a2a0<hulkfight::motion::CivilianTargetCondition_14a2a0>("hasTarget", &hulkfight::motion::CivilianTargetCondition_14a2a0::FUN_00146940);

@@ -13,7 +13,7 @@ class HitDamageTrack_15a270 {
 extern void* __cdecl operator new(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::motion::HitDamageTrack>::vfunc_5() {
-    HitDamageTrack_15a270* p = (HitDamageTrack_15a270*)operator new(0x14);
+    HitDamageTrack_15a270* p = (HitDamageTrack_15a270*)operator new(sizeof(HitDamageTrack_15a270));
     if (p) {
         p->init();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_00414450);

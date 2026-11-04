@@ -9,7 +9,7 @@ class CComboTimerTrack_76130 {
 extern int CComboTimerTrack_vftable;
 
 template <> void* fight::TrackFactoryTemplate<CComboTimerTrack>::vfunc_5() {
-    CComboTimerTrack_76130* p = (CComboTimerTrack_76130*)FUN_0008d690(0x18);
+    CComboTimerTrack_76130* p = (CComboTimerTrack_76130*)FUN_0008d690((int)sizeof(CComboTimerTrack_76130));
     if (p) {
         p->CComboTimerTrack_76130::CComboTimerTrack_76130();
         *(int**)p = &CComboTimerTrack_vftable;

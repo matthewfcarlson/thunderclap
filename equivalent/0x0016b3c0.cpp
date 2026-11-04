@@ -26,7 +26,7 @@ extern void __cdecl FUN_002347b0(int*, List_16b3c0**, int);
 void initialize() {
  if (!DAT_004e1224) {
   List_16b3c0* lists[2];
-  List_16b3c0* a = (List_16b3c0*)FUN_0008d690(32);
+  List_16b3c0* a = (List_16b3c0*)FUN_0008d690((int)sizeof(List_16b3c0));
   if (a) {
    int count = (*(int*)&DAT_00427760);
    a->FUN_00234cc0("compare");
@@ -36,7 +36,7 @@ void initialize() {
    a->callback = SetCompare_00165580;
   }
   lists[0] = a;
-  List_16b3c0* b = (List_16b3c0*)FUN_0008d690(32);
+  List_16b3c0* b = (List_16b3c0*)FUN_0008d690((int)sizeof(List_16b3c0));
   if (b) {
    int count = (*(int*)&DAT_003f5bbc);
    b->FUN_00234cc0("locomotionMotionState");

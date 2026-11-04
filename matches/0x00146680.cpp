@@ -16,7 +16,7 @@ struct MotionBlurTrack {
 extern void* operator new(unsigned int);
 
 MotionBlurTrack* CreateTrack() {
-    MotionBlurTrack* p = (MotionBlurTrack*)operator new(0x24);
+    MotionBlurTrack* p = (MotionBlurTrack*)operator new(sizeof(MotionBlurTrack));
     if (p != 0) {
         p->Init();
         p->vf = ((hulk_intptr)DAT_00412fd4);

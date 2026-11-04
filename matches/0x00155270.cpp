@@ -32,7 +32,7 @@ extern void __cdecl FUN_002347b0(void*, Param**, unsigned int);
 extern "C" void FUN_00155270() {
     if (DAT_004e1044 == 0) {
         Param* params[2];
-        void* mem = FUN_0008d690(32);
+        void* mem = FUN_0008d690((int)sizeof(Param));
         if (mem) {
             unsigned int count = (*(unsigned int*)&DAT_00427760);
             Base_155270* base = (Base_155270*)mem;
@@ -44,7 +44,7 @@ extern "C" void FUN_00155270() {
             params[0] = p;
         } else
             params[0] = 0;
-        mem = FUN_0008d690(32);
+        mem = FUN_0008d690((int)sizeof(Param));
         if (mem) {
             unsigned int count = (*(unsigned int*)&DAT_003f5eb4);
             Base_155270* base = (Base_155270*)mem;

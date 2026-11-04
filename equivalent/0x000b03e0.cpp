@@ -12,7 +12,7 @@ template<class C, class R, class A1, class A2, class A3, class A4> class Closure
 template<> class Closure4_b03e0<CHapticControllerManager_b03e0, void, int, float, float, float> { public: virtual void v(); char pad[0x1c]; CHapticControllerManager_b03e0* owner; Closure4_b03e0(CHapticControllerManager_b03e0* o) { owner = o; } };
 class Raw_b03e0 { public: void FUN_000b00b0(const char*, void (*)()); };
 void Registry_b03e0::FUN_000b03e0(const char* a1, CHapticControllerManager_b03e0* a2, void (*a3)()) {
-    void* m = FUN_0008d690(0x24);
+    void* m = FUN_0008d690((int)sizeof(Closure4_b03e0<CHapticControllerManager_b03e0, void, int, float, float, float>));
     void* x = 0;
     if (m) {
         ((Raw_b03e0*)m)->FUN_000b00b0(a1, a3);

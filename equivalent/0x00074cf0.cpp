@@ -54,11 +54,11 @@ extern "C" void FUN_00074cf0()
     if (DAT_004dcf14 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName<::CScrubberTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamName<::CScrubberTrack>("animation", &::CScrubberTrack::FUN_00068e70);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<::CScrubberTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange<::CScrubberTrack>("frame", &::CScrubberTrack::FUN_00068eb0);

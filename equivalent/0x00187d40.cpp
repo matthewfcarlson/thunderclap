@@ -42,7 +42,7 @@ extern "C" void FUN_00187d40()
     if (DAT_004e145c == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange<hulkfight::motion::SmartPropIsCargoCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamIntConstRange<hulkfight::motion::SmartPropIsCargoCondition>("attachmentIndex", &hulkfight::motion::SmartPropIsCargoCondition::FUN_0017f690);

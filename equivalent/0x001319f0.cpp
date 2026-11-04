@@ -90,31 +90,31 @@ void FUN_001319f0()
     if (DAT_004e0e90 == 0) {
         void* params[7];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<hulkfight::DialogueTrack_1319f0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<hulkfight::DialogueTrack_1319f0>("timeBegin", &hulkfight::DialogueTrack_1319f0::FUN_0012e100);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamString<hulkfight::DialogueTrack_1319f0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamString<hulkfight::DialogueTrack_1319f0>("dialogue", &hulkfight::DialogueTrack_1319f0::FUN_0012ebc0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamString<hulkfight::DialogueTrack_1319f0>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamString<hulkfight::DialogueTrack_1319f0>("desiredTemplate", &hulkfight::DialogueTrack_1319f0::FUN_0012ec20);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<hulkfight::DialogueTrack_1319f0>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamIntConstRange<hulkfight::DialogueTrack_1319f0>("priority", &hulkfight::DialogueTrack_1319f0::FUN_0012e130);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamString<hulkfight::DialogueTrack_1319f0>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamString<hulkfight::DialogueTrack_1319f0>("duckMixer", &hulkfight::DialogueTrack_1319f0::FUN_0012ec80);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamString<hulkfight::DialogueTrack_1319f0>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamString<hulkfight::DialogueTrack_1319f0>("instance", &hulkfight::DialogueTrack_1319f0::FUN_0012ece0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<hulkfight::DialogueTrack_1319f0>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamBool<hulkfight::DialogueTrack_1319f0>("routeToHeld", &hulkfight::DialogueTrack_1319f0::FUN_0012e170);

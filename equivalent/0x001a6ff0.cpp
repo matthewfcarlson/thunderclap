@@ -24,7 +24,7 @@ extern void __cdecl FUN_002347b0(int*, Param**, int);
 void FUN_001a6ff0() {
  if (!DAT_004e1724) {
   Param* list[2];
-  Param* p = (Param*)FUN_0008d690(32);
+  Param* p = (Param*)FUN_0008d690((int)sizeof(Param));
   if (p) {
    int count = (*(int*)&DAT_00427760);
    p->FUN_00234cc0("compare");
@@ -34,7 +34,7 @@ void FUN_001a6ff0() {
    p->callback = SetCompare_001a1f00;
   }
   list[0] = p;
-  p = (Param*)FUN_0008d690(32);
+  p = (Param*)FUN_0008d690((int)sizeof(Param));
   if (p) {
    int count = (*(int*)&DAT_003f5bbc);
    p->FUN_00234cc0("oldState");

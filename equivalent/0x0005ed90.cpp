@@ -89,35 +89,35 @@ extern "C" void FUN_0005ed90()
     if (DAT_004dc5f4 == 0) {
         void* params[8];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSnapToWallTrack_5ed90>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<CSnapToWallTrack_5ed90>("timeBegin", &CSnapToWallTrack_5ed90::FUN_0005d850);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSnapToWallTrack_5ed90>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<CSnapToWallTrack_5ed90>("timeEnd", &CSnapToWallTrack_5ed90::FUN_0005d860);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSnapToWallTrack_5ed90>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamFloatConstRange<CSnapToWallTrack_5ed90>("orientation", &CSnapToWallTrack_5ed90::FUN_0005d870);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamVector<CSnapToWallTrack_5ed90>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamVector<CSnapToWallTrack_5ed90>("offset", &CSnapToWallTrack_5ed90::FUN_0005d890);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamBool<CSnapToWallTrack_5ed90>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamBool<CSnapToWallTrack_5ed90>("snapToGround", &CSnapToWallTrack_5ed90::FUN_0005d8b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<CSnapToWallTrack_5ed90>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamIntConstRange<CSnapToWallTrack_5ed90>("priority", &CSnapToWallTrack_5ed90::FUN_0005d8c0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSnapToWallTrack_5ed90>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamFloatConstRange<CSnapToWallTrack_5ed90>("rootBlendInTime", &CSnapToWallTrack_5ed90::FUN_0005d8d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<CSnapToWallTrack_5ed90>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) ParamFloatConstRange<CSnapToWallTrack_5ed90>("rootBlendOutTime", &CSnapToWallTrack_5ed90::FUN_0005d8e0);

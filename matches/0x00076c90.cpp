@@ -13,7 +13,7 @@ extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern int trackVtable;
 
 template <> void* fight::TrackFactoryTemplate<CIntangibleToActorsTrack>::vfunc_5() {
-    CIntangibleToActorsTrack_76c90* p = (CIntangibleToActorsTrack_76c90*)FUN_0008d690(0x14);
+    CIntangibleToActorsTrack_76c90* p = (CIntangibleToActorsTrack_76c90*)FUN_0008d690((int)sizeof(CIntangibleToActorsTrack_76c90));
     if (p) {
         p->Init();
         p->vptr = &trackVtable;

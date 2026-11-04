@@ -18,7 +18,7 @@ struct ButtonTrack_114bf0 {
 extern "C" void* FUN_0008d690(unsigned int);
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::ai::ButtonTrack>::vfunc_5() {
-    ButtonTrack_114bf0* p = (ButtonTrack_114bf0*)FUN_0008d690(0x24);
+    ButtonTrack_114bf0* p = (ButtonTrack_114bf0*)FUN_0008d690((int)sizeof(ButtonTrack_114bf0));
     if (p != 0) {
         p->Init();
         p->a = 0;

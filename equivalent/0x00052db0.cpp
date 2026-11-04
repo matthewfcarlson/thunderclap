@@ -60,23 +60,23 @@ extern "C" void FUN_00052db0()
     if (DAT_004dc42c == 0) {
         void* params[5];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_52db0<CAxisArcCondition_52db0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList_52db0<CAxisArcCondition_52db0>("axis", ((const char**)&DAT_0049ee74), 2, &CAxisArcCondition_52db0::FUN_00047b00);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_52db0<CAxisArcCondition_52db0>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamEnumConstList_52db0<CAxisArcCondition_52db0>("compareTime", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &CAxisArcCondition_52db0::FUN_00047b10);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_52db0<CAxisArcCondition_52db0>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_52db0<CAxisArcCondition_52db0>("time", &CAxisArcCondition_52db0::FUN_00047b20);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_52db0<CAxisArcCondition_52db0>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamEnumConstList_52db0<CAxisArcCondition_52db0>("compareArc", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &CAxisArcCondition_52db0::FUN_00047b70);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_52db0<CAxisArcCondition_52db0>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_52db0<CAxisArcCondition_52db0>("arc", &CAxisArcCondition_52db0::FUN_00047b80);

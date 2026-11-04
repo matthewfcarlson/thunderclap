@@ -59,27 +59,27 @@ extern "C" void FUN_00112ba0()
         void* params[6];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ButtonTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<ButtonTrack>("timeBegin", &ButtonTrack::FUN_0010c560);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ButtonTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<ButtonTrack>("timeEnd", &ButtonTrack::FUN_0010c570);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(ParamEnumConstList<ButtonTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamEnumConstList<ButtonTrack>("button", ((char**)&DAT_0049ee30), 13, &ButtonTrack::FUN_0010c590);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(ParamEnumConstList<ButtonTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamEnumConstList<ButtonTrack>("state", ((char**)&DAT_0049ee64), 4, &ButtonTrack::FUN_0010c5b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ButtonTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<ButtonTrack>("time", &ButtonTrack::FUN_0010c5d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<ButtonTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamFloatConstRange<ButtonTrack>("value", &ButtonTrack::FUN_0010c5f0);

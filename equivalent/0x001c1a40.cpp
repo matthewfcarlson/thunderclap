@@ -304,7 +304,7 @@ Hud_1c1a40* Hud_1c1a40::FUN_001c1a40() {
     root->field2c = 0;
     (*(pure3d::pddiExtFramebufferEffects**)&DAT_004e2318) = dynamic_cast<pure3d::pddiExtFramebufferEffects*>(DAT_0052c2a8->s89(0x103));
 
-    mem = FUN_0008d690(8);
+    mem = FUN_0008d690((int)sizeof(pure3d::GameDrawableInfo));
     pure3d::GameDrawableInfo* info = 0;
     if (mem)
         info = new (mem) pure3d::GameDrawableInfo();

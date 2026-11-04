@@ -42,35 +42,35 @@ void FUN_001195c0()
     if (DAT_004e0c60 == 0) {
         void* params[8];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionBoostTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<MotionBoostTrack>("timeBegin", &MotionBoostTrack::FUN_001151e0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionBoostTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<MotionBoostTrack>("timeEnd", &MotionBoostTrack::FUN_001151f0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionBoostTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamFloatConstRange<MotionBoostTrack>("distanceMin", &MotionBoostTrack::FUN_00115210);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionBoostTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamFloatConstRange<MotionBoostTrack>("distanceMax", &MotionBoostTrack::FUN_00115230);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionBoostTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<MotionBoostTrack>("heightMin", &MotionBoostTrack::FUN_00115240);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionBoostTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamFloatConstRange<MotionBoostTrack>("heightMax", &MotionBoostTrack::FUN_00115250);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionBoostTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamFloatConstRange<MotionBoostTrack>("speed", &MotionBoostTrack::FUN_00115270);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<MotionBoostTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) ParamFloatConstRange<MotionBoostTrack>("boost", &MotionBoostTrack::FUN_00115280);

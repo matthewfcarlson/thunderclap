@@ -17,13 +17,13 @@ void __cdecl FUN_0018e060() {
   void* params[3];
   typedef fight::ParamFloatConstRange<hulkfight::motion::TimerSetTrack> F;
   typedef fight::ParamIntConstRange<hulkfight::motion::TimerSetTrack> I;
-  F* a=(F*)FUN_0008d690(24);
+  F* a=(F*)FUN_0008d690((int)sizeof(F));
   if(a) { a->FUN_00234960("timeBegin"); a=new(a) F; a->callback=SetTimeBegin_0018cb80; }
   params[0]=a;
-  I* b=(I*)FUN_0008d690(24);
+  I* b=(I*)FUN_0008d690((int)sizeof(I));
   if(b) { b->FUN_002348e0("timer"); b=new(b) I; b->callback=SetTimer_0018cba0; }
   params[1]=b;
-  F* c=(F*)FUN_0008d690(24);
+  F* c=(F*)FUN_0008d690((int)sizeof(F));
   if(c) { c->FUN_00234960("value"); c=new(c) F; c->callback=SetValue_0018cbc0; }
   params[2]=c;
   FUN_002347b0(&DAT_004e1520,params,3);

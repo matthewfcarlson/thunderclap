@@ -94,23 +94,23 @@ void FUN_0018df00()
         void* params[5];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_18df00<hulkfight::motion::TimerCondition_18df00>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamIntConstRange_18df00<hulkfight::motion::TimerCondition_18df00>("timer", &hulkfight::motion::TimerCondition_18df00::FUN_0018cab0);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_18df00<hulkfight::motion::TimerCondition_18df00>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamEnumConstList_18df00<hulkfight::motion::TimerCondition_18df00>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::motion::TimerCondition_18df00::FUN_0018cac0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18df00<hulkfight::motion::TimerCondition_18df00>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_18df00<hulkfight::motion::TimerCondition_18df00>("value", &hulkfight::motion::TimerCondition_18df00::FUN_0018cad0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_18df00<hulkfight::motion::TimerCondition_18df00>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamBool_18df00<hulkfight::motion::TimerCondition_18df00>("useKeyWordWait", &hulkfight::motion::TimerCondition_18df00::FUN_0018caf0);
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_18df00<hulkfight::motion::TimerCondition_18df00>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamEnumConstList_18df00<hulkfight::motion::TimerCondition_18df00>("keyWord", ((const char**)&DAT_004bebb4), 15, &hulkfight::motion::TimerCondition_18df00::FUN_0018cb10);

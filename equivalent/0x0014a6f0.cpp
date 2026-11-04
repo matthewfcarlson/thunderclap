@@ -41,27 +41,27 @@ void FUN_0014a6f0()
         void* params[6];
         void* mem;
 
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<GrappleStruggleTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) ParamFloatConstRange<GrappleStruggleTrack>("timeBegin", &GrappleStruggleTrack::FUN_00146be0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<GrappleStruggleTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) ParamFloatConstRange<GrappleStruggleTrack>("timeEnd", &GrappleStruggleTrack::FUN_00146bf0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<GrappleStruggleTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) ParamFloatConstRange<GrappleStruggleTrack>("timeInput", &GrappleStruggleTrack::FUN_00146c10);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<GrappleStruggleTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) ParamFloatConstRange<GrappleStruggleTrack>("chargeRateMin", &GrappleStruggleTrack::FUN_00146c30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<GrappleStruggleTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<GrappleStruggleTrack>("chargeRateMax", &GrappleStruggleTrack::FUN_00146c50);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<GrappleStruggleTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamFloatConstRange<GrappleStruggleTrack>("chargeButtonRate", &GrappleStruggleTrack::FUN_00146c70);

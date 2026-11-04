@@ -40,7 +40,7 @@ bool Owner_2320d0::FUN_002320d0(Spec_2320d0 *spec, int a, int b)
     if (spec->source == 0)
         return true;
     int oldPool = FUN_00266da0(FUN_00238190(3));
-    QueuedNodeAction_2320d0 *mem = (QueuedNodeAction_2320d0 *)FUN_0008d690(0x5c);
+    QueuedNodeAction_2320d0 *mem = (QueuedNodeAction_2320d0 *)FUN_0008d690((int)sizeof(QueuedNodeAction_2320d0));
     QueuedNodeAction_2320d0 *inst = 0;
     if (mem)
         inst = mem->FUN_0023a2a0(spec, a, this, b);

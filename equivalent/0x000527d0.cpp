@@ -32,18 +32,18 @@ extern "C" void __cdecl FUN_002347b0(unsigned*, void**, unsigned);
 extern "C" void __cdecl FUN_000527d0() {
  if (!DAT_004dc404) {
  void* entries[3];
- void* mem=FUN_0008d690(32); entries[0]=0;
+ void* mem=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CButtonCondition>)); entries[0]=0;
  if(mem) {
  fight::ParamEnumConstList<CButtonCondition>* p=new(mem) fight::ParamEnumConstList<CButtonCondition>("button");
  p->list=((unsigned*)&DAT_0049ee30); p->count=13; p->callback=FUN_00047ab0; entries[0]=p;
  }
- mem=FUN_0008d690(32); entries[1]=0;
+ mem=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CButtonCondition>)); entries[1]=0;
  if(mem) {
  unsigned count=(*(unsigned*)&DAT_00427754);
  fight::ParamEnumConstList<CButtonCondition>* p=new(mem) fight::ParamEnumConstList<CButtonCondition>("compareTime");
  p->count=count; p->list=((char*)&DAT_0042773c); p->callback=FUN_00047ac0; entries[1]=p;
  }
- mem=FUN_0008d690(24); entries[2]=0;
+ mem=FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CButtonCondition>)); entries[2]=0;
  if(mem) {
  fight::ParamFloatConstRange<CButtonCondition>* p=new(mem) fight::ParamFloatConstRange<CButtonCondition>("time");
  p->callback=FUN_00047ad0; entries[2]=p;

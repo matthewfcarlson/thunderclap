@@ -27,7 +27,7 @@ Pair_1ae9e0* O_1ae9e0::F(Pair_1ae9e0* out, const Src_1ae9e0* s) {
         out->o = 0;
         return out;
     }
-    Node* r = (Node*)FUN_0008d6d0(0x38);
+    Node* r = (Node*)FUN_0008d6d0((int)sizeof(Node));
     Node* n;
     if (r) {
         r->s = *s;

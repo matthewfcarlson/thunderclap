@@ -14,7 +14,7 @@ class VelocityYCondition_16d5a0 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::VelocityYCondition>::vfunc_5() {
-    VelocityYCondition_16d5a0* p = (VelocityYCondition_16d5a0*)FUN_0008d690(0x14);
+    VelocityYCondition_16d5a0* p = (VelocityYCondition_16d5a0*)FUN_0008d690((int)sizeof(VelocityYCondition_16d5a0));
     if (p) {
         p->VelocityYCondition_16d5a0::VelocityYCondition_16d5a0(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_004166d8);

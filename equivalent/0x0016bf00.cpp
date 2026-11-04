@@ -33,7 +33,7 @@ extern "C" void FUN_0016bf00() {
  void* params[3];
  typedef fight::ParamEnumConstList<hulkfight::motion::HealthCondition> E;
  typedef fight::ParamFloatConstRange<hulkfight::motion::HealthCondition> F;
- E* e = (E*)FUN_0008d690(32);
+ E* e = (E*)FUN_0008d690((int)sizeof(E));
  if(e) {
  int count = (*(int*)&DAT_00427754);
  e->FUN_00234cc0("compare");
@@ -43,14 +43,14 @@ extern "C" void FUN_0016bf00() {
  e->callback=SetCompare_001659d0;
  }
  params[0]=e;
- F* f=(F*)FUN_0008d690(24);
+ F* f=(F*)FUN_0008d690((int)sizeof(F));
  if(f) {
  f->FUN_00234960("health");
  new(f) F;
  f->callback=SetHealth_001659e0;
  }
  params[1]=f;
- e=(E*)FUN_0008d690(32);
+ e=(E*)FUN_0008d690((int)sizeof(E));
  if(e) {
  e->FUN_00234cc0("constant");
  new(e) E;

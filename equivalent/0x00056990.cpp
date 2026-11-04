@@ -60,11 +60,11 @@ extern "C" void FUN_00056990()
     if (DAT_004dc514 == 0) {
         void* params[2];
         void* mem;
-        mem = FUN_0008d690(0x20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList<::CCharacterTemplateVariationCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamEnumConstList<::CCharacterTemplateVariationCondition>("compare", ((const char**)&DAT_00427758), (*(int*)&DAT_00427760), &::CCharacterTemplateVariationCondition::FUN_00048000);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList<::CCharacterTemplateVariationCondition>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamNameConstList<::CCharacterTemplateVariationCondition>("CharacterTemplateVariation", &::CCharacterTemplateVariationCondition::FUN_00048010);

@@ -30,13 +30,13 @@ extern "C" void FUN_00188140() {
  void* params[3];
  typedef fight::ParamFloatConstRange<hulkfight::motion::PropSetStateByIndexTrack> FloatParam;
  typedef fight::ParamIntConstRange<hulkfight::motion::PropSetStateByIndexTrack> IntParam;
- FloatParam* a = (FloatParam*)FUN_0008d690(24);
+ FloatParam* a = (FloatParam*)FUN_0008d690((int)sizeof(FloatParam));
  if(a) { a->FUN_00234960("timeBegin"); new (a) FloatParam; a->callback=SetTimeBegin_0017fe40; }
  params[0]=a;
- IntParam* b=(IntParam*)FUN_0008d690(24);
+ IntParam* b=(IntParam*)FUN_0008d690((int)sizeof(IntParam));
  if(b) { b->FUN_002348e0("attachmentIndex"); new (b) IntParam; b->callback=SetAttachmentIndex_0017fe60; }
  params[1]=b;
- IntParam* c=(IntParam*)FUN_0008d690(24);
+ IntParam* c=(IntParam*)FUN_0008d690((int)sizeof(IntParam));
  if(c) { c->FUN_002348e0("state"); new (c) IntParam; c->callback=SetState_0017fe80; }
  params[2]=c;
  FUN_002347b0(&DAT_004e14a8,params,3);

@@ -17,7 +17,7 @@ class TargetInvincibleCondition_12ad90 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetInvincibleCondition>::vfunc_5() {
-    TargetInvincibleCondition_12ad90* p = (TargetInvincibleCondition_12ad90*)FUN_0008d690(0x10);
+    TargetInvincibleCondition_12ad90* p = (TargetInvincibleCondition_12ad90*)FUN_0008d690((int)sizeof(TargetInvincibleCondition_12ad90));
     if (p) {
         p->TargetInvincibleCondition_12ad90::TargetInvincibleCondition_12ad90(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0040ff34);

@@ -40,7 +40,7 @@ extern "C" void FUN_0023c9f0()
     if (DAT_004e5c48 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamConditionGroup<fight::SubConditionGroupCondition>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamConditionGroup<fight::SubConditionGroupCondition>("conditionGroup", &fight::SubConditionGroupCondition::FUN_0023c8a0);

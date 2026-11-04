@@ -23,16 +23,16 @@ extern "C" void __cdecl FUN_0023cce0() {
  if (DAT_004e5c50 == 0) {
  typedef fight::ParamBool<fight::PlatformCondition> P;
  P* items[4];
- P* p = (P*)FUN_0008d690(24);
+ P* p = (P*)FUN_0008d690((int)sizeof(P));
  if(p) { p->FUN_00234860("pS2"); new (p) P; p->callback = SetPS2_0023cb40; }
  items[0]=p;
- p=(P*)FUN_0008d690(24);
+ p=(P*)FUN_0008d690((int)sizeof(P));
  if(p) { p->FUN_00234860("xBox"); new (p) P; p->callback = SetXBox_0023cb50; }
  items[1]=p;
- p=(P*)FUN_0008d690(24);
+ p=(P*)FUN_0008d690((int)sizeof(P));
  if(p) { p->FUN_00234860("gameCube"); new (p) P; p->callback = SetGameCube_0023cb60; }
  items[2]=p;
- p=(P*)FUN_0008d690(24);
+ p=(P*)FUN_0008d690((int)sizeof(P));
  if(p) { p->FUN_00234860("win32"); new (p) P; p->callback = SetWin32_0023cb70; }
  items[3]=p;
  FUN_002347b0(&DAT_004e5c4c,items,4);

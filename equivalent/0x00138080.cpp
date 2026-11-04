@@ -65,47 +65,47 @@ void FUN_00138080()
     if (DAT_004e0ee4 == 0) {
         void* params[11];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("timeBegin", &AirToGroundTargetTrack::FUN_00133320);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("timeEnd", &AirToGroundTargetTrack::FUN_00133330);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("velocityXZMin", &AirToGroundTargetTrack::FUN_00133350);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("velocityXZMax", &AirToGroundTargetTrack::FUN_00133370);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("accelerationXZ", &AirToGroundTargetTrack::FUN_00133390);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("gravity", &AirToGroundTargetTrack::FUN_001333b0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("turningVelocity", &AirToGroundTargetTrack::FUN_001333d0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("targetOffset", &AirToGroundTargetTrack::FUN_00133400);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_138080<AirToGroundTargetTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamIntConstRange_138080<AirToGroundTargetTrack>("priority", &AirToGroundTargetTrack::FUN_00133420);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("blendInTime", &AirToGroundTargetTrack::FUN_00133440);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_138080<AirToGroundTargetTrack>("blendOutTime", &AirToGroundTargetTrack::FUN_00133460);

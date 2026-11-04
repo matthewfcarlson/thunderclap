@@ -16,7 +16,7 @@ struct Obj_159930 {
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::motion::CollisionDamageHealthCompareCondition>::vfunc_5() {
-    Obj_159930* p = (Obj_159930*)FUN_0008d690(0x1c);
+    Obj_159930* p = (Obj_159930*)FUN_0008d690((int)sizeof(Obj_159930));
     if (p) {
         p->Init(0);
         p->vt = ((hulk_intptr)DAT_00414190);

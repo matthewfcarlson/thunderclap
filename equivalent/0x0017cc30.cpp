@@ -117,47 +117,47 @@ extern "C" void FUN_0017cc30()
     if (DAT_004e130c == 0) {
         void* params[11];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17cc30<JointRelativeTrack>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_17cc30<JointRelativeTrack>("timeBegin", &JointRelativeTrack::FUN_0016ead0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17cc30<JointRelativeTrack>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_17cc30<JointRelativeTrack>("timeEnd", &JointRelativeTrack::FUN_0016eae0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_17cc30<JointRelativeTrack>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamNameConstList_17cc30<JointRelativeTrack>("joint", &JointRelativeTrack::FUN_0016eaf0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17cc30<JointRelativeTrack>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamBool_17cc30<JointRelativeTrack>("useRestPose", &JointRelativeTrack::FUN_0016eb10);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17cc30<JointRelativeTrack>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamBool_17cc30<JointRelativeTrack>("hasTranslation", &JointRelativeTrack::FUN_0016eb30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17cc30<JointRelativeTrack>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamVector_17cc30<JointRelativeTrack>("translation", &JointRelativeTrack::FUN_0016eb60);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17cc30<JointRelativeTrack>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamBool_17cc30<JointRelativeTrack>("hasRotation", &JointRelativeTrack::FUN_0016eb90);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17cc30<JointRelativeTrack>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamVector_17cc30<JointRelativeTrack>("rotation", &JointRelativeTrack::FUN_0016ebc0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_17cc30<JointRelativeTrack>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamIntConstRange_17cc30<JointRelativeTrack>("priority", &JointRelativeTrack::FUN_0016ec10);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17cc30<JointRelativeTrack>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange_17cc30<JointRelativeTrack>("blendInTime", &JointRelativeTrack::FUN_0016ec30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17cc30<JointRelativeTrack>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange_17cc30<JointRelativeTrack>("blendOutTime", &JointRelativeTrack::FUN_0016ec50);

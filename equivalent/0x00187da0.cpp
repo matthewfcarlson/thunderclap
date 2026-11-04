@@ -42,7 +42,7 @@ extern "C" void FUN_00187da0()
     if (DAT_004e1464 == 0) {
         void* params[1];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_187da0<hulkfight::motion::CSMPropIsCharacterCondition_187da0>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool_187da0<hulkfight::motion::CSMPropIsCharacterCondition_187da0>("isCharacter", &hulkfight::motion::CSMPropIsCharacterCondition_187da0::FUN_0017f6a0);

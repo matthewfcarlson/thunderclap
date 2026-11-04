@@ -123,59 +123,59 @@ extern "C" void FUN_0018a870()
     if (DAT_004e14a4 == 0) {
         void* params[14];
         void* mem;
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("timeBegin", &hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fc30);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("timeEnd", &hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fc40);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
         params[2] = 0;
         if (mem)
             params[2] = new (mem) fight::ParamIntConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("attachmentIndex", &hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fc60);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
         params[3] = 0;
         if (mem)
             params[3] = new (mem) fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("initVelocity", &hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fc80);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("acceleration", &hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fca0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("tracking", &hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fcc0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
         params[6] = 0;
         if (mem)
             params[6] = new (mem) fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("targetYOffset", &hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fcf0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
         params[7] = 0;
         if (mem)
             params[7] = new (mem) fight::ParamFloatConstRange_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("minDistance", &hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fd10);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
         params[8] = 0;
         if (mem)
             params[8] = new (mem) fight::ParamVector_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("offset", &hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fd40);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamVector_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("propAxis", &hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fd80);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamName_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("beamEffect", &hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fda0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamVector_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("beamOffset", &hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fdd0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
         params[12] = 0;
         if (mem)
             params[12] = new (mem) fight::ParamNameConstList_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("beamAttachJoint", &hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fdf0);
-        mem = FUN_0008d690(0x18);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>));
         params[13] = 0;
         if (mem)
             params[13] = new (mem) fight::ParamVector_18a870<hulkfight::motion::BallAndChainReturnTrack_18a870>("beamAttachJointOffset", &hulkfight::motion::BallAndChainReturnTrack_18a870::FUN_0017fe20);
