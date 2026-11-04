@@ -2,9 +2,9 @@ class O_10c280 {
   public:
     char pad[0xc];
     int m;
-    bool F(int x);
+    bool SetCompare_0010c280(int x);
 };
-bool O_10c280::F(int x) {
+bool O_10c280::SetCompare_0010c280(int x) {
     m = x;
     return true;
 }

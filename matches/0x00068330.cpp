@@ -6,10 +6,10 @@ class Base_68330 {
 class Target_68330 : public Base_68330 {
   public:
     int mField;
-    char Set(int);
+    char SetDistance_00068330(int);
 };
 
-char Target_68330::Set(int x) {
+char Target_68330::SetDistance_00068330(int x) {
     mField = x;
     return 1;
 }

@@ -3,9 +3,9 @@ class C_12b1b0 {
     char m;
 
   public:
-    char Fn(char c);
+    char SetThreatRespondOnlyOnce_0012b1b0(char c);
 };
-char C_12b1b0::Fn(char c) {
+char C_12b1b0::SetThreatRespondOnlyOnce_0012b1b0(char c) {
     m = c;
     return 1;
 }

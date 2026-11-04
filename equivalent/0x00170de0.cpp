@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
-// FUN_00170de0 @ 0x00170de0
+// SetText_00170de0 @ 0x00170de0
 extern "C" void __cdecl FUN_0008d340(void *);
 extern "C" void * __cdecl FUN_0008d6d0(unsigned int);
 
 struct TextHolder {
     char pad[0x10];
     char *text;
-    bool FUN_00170de0(const char *value);
+    bool SetText_00170de0(const char *value);
 };
 
-bool TextHolder::FUN_00170de0(const char *value)
+bool TextHolder::SetText_00170de0(const char *value)
 {
     FUN_0008d340(text);
     if (!value) {

@@ -7,7 +7,7 @@
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* address) { return address; }
 void* __cdecl FUN_0008d690(unsigned int);
-void FUN_00123600(); void FUN_00123610();
+void SetCompare_00123600(); void SetType_00123610();
 namespace hulkfight { namespace ai { class TargetTypeCondition; } }
 namespace fight { template<class T> struct ParamEnumConstList {
  virtual void slot0();
@@ -30,7 +30,7 @@ void target() {
    list[0]->count=count;
    new(list[0]) Param;
    list[0]->values=((int*)&DAT_00427758);
-   list[0]->callback=FUN_00123600;
+   list[0]->callback=SetCompare_00123600;
   }
   list[1]=(Param*)FUN_0008d690(32);
   if(list[1]) {
@@ -38,7 +38,7 @@ void target() {
    new(list[1]) Param;
    list[1]->values=((int*)&DAT_004a6acc);
    list[1]->count=2;
-   list[1]->callback=FUN_00123610;
+   list[1]->callback=SetType_00123610;
   }
   FUN_002347b0(((int*)&DAT_004e0d74),list,2);
  }

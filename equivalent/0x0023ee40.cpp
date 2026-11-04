@@ -3,10 +3,10 @@
 #include "decls/data/engine/fight.h"
 
 typedef void (__cdecl *Callback_23ee40)();
-void __cdecl FUN_0023ea20();
-void __cdecl FUN_0023ea30();
-void __cdecl FUN_0023ea40();
-void __cdecl FUN_0023ea50();
+void __cdecl SetTimeBegin_0023ea20();
+void __cdecl SetTimeEnd_0023ea30();
+void __cdecl GetBranch_0023ea40();
+void __cdecl GetConditionGroup_0023ea50();
 void* __cdecl FUN_0008d690(unsigned);
 inline void* operator new(unsigned, void* p) { return p; }
 namespace fight {
@@ -42,7 +42,7 @@ void __cdecl FUN_0023ee40() {
  fight::ParamFloatConstRange<fight::SpawnTrack>* q = (fight::ParamFloatConstRange<fight::SpawnTrack>*)p;
  q->FUN_00234960("timeBegin");
  q = new(p) fight::ParamFloatConstRange<fight::SpawnTrack>;
- q->callback = FUN_0023ea20;
+ q->callback = SetTimeBegin_0023ea20;
  }
  params[0]=p;
  p=FUN_0008d690(24);
@@ -50,7 +50,7 @@ void __cdecl FUN_0023ee40() {
  fight::ParamFloatConstRange<fight::SpawnTrack>* q = (fight::ParamFloatConstRange<fight::SpawnTrack>*)p;
  q->FUN_00234960("timeEnd");
  q = new(p) fight::ParamFloatConstRange<fight::SpawnTrack>;
- q->callback = FUN_0023ea30;
+ q->callback = SetTimeEnd_0023ea30;
  }
  params[1]=p;
  p=FUN_0008d690(24);
@@ -58,7 +58,7 @@ void __cdecl FUN_0023ee40() {
  fight::ParamBranch<fight::SpawnTrack>* q = (fight::ParamBranch<fight::SpawnTrack>*)p;
  q->FUN_00235170("branch");
  q = new(p) fight::ParamBranch<fight::SpawnTrack>;
- q->callback = FUN_0023ea40;
+ q->callback = GetBranch_0023ea40;
  }
  params[2]=p;
  p=FUN_0008d690(24);
@@ -66,7 +66,7 @@ void __cdecl FUN_0023ee40() {
  fight::ParamConditionGroup<fight::SpawnTrack>* q = (fight::ParamConditionGroup<fight::SpawnTrack>*)p;
  q->FUN_00235220("conditionGroup");
  q = new(p) fight::ParamConditionGroup<fight::SpawnTrack>;
- q->callback = FUN_0023ea50;
+ q->callback = GetConditionGroup_0023ea50;
  }
  params[3]=p;
  FUN_002347b0(&DAT_004e5c80,params,4);

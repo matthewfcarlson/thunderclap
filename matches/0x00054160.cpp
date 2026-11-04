@@ -1,9 +1,9 @@
 #include "decls/data/game/global.h"
 
 typedef void (*Callback_54160)();
-extern void FUN_00048080();
-extern void FUN_000480a0();
-extern void FUN_000480d0();
+extern void SetAngle_00048080();
+extern void SetArc_000480a0();
+extern void SetUseIntentionMotion_000480d0();
 extern void* __cdecl FUN_0008d690(unsigned);
 inline void* __cdecl operator new(unsigned, void* address) {
     return address;
@@ -34,7 +34,7 @@ extern "C" void __cdecl FUN_00054160() {
             ((ParamBase_54160*)storage)->FUN_00234960("angle");
             fight::ParamFloatConstRange<CClimbableCondition>* p =
                 new (storage) fight::ParamFloatConstRange<CClimbableCondition>;
-            p->callback = FUN_00048080;
+            p->callback = SetAngle_00048080;
             parameters[0] = p;
         } else
             parameters[0] = 0;
@@ -43,7 +43,7 @@ extern "C" void __cdecl FUN_00054160() {
             ((ParamBase_54160*)storage)->FUN_00234960("arc");
             fight::ParamFloatConstRange<CClimbableCondition>* p =
                 new (storage) fight::ParamFloatConstRange<CClimbableCondition>;
-            p->callback = FUN_000480a0;
+            p->callback = SetArc_000480a0;
             parameters[1] = p;
         } else
             parameters[1] = 0;
@@ -51,7 +51,7 @@ extern "C" void __cdecl FUN_00054160() {
         if (storage) {
             ((ParamBase_54160*)storage)->FUN_00234860("useIntentionMotion");
             fight::ParamBool<CClimbableCondition>* p = new (storage) fight::ParamBool<CClimbableCondition>;
-            p->callback = FUN_000480d0;
+            p->callback = SetUseIntentionMotion_000480d0;
             parameters[2] = p;
         } else
             parameters[2] = 0;

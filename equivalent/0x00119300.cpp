@@ -3,9 +3,9 @@
 #include "decls/data/game/unknown.h"
 
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl FUN_001150d0();
-void __cdecl FUN_001150e0();
-void __cdecl FUN_00115100();
+void __cdecl SetTimeBegin_001150d0();
+void __cdecl SetTimeEnd_001150e0();
+void __cdecl SetSpeed_00115100();
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 namespace hulkfight { namespace ai { class MotionFleeTrack; } }
 namespace fight {
@@ -23,13 +23,13 @@ void __cdecl target() {
  if (DAT_004e0c48 == 0) {
   Param* entries[3];
   Param* p = (Param*)FUN_0008d690(24);
-  if(p) { p->FUN_00234960("timeBegin"); p = new(p) Param; p->callback = FUN_001150d0; }
+  if(p) { p->FUN_00234960("timeBegin"); p = new(p) Param; p->callback = SetTimeBegin_001150d0; }
   entries[0]=p;
   p = (Param*)FUN_0008d690(24);
-  if(p) { p->FUN_00234960("timeEnd"); p = new(p) Param; p->callback = FUN_001150e0; }
+  if(p) { p->FUN_00234960("timeEnd"); p = new(p) Param; p->callback = SetTimeEnd_001150e0; }
   entries[1]=p;
   p = (Param*)FUN_0008d690(24);
-  if(p) { p->FUN_00234960("speed"); p = new(p) Param; p->callback = FUN_00115100; }
+  if(p) { p->FUN_00234960("speed"); p = new(p) Param; p->callback = SetSpeed_00115100; }
   entries[2]=p;
   FUN_002347b0(&DAT_004e0c44,entries,3);
  }

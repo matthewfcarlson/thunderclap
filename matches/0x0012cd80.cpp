@@ -5,9 +5,9 @@ inline void* operator new(unsigned int, void* memory) {
     return memory;
 }
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl FUN_0012b190();
-void __cdecl FUN_0012b1a0();
-void __cdecl FUN_0012b1b0();
+void __cdecl SetThreat_0012b190();
+void __cdecl GetThreatName_0012b1a0();
+void __cdecl SetThreatRespondOnlyOnce_0012b1b0();
 namespace hulkfight {
 namespace ai {
 class ThreatCondition_12cd80;
@@ -36,7 +36,7 @@ void FUN_0012cd80() {
             ((fight::ParamValueBool *)(Base_12cd80 *)mem)->FUN_00234860("threat");
             fight::ParamBool_12cd80<hulkfight::ai::ThreatCondition_12cd80>* p =
                 new (mem) fight::ParamBool_12cd80<hulkfight::ai::ThreatCondition_12cd80>;
-            p->callback = FUN_0012b190;
+            p->callback = SetThreat_0012b190;
             params[0] = p;
         } else
             params[0] = 0;
@@ -45,7 +45,7 @@ void FUN_0012cd80() {
             ((fight::ParamValueName *)(Base_12cd80 *)mem)->FUN_00234a90("threatName");
             fight::ParamName_12cd80<hulkfight::ai::ThreatCondition_12cd80>* p =
                 new (mem) fight::ParamName_12cd80<hulkfight::ai::ThreatCondition_12cd80>;
-            p->callback = FUN_0012b1a0;
+            p->callback = GetThreatName_0012b1a0;
             params[1] = p;
         } else
             params[1] = 0;
@@ -54,7 +54,7 @@ void FUN_0012cd80() {
             ((fight::ParamValueBool *)(Base_12cd80 *)mem)->FUN_00234860("threatRespondOnlyOnce");
             fight::ParamBool_12cd80<hulkfight::ai::ThreatCondition_12cd80>* p =
                 new (mem) fight::ParamBool_12cd80<hulkfight::ai::ThreatCondition_12cd80>;
-            p->callback = FUN_0012b1b0;
+            p->callback = SetThreatRespondOnlyOnce_0012b1b0;
             params[2] = p;
         } else
             params[2] = 0;

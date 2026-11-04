@@ -5,11 +5,11 @@ class Obj_47bf0 {
     char pad[8];
     int mValue;
     Obj_47bf0(int v);
-    bool Fn(int v);
+    bool SetAxis_00047bf0(int v);
 };
 
 Obj_47bf0::Obj_47bf0(int v) : mValue(v) {}
-bool Obj_47bf0::Fn(int v) {
+bool Obj_47bf0::SetAxis_00047bf0(int v) {
     mValue = v;
     return true;
 }

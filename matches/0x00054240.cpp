@@ -6,8 +6,8 @@ inline void* __cdecl operator new(unsigned int, void* p) {
     return p;
 }
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern "C" void __cdecl FUN_000480e0();
-extern "C" void __cdecl FUN_000480f0();
+extern "C" void __cdecl SetCompare_000480e0();
+extern "C" void __cdecl SetStatus_000480f0();
 struct Base_54240 {
     virtual void slot0();
     char padding[12];
@@ -35,7 +35,7 @@ extern "C" void FUN_00054240() {
             Param* p = new (mem) Param;
             p->list = ((char*)&DAT_00427758);
             p->count = count;
-            p->callback = FUN_000480e0;
+            p->callback = SetCompare_000480e0;
             entries[0] = p;
         } else
             entries[0] = 0;
@@ -46,7 +46,7 @@ extern "C" void FUN_00054240() {
             Param* p = new (mem) Param;
             p->list = ((char*)&DAT_004a1ab4);
             p->count = count;
-            p->callback = FUN_000480f0;
+            p->callback = SetStatus_000480f0;
             entries[1] = p;
         } else
             entries[1] = 0;

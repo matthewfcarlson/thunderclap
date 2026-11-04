@@ -4,10 +4,10 @@
 
 void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
-void __cdecl FUN_0012e180();
-void __cdecl FUN_0012e190();
+void __cdecl SetTimeBegin_0012e180();
+void __cdecl SetTimeEnd_0012e190();
 void __cdecl FUN_0012edf0();
-void __cdecl FUN_0012ee50();
+void __cdecl SetChannel_0012ee50();
 namespace hulkfight { class DebugPrintTrack; }
 namespace fight {
 template<class T> struct ParamFloatConstRange {
@@ -32,13 +32,13 @@ void __cdecl target() {
  typedef fight::ParamFloatConstRange<hulkfight::DebugPrintTrack> Float;
  typedef fight::ParamString<hulkfight::DebugPrintTrack> String;
  Float* a=(Float*)FUN_0008d690(24);
- if(a) { a->FUN_00234960("timeBegin"); new(a) Float; a->callback=FUN_0012e180; } entries[0]=a;
+ if(a) { a->FUN_00234960("timeBegin"); new(a) Float; a->callback=SetTimeBegin_0012e180; } entries[0]=a;
  Float* b=(Float*)FUN_0008d690(24);
- if(b) { b->FUN_00234960("timeEnd"); new(b) Float; b->callback=FUN_0012e190; } entries[1]=b;
+ if(b) { b->FUN_00234960("timeEnd"); new(b) Float; b->callback=SetTimeEnd_0012e190; } entries[1]=b;
  String* c=(String*)FUN_0008d690(24);
  if(c) { c->FUN_002349e0("text"); new(c) String; c->callback=FUN_0012edf0; } entries[2]=c;
  String* d=(String*)FUN_0008d690(24);
- if(d) { d->FUN_002349e0("channel"); new(d) String; d->callback=FUN_0012ee50; } entries[3]=d;
+ if(d) { d->FUN_002349e0("channel"); new(d) String; d->callback=SetChannel_0012ee50; } entries[3]=d;
  FUN_002347b0(&DAT_004e0e94, entries, 4);
  }
  ++DAT_004e0e98;

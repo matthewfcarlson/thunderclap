@@ -5,10 +5,10 @@ inline void* __cdecl operator new(size_t, void* p) {
     return p;
 }
 extern void* __cdecl FUN_0008d690(unsigned int);
-extern void __cdecl FUN_0010c520();
-extern void __cdecl FUN_0010c530();
-extern void __cdecl FUN_0010c540();
-extern void __cdecl FUN_0010c550();
+extern void __cdecl SetTimeBegin_0010c520();
+extern void __cdecl SetTimeEnd_0010c530();
+extern void __cdecl GetKeyword_0010c540();
+extern void __cdecl SetRandomIntroWait_0010c550();
 struct ParamBase_112aa0 {
     virtual void slot0();
     char pad[12];
@@ -43,7 +43,7 @@ extern "C" void __cdecl FUN_00112aa0() {
             ParamBase_112aa0* p = (ParamBase_112aa0*)mem;
             p->FUN_00234960("timeBegin");
             p = new (mem) fight::ParamFloatConstRange<hulkfight::ai::KeywordWaitTrack>;
-            p->callback = FUN_0010c520;
+            p->callback = SetTimeBegin_0010c520;
             params[0] = p;
         } else
             params[0] = 0;
@@ -52,7 +52,7 @@ extern "C" void __cdecl FUN_00112aa0() {
             ParamBase_112aa0* p = (ParamBase_112aa0*)mem;
             p->FUN_00234960("timeEnd");
             p = new (mem) fight::ParamFloatConstRange<hulkfight::ai::KeywordWaitTrack>;
-            p->callback = FUN_0010c530;
+            p->callback = SetTimeEnd_0010c530;
             params[1] = p;
         } else
             params[1] = 0;
@@ -61,7 +61,7 @@ extern "C" void __cdecl FUN_00112aa0() {
             ParamBase_112aa0* p = (ParamBase_112aa0*)mem;
             p->FUN_00234a90("keyword");
             p = new (mem) fight::ParamName<hulkfight::ai::KeywordWaitTrack>;
-            p->callback = FUN_0010c540;
+            p->callback = GetKeyword_0010c540;
             params[2] = p;
         } else
             params[2] = 0;
@@ -70,7 +70,7 @@ extern "C" void __cdecl FUN_00112aa0() {
             ParamBase_112aa0* p = (ParamBase_112aa0*)mem;
             p->FUN_00234860("randomIntroWait");
             p = new (mem) fight::ParamBool<hulkfight::ai::KeywordWaitTrack>;
-            p->callback = FUN_0010c550;
+            p->callback = SetRandomIntroWait_0010c550;
             params[3] = p;
         } else
             params[3] = 0;

@@ -5,8 +5,8 @@
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern "C" void FUN_0012dff0();
-extern "C" void FUN_0012e000();
+extern "C" void SetUnlockable_0012dff0();
+extern "C" void SetLocked_0012e000();
 namespace hulkfight { class UnlockableCondition; }
 namespace fight {
 template<class T> struct ParamEnumConstList {
@@ -34,14 +34,14 @@ void __cdecl FUN_001313c0() {
   if(e) {
    e->FUN_00234cc0("unlockable");
    e = new(e) fight::ParamEnumConstList<hulkfight::UnlockableCondition>;
-   e->list=((char*)&DAT_0049ceb0); e->count=766; e->callback=FUN_0012dff0;
+   e->list=((char*)&DAT_0049ceb0); e->count=766; e->callback=SetUnlockable_0012dff0;
   }
   params[0]=e;
   fight::ParamBool<hulkfight::UnlockableCondition>* b=(fight::ParamBool<hulkfight::UnlockableCondition>*)FUN_0008d690(24);
   if(b) {
    b->FUN_00234860("locked");
    b = new(b) fight::ParamBool<hulkfight::UnlockableCondition>;
-   b->callback=FUN_0012e000;
+   b->callback=SetLocked_0012e000;
   }
   params[1]=b;
   FUN_002347b0(&DAT_004e0e54,params,2);

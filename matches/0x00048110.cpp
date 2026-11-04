@@ -2,10 +2,10 @@ class Obj_48110 {
   public:
     char pad[12];
     int mValue;
-    bool Set(int v);
+    bool SetCompare_00048110(int v);
 };
 
-bool Obj_48110::Set(int v) {
+bool Obj_48110::SetCompare_00048110(int v) {
     mValue = v;
     return true;
 }

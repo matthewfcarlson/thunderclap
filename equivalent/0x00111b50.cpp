@@ -5,9 +5,9 @@
 
 inline void* operator new(unsigned int, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl FUN_0010c0d0();
-void __cdecl FUN_0010c0f0();
-void __cdecl FUN_0010c110();
+void __cdecl SetCompare_0010c0d0();
+void __cdecl SetTarget_0010c0f0();
+void __cdecl SetSmartPropIndex_0010c110();
 void __cdecl FUN_002347b0(void*, void*, int);
 namespace hulkfight { namespace ai { class OnBlockedTriangleCondition; } }
 namespace fight {
@@ -42,13 +42,13 @@ void target() {
  typedef fight::ParamBool<hulkfight::ai::OnBlockedTriangleCondition> B;
  typedef fight::ParamIntConstRange<hulkfight::ai::OnBlockedTriangleCondition> I;
  E* e=(E*)FUN_0008d690(32);
- if(e) { int count=(*(int*)&DAT_00427754); e->FUN_00234cc0("compare"); new (e) E; e->count=count; e->names=((char*)&DAT_0042773c); e->callback=FUN_0010c0d0; }
+ if(e) { int count=(*(int*)&DAT_00427754); e->FUN_00234cc0("compare"); new (e) E; e->count=count; e->names=((char*)&DAT_0042773c); e->callback=SetCompare_0010c0d0; }
  params[0]=e;
  B* b=(B*)FUN_0008d690(24);
- if(b) { b->FUN_00234860("target"); new (b) B; b->callback=FUN_0010c0f0; }
+ if(b) { b->FUN_00234860("target"); new (b) B; b->callback=SetTarget_0010c0f0; }
  params[1]=b;
  I* i=(I*)FUN_0008d690(24);
- if(i) { i->FUN_002348e0("smartPropIndex"); new (i) I; i->callback=FUN_0010c110; }
+ if(i) { i->FUN_002348e0("smartPropIndex"); new (i) I; i->callback=SetSmartPropIndex_0010c110; }
  params[2]=i;
  FUN_002347b0(&DAT_004e0ae0,params,3);
  }

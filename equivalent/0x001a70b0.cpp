@@ -7,8 +7,8 @@
 
 inline void* __cdecl operator new(unsigned int, void* memory) { return memory; }
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern "C" void FUN_001a1f20();
-extern "C" void FUN_001a1f30();
+extern "C" void SetCompare_001a1f20();
+extern "C" void SetNewState_001a1f30();
 namespace hulkfight { namespace scenario { class Event_LocomotionStateNameCondition; } }
 namespace fight { template<class T> struct ParamEnumConstList {
  virtual void slot0();
@@ -31,7 +31,7 @@ void __cdecl FUN_001a70b0() {
    new (p) Param;
    p->values = ((char*)&DAT_00427758);
    p->count = count;
-   p->callback = FUN_001a1f20;
+   p->callback = SetCompare_001a1f20;
   }
   entries[0] = p;
   p = (Param*)FUN_0008d690(32);
@@ -41,7 +41,7 @@ void __cdecl FUN_001a70b0() {
    new (p) Param;
    p->values = ((char*)&DAT_0048f590);
    p->count = count;
-   p->callback = FUN_001a1f30;
+   p->callback = SetNewState_001a1f30;
   }
   entries[1] = p;
   FUN_002347b0(((unsigned int*)&DAT_004e1728), entries, 2);

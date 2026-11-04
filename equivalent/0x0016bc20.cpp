@@ -6,8 +6,8 @@
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern "C" void __cdecl FUN_00165940();
-extern "C" void __cdecl FUN_00165950();
+extern "C" void __cdecl SetCompare_00165940();
+extern "C" void __cdecl SetRageMode_00165950();
 namespace hulkfight { namespace motion { class RageModeStateCondition; } }
 namespace fight {
 template<class T> struct ParamEnumConstList {
@@ -32,7 +32,7 @@ extern "C" void __cdecl FUN_0016bc20() {
  new (p) Entry_16bc20;
  p->values = ((char*)&DAT_00427758);
  p->count = n;
- p->callback = FUN_00165940;
+ p->callback = SetCompare_00165940;
  }
  entries[0] = p;
  p = (Entry_16bc20*)FUN_0008d690(32);
@@ -42,7 +42,7 @@ extern "C" void __cdecl FUN_0016bc20() {
  new (p) Entry_16bc20;
  p->values = ((char*)&DAT_00496fd8);
  p->count = n;
- p->callback = FUN_00165950;
+ p->callback = SetRageMode_00165950;
  }
  entries[1] = p;
  FUN_002347b0(((char*)&DAT_004e1298), entries, 2);

@@ -4,8 +4,8 @@
 
 typedef unsigned int uint;
 void* __cdecl FUN_0008d690(uint);
-void FUN_0014c580();
-void FUN_0014c590();
+void SetCompare_0014c580();
+void SetSize_0014c590();
 inline void* operator new(unsigned int, void* p) {
     return p;
 }
@@ -38,7 +38,7 @@ extern "C" void __cdecl FUN_001555c0() {
             p = new (memory) List_1555c0;
             p->values = ((uint*)&DAT_00427758);
             p->count = count;
-            p->callback = FUN_0014c580;
+            p->callback = SetCompare_0014c580;
             lists[0] = p;
         } else
             lists[0] = 0;
@@ -50,7 +50,7 @@ extern "C" void __cdecl FUN_001555c0() {
             p = new (memory) List_1555c0;
             p->values = ((uint*)&DAT_0048f6b4);
             p->count = count;
-            p->callback = FUN_0014c590;
+            p->callback = SetSize_0014c590;
             lists[1] = p;
         } else
             lists[1] = 0;

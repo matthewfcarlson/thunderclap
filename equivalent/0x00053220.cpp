@@ -4,8 +4,8 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
-void __cdecl FUN_00047c60();
-void __cdecl FUN_00047c70();
+void __cdecl SetCompare_00047c60();
+void __cdecl SetSize_00047c70();
 void* __cdecl FUN_0008d690(unsigned);
 void __cdecl FUN_002347b0(void*,void*,int);
 inline void* __cdecl operator new(unsigned,void* p) { return p; }
@@ -35,7 +35,7 @@ extern "C" void __cdecl FUN_00053220() {
    list[0]=new(mem) fight::ParamEnumConstList<CCharacterSizeCondition>;
    list[0]->values=((char*)&DAT_00427758);
    list[0]->count=count;
-   list[0]->callback=FUN_00047c60;
+   list[0]->callback=SetCompare_00047c60;
   } else list[0]=0;
   mem = FUN_0008d690(32);
   if(mem) {
@@ -45,7 +45,7 @@ extern "C" void __cdecl FUN_00053220() {
    list[1]=new(mem) fight::ParamEnumConstList<CCharacterSizeCondition>;
    list[1]->values=((char*)&DAT_0048f6b4);
    list[1]->count=count;
-   list[1]->callback=FUN_00047c70;
+   list[1]->callback=SetSize_00047c70;
   } else list[1]=0;
   FUN_002347b0(&DAT_004dc448,list,2);
  }

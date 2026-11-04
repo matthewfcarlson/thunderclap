@@ -5,9 +5,9 @@
 typedef unsigned int size_t;
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl FUN_00048200();
-void __cdecl FUN_00048220();
-void __cdecl FUN_00048240();
+void __cdecl SetAngle_00048200();
+void __cdecl SetArc_00048220();
+void __cdecl SetMinVelocity_00048240();
 class CMotionClimbAngleCondition;
 namespace fight {
 template<class T> struct ParamFloatConstRange {
@@ -24,11 +24,11 @@ extern "C" void __cdecl FUN_000548b0() {
  if (DAT_004dc584 == 0) {
   Param* params[3];
   Param* p = (Param*)FUN_0008d690(24);
-  if(p) {p->FUN_00234960("angle"); new(p) Param; p->callback = FUN_00048200;} params[0]=p;
+  if(p) {p->FUN_00234960("angle"); new(p) Param; p->callback = SetAngle_00048200;} params[0]=p;
   p = (Param*)FUN_0008d690(24);
-  if(p) {p->FUN_00234960("arc"); new(p) Param; p->callback = FUN_00048220;} params[1]=p;
+  if(p) {p->FUN_00234960("arc"); new(p) Param; p->callback = SetArc_00048220;} params[1]=p;
   p = (Param*)FUN_0008d690(24);
-  if(p) {p->FUN_00234960("minVelocity"); new(p) Param; p->callback = FUN_00048240;} params[2]=p;
+  if(p) {p->FUN_00234960("minVelocity"); new(p) Param; p->callback = SetMinVelocity_00048240;} params[2]=p;
   FUN_002347b0(&DAT_004dc580, params, 3);
  }
  ++DAT_004dc584;

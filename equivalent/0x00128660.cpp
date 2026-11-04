@@ -4,10 +4,10 @@
 #include "decls/data/game/unknown.h"
 
 extern void* __cdecl FUN_0008d690(unsigned);
-extern void FUN_00123620();
-extern void FUN_00123630();
-extern void FUN_00123650();
-extern void FUN_00123670();
+extern void SetCompare_00123620();
+extern void SetDistance_00123630();
+extern void SetUseHulk_00123650();
+extern void SetUseGroundPoint_00123670();
 inline void* operator new(unsigned, void* p) { return p; }
 namespace hulkfight { namespace ai { class TargetDistanceCondition; } }
 namespace fight {
@@ -49,28 +49,28 @@ void target() {
  e->count=n;
  new(e) Enum;
  e->values="lwB";
- e->callback=FUN_00123620;
+ e->callback=SetCompare_00123620;
  }
  entries[0]=e;
  Float* f=(Float*)FUN_0008d690(24);
  if(f) {
  f->FUN_00234960("distance");
  new(f) Float;
- f->callback=FUN_00123630;
+ f->callback=SetDistance_00123630;
  }
  entries[1]=f;
  Bool* b=(Bool*)FUN_0008d690(24);
  if(b) {
  b->FUN_00234860("useHulk");
  new(b) Bool;
- b->callback=FUN_00123650;
+ b->callback=SetUseHulk_00123650;
  }
  entries[2]=b;
  b=(Bool*)FUN_0008d690(24);
  if(b) {
  b->FUN_00234860("useGroundPoint");
  new(b) Bool;
- b->callback=FUN_00123670;
+ b->callback=SetUseGroundPoint_00123670;
  }
  entries[3]=b;
  FUN_002347b0(&DAT_004e0d7c, entries, 4);

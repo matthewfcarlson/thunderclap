@@ -7,8 +7,8 @@
 typedef unsigned int size_t;
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern "C" void FUN_001655a0();
-extern "C" void FUN_001655b0();
+extern "C" void SetCompare_001655a0();
+extern "C" void SetConstant_001655b0();
 namespace hulkfight { namespace motion { class GrappleReactionTypeCondition; } }
 namespace fight {
 template<class T> struct ParamEnumConstList {
@@ -33,7 +33,7 @@ extern "C" void __cdecl FUN_0016b480() {
    p = new(p) Param;
    p->count = count;
    p->values = ((char*)&DAT_0042773c);
-   p->callback = FUN_001655a0;
+   p->callback = SetCompare_001655a0;
   }
   entries[0] = p;
   p = (Param*)FUN_0008d690(32);
@@ -42,7 +42,7 @@ extern "C" void __cdecl FUN_0016b480() {
    p = new(p) Param;
    p->values = ((char*)&DAT_004b4d98);
    p->count = 3;
-   p->callback = FUN_001655b0;
+   p->callback = SetConstant_001655b0;
   }
   entries[1] = p;
   FUN_002347b0(&DAT_004e1228, entries, 2);

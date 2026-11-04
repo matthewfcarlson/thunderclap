@@ -4,9 +4,9 @@
 #include "decls/data/game/hulkfight/motion.h"
 
 inline void* operator new(unsigned,void* p) { return p; }
-void FUN_001659d0();
-void FUN_001659e0();
-void FUN_001659f0();
+void SetCompare_001659d0();
+void SetHealth_001659e0();
+void SetConstant_001659f0();
 void* __cdecl FUN_0008d690(unsigned);
 void __cdecl FUN_002347b0(void*,void*,int);
 namespace hulkfight { namespace motion { class HealthCondition; } }
@@ -40,14 +40,14 @@ extern "C" void FUN_0016bf00() {
  e->count=count;
  new (e) E;
  e->choices=((char*)&DAT_0042773c);
- e->callback=FUN_001659d0;
+ e->callback=SetCompare_001659d0;
  }
  params[0]=e;
  F* f=(F*)FUN_0008d690(24);
  if(f) {
  f->FUN_00234960("health");
  new(f) F;
- f->callback=FUN_001659e0;
+ f->callback=SetHealth_001659e0;
  }
  params[1]=f;
  e=(E*)FUN_0008d690(32);
@@ -56,7 +56,7 @@ extern "C" void FUN_0016bf00() {
  new(e) E;
  e->choices=DAT_004b4d88;
  e->count=4;
- e->callback=FUN_001659f0;
+ e->callback=SetConstant_001659f0;
  }
  params[2]=e;
  FUN_002347b0(&DAT_004e12c0,params,3);

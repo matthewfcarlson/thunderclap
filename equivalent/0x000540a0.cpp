@@ -5,8 +5,8 @@
 #include "decls/data/game/unknown.h"
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
-void FUN_00048060();
-void FUN_00048070();
+void SetCompare_00048060();
+void SetMotionHit_00048070();
 void* __cdecl FUN_0008d690(unsigned int);
 namespace fight {
 template<class T> struct ParamEnumConstList {
@@ -32,7 +32,7 @@ void __cdecl target() {
    new (p) Entry_540a0;
    p->count=n;
    p->values=((char*)&DAT_00427758);
-   p->callback=FUN_00048060;
+   p->callback=SetCompare_00048060;
   }
   entries[0]=p;
   p=(Entry_540a0*)FUN_0008d690(32);
@@ -41,7 +41,7 @@ void __cdecl target() {
    new (p) Entry_540a0;
    p->values=((char*)&DAT_0048f9c0);
    p->count=5;
-   p->callback=FUN_00048070;
+   p->callback=SetMotionHit_00048070;
   }
   entries[1]=p;
   FUN_002347b0(&DAT_004dc528,entries,2);

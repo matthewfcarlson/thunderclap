@@ -8,9 +8,9 @@ class Obj {
     char* name;
 
   public:
-    char SetName(const char* s);
+    char SetMission_0012e470(const char* s);
 };
-char Obj::SetName(const char* s) {
+char Obj::SetMission_0012e470(const char* s) {
     Free(name);
     if (!s) {
         name = 0;

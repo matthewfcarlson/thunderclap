@@ -2,10 +2,10 @@ class Obj_48070 {
   public:
     char pad[0x10];
     int mValue;
-    bool Set(int arg);
+    bool SetMotionHit_00048070(int arg);
 };
 
-bool Obj_48070::Set(int arg) {
+bool Obj_48070::SetMotionHit_00048070(int arg) {
     mValue = arg;
     return true;
 }

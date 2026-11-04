@@ -3,7 +3,7 @@
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/unknown.h"
 
-extern void FUN_0010c140(); extern void FUN_0010c170(); extern void FUN_0010c8d0();
+extern void SetCompare_0010c140(); extern void SetValue_0010c170(); extern void SetText_0010c8d0();
 extern void* __cdecl FUN_0008d690(unsigned);
 extern void __cdecl FUN_002347b0(void*,void*,int);
 inline void* __cdecl operator new(unsigned,void* p) { return p; }
@@ -27,13 +27,13 @@ extern "C" void FUN_00111d00() {
  typedef fight::ParamString<hulkfight::ai::AIHistoryNameCondition> S;
  typedef fight::ParamFloatConstRange<hulkfight::ai::AIHistoryNameCondition> F;
  E* e=(E*)FUN_0008d690(32);
- if(e) { int n=(*(int*)&DAT_00427754); e->FUN_00234cc0("compare"); new(e) E; e->count=n; e->values=((char*)&DAT_0042773c); e->callback=FUN_0010c140; }
+ if(e) { int n=(*(int*)&DAT_00427754); e->FUN_00234cc0("compare"); new(e) E; e->count=n; e->values=((char*)&DAT_0042773c); e->callback=SetCompare_0010c140; }
  params[0]=e;
  S* s=(S*)FUN_0008d690(24);
- if(s) { s->FUN_002349e0("text"); new(s) S; s->callback=FUN_0010c8d0; }
+ if(s) { s->FUN_002349e0("text"); new(s) S; s->callback=SetText_0010c8d0; }
  params[1]=s;
  F* f=(F*)FUN_0008d690(24);
- if(f) { f->FUN_00234960("value"); new(f) F; f->callback=FUN_0010c170; }
+ if(f) { f->FUN_00234960("value"); new(f) F; f->callback=SetValue_0010c170; }
  params[2]=f;
  FUN_002347b0(((int*)&DAT_004e0af8),params,3);
  }

@@ -2,9 +2,9 @@ class Obj_16f930 {
   public:
     char pad[0xc];
     int mVal;
-    bool Set(int v);
+    bool SetTimeBegin_0016f930(int v);
 };
-bool Obj_16f930::Set(int v) {
+bool Obj_16f930::SetTimeBegin_0016f930(int v) {
     mVal = v;
     return true;
 }

@@ -3,10 +3,10 @@ class Obj_123600 {
     virtual void v();
     char pad[8];
     int mVal;
-    char Set(int x);
+    char SetCompare_00123600(int x);
 };
 
-char Obj_123600::Set(int x) {
+char Obj_123600::SetCompare_00123600(int x) {
     mVal = x;
     return 1;
 }

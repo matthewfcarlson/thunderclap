@@ -5,8 +5,8 @@
 #include "decls/data/game/unknown.h"
 
 inline void* operator new(unsigned int, void* p) { return p; }
-void FUN_00047e70();
-void FUN_00047e80();
+void SetCompare_00047e70();
+void SetType_00047e80();
 void* __cdecl FUN_0008d690(unsigned int);
 class CSmartPropTypeCondition;
 namespace fight {
@@ -32,7 +32,7 @@ extern "C" void FUN_00053b00() {
    items[0]->count = n;
    new (items[0]) Param;
    items[0]->values = ((int*)&DAT_00427758);
-   items[0]->callback = FUN_00047e70;
+   items[0]->callback = SetCompare_00047e70;
   }
   items[1] = (Param*)FUN_0008d690(32);
   if (items[1]) {
@@ -40,7 +40,7 @@ extern "C" void FUN_00053b00() {
    new (items[1]) Param;
    items[1]->values = ((int*)&DAT_003f6b40);
    items[1]->count = 23;
-   items[1]->callback = FUN_00047e80;
+   items[1]->callback = SetType_00047e80;
   }
   FUN_002347b0(&DAT_004dc4b8, items, 2);
  }

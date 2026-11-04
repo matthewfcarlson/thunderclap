@@ -5,7 +5,7 @@
 
 inline void* operator new(unsigned int, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl FUN_0010c2c0(); void __cdecl FUN_0010c2e0(); void __cdecl FUN_0010c300(); void __cdecl FUN_0010c320();
+void __cdecl SetCompare_0010c2c0(); void __cdecl SetDistance_0010c2e0(); void __cdecl SetNumberofAttachedProps_0010c300(); void __cdecl SetNumber_0010c320();
   
 namespace hulkfight { namespace ai { class PropsToSuckCondition; } }
 namespace fight {
@@ -19,13 +19,13 @@ void target() {
  if (DAT_004e0b44 == 0) {
  void* params[4]; typedef hulkfight::ai::PropsToSuckCondition T;
  fight::ParamEnumConstList<T>* a=(fight::ParamEnumConstList<T>*)FUN_0008d690(32);
- if(a) { int count=(*(int*)&DAT_00427754); a->FUN_00234cc0("compare"); a->count=count; new(a) fight::ParamEnumConstList<T>; a->list="lwB"; a->callback=FUN_0010c2c0; } params[0]=a;
+ if(a) { int count=(*(int*)&DAT_00427754); a->FUN_00234cc0("compare"); a->count=count; new(a) fight::ParamEnumConstList<T>; a->list="lwB"; a->callback=SetCompare_0010c2c0; } params[0]=a;
  fight::ParamFloatConstRange<T>* b=(fight::ParamFloatConstRange<T>*)FUN_0008d690(24);
- if(b) { b->FUN_00234960("distance"); new(b) fight::ParamFloatConstRange<T>; b->callback=FUN_0010c2e0; } params[1]=b;
+ if(b) { b->FUN_00234960("distance"); new(b) fight::ParamFloatConstRange<T>; b->callback=SetDistance_0010c2e0; } params[1]=b;
  fight::ParamBool<T>* c=(fight::ParamBool<T>*)FUN_0008d690(24);
- if(c) { c->FUN_00234860("numberofAttachedProps"); new(c) fight::ParamBool<T>; c->callback=FUN_0010c300; } params[2]=c;
+ if(c) { c->FUN_00234860("numberofAttachedProps"); new(c) fight::ParamBool<T>; c->callback=SetNumberofAttachedProps_0010c300; } params[2]=c;
  fight::ParamIntConstRange<T>* d=(fight::ParamIntConstRange<T>*)FUN_0008d690(24);
- if(d) { d->FUN_002348e0("number"); new(d) fight::ParamIntConstRange<T>; d->callback=FUN_0010c320; } params[3]=d;
+ if(d) { d->FUN_002348e0("number"); new(d) fight::ParamIntConstRange<T>; d->callback=SetNumber_0010c320; } params[3]=d;
  FUN_002347b0(&DAT_004e0b40,params,4);
  } ++DAT_004e0b44;
 }

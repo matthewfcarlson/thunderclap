@@ -8,9 +8,9 @@ class Obj {
     char* name;
 
   public:
-    char SetName(const char* s);
+    char SetText_0010cc40(const char* s);
 };
-char Obj::SetName(const char* s) {
+char Obj::SetText_0010cc40(const char* s) {
     FreeMem(name);
     if (!s) {
         name = 0;

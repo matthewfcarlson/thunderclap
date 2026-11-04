@@ -3,9 +3,9 @@ class Obj {
     int value;
 
   public:
-    char Set(int v);
+    char SetTimeBegin_001927d0(int v);
 };
-char Obj::Set(int v) {
+char Obj::SetTimeBegin_001927d0(int v) {
     value = v;
     return 1;
 }

@@ -4,9 +4,9 @@ inline void* __cdecl operator new(unsigned int, void* p) {
     return p;
 }
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl FUN_0010c640();
-void __cdecl FUN_0010c650();
-void __cdecl FUN_0010c670();
+void __cdecl SetTimeBegin_0010c640();
+void __cdecl SetTimeEnd_0010c650();
+void __cdecl SetFloatDelayOnEnd_0010c670();
 namespace hulkfight {
 namespace ai {
 class TokenTrack;
@@ -37,7 +37,7 @@ extern "C" void __cdecl FUN_00112e30() {
             fight::ParamBase_112e30* b = (fight::ParamBase_112e30*)p;
             b->FUN_00234960("timeBegin");
             new (p) fight::ParamFloatConstRange<hulkfight::ai::TokenTrack>;
-            b->callback = FUN_0010c640;
+            b->callback = SetTimeBegin_0010c640;
             params[0] = b;
         } else
             params[0] = 0;
@@ -46,7 +46,7 @@ extern "C" void __cdecl FUN_00112e30() {
             fight::ParamBase_112e30* b = (fight::ParamBase_112e30*)p;
             b->FUN_00234960("timeEnd");
             new (p) fight::ParamFloatConstRange<hulkfight::ai::TokenTrack>;
-            b->callback = FUN_0010c650;
+            b->callback = SetTimeEnd_0010c650;
             params[1] = b;
         } else
             params[1] = 0;
@@ -55,7 +55,7 @@ extern "C" void __cdecl FUN_00112e30() {
             fight::ParamBase_112e30* b = (fight::ParamBase_112e30*)p;
             b->FUN_00234860("floatDelayOnEnd");
             new (p) fight::ParamBool<hulkfight::ai::TokenTrack>;
-            b->callback = FUN_0010c670;
+            b->callback = SetFloatDelayOnEnd_0010c670;
             params[2] = b;
         } else
             params[2] = 0;

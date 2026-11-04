@@ -4,9 +4,9 @@
 
 inline void* operator new(unsigned int, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl FUN_001a1290();
-void __cdecl FUN_001a12a0();
-void __cdecl FUN_001a1460();
+void __cdecl SetTimeBegin_001a1290();
+void __cdecl SetTimeEnd_001a12a0();
+void __cdecl SetScript_001a1460();
 namespace hulkfight { namespace scenario { class LuaTrack; } }
 namespace fight {
 template<class T> struct ParamFloatConstRange {
@@ -31,13 +31,13 @@ void FUN_001a1b60() {
  typedef fight::ParamFloatConstRange<hulkfight::scenario::LuaTrack> FloatParam;
  typedef fight::ParamScript<hulkfight::scenario::LuaTrack> ScriptParam;
  FloatParam* a = (FloatParam*)FUN_0008d690(24);
- if(a) { a->FUN_00234960("timeBegin"); new (a) FloatParam; a->callback = FUN_001a1290; }
+ if(a) { a->FUN_00234960("timeBegin"); new (a) FloatParam; a->callback = SetTimeBegin_001a1290; }
  items[0] = a;
  FloatParam* b = (FloatParam*)FUN_0008d690(24);
- if(b) { b->FUN_00234960("timeEnd"); new (b) FloatParam; b->callback = FUN_001a12a0; }
+ if(b) { b->FUN_00234960("timeEnd"); new (b) FloatParam; b->callback = SetTimeEnd_001a12a0; }
  items[1] = b;
  ScriptParam* c = (ScriptParam*)FUN_0008d690(24);
- if(c) { c->FUN_00234c00("script"); new (c) ScriptParam; c->callback = FUN_001a1460; }
+ if(c) { c->FUN_00234c00("script"); new (c) ScriptParam; c->callback = SetScript_001a1460; }
  items[2] = c;
  FUN_002347b0(&DAT_004e16fc, items, 3);
  }

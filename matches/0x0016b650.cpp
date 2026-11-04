@@ -4,8 +4,8 @@
 #include "decls/data/game/unknown.h"
 
 typedef unsigned int uint;
-void __cdecl FUN_001656c0();
-void __cdecl FUN_001656d0();
+void __cdecl SetCompare_001656c0();
+void __cdecl SetLocomotionMotionState_001656d0();
 void* __cdecl FUN_0008d690(uint);
 void __cdecl FUN_002347b0(void*, void*, uint);
 inline void* operator new(unsigned int, void* p) {
@@ -38,7 +38,7 @@ extern "C" void __cdecl FUN_0016b650() {
             List_16b650* x = new (p) List_16b650;
             x->values = ((uint*)&DAT_00427758);
             x->count = n;
-            x->callback = FUN_001656c0;
+            x->callback = SetCompare_001656c0;
             lists[0] = x;
         } else
             lists[0] = 0;
@@ -49,7 +49,7 @@ extern "C" void __cdecl FUN_0016b650() {
             List_16b650* x = new (p) List_16b650;
             x->values = ((uint*)&DAT_0048f590);
             x->count = n;
-            x->callback = FUN_001656d0;
+            x->callback = SetLocomotionMotionState_001656d0;
             lists[1] = x;
         } else
             lists[1] = 0;

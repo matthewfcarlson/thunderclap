@@ -4,10 +4,10 @@
 #include "gen/fight.h"
 
 inline void* operator new(unsigned int, void* p) { return p; }
-void __cdecl FUN_00068310();
-void __cdecl FUN_00068320();
-void __cdecl FUN_00068330();
-void __cdecl FUN_0006b7b0();
+void __cdecl SetTimeBegin_00068310();
+void __cdecl SetTimeEnd_00068320();
+void __cdecl SetDistance_00068330();
+void __cdecl SetDirection_0006b7b0();
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct ParamBase_711c0 {
  virtual void placeholder();
@@ -23,13 +23,13 @@ extern "C" void FUN_000711c0() {
  ParamBase_711c0* items[4];
  ParamBase_711c0* p;
  p = (ParamBase_711c0*)FUN_0008d690(24);
- if(p) { ((fight::ParamValueFloat *)(ParamBase_711c0 *)p)->FUN_00234960("timeBegin"); new(p) fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>; p->callback=FUN_00068310; } items[0]=p;
+ if(p) { ((fight::ParamValueFloat *)(ParamBase_711c0 *)p)->FUN_00234960("timeBegin"); new(p) fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>; p->callback=SetTimeBegin_00068310; } items[0]=p;
  p = (ParamBase_711c0*)FUN_0008d690(24);
- if(p) { ((fight::ParamValueFloat *)(ParamBase_711c0 *)p)->FUN_00234960("timeEnd"); new(p) fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>; p->callback=FUN_00068320; } items[1]=p;
+ if(p) { ((fight::ParamValueFloat *)(ParamBase_711c0 *)p)->FUN_00234960("timeEnd"); new(p) fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>; p->callback=SetTimeEnd_00068320; } items[1]=p;
  p = (ParamBase_711c0*)FUN_0008d690(24);
- if(p) { ((fight::ParamValueFloat *)(ParamBase_711c0 *)p)->FUN_00234960("distance"); new(p) fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>; p->callback=FUN_00068330; } items[2]=p;
+ if(p) { ((fight::ParamValueFloat *)(ParamBase_711c0 *)p)->FUN_00234960("distance"); new(p) fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>; p->callback=SetDistance_00068330; } items[2]=p;
  p = (ParamBase_711c0*)FUN_0008d690(24);
- if(p) { ((fight::ParamValueFloat *)(ParamBase_711c0 *)p)->FUN_00234960("direction"); new(p) fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>; p->callback=FUN_0006b7b0; } items[3]=p;
+ if(p) { ((fight::ParamValueFloat *)(ParamBase_711c0 *)p)->FUN_00234960("direction"); new(p) fight::ParamFloatConstRange_711c0<CMoveAddYTrack_711c0>; p->callback=SetDirection_0006b7b0; } items[3]=p;
  FUN_002347b0(&DAT_004dcf58,items,4);
  }
  ++DAT_004dcf5c;

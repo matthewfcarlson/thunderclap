@@ -3,9 +3,9 @@ class X_165940 {
     int m;
 
   public:
-    bool Set(int v);
+    bool SetCompare_00165940(int v);
 };
-bool X_165940::Set(int v) {
+bool X_165940::SetCompare_00165940(int v) {
     m = v;
     return true;
 }

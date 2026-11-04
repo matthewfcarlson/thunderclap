@@ -3,9 +3,9 @@ class Obj {
     int value;
 
   public:
-    bool Set(int x);
+    bool SetAmplitude_00068610(int x);
 };
-bool Obj::Set(int x) {
+bool Obj::SetAmplitude_00068610(int x) {
     value = x;
     return true;
 }

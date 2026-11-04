@@ -6,8 +6,8 @@
 #include "decls/data/game/unknown.h"
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
-extern void FUN_00165580();
-extern void FUN_00165590();
+extern void SetCompare_00165580();
+extern void SetLocomotionMotionState_00165590();
 extern void* __cdecl FUN_0008d690(unsigned int);
 namespace hulkfight { namespace motion { class LocomotionMotionStateCondition; } }
 namespace fight {
@@ -33,7 +33,7 @@ void initialize() {
    new(a) List_16b3c0;
    a->values = ((int*)&DAT_00427758);
    a->count = count;
-   a->callback = FUN_00165580;
+   a->callback = SetCompare_00165580;
   }
   lists[0] = a;
   List_16b3c0* b = (List_16b3c0*)FUN_0008d690(32);
@@ -43,7 +43,7 @@ void initialize() {
    new(b) List_16b3c0;
    b->values = ((int*)&DAT_0048f590);
    b->count = count;
-   b->callback = FUN_00165590;
+   b->callback = SetLocomotionMotionState_00165590;
   }
   lists[1] = b;
   FUN_002347b0(&DAT_004e1220, lists, 2);

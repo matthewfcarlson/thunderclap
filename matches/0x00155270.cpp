@@ -5,8 +5,8 @@
 inline void* __cdecl operator new(unsigned int, void* p) {
     return p;
 }
-extern void FUN_0014c4d0();
-extern void FUN_0014c4e0();
+extern void SetCompare_0014c4d0();
+extern void SetSize_0014c4e0();
 extern void* __cdecl FUN_0008d690(unsigned int);
 namespace hulkfight {
 namespace motion {
@@ -40,7 +40,7 @@ extern "C" void FUN_00155270() {
             Param* p = new (mem) Param;
             p->entries = ((char*)&DAT_00427758);
             p->count = count;
-            p->callback = FUN_0014c4d0;
+            p->callback = SetCompare_0014c4d0;
             params[0] = p;
         } else
             params[0] = 0;
@@ -52,7 +52,7 @@ extern "C" void FUN_00155270() {
             Param* p = new (mem) Param;
             p->entries = ((char*)&DAT_0048f6b4);
             p->count = count;
-            p->callback = FUN_0014c4e0;
+            p->callback = SetSize_0014c4e0;
             params[1] = p;
         } else
             params[1] = 0;

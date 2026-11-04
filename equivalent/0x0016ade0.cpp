@@ -7,7 +7,7 @@
 
 typedef unsigned int uint;
 extern "C" void* __cdecl FUN_0008d690(uint);
-void __cdecl FUN_00165380(); void __cdecl FUN_00165390(); void __cdecl FUN_001653a0();
+void __cdecl SetCompare_00165380(); void __cdecl SetCharge_00165390(); void __cdecl SetType_001653a0();
    
 extern "C" void __cdecl FUN_002347b0(void*,void**,int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
@@ -25,20 +25,20 @@ extern "C" void __cdecl FUN_0016ade0() {
  ((ParamBase_16ade0*)memory)->FUN_00234cc0("compare");
  typedef fight::ParamEnumConstList_16ade0<hulkfight::motion::ChargeCondition_16ade0> E;
  E* p=new(memory) E;
- p->count=count; p->list="lwB"; p->callback=FUN_00165380;
+ p->count=count; p->list="lwB"; p->callback=SetCompare_00165380;
  }
  memory=FUN_0008d690(24); params[1]=memory;
  if(memory) {
  ((fight::ParamValueFloat *)(ParamBase_16ade0 *)(((ParamBase_16ade0*)memory)))->FUN_00234960("charge");
  typedef fight::ParamFloatConstRange_16ade0<hulkfight::motion::ChargeCondition_16ade0> F;
- F* p=new(memory) F; p->callback=FUN_00165390;
+ F* p=new(memory) F; p->callback=SetCharge_00165390;
  }
  memory=FUN_0008d690(32); params[2]=memory;
  if(memory) {
  ((ParamBase_16ade0*)memory)->FUN_00234cc0("type");
  typedef fight::ParamEnumConstList_16ade0<hulkfight::motion::ChargeCondition_16ade0> E;
  E* p=new(memory) E;
- p->list=((char*)&DAT_004b4d7c); p->count=3; p->callback=FUN_001653a0;
+ p->list=((char*)&DAT_004b4d7c); p->count=3; p->callback=SetType_001653a0;
  }
  FUN_002347b0(((uint*)&DAT_004e11d8),params,3);
  }

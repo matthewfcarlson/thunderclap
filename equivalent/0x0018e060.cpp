@@ -4,7 +4,7 @@
 
 inline void* __cdecl operator new(unsigned int,void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl FUN_0018cb80(); void __cdecl FUN_0018cba0(); void __cdecl FUN_0018cbc0();
+void __cdecl SetTimeBegin_0018cb80(); void __cdecl SetTimer_0018cba0(); void __cdecl SetValue_0018cbc0();
 namespace hulkfight { namespace motion { class TimerSetTrack; } }
 namespace fight {
 template<class T> struct ParamFloatConstRange { virtual void slot0(); char pad[12]; void (__cdecl *callback)(); char tail[4]; void FUN_00234960(const char*); };
@@ -18,13 +18,13 @@ void __cdecl FUN_0018e060() {
   typedef fight::ParamFloatConstRange<hulkfight::motion::TimerSetTrack> F;
   typedef fight::ParamIntConstRange<hulkfight::motion::TimerSetTrack> I;
   F* a=(F*)FUN_0008d690(24);
-  if(a) { a->FUN_00234960("timeBegin"); a=new(a) F; a->callback=FUN_0018cb80; }
+  if(a) { a->FUN_00234960("timeBegin"); a=new(a) F; a->callback=SetTimeBegin_0018cb80; }
   params[0]=a;
   I* b=(I*)FUN_0008d690(24);
-  if(b) { b->FUN_002348e0("timer"); b=new(b) I; b->callback=FUN_0018cba0; }
+  if(b) { b->FUN_002348e0("timer"); b=new(b) I; b->callback=SetTimer_0018cba0; }
   params[1]=b;
   F* c=(F*)FUN_0008d690(24);
-  if(c) { c->FUN_00234960("value"); c=new(c) F; c->callback=FUN_0018cbc0; }
+  if(c) { c->FUN_00234960("value"); c=new(c) F; c->callback=SetValue_0018cbc0; }
   params[2]=c;
   FUN_002347b0(&DAT_004e1520,params,3);
  }

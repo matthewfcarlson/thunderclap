@@ -615,3 +615,94 @@ the fields of the other include/gen/ classes (no string evidence; usage across s
 names); function and member names (they need a name-to-address convention the checkers understand: equiv.py's
 `name_address` reads the address from `FUN_<addr>`-style names only, so a renamed callee must keep that form or
 the checker must learn a new one, with a regress run).
+
+## 13. Function names: the address-suffix convention (clean2, 2026-11-03)
+
+Section 12 stopped short of function names: the checkers and the link read a callee's address from `FUN_<addr>`-style
+names only. The convention that lifts this is one many sources already followed by hand (`Init_001d43b0`,
+`Check_000dfa60`, `ReadTrack_002530b0`, `Func_00367610`: all thirteen such callees checked bind to the address their
+names say):
+
+- **A meaningful function name keeps the address as a suffix**: `SetArc_000480a0` = the name, `_`, and eight lowercase
+  hex digits starting `00`. It is read from the *leaf* identifier only (the function's own name, not its class or
+  namespace: `Obj_480a0::SetArc_000480a0` says 0x000480a0, a constructor `Ctor_001d0480::Ctor_001d0480` mangles as
+  `??0` and says nothing). At least two characters come before the suffix (`v_001d0480`, a placeholder virtual named
+  after its class's constructor, sits unbound in clang's stub vftables and must stay so), and not a placeholder or data
+  prefix (`FUN_`, `DAT_`, `tbl_`, `zero_`, ... keep their own rules). A reader uses the address only where it is in the
+  XBE's `.text` (or, in clang_probe's grouping, a verified function). One module says this: `tools/addr_names.py`
+  (`suffix_address`, `symbol_suffix_address` for object-file symbols, `ident_address` for either form).
+- **Readers taught it** (each with an off-switch `sufname` for A/B):
+  - `equiv.py name_address` (rule 3 of docs/equivalence.md's binding order; `EQUIV_OFF=sufname`);
+  - `verify_relocs.py`: a new hard issue `name_address_mismatch` when a suffix-named reference's relocation targets
+    another `.text` address (the byte match masks the relocation, so nothing else would tell; `RELOC_OFF=sufname`).
+    Not applied to `FUN_` names (it would be a new check on 22,000 matches; left for a separate sweep);
+  - `wine_link.py name_address` (fallback after the relocation binding; `HULK_WINE_LINK_OFF=sufname`) and its gfx
+    game-reference test;
+  - `gen_tree.py addr_named`: linkage and spelling differences of an address-named function bind by the address, as
+    for `FUN_` (`HULK_GEN_TREE_OFF=sufname`). On HEAD's sources the generated tree is byte-identical with and without
+    it (both runs `PYTHONHASHSEED=0`: gen_tree's output order depends on the hash seed, 137 files differ in line
+    order between two unseeded runs of one input);
+  - `name_unify.py` (`ADDR_NAME`: callers spelling an address name are bound by it), `clang_probe.py` (the x87-keep
+    callee key and the undefined-symbol groups), `x87_order.py` (name binds of equivalents, the `equiv-conv` line),
+    `wine_shim.py`, `data_gen.py` (data relocations to functions), `native_mac.py` (report groups);
+  - `param_fields.py` reads a setter in either form and reports it as `FUN_<addr>`, so evidence-names.json
+    regenerates identically after the rename.
+  Not changed: `equiv_next.py` (a stale fork nothing imports), `name_audit.py` (report categories only).
+- **Regress** (tests/equiv/regress.py): `0x000139b0_suffix_names` (equivalent/0x000139b0 with its four callees renamed:
+  equivalent), `..._swapped` (two callees of one shape whose names carry each other's addresses: fail, "call #1 went to
+  0x00059a30 instead of 0x000592a0"), `..._swapped_off` (the same with `sufname` off: equivalent, pairing by position
+  binds each name to the original's call there: what the rule catches); verify_relocs `0x001d47c0_suffix_name` (ok)
+  and `..._wrong` (`Init_001d4320` for the original's 0x001d43b0: bad, name_address_mismatch; ok before).
+
+**Applying names.** `tools/fn_names.py` writes `include/gen/evidence-fnames.json` ({address: name, kind, evidence});
+`tools/name_unify.py rename --names ... --bindings B.json` applies it: the definition's own name (from the binding map's
+`definitions`: `Obj_480a0::Set` or `FUN_000480a0`) and every `FUN_<addr>` token in matches/ and equivalent/ (code,
+comments, `// equiv-*` lines) take the name. All users or none: refused when a user is excluded, outside matches/ and
+equivalent/ (include/gen/ headers are generated: owners.h members are named through evidence-owners.json, later work),
+when the definition's invented name is used for anything else in its source, or when the name is already in use.
+Callers that name the function by an invented stub name (bound by relocation) keep it for now.
+
+First evidence: **fight parameter callbacks**. The registrations clean1 used (section 12) pass each parameter's
+callback; each of the 278 callbacks is registered under exactly one parameter name. `Get<Name>` when its body is
+`lea eax,[ecx+X]; ret` (it hands the parameter the field's address), `Set<Name>` otherwise.
+
+Batch 1 (applied): 273 of the 278 callbacks (`include/gen/evidence-fnames.json`; e.g. 0x000480a0 `SetArc_000480a0`,
+`Obj_480a0::Set` before, registered by 0x00054160 for CClimbableCondition's "arc"; 0x000481a0 `GetFightNode_000481a0`,
+`lea eax,[ecx+0x10]; ret`, CFightNodePrevCondition's "fightNode"; 0x0010c8d0 `SetText_0010c8d0`, AIHistoryNameCondition's
+"text", frees the old string and copies the new one). 364 sources: 273 definitions and their registration callers
+(278 matches/, 86 equivalent/), 1,090 tokens. Left out: 0x00047b00/10/20 (definitions in include/gen/owners.h) and
+0x0012e4d0/0x0012edf0. Renaming those two lets 0x0012ea40, a match outside the batch, merge into GameStateCondition.cpp
+(its stub's `Obj::Set` stops colliding with theirs). Its `extern "C" FUN_0008d6d0(hulk_uintptr)` then becomes the TU's
+declaration and conflicts on 64 bits with wrapped 0x0012e710's `unsigned int` (the first proof build lost that TU in
+the native compile: 4 front-end failures instead of 3). This is section 11's 0x0012ebc0/0x0012f030 hazard, reached
+indirectly: **a rename can change which sources merge**. Fewer name collisions mean more merging; check a batch's
+gen_tree modes against HEAD (`PYTHONHASHSEED=0 gen_tree.py --fresh` in both workspaces, manifest `blocks[].mode`) and
+the native front end before the proof. In batch 1 the only mode left changed is 0x0010ce60, wrapped as "same
+definition as 0x0010cc40" before (the two setters had the same text), merged now.
+
+Gates: 278/278 matches MATCH + verify_relocs ok (with the new name_address_mismatch rule); 86/86 equivalents promotable
+at 3,000 inputs and at 600 with `--wine`; `--x64` 64 equivalent, 22 fail exactly as at HEAD (the registration
+functions' 64-bit layout and int findings, e.g. 0x00075b50 "allocation of 0x18 bytes holds a fight::ParamValueName").
+tests/equiv/regress.py --jobq: 415/415 (0x001fe380_tiny_counts needed a rerun: coverage 70% < 80% on a loaded host,
+83% alone).
+
+| | control 42586 (HEAD fa3ef1de7, mac1) | batch 1 + tools, 42746 (mac1) |
+|---|---|---|
+| sources | - | 364 (278 matches/, 86 equivalent/), evidence-fnames.json, the tools above |
+| TU modes | - | one source changes mode: 0x0010ce60 merged (was wrapped as the same definition as 0x0010cc40) |
+| strict link rc / unbound | 0 / 1,324 | 0 / 1,324 (same symbols) |
+| image (PE time stamp zeroed) | - | identical to the control's |
+| play3 checkpoints | 2,003 to 60,060 | identical at all 2,003 common frames (batch to 60,090) |
+| x87-keep list | - | identical |
+| name audit, game (symbols / references) | 46,339 / 48,222 | 46,339 / 48,222 |
+| native arm64 link, unbound (front-end failures) | 46,370 (3) | 46,370 (3; same groups) |
+
+(The first proof, 42738, with 0x0012e4d0/0x0012edf0 renamed: checkpoints identical at all 2,001 common frames, but the
+image differed and the native compile lost GameStateCondition.cpp, as above. Native groups moved slightly against
+section 12's numbers because native_mac.py now counts the old suffix names, `Init_001d43b0` and the rest, as
+"function by address"; the total is the same.)
+
+Not reached yet: owners.h members (the 3 callbacks there and the 2,666 `owners::X::FUN_<addr>` definitions: gen_headers
+should take their names from evidence-fnames.json), callers that name a renamed function by an invented stub name
+(bound by relocation: `name_unify.py member/free` can carry the name over), the Lua API wrappers and RTTI vftable slots
+as further evidence sources, and a sweep of `name_address_mismatch` over `FUN_` names in matches/.

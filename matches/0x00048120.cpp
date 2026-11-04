@@ -2,9 +2,9 @@ class Obj_48120 {
   public:
     char pad[0x10];
     int mVal;
-    char Set(int x);
+    char SetTime_00048120(int x);
 };
-char Obj_48120::Set(int x) {
+char Obj_48120::SetTime_00048120(int x) {
     mVal = x;
     return 1;
 }

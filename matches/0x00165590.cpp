@@ -2,10 +2,10 @@ class Obj_165590 {
   public:
     char pad[0x10];
     void* m10;
-    bool Set(void* p);
+    bool SetLocomotionMotionState_00165590(void* p);
 };
 
-bool Obj_165590::Set(void* p) {
+bool Obj_165590::SetLocomotionMotionState_00165590(void* p) {
     m10 = p;
     return true;
 }

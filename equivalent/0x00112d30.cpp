@@ -4,7 +4,7 @@
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl FUN_0010c600(); void __cdecl FUN_0010c610(); void __cdecl FUN_0010c620(); void __cdecl FUN_0010c630();
+void __cdecl SetTimeBegin_0010c600(); void __cdecl SetTimeEnd_0010c610(); void __cdecl SetOnlySetAtEnd_0010c620(); void __cdecl GetText_0010c630();
 namespace hulkfight { namespace ai { class AIHistorySetTrack; } }
 namespace fight {
 template<class T> struct ParamFloatConstRange { virtual void slot0(); char data[12]; void (__cdecl *callback)(); char tail[4]; void FUN_00234960(const char*); };
@@ -19,13 +19,13 @@ void target() {
  typedef fight::ParamBool<hulkfight::ai::AIHistorySetTrack> BoolParam;
  typedef fight::ParamName<hulkfight::ai::AIHistorySetTrack> NameParam;
  FloatParam* a=(FloatParam*)FUN_0008d690(24);
- if(a) { a->FUN_00234960("timeBegin"); new(a) FloatParam; a->callback=FUN_0010c600; } items[0]=a;
+ if(a) { a->FUN_00234960("timeBegin"); new(a) FloatParam; a->callback=SetTimeBegin_0010c600; } items[0]=a;
  a=(FloatParam*)FUN_0008d690(24);
- if(a) { a->FUN_00234960("timeEnd"); new(a) FloatParam; a->callback=FUN_0010c610; } items[1]=a;
+ if(a) { a->FUN_00234960("timeEnd"); new(a) FloatParam; a->callback=SetTimeEnd_0010c610; } items[1]=a;
  BoolParam* b=(BoolParam*)FUN_0008d690(24);
- if(b) { b->FUN_00234860("onlySetAtEnd"); new(b) BoolParam; b->callback=FUN_0010c620; } items[2]=b;
+ if(b) { b->FUN_00234860("onlySetAtEnd"); new(b) BoolParam; b->callback=SetOnlySetAtEnd_0010c620; } items[2]=b;
  NameParam* c=(NameParam*)FUN_0008d690(24);
- if(c) { c->FUN_00234a90("text"); new(c) NameParam; c->callback=FUN_0010c630; } items[3]=c;
+ if(c) { c->FUN_00234a90("text"); new(c) NameParam; c->callback=GetText_0010c630; } items[3]=c;
  FUN_002347b0(((unsigned int*)&DAT_004e0b90),items,4);
  }
  ++DAT_004e0b94;

@@ -7,9 +7,9 @@ class D : public Base_14c580 {
   public:
     virtual void F1();
     int mVal;
-    bool Set(int v);
+    bool SetCompare_0014c580(int v);
 };
-bool D::Set(int v) {
+bool D::SetCompare_0014c580(int v) {
     mVal = v;
     return true;
 }

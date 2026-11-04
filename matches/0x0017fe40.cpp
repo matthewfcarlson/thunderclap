@@ -2,9 +2,9 @@ class Thing {
   public:
     char pad[12];
     int value;
-    bool Set(int v);
+    bool SetTimeBegin_0017fe40(int v);
 };
-bool Thing::Set(int v) {
+bool Thing::SetTimeBegin_0017fe40(int v) {
     value = v;
     return true;
 }

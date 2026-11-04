@@ -4,9 +4,9 @@
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* address) { return address; }
-void __cdecl FUN_000684f0();
-void __cdecl FUN_00068500();
-void __cdecl FUN_00068510();
+void __cdecl SetTimeBegin_000684f0();
+void __cdecl SetDamage_00068500();
+void __cdecl SetDamageMax_00068510();
 class CDamageTrack;
 namespace fight {
 template<class T> struct ParamFloatConstRange {
@@ -23,13 +23,13 @@ extern "C" void __cdecl FUN_00071700() {
   typedef fight::ParamFloatConstRange<CDamageTrack> Param;
   Param* params[3];
   Param* p = (Param*)FUN_0008d690(24);
-  if (p) { p->FUN_00234960("timeBegin"); new(p) Param; p->getter = FUN_000684f0; }
+  if (p) { p->FUN_00234960("timeBegin"); new(p) Param; p->getter = SetTimeBegin_000684f0; }
   params[0] = p;
   p = (Param*)FUN_0008d690(24);
-  if (p) { p->FUN_00234960("damage"); new(p) Param; p->getter = FUN_00068500; }
+  if (p) { p->FUN_00234960("damage"); new(p) Param; p->getter = SetDamage_00068500; }
   params[1] = p;
   p = (Param*)FUN_0008d690(24);
-  if (p) { p->FUN_00234960("damageMax"); new(p) Param; p->getter = FUN_00068510; }
+  if (p) { p->FUN_00234960("damageMax"); new(p) Param; p->getter = SetDamageMax_00068510; }
   params[2] = p;
   FUN_002347b0(&DAT_004dcf70, params, 3);
  }

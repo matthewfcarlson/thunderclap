@@ -5,9 +5,9 @@ inline void* operator new(unsigned int, void* p) {
     return p;
 }
 extern void* __cdecl FUN_0008d690(unsigned int);
-extern void __cdecl FUN_001330b0();
-extern void __cdecl FUN_001330c0();
-extern void __cdecl FUN_001330e0();
+extern void __cdecl SetTimeBegin_001330b0();
+extern void __cdecl SetTimeEnd_001330c0();
+extern void __cdecl SetGroundFixup_001330e0();
 struct ParamStorage {
     char storage[24];
     void FUN_002348e0(const char*);
@@ -40,7 +40,7 @@ void target() {
             ((fight::ParamValueFloat *)(((ParamStorage*)p)))->FUN_00234960("timeBegin");
             fight::ParamFloatConstRange_137b60<hulkfight::motion::GrappleHoverTrack_137b60>* a =
                 new (p) fight::ParamFloatConstRange_137b60<hulkfight::motion::GrappleHoverTrack_137b60>;
-            a->callback = FUN_001330b0;
+            a->callback = SetTimeBegin_001330b0;
             entries[0] = a;
         } else
             entries[0] = 0;
@@ -49,7 +49,7 @@ void target() {
             ((fight::ParamValueFloat *)(((ParamStorage*)p)))->FUN_00234960("timeEnd");
             fight::ParamFloatConstRange_137b60<hulkfight::motion::GrappleHoverTrack_137b60>* a =
                 new (p) fight::ParamFloatConstRange_137b60<hulkfight::motion::GrappleHoverTrack_137b60>;
-            a->callback = FUN_001330c0;
+            a->callback = SetTimeEnd_001330c0;
             entries[1] = a;
         } else
             entries[1] = 0;
@@ -58,7 +58,7 @@ void target() {
             ((ParamStorage*)p)->FUN_002348e0("groundFixup");
             fight::ParamIntConstRange_137b60<hulkfight::motion::GrappleHoverTrack_137b60>* a =
                 new (p) fight::ParamIntConstRange_137b60<hulkfight::motion::GrappleHoverTrack_137b60>;
-            a->callback = FUN_001330e0;
+            a->callback = SetGroundFixup_001330e0;
             entries[2] = a;
         } else
             entries[2] = 0;

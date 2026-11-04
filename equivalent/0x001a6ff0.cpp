@@ -6,8 +6,8 @@
 #include "decls/data/game/hulkfight/scenario.h"
 
 inline void* operator new(unsigned int, void* p) { return p; }
-extern void FUN_001a1f00();
-extern void FUN_001a1f10();
+extern void SetCompare_001a1f00();
+extern void SetOldState_001a1f10();
 extern void* __cdecl FUN_0008d690(unsigned int);
 struct Base_1a6ff0 { virtual void slot0(); void FUN_00234cc0(const char*); };
 namespace hulkfight { namespace scenario { class Event_LocomotionStateNamePreviousCondition; } }
@@ -31,7 +31,7 @@ void FUN_001a6ff0() {
    new (p) Param;
    p->entries = ((int*)&DAT_00427758);
    p->count = count;
-   p->callback = FUN_001a1f00;
+   p->callback = SetCompare_001a1f00;
   }
   list[0] = p;
   p = (Param*)FUN_0008d690(32);
@@ -41,7 +41,7 @@ void FUN_001a6ff0() {
    new (p) Param;
    p->entries = ((int*)&DAT_0048f590);
    p->count = count;
-   p->callback = FUN_001a1f10;
+   p->callback = SetOldState_001a1f10;
   }
   list[1] = p;
   FUN_002347b0(&DAT_004e1720, list, 2);

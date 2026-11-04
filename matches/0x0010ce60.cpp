@@ -7,9 +7,9 @@ class Obj {
     char* name;
 
   public:
-    char SetName(const char* s);
+    char SetText_0010ce60(const char* s);
 };
-char Obj::SetName(const char* s) {
+char Obj::SetText_0010ce60(const char* s) {
     thunk_FUN_00267090(name);
     if (!s) {
         name = 0;

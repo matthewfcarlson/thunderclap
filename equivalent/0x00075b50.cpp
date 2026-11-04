@@ -5,9 +5,9 @@
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
-void __cdecl FUN_00068b40();
-void __cdecl FUN_00068b50();
-void __cdecl FUN_00068b60();
+void __cdecl SetTimeBegin_00068b40();
+void __cdecl SetTimeEnd_00068b50();
+void __cdecl GetHint_00068b60();
 struct ParamBase_75b50 {
  virtual void slot0();
  char reserved[12];
@@ -27,21 +27,21 @@ extern "C" void __cdecl FUN_00075b50() {
   if(p) {
    ((fight::ParamValueFloat *)(ParamBase_75b50 *)p)->FUN_00234960("timeBegin");
    new(p) fight::ParamFloatConstRange_75b50<CAIHintTrack_75b50>;
-   p->callback = FUN_00068b40;
+   p->callback = SetTimeBegin_00068b40;
   }
   params[0]=p;
   p=(ParamBase_75b50*)FUN_0008d690(24);
   if(p) {
    ((fight::ParamValueFloat *)(ParamBase_75b50 *)p)->FUN_00234960("timeEnd");
    new(p) fight::ParamFloatConstRange_75b50<CAIHintTrack_75b50>;
-   p->callback=FUN_00068b50;
+   p->callback=SetTimeEnd_00068b50;
   }
   params[1]=p;
   p=(ParamBase_75b50*)FUN_0008d690(24);
   if(p) {
    ((fight::ParamValueName *)(ParamBase_75b50 *)p)->FUN_00234a90("hint");
    new(p) fight::ParamName_75b50<CAIHintTrack_75b50>;
-   p->callback=FUN_00068b60;
+   p->callback=GetHint_00068b60;
   }
   params[2]=p;
   FUN_002347b0(&DAT_004dd008,params,3);

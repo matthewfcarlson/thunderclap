@@ -4,9 +4,9 @@ void* __cdecl FUN_0008d690(unsigned);
 inline void* __cdecl operator new(unsigned, void* p) {
     return p;
 }
-void __cdecl FUN_00061f70();
-void __cdecl FUN_00061f80();
-void __cdecl FUN_00061f90();
+void __cdecl SetTimeBegin_00061f70();
+void __cdecl SetAttachmentIndex_00061f80();
+void __cdecl SetEvent_00061f90();
 void __cdecl FUN_002347b0(void*, void**, int);
 class CSmartPropEventTrack;
 namespace fight {
@@ -66,7 +66,7 @@ extern "C" void __cdecl FUN_00064660() {
                 (fight::ParamIntConstRange<CSmartPropEventTrack>*)mem;
             p->FUN_002348e0("attachmentIndex");
             p = new (mem) fight::ParamIntConstRange<CSmartPropEventTrack>;
-            p->callback = FUN_00061f80;
+            p->callback = SetAttachmentIndex_00061f80;
             params[0] = p;
         } else
             params[0] = 0;
@@ -78,7 +78,7 @@ extern "C" void __cdecl FUN_00064660() {
             p = new (mem) fight::ParamEnumConstList<CSmartPropEventTrack>;
             p->list = ((unsigned*)&DAT_00496168);
             p->count = 14;
-            p->callback = FUN_00061f90;
+            p->callback = SetEvent_00061f90;
             params[1] = p;
         } else
             params[1] = 0;
@@ -88,7 +88,7 @@ extern "C" void __cdecl FUN_00064660() {
                 (fight::ParamFloatConstRange<CSmartPropEventTrack>*)mem;
             p->FUN_00234960("timeBegin");
             p = new (mem) fight::ParamFloatConstRange<CSmartPropEventTrack>;
-            p->callback = FUN_00061f70;
+            p->callback = SetTimeBegin_00061f70;
             params[2] = p;
         } else
             params[2] = 0;

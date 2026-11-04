@@ -6,9 +6,9 @@ class Obj {
     float x, y, z;
 
   public:
-    bool SetPos(const Vec3* p);
+    bool SetOffset_00077ef0(const Vec3* p);
 };
-bool Obj::SetPos(const Vec3* p) {
+bool Obj::SetOffset_00077ef0(const Vec3* p) {
     x = p->x;
     y = p->y;
     z = p->z;

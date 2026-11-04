@@ -5,7 +5,7 @@
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl FUN_0012e010(); void __cdecl FUN_0012e470(); void __cdecl FUN_0012e4d0();
+void __cdecl SetCompare_0012e010(); void __cdecl SetMission_0012e470(); void __cdecl FUN_0012e4d0();
 namespace hulkfight { class GameStateCondition; }
 namespace fight {
 template<class T> struct ParamString {
@@ -22,10 +22,10 @@ void __cdecl FUN_00131470() {
  if (!DAT_004e0e60) {
  void* params[3];
  fight::ParamString<hulkfight::GameStateCondition>* a = (fight::ParamString<hulkfight::GameStateCondition>*)FUN_0008d690(24);
- if(a) { a->FUN_002349e0("mission"); new (a) fight::ParamString<hulkfight::GameStateCondition>; a->callback=FUN_0012e470; }
+ if(a) { a->FUN_002349e0("mission"); new (a) fight::ParamString<hulkfight::GameStateCondition>; a->callback=SetMission_0012e470; }
  params[0]=a;
  fight::ParamEnumConstList<hulkfight::GameStateCondition>* b=(fight::ParamEnumConstList<hulkfight::GameStateCondition>*)FUN_0008d690(32);
- if(b) { int count=(*(int*)&DAT_00427760); b->FUN_00234cc0("compare"); b->count=count; new (b) fight::ParamEnumConstList<hulkfight::GameStateCondition>; b->values=((int*)&DAT_00427758); b->callback=FUN_0012e010; }
+ if(b) { int count=(*(int*)&DAT_00427760); b->FUN_00234cc0("compare"); b->count=count; new (b) fight::ParamEnumConstList<hulkfight::GameStateCondition>; b->values=((int*)&DAT_00427758); b->callback=SetCompare_0012e010; }
  params[1]=b;
  fight::ParamString<hulkfight::GameStateCondition>* c=(fight::ParamString<hulkfight::GameStateCondition>*)FUN_0008d690(24);
  if(c) { c->FUN_002349e0("gameState"); new (c) fight::ParamString<hulkfight::GameStateCondition>; c->callback=FUN_0012e4d0; }

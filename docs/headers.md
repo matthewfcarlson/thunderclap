@@ -217,6 +217,11 @@ compiled still matched: the generated layouts never changed codegen. The failure
   registered with it, whose one store through `this` gives the offset (CClimbableCondition +0x10 `arc`).
   `tools/rename_fields.py` rewrites the sources' references (libclang-resolved, so `f_10` of another class is
   never touched). See docs/consolidation-plan.md section 12.
+- **Function names** (clean2): `include/gen/evidence-fnames.json` names functions by address, with evidence
+  (`tools/fn_names.py`); `tools/name_unify.py rename` applies them to the definition and every `FUN_<addr>`
+  reference. Each name keeps its address as a suffix (`SetArc_000480a0`, tools/addr_names.py), which every tool
+  that reads an address from a name understands. Members of include/gen/ headers (owners.h) are not renamed yet.
+  See docs/consolidation-plan.md section 13.
 - **Fields of embedded objects**, arrays, and fields reached through raw `(char*)this + N`
   arithmetic aren't mined. Fields of non-RTTI classes (anything the game doesn't `dynamic_cast`
   or `typeid`) have no home yet.

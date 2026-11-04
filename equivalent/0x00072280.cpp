@@ -4,9 +4,9 @@
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl FUN_00068930();
-void __cdecl FUN_00068940();
-void __cdecl FUN_00068950();
+void __cdecl SetTimeBegin_00068930();
+void __cdecl SetTimeEnd_00068940();
+void __cdecl SetExtensionTime_00068950();
 class CUninterruptibleTrack;
 namespace fight {
  template<class T> struct ParamFloatConstRange {
@@ -24,13 +24,13 @@ extern "C" void FUN_00072280() {
  Param* params[3];
  Param* p;
  p = (Param*)FUN_0008d690(24);
- if(p) { p->FUN_00234960("timeBegin"); new (p) Param; p->callback=FUN_00068930; }
+ if(p) { p->FUN_00234960("timeBegin"); new (p) Param; p->callback=SetTimeBegin_00068930; }
  params[0]=p;
  p = (Param*)FUN_0008d690(24);
- if(p) { p->FUN_00234960("timeEnd"); new (p) Param; p->callback=FUN_00068940; }
+ if(p) { p->FUN_00234960("timeEnd"); new (p) Param; p->callback=SetTimeEnd_00068940; }
  params[1]=p;
  p = (Param*)FUN_0008d690(24);
- if(p) { p->FUN_00234960("extensionTime"); new (p) Param; p->callback=FUN_00068950; }
+ if(p) { p->FUN_00234960("extensionTime"); new (p) Param; p->callback=SetExtensionTime_00068950; }
  params[2]=p;
  FUN_002347b0(&DAT_004dcfd0,params,3);
  }

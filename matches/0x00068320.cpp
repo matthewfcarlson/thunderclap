@@ -3,9 +3,9 @@ class Obj {
     int value;
 
   public:
-    bool Set(int v);
+    bool SetTimeEnd_00068320(int v);
 };
-bool Obj::Set(int v) {
+bool Obj::SetTimeEnd_00068320(int v) {
     value = v;
     return true;
 }

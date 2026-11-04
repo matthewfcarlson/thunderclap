@@ -4,9 +4,9 @@
 
 __forceinline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl FUN_0014caa0();
-void __cdecl FUN_0014cac0();
-void __cdecl FUN_0014cae0();
+void __cdecl SetTimeBegin_0014caa0();
+void __cdecl SetPauseTime_0014cac0();
+void __cdecl SetBlendOutTime_0014cae0();
 namespace hulkfight { namespace motion { class HitPauseTrack; } }
 namespace fight {
 template<class T> struct ParamFloatConstRange {
@@ -23,13 +23,13 @@ extern "C" void __cdecl FUN_00155ea0() {
  if (!DAT_004e10ec) {
  Param* params[3];
  Param* p = (Param*)FUN_0008d690(24);
- if(p) { p->FUN_00234960("timeBegin"); new (p) Param; p->callback = FUN_0014caa0; }
+ if(p) { p->FUN_00234960("timeBegin"); new (p) Param; p->callback = SetTimeBegin_0014caa0; }
  params[0]=p;
  p=(Param*)FUN_0008d690(24);
- if(p) { p->FUN_00234960("pauseTime"); new (p) Param; p->callback = FUN_0014cac0; }
+ if(p) { p->FUN_00234960("pauseTime"); new (p) Param; p->callback = SetPauseTime_0014cac0; }
  params[1]=p;
  p=(Param*)FUN_0008d690(24);
- if(p) { p->FUN_00234960("blendOutTime"); new (p) Param; p->callback = FUN_0014cae0; }
+ if(p) { p->FUN_00234960("blendOutTime"); new (p) Param; p->callback = SetBlendOutTime_0014cae0; }
  params[2]=p;
  FUN_002347b0(&DAT_004e10e8,params,3);
  }

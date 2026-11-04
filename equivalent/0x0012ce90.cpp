@@ -5,10 +5,10 @@
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern "C" void __cdecl FUN_0012b1c0();
-extern "C" void __cdecl FUN_0012b1d0();
-extern "C" void __cdecl FUN_0012b1e0();
-extern "C" void __cdecl FUN_0012b1f0();
+extern "C" void __cdecl SetCompare_0012b1c0();
+extern "C" void __cdecl SetDistance_0012b1d0();
+extern "C" void __cdecl GetThreatName_0012b1e0();
+extern "C" void __cdecl SetThreatRespondOnlyOnce_0012b1f0();
 extern "C" void __cdecl FUN_002347b0(void*,void**,int);
 namespace hulkfight { namespace ai { class ThreatDistanceCondition; } }
 namespace fight {
@@ -22,14 +22,14 @@ void initialize() {
  void* params[4];
  typedef hulkfight::ai::ThreatDistanceCondition T;
  fight::ParamEnumConstList<T>* a=(fight::ParamEnumConstList<T>*)FUN_0008d690(32);
- if(a) { int count=(*(int*)&DAT_00427754); a->FUN_00234cc0("compare"); new (a) fight::ParamEnumConstList<T>; a->count=count; a->values="lwB"; a->callback=FUN_0012b1c0; }
+ if(a) { int count=(*(int*)&DAT_00427754); a->FUN_00234cc0("compare"); new (a) fight::ParamEnumConstList<T>; a->count=count; a->values="lwB"; a->callback=SetCompare_0012b1c0; }
  params[0]=a;
  fight::ParamFloatConstRange<T>* b=(fight::ParamFloatConstRange<T>*)FUN_0008d690(24);
- if(b) { b->FUN_00234960("distance"); new (b) fight::ParamFloatConstRange<T>; b->callback=FUN_0012b1d0; } params[1]=b;
+ if(b) { b->FUN_00234960("distance"); new (b) fight::ParamFloatConstRange<T>; b->callback=SetDistance_0012b1d0; } params[1]=b;
  fight::ParamName<T>* c=(fight::ParamName<T>*)FUN_0008d690(24);
- if(c) { c->FUN_00234a90("threatName"); new (c) fight::ParamName<T>; c->callback=FUN_0012b1e0; } params[2]=c;
+ if(c) { c->FUN_00234a90("threatName"); new (c) fight::ParamName<T>; c->callback=GetThreatName_0012b1e0; } params[2]=c;
  fight::ParamBool<T>* d=(fight::ParamBool<T>*)FUN_0008d690(24);
- if(d) { d->FUN_00234860("threatRespondOnlyOnce"); new (d) fight::ParamBool<T>; d->callback=FUN_0012b1f0; } params[3]=d;
+ if(d) { d->FUN_00234860("threatRespondOnlyOnce"); new (d) fight::ParamBool<T>; d->callback=SetThreatRespondOnlyOnce_0012b1f0; } params[3]=d;
  FUN_002347b0(&DAT_004e0e1c,params,4);
  }
  ++DAT_004e0e20;

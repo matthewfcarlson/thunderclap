@@ -3,9 +3,9 @@
 #include "decls/data/engine/fight.h"
 
 typedef void (*Callback_23e7a0)();
-void FUN_0023e4d0();
-void FUN_0023e4e0();
-void FUN_0023e4f0();
+void SetTimeBegin_0023e4d0();
+void SetTimeEnd_0023e4e0();
+void GetConditionGroup_0023e4f0();
 void* __cdecl FUN_0008d690(unsigned);
 inline void* __cdecl operator new(unsigned, void* p) { return p; }
 struct ParamBase_23e7a0 {
@@ -32,21 +32,21 @@ void __cdecl FUN_0023e7a0() {
   if(a) {
    a->FUN_00234960("timeBegin");
    fight::ParamFloatConstRange<fight::StopTrack>* p = new(a) fight::ParamFloatConstRange<fight::StopTrack>;
-   p->callback = FUN_0023e4d0;
+   p->callback = SetTimeBegin_0023e4d0;
   }
   items[0]=a;
   ParamBase_23e7a0* b = (ParamBase_23e7a0*)FUN_0008d690(24);
   if(b) {
    b->FUN_00234960("timeEnd");
    fight::ParamFloatConstRange<fight::StopTrack>* p = new(b) fight::ParamFloatConstRange<fight::StopTrack>;
-   p->callback = FUN_0023e4e0;
+   p->callback = SetTimeEnd_0023e4e0;
   }
   items[1]=b;
   ParamBase_23e7a0* c = (ParamBase_23e7a0*)FUN_0008d690(24);
   if(c) {
    c->FUN_00235220("conditionGroup");
    fight::ParamConditionGroup<fight::StopTrack>* p = new(c) fight::ParamConditionGroup<fight::StopTrack>;
-   p->callback = FUN_0023e4f0;
+   p->callback = GetConditionGroup_0023e4f0;
   }
   items[2]=c;
   FUN_002347b0(&DAT_004e5c74,items,3);

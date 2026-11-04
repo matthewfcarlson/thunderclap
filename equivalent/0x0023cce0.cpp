@@ -4,10 +4,10 @@
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl FUN_0023cb40();
-void __cdecl FUN_0023cb50();
-void __cdecl FUN_0023cb60();
-void __cdecl FUN_0023cb70();
+void __cdecl SetPS2_0023cb40();
+void __cdecl SetXBox_0023cb50();
+void __cdecl SetGameCube_0023cb60();
+void __cdecl SetWin32_0023cb70();
 namespace fight {
 class PlatformCondition;
 template<class T> struct ParamBool {
@@ -24,16 +24,16 @@ extern "C" void __cdecl FUN_0023cce0() {
  typedef fight::ParamBool<fight::PlatformCondition> P;
  P* items[4];
  P* p = (P*)FUN_0008d690(24);
- if(p) { p->FUN_00234860("pS2"); new (p) P; p->callback = FUN_0023cb40; }
+ if(p) { p->FUN_00234860("pS2"); new (p) P; p->callback = SetPS2_0023cb40; }
  items[0]=p;
  p=(P*)FUN_0008d690(24);
- if(p) { p->FUN_00234860("xBox"); new (p) P; p->callback = FUN_0023cb50; }
+ if(p) { p->FUN_00234860("xBox"); new (p) P; p->callback = SetXBox_0023cb50; }
  items[1]=p;
  p=(P*)FUN_0008d690(24);
- if(p) { p->FUN_00234860("gameCube"); new (p) P; p->callback = FUN_0023cb60; }
+ if(p) { p->FUN_00234860("gameCube"); new (p) P; p->callback = SetGameCube_0023cb60; }
  items[2]=p;
  p=(P*)FUN_0008d690(24);
- if(p) { p->FUN_00234860("win32"); new (p) P; p->callback = FUN_0023cb70; }
+ if(p) { p->FUN_00234860("win32"); new (p) P; p->callback = SetWin32_0023cb70; }
  items[3]=p;
  FUN_002347b0(&DAT_004e5c4c,items,4);
  }

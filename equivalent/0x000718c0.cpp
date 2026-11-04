@@ -5,9 +5,9 @@
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* p) { return p; }
 class CComboTimerTrack;
-void __cdecl FUN_00068550();
-void __cdecl FUN_00068560();
-void __cdecl FUN_00068570();
+void __cdecl SetTimeBegin_00068550();
+void __cdecl SetTimeEnd_00068560();
+void __cdecl SetComboTimer_00068570();
 struct ParamBase_718c0 {
  virtual void slot0();
  char data[12];
@@ -29,21 +29,21 @@ extern "C" void __cdecl FUN_000718c0() {
   if (p) {
    p->FUN_00234960("timeBegin");
    new (p) fight::ParamFloatConstRange<CComboTimerTrack>;
-   p->callback = FUN_00068550;
+   p->callback = SetTimeBegin_00068550;
   }
   params[0] = p;
   p = (ParamBase_718c0*)FUN_0008d690(24);
   if (p) {
    p->FUN_00234960("timeEnd");
    new (p) fight::ParamFloatConstRange<CComboTimerTrack>;
-   p->callback = FUN_00068560;
+   p->callback = SetTimeEnd_00068560;
   }
   params[1] = p;
   p = (ParamBase_718c0*)FUN_0008d690(24);
   if (p) {
    p->FUN_00234960("comboTimer");
    new (p) fight::ParamFloatConstRange<CComboTimerTrack>;
-   p->callback = FUN_00068570;
+   p->callback = SetComboTimer_00068570;
   }
   params[2] = p;
   FUN_002347b0(&DAT_004dcf80, params, 3);

@@ -5,8 +5,8 @@
 #include "decls/data/game/unknown.h"
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
-extern void FUN_0014c4f0();
-extern void FUN_0014c500();
+extern void SetCompare_0014c4f0();
+extern void SetType_0014c500();
 extern void* __cdecl FUN_0008d690(unsigned int);
 struct Base_155330 { void FUN_00234cc0(const char*); };
 namespace hulkfight { namespace motion { class CollisionSourceTypeCondition; } }
@@ -32,7 +32,7 @@ extern "C" void FUN_00155330() {
    Param* p = new (storage) Param;
    p->count = count;
    p->values = ((char*)&DAT_00427758);
-   p->callback = &FUN_0014c4f0;
+   p->callback = &SetCompare_0014c4f0;
    params[0] = p;
   } else params[0] = 0;
   storage = FUN_0008d690(32);
@@ -41,7 +41,7 @@ extern "C" void FUN_00155330() {
    Param* p = new (storage) Param;
    p->values = ((char*)&DAT_004af9f0);
    p->count = 2;
-   p->callback = &FUN_0014c500;
+   p->callback = &SetType_0014c500;
    params[1] = p;
   } else params[1] = 0;
   FUN_002347b0(&DAT_004e1048, params, 2);

@@ -5,8 +5,8 @@
 
 typedef unsigned int size_t;
 inline void* __cdecl operator new(size_t, void* p) { return p; }
-extern void FUN_0023d450();
-extern void FUN_0023d460();
+extern void SetCompare_0023d450();
+extern void SetMode_0023d460();
 extern void* __cdecl FUN_0008d690(unsigned int);
 struct Base_23d630 { char pad[16]; void FUN_00234cc0(const char*); };
 namespace fight {
@@ -31,7 +31,7 @@ void FUN_0023d630() {
    ((fight::ParamEnumConstList<fight::DebugCondition>*)p)->count=n;
    items[0] = new(p) fight::ParamEnumConstList<fight::DebugCondition>;
    items[0]->entries=((int*)&DAT_00427758);
-   items[0]->callback=FUN_0023d450;
+   items[0]->callback=SetCompare_0023d450;
   } else items[0]=0;
   p=FUN_0008d690(32);
   if(p) {
@@ -39,7 +39,7 @@ void FUN_0023d630() {
    items[1]=new(p) fight::ParamEnumConstList<fight::DebugCondition>;
    items[1]->entries=((int*)&DAT_00428b30);
    items[1]->count=3;
-   items[1]->callback=FUN_0023d460;
+   items[1]->callback=SetMode_0023d460;
   } else items[1]=0;
   FUN_002347b0(&DAT_004e5c54,items,2);
  }

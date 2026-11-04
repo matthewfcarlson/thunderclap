@@ -4,8 +4,8 @@ class Base_14c620 {
 };
 class A_14c620 : public Base_14c620 {
   public:
-    void* Get();
+    void* GetBranch_0014c620();
 };
-void* A_14c620::Get() {
+void* A_14c620::GetBranch_0014c620() {
     return (char*)this + 0x10;
 }

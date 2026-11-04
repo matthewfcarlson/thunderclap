@@ -4,9 +4,9 @@ class Obj_16f960 {
     int a;
     int b;
     int c;
-    char Set(void* p);
+    char SetOffset_0016f960(void* p);
 };
-char Obj_16f960::Set(void* p) {
+char Obj_16f960::SetOffset_0016f960(void* p) {
     int* q = (int*)p;
     a = q[0];
     b = q[1];

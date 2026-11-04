@@ -4,7 +4,7 @@
 
 void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
-void __cdecl FUN_0017f6b0(); void __cdecl FUN_0017f6d0(); void __cdecl FUN_0017f6f0(); void __cdecl FUN_0017f710();
+void __cdecl SetTimeBegin_0017f6b0(); void __cdecl SetAttachmentIndex_0017f6d0(); void __cdecl SetSimulate_0017f6f0(); void __cdecl SetAtEnd_0017f710();
 namespace hulkfight { namespace motion { class PropActorToPropTrack; } }
 struct ParamBase_187e00 {
  virtual void slot0();
@@ -29,16 +29,16 @@ void __cdecl target() {
  typedef fight::ParamIntConstRange<hulkfight::motion::PropActorToPropTrack> IntParam;
  typedef fight::ParamBool<hulkfight::motion::PropActorToPropTrack> BoolParam;
  ParamBase_187e00* p = (ParamBase_187e00*)FUN_0008d690(24);
- if(p) { p->FUN_00234960("timeBegin"); new(p) FloatParam; p->callback=FUN_0017f6b0; }
+ if(p) { p->FUN_00234960("timeBegin"); new(p) FloatParam; p->callback=SetTimeBegin_0017f6b0; }
  params[0]=p;
  p=(ParamBase_187e00*)FUN_0008d690(24);
- if(p) { p->FUN_002348e0("attachmentIndex"); new(p) IntParam; p->callback=FUN_0017f6d0; }
+ if(p) { p->FUN_002348e0("attachmentIndex"); new(p) IntParam; p->callback=SetAttachmentIndex_0017f6d0; }
  params[1]=p;
  p=(ParamBase_187e00*)FUN_0008d690(24);
- if(p) { p->FUN_00234860("simulate"); new(p) BoolParam; p->callback=FUN_0017f6f0; }
+ if(p) { p->FUN_00234860("simulate"); new(p) BoolParam; p->callback=SetSimulate_0017f6f0; }
  params[2]=p;
  p=(ParamBase_187e00*)FUN_0008d690(24);
- if(p) { p->FUN_00234860("atEnd"); new(p) BoolParam; p->callback=FUN_0017f710; }
+ if(p) { p->FUN_00234860("atEnd"); new(p) BoolParam; p->callback=SetAtEnd_0017f710; }
  params[3]=p;
  FUN_002347b0(&DAT_004e1468,params,4);
  }

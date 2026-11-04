@@ -5,7 +5,7 @@
 
 inline void* __cdecl operator new(unsigned int,void* p) { return p; }
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-void __cdecl FUN_0016f1c0(); void __cdecl FUN_0016f1d0(); void __cdecl FUN_0016f1f0();
+void __cdecl SetTimeBegin_0016f1c0(); void __cdecl SetTimeEnd_0016f1d0(); void __cdecl SetMotionState_0016f1f0();
 namespace hulkfight { namespace motion { class MotionStateTrack; } }
 namespace fight {
 template<class T> struct ParamFloatConstRange { virtual void slot0(); char pad[12]; void (__cdecl *callback)(); unsigned int tail; void FUN_00234960(const char*); };
@@ -18,13 +18,13 @@ extern "C" void __cdecl FUN_0017a260() {
  typedef fight::ParamFloatConstRange<hulkfight::motion::MotionStateTrack> FloatParam;
  typedef fight::ParamEnumConstList<hulkfight::motion::MotionStateTrack> EnumParam;
  FloatParam* a=(FloatParam*)FUN_0008d690(24);
- if(a) { a->FUN_00234960("timeBegin"); new(a) FloatParam; a->callback=FUN_0016f1c0; }
+ if(a) { a->FUN_00234960("timeBegin"); new(a) FloatParam; a->callback=SetTimeBegin_0016f1c0; }
  params[0]=a;
  FloatParam* b=(FloatParam*)FUN_0008d690(24);
- if(b) { b->FUN_00234960("timeEnd"); new(b) FloatParam; b->callback=FUN_0016f1d0; }
+ if(b) { b->FUN_00234960("timeEnd"); new(b) FloatParam; b->callback=SetTimeEnd_0016f1d0; }
  params[1]=b;
  EnumParam* c=(EnumParam*)FUN_0008d690(32);
- if(c) { unsigned int count=(*(unsigned int*)&DAT_003f5bb8); c->FUN_00234cc0("motionState"); new(c) EnumParam; c->values="0\\?"; c->count=count; c->callback=FUN_0016f1f0; }
+ if(c) { unsigned int count=(*(unsigned int*)&DAT_003f5bb8); c->FUN_00234cc0("motionState"); new(c) EnumParam; c->values="0\\?"; c->count=count; c->callback=SetMotionState_0016f1f0; }
  params[2]=c;
  FUN_002347b0(((unsigned int*)&DAT_004e1340),params,3);
  }

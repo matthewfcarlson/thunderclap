@@ -7,9 +7,9 @@
 typedef unsigned int uint;
 void* __cdecl FUN_0008d690(uint);
 inline void* operator new(hulk_uintptr, void* p) { return p; }
-void FUN_0010c200();
-void FUN_0010c230();
-void FUN_0010cc40();
+void SetCompare_0010c200();
+void SetValue_0010c230();
+void SetText_0010cc40();
 void __cdecl FUN_002347b0(void*, void**, int);
 namespace hulkfight { namespace ai { class KeyWordWaitCondition; } }
 namespace fight {
@@ -50,21 +50,21 @@ extern "C" void FUN_00112060() {
    e->count=count;
    new(e) E;
    e->list=((char*)&DAT_0042773c);
-   e->callback=FUN_0010c200;
+   e->callback=SetCompare_0010c200;
   }
   items[0]=e;
   S* s=(S*)FUN_0008d690(24);
   if(s) {
    s->FUN_002349e0("text");
    new(s) S;
-   s->callback=FUN_0010cc40;
+   s->callback=SetText_0010cc40;
   }
   items[1]=s;
   F* f=(F*)FUN_0008d690(24);
   if(f) {
    f->FUN_00234960("value");
    new(f) F;
-   f->callback=FUN_0010c230;
+   f->callback=SetValue_0010c230;
   }
   items[2]=f;
   FUN_002347b0(((uint*)&DAT_004e0b20),items,3);

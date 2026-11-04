@@ -6,8 +6,8 @@
 
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern "C" void __cdecl FUN_0014c710();
-extern "C" void __cdecl FUN_0014c720();
+extern "C" void __cdecl SetCompare_0014c710();
+extern "C" void __cdecl SetType_0014c720();
 struct ParamBase_155af0 {
  virtual void slot0();
  char pad[12];
@@ -31,7 +31,7 @@ extern "C" void FUN_00155af0() {
    p->count = count;
    new (p) Param;
    p->values = ((unsigned int*)&DAT_00427758);
-   p->callback = FUN_0014c710;
+   p->callback = SetCompare_0014c710;
   }
   list[0] = p;
   p = (Param*)FUN_0008d690(32);
@@ -40,7 +40,7 @@ extern "C" void FUN_00155af0() {
    new (p) Param;
    p->values = ((unsigned int*)&DAT_004af9f0);
    p->count = 2;
-   p->callback = FUN_0014c720;
+   p->callback = SetType_0014c720;
   }
   list[1] = p;
   FUN_002347b0(&DAT_004e10b8, list, 2);

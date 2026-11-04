@@ -11,19 +11,19 @@ template<class T> struct ParamIntConstRange { virtual void slot0(); char pad[12]
 }
 class CSmartPropNameCondition;
    
-void FUN_00047e90(); void FUN_00047ea0(); void FUN_00047eb0();
+void SetCompare_00047e90(); void GetName_00047ea0(); void SetAttachmentIndex_00047eb0();
 void* __cdecl FUN_0008d690(unsigned);
 void __cdecl FUN_002347b0(void*,void**,int);
 void target() {
  if (!DAT_004dc4c4) {
  void* params[3];
  fight::ParamEnumConstList<CSmartPropNameCondition>* a = (fight::ParamEnumConstList<CSmartPropNameCondition>*)FUN_0008d690(32);
- if(a) { int count=(*(int*)&DAT_00427760); a->FUN_00234cc0("compare"); a->count=count; new (a) fight::ParamEnumConstList<CSmartPropNameCondition>; a->list=((int*)&DAT_00427758); a->callback=FUN_00047e90; }
+ if(a) { int count=(*(int*)&DAT_00427760); a->FUN_00234cc0("compare"); a->count=count; new (a) fight::ParamEnumConstList<CSmartPropNameCondition>; a->list=((int*)&DAT_00427758); a->callback=SetCompare_00047e90; }
  params[0]=a;
  fight::ParamName<CSmartPropNameCondition>* b=(fight::ParamName<CSmartPropNameCondition>*)FUN_0008d690(24);
- if(b) { b->FUN_00234a90("name"); new (b) fight::ParamName<CSmartPropNameCondition>; b->callback=FUN_00047ea0; } params[1]=b;
+ if(b) { b->FUN_00234a90("name"); new (b) fight::ParamName<CSmartPropNameCondition>; b->callback=GetName_00047ea0; } params[1]=b;
  fight::ParamIntConstRange<CSmartPropNameCondition>* c=(fight::ParamIntConstRange<CSmartPropNameCondition>*)FUN_0008d690(24);
- if(c) { c->FUN_002348e0("attachmentIndex"); new (c) fight::ParamIntConstRange<CSmartPropNameCondition>; c->callback=FUN_00047eb0; } params[2]=c;
+ if(c) { c->FUN_002348e0("attachmentIndex"); new (c) fight::ParamIntConstRange<CSmartPropNameCondition>; c->callback=SetAttachmentIndex_00047eb0; } params[2]=c;
  FUN_002347b0(&DAT_004dc4c0,params,3);
  }
  ++DAT_004dc4c4;
