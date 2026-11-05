@@ -4,9 +4,9 @@ struct Pair {
     unsigned int a;
     unsigned int b;
 };
-extern "C" Pair __cdecl Hash(const char*, unsigned int, unsigned int);
+unsigned __int64 FUN_002672f0(const char* s, int a, int b);
 void __cdecl FUN_0035fc50() {
-    Pair p = Hash("Template", 0, 0);
-    (*(unsigned int*)&DAT_004e6350) = p.a;
-    (*(unsigned int*)&DAT_004e6354) = p.b;
+    unsigned __int64 p = FUN_002672f0("Template", 0, 0);
+    (*(unsigned int*)&DAT_004e6350) = (unsigned int)p;
+    (*(unsigned int*)&DAT_004e6354) = (unsigned int)(p >> 32);
 }

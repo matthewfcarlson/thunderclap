@@ -2,10 +2,10 @@
 
 extern "C" int atexit(void (*)());
 struct SeqEventLogicRepeatType_360c80 {
-    void F();
+    void FUN_00254b10();
 };
-extern void Cleanup();
+extern void FUN_003645b0();
 void FUN_00360c80() {
-    (*(SeqEventLogicRepeatType_360c80*)&DAT_004e73a8).F();
-    atexit((void (*)())Cleanup);
+    (*(SeqEventLogicRepeatType_360c80*)&DAT_004e73a8).FUN_00254b10();
+    atexit((void (*)())FUN_003645b0);
 }

@@ -6,11 +6,11 @@ struct Result {
     int lo;
     int hi;
 };
-Result Get(int a, int b, int c);
+Result FUN_002672f0(int a, int b, int c);
 
 void target() {
     int a = DAT_004ca298;
-    Result r = Get(a, 0, 0);
+    Result r = FUN_002672f0(a, 0, 0);
     (*(int*)&DAT_004e5b98) = r.lo;
     (*(int*)&DAT_004e5b9c) = r.hi;
 }

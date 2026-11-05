@@ -6,9 +6,9 @@
 extern "C" int atexit(void (*)(void));
 extern "C" void __cdecl FUN_00364300();
 struct ListenerEffectGcType_nv_35fae0 {
-    void f();
+    void FUN_0024d8e0();
 };
 void __cdecl FUN_0035fae0() {
-    ((ListenerEffectGcType_nv_35fae0*)(((audio::ListenerEffectGcType*)(((audio::ListenerEffectGcType*)((hulk_intptr)((char*)&DAT_004e64d8)))))))->f();
+    ((ListenerEffectGcType_nv_35fae0*)(((audio::ListenerEffectGcType*)(((audio::ListenerEffectGcType*)((hulk_intptr)((char*)&DAT_004e64d8)))))))->FUN_0024d8e0();
     atexit((void (*)(void))FUN_00364300);
 }

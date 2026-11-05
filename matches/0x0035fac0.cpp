@@ -3,11 +3,11 @@
 
 class ListenerEffectXBoxType_35fac0 {
   public:
-    void Init();
+    void FUN_0024d7d0();
 };
-extern void Cleanup();
+extern void FUN_00364340();
 extern int __cdecl atexit(void (*)(void));
 void FUN_0035fac0() {
-    (*(ListenerEffectXBoxType_35fac0*)&DAT_004e6468).Init();
-    atexit(Cleanup);
+    (*(ListenerEffectXBoxType_35fac0*)&DAT_004e6468).FUN_0024d7d0();
+    atexit(FUN_00364340);
 }

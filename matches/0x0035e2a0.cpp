@@ -5,7 +5,7 @@ struct Pair {
     int a;
     int b;
 };
-extern Pair __cdecl Find(const char*);
+extern Pair __cdecl FUN_0027b020(const char*);
 void InitWaypoint() {
-    (*(Pair*)&DAT_004e0d08) = Find("waypoint");
+    (*(Pair*)&DAT_004e0d08) = FUN_0027b020("waypoint");
 }

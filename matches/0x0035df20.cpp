@@ -4,9 +4,9 @@ struct Pair_35df20 {
     int lo;
     int hi;
 };
-extern "C" Pair_35df20 __cdecl DEFINE(const char* name);
+unsigned __int64 FUN_0027b020(const char* s);
 void __cdecl FUN_0035df20() {
-    Pair_35df20 r = DEFINE("$MACRO_DEFINE");
-    *(int*)((char*)&DAT_004e09c8) = r.lo;
-    *(int*)((char*)&DAT_004e09cc) = r.hi;
+    unsigned __int64 r = FUN_0027b020("$MACRO_DEFINE");
+    *(int*)((char*)&DAT_004e09c8) = (int)r;
+    *(int*)((char*)&DAT_004e09cc) = (int)(r >> 32);
 }

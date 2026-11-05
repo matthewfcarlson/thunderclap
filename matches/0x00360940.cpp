@@ -4,9 +4,9 @@
 extern "C" void __cdecl FUN_00364530();
 extern "C" int __cdecl _atexit(void (*)(void));
 struct SeqEventVarPitchRandType_360940 {
-    void Run();
+    void FUN_002534b0();
 };
 void FUN_00360940() {
-    (*(SeqEventVarPitchRandType_360940*)&DAT_004e70e8).Run();
+    (*(SeqEventVarPitchRandType_360940*)&DAT_004e70e8).FUN_002534b0();
     _atexit(FUN_00364530);
 }

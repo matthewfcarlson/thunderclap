@@ -8,8 +8,8 @@ extern "C" void _atexit(void (*)());
 class C {
   public:
 };
-void __cdecl Cleanup() throw();
+void __cdecl FUN_00363fb0() throw();
 void __cdecl Hook() {
     ((owners::String_23fc40 *)(((C*)((hulk_intptr)((char*)&DAT_004e1768)))))->FUN_0023fc40(((char*)&DAT_003f3ea0), (hulk_intptr)0);
-    _atexit(Cleanup);
+    _atexit(FUN_00363fb0);
 }

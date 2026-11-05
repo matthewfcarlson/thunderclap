@@ -5,7 +5,7 @@ struct Handle_35e840 {
     int lo;
     int hi;
 };
-extern "C" Handle_35e840 __cdecl FindHandle(const char* name);
+unsigned __int64 FUN_0027b020(const char* s);
 void FUN_0035e840() {
-    (*(Handle_35e840*)&DAT_004e2440) = FindHandle("golfBall_golfBall");
+    (*(unsigned __int64*)&DAT_004e2440) = FUN_0027b020("golfBall_golfBall");
 }

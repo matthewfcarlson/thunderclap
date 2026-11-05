@@ -2,16 +2,16 @@
 // data: gRegistry = DAT_004e6d98
 
 typedef unsigned __int64 U64;
-extern U64 __cdecl Hash(const char*, int, int);
+extern U64 __cdecl FUN_002672f0(const char*, int, int);
 class Registry {
   public:
-    void Init(U64*, U64*, int, int);
+    void FUN_002584d0(U64*, U64*, int, int);
 };
 extern "C" int __cdecl atexit(void(__cdecl*)());
 extern "C" void __cdecl FUN_00364480();
 void __cdecl target() {
-    U64 a = Hash("ChannelVolumeFadeBehaviour", 0, 0);
-    U64 b = Hash("Runtime_Sequence", 0, 0);
-    (*(Registry*)&DAT_004e6d98).Init(&b, &a, 0x24, 4);
+    U64 a = FUN_002672f0("ChannelVolumeFadeBehaviour", 0, 0);
+    U64 b = FUN_002672f0("Runtime_Sequence", 0, 0);
+    (*(Registry*)&DAT_004e6d98).FUN_002584d0(&b, &a, 0x24, 4);
     atexit(FUN_00364480);
 }

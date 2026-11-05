@@ -2,15 +2,15 @@
 // data: globalObj = DAT_004e5e88
 
 typedef unsigned __int64 U64;
-extern "C" U64 __cdecl get(const char*, int, int);
+extern "C" U64 __cdecl FUN_002672f0(const char*, int, int);
 struct Obj {
-    void set(U64*, U64*, int, int);
+    void FUN_002584d0(U64*, U64*, int, int);
 };
 extern "C" int __cdecl atexit(void(__cdecl*)());
 extern "C" void __cdecl FUN_00364190();
 void init() {
-    U64 a = get("MixerBuss", 0, 0);
-    U64 b = get("Runtime_Mix", 0, 0);
-    (*(Obj*)&DAT_004e5e88).set(&b, &a, 0x28, 4);
+    U64 a = FUN_002672f0("MixerBuss", 0, 0);
+    U64 b = FUN_002672f0("Runtime_Mix", 0, 0);
+    (*(Obj*)&DAT_004e5e88).FUN_002584d0(&b, &a, 0x28, 4);
     atexit(FUN_00364190);
 }

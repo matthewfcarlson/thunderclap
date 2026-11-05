@@ -1,11 +1,11 @@
-#include "gen/owners.h"
 class Obj {
   public:
+    void FUN_0025fa00(const char*, int);
 };
 extern Obj gObj;
 extern "C" int __cdecl atexit(void(__cdecl*)());
-extern "C" void __cdecl cleanup();
+extern "C" void __cdecl FUN_003642e0();
 void __cdecl FUN_0035fa80() {
-    ((owners::String_23fc40 *)&gObj)->FUN_0023fc40("ListenerEffectGc", (hulk_intptr)0);
-    atexit(cleanup);
+    gObj.FUN_0025fa00("ListenerEffectGc", 0);
+    atexit(FUN_003642e0);
 }

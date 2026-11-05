@@ -4,7 +4,7 @@
 struct Pair {
     int a, b;
 };
-extern Pair __cdecl lookup(const char*);
+extern Pair __cdecl FUN_0027b020(const char*);
 void FUN_0035d9d0() {
-    (*(Pair*)&DAT_004de698) = lookup("GameInstaceLocators");
+    (*(Pair*)&DAT_004de698) = FUN_0027b020("GameInstaceLocators");
 }

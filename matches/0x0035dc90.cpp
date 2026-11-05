@@ -4,7 +4,7 @@
 struct Pair {
     unsigned a, b;
 };
-extern Pair __cdecl getPair(const char*);
+unsigned __int64 FUN_0027b020(const char* s);
 void target() {
-    (*(Pair*)&DAT_004de7e8) = getPair("$MACRO_INSERT");
+    (*(unsigned __int64*)&DAT_004de7e8) = FUN_0027b020("$MACRO_INSERT");
 }

@@ -5,7 +5,7 @@ struct Pair {
     int a;
     int b;
 };
-extern Pair __cdecl Find(const char*);
+extern Pair __cdecl FUN_0027b020(const char*);
 void FUN_0035daf0() {
-    (*(Pair*)&DAT_004de6d8) = Find("ClearAfterEntry");
+    (*(Pair*)&DAT_004de6d8) = FUN_0027b020("ClearAfterEntry");
 }

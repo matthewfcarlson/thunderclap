@@ -1,8 +1,8 @@
 struct Pair {
     unsigned a, b;
 };
-extern Pair __cdecl Lookup(const char*);
+unsigned __int64 FUN_0027b020(const char* s);
 extern Pair result;
 void FUN_0035e1e0() {
-    result = Lookup("golfBall_golfBall");
+    *(unsigned __int64*)&result = FUN_0027b020("golfBall_golfBall");
 }

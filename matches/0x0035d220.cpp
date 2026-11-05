@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 #include "decls/data/game/hulkfight.h"
 
 class T {
@@ -6,8 +7,8 @@ class T {
     ~T();
 };
 extern "C" int __cdecl atexit(void(__cdecl*)());
-extern "C" void __cdecl cleanup();
+extern "C" void __cdecl FUN_00363cf0();
 void f() {
-    (*(T*)&DAT_004dd9d0).T::T("sound/rsd", 0);
-    atexit(cleanup);
+    ((owners::String_23fc40 *)&DAT_004dd9d0)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
+    atexit(FUN_00363cf0);
 }

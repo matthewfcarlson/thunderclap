@@ -4,9 +4,9 @@
 struct Pair {
     int a, b;
 };
-Pair __cdecl getPair(int, int, int);
+Pair __cdecl FUN_002672f0(int, int, int);
 void target() {
-    Pair p = getPair((*(int*)&DAT_004ca278), 0, 0);
+    Pair p = FUN_002672f0((*(int*)&DAT_004ca278), 0, 0);
     ((int*)&DAT_004e5b40)[0] = p.a;
     ((int*)&DAT_004e5b40)[1] = p.b;
 }

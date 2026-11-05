@@ -4,11 +4,11 @@
 
 class MetaType_35fa20 {
   public:
-    void Init(const char*, int);
+    void FUN_0025fa00(const char*, int);
 };
 extern "C" int __cdecl atexit(void(__cdecl*)());
-extern "C" void __cdecl cleanup();
+extern "C" void __cdecl FUN_003642b0();
 void __cdecl initEffect() {
-    (*(MetaType_35fa20*)((char*)&DAT_004e635c + 4)).Init(DAT_00429490, 0);
-    atexit(cleanup);
+    (*(MetaType_35fa20*)((char*)&DAT_004e635c + 4)).FUN_0025fa00(DAT_00429490, 0);
+    atexit(FUN_003642b0);
 }

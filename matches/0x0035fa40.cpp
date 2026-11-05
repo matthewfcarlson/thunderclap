@@ -4,10 +4,10 @@
 typedef void (*AtExitFn)();
 void __cdecl _atexit(AtExitFn);
 struct Registry {
-    void Reg(const char* name, int flags);
+    void FUN_0025fa00(const char* name, int flags);
 };
-extern void __cdecl Cleanup();
+extern void __cdecl FUN_003642c0();
 void __cdecl RegisterEffect() {
-    (*(Registry*)&DAT_004e6394).Reg("ListenerEffectWin32", 0);
-    _atexit((AtExitFn)Cleanup);
+    (*(Registry*)&DAT_004e6394).FUN_0025fa00("ListenerEffectWin32", 0);
+    _atexit((AtExitFn)FUN_003642c0);
 }

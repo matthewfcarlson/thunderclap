@@ -6,8 +6,8 @@ extern "C" int __cdecl atexit(void (*)(void));
 class Reg {
   public:
 };
-void F2() {}
+void FUN_00364060() {}
 void RegF() {
     ((owners::String_23fc40 *)&((*(Reg*)((char*)&DAT_004e2530 + 8))))->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
-    atexit(F2);
+    atexit(FUN_00364060);
 }

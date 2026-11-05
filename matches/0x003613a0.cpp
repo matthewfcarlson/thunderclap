@@ -6,14 +6,14 @@ struct Pair {
     int a, b;
 };
 struct Registry {
-    void Init(Pair*, Pair*, int, int);
+    void FUN_002584d0(Pair*, Pair*, int, int);
 };
-extern Pair __cdecl Get(const char*, int, int);
+extern Pair __cdecl FUN_002672f0(const char*, int, int);
 extern int __cdecl atexit(void(__cdecl*)());
 extern "C" void __cdecl FUN_003646e0();
 void FUN_003613a0() {
-    Pair p = Get(DAT_0042a9e8, 0, 0);
-    Pair q = Get(DAT_004290a8, 0, 0);
-    (*(Registry*)((char*)&DAT_004e78e0 + 144)).Init(&q, &p, 12, 4);
+    Pair p = FUN_002672f0(DAT_0042a9e8, 0, 0);
+    Pair q = FUN_002672f0(DAT_004290a8, 0, 0);
+    (*(Registry*)((char*)&DAT_004e78e0 + 144)).FUN_002584d0(&q, &p, 12, 4);
     atexit(FUN_003646e0);
 }

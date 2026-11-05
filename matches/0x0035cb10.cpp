@@ -3,10 +3,10 @@
 
 extern "C" int __cdecl _atexit(void (*)());
 struct Global {
-    void Init();
+    void FUN_0027af00();
 };
-void Cleanup();
+void FUN_00363c30();
 void FUN_0035cb10() {
-    (*(Global*)&DAT_004dcf00).Init();
-    _atexit(Cleanup);
+    (*(Global*)&DAT_004dcf00).FUN_0027af00();
+    _atexit(FUN_00363c30);
 }

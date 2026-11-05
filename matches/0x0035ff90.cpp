@@ -6,10 +6,10 @@ extern "C" int __stdcall FUN_0024fd10(void*);
 extern "C" int atexit(void (*)(void));
 class Holder_35ff90 {
   public:
-    int Run();
+    int FUN_0024fd10();
 };
 extern "C" void __cdecl FUN_003643c0();
 extern "C" void __cdecl FUN_0035ff90() {
-    ((Holder_35ff90*)((hulk_intptr)((char*)&DAT_004e68f8)))->Run();
+    ((Holder_35ff90*)((hulk_intptr)((char*)&DAT_004e68f8)))->FUN_0024fd10();
     atexit(FUN_003643c0);
 }

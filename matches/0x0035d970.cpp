@@ -6,8 +6,8 @@ struct Pair_35d970 {
     int b;
 };
 
-extern "C" Pair_35d970 FindRow(const char*);
+unsigned __int64 FUN_0027b020(const char* s);
 
 void FUN_0035d970() {
-    (*(Pair_35d970*)&DAT_004de678) = FindRow("RowBackgrounds");
+    (*(unsigned __int64*)&DAT_004de678) = FUN_0027b020("RowBackgrounds");
 }

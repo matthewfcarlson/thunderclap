@@ -1,7 +1,7 @@
 #include "decls/data/game/global.h"
 // data: result = DAT_004de6b8
 
-extern "C" __int64 __cdecl parse(const int*);
+unsigned __int64 FUN_0027b020(const char* s);
 void FUN_0035d890() {
-    (*(__int64*)&DAT_004de6b8) = parse(((int*)&DAT_0040048c));
+    (*(__int64*)&DAT_004de6b8) = FUN_0027b020(((const char*)&DAT_0040048c));
 }

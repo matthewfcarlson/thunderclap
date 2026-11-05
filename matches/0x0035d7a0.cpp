@@ -6,9 +6,9 @@
 extern "C" int atexit(void (*)());
 struct Module {
 };
-void Cleanup() {}
+void FUN_00363e30() {}
 void FUN_0035d7a0() {
     Module* m = (Module*)((hulk_intptr)((char*)&DAT_004ddf9c));
     ((void *)((owners::String_23fc40 *)m)->FUN_0023fc40("sound/rsd", (hulk_intptr)0));
-    atexit(Cleanup);
+    atexit(FUN_00363e30);
 }

@@ -3,16 +3,16 @@
 // data: label = DAT_004293a4, registry = DAT_004e62d8
 
 typedef __int64 I64;
-extern "C" I64 __cdecl getid(const char*, int, int);
+extern "C" I64 __cdecl FUN_002672f0(const char*, int, int);
 extern "C" int __cdecl atexit(void(__cdecl*)());
 extern "C" void __cdecl FUN_003642a0();
 class Registry {
   public:
-    void init(I64*, I64*, int, int);
+    void FUN_002584d0(I64*, I64*, int, int);
 };
 void __cdecl target() {
-    I64 a = getid(((char*)&DAT_004293a4), 0, 0);
-    I64 b = getid(((char*)&DAT_004293a4), 0, 0);
-    (*(Registry*)&DAT_004e62d8).init(&b, &a, 12, 4);
+    I64 a = FUN_002672f0(((char*)&DAT_004293a4), 0, 0);
+    I64 b = FUN_002672f0(((char*)&DAT_004293a4), 0, 0);
+    (*(Registry*)&DAT_004e62d8).FUN_002584d0(&b, &a, 12, 4);
     atexit(FUN_003642a0);
 }

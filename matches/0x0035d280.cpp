@@ -1,3 +1,4 @@
+#include "gen/owners.h"
 extern "C" void __cdecl FUN_00363d00();
 extern "C" int atexit(void (*)(void));
 struct G {
@@ -5,6 +6,6 @@ struct G {
 };
 extern G g;
 void Init() {
-    g.Init("sound/rsd", 0);
+    ((owners::String_23fc40 *)&g)->FUN_0023fc40("sound/rsd", (hulk_intptr)0);
     atexit(FUN_00363d00);
 }

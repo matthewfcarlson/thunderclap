@@ -1,8 +1,8 @@
 struct Pair {
     unsigned a, b;
 };
-extern Pair __cdecl Find(const char*);
+unsigned __int64 FUN_0027b020(const char* s);
 extern Pair result;
 void __cdecl FUN_0035e5e0() {
-    result = Find("golfBall_golfBall");
+    *(unsigned __int64*)&result = FUN_0027b020("golfBall_golfBall");
 }

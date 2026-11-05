@@ -5,16 +5,16 @@
 struct Pair {
     unsigned a, b;
 };
-extern "C" Pair __cdecl make(const char*, int, hulk_intptr);
+extern "C" Pair __cdecl FUN_002672f0(const char*, int, hulk_intptr);
 extern "C" int __cdecl atexit(void(__cdecl*)());
 extern "C" void __cdecl cleanup();
 class Registry {
   public:
-    void add(Pair*, Pair*, int, int);
+    void FUN_002584d0(Pair*, Pair*, int, int);
 };
 void init() {
-    Pair a = make(DAT_00429c74, 0, 0);
-    Pair b = make(DAT_00429270, 0, 0);
-    (*(Registry*)&DAT_004e6a18).add(&b, &a, 24, 4);
+    Pair a = FUN_002672f0(DAT_00429c74, 0, 0);
+    Pair b = FUN_002672f0(DAT_00429270, 0, 0);
+    (*(Registry*)&DAT_004e6a18).FUN_002584d0(&b, &a, 24, 4);
     atexit(cleanup);
 }
