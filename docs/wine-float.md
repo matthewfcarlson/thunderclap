@@ -613,6 +613,27 @@ fails `--wine` with "argument 7 differs", which is exactly this rounding.
 *expression* is already evaluated at double precision; only named `float` locals and stores round. The bug class to look
 for is a value the original stores (rounded) next to a register copy it keeps using unrounded, or the reverse.
 
+## 16. play3 43200 -> end of the recording: a quotient of an unrounded sum (div9, 2026-11-04)
+
+**Cause.** `FUN_00084c40` (`Mover_84c40`, the traffic car's skid/horn state machine), state 0x10 (asm 0x539-0x564):
+`fld t28; fadd [fbc]; fst [fbc]; fdiv [fb8]`. The new skid angle `fbc` is stored rounded to float, but the angle
+`B = fbc / fb8` handed to `FUN_00224d70` (the sin/cos rotation of the car's heading) is the quotient of the
+**unrounded** register sum. The source divided the stored float. At 43079 (and harmlessly at 43077) the two quotients
+differ by one float ULP; the heading (`f6c`) and with it the look-at matrix `FUN_00084830` sends to the car's prop
+(`FUN_001dd470`) followed, then the contacts at 43140, the cow pushed by `FUN_001b1710` at 43147, an extra RNG draw at
+43150 and checkpoint 43200. Fix: the sum is a `hulk_freg`, stored to `fbc` and divided unrounded.
+
+**How it was found.** div8's prop (+0x68 of its matrix, 2 ULP at 43080) was traced to its writer with native
+`HULK_TRACE_WATCH` runs, narrowing the probe set each time (prop update -> `CSPHulkPropInstance::vfunc_15` inside
+`Manager::target` 0x001dd520 -> its caller 0x00084c40). An xemu `--mem` dump of the mover at every entry against the
+native `HULK_TRACE_SPAN` dump showed identical inputs through 43079 and a different heading after it; recomputing `B`
+from the dumped fields both ways reproduced the frames. A GDB write watchpoint (Z2) in xemu hung the VM and is not usable.
+
+**Result.** Proof (HEAD 2446ba9bb + fix, `--map full`, mac2) against a same-host HEAD control: every play3 checkpoint to the
+recording's end (56550) matches except the known camera-only 5880/5910/34260 and two transients at 52620/52650 (52680
+matches again); no persistent divergence (control: first persistent 43200); no checkpoint is control-ok and proof-bad;
+strict link rc 0.
+
 ## Files
 
 - `tools/x87_scan.py`: the scanner (tracked).

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20078 inputs, branch coverage 142/142)
+// STATUS: equivalent (tools/equiv.py level 3: 3062 inputs, branch coverage 140/142, incomplete; Wine build 3062 inputs, 140/142)
 // FUN_00084c40 @ 0x00084c40
 #include "compat/ptr.h"
 #include "decls/address.h"
@@ -275,9 +275,11 @@ void Mover_84c40::FUN_00084c40(float dt)
             if (fr.s14.i < 0)
                 cr += 4294967296.0;
         }
-        fbc = fr.s28.t28 + fbc;
+        // x87: the sum is stored to fbc (fst) and the unrounded register copy is divided by fb8
+        hulk_freg sum = fr.s28.t28 + fbc;
+        fbc = sum;
         f6c = f84;
-        fr.s18.B = fbc / fb8;
+        fr.s18.B = sum / fb8;
         if (cr > 0.0)
             FUN_00224d70(fr.s18.B, &f6c);
         else
