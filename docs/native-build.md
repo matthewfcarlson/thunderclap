@@ -343,3 +343,119 @@ The Wine build's binding map lives in the lineage workspace on the build host: `
 4. **Data and vftable variables (D4, D5: 4,023).** `DAT_<addr>` names and include/decls/data.
 5. **Class C (1,432).** Of these, 113 `FUN_` names in sources are wrong. A `name_address_mismatch` sweep of
    verify_relocs over `FUN_` names (clean2's open item) would find them in matches/.
+
+## Definition-side retyping: the B names a definition can bind (unb2, 2026-11-04)
+
+unb1's top source batch. A class B name stays unbound when the caller passes a pointer (`ptr`) where the definition
+takes or returns an `int` (`i32`). On 32-bit the two are the same stack slot or `eax`; on 64-bit they are not, so the
+IR check refuses the binding. When every caller passes a pointer, the definition is what is wrong: the original held a
+pointer in an `int`. Retyping the definition's parameter or result to `hulk_intptr` / `hulk_uintptr` (or
+`hulk_longptr` / `hulk_ulongptr` for `long`) binds those callers. These typedefs are the same type as before on the
+32-bit builds ([ptr.h](../include/compat/ptr.h)), so the MSVC and Wine objects do not change.
+
+**The plan** (`build/unb2/scripts/plan.py`, on unb1's objects and the Wine map of the same tree):
+- For each definition, every reference the address binding resolves to it, bound or not.
+- The fix sets the callers ask for (argument positions plus the result), and which set binds the most names.
+- The net gain: names the fix binds minus names that bind today and would stop (a caller that does pass an `int`
+  there). unb1's 2,585 counted gains only.
+- 735 definitions have a candidate. 672 gain names: 2,321 net.
+
+**The rewrite** (`build/unb2/scripts/rw.py`, libclang on the x86-64 MSVC target):
+- Finds the definition by its 64-bit mangled name (TU namespaces stripped, back references compared demangled).
+- Maps IR positions to source parameters (`this` and sret skipped).
+- Rewrites every declaration of that function in its source: the stub class's member declaration, forward
+  declarations, the definition. The int keywords or the typedef name of the parameter / result become the
+  pointer-sized typedef.
+- 628 rewritten. Left out:
+  - 18 declared in include/gen/ headers (owners.h 10, global.h 4, pure3d.h, physics.h, Render.h): 34 names. One
+    was done by hand (batch 2 below).
+  - 24 sources that libclang cannot parse for x86-64 (`operator new(unsigned int)`, `memset` declarations). The
+    13 that parse leniently bind 16 names only.
+  - 1 replay pin (`0x00086450`) and 1 not found.
+
+Every rewritten source was MSVC-identical to HEAD: `tools/ptr1.py proof`, 628 / 628.
+
+**What the 64-bit front end found.** gen_tree hoists every declaration variant of a function into the TUs that use it,
+as C++ overloads. On 32-bit `int` and `hulk_intptr` are one type, so a retyped parameter changes nothing there. On
+64-bit, an argument of the new type can make another call ambiguous between `f(int)` and `f(unsigned int)`, or fail
+to bind an `int*` parameter (`&param`):
+- The first native compile had 9 front-end failures (3 at HEAD).
+- `build/unb2/scripts/fe.py` runs the native front end (`-fsyntax-only`, every error) over the batch's TUs and maps
+  each error to its source.
+- It named 8 sources: 0x002e6b20, 0x00339dc0, 0x001d1e50, 0x001af650, 0x002722b0, 0x000ceb80, 0x002eb140,
+  0x00339e60. They were taken out.
+
+Also taken out:
+- Three `--x64` regressions: 0x00213b20, 0x000e2800, 0x0008ca70.
+  - 0x00213b20: the checker pairs a local static by a mangled name that carries the function's signature.
+  - 0x000e2800: a `-1` result, `intwidth`.
+  - 0x0008ca70: a 9-input run.
+- Three equivalents whose `--wine` run fails the same way at HEAD: 0x000aa450, 0x000bc900, 0x00264050.
+
+**Batch 1: 614 definitions** (474 matches/, 140 equivalent/; 125 results, 513 with parameters; planned net 2,208).
+
+**Batch 2: the start-up stop.** unb1 left the macOS start-up stopped in init 2 at
+`owners::String_23fc40::FUN_0023fb20`. Its definition `owners::Obj_23fb20::FUN_0023fb20` is declared in owners.h,
+so batch 1 left it out:
+- The function stores the string pointer in the stub's first field.
+- On the copy path, it passes that field's address to `FUN_0023fa40`, which writes a new buffer pointer through it.
+- The fix: `Obj_23fb20` holds `const char *value` (include/gen/evidence-owners.json, owners.h regenerated: 12 ->
+  16 bytes on 64-bit), and the definition takes `(const char *, hulk_uintptr, hulk_uintptr, int)`.
+- `FUN_0023fa40` takes `char **out`, written through as a pointer. It used to read the stored pointer back as `int`
+  (`*out - 2`).
+- Both still byte-match, with verify_relocs ok. The 32-bit name of 0x0023fb20 changes (`QAEXPBDIIH`); the Wine map
+  binds it by address.
+- `--x64`: 0x0023fa40 goes from `layout` fail to equivalent, and 0x0023fb20 stays equivalent. The variant that keeps
+  `hulk_uintptr` for the pointer failed `intwidth` / `call`: the callee's stub wrote 4 bytes through an `int*`.
+
+| | control 62465 (HEAD 04cce9abf, mac2) | batch 62466 (batch 1 + 2, mac2) |
+|---|---|---|
+| sources | - | 616 (476 matches/, 140 equivalent/) + owners.h, evidence-owners.json |
+| gates | - | 476/476 MATCH + verify_relocs ok; 140/140 promotable at 3,000; 140/140 equivalent at 600 `--wine` |
+| `--x64` (same checker, before / after) | 523 equivalent of 616 | 525, none newly failing (newly equivalent: 0x001fa7d0, 0x0023fa40) |
+| gen_tree merge modes (27,474 blocks) | - | 0 changes |
+| strict link rc / Wine unbound | 0 / 1,324 | 0 / 1,324 (the same set); x87 keep list identical (268); image differs |
+| play3 checkpoints | 2,016 to 60,450 | identical at all 2,004 common frames (batch to 60,090) |
+| native front-end failures (each target) | 3 | 3 (the same) |
+| arm64 macOS unbound / ld64 | 34,930 / rc 0 | **32,870** / rc 0 |
+| x86-64 Linux unbound / lld | 34,921 / rc 0 | **32,861** / rc 0 |
+| arm64 Android unbound / lld | 34,922 / rc 0 | **32,862** / rc 0 |
+| tests/native_host | - | crt_bind (3 targets), shim (3), replay_native, va_tree (mac, x64), rtti, entry: all ok; native_unbound_test 4/4 |
+| macOS start-up | init 2 (0x0035c700) stops at `FUN_0023fb20` | init 2 and 3 run; init 4 (0x0035c740) stops at `Hash` |
+
+The native numbers come from the same tree as the Wine build, bound with that build's own binding map (`--bindings`).
+Batch 1 alone (its own tree, the control's map): 32,871 / 32,862 / 32,863.
+
+The proof builds are lineages built fresh (`--state fresh --map full`) and then linked and replayed with `--gfx`
+(`--state resume --map reuse`). The batch's checkpoints are identical to the control's, so they agree with the Xbox
+exactly as far as HEAD does (to 43,170).
+
+**Notes for the next batch.**
+- A Wine build without `--gfx` cannot replay. wine_link wraps GameClock::Update with `hulk_native_frame`, the
+  checkpoint hook, only for the pddi backend. Without it the image crashes in `main` after 54 imports.
+- gen_tree's output depends on the hash seed (`struct` / `class` spellings of stub forward declarations, declaration
+  order). The Wine builds run it with `PYTHONHASHSEED=0`. A native snapshot made from a workspace tree must use the
+  same seed, or the two A/B trees differ in hundreds of lines, and in mangled names (`V` / `U`), that no source
+  changed.
+- The next start-up stop: `matches/0x0035c740.cpp` calls `FUN_0027b020` under an invented name, `Hash` (class D3).
+  The callee's name with the declaration most of its callers use (`extern "C" __int64 __cdecl FUN_0027b020(const
+  char*)`) binds it.
+
+**What is left of class B.**
+- Definitions: the 18 header-declared ones, the 24 sources libclang cannot parse for x86-64, and the 14 taken out
+  above. The 63 definitions whose net gain is zero or negative are mixed: some callers pass a pointer, others an
+  `int`. The callers are wrong there, not the definition (0x00266a30, a chunk reader's `unsigned int` result: 33
+  callers bind today, 27 want a pointer).
+- **`float` callers of `hulk_freg` results (676 names, 81 definitions) are not done.** The fix is to declare the
+  callee's result as `hulk_freg` in the callers: 758 declarations in 453 sources.
+  - On MSVC the object stays identical (`hulk_freg` is `float` there).
+  - On the Wine build it changes code: each caller would take a `double` from `st(0)` instead of rounding it to
+    `float` first. The original MSVC callers do keep the full register value, so this would be closer to the
+    original. But it changes float results wherever a caller computes with the value before storing it, so the play3
+    checkpoints can move.
+  - Unifying the declarations also changes which sources merge.
+  - It needs its own batch, proof and float review.
+- **Argument-count mismatches (about 3,500 names):** a destructor or member called through a free-function
+  declaration that does not pass `this`, or extra and missing arguments. None has a one-line fix at the definition.
+  They need the callers' declarations: the member through its include/gen/ or owners class, as name unification
+  batch 4 did.

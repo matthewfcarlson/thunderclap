@@ -40263,24 +40263,24 @@
    "addr": "0x0023fb20",
    "aliases": 2,
    "members": [
-    "unsigned int value;",
+    "const char *value;",
     "unsigned short a;",
     "unsigned short pad;",
     "unsigned short b;",
-    "void FUN_0023fb20(unsigned int a1, unsigned int a2, unsigned int a3, int a4);"
+    "void FUN_0023fb20(const char *a1, hulk_uintptr a2, hulk_uintptr a3, int a4);"
    ],
    "offsets": {
     "a": [
      4,
-     4
+     8
     ],
     "b": [
      8,
-     8
+     12
     ],
     "pad": [
      6,
-     6
+     10
     ],
     "value": [
      0,
@@ -40289,7 +40289,7 @@
    },
    "size": [
     12,
-    12
+    16
    ],
    "source": "matches/0x0023fb20.cpp",
    "stub": "Obj_23fb20"

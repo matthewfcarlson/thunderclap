@@ -14531,13 +14531,13 @@ struct C_23fb10 {
     unsigned short value; // +0x08
     void FUN_0023fb10(unsigned short x);
 };
-// matches/0x0023fb20.cpp (stub Obj_23fb20), size 0xc
+// matches/0x0023fb20.cpp (stub Obj_23fb20), size 0xc (0x10)
 struct Obj_23fb20 {
-    unsigned int value; // +0x00
-    unsigned short a; // +0x04
-    unsigned short pad; // +0x06
-    unsigned short b; // +0x08
-    void FUN_0023fb20(unsigned int a1, unsigned int a2, unsigned int a3, int a4);
+    const char *value; // +0x00
+    unsigned short a; // +0x04 (+0x08)
+    unsigned short pad; // +0x06 (+0x0a)
+    unsigned short b; // +0x08 (+0x0c)
+    void FUN_0023fb20(const char *a1, hulk_uintptr a2, hulk_uintptr a3, int a4);
 };
 // equivalent/0x0023fbb0.cpp (stub String), size 0xc (0x10)
 struct String_23fbb0 {
