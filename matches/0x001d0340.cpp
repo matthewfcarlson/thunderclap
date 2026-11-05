@@ -17,11 +17,11 @@ class CScenarioManager_1d0340 : public CAction_1d0340 {
     CScenarioManager_1d0340* vfunc_2(unsigned char);
 };
 struct CScenarioManager_nv_1d0340 {
-    void FUN_00019420();
+    void FUN_001cf690();
 };
 extern void thunk_FUN_00267090(CScenarioManager_1d0340*);
 CScenarioManager_1d0340* CScenarioManager_1d0340::vfunc_2(unsigned char flags) {
-    ((CScenarioManager_nv_1d0340*)(((CScenarioManager*)(this))))->FUN_00019420();
+    ((CScenarioManager_nv_1d0340*)(((CScenarioManager*)(this))))->FUN_001cf690();
     if ((flags & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

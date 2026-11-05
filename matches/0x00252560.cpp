@@ -1,5 +1,6 @@
 #include "gen/audio.h"
 #include "decls/data/engine/audio.h"
+extern "C" unsigned char DAT_004e6e20[112];
 // data: bss = DAT_004e6a68
 
 namespace audio {
@@ -21,7 +22,7 @@ class SeqEventVarVolumeRand_252560 : public Base {
 } // namespace audio
 extern "C" void* __cdecl alloc(void*);
 void* audio::SeqEventVarVolumeRandType::vfunc_3() {
-    audio::SeqEventVarVolumeRand_252560* p = (audio::SeqEventVarVolumeRand_252560*)alloc(((char*)((char*)&DAT_004e6a60 + 8)));
+    audio::SeqEventVarVolumeRand_252560* p = (audio::SeqEventVarVolumeRand_252560*)alloc(((char*)((char*)&(*(unsigned char(*)[112])&DAT_004e6e20) + 8)));
     if (p) {
         p->audio::SeqEventVarVolumeRand_252560::SeqEventVarVolumeRand_252560();
         return (void*)(p);

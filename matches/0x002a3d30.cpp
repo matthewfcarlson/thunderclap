@@ -7,7 +7,7 @@ class Ref_2a3d30 {
     virtual void Release();
 };
 
-extern "C" void __cdecl FUN_00267090(void*);
+extern "C" void __cdecl FUN_00263f30(void*);
 
 class ParticleSystem {
   public:
@@ -33,7 +33,7 @@ ParticleSystem* ParticleSystem::vfunc_2(unsigned char p) {
     }
     Cleanup();
     if (p & 1) {
-        FUN_00267090(this);
+        FUN_00263f30(this);
     }
     return this;
 }

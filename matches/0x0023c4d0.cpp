@@ -19,12 +19,12 @@ namespace fight { class Reference {
     char pad[0x28 - 4];
     void Init();
 }; }
-extern void __cdecl FUN_00267090(fight::Reference*);
+extern void __cdecl FUN_00263f30(fight::Reference*);
 fight::Reference* fight::Reference::vfunc_2(int flag) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00428824);
     ((Elem_23c4d0*)((char*)this + 0x28))->Fn();
     Init();
     if (flag & 1)
-        FUN_00267090(this);
+        FUN_00263f30(this);
     return this;
 }

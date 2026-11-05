@@ -16,11 +16,11 @@ class CCollisionAction : public CAction {
     CCollisionAction* vfunc_2(unsigned char);
 };
 struct ThisCall_003371e0 {
-    void FUN_00019420();
+    void FUN_003371e0();
 };
 extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
-    ((ThisCall_003371e0*)(this))->FUN_00019420();
+    ((ThisCall_003371e0*)(this))->FUN_003371e0();
     if ((flags & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

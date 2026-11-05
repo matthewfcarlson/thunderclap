@@ -13,7 +13,7 @@ struct Image {
     unsigned char row;
     unsigned char bits;
 };
-extern "C" void __cdecl FUN_002e69f0(void *, void *);
+extern "C" void __cdecl FUN_002e69d0(void *, void *);
 void FUN_002eb240(int a, Image* p, unsigned int width, unsigned int p4, char channels, unsigned char type,
                   unsigned char b7, unsigned char b8, unsigned char b9) {
     if (!a || !p)
@@ -35,7 +35,7 @@ void FUN_002eb240(int a, Image* p, unsigned int width, unsigned int p4, char cha
     p->bits = bits;
     unsigned int divisor = (bits + 7) >> 3;
     if (width > 0x7fffffff / divisor) {
-        FUN_002e69f0((void *)(hulk_uintptr)(int)a, (void *)(const char *)"Width too large to process image data; rowbytes will overflow.");
+        FUN_002e69d0((void *)(hulk_uintptr)(int)a, (void *)(const char *)"Width too large to process image data; rowbytes will overflow.");
         p->rowbytes = 0;
         return;
     }

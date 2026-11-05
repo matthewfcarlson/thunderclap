@@ -5,12 +5,12 @@
 void* __cdecl FUN_0008d690(unsigned int);
 class Dummy_1aac90 {
   public:
-    hulk_intptr FUN_0005aa00();
+    hulk_intptr FUN_001a3140();
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::scenario::EffectTrack>::vfunc_5() {
     void* p = FUN_0008d690(0x68);
     if (p)
-        return (void*)(((Dummy_1aac90*)p)->FUN_0005aa00());
+        return (void*)(((Dummy_1aac90*)p)->FUN_001a3140());
     return (void*)(0);
 }

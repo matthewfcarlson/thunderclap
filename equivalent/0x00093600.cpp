@@ -2,7 +2,6 @@
 // FUN_00093600 @ 0x00093600
 // equiv-map: ??_R0?AVCUnlockableBlonskyFile@@@8 = 0x0049dad4
 // equiv-map: ??_R0?AVCUnlockableMove@@@8 = 0x0049db1c
-// equiv-map: ?FUN_000c21b0@Env@@QAEXH@Z = 0x000c2c10
 class CUnlockable {
 public:
     virtual void v0();
@@ -35,7 +34,7 @@ struct Sound_93600 {
 struct Env {
     char pad0[0x50];
     Sound_93600 *sound;
-    void FUN_000c21b0(int id);
+    void FUN_000c2c10(int id);
 };
 
 struct Menu_93600 {
@@ -72,7 +71,7 @@ void Menu_93600::FUN_00093600(int index, char on)
                 if (g)
                     g->hidden = on == 0;
                 if (env)
-                    env->FUN_000c21b0(id);
+                    env->FUN_000c2c10(id);
             }
             if (id == 0x1f0 || id == 0x209 || id == 0x22d || id == 0x243 || id == 0x247)
                 break;
@@ -86,12 +85,12 @@ void Menu_93600::FUN_00093600(int index, char on)
         for (i = 0x248; i <= 0x257; i++) {
             FUN_00093600(i, 0);
             if (env)
-                env->FUN_000c21b0(i);
+                env->FUN_000c2c10(i);
         }
         for (i = 0x258; i <= 0x260; i++) {
             FUN_00093600(i, 0);
             if (env)
-                env->FUN_000c21b0(i);
+                env->FUN_000c2c10(i);
         }
         return;
     }
@@ -110,5 +109,5 @@ void Menu_93600::FUN_00093600(int index, char on)
     if (b)
         b->hidden = on == 0;
     if (env)
-        env->FUN_000c21b0(id);
+        env->FUN_000c2c10(id);
 }

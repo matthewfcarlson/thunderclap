@@ -15,10 +15,10 @@ class CCollisionAction : public CAction {
   public:
     CCollisionAction* vfunc_2(unsigned char);
 };
-extern void __fastcall FUN_00019420(void*);
+extern void __fastcall FUN_000f8bd0(void*);
 extern void thunk_FUN_00267090(CCollisionAction*);
 CCollisionAction* CCollisionAction::vfunc_2(unsigned char flags) {
-    FUN_00019420((void*)(this));
+    FUN_000f8bd0((void*)(this));
     if ((flags & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

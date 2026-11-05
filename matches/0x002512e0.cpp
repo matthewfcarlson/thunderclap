@@ -1,4 +1,5 @@
 #include "decls/data/engine/audio.h"
+extern "C" unsigned char DAT_004e6b78[112];
 // data: bss = DAT_004e6a68
 
 namespace audio {
@@ -34,5 +35,5 @@ inline void* operator new(unsigned int, char* p) {
     return FUN_00247530(p);
 }
 void audio::SeqEventStopTrack::vfunc_2(void* p) {
-    ((Track*)p)->action(new (((char*)((char*)&DAT_004e6a60 + 8))) SeqActionStopTrack(this));
+    ((Track*)p)->action(new (((char*)((char*)&(*(unsigned char(*)[112])&DAT_004e6b78) + 8))) SeqActionStopTrack(this));
 }

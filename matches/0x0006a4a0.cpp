@@ -4,12 +4,12 @@
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Helper_6a4a0 {
-    int FUN_0001cfd0(CCameraDramaticTrack*, hulk_intptr);
+    int FUN_0001f880(CCameraDramaticTrack*, hulk_intptr);
 };
 
 hulk_intptr CCameraDramaticTrack::vfunc_12(hulk_intptr param) {
     Helper_6a4a0* p = (Helper_6a4a0*)FUN_0008d690(0x28);
     if (p)
-        return p->FUN_0001cfd0(this, param);
+        return p->FUN_0001f880(this, param);
     return 0;
 }

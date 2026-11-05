@@ -13,13 +13,13 @@ class ConditionFactoryTemplate_23d110 : public ConditionFactory_23d110 {
     ConditionFactoryTemplate_23d110* vfunc_5(signed char flags);
 };
 
-extern "C" void __cdecl FUN_00267090(void* p); // thunk_FUN_00267090
+extern "C" void __cdecl FUN_00263f30(void* p); // thunk_FUN_00267090
 
 ConditionFactoryTemplate_23d110* ConditionFactoryTemplate_23d110::vfunc_5(signed char flags) {
     *(void***)this = ConditionFactory_23d110_vftable;
     Destroy();
     if (flags & 1) {
-        FUN_00267090(this);
+        FUN_00263f30(this);
     }
     return this;
 }

@@ -841,6 +841,12 @@ RELOC_CASES = {
     # original's call to 0x001d43b0 byte-matches (the relocation is masked) and was ok before
     "0x001d47c0_suffix_name": ("ok", None),
     "0x001d47c0_suffix_name_wrong": ("bad", "name_address_mismatch"),
+    # (unb3) Ghidra's placeholders carry an address too: FUN_x / DAT_x names propagated from a function of the same
+    # shape (the relocation, net of its addend, must be the name's address; RELOC_OFF=placename turns it off)
+    "0x00024170_fun_name": ("ok", None),
+    "0x00024170_fun_name_wrong": ("bad", "name_address_mismatch"),
+    "0x00068cc0_dat_name": ("ok", None),
+    "0x00068cc0_dat_name_wrong": ("bad", "name_address_mismatch"),
 }
 
 # (round 23, declarity) decl_arity cases, level 2 only: name -> ({(kind, callee)} the diagnostic must report, exactly;

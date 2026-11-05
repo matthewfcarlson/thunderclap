@@ -4,6 +4,6 @@
 
 struct Obj_3640a0 {
 };
-extern "C" void FUN_003640a0() {
+void FUN_003640a0() {
     ((owners::Str_240060 *)&((*(Obj_3640a0*)&DAT_004e36bc)))->FUN_00240060();
 }

@@ -9,11 +9,11 @@ struct ParamValueConditionGroup {
     Sub_235830 sub;
     ParamValueConditionGroup* vfunc_0(int);
 };
-extern void FUN_00267090(ParamValueConditionGroup*);
+extern void FUN_0008d330(ParamValueConditionGroup*);
 ParamValueConditionGroup* ParamValueConditionGroup::vfunc_0(int flags) {
     vptr = ((hulk_intptr)DAT_004279fc);
     sub.Init();
     if (flags & 1)
-        FUN_00267090(this);
+        FUN_0008d330(this);
     return this;
 }

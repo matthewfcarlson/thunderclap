@@ -13,13 +13,13 @@ class FalseCondition_23d2f0 : public Condition_23d2f0 {
     FalseCondition_23d2f0* vfunc_5(signed char flags);
 };
 
-extern "C" void __cdecl FUN_00267090(void* p); // thunk_FUN_00267090
+extern "C" void __cdecl FUN_0008d330(void* p); // thunk_FUN_00267090
 
 FalseCondition_23d2f0* FalseCondition_23d2f0::vfunc_5(signed char flags) {
     *(void***)this = Condition_23d2f0_vftable;
     Destroy();
     if (flags & 1) {
-        FUN_00267090(this);
+        FUN_0008d330(this);
     }
     return this;
 }

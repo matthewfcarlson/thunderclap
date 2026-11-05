@@ -5,7 +5,7 @@ class DriveThread {
     int mValue;
     void vfunc_0_adjc();
 };
-extern "C" void __cdecl FUN_0026d850(int);
+extern "C" void __cdecl FUN_0026d840(int);
 void DriveThread::vfunc_0_adjc() {
-    FUN_0026d850(mValue);
+    FUN_0026d840(mValue);
 }

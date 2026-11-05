@@ -4,12 +4,12 @@
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Helper_68dc0 {
-    int FUN_0001cfd0(CJointTrack*, hulk_intptr);
+    int FUN_00018b90(CJointTrack*, hulk_intptr);
 };
 
 hulk_intptr CJointTrack::vfunc_12(hulk_intptr param) {
     Helper_68dc0* p = (Helper_68dc0*)FUN_0008d690(0x28);
     if (p)
-        return p->FUN_0001cfd0(this, param);
+        return p->FUN_00018b90(this, param);
     return 0;
 }

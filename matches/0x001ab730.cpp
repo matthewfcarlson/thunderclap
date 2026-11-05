@@ -16,10 +16,10 @@ class Event_CharacterTemplateVariationCondition {
     Event_CharacterTemplateVariationCondition(int);
     void Finish();
 };
-void __cdecl FUN_00267090(Event_CharacterTemplateVariationCondition*);
+void __cdecl FUN_0008d330(Event_CharacterTemplateVariationCondition*);
 Event_CharacterTemplateVariationCondition::Event_CharacterTemplateVariationCondition(int flag) {
     sub.Init();
     Finish();
     if (flag & 1)
-        FUN_00267090(this);
+        FUN_0008d330(this);
 }

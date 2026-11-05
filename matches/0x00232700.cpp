@@ -3,7 +3,7 @@
 extern "C" void _ReadWriteBarrier();
 extern void* vAction[];
 extern void* vIRef[];
-extern void FUN_00267090(void*);
+extern void FUN_0008d330(void*);
 class Ref_232700 {
   public:
     virtual void F0();
@@ -25,6 +25,6 @@ Action_232700* Action_232700::Dtor(unsigned char flag) throw() {
     DAT_004e5af0 = DAT_004e5af0 - 1;
     vf = vIRef;
     if (flag & 1)
-        FUN_00267090(this);
+        FUN_0008d330(this);
     return this;
 }

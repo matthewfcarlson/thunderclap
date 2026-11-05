@@ -220,6 +220,17 @@ def thiscall_decl_issue(name, target, prog=None, convs=()):
 
 
 
+_PLACEHOLDER_LEAF = re.compile(r"(?:FUN|LAB|DAT|PTR|hulk_at)_([0-9a-fA-F]{8})")
+
+
+def placeholder_address(sym):
+    """(unb3) The address a symbol's leaf carries as a Ghidra placeholder (`FUN_000480a0`, `LAB_`, `DAT_`, `PTR_`,
+    `hulk_at_`), or None (`thunk_FUN_x` is not at x; special members and other names carry none)."""
+    lf = addr_names.leaf_of_symbol(sym)
+    m = _PLACEHOLDER_LEAF.fullmatch(lf or "")
+    return int(m.group(1), 16) if m else None
+
+
 def check(src, addr):
     st = state()
     xbe = st["xbe"]
@@ -263,6 +274,14 @@ def check(src, addr):
             sec = xbe.section_of(na)
             if sec is not None and sec.name == ".text":
                 issues.append(("name_address_mismatch", name))
+        # (unb3) Ghidra's placeholders carry an address too: FUN_/LAB_ (a function or label: `thunk_FUN_x` is the
+        # thunk, not x) and DAT_/PTR_/hulk_at_ (a data item; the target is the item's base, the addend taken off).
+        # Every checker and both links read these names by their address, so a name propagated from a function of
+        # the same shape that calls or reads elsewhere is a wrong claim the byte match cannot see
+        pa = placeholder_address(name) if kind == "symbol" and "placename" not in os.environ.get("RELOC_OFF", "") \
+            else None
+        if pa is not None and pa != target and xbe.section_of(pa) is not None:
+            issues.append(("name_address_mismatch", name))
         if kind == "string":
             ours = literal_bytes(coff, target_sym)
             o = xbe.offset(target)

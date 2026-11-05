@@ -1,6 +1,5 @@
 // STATUS: equivalent (tools/equiv.py level 3: 564 inputs, branch coverage 53/54, incomplete)
 // FUN_0003f090 @ 0x0003f090
-// equiv-map: ?FUN_00232240@SubObj@@QAEXXZ = 0x002325f0
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
@@ -89,7 +88,7 @@ struct Item50 {
 
 struct SubObj {
     char data[0x28];
-    void FUN_00232240() throw();
+    void FUN_002325f0() throw();
 };
 
 class CCharacter {
@@ -279,7 +278,7 @@ void CCharacter::FUN_0003f090()
             slots[i].a = 0;
         }
     }
-    sub_dc.FUN_00232240();
-    sub_b4.FUN_00232240();
+    sub_dc.FUN_002325f0();
+    sub_b4.FUN_002325f0();
     FUN_0027afd0();
 }

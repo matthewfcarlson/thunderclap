@@ -18,12 +18,12 @@ class ParamValueColour : public ParamValue {
     virtual ParamValueColour* vfunc_0(int);
 };
 extern int vftable_2355c0;
-extern void FUN_00267090(ParamValueColour*);
+extern void FUN_0008d330(ParamValueColour*);
 ParamValueColour* ParamValueColour::vfunc_0(int flags) {
     *(hulk_intptr*)this = (hulk_intptr)&vftable_2355c0;
     Elem_2355c0* q = (Elem_2355c0*)((char*)this + 8);
     q->Fn();
     if (flags & 1)
-        FUN_00267090(this);
+        FUN_0008d330(this);
     return this;
 }

@@ -4,12 +4,12 @@
 
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Helper_69940 {
-    int FUN_0001cfd0(CMoveTrack*, hulk_intptr);
+    int FUN_0001d290(CMoveTrack*, hulk_intptr);
 };
 
 hulk_intptr CMoveTrack::vfunc_12(hulk_intptr param) {
     Helper_69940* p = (Helper_69940*)FUN_0008d690(0x28);
     if (p)
-        return p->FUN_0001cfd0(this, param);
+        return p->FUN_0001d290(this, param);
     return 0;
 }

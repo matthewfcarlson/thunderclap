@@ -1,4 +1,4 @@
-extern "C" void __cdecl FUN_00267090(void* p);
+extern "C" void __cdecl FUN_0008d340(void* p);
 void __cdecl operator delete(void* p);
 extern "C" const void* loc_vftable;
 
@@ -15,8 +15,8 @@ class LocationCondition {
 LocationCondition* LocationCondition::vfunc_5(int b) {
     void* p1 = m1;
     *(const void**)this = &loc_vftable;
-    FUN_00267090(p1);
-    FUN_00267090(m2);
+    FUN_0008d340(p1);
+    FUN_0008d340(m2);
     Cleanup();
     if (b & 1) {
         operator delete(this);

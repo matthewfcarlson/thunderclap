@@ -16,11 +16,11 @@ class World_1c9140 : public CAction {
     World_1c9140* vfunc_2(unsigned char);
 };
 struct ThisCall_001c86e0 {
-    void FUN_00019420();
+    void FUN_001c86e0();
 };
 extern void thunk_FUN_00267090(World_1c9140*);
 World_1c9140* World_1c9140::vfunc_2(unsigned char flags) {
-    ((ThisCall_001c86e0*)(this))->FUN_00019420();
+    ((ThisCall_001c86e0*)(this))->FUN_001c86e0();
     if ((flags & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

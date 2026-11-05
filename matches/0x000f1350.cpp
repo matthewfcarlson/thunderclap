@@ -16,11 +16,11 @@ class FEObject : public IValueChangedReceiver_f1350 {
     FEObject* vfunc_2(unsigned char);
 };
 struct ThisCall_000e9030 {
-    void FUN_00019420();
+    void FUN_000e9030();
 };
 extern void thunk_FUN_00267090(FEObject*);
 FEObject* FEObject::vfunc_2(unsigned char flags) {
-    ((ThisCall_000e9030*)(this))->FUN_00019420();
+    ((ThisCall_000e9030*)(this))->FUN_000e9030();
     if ((flags & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

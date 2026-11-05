@@ -16,11 +16,11 @@ class FEContainer_f1cf0 : public CAction {
     FEContainer_f1cf0* vfunc_2(unsigned char);
 };
 struct ThisCall_000eeac0 {
-    void FUN_00019420();
+    void FUN_000eeac0();
 };
 extern void thunk_FUN_00267090(FEContainer_f1cf0*);
 FEContainer_f1cf0* FEContainer_f1cf0::vfunc_2(unsigned char flags) {
-    ((ThisCall_000eeac0*)(this))->FUN_00019420();
+    ((ThisCall_000eeac0*)(this))->FUN_000eeac0();
     if ((flags & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

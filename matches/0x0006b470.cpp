@@ -4,7 +4,7 @@ struct CSmartPropNameCondition {
     char pad[0x14];
 };
 extern "C" void __fastcall FUN_0027af50(void*);
-extern void __fastcall FUN_002345b0(void*);
+extern void __fastcall FUN_00236d60(void*);
 extern void __cdecl thunk_FUN_00267090(void*);
 extern int smart_vftable;
 extern int condition_vftable_6b470;
@@ -13,7 +13,7 @@ CSmartPropNameCondition* __fastcall CSmartPropNameCondition_vfunc_5(CSmartPropNa
     p->vptr = &smart_vftable;
     FUN_0027af50((char*)p + 0x18);
     p->vptr = &condition_vftable_6b470;
-    FUN_002345b0(p);
+    FUN_00236d60(p);
     if (flags & 1)
         thunk_FUN_00267090(p);
     return p;

@@ -9,12 +9,12 @@ class Obj_1fa7a0 {
     Obj_1fa7a0* target(unsigned char flag);
     void FUN_00230f50(void (*)(), Obj_1fa7a0*);
 };
-extern void FUN_00267090(Obj_1fa7a0*);
+extern void FUN_0008d330(Obj_1fa7a0*);
 extern void FUN_001f9f80();
 Obj_1fa7a0* Obj_1fa7a0::target(unsigned char flag) {
     FUN_00230f50(&FUN_001f9f80, this);
     member->f1();
     if (flag & 1)
-        FUN_00267090(this);
+        FUN_0008d330(this);
     return this;
 }

@@ -1,6 +1,6 @@
 extern int vftable_62e40;
 struct CSmartPropAttachTrack;
-void FUN_00267090(CSmartPropAttachTrack*);
+void FUN_0008d330(CSmartPropAttachTrack*);
 struct A_62e40 {
     void f();
 };
@@ -31,6 +31,6 @@ CSmartPropAttachTrack* CSmartPropAttachTrack::vfunc_5(unsigned char p) {
     ((A_62e40*)((char*)this + 0x18))->f();
     ((B_62e40*)this)->f();
     if (p & 1)
-        FUN_00267090(this);
+        FUN_0008d330(this);
     return this;
 }

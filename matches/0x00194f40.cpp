@@ -27,7 +27,7 @@ struct Pa8 {
 };
 
 extern int g_FireProjectileTrackVtable;
-void FUN_00267090(void*);
+void FUN_0008d330(void*);
 
 class FireProjectileTrack : public Track {
   public:
@@ -61,6 +61,6 @@ FireProjectileTrack* FireProjectileTrack::vfunc_5(unsigned char flag) {
     m18.~P18_194f40();
     this->Track::~Track();
     if ((flag & 1) != 0)
-        FUN_00267090(this);
+        FUN_0008d330(this);
     return this;
 }

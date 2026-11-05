@@ -24,7 +24,7 @@ class CGrappleAttachTrack {
     virtual void v13();
     char pad[0x3c];
 };
-extern void FUN_00267090(CGrappleAttachTrack*);
+extern void FUN_0008d330(CGrappleAttachTrack*);
 CGrappleAttachTrack* CGrappleAttachTrack::vfunc_5(unsigned char param) {
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_003f9944);
     ((Helper_5b790*)((char*)this + 0x40))->f();
@@ -32,6 +32,6 @@ CGrappleAttachTrack* CGrappleAttachTrack::vfunc_5(unsigned char param) {
     ((Helper_5b790*)((char*)this + 0x10))->f();
     ((Helper_5b790*)this)->init();
     if (param & 1)
-        FUN_00267090(this);
+        FUN_0008d330(this);
     return this;
 }

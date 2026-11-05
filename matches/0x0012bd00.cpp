@@ -20,12 +20,12 @@ class Helper_12bd00 {
     void call1();
     void call2();
 };
-void FUN_00267090(ThreatDodgeTrack*);
+void FUN_0008d330(ThreatDodgeTrack*);
 ThreatDodgeTrack* ThreatDodgeTrack::vfunc_5(unsigned char flags) {
     *(void**)this = (void*)((hulk_intptr)DAT_00410c84);
     ((Helper_12bd00*)((char*)this + 0x20))->call1();
     ((Helper_12bd00*)this)->call2();
     if (flags & 1)
-        FUN_00267090(this);
+        FUN_0008d330(this);
     return this;
 }

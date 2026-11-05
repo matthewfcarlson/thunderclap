@@ -17,11 +17,11 @@ class CollisionAnalyser_30e610 : public CAction_30e610 {
     CollisionAnalyser_30e610* vfunc_2(unsigned char);
 };
 struct CollisionAnalyser_nv_30e610 {
-    void FUN_00019420();
+    void FUN_0030e570();
 };
 extern void thunk_FUN_00267090(CollisionAnalyser_30e610*);
 CollisionAnalyser_30e610* CollisionAnalyser_30e610::vfunc_2(unsigned char flags) {
-    ((CollisionAnalyser_nv_30e610*)(((physics::CollisionAnalyser*)(this))))->FUN_00019420();
+    ((CollisionAnalyser_nv_30e610*)(((physics::CollisionAnalyser*)(this))))->FUN_0030e570();
     if ((flags & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

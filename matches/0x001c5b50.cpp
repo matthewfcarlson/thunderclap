@@ -16,11 +16,11 @@ class ObjectManager_1c5b50 : public CAction {
     ObjectManager_1c5b50* vfunc_2(unsigned char);
 };
 struct ThisCall_001c5890 {
-    void FUN_00019420();
+    void FUN_001c5890();
 };
 extern void thunk_FUN_00267090(ObjectManager_1c5b50*);
 ObjectManager_1c5b50* ObjectManager_1c5b50::vfunc_2(unsigned char flags) {
-    ((ThisCall_001c5890*)(this))->FUN_00019420();
+    ((ThisCall_001c5890*)(this))->FUN_001c5890();
     if ((flags & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

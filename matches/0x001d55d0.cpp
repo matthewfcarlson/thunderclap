@@ -5,7 +5,7 @@ class Ref_1d55d0 {
     virtual void F0();
     virtual void Release();
 };
-extern void FUN_00267090(void*);
+extern void FUN_0008d340(void*);
 class Part_1d55d0 {
   public:
     void Fini() throw();
@@ -31,7 +31,7 @@ void CSPHulkProp_1d55d0::Dtor2() throw() {
         p90 = 0;
     }
     if (pb8) {
-        FUN_00267090(pb8);
+        FUN_0008d340(pb8);
         pb8 = 0;
     }
     pc0.Fini();

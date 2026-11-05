@@ -5,9 +5,9 @@ struct Function_1df5e0 {
     virtual void f0();
     virtual void f1();
 };
-void FUN_0002cb10(const char*, const char*, const char*, int);
+void FUN_001df600(const char*, const char*, const char*, int);
 
 template <> void Function5<void, const char *, float, float, float, float>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
-    FUN_0002cb10(a, b, c, this->f_1c);
+    FUN_001df600(a, b, c, this->f_1c);
 }

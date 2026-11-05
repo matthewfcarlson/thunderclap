@@ -5,9 +5,9 @@ struct Function_1dfb80 {
     virtual void f0();
     virtual void f1();
 };
-void FUN_0002cb10(const char*, const char*, const char*, int);
+void FUN_001dfba0(const char*, const char*, const char*, int);
 
 template <> void Method6<CSPManager, void, const char *, const char *, int, const char *,math::Vector,math::Vector>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
-    FUN_0002cb10(a, b, c, (*(int *)&this->f_1c));
+    FUN_001dfba0(a, b, c, (*(int *)&this->f_1c));
 }

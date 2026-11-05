@@ -21,7 +21,7 @@ struct Helper_62ec0 {
     void call();
 };
 extern void* vt_62ec0[];
-extern void FUN_00267090(CSmartPropSpawnTrack*);
+extern void FUN_0008d330(CSmartPropSpawnTrack*);
 CSmartPropSpawnTrack* CSmartPropSpawnTrack::vfunc_5(unsigned char p) {
     ((void**)this)[0] = vt_62ec0;
     ((Helper_62ec0*)((char*)this + 0xc8))->call();
@@ -29,6 +29,6 @@ CSmartPropSpawnTrack* CSmartPropSpawnTrack::vfunc_5(unsigned char p) {
     ((Helper_62ec0*)((char*)this + 0x98))->call();
     finish();
     if (p & 1)
-        FUN_00267090(this);
+        FUN_0008d330(this);
     return this;
 }

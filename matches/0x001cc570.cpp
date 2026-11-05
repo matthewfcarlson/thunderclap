@@ -1,7 +1,7 @@
 extern int gDummy;
 
-void __cdecl FUN_00267090(void*);
-void __cdecl FUN_00267091(void*);
+void __cdecl FUN_0008d340(void*);
+void __cdecl FUN_0008d330(void*);
 
 struct Elem_1cc570 {
     char pad[0x28];
@@ -30,10 +30,10 @@ void* CEventManager::vfunc_0(unsigned char flags) {
     void* t = mPtr;
     mPtr2 = t;
     if (t) {
-        FUN_00267090(t);
+        FUN_0008d340(t);
     }
     if (flags & 1) {
-        FUN_00267091(this);
+        FUN_0008d330(this);
     }
     return this;
 }

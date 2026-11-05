@@ -13,13 +13,13 @@ class OrCondition_23cff0 : public Condition_23cff0 {
     OrCondition_23cff0* vfunc_5(signed char flags);
 };
 
-extern "C" void __cdecl FUN_00267090(void* p); // thunk_FUN_00267090
+extern "C" void __cdecl FUN_0008d330(void* p); // thunk_FUN_00267090
 
 OrCondition_23cff0* OrCondition_23cff0::vfunc_5(signed char flags) {
     *(void***)this = Condition_23cff0_vftable;
     Destroy();
     if (flags & 1) {
-        FUN_00267090(this);
+        FUN_0008d330(this);
     }
     return this;
 }

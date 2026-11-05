@@ -1,6 +1,6 @@
 typedef unsigned char byte_2b1200;
-void __cdecl FUN_00267090(void*);
-void __cdecl FUN_00267094(void*);
+void __cdecl FUN_0008d340(void*);
+void __cdecl FUN_0008d330(void*);
 class Thing_2b1200 {
   public:
     void* mValue;
@@ -8,8 +8,8 @@ class Thing_2b1200 {
 };
 Thing_2b1200* Thing_2b1200::Destroy(byte_2b1200 flags) {
     if (mValue != 0)
-        FUN_00267090(mValue);
+        FUN_0008d340(mValue);
     if ((flags & 1) != 0)
-        FUN_00267094(this);
+        FUN_0008d330(this);
     return this;
 }

@@ -13,13 +13,13 @@ class NotCondition_23cfc0 : public Condition_23cfc0 {
     NotCondition_23cfc0* vfunc_5(signed char flags);
 };
 
-extern "C" void __cdecl FUN_00267090(void* p); // thunk_FUN_00267090
+extern "C" void __cdecl FUN_0008d330(void* p); // thunk_FUN_00267090
 
 NotCondition_23cfc0* NotCondition_23cfc0::vfunc_5(signed char flags) {
     *(void***)this = Condition_23cfc0_vftable;
     Destroy();
     if (flags & 1) {
-        FUN_00267090(this);
+        FUN_0008d330(this);
     }
     return this;
 }

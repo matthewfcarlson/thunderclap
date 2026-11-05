@@ -17,11 +17,11 @@ class ScriptHandler_1d4440 : public CAction_1d4440 {
     ScriptHandler_1d4440* vfunc_2(unsigned char);
 };
 struct ScriptHandler_nv_1d4440 {
-    void FUN_00019420();
+    void FUN_001d3410();
 };
 extern void thunk_FUN_00267090(ScriptHandler_1d4440*);
 ScriptHandler_1d4440* ScriptHandler_1d4440::vfunc_2(unsigned char flags) {
-    ((ScriptHandler_nv_1d4440*)(((ScriptHandler*)(this))))->FUN_00019420();
+    ((ScriptHandler_nv_1d4440*)(((ScriptHandler*)(this))))->FUN_001d3410();
     if ((flags & 1) != 0)
         thunk_FUN_00267090(this);
     return this;

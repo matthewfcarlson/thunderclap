@@ -3,5 +3,5 @@
 
 extern "C" void FUN_00234810(void*, void*);
 void FUN_0012e680() {
-    FUN_00234810(((char*)&DAT_004dc3f8), ((char*)&DAT_004dc3fc));
+    FUN_00234810(((char*)&DAT_004e0e6c), ((char*)&DAT_004e0e70));
 }

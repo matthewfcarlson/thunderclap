@@ -6,7 +6,7 @@ extern void* __cdecl FUN_00344e74(void*, int, const char*, const char*, int);
 
 // equiv-map: ?FUN_000c21b0@Env@@QAEXH@Z = 0x000c2c10
 struct Env {
-    void FUN_000c21b0(int id);
+    void FUN_000c2c10(int id);
 };
 
 struct Flagged_92870 {
@@ -36,5 +36,5 @@ void Container_92870::FUN_00092870(int index, char flag)
         changed = true;
     }
     if (changed && env)
-        env->FUN_000c21b0(index);
+        env->FUN_000c2c10(index);
 }

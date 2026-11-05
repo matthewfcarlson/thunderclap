@@ -5,9 +5,9 @@ struct Function_2cc10 {
     virtual void f0();
     virtual void f1();
 };
-void FUN_0002cb10(const char*, const char*, const char*, int);
+void FUN_0002cc30(const char*, const char*, const char*, int);
 
 template <> void Method7<CActorManager, bool, const char *,math::Vector, float, const char *, const char *, bool, const char *>::vfunc_2(void* __p0, void* __p1, void* __p2) { const char * a = (const char *)__p0; const char * b = (const char *)__p1; const char * c = (const char *)__p2;
 
-    FUN_0002cb10(a, b, c, (*(int *)&this->f_1c));
+    FUN_0002cc30(a, b, c, (*(int *)&this->f_1c));
 }

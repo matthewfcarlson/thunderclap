@@ -1,4 +1,5 @@
 #include "decls/data/engine/audio.h"
+extern "C" unsigned char DAT_004e6e88[112];
 // data: bss = DAT_004e6a68
 
 typedef unsigned int size_t;
@@ -35,5 +36,5 @@ class Dest {
 };
 } // namespace audio
 void audio::SeqEventVarVolume::vfunc_2(Dest* p) {
-    p->add(new (((char*)((char*)&DAT_004e6a60 + 8))) SeqActionVarVolume(this));
+    p->add(new (((char*)((char*)&(*(unsigned char(*)[112])&DAT_004e6e88) + 8))) SeqActionVarVolume(this));
 }

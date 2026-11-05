@@ -6,9 +6,9 @@ struct Hash_35d3a0 {
     void* p;
     unsigned int s;
 };
-extern "C" Hash_35d3a0 __cdecl FUN_0027b020(void*);
+unsigned __int64 FUN_0027b020(const char* s);
 void __cdecl FUN_0035d3a0() {
-    Hash_35d3a0 h = FUN_0027b020((void*)((hulk_intptr)((char*)&DAT_0040048c)));
-    (*(void**)&DAT_004ddc00) = h.p;
-    (*(unsigned int*)&DAT_004ddc04) = h.s;
+    unsigned __int64 h = FUN_0027b020((const char*)((char*)&DAT_0040048c));
+    (*(unsigned int*)&DAT_004ddc00) = (unsigned int)h;
+    (*(unsigned int*)&DAT_004ddc04) = (unsigned int)(h >> 32);
 }

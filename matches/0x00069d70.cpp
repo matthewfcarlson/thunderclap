@@ -5,12 +5,12 @@
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class Helper_69d70 {
   public:
-    int FUN_000190a0(CAutoTargetTrack*, hulk_intptr);
+    int FUN_0001d4c0(CAutoTargetTrack*, hulk_intptr);
 };
 
 hulk_intptr CAutoTargetTrack::vfunc_12(hulk_intptr param) {
     void* p = FUN_0008d690(0x30);
     if (p)
-        return ((Helper_69d70*)p)->FUN_000190a0(this, param);
+        return ((Helper_69d70*)p)->FUN_0001d4c0(this, param);
     return 0;
 }

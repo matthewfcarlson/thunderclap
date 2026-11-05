@@ -101,11 +101,6 @@ void (__cdecl *DAT_004e5bb0)(const char*, Reader*, void*) = reader_sink;
 void* DAT_004e5bb4;
 #include "gen/owners.h"
 owners::String_23fe50* owners::String_23fe50::FUN_0023fe50(const char* s) { keep(s); return this; }              // 0x0023fef0
-// 0x000fc020 declares the wide formatter with its own types; the tree's link binds that name to FUN_000fbc00
-extern "C" hulk_intptr FUN_000fbc00(unsigned short* buf, unsigned count, const char* fmt, char* ap);
-void FUN_000fbc00(hulk_uintptr a, unsigned b, hulk_uintptr c, unsigned* d) {
-    ::FUN_000fbc00((unsigned short*)a, b, (const char*)c, (char*)d);
-}
 // 0x00338e20's callees: F2 is 0x00213440 (the real source, C name)
 extern "C" void __cdecl FUN_00213440(void* self, hulk_intptr x, hulk_intptr y);
 static int g_f1, g_f3;
@@ -264,13 +259,15 @@ extern "C" int __cdecl va_tree_run(char* rep) {
     Obj_23fef0 t;
     Target(&t, (hulk_uintptr)"%s|%d|%f", "tg", 64, 3.0);
     report("0x0023fef0 Target", g_out, "tg|64|3.000");
-    // the wide formatter: (&c) + 1 into the 4-byte slot walk of 0x000fbc00
+    // the wide variant: (&c) + 1 into the 4-byte slot walk of the wide formatter 0x000fbe00 (unb3: the call goes to
+    // 0x000fbe00, not 0x000fbc00 as the source's propagated name said)
     unsigned short wb[64];
     char nb[64];
     static const unsigned short wide[] = {'w', 'i', 0};
-    FUN_000fc020((hulk_uintptr)wb, 64, (hulk_uintptr)"%s,%u,%c,%S", "ab", 123u, 'C', wide);
+    static const unsigned short wf0[] = {'%', 's', ',', '%', 'u', ',', '%', 'c', ',', '%', 'S', 0};
+    FUN_000fc020((hulk_uintptr)wb, 64, (hulk_uintptr)wf0, "ab", 123u, 'C', wide);
     narrow(wb, nb);
-    report("0x000fc020 -> 0x000fbc00", nb, "ab,123,C,wi");
+    report("0x000fc020 -> 0x000fbe00", nb, "ab,123,C,wi");
     static const unsigned short wf[] = {'%', 'u', '+', '%', 's', '+', '%', 'S', 0};
     wfmt(wb, 64, wf, 9u, "nar", wide);
     narrow(wb, nb);

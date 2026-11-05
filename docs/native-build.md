@@ -459,3 +459,173 @@ exactly as far as HEAD does (to 43,170).
   declaration that does not pass `this`, or extra and missing arguments. None has a one-line fix at the definition.
   They need the callers' declarations: the member through its include/gen/ or owners class, as name unification
   batch 4 did.
+
+## Start-up stops and the name/address sweep (unb3, 2026-11-05)
+
+Two steps toward native links that bind by name without the Wine build's map:
+- **The macOS start-up.** It stopped in initializer 4 of the game's 466 static initializers, which `entry_posix`
+  runs in a loop.
+- **The names.** The sources' `FUN_` / `DAT_` names were claims that no checker verified. unb1 found 113 wrong
+  ones among the native links' names.
+
+### Placeholder names are checked
+
+`tools/verify_relocs.py` already checked the suffix convention (`SetArc_000480a0`, clean2). It now checks Ghidra's
+placeholders the same way (`placeholder_address()`):
+- **Which names:** a relocation whose symbol's leaf is `FUN_<addr>` / `LAB_<addr>` (a function; `thunk_FUN_x` is not
+  at x), or `DAT_` / `PTR_` / `hulk_at_<addr>` (a data item).
+- **The rule:** the relocation must reach that address. For data, the addend is taken off first, so
+  `(char*)&DAT_x + 4` reads x.
+- **Failure:** a hard issue, `name_address_mismatch`. `RELOC_OFF=placename` turns the check off.
+- **Regress:** `RELOC_CASES` gains `0x00024170_fun_name` / `..._wrong` and `0x00068cc0_dat_name` / `..._wrong`.
+  All 11 reloc cases pass.
+
+Equivalents have no relocation map. Their names bind by rule 3 of equiv.py's binding order. Only a `// equiv-map:`
+line can bind a placeholder name to another address, and the sweep reads those from the level-2 mapping.
+
+**The sweep** covered every source, as queue jobs on `git archive HEAD` (`build/unb3/scripts/sweep_job.py`, 40
+shards): 22,340 matches through `verify_relocs.check`, and 5,140 equivalents through equiv.py level 2.
+
+| | names | sources |
+|---|---|---|
+| wrong placeholder names found | 1,214: 1,039 data, 171 `FUN_` in matches/; 4 `FUN_` in equivalent/ (all four through `equiv-map` lines) | 771: 767 matches, 4 equivalents |
+| other hard verify_relocs issues found | none | - |
+| fixed | 1,211 | 768: 766 matches (one of them, 0x0035fa80, in batch A), 2 equivalents |
+| left | 3 | 3, listed below |
+
+Almost all of them come from propagation. A source made from a function of the same code shape kept that function's
+names (`// Same code shape as 0x000482e0 (propagated; names are from that function)`):
+- 80 fight-track registrations read `DAT_004dc3f8` / `DAT_004dc3fc` for their own pair of globals.
+- About 100 getters return `DAT_004dd780` / `DAT_004dd6e4` for their own item.
+- Destructors call `FUN_00019420` for their own base destructor.
+
+**How each one was fixed** (`build/unb3/scripts/fixmm.py`):
+- The leaf is renamed to the address the relocation reaches. This is done only when every reference of that leaf
+  in the source goes to the one address.
+- A data name gets the `include/decls/data/` header that declares it (573 sources).
+- If the new item's declared type does not fit the code (an array or a pointer where the old name was an `int`),
+  the use becomes a view of the old type: `(*(int*)&DAT_x)`, 141 sources (`castfix.py`).
+- 21 items are not in the data inventory's headers. They are declared in the source with the old type
+  (`declfix.py`).
+- MSVC's object stays identical. Only relocations change, and compare.py masks them.
+
+Some fixes needed more than a rename:
+- **0x000fc020.** The wide variant of `FUN_000fc000` called `FUN_000fbc00`, the narrow formatter. The call goes to
+  0x000fbe00, the wide formatter.
+  - The source now declares 0x000fbe00 with its own types.
+  - `tests/native_host/va_tree_game.cpp` had encoded the wrong pairing. It now passes a wide format and expects
+    0x000fbe00. va_tree: 0 failures on macOS and on x64.
+- **Four getters of pointer items.** 0x0027f250 and 0x00240780 read their item through `*(hulk_intptr*)&`.
+  0x001eb200 and 0x00328510 also return `hulk_intptr`.
+  - 0x00328510's definition was named `FUN_00085cd0`. It is now `FUN_00328510`.
+  - With the `int` view these failed `--x64` (`ptrtrunc`).
+- **0x00336f10.** It calls 0x003352b0 as `SetVtable_003352b0`, a suffix name. The name `FUN_003352b0` collides with
+  a member of that name in another source, and gen_tree then isolated it.
+- **Two equivalents** dropped their `equiv-map` lines with the rename (0x0003f090: 0x002325f0; 0x00093600: 0x000c2c10).
+  - 3,000 inputs: 873 / 3,045 inputs, equivalent.
+  - `--wine` 600: 650 / 718 inputs, equivalent.
+
+**Left (3 names in 3 sources).**
+- `matches/0x000964d0.cpp` is a replay pin, not touched. It names `DAT_004dd6e4` for 0x004e5acc, the seq-rng pointer
+  that the native replay hook table also wants named by address. It now fails verify_relocs (`name_address_mismatch`)
+  and needs its owner's change.
+- `equivalent/0x0013e070.cpp` and `0x002b3340.cpp` call the thunk 0x00263ea0 under `FUN_0008d690`, the function it
+  jumps to. Their `equiv-map` line says so. No tree source defines 0x00263ea0, so renaming would lose a binding that
+  behaves correctly.
+
+Definition names have the same disease, and this sweep does not check them. 152 sources define a `FUN_<x>` that is
+not their own address. Some of those definitions are helper bodies of a callee; others are propagated names, such as
+0x00328510's.
+
+### The start-up stops
+
+**Method.** Each iteration builds a private workspace (HEAD plus the batch), then:
+1. gen_tree with `PYTHONHASHSEED=0`;
+2. a clang-probe snapshot, compiled for arm64 macOS as a queue job;
+3. a local link, with a map that adds the batch's own verified address names to a base Wine map;
+4. a run with `HULK_TRACE_FILE`.
+
+The scripts are in `build/unb3/scripts/`: `iter.sh`, `gtfe.sh`, `augmap.py`, `reach.py`, `initnames.py`.
+
+Two traps:
+- **The 64-bit front end.** An early iteration seemed to reach initializer 316. In fact the merged TU
+  `src/game/init/dynamic_initializers.cpp` failed the 64-bit front end, so all its initializers were skipped (the
+  trace's `skip` lines).
+  - The cause: an `extern "C" unsigned __int64 FUN_0027b020(const char*)` at global scope, where `decls/address.h`
+    declares the same function with C++ linkage.
+  - Every iteration tree now goes through `fe.py`: the 64-bit front end, `-fsyntax-only`, every error mapped to its
+    source. Its failures must equal HEAD's.
+- **The build_tree state.** The tree that counts is the proof build's, generated with that build's own build_tree
+  state (`nb-out/tree-state.json`), not a stale `state.json`.
+  - With the old state, batch A's image left initializer 7 unbound. 0x0035c7a0 was wrapped there for a C2732 that no
+    longer happens; the batch's map is of the real tree.
+  - `mksnap2.sh` makes the native snapshot from the proof's own state, and the numbers below come from it.
+
+`reach.py` reads the image's disassembly and the link's `stubs.s` / `startup.s`. For each initializer in run order, it
+lists the missing-name stubs that direct calls (`bl` / `b`) reach, with the path:
+- unb2's image: 246 stubs;
+- batch A: 106;
+- batch B: 101.
+
+Calls through vftables are not followed, so the run decides.
+
+`initnames.py` lists each initializer's references whose names carry no address, with the targets from verify_relocs
+(matches) or level 2 (equivalents).
+
+| initializers | stop (64-bit name) | class | fix | batch |
+|---|---|---|---|---|
+| 4 (0x0035c740) and 52 more | `Hash`, `GetHash`, `Lookup`, `parse`, `MACRO_LOOKUP`, ... for the hashers 0x0027b020 / 0x002672f0 | invented C / C++ names (D3) | `FUN_0027b020` / `FUN_002672f0`. Merged sources use `decls/address.h`'s declaration. A by-value result that is 16 bytes on 64-bit (`{char*, char*}`, `{void*, unsigned}`) becomes `unsigned __int64`: on 64-bit it comes back through memory | A, B |
+| about 60 | `Registry::init`, `Manager::Register`, ... (0x002584d0, a constructor called as a member); other members | invented member names (D2) | the leaf becomes `FUN_<addr>` and the stub class stays. The shared `Registry` stub takes one signature, with casts | A |
+| 25, 149, 189, 211 and 11 more | `Sound::Sound`, `T::T`, `G::Reg`, `Obj::Init(const char*, float)` for 0x0023fc40 | stub constructors / members for `owners::String_23fc40::FUN_0023fc40` (D6 / D2) | the form 0x0035c700 uses, `((owners::String_23fc40 *)&X)->FUN_0023fc40(s, (hulk_intptr)0)`. Dynamic initializers (`Sound gSound(...)`) get a class derived from `owners::String_23fc40` whose inline constructor makes the call | A (25, 189: B) |
+| 290, 313-316, 342, 358, 375 | `Obj::Obj()`, `Thing::Thing()` called directly | stub constructors (D6) | the member `FUN_<addr>()`; inline constructors for dynamic initializers | A |
+| 71 | `FUN_0027b020` returning `{void*, unsigned}` | B: result passed through memory | `unsigned __int64` | B |
+| 213 | `Obj::FUN_002fb160(int, int, int)` | B: the definition takes `unsigned short` | the caller's declaration | B |
+| 247 | `Reg(void*)` | an invented name for `atexit` | `atexit` (the CRT table binds it) | B |
+| **67** (B stops here) | `init@16` (0x00011520, the vector-constructor iterator) | invented stdcall C name | not done: naming it merges 0x0035d2d0, and then its `target()` and its stub `Item` clash with TU-mates (0x0035dc90, 0x0035ee50) | - |
+
+Atexit handlers mostly keep their invented names (`cleanup`, `Done`, ...). They only run at exit.
+- Naming a handler by address makes gen_tree's emitter give the merged caller's declaration C++ linkage, beside the
+  handler's C definition. The TU then fails the 64-bit front end, or the handler's block wraps.
+- 0x00364200 and 0x003640a0 lost their wrapping conflicts as a side effect, so their callers' declarations did not
+  have to change. Their definitions now have C++ linkage instead, to match.
+
+**What is left after 67** (batch B's image, static reach):
+
+| initializers | what | class |
+|---|---|---|
+| 67 | as above | gen_tree merge |
+| 216 | the allocator 0x0008d690, then `FUN_0026da80`, then `FUN_0026d990`, then `XAPILIB::ConvertThreadToFiber` / `SetThreadPriority` | XDK imports have no native binding ([native-android.md](native-android.md) 14.3, item 2). The allocator's own `Init` / `first` / `second` can be named by address, but that changes 0x0008d480's and 0x0008d6d0's modes (`void` / `int` variants of `FUN_00266d90`) |
+| 253 | 0x0035ee50 `Item::init` (0x0027af00) | the member rename changes `Item`, and gen_tree merges that class with a TU-mate's |
+| 255-280 (14) | `FUN_002672f0` declared `(int, int, int)` / `(unsigned, ...)`, with the name passed as an `int` from a getter (0x003469f5) | B: pointer / `int` argument and its source |
+| 284, 290, 316, 358 | a base-class constructor in a constructor's initializer list (0x00242010, 0x002455e0, 0x0024dae0, 0x00253120), defined as a stub class in another TU's namespace | D6: include/gen/ classes with constructors (`om::MetaEntityType`, `audio::SeqEventType`, ...) |
+| 308-312 | `MetaType::FUN_0025fa00(const char*, int)`. The definition stores the name pointer in an `int` key (`Pair_25fa00`) | layout |
+
+### Batches and proofs
+
+| | control | batch A (start-up) | batch B (start-up 2 + the sweep) |
+|---|---|---|---|
+| sources | HEAD 2446ba9bb | 183 matches/ (181 committed in a276e8d7e; 0x0035e340 / 0x0035e640 changed again in B) | 773: 771 matches/, 2 equivalent/ |
+| gates | - | 183 / 183 MATCH + verify_relocs ok (the new check included) | 771 / 771 MATCH + verify_relocs ok; 2 / 2 promotable (3,000) and equivalent `--wine` (600); regress reloc cases 11 / 11 |
+| `--x64` (same checker, HEAD -> batch) | - | 129 -> 130 equivalent of 183, none newly failing | 734 -> 736 of 773, none newly failing |
+| 64-bit front end (failing TUs) | 3 | 3 (the same) | 3 (the same) |
+| merge modes (proof trees, against the batch before) | - | 10 changes. 8 wrapped -> merged (0x0035ca70, 0x0035d720, 0x0035d890, 0x0035dfc0, 0x0035ea90, 0x0035f640, 0x0035fc50, 0x00360670: their invented names conflicted, and both sides are now named by address); 0x00364200 merged -> wrapped; 0x0035c7a0 wrapped -> merged, not in the batch (its C2732 compile-error wrap is gone) | 5 changes. 0x0035d3a0 / 0x0035ed90 wrapped -> merged; 0x003640a0 merged -> wrapped; 0x000b86b0 / 0x002ea3c0, not in the batch, isolated -> wrapped (build_tree no longer finds their tree code different from the standalone build) |
+| Wine proof (`--gfx`, play3 to 60,000, limit 14,400) | 62531 on mac1; 63151 (= batch A) on mac2 for B | 62646 (mac1) vs 62531 | 63161 (mac2) vs 63151 |
+| strict link rc / Wine unbound | 0 / 1,324 | 0 / **1,321**. Gone: two ambiguous invented names (`Cleanup`, `Obj::Init`). Two TU-local `~Sound` stubs became one, and `registry` is now spelled `class` | 0 / 1,321 (the same set as A) |
+| x87 keep list | 268 | identical | identical |
+| play3 checkpoints | 2,014 to 60,390 | identical at all 2,014 common frames (batch to 60,870) | identical to A at all 2,011 common frames (to 60,900) |
+| arm64 macOS unbound / ld64 | 32,870 / rc 0 | **32,671** / rc 0 | **32,631** / rc 0 |
+| x86-64 Linux unbound / lld | 32,861 / rc 0 | **32,662** / rc 0 | **32,622** / rc 0 |
+| arm64 Android unbound / lld | 32,862 / rc 0 | **32,663** / rc 0 | **32,623** / rc 0 |
+| macOS start-up | stops in initializer 4 (`Hash`) | runs 4-24, stops in 25 (`G::Reg`) | runs 25-66, stops in **67** (`init@16`) |
+
+The proof checkpoints are identical to the control's. The batches therefore match the Xbox exactly as far as HEAD
+does (to 43,170).
+
+The native numbers come from each proof build's own clang-probe snapshot, copied from the lineage workspace's
+`build/clang-probe/snap`, and each is bound with that build's own Wine map (`--bindings`).
+- A snapshot regenerated locally with the same state has the same tree, but an older `report.json`.
+- With it, two merged initializers (7, 30) have no definition, and the start-up skips them.
+- Commit a276e8d7e's message gives batch A's numbers from that older snapshot: one name more on each target. All native links have 0 CRT
+binding problems. tests/native_host all pass: crt_bind and shim (3 targets each), replay_native, va_tree (macOS and
+x64), rtti, entry, native_unbound_test 4 / 4.
+

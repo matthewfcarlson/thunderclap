@@ -4,8 +4,8 @@ extern int CEffectStopTrack_vftable;
 class CEffectStopTrack {
   public:
 };
-void __fastcall FUN_00068c70(CEffectStopTrack*);
+void __fastcall FUN_00306ac0(CEffectStopTrack*);
 void __fastcall FUN_00306fb0(CEffectStopTrack* self) {
     *(hulk_intptr*)self = (hulk_intptr)&CEffectStopTrack_vftable;
-    FUN_00068c70(self);
+    FUN_00306ac0(self);
 }

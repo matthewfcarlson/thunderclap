@@ -1,6 +1,7 @@
-// Same code shape as 0x00085cd0 (propagated; names are from that function)
-#include "decls/data/game/unknown.h"
+// Same code shape as 0x00085cd0 (propagated); reads 0x004d4ce8, a pointer item
+#include "compat/ptr.h"
+#include "decls/data/platform/xbox/pure3d.h"
 
-int FUN_00085cd0(void) {
-    return DAT_004dd6e4;
+hulk_intptr FUN_00328510(void) {
+    return *(hulk_intptr*)&DAT_004d4ce8;
 }
