@@ -1,12 +1,13 @@
+#include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 
 struct Storage {
     void FUN_0008d480();
 };
-extern "C" void FUN_00267a50();
+extern "C" void __cdecl FUN_00267a50();
 extern "C" void __cdecl FUN_0026da80(int);
-int __cdecl FUN_00266d90();
-void* __cdecl FUN_00266e00(int, int);
+extern "C" int __cdecl FUN_00266d90();
+extern "C" void* __cdecl FUN_00266e00(int, hulk_intptr);
 extern "C" void* __cdecl FUN_0008d6d0(int value) {
     if (!(*(unsigned char*)&DAT_004dd778)) {
         FUN_00267a50();

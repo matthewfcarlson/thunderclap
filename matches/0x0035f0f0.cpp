@@ -1,7 +1,9 @@
 #include "decls/data/engine/fight.h"
 // data: gInput = DAT_004ca270, gOutput = DAT_004e5b58
 
-extern __int64 __cdecl FUN_002672f0(int, int, int);
+unsigned __int64 FUN_002672f0(const char* s, int a, int b);
 void FUN_0035f0f0() {
-    (*(__int64*)&DAT_004e5b58) = FUN_002672f0((*(int*)&DAT_004ca270), 0, 0);
+    unsigned __int64 r = FUN_002672f0((*(const char**)&DAT_004ca270), 0, 0);
+    (*(unsigned int*)&DAT_004e5b58) = (unsigned int)r;
+    (*(unsigned int*)&DAT_004e5b5c) = (unsigned int)(r >> 32);
 }

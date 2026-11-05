@@ -1,5 +1,4 @@
-typedef void(__stdcall* InitFn)(void*);
-extern InitFn gInit_26d820;
+extern "C" void(__stdcall* DAT_003f2d38)(void*);   // kernel import slot RtlInitializeCriticalSection
 extern "C" void FUN_0026d820(void* arg) {
-    gInit_26d820(arg);
+    DAT_003f2d38(arg);
 }

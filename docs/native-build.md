@@ -629,3 +629,141 @@ The native numbers come from each proof build's own clang-probe snapshot, copied
 binding problems. tests/native_host all pass: crt_bind and shim (3 targets each), replay_native, va_tree (macOS and
 x64), rtti, entry, native_unbound_test 4 / 4.
 
+
+## Start-up stops 67 to 216 (unb4, 2026-11-05)
+
+Continues unb3's start-up work on a2s2's image (the XDK tables bound, the replay layer linked). The macOS start-up
+stopped in initializer 67. It now runs initializers 0-215 and stops in **216**, on a layout problem that naming
+cannot fix.
+
+### The stops
+
+Each iteration is unb3's method: a private workspace (HEAD plus the batch), gen_tree with `PYTHONHASHSEED=0` and
+unb3 batch B's proof state, a clang-probe snapshot compiled for arm64 macOS as a queue job, a link with the B map plus
+the batch's own address names, and a run, normal and in a2s2's survey mode (`HULK_NATIVE_MISSING=continue`). Scripts:
+`build/unb4/scripts/` (`gtt.sh`, `iter.sh`, `run.sh`).
+
+| initializer | stop | class | fix |
+|---|---|---|---|
+| 67 (0x0035d2d0) | `init@16`: the vector-constructor iterator 0x00011520 under an invented stdcall C name; its callback `destroyItem` (0x000b06e0, the 8-byte object's constructor), `cleanup` (0x00363dc0), `items` (0x004ddb68) | invented names (gen_tree merge) | every name by address. The source now merges, so its declarations must agree with its TU-mates: 0x0035d340 (the same pattern for 0x004ddab0) takes the same `extern "C"` declarations of 0x00011520 / 0x000b06e0 and the same `Obj_b06e0` record; the definition is `FUN_0035d2d0`, not `target` (0x0035dc90's); the row type is no longer `Item`, which 0x0035ee50 defines differently |
+| 67, at exit | 0x0035d340's handler `cleanup` = 0x00363d90 | invented C name | left: only runs at exit. Naming it needs the gen_tree fix below |
+| 99 (0x0035d720) | `FUN_0027b020(0x400488u)`: the source pushed the address of the string `"{"` as an integer, so the 64-bit image passed 0x400488 to the hasher | **B: an address written as an integer literal** (the bytes are the same, so compare.py and verify_relocs.py could not see it) | `FUN_0027b020("{")` with decls/address.h's declaration; the two result words by address (0x004ddfb0 / 0x004ddfb4) |
+| 216 (0x0035e6b0) | the allocator 0x0008d690: `Obj::Init` (0x0008d480), `first` (0x00266d90), `second` (0x00266e00) | invented member and free names (D2) | by address, with the declarations its twin 0x0008d6d0 and the TU-mate 0x0008d480 use: `Storage::FUN_0008d480`, `extern "C" int FUN_00266d90()`, `extern "C" void* FUN_00266e00(int, hulk_intptr)`. 0x0008d480 (an equivalent) declared `FUN_00266d90` `void`: now `int` (3,020 inputs equivalent, complete coverage; `--wine` 620 equivalent) |
+| 216 | `FUN_0026da80` called through `g_initCS`, the kernel slot RtlInitializeCriticalSection (0x003f2d38) under an invented name: a zero data stub, so a call to 0 | invented name for library data | `DAT_003f2d38`, which a2s2's XDK table binds to the shim's slot. The same for the other slot users of the TU: `enterFn` / `leaveFn` (0x0026d8f0), `gInit_26d820` / `_26d840` / `_26d850`, all spelled as 0x0026dad0 spells the slots (`extern "C" void(__stdcall* DAT_003f2c8c)(void*)`) |
+| 216 | `FUN_00267280` (the loader registry's set-up) calls `InitA` / `InitB` (0x00270510 / 0x002705f0) and stores `Vftable` (0x0042af2c) | invented names | by address; the vftable as `DAT_0042af2c`, the label the native link gives a vftable's slot 0 |
+| **216** (stops here) | `FUN_00266f40` returns the registry table's object pointer as an `int` (0x0ded570 in one run), and 0x0008d480 calls through it | **layout**: the table at 0x00527c58 | not fixed, below |
+
+The normal run now ends with `crash signal=11 ... ?FUN_0008d480@Obj_8d480@...+0x70 phase=init 216`; the survey run
+ends the same way (a crash ends it).
+
+**Why 216 is a layout stop.** 0x00527c58 is a 744-byte `.bss` item: a pointer, then 46 records of 16 bytes from +8.
+config/data-ptrs.json's evidence (0x00267110) gives the record as `{Object* object; unsigned value; Entry* next;
+List* list;}`, three pointers. 55 sources touch the item, and they disagree: 0x00267280 writes `{void* p; int a, b, c;}`
+at a byte stride of 16, 0x00266e00 indexes `{Item* p; char pad[12];}` (24 bytes on 64-bit), 0x00266f40 reads the
+pointer as `int`, 0x00267110 uses the three-pointer record. On 64-bit the record is 32 bytes, so the table needs
+8 + 46 x 32 bytes, but data_gen emits the `.bss` item with its XBE size and only the first word typed as a pointer
+(`struct DataLayout_00527c58 { void* p0; unsigned int w4[185]; }`): data_gen's record views
+(`config/data-ptrs.json` `records`) are not applied to `.bss` items. The fix is one record type for the table in every
+source that touches it, and record emission for `.bss` in data_gen; a data-step change with its own proof.
+
+What that fix involves (not done here):
+- **The record.** Read together, the accessors describe one record of four pointers: `{Object* object; Entry* head;
+  Entry* next; Entry* list;}`. 0x002670b0 links an entry into the list of entry `b` (its `head`, +4), 0x00267110
+  unlinks it (`list->head` is the same +4 word), and 0x00527f40 is a sentinel entry of the same type, the fallback
+  list. 0x00527f50 is a static object (its vftable 0x0042af2c), and 0x00527f58 points to it.
+- **The sources.** Nine index the records: 0x00266e00, 0x00266eb0, 0x00266f00, 0x00266f20, 0x00266f40, 0x002670b0,
+  0x00267280 (matches) and 0x00267110 (an equivalent, 73 inputs, incomplete). The other 46 read only the first word
+  (the registry pointer).
+- **data_gen.** `record_item()` gives up on a record view whose base is not 0. This table's records start at +8, after
+  the pointer, so the generator needs a prefix before the records (the `pointers` evidence types it) and the `.bss`
+  path. The 32-bit layout stays the XBE's (the size assertion checks it).
+
+### Pointer-width fixes on the way (initializers 255-280, 253, and the hashers)
+
+Static reach (unb3's `reach.py`; disassembly with `llvm-objdump -d`) showed what follows 216, so the batch also takes
+the initializers after it whose fixes are names or signatures:
+
+- **The hashers' name pointer (255-280, 24 sources).** `FUN_002672f0` declared `(int, int, int)`, `(unsigned, ...)`
+  or `(u32, ...)`, with the name read from its data item through an `int` view. The declaration is now decls/address.h's
+  (`unsigned __int64 FUN_002672f0(const char* s, int a, int b)`), the argument `(*(const char**)&DAT_x)` (the
+  inventory types these items `const char*`), and the 8-byte result goes to its two 4-byte items as two stores (an
+  8-byte store across two data items is wrong on 64-bit, where the items are separate variables: `--x64` reported it as
+  a write past the item). `build/unb4/scripts/fixhash.py`, `normhash.py`, `splitstore.py`.
+- **typeid names (5 sources).** Five initializers hash `typeid(T).name()`: the call is type_info::name (0x003469f5,
+  the native CRT table's `hulk_ncrt_type_info_name`) on the type descriptor (`DAT_004c8040` ..., which the native link
+  emits as 64-bit type_info objects). They declared it as `int` on invented objects (`gSource`, `gThing`, ...): now
+  `const char* TypeInfo_3469f5::FUN_003469f5()` on `DAT_<descriptor>`.
+- **253 (0x0035ee50).** `Item::init` is 0x0027af00 (`Item_35ee50::FUN_0027af00`), `entries` 0x004e37b8, `cleanup`
+  0x003640f0.
+- **0x0035f230** reads 0x004ca298 as the name pointer. The data inventory types that item `int` (`scalar`), but its
+  value (0x0042777c) is a string's address: the native data holds the 32-bit number. A data_inventory fix (with
+  0x004ca29c, typed the same way) is needed before this initializer can run.
+
+### A gen_tree bug, found and left for a decision
+
+gen_tree compares the shapes of a TU's C-linkage declarations so that two different C declarations of one name
+don't share the TU (the second gets C++ linkage). A declaration's parsed signature keeps its closing `;`, so it never
+has the same shape as the C definition of the same name and type. When that definition is a merged block (the same
+namespace as the TU's shared declarations), the declaration is emitted `extern "C++"`: clang rejects the definition
+("declaration of 'FUN_00363d90' has a different language linkage") and MSVC reports C2732, so build_tree wraps the
+definition. This is why unb3 kept the atexit handlers' invented names: naming one by address makes its caller's
+declaration collide with the handler's C definition.
+
+The fix (`build/unb4/gen_tree-unb4.py`: the shared declarations take a merged C definition's shape with the `;`) is a
+no-op on a tree generated with HEAD's build_tree state (0 lines differ). A fresh build_tree converges differently:
+proof 63227 (this batch plus the fix, on the control's host) had 389 merge-mode changes against the control. 311 were C2732 wraps that
+were gone, mostly the init TU's atexit handlers. The other 78 were the cascade: 44 merged -> wrapped ("code differs
+from its standalone build", "lost its match in the tree", new conflicts) and some isolations. The proof itself passed:
+strict link rc 0, Wine unbound 1,319, the x87 keep list identical, and the checkpoints identical at all 2,009 common
+frames. The fix is left out of this batch because these mode changes are not removals of invented-name conflicts.
+Taking it is a decision for the user.
+
+### Addresses written as integers
+
+0x0035d720's `push 0x400488` was an integer literal in the source: the same bytes as the original, but no
+relocation, so the 64-bit build passes a 32-bit address. Neither compare.py (it masks relocations, and the XBE has none
+to compare) nor verify_relocs.py (it checks the relocations the object has) can see a missing one. A scan of the
+sources' code for hexadecimal literals in the data range (`build/unb4/scripts/addrlit.py`, less FourCC codes) finds 40
+more, almost all `__RTDynamicCast` calls (0x00344e74) that pass the source and target type descriptors as integers
+(`FUN_00344e74(a, 0, 0x491ca8, 0x492108, 0)`): 0x00050680, 0x0006d590, 0x001110e0, 0x001fb140, ... (list in
+`build/unb4/addrlit-all.txt`). They need `&DAT_<descriptor>`. A checker could flag an operand of our object that equals
+an address of a data item and carries no relocation; that would tighten verify_relocs, not relax it.
+
+### Batch and proof
+
+| | control | batch (unb4) |
+|---|---|---|
+| sources | HEAD f6f05de96 | 37: 36 matches/, 1 equivalent/ (0x0008d480) |
+| gates | - | 36 / 36 MATCH + verify_relocs ok (with name_address_mismatch); 0x0008d480 3,020 inputs equivalent (complete coverage), `--wine` 620 equivalent |
+| `--x64` (HEAD -> batch) | - | 15 -> 35 equivalent of 37; none newly failing (the 2 failing are HEAD's: 0x00267280 layout, 0x0026d8f0 ptrtrunc) |
+| 64-bit front end | the 4 TUs: 0 errors | 0 errors |
+| merge modes (the proofs' own build_tree states) | - | 24, all wrapped -> merged: 22 batch sources (their conflicts were invented names or hasher declarations that now agree), and 0x00363800 / 0x00363d10, not in the batch, whose conflicts with batch sources' invented names (`Entry`, `items`) are gone |
+| Wine proof (`--gfx`, play3 to 60,000, limit 14,400; both on one host) | 63216 | 63234 |
+| strict link rc / Wine unbound | 0 / 1,321 | 0 / **1,319**. Gone: `gInput` and `gResult`, two invented names that 0x0035f170 and 0x0035f1b0 shared in the init TU's namespace for different addresses (ambiguous) |
+| x87 keep list | 268 | identical |
+| play3 checkpoints | 2,012 to 60,330 | identical at all 2,008 common frames (batch to 60,210) |
+| arm64 macOS unbound / ld64 | 32,005 / rc 0 | **31,958** / rc 0 |
+| x86-64 Linux unbound / lld | 31,996 / rc 0 | **31,949** / rc 0 |
+| arm64 Android unbound / lld | 31,997 / rc 0 | **31,950** / rc 0 |
+| macOS start-up | stops in 67 (`init@16`) | runs 0-215, stops in **216** (the registry table, layout) |
+| static reach (stubs reachable from initializers by direct calls) | 98 | 76 |
+
+### What is left
+
+| initializers | what | class |
+|---|---|---|
+| **216** | the loader registry table 0x00527c58 (55 sources, data_gen `.bss` records) | layout |
+| 216, after it | 0x0026cfa0 / 0x0026cf20 (the dl allocator): `MemoryDlAllocator_nv_26cfa0::Do`, `lookup`, `run` | invented names |
+| 2 | 0x00247610 `Tmp_247610::init` / `cleanup` | invented member names (unb3's list) |
+| 284, 290, 313-317, 329, 332, 340-346, 354-375 (about 25) | a derived type's constructor calls its base constructor (om::Type 0x00243310 / 0x0025e6c0, audio::SeqEventType 0x002605e0, ...) of a stub class, with invented names for the name temporary (`Temp::Init` = 0x0023fc40, `~Temp` = 0x00240060) and the hasher (`lookup`, `GetId`, `MakeId`). Recipe: a class named by the constructor's address (`struct FUN_002605e0`, the "class named fun" rule of native_unbound.name_address, 89 sources use it) for the base and for the temporary (`FUN_00240060`, whose destructor is 0x00240060), the hasher by address. 0x00243310's own definition takes the two key pointers as `int` (B, definition side). The derived classes' own vftables (verify_relocs' `vftable_of_other_class`) are a further native gap | D6 + B |
+| 308-312 | `MetaType::FUN_0025fa00` stores the name pointer in an `int` key and lays out the tree node with 32-bit offsets; 0x0025f170 (Register, an incomplete equivalent) reads the same node with pointers | layout |
+| 331, 333, 335, 338, 383 | `FUN_002672f0` declared with a `hulk_intptr` third parameter: the reference's IR signature (an `i64` argument) is not the definition's (`i32`), so native_unbound's plan does not bind it | signature (decls/address.h's `int`) |
+| 348 | `FUN_002673a0` | signature |
+| 456, 457 | `Obj::FUN_00337d20` | invented class |
+
+The native numbers come from each proof's own clang-probe snapshot and binding map (the lineage's
+`build/clang-probe/snap` and `build/native/bindings.json`), compiled as queue jobs and linked locally
+(`build/unb4/scripts/natproof.sh`). The Linux and Android figures are a2s2's key (`unbound (undefined less the native
+CRT and XDK tables' rows)`); `tools/native_unbound.py classify` gives the same macOS totals. Every link has 0 CRT
+binding problems. tests/native_host all pass: crt_bind, xdk_bind and shim (3 targets each), replay_native, va_tree
+(macOS and x64), rtti, entry, native_unbound_test 4 / 4.

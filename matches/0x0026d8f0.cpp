@@ -4,10 +4,10 @@
 #include "compat/ptr.h"
 typedef unsigned int U32_26d8f0;
 typedef void(__stdcall* LockFn)(void*);
-extern LockFn enterFn;
-extern LockFn leaveFn;
+extern "C" void(__stdcall* DAT_003f2c8c)(void*);   // kernel import slot RtlEnterCriticalSection
+extern "C" void(__stdcall* DAT_003f2c88)(void*);   // kernel import slot RtlLeaveCriticalSection
 extern "C" void __cdecl FUN_0026d8f0(unsigned int * node) {
-    enterFn(((char*)&DAT_0052a188));
+    DAT_003f2c8c(((char*)&DAT_0052a188));
     if ((*(void**)&DAT_0052a180) == 0) {
         (*(void**)&DAT_0052a180) = node;
         node[1] = 0;
@@ -17,5 +17,5 @@ extern "C" void __cdecl FUN_0026d8f0(unsigned int * node) {
     }
     (*(void**)&DAT_0052a17c) = node;
     node[0] = 0;
-    leaveFn(((char*)&DAT_0052a188));
+    DAT_003f2c88(((char*)&DAT_0052a188));
 }

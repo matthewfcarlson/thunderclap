@@ -1,13 +1,15 @@
 #include "decls/data/engine/audio.h"
-// data: result = DAT_004e6338
+// data: the type descriptor DAT_004cc5b8 (typeid(...); its name() is type_info::name, 0x003469f5), result = DAT_004e6338
 
-class Thing {
+class TypeInfo_3469f5 {
   public:
-    int FUN_003469f5();
+    const char* FUN_003469f5();
 };
-extern Thing obj;
-extern "C" __int64 __cdecl FUN_002672f0(int, int, int);
-void target() {
-    int n = obj.FUN_003469f5();
-    (*(__int64*)&DAT_004e6338) = FUN_002672f0(n, 0, 0);
+extern "C" TypeInfo_3469f5 DAT_004cc5b8;
+unsigned __int64 FUN_002672f0(const char* s, int a, int b);
+void FUN_0035fbd0() {
+    const char* n = DAT_004cc5b8.FUN_003469f5();
+    unsigned __int64 r = FUN_002672f0(n, 0, 0);
+    (*(unsigned int*)&DAT_004e6338) = (unsigned int)r;
+    (*(unsigned int*)&DAT_004e633c) = (unsigned int)(r >> 32);
 }

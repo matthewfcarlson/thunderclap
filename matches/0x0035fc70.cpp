@@ -1,23 +1,15 @@
 #include "decls/data/engine/unknown.h"
-// data: gFirst = DAT_004e6358, gSecond = DAT_004e635c
+// data: the type descriptor DAT_004cc3b0 (typeid(...); its name() is type_info::name, 0x003469f5), result = DAT_004e6358
 
-class Loader {
+class TypeInfo_3469f5 {
   public:
-    int FUN_003469f5();
+    const char* FUN_003469f5();
 };
-
-struct Pair {
-    int a;
-    int b;
-};
-
-Pair __cdecl FUN_002672f0(int a, int b, int c);
-
-extern Loader gLoader;
-
+extern "C" TypeInfo_3469f5 DAT_004cc3b0;
+unsigned __int64 FUN_002672f0(const char* s, int a, int b);
 void FUN_0035fc70() {
-    int id = gLoader.FUN_003469f5();
-    Pair p = FUN_002672f0(id, 0, 0);
-    (*(int*)&DAT_004e6358) = p.a;
-    (*(int*)&DAT_004e635c) = p.b;
+    const char* id = DAT_004cc3b0.FUN_003469f5();
+    unsigned __int64 r = FUN_002672f0(id, 0, 0);
+    (*(unsigned int*)&DAT_004e6358) = (unsigned int)r;
+    (*(unsigned int*)&DAT_004e635c) = (unsigned int)(r >> 32);
 }

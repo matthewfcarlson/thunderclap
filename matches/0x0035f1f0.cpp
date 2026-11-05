@@ -2,7 +2,9 @@
 // data: gInput = DAT_004ca290, gResult = DAT_004e5b78
 
 typedef __int64 I64;
-extern I64 __cdecl FUN_002672f0(int, int, int);
+unsigned __int64 FUN_002672f0(const char* s, int a, int b);
 void FUN_0035f1f0() {
-    (*(I64*)&DAT_004e5b78) = FUN_002672f0((*(int*)&DAT_004ca290), 0, 0);
+    unsigned __int64 r = FUN_002672f0((*(const char**)&DAT_004ca290), 0, 0);
+    (*(unsigned int*)&DAT_004e5b78) = (unsigned int)r;
+    (*(unsigned int*)&DAT_004e5b7c) = (unsigned int)(r >> 32);
 }

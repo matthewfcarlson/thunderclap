@@ -8,15 +8,15 @@ struct Ent_267280 {
     int a, b, c;
 };
 extern void* vt_267280;
-extern char Vftable[];
-extern void InitA();
-extern void InitB();
+extern "C" char DAT_0042af2c[];   // a vftable (slot 0)
+extern "C" void __cdecl FUN_00270510(void);
+extern "C" int* FUN_002705f0();
 extern "C" void FUN_00270370();
 extern "C" void FUN_00267280() {
     (*(unsigned char*)&DAT_00527f5c) = 1;
-    InitA();
-    (*(void**)&DAT_00527f50) = Vftable;
-    InitB();
+    FUN_00270510();
+    (*(void**)&DAT_00527f50) = DAT_0042af2c;
+    FUN_002705f0();
     (*(void**)&DAT_00527f58) = ((void**)&DAT_00527f50);
     (*(void**)&DAT_00527f40) = ((void**)&DAT_00527f50);
     (*(int*)&DAT_00527f44) = 0;
