@@ -614,9 +614,10 @@ the tools) are part of it.
    references in both link steps; `tests/native_host/crt_bind_test.py` checks every row on all three targets.
 3. ~~**The 18 x86-style `va_list` producers and the 3 consumers.**~~ Done by va1 ([native-build.md](native-build.md)
    "Varargs"; `tests/native_host/va_tree_test.sh` passes on arm64 macOS, x86-64 under Rosetta and the emulator).
-4. **The shim on native.** Started by a2s1 (section 14): the shim and the replay driver build, link and pass their
-   harness tests; linking them into the image is the next step. Still open: SDL3 for Android (`libSDL3.so`) and for
-   Linux, bgfx's null renderer in the image, the data install on the device.
+4. **The shim on native.** Started by a2s1 (section 14). a2s2 (section 15): the XDK tables bound by name on all three
+   links; the macOS image links the shim with the SDL3 backends and the replay layer and applies the hook plan; the
+   ELF images link the shim's stand-ins. Still open: SDL3 (and FFmpeg) for Android (`libSDL3.so`) and for Linux, the
+   data install on the device.
 5. **A place to run x86-64 Linux.** This means a SteamOS/Linux box, or a Linux VM. On this Mac that would be arm64
    Linux plus Rosetta for x86-64 binaries.
 
@@ -759,6 +760,8 @@ rows apply:
 
 ### 14.3 What still blocks an end-to-end native replay (besides item 1)
 
+(Items 1 and 2 are done by a2s2, section 15; the rest stands.)
+
 1. **The replay layer is not linked into the image.** That layer is replay_native, shim_posix, host_crt_posix, the
    shim, the input/replay reader with SDL3 (macOS: `build/third_party/out/sdl-host`; there is no Linux SDL3 build
    yet, and Android needs `libSDL3.so`), and bgfx's noop renderer (`HULK_GFX_RENDERER=noop` exists in
@@ -775,3 +778,179 @@ rows apply:
    evaluate in double on SSE and NEON (`-ffp-eval-method=double`), and how far the checkpoints agree is unmeasured
    until the game loop runs.
 7. **No Linux machine.** The ELF images and tests are checked statically only.
+
+## 15. A2 continued (a2s2, 2026-11-05): the XDK tables bound by name, the replay layer in the macOS image
+
+Items 2 and 4 of section 14.3: the XDK import binding, and the replay layer linked into the macOS native image.
+Inputs for the image numbers: unb3's batch B natives (HEAD 1bef4616b, the proof build's own clang-probe snapshot,
+`build/unb3/nat-xb`) relinked with the B map, the same objects before and after.
+
+Nothing here is a Wine build input. The changed files are the native link tools (`tools/native_bind.py`,
+`native_mac.py`, `native_elf.py`), `src/platform/sdl/host/entry_posix.cpp` and `tests/native_host/`. The shim's own
+files (`src/platform/sdl/xdk/`, `fs/`, `input/`, `audio/`, `movies/`, `replay/`) are read, never changed. The native
+compile is unchanged (retarget, flags and cache keys untouched): only the link steps change, on purpose.
+
+### 15.1 The XDK tables bound by name (14.3 item 2)
+
+**The bug.** The game reaches the XDK shim's stand-ins (`src/platform/sdl/xdk/imports.h`, 167 rows `hulk_xdk_*`;
+`library.h`, 9 functions `hulk_lib_*` and 7 data rows) under three kinds of names: a row's XBE address in the name
+(`FUN_0020c14b`, `?FUN_002109f1@fn_00279630@@...`, `thunk_FUN_0038acb0`), the import's own name (`XInputGetState`,
+`?ConvertThreadToFiber@XAPILIB@fn_0026d990@@YA...`, `?D3DDevice_SetTexture@D3D8@fn_00321280@@YA...`), and, for
+library data, `DAT_<addr>` anywhere inside a data row (the D3D state block, the kernel's critical-section slots). The
+Wine build binds them through its binding map (`wine_link.platform_shim`). The native links bound none of them, and
+did not link the shim: every such name was a missing stub. unb3's init 216 stop (`XAPILIB::ConvertThreadToFiber` /
+`SetThreadPriority` under the allocator) was one of them.
+
+**The binding** (`native_bind.XdkTable`, the second table after the CRT table; `Table.target()` tries the CRT rows
+first). A game name the link would leave undefined binds when
+
+| the name | binds to |
+|---|---|
+| carries a function row's XBE address (`native_mac.ADDR_NAME`; not a `DAT_` / `PTR_` name) | `hulk_xdk_<name>` / `hulk_lib_<name>` |
+| is a function row's name: the C name, or an MS **free** function (`?Name@Scope@...@@Y`) whose leaf is the name, in any namespace | the same |
+| is a `DAT_` / `PTR_` / `hulk_at_` name whose address lies inside a data row | offset 0: the row's symbol (`hulk_lib_slot_RtlEnterCriticalSection`); any other offset: `hulk_xlib_<address>` |
+
+Members, variables and templates of an import's name are never bound. Three row names are left out of the name rule
+(`NAME_RULE_EXCEPT`): the game's sources use `D3D_KickOffAndWaitForIdle`, `Get2DSurfaceDesc` and `XInitDevices` for
+other library functions (0x0037df10, 0x003821c0, 0x003eba7c), and the rows' own addresses (0x0038a5d0, 0x0038abf0,
+0x003eac33) have no caller in the Wine build's map. imports.h names these rows after the game's names; the shim's
+owner should look at them (they are Wine build inputs, so this work does not change them).
+
+The data aliases: an assembler can define `symbol + offset` only for a symbol it defines itself, and Mach-O has no
+offset alias at link level. The link compiles `library.cpp` through a generated wrapper
+(`link/shim/library_aliases.cpp`: `#include` of library.cpp plus top-level `.globl` / `.set` lines for each alias
+the binding made). 73 aliases on the B image, all inside the 1,136-byte D3D state block.
+
+The renaming is the CRT table's (`native_bind.apply`, `llvm-objcopy --redefine-sym` on copies in `link/bound/`), and
+`check()` holds the new kinds to the same rule: each `hulk_xdk_*` / `hulk_lib_*` / data target defined exactly once,
+by the host side (the shim), never by a game object or a stub.
+
+**Test** (`tests/native_host/xdk_bind_test.py --target mac|linux-x64|android-arm64`). A generated game TU, through
+the tree's pipeline, takes the address of 896 names: every function row by `FUN_<addr>` (C and MS), `thunk_FUN_<addr>`,
+its name as a C name and as `XAPILIB::<name>`, and each data row at offset 0, one word in and its last word (C and MS
+`DAT_`). It links with the shim in its stand-in configuration and a checker. Each slot must be the row's definition,
+or the data symbol plus the offset.
+
+| | arm64 macOS (run) | x86-64 Linux (relocations) | arm64 Android (relocations) |
+|---|---|---|---|
+| bound right | 896 / 896 | 896 / 896 | 896 / 896 |
+| `--no-bind` control | 896 wrong: FAILS, as it must | the same | the same |
+
+Eleven names that must not bind are checked at plan level (the three exceptions, a member `Obj::Sleep`, a variable
+`XInputGetState`, a template, `DAT_` at a function row, a pointer inside the D3D block,
+addresses outside every row, a near-name). `--map BINDINGS.json` checks the rule against a real tree's spelling: every name of the Wine build's map the rule binds (32-bit names made 64-bit) must be bound by the map to
+the same address. On unb3's B map: 641 names bound by the rule, 0 bound elsewhere (7 before the three exceptions);
+37 map names of import rows that the rule cannot see (invented game names: `?Helper@fn_fc974b3c` for
+WaitForSingleObject, `?ReleaseThing@fn_fad5a458` for XFindClose, `?Set@Device_321af0@pure3d` (a member) for
+SetRenderState_Simple, `_GetDesc@8`, `?Check@fn_f9371648`, ...). Those are naming work for the sources (the unb
+lineage), listed by the test.
+
+**On the B image** (macOS; Linux and Android: section 15.3):
+
+| | before (unb3 B) | after |
+|---|---|---|
+| unbound names (inventory groups `unbound: ...`) | 32,631 | 32,005 |
+| XDK table names (new groups: `import by name` 339, `import by XBE address in the name` 92, `library data by XBE address` 195) | - | 626 |
+| missing code stubs / data stubs | 32,239 / 4,623 | 31,808 / 4,427 |
+| names bound by native_bind (CRT + XDK) | 380 | 1,006 (xdk 430, lib 1, libdata 195) |
+| binding problems | 0 | 0 |
+
+One library data name is a pointer: `?DAT_0039db04@fn_fd8cb2f6@@3PEBXEB` (`const void* const` at the D3D state
+block's +4, read by `MeshBatch::Draw`) would read 8 bytes over two of the block's 4-byte words, and lld refuses the
+misaligned 8-byte load on Android. A pointer-typed MS variable past a row's start is therefore not bound
+(`XdkTable.pointer_inside`; it stays a 64-byte data stub): the layout class of 14.3 item 5.
+
+### 15.2 The replay layer in the macOS image (14.3 item 1)
+
+The macOS link (`native_mac.ld64`) now links, after the host glue of section 14:
+
+- **the shim** (`native_bind.shim_sources`): every file of `src/platform/sdl/xdk/` but `startup.cpp` and
+  `replay_hooks.cpp`, `library.cpp` through the alias wrapper, with `host_crt_posix.cpp` and `shim_posix.cpp`;
+- with SDL3 (`build/third_party/out/sdl-host`, static) and FFmpeg's shared libraries (`ffmpeg-host/install`, loaded
+  through the image's rpath), `HULK_NATIVE_SDL`: the files and saves on SDL3 (`fs/hulk_fs.cpp`, `fs/hulk_saves.cpp`,
+  the decision already taken: the stand-in `file_io.cpp` is not used on native), input with the recording reader
+  (`input/hulk_input.cpp`, which includes `replay/hulk_replay.cpp`), audio (`audio/*.cpp`; headless runs use SDL's
+  dummy audio driver), the movie player (`movies/`), and the replay driver `host/replay_native.cpp`. 26 objects.
+  libclang_rt.osx.a joins the link for SDL's availability checks;
+- **graphics**: none. The headless image draws nothing. The D3D stand-ins (`graphics_d3d8.cpp`, `graphics_xgraphics.cpp`)
+  are the null graphics path, as in the Wine build's headless replays; bgfx (`HULK_GFX_RENDERER=noop`) belongs to a
+  graphics build and is not linked.
+
+**The hook plan is applied**, no longer reported. `native_bind.plan_hooks` renames the game's references in the same
+`apply()` step as the two tables (hook renames win), and the link writes `link/hook_thunks.s`: a `hulk_orig_<addr>`
+thunk to the tree's definition for every hook and for every other game function the host side calls by address. A
+thunk with no tree definition goes to the table row at that address (`hulk_orig_0034774c` -> `hulk_ncrt_rand`).
+Names the shim calls as `FUN_<addr>` that the game defines under that C name bind directly.
+
+| row | B image |
+|---|---|
+| applied (10 of the 14 `ready` rows) | GameClock::Update's entry hook and its virtual-clock site; sound-rng x3; sound `rand`; seq-rng pointer x2 (0x2526b0, 0x255250); RandInt x2 |
+| not applied | 0x87e30 and 0x86630: merged TUs whose other functions reference the same callee (14.3 item 4); 0x2692c0 (pad constructor's XInputGetState site): the tree has no 64-bit definition at 0x2692c0 in this snapshot; 0x253680: does not name 0x4e5acc by address (item 5) |
+| `layout` (5) and `gfx` (1) | left out, as before |
+
+The ELF links (`native_elf.lld`) link the shim in its stand-in configuration (no SDL3 there yet) and keep the hook
+plan as a report; host calls by address get the same thunks. `null hooks` (the shim hooks nothing defined) is empty on
+all three images (macOS had `hulk_xdk_called`).
+
+| | arm64 macOS | x86-64 Linux | arm64 Android |
+|---|---|---|---|
+| link | ld64 rc 0 | lld rc 0 | lld rc 0 |
+| unbound (before -> after) | 32,631 -> 32,005 (groups `unbound: ...`) | 32,622 -> 31,996 (`unbound (undefined less the native CRT and XDK tables' rows)`, a new key; the old CRT-only key is kept) | 32,623 -> 31,997 |
+| missing code / data stubs (before -> after) | 32,239 / 4,623 -> 31,808 / 4,427 | 32,231 / 4,623 -> 31,800 / 4,427 | 32,232 / 4,623 -> 31,801 / 4,427 |
+| shim | SDL3 backends + replay layer, 26 objects | stand-ins, 17 objects | stand-ins, 17 objects |
+
+What Linux and Android lack for the same layer: an SDL3 build for each (no Linux SDL3 build exists; Android needs
+`libSDL3.so` and its Java activity), FFmpeg for each (or the movie player left out with the stand-in `movies_bink.cpp`,
+which needs `HULK_NATIVE_SDL` off for that file and `library.cpp` together), and a machine to run on (14.3 item 7).
+
+### 15.3 Where the macOS start-up stops now
+
+Runs: `HULK_DATA_DIR` = the extracted disc, private save / T: / U: directories, `SDL_AUDIO_DRIVER=dummy`, headless.
+
+- **Normal run:** initializers 0-66, then **initializer 67** (0x0035d2d0): `missing ?init@fn_0035d2d0@@...` (the
+  vector-constructor iterator 0x00011520 under an invented stdcall C name; unb3's stop, unchanged). Exit 3. No XDK
+  import is reached before it.
+- **Survey run** (`HULK_NATIVE_MISSING=continue`, new in `entry_posix.cpp`: every missing name is logged once as
+  `missing-continue NAME caller=... phase=...` and the stub returns 0; what runs after such a return is not the game's
+  behaviour, so this is a list of stops, never a result; `tests/native_host/entry_test.sh` checks the mode):
+
+| initializer | what | class |
+|---|---|---|
+| 67 (0x0035d2d0) | `init@16`: `?init@fn_0035d2d0@@YAXPEAXHHP6AXXZ@Z` | invented name (gen_tree merge, unb3) |
+| 99 (0x0035d720) | `?FUN_0027b020@@YA_KI@Z`: the hasher declared with an `unsigned` parameter, given the name pointer as 32 bits | B: pointer passed as `int` |
+| 216 (0x0035e6b0) | the allocator 0x0008d690: `?Init@Obj@fn_fe5d7f9e@@QEAAXXZ` (its own member under an invented name) | invented member name (D2) |
+| 216, then a crash | `FUN_0026da80` calls `g_initCS`: the kernel slot RtlInitializeCriticalSection (0x003f2d38) under an invented variable name, so it is a zero data stub and the call jumps to 0 | invented data name for library data |
+
+The first XDK call of the start-up is now made and answered by the shim (`first 1 QueryPerformanceFrequency` in the
+survey's trace). `XAPILIB::ConvertThreadToFiber`, `XAPILIB::SetThreadPriority` and `FUN_0020c14b`
+(GetCurrentThreadId) under the allocator are bound to the shim (`FUN_0026d990` calls `hulk_xdk_GetCurrentThreadId`,
+`hulk_xdk_ConvertThreadToFiber`, `hulk_xdk_SetThreadPriority` in the image), so unb3's init 216 XDK stop is gone; the
+stops left at 216 are naming. Renaming `g_initCS` to `DAT_003f2d38` (and its neighbours by their addresses) is enough
+for the XDK table to bind it.
+
+Static reach (unb3's `reach.py`, direct calls only) from the initializers to code stubs: 99 paths, all naming or
+signature classes listed in [native-build.md](native-build.md) "What is left after 67"; none ends in an XDK name.
+
+**A diagnostic image** (never a result; `build/a2s2/scripts/diaglink.py`): the same link with the Wine map as a name
+table (`--name-table`, rejected as a link step by x64-3) and with the 693 64-bit names the map binds to an XDK row or
+library data bound to the shim. It runs initializers 0-98 and crashes in **initializer 99**: `?Conv@fn_00024d50`
+calls `?Build@fn_00029c90`, which reads address 0x00400488, a pointer cut to 32 bits on its way to the hasher (the
+B class of the row above). So with every name bound, the next class of stop is the 64-bit pointer-width work (B), not
+the platform layer.
+
+### 15.4 What remains for an end-to-end native replay
+
+1. **Naming** (unb lineage): the stops of 15.3 and native-build.md's list after 67; the 37 game names of import rows
+   that `xdk_bind_test.py --map` lists; `g_initCS`-style names for library data.
+2. **Pointer width (B)**: the hasher's `unsigned` parameters (init 99, 255-280), `DAT_0039db04` in the D3D block.
+3. **The `layout` hooks** (pad poll, no-fmv, the drive's post and pump), and the 64-bit layouts they need; per-function
+   rebinding for 0x87e30 / 0x86630; 0x2692c0's definition; 0x4e5acc named by address (0x253680, and the replay pin
+   0x964d0, whose owner has to change it).
+4. **SDL3 and FFmpeg for Linux and Android**, then the same shim configuration and the hooks applied there.
+5. **Float agreement** with the Wine build's x87 checkpoints, measured once the game loop runs (14.3 item 6).
+6. **Imports.h's three misnamed rows** (`NAME_RULE_EXCEPT`): the game's 0x0037df10 / 0x003821c0 / 0x003eba7c have no
+   stand-in in either build.
+
+Tests (all pass): `xdk_bind_test.py` (3 targets + controls + `--map`), `crt_bind_test.py` (3 targets), `shim_test.py`
+(3 targets), `replay_native_test.py`, `va_tree_test.sh` (mac, x64), `rtti_test.sh`, `entry_test.sh` (with the survey
+mode), `native_unbound_test.py` 4 / 4.

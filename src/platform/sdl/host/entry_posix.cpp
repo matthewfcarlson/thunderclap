@@ -135,7 +135,34 @@ static void summary(const char* how, hulk_u32 code) {
 }
 
 // A call to a symbol the image still lacks (the native link's stubs: `hulk_native_missing("name")`).
-extern "C" void hulk_native_missing(const char* name) {
+// HULK_NATIVE_MISSING=continue (a survey, never a result): log each missing name once ("missing-continue NAME
+// caller=... phase=..."), return 0 to the caller and go on, so one run lists the stops behind the first one. What
+// runs after such a return is not the game's behaviour.
+static int g_missing_continue = -1;
+extern "C" void* hulk_native_missing(const char* name) {
+    if (g_missing_continue < 0) {
+        const char* v = getenv("HULK_NATIVE_MISSING");
+        g_missing_continue = v && !strcmp(v, "continue");
+    }
+    if (g_missing_continue) {
+        static const char* seen[8192];
+        static hulk_u32 nseen;
+        static pthread_mutex_t mu = PTHREAD_MUTEX_INITIALIZER;
+        pthread_mutex_lock(&mu);
+        int known = 0;
+        for (hulk_u32 i = 0; i < nseen && !known; i++)
+            known = seen[i] == name;
+        if (!known && nseen < 8192)
+            seen[nseen++] = name;
+        pthread_mutex_unlock(&mu);
+        if (!known) {
+            char s[256];
+            uintptr_t caller = (uintptr_t)__builtin_return_address(0);
+            trace_line("missing-continue %s caller=%p %s phase=%s", name, (void*)caller, sym_of(caller, s, sizeof(s)),
+                       g_phase);
+        }
+        return 0;
+    }
     static volatile int in;
     if (in++)
         _exit(3);   // (a stub reached from the report itself, e.g. the shim's hulk_xdk_called still missing)

@@ -440,19 +440,35 @@ def build_host(tc, d):
     return objs, errs
 
 
+def build_shim(tc, d, aliases):
+    """The XDK shim and its host layer for the target (native_bind.shim_sources), stand-in configuration: no SDL3 on
+    the ELF targets yet (docs/native-android.md section 15), so no backends and no replay layer. library.cpp goes
+    through the library data alias wrapper (native_bind.alias_wrapper)."""
+    os.makedirs(d, exist_ok=True)
+    wrap = nb.alias_wrapper(aliases, "elf", os.path.join(d, "library_aliases.cpp"))
+    objs, errs = [], {}
+    for src in nb.shim_sources(False):
+        o = os.path.join(d, os.path.basename(src) + ".o")
+        path = wrap if src.endswith("/library.cpp") else os.path.join(ROOT, src)
+        r = subprocess.run(tc.cxx + tc.host_flags() + ["-Wno-unused-function", "-Wno-unused-variable",
+                                                       "-I" + os.path.join(ROOT, "src/platform/sdl"),
+                                                       "-I" + os.path.join(ROOT, nb.SHIM_DIR), "-c", path, "-o", o],
+                           capture_output=True, text=True)
+        if r.returncode:
+            errs[src] = r.stderr[-2000:]
+        else:
+            objs.append(o)
+    return objs, errs
+
+
 def lld(tc, d, objs, unbound, extra_asm):
     """The image: game objects + link tables + host glue + stubs, linked by lld (module docstring)."""
     tgt = TARGETS[tc.target]
     host, errs = build_host(tc, os.path.join(d, "host"))
     if errs:
         return {"status": "host glue failed", "errors": errs}
-    host_def = defined_syms(tc.nm, host)
     shared, static = tc.system_libs()
     sys_def = defined_syms(tc.nm, shared, dynamic=True) | defined_syms(tc.nm, static)
-    host_syms = nm_elf(host, tc.nm)
-    host_undef = set()
-    for o, (_d, u) in host_syms.items():
-        host_undef |= {s for s in u if s.startswith("hulk_")}
     game_syms = nm_elf(objs, tc.nm)
     game_def = set()
     for o, (dd, _u) in game_syms.items():
@@ -473,23 +489,55 @@ def lld(tc, d, objs, unbound, extra_asm):
     # take no game reference
     table = nb.Table()
     binding = nb.plan(set().union(*(u for _dd, u in game_syms.values())) - game_def - asm_def, table)
+    # the XDK shim (stand-ins) the XDK table binds to (a2s2)
+    shim, errs = build_shim(tc, os.path.join(d, "shim"), table.xdk.aliases)
+    if errs:
+        return {"status": "shim failed", "errors": errs}
+    host = host + shim
+    host_def = defined_syms(tc.nm, host)
+    host_syms = nm_elf(host, tc.nm)
+    host_undef = set()
+    for o, (_d, u) in host_syms.items():
+        host_undef |= {s for s in u if s.startswith("hulk_")}
+    # the shim's calls into the game by address (hulk_orig_<addr>, FUN_<addr>) that no game object defines under
+    # that name: a thunk to the tree's definition or the table row there (the macOS link does the same)
+    defs = nmac.LINK_STATE.get("defs")
+    thunks = {}
+    for x in sorted({x for _dd, us in host_syms.values() for x in us} - host_def - game_def):
+        m = nb.ORIG.match(x)
+        if m and defs is not None:
+            a_ = int(m.group(1), 16)
+            thunks[x] = defs.sym64(a_) or table.addrs.get(a_) or table.xdk.funcs.get(a_, (None,))[0]
+    if any(thunks.values()):
+        th = os.path.join(d, "host_thunks.s")
+        with open(th, "w") as f:
+            f.write(nb.thunk_asm(thunks, "elf", "arm64" if tc.triple.startswith("aarch64") else "x86-64"))
+        r = subprocess.run(tc.cc + ["--target=" + tc.triple, "-fPIC", "-c", th, "-o", th + ".o"], capture_output=True,
+                           text=True)
+        if r.returncode:
+            return {"status": "host thunks failed", "log": r.stderr[-2000:]}
+        asm_objs.append(th + ".o")
+        asm_def |= defined_syms(tc.nm, [th + ".o"])
     objs, bind_st = nb.apply(objs, binding, game_syms, os.path.join(d, "bound"), "elf",
                              extra=nmac.LINK_STATE.get("addr_renames"))   # (+ the address bindings: native_unbound.py)
     # the shim's hooks the host glue calls (null stubs); the game's main is a missing stub (reported) like any other
     hooks = host_undef - game_def - asm_def - host_def - sys_def - {"hulk_game_main"}
     dem = cp.undname(sorted(s for s in set(unbound) if s.startswith("?")))
     want = (((set(unbound) - set(binding)) | (host_undef - game_def - asm_def)) - host_def - sys_def) - hooks
+    want |= {x for x, t in thunks.items() if not t and x not in hooks}   # (FUN_<addr> nothing defines: a stub)
     data = {s for s in want | hooks if is_data(s, dem)}
     bound_dir = os.path.join(d, "bound")
     bound_syms = nm_elf([o for o in objs if os.path.dirname(o) == bound_dir], tc.nm)
     after = {o: bound_syms[o] if o in bound_syms else game_syms[o] for o in objs}
     crt_st, problems = nb.check(binding, after, host_syms, asm_def | want | hooks, sys_def, table)
-    st = {"stubs: code": len(want - data), "stubs: data": len(data), "null hooks": sorted(hooks),
+    st = {"stubs: code": len(want - data), "stubs: data": len(data), "null hooks": sorted(hooks), "host thunks": thunks,
           "unbound names the host glue defines": len(set(unbound) & host_def),
           "unbound names the C library defines": len((set(unbound) - set(binding)) & sys_def - host_def),
           "native CRT binding": dict(crt_st, apply=bind_st), "native CRT binding problems": problems[:40],
           "unbound names the C library defines (not CRT rows: bound to the C library's)":
               sorted((set(unbound) - set(binding)) & sys_def - host_def),
+          "shim": {"configuration": "stand-ins (no SDL3 for this target yet)", "objects": len(shim),
+                   "library data aliases": len(table.xdk.aliases)},
           "replay hooks": nmac.hook_report(game_syms, "elf")}
     stub = os.path.join(d, "stubs.elf.s")
     with open(stub, "w") as f:
@@ -543,9 +591,12 @@ def cmd_link(a):
         nmac.cmd_link(argparse.Namespace(name_table=False, bindings=a.bindings, ld=a.ld, no_addr=a.no_addr))
     lk = json.load(open(os.path.join(out, "link-report.json")))
     crt = sum(n for g, n in lk["groups"].items() if g.startswith("native CRT table"))
+    xdk = sum(n for g, n in lk["groups"].items() if g.startswith("XDK table"))
     lk["target"] = a.target
     lk["unbound (undefined less the native CRT table's rows)"] = lk["undefined"] - crt - lk["groups"].get(
         "bound by the address in the name", 0)     # (the address bindings: native_unbound.py)
+    lk["unbound (undefined less the native CRT and XDK tables' rows)"] = \
+        lk["unbound (undefined less the native CRT table's rows)"] - xdk     # (a2s2: the XDK table)
     if "ld64" in lk:
         lk["lld"] = lk.pop("ld64")
     with open(os.path.join(out, "link-report.json"), "w") as f:

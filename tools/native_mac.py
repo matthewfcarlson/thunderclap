@@ -694,6 +694,8 @@ def cmd_link(a):
     dem = cp.undname(sorted(s for s in undef if s.startswith("?")))
     aliases, groups, unbound = {}, collections.Counter(), []
     crt_names, crt_addr = crt_bindings()
+    import native_bind as nb
+    xdk = nb.XdkTable()
     for s in sorted(undef):
         k = norm(dem.get(s, s)) if s.startswith("?") else s
         # the native C runtime table (ours): a row's tree names, or a name that carries a row's XBE address.
@@ -704,6 +706,15 @@ def cmd_link(a):
         if t or (m and int(m.group(1), 16) in crt_addr):
             g = ("native CRT table: tree name" + (" (the host's own)" if t == s else "") if t else
                  "native CRT table: XBE address in the name")
+            groups[g] += 1
+            unbound.append((g, refs[s], s, dem.get(s, s)))
+            continue
+        # the XDK shim's tables (native_bind.XdkTable: imports.h, library.h): bound by the link step to the shim's
+        # stand-ins, which the image links (a2s2)
+        xt, xhow = xdk.target(s)
+        if xt:
+            g = "XDK table: " + ("library data by XBE address" if "library data" in xhow else
+                                 "import by XBE address in the name" if "address" in xhow else "import by name")
             groups[g] += 1
             unbound.append((g, refs[s], s, dem.get(s, s)))
             continue
@@ -754,7 +765,7 @@ def cmd_link(a):
         f.write(startup)
     with open(os.path.join(OUT, "link", "tu-inits-not-run.txt"), "w") as f:
         f.write("".join(u + "\n" for u in unused))
-    crt_like = {u for g, _n, u, _d in unbound if g.startswith("native CRT table")}
+    crt_like = {u for g, _n, u, _d in unbound if g.startswith(("native CRT table", "XDK table"))}
     LINK_STATE["addr_renames"] = {o: {r: t for r, t in m.items() if r not in crt_like} for o, m in addr_ren.items()}
     lk["address bindings"] = nu.plan_report(addr_why, addr_bound, refs)
     lk["address bindings"]["verified against"] = (a.bindings if a.bindings and os.path.exists(a.bindings) else None) \
@@ -802,17 +813,48 @@ def ld64(objs, aliases, unbound, extra_asm=()):
     host, errs = nb.macos_host_objects(os.path.join(d, "host"))
     if errs:
         return {"status": "host glue failed", "errors": errs}
-    host_syms = nm_macho(host)
-    host_def = set().union(*(dd for dd, _u in host_syms.values()))
-    host_undef = {s for _dd, u in host_syms.values() for s in u if s.startswith("hulk_")}
     game_syms = nm_macho(objs)
     game_def = set().union(*(dd for dd, _u in game_syms.values()))
     asm_def = set().union(*(dd for dd, _u in nm_macho(extra).values())) if extra else set()
     sys_def = nb.macos_system_names()
     table = nb.Table()
     binding = nb.plan(set().union(*(u for _dd, u in game_syms.values())) - game_def - asm_def, table)
-    objs, bind_st = nb.apply(objs, binding, game_syms, os.path.join(d, "bound"), "macho",
-                             extra=LINK_STATE.get("addr_renames"))   # (+ the address bindings: native_unbound.py)
+    # the XDK shim and its host layer (a2s2): the XDK table's targets, with SDL3 the backends and the replay layer;
+    # library.cpp compiled with the library data aliases the binding made (native_bind.alias_wrapper)
+    shim, shim_lflags, errs, shim_cfg = nb.macos_shim_objects(os.path.join(d, "shim"), table.xdk.aliases)
+    if errs:
+        return {"status": "shim failed", "errors": errs}
+    host = host + shim
+    host_syms = nm_macho(host)
+    host_def = set().union(*(dd for dd, _u in host_syms.values()))
+    host_undef = {s for _dd, u in host_syms.values() for s in u if s.startswith("hulk_")}
+    # the replay hooks (native_hooks.h): applied when the replay layer is linked (with SDL3), else reported
+    renames = {o: dict(m) for o, m in (LINK_STATE.get("addr_renames") or {}).items()}  # (the address bindings)
+    hook_rep = {"applied": "no (the image has no replay layer: no SDL3)"}
+    if "replay" in shim_cfg and LINK_STATE.get("defs") is not None:
+        ren, thunks, rep = nb.plan_hooks(game_syms, LINK_STATE["defs"].sym64, "macho", table)
+        for s_ in sorted({x for _dd, us in host_syms.values() for x in us} - host_def - game_def):
+            # (host code's other calls into the game by address: hulk_orig_<addr>, FUN_<addr>)
+            m_ = nb.ORIG.match(s_)
+            if m_ and s_ not in thunks:
+                thunks[s_] = LINK_STATE["defs"].sym64(int(m_.group(1), 16))
+        for o, m in ren.items():
+            renames.setdefault(o, {}).update(m)
+        for n_, f_ in list(thunks.items()):   # no tree definition: a CRT / XDK table row at that address (rand)
+            a_ = int(nb.ORIG.match(n_).group(1), 16)
+            if not f_:
+                thunks[n_] = table.addrs.get(a_) or table.xdk.funcs.get(a_, (None,))[0]
+        th = os.path.join(d, "hook_thunks.s")
+        with open(th, "w") as f:
+            f.write(nb.thunk_asm(thunks, "macho", "arm64"))
+        r = subprocess.run([clang, "--target=" + TRIPLE, "-c", th, "-o", th + ".o"], capture_output=True, text=True)
+        if r.returncode:
+            return {"status": "hook thunks failed", "log": r.stderr[-2000:]}
+        extra.append(th + ".o")
+        asm_def |= set().union(*(dd for dd, _u in nm_macho([th + ".o"]).values()))
+        hook_rep = {"applied": "yes (rows whose 'applied' is yes)", "rows": rep,
+                    "thunks": {n: f for n, f in sorted(thunks.items())}}
+    objs, bind_st = nb.apply(objs, binding, game_syms, os.path.join(d, "bound"), "macho", extra=renames)
     hooks = host_undef - game_def - asm_def - host_def - sys_def - {"hulk_game_main"}
     want = ((set(unbound) - set(binding)) | (host_undef - game_def - asm_def)) - host_def - sys_def - hooks
     dem = cp.undname(sorted(s for s in want if s.startswith("?")))
@@ -845,6 +887,7 @@ def ld64(objs, aliases, unbound, extra_asm=()):
     cmd = ["xcrun", "ld", "-arch", "arm64", "-no_fixup_chains", "-platform_version", "macos", MACOS_MIN, MACOS_MIN, "-o",
            os.path.join(d, "hulk-mac"), "-alias_list", al, "-filelist", rsp, "-e", "_main", "-no_uuid", "-syslibroot",
            subprocess.run(["xcrun", "--show-sdk-path"], capture_output=True, text=True).stdout.strip(), "-lSystem", "-lc++"]
+    cmd += shim_lflags
     r = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
     log = r.stdout + r.stderr
     with open(os.path.join(d, "ld.log"), "w") as f:
@@ -861,7 +904,9 @@ def ld64(objs, aliases, unbound, extra_asm=()):
             "native CRT binding": dict(crt_st, apply=bind_st), "native CRT binding problems": problems[:40],
             "unbound names the system libraries define (not CRT rows: bound to the system's)":
                 sorted((set(unbound) - set(binding)) & sys_def),
-            "replay hooks": hook_report(game_syms, "macho")}
+            "shim": {"configuration": shim_cfg, "objects": len(shim),
+                     "library data aliases": len(table.xdk.aliases)},
+            "replay hooks": hook_rep}
 
 
 # ---------------------------------------------------------------------------------------------- the C runtime table

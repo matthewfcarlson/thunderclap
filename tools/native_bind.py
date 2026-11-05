@@ -56,14 +56,122 @@ ROOT = cp.ROOT
 HOST_SRCS = ["src/platform/sdl/host/entry_posix.cpp", "src/platform/sdl/host/rtti_msabi.cpp",
              "src/platform/sdl/host/crt_posix.cpp", "src/platform/sdl/host/win32_posix.cpp",
              "src/platform/sdl/crt/softx87.cpp"]
-KINDS = ("libc", "glue", "math", "abi", "data", "na")
+KINDS = ("libc", "glue", "math", "abi", "data", "na", "xdk", "lib", "libdata")
+
+
+XDK_IMPORTS = os.path.join(ROOT, "src/platform/sdl/xdk/imports.h")
+XDK_LIBRARY = os.path.join(ROOT, "src/platform/sdl/xdk/library.h")
+XDK_KINDS = ("xdk", "lib", "libdata")
+# a free function's MS name: `?Name@Scope@...@@Y...` (namespaces only; a member's access code is not `Y`)
+MS_FREE_FN = re.compile(r"^\?([A-Za-z_]\w*)@((?:[A-Za-z_]\w*@)*)@Y")
+
+
+# Row names the game's sources use for another library function (a Wine build's binding map binds those names to the
+# address given; the row's own address has no caller there): the name rule leaves them alone, so they stay unbound
+# (tests/native_host/xdk_bind_test.py --map finds new ones). Callers of the rows themselves name them by address.
+NAME_RULE_EXCEPT = {
+    "D3D_KickOffAndWaitForIdle": "the game's name for 0x0037df10 (row 0x0038a5d0)",
+    "Get2DSurfaceDesc": "the game's name for 0x003821c0 (row 0x0038abf0)",
+    "XInitDevices": "the game's name for 0x003eba7c (row 0x003eac33)",
+}
+
+
+class XdkTable:
+    """The XDK shim's two tables (src/platform/sdl/xdk/): imports.h HULK_XDK_IMPORTS (X(address, name): the stand-in
+    hulk_xdk_<name>) and library.h HULK_LIB_FUNCTIONS (hulk_lib_<name>) / HULK_LIB_DATA (D(address, symbol, bytes):
+    the shim's own storage for library data the game reads by address). The second table of the native binding
+    (docs/native-android.md section 15).
+
+    Rule (target()): a game name means a row when
+      * it carries a function row's XBE address (native_mac.ADDR_NAME: `FUN_0020c14b`, `?FUN_002109f1@fn_x@@...`,
+        `thunk_FUN_0038acb0`), or
+      * it is a function row's name: the C name itself (`XInputGetState`) or an MS free function whose leaf is the
+        name, in any namespace (`?ConvertThreadToFiber@XAPILIB@fn_0026d990@@YA...`, `?D3DDevice_SetTexture@D3D8@...`);
+        never a member function or a variable of that name, nor a name of NAME_RULE_EXCEPT, or
+      * it is a data name (DAT_ / PTR_ / hulk_at_) whose address lies inside a data row: offset 0 binds the row's
+        symbol, any other offset `hulk_xlib_<address>` (the symbol + the offset), an alias the link defines next to the storage
+        (alias_asm()); a pointer-typed MS variable past a row's start is not bound (8 bytes over 4-byte words).
+    The Wine build binds the same references through its binding map (wine_link.platform_shim); this binds them by name
+    and is checked against that map by tests/native_host/xdk_bind_test.py --map."""
+
+    def __init__(self):
+        self.funcs = {}       # address -> (target, kind, row name)
+        self.by_name = {}     # row name -> target
+        for kind, path, pre in (("xdk", XDK_IMPORTS, "hulk_xdk_"), ("lib", XDK_LIBRARY, "hulk_lib_")):
+            for a, n in re.findall(r"^\s*X\((0x[0-9a-f]+), (\w+),", open(path).read(), re.M):
+                self.funcs[int(a, 16)] = (pre + n, kind, n)
+                if n not in NAME_RULE_EXCEPT:
+                    self.by_name.setdefault(n, pre + n)
+        self.data = [(int(a, 16), s.lstrip("_"), int(n)) for a, s, n in
+                     re.findall(r"^\s*D\((0x[0-9a-f]+), (\w+), (\d+)\)", open(XDK_LIBRARY).read(), re.M)]
+        self.kind = {t: k for t, k, _n in self.funcs.values()}
+        for _a, s, _n in self.data:
+            self.kind[s] = "libdata"
+        self.aliases = {}     # alias -> (data symbol, offset), filled by target()
+        self.pointer_inside = {}   # pointer-typed MS data names inside a data row past its start: not bound
+
+    def data_at(self, addr):
+        for a, s, n in self.data:
+            if a <= addr < a + n:
+                return s, addr - a
+        return None, None
+
+    def target(self, sym):
+        m = nmac.ADDR_NAME.search(sym)
+        if m:
+            a = int(m.group(1), 16)
+            if a in self.funcs and not re.search(r"(?:^|[^0-9A-Za-z])(?:DAT|PTR|hulk_at)_", sym):
+                return self.funcs[a][0], "XBE address in the name"
+            s, off = self.data_at(a)
+            if s and re.search(r"(?:^|[^0-9A-Za-z])(?:DAT|PTR|hulk_at)_00", sym):
+                if not off:
+                    return s, "XBE address in the name (library data)"
+                if re.search(r"@@3[PQRS]E", sym):
+                    # a pointer variable inside a block of 4-byte words: 8 bytes at a 4-byte offset on 64-bit (lld
+                    # refuses the misaligned load; the layout class of section 14.3 item 5): left unbound
+                    self.pointer_inside[sym] = a
+                    return None, None
+                al = "hulk_xlib_%08x" % a
+                self.aliases[al] = (s, off)
+                self.kind[al] = "libdata"
+                return al, "XBE address in the name (library data + 0x%x)" % off
+            return None, None
+        if sym in self.by_name:
+            return self.by_name[sym], "import name"
+        f = MS_FREE_FN.match(sym)
+        if f and f.group(1) in self.by_name and "?$" not in sym:
+            return self.by_name[f.group(1)], "import name (MS free function)"
+        return None, None
+
+
+def alias_asm(aliases, fmt):
+    """Top-level assembly that defines each `hulk_xlib_<address>` alias as the data symbol plus the offset;
+    it goes into the TU that defines the storage (an assembler resolves `symbol + offset` only for a symbol it
+    defines), so the link compiles library.cpp through a wrapper with this (macos_shim_objects / native_elf)."""
+    out = []
+    for al, (s, off) in sorted(aliases.items()):
+        a, t = spell(al, fmt), spell(s, fmt)
+        out.append('\t.globl "%s"\n\t.set "%s", "%s" + %d\n' % (a, a, t, off))
+    return "".join(out)
+
+
+def alias_wrapper(aliases, fmt, path):
+    """Write a C++ TU that is library.cpp plus the aliases' assembly (alias_asm), for the link to compile in
+    library.cpp's place. Returns the path."""
+    with open(path, "w") as f:
+        f.write('// generated by tools/native_bind.py: library.cpp + the library data aliases\n#include "%s"\n'
+                % os.path.join(ROOT, "src/platform/sdl/xdk/library.cpp"))
+        if aliases:
+            f.write('__asm__(R"hulkasm(\n%s)hulkasm");\n' % alias_asm(aliases, fmt))
+    return path
 
 
 class Table:
     """native_crt_table.h as name -> target and XBE address -> target (native_mac.crt_bindings(), the inventory's
-    own rule), with each target's kind."""
+    own rule), with each target's kind; with `xdk`, the XDK shim's tables (XdkTable) after it."""
 
-    def __init__(self):
+    def __init__(self, xdk=True):
+        self.xdk = XdkTable() if xdk else None
         self.rows = nmac.native_crt_rows()
         self.names, self.addrs = nmac.crt_bindings()
         self.kind = {}
@@ -75,15 +183,24 @@ class Table:
         for s, _n in self.data.values():
             self.kind[s] = "data"
         self.na = {n for _a, k, _t, ns in self.rows if k == "na" for n in ns}
+        if self.xdk:
+            for t, k in self.xdk.kind.items():
+                self.kind.setdefault(t, k)
 
     def target(self, sym):
-        """(target, how) for a game name the table binds, else (None, None)."""
+        """(target, how) for a game name the table binds, else (None, None): the CRT table first, then the XDK
+        shim's tables."""
         t = self.names.get(sym) or self.names.get("_" + sym)
         if t:
             return t, "tree name"
         m = nmac.ADDR_NAME.search(sym)
         if m and int(m.group(1), 16) in self.addrs:
             return self.addrs[int(m.group(1), 16)], "XBE address in the name"
+        if self.xdk:
+            t, how = self.xdk.target(sym)
+            if t:
+                self.kind.setdefault(t, self.xdk.kind[t])
+                return t, "XDK: " + how
         return None, None
 
 
@@ -169,9 +286,15 @@ def check(binding, game_syms, host_syms, other_defined=(), system_defined=None, 
         by_kind[k] += 1
         if tgt != s and s in game_undef:
             problems.append("%s: still referenced by a game object (not renamed to %s)" % (s, tgt))
+    xlib = set(t.xdk.aliases) if t.xdk else set()
     for tgt in sorted(set(binding.values())):
         k = t.kind.get(tgt, "?")
-        if k in ("glue", "math", "abi", "data"):
+        if tgt in xlib:   # a library data alias: defined next to the storage (alias_wrapper), by the host side
+            if host_def[tgt] != 1 or host_def[t.xdk.aliases[tgt][0]] != 1:
+                problems.append("libdata alias %s: defined %d times, its storage %s %d times by the host side (want 1)"
+                                % (tgt, host_def[tgt], t.xdk.aliases[tgt][0], host_def[t.xdk.aliases[tgt][0]]))
+            continue
+        if k in ("glue", "math", "abi", "data", "xdk", "lib", "libdata"):
             if host_def[tgt] != 1:
                 problems.append("%s target %s: defined %d times by the host glue (want 1)" % (k, tgt, host_def[tgt]))
             if game_def[tgt] or tgt in other:
@@ -211,10 +334,12 @@ def names_of(addr, names, sym64, table):
     carrying the address (FUN_/DAT_/..., native_mac.ADDR_NAME), or a native CRT table row's tree name at that
     address."""
     crt = {n for a, k, _t, ns in table.rows if a == addr and k != "na" for n in ns}
+    xt = table.xdk.funcs.get(addr, (None,))[0] if table.xdk else None
     out = set()
     for n in names:
         m = nmac.ADDR_NAME.search(n)
-        if n == sym64 or (m and int(m.group(1), 16) == addr) or n in crt or ("_" + n) in crt:
+        if n == sym64 or (m and int(m.group(1), 16) == addr) or n in crt or ("_" + n) in crt or (
+                xt and table.xdk.target(n)[0] == xt):
             out.add(n)
     return out
 
@@ -355,6 +480,81 @@ def macos_system_names(arch="arm64"):
                     if n.startswith("_"):
                         names.add(n[1:])
     return names
+
+
+# ---------------------------------------------------------------------------------------------- the shim on native
+# The XDK shim (src/platform/sdl/xdk/: the imports' and library's stand-ins the XDK table binds) as host code: every
+# file but startup.cpp (entry_posix.cpp replaces it) and replay_hooks.cpp (replay_native.cpp replaces it), with the
+# native host layer it calls. With SDL3 (macOS today: build/third_party/out/sdl-host), HULK_NATIVE_SDL: the files,
+# saves, input, audio and movie backends the Wine build links (docs/native-android.md section 15), plus the replay
+# layer (the driver, the recording reader). Without SDL3 (the ELF targets for now) the stand-in configuration.
+SHIM_DIR = "src/platform/sdl/xdk"
+SHIM_SKIP = ("startup.cpp", "replay_hooks.cpp")
+SHIM_HOST = ["src/platform/sdl/host/host_crt_posix.cpp", "src/platform/sdl/host/shim_posix.cpp"]
+REPLAY_SRCS = ["src/platform/sdl/host/replay_native.cpp"]   # (the recording reader: input/hulk_input.cpp includes it)
+SDL_SRCS = ["src/platform/sdl/audio/hulk_audio.cpp", "src/platform/sdl/audio/xadpcm.cpp",
+            "src/platform/sdl/audio/reverb.cpp", "src/platform/sdl/input/hulk_input.cpp", "src/platform/sdl/fs/hulk_fs.cpp",
+            "src/platform/sdl/fs/hulk_saves.cpp", "src/platform/sdl/movies/bink_player.cpp",
+            "src/platform/sdl/movies/movie.c"]
+TP_OUT = os.path.join(ROOT, "build/third_party/out")
+MAC_SDL = os.path.join(TP_OUT, "sdl-host")
+MAC_FFMPEG = os.path.join(TP_OUT, "ffmpeg-host/install")
+MAC_FRAMEWORKS = ["CoreAudio", "AudioToolbox", "CoreFoundation", "IOKit", "GameController", "CoreHaptics",
+                  "ForceFeedback", "Foundation", "AVFoundation", "CoreMotion", "Carbon", "AppKit", "Metal", "QuartzCore",
+                  "UniformTypeIdentifiers", "CoreVideo", "CoreMedia"]
+
+
+def shim_sources(sdl):
+    """[(source, is_c)] of the shim and its host layer, in link order; library.cpp is the alias wrapper's slot."""
+    out = [os.path.join(SHIM_DIR, f) for f in sorted(os.listdir(os.path.join(ROOT, SHIM_DIR)))
+           if f.endswith(".cpp") and f not in SHIM_SKIP]
+    out += SHIM_HOST
+    if sdl:
+        out += REPLAY_SRCS + SDL_SRCS
+    return out
+
+
+def macos_sdl():
+    """(compile flags, link flags) for SDL3 (and FFmpeg's shared libraries) on arm64 macOS, or None if not built."""
+    lib = os.path.join(MAC_SDL, "lib", "libSDL3.a")
+    ff = os.path.join(MAC_FFMPEG, "lib")
+    if not os.path.exists(lib) or not os.path.isdir(ff):
+        return None
+    cflags = ["-DHULK_NATIVE_SDL=1", "-I" + os.path.join(MAC_SDL, "include"), "-I" + os.path.join(MAC_FFMPEG, "include")]
+    rt = subprocess.run(["xcrun", "clang", "--print-runtime-dir"], capture_output=True, text=True).stdout.strip()
+    lflags = [lib, "-L" + ff, "-lavformat", "-lavcodec", "-lavutil", "-rpath", ff, "-liconv",
+              os.path.join(rt, "libclang_rt.osx.a")]    # (SDL's availability checks: __isPlatformVersionAtLeast)
+    for fw in MAC_FRAMEWORKS:
+        lflags += ["-framework", fw]
+    return cflags, lflags
+
+
+def macos_shim_objects(d, aliases, min_os=None, sdl=True):
+    """The shim and its host layer for arm64 macOS (shim_sources), library.cpp through the alias wrapper. Returns
+    (objects, ld64 flags, errors, configuration)."""
+    os.makedirs(d, exist_ok=True)
+    cfg = macos_sdl() if sdl else None
+    cflags, lflags = cfg if cfg else ([], [])
+    objs, errs = [], {}
+    wrap = alias_wrapper(aliases, "macho", os.path.join(d, "library_aliases.cpp"))
+
+    def one(src):
+        path = wrap if src.endswith("/library.cpp") else os.path.join(ROOT, src)
+        is_c = src.endswith(".c")
+        o = os.path.join(d, os.path.basename(src) + ".o")
+        cmd = ["xcrun", "clang" if is_c else "clang++", "-arch", "arm64"] + ([] if is_c else ["-std=c++17"]) + [
+            "-O1", "-g", "-fno-omit-frame-pointer", "-Wall", "-Wno-unused-function", "-Wno-unused-variable",
+            "-mmacosx-version-min=" + (min_os or nmac.MACOS_MIN), "-I" + os.path.join(ROOT, "src/platform/sdl"),
+            "-I" + os.path.join(ROOT, SHIM_DIR)] + cflags + ["-c", path, "-o", o]
+        r = subprocess.run(cmd, capture_output=True, text=True)
+        return src, o, (r.stderr[-2000:] if r.returncode else None)
+    with concurrent.futures.ThreadPoolExecutor(2) as ex:
+        for src, o, err in ex.map(one, shim_sources(bool(cfg))):
+            if err:
+                errs[src] = err
+            else:
+                objs.append(o)
+    return objs, lflags, errs, ("SDL3 backends + replay layer (HULK_NATIVE_SDL)" if cfg else "stand-ins (no SDL3)")
 
 
 def macos_host_objects(d, srcs=None, min_os=None):

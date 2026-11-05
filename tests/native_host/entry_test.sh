@@ -18,6 +18,10 @@ check() {   # mode, expected exit, grep pattern...
 }
 check ok 0 "^init 0 0x00011000" "^skip 1 0x00349000" "^init 2 0x00012000" "^first 1 CreateFileA" "^main returned 0" "^end returned code=0" "^called CreateFileA 1"
 check missing 3 "^missing ?FUN_00123456@@YAXXZ caller=.* phase=main" "^frame 0 ret=" "^end missing code=3"
+# the survey mode (a2s2): each missing name logged once, the stub returns 0 and the run goes on
+export HULK_NATIVE_MISSING=continue
+check missing 0 "^missing-continue ?FUN_00123456@@YAXXZ caller=.* phase=main" "^main returned" "^end returned"
+unset HULK_NATIVE_MISSING
 check crash 4 "^crash signal=1[01] addr=0x10 pc=.*game_crash" "^regs .*hulk_game_main" "^frame 0 ret=.* main" "^end crash"
 check hang 6 "^hang sample 0 thread" "^end hang"
 [ $fail = 0 ] && echo "entry_test: ok"
