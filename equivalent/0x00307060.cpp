@@ -4,14 +4,15 @@
 // A packed stream of 16-bit words: each record has a header (selector in bits 12-13,
 // type in bits 14-15), literal words that are appended to a global 0x400-entry buffer,
 // and offsets to follow into nested records.
+#include "compat/ptr.h"
 #include "decls/data/engine/physics.h"
 
 class Stream {
 public:
-    void FUN_00307060(const unsigned short* limits, int unused);
+    void FUN_00307060(const unsigned short* limits, hulk_intptr unused);
 };
 
-void Stream::FUN_00307060(const unsigned short* limits, int unused)
+void Stream::FUN_00307060(const unsigned short* limits, hulk_intptr unused)
 {
     const unsigned short* p = (const unsigned short*)this;
     for (;;) {

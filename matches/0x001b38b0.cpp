@@ -15,9 +15,9 @@ class Function5_1b38b0 : public Ctor_001d0480 {
     char b18;
     char pad19[3];
     int field1c;
-    Function5_1b38b0(int, int);
+    Function5_1b38b0(hulk_intptr, hulk_intptr);
 };
-Function5_1b38b0::Function5_1b38b0(int a, int b) : Ctor_001d0480(a, 5) {
+Function5_1b38b0::Function5_1b38b0(hulk_intptr a, hulk_intptr b) : Ctor_001d0480(a, 5) {
     *(volatile hulk_intptr*)this = ((hulk_intptr)DAT_0041d9a4);
     field1c = b;
     b18 = FUN_001d04d0(((hulk_intptr)((char*)&DAT_0048e100)));

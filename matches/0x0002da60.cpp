@@ -15,9 +15,9 @@ class Method3_2da60 {
     char pad19[3];
     int m1c;
     void Init(void*, int);
-    Method3_2da60(void*, int);
+    Method3_2da60(void*, hulk_intptr);
 };
-Method3_2da60::Method3_2da60(void* p, int x) {
+Method3_2da60::Method3_2da60(void* p, hulk_intptr x) {
     Init(p, 3);
     vf = ((hulk_intptr)DAT_003f424c);
     m1c = x;

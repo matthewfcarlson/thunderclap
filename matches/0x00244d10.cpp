@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/owners.h"
 struct Temp_244d10 {
     char x[12];
@@ -6,7 +7,7 @@ struct Temp_244d10 {
 };
 extern "C" unsigned char __cdecl FUN_0025bce0(int, Temp_244d10*);
 extern "C" unsigned long long __cdecl FUN_002672f0(unsigned long, int, int);
-unsigned char __cdecl Target(int a, unsigned long* out) {
+unsigned char __cdecl Target(hulk_intptr a, unsigned long* out) {
     Temp_244d10 t;
     t.Init();
     unsigned char r = FUN_0025bce0(a, &t);

@@ -14,9 +14,9 @@ class Method6 : public Ctor_001d0480 {
     char b18;
     char pad19[3];
     int m1c;
-    Method6(const char*, int);
+    Method6(const char*, hulk_intptr);
 };
-Method6::Method6(const char* a, int b) : Ctor_001d0480(a, 6) {
+Method6::Method6(const char* a, hulk_intptr b) : Ctor_001d0480(a, 6) {
     vt = (char*)((hulk_intptr)DAT_003f40cc);
     m1c = b;
     b18 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));

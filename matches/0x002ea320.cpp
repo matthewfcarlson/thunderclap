@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef void*(__cdecl* AllocFn)(void*, int, int);
 typedef void(__cdecl* FreeFn)(void*, void*);
 struct Manager_2ea320 {
@@ -7,7 +8,7 @@ struct Manager_2ea320 {
     void* heap;
 };
 extern void* __cdecl FUN_002ea2a0(void*, void*, int);
-void* __cdecl FUN_002ea320(Manager_2ea320* m, int param2, int param3) {
+void* __cdecl FUN_002ea320(Manager_2ea320* m, hulk_intptr param2, int param3) {
     void* a = m->alloc(m->heap, 1, 0x40);
     if (!a)
         return 0;

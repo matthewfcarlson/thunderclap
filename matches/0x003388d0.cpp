@@ -32,10 +32,10 @@ class O_3388d0 {
     T3 s86a;
     char pad8[5];
     char c872;
-    O_3388d0(int a, int b) throw();
+    O_3388d0(hulk_intptr a, int b) throw();
     void F1(char* p, const unsigned short* w) throw();
 };
-O_3388d0::O_3388d0(int a, int b) throw() {
+O_3388d0::O_3388d0(hulk_intptr a, int b) throw() {
     m8 = b;
     vptr = ((void**)&DAT_00434630);
     m14 = (hulk_intptr)FUN_0008d690(b + 0x40);

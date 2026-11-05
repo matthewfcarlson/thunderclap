@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Thing_1c12f0 {
   public:
     virtual void a();
@@ -21,6 +22,6 @@ class Wrapper_1c12f0 {
     char pad[8];
     Thing_1c12f0* value;
 };
-int __fastcall FUN_001c12f0(Wrapper_1c12f0* self) {
+hulk_intptr __fastcall FUN_001c12f0(Wrapper_1c12f0* self) {
     return self->value->get() + 0x20;
 }

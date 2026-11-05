@@ -21,10 +21,10 @@ public:
     int field_14;
     void* data;
     QuaternionChannel* FUN_0028b420(int a, int b);
-    QuaternionChannel* Construct(int a, int b);
+    QuaternionChannel* Construct(int a, hulk_intptr b);
 };
 
-QuaternionChannel* QuaternionChannel::Construct(int a, int b)
+QuaternionChannel* QuaternionChannel::Construct(int a, hulk_intptr b)
 {
     FUN_0028b420(a, b);
     vptr = (hulk_intptr)DAT_0042ca2c;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
 
@@ -16,9 +17,9 @@ struct C_1eb560 {
     Renderer_1eb560* m0;
     Owner_1eb560* m4;
     char m8;
-    void Fn(int);
+    void Fn(hulk_intptr);
 };
-void C_1eb560::Fn(int t) {
+void C_1eb560::Fn(hulk_intptr t) {
     Temp_1eb560 a;
     ((owners::Obj_1ef320 *)&a)->FUN_001ef320();
     a.SetName(DAT_00424208);

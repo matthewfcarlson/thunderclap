@@ -5,9 +5,9 @@ class CTokenHashed {
   public:
     void* vftable;
     int a, b, c, d, e;
-    CTokenHashed* Target(int p1, int p2, int p3, int p4);
+    CTokenHashed* Target(hulk_intptr p1, int p2, int p3, int p4);
 };
-CTokenHashed* CTokenHashed::Target(int p1, int p2, int p3, int p4) {
+CTokenHashed* CTokenHashed::Target(hulk_intptr p1, int p2, int p3, int p4) {
     a = 0;
     b = 0;
     c = 0;

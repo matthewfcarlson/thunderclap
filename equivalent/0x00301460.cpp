@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 2/2)
 // FUN_00301460 @ 0x00301460
+#include "compat/ptr.h"
 struct Vec3_301460 {
     float x, y, z;
 };
@@ -23,10 +24,10 @@ public:
     Link_301460 link;               // 0x2c
     bool FUN_00314430(int a, int sample, int field, Vec3_301460 *w, Link_301460 *l, Vec3_301460 *v, Vec3_301460 *u, int one);
     void FUN_00314be0(int a, Vec3_301460 *v, Probe_301460 *p, Vec3_301460 *u, int first, Vec3_301460 *w);
-    void FUN_00301460(int a, Probe_301460 *probe);
+    void FUN_00301460(hulk_intptr a, Probe_301460 *probe);
 };
 
-void Body_301460::FUN_00301460(int a, Probe_301460 *probe) {
+void Body_301460::FUN_00301460(hulk_intptr a, Probe_301460 *probe) {
     Vec3_301460 w, u, v;
     vx = vx * -1.0f;
     vy = vy * -1.0f;

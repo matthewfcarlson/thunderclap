@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0028dae0 @ 0x0028dae0
+#include "compat/ptr.h"
 #include "gen/owners.h"
 void *__cdecl FUN_0008d6d0(unsigned int size);
 void __stdcall FUN_00011520(void *base, unsigned int size, int count, void *ctor);
@@ -22,14 +23,14 @@ public:
 // equiv-map: ??0ChannelBase@@QAE@HH@Z = 0x0028b420
 class CompressedQuaternionChannel : public RotationChannel_28dae0 {
 public:
-    CompressedQuaternionChannel(int a, int b);
+    CompressedQuaternionChannel(int a, hulk_intptr b);
     virtual void v0();
 
     void *data;          // +0x18
 };
 
 // Allocates (or borrows from the shared pool) 3 bytes per element.
-CompressedQuaternionChannel::CompressedQuaternionChannel(int a, int b) : RotationChannel_28dae0(a, b) {
+CompressedQuaternionChannel::CompressedQuaternionChannel(int a, hulk_intptr b) : RotationChannel_28dae0(a, b) {
     data = 0;
     if (shared == 0) {
         int n = count;

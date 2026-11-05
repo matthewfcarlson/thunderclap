@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class X_d71f0 {
   public:
     void a(int, int, int);
@@ -21,9 +22,9 @@ class A_d71f0 {
     Y_d71f0* p4;
     X_d71f0* p8;
     Z* pc;
-    void f(int, int, int);
+    void f(hulk_intptr, hulk_intptr, hulk_intptr);
 };
-void A_d71f0::f(int a, int b, int c) {
+void A_d71f0::f(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     p8->a(a, b, c);
     p4->a(a, b, c);
     unsigned int v = p8->b();

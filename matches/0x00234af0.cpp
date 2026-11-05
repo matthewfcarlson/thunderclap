@@ -10,9 +10,9 @@ class ParamValueStringList {
     int vptr;
     int pad;
     Part_234af0 part;
-    ParamValueStringList(int);
+    ParamValueStringList(hulk_intptr);
 };
-ParamValueStringList::ParamValueStringList(int x) {
+ParamValueStringList::ParamValueStringList(hulk_intptr x) {
     int* p = &vptr;
     *(hulk_intptr*)p = (hulk_intptr)&vtBase_234af0;
     part.Init(x);

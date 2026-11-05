@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3029 inputs, branch coverage 68/68)
 // FUN_0002ab40 @ 0x0002ab40
 // FUN_0002ab40 @ 0x0002ab40
+#include "compat/ptr.h"
 #include "gen/owners.h"
 extern "C" double sqrt(double);
 
@@ -49,7 +50,7 @@ struct Registry_2ab40 {
 
 class AgentSet {
 public:
-    void FUN_0002ab40(int a0, int a1);
+    void FUN_0002ab40(hulk_intptr a0, hulk_intptr a1);
     void FUN_0002a960(int a0);
     void FUN_00025ff0(int a0, int a1);
 
@@ -64,7 +65,7 @@ public:
     int modes[16];
 };
 
-void AgentSet::FUN_0002ab40(int a0, int a1)
+void AgentSet::FUN_0002ab40(hulk_intptr a0, hulk_intptr a1)
 {
     FUN_0002a960(a0);
     FUN_00025ff0(a0, a1);

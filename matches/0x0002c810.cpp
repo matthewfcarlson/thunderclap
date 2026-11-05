@@ -18,9 +18,9 @@ class Method3 {
     u8 b18;
     char pad19[3];
     u32_2c810 value;
-    Method3* target(void*, u32_2c810);
+    Method3* target(void*, hulk_uintptr);
 };
-Method3* Method3::target(void* a, u32_2c810 c) {
+Method3* Method3::target(void* a, hulk_uintptr c) {
     ((ThisCall_001d0480*)(this))->setup(a, 3);
     vf = ((hulk_intptr)DAT_003f408c);
     value = c;

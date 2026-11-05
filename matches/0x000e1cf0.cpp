@@ -3,10 +3,10 @@ extern "C" char DAT_0040c0d4[];
 class FEDoBackScreen {
   public:
     virtual void f();
-    FEDoBackScreen(int, unsigned char, unsigned char);
+    FEDoBackScreen(hulk_intptr, unsigned char, unsigned char);
     char pad[0x38];
 };
-FEDoBackScreen::FEDoBackScreen(int a, unsigned char b, unsigned char c) {
+FEDoBackScreen::FEDoBackScreen(hulk_intptr a, unsigned char b, unsigned char c) {
     *(int*)((char*)this + 8) = -1;
     *(int*)((char*)this + 12) = -1;
     *(int*)((char*)this + 16) = a;

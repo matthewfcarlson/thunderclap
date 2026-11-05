@@ -14,9 +14,9 @@ class Method3_1e0b60 {
     char m18;
     char pad19[3];
     int m1c;
-    Method3_1e0b60(int, int);
+    Method3_1e0b60(hulk_intptr, hulk_intptr);
 };
-Method3_1e0b60::Method3_1e0b60(int x, int y) {
+Method3_1e0b60::Method3_1e0b60(hulk_intptr x, hulk_intptr y) {
     Init(x, 3);
     m0 = ((hulk_intptr)DAT_00423478);
     m1c = y;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 226 inputs, branch coverage 10/10)
 // FUN_000e19d0 @ 0x000e19d0
+#include "compat/ptr.h"
 struct Tbl_e19d0 { void* FUN_000df970(int id); };
 struct Reg_e19d0 { char pad[4]; Tbl_e19d0* tbl; };
 struct Owner_e19d0 { char pad[4]; Reg_e19d0* reg; };
@@ -11,9 +12,9 @@ struct FEDoFunction {
  char v14;
  char pad[0x34 - 0x15];
  void* fn; int count; int* table;
- FEDoFunction(Owner_e19d0* o, int id, int n);
+ FEDoFunction(Owner_e19d0* o, hulk_intptr id, int n);
 };
-FEDoFunction::FEDoFunction(Owner_e19d0* o, int id, int n) {
+FEDoFunction::FEDoFunction(Owner_e19d0* o, hulk_intptr id, int n) {
  v8 = -1;
  vc = -1;
  owner = o;

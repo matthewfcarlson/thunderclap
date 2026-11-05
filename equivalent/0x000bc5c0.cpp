@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // FUN_000bc5c0 @ 0x000bc5c0
+#include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 #include "gen/owners.h"
 
@@ -8,9 +9,9 @@ struct Player_bc5c0 {  void FUN_00089810(int);  void FUN_00089300(const char*); 
 struct Object {
  char pad0[0x30]; void* resource; Player_bc5c0* player; char pad38[0x14]; Listener_bc5c0* listener;
  bool FUN_000b4dc0(const char*);
- void FUN_000bc5c0(const char* name, int id, int mode, int unused);
+ void FUN_000bc5c0(const char* name, hulk_intptr id, int mode, int unused);
 };
-void Object::FUN_000bc5c0(const char* name, int id, int mode, int unused) {
+void Object::FUN_000bc5c0(const char* name, hulk_intptr id, int mode, int unused) {
  if (!resource || !player) return;
  if (!FUN_000b4dc0(name)) return;
  if (!((owners::K_b4c10 *)this)->FUN_000b4c10((const char *)(hulk_uintptr)(int)id)) return;

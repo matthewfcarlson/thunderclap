@@ -11,9 +11,9 @@ class LevelLoader {
     int m4, m8, mc, m10;
     unsigned m14, m18;
     RoomLoader_1c8f60* m1c;
-    LevelLoader(unsigned a, unsigned b);
+    LevelLoader(hulk_uintptr a, hulk_uintptr b);
 };
-LevelLoader::LevelLoader(unsigned a, unsigned b) {
+LevelLoader::LevelLoader(hulk_uintptr a, hulk_uintptr b) {
     m4 = 0;
     m8 = 0x60000700;
     mc = 0;

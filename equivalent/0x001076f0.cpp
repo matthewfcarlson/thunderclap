@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001076f0 @ 0x001076f0
+#include "compat/ptr.h"
 extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 
 class CAvoidBehaviour_1076f0 {
@@ -27,7 +28,7 @@ public:
 // equiv-map: ??0AgentBase@@QAE@H@Z = 0x000fc760
 class CRangedAgent : public CCharacterAgent_1076f0 {
 public:
-    CRangedAgent(int arg);
+    CRangedAgent(hulk_intptr arg);
     virtual void vfunc_9();
     CAvoidBehaviour_1076f0 *f5c;
     int f60;
@@ -38,7 +39,7 @@ public:
     char b81;
 };
 
-CRangedAgent::CRangedAgent(int arg) : CCharacterAgent_1076f0(arg)
+CRangedAgent::CRangedAgent(hulk_intptr arg) : CCharacterAgent_1076f0(arg)
 {
     CAvoidBehaviour_1076f0 *w = 0;
     void *mem = FUN_0008d690(0x38);

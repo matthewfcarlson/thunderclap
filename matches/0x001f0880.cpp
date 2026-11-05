@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Bits {
     int lo, hi;
 };
@@ -20,11 +21,11 @@ class CSoundCommand_PlayAmbienceEvent : public CSoundCommand_1f0880 {
     virtual void Fn();
     Pair pair;
     int f;
-    CSoundCommand_PlayAmbienceEvent(int x, int y, int z);
+    CSoundCommand_PlayAmbienceEvent(hulk_intptr x, int y, int z);
 };
 extern "C" __int64 __cdecl FUN_002672f0(int, int, int);
 extern "C" int __cdecl FUN_002673a0(int, int);
-CSoundCommand_PlayAmbienceEvent::CSoundCommand_PlayAmbienceEvent(int x, int y, int z) : CSoundCommand_1f0880(z) {
+CSoundCommand_PlayAmbienceEvent::CSoundCommand_PlayAmbienceEvent(hulk_intptr x, int y, int z) : CSoundCommand_1f0880(z) {
     Value v;
     v.whole = FUN_002672f0(x, 0, 0);
     pair.e = v.parts.hi;

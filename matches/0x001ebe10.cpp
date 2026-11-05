@@ -1,4 +1,5 @@
 // FUN_001ebe10 @ 0x001ebe10
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
 
@@ -35,11 +36,11 @@ struct Owner_1ebe10 {
 class Emitter_1ebe10 {
 public:
     Owner_1ebe10 *owner;
-    void Emit(Source_1ebe10 *source, const void *where, int name);
+    void Emit(Source_1ebe10 *source, const void *where, hulk_intptr name);
 };
 
 
-void Emitter_1ebe10::Emit(Source_1ebe10 *source, const void *where, int name)
+void Emitter_1ebe10::Emit(Source_1ebe10 *source, const void *where, hulk_intptr name)
 {
     if (source == 0)
         return;

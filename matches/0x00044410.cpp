@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Result_44410 {
   public:
     char pad[8];
@@ -22,9 +23,9 @@ class Source_44410 {
   public:
     char pad[8];
     Inner_44410* item;
-    int FUN_00044410();
+    hulk_intptr FUN_00044410();
 };
-int Source_44410::FUN_00044410() {
+hulk_intptr Source_44410::FUN_00044410() {
     if (!item)
         return 0;
     return item->f11()->value;

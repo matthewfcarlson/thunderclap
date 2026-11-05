@@ -1,4 +1,5 @@
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern void* VT_Method2[2];
@@ -22,10 +23,10 @@ class Closure2 : public Ctor_001d0480 {
     int mA3;        // 0x1c
     int mA2;        // 0x20
 
-    Closure2(void* a1, int a2, int a3);
+    Closure2(void* a1, hulk_intptr a2, hulk_intptr a3);
 };
 
-Closure2::Closure2(void* a1, int a2, int a3) : Ctor_001d0480(a1, 2) {
+Closure2::Closure2(void* a1, hulk_intptr a2, hulk_intptr a3) : Ctor_001d0480(a1, 2) {
     vfptr = (void*)VT_Method2;
     mA3 = a3;
     mFlag18 = LookupFlag(((void**)&DAT_0048e134));

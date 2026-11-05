@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 class Function_be840 {
@@ -9,7 +10,7 @@ class Function_be840 {
 
 class Method7 : public Function_be840 {
   public:
-    Method7(void* a, int b);
+    Method7(void* a, hulk_intptr b);
     virtual void Call();
     char m10, m11, m12, m13, m14, m15, m16, m17;
     char m18;
@@ -18,7 +19,7 @@ class Method7 : public Function_be840 {
 };
 
 
-Method7::Method7(void* a, int b) : Function_be840(a, 7) {
+Method7::Method7(void* a, hulk_intptr b) : Function_be840(a, 7) {
     m1c = b;
     m18 = FUN_001d04d0(((const char*)&DAT_0048e100));
     m10 = FUN_001d04d0(((const char*)&DAT_0048e0f0));

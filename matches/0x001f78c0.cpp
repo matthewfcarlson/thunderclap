@@ -12,9 +12,9 @@ class Method3_1f78c0 {
     char pad19[3];
     int field1c;
     void Base(int, int);
-    Method3_1f78c0* Build(int, int);
+    Method3_1f78c0* Build(hulk_intptr, hulk_intptr);
 };
-Method3_1f78c0* Method3_1f78c0::Build(int a, int b) {
+Method3_1f78c0* Method3_1f78c0::Build(hulk_intptr a, hulk_intptr b) {
     Base(a, 3);
     vtable = ((hulk_intptr)DAT_00424d6c);
     field1c = b;

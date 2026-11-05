@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class V {
   public:
     virtual void a0();
@@ -39,9 +40,9 @@ class C_99d00 {
   public:
     char pad[0xb8];
     V* p;
-    void f(int, int, int);
+    void f(hulk_intptr, hulk_intptr, int);
 };
-void C_99d00::f(int a, int b, int c) {
+void C_99d00::f(hulk_intptr a, hulk_intptr b, int c) {
     if (p)
         p->target(a, b, c);
 }

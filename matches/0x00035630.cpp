@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Cache_35630 {
     void* get();
 };
@@ -7,9 +8,9 @@ struct Result_35630 {
 struct Owner_35630 {
     char pad[16];
     Cache_35630* p;
-    bool target(unsigned int a, unsigned int b);
+    bool target(hulk_uintptr a, hulk_uintptr b);
 };
-bool Owner_35630::target(unsigned int a, unsigned int b) {
+bool Owner_35630::target(hulk_uintptr a, hulk_uintptr b) {
     void* x = p->get();
     if (!x)
         return false;

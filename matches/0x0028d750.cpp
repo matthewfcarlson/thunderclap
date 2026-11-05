@@ -18,10 +18,10 @@ class RotationChannel_28d750 {
 class CompressedQuaternionChannel_28d750 : public RotationChannel_28d750 {
   public:
     void* m18;
-    CompressedQuaternionChannel_28d750(int, int);
+    CompressedQuaternionChannel_28d750(int, hulk_intptr);
     virtual void v1();
 };
-CompressedQuaternionChannel_28d750::CompressedQuaternionChannel_28d750(int x, int y) : RotationChannel_28d750(x, y) {
+CompressedQuaternionChannel_28d750::CompressedQuaternionChannel_28d750(int x, hulk_intptr y) : RotationChannel_28d750(x, y) {
     m18 = 0;
     if (mc == 0) {
         int n = m10;

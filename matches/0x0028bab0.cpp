@@ -14,10 +14,10 @@ struct SimpleChannel_28bab0 {
 struct Float1Channel_28bab0 : SimpleChannel_28bab0 {
     void* m14;
     void* m18;
-    Float1Channel_28bab0(int x, int y) throw();
+    Float1Channel_28bab0(int x, hulk_intptr y) throw();
     virtual void a();
 };
-Float1Channel_28bab0::Float1Channel_28bab0(int x, int y) throw() : SimpleChannel_28bab0(x, y) {
+Float1Channel_28bab0::Float1Channel_28bab0(int x, hulk_intptr y) throw() : SimpleChannel_28bab0(x, y) {
     m18 = 0;
     if (mc == 0)
         m18 = FUN_0008d6d0(m10 * 4);

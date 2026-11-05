@@ -19,9 +19,9 @@ struct ScriptHandler_1d46d0 {
     char pad[8];
     int x8;
     List_1d46d0 list;
-    void target(int, int, int);
+    void target(hulk_intptr, hulk_intptr, hulk_intptr);
 };
-void ScriptHandler_1d46d0::target(int a, int b, int c) {
+void ScriptHandler_1d46d0::target(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     Closure4_1d46d0* p = (Closure4_1d46d0*)alloc(0x24);
     if (p) {
         p->init(a, c);

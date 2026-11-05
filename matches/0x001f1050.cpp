@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -14,9 +15,9 @@ class Method3_1f1050 : public Function_1f1050 {
     char b18;
     char pad3[3];
     int m1c;
-    Method3_1f1050(int a, int c);
+    Method3_1f1050(hulk_intptr a, hulk_intptr c);
 };
-Method3_1f1050::Method3_1f1050(int a, int c) : Function_1f1050(a, 3) {
+Method3_1f1050::Method3_1f1050(hulk_intptr a, hulk_intptr c) : Function_1f1050(a, 3) {
     m1c = c;
     b18 = FUN_001d04d0(((char*)&DAT_0048e100));
     b10 = FUN_001d04d0(((char*)&DAT_0049cad8));

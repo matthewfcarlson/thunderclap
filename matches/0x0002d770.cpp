@@ -13,12 +13,12 @@ class Method4_2d770 {
     unsigned char b18;
     char pad19[3];
     int m1c;
-    Method4_2d770(const char*, int);
+    Method4_2d770(const char*, hulk_intptr);
 };
 struct ThisCall_001d0480 {
     void FUN_001d0480(const char*, int);
 };
-Method4_2d770::Method4_2d770(const char* p, int q) {
+Method4_2d770::Method4_2d770(const char* p, hulk_intptr q) {
     ((ThisCall_001d0480*)(this))->FUN_001d0480(p, 4);
     vt = ((hulk_intptr)DAT_003f420c);
     m1c = q;

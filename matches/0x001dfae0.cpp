@@ -20,9 +20,9 @@ class Method6_1dfae0 : public Function_1dfae0 {
     char m18;
     char pad19[3];
     int m1c;
-    Method6_1dfae0(const char*, int);
+    Method6_1dfae0(const char*, hulk_intptr);
 };
-Method6_1dfae0::Method6_1dfae0(const char* p, int n) : Function_1dfae0(p, 6) {
+Method6_1dfae0::Method6_1dfae0(const char* p, hulk_intptr n) : Function_1dfae0(p, 6) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00423318);
     m1c = n;
     m18 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));

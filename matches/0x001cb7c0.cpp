@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 // data: gFlag_1cb7c0 = DAT_004c54a0
 
@@ -18,9 +19,9 @@ class T_1cb7c0 {
                 return i;
         return 0xffffffff;
     }
-    unsigned Alloc(Obj_1cb7c0* o, int v);
+    unsigned Alloc(Obj_1cb7c0* o, hulk_intptr v);
 };
-unsigned T_1cb7c0::Alloc(Obj_1cb7c0* o, int v) {
+unsigned T_1cb7c0::Alloc(Obj_1cb7c0* o, hulk_intptr v) {
     if (!o)
         return 0xffffffff;
     unsigned i = Find();

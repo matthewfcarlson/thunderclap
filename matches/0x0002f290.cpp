@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern char DAT_0048e10c[];
@@ -25,8 +26,8 @@ class Closure1_2f290 : public Method1_2f290 {
   public:
     virtual void f();
     int d;
-    Closure1_2f290(const char*, int, int);
+    Closure1_2f290(const char*, hulk_intptr, hulk_intptr);
 };
-Closure1_2f290::Closure1_2f290(const char* s, int x, int y) : Method1_2f290(s, y) {
+Closure1_2f290::Closure1_2f290(const char* s, hulk_intptr x, hulk_intptr y) : Method1_2f290(s, y) {
     d = x;
 }

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class B_3365b0 {
   public:
     int G(int);
@@ -6,10 +7,10 @@ class C_3365b0 {
   public:
     char pad[4];
     B_3365b0* b;
-    int F(int);
+    hulk_intptr F(hulk_intptr);
     int H(int);
 };
-int C_3365b0::F(int param) {
+hulk_intptr C_3365b0::F(hulk_intptr param) {
     int x = b->G(param);
     return H(x);
 }

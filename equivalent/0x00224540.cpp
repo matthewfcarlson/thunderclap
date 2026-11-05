@@ -5,6 +5,7 @@
 // each finished group is sampled with the weight accumulated so far (clamped to 0..1), the rest of the group
 // share the remaining weight in proportion to their a*b contribution. Returns true if any layer produced a
 // value; *out is blended towards each layer's value.
+#include "compat/ptr.h"
 struct Layer_224540 {
     virtual void v0();
     virtual void v1();
@@ -53,10 +54,10 @@ public:
     Entry_224540 e[1];
 
     void FUN_00223f50();
-    bool FUN_00224540(unsigned ctx, float *out);
+    bool FUN_00224540(hulk_uintptr ctx, float *out);
 };
 
-bool Blend_224540::FUN_00224540(unsigned ctx, float *result)
+bool Blend_224540::FUN_00224540(hulk_uintptr ctx, float *result)
 {
     if (ctx == 0 || count == 0)
         return false;

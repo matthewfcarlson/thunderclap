@@ -21,9 +21,9 @@ class CGrabAction : public Ctor_00232660 {
     char m38;
     char pad39[3];
     Ref_1de50* second;
-    CGrabAction(Ref_1de50*, int, Ref_1de50*, int);
+    CGrabAction(Ref_1de50*, hulk_intptr, Ref_1de50*, int);
 };
-CGrabAction::CGrabAction(Ref_1de50* a, int b, Ref_1de50* c, int d) : Ctor_00232660() {
+CGrabAction::CGrabAction(Ref_1de50* a, hulk_intptr b, Ref_1de50* c, int d) : Ctor_00232660() {
     vptr = (int*)((hulk_intptr)DAT_003f3390);
     first = 0;
     if (c)

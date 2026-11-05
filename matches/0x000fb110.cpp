@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct ThisCall_000f9d70 {
     int GetThing();
 };
@@ -12,7 +13,7 @@ struct Obj_fb110 {
     unsigned char field14;
     unsigned char field15;
 };
-int __fastcall Target(Obj_fb110* self) {
+hulk_intptr __fastcall Target(Obj_fb110* self) {
     int x = ((ThisCall_000f9d70*)(self))->GetThing();
     self->field8 = x;
     if (x == 0)

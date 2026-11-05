@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 struct CtorV_001d0480 {
@@ -18,9 +19,9 @@ class Method3 : public Function_106af0 {
     unsigned char d;
     char pad3[3];
     int value;
-    Method3(const char*, int);
+    Method3(const char*, hulk_intptr);
 };
-Method3::Method3(const char* name, int v) : Function_106af0(name) {
+Method3::Method3(const char* name, hulk_intptr v) : Function_106af0(name) {
     value = v;
     d = FUN_001d04d0(((const char*)&DAT_0048e0e4));
     a = FUN_001d04d0(((const char*)&DAT_0048e0f0));

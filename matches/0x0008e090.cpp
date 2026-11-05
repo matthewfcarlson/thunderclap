@@ -3,7 +3,7 @@
 
 extern "C" char DAT_00400870[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-int FUN_0008e090() {
+hulk_intptr FUN_0008e090() {
     if (DAT_004dd7e0 == 0) {
         char* p = (char*)FUN_0008d690(0xc);
         if (p != 0) {

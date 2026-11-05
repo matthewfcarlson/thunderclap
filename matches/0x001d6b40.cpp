@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Fallback {
     virtual int f0();
     virtual int f1();
@@ -12,7 +13,7 @@ struct Obj_1d6b40 {
     Fallback* fb;
 };
 extern int __fastcall FUN_002fc6f0(void* p);
-int __fastcall target(Obj_1d6b40* self) {
+hulk_intptr __fastcall target(Obj_1d6b40* self) {
     void* p = self->pA0;
     if (p) {
         int r = FUN_002fc6f0(p);

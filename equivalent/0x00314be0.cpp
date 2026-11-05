@@ -42,10 +42,10 @@ public:
     int count;
     char pad34[4];
     unsigned int flags;
-    void FUN_00314be0(int a1, int a2, int a3, int a4, int a5, Vec3_314be0* normal);
+    void FUN_00314be0(int a1, hulk_intptr a2, hulk_intptr a3, hulk_intptr a4, int a5, Vec3_314be0* normal);
 };
 
-void ContactManager::FUN_00314be0(int a1, int a2, int a3, int a4, int a5, Vec3_314be0* normal)
+void ContactManager::FUN_00314be0(int a1, hulk_intptr a2, hulk_intptr a3, hulk_intptr a4, int a5, Vec3_314be0* normal)
 {
     struct Frame {
         ContactVec* vecSlot;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Item_ad580 {
     char pad[0x54];
     int id;
@@ -10,9 +11,9 @@ class Manager_ad580 {
     Item_ad580** items;
 
   public:
-    int Run(int id, int a, int b);
+    hulk_intptr Run(int id, int a, int b);
 };
-int Manager_ad580::Run(int id, int a, int b) {
+hulk_intptr Manager_ad580::Run(int id, int a, int b) {
     int n = count;
     int i = 0;
     if (n > 0) {

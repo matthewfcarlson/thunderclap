@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
 
 struct Obj_267090 {
@@ -8,7 +9,7 @@ struct Obj_267090 {
     virtual int f4(int);
 };
 extern "C" Obj_267090** FUN_00266f50(void*, int);
-extern "C" int FUN_00267090(int ptr) {
+extern "C" int FUN_00267090(hulk_intptr ptr) {
     Obj_267090** p = FUN_00266f50(((char*)&DAT_00527f40), ptr);
     return (*p)->f4(ptr);
 }

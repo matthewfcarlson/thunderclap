@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
 
@@ -29,9 +30,9 @@ struct Target_1ec980 {
     char pad[4];
     Service_1ec980* service;
     void FUN_001ebd80(void*, int, float, int);
-    void FUN_001ec980(Actor_1ec980*, int);
+    void FUN_001ec980(Actor_1ec980*, hulk_intptr);
 };
-void Target_1ec980::FUN_001ec980(Actor_1ec980* actor, int value) {
+void Target_1ec980::FUN_001ec980(Actor_1ec980* actor, hulk_intptr value) {
     if (!actor || !actor->object)
         return;
     if (actor->alternate) {

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/owners.h"
 class H {
   public:
@@ -8,9 +9,9 @@ class C_1c3740 {
     H* member;
 
   public:
-    void f(int);
+    void f(hulk_intptr);
 };
-void C_1c3740::f(int x) {
+void C_1c3740::f(hulk_intptr x) {
     if (member->check(x))
         ((owners::Obj_1c5b10 *)member)->FUN_001c5b10((unsigned int)x);
 }

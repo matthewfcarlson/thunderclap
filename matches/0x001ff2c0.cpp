@@ -8,7 +8,7 @@ struct Function_1ff2c0 {
 };
 class Method3_1ff2c0 : public Function_1ff2c0 {
   public:
-    Method3_1ff2c0(const char*, int);
+    Method3_1ff2c0(const char*, hulk_intptr);
     hulk_intptr m0;
     char p04[0x0c];
     char b10;
@@ -19,7 +19,7 @@ class Method3_1ff2c0 : public Function_1ff2c0 {
     char p19[3];
     int m1c;
 };
-Method3_1ff2c0::Method3_1ff2c0(const char* a, int c) {
+Method3_1ff2c0::Method3_1ff2c0(const char* a, hulk_intptr c) {
     Init(a, 3);
     m0 = ((hulk_intptr)DAT_00425374);
     m1c = c;

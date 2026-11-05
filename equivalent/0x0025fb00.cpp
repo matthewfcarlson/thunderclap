@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 54 inputs, branch coverage 26/26)
 // FUN_0025fb00 @ 0x0025fb00
+#include "compat/ptr.h"
 struct Node {
     Node *left;
     Node *right;
@@ -17,7 +18,7 @@ public:
 
 class ItemTree {
 public:
-    void FUN_0025fb00(int arg);
+    void FUN_0025fb00(hulk_intptr arg);
 
     char pad0[0x14];
     Node *root;
@@ -26,7 +27,7 @@ public:
     ItemTree *child;
 };
 
-void ItemTree::FUN_0025fb00(int arg)
+void ItemTree::FUN_0025fb00(hulk_intptr arg)
 {
     if (child)
         child->FUN_0025fb00(arg);

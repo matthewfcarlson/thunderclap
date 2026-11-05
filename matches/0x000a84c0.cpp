@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Mat {
     int d[16];
 };
@@ -38,9 +39,9 @@ class Obj {
     Mat mat;
 
   public:
-    void Fn(int, int, const Mat*);
+    void Fn(hulk_intptr, int, const Mat*);
 };
-void Obj::Fn(int a, int b, const Mat* m) {
+void Obj::Fn(hulk_intptr a, int b, const Mat* m) {
     dev->Set1(a, 0, 0);
     dev->Set0(0);
     mat = *m;

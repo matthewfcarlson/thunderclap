@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Buffer_25cbc0 {
     char data[0x1a4];
 };
@@ -30,10 +31,10 @@ struct OmHalStream {
     unsigned zero;
     unsigned option;
     State_25cbc0 state;
-    OmHalStream(Source_25cbc0*, unsigned, unsigned, unsigned);
+    OmHalStream(Source_25cbc0*, hulk_uintptr, hulk_uintptr, hulk_uintptr);
 };
 } // namespace audio
-audio::OmHalStream::OmHalStream(Source_25cbc0* s, unsigned setup, unsigned count, unsigned opt) {
+audio::OmHalStream::OmHalStream(Source_25cbc0* s, hulk_uintptr setup, hulk_uintptr count, hulk_uintptr opt) {
     source = s;
     remaining = count;
     zero = 0;

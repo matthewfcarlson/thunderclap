@@ -2,6 +2,7 @@
 // FUN_00202460 @ 0x00202460
 // FUN_00202460 @ 0x00202460
 // FUN_00202460 @ 0x00202460: forwards a point offset along a normalised direction to FUN_00201e00
+#include "compat/ptr.h"
 struct Vec3_202460 {
     float x, y, z;
     float FUN_0022d110();
@@ -10,10 +11,10 @@ struct Vec3_202460 {
 class Mover_202460 {
 public:
     int FUN_00201e00(Vec3_202460 *from, Vec3_202460 *to, int a, int b, int c, int d, int e);
-    int FUN_00202460(Vec3_202460 *from, Vec3_202460 *direction, float distance, int a, int b, int c, int d, int e);
+    int FUN_00202460(Vec3_202460 *from, Vec3_202460 *direction, float distance, int a, hulk_intptr b, hulk_intptr c, hulk_intptr d, int e);
 };
 
-int Mover_202460::FUN_00202460(Vec3_202460 *from, Vec3_202460 *direction, float distance, int a, int b, int c, int d, int e)
+int Mover_202460::FUN_00202460(Vec3_202460 *from, Vec3_202460 *direction, float distance, int a, hulk_intptr b, hulk_intptr c, hulk_intptr d, int e)
 {
     Vec3_202460 dir = *direction;
     dir.FUN_0022d110();

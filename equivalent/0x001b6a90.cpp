@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 15/18, incomplete)
 // FUN_001b6a90 @ 0x001b6a90
+#include "compat/ptr.h"
 class Item_1b6a90 {
 public:
     virtual void vf0();
@@ -14,11 +15,11 @@ public:
 
 class ItemTable_1b6a90 {
 public:
-    void FUN_001b6a90(int unused, int arg);
+    void FUN_001b6a90(hulk_intptr unused, hulk_intptr arg);
     Item_1b6a90 *items[32];
 };
 
-void ItemTable_1b6a90::FUN_001b6a90(int unused, int arg)
+void ItemTable_1b6a90::FUN_001b6a90(hulk_intptr unused, hulk_intptr arg)
 {
     for (unsigned int i = 0; i < 32; i++) {
         Item_1b6a90 *item = items[i];

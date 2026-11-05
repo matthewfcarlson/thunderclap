@@ -15,9 +15,9 @@ class Method4_cf050 : public Function_cf050 {
     char m18;
     char pad2[3];
     int n;
-    Method4_cf050(int, int);
+    Method4_cf050(hulk_intptr, hulk_intptr);
 };
-Method4_cf050::Method4_cf050(int a, int b) {
+Method4_cf050::Method4_cf050(hulk_intptr a, hulk_intptr b) {
     Init(a, 4);
     v = ((hulk_intptr)DAT_0040a590);
     n = b;

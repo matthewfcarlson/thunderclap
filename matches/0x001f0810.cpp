@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" unsigned __int64 getMusic(int, int, int);
 extern "C" int getEvent(int, int);
 class CSoundCommand_1f0810 {
@@ -18,10 +19,10 @@ class CSoundCommand_PlayMusicEvent : public CSoundCommand_1f0810 {
   public:
     Pair p;
     int f;
-    CSoundCommand_PlayMusicEvent(int x, int y, int z);
+    CSoundCommand_PlayMusicEvent(hulk_intptr x, int y, int z);
     virtual void g();
 };
-CSoundCommand_PlayMusicEvent::CSoundCommand_PlayMusicEvent(int x, int y, int z) : CSoundCommand_1f0810(z) {
+CSoundCommand_PlayMusicEvent::CSoundCommand_PlayMusicEvent(hulk_intptr x, int y, int z) : CSoundCommand_1f0810(z) {
     p.set(getMusic(x, 0, 0));
     f = getEvent(y, 0);
 }

@@ -15,7 +15,7 @@ class Shader {
     char flag;
     char pad15[3];
     int field18;
-    Shader* Ctor(int a, int b);
+    Shader* Ctor(hulk_intptr a, int b);
 };
 class Factory_28edf0 {
   public:
@@ -35,7 +35,7 @@ class Factory_28edf0 {
 struct ThisCall_0027b070 {
     void BaseInit();
 };
-Shader* Shader::Ctor(int a, int b) {
+Shader* Shader::Ctor(hulk_intptr a, int b) {
     ((ThisCall_0027b070*)(this))->BaseInit();
     vft = ((hulk_intptr)DAT_0042cb44);
     flag = 0;

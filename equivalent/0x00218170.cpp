@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3042 inputs, branch coverage 23/23)
 // FUN_00218170 @ 0x00218170
+#include "compat/ptr.h"
 struct Str_218170 {
     char pad[0x10];
     char data[1];
@@ -51,7 +52,7 @@ int FUN_00217af0(Ctx_218170* ctx, TV* lhs, TV* rhs, TV* res, int op);
 void FUN_00214d40(Ctx_218170* ctx, TV* lhs, TV* rhs);
 
 // equiv-conv: FUN_00218170 eax ecx edx stack stack stack
-int FUN_00218170(TV* rhs, TV* lhs, int line, Ctx_218170* ctx, TV* res, int op) {
+hulk_intptr FUN_00218170(TV* rhs, TV* lhs, hulk_intptr line, Ctx_218170* ctx, TV* res, int op) {
     Frame_218170 numbers;
     TV* leftNumber = lhs;
     TV* rightNumber = rhs;

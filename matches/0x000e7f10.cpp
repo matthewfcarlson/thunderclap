@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 class X_e7f10 {
   public:
     int fallback();
 };
-int __stdcall target(int a, int b, X_e7f10* c) {
+int __stdcall target(hulk_intptr a, hulk_intptr b, X_e7f10* c) {
     int r = 2;
     switch (a) {
     case 0x1517370d:

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Sub {
   public:
     virtual void f0();
@@ -38,9 +39,9 @@ class Owner {
   public:
     char pad[0xb8];
     Sub* p;
-    void Fn(int a, int b, int c);
+    void Fn(hulk_intptr a, int b, int c);
 };
-void Owner::Fn(int a, int b, int c) {
+void Owner::Fn(hulk_intptr a, int b, int c) {
     if (p)
         p->f32(b, c);
 }

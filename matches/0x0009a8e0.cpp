@@ -7,7 +7,7 @@ extern char __cdecl Convert(const char*);
 class Method3_9a8e0 {
   public:
     void Init(void*, int);
-    Method3_9a8e0(void*, int);
+    Method3_9a8e0(void*, hulk_intptr);
     hulk_intptr vtable;
     char a[0x10 - 4];
     char b10;
@@ -18,7 +18,7 @@ class Method3_9a8e0 {
     char pad19[3];
     int field1c;
 };
-Method3_9a8e0::Method3_9a8e0(void* p, int value) {
+Method3_9a8e0::Method3_9a8e0(void* p, hulk_intptr value) {
     Init(p, 3);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00404c20);
     field1c = value;

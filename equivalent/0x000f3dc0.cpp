@@ -79,10 +79,10 @@ public:
     virtual char v36(Param *p, int x, void *y, Args *a);
 
     void FUN_000f3940(int a, int b, int c, int d);
-    void FUN_000f3dc0(Param *param, int c, void *d, Args *args);
+    void FUN_000f3dc0(Param *param, hulk_intptr c, void *d, Args *args);
 };
 
-void FEThingsBase::FUN_000f3dc0(Param *param, int c, void *d, Args *args)
+void FEThingsBase::FUN_000f3dc0(Param *param, hulk_intptr c, void *d, Args *args)
 {
     Sink *sink = (Sink *)FUN_00344e74(d, 0, DAT_0049f4f0, DAT_0049f454, 0);
     int type = args->GetType();

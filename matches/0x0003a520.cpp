@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class CCharacter_3a520 {
     char pad[0x328];
     void* p;
@@ -5,11 +6,11 @@ class CCharacter_3a520 {
     char flag;
 
   public:
-    void* Fn(int a, int b, int c, int d);
+    void* Fn(hulk_intptr a, hulk_intptr b, int c, int d);
     char Do(int a, int b, int c, int d, void* p);
     void Fail();
 };
-void* CCharacter_3a520::Fn(int a, int b, int c, int d) {
+void* CCharacter_3a520::Fn(hulk_intptr a, hulk_intptr b, int c, int d) {
     if (flag)
         return p;
     if (!Do(a, b, c, d, p)) {

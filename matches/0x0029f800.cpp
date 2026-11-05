@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/owners.h"
 class Thing_29f800 {
   public:
@@ -19,9 +20,9 @@ class Manager_29f800 {
 
   public:
     int count;
-    void Run(int);
+    void Run(hulk_intptr);
 };
-void Manager_29f800::Run(int arg) {
+void Manager_29f800::Run(hulk_intptr arg) {
     if (arg) {
         Item_29f800* p = ((Item_29f800 *)((owners::Object_29c450 *)this)->FUN_0029c450((void *)(hulk_uintptr)(int)arg));
         if (p) {

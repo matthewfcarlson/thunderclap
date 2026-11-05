@@ -1,4 +1,5 @@
-unsigned char Find(int value, int* array, int count) {
+#include "compat/ptr.h"
+unsigned char Find(hulk_intptr value, int* array, int count) {
     int i = 0;
     if (count > 0) {
         do {

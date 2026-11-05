@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Provider {
   public:
     virtual void v0();
@@ -64,8 +65,8 @@ class Obj {
     Elem elem;
 
   public:
-    void Fn(int);
+    void Fn(hulk_intptr);
 };
-void Obj::Fn(int x) {
+void Obj::Fn(hulk_intptr x) {
     elem.Set(x, outer->mid->provider->v44(), 1);
 }

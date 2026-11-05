@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 struct Function_2e9a0 {
@@ -18,10 +19,10 @@ struct Method1 : Function_2e9a0 {
     int m1c;
 };
 struct Closure1 : Method1 {
-    Closure1(int a, int c, int b);
+    Closure1(hulk_intptr a, hulk_intptr c, hulk_intptr b);
     virtual void f0();
     int m20;
 };
-Closure1::Closure1(int a, int c, int b) : Method1(a, b) {
+Closure1::Closure1(hulk_intptr a, hulk_intptr c, hulk_intptr b) : Method1(a, b) {
     m20 = c;
 }

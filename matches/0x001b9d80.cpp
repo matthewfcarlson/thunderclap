@@ -15,9 +15,9 @@ class Method6_1b9d80 : public Function_1b9d80 {
     char a[9];
     char p2[3];
     int field;
-    Method6_1b9d80(int, int);
+    Method6_1b9d80(hulk_intptr, hulk_intptr);
 };
-Method6_1b9d80::Method6_1b9d80(int x, int y) {
+Method6_1b9d80::Method6_1b9d80(hulk_intptr x, hulk_intptr y) {
     Init(x, 6);
     v = ((hulk_intptr)DAT_00420e44);
     field = y;

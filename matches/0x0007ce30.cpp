@@ -13,7 +13,7 @@ extern "C" char GetFlag(const char* name);
 
 class Method5 : public Base_7ce30 {
   public:
-    Method5(int a, int b);
+    Method5(hulk_intptr a, hulk_intptr b);
     virtual void f0();
     char m10, m11, m12, m13, m14;
     char pad15[3];
@@ -25,7 +25,7 @@ class Method5 : public Base_7ce30 {
 void Base_7ce30::f0() {}
 void Method5::f0() {}
 
-Method5::Method5(int a, int b) : Base_7ce30(a, 5) {
+Method5::Method5(hulk_intptr a, hulk_intptr b) : Base_7ce30(a, 5) {
     m1c = b;
     m18 = GetFlag((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
     m10 = GetFlag((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));

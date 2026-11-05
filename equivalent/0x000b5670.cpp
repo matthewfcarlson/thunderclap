@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 3/3)
 // FUN_000b5670 @ 0x000b5670
 // cl-flags: /GS
+#include "compat/ptr.h"
 
 struct Label_b5670 {
     void FUN_000f79a0(const char *text, int flag);
@@ -25,7 +26,7 @@ extern Panel_b5670 *__cdecl FUN_000fc260(const char *name);
 extern Texts_b5670 *__cdecl FUN_000fc1b0();
 extern int __cdecl FUN_000fc020(char *buf, int size, const char *fmt, ...);
 
-extern "C" void __stdcall FUN_000b5670(int amount)
+extern "C" void __stdcall FUN_000b5670(hulk_intptr amount)
 {
     struct Frame {
         char pad[4];

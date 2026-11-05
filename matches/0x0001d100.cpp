@@ -20,10 +20,10 @@ class Action {
 };
 class CKeyPoseAction_1d100 : public Action {
   public:
-    CKeyPoseAction_1d100(int, Ref_1d100*);
+    CKeyPoseAction_1d100(hulk_intptr, Ref_1d100*);
     virtual void A();
 };
-CKeyPoseAction_1d100::CKeyPoseAction_1d100(int value, Ref_1d100* ref) : Action() {
+CKeyPoseAction_1d100::CKeyPoseAction_1d100(hulk_intptr value, Ref_1d100* ref) : Action() {
     *(hulk_intptr*)this = (hulk_intptr)&actionVftable;
     mRef = 0;
     if (ref)

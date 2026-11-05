@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 8/8)
 // FUN_001f6cd0 @ 0x001f6cd0
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight.h"
 
 extern "C" int __cdecl _sprintf(char *buf, const char *fmt, ...);
@@ -41,11 +42,11 @@ public:
     char pad4c[0x58 - 0x4c];
     int arg58;
     int arg5c;
-    void FUN_001f6cd0(Source_1f6cd0 *src, int a1, const Vec3_1f6cd0 *a2, const Vec3_1f6cd0 *a3, const Vec3_1f6cd0 *a4,
+    void FUN_001f6cd0(Source_1f6cd0 *src, hulk_intptr a1, const Vec3_1f6cd0 *a2, const Vec3_1f6cd0 *a3, const Vec3_1f6cd0 *a4,
                       int a5, int a6, int a7, const char **outName, int a9);
 };
 
-void Reaction_1f6cd0::FUN_001f6cd0(Source_1f6cd0 *src, int a1, const Vec3_1f6cd0 *a2, const Vec3_1f6cd0 *a3, const Vec3_1f6cd0 *a4,
+void Reaction_1f6cd0::FUN_001f6cd0(Source_1f6cd0 *src, hulk_intptr a1, const Vec3_1f6cd0 *a2, const Vec3_1f6cd0 *a3, const Vec3_1f6cd0 *a4,
                             int a5, int a6, int a7, const char **outName, int a9)
 {
     Frame_1f6cd0 f;

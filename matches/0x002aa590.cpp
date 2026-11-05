@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Elem_2aa590 {
   public:
     virtual void v0();
@@ -15,9 +16,9 @@ struct Container_2aa590 {
     int m_b;
     unsigned m_count;
     Elem_2aa590* arr[1];
-    int Find(Elem_2aa590* arg, int p2);
+    hulk_intptr Find(Elem_2aa590* arg, hulk_intptr p2);
 };
-int Container_2aa590::Find(Elem_2aa590* arg, int p2) {
+hulk_intptr Container_2aa590::Find(Elem_2aa590* arg, hulk_intptr p2) {
     unsigned i = 0;
     Elem_2aa590** p = arr;
     if (m_count > 0) {

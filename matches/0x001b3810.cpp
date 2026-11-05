@@ -16,9 +16,9 @@ class Function4 : public Ctor_001d0480 {
     char m18;
     char p19[3];
     int m1c;
-    Function4(void*, int);
+    Function4(void*, hulk_intptr);
 };
-Function4::Function4(void* a, int b) : Ctor_001d0480(a, 4) {
+Function4::Function4(void* a, hulk_intptr b) : Ctor_001d0480(a, 4) {
     vf = (hulk_intptr)&Function4_vftable;
     m1c = b;
     m18 = FUN_001d04d0(((char*)&DAT_0048e100));

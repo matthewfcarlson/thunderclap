@@ -15,9 +15,9 @@ class Method4_9b330 {
     unsigned char b10, b11, b12, b13, b14, b15, b16, b17, b18;
     char pad19[3];
     int m1c;
-    Method4_9b330* Fn(int, int);
+    Method4_9b330* Fn(hulk_intptr, hulk_intptr);
 };
-Method4_9b330* Method4_9b330::Fn(int a, int b) {
+Method4_9b330* Method4_9b330::Fn(hulk_intptr a, hulk_intptr b) {
     ((Helper_9b330*)this)->Init(a, 4);
     vtable = ((hulk_intptr)DAT_00404d00);
     m1c = b;

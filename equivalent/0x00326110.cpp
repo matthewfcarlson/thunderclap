@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 2/2)
 // FUN_00326110 @ 0x00326110
+#include "compat/ptr.h"
 namespace D3D8 {
 void __stdcall D3DResource_AddRef(int);
 }
@@ -14,7 +15,7 @@ class pddiObject {
 };
 class d3dTexture : public pddiObject {
   public:
-    d3dTexture(Ctx* ctx, int resource) throw();
+    d3dTexture(Ctx* ctx, hulk_intptr resource) throw();
     virtual void v1();
     Ctx* ctx;
     int resource;
@@ -31,7 +32,7 @@ class d3dTexture : public pddiObject {
     unsigned char fec, fed, fee, fef;
     int ff0, ff4;
 };
-d3dTexture::d3dTexture(Ctx* c, int res) throw() {
+d3dTexture::d3dTexture(Ctx* c, hulk_intptr res) throw() {
     f70 = 0;
     f74 = 0;
     f78 = 0;

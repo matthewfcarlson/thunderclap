@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Inner_3385f0 {
   public:
     virtual void v0();
@@ -9,9 +10,9 @@ class Target_3385f0 {
     Inner_3385f0* obj;
     char pad2[0x824 - 8];
     int state;
-    bool Run(int x);
+    bool Run(hulk_intptr x);
 };
-bool Target_3385f0::Run(int x) {
+bool Target_3385f0::Run(hulk_intptr x) {
     if (obj->Test(x)) {
         state = 1;
         return true;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Inner_1c12c0 {
     virtual void a();
     virtual void b();
@@ -18,6 +19,6 @@ struct Wrapper_1c12c0 {
     int pad[2];
     Inner_1c12c0* ptr;
 };
-int __fastcall FUN_001c12c0(Wrapper_1c12c0* self) {
+hulk_intptr __fastcall FUN_001c12c0(Wrapper_1c12c0* self) {
     return self->ptr->target();
 }

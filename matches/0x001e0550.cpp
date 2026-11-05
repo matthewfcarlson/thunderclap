@@ -13,9 +13,9 @@ class Method5_1e0550 {
     int m1c;
     char p20[0x20];
     void Init(const char*, int);
-    Method5_1e0550* Make(const char*, int);
+    Method5_1e0550* Make(const char*, hulk_intptr);
 };
-Method5_1e0550* Method5_1e0550::Make(const char* p, int x) {
+Method5_1e0550* Method5_1e0550::Make(const char* p, hulk_intptr x) {
     Init(p, 5);
     v = ((hulk_intptr)DAT_004233f8);
     m1c = x;

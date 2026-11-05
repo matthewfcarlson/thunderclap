@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/owners.h"
 class Ret_89830 {
   public:
@@ -22,10 +23,10 @@ class Manager_89830 {
   public:
     char pad[0xd0];
     Sub_89830 sub;
-    void Target(int p);
+    void Target(hulk_intptr p);
 };
 extern Root_89830* g_89830;
-void Manager_89830::Target(int p) {
+void Manager_89830::Target(hulk_intptr p) {
     Sub_89830* s = &sub;
     ((owners::Obj_88fe0 *)s)->FUN_00088fe0((unsigned int)p);
     Ret_89830* r = g_89830->m->Get();

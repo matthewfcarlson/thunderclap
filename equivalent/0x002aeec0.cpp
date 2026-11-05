@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_002aeec0 @ 0x002aeec0
+#include "compat/ptr.h"
 class TextureBuilder {
 public:
     int result, f8, fc, f10, f14, f18, f1c, f20, f24, f28, f2c, f30;
@@ -46,10 +47,10 @@ public:
     int pa0;
 
     ImageHandler *FUN_002ae9d0(int type);
-    int FUN_002aeec0(int stream, int unused, int type);
+    hulk_intptr FUN_002aeec0(int stream, int unused, int type);
 };
 
-int ImageRegistry_2aeec0::FUN_002aeec0(int stream, int unused, int type)
+hulk_intptr ImageRegistry_2aeec0::FUN_002aeec0(int stream, int unused, int type)
 {
     ImageHandler *h = FUN_002ae9d0(type);
     if (h == 0)

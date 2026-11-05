@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Core_1c3fd0 {
     void Init(void*, int, int, int, int);
     int Finish();
@@ -14,7 +15,7 @@ class Obj_1c3fd0 {
     int field68;
     unsigned char flag6c;
 };
-int __fastcall Target(Obj_1c3fd0* self) {
+hulk_intptr __fastcall Target(Obj_1c3fd0* self) {
     if (!self->flag6c) {
         self->core->Init(&self->field1, self->field5c, self->field60, self->field64, self->field68);
         self->flag6c = 1;

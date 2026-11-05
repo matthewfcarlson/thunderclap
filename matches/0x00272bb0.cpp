@@ -1,12 +1,13 @@
 // Same code shape as 0x00272ba0 (propagated; names are from that function)
+#include "compat/ptr.h"
 struct C_272bb0 {
     void g(int);
 };
 struct D {
     char pad[0x14];
     C_272bb0 c;
-    void f(int);
+    void f(hulk_intptr);
 };
-void D::f(int a0) {
+void D::f(hulk_intptr a0) {
     c.g(a0);
 }

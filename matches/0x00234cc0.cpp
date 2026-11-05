@@ -269,9 +269,9 @@ class ParamValue {
 };
 class ParamValueEnum : public ParamValue {
   public:
-    ParamValueEnum(int);
+    ParamValueEnum(hulk_intptr);
 };
-ParamValueEnum::ParamValueEnum(int x) {
+ParamValueEnum::ParamValueEnum(hulk_intptr x) {
     *(hulk_intptr*)this = (hulk_intptr)&v1_234cc0;
     ((Obj_234cc0*)((char*)this + 8))->Init(x);
     *(hulk_intptr*)this = (hulk_intptr)&v2;

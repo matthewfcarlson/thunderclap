@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/owners.h"
 extern "C" void __cdecl FUN_000fc280(int);
 class Child {
@@ -11,10 +12,10 @@ class Obj {
     Child* ptr;
     char c[0x1cc8];
     int flag;
-    void run(int);
+    void run(hulk_intptr);
     void f2(int);
 };
-void Obj::run(int arg) {
+void Obj::run(hulk_intptr arg) {
     if (state != 9) {
         state = 9;
         flag = 0;

@@ -16,7 +16,7 @@ struct Plane_314380 {
 };
 
 
-bool __cdecl FUN_00314380(Plane_314380 *plane, int unused, Vec3_314380 *v, Vec3_314380 *out)
+bool __cdecl FUN_00314380(Plane_314380 *plane, hulk_intptr unused, Vec3_314380 *v, Vec3_314380 *out)
 {
     v->FUN_0022d110();
     // x87: dot, s and k stay in registers (53 bits); |dot| is tested on a rounded frame copy

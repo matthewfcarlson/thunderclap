@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/owners.h"
 class Temp_1eb8d0 {
   public:
@@ -16,10 +17,10 @@ class Owner_1eb8d0 {
     Root_1eb8d0* root;
     Manager_1eb8d0* manager;
     unsigned char flag;
-    void Target(int);
+    void Target(hulk_intptr);
 };
 extern void __cdecl FUN_001eb440(void*, Temp_1eb8d0*);
-void Owner_1eb8d0::Target(int arg) {
+void Owner_1eb8d0::Target(hulk_intptr arg) {
     Temp_1eb8d0 t;
     if (flag) {
         ((owners::Obj_1ef320 *)&t)->FUN_001ef320();

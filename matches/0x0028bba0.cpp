@@ -19,10 +19,10 @@ class Base_28bba0 {
 class Float2Channel : public Base_28bba0 {
   public:
     hulk_intptr m18;
-    Float2Channel(int, int);
+    Float2Channel(int, hulk_intptr);
     virtual void v1();
 };
-Float2Channel::Float2Channel(int x, int y) : Base_28bba0(x, y) {
+Float2Channel::Float2Channel(int x, hulk_intptr y) : Base_28bba0(x, y) {
     m18 = 0;
     if (mc == 0) {
         int n = m10;

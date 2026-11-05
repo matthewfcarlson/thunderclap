@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern "C" unsigned char __cdecl check(const char*);
@@ -9,7 +10,7 @@ class Function_942a0 {
 };
 class Method3 : public Function_942a0 {
   public:
-    Method3(int, int);
+    Method3(hulk_intptr, hulk_intptr);
     virtual void f();
     unsigned char v1, v2, v3;
     char pad3[5];
@@ -17,7 +18,7 @@ class Method3 : public Function_942a0 {
     char pad4[3];
     int arg;
 };
-Method3::Method3(int x, int y) : Function_942a0(x, 3) {
+Method3::Method3(hulk_intptr x, hulk_intptr y) : Function_942a0(x, 3) {
     arg = y;
     v4 = check(((char*)&DAT_0048e100));
     v1 = check(((char*)&DAT_0048e134));

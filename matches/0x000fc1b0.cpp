@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 class A_fc1b0 {
@@ -180,6 +181,6 @@ class A_fc1b0 {
     virtual void f175();
     virtual void f176();
 };
-int FUN_000fc1b0() {
+hulk_intptr FUN_000fc1b0() {
     return (*(A_fc1b0**)&DAT_004e0a60)->f44();
 }

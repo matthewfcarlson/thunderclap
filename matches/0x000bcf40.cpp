@@ -1,4 +1,5 @@
 // FUN_000bcf40 @ 0x000bcf40
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
 class Input_bcf40 {
@@ -40,10 +41,10 @@ class Menu_bcf40 {
     void FUN_000b8d00();
     void FUN_000b76c0();
     void FUN_000bc1e0(const char* name);
-    void FUN_000bcf40(int who);
+    void FUN_000bcf40(hulk_intptr who);
 };
 
-void Menu_bcf40::FUN_000bcf40(int who) {
+void Menu_bcf40::FUN_000bcf40(hulk_intptr who) {
     if (current->id == 7)
         return;
     Input_bcf40* in = DAT_004dd700->input;

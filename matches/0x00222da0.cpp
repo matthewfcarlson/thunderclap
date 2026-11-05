@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 // data: gZero_222da0 = DAT_003f32e0
 
@@ -11,9 +12,9 @@ class Obj_222da0 {
     char pad[0x68];
     unsigned count;
     Entry_222da0 entries[1];
-    float target(int key);
+    float target(hulk_intptr key);
 };
-float Obj_222da0::target(int key) {
+float Obj_222da0::target(hulk_intptr key) {
     unsigned n = count;
     unsigned i = 0;
     if (n > 0) {

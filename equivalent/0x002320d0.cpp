@@ -30,10 +30,10 @@ public:
     char pad0[0x14];
     RefObj_2320d0 *primary;           // 0x14
     QueuedNodeAction_2320d0 *secondary;           // 0x18
-    bool FUN_002320d0(Spec_2320d0 *spec, int a, int b);
+    bool FUN_002320d0(Spec_2320d0 *spec, hulk_intptr a, int b);
 };
 
-bool Owner_2320d0::FUN_002320d0(Spec_2320d0 *spec, int a, int b)
+bool Owner_2320d0::FUN_002320d0(Spec_2320d0 *spec, hulk_intptr a, int b)
 {
     if (spec == 0)
         return false;

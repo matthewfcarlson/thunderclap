@@ -6,10 +6,10 @@ class FEDoScreen {
     int a, b, c;
     char e;
     char pad[31];
-    FEDoScreen(int, const char*);
+    FEDoScreen(hulk_intptr, const char*);
 };
 extern void Format(char*, int, const char*, ...);
-FEDoScreen::FEDoScreen(int x, const char* s) {
+FEDoScreen::FEDoScreen(hulk_intptr x, const char* s) {
     a = -1;
     b = -1;
     c = x;

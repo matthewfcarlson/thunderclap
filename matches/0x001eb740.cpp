@@ -4,6 +4,7 @@
 // equiv-map: ??1StrList@@QAE@XZ = 0x001ef350
 // equiv-map: ??0Name@@QAE@PBD@Z = 0x0027b0e0
 // equiv-map: ??1Name@@QAE@XZ = 0x0027af50
+#include "compat/ptr.h"
 #include "gen/owners.h"
 struct StrList {
     char data[0x48];
@@ -33,10 +34,10 @@ public:
     Finder_1eb740 *finder;
     char enabled;
 
-    void FUN_001eb740(const char *dir, int a, const char *name) throw();
+    void FUN_001eb740(const char *dir, hulk_intptr a, const char *name) throw();
 };
 
-void Loader_1eb740::FUN_001eb740(const char *dir, int a, const char *name)
+void Loader_1eb740::FUN_001eb740(const char *dir, hulk_intptr a, const char *name)
 {
     StrList list;
     list.FUN_001ef370("Objects");

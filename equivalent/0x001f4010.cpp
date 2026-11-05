@@ -7,8 +7,8 @@ struct Object { char pad[0x18]; unsigned ready; };
 struct Entry_1f4010 { Handle_1f4010 first,second; Object* objects[4]; unsigned results[4]; char pad30[0x44]; int type; char pad78[8]; struct Block { unsigned low,high,value; char pad[0x1c]; } blocks[4]; };
 extern unsigned __cdecl FUN_002673a0(unsigned,unsigned);
 extern "C" void __cdecl FUN_001f3040(void *, void *);
-struct Owner_1f4010 { char pad[0xd4]; Entry_1f4010* entries[148]; int count; unsigned FUN_001f3ec0(Object*,Entry_1f4010*,Entry_1f4010*,unsigned,unsigned); Entry_1f4010* target(unsigned,unsigned,unsigned); };
-Entry_1f4010* Owner_1f4010::target(unsigned arg1,unsigned arg2,unsigned arg3) {
+struct Owner_1f4010 { char pad[0xd4]; Entry_1f4010* entries[148]; int count; unsigned FUN_001f3ec0(Object*,Entry_1f4010*,Entry_1f4010*,unsigned,unsigned); Entry_1f4010* target(hulk_uintptr,hulk_uintptr,unsigned); };
+Entry_1f4010* Owner_1f4010::target(hulk_uintptr arg1,hulk_uintptr arg2,unsigned arg3) {
  Entry_1f4010* selected=0;
  int n=count;
  for(int i=0;i<n;++i) { Entry_1f4010* e=entries[i]; if((e->first.a|e->first.b)==0) selected=e; }

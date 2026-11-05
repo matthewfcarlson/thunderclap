@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 44/46, incomplete)
 // FUN_0021a0f0 @ 0x0021a0f0
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
 union Value_21a0f0 {
@@ -60,7 +61,7 @@ void __cdecl FUN_00214a90(lua_State_21a0f0 *L, const char *msg, ...);
 
 // Lua 5.0 luaH_resize: nasize arrives in eax, the table in ecx.
 // equiv-conv: FUN_0021a0f0 eax ecx stack stack
-void FUN_0021a0f0(int nasize, Table_21a0f0 *t, lua_State_21a0f0 *L, int lsize)
+void FUN_0021a0f0(hulk_intptr nasize, Table_21a0f0 *t, lua_State_21a0f0 *L, int lsize)
 {
     int oldasize = t->sizearray;
     int oldlsize = t->lsizenode;

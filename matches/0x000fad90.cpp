@@ -14,7 +14,7 @@ struct Obj_fad90 {
 extern hulk_intptr __cdecl GetThing(Base_fad90*, int, void*, void*, int);
 extern int desc1_fad90;
 extern int desc2_fad90;
-int __fastcall Target(Obj_fad90* self) {
+hulk_intptr __fastcall Target(Obj_fad90* self) {
     Base_fad90* p = self->mRoot;
     if (!p)
         return 0;

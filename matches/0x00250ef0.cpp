@@ -10,7 +10,7 @@ struct Obj_250ef0 {
     const char* mName;
 };
 
-extern "C" bool FUN_00250ef0(Obj_250ef0* p, int arg, unsigned char* ch) {
+extern "C" bool FUN_00250ef0(Obj_250ef0* p, hulk_intptr arg, unsigned char* ch) {
     int a = arg;
     const char* s = p->mName;
     if (Check(s, (const char*)((hulk_intptr)((char*)&DAT_004298a8)), a)) {

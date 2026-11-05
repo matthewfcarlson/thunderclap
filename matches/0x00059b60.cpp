@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Entry {
     int id;
     char pad[32];
@@ -8,9 +9,9 @@ class Pool {
     unsigned capacity;
     Entry* entries;
     char* used;
-    int Allocate();
+    hulk_intptr Allocate();
 };
-int Pool::Allocate() {
+hulk_intptr Pool::Allocate() {
     int result = 0;
     for (unsigned i = 0; i < capacity; ++i) {
         if (used[i] == 0) {

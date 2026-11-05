@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Owner_fdc40 {
     char pad0[8];
     int count;
@@ -6,7 +7,7 @@ struct Owner_fdc40 {
 extern int __cdecl IsType(void*, int, const void*, const void*, int);
 extern const int AgentType;
 extern const int OccupationAgentType;
-int __fastcall Target(Owner_fdc40* self) {
+hulk_intptr __fastcall Target(Owner_fdc40* self) {
     int i = 0;
     if (self->count > 0) {
         void** p = self->items;

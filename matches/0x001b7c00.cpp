@@ -1,4 +1,5 @@
 // cl-flags: /O2 /GR /GX
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
@@ -24,7 +25,7 @@ class Method4_1b7c00 : public Function_1b7c00 {
     char m_pad3[3];      // 0x19-0x1b
     void* m_ptr1c;       // 0x1c
 
-    Method4_1b7c00(int a1, void* a2);
+    Method4_1b7c00(hulk_intptr a1, void* a2);
     virtual void Invoke(float, float, float, float) throw() {}
     virtual ~Method4_1b7c00() throw() {}
 };
@@ -32,7 +33,7 @@ class Method4_1b7c00 : public Function_1b7c00 {
 extern "C" unsigned char __cdecl FUN_001d04d0(void*);
 
 
-Method4_1b7c00::Method4_1b7c00(int a1, void* a2) : Function_1b7c00(a1, 4) {
+Method4_1b7c00::Method4_1b7c00(hulk_intptr a1, void* a2) : Function_1b7c00(a1, 4) {
     m_ptr1c = a2;
     m_b18 = FUN_001d04d0(((char*)&DAT_0048e100));
     m_b10 = FUN_001d04d0(((char*)&DAT_0048e128));

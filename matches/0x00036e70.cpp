@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/owners.h"
 class Item_36e70 {
   public:
@@ -9,9 +10,9 @@ class Owner_36e70 {
     char pad[0x2150];
     Item_36e70 items[16];
     int Find(int key);
-    char Update(int key, int value);
+    char Update(hulk_intptr key, int value);
 };
-char Owner_36e70::Update(int key, int value) {
+char Owner_36e70::Update(hulk_intptr key, int value) {
     int i;
     if (value == 0) {
         for (i = 0; i < 16; ++i) {

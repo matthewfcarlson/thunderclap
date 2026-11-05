@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Arg_2aa720 {
   public:
     int Convert();
@@ -17,9 +18,9 @@ class Group_2aa720 {
     unsigned count;
     Item_2aa720* items[8];
     int extra;
-    void Fn(int a, Arg_2aa720* b, int c);
+    void Fn(hulk_intptr a, Arg_2aa720* b, int c);
 };
-void Group_2aa720::Fn(int a, Arg_2aa720* b, int c) {
+void Group_2aa720::Fn(hulk_intptr a, Arg_2aa720* b, int c) {
     unsigned i = 0;
     if (count > 0) {
         Item_2aa720** p = items;

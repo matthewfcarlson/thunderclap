@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/owners.h"
 class Item_1c2870 {
   public:
@@ -7,9 +8,9 @@ class Container_1c2870 {
   public:
     int count;
     Item_1c2870 items[1];
-    bool Find(int x);
+    bool Find(hulk_intptr x);
 };
-bool Container_1c2870::Find(int x) {
+bool Container_1c2870::Find(hulk_intptr x) {
     int i = count;
     while (--i >= 0) {
         if (!((owners::Plane_22e080 *)&(items[i]))->FUN_0022e080((const float *)(hulk_uintptr)(int)x))

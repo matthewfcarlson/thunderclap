@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class DynamicCaster_1a9420 {
   public:
     virtual void a();
@@ -12,9 +13,9 @@ class LoadInventory {
     virtual void b();
     virtual void c();
     virtual int d(DynamicCaster_1a9420*, __int64);
-    int Load(void* p);
+    hulk_intptr Load(void* p);
 };
-int LoadInventory::Load(void* p) {
+hulk_intptr LoadInventory::Load(void* p) {
     DynamicCaster_1a9420 caster;
     return d(&caster, lookup(p, 0, 0));
 }

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 11024 inputs, branch coverage 26/26)
 // FUN_00037860 @ 0x00037860
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct Name_37860 {
     int lo;
@@ -102,7 +103,7 @@ public:
 
 class CCharacter : public pure3d::Entity {
 public:
-    CCharacter(int a);
+    CCharacter(hulk_intptr a);
     virtual void v1();
     virtual void v2();
     int f10;
@@ -461,7 +462,7 @@ public:
     char f22fc;
 };
 
-CCharacter::CCharacter(int a)
+CCharacter::CCharacter(hulk_intptr a)
 {
     int i;
     f10 = 0;

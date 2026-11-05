@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 20/22, incomplete)
 // FUN_001fc6a0 @ 0x001fc6a0
+#include "compat/ptr.h"
 class Unit_1fc6a0 {
 public:
     void FUN_00036be0(class Handler_1fc6a0 *best);
@@ -48,7 +49,7 @@ public:
 
 class Dispatcher_1fc6a0 {
 public:
-    void FUN_001fc6a0(int arg);
+    void FUN_001fc6a0(hulk_intptr arg);
 
     char pad0[4];
     World *world;
@@ -57,7 +58,7 @@ public:
     char *slots;
 };
 
-void Dispatcher_1fc6a0::FUN_001fc6a0(int arg)
+void Dispatcher_1fc6a0::FUN_001fc6a0(hulk_intptr arg)
 {
     UnitList *list = world->units;
     int count = list->count;

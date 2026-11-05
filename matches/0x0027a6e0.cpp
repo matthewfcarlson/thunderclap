@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 54 inputs, branch coverage 22/22)
 // FUN_0027a6e0 @ 0x0027a6e0
+#include "compat/ptr.h"
 #include "gen/owners.h"
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 extern "C" void* __cdecl FUN_00263ea0(unsigned int size);
@@ -35,9 +36,9 @@ class Dispatcher_27a6e0 {
     Slot_27a6e0 slots[20];
     Listener_27a6e0* listeners[20];
     int count;
-    void FUN_0027a6e0(int arg1, int arg2);
+    void FUN_0027a6e0(hulk_intptr arg1, hulk_intptr arg2);
 };
-void Dispatcher_27a6e0::FUN_0027a6e0(int arg1, int arg2) {
+void Dispatcher_27a6e0::FUN_0027a6e0(hulk_intptr arg1, hulk_intptr arg2) {
     Reader* reader;
     void* mem = FUN_0008d690(0xb4);
     if (mem)

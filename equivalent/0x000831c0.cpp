@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 8/8)
 // FUN_000831c0 @ 0x000831c0
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct Handle_831c0 { void FUN_0027b040(unsigned); };
 struct PoseAnimationController_831c0 {
@@ -23,9 +24,9 @@ struct CCow : FUN_0027b070 {
  PoseAnimationController_831c0* resource;
  unsigned f40,f44,f48;
  virtual void v0();
- CCow(unsigned h,unsigned i,unsigned v,unsigned a,unsigned b);
+ CCow(hulk_uintptr h,unsigned i,unsigned v,hulk_uintptr a,hulk_uintptr b);
 };
-CCow::CCow(unsigned h,unsigned i,unsigned v,unsigned a,unsigned b) {
+CCow::CCow(hulk_uintptr h,unsigned i,unsigned v,hulk_uintptr a,hulk_uintptr b) {
  id=i; value=v; type=9; flag1=0; flag2=0;
  f20=f24=f28=f2c=f30=f34=f38=0; resource=0; f40=f44=f48=0;
  handle.FUN_0027b040(h);

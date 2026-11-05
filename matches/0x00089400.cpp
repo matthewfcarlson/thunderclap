@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned __int64 U64;
 U64 __cdecl lookup(int);
 struct Entry {
@@ -9,9 +10,9 @@ class Obj {
     Entry entries[100];
 
   public:
-    int Find(int x);
+    int Find(hulk_intptr x);
 };
-int Obj::Find(int x) {
+int Obj::Find(hulk_intptr x) {
     U64 key = lookup(x);
     for (int i = 0; i < 100; ++i) {
         if (!entries[i].key)

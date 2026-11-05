@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 __int64 __cdecl FUN_002672f0(int, int, int);
 extern "C" int __cdecl FUN_002673a0(int, int);
 class CSoundCommand_1f0150 {
@@ -14,9 +15,9 @@ class CSoundCommand_PlaySequenceEvent : public CSoundCommand_1f0150 {
   public:
     Q q;
     int g;
-    CSoundCommand_PlaySequenceEvent(int x, int y, int z);
+    CSoundCommand_PlaySequenceEvent(hulk_intptr x, hulk_intptr y, hulk_intptr z);
     virtual void v();
 };
-CSoundCommand_PlaySequenceEvent::CSoundCommand_PlaySequenceEvent(int x, int y, int z) : CSoundCommand_1f0150(z), q(x) {
+CSoundCommand_PlaySequenceEvent::CSoundCommand_PlaySequenceEvent(hulk_intptr x, hulk_intptr y, hulk_intptr z) : CSoundCommand_1f0150(z), q(x) {
     g = FUN_002673a0(y, 0);
 }

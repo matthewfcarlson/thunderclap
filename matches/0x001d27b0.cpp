@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 struct ScriptHandler_1d27b0 {
     char pad[8];
     int value;
-    int Fn(int x);
+    hulk_intptr Fn(hulk_intptr x);
     int Other(int, int);
 };
-int ScriptHandler_1d27b0::Fn(int x) {
+hulk_intptr ScriptHandler_1d27b0::Fn(hulk_intptr x) {
     return Other(x, value);
 }

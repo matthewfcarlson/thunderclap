@@ -11,8 +11,8 @@ struct Context;
 struct Handler_25d480 { virtual unsigned int invoke(Context*, Buffer_25d480*, void*, unsigned int); };
 struct Context { char pad0[0x8c]; unsigned int value; char pad90[0x1c]; Handler_25d480* handler; char padb0[4]; unsigned char flags; };
 struct Owner_25d480 { char pad[0x44]; void* data; };
-struct Target_25d480 { char pad0[4]; Owner_25d480* owner; char pad8[0x2c]; unsigned int result; char pad38[4]; Context* context; unsigned int FUN_0025d480(unsigned int arg); };
-unsigned int Target_25d480::FUN_0025d480(unsigned int arg) {
+struct Target_25d480 { char pad0[4]; Owner_25d480* owner; char pad8[0x2c]; unsigned int result; char pad38[4]; Context* context; unsigned int FUN_0025d480(hulk_uintptr arg); };
+unsigned int Target_25d480::FUN_0025d480(hulk_uintptr arg) {
  Buffer_25d480 buffer;
  FUN_0025be60((unsigned int *)(hulk_uintptr)(unsigned int)arg, (unsigned int *)(Buffer_25d480 *)(&buffer));
  void* data = owner->data;

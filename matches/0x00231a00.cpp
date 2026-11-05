@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Item_231a00 {
     virtual void v0();
     virtual void v1();
@@ -11,9 +12,9 @@ struct Item_231a00 {
     int a[3];
     int type;
     Item_231a00* Next();
-    int target(int);
+    hulk_intptr target(hulk_intptr);
 };
-int Item_231a00::target(int param) {
+hulk_intptr Item_231a00::target(hulk_intptr param) {
     Item_231a00* p = Next();
     while (p) {
         if (p->type != 2) {

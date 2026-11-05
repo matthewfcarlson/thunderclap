@@ -11,10 +11,10 @@ class Method3_2e2b0 : public Function_2e2b0 {
     hulk_intptr v;
     char pad[0x18];
     int m1c;
-    Method3_2e2b0(int, int);
+    Method3_2e2b0(hulk_intptr, hulk_intptr);
 };
 extern char __cdecl ReadValue(const char*);
-Method3_2e2b0::Method3_2e2b0(int a, int b) : Function_2e2b0(a, 3) {
+Method3_2e2b0::Method3_2e2b0(hulk_intptr a, hulk_intptr b) : Function_2e2b0(a, 3) {
     v = ((hulk_intptr)DAT_003f431c);
     m1c = b;
     *((char*)this + 0x18) = ReadValue((const char*)((hulk_intptr)((char*)&DAT_0048e100)));

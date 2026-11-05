@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Entry_89f00 {
     __int64 id;
     char name[16];
@@ -9,7 +10,7 @@ class T_89f00 {
     char pad[0x158];
     Entry_89f00 mE[100];
     int Find(int k);
-    void Set(int k, int s);
+    void Set(hulk_intptr k, hulk_intptr s);
     inline int FindFree() {
         for (int i = 0; i < 100; i++) {
             if (mE[i].id == 0)
@@ -18,7 +19,7 @@ class T_89f00 {
         return -1;
     }
 };
-void T_89f00::Set(int k, int s) {
+void T_89f00::Set(hulk_intptr k, hulk_intptr s) {
     int i = Find(k);
     if (i == -1)
         i = FindFree();

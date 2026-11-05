@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_000ef180 @ 0x000ef180
+#include "compat/ptr.h"
 struct ScreenSource {
     char pad00[0x180c];
     int f180c;
@@ -32,7 +33,7 @@ public:
 
 class FEScreenBase : public FEContainer_ef180 {
 public:
-    FEScreenBase(ScreenSource* src, int arg);
+    FEScreenBase(ScreenSource* src, hulk_intptr arg);
     virtual void v1();
 
     int f990;  // 0x990
@@ -76,7 +77,7 @@ public:
     char fbc2;  // 0xbc2
 };
 
-FEScreenBase::FEScreenBase(ScreenSource* src, int arg) : FEContainer_ef180(src, arg)
+FEScreenBase::FEScreenBase(ScreenSource* src, hulk_intptr arg) : FEContainer_ef180(src, arg)
 {
     int i;
     for (i = 0; i < 0x20; i++)

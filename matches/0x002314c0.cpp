@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_2314c0;
 struct Owner_2314c0 {
     u32_2314c0 count;
@@ -10,7 +11,7 @@ struct Cursor_2314c0 {
     Owner_2314c0* owner;
     u32_2314c0 index;
 };
-u32_2314c0 __fastcall FUN_002314c0(Cursor_2314c0* self) {
+hulk_uintptr __fastcall FUN_002314c0(Cursor_2314c0* self) {
     Owner_2314c0* o = self->owner;
     u32_2314c0 i;
     u32_2314c0* p;

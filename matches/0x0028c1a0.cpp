@@ -1,5 +1,6 @@
 // FUN_0028c1a0 @ 0x0028c1a0
 // equiv-map: ??0Channel@pure3d@@QAE@II@Z = 0x0028b420
+#include "compat/ptr.h"
 
 struct Name_28c1a0 {
     int lo, hi;
@@ -28,11 +29,11 @@ public:
 class StringChannel : public Channel {
 public:
     Name_28c1a0 *names;            // 0x18
-    StringChannel(unsigned int a, unsigned int b);
+    StringChannel(unsigned int a, hulk_uintptr b);
     virtual void v0();
 };
 
-StringChannel::StringChannel(unsigned int a, unsigned int b) : Channel(a, b)
+StringChannel::StringChannel(unsigned int a, hulk_uintptr b) : Channel(a, b)
 {
     names = 0;
     if (alloc == 0) {

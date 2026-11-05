@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 6/6)
 // FUN_00219e90 @ 0x00219e90
 // FUN_00219e90 @ 0x00219e90
+#include "compat/ptr.h"
 struct Value { int type; union { float real; int integer; } data; };
 extern int* __cdecl FUN_00219dc0(int, int);
 extern int* __cdecl FUN_00219e50(int, int);
 // equiv-conv: FUN_00219d80 edi stack
 extern "C" int * __cdecl FUN_00219d80(int *, int);
-int* __cdecl FUN_00219e90(int context, const Value *value)
+int* __cdecl FUN_00219e90(hulk_intptr context, const Value *value)
 {
     if (value->type == 3) {
         int integer = (int)value->data.real;

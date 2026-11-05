@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_16fc90 {
   public:
     virtual void v0();
@@ -15,9 +16,9 @@ class Thing_16fc90 {
     char pad[0x10];
     Obj_16fc90* m;
     char pad2[0x84];
-    int FUN(int arg);
+    int FUN(hulk_intptr arg);
 };
-int Thing_16fc90::FUN(int arg) {
+int Thing_16fc90::FUN(hulk_intptr arg) {
     m->v8((char*)this + 0x98, arg, -1);
     return arg;
 }

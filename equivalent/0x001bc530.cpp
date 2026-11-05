@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 8/8; Wine build 606 inputs, 8/8)
 // FUN_001bc530 @ 0x001bc530
+#include "compat/ptr.h"
 struct Vec2_1bc530 {
     float x, y;
     float spare;    // FUN_00292cc0 writes three floats through &p (the third lands here, not on the saved ebp)
@@ -28,7 +29,7 @@ Holder_1bc530* FUN_001c3d90();
 
 // Grows the rect (passed in esi) to include the point mapped from arg.
 // equiv-conv: FUN_001bc530 esi stack
-void FUN_001bc530(Rect_1bc530* rect, int arg)
+void FUN_001bc530(Rect_1bc530* rect, hulk_intptr arg)
 {
     Vec2_1bc530 p;
     FUN_001c3d90()->inner->FUN_001c19a0()->FUN_00292cc0(arg, &p);

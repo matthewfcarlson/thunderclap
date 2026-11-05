@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
 // FUN_000f80e0 @ 0x000f80e0
+#include "compat/ptr.h"
 #include "gen/owners.h"
 struct State_f80e0 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void Get(int*); virtual void Set(int);
@@ -15,9 +16,9 @@ struct Object {
  Entry_f80e0 entries[8];
  int index;
  int mode;
- void FUN_000f80e0(int a,int slot,int c);
+ void FUN_000f80e0(hulk_intptr a,int slot,int c);
 };
-void Object::FUN_000f80e0(int a,int slot,int c) {
+void Object::FUN_000f80e0(hulk_intptr a,int slot,int c) {
  int oldState;
  if(context->states[slot]) context->states[slot]->Get(&oldState); else oldState=-1;
  int newState=entries[index].state;

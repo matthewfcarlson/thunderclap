@@ -110,7 +110,7 @@ int __stdcall FUN_001aff50(Holder_1b1e90 *a1, Holder_1b1e90 *a2, Holder_1b1e90 *
 class Self_1b1e90 {
 public:
     int FUN_001b1710(Holder_1b1e90 *a1, Holder_1b1e90 *a2, Holder_1b1e90 *a3, int a4, V3_1b1e90 *a5, float a6);
-    int FUN_001b1e90(Holder_1b1e90 *h1, Holder_1b1e90 *h2, int arg3, int arg4, Slot5_1b1e90 a5, float arg6);
+    int FUN_001b1e90(Holder_1b1e90 *h1, Holder_1b1e90 *h2, hulk_intptr arg3, hulk_intptr arg4, Slot5_1b1e90 a5, float arg6);
 };
 
 struct Frame_1b1e90 {
@@ -119,7 +119,7 @@ struct Frame_1b1e90 {
     V3_1b1e90 n2;                         // E-0xc
 };
 
-int Self_1b1e90::FUN_001b1e90(Holder_1b1e90 *h1, Holder_1b1e90 *h2, int arg3, int arg4, Slot5_1b1e90 a5, float arg6)
+int Self_1b1e90::FUN_001b1e90(Holder_1b1e90 *h1, Holder_1b1e90 *h2, hulk_intptr arg3, hulk_intptr arg4, Slot5_1b1e90 a5, float arg6)
 {
     Frame_1b1e90 f;
     Actor_1b1e90 *B = h2->actor;

@@ -18,10 +18,10 @@ class SlotSet {
 public:
     char pad0[8];
     SlotTable_8c740* table;
-    int FUN_0008c740(int index, unsigned int* outBits, int value);
+    int FUN_0008c740(int index, unsigned int* outBits, hulk_intptr value);
 };
 
-int SlotSet::FUN_0008c740(int index, unsigned int* outBits, int value) {
+int SlotSet::FUN_0008c740(int index, unsigned int* outBits, hulk_intptr value) {
     if (value)
         FUN_0008c710((Slot_8c740 *)(&table->slots[index]), (unsigned short *)(hulk_uintptr)(int)value);
     if (outBits) {

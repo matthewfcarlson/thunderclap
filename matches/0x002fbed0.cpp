@@ -13,9 +13,9 @@ class CollisionOBB_2fbed0 {
     Part_2fbed0 p2;
     void Base();
     void Build(int, int, int, int, int);
-    CollisionOBB_2fbed0* Target(int, int, int, int, int);
+    CollisionOBB_2fbed0* Target(hulk_intptr, hulk_intptr, hulk_intptr, hulk_intptr, hulk_intptr);
 };
-CollisionOBB_2fbed0* CollisionOBB_2fbed0::Target(int a, int b, int c, int d, int e) {
+CollisionOBB_2fbed0* CollisionOBB_2fbed0::Target(hulk_intptr a, hulk_intptr b, hulk_intptr c, hulk_intptr d, hulk_intptr e) {
     Base();
     *(hulk_intptr*)this = ((hulk_intptr)DAT_004317dc);
     p1.Init();

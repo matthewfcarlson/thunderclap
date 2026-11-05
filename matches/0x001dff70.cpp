@@ -11,7 +11,7 @@ class Function_1dff70 {
 
 class Method4_1dff70 : public Function_1dff70 {
   public:
-    Method4_1dff70(int a, int b);
+    Method4_1dff70(hulk_intptr a, hulk_intptr b);
     virtual void f0();
     char m10, m11, m12, m13;
     int m14;
@@ -24,7 +24,7 @@ extern char GetFlag(const char* s);
 
 void Method4_1dff70::f0() {}
 
-Method4_1dff70::Method4_1dff70(int a, int b) : Function_1dff70(a, 4) {
+Method4_1dff70::Method4_1dff70(hulk_intptr a, hulk_intptr b) : Function_1dff70(a, 4) {
     m1c = b;
     m18 = GetFlag((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
     m10 = GetFlag((const char*)((hulk_intptr)((char*)&DAT_0048e134)));

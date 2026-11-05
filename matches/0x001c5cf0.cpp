@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_1c5cf0 {
   public:
     virtual void A();
@@ -11,9 +12,9 @@ class Thing_1c5cf0 {
     char pad[8];
     Obj_1c5cf0* p;
     int q;
-    Thing_1c5cf0* Set(int, Obj_1c5cf0*);
+    Thing_1c5cf0* Set(hulk_intptr, Obj_1c5cf0*);
 };
-Thing_1c5cf0* Thing_1c5cf0::Set(int arg, Obj_1c5cf0* value) {
+Thing_1c5cf0* Thing_1c5cf0::Set(hulk_intptr arg, Obj_1c5cf0* value) {
     ((ThisCall_0027af30*)(this))->Init(arg);
     p = 0;
     if (value) {

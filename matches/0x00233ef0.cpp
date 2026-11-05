@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_233ef0 {
   public:
     virtual void A();
@@ -6,9 +7,9 @@ class Obj_233ef0 {
 class Holder_233ef0 {
   public:
     Obj_233ef0* p;
-    void Set(int unused, Obj_233ef0* x);
+    void Set(hulk_intptr unused, Obj_233ef0* x);
 };
-void Holder_233ef0::Set(int unused, Obj_233ef0* x) {
+void Holder_233ef0::Set(hulk_intptr unused, Obj_233ef0* x) {
     if (x)
         x->A();
     if (p)

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 // data: gflag = DAT_004e222c
 
@@ -30,10 +31,10 @@ class Thing_1b8350 {
     char p131[3];
     int arg134;
     void Helper(int, unsigned char);
-    void Run(int, int);
+    void Run(hulk_intptr, int);
 };
 extern int getval();
-void Thing_1b8350::Run(int a, int b) {
+void Thing_1b8350::Run(hulk_intptr a, int b) {
     Helper(a, b114);
     if (inner) {
         flag9 = 0;

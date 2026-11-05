@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Parent {
   public:
     Parent();
@@ -27,7 +28,7 @@ class Sub {
 class CFightParamsCollision : public CFightParams_598e0 {
   public:
     Sub sub;
-    CFightParamsCollision(int, int);
+    CFightParamsCollision(hulk_intptr, hulk_intptr);
     virtual void f();
 };
-CFightParamsCollision::CFightParamsCollision(int v, int n) : CFightParams_598e0(v), sub(n) {}
+CFightParamsCollision::CFightParamsCollision(hulk_intptr v, hulk_intptr n) : CFightParams_598e0(v), sub(n) {}

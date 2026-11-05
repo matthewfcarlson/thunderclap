@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Val_2eb720 {
     char bytes[10];
 };
@@ -10,7 +11,7 @@ struct Obj_2eb720 {
     int data;
     Val_2eb720 val;
 };
-void F(void* p, Obj_2eb720* o, int data, int count, Val_2eb720* v) {
+void F(void* p, Obj_2eb720* o, hulk_intptr data, int count, Val_2eb720* v) {
     if (!p || !o)
         return;
     if (data)

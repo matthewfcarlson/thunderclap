@@ -8,7 +8,7 @@ struct Obj_213d30 {
 };
 extern void helper17440(Obj_213d30*);
 extern "C" void * __cdecl FUN_002194d0(void *, void *);
-extern "C" int __cdecl FUN_00213d30(Obj_213d30* p, int a) {
+extern "C" hulk_intptr __cdecl FUN_00213d30(Obj_213d30* p, int a) {
     if (p->state[0x4c / 4] >= p->state[0x48 / 4])
         helper17440(p);
     int r = ((int)(hulk_uintptr)FUN_002194d0((Obj_213d30 *)p, (void *)(hulk_uintptr)(int)a));

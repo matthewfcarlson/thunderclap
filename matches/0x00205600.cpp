@@ -10,7 +10,7 @@ class InitBase_205600 {
 };
 class Method3_205600 {
   public:
-    Method3_205600(const char*, int);
+    Method3_205600(const char*, hulk_intptr);
     hulk_intptr vptr;
     char p[12];
     char f10, f11, f12;
@@ -19,7 +19,7 @@ class Method3_205600 {
     char p3[3];
     int f1c;
 };
-Method3_205600::Method3_205600(const char* a, int b) {
+Method3_205600::Method3_205600(const char* a, hulk_intptr b) {
     ((InitBase_205600*)this)->Init(a, 3);
     vptr = ((hulk_intptr)DAT_00425be4);
     f1c = b;

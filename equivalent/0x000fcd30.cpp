@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000fcd30 @ 0x000fcd30
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct FUN_000fc760 {
@@ -23,9 +24,9 @@ struct CControllerAgent : FUN_000fc760 {
  unsigned char fielda0, fielda1;
  char pada2[0x32];
  int fieldd4;
- CControllerAgent(int arg);
+ CControllerAgent(hulk_intptr arg);
 };
-CControllerAgent::CControllerAgent(int arg) : FUN_000fc760(arg) {
+CControllerAgent::CControllerAgent(hulk_intptr arg) : FUN_000fc760(arg) {
  for(int i=0;i<6;++i) values[i]=-1.0f;
  unsigned char initialized=(*(unsigned char*)&DAT_004e0a90);
  field6c=0; field74=0; field84=0; fielda0=0; fielda1=0; fieldd4=0;

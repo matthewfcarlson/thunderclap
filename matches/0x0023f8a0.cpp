@@ -1,4 +1,5 @@
 // Same code shape as 0x00098430 (propagated; names are from that function)
+#include "compat/ptr.h"
 class CGameCamera {
   public:
     virtual void f0();
@@ -34,6 +35,6 @@ class CGameCamera {
     virtual void f30();
     virtual void f31();
     virtual void f32();
-    virtual void vfunc_33(int, int, int);
+    virtual void vfunc_33(hulk_intptr, int, int);
 };
-void CGameCamera::vfunc_33(int, int, int) {}
+void CGameCamera::vfunc_33(hulk_intptr, int, int) {}

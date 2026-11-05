@@ -29,10 +29,10 @@ struct CollisionObject {
     int f78;
     void FUN_0027b070();
     void FUN_00304b40(int arg);
-    CollisionObject *FUN_00304f50(int arg);
+    CollisionObject *FUN_00304f50(hulk_intptr arg);
 };
 
-CollisionObject *CollisionObject::FUN_00304f50(int arg)
+CollisionObject *CollisionObject::FUN_00304f50(hulk_intptr arg)
 {
     FUN_0027b070();
     vptr = (hulk_intptr)DAT_00431b08;

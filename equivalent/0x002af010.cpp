@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 17396 inputs, branch coverage 2/2)
 // FUN_002af010 @ 0x002af010
+#include "compat/ptr.h"
 class TextureBuilder {
 public:
     int f4, f8, fc, f10, f14, f18, f1c, f20, f24, f28, f2c, f30;
@@ -35,10 +36,10 @@ public:
 };
 struct ThisWrap_002af010 {
     Builder * FUN_002ae9d0(int a);
-    void FUN_002af010(int a1, int a2, int a3, int a4);
+    void FUN_002af010(int a1, hulk_intptr a2, int a3, int a4);
 };
 
-void ThisWrap_002af010::FUN_002af010(int a1, int a2, int a3, int a4) {
+void ThisWrap_002af010::FUN_002af010(int a1, hulk_intptr a2, int a3, int a4) {
     Builder *b = this->FUN_002ae9d0(a3);
     if (b != 0) {
         TextureBuilder tb(a2, a4);

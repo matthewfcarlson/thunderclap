@@ -13,9 +13,9 @@ class ParamValueVector : public ParamValue {
     ValuePart part;
 
   public:
-    ParamValueVector(int);
+    ParamValueVector(hulk_intptr);
     virtual void G();
 };
-ParamValueVector::ParamValueVector(int x) : part(x) {
+ParamValueVector::ParamValueVector(hulk_intptr x) : part(x) {
     *((hulk_intptr*)this) = (hulk_intptr)&vderived;
 }

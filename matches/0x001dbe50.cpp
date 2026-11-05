@@ -1,4 +1,5 @@
 // Same code shape as 0x000fc4c0 (propagated; names are from that function)
+#include "compat/ptr.h"
 class CAgent {
   public:
     virtual void vfunc_0();
@@ -8,12 +9,12 @@ class CAgent {
     virtual void vfunc_4();
     virtual void vfunc_5();
     virtual void vfunc_6();
-    virtual void vfunc_7(int a);
+    virtual void vfunc_7(hulk_intptr a);
     virtual void vfunc_8();
     virtual void vfunc_9();
     virtual void vfunc_10();
 };
 
-void CAgent::vfunc_7(int a) {
+void CAgent::vfunc_7(hulk_intptr a) {
     (void)a;
 }

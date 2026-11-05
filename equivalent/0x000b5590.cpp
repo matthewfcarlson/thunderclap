@@ -2,6 +2,7 @@
 // FUN_000b5590 @ 0x000b5590
 // FUN_000b5590 @ 0x000b5590: set the colour and text of the side-mission success ranking.
 // The extent is 0xb5590..0xb566f: the switch arms at 0xb55e0/5600/5620/5640 are part of this function.
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct Ranking { void FUN_000f8500(const float*, int, int); };
@@ -14,7 +15,7 @@ struct Object {
 };
 extern "C" Object* __cdecl FUN_000fc260(const char*);
 
-extern "C" void __stdcall FUN_000b5590(unsigned int value)
+extern "C" void __stdcall FUN_000b5590(hulk_uintptr value)
 {
     Object* object = FUN_000fc260("side_mission_success_ranking");
     if (!object)

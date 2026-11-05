@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_98480 {
   public:
     virtual void f0();
@@ -39,9 +40,9 @@ class Owner_98480 {
     Obj_98480* a;
     Obj_98480* b;
     unsigned char flag;
-    Obj_98480* go(unsigned int);
+    Obj_98480* go(hulk_uintptr);
 };
-Obj_98480* Owner_98480::go(unsigned int arg) {
+Obj_98480* Owner_98480::go(hulk_uintptr arg) {
     Obj_98480* result = b;
     if (a) {
         if (flag)

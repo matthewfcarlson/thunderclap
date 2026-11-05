@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 class Function_1069c0 {
@@ -15,9 +16,9 @@ class Method3 : public Function_1069c0 {
     unsigned char d;
     char pad3[3];
     int value;
-    Method3(const char*, int);
+    Method3(const char*, hulk_intptr);
 };
-Method3::Method3(const char* p, int v) : Function_1069c0(p, 3) {
+Method3::Method3(const char* p, hulk_intptr v) : Function_1069c0(p, 3) {
     value = v;
     d = get(((const char*)&DAT_0048e0e4));
     a = get(((const char*)&DAT_0048e0f0));

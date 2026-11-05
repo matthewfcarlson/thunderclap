@@ -11,9 +11,9 @@ class Method6_9a6e0 {
     char pad19[3];
     int m1c;
     void Init(int, int);
-    Method6_9a6e0* Run(int, int);
+    Method6_9a6e0* Run(hulk_intptr, hulk_intptr);
 };
-Method6_9a6e0* Method6_9a6e0::Run(int a, int b) {
+Method6_9a6e0* Method6_9a6e0::Run(hulk_intptr a, hulk_intptr b) {
     Init(a, 6);
     v = ((hulk_intptr)DAT_00404c00);
     m1c = b;

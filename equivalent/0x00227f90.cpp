@@ -7,7 +7,7 @@ extern void __cdecl FUN_00227a10(Partition*, Item_227f90*, Item_227f90*);
 extern "C" void __cdecl FUN_00227e20(void *, void *);
 extern void __cdecl FUN_002277f0(Item_227f90*, Item_227f90*, int, int);
 extern "C" void __cdecl FUN_00227ef0(void *, void *);
-void __cdecl FUN_00227f90(Item_227f90* first, Item_227f90* last, int budget) {
+void __cdecl FUN_00227f90(Item_227f90* first, Item_227f90* last, hulk_intptr budget) {
  hulk_intptr count = last-first;
  while (count > 32 && budget > 0) {
   Partition p;

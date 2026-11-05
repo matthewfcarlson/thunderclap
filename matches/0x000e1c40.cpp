@@ -8,9 +8,9 @@ class FEDoPopDialog {
     int c;
     int d;
     char e;
-    FEDoPopDialog(int);
+    FEDoPopDialog(hulk_intptr);
 };
-FEDoPopDialog::FEDoPopDialog(int x) {
+FEDoPopDialog::FEDoPopDialog(hulk_intptr x) {
     b = -1;
     c = -1;
     d = x;

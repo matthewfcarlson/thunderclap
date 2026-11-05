@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001f4ba0 @ 0x001f4ba0
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
 
@@ -22,9 +23,9 @@ struct Object {
  unsigned int f324, f328, f32c, f330;
  float f334;
  unsigned int argument;
- Object* FUN_001f4ba0(unsigned int arg);
+ Object* FUN_001f4ba0(hulk_uintptr arg);
 };
-Object* Object::FUN_001f4ba0(unsigned int arg) {
+Object* Object::FUN_001f4ba0(hulk_uintptr arg) {
  state.FUN_0027af00();
  ((owners::Pair_27af60 *)&state)->FUN_0027af60(0, 0);
  state.value=0;

@@ -15,9 +15,9 @@ class Method3_1e0ac0 {
     char pad19[3];
     int m1c;
     void Init(int, int);
-    Method3_1e0ac0* Run(int, int);
+    Method3_1e0ac0* Run(hulk_intptr, hulk_intptr);
 };
-Method3_1e0ac0* Method3_1e0ac0::Run(int a, int b) {
+Method3_1e0ac0* Method3_1e0ac0::Run(hulk_intptr a, hulk_intptr b) {
     Init(a, 3);
     x = ((hulk_intptr)DAT_00423468);
     m1c = b;

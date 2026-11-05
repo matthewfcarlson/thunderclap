@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned __int64 U64;
 U64 __cdecl FUN_002672f0(int, int, int);
 extern "C" int __cdecl FUN_002673a0(int, int);
@@ -17,9 +18,9 @@ struct CSoundCommand_PlayInterruptEvent : CSoundCommand_1f01c0 {
     virtual void dummy();
     Pair pair;
     int field18;
-    CSoundCommand_PlayInterruptEvent(int a, int b, int c);
+    CSoundCommand_PlayInterruptEvent(hulk_intptr a, hulk_intptr b, hulk_intptr c);
 };
-CSoundCommand_PlayInterruptEvent::CSoundCommand_PlayInterruptEvent(int a, int b, int c) : CSoundCommand_1f01c0(c) {
+CSoundCommand_PlayInterruptEvent::CSoundCommand_PlayInterruptEvent(hulk_intptr a, hulk_intptr b, hulk_intptr c) : CSoundCommand_1f01c0(c) {
     U64 value = FUN_002672f0(a, 0, 0);
     pair.Set(value);
     field18 = FUN_002673a0(b, 0);

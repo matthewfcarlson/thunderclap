@@ -7,9 +7,9 @@ struct Stream {
     virtual int transfer(uint_27a460 handle, uint_27a460 mode, uint_27a460 block, uint_27a460 offset, uint_27a460 count, uint_27a460 destination, uint_27a460 flags, uint_27a460 context);
     virtual uint_27a460 blockSize();
     virtual uint_27a460 baseOffset(uint_27a460 handle);
-    int process(uint_27a460 unused, uint_27a460 handle, uint_27a460 mode, uint_27a460 offset, uint_27a460 destination, uint_27a460 count, uint_27a460* result, uint_27a460 flags, uint_27a460 context);
+    int process(hulk_uintptr unused, uint_27a460 handle, uint_27a460 mode, uint_27a460 offset, uint_27a460 destination, uint_27a460 count, uint_27a460* result, uint_27a460 flags, uint_27a460 context);
 };
-int Stream::process(uint_27a460 unused, uint_27a460 handle, uint_27a460 mode, uint_27a460 offset, uint_27a460 destination, uint_27a460 count, uint_27a460* result, uint_27a460 flags, uint_27a460 context) {
+int Stream::process(hulk_uintptr unused, uint_27a460 handle, uint_27a460 mode, uint_27a460 offset, uint_27a460 destination, uint_27a460 count, uint_27a460* result, uint_27a460 flags, uint_27a460 context) {
     uint_27a460 size = blockSize();
     uint_27a460 position = baseOffset(handle) + offset;
     uint_27a460 block = position / size;

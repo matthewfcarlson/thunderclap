@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 6/6)
 // FUN_001de360 @ 0x001de360
+#include "compat/ptr.h"
 struct Sub_1de360 {
     virtual void v0();
     virtual void v1();
@@ -18,10 +19,10 @@ struct Owner_1de360 {
     int arg;
     char pad1e834[0x1ec40 - 0x1e834];
     int z0, z1, z2, z3;
-    void FUN_001de360(int a);
+    void FUN_001de360(hulk_intptr a);
 };
 
-void Owner_1de360::FUN_001de360(int a)
+void Owner_1de360::FUN_001de360(hulk_intptr a)
 {
     CSPListener_1de360 *raw = (CSPListener_1de360 *)FUN_0008d690(0x10);
     CSPListener_1de360 *item;

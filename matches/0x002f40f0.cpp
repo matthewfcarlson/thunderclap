@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 void fix(unsigned short*, int, int, int);
-void sift(unsigned short* a, int i, int n, int x) {
+void sift(unsigned short* a, int i, hulk_intptr n, int x) {
     int orig = i;
     int child;
     while ((child = i * 2 + 2) < n) {

@@ -11,9 +11,9 @@ class GeneratorBlendState {
     int b;
     int c;
     int d;
-    GeneratorBlendState(int x);
+    GeneratorBlendState(hulk_intptr x);
 };
-GeneratorBlendState::GeneratorBlendState(int x) {
+GeneratorBlendState::GeneratorBlendState(hulk_intptr x) {
     a = 0;
     vf = ((hulk_intptr)DAT_0042f0a8);
     b = 0;

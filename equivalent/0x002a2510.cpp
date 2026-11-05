@@ -2,7 +2,7 @@
 // FUN_002a2510 @ 0x002a2510
 #include "compat/ptr.h"
 void __cdecl FUN_002a1e60(int*, int, hulk_intptr, int, int);
-void __cdecl FUN_002a2510(int* first, int* last, int value)
+void __cdecl FUN_002a2510(int* first, int* last, hulk_intptr value)
 {
     hulk_intptr bytes = (char*)last - (char*)first;
     while ((bytes >> 2) > 1) {

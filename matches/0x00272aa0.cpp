@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Inner_272aa0 {
   public:
     virtual void A();
@@ -13,10 +14,10 @@ class Obj_272aa0 {
     unsigned char mFlag;
     char pad55[3];
     int mArg;
-    void Run(int);
+    void Run(hulk_intptr);
 };
 extern "C" void __cdecl FUN_0026d8a0(int);
-void Obj_272aa0::Run(int arg) {
+void Obj_272aa0::Run(hulk_intptr arg) {
     mInner.A();
     mArg = arg;
     mFlag = 1;

@@ -24,7 +24,7 @@ extern "C" void __cdecl FUN_00219660(State_215de0*, char*);
 // equiv-conv: FUN_00215240 eax ecx edi
 extern "C" void __cdecl FUN_00215240(int, void *, void *);
 extern "C" void __cdecl FUN_00215410(void *, unsigned int);
-unsigned int __cdecl FUN_00215de0(State_215de0* s, unsigned int a, unsigned int b, unsigned int offset, unsigned int context) {
+unsigned int __cdecl FUN_00215de0(State_215de0* s, hulk_uintptr a, hulk_uintptr b, unsigned int offset, unsigned int context) {
  unsigned short oldWord = s->savedWord;
  unsigned char oldByte = s->savedByte;
  hulk_uintptr displacement = (hulk_uintptr)s->current - (hulk_uintptr)s->base;

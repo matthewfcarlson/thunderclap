@@ -14,9 +14,9 @@ class Method3_1f4980 {
     char b18;
     char pad19[3];
     int a;
-    Method3_1f4980* Fn(void*, int);
+    Method3_1f4980* Fn(void*, hulk_intptr);
 };
-Method3_1f4980* Method3_1f4980::Fn(void* p, int v) {
+Method3_1f4980* Method3_1f4980::Fn(void* p, hulk_intptr v) {
     Init(p, 3);
     vf = ((hulk_intptr)DAT_00424b0c);
     a = v;

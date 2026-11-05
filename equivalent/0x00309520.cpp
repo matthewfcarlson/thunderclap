@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 16/16)
 // FUN_00309520 @ 0x00309520
+#include "compat/ptr.h"
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 
 struct Vec3_309520 {
@@ -98,10 +99,10 @@ public:
     Part_309520 *parts;
     int count;
     void FUN_00309410();
-    HairclubPhysicsObject(int a, Source_309520 **sources, int n) throw();
+    HairclubPhysicsObject(hulk_intptr a, Source_309520 **sources, int n) throw();
 };
 
-HairclubPhysicsObject::HairclubPhysicsObject(int a, Source_309520 **sources, int n) throw() : PhysicsObject(a)
+HairclubPhysicsObject::HairclubPhysicsObject(hulk_intptr a, Source_309520 **sources, int n) throw() : PhysicsObject(a)
 {
     parts = 0;
     count = n;

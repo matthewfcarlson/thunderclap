@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001f08f0 @ 0x001f08f0
+#include "compat/ptr.h"
 unsigned __int64 __cdecl FUN_002672f0(int, int, int);
 int __cdecl FUN_002673a0(int, int);
 
@@ -12,10 +13,10 @@ public:
     int field10;
     int field14;
     int field18;
-    CSoundCommand_PlaySFXEvent(int first, int second, int third);
+    CSoundCommand_PlaySFXEvent(hulk_intptr first, int second, int third);
 };
 
-CSoundCommand_PlaySFXEvent::CSoundCommand_PlaySFXEvent(int first, int second, int third) {
+CSoundCommand_PlaySFXEvent::CSoundCommand_PlaySFXEvent(hulk_intptr first, int second, int third) {
     field04 = 0;
     field08 = 0;
     field0c = third;

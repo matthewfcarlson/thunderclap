@@ -1,10 +1,11 @@
+#include "compat/ptr.h"
 extern int __cdecl F213190(void*, void*);
 extern int __cdecl F212f20(void*, int);
 extern int __cdecl F212f00(void*, void*);
 extern int __cdecl F213470(void*, const char*, ...);
 extern void __cdecl F339c30(void*, void*, int);
 extern int __cdecl F2131f0(void*, void*);
-int __cdecl Target(void* a, void* b, int* out) {
+hulk_intptr __cdecl Target(void* a, void* b, int* out) {
     int r = F213190(a, b);
     if (!r) {
         int x = F212f20(a, 4);

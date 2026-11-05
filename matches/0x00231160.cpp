@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_231160 {
   public:
     void* m0;
@@ -6,9 +7,9 @@ class Obj_231160 {
     int mc;
     int m10;
     int m14;
-    Obj_231160(int arg);
+    Obj_231160(hulk_intptr arg);
 };
-Obj_231160::Obj_231160(int arg) {
+Obj_231160::Obj_231160(hulk_intptr arg) {
     m0 = (void*)arg;
     m8 = 0;
     mc = 0;

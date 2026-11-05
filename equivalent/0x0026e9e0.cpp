@@ -9,7 +9,7 @@ extern "C" void* __cdecl FUN_00266e00(int, hulk_intptr);
 struct ConsoleClient_nv_26e9e0 {
     void* FUN_0026e2a0(int, int);
 };
-void __cdecl target(Obj_26e9e0** result, int value, int other) {
+void __cdecl target(Obj_26e9e0** result, hulk_intptr value, int other) {
     if ((*(Obj_26e9e0**)&DAT_005283b0)) {
         (*(Obj_26e9e0**)&DAT_005283b0)->FUN_0026e9e0_slot0();
         *result = (*(Obj_26e9e0**)&DAT_005283b0);

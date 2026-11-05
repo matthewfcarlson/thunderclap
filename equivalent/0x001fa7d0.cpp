@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_001fa7d0 @ 0x001fa7d0
+#include "compat/ptr.h"
 struct Entry_1fa7d0 { char data[0x58]; void FUN_001f9810(int value); };
 struct Object {
  char pad0[0x10];
@@ -13,9 +14,9 @@ struct Object {
  bool FUN_001f87e0(int input, int item, int* index);
  void FUN_001fa1c0(int input, int item);
  void FUN_001fa3a0(int index);
- bool FUN_001fa7d0(int input, int value);
+ bool FUN_001fa7d0(hulk_intptr input, int value);
 };
-bool Object::FUN_001fa7d0(int input, int value) {
+bool Object::FUN_001fa7d0(hulk_intptr input, int value) {
  if (!input || state != 2) return false;
  bool result = false;
  for (int i = 0; i < count; ++i) {

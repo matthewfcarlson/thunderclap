@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_002b8f60 @ 0x002b8f60
+#include "compat/ptr.h"
 #include "gen/owners.h"
 struct Mat4_2b8f60;
 
@@ -17,10 +18,10 @@ public:
     float halfX;
     float halfY;
     float depth;
-    void FUN_002b8f60(Vec3_2b8f60* corners, Mat4_2b8f60* local, Mat4_2b8f60* world, int unused, float scale);
+    void FUN_002b8f60(Vec3_2b8f60* corners, Mat4_2b8f60* local, Mat4_2b8f60* world, hulk_intptr unused, float scale);
 };
 
-void Box_2b8f60::FUN_002b8f60(Vec3_2b8f60* corners, Mat4_2b8f60* local, Mat4_2b8f60* world, int unused, float scale)
+void Box_2b8f60::FUN_002b8f60(Vec3_2b8f60* corners, Mat4_2b8f60* local, Mat4_2b8f60* world, hulk_intptr unused, float scale)
 {
     float x = scale * halfX;
     float y = scale * halfY;

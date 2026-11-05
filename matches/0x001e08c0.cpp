@@ -12,12 +12,12 @@ class Method4_1e08c0 {
     unsigned char a18;
     char pad19[3];
     int field1c;
-    Method4_1e08c0* Init(void*, int);
+    Method4_1e08c0* Init(void*, hulk_intptr);
 };
 struct ThisCall_001d0480 {
     void FUN_001d0480(void*, int);
 };
-Method4_1e08c0* Method4_1e08c0::Init(void* p, int b) {
+Method4_1e08c0* Method4_1e08c0::Init(void* p, hulk_intptr b) {
     ((ThisCall_001d0480*)(this))->FUN_001d0480(p, 4);
     vtable = ((hulk_intptr)DAT_00423438);
     field1c = b;

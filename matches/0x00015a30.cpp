@@ -1,4 +1,5 @@
 // Same code shape as 0x00013ec0 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "gen/owners.h"
 struct C_15a30 {
     int second();
@@ -8,8 +9,8 @@ struct B_15a30 {
 struct Obj_15a30 {
     char pad[0x1c];
     B_15a30* member;
-    int target();
+    hulk_intptr target();
 };
-int Obj_15a30::target() {
+hulk_intptr Obj_15a30::target() {
     return ((C_15a30 *)((owners::Object_592a0 *)member)->FUN_000592a0())->second();
 }

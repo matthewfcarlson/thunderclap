@@ -9,9 +9,9 @@ class LoadStream {
     unsigned char flagE;
     void Init();
     void Setup(int);
-    LoadStream* Target(int, int, int);
+    LoadStream* Target(hulk_intptr, int, int);
 };
-LoadStream* LoadStream::Target(int a, int b, int c) {
+LoadStream* LoadStream::Target(hulk_intptr a, int b, int c) {
     field4 = 0;
     vtable = ((hulk_intptr)DAT_0042ae9c);
     Init();

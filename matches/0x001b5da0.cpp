@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3016 inputs, branch coverage 12/12, incomplete)
 // FUN_001b5da0 @ 0x001b5da0
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
@@ -48,7 +49,7 @@ struct World {
 
 class Physics_1b5da0 {
 public:
-    void FUN_001b5da0(int a, int b);
+    void FUN_001b5da0(hulk_intptr a, hulk_intptr b);
     void FUN_001b4d00(int a, int b);
 
     char pad0[8];
@@ -57,7 +58,7 @@ public:
     float gravityY;
 };
 
-void Physics_1b5da0::FUN_001b5da0(int a, int b)
+void Physics_1b5da0::FUN_001b5da0(hulk_intptr a, hulk_intptr b)
 {
     char gs_unused[16]; /* dead stack buffer: MSVC /GS protects only functions with a char array */
     if ((*(Settings_1b5da0**)&DAT_004dd6e8)->FUN_0023f760("DoPhysics", 0x66, 1)) {

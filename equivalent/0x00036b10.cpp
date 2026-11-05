@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00036b10 @ 0x00036b10
 // Try the cheap test first; otherwise ask the manager, with the player's flag raised around the request.
+#include "compat/ptr.h"
 struct Vec3_36b10 {
     float x, y, z;
 };
@@ -34,7 +35,7 @@ public:
     World* world;
 };
 
-extern "C" char __cdecl FUN_00036b10(Owner_36b10* owner, Target_36b10* target, int a, int b, Vec3_36b10* out, char* flagA, char* flagB)
+extern "C" char __cdecl FUN_00036b10(Owner_36b10* owner, Target_36b10* target, hulk_intptr a, hulk_intptr b, Vec3_36b10* out, char* flagA, char* flagB)
 {
     out->z = 0;
     out->y = 0;

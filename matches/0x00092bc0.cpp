@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class X_92bc0 {
   public:
     char pad[0x18];
@@ -6,8 +7,8 @@ class X_92bc0 {
 class C_92bc0 {
   public:
     X_92bc0* items[1];
-    int f(int index);
+    hulk_intptr f(int index);
 };
-int C_92bc0::f(int index) {
+hulk_intptr C_92bc0::f(int index) {
     return items[index]->value;
 }

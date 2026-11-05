@@ -1,4 +1,5 @@
-extern "C" void FUN_00213550(int* p, int value) {
+#include "compat/ptr.h"
+extern "C" void FUN_00213550(int* p, hulk_intptr value) {
     int* q = *(int**)((char*)p + 8);
     q[1] = value;
     q[0] = 2;

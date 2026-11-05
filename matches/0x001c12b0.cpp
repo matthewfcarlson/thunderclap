@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class A_1c12b0 {
   public:
     virtual void f0();
@@ -22,6 +23,6 @@ class B_1c12b0 {
     char pad[8];
     A_1c12b0* p;
 };
-int __fastcall target(B_1c12b0* self) {
+hulk_intptr __fastcall target(B_1c12b0* self) {
     return self->p->f14();
 }

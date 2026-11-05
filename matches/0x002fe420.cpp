@@ -23,9 +23,9 @@ class C_2fe420 {
     char pad70[0x70];
     B_2fe420* b;
     A_2fe420* a;
-    void Run(int);
+    void Run(hulk_intptr);
 };
-void C_2fe420::Run(int x) {
+void C_2fe420::Run(hulk_intptr x) {
     if (a) {
         int* result = (int*)a->Get(x);
         if (b && b->state == 2) {

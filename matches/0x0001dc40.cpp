@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Action_1dc40 {
   public:
     Action_1dc40();
@@ -27,9 +28,9 @@ class CAction : public Action_1dc40 {
 class CGrappleLocoStrafe4Action : public CAction {
   public:
     int extra;
-    CGrappleLocoStrafe4Action(int v, Ref* r);
+    CGrappleLocoStrafe4Action(hulk_intptr v, Ref* r);
     virtual void f();
 };
-CGrappleLocoStrafe4Action::CGrappleLocoStrafe4Action(int v, Ref* r) : CAction(v, r) {
+CGrappleLocoStrafe4Action::CGrappleLocoStrafe4Action(hulk_intptr v, Ref* r) : CAction(v, r) {
     extra = 0;
 }

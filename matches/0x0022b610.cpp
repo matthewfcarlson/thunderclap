@@ -4,10 +4,10 @@ struct V {
 };
 struct C_22b610 {
     int dummy;
-    void Target(int a, V* p);
+    void Target(hulk_intptr a, V* p);
 };
 extern "C" void __cdecl FUN_0022b080(float *, const float *, const float *);
-void C_22b610::Target(int a, V* p) {
+void C_22b610::Target(hulk_intptr a, V* p) {
     V q;
     q.x = -p->x;
     q.y = -p->y;

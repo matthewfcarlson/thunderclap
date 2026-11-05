@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Sub_1ee090 {
     int Check();
 };
@@ -15,10 +16,10 @@ struct M_1ee090 {
     void F1(A_1ee090* a, int b, A_1ee090* c, int d);
     void F2(A_1ee090* a, const char* n, float f, int z);
     void F3(A_1ee090* a, const char* n);
-    void Run(A_1ee090* a, A_1ee090* b, A_1ee090* c, int d);
+    void Run(A_1ee090* a, A_1ee090* b, A_1ee090* c, hulk_intptr d);
 };
 
-void M_1ee090::Run(A_1ee090* a, A_1ee090* b, A_1ee090* c, int d) {
+void M_1ee090::Run(A_1ee090* a, A_1ee090* b, A_1ee090* c, hulk_intptr d) {
     if (b && b->m128) {
         F1(a, b->m128, c, d);
     }

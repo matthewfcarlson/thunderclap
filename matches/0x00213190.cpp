@@ -7,7 +7,7 @@ struct Item_213190 {
 Item_213190* __fastcall GetItem(int, hulk_intptr);
 int __cdecl Check(hulk_intptr, Item_213190*);
 void __cdecl Update(hulk_intptr);
-extern "C" int __cdecl FUN_00213190(hulk_intptr a, int b) {
+extern "C" hulk_intptr __cdecl FUN_00213190(hulk_intptr a, int b) {
     Item_213190* p = GetItem(b, a);
     if (p->type == 4)
         return p->value + 0x10;

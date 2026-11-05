@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Child_3065b0 {
   public:
     void Update(int value);
@@ -12,9 +13,9 @@ class Owner_3065b0 {
     char pad[0x10];
     int value;
     PtrRange_3065b0* items;
-    void Set(int v);
+    void Set(hulk_intptr v);
 };
-void Owner_3065b0::Set(int v) {
+void Owner_3065b0::Set(hulk_intptr v) {
     if (value != v) {
         value = v;
         if (items) {

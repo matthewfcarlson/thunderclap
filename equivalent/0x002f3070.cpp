@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_002f3070 @ 0x002f3070
+#include "compat/ptr.h"
 extern "C" double __cdecl sqrt(double);
 struct Vector3_2f3070 { unsigned int x,y,z; };
 struct ShapePart {
@@ -16,10 +17,10 @@ namespace physics {
 struct CollisionCylinder : FUN_003060a0 {
  virtual void slot0();
  ShapePart first; ShapePart second;
- CollisionCylinder(Vector3_2f3070*,unsigned int,unsigned int,unsigned int,unsigned int);
+ CollisionCylinder(Vector3_2f3070*,hulk_uintptr,unsigned int,unsigned int,unsigned int);
 };
 }
-physics::CollisionCylinder::CollisionCylinder(Vector3_2f3070* p,unsigned int a,unsigned int b,unsigned int c,unsigned int d) {
+physics::CollisionCylinder::CollisionCylinder(Vector3_2f3070* p,hulk_uintptr a,unsigned int b,unsigned int c,unsigned int d) {
  first.FUN_00306e70(); second.FUN_00306e70();
  position.x=p->x; position.y=p->y; position.z=p->z;
  first.tail[7]=0; first.tail[8]=0; first.tail[9]=0; first.tail[10]=0;

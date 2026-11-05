@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 18/18)
 // FUN_00271870 @ 0x00271870
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
 int __cdecl FUN_002716f0(unsigned int, char *, unsigned int, int, unsigned int *, unsigned int);
 int __cdecl FUN_00271870(unsigned int, char *, unsigned int, unsigned int, unsigned int *, unsigned int);
 
-int __cdecl ConvertWithFallback(unsigned int codepoint, char *output, unsigned int capacity, unsigned int fallback, unsigned int *written, unsigned int flags)
+int __cdecl ConvertWithFallback(hulk_uintptr codepoint, char *output, unsigned int capacity, hulk_uintptr fallback, unsigned int *written, hulk_uintptr flags)
 {
     if (capacity == 0)
         return -1;

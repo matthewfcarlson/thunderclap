@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/owners.h"
 class C_1c3b80;
 class D {
@@ -15,9 +16,9 @@ class Obj_1c3b80 {
     D* m4;
     char pad8[4];
     C_1c3b80* mC;
-    void Target(int);
+    void Target(hulk_intptr);
 };
-void Obj_1c3b80::Target(int arg) {
+void Obj_1c3b80::Target(hulk_intptr arg) {
     int x = mC->Get(arg);
     if (x) {
         ((owners::C_1c8860 *)m4)->FUN_001c8860(x);

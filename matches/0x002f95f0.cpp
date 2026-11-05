@@ -1,7 +1,8 @@
+#include "compat/ptr.h"
 struct Block_2f95f0 {
     unsigned int a, b, c, d;
 };
-Block_2f95f0* Copy(Block_2f95f0* src, int count, Block_2f95f0* dst) {
+Block_2f95f0* Copy(Block_2f95f0* src, hulk_intptr count, Block_2f95f0* dst) {
     Block_2f95f0* d = dst;
     while (count != 0) {
         if (d != 0) {

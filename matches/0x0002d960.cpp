@@ -20,9 +20,9 @@ class Method5 {
     unsigned char x18;
     char pad19[3];
     int arg;
-    Method5* Build(void* p2, int p3);
+    Method5* Build(void* p2, hulk_intptr p3);
 };
-Method5* Method5::Build(void* p2, int p3) {
+Method5* Method5::Build(void* p2, hulk_intptr p3) {
     ((ThisCall_001d0480*)(this))->Init(p2, 5);
     *(void**)this = (void*)((hulk_intptr)DAT_003f423c);
     arg = p3;

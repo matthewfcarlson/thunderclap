@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Item {
   public:
     char Valid();
@@ -6,9 +7,9 @@ class Item {
 class Owner {
   public:
     char Do(int, int);
-    char Run(int x, Item* p);
+    char Run(hulk_intptr x, Item* p);
 };
-char Owner::Run(int x, Item* p) {
+char Owner::Run(hulk_intptr x, Item* p) {
     char ok = p->Valid();
     if (!ok)
         return ok;

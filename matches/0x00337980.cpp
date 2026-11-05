@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Obj_337980 {
     char pad[0x81c];
     int result;
@@ -7,9 +8,9 @@ struct S_337980 {
     char pad[4];
     int value;
     Obj_337980* obj;
-    int run();
+    hulk_intptr run();
 };
-int S_337980::run() {
+hulk_intptr S_337980::run() {
     int r;
     int x;
     do {

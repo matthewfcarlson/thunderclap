@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 4/4)
 // FUN_00204d70 @ 0x00204d70
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern "C" int __cdecl sprintf(char *, const char *, ...);
@@ -10,9 +11,9 @@ struct Target_204d70 {
     char pad0[0x24];
     char name[1];
     Rec_204d70 *FUN_00204540(char *key);
-    int FUN_00204d70(int index);
+    hulk_intptr FUN_00204d70(int index);
 };
-int Target_204d70::FUN_00204d70(int index)
+hulk_intptr Target_204d70::FUN_00204d70(int index)
 {
     Frame_204d70 f;
     char *buf = f.buf;

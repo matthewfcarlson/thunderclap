@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 85 inputs, branch coverage 14/14)
 // FUN_002716f0 @ 0x002716f0
+#include "compat/ptr.h"
 extern int __cdecl FUN_002716f0(unsigned int character, char *output, unsigned int capacity, unsigned int fallback, unsigned int *written, unsigned int state);
 
-int __cdecl convertCharacter(unsigned int character, char *output, unsigned int capacity, unsigned int fallback, unsigned int *written, unsigned int state)
+int __cdecl convertCharacter(unsigned int character, char *output, unsigned int capacity, unsigned int fallback, unsigned int *written, hulk_uintptr state)
 {
     if (capacity == 0)
         return -1;

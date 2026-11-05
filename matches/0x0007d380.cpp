@@ -20,9 +20,9 @@ class Method4_7d380 : public Function_7d380 {
     char b18;
     char pad19[3];
     int member1c;
-    Method4_7d380(const char*, int);
+    Method4_7d380(const char*, hulk_intptr);
 };
-Method4_7d380::Method4_7d380(const char* p, int x) {
+Method4_7d380::Method4_7d380(const char* p, hulk_intptr x) {
     Init(p, 4);
     vptr = ((hulk_intptr)DAT_003ff014);
     member1c = x;

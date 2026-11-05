@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 4899 inputs, branch coverage 28/28)
 // FUN_001f4420 @ 0x001f4420
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "gen/owners.h"
 struct Name_1f4420 {
@@ -66,10 +67,10 @@ void __cdecl FUN_0024a800(Ptr_1f4420 *p, int x);
 void __cdecl FUN_0024af00(Ptr_1f4420 *p);
 struct ThisWrap_001f4420 {
     Obj_1f4420 * FUN_001f31a0(int arg);
-    void FUN_001f4420(int arg);
+    void FUN_001f4420(hulk_intptr arg);
 };
 
-void ThisWrap_001f4420::FUN_001f4420(int arg) {
+void ThisWrap_001f4420::FUN_001f4420(hulk_intptr arg) {
     Obj_1f4420 *obj = this->FUN_001f31a0(arg);
     if (!obj)
         return;

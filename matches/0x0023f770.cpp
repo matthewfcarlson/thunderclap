@@ -1,4 +1,5 @@
 // Same code shape as 0x000d7a40 (propagated; names are from that function)
+#include "compat/ptr.h"
 class FEControl {
   public:
     virtual void f0();
@@ -11,7 +12,7 @@ class FEControl {
     virtual void f7();
     virtual void f8();
     virtual void f9();
-    virtual bool vfunc_10(int, int);
+    virtual bool vfunc_10(hulk_intptr, int);
     virtual void f11();
     virtual void f12();
     virtual void f13();
@@ -21,6 +22,6 @@ class FEControl {
     virtual void f17();
     virtual void f18();
 };
-bool FEControl::vfunc_10(int, int) {
+bool FEControl::vfunc_10(hulk_intptr, int) {
     return false;
 }

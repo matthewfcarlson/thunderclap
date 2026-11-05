@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern "C" void FUN_002133d0(void*, int);
@@ -10,10 +11,10 @@ class Obj_1d3030 {
     char pad[8];
     void* ptr;
     char Check(const char*, int, int);
-    int Run(const char*, int);
+    hulk_intptr Run(const char*, hulk_intptr);
 };
 
-int Obj_1d3030::Run(const char* a, int b) {
+hulk_intptr Obj_1d3030::Run(const char* a, hulk_intptr b) {
     int result = 0;
     if (Check(DAT_003f6378, 1, 1)) {
         if (Check(a, 0, 1)) {

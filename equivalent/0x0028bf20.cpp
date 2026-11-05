@@ -21,10 +21,10 @@ public:
     int field_14;
     void* data;
     Vector3DOFChannel_28bf20* FUN_0028b420(int a, int b);
-    Vector3DOFChannel_28bf20* Construct(int a, int b);
+    Vector3DOFChannel_28bf20* Construct(int a, hulk_intptr b);
 };
 
-Vector3DOFChannel_28bf20* Vector3DOFChannel_28bf20::Construct(int a, int b)
+Vector3DOFChannel_28bf20* Vector3DOFChannel_28bf20::Construct(int a, hulk_intptr b)
 {
     FUN_0028b420(a, b);
     vptr = (hulk_intptr)DAT_0042c9f0;

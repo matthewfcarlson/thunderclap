@@ -15,9 +15,9 @@ class Function3_3efb0 : public Ctor_001d0480 {
     unsigned char b18;
     char pad19[3];
     int m1c;
-    Function3_3efb0(const char*, int);
+    Function3_3efb0(const char*, hulk_intptr);
 };
-Function3_3efb0::Function3_3efb0(const char* a, int b) : Ctor_001d0480(a, 3) {
+Function3_3efb0::Function3_3efb0(const char* a, hulk_intptr b) : Ctor_001d0480(a, 3) {
     vptr = ((hulk_intptr)DAT_003f5d4c);
     m1c = b;
     b18 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));

@@ -13,12 +13,12 @@ public:
     Elem_27bd70 *capEnd;            // 0x08
     void FUN_0027ba70(Elem_27bd70 *from, Elem_27bd70 *to);
     void FUN_0027bad0(Elem_27bd70 *at, hulk_intptr count);
-    void FUN_0027bd70(unsigned int newSize, int fill);
+    void FUN_0027bd70(unsigned int newSize, hulk_intptr fill);
 };
 
 void __cdecl FUN_0027bb30(Elem_27bd70 *at, hulk_intptr count, int fill);
 
-void ElemVector::FUN_0027bd70(unsigned int newSize, int fill) {
+void ElemVector::FUN_0027bd70(unsigned int newSize, hulk_intptr fill) {
     if (first == 0)
         ((owners::Buffer_27b3b0 *)this)->FUN_0027b3b0((int)newSize);
     Elem_27bd70 *end = last;

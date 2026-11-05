@@ -1,4 +1,5 @@
 // Same code shape as 0x00069100 (propagated; names are from that function)
+#include "compat/ptr.h"
 class CJumpTrack {
   public:
     virtual void f0();
@@ -27,7 +28,7 @@ class CJumpTrack {
     virtual void f23();
     virtual void f24();
     virtual void f25();
-    virtual unsigned int vfunc_26();
+    virtual hulk_uintptr vfunc_26();
     virtual void f27();
     virtual void f28();
     virtual void f29();
@@ -36,6 +37,6 @@ class CJumpTrack {
     char pad[0x40 - 4];
     unsigned int m;
 };
-unsigned int CJumpTrack::vfunc_26() {
+hulk_uintptr CJumpTrack::vfunc_26() {
     return m;
 }

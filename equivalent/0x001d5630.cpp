@@ -16,8 +16,8 @@ struct Entry_1d5630 { char pad[0x1c]; CSPHulkPropInstance* object; char pad20[2]
 struct Table_1d5630 { Entry_1d5630* FUN_001c59d0(unsigned); };
 struct Manager_1d5630 { char pad[12]; Table_1d5630* table; void FUN_001c3a40(unsigned,unsigned); };
 extern "C" Manager_1d5630* __cdecl FUN_001c3d90();
-struct Owner_1d5630 { char pad[0xb0]; unsigned char flag; CSPHulkPropInstance* target(unsigned,unsigned); };
-CSPHulkPropInstance* Owner_1d5630::target(unsigned a,unsigned b) {
+struct Owner_1d5630 { char pad[0xb0]; unsigned char flag; CSPHulkPropInstance* target(hulk_uintptr,unsigned); };
+CSPHulkPropInstance* Owner_1d5630::target(hulk_uintptr a,unsigned b) {
  unsigned size;
  FUN_0008ceb0()->FUN_0008ced0(10,0,&size,0,0,0);
  if(size<0xc800) return 0;

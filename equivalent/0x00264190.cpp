@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 0/0)
 // FUN_00264190 @ 0x00264190
+#include "compat/ptr.h"
 namespace content {
 struct LoadStream {
     virtual void hulk_slot_FUN_00263f50(); void FUN_00263f50();
@@ -12,9 +13,9 @@ struct LoadStream {
     int field10, field14, field18, field1c;
     char pad20[8];
     int field28, field2c, field30, field34, field38;
-    LoadStream(int a, int b);
+    LoadStream(hulk_intptr a, int b);
 };
-LoadStream::LoadStream(int a, int b) {
+LoadStream::LoadStream(hulk_intptr a, int b) {
     field04 = 0;
     FUN_00263f50();
     field28 = a;

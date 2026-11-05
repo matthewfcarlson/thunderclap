@@ -2,6 +2,7 @@
 // FUN_002aef60 @ 0x002aef60
 // FUN_002aef60 @ 0x002aef60: builds a texture request for a stream and hands it to the stream owner's handler
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 void *thunk_FUN_0008d690(unsigned int size);
 
 class Stream {
@@ -39,7 +40,7 @@ public:
 class Owner_2aef60 {
 public:
     Handler_2aef60 *FUN_002ae980(unsigned int id);
-    void FUN_002aef60(unsigned int id, int a, int b);
+    void FUN_002aef60(hulk_uintptr id, hulk_intptr a, int b);
 };
 
 TextureBuilder::TextureBuilder(int a, int b)
@@ -58,7 +59,7 @@ TextureBuilder::TextureBuilder(int a, int b)
     f1c = b;
 }
 
-void Owner_2aef60::FUN_002aef60(unsigned int id, int a, int b)
+void Owner_2aef60::FUN_002aef60(hulk_uintptr id, hulk_intptr a, int b)
 {
     void *memory = thunk_FUN_0008d690(0x48);
     Stream *stream = memory ? ((Stream *)memory)->FUN_00264430(id, 0, 0) : 0;

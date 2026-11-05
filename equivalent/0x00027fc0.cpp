@@ -13,8 +13,8 @@ struct Object { char pad[0xdc]; Handle_27fc0 handle; };
 struct Lookup_27fc0 { Node* FUN_00233580(unsigned); };
 struct Result_27fc0 { char pad[0x5c]; Lookup_27fc0* lookup; };
 struct Manager_27fc0 {  };
-struct Owner_27fc0 { Object* FUN_00024280(Key_27fc0); bool FUN_00027fc0(unsigned key, unsigned name); };
-bool Owner_27fc0::FUN_00027fc0(unsigned key, unsigned name) {
+struct Owner_27fc0 { Object* FUN_00024280(Key_27fc0); bool FUN_00027fc0(hulk_uintptr key, hulk_uintptr name); };
+bool Owner_27fc0::FUN_00027fc0(hulk_uintptr key, hulk_uintptr name) {
  if (!name) return false;
  Object* object = FUN_00024280(FUN_002672f0(key, 0, 0));
  if (!object) return false;

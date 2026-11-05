@@ -10,9 +10,9 @@ class ParamValueInt {
     virtual void F();
     char pad[4];
     ParamValue value;
-    ParamValueInt(int);
+    ParamValueInt(hulk_intptr);
 };
-ParamValueInt::ParamValueInt(int x) : value(x) {
+ParamValueInt::ParamValueInt(hulk_intptr x) : value(x) {
     volatile int* p = (volatile int*)this;
     *(hulk_intptr*)p = ((hulk_intptr)DAT_00427a38);
 }

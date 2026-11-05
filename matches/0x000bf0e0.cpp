@@ -1,4 +1,5 @@
 // FUN_000bf0e0 @ 0x000bf0e0
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
@@ -12,10 +13,10 @@ struct S_bf0e0 {
   char pad3[0x1c0c-0x1bc9]; unsigned char f1c0c;
   char pad4[0x1c4c-0x1c0d]; unsigned char f1c4c;
   void FUN_000befc0(void*, int, int);
-  void FUN_000bf0e0(Arg_bf0e0*, int);
+  void FUN_000bf0e0(Arg_bf0e0*, hulk_intptr);
 };
 extern "C" void __cdecl FUN_000fc100(void*, int);
-void S_bf0e0::FUN_000bf0e0(Arg_bf0e0* a, int){
+void S_bf0e0::FUN_000bf0e0(Arg_bf0e0* a, hulk_intptr){
   (*(G_bf0e0**)&DAT_004dd9cc)->FUN_002665a0();
   FUN_000befc0((*(void**)&DAT_0049f3c4), 14, 1);
   FUN_000befc0((*(void**)&DAT_0049f3cc), 14, 1);

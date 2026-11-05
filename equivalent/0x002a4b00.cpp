@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 16697 inputs, branch coverage 10/10)
 // FUN_002a4b00 @ 0x002a4b00
+#include "compat/ptr.h"
 #include "decls/data/engine/content.h"
 #include "gen/owners.h"
 
@@ -13,8 +14,8 @@ struct Collection_2a4b00 { unsigned owner; Object** begin; Object** end; };
 struct Manager_2a4b00 {  };
 extern unsigned DAT_004ce770, DAT_0049c7dc;
 extern Factory_2a4b00* __cdecl FUN_00344e74(void*, unsigned, unsigned*, unsigned*, unsigned);
-struct Target_2a4b00 { void FUN_002a4a50(Collection_2a4b00*, unsigned); void work(Collection_2a4b00* collection, Reader* reader, unsigned arg); };
-void Target_2a4b00::work(Collection_2a4b00* collection, Reader* reader, unsigned arg) {
+struct Target_2a4b00 { void FUN_002a4a50(Collection_2a4b00*, unsigned); void work(Collection_2a4b00* collection, Reader* reader, hulk_uintptr arg); };
+void Target_2a4b00::work(Collection_2a4b00* collection, Reader* reader, hulk_uintptr arg) {
  unsigned count;
  ((owners::X_2647e0 *)(reader->source))->FUN_002647e0((hulk_intptr)(&count), (hulk_intptr)1, 4, (hulk_intptr)1);
  unsigned size = (unsigned)(collection->end - collection->begin);

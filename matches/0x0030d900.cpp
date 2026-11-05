@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/physics.h"
 // data: gCache_30d900 = DAT_00555494
 
@@ -5,9 +6,9 @@ struct CollisionAnalyser_30d900 {
     int pad;
     int* begin;
     int* end;
-    int Find(int* key);
+    hulk_intptr Find(int* key);
 };
-int CollisionAnalyser_30d900::Find(int* key) {
+hulk_intptr CollisionAnalyser_30d900::Find(int* key) {
     int* first = begin;
     int* last = end;
     if (first > last)

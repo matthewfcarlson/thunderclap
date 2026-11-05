@@ -8,9 +8,9 @@ struct CScriptParser {
     int c;
     unsigned char d;
     unsigned char e;
-    CScriptParser(int);
+    CScriptParser(hulk_intptr);
 };
-CScriptParser::CScriptParser(int x) {
+CScriptParser::CScriptParser(hulk_intptr x) {
     arg = x;
     vt = (void*)((hulk_intptr)DAT_0040bf84);
     a = 0;

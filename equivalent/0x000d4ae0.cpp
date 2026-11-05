@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000d4ae0 @ 0x000d4ae0
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct Clock_d4ae0 {
@@ -32,10 +33,10 @@ class Formatter_d4ae0 {
 public:
     char pad0[0xc];
     Timer *timer;
-    int FUN_000d4ae0(char *text, Profile_d4ae0 *prof, int extra);
+    int FUN_000d4ae0(char *text, Profile_d4ae0 *prof, hulk_intptr extra);
 };
 
-int Formatter_d4ae0::FUN_000d4ae0(char *text, Profile_d4ae0 *prof, int extra)
+int Formatter_d4ae0::FUN_000d4ae0(char *text, Profile_d4ae0 *prof, hulk_intptr extra)
 {
     FUN_00294b80(text);
     int r = FUN_000fb830(DAT_004de100, 0x100, text,

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000e1b90 @ 0x000e1b90
+#include "compat/ptr.h"
 extern "C" int __cdecl FUN_000dfcc0(char*, int, const char*, ...);
 struct FEDoPushDialog {
  virtual void placeholder();
@@ -15,9 +16,9 @@ struct FEDoPushDialog {
  char text4[32];
  char text5[32];
  int finalValue;
- FEDoPushDialog(int, const char*, const char*, const char*, const char*, const char*, int);
+ FEDoPushDialog(hulk_intptr, const char*, const char*, const char*, const char*, const char*, int);
 };
-FEDoPushDialog::FEDoPushDialog(int value, const char* a, const char* b, const char* c, const char* d, const char* e, int last) {
+FEDoPushDialog::FEDoPushDialog(hulk_intptr value, const char* a, const char* b, const char* c, const char* d, const char* e, int last) {
  stateA = -1;
  stateB = -1;
  owner = value;

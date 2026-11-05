@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19999 inputs, branch coverage 4/4)
 // FUN_0033c6e0 @ 0x0033c6e0
+#include "compat/ptr.h"
 struct CaptureEntry { int value; int auxiliary; };
 struct CaptureState { char reserved[8]; void *context; int count; CaptureEntry captures[32]; };
 void __cdecl FUN_00338e20(void *, const char *, ...);
 int __cdecl FUN_0033c7e0(CaptureState *, int, int);
 // equiv-conv: FUN_0033c6e0 esi ebx stack stack
-int FUN_0033c6e0(CaptureState *state, int value, int arg1, int arg2)
+hulk_intptr FUN_0033c6e0(CaptureState *state, hulk_intptr value, hulk_intptr arg1, int arg2)
 {
     int index = state->count;
     if (index >= 32)

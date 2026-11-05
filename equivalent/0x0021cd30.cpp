@@ -9,7 +9,7 @@ extern "C" void __cdecl FUN_002211e0(void *, void *);
 // equiv-conv: FUN_0021c2e0 esi eax
 extern "C" void __cdecl FUN_0021c2e0(void *, int);
 // equiv-conv: FUN_0021cd30 eax edi
-void FUN_0021cd30(State *state, int edi) {
+void FUN_0021cd30(State *state, hulk_intptr edi) {
     state->value8 = state->value4;
     if (state->value14 == 0x11f) {
         state->valueC = FUN_0021bbc0((State *)state, (int *)(&state->value10));

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00066c20 @ 0x00066c20
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 struct World {
@@ -30,10 +31,10 @@ struct Owner_66c20 {
     int field_04;
     char pad08[0x2f4 - 8];
     Table_66c20 table;
-    void FUN_00066c20(int unused);
+    void FUN_00066c20(hulk_intptr unused);
 };
 
-void Owner_66c20::FUN_00066c20(int unused)
+void Owner_66c20::FUN_00066c20(hulk_intptr unused)
 {
     Pair_66c20 out;
     Key_66c20 key;

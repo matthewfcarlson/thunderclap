@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
 struct Item_212bb0 {
@@ -12,7 +13,7 @@ struct Obj_212bb0 {
     char* other;
     char pad2[44];
 };
-extern "C" char* __fastcall FUN_00212bb0(int n, Obj_212bb0* o) {
+extern "C" char* __fastcall FUN_00212bb0(hulk_intptr n, Obj_212bb0* o) {
     if (n > 0) {
         char* p = o->last + n * 8 - 8;
         if (p < o->first)

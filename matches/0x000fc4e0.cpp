@@ -1,4 +1,5 @@
 // FUN_000fc4e0 @ 0x000fc4e0
+#include "compat/ptr.h"
 class Scorer {
 public:
     virtual void v0();
@@ -12,9 +13,9 @@ public:
     int count;
     Scorer *items[(0x54 - 0x14) / 4];
     int selected;
-    float FUN_000fc4e0(int a, int b);
+    float FUN_000fc4e0(hulk_intptr a, int b);
 };
-float CAgent_fc4e0::FUN_000fc4e0(int a, int b)
+float CAgent_fc4e0::FUN_000fc4e0(hulk_intptr a, int b)
 {
     float best = 0.0f;
     int idx = -1;

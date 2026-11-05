@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class DynamicCasterBase_c0db0 {
   public:
     virtual void cast();
@@ -14,7 +15,7 @@ class Inventory {
     virtual int load(DynamicCasterBase_c0db0*, unsigned __int64);
 };
 extern unsigned __int64 findShader(const char*);
-extern "C" int FUN_000c0db0(Inventory* inv, const char* name) {
+extern "C" hulk_intptr FUN_000c0db0(Inventory* inv, const char* name) {
     unsigned __int64 s = findShader(name);
     DynamicCaster_c0db0 caster;
     return inv->load(&caster, s);

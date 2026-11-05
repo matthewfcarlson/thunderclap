@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0033c730 @ 0x0033c730
+#include "compat/ptr.h"
 struct Capture { int start; int length; };
 struct Pattern { char padding[8]; void* errorContext; int captureCount; Capture captures[1]; };
 extern "C" int __cdecl FUN_00338e20(void*, const char*, ...);
 extern "C" int __cdecl FUN_0033c7e0(Pattern*, int, int);
 // equiv-conv: FUN_0033c730 esi ebx stack
-int FUN_0033c730(Pattern* pattern, int position, int argument)
+hulk_intptr FUN_0033c730(Pattern* pattern, hulk_intptr position, hulk_intptr argument)
 {
     int index = pattern->captureCount - 1;
     while (index >= 0 && pattern->captures[index].length != -1)

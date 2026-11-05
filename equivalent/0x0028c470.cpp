@@ -21,10 +21,10 @@ public:
     int field_14;
     void* data;
     ColourChannel_28c470* FUN_0028b420(int a, int b);
-    ColourChannel_28c470* Construct(int a, int b);
+    ColourChannel_28c470* Construct(int a, hulk_intptr b);
 };
 
-ColourChannel_28c470* ColourChannel_28c470::Construct(int a, int b)
+ColourChannel_28c470* ColourChannel_28c470::Construct(int a, hulk_intptr b)
 {
     FUN_0028b420(a, b);
     vptr = (hulk_intptr)DAT_0042ca7c;

@@ -19,7 +19,7 @@ struct S_219660 {
 };
 void F1(S_219660*, N_219660*);
 void F2(S_219660*, N_219660*, int, int);
-void FUN(S_219660* s, unsigned lim) {
+void FUN(S_219660* s, hulk_uintptr lim) {
     G_219660* g = s->g;
     N_219660* n = s->head;
     while (n && (hulk_uintptr)n->d >= lim) {

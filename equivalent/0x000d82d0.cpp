@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000d82d0 @ 0x000d82d0
+#include "compat/ptr.h"
 struct Item_d82d0 { char data[0x24]; void FUN_000f7930(); };
 struct Entry_d82d0 { Item_d82d0 item; char pad[12]; unsigned char active; char pad2[7]; unsigned char flag; char pad3[3]; };
 struct CGlowDisplayEffect_d82d0 { char data[0x1c]; void FUN_000dee10(); };
@@ -20,9 +21,9 @@ struct FEMemCardControl : FUN_000e9240 {
  CGlowDisplayEffect_d82d0 stateA; CDropShadowDisplayEffect_d82d0 stateB;
  int stateValue; unsigned char f8,f9,fa,fb,fc; char pad3ed[3]; int stateOther;
  Item_d82d0 item3; int mask; char pad41c[12]; FEMemCardControl* self; char pad42c[4]; Record_d82d0 records[2];
- FEMemCardControl(int first,int second);
+ FEMemCardControl(int first,hulk_intptr second);
 };
-FEMemCardControl::FEMemCardControl(int first,int second) : FUN_000e9240(first) {
+FEMemCardControl::FEMemCardControl(int first,hulk_intptr second) : FUN_000e9240(first) {
  for(int i=0;i<5;++i) { entries[i].item.FUN_000f7930(); entries[i].active=0; entries[i].flag=0; }
  item1.FUN_000f7930(); flag380=0;
  item2.FUN_000f7930(); stateA.FUN_000dee10(); stateB.FUN_000dee40(); item3.FUN_000f7930();

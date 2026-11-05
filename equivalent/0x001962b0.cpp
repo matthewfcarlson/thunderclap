@@ -169,13 +169,13 @@ public:
     float fd0;
     int fd4;
     float fd8;
-    ProjectileMissile(MissileCfg *src, int name);
+    ProjectileMissile(MissileCfg *src, hulk_intptr name);
 };
 
 }
 }
 
-hulkfight::motion::ProjectileMissile::ProjectileMissile(MissileCfg *src, int name)
+hulkfight::motion::ProjectileMissile::ProjectileMissile(MissileCfg *src, hulk_intptr name)
 {
     h40 = -1;
     f44 = 0;

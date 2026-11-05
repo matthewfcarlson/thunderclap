@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int uint_219610;
 struct Owner_219610;
 void* Alloc(Owner_219610*, int, int, int);
@@ -12,7 +13,7 @@ struct Node {
     char data[4];
     uint_219610 key;
 };
-Node* FUN_00219610(Owner_219610* self, uint_219610 key) {
+Node* FUN_00219610(Owner_219610* self, hulk_uintptr key) {
     Node* current = (Node*)self->list;
     Node** link = (Node**)&self->list;
     while (current != 0 && current->key >= key) {

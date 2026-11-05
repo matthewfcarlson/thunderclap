@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 138 inputs, branch coverage 73/80, incomplete)
 // FUN_002bd790 @ 0x002bd790
+#include "compat/ptr.h"
 struct Rect_2bd790 {
     int left;      // 0
     int top;       // 4
@@ -55,10 +56,10 @@ public:
     int border;            // 0x5c
     char pad60[0xa0 - 0x60];
     unsigned char flagA0;
-    void FUN_002bd790(int index, Rect_2bd790 *r, int a2, int a3, int src, Surface_2bd790 *s, Factory_2bd790 *f);
+    void FUN_002bd790(int index, Rect_2bd790 *r, int a2, int a3, hulk_intptr src, Surface_2bd790 *s, Factory_2bd790 *f);
 };
 
-void Frame9::FUN_002bd790(int index, Rect_2bd790 *r, int a2, int a3, int src, Surface_2bd790 *s, Factory_2bd790 *f)
+void Frame9::FUN_002bd790(int index, Rect_2bd790 *r, int a2, int a3, hulk_intptr src, Surface_2bd790 *s, Factory_2bd790 *f)
 {
     s->setSize(a2, a3);
     s->begin(0);

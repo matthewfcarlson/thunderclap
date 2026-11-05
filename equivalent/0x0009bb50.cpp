@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3023 inputs, branch coverage 14/14)
 // FUN_0009bb50 @ 0x0009bb50
+#include "compat/ptr.h"
 #include "gen/owners.h"
 class Camera {
 public:
@@ -56,7 +57,7 @@ Camera *FUN_001c3d90();
 
 class CCameraManager_9bb50 {
 public:
-    void FUN_0009bb50(int a, int b);
+    void FUN_0009bb50(hulk_intptr a, hulk_intptr b);
     void FUN_00098e60();
     void FUN_0009a290(int a);
 
@@ -72,7 +73,7 @@ public:
     Transition_9bb50 *transition;
 };
 
-void CCameraManager_9bb50::FUN_0009bb50(int a, int b)
+void CCameraManager_9bb50::FUN_0009bb50(hulk_intptr a, hulk_intptr b)
 {
     FUN_00098e60();
     View *view;

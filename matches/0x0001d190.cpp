@@ -1,4 +1,5 @@
 // Same code shape as 0x0001fde0 (propagated; names are from that function)
+#include "compat/ptr.h"
 class IRef_1d190 {
   public:
     virtual void AddRef();
@@ -31,7 +32,7 @@ class CAction : public Action_1d190 {
 class CSoundAction_1d190 : public CAction {
   public:
     virtual void ProcessDrift();
-    CSoundAction_1d190(int a, IRef_1d190* p);
+    CSoundAction_1d190(hulk_intptr a, IRef_1d190* p);
 };
 
-CSoundAction_1d190::CSoundAction_1d190(int a, IRef_1d190* p) : CAction(a, p) {}
+CSoundAction_1d190::CSoundAction_1d190(hulk_intptr a, IRef_1d190* p) : CAction(a, p) {}

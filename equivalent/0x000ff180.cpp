@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000ff180 @ 0x000ff180
 // CHand2HandAgent::CHand2HandAgent @ 0x000ff180
+#include "compat/ptr.h"
 void *__cdecl FUN_0008d690(unsigned int size);
 
 class CAvoidBehaviour_ff180 {
@@ -28,7 +29,7 @@ public:
 // equiv-map: ??0AgentBase@@QAE@H@Z = 0x000fc760
 class CHand2HandAgent : public CCharacterAgent_ff180 {
 public:
-    CHand2HandAgent(int arg);
+    CHand2HandAgent(hulk_intptr arg);
     virtual void vfunc_9();
     CAvoidBehaviour_ff180 *f5c;
     unsigned char b60;
@@ -58,7 +59,7 @@ public:
     int f18c;
 };
 
-CHand2HandAgent::CHand2HandAgent(int arg) : CCharacterAgent_ff180(arg)
+CHand2HandAgent::CHand2HandAgent(hulk_intptr arg) : CCharacterAgent_ff180(arg)
 {
     CAvoidBehaviour_ff180 *w = 0;
     void *mem = FUN_0008d690(0x38);

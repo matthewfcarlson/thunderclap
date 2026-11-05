@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1899 inputs, branch coverage 22/22)
 // FUN_0033cec0 @ 0x0033cec0
 // FUN_0033cec0 @ 0x0033cec0
+#include "compat/ptr.h"
 struct Capture_33cec0 { int value; int index; };
 struct Context { char pad[8]; void* state; int count; Capture_33cec0 captures[1]; };
 struct Buffer_33cec0 { char* cursor; char storage[0x208]; };
@@ -19,7 +20,7 @@ extern void* FUN_0033cb70(Context*, int, int);
 extern void __cdecl FUN_002139a0(void*, void*, int);
 extern void __cdecl FUN_00212d80(void*, int);
 // equiv-conv: FUN_0033cec0 eax ebx stack stack
-void target(Context* context, Buffer_33cec0* buffer, int a, int b) {
+void target(Context* context, Buffer_33cec0* buffer, hulk_intptr a, hulk_intptr b) {
  void* state = context->state;
  if (FUN_00212fb0(state,3)) {
   unsigned char* text=FUN_00213190(state,3);

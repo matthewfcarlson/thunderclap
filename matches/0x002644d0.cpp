@@ -7,11 +7,11 @@ class LoadStream {
     char pad[5];
     unsigned char value;
     unsigned char flag;
-    LoadStream(void* a, int b, int c);
+    LoadStream(void* a, hulk_intptr b, int c);
     void Base0();
     void Init(void* a);
 };
-LoadStream::LoadStream(void* a, int b, int c) {
+LoadStream::LoadStream(void* a, hulk_intptr b, int c) {
     m = 0;
     vp = (void*)((hulk_intptr)DAT_0042ae9c);
     Base0();

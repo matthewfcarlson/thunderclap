@@ -23,12 +23,12 @@ class Obj_24190 {
     int pad[2];
     int count;
     int items[1];
-    int get(int index);
+    hulk_intptr get(int index);
 };
 class Helper_24190 {
   public:
 };
-int Obj_24190::get(int index) {
+hulk_intptr Obj_24190::get(int index) {
     if (index >= 0 && index < count) {
         Helper_24190* h = (Helper_24190*)*(hulk_intptr*)((hulk_intptr)*(int*)this + 0x44);
         return ((int)((owners::ThisWrap_00059c10 *)h)->FUN_00059c10((void *)(hulk_uintptr)(int)(items[index])));

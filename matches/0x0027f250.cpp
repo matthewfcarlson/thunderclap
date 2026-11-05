@@ -1,6 +1,7 @@
 // Same code shape as 0x00085cd0 (propagated; names are from that function)
+#include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 
-int FUN_0027f250(void) {
+hulk_intptr FUN_0027f250(void) {
     return DAT_004dd6e4;
 }

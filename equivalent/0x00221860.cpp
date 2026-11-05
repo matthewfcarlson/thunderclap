@@ -2,6 +2,7 @@
 // FUN_00221860 @ 0x00221860
 // FUN_00221860 @ 0x00221860
 // Lua 5.0 code generation for a binary operator (arithmetic, or comparison with swapped operands)
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
 struct LexState_221860 {
@@ -29,7 +30,7 @@ extern "C" int __cdecl FUN_00220b20(void *, unsigned int, unsigned int);     // 
 extern "C" unsigned int __cdecl FUN_00220d10(unsigned int, void *, unsigned int, unsigned int, unsigned int);
 
 // equiv-conv: FUN_00221860 eax ecx edx edi stack
-void FUN_00221860(int o1, int o2, int op, expdesc_221860* e, FuncState_221860* fs)
+void FUN_00221860(hulk_intptr o1, hulk_intptr o2, int op, expdesc_221860* e, FuncState_221860* fs)
 {
     if (op <= 4) {
         e->info = FUN_00220b20((FuncState_221860 *)fs, (int)((((o2 << 9) | o1) << 6) | (op + 12)), (int)(fs->ls->lastline));

@@ -1,4 +1,5 @@
 // Same code shape as 0x0001fde0 (propagated; names are from that function)
+#include "compat/ptr.h"
 class IRef_1f360 {
   public:
     virtual void AddRef();
@@ -31,7 +32,7 @@ class CAction : public Action_1f360 {
 class CSmartPropDropAction_1f360 : public CAction {
   public:
     virtual void ProcessDrift();
-    CSmartPropDropAction_1f360(int a, IRef_1f360* p);
+    CSmartPropDropAction_1f360(hulk_intptr a, IRef_1f360* p);
 };
 
-CSmartPropDropAction_1f360::CSmartPropDropAction_1f360(int a, IRef_1f360* p) : CAction(a, p) {}
+CSmartPropDropAction_1f360::CSmartPropDropAction_1f360(hulk_intptr a, IRef_1f360* p) : CAction(a, p) {}

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned __int64 u64;
 u64 __cdecl First(int, int, int);
 int __cdecl Second(int, int);
@@ -15,10 +16,10 @@ class CSoundCommand_CueNISEvent : public CSoundCommand_1f0960 {
   public:
     Pair p;
     int f;
-    CSoundCommand_CueNISEvent(int x, int y, int z);
+    CSoundCommand_CueNISEvent(hulk_intptr x, int y, int z);
     virtual void Fn();
 };
-CSoundCommand_CueNISEvent::CSoundCommand_CueNISEvent(int x, int y, int z) : CSoundCommand_1f0960(z) {
+CSoundCommand_CueNISEvent::CSoundCommand_CueNISEvent(hulk_intptr x, int y, int z) : CSoundCommand_1f0960(z) {
     u64 v = First(x, 0, 0);
     p.d = (int)v;
     p.e = (int)(v >> 32);

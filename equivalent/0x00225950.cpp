@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00225950 @ 0x00225950
 // equiv-map: ??0Driver@choreo2@@QAE@H@Z = 0x002223f0
+#include "compat/ptr.h"
 #include "decls/data/engine/choreo2.h"
 
 namespace choreo2 {
@@ -25,9 +26,9 @@ public:
     char pad4[2];
     int f238, f23c;
     void FUN_00225030(int b);
-    AnimationDriver(int a, int b);
+    AnimationDriver(hulk_intptr a, hulk_intptr b);
 };
-AnimationDriver::AnimationDriver(int a, int b) : Driver(a) {
+AnimationDriver::AnimationDriver(hulk_intptr a, hulk_intptr b) : Driver(a) {
     f234 = 1;
     f235 = 1;
     f224 = 0;

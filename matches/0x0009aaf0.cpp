@@ -16,9 +16,9 @@ class Method3_9aaf0 : public Function_9aaf0 {
     unsigned char b18;
     char pad19[3];
     int field1c;
-    Method3_9aaf0(int a, int b);
+    Method3_9aaf0(hulk_intptr a, hulk_intptr b);
 };
-Method3_9aaf0::Method3_9aaf0(int a, int b) {
+Method3_9aaf0::Method3_9aaf0(hulk_intptr a, hulk_intptr b) {
     Init(a, 3);
     vt = ((hulk_intptr)DAT_00404c50);
     field1c = b;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20023 inputs, branch coverage 34/34)
 // FUN_00088670 @ 0x00088670
+#include "compat/ptr.h"
 #include "gen/global.h"
 #include "gen/owners.h"
 struct Sim_88670;
@@ -68,7 +69,7 @@ extern "C" void *__cdecl FUN_001b6990();
 R_88670 *__stdcall FUN_000678d0();
 
 struct Sim_88670 {
-    void FUN_00088670(Ctx_88670 *ctx, int arg1);
+    void FUN_00088670(Ctx_88670 *ctx, hulk_intptr arg1);
     int pad0;
     CSimControllerManager *a;     // 4
     CCameraManager *b;     // 8
@@ -96,7 +97,7 @@ struct Sim_88670 {
     char ready;
 };
 
-void Sim_88670::FUN_00088670(Ctx_88670 *arg0, int arg1)
+void Sim_88670::FUN_00088670(Ctx_88670 *arg0, hulk_intptr arg1)
 {
     ctx = arg0;
     p58 = arg0->FUN_00086320();

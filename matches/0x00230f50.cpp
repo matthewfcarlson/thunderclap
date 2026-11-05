@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Node {
     Node* left;
     Node* right;
@@ -12,9 +13,9 @@ class Container_230f50 {
     Node* tail;
     char flag[4];
     int value;
-    void Clear(Callback_230f50 cb, int arg);
+    void Clear(Callback_230f50 cb, hulk_intptr arg);
 };
-void Container_230f50::Clear(Callback_230f50 cb, int arg) {
+void Container_230f50::Clear(Callback_230f50 cb, hulk_intptr arg) {
     Node* sent = (Node*)((char*)this + 4);
     Node* n = root;
     if (n != sent)

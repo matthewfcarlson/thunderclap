@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2974 inputs, branch coverage 16/16)
 // FUN_002234d0 @ 0x002234d0
+#include "compat/ptr.h"
 struct Elem_2234d0 {
     int w0, w1, w2;
     unsigned int minor;     // 0x0c
@@ -24,7 +25,7 @@ static bool PreferLeft(const Elem_2234d0 &cur, const Elem_2234d0 &prev)
     return cur.tail > prev.tail;
 }
 
-void __cdecl FUN_002234d0(Elem_2234d0 *first, int top, int bottom, Elem_2234d0 value)
+void __cdecl FUN_002234d0(Elem_2234d0 *first, int top, hulk_intptr bottom, Elem_2234d0 value)
 {
     int hole = top;
     int idx = 2 * top + 2;

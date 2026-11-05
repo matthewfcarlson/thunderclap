@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Base_1c1300 {
   public:
     virtual void f0();
@@ -21,6 +22,6 @@ class Owner_1c1300 {
     char pad[8];
     Base_1c1300* mBase;
 };
-int __fastcall FUN_001c1300(Owner_1c1300* self) {
+hulk_intptr __fastcall FUN_001c1300(Owner_1c1300* self) {
     return self->mBase->Get() + 0x30;
 }

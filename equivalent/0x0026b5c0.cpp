@@ -18,7 +18,7 @@ extern "C" int __cdecl FUN_0026aa00(const char *, unsigned *, int, int, void *);
 extern "C" int __cdecl FUN_0026aab0(const char *, char *, int, int, int);
 
 // equiv-conv: FUN_0026b5c0 stack stack stack ebx edx esi edi
-int __cdecl FUN_0026b5c0(int a, int fromMode, int c, int toMode, int edxArg, int esiArg, int ediArg) {
+int __cdecl FUN_0026b5c0(hulk_intptr a, int fromMode, hulk_intptr c, int toMode, int edxArg, int esiArg, int ediArg) {
     if (fromMode == toMode && edxArg == 0) {
         int r = FUN_0026a6b0((const char *)(hulk_uintptr)(int)c, (char *)(hulk_uintptr)(int)a, (int)esiArg);
         if (r < 0) return -2;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
@@ -9,7 +10,7 @@ class Function_2c8b0 {
 extern "C" char __cdecl lookup(const char*);
 class Method3 : public Function_2c8b0 {
   public:
-    Method3(const char*, int);
+    Method3(const char*, hulk_intptr);
     char pad[12];
     char a, b, c;
     char pad2[5];
@@ -17,7 +18,7 @@ class Method3 : public Function_2c8b0 {
     char pad3[3];
     int val;
 };
-Method3::Method3(const char* name, int x) : Function_2c8b0(name, 3) {
+Method3::Method3(const char* name, hulk_intptr x) : Function_2c8b0(name, 3) {
     val = x;
     d = lookup(((const char*)&DAT_0048e100));
     a = lookup(((const char*)&DAT_0048e0f0));

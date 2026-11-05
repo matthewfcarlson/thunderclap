@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Obj_e2820;
 class Inner_e2820 {
   public:
@@ -22,9 +23,9 @@ class Obj_e2820 {
   public:
     char pad[0x14];
     Inner_e2820* m;
-    int method(int);
+    hulk_intptr method(hulk_intptr);
 };
-int Obj_e2820::method(int param) {
+hulk_intptr Obj_e2820::method(hulk_intptr param) {
     m->f15(param, this);
     return param;
 }

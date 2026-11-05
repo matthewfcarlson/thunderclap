@@ -17,9 +17,9 @@ class Method3_1b5bc0 {
     char value18;
     char pad19[3];
     int value1c;
-    Method3_1b5bc0(int, int);
+    Method3_1b5bc0(hulk_intptr, hulk_intptr);
 };
-Method3_1b5bc0::Method3_1b5bc0(int a, int b) {
+Method3_1b5bc0::Method3_1b5bc0(hulk_intptr a, hulk_intptr b) {
     ((This_FUN_001d0480*)this)->FUN_001d0480((const char*)a, 3);
     vtable = ((hulk_intptr)DAT_0041da1c);
     value1c = b;

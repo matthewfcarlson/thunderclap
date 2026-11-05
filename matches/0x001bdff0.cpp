@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_001bdff0 @ 0x001bdff0
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
 
 void* __cdecl FUN_000f7120(int key);
@@ -16,9 +17,9 @@ public:
     Console_1bdff0* console;
     char pad3c[0xc];
     int key;
-    void FUN_001bdff0(int arg);
+    void FUN_001bdff0(hulk_intptr arg);
 };
-void Subtitle::FUN_001bdff0(int arg) {
+void Subtitle::FUN_001bdff0(hulk_intptr arg) {
     char buf[0x40];
     void* found = FUN_000f7120(key);
     if (found && console) {

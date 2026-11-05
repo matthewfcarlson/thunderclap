@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1441 inputs, branch coverage 22/22)
 // FUN_0001a050 @ 0x0001a050
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "gen/owners.h"
 struct Actor_1a050;
@@ -19,9 +20,9 @@ struct Target_1a050 {
  char pad[0x1c]; Owner_1a050* owner; Config_1a050* config;
  void FUN_00019470(Actor_1a050*,int,int,int,float);
  bool FUN_00013ed0();
- void FUN_0001a050(int,int);
+ void FUN_0001a050(hulk_intptr,hulk_intptr);
 };
-void Target_1a050::FUN_0001a050(int arg,int secondary) {
+void Target_1a050::FUN_0001a050(hulk_intptr arg,hulk_intptr secondary) {
  Actor_1a050* self = ((Link_1a050 *)((owners::Object_592a0 *)owner)->FUN_000592a0())->FUN_00059a30();
  Collection_1a050* list = DAT_004dd700->collection;
  int count = list->count;

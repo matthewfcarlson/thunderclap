@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 160 inputs, branch coverage 51/66, incomplete)
 // FUN_0003a830 @ 0x0003a830
+#include "compat/ptr.h"
 #include "gen/owners.h"
 struct Event_3a830;
 
@@ -49,10 +50,10 @@ struct Fighter_3a830 {
     Fighter_3a830 *t338;
     char pad33c[0x3a8 - 0x33c];
     SlotEntry_3a830 slots[8];
-    bool FUN_0003a830(Event_3a830 *ev, int arg);
+    bool FUN_0003a830(Event_3a830 *ev, hulk_intptr arg);
 };
 
-bool Fighter_3a830::FUN_0003a830(Event_3a830 *ev, int arg)
+bool Fighter_3a830::FUN_0003a830(Event_3a830 *ev, hulk_intptr arg)
 {
     int i;
     if (!ev || ev->kind != 5)

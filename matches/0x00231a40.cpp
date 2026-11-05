@@ -20,9 +20,9 @@ class Owner_231a40 {
   public:
     char pad[0x28];
     Node* nodes;
-    unsigned char Run(int, int);
+    unsigned char Run(hulk_intptr, hulk_intptr);
 };
-unsigned char Owner_231a40::Run(int a, int b) {
+unsigned char Owner_231a40::Run(hulk_intptr a, hulk_intptr b) {
     int t = FUN_00238190(3);
     t = FUN_00266da0(t);
     Node* n = nodes;

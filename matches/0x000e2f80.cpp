@@ -25,9 +25,9 @@ class Obj_e2f80 {
     X_e2f80* x;
     char q[0x1d94 - 0x18];
     int* arr;
-    void f(int);
+    void f(hulk_intptr);
 };
-void Obj_e2f80::f(int arg) {
+void Obj_e2f80::f(hulk_intptr arg) {
     int* p = ((int *)((owners::Obj_f8d70 *)(x->y->z->w))->FUN_000f8d70((hulk_intptr)arg));
     arr = p;
     if (p) {

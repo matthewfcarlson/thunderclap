@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 // data: g_mgr_1c84e0 = DAT_004dd6e8
 
@@ -23,10 +24,10 @@ class Obj_1c84e0 {
   public:
     void A(Node* n, float f, int a, int b, int c);
     void B(int x, Node* n, int y);
-    void Fn(int x, Node* n, int y);
+    void Fn(hulk_intptr x, Node* n, hulk_intptr y);
 };
 
-void Obj_1c84e0::Fn(int x, Node* n, int y) {
+void Obj_1c84e0::Fn(hulk_intptr x, Node* n, hulk_intptr y) {
     if (!n)
         return;
     if (n->mHidden)

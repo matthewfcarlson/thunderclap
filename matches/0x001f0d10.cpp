@@ -11,7 +11,7 @@ class Function_1f0d10 {
 
 class Method4_1f0d10 : public Function_1f0d10 {
   public:
-    Method4_1f0d10(void* a, int b);
+    Method4_1f0d10(void* a, hulk_intptr b);
     char m10, m11, m12, m13;
     int pad14;
     char m18;
@@ -21,7 +21,7 @@ class Method4_1f0d10 : public Function_1f0d10 {
 
 extern "C" char __cdecl Lookup(const char* s);
 
-Method4_1f0d10::Method4_1f0d10(void* a, int b) : Function_1f0d10(a, 4) {
+Method4_1f0d10::Method4_1f0d10(void* a, hulk_intptr b) : Function_1f0d10(a, 4) {
     m1c = b;
     m18 = Lookup((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
     m10 = Lookup((const char*)((hulk_intptr)((char*)&DAT_0049cad8)));

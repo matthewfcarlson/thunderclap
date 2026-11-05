@@ -4,10 +4,10 @@ class DriveOpenRequest {
   public:
     hulk_intptr vptr;
     void Init(int);
-    DriveOpenRequest(int);
+    DriveOpenRequest(hulk_intptr);
 };
 extern void __stdcall Finish();
-DriveOpenRequest::DriveOpenRequest(int a) {
+DriveOpenRequest::DriveOpenRequest(hulk_intptr a) {
     Init(a);
     vptr = ((hulk_intptr)DAT_0042bb60);
     Finish();

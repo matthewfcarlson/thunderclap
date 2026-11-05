@@ -16,9 +16,9 @@ struct Method4_1ba090 {
     char pad19[3];
     int p1c;
     void Init(const char*, int);
-    Method4_1ba090(const char*, int);
+    Method4_1ba090(const char*, hulk_intptr);
 };
-Method4_1ba090::Method4_1ba090(const char* x, int y) {
+Method4_1ba090::Method4_1ba090(const char* x, hulk_intptr y) {
     Init(x, 4);
     v = ((hulk_intptr)DAT_00420e84);
     p1c = y;

@@ -1,10 +1,10 @@
 #include "compat/ptr.h"
 struct X {
     unsigned int a, b;
-    X(int n);
+    X(hulk_intptr n);
 };
 extern "C" unsigned __int64 __cdecl make(int, int, hulk_intptr);
-X::X(int n) {
+X::X(hulk_intptr n) {
     unsigned __int64 v = 0;
     a = (unsigned int)v;
     b = (unsigned int)(v >> 32);

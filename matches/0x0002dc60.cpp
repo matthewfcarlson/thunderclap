@@ -14,9 +14,9 @@ struct Method3_2dc60 : Function_2dc60 {
     unsigned char b18;
     char pad19[3];
     int field1c;
-    Method3_2dc60(const char*, int);
+    Method3_2dc60(const char*, hulk_intptr);
 };
-Method3_2dc60::Method3_2dc60(const char* a, int x) : Function_2dc60(a, 3) {
+Method3_2dc60::Method3_2dc60(const char* a, hulk_intptr x) : Function_2dc60(a, 3) {
     *(hulk_intptr*)this = (hulk_intptr)&VTable_2dc60;
     field1c = x;
     b18 = FUN_001d04d0(((const char*)&DAT_0048e100));

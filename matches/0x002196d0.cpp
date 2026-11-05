@@ -1,10 +1,11 @@
+#include "compat/ptr.h"
 typedef unsigned int u32_2196d0;
 struct Obj_2196d0 {
     char pad[0x48];
 };
 extern Obj_2196d0* __cdecl alloc_obj(u32_2196d0, u32_2196d0, u32_2196d0, u32_2196d0);
 extern void __cdecl init_obj(u32_2196d0, Obj_2196d0*, int);
-Obj_2196d0* __cdecl target(u32_2196d0 p) {
+Obj_2196d0* __cdecl target(hulk_uintptr p) {
     Obj_2196d0* x = alloc_obj(p, 0, 0, 0x48);
     init_obj(p, x, 9);
     *(u32_2196d0*)(x->pad + 8) = 0;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Provider_be230 {
     virtual void slot0();
     virtual void slot1();
@@ -67,9 +68,9 @@ struct Manager_be230 {
     char pad[0x2218];
     Item_be230* active;
     Item_be230* FUN_000e7620(int);
-    bool FUN_000be230(int, void*, void*, void*, void*, int, int, int);
+    bool FUN_000be230(hulk_intptr, void*, void*, void*, void*, int, int, int);
 };
-bool Manager_be230::FUN_000be230(int id, void* setup, void* a, void* b, void* c, int mode, int x, int y) {
+bool Manager_be230::FUN_000be230(hulk_intptr id, void* setup, void* a, void* b, void* c, int mode, int x, int y) {
     if (active)
         return false;
     Item_be230* item = FUN_000e7620(id);

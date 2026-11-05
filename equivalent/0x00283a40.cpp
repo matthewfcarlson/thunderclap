@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00283a40 @ 0x00283a40
+#include "compat/ptr.h"
 namespace pure3d { class DrawableHierarchy; }
 namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; } }
 struct Key_283a40 { unsigned a,b; };
@@ -9,8 +10,8 @@ struct Inventory_283a40 { virtual void v0(); virtual void v1(); virtual void v2(
 Inventory_283a40* __cdecl FUN_00266f40(unsigned);
 unsigned __cdecl FUN_00266da0(unsigned);
 struct Context { unsigned FUN_00280380(Hierarchy_283a40*,unsigned,unsigned,unsigned,unsigned); };
-struct Target_283a40 { Item_283a40* source; unsigned id; unsigned pad; Context* context; void FUN_0027fff0(Hierarchy_283a40*,unsigned); unsigned FUN_00283a40(Key_283a40*,unsigned,unsigned,unsigned); };
-unsigned Target_283a40::FUN_00283a40(Key_283a40* key,unsigned a,unsigned b,unsigned c) {
+struct Target_283a40 { Item_283a40* source; unsigned id; unsigned pad; Context* context; void FUN_0027fff0(Hierarchy_283a40*,unsigned); hulk_uintptr FUN_00283a40(Key_283a40*,hulk_uintptr,unsigned,unsigned); };
+hulk_uintptr Target_283a40::FUN_00283a40(Key_283a40* key,hulk_uintptr a,unsigned b,unsigned c) {
  if (!source) return 0;
  content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> caster;
  Item_283a40* item=source->lookup(&caster,key->a,key->b);

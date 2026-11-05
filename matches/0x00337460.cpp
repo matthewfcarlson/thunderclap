@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Child_337460 {
   public:
     char pad[0x81c];
@@ -9,9 +10,9 @@ class Obj_337460 {
     char pad[0x5108];
     int result;
     Child_337460* child;
-    int Run();
+    hulk_intptr Run();
 };
-int Obj_337460::Run() {
+hulk_intptr Obj_337460::Run() {
     int r;
     int v;
     do {

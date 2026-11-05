@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 30/33, incomplete)
 // FUN_00083320 @ 0x00083320
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "gen/owners.h"
 struct Vec3_83320 {
@@ -55,7 +56,7 @@ void FUN_00082d30(Xform_83320* pose);
 
 class Mover_83320 {
 public:
-    void FUN_00083320(Vec3_83320* anchor, Vec3_83320* dir, float scale, char airborne, int unused, char forced);
+    void FUN_00083320(Vec3_83320* anchor, Vec3_83320* dir, float scale, char airborne, hulk_intptr unused, char forced);
 
     char pad00[0x10];
     int id;                         // 0x10
@@ -69,7 +70,7 @@ public:
     Vec3_83320 vel;                       // 0x2c
 };
 
-void Mover_83320::FUN_00083320(Vec3_83320* anchor, Vec3_83320* dir, float scale, char airborne, int unused, char forced)
+void Mover_83320::FUN_00083320(Vec3_83320* anchor, Vec3_83320* dir, float scale, char airborne, hulk_intptr unused, char forced)
 {
     b1c = 1;
     f28 = 0;

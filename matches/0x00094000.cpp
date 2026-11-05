@@ -1,4 +1,5 @@
 // cl-flags: /O2 /GR /GX
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 // data: g_str1 = DAT_0048e100, g_str2 = DAT_0048e0f0, g_str3 = DAT_0048e134
 
@@ -30,10 +31,10 @@ class Method6_94000 : public Function_94000 {
     char m_flag7; // 0x18
     int m_data;   // 0x1c
   public:
-    Method6_94000(const char* name, int data);
+    Method6_94000(const char* name, hulk_intptr data);
 };
 
-Method6_94000::Method6_94000(const char* name, int data) : Function_94000(name, 6) {
+Method6_94000::Method6_94000(const char* name, hulk_intptr data) : Function_94000(name, 6) {
     m_data = data;
     m_flag7 = CheckString(((const char**)&DAT_0048e100));
     m_flag1 = CheckString(((const char**)&DAT_0048e0f0));

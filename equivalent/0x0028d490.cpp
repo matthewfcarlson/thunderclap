@@ -21,10 +21,10 @@ public:
     int field_14;
     void* data;
     CompressedQuaternionChannel_28d490* FUN_0028b420(int a, int b);
-    CompressedQuaternionChannel_28d490* Construct(int a, int b);
+    CompressedQuaternionChannel_28d490* Construct(int a, hulk_intptr b);
 };
 
-CompressedQuaternionChannel_28d490* CompressedQuaternionChannel_28d490::Construct(int a, int b)
+CompressedQuaternionChannel_28d490* CompressedQuaternionChannel_28d490::Construct(int a, hulk_intptr b)
 {
     FUN_0028b420(a, b);
     vptr = (hulk_intptr)DAT_0042cac8;

@@ -1,9 +1,10 @@
+#include "compat/ptr.h"
 typedef unsigned int U_339d70;
 extern int __cdecl GetType(int, int);
 extern int __cdecl GetName(int, int);
 extern int __cdecl Format(int, const char*, ...);
 extern void __cdecl Report(int, int, int);
-void __cdecl Target(int a, int b, int c) {
+void __cdecl Target(hulk_intptr a, int b, int c) {
     int x = GetType(a, b);
     if (x != c) {
         int y = GetName(a, c);

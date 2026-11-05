@@ -21,9 +21,9 @@ class Method3_1b9c50 : public Function_1b9c50 {
     char b18;
     char pad19[3];
     int member1c;
-    Method3_1b9c50(void* p, int x);
+    Method3_1b9c50(void* p, hulk_intptr x);
 };
-Method3_1b9c50::Method3_1b9c50(void* p, int x) {
+Method3_1b9c50::Method3_1b9c50(void* p, hulk_intptr x) {
     Init(p, 3);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00420e24);
     member1c = x;

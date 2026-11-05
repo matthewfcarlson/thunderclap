@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/pure3d/scenegraph.h"
 // data: gState_2961e0 = DAT_0052cb98
 
@@ -25,9 +26,9 @@ class A_2961e0 {
   public:
     char pad[0x40];
     B_2961e0* p;
-    u32_2961e0 f(u32_2961e0 a, u32_2961e0 b, u32_2961e0 c, u32_2961e0 d);
+    hulk_uintptr f(u32_2961e0 a, u32_2961e0 b, u32_2961e0 c, u32_2961e0 d);
 };
-u32_2961e0 A_2961e0::f(u32_2961e0 a, u32_2961e0 b, u32_2961e0 c, u32_2961e0 d) {
+hulk_uintptr A_2961e0::f(u32_2961e0 a, u32_2961e0 b, u32_2961e0 c, u32_2961e0 d) {
     if (p) {
         (*(int*)&DAT_0052cb98) = 0;
         return p->a15(a, b, 2, c, d);

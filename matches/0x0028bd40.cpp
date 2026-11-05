@@ -13,12 +13,12 @@ class VectorChannel_28bd40 {
 };
 class Vector1DOFChannel : public VectorChannel_28bd40 {
   public:
-    Vector1DOFChannel(int a, int b);
+    Vector1DOFChannel(int a, hulk_intptr b);
     virtual void f0();
     int m18, m1c, m20, m24;
     void* m28;
 };
-Vector1DOFChannel::Vector1DOFChannel(int a, int b) : VectorChannel_28bd40(a, b) {
+Vector1DOFChannel::Vector1DOFChannel(int a, hulk_intptr b) : VectorChannel_28bd40(a, b) {
     int* p = &m18;
     p[0] = 0;
     p[1] = 0;

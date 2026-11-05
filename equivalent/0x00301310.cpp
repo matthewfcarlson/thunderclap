@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00301310 @ 0x00301310
+#include "compat/ptr.h"
 struct Vec3_301310 { float x,y,z; };
 struct Shape_301310 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual Vec3_301310* position();
@@ -16,9 +17,9 @@ struct Context {
  void FUN_00319270(unsigned int, Shape_301310*);
  void FUN_00315ca0(unsigned int, Shape_301310*);
  void FUN_003160f0(unsigned int, Shape_301310*);
- void target(unsigned int, Shape_301310*);
+ void target(hulk_uintptr, Shape_301310*);
 };
-void Context::target(unsigned int arg, Shape_301310* s) {
+void Context::target(hulk_uintptr arg, Shape_301310* s) {
  if (!s->special) {
   float d=s->distance;
   Vec3_301310* p=s->position();

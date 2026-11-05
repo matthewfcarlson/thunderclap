@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class DriveRequest_2757f0 {
   public:
     virtual void V();
@@ -6,9 +7,9 @@ class DriveRequest_2757f0 {
 class DriveFormatRequest : public DriveRequest_2757f0 {
   public:
     virtual void W();
-    DriveFormatRequest(int);
+    DriveFormatRequest(hulk_intptr);
 };
 extern void FinishInit();
-DriveFormatRequest::DriveFormatRequest(int x) : DriveRequest_2757f0(x) {
+DriveFormatRequest::DriveFormatRequest(hulk_intptr x) : DriveRequest_2757f0(x) {
     FinishInit();
 }

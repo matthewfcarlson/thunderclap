@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 
@@ -9,7 +10,7 @@ class Base_1f0ed0 {
 };
 class Method6_1f0ed0 {
   public:
-    Method6_1f0ed0(void* p, int x);
+    Method6_1f0ed0(void* p, hulk_intptr x);
     void* vptr;
     char pad4[12];
     unsigned char m10, m11, m12, m13, m14, m15;
@@ -18,7 +19,7 @@ class Method6_1f0ed0 {
     char pad19[3];
     int m1c;
 };
-Method6_1f0ed0::Method6_1f0ed0(void* p, int x) {
+Method6_1f0ed0::Method6_1f0ed0(void* p, hulk_intptr x) {
     ((Base_1f0ed0*)this)->Init(p, 6);
     vptr = &g_vftable_1f0ed0;
     m1c = x;

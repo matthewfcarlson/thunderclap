@@ -7,9 +7,9 @@ struct Stream {
  virtual int transfer(uint_27a370 key, uint_27a370 mode, uint_27a370 block, uint_27a370 offset, uint_27a370 count, uint_27a370 destination, uint_27a370 flags);
  virtual uint_27a370 blockSize();
  virtual uint_27a370 baseOffset(uint_27a370 key);
- int FUN_0027a370(uint_27a370 unused, uint_27a370 key, uint_27a370 mode, uint_27a370 start, uint_27a370 destination, uint_27a370 count, uint_27a370* completed, uint_27a370 flags);
+ int FUN_0027a370(hulk_uintptr unused, uint_27a370 key, uint_27a370 mode, uint_27a370 start, uint_27a370 destination, uint_27a370 count, uint_27a370* completed, uint_27a370 flags);
 };
-int Stream::FUN_0027a370(uint_27a370 unused, uint_27a370 key, uint_27a370 mode, uint_27a370 start, uint_27a370 destination, uint_27a370 count, uint_27a370* completed, uint_27a370 flags) {
+int Stream::FUN_0027a370(hulk_uintptr unused, uint_27a370 key, uint_27a370 mode, uint_27a370 start, uint_27a370 destination, uint_27a370 count, uint_27a370* completed, uint_27a370 flags) {
  uint_27a370 size = blockSize();
  uint_27a370 position = baseOffset(key) + start;
  uint_27a370 block = position / size;

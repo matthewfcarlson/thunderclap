@@ -16,9 +16,9 @@ class Method3_2051b0 {
     char b18;
     char p19[3];
     int value1c;
-    Method3_2051b0(int a, int b);
+    Method3_2051b0(hulk_intptr a, hulk_intptr b);
 };
-Method3_2051b0::Method3_2051b0(int a, int b) {
+Method3_2051b0::Method3_2051b0(hulk_intptr a, hulk_intptr b) {
     ((B_2051b0*)this)->Init(a, 3);
     vptr = ((hulk_intptr)DAT_00425b64);
     value1c = b;

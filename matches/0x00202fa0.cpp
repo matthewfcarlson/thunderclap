@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 // data: key1 = DAT_0048e100, key2 = DAT_0048e128
@@ -25,10 +26,10 @@ class Method1 : public Function_202fa0 {
 };
 class Closure1 : public Method1 {
   public:
-    Closure1(int p, int y, int x);
+    Closure1(hulk_intptr p, hulk_intptr y, hulk_intptr x);
     virtual void f();
     int y;
 };
-Closure1::Closure1(int p, int y, int x) : Method1(p, x) {
+Closure1::Closure1(hulk_intptr p, hulk_intptr y, hulk_intptr x) : Method1(p, x) {
     this->y = y;
 }

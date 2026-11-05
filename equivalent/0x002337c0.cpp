@@ -67,10 +67,10 @@ class Branch_2337c0 {
 public:
     char pad0[0x1c];
     ScopeNode *scopes;
-    char ParseBlock(int a0, Lexer *lexer, int index);
+    char ParseBlock(hulk_intptr a0, Lexer *lexer, int index);
 };
 
-char Branch_2337c0::ParseBlock(int a0, Lexer *lexer, int index)
+char Branch_2337c0::ParseBlock(hulk_intptr a0, Lexer *lexer, int index)
 {
     int saved = FUN_00266da0(FUN_00238190(2));
 

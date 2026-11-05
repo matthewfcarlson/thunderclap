@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" int __cdecl FUN_00221200(int, int);
 
 struct Output_2216e0 {
@@ -5,7 +6,7 @@ struct Output_2216e0 {
     int value;
 };
 
-void __cdecl target(int a, Output_2216e0* out, int c) {
+void __cdecl target(hulk_intptr a, Output_2216e0* out, hulk_intptr c) {
     out->value = FUN_00221200(a, c);
     *(int*)out = 8;
 }

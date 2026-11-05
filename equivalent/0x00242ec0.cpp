@@ -34,7 +34,7 @@ struct Container_242ec0 {
 extern "C" void __cdecl FUN_00242680(void *, void *);
 void __cdecl FUN_00247550(void *pool, void *item);
 
-void __cdecl FUN_00242ec0(int arg, Container_242ec0 *list)
+void __cdecl FUN_00242ec0(hulk_intptr arg, Container_242ec0 *list)
 {
     Node *node = list->first;
     while (node != 0) {

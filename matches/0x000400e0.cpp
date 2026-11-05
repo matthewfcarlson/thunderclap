@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Item_400e0 {
   public:
     virtual void A();
@@ -10,9 +11,9 @@ class Owner_400e0 {
     char pad1[0x1b48 - 0x32c];
     char flag;
     Item_400e0* Helper(int, int, int, int, int, int, int);
-    Item_400e0* Build(int, int, int, int, int);
+    Item_400e0* Build(hulk_intptr, hulk_intptr, int, int, int);
 };
-Item_400e0* Owner_400e0::Build(int a, int b, int c, int d, int e) {
+Item_400e0* Owner_400e0::Build(hulk_intptr a, hulk_intptr b, int c, int d, int e) {
     Item_400e0* p = Helper(a, b, c, d, e, 0, 0);
     if (p) {
         flag = 0;

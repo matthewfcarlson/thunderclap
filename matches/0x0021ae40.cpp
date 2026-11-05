@@ -1,6 +1,7 @@
+#include "compat/ptr.h"
 void Grow(int a, int b, ...);
 void* Move(int a, int b, int c, int d);
-void* Resize(int a, int b, int* cnt, int size, int cap, int e) {
+void* Resize(hulk_intptr a, hulk_intptr b, int* cnt, int size, int cap, hulk_intptr e) {
     int c = *cnt;
     int n = cap;
     if (c >= cap / 2) {

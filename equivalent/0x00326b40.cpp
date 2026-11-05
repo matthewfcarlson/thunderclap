@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00326b40 @ 0x00326b40
+#include "compat/ptr.h"
 namespace pure3d {
 class d3dBase {
   public:
@@ -9,7 +10,7 @@ class d3dBase {
 };
 class d3dTexture : public d3dBase {
   public:
-    d3dTexture(unsigned int arg);
+    d3dTexture(hulk_uintptr arg);
     unsigned int f04, f08;
     unsigned int f0c, f10, f14, f18;
     char pad1c[0x68 - 0x1c];
@@ -24,7 +25,7 @@ class d3dTexture : public d3dBase {
     unsigned char fec, fed, fee, fef;
     unsigned int ff0, ff4;
 };
-d3dTexture::d3dTexture(unsigned int arg) : d3dBase() {
+d3dTexture::d3dTexture(hulk_uintptr arg) : d3dBase() {
     f70 = 0; f74 = 0; f78 = 0; f7c = 0; f80 = 0;
     f84 = 0;
     fb8 = 0; fbc = 0; fc0 = 0;

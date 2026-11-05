@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 120 inputs, branch coverage 6/8, incomplete)
 // FUN_002d0d20 @ 0x002d0d20
+#include "compat/ptr.h"
 struct Item_2d0d20 {
     char pad[0xc];
     int slot;           // 0xc
@@ -33,11 +34,11 @@ public:
     char pad0[8];
     Container_2d0d20* source;      // 0x8
     Handler_2d0d20** handlers;     // 0xc
-    void FUN_002d0d20(int selector, int arg);
+    void FUN_002d0d20(hulk_intptr selector, int arg);
 };
 
 // Walks the selected group from its last item down to the first and dispatches each to its handler.
-void Dispatcher_2d0d20::FUN_002d0d20(int selector, int arg)
+void Dispatcher_2d0d20::FUN_002d0d20(hulk_intptr selector, int arg)
 {
     Iter_2d0d20 it;
     it.FUN_002e5850(source, selector);

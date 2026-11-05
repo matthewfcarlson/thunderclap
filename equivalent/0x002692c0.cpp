@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 280 inputs, branch coverage 4/4)
 // FUN_002692c0 @ 0x002692c0
+#include "compat/ptr.h"
 #include "decls/data/platform/xbox/core.h"
 
 namespace XAPILIB { int __stdcall XInputGetState(unsigned int, void *); }
@@ -33,9 +34,9 @@ struct Device_2692c0 {
     unsigned int other;
     unsigned char zeros[0x46];
     unsigned char active;
-    void FUN_002692c0(unsigned int a,unsigned int b,unsigned int c,unsigned int d,unsigned int e,unsigned int f,unsigned int g);
+    void FUN_002692c0(hulk_uintptr a,unsigned int b,unsigned int c,unsigned int d,unsigned int e,unsigned int f,unsigned int g);
 };
-void Device_2692c0::FUN_002692c0(unsigned int a,unsigned int b,unsigned int c,unsigned int d,unsigned int e,unsigned int f,unsigned int g)
+void Device_2692c0::FUN_002692c0(hulk_uintptr a,unsigned int b,unsigned int c,unsigned int d,unsigned int e,unsigned int f,unsigned int g)
 {
     handle=a; slot=b; port=c; count=0;
     active=0;

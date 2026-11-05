@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Part_1ecc80 {
   public:
     int Check();
@@ -16,9 +17,9 @@ class Thing_1ecc80 {
   public:
     char pad[0x1c];
     void Play(Obj_1ecc80*, const char*, float, int);
-    void Fn(Owner_1ecc80*, Obj_1ecc80*, Obj_1ecc80*, int);
+    void Fn(Owner_1ecc80*, Obj_1ecc80*, Obj_1ecc80*, hulk_intptr);
 };
-void Thing_1ecc80::Fn(Owner_1ecc80* a, Obj_1ecc80* b, Obj_1ecc80* c, int d) {
+void Thing_1ecc80::Fn(Owner_1ecc80* a, Obj_1ecc80* b, Obj_1ecc80* c, hulk_intptr d) {
     if (!a)
         return;
     if (!a->component)

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class DynamicCaster_c0de0 {
   public:
     virtual void Cast();
@@ -10,7 +11,7 @@ class Obj {
     virtual int f3(DynamicCaster_c0de0*, __int64);
 };
 extern __int64 helper(Obj*);
-extern "C" int FUN_000c0de0(Obj* obj, Obj* value) {
+extern "C" hulk_intptr FUN_000c0de0(Obj* obj, Obj* value) {
     __int64 a = helper(value);
     DynamicCaster_c0de0 caster;
     return obj->f3(&caster, a);

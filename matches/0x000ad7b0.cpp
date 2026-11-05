@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Item_ad7b0 {
     char pad[0x54];
 
@@ -12,9 +13,9 @@ class Owner_ad7b0 {
     Item_ad7b0** items;
 
   public:
-    int run(int key, int a, int b);
+    hulk_intptr run(int key, int a, int b);
 };
-int Owner_ad7b0::run(int key, int a, int b) {
+hulk_intptr Owner_ad7b0::run(int key, int a, int b) {
     for (int i = 0; i < count; i++) {
         if (items[i] && items[i]->key == key) {
             return items[i]->action(a, b);

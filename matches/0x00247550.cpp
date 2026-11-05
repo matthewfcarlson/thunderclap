@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
 typedef int(__cdecl* Fn_247550)(void*, int, int);
@@ -6,6 +7,6 @@ struct T_247550 {
     void* y;
     Fn_247550 f;
 };
-extern "C" int FUN_00247550(int a, int b) {
+extern "C" int FUN_00247550(hulk_intptr a, hulk_intptr b) {
     return (*(T_247550**)&DAT_004cc1fc)->f((*(T_247550**)&DAT_004cc1fc), a, b);
 }

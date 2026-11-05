@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 class Base_67870 {
   public:
     float Compute();
@@ -8,7 +9,7 @@ class Obj_67870 {
     Base_67870* base;
     char q[0x34c];
     float value;
-    void Tick(int);
+    void Tick(hulk_intptr);
     void Do(float*, int);
 };
 class B_67870 {
@@ -32,7 +33,7 @@ class Root_67870 {
     Manager_67870* m;
 };
 extern Root_67870* gRoot_67870;
-void Obj_67870::Tick(int arg) {
+void Obj_67870::Tick(hulk_intptr arg) {
     value = base->Compute();
     float v[3] = {0, 0, 0};
     B_67870* b = gRoot_67870->m->a->y;

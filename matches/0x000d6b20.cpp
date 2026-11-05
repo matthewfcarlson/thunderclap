@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_000d6b20 @ 0x000d6b20
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct Clock_d6b20 {
@@ -17,9 +18,9 @@ struct Owner_d6b20 { void FUN_00294980(Effect_d6b20*); };
 extern "C" void __cdecl FUN_0009f790(float, float, float*, float*);
 struct Target_d6b20 {
  char pad0[4]; Owner_d6b20* owner; unsigned state; char padC[32]; Effect_d6b20* effect;
- void FUN_000d6b20(unsigned unused);
+ void FUN_000d6b20(hulk_uintptr unused);
 };
-void Target_d6b20::FUN_000d6b20(unsigned unused) {
+void Target_d6b20::FUN_000d6b20(hulk_uintptr unused) {
  state = 0;
  float time = (*(Clock_d6b20**)&DAT_0052c2a4)->sample();
  float angle, other;

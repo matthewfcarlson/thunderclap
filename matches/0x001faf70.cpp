@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct MyFileStream_1faf70 {
     virtual void v0();
     int a, b, c;
@@ -14,9 +15,9 @@ struct Helper_1faf70 {
 struct Obj_1faf70 {
     int pad;
     Failure* y;
-    bool Target(int arg);
+    bool Target(hulk_intptr arg);
 };
-bool Obj_1faf70::Target(int arg) {
+bool Obj_1faf70::Target(hulk_intptr arg) {
     Helper_1faf70 h;
     MyFileStream_1faf70 fs;
     fs.a = 0;

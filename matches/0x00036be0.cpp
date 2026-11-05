@@ -13,9 +13,9 @@ class Obj_36be0 {
     Builder* builder;
     char pad2[0x1ca0 - 0x14];
     int m1ca0;
-    void Run(int);
+    void Run(hulk_intptr);
 };
-void Obj_36be0::Run(int arg) {
+void Obj_36be0::Run(hulk_intptr arg) {
     char local[12];
     hulk_intptr value = m1ca0;
     if (value) {

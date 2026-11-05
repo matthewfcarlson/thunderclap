@@ -13,10 +13,10 @@ class FEDoSound {
     char flag;
     char pad15[0x1f];
     char name[0x20];
-    FEDoSound* Init(u32_e1970, const char*);
+    FEDoSound* Init(hulk_uintptr, const char*);
 };
 extern void __cdecl FUN_000dfcc0(char*, int, const char*, ...);
-FEDoSound* FEDoSound::Init(u32_e1970 id, const char* soundName) {
+FEDoSound* FEDoSound::Init(hulk_uintptr id, const char* soundName) {
     a = -1;
     b = -1;
     c = id;

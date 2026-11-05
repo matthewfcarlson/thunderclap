@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Provider_be310 {
     virtual void slot0();
     virtual void slot1();
@@ -67,10 +68,10 @@ struct Owner_be310 {
     char pad[0x2218];
     Item_be310* active;
     Item_be310* FUN_000e7620(unsigned int);
-    bool FUN_000be310(unsigned int, void*, void*, void*, void*, unsigned int, unsigned int, unsigned int);
+    bool FUN_000be310(hulk_uintptr, void*, void*, void*, void*, unsigned int, hulk_uintptr, hulk_uintptr);
 };
-bool Owner_be310::FUN_000be310(unsigned int id, void* setup, void* a, void* b, void* c, unsigned int mode,
-                         unsigned int x, unsigned int y) {
+bool Owner_be310::FUN_000be310(hulk_uintptr id, void* setup, void* a, void* b, void* c, unsigned int mode,
+                         hulk_uintptr x, hulk_uintptr y) {
     if (active)
         return false;
     Item_be310* item = FUN_000e7620(id);

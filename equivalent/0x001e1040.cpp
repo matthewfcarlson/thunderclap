@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1134 inputs, branch coverage 8/8)
 // FUN_001e1040 @ 0x001e1040
+#include "compat/ptr.h"
 struct Entry_1e1040 { unsigned int a,b,c; float priority; unsigned short d,e; };
 extern void __cdecl FUN_001de140(Entry_1e1040*, int, int, Entry_1e1040);
-void __cdecl FUN_001e1040(Entry_1e1040* entries, int hole, int count, Entry_1e1040 value) {
+void __cdecl FUN_001e1040(Entry_1e1040* entries, int hole, hulk_intptr count, Entry_1e1040 value) {
  int start=hole;
  int child=2*hole+2;
  while(child<count) {

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 #include "gen/owners.h"
 class Obj;
 struct Sub {
@@ -10,9 +11,9 @@ class Obj {
     int state;
 
   public:
-    void dispatch(int a, int b);
+    void dispatch(hulk_intptr a, hulk_intptr b);
 };
-void Obj::dispatch(int a, int b) {
+void Obj::dispatch(hulk_intptr a, hulk_intptr b) {
     switch (state) {
     case 0:
     case 2:

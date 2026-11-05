@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
 struct Allocator {
     void* FUN_002888c0(unsigned int, int);
@@ -15,9 +16,9 @@ struct FUN_0028b420 {
 };
 struct IntChannel : public FUN_0028b420 {
     virtual void unusedVirtual();
-    IntChannel(int first, int second);
+    IntChannel(int first, hulk_intptr second);
 };
-IntChannel::IntChannel(int first, int second) : FUN_0028b420(first, second) {
+IntChannel::IntChannel(int first, hulk_intptr second) : FUN_0028b420(first, second) {
     values = 0;
     if (allocator == 0)
         values = FUN_0008d6d0(count * 4);

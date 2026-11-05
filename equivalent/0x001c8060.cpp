@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 42/44, incomplete)
 // FUN_001c8060 @ 0x001c8060
+#include "compat/ptr.h"
 #include "gen/owners.h"
 struct Key_1c8060 {
     unsigned lo;
@@ -27,10 +28,10 @@ public:
     int count;
     Entry_1c8060 **table;
 
-    Entry_1c8060 *FUN_001c8060(int query, Key_1c8060 *out);
+    Entry_1c8060 *FUN_001c8060(hulk_intptr query, Key_1c8060 *out);
 };
 
-Entry_1c8060 *Registry_1c8060::FUN_001c8060(int query, Key_1c8060 *out)
+Entry_1c8060 *Registry_1c8060::FUN_001c8060(hulk_intptr query, Key_1c8060 *out)
 {
     Entry_1c8060 *e = 0;
     bool found = false;

@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 typedef unsigned int U32_44ad0;
 struct Pair_44ad0 {
     U32_44ad0 lo;
@@ -9,9 +10,9 @@ class RDLHandler_44ad0 {
     char pad[12];
     int count;
     int* items;
-    int Find(U32_44ad0 a, U32_44ad0 b);
+    hulk_intptr Find(U32_44ad0 a, U32_44ad0 b);
 };
-int RDLHandler_44ad0::Find(U32_44ad0 a, U32_44ad0 b) {
+hulk_intptr RDLHandler_44ad0::Find(U32_44ad0 a, U32_44ad0 b) {
     int i = 0;
     while (i < count) {
         int item = items[i];

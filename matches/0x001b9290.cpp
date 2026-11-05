@@ -1,3 +1,4 @@
+#include "compat/ptr.h"
 struct Obj {
     char pad[0x5c];
     int value;
@@ -10,7 +11,7 @@ struct Root {
     Manager* manager;
 };
 Root* __stdcall GetRoot();
-void __stdcall FUN(int key, int v) {
+void __stdcall FUN(hulk_intptr key, int v) {
     Root* root = GetRoot();
     Manager* mgr = root->manager;
     Obj* o = mgr->Find(key);

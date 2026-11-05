@@ -27,7 +27,7 @@ void __cdecl FUN_0021c340(int, Context*, int, int);
 extern "C" void __cdecl FUN_0021cb80(void *);
 extern "C" void __cdecl FUN_0021c9b0(void *, void *, void *);
 // equiv-conv: FUN_0021d4b0 ebx stack stack stack
-void __cdecl FUN_0021d4b0(Context* ctx, int arg1, int arg2, int arg3) {
+void __cdecl FUN_0021d4b0(Context* ctx, hulk_intptr arg1, int arg2, int arg3) {
  unsigned int cookie = DAT_004d9968;
  Buffer_21d4b0 buffer;
  FUN_0021cac0((Context *)ctx, (Buffer_21d4b0 *)(&buffer));

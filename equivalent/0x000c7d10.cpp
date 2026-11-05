@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 9/10, incomplete)
 // FUN_000c7d10 @ 0x000c7d10
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct Key_c7d10 {
     int lo, hi;
@@ -47,10 +48,10 @@ public:
     char pad0[0x258];
     Entry_c7d10 entries[128];
     int FUN_000c7c60(int a, int b);
-    int FUN_000c7d10(int a, int b);
+    int FUN_000c7d10(int a, hulk_intptr b);
 };
 
-int Table_c7d10::FUN_000c7d10(int a, int b)
+int Table_c7d10::FUN_000c7d10(int a, hulk_intptr b)
 {
     int slot = FUN_000c7c60(a, b);
     if (slot != -1)

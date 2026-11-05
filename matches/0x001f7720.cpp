@@ -10,7 +10,7 @@ class Function_1f7720 {
 extern char sC[];
 class Method3_1f7720 : public Function_1f7720 {
   public:
-    Method3_1f7720(int, int);
+    Method3_1f7720(hulk_intptr, hulk_intptr);
     char pad0[0x10];
     char m10, m11, m12;
     char pad13[5];
@@ -18,7 +18,7 @@ class Method3_1f7720 : public Function_1f7720 {
     char pad19[3];
     int m1c;
 };
-Method3_1f7720::Method3_1f7720(int a, int b) : Function_1f7720(a, 3) {
+Method3_1f7720::Method3_1f7720(hulk_intptr a, hulk_intptr b) : Function_1f7720(a, 3) {
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00424d4c);
     m1c = b;
     m18 = FUN_001d04d0(((char*)&DAT_0048e134));

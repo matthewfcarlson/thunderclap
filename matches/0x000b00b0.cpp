@@ -6,10 +6,10 @@ extern "C" char DAT_00405ea8[];
 class Method4_b00b0 {
   public:
     void Init(int, int);
-    Method4_b00b0(int, int);
+    Method4_b00b0(hulk_intptr, hulk_intptr);
 };
 extern "C" unsigned char __cdecl Read(const char*);
-Method4_b00b0::Method4_b00b0(int a, int b) {
+Method4_b00b0::Method4_b00b0(hulk_intptr a, hulk_intptr b) {
     Init(a, 4);
     *(hulk_intptr*)this = ((hulk_intptr)DAT_00405ea8);
     *(int*)((char*)this + 0x1c) = b;

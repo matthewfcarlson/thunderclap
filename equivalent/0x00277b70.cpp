@@ -12,7 +12,7 @@ struct CementLibrary_nv_277b70 {
 };
 extern "C" core::File* __cdecl FUN_00275d50(unsigned int size);
 extern "C" core::CementLibrary* __cdecl FUN_00266e00(unsigned int a,hulk_uintptr size);
-void __cdecl FUN_00277b70(core::CementLibrary** out,unsigned int a,unsigned int b,unsigned int c,unsigned int d) {
+void __cdecl FUN_00277b70(core::CementLibrary** out,hulk_uintptr a,unsigned int b,unsigned int c,unsigned int d) {
  core::File* p=FUN_00275d50(0x168);
  core::File* base=0;
  if(p) base=((File_nv_277b70*)(((core::File*)(p))))->FUN_002764d0(a,b,0,0,1,0,0,0,1);

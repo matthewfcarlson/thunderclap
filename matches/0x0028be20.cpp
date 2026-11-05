@@ -28,10 +28,10 @@ class Vector2DOFChannel_28be20 : public VectorChannel_28be20 {
   public:
     Z4 z;
     hulk_intptr m28;
-    Vector2DOFChannel_28be20(int, int);
+    Vector2DOFChannel_28be20(int, hulk_intptr);
     virtual void v1();
 };
-Vector2DOFChannel_28be20::Vector2DOFChannel_28be20(int x, int y) : VectorChannel_28be20(x, y) {
+Vector2DOFChannel_28be20::Vector2DOFChannel_28be20(int x, hulk_intptr y) : VectorChannel_28be20(x, y) {
 
     m28 = 0;
     if (mc == 0) {

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 18165 inputs, branch coverage 8/8)
 // FUN_0029e6c0 @ 0x0029e6c0
+#include "compat/ptr.h"
 #include "decls/data/engine/unknown.h"
 
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
@@ -21,9 +22,9 @@ struct LightsChooserCache : FUN_0027b070 {
  unsigned int f28,f2c,f30,color;
  unsigned char flag; char pad38[3]; unsigned int f3c,f40;
  virtual void placeholder();
- LightsChooserCache(int);
+ LightsChooserCache(hulk_intptr);
 };
-LightsChooserCache::LightsChooserCache(int n) {
+LightsChooserCache::LightsChooserCache(hulk_intptr n) {
  count=n; f14=0; f18=0; f1c=-1; f20=0.001f;
  entries=0; f28=0; f2c=0; f30=0;
  f3c=1; f40=1; color=(*(unsigned int*)&DAT_004cf730); flag=0;

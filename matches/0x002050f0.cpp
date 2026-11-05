@@ -9,7 +9,7 @@ class Function_2050f0 {
 };
 class Method3_2050f0 : public Function_2050f0 {
   public:
-    Method3_2050f0(int, int);
+    Method3_2050f0(hulk_intptr, hulk_intptr);
     void* vf;
     char pad04[0x0c];
     unsigned char b10, b11, b12;
@@ -18,7 +18,7 @@ class Method3_2050f0 : public Function_2050f0 {
     char pad19[3];
     int mgr;
 };
-Method3_2050f0::Method3_2050f0(int a, int b) {
+Method3_2050f0::Method3_2050f0(hulk_intptr a, hulk_intptr b) {
     Init(a, 3);
     vf = (void*)((hulk_intptr)DAT_00425b54);
     mgr = b;

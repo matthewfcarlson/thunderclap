@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 19/20, incomplete)
 // FUN_000392e0 @ 0x000392e0
+#include "compat/ptr.h"
 struct Actor_392e0;
 struct Request;
 struct Handler_392e0 {
@@ -26,9 +27,9 @@ struct Actor_392e0 {
  char pad1[0x318-0x120]; int count1; int count2;
  char pad2[0x1cef-0x320]; unsigned char flag;
  char pad3[0x2138-0x1cf0]; unsigned char blocked;
- int FUN_000392e0(Request* request);
+ hulk_intptr FUN_000392e0(Request* request);
 };
-int Actor_392e0::FUN_000392e0(Request* request) {
+hulk_intptr Actor_392e0::FUN_000392e0(Request* request) {
  if (!state) return 0;
  Data_392e0* data = request->slot3();
  unsigned char enabled = data->enabled;

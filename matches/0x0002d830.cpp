@@ -16,9 +16,9 @@ class Method4_2d830 : public Ctor_001d0480 {
     unsigned char b18;
     char pad19[3];
     int m1c;
-    Method4_2d830(const char*, int);
+    Method4_2d830(const char*, hulk_intptr);
 };
-Method4_2d830::Method4_2d830(const char* a, int b) : Ctor_001d0480(a, 4) {
+Method4_2d830::Method4_2d830(const char* a, hulk_intptr b) : Ctor_001d0480(a, 4) {
     vptr = ((hulk_intptr)DAT_003f421c);
     m1c = b;
     b18 = FUN_001d04d0(((const char*)&DAT_0048e100));

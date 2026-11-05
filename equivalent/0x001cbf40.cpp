@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001cbf40 @ 0x001cbf40
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/fight.h"
 #include "decls/data/game/global.h"
@@ -31,10 +32,10 @@ public:
     Listener* listener;
     char pad24[0x3d8];
     char flag3fc;
-    void FUN_001cbf40(int value);
+    void FUN_001cbf40(hulk_intptr value);
 };
 
-void Obj_1cbf40::FUN_001cbf40(int value)
+void Obj_1cbf40::FUN_001cbf40(hulk_intptr value)
 {
     field8 = value;
     Registry* reg = (*(Registry**)&DAT_004e5af8);

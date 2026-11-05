@@ -1,5 +1,5 @@
 #include "compat/ptr.h"
-int Find(int* a, int b, int c) {
+hulk_intptr Find(int* a, int b, int c) {
     int n = *(int*)((char*)a + 0x38), i = 0;
     if (n > 0) {
         int* p = (int*)(*(hulk_intptr*)((char*)a + 0x18) + 8);
