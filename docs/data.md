@@ -39,7 +39,13 @@ two `$$X*IMAGE` sections are listed as one opaque `library_section` item each.
    Filters, because a value in the range isn't always an address: immediates used by `cmp`/`and`/`add`/... are
    constants, an unaligned immediate is an address only if a string starts there, a BSS "address" whose bytes are
    ASCII (`0x504c41` = "ALP") with no memory operand is a FourCC (2 sources even named such constants `DAT_`), and a
-   data word whose bytes are text isn't a pointer.
+   data word whose bytes are text isn't a pointer. That last rule also drops real pointers whose bytes happen to
+   read as text (the word `7c 77 42 00` at `0x4ca298` points at a string at `0x42777c`, "|wB"): such words are
+   listed by hand in `config/data-pointers.json` (item, byte offsets, why; the mirror of
+   `config/data-not-pointers.json`), and the inventory and `data_gen.py` take them as pointers (dec1,
+   2026-11-05: `0x4ca298` and `0x4ca29c`, name pointers hashed by `FUN_002672f0`, were `int` scalars; 6 more
+   words that sources use as pointers fail the same rule and are not listed yet: `0x49ed3c`, `0x49f3c4`,
+   `0x4a06a4`, `0x4c5cf8`, `0x4ca248`, `0x4ca254`).
 3. **Extents.** A string swallows starts inside it (pointers to a suffix, `"xRET" + 1`); a source offset past an
    address name (`DAT_x + 8` in verified code, read from the relocation addends of the last tree build's objects)
    makes one item of the range. An item ends at the next start, or earlier where the evidence says so: the FPU

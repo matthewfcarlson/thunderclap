@@ -50,7 +50,7 @@ extern "C" int DAT_004ca248;
 extern "C" const char* DAT_004ca24c;  // PTR_004ca24c
 extern "C" const char* DAT_004ca250;  // PTR_004ca250
 extern "C" const char* DAT_004ca278;  // PTR_004ca278
-extern "C" int DAT_004ca29c;
+extern "C" const char* DAT_004ca29c;  // PTR_004ca29c
 extern "C" float DAT_004ca2cc[16];  // fltTbl_004ca2cc
 extern "C" unsigned int DAT_004ca38c[1];  // zero_004ca38c
 extern "C" float DAT_004ca3d8[4];  // fltTbl_004ca3d8
@@ -479,7 +479,7 @@ extern "C" const float DAT_00427f9c[7];  // fltTbl_00427f9c
 extern "C" const unsigned int DAT_0047e6f0[1];  // zero_0047e6f0
 extern "C" const unsigned int DAT_0047e73c[1];  // zero_0047e73c
 extern "C" const char* DAT_004ca294;  // PTR_004ca294
-extern "C" int DAT_004ca298;
+extern "C" const char* DAT_004ca298;  // PTR_004ca298
 extern "C" float DAT_004ca2a0[4];  // fltTbl_004ca2a0
 
 // fight/WaitTrack.cpp

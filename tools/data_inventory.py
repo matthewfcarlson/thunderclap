@@ -34,6 +34,10 @@ OUT = os.path.join(ROOT, "config/data.json")
 WORK = os.path.join(ROOT, "build/data")
 XREF_CACHE = os.path.join(WORK, "code_xrefs.json")
 
+# pointer words whose bytes also read as text (a string at 0x42777c is the word 7c 77 42 00, "|wB"): the
+# printable-text rule would drop them; reviewed by hand (the mirror of config/data-not-pointers.json)
+FORCED_POINTERS = os.path.join(ROOT, "config/data-pointers.json")
+
 GAME_SECTIONS = (".rdata", ".data")
 OPAQUE_SECTIONS = ("BINKDATA", "DOLBY", "$$XTIMAGE", "$$XSIMAGE")
 
@@ -52,6 +56,15 @@ def load_functions():
         for r in csv.DictReader(f):
             out[int(r["address"], 16)] = (int(r["size"]), r["name"])
     return out
+
+
+def load_forced_pointers():
+    """Word addresses config/data-pointers.json declares pointers (item address + byte offsets)."""
+    try:
+        items = json.load(open(FORCED_POINTERS)).get("items", {})
+    except (OSError, ValueError):
+        return set()
+    return {int(a, 16) + int(o, 16) for a, e in items.items() for o in e.get("offsets", ())}
 
 
 def load_objects():
@@ -446,9 +459,10 @@ class Inventory:
                 starts[a].add("source")
         # aligned words of initialized data that point into the data range
         self.data_ptrs = {}       # word address -> value
+        forced = load_forced_pointers()
         for a in range(self.lo, self.bss_lo, 4):
             v = self.u32(a)
-            if self.is_data_ptr(v):
+            if self.is_data_ptr(v) and a not in forced:
                 b = self.img[a - self.lo:a - self.lo + 3]
                 if all(c in PRINTABLE for c in b):
                     continue            # text ("RSU\0"), not an address

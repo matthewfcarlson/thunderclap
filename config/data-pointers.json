@@ -1,0 +1,13 @@
+{
+ "_doc": "Words of initialized data that hold pointers although their bytes also read as text (tools/data_inventory.py drops a word whose first three bytes are printable as text, e.g. \"RSU\\0\"). The inventory and tools/data_gen.py take them as pointers. Byte offsets inside the item; reviewed by hand (the mirror of config/data-not-pointers.json).",
+ "items": {
+  "0x004ca298": {
+   "offsets": ["0x0"],
+   "why": "points at the string at 0x0042777c (bytes 7c 77 42 00); 0x0035f230 hashes it as a name (FUN_002672f0)"
+  },
+  "0x004ca29c": {
+   "offsets": ["0x0"],
+   "why": "points at the string at 0x00427770 (bytes 70 77 42 00); 0x0035f250, 0x00233c50 and 0x0023b570 hash it as a name (FUN_002672f0)"
+  }
+ }
+}
