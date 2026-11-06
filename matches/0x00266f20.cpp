@@ -1,5 +1,4 @@
-#include "decls/data/engine/content.h"
-// data: gItems_266f20 = DAT_00527c60
+#include "decls/data/records.h"
 
 class Item_266f20 {
   public:
@@ -10,12 +9,8 @@ class Item_266f20 {
     virtual void e();
     virtual void f();
     virtual void h();
-    virtual int g(int);
+    virtual int g(void*);
 };
-struct Entry_266f20 {
-    Item_266f20* ptr;
-    char pad[12];
-};
-extern "C" int FUN_00266f20(int index, int value) {
-    return ((Entry_266f20*)((char*)&DAT_00527c58 + 8))[index].ptr->g(value);
+extern "C" int FUN_00266f20(int index, void* value) {
+    return ((Item_266f20*)DAT_00527c60[index].allocator)->g(value);
 }

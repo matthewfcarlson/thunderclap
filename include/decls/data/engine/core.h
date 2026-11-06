@@ -113,7 +113,7 @@ extern "C" char DAT_0052a208[28];
 extern "C" void* DAT_0052a224[1];
 
 // core/MemoryAllocatorMalloc.cpp
-extern "C" unsigned char DAT_00527f40[4];
+// DAT_00527f40: typed by decls/data/records.h (include it)
 
 // core/MemoryDlAllocator.cpp
 extern "C" const char DAT_0042b30c[25];  // s_in_use_bytes_10u_0042b30c

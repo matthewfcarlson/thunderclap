@@ -322,6 +322,7 @@ extern "C" const void* DAT_004cd4cc;  // PTR_004cd4cc
 extern "C" const void* DAT_004cd4d0[4];  // ptrTbl_004cd4d0
 
 // unknown/unk_266950.cpp
+// DAT_00527c60: typed by decls/data/records.h (include it)
 extern "C" void* DAT_00527f58[1];
 extern "C" unsigned char DAT_00527f5c[4];
 extern "C" unsigned char DAT_00527f60[4];
@@ -331,9 +332,6 @@ extern "C" unsigned char DAT_00527f68[8];
 // unknown/unk_267280.cpp
 extern "C" unsigned int DAT_004cd5b0[1];  // zero_004cd5b0
 extern "C" unsigned int DAT_004cd5b4[11];  // unk_004cd5b4
-extern "C" unsigned char DAT_00527f44[4];
-extern "C" unsigned char DAT_00527f48[4];
-extern "C" unsigned char DAT_00527f4c[4];
 extern "C" unsigned char DAT_00527f50[8];
 extern "C" unsigned char DAT_00527f70[1024];
 extern "C" unsigned char DAT_00528370[8];

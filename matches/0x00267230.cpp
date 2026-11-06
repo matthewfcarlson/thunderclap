@@ -1,6 +1,6 @@
-typedef unsigned int u32_267230;
-extern "C" void __cdecl FUN_00270570(u32_267230, u32_267230);
-class MemoryAllocatorMalloc {
+// core::MemoryAllocatorMalloc::vfunc_6 (slot 6: allocate aligned)
+extern "C" void* __cdecl FUN_00270570(int size, unsigned alignment);
+class MemoryAllocatorMalloc_267230 {
   public:
     virtual void f0();
     virtual void f1();
@@ -8,14 +8,8 @@ class MemoryAllocatorMalloc {
     virtual void f3();
     virtual void f4();
     virtual void f5();
-    virtual void vfunc_6(u32_267230 a, u32_267230 b);
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
-    virtual void f11();
-    virtual void f12();
+    virtual void* vfunc_6(int size, unsigned alignment);
 };
-void MemoryAllocatorMalloc::vfunc_6(u32_267230 a, u32_267230 b) {
-    FUN_00270570(a, b);
+void* MemoryAllocatorMalloc_267230::vfunc_6(int size, unsigned alignment) {
+    return FUN_00270570(size, alignment);
 }

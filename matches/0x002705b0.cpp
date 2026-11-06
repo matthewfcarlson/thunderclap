@@ -1,8 +1,7 @@
-#include "compat/ptr.h"
-typedef unsigned int uint_2705b0;
-extern "C" void FUN_003479bc(uint_2705b0);
-void FUN_002705b0(hulk_uintptr ptr) {
+// aligned free (0x00270570's blocks): frees the block kept below the aligned address
+extern "C" void FUN_003479bc(void*);
+void FUN_002705b0(void* ptr) {
     if (ptr) {
-        FUN_003479bc(*(uint_2705b0*)((char*)ptr - 4));
+        FUN_003479bc(*(void**)((char*)ptr - sizeof(void*)));
     }
 }

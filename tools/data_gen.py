@@ -134,6 +134,25 @@ def pinned_vars():
     return out
 
 
+TYPED_H = os.path.join(ROOT, "include/decls/data/records.h")
+TYPED_INCLUDE = "decls/data/records.h"
+
+
+def typed_items():
+    """{name: declaration} of the .bss items include/decls/data/records.h (hand-written) types with a record that
+    several sources share (`extern "C" MemoryHeapSlot DAT_00527c60[46];`). Their data TU includes that header and
+    defines them with its declaration (the 32-bit size checked against the item), and include/decls/data/ leaves
+    them out: the sources include records.h."""
+    out = {}
+    try:
+        text = open(TYPED_H, encoding="latin1").read()
+    except OSError:
+        return out
+    for m in re.finditer(r'^extern\s+"C"\s+(\w+)\s+(DAT_[0-9a-f]{8})\s*(\[\d+\])?\s*;', text, re.M):
+        out[m.group(2)] = "%s %s%s" % (m.group(1), m.group(2), m.group(3) or "")
+    return out
+
+
 # ---------------------------------------------------------------------------------------------
 # C++ emission
 def c_string(b, wide=False):
@@ -288,6 +307,8 @@ class TUWriter:
         self.decls = []          # (cname, declaration text without `extern "C"`)
         self.defs = []
         self.pins = pinned_vars()
+        self.typed = typed_items()
+        self.typed_used = []     # names of this TU's items typed by include/decls/data/records.h
         self.ev = load_ptr_evidence()
         self.rec_structs, self.rec_checks = [], []
 
@@ -318,6 +339,10 @@ class TUWriter:
         return {"string": "string", "vtable": "vftable"}.get(k, "data")
 
     def item(self, it):
+        if it["cname"] in self.typed:
+            if it["section"] != ".bss":
+                return None, None, "typed item not in .bss"
+            return self.typed[it["cname"]], None, "typed record"
         r = self.record_item(it)
         if r is not None:
             return r
@@ -646,6 +671,13 @@ class TUWriter:
                 it["_skip"] = form
                 continue
             tag = "// %08x %s %d B%s" % (it["addr"], it["kind"], it["size"], " " + it["type"] if it.get("type") else "")
+            if form == "typed record":
+                # include/decls/data/records.h's declaration (the sources' record type); its 32-bit size is the XBE's
+                self.typed_used.append(it["cname"])
+                body.append('extern "C" { %s; }  %s (include/decls/data/records.h)' % (decl, tag))
+                self.rec_checks.append("typedef char hulk_size_%s[sizeof(%s) == %d ? 1 : -1];" % (
+                    it["cname"], it["cname"], it["size"]))
+                continue
             if form == "pinned":
                 # include/decls/address.h's declaration (C linkage, the pinned type): the sources include it
                 body.append('struct %s;\nextern "C" { %s; }  %s (include/decls/address.h)' % (decl.split("*")[0], decl, tag))
@@ -656,7 +688,9 @@ class TUWriter:
             else:
                 body.append('extern "C" %s = %s;  %s' % (decl, init, tag))
         lines += DATA_PRELUDE
-        if self.rec_structs:
+        if self.typed_used:
+            lines += ['#include "%s"' % TYPED_INCLUDE, ""]
+        if self.rec_structs or self.rec_checks:
             # record types: natural alignment on every target (the sources' own record layouts)
             lines += self.rec_structs
             lines += ["#if HULK_DATA_PACKED"] + self.rec_checks + ["#endif", ""]
@@ -759,10 +793,11 @@ def write_decls(model, tus):
     by_hdr = collections.defaultdict(list)
     for p, items, w in tus:
         decl = dict(w.decls)
+        typed = set(w.typed_used)
         for it in items:
-            if it["cname"] in decl:
+            if it["cname"] in decl or it["cname"] in typed:
                 d = os.path.dirname(it["object"]) or "root"
-                by_hdr[(it["layer"], d)].append((it, decl[it["cname"]]))
+                by_hdr[(it["layer"], d)].append((it, decl.get(it["cname"])))
     written = []
     for (layer, d), rows in sorted(by_hdr.items()):
         path = os.path.join(DECLS, layer, d + ".h")
@@ -773,7 +808,7 @@ def write_decls(model, tus):
                  "#ifndef " + guard, "#define " + guard, ""] + DATA_PRELUDE
         structs = set()
         for it, decl in rows:
-            m = re.match(r"(?:const )?(Data(?:Layout|Rec)_[0-9a-f]{8})\b", decl)
+            m = re.match(r"(?:const )?(Data(?:Layout|Rec)_[0-9a-f]{8})\b", decl or "")
             if m:
                 structs.add(m.group(1))
         for s in sorted(structs):
@@ -784,6 +819,9 @@ def write_decls(model, tus):
                 cur = it["object"]
                 lines += ["", "// %s" % cur]
             note = "  // " + it["name"] if it["name"] != it["cname"] else ""
+            if decl is None:
+                lines.append('// %s: typed by %s (include it)' % (it["cname"], TYPED_INCLUDE))
+                continue
             lines.append('extern "C" %s;%s' % (decl, note))
         lines += ["", "#endif", ""]
         os.makedirs(os.path.dirname(path), exist_ok=True)

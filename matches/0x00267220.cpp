@@ -1,8 +1,8 @@
 #include "gen/core.h"
 
-void thunk(void*);
+extern "C" void thunk_FUN_003479bc(void*);
 
 void core::MemoryAllocatorMalloc::vfunc_4(void* __p0) { void * p = (void *)__p0;
 
-    thunk(p);
+    thunk_FUN_003479bc(p);
 }

@@ -1,5 +1,5 @@
 #include "compat/ptr.h"
-#include "decls/data/engine/core.h"
+#include "decls/data/records.h"
 
 struct Obj_267090 {
     virtual void f0();

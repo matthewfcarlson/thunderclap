@@ -428,6 +428,15 @@ differs from its standalone build; link check 6,477 references, **4,238 by name*
   are packed on the 32-bit builds (`HULK_DATA_PACKED`: the XBE's layout, byte-identical) and naturally aligned
   on 64-bit. Code that still addresses such an item by 32-bit byte offsets, or reads a pointer word as an
   integer, is listed by `tools/data_ptrs.py lint`.
+- **Typed records** (reg1, 2026-11-05). A `.bss` item that several sources index as one record takes its type from
+  `include/decls/data/records.h`, hand-written: the record (pointer fields as pointers) and `extern "C" T
+  DAT_<addr>[N];`. `data_gen.py` reads those declarations: the item's data TU includes the header and defines the
+  item with it (form `typed record`, the 32-bit size asserted against the item), and the generated headers leave it
+  out (a comment points at records.h, which the sources include). First user: the memory allocator registry
+  (`MemoryHeapSlot DAT_00527c60[46]` and its root `DAT_00527f40`). The header declares no namespace or other
+  top-level name besides its records and items: gen_tree keeps every top-level name of include/ global, so a
+  `namespace core { ... }` there moved the core classes of 20 TUs out of their TU namespaces (a duplicate symbol in
+  the native link).
 - **Names across linkage:** pointers to functions use `FUN_<addr>`; the Wine build needs the function's real
   symbol (a C++ member such as `CFoo::vfunc_3` can't be named by an `extern "C"` alias). The inventory knows the
   target address, so the generator can emit the real name once functions.csv names are spellable.

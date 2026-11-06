@@ -1,6 +1,5 @@
-#include "compat/ptr.h"
-#include "decls/data/engine/content.h"
+#include "decls/data/records.h"
 
-extern "C" hulk_intptr FUN_00266f40(int index) {
-    return ((int*)((char*)&DAT_00527c58 + 8))[index * 4];
+extern "C" void* FUN_00266f40(int index) {
+    return DAT_00527c60[index].allocator;
 }

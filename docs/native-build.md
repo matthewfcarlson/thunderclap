@@ -750,6 +750,8 @@ an address of a data item and carries no relocation; that would tighten verify_r
 
 ### What is left
 
+(216's table: fixed by reg1, "Start-up past the allocator registry" below; the next stop is the dl allocator.)
+
 | initializers | what | class |
 |---|---|---|
 | **216** | the loader registry table 0x00527c58 (55 sources, data_gen `.bss` records) | layout |
@@ -767,3 +769,92 @@ The native numbers come from each proof's own clang-probe snapshot and binding m
 CRT and XDK tables' rows)`); `tools/native_unbound.py classify` gives the same macOS totals. Every link has 0 CRT
 binding problems. tests/native_host all pass: crt_bind, xdk_bind and shim (3 targets each), replay_native, va_tree
 (macOS and x64), rtti, entry, native_unbound_test 4 / 4.
+
+## Start-up past the allocator registry (reg1, 2026-11-05)
+
+unb4 stopped in initializer 216 (0x0035e6b0) on the table at 0x00527c58. The macOS start-up now gets through the
+allocator registry and the malloc allocator of 216 and stops in the same initializer on the next layout: the dl
+allocator (`MemoryDlAllocator`).
+
+### The table was two variables
+
+0x00527c58 was carved as one 744-byte item because sources wrote `(char*)&DAT_00527c58 + 8` for the slots; the code
+says otherwise. 0x00527c58 is the content loader registry pointer (46 sources read it; +4 is unused), and the
+"records from +8" are the **memory allocator registry** at 0x00527c60 (the code addresses 0x00527c60 directly): 46
+slots, and a 47th of the same record at 0x00527f40, the root of a tree of allocators, which the inventory had split
+into four 4-byte items because 0x00267280 stores its words by address. Read together, the accessors give one record,
+`MemoryHeapSlot {allocator; child; next; parent;}`: 0x002670b0 links an allocator in as the first child of a slot (of
+the root for 45 or a slot without a parent), 0x00267110 unlinks it, 0x00266f50 / 0x00266f90 walk `{item, child,
+next}` from the root to find the allocator that owns an address, 0x00267280 points every slot at the static malloc
+allocator 0x00527f50 (vftable 0x0042af2c).
+
+- **Inventory** (config/data.json): 0x00527c58 744 -> 8 bytes; 0x00527c60 a new 736-byte `.bss` item (owner
+  unknown/unk_266950.cpp, shared by 3 objects, as data_inventory's link-order rule places it); 0x00527f40 4 -> 16
+  bytes (0x00527f44 / 48 / 4c become its interior). These are the items data_inventory itself carves once the sources
+  use `DAT_00527c60[i]` and the root's fields (its source-offset merge); the coverage counts are adjusted (bss items
+  2,500, `refs` 10,425, `shared` 2,038).
+- **One record type**: `include/decls/data/records.h` (hand-written) defines `MemoryHeapSlot` and declares
+  `DAT_00527c60[46]` and `DAT_00527f40`; data_gen defines the items with that declaration (docs/data.md "Typed
+  records"). On 64-bit the slot is 32 bytes, so the table is 1,472 bytes; the 32-bit size is the XBE's (asserted).
+- **The sources** (all byte-matched, verify_relocs ok): 0x00266e00, 0x00266eb0, 0x00266f00, 0x00266f20, 0x00266f40,
+  0x002670b0, 0x00267280, 0x00267070, 0x00267090 and the equivalent 0x00267110 (3,009 inputs equivalent, `--wine`
+  73 equivalent; 7 / 8 edges as before). Pointer-width fixes on the way: the allocate calls return `void*` (they were
+  `int`: the allocation truncated), 0x00266f00 / 0x00266f20 pass the freed pointer as `void*`, 0x00266f40 returns
+  the allocator pointer (it returned `int`), 0x00267280 loops `46 * sizeof(MemoryHeapSlot)` (it stepped 16 bytes to
+  0x2e0), 0x00266e00's invented `gCallback_266e00` is 0x00527f64 (as 0x00266eb0 names it).
+
+### The malloc allocator (0x00527f50)
+
+Slot 0's allocator is the static `core::MemoryAllocatorMalloc`; 216's first allocation (`FUN_00266e00(0, 0x20800)`)
+calls its slot 3.
+
+- 0x00267210 (slot 3, allocate) was a propagated `int __stdcall FUN_00267210(int)`: on 64-bit the vtable call passes
+  `this` first, so it allocated `this` bytes, and returned the pointer as `int`. Now a member returning `void*`.
+- 0x00267230 (slot 6, aligned allocate) returned `void` (the pointer only survived in eax on x86): returns it.
+- 0x00270570 / 0x002705b0 (aligned malloc / free) kept the block in a 4-byte word below the aligned address: now a
+  pointer-sized word (`sizeof(void*)`; the 32-bit code is the same).
+- 0x00267220 / 0x00267250 (slots 4 and 7, free) called an invented `thunk`: now `thunk_FUN_003479bc` (0x00270560, the
+  thunk to free; it has no tree definition, so the native link still leaves it unbound) and `FUN_002705b0`.
+- 0x0026d8f0 (the thread list append; unb4's survey crash) links `{next, previous}` as pointers. Its callers'
+  thread objects keep 8 bytes for the two links (`char reserved[8]`), a layout still to fix.
+
+### Where it stops now
+
+Normal run: `missing ?Do@MemoryDlAllocator_nv_26cfa0@...` from `FUN_0026cfa0+0x58` in 216: 0x0008d480 creates the
+"Temporary Heap" (and 0x0008d3a0 fifteen more heaps) with the dl allocator, whose constructor 0x0026ce90 0x0026cfa0
+calls under an invented name. Naming it is not enough: the native link binds a name by address only when the
+reference's IR signature equals the definition's, and the definition (`MemoryDlAllocator(unsigned char, int base,
+int count, int unused)`) takes the heap's base pointer and name as `int`. The class keeps `start` / `end` /
+`current` as `int` and a 0x474-byte state block that dlmalloc (0x0026c040 and the family, about 22 sources,
+`gen/core.h`'s `core::MemoryDlAllocator`) uses with 32-bit chunk constants (8-byte headers, 16-byte minimum chunks
+with two pointers in them). That is the next layout job: the dl allocator family on 64-bit.
+
+Survey run (`HULK_NATIVE_MISSING=continue`): the skipped constructor returns 0, and 0x002670b0 crashes installing it.
+
+### Method
+
+As unb4, with unb4's final proof as the base (build_tree state and report from its clang-probe snapshot, its binding
+map), the data TUs from this change (`HULK_DATA_DIR`), and the tree report's symbols of the renamed definitions patched
+for the iteration links (`build/reg1/scripts/`). Merge modes (that state): one change, 0x00267230 wrapped -> merged
+(its conflict on the invented `MemoryAllocatorMalloc` is gone). 64-bit front end of the 5 TUs: 0 errors.
+`--x64` HEAD -> batch, 17 sources: the same statuses (7 equivalent, 4 unsupported, 6 failing: 0x00266f40, 0x002670b0,
+0x00267110, 0x00267280 on the indexed table's 64-bit stride, which the harness does not map; 0x00270570's header
+word, 8 bytes by design; 0x0026d8f0's declared `unsigned int*`).
+
+### Batch and proof
+
+| | control | batch (reg1) |
+|---|---|---|
+| sources | HEAD 77b9475d2 | 17 (16 matches/, 1 equivalent/: 0x00267110) + records.h, the 2 regenerated data headers, config/data.json, tools/data_gen.py |
+| gates | - | 16 / 16 MATCH + verify_relocs ok; 0x00267110 3,009 inputs equivalent, `--wine` 73 equivalent |
+| data_gen (MSVC 7.1) | 18,832 / 18,832 items | 18,830 / 18,830 items verified (two items fewer: 0x00527c58's split adds one, the root's merge removes three), 1,078 TUs |
+| merge modes (the proofs' own build_tree states) | - | 1: 0x00267230 wrapped -> merged |
+| Wine proof (`--gfx`, play3 to 60,000, limit 14,400; both on mac2) | 63381 | 63414 |
+| strict link rc / Wine unbound | 0 / 1,319 | 0 / **1,318** (gone: the invented `thunk` that 0x00267220 and 0x00267250 shared for two addresses) |
+| x87 keep list | 268 | identical |
+| play3 checkpoints | 2,013 to 60,360 | identical at all 2,005 common frames (batch to 60,120) |
+| arm64 macOS / x86-64 Linux / arm64 Android unbound (proof's own snapshot and map) | 31,958 / 31,949 / 31,950 (unb4) | 31,957 / 31,948 / 31,949, all rc 0 |
+| macOS start-up | 216: the registry table | 216: the dl allocator's constructor (`FUN_0026cfa0+0x58`) |
+
+Both proofs build their data TUs from a private `HULK_DATA_DIR` (`--data-src`): the control from HEAD's inventory
+(identical to the shared build/data/src), the batch from this one.
