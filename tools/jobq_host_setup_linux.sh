@@ -21,7 +21,7 @@
 # Wine able to run 32-bit PE (i386/WoW64), the tracked sources (git archive HEAD), the queue's runner
 # (~/hulk-jobs/jobq_run.py), disk space, the game data (never fetched by this script except with --data from a source
 # you name). Optional (warned, not required): ffmpeg shared libraries and SDL3 build deps for the native x86-64 Linux
-# image (today it links with stand-ins and needs neither), Xvfb (--gfx).
+# image (headless replays need neither: the image links a static headless SDL3, tools/native_linux_sdl.py), Xvfb (--gfx).
 #
 # Steps that need the user: sudo for packages and sshd, adding the controller's ssh key to ~/.ssh/authorized_keys,
 # keeping the box awake (no suspend), the game data (--data), and adding the entry to the controller's hosts.json.
@@ -127,9 +127,8 @@ if [ "$MODE" = register ]; then
   ROUTE=${ROUTE:-$(id -un)@$(hostname -f 2>/dev/null || hostname)}
   SL=${SLOTS:-$(nproc)}
   # caps: the Macs' "equiv msvc clang wine" (never xemu, never wine-gfx), plus "linux-x64": a new cap naming a host
-  # that can run the native x86-64 Linux image (tools/native_elf.py --target linux-x64, docs/native-build.md). No job
-  # asks for it yet (jobq.py's NEEDS has no such value), so it changes no placement today; it is there so a future
-  # `--needs linux-x64` replay lands on a Linux host and not a Mac.
+  # that can run the native x86-64 Linux image (tools/native_elf.py --target linux-x64; docs/native-float64.md "The
+  # x86-64 Linux replay"): `jobq.py submit --needs linux-x64` lands on such a host and never on a Mac.
   ENTRY=$(python3 - "$NAME" "$ROUTE" "$SL" "$HOST_REL" "$RUNPY" <<'EOF'
 import json, sys
 name, route, slots, d, py = sys.argv[1:6]
@@ -365,7 +364,7 @@ if doit; then mkdir -p "$HOME/hulk-jobs" && cp tools/jobq_run.py "$HOME/hulk-job
 if python3 "$HOME/hulk-jobs/jobq_run.py" probe >/dev/null 2>&1; then say runner ok
 else say runner "not installed (~/hulk-jobs/jobq_run.py; --install or the daemon's first connect copies it)"; fi
 
-# --- optional: the native x86-64 Linux image (docs/native-build.md: links with stand-ins today, no SDL3 yet)
+# --- optional: the native x86-64 Linux image for play (headless replays link a static SDL3 and need neither)
 LDC=$(command -v ldconfig || echo /sbin/ldconfig)
 if "$LDC" -p 2>/dev/null | grep -q 'libavcodec\.so\.'; then say ffmpeg "ok (shared libraries)"
 else say ffmpeg "missing (optional: Bink movies play through FFmpeg loaded at runtime)"
