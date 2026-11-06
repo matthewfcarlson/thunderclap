@@ -440,25 +440,63 @@ def build_host(tc, d):
     return objs, errs
 
 
-def build_shim(tc, d, aliases):
-    """The XDK shim and its host layer for the target (native_bind.shim_sources), stand-in configuration: no SDL3 on
-    the ELF targets yet (docs/native-android.md section 15), so no backends and no replay layer. library.cpp goes
-    through the library data alias wrapper (native_bind.alias_wrapper)."""
+LINUX_SDL = os.path.join(ROOT, "build/third_party/out/sdl-linux-x64")   # tools/native_linux_sdl.py makes it
+MOVIE_NONE = "src/platform/sdl/host/movie_none.c"
+
+
+def elf_sdl(tc):
+    """(compile flags, link flags, FFmpeg or None) for SDL3 on the target, or None. x86-64 Linux: the headless static
+    SDL3 tools/native_linux_sdl.py builds against the sysroot (HULK_NATIVE_LINUX_SDL=0 turns it off). FFmpeg: the
+    prefix in HULK_LINUX_FFMPEG (include/, lib/ with libavformat, libavcodec, libavutil; e.g. the box's /usr after
+    `apt install libavformat-dev`), else the movie layer is movies' interface without FFmpeg (host/movie_none.c)."""
+    if tc.target != "linux-x64" or os.environ.get("HULK_NATIVE_LINUX_SDL", "1") == "0":
+        return None
+    lib = os.path.join(LINUX_SDL, "lib", "libSDL3.a")
+    if not os.path.exists(lib):
+        return None
+    cflags = ["-DHULK_NATIVE_SDL=1", "-I" + os.path.join(LINUX_SDL, "include")]
+    lflags = [lib, "-lm", "-lrt"]
+    ff = os.environ.get("HULK_LINUX_FFMPEG")
+    if ff:
+        cflags.append("-I" + os.path.join(ff, "include"))
+        lflags += ["-L" + os.path.join(ff, "lib"), "-lavformat", "-lavcodec", "-lavutil",
+                   "-Wl,-rpath," + os.path.join(ff, "lib")]
+    return cflags, lflags, ff
+
+
+def build_shim(tc, d, aliases, sdl=True):
+    """The XDK shim and its host layer for the target (native_bind.shim_sources). With SDL3 for the target (elf_sdl:
+    x86-64 Linux, flt1) the configuration of the macOS image: the SDL3 backends and the replay layer
+    (HULK_NATIVE_SDL); otherwise the stand-ins (docs/native-android.md section 15). library.cpp goes through the
+    library data alias wrapper (native_bind.alias_wrapper). Returns (objects, link flags, errors, configuration)."""
     os.makedirs(d, exist_ok=True)
     wrap = nb.alias_wrapper(aliases, "elf", os.path.join(d, "library_aliases.cpp"))
+    cfg = elf_sdl(tc) if sdl else None
+    cflags, lflags = (cfg[0], cfg[1]) if cfg else ([], [])
+    srcs = nb.shim_sources(bool(cfg))
+    if cfg and not cfg[2]:
+        srcs = [MOVIE_NONE if s.endswith("movies/movie.c") else s for s in srcs]
     objs, errs = [], {}
-    for src in nb.shim_sources(False):
+    for src in srcs:
         o = os.path.join(d, os.path.basename(src) + ".o")
         path = wrap if src.endswith("/library.cpp") else os.path.join(ROOT, src)
-        r = subprocess.run(tc.cxx + tc.host_flags() + ["-Wno-unused-function", "-Wno-unused-variable",
-                                                       "-I" + os.path.join(ROOT, "src/platform/sdl"),
-                                                       "-I" + os.path.join(ROOT, nb.SHIM_DIR), "-c", path, "-o", o],
+        if src.endswith(".c"):
+            cmd = tc.cc + ["--target=" + tc.triple, "-O1", "-g", "-fPIC", "-fno-omit-frame-pointer", "-Wall"] + (
+                ["--sysroot=" + tc.sysroot] if tc.sysroot else [])
+        else:
+            cmd = tc.cxx + tc.host_flags()
+        r = subprocess.run(cmd + ["-Wno-unused-function", "-Wno-unused-variable",
+                                  "-I" + os.path.join(ROOT, "src/platform/sdl"),
+                                  "-I" + os.path.join(ROOT, nb.SHIM_DIR)] + cflags + ["-c", path, "-o", o],
                            capture_output=True, text=True)
         if r.returncode:
             errs[src] = r.stderr[-2000:]
         else:
             objs.append(o)
-    return objs, errs
+    conf = ("SDL3 backends + replay layer (HULK_NATIVE_SDL; movies %s)" % ("FFmpeg " + cfg[2] if cfg[2] else
+                                                                           "without FFmpeg: host/movie_none.c")
+            if cfg else "stand-ins (no SDL3 for this target yet)")
+    return objs, lflags, errs, conf
 
 
 def lld(tc, d, objs, unbound, extra_asm):
@@ -490,7 +528,7 @@ def lld(tc, d, objs, unbound, extra_asm):
     table = nb.Table()
     binding = nb.plan(set().union(*(u for _dd, u in game_syms.values())) - game_def - asm_def, table)
     # the XDK shim (stand-ins) the XDK table binds to (a2s2)
-    shim, errs = build_shim(tc, os.path.join(d, "shim"), table.xdk.aliases)
+    shim, shim_lflags, errs, shim_cfg = build_shim(tc, os.path.join(d, "shim"), table.xdk.aliases)
     if errs:
         return {"status": "shim failed", "errors": errs}
     host = host + shim
@@ -503,11 +541,26 @@ def lld(tc, d, objs, unbound, extra_asm):
     # that name: a thunk to the tree's definition or the table row there (the macOS link does the same)
     defs = nmac.LINK_STATE.get("defs")
     thunks = {}
+    # the replay hooks (native_hooks.h): applied when the replay layer is linked (SDL3 for the target), as the macOS
+    # link does; otherwise reported
+    renames = {o: dict(m) for o, m in (nmac.LINK_STATE.get("addr_renames") or {}).items()}
+    hook_rep = None
+    if "replay" in shim_cfg and defs is not None:
+        ren, thunks, rep = nb.plan_hooks(game_syms, defs.sym64, "elf", table)
+        for o, m in ren.items():
+            renames.setdefault(o, {}).update(m)
+        hook_rep = {"applied": "yes (rows whose 'applied' is yes)", "rows": rep}
     for x in sorted({x for _dd, us in host_syms.values() for x in us} - host_def - game_def):
         m = nb.ORIG.match(x)
-        if m and defs is not None:
+        if m and defs is not None and x not in thunks:
             a_ = int(m.group(1), 16)
             thunks[x] = defs.sym64(a_) or table.addrs.get(a_) or table.xdk.funcs.get(a_, (None,))[0]
+    for n_, f_ in list(thunks.items()):   # no tree definition: a CRT / XDK table row at that address (rand)
+        if not f_:
+            a_ = int(nb.ORIG.match(n_).group(1), 16)
+            thunks[n_] = table.addrs.get(a_) or table.xdk.funcs.get(a_, (None,))[0]
+    if hook_rep is not None:
+        hook_rep["thunks"] = {n: f for n, f in sorted(thunks.items())}
     if any(thunks.values()):
         th = os.path.join(d, "host_thunks.s")
         with open(th, "w") as f:
@@ -519,7 +572,7 @@ def lld(tc, d, objs, unbound, extra_asm):
         asm_objs.append(th + ".o")
         asm_def |= defined_syms(tc.nm, [th + ".o"])
     objs, bind_st = nb.apply(objs, binding, game_syms, os.path.join(d, "bound"), "elf",
-                             extra=nmac.LINK_STATE.get("addr_renames"))   # (+ the address bindings: native_unbound.py)
+                             extra=renames)   # (+ the address bindings: native_unbound.py, and the replay hooks)
     # the shim's hooks the host glue calls (null stubs); the game's main is a missing stub (reported) like any other
     hooks = host_undef - game_def - asm_def - host_def - sys_def - {"hulk_game_main"}
     dem = cp.undname(sorted(s for s in set(unbound) if s.startswith("?")))
@@ -536,9 +589,9 @@ def lld(tc, d, objs, unbound, extra_asm):
           "native CRT binding": dict(crt_st, apply=bind_st), "native CRT binding problems": problems[:40],
           "unbound names the C library defines (not CRT rows: bound to the C library's)":
               sorted((set(unbound) - set(binding)) & sys_def - host_def),
-          "shim": {"configuration": "stand-ins (no SDL3 for this target yet)", "objects": len(shim),
+          "shim": {"configuration": shim_cfg, "objects": len(shim),
                    "library data aliases": len(table.xdk.aliases)},
-          "replay hooks": nmac.hook_report(game_syms, "elf")}
+          "replay hooks": hook_rep or nmac.hook_report(game_syms, "elf")}
     stub = os.path.join(d, "stubs.elf.s")
     with open(stub, "w") as f:
         f.write(stub_asm(tc.target, want - data, data, hooks - data))
@@ -555,7 +608,7 @@ def lld(tc, d, objs, unbound, extra_asm):
     if tgt["shared"]:
         cmd += ["-shared", "-Wl,-Bsymbolic", "-Wl,-z,defs", "-Wl,-soname,libmain.so", "-ldl", "-llog"]
     else:
-        cmd += ["-pie", "-Wl,--export-dynamic", "-lpthread", "-ldl"]
+        cmd += ["-pie", "-Wl,--export-dynamic"] + shim_lflags + ["-lpthread", "-ldl"]
     r = subprocess.run(cmd, capture_output=True, text=True, errors="replace")
     log = r.stdout + r.stderr
     with open(os.path.join(d, "ld.log"), "w") as f:

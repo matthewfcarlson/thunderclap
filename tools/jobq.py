@@ -40,7 +40,7 @@ PIDF = os.path.join(JOBS, "daemon.pid")
 DLOG = os.path.join(JOBS, "daemon.log")
 HOSTS_STATE = os.path.join(JOBS, "hosts-state.json")
 BASE_PATHS = ["tools", "include", "tests", "config"]
-NEEDS = ["any", "equiv", "msvc", "clang", "wine", "wine-gfx", "xemu"]
+NEEDS = ["any", "equiv", "msvc", "clang", "wine", "wine-gfx", "xemu", "linux-x64"]   # (linux-x64: x86-64 Linux hosts, native replays; flt1)
 TERMINAL = ("done", "failed", "gaveup", "cancelled")
 SSH = ["ssh", "-o", "ConnectTimeout=20", "-o", "ServerAliveInterval=20", "-o", "ServerAliveCountMax=3",
        "-o", "BatchMode=yes"]

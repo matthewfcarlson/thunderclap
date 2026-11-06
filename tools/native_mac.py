@@ -58,7 +58,9 @@ FRONT = (["--target=aarch64-pc-windows-msvc", "-fms-extensions", "-fms-compatibi
           "-fms-compatibility-version=13.10", "-std=c++14", "-O0", "-S", "-emit-llvm"]
          + cp.NATIVE + ["-fcheck-new", "-ffp-eval-method=double", "-ffp-contract=off"] + cp.W64)
 BACK = ["--target=" + TRIPLE, "-O0", "-c", "-Wno-override-module"]
-VERSION = "2"  # bump when retarget() changes (cache key)
+# (flt1) HULK_NATIVE_FPFIX=1: tools/native_float.py's pass in retarget() (docs/native-float64.md); off by default
+FPFIX = os.environ.get("HULK_NATIVE_FPFIX", "0") == "1"
+VERSION = "2" + ("+fpfix1" if FPFIX else "")  # bump when retarget() changes (cache key)
 
 
 # ---------------------------------------------------------------------------------------------- the retarget
@@ -133,6 +135,9 @@ def retarget(src, tu=None, inits=None):
             inits += names
     # /DEFAULTLIB and /alternatename from #pragma comment: Windows linker options
     src = re.sub(r'^!llvm\.linker\.options = !\{[^}\n]*\}\n', '', src, flags=re.M)
+    if FPFIX:   # (flt1) the Wine build's float results: castfix and float -> int conversions (tools/native_float.py)
+        import native_float
+        src, _n = native_float.fpfix_ir(src)
     return src
 
 

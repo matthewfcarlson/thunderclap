@@ -55,7 +55,8 @@ ROOT = cp.ROOT
 # the host side every native image links (native_elf.py and native_mac.py)
 HOST_SRCS = ["src/platform/sdl/host/entry_posix.cpp", "src/platform/sdl/host/rtti_msabi.cpp",
              "src/platform/sdl/host/crt_posix.cpp", "src/platform/sdl/host/win32_posix.cpp",
-             "src/platform/sdl/crt/softx87.cpp"]
+             "src/platform/sdl/crt/softx87.cpp",
+             "src/platform/sdl/host/x87ext_native.cpp"]   # (flt1: tools/native_float.py's x87ext helpers)
 KINDS = ("libc", "glue", "math", "abi", "data", "na", "xdk", "lib", "libdata")
 
 

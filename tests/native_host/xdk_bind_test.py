@@ -210,7 +210,7 @@ def main():
         host, errs2 = nb.macos_host_objects(os.path.join(out, "host"), HOST)
         host_syms = nmac.nm_macho(shim + host)
     else:
-        shim, errs = ne.build_shim(tc, os.path.join(out, "shim"), x.aliases)
+        shim, _lf, errs, _cfg = ne.build_shim(tc, os.path.join(out, "shim"), x.aliases, sdl=False)   # (stand-ins)
         host, errs2 = [], {}
         hd = os.path.join(out, "host")
         os.makedirs(hd, exist_ok=True)
