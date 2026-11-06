@@ -5,6 +5,6 @@ class Obj_2762f0 {
   public:
     unsigned int value;
 };
-unsigned int __fastcall FUN_00059a30(Obj_2762f0* self) {
+unsigned int __fastcall FUN_002762f0(Obj_2762f0* self) {
     return self->value;
 }

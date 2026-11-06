@@ -2,6 +2,6 @@
 class C_27cf70 {
     char pad[0x48];
 };
-void* __fastcall FUN_00092090(C_27cf70* self) {
+void* __fastcall FUN_0027cf70(C_27cf70* self) {
     return (char*)self + 0x48;
 }

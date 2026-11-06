@@ -526,7 +526,7 @@ Some fixes needed more than a rename:
   - `--wine` 600: 650 / 718 inputs, equivalent.
 
 **Left (3 names in 3 sources).**
-- `matches/0x000964d0.cpp` is a replay pin, not touched. It names `DAT_004dd6e4` for 0x004e5acc, the seq-rng pointer
+- `matches/0x000964d0.cpp` is a replay pin, not touched (dec1 has since renamed it, with the user's approval). It names `DAT_004dd6e4` for 0x004e5acc, the seq-rng pointer
   that the native replay hook table also wants named by address. It now fails verify_relocs (`name_address_mismatch`)
   and needs its owner's change.
 - `equivalent/0x0013e070.cpp` and `0x002b3340.cpp` call the thunk 0x00263ea0 under `FUN_0008d690`, the function it
@@ -534,7 +534,7 @@ Some fixes needed more than a rename:
   behaves correctly.
 
 Definition names have the same disease, and this sweep does not check them. 152 sources define a `FUN_<x>` that is
-not their own address. Some of those definitions are helper bodies of a callee; others are propagated names, such as
+not their own address. (dec1 renamed 125 of them by address: "Definition names by address" below.) Some of those definitions are helper bodies of a callee; others are propagated names, such as
 0x00328510's.
 
 ### The start-up stops
@@ -858,3 +858,38 @@ word, 8 bytes by design; 0x0026d8f0's declared `unsigned int*`).
 
 Both proofs build their data TUs from a private `HULK_DATA_DIR` (`--data-src`): the control from HEAD's inventory
 (identical to the shared build/data/src), the batch from this one.
+
+## Definition names by address (dec1, 2026-11-05)
+
+unb3's sweep checked the names a source *references*; this one checks the name a source *defines*. A propagated
+source ("Same code shape as 0x00025410 (propagated; names are from that function)") kept the definition name of the
+function it was copied from, so 91 sources defined `FUN_00025410` (an empty function), 9 `FUN_00086320`, and so on.
+In the tree each such block was either wrapped ("same definition as 0x... in this TU") or bound under a name that
+belongs to another address.
+
+**Which sources.** A definition scan (`FUN_<x>(...) {` with x not the file's address) finds 163 sources. compare.py's
+matching symbol says which definition is the function itself:
+- 128 matches/ sources: the matched symbol is the foreign `FUN_<x>`. Renamed to `FUN_<own address>` (one
+  occurrence each; comments untouched). 3 of them are skipped: 0x00267050, 0x002671a0 and 0x002671b0 sit in the
+  allocator registry's range that reg1 is changing. **125 renamed.**
+- 7 matches/ and 5 equivalent/ sources define their own `FUN_<own>` plus a helper body named for the callee it is
+  (0x00234cc0, 0x00234960, ...): correct, left.
+- 4 matches/ (0x001312d0, 0x0028b9c0, 0x0035d7d0, 0x0035ead0) define themselves under a non-FUN_ name (`target`,
+  a constructor, `Init`, `RegF`), and the FUN_ hits are callee helpers: left.
+- The other equivalent/ hits were base-class constructor calls in initializer lists (`: FUN_000e9240(arg)`), not
+  definitions.
+
+**Gates.** All 125: compare.py MATCH and verify_relocs ok. MSVC's code is unchanged (only the symbol). A tree made
+with one build_tree state (63234's) for HEAD and for HEAD + this batch: 37 merge-mode changes, all wrapped ->
+merged and all batch sources (the "same definition as ..." wraps are gone); the 64-bit front end over the 76 TUs
+holding them: 0 errors, as HEAD.
+
+**The replay pin 0x000964d0** (user-approved one-time edit): its `DAT_004dd6e4` became `(*(int*)&DAT_004e5acc)`, the
+seq-rng pointer the code reads. Byte-identical, verify_relocs ok (was `name_address_mismatch`). Nothing else changed,
+so it still returns the pointer as `int`: `--x64` now fails `ptrtrunc` (HEAD's version read a different item and
+passed); a `hulk_intptr` return would fix it and needs the pin's owner.
+
+**Wine proof** (B, C and D together, mac2, fresh state and full map, `--gfx`, play3 to 60000): control 63437
+(77b9475d2) and proof 63958 both strict-link rc 0 with 1,319 Wine-unbound names (identical lists), the x87 keep list
+is identical, and the checkpoints are identical at all 2,002 common frames (to 60030). Trees from the two proofs'
+own build_tree states: the same 37 wrapped -> merged changes, nothing else.

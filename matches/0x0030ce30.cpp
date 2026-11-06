@@ -5,6 +5,6 @@ class X_30ce30 {
   public:
     int value;
 };
-void __fastcall FUN_00089390(X_30ce30* self) {
+void __fastcall FUN_0030ce30(X_30ce30* self) {
     self->value = 0;
 }

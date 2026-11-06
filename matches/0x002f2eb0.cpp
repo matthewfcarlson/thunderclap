@@ -3,6 +3,6 @@ class C_2f2eb0 {
   public:
     char pad[0x38];
 };
-C_2f2eb0* __fastcall FUN_00092050(C_2f2eb0* p) {
+C_2f2eb0* __fastcall FUN_002f2eb0(C_2f2eb0* p) {
     return (C_2f2eb0*)((char*)p + 0x38);
 }

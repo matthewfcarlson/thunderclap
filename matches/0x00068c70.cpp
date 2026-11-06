@@ -5,7 +5,7 @@ class CEffectStopTrack {
   public:
 };
 void __fastcall FUN_00236d60(CEffectStopTrack*);
-void __fastcall FUN_00060920(CEffectStopTrack* self) {
+void __fastcall FUN_00068c70(CEffectStopTrack* self) {
     *(hulk_intptr*)self = (hulk_intptr)&CEffectStopTrack_vftable;
     FUN_00236d60(self);
 }
