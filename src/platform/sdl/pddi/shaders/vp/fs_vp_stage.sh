@@ -19,7 +19,8 @@
 //   u_pddiFrag[14]  xy, zw: stage 0, 1 texture coordinate offset (after the scale: 0, or v -> 1 - v for a copy of a
 //                   render target where targets have the origin at the bottom left, G5); u_pddiFrag[15]: stages 2, 3
 //   u_pddiFrag[6 + 2i]  stage i (generic combiner): colour op, colour arg 1, colour arg 2, alpha op
-//   u_pddiFrag[7 + 2i]  alpha arg 1, alpha arg 2, result register (1 current, 5 temp)
+//   u_pddiFrag[7 + 2i]  alpha arg 1, alpha arg 2, result register (1 current, 5 temp), w: stage i's mip bias (every
+//                   combiner: -16 when the stage's D3DTSS_MIPFILTER is NONE, i.e. only the base level is sampled, else 0)
 // Ops and arguments are the Xbox D3D values (bgfx_pddi.h, bgfxContext::Stage): op 1 disable .. 24 lerp; argument
 // 0 diffuse, 1 current, 2 texture, 3 factor, 4 specular, 5 temp, + 16 complement, + 32 alpha replicate.
 
@@ -28,6 +29,10 @@ SAMPLER2D(s_pddiTex1, 1);
 SAMPLER2D(s_pddiTex2, 2);
 SAMPLER2D(s_pddiTex3, 3);
 uniform vec4 u_pddiFrag[16];
+
+// gfx1: a stage samples with its mip bias (u_pddiFrag[7 + 2i].w): -16 pins a MIPFILTER NONE stage to the base level,
+// as Direct3D does, where bgfx's samplers always mipmap (point or linear between levels)
+#define STAGE_TEX(_s, _uv, _i) texture2DBias(_s, _uv, u_pddiFrag[7 + 2 * _i].w)
 
 #ifndef FS_UV_SETS
 #define FS_UV_SETS 4
@@ -137,22 +142,22 @@ void main()
 #endif
 #ifdef CMB_N
 #if CMB_N > 0
-    cmbStage(CMB_K0, CMB_L0, texture2D(s_pddiTex0, uv0), diffuse, spec, tf, current, temp);
+    cmbStage(CMB_K0, CMB_L0, STAGE_TEX(s_pddiTex0, uv0, 0), diffuse, spec, tf, current, temp);
 #endif
 #if CMB_N > 1
-    cmbStage(CMB_K1, CMB_L1, texture2D(s_pddiTex1, uv1), diffuse, spec, tf, current, temp);
+    cmbStage(CMB_K1, CMB_L1, STAGE_TEX(s_pddiTex1, uv1, 1), diffuse, spec, tf, current, temp);
 #endif
 #if CMB_N > 2
-    cmbStage(CMB_K2, CMB_L2, texture2D(s_pddiTex2, uv2), diffuse, spec, tf, current, temp);
+    cmbStage(CMB_K2, CMB_L2, STAGE_TEX(s_pddiTex2, uv2, 2), diffuse, spec, tf, current, temp);
 #endif
 #if CMB_N > 3
-    cmbStage(CMB_K3, CMB_L3, texture2D(s_pddiTex3, uv3), diffuse, spec, tf, current, temp);
+    cmbStage(CMB_K3, CMB_L3, STAGE_TEX(s_pddiTex3, uv3, 3), diffuse, spec, tf, current, temp);
 #endif
 #else
-    vec4 t0 = texture2D(s_pddiTex0, uv0);
-    vec4 t1 = texture2D(s_pddiTex1, uv1);
-    vec4 t2 = texture2D(s_pddiTex2, uv2);
-    vec4 t3 = texture2D(s_pddiTex3, uv3);
+    vec4 t0 = STAGE_TEX(s_pddiTex0, uv0, 0);
+    vec4 t1 = STAGE_TEX(s_pddiTex1, uv1, 1);
+    vec4 t2 = STAGE_TEX(s_pddiTex2, uv2, 2);
+    vec4 t3 = STAGE_TEX(s_pddiTex3, uv3, 3);
     if (u_pddiFrag[6].x > 1.5) {
         cmbStage(u_pddiFrag[6], u_pddiFrag[7], t0, diffuse, spec, tf, current, temp);
         if (u_pddiFrag[8].x > 1.5) {

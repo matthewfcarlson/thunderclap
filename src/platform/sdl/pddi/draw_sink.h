@@ -140,7 +140,8 @@ struct SinkStage {
     uint8_t minPoint, magPoint, mipPoint;   // 1: point sampled, 0: linear
     uint8_t linear;               // a linear texture: texel coordinates (frag[4..5] carry the scale)
     uint8_t fromTarget;           // a copy of a render target
-    uint8_t pad[2];
+    uint8_t noMip;                // D3DTSS_MIPFILTER NONE: only the base level is sampled (frag[7 + 2i].w = -16, gfx1)
+    uint8_t pad;
 };
 
 // The light set as the draw sees it (camera space; FUN_00321310)

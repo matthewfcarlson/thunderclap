@@ -9,6 +9,7 @@ G4's frame-buffer copy, refraction, framebuffer effects and the other extensions
 G5's clean-up (shader proofs, window scaling, copies without blits, two-sided lighting) is [section 13](#13-g5-clean-up-shader-proofs-window-scaling-portability-two-sided-lighting-2026-10-19).
 Section 14 is sky1: fog, haze and sky against the original ([section 14](#14-sky1-fog-haze-and-sky-against-the-original-2026-10-21)).
 Section 15 is d3: the backend split into a shared pddi front end and a draw sink, bgfx being the first sink ([section 15](#15-d3-the-front-end-and-the-draw-sink-2026-10-25)).
+Section 16 is gfx1: the Wine build's frames against the original's at the same replay frames, the remaining differences ranked, and the MIPFILTER NONE fix ([section 16](#16-gfx1-frame-by-frame-against-the-original-ranked-differences-2026-11-05)).
 The small prototypes and the scripts that produced the planning numbers were under `build/gfx-proto/` (not tracked). Inputs: [platform-boundary.md](platform-boundary.md),
 [seams.md](seams.md), [web-port.md](web-port.md), [wine-build.md](wine-build.md), [subsystems.md](subsystems.md),
 [formats/p3d.md](formats/p3d.md), [texture-packs.md](texture-packs.md), `src/platform/sdl/xdk/`,
@@ -1201,6 +1202,89 @@ pre-command buffer, handle allocators are per type). Checked:
   and stencil blocks (`_hulk_d_004329a0`, `_hulk_d_004329b8`, the same symbol at the same section offset in both
   maps); the split's slightly larger `.text` moves `.data` up one page (+0x1000). `drawlog_diff.py --ignore a0,s0`:
   IDENTICAL.
+
+## 16. gfx1: frame-by-frame against the original, ranked differences (2026-11-05)
+
+```sh
+# the original: hybrid plain replay of play3 in xemu (mac2, -snapshot), stopped over GDB at GameClock frame T,
+# the scan-out buffer saved (build/gfx1/xj/shots.py, a copy of mac2's ~/hulk-tr1/shots-native16.py with an output dir)
+J=build/venv/bin/python
+$J tools/jobq.py submit --name ME --needs xemu --limit 1800 --attempts 1 --out res \
+    --files build/gfx1/xj/shots.py=shots.py build/gfx1/xj/shots.sh=shots.sh -- sh shots.sh -snapshot UNTIL F1,F2,...
+# the Wine build: a local wine-gfx replay (Vulkan on MoltenVK) with HULK_GFX_SHOT_GAME=<T-1,...> (build/gfx1/gfxrun.sh)
+build/gfx1/gfxrun.sh TAG IMAGE_DIR 809,899,... 54030 [HULK_GFX_MIPNONE=0 ...]
+python3 build/gfx1/cmp.py build/gfx1/shots/TAG build/gfx1/cmp/TAG   # wine | original | |diff| x4, metrics.json
+```
+
+The three scripts (`shots.py`/`shots.sh`, `gfxrun.sh`, `cmp.py` with `crop.py`) and all captures stay under `build/gfx1/` (not tracked;
+captures are game output and never committed). Only words and numbers here.
+
+**Alignment.** xemu's scan-out at a stop on GameClock frame T shows the image the Wine build saves as `game-(T-1)`
+(`HULK_GFX_SHOT_GAME`, the first present after frame T-1's update): at 810, 900 and 1500 the mean |difference| is
+0.7-0.9 against T-1 and 11-13 (43 at 1500) against T; checked again at T-4..T+1 for six action frames, T-1 is always
+best. sky1's 810/1200/... numbers (section 14) compared T with T; sky2's half-pixel commit already used T-1.
+
+**Frames.** 46 of play3 (the replay matches the original's checkpoints to the end of the recording since 268361b24, so
+the game state is the same in both): the title (60-300), the difficulty menu (360, 420), the desert tutorial
+(810-6000 every 300: Hulk, HUD, help panels, scaffolding, a glow pick-up at 1050, the first explosion at 4500), the
+city by night (9000-54000 every 3000: buildings, trees, street lights, rain, the pause and buy menus at 18000 and
+33000, a close-up of the Hulk at 30000, fights with fire, smoke, debris and sparkles at 15000, 24000, 39000-48000).
+Image: the div9 proof's (same pddi objects as HEAD), Vulkan under Wine, 640x480.
+
+**Baseline** (mean |Wine - original| per channel, 0-255; % of pixels off by more than 16):
+
+| scene | frames | mean | >16 |
+|---|---|---|---|
+| title, menus, help panels | 60-420, 6000, 18000, 33000 | 0.1-0.6 | 0-1.1% |
+| desert, daylight | 810-5700, 9000, 12000 | 0.3-1.0 (1050: 2.7) | 0-1.3% (4.8%) |
+| city by night, no effects | 27000, 30000, 36000, 51000, 54000 | 0.5-1.7 | 0.1-2.9% |
+| fights (particles) | 15000, 24000, 39000, 42000, 45000, 48000 | 3.4-13.8 | 6-34% |
+
+So the backend draws the game almost exactly: the menus are within rounding, daylight scenes within 1. What is left,
+ranked by visible impact x ease:
+
+| # | difference | where seen | cause | where | fix size |
+|---|---|---|---|---|---|
+| 1 | Particles (dust, fire, smoke, sparks, debris sprites, rain streaks, the HUD's health aura) laid out differently | every fight; the largest numbers (42000: 13.8) | **Not the renderer.** The particle generators draw from four MWC states of their own (0x554bfc point/plane/sphere generators, 0x554c04 sprite emitter, 0x554be4/0x554bf0 sprite updater callbacks; seeded 0 by static initializers 0x361810/0x361820 or lazily), global across every emitter and outside the checkpoint hash, so they drift as soon as one emitter spawns a different count | game code (pure3d particles, 0x2d1000-0x2d7000); replay checkpoints (`hybrid/hooks.cpp`, `src/platform/sdl/xdk/replay_hooks.cpp`) | S to find (add the four states to the checkpoint, find the first frame they part), M to fix (whatever spawn count or order differs: dt rounding, culling, emitter order) |
+| 2 | Distant textures blurrier, without the original's sharp (aliased) detail: building facades, window grids, ground at a distance | every scene with depth (36000's tower block, the desert floor) | **MIPFILTER NONE sampled with mipmaps.** The game's filter table (0x4d4e10, FIMD 0/1) sets D3DTSS_MIPFILTER = NONE, which in Direct3D samples the base level only; the backend mapped it to bgfx's point mip filter, which still picks a smaller level by distance | `bgfx_draw.cpp` (stage sampler state), `shaders/vp/fs_vp_stage.sh` | **S, fixed here** |
+| 3 | Tree foliage 1.6x brighter (all three channels by the same factor: 1.58-1.70 per pixel, so a lighting or colour multiplier, not a texture), tree pits a little lighter | city trees (24000, 36000, 39000) | unknown. **Not** NORMALIZENORMALS (section 13's open question): forcing it on (`HULK_GFX_NORMALIZE=1`) changes no frame by more than 0.01 | the trees' draws: find them with a draw-log diff (hybrid `--drawlog` against `HULK_GFX_DRAWLOG` at 24000) and compare shader class, stage ops and vertex program | S to find, S-M to fix |
+| 4 | Thin geometry (scaffolding struts, ladders, power lines) differs by single pixels | desert 900-1200 | rasterisation: NV2A coverage and sub-pixel snapping against Metal/Vulkan's | none in the backend (MSAA or supersampling would only change which pixels) | not worth it |
+| 5 | A one-pixel column at the HUD brackets' inner edge (x 567 vs 568) | every gameplay frame | an edge at an exact pixel centre after the half-pixel offset; the NV2A's tie rule or vertex snapping (1/16 px) puts it on the other side | `bgfx_context.cpp` (sky2's offset) | S to try (snap clip-space x to 1/16 px), low value |
+| 6 | Everything ~0.5/255 brighter in lit 3D (bias +0.3..+0.8 per channel), none in 2D | all 3D frames | rounding: the NV2A's combiners and blender work in 8-9 bit fixed point and truncate; ours are float with round-to-nearest output | shaders | not worth it (invisible) |
+
+Not seen in these frames: no missing post-effect (the framebuffer effects' blur, glow and colour passes look the same
+where they run: 1050's pick-up glow, 4500's flash, 21000's blue shock wave), fog and sky as sky1 left them, no texture
+format or swizzle error (no texture differs in content), no gamma or colour-space difference between the two captures (the 2D
+frames agree to 0.1), resolution and aspect the same (640x480, both 4:3).
+Not covered: movies, water (play3 has none on screen), the 720p/widescreen modes, OpenGL/Direct3D renderers.
+
+**Fixed: MIPFILTER NONE samples the base level** (`bgfx_draw.cpp`, `draw_sink.h`, `shaders/vp/fs_vp_stage.sh`). The
+front end marks a stage whose mip filter is NONE (`SinkStage::noMip`) and writes its mip bias into the stage combiner's
+constants (`u_pddiFrag[7 + 2i].w`: -16, else 0); every stage sample in `fs_vp_stage.sh` (the 100 generated combiners
+and the generic ones) goes through `texture2DBias` with it, which pins those stages to level 0 as Direct3D does
+(min and mag filters are equal in every row of the game's table, so the biased level choosing the mag filter changes
+nothing). `HULK_GFX_MIPNONE=0` restores the old sampling for comparisons. `HULK_GFX_NORMALIZE=1` (the experiment
+above, default off) renormalises lit normals on the fixed-function path.
+
+| frame | before | after | |
+|---|---|---|---|
+| 36000 (whole frame) | 1.04 (1.8% > 16) | 0.66 (0.8%) | |
+| 36000, the tower block (140x110 px) | 8.31 (20.0% > 16) | 1.85 (2.6%) | the window grid now as sharp as the original's |
+| 51000 | 1.65 (2.6%) | 1.10 (1.5%) | |
+| 45000 / 48000 | 4.34 / 3.99 | 4.21 / 3.94 | |
+| the other 42 frames | | unchanged (within 0.01) | |
+
+Checks: Wine proof on mac2, control job 63428 (HEAD) and proof job 64000 (HEAD + the fix, the pddi objects built with
+`HULK_TP_OUT` and linked through `--env HULK_GFX_OUT`), both `--gfx`, play3 to 60,000: `wine_build_job.py compare`:
+checkpoints identical at all 2,001 common frames (0..60,000), only `hulk-strict.exe` differs. `wine_gfx.py smoke`
+(Metal): 548 of 548. `d3d_combiner.py prove --all-profiles`: 100 keys x 2 programs equivalent. `tests/shaders`: 65 OK.
+The Direct3D bytecode (opt-in `HULK_GFX_DXBC=1`) was not rebuilt, as before.
+
+**Plan, in order.** (1) The particle streams (item 1): the biggest visible difference, and it is game state, so it
+belongs with the replay work: add the four states to the checkpoint hash or a `HULK_CKPT_REGIONS` region, find the first
+frame they part, then the emitter. (2) The trees (item 3): one draw-log diff. (3) Optional polish: the HUD edge column
+(item 5). Items 4 and 6 are the hardware's own rasterisation and arithmetic and are left alone; the remaster renderer
+(remaster.md) would not want them anyway. Uncovered scenes worth a capture next: water, movies, and a 720p frame.
 
 ## Open questions
 

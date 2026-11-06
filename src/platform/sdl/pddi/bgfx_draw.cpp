@@ -418,6 +418,20 @@ void bgfxContext::refractConstants(bgfxShader* shader, const float* viewport, co
     setVertexConstants(121, one, 1);
 }
 
+// gfx1: HULK_GFX_MIPNONE=0 turns the base-level-only sampling of MIPFILTER NONE stages off (on by default)
+static bool mipNoneOn()
+{
+    static const int v = getenv("HULK_GFX_MIPNONE") ? atoi(getenv("HULK_GFX_MIPNONE")) : 1;
+    return v != 0;
+}
+
+// gfx1 experiment: HULK_GFX_NORMALIZE=1 renormalises lit normals on the fixed-function path (D3DRS_NORMALIZENORMALS)
+static bool normalizeOn()
+{
+    static const int v = getenv("HULK_GFX_NORMALIZE") ? atoi(getenv("HULK_GFX_NORMALIZE")) : 0;
+    return v != 0;
+}
+
 // The fixed-function program's constants (vs_vp_ff.sc has the layout) from the D3D-side state: the transforms, the
 // material and lighting the shader's pass set (FUN_00329f70), the lights, each stage's texture coordinates
 static void ffConstants(bgfxContext* ctx, unsigned flags, float (*c)[4])
@@ -442,7 +456,7 @@ static void ffConstants(bgfxContext* ctx, unsigned flags, float (*c)[4])
     (void)flags;
     c[13][1] = 0.0f;
     c[13][2] = (d.lighting && d.specular) ? 1.0f : 0.0f;
-    c[13][3] = 0.0f;
+    c[13][3] = normalizeOn() ? 1.0f : 0.0f;
     // Direct3D's normal transform: the inverse transpose of the world-view 3x3 (rows for the shader's dots)
     {
         const float* w = ctx->m_world;
@@ -803,6 +817,11 @@ void bgfxContext::draw(bgfxShader* sh, const DrawSource& src)
         o.minPoint = stg.minFilter <= 1;
         o.magPoint = stg.magFilter <= 1;
         o.mipPoint = stg.mipFilter <= 1;
+        // gfx1: D3DTSS_MIPFILTER NONE (FIMD 0 and 1, the game's table 0x4d4e10) disables mipmapping: Direct3D samples
+        // the base level only. bgfx's samplers always mipmap, so the stage combiner biases the level down by 16
+        // (fs_vp_stage.sh STAGE_TEX). HULK_GFX_MIPNONE=0 restores the old sampling (mip levels used) for comparisons.
+        o.noMip = stg.mipFilter == 0 && mipNoneOn() ? 1 : 0;
+        frag[7 + 2 * i][3] = o.noMip ? -16.0f : 0.0f;
         o.linear = tex && tex->m_linear;
         o.fromTarget = tex && tex->m_fromTarget;
         // linear textures take texel coordinates; a copy of a render target is stored bottom-up where targets have
