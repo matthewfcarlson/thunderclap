@@ -825,6 +825,13 @@ CASES = {
     "0x000139b0_suffix_names": ("equivalent", None, 0.75, {"n_inputs": 300}),
     "0x000139b0_suffix_names_swapped": ("fail", "call #1 went to 0x00059a30 instead of 0x000592a0", 0, {"n_inputs": 300}),
     "0x000139b0_suffix_names_swapped_off": ("equivalent", None, 0, {"src": "0x000139b0_suffix_names_swapped", "n_inputs": 300, "equiv_off": "sufname"}),
+    # (adr1) an address the original references written as an integer: the same bytes on 32-bit, a bogus pointer in
+    # the 64-bit image (XGetDeviceChanges(0x3ea820, ...) for XPP's gamepad type); level 2 (EQUIV_OFF=addrlit: off)
+    "0x00278060_addrlit_wrong": ("fail", "L2 address_as_integer 0x003ea820", 0, {"n_inputs": 50}),
+    "0x00278060_addrlit_wrong_off": ("equivalent", None, 0, {"src": "0x00278060_addrlit_wrong", "n_inputs": 50, "equiv_off": "addrlit"}),
+    "0x00278060_addrlit": ("equivalent", None, 0, {"n_inputs": 50}),
+    # ... FourCC codes in the data range pushed as keys (`Find('TRA', ...)`) are not addresses
+    "0x002acd70_fourcc": ("equivalent", None, 0, {"n_inputs": 100}),
 }
 
 # verify_relocs.py cases: name -> (expected status, issue kind it must report or None)
@@ -847,6 +854,11 @@ RELOC_CASES = {
     "0x00024170_fun_name_wrong": ("bad", "name_address_mismatch"),
     "0x00068cc0_dat_name": ("ok", None),
     "0x00068cc0_dat_name_wrong": ("bad", "name_address_mismatch"),
+    # (adr1) RTTI descriptors passed to __RTDynamicCast as integers: the byte match holds, no relocation (unb4's
+    # finding; tools/addr_literal.py, RELOC_OFF=addrlit turns it off); FourCC codes compared in a switch are values
+    "0x00050680_addrlit": ("ok", None),
+    "0x00050680_addrlit_wrong": ("bad", "address_as_integer"),
+    "0x00285650_fourcc": ("ok", None),
 }
 
 # (round 23, declarity) decl_arity cases, level 2 only: name -> ({(kind, callee)} the diagnostic must report, exactly;

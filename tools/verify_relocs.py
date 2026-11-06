@@ -12,6 +12,8 @@ is then checked:
   call / jmp      REL32        target is a function start
   data            DIR32        target is inside .rdata/.data/.bss
   consistency                  one symbol -> one target within the function; two symbols -> one target is a warning
+  address as integer           an operand with no relocation that the original's instruction uses as an address
+                               (tools/addr_literal.py; RELOC_OFF=addrlit switches it off)
 
   tools/verify_relocs.py matches/0x00018b40.cpp            # one file (address from the name)
   tools/verify_relocs.py --all [--jobs 8]                  # every match -> build/reloc-report.jsonl
@@ -321,6 +323,16 @@ def check(src, addr):
         if rec:
             issues.append(("free_decl_of_thiscall", name))
             thisdecls.append(rec)
+    # (adr1) an address written as an integer (`FUN_0027b020(0x400488u)`, an RTTI descriptor passed as a number): the
+    # original's bytes, so the byte match passes, but no relocation, so the 64-bit image passes a bogus pointer.
+    # The original instruction at the same offset decides that the operand is an address (tools/addr_literal.py)
+    addrlits = []
+    if "addrlit" not in os.environ.get("RELOC_OFF", ""):
+        import addr_literal
+        _, code, mask = coff.function(sym)
+        addrlits = addr_literal.unrelocated_addresses(code, mask, addr)
+        for h in addrlits:
+            issues.append(("address_as_integer", "%s@+%s" % (h["value"], h["offset"])))
     # (cl3) a global the source defines: its initial bytes must be the original's
     inits = initializer_diffs(coff.data, mapping, xbe_read(xbe))
     for rec in inits:
@@ -333,7 +345,8 @@ def check(src, addr):
     hard = [i for i in issues if i[0] not in SOFT]
     return {"addr": "0x%08x" % addr, "status": "ok" if not hard else "bad", "relocs": len(mapping),
             "issues": issues, "map": {k: "0x%08x" % v for k, v in mapping.items()},
-            **({"initializers": inits} if inits else {}), **({"thiscall_decls": thisdecls} if thisdecls else {})}
+            **({"initializers": inits} if inits else {}), **({"thiscall_decls": thisdecls} if thisdecls else {}),
+            **({"address_literals": addrlits} if addrlits else {})}
 
 
 _STRIP = re.compile(r'//[^\n]*|/\*.*?\*/|"(?:\\.|[^"\\\n])*"|\'(?:\\.|[^\'\\\n])*\'', re.S)
@@ -438,6 +451,22 @@ def literal_job(path):
         return path, "error", [{"error": repr(e)[:200]}]
 
 
+def addrlit_job(path):
+    """(adr1) The address-as-integer check for one matches/ or equivalent/ source: (path, how, [records])."""
+    addr = int(os.path.basename(path)[2:10], 16)
+    try:
+        if "/matches/" in path:
+            r = check(path, addr)
+            if r.get("status") != "not_matching":
+                return path, "relocs", r.get("address_literals", []) + \
+                    [{"compile_error": r.get("detail")}] * (r.get("status") == "compile_error")
+        import equiv
+        r = equiv.verify(path, addr, max_level=2)
+        return path, "equiv", [i for i in (r.get("level2") or {}).get("issues", []) if i["kind"] == "address_as_integer"]
+    except Exception as e:  # noqa: BLE001
+        return path, "error", [{"error": repr(e)[:200]}]
+
+
 def _job(path):
     try:
         return check(path, int(os.path.basename(path)[:-4], 16))
@@ -458,7 +487,30 @@ def main():
                    "equivalent/ source that may define a global; violations to OUT (JSON)")
     p.add_argument("--literals", metavar="OUT", help="(cl4) check the string literals (full extent, wide strings, "
                    "embedded NULs) of every matches/ and equivalent/ source that has one; violations to OUT (JSON)")
+    p.add_argument("--addrlits", metavar="OUT", help="(adr1) check every matches/ and equivalent/ source for game "
+                   "addresses written as integers (no relocation); violations to OUT (JSON)")
+    p.add_argument("--src-root", help="the directory holding matches/ and equivalent/ (with --addrlits; default: the "
+                   "checkout; a queue job's own copy, since a host's checkout has its own sources)")
+    p.add_argument("--shard", default="0/1", help="K/N: only every N-th source from the K-th (with --addrlits)")
     a = p.parse_args()
+    if a.addrlits:
+        sr = os.path.abspath(a.src_root or ROOT)
+        files = sorted(os.path.join(sr, d, f) for d in ("matches", "equivalent")
+                       for f in os.listdir(os.path.join(sr, d)) if f.endswith(".cpp"))
+        k, n = map(int, a.shard.split("/"))
+        files = files[k::n]
+        out, counts = {}, Counter()
+        with Pool(a.jobs) as pool:
+            for i, (path, how, recs) in enumerate(pool.imap_unordered(addrlit_job, files, chunksize=8)):
+                counts[how] += 1
+                if recs:
+                    out[os.path.relpath(path, sr)] = recs
+                    counts["violating"] += 1
+                if (i + 1) % 2000 == 0:
+                    print("  %d/%d %s" % (i + 1, len(files), dict(counts)), flush=True)
+        json.dump({"counts": dict(counts), "violations": dict(sorted(out.items()))}, open(a.addrlits, "w"), indent=1)
+        print("results:", dict(counts))
+        return
     if a.literals:
         files = sorted(os.path.join(ROOT, d, f) for d in ("matches", "equivalent")
                        for f in os.listdir(os.path.join(ROOT, d)) if f.endswith(".cpp"))

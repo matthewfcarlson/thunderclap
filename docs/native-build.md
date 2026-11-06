@@ -729,6 +729,19 @@ more, almost all `__RTDynamicCast` calls (0x00344e74) that pass the source and t
 `build/unb4/addrlit-all.txt`). They need `&DAT_<descriptor>`. A checker could flag an operand of our object that equals
 an address of a data item and carries no relocation; that would tighten verify_relocs, not relax it.
 
+(adr1) That check now exists: `address_as_integer`, in `verify_relocs.check` (a byte match: the original's
+instruction at the same offset) and in equiv.py's level 2 (an address the original function references that our
+object has only as a plain immediate). `tools/addr_literal.py` decides from the original instruction what is an address
+(the XBE has no relocation table; rules in docs/equivalence.md round 28); `RELOC_OFF=addrlit` / `EQUIV_OFF=addrlit` turn
+it off. The sweep over HEAD 77b9475d2 (`verify_relocs.py --addrlits`, 12 queue shards) found 44 matches/ and 1
+equivalent/ source. 41 matches/ were real and are fixed: the 34 RTTI casts, 0x001a1880, 0x000dd8b0 (a table of index
+pairs, spelled as its sibling 0x000dd8d0), 0x0014e220 (the HealthTrack vftable stored by number), 0x001922e0 (pi/180
+by address: now the float literal), 0x00278060 (XPP's gamepad type), and 0x00321b70 / 0x00321c30, which stored D3D
+render-state cache words through `*(int*)0x39de28`. The other 4 (0x0028f280, 0x00297150, 0x002c1480 and
+equivalent/0x00291dc0: the sizes 0x11000, 0x13000, 0x120100 passed to the loader registry, which are also function
+starts) were constants, and function starts are no longer taken as immediates. A Wine proof of the batch on the
+control's host had no merge-mode changes and identical checkpoints.
+
 ### Batch and proof
 
 | | control | batch (unb4) |

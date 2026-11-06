@@ -7095,6 +7095,12 @@ def level2(prog, orefs, oview, ours, resolved, how, rview):
                        "target": "0x%08x" % t, "symbol": n[0] if n else None})
     for t in sorted(o_imm - r_data - imms - o_data):
         issues.append({"kind": "missing_address_constant", "target": "0x%08x" % t, "section": prog.section_name(t)})
+    if "addrlit" not in EQUIV_OFF and getattr(ours, "orig_addr", None) is not None:
+        # (adr1) an address the original references (tools/addr_literal.py decides from its instruction) that our
+        # object has only as a plain immediate: the same value on 32-bit, a bogus pointer in the 64-bit image
+        import addr_literal
+        for t in sorted((addr_literal.original_addresses(ours.orig_addr) & imms) - r_data):
+            issues.append({"kind": "address_as_integer", "target": "0x%08x" % t, "section": prog.section_name(t)})
     if "fconst" not in EQUIV_OFF:
         o_imm_f = set()
         if "immfloat" not in EQUIV_OFF:

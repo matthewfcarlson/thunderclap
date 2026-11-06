@@ -1,5 +1,10 @@
 #include "compat/ptr.h"
 #include "gen/global.h"
+#include "decls/data/game/global.h"
+
+struct Pair_dd8b0 {
+    int a, b;
+};
 
 struct IDollyControllerState_dd8b0 {
     virtual void a();
@@ -17,7 +22,6 @@ struct IDollyControllerState_dd8b0 {
 };
 
 hulk_freg ControllerState::vfunc_7(hulk_intptr index) {
-    int a = *(int*)(0x4a0d6c + index * 8);
-    int b = *(int*)(0x4a0d70 + index * 8);
-    return (*(float * *)&this->f_0c)[a] - (*(float * *)&this->f_0c)[b];
+    float* p = (*(float * *)&this->f_0c);
+    return p[((Pair_dd8b0*)&DAT_004a0d6c)[index].a] - p[((Pair_dd8b0*)&DAT_004a0d6c)[index].b];
 }

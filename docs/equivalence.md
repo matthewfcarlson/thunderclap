@@ -939,6 +939,23 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   `0x000375a0_native_retwidth_off` and `0x0035d200_native_noeaxret_off` now also switch cdeclret off (their declarations say
   what those rules infer). Name unification batch 3 (tools/name_unify.py) relies on it for definitions and callees that keep
   an equiv-conv line when they take C linkage.
+- (round 28, adr1) **Addresses written as integers** (`EQUIV_OFF=addrlit`; `RELOC_OFF=addrlit` for verify_relocs). A source
+  that passes a game address as a number (`__RTDynamicCast(p, 0, 0x491ca8, 0x492108, 0)`, `XGetDeviceChanges(0x3ea820, ...)`)
+  compiles to the original's bytes, but the operand has no relocation, so the 64-bit image passes a 32-bit number. Level 2
+  used to accept such an immediate in place of the original's reference ("a literal address in our source is fine too").
+  `tools/addr_literal.py` decides from the original's instruction whether an operand is an address (the XBE has no
+  relocation table): an absolute memory operand always; `[reg + disp]` when disp is in .rdata/.data; an immediate of a
+  non-arithmetic instruction (not `cmp`/`and`/`add`/..., which is how FourCC codes, hashes and masks are used) when the
+  value is a spot code points at: the start of a data item of `config/data.json` (a vtable's `??_7` point, not its COL slot;
+  never the RTTI descriptors only data references), a referenced interior point of an item other than a type descriptor
+  (whose interior is its name string), or an aligned word in an XDK section (XPP's device types). A function start
+  as an immediate is not taken: the sweep's only such hits were sizes (0x11000, 0x13000, 0x120100) passed to the loader
+  registry. Level 2's
+  new issue `address_as_integer`: such a value the original function references that our object has only as an
+  unrelocated immediate. `verify_relocs.check` reports the same for a byte match, at the same offset (`address_as_integer`,
+  value@+offset), and `verify_relocs.py --addrlits OUT [--shard K/N]` sweeps matches/ and equivalent/. Cases
+  `0x00278060_addrlit[_wrong,_wrong_off]`, `0x002acd70_fourcc` (equiv) and `0x00050680_addrlit[_wrong]`, `0x00285650_fourcc`
+  (verify_relocs).
 
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check

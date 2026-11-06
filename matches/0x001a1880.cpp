@@ -14,7 +14,9 @@ struct Action_1a1880 {
     Action_1a1880();
     char pad[0x18];
 };
-Result_1a1880* __cdecl MakeResult(Sub_1a1880*, int, int, int, int);
+Result_1a1880* __cdecl MakeResult(Sub_1a1880*, int, void*, void*, int);
+extern char DAT_00494b44;
+extern char DAT_004c13d0;
 extern "C" void* memcpy(void*, const void*, unsigned int);
 class LuaAction : public Action_1a1880 {
   public:
@@ -32,7 +34,7 @@ LuaAction::LuaAction(int a, int b, Sub_1a1880* arg) : m20(0), m24(0) {
     if (m20)
         m20->G();
     m20 = arg;
-    Result_1a1880* r = MakeResult(arg, 0, 0x494b44, 0x4c13d0, 0);
+    Result_1a1880* r = MakeResult(arg, 0, &DAT_00494b44, &DAT_004c13d0, 0);
     if (r)
         memcpy(&sub, r->Convert(), 0xe0);
 }

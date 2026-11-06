@@ -86,6 +86,8 @@ class d3dContext : public pddiBaseContext {
     void vfunc_74(int, int, int);
 };
 } // namespace pure3d
+extern u32_321c30 DAT_0039de20;
+extern u32_321c30 DAT_0039de24;
 void __stdcall SetStencil(u32_321c30);
 void __fastcall SetSimple(u32_321c30, u32_321c30);
 void pure3d::d3dContext::vfunc_74(int a, int b, int c) {
@@ -93,8 +95,8 @@ void pure3d::d3dContext::vfunc_74(int a, int b, int c) {
     SetStencil(*(u32_321c30*)(((hulk_intptr)((char*)&DAT_004d3a54)) + a * 4));
     u32_321c30 x = *(u32_321c30*)(((hulk_intptr)((char*)&DAT_004d3a54)) + b * 4);
     SetSimple(0x40374, x);
-    *(u32_321c30*)0x39de20 = x;
+    DAT_0039de20 = x;
     u32_321c30 y = *(u32_321c30*)(((hulk_intptr)((char*)&DAT_004d3a54)) + c * 4);
     SetSimple(0x40378, y);
-    *(u32_321c30*)0x39de24 = y;
+    DAT_0039de24 = y;
 }

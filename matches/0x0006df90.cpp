@@ -1,5 +1,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
+extern char DAT_0049850c;
+extern char DAT_00499fcc;
 
 extern "C" int FUN_00344e74(hulk_intptr a, int b, hulk_intptr c, hulk_intptr d, int e);
 class TrackFactoryCaster_6df90 {
@@ -10,5 +12,5 @@ class TrackFactoryCaster_6df90 {
 
 template <> bool fight::TrackFactoryCasterTemplate<CJumpTrack>::vfunc_0(void* __p0) { hulk_intptr a = (hulk_intptr)__p0;
 
-    return (bool)((int)(!!FUN_00344e74(a, 0, 0x49850c, 0x499fcc, 0)));
+    return (bool)((int)(!!FUN_00344e74(a, 0, (hulk_intptr)&DAT_0049850c, (hulk_intptr)&DAT_00499fcc, 0)));
 }

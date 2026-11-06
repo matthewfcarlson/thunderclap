@@ -1,5 +1,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
+extern char DAT_0049850c;
+extern char DAT_00499170;
 
 class CGrappleDamageTrack_6d950;
 class TrackFactoryCaster_6d950 {
@@ -11,5 +13,5 @@ hulk_intptr FUN_00344e74(hulk_intptr owner, int a, hulk_intptr b, hulk_intptr c,
 
 template <> bool fight::TrackFactoryCasterTemplate<CGrappleDamageTrack>::vfunc_0(void* __p0) { hulk_intptr owner = (hulk_intptr)__p0;
 
-    return FUN_00344e74(owner, 0, 0x49850c, 0x499170, 0) != 0;
+    return FUN_00344e74(owner, 0, (hulk_intptr)&DAT_0049850c, (hulk_intptr)&DAT_00499170, 0) != 0;
 }

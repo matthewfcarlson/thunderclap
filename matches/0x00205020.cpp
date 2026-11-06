@@ -1,3 +1,5 @@
+extern char DAT_0048d5bc;
+extern char DAT_004c9268;
 void* __cdecl HelperCast(void* p, int a, void* b, void* c, int d);
 
 class DynamicCasterBase {
@@ -11,5 +13,5 @@ class DynamicCaster : public DynamicCasterBase {
 };
 
 void* DynamicCaster::Cast(void* p) {
-    return HelperCast(p, 0, (void*)0x48d5bc, (void*)0x4c9268, 0);
+    return HelperCast(p, 0, (void*)&DAT_0048d5bc, (void*)&DAT_004c9268, 0);
 }

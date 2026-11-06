@@ -1,4 +1,6 @@
 #include "gen/fight.h"
+extern char DAT_0049850c;
+extern char DAT_004a66d8;
 
 namespace hulkfight {
 namespace ai {
@@ -16,5 +18,5 @@ class TrackFactoryCaster_120780 {
 } // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::PathFormationTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return CastFunc(p, 0, (void*)0x49850c, (void*)0x4a66d8, 0) != 0;
+    return CastFunc(p, 0, (void*)&DAT_0049850c, (void*)&DAT_004a66d8, 0) != 0;
 }

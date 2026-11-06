@@ -1,5 +1,7 @@
 #include "compat/ptr.h"
 #include "gen/fight.h"
+extern char DAT_0049850c;
+extern char DAT_004a49d0;
 
 int Helper(hulk_intptr a, int b, void* c, void* d, int e);
 
@@ -12,6 +14,6 @@ class TrackFactoryCaster_111ac0 {
 
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::SemaphoreWaitTrack>::vfunc_0(void* __p0) { hulk_intptr arg = (hulk_intptr)__p0;
 
-    int x = Helper(arg, 0, (void*)0x49850c, (void*)0x4a49d0, 0);
+    int x = Helper(arg, 0, (void*)&DAT_0049850c, (void*)&DAT_004a49d0, 0);
     return (x != 0) ? 1 : 0;
 }

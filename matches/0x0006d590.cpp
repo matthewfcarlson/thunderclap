@@ -1,6 +1,8 @@
 #include "gen/fight.h"
 
 #include "compat/ptr.h"
+extern char DAT_0049850c;
+extern char DAT_00498994;
 extern "C" int __cdecl FUN_00344e74(void*, int, hulk_intptr, hulk_intptr, int);
 
 class TrackFactoryCaster_6d590 {
@@ -13,5 +15,5 @@ class CClimbingTrack_6d590;
 
 template <> bool fight::TrackFactoryCasterTemplate<CClimbingTrack>::vfunc_0(void* __p0) { int a = (int)__p0;
 
-    return (bool)((int)(FUN_00344e74((void*)a, 0, 0x49850c, 0x498994, 0) != 0));
+    return (bool)((int)(FUN_00344e74((void*)a, 0, (hulk_intptr)&DAT_0049850c, (hulk_intptr)&DAT_00498994, 0) != 0));
 }

@@ -1,6 +1,8 @@
 #include "gen/fight.h"
+extern char DAT_0049850c;
+extern char DAT_004abd00;
 
-int FUN_00344e74(void*, int, void*, int, int);
+int FUN_00344e74(void*, int, void*, void*, int);
 namespace hulkfight {
 namespace motion {
 class HoverTrack_137760;
@@ -13,5 +15,5 @@ struct TrackFactoryCaster_137760 {
 
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::motion::HoverTrack>::vfunc_0(void* __p0) { int a = (int)__p0;
 
-    return (FUN_00344e74((void*)a, 0, (void*)0x49850c, 0x4abd00, 0) != 0);
+    return (FUN_00344e74((void*)a, 0, (void*)&DAT_0049850c, (void*)&DAT_004abd00, 0) != 0);
 }
