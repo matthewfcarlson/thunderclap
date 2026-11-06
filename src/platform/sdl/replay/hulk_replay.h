@@ -48,6 +48,9 @@ void hulk_replay_set_press_start_ok(int ok);        // the auto-START rule only 
 
 // The recording's checkpoint for a frame: 1 and *hash when there is one.
 int hulk_replay_expected_hash(unsigned frame, unsigned* hash);
+// The same for the particle-RNG checkpoint (div10; JSON "prng_checkpoints", the .hrp's "PRN1" trailer).
+int hulk_replay_expected_prng(unsigned frame, unsigned* hash);
+unsigned hulk_replay_prng_count(void);              // how many it has (0: none; HulkReplayInfo's layout is kept)
 
 // ---------------------------------------------------------------------------------------------
 // Checkpoint hashing (hybrid/hooks.cpp checkpoint(), the recordings' flags without "wide"): FNV-1a over the frame
@@ -68,6 +71,12 @@ typedef struct HulkCkptState {
     int clock_at_entry;
 } HulkCkptState;
 unsigned hulk_ckpt_hash(unsigned frame, const HulkCkptState* s);
+// The particle-RNG checkpoint (div10), a second hash beside the main one so recordings without it keep their
+// checkpoints: FNV-1a over the frame counter (4 bytes LE), then the 40 bytes 0x554be4..0x554c0b of the original image:
+// the sprite updater's two MWC states and their lazy-init guards (0x554be4 + guard 0x554bec, 0x554bf0 + guard 0x554bf8),
+// the point/plane/sphere generators' state 0x554bfc and the sprite emitter's 0x554c04 (pure3d particles; 8 bytes each).
+#define HULK_PRNG_BYTES 40
+unsigned hulk_ckpt_prng_hash(unsigned frame, const unsigned char bytes[HULK_PRNG_BYTES]);
 unsigned hulk_fnv1a(unsigned h, const void* data, unsigned long n);
 
 // Per-frame hook (call once per GameClock::Update, where the hybrid build calls checkpoint()). Enabled by the

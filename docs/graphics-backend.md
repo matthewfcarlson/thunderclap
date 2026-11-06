@@ -1280,6 +1280,18 @@ checkpoints identical at all 2,001 common frames (0..60,000), only `hulk-strict.
 (Metal): 548 of 548. `d3d_combiner.py prove --all-profiles`: 100 keys x 2 programs equivalent. `tests/shaders`: 65 OK.
 The Direct3D bytecode (opt-in `HULK_GFX_DXBC=1`) was not rebuilt, as before.
 
+**Item 1, resolved (div10, 2026-11-06): not a Wine difference.** The particle layout differs between two replays
+of the original too. A second xemu capture of the six fight frames (job 64094) against gfx1's (mean |difference|, %
+of pixels > 16): 15000 5.69 (14.2%), 24000 8.21 (15.2%), 39000 3.61 (6.1%), 42000 17.46 (35.4%), 45000 4.13 (11.1%),
+48000 3.91 (11.3%); the Wine build against gfx1's capture is 6.32, 4.00, 3.44, 13.80, 4.21, 3.94 and against the new
+one 6.37, 8.89, 3.92, 17.17, 5.35, 3.68, i.e. inside the original's own spread. The particle RNG states are equal in
+the Wine build and three xemu runs to frame 12917; after that new effects start on audio-timed frames (a Lua script
+waiting on sounds; xemu's audio is real time), so no two xemu runs agree, while the Wine build (frame audio clock) is
+deterministic. Details, and the particle-RNG checkpoint that proofs now carry: [wine-replay.md](wine-replay.md)
+"Particle-RNG checkpoints". Re-run of the fight frames with the div10 image: pixel-identical to gfx1's `fix` shots
+(nothing in the game changed). The remaining fight-frame numbers are therefore not a backend target; a
+reproducible original-side reference would need an audio pin in the hybrid build.
+
 **Plan, in order.** (1) The particle streams (item 1): the biggest visible difference, and it is game state, so it
 belongs with the replay work: add the four states to the checkpoint hash or a `HULK_CKPT_REGIONS` region, find the first
 frame they part, then the emitter. (2) The trees (item 3): one draw-log diff. (3) Optional polish: the HUD edge column

@@ -28,6 +28,8 @@ static struct {
     unsigned n, cap;
     Ckpt* ck;
     unsigned nck, ckcap;
+    Ckpt* pk;                    // div10: the particle-RNG checkpoints ("prng_checkpoints"; .hrp trailer "PRN1")
+    unsigned npk, pkcap;
     int frame_keyed, autostart;
     unsigned vpad_count, seed, tweaks, flags, ckpt_interval;
     // run state
@@ -41,6 +43,7 @@ static void rp_free()
 {
     SDL_free(g_rp.e);
     SDL_free(g_rp.ck);
+    SDL_free(g_rp.pk);
     SDL_memset(&g_rp, 0, sizeof(g_rp));
     g_rp.press_start_ok = 1;
 }
@@ -66,20 +69,30 @@ static bool rp_add(const Entry& v)
     return true;
 }
 
-static bool rp_add_ck(unsigned frame, unsigned hash)
+static bool ck_add(Ckpt*& ck, unsigned& n, unsigned& cap, unsigned frame, unsigned hash)
 {
-    if (g_rp.nck == g_rp.ckcap) {
-        unsigned cap = g_rp.ckcap ? g_rp.ckcap * 2 : 256;
-        Ckpt* c = (Ckpt*)SDL_realloc(g_rp.ck, cap * sizeof(Ckpt));
+    if (n == cap) {
+        unsigned c2 = cap ? cap * 2 : 256;
+        Ckpt* c = (Ckpt*)SDL_realloc(ck, c2 * sizeof(Ckpt));
         if (!c)
             return false;
-        g_rp.ck = c;
-        g_rp.ckcap = cap;
+        ck = c;
+        cap = c2;
     }
-    g_rp.ck[g_rp.nck].frame = frame;
-    g_rp.ck[g_rp.nck].hash = hash;
-    g_rp.nck++;
+    ck[n].frame = frame;
+    ck[n].hash = hash;
+    n++;
     return true;
+}
+
+static bool rp_add_ck(unsigned frame, unsigned hash)
+{
+    return ck_add(g_rp.ck, g_rp.nck, g_rp.ckcap, frame, hash);
+}
+
+static bool rp_add_pk(unsigned frame, unsigned hash)
+{
+    return ck_add(g_rp.pk, g_rp.npk, g_rp.pkcap, frame, hash);
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -281,7 +294,7 @@ static bool j_entries(J& j)
 }
 
 // checkpoints: [[frame, hash], ...] or {"frame": hash, ...}
-static bool j_ckpts(J& j)
+static bool j_ckpts(J& j, bool (*add)(unsigned, unsigned) = rp_add_ck)
 {
     bool obj = j_peek(j, '{');
     if (!j_eat(j, obj ? '{' : '[')) {
@@ -304,7 +317,7 @@ static bool j_ckpts(J& j)
             f = v[0];
             h = v[1];
         }
-        rp_add_ck((unsigned)f, (unsigned)h);
+        add((unsigned)f, (unsigned)h);
         if (j_eat(j, ','))
             continue;
         if (!j_eat(j, obj ? '}' : ']')) {
@@ -387,6 +400,9 @@ static int rp_parse_json(const char* data, unsigned long size)
             } else if (SDL_strcmp(key, "checkpoints") == 0) {
                 if (!j_ckpts(j))
                     return rp_fail("replay: bad checkpoints");
+            } else if (SDL_strcmp(key, "prng_checkpoints") == 0) {
+                if (!j_ckpts(j, rp_add_pk))
+                    return rp_fail("replay: bad prng_checkpoints");
             } else if (SDL_strcmp(key, "flags") == 0) {
                 if (!j_names(j, flag_bit, &g_rp.flags))
                     return rp_fail("replay: bad flags");
@@ -430,6 +446,8 @@ static int rp_parse_json(const char* data, unsigned long size)
 //   0  "HRP1"   4  u16 version (1)   6  u16 key (0 polls, 1 frames)   8  u32 vpad_count   12 u32 flags
 //   16 u32 ckpt_interval   20 u32 seed   24 u32 tweaks   28 u32 entries   32 u32 checkpoints
 //   36 entries x 24: u32 key, u16 buttons, u8 analog[8], s16 thumb[4], u16 0     then checkpoints x 8: u32 frame, u32 hash
+//   optional trailer (div10): "PRN1", u32 n, n x 8: u32 frame, u32 hash (the particle-RNG checkpoints); older readers
+//   stop before it
 static unsigned rd32(const unsigned char* p)
 {
     return p[0] | (p[1] << 8) | (p[2] << 16) | ((unsigned)p[3] << 24);
@@ -468,6 +486,15 @@ static int rp_parse_hrp(const unsigned char* d, unsigned long size)
     }
     for (unsigned long i = 0; i < nc; i++, p += 8)
         rp_add_ck(rd32(p), rd32(p + 4));
+    unsigned long used = 36 + n * 24 + nc * 8;
+    if (size >= used + 8 && p[0] == 'P' && p[1] == 'R' && p[2] == 'N' && p[3] == '1') {
+        unsigned long np = rd32(p + 4);
+        if (size < used + 8 + np * 8)
+            return rp_fail("replay: truncated .hrp PRN1 trailer");
+        p += 8;
+        for (unsigned long i = 0; i < np; i++, p += 8)
+            rp_add_pk(rd32(p), rd32(p + 4));
+    }
     return 1;
 }
 
@@ -552,27 +579,42 @@ void hulk_replay_set_press_start_ok(int ok)
     g_rp.press_start_ok = ok;
 }
 
-int hulk_replay_expected_hash(unsigned frame, unsigned* hash)
+static int ck_find(const Ckpt* ck, unsigned nck, unsigned frame, unsigned* hash)
 {
-    unsigned lo = 0, hi = g_rp.nck;
+    unsigned lo = 0, hi = nck;
     // checkpoints are in frame order in every recording; fall back to a scan if not
     while (lo < hi) {
         unsigned mid = (lo + hi) / 2;
-        if (g_rp.ck[mid].frame < frame)
+        if (ck[mid].frame < frame)
             lo = mid + 1;
         else
             hi = mid;
     }
-    if (lo < g_rp.nck && g_rp.ck[lo].frame == frame) {
-        *hash = g_rp.ck[lo].hash;
+    if (lo < nck && ck[lo].frame == frame) {
+        *hash = ck[lo].hash;
         return 1;
     }
-    for (unsigned i = 0; i < g_rp.nck; i++)
-        if (g_rp.ck[i].frame == frame) {
-            *hash = g_rp.ck[i].hash;
+    for (unsigned i = 0; i < nck; i++)
+        if (ck[i].frame == frame) {
+            *hash = ck[i].hash;
             return 1;
         }
     return 0;
+}
+
+int hulk_replay_expected_hash(unsigned frame, unsigned* hash)
+{
+    return ck_find(g_rp.ck, g_rp.nck, frame, hash);
+}
+
+int hulk_replay_expected_prng(unsigned frame, unsigned* hash)
+{
+    return ck_find(g_rp.pk, g_rp.npk, frame, hash);
+}
+
+unsigned hulk_replay_prng_count(void)
+{
+    return g_rp.npk;
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -662,6 +704,13 @@ unsigned hulk_fnv1a(unsigned h, const void* data, unsigned long n)
     for (unsigned long i = 0; i < n; i++)
         h = (h ^ p[i]) * 16777619u;
     return h;
+}
+
+unsigned hulk_ckpt_prng_hash(unsigned frame, const unsigned char bytes[HULK_PRNG_BYTES])
+{
+    unsigned char fb[4] = {(unsigned char)frame, (unsigned char)(frame >> 8), (unsigned char)(frame >> 16),
+                           (unsigned char)(frame >> 24)};
+    return hulk_fnv1a(hulk_fnv1a(2166136261u, fb, 4), bytes, HULK_PRNG_BYTES);
 }
 
 unsigned hulk_ckpt_hash(unsigned frame, const HulkCkptState* s)

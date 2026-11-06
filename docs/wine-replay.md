@@ -97,7 +97,8 @@ The recordings' hash (no `wide` flag) is FNV-1a (32 bit) over: the frame counter
 | 12 | the camera position: the singleton pointer at 0x4e231c is dereferenced, +0x4c (skipped while null) | 0x4e231c |
 | 48 | the GameClock at +0x10 (total, scaled total, elapsed, step, scaled step, rate) | the object `GameClock::Update` runs on |
 
-taken before the frame counter increments, when `frame % 30 == 0`. `hulk_ckpt_hash(frame, &state)` computes it from
+taken before the frame counter increments, when `frame % 30 == 0`. (A second hash over the particle code's RNG
+states rides along since div10: "Particle-RNG checkpoints" below.) `hulk_ckpt_hash(frame, &state)` computes it from
 native pointers; `hulk_ckpt_update(&state)` is the per-frame call (enabled by `HULK_CKPT=<interval>`, `1` = every 30):
 it hashes, compares with the recording's checkpoint for that frame, logs the first 8 divergences, keeps
 `HulkCkptStats` (first bad frame), and sets the replay's frame counter. **Timing difference:** the hybrid hashes in
@@ -226,6 +227,58 @@ on the diverged path (native15's `Obj_2250e0::set` with a null AnimationDriver).
 Probe aids: `HULK_TRACE_WATCH` takes pointer chains (`=<address>@+<offset>@+<offset>`), and `fcall` lines show six
 stack words. The hybrid logger `~/hulk-tr1/rl4-native18.py` (mac2) takes an absolute start address in `--mem`
 chains (`0x4e231c@+4c`).
+
+### Particle-RNG checkpoints (div10, 2026-11-06)
+
+The particle code (pure3d, 0x2d1000-0x2d7000) draws from four MWC states of its own, outside the main hash: the
+sprite updater's two (0x554be4, 0x554bf0, each with a lazy-init guard word after it), the point/plane/sphere
+generators' (0x554bfc) and the sprite emitter's (0x554c04). Since div10 every checkpoint also gets a second hash, so a
+proof sees them:
+
+```sh
+# a Wine replay writes, next to each "ckpt frame" line:
+#   prng frame N hash H recording R ok|DIVERGED     ("recording (none)" when the file has no prng checkpoint there: ok)
+HULK_PRNG_EVERY=0-60000      # also the 40 bytes at every frame ("prng every f=N w0..w9"), to find where two runs part
+J=build/venv/bin/python
+$J tools/ckpt_gate.py CONTROL PROOF --known 5880,5910,34260,52620,52650   # the proof gate for both kinds (job ids or traces)
+$J tools/replay_pack.py prng-extend build/replays/play3.json OUT.json XEMU1.json XEMU2.json --to 12900   # the reference
+$J tools/replay_pack.py pack OUT.json OUT.hrp
+```
+
+- **What is hashed.** FNV-1a over the frame (u32 LE) and the 40 bytes 0x554be4..0x554c0b (`hulk_ckpt_prng_hash`,
+  `replay_pack.py prng_hash`; the Wine build's six data items are hashed in the original's order), read at
+  GameClock::Update's entry like the main hash (the particle code does not run inside Update). The main hash is
+  unchanged, so every old checkpoint, recording and control stays valid.
+- **The reference.** A recording carries the original's values as `"prng_checkpoints": [[frame, hash], ...]` (JSON)
+  and as an optional `.hrp` trailer (`"PRN1"`, count, pairs) that older images ignore. They come from xemu: an rl4
+  run (`build/div10/rl4p.py`, the div8 logger with `--no-acc`) with `--mem 0x86451:5:0x554be4:10` logs the bytes at
+  every Update entry; `prng-extend` hashes them at the recording's checkpoint frames, refuses a run whose main
+  checkpoints parted from the recording, and with several runs keeps only the frames where all of them agree.
+  play3 (`build/replays/play3.json`, `build/rp1/play3.hrp`; originals kept as `build/div10/play3.{json,hrp}.orig`):
+  430 prng checkpoints, frames 30-12900. The Python hash and the Wine build's agree at all 430.
+- **Why only to 12900.** The original is not reproducible there: two xemu replays of play3 (jobs 64050, 64053) have
+  identical main checkpoints but particle states that part at 12918 (a third, 64086, at 12919), and from then on they
+  wander by whole particles (3 generator + 9 emitter draws each; -63 to +720 draws by 55000). The cause is the start
+  frame of new effects: at 12916-12960 a Lua script (the binding dispatcher `FUN_001d22a0` ->
+  `Closure1<CEffectManager, unsigned, char*>` 0x1f7e90 -> `FUN_001f6e60` -> the effect spawn `FUN_00283a40` ->
+  `ParticleSystem::vfunc_4` clone) starts a spark effect every 2-3 frames, and which frames differs per run
+  (12917, 12919, 12921, 12924 ... in one, 12918, 12921, 12922, 12923 ... in another). The script waits on audio: the
+  Wine build with real-time audio (`HULK_AUDIO_CLOCK=device`, jobs 64101/64102) parts from the frame-clock run at
+  12919 and from itself at 12920, with the main checkpoints untouched, exactly as xemu does. The emitter arithmetic
+  itself (dt 0x3f7fff59, rate, credit, pool clamp) is identical in every run. So this is the "audio-driven events"
+  class below (Limits), for cosmetic effects only; there is nothing to fix in the game code.
+- **The Wine build is deterministic** with `HULK_AUDIO_CLOCK=frame` (the replay default): the 40 bytes are identical at
+  all 60,001 frames across three runs on two hosts (64089 mac2, 64090/64091 mac1), and equal to xemu's to 12917.
+- **How a proof compares old and new checkpoints.** `ckpt_gate.py` reads both line kinds. Main (`ckpt`): the proof
+  must be ok wherever the control is ok, as before (and nothing here changed that hash). `prng`: the same rule against
+  the recording's prng checkpoints (play3: to 12900); past them the Wine build's own determinism is the reference, so
+  the gate also compares the proof's prng hashes with the control's and reports any difference as CHANGED
+  (`--strict-prng` makes it fail: use it for changes that should not touch effects). A control built before div10 has
+  no prng lines: the prng gate is then skipped (reported, not passed silently), the main gate runs unchanged. A
+  recording without prng checkpoints logs `recording (none)`; control and proof are still compared hash for hash.
+- **Not done.** The hybrid (`hybrid/hooks.cpp` `checkpoint()`) does not hash the bytes itself; new recordings get their
+  prng checkpoints from an rl4 run as above. Making the original reproducible past 12900 needs an audio pin in the
+  hybrid (voices ending on frame boundaries in xemu), which would also mean re-recording.
 
 ### Status (native15, 2026-10-20)
 

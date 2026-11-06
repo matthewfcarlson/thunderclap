@@ -7,11 +7,15 @@
   tools/replay_pack.py stream FILE [--polls N]      # reference pad stream: FNV-1a of the 18 bytes of polls 1..N
   tools/replay_pack.py hash --frame F --rng HEX --boot HEX --camera HEX --clock HEX   # a checkpoint hash
   tools/replay_pack.py synth [--check]              # write (or verify) tests/native_input/synth_replay.{hrp,inc}
+  tools/replay_pack.py prng-extend REC.json OUT.json XEMU.json... [--to F] [--id 64]   # add "prng_checkpoints" (xemu logs)
+  tools/replay_pack.py prng-hash --frame F --bytes HEX                      # one particle-RNG checkpoint hash
 
 The .hrp layout (little endian), read by src/platform/sdl/replay/hulk_replay.cpp:
   0  "HRP1"  4 u16 version=1  6 u16 key (0 polls, 1 frames)  8 u32 vpad_count  12 u32 flags (hybrid HF_* bits,
   16 u32 ckpt_interval  20 u32 seed  24 u32 tweaks (1 skip-intro, 2 no-fmv)  28 u32 n_inputs  32 u32 n_checkpoints
   36 n_inputs x 24: u32 key, u16 buttons, u8 analog[8], s16 thumb[4], u16 0      then n_checkpoints x (u32 frame, u32 hash)
+  optional trailer (div10): "PRN1", u32 n, n x (u32 frame, u32 hash): the particle-RNG checkpoints (JSON
+  "prng_checkpoints"; prng_hash below). Readers that predate it stop before it.
 seq-rng (no runtime bit in the hybrid build) is bit 13 of flags, rng-log bit 14.
 
 `stream` is an independent implementation of the hybrid build's poll semantics (hybrid/hooks.cpp
@@ -41,7 +45,7 @@ def load(path):
     doc = json.loads(raw)
     if isinstance(doc, list):                                  # tests/replays/*.json: frame-keyed, auto-START
         return dict(frame_keyed=True, vpad_count=1, flags=HF["autostart"], ckpt_interval=30, seed=0, tweaks=0,
-                    inputs=[norm(e) for e in doc], checkpoints=[])
+                    inputs=[norm(e) for e in doc], checkpoints=[], prng=[])
     flags = sum(HF.get(n, 0) for n in doc.get("flags", []))
     ck = doc.get("checkpoints", [])
     if isinstance(ck, dict):
@@ -49,7 +53,8 @@ def load(path):
     return dict(frame_keyed=not (doc.get("key") == "polls" or flags & HF["pollkey"]),
                 vpad_count=doc.get("vpad_count") or 1, flags=flags, ckpt_interval=30, seed=doc.get("seed", 0),
                 tweaks=sum(TWEAKS.get(n, 0) for n in doc.get("tweaks", []) if isinstance(n, str)),
-                inputs=[norm(e) for e in doc["inputs"]], checkpoints=[[int(a), int(b)] for a, b in ck])
+                inputs=[norm(e) for e in doc["inputs"]], checkpoints=[[int(a), int(b)] for a, b in ck],
+                prng=[[int(a), int(b)] for a, b in doc.get("prng_checkpoints", [])])
 
 
 def norm(e):
@@ -64,6 +69,8 @@ def pack(r):
                       r["seed"] & 0xFFFFFFFF, r["tweaks"], len(r["inputs"]), len(r["checkpoints"]))
     out += b"".join(ENTRY.pack(k, b & 0xFFFF, *a, *t, 0) for k, b, a, t in r["inputs"])
     out += b"".join(struct.pack("<II", f, h) for f, h in r["checkpoints"])
+    if r.get("prng"):
+        out += b"PRN1" + struct.pack("<I", len(r["prng"])) + b"".join(struct.pack("<II", f, h) for f, h in r["prng"])
     return out
 
 
@@ -76,8 +83,13 @@ def parse_hrp(raw):
         ins.append([k, b, list(rest[:8]), list(rest[8:12])])
     o = HEADER.size + ENTRY.size * n
     ck = [list(struct.unpack_from("<II", raw, o + 8 * i)) for i in range(nc)]
+    o += 8 * nc
+    pr = []
+    if raw[o:o + 4] == b"PRN1":
+        np, = struct.unpack_from("<I", raw, o + 4)
+        pr = [list(struct.unpack_from("<II", raw, o + 8 + 8 * i)) for i in range(np)]
     return dict(frame_keyed=key == 1, vpad_count=vpad, flags=flags, ckpt_interval=interval, seed=seed,
-                tweaks=tweaks, inputs=ins, checkpoints=ck)
+                tweaks=tweaks, inputs=ins, checkpoints=ck, prng=pr)
 
 
 def fnv(h, data):
@@ -111,13 +123,41 @@ def ckpt_hash(frame, rng, boot, camera, clock):
     return h
 
 
+PRNG_ADDR, PRNG_BYTES = 0x554BE4, 40
+
+
+def prng_hash(frame, data):
+    """The particle-RNG checkpoint (src/platform/sdl/replay/hulk_replay.h hulk_ckpt_prng_hash): FNV-1a over the frame
+    (u32 LE) and the 40 bytes 0x554be4..0x554c0b (the particle code's four MWC states and two lazy-init guards)."""
+    assert len(data) == PRNG_BYTES
+    return fnv(fnv(2166136261, struct.pack("<I", frame)), data)
+
+
+def xemu_words(path, mid):
+    """{frame: [words]} from an xemu rl4 log (build/div10/rl4p.py --mem ADDR:NB:CHAIN:K, logger id MID = 64 + its
+    position): a header entry (MID<<24 | 0xffff) then K entries (MID<<24 | 0x8000) with one word each; the frame is
+    the hybrid's frame counter when the logger ran (at GameClock::Update's entry: the frame the checkpoint hashes)."""
+    d = json.load(open(path))
+    out, cur = {}, None
+    for w0, fr, w2 in d["log"]:
+        if w0 >> 24 != mid:
+            continue
+        if w0 & 0xFFFF == 0xFFFF:
+            cur = out.setdefault(fr, [])
+            del cur[:]
+        elif cur is not None:
+            cur.append(w2)
+    return out
+
+
 # ---------------------------------------------------------------------------------------------
 # the synthetic recording of tests/native_input (a few polls, two checkpoints, a wrong one)
 def synth_memory():
     """Deterministic stand-in game memory: the checkpoint regions as the C++ test lays them out."""
     def region(n, k):
         return bytes((i * 7 + 3 + k) & 0xFF for i in range(n))
-    return dict(rng=region(8, 0), boot=region(4, 10), cam_obj=region(0x60, 20), clock_obj=region(0x40, 40))
+    return dict(rng=region(8, 0), boot=region(4, 10), cam_obj=region(0x60, 20), clock_obj=region(0x40, 40),
+                prng=region(PRNG_BYTES, 60))
 
 
 def synth_doc():
@@ -135,6 +175,8 @@ def synth_doc():
                        [14, 3, [0, 255, 0, 0, 0, 0, 128, 255], [-15360, 31744, -32768, 32767]],
                        [21, 0, [0] * 8, [0, 0, 100, -100]]],
             "checkpoints": [[0, good(0)], [30, good(30)], [60, bad]],
+            "prng_checkpoints": [[0, prng_hash(0, m["prng"])], [30, prng_hash(30, m["prng"])],
+                                 [60, prng_hash(60, bytes(PRNG_BYTES))]],
             "frames": 61, "polls": 25}
 
 
@@ -183,8 +225,8 @@ def cmd_pack(args):
     r = load(args.input)
     data = pack(r)
     open(args.output, "wb").write(data)
-    print("%s: %d entries, %d checkpoints, %s-keyed, %d pad(s) -> %d bytes" % (
-        args.output, len(r["inputs"]), len(r["checkpoints"]), "frame" if r["frame_keyed"] else "poll",
+    print("%s: %d entries, %d checkpoints, %d prng checkpoints, %s-keyed, %d pad(s) -> %d bytes" % (
+        args.output, len(r["inputs"]), len(r["checkpoints"]), len(r["prng"]), "frame" if r["frame_keyed"] else "poll",
         r["vpad_count"], len(data)))
 
 
@@ -194,6 +236,8 @@ def cmd_unpack(args):
     doc = {"version": 2, "key": "frames" if r["frame_keyed"] else "polls", "flags": names, "seed": r["seed"],
            "tweaks": [n for n, b in TWEAKS.items() if r["tweaks"] & b], "inputs": r["inputs"],
            "checkpoints": r["checkpoints"]}
+    if r["prng"]:
+        doc["prng_checkpoints"] = r["prng"]
     if r["vpad_count"] > 1:
         doc["vpad_count"] = r["vpad_count"]
     json.dump(doc, open(args.output, "w"))
@@ -202,9 +246,9 @@ def cmd_unpack(args):
 
 def cmd_info(args):
     r = load(args.input)
-    print(json.dumps({k: v for k, v in r.items() if k not in ("inputs", "checkpoints")}))
-    print("entries %d, checkpoints %d, last key %s" % (len(r["inputs"]), len(r["checkpoints"]),
-                                                      r["inputs"][-1][0] if r["inputs"] else None))
+    print(json.dumps({k: v for k, v in r.items() if k not in ("inputs", "checkpoints", "prng")}))
+    print("entries %d, checkpoints %d, prng checkpoints %d, last key %s" % (
+        len(r["inputs"]), len(r["checkpoints"]), len(r["prng"]), r["inputs"][-1][0] if r["inputs"] else None))
 
 
 def cmd_stream(args):
@@ -220,6 +264,48 @@ def cmd_hash(args):
     h = ckpt_hash(args.frame, bytes.fromhex(args.rng), bytes.fromhex(args.boot),
                   bytes.fromhex(args.camera) if args.camera else None, bytes.fromhex(args.clock))
     print("%08x" % h)
+
+
+def cmd_prng_hash(args):
+    print("%08x" % prng_hash(args.frame, bytes.fromhex(args.bytes)))
+
+
+def cmd_prng_extend(args):
+    """The recording plus "prng_checkpoints" at its checkpoint frames, from an xemu replay of it that logged the 40
+    bytes at every GameClock::Update entry (docs/wine-replay.md "Particle-RNG checkpoints"). The xemu run must have
+    matched the recording's own checkpoints (rl4's first_bad is null), else its values are not the recording's game."""
+    doc = json.load(open(args.recording))
+    for path in args.xemu:
+        x = json.load(open(path))
+        last = args.to if args.to is not None else 1 << 30
+        if (x.get("first_bad") is not None and x["first_bad"] <= last) or x.get("lost"):
+            sys.exit("prng-extend: %s parted from the recording (first_bad %s, lost %s)" % (path, x.get("first_bad"), x.get("lost")))
+    words = {}
+    for i, path in enumerate(args.xemu):
+        w = xemu_words(path, args.id)
+        if i == 0:
+            words = w
+            continue
+        # several xemu runs: keep only the frames where every run logged the same bytes (the original's particle
+        # spawns are not reproducible under the hybrid replay after a point: docs/wine-replay.md)
+        words = {f: v for f, v in words.items() if w.get(f) == v}
+    frames = [int(f) for f, _ in doc["checkpoints"]] if isinstance(doc["checkpoints"], list) else sorted(map(int, doc["checkpoints"]))
+    if args.to is not None:
+        frames = [f for f in frames if f <= args.to]
+    out, missing = [], []
+    for f in frames:
+        w = words.get(f)
+        if w is None or len(w) != PRNG_BYTES // 4:
+            missing.append(f)
+            continue
+        out.append([f, prng_hash(f, struct.pack("<%dI" % len(w), *w))])
+    if missing:
+        print("prng-extend: no (agreed) xemu values for %d checkpoint frames (first %d)" % (len(missing), missing[0]))
+    doc["prng_checkpoints"] = out
+    doc["prng_source"] = {"xemu_logs": [os.path.basename(p) for p in args.xemu], "addr": "0x554be4", "bytes": PRNG_BYTES,
+                          "frames": [out[0][0], out[-1][0]] if out else None, "n": len(out), "to": args.to}
+    json.dump(doc, open(args.output, "w"))
+    print("%s: %d prng checkpoints (frames %s)" % (args.output, len(out), doc["prng_source"]["frames"]))
 
 
 def main(argv):
@@ -242,6 +328,17 @@ def main(argv):
     for k in ("rng", "boot", "camera", "clock"):
         p.add_argument("--" + k, default="" if k == "camera" else None, required=k != "camera")
     p.set_defaults(fn=cmd_hash)
+    p = sub.add_parser("prng-hash")
+    p.add_argument("--frame", type=int, required=True)
+    p.add_argument("--bytes", required=True)
+    p.set_defaults(fn=cmd_prng_hash)
+    p = sub.add_parser("prng-extend")
+    p.add_argument("recording")
+    p.add_argument("output")
+    p.add_argument("xemu", nargs="+", help="one or more xemu rl4 logs of the recording (frames where they disagree are left out)")
+    p.add_argument("--to", type=int, help="only checkpoints up to this frame")
+    p.add_argument("--id", type=int, default=64, help="the rl4 --mem logger id of the 40-byte region (64 = the first --mem)")
+    p.set_defaults(fn=cmd_prng_extend)
     p = sub.add_parser("synth")
     p.add_argument("--check", action="store_true")
     p.set_defaults(fn=cmd_synth)

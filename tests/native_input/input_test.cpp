@@ -375,6 +375,25 @@ static void replay_checks()
     HulkCkptState nocam = {rng, boot, 0, clockobj, 0};
     CHECK(hulk_ckpt_hash(0, &early) != hulk_ckpt_hash(0, &gs) && hulk_ckpt_hash(0, &early) == hulk_ckpt_hash(0, &nocam),
           "null camera");
+    // div10: the particle-RNG checkpoints (a second list; JSON "prng_checkpoints", the .hrp's "PRN1" trailer): 0 and 30
+    // agree with the stand-in bytes, 60 was recorded with zeros; the .hrp carries the same list
+    unsigned char prng[HULK_PRNG_BYTES];
+    for (int i = 0; i < HULK_PRNG_BYTES; i++) prng[i] = (unsigned char)(i * 7 + 3 + 60);
+    unsigned pw0 = 0, pw30 = 0, pw60 = 0, ph30 = 0;
+    CHECK(hulk_replay_prng_count() == 3 && hulk_replay_expected_prng(0, &pw0) && hulk_replay_expected_prng(30, &pw30) &&
+              hulk_replay_expected_prng(60, &pw60) && !hulk_replay_expected_prng(7, &pw0),
+          "json prng checkpoints: %u", hulk_replay_prng_count());
+    hulk_replay_expected_prng(0, &pw0);
+    CHECK(hulk_ckpt_prng_hash(0, prng) == pw0 && hulk_ckpt_prng_hash(30, prng) == pw30 && hulk_ckpt_prng_hash(60, prng) != pw60 &&
+              hulk_ckpt_prng_hash(0, prng) != hulk_ckpt_prng_hash(30, prng),
+          "prng hash %08x vs recording %08x", hulk_ckpt_prng_hash(0, prng), pw0);
+    CHECK(hulk_replay_open_memory(kSynthHrp, sizeof(kSynthHrp)), "reopen hrp");
+    CHECK(hulk_replay_prng_count() == 3 && hulk_replay_expected_prng(30, &ph30) && ph30 == pw30, "hrp prng checkpoints");
+    CHECK(hulk_replay_open_memory(kSynthHrp, sizeof(kSynthHrp) - 8) == 0, "truncated PRN1 trailer accepted");
+    CHECK(hulk_replay_open_memory(kSynthHrp, sizeof(kSynthHrp) - 32) && hulk_replay_prng_count() == 0 &&
+              hulk_replay_info(&ri) && ri.checkpoints == 3,
+          "an .hrp without the trailer");
+    CHECK(hulk_replay_open_memory(kSynthJson, sizeof(kSynthJson) - 1), "reopen json");
     // FNV-1a test vector: "a" -> e40c292c, "foobar" -> bf9cf968
     CHECK(hulk_fnv1a(2166136261u, "a", 1) == 0xe40c292cu && hulk_fnv1a(2166136261u, "foobar", 6) == 0xbf9cf968u,
           "fnv vectors");

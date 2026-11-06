@@ -16,6 +16,34 @@
 extern "C" char DAT_004e5ad0[];         // the gameplay RNG's two MWC words
 extern "C" char DAT_0049fb40[];         // g_BootSequenceStep
 extern "C" char DAT_004e231c[];         // the camera singleton pointer
+// div10: the particle code's own RNGs (hulk_ckpt_prng_hash; 0x554be4..0x554c0b in the original, separate items here)
+extern "C" char DAT_00554be4[];         // sprite updater callback MWC (8) ...
+extern "C" char DAT_00554bec[];         // ... and its lazy-init guard (4)
+extern "C" char DAT_00554bf0[];         // the second sprite updater MWC (8) ...
+extern "C" char DAT_00554bf8[];         // ... and its guard (4)
+extern "C" char DAT_00554bfc[];         // point/plane/sphere generators (8)
+extern "C" char DAT_00554c04[];         // sprite emitter (8)
+static void hulk_prng_bytes(unsigned char* b) {
+    hulk_host_memcpy(b, DAT_00554be4, 8);
+    hulk_host_memcpy(b + 8, DAT_00554bec, 4);
+    hulk_host_memcpy(b + 12, DAT_00554bf0, 8);
+    hulk_host_memcpy(b + 20, DAT_00554bf8, 4);
+    hulk_host_memcpy(b + 24, DAT_00554bfc, 8);
+    hulk_host_memcpy(b + 32, DAT_00554c04, 8);
+}
+// "<from>-<to>" -> 1 and the range (HULK_CKPT_EVERY, HULK_PRNG_EVERY)
+static int hulk_frame_range(const char* v, hulk_u32* from, hulk_u32* to) {
+    if (!v || !*v)
+        return 0;
+    *from = *to = 0;
+    for (; *v >= '0' && *v <= '9'; v++)
+        *from = *from * 10 + (hulk_u32)(*v - '0');
+    if (*v == '-')
+        v++;
+    for (; *v >= '0' && *v <= '9'; v++)
+        *to = *to * 10 + (hulk_u32)(*v - '0');
+    return 1;
+}
 extern "C" void HULK_CDECL hulk_native_log(const char* line);
 
 static hulk_u32 hulk_io_posts, hulk_io_waits, hulk_io_timeouts, hulk_snd_calls;
@@ -36,19 +64,8 @@ extern "C" void HULK_CDECL hulk_native_frame(const void* clock) {
     {
         static int ev = -1;
         static hulk_u32 ev_from, ev_to;
-        if (ev < 0) {
-            const char* v = hulk_host_getenv("HULK_CKPT_EVERY");
-            ev = 0;
-            if (v && *v) {
-                for (; *v >= '0' && *v <= '9'; v++)
-                    ev_from = ev_from * 10 + (hulk_u32)(*v - '0');
-                if (*v == '-')
-                    v++;
-                for (; *v >= '0' && *v <= '9'; v++)
-                    ev_to = ev_to * 10 + (hulk_u32)(*v - '0');
-                ev = 1;
-            }
-        }
+        if (ev < 0)
+            ev = hulk_frame_range(hulk_host_getenv("HULK_CKPT_EVERY"), &ev_from, &ev_to);
         hulk_u32 fno = hulk_native_frame_no - 1;
         if (ev && fno >= ev_from && fno <= ev_to) {
             const hulk_u32* r = (const hulk_u32*)st.rng;
@@ -60,11 +77,43 @@ extern "C" void HULK_CDECL hulk_native_frame(const void* clock) {
             hulk_native_log(line);
         }
     }
+    // div10: HULK_PRNG_EVERY=<from>-<to>: the particle RNG bytes at every frame in that range (as the prng checkpoint
+    // reads them: at Update's entry, before the frame's update), to find the frame where two runs part
+    unsigned char pb[HULK_PRNG_BYTES];
+    hulk_prng_bytes(pb);
+    {
+        static int ev = -1;
+        static hulk_u32 ev_from, ev_to;
+        if (ev < 0)
+            ev = hulk_frame_range(hulk_host_getenv("HULK_PRNG_EVERY"), &ev_from, &ev_to);
+        hulk_u32 fno = hulk_native_frame_no - 1;
+        if (ev && fno >= ev_from && fno <= ev_to) {
+            const hulk_u32* w = (const hulk_u32*)pb;
+            char line[160];
+            hulk_host__snprintf(line, sizeof(line), "prng every f=%u %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x", fno,
+                                w[0], w[1], w[2], w[3], w[4], w[5], w[6], w[7], w[8], w[9]);
+            hulk_native_log(line);
+        }
+    }
     int r = hulk_ckpt_update(&st);
     static unsigned logged, bad;
     HulkCkptStats s;
     if (r >= 0)
         hulk_ckpt_stats(&s);
+    // div10: the particle-RNG checkpoint, compared with the recording's "prng_checkpoints" when it has them. A separate
+    // line ("prng frame", never "ckpt frame": tools match that), logged with every main checkpoint line, plus each of
+    // the first 16 prng divergences.
+    static unsigned pbad;
+    int pfirst = 0;
+    unsigned ph = 0, pwant = 0;
+    int phave = 0, pok = 1;
+    if (r >= 0) {
+        ph = hulk_ckpt_prng_hash(s.frame - 1, pb);
+        phave = hulk_replay_expected_prng(s.frame - 1, &pwant);
+        pok = !phave || pwant == ph;
+        if (!pok)
+            pfirst = pbad++ < 16;
+    }
     // the first 64 checkpoints in the trace too (HULK_CKPT; SDL_Log has them all), then the first 16 divergences and
     // every 50th checkpoint
     // (native17: HULK_CKPT_ALL=1 logs every checkpoint: comparing two runs' hashes)
@@ -82,6 +131,10 @@ extern "C" void HULK_CDECL hulk_native_frame(const void* clock) {
                      s.frame - 1, s.last_hash, have ? "" : "(none) ", want, r ? "ok" : "DIVERGED", hulk_io_posts, hulk_io_waits,
                      hulk_io_timeouts, hulk_snd_calls);
         hulk_native_log(line);
+        hulk_host__snprintf(line, sizeof(line), "prng frame %u hash %08x recording %s%08x %s", s.frame - 1, ph,
+                            phave ? "" : "(none) ", pwant, pok ? "ok" : "DIVERGED");
+        hulk_native_log(line);
+        pfirst = 0;
         // (native13) HULK_CKPT_REGIONS=1: the regions of every logged checkpoint (brute-forcing which one differs)
         static int all_regions = -1;
         if (all_regions < 0) {
@@ -120,6 +173,11 @@ extern "C" void HULK_CDECL hulk_native_frame(const void* clock) {
         }
         hulk_ls_log_stats();
         logged++;
+    }
+    if (pfirst) {
+        char line[96];
+        hulk_host__snprintf(line, sizeof(line), "prng frame %u hash %08x recording %08x DIVERGED", s.frame - 1, ph, pwant);
+        hulk_native_log(line);
     }
 }
 
