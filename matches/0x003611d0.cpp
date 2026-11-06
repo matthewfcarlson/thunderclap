@@ -2,7 +2,7 @@
 // data: globalObj_3611d0 = DAT_004e7850
 
 #include "compat/ptr.h"
-extern "C" unsigned __int64 __cdecl FUN_002672f0(const char*, int, hulk_intptr);
+#include "decls/address.h"
 extern "C" int __cdecl atexit(void(__cdecl*)());
 extern "C" void __cdecl FUN_003646a0();
 class Obj_3611d0 {

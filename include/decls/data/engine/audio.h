@@ -84,7 +84,7 @@ extern "C" unsigned char DAT_004e8000[8192];
 extern "C" unsigned char DAT_004ea000[8192];
 extern "C" unsigned char DAT_004ec000[65536];
 extern "C" unsigned char DAT_004fc000[138816];
-extern "C" unsigned char DAT_0051de40[40460];
+extern "C" unsigned char DAT_0051de40[40424];
 
 // audio/ListenerEffectGcType.cpp
 extern "C" const char DAT_004294e0[17];  // s_ListenerEffectGc_004294e0

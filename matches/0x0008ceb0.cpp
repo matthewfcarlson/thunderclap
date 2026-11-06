@@ -1,5 +1,5 @@
-#include "decls/data/game/unknown.h"
+#include "decls/data/records.h"
 
-extern "C" int* FUN_0008ceb0() {
+extern "C" HeapSet* FUN_0008ceb0() {
     return &DAT_004dd780;
 }

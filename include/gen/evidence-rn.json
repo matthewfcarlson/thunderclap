@@ -9568,7 +9568,8 @@
   },
   "core::MemoryDlAllocator": {
    "0x0c": "pointer pun (ptr1: the arena start, compared with an address: 0x0026cb20, 0x0026cb40)",
-   "0x10": "pointer pun (ptr1: the arena end, compared with an address: 0x0026cb20, 0x0026cb40)"
+   "0x10": "pointer pun (ptr1: the arena end, compared with an address: 0x0026cb20, 0x0026cb40)",
+   "0x18": "pointer pun (reg2: the heap's break, the arena address the dl heap's sbrk 0x0026be70 advances: 0x0026ce90, 0x0026ca80, 0x0026cc90, 0x0026cd10)"
   },
   "fight::ParamFloatConstRange": {
    "0x10": "member-function pointer (ptr1: the setter the parameter calls, `*(R (T::**)(A))&this->f_10`; 8 bytes on the 64-bit MS ABI)"

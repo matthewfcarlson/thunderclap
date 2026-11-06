@@ -1,82 +1,77 @@
-// STATUS: equivalent (tools/equiv.py level 3: 164 inputs, branch coverage 27/34, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3066 inputs, branch coverage 30/34, incomplete)
 // FUN_0026be70 @ 0x0026be70
 #include "compat/ptr.h"
 #include "decls/data/engine/core.h"
+#include "decls/data/records.h"
 
-typedef unsigned int uint_26be70;
-struct Block_26be70 { uint_26be70 previous; hulk_uintptr size; };
-struct Fence { uint_26be70 previous; uint_26be70 first; uint_26be70 second; };
-struct Arena_26be70 {
- unsigned char flags; char pad0[0x2b]; Block_26be70 *current;
- char pad1[0x418]; uint_26be70 overhead; char pad2[0x10]; uint_26be70 alignment;
- uint_26be70 total; uint_26be70 used; uint_26be70 peak; uint_26be70 reserved; uint_26be70 maximum;
-};
 extern "C" void __cdecl FUN_0026bd80(void *);
 // equiv-conv: FUN_0026be70 eax stack
+// The break: 0x005283ac points at the allocator's break word (+0x18), an address in the arena.
 extern "C" void *__cdecl FUN_0026be70(void * self_, unsigned int amount) {
-    Arena_26be70 * self = (Arena_26be70 *)self_;
- Block_26be70 *old = self->current;
- uint_26be70 oldSize = old->size & ~3u;
- uint_26be70 mask = self->alignment - 1;
- uint_26be70 wanted = self->overhead + amount + 16;
- if (!(self->flags & 2)) wanted -= oldSize;
- uint_26be70 bytes = (wanted + mask) & ~mask;
- if ((int)bytes <= 0) return 0;
- uint_26be70 start = *(*(uint_26be70**)&DAT_005283ac);
- *(*(uint_26be70**)&DAT_005283ac) = start + bytes;
- if (*(*(uint_26be70**)&DAT_005283ac) >= (*(uint_26be70*)&DAT_005283a8) || start == ~0u) return 0;
- self->used += bytes;
+    DlHeapState * self = (DlHeapState *)self_;
+ DlHeapChunk *old = self->top;
+ hulk_uintptr oldSize = old->size & ~(hulk_uintptr)3;
+ hulk_uintptr mask = self->pageSize - 1;
+ hulk_uintptr wanted = self->topPad + amount + DlHeapChunk::kMinSize;
+ if (!(self->maxFast & 2)) wanted -= oldSize;
+ hulk_uintptr bytes = (wanted + mask) & ~mask;
+ if ((hulk_intptr)bytes <= 0) return 0;
+ hulk_uintptr start = (*(*(hulk_uintptr**)&DAT_005283ac));
+ (*(*(hulk_uintptr**)&DAT_005283ac)) = start + bytes;
+ if ((*(*(hulk_uintptr**)&DAT_005283ac)) >= DAT_005283a8 || start == ~(hulk_uintptr)0) return 0;
+ self->systemBytes += bytes;
  if (start == (hulk_uintptr)old + oldSize) {
   old->size = (bytes + oldSize) | 1;
  } else {
-  uint_26be70 extra = 0;
+  hulk_uintptr extra = 0;
   hulk_uintptr base = start;
-  uint_26be70 cursor;
+  hulk_uintptr cursor;
   bool valid;
-  if (!(self->flags & 2)) {
-   if (base & 7) { extra = 8 - (base & 7); base += extra; }
+  if (!(self->maxFast & 2)) {
+   if (base & DlHeapChunk::kAlignMask) { extra = DlHeapChunk::kAlign - (base & DlHeapChunk::kAlignMask); base += extra; }
    extra += oldSize;
-   uint_26be70 end = start + extra + bytes;
+   hulk_uintptr end = start + extra + bytes;
    extra += ((end + mask) & ~mask) - end;
-   cursor = *(*(uint_26be70**)&DAT_005283ac);
-   *(*(uint_26be70**)&DAT_005283ac) = cursor + extra;
-   uint_26be70 finish = *(*(uint_26be70**)&DAT_005283ac);
-   uint_26be70 limit = (*(uint_26be70*)&DAT_005283a8);
+   cursor = (*(*(hulk_uintptr**)&DAT_005283ac));
+   (*(*(hulk_uintptr**)&DAT_005283ac)) = cursor + extra;
+   hulk_uintptr finish = (*(*(hulk_uintptr**)&DAT_005283ac));
+   hulk_uintptr limit = DAT_005283a8;
    valid = finish < limit;
-   if (!valid || cursor == ~0u) {
+   if (!valid || cursor == ~(hulk_uintptr)0) {
     extra = 0;
     cursor = finish;
-    valid = valid && cursor != ~0u;
+    valid = valid && cursor != ~(hulk_uintptr)0;
    }
   } else {
-   cursor = *(*(uint_26be70**)&DAT_005283ac);
-   valid = cursor < (*(uint_26be70*)&DAT_005283a8) && cursor != ~0u;
+   cursor = (*(*(hulk_uintptr**)&DAT_005283ac));
+   valid = cursor < DAT_005283a8 && cursor != ~(hulk_uintptr)0;
   }
   if (valid) {
-   Block_26be70 *newBlock = (Block_26be70 *)base;
-   self->current = newBlock;
+   DlHeapChunk *newBlock = (DlHeapChunk *)base;
+   self->top = newBlock;
    newBlock->size = (extra - base + cursor) | 1;
-   self->used += extra;
+   self->systemBytes += extra;
    if (oldSize) {
-    uint_26be70 freeSize = (oldSize - 12) & ~7u;
+    // the old top keeps a free chunk and two fence words (each size kWord, previous in use)
+    hulk_uintptr freeSize = (oldSize - 3 * DlHeapChunk::kWord) & ~(hulk_uintptr)DlHeapChunk::kAlignMask;
     old->size = freeSize | 1;
-    Fence *fence = (Fence *)((char *)old + freeSize);
-    fence->first = 5;
-    fence->second = 5;
-    if (freeSize >= 16) FUN_0026bd80(old + 1);
+    hulk_uintptr *fence = (hulk_uintptr *)((char *)old + freeSize);
+    fence[1] = DlHeapChunk::kWord | 1;
+    fence[2] = DlHeapChunk::kWord | 1;
+    if (freeSize >= DlHeapChunk::kMinSize) FUN_0026bd80((char *)old + DlHeapChunk::kHeader);
    }
   }
  }
- uint_26be70 used = self->used;
- if (used > self->peak) self->peak = used;
- uint_26be70 total = used + self->total;
- if (total > self->maximum) self->maximum = total;
- Block_26be70 *current = self->current;
- uint_26be70 size = current->size & ~3u;
- if (size < amount + 16) return 0;
- Block_26be70 *remainder = (Block_26be70 *)((char *)current + amount);
- self->current = remainder;
+ hulk_uintptr used = self->systemBytes;
+ if (used > self->systemPeak) self->systemPeak = used;
+ hulk_uintptr total = used + self->mmappedBytes;
+ if (total > self->totalPeak) self->totalPeak = total;
+ DlHeapChunk *current = self->top;
+ hulk_uintptr size = current->size & ~(hulk_uintptr)3;
+ if (size < amount + DlHeapChunk::kMinSize) return 0;
+ DlHeapChunk *remainder = (DlHeapChunk *)((char *)current + amount);
+ self->top = remainder;
  current->size = amount | 1;
  remainder->size = (size - amount) | 1;
- return current + 1;
+ return (char *)current + DlHeapChunk::kHeader;
 }

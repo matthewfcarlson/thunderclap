@@ -2,7 +2,7 @@
 // data: manager = DAT_004e68b0, runtimeSequence = DAT_00429270, seqCondition = DAT_00429b54
 
 #include "compat/ptr.h"
-extern "C" __int64 __cdecl FUN_002672f0(const char*, int, hulk_intptr);
+#include "decls/address.h"
 struct Manager {
     void FUN_002584d0(__int64*, __int64*, int, int);
 };

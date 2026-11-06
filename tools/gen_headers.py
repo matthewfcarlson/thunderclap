@@ -80,6 +80,9 @@ CURATED_FIELDS = {
     "Method5": {0x1C: ("T1 (T0::*%s)(T2, T3, T4, T5, T6)", 4)},
     "Method6": {0x1C: ("T1 (T0::*%s)(T2, T3, T4, T5, T6, T7)", 4)},
     "Method7": {0x1C: ("T1 (T0::*%s)(T2, T3, T4, T5, T6, T7, T8)", 4)},
+    # reg2: the dl allocator's heap state (include/decls/data/records.h DlHeapState: 285 pointer-sized words, 0x474
+    # bytes on 32-bit); 0x0026ce90 / 0x0026ca80 clear it, the methods point the heap at it.
+    "core::MemoryDlAllocator": {0x1C: ("hulk_uintptr %s[0x11d]", 0x474)},
 }
 
 PRELUDE = """#ifndef HULK_GEN_PRELUDE_H

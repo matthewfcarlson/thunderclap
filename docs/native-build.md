@@ -827,7 +827,8 @@ calls its slot 3.
 - 0x00270570 / 0x002705b0 (aligned malloc / free) kept the block in a 4-byte word below the aligned address: now a
   pointer-sized word (`sizeof(void*)`; the 32-bit code is the same).
 - 0x00267220 / 0x00267250 (slots 4 and 7, free) called an invented `thunk`: now `thunk_FUN_003479bc` (0x00270560, the
-  thunk to free; it has no tree definition, so the native link still leaves it unbound) and `FUN_002705b0`.
+  thunk to free; it has no tree definition, but the native CRT table binds the name by the address in it: reg2) and
+  `FUN_002705b0`.
 - 0x0026d8f0 (the thread list append; unb4's survey crash) links `{next, previous}` as pointers. Its callers'
   thread objects keep 8 bytes for the two links (`char reserved[8]`), a layout still to fix.
 
@@ -906,3 +907,113 @@ passed); a `hulk_intptr` return would fix it and needs the pin's owner.
 (77b9475d2) and proof 63958 both strict-link rc 0 with 1,319 Wine-unbound names (identical lists), the x87 keep list
 is identical, and the checkpoints are identical at all 2,002 common frames (to 60030). Trees from the two proofs'
 own build_tree states: the same 37 wrapped -> merged changes, nothing else.
+
+## Start-up past 216: the dl allocator, the heap set and the fiber scheduler (reg2, 2026-11-05)
+
+reg1 stopped in initializer 216 on the dl allocator's constructor. The macOS start-up now runs initializers 0-259 and
+stops in **260** (0x0035efb0) on a data item that holds a string's address as an integer.
+
+### The dl allocator, 64-bit clean in source
+
+`core::MemoryDlAllocator` (0x0026b910-0x0026cfa0, 28 functions) is the game's dlmalloc-style heap: the object (0x4a4
+bytes on 32-bit) has the arena (start, end, size, break at +0x0c..+0x18), a 0x474-byte heap state at +0x1c, and the
+statistics. The family is now one code path for both widths:
+
+- **One record type.** `include/decls/data/records.h` defines `DlHeapChunk` (the chunk header: two pointer-sized
+  words, then the bin links) and `DlHeapState` (285 pointer-sized words: the fast-bin limit and flags, 10 fast bins,
+  top, last remainder, 256 bin links, a 4-word bin map that uses 32 bits per word, and 12 parameters and counters).
+  On 32-bit that is the XBE's layout (8-byte headers, 16-byte minimum chunks, 8-byte alignment, 0x474 bytes); on 64-bit
+  it scales (16-byte headers and alignment, 32-byte minimum chunks, 2,280 bytes). The chunk constants are
+  `DlHeapChunk::kWord`, `kHeader`, `kAlign`, `kAlignMask`, `kMinSize`, all from `sizeof(hulk_uintptr)`; the
+  request rounding (`n + kWord + kAlignMask`, at least `kMinSize`), the maximum request (`-2 * kMinSize`), the bin step
+  (two words), the fence words sysmalloc leaves at the old top (`kWord | 1`) follow from them. The bin indices
+  (`size >> 3` below 0x200, the large-bin shifts) and the fast-bin index stay as they are: they are byte counts, not
+  layout. The game sets no fast-bin size (the limit is 8, below the minimum chunk), so the fast bins stay empty.
+- **The heap globals.** The methods point the heap functions at an allocator through 0x0052839c (the state), 0x005283a0
+  (arena start), 0x005283a4 (size), 0x005283a8 (arena end) and 0x005283ac (the address of the break word). 0x005283a0
+  and 0x005283a8 hold addresses: records.h types them `hulk_uintptr` (typed `.bss` items, as reg1's).
+- **The object.** include/gen/core.h's `core::MemoryDlAllocator` gets the break as `hulk_intptr f_18`
+  (evidence-rn.json `ptr_fields`) and the state as `hulk_uintptr f_1c[0x11d]` (gen_headers.py `CURATED_FIELDS`);
+  on 32-bit the class is unchanged. The sources that keep their own view of the object use the same fields.
+- **The constructors** 0x0026ce90 (memory the caller owns: 0x0026cfa0, 0x0026cf60) and 0x0026ca80 (an arena from
+  another heap: 0x0026cf20) are members named by their address with the vftable stores spelled out
+  (`DAT_0042b36c` / `DAT_0042b364`, the labels the native link gives the vftables), so the callers' references bind
+  by address and the object gets the game's vftables; the callers allocate `sizeof(core::MemoryDlAllocator)` (0x4a4 on
+  32-bit) and take the arena as `void*` and the name as `const char*`. The destructor body 0x0026cc00, slot 11
+  (0x0026cbc0, was a propagated fastcall `target`), slot 1 (0x0026cc40, the release) and slot 10 are named and laid out
+  on the header.
+
+The alternative, a native-only hook that sends these heaps to the host's malloc, was not needed: the bin arithmetic is
+width-independent once the header words are pointer-sized.
+
+### The heap set, the threads, the content loader's fiber
+
+With the allocator constructed, 216 stopped on three more `.bss` objects that the inventory had carved into 4-byte
+items or kept at their 32-bit size (each now a typed record in records.h; config/data.json changed to match):
+
+| item | record | was | users |
+|---|---|---|---|
+| 0x004dd780 (96 B) | `HeapSet`: the size, one allocator per heap id (19, the heap table 0x00400520's rows), the Temporary Heap's arena | `int` + a 92-byte table | 0x0008d480 (builds it), 0x0008d3a0, 0x0035d090, 0x0008ceb0, the five first-allocation entry points 0x0008d660 / d690 / d6d0 / d710 / d750 (invented `init`, `run`, `delay`, `DoThing`... now by address; 0x0008d710 / 0x0008d750 took the size and heap id in each other's widths) |
+| 0x0052a130 (76 B) | `CoreThread`: the thread list links, the thread's own `CoreFiber`, the fiber list, the current fiber, id, priority, handle | 16 B + three interior items | 0x0026d990 (the main thread becomes a fiber thread), 0x0026da20, 0x0026da80, 0x0026dad0, 0x0026db70, 0x0026dbb0, 0x0026dbf0 (returned the current fiber as `int`), 0x0026dc00, 0x0026dc20, 0x0026dc50, 0x0026dd10, 0x0026dd70, 0x0026d7a0 |
+| 0x00527c28 (36 B) | `CoreFiber`: the content loader's fiber | the tail of the 40,460-byte item 0x0051de40 | 0x00264d20 (the loader's yield: `GetId`, `Use`, `Conv` were 0x0026dbf0, 0x0026dc00, 0x00266da0), 0x002656b0, 0x00265bf0, 0x00265c40; 0x00527c4c (the game's fiber) and 0x00527c50 / 0x00527c54 (each side's heap) hold pointers: `hulk_uintptr` |
+
+The fiber's argument is pointer-sized (the content loader passes its object). The main thread's handle is -2, the
+current-thread pseudo handle: the host layer took it for an object (`hulk_host_SetThreadPriority` crashed reading it);
+`as()` in src/platform/sdl/host/win32_posix.cpp now rejects the pseudo handles.
+
+Merged definitions of C functions whose TU-mates declare them `extern "C"` meet gen_tree's linkage bug (unb4, "A
+gen_tree bug"): with the invented names gone, 0x0026d990, 0x0026dc50 and the others now merge, and their declarations of
+0x0026d8f0 / 0x0026d940 / 0x0026d990 / 0x0026db70 would get C++ linkage. Those calls use class-scope declarations
+(`ThreadList_26d990::FUN_0026d8f0`), bound by the address in the name like any other.
+
+### On the way: 229 and the hasher callers
+
+- 0x0027afb0 (a name's hash key, 229's callee) took the name as `hulk_intptr` and passed it on as `int`: now
+  `const char*` with decls/address.h's 0x002672f0. 0x00023d30 and 0x00106230 still pass it an `int` (not on the path).
+- unb4's 331, 333, 335, 338, 383: 0x0035fe60, 0x0035ff30, 0x00360000, 0x003600f0, 0x003611d0 declared 0x002672f0 with a
+  `hulk_intptr` third parameter (the IR signature the native link compares): now decls/address.h's.
+- reg1's thunk 0x00270560 (`thunk_FUN_003479bc`) was not a gap: the native CRT table binds the name by the address in it
+  (0x003479bc, free) on all three targets, and the Wine link binds it too.
+
+### Where it stops now
+
+`crash ... FUN_002672f0+0x34 phase=init 260 0x0035efb0`: 0x0035efb0 hashes the name `*(const char**)&DAT_004ca248`, an
+item the inventory has as `scalar int` (source type `const char*`) that holds 0x00427834, a string's address, so the
+native data has the number. The same class as unb4's 0x004ca298 / 0x004ca29c (the data inventory's pointer evidence,
+dec1's change): 0x0049ed3c, 0x004a06a4, 0x004c5cf8, 0x004ca248, 0x004ca254, 0x004ca298, 0x004ca29c. Changing their
+kind in data.json alone does not make them pointers (data_gen takes the pointer words from the inventory's evidence).
+
+Next, seen statically:
+- 284, 290, 313-375: the derived om types' constructors call their base constructors (0x00243310, 0x0025e6c0, ...)
+  under invented names, and those definitions take the two key references as `int` (unb4's recipe: classes named by
+  the constructor's address).
+- 308-312: `om::MetaType` (0x0025fa00) takes its name as `int`, lays out its node with 32-bit offsets, and registers in
+  a red-black tree whose root, sentinel and count (0x004e79b8-0x004e79cc) are six 4-byte items; 0x0025f170 (insert) reads
+  the node through pointers.
+- Static objects of classes with pointers that the inventory keeps as raw `.bss` byte arrays of their 32-bit size (the
+  om type objects at 0x004e6394, 0x004e63c8, 0x004e63fc, ..., 52-108 bytes) overflow into their neighbours on 64-bit.
+  A typed record for each is one way; a general one would be data_gen giving untyped `.bss` arrays headroom on the
+  64-bit builds (twice the size: 32-bit unchanged). A data-step decision.
+
+### Method, batch and proof
+
+As reg1 (scripts in build/reg2/scripts/), with reg1's proof as the base (its build_tree state, report and binding map),
+the data TUs from this change (`HULK_DATA_DIR`), and the iteration reports' symbols of the changed definitions taken
+from the tree TUs compiled with MSVC (`treesym_patch.py`).
+
+| | control | batch (reg2) |
+|---|---|---|
+| sources | HEAD d05b666ea | 54 (32 matches/, 22 equivalent/) + records.h, 5 regenerated data headers, include/gen/core.h, evidence-rn.json, gen_headers.py, config/data.json, src/platform/sdl/host/win32_posix.cpp |
+| gates | - | 32 / 32 matches MATCH + verify_relocs ok (HEAD's verify_relocs with address_as_integer); 22 equivalents equivalent at 3,000 inputs (complete coverage except 0x0026be70 30/34, 0x0026c040 93/94, 0x0026c6a0 25/26, as before) and `--wine` equivalent |
+| `--x64` (HEAD -> batch, HEAD's tools, 60 sources) | - | 39 equivalent -> equivalent, 8 fail -> fail, 2 unsupported; 5 better (0x0026b970 inconclusive, 0x0026cbb0, 0x0026cc40, 0x0026da20, 0x0026d7a0 fail -> equivalent); 6 equivalent -> fail by design: the 64-bit object is the 64-bit layout (0x0026c6a0 / 0x0026c840 request sizes from the 16-byte alignment, 0x0026cd90 / 0x0026ce10 / 0x0026ce90 pointer-sized arena words, 0x0026cfa0 `sizeof` 2,360) |
+| merge modes (the proofs' own build_tree states) | - | 13, all wrapped -> merged: 12 batch sources (their conflicts were invented names or local records) and 0x0026d940 (not in the batch: its `Node` conflict is gone); 64-bit front end 0 errors |
+| Wine proof (`--gfx`, play3 to 60,000, limit 14,400; both on mac2) | 64085 | 64041 |
+| strict link rc / Wine unbound | 0 / 1,318 | 0 / **1,314** |
+| x87 keep list | 268 | identical |
+| play3 checkpoints | 2,006 to 60,150 | identical at all 2,006 common frames (batch to 60,420) |
+| arm64 macOS / x86-64 Linux / arm64 Android unbound (proof's own snapshot and map) | 31,957 / 31,948 / 31,949 (reg1) | **31,928 / 31,919 / 31,920**, all rc 0 |
+| macOS start-up | 216: the dl allocator's constructor | runs 0-259, stops in **260** (0x0035efb0, `DAT_004ca248`) |
+
+Both proofs build their data TUs from a private `HULK_DATA_DIR` (`--data-src`). The shared build/data/src was stale
+(2026-10-26, before reg1's inventory change: a 4-byte `DAT_00527f40` that no longer matched config/data.json, so a
+fresh-HEAD Wine link of it failed on `_DAT_00527f40`); it is now regenerated from HEAD 50dd6fb59.

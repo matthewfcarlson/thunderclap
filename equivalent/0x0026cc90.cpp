@@ -1,5 +1,38 @@
-// STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 4/4)
 // core::MemoryDlAllocator::vfunc_7 @ 0x0026cc90
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
+#include "decls/data/records.h"
 
-namespace core { struct MemoryDlAllocator { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(void*); char pad[8]; unsigned int field_c; unsigned int field_10; unsigned int field_14; unsigned int field_18; unsigned int words[285]; unsigned int count; unsigned int total; }; }    extern "C" void __cdecl FUN_0026bd80(void*); void core::MemoryDlAllocator::vfunc_7(void* p) { if (!p) return; DAT_005283a0=field_c; DAT_005283a8=field_10; (*(unsigned int**)&DAT_005283ac)=&field_18; DAT_005283a4=field_14; (*(unsigned int**)&DAT_0052839c)=words; total-= ((unsigned int*)p)[-1]&~3u; FUN_0026bd80(p); --count; if (!count) { field_18=field_c; for (int i=0;i<285;++i) words[i]=0; } }
+namespace core {
+struct MemoryDlAllocator {
+    // +0x00 the vftable pointer (core::IMemoryAllocator)
+    void* vtableObject;             // +0x04 core::Object
+    int heapId;                     // +0x08
+    hulk_intptr start;              // +0x0c the arena
+    hulk_intptr end;                // +0x10
+    unsigned int size;              // +0x14
+    hulk_intptr brk;                // +0x18 the arena's break
+    DlHeapState heap;               // +0x1c
+    unsigned int count;             // +0x490 allocations
+    unsigned int total;             // +0x494 bytes in use
+    unsigned int peak;              // +0x498
+    virtual void vfunc_7(void*);
+};
+}
+extern "C" void __cdecl FUN_0026bd80(void*);
+void core::MemoryDlAllocator::vfunc_7(void* p) {
+    if (!p) return;
+    DAT_005283a0 = start;
+    DAT_005283a8 = end;
+    (*(hulk_intptr**)&DAT_005283ac) = &brk;
+    DAT_005283a4 = size;
+    (*(DlHeapState**)&DAT_0052839c) = &heap;
+    total -= (unsigned int)(((hulk_uintptr*)p)[-1] & ~(hulk_uintptr)3);
+    FUN_0026bd80(p);
+    --count;
+    if (!count) {
+        brk = start;
+        for (unsigned int i = 0; i < sizeof(DlHeapState) / sizeof(hulk_uintptr); ++i) ((hulk_uintptr*)&heap)[i] = 0;
+    }
+}

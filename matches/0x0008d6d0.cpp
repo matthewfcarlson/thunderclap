@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/records.h"
 
 struct Storage {
     void FUN_0008d480();

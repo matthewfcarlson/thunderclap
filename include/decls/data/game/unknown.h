@@ -1058,8 +1058,7 @@ extern "C" const char* DAT_0049ca14;  // PTR_0049ca14
 extern "C" char DAT_0049ca18[1];  // s_empty_0049ca18
 extern "C" unsigned char DAT_004dd778[4];
 extern "C" unsigned int DAT_004dd77c;
-extern "C" int DAT_004dd780;
-extern "C" unsigned char DAT_004dd784[92];
+// DAT_004dd780: typed by decls/data/records.h (include it)
 extern "C" int DAT_0052c284;
 
 // unknown/unk_08ed50.cpp

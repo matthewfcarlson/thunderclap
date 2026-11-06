@@ -1,10 +1,10 @@
 #include "decls/data/engine/audio.h"
 
 #include "compat/ptr.h"
+#include "decls/address.h"
 struct Pair {
     unsigned __int64 v;
 };
-extern "C" unsigned __int64 __cdecl FUN_002672f0(const char*, int, hulk_intptr);
 extern "C" int __cdecl atexit(void(__cdecl*)());
 extern "C" void __cdecl FUN_003643d0();
 class Reg {

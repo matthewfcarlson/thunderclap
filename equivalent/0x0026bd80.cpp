@@ -1,29 +1,29 @@
-// STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 2747 inputs, branch coverage 16/16)
 // FUN_0026bd80 @ 0x0026bd80
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
+#include "decls/data/records.h"
 
-struct Block_26bd80 { unsigned previousSize; unsigned size; Block_26bd80* next; Block_26bd80* previous; };
-struct Heap_26bd80 { unsigned limit; unsigned smallBins[10]; Block_26bd80* top; unsigned unused; Block_26bd80 sentinel; };
 extern "C" void __cdecl FUN_0026b970(void *);
 extern "C" void __cdecl FUN_0026bd80(void* memory) {
     if (!memory) return;
-    Block_26bd80* block = (Block_26bd80*)((char*)memory - 8);
-    unsigned originalSize = block->size;
-    unsigned size = originalSize & ~3u;
-    Heap_26bd80* heap = (*(Heap_26bd80**)&DAT_0052839c);
-    if (size <= heap->limit) {
-        heap->limit &= ~1u;
-        Block_26bd80** slot = ((Block_26bd80**)heap) + (size >> 3) - 1;
+    DlHeapChunk* block = (DlHeapChunk*)((char*)memory - DlHeapChunk::kHeader);
+    hulk_uintptr originalSize = block->size;
+    hulk_uintptr size = originalSize & ~(hulk_uintptr)3;
+    DlHeapState* heap = (*(DlHeapState**)&DAT_0052839c);
+    if (size <= heap->maxFast) {
+        heap->maxFast &= ~(hulk_uintptr)1;
+        DlHeapChunk** slot = &heap->fastBins[(size >> 3) - 2];
         block->next = *slot;
         *slot = block;
         return;
     }
     if (originalSize & 2) return;
-    Block_26bd80* next = (Block_26bd80*)((char*)block + size);
-    unsigned nextSize = next->size & ~3u;
+    DlHeapChunk* next = (DlHeapChunk*)((char*)block + size);
+    hulk_uintptr nextSize = next->size & ~(hulk_uintptr)3;
     if (!(originalSize & 1)) {
         size += block->previousSize;
-        block = (Block_26bd80*)((char*)block - block->previousSize);
+        block = (DlHeapChunk*)((char*)block - block->previousSize);
         block->next->previous = block->previous;
         block->previous->next = block->next;
     }
@@ -32,20 +32,21 @@ extern "C" void __cdecl FUN_0026bd80(void* memory) {
         block->size = size | 1;
         heap->top = block;
     } else {
-        unsigned followingFlag = ((Block_26bd80*)((char*)next + nextSize))->size & 1;
+        hulk_uintptr followingFlag = ((DlHeapChunk*)((char*)next + nextSize))->size & 1;
         next->size = nextSize;
         if (!followingFlag) {
             next->next->previous = next->previous;
             next->previous->next = next->next;
             size += nextSize;
         }
-        Block_26bd80* first = heap->sentinel.next;
-        block->previous = &heap->sentinel;
+        DlHeapChunk* sentinel = (DlHeapChunk*)((char*)&heap->bins[2] - DlHeapChunk::kHeader);
+        DlHeapChunk* first = sentinel->next;
+        block->previous = sentinel;
         block->next = first;
-        heap->sentinel.next = block;
+        sentinel->next = block;
         first->previous = block;
         block->size = size | 1;
-        ((Block_26bd80*)((char*)block + size))->previousSize = size;
+        ((DlHeapChunk*)((char*)block + size))->previousSize = size;
     }
-    if (size >= 0x10000 && !(heap->limit & 1)) FUN_0026b970((Heap_26bd80 *)heap);
+    if (size >= 0x10000 && !(heap->maxFast & 1)) FUN_0026b970((DlHeapState *)heap);
 }

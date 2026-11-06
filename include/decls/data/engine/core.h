@@ -126,9 +126,9 @@ extern "C" const unsigned int DAT_004833bc[1];  // zero_004833bc
 extern "C" const unsigned int DAT_004833f0[1];  // zero_004833f0
 extern "C" char DAT_004d9a30[1];  // s_empty_004d9a30
 extern "C" void* DAT_0052839c[1];
-extern "C" unsigned int DAT_005283a0;
+// DAT_005283a0: typed by decls/data/records.h (include it)
 extern "C" unsigned int DAT_005283a4;
-extern "C" unsigned int DAT_005283a8;
+// DAT_005283a8: typed by decls/data/records.h (include it)
 extern "C" void* DAT_005283ac[1];
 
 // core/MemoryPool.cpp

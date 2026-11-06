@@ -1,25 +1,21 @@
 #include "decls/data/platform/xbox/core.h"
+#include "decls/data/records.h"
 // data: gSpecial = DAT_0052a138
 
 extern void __stdcall DeleteFiber(void*);
-struct Node {
-    char pad[8];
-    Node* parent;
-    Node* prev;
-    Node* next;
-    void* fiber;
-};
-extern "C" void __cdecl FUN_0026d7a0(void * p) {
-    if (((Node *)p) != (Node*)&(*(int*)((char*)&DAT_0052a130 + 8)) && ((Node *)p) != (Node*)((char*)((Node *)p)->parent + 8))
-        DeleteFiber(((Node *)p)->fiber);
-    Node* parent = ((Node *)p)->parent;
-    if (((Node *)p)->next == 0)
-        *(Node**)((char*)parent + 0x30) = ((Node *)p)->prev;
+// a fiber off its thread's fiber list; its XAPI fiber is deleted unless it is a thread's own (the converted thread)
+extern "C" void __cdecl FUN_0026d7a0(void * p_) {
+    CoreFiber* p = (CoreFiber*)p_;
+    if (p != &DAT_0052a130.main && p != &p->thread->main)
+        DeleteFiber(p->fiber);
+    CoreThread* parent = p->thread;
+    if (p->previous == 0)
+        parent->first = p->next;
     else
-        *(Node**)((char*)((Node *)p)->next + 0x0c) = ((Node *)p)->prev;
-    if (((Node *)p)->prev == 0) {
-        *(Node**)((char*)parent + 0x34) = ((Node *)p)->next;
+        p->previous->next = p->next;
+    if (p->next == 0) {
+        parent->last = p->previous;
         return;
     }
-    *(Node**)((char*)((Node *)p)->prev + 0x10) = ((Node *)p)->next;
+    p->next->previous = p->previous;
 }

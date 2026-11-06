@@ -1,34 +1,22 @@
-class MemoryDlAllocator {
-  public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2(int);
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual void vfunc_7();
-    virtual void vfunc_8();
-    virtual void vfunc_9();
-    virtual void vfunc_10();
-    virtual void vfunc_11();
-    virtual void vfunc_12();
-    char pad[0x498];
-    unsigned char flag;
-    unsigned char flag2;
-    char pad2[2];
-    int count;
-    void target();
+#include "compat/ptr.h"
+#include "gen/core.h"
+
+// Release: the last reference frees the arena if the allocator owns it (+0x49c), then deletes the allocator (slot 2
+// with 1) or, when it sits in memory it does not own (+0x49d), only destroys it (slot 2 with 0)
+struct Slots_26cc40 {
+    virtual void s0();
+    virtual void s1();
+    virtual void destroy(int flags);
 };
-extern "C" void FUN_00267090(int);
-void MemoryDlAllocator::target() {
-    if (count == 1) {
-        if (flag == 1)
-            FUN_00267090(*(int*)((char*)this + 0xc));
-        if (flag2 == 0)
-            vfunc_2(1);
+extern "C" int FUN_00267090(hulk_intptr);
+void core::MemoryDlAllocator::vfunc_1() {
+    if (f_4a0 == 1) {
+        if (f_49c == 1)
+            FUN_00267090(f_0c);
+        if (f_49d == 0)
+            ((Slots_26cc40*)this)->destroy(1);
         else
-            vfunc_2(0);
+            ((Slots_26cc40*)this)->destroy(0);
     } else
-        --count;
+        --f_4a0;
 }

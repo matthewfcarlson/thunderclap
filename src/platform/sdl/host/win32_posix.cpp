@@ -99,7 +99,9 @@ static void obj_release(HulkHostObject* o) {
 }
 
 template <class T> static T* as(void* h, unsigned kind) {
-    if (!h || h == HULK_INVALID_HANDLE_VALUE)
+    // (also the pseudo handles: -1 the current process / INVALID_HANDLE_VALUE, -2 the current thread, which the
+    // game's thread records keep for the main thread: core 0x0026d990)
+    if (!h || (__UINTPTR_TYPE__)h >= (__UINTPTR_TYPE__)-16)
         return 0;
     HulkHostObject* o = (HulkHostObject*)h;
     return o->kind == kind ? (T*)o : 0;

@@ -1,63 +1,46 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 2/2)
 // FUN_0026d990 @ 0x0026d990
+// The calling thread becomes a scheduler thread: its record's own fiber is the converted thread.
+#include "compat/ptr.h"
 #include "decls/data/platform/xbox/core.h"
+#include "decls/data/records.h"
 
-struct Obj_26d990;
-struct Node {
-    int value;
-    int unused;
-    Obj_26d990* owner;
-    Node* next;
-    Node* previous;
-};
-struct Obj_26d990 {
-    char reserved[8];
-    Node node;
-    void* fiber;
-    int field20;
-    int field24;
-    int field28;
-    Node* current;
-    Node* first;
-    Node* last;
-    unsigned char enabled;
-    char pad39[7];
-    int state;
-    int threadId;
-    int threadHandle;
-};
 extern "C" int FUN_0020c14b();
 namespace XAPILIB {
     void* __stdcall ConvertThreadToFiber(void*);
-    int __stdcall SetThreadPriority(int, int);
+    int __stdcall SetThreadPriority(void*, int);
 }
-extern "C" void __cdecl FUN_0026d8f0(unsigned int *);
+// (class-scope declarations of the TU-mates' C functions: gen_tree gives a merged C definition's other C
+// declarations C++ linkage, docs/native-build.md "A gen_tree bug"; bound by the address in the name)
+struct ThreadList_26d990 {
+    static void __cdecl FUN_0026d8f0(unsigned int *);
+};
 extern "C" void __cdecl FUN_0026d990(void * self_) {
-    Obj_26d990 * self = (Obj_26d990 *)self_;
+    CoreThread * self = (CoreThread *)self_;
     self->first = 0;
     self->last = 0;
-    self->enabled = 1;
+    self->active = 1;
     int thread = FUN_0020c14b();
     self->threadId = thread;
-    self->threadHandle = -2;
-    self->field28 = 0;
-    self->node.value = 0;
-    self->node.unused = 0;
-    self->fiber = XAPILIB::ConvertThreadToFiber(0);
-    self->node.owner = self;
-    self->field20 = 0;
-    self->field24 = 0;
-    self->current = &self->node;
+    self->handle = (void*)(hulk_intptr)-2;
+    self->main.state[2] = 0;
+    self->main.entry = 0;
+    self->main.argument = 0;
+    self->main.fiber = XAPILIB::ConvertThreadToFiber(0);
+    self->main.thread = self;
+    self->main.state[0] = 0;
+    self->main.state[1] = 0;
+    self->current = &self->main;
     if (!self->first) {
-        self->first = &self->node;
-        self->node.previous = 0;
+        self->first = &self->main;
+        self->main.previous = 0;
     } else {
-        self->last->next = &self->node;
-        self->node.previous = self->last;
+        self->last->next = &self->main;
+        self->main.previous = self->last;
     }
-    self->last = &self->node;
-    self->node.next = 0;
-    FUN_0026d8f0((unsigned int *)(Obj_26d990 *)self);
-    self->state = 2;
-    XAPILIB::SetThreadPriority(self->threadHandle, DAT_004cd9d8);
+    self->last = &self->main;
+    self->main.next = 0;
+    ThreadList_26d990::FUN_0026d8f0((unsigned int *)self);
+    self->priority = 2;
+    XAPILIB::SetThreadPriority(self->handle, DAT_004cd9d8);
 }

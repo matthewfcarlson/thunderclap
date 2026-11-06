@@ -2,8 +2,8 @@
 // data: first = DAT_00429aac, registry = DAT_004e6800, second = DAT_00429270
 
 #include "compat/ptr.h"
+#include "decls/address.h"
 typedef __int64 I64;
-extern "C" I64 __cdecl FUN_002672f0(const char*, int, hulk_intptr);
 extern "C" int __cdecl atexit(void(__cdecl*)());
 extern "C" void __cdecl FUN_00364390();
 class Registry {

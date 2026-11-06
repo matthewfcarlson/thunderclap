@@ -1,29 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 116 inputs, branch coverage 14/14)
+// STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 14/14)
 // FUN_0026bac0 @ 0x0026bac0
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
-
-struct Bucket {
-    int unused;
-    unsigned int size;
-    Bucket *next;
-};
-
-struct Chunk {
-    int unused[1];
-    unsigned int size;
-    int unused2;
-    Chunk *next;
-};
-
-struct Heap {
-    char pad00[4];
-    Bucket *buckets[10];
-    Chunk *first;
-    char pad30[4];
-    Chunk bins[1];          // 127 bins, 8 bytes apart (the +0xc link overlaps the next bin)
-    char pad44[0x464 - 0x44];
-    int f464;
-};
+#include "decls/data/records.h"
 
 struct HeapStats {
     int f464;
@@ -42,35 +21,35 @@ extern "C" void __cdecl FUN_0026b970(void *);
 
 HeapStats FUN_0026bac0()
 {
-    Heap *heap = (*(Heap**)&DAT_0052839c);
-    if (!heap->first)
-        FUN_0026b970((Heap *)heap);
-    unsigned int firstSize = heap->first->size & ~3u;
+    DlHeapState *heap = (*(DlHeapState**)&DAT_0052839c);
+    if (!heap->top)
+        FUN_0026b970((DlHeapState *)heap);
+    unsigned int firstSize = (unsigned int)(heap->top->size & ~(hulk_uintptr)3);
 
     int bucketCount = 0;
     int bucketBytes = 0;
     for (int i = 0; i < 10; i++) {
-        for (Bucket *b = heap->buckets[i]; b; b = b->next) {
+        for (DlHeapChunk *b = heap->fastBins[i]; b; b = b->next) {
             bucketCount++;
-            bucketBytes += b->size & ~3u;
+            bucketBytes += (int)(b->size & ~(hulk_uintptr)3);
         }
     }
     int total = firstSize + bucketBytes;
     int chunks = 1;
     for (int i = 0; i < 0x7f; i++) {
-        Chunk *bin = (Chunk *)((char *)heap + 0x34 + 8 * i);
-        for (Chunk *c = bin->next; c != bin; c = c->next) {
+        DlHeapChunk *bin = (DlHeapChunk *)((char *)&heap->bins[2 * i + 2] - DlHeapChunk::kHeader);
+        for (DlHeapChunk *c = bin->previous; c != bin; c = c->previous) {
             chunks++;
-            total += c->size & ~3u;
+            total += (int)(c->size & ~(hulk_uintptr)3);
         }
     }
     HeapStats stats;
-    stats.f464 = heap->f464;
+    stats.f464 = (int)heap->systemBytes;
     stats.freeBytes = stats.f464 - total;
-    stats.f450 = *(int *)((char *)heap + 0x450);
+    stats.f450 = (int)heap->mmapCount;
     stats.totalBytes = total;
-    stats.f460 = *(int *)((char *)heap + 0x460);
-    stats.f470 = *(int *)((char *)heap + 0x470);
+    stats.f460 = (int)heap->mmappedBytes;
+    stats.f470 = (int)heap->totalPeak;
     stats.bucketBytes = bucketBytes;
     stats.bucketCount = bucketCount;
     stats.chunks = chunks;

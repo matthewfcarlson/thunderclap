@@ -30,9 +30,10 @@ extern "C" float DAT_004cd52c[4];  // fltTbl_004cd52c
 // content/LoadStream.cpp
 extern "C" const float DAT_0042aea8[7];  // fltTbl_0042aea8
 extern "C" int DAT_004cd504;
-extern "C" unsigned int DAT_00527c4c;
-extern "C" unsigned char DAT_00527c50[4];
-extern "C" unsigned char DAT_00527c54[4];
+// DAT_00527c28: typed by decls/data/records.h (include it)
+// DAT_00527c4c: typed by decls/data/records.h (include it)
+// DAT_00527c50: typed by decls/data/records.h (include it)
+// DAT_00527c54: typed by decls/data/records.h (include it)
 extern "C" DataLayout_00527c58 DAT_00527c58[1];
 
 #endif

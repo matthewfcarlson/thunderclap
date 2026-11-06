@@ -1,65 +1,63 @@
-// STATUS: equivalent (tools/equiv.py level 3: 54 inputs, branch coverage 31/32, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 32/32)
 // FUN_0026c840 @ 0x0026c840
+#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
+#include "decls/data/records.h"
 
 typedef unsigned int uint_26c840;
-struct AllocState { unsigned char flags; char pad[0x453]; uint_26c840 saved; };
-struct Chunk { uint_26c840 previousSize; uint_26c840 size; };
 extern "C" void __cdecl FUN_0026b970(void *);
 void * __cdecl FUN_0026c040(uint_26c840);
+// a request's chunk size (the request plus the size word, aligned; at least the minimum chunk)
+static inline hulk_uintptr chunk_size_26c840(hulk_uintptr request) {
+    hulk_uintptr n = request + DlHeapChunk::kWord + DlHeapChunk::kAlignMask;
+    return n < DlHeapChunk::kMinSize ? DlHeapChunk::kMinSize : n & ~(hulk_uintptr)DlHeapChunk::kAlignMask;
+}
 // equiv-conv: FUN_0026c840 eax stack stack stack
 void ** __cdecl FUN_0026c840(void **result, uint_26c840 count, const uint_26c840 *sizes, uint_26c840 flags)
 {
-    AllocState *state = (*(AllocState**)&DAT_0052839c);
-    if (!(state->flags & 1)) FUN_0026b970((AllocState *)state);
+    DlHeapState *state = (*(DlHeapState**)&DAT_0052839c);
+    if (!(state->maxFast & 1)) FUN_0026b970((DlHeapState *)state);
     if (!count) {
         if (result) return result;
         return (void **)FUN_0026c040(0);
     }
-    uint_26c840 arraySize = 0;
-    if (!result) {
-        uint_26c840 n = count * 4 + 11;
-        arraySize = n < 16 ? 16 : n & ~7u;
-    }
-    uint_26c840 uniform = 0, total = 0;
+    hulk_uintptr arraySize = 0;
+    if (!result)
+        arraySize = chunk_size_26c840((hulk_uintptr)count * sizeof(void *));
+    hulk_uintptr uniform = 0, total = 0;
     if (flags & 1) {
-        uint_26c840 n = sizes[0] + 11;
-        uniform = n < 16 ? 16 : n & ~7u;
+        uniform = chunk_size_26c840(sizes[0]);
         total = uniform * count;
     } else {
-        for (uint_26c840 i = 0; i != count; ++i) {
-            uint_26c840 n = sizes[i] + 11;
-            total += n < 16 ? 16 : n & ~7u;
-        }
+        for (uint_26c840 i = 0; i != count; ++i)
+            total += chunk_size_26c840(sizes[i]);
     }
-    uint_26c840 saved = state->saved;
-    state->saved = 0;
-    char *memory = (char *)FUN_0026c040(arraySize + total - 7);
-    (*(AllocState**)&DAT_0052839c)->saved = saved;
+    hulk_uintptr saved = state->mmapMax;
+    state->mmapMax = 0;
+    char *memory = (char *)FUN_0026c040((uint_26c840)(arraySize + total - DlHeapChunk::kAlignMask));
+    (*(DlHeapState**)&DAT_0052839c)->mmapMax = saved;
     if (!memory) return 0;
-    Chunk *block = (Chunk *)memory - 1;
-    uint_26c840 remaining = block->size & ~3u;
+    DlHeapChunk *block = (DlHeapChunk *)(memory - DlHeapChunk::kHeader);
+    hulk_uintptr remaining = block->size & ~(hulk_uintptr)3;
     if (flags & 2) {
-        uint_26c840 len = remaining - arraySize - 4;
-        for (uint_26c840 j = 0; j != len; ++j) memory[j] = 0;
+        hulk_uintptr len = remaining - arraySize - DlHeapChunk::kWord;
+        for (hulk_uintptr j = 0; j != len; ++j) memory[j] = 0;
     }
     if (!result) {
-        Chunk *arrayChunk = (Chunk *)((char *)block + total);
+        DlHeapChunk *arrayChunk = (DlHeapChunk *)((char *)block + total);
         arrayChunk->size = (remaining - total) | 1;
-        result = (void **)(arrayChunk + 1);
+        result = (void **)((char *)arrayChunk + DlHeapChunk::kHeader);
         remaining = total;
     }
-    result[0] = block + 1;
+    result[0] = (char *)block + DlHeapChunk::kHeader;
     for (uint_26c840 k = 1; k != count; ++k) {
-        uint_26c840 n = uniform;
-        if (!n) {
-            n = sizes[k-1] + 11;
-            n = n < 16 ? 16 : n & ~7u;
-        }
+        hulk_uintptr n = uniform;
+        if (!n)
+            n = chunk_size_26c840(sizes[k-1]);
         block->size = n | 1;
-        block = (Chunk *)((char *)block + n);
+        block = (DlHeapChunk *)((char *)block + n);
         remaining -= n;
-        result[k] = block + 1;
+        result[k] = (char *)block + DlHeapChunk::kHeader;
     }
     block->size = remaining | 1;
     return result;

@@ -1140,8 +1140,8 @@ public:
     hulk_intptr f_0c;
     hulk_intptr f_10;
     int f_14;
-    int f_18;
-    char _pad_1c[0x474];
+    hulk_intptr f_18;
+    hulk_uintptr f_1c[0x11d];
     int f_490;
     int f_494;
     int f_498;

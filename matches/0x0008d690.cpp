@@ -1,5 +1,6 @@
 #include "compat/ptr.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/records.h"
 // data: obj = DAT_004dd780, ready = DAT_004dd778
 
 extern "C" void _ReadWriteBarrier();

@@ -6,7 +6,7 @@ typedef unsigned char u8_26cbd0;
 extern "C" void __cdecl FUN_00266f00(int, void*);
 class MemoryDlAllocator_26cbd0 {
   public:
-    void cleanup();
+    void FUN_0026cc00(); // the destructor body
     virtual void f0();
     virtual void f1();
     virtual MemoryDlAllocator_26cbd0* f2(u8_26cbd0);
@@ -22,7 +22,7 @@ class MemoryDlAllocator_26cbd0 {
     virtual void f12();
 };
 MemoryDlAllocator_26cbd0* MemoryDlAllocator_26cbd0::f2(u8_26cbd0 flag) {
-    cleanup();
+    FUN_0026cc00();
     if (flag & 1)
         FUN_00266f00(DAT_004cdbb0, this);
     return this;

@@ -3,14 +3,15 @@
 
 #include "compat/ptr.h"
 #include "gen/core.h"
-extern "C" hulk_intptr FUN_00266e00(int, int);
+extern "C" void* FUN_00266e00(int, hulk_intptr);
+// the dl allocator's constructor 0x0026ce90 (returns the object)
 struct MemoryDlAllocator_nv_26cfa0 {
-    int Do(int, int, int, int);
+    void* FUN_0026ce90(unsigned char, void*, int, const char*);
 };
-extern "C" int FUN_0026cfa0(int a, int b, int c, int d) {
-    DAT_004cdbb0 = c;
-    core::MemoryDlAllocator* p = (core::MemoryDlAllocator*)FUN_00266e00(c, 0x4a4);
+extern "C" void* FUN_0026cfa0(void* base, int size, int id, const char* name) {
+    DAT_004cdbb0 = id;
+    void* p = FUN_00266e00(id, sizeof(core::MemoryDlAllocator));
     if (p)
-        return ((MemoryDlAllocator_nv_26cfa0*)(((core::MemoryDlAllocator*)(p))))->Do(0, a, b, d);
+        return ((MemoryDlAllocator_nv_26cfa0*)p)->FUN_0026ce90(0, base, size, name);
     return 0;
 }
