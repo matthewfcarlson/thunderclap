@@ -160,6 +160,26 @@ $J $N sync | lineages   # inputs on the hosts (submit does it) | lineage workspa
   sources, warm caches, fresh state: build 17-19 min. One changed function source, state and map reused: 5 min in all
   (build 2 min of verification, probe 25 s, link 1.8 min) plus a 20 s replay to frame 1000. Laptop (2 slots, loaded): 12 min
   for the resumed link-only path, versus 5 min on mac2 and 8 min on mac1.
+- **Object cache keys (build1, 2026-11-06).** build_tree's MSVC objects (`tree-cache/obj/`, also read by wine_link and
+  data_inventory) and the clang probe's per-TU results are keyed by the TU's text, flags and the headers it can reach
+  (`tools/include_keys.py`: the transitive `#include` closure, every candidate a name could resolve to in every includer's
+  directory and search directory, `compat/native.h` for clang; a computed `#include` falls back to every header). Before,
+  every TU that mentioned `gen/` or `decls/` was keyed on all of `include/` (and `include/compat/` on nothing: fixed in
+  eed85215e). On the current tree a one-header edit now recompiles the TUs that see it: `decls/data/game/global.h` 608 of
+  2,659 (was 2,517), `gen/hulkfight.h` 283, the mean header 425, median 126; `compat/ptr.h` still reaches 2,599.
+  `[time]` lines in `build.log` give each round's generate / compile (cache misses) / verify times.
+- **Seeding a proof from its control (build1, opt-in).** `--state seed:CONTROL` starts the proof's build_tree from the
+  control job's final fallback state (`nb-out/tree-state.json`) instead of empty, so it skips the ~18 rounds that rediscover
+  the same fallbacks. SEEDINGNUMBERS The host (`seed_decision()`) takes the seed only when the control's sources
+  (`nb-out/sources.json.gz`, written by every build since build1) differ from the proof's in function sources
+  (`matches|equivalent/0xADDR.cpp`, added, modified or removed) and files the tree build does not read (src/, other tools),
+  on the same toolchain; anything under `include/` or `config/`, a tool in build_tree's imports or another file in
+  `matches/ equivalent/` means a fresh build (`decision.why.state` says which). build_tree (`--seed`, `seed_state()`) then
+  drops every fallback in the objects (config/splits.json) of the changed functions, and all header-declaration
+  fallbacks, so those are found again as in a fresh build; everything else is verified exactly as in any build (every
+  match re-compared, every equivalent against its standalone object, regressions fall back). Rule: seed only from a
+  control that ran on the same host (`--host`, as the gate needs anyway) and with the same tools; a control built before
+  this change has no `sources.json.gz` and cannot seed (`submit` says so).
 - **SSE float (default since perf1, 2026-10-26; [wine-float.md](wine-float.md) section 13).** The game's TUs are built with
   SSE2 scalar float; `--env HULK_WINE_FLOAT=x87` builds the x87 image (checkpoint-identical, about 6x slower under Rosetta).
   An SSE build adds a `map` stage before the probe when the binding map is not reused (`wine_link.py --no-inventory --no-link`,
@@ -261,8 +281,16 @@ their snapshot disks). Job scripts `cd ~/hulk-tr1` and check `snapshot=True` in 
 3. A snapshot disk records its base image by absolute path; where the home directory differs, `rebase.py OVERLAY BASE` in
    `~/hulk-tr1` rewrites that header field of the host's copy (only the copy; mac2's files are untouched). Check the base
    image's sha1 against mac2's.
-4. `hosts.json`: `"caps": ["xemu"], "xemu_max": 1, "any": false` (no MSVC or Wine without Rosetta). Check with a short
+4. `hosts.json`: at first `"caps": ["xemu"], "xemu_max": 1, "any": false` (no MSVC or Wine without Rosetta). Check with a short
    replay pinned to the host: `hybrid_test.py replay build/replays/play3.json --from-snapshot 0 --until-frame 6500` (job 64292
    on studio: identical).
 
 The host needs a console login (xemu opens a window) and must not sleep.
+
+Rosetta on the Mac Studio: macOS 27.2.1 (build 26B125) had no entry in Apple's Rosetta catalog
+(`index-rosettaupdateauto-1.sucatalog`, one `RosettaUpdateAuto.pkg` per OS build), so `softwareupdate --install-rosetta`
+said "Rosetta 2 update is not available". The neighbouring build's package (26B123; Apple-signed, no OS-build check, three
+files under `/Library/Apple`) installed with `sudo installer -pkg RosettaUpdateAuto.pkg -target /` and works: the setup
+check passes (MSVC MATCH through wibo, Wine 7.7), and 80 `--x64` verdicts are identical to mac1's (job 64304 vs 64296).
+The Studio now has every capability (22 slots). Without Rosetta, note: `equiv --wine` gives false fails (its MSVC-side
+compile fails silently) and `--x64` returns "unsupported" for sources whose name it can only learn from the MSVC object.
