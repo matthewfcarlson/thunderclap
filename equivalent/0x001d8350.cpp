@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3070 inputs, branch coverage 60/60; --wine 714 inputs)
 // FUN_001d8350 @ 0x001d8350
 // equiv-map: ??0Id64@@QAE@ABU0@@Z = 0x0027af30
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 struct V3_1d8350 {
     float x, y, z;
-    float FUN_000259c0();
+    hulk_freg FUN_000259c0();
     float FUN_0022d180();
 };
 

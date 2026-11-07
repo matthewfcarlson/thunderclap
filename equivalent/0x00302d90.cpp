@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 12/12)
 // FUN_00302d90 @ 0x00302d90
+#include "compat/ptr.h"
 struct Shape_302d90 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5();
  virtual int type();
@@ -7,9 +8,9 @@ struct Shape_302d90 {
  virtual bool apply(Shape_302d90*, float);
 };
 struct Item_302d90 { char pad[0x20]; Shape_302d90* shape; char pad2[0x2c]; unsigned char flag; };
-struct Pair_302d90 { Item_302d90* first; Item_302d90* second; float FUN_002f8f10(int); };
-float __cdecl FUN_003015c0(Shape_302d90*, Shape_302d90*);
-float __cdecl FUN_00302480(Shape_302d90*, Shape_302d90*);
+struct Pair_302d90 { Item_302d90* first; Item_302d90* second; hulk_freg FUN_002f8f10(int); };
+hulk_freg __cdecl FUN_003015c0(Shape_302d90*, Shape_302d90*);
+hulk_freg __cdecl FUN_00302480(Shape_302d90*, Shape_302d90*);
 struct Handler_302d90 {
  char pad[0xc]; float value; float minimum; char pad2[0x28]; int setting;
  bool FUN_00302a00(Pair_302d90*,Shape_302d90*,Shape_302d90*);

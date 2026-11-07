@@ -5,7 +5,7 @@
 #include "compat/ptr.h"
 struct Vec3_202460 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 class Mover_202460 {

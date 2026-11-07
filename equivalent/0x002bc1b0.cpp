@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 20/20)
 // pure3d::BillboardQuadGroup::vfunc_6 @ 0x002bc1b0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
@@ -179,7 +180,7 @@ public:
     Quad_2bc1b0 **begin;               // 0x8c
     Quad_2bc1b0 **end;                 // 0x90
 
-    float FUN_002ba220();
+    hulk_freg FUN_002ba220();
 };
 
 }

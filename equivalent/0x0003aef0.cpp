@@ -7,7 +7,7 @@ extern "C" double sqrt(double);
 
 struct V3_3aef0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Weapon_3aef0;

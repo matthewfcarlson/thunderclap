@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 22/22)
 // CDropAction::vfunc_7 @ 0x00019140
+#include "compat/ptr.h"
 struct Vec3_19140 {
     float x, y, z;
 };
@@ -9,8 +10,8 @@ union FloatBits_19140 {
     unsigned int u;
 };
 
-float __cdecl FUN_00224ea0(float x, float z);
-float __cdecl FUN_00224fc0(float from, float to);
+hulk_freg __cdecl FUN_00224ea0(float x, float z);
+hulk_freg __cdecl FUN_00224fc0(float from, float to);
 
 static inline float AbsBits(float v)
 {
@@ -49,7 +50,7 @@ struct DropParams {
 };
 
 struct Transform_19140 {
-    float FUN_002220d0();
+    hulk_freg FUN_002220d0();
     void FUN_00221d20(float angle);
     void FUN_0022be40(Vec3_19140 *pos);
 };

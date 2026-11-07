@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/18)
 // FUN_000c72e0 @ 0x000c72e0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
@@ -95,7 +96,7 @@ struct Entry_c72e0 {
 };
 
 extern "C" Cam_c72e0 *FUN_001c3d90();
-extern float FUN_00018a20(float x);
+extern hulk_freg FUN_00018a20(float x);
 extern "C" void *FUN_0008d690(unsigned int size);
 
 struct Self_c72e0 {

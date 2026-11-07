@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19951 inputs, branch coverage 8/8)
 // hulkfight::motion::FlyingBrakeAction::vfunc_3 @ 0x00134190
+#include "compat/ptr.h"
 #include "gen/owners.h"
 struct V3_134190 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 struct Name_134190 {
     unsigned int lo, hi;

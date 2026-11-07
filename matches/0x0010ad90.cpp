@@ -14,7 +14,7 @@ struct Agent_10ad90 {
     char pad[0x20];
     List_10ad90* list;
 };
-float FUN_0010ac60(int ex, int item, float w, Vec3_10ad90* out);
+hulk_freg FUN_0010ac60(int ex, int item, float w, Vec3_10ad90* out);
 
 bool CSeparationBehaviour::vfunc_3(hulk_intptr __p0, int ex, void* __p2, int p5, int p6) { Agent_10ad90 * a = (Agent_10ad90 *)__p0; Vec3_10ad90 * out = (Vec3_10ad90 *)__p2;
 

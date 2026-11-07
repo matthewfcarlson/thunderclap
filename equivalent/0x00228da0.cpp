@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 493 inputs, branch coverage 26/26)
 // choreo2::LocomotionSteerDriver::vfunc_10 @ 0x00228da0
+#include "compat/ptr.h"
 struct Quat_228da0 {
     float x, y, z, w;
     void FUN_0022b750(const Quat_228da0 *a, const Quat_228da0 *b, float t);
@@ -74,7 +75,7 @@ struct Blend_228da0 {
     int pad;
 };
 
-float __cdecl FUN_0004af40(float lo, float a, float b);
+hulk_freg __cdecl FUN_0004af40(float lo, float a, float b);
 
 union ArgBase_228da0 {
     Base_228da0 *base;

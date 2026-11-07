@@ -1,13 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 183 inputs, branch coverage 48/50, incomplete)
 // FUN_0010ae50 @ 0x0010ae50
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
+#include "compat/ptr.h"
 extern "C" void *__cdecl FUN_0008d6d0(int size);
 void __cdecl thunk_FUN_00267090(void *p);
 
 struct V3_10ae50 {
     float x, y, z;
     bool FUN_0022d2b0(V3_10ae50 *out, float eps);
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Part_10ae50 {
@@ -32,7 +33,7 @@ struct World {
     Group_10ae50 *group;
 };
 
-float __cdecl FUN_0010ac60(void *a, Item_10ae50 *item, void *b, V3_10ae50 *out);
+hulk_freg __cdecl FUN_0010ac60(void *a, Item_10ae50 *item, void *b, V3_10ae50 *out);
 
 float __cdecl FUN_0010ae50(World *w, void *a, void *b, V3_10ae50 *dir, V3_10ae50 *sum, bool mark, Item_10ae50 **hit)
 {

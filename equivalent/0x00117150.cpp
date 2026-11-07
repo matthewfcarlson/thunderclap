@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3038 inputs, branch coverage 29/30, incomplete)
 // hulkfight::ai::MotionBoostAction::vfunc_5 @ 0x00117150
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/ai.h"
 #include "gen/owners.h"
 struct V3_117150 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     char FUN_0022d2b0(V3_117150 *p, float eps);
 };
 

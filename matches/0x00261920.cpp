@@ -1,5 +1,6 @@
+#include "compat/ptr.h"
 extern "C" char* __cdecl FUN_002611b0(char*);
-extern "C" float __cdecl FUN_00260d00(char*);
+extern "C" hulk_freg __cdecl FUN_00260d00(char*);
 extern "C" void __cdecl FUN_00260be0(char*, float);
 extern "C" void __cdecl FUN_00261920(char* s) {
     float x = FUN_00260d00(FUN_002611b0(s));

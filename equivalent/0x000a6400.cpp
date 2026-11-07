@@ -8,7 +8,7 @@ extern "C" double sqrt(double);
 
 struct V3 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct V3v {
@@ -54,14 +54,14 @@ struct Mode {
     V3 v40;
 };
 
-float __cdecl FUN_000189c0(float v);
+hulk_freg __cdecl FUN_000189c0(float v);
 void __cdecl FUN_000a04c0(V3* delta, float* a, float* b, float* c);
-float __cdecl FUN_000a00e0(float a, float b, float c, float d, float e);
-float __cdecl FUN_000a02a0(float v);
-float __cdecl FUN_000a03c0(float v, float lo, float hi);
-float __cdecl FUN_000a0450(V3* v);
+hulk_freg __cdecl FUN_000a00e0(float a, float b, float c, float d, float e);
+hulk_freg __cdecl FUN_000a02a0(float v);
+hulk_freg __cdecl FUN_000a03c0(float v, float lo, float hi);
+hulk_freg __cdecl FUN_000a0450(V3* v);
 extern "C" char __cdecl FUN_0009ffc0(float a, float b, float c, float* out);
-float __cdecl FUN_000a05b0(float a, float b, float c, float d, float e);
+hulk_freg __cdecl FUN_000a05b0(float a, float b, float c, float d, float e);
 V3* __cdecl FUN_0009f8c0(V3* out, float a, float b, float c);
 
 #define CLAMP(v, lo, hi)                                                                                     \

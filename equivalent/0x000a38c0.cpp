@@ -16,20 +16,20 @@ static float AbsF(float v)
 
 struct V3_a38c0 {
     float x, y, z;
-    float FUN_000259c0();
-    float FUN_0022d110();
+    hulk_freg FUN_000259c0();
+    hulk_freg FUN_0022d110();
 };
 
 V3_a38c0 *__cdecl FUN_0009f8c0(V3_a38c0 *out, float yaw, float pitch, float scale);
-float __cdecl FUN_0009faa0(float cur, float target, float dt, float rate);
+hulk_freg __cdecl FUN_0009faa0(float cur, float target, float dt, float rate);
 void __cdecl FUN_000a04c0(V3_a38c0 *dir, float *yaw, float *pitch, float *len);
-float __cdecl FUN_000a0450(V3_a38c0 *v);
-float __cdecl FUN_000a03c0(float v, float lo, float hi);
-float __cdecl FUN_000189c0(float v);
+hulk_freg __cdecl FUN_000a0450(V3_a38c0 *v);
+hulk_freg __cdecl FUN_000a03c0(float v, float lo, float hi);
+hulk_freg __cdecl FUN_000189c0(float v);
 float __cdecl FUN_000186b0(float *v, float *lo, float *hi);
 char __cdecl FUN_00018960(float a, float b, float eps);
-float __cdecl FUN_000a00e0(float a, float b, float c, float d, float e);
-float __cdecl FUN_000a05b0(float a, float b, float c, float d, float e);
+hulk_freg __cdecl FUN_000a00e0(float a, float b, float c, float d, float e);
+hulk_freg __cdecl FUN_000a05b0(float a, float b, float c, float d, float e);
 
 struct Input32c_a38c0 {
     char pad00[0x14];

@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 184 inputs, branch coverage 109/120, incomplete)
 // FUN_001ed320 @ 0x001ed320
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight.h"
 #include "decls/data/game/unknown.h"
 #include "gen/owners.h"
 
 typedef unsigned __int64 ID;
-struct V { float x,y,z; float FUN_000259c0(); };
+struct V { float x,y,z; hulk_freg FUN_000259c0(); };
 struct Name_1ed320 { unsigned a,b; void FUN_0027b0e0(const char*); void FUN_0027af50(); };
 struct Named_1ed320 { char header[8]; Name_1ed320 name; };
 struct Info_1ed320 { char p[20]; int flag; ID FUN_000443c0(); const char* FUN_000443b0(); };

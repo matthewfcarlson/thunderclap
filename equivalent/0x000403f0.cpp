@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 18/22, incomplete)
 // FUN_000403f0 @ 0x000403f0
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct Vec3_403f0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 class Node {

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 56/56)
 // FUN_000cc7e0 @ 0x000cc7e0
 // FUN_000cc7e0: debug/HUD gauge drawer (builds quads through the vertex-handle API)
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
@@ -70,7 +71,7 @@ struct Owner_cc7e0 {
     char pad0[0x11c];
     Sub_cc7e0 *sub;
     float FUN_00036090();
-    float FUN_000360b0();
+    hulk_freg FUN_000360b0();
 };
 
 struct Tex_cc7e0 {

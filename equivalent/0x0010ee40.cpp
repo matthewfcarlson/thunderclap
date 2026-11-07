@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 152 inputs, branch coverage 62/68, incomplete)
 // hulkfight::ai::PropsToSuckCondition::vfunc_6 @ 0x0010ee40
+#include "compat/ptr.h"
 #include "decls/address.h"
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
@@ -7,7 +8,7 @@ extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *d
 
 struct V3_10ee40 {
     float x, y, z;
-    float FUN_00018990();
+    hulk_freg FUN_00018990();
 };
 
 class Gauge_10ee40 {

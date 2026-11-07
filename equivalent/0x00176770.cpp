@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 52/52)
 // hulkfight::motion::SurfAction::vfunc_5 @ 0x00176770
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/motion.h"
 #include "gen/owners.h"
@@ -8,7 +9,7 @@ extern "C" double fabs(double);
 
 struct V3_176770 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void FUN_000111b0(const V3_176770 *a, const V3_176770 *b);
     char FUN_0022d2b0(const V3_176770 *z, float eps);
 };
@@ -69,8 +70,8 @@ struct World {
 };
 
 
-float __cdecl FUN_00224f10(V3_176770 *v);
-float __cdecl FUN_00224fc0(float a, float b);
+hulk_freg __cdecl FUN_00224f10(V3_176770 *v);
+hulk_freg __cdecl FUN_00224fc0(float a, float b);
 extern "C" float __cdecl FUN_00083d90(float *v);
 void __cdecl FUN_00224d70(float angle, V3_176770 *v);
 extern "C" void __cdecl FUN_00224db0(Mat_176770 *m, V3_176770 *a, V3_176770 *b);

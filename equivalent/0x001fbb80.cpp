@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 9/10, incomplete)
 // FUN_001fbb80 @ 0x001fbb80
+#include "compat/ptr.h"
 struct V3_1fbb80 { float x, y, z; };
 
-float __cdecl FUN_0004af40(float lo, float hi, float v);
+hulk_freg __cdecl FUN_0004af40(float lo, float hi, float v);
 
 class Bounds_1fbb80 {
 public:

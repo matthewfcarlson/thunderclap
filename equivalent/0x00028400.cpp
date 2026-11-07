@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2986 inputs, branch coverage 2/2)
 // FUN_00028400 @ 0x00028400
+#include "compat/ptr.h"
 #include "decls/address.h"
 
 struct Vec3_28400 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Pawn_28400 {

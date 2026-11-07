@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 17/18, incomplete)
 // hulkfight::motion::PhaseCondition::vfunc_6 @ 0x0015d0c0
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
 
@@ -9,7 +10,7 @@ extern char DAT_0048d534[];
 extern char DAT_004ac1d0[];
 extern char DAT_0048e01c[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
-float __cdecl FUN_0015cf40(float value);
+hulk_freg __cdecl FUN_0015cf40(float value);
 
 struct Marker_15d0c0 {
     char pad0[0x24];

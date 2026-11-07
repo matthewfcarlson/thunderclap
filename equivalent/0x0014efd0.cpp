@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_0014efd0 @ 0x0014efd0
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight/motion.h"
 #include "gen/owners.h"
 
 struct Vec3_14efd0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 
@@ -15,7 +16,7 @@ void __cdecl FUN_00224d70(float angle, Vec3_14efd0 *axis);
 struct Marker;
 
 struct Timing_14efd0 {
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
 };
 struct Clock_14efd0 {
     Timing_14efd0 *FUN_00059a30();

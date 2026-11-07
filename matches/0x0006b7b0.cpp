@@ -1,4 +1,5 @@
-extern float FUN_0004af40(float, float, float);
+#include "compat/ptr.h"
+extern hulk_freg FUN_0004af40(float, float, float);
 class X {
     char pad[0x18];
     float angle;

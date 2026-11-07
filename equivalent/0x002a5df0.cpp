@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1176 inputs, branch coverage 30/30)
 // FUN_002a5df0 @ 0x002a5df0
+#include "compat/ptr.h"
 #include "gen/owners.h"
 struct Item_2a5df0 {
     virtual void v0();
@@ -14,7 +15,7 @@ struct Item_2a5df0 {
 
 struct V3_2a5df0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 

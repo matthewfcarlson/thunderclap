@@ -2,7 +2,7 @@
 // FUN_00098500 @ 0x00098500
 #include "compat/ptr.h"
 extern "C" double __cdecl cos(double);
-extern float __cdecl FUN_000189c0(float);
+extern hulk_freg __cdecl FUN_000189c0(float);
 struct Vector { float x,y,z; };
 extern "C" void __cdecl FUN_000a04c0(Vector*,float*,float*,float*);
 struct Data_98500 { char pad0[4]; float scale; char pad8[0x1c]; float angle; char pad28[8]; Vector pos; };

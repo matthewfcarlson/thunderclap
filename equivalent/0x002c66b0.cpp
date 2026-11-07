@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 4/4)
 // FUN_002c66b0 @ 0x002c66b0
+#include "compat/ptr.h"
 #include "gen/owners.h"
 struct Vec3_2c66b0 {
     float x, y, z;
@@ -12,7 +13,7 @@ struct Mat_2c66b0 {
     void FUN_0022baf0(const Vec3_2c66b0 *axis, float angle);
 };
 
-float __cdecl FUN_00018a20(float v);
+hulk_freg __cdecl FUN_00018a20(float v);
 void __cdecl FUN_002c4a20(float width, Mat_2c66b0 *m, int a, int b, int c, int d);
 void __cdecl FUN_002c5260(float w0, const Vec3_2c66b0 *from, float w1, const Vec3_2c66b0 *to, int a, int b, int c, int d);
 

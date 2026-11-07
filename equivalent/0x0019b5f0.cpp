@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 18/18)
 // hulkfight::motion::FireBeamAction::vfunc_5 @ 0x0019b5f0
+#include "compat/ptr.h"
 #include "gen/owners.h"
 struct Vec3_19b5f0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Mat_19b5f0 {

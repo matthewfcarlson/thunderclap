@@ -6,7 +6,7 @@
 extern "C" double sqrt(double);
 struct V3_101270 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 struct Name_101270 {
     void FUN_0027b040(const char*);
@@ -37,7 +37,7 @@ struct World {
     Hub20_101270* p20;
 };
 struct Rng_101270 {
-    float FUN_00078780();
+    hulk_freg FUN_00078780();
 };
 Rng_101270* __cdecl FUN_000964d0();
 float __cdecl FUN_0010ae50(World*, Arg1_101270*, float, V3_101270*, V3_101270*, int, int);

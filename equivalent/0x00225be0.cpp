@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 12/12)
 // FUN_00225be0 @ 0x00225be0
 #include "compat/ptr.h"
-float __cdecl FUN_0004af40(float lo, float hi, float v);
+hulk_freg __cdecl FUN_0004af40(float lo, float hi, float v);
 
 // Clamp v into [lo, hi] (bounds may be given in either order), or wrap it into the range.
 hulk_freg FUN_00225be0(float v, float lo, float hi, bool wrap)

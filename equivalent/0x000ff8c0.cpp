@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 43/44, incomplete)
 // CHand2HandAgent::vfunc_17 @ 0x000ff8c0
+#include "compat/ptr.h"
 struct Id64_ff8c0 {
     unsigned int lo;
     unsigned int hi;
@@ -11,7 +12,7 @@ struct Id64_ff8c0 {
 };
 
 struct Clock_ff8c0 {
-    float FUN_00078780();
+    hulk_freg FUN_00078780();
 };
 Clock_ff8c0 *__cdecl FUN_000964d0();
 

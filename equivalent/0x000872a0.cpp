@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19806 inputs, branch coverage 2/2)
 // FUN_000872a0 @ 0x000872a0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "gen/owners.h"
 struct Vec3_872a0 {
@@ -15,7 +16,7 @@ struct Body_872a0 {
     Pos_872a0 *pos;
     void FUN_000ae990();
     void FUN_000afe80();
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
 };
 
 struct Link_872a0 {

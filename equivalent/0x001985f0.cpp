@@ -6,7 +6,7 @@
 
 struct V3_1985f0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Node_1985f0;
@@ -70,7 +70,7 @@ struct Fighter_1985f0 {
     int f20a8;
     Weapon_1985f0 *FUN_00035ef0(int slot);
     float FUN_0003ec00(int mode);
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
     void FUN_0003acf0(int slot, int a, int b, int c, int d, int e);
 };
 

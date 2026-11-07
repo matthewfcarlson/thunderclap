@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 17/18, incomplete)
 // hulkfight::ai::TargetDirectionXZCondition::vfunc_6 @ 0x00126270
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 extern "C" double sqrt(double);
 
 struct V3_126270 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Anchor_126270 {

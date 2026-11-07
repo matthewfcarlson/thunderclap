@@ -33,10 +33,10 @@ union Slot_302a00 {
     float best;
 };
 
-float FUN_003015c0(Node *node, int a3);
-float FUN_003024d0(Node *node, int a3);
-float FUN_00302620(Node *node, int a3);
-float FUN_00302480(Node *node, int a3);
+hulk_freg FUN_003015c0(Node *node, int a3);
+hulk_freg FUN_003024d0(Node *node, int a3);
+hulk_freg FUN_00302620(Node *node, int a3);
+hulk_freg FUN_00302480(Node *node, int a3);
 
 
 class Solver_302a00 {

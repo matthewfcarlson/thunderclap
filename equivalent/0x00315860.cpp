@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 30/30)
 // FUN_00315860 @ 0x00315860
+#include "compat/ptr.h"
 union Bits_315860 {
     float f;
     unsigned int u;
@@ -7,7 +8,7 @@ union Bits_315860 {
 
 struct V3_315860 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct BoxData {

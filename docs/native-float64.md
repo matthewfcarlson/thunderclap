@@ -124,7 +124,49 @@ spelling gives 4db0c63c, MSVC 7.1's x87 result, on x86-64 and arm64 at -O0 and -
 and the all-double one d0b2e2e3 on both, as on i686.
 
 **Wine build A/B for the 80-bit consumers** (`HULK_SOFT_X87=1` against `=2`, the latter storing each math result to a
-double first, which is what plain 64-bit code does): jobs 63434 / 63436, one lineage on one build host. RESULT PENDING.
+double first, which is what plain 64-bit code does): jobs 63434 / 63436, one lineage on one build host, HEAD 77b9475d2,
+play3 to 60,000. **The two are identical at all 2,011 common checkpoints (0-60,300).** So on play3 the 80-bit
+consumption changes no checkpoint once the math functions are soft x87; x87ext keeps the 64-bit builds bit-exact with
+the Wine build's x87-keep code anyway (cheap: 203 sites), but it is not what decides the replay.
+
+**What does decide it: soft x87 against the x87 instructions.** Both soft runs diverge from the recording persistently
+from **frame 8,850** (1,593 of 2,011 checkpoints DIVERGED), while the default Wine build of the same HEAD on the same
+host (job 63381, the x87 instructions under Rosetta for sin, cos, tan, atan, atan2, exp and msvcrt for asin, acos, log,
+log10, pow, fmod) matches the recording everywhere but the known transients (5880, 5910, 34260, 52620, 52650); the
+default and the soft run differ at 1,716 of 2,011 common checkpoints, first at 8,850. (soft-x87.md's "no checkpoint
+change in 30,000 frames" was measured against a control that had already left the recording at 3,900.) The 64-bit
+builds bind the math rows to soft x87 (native_crt_table.h), so **they would leave play3 at 8,850 whatever the float
+passes do**: the transcendental implementation, not the precision model, is the first native fidelity item.
+
+**The culprit is `log10`.** A per-function switch (`HULK_SOFT_X87_HW=f,...`: under `HULK_SOFT_X87=1` the listed
+functions keep the default build's version, the x87 instruction for sin cos tan atan atan2 exp, msvcrt for asin acos
+log log10 pow fmod; patch `build/flt1/patch-soft-x87-hw.diff`, not committed: a Wine build input, measurement only),
+play3 to 12,000 or 60,000, HEAD 50dd6fb59 workspace, one lineage:
+
+| soft (everything else as the default build) | first divergence from the recording |
+|---|---|
+| sin cos tan atan atan2 exp (64110) | none to 12,000 |
+| asin acos log log10 pow fmod (64111) | 8,850 |
+| asin acos log (64249) | none to 12,150 |
+| log10 pow fmod (64250) | 8,910 |
+| pow (64281) | none to 12,060 |
+| log10 fmod (64282) | 6,090 |
+| log10 (64284) | 6,090 |
+| fmod (64285) | none to 12,150 |
+| **everything but log10 (64289)** | **none to 60,180** (only the known transients) |
+| everything, log10 correctly rounded (64286; `hulk_x87_log10_cr`, one rounding from the ~120-bit value) | 19,200 |
+| log10 correctly rounded only (64288) | 6,090 |
+
+So every soft x87 routine except `log10` reproduces the recording to its end. `log10` (`fldlg2; fxch; fyl2x` in soft
+x87, 64-bit result) and a correctly rounded `log10` both move play3; Wine's msvcrt `log10` (the default Wine build) does
+not. The game's `log10` feeds the 3D sound's dB conversion (`ToDb`, FUN_00258f90 -> FUN_00262270, wine-float.md
+section 14), so the effect reaches the checkpoints through audio-timed state. Locally (`build/flt1/fp/fm*.cpp`): soft
+fyl2x `log10` differs from macOS libm in 769 of 2,000,000 arguments, the correctly rounded one in 608 (macOS libm is
+not correctly rounded there; the correctly rounded variant was exact against a decimal reference on all 300 sampled
+disagreements). What the original's CRT `log10` computes at the arguments play3 meets is the open question: an xemu
+probe of those calls (tools/xemu_x87_probe.py's method on the game's `log10`), then a clean-room implementation that
+gives those bits, used by the native table's `log10` row and by the Wine build. Until then the native builds should
+expect play3 to leave the recording at about 6,000-9,000 for this reason alone.
 
 ## The `float` callers of `hulk_freg` functions (unb1's 676 names)
 
@@ -134,7 +176,21 @@ under MSVC 7.1, so the matches/ objects are unchanged). On the 64-bit builds it 
 definitions without retfix64; on the Wine build it changes the code (the -O0 temporaries) but not the values, since
 retfix already reads those calls as doubles. Gates and proof: below.
 
-GATES PENDING.
+**Classification** (`equiv64.py batch`, HEAD versions of the 416 equivalent/ sources; the 23 matches/ sources are
+byte-matched): 341 equivalent, 53 fail (float 15, untyped 15, layout 8, crash64 6, int 4, call 3, ptrtrunc 1,
+intwidth 1: per-function 64-bit differences unrelated to the declarations, since the checker's stubs return the same
+value on both sides), 11 unsupported, 11 inconclusive. The cross-function problem itself (a `float` read of a double
+result) is invisible to a per-source check; on the macOS image it is the 676 names retfix64 binds.
+
+**The batch** (373 sources: 23 matches/, 350 equivalent/). Left out of the 439: 3 that no longer compile with clang
+(0x001cf690, 0x001cfb20, 0x001d4830: a member-function pointer typed with a `float` result), 2 whose `--x64` run
+newly fails or is inconclusive (0x000835a0, 0x0001c430), and every source whose 3,000-input or `--wine` run is not
+`equivalent` after the change (5 and 59, mostly the same at HEAD). Gates: 23/23 MATCH + verify_relocs ok; 350/350
+equivalent at 3,000 inputs and at 600 with `--wine`; `--x64` before -> after: 295 equivalent -> equivalent, 2 fail ->
+equivalent, none newly failing. Proof (HEAD 50dd6fb59 + the batch) 64109 against control 64287, same host, `--gfx`,
+play3: `tools/ckpt_gate.py` GATE ok, the checkpoints identical at all 2,003 common frames (0-60,060), prng hashes
+identical, only the known transients 5880/5910/34260/52620/52650, strict link 0 errors, 1,318 unbound in both; the
+images differ (the -O0 temporaries).
 
 ## The x86-64 Linux replay
 

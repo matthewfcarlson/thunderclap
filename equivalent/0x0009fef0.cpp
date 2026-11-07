@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19772 inputs, branch coverage 0/0)
 // FUN_0009fef0 @ 0x0009fef0
 // FUN_0009fef0 @ 0x0009fef0
-struct Vec_9fef0 { float x,y,z; float FUN_0022d110(); };
+#include "compat/ptr.h"
+struct Vec_9fef0 { float x,y,z; hulk_freg FUN_0022d110(); };
 extern "C" double __cdecl sin(double);
 extern "C" double __cdecl cos(double);
 Vec_9fef0* __cdecl FUN_0009fef0(Vec_9fef0* out, const Vec_9fef0* axis, const Vec_9fef0* v, float degrees) {

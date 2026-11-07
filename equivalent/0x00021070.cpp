@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // CWallSlideAction::vfunc_7 @ 0x00021070
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct Vec3_21070 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Xform_21070 {

@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 31 inputs, branch coverage 34/34)
 // FUN_00312440 @ 0x00312440
+#include "compat/ptr.h"
 extern "C" void* memset(void*, int, unsigned int);
 extern "C" double sqrt(double);
 
 struct Vec3_312440 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Mat4_312440 {

@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2987 inputs, branch coverage 4/4)
 // COrientAction::vfunc_6 @ 0x00017370
+#include "compat/ptr.h"
 struct Actor_17370; struct Controller_17370; struct JointDriver_17370;
 struct Source_17370 { Controller_17370* FUN_000592a0(); };
 struct Controller_17370 { Actor_17370* FUN_00059a40(); };
-struct Angle_17370 { float FUN_002220d0(); };
+struct Angle_17370 { hulk_freg FUN_002220d0(); };
 struct Label_17370 { void FUN_0027b040(const char*); };
 struct Value_17370 { void FUN_00221d20(float); };
 struct JointDriver_17370 { virtual void vfunc_0(); char pad[4]; Label_17370 label; char pad2[11]; int mode; Value_17370 value; JointDriver_17370* FUN_002248f0(int); };

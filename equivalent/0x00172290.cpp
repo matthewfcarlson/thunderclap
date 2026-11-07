@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 16/16)
 // hulkfight::motion::MoveJointAction::vfunc_5 @ 0x00172290
+#include "compat/ptr.h"
 struct V3_172290 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Matrix {
@@ -16,7 +17,7 @@ struct Matrix {
 
 struct Fighter_172290 {
     void FUN_000373e0(int v);
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
 };
 
 struct Anchor_172290 {

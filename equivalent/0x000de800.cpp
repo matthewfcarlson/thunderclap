@@ -6,10 +6,10 @@ extern "C" double fabs(double);
 
 struct Vec3_de800 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
-float __cdecl FUN_000189c0(float v);
+hulk_freg __cdecl FUN_000189c0(float v);
 
 hulk_freg FUN_000de800(float x, float z)
 {

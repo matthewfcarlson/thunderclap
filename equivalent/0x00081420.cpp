@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 30/30)
 // FUN_00081420 @ 0x00081420
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
 #include "gen/owners.h"
 extern "C" double sqrt(double);
 struct Vec3_81420 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Matrix {
@@ -14,7 +15,7 @@ struct Matrix {
 };
 
 struct Clock_81420 {
-    float FUN_000787e0(float lo, float hi);
+    hulk_freg FUN_000787e0(float lo, float hi);
 };
 
 struct RefObj_81420 {
@@ -95,7 +96,7 @@ public:
 };
 
 
-float FUN_00224f10(Vec3_81420* v);
+hulk_freg FUN_00224f10(Vec3_81420* v);
 extern "C" int FUN_000113e0(int lo, int hi);
 void FUN_00018810(RefObj_81420** slot, RefObj_81420* obj);
 

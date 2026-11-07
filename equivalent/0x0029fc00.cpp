@@ -24,7 +24,7 @@ class Tracker_29fc00 {
 public:
     char pad00[0x24];
     int owner;
-    float FUN_0029dcc0(Region_29fc00 *region, int mode);
+    hulk_freg FUN_0029dcc0(Region_29fc00 *region, int mode);
     bool FUN_0029fc00(hulk_intptr mode, Region_29fc00 *region, Entry_29fc00 *entry);
 };
 

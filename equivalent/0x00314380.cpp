@@ -5,7 +5,7 @@ extern "C" double sqrt(double);
 
 struct Vec3_314380 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Plane_314380 {

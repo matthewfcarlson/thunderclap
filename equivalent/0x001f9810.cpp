@@ -16,7 +16,7 @@ static inline int hulk_memcmp(const void *pa, const void *pb, unsigned int n) { 
 
 struct V3 {
     float x, y, z;
-    float FUN_00018990();
+    hulk_freg FUN_00018990();
 };
 
 struct Name {
@@ -160,7 +160,7 @@ HolderObj *__cdecl FUN_001c3d90();
 Inst *__cdecl FUN_001d4c90();
 void __cdecl FUN_00267760(char *buf, int n, const char *fmt, ...);
 void __cdecl FUN_00224d70(float a, V3 *v);
-float __cdecl FUN_0004af40(float a, float b, float c);
+hulk_freg __cdecl FUN_0004af40(float a, float b, float c);
 
 class Self;
 

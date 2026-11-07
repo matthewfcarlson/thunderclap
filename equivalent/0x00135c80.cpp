@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 15/16, incomplete)
 // hulkfight::motion::FlyingDashAction::vfunc_3 @ 0x00135c80
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 struct V3_135c80 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     bool FUN_0022d2b0(const V3_135c80* other, float epsilon);
 };
 
@@ -83,7 +84,7 @@ static float AbsF(float v)
 
 void* __cdecl thunk_FUN_0008d690(unsigned int size);
 extern "C" void __cdecl FUN_00096a90(Target_135c80* t, V3_135c80* out);
-extern "C" float FUN_00224ea0(float x, float z);
+extern "C" hulk_freg FUN_00224ea0(float x, float z);
 
 namespace hulkfight { namespace motion {
 

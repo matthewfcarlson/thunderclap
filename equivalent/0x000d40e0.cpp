@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 8/8)
 // FUN_000d40e0 @ 0x000d40e0
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern int DAT_004a0704[];
@@ -21,10 +22,10 @@ struct Mode_d40e0 {
 struct Camera {
     char pad0[0x2c];
     void *rig;
-    float FUN_000d6d90(void *owner);
+    hulk_freg FUN_000d6d90(void *owner);
 };
 
-float __cdecl FUN_000f6a70(void *rig, V3_d40e0 *v, Mode_d40e0 *mode);
+hulk_freg __cdecl FUN_000f6a70(void *rig, V3_d40e0 *v, Mode_d40e0 *mode);
 
 struct Item_d40e0 {
     short w0;

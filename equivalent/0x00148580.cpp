@@ -19,7 +19,7 @@ struct Stats_148580 {
     Stats_148580 *target;
     char pad33c[0x1e58 - 0x33c];
     float blend;
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
 };
 
 struct Params {

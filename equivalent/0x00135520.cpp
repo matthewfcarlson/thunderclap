@@ -4,7 +4,7 @@
 #include "gen/owners.h"
 struct V3_135520 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Name_135520 {
@@ -80,7 +80,7 @@ struct Config_135520 {
 };
 
 void* __cdecl FUN_00263ea0(unsigned int size);
-float __cdecl FUN_00224f10(V3_135520* v);
+hulk_freg __cdecl FUN_00224f10(V3_135520* v);
 extern "C" void __cdecl FUN_00096a90(RefObj_135520* r, V3_135520* out);
 
 class FlyingAttackAction {

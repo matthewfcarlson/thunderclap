@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3079 inputs, branch coverage 92/98, incomplete)
 // COccupationAgent::vfunc_4 @ 0x00103c30
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern "C" double sqrt(double);
@@ -30,16 +31,16 @@ extern "C" Script_103c30* __cdecl FUN_001d4c90();
 extern "C" unsigned __int64 __cdecl FUN_0027afb0(const char* s);
 
 
-extern float __cdecl FUN_000964e0();
+extern hulk_freg __cdecl FUN_000964e0();
 extern "C" float __cdecl FUN_00083d90(float* v);
 extern "C" Vec3_103c30* __cdecl FUN_00083e00(Vec3_103c30* out, Vec3_103c30* in, float s);
-extern float __cdecl FUN_00224f10(Vec3_103c30* v);
-extern float __cdecl FUN_00224fc0(float a, float b);
+extern hulk_freg __cdecl FUN_00224f10(Vec3_103c30* v);
+extern hulk_freg __cdecl FUN_00224fc0(float a, float b);
 extern void __cdecl FUN_00224d70(float angle, Vec3_103c30* out);
 
 struct Vec3Ops_103c30 : Vec3_103c30 {
-    float FUN_00018990();
-    float FUN_0022d110();
+    hulk_freg FUN_00018990();
+    hulk_freg FUN_0022d110();
     char FUN_0022d2b0(Vec3_103c30* other, float eps);
 };
 

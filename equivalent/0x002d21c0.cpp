@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 9/10, incomplete)
 // pure3d::ParticlePointGenerator::vfunc_6 @ 0x002d21c0
+#include "compat/ptr.h"
 #include "decls/data/engine/pure3d.h"
 #include "gen/owners.h"
 
 struct Vec3_2d21c0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Mat4_2d21c0 {

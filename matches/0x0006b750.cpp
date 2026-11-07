@@ -1,4 +1,5 @@
-extern float __cdecl FUN_0004af40(float, float, float);
+#include "compat/ptr.h"
+extern hulk_freg __cdecl FUN_0004af40(float, float, float);
 extern const float degToRad;
 class Obj {
     char pad[0x18];

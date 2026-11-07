@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 54/54)
 // FUN_00097a30 @ 0x00097a30
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight.h"
 #include "decls/data/game/unknown.h"
 #include "gen/owners.h"
@@ -8,9 +9,9 @@ extern "C" double cos(double);
 
 struct V3_97a30 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void FUN_000111b0(const V3_97a30 *a, const V3_97a30 *b);
-    float FUN_000111f0();
+    hulk_freg FUN_000111f0();
 };
 
 struct Mat_97a30 {
@@ -20,13 +21,13 @@ struct Mat_97a30 {
 };
 
 struct Rng_97a30 {
-    float FUN_000787e0(float lo, float hi);
+    hulk_freg FUN_000787e0(float lo, float hi);
 };
 
 
 extern "C" bool __cdecl FUN_00096b50(void *, void *, int *);
 extern "C" void __cdecl FUN_00096b00(void *, int *);
-float __cdecl FUN_000189c0(float v);
+hulk_freg __cdecl FUN_000189c0(float v);
 extern "C" float __cdecl FUN_00018710(float *k, float *len);
 void __cdecl FUN_00224d70(float angle, V3_97a30 *v);
 

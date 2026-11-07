@@ -17,7 +17,7 @@ struct V3_3dd70 {
         float z;
         int iz;
     };
-    float FUN_000111f0();
+    hulk_freg FUN_000111f0();
 };
 
 struct Mat_3dd70 {

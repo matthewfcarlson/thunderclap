@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 490 inputs, branch coverage 12/12)
 // FUN_00067730 @ 0x00067730
 // FUN_00067730: once the clock passes the next-update time, refresh every entry's score and schedule the next update
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct Clock_67730 {
     float FUN_00086080();
@@ -41,7 +42,7 @@ public:
     char pad37c[0x388 - 0x37c];
     Pos_67730 last;
 
-    float FUN_00067110(Pos_67730 *p);
+    hulk_freg FUN_00067110(Pos_67730 *p);
     void FUN_00067730();
 };
 

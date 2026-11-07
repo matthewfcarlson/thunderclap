@@ -8,7 +8,7 @@
 
 struct V3_143b20 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     bool FUN_0022d2b0(const V3_143b20 *other, float eps);
 };
 
@@ -27,7 +27,7 @@ struct Entity_143b20 {
     Skeleton_143b20 *skel;
     void FUN_00035160(Matrix_143b20 *out);
     void FUN_00035630(V3_143b20 *in, V3_143b20 *out);
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
 };
 
 struct Anchor_143b20 {

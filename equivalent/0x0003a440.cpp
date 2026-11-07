@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0003a440 @ 0x0003a440
+#include "compat/ptr.h"
 extern "C" double __cdecl cos(double);
-struct Vec_3a440 { float x,y,z; float FUN_0022d110(); };
+struct Vec_3a440 { float x,y,z; hulk_freg FUN_0022d110(); };
 struct Object;
 struct Query_3a440 {
  bool FUN_00039440(Object*,Vec_3a440*,Object**,int);

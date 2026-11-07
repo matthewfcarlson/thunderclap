@@ -14,7 +14,7 @@ struct Animation_13af20 { char pad[0x228]; float speed; float start; float end; 
 struct Offset_13af20 { char pad[0x20]; float value; };
 extern int DAT_0048d534; extern int DAT_004ac1d0;
 void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
-float __cdecl FUN_0004af40(float,float,float);
+hulk_freg __cdecl FUN_0004af40(float,float,float);
 namespace hulkfight { namespace motion {
 
 }}

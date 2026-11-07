@@ -122,7 +122,7 @@ struct Chk {
     int FUN_001d5e80(int a);
 };
 struct Dummy964 {
-    float FUN_000787e0(int a, float b);
+    hulk_freg FUN_000787e0(int a, float b);
 };
 extern "C" Dummy964* __cdecl FUN_000964d0();
 struct Entity {

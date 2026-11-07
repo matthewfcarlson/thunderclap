@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 19/19)
 // CSmartPropCSMableCondition::vfunc_7 @ 0x0004cbe0
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct V3 {
@@ -12,8 +13,8 @@ struct Mat {
 };
 
 
-float __cdecl FUN_00224ea0(float a, float b);
-float __cdecl FUN_00224fc0(float a, float b);
+hulk_freg __cdecl FUN_00224ea0(float a, float b);
+hulk_freg __cdecl FUN_00224fc0(float a, float b);
 
 class Node {
 public:

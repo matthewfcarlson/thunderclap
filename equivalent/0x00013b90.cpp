@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 11/12, incomplete)
 // CJumpAction::vfunc_6 @ 0x00013b90
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct Vec3_13b90 {
     float x, y, z;
@@ -99,15 +100,15 @@ public:
     virtual float vfunc_29();
     virtual void vfunc_30();
     virtual char vfunc_31();
-    float FUN_0006b540(float v);
-    float FUN_00069210(float v);
-    float FUN_000692c0(float v);
+    hulk_freg FUN_0006b540(float v);
+    hulk_freg FUN_00069210(float v);
+    hulk_freg FUN_000692c0(float v);
 };
 
 void *__fastcall FUN_000592a0(void *owner);
 extern "C" Stats_13b90 *__fastcall FUN_00059a30(void *x);
 Scene_13b90 *__fastcall FUN_00059a40(void *x);
-extern "C" float FUN_00224f10(Vec3_13b90 *v);
+extern "C" hulk_freg FUN_00224f10(Vec3_13b90 *v);
 void *__cdecl FUN_00263ea0(unsigned int size);
 
 class CJumpAction {

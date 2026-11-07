@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 7/8, incomplete)
 // AICollisionSolverAgent::vfunc_9 @ 0x001b0fb0
+#include "compat/ptr.h"
 #include "decls/address.h"
-struct Vec_1b0fb0 { float x,y,z; float FUN_0022d110(); };
+struct Vec_1b0fb0 { float x,y,z; hulk_freg FUN_0022d110(); };
 struct Body_1b0fb0 { char pad[0x14c]; unsigned char enabled; };
 struct Contact_1b0fb0 { char pad0[8]; Body_1b0fb0* body; int type; char pad1[0x40]; Vec_1b0fb0 velocity; };
 struct Manager_1b0fb0 { bool FUN_00079950(void*); };

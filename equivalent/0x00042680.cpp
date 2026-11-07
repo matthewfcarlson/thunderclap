@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19969 inputs, branch coverage 22/22)
 // FUN_00042680 @ 0x00042680
+#include "compat/ptr.h"
 struct Vec3_42680 {
     float x, y, z;
     void Sub(const Vec3_42680 &b) { x = x - b.x; y = y - b.y; z = z - b.z; }
@@ -11,7 +12,7 @@ struct Matrix {
 };
 
 struct Xform_42680 {
-    float FUN_002220d0();
+    hulk_freg FUN_002220d0();
 };
 
 struct Tracker_42680 {
@@ -63,7 +64,7 @@ struct Slot_42680 {
     char pad08[0x28 - 8];
 };
 
-float __cdecl FUN_00224fc0(float from, float to);
+hulk_freg __cdecl FUN_00224fc0(float from, float to);
 
 class Mover_42680 {
 public:

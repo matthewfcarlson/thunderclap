@@ -7,14 +7,14 @@ extern "C" double __cdecl sqrt(double);
 
 struct V3_197610 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     char FUN_0022d2b0(const V3_197610 *other, float eps);
 };
 
 struct Rng_197610 {
     unsigned int lo;
     unsigned int hi;
-    float FUN_00078780();
+    hulk_freg FUN_00078780();
 };
 Rng_197610 *__cdecl FUN_000964d0();
 

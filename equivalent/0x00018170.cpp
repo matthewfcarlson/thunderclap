@@ -4,7 +4,7 @@
 #include "compat/ptr.h"
 struct Vec3_18170 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Quat_18170 {

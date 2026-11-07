@@ -36,7 +36,7 @@ struct Scene_1347c0 {
 };
 
 struct Stats_1347c0 {
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
     void FUN_000356c0(Vec3_1347c0 *out);
 };
 

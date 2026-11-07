@@ -1,13 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20078 inputs, branch coverage 99/100, incomplete)
 // FUN_00019470 @ 0x00019470
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/unknown.h"
 #include "gen/owners.h"
 
 struct Vec3_19470 {
     float x, y, z;
-    float FUN_0022d110();
-    float FUN_000111f0();
+    hulk_freg FUN_0022d110();
+    hulk_freg FUN_000111f0();
 };
 
 struct RefObj_19470 {
@@ -193,12 +194,12 @@ void __cdecl FUN_00018810(RefObj_19470** slot, RefObj_19470* obj);
 void __cdecl FUN_000187a0(void* slot, int v);
 void __cdecl FUN_00018840(void* slot, int v);
 extern "C" void __cdecl FUN_00096a90(RefObj_19470* obj, Vec3_19470* out);
-float __cdecl FUN_00224f10(Mat* m);
+hulk_freg __cdecl FUN_00224f10(Mat* m);
 void __cdecl FUN_00224d70(float angle, Vec3_19470* axis);
 extern "C" char __cdecl FUN_000444f0(int v);
 float __cdecl FUN_000445a0();
 float __cdecl FUN_000445b0();
-float __cdecl FUN_000964e0();
+hulk_freg __cdecl FUN_000964e0();
 // equiv-conv: FUN_00014210 eax ecx edx esi
 extern "C" void __cdecl FUN_00014210(int, void *, void *, void *);
 

@@ -6,7 +6,7 @@
 
 struct V3_124a80 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     char FUN_0022d2b0(V3_124a80 *out, unsigned int id);
 };
 
@@ -38,7 +38,7 @@ struct Actor_124a80 {
     V3_124a80 anchor;                  // 0x2080
 
     int FUN_000350c0(V3_124a80 *out);
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
     void FUN_00035dc0(V3_124a80 *out);
     int FUN_000400e0(V3_124a80 *a, V3_124a80 *b, int c, int d, int e);
 };

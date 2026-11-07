@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 40/42, incomplete)
 // FUN_0029e320 @ 0x0029e320
+#include "compat/ptr.h"
   // 0.0
   // -0.0001
   // 0.333
@@ -70,8 +71,8 @@ class Effect_29e320 {
 public:
     char pad0[0x40];
     Holder40 *f40;
-    float FUN_0029dcc0(int a, int b);
-    float FUN_0029dd30(Holder40 *h);
+    hulk_freg FUN_0029dcc0(int a, int b);
+    hulk_freg FUN_0029dd30(Holder40 *h);
     void FUN_0029e320(Container_29e320 *c, V3_29e320 *p, Arg3_29e320 a3);
 };
 

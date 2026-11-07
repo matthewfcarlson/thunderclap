@@ -20,7 +20,7 @@ struct Stats_1fab0 {
     Vec3_1fab0 dirB;
     char pad2070[4];
     Vec3_1fab0 dirA;
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
     void FUN_00035550(Vec3_1fab0 *out);
 };
 
@@ -33,8 +33,8 @@ struct OrientData {
 
 void *__fastcall FUN_000592a0(void *owner);
 Stats_1fab0 *__fastcall FUN_00059a30(void *x);
-extern "C" float FUN_00224f10(Vec3_1fab0 *v);
-extern "C" float FUN_00224fc0(float from, float to);
+extern "C" hulk_freg FUN_00224f10(Vec3_1fab0 *v);
+extern "C" hulk_freg FUN_00224fc0(float from, float to);
 
 class COrientAction {
 public:

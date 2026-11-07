@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 12/12)
 // FUN_00014210 @ 0x00014210
+#include "compat/ptr.h"
 #include "gen/owners.h"
 extern "C" double cos(double);
 
 struct Vec3_14210 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Frame_14210 {

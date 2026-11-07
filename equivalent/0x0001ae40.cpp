@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 22/24, incomplete)
 // COpportunityBallAction::vfunc_8 @ 0x0001ae40
+#include "compat/ptr.h"
 #include "gen/global.h"
 #include "gen/owners.h"
 
 extern "C" float fabsf(float);
 struct Vec3_1ae40 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Mat_1ae40 {

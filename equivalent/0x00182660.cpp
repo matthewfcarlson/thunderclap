@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 4/4)
 // hulkfight::motion::BallAndChainReturnAction::vfunc_3 @ 0x00182660
-struct Vec_182660 { float x,y,z; Vec_182660* FUN_0022c2b0(Vec_182660*, Vec_182660*); float FUN_0022d110(); };
+#include "compat/ptr.h"
+struct Vec_182660 { float x,y,z; Vec_182660* FUN_0022c2b0(Vec_182660*, Vec_182660*); hulk_freg FUN_0022d110(); };
 struct Transform_182660 { Vec_182660* FUN_00221c40(); };
 struct TransformHolder { char pad[16]; Transform_182660 transform; };
 struct Item_182660 { Vec_182660* FUN_001d6b40(); };

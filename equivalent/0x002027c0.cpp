@@ -9,7 +9,7 @@ extern "C" double __cdecl sqrt(double);
 
 struct V3_2027c0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     bool FUN_0022d2b0(V3_2027c0 *other, float epsilon);
 };
 

@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 16/16)
 // FUN_001b4ab0 @ 0x001b4ab0
+#include "compat/ptr.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
 
 struct V3_1b4ab0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Kind_1b4ab0 {

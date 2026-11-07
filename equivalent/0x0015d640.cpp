@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 24/28, incomplete)
 // hulkfight::motion::LocomotionStrafeAction::vfunc_3 @ 0x0015d640
+#include "compat/ptr.h"
 struct V3_15d640 {
     float x, y, z;
 };
@@ -30,7 +31,7 @@ public:
 }
 
 struct Sub10_15d640 {
-    float FUN_002220d0();
+    hulk_freg FUN_002220d0();
 };
 
 struct Skel_15d640 {
@@ -58,7 +59,7 @@ struct Link_15d640 {
 };
 
 extern "C" void __cdecl FUN_0015cfd0(void *, void *);
-extern float FUN_000964e0();
+extern hulk_freg FUN_000964e0();
 
 namespace hulkfight {
 namespace motion {
@@ -79,7 +80,7 @@ public:
     Link_15d640 *link;             // 0x1c
     choreo2::LocomotionStrafeDriver *driver;    // 0x20
     void FUN_0015c2a0(float a, float b, float c, float d, float e, float f);
-    float FUN_0015d4f0(float a, float b, float c);
+    hulk_freg FUN_0015d4f0(float a, float b, float c);
 };
 
 struct Frame_15d640 {

@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 18/18)
 // CChaseAgent::vfunc_4 @ 0x000fcb70
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct V3_fcb70 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Clock;

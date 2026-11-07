@@ -83,7 +83,7 @@ struct CCharacter_437a0 {
 };
 
 struct Sub2_437a0 {
-    float FUN_002220d0();
+    hulk_freg FUN_002220d0();
 };
 
 struct Anchor2 {
@@ -105,8 +105,8 @@ struct Entry_437a0 {
     char pad[76];
 };
 
-extern "C" float __cdecl FUN_00224f10(Vec3_437a0* v);
-extern "C" float __cdecl FUN_00224fc0(float a, float b);
+extern "C" hulk_freg __cdecl FUN_00224f10(Vec3_437a0* v);
+extern "C" hulk_freg __cdecl FUN_00224fc0(float a, float b);
 
 class Unit_437a0 {
 public:

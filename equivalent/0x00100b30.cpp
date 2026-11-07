@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19818 inputs, branch coverage 68/72, incomplete)
 // CHand2HandAgent::vfunc_21 @ 0x00100b30
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" double sqrt(double);
 
 struct V3_100b30 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void Add(const V3_100b30 &o) { x = x + o.x; y = o.y + y; z = o.z + z; }
 };
 

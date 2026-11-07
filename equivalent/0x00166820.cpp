@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19389 inputs, branch coverage 28/28)
 // hulkfight::motion::RayCastConeCondition::vfunc_6 @ 0x00166820
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct V3_166820 {
     float x, y, z;
     void FUN_0022d180();
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Matrix {

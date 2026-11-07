@@ -1,15 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // hulkfight::motion::HitOrientToPushbackAction::vfunc_5 @ 0x00152520
+#include "compat/ptr.h"
 struct Vec_152520 { float x,y,z; };
 struct Rotation_152520 { void FUN_00221d20(float); };
 struct PushObject { char pad[0x18]; Rotation_152520 rotation; };
 struct Settings_152520 { char pad[0x14]; float rate; };
 struct Transform_152520 { char pad[0x28]; Vec_152520 direction; };
-struct Motion_152520 { float FUN_000354c0(); };
+struct Motion_152520 { hulk_freg FUN_000354c0(); };
 struct Intermediate_152520 { Motion_152520* FUN_00059a30(); };
 struct Actor_152520 { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual Transform_152520* slot3(); Intermediate_152520* FUN_000592a0(); };
-extern float __cdecl FUN_00224f10(Vec_152520*);
-extern float __cdecl FUN_00224fc0(float,float);
+extern hulk_freg __cdecl FUN_00224f10(Vec_152520*);
+extern hulk_freg __cdecl FUN_00224fc0(float,float);
 namespace hulkfight { namespace motion {
 struct HitOrientToPushbackAction {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual bool vfunc_5(int,float);

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2785 inputs, branch coverage 2/2)
 // FUN_002b98d0 @ 0x002b98d0
+#include "compat/ptr.h"
 #include "gen/owners.h"
 struct Mat4_2b98d0 {
     float m[16];
@@ -11,7 +12,7 @@ struct Vec3_2b98d0 {
     void FUN_0022d180();
 };
 
-float FUN_00018a20(float x);
+hulk_freg FUN_00018a20(float x);
 
 class Box_2b98d0 {
 public:

@@ -1,16 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 10/10)
 // hulkfight::ai::TargetOrientationCondition::vfunc_6 @ 0x001259c0
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/ai.h"
 
 struct Vec_1259c0 { float x,y,z; void FUN_0022c3b0(const Vec_1259c0*, Vec_1259c0*); };
 extern char DAT_00494b44, DAT_00494b60;
 extern void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern float __cdecl FUN_00224f10(Vec_1259c0*);
-extern float __cdecl FUN_00224fc0(float, float);
+extern hulk_freg __cdecl FUN_00224f10(Vec_1259c0*);
+extern hulk_freg __cdecl FUN_00224fc0(float, float);
 struct Target_1259c0 { char pad[16]; Vec_1259c0 position; };
 struct Link_1259c0 { char pad[0x12c]; Target_1259c0* target; };
 struct Actor_1259c0 { char pad[0x328]; Target_1259c0* fallback; char gap[4]; Link_1259c0* link; };
-struct Heading_1259c0 { float FUN_000354c0(); };
+struct Heading_1259c0 { hulk_freg FUN_000354c0(); };
 struct Context { Actor_1259c0* FUN_00059a30(); };
 struct Input_1259c0 { Context* FUN_000592a0(); };
 namespace hulkfight { namespace ai {

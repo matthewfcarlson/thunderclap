@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 12/12)
 // hulkfight::ai::HulkActionLargestCondition::vfunc_6 @ 0x0010f0f0
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/ai.h"
 
 struct Key_10f0f0 { unsigned first, second; void FUN_0027af00(); void FUN_0027b040(unsigned); };
@@ -9,7 +10,7 @@ extern "C" int __cdecl atexit(void (__cdecl *)());
 void* __cdecl FUN_00344e74(void*,int,void*,void*,int);
 struct State_10f0f0 { int FUN_00059a30(); };
 struct Actor_10f0f0 { State_10f0f0* FUN_000592a0(); };
-struct Manager_10f0f0 { char pad[0x388]; unsigned first,second; void FUN_00067730(); float FUN_00067110(Key_10f0f0*); };
+struct Manager_10f0f0 { char pad[0x388]; unsigned first,second; void FUN_00067730(); hulk_freg FUN_00067110(Key_10f0f0*); };
 Manager_10f0f0* __cdecl FUN_000678d0();
 namespace hulkfight { namespace ai {
 struct HulkActionLargestCondition { void* vptr; char pad[12]; unsigned parameter; bool vfunc_6(unsigned,Actor_10f0f0*,unsigned); };

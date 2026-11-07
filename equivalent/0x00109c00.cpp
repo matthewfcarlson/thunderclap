@@ -3,7 +3,7 @@
 #include "compat/ptr.h"
 struct V3_109c00 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 class Ctx_109c00;

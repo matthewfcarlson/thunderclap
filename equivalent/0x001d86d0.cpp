@@ -7,9 +7,9 @@ extern "C" double sqrt(double);
 
 struct V3_1d86d0 {
     float x, y, z;
-    float FUN_0022d110();
-    float FUN_000111f0();
-    float FUN_00018990();
+    hulk_freg FUN_0022d110();
+    hulk_freg FUN_000111f0();
+    hulk_freg FUN_00018990();
 };
 
 struct SymMatrix {

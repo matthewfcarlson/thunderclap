@@ -53,7 +53,7 @@ void *__fastcall FUN_000592a0(void *owner);
 extern "C" void *__fastcall FUN_00059a30(void *x);
 extern "C" Scene_14f980 *__fastcall FUN_00059a40(void *x);
 void *__cdecl FUN_00263ea0(unsigned int size);
-float __cdecl FUN_00224f10(Vec3_14f980 *v);
+hulk_freg __cdecl FUN_00224f10(Vec3_14f980 *v);
 
 class Owner_14f980 {
 public:

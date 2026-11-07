@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001df4c0 @ 0x001df4c0
 // FUN_001df4c0: is the entry's owner away from the origin
+#include "compat/ptr.h"
 #include "gen/owners.h"
 struct V3_1df4c0 {
     float x, y, z;
-    float FUN_000111f0();
+    hulk_freg FUN_000111f0();
 };
 
 struct Holder_1df4c0 {

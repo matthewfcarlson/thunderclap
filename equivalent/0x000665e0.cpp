@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 121 inputs, branch coverage 43/46, incomplete)
 // FUN_000665e0 @ 0x000665e0
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct V3_665e0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 class Gauge_665e0 {

@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // fight::WaitAction::vfunc_3 @ 0x0023e100
 // fight::WaitAction::vfunc_3 @ 0x0023e100: interpolate between two offsets from a reference value
+#include "compat/ptr.h"
 union FloatBits_23e100 {
     float f;
     unsigned int u;
 };
 
-float __cdecl FUN_00238350(int v);
+hulk_freg __cdecl FUN_00238350(int v);
 
 struct Range_23e100 {
     virtual void v0();

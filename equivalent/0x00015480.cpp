@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 32/32)
 // CGrappleAttachAction::vfunc_6 @ 0x00015480
+#include "compat/ptr.h"
 struct Vec3_15480 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void FUN_00011160(float s, Vec3_15480* d);
 };
 
@@ -80,7 +81,7 @@ struct GrappleData_15480 {
 
 void* __fastcall FUN_000592a0(void* owner);
 extern "C" Entity* __fastcall FUN_00059a30(void* x);
-extern "C" float __cdecl FUN_00224f10(Vec3_15480* v);
+extern "C" hulk_freg __cdecl FUN_00224f10(Vec3_15480* v);
 
 union SkelOrLen {
     SkeletonData_15480* skel;

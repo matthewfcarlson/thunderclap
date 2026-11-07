@@ -1,13 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 0/0)
 // FUN_00222180 @ 0x00222180
+#include "compat/ptr.h"
 #include "gen/owners.h"
 struct Arg_222180 {
     char pad0[4];
     int f4;                     // 0x04
 };
 
-float __cdecl FUN_000189c0(int v);
-float __cdecl FUN_00224f10(Arg_222180 *a);
+hulk_freg __cdecl FUN_000189c0(int v);
+hulk_freg __cdecl FUN_00224f10(Arg_222180 *a);
 
 struct Pos_222180 {
     int x, y, z;

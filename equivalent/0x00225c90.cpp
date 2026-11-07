@@ -11,7 +11,7 @@ struct Object {
  char pad3[8]; float offset;
  hulk_freg FUN_00225c90(float amount);
 };
-float __cdecl FUN_00225be0(float, int, int, unsigned char, unsigned char, int, int);
+hulk_freg __cdecl FUN_00225be0(float, int, int, unsigned char, unsigned char, int, int);
 hulk_freg Object::FUN_00225c90(float amount) {
  return FUN_00225be0(data->scale * factor * amount + offset, valueA, valueB, flag, flag, valueB, valueA);
 }

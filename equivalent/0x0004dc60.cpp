@@ -4,7 +4,7 @@
 struct Vec3_4dc60 {
     float x, y, z;
     bool FUN_0022d2b0(const Vec3_4dc60* other, float epsilon);
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void FUN_000111b0(const Vec3_4dc60* a, const Vec3_4dc60* b);
 };
 
@@ -18,8 +18,8 @@ struct Stats_4dc60 {
 
 void* __fastcall FUN_000592a0(void* params);
 extern "C" Stats_4dc60* __fastcall FUN_00059a30(void* owner);
-extern "C" float FUN_00018a20(float v);
-extern "C" float FUN_00224fc0(float a, float b);
+extern "C" hulk_freg FUN_00018a20(float v);
+extern "C" hulk_freg FUN_00224fc0(float a, float b);
 
 union FloatBits_4dc60 {
     float f;

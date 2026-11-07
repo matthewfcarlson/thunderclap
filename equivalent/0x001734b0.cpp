@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3104 inputs, branch coverage 65/68, incomplete)
 // hulkfight::motion::JointTrackerAction::vfunc_5 @ 0x001734b0
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 #include "gen/owners.h"
 extern "C" int __cdecl _isnan(double);
 extern "C" double fabs(double);
 struct V3_1734b0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void FUN_000111b0(const V3_1734b0*, const V3_1734b0*);
 };
 struct Mat_1734b0 {
@@ -76,7 +77,7 @@ struct Q64 {
 };
 struct YObj_1734b0 {
     Obj74* FUN_0003ffe0(float, float, int, Obj74*, V3_1734b0*);
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
 };
 struct ZObj {
     char pad0[0x64];
@@ -108,10 +109,10 @@ struct P1c_1734b0 {
     int f58;
     float f5c, f60, f64;
 };
-float __cdecl FUN_00018a20(float);
-float __cdecl FUN_000189c0(float);
-float __cdecl FUN_00224ea0(float, float);
-float __cdecl FUN_00224fc0(float, float);
+hulk_freg __cdecl FUN_00018a20(float);
+hulk_freg __cdecl FUN_000189c0(float);
+hulk_freg __cdecl FUN_00224ea0(float, float);
+hulk_freg __cdecl FUN_00224fc0(float, float);
 void __cdecl FUN_00224d70(float, V3_1734b0*);
 struct TrackerWork {
     float temporary, step;

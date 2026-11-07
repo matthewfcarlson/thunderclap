@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 44/44)
 // hulkfight::motion::DriftToPositionAction::vfunc_5 @ 0x00175360
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 
 struct Vec3_175360 {
     float x, y, z;
-    float FUN_0022d110();
-    float FUN_00018990();
+    hulk_freg FUN_0022d110();
+    hulk_freg FUN_00018990();
     bool FUN_0022d2b0(const Vec3_175360 *other, float eps);
 };
 
@@ -32,7 +33,7 @@ struct Owner_175360 {
     Body_175360 *FUN_000592a0();
 };
 
-extern "C" float FUN_00224f10(Vec3_175360 *v);
+extern "C" hulk_freg FUN_00224f10(Vec3_175360 *v);
 
 static bool IdIs(int lo, int hi, __int64 v)
 {

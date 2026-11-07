@@ -15,7 +15,7 @@ extern char DAT_004c4bb4[];
 struct Mat_1bcef0;
 struct V3_1bcef0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Mat_1bcef0 {
@@ -179,7 +179,7 @@ struct Holder_1bcef0 {
     Mat_1bcef0 *FUN_001c12c0();
 };
 Holder_1bcef0 **FUN_001c3d90();
-float __cdecl FUN_00018a20(float v);
+hulk_freg __cdecl FUN_00018a20(float v);
 char FUN_00035da0();
 
 struct Obj3c_1bcef0 {

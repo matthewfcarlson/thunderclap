@@ -23,7 +23,7 @@ struct Obj_f6680 {
     V3_f6680 a;
 };
 
-float FUN_00018a20(float x);
+hulk_freg FUN_00018a20(float x);
 
 void FUN_000f6680(Obj_f6680 *p, float angle, float k)
 {

@@ -8,7 +8,7 @@ extern "C" double __cdecl cos(double);
 
 struct V3_3f7b0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void FUN_000111b0(const V3_3f7b0 *a, const V3_3f7b0 *b);
     void FUN_00011090();
 };

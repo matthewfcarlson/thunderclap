@@ -4,7 +4,7 @@
 #include "gen/owners.h"
 struct Vec3_315620 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 union FloatBits_315620 {

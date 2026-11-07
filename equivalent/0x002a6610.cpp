@@ -5,12 +5,12 @@
 class Overlay_2a6610;
 struct Vec3_2a6610 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Vec2_2a6610 {
     float x, y;
-    float FUN_002a54e0();
+    hulk_freg FUN_002a54e0();
 };
 
 class Node {

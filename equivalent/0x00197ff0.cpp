@@ -5,7 +5,7 @@
 #include "gen/owners.h"
 struct V3_197ff0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     bool FUN_0022d2b0(V3_197ff0 *other, float limit);
 };
 
@@ -95,7 +95,7 @@ struct Params {
 extern "C" int __cdecl FUN_00098190(int a1, int a2, int a3, int a4, hulk_intptr a5, int a6, V3_197ff0 *a7, V3_197ff0 *io, int a9, int a10, int a11, int a12);
 extern "C" Scene_197ff0 *FUN_0027f250();
 Rng_197ff0 *FUN_000964d0();
-float FUN_000964e0();
+hulk_freg FUN_000964e0();
 extern "C" void __cdecl FUN_00224db0(Mat_197ff0 *m, V3_197ff0 *a, V3_197ff0 *b);
 
 // equiv-conv: FUN_00195290 ecx eax edx edi stack stack stack stack stack stack stack

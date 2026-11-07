@@ -12,7 +12,7 @@ extern "C" double __cdecl sqrt(double);
 
 struct Vec3 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void FUN_00011110(const Vec3 *a, const Vec3 *b);
     void FUN_000111b0(const Vec3 *a, const Vec3 *b);
     void FUN_001f6bc0(const Vec3 *base, float s, const Vec3 *dir);

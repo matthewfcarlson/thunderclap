@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 96 inputs, branch coverage 26/28, incomplete)
 // hulkfight::ai::TargetAngleYCondition::vfunc_6 @ 0x001265c0
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 #include "gen/owners.h"
 
@@ -42,7 +43,7 @@ struct Resolver_1265c0 {
 struct Target_1265c0 {
 };
 
-float __fastcall FUN_0022d110(Vec3_1265c0 *v);
+hulk_freg __fastcall FUN_0022d110(Vec3_1265c0 *v);
 
 bool hulkfight::ai::TargetAngleYCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; void * obj = (void *)__p1; int c = (int)__p2;
 

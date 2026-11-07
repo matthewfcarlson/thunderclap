@@ -7,7 +7,7 @@ extern "C" double sqrt(double);
 
 struct V3_107410 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Pos_107410 {
@@ -43,7 +43,7 @@ struct Ctl_107410 {
 };
 
 struct Rng_107410 {
-    float FUN_00078780();
+    hulk_freg FUN_00078780();
 };
 
 extern Rng_107410 *FUN_000964d0();

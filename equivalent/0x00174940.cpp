@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 109 inputs, branch coverage 22/22)
 // hulkfight::motion::PushOutAction::vfunc_5 @ 0x00174940
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct V3_174940 {
     float x, y, z;
-    float FUN_0022d110();
-    float FUN_00018990();
+    hulk_freg FUN_0022d110();
+    hulk_freg FUN_00018990();
 };
 
 struct Matrix {

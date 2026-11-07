@@ -17,7 +17,7 @@ struct Core_1b1080 {
     unsigned __int64 FUN_001d4f70();
 };
 
-float __cdecl FUN_00018a20(float x);
+hulk_freg __cdecl FUN_00018a20(float x);
 extern "C" float __cdecl FUN_000186b0(float *value, float *lo, float *hi);
 
 struct Slots_1b1080 {

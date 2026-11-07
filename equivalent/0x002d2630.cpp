@@ -6,7 +6,7 @@
 
 struct Vec3_2d2630 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Mat4_2d2630 {

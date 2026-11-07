@@ -5,7 +5,7 @@
 #include "decls/address.h"
 struct V3_182740 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     bool FUN_0022d2b0(const V3_182740 *other, float eps);
 };
 

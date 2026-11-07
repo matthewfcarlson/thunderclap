@@ -5,7 +5,7 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 
-struct Vec_1b2c90 { float x,y,z; float FUN_0022d110(); void FUN_00011140(float); };
+struct Vec_1b2c90 { float x,y,z; hulk_freg FUN_0022d110(); void FUN_00011140(float); };
 struct Body_1b2c90;
 struct Actor_1b2c90 { char pad[0x114]; Body_1b2c90* linked1; Body_1b2c90* linked2; char pad2[0x30]; unsigned char active; };
 struct Tag_1b2c90 { char pad[8]; unsigned int a,b; };

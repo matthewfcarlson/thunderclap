@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 56/56)
 // hulkfight::motion::WallJumpAction::vfunc_3 @ 0x00140650
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/motion.h"
 #include "gen/owners.h"
@@ -9,7 +10,7 @@ extern "C" double __cdecl sin(double);
 
 struct V3_140650 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     char FUN_0022d2b0(const V3_140650 *other, float eps);
 };
 
@@ -60,7 +61,7 @@ struct Stats_140650 {
     char pad1b04[0x2064 - 0x1b04];
     V3_140650 v2064;
     void FUN_00035550(V3_140650 *out);
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
     char FUN_000356c0(V3_140650 *out);
 };
 
@@ -85,7 +86,7 @@ struct World {
 };
 
 void *thunk_FUN_0008d690(unsigned int size);
-float __cdecl FUN_00018a20(float v);
+hulk_freg __cdecl FUN_00018a20(float v);
 void __cdecl FUN_00224d70(float angle, V3_140650 *axis);
 
 struct Data_140650 {

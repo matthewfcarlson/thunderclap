@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_0029e5c0 @ 0x0029e5c0
+#include "compat/ptr.h"
 struct Target_29e5c0 {
     bool FUN_0022d2b0(void* p, int v);
 };
@@ -18,7 +19,7 @@ struct Counter_29e5c0 {
 struct Tracker_29e5c0 {
     char pad0[0x24];
     int id;
-    float FUN_0029dcc0(Target_29e5c0* t, int mode);
+    hulk_freg FUN_0029dcc0(Target_29e5c0* t, int mode);
     bool FUN_0029e5c0(Target_29e5c0* t, Counter_29e5c0* c);
 };
 

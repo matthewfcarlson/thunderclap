@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 28/28)
 // CClimbableCondition::vfunc_7 @ 0x0004d130
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct Vec3_4d130 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 union Bits_4d130 {
@@ -36,7 +37,7 @@ struct Stats_4d130 {
     char pad1b09[0x2064 - 0x1b09];
     Vec3_4d130 v2064;
     void FUN_00035230(Vec3_4d130 *out);
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
     void FUN_00035550(Vec3_4d130 *out);
     bool FUN_0003f7b0(Vec3_4d130 *from, Vec3_4d130 *to, Vec3_4d130 *pt, Vec3_4d130 *n, int a, int b, int c);
     void FUN_000479e0(Vec3_4d130 *pt, Vec3_4d130 *n);
@@ -49,9 +50,9 @@ struct Fighter_4d130 {
 
 Fighter_4d130 *__fastcall FUN_000592a0(void *owner);
 void __cdecl FUN_00224d70(float angle, Vec3_4d130 *v);
-float __cdecl FUN_00224ea0(float x, float z);
-float __cdecl FUN_00224f10(Vec3_4d130 *v);
-float __cdecl FUN_00224fc0(float from, float to);
+hulk_freg __cdecl FUN_00224ea0(float x, float z);
+hulk_freg __cdecl FUN_00224f10(Vec3_4d130 *v);
+hulk_freg __cdecl FUN_00224fc0(float from, float to);
 
 class CClimbableCondition {
 public:

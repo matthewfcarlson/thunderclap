@@ -72,7 +72,7 @@ struct P90 {
 };
 
 struct Curves_1d57d0 {
-    float FUN_001df3e0(const char *s);
+    hulk_freg FUN_001df3e0(const char *s);
 };
 
 struct World {

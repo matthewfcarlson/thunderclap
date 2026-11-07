@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00084830 @ 0x00084830
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "gen/owners.h"
-struct Vec_84830 { float x,y,z; float FUN_0022d110();  };
+struct Vec_84830 { float x,y,z; hulk_freg FUN_0022d110();  };
 struct Matrix { float m[16]; void FUN_0022b980();  void FUN_0022bec0(Vec_84830*,Vec_84830*);  };
 struct Renderer_84830 { void FUN_001dd470(unsigned,Matrix*,unsigned); };
 struct World { char pad[12]; Renderer_84830* renderer; }; 

@@ -16,7 +16,7 @@ struct Mat_acad0 {
 
 struct Curve_acad0 {
     char data[0x38];
-    float FUN_000ac6f0(float time, float duration);
+    hulk_freg FUN_000ac6f0(float time, float duration);
 };
 
 struct CameraArgs;

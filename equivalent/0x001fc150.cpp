@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 24/24)
 // FUN_001fc150 @ 0x001fc150
+#include "compat/ptr.h"
 struct Vec3_1fc150 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 void __cdecl FUN_00224d70(float angle, Vec3_1fc150 *v);

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 16/16)
 // hulkfight::motion::SurfAction::vfunc_3 @ 0x001765f0
+#include "compat/ptr.h"
 #include "gen/owners.h"
 extern "C" double sqrt(double);
 void* FUN_00263ea0(unsigned int size);
@@ -28,7 +29,7 @@ struct Controller_1765f0 {
 struct Stats_1765f0 {
     char pad00[4];
     bool FUN_00035550(Vec3_1765f0* out);
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
 };
 
 Fighter_1765f0* __fastcall FUN_000592a0(void* owner);

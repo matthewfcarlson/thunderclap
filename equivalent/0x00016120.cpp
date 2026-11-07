@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 24/24)
 // CSmartPropThrowAction::vfunc_6 @ 0x00016120
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct V3_16120 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Aimed_16120 {

@@ -17,10 +17,10 @@ static float AbsF(float v)
 
 V3_a3040 *__cdecl FUN_0009f8c0(V3_a3040 *out, float yaw, float pitch, float scale);
 void __cdecl FUN_000a04c0(V3_a3040 *dir, float *yaw, float *pitch, float *len);
-float __cdecl FUN_000189c0(float v);
+hulk_freg __cdecl FUN_000189c0(float v);
 float __cdecl FUN_000186b0(float *v, float *lo, float *hi);
 float __cdecl FUN_000186f0(float *a, float *b);
-float __cdecl FUN_000a00e0(float a, float b, float c, float d, float e);
+hulk_freg __cdecl FUN_000a00e0(float a, float b, float c, float d, float e);
 
 struct Obj350_a3040 {
     char pad00[0x8c];

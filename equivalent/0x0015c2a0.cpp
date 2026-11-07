@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3034 inputs, branch coverage 18/18)
 // FUN_0015c2a0 @ 0x0015c2a0
+#include "compat/ptr.h"
 struct Table_15c2a0 {
     char pad0[0x2c];
     int count;
-    float FUN_00226960(int index, float angle);
+    hulk_freg FUN_00226960(int index, float angle);
 };
 
 class RangeSet_15c2a0 {

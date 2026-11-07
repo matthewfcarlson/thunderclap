@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 10/10)
 // CSmartPropAngleCondition::vfunc_7 @ 0x0004c7c0
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern "C" double fabs(double);
 
 struct Vec3_4c7c0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Mat3 {
@@ -45,8 +46,8 @@ struct Stats_4c7c0 {
 
 Fighter_4c7c0* __fastcall FUN_000592a0(void* owner);
 extern "C" Stats_4c7c0* __fastcall FUN_00059a30(Fighter_4c7c0* f);
-float FUN_00224ea0(float x, float z);
-float FUN_00224fc0(float a, float b);
+hulk_freg FUN_00224ea0(float x, float z);
+hulk_freg FUN_00224fc0(float a, float b);
 
 class CSmartPropAngleCondition {
 public:

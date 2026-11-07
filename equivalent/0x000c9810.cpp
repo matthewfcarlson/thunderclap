@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 377 inputs, branch coverage 46/50, incomplete)
 // FUN_000c9810 @ 0x000c9810
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
@@ -28,7 +29,7 @@ struct Body_c9810 {
 
 struct Probe_c9810 {
     void FUN_00035550(V3_c9810 *out);
-    float FUN_00035690();
+    hulk_freg FUN_00035690();
 };
 
 struct WorldSub {

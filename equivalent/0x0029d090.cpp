@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2668 inputs, branch coverage 35/38, incomplete)
 // FUN_0029d090 @ 0x0029d090
+#include "compat/ptr.h"
 struct V3 {
     float x, y, z;
 };
@@ -12,7 +13,7 @@ struct Light {
     V3 pos;                         // 0x18
     char pad24[0x58 - 0x24];
     V3 dir;                         // 0x58
-    float FUN_002a0d00(V3 *p);
+    hulk_freg FUN_002a0d00(V3 *p);
 };
 
 struct LightList {

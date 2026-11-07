@@ -7,7 +7,7 @@ extern "C" int __cdecl _isnan(double d);
 
 struct V3_202f0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void FUN_000111b0(const V3_202f0 *a, const V3_202f0 *b);
 };
 
@@ -121,7 +121,7 @@ struct Fighter_202f0 {
     void FUN_00035dc0(V3_202f0 *out);
     char FUN_0003a440(V3_202f0 *a, V3_202f0 *b, int lo, int hi, Target_202f0 *t);
     Target_202f0 *FUN_00039c60(V3_202f0 *a, V3_202f0 *b, int lo, int hi, int p, int q, int r);
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
 };
 
 struct Anchor_202f0 {
@@ -133,10 +133,10 @@ struct Owner_202f0 {
     Anchor_202f0 *FUN_000592a0();
 };
 
-float __cdecl FUN_00018a20(float v);
-float __cdecl FUN_000189c0(float v);
-float __cdecl FUN_00224ea0(float a, float b);
-float __cdecl FUN_00224fc0(float a, float b);
+hulk_freg __cdecl FUN_00018a20(float v);
+hulk_freg __cdecl FUN_000189c0(float v);
+hulk_freg __cdecl FUN_00224ea0(float a, float b);
+hulk_freg __cdecl FUN_00224fc0(float a, float b);
 void __cdecl FUN_00224d70(float a, V3_202f0 *v);
 
 union FS_202f0 {

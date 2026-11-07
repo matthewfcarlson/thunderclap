@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 101 inputs, branch coverage 25/26, incomplete)
 // hulkfight::ai::TargetArcCondition::vfunc_6 @ 0x00125a90
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct V3_125a90 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct M4_125a90 {
@@ -47,7 +48,7 @@ struct Stats_125a90 {
     Fighter_125a90* fighter;           // 0x330
     char pad334[4];
     int f338;                   // 0x338
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
 };
 
 struct Handle_125a90 {
@@ -81,9 +82,9 @@ public:
 };
 
 extern "C" Singleton_125a90* FUN_001c3d90();
-float FUN_00224f10(V3_125a90* v);
-float FUN_00224fc0(float a, float b);
-float FUN_00018a20(float v);
+hulk_freg FUN_00224f10(V3_125a90* v);
+hulk_freg FUN_00224fc0(float a, float b);
+hulk_freg FUN_00018a20(float v);
 
 namespace hulkfight {
 namespace ai {

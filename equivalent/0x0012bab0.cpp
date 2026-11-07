@@ -4,7 +4,7 @@
 #include "gen/hulkfight.h"
 #include "gen/owners.h"
 
-struct Vec_12bab0 { float x,y,z; float FUN_0022d110(); };
+struct Vec_12bab0 { float x,y,z; hulk_freg FUN_0022d110(); };
 struct Position_12bab0 { void FUN_00059a50(Vec_12bab0*); };
 struct Actor_12bab0 { char pad0[0x10]; Position_12bab0* position; char pad1[0x2064-0x14]; Vec_12bab0 direction; unsigned int mode; Vec_12bab0 direction2; char pad2[0x22a0-0x2080]; Vec_12bab0 reference; bool FUN_00037080(void*,unsigned int); };
 struct Link2_12bab0 { Actor_12bab0* FUN_00059a30(); };

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 30/30)
 // FUN_001bf0c0 @ 0x001bf0c0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 
@@ -9,10 +10,10 @@ struct Blender_1bf0c0 {
     Owner_1bf0c0 *owner; int current; Slot_1bf0c0 slots[8]; int index; float scale;
     Blender_1bf0c0 *FUN_000f7fe0(Owner_1bf0c0 *o);
     void FUN_000f78e0();
-    float FUN_000d4900(void *p, int k);
+    hulk_freg FUN_000d4900(void *p, int k);
 };
 struct Sink_1bf0c0 {
-    float FUN_000d6d90(void *who);
+    hulk_freg FUN_000d6d90(void *who);
     void FUN_000d6dd0(void *who);
 };
 struct Holder_1bf0c0 { Sink_1bf0c0 *FUN_000862b0(); };

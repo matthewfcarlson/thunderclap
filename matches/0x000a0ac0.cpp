@@ -1,8 +1,9 @@
 // FUN_000a0ac0 @ 0x000a0ac0
+#include "compat/ptr.h"
 struct Vec3_a0ac0 { float x, y, z; };
 
 extern void __cdecl FUN_000a04c0(Vec3_a0ac0* d, float* a, float* b, float* len);
-extern float __cdecl FUN_000a02a0(float angle);
+extern hulk_freg __cdecl FUN_000a02a0(float angle);
 
 struct Aim_a0ac0 {
     char pad0[0x194];

@@ -2,7 +2,7 @@
 struct Vec_172830 {
     float x, y, z;
     float elapsed;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void FUN_00011140(float);
 };
 struct Body_172830 {

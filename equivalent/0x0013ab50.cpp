@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3099 inputs, branch coverage 36/36; Wine build 3048 inputs, 36/36)
 // hulkfight::motion::FrameReachedCondition::vfunc_6 @ 0x0013ab50
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "gen/owners.h"
 namespace fight {
@@ -56,7 +57,7 @@ struct DriverSet_13ab50 {
 DriverSet_13ab50 *__fastcall FUN_00059a40(Context *ctx);
 
 struct Clock_13ab50 {
-    float FUN_000860c0();
+    hulk_freg FUN_000860c0();
 };
 struct World {
     char pad0[0x58];

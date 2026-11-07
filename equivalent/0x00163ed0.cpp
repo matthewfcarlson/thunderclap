@@ -124,7 +124,7 @@ struct Config_163ed0 {
 };
 
 void *thunk_FUN_0008d690(unsigned int size);
-float FUN_000964e0();
+hulk_freg FUN_000964e0();
 extern "C" void __cdecl FUN_0015cfd0(void *rig, choreo2::LocomotionSteerDriver *d);
 
 union Slot14_163ed0 {

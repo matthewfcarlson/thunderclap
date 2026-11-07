@@ -7,7 +7,7 @@ typedef unsigned __int64 Key_2b450;
 struct Vec3_2b450 {
     float x, y, z;
 };
-extern float __cdecl FUN_0002a380(Vec3_2b450* a, Vec3_2b450* b);
+extern hulk_freg __cdecl FUN_0002a380(Vec3_2b450* a, Vec3_2b450* b);
 
 struct Child_2b450 {
     bool FUN_00059a50(Vec3_2b450* out);

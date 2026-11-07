@@ -1,4 +1,5 @@
-extern float __cdecl FUN_00224fc0(float, float);
+#include "compat/ptr.h"
+extern hulk_freg __cdecl FUN_00224fc0(float, float);
 struct Object {
     char pad[0x12e0];
     float value0;

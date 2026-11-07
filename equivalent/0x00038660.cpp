@@ -5,7 +5,7 @@
 #include "gen/owners.h"
 struct V3_38660 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Rng_38660 {
@@ -61,7 +61,7 @@ void FUN_000187d0(Rc** slot);
 void FUN_00018810(Rc** slot, int z);
 extern "C" char FUN_00018960(float a, float b, float eps);
 void FUN_00224d70(float angle, V3_38660* v);
-float FUN_00224f10(V3_38660* v);
+hulk_freg FUN_00224f10(V3_38660* v);
 extern "C" char FUN_00202560(V3_38660* from, int a2, int flag, V3_38660* a3, V3_38660* a4, V3_38660* o38, V3_38660* o48,
                   Opts_38660* opts);
 extern "C" int __cdecl FUN_0034483c();

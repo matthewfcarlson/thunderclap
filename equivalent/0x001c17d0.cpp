@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 11/12, incomplete)
 // FUN_001c17d0 @ 0x001c17d0
+#include "compat/ptr.h"
 struct Vec3_1c17d0 {
     float x, y, z;
-    float FUN_0022d110() const;
+    hulk_freg FUN_0022d110() const;
 };
 
 struct Collider;

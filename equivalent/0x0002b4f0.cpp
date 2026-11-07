@@ -33,7 +33,7 @@ struct Env_2b4f0 {
     Finder_2b4f0 *finder;
 };
 
-float __cdecl FUN_0002a380(Vec3_2b4f0 *a, Vec3_2b4f0 *b);
+hulk_freg __cdecl FUN_0002a380(Vec3_2b4f0 *a, Vec3_2b4f0 *b);
 
 struct Group_2b4f0 {
     Env_2b4f0 *env;

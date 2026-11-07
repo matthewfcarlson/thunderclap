@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 142 inputs, branch coverage 38/40, incomplete)
 // CSmartPropAttachAction::vfunc_4 @ 0x00015b20
+#include "compat/ptr.h"
 #include "gen/global.h"
 #include "gen/owners.h"
 
 struct V3_15b20 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Matrix_15b20 {

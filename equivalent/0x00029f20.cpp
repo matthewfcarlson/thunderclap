@@ -17,7 +17,7 @@ struct Pawn_29f20 {
     Body_29f20 *body;
 };
 
-float __cdecl FUN_00025990(Vec3_29f20 *a, Vec3_29f20 *b);
+hulk_freg __cdecl FUN_00025990(Vec3_29f20 *a, Vec3_29f20 *b);
 
 struct Group_29f20 {
     Pawn_29f20 *FUN_00024280(unsigned __int64 key);

@@ -25,7 +25,7 @@ typedef volatile float hulk_fslot; // forces the store-and-reload MSVC 7.1 would
 typedef float hulk_fslot;
 #endif
 
-struct V3x_fd0f0 { float FUN_0022d110(); };
+struct V3x_fd0f0 { hulk_freg FUN_0022d110(); };
 struct Cls3660 { void FUN_000b3660(hulk_uintptr a); };
 struct Cls3d20 { hulk_uintptr FUN_000b3d20(hulk_uintptr a); };
 struct Cls1c38f0 { void FUN_001c38f0(hulk_uintptr a, hulk_uintptr b); };
@@ -37,7 +37,7 @@ struct VFight {
 };
 
 unsigned FUN_001c3d90();
-float FUN_00018a20(float x);
+hulk_freg FUN_00018a20(float x);
 void FUN_000fce60(hulk_uintptr s1, hulk_uintptr s2, hulk_uintptr s3, hulk_uintptr s4, hulk_uintptr s5, hulk_uintptr s6, hulk_uintptr s7);
 void FUN_000fd010(hulk_uintptr s1, hulk_uintptr s2, hulk_uintptr s3, hulk_uintptr s4, hulk_uintptr s5, hulk_uintptr s6);
 

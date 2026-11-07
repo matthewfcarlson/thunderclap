@@ -32,7 +32,7 @@ struct V3_142990 {
         float z;
         int iz;
     };
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     bool FUN_0022d2b0(const V3_142990 *other, float epsilon);
 };
 

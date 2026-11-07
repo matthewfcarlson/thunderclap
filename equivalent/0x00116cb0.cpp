@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20017 inputs, branch coverage 56/58, incomplete)
 // hulkfight::ai::MotionChaseAction::vfunc_5 @ 0x00116cb0
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct Vec3_116cb0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 class RefCounted {

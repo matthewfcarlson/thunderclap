@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 struct Angle_1fd00 {
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
     void FUN_00221d20(float);
 };
 struct Link2_1fd00 {
@@ -18,7 +18,7 @@ struct Destination_1fd00 {
     char pad[24];
     Angle_1fd00 angle;
 };
-float __cdecl FUN_00224fc0(float, float);
+hulk_freg __cdecl FUN_00224fc0(float, float);
 struct COrientTargetAction {
     virtual void vfunc_0();
     virtual void vfunc_1();

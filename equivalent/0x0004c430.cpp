@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CCollisionPushbackYAngleCondition::vfunc_7 @ 0x0004c430
-struct Vec_4c430 { float x,y,z; float FUN_0022d110(); };
+#include "compat/ptr.h"
+struct Vec_4c430 { float x,y,z; hulk_freg FUN_0022d110(); };
 struct State_4c430 { char pad[0x28]; Vec_4c430 direction; };
 struct Context { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual State_4c430* slot3(); };
-float __cdecl FUN_000189c0(float);
+hulk_freg __cdecl FUN_000189c0(float);
 extern "C" bool __cdecl FUN_00018960(float,float,float);
 class CCollisionPushbackYAngleCondition {
 public:

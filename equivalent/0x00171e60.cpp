@@ -42,7 +42,7 @@ struct Skeleton {
 };
 
 struct SubSkel {
-    float FUN_002220d0();
+    hulk_freg FUN_002220d0();
 };
 
 struct Anchor_171e60 {
@@ -52,7 +52,7 @@ struct Anchor_171e60 {
 struct Timing_171e60 {
     char pad0[0x10];
     Anchor_171e60 *anchor;
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
 };
 
 struct Clock_171e60 {
@@ -116,7 +116,7 @@ struct World {
 };
 
 void *thunk_FUN_0008d690(unsigned int size);
-float __cdecl FUN_00224fc0(float a, float b);
+hulk_freg __cdecl FUN_00224fc0(float a, float b);
 
 class SyncToLocatorAction {
 public:

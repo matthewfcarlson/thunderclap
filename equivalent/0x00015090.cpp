@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // CSweepAction::vfunc_7 @ 0x00015090
-struct Value_15090 { float FUN_000354c0(); };
+#include "compat/ptr.h"
+struct Value_15090 { hulk_freg FUN_000354c0(); };
 struct Link_15090 { Value_15090* FUN_00059a30(); };
 struct Actor_15090 { Link_15090* FUN_000592a0(); };
 struct Timing_15090 {

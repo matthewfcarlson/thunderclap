@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 68/68)
 // hulkfight::motion::AnimationVelocityScaledAction::vfunc_3 @ 0x0013d940
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
@@ -24,7 +25,7 @@ struct Id64_13d940 {
 
 struct V3_13d940 {
     float x, y, z;
-    float FUN_00018990();
+    hulk_freg FUN_00018990();
 };
 
 namespace choreo2 {
@@ -83,10 +84,10 @@ struct Rig_13d940 {
 
 struct Stats_13d940 {
     void FUN_00035660(V3_13d940 *out);
-    float FUN_00035690();
+    hulk_freg FUN_00035690();
     float FUN_00035680();
     void FUN_000356c0(V3_13d940 *out);
-    float FUN_00035700();
+    hulk_freg FUN_00035700();
     float FUN_000356f0();
 };
 
@@ -105,8 +106,8 @@ struct LayerSet_13d940 {
 };
 LayerSet_13d940 *__fastcall FUN_00059a40(Context *ctx);
 
-extern "C" float __cdecl FUN_00225be0(float c30, int e0, int e1, int z);
-extern "C" float __cdecl FUN_000964e0();
+extern "C" hulk_freg __cdecl FUN_00225be0(float c30, int e0, int e1, int z);
+extern "C" hulk_freg __cdecl FUN_000964e0();
 extern "C" double sqrt(double);
 
 class Factory_13d940 {

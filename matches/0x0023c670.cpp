@@ -19,7 +19,7 @@ struct Node_23c670 {
     Node_23c670 *FUN_0023c300();
 };
 
-float __cdecl FUN_00238350(void *ctx);
+hulk_freg __cdecl FUN_00238350(void *ctx);
 
 struct Bank_nv_23c670 {
     bool FUN_002333f0(void *ctx, int b);

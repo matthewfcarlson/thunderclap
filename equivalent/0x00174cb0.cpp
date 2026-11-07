@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 20/20)
 // hulkfight::motion::FootPivotAction::vfunc_5 @ 0x00174cb0
+#include "compat/ptr.h"
 struct Vec3_174cb0 {
     float x, y, z;
     bool FUN_0022d2b0(const Vec3_174cb0 *other, float eps);
@@ -29,7 +30,7 @@ struct Stats_174cb0 {
     Target_174cb0 *target;
     char pad32c[0x2064 - 0x32c];
     Vec3_174cb0 aim;
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
     void FUN_00035720(Vec3_174cb0 *v);
 };
 
@@ -58,8 +59,8 @@ struct Pivot {
 };
 
 Body_174cb0 *__fastcall FUN_000592a0(void *owner);
-extern "C" float FUN_00224f10(Vec3_174cb0 *v);
-extern "C" float FUN_00224fc0(float from, float to);
+extern "C" hulk_freg FUN_00224f10(Vec3_174cb0 *v);
+extern "C" hulk_freg FUN_00224fc0(float from, float to);
 extern "C" void FUN_00224d70(float angle, Vec3_174cb0 *v);
 
 namespace hulkfight {

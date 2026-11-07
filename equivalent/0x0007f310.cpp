@@ -34,7 +34,7 @@ public:
 };
 
 struct Clock_7f310 {
-    float FUN_000787e0(int a, int b);
+    hulk_freg FUN_000787e0(int a, int b);
 };
 Clock_7f310 *__cdecl FUN_000964d0();
 

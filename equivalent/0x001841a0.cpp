@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19963 inputs, branch coverage 41/42, incomplete)
 // hulkfight::motion::PropThrowAction::vfunc_4 @ 0x001841a0
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 
 struct V3_1841a0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Cam_1841a0 {
@@ -76,7 +77,7 @@ struct Agent_1841a0 {
     void FUN_00036c20(Sub_1841a0 *ev);
     float FUN_0003ec00(int a);
     float FUN_0003ebb0(int a);
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
 };
 
 struct Mid_1841a0 {
@@ -89,7 +90,7 @@ struct Top_1841a0 {
 int FUN_00097a30(float a, float b, float c, Thing *t, int d, V3_1841a0 *pos, int e, V3_1841a0 *dir, int f, int g, int h, int i);
 char FUN_00018960(float a, float b, float eps);
 void FUN_00224d70(float angle, V3_1841a0 *v);
-float FUN_00224f10(V3_1841a0 *v);
+hulk_freg FUN_00224f10(V3_1841a0 *v);
 
 void hulkfight::motion::PropThrowAction::vfunc_4() {
     Agent_1841a0 *ag = (*(Top_1841a0 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();

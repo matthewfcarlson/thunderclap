@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 12/12)
 // CJumpAttackAction::vfunc_6 @ 0x00017050
+#include "compat/ptr.h"
 #include "gen/global.h"
 #include "gen/owners.h"
 
 struct V3_17050 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct NameField_17050 {
@@ -75,7 +76,7 @@ struct Cfg_17050 {
 void *FUN_00263ea0(unsigned int);
 
 extern "C" void __cdecl FUN_00096a90(Target_17050 *t, V3_17050 *v);
-float __cdecl FUN_00224ea0(float a, float b);
+hulk_freg __cdecl FUN_00224ea0(float a, float b);
 
 bool CJumpAttackAction::vfunc_6(int arg) {
     struct Frame {

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20138 inputs, branch coverage 81/84, incomplete)
 // CWeaponCollisionAction::vfunc_8 @ 0x0001c9b0
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern "C" double sqrt(double);
@@ -7,7 +8,7 @@ extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
 struct V3_1c9b0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Mat_1c9b0 {

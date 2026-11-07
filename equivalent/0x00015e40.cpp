@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 14/14)
 // CSmartPropSpawnAction::vfunc_7 @ 0x00015e40
+#include "compat/ptr.h"
 struct Vec3_15e40 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Mat_15e40 {

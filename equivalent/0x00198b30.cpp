@@ -8,7 +8,7 @@ extern "C" void *memcpy(void *d, const void *s, unsigned int n);
 
 struct V3_198b30 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     bool FUN_0022d2b0(const V3_198b30 *other, float eps);
 };
 
@@ -18,14 +18,14 @@ struct Mat_198b30 {
 };
 
 struct Rng_198b30 {
-    float FUN_000787e0(float lo, float hi);
+    hulk_freg FUN_000787e0(float lo, float hi);
 };
 
 extern "C" Rng_198b30 *__cdecl FUN_000964d0();
 extern "C" void __cdecl FUN_00224d70(float angle, V3_198b30 *v);
-extern "C" float __cdecl FUN_00224f10(V3_198b30 *v);
+extern "C" hulk_freg __cdecl FUN_00224f10(V3_198b30 *v);
 extern "C" void __cdecl FUN_00224db0(Mat_198b30 *m, V3_198b30 *from, V3_198b30 *to);
-extern "C" float __cdecl FUN_0004af40(float lo, float hi, float v);
+extern "C" hulk_freg __cdecl FUN_0004af40(float lo, float hi, float v);
 
 struct Raycast {
     bool FUN_00201f20(V3_198b30 *p, int flag, V3_198b30 *hitA, V3_198b30 *hitB, int *o3, int *o4);

@@ -6,10 +6,10 @@ extern "C" double cos(double);
 
 struct V3_9fd50 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
-float __cdecl FUN_00018a20(float x);
+hulk_freg __cdecl FUN_00018a20(float x);
 
 V3_9fd50 *FUN_0009fd50(V3_9fd50 *out, V3_9fd50 *a, V3_9fd50 *b, float t)
 {

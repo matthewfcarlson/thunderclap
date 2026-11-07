@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 6536 inputs, branch coverage 17/18, incomplete)
 // choreo2::LocomotionSteerDriver::vfunc_11 @ 0x00229140
+#include "compat/ptr.h"
 struct Quat_229140 {
     float x, y, z, w;
     void FUN_0022b750(const Quat_229140 *a, const Quat_229140 *b, float t);
@@ -53,7 +54,7 @@ struct Blend_229140 {
     int pad;
 };
 
-float __cdecl FUN_0004af40(float lo, float a, float b);
+hulk_freg __cdecl FUN_0004af40(float lo, float a, float b);
 
 namespace choreo2 {
 class LocomotionSteerDriver {

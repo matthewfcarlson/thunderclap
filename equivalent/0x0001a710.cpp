@@ -7,7 +7,7 @@ typedef unsigned __int64 u64;
 
 struct V3 {
     float x, y, z;
-    float FUN_000111f0();
+    hulk_freg FUN_000111f0();
     void FUN_00011160(float f, V3 *v);
 };
 
@@ -207,7 +207,7 @@ void __cdecl FUN_00018810(RefObj **slot, RefObj *obj);
 void __cdecl FUN_000187a0(RefObj **slot, RefObj *obj);
 void __cdecl FUN_00018840(int *slot, int v);
 char __cdecl FUN_00044500(int v);
-float __cdecl FUN_00224f10(V3 *v);
+hulk_freg __cdecl FUN_00224f10(V3 *v);
 void __cdecl FUN_00224d70(float f, V3 *v);
 // equiv-conv: FUN_00014210 eax ecx edx esi
 extern "C" void __cdecl FUN_00014210(int, void *, void *, void *);

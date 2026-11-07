@@ -5,7 +5,7 @@ struct Owner_284fa0 {
     char pad00[0x14];
     float rate;
     char pad18;
-    float FUN_00289db0(void* a0, void* a1, float cur, float dt, int a4, int a5, char noFlag, int a7);
+    hulk_freg FUN_00289db0(void* a0, void* a1, float cur, float dt, int a4, int a5, char noFlag, int a7);
 };
 
 struct Track {

@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 9937 inputs, branch coverage 56/56)
 // CHand2HandAgent::vfunc_4 @ 0x00102590
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 extern "C" double sqrt(double);
 
 struct RandState_102590 {
-    float FUN_00078780();
+    hulk_freg FUN_00078780();
 };
 extern "C" RandState_102590 *__cdecl FUN_000964d0();
 

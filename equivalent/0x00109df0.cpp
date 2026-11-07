@@ -7,7 +7,7 @@
 
 struct Vec3_109df0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     bool FUN_0022d2b0(Vec3_109df0* other, float eps);
 };
 

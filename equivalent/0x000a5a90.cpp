@@ -12,7 +12,7 @@ struct Vec3_a5a90 {
     float x;
     float y;
     float z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void FUN_00067930(Vec3_a5a90 *other, float t);
 };
 

@@ -1,13 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // hulkfight::motion::VelocityXZAngleCondition::vfunc_6 @ 0x00168020
+#include "compat/ptr.h"
 struct TypeInfo_168020 { unsigned int value; }; extern TypeInfo_168020 DAT_00494b60, DAT_00494b44;
 extern "C" void* __cdecl FUN_00344e74(void*, int, TypeInfo_168020*, TypeInfo_168020*, int);
 struct Vec_168020 { float x,y,z; };
 struct Motion_168020 { void FUN_00035660(Vec_168020*); void FUN_00035550(Vec_168020*); };
 struct ActorPart { Motion_168020* FUN_00059a30(); };
 struct Actor_168020 { ActorPart* FUN_000592a0(); };
-extern "C" float __cdecl FUN_00224f10(Vec_168020*);
-extern "C" float __cdecl FUN_00224fc0(float,float);
+extern "C" hulk_freg __cdecl FUN_00224f10(Vec_168020*);
+extern "C" hulk_freg __cdecl FUN_00224fc0(float,float);
 namespace hulkfight { namespace motion {
 struct VelocityXZAngleCondition {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual bool vfunc_6(void*,Actor_168020*,void*);

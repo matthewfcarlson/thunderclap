@@ -6,7 +6,7 @@
 #include "gen/owners.h"
 struct V3_1349a0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 struct Name_1349a0 {
     unsigned int lo, hi;

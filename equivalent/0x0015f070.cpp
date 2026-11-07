@@ -5,9 +5,9 @@
 
 struct V3_15f070 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void FUN_000111b0(const V3_15f070 *a, const V3_15f070 *b);
-    float FUN_00018990();
+    hulk_freg FUN_00018990();
 };
 
 union FloatBits_15f070 {
@@ -23,10 +23,10 @@ static float AbsF(float v)
     return b.f;
 }
 
-extern "C" float __cdecl FUN_00018a20(float v);
+extern "C" hulk_freg __cdecl FUN_00018a20(float v);
 extern "C" bool __cdecl FUN_00018960(float a, float b, float eps);
 extern "C" void __cdecl FUN_00224d70(float angle, V3_15f070 *v);
-extern "C" float __cdecl FUN_00224f10(V3_15f070 *v);
+extern "C" hulk_freg __cdecl FUN_00224f10(V3_15f070 *v);
 
 struct Mat_15f070 {
     char data[0x30];
@@ -98,7 +98,7 @@ public:
     Owner_15f070 *owner;   // 0x1c
     Obj_15f070 *obj;       // 0x20
     Rig_15f070 *rig;       // 0x24
-    float FUN_0015ebc0(float k, float a, float b);
+    hulk_freg FUN_0015ebc0(float k, float a, float b);
 };
 
 char ClimbLocomotionAction::vfunc_5(int a0, float a1)

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 120 inputs, branch coverage 19/20, incomplete)
 // FUN_002edce0 @ 0x002edce0
-struct Vec_2edce0 { float x,y,z; float FUN_0022d110(); };
+#include "compat/ptr.h"
+struct Vec_2edce0 { float x,y,z; hulk_freg FUN_0022d110(); };
 struct Hit_2edce0 { char pad[8]; void* object; };
 struct Entry_2edce0 { char p0[0x20]; void* object; char p1[0x2c]; unsigned char flag50; char p2[0x21]; unsigned char enabled; };
 extern unsigned char __cdecl FUN_002f15a0(Vec_2edce0*, Vec_2edce0*, Vec_2edce0*, float, void*, Hit_2edce0*);

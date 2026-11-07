@@ -7,7 +7,7 @@
 
 struct V3_3d350 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     char FUN_0022d2b0(const V3_3d350 *other, float eps);
     char FUN_000375a0();
 };

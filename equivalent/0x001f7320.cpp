@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 22/22)
 // FUN_001f7320 @ 0x001f7320
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight.h"
 #include "gen/owners.h"
 
@@ -16,7 +17,7 @@ struct Matrix {
 
 class Rng_1f7320 {
 public:
-    float FUN_000787e0(float lo, float hi);
+    hulk_freg FUN_000787e0(float lo, float hi);
 };
 
 class Actor_1f7320 {

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 42/42; Wine build 631 inputs, 42/42)
 // CStunAnimationAction::vfunc_6 @ 0x00022d00
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "decls/address.h"
 
 namespace content {
@@ -137,8 +138,8 @@ struct StunData {
 };
 
 void *thunk_FUN_0008d690(unsigned int size);
-float FUN_000964e0();
-float __cdecl FUN_00225be0(float a, float b, float c, int d);
+hulk_freg FUN_000964e0();
+hulk_freg __cdecl FUN_00225be0(float a, float b, float c, int d);
 
 class CStunAnimationAction {
 public:

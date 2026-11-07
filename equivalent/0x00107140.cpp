@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_00107140 @ 0x00107140
+#include "compat/ptr.h"
 struct Clock_107140 {
-    float FUN_00078780();
+    hulk_freg FUN_00078780();
 };
 Clock_107140 *__cdecl FUN_000964d0();
 

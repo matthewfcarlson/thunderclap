@@ -17,8 +17,8 @@ static float AbsF(float v)
 
 struct V3_1da540 {
     float x, y, z;
-    float FUN_0022d110();
-    float FUN_00018990();
+    hulk_freg FUN_0022d110();
+    hulk_freg FUN_00018990();
 };
 
 struct RefObj_1da540 {

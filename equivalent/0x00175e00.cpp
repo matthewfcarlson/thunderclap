@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // hulkfight::motion::SyncToLocatorAction::vfunc_5 @ 0x00175e00
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct V3_175e00 {
@@ -10,7 +11,7 @@ struct Xform_175e00 {
     char pad00[0x30];
     V3_175e00 pos;
     char pad3c[0x54 - 0x3c];
-    float FUN_002220d0();
+    hulk_freg FUN_002220d0();
     void FUN_00221d20(float angle);
     void FUN_0022be40(const V3_175e00* p);
 };
@@ -31,7 +32,7 @@ struct Target_175e00 {
     Clock_175e00* FUN_000592a0();
 };
 
-float __cdecl FUN_00224fc0(float from, float to);
+hulk_freg __cdecl FUN_00224fc0(float from, float to);
 
 namespace hulkfight { namespace motion { class SyncToLocatorAction {
 public:

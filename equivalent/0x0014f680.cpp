@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 29/30, incomplete)
 // hulkfight::motion::HitPushbackAction::vfunc_3 @ 0x0014f680
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "gen/owners.h"
 struct V3_14f680 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void FUN_000111b0(const V3_14f680 *a, const V3_14f680 *b);
 };
 
@@ -56,7 +57,7 @@ struct Hit_14f680 {
 struct Player_14f680 {
     char pad0[0x140];
     int mode;               // 0x140
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
 };
 
 struct Body_14f680 {
@@ -76,7 +77,7 @@ struct Link_14f680 {
 };
 
 extern void *thunk_FUN_0008d690(unsigned int size);
-extern float __cdecl FUN_00224f10(V3_14f680 *v);
+extern hulk_freg __cdecl FUN_00224f10(V3_14f680 *v);
 
 class HitPushbackAction {
 public:

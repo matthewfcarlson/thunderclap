@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 8/8)
 // hulkfight::motion::HitOrientToPushbackAction::vfunc_3 @ 0x0014fe00
-struct ActorInfo_14fe00 { float FUN_000354c0(); };
+#include "compat/ptr.h"
+struct ActorInfo_14fe00 { hulk_freg FUN_000354c0(); };
 struct JointDriver_14fe00;
 struct Motion_14fe00 { void FUN_00222890(JointDriver_14fe00*, float, float, float, float, float, float); };
 struct Actor_14fe00 { ActorInfo_14fe00* FUN_00059a30(); Motion_14fe00* FUN_00059a40(); };

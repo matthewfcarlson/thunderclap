@@ -3,8 +3,8 @@
 #include "decls/data/game/global.h"
 #include "compat/ptr.h"
 
-float __cdecl FUN_000a0330(float);
-float __cdecl FUN_000a02a0(float);
+hulk_freg __cdecl FUN_000a0330(float);
+hulk_freg __cdecl FUN_000a02a0(float);
 hulk_freg Clamp3(float a, float b, float c) {
  float span = FUN_000a0330(c - b);
  if (FUN_000a0330(a - b) > span) {

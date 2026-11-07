@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 116 inputs, branch coverage 38/42, incomplete)
 // hulkfight::motion::DriftToPositionAction::vfunc_3 @ 0x00175060
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/motion.h"
 extern "C" double sqrt(double);
 
 struct Vec3_175060 {
     float x, y, z;
-    float FUN_00018990();
+    hulk_freg FUN_00018990();
 };
 
 struct Id_175060 {

@@ -9,7 +9,7 @@ extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
 struct Vec3_18f6d0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     bool FUN_0022d2b0(const Vec3_18f6d0 *other, float eps);
 };
 
@@ -127,8 +127,8 @@ struct Settings_18f6d0 {
 };
 
 
-float __cdecl FUN_00224f10(Vec3_18f6d0 *v);
-float __cdecl FUN_00224fc0(float a, float b);
+hulk_freg __cdecl FUN_00224f10(Vec3_18f6d0 *v);
+hulk_freg __cdecl FUN_00224fc0(float a, float b);
 float __cdecl FUN_00083d90(float *v);
 void __cdecl FUN_00224d70(float angle, Vec3_18f6d0 *v);
 char __cdecl FUN_00202560(Vec3_18f6d0 *origin, float dist, int a, Vec3_18f6d0 *outB, Vec3_18f6d0 *outA, int b, int c, int d);

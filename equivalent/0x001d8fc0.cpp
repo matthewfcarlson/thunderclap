@@ -9,7 +9,7 @@ extern "C" double sqrt(double);
 
 struct Vec3_1d8fc0 {
     float x, y, z;
-    float FUN_0022d110();          // normalize in place, returns the old length
+    hulk_freg FUN_0022d110();          // normalize in place, returns the old length
     void FUN_00011140(float s);
 };
 
@@ -134,7 +134,7 @@ struct StateObj_1d8fc0 {
 };
 
 struct Rng_1d8fc0 {
-    float FUN_00078780();
+    hulk_freg FUN_00078780();
 };
 
 struct Singleton_1d8fc0 {
@@ -277,8 +277,8 @@ struct Obj72e0 {
     Vec3_1d8fc0 v40;
 };
 
-extern float FUN_00224f10(const Vec3_1d8fc0 *v);
-extern float FUN_00224fc0(float a, float b);
+extern hulk_freg FUN_00224f10(const Vec3_1d8fc0 *v);
+extern hulk_freg FUN_00224fc0(float a, float b);
 extern float FUN_00083d90(const float *p);
 extern void FUN_00224d70(float ang, Vec3_1d8fc0 *v);
 extern "C" void FUN_00224db0(Matrix *out, const Vec3_1d8fc0 *from, const Vec3_1d8fc0 *to);

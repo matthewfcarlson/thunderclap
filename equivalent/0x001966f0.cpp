@@ -21,8 +21,8 @@ struct Key {
 
 struct V3_1966f0 {
     float x, y, z;
-    float FUN_0022d110();
-    float FUN_00018990();
+    hulk_freg FUN_0022d110();
+    hulk_freg FUN_00018990();
     char FUN_0022d2b0(V3_1966f0 *other, float eps);
 };
 
@@ -44,7 +44,7 @@ struct Ref4c : RefObj_1966f0 {
 
 struct Rng_1966f0 {
     unsigned int s0, s1;
-    float FUN_00078780();
+    hulk_freg FUN_00078780();
 };
 extern "C" Rng_1966f0 *__cdecl FUN_000964d0();
 

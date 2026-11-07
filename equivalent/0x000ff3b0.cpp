@@ -25,7 +25,7 @@ struct World {
 struct RandState_ff3b0 {
     unsigned s0;
     unsigned s1;
-    float FUN_00078780();
+    hulk_freg FUN_00078780();
 };
 RandState_ff3b0 *__cdecl FUN_000964d0();
 

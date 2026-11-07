@@ -4,12 +4,12 @@
 #include "gen/hulkfight.h"
 #include "gen/owners.h"
 
-struct Vector_115e20 { float x,y,z; float FUN_0022d110(); };
+struct Vector_115e20 { float x,y,z; hulk_freg FUN_0022d110(); };
 struct Actor_115e20 { char pad[0x2064]; Vector_115e20 facing; float rate; };
 struct HandleResult_115e20 { Actor_115e20* FUN_00059a30(); };
 struct Handle_115e20 {  };
 struct Settings_115e20 { char pad[0x14]; float angle; Vector_115e20 direction; float rate; };
-struct Heading_115e20 { float FUN_000354c0(); };
+struct Heading_115e20 { hulk_freg FUN_000354c0(); };
 void __cdecl FUN_00224d70(float, Vector_115e20*);
 namespace hulkfight { namespace ai {
 

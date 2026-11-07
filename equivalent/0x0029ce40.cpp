@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 9439 inputs, branch coverage 32/32)
 // FUN_0029ce40 @ 0x0029ce40
+#include "compat/ptr.h"
 #include "gen/owners.h"
 struct Vec3_29ce40 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Light {
@@ -15,7 +16,7 @@ struct Light {
     char pad24[0x64 - 0x24];
     float strength;             // 0x64
 
-    float FUN_002a0d00(Vec3_29ce40* p);
+    hulk_freg FUN_002a0d00(Vec3_29ce40* p);
 };
 
 struct LightList_29ce40 {

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3066 inputs, branch coverage 56/56)
 // FUN_001b1270 @ 0x001b1270
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
@@ -51,7 +52,7 @@ struct Actor_1b1270 {
     char pad1a4[0x1c9 - 0x1a4 - sizeof(Joint_1b1270)];
     char flag;
     int FUN_001d73f0();
-    float FUN_001d6670();
+    hulk_freg FUN_001d6670();
     void FUN_001d66b0(Vec3_1b1270* a, Vec3_1b1270* b);
     void FUN_001d6ec0(int a, int b, int c);
     void FUN_001d8d90(int v);

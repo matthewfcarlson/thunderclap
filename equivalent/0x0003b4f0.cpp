@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_0003b4f0 @ 0x0003b4f0
+#include "compat/ptr.h"
 struct Scene_3b4f0;
 
 struct Camera {
-    float FUN_002220d0();
+    hulk_freg FUN_002220d0();
 };
 
 struct Scene_3b4f0 {
@@ -15,8 +16,8 @@ struct Owner_3b4f0 {
     Scene_3b4f0 *FUN_00059a40();
 };
 
-float __cdecl FUN_00224f10(float v);
-float __cdecl FUN_00224fc0(float a, float b);
+hulk_freg __cdecl FUN_00224f10(float v);
+hulk_freg __cdecl FUN_00224fc0(float a, float b);
 
 union FloatBits_3b4f0 {
     float f;

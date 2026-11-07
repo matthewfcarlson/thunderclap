@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3055 inputs, branch coverage 42/42)
 // FUN_001afba0 @ 0x001afba0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "gen/owners.h"
 struct Vec3_1afba0 {
@@ -7,7 +8,7 @@ struct Vec3_1afba0 {
 };
 
 struct Probe_1afba0 {
-    float FUN_000111f0();
+    hulk_freg FUN_000111f0();
 };
 
 struct Stats_1afba0 {

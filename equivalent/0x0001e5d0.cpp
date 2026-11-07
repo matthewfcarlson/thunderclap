@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 22/22)
 // CGrabAction::vfunc_8 @ 0x0001e5d0
+#include "compat/ptr.h"
 struct Vec3_1e5d0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Mat_1e5d0 {

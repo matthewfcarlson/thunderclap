@@ -28,7 +28,7 @@ struct SimpleFrameController {
 };
 }
 struct ThisNote_00289db0 {
-    float FUN_00289db0(float *, int *, float, float, int, int, int, int);
+    hulk_freg FUN_00289db0(float *, int *, float, float, int, int, int, int);
 };
 void pure3d::SimpleFrameController::vfunc_6(float delta, char force) {
     if (animation) {

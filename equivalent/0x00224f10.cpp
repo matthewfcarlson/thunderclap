@@ -3,7 +3,7 @@
 #include "compat/ptr.h"
 struct Vec3_224f10 { float x,y,z; };
 extern "C" double __cdecl sqrt(double);
-extern float __cdecl FUN_00224ea0(float x, float z);
+extern hulk_freg __cdecl FUN_00224ea0(float x, float z);
 hulk_freg __cdecl FUN_00224f10(const Vec3_224f10* v) {
     float x=v->x, z=v->z;
     union { float f; unsigned int u; } a;

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 34/42, incomplete)
 // FUN_00195290 @ 0x00195290
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
@@ -8,7 +9,7 @@ extern "C" double sqrt(double);
 
 struct V3_195290 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Ent_195290;

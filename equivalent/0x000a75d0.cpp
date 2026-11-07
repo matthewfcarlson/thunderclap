@@ -31,11 +31,11 @@ struct Mat_a75d0 {
     void FUN_0022bec0(V3_a75d0 *a, V3_a75d0 *b);
 };
 
-float __cdecl FUN_0009faa0(float cur, float target, float dt, float rate);
-float __cdecl FUN_0009fb20(float a, float b, float c, float d, float e);
-float __cdecl FUN_000a00e0(float a, float b, float c, float d, float e);
-float __cdecl FUN_000a02a0(float v);
-float __cdecl FUN_000a0450(V3_a75d0 *v);
+hulk_freg __cdecl FUN_0009faa0(float cur, float target, float dt, float rate);
+hulk_freg __cdecl FUN_0009fb20(float a, float b, float c, float d, float e);
+hulk_freg __cdecl FUN_000a00e0(float a, float b, float c, float d, float e);
+hulk_freg __cdecl FUN_000a02a0(float v);
+hulk_freg __cdecl FUN_000a0450(V3_a75d0 *v);
 extern "C" void __cdecl FUN_000a04c0(V3_a75d0 *dir, float *yaw, float *pitch, float *len);
 
 struct Target_a75d0 {

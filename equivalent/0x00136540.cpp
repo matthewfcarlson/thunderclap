@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20010 inputs, branch coverage 16/16)
 // hulkfight::motion::BounceAction::vfunc_5 @ 0x00136540
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 
 struct Vec3_136540 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 union Word_136540 {
@@ -18,7 +19,7 @@ struct Stats_136540 {
     Vec3_136540 dir;           // 0x2064
     float f2070;        // 0x2070
     void FUN_000359c0(int v);
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
     void FUN_000357a0(Vec3_136540 *v);
 };
 
@@ -46,8 +47,8 @@ struct BounceData_136540 {
     float f24;
 };
 
-extern "C" float FUN_00224f10(Vec3_136540 *v);
-float __cdecl FUN_00224fc0(float from, float to);
+extern "C" hulk_freg FUN_00224f10(Vec3_136540 *v);
+hulk_freg __cdecl FUN_00224fc0(float from, float to);
 void __cdecl FUN_00224d70(float angle, Vec3_136540 *v);
 
 union Slot_136540 {

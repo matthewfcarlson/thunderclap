@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 513 inputs, branch coverage 56/56)
 // hulkfight::motion::LocomotionSteerAction::vfunc_3 @ 0x00164270
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "compat/ptr.h"
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
@@ -124,7 +125,7 @@ struct Config_164270 {
 };
 
 void *thunk_FUN_0008d690(unsigned int size);
-float FUN_000964e0();
+hulk_freg FUN_000964e0();
 extern "C" void __cdecl FUN_0015cfd0(void *rig, choreo2::LocomotionSteerDriver *d);
 
 union Slot10 {
@@ -154,7 +155,7 @@ public:
     choreo2::LocomotionSteerDriver *driver; // 0x24
     float f28;
     float f2c;
-    float FUN_0015c590(float v);
+    hulk_freg FUN_0015c590(float v);
 };
 }
 }

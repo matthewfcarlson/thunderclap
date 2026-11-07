@@ -5,7 +5,7 @@
 struct Result {
     char data[12];
 };
-float __cdecl FUN_00224f10(Result*);
+hulk_freg __cdecl FUN_00224f10(Result*);
 struct Sub {
     char data[16];
     void FUN_0022b4d0(float*, Result*);

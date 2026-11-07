@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 48/48)
 // hulkfight::motion::FlyingAutoTargetAction::vfunc_5 @ 0x00135f90
+#include "compat/ptr.h"
 struct V3_135f90 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     bool FUN_0022d2b0(const V3_135f90 *other, float epsilon);
     void FUN_00011160(float s, V3_135f90 *d);
 };
@@ -20,10 +21,10 @@ static float AbsF(float v)
     return b.f;
 }
 
-extern "C" float __cdecl FUN_00224f10(V3_135f90 *v);
+extern "C" hulk_freg __cdecl FUN_00224f10(V3_135f90 *v);
 extern "C" void __cdecl FUN_00224d70(float angle, V3_135f90 *v);
-extern "C" float __cdecl FUN_00224ea0(float x, float z);
-extern "C" float __cdecl FUN_00224fc0(float a, float b);
+extern "C" hulk_freg __cdecl FUN_00224ea0(float x, float z);
+extern "C" hulk_freg __cdecl FUN_00224fc0(float a, float b);
 
 class Target_135f90 {
 public:
@@ -59,7 +60,7 @@ struct Stats_135f90 {
     void FUN_000359c0(int n);
     void FUN_000350c0(V3_135f90 *out);
     void FUN_00035550(V3_135f90 *out);
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
     bool FUN_0003a440(V3_135f90 *w, V3_135f90 *v, float a, int c2c, Target_135f90 *t);
     Target_135f90 *FUN_00039c60(V3_135f90 *w, V3_135f90 *v, int c28, int c2c, unsigned int flags, int z0, int z1);
     void FUN_0003ffa0(Target_135f90 *t, int z);

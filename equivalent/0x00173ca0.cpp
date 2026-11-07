@@ -5,7 +5,7 @@ extern "C" int __cdecl _isnan(double);
 
 struct V3_173ca0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void FUN_000111b0(V3_173ca0 *a, V3_173ca0 *b);
     void FUN_00011160(float s, V3_173ca0 *b);
 };
@@ -28,7 +28,7 @@ struct Mat4_173ca0 {
     void FUN_0022c2b0(Q4 *in, V3_173ca0 *out);
 };
 
-float __cdecl FUN_00018a20(float v);
+hulk_freg __cdecl FUN_00018a20(float v);
 bool __cdecl FUN_00018960(float a, float b, float eps);
 int __cdecl FUN_00011070(float v);
 

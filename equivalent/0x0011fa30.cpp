@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 70/71, incomplete)
 // hulkfight::ai::PathLocatorTestCondition::vfunc_6 @ 0x0011fa30
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/ai.h"
 extern "C" int atexit(void (*)());
@@ -16,7 +17,7 @@ struct Key_11fa30 {
 
 struct V3_11fa30 {
     float x, y, z;
-    float FUN_00018990();
+    hulk_freg FUN_00018990();
 };
 
 extern "C" void FUN_00363f10();

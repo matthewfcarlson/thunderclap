@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 44/44)
 // CAutoTargetAction::vfunc_7 @ 0x0001d570
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct V3_1d570 {
     float x, y, z;
@@ -28,7 +29,7 @@ struct Fighter_1d570 {
     void FUN_00035550(V3_1d570 *out);
     char FUN_0003a440(V3_1d570 *a, V3_1d570 *b, float c, float d, Target_1d570 *t);
     Target_1d570 *FUN_00039c60(V3_1d570 *a, V3_1d570 *b, float lo, float hi, unsigned int p, unsigned int q, float r);
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
     void FUN_0003ffa0(Target_1d570 *t, int z);
 };
 
@@ -88,8 +89,8 @@ union FS_1d570 {
     unsigned int u;
 };
 
-float __cdecl FUN_00224f10(V3_1d570 *v);
-float __cdecl FUN_00224fc0(float a, float b);
+hulk_freg __cdecl FUN_00224f10(V3_1d570 *v);
+hulk_freg __cdecl FUN_00224fc0(float a, float b);
 void __cdecl FUN_00224d70(float angle, V3_1d570 *v);
 extern "C" void __cdecl FUN_00096a90(Target_1d570 *t, V3_1d570 *out);
 

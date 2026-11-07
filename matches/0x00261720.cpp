@@ -1,8 +1,9 @@
+#include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 #include "decls/data/engine/om.h"
 
 extern void* __cdecl FUN_002611b0(void*);
-extern float __cdecl FUN_00260d00(void*);
+extern hulk_freg __cdecl FUN_00260d00(void*);
 extern "C" const char* __cdecl FUN_00261720(void* value) {
     void* first = FUN_002611b0(value);
     void* second = FUN_002611b0(value);

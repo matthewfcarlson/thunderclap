@@ -4,7 +4,7 @@
 #include "decls/address.h"
 struct Vec3_1c770 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Sensor_1c770 {

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 23/24, incomplete)
 // FUN_000a1b30 @ 0x000a1b30
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 struct Counter_a1b30 {
@@ -11,7 +12,7 @@ struct Owner_a1b30 {
     Counter_a1b30 *counter;
 };
 
-float __cdecl FUN_0009faa0(float cur, float target, float dt, float rate);
+hulk_freg __cdecl FUN_0009faa0(float cur, float target, float dt, float rate);
 
 class Smoother {
 public:

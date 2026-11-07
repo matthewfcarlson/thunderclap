@@ -4,7 +4,7 @@
 #include "gen/owners.h"
 struct Vec3_19d30 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct RefObj_19d30 {
@@ -83,7 +83,7 @@ struct Target_19d30 {
 
 // equiv-conv: FUN_00014210 eax ecx edx esi
 extern "C" void __cdecl FUN_00014210(int, void *, void *, void *);
-float __cdecl FUN_000964e0();
+hulk_freg __cdecl FUN_000964e0();
 
 struct Frame_19d30 {
     Vec3_19d30 delta;

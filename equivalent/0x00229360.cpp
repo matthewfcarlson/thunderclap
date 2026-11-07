@@ -11,7 +11,7 @@ struct Anim_229360 {
     char pad0[0x10];
     float weight;
     char FUN_00288d10(int zero, int a, int b, float *outHi, float *outLo);
-    float FUN_00288de0(int which, int zero, int a, int b);
+    hulk_freg FUN_00288de0(int which, int zero, int a, int b);
 };
 
 struct Entry_229360 {
@@ -26,7 +26,7 @@ struct Blend_229360 {
     float pad;
 };
 
-float FUN_0004af40(float lo, float t, float x);
+hulk_freg FUN_0004af40(float lo, float t, float x);
 
 class LocomotionSteerDriver {
 public:

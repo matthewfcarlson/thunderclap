@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // CDropAction::vfunc_6 @ 0x00013d70
+#include "compat/ptr.h"
 struct Vec_13d70 { float x,y,z; };
-struct Transform_13d70 { float data; float FUN_002220d0(); void FUN_00221be0(Transform_13d70*); };
+struct Transform_13d70 { float data; hulk_freg FUN_002220d0(); void FUN_00221be0(Transform_13d70*); };
 struct Name_13d70 { int data; void FUN_0027b040(const char*); };
 struct JointDriver_13d70 { virtual void vfunc_0(); char pad[4]; Name_13d70 name; char pad2[12]; Transform_13d70 transform; JointDriver_13d70* FUN_002248f0(int); };
 struct Body_13d70 { char pad[16]; Transform_13d70 transform; void FUN_00222890(JointDriver_13d70*,float,float,float,float,float,float); };

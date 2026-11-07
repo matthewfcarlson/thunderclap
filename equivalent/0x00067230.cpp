@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 24/24)
 // FUN_00067230 @ 0x00067230
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "gen/owners.h"
 struct Vec3_67230 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Transform_67230 {

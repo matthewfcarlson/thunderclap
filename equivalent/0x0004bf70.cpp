@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // CCollisionPushbackDirectionCondition::vfunc_7 @ 0x0004bf70
+#include "compat/ptr.h"
 struct Fighter;
 
 struct Actor_4bf70 {
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
 };
 
 struct Target_4bf70 {
@@ -22,8 +23,8 @@ struct Owner_4bf70 {
 
 Fighter *__fastcall FUN_000592a0(Owner_4bf70 *owner);
 extern "C" Actor_4bf70 *__fastcall FUN_00059a30(Fighter *f);
-extern "C" float __cdecl FUN_00224ea0(float a, float b);
-extern "C" float __cdecl FUN_00224fc0(float a, float b);
+extern "C" hulk_freg __cdecl FUN_00224ea0(float a, float b);
+extern "C" hulk_freg __cdecl FUN_00224fc0(float a, float b);
 
 class CCollisionPushbackDirectionCondition {
 public:

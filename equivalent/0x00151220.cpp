@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 20/20)
 // hulkfight::motion::GroundSlideAction::vfunc_3 @ 0x00151220
+#include "compat/ptr.h"
 #include "gen/owners.h"
 extern "C" double sqrt(double);
 
 struct V3_151220 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 struct Name_151220 {
     unsigned int lo, hi;
@@ -15,7 +16,7 @@ struct Xform_151220 {
     void FUN_00221d20(float a);
 };
 void* FUN_00263ea0(unsigned int size);
-float FUN_00224f10(V3_151220* v);
+hulk_freg FUN_00224f10(V3_151220* v);
 
 class JointDriver {
 public:

@@ -5,7 +5,7 @@
 
 struct Vec3_2ffa00 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Aux_2ffa00 {

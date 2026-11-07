@@ -6,7 +6,7 @@
 #include "gen/owners.h"
 struct V3_166e30 {
     float x, y, z;
-    float FUN_000111f0();
+    hulk_freg FUN_000111f0();
 };
 
 struct Fighter_166e30 {

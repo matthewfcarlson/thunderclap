@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // hulkfight::motion::VelocityXZCondition::vfunc_6 @ 0x00167f20
+#include "compat/ptr.h"
 #include "gen/hulkfight.h"
 #include "gen/owners.h"
 
 extern char DAT_00494b44;
 extern char DAT_00494b60;
 void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
-struct Speed_167f20 { float FUN_00035690(); };
+struct Speed_167f20 { hulk_freg FUN_00035690(); };
 struct Motion_167f20 { Speed_167f20* FUN_00059a30(); };
 struct Actor_167f20 {  };
 extern "C" bool __cdecl FUN_00018960(float, float, float);

@@ -12,8 +12,8 @@ struct V3_2a5fd0 {
 };
 
 struct Noise {
-    float FUN_00356fa0(const V3_2a5fd0 *v);
-    float FUN_00356e50(const V2_2a5fd0 *v);
+    hulk_freg FUN_00356fa0(const V3_2a5fd0 *v);
+    hulk_freg FUN_00356e50(const V2_2a5fd0 *v);
 };
 
 extern "C" Noise *FUN_003576d0();

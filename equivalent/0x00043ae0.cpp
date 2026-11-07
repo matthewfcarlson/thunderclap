@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 46/48, incomplete)
 // FUN_00043ae0 @ 0x00043ae0
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 #include "gen/owners.h"
@@ -14,8 +15,8 @@ public:
 
 struct V3_43ae0 {
     float x, y, z;
-    float FUN_00018990();
-    float FUN_0022d110();
+    hulk_freg FUN_00018990();
+    hulk_freg FUN_0022d110();
 };
 
 struct Request {

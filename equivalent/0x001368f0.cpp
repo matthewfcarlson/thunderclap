@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 43/44, incomplete)
 // hulkfight::motion::AirToGroundTargetAction::vfunc_5 @ 0x001368f0
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 #include "gen/owners.h"
 
@@ -25,7 +26,7 @@ struct Target_1368f0 {
 struct Mover_1368f0 {
     char pad0[0x328];
     Prop_1368f0 *prop;
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
 };
 
 struct Pos_1368f0 {
@@ -48,8 +49,8 @@ struct Info_1368f0 {
 };
 
 extern "C" void FUN_00096a90(Prop_1368f0 *p, V3_1368f0 *out);
-float FUN_00224f10(V3_1368f0 *v);
-float FUN_00224fc0(float a, float b);
+hulk_freg FUN_00224f10(V3_1368f0 *v);
+hulk_freg FUN_00224fc0(float a, float b);
 void FUN_00224d70(float a, V3_1368f0 *v);
 
 struct Frame_1368f0 {

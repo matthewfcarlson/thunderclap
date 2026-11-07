@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 38/38)
 // FUN_0007d700 @ 0x0007d700
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
@@ -38,7 +39,7 @@ struct World {
 };
 
 struct Sim_7d700 {
-    float FUN_000787e0(unsigned __int64 id);
+    hulk_freg FUN_000787e0(unsigned __int64 id);
 };
 
 struct Wing {

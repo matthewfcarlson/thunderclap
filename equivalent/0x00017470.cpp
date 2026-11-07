@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 4/4)
 // COrientTargetAction::vfunc_6 @ 0x00017470
+#include "compat/ptr.h"
 struct Target_17470;
 struct Owner_17470 { Target_17470* FUN_000592a0(); };
-struct Angle_17470 { float FUN_002220d0(); void FUN_00221d20(float); };
+struct Angle_17470 { hulk_freg FUN_002220d0(); void FUN_00221d20(float); };
 struct Label_17470 { void FUN_0027b040(const char*); };
 struct JointDriver_17470 {
  virtual void slot0();

@@ -11,7 +11,7 @@ struct V3_fe680 {
 };
 
 struct Rng_fe680 {
-    float FUN_00078780();
+    hulk_freg FUN_00078780();
 };
 Rng_fe680 *FUN_000964d0();
 

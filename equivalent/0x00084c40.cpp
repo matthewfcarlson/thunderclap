@@ -6,9 +6,9 @@
 #include "gen/owners.h"
 struct V3_84c40 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void FUN_0022d180();
-    float FUN_000111f0();
+    hulk_freg FUN_000111f0();
     void FUN_00083be0(V3_84c40 *a, V3_84c40 *b);
 };
 
@@ -28,7 +28,7 @@ struct Args_84c40 {
 
 struct Rng_84c40 {
     int s0, s1;
-    float FUN_000787e0(float lo, float hi);
+    hulk_freg FUN_000787e0(float lo, float hi);
 };
 
 struct Probe_84c40 {
@@ -93,8 +93,8 @@ bool __cdecl FUN_00018960(float a, float b, float c);
 V3_84c40 *__cdecl FUN_00083dd0(V3_84c40 *out, float s, V3_84c40 *v);
 float __cdecl FUN_00083d90(float *v);
 void __cdecl FUN_00224d70(float angle, V3_84c40 *v);
-float __cdecl FUN_00224f10(V3_84c40 *v);
-float __cdecl FUN_00224fc0(float a, float b);
+hulk_freg __cdecl FUN_00224f10(V3_84c40 *v);
+hulk_freg __cdecl FUN_00224fc0(float a, float b);
 
 union FloatBits_84c40 {
     float f;

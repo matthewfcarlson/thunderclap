@@ -1,13 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19780 inputs, branch coverage 44/44)
 // CHand2HandAgent::vfunc_23 @ 0x00101a30
 // checked with equiv.py --time-budget 1200 at 20000 inputs (the default budget stops near 8300)
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 extern "C" double sqrt(double);
 
 struct V3_101a30 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Name_101a30 {
@@ -15,7 +16,7 @@ struct Name_101a30 {
 };
 
 struct Rng_101a30 {
-    float FUN_00078780();
+    hulk_freg FUN_00078780();
 };
 Rng_101a30 *FUN_000964d0();
 

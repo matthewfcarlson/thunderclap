@@ -3,7 +3,7 @@
 #include "compat/ptr.h"
 struct Vec3_148390 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 class Ent_148390 {
@@ -33,12 +33,12 @@ class Actor_148390 {
 public:
     char pad0[0x10];
     Ent_148390 *ent;
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
 };
 
 extern "C" Actor_148390 *FUN_00048260(fight::Params *p);
-float FUN_00224f10(Vec3_148390 *v);
-float FUN_00224fc0(float x, float y);
+hulk_freg FUN_00224f10(Vec3_148390 *v);
+hulk_freg FUN_00224fc0(float x, float y);
 
 class GrappleOrientationCondition {
 public:

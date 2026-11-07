@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 0/0)
 // TextWindow::vfunc_3 @ 0x000ed360
 // TextWindow::vfunc_3 @ 0x000ed360: recompute the line scale from the owner's reported extent
+#include "compat/ptr.h"
 class Metrics_ed360 {
 public:
     virtual void v0();
@@ -11,7 +12,7 @@ public:
     virtual void v5();
     virtual void v6();
     virtual float v7();
-    float FUN_000dfbf0(const char *s);
+    hulk_freg FUN_000dfbf0(const char *s);
 };
 
 struct Font {
@@ -33,7 +34,7 @@ struct Layout_ed360 {
     int index;
     float f8c;
     Layout_ed360 *FUN_000f7fe0(Font *font);
-    float FUN_000f88a0(const unsigned short *text);
+    hulk_freg FUN_000f88a0(const unsigned short *text);
     void FUN_000f78e0();
 };
 

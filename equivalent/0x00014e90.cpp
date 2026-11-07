@@ -4,7 +4,7 @@
 #include "decls/data/game/global.h"
 
 struct Vec_14e90 { float x,y,z; };
-struct Actor_14e90 { float FUN_000354c0(); void FUN_00035720(Vec_14e90*); };
+struct Actor_14e90 { hulk_freg FUN_000354c0(); void FUN_00035720(Vec_14e90*); };
 struct HandleResult_14e90 { Actor_14e90* FUN_00059a30(); };
 struct Handle_14e90 { HandleResult_14e90* FUN_000592a0(); };
 struct Move_14e90 {

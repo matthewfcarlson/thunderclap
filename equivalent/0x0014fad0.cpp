@@ -9,7 +9,7 @@
 struct V3_14fad0 {
     float x, y, z;
     bool FUN_0022d2b0(const V3_14fad0 *other, float eps);
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Transform_14fad0 {
@@ -61,7 +61,7 @@ struct Grav {
     V3_14fad0 v;
 };
 
-float __cdecl FUN_00224f10(const V3_14fad0 *v);
+hulk_freg __cdecl FUN_00224f10(const V3_14fad0 *v);
 void __cdecl FUN_00224d70(float angle, V3_14fad0 *v);
 
 class Owner_14fad0 {

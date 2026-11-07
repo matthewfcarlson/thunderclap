@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 40/40)
 // FUN_00081690 @ 0x00081690
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "gen/owners.h"
 struct V3_81690 {
@@ -39,7 +40,7 @@ struct World {
 };
 
 
-float __cdecl FUN_00224f10(V3_81690* dir);
+hulk_freg __cdecl FUN_00224f10(V3_81690* dir);
 
 class Body_81690 {
 public:

@@ -1,6 +1,6 @@
 #include "compat/ptr.h"
 // FUN_00226960 @ 0x00226960
-float __cdecl FUN_0004af40(float lo, float hi, float v);
+hulk_freg __cdecl FUN_0004af40(float lo, float hi, float v);
 
 struct Sample_226960 {
     float value;

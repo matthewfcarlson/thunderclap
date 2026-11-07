@@ -5,7 +5,7 @@
 
 struct Vec3_a1760 { float x, y, z; };
 
-float FUN_000a02a0(float v);
+hulk_freg FUN_000a02a0(float v);
 Vec3_a1760* FUN_0009f8c0(Vec3_a1760* out, float x, float y, float z);
 void FUN_000a04c0(Vec3_a1760* d, float* a, float* b, float* c);
 

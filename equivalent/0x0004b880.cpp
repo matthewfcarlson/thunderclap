@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 25/26, incomplete)
 // CAxisDirectionCondition::vfunc_8 @ 0x0004b880
+#include "compat/ptr.h"
 struct Vec3_4b880 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void FUN_000111b0(Vec3_4b880 *a, Vec3_4b880 *b);
 };
 
@@ -18,7 +19,7 @@ struct Actor_4b880 {
     float magA;
     Vec3_4b880 stickB;
     Vec3_4b880 stickC;
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
     char FUN_00035550(Vec3_4b880 *out);
 };
 
@@ -27,9 +28,9 @@ struct Fighter;
 Fighter *__fastcall FUN_000592a0(void *owner);
 extern "C" Actor_4b880 *__fastcall FUN_00059a30(Fighter *f);
 extern "C" void __cdecl FUN_00096a90(Obj *o, Vec3_4b880 *out);
-extern "C" float __cdecl FUN_00224f10(Vec3_4b880 *v);
-extern "C" float __cdecl FUN_00224fc0(float a, float b);
-extern "C" float __cdecl FUN_00018a20(float v);
+extern "C" hulk_freg __cdecl FUN_00224f10(Vec3_4b880 *v);
+extern "C" hulk_freg __cdecl FUN_00224fc0(float a, float b);
+extern "C" hulk_freg __cdecl FUN_00018a20(float v);
 extern "C" char __cdecl FUN_00018960(float a, float b, float eps);
 
 class CAxisDirectionCondition {

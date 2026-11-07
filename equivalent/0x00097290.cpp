@@ -2,7 +2,7 @@
 // FUN_00097290 @ 0x00097290
 #include "compat/ptr.h"
 extern "C" double sqrt(double);
-float __cdecl FUN_00018a20(float cosine);
+hulk_freg __cdecl FUN_00018a20(float cosine);
 
 hulk_freg FUN_00097290(float ax, float ay, float az, float bx, float by, float bz)
 {

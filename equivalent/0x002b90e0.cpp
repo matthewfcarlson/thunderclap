@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 12000 inputs, branch coverage 4/4)
 // FUN_002b90e0 @ 0x002b90e0
+#include "compat/ptr.h"
 #include "gen/owners.h"
 struct Matrix;
 
 struct V3_2b90e0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Node {

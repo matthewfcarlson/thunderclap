@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19785 inputs, branch coverage 14/14)
 // FUN_000c4ef0 @ 0x000c4ef0
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 #include "gen/owners.h"
@@ -17,7 +18,7 @@ struct Timer {
     float scale;
     int last;
     Timer *FUN_00095f50();
-    float FUN_00095f70();
+    hulk_freg FUN_00095f70();
 };
 
 class VectorCamera_c4ef0 {

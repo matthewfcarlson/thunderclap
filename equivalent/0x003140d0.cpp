@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // FUN_003140d0 @ 0x003140d0
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct V3_3140d0 {
@@ -26,8 +27,8 @@ struct Box_3140d0 {
     char pad0[0x48];
     float ext[3];
     V3_3140d0 axes[3];     // 0x54
-    float FUN_002fbcd0(V3_3140d0 *v);
-    float FUN_002fbdc0(V3_3140d0 *v, int i);
+    hulk_freg FUN_002fbcd0(V3_3140d0 *v);
+    hulk_freg FUN_002fbdc0(V3_3140d0 *v, int i);
 };
 
 class Tester_3140d0 {

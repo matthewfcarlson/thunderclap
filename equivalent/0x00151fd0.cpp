@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 28/28)
 // hulkfight::motion::HitThrowAction::vfunc_3 @ 0x00151fd0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "gen/owners.h"
 struct V3_151fd0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Name_151fd0 {
@@ -96,7 +97,7 @@ void *__cdecl FUN_00263ea0(unsigned int size);
 Fighter_151fd0 *__fastcall FUN_000592a0(void *owner);
 Stats_151fd0 *__fastcall FUN_00059a30(Fighter_151fd0 *f);
 extern "C" Body_151fd0 *__fastcall FUN_00059a40(Fighter_151fd0 *f);
-float __cdecl FUN_00224f10(V3_151fd0 *v);
+hulk_freg __cdecl FUN_00224f10(V3_151fd0 *v);
 
 class HitThrowAction {
 public:

@@ -8,7 +8,7 @@ struct Mover_151c70 {
     float scale24;
 };
 struct Sub18_151c70 {
-    float FUN_002220d0();
+    hulk_freg FUN_002220d0();
     void FUN_00221d20(float f);
 };
 struct Target24 {

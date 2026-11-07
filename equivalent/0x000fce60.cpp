@@ -2,6 +2,7 @@
 // FUN_000fce60 @ 0x000fce60
 // local is the 3x3 rotation matrix (0x2c bytes) built by Matrix::build (0x0022baf0)
 // FUN_000fce60 @ 0x000fce60
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
 
@@ -12,7 +13,7 @@ struct Matrix_fce60 {
     void FUN_0022baf0(const Vec3_fce60 *axis, float angle);
 };
 
-extern "C" float FUN_00224ea0(float y, float x);
+extern "C" hulk_freg FUN_00224ea0(float y, float x);
 extern "C" void FUN_00224d70(float angle, Vec3_fce60 *v);
 
 union FloatBits_fce60 {

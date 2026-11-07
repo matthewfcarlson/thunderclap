@@ -9,7 +9,7 @@ struct Target_87630;
 struct Queue_87630 { void FUN_0008db00(); bool FUN_0008db20(Target_87630*); };
 bool __cdecl FUN_0008db80(); extern "C" void __cdecl FUN_0008db90();
 struct State_87630 { int mode; int unused; int saved; };
-struct Clock_87630 { char pad[32]; unsigned __int64 ticks; void FUN_00086450(); float FUN_000860c0(); };
+struct Clock_87630 { char pad[32]; unsigned __int64 ticks; void FUN_00086450(); hulk_freg FUN_000860c0(); };
 struct Sim_87630 { char pad[44]; void* item; void FUN_00088c30(State_87630*,float);  };
 struct Notify_87630 { void FUN_000afe80(); };
 struct Sub_87630 { char pad[24]; Notify_87630* notify; };

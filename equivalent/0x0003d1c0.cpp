@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 24/26, incomplete)
 // FUN_0003d1c0 @ 0x0003d1c0
+#include "compat/ptr.h"
 struct V3_3d1c0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Target_3d1c0 {

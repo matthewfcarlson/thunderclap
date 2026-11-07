@@ -8,7 +8,7 @@ typedef unsigned __int64 u64_1b1e90;
 
 struct V3_1b1e90 {
     float x, y, z;
-    float FUN_000111f0();
+    hulk_freg FUN_000111f0();
 };
 
 struct Actor_1b1e90;
@@ -78,7 +78,7 @@ struct Actor_1b1e90 {
 };
 
 struct Part_1b1e90 {
-    float FUN_00018990();
+    hulk_freg FUN_00018990();
 };
 
 struct Hit_1b1e90 {

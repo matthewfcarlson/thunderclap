@@ -8,7 +8,7 @@ struct Thing {
  char pad1[0x12e0-0x30];
  float valueA;
  float valueB;
- float FUN_00226960(int, float);
+ hulk_freg FUN_00226960(int, float);
  hulk_freg FUN_002278d0(float scale);
 };
 hulk_freg Thing::FUN_002278d0(float scale) {

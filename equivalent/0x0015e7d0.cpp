@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 25/30, incomplete)
 // hulkfight::motion::LocomotionSteerAction::vfunc_5 @ 0x0015e7d0
+#include "compat/ptr.h"
   // 0.0
   // 0.5
 #include "decls/data/game/global.h"
@@ -24,7 +25,7 @@ struct Player_15e7d0 {
     float f2070;
     char pad2074[0x20a8 - 0x2074];
     int i20a8;
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
     void FUN_00035550(V3_15e7d0 *out);
 };
 
@@ -48,8 +49,8 @@ struct Cfg_15e7d0 {
     float f18;
 };
 
-float __cdecl FUN_00224ea0(float x, float z);
-float __cdecl FUN_00224fc0(float a, float b);
+hulk_freg __cdecl FUN_00224ea0(float x, float z);
+hulk_freg __cdecl FUN_00224fc0(float a, float b);
 
 static inline float Abs(float v)
 {
@@ -79,7 +80,7 @@ public:
     Cfg_15e7d0 *cfg;
     Holder_15e7d0 *owner;
     CurObj *cur;
-    float FUN_0015c590(float t);
+    hulk_freg FUN_0015c590(float t);
 };
 
 bool LocomotionSteerAction::vfunc_5(Arg1_15e7d0 a, float dt)

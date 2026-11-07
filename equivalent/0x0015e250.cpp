@@ -7,7 +7,7 @@ extern "C" double sqrt(double);
 
 struct V3_15e250 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     bool FUN_0022d2b0(V3_15e250 *other, float limit);
 };
 
@@ -16,7 +16,7 @@ struct Stats_15e250 {
     V3_15e250 v2064;
     char pad2070[4];
     V3_15e250 v2074;
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
     char FUN_00035550(V3_15e250 *out);
 };
 
@@ -71,7 +71,7 @@ public:
     Target_15e250 *target;
     char pad28[4];
     float f2c;
-    float FUN_0015c4f0(float v);
+    hulk_freg FUN_0015c4f0(float v);
 };
 
 bool LocomotionSprintAction::vfunc_5(Slot_15e250 a1, Slot_15e250 a2)

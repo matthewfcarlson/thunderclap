@@ -7,7 +7,7 @@ struct Vec3_25e5f0 {
 };
 
 extern "C" double sqrt(double);
-float __cdecl FUN_00018a20(float cosine);      // acos
+hulk_freg __cdecl FUN_00018a20(float cosine);      // acos
 
 hulk_freg FUN_0025e5f0(const Vec3_25e5f0* a, const Vec3_25e5f0* b)
 {

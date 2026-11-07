@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 15598 inputs, branch coverage 10/10)
 // FUN_00083e60 @ 0x00083e60
+#include "compat/ptr.h"
 #include "gen/owners.h"
 extern "C" double sin(double);
 extern "C" double cos(double);
@@ -21,7 +22,7 @@ union FloatBits {
     unsigned int u;
 };
 
-float __cdecl FUN_00018a20(float x);
+hulk_freg __cdecl FUN_00018a20(float x);
 
 class Rig {
 public:

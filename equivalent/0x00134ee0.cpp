@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 36/36)
 // hulkfight::motion::FallAction::vfunc_5 @ 0x00134ee0
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 
 extern "C" double sqrt(double);
 
 struct V3_134ee0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     bool FUN_0022d2b0(V3_134ee0 *other, float limit);
 };
 
@@ -31,7 +32,7 @@ struct Stats_134ee0 {
     float f206c;
     float f2070;
     void FUN_000359c0(int v);
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
     char FUN_00035550(V3_134ee0 *out);
     void FUN_000357a0(V3_134ee0 *v);
 };

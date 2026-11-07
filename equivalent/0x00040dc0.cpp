@@ -11,7 +11,7 @@ static inline float Stored_40dc0(const float &v)
 
 struct V3_40dc0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     char FUN_0022d2b0(const V3_40dc0 *other, float eps);
 };
 
@@ -30,7 +30,7 @@ struct Xform_40dc0 {
     void FUN_00221c60(const Mat4_40dc0 *m);
     Mat4_40dc0 *FUN_00221c40();
     void FUN_00222120(V3_40dc0 *out);
-    float FUN_002220d0();
+    hulk_freg FUN_002220d0();
 };
 
 struct Bones_40dc0 {
@@ -105,7 +105,7 @@ struct Args_40dc0 {
     Sink_40dc0 *f8;
 };
 
-extern float __cdecl FUN_00224fc0(float a, float b);
+extern hulk_freg __cdecl FUN_00224fc0(float a, float b);
 
 struct Frame_40dc0 {
     float ang0;     // 0x00

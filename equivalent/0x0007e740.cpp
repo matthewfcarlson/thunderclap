@@ -17,7 +17,7 @@ extern "C" double cos(double);
 
 struct V3_7e740 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Mgr10_7e740 {
@@ -36,7 +36,7 @@ struct Zone_7e740 {
 };
 
 struct Rng_7e740 {
-    float FUN_000787e0(float lo, float hi);
+    hulk_freg FUN_000787e0(float lo, float hi);
 };
 
 struct Cells {

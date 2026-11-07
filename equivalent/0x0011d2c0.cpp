@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3087 inputs, branch coverage 62/62)
 // hulkfight::ai::PathFormationAction::vfunc_5 @ 0x0011d2c0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/ai.h"
 struct V3_11d2c0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Body_11d2c0 {

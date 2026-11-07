@@ -8,8 +8,8 @@ extern "C" double sqrt(double);
 
 struct V3_2f1ce0 {
     float x, y, z;
-    float FUN_0022d110();
-    float FUN_00018990();
+    hulk_freg FUN_0022d110();
+    hulk_freg FUN_00018990();
 };
 
 struct Mat4_2f1ce0 {

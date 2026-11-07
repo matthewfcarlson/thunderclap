@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3037 inputs, branch coverage 26/26)
 // hulkfight::motion::DriftToHulkAction::vfunc_5 @ 0x00175670
+#include "compat/ptr.h"
 #include "decls/address.h"
 struct Vec3_175670 {
     float x, y, z;
-    float FUN_0022d110();
-    float FUN_00018990();
+    hulk_freg FUN_0022d110();
+    hulk_freg FUN_00018990();
 };
 
 struct Marker_175670 {

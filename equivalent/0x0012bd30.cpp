@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // hulkfight::ai::ThreatAngleCondition::vfunc_6 @ 0x0012bd30
+#include "compat/ptr.h"
 struct TypeInfo; extern TypeInfo DAT_00494b44; extern TypeInfo DAT_00494b60;
 extern "C" void* __cdecl FUN_00344e74(void*, int, TypeInfo*, TypeInfo*, int);
 struct Vector { float x,y,z; };
-extern float __cdecl FUN_00224f10(Vector*);
-extern float __cdecl FUN_00224fc0(float,float);
+extern hulk_freg __cdecl FUN_00224f10(Vector*);
+extern hulk_freg __cdecl FUN_00224fc0(float,float);
 struct Entity { void FUN_00059a50(Vector*); };
-struct Threat_12bd30 { char pad[0x10]; Entity* entity; char pad2[0x22a0-0x14]; Vector position; bool FUN_00037080(void*,unsigned int); float FUN_000354c0(); };
+struct Threat_12bd30 { char pad[0x10]; Entity* entity; char pad2[0x22a0-0x14]; Vector position; bool FUN_00037080(void*,unsigned int); hulk_freg FUN_000354c0(); };
 struct Owner_12bd30 { Threat_12bd30* FUN_00059a30(); };
 struct Context { Owner_12bd30* FUN_000592a0(); };
 namespace hulkfight { namespace ai {

@@ -6,9 +6,9 @@
 
 struct V3_3c1d0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     bool FUN_0022d2b0(V3_3c1d0 *other, float eps);
-    float FUN_00018990();
+    hulk_freg FUN_00018990();
 };
 
 struct V4_3c1d0 : V3_3c1d0 {
@@ -21,7 +21,7 @@ struct Mtx {
 
 struct Kin {
     char pad[4];
-    float FUN_002220d0();
+    hulk_freg FUN_002220d0();
     Mtx *FUN_00221c40();
     V4_3c1d0 *FUN_00221cd0();
 };

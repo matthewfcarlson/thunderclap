@@ -5,7 +5,7 @@
 
 struct Vec_14d40 { float x,y,z; void FUN_0022be40(const Vec_14d40*); };
 struct Heading;
-struct Heading { float FUN_000354c0(); };
+struct Heading { hulk_freg FUN_000354c0(); };
 struct Actor_14d40 { Heading* FUN_00059a30(); void FUN_00059a50(Vec_14d40*); };
 struct Owner_14d40 { Actor_14d40* FUN_000592a0(); };
 struct Motion_14d40 { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual float slot7(); char pad[16]; float speed; float angle; };

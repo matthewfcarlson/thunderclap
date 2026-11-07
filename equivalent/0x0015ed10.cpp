@@ -43,7 +43,7 @@ public:
 
 struct Skeleton;
 struct SubSkel {
-    float FUN_002220d0();
+    hulk_freg FUN_002220d0();
 };
 
 struct Timing_15ed10 {
@@ -89,7 +89,7 @@ struct Frame_15ed10 {
 
 class Climb;
 extern "C" void __cdecl FUN_0015cfd0(void *, void *);
-float __cdecl FUN_000964e0();
+hulk_freg __cdecl FUN_000964e0();
 void *thunk_FUN_0008d690(unsigned int size);
 
 class Climb {
@@ -134,7 +134,7 @@ public:
     JointDriver *driver;   // 0x24
 
     void FUN_0015c780(float a, float b, float c, float d, float e, float f);
-    float FUN_0015ebc0(float a, float b, float c);
+    hulk_freg FUN_0015ebc0(float a, float b, float c);
 };
 
 bool ClimbLocomotionAction::vfunc_3(int a, int b)

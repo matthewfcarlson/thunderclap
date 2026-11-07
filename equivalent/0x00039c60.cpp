@@ -9,9 +9,9 @@ extern "C" double cos(double);
 
 struct V3 {
     float x, y, z;
-    float FUN_0022d110();
-    float FUN_00018990();
-    float FUN_000111f0();
+    hulk_freg FUN_0022d110();
+    hulk_freg FUN_00018990();
+    hulk_freg FUN_000111f0();
 };
 
 struct HitObj {
@@ -69,8 +69,8 @@ struct World {
 
 Thing *__cdecl FUN_000969d0(int a);
 char FUN_00035e70(Thing *t, float score);
-float __cdecl FUN_00224f10(V3 *v);
-float __cdecl FUN_00224fc0(float a, float b);
+hulk_freg __cdecl FUN_00224f10(V3 *v);
+hulk_freg __cdecl FUN_00224fc0(float a, float b);
 
 struct Frame {
     char pad0[3];
@@ -113,7 +113,7 @@ public:
     void *f11c;
     void FUN_000350c0(V3 *out);
     void FUN_00035550(V3 *out);
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
     char FUN_00039440(Thing *t, V3 *out, int *score, int flag);
     Thing *FUN_00039c60(V3 *a0, V3 *a1, float a2, float a3, int a4, Thing **a5, float a6);
 };

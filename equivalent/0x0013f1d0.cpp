@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20023 inputs, branch coverage 18/18)
 // hulkfight::motion::WallExitAction::vfunc_3 @ 0x0013f1d0
+#include "compat/ptr.h"
 #include "decls/address.h"
 extern "C" double sqrt(double);
 extern "C" void *__cdecl FUN_00263ea0(unsigned int size) throw();
@@ -11,7 +12,7 @@ union Bits_13f1d0 {
 
 struct V3_13f1d0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     bool FUN_0022d2b0(V3_13f1d0 *other, float eps);
     void Scale(float s) { x = s * x; y = s * y; z = s * z; }
     void Add(const V3_13f1d0 &o) { x = o.x + x; y = o.y + y; z = o.z + z; }

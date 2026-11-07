@@ -3,8 +3,8 @@
 #include "decls/data/game/hulkfight/motion.h"
 #include "compat/ptr.h"
 
-float __cdecl FUN_00224fc0(float a, float b);
-float __cdecl FUN_0004af40(float lo, float hi, float v);
+hulk_freg __cdecl FUN_00224fc0(float a, float b);
+hulk_freg __cdecl FUN_0004af40(float lo, float hi, float v);
 
 class Table_15d4f0 {
 public:

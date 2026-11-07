@@ -1,5 +1,5 @@
 #include "compat/ptr.h"
-extern float __cdecl FUN_002899e0(float*, float*, float, float, int, int, bool, int);
+extern hulk_freg __cdecl FUN_002899e0(float*, float*, float, float, int, int, bool, int);
 class Item_2a7150 {
   public:
     virtual void a();

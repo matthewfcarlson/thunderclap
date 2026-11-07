@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // hulkfight::motion::GroundSlideAction::vfunc_5 @ 0x001513d0
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 #include "gen/owners.h"
 
 extern "C" double sqrt(double);
 struct V3_1513d0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Mat4_1513d0 {
@@ -17,7 +18,7 @@ struct Timing_1513d0 {
     char pad0[0x2064];
     V3_1513d0 fp2064;
     float f2070;
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
     char FUN_00035660(V3_1513d0 *out);
 };
 

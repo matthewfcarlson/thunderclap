@@ -8,7 +8,7 @@ union FloatBits {
 };
 struct Vec3 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void FUN_0022b980();
     bool FUN_0022d2b0(hulk_uintptr other, float tolerance);
     void FUN_00011160(float distance, hulk_uintptr direction);
@@ -106,7 +106,7 @@ char FUN_00195560(hulk_uintptr direction, hulk_uintptr hit, hulk_uintptr point, 
                   unsigned pa8, hulk_uintptr normal, unsigned pb8, unsigned pb4, unsigned zero, unsigned mask,
                   unsigned zero2, unsigned one, unsigned zero3);
 unsigned FUN_0027f250();
-float FUN_000964e0();
+hulk_freg FUN_000964e0();
 extern "C" void FUN_00224db0(hulk_uintptr transform, hulk_uintptr a, hulk_uintptr b);
 namespace hulkfight {
 namespace motion {

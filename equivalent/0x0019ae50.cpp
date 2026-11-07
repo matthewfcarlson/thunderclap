@@ -9,7 +9,7 @@ extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
 struct V3_19ae50 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     bool FUN_0022d2b0(V3_19ae50 *other, float limit);
 };
 
@@ -91,7 +91,7 @@ struct OwnerObj_19ae50 {
 };
 
 struct Rng_19ae50 {
-    float FUN_000787e0(int lo, int hi);
+    hulk_freg FUN_000787e0(int lo, int hi);
 };
 extern "C" Rng_19ae50 *FUN_000964d0();
 

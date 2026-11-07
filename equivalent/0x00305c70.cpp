@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00305c70 @ 0x00305c70
+#include "compat/ptr.h"
 #include "gen/owners.h"
 extern "C" double sqrt(double); extern "C" double sin(double); extern "C" double cos(double);
-float __cdecl FUN_00018a20(float);
-struct Vec_305c70 { float x,y,z; float FUN_0022d110(); };
+hulk_freg __cdecl FUN_00018a20(float);
+struct Vec_305c70 { float x,y,z; hulk_freg FUN_0022d110(); };
 struct Quat_305c70 { float x,y,z,w;   };
 bool __cdecl FUN_00305c70(const Vec_305c70* a,const Vec_305c70* b,Quat_305c70* out,bool* opposite) {
  *opposite=false;

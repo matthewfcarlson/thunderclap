@@ -11,7 +11,7 @@ union Bits_2f1160 {
 
 struct V3_2f1160 {
     float x, y, z;
-    float FUN_00018990();
+    hulk_freg FUN_00018990();
 };
 
 struct Obj_2f1160;

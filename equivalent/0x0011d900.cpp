@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 51/52, incomplete)
 // hulkfight::ai::StrafeCircleAction::vfunc_5 @ 0x0011d900
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight/ai.h"
 extern "C" double pow(double, double);
 
 struct Vec3_11d900 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 class RefCounted_11d900 {
@@ -85,8 +86,8 @@ struct Stats_11d900 {
 
 void *__fastcall FUN_000592a0(void *owner);
 extern "C" Stats_11d900 *__fastcall FUN_00059a30(void *x);
-extern "C" float FUN_00224f10(Vec3_11d900 *v);
-extern "C" float FUN_00224fc0(float from, float to);
+extern "C" hulk_freg FUN_00224f10(Vec3_11d900 *v);
+extern "C" hulk_freg FUN_00224fc0(float from, float to);
 extern "C" float FUN_00083d90(float *v);
 extern "C" void FUN_00224d70(float angle, Vec3_11d900 *v);
 

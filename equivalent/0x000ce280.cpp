@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 14/14)
 // FUN_000ce280 @ 0x000ce280
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/engine/pure3d/prop.h"
 #include "decls/data/game/global.h"
@@ -72,8 +73,8 @@ struct Builder {
     float scale;
     void FUN_000f7fe0(Source_ce280 *src);
     void FUN_000f78e0();
-    float FUN_000cb750(int idx, int mode);
-    float FUN_000cb6f0(int idx, int mode);
+    hulk_freg FUN_000cb750(int idx, int mode);
+    hulk_freg FUN_000cb6f0(int idx, int mode);
     void FUN_000f87c0(int idx, int mode, void *extra);
 };
 

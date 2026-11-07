@@ -1,11 +1,12 @@
 // FUN_000a2f90 @ 0x000a2f90
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 struct V3_a2f90 {
     float x, y, z;
 };
 
-float __cdecl FUN_000a0450(V3_a2f90 *v);
-float __cdecl FUN_000a02a0(float a);
+hulk_freg __cdecl FUN_000a0450(V3_a2f90 *v);
+hulk_freg __cdecl FUN_000a02a0(float a);
 
 class CChaseCamera_a2f90 {
 public:

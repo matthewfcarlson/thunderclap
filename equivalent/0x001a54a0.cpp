@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 12/12)
 // FUN_001a54a0 @ 0x001a54a0
+#include "compat/ptr.h"
 #include "gen/global.h"
 struct Vec3_1a54a0 {
     float x, y, z;
@@ -7,12 +8,12 @@ struct Vec3_1a54a0 {
 
 struct ModeA {
     int FUN_001def30(int id);
-    float FUN_001dc4a0(int id);
+    hulk_freg FUN_001dc4a0(int id);
 };
 
 struct Item_1a54a0 {
     unsigned char FUN_000352b0(Vec3_1a54a0 *out);
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
 };
 
 struct ModeB_1a54a0 {
@@ -22,7 +23,7 @@ struct ModeB_1a54a0 {
 
 struct ModeC {
     Vec3_1a54a0 *FUN_001fd7d0(Vec3_1a54a0 *tmp, int id);
-    float FUN_001fd830(int id);
+    hulk_freg FUN_001fd830(int id);
 };
 
 struct Globals_1a54a0 {

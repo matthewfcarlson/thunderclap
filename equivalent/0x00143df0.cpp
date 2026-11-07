@@ -38,7 +38,7 @@ struct Target_143df0 {
 
 struct Rng_143df0 {
     int FUN_00011380(int lo, int hi);
-    float FUN_000787e0(float lo, float hi);
+    hulk_freg FUN_000787e0(float lo, float hi);
     float FUN_00143100();
 };
 Rng_143df0 *FUN_000964d0();

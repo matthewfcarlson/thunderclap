@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 6/6)
 // FUN_00028330 @ 0x00028330
 // Group method: is the named pawn's ground position in front of the given heading, within the given arc?
+#include "compat/ptr.h"
 #include "decls/address.h"
-float __cdecl FUN_00224ea0(float x, float z);
-float __cdecl FUN_00224fc0(float a, float b);
+hulk_freg __cdecl FUN_00224ea0(float x, float z);
+hulk_freg __cdecl FUN_00224fc0(float a, float b);
 
 struct Vec3_28330 {
     float x, y, z;

@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // pure3d::ParticleSphereGenerator::vfunc_5 @ 0x002d3530
+#include "compat/ptr.h"
 struct Curve_2d3530 { void FUN_0028a1c0(float time, float *output); };
-float __cdecl FUN_0028b150(Curve_2d3530 *, Curve_2d3530 *, float, float);
+hulk_freg __cdecl FUN_0028b150(Curve_2d3530 *, Curve_2d3530 *, float, float);
 struct Key_2d3530 { char pad[8]; Curve_2d3530 *channels[2]; };
 namespace pure3d {
 struct ParticleSphereGenerator {

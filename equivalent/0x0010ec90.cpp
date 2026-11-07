@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 22/22)
 // hulkfight::ai::HulkActionCountCondition::vfunc_6 @ 0x0010ec90
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/ai.h"
 #include "gen/owners.h"
 
@@ -23,7 +24,7 @@ struct Holder_10ec90 {
 
 struct Stats_10ec90 {
     void FUN_00067730();
-    float FUN_00067110(Key_10ec90 *k);
+    hulk_freg FUN_00067110(Key_10ec90 *k);
 };
 
 Stats_10ec90 *FUN_000678d0();

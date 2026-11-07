@@ -1,18 +1,19 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 83/84, incomplete)
 // CAvoidBehaviour::vfunc_3 @ 0x0010a040
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 struct V3_10a040 {
     float x, y, z;
-    float FUN_0022d110();
-    float FUN_00018990();
-    float FUN_000111f0();
+    hulk_freg FUN_0022d110();
+    hulk_freg FUN_00018990();
+    hulk_freg FUN_000111f0();
     char FUN_0022d2b0(const V3_10a040 *other, float eps);
     void FUN_000344b0(float s);
 };
 
 struct Rng_10a040 {
-    float FUN_00078780();
+    hulk_freg FUN_00078780();
 };
 extern "C" Rng_10a040 *__cdecl FUN_000964d0();
 

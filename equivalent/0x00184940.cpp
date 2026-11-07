@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 20/20)
 // hulkfight::motion::BallAndChainShootAction::vfunc_3 @ 0x00184940
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "gen/owners.h"
 struct V3_184940 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 class Obj_184940 {
@@ -32,7 +33,7 @@ class Fighter_184940 {
 public:
     char pad0[0x328];
     Obj_184940 *held;
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
 };
 
 struct Holder_184940 {

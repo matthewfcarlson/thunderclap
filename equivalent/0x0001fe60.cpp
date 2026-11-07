@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 7/8, incomplete)
 // CDriftAction::vfunc_7 @ 0x0001fe60
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct V3_1fe60 {
@@ -14,7 +15,7 @@ struct Player_1fe60 {
     float f2070;
     bool FUN_00035550(V3_1fe60 *out);
     bool FUN_000356c0(V3_1fe60 *out);
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
     void FUN_000357a0(const V3_1fe60 *v);
 };
 

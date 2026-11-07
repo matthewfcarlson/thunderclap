@@ -6,7 +6,7 @@ extern "C" double sqrt(double);
 struct V3_314a10 {
     float x, y, z;
     void FUN_000111b0(const V3_314a10* a, const V3_314a10* b);
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void FUN_001f6bc0(const V3_314a10* base, float scale, const V3_314a10* dir);
 };
 

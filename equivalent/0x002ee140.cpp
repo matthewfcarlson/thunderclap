@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_002ee140 @ 0x002ee140
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
-struct Vec_2ee140 { float x,y,z; float FUN_0022d110(); };
+struct Vec_2ee140 { float x,y,z; hulk_freg FUN_0022d110(); };
 struct Owner_2ee140 { char pad[16]; void* value; };
 struct Item_2ee140 { char pad0[32]; Owner_2ee140* owner; char pad1[44]; unsigned char filter; char pad2[33]; unsigned char enabled; };
 struct Entry_2ee140 { char pad[4]; Item_2ee140* item; };

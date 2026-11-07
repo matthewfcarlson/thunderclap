@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 24/26, incomplete)
 // FUN_0003e640 @ 0x0003e640
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 struct Region_3e640 {
@@ -15,7 +16,7 @@ struct Detector;
 struct Probe_3e640 {
     bool FUN_000242d0(Detector *d);
     int FUN_000243d0();
-    float FUN_00029f20(Region_3e640 *r, int target);
+    hulk_freg FUN_00029f20(Region_3e640 *r, int target);
 };
 
 struct World {

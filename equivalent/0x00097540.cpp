@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 30/30)
 // FUN_00097540 @ 0x00097540
+#include "compat/ptr.h"
 #include "gen/owners.h"
 extern "C" double sqrt(double);
 
 struct V3_97540 {
     float x, y, z;
-    float FUN_0022d110();
-    float FUN_00018990();
+    hulk_freg FUN_0022d110();
+    hulk_freg FUN_00018990();
 };
 
 struct Stats_97540 {

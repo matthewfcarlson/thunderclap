@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 21/22, incomplete)
 // CPathGraphAgent::vfunc_4 @ 0x00104d00
+#include "compat/ptr.h"
 #include "gen/global.h"
 
 #include "decls/data/game/global.h"
 
 struct V3_104d00 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Mode_104d00 {

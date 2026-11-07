@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // CCollisionDirectionCondition::vfunc_7 @ 0x0004be90
-struct Actor_4be90 { float FUN_000354c0(); };
+#include "compat/ptr.h"
+struct Actor_4be90 { hulk_freg FUN_000354c0(); };
 struct Context2_4be90 { Actor_4be90* FUN_00059a30(); };
 struct Collision_4be90 { char pad[0x18]; float x; float y; float z; };
 struct Context { virtual void v0(); virtual void v1(); virtual void v2(); virtual Collision_4be90* v3(); Context2_4be90* FUN_000592a0(); };
-float __cdecl FUN_00224ea0(float,float);
-float __cdecl FUN_00224fc0(float,float);
+hulk_freg __cdecl FUN_00224ea0(float,float);
+hulk_freg __cdecl FUN_00224fc0(float,float);
 struct CCollisionDirectionCondition {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual bool vfunc_7(Context*);
  char pad[8]; float offset; float range;

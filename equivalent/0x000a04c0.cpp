@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20017 inputs, branch coverage 6/6)
 // FUN_000a04c0 @ 0x000a04c0
+#include "compat/ptr.h"
 struct Vec_a04c0 { float x,y,z; };
 extern "C" double __cdecl sqrt(double);
 extern "C" double __cdecl atan2(double,double);
-extern float __cdecl FUN_000a02a0(float);
-extern float __cdecl FUN_000189c0(float);
+extern hulk_freg __cdecl FUN_000a02a0(float);
+extern hulk_freg __cdecl FUN_000189c0(float);
 void __cdecl FUN_000a04c0(Vec_a04c0* v, float* yaw, float* pitch, float* length) {
  float len = (float)sqrt((double)v->x*v->x + (double)v->y*v->y + (double)v->z*v->z);
  *length = len;

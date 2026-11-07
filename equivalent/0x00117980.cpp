@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 10/10)
 // hulkfight::ai::MotionFleeAction::vfunc_5 @ 0x00117980
+#include "compat/ptr.h"
 struct Vec3_117980 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Refd_117980 {

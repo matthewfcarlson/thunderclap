@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 22/22)
 // FUN_001687a0 @ 0x001687a0
+#include "compat/ptr.h"
 struct Object {
  char padding[0x1b0c];
  float value;
  float third;
- float FUN_000360b0();
+ hulk_freg FUN_000360b0();
  float FUN_00036090();
 };
 extern "C" bool __cdecl FUN_00018960(float, float, float);

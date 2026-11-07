@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 24/24)
 // CSmartPropUpdateAttachmentAction::vfunc_4 @ 0x0001ed60
+#include "compat/ptr.h"
 struct Vec3_1ed60 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Matrix {

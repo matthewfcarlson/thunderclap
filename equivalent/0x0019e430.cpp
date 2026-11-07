@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20037 inputs, branch coverage 61/62, incomplete)
 // hulkfight::motion::FireMissileAction::vfunc_5 @ 0x0019e430
 // hulkfight::motion::FireMissileAction::vfunc_5 @ 0x0019e430
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/hulkfight/motion.h"
@@ -9,8 +10,8 @@ extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
 struct V3_19e430 {
     float x, y, z;
-    float FUN_0022d110();
-    float FUN_00018990();
+    hulk_freg FUN_0022d110();
+    hulk_freg FUN_00018990();
 };
 
 class CSPHulkProp;

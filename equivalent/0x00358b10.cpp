@@ -20,7 +20,7 @@ struct V3_358b10 {
     float x, y, z;
     void FUN_000111b0(const V3_358b10 *a, const V3_358b10 *b); // this = a x b
     void FUN_0022d180();                                       // normalise
-    float FUN_00018990();                                      // length
+    hulk_freg FUN_00018990();                                      // length
 };
 
 bool FUN_00358630(float *p, float *dir, float r, float t, int flag, float d, float *n, float *out);

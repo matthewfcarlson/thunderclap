@@ -8,9 +8,9 @@ extern "C" double cos(double);
 
 struct V3_135760 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void FUN_000111b0(const V3_135760 *a, const V3_135760 *b);
-    float FUN_000111f0();
+    hulk_freg FUN_000111f0();
 };
 
 union Bits_135760 {
@@ -63,7 +63,7 @@ struct Config_135760 {
     char flag30;
 };
 
-float __cdecl FUN_00224f10(V3_135760 *v);
+hulk_freg __cdecl FUN_00224f10(V3_135760 *v);
 void __cdecl FUN_00224d70(float angle, V3_135760 *v);
 extern "C" int __cdecl FUN_00098190(unsigned int dt, unsigned int acc, unsigned int mag, int a, void *ref, int b,
                          V3_135760 *vel, V3_135760 *dir, int c, int d, int e, int f);

@@ -15,7 +15,7 @@ static inline float Stored_418f0(const float &v)
 
 struct V3_418f0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     char FUN_0022d2b0(V3_418f0 *other, float eps);
 };
 
@@ -86,8 +86,8 @@ struct Ref14c : RefObj_418f0 {
     int f0c;
 };
 
-float __cdecl FUN_00224ea0(float a, float b);
-float __cdecl FUN_00224fc0(float a, float b);
+hulk_freg __cdecl FUN_00224ea0(float a, float b);
+hulk_freg __cdecl FUN_00224fc0(float a, float b);
 V3_418f0 *__cdecl FUN_00083e00(V3_418f0 *out, V3_418f0 *in, float s);
 
 struct Hit_418f0 {
@@ -99,7 +99,7 @@ struct World {
 };
 
 struct Sub14 {
-    float FUN_002220d0();
+    hulk_freg FUN_002220d0();
 };
 
 struct Ref14c;

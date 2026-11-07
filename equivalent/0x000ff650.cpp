@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // CHand2HandAgent::vfunc_12 @ 0x000ff650
+#include "compat/ptr.h"
 struct NameHolder_ff650 {
     void FUN_0027b040(const char *name);
 };
 
 struct Clock_ff650 {
-    float FUN_00078780();
+    hulk_freg FUN_00078780();
 };
 Clock_ff650 *__cdecl FUN_000964d0();
 

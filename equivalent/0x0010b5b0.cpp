@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20013 inputs, branch coverage 39/43, incomplete)
 // hulkfight::ai::FaceTargetAction::vfunc_5 @ 0x0010b5b0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/hulkfight.h"
 #include "gen/owners.h"
@@ -7,7 +8,7 @@ extern "C" double fabs(double);
 
 struct V3 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Pos {
@@ -54,7 +55,7 @@ struct Player {
     char pad1b84[0x1f58 - 0x1b84];
     Sub sub;                // 0x1f58
     int f20a8;              // 0x20a8
-    float FUN_00035700();
+    hulk_freg FUN_00035700();
     void FUN_00035550(V3 *out);
 };
 
@@ -82,7 +83,7 @@ struct World {
     Hold *hold;             // 0x20
 };
 
-extern float __cdecl FUN_00224ea0(float a, float b);
+extern hulk_freg __cdecl FUN_00224ea0(float a, float b);
 
 class FaceTargetAction {
 public:

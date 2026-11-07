@@ -7,7 +7,7 @@ extern "C" double sqrt(double);
 
 struct V3_18d40 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Mat4_18d40 {
@@ -21,7 +21,7 @@ struct Timing_18d40 {
     V3_18d40 fp2064;
     float f2070;
     void FUN_000359c0(int v);
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
     void FUN_000357a0(V3_18d40 *v);
 };
 
@@ -67,7 +67,7 @@ public:
     virtual void v28();
     virtual void v29();
     virtual char v30();
-    float FUN_00069370(float v);
+    hulk_freg FUN_00069370(float v);
 };
 
 struct Driver {
@@ -75,8 +75,8 @@ struct Driver {
     Mat4_18d40 xform;
 };
 
-float __cdecl FUN_00224f10(V3_18d40 *v);
-float __cdecl FUN_00224fc0(float a, float b);
+hulk_freg __cdecl FUN_00224f10(V3_18d40 *v);
+hulk_freg __cdecl FUN_00224fc0(float a, float b);
 void __cdecl FUN_00224d70(float angle, V3_18d40 *v);
 
 union Bits_18d40 {

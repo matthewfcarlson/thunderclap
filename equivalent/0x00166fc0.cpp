@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 25/26, incomplete)
 // hulkfight::motion::RayCastTargetCondition::vfunc_6 @ 0x00166fc0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "gen/owners.h"
 extern char DAT_00494b44[];
@@ -8,7 +9,7 @@ extern void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* d
 
 struct Vec3_166fc0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Matrix {

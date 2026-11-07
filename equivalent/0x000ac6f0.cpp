@@ -4,7 +4,7 @@
 #include "compat/ptr.h"
 #include "gen/owners.h"
 struct ThisCall_000ac6a0 {
-    float FUN_000ac6a0(float t);
+    hulk_freg FUN_000ac6a0(float t);
 };
 
 class Curve_ac6f0 {

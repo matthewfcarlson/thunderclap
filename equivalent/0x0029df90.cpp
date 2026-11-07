@@ -71,8 +71,8 @@ class Manager {
 public:
     char pad0[0x40];
     Table *table;               // 0x40
-    float FUN_0029dcc0(int mode, int n);
-    float FUN_0029dd30(Table *t);
+    hulk_freg FUN_0029dcc0(int mode, int n);
+    hulk_freg FUN_0029dd30(Table *t);
     void FUN_0029df90(Group *group, Arg2 a2, Arg3 a3);
 };
 

@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 15/16, incomplete)
 // FUN_00313940 @ 0x00313940
+#include "compat/ptr.h"
 struct Vec3_313940 {
     float x, y, z;
     void FUN_0022d180();
@@ -14,8 +15,8 @@ struct Box_313940 {
     char pad00[0x48];
     Vec3_313940 ext;
     Vec3_313940 row[3];
-    float FUN_002fbcd0(const Vec3_313940 *axis);
-    float FUN_002fbdc0(const Vec3_313940 *axis, int skip);
+    hulk_freg FUN_002fbcd0(const Vec3_313940 *axis);
+    hulk_freg FUN_002fbdc0(const Vec3_313940 *axis, int skip);
 };
 
 class BoxTest {

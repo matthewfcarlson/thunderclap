@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 13613 inputs, branch coverage 6/6)
 // FEObject::vfunc_3 @ 0x000e9160
+#include "compat/ptr.h"
 struct FEObject;
 struct Source_e9160 {
  virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15(); virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19(); virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23(); virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27(); virtual void s28(); virtual void s29(); virtual void s30(); virtual void s31(); virtual void s32(); virtual void s33(); virtual void s34(); virtual void s35(); virtual void s36(); virtual void s37(); virtual void s38(); virtual void s39(); virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43(); virtual void* s44();
@@ -13,8 +14,8 @@ struct Owner_e9160 {
 struct Matrix {
  struct Row {float a,b,scale,d;} rows[8]; char pad[8]; int index; int tail;
  void FUN_000f7fe0(void*);
- float FUN_000f8840(Triple_e9160*);
- float FUN_000f88a0(Triple_e9160*);
+ hulk_freg FUN_000f8840(Triple_e9160*);
+ hulk_freg FUN_000f88a0(Triple_e9160*);
 };
 extern "C" void FUN_000f78e0();
 struct FEObject {

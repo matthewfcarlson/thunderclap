@@ -7,8 +7,8 @@ extern "C" double fabs(double);
 struct V3 {
     float x, y, z;
     char FUN_0022d2b0(const V3 *z, float eps);
-    float FUN_0022d110();
-    float FUN_00018990();
+    hulk_freg FUN_0022d110();
+    hulk_freg FUN_00018990();
 };
 
 struct Obj10 {
@@ -57,7 +57,7 @@ struct YObj {
     V3 v2074;
     char pad2080[0x20a8 - 0x2080];
     int f20a8;
-    float FUN_000354c0();
+    hulk_freg FUN_000354c0();
     void FUN_00035550(V3 *out);
 };
 
@@ -78,9 +78,9 @@ extern float DAT_004b4d60;
 extern float DAT_004b4d64;
 extern float DAT_004b4d68;
 
-float __cdecl FUN_00224ea0(float a, float b);
-float __cdecl FUN_00224fc0(float a, float b);
-float __cdecl FUN_00224f10(V3 *v);
+hulk_freg __cdecl FUN_00224ea0(float a, float b);
+hulk_freg __cdecl FUN_00224fc0(float a, float b);
+hulk_freg __cdecl FUN_00224f10(V3 *v);
 char __cdecl FUN_00018960(float a, float b, float c);
 void __cdecl FUN_00224d70(float angle, V3 *v);
 
@@ -117,7 +117,7 @@ public:
     char pad04[0x1c - 4];
     F1c *f1c;
     State *f20;
-    float FUN_0015d4f0(float a, float b, float c);
+    hulk_freg FUN_0015d4f0(float a, float b, float c);
 };
 
 bool LocomotionStrafeAction::v5(int a0, float dt)

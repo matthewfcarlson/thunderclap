@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1306 inputs, branch coverage 143/146, incomplete)
 // FUN_00025ff0 @ 0x00025ff0
+#include "compat/ptr.h"
 #include "gen/owners.h"
 extern "C" double __cdecl sqrt(double);
 
 struct V3_25ff0 {
     float x, y, z;
-    float FUN_000111f0();
+    hulk_freg FUN_000111f0();
 };
 struct V4_25ff0 { float x, y, z, w; };
 

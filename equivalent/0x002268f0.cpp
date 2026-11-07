@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002268f0 @ 0x002268f0
+#include "compat/ptr.h"
 extern "C" double sqrt(double);
 
 struct Vec3_2268f0 {
     float x, y, z;
 };
 
-float __cdecl FUN_00224f10(Vec3_2268f0 *v);
+hulk_freg __cdecl FUN_00224f10(Vec3_2268f0 *v);
 
 class Obj_2268f0 {
 public:

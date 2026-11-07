@@ -2,12 +2,13 @@
 // hulkfight::motion::ProjectileGroundShockwave::vfunc_6 @ 0x00199060
 // hulkfight::motion::ProjectileGroundShockwave::vfunc_6 @ 0x00199060
 // equiv-conv: FUN_00195560 ecx eax ebx stack stack stack stack stack stack stack stack stack stack stack
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
 struct V3_199060 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Name_199060 {
@@ -165,7 +166,7 @@ public:
 
 extern "C" int FUN_00266da0(int mode);
 void FUN_00224d70(float angle, V3_199060 *v);
-float FUN_00224f10(V3_199060 *v);
+hulk_freg FUN_00224f10(V3_199060 *v);
 extern "C" char FUN_00195560(V3_199060 *pn, void *own, V3_199060 *b, int f1c, int f98, int z0, int a4, int Tbits, int f78, int f20, int f74,
                   int z1, float one, int z2);
 extern "C" int __cdecl FUN_0034483c();

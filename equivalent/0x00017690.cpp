@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 6/6)
 // CHeadTrackerAction::vfunc_6 @ 0x00017690
+#include "compat/ptr.h"
 struct V3_17690 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Matrix {

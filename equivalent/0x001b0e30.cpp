@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3033 inputs, branch coverage 23/23)
 // FUN_001b0e30 @ 0x001b0e30
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 
@@ -31,7 +32,7 @@ public:
 };
 
 struct Dist {
-    float FUN_000111f0();
+    hulk_freg FUN_000111f0();
 };
 
 struct Info_1b0e30 {

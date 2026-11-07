@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 13977 inputs, branch coverage 120/122, incomplete)
 // FUN_001b4d00 @ 0x001b4d00
+#include "compat/ptr.h"
 #include "gen/owners.h"
 extern "C" double __cdecl sqrt(double);
 extern unsigned int DAT_004dc0e0;
@@ -8,7 +9,7 @@ extern unsigned int DAT_004e21ec;
 
 struct V3 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     char FUN_0022d2b0(const V3 *other, float eps);
 };
 

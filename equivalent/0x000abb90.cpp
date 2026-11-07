@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3039 inputs, branch coverage 66/66)
 // CHypnoticCamera::vfunc_35 @ 0x000abb90
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/address.h"
 
 struct V3_abb90 { float x, y, z; };
@@ -52,7 +53,7 @@ struct Snd_abb90 {
 };
 extern "C" Snd_abb90 *FUN_001eb200();
 extern "C" char FUN_0009fa00();
-float FUN_000a02a0(float v);
+hulk_freg FUN_000a02a0(float v);
 extern "C" void FUN_000a04c0(V3_abb90 *delta, float *a, float *b, float *out);
 
 struct Anim_abb90 {

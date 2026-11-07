@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 518 inputs, branch coverage 30/33, incomplete)
 // FUN_002bbb40 @ 0x002bbb40
+#include "compat/ptr.h"
 #include "gen/owners.h"
 extern "C" void __fastcall FUN_00011090(void *p);
 extern "C" void __fastcall FUN_000c7920(void *p);
@@ -7,7 +8,7 @@ void __stdcall FUN_00011520(void *p, unsigned int size, int count, void(__fastca
 
 struct Rng {
     Rng *FUN_0022aba0(int seed);
-    float FUN_00078780();
+    hulk_freg FUN_00078780();
 };
 extern Rng DAT_00554bc4;
 extern unsigned char DAT_00554bcc;

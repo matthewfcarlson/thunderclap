@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19439 inputs, branch coverage 12/12)
 // FUN_001b65f0 @ 0x001b65f0
+#include "compat/ptr.h"
 #include "decls/data/game/global.h"
 
 inline void *operator new(unsigned int, void *p) throw() { return p; }
@@ -7,7 +8,7 @@ extern "C" void *FUN_0008d690(unsigned int size);
 
 struct Vec3_1b65f0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct MeshIndices {

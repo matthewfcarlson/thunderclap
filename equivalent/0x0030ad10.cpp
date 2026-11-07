@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_0030ad10 @ 0x0030ad10
+#include "compat/ptr.h"
 struct Vec3_30ad10 { float x,y,z; };
 struct Helper_30ad10 { void FUN_00310490(int, Vec3_30ad10*, int); };
-extern float __cdecl FUN_00018a20(float);
+extern hulk_freg __cdecl FUN_00018a20(float);
 struct Object {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual float v6();
  char pad4[8]; int value; char pad10[8]; Helper_30ad10* helper; char pad1c[0x7c]; float x,y,z;

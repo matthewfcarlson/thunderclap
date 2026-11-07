@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 6/6)
 // hulkfight::motion::JointPivotTrackerAction::vfunc_3 @ 0x001712c0
+#include "compat/ptr.h"
 #include "gen/owners.h"
 struct V3_1712c0 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct Mat4_1712c0 {

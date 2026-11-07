@@ -31,7 +31,7 @@ struct Target_2f8300 {
     virtual int v7(V3_2f8300 *r, void *p);
 };
 
-float FUN_002f2950(float a, float b);
+hulk_freg FUN_002f2950(float a, float b);
 
 struct ImpulseBasedCollisionSolver_2f8300 {
     virtual void s0();

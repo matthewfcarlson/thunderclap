@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19942 inputs, branch coverage 4/4)
 // CAutoTargetAction::vfunc_6 @ 0x000151a0
+#include "compat/ptr.h"
 #include "gen/global.h"
 #include "gen/owners.h"
 
 struct Owner_151a0; struct Actor_151a0; struct Context_151a0; struct Effect_151a0;
 struct Name_151a0 {  };
-struct Value_151a0 { float FUN_002220d0(); void FUN_00221d20(float); };
+struct Value_151a0 { hulk_freg FUN_002220d0(); void FUN_00221d20(float); };
 struct Effect_151a0 { virtual void vfunc_0(); char pad4[4]; Name_151a0 name; char pad9[11]; int mode; Value_151a0 value; Effect_151a0* FUN_002248f0(int); };
 struct Actor_151a0 { char pad[16]; Value_151a0 value; void FUN_00222890(Effect_151a0*,float,unsigned int,float,unsigned int,unsigned int,float); };
 struct Context_151a0 { Actor_151a0* FUN_00059a40(); };

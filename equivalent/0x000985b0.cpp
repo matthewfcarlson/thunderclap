@@ -20,7 +20,7 @@ struct CamState {
     float f[10];
 };
 
-float FUN_000a02a0(float angle);
+hulk_freg FUN_000a02a0(float angle);
 void FUN_0009f8c0(Vec3_985b0 *out, float a, float b, float c);
 
 class CGameCamera {

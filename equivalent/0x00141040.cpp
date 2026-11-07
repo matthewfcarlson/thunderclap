@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 25/26, incomplete)
 // hulkfight::motion::WallJumpAction::vfunc_5 @ 0x00141040
+#include "compat/ptr.h"
 #include "decls/data/game/hulkfight/motion.h"
 #include "gen/owners.h"
 
@@ -7,7 +8,7 @@ extern "C" double sqrt(double);
 
 struct V3_141040 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     bool FUN_0022d2b0(V3_141040 *other, float limit);
 };
 

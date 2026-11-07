@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 6/6)
 // CSnapToWallAction::vfunc_6 @ 0x00017a80
+#include "compat/ptr.h"
 #include "gen/global.h"
 #include "gen/owners.h"
 
 struct V3_17a80 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
 };
 
 struct NameField_17a80 {
@@ -59,7 +60,7 @@ struct Cfg_17a80 {
 };
 
 void *FUN_00263ea0(unsigned int);
-float FUN_00224f10(const V3_17a80 *v);
+hulk_freg FUN_00224f10(const V3_17a80 *v);
 void FUN_00224d70(float angle, V3_17a80 *v);
 
 bool CSnapToWallAction::vfunc_6(int arg) {

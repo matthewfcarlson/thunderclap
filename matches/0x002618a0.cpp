@@ -1,11 +1,12 @@
 // FUN_002618a0 @ 0x002618a0
+#include "compat/ptr.h"
 extern "C" double fmod(double x, double y);
 
 struct Node {
     char pad0;
 };
 extern "C" Node* __cdecl FUN_002611b0(void* owner);
-extern "C" float __cdecl FUN_00260d00(void* node);
+extern "C" hulk_freg __cdecl FUN_00260d00(void* node);
 extern "C" void __cdecl FUN_00260be0(void* owner, float value);
 
 extern "C" void FUN_002618a0(void* owner) {

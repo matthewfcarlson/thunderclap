@@ -4,9 +4,9 @@
 #include "decls/address.h"
 struct Vec3_176060 {
     float x, y, z;
-    float FUN_0022d110();
+    hulk_freg FUN_0022d110();
     void FUN_000344b0(float s);
-    float FUN_00018990();
+    hulk_freg FUN_00018990();
 };
 
 class Scaler_176060 {

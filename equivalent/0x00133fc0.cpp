@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 10/10)
 // hulkfight::motion::FallAction::vfunc_3 @ 0x00133fc0
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "gen/owners.h"
 struct V3_133fc0 {
@@ -11,7 +12,7 @@ struct Name_133fc0 {
 struct Xform_133fc0 {
     char data[0x54];
     void FUN_00221be0(const Xform_133fc0* src);
-    float FUN_002220d0();
+    hulk_freg FUN_002220d0();
 };
 void* FUN_00263ea0(unsigned int size);
 void __cdecl FUN_00224d70(float angle, V3_133fc0* v);
