@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19941 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 2/2)
 // audio::SeqEventChannelVolumesType::vfunc_3 @ 0x00252070
 #include "gen/audio.h"
 
@@ -22,7 +22,7 @@ struct SeqEventChannelVolumes_252070 {
 
 }
 void* audio::SeqEventChannelVolumesType::vfunc_3() {
-    SeqEventChannelVolumes_252070* result = (SeqEventChannelVolumes_252070*)FUN_00247530(((char*)((char*)&DAT_004e6d28 + 8)));
+    SeqEventChannelVolumes_252070* result = (SeqEventChannelVolumes_252070*)FUN_00247530(((char*)((char*)&DAT_004e6d30)));
     if (!result) return (void*)(0);
     result->FUN_0025fd00();
     new (result) SeqEventChannelVolumes_252070;

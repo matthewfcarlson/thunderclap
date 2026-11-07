@@ -31,7 +31,7 @@ class SeqEventChannelSends_24fa90 : public SeqEventType_24fa90 {
 
 } // namespace audio
 void* audio::SeqEventChannelSendsType::vfunc_3() {
-    SeqEventChannelSends_24fa90* p = (SeqEventChannelSends_24fa90*)Alloc(((int*)((char*)&DAT_004e6800 + 72)));
+    SeqEventChannelSends_24fa90* p = (SeqEventChannelSends_24fa90*)Alloc(((int*)((char*)&DAT_004e6848)));
     if (p) {
         p->SeqEventChannelSends_24fa90::SeqEventChannelSends_24fa90();
         return (void*)(p);

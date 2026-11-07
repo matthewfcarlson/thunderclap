@@ -5,5 +5,5 @@ struct Obj_364510 {
     void f();
 };
 void wrapper() {
-    (*(Obj_364510*)((char*)&DAT_004e6ff0 + 72)).f();
+    (*(Obj_364510*)((char*)&DAT_004e7038)).f();
 }

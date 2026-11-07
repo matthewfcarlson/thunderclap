@@ -28,6 +28,6 @@ Sequence_257c90* Sequence_257c90::f2(unsigned char flags) {
     FUN_00257730(m44);
     Fin();
     if (flags & 1)
-        FUN_00247550(((char*)((char*)&DAT_004e75b8 + 104)), this);
+        FUN_00247550(((char*)((char*)&DAT_004e7620)), this);
     return this;
 }

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1823 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 2980 inputs, branch coverage 10/10)
 // audio::OmHalStream::vfunc_7 @ 0x0025c0d0
 #include "decls/data/engine/audio.h"
 
@@ -15,17 +15,17 @@ struct OmHalStream {
 uint_25c0d0 OmHalStream::vfunc_7(void* output,int format,uint_25c0d0 requested) {
  count=requested>capacity?capacity:requested;
  if(format==1) { reader->FUN_00246f00(output,count,0,1); return count; }
- void* temporary=FUN_00247530(((char*)((char*)&DAT_004e7808 + 72)));
+ void* temporary=FUN_00247530(((char*)((char*)&DAT_004e7850)));
  uint_25c0d0 remaining=count;
  while(remaining!=0) {
- uint_25c0d0 chunk=(*(uint_25c0d0*)&DAT_004e7888);
+ uint_25c0d0 chunk=((uint_25c0d0)DAT_004e7850->body.size);
  if(remaining<=chunk) chunk=remaining;
  reader->FUN_00246f00(temporary,chunk,0,1);
  FUN_00270390(output,format,temporary,1,chunk);
  output=(char*)output+chunk;
  remaining-=chunk;
  }
- FUN_00247550(((char*)((char*)&DAT_004e7808 + 72)),temporary);
+ FUN_00247550(((char*)((char*)&DAT_004e7850)),temporary);
  return count;
 }
 }

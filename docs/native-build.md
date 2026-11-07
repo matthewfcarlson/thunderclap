@@ -867,7 +867,7 @@ word, 8 bytes by design; 0x0026d8f0's declared `unsigned int*`).
 | strict link rc / Wine unbound | 0 / 1,319 | 0 / **1,318** (gone: the invented `thunk` that 0x00267220 and 0x00267250 shared for two addresses) |
 | x87 keep list | 268 | identical |
 | play3 checkpoints | 2,013 to 60,360 | identical at all 2,005 common frames (batch to 60,120) |
-| arm64 macOS / x86-64 Linux / arm64 Android unbound (proof's own snapshot and map) | 31,958 / 31,949 / 31,950 (unb4) | 31,957 / 31,948 / 31,949, all rc 0 |
+| arm64 macOS / x86-64 Linux / arm64 Android unbound (proof 64998's own snapshot and map) | 31,958 / 31,949 / 31,950 (unb4) | 31,957 / 31,948 / 31,949, all rc 0 |
 | macOS start-up | 216: the registry table | 216: the dl allocator's constructor (`FUN_0026cfa0+0x58`) |
 
 Both proofs build their data TUs from a private `HULK_DATA_DIR` (`--data-src`): the control from HEAD's inventory
@@ -1011,7 +1011,7 @@ from the tree TUs compiled with MSVC (`treesym_patch.py`).
 | strict link rc / Wine unbound | 0 / 1,318 | 0 / **1,314** |
 | x87 keep list | 268 | identical |
 | play3 checkpoints | 2,006 to 60,150 | identical at all 2,006 common frames (batch to 60,420) |
-| arm64 macOS / x86-64 Linux / arm64 Android unbound (proof's own snapshot and map) | 31,957 / 31,948 / 31,949 (reg1) | **31,928 / 31,919 / 31,920**, all rc 0 |
+| arm64 macOS / x86-64 Linux / arm64 Android unbound (proof 64998's own snapshot and map) | 31,957 / 31,948 / 31,949 (reg1) | **31,928 / 31,919 / 31,920**, all rc 0 |
 | macOS start-up | 216: the dl allocator's constructor | runs 0-259, stops in **260** (0x0035efb0, `DAT_004ca248`) |
 
 Both proofs build their data TUs from a private `HULK_DATA_DIR` (`--data-src`). The shared build/data/src was stale
@@ -1083,9 +1083,93 @@ tree and types, x4 everything without the private `.bss` headroom (all initializ
 | strict link rc / Wine unbound | 0 / 1,314 | 0 / 1,314 (identical lists) |
 | x87 keep list | 268 | identical |
 | play3 checkpoints | 2,006 to 60,150 | `ckpt_gate.py`: ok at all 2,002 common frames (to 60,030; the known transients only), PRNG hashes identical |
-| arm64 macOS / x86-64 Linux / arm64 Android unbound (proof's own snapshot and map) | 31,928 / 31,919 / 31,920 (reg2) | **31,741 / 31,732 / 31,733**, all rc 0 |
+| arm64 macOS / x86-64 Linux / arm64 Android unbound (proof 64998's own snapshot and map) | 31,928 / 31,919 / 31,920 (reg2) | **31,741 / 31,732 / 31,733**, all rc 0 |
 | macOS start-up | 260 (`DAT_004ca248`) | 260 until dec1's pointer words land; with them (x4): every initializer, then main to 0x0026f070 |
 
 The proof's inventory also carried dec1's six `kind: pointer` lines (they were in the working copy it was taken
 from); the committed inventory is HEAD's plus this change only. data_gen output from the two differs in those six
 items' declarations only (`unsigned int X[1]` / `int X`, the same bytes).
+
+## The static om types as records, and main's platform set-up (reg4, 2026-11-06)
+
+reg3 ran every initializer but left the static om type objects as raw 32-bit-sized `.bss` arrays (several packed into
+one item), and main stopped in its platform set-up. Both are done here (the user's decision of 2026-11-06: typed
+records per object, no general `.bss` headroom).
+
+### om::Type as one record
+
+om::Type (0x002584d0) is 0x48 bytes: the vftable, a word nobody reads, its node in the red-black tree of types by key
+(0x004cd1a8: om::Type::vfunc_0 0x002588d0 inserts with 0x00258530, vfunc_1 0x002588f0 removes with 0x00258730,
+0x00258950 finds with 0x00258870), 16 unreferenced bytes, the data kind's key (+0x28), the type's own key (+0x30, the
+tree's key), an instance's size and alignment (+0x38 / +0x3c, which the om allocator's slot 0x002474c0 allocates), and
+8 unreferenced bytes. The sources disagreed: the tree functions found the key at node+0x28 (`char pad[0x18]` after the
+links) and the type at node-8, the constructor wrote ints after `int pad[9]`, the sequence event types put their node
+after `char data[0x44]`, om::EntityType's own word after `char pad[0x64]`, and the stack temporaries were `char[0x40]`
+to `char[0x48]`.
+
+- records.h: `OmKey {lo, hi}`, `OmTypeBody` (node .. reserved words), `OmType {vftable; reserved04; body}` (72),
+  `OmEntityType {type; reserved48[8]; flags}` and `SeqEventTypeHead {type; node; name}` rebased on it. The keys are
+  word pairs: with an `__int64` member MSVC 7.1 pads the vftable pointer's slot to 8 (0x002584d0's body moved to
+  +0x10). The 104- and 112-byte objects are `__declspec(align(8))` (their items keep the 4 bytes after the class).
+- The classes that derive from om::Type spell `virtual ...; unsigned int reserved04; OmTypeBody body;`, so they have
+  the record's layout on both builds (0x002584d0, 0x00243310, 0x002605e0, 0x0024df00, 0x0024e4c0, 0x00261120); the tree
+  functions go by the record (`entry_of` / `KeyOf` from the node's offset), the temporaries are `sizeof(OmType)`.
+
+### The static objects
+
+88 objects (58 `OmType`, 8 `OmEntityType`, 22 `SeqEventTypeHead`) in what were 64 items (initializers 284-396 construct them, the exit handlers 0x00364150-0x00364760 destroy them):
+`extern "C" OmType DAT_x[1];` (an array of one: sources pass `DAT_x` as a pointer). 25 items held several objects
+(`(char*)&DAT_004e5cf8 + 112`): one item per object now, the three with an id word first (0x002673a0's result, 4
+bytes of padding, then the sequence event type), 0x004e7808's second type takes 0x004e7888 (its size and alignment
+words, read by 0x0025c0d0 / 0x0025c190) as its interior, and 0x004e7be0's tail (the stream buffers) is
+`DAT_004e7c28`. 99 sources name the parts (objs.py), 21 getters that declared a part's name themselves
+(`extern "C" int DAT_004e5d68;`) use the record, 0x00245720 the key field. The inventory: 30 more `.bss` items.
+
+data_gen: a generated header that leaves items to records.h now includes records.h, so a source naming them needs
+nothing else (docs/data.md "Typed records").
+
+### Main
+
+| stop | what | fix |
+|---|---|---|
+| 0x0026f070 | `InitPlatform` (invented, 0x002705f0), `XAPILIB::XInitDevices` (the thunk 0x003eba7c to the XDK row 0x003eac33) | `FUN_002705f0` by its definition, `thunk_FUN_003eac33` (the native XDK table binds the name by the row address in it); 0x0026f020 the same. The static core::Platform's vftable is still stored as the invented `platformObject` (a placement-constructed local `core::Platform` was tried: the TU wraps it, and its clang vftable is a stub in the Wine build, one more Wine-unbound name) |
+| main's thunk calls | `thunk_FUN_002709b0` / `thunk_FUN_00270f10` reach `jmp` thunks (0x00269680 / 0x00269780); the native link never bound `thunk_FUN_x` | `native_unbound.plan_link`: `thunk_FUN_x` binds to x's definition when the Wine binding map has its relocations reach x or a `jmp` thunk to x (test case added) |
+| 0x00273530, 0x00276650, 0x00275d20 | `Init` / `Register` (0x0026d820 / 0x002702a0, a propagated shape) | address names with the definitions' types |
+| 0x002702a0 | `MemoryPool_2702a0::Create` (core::MemoryPool's constructor 0x00270170), 0x34 bytes allocated | a stand-in named by the constructor's address with the class's layout, `sizeof` |
+| 0x00265b70, 0x002656b0 | `Obj_265b70::Init` (the content loader, 0x3c bytes), its two hash tables (36 bytes, 0x00231550 calls `init`) | the loader's and the tables' layouts, `sizeof`; 0x00231550 `FUN_002310a0`, its slots as pointers |
+| 0x0008ee30 | CGame's constructor as `CGame_8ee30::Ctor` (0x00087e80), 0x54 bytes | `FUN_00087e80` with CGame's layout |
+| 0x0008fca0 -> 0x002710d0 -> 0x00270f10 / 0x00270c80 -> 0x00277260 -> 0x00278a40 / 0x0026fcf0 | the file open of `args.txt`: the path passed as `int` (0x002710d0, 0x002697c0's two results kept in `int`s, 0x00278a40, 0x0026fcf0), core::File allocated as 0x168 bytes, invented names for the drives' constructors (0x00278500, 0x0026f570) | pointers by the definitions; `FUN_002764d0` with core::File's layout; the constructors by address; 0x00270b70's destination `char*` |
+| 0x00272d00 | core::Drive's constructor calls `Hook` (0x002705f0) and `Sub_272d00::Init` (0x00277a40) | address names |
+
+Where main stops now (the iteration links, with dec1's pointer words added privately): after the platform set-up,
+the content loader and its fiber, the file system's drive registry, CGame's allocation and the open of `args.txt`
+through the save drive, core::Drive's constructor (0x00272d00) stores its vftables as invented data names
+(`vt0_272d00`, `vtD_272d00`, ...: unbound on the native links), and main's next virtual call on it jumps to a bogus
+address; the drive thread it started misses `FUN_002731d0` (a wrapped declaration whose types differ from the
+definition's). One normal run hit a corrupted malloc free list (`FUN_00270540`); with libgmalloc it did not
+reproduce: the 32-bit allocation sizes that remain (the XboxDrive's 0x1e4, the XboxSaveDrive's 0x910, the om types'
+instance sizes, which the leaf types pass as 32-bit constants to 0x002584d0) are the suspects.
+
+### Method, batch and proof
+
+As reg3 (scripts `build/reg4/scripts/`; `objs.py` builds the object table from the initializers, the inventory edits
+and the source rewrites). Iterations x1-x8 with reg3's proof as the base and gen_tree with unb4's fix (dec1 is
+landing it; the om/Type.cpp TU needs it to merge the record-based tree functions, and build_tree wraps them without
+it). The x64 check: improved 0x002474c0 (fail -> equivalent), 0x002702a0 (fail -> unsupported); 0x00278a40 /
+0x00277260 return `void` (their only callers ignore the result; a pointer returned as `int` was a 64-bit truncation).
+Not equivalent on x64 after (HEAD: equivalent): 0x0008ee30 and 0x0026fcf0 (unsupported: the harness cannot run a
+placement-constructed object's or an untyped slot's virtual call), 0x00258530 / 0x00258870 (inconclusive: the
+node-to-type cast), 0x0025c0d0 (fail, layout: it now reads the type's size through the record).
+
+| | control | batch (reg4) |
+|---|---|---|
+| sources | HEAD 3234e788e (the batch's HEAD cb545e026 changes only native tools) | 125 matches/, 40 equivalent/, records.h, 8 regenerated data headers, config/data.json, tools/data_gen.py, tools/native_unbound.py (+ test) |
+| gates | - | 125 / 125 matches MATCH + verify_relocs ok (and every source that includes a changed header: 1,168 MATCH + ok); 40 equivalents equivalent and promotable at 3,000 inputs and `--wine` |
+| data_gen (MSVC 7.1) | 18,826 items | 18,856 items verified, 1,078 TUs |
+| merge modes (the proof's build_tree state) | - | 2 merged -> wrapped (0x00270f10, 0x00270d40: declarations spelled by the definitions); 64-bit front end of the 50 TUs: no new error |
+| Wine proof (`--gfx`, play3 to 60,000, limit 14,400) | 64872 (studio, 3234e788e); 65111 (mac1, 60956479a) | 64998 (studio, with a placement-constructed core::Platform in 0x0026f070, since reverted); the committed batch against 65111 on mac1 is the confirmation run (seeded from 65111) |
+| strict link rc / Wine unbound | 0 / 1,314 | 64998: 0 / 1,315 (the local core::Platform's stub destructor: reverted) |
+| x87 keep list | 268 | identical |
+| play3 checkpoints | 2,007 to 60,180 | 64998: `ckpt_gate.py` ok at all 2,007 common frames (the known transients only), PRNG hashes identical |
+| arm64 macOS / x86-64 Linux / arm64 Android unbound (proof 64998's own snapshot and map) | 31,741 / 31,732 / 31,733 (reg3) | **30,514 / 30,505 / 30,506**, all rc 0 |
+| macOS start-up | 260 (`DAT_004ca248`) | 260 until dec1's pointer words land; with them: every initializer, then main to core::Drive's vftables (above) |

@@ -6,5 +6,5 @@ struct Obj_364240 {
     void Run();
 };
 extern "C" void __cdecl FUN_00364240() {
-    (*(Obj_364240*)((char*)&DAT_004e6110 + 72)).Run();
+    (*(Obj_364240*)((char*)&DAT_004e6158)).Run();
 }

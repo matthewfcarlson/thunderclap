@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 2871 inputs, branch coverage 4/4)
 // FUN_00241390 @ 0x00241390
+#include "decls/data/records.h"
 #include "compat/ptr.h"
 #include "decls/data/platform/xbox/unknown.h"
 #include "gen/owners.h"
@@ -17,7 +18,8 @@ struct SoundState_241390 {
 };
 struct Config_241390 { uint first, second; };
 extern "C" hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr, uint);
-struct Temporary_241390 { char data[64]; void *FUN_002584d0(uint *, uint *, hulk_uintptr, int); void FUN_002580e0(); };
+struct Temporary_241390 { char data[sizeof(OmType)];  // an om::Type (records.h)
+ void *FUN_002584d0(uint *, uint *, hulk_uintptr, int); void FUN_002580e0(); };
 extern "C" SoundState_241390 *__cdecl FUN_00247530(void *);
 namespace DSOUND { int __stdcall DirectSoundCreate(void *, void *, void *); }
 extern "C" void __cdecl FUN_002411b0(); extern "C" void __cdecl FUN_0024c9c0(); extern "C" void __cdecl FUN_0024c7f0(int);

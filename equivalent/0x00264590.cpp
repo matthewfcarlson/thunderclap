@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 28/28)
+// STATUS: equivalent (tools/equiv.py level 3: 2949 inputs, branch coverage 28/28)
 // FUN_00264590 @ 0x00264590
 #include "decls/data/engine/audio.h"
 #include "decls/data/engine/content.h"
@@ -93,9 +93,9 @@ bool Stream::FUN_00264590(const void *data, int count, int size, int flag)
             int next = (bank == 0);
             pos = 0;
             limit = capacity;
-            buffer = ((char*)((char*)&DAT_004e7be0 + 72)) + (next << 17);
+            buffer = ((char*)((char*)&DAT_004e7c28)) + (next << 17);
             bank = next;
-            FUN_00264050(((char*)((char*)&DAT_004e7be0 + 72)) + ((next == 0) << 17));
+            FUN_00264050(((char*)((char*)&DAT_004e7c28)) + ((next == 0) << 17));
         }
     }
     if (notify)

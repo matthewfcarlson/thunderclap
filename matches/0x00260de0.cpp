@@ -1,10 +1,11 @@
+#include "decls/data/records.h"
 #include "compat/ptr.h"
 #include "decls/data/engine/om.h"
 
 typedef unsigned int U_260de0;
 struct H {
     void* vt;
-    char pad[0x44];
+    char pad[sizeof(OmType) - sizeof(void*)];  // the rest of an om::Type (records.h)
     void f(void*, void*, int, int);
     void g();
 };

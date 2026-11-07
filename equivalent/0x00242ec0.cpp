@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 354 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 2832 inputs, branch coverage 10/10)
 // FUN_00242ec0 @ 0x00242ec0
 #include "decls/data/engine/unknown.h"
 #include "compat/ptr.h"
@@ -57,7 +57,7 @@ void __cdecl FUN_00242ec0(hulk_intptr arg, Container_242ec0 *list)
             FUN_00247550(((char*)&DAT_004e5e88), owner);
         }
         node = current->chain;
-        FUN_00247550(((char*)((char*)&DAT_004e5df8 + 72)), current);
+        FUN_00247550(((char*)((char*)&DAT_004e5e40)), current);
     }
     list->first = 0;
     list->count = 0;

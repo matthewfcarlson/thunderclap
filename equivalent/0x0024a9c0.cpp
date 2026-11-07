@@ -151,7 +151,7 @@ extern "C" void *FUN_0024a9c0(void * ctx_, void * y_)
                 continue;
             }
             FUN_00249ec0((Tree_24a9c0 *)tree, (Node *)n);
-            FUN_00247550(((char*)((char*)&DAT_004e6110 + 72)), n->poolB);
+            FUN_00247550(((char*)((char*)&DAT_004e6158)), n->poolB);
             FUN_00247550(DAT_004e6110, n->poolA);
             Sub_24a9c0 *s = &n->sub;
             FUN_0024a450((Inner_24a9c0 *)(&s->inner));
@@ -170,7 +170,7 @@ extern "C" void *FUN_0024a9c0(void * ctx_, void * y_)
         }
     }
 
-    Entry_24a9c0 *e = (Entry_24a9c0 *)FUN_00247530(((char*)((char*)&DAT_004e5ff0 + 72)));
+    Entry_24a9c0 *e = (Entry_24a9c0 *)FUN_00247530(((char*)((char*)&DAT_004e6038)));
     if (e != 0) {
         int *w = (int *)e;
         for (int i = 0; i < 16; i++)

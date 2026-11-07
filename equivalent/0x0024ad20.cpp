@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 109 inputs, branch coverage 24/24)
 // FUN_0024ad20 @ 0x0024ad20
 #include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
@@ -101,7 +101,7 @@ void Registry::FUN_0024ad20()
         while (n->next != end)
             n = n->next;
         FUN_00249ec0((List2 *)(&list2), (Node2 *)n);
-        FUN_00247550(((char*)((char*)&DAT_004e6110 + 72)), (void *)n->value40);
+        FUN_00247550(((char*)((char*)&DAT_004e6158)), (void *)n->value40);
         FUN_00247550(((char*)&DAT_004e6110), (void *)n->value3c);
         FUN_0024a450(&n->sub50.inner);
         FUN_0024a4a0(&n->sub50);

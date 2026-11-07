@@ -7,10 +7,11 @@ extern void* vtc[];
 extern void* vtD_272d00[];
 extern void* vtD4[];
 extern void* vtDc[];
-void Hook();
+extern "C" int* FUN_002705f0();
+// the member 0x00277a40 constructs (called as a member named by that address)
 class Sub_272d00 {
   public:
-    void Init();
+    void FUN_00277a40();
 };
 class Drive {
   public:
@@ -41,7 +42,7 @@ Drive::Drive() {
     vptr = vt0_272d00;
     v4 = vt4;
     m8 = DAT_004cdbb0;
-    Hook();
+    FUN_002705f0();
     vc = vtc;
     _ReadWriteBarrier();
     m10 = 1;
@@ -49,7 +50,7 @@ Drive::Drive() {
     vptr = vtD_272d00;
     v4 = vtD4;
     vc = vtDc;
-    s14.Init();
+    s14.FUN_00277a40();
     m38 = 0;
     m3c = 0;
     m40 = 0;
@@ -63,5 +64,5 @@ Drive::Drive() {
     m5d = 0;
     mb4 = 3;
     mb8 = 0;
-    Hook();
+    FUN_002705f0();
 }

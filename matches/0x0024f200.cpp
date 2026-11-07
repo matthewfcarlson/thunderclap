@@ -28,7 +28,7 @@ void FUN_00247550(void* g, SeqEventChannelSendVolumes* p);
 SeqEventChannelSendVolumes* SeqEventChannelSendVolumes::f4(unsigned char flags) {
     FUN_0025fd10((void*)(this));
     if (flags & 1) {
-        FUN_00247550((void*)((hulk_intptr)(((char*)&DAT_004e6748) + 0x8)), this);
+        FUN_00247550((void*)((hulk_intptr)(((char*)&DAT_004e6750))), this);
     }
     return this;
 }

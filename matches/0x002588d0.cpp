@@ -1,9 +1,11 @@
 #include "gen/om.h"
 #include "decls/data/engine/om.h"
-// data: TypeName = DAT_004cd1a8
+#include "decls/data/records.h"
+// data: TypeName = DAT_004cd1a8 (the tree of types by key)
 
-void __cdecl RegisterType(const char*, void*, void*);
+// the tree insert (records.h OmType: the type's node, keyed by its own key)
+extern "C" bool __cdecl FUN_00258530(OmTree* tree, OmType* item, const OmKey* key);
 
 void om::Type::vfunc_0() {
-    RegisterType(((const char*)&DAT_004cd1a8), this, (char*)this + 0x30);
+    FUN_00258530((OmTree*)((char*)&DAT_004cd1a8), (OmType*)this, &((OmType*)this)->body.key);
 }

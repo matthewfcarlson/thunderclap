@@ -23,6 +23,7 @@ struct DataLayout_0048e128;  // packed layout (bytes and pointers), defined in t
 struct DataLayout_0048f9fc;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_0049ceb0;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004dd930;  // packed layout (bytes and pointers), defined in the data TU
+#include "decls/data/records.h"
 
 // unknown/unk_011000.cpp
 extern "C" void* DAT_004e5acc[1];
@@ -1058,7 +1059,7 @@ extern "C" const char* DAT_0049ca14;  // PTR_0049ca14
 extern "C" char DAT_0049ca18[1];  // s_empty_0049ca18
 extern "C" unsigned char DAT_004dd778[4];
 extern "C" unsigned int DAT_004dd77c;
-// DAT_004dd780: typed by decls/data/records.h (include it)
+// DAT_004dd780: typed by decls/data/records.h (included above)
 extern "C" int DAT_0052c284;
 
 // unknown/unk_08ed50.cpp

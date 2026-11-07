@@ -3,13 +3,13 @@
 
 #include "compat/ptr.h"
 #include "gen/core.h"
+// core::XboxSaveDrive's constructor (0x00278500: the drive's name, its heap)
 struct XboxSaveDrive_nv_278a40 {
-    int Init(int, int);
+    void* FUN_00278500(const char* name, void* heap);
 };
-extern "C" core::XboxSaveDrive* __cdecl Alloc(hulk_intptr, int);
-extern "C" int __cdecl FUN_00278a40(int* out, int arg, int size) {
-    DAT_004cdbb0 = size;
-    core::XboxSaveDrive* p = Alloc(size, 0x910);
-    *out = p ? ((XboxSaveDrive_nv_278a40*)(((core::XboxSaveDrive*)(p))))->Init(arg, size) : 0;
-    return (int)(*out);
+extern "C" void* FUN_00266e00(int a, int b);
+extern "C" void __cdecl FUN_00278a40(void** out, const char* name, int heap) {
+    DAT_004cdbb0 = heap;
+    void* p = FUN_00266e00(heap, 0x910);
+    *out = p ? ((XboxSaveDrive_nv_278a40*)p)->FUN_00278500(name, (void*)(hulk_intptr)heap) : 0;
 }

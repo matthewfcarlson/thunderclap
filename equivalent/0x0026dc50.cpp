@@ -16,7 +16,7 @@ void * __stdcall CreateThread(void *, unsigned long, unsigned long (__stdcall *)
 int __stdcall SetThreadPriority(void *, int);
 }
 int __stdcall FUN_0020bd91(void *);
-int __cdecl FUN_0026dc50(CoreThread *worker, int (__cdecl *entry)(hulk_intptr), hulk_intptr argument, int priority, unsigned long stackSize, int unused) {
+int __cdecl FUN_0026dc50(CoreThread *worker, int (__cdecl *entry)(hulk_intptr), hulk_intptr argument, int priority, unsigned long stackSize) {
     worker->active = 1;
     worker->current = &worker->main;
     worker->main.state[2] = 0;

@@ -12,6 +12,6 @@ class Registry {
 void __cdecl FUN_0035f960() {
     U64 a = FUN_002672f0("HalListener", 0, 0);
     U64 b = FUN_002672f0("Runtime_Hal", 0, 0);
-    (*(Registry*)((char*)&DAT_004e6208 + 72)).FUN_002584d0(&b, &a, 64, 4);
+    (*(Registry*)((char*)&DAT_004e6250)).FUN_002584d0(&b, &a, 64, 4);
     atexit(FUN_00364290);
 }

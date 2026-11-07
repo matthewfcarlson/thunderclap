@@ -10,6 +10,6 @@ struct Manager {
 void __cdecl Target() {
     __int64 a = FUN_002672f0("CircBuf", 0, 0);
     __int64 b = FUN_002672f0("Runtime_Hal", 0, 0);
-    (*(Manager*)((char*)&DAT_004e78e0 + 72)).FUN_002584d0(&b, &a, 0x30, 4);
+    (*(Manager*)((char*)&DAT_004e7928)).FUN_002584d0(&b, &a, 0x30, 4);
     atexit(FUN_003646d0);
 }

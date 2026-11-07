@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 54 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 717 inputs, branch coverage 12/12)
 // FUN_0024a940 @ 0x0024a940
 #include "decls/data/engine/audio.h"
 
@@ -44,7 +44,7 @@ extern "C" Node* FUN_0024a940(Map_24a940* map, const unsigned int* key)
     }
     if (found)
         return found;
-    Node* mem = FUN_00247530(DAT_004e60c8);
+    Node* mem = FUN_00247530((char*)DAT_004e60c8);
     Node* created = 0;
     if (mem)
         created = mem->FUN_0024a510(*key);

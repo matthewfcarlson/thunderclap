@@ -14,6 +14,6 @@ audio::SeqActionClip* audio::SeqActionClip::vfunc_0(int f) {
     SeqActionClip* p = this;
     vt = ((hulk_intptr)DAT_004298fc);
     if (f & 1)
-        FUN_00247550((void*)((hulk_intptr)((char*)((char*)&DAT_004e7508 + 104))), p);
+        FUN_00247550((void*)((hulk_intptr)((char*)((char*)&DAT_004e7570))), p);
     return p;
 }

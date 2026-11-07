@@ -5,7 +5,8 @@
 #include "decls/data/records.h"
 
 struct Config_2656b0 { unsigned first, second, count, value; };
-struct Block_2656b0 { void FUN_00231550(unsigned, unsigned, unsigned); };
+// the hash table 0x00231550 constructs (its layout, so that the allocation is its size on both builds)
+struct Block_2656b0 { unsigned capacity, count, used; char padding[12]; void* slots; void* entries; int sentinel; void FUN_00231550(unsigned, unsigned, unsigned); };
 extern void* __cdecl FUN_0008d690(unsigned);
 extern "C" void* __cdecl FUN_0008d6d0(unsigned);
 extern "C" CoreFiber* __cdecl FUN_0026dbf0();
@@ -22,10 +23,10 @@ struct Object {
 };
 Object* Object::FUN_002656b0(Config_2656b0* config) {
  a=0; b=0; c=0; interval=5000; unused=0; first=0; second=0; storage=0; begin=0; buffer=0; bufferBegin=0;
- Block_2656b0* p=(Block_2656b0*)FUN_0008d690(36);
+ Block_2656b0* p=(Block_2656b0*)FUN_0008d690((unsigned)sizeof(Block_2656b0));
  if(p) { unsigned n=config->first; p->FUN_00231550(n,200,n); }
  first=p;
- p=(Block_2656b0*)FUN_0008d690(36);
+ p=(Block_2656b0*)FUN_0008d690((unsigned)sizeof(Block_2656b0));
  if(p) { unsigned n=config->second; p->FUN_00231550(n,200,n); }
  second=p;
  unsigned n=config->count;

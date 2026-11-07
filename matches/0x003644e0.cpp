@@ -5,5 +5,5 @@ class Obj_3644e0 {
     void Fn();
 };
 extern "C" void FUN_003644e0() {
-    (*(Obj_3644e0*)((char*)&DAT_004e6ed8 + 104)).Fn();
+    (*(Obj_3644e0*)((char*)&DAT_004e6f40)).Fn();
 }

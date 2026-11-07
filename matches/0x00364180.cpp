@@ -5,5 +5,5 @@ class T_364180 {
     void Fn();
 };
 extern "C" void FUN_00364180() {
-    (*(T_364180*)((char*)&DAT_004e5df8 + 72)).Fn();
+    (*(T_364180*)((char*)&DAT_004e5e40)).Fn();
 }

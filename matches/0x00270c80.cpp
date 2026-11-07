@@ -8,7 +8,7 @@ struct CacheEntry {
     char details[0x104];
 };
 extern "C" int __cdecl FUN_00270c10(const char *);
-unsigned char __cdecl FUN_002771b0(const char* name);
+extern "C" bool __cdecl FUN_002771b0(const char* path);
 extern "C" void __cdecl FUN_00277260(void** result, const char* name, unsigned int options, char* details);
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 unsigned char __cdecl FUN_00270c80(void** result, const char* name, unsigned int options) {

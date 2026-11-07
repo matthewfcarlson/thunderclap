@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2882 inputs, branch coverage 26/32, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 2880 inputs, branch coverage 26/32, incomplete)
 // FUN_0025e350 @ 0x0025e350
 #include "decls/data/engine/audio.h"
 
@@ -31,7 +31,7 @@ extern "C" bool __cdecl FUN_0025e350(Buffer_25e350* buffer, uint_25e350 amount) 
    if (!previous) buffer->head = node->next;
    else previous->next = node->next;
    if (!node->next) buffer->tail = previous;
-   FUN_00247550(((char*)((char*)&DAT_004e78e0 + 144)), block);
+   FUN_00247550(((char*)((char*)&DAT_004e7970)), block);
   } else {
    uint_25e350 distance = buffer->capacity - buffer->position;
    if (amount < distance) { buffer->position += amount; buffer->consumed += amount; break; }

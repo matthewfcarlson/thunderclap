@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 2/2)
 // audio::SequenceType::vfunc_2 @ 0x00257980
 #include "decls/data/engine/audio.h"
 
@@ -27,9 +27,9 @@ struct SequenceType : om::EntityType { virtual Sequence* vfunc_2(); };
 struct Sequence_257980 { void FUN_00244ea0(void*); };
 __forceinline void* operator new(size_t, void* p) { return p; }
 audio::Sequence* audio::SequenceType::vfunc_2() {
-    audio::Sequence* result = (audio::Sequence*)FUN_00247530(((char*)((char*)&DAT_004e75b8 + 104)));
+    audio::Sequence* result = (audio::Sequence*)FUN_00247530(((char*)((char*)&DAT_004e7620)));
     if (result) {
-        ((Sequence_257980*)result)->FUN_00244ea0(((char*)((char*)&DAT_004e75b8 + 104)));
+        ((Sequence_257980*)result)->FUN_00244ea0(((char*)((char*)&DAT_004e7620)));
         result = new (result) audio::Sequence;
         result->firstCount = 0;
         result->firstHead = &result->firstAnchor;

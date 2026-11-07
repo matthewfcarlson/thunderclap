@@ -1,13 +1,15 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 0/0)
 // FUN_00240eb0 @ 0x00240eb0
 // FUN_00240eb0 @ 0x00240eb0
+#include "decls/data/records.h"
 #include "decls/data/platform/xbox/unknown.h"
 
 struct AudioState { char pad0[0x14]; int first; char pad1[4]; int second; char pad2[0x14]; void* sound; char pad3[0x74]; int handle; };
 extern "C" void __cdecl FUN_00257df0(int*);
 extern "C" void __cdecl FUN_0024c760();
 namespace DSOUND { void __stdcall IDirectSound_Release(void*); }
-struct Temp_240eb0 { char data[0x40]; int FUN_002584d0(int*, int*, int, int); void FUN_002580e0(); };
+struct Temp_240eb0 { char data[sizeof(OmType)];  // an om::Type (records.h)
+ int FUN_002584d0(int*, int*, int, int); void FUN_002580e0(); };
 extern "C" void __cdecl FUN_00247550(int, AudioState*);
 extern "C" void FUN_00240eb0() {
     FUN_00257df0(&(*(AudioState**)&DAT_004e5ce0)->first);

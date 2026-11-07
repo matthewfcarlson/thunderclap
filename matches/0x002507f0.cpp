@@ -28,6 +28,6 @@ SeqEventWaitBeat* SeqEventWaitBeat::f4(int x) {
     h->FUN_00262020();
     FUN_0025fd10();
     if (x & 1)
-        FUN_00247550(((char*)((char*)&DAT_004e6a60 + 8)), this);
+        FUN_00247550(((char*)((char*)&DAT_004e6a68)), this);
     return this;
 }

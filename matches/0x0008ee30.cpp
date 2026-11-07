@@ -8,7 +8,7 @@ extern "C" void FUN_0008d660();
 extern "C" void FUN_0026f070();
 extern "C" void FUN_0026eea0(int, int, int, int);
 void thunk_FUN_002709b0(int, int, int, int);
-void thunk_FUN_00270f10(int, int);
+void thunk_FUN_00270f10(const char*, void*);
 extern "C" void FUN_00265b70(int);
 extern "C" void FUN_0008fca0();
 extern "C" void* FUN_0008d690(int);
@@ -23,10 +23,15 @@ extern "C" void FUN_00266d70();
 extern "C" void FUN_0026dab0();
 extern "C" void FUN_00267a90();
 
-class CGame_8ee30 {
+// CGame (0x00087e80 constructs it), named by its constructor's address; its layout, so that the allocation is its
+// size on both builds
+inline void* operator new(unsigned int, void* p) { return p; }
+class FUN_00087e80 {
   public:
-    CGame_8ee30* Ctor();
+    FUN_00087e80();
     virtual void Vfn(int);
+    int fields[19];
+    unsigned char flag;
 };
 
 int FUN_0008ee30() {
@@ -40,10 +45,10 @@ int FUN_0008ee30() {
     thunk_FUN_00270f10(0, 0);
     FUN_00265b70(0);
     FUN_0008fca0();
-    CGame_8ee30* esi;
-    void* p = FUN_0008d690(0x54);
+    FUN_00087e80* esi;
+    void* p = FUN_0008d690((int)sizeof(FUN_00087e80));
     if (p)
-        esi = ((CGame_8ee30*)p)->Ctor();
+        esi = new (p) FUN_00087e80;
     else
         esi = 0;
     ((owners::Obj_88530 *)esi)->FUN_00088530();

@@ -1,9 +1,10 @@
+#include "decls/data/records.h"
 #include "decls/data/engine/audio.h"
 
 extern char DAT_00429440[];
 struct Obj_24dd30 {
     void* vptr;
-    char d[0x44];
+    char d[sizeof(OmType) - sizeof(void*)];  // the rest of an om::Type (records.h)
     void Init(char*, char*, int, int);
     void Finish();
 };

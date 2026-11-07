@@ -23,6 +23,6 @@ extern "C" void __cdecl FUN_00247550(void*, void*);
 SeqEventChannelSends* SeqEventChannelSends::v4(int a) {
     helper();
     if (a & 1)
-        FUN_00247550(((char*)((char*)&DAT_004e6800 + 72)), this);
+        FUN_00247550(((char*)((char*)&DAT_004e6848)), this);
     return this;
 }

@@ -130,6 +130,36 @@ def _plan_special():
     assert why[r_dtor][0] == "the name's address is not where the Wine build binds it", why[r_dtor]
 
 
+@case("plan_link: thunk_FUN_x binds to x through a jmp thunk")
+def _plan_thunk():
+    a, b = "/x/a.o", "/x/b.o"
+    d = "?FUN_002709b0@fn_002709b0@@YAHIIII@Z"               # the definition at 0x002709b0
+    r_thunk = "?thunk_FUN_002709b0@fn_f7b5f211@@YAXHHHH@Z"   # main calls it through the thunk 0x00269680
+    r_direct = "?thunk_FUN_002709b0@fn_f0000001@@YAXHHHH@Z"  # a source naming a direct call thunk_
+    r_other = "?thunk_FUN_002709b0@fn_f0000002@@YAXHHHH@Z"   # its relocation reaches a thunk to something else
+    syms = {a: ({d}, set()), b: (set(), {r_thunk, r_direct, r_other})}
+    sigs = {a: {d: "i32(i32, i32, i32, i32)"},
+            b: {r_thunk: "void(i32, i32, i32, i32)", r_direct: "void(i32, i32, i32, i32)",
+                r_other: "void(i32, i32, i32, i32)"}}
+    ver = FakeVerify({r_thunk: ("position", "0x00269680", None), r_direct: ("name", "0x002709b0", d),
+                      r_other: ("position", "0x00269690", None)})
+
+    class X:                                                # jmp 0x002709b0 at 0x00269680, jmp 0x00271070 at 0x00269690
+        data = bytes([0xE9]) + (0x2709b0 - 0x269685).to_bytes(4, "little", signed=True) + bytes(11) + \
+            bytes([0xE9]) + (0x271070 - 0x269695).to_bytes(4, "little", signed=True)
+        def offset(self, va):
+            return va - 0x269680 if 0x269680 <= va < 0x2696a0 else None
+    nu.jmp_target.xbe = X()
+    nu._JMP.clear()
+    nu.cp.undname = lambda names: {n: n for n in names}
+    assert nu.thunk_address(r_thunk) == 0x2709b0 and nu.thunk_address(d) is None
+    ren, why, bound = nu.plan_link([a, b], syms, FakeDefs({0x2709b0: d}), set(), (), sigs, verify=ver)
+    assert ren == {b: {r_thunk: d, r_direct: d}}, ren
+    assert why[r_other][0] == "the name's address is not where the Wine build binds it", why[r_other]
+    del nu.jmp_target.xbe
+    nu._JMP.clear()
+
+
 def main():
     bad = 0
     for name, f in CASES:

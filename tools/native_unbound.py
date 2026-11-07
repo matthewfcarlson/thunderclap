@@ -17,7 +17,8 @@ those names by the address each relocation was proven to reach (the binding map,
 which the native link does not use (docs/native-mac.md section 9).
 
 What the native link can use is the address the *name* carries (tools/addr_names.py: `FUN_<addr>`, the suffix
-convention `SetArc_000480a0`, `DAT_<addr>`; `thunk_FUN_x` carries none). `plan_link()` binds such a name, per object,
+convention `SetArc_000480a0`, `DAT_<addr>`; `thunk_FUN_x` names the target x of a `jmp` thunk elsewhere: thunk_address()).
+`plan_link()` binds such a name, per object,
 to the tree's own definition at that address (the tree build's report, as native_mac.TreeDefs) when
 
   * the reference's IR signature in that object equals the definition's (`ir_signatures()`: the MS front end's
@@ -236,6 +237,38 @@ def name_address(sym):
     if a is not None and not special:
         return a, "suffix"
     return None, None
+
+
+def thunk_address(sym):
+    """x of Ghidra's `thunk_FUN_x` (the function a `jmp` thunk elsewhere goes to), or None. plan_link binds such a
+    name to x's definition when the Wine binding map has its relocations reach x itself or a `jmp` thunk to x."""
+    lf, special = leaf(sym)
+    m = ADDR_LEAF.match(lf or "")
+    return int(m.group(1), 16) if m and lf.startswith("thunk_") and not special else None
+
+
+_JMP = {}
+
+
+def jmp_target(a, hops=3):
+    """The final target of a chain of `jmp rel32` thunks at a in the XBE (None if a is not one); jmp_target.xbe
+    can be set to an object with `offset(va)` and `data` (tests)."""
+    if a in _JMP:
+        return _JMP[a]
+    x = getattr(jmp_target, "xbe", None)
+    if x is None:
+        import struct  # noqa: F401
+        import compare
+        from xbe import Xbe
+        x = jmp_target.xbe = Xbe(compare.XBE_PATH)
+    t, b = None, a
+    for _ in range(hops):
+        o = x.offset(b)
+        if o is None or x.data[o] != 0xE9:
+            break
+        b = t = (b + 5 + int.from_bytes(x.data[o + 1:o + 5], "little", signed=True)) & 0xFFFFFFFF
+    _JMP[a] = t
+    return t
 
 
 class Defs:
@@ -597,10 +630,18 @@ def plan_link(objs, syms, defs, data_defined, label_defined=(), sigs=None, verif
     is a claim no checker verifies for `FUN_` names (verify_relocs checks the suffix convention only), and some are
     wrong (sources propagated from a function of the same code shape keep its callees' names: `FUN_00019420` for the
     destructor 0x00067a20). The binding map has, per name, the address its relocations were proven to reach; a name
-    binds only where that address is the one the name says. Without a map, nothing binds."""
+    binds only where that address is the one the name says (for `thunk_FUN_x`: x, or a `jmp` thunk to x; calling
+    the thunk is calling x). Without a map, nothing binds."""
     if sigs is None:
         sigs = load_signatures(objs)
-    cand = sorted({s for _o, (_d, u) in syms.items() for s in u if name_address(s)[0] is not None})
+    def addr_of(s):
+        a, how = name_address(s)
+        if a is None:
+            t = thunk_address(s)
+            if t is not None:
+                return t, "thunk"
+        return a, how
+    cand = sorted({s for _o, (_d, u) in syms.items() for s in u if addr_of(s)[0] is not None})
     cdem = cp.undname([s for s in cand if s.startswith("?")]) if verify is not None else {}
     def_sig = {}
     for o, (d, _u) in syms.items():
@@ -615,7 +656,7 @@ def plan_link(objs, syms, defs, data_defined, label_defined=(), sigs=None, verif
     for o, (_d, u) in syms.items():
         so = sigs.get(o)
         for s in u:
-            a, how = name_address(s)
+            a, how = addr_of(s)
             if a is None:
                 continue
             target, cls, det = None, None, ""
@@ -643,7 +684,8 @@ def plan_link(objs, syms, defs, data_defined, label_defined=(), sigs=None, verif
                     target, cls = None, "not verified: the Wine binding map has no binding of the name"
                 elif w[1] is None:
                     target, cls = None, "not verified: ambiguous in the Wine binding map"
-                elif int(w[1], 16) != a:
+                elif int(w[1], 16) != a and not (how == "thunk" and jmp_target(int(w[1], 16)) == a):
+                    # (a `thunk_FUN_x` name: its relocations reach x or a `jmp` thunk to x)
                     target, cls, det = None, "the name's address is not where the Wine build binds it", \
                         "%#x / %s" % (a, w[1])
             if target is not None:

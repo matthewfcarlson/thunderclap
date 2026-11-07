@@ -1,9 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 2/2)
 // FUN_00247570 @ 0x00247570
+#include "decls/data/records.h"
 #include "decls/data/engine/audio.h"
 
 struct TextBuffer {
-    char storage[0x48];
+    char storage[sizeof(OmType)];  // an om::Type (records.h)
     void *FUN_002584d0(void *, void *, unsigned int, unsigned int);
     void FUN_002580e0();
 };

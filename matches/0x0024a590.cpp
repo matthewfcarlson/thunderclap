@@ -11,7 +11,7 @@ struct Obj_24a590 {
     u32_24a590 m40;
 };
 void __fastcall target(Obj_24a590* p, void*) {
-    F47550((void*)((hulk_intptr)((char*)((char*)&DAT_004e6110 + 72))), p->m40);
+    F47550((void*)((hulk_intptr)((char*)((char*)&DAT_004e6158))), p->m40);
     F47550((void*)((hulk_intptr)DAT_004e6110), p->m3c);
     char* q = (char*)p + 0x50;
     FUN_0024a450(q + 0x14);

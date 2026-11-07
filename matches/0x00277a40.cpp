@@ -3,14 +3,14 @@ class Thing_277a40 {
     int a[9];
     Thing_277a40();
 };
-void InitPart();
+extern "C" int* FUN_002705f0();
 Thing_277a40::Thing_277a40() {
     a[4] = 0;
     a[5] = 0;
     a[6] = 0;
     a[7] = 0;
     a[8] = 0;
-    InitPart();
+    FUN_002705f0();
     a[0] = 0;
     a[2] = 0;
     a[1] = 0;

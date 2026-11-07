@@ -12,6 +12,6 @@ class Obj_3611d0 {
 void target() {
     unsigned __int64 a = FUN_002672f0("OmHalStream Temp Aligned Stream Mem", 0, 0);
     unsigned __int64 b = FUN_002672f0("Temp", 0, 0);
-    (*(Obj_3611d0*)((char*)&DAT_004e7808 + 72)).FUN_002584d0(&b, &a, 0x4000, 0x80);
+    (*(Obj_3611d0*)((char*)&DAT_004e7850)).FUN_002584d0(&b, &a, 0x4000, 0x80);
     atexit(FUN_003646a0);
 }

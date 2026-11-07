@@ -18,6 +18,7 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 #endif
 
 struct DataLayout_0042b6d8;  // packed layout (bytes and pointers), defined in the data TU
+#include "decls/data/records.h"
 
 // core/CementLibrary.cpp
 extern "C" const char DAT_0042b50e[1];  // s_empty_0042b50e
@@ -113,7 +114,7 @@ extern "C" char DAT_0052a208[28];
 extern "C" void* DAT_0052a224[1];
 
 // core/MemoryAllocatorMalloc.cpp
-// DAT_00527f40: typed by decls/data/records.h (include it)
+// DAT_00527f40: typed by decls/data/records.h (included above)
 
 // core/MemoryDlAllocator.cpp
 extern "C" const char DAT_0042b30c[25];  // s_in_use_bytes_10u_0042b30c
@@ -126,9 +127,9 @@ extern "C" const unsigned int DAT_004833bc[1];  // zero_004833bc
 extern "C" const unsigned int DAT_004833f0[1];  // zero_004833f0
 extern "C" char DAT_004d9a30[1];  // s_empty_004d9a30
 extern "C" void* DAT_0052839c[1];
-// DAT_005283a0: typed by decls/data/records.h (include it)
+// DAT_005283a0: typed by decls/data/records.h (included above)
 extern "C" unsigned int DAT_005283a4;
-// DAT_005283a8: typed by decls/data/records.h (include it)
+// DAT_005283a8: typed by decls/data/records.h (included above)
 extern "C" void* DAT_005283ac[1];
 
 // core/MemoryPool.cpp

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2049 inputs, branch coverage 7/7)
+// STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 7/7)
 // FUN_0025e230 @ 0x0025e230
 // Register-convention helper: the owner arrives in edi (a link-time-generated convention).
 // The original searches for the node's predecessor by walking from the head, but the node it removes
@@ -37,6 +37,6 @@ extern "C" void FUN_0025e230(void * owner)
         ((Owner *)owner)->head = node->next;
         if (node->next == 0)
             ((Owner *)owner)->tail = 0;
-        FUN_00247550(((Pool*)((char*)&DAT_004e78e0 + 144)), item);
+        FUN_00247550(((Pool*)((char*)&DAT_004e7970)), item);
     }
 }

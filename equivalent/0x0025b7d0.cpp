@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 8/8)
 // FUN_0025b7d0 @ 0x0025b7d0
 #include "decls/data/platform/xbox/audio.h"
 #include "gen/owners.h"
@@ -35,6 +35,6 @@ extern "C" void __cdecl FUN_0025b7d0(void * t_)
         FUN_0025b5b0((Tree_25b7d0 *)t, (Node *)n);
         for (int i = 11; i >= 0; i--)
             ((owners::Str_240060 *)&(n->items[i]))->FUN_00240060();
-        FUN_00247550(((char*)((char*)&DAT_004e76e8 + 144)), n);
+        FUN_00247550(((char*)((char*)&DAT_004e7778)), n);
     }
 }

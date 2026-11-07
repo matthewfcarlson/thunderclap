@@ -29,7 +29,7 @@ extern "C" void __cdecl FUN_00259b40(Object* obj)
             DSOUND::IDirectSoundBuffer_Release(sound->buffer);
             sound->buffer = 0;
         }
-        FUN_00247550(((char*)((char*)&DAT_004e76e8 + 72)), sound);
+        FUN_00247550(((char*)((char*)&DAT_004e7730)), sound);
     }
     FUN_00247550(((char*)&DAT_004e76e8), obj);
 }

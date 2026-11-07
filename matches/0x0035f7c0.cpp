@@ -12,6 +12,6 @@ class Manager_35f7c0 {
 void __cdecl target() {
     U64_35f7c0 a = FUN_002672f0("ChannelSendVolumeArray", 0, 0);
     U64_35f7c0 b = FUN_002672f0("Runtime_Sequence", 0, 0);
-    (*(Manager_35f7c0*)((char*)&DAT_004e6110 + 72)).FUN_002584d0(&b, &a, 256, 4);
+    (*(Manager_35f7c0*)((char*)&DAT_004e6158)).FUN_002584d0(&b, &a, 256, 4);
     atexit(FUN_00364240);
 }

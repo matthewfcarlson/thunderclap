@@ -813,6 +813,10 @@ def write_decls(model, tus):
                 structs.add(m.group(1))
         for s in sorted(structs):
             lines.append("struct %s;  // packed layout (bytes and pointers), defined in the data TU" % s)
+        if any(decl is None for it, decl in rows):
+            # items typed by records.h are declared there: the header includes it, so a source naming them needs
+            # nothing else (records.h declares only its records and their items)
+            lines.append('#include "%s"' % TYPED_INCLUDE)
         cur = None
         for it, decl in sorted(rows, key=lambda r: (r[0]["object"], r[0]["addr"])):
             if it["object"] != cur:
@@ -820,7 +824,7 @@ def write_decls(model, tus):
                 lines += ["", "// %s" % cur]
             note = "  // " + it["name"] if it["name"] != it["cname"] else ""
             if decl is None:
-                lines.append('// %s: typed by %s (include it)' % (it["cname"], TYPED_INCLUDE))
+                lines.append('// %s: typed by %s (included above)' % (it["cname"], TYPED_INCLUDE))
                 continue
             lines.append('extern "C" %s;%s' % (decl, note))
         lines += ["", "#endif", ""]

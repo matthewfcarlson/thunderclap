@@ -11,7 +11,8 @@ class __declspec(novtable) TypeBase {
 public:
     virtual void v0();
     virtual void v1();
-    char pad04[0x3c];
+    unsigned int reserved04;  // records.h OmType
+    OmTypeBody body;
     void FUN_002580e0();
     void FUN_002584d0(const void* a, const void* b, int size, int align);
     TypeBase(const void* a, const void* b, int size, int align) { FUN_002584d0(a, b, size, align); }

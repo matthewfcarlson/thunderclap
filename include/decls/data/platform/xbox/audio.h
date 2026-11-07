@@ -17,11 +17,14 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 #endif
 #endif
 
+#include "decls/data/records.h"
 
 // audio/unk_258f40.cpp
 extern "C" const void* DAT_004cd1bc;  // PTR_004cd1bc
 extern "C" unsigned char DAT_004e76d8[16];
-extern "C" unsigned char DAT_004e76e8[216];
-extern "C" unsigned char DAT_004e77c0[72];
+// DAT_004e76e8: typed by decls/data/records.h (included above)
+// DAT_004e7730: typed by decls/data/records.h (included above)
+// DAT_004e7778: typed by decls/data/records.h (included above)
+// DAT_004e77c0: typed by decls/data/records.h (included above)
 
 #endif

@@ -22,6 +22,6 @@ extern void __cdecl FUN_00247550(void*, SeqEventLogicOr*);
 SeqEventLogicOr* SeqEventLogicOr::v4(int flags) {
     Init();
     if (flags & 1)
-        FUN_00247550(((char*)((char*)&DAT_004e7410 + 72)), this);
+        FUN_00247550(((char*)((char*)&DAT_004e7458)), this);
     return this;
 }

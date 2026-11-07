@@ -32,5 +32,5 @@ int FUN_00249750(Node* node) {
   void* pool = FUN_0025d3d0(payload);
   FUN_00247550(pool,payload);
  }
- return FUN_00247550(((char*)((char*)&DAT_004e5ff0 + 72)),node);
+ return FUN_00247550(((char*)((char*)&DAT_004e6038)),node);
 }

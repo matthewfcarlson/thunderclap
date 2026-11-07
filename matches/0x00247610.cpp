@@ -1,8 +1,9 @@
+#include "decls/data/records.h"
 #include "decls/data/engine/audio.h"
 // data: gAlloc_247610 = DAT_004cc1fc
 
 struct Tmp_247610 {
-    char pad[0x48];
+    char pad[sizeof(OmType)];  // an om::Type (records.h)
     Tmp_247610* init(void*, void*, unsigned, unsigned);
     void cleanup();
 };

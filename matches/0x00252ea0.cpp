@@ -11,6 +11,6 @@ class SeqActionVarTempo_252ea0 {
 SeqActionVarTempo_252ea0* SeqActionVarTempo_252ea0::f0(unsigned char flags) {
     vptr = g_vftable_252ea0;
     if (flags & 1)
-        Free(((char*)((char*)&DAT_004e6ed8 + 104)), this);
+        Free(((char*)((char*)&DAT_004e6f40)), this);
     return this;
 }

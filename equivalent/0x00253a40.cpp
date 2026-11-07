@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19941 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 2/2)
 // audio::SeqEventVarPitch::vfunc_2 @ 0x00253a40
 #include "compat/ptr.h"
 #include "gen/audio.h"
@@ -20,7 +20,7 @@ extern void* DAT_0042a244;
 void* __cdecl FUN_00247530(void*);
 void audio::SeqEventVarPitch::vfunc_2(hulk_intptr __p0) { audio::Sequencer * sequencer = (audio::Sequencer *)__p0;
 
-    audio::SeqActionVarPitch_253a40* action = (audio::SeqActionVarPitch_253a40*)FUN_00247530(((char*)((char*)&DAT_004e70e8 + 104)));
+    audio::SeqActionVarPitch_253a40* action = (audio::SeqActionVarPitch_253a40*)FUN_00247530(((char*)((char*)&DAT_004e7150)));
     if (action) {
         action->vtable = &DAT_0042a244;
         action->event = this;

@@ -9,5 +9,5 @@ class Obj_364740 {
     void Run();
 };
 void __stdcall FUN_00364740() {
-    ((Obj_364740*)((hulk_intptr)(DAT_004e7b08 + 0x48)))->Run();
+    ((Obj_364740*)((hulk_intptr)(DAT_004e7b50)))->Run();
 }

@@ -5,5 +5,5 @@ struct Obj_364630 {
     void f();
 };
 extern "C" void FUN_00364630() {
-    (*(Obj_364630*)((char*)&DAT_004e75b8 + 104)).f();
+    (*(Obj_364630*)((char*)&DAT_004e7620)).f();
 }

@@ -31,7 +31,7 @@ extern "C" void __cdecl FUN_00257e80(char* list, Node* node);
 // Allocates and registers a node; frees it again when the handle lookup fails.
 extern "C" Node* FUN_0025d340(int* src, int arg, char flag)
 {
-    Node* alloc = FUN_00247530(DAT_004e7898);
+    Node* alloc = FUN_00247530((char*)DAT_004e7898);
     Node* n = alloc ? (alloc->sub.FUN_0023fac0(), alloc) : 0;
     n->flag = flag;
     n->value = *src;
@@ -40,7 +40,7 @@ extern "C" Node* FUN_0025d340(int* src, int arg, char flag)
     n->handle = FUN_00240c20(arg);
     if (n->handle == 0) {
         ((owners::Str_240060 *)&(n->sub))->FUN_00240060();
-        FUN_00247550(DAT_004e7898, n);
+        FUN_00247550((char*)DAT_004e7898, n);
         return 0;
     }
     FUN_00257e80((*(Registry_25d340**)&DAT_004e5ce0)->list, n);

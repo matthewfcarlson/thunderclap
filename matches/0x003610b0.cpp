@@ -14,6 +14,6 @@ void __cdecl FUN_003610b0() {
     Pair_3610b0 p;
     p.property = FUN_002672f0("Property", 0, 0);
     p.meta = FUN_002672f0("Meta", 0, 0);
-    (*(Manager_3610b0*)((char*)&DAT_004e76e8 + 144)).FUN_002584d0(&p.meta, &p.property, 0xa0, 4);
+    (*(Manager_3610b0*)((char*)&DAT_004e7778)).FUN_002584d0(&p.meta, &p.property, 0xa0, 4);
     atexit(cleanup);
 }

@@ -20,6 +20,7 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 struct DataLayout_004cc25c;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004cd1e4;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_004e6200;  // packed layout (bytes and pointers), defined in the data TU
+#include "decls/data/records.h"
 
 // audio/ChannelSendVolumeFadeBehaviour.cpp
 extern "C" const char DAT_0042993c[10];  // s_ChSendVol_0042993c
@@ -34,9 +35,11 @@ extern "C" const unsigned int DAT_004814b4[1];  // zero_004814b4
 extern "C" const unsigned int DAT_004814fc[1];  // zero_004814fc
 extern "C" const unsigned int DAT_00481544[1];  // zero_00481544
 extern "C" const unsigned int DAT_00481590[1];  // zero_00481590
-extern "C" unsigned char DAT_004e6700[72];
-extern "C" unsigned char DAT_004e6748[112];
-extern "C" char DAT_004e67b8[72];
+// DAT_004e6700: typed by decls/data/records.h (included above)
+extern "C" int DAT_004e6748;
+extern "C" unsigned char DAT_004e674c[4];
+// DAT_004e6750: typed by decls/data/records.h (included above)
+// DAT_004e67b8: typed by decls/data/records.h (included above)
 
 // audio/ChannelVolumeFadeBehaviour.cpp
 extern "C" const char DAT_00429e6c[6];  // s_ChVol_00429e6c
@@ -47,9 +50,11 @@ extern "C" const unsigned int DAT_00481c6c[1];  // zero_00481c6c
 extern "C" const unsigned int DAT_00481cb4[1];  // zero_00481cb4
 extern "C" const unsigned int DAT_00481cfc[1];  // zero_00481cfc
 extern "C" const unsigned int DAT_00481d44[1];  // zero_00481d44
-extern "C" unsigned char DAT_004e6ce0[72];
-extern "C" unsigned char DAT_004e6d28[112];
-extern "C" unsigned char DAT_004e6d98[72];
+// DAT_004e6ce0: typed by decls/data/records.h (included above)
+extern "C" unsigned int DAT_004e6d28;
+extern "C" unsigned char DAT_004e6d2c[4];
+// DAT_004e6d30: typed by decls/data/records.h (included above)
+// DAT_004e6d98: typed by decls/data/records.h (included above)
 
 // audio/Clip_2.cpp
 extern "C" const char DAT_004291c0[10];  // s_Data_Clip_004291c0
@@ -70,7 +75,8 @@ extern "C" unsigned int DAT_004cc0d8[4];  // zero_004cc0d8
 extern "C" const int DAT_0042ac18[16];  // tbl_0042ac18
 extern "C" const int DAT_0042ac58[89];  // tbl_0042ac58
 extern "C" const char DAT_0042adf8[28];  // s_HalRadicalAdpcmDecod_0042adf8
-extern "C" char DAT_004e7b08[144];
+// DAT_004e7b08: typed by decls/data/records.h (included above)
+// DAT_004e7b50: typed by decls/data/records.h (included above)
 
 // audio/HalRsdFileStream.cpp
 extern "C" const char DAT_0042ae14[9];  // s_NOHEADER_0042ae14
@@ -78,8 +84,9 @@ extern "C" const char DAT_0042ae58[17];  // s_HalRsdFileHeader_0042ae58
 extern "C" const char DAT_0042ae6c[17];  // s_HalRsdFileStream_0042ae6c
 extern "C" const unsigned int DAT_00482c30[1];  // zero_00482c30
 extern "C" const unsigned int DAT_00482c7c[1];  // zero_00482c7c
-extern "C" unsigned char DAT_004e7b98[72];
-extern "C" unsigned char DAT_004e7be0[1056];
+// DAT_004e7b98: typed by decls/data/records.h (included above)
+// DAT_004e7be0: typed by decls/data/records.h (included above)
+extern "C" unsigned char DAT_004e7c28[984];
 extern "C" unsigned char DAT_004e8000[8192];
 extern "C" unsigned char DAT_004ea000[8192];
 extern "C" unsigned char DAT_004ec000[65536];
@@ -90,30 +97,30 @@ extern "C" unsigned char DAT_0051de40[40424];
 extern "C" const char DAT_004294e0[17];  // s_ListenerEffectGc_004294e0
 extern "C" const unsigned int DAT_00480fcc[1];  // zero_00480fcc
 extern "C" const unsigned int DAT_0048101c[1];  // zero_0048101c
-// DAT_004e63fc: typed by decls/data/records.h (include it)
-extern "C" unsigned char DAT_004e64d8[112];
+// DAT_004e63fc: typed by decls/data/records.h (included above)
+// DAT_004e64d8: typed by decls/data/records.h (included above)
 
 // audio/ListenerEffectPs2Type.cpp
 extern "C" const char DAT_00429530[18];  // s_ListenerEffectPs2_00429530
 extern "C" const unsigned int DAT_0048106c[1];  // zero_0048106c
 extern "C" const unsigned int DAT_004810bc[1];  // zero_004810bc
-// DAT_004e63c8: typed by decls/data/records.h (include it)
-extern "C" char DAT_004e6548[112];
+// DAT_004e63c8: typed by decls/data/records.h (included above)
+// DAT_004e6548: typed by decls/data/records.h (included above)
 
 // audio/ListenerEffectPspType.cpp
 extern "C" const char DAT_004295d0[18];  // s_ListenerEffectPsp_004295d0
 extern "C" const unsigned int DAT_004811ac[1];  // zero_004811ac
 extern "C" const unsigned int DAT_004811f8[1];  // zero_004811f8
-// DAT_004e6430: typed by decls/data/records.h (include it)
+// DAT_004e6430: typed by decls/data/records.h (included above)
 extern "C" unsigned char DAT_004e6464[4];
-extern "C" unsigned char DAT_004e6628[112];
+// DAT_004e6628: typed by decls/data/records.h (included above)
 
 // audio/ListenerEffectWin32Type.cpp
 extern "C" const char DAT_00429580[20];  // s_ListenerEffectWin32_00429580
 extern "C" const unsigned int DAT_0048110c[1];  // zero_0048110c
 extern "C" const unsigned int DAT_0048115c[1];  // zero_0048115c
-// DAT_004e6394: typed by decls/data/records.h (include it)
-extern "C" unsigned char DAT_004e65b8[112];
+// DAT_004e6394: typed by decls/data/records.h (included above)
+// DAT_004e65b8: typed by decls/data/records.h (included above)
 
 // audio/ListenerEffectXBoxType.cpp
 extern "C" const char DAT_00429484[12];  // s_Data_Effect_00429484
@@ -124,7 +131,7 @@ extern "C" char DAT_004e6320[4];
 extern "C" char DAT_004e6328[4];
 extern "C" char DAT_004e6330[4];
 extern "C" char DAT_004e6338[4];
-// DAT_004e6360: typed by decls/data/records.h (include it)
+// DAT_004e6360: typed by decls/data/records.h (included above)
 
 // audio/Mix.cpp
 extern "C" const char DAT_0042a708[6];  // s_mName_0042a708
@@ -187,10 +194,12 @@ extern "C" const unsigned int DAT_004829ac[1];  // zero_004829ac
 extern "C" DataLayout_004cd1e4 DAT_004cd1e4;  // struct_004cd1e4
 extern "C" int DAT_004cd264;
 extern "C" float DAT_004cd2a8[46];  // fltTbl_004cd2a8
-extern "C" char DAT_004e7808[128];
-extern "C" unsigned char DAT_004e7888[16];
-extern "C" char DAT_004e7898[72];
-extern "C" unsigned char DAT_004e78e0[216];
+// DAT_004e7808: typed by decls/data/records.h (included above)
+// DAT_004e7850: typed by decls/data/records.h (included above)
+// DAT_004e7898: typed by decls/data/records.h (included above)
+// DAT_004e78e0: typed by decls/data/records.h (included above)
+// DAT_004e7928: typed by decls/data/records.h (included above)
+// DAT_004e7970: typed by decls/data/records.h (included above)
 
 // audio/SeqActionClip.cpp
 extern "C" const char DAT_0042a594[13];  // s_SeqEventClip_0042a594
@@ -200,7 +209,8 @@ extern "C" const unsigned int DAT_0048270c[1];  // zero_0048270c
 extern "C" const unsigned int DAT_00482754[1];  // zero_00482754
 extern "C" const unsigned int DAT_00482798[1];  // zero_00482798
 extern "C" const unsigned int DAT_004827e4[1];  // zero_004827e4
-extern "C" unsigned char DAT_004e75b8[216];
+// DAT_004e75b8: typed by decls/data/records.h (included above)
+// DAT_004e7620: typed by decls/data/records.h (included above)
 
 // audio/SeqActionCrossFade.cpp
 extern "C" const char DAT_0042a49c[7];  // s_X_Fade_0042a49c
@@ -217,8 +227,9 @@ extern "C" const char DAT_0042a56c[19];  // s_SeqActionCrossFade_0042a56c
 extern "C" const unsigned int DAT_00482630[1];  // zero_00482630
 extern "C" const unsigned int DAT_00482678[1];  // zero_00482678
 extern "C" const unsigned int DAT_004826c4[1];  // zero_004826c4
-extern "C" char DAT_004e74c0[72];
-extern "C" unsigned char DAT_004e7508[176];
+// DAT_004e74c0: typed by decls/data/records.h (included above)
+// DAT_004e7508: typed by decls/data/records.h (included above)
+// DAT_004e7570: typed by decls/data/records.h (included above)
 
 // audio/SeqActionStopTrack.cpp
 extern "C" const char DAT_00429d48[5];  // s_Stop_00429d48
@@ -230,8 +241,10 @@ extern "C" const char DAT_00429db4[19];  // s_SeqActionStopTrack_00429db4
 extern "C" const unsigned int DAT_00481ab4[1];  // zero_00481ab4
 extern "C" const unsigned int DAT_00481afc[1];  // zero_00481afc
 extern "C" const unsigned int DAT_00481b44[1];  // zero_00481b44
-extern "C" unsigned char DAT_004e6b80[72];
-extern "C" unsigned char DAT_004e6bc8[280];
+// DAT_004e6b80: typed by decls/data/records.h (included above)
+// DAT_004e6bc8: typed by decls/data/records.h (included above)
+// DAT_004e6c30: typed by decls/data/records.h (included above)
+// DAT_004e6c78: typed by decls/data/records.h (included above)
 
 // audio/SeqActionStream.cpp
 extern "C" const char DAT_0042a274[10];  // s_MyRsdFile_0042a274
@@ -244,7 +257,8 @@ extern "C" const unsigned int DAT_004822b8[1];  // zero_004822b8
 extern "C" const unsigned int DAT_00482300[1];  // zero_00482300
 extern "C" const unsigned int DAT_00482348[1];  // zero_00482348
 extern "C" const unsigned int DAT_00482394[1];  // zero_00482394
-extern "C" char DAT_004e7200[176];
+// DAT_004e7200: typed by decls/data/records.h (included above)
+// DAT_004e7268: typed by decls/data/records.h (included above)
 
 // audio/SeqCommandLogicOr.cpp
 extern "C" const char DAT_0042a434[16];  // s_SeqEventLogicOr_0042a434
@@ -253,13 +267,14 @@ extern "C" const char DAT_0042a474[18];  // s_SeqCommandLogicOr_0042a474
 extern "C" const unsigned int DAT_00482550[1];  // zero_00482550
 extern "C" const unsigned int DAT_0048259c[1];  // zero_0048259c
 extern "C" const unsigned int DAT_004825e8[1];  // zero_004825e8
-extern "C" unsigned char DAT_004e7410[176];
+// DAT_004e7410: typed by decls/data/records.h (included above)
+// DAT_004e7458: typed by decls/data/records.h (included above)
 
 // audio/SeqEvent.cpp
 extern "C" const void* DAT_004cd380;  // PTR_004cd380
-// DAT_004e7a18: typed by decls/data/records.h (include it)
-extern "C" unsigned char DAT_004e7a30[72];
-extern "C" unsigned char DAT_004e7a78[72];
+// DAT_004e7a18: typed by decls/data/records.h (included above)
+// DAT_004e7a30: typed by decls/data/records.h (included above)
+// DAT_004e7a78: typed by decls/data/records.h (included above)
 
 // audio/SeqEventChannelSends.cpp
 extern "C" const char DAT_00429a3c[8];  // s_ChSends_00429a3c
@@ -271,7 +286,8 @@ extern "C" const unsigned int DAT_004815d8[1];  // zero_004815d8
 extern "C" const unsigned int DAT_00481620[1];  // zero_00481620
 extern "C" const unsigned int DAT_00481664[1];  // zero_00481664
 extern "C" const unsigned int DAT_004816b0[1];  // zero_004816b0
-extern "C" unsigned char DAT_004e6800[176];
+// DAT_004e6800: typed by decls/data/records.h (included above)
+// DAT_004e6848: typed by decls/data/records.h (included above)
 
 // audio/SeqEventCondition.cpp
 extern "C" const char DAT_00429ae4[6];  // s_cond_00429ae4
@@ -283,8 +299,9 @@ extern "C" const unsigned int DAT_004816f8[1];  // zero_004816f8
 extern "C" const unsigned int DAT_00481740[1];  // zero_00481740
 extern "C" const unsigned int DAT_0048178c[1];  // zero_0048178c
 extern "C" const unsigned int DAT_004817d4[1];  // zero_004817d4
-extern "C" char DAT_004e68b0[72];
-extern "C" unsigned char DAT_004e68f8[176];
+// DAT_004e68b0: typed by decls/data/records.h (included above)
+// DAT_004e68f8: typed by decls/data/records.h (included above)
+// DAT_004e6960: typed by decls/data/records.h (included above)
 extern "C" char DAT_004e69a8[8];
 
 // audio/SeqEventContainer.cpp
@@ -298,8 +315,8 @@ extern "C" const char DAT_00429d04[20];  // s_SeqActionExpression_00429d04
 extern "C" const unsigned int DAT_004819d8[1];  // zero_004819d8
 extern "C" const unsigned int DAT_00481a20[1];  // zero_00481a20
 extern "C" const unsigned int DAT_00481a68[1];  // zero_00481a68
-extern "C" char DAT_004e6ad0[72];
-extern "C" unsigned char DAT_004e6b18[104];
+// DAT_004e6ad0: typed by decls/data/records.h (included above)
+// DAT_004e6b18: typed by decls/data/records.h (included above)
 
 // audio/SeqEventLogicRepeat.cpp
 extern "C" const char DAT_0042a3b4[20];  // s_SeqEventLogicRepeat_0042a3b4
@@ -308,7 +325,7 @@ extern "C" const char DAT_0042a3d4[10];  // s_mMinTimes_0042a3d4
 extern "C" const char DAT_0042a408[22];  // s_SeqCommandLogicRepea_0042a408
 extern "C" const unsigned int DAT_004824bc[1];  // zero_004824bc
 extern "C" const unsigned int DAT_00482508[1];  // zero_00482508
-extern "C" unsigned char DAT_004e73a8[104];
+// DAT_004e73a8: typed by decls/data/records.h (included above)
 
 // audio/SeqEventNestTrack.cpp
 extern "C" const char DAT_0042989c[11];  // s_MySeqTrack_0042989c
@@ -322,7 +339,7 @@ extern "C" const unsigned int DAT_00481398[1];  // zero_00481398
 extern "C" const unsigned int DAT_004813dc[1];  // zero_004813dc
 extern "C" const unsigned int DAT_00481420[1];  // zero_00481420
 extern "C" const unsigned int DAT_0048146c[1];  // zero_0048146c
-extern "C" char DAT_004e6698[104];
+// DAT_004e6698: typed by decls/data/records.h (included above)
 
 // audio/SeqEventPlayTrack.cpp
 extern "C" const char DAT_00429df8[5];  // s_Play_00429df8
@@ -342,8 +359,9 @@ extern "C" const char DAT_0042a388[17];  // s_SeqActionSilence_0042a388
 extern "C" const unsigned int DAT_004823dc[1];  // zero_004823dc
 extern "C" const unsigned int DAT_00482428[1];  // zero_00482428
 extern "C" const unsigned int DAT_00482474[1];  // zero_00482474
-extern "C" unsigned char DAT_004e72b0[72];
-extern "C" char DAT_004e72f8[176];
+// DAT_004e72b0: typed by decls/data/records.h (included above)
+// DAT_004e72f8: typed by decls/data/records.h (included above)
+// DAT_004e7360: typed by decls/data/records.h (included above)
 
 // audio/SeqEventVarPitch.cpp
 extern "C" const char DAT_0042a21c[6];  // s_Pitch_0042a21c
@@ -353,7 +371,7 @@ extern "C" const char DAT_0042a260[18];  // s_SeqActionVarPitch_0042a260
 extern "C" const unsigned int DAT_004821dc[1];  // zero_004821dc
 extern "C" const unsigned int DAT_00482224[1];  // zero_00482224
 extern "C" const unsigned int DAT_00482270[1];  // zero_00482270
-extern "C" unsigned char DAT_004e7198[104];
+// DAT_004e7198: typed by decls/data/records.h (included above)
 
 // audio/SeqEventVarPitchRand.cpp
 extern "C" const char DAT_0042a17c[7];  // s_Pitch_0042a17c
@@ -364,8 +382,9 @@ extern "C" const char DAT_0042a1d4[22];  // s_SeqActionVarPitchRan_0042a1d4
 extern "C" const unsigned int DAT_00482100[1];  // zero_00482100
 extern "C" const unsigned int DAT_00482148[1];  // zero_00482148
 extern "C" const unsigned int DAT_00482190[1];  // zero_00482190
-extern "C" char DAT_004e70a0[72];
-extern "C" unsigned char DAT_004e70e8[176];
+// DAT_004e70a0: typed by decls/data/records.h (included above)
+// DAT_004e70e8: typed by decls/data/records.h (included above)
+// DAT_004e7150: typed by decls/data/records.h (included above)
 
 // audio/SeqEventVarPosDist.cpp
 extern "C" const char DAT_0042a0f0[3];  // s_3d_0042a0f0
@@ -375,7 +394,8 @@ extern "C" const char DAT_0042a138[20];  // s_SeqActionVarPosDist_0042a138
 extern "C" const unsigned int DAT_00482024[1];  // zero_00482024
 extern "C" const unsigned int DAT_0048206c[1];  // zero_0048206c
 extern "C" const unsigned int DAT_004820b4[1];  // zero_004820b4
-extern "C" char DAT_004e6ff0[176];
+// DAT_004e6ff0: typed by decls/data/records.h (included above)
+// DAT_004e7038: typed by decls/data/records.h (included above)
 
 // audio/SeqEventVarTempo.cpp
 extern "C" const char DAT_0042a060[17];  // s_SeqEventVarTempo_0042a060
@@ -385,7 +405,7 @@ extern "C" const char DAT_0042a0ac[18];  // s_SeqActionVarTempo_0042a0ac
 extern "C" const unsigned int DAT_00481f48[1];  // zero_00481f48
 extern "C" const unsigned int DAT_00481f90[1];  // zero_00481f90
 extern "C" const unsigned int DAT_00481fd8[1];  // zero_00481fd8
-extern "C" unsigned char DAT_004e6f88[104];
+// DAT_004e6f88: typed by decls/data/records.h (included above)
 
 // audio/SeqEventVarVolume.cpp
 extern "C" const char DAT_00429fd8[4];  // s_Vol_00429fd8
@@ -395,8 +415,9 @@ extern "C" const char DAT_0042a018[19];  // s_SeqActionVarVolume_0042a018
 extern "C" const unsigned int DAT_00481e6c[1];  // zero_00481e6c
 extern "C" const unsigned int DAT_00481eb4[1];  // zero_00481eb4
 extern "C" const unsigned int DAT_00481efc[1];  // zero_00481efc
-extern "C" char DAT_004e6e90[72];
-extern "C" unsigned char DAT_004e6ed8[176];
+// DAT_004e6e90: typed by decls/data/records.h (included above)
+// DAT_004e6ed8: typed by decls/data/records.h (included above)
+// DAT_004e6f40: typed by decls/data/records.h (included above)
 
 // audio/SeqEventVarVolumeRand.cpp
 extern "C" const char DAT_00429f38[5];  // s_Vol_00429f38
@@ -407,7 +428,8 @@ extern "C" const char DAT_00429f90[23];  // s_SeqActionVarVolumeRa_00429f90
 extern "C" const unsigned int DAT_00481d90[1];  // zero_00481d90
 extern "C" const unsigned int DAT_00481dd8[1];  // zero_00481dd8
 extern "C" const unsigned int DAT_00481e20[1];  // zero_00481e20
-extern "C" unsigned char DAT_004e6de0[176];
+// DAT_004e6de0: typed by decls/data/records.h (included above)
+// DAT_004e6e28: typed by decls/data/records.h (included above)
 
 // audio/SeqEventWait.cpp
 extern "C" const char DAT_00429b84[17];  // s_myvar_true_00429b84
@@ -418,7 +440,7 @@ extern "C" const char DAT_00429bf4[18];  // s_ChannelVolumeFade_00429bf4
 extern "C" const unsigned int DAT_00481820[1];  // zero_00481820
 extern "C" const unsigned int DAT_00481868[1];  // zero_00481868
 extern "C" const unsigned int DAT_004818b4[1];  // zero_004818b4
-extern "C" unsigned char DAT_004e69b0[104];
+// DAT_004e69b0: typed by decls/data/records.h (included above)
 
 // audio/SeqEventWaitBeat.cpp
 extern "C" const char DAT_00429c1c[5];  // s_Beat_00429c1c
@@ -427,8 +449,10 @@ extern "C" const char DAT_00429c74[18];  // s_SeqActionWaitBeat_00429c74
 extern "C" const unsigned int DAT_004818fc[1];  // zero_004818fc
 extern "C" const unsigned int DAT_00481944[1];  // zero_00481944
 extern "C" const unsigned int DAT_0048198c[1];  // zero_0048198c
-extern "C" char DAT_004e6a18[72];
-extern "C" unsigned char DAT_004e6a60[112];
+// DAT_004e6a18: typed by decls/data/records.h (included above)
+extern "C" unsigned char DAT_004e6a60[4];
+extern "C" unsigned char DAT_004e6a64[4];
+// DAT_004e6a68: typed by decls/data/records.h (included above)
 
 // audio/Sequence.cpp
 extern "C" const char DAT_0042a608[7];  // s_MyBuss_0042a608
@@ -446,7 +470,7 @@ extern "C" const char DAT_0042a6c4[16];  // s_HalVoiceChannel_0042a6c4
 extern "C" const unsigned int DAT_00482830[1];  // zero_00482830
 extern "C" const unsigned int DAT_0048285c[1];  // zero_0048285c
 extern "C" const unsigned int DAT_004828a0[1];  // zero_004828a0
-extern "C" unsigned char DAT_004e7690[72];
+// DAT_004e7690: typed by decls/data/records.h (included above)
 
 // audio/StreamPlayerAllocator.cpp
 extern "C" const float DAT_00429260;  // flt_00429260
@@ -471,12 +495,14 @@ extern "C" float DAT_004cc240;  // flt_004cc240
 extern "C" unsigned int DAT_004cc244[1];  // zero_004cc244
 extern "C" unsigned char DAT_004e5f98[8];
 extern "C" unsigned char DAT_004e5fa0[8];
-extern "C" char DAT_004e5fa8[72];
-extern "C" unsigned char DAT_004e5ff0[144];
-extern "C" unsigned char DAT_004e6080[72];
-extern "C" char DAT_004e60c8[72];
-extern "C" char DAT_004e6110[144];
-extern "C" unsigned char DAT_004e61a0[72];
+// DAT_004e5fa8: typed by decls/data/records.h (included above)
+// DAT_004e5ff0: typed by decls/data/records.h (included above)
+// DAT_004e6038: typed by decls/data/records.h (included above)
+// DAT_004e6080: typed by decls/data/records.h (included above)
+// DAT_004e60c8: typed by decls/data/records.h (included above)
+// DAT_004e6110: typed by decls/data/records.h (included above)
+// DAT_004e6158: typed by decls/data/records.h (included above)
+// DAT_004e61a0: typed by decls/data/records.h (included above)
 extern "C" void* DAT_004e61e8[1];
 extern "C" void* DAT_004e61ec[1];
 
@@ -507,7 +533,8 @@ extern "C" const char DAT_004290ec[9];  // s_MixerMix_004290ec
 extern "C" const char DAT_004290f8[11];  // s_MixerFader_004290f8
 extern "C" const char DAT_00429104[10];  // s_MixerBuss_00429104
 extern "C" const unsigned int DAT_004808fc[1];  // zero_004808fc
-extern "C" unsigned char DAT_004e5cf8[184];
+// DAT_004e5cf8: typed by decls/data/records.h (included above)
+// DAT_004e5d68: typed by decls/data/records.h (included above)
 
 // audio/unk_2474c0.cpp
 extern "C" const void* DAT_004cc1fc;  // PTR_004cc1fc
@@ -536,7 +563,8 @@ extern "C" int DAT_004cc258;
 extern "C" DataLayout_004cc25c DAT_004cc25c;  // struct_004cc25c
 extern "C" unsigned char DAT_004e61f0[16];
 extern "C" DataLayout_004e6200 DAT_004e6200[1];
-extern "C" unsigned char DAT_004e6208[144];
+// DAT_004e6208: typed by decls/data/records.h (included above)
+// DAT_004e6250: typed by decls/data/records.h (included above)
 extern "C" float DAT_004e6298;
 extern "C" float DAT_004e629c;
 extern "C" float DAT_004e62a0;
@@ -568,6 +596,6 @@ extern "C" const char DAT_0042ab34[13];  // s_mRootRepeat_0042ab34
 extern "C" const char DAT_0042ab44[9];  // s_SeqTrack_0042ab44
 extern "C" const unsigned char DAT_0042ab56[6];  // zero_0042ab56
 extern "C" float DAT_004cd470;  // flt_004cd470
-extern "C" unsigned char DAT_004e7ac0[72];
+// DAT_004e7ac0: typed by decls/data/records.h (included above)
 
 #endif

@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 2/2)
 // audio::SeqEventStream::vfunc_2 @ 0x00254580
 #include "decls/data/engine/audio.h"
 
@@ -22,7 +22,7 @@ struct SeqActionStream {
 }
 struct ActionTarget { void FUN_0025dc20(audio::SeqActionStream*); };
 void audio::SeqEventStream::vfunc_2(void* target) {
- audio::SeqActionStream* action = (audio::SeqActionStream*)FUN_00247530(((char*)((char*)&DAT_004e7200 + 104)));
+ audio::SeqActionStream* action = (audio::SeqActionStream*)FUN_00247530(((char*)((char*)&DAT_004e7268)));
  if (action) {
   action->audio::SeqActionStream::SeqActionStream();
   action->field14 = 0;

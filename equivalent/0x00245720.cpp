@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 8/8)
 // FUN_00245720 @ 0x00245720
 #include "decls/data/engine/om.h"
 
@@ -24,7 +24,7 @@ extern void* __cdecl FUN_00245390(void*,void*);
 bool __cdecl target(audio::Clip** out, void* source, const char* name, void* option) {
  Key_245720 key;
  FUN_0025ca90(&key,name);
- *out=FUN_00244fa0(&key,((char*)((char*)&DAT_004e5f18 + 48)));
+ *out=FUN_00244fa0(&key,((char*)((char*)&DAT_004e5f18->type.body.key)));
  if(*out) {
   (*out)->retain();
   if((*out)->data) return true;

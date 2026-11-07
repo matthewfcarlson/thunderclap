@@ -11,6 +11,6 @@ class Registry {
 void init() {
     __int64 a = FUN_002672f0("SeqActionVarTempo", 0, 0);
     __int64 b = FUN_002672f0("Runtime_Sequence", 0, 0);
-    (*(Registry*)((char*)&DAT_004e6ed8 + 104)).FUN_002584d0(&b, &a, 16, 4);
+    (*(Registry*)((char*)&DAT_004e6f40)).FUN_002584d0(&b, &a, 16, 4);
     atexit(FUN_003644e0);
 }

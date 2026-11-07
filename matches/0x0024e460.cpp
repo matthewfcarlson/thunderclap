@@ -1,3 +1,4 @@
+#include "decls/data/records.h"
 #include "decls/data/engine/unknown.h"
 
 #include "compat/ptr.h"
@@ -12,7 +13,7 @@ struct C_24e460 {
     void End();
 };
 extern "C" void FUN_0024e460(u32_24e460 value) {
-    char local[0x48];
+    char local[sizeof(OmType)];  // an om::Type (records.h)
     ((A_24e460*)local)->Init(&g2, ((char*)&DAT_004e6340), 0x1c, 4);
     *(void**)local = (void*)((hulk_intptr)DAT_0042986c);
     Work(local, value);

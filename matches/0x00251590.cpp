@@ -41,5 +41,5 @@ audio::SeqEventPlayTrack_251590::SeqEventPlayTrack_251590() {
     field.init("MySeqTrack", 2);
 }
 void* audio::SeqEventPlayTrackType::vfunc_3() {
-    return (void*)(new (((char*)((char*)&DAT_004e6bc8 + 176))) audio::SeqEventPlayTrack_251590);
+    return (void*)(new (((char*)((char*)&DAT_004e6c78))) audio::SeqEventPlayTrack_251590);
 }

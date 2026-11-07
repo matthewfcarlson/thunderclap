@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 49 inputs, branch coverage 61/68, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 67/68, incomplete)
 // FUN_00259610 @ 0x00259610
 #include "compat/ptr.h"
 #include "decls/data/platform/xbox/audio.h"
@@ -29,7 +29,7 @@ extern "C" Player_259610* __cdecl FUN_00259610(uint_259610* types, void* context
  player->audio=audio; for(int i=0;i<8;i++) player->cache[i]=0;
  uint_259610 channelCount=(audio->flags>>4)&31;
  for(uint_259610 j=0;j<channelCount;j++) {
-  Channel* ch=(Channel*)FUN_00247530(((char*)((char*)&DAT_004e76e8 + 72)));
+  Channel* ch=(Channel*)FUN_00247530(((char*)((char*)&DAT_004e7730)));
   if(ch) { uint_259610* p=(uint_259610*)ch; for(int z=0;z<32;z++) p[z]=0; }
   player->channels[j]=ch;
   ch->context=context;

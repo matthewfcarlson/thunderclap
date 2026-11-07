@@ -24,6 +24,6 @@ audio::SeqActionWait* audio::SeqActionWait::vfunc_0(int x) {
     SeqActionWait* p = this;
     *(void**)p = (void*)((hulk_intptr)DAT_004298fc);
     if (x & 1)
-        FUN_00247550(((int*)((char*)&DAT_004e68f8 + 104)), this);
+        FUN_00247550(((int*)((char*)&DAT_004e6960)), this);
     return this;
 }

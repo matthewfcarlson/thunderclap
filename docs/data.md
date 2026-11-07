@@ -438,8 +438,12 @@ differs from its standalone build; link check 6,477 references, **4,238 by name*
   `include/decls/data/records.h`, hand-written: the record (pointer fields as pointers) and `extern "C" T
   DAT_<addr>[N];`. `data_gen.py` reads those declarations: the item's data TU includes the header and defines the
   item with it (form `typed record`, the 32-bit size asserted against the item), and the generated headers leave it
-  out (a comment points at records.h, which the sources include). First user: the memory allocator registry
-  (`MemoryHeapSlot DAT_00527c60[46]` and its root `DAT_00527f40`). The header declares no namespace or other
+  out (a comment points at records.h); a generated header that leaves items out includes records.h itself (reg4), so
+  a source naming them needs no include of its own. First user: the memory allocator registry
+  (`MemoryHeapSlot DAT_00527c60[46]` and its root `DAT_00527f40`). The static om types (reg4: 84 objects, `OmType`,
+  `OmEntityType`, `SeqEventTypeHead`) are declared as arrays of one (`extern "C" OmType DAT_004e5db0[1];`), so the
+  sources that pass the item as a pointer keep compiling; an item that held several objects is one item per object.
+  The header declares no namespace or other
   top-level name besides its records and items: gen_tree keeps every top-level name of include/ global, so a
   `namespace core { ... }` there moved the core classes of 20 TUs out of their TU namespaces (a duplicate symbol in
   the native link).

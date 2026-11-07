@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1836 inputs, branch coverage 31/32, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 1853 inputs, branch coverage 31/32, incomplete)
 // FUN_0025e450 @ 0x0025e450
 #include "decls/data/engine/audio.h"
 
@@ -28,7 +28,7 @@ extern "C" bool __cdecl FUN_0025e450(Buffer_25e450* b, uint_25e450 alignment) {
  if(overflow) b->count+=capacity;
  }
  uint_25e450 end=b->position;
- Node* node=FUN_00247530(((char*)((char*)&DAT_004e78e0 + 144)));
+ Node* node=FUN_00247530(((char*)((char*)&DAT_004e7970)));
  if(node) { node->start=0; node->length=0; node->next=0; }
  node->next=0;
  Node** link=&node->next;

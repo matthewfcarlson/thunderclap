@@ -12,6 +12,6 @@ SeqActionPlayTrack* SeqActionPlayTrack::vfunc_0(int x) {
     SeqActionPlayTrack* self = this;
     vptr = (int*)((hulk_intptr)DAT_004298fc);
     if (x & 1)
-        Cleanup((void*)((hulk_intptr)((char*)((char*)&DAT_004e6bc8 + 104))), self);
+        Cleanup((void*)((hulk_intptr)((char*)((char*)&DAT_004e6c30))), self);
     return self;
 }

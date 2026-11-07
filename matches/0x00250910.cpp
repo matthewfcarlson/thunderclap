@@ -32,6 +32,6 @@ inline void* operator new(unsigned int, void* p) {
     return p;
 }
 void* audio::SeqEventWaitBeatType::vfunc_3() {
-    void* p = alloc(((char*)((char*)&DAT_004e6a60 + 8)));
+    void* p = alloc(((char*)((char*)&DAT_004e6a68)));
     return (void*)(p ? new (p) SeqEventWaitBeat_250910 : 0);
 }

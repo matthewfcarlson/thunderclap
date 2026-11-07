@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 2/2)
 // audio::SeqEventVarTempo::vfunc_2 @ 0x00252ed0
 #include "decls/data/engine/audio.h"
 
@@ -11,7 +11,7 @@ extern char DAT_0042a090;
 extern "C" void* __cdecl FUN_00247530(void*);
 struct Receiver { void FUN_0025dc20(audio::SeqActionVarTempo*); };
 void audio::SeqEventVarTempo::vfunc_2(void* receiver) {
-    audio::SeqActionVarTempo* action = (audio::SeqActionVarTempo*)FUN_00247530(((char*)((char*)&DAT_004e6ed8 + 104)));
+    audio::SeqActionVarTempo* action = (audio::SeqActionVarTempo*)FUN_00247530(((char*)((char*)&DAT_004e6f40)));
     if (action) {
         *(void**)action = &DAT_0042a090;
         action->event = this;

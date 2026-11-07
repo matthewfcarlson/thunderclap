@@ -25,6 +25,7 @@ struct DataLayout_00434864;  // packed layout (bytes and pointers), defined in t
 struct DataLayout_00434970;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_00434af8;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_00434d90;  // packed layout (bytes and pointers), defined in the data TU
+#include "decls/data/records.h"
 
 // unknown/unk_212bb0.cpp
 extern "C" const char DAT_00422468[11];  // s_TRACEBACK_00422468
@@ -246,9 +247,10 @@ extern "C" float DAT_004ca5ec[4];  // fltTbl_004ca5ec
 extern "C" const unsigned int DAT_00480944[1];  // zero_00480944
 extern "C" const unsigned int DAT_00480990[1];  // zero_00480990
 extern "C" const unsigned int DAT_004809dc[1];  // zero_004809dc
-extern "C" char DAT_004e5db0[72];
-extern "C" unsigned char DAT_004e5df8[144];
-extern "C" char DAT_004e5e88[72];
+// DAT_004e5db0: typed by decls/data/records.h (included above)
+// DAT_004e5df8: typed by decls/data/records.h (included above)
+// DAT_004e5e40: typed by decls/data/records.h (included above)
+// DAT_004e5e88: typed by decls/data/records.h (included above)
 
 // unknown/unk_24cc00.cpp
 extern "C" const float DAT_00429358;  // flt_00429358
@@ -259,7 +261,7 @@ extern "C" const float DAT_00429368;  // flt_00429368
 extern "C" const float DAT_0042936c;  // flt_0042936c
 extern "C" const char DAT_00429370[18];  // s_HalPositionalInfo_00429370
 extern "C" const char DAT_00429384[12];  // s_HalListener_00429384
-extern "C" char DAT_004e62d8[72];
+// DAT_004e62d8: typed by decls/data/records.h (included above)
 
 // unknown/unk_24dce0.cpp
 extern "C" const char DAT_00429644[13];  // s_HF_Reference_00429644
@@ -298,7 +300,7 @@ extern "C" unsigned char DAT_004e6350[4];
 extern "C" unsigned char DAT_004e6354[4];
 extern "C" unsigned char DAT_004e6358[4];
 extern "C" unsigned char DAT_004e635c[4];
-extern "C" char DAT_004e6468[112];
+// DAT_004e6468: typed by decls/data/records.h (included above)
 
 // unknown/unk_262230.cpp
 extern "C" const float DAT_0042ab50;  // flt_0042ab50
@@ -322,7 +324,7 @@ extern "C" const void* DAT_004cd4cc;  // PTR_004cd4cc
 extern "C" const void* DAT_004cd4d0[4];  // ptrTbl_004cd4d0
 
 // unknown/unk_266950.cpp
-// DAT_00527c60: typed by decls/data/records.h (include it)
+// DAT_00527c60: typed by decls/data/records.h (included above)
 extern "C" void* DAT_00527f58[1];
 extern "C" unsigned char DAT_00527f5c[4];
 extern "C" unsigned char DAT_00527f60[4];

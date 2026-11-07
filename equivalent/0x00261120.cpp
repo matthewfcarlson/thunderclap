@@ -1,7 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 2/2)
 // FUN_00261120 @ 0x00261120
 // equiv-map: ??0Type@om@@QAE@PAX0HH@Z = 0x002584d0
 // equiv-map: ??0String@om@@QAE@XZ = 0x0023fac0
+#include "decls/data/records.h"
 #include "decls/data/engine/om.h"
 
 inline void* operator new(unsigned int, void* p) { return p; }
@@ -19,7 +20,8 @@ public:
 class Type {
 public:
     virtual void v0();
-    char data[0x3c];
+    unsigned int reserved04;  // records.h OmType
+    OmTypeBody body;
     Type(void* a, void* b, int c, int d) throw();
     void FUN_002580e0();
 };

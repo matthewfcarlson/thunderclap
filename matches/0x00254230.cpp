@@ -11,6 +11,6 @@ class SeqActionStream_254230 {
 SeqActionStream_254230* SeqActionStream_254230::f0(unsigned char flags) {
     vptr = g_vftable_254230;
     if (flags & 1)
-        Free(((char*)((char*)&DAT_004e7200 + 104)), this);
+        Free(((char*)((char*)&DAT_004e7268)), this);
     return this;
 }

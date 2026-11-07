@@ -18,6 +18,7 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 #endif
 
 struct DataLayout_00527c58;  // packed layout (bytes and pointers), defined in the data TU
+#include "decls/data/records.h"
 
 // content/LoadInventory.cpp
 extern "C" const unsigned int DAT_00482cc8[1];  // zero_00482cc8
@@ -30,10 +31,10 @@ extern "C" float DAT_004cd52c[4];  // fltTbl_004cd52c
 // content/LoadStream.cpp
 extern "C" const float DAT_0042aea8[7];  // fltTbl_0042aea8
 extern "C" int DAT_004cd504;
-// DAT_00527c28: typed by decls/data/records.h (include it)
-// DAT_00527c4c: typed by decls/data/records.h (include it)
-// DAT_00527c50: typed by decls/data/records.h (include it)
-// DAT_00527c54: typed by decls/data/records.h (include it)
+// DAT_00527c28: typed by decls/data/records.h (included above)
+// DAT_00527c4c: typed by decls/data/records.h (included above)
+// DAT_00527c50: typed by decls/data/records.h (included above)
+// DAT_00527c54: typed by decls/data/records.h (included above)
 extern "C" DataLayout_00527c58 DAT_00527c58[1];
 
 #endif

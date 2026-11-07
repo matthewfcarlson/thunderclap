@@ -8,6 +8,6 @@ class Thing {
 extern "C" int __cdecl atexit(void(__cdecl*)());
 extern "C" void __cdecl FUN_00364380();
 void FUN_0035fd90() {
-    (*(Thing*)((char*)&DAT_004e6748 + 8)).FUN_0024ed10();
+    (*(Thing*)((char*)&DAT_004e6750)).FUN_0024ed10();
     atexit(FUN_00364380);
 }

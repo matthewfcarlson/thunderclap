@@ -8,7 +8,7 @@ void owners::Controller_2642c0::FUN_002642c0() {
     unsigned int next = selected == 0;
     position = 0;
     limit = capacity;
-    currentBuffer = ((char*)((char*)&DAT_004e7be0 + 72)) + next * 0x20000;
+    currentBuffer = ((char*)((char*)&DAT_004e7c28)) + next * 0x20000;
     selected = next;
-    FUN_00264050(((char*)((char*)&DAT_004e7be0 + 72)) + (next == 0) * 0x20000);
+    FUN_00264050(((char*)((char*)&DAT_004e7c28)) + (next == 0) * 0x20000);
 }

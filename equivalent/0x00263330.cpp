@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20030 inputs, branch coverage 18/18)
+// STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 18/18)
 // audio::HalRsdFileStream::vfunc_11 @ 0x00263330
 #include "gen/audio.h"
 
@@ -33,7 +33,7 @@ void audio::HalRsdFileStream::vfunc_11() {
   if((*(File_263330 * *)&this->f_20)->status()!=1) { this->f_44=2; break; }
   (*(File_263330 * *)&this->f_20)->mode(1);
   if((*(unsigned char *)&this->f_40)) { ((HalRsdFileStream_nv_263330*)this)->FUN_002630c0(); break; }
-  { unsigned* p=(unsigned*)FUN_00247530(((char*)((char*)&DAT_004e7b08 + 72)));
+  { unsigned* p=(unsigned*)FUN_00247530(((char*)((char*)&DAT_004e7b50)));
     if(p) for(unsigned i=0;i<0x69;++i) p[i]=0;
     (*(void * *)&this->f_24)=p; this->f_44=3;
     (*(File_263330 * *)&this->f_20)->seek((*(unsigned int *)&this->f_30));

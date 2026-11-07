@@ -1,6 +1,9 @@
+// A new scheduler thread (0x0026dc50 starts it: the record, its fiber's entry and argument, the priority, the stack)
+#include "compat/ptr.h"
+#include "decls/data/records.h"
 extern "C" void _ReadWriteBarrier(void);
-void __cdecl helper(int, int, int, int, int);
-extern "C" void __cdecl FUN_0026dce0(int a, int b, int c, int d, int e) {
-    helper(a, b, c, d, e);
+int __cdecl FUN_0026dc50(CoreThread *worker, int (__cdecl *entry)(hulk_intptr), hulk_intptr argument, int priority, unsigned long stackSize);
+extern "C" void __cdecl FUN_0026dce0(CoreThread *worker, int (__cdecl *entry)(hulk_intptr), hulk_intptr argument, int priority, unsigned long stackSize) {
+    FUN_0026dc50(worker, entry, argument, priority, stackSize);
     _ReadWriteBarrier();
 }

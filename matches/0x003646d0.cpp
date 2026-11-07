@@ -6,6 +6,6 @@ class Obj_3646d0 {
     void Run();
 };
 void __stdcall Wrapper() {
-    Obj_3646d0* p = (Obj_3646d0*)&(*(int*)((char*)&DAT_004e78e0 + 72));
+    Obj_3646d0* p = (Obj_3646d0*)&(*(int*)((char*)&DAT_004e7928));
     p->Run();
 }

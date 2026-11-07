@@ -12,6 +12,6 @@ class Registry {
 void __cdecl FUN_0035f440() {
     __int64 mixer = FUN_002672f0(DAT_004290f8, 0, 0);
     __int64 runtime = FUN_002672f0(DAT_004290d8, 0, 0);
-    (*(Registry*)((char*)&DAT_004e5df8 + 72)).FUN_002584d0(&runtime, &mixer, 28, 4);
+    (*(Registry*)((char*)&DAT_004e5e40)).FUN_002584d0(&runtime, &mixer, 28, 4);
     atexit(FUN_00364180);
 }

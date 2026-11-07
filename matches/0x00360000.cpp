@@ -15,6 +15,6 @@ void __cdecl target() {
     Pair a, b;
     a.v = FUN_002672f0("SeqActionWait", 0, 0);
     b.v = FUN_002672f0("Runtime_Sequence", 0, 0);
-    (*(Reg*)((char*)&DAT_004e68f8 + 104)).FUN_002584d0(&b, &a, 16, 4);
+    (*(Reg*)((char*)&DAT_004e6960)).FUN_002584d0(&b, &a, 16, 4);
     atexit(FUN_003643d0);
 }

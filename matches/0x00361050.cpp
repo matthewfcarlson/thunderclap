@@ -13,6 +13,6 @@ extern "C" void __cdecl FUN_00364660();
 void __cdecl FUN_00361050() {
     Pair_361050 a = FUN_002672f0("HalVoiceChannel", 0, 0);
     Pair_361050 b = FUN_002672f0("Runtime_Hal", 0, 0);
-    (*(Obj_361050*)((char*)&DAT_004e76e8 + 72)).FUN_002584d0(&b, &a, 128, 4);
+    (*(Obj_361050*)((char*)&DAT_004e7730)).FUN_002584d0(&b, &a, 128, 4);
     atexit(FUN_00364660);
 }

@@ -22,7 +22,8 @@ namespace om {
 class Type {
 public:
     virtual void v0();
-    char data[0x44];
+    unsigned int reserved04;   // records.h OmType
+    OmTypeBody body;
     Type() throw() {}
 };
 }

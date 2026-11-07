@@ -1,50 +1,31 @@
-// STATUS: equivalent (tools/equiv.py level 3: 148 inputs, branch coverage 41/52, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 1132 inputs, branch coverage 51/52, incomplete)
 // FUN_00258530 @ 0x00258530
-struct Key_258530 {
-    unsigned lo;
-    unsigned hi;
-};
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+// The tree of om types by key (records.h OmType: the type's node, keyed by its own key; the tree is the OmTree layout,
+// 0x004cd1a8's has no count).
 
-struct Node {
-    Node* left;
-    Node* right;
-    Node* parent;
-    int color;  // 0 = black, 1 = red
-    char pad10[0x28 - 0x10];
-    Key_258530 key;
-};
+void __cdecl FUN_00258140(OmTree* tree, OmTreeNode* n);  // rotate left
+void __cdecl FUN_00258190(OmTree* tree, OmTreeNode* n);  // rotate right
 
-struct Item_258530 {
-    char pad0[8];
-    Node node;
-};
-
-struct Tree_258530 {
-    Node* root;
-    Node nil;
-};
-
-void __cdecl FUN_00258140(Tree_258530* tree, Node* n);  // rotate left
-void __cdecl FUN_00258190(Tree_258530* tree, Node* n);  // rotate right
-
-static inline const Key_258530* KeyOf(const Node* n)
+static inline const OmKey* KeyOf(const OmTreeNode* n)
 {
-    return &n->key;
+    return &((const OmType*)((const char*)n - (hulk_intptr) & ((OmType*)0)->body.node))->body.key;
 }
 
 // Unique insert of item (keyed by a 64-bit key) into an intrusive red-black tree.
-bool __cdecl FUN_00258530(Tree_258530* tree, Item_258530* item, const Key_258530* key)
+extern "C" bool __cdecl FUN_00258530(OmTree* tree, OmType* item, const OmKey* key)
 {
-    Node* nil = &tree->nil;
-    Node* added = &item->node;
-    Node* x = tree->root;
-    Node* y = nil;
+    OmTreeNode* nil = &tree->nil;
+    OmTreeNode* added = &item->body.node;
+    OmTreeNode* x = tree->root;
+    OmTreeNode* y = nil;
 
     if (x != nil) {
         unsigned klo = key->lo;
         unsigned khi = key->hi;
         do {
-            const Key_258530* nk = KeyOf(x);
+            const OmKey* nk = KeyOf(x);
             y = x;
             if (khi < nk->hi || (khi == nk->hi && klo < nk->lo)) {
                 x = x->left;
@@ -60,7 +41,7 @@ bool __cdecl FUN_00258530(Tree_258530* tree, Item_258530* item, const Key_258530
     if (y == nil) {
         tree->root = added;
     } else {
-        const Key_258530* yk = KeyOf(y);
+        const OmKey* yk = KeyOf(y);
         if (key->hi > yk->hi || (key->hi == yk->hi && key->lo >= yk->lo))
             y->right = added;
         else
@@ -70,12 +51,12 @@ bool __cdecl FUN_00258530(Tree_258530* tree, Item_258530* item, const Key_258530
     added->right = nil;
     added->color = 1;
 
-    Node* n = added;
+    OmTreeNode* n = added;
     while (n != tree->root && n->parent->color == 1) {
-        Node* p = n->parent;
-        Node* g = p->parent;
+        OmTreeNode* p = n->parent;
+        OmTreeNode* g = p->parent;
         if (p == g->left) {
-            Node* uncle = g->right;
+            OmTreeNode* uncle = g->right;
             if (uncle->color == 1) {
                 p->color = 0;
                 uncle->color = 0;
@@ -88,8 +69,8 @@ bool __cdecl FUN_00258530(Tree_258530* tree, Item_258530* item, const Key_258530
                 }
                 n->parent->color = 0;
                 n->parent->parent->color = 1;
-                Node* gp = n->parent->parent;
-                Node* pivot = gp->left;
+                OmTreeNode* gp = n->parent->parent;
+                OmTreeNode* pivot = gp->left;
                 gp->left = pivot->right;
                 if (pivot->right != nil)
                     pivot->right->parent = gp;
@@ -104,7 +85,7 @@ bool __cdecl FUN_00258530(Tree_258530* tree, Item_258530* item, const Key_258530
                 gp->parent = pivot;
             }
         } else {
-            Node* uncle = g->left;
+            OmTreeNode* uncle = g->left;
             if (uncle->color == 1) {
                 p->color = 0;
                 uncle->color = 0;
@@ -117,8 +98,8 @@ bool __cdecl FUN_00258530(Tree_258530* tree, Item_258530* item, const Key_258530
                 }
                 n->parent->color = 0;
                 n->parent->parent->color = 1;
-                Node* gp = n->parent->parent;
-                Node* pivot = gp->right;
+                OmTreeNode* gp = n->parent->parent;
+                OmTreeNode* pivot = gp->right;
                 gp->right = pivot->left;
                 if (pivot->left != nil)
                     pivot->left->parent = gp;

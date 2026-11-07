@@ -12,6 +12,6 @@ class Registry_361630 {
 void __cdecl FUN_00361630() {
     U64_361630 a = FUN_002672f0("HalRsdFileHeader", 0, 0);
     U64_361630 b = FUN_002672f0("Runtime_Hal", 0, 0);
-    (*(Registry_361630*)((char*)&DAT_004e7b08 + 72)).FUN_002584d0(&b, &a, 0x1a4, 4);
+    (*(Registry_361630*)((char*)&DAT_004e7b50)).FUN_002584d0(&b, &a, 0x1a4, 4);
     atexit(FUN_00364740);
 }

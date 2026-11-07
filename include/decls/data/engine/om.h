@@ -18,6 +18,7 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 #endif
 
 struct DataRec_004cd388;  // packed layout (bytes and pointers), defined in the data TU
+#include "decls/data/records.h"
 
 // om/CallbackStream.cpp
 extern "C" const unsigned int DAT_00480c64[1];  // zero_00480c64
@@ -67,7 +68,7 @@ extern "C" unsigned char DAT_004e5ee4[20];
 extern "C" unsigned char DAT_004e5ef8[20];
 extern "C" int DAT_004e5f0c;
 extern "C" char DAT_004e5f10[8];
-extern "C" char DAT_004e5f18[112];
+// DAT_004e5f18: typed by decls/data/records.h (included above)
 
 // om/LogStream.cpp
 extern "C" const unsigned int DAT_00480bd4[1];  // zero_00480bd4
@@ -91,8 +92,8 @@ extern "C" const char DAT_0042aa4c[3];  // s_om_0042aa4c
 extern "C" const char DAT_0042aa50[9];  // s_MetaType_0042aa50
 extern "C" const void* DAT_004cd360;  // PTR_004cd360
 extern "C" unsigned int DAT_004cd384[1];  // zero_004cd384
-// DAT_004e79b8: typed by decls/data/records.h (include it)
-extern "C" char DAT_004e79d0[72];
+// DAT_004e79b8: typed by decls/data/records.h (included above)
+// DAT_004e79d0: typed by decls/data/records.h (included above)
 
 // om/NullStream.cpp
 extern "C" const unsigned int DAT_00480c1c[1];  // zero_00480c1c

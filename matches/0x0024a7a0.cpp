@@ -13,7 +13,7 @@ extern void Copy(void*, hulk_intptr);
 extern "C" void __cdecl FUN_0024a450(void *);
 extern "C" void __cdecl FUN_0024a4a0(void *);
 Obj_24a7a0* Obj_24a7a0::Update(u8_24a7a0 flag) {
-    Copy((void*)((hulk_intptr)((char*)((char*)&DAT_004e6110 + 72))), m40);
+    Copy((void*)((hulk_intptr)((char*)((char*)&DAT_004e6158))), m40);
     Copy((void*)((hulk_intptr)DAT_004e6110), m3c);
     char* base = (char*)this + 0x50;
     FUN_0024a450(base + 0x14);

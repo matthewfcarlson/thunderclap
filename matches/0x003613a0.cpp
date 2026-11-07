@@ -14,6 +14,6 @@ extern "C" void __cdecl FUN_003646e0();
 void FUN_003613a0() {
     Pair p = FUN_002672f0(DAT_0042a9e8, 0, 0);
     Pair q = FUN_002672f0(DAT_004290a8, 0, 0);
-    (*(Registry*)((char*)&DAT_004e78e0 + 144)).FUN_002584d0(&q, &p, 12, 4);
+    (*(Registry*)((char*)&DAT_004e7970)).FUN_002584d0(&q, &p, 12, 4);
     atexit(FUN_003646e0);
 }

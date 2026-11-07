@@ -1,3 +1,4 @@
+#include "decls/data/records.h"
 #include "decls/data/engine/unknown.h"
 
 extern char g2;
@@ -5,7 +6,8 @@ class Type_24e4c0 {
   public:
     virtual void vf();
     Type_24e4c0(void*, void*, int, int) throw();
-    char pad[0x44];
+    unsigned int reserved04;  // records.h OmType
+    OmTypeBody body;
 };
 class TypeT_24e4c0 : public Type_24e4c0 {
   public:

@@ -5,5 +5,5 @@ struct G_364150 {
     int F();
 };
 int __cdecl FUN_00364150() {
-    return (*(G_364150*)((char*)&DAT_004e5cf8 + 112)).F();
+    return (*(G_364150*)((char*)&DAT_004e5d68)).F();
 }

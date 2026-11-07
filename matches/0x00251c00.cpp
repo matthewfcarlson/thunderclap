@@ -18,6 +18,6 @@ extern "C" void __cdecl FUN_00247550(void*, void*);
 SeqEventChannelVolumes* SeqEventChannelVolumes::f4(int flag) {
     Base();
     if (flag & 1)
-        FUN_00247550(((char*)((char*)&DAT_004e6d28 + 8)), this);
+        FUN_00247550(((char*)((char*)&DAT_004e6d30)), this);
     return this;
 }

@@ -26,6 +26,6 @@ SeqEventPlayTrack_2515e0* SeqEventPlayTrack_2515e0::vfunc_4(unsigned char flag) 
     ((A_2515e0*)((char*)this + 0x14))->f();
     ((SeqEventPlayTrack_nv_2515e0*)(((audio::SeqEventPlayTrack*)this)))->f();
     if (flag & 1)
-        f47550(((char*)((char*)&DAT_004e6bc8 + 176)), this);
+        f47550(((char*)((char*)&DAT_004e6c78)), this);
     return this;
 }

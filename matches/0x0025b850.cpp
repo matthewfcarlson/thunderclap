@@ -24,6 +24,6 @@ void __cdecl target(void* p, Obj* o) {
         } while (--n);
         ((owners::Str_240060 *)&(o->b))->FUN_00240060();
         ((owners::Str_240060 *)&(o->a))->FUN_00240060();
-        freeobj(((char*)((char*)&DAT_004e76e8 + 144)), o);
+        freeobj(((char*)((char*)&DAT_004e7778)), o);
     }
 }

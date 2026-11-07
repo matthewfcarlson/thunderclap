@@ -10,6 +10,6 @@ extern "C" void FUN_00364150();
 void __cdecl FUN_0035f320() {
     __int64 mixBuss = FUN_002672f0("MixBuss", 0, 0);
     __int64 dataMix = FUN_002672f0("Data_Mix", 0, 0);
-    (*(Registry*)((char*)&DAT_004e5cf8 + 112)).FUN_002584d0(&dataMix, &mixBuss, 0x2c, 4);
+    (*(Registry*)((char*)&DAT_004e5d68)).FUN_002584d0(&dataMix, &mixBuss, 0x2c, 4);
     _atexit(FUN_00364150);
 }

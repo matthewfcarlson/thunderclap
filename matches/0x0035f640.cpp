@@ -11,6 +11,6 @@ class Registry {
 void function() {
     unsigned __int64 a = FUN_002672f0(DAT_004292a0, 0, 0);
     unsigned __int64 b = FUN_002672f0(DAT_00429270, 0, 0);
-    (*(Registry*)((char*)&DAT_004e5ff0 + 72)).FUN_002584d0((__int64*)&b, (__int64*)&a, 64, 4);
+    (*(Registry*)((char*)&DAT_004e6038)).FUN_002584d0((__int64*)&b, (__int64*)&a, 64, 4);
     atexit(FUN_00364200);
 }

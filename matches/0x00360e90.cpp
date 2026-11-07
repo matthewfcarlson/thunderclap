@@ -11,6 +11,6 @@ class Global {
 void __cdecl FUN_00360e90() {
     __int64 a = FUN_002672f0("SeqActionClip", 0, 0);
     __int64 b = FUN_002672f0("Runtime_Sequence", 0, 0);
-    (*(Global*)((char*)&DAT_004e7508 + 104)).FUN_002584d0(&b, &a, 0x1c, 4);
+    (*(Global*)((char*)&DAT_004e7570)).FUN_002584d0(&b, &a, 0x1c, 4);
     atexit(cleanup);
 }

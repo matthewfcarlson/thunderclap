@@ -1,3 +1,4 @@
+#include "decls/data/records.h"
 #include "compat/ptr.h"
 #include "decls/data/engine/audio.h"
 
@@ -8,7 +9,7 @@ struct Helper_24dce0 {
 };
 extern int __cdecl F247530(void*);
 int __cdecl target() {
-    char local[0x48];
+    char local[sizeof(OmType)];  // an om::Type (records.h)
     ((Helper_24dce0*)local)->init((void*)((hulk_intptr)DAT_004e6328), (void*)((hulk_intptr)DAT_004e6320), 0x30, 4);
     *(void**)local = (void*)((hulk_intptr)DAT_00429434);
     int result = F247530(local);

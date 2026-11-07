@@ -1,9 +1,11 @@
 #include "compat/ptr.h"
 #include "gen/om.h"
 #include "decls/data/engine/om.h"
+#include "decls/data/records.h"
 
-extern "C" void __cdecl helper(void*, om::Type*);
+// the tree remove (records.h OmType: the type's node in the tree of types by key, 0x004cd1a8)
+extern "C" void __cdecl FUN_00258730(OmTree* tree, OmType* entry);
 
 void om::Type::vfunc_1() {
-    helper((void*)((hulk_intptr)((char*)&DAT_004cd1a8)), this);
+    FUN_00258730((OmTree*)((char*)&DAT_004cd1a8), (OmType*)this);
 }

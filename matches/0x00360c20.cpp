@@ -11,6 +11,6 @@ struct Registry {
 void Init() {
     U64 a = FUN_002672f0("SeqCommandLogicRepeat", 0, 0);
     U64 b = FUN_002672f0("Runtime_Sequence", 0, 0);
-    (*(Registry*)((char*)&DAT_004e72f8 + 104)).FUN_002584d0(&b, &a, 24, 4);
+    (*(Registry*)((char*)&DAT_004e7360)).FUN_002584d0(&b, &a, 24, 4);
     atexit(FUN_003645a0);
 }

@@ -16,6 +16,6 @@ SeqAction* SeqActionVarPitch::vfunc_0(int flag) {
     SeqAction* self = this;
     vptr = (int*)((hulk_intptr)DAT_004298fc);
     if (flag & 1)
-        FUN_00247550(((int*)((char*)&DAT_004e70e8 + 104)), self);
+        FUN_00247550(((int*)((char*)&DAT_004e7150)), self);
     return self;
 }

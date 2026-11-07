@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // audio::SeqEventLogicRepeat::vfunc_2 @ 0x00254dd0
 #include "decls/data/engine/audio.h"
 #include "gen/audio.h"
@@ -14,7 +14,7 @@ struct SeqEventLogicRepeat_254dd0 {
     void vfunc_2(Receiver* receiver);
 };
 void SeqEventLogicRepeat_254dd0::vfunc_2(Receiver* receiver) {
-    audio::SeqCommandLogicRepeat* helper = (audio::SeqCommandLogicRepeat*)FUN_00247530(((char*)((char*)&DAT_004e72f8 + 104)));
+    audio::SeqCommandLogicRepeat* helper = (audio::SeqCommandLogicRepeat*)FUN_00247530(((char*)((char*)&DAT_004e7360)));
     if (helper) ((owners::Queue_25dba0 *)receiver)->FUN_0025dba0((int *)(((SeqCommandLogicRepeat_nv_254dd0*)(((audio::SeqCommandLogicRepeat*)(helper))))->FUN_00254c80(this)));
     else ((owners::Queue_25dba0 *)receiver)->FUN_0025dba0((int *)0);
 }

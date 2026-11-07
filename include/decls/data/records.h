@@ -161,10 +161,47 @@ extern "C" OmMetaType DAT_004e63c8;
 extern "C" OmMetaType DAT_004e63fc;
 extern "C" OmMetaType DAT_004e6430;
 
+// om::Type (0x002584d0 constructs one, 0x002580e0 resets its vftable): an om object type. Types are nodes of the
+// red-black tree of types by key (0x004cd1a8, a .data OmTree without a count: om::Type::vfunc_0 0x002588d0 inserts
+// with 0x00258530, vfunc_1 0x002588f0 removes with 0x00258730, 0x00258950 finds with 0x00258870); the type's pool
+// (0x00247530 / 0x00247550, the allocator 0x004cc200: 0x002474c0) hands out instances of size / align. Many types
+// are static .bss objects that the start-up initializers construct (0x0035f300-0x00361700); the leaf types derive
+// from om::EntityType (0x00243310, OmEntityType), audio::SeqEventType (0x002605e0, SeqEventTypeHead) or are
+// om::TypeT<> instances of om::Type's own size. The body is a record of its own so that the classes that derive from
+// om::Type (`virtual ...; unsigned int reserved04; OmTypeBody body;`) have the record's layout on both builds; its
+// keys are word pairs (an __int64 member would make MSVC align the vftable pointer's slot to 8).
+struct OmKey {
+    unsigned int lo;                        // 0x002672f0's 64-bit hash of a name
+    unsigned int hi;
+};
+
+struct OmTypeBody {
+    OmTreeNode node;                        // +0x08 the node in the tree of types (its key is `key`)
+    unsigned int reserved18[4];             // +0x18 (no reference found)
+    OmKey baseKey;                          // +0x28 the key of the type's data kind ("Data_Mix")
+    OmKey key;                              // +0x30 the type's own key ("Mix"), the tree's key
+    int size;                               // +0x38 an instance's bytes (0x002474c0 allocates them)
+    int align;                              // +0x3c
+    unsigned int reserved40[2];             // +0x40
+};
+
+struct OmType {
+    const void* vftable;                    // +0x00 om::Type's (0x0042a6ac) or the derived type's
+    unsigned int reserved04;                // +0x04 (no reference found)
+    OmTypeBody body;                        // +0x08
+};
+
+// om::EntityType (0x00243310; om::MetaEntityType 0x0025e6c0 adds nothing): om::Type, then the entity flags. The
+// static objects are 8-aligned (their .bss items keep the 4 bytes after the class).
+struct __declspec(align(8)) OmEntityType {
+    OmType type;
+    unsigned int reserved48[8];             // +0x48 (no reference found)
+    int flags;                              // +0x68 (0x01000002 audio::MixType, 0x01000100 the listener effects)
+};
+
 // audio::SeqEventType (0x002605e0 constructs one, 0x00260680 / 0x00260950 destroy it): an om::Type, then its node
 // in the tree of sequence event types by name (0x004e7a18, an OmTree; 0x004cd380 points at it; 0x002601d0 inserts,
-// 0x002603e0 removes, 0x0025fca0 compares a name with an entry's). om::Type's own fields are kept as its 32-bit
-// bytes here (its layout is not recovered), so on 64-bit the node follows them at the next 8-byte boundary.
+// 0x002603e0 removes, 0x0025fca0 compares a name with an entry's).
 struct OmString {
     char* data;                             // +0x00 the text (0x0023fc40 sets it, 0x00240060 releases it)
     unsigned short capacity;                // +0x04
@@ -172,13 +209,105 @@ struct OmString {
     unsigned short length;                  // +0x08
 };
 
-struct SeqEventTypeHead {
-    const void* vftable;                    // +0x00 the derived type's
-    unsigned char type[0x44];               // +0x04 the rest of om::Type
+struct __declspec(align(8)) SeqEventTypeHead {  // (8-aligned as OmEntityType)
+    OmType type;                            // +0x00 (the derived type's vftable)
     OmTreeNode node;                        // +0x48
     OmString name;                          // +0x58 the key
 };
 
 extern "C" OmTree DAT_004e7a18;             // the sequence event types by name (count: the number constructed)
+
+// The static om types of the audio start-up (initializers 0x0035f300-0x00361700 construct them, the exit handlers
+// 0x00364150-0x00364760 destroy them; their pools hand out the instances). The .bss items that held several of them
+// are one item per object here (an id word 0x002673a0 returns, then 4 bytes of padding, before three of them).
+extern "C" OmEntityType DAT_004e5cf8[1];
+extern "C" OmType DAT_004e5d68[1];
+extern "C" OmType DAT_004e5df8[1];
+extern "C" OmType DAT_004e5e40[1];
+extern "C" OmType DAT_004e5ff0[1];
+extern "C" OmType DAT_004e6038[1];
+extern "C" OmType DAT_004e6110[1];
+extern "C" OmType DAT_004e6158[1];
+extern "C" OmType DAT_004e6208[1];
+extern "C" OmType DAT_004e6250[1];
+extern "C" SeqEventTypeHead DAT_004e6750[1];
+extern "C" OmType DAT_004e6800[1];
+extern "C" SeqEventTypeHead DAT_004e6848[1];
+extern "C" SeqEventTypeHead DAT_004e68f8[1];
+extern "C" OmType DAT_004e6960[1];
+extern "C" SeqEventTypeHead DAT_004e6a68[1];
+extern "C" SeqEventTypeHead DAT_004e6bc8[1];
+extern "C" OmType DAT_004e6c30[1];
+extern "C" SeqEventTypeHead DAT_004e6c78[1];
+extern "C" SeqEventTypeHead DAT_004e6d30[1];
+extern "C" OmType DAT_004e6de0[1];
+extern "C" SeqEventTypeHead DAT_004e6e28[1];
+extern "C" SeqEventTypeHead DAT_004e6ed8[1];
+extern "C" OmType DAT_004e6f40[1];
+extern "C" OmType DAT_004e6ff0[1];
+extern "C" SeqEventTypeHead DAT_004e7038[1];
+extern "C" SeqEventTypeHead DAT_004e70e8[1];
+extern "C" OmType DAT_004e7150[1];
+extern "C" SeqEventTypeHead DAT_004e7200[1];
+extern "C" OmType DAT_004e7268[1];
+extern "C" SeqEventTypeHead DAT_004e72f8[1];
+extern "C" OmType DAT_004e7360[1];
+extern "C" OmType DAT_004e7410[1];
+extern "C" SeqEventTypeHead DAT_004e7458[1];
+extern "C" SeqEventTypeHead DAT_004e7508[1];
+extern "C" OmType DAT_004e7570[1];
+extern "C" SeqEventTypeHead DAT_004e75b8[1];
+extern "C" OmEntityType DAT_004e7620[1];
+extern "C" OmType DAT_004e76e8[1];
+extern "C" OmType DAT_004e7730[1];
+extern "C" OmType DAT_004e7778[1];
+extern "C" OmType DAT_004e7808[1];
+extern "C" OmType DAT_004e7850[1];
+extern "C" OmType DAT_004e78e0[1];
+extern "C" OmType DAT_004e7928[1];
+extern "C" OmType DAT_004e7970[1];
+extern "C" OmType DAT_004e7b08[1];
+extern "C" OmType DAT_004e7b50[1];
+extern "C" OmType DAT_004e7be0[1];
+// (the types that have an item of their own)
+extern "C" OmType DAT_004e5db0[1];
+extern "C" OmType DAT_004e5e88[1];
+extern "C" OmEntityType DAT_004e5f18[1];
+extern "C" OmType DAT_004e5fa8[1];
+extern "C" OmType DAT_004e6080[1];
+extern "C" OmType DAT_004e60c8[1];
+extern "C" OmType DAT_004e61a0[1];
+extern "C" OmType DAT_004e62d8[1];
+extern "C" OmEntityType DAT_004e6468[1];
+extern "C" OmEntityType DAT_004e64d8[1];
+extern "C" OmEntityType DAT_004e6548[1];
+extern "C" OmEntityType DAT_004e65b8[1];
+extern "C" OmEntityType DAT_004e6628[1];
+extern "C" SeqEventTypeHead DAT_004e6698[1];
+extern "C" OmType DAT_004e6700[1];
+extern "C" OmType DAT_004e67b8[1];
+extern "C" OmType DAT_004e68b0[1];
+extern "C" SeqEventTypeHead DAT_004e69b0[1];
+extern "C" OmType DAT_004e6a18[1];
+extern "C" OmType DAT_004e6ad0[1];
+extern "C" SeqEventTypeHead DAT_004e6b18[1];
+extern "C" OmType DAT_004e6b80[1];
+extern "C" OmType DAT_004e6ce0[1];
+extern "C" OmType DAT_004e6d98[1];
+extern "C" OmType DAT_004e6e90[1];
+extern "C" SeqEventTypeHead DAT_004e6f88[1];
+extern "C" OmType DAT_004e70a0[1];
+extern "C" SeqEventTypeHead DAT_004e7198[1];
+extern "C" OmType DAT_004e72b0[1];
+extern "C" SeqEventTypeHead DAT_004e73a8[1];
+extern "C" OmType DAT_004e74c0[1];
+extern "C" OmType DAT_004e7690[1];
+extern "C" OmType DAT_004e77c0[1];
+extern "C" OmType DAT_004e7898[1];
+extern "C" OmType DAT_004e79d0[1];
+extern "C" OmType DAT_004e7a30[1];
+extern "C" OmType DAT_004e7a78[1];
+extern "C" OmType DAT_004e7ac0[1];
+extern "C" OmType DAT_004e7b98[1];
 
 #endif

@@ -16,6 +16,6 @@ extern "C" void __cdecl FUN_00247550(void*, void*);
 audio::SeqCommandLogicRepeat* audio::SeqCommandLogicRepeat::vfunc_1(int x) {
     *(hulk_intptr*)this = (hulk_intptr)&SeqCommand_vftable;
     if (x & 1)
-        FUN_00247550((void*)((hulk_intptr)((char*)((char*)&DAT_004e72f8 + 104))), this);
+        FUN_00247550((void*)((hulk_intptr)((char*)((char*)&DAT_004e7360))), this);
     return this;
 }

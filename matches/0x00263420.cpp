@@ -17,7 +17,7 @@ void audio::HalRsdFileStream::vfunc_12() {
     if ((*(Obj_263420 * *)&this->f_20))
         (*(Obj_263420 * *)&this->f_20)->f1();
     if ((*(void * *)&this->f_24))
-        FUN_00247550((void*)((hulk_intptr)((char*)((char*)&DAT_004e7b08 + 72))), (*(void * *)&this->f_24));
+        FUN_00247550((void*)((hulk_intptr)((char*)((char*)&DAT_004e7b50))), (*(void * *)&this->f_24));
     ((audio::Aux_263420*)((char*)this + 0x10))->f();
     ((audio::Aux_263420*)((char*)this + 4))->f();
     FUN_00247550((void*)((hulk_intptr)((char*)&DAT_004e7b98)), this);
