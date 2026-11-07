@@ -956,6 +956,40 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   value@+offset), and `verify_relocs.py --addrlits OUT [--shard K/N]` sweeps matches/ and equivalent/. Cases
   `0x00278060_addrlit[_wrong,_wrong_off]`, `0x002acd70_fourcc` (equiv) and `0x00050680_addrlit[_wrong]`, `0x00285650_fourcc`
   (verify_relocs).
+- (round 28, eqx87) **A callee's x87 return is the original's, on both sides** (`EQUIV_OFF=x87conv`). Whether a stub leaves a
+  float in st(0) was decided per side from that side's own code after the call (`float_ret_after`), and for a pass-through
+  call (`call g; ...; ret`, a tail jump) from our declaration of the function's own return. A wrong declaration therefore
+  agreed with itself: normalize 0x0022d110 (returns its length in st0) declared `void`, so ours never popped and its stub
+  pushed nothing; 0x0022d180 (returns nothing) declared `float`, so ours popped and its stub pushed one; CPathAgent::vfunc_4
+  declared `float` where it returns its behaviour's bool, so the original's stub pushed a float for its pass-through virtual.
+  All five sources passed 3,000 inputs, and in the Wine build each call leaked an x87 register or popped an empty one, which
+  moved play3 off the recording (afa736c58, docs/native-float64.md "The x87 leaks themselves"). Now:
+  - the original's run records, per call, whether its stub pushed a float (`fret_by_call`); ours's stub for the same call
+    (same index, same target) does the same, whatever our code after it does. The callee's convention is one fact, and the
+    original's code is the evidence for it;
+  - at a pass-through call of the original the answer comes from the callee, not from our declaration: a direct target's
+    `Program.callee_fret` (its own code: `static_fret` follows every path from its entry with the x87 depth tracked through
+    its calls, depth 1 at every `ret` is True, 0 is False; else its direct callers' use of st(0)), a virtual's
+    `Program.vslot_fret` (the functions in that vtable slot that pop the same bytes, when they agree: CAvoidBehaviour::vfunc_4
+    returns `al`), or an integer test of eax right after the call (`call [edx+0x24]; cmp eax, 4`). The function's own return
+    (`own_float_ret` of the original's runs) is `callee_fret` of itself when that answers, our declaration otherwise. The
+    callers' evidence comes second because its scan starts from an empty x87 stack: a value a caller keeps across the call
+    (`fld [esi+0x6c]; push ...; call Reset; fstp [esi+0x6c]` in 0x001050d0) reads as a float result;
+  - what our code then does with the x87 stack is compared: a register left at return (the existing "x87 stack depth at
+    return" check: the leak), and new, an x87 instruction that reads below the stack's top in ours where the original never
+    does ("ours reads an empty x87 register at +0x..."; the hardware's stack fault, which Unicorn doesn't raise: it only moves
+    TOP; a full stack, which TOP shows as an empty one too, is told by the previous x87 instruction's depth
+    and push: 0x0024ce50 uses all eight registers, case `0x0024ce50_x87_full_stack`). Both name the call whose float result our code treats otherwise than the original's ("call #6 to 0x0022d110 returns
+    a float in st(0) (the original's code takes it), our code never pops it: declare it to return float").
+  - a static half, over every call site rather than those the inputs reach: `x87_decl` in the report (and in
+    equiv_batch.py's records) lists direct callees whose `callee_fret` our code contradicts at all of its call sites, and
+    vtable slots whose original call sites all take a float while ours take none (or the reverse). A report, not a failure.
+  Cases `0x000c72e0_x87conv[_wrong,_wrong_off][_native]`, `0x0030c440_x87conv[_wrong][_native]`,
+  `0x001b05a0_x87conv[_wrong,_wrong_off]`, `0x001d8350_x87conv[_wrong][_native][_off]` (the pre-fix sources fail, the fixed
+  ones pass, the old rule passed both), `0x001050d0_x87_vslot[_wrong]` (Wine mode; the early exits return a value, see below).
+  `0x000354c0_native_tail_fret_off` also switches x87conv off: with the original's answer shared, switching tailfret off no
+  longer splits the two sides. The Wine build can't fall back on "both sides agree" either: it links our callers with our
+  callees, so a convention our declaration gets wrong shows up there even when the two declarations agree with each other.
 
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check
@@ -965,8 +999,8 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   original's address in our run too. At every `call`, and at
   a `jmp` that leaves the function (a tail call), a stub:
   - records the target, the argument words, the registers, and every stack local passed by pointer;
-  - returns a deterministic `eax`/`edx`, plus a float on the x87 stack if the code after the call consumes
-    `st0` (the same value on both sides; directed inputs can steer it). Values the caller already keeps on
+  - returns a deterministic `eax`/`edx`, plus a float on the x87 stack if the original's code after the call consumes
+    `st0` (the same value on both sides; directed inputs can steer it; ours follows the original's call, round 28). Values the caller already keeps on
     the x87 stack across the call count (`fld [k]; call f; fadd [m]` adds to a running sum, it doesn't
     consume a result), and the `/GS` cookie check after the call is looked through;
   - returns `this` (its `ecx`) from a constructor: a callee that writes through `ecx` and returns its
@@ -1085,7 +1119,8 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   value there`).
 - Bytes of `eax` that last came from `fnstsw ax` (a float branch's status word, `fnstsw ax; test ah, 0x41;
   ...; mov al, 1; ret`) aren't compared: no source produces them. What was written after them (`al`) is.
-- The x87 stack depth, `ebx/esi/edi/ebp` and `esp` after return.
+- The x87 stack depth, `ebx/esi/edi/ebp` and `esp` after return; and (round 28) a read of an empty x87 register in ours
+  that the original's run never makes.
 - (round 12, x87cmp) The x87 registers a callee takes as arguments (`fld x; call __CIasin`; `Program.x87_args`),
   with the float tolerance; an empty slot is `empty` (`call #2 to 0x003442bc: x87 argument st(0) is empty,
   expected 2`). A call that takes an x87 argument right after another call counts as using that call's float

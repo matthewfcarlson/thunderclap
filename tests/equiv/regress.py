@@ -563,7 +563,7 @@ CASES = {
     # round 19 (cl8): gaps nf1 found in --native mode (each switchable with EQUIV_OFF)
     # tailfret: `call Get(); ...; jmp Calc` - the float Calc returns is the function's own result, not Get's
     "0x000354c0_native_tail_fret": ("equivalent", None, 0.9, {"native": True, "n_inputs": 60}),
-    "0x000354c0_native_tail_fret_off": ("fail", "x87 stack depth", 0, {"src": "0x000354c0_native_tail_fret", "native": True, "n_inputs": 60, "equiv_off": "tailfret"}),
+    "0x000354c0_native_tail_fret_off": ("fail", "x87 stack depth", 0, {"src": "0x000354c0_native_tail_fret", "native": True, "n_inputs": 60, "equiv_off": "tailfret,x87conv"}),
     "0x000354c0_native_tail_fret_wrong": ("fail", "this (ecx)", 0, {"native": True, "n_inputs": 60}),
     # sretret: a struct-returning indirect call; the original reads the result through the returned eax
     "0x001e0230_native_sret": ("equivalent", None, 0, {"native": True, "n_inputs": 100}),
@@ -832,6 +832,34 @@ CASES = {
     "0x00278060_addrlit": ("equivalent", None, 0, {"n_inputs": 50}),
     # ... FourCC codes in the data range pushed as keys (`Find('TRA', ...)`) are not addresses
     "0x002acd70_fourcc": ("equivalent", None, 0, {"n_inputs": 100}),
+    # round 28 (eqx87, x87conv): a callee's x87 return is the original's (the stub follows the original's code after the
+    # call, for ours too), and an empty-register read or a register left at return fails. The five sources the Wine build
+    # leaked or underflowed the x87 stack with (afa736c58): normalize 0x0022d110 (returns its length in st0) declared void,
+    # 0x0022d180 (returns nothing) declared float, and CPathAgent::vfunc_4 declared float where it returns its avoid
+    # behaviour's bool (a virtual pass-through: the slot's implementations say no float). _off: the old rule passed them
+    "0x000c72e0_x87conv_wrong": ("fail", "returns a float in st(0)", 0, {"seeds": [0, 1, 2, 3]}),
+    "0x000c72e0_x87conv_wrong_off": ("equivalent", None, 0, {"src": "0x000c72e0_x87conv_wrong", "seeds": [0, 1, 2, 3], "equiv_off": "x87conv"}),
+    "0x000c72e0_x87conv": ("equivalent", None, 0, {"seeds": [0, 1, 2, 3]}),
+    "0x000c72e0_x87conv_wrong_native": ("fail", "returns a float in st(0)", 0, {"src": "0x000c72e0_x87conv_wrong", "native": True, "seeds": [0, 1, 2, 3]}),
+    "0x000c72e0_x87conv_native": ("equivalent", None, 0, {"src": "0x000c72e0_x87conv", "native": True, "seeds": [0, 1, 2, 3]}),
+    "0x0030c440_x87conv_wrong": ("fail", "x87 stack depth at return 1, expected 0", 0, {"seeds": [0, 1, 2, 3]}),
+    "0x0030c440_x87conv": ("equivalent", None, 0, {"seeds": [0, 1, 2, 3]}),
+    "0x0030c440_x87conv_wrong_native": ("fail", "returns a float in st(0)", 0, {"src": "0x0030c440_x87conv_wrong", "native": True, "seeds": [0, 1, 2, 3]}),
+    "0x0030c440_x87conv_native": ("equivalent", None, 0, {"src": "0x0030c440_x87conv", "native": True, "seeds": [0, 1, 2, 3]}),
+    "0x001b05a0_x87conv_wrong": ("fail", "reads an empty x87 register", 0, {"seeds": [8]}),
+    "0x001b05a0_x87conv_wrong_off": ("equivalent", None, 0, {"src": "0x001b05a0_x87conv_wrong", "seeds": [8], "equiv_off": "x87conv"}),
+    "0x001b05a0_x87conv": ("equivalent", None, 0, {"seeds": [8]}),
+    "0x001d8350_x87conv_wrong": ("fail", "returns nothing in st(0)", 0, {"seeds": [0, 1, 2, 3]}),
+    "0x001d8350_x87conv": ("equivalent", None, 0, {"seeds": [0, 1, 2, 3]}),
+    "0x001d8350_x87conv_wrong_native": ("fail", "reads an empty x87 register", 0, {"src": "0x001d8350_x87conv_wrong", "native": True, "seeds": [0, 1, 2, 3]}),
+    "0x001d8350_x87conv_wrong_native_off": ("equivalent", None, 0, {"src": "0x001d8350_x87conv_wrong", "native": True, "seeds": [0, 1, 2, 3], "equiv_off": "x87conv"}),
+    "0x001d8350_x87conv_native": ("equivalent", None, 0, {"src": "0x001d8350_x87conv", "native": True, "seeds": [0, 1, 2, 3]}),
+    # 0x001050d0 with its early exits returning a value (the equivalent/ source falls off the end there, where clang emits
+    # ud2) and the `hulk_freg m` of docs/wine-float.md: the bool source passes --wine, the float one underflows at the tail call
+    "0x001050d0_x87_vslot_wrong": ("fail", "ours reads an empty x87 register", 0, {"native": True, "seeds": list(range(8))}),
+    "0x001050d0_x87_vslot": ("equivalent", None, 0, {"native": True, "seeds": list(range(8))}),
+    # all eight x87 registers in use (`fld st(2); fmul st(3)` at depth 8): TOP alone reads as an empty stack, not an underflow
+    "0x0024ce50_x87_full_stack": ("equivalent", None, 0, {"seeds": [0]}),
 }
 
 # verify_relocs.py cases: name -> (expected status, issue kind it must report or None)

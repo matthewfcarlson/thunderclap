@@ -39,7 +39,8 @@ def run(item):
             "conflicts": bool((rep.get("level2") or {}).get("conflicts")),
             "inputs_run": l3.get("inputs_run"), "coverage": l3.get("coverage"), "target": rep.get("target"),
             "inconclusive": l3.get("inputs_inconclusive"), "statuses": l3.get("statuses"),
-            "first_diff": _first_diff(rep), "decl_arity": rep.get("decl_arity") or []}
+            "first_diff": _first_diff(rep), "decl_arity": rep.get("decl_arity") or [],
+            "x87_decl": rep.get("x87_decl") or []}
 
 
 def _first_diff(rep):

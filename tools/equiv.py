@@ -1302,6 +1302,164 @@ class Program:
         cache[(disp, pop)] = out = {j: sorted(ws) for j, ws in out.items()}
         return out
 
+    def static_fret(self, target, depth=0):
+        """(round 28, x87conv) Does the original function return a float in st(0)? Every path from its entry is
+        followed with the x87 stack depth tracked (its own x87 arguments first); at a call the depth goes down by the
+        callee's x87 arguments and up by one when the code after the call takes a float result (`float_ret_after`
+        at that site; at a pass-through call, `call g; ret`, whose answer depends on the caller's own return, by g's
+        own answer). A `ret` reached at depth 1 says True, at depth 0 False. None when any path can't be followed
+        (an unknown pass-through, an indirect jump, a read below the tracked stack) or two paths disagree."""
+        cache = self.__dict__.setdefault("_sfret", {})
+        busy = self.__dict__.setdefault("_sfret_busy", set())
+        if target in cache:
+            return cache[target]
+        if target in busy or not self.is_code(target) or target not in self.funcs or depth > 3:
+            return None         # (recursion, or too deep: no answer, and none kept)
+        size = self.funcs[target][0]
+        view = CodeView(self.read, target, (target, target + size), self)
+        try:
+            view.build(limit=4000)
+        except Exception:   # noqa: BLE001 - unreadable code: no answer
+            cache[target] = None
+            return None
+        busy.add(target)
+        try:
+            r_ = self._static_fret_walk(target, size, view, depth)
+        finally:
+            busy.discard(target)
+        if r_ is not None or depth == 0:
+            cache[target] = r_  # (a None found below the top may be a depth or recursion limit's: not kept)
+        return r_
+
+    def _static_fret_walk(self, target, size, view, depth):
+        res = set()
+        seen = set()
+        work = [(target, self.x87_args(target))]
+        steps = 0
+        while work and steps < 8000 and None not in res and len(res) < 2:
+            a, d = work.pop()
+            while (a, d) not in seen and steps < 8000:
+                seen.add((a, d))
+                steps += 1
+                i = view.decode(a)
+                if i is None:
+                    res.add(None)
+                    break
+                req, delta = i.x87
+                if req > d:
+                    res.add(None)
+                    break
+                d += delta
+                if not 0 <= d <= 8:
+                    res.add(None)
+                    break
+                if i.kind == "ret":
+                    res.add(True if d == 1 else False if d == 0 else None)
+                    break
+                if i.kind == "call":
+                    if i.target in IGNORED_CALLS:
+                        a += i.size
+                        continue
+                    if i.target is not None and self.noreturn(i.target):
+                        break
+                    n_ = min(self.x87_args(i.target), d) if i.target is not None else 0
+                    if n_:
+                        # its x87 arguments are consumed and its result takes their place (`__CIasin`), unless its own
+                        # code says it returns none (`__ftol2`: eax)
+                        d -= n_
+                        r_ = self.callee_fret(i.target, depth + 1)
+                        d += 0 if r_ is False else 1
+                    else:
+                        f0 = view.float_ret_after(a, False, d)
+                        f1 = view.float_ret_after(a, True, d)
+                        if f0 != f1:
+                            f0 = self.callee_fret(i.target, depth + 1) if i.target is not None else None
+                            if f0 is None and self.eax_read_after(view, a):
+                                f0 = False      # (`call [edx+0x24]; cmp eax, 4`: an integer result)
+                            if f0 is None:
+                                res.add(None)
+                                break
+                        d += 1 if f0 else 0
+                    a += i.size
+                    continue
+                if i.kind == "jcc":
+                    if i.target is None:
+                        res.add(None)
+                        break
+                    work.append((i.target, d))
+                elif i.kind == "jmp":
+                    if i.target is not None and target <= i.target < target + size:
+                        a = i.target
+                        continue
+                    if i.target is None and a in view.tables:
+                        work.extend((t_, d) for t_ in view.tables[a])
+                        break
+                    if i.target is not None and i.target in self.funcs and d == self.x87_args(i.target) <= 1:
+                        r_ = self.callee_fret(i.target, depth + 1)     # a tail jump: the target's result is ours
+                        res.add(r_)
+                        break
+                    res.add(None)
+                    break
+                elif i.kind == "stop":
+                    break           # (int3, a call that never returns: no ret on this path)
+                a += i.size
+        if steps >= 8000 or work and None not in res and len(res) < 2:
+            res.add(None)
+        return res.pop() if len(res) == 1 else None
+
+    def eax_read_after(self, view, site):
+        """(round 28, x87conv) Does the code right after the call at `site` read eax before writing it (the callee's
+        result is an integer: `call [edx+0x24]; cmp eax, 4`)? Straight-line code only, up to ten instructions."""
+        i0 = view.decode(site)
+        if i0 is None:
+            return False
+        a = site + i0.size
+        for _ in range(10):
+            ci = next(self.md.disasm(self.read(a, 16), a, 1), None)
+            i = view.decode(a)
+            if ci is None or i is None:
+                return False
+            rn, wn = self._regs_rw(ci)
+            if "eax" in rn:
+                return True
+            if "eax" in wn or i.kind != "other":
+                return False
+            a += ci.size
+        return False
+
+    def callee_fret(self, target, depth=0):
+        """(round 28, x87conv) Does the original function return a float in st(0)? Its own code says it first
+        (static_fret), then its direct callers (one that pops or uses st(0) right after the call: True; callers that
+        don't: False). The callers come second: their scan starts from an empty x87 stack, so a value a caller keeps
+        across the call (`fld [esi+0x6c]; push ...; call Reset; fstp [esi+0x6c]` in 0x001050d0) reads as a result."""
+        cache = self.__dict__.setdefault("_cfret", {})
+        if target in cache:
+            return cache[target]
+        r_ = self.static_fret(target, depth)
+        if r_ is None:
+            used, n = self.callers_use_return(target)
+            r_ = (used == "st0") if n else None
+        if depth == 0 or r_ is not None:
+            cache[target] = r_      # (a deeper None may be the recursion guard's: not kept)
+        return r_
+
+    def vslot_fret(self, disp, pop):
+        """(round 28, x87conv) The x87 return of the functions in vtable slot `disp` that pop `pop` bytes: True/False
+        when every one whose code answers (static_fret) agrees, None otherwise."""
+        cache = self.__dict__.setdefault("_vsfret", {})
+        if (disp, pop) in cache:
+            return cache[(disp, pop)]
+        out = set()
+        if disp % 4 == 0 and 0 <= disp < 0x1000:
+            for t in sorted({sl[disp // 4] for sl in self.vt_slots if disp // 4 < len(sl)}):
+                if not self.is_code(t) or self.callee_pop(t) != pop:
+                    continue
+                r_ = self.callee_fret(t)
+                if r_ is not None:
+                    out.add(r_)
+        cache[(disp, pop)] = out.pop() if len(out) == 1 else None
+        return cache[(disp, pop)]
+
     def x87_args(self, target, depth=0):
         """(round 11, x87args) x87 registers a callee takes as arguments: what its first instructions read below
         the stack it found (`__CIpow`: `fxch st(1); fstp qword [esp]; fst qword [esp+8]` takes st0 and st1 and
@@ -2154,6 +2312,8 @@ class CodeView:
         caller already keeps on the x87 stack across the call (a running sum: `fld [k]; push eax; call f;
         fadd [m]` adds to the sum, it doesn't consume a float result)."""
         key = call_addr if not depth0 else (call_addr, depth0)
+        if own_float_ret:
+            key = (key, "own")      # (round 28, x87conv) the answer depends on it at a pass-through call
         if key in self._fret:
             return self._fret[key]
         i0 = self.decode(call_addr)
@@ -3596,6 +3756,8 @@ class Run:
         self.coverage = coverage
         self.helpers = helpers or {}
         self.calls = []
+        self.x87_under = None       # (round 28, x87conv) (address, calls made) of the first read of an empty x87 register
+        self.x87_full = None        # (round 28) the epoch (no call since) in which the last x87 instruction left all 8 registers full
         self.segments = []          # per call boundary: {addr: byte}
         self.seg_stores = set()     # (round 22, stackval) non-stack bytes the code stored since the last call
         self.seg_stack_written = set()  # ... and stack bytes
@@ -4450,6 +4612,33 @@ class Run:
         tailx87 = tail and known and "tailx87" not in EQUIV_OFF and "x87args" not in EQUIV_OFF and self.prog.x87_args(target) > 0
         x87n = min(self.prog.x87_args(target), fdepth) if known and (not tail or tailx87) and "x87args" not in EQUIV_OFF else 0
         fret = True if x87n else self.view.float_ret_after(insn.addr, self.own_float_ret, fdepth)
+        fret_view = fret
+        if "x87conv" not in EQUIV_OFF and not x87n:
+            # (round 28, x87conv) whether a callee returns a float in st(0) is the callee's convention, the same for both
+            # sides: the original's code says it. Our side used to read it off our own code after the call, so a
+            # declaration that gets it wrong (a float-returning normalize declared void, a void one declared float)
+            # agreed with itself: the Wine build then leaked a register per call or popped an empty one. Ours now gets
+            # the original's answer for the same call; what our code then does with the x87 stack (a register left at
+            # return, an underflow) is compared
+            if self.coverage is not None:
+                if fret != self.view.float_ret_after(insn.addr, not self.own_float_ret, fdepth):
+                    # a pass-through call (`call g; ret`, a tail jump): the answer was the function's own declared return.
+                    # The callee's code says it where it can: a direct target's own paths, or the implementations of a
+                    # virtual's vtable slot that pop the same bytes (0x001050d0 returns its behaviour's bool)
+                    conv_ = None
+                    if insn.target is not None:
+                        conv_ = self.prog.callee_fret(target)
+                    elif isinstance(p, int) and insn.mem is not None and self._is_virtual_on_ecx(insn):
+                        conv_ = self.prog.vslot_fret(insn.mem[4], p)
+                    if conv_ is None and not tail and self.prog.eax_read_after(self.view, insn.addr):
+                        conv_ = False       # (`call [edx+0x24]; cmp eax, 4; je <ret>`: an integer result)
+                    if conv_ is not None:
+                        fret = conv_
+                self.inp.setdefault("fret_by_call", {})[len(self.calls)] = (target, fret)
+            else:
+                rec_ = self.inp.get("fret_by_call", {}).get(len(self.calls))
+                if rec_ is not None and rec_[0] == target:
+                    fret = rec_[1]
         # (round 12, x87cmp) the x87 register arguments themselves (`fld x; call __CIasin`): inputs of the call like
         # its stack words, compared with the float tolerance; an argument the caller never loaded is None
         x87a = []
@@ -4528,7 +4717,7 @@ class Run:
                 fv = fv * (1.0 + (2 * ((h_ >> 1) % 251) + 1) * 2.0 ** -40)
                 fwide = True
         self.calls.append({"target": target, "args": args, "regs": {r: self.reg(r) for r in Program._REGS},
-                           "float_ret": fret, "at": insn.addr, "tail": tail, "pointees": pointees, "known": known,
+                           "float_ret": fret, "fret_view": fret_view, "at": insn.addr, "tail": tail, "pointees": pointees, "known": known,
                            "ret_to": insn.addr + insn.size,
                            "conv": bool(conv), "argw": argw, "esp": esp, "arg_unw": arg_unw, "cpop": self.cpop,
                            "via_object": self._is_virtual_on_ecx(insn), "cdecl_site": self.cdecl_site,
@@ -6064,6 +6253,17 @@ class Run:
                 uc.emu_stop()
                 return
             insn = self.view.decode(addr)
+            if insn is not None and (insn.x87[0] or insn.x87[1]) and "x87conv" not in EQUIV_OFF:
+                # (round 28, x87conv) an x87 instruction that reads below the stack's top: an empty register (the
+                # hardware's stack fault; Unicorn just moves TOP, so it is checked here). `fstp st(0)` after a callee
+                # that returns nothing (declared float), or a value popped twice. TOP alone can't tell a full stack from
+                # an empty one: depth 8 is the previous x87 instruction's depth plus its push
+                dep_ = (8 - ((uc.reg_read(self.u.UC_X86_REG_FPSW) >> 11) & 7)) % 8
+                if dep_ == 0 and self.x87_full == self.epoch:
+                    dep_ = 8
+                if insn.x87[0] > dep_ and self.x87_under is None:
+                    self.x87_under = (addr, len(self.calls))
+                self.x87_full = self.epoch if dep_ + insn.x87[1] == 8 else None
             if NATIVE_MODE and self.view.native and self.view.is_ours and insn is not None and \
                     insn.mnemonic in ("test", "and") and insn.op_str.endswith(", 1") and "boolub" not in EQUIV_OFF \
                     and (insn.op_str.startswith("byte ptr") or insn.op_str.split(",")[0] in ("al", "bl", "cl", "dl")):
@@ -6508,6 +6708,8 @@ class Run:
         fpsw = self.uc.reg_read(u.UC_X86_REG_FPSW)
         top = (fpsw >> 11) & 7
         out["fdepth"] = (8 - top) % 8
+        if self.x87_under is not None:
+            out["x87_under"] = (self.x87_under[0] - self.view.entry, self.x87_under[1])
         out["st0"] = _x87_value(self.uc.reg_read(u.UC_X86_REG_FP0 + top)) if out["fdepth"] else None
         # (round 17, ftolexact) the register's full 64-bit mantissa (a float result stays in st0 with more bits than
         # the double above keeps), and the control word the run ends with (53-bit precision, 0x027F, on both sides)
@@ -7336,6 +7538,20 @@ def _last_ret(calls, k, v):
     return None
 
 
+def _x87conv_hint(rc, upto=None):
+    """(round 28, x87conv) ": call #k to X ..." for the first call (before #upto+1) whose float result our code treats
+    otherwise than the original's code does (our declaration of its return type is wrong), or ""."""
+    for k_, c_ in enumerate(rc[:upto] if upto is not None else rc):
+        if c_.get("fret_view") is None or c_["fret_view"] == c_.get("float_ret"):
+            continue
+        if c_.get("float_ret"):
+            return ("; call #%d to %s returns a float in st(0) (the original's code takes it), our code never pops it: "
+                    "declare it to return float" % (k_ + 1, _fmt(c_["target"])))
+        return ("; call #%d to %s returns nothing in st(0) (the original's code takes no float from it), our code pops "
+                "one: declare it void (or the integer type it returns)" % (k_ + 1, _fmt(c_["target"])))
+    return ""
+
+
 def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=0, skip_saved=(), void_eax=False):
     """List of human-readable behaviour differences (empty = same)."""
     out = []
@@ -7346,6 +7562,12 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
                    "declare it `extern \"C\" void __fastcall __security_check_cookie(unsigned int)`" % r["cookie_bad"])
     if o["status"] != r["status"]:
         out.append("original %s but ours %s" % (o["status"], r["status"]))
+    if r.get("x87_under") and not o.get("x87_under") and "x87conv" not in EQUIV_OFF:
+        # (round 28, x87conv) ours read an empty x87 register (a stack fault on the hardware) where the original never does
+        k_ = r["x87_under"][1]
+        out.append("ours reads an empty x87 register at +0x%x%s%s" % (
+            r["x87_under"][0], " (after call #%d to %s)" % (k_, _fmt(rc[k_ - 1]["target"])) if 0 < k_ <= len(rc) else "",
+            _x87conv_hint(rc, k_)))
     o_ret = {c_["ret_to"] for c_ in oc if c_.get("ret_to") and not c_.get("tail")}
     r_ret = {c_["ret_to"] for c_ in rc if c_.get("ret_to") and not c_.get("tail")}
     for k in range(max(len(oc), len(rc))):
@@ -7627,7 +7849,7 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
             out.append("x87 control word at return 0x%04x, expected 0x%04x" % (r.get("fpcw") or 0, o["fpcw"]))
         if rk in ("f32", "f64"):
             if o["fdepth"] != r["fdepth"]:
-                out.append("x87 stack depth at return %d, expected %d" % (r["fdepth"], o["fdepth"]))
+                out.append("x87 stack depth at return %d, expected %d%s" % (r["fdepth"], o["fdepth"], _x87conv_hint(rc)))
             elif not _feq(o["st0"], r["st0"]):
                 note = ""
                 try:
@@ -7642,7 +7864,7 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
                     "0x%x:%x" % tuple(reversed(r["st0raw"])), "0x%x:%x" % tuple(reversed(o["st0raw"]))))
         else:
             if o["fdepth"] != r["fdepth"]:
-                out.append("x87 stack depth at return %d, expected %d" % (r["fdepth"], o["fdepth"]))
+                out.append("x87 stack depth at return %d, expected %d%s" % (r["fdepth"], o["fdepth"], _x87conv_hint(rc)))
             mask = {"i8": 0xFF, "b8": 0xFF, "i16": 0xFFFF}.get(rk, M32)
             if o.get("eax_fnstsw") is not None:
                 mask &= (1 << o["eax_fnstsw"]) - 1      # (status-word bytes of the original's eax: not compared)
@@ -9296,6 +9518,11 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     # plants a fixed-address word only there (a float constant the original keeps in .data, `fld [0x49fbc4]`,
     # is a literal in ours: planting it changed the original alone)
     prog.ours_data = {t for k_, t, _ in our_refs(ours, resolved, rview)[0] if k_ == "data" and t is not None}
+    if "x87conv" not in EQUIV_OFF:
+        try:
+            rep["x87_decl"] = x87_decl_scan(prog, oview, rview, ret_kind in ("f32", "f64"))
+        except Exception as e_:     # noqa: BLE001 - a diagnostic: never fail the check because of it
+            rep["x87_decl_error"] = str(e_)[:200]
     l3 = level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs, max_steps, keep_runs,
                 time_budget, psizes=psizes, convs=convs, decls=decls, void_eax=void_eax, seeds=seeds)
     rep["level3"] = l3
@@ -9432,6 +9659,68 @@ def _conv_input(inp, ours_layout, conv):
     return dict(inp, regs=regs, stack=stack + pad, own_args=list(stack), own_pop=None)
 
 
+def x87_decl_scan(prog, oview, rview, own_float):
+    """(round 28, x87conv) The static half of the x87 return check, over every call site (not only those the inputs reach):
+    a direct callee whose original convention is known (Program.callee_fret: its callers' code, else its own paths) that
+    our code treats the other way at every one of its call sites (pops or uses st(0) after a callee that returns nothing,
+    or never takes the float one returns: a wrong return type in our declaration), and a vtable slot (`call [reg+disp]`)
+    whose call sites in the original all take a float and ours none, or the reverse. A report (`x87_decl`), not a failure:
+    level 3 fails the sites it reaches."""
+    out = []
+    ours_d, ours_v, orig_v = {}, {}, {}
+
+    def ours_takes(a):
+        # True: an x87 instruction right after the call (straight-line code) reads st(0); False: no path after it does;
+        # None: a path further on does (the scan's depth may be off at a join: not evidence)
+        i0 = rview.decode(a)
+        b = a + i0.size
+        for _ in range(12):
+            i_ = rview.decode(b)
+            if i_ is None or i_.kind != "other":
+                break
+            if i_.x87[0]:
+                return True
+            if i_.x87[1]:
+                break
+            b += i_.size
+        return False if not rview.float_ret_after(a, own_float) else None
+
+    for a, i in sorted(rview.insns.items()):
+        if i.kind != "call":
+            continue
+        if i.target is not None:
+            if i.target in prog.funcs and i.target not in HELPERS and i.target not in IGNORED_CALLS and \
+                    not prog.x87_args(i.target):
+                ours_d.setdefault(i.target, set()).add(ours_takes(a))
+        elif i.mem is not None and i.mem[1] not in (None, "esp", "ebp") and i.mem[2] is None:
+            ours_v.setdefault(i.mem[4], set()).add(ours_takes(a))
+    for t, fs in sorted(ours_d.items()):
+        if len(fs) != 1 or None in fs:
+            continue
+        cf = prog.callee_fret(t)
+        if cf is not None and cf != next(iter(fs)):
+            out.append({"kind": "callee", "target": "0x%08x" % t, "original_float": cf,
+                        "note": "%s %s in st(0), but our code %s" % (
+                            _fmt(t), "returns a float" if cf else "returns nothing",
+                            "never takes it (declared void/int?)" if cf else "pops one (declared float?)")})
+    for a, i in sorted(oview.insns.items()):
+        if i.kind == "call" and i.target is None and i.mem is not None and i.mem[1] not in (None, "esp", "ebp") and \
+                i.mem[2] is None and i.mem[4] in ours_v:
+            f0, f1 = oview.float_ret_after(a, False), oview.float_ret_after(a, True)
+            if f0 == f1:
+                orig_v.setdefault(i.mem[4], set()).add(f0)
+            elif prog.eax_read_after(oview, a):
+                orig_v.setdefault(i.mem[4], set()).add(False)
+    for d, fs in sorted(orig_v.items()):
+        if len(fs) == 1 and len(ours_v[d]) == 1 and None not in ours_v[d] and fs != ours_v[d]:
+            cf = next(iter(fs))
+            out.append({"kind": "vslot", "disp": "0x%x" % d, "original_float": cf,
+                        "note": "the virtual at [vtable+0x%x] %s in st(0) at every original call site, but our code %s" % (
+                            d, "returns a float" if cf else "returns nothing",
+                            "never takes it" if cf else "pops one")})
+    return out
+
+
 def caller_cleaned(prog, oview):
     """Callees with a plain ret whose call sites in the original clean up the arguments themselves."""
     caller_cleans = set()
@@ -9458,6 +9747,15 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                   any(w_ != oview.entry for w_ in prog.global_writers(t))}
         globals_ = sorted(set(globals_) | extra_)
     own_float = ret_kind in ("f32", "f64")
+    own_float_o = own_float
+    if "x87conv" not in EQUIV_OFF:
+        # (round 28, x87conv) the original's own x87 return, for its pass-through calls (`call [edx+0x10]; ...; ret`):
+        # what its own paths leave there, else what its direct callers do with st(0); our declaration only when neither
+        # says. Declaring a bool function float made the original's stub push a float our clang code popped and pushed
+        # back, and the void-declared caller in the Wine build never popped it
+        sf_ = prog.callee_fret(oview.entry)
+        if sf_ is not None:
+            own_float_o = sf_
     varargs = {a for a, d in (decls or {}).items() if d and d.get("varargs")}
     helpers = dict(HELPERS)
     if "helpers64" not in EQUIV_OFF:
@@ -9755,6 +10053,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         inp.setdefault("wext_by_call", {})
         inp.setdefault("extra_by_call", {})
         inp.setdefault("tail_arity", {})
+        inp.setdefault("fret_by_call", {})      # (round 28, x87conv) the original's float result per call, for ours
         if "convshare" not in EQUIV_OFF:
             inp.setdefault("nargs_by_call", {})     # (round 19) shared with the original's converted copy of the input
         inp_o = _conv_input(inp, own_layout, target_conv) if target_conv else inp
@@ -9769,7 +10068,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             _copy_overlap(ub_copy[1], ub_copy[0], inp_o["stack"][:3], lambda a_: mach.byte(a_, 0)) else None
         # our image is mapped in both runs, so a wild pointer reads the same bytes either way
         orun = Run(prog, oview, mach, inp_o, ours_image=(OURS, ours.image), sig=sig, max_steps=steps[0],
-                   own_float_ret=own_float, coverage=True, helpers=helpers)
+                   own_float_ret=own_float_o, coverage=True, helpers=helpers)
         orun.pointee_sizes = psizes or {}
         orun.convs = convs or {}
         orun.orig_entry = oview.entry
@@ -10065,7 +10364,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 # stack pointer where it was (the later calls and pops balance); otherwise the first comparison stands
                 inp_t, inp_ot, mach_t = build(seed, overlay, sp_)
                 trun = Run(prog, oview, mach_t, inp_ot, ours_image=(OURS, ours.image), sig=sig, max_steps=steps[0],
-                           own_float_ret=own_float, coverage=True, helpers=helpers)
+                           own_float_ret=own_float_o, coverage=True, helpers=helpers)
                 trun.pointee_sizes = psizes or {}
                 trun.convs = convs or {}
                 trun.orig_entry = oview.entry
@@ -10239,7 +10538,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             small_left[1] += 1
             inp_, inp_o_, mach_ = build(seed, _merge_ov(overlay0, _ov_plants(plants)), _pt_plants(patch0, plants))
             drun = Run(prog, oview, mach_, inp_o_, ours_image=(OURS, ours.image), sig=sig, max_steps=steps[0],
-                       own_float_ret=own_float, coverage=True, helpers=helpers)
+                       own_float_ret=own_float_o, coverage=True, helpers=helpers)
             drun.pointee_sizes = psizes or {}
             drun.convs = convs or {}
             drun.orig_entry = oview.entry
