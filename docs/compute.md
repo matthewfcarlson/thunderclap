@@ -189,6 +189,23 @@ $J $N sync | lineages   # inputs on the hosts (submit does it) | lineage workspa
   match re-compared, every equivalent against its standalone object, regressions fall back). Rule: seed only from a
   control that ran on the same host (`--host`, as the gate needs anyway) and with the same tools; a control built before
   this change has no `sources.json.gz` and cannot seed (`submit` says so).
+- **Faster generate and verify, fewer slots (build2, 2026-11-07).** gen_tree's generate step caches what is the same
+  for every TU of a header list (include/gen variants, top-level names, C-linkage notes), parses each function source
+  once per build_tree process and keeps tree files whose bytes did not change; its output is byte-identical
+  (`tests/gen_tree_identity.py --ref REV --state fresh --state mid:STATE --state STATE ...`: both generators on the
+  same sources, every state in one process as build_tree runs them; run it after any gen_tree change). build_tree's
+  verification checks TUs in forked processes (`HULK_BUILD_TREE_VERIFY_PROCS=0`: one). After the first compile with
+  few cache misses build_tree writes `--slots-low` (default 2; `wine_build_job.py submit --slots-low 0` keeps all) to
+  `$JOBQ_RUN_DIR/.jq-slots`, so the daemon lowers the reservation from 8 to 2 for the rest of the build (it can only
+  lower it: a later compile round with many misses runs on the host's idle cores by load average, as do the standalone
+  builds and the map/probe/link stages). Measured on studio, play3 to 60000, `--gfx`, both fresh (control 65115+65234
+  at b4ff21f77, proof 65218 at feb1354fc, same sources): images identical, `tree-state.json` identical, GATE ok (2,004
+  common frames, 0 differ). Per stage, control / proof: generate 18 rounds 2,473 / 438 s (112-141 s / 14-39 s a
+  round); verify 15 rounds 3,263 / 262 s (warm rounds 57-84 / 13-24 s; the control's first verify built the
+  standalone objects cold, 2,414 s); compile 1,543 / 33 s (the control's caches were partly cold, the proof's warm);
+  build 7,318 / 743 s; map 187 / 125, probe 52 / 25, link 122 / 121, replay 198 / 192; total about 7,900 / 1,216 s.
+  A warm control would have been about 3,400 s of build. The proof held 8 slots for its first 60 s, then 2, then 1
+  for the replay: about 2,600 slot-seconds where 8 slots for the whole job would be 8,400.
 - **SSE float (default since perf1, 2026-10-26; [wine-float.md](wine-float.md) section 13).** The game's TUs are built with
   SSE2 scalar float; `--env HULK_WINE_FLOAT=x87` builds the x87 image (checkpoint-identical, about 6x slower under Rosetta).
   An SSE build adds a `map` stage before the probe when the binding map is not reused (`wine_link.py --no-inventory --no-link`,
