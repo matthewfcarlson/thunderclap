@@ -24,6 +24,7 @@ Before the replay (one Wine process) the job writes 1 to RUNDIR/.jq-slots so the
 releases the lineage lock (the replay runs on a copy of the image in the run directory).
 Exit status: 0 all requested stages done, 3 inputs stale/missing, 4 a build stage failed, 5 the replay failed.
 """
+import atexit
 import fcntl
 import hashlib
 import json
@@ -394,6 +395,15 @@ def main():
     inp = home if local else os.path.join(NB, "inputs-" + spec["inputs_stamp"])
     if not local and not os.path.exists(os.path.join(inp, ".complete")):
         finish(3, "inputs %s are not on %s: run wine_build_job.py sync" % (spec["inputs_stamp"], host))
+    if not local:
+        # a lease while the job runs, and the directory's mtime as its last use: wine_build_job.PRUNE_PY keeps both
+        lease = os.path.join(inp, ".lease-%s" % (os.environ.get("JOBQ_JOB") or os.getpid()))
+        try:
+            open(lease, "w").close()
+            os.utime(inp)
+            atexit.register(lambda: os.path.exists(lease) and os.unlink(lease))
+        except OSError:
+            pass
     for f in ("isos/extracted/default.xbe", "build/venv/bin/python", "build/tools/wibo"):
         if not os.path.exists(os.path.join(home, f)):
             finish(3, "%s is missing on %s (%s)" % (f, host, home))

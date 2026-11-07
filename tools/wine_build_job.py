@@ -26,7 +26,8 @@ Where things live (tools/wine_build_run.py is the host side):
     --reuse-map keep working between jobs of one lineage (default lineage NAME-WORKSPACEDIR);
   * local-only inputs (build/functions.csv, rtti.json, xbsymbols.txt, port/platform_calls.json, the data TUs
     build/data/src, the prebuilt third-party libraries under build/third_party/out) are rsynced to
-    ~/hulk-jobs/nb/inputs-STAMP on each host (STAMP = content hash; immutable, newest 4 kept). The extracted disc, the
+    ~/hulk-jobs/nb/inputs-STAMP on each host (STAMP = content hash; immutable; the 4 most recently used kept, and every
+    stamp a queued or running job names or a running job holds a lease on: PRUNE_PY). The extracted disc, the
     compilers, wibo, the venv and Wine are the host's own, as for every other job (docs/compute.md);
   * outputs: nb-out/{summary.json, build/probe/link logs, link-report.json, unbound.txt, image.sha256, ckpt.txt,
     trace.txt, result.json}; the image and its DLLs only with --fetch image (nb-out/image/).
@@ -194,10 +195,63 @@ def sync_host(name, stamp, quiet=False):
             subprocess.run(ssh + [dest, "mkdir -p %s/%s" % (tmp, d)], check=True)
             subprocess.run(["rsync", "-a", "--delete", "-e", e, local_dir(d) + "/", "%s:%s/%s/" % (dest, tmp, d)],
                            check=True, capture_output=quiet)
-    fin = ("cd ~/hulk-jobs/nb && touch inputs-%s.tmp/.complete && rm -rf inputs-%s && mv inputs-%s.tmp inputs-%s && "
-           "ls -dt inputs-*/ | tail -n +5 | xargs rm -rf") % ((stamp,) * 4)
+    fin = ("cd ~/hulk-jobs/nb && touch inputs-%s.tmp/.complete && rm -rf inputs-%s && mv inputs-%s.tmp inputs-%s") % ((stamp,) * 4)
     subprocess.run(ssh + [dest, "sh -c " + shlex.quote(fin)], check=True)
+    prune_host(ssh, dest, cfg, {stamp} | live_stamps())
     print("synced inputs %s to %s in %.0f s" % (stamp, name, time.time() - t0), file=sys.stderr if quiet else sys.stdout)
+
+
+KEEP_INPUTS = 4
+LEASE_MAX_S = 26 * 3600
+# Run on a host (python3 -c PRUNE_PY NB KEEP LEASE_MAX STAMP...): remove inputs-* beyond the KEEP most recently used
+# (directory mtime: sync makes it, wine_build_run touches it when a job starts), but never one named by a STAMP argument
+# (the queued and running jobs' stamps, from the queue) or one holding a lease younger than LEASE_MAX seconds
+# (inputs-S/.lease-JOB, written by wine_build_run while the job runs). Prints what it removed.
+PRUNE_PY = r"""
+import os, shutil, sys, time
+nb, keep, lease_max, protected = sys.argv[1], int(sys.argv[2]), float(sys.argv[3]), set(sys.argv[4:])
+now = time.time()
+ds = []
+for n in os.listdir(nb):
+    p = os.path.join(nb, n)
+    if n.startswith("inputs-") and not n.endswith(".tmp") and os.path.isdir(p):
+        ds.append((os.path.getmtime(p), n))
+ds.sort(reverse=True)
+for _, n in ds[keep:]:
+    p = os.path.join(nb, n)
+    if n[len("inputs-"):] in protected:
+        continue
+    try:
+        if any(f.startswith(".lease-") and now - os.path.getmtime(os.path.join(p, f)) < lease_max for f in os.listdir(p)):
+            continue
+    except OSError:
+        continue
+    shutil.rmtree(p, ignore_errors=True)
+    print("pruned " + n)
+"""
+
+
+def live_stamps():
+    """The inputs stamps of the queue's queued and running Wine builds (their `prep` command names it)."""
+    out = set()
+    try:
+        c = jobq.conn()
+        for r in c.execute("SELECT prep FROM jobs WHERE state IN ('queued', 'running') AND prep IS NOT NULL"):
+            argv = json.loads(r["prep"])
+            if "--stamp" in argv:
+                out.add(argv[argv.index("--stamp") + 1])
+    except Exception as e:  # noqa: BLE001  (no queue state: protect nothing more than the caller's stamp)
+        print("live_stamps: %s" % e, file=sys.stderr)
+    return out
+
+
+def prune_host(ssh, dest, cfg, protected):
+    py = cfg.get("python", "python3")
+    cmd = "%s -c %s ~/hulk-jobs/nb %d %d %s" % (py, shlex.quote(PRUNE_PY), KEEP_INPUTS, LEASE_MAX_S,
+                                               " ".join(shlex.quote(x) for x in sorted(protected)))
+    r = subprocess.run(ssh + [dest, cmd], capture_output=True, text=True)
+    if r.returncode != 0:
+        print("prune on %s failed: %s" % (dest, r.stderr.strip()[-200:]), file=sys.stderr)
 
 
 def cmd_sync(a):
