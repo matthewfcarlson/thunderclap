@@ -1,4 +1,5 @@
 #include "gen/owners.h"
+#include "decls/data/records.h"
 extern "C" __int64 __cdecl FUN_002672f0(const char*, int, int) throw();
 class Key {
     __int64 n;
@@ -24,4 +25,4 @@ class SeqEventChannelSendVolumesType_24ed10 : public FUN_002605e0 {
     virtual void f();
 };
 SeqEventChannelSendVolumesType_24ed10::SeqEventChannelSendVolumesType_24ed10() throw()
-    : FUN_002605e0(((FUN_00240060 *)((owners::String_23fc40 *)&(FUN_00240060()))->FUN_0023fc40("ChSendVol", (hulk_intptr)0)), Key(FUN_002672f0("SeqEventChannelSendVolumes", 0, 0)), 0x50, 4) {}
+    : FUN_002605e0(((FUN_00240060 *)((owners::String_23fc40 *)&(FUN_00240060()))->FUN_0023fc40("ChSendVol", (hulk_intptr)0)), Key(FUN_002672f0("SeqEventChannelSendVolumes", 0, 0)), (int)sizeof(AudioSeqEventChannelSendVolumes), (int)__alignof(AudioSeqEventChannelSendVolumes)) { HULK_SIZE32(AudioSeqEventChannelSendVolumes, 0x50); }

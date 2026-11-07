@@ -7,8 +7,9 @@ struct Registry {
 extern "C" int __cdecl _atexit(void(__cdecl*)());
 extern "C" void FUN_00364500();
 void __cdecl FUN_00360810() {
+    HULK_SIZE32(AudioSeqActionVarPosDist, 0x10);
     __int64 action = FUN_002672f0("SeqActionVarPosDist", 0, 0);
     __int64 runtime = FUN_002672f0("Runtime_Sequence", 0, 0);
-    (*(Registry*)&DAT_004e6ff0).FUN_002584d0(&runtime, &action, 16, 4);
+    (*(Registry*)&DAT_004e6ff0).FUN_002584d0(&runtime, &action, (int)sizeof(AudioSeqActionVarPosDist), (int)__alignof(AudioSeqActionVarPosDist));
     _atexit(FUN_00364500);
 }

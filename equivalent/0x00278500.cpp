@@ -21,6 +21,7 @@ namespace core { struct XboxSaveDrive : Drive_278500 {
 }; }
 extern "C" char DAT_0042c064,DAT_0042c058,DAT_0042c048,DAT_0042c038,DAT_0042c028,DAT_0042c008,DAT_0042c018;
 core::XboxSaveDrive::XboxSaveDrive(const char* nameArg,void* arg) {
+ HULK_SIZE32(CoreDriveThread, 0x94);
  FUN_00272d00();
  vtbc=&DAT_0042c008; vtc0=&DAT_0042c018;
  vt0=&DAT_0042c064; vt4=&DAT_0042c058; vtc=&DAT_0042c048; vtbc=&DAT_0042c038; vtc0=&DAT_0042c028;
@@ -35,7 +36,7 @@ core::XboxSaveDrive::XboxSaveDrive(const char* nameArg,void* arg) {
  if (!(*(DriveThread_278500**)&DAT_0052c26c)) {
   FUN_0026d820(((char*)&DAT_0052c250));
   (*(void**)&DAT_004cdbb0)=arg;
-  DriveThread_278500* p=(DriveThread_278500*)FUN_00266e00(arg,0x94);
+  DriveThread_278500* p=(DriveThread_278500*)FUN_00266e00(arg,(hulk_intptr)sizeof(CoreDriveThread));
   if(p) { device=(DriveThread_278500*)p->FUN_002733c0(((char*)&DAT_0052c250),arg); (*(DriveThread_278500**)&DAT_0052c26c)=device; }
   else {device=0;(*(DriveThread_278500**)&DAT_0052c26c)=0;}
  } else { device=(*(DriveThread_278500**)&DAT_0052c26c); device->action(); }

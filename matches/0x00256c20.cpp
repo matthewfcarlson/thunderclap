@@ -16,4 +16,4 @@ class SequenceType : public FUN_00243310 {
 };
 } // namespace audio
 audio::SequenceType::SequenceType()
-    : FUN_00243310(FUN_002672f0(DAT_0042a620, 0, 0), FUN_002672f0(DAT_0042a630, 0, 0), 0x1000001, 0x58, 8) {}
+    : FUN_00243310(FUN_002672f0(DAT_0042a620, 0, 0), FUN_002672f0(DAT_0042a630, 0, 0), 0x1000001, (int)sizeof(AudioSequence), 8) { HULK_SIZE32(AudioSequence, 0x58); }

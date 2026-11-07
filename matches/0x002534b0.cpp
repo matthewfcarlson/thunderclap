@@ -1,4 +1,5 @@
 #include "decls/address.h"
+#include "decls/data/records.h"
 struct Field {
     char space[12];
     Field* FUN_0023fc40(const char*, int);
@@ -13,9 +14,10 @@ struct SeqEventVarPitchRandType {
 } // namespace audio
 extern void* DAT_0042a16c[];
 audio::SeqEventVarPitchRandType* audio::SeqEventVarPitchRandType::FUN_002534b0() {
+    HULK_SIZE32(AudioSeqEventVarPitchRand, 0x10);
     __int64 id = FUN_002672f0("SeqEventVarPitchRand", 0, 0);
     Field field;
-    FUN_002605e0(field.FUN_0023fc40("Pitch?", 0), &id, 16, 4);
+    FUN_002605e0(field.FUN_0023fc40("Pitch?", 0), &id, (int)sizeof(AudioSeqEventVarPitchRand), (int)__alignof(AudioSeqEventVarPitchRand));
     field.FUN_00240060();
     vtable = DAT_0042a16c;
     return this;

@@ -12,6 +12,7 @@ class TypeT_24d6b0 {
     TypeT_24d6b0();
 };
 TypeT_24d6b0::TypeT_24d6b0() {
-    ((ListenerEffectXBoxType_nv_24d6b0*)(((audio::ListenerEffectXBoxType*)(((audio::ListenerEffectXBoxType*)this)))))->FUN_002584d0((void*)((hulk_intptr)DAT_004e6338), (void*)((hulk_intptr)DAT_004e6330), (void*)0x30, 4);
+    HULK_SIZE32(OmMetaTypeAttribScalarFloat, 0x30);
+    ((ListenerEffectXBoxType_nv_24d6b0*)(((audio::ListenerEffectXBoxType*)(((audio::ListenerEffectXBoxType*)this)))))->FUN_002584d0((void*)((hulk_intptr)DAT_004e6338), (void*)((hulk_intptr)DAT_004e6330), (void*)sizeof(OmMetaTypeAttribScalarFloat), (int)__alignof(OmMetaTypeAttribScalarFloat));
     m = ((hulk_intptr)DAT_00429440);
 }

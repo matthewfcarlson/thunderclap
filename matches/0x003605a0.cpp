@@ -11,8 +11,9 @@ struct Registry {
 extern "C" int __cdecl atexit(void(__cdecl*)());
 extern "C" void __cdecl FUN_003644a0();
 void __cdecl FUN_003605a0() {
+    HULK_SIZE32(AudioSeqActionVarVolumeRand, 0x10);
     unsigned __int64 a = FUN_002672f0(((char*)&DAT_00429f90), 0, 0);
     unsigned __int64 b = FUN_002672f0(((char*)&DAT_00429270), 0, 0);
-    (*(Registry*)&DAT_004e6de0).FUN_002584d0((__int64*)&b, (__int64*)&a, 16, 4);
+    (*(Registry*)&DAT_004e6de0).FUN_002584d0((__int64*)&b, (__int64*)&a, (int)sizeof(AudioSeqActionVarVolumeRand), (int)__alignof(AudioSeqActionVarVolumeRand));
     atexit(FUN_003644a0);
 }

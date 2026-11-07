@@ -1,5 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00254b10 @ 0x00254b10
+#include "decls/data/records.h"
 struct Value { unsigned int lo, hi; };
 extern "C" Value __cdecl FUN_002672f0(const char*, int, int);
 struct Descriptor {
@@ -16,9 +17,10 @@ struct SeqEventLogicRepeatType {
 }
 extern "C" char DAT_0042a3a0[];
 audio::SeqEventLogicRepeatType* audio::SeqEventLogicRepeatType::FUN_00254b10() {
+    HULK_SIZE32(AudioSeqEventLogicRepeat, 0x1c);
     Value value = FUN_002672f0("SeqEventLogicRepeat", 0, 0);
     Descriptor desc;
-    FUN_002605e0(desc.FUN_0023fc40("||:", 0), &value, 28, 4);
+    FUN_002605e0(desc.FUN_0023fc40("||:", 0), &value, (int)sizeof(AudioSeqEventLogicRepeat), (int)__alignof(AudioSeqEventLogicRepeat));
     desc.FUN_00240060();
     vtable = DAT_0042a3a0;
     return this;

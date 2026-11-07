@@ -10,8 +10,9 @@ class Registry {
 extern "C" int __cdecl atexit(void(__cdecl*)());
 extern "C" void __cdecl FUN_003645c0();
 void __cdecl Init() {
+    HULK_SIZE32(AudioSeqCommandLogicOr, 0xc);
     U64 first = FUN_002672f0("SeqCommandLogicOr", 0, 0);
     U64 second = FUN_002672f0("Runtime_Sequence", 0, 0);
-    (*(Registry*)&DAT_004e7410).FUN_002584d0(&second, &first, 12, 4);
+    (*(Registry*)&DAT_004e7410).FUN_002584d0(&second, &first, (int)sizeof(AudioSeqCommandLogicOr), (int)__alignof(AudioSeqCommandLogicOr));
     atexit(FUN_003645c0);
 }

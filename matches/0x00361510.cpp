@@ -12,8 +12,9 @@ class Manager {
     void FUN_002584d0(Pair*, Pair*, int, int);
 };
 void __cdecl Target() {
+    HULK_SIZE32(AudioBeatSet, 0x8);
     Pair a = FUN_002672f0(((char*)&DAT_0042ab2c), 0, 0);
     Pair b = FUN_002672f0(((char*)&DAT_0042a620), 0, 0);
-    (*(Manager*)&DAT_004e7a78).FUN_002584d0(&b, &a, 8, 4);
+    (*(Manager*)&DAT_004e7a78).FUN_002584d0(&b, &a, (int)sizeof(AudioBeatSet), (int)__alignof(AudioBeatSet));
     atexit(FUN_00364710);
 }

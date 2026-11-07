@@ -10,8 +10,9 @@ class Registry {
     void FUN_002584d0(U64*, U64*, int, int);
 };
 void FUN_00361690() {
+    HULK_SIZE32(AudioHalRsdFileStream, 0x48);
     U64 a = FUN_002672f0("HalRsdFileStream", 0, 0);
     U64 b = FUN_002672f0("Runtime_Hal", 0, 0);
-    (*(Registry*)&DAT_004e7b98).FUN_002584d0(&b, &a, 0x48, 4);
+    (*(Registry*)&DAT_004e7b98).FUN_002584d0(&b, &a, (int)sizeof(AudioHalRsdFileStream), (int)__alignof(AudioHalRsdFileStream));
     atexit(Cleanup);
 }

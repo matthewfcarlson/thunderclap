@@ -10,8 +10,9 @@ class Registry {
 extern "C" int __cdecl atexit(void(__cdecl*)());
 extern void __cdecl cleanup();
 void __cdecl target() {
+    HULK_SIZE32(AudioSeqActionChannelSendVolumes, 0x10);
     U64 a = FUN_002672f0(DAT_004299d4, 0, 0);
     U64 b = FUN_002672f0(DAT_00429270, 0, 0);
-    (*(Registry*)&DAT_004e6700).FUN_002584d0(&b, &a, 16, 4);
+    (*(Registry*)&DAT_004e6700).FUN_002584d0(&b, &a, (int)sizeof(AudioSeqActionChannelSendVolumes), (int)__alignof(AudioSeqActionChannelSendVolumes));
     atexit(cleanup);
 }

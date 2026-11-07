@@ -4,7 +4,7 @@
 // The tree of om types by key (records.h OmType's node; 0x004cd1a8 is an OmTree without the count).
 OmTreeNode* __cdecl FUN_002581f0(OmTree*, OmTreeNode*);
 extern "C" void FUN_00258230(void *, void *);
-extern "C" void __cdecl FUN_00258730(OmTree* tree, OmType* entry) {
+void __cdecl FUN_00258730(OmTree* tree, OmType* entry) {
  OmTreeNode* sentinel = &tree->nil;
  OmTreeNode* node = &entry->body.node;
  OmTreeNode* removed = node;

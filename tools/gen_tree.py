@@ -90,7 +90,7 @@ import cxx_items  # noqa: E402
 import stub_layout  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-GEN_OFF = set(os.environ.get("HULK_GEN_TREE_OFF", "").split(","))     # switch named changes off (A/B: cdefsig)
+GEN_OFF = set(os.environ.get("HULK_GEN_TREE_OFF", "").split(","))     # switch named changes off (A/B: cdefsig, defsig)
 SPLITS = os.path.join(ROOT, "config/splits.json")
 FUNCS_CSV = os.path.join(ROOT, "build/functions.csv")
 TREE = os.path.join(ROOT, "build/tree")
@@ -618,7 +618,11 @@ def compatible(a, b):
         # as overloads
         if a[2] != b[2]:
             return True
-        return ka != kb and a[3] == b[3]
+        if "defsig" in GEN_OFF:
+            return ka != kb and a[3] == b[3]
+        # (reg5) a declaration's signature keeps its `;` and a definition's has none: compared without it, a C++
+        # declaration beside the TU's definition of the same function is a redeclaration (it never was one)
+        return ka != kb and _sig_noqual(a[3]) == _sig_noqual(b[3])
     if pair == {"cfunc", "cdef"}:
         return a[3] == b[3] or "cdefsig" not in GEN_OFF and _sig_noqual(a[3]) == _sig_noqual(b[3])
     if pair == {"func", "cdef"} and "cdefsig" not in GEN_OFF:

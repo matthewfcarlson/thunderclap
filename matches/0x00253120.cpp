@@ -1,4 +1,5 @@
 #include "gen/owners.h"
+#include "decls/data/records.h"
 extern "C" __int64 __cdecl FUN_002672f0(const char*, int, int) throw();
 class FUN_00240060 {
   public:
@@ -16,4 +17,4 @@ class SeqEventVarPosDistType_253120 : public FUN_002605e0 {
     virtual void a();
 };
 SeqEventVarPosDistType_253120::SeqEventVarPosDistType_253120() throw()
-    : FUN_002605e0(((FUN_00240060 *)((owners::String_23fc40 *)&(FUN_00240060()))->FUN_0023fc40("3d", (hulk_intptr)0)), FUN_002672f0("SeqEventVarPosDist", 0, 0), 16, 4) {}
+    : FUN_002605e0(((FUN_00240060 *)((owners::String_23fc40 *)&(FUN_00240060()))->FUN_0023fc40("3d", (hulk_intptr)0)), FUN_002672f0("SeqEventVarPosDist", 0, 0), (int)sizeof(AudioSeqEventVarPosDist), (int)__alignof(AudioSeqEventVarPosDist)) { HULK_SIZE32(AudioSeqEventVarPosDist, 0x10); }

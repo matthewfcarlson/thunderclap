@@ -65,9 +65,11 @@ struct Registry_24df00 {
 };
 extern void* __cdecl FUN_00247530(om::TypeBase* temp);
 extern "C" void FUN_0024df00() {
+    HULK_SIZE32(om::MetaTypeAttribScalar<int>, 0x30);
+    HULK_SIZE32(om::MetaTypeAttribScalar<float>, 0x30);
     {
         om::TypeT<om::MetaTypeAttribScalar<int> > temp(((unsigned int*)&DAT_004e6328),
-                                                       ((unsigned int*)&DAT_004e6320), 0x30, 4);
+                                                       ((unsigned int*)&DAT_004e6320), (int)sizeof(om::MetaTypeAttribScalar<int>), (int)__alignof(om::MetaTypeAttribScalar<int>));
         void* p = FUN_00247530(&temp);
         temp.FUN_002580e0();
         if (p)
@@ -76,7 +78,7 @@ extern "C" void FUN_0024df00() {
     }
     {
         om::TypeT<om::MetaTypeAttribScalar<int> > temp(((unsigned int*)&DAT_004e6328),
-                                                       ((unsigned int*)&DAT_004e6320), 0x30, 4);
+                                                       ((unsigned int*)&DAT_004e6320), (int)sizeof(om::MetaTypeAttribScalar<int>), (int)__alignof(om::MetaTypeAttribScalar<int>));
         void* p = FUN_00247530(&temp);
         temp.FUN_002580e0();
         if (p)
@@ -85,7 +87,7 @@ extern "C" void FUN_0024df00() {
     }
     {
         om::TypeT<om::MetaTypeAttribScalar<float> > temp(((unsigned int*)&DAT_004e6338),
-                                                         ((unsigned int*)&DAT_004e6330), 0x30, 4);
+                                                         ((unsigned int*)&DAT_004e6330), (int)sizeof(om::MetaTypeAttribScalar<float>), (int)__alignof(om::MetaTypeAttribScalar<float>));
         void* p = FUN_00247530(&temp);
         temp.FUN_002580e0();
         if (p)
@@ -95,7 +97,7 @@ extern "C" void FUN_0024df00() {
     }
     {
         om::TypeT<om::MetaTypeAttribScalar<float> > temp(((unsigned int*)&DAT_004e6338),
-                                                         ((unsigned int*)&DAT_004e6330), 0x30, 4);
+                                                         ((unsigned int*)&DAT_004e6330), (int)sizeof(om::MetaTypeAttribScalar<float>), (int)__alignof(om::MetaTypeAttribScalar<float>));
         void* p = FUN_00247530(&temp);
         temp.FUN_002580e0();
         if (p)
@@ -104,7 +106,7 @@ extern "C" void FUN_0024df00() {
     }
     {
         om::TypeT<om::MetaTypeAttribScalar<float> > temp(((unsigned int*)&DAT_004e6338),
-                                                         ((unsigned int*)&DAT_004e6330), 0x30, 4);
+                                                         ((unsigned int*)&DAT_004e6330), (int)sizeof(om::MetaTypeAttribScalar<float>), (int)__alignof(om::MetaTypeAttribScalar<float>));
         void* p = FUN_00247530(&temp);
         temp.FUN_002580e0();
         if (p)
@@ -113,7 +115,7 @@ extern "C" void FUN_0024df00() {
     }
     {
         om::TypeT<om::MetaTypeAttribScalar<int> > temp(((unsigned int*)&DAT_004e6328),
-                                                       ((unsigned int*)&DAT_004e6320), 0x30, 4);
+                                                       ((unsigned int*)&DAT_004e6320), (int)sizeof(om::MetaTypeAttribScalar<int>), (int)__alignof(om::MetaTypeAttribScalar<int>));
         void* p = FUN_00247530(&temp);
         temp.FUN_002580e0();
         if (p)
@@ -122,7 +124,7 @@ extern "C" void FUN_0024df00() {
     }
     {
         om::TypeT<om::MetaTypeAttribScalar<float> > temp(((unsigned int*)&DAT_004e6338),
-                                                         ((unsigned int*)&DAT_004e6330), 0x30, 4);
+                                                         ((unsigned int*)&DAT_004e6330), (int)sizeof(om::MetaTypeAttribScalar<float>), (int)__alignof(om::MetaTypeAttribScalar<float>));
         void* p = FUN_00247530(&temp);
         temp.FUN_002580e0();
         if (p)
@@ -132,7 +134,7 @@ extern "C" void FUN_0024df00() {
     }
     {
         om::TypeT<om::MetaTypeAttribScalar<int> > temp(((unsigned int*)&DAT_004e6328),
-                                                       ((unsigned int*)&DAT_004e6320), 0x30, 4);
+                                                       ((unsigned int*)&DAT_004e6320), (int)sizeof(om::MetaTypeAttribScalar<int>), (int)__alignof(om::MetaTypeAttribScalar<int>));
         void* p = FUN_00247530(&temp);
         temp.FUN_002580e0();
         if (p)
@@ -141,7 +143,7 @@ extern "C" void FUN_0024df00() {
     }
     {
         om::TypeT<om::MetaTypeAttribScalar<float> > temp(((unsigned int*)&DAT_004e6338),
-                                                         ((unsigned int*)&DAT_004e6330), 0x30, 4);
+                                                         ((unsigned int*)&DAT_004e6330), (int)sizeof(om::MetaTypeAttribScalar<float>), (int)__alignof(om::MetaTypeAttribScalar<float>));
         void* p = FUN_00247530(&temp);
         temp.FUN_002580e0();
         if (p)
@@ -150,7 +152,7 @@ extern "C" void FUN_0024df00() {
     }
     {
         om::TypeT<om::MetaTypeAttribScalar<float> > temp(((unsigned int*)&DAT_004e6338),
-                                                         ((unsigned int*)&DAT_004e6330), 0x30, 4);
+                                                         ((unsigned int*)&DAT_004e6330), (int)sizeof(om::MetaTypeAttribScalar<float>), (int)__alignof(om::MetaTypeAttribScalar<float>));
         void* p = FUN_00247530(&temp);
         temp.FUN_002580e0();
         if (p)
@@ -159,7 +161,7 @@ extern "C" void FUN_0024df00() {
     }
     {
         om::TypeT<om::MetaTypeAttribScalar<float> > temp(((unsigned int*)&DAT_004e6338),
-                                                         ((unsigned int*)&DAT_004e6330), 0x30, 4);
+                                                         ((unsigned int*)&DAT_004e6330), (int)sizeof(om::MetaTypeAttribScalar<float>), (int)__alignof(om::MetaTypeAttribScalar<float>));
         void* p = FUN_00247530(&temp);
         temp.FUN_002580e0();
         if (p)
@@ -168,7 +170,7 @@ extern "C" void FUN_0024df00() {
     }
     {
         om::TypeT<om::MetaTypeAttribScalar<float> > temp(((unsigned int*)&DAT_004e6338),
-                                                         ((unsigned int*)&DAT_004e6330), 0x30, 4);
+                                                         ((unsigned int*)&DAT_004e6330), (int)sizeof(om::MetaTypeAttribScalar<float>), (int)__alignof(om::MetaTypeAttribScalar<float>));
         void* p = FUN_00247530(&temp);
         temp.FUN_002580e0();
         if (p)

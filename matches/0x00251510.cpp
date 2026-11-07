@@ -19,4 +19,4 @@ class SeqEventPlayTrackType : public FUN_002605e0 {
     SeqEventPlayTrackType();
     virtual void v0();
 };
-SeqEventPlayTrackType::SeqEventPlayTrackType() : FUN_002605e0(FUN_00240060().FUN_0023fc40(DAT_00429df8, 0), FUN_002672f0(DAT_00429e00, 0, 0), 32, 4) {}
+SeqEventPlayTrackType::SeqEventPlayTrackType() : FUN_002605e0(FUN_00240060().FUN_0023fc40(DAT_00429df8, 0), FUN_002672f0(DAT_00429e00, 0, 0), (int)sizeof(AudioSeqEventPlayTrack), (int)__alignof(AudioSeqEventPlayTrack)) { HULK_SIZE32(AudioSeqEventPlayTrack, 0x20); }

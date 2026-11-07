@@ -9,8 +9,9 @@ class Registry {
     void FUN_002584d0(__int64*, __int64*, int, int);
 };
 void FUN_00360670() {
+    HULK_SIZE32(AudioSeqActionVarVolume, 0x10);
     unsigned __int64 a = FUN_002672f0("SeqActionVarVolume", 0, 0);
     unsigned __int64 b = FUN_002672f0("Runtime_Sequence", 0, 0);
-    (*(Registry*)&DAT_004e6e90).FUN_002584d0((__int64*)&b, (__int64*)&a, 16, 4);
+    (*(Registry*)&DAT_004e6e90).FUN_002584d0((__int64*)&b, (__int64*)&a, (int)sizeof(AudioSeqActionVarVolume), (int)__alignof(AudioSeqActionVarVolume));
     atexit(cleanup);
 }

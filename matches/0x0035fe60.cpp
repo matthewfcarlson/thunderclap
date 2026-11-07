@@ -11,8 +11,9 @@ class Registry {
     void FUN_002584d0(I64*, I64*, int, int);
 };
 void __cdecl target() {
+    HULK_SIZE32(AudioSeqActionChannelSends, 0x10);
     I64 a = FUN_002672f0(DAT_00429aac, 0, 0);
     I64 b = FUN_002672f0(DAT_00429270, 0, 0);
-    (*(Registry*)&DAT_004e6800).FUN_002584d0(&b, &a, 16, 4);
+    (*(Registry*)&DAT_004e6800).FUN_002584d0(&b, &a, (int)sizeof(AudioSeqActionChannelSends), (int)__alignof(AudioSeqActionChannelSends));
     atexit(FUN_00364390);
 }

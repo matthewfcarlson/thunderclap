@@ -22,4 +22,4 @@ class SeqEventConditionType : public FUN_002605e0 {
 };
 } // namespace audio
 audio::SeqEventConditionType::SeqEventConditionType() throw()
-    : FUN_002605e0(FUN_00240060().FUN_0023fc40(DAT_00429ae4, 0), &(__int64 const&)FUN_002672f0(DAT_00429aec, 0, 0), 32, 4) {}
+    : FUN_002605e0(FUN_00240060().FUN_0023fc40(DAT_00429ae4, 0), &(__int64 const&)FUN_002672f0(DAT_00429aec, 0, 0), (int)sizeof(AudioSeqEventCondition), (int)__alignof(AudioSeqEventCondition)) { HULK_SIZE32(AudioSeqEventCondition, 0x20); }

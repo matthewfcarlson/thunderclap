@@ -11,8 +11,9 @@ struct Obj_361050 {
 extern "C" int __cdecl atexit(void(__cdecl*)());
 extern "C" void __cdecl FUN_00364660();
 void __cdecl FUN_00361050() {
+    HULK_SIZE32(AudioHalVoiceChannel, 0x80);
     Pair_361050 a = FUN_002672f0("HalVoiceChannel", 0, 0);
     Pair_361050 b = FUN_002672f0("Runtime_Hal", 0, 0);
-    (*(Obj_361050*)((char*)&DAT_004e7730)).FUN_002584d0(&b, &a, 128, 4);
+    (*(Obj_361050*)((char*)&DAT_004e7730)).FUN_002584d0(&b, &a, (int)sizeof(AudioHalVoiceChannel), (int)__alignof(AudioHalVoiceChannel));
     atexit(FUN_00364660);
 }

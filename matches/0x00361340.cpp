@@ -8,8 +8,9 @@ struct Manager {
     void FUN_002584d0(const __int64*, const __int64*, int, int);
 };
 void __cdecl Target() {
+    HULK_SIZE32(AudioCircBuf, 0x30);
     __int64 a = FUN_002672f0("CircBuf", 0, 0);
     __int64 b = FUN_002672f0("Runtime_Hal", 0, 0);
-    (*(Manager*)((char*)&DAT_004e7928)).FUN_002584d0(&b, &a, 0x30, 4);
+    (*(Manager*)((char*)&DAT_004e7928)).FUN_002584d0(&b, &a, (int)sizeof(AudioCircBuf), (int)__alignof(AudioCircBuf));
     atexit(FUN_003646d0);
 }

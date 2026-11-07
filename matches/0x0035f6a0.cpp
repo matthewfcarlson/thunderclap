@@ -12,8 +12,9 @@ class Registry {
 extern "C" int __cdecl atexit(void(__cdecl*)());
 extern "C" void __cdecl FUN_00364210();
 void __cdecl init() {
+    HULK_SIZE32(AudioSeqPlayerBuss, 0x8);
     Pair a = FUN_002672f0(DAT_004292b8, 0, 0);
     Pair b = FUN_002672f0(DAT_00429270, 0, 0);
-    (*(Registry*)&DAT_004e6080).FUN_002584d0(&b, &a, 8, 4);
+    (*(Registry*)&DAT_004e6080).FUN_002584d0(&b, &a, (int)sizeof(AudioSeqPlayerBuss), (int)__alignof(AudioSeqPlayerBuss));
     atexit(FUN_00364210);
 }

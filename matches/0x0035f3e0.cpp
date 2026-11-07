@@ -10,8 +10,9 @@ class Registry_35f3e0 {
     void FUN_002584d0(U64_35f3e0*, U64_35f3e0*, int, int);
 };
 void init() {
+    HULK_SIZE32(AudioMixerMix, 0x38);
     U64_35f3e0 a = FUN_002672f0("MixerMix", 0, 0);
     U64_35f3e0 b = FUN_002672f0("Runtime_Mix", 0, 0);
-    (*(Registry_35f3e0*)&DAT_004e5df8).FUN_002584d0(&b, &a, 0x38, 4);
+    (*(Registry_35f3e0*)&DAT_004e5df8).FUN_002584d0(&b, &a, (int)sizeof(AudioMixerMix), (int)__alignof(AudioMixerMix));
     atexit(FUN_00364170);
 }

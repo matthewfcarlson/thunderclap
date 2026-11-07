@@ -12,8 +12,9 @@ extern "C" int __cdecl atexit(void (__cdecl*)());
 
 void __cdecl FUN_00360dc0()
 {
+    HULK_SIZE32(AudioSeqActionCrossFade, 0x1c);
     __int64 action = FUN_002672f0("SeqActionCrossFade", 0, 0);
     __int64 sequence = FUN_002672f0("Runtime_Sequence", 0, 0);
-    ((ThisNote_002584d0*)(((char*)&DAT_004e74c0)))->FUN_002584d0(&sequence, &action, 28, 4);
+    ((ThisNote_002584d0*)(((char*)&DAT_004e74c0)))->FUN_002584d0(&sequence, &action, (int)sizeof(AudioSeqActionCrossFade), (int)__alignof(AudioSeqActionCrossFade));
     atexit(FUN_003645e0);
 }

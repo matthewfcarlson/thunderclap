@@ -14,7 +14,7 @@ static inline const OmKey* KeyOf(const OmTreeNode* n)
 }
 
 // Unique insert of item (keyed by a 64-bit key) into an intrusive red-black tree.
-extern "C" bool __cdecl FUN_00258530(OmTree* tree, OmType* item, const OmKey* key)
+bool __cdecl FUN_00258530(OmTree* tree, OmType* item, const OmKey* key)
 {
     OmTreeNode* nil = &tree->nil;
     OmTreeNode* added = &item->body.node;

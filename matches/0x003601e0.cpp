@@ -10,8 +10,9 @@ class Registry {
     void FUN_002584d0(I64*, I64*, int, int);
 };
 void __cdecl FUN_003601e0() {
+    HULK_SIZE32(AudioSeqActionExpression, 0x10);
     I64 first = FUN_002672f0("SeqActionExpression", 0, 0);
     I64 second = FUN_002672f0("Runtime_Sequence", 0, 0);
-    (*(Registry*)&DAT_004e6ad0).FUN_002584d0(&second, &first, 16, 4);
+    (*(Registry*)&DAT_004e6ad0).FUN_002584d0(&second, &first, (int)sizeof(AudioSeqActionExpression), (int)__alignof(AudioSeqActionExpression));
     atexit(FUN_00364410);
 }

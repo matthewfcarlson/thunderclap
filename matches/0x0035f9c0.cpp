@@ -11,8 +11,9 @@ class Registry {
     void FUN_002584d0(I64*, I64*, int, int);
 };
 void __cdecl target() {
+    HULK_SIZE32(OmEntityLoader, 0xc);
     I64 a = FUN_002672f0(((char*)&DAT_004293a4), 0, 0);
     I64 b = FUN_002672f0(((char*)&DAT_004293a4), 0, 0);
-    (*(Registry*)&DAT_004e62d8).FUN_002584d0(&b, &a, 12, 4);
+    (*(Registry*)&DAT_004e62d8).FUN_002584d0(&b, &a, (int)sizeof(OmEntityLoader), (int)__alignof(OmEntityLoader));
     atexit(FUN_003642a0);
 }

@@ -12,9 +12,10 @@ class Reg {
     void FUN_002584d0(Pair*, Pair*, int, int);
 };
 void __cdecl target() {
+    HULK_SIZE32(AudioSeqActionWait, 0x10);
     Pair a, b;
     a.v = FUN_002672f0("SeqActionWait", 0, 0);
     b.v = FUN_002672f0("Runtime_Sequence", 0, 0);
-    (*(Reg*)((char*)&DAT_004e6960)).FUN_002584d0(&b, &a, 16, 4);
+    (*(Reg*)((char*)&DAT_004e6960)).FUN_002584d0(&b, &a, (int)sizeof(AudioSeqActionWait), (int)__alignof(AudioSeqActionWait));
     atexit(FUN_003643d0);
 }

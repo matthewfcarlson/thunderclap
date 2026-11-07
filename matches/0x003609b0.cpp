@@ -12,9 +12,10 @@ struct Pair {
     __int64 a, b;
 };
 void __cdecl FUN_003609b0() {
+    HULK_SIZE32(AudioSeqActionVarPitch, 0x10);
     Pair p;
     p.a = FUN_002672f0("SeqActionVarPitch", 0, 0);
     p.b = FUN_002672f0("Runtime_Sequence", 0, 0);
-    (*(Registry*)((char*)&DAT_004e7150)).FUN_002584d0(&p.b, &p.a, 16, 4);
+    (*(Registry*)((char*)&DAT_004e7150)).FUN_002584d0(&p.b, &p.a, (int)sizeof(AudioSeqActionVarPitch), (int)__alignof(AudioSeqActionVarPitch));
     atexit(FUN_00364540);
 }

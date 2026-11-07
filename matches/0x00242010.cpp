@@ -14,4 +14,4 @@ class MixType_242010 : public FUN_00243310 {
     MixType_242010();
     virtual void f();
 };
-MixType_242010::MixType_242010() : FUN_00243310(&(const unsigned __int64&)FUN_002672f0(((char*)&DAT_004290c4), 0, 0), &(const unsigned __int64&)FUN_002672f0(((char*)&DAT_0042422c), 0, 0), 0x1000002, 0x50, 8) {}
+MixType_242010::MixType_242010() : FUN_00243310(&(const unsigned __int64&)FUN_002672f0(((char*)&DAT_004290c4), 0, 0), &(const unsigned __int64&)FUN_002672f0(((char*)&DAT_0042422c), 0, 0), 0x1000002, (int)sizeof(AudioMix), 8) { HULK_SIZE32(AudioMix, 0x50); }

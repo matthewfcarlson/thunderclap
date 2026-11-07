@@ -1188,3 +1188,67 @@ node-to-type cast), 0x0025c0d0 (fail, layout: it now reads the type's size throu
 | play3 checkpoints | 2,007 to 60,180 | 64998: `ckpt_gate.py` ok at all 2,007 common frames (the known transients only), PRNG hashes identical |
 | arm64 macOS / x86-64 Linux / arm64 Android unbound (proof 64998's own snapshot and map) | 31,741 / 31,732 / 31,733 (reg3) | **30,514 / 30,505 / 30,506**, all rc 0 |
 | macOS start-up | 260 (`DAT_004ca248`) | 260 until dec1's pointer words land; with them: every initializer, then main to core::Drive's vftables (above) |
+
+## Instance sizes (reg5, 2026-11-07)
+
+The om types' initializers and constructors passed their instances' 32-bit sizes to om::Type's constructor
+(0x002584d0; om::EntityType 0x00243310, audio::SeqEventType 0x002605e0), and the om pool (0x002474c0) allocates
+`body.size` bytes per instance; the file-system drives were allocated as `FUN_00266e00(heap, 0x1e4)` (core::XboxDrive)
+and `0x910` (core::XboxSaveDrive), their worker thread as `0x94`. Every one of these classes holds pointers, so on 64-bit
+the blocks were too small (reg4's corrupted malloc free list in 0x00270540 was one of them). The literal is now
+`(int)sizeof(T)` and the alignment `(int)__alignof(T)` of a class with the instance's layout (the alignment literal 8
+of Mix / Clip / Sequence is kept: their records are 4-aligned word pairs, as OmKey), and each site checks the XBE's
+size with `HULK_SIZE32(T, n)` (records.h: a block-scope typedef that is a compile error on the 32-bit builds unless
+`sizeof(T) == n`, nothing on 64-bit). MSVC 7.1's object is unchanged (the constant is the same).
+
+- **Not include/gen classes.** 29 sites first took the generated class of the literal's size; a wrapped source that
+  includes an include/gen/ header is isolated into a TU of its own, and 18 initializers became isolated TUs that each
+  define a global `target()` (strict link: duplicate symbols). Records instead, the gen class's proven fields checked
+  word by word (gen's audio::SeqEvent also declares none of its 6 virtual functions, so several gen SeqEvent* classes
+  lack the vftable pointer).
+- **records.h instance records** (106 new names, prefixed Audio / Om / Core): the SeqEvent instances on a shared
+  `AudioSeqEvent {vftable; link}` / `AudioSeqEventContainer` head; the SeqAction / SeqCommand ones on
+  `AudioSeqActionBase {vftable; link; event; state}`, the fade behaviours on `OmDynBehaviour`; Mix / Clip / Sequence on `OmEntity`; the mixer,
+  sequence player, track, layer, buss and beat records; the Hal voice / buffer / stream player / RSD header /
+  circular buffer records and `AudioOmHalStream`; om::MetaTypeAttribScalar, om::DynAttrT<om::String>, om::Property
+  (`OmMetaProperty`); `CoreDrive` (0xbc: its library list at +0x14, the 0x44-byte label union at +0x70),
+  `CoreXboxDrive`, `CoreXboxSaveDrive` (four 0x208-byte find slots), `CoreDriveThread` (a CoreThread at +0x18).
+  Each field is commented with its 32-bit offset and the function that reads or writes it; a word is a pointer
+  where some accessor dereferences it, stores an address in it or links objects through it. 0x0024df00 sizes its
+  temporaries by its own placed class (`om::MetaTypeAttribScalar<int/float>`).
+- **Left as literals:** HalListener (0x0035f960), Properties (0x00361110) and PointerUid (0x00361700), whose pool
+  getters have no caller (no instance is ever allocated); the 0x4000-byte aligned stream buffer (0x003611d0, raw
+  bytes). Other literal-size allocations outside the om types remain: `FUN_00266e00` in 0x00269640 (0x1dc),
+  0x00277b70 (0x1d8), 0x0026e9e0 (0x74), 0x00334010 (0x12a8), and the `FUN_0008d690` / `operator new` literals of
+  ptr1's 302 sources whose stub is shorter than the class.
+- **Checks:** 77 matches/ MATCH + verify_relocs ok; 9 equivalents equivalent at 3,000 inputs and `--wine`. `--x64`
+  (HEAD -> batch): 64 equivalent -> fail by design, each at the size / alignment argument (the 64-bit object passes
+  the 64-bit size, e.g. SeqPlayer 184 -> 312, XboxSaveDrive 2,320 -> 2,472); the 4 pointer-free records (the two
+  volume arrays, HalPositionalInfo, the RSD header) stay equivalent; 12 unsupported and 6 fail as at HEAD.
+
+### gen_tree: a C++ declaration beside its definition
+
+`compatible()` never paired a C++ declaration (`func`) with the TU's definition of the same function (`def`): the
+declaration's canonical signature keeps its closing `;` (`char(T *,int);`), the definition's has none, so the two
+compared as a conflict, not as a redeclaration, and the source that declared the function was wrapped or isolated
+(the C-linkage pair had the same defect, fixed by dec1/unb4 in 416dc2082). The `{func, def}` comparison now drops
+the `;` (`_sig_noqual`; `HULK_GEN_TREE_OFF=defsig` switches it off), tests/test_gen_tree_compat.py covers it. reg4's
+workaround is gone: 0x00258530 / 0x00258730 and their callers 0x002588d0 / 0x002588f0 are C++ functions again
+(the spelling before reg4), and om/Type.cpp merges all six tree functions. Fresh generate on HEAD + this batch: 27
+blocks in 17 TUs change mode, all to merged (25 wrapped "conflict: FUN_x" -> merged, the two om::Type slots isolated
+-> merged); without the fix the two slots would be isolated.
+
+### Proof (instance sizes + the gen_tree fix)
+
+| | control 65235 (HEAD 416dc2082, mac1) | proof 65292 (mac1, seeded from 65235) |
+|---|---|---|
+| sources | - | 79 matches/, 11 equivalent/, records.h, tools/gen_tree.py (+ test) |
+| gates | - | 79 / 79 MATCH + verify_relocs ok; 11 / 11 equivalent at 3,000 inputs (0x00258530 / 0x00258730 at their usual 1,055 / 2,941) and `--wine` |
+| merge modes (the builds' own states) | - | 36 changes: 25 wrapped -> merged (the `;` conflicts), 9 merged -> wrapped and 2 -> isolated (the cascade: "code differs from its standalone build", inlining in unk_2e6780.cpp) |
+| strict link rc / Wine unbound | 0 / 1,314 | 0 / 1,314 (the same list) |
+| x87 keep list | 268 | 268 (0x000a1b30's namespace changed: wrapped -> merged) |
+| play3 checkpoints | 2,013 to 60,360 | `ckpt_gate.py` ok at 2,006 common frames (the known transients only), PRNG hashes identical |
+| arm64 macOS / x86-64 Linux / arm64 Android unbound | 30,497 / 30,488 / 23,904 | 30,493 / 30,484 / 23,903, all rc 0 |
+
+A first proof (65247) failed the strict link: with gen/audio.h included, 18 wrapped initializers were isolated and
+five of them define a global `target()`. The records replaced the gen classes.

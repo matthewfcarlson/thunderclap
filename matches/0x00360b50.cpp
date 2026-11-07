@@ -9,8 +9,9 @@ class Registry {
     void FUN_002584d0(const __int64*, const __int64*, int, int);
 };
 void __cdecl Target() {
+    HULK_SIZE32(AudioSeqActionSilence, 0x1c);
     __int64 a = FUN_002672f0("SeqActionSilence", 0, 0);
     __int64 b = FUN_002672f0("Runtime_Sequence", 0, 0);
-    (*(Registry*)&DAT_004e72b0).FUN_002584d0(&b, &a, 0x1c, 4);
+    (*(Registry*)&DAT_004e72b0).FUN_002584d0(&b, &a, (int)sizeof(AudioSeqActionSilence), (int)__alignof(AudioSeqActionSilence));
     atexit(Finish);
 }

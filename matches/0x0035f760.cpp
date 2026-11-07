@@ -10,8 +10,9 @@ class Registry {
     void FUN_002584d0(U64*, U64*, int, int);
 };
 void __cdecl FUN_0035f760() {
+    HULK_SIZE32(AudioChannelVolumeArray, 0x40);
     U64 x = FUN_002672f0("ChannelVolumeArray", 0, 0);
     U64 y = FUN_002672f0("Runtime_Sequence", 0, 0);
-    (*(Registry*)&DAT_004e6110).FUN_002584d0(&y, &x, 0x40, 4);
+    (*(Registry*)&DAT_004e6110).FUN_002584d0(&y, &x, (int)sizeof(AudioChannelVolumeArray), (int)__alignof(AudioChannelVolumeArray));
     atexit(FUN_00364230);
 }

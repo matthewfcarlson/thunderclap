@@ -1,3 +1,4 @@
+#include "decls/data/records.h"
 extern "C" __int64 __cdecl FUN_002672f0(const char*, int, int) throw();
 struct FUN_00240060 {
     char data[12];
@@ -12,4 +13,4 @@ struct SeqEventStreamType : FUN_002605e0 {
     SeqEventStreamType();
     virtual void foo();
 };
-SeqEventStreamType::SeqEventStreamType() : FUN_002605e0(FUN_00240060().FUN_0023fc40("Stream", 0), FUN_002672f0("SeqEventStream", 0, 0), 32, 8) {}
+SeqEventStreamType::SeqEventStreamType() : FUN_002605e0(FUN_00240060().FUN_0023fc40("Stream", 0), FUN_002672f0("SeqEventStream", 0, 0), (int)sizeof(AudioSeqEventStream), (int)__alignof(AudioSeqEventStream)) { HULK_SIZE32(AudioSeqEventStream, 0x20); }

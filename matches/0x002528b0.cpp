@@ -1,4 +1,5 @@
 #include "gen/owners.h"
+#include "decls/data/records.h"
 typedef unsigned __int64 U64;
 extern "C" U64 __cdecl FUN_002672f0(const char*, int, int) throw();
 class FUN_00240060 {
@@ -18,4 +19,4 @@ class SeqEventVarVolumeType_2528b0 : public FUN_002605e0 {
     virtual void v();
 };
 SeqEventVarVolumeType_2528b0::SeqEventVarVolumeType_2528b0() throw()
-    : FUN_002605e0(((FUN_00240060 *)((owners::String_23fc40 *)&(FUN_00240060()))->FUN_0023fc40("Vol", (hulk_intptr)0)), FUN_002672f0("SeqEventVarVolume", 0, 0), 12, 4) {}
+    : FUN_002605e0(((FUN_00240060 *)((owners::String_23fc40 *)&(FUN_00240060()))->FUN_0023fc40("Vol", (hulk_intptr)0)), FUN_002672f0("SeqEventVarVolume", 0, 0), (int)sizeof(AudioSeqEventVarVolume), (int)__alignof(AudioSeqEventVarVolume)) { HULK_SIZE32(AudioSeqEventVarVolume, 0xc); }

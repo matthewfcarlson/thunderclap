@@ -10,8 +10,9 @@ class Registry {
     void FUN_002584d0(const U64*, const U64*, int, int);
 };
 void init() {
+    HULK_SIZE32(AudioSeqPlayerLayer, 0x78);
     U64 a = FUN_002672f0("SeqPlayerLayer", 0, 0);
     U64 b = FUN_002672f0("Runtime_Sequence", 0, 0);
-    (*(Registry*)&DAT_004e60c8).FUN_002584d0(&b, &a, 0x78, 4);
+    (*(Registry*)&DAT_004e60c8).FUN_002584d0(&b, &a, (int)sizeof(AudioSeqPlayerLayer), (int)__alignof(AudioSeqPlayerLayer));
     atexit(FUN_00364220);
 }

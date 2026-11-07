@@ -1,4 +1,5 @@
 #include "compat/ptr.h"
+#include "decls/data/records.h"
 extern "C" __int64 __cdecl FUN_002672f0(const char*, int, int);
 struct Arg {
     __int64 val;
@@ -20,4 +21,4 @@ class SeqEventStopTrackType_250f60 : public FUN_002605e0 {
     SeqEventStopTrackType_250f60();
     virtual void f();
 };
-SeqEventStopTrackType_250f60::SeqEventStopTrackType_250f60() : FUN_002605e0(FUN_00240060().FUN_0023fc40("Stop", 0), Arg(), 32, 4) {}
+SeqEventStopTrackType_250f60::SeqEventStopTrackType_250f60() : FUN_002605e0(FUN_00240060().FUN_0023fc40("Stop", 0), Arg(), (int)sizeof(AudioSeqEventStopTrack), (int)__alignof(AudioSeqEventStopTrack)) { HULK_SIZE32(AudioSeqEventStopTrack, 0x20); }

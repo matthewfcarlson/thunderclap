@@ -8,9 +8,10 @@ struct Mgr_360ff0 {
     void FUN_002584d0(__int64*, __int64*, int, int);
 };
 void __cdecl FUN_00360ff0() {
+    HULK_SIZE32(AudioHalVoice, 0x88);
     __int64 a;
     __int64 b = FUN_002672f0("HalVoice", 0, 0);
     a = FUN_002672f0("Runtime_Hal", 0, 0);
-    (*(Mgr_360ff0*)&DAT_004e76e8).FUN_002584d0(&a, &b, 0x88, 4);
+    (*(Mgr_360ff0*)&DAT_004e76e8).FUN_002584d0(&a, &b, (int)sizeof(AudioHalVoice), (int)__alignof(AudioHalVoice));
     atexit(cleanup);
 }

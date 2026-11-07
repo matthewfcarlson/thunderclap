@@ -19,4 +19,4 @@ class SeqEventLogicOrType_254f40 : public FUN_002605e0 {
     virtual void g();
 };
 SeqEventLogicOrType_254f40::SeqEventLogicOrType_254f40() throw()
-    : FUN_002605e0(((FUN_00240060 *)((owners::String_23fc40 *)&(FUN_00240060()))->FUN_0023fc40(((char*)&DAT_00426608), (hulk_intptr)0)), FUN_002672f0("SeqEventLogicOr", 0, 0), 0x18, 4) {}
+    : FUN_002605e0(((FUN_00240060 *)((owners::String_23fc40 *)&(FUN_00240060()))->FUN_0023fc40(((char*)&DAT_00426608), (hulk_intptr)0)), FUN_002672f0("SeqEventLogicOr", 0, 0), (int)sizeof(AudioSeqEventLogicOr), (int)__alignof(AudioSeqEventLogicOr)) { HULK_SIZE32(AudioSeqEventLogicOr, 0x18); }

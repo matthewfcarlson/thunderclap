@@ -10,8 +10,9 @@ class Registry {
     void FUN_002584d0(unsigned __int64*, unsigned __int64*, int, int);
 };
 void init() {
+    HULK_SIZE32(AudioSeqActionWaitBeat, 0x18);
     unsigned __int64 a = FUN_002672f0(DAT_00429c74, 0, 0);
     unsigned __int64 b = FUN_002672f0(DAT_00429270, 0, 0);
-    (*(Registry*)&DAT_004e6a18).FUN_002584d0(&b, &a, 24, 4);
+    (*(Registry*)&DAT_004e6a18).FUN_002584d0(&b, &a, (int)sizeof(AudioSeqActionWaitBeat), (int)__alignof(AudioSeqActionWaitBeat));
     atexit(cleanup);
 }

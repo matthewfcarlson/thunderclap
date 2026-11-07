@@ -10,8 +10,9 @@ class Manager_35f380 {
 };
 Manager_35f380 gManager_35f380;
 void target() {
+    HULK_SIZE32(AudioMixer, 0x30);
     __int64 a = FUN_002672f0(((char*)&DAT_004290e4), 0, 0);
     __int64 b = FUN_002672f0(((char*)&DAT_004290d8), 0, 0);
-    gManager_35f380.FUN_002584d0(&b, &a, 48, 4);
+    gManager_35f380.FUN_002584d0(&b, &a, (int)sizeof(AudioMixer), (int)__alignof(AudioMixer));
     atexit(FUN_00364160);
 }

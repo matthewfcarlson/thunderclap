@@ -8,8 +8,9 @@ struct Manager {
     void FUN_002584d0(__int64*, __int64*, int, int);
 };
 void FUN_00361570() {
+    HULK_SIZE32(AudioSeqTrack, 0x48);
     __int64 a = FUN_002672f0(DAT_0042ab44, 0, 0);
     __int64 b = FUN_002672f0(DAT_0042a620, 0, 0);
-    (*(Manager*)&DAT_004e7ac0).FUN_002584d0(&b, &a, 0x48, 4);
+    (*(Manager*)&DAT_004e7ac0).FUN_002584d0(&b, &a, (int)sizeof(AudioSeqTrack), (int)__alignof(AudioSeqTrack));
     atexit(Done);
 }

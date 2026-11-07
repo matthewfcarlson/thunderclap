@@ -9,8 +9,9 @@ class Holder {
     void FUN_002584d0(__int64*, __int64*, int, int);
 };
 void target() {
+    HULK_SIZE32(AudioSeqTrackPlayer, 0x60);
     __int64 a = FUN_002672f0("SeqTrackPlayer", 0, 0);
     __int64 b = FUN_002672f0("Runtime_Sequence", 0, 0);
-    (*(Holder*)&DAT_004e78e0).FUN_002584d0(&b, &a, 0x60, 4);
+    (*(Holder*)&DAT_004e78e0).FUN_002584d0(&b, &a, (int)sizeof(AudioSeqTrackPlayer), (int)__alignof(AudioSeqTrackPlayer));
     atexit(FUN_003646c0);
 }

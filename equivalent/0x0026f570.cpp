@@ -24,12 +24,13 @@ namespace core { struct XboxDrive : FUN_00272d00 {
  virtual void slot0(); virtual void slot4(); virtual void slotC(); XboxDrive(const char*,const char*);
 }; }
 core::XboxDrive::XboxDrive(const char* name,const char* source) {
+ HULK_SIZE32(CoreDriveThread, 0x94);
  stateC0=0; state1D8=0; state1DC=0; FUN_002705f0();
  if(name[0]=='D' && name[1]==':' && name[2]==0) {
   type=0x22; labelPointer= ((char*)0x445644);
   if(!(*(DriveThread_26f570**)&DAT_00528408)) {
    FUN_0026d820(((char*)&DAT_005283e8)); (*(const char**)&DAT_004cdbb0)=source;
-   DriveThread_26f570* p=FUN_00266e00(source,0x94);
+   DriveThread_26f570* p=FUN_00266e00(source,(hulk_intptr)sizeof(CoreDriveThread));
    (*(DriveThread_26f570**)&DAT_00528408)=p ? p->FUN_002733c0(((char*)&DAT_005283e8),source) : 0;
    resourceData=((char*)&DAT_005283e8); resource=(*(DriveThread_26f570**)&DAT_00528408);
   } else { resourceData=((char*)&DAT_005283e8); resource=(*(DriveThread_26f570**)&DAT_00528408); resource->retain(); }
@@ -41,7 +42,7 @@ core::XboxDrive::XboxDrive(const char* name,const char* source) {
   for(int i=0;i<15;++i) label[i]=title[i];
   if(!(*(DriveThread_26f570**)&DAT_0052840c)) {
    FUN_0026d820(((char*)&DAT_005283cc)); (*(const char**)&DAT_004cdbb0)=source;
-   DriveThread_26f570* p=FUN_00266e00(source,0x94);
+   DriveThread_26f570* p=FUN_00266e00(source,(hulk_intptr)sizeof(CoreDriveThread));
    (*(DriveThread_26f570**)&DAT_0052840c)=p ? p->FUN_002733c0(((char*)&DAT_005283cc),source) : 0;
    resourceData=((char*)&DAT_005283cc); resource=(*(DriveThread_26f570**)&DAT_0052840c);
   } else { resourceData=((char*)&DAT_005283cc); resource=(*(DriveThread_26f570**)&DAT_0052840c); resource->retain(); }
