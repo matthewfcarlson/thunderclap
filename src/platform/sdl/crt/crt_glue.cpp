@@ -149,6 +149,25 @@ int HULK_HOST_CDECL hulk_crt_fprintf(void* f, const char* fmt, ...) {
 // percent of arguments). These run the instruction the original runs, at the game's precision control (53 bits).
 // On x87 hardware that is the original's result; under an x87 emulator it is the emulator's (QEMU and Rosetta 2
 // both compute fpatan with the host's atan2). A 64-bit build needs software versions instead.
+#if defined(__i386__) || defined(_M_IX86)
+// log10 (flt2, docs/native-float64.md "log10"). The original calls no library log10: MSVC 7.1 inlined `fld v; fldlg2;
+// fxch; fyl2x` at both sites, so tools/wine_host.py binds the tree's log10 to hulk_crt_log10_x87 in every Wine build
+// (HULK_WINE_LOG10=msvcrt: msvcrt's again). The value is softx87's fyl2x with FLDLG2, what xemu's fyl2x gives at the
+// game's arguments, left in st(0) as all 80 bits. On entry it frees every x87 register (emms: tag word all empty, control
+// and status words kept): a cdecl call starts with an empty x87 stack, but the Wine build's x87 code sometimes leaves a
+// value behind (the leak is not found yet), and msvcrt's log10, which the default build used until now, frees them the
+// same way (measured: the tag word before and after the call); play3 depends on it (without, the leaks pile up and the
+// replay leaves the recording at 6,090 / 12,060).
+#include "softx87.h"
+double HULK_HOST_CDECL hulk_crt_log10_c(double x) {
+    hulk_x87_ext r = hulk_x87_log10_ext(x);
+    double d;
+    __asm__("fldt %1" : "=t"(d) : "m"(r));
+    return d;
+}
+double HULK_HOST_CDECL hulk_crt_log10_x87(double x);
+__asm__(".text\n.globl _hulk_crt_log10_x87\n_hulk_crt_log10_x87:\n\temms\n\tjmp _hulk_crt_log10_c\n");
+#endif
 #if defined(HULK_SOFT_X87)
 // soft-intrinsics (docs/soft-x87.md): the same functions computed by softx87.cpp, integer arithmetic only, what real x87
 // hardware returns. Selected with -DHULK_SOFT_X87=1 (tools/wine_host.py adds it when HULK_SOFT_X87=1 is in the

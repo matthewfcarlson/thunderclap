@@ -157,6 +157,9 @@ def host_crt(cp, outdir):
     out["objects"] = compile_dir(cp, CRT_DIR, os.path.join(outdir, "crt"), st,
                                  defines=(("HULK_SOFT_X87=" + os.environ["HULK_SOFT_X87"],) + (("HULK_SOFT_X87_STATS=1",)
                                                     if os.environ.get("HULK_SOFT_X87_STATS") == "1" else ())) if soft else ())
+    if os.environ.get("HULK_WINE_LOG10", "x87") != "msvcrt":   # (flt2) the original's inlined fldlg2/fyl2x (crt_glue.cpp)
+        crt = [(a, "hulk_crt_log10_x87" if t == "log10" else t, n) for a, t, n in crt]
+        st["log10 x87"] = 1
     if soft:
         crt = [(a, SOFT_X87_REMAP.get(t, t), n) for a, t, n in crt]
         st["soft x87 math"] = 1

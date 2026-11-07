@@ -25,11 +25,12 @@ Scripts and raw outputs: `build/flt1/` (local; `RESUME.md`, `fp/`, `scripts/`).
 | the 80-bit result of fsin/fcos/fptan/fpatan/... used by the next instruction | soft x87 for the functions (as before) plus **x87ext**: the consumer computes from the 80-bit value at 53 bits | the same | x86-64 hardware x87 as the reference: 0 mismatches in 2,000,000 per operation, the same hash on arm64 |
 | float -> integer conversion | **fpcvt**: the Wine build's results for every input | the same | 37 edge values and 3,000 random ones, 12 conversions each: 0 differences from the i686 SSE object on both targets |
 | comparisons | nothing to do | nothing to do | identical predicates on i686 SSE, i686 x87, x86-64 and arm64 for NaN, infinities and ties |
-| transcendentals | `softx87` (integer only; native CRT table rows) | the same | same results on both targets (hash) |
+| transcendentals | `softx87` (integer only; native CRT table rows) | the same | same results on both targets (hash); `log10` against xemu's `fyl2x` at play3's 626,687 arguments (section "log10") |
 | control word, denormals | nothing (SSE: MXCSR default, no FTZ/DAZ) | FPCR cleared by `entry_posix` (FZ/DN/AH off) | wine-float.md, native-android.md section 6 |
 
-The four passes are in `tools/native_float.py`. The native compiles apply them in `native_mac.retarget()` when
-`HULK_NATIVE_FPFIX=1` (off by default; the setting is part of the cache key, so the default objects are unchanged). The
+The four passes are in `tools/native_float.py`. The native compiles apply them in `native_mac.retarget()`, **by default
+since flt2 (2026-11-06)**; `HULK_NATIVE_FPFIX=0` turns them off (the setting is part of the cache key: `VERSION` 2+fpfix1
+with, 2 without, so caches built before the switch are rebuilt once). The
 x87ext helpers are `src/platform/sdl/host/x87ext_native.cpp`, linked with the host glue. Over the whole tree (HEAD
 77b9475d2, 2,659 TUs): castfix 252, fpcvt 384 conversions (the float-cast-overflow build of wine-float.md section 14
 counted the same 384), x87ext 264 math calls with 203 consumers, retfix64 217 float definitions and 2,479 float calls;
@@ -136,7 +137,7 @@ log10, pow, fmod) matches the recording everywhere but the known transients (588
 default and the soft run differ at 1,716 of 2,011 common checkpoints, first at 8,850. (soft-x87.md's "no checkpoint
 change in 30,000 frames" was measured against a control that had already left the recording at 3,900.) The 64-bit
 builds bind the math rows to soft x87 (native_crt_table.h), so **they would leave play3 at 8,850 whatever the float
-passes do**: the transcendental implementation, not the precision model, is the first native fidelity item.
+passes do** (flt2: resolved, the cause was leaked x87 registers in the Wine build, section "log10"): the transcendental implementation, not the precision model, is the first native fidelity item.
 
 **The culprit is `log10`.** A per-function switch (`HULK_SOFT_X87_HW=f,...`: under `HULK_SOFT_X87=1` the listed
 functions keep the default build's version, the x87 instruction for sin cos tan atan atan2 exp, msvcrt for asin acos
@@ -160,13 +161,97 @@ play3 to 12,000 or 60,000, HEAD 50dd6fb59 workspace, one lineage:
 So every soft x87 routine except `log10` reproduces the recording to its end. `log10` (`fldlg2; fxch; fyl2x` in soft
 x87, 64-bit result) and a correctly rounded `log10` both move play3; Wine's msvcrt `log10` (the default Wine build) does
 not. The game's `log10` feeds the 3D sound's dB conversion (`ToDb`, FUN_00258f90 -> FUN_00262270, wine-float.md
-section 14), so the effect reaches the checkpoints through audio-timed state. Locally (`build/flt1/fp/fm*.cpp`): soft
+section 14). (flt2: the cause is not the value but a side effect of msvcrt's `log10` on leaked x87 registers; next section.) Locally (`build/flt1/fp/fm*.cpp`): soft
 fyl2x `log10` differs from macOS libm in 769 of 2,000,000 arguments, the correctly rounded one in 608 (macOS libm is
 not correctly rounded there; the correctly rounded variant was exact against a decimal reference on all 300 sampled
-disagreements). What the original's CRT `log10` computes at the arguments play3 meets is the open question: an xemu
-probe of those calls (tools/xemu_x87_probe.py's method on the game's `log10`), then a clean-room implementation that
-gives those bits, used by the native table's `log10` row and by the Wine build. Until then the native builds should
-expect play3 to leave the recording at about 6,000-9,000 for this reason alone.
+disagreements). What the original computes there: the next section.
+
+## log10 (flt2, 2026-11-06)
+
+**There is no library `log10` in the original's path.** Both call sites inline MSVC 7.1's intrinsic (the game's own code,
+read in `tools/packet.py show`): FUN_00258f90+0x388 (`ToDb`) is `fld dword [esp+0x10]; fldlg2; fxch st(1); fyl2x; fmul
+dword [0x3fef48]; fstp dword` and FUN_0033b900 is `fldlg2; fxch st(1); fyl2x; fstp dword`. The constant at 0x3fef48 is
+10.0f, so `ToDb(v)` is `10*log10(v)` (a power ratio), not 20. The reference is therefore what the emulated CPU's
+`FLDLG2`/`FYL2X` return (play3 was recorded in xemu with no game function patched), followed by the game's own `fmul` at
+53-bit precision and the float store. No CRT code is involved, and none was read.
+
+**How the reference data was obtained** (black box only): `tools/xemu_log10_probe.py`, an xemu queue job on the Mac
+Studio (`--needs xemu --host studio`, `-snapshot`, run from `~/hulk-tr1`; no watchpoints, no disk writes). It boots the
+hybrid image paused, stops at the game's `main` (0x8ee30) with a breakpoint, writes a loop under the stack (`cli; fninit;
+fldcw CW`; per argument `fld qword; fldlg2; fxch; fyl2x; fnstsw`, the 80-bit result stored with `fstp tbyte`, the result
+stored as a float, and the result times `[0x3fef48]` stored as a float), continues to a breakpoint after the loop and
+reads the results over the GDB stub, 64 arguments per chunk, at control words 0x027F (the game's) and 0x037F. Arguments:
+edge cases (zeros, infinities, NaN, negatives, denormals, every power of two from 2^-149 to 2^127, powers of ten, 4,096
+floats next to 1.0 and 512 doubles next to 1.0, the integers 1-4,096), 40,000 random floats in (0, 1] (the dB conversion's
+domain), 10,000 random positive floats and 10,000 random doubles (job 64560, 69,059 arguments, 11 s), and 159,975 floats
+chosen to lie within 0.004 ULP of a rounding tie of the exact result (job 64567; found with a local scan of 20,000,000
+random floats in (0, 1]). Raw outputs stay local (`build/flt2/probe/`, not tracked); the argument set of play3 itself
+comes from a Wine-build trace (job 65002, below).
+
+**Observations.**
+
+- Precision control does not apply: every 80-bit result is the same at 0x027F and 0x037F (Intel documents this for the
+  transcendental instructions).
+- The 80-bit result is `FLDLG2 * log2(x)` (FLDLG2 = 0x3ffd:9a209a84fbcff799, log10(2) rounded to nearest) rounded once to
+  64 bits, nearest even, in 69,050 of the 69,052 finite arguments of the first set, the 2 others within 0.0008 ULP of a
+  tie. A correctly rounded `log10(x)` agrees in only 32,785 (the constant's own rounding moves the last bit), a double
+  `log10` in 51. Special cases: the x87's (zero -> -inf, negative and -inf -> the negative default NaN, NaN quieted,
+  1 -> +0, +inf -> +inf).
+- Near ties xemu's FYL2X is not exact: in the tie set 620 of 158,532 results are one 64-bit ULP from the correctly
+  rounded value, both ways (334 up, 286 down). The needed error, expressed as an absolute error of log2(x), is below about
+  2^-71.5 and scales with the size of the series term after the leading one (s^3 for s = (m-1)/(m+1), m in
+  [sqrt(1/2), sqrt(2))): xemu evidently computes part of log2 in 64-bit arithmetic. Not reproduced (rounding that tail term
+  to 64 bits does not give xemu's results), and not needed: see the next point.
+- **What the game sees agrees everywhere.** The float stored by FUN_0033b900 and the `10.0f` product stored by ToDb,
+  computed from the model's 80-bit value, are identical to xemu's in all 227,583 probed arguments at control word 0x027F
+  (and all 455,166 records at both control words), including the 620 near-tie ones: a one-ULP change of the 80-bit value
+  only shows after rounding to float if the value is also within 2^-40 of a float tie.
+
+**play3's own arguments.** A measurement-only Wine build (job 65002; `build/flt2/wt2`, not committed: the tree's `log10`
+bound to a wrapper that calls msvcrt's and logs each new argument with msvcrt's and softx87's 80-bit results) replayed
+play3 to 60,180 on the recording like the control: 3,589,048 calls, 626,687 distinct arguments. All of them probed in
+xemu (job 65007, mac2): the game-visible floats from softx87's value equal xemu's in 626,687 of 626,687 (both control
+words); the 80-bit value differs in about 84 near-tie arguments per control word. msvcrt's `log10` returns double
+results (the low 11 mantissa bits zero) whose game-visible floats are also identical to softx87's at every finite
+argument, with or without a store to double in between.
+
+**What really moved play3: leaked x87 registers.** So the values were never the problem, and two more Wine builds showed
+what was: a wrapper that calls msvcrt's `log10` but returns softx87's value replays clean (job 65012), and one that also
+records the x87 environment around the call (job 65013, `fnstenv` before and after) finds the tag word **non-empty at
+entry** in 35 of the 64 distinct environments it saw (from the 317,094th call on; a cdecl call should find the x87 stack
+empty) and **all empty afterwards** every time, control and status words unchanged. msvcrt's `log10` frees registers
+that the Wine build's x87 code leaves behind; without that, the leaks pile up until some push overflows (the masked
+response is the default NaN) and play3 leaves the recording (6,090-6,150 and from 12,060 with softx87 alone: job 65010;
+8,850 with all of soft x87: job 65011). In the original the dB conversion never meets a NaN: an xemu log of
+FUN_00262270's argument during play3 frames 5,907-6,403 (job 65006, `rl4p.py --fn 0x262270:10`, the checkpoints
+matching the recording) has 105,154 calls from the seven ToDb sites, 4,027 distinct values, none NaN. Where the Wine
+build leaks is not found yet (a function result in st(0) that a caller declared otherwise never pops, the likely kind);
+until it is, the Wine build's `log10` frees the registers the way msvcrt's did.
+
+**Implementation.** softx87's `hulk_x87_log10_ext` (`src/platform/sdl/crt/softx87.cpp`: fyl2x with FLDLG2, integer
+arithmetic only) already computes the model; an independent implementation written for this (192-bit fixed-point atanh
+series, kept local as `build/flt2/fp/softx87_lg2.cpp`) agreed with it bit for bit on all 853,000 probed arguments, so the
+tree keeps the one routine. It is used by:
+
+- the native builds, as before: the native CRT table's `log10` row (`hulk_ncrt_log10` -> `hulk_x87_log10`) and the x87ext
+  slot (`hulk_x87e_log10`); they have no x87 stack, so nothing leaks there;
+- the Wine build **by default** (it used msvcrt's until now): `tools/wine_host.py` binds the tree's `log10` to
+  `hulk_crt_log10_x87` (crt_glue.cpp: `emms`, which empties the tag word and keeps the control and status words, then
+  softx87's 80-bit value in st(0), the way the inlined `fyl2x` leaves it); `HULK_WINE_LOG10=msvcrt` binds msvcrt's again.
+
+Test: `tests/native_host/native_float_test.py` check `log10` (powers of two against exact integer arithmetic, random and
+special arguments against the documented rounding in decimal arithmetic, x86-64 == arm64, and, when the local probe
+files are present, the game-visible floats against xemu's; that part is skipped otherwise).
+
+**Proof** (HEAD 3234e788e + this change, `--gfx`, play3, data from HEAD's own data_gen, control and proof on the Mac
+Studio, one lineage): control 64977, proof 65014: `tools/ckpt_gate.py` GATE ok, the checkpoints identical at all 2,002
+common frames (0-60,030), prng hashes identical, only the known transients 5880/5910/34260/52620/52650, 1,314 unbound in
+both, x87-keep 268 in both. **Soft x87 with this `log10`** (`HULK_SOFT_X87=1`, every math routine soft, job 65016, same lineage): **no divergence to 60,330** beyond the known transients, the checkpoints identical to
+the control's at all 2,002 common frames (GATE ok) (before: 8,850 with all soft, 6,090 with `log10` alone). So the 64-bit
+builds' math table (all soft x87) is no longer expected to leave play3 for this reason.
+(A first control built from the laptop's `build/data/src`, generated before reg3's commit, hung at the audio start-up
+on both studio and mac2 with no checkpoint; with `--data-src` from HEAD's own data_gen it ran clean.)
+
 
 ## The `float` callers of `hulk_freg` functions (unb1's 676 names)
 
@@ -256,8 +341,7 @@ wibo checksums are not pinned yet; the distro's Wine (8-10) differs from Whisky'
 
 ## Next
 
-1. Make `HULK_NATIVE_FPFIX=1` the default of the native compiles (a decision: it changes every native object; the
-   start-up stop is unchanged with it, above).
+1. (done, flt2) `HULK_NATIVE_FPFIX=1` is the default of the native compiles.
 2. x87ext for 80-bit values returned through functions (the 2 + 9 sites above).
 3. `equiv.py --x64` with the passes on its 64-bit side, so the per-function check covers them.
 4. The first Linux run (platform layer), then a float comparison once the start-up reaches the game loop.

@@ -8,6 +8,7 @@ arm64 macOS host (x86-64 cases run under Rosetta). Three checks:
   x87e   kernels through the x87ext pass: x86-64 against hand-written x87 references, and arm64 == x86-64.
 Exit 0 when every check passes. Work files: build/native-float-test/.
 """
+import math
 import os
 import random
 import re
@@ -167,9 +168,117 @@ def check_x87e():
     return ok and hashes["x86_64"] == hashes["arm64"]
 
 
+LG2_M = 0x9A209A84FBCFF799          # FLDLG2: log10(2) = LG2_M * 2^-65 (round to nearest)
+
+
+def _e80_round(sign, num, den_log2):
+    """num / 2^den_log2 (num > 0 an integer) rounded to 64 bits, nearest even, as the 80-bit hex"""
+    top = num.bit_length() - 1
+    sh = top - 63
+    if sh > 0:
+        q, r = num >> sh, num & ((1 << sh) - 1)
+        half = 1 << (sh - 1)
+        if r > half or (r == half and q & 1):
+            q += 1
+        if q >> 64:
+            q >>= 1
+            top += 1
+    else:
+        q = num << -sh
+    return "%04x%016x" % ((sign << 15) | (16383 + top - den_log2), q)
+
+
+def log10_expect(b):
+    """softx87's documented log10 (docs/native-float64.md "log10"): FLDLG2 * log2(x) rounded once at 64 bits; the x87's
+    special cases. Exact for powers of two (integers), decimal arithmetic at 120 digits otherwise."""
+    from decimal import Decimal, getcontext
+    getcontext().prec = 120
+    x = struct.unpack("<d", struct.pack("<Q", b))[0]
+    if x != x:
+        return "7fffc000000000000000" if not b >> 63 else "ffffc000000000000000"
+    if x == 0:
+        return "ffff8000000000000000"
+    if x < 0:
+        return "ffffc000000000000000"
+    if x == float("inf"):
+        return "7fff8000000000000000"
+    if x == 1.0:
+        return "00000000000000000000"
+    m, e = math.frexp(x)
+    if m == 0.5:                                         # 2^(e-1): (e-1) * LG2_M * 2^-65 exactly
+        k = e - 1
+        return _e80_round(1 if k < 0 else 0, abs(k) * LG2_M, 65)
+    v = Decimal(LG2_M) / Decimal(2) ** 65 * Decimal(x).ln() / Decimal(2).ln()
+    sign = 1 if v < 0 else 0
+    a = abs(v)
+    top = math.floor(math.log2(float(a)))
+    while Decimal(2) ** top > a:
+        top -= 1
+    while Decimal(2) ** (top + 1) <= a:
+        top += 1
+    q = a * Decimal(2) ** (63 - top)
+    n = int(q)
+    fr = q - n
+    if fr > Decimal("0.5") or (fr == Decimal("0.5") and n & 1):
+        n += 1
+    if n >> 64:
+        n >>= 1
+        top += 1
+    return "%04x%016x" % ((sign << 15) | (16383 + top), n)
+
+
+def check_log10():
+    """softx87's log10 (the original's inlined fldlg2/fyl2x): its documented rounding on powers of two, random and special
+    arguments, the same bits on x86-64 and arm64, and, when the local probe data is there (HULK_LOG10_PROBE: the jsonl
+    files of tools/xemu_log10_probe.py, default build/flt2/probe/), the game-visible floats against xemu's."""
+    rnd = random.Random(1010)
+    xs = [0, 1 << 63, 0x7FF0000000000000, 0xFFF0000000000000, 0x7FF8000000000000, 0xBFF0000000000000, 0x3FF0000000000000, 1,
+          0x000FFFFFFFFFFFFF]
+    xs += [struct.unpack("<Q", struct.pack("<d", math.ldexp(1.0, k)))[0] for k in range(-1074, 1024)]
+    xs += [struct.unpack("<Q", struct.pack("<d", struct.unpack("<f", struct.pack("<I", rnd.randint(1, 0x3F800000)))[0]))[0]
+           for _ in range(3000)]
+    xs += [(rnd.randint(1, 2046) << 52) | rnd.getrandbits(52) for _ in range(1500)]
+    xs += [0x3FF0000000000000 + k for k in range(-64, 65) if k]
+    probe = {}
+    pdir = os.environ.get("HULK_LOG10_PROBE") or os.path.join(ROOT, "build/flt2/probe")
+    if os.path.isdir(pdir):
+        import glob
+        import json
+        for fn in sorted(glob.glob(os.path.join(pdir, "*.jsonl"))):
+            for line in open(fn):
+                r = json.loads(line)
+                if r.get("cw") == 0x27F:
+                    probe[int(r["x"], 16)] = (r["e80"], r["f"], r["db"])
+    allx = xs + [x for x in probe if x not in set(xs)]
+    inp = "".join("%016x\n" % x for x in allx)
+    outs = {}
+    for t in ("x86_64", "arm64"):
+        exe = os.path.join(W, "log10_%s" % t)
+        run([CXX] + mac(t) + ["-O1", "-std=c++14", "-I" + os.path.join(SX, "crt"), os.path.join(T, "log10_drv.cpp"),
+                              os.path.join(SX, "crt/softx87.cpp"), "-o", exe])
+        outs[t] = run([exe], input=inp)
+    ok = outs["x86_64"] == outs["arm64"]
+    got = {int(l.split()[0], 16): l.split()[1:] for l in outs["arm64"].splitlines()}
+    bad = [x for x in xs if got[x][0] != log10_expect(x)]
+    print("log10 %d arguments: %d differ from the documented rounding; x86_64 %s arm64" % (
+        len(xs), len(bad), "==" if ok else "!="))
+    for x in bad[:5]:
+        print("   %016x got %s want %s" % (x, got[x][0], log10_expect(x)))
+    ok &= not bad
+    if probe:
+        e80 = sum(1 for x, p in probe.items() if got[x][0] == p[0])
+        vis = sum(1 for x, p in probe.items() if got[x][1:] == [p[1], p[2]])
+        print("log10 xemu probe (%s): game-visible floats %d of %d identical, 80-bit results %d of %d" % (
+            pdir, vis, len(probe), e80, len(probe)))
+        ok &= vis == len(probe)
+    else:
+        print("log10 xemu probe: no local data (%s), skipped" % pdir)
+    return ok
+
+
 def main():
     os.makedirs(W, exist_ok=True)
-    res = {"conv": check_conv(), "ops": check_ops(), "x87e": check_x87e()}
+    res = {"conv": check_conv(), "ops": check_ops(), "x87e": check_x87e(), "log10": check_log10()}
     print("native_float_test: " + ", ".join("%s %s" % (k, "ok" if v else "FAIL") for k, v in res.items()))
     sys.exit(0 if all(res.values()) else 1)
 
