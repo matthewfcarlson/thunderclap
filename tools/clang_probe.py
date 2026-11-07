@@ -484,20 +484,22 @@ def compile_one(cfg, rel, digest, clang):
             return r
     obj = os.path.join(d, key + ".obj")
     cmd = [clang] + flags + ["-I" + os.path.join(base, "include"), "-I" + os.path.join(base, "repo-include"), src]
+    # (per process: jobs of several lineages on one host share this cache and may compile the same key at once)
+    tmp = obj + ".%d.tmp" % os.getpid()
     if spec["obj"]:
-        cmd += ["-o", obj + ".tmp"]
+        cmd += ["-o", tmp]
     try:
         if sse and spec["obj"]:
-            rc, out = sse_compile(cmd, obj + ".tmp")
+            rc, out = sse_compile(cmd, tmp)
         else:
             p = subprocess.run(cmd, capture_output=True, text=True, errors="replace", timeout=900)
             rc, out = p.returncode, p.stderr
     except subprocess.TimeoutExpired:
         rc, out = -1, "%s:1:1: fatal error: clang timed out" % src
     if spec["obj"] and rc == 0:
-        os.replace(obj + ".tmp", obj)
-    elif os.path.exists(obj + ".tmp"):
-        os.unlink(obj + ".tmp")
+        os.replace(tmp, obj)
+    elif os.path.exists(tmp):
+        os.unlink(tmp)
     diags = []
     for line in out.splitlines():
         m = DIAG_RE.match(line)
