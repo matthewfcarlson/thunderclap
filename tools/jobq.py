@@ -488,6 +488,7 @@ class Host:
         self.slots_cfg = cfg.get("slots", 3 if self.local else 8)
         self.min_slots = 1 if self.local else 2
         self.xemu_max = cfg.get("xemu_max", 1) if "xemu" in self.caps else 0
+        self.take_any = cfg.get("any", True)         # false: only jobs that name one of its caps (a host without MSVC)
         self.dir = cfg.get("dir", "hulk-permute")
         self.paths = cfg.get("path", [])
         self.python = cfg.get("python", "python3")   # the host's interpreter for jobq_run.py (stdlib only, 3.9+)
@@ -588,6 +589,8 @@ class Host:
         if aff and aff != self.name and now < jget(job, "affinity_until", 0):
             return False
         if needs != "any" and needs not in self.caps:
+            return False
+        if needs == "any" and not self.take_any:
             return False
         if needs == "xemu" or "xemu" in job["cmd"].lower():
             if self.local or self.xemu_used >= self.xemu_max:
@@ -944,6 +947,9 @@ class Daemon:
                 h.caps = set(cfg.get("caps", []))
                 h.xemu_max = cfg.get("xemu_max", 1) if "xemu" in h.caps else 0
                 log("%s: caps now %s" % (h.name, ",".join(sorted(h.caps))))
+            if cfg is not None and cfg.get("any", True) != h.take_any:
+                h.take_any = cfg.get("any", True)
+                log("%s: needs=any jobs %s" % (h.name, "taken" if h.take_any else "refused"))
             if cfg is not None and cfg.get("python", "python3") != h.python:
                 h.python = cfg.get("python", "python3")
                 log("%s: runner interpreter now %s" % (h.name, h.python))

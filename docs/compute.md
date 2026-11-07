@@ -52,11 +52,13 @@ is appended as results arrive and addresses already in it are skipped (rerun to 
 | `equiv`, `msvc`, `clang`, `any` | mac2, mac1 (not the laptop) |
 | `wine` | mac2, mac1 (headless Wine replays; `wine64` in argv0 is expanded to the host's Whisky Wine: the app's copy on the laptop, `~/wine-whisky` on the Macs) |
 | `wine-gfx` | laptop only (a Wine run that draws through MoltenVK; see Wine replays) |
-| `xemu` | mac2 only, one at a time, never the laptop |
+| `xemu` | mac2 and the Mac Studio (`studio`), one at a time on each, never the laptop |
 
 Hosts and capabilities: `build/jobs/hosts.json` (untracked: it holds user and host names; created from
 `build/agent-tools/hosts.json` on first use; fields `slots`, `caps`, `pref` (lower is preferred), `path`, `xemu_max`,
-`python` (the host's interpreter for the runner, default `python3`; a host without the Command Line Tools names its venv's)).
+`python` (the host's interpreter for the runner, default `python3`; a host without the Command Line Tools names its venv's),
+`any` (default true; false: the host takes only jobs whose `--needs` is one of its caps, for a host that cannot run
+MSVC, such as the Mac Studio without Rosetta)).
 A host added to `hosts.json` joins the running daemon within 30 s (no restart); see "Adding a host" below.
 
 ## Workspaces
@@ -243,3 +245,24 @@ What the user does (the script stops or prints the command):
    host's checkout). Then rerun the script: its smoke test byte-matches one function there.
 6. `--register`, then `tools/jobq.py status` (the host appears with its slots). A first `tools/wine_build_job.py submit
    --host NAME ...` with a short replay checks the Wine side (the first job on a host makes the Wine prefix, about a minute).
+
+### An xemu host
+
+xemu jobs run in the host's `~/hulk-tr1`: a plain copy (not a git checkout) of the xemu side, with `build/xemu/Xbox-Emulator-Files`
+(the user's BIOS, MCPX and base HDD image, read-only), `build/hybrid` (hybrid ISOs, eeprom) and `build/replays` (recordings and
+their snapshot disks). Job scripts `cd ~/hulk-tr1` and check `snapshot=True` in its `tools/hybrid_run.py`. A second xemu host
+(the Mac Studio, `studio`, 2026-11-06) was brought up from mac2's:
+
+1. `/Applications/xemu.app` copied from mac2 (the same release: VM snapshots only load in the version that saved them).
+   xemu is a universal app, so an xemu host needs no Rosetta.
+2. `~/hulk-tr1` streamed from mac2 (`tar` over ssh through the laptop, without `build/traces`, `*.out` and sockets); its
+   symlinks (`isos`, `build/{venv,tools,compilers,equiv,functions.csv,rtti.json}`) re-pointed at the host's own
+   `~/hulk-permute`.
+3. A snapshot disk records its base image by absolute path; where the home directory differs, `rebase.py OVERLAY BASE` in
+   `~/hulk-tr1` rewrites that header field of the host's copy (only the copy; mac2's files are untouched). Check the base
+   image's sha1 against mac2's.
+4. `hosts.json`: `"caps": ["xemu"], "xemu_max": 1, "any": false` (no MSVC or Wine without Rosetta). Check with a short
+   replay pinned to the host: `hybrid_test.py replay build/replays/play3.json --from-snapshot 0 --until-frame 6500` (job 64292
+   on studio: identical).
+
+The host needs a console login (xemu opens a window) and must not sleep.
