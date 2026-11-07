@@ -11,6 +11,9 @@
   tools/hybrid_test.py record NAME [--minutes 30] [--pad GUID]
         play the unmodified game in xemu (hooks: virtual clock, constant seed, input recording, checkpoints) and
         save the pad input and checkpoints to tests/replays/NAME.json. Stop with Ctrl-C (or --minutes).
+  tools/hybrid_test.py record play4 --continue play3 [--from-snapshot K]
+        resume play3's VM snapshot K (default the last) and record live play from there into play4.json (its own
+        disk: a clone of play3's); also writes build/replays/play3+4.json, the combined recording.
   tools/hybrid_test.py replay tests/replays/NAME.json [--until-frame N]
         replay a recording on the same build and compare its checkpoints with the recorded ones.
   tools/hybrid_test.py replay NAME.json --drawlog EVERY[:FIRST[:LAST]] [--drawlog-out PATH]
@@ -58,6 +61,9 @@ def hooks_cfg(replay, wide=False, snap_frame=0, vclock=False):
          "ckpt_interval": 30}
     if replay:
         data = json.load(open(replay))
+        if isinstance(data, dict) and data.get("parent"):
+            raise SystemExit("%s continues %s: use the combined recording %s" % (replay, data["parent"]["recording"],
+                                                                                 data.get("combined")))
         if isinstance(data, dict):          # a recording (record below): keyed by pad polls, START is in it
             h["replay"] = data["inputs"][:patch_xbe.INPUT_MAX]    # only `replay` feeds the ring past that
             if len(data["inputs"]) > patch_xbe.INPUT_MAX:
@@ -208,7 +214,8 @@ def _drain(x, man, rec, seen):
 
 
 def record(args):
-    import time
+    if args.continue_from:
+        return record_continue(args)
     hooks = hooks_cfg(None, vclock=True)
     hooks["flags"] = RECORD_FLAGS + ([] if args.v1 else RECORDING_PINS) + ["record"] \
         + ([] if args.no_quant else ["quant"])
@@ -252,10 +259,172 @@ def record(args):
     x = hybrid_run.Xemu("record-" + args.name, pad=args.pad, hdd=sp["disk"] if snaps_on else None,
                         snapshot=not snaps_on, sound=not args.mute)
     seen["t0"] = x.t0
+    _record_loop(x, man, rec, seen, args, sp["disk"] if snaps_on else None, save, path)
+    out = {"recording": os.path.relpath(path, ROOT), "frames": rec["frames"], "polls": rec["polls"],
+           "inputs": len(rec["inputs"]), "checkpoints": len(rec["checkpoints"])}
+    if snaps_on:
+        out["snapshots"] = [{k: sn[k] for k in ("tag", "frame", "pause_s", "disk_bytes")} for sn in rec["snapshots"]]
+        os.chmod(sp["disk"], 0o444)      # finished: resumes work on copies
+    return out
+
+
+# ---------------------------------------------------------------------------------------------
+# Continued recordings (docs/tasks/record-replay.md, "Continuing a recording"): `record play4 --continue play3` resumes
+# one of play3's VM snapshots and records live play from there. play4's disk is an APFS clone of play3's (so it holds
+# play3's snapshots up to the one resumed, and its backing file is still the base image); play3's files are only read.
+# play4.json holds only what came after the snapshot plus a "parent" entry; load_recording() puts the two together,
+# and the combined recording (play3+4.json: the parent's inputs up to the snapshot's, then play4's) is an ordinary
+# recording that replays from boot and converts to .hrp like any other.
+
+def resolve_recording(name, where=None):
+    """A recording given as a path or a bare name (NAME.json in build/replays, tests/replays)."""
+    for c in [name, name + ".json"] + [os.path.join(ROOT, d, name + ".json") for d in
+                                       ([where] if where else []) + ["build/replays", "tests/replays"]]:
+        if os.path.isfile(c):
+            return os.path.abspath(c)
+    raise SystemExit("no recording %r" % name)
+
+
+def load_recording(path):
+    """A recording; one made with `record --continue` (a "parent" entry) comes back as the combined recording."""
+    data = json.load(open(path))
+    if isinstance(data, dict) and data.get("parent"):
+        data = combine(load_recording(os.path.join(ROOT, data["parent"]["recording"])), data, path)
+    return data
+
+
+def combine(par, child, child_path=None):
+    """The parent recording (already combined if it is itself a continuation) up to the snapshot the child resumed,
+    then the child: inputs, checkpoints, timeline, snapshots and the snapshot files (the child's disk holds the
+    parent's snapshots up to that one too)."""
+    p = child["parent"]
+    snap, n = p["snapshot"], p["input_count"]
+    if len(par["inputs"]) < n:
+        raise SystemExit("parent %s has %d inputs, the snapshot %d" % (p["recording"], len(par["inputs"]), n))
+    tags = [sn["tag"] for sn in par.get("snapshots") or []]
+    if snap["tag"] not in tags:
+        raise SystemExit("parent %s has no snapshot %s" % (p["recording"], snap["tag"]))
+    k = tags.index(snap["tag"])
+    if (par["snapshots"][k]["frame"], par["snapshots"][k]["polls"]) != (snap["frame"], snap["polls"]):
+        raise SystemExit("parent %s snapshot %s is not the one %s resumed" % (p["recording"], snap["tag"], child_path))
+    cut = snap["ckpt"][0] if snap.get("ckpt") else -1      # the last checkpoint drained before the snapshot
+    off = snap.get("t", 0)                                  # the child's wall clock starts at the snapshot
+    doc = {k2: v for k2, v in par.items() if k2 not in ("pads", "syncio", "combined")}
+    doc.update({
+        "inputs": par["inputs"][:n] + child["inputs"],
+        "checkpoints": [c for c in par["checkpoints"] if c[0] <= cut] + [c for c in child["checkpoints"] if c[0] > cut],
+        "frames": child["frames"], "polls": child["polls"],
+        "timeline": [e for e in par.get("timeline", []) if e[1] <= snap["frame"]]
+                    + [[round(e[0] + off, 1)] + e[1:] for e in child.get("timeline", [])],
+        "snapshots": par["snapshots"][:k + 1] + [dict(sn, t=round(sn["t"] + off, 1)) for sn in child.get("snapshots", [])],
+        "snapshot_files": child["snapshot_files"], "snap_every_min": child.get("snap_every_min"),
+        "pads": child.get("pads"), "syncio": child.get("syncio"),
+        "parts": (par.get("parts") or [{"recording": p["recording"], "from_frame": 0, "from_polls": 0, "from_input": 0}])
+                 + [{"recording": os.path.relpath(os.path.abspath(child_path), ROOT) if child_path else None,
+                     "from_frame": snap["frame"], "from_polls": snap["polls"], "from_input": n,
+                     "from_snapshot": snap["tag"], "syncio": child.get("syncio_resume")}],
+    })
+    if "prng_checkpoints" in par:      # (tools/replay_pack.py prng-extend; the child has none of its own)
+        doc["prng_checkpoints"] = [c for c in par["prng_checkpoints"] if c[0] <= snap["frame"]]
+    return doc
+
+
+def combined_path(parent_path, parent, name):
+    """build/replays/play3+4.json for play4 continuing play3 (play3+4+5.json for play5 continuing play4)."""
+    pbase = os.path.basename(parent_path)[:-5]
+    if parent.get("combined_name"):
+        pbase = parent["combined_name"]
+    stem = os.path.basename(parent_path)[:-5]
+    i = 0
+    while i < min(len(stem), len(name)) and stem[i] == name[i] and not name[i].isdigit():
+        i += 1
+    return os.path.join(os.path.dirname(parent_path), "%s+%s.json" % (pbase, name[i:] or name))
+
+
+def record_continue(args):
+    """record NAME --continue PARENT [--from-snapshot K]: resume PARENT's snapshot K (default the last) into a clone
+    of its disk and record live play from there (the parent's later inputs are not replayed)."""
+    import subprocess
+    ppath = resolve_recording(args.continue_from)
+    raw_parent = json.load(open(ppath))
+    parent = load_recording(ppath)
+    snap = find_snapshot(parent, -1 if args.from_snapshot is None else args.from_snapshot)
+    pfiles = {k: os.path.join(ROOT, v) for k, v in parent["snapshot_files"].items()}
+    path = os.path.abspath(args.out or os.path.join(os.path.dirname(ppath), args.name + ".json"))
+    if os.path.exists(path):
+        raise SystemExit("%s exists: pick another name or --out" % os.path.relpath(path, ROOT))
+    sp = snapshot_paths(path)
+    for k in ("disk", "xbe", "manifest"):
+        if os.path.exists(sp[k]):
+            raise SystemExit("%s exists (a recording's snapshots are never overwritten): pick another --out"
+                             % os.path.relpath(sp[k], ROOT))
+    names = [s2["name"] for s2 in hybrid_run.qcow2_info(pfiles["disk"])["snapshots"]]
+    if snap["tag"] not in names:
+        raise SystemExit("%s has no VM snapshot %s" % (pfiles["disk"], snap["tag"]))
+    tag0 = 1 + max([int(t[1:]) for t in names if t[:1] == "s" and t[1:].isdigit()] or [-1])
+    comb = os.path.abspath(args.combined or combined_path(ppath, raw_parent, args.name))
+    script = json.load(open(args.script)) if args.script else None
+    # the build is the parent's (it is in the snapshot's memory): clone its XBE and manifest under this name
+    for k in ("xbe", "manifest"):
+        if subprocess.run(["cp", "-c", pfiles[k], sp[k]]).returncode:
+            import shutil
+            shutil.copy(pfiles[k], sp[k])
+    print("continuing %s from %s (frame %d, poll %d, %d inputs) into %s" % (
+        os.path.relpath(ppath, ROOT), snap["tag"], snap["frame"], snap["polls"], snap["inputs"],
+        os.path.relpath(sp["disk"], ROOT)), file=sys.stderr)
+    syncio = not args.no_syncio
+    try:
+        res = resume_snapshot(parent, snap, "record-" + args.name, syncio=syncio, disk=sp["disk"], mode="record",
+                              script=script, pad=args.pad, sound=not args.mute)
+    except BaseException:
+        for k in ("xbe", "manifest"):
+            os.unlink(sp[k])
+        raise
+    x, g, man = res["x"], res["g"], res["man"]
+    rec = {k: parent[k] for k in ("version", "key", "flags", "seed", "tweaks", "mask", "skip") if k in parent}
+    rec.update({
+        "inputs": [], "checkpoints": {}, "frames": snap["frame"], "polls": snap["polls"],
+        "parent": {"recording": os.path.relpath(ppath, ROOT), "snapshot": snap, "frame": snap["frame"],
+                   "polls": snap["polls"], "input_count": snap["inputs"],
+                   "checkpoints": len([c for c in parent["checkpoints"] if c[0] <= (snap.get("ckpt") or [-1])[0]])},
+        "combined": os.path.relpath(comb, ROOT), "combined_name": os.path.basename(comb)[:-5],
+        "snapshot_files": {k: os.path.relpath(v, ROOT) for k, v in sp.items()}, "snapshots": [],
+        "snap_every_min": args.snap_every, "resume_s": res["resume_s"],
+        "syncio_resume": "gdb" if syncio and "syncio" not in parent.get("flags", ()) else
+                         ("built-in" if syncio else "off"),
+    })
+    if script:
+        rec["stand_in"] = {"script": os.path.relpath(os.path.abspath(args.script), ROOT), "entries": len(script)}
+    seen = {"inputs": snap["inputs"], "ckpts": res["ckpt_count"], "t0": x.t0}
+    child_disk = sp["disk"]
+
+    def save():
+        doc = dict(rec, checkpoints=sorted([f, h] for f, h in rec["checkpoints"].items()))
+        json.dump(doc, open(path, "w"), separators=(",", ":"))
+        json.dump(combine(parent, doc, path), open(comb, "w"), separators=(",", ":"))
+
+    save()
+    g._send("c")                 # the VM starts here (it was stopped since -S and the loadvm)
+    g.close()                    # (closing the stub leaves the VM running)
+    try:
+        _record_loop(x, man, rec, seen, args, child_disk if args.snap_every > 0 else None, save, path, tag0)
+    finally:
+        if os.path.exists(child_disk):
+            os.chmod(child_disk, 0o444)      # finished: resumes work on copies
+    return {"recording": os.path.relpath(path, ROOT), "combined": os.path.relpath(comb, ROOT),
+            "parent": rec["parent"]["recording"], "from": snap["tag"], "from_frame": snap["frame"],
+            "frames": rec["frames"], "polls": rec["polls"], "inputs": len(rec["inputs"]),
+            "checkpoints": len(rec["checkpoints"]),
+            "snapshots": [{k: sn[k] for k in ("tag", "frame", "pause_s", "disk_bytes")} for sn in rec["snapshots"]]}
+
+
+def _record_loop(x, man, rec, seen, args, disk, save, path, tag0=0):
+    """Drain the running recording build every 2 s until Ctrl-C (or --minutes), with a VM snapshot into `disk`
+    every --snap-every minutes (none if disk is None); closes xemu and saves."""
     print("recording to %s: play, then press Ctrl-C here (closing the xemu window loses the last 2 s)" % path,
           file=sys.stderr)
     want_snap = []
-    if snaps_on:
+    if disk:
         import signal
         import threading
         signal.signal(signal.SIGUSR1, lambda *_: want_snap.append("request"))
@@ -273,8 +442,8 @@ def record(args):
             time.sleep(2)
             try:
                 st = _drain(x, man, rec, seen)
-                if snaps_on and st["frame"] > 0 and (want_snap or time.time() >= next_snap):
-                    take_snapshot(x, man, rec, seen, sp["disk"], want_snap.pop() if want_snap else "every")
+                if disk and st["frame"] > 0 and (want_snap or time.time() >= next_snap):
+                    take_snapshot(x, man, rec, seen, disk, want_snap.pop() if want_snap else "every", tag0)
                     want_snap.clear()
                     next_snap = time.time() + 60 * args.snap_every
                     save()
@@ -299,12 +468,6 @@ def record(args):
     finally:
         x.close()
     save()
-    out = {"recording": os.path.relpath(path, ROOT), "frames": rec["frames"], "polls": rec["polls"],
-           "inputs": len(rec["inputs"]), "checkpoints": len(rec["checkpoints"])}
-    if snaps_on:
-        out["snapshots"] = [{k: sn[k] for k in ("tag", "frame", "pause_s", "disk_bytes")} for sn in rec["snapshots"]]
-        os.chmod(sp["disk"], 0o444)      # finished: resumes work on copies
-    return out
 
 
 class ReplayFeeder:
@@ -349,12 +512,18 @@ class ReplayFeeder:
 def replay(args):
     """Replay a recording on the record build (same hooks, minus recording) and compare checkpoints."""
     import time
-    data = json.load(open(args.recording))
+    raw = json.load(open(args.recording))
+    data = load_recording(args.recording)
+    if isinstance(raw, dict) and raw.get("parent") and args.from_snapshot is None and args.from_frame is None:
+        # a continued recording only replays from its parent's snapshot (from boot: replay its combined file)
+        args.from_snapshot = [sn["tag"] for sn in data["snapshots"]].index(raw["parent"]["snapshot"]["tag"])
     if args.from_snapshot is not None or args.from_frame is not None:
         return replay_from_snapshot(args, data)
     hooks = {"seed": data.get("seed", SEED), "flags": [f for f in data["flags"] if f != "record"] + ["replay"],
              "dt_us": 33333, "ckpt_interval": 30, "replay": data["inputs"], "mask": data.get("mask", []),
              "skip": data.get("skip", []), "vpad_count": data.get("vpad_count", 0)}
+    if args.syncio and "syncio" not in hooks["flags"]:     # a recording made before the flag: build the wait in
+        hooks["flags"].append("syncio")
     if getattr(args, "drawlog", None):
         hooks["drawlog"] = patch_xbe.parse_drawlog(args.drawlog)
     os.makedirs(TEST_DIR, exist_ok=True)
@@ -509,13 +678,14 @@ def _usb_pads(info):
     return pads, hubs
 
 
-def take_snapshot(x, man, rec, seen, disk, why):
-    """Pause, drain, savevm into the overlay, resume. Returns the timeline entry."""
+def take_snapshot(x, man, rec, seen, disk, why, tag0=0):
+    """Pause, drain, savevm into the overlay, resume. Returns the timeline entry. tag0: the first tag's number (a
+    continued recording's disk already holds its parent's snapshots)."""
     t = time.time()
     x.q.cmd("stop")
     try:
         st = _drain(x, man, rec, seen)
-        tag = "s%d" % len(rec["snapshots"])
+        tag = "s%d" % (tag0 + len(rec["snapshots"]))
         r = x.hmp("savevm %s" % tag)
         if r.strip():
             raise RuntimeError("savevm: %s" % r.strip())
@@ -548,10 +718,16 @@ def find_snapshot(data, k=None, frame=None):
     return max(cand, key=lambda sn: sn["frame"])
 
 
-def resume_snapshot(data, snap, tag, gdb_cls=None, syncio=True):
+def resume_snapshot(data, snap, tag, gdb_cls=None, syncio=True, disk=None, mode="replay", script=None, pad="keyboard",
+                    sound=False):
     """Boot xemu paused on a copy of the recording's disk, loadvm the snapshot, attach GDB, and turn the recording
     build into a replay from there (with syncio unless asked not to). Returns {x, g, man, avail, ckpt_count, clone,
-    resume_s}; the VM is still stopped (the caller continues it through g)."""
+    resume_s}; the VM is still stopped (the caller continues it through g).
+
+    mode "record" (record --continue): the build stays the recording build it was when the snapshot was taken (record
+    flag, real pads), so it records from this poll on; `disk` is then the new recording's own overlay, a clone of the
+    parent's that is kept (the parent's disk is never opened). script: a stand-in player's pad entries (keyed by
+    polls, at most INPUT_MAX), replayed into the game and recorded as what it was given."""
     import shutil
     import subprocess
     from xemu_gdb import Gdb
@@ -559,13 +735,22 @@ def resume_snapshot(data, snap, tag, gdb_cls=None, syncio=True):
     man = json.load(open(files["manifest"]))
     t0 = time.time()
     hybrid_run.install(files["xbe"])            # (sections the game loads later come from the disc's default.xbe)
-    clone = os.path.join(patch_xbe.OUT_DIR, "resume%s.qcow2" % hybrid_run._SFX)
-    if os.path.exists(clone):
+    clone = disk or os.path.join(patch_xbe.OUT_DIR, "resume%s.qcow2" % hybrid_run._SFX)
+    if disk:
+        if os.path.exists(disk):
+            raise SystemExit("%s exists: pick another name" % disk)
+        if os.path.realpath(disk) == os.path.realpath(files["disk"]):
+            raise SystemExit("refusing to record into the parent's own disk")
+    elif os.path.exists(clone):
         os.unlink(clone)
     if subprocess.run(["cp", "-c", files["disk"], clone]).returncode:
         shutil.copy(files["disk"], clone)
     os.chmod(clone, 0o644)                      # (the recording's disk is read-only once recorded)
-    x = hybrid_run.Xemu(tag, gdb=True, extra=["-S"], hdd=clone, snapshot=False)
+    try:
+        x = hybrid_run.Xemu(tag, gdb=True, extra=["-S"], hdd=clone, snapshot=False, pad=pad, sound=sound)
+    except BaseException:
+        os.unlink(clone)
+        raise
     try:
         # xemu attaches its pads (and their hubs) after QEMU starts; loadvm needs the snapshot's device set
         want = [tuple(p) for p in snap.get("usb") or []]
@@ -594,29 +779,50 @@ def resume_snapshot(data, snap, tag, gdb_cls=None, syncio=True):
         if (st["frame"], st["polls"]) != (snap["frame"], snap["polls"]):
             raise RuntimeError("snapshot %s loaded at frame %d poll %d, recorded %d/%d" % (
                 snap["tag"], st["frame"], st["polls"], snap["frame"], snap["polls"]))
-        # the recording build becomes the replay build: the flags replay() would use, the replay ring from here
-        flags = 0
-        for f in [f for f in data["flags"] if f != "record" and (syncio or f != "syncio")] + ["replay"]:
-            flags |= patch_xbe.HF[f]
-        entries = data["inputs"]
-        pos = 0
-        for i, e in enumerate(entries):
-            if e[0] > st["polls"]:
-                break
-            pos = i
-        end = min(len(entries), pos + lay["input_max"])
-        ring, n, pad = base + patch_xbe.CTL_REPLAY, lay["input_max"], lay["pad_bytes"]
-        i = pos
-        while i < end:
-            j = min(end, (i // n + 1) * n)
-            raw = patch_xbe.pack_replay(entries[i:j])
-            for o in range(0, len(raw), 2040):
-                g.write(ring + pad * (i % n) + o, raw[o:o + 2040])
-            i = j
+        ring, n, pad_bytes = base + patch_xbe.CTL_REPLAY, lay["input_max"], lay["pad_bytes"]
         ext = lambda k: base + lay["ext"] + 4 * lay["ext_fields"].index(k)
-        g.write(ext("replay_avail"), struct.pack("<I", end))
-        g.write(base + 4 * 8, struct.pack("<II", len(entries), pos))     # replay_count, replay_pos
-        g.write(base + 4 * 1, struct.pack("<I", flags))
+
+        def put_ring(entries, i, end):
+            while i < end:
+                j = min(end, (i // n + 1) * n)
+                raw = patch_xbe.pack_replay(entries[i:j])
+                for o in range(0, len(raw), 2040):
+                    g.write(ring + pad_bytes * (i % n) + o, raw[o:o + 2040])
+                i = j
+        if mode == "record":
+            # the snapshot was saved by the recording build: its flags (record, the real pads) are already set
+            if not st["flags"] & patch_xbe.HF["record"] or st["flags"] & patch_xbe.HF["replay"]:
+                raise SystemExit("snapshot %s was not taken while recording (flags %#x)" % (snap["tag"], st["flags"]))
+            if st["record_count"] != snap.get("inputs", st["record_count"]):
+                raise RuntimeError("snapshot %s: %d inputs recorded, the recording says %d" % (
+                    snap["tag"], st["record_count"], snap["inputs"]))
+            flags = st["flags"]
+            pos = end = 0
+            if script:
+                if len(script) > n:
+                    raise SystemExit("--script with --continue: at most %d entries (this one has %d)" % (n, len(script)))
+                flags |= patch_xbe.HF["replay"] | patch_xbe.HF["autostart"]
+                end = len(script)
+                put_ring(script, 0, end)
+                g.write(ext("replay_avail"), struct.pack("<I", end))
+                g.write(base + 4 * 8, struct.pack("<II", end, 0))            # replay_count, replay_pos
+            g.write(base + 4 * 1, struct.pack("<I", flags))
+        else:
+            # the recording build becomes the replay build: the flags replay() would use, the replay ring from here
+            flags = 0
+            for f in [f for f in data["flags"] if f != "record" and (syncio or f != "syncio")] + ["replay"]:
+                flags |= patch_xbe.HF[f]
+            entries = data["inputs"]
+            pos = 0
+            for i, e in enumerate(entries):
+                if e[0] > st["polls"]:
+                    break
+                pos = i
+            end = min(len(entries), pos + lay["input_max"])
+            put_ring(entries, pos, end)
+            g.write(ext("replay_avail"), struct.pack("<I", end))
+            g.write(base + 4 * 8, struct.pack("<II", len(entries), pos))     # replay_count, replay_pos
+            g.write(base + 4 * 1, struct.pack("<I", flags))
         if syncio and "syncio" not in data.get("flags", ()):       # (builds with the flag have the wait built in)
             install_syncio(g, man, data)
     except BaseException:
@@ -624,7 +830,7 @@ def resume_snapshot(data, snap, tag, gdb_cls=None, syncio=True):
         os.unlink(clone)
         raise
     return {"x": x, "g": g, "man": man, "avail": end, "ckpt_count": st["ckpt_count"], "clone": clone,
-            "resume_s": round(time.time() - t0, 2)}
+            "keep": bool(disk), "record_count": st["record_count"], "resume_s": round(time.time() - t0, 2)}
 
 
 # syncio (docs/tasks/record-replay.md, "Snapshot resumes that diverged at 51570"): the game streams the open world
@@ -675,14 +881,18 @@ def install_syncio(g, man, data):
     """Write the syncio wait into a stopped VM running a recording build (over GDB)."""
     if "rng-log" in data.get("flags", ()):
         raise SystemExit("syncio: this build uses the rnglog area")
-    if g.read(SYNCIO_SITE, 5) != SYNCIO_TAIL:
-        raise RuntimeError("syncio: unexpected bytes at %#x" % SYNCIO_SITE)
     at, code = syncio_stub(man)
+    jmp = b"\xe9" + struct.pack("<i", at - (SYNCIO_SITE + 5))
+    site = g.read(SYNCIO_SITE, 5)
+    if site == jmp and g.read(at, len(code)) == code:
+        return              # a snapshot taken by a continued recording (record --continue): already installed
+    if site != SYNCIO_TAIL:
+        raise RuntimeError("syncio: unexpected bytes at %#x" % SYNCIO_SITE)
     base, lay = man["g_hybrid"], man["g_hybrid_layout"]
     ext = lambda k: base + lay["ext"] + 4 * lay["ext_fields"].index(k)
     g.write(at, code)
     g.write(ext("io_waits"), struct.pack("<II", 0, 0))                  # io_waits, io_timeouts
-    g.write(SYNCIO_SITE, b"\xe9" + struct.pack("<i", at - (SYNCIO_SITE + 5)))
+    g.write(SYNCIO_SITE, jmp)
 
 
 def close_resumed(res):
@@ -691,7 +901,7 @@ def close_resumed(res):
     except OSError:
         pass
     res["x"].close()
-    if os.path.exists(res["clone"]):
+    if not res.get("keep") and os.path.exists(res["clone"]):
         os.unlink(res["clone"])          # (the throwaway copy; the recording's own disk is never written again)
 
 
@@ -824,12 +1034,21 @@ def main(argv):
                    "has bound) and the host's date; for comparisons only")
     r.add_argument("--script", help="test the pipeline without a player: feed this pad script (keyed by polls); "
                    "what the game was given is recorded")
+    r.add_argument("--continue", dest="continue_from", metavar="PARENT", help="continue the recording PARENT (a name "
+                   "in build/replays or a path) from one of its VM snapshots: live play from there, on a clone of its "
+                   "disk; also writes the combined recording (PARENT+N.json)")
+    r.add_argument("--from-snapshot", type=int, help="with --continue: the parent's snapshot K (default -1, the last)")
+    r.add_argument("--combined", help="with --continue: where to write the combined recording")
+    r.add_argument("--no-syncio", action="store_true", help="with --continue: no streaming-I/O wait on the resume "
+                   "(by default it is installed as for replays from a snapshot)")
     p = sub.add_parser("replay")
     p.add_argument("recording")
     p.add_argument("--seconds", type=float, default=0)
     p.add_argument("--until-frame", type=int, default=0, help="stop once the game reaches this frame")
     p.add_argument("--from-snapshot", type=int, help="resume the recording's VM snapshot K (negative: from the end)")
     p.add_argument("--from-frame", type=int, help="resume the latest snapshot at or before this frame")
+    p.add_argument("--syncio", action="store_true", help="from boot: build the streaming-I/O wait (HF_SYNCIO) into the "
+                   "replay build even if the recording's flags lack it (recordings made before the flag, e.g. play3)")
     p.add_argument("--no-syncio", action="store_true", help="with --from-snapshot/--from-frame: let the game's file "
                    "requests complete in host time, as before (they diverged; docs/tasks/record-replay.md)")
     p.add_argument("--drawlog", help="also log the pddi state of every draw (hooks.cpp HYBRID_DRAWLOG) in frames "

@@ -43,6 +43,9 @@ def load(path):
     if raw[:4] == b"HRP1":
         return parse_hrp(raw)
     doc = json.loads(raw)
+    if isinstance(doc, dict) and doc.get("parent"):      # hybrid_test.py record --continue: only the part after it
+        raise SystemExit("%s continues %s from a snapshot: pack its combined recording %s" % (
+            path, doc["parent"]["recording"], doc.get("combined")))
     if isinstance(doc, list):                                  # tests/replays/*.json: frame-keyed, auto-START
         return dict(frame_keyed=True, vpad_count=1, flags=HF["autostart"], ckpt_interval=30, seed=0, tweaks=0,
                     inputs=[norm(e) for e in doc], checkpoints=[], prng=[])
