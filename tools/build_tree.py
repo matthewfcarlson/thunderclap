@@ -106,27 +106,30 @@ _GEN_DIGEST = []
 
 
 def gen_digest(text):
-    """Hash of include/gen/*.h and include/decls/*.h for sources that include them (part of the object cache key)."""
+    """Hash of every header under include/ (gen/, decls/ with decls/data/**, compat/), recursively, for sources that
+    include one of them (part of the object cache keys). compat/ptr.h comes in through gen/_prelude.h,
+    decls/data/records.h and many sources directly; a header added or edited anywhere under include/ changes the key."""
     if isinstance(text, bytes):
         text = text.decode("latin1")
-    if "gen/" not in text and "decls/" not in text:
+    if "gen/" not in text and "decls/" not in text and "compat/" not in text:
         return b""
     if not _GEN_DIGEST:
-        hs = hashlib.sha1()
-        for sub in ("gen", "decls"):
-            d = os.path.join(GEN_INCLUDE_ROOT, sub)
-            for fn in sorted(os.listdir(d)) if os.path.isdir(d) else []:
-                if fn.endswith(".h"):
-                    hs.update(sub.encode() + fn.encode() + open(os.path.join(d, fn), "rb").read())
-        # include/decls/data/<layer>/<dir>.h (tools/data_gen.py)
-        for dp, dns, fns in sorted(os.walk(os.path.join(GEN_INCLUDE_ROOT, "decls", "data"))):
-            dns.sort()
-            for fn in sorted(fns):
-                if fn.endswith(".h"):
-                    rel = os.path.relpath(os.path.join(dp, fn), GEN_INCLUDE_ROOT)
-                    hs.update(rel.encode() + open(os.path.join(dp, fn), "rb").read())
-        _GEN_DIGEST.append(hs.hexdigest().encode())
+        _GEN_DIGEST.append(include_tree_digest(GEN_INCLUDE_ROOT).encode())
     return _GEN_DIGEST[0]
+
+
+def include_tree_digest(root):
+    """sha1 over the relative paths and contents of every .h under ROOT (sorted walk)."""
+    hs = hashlib.sha1()
+    for dp, dns, fns in sorted(os.walk(root)):
+        dns.sort()
+        for fn in sorted(fns):
+            if fn.endswith(".h"):
+                p = os.path.join(dp, fn)
+                hs.update(os.path.relpath(p, root).replace(os.sep, "/").encode() + b"\0")
+                with open(p, "rb") as f:
+                    hs.update(f.read())
+    return hs.hexdigest()
 
 
 def _headers_used(text):
