@@ -96,5 +96,42 @@ class Decide(unittest.TestCase):
         self.assertEqual((r, m), (False, False))
 
 
+class Seed(unittest.TestCase):
+    """--state seed:JOB (seed_decision): only function sources may differ from the control's."""
+    def setUp(self):
+        import gzip
+        import json
+        self.run, self.lin = tempfile.mkdtemp(), tempfile.mkdtemp()
+        put(self.lin, "tools/build_tree.py", "import gen_tree\n")
+        put(self.lin, "tools/gen_tree.py", "")
+        put(self.run, "nbrun/seed-state.json", "{}")
+        self.base = {"matches/0x00012340.cpp": "1", "equivalent/0x00056780.cpp": "2", "tools/gen_tree.py": "g",
+                     "tools/wine_link.py": "n", "include/x.h": "h", "src/platform/sdl/a.cpp": "s"}
+        with gzip.open(os.path.join(self.run, "nbrun/seed-sources.json.gz"), "wt") as f:
+            json.dump(self.base, f)
+        self.spec = {"state": "seed", "seed": {"job": "1", "toolchain": {"cl": "c"}}}
+
+    def d(self, new, tc=None):
+        return nb.seed_decision(self.spec, self.run, new, self.lin, tc or {"cl": "c"})
+
+    def test_function_sources_and_untracked_inputs_seed(self):
+        new = dict(self.base, **{"matches/0x00012340.cpp": "9", "matches/0x00099990.cpp": "1", "tools/wine_link.py": "n2",
+                                 "src/platform/sdl/a.cpp": "s2"})
+        del new["equivalent/0x00056780.cpp"]
+        st, addrs, why = self.d(new)
+        self.assertTrue(st and st.endswith("seed-state.json"), why)
+        self.assertEqual(addrs, ["00012340", "00056780", "00099990"])
+
+    def test_tree_inputs_refuse(self):
+        for k in ("include/x.h", "tools/gen_tree.py", "config/splits.json", "matches/helper.h"):
+            st, addrs, why = self.d(dict(self.base, **{k: "x"}))
+            self.assertIsNone(st, k)
+            self.assertTrue(why.startswith("fresh"), why)
+
+    def test_other_toolchain_refuses(self):
+        st, addrs, why = self.d(self.base, {"cl": "other"})
+        self.assertIsNone(st)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -19,7 +19,9 @@ makes the binding map first (stage `map`, wine_link --no-inventory --no-link, un
 list names callees by address through it; the link then reuses it.
 
 Outputs (fetched by the queue): nb-out/{summary.json,*.log,link-report.json,unbound.txt,image.sha256,ckpt.txt,
-trace.txt,result.json,x87_keep.txt} and, when the spec asks for it, the image and its DLLs in nb-out/image/.
+trace.txt,result.json,x87_keep.txt,tree-state.json,sources.json.gz} and, when the spec asks for it, the image and its DLLs
+in nb-out/image/. tree-state.json (build_tree's final fallback state) and sources.json.gz (the run's sources by content
+hash) are what a proof seeded from this build (`--state seed:JOB`, seed_decision()) starts from and checks against.
 Before the replay (one Wine process) the job writes 1 to RUNDIR/.jq-slots so the queue gives its other slots back, and
 releases the lineage lock (the replay runs on a copy of the image in the run directory).
 Exit status: 0 all requested stages done, 3 inputs stale/missing, 4 a build stage failed, 5 the replay failed.
@@ -256,7 +258,10 @@ def decide(spec, built, mapped, new, lin):
         return n, shape, core
     st, mp, why = spec.get("state", "auto"), spec.get("map", "auto"), {}
     have_tree = built is not None and os.path.exists(os.path.join(lin, "build/tree/state.json"))
-    if st == "fresh" or not have_tree:
+    if st == "seed":
+        resume = False      # (the lineage's own state is not used; main() decides the seed with seed_decision())
+        why["state"] = "seed requested"
+    elif st == "fresh" or not have_tree:
         resume = False
         why["state"] = "fresh requested" if st == "fresh" else "no earlier build in this lineage"
     elif st == "resume":
@@ -271,7 +276,7 @@ def decide(spec, built, mapped, new, lin):
     if mp == "full" or not have_map or not resume:
         reuse = False
         why["map"] = ("full map requested" if mp == "full" else "no earlier map in this lineage" if not have_map
-                      else "full map: the build_tree state started fresh")
+                      else "full map: the build_tree state started fresh or seeded")
     elif mp == "reuse":
         reuse = True
         why["map"] = "reuse requested"
@@ -281,6 +286,41 @@ def decide(spec, built, mapped, new, lin):
         why["map"] = ("map key decides: %s since the map, no function source added or removed" % n) if reuse else \
             "full map: %d function sources added/removed, %d map inputs changed (%s)" % (len(shape), len(core), ", ".join(core[:3]))
     return resume, reuse, why
+
+
+def seed_decision(spec, run, new, lin, tc):
+    """--state seed:JOB (a proof seeded from its control's final build_tree state): (seed state path or None, changed
+    function addresses, reason). The seed is taken only when the control's sources (its nb-out/sources.json.gz)
+    differ from this run's in function sources alone (matches/ equivalent/ 0xADDR.cpp, added, modified or removed) and
+    files the tree build does not read (src/, tools outside build_tree's imports), on the same toolchain; anything
+    under include/ or config/, a tree-build tool, or a non-function file in matches/ equivalent/ means a fresh build.
+    build_tree drops the seed's fallbacks in the changed functions' objects (build_tree.seed_state)."""
+    import gzip
+    import re
+    sd = spec.get("seed") or {}
+    stp, srcp = os.path.join(run, "nbrun/seed-state.json"), os.path.join(run, "nbrun/seed-sources.json.gz")
+    if not (os.path.exists(stp) and os.path.exists(srcp)):
+        return None, [], "fresh: the seed's state or source list did not travel"
+    if sd.get("toolchain") != tc:
+        return None, [], "fresh: control %s was built with another toolchain" % sd.get("job")
+    with gzip.open(srcp, "rt") as f:
+        old = json.load(f)
+    ch = diff_manifests(old, new)
+    tree_files = closure(os.path.join(lin, "tools"), "build_tree")
+    fn = re.compile(r"^(?:matches|equivalent)/0x([0-9a-f]{8})\.cpp$")
+    core, addrs = [], set()
+    for k in ("added", "modified", "removed"):
+        for r in ch[k]:
+            m = fn.match(r)
+            if m:
+                addrs.add(m.group(1))
+            elif r.startswith(("include/", "config/", "matches/", "equivalent/")) or r in tree_files:
+                core.append(r)
+    if core:
+        return None, [], "fresh: %d inputs of the tree build differ from control %s's (%s)" % (
+            len(core), sd.get("job"), ", ".join(sorted(core)[:3]))
+    return stp, sorted(addrs), "seed: control %s's state, %d function sources differ (%s)" % (
+        sd.get("job"), len(addrs), {k: len(v) for k, v in ch.items()})
 
 
 def map_key_reuse(py, env, lin, out):
@@ -421,6 +461,9 @@ def main():
     summ["wall"]["sync_sources"] = round(time.time() - t, 1)
     summ["sync"] = {k: (len(v) if isinstance(v, list) else v) for k, v in changes.items()}
     summ["sources_hash"] = hashlib.sha1(json.dumps(sorted(manifest.items())).encode()).hexdigest()[:16]
+    import gzip
+    with gzip.open(os.path.join(out, "sources.json.gz"), "wt") as f:     # (what a proof seeded from this build compares)
+        json.dump(manifest, f, sort_keys=True)
     log("sources: %s -> %s" % (summ["sync"], summ["sources_hash"]))
 
     # lineage layout: shared local-only things are symlinks, derived state stays
@@ -464,13 +507,21 @@ def main():
     jobs = str(spec.get("jobs", 4))
     resume, reuse, why = decide(spec, jload(os.path.join(lin, ".nb/built.json")), jload(os.path.join(lin, ".nb/mapped.json")),
                                 manifest, lin)
-    summ["decision"] = {"resume_state": resume, "reuse_map": reuse, "why": why}
+    seed, seed_changed = None, []
+    if spec.get("state") == "seed":
+        seed, seed_changed, why["state"] = seed_decision(spec, run, manifest, lin, tc)
+    summ["decision"] = {"resume_state": resume, "reuse_map": reuse, "seed": (spec.get("seed") or {}).get("job") if seed else None,
+                        "why": why}
     log("decision: %s" % json.dumps(summ["decision"]))
     ok = True
     if "build" in stages:
         if not resume:
             shutil.rmtree(os.path.join(lin, "build/tree"), ignore_errors=True)
         argv = [py, "tools/build_tree.py", "--jobs", jobs, "--rounds", "16", "--regression-rounds", "4"] + (["--resume"] if resume else [])
+        if seed:
+            with open(os.path.join(run, "nbrun/seed-changed.txt"), "w") as f:
+                f.write("".join("0x%s\n" % x for x in seed_changed))
+            argv += ["--seed", seed, "--seed-changed", os.path.join(run, "nbrun/seed-changed.txt")]
         rc, wall = stage("build", argv, env, lin, out)
         summ["wall"]["build"], summ["stages"]["build"] = wall, rc
         if rc == 0 and os.path.exists(os.path.join(lin, "build/tree/report.json")):

@@ -6,7 +6,7 @@ optionally a headless replay, on mac2/mac1 instead of this laptop (docs/compute.
   # differ from HEAD travel). The queue picks the host when the job starts (jq3); --host H pins it, --host local builds here.
   build/venv/bin/python tools/wine_build_job.py submit --name ME [--workspace DIR] [--gfx]
         [--replay play3 --frames 1000] [--fetch image] [--host mac2|mac1|local] [--lineage L]
-        [--state auto|fresh|resume] [--map auto|full|reuse] [--slots N] [--env K=V ...] [--stages build,probe,link]
+        [--state auto|fresh|resume|seed:CONTROL] [--map auto|full|reuse] [--slots N] [--env K=V ...] [--stages build,probe,link]
   build/venv/bin/python tools/wine_build_job.py wait ID     # then: summary, build/jobs/out/ID/nb-out/
   build/venv/bin/python tools/wine_build_job.py compare ID|DIR ...   # image hashes and replay checkpoints must agree
   build/venv/bin/python tools/wine_build_job.py sync [--host H ...]  # put the local-only inputs on the hosts (submit does it)
@@ -338,7 +338,41 @@ def placement(a, lineage, stamp):
     return None, None, sync, "dispatch-time host" + ("; lineage %s is new" % lineage if not have else "")
 
 
+def state_arg(v):
+    if v in ("auto", "fresh", "resume") or re.fullmatch(r"seed:\d+", v):
+        return v
+    raise argparse.ArgumentTypeError("auto, fresh, resume or seed:JOB")
+
+
+def seed_files(job):
+    """--state seed:JOB: the control's final build_tree state and source list (nb-out/tree-state.json,
+    sources.json.gz) and what wine_build_run.seed_decision checks (toolchain)."""
+    d = out_dir(job)
+    summ = jobq_json(os.path.join(d, "summary.json"))
+    if not summ or summ.get("stages", {}).get("build") != 0:
+        sys.exit("seed: job %s has no successful build stage (%s)" % (job, d))
+    files = {"nbrun/seed-state.json": os.path.join(d, "tree-state.json"), "nbrun/seed-sources.json.gz": os.path.join(d, "sources.json.gz")}
+    for p in files.values():
+        if not os.path.exists(p):
+            sys.exit("seed: %s is missing (a control built before seeding support cannot seed: rebuild it)" % p)
+    return files, {"job": str(job), "host": summ.get("host"), "toolchain": summ.get("toolchain")}
+
+
+def jobq_json(p):
+    try:
+        with open(p) as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return None
+
+
 def cmd_submit(a):
+    seed = None
+    if a.state.startswith("seed:"):
+        seed = seed_files(a.state[5:])
+        if not a.host or a.host != seed[1]["host"]:
+            print("note: control %s ran on %s; pin the proof there (--host %s) so the gate compares like with like" % (
+                seed[1]["job"], seed[1]["host"], seed[1]["host"]), file=sys.stderr)
     if a.data_src:
         os.environ["HULK_NB_DATA_SRC"] = a.data_src
     ws = os.path.abspath(a.workspace or ROOT)
@@ -379,11 +413,14 @@ def cmd_submit(a):
         slots = max(1, min(a.slots or 2, cap))
     else:
         slots = a.slots or 8
-    spec = {"lineage": lineage, "stages": stages, "gfx": bool(a.gfx), "state": a.state, "map": a.map, "jobs": slots,
+    spec = {"lineage": lineage, "stages": stages, "gfx": bool(a.gfx), "state": "seed" if seed else a.state, "map": a.map, "jobs": slots,
             "inputs_stamp": stamp, "deletions": dele, "env": dict(e.split("=", 1) for e in a.env or []),
             "fetch": a.fetch or []}
     ov = {"nbrun/wine_build_run.py": os.path.join(ROOT, "tools/wine_build_run.py"),
           "nbrun/wine_replay_job.py": os.path.join(ROOT, "tools/wine_replay_job.py")}
+    if seed:
+        ov.update(seed[0])
+        spec["seed"] = seed[1]
     if a.replay:
         rec = os.path.join(ROOT, RECS.get(a.replay, a.replay))
         if not os.path.exists(rec):
@@ -490,7 +527,8 @@ def main():
     s.add_argument("--gfx", action="store_true", help="link with the pddi/bgfx backend (wine_link.py --gfx)")
     s.add_argument("--stages", help="comma list of build,probe,link,replay (default: all requested)")
     s.add_argument("--data-src", help="a private build/data/src (data TUs of a data_gen change under test)")
-    s.add_argument("--state", choices=["auto", "fresh", "resume"], default="auto", help="build_tree --resume policy")
+    s.add_argument("--state", default="auto", type=state_arg, metavar="auto|fresh|resume|seed:JOB",
+                   help="build_tree --resume policy; seed:JOB starts from control JOB's final state (docs/compute.md)")
     s.add_argument("--map", choices=["auto", "full", "reuse"], default="auto", help="wine_link --reuse-map policy")
     s.add_argument("--replay", help="play3 or a .hrp path: headless replay of the built image on the host")
     s.add_argument("--frames", type=int, help="stop the replay once a checkpoint at this frame is written")

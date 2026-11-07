@@ -167,10 +167,19 @@ $J $N sync | lineages   # inputs on the hosts (submit does it) | lineage workspa
   every TU that mentioned `gen/` or `decls/` was keyed on all of `include/` (and `include/compat/` on nothing: fixed in
   eed85215e). On the current tree a one-header edit now recompiles the TUs that see it: `decls/data/game/global.h` 608 of
   2,659 (was 2,517), `gen/hulkfight.h` 283, the mean header 425, median 126; `compat/ptr.h` still reaches 2,599.
-  `[time]` lines in `build.log` give each round's generate / compile (cache misses) / verify times.
+  `[time]` lines in `build.log` give each round's generate / compile (cache misses) / verify times. Per round on mac1:
+  generate ~120-160 s (single-threaded), verify ~80 s warm (mostly single-threaded; 2,240 s on a cold standalone cache),
+  compile ~850 s when `common.h` changed (a new fallback moves hoisted declarations; 1,937 TUs include it), seconds
+  otherwise. A fresh warm build stage is ~95% single-threaded time while it holds 8 slots.
 - **Seeding a proof from its control (build1, opt-in).** `--state seed:CONTROL` starts the proof's build_tree from the
   control job's final fallback state (`nb-out/tree-state.json`) instead of empty, so it skips the ~18 rounds that rediscover
-  the same fallbacks. SEEDINGNUMBERS The host (`seed_decision()`) takes the seed only when the control's sources
+  the same fallbacks. Measured on mac1 (batch: f9e1c9f1a's 125 renamed sources; control 64299 fresh, proof fresh 64300,
+  proof seeded 64969, `--gfx`, play3 to 60000): the seeded proof's `tree-state.json` equals the fresh proof's, the image
+  hash is the same (2f60fc01), and the checkpoints agree at all 2,006 common frames (`ckpt_gate.py`: GATE ok, prng 0 of
+  2,006 differ). Build stage 3,113 s seeded vs 4,171 s fresh (total 3,866 vs 4,932 s). The saving is smaller than the
+  round count suggests: a fresh proof after its control walks the control's states, so its compiles are cache hits (305 cl
+  runs) and its time is generate (18 x ~150 s) and verify (15 x ~80 s), both single-threaded; the seed drops 73 fallbacks
+  in the batch's 76 objects, which changes `common.h` and recompiles ~1,940 TUs twice (3,896 cl runs). The host (`seed_decision()`) takes the seed only when the control's sources
   (`nb-out/sources.json.gz`, written by every build since build1) differ from the proof's in function sources
   (`matches|equivalent/0xADDR.cpp`, added, modified or removed) and files the tree build does not read (src/, other tools),
   on the same toolchain; anything under `include/` or `config/`, a tool in build_tree's imports or another file in

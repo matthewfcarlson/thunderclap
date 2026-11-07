@@ -241,6 +241,8 @@ proof sees them:
 HULK_PRNG_EVERY=0-60000      # also the 40 bytes at every frame ("prng every f=N w0..w9"), to find where two runs part
 J=build/venv/bin/python
 $J tools/ckpt_gate.py CONTROL PROOF --known 5880,5910,34260,52620,52650   # the proof gate for both kinds (job ids or traces)
+# (a proof may start build_tree from its control's state: wine_build_job.py submit ... --host <the control's> --state seed:CONTROL;
+#  docs/compute.md "Seeding a proof from its control": only function sources may differ, else it builds fresh)
 $J tools/replay_pack.py prng-extend build/replays/play3.json OUT.json XEMU1.json XEMU2.json --to 12900   # the reference
 $J tools/replay_pack.py pack OUT.json OUT.hrp
 ```

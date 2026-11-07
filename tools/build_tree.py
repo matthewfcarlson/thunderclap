@@ -7,7 +7,8 @@
   build/venv/bin/python tools/build_tree.py --only src/game/global/CAction.cpp   # one TU, current state
 
 Steps:
-  1. Generate the tree from an empty fallback state (build/tree/state.json).
+  1. Generate the tree from an empty fallback state (build/tree/state.json); --resume keeps the current one,
+     --seed STATE [--seed-changed FILE] starts from another build's (seed_state(): a proof from its control's).
   2. Compile every TU with MSVC 7.1 under wibo, with tools/compare.py's flags (the defaults plus the TU's
      `// cl-flags:` line, which gen_tree.py writes for TUs of functions that need other flags) and
      `/I build/tree/include`. Objects are cached by content in build/tree-cache/obj/.
@@ -24,6 +25,8 @@ Steps:
      fallback is tried merged again (one per object per rebuild, the others kept) and stays merged if
      nothing regresses: a function can differ only while a neighbour is merged beside it (0x2e9c60).
   5. Write build/tree/report.json and print a summary.
+Each round prints `[time]` lines (generate, compile with its cache misses, verify); HULK_BUILD_TREE_PROFILE=1 also
+prints a cProfile of the main thread at the end.
 """
 import argparse
 import collections
@@ -33,11 +36,13 @@ import os
 import re
 import subprocess
 import sys
+import time
 from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import compare  # noqa: E402
 import gen_tree  # noqa: E402
+import include_keys  # noqa: E402
 from xbe import Xbe  # noqa: E402
 
 ROOT = gen_tree.ROOT
@@ -50,21 +55,12 @@ ERR_RE = re.compile(r"^(.+?)\((\d+)\) : (?:fatal )?error (C\d+): (.*)$")
 
 # ---------------------------------------------------------------------------------------------
 # Compiling
-def compile_tu(path, extra_inc=True):
+def compile_tu(path):
     """Compile build/tree/<path> (cached by content). Returns (obj path or None, [error lines], log)."""
     src = os.path.join(TREE, path)
     text = open(src, "rb").read()
-    incs = b""
-    if extra_inc and os.path.isdir(INCLUDE_DIR):
-        for name in sorted(_headers_used(text.decode("latin1"))):
-            hp = os.path.join(INCLUDE_DIR, name)
-            if os.path.exists(hp):
-                incs += open(hp, "rb").read()
-                # common.h comes in through the directory headers
-                if name != "common.h" and os.path.exists(os.path.join(INCLUDE_DIR, "common.h")):
-                    incs += open(os.path.join(INCLUDE_DIR, "common.h"), "rb").read()
     flags = compare.DEFAULT_FLAGS + compare.file_flags(src)
-    h = hashlib.sha1(text + incs + gen_digest(text) + repr(flags).encode()).hexdigest()[:20]
+    h = tu_key(src, text, flags)
     os.makedirs(OBJ_CACHE, exist_ok=True)
     obj = os.path.join(OBJ_CACHE, h + ".obj")
     log = os.path.join(OBJ_CACHE, h + ".log")
@@ -73,6 +69,7 @@ def compile_tu(path, extra_inc=True):
     if os.path.exists(log):
         out = open(log).read()
         return None, parse_errors(out), out
+    STATS["compiled"] += 1
     src_dir, name = os.path.split(src)
     inc = os.path.relpath(INCLUDE_DIR, src_dir)
     env = dict(os.environ, INCLUDE=os.path.join(compare.MSVC, "Include") + ";" + os.path.join(ROOT, "include"))
@@ -102,20 +99,25 @@ def compile_tu(path, extra_inc=True):
 
 
 GEN_INCLUDE_ROOT = os.path.join(ROOT, "include")
-_GEN_DIGEST = []
 
 
-def gen_digest(text):
-    """Hash of every header under include/ (gen/, decls/ with decls/data/**, compat/), recursively, for sources that
-    include one of them (part of the object cache keys). compat/ptr.h comes in through gen/_prelude.h,
-    decls/data/records.h and many sources directly; a header added or edited anywhere under include/ changes the key."""
-    if isinstance(text, bytes):
-        text = text.decode("latin1")
-    if "gen/" not in text and "decls/" not in text and "compat/" not in text:
-        return b""
-    if not _GEN_DIGEST:
-        _GEN_DIGEST.append(include_tree_digest(GEN_INCLUDE_ROOT).encode())
-    return _GEN_DIGEST[0]
+def tu_key(src, text, flags):
+    """Object cache key of a tree TU: its text, its flags and every header it can read (include_keys: the transitive
+    closure over build/tree/include, include/ and the TU's own directory; the compiler's headers are covered by the
+    toolchain). A TU with a computed #include falls back to every header of both trees."""
+    search = [INCLUDE_DIR, GEN_INCLUDE_ROOT] + compile_include_env()     # (the /I order of the compile below)
+    return _key(src, text, flags, search)
+
+
+def compile_include_env():
+    return [os.path.join(compare.MSVC, "Include"), os.path.join(ROOT, "include")]
+
+
+def _key(src, text, flags, search):
+    d = include_keys.digest(src, search, [os.path.join(compare.MSVC, "Include")], ROOT)
+    if d is None:
+        d = "all " + include_tree_digest(GEN_INCLUDE_ROOT) + " " + include_tree_digest(INCLUDE_DIR)
+    return hashlib.sha1(b"k2\0" + text + b"\0" + d.encode() + b"\0" + repr(flags).encode()).hexdigest()[:20]
 
 
 def include_tree_digest(root):
@@ -132,10 +134,6 @@ def include_tree_digest(root):
     return hs.hexdigest()
 
 
-def _headers_used(text):
-    return re.findall(r'^#include "([^"]+)"', text, re.M)
-
-
 def parse_errors(out):
     errs = []
     for line in out.splitlines():
@@ -145,9 +143,16 @@ def parse_errors(out):
     return errs
 
 
+STATS = collections.Counter()      # "compiled": cache misses (cl.exe runs) of compile_tu
+
+
 def compile_all(paths, jobs):
+    include_keys.reset()        # (the tree was just generated: headers may have changed, come or gone)
+    t, n0 = time.time(), STATS["compiled"]
     with ThreadPoolExecutor(jobs) as ex:
         res = list(ex.map(compile_tu, paths))
+    print("  [time] compile %.1f s: %d of %d TUs compiled, the rest cached" % (time.time() - t, STATS["compiled"] - n0, len(paths)),
+          flush=True)
     return dict(zip(paths, res))
 
 
@@ -374,7 +379,8 @@ def standalone_obj(src):
     """Object of a verified source compiled on its own (cached by content), or None if it doesn't compile."""
     text = open(os.path.join(ROOT, src), "rb").read()
     flags = compare.DEFAULT_FLAGS + compare.file_flags(os.path.join(ROOT, src))
-    h = hashlib.sha1(text + gen_digest(text) + repr(flags).encode()).hexdigest()[:20]
+    # (compare.compile_obj: no /I, INCLUDE = the compiler's headers and include/)
+    h = _key(os.path.join(ROOT, src), text, flags, compile_include_env())
     obj = os.path.join(OBJ_CACHE, "sa-" + h + ".obj")
     err = os.path.join(OBJ_CACHE, "sa-" + h + ".err")
     if os.path.exists(obj):
@@ -503,8 +509,10 @@ def run(jobs=4, rounds=8, fresh=True):
     state = {"wrap": {}, "isolate": {}, "local_only": set(), "iso_plain": {}} if fresh else gen_tree.load_state()
     history = []
     for rnd in range(1, rounds + 1):
+        t = time.time()
         gen = gen_tree.generate(state)
         gen_tree.save_state(state)
+        print("  [time] generate %.1f s" % (time.time() - t), flush=True)
         manifest = gen.manifest
         paths = [t["path"] for t in manifest["tus"]]
         results = compile_all(paths, jobs)
@@ -532,9 +540,51 @@ def run(jobs=4, rounds=8, fresh=True):
     return gen, manifest, results, history, state
 
 
+def seed_state(path, changed):
+    """Write build/tree/state.json from another build's final state (PATH) for a build whose sources differ from that
+    build's only in the function sources of CHANGED (addresses). A proof seeded from its control's state skips the
+    rounds that rediscover the same fallbacks; it is verified exactly like a fresh build (every match re-compared,
+    every equivalent against its standalone object, regressions fall back as usual). What a seed can change is which
+    fallbacks are made, so it is narrowed to where the sources agree: every fallback (wrap, isolate, iso_plain) in an
+    object that holds a changed function is dropped, and so is every header-declaration fallback (local_only), and
+    those are found again from scratch as in a fresh build. Objects are config/splits.json's: a fallback's causes are
+    almost always inside its object (its TUs' declarations, a merged neighbour); one from outside (a shared header)
+    is still caught by the verification, as in any resumed build. The caller (tools/wine_build_run.py) only
+    seeds when nothing else differs: include/, config/ and the tree build's tools must be the same."""
+    import bisect
+    with open(path) as f:
+        raw = f.read()
+    tmp = gen_tree.STATE + ".seed.tmp"
+    os.makedirs(os.path.dirname(gen_tree.STATE), exist_ok=True)
+    with open(tmp, "w") as f:
+        f.write(raw)
+    os.replace(tmp, gen_tree.STATE)
+    state = gen_tree.load_state()
+    splits = gen_tree.load_splits()
+    starts = [o["start_i"] for o in splits]
+
+    def obj_of(addr):
+        i = bisect.bisect_right(starts, addr) - 1
+        return i if i >= 0 and addr < splits[i]["end_i"] else None
+    objs = {obj_of(a) for a in changed} - {None}
+    dropped = collections.Counter()
+    for key in ("wrap", "isolate", "iso_plain"):
+        for addr in [x for x in state.get(key, {}) if obj_of(x) in objs or (obj_of(x) is None and x in changed)]:
+            del state[key][addr]
+            dropped[key] += 1
+    dropped["local_only"] = len(state["local_only"])
+    state["local_only"] = set()
+    kept = {k: len(v) for k, v in state.items()}
+    gen_tree.save_state(state)
+    print("seed: %s; %d changed functions in %d objects; dropped %s, kept %s" % (
+        path, len(changed), len(objs), dict(dropped), kept), flush=True)
+    return state
+
+
 def precompile_standalone(manifest, jobs):
     """Standalone objects of every equivalent/ source in the tree (they are compared with the tree's code)."""
     srcs = sorted({b["src"] for rec in manifest["tus"] for b in rec["blocks"] if b["kind"] == "equivalent"})
+    include_keys.reset()
     with ThreadPoolExecutor(jobs) as ex:
         list(ex.map(standalone_obj, srcs))
 
@@ -557,6 +607,14 @@ def regressions(checks):
 
 
 def verify(gen, manifest, results, jobs=4):
+    t = time.time()
+    try:
+        return _verify(gen, manifest, results, jobs)
+    finally:
+        print("  [time] verify %.1f s" % (time.time() - t), flush=True)
+
+
+def _verify(gen, manifest, results, jobs=4):
     precompile_standalone(manifest, jobs)
     v = Verifier()
     names = block_names(gen)
@@ -797,6 +855,10 @@ def main(argv=None):
     ap.add_argument("--jobs", type=int, default=4)
     ap.add_argument("--rounds", type=int, default=8)
     ap.add_argument("--resume", action="store_true", help="start from build/tree/state.json instead of empty")
+    ap.add_argument("--seed", metavar="STATE", help="start from another build's final state.json (a proof from its "
+                    "control's): see seed_state()")
+    ap.add_argument("--seed-changed", metavar="FILE", help="with --seed: the function addresses (one per line, hex) whose "
+                    "sources differ from the seed build's; every fallback in their objects is dropped from the seed")
     ap.add_argument("--regression-rounds", type=int, default=4, metavar="N",
                     help="rebuild up to N times, falling back functions whose code changed in the tree (default 4)")
     ap.add_argument("--only", help="compile one TU of the current tree and print its errors")
@@ -809,7 +871,10 @@ def main(argv=None):
         obj, errs, out = compile_tu(a.only)
         print(out if obj is None else "OK " + obj)
         return 0 if obj else 1
-    gen, manifest, results, history, state = run(a.jobs, a.rounds, fresh=not a.resume)
+    if a.seed:
+        changed = [int(x, 16) for x in open(a.seed_changed).read().split()] if a.seed_changed else []
+        seed_state(a.seed, changed)
+    gen, manifest, results, history, state = run(a.jobs, a.rounds, fresh=not (a.resume or a.seed))
     checks = verify(gen, manifest, results, a.jobs)
     escalated = {}      # addr -> (state key, reason): wrapped -> isolated escalations made by the regression rounds
     first = {}          # addr -> (object, reason): merged -> wrapped fallbacks made by the regression rounds
@@ -967,4 +1032,18 @@ def main(argv=None):
 
 
 if __name__ == "__main__":
+    if os.environ.get("HULK_BUILD_TREE_PROFILE"):
+        # (a profile of the main thread, printed at the end: what a round spends besides the compiler)
+        import cProfile
+        import pstats
+        prof = cProfile.Profile()
+        prof.enable()
+        try:
+            rc = main()
+        finally:
+            prof.disable()
+            st = pstats.Stats(prof, stream=sys.stdout)
+            st.sort_stats("cumulative").print_stats(40)
+            st.sort_stats("tottime").print_stats(30)
+        sys.exit(rc)
     sys.exit(main())

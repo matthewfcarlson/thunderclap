@@ -11,7 +11,8 @@ Everything goes to build/clang-probe/ (not tracked):
   snap/               a copy of build/tree/{src,include,manifest.json,report.json}, include/ and the data TUs
                       (build/data/src/), so a concurrent build_tree.py / migrate_data.py run can't change the
                       tree under the probe. `--snapshot` refreshes it (only do that after a complete tree build).
-  cache/<config>/     per-TU result (diagnostics; objects for `msvc`), keyed by TU text + snapshot headers + flags
+  cache/<config>/     per-TU result (diagnostics; objects for `msvc`), keyed by TU text + the snapshot headers it can
+                      reach (tools/include_keys.py; the -poc configurations: every header) + flags
   report.json         the measurement: per configuration TUs compiling, diagnostics by category / producer,
                       example sites, source scans, the link probe
   undefined.txt       the link probe's undefined symbols with their group (demangled)
@@ -53,6 +54,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import addr_names  # noqa: E402
+import include_keys  # noqa: E402
 import hulk_env  # noqa: E402,F401  (HULK_NATIVE_* -> HULK_WINE_*)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -209,6 +211,15 @@ def snapshot():
         shutil.copytree(data, os.path.join(SNAP, "data/src"))
 
 
+def tu_digest(src, base, digest):
+    """The include part of a per-TU cache key: the headers SRC can reach (include_keys: its closure over base/include,
+    base/repo-include and the working directory, compat/native.h force-included), relative to BASE; DIGEST (every
+    header of the snapshot, include_digest) for a TU with a computed #include."""
+    d = include_keys.digest(src, [os.getcwd(), os.path.join(base, "include"), os.path.join(base, "repo-include")],
+                            root=base, force=["compat/native.h"])
+    return "tu1 " + d if d else digest
+
+
 def include_digest(root=SNAP):
     h = hashlib.sha1()
     for base in ("include", "repo-include"):
@@ -345,6 +356,7 @@ def _keep_scan(rel, digest, clang):
     return type], ...]]}, calls of float/double-returning functions and of the math shims only."""
     text = open(os.path.join(SNAP, rel), "rb").read()
     flags = [f for f in CONFIGS["msvc"]["flags"] + COMMON if f != "-c"] + ["-S", "-emit-llvm", "-w"]
+    digest = tu_digest(os.path.join(SNAP, rel), SNAP, digest)
     key = hashlib.sha1(b"x87scan1" + text + digest.encode() + repr(flags).encode() + clang.encode()).hexdigest()[:20]
     d = os.path.join(CACHE, "x87scan")
     os.makedirs(d, exist_ok=True)
@@ -458,6 +470,8 @@ def compile_one(cfg, rel, digest, clang):
     text = open(src, "rb").read()
     flags = spec["flags"] + COMMON
     sse = cfg == "msvc" and FLOAT_SSE
+    if not spec.get("root"):
+        digest = tu_digest(src, base, digest)
     key = hashlib.sha1(text + digest.encode() + repr(flags).encode() + clang.encode()
                        + (b"ssefix1" + "\n".join(_KEEP_BY_TU.get(rel, []) if _KEEP_BY_TU is not None else sorted(_x87_list())).encode()
                           if sse else b"")).hexdigest()[:20]

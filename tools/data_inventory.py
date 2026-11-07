@@ -185,7 +185,6 @@ def cached_source_offsets(use_tree=True):
 
 def tree_objects(with_total=False):
     """Object paths of the current tree's TUs (build/tree/manifest.json), as build_tree.compile_tu caches them."""
-    import hashlib
     try:
         import build_tree
         import compare
@@ -201,15 +200,7 @@ def tree_objects(with_total=False):
         if not os.path.exists(src):
             continue
         text = open(src, "rb").read()
-        incs = b""
-        for name in sorted(build_tree._headers_used(text.decode("latin1"))):
-            hp = os.path.join(build_tree.INCLUDE_DIR, name)
-            if os.path.exists(hp):
-                incs += open(hp, "rb").read()
-                if name != "common.h" and os.path.exists(os.path.join(build_tree.INCLUDE_DIR, "common.h")):
-                    incs += open(os.path.join(build_tree.INCLUDE_DIR, "common.h"), "rb").read()
-        flags = compare.DEFAULT_FLAGS + compare.file_flags(src)
-        h = hashlib.sha1(text + incs + build_tree.gen_digest(text) + repr(flags).encode()).hexdigest()[:20]
+        h = build_tree.tu_key(src, text, compare.DEFAULT_FLAGS + compare.file_flags(src))
         obj = os.path.join(build_tree.OBJ_CACHE, h + ".obj")
         if os.path.exists(obj):
             out.append(obj)
