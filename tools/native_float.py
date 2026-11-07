@@ -4,8 +4,8 @@ x86-64 and arm64.
 
   build/venv/bin/python tools/native_float.py IN.ll OUT.ll      # apply the pass to one IR file (tests)
 
-The native compiles (tools/native_mac.py, native_elf.py) apply it in native_mac.retarget() when HULK_NATIVE_FPFIX=1 (off by
-default; the cache key carries it). Four rewrites of the front end's IR, all target-independent (tests:
+The native compiles (tools/native_mac.py, native_elf.py) apply it in native_mac.retarget() by default (HULK_NATIVE_FPFIX=0
+turns it off; the cache key carries it). Four rewrites of the front end's IR, all target-independent (tests:
 tests/native_host/native_float_test.py):
 
 1. castfix: `fpext (sitofp/uitofp i to float) to double` becomes a direct conversion to double, as the Wine build's

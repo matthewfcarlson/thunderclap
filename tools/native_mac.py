@@ -64,8 +64,9 @@ FRONT = (["--target=aarch64-pc-windows-msvc", "-fms-extensions", "-fms-compatibi
           "-fms-compatibility-version=13.10", "-std=c++14", "-O0", "-S", "-emit-llvm"]
          + cp.NATIVE + ["-fcheck-new", "-ffp-eval-method=double", "-ffp-contract=off"] + cp.W64)
 BACK = ["--target=" + TRIPLE, "-O0", "-c", "-Wno-override-module"]
-# (flt1) HULK_NATIVE_FPFIX=1: tools/native_float.py's pass in retarget() (docs/native-float64.md); off by default
-FPFIX = os.environ.get("HULK_NATIVE_FPFIX", "0") == "1"
+# (flt1) tools/native_float.py's pass in retarget() (docs/native-float64.md); on by default since flt2 (2026-11-06),
+# HULK_NATIVE_FPFIX=0 turns it off (the setting is in the cache key)
+FPFIX = os.environ.get("HULK_NATIVE_FPFIX", "1") != "0"
 VERSION = "2" + ("+fpfix1" if FPFIX else "")  # bump when retarget() changes (cache key)
 
 
