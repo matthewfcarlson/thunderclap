@@ -9,9 +9,10 @@ struct ControllerSystemXBox_nv_269640 {
     u32_269640 Make(u32_269640, u32_269640);
 };
 extern "C" void __cdecl FUN_00269640(u32_269640 a, u32_269640 b) {
+    HULK_SIZE32(CoreControllerSystemXBox, 0x12a8);
     u32_269640 v = b;
     *(volatile u32_269640*)((hulk_intptr)((char*)&DAT_004cdbb0)) = v;
-    hulk_uintptr x = FUN_00266e00(v, 0x12a8);
+    hulk_uintptr x = FUN_00266e00(v, (u32_269640)sizeof(CoreControllerSystemXBox));
     if (x)
         *(volatile u32_269640*)((hulk_intptr)DAT_00528398) = ((ControllerSystemXBox_nv_269640*)(((core::ControllerSystemXBox*)(((core::ControllerSystemXBox*)x)))))->Make(a, v);
     else

@@ -13,11 +13,12 @@ struct CementLibrary_nv_277b70 {
 extern "C" core::File* __cdecl FUN_00275d50(unsigned int size);
 extern "C" core::CementLibrary* __cdecl FUN_00266e00(unsigned int a,hulk_uintptr size);
 void __cdecl FUN_00277b70(core::CementLibrary** out,hulk_uintptr a,unsigned int b,unsigned int c,unsigned int d) {
+ HULK_SIZE32(CoreCementLibrary, 0x74);
  core::File* p=FUN_00275d50(0x168);
  core::File* base=0;
  if(p) base=((File_nv_277b70*)(((core::File*)(p))))->FUN_002764d0(a,b,0,0,1,0,0,0,1);
  (*(unsigned int*)&DAT_004cdbb0)=d;
- core::CementLibrary* mem=FUN_00266e00(d,0x74);
+ core::CementLibrary* mem=FUN_00266e00(d,(hulk_uintptr)sizeof(CoreCementLibrary));
  core::CementLibrary* result=0;
  if(mem) result=((CementLibrary_nv_277b70*)(mem))->FUN_00277a70(a,base,c);
  base->vfunc_1();

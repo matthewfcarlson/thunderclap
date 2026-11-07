@@ -1218,9 +1218,9 @@ size with `HULK_SIZE32(T, n)` (records.h: a block-scope typedef that is a compil
   temporaries by its own placed class (`om::MetaTypeAttribScalar<int/float>`).
 - **Left as literals:** HalListener (0x0035f960), Properties (0x00361110) and PointerUid (0x00361700), whose pool
   getters have no caller (no instance is ever allocated); the 0x4000-byte aligned stream buffer (0x003611d0, raw
-  bytes). Other literal-size allocations outside the om types remain: `FUN_00266e00` in 0x00269640 (0x1dc),
-  0x00277b70 (0x1d8), 0x0026e9e0 (0x74), 0x00334010 (0x12a8), and the `FUN_0008d690` / `operator new` literals of
-  ptr1's 302 sources whose stub is shorter than the class.
+  bytes). Other literal-size allocations outside the om types remained: `FUN_00266e00` in 0x00269640 (0x12a8),
+  0x00277b70 (0x74), 0x0026e9e0 (0x1d8), 0x00334010 (0x1dc) (typed by reg6, below), and the `FUN_0008d690` /
+  `operator new` literals of ptr1's 302 sources whose stub is shorter than the class.
 - **Checks:** 77 matches/ MATCH + verify_relocs ok; 9 equivalents equivalent at 3,000 inputs and `--wine`. `--x64`
   (HEAD -> batch): 64 equivalent -> fail by design, each at the size / alignment argument (the 64-bit object passes
   the 64-bit size, e.g. SeqPlayer 184 -> 312, XboxSaveDrive 2,320 -> 2,472); the 4 pointer-free records (the two
@@ -1252,3 +1252,44 @@ blocks in 17 TUs change mode, all to merged (25 wrapped "conflict: FUN_x" -> mer
 
 A first proof (65247) failed the strict link: with gen/audio.h included, 18 wrapped initializers were isolated and
 five of them define a global `target()`. The records replaced the gen classes.
+
+### The remaining 0x00266e00 allocations (reg6)
+
+Four more sites passed a class's 32-bit size to the heap allocator; each now passes `sizeof` of a records.h record
+with the class's layout (fields commented with their 32-bit offsets and the functions that use them) and checks the
+XBE's size with `HULK_SIZE32`:
+
+| site | class | 32-bit | 64-bit | record | where it runs |
+|---|---|---|---|---|---|
+| 0x00269640 | core::ControllerSystemXBox (four core::ControllerXBox pads inline, each with 20 input and 2 output points) | 0x12a8 | 0x1c78 | `CoreControllerSystemXBox`, `CoreControllerXBox`, `CoreControllerInputPointXBox`, `CoreControllerOutputPointXBox` | CGame start-up (0x00088530 -> 0x00088020 -> 0x0008e880), before the first .rcf mount |
+| 0x00277b70 | core::CementLibrary (a drive's archive) | 0x74 | 0xa8 | `CoreCementLibrary` (+ the on-disk `CoreCementLibraryHeader`) | CGame start-up: the .rcf mounts (0x0008e880 for rcfs.txt, 0x00088020 for sound_*.rcf) through 0x00271560 |
+| 0x0026e9e0 | core::ConsoleClient (the debug console's host link; its network calls are stubs in this build) | 0x1d8 | 0x1f0 | `CoreConsoleClient` (+ `CoreConsoleTxBuffer`) | debug only (0x0026ed80) |
+| 0x00334010 | movie::PlayerBink | 0x1dc | 0x1f8 | `MoviePlayerBink` (+ `MoviePlayerBinkTrack`) | the movie screens (0x001b77e0) |
+
+- ControllerXBox keeps the XInputSetState feedback inline (+0x458 status, +0x45c the header's event handle as
+  `hulk_uintptr`, the motors at +0x49a / +0x49c, the `connected` byte at +0x49e): a nested struct would round to
+  0x48 and move the byte. The sources still address it by 32-bit offsets, as the shim (input_xpp.cpp) does.
+- 0x00334010 also takes the heap id as `int` and returns `void*`: it stored its `void*` parameter into the `int`
+  DAT_004cdbb0 (`--x64`: a write past the end of the global) and returned the player as `int`.
+- **Left as a literal:** 0x0008d480's 0x20800 bytes of heap 0 for the "Temporary Heap" are a raw arena, not an
+  object: the dl allocator object itself is allocated by 0x0026cfa0 with `sizeof(core::MemoryDlAllocator)`
+  (pointer-scaled) and carves its chunks out of the arena. On 64-bit the arena holds less (16-byte chunk headers,
+  32-byte minimum chunks, larger objects); whether it needs to grow is a capacity question (the heap's peak, which
+  DlHeapState's systemPeak records), not a layout one.
+- Still literal, not object sizes: the core::File allocations `FUN_00275d50(0x168)` (0x00277b70, 0x00276df0,
+  0x00276f00, 0x00277460) pass a size the pool allocator ignores (0x00275d50 takes no argument; the pool's item size
+  is set where it is created). Follow-ups found on the way: core::ConsoleClient's pool is created with 0x110-byte
+  items (0x0026e2a0) and 0x0026e140 clears 0x110 bytes, but its `CoreConsoleTxBuffer` (next pointer at +0x10c) is
+  0x118 on 64-bit, and 0x0026e2a0 keeps the pool pointer in an `int`; 0x00275d50 returns the File pointer as
+  `unsigned int`.
+
+### Proof (reg6)
+
+| | control 65297 (HEAD edaf49b8e, studio) | proof 68254 (studio) |
+|---|---|---|
+| sources | - | 2 matches/, 2 equivalent/, records.h (a tree input, so the proof built fresh, not seeded) |
+| gates | - | 2 / 2 MATCH + verify_relocs ok; 2 / 2 equivalent at 3,000 inputs and `--wine`; `--x64`: the 3 that were equivalent fail only at the size (4,776 -> 7,288, 116 -> 168, 472 -> 496), 0x00334010 fails only at its size (476 -> 504; at HEAD: the layout write) |
+| strict link rc / Wine unbound | 0 / 1,314 | 0 / 1,314 (the same list) |
+| x87 keep list | 268 | 268 (identical) |
+| play3 checkpoints | 2,011 to 60,300 | `ckpt_gate.py` ok at 2,006 common frames (the known transients only), PRNG hashes identical |
+| arm64 macOS / x86-64 Linux / arm64 Android unbound | 30,469 / 30,460 / 23,893 | 30,468 / 30,459 / 23,892, all rc 0 |

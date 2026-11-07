@@ -1394,4 +1394,179 @@ struct AudioHalRadicalAdpcmDecodeStream {
     int state;                              // +0x1c 0..5 (vfunc_1 0x00262c70 maps it; 0x00262e60 zeroes it)
 };
 
+
+// ---- reg6: the remaining 0x00266e00 allocations (core cement library, debug console client, XBox controllers,
+// movie::PlayerBink). Offsets are the 32-bit ones; each size is the literal its allocation site passes. ----
+
+// The 0x3c-byte header at the start of a cement library file (on-disk data: stays 32-bit, no pointers). The
+// file-completion callback 0x00277810 reads it into the library's +0x24 (the file's slot 3, 0x3c bytes) and
+// checks it; 0x002779b0 / 0x002776c0 read the counts.
+struct CoreCementLibraryHeader {
+    char magic[0x18];                       // +0x00 "ATG CORE CEMENT LIBRARY" (0x00277810 compares 0x18 bytes)
+    unsigned int unknown18[2];              // +0x18
+    unsigned char version[2];               // +0x20 0x00277810: [0] must be 2, [1] below 2 (0x002779b0 picks the
+                                            //       entry layout by [1])
+    unsigned char flag22;                   // +0x22 0x00277810 rejects a nonzero one
+    unsigned char flag23;                   // +0x23 0x00277810 requires it (with version 2)
+    unsigned int tableOffset;               // +0x24 the file position of the entry table (0x00277810 seeks to it)
+    unsigned int tableSize;                 // +0x28 its bytes (0x00277810 allocates and reads them)
+    unsigned int unknown2c[2];              // +0x2c
+    unsigned int dataCount;                 // +0x34 0x00277810 / 0x002776c0 test it (the drive's shared buffer);
+                                            //       0x002779b0 passes it to 0x00277c40
+    unsigned int entryCount;                // +0x38 0x002779b0 hands it (in eax) to the table search 0x00277310
+};
+
+// core::CementLibrary (0x00277a70 constructs it; vftables 0x0042bfac / +4 0x0042bf98 / +8 0x0042bf90 /
+// +0x10 0x0042bf80; 0x002776c0 destroys it): a drive's archive of files. 0x00277b70 allocates 0x74 bytes.
+struct CoreCementLibrary {
+    const void* vftable;                    // +0x00 core::ICementLibrary
+    const void* vftableCallback;            // +0x04 core::IFileCompletionCallback (0x00277810 is its slot 3)
+    const void* vftableObject;              // +0x08 core::Object / BaseObject
+    int heap;                               // +0x0c the heap id (DAT_004cdbb0; 0x002776c0 frees the table on it)
+    const void* vftableMutable;             // +0x10 core::SafeRefCount / IMutable
+    int refs;                               // +0x14 (1 at construction; vfunc_0 0x00277790 increments it)
+    void* drive;                            // +0x18 the core::Drive (1st argument; 0x00277460 / 0x00277810 call it,
+                                            //       0x002776c0 takes the library off its list 0x00272bb0)
+    void* file;                             // +0x1c the core::File (2nd argument; 0x00277810 reads the header from it)
+    int state;                              // +0x20 0 loading, 1 open, 2 failed (vfunc_3 0x002773a0, vfunc_6 0x002773e0,
+                                            //       0x00277410 sets it)
+    CoreCementLibraryHeader header;         // +0x24
+    void* table;                            // +0x60 the entry table (0x00277810 allocates it with 0x00266eb0;
+                                            //       0x002779b0 searches it with 0x00277310; 0x002776c0 frees it)
+    CoreCementLibrary* next;                // +0x64 the drive's list link (CoreDriveLibraryList: 0x00277570 / 0x002775b0)
+    int bucket;                             // +0x68 the list it is on (3rd argument; 0x00277570 indexes by it)
+    void* callback;                         // +0x6c the open-completion callback (vfunc_5 0x002773f0 sets it,
+                                            //       0x00277410 calls its slot 3 and releases it)
+    hulk_uintptr callbackArgument;          // +0x70 vfunc_5's 2nd argument, passed back to the callback's slot 3
+                                            //       (its type is the caller's: pointer-sized)
+};
+
+// A pending debug-console message (the ConsoleClient's pool of 0x80 items of 0x110 bytes; 0x0026e140 fills one
+// and appends it to the queue, 0x0026eab0 sends and frees them).
+struct CoreConsoleTxBuffer {
+    char data[0x108];                       // +0x000 the message (0x0026e140 copies the caller's bytes)
+    unsigned int size;                      // +0x108
+    CoreConsoleTxBuffer* next;              // +0x10c the queue link (0x0026e140 walks to the tail)
+};
+
+// core::ConsoleClient (0x0026e2a0 constructs it; vftables 0x0042b47c / +4 0x0042b474; 0x0026e360 / 0x0026ea50
+// destroy it): the debug console's connection to a host (DAT_005283b0; 0x0026eab0 updates it). The network
+// functions it calls are stubs in this build (0x0026eee0-0x0026ef50 return 0). 0x0026e9e0 allocates 0x1d8 bytes.
+struct CoreConsoleClient {
+    const void* vftable;                    // +0x000 core::IRefCount
+    const void* vftableObject;              // +0x004 core::RefCount / Object / BaseObject
+    int heap;                               // +0x008 the heap id
+    int refs;                               // +0x00c (1; 0x0026e330 increments it)
+    unsigned int listener[0x16];            // +0x010 the listening socket's state (0x0026e030 clears 0x16 words and
+                                            //        passes it to the stubs; opaque here)
+    unsigned int connection[0x16];          // +0x068 the connection's state (0x0026e030, 0x0026e140 / 0x0026eab0 send
+                                            //        and receive through it)
+    int state;                              // +0x0c0 0 closed, 1 listening, 2 accepting, 3 connected (0x0026e030,
+                                            //        0x0026e0e0, 0x0026eab0)
+    void* txPool;                           // +0x0c4 the core memory pool 0x002702a0 creates (its slot 3 allocates,
+                                            //        slot 4 frees: 0x0026e140, 0x0026eab0)
+    CoreConsoleTxBuffer* txQueue;           // +0x0c8 messages to send (0x0026e140 appends, 0x0026eab0 drains)
+    char receive[0x108];                    // +0x0cc the received message (0x0026eab0 reads 0x108 bytes into it;
+                                            //        +0 its type, +4 the target console)
+    void* consoles;                         // +0x1d4 the core::DebugConsole list, linked through their +0x10
+                                            //        (0x0026e200 searches it, 0x0026e3c0 unlinks)
+};
+
+// core::ControllerInputPointXBox (vftable 0x0042b24c; 0x00268fa0 constructs 20 per pad, 0x002692c0 binds them
+// to the XInput state table 0x004cd6a8): one button or axis of a pad.
+struct CoreControllerInputPointXBox {
+    const void* vftable;                    // +0x00
+    int refs;                               // +0x04 (0x00268cd0 / 0x00268ce0)
+    float value;                            // +0x08 (0x00268d10 / 0x00268f00 store 0x00268d30's reading)
+    float minimum;                          // +0x0c (0x00268ec0 sets, 0x00268ea0 / 0x00268ee0 read)
+    float maximum;                          // +0x10 (1.0 at construction)
+    float threshold;                        // +0x14 the change threshold (0x00268e10 clamps it to 0..1)
+    int heldTime;                           // +0x18 (0x00268f00, 0x00268ea0)
+    int changeTime;                         // +0x1c (0x00268cf0, 0x00268f00)
+    const char* type;                       // +0x20 the state table's type name (0x00268d30 compares it with
+                                            //       DAT_004cd698..DAT_004cd6a4; vfunc 0x00268e00 returns it)
+    const char* name;                       // +0x24 (vfunc 0x00268df0 returns it; 0x00268a10 compares names)
+    unsigned int field;                     // +0x28 the button mask or the byte offset into the state (0x00268d30)
+    void* callback;                         // +0x2c the change callback (0x00268e60 sets, 0x00268e80 clears,
+                                            //       0x00268f00 calls its slot 0)
+    hulk_uintptr callbackArgument;          // +0x30 0x00268e60's 2nd argument, passed back by 0x00268f00
+};
+
+// core::ControllerOutputPointXBox (vftable 0x0042b228): a pad's motor (2 per pad).
+struct CoreControllerOutputPointXBox {
+    const void* vftable;                    // +0x00
+    int refs;                               // +0x04 (0x00268be0 / 0x00268bf0)
+    const char* name;                       // +0x08 "LeftMotor" / "RightMotor" (0x002692c0; vfunc 0x00268c00 returns it)
+    float value;                            // +0x0c 0..1 (0x00268c30 clamps, 0x00268c20 returns; 0x002685a0 reads)
+};
+
+// core::ControllerXBox (vftable 0x0042b14c; 0x00268fa0 constructs it, 0x002692c0 opens it on a port, 0x00268520
+// destroys it): one pad of the controller system (4 of them inline, 0x4a0 bytes apart).
+struct CoreControllerXBox {
+    const void* vftable;                    // +0x000
+    int refs;                               // +0x004 (0x00268580 / 0x00268590; 0x002685a0 polls only while > 0)
+    hulk_uintptr handle;                    // +0x008 the XInput handle (0x002692c0; 0x002685a0, 0x00268780, 0x00268520)
+    int port;                               // +0x00c (0x002692c0)
+    int slot;                               // +0x010 (0x002692c0)
+    unsigned int inputCount;                // +0x014 20 (0x002692c0; 0x00268b10 returns it)
+    CoreControllerInputPointXBox inputs[20];   // +0x018 (0x00268b20)
+    CoreControllerOutputPointXBox outputs[2];  // +0x428 (0x00268b50)
+    char name[12];                          // +0x448 "Portx\Slotx" with the digits (0x002692c0; 0x00268b00 returns it)
+    void* buffer;                           // +0x454 the core::ControllerBuffer (0x002692c0's last argument;
+                                            //        0x00268690 / 0x002686d0 / 0x00268760 call it)
+    // +0x458 the XInputSetState feedback (0x002692c0 clears 0x46 bytes; 0x002685a0): inline, the next byte is at
+    // +0x49e (a nested struct would round to 0x48)
+    unsigned int feedbackStatus;            // +0x458 ERROR_IO_PENDING (0x3e5) while a rumble is in flight
+    hulk_uintptr feedbackEvent;             // +0x45c the header's event handle (0x002685a0 clears it)
+    unsigned char feedbackReserved[0x3a];   // +0x460
+    unsigned short leftMotor;               // +0x49a 0..65535 (0x002685a0)
+    unsigned short rightMotor;              // +0x49c
+    unsigned char connected;                // +0x49e (0x002692c0 sets 1; the system's loops test it)
+    unsigned char pad49f;                   // +0x49f
+};
+
+// core::ControllerSystemXBox (0x00269030 constructs it; vftables 0x0042b2a4 / +4 0x0042b29c; 0x00269590
+// destroys it): the four pads (DAT_00528398). 0x00269640 allocates 0x12a8 bytes.
+struct CoreControllerSystemXBox {
+    const void* vftable;                    // +0x0000 core::IControllerSystem
+    const void* vftableObject;              // +0x0004 core::Object / BaseObject
+    int heap;                               // +0x0008 the heap id
+    int refs;                               // +0x000c (0x00269150 / 0x00269160)
+    unsigned char paused;                   // +0x0010 (0x00268390 sets it; 0x00269170 tests it)
+    char pad11[3];                          // +0x0011
+    int timeOffset;                         // +0x0014 (0x002683f0; 0x00269170 / 0x002691f0 add it to the time)
+    int rate;                               // +0x0018 (10 at construction; 0x00268390)
+    void* connectionCallback;               // +0x001c a core::IControllerConnectionChangeCallback (the constructor's
+                                            //         1st argument; 0x00268460 sets, 0x00269530 clears,
+                                            //         0x002691f0 calls its slot 0)
+    CoreControllerXBox controllers[4];      // +0x0020
+    unsigned int interval;                  // +0x12a0 the poll interval (10; 0x00268440, 0x00269170)
+    unsigned int lastPoll;                  // +0x12a4 the time of the last poll (0x00267f80; 0x00269170)
+};
+
+// movie::PlayerBink (0x00333f10 constructs it; vftables 0x004340bc / +4 0x004340b0; 0x00333fa0 destroys it):
+// the movie player (DAT_00555ba4). 0x00334010 allocates 0x1dc bytes.
+struct MoviePlayerBinkTrack {
+    unsigned int count;                     // +0x00 the speaker entries (0x00333ab0 copies them; 0x00333970)
+    unsigned int speakers[16];              // +0x04 (0x00333970 passes them to 0x00367660)
+};
+
+struct MoviePlayerBink {
+    const void* vftable;                    // +0x000 movie::Player2
+    const void* vftableObject;              // +0x004 core::RefCount / Object / BaseObject
+    int heap;                               // +0x008 the heap id (0x00333cb0 / 0x00333de0 make it the Bink heap)
+    int refs;                               // +0x00c (0x00333f70)
+    void* listener;                         // +0x010 a reference (0x00333c50 sets it; 0x00333de0 calls its slot 3)
+    void* renderer;                         // +0x014 the render strategy (0x00333c50; 0x00333cb0 / 0x00333de0 call it)
+    int state;                              // +0x018 0 closed, 1..4 (0x00333cb0, 0x00333d80, 0x00333db0)
+    void* bink;                             // +0x01c the open movie (0x00364fe0's result; 0x00333d50 closes it)
+    float volume;                           // +0x020 (1.0; 0x003339b0 sets, 0x00333a10 returns)
+    unsigned char finished;                 // +0x024 (0x00333ca0, 0x00333cb0 clear; 0x00333de0)
+    unsigned char busy;                     // +0x025 0x00333de0's re-entry guard
+    char pad26[2];                          // +0x026
+    unsigned int trackCount;                // +0x028 (0x00333ab0; 0x00333cb0 passes it with the ids to 0x00364dc0)
+    unsigned int trackIds[6];               // +0x02c
+    MoviePlayerBinkTrack tracks[6];         // +0x044
+};
+
 #endif
