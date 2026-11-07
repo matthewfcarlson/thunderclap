@@ -206,7 +206,7 @@ class Block:
         self.macros = sorted(set(re.findall(r"^\s*#\s*define\s+(\w+)", text, re.M)))
         self.gen_includes = []   # include/gen/ headers the source includes (hoisted to the TU)
         try:
-            self.items = cxx_items.parse(text)
+            self.items = parse_source(text)
         except ValueError as e:
             self.wrap("parse: %s" % e)
             return
@@ -243,6 +243,38 @@ class Block:
     @property
     def ns(self):
         return "fn_%08x" % self.addr
+
+
+_PARSED = {}
+
+
+def parse_source(text):
+    """cxx_items.parse of a function source, cached by its text for the process: tools/build_tree.py generates the
+    tree some 18 times per build from the same sources. The items are shared between those generations, which
+    only read them (an item the generator changes is a fresh parse or a copy: try_merge, as_declaration,
+    pin_views, native_inline)."""
+    r = _PARSED.get(text)
+    if r is None:
+        try:
+            r = cxx_items.parse(text)
+        except ValueError as e:
+            r = e
+        _PARSED[text] = r
+    if isinstance(r, ValueError):
+        raise r
+    return list(r)
+
+
+_TOKS = {}
+
+
+def parse_text(text):
+    """cxx_items.parse with the tokens cached by text for the process (tokens are never changed; the items are new
+    each time, the callers may change them)."""
+    toks = _TOKS.get(text)
+    if toks is None:
+        toks = _TOKS[text] = cxx_items.tokenize(text)
+    return cxx_items.parse(text, toks)
 
 
 def key_of(it):
@@ -325,8 +357,20 @@ def data_names():
     return _DATA_NAMES
 
 
+_GEN_VARIANTS = {}
+
+
 def gen_variants(headers):
-    """name -> {variants} declared by include/gen/ headers (and what they include)."""
+    """name -> {variants} declared by include/gen/ headers (and what they include). Cached per header list (the
+    headers don't change within a run, as for gen_header_items); callers only read the result."""
+    key = tuple(headers)
+    r = _GEN_VARIANTS.get(key)
+    if r is None:
+        r = _GEN_VARIANTS[key] = _gen_variants(key)
+    return r
+
+
+def _gen_variants(headers):
     out = collections.defaultdict(set)
     seen = set()
     for h in headers:
@@ -617,7 +661,10 @@ class TU:
 
     @property
     def dir(self):
-        return os.path.dirname(self.path)
+        d = self.__dict__.get("_dir")
+        if d is None or d[0] is not self.path:
+            d = self._dir = (self.path, os.path.dirname(self.path))
+        return d[1]
 
 
 # ---------------------------------------------------------------------------------------------
@@ -756,8 +803,8 @@ class Generator:
         tu.variants = collections.defaultdict(set)       # name -> variants used by merged blocks (incl. defs)
         tu.local = []
         tu.merged_names = sorted(absorbed) if absorbed else []
-        for nk, vs in tu.gen_vars.items():
-            tu.variants[nk] |= vs           # keeps conflicting stubs out of the headers this TU includes
+        # (hoist() also counts tu.gen_vars, the include/gen variants, as the TU's: that keeps conflicting stubs out of
+        # the headers this TU includes; they are not copied in here, gen_vars is shared by every TU of its headers)
         for b in tu.blocks:
             if b.mode != "merged":
                 continue
@@ -1010,10 +1057,18 @@ class Generator:
         all_vars = collections.defaultdict(set)
         dir_users = collections.defaultdict(lambda: collections.defaultdict(set))  # dir -> (k,norm) -> tus
         all_users = collections.defaultdict(set)                                   # (k,norm) -> dirs
+        gen_seen = set()        # (directory or None, id of a shared gen_vars) already counted
         for tu in self.tus:
             for nk, vs in getattr(tu, "variants", {}).items():
                 dir_vars[tu.dir][nk] |= vs
                 all_vars[nk] |= vs
+            gv = tu.gen_vars if hasattr(tu, "variants") else None
+            if gv:
+                for scope, dst in ((tu.dir, dir_vars[tu.dir]), (None, all_vars)):
+                    if (scope, id(gv)) not in gen_seen:
+                        gen_seen.add((scope, id(gv)))
+                        for nk, vs in gv.items():
+                            dst[nk] |= vs
             for k, norm, it, _ in tu.local:
                 dir_users[tu.dir][(k, norm)].add(tu.path)
                 all_users[(k, norm)].add(tu.dir)
@@ -1119,10 +1174,9 @@ class Generator:
 
     # -- emit ----------------------------------------------------------------------------------
     def write(self):
-        for sub in ("src", "include"):
-            p = os.path.join(TREE, sub)
-            if os.path.isdir(p):
-                shutil.rmtree(p)
+        # (build2) the files of the last tree stay where this one writes the same bytes (write_file); the rest of
+        # src/ and include/ goes at the end (sweep_tree): the same tree as removing both first, with less writing
+        _WRITTEN.clear()
         manifest = {"tus": [], "headers": {}}
         write_file(os.path.join(TREE, "include", PRELUDE), PRELUDE_LINES)
         self.c_seen = {}        # header -> {C function name: shape} declared by it and what it includes
@@ -1191,6 +1245,7 @@ class Generator:
             manifest["headers"][h] = spans
         for tu in self.tus:
             manifest["tus"].append(self.write_tu(tu))
+        sweep_tree()
         with open(os.path.join(TREE, "manifest.json"), "w") as f:
             json.dump(manifest, f, indent=0)
         return manifest
@@ -1482,6 +1537,9 @@ def _c_shape(it):
     return shape, all(w in BUILTIN_WORDS for w in words)
 
 
+_CLINK_HEADERS = {}     # header list -> (seen, globals_cpp) after noting their items (CLinkage)
+
+
 class CLinkage:
     """Makes a wrapped source's `extern "C"` declarations namespace-local where they would clash in the TU.
 
@@ -1509,9 +1567,17 @@ class CLinkage:
         self.seen = {}          # C name -> (shape, builtin_only) of the first declaration in the TU
         self.defs = {}          # C name -> (shape, builtin_only) of a C definition anywhere in the TU
         self.globals_cpp = set()    # names of global-scope C++ variables / functions declared before
+        # the include/ headers' items first (what noting them gives is cached per header list)
+        key = tuple(headers)
+        hn = _CLINK_HEADERS.get(key)
+        if hn is None:
+            for h in headers:
+                for it in gen_header_items(h):
+                    self.note(it)
+            hn = _CLINK_HEADERS[key] = (dict(self.seen), set(self.globals_cpp))
+        else:
+            self.seen, self.globals_cpp = dict(hn[0]), set(hn[1])
         items = []
-        for h in headers:
-            items += gen_header_items(h)
         if merged:
             for h in ("common.h", tu.header):
                 items += [it for _, _, it, _ in gen.headers.get(h, ())]
@@ -1553,7 +1619,7 @@ class CLinkage:
     def rewrite(self, b, text):
         """(text, [names made namespace-local]) for a wrapped block's final source text."""
         try:
-            items = cxx_items.parse(text)
+            items = parse_text(text)
         except ValueError:
             return text, []
         own = {it.name for it in items if it.kind == "funcdef" and it.name}
@@ -1648,9 +1714,20 @@ def item_top(it):
     if it.scope:
         return it.scope[0]
     q = it.key[1] if it.key and len(it.key) > 1 else (it.name or "")
-    q = str(q).lstrip(":")
-    first = split_qualified_name(q)[0] if q else ""
-    return re.sub(r"<.*", "", first).strip() or "<anon>"
+    return _top_of(str(q))
+
+
+_TOPS = {}
+
+
+def _top_of(q):
+    """item_top of a qualified name (cached: a pure function of the string)."""
+    r = _TOPS.get(q)
+    if r is None:
+        p = q.lstrip(":")
+        first = split_qualified_name(p)[0] if p else ""
+        r = _TOPS[q] = re.sub(r"<.*", "", first).strip() or "<anon>"
+    return r
 
 
 def split_qualified_name(q):
@@ -1708,13 +1785,27 @@ def always_global(it):
     return False
 
 
+_HEADER_TOPS = {}
+
+
 def header_tops(headers):
-    """Top-level names the include/ headers declare (include/gen/, include/decls/, include/decls/data/)."""
-    out = set()
-    for h in headers:
-        for it in gen_header_items(h):
-            out.add(item_top(it))
-    return out
+    """Top-level names the include/ headers declare (include/gen/, include/decls/, include/decls/data/). Cached per
+    header list (a frozenset: callers only read it)."""
+    key = tuple(headers)
+    r = _HEADER_TOPS.get(key)
+    if r is None:
+        out = set()
+        for h in key:
+            out |= _header_tops1(h)
+        r = _HEADER_TOPS[key] = frozenset(out)
+    return r
+
+
+def _header_tops1(h):
+    r = _HEADER_TOPS.get(h)
+    if r is None:
+        r = _HEADER_TOPS[h] = frozenset(item_top(it) for it in gen_header_items(h))
+    return r
 
 
 def include_tops():
@@ -1850,7 +1941,7 @@ def c_var_declarations(text):
     if "extern" not in text:
         return text, 0
     try:
-        items = cxx_items.parse(text)
+        items = parse_text(text)
     except ValueError:
         return text, 0
     edits = []
@@ -1869,7 +1960,7 @@ def pin_views(text):
     if not any(n in text for n in PINNED):
         return text, set()
     try:
-        items = cxx_items.parse(text)
+        items = parse_text(text)
     except ValueError:
         return text, set()
     edits, names = [], set()
@@ -1978,7 +2069,7 @@ def crt_guard_text(text):
     if not names or not any(n in text for n in names):
         return text
     try:
-        items = cxx_items.parse(text)
+        items = parse_text(text)
     except ValueError:
         return text
     edits = []
@@ -2029,10 +2120,53 @@ def _emit_item(it, c_seen=None):
     return body
 
 
+_WRITTEN = set()       # paths write_file wrote (or found equal) during this Generator.write()
+
+
 def write_file(path, lines):
+    data = native_spelling("\n".join(lines) + "\n").encode("latin1")
+    path = os.path.normpath(path)
+    _WRITTEN.add(path)
+    try:
+        with open(path, "rb") as f:
+            if f.read() == data:
+                return          # unchanged: keep the file (and its mtime)
+    except OSError:
+        pass
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    with open(path, "w", encoding="latin1") as f:
-        f.write(native_spelling("\n".join(lines) + "\n"))
+    if os.path.islink(path) or os.path.isdir(path):
+        _remove(path)
+    with open(path, "wb") as f:
+        f.write(data)
+
+
+def _remove(p):
+    if os.path.isdir(p) and not os.path.islink(p):
+        shutil.rmtree(p)
+    else:
+        os.unlink(p)
+
+
+def sweep_tree():
+    """Remove what write() did not write under build/tree/src and build/tree/include (files of an earlier tree,
+    then directories left empty)."""
+    for sub in ("src", "include"):
+        top = os.path.join(TREE, sub)
+        if not os.path.isdir(top):
+            continue
+        for dp, dns, fns in os.walk(top, topdown=False):
+            for fn in fns:
+                p = os.path.normpath(os.path.join(dp, fn))
+                if p not in _WRITTEN:
+                    os.unlink(p)
+            for dn in dns:
+                p = os.path.join(dp, dn)
+                if os.path.islink(p):
+                    os.unlink(p)
+                elif not os.listdir(p):
+                    os.rmdir(p)
+        if not os.listdir(top) and not any(w.startswith(top + os.sep) for w in _WRITTEN):
+            os.rmdir(top)
 
 
 # ---------------------------------------------------------------------------------------------

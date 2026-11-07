@@ -125,5 +125,43 @@ class SeedState(unittest.TestCase):
         self.assertEqual(len(s["wrap"]) + len(s["isolate"]) + len(s["iso_plain"]), 4)
 
 
+class Slots(unittest.TestCase):
+    """build2: the queue reservation is lowered once (to --slots-low) after the first warm compile."""
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.f = os.path.join(self.tmp.name, ".jq-slots")
+        self.saved = dict(bt.SLOTS)
+        bt.SLOTS.update(file=self.f, low=2, lowered=False)
+
+    def tearDown(self):
+        bt.SLOTS.clear()
+        bt.SLOTS.update(self.saved)
+        self.tmp.cleanup()
+
+    def quiet(self, *a):
+        import contextlib, io
+        with contextlib.redirect_stdout(io.StringIO()):
+            bt.slots_after_compile(*a)
+
+    def test_cold_compile_keeps_the_reservation(self):
+        self.quiet(2127, 2245)
+        self.assertFalse(os.path.exists(self.f))
+        self.assertEqual(bt.workers(8), 8)
+
+    def test_warm_compile_lowers_once(self):
+        self.quiet(76, 2245)
+        self.assertEqual(open(self.f).read(), "2\n")
+        self.assertTrue(bt.SLOTS["lowered"])
+        self.assertTrue(2 <= bt.workers(8) <= 8)
+        os.unlink(self.f)
+        self.quiet(0, 2245)
+        self.assertFalse(os.path.exists(self.f))      # written once
+
+    def test_off_without_a_file(self):
+        bt.SLOTS.update(file=None)
+        self.quiet(0, 2245)
+        self.assertEqual(bt.workers(8), 8)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -6,7 +6,7 @@ optionally a headless replay, on mac2/mac1 instead of this laptop (docs/compute.
   # differ from HEAD travel). The queue picks the host when the job starts (jq3); --host H pins it, --host local builds here.
   build/venv/bin/python tools/wine_build_job.py submit --name ME [--workspace DIR] [--gfx]
         [--replay play3 --frames 1000] [--fetch image] [--host mac2|mac1|local] [--lineage L]
-        [--state auto|fresh|resume|seed:CONTROL] [--map auto|full|reuse] [--slots N] [--env K=V ...] [--stages build,probe,link]
+        [--state auto|fresh|resume|seed:CONTROL] [--map auto|full|reuse] [--slots N] [--slots-low N] [--env K=V ...] [--stages build,probe,link]
   build/venv/bin/python tools/wine_build_job.py wait ID     # then: summary, build/jobs/out/ID/nb-out/
   build/venv/bin/python tools/wine_build_job.py compare ID|DIR ...   # image hashes and replay checkpoints must agree
   build/venv/bin/python tools/wine_build_job.py sync [--host H ...]  # put the local-only inputs on the hosts (submit does it)
@@ -415,7 +415,7 @@ def cmd_submit(a):
         slots = a.slots or 8
     spec = {"lineage": lineage, "stages": stages, "gfx": bool(a.gfx), "state": "seed" if seed else a.state, "map": a.map, "jobs": slots,
             "inputs_stamp": stamp, "deletions": dele, "env": dict(e.split("=", 1) for e in a.env or []),
-            "fetch": a.fetch or []}
+            "fetch": a.fetch or [], "slots_low": a.slots_low}
     ov = {"nbrun/wine_build_run.py": os.path.join(ROOT, "tools/wine_build_run.py"),
           "nbrun/wine_replay_job.py": os.path.join(ROOT, "tools/wine_replay_job.py")}
     if seed:
@@ -537,6 +537,8 @@ def main():
     s.add_argument("--env", action="append", help="K=V for the build and link (e.g. HULK_WINE_SANITIZE=float-cast)")
     s.add_argument("--fetch", nargs="*", choices=["image"], help="also bring the image and DLLs back")
     s.add_argument("--slots", type=int, help="cores for the build stages (default 8 on a remote, 2 local); the replay gives all but one back")
+    s.add_argument("--slots-low", type=int, default=2, metavar="N",
+                   help="the reservation once build_tree's compile runs warm (generate/verify are single-threaded; 0: keep --slots)")
     s.add_argument("--limit", type=int, default=7200, help="wall-clock seconds per attempt")
     s.add_argument("--attempts", type=int, default=2)
     s.add_argument("--prio", type=int, default=0)

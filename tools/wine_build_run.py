@@ -23,7 +23,9 @@ trace.txt,result.json,x87_keep.txt,tree-state.json,sources.json.gz} and, when th
 in nb-out/image/. tree-state.json (build_tree's final fallback state) and sources.json.gz (the run's sources by content
 hash) are what a proof seeded from this build (`--state seed:JOB`, seed_decision()) starts from and checks against.
 Before the replay (one Wine process) the job writes 1 to RUNDIR/.jq-slots so the queue gives its other slots back, and
-releases the lineage lock (the replay runs on a copy of the image in the run directory).
+releases the lineage lock (the replay runs on a copy of the image in the run directory). (build2) Earlier, build_tree
+lowers the reservation to spec `slots_low` (default 2; 0 keeps it) once a round's compile ran warm (--slots-file):
+the rest of a build is mostly single-threaded; its compiles and the later stages then use the host's idle cores.
 Exit status: 0 all requested stages done, 3 inputs stale/missing, 4 a build stage failed, 5 the replay failed.
 """
 import atexit
@@ -393,6 +395,26 @@ def gc(keep_days=10):
             pass
 
 
+def slots_file(run):
+    return os.path.join(os.environ.get("JOBQ_RUN_DIR") or run, ".jq-slots")
+
+
+def stage_jobs(run, jobs):
+    """--jobs for a stage after the build: the reservation if build_tree kept it, else the host's idle cores (1-minute
+    load average) between the lowered count and the reservation."""
+    try:
+        low = int(open(slots_file(run)).read().split()[0])
+    except (OSError, ValueError, IndexError):
+        return jobs
+    if low >= int(jobs):
+        return jobs
+    try:
+        idle = int((os.cpu_count() or 1) - os.getloadavg()[0] + 1)
+    except OSError:
+        idle = low
+    return str(max(low, min(int(jobs), idle)))
+
+
 def release_for_replay(run, lock, summ):
     """The replay is one Wine process (about one core) and reads only its own copy of the image: give the queue back all
     slots but one (jobq_run.py's `probe slots` reads RUNDIR/.jq-slots; the daemon lowers the job's slots) and let the next
@@ -518,6 +540,9 @@ def main():
         if not resume:
             shutil.rmtree(os.path.join(lin, "build/tree"), ignore_errors=True)
         argv = [py, "tools/build_tree.py", "--jobs", jobs, "--rounds", "16", "--regression-rounds", "4"] + (["--resume"] if resume else [])
+        low = int(spec.get("slots_low", 2))
+        if 0 < low < int(jobs):
+            argv += ["--slots-file", slots_file(run), "--slots-low", str(low)]
         if seed:
             with open(os.path.join(run, "nbrun/seed-changed.txt"), "w") as f:
                 f.write("".join("0x%s\n" % x for x in seed_changed))
@@ -543,13 +568,13 @@ def main():
         # (unless it is reused), and the link reuses it
         bj = os.path.join(env.get("HULK_WINE_DIR") or os.path.join(lin, "build/native"), "bindings.json")
         if not (reuse and os.path.exists(bj)):
-            argv = [py, "tools/wine_link.py", "--jobs", jobs, "--no-inventory", "--no-link"]
+            argv = [py, "tools/wine_link.py", "--jobs", stage_jobs(run, jobs), "--no-inventory", "--no-link"]
             rc, wall = stage("map", argv, env, lin, out)
             summ["wall"]["map"], summ["stages"]["map"] = wall, rc
             ok = rc == 0
             map_built = ok
     if ok and "probe" in stages:
-        argv = [py, "tools/clang_probe.py", "--snapshot", "--configs", "msvc", "--jobs", jobs]
+        argv = [py, "tools/clang_probe.py", "--snapshot", "--configs", "msvc", "--jobs", stage_jobs(run, jobs)]
         rc, wall = stage("probe", argv, env, lin, out)
         summ["wall"]["probe"], summ["stages"]["probe"] = wall, rc
         ok = rc == 0
@@ -562,7 +587,7 @@ def main():
         summ["purged_cached_errors"] = purge_cached_errors(os.path.join(env["HULK_WINE_CACHE"], "equiv"))
         if os.path.exists(exe):
             os.unlink(exe)
-        argv = [py, "tools/wine_link.py", "--jobs", jobs] + (["--reuse-map"] if reuse or map_built else []) + (["--gfx"] if spec.get("gfx") else [])
+        argv = [py, "tools/wine_link.py", "--jobs", stage_jobs(run, jobs)] + (["--reuse-map"] if reuse or map_built else []) + (["--gfx"] if spec.get("gfx") else [])
         rc, wall = stage("link", argv, env, lin, out)
         summ["wall"]["link"], summ["stages"]["link"] = wall, rc
         ok = rc == 0 and os.path.exists(exe)

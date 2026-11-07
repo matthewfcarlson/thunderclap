@@ -82,7 +82,10 @@ def tokenize(text):
                 if k < 0:
                     k = n
                     break
-                if text[:k].rstrip("\r").endswith("\\"):
+                j = k
+                while j > 0 and text[j - 1] == "\r":       # (= text[:k].rstrip("\r").endswith("\\"), without the copy)
+                    j -= 1
+                if j > 0 and text[j - 1] == "\\":
                     k += 1
                     continue
                 break
@@ -172,8 +175,9 @@ def _is_type_head(toks):
     return i < len(toks) and toks[i].v in CLASS_KEYS | {"enum"}
 
 
-def parse(text):
-    toks = tokenize(text)
+def parse(text, toks=None):
+    """Items of a source text. TOKS: tokenize(text) if the caller has it (tokens are never changed)."""
+    toks = tokenize(text) if toks is None else toks
     items = []
     scope = []          # list of ('ns', name) / ('extern', 'C')
     cur = []            # tokens of the item being collected

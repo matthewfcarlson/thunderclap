@@ -26,12 +26,15 @@ Steps:
      nothing regresses: a function can differ only while a neighbour is merged beside it (0x2e9c60).
   5. Write build/tree/report.json and print a summary.
 Each round prints `[time]` lines (generate, compile with its cache misses, verify); HULK_BUILD_TREE_PROFILE=1 also
-prints a cProfile of the main thread at the end.
+prints a cProfile of the main thread at the end. The verification runs in forked worker processes (as many as the
+compiles; HULK_BUILD_TREE_VERIFY_PROCS=0: one process). Under the queue, --slots-file/--slots-low lower the job's
+reservation after the first warm compile (SLOTS).
 """
 import argparse
 import collections
 import hashlib
 import json
+import multiprocessing
 import os
 import re
 import subprocess
@@ -146,13 +149,50 @@ def parse_errors(out):
 STATS = collections.Counter()      # "compiled": cache misses (cl.exe runs) of compile_tu
 
 
+# ---------------------------------------------------------------------------------------------
+# Queue slots (build2). A queue job (tools/wine_build_run.py) reserves --jobs slots, but after the first warm compile
+# a build is mostly the single-threaded generate and verify steps. --slots-file F --slots-low N: once a round's
+# compile ran warm (few cache misses), write N to F (the job's RUNDIR/.jq-slots: the queue daemon lowers the job's
+# reservation to N and gives the rest back; it can only ever lower it). From then on the compiles and standalone
+# builds use the cores the host has idle (load average), between N and --jobs.
+SLOTS = {"file": None, "low": None, "lowered": False}
+
+
+def slots_after_compile(compiled, total):
+    """After a round's compile: lower the queue reservation once a compile ran warm."""
+    if not SLOTS["file"] or SLOTS["lowered"] or compiled > max(100, total // 10):
+        return
+    try:
+        with open(SLOTS["file"], "w") as f:
+            f.write("%d\n" % SLOTS["low"])
+        SLOTS["lowered"] = True
+        print("  [slots] compile was warm (%d of %d TUs compiled): the job now reserves %d slots" % (
+            compiled, total, SLOTS["low"]), flush=True)
+    except OSError as e:
+        print("  [slots] could not write %s: %s" % (SLOTS["file"], e), flush=True)
+
+
+def workers(jobs):
+    """Compiler processes for a parallel step: --jobs, or once the reservation is lowered, the host's idle cores
+    (1-minute load average, which counts this process's own generate/verify thread), at least the low count."""
+    if not SLOTS["lowered"]:
+        return jobs
+    try:
+        idle = (os.cpu_count() or 1) - os.getloadavg()[0] + 1
+    except OSError:
+        return SLOTS["low"]
+    return max(SLOTS["low"], min(jobs, int(idle)))
+
+
 def compile_all(paths, jobs):
     include_keys.reset()        # (the tree was just generated: headers may have changed, come or gone)
     t, n0 = time.time(), STATS["compiled"]
-    with ThreadPoolExecutor(jobs) as ex:
+    w = workers(jobs)
+    with ThreadPoolExecutor(w) as ex:
         res = list(ex.map(compile_tu, paths))
-    print("  [time] compile %.1f s: %d of %d TUs compiled, the rest cached" % (time.time() - t, STATS["compiled"] - n0, len(paths)),
-          flush=True)
+    print("  [time] compile %.1f s: %d of %d TUs compiled, the rest cached%s" % (
+        time.time() - t, STATS["compiled"] - n0, len(paths), " (%d workers)" % w if w != jobs else ""), flush=True)
+    slots_after_compile(STATS["compiled"] - n0, len(paths))
     return dict(zip(paths, res))
 
 
@@ -585,7 +625,7 @@ def precompile_standalone(manifest, jobs):
     """Standalone objects of every equivalent/ source in the tree (they are compared with the tree's code)."""
     srcs = sorted({b["src"] for rec in manifest["tus"] for b in rec["blocks"] if b["kind"] == "equivalent"})
     include_keys.reset()
-    with ThreadPoolExecutor(jobs) as ex:
+    with ThreadPoolExecutor(workers(jobs)) as ex:
         list(ex.map(standalone_obj, srcs))
 
 
@@ -618,43 +658,75 @@ def _verify(gen, manifest, results, jobs=4):
     precompile_standalone(manifest, jobs)
     v = Verifier()
     names = block_names(gen)
-    out = []
-    for rec in manifest["tus"]:
-        obj = results[rec["path"]][0]
-        claimed = set()
-        pairs = []
+    tus = manifest["tus"]
+    for rec in tus:
         for b in rec["blocks"]:
-            a = int(b["addr"], 16)
-            pre, cn, sa = names.get(a, ([], [], []))
+            pre, cn, sa = names.get(int(b["addr"], 16), ([], [], []))
             b["prefixes"], b["cnames"], b["sa_prefixes"] = pre, cn, sa
-            r = {"addr": b["addr"], "name": b["name"], "src": b["src"], "kind": b["kind"], "mode": b["mode"],
-                 "tu": rec["path"]}
-            if b.get("tu_ns"):
-                r["tu_ns"] = b["tu_ns"]
-            if obj is None:
-                r["status"] = "tu_failed"
-            elif b["kind"] == "equivalent":
-                c = v.check(obj, b, claimed)
-                r["status"] = "compiled" if c["status"] != "no_function" else "no_function"
-                r["symbol"] = c.get("symbol")
-                r["how"] = c.get("how")
-                if c.get("symbol"):
-                    claimed.add(c["symbol"])
-                    r["vs_standalone"] = compare_with_standalone(v, obj, c["symbol"], b, a)
-            else:
-                c = v.check(obj, b, claimed)
-                r.update({k: c[k] for k in ("status", "symbol", "how", "score") if k in c})
-                if c.get("symbol"):
-                    claimed.add(c["symbol"])
-                if c["status"] != "match":
-                    sa = standalone(b["src"], a, v)
-                    r["standalone"] = sa["status"]
-                    if sa["status"] == "match" and c["status"] == "diff":
-                        r["why"] = diff_reason(c.get("rows"), sa.get("rows"))
-            out.append(r)
-            pairs.append((b, r))
-        if obj is not None:
-            unique_symbols(v, obj, pairs)
+    n = workers(jobs) if os.environ.get("HULK_BUILD_TREE_VERIFY_PROCS", "1") != "0" else 1
+    if n > 1 and len(tus) > 50 and "fork" in multiprocessing.get_all_start_methods():
+        # (build2) the TUs are independent: forked workers check slices of them (each with the parent's Verifier and
+        # results, copy-on-write) and send back their records, in TU order. The same records as the loop below.
+        _VERIFY_CTX[:] = [v, tus, results]
+        step = max(1, len(tus) // (n * 8))
+        try:
+            with multiprocessing.get_context("fork").Pool(n) as pool:
+                parts = pool.map(_verify_slice, [(i, min(i + step, len(tus))) for i in range(0, len(tus), step)])
+        finally:
+            _VERIFY_CTX[:] = []
+        return [r for part in parts for r in part]
+    out = []
+    for rec in tus:
+        out += verify_tu(v, rec, results[rec["path"]][0])
+    return out
+
+
+_VERIFY_CTX = []
+
+
+def _verify_slice(span):
+    v, tus, results = _VERIFY_CTX
+    out = []
+    for rec in tus[span[0]:span[1]]:
+        out += verify_tu(v, rec, results[rec["path"]][0])
+    return out
+
+
+def verify_tu(v, rec, obj):
+    """The check records of one TU's blocks (obj: its object, or None when it failed to compile)."""
+    claimed = set()
+    pairs = []
+    out = []
+    for b in rec["blocks"]:
+        a = int(b["addr"], 16)
+        r = {"addr": b["addr"], "name": b["name"], "src": b["src"], "kind": b["kind"], "mode": b["mode"],
+             "tu": rec["path"]}
+        if b.get("tu_ns"):
+            r["tu_ns"] = b["tu_ns"]
+        if obj is None:
+            r["status"] = "tu_failed"
+        elif b["kind"] == "equivalent":
+            c = v.check(obj, b, claimed)
+            r["status"] = "compiled" if c["status"] != "no_function" else "no_function"
+            r["symbol"] = c.get("symbol")
+            r["how"] = c.get("how")
+            if c.get("symbol"):
+                claimed.add(c["symbol"])
+                r["vs_standalone"] = compare_with_standalone(v, obj, c["symbol"], b, a)
+        else:
+            c = v.check(obj, b, claimed)
+            r.update({k: c[k] for k in ("status", "symbol", "how", "score") if k in c})
+            if c.get("symbol"):
+                claimed.add(c["symbol"])
+            if c["status"] != "match":
+                sa = standalone(b["src"], a, v)
+                r["standalone"] = sa["status"]
+                if sa["status"] == "match" and c["status"] == "diff":
+                    r["why"] = diff_reason(c.get("rows"), sa.get("rows"))
+        out.append(r)
+        pairs.append((b, r))
+    if obj is not None:
+        unique_symbols(v, obj, pairs)
     return out
 
 
@@ -862,11 +934,16 @@ def main(argv=None):
     ap.add_argument("--regression-rounds", type=int, default=4, metavar="N",
                     help="rebuild up to N times, falling back functions whose code changed in the tree (default 4)")
     ap.add_argument("--only", help="compile one TU of the current tree and print its errors")
+    ap.add_argument("--slots-file", metavar="F", help="a queue job's RUNDIR/.jq-slots: lower the job's reservation "
+                    "to --slots-low once a compile ran warm (see SLOTS)")
+    ap.add_argument("--slots-low", type=int, default=2, metavar="N")
     ap.add_argument("--equiv", type=int, metavar="N", help="also run tools/equiv.py (64 inputs) on the merged "
                     "object for the first N equivalent/ functions (0 = all; slow: 1-5 s each)")
     ap.add_argument("--data", action="store_true", help="also build the data TUs (tools/data_gen.py: generate, "
                     "compile, byte-check every item) and check how the tree's DAT_ references resolve against them")
     a = ap.parse_args(argv)
+    if a.slots_file and a.slots_low < a.jobs:
+        SLOTS.update(file=a.slots_file, low=max(1, a.slots_low))
     if a.only:
         obj, errs, out = compile_tu(a.only)
         print(out if obj is None else "OK " + obj)
