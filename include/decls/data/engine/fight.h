@@ -46,7 +46,7 @@ extern "C" const char DAT_004278dc[18];  // s_Unexpected_token_004278dc
 extern "C" const char DAT_004278f0[44];  // s_Failed_to_insert_bra_004278f0
 extern "C" const float DAT_0042791c[14];  // fltTbl_0042791c
 extern "C" const unsigned int DAT_0047df14[1];  // zero_0047df14
-extern "C" int DAT_004ca248;
+extern "C" const void* DAT_004ca248;  // PTR_004ca248
 extern "C" const char* DAT_004ca24c;  // PTR_004ca24c
 extern "C" const char* DAT_004ca250;  // PTR_004ca250
 extern "C" const char* DAT_004ca278;  // PTR_004ca278
@@ -112,7 +112,7 @@ extern "C" const char DAT_004277d8[13];  // s_siblingIndex_004277d8
 extern "C" const char DAT_00428704[29];  // s_Failed_to_insert_fig_00428704
 extern "C" const float DAT_00428724[7];  // fltTbl_00428724
 extern "C" const unsigned int DAT_0047f648[1];  // zero_0047f648
-extern "C" int DAT_004ca254;
+extern "C" const char* DAT_004ca254;  // PTR_004ca254
 extern "C" const char* DAT_004ca258;  // PTR_004ca258
 extern "C" const char* DAT_004ca25c;  // PTR_004ca25c
 extern "C" const char* DAT_004ca260;  // PTR_004ca260

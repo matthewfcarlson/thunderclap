@@ -43,9 +43,11 @@ two `$$X*IMAGE` sections are listed as one opaque `library_section` item each.
    read as text (the word `7c 77 42 00` at `0x4ca298` points at a string at `0x42777c`, "|wB"): such words are
    listed by hand in `config/data-pointers.json` (item, byte offsets, why; the mirror of
    `config/data-not-pointers.json`), and the inventory and `data_gen.py` take them as pointers (dec1,
-   2026-11-05: `0x4ca298` and `0x4ca29c`, name pointers hashed by `FUN_002672f0`, were `int` scalars; 6 more
-   words that sources use as pointers fail the same rule and are not listed yet: `0x49ed3c`, `0x49f3c4`,
-   `0x4a06a4`, `0x4c5cf8`, `0x4ca248`, `0x4ca254`).
+   2026-11-05: `0x4ca298` and `0x4ca29c`, name pointers hashed by `FUN_002672f0`, were `int` scalars; then the
+   other 6 words that sources use as pointers and the rule dropped: `0x49ed3c`, `0x49f3c4`, `0x4a06a4`,
+   `0x4c5cf8`, `0x4ca248` (native start-up initializer 260 crashed hashing it), `0x4ca254`). All 8 now have
+   source evidence; `0x4ca248` points at a 4-byte item the inventory carved as `unknown`, so it is declared
+   `const void*` (its users read it through `(*(const char**)&DAT_x)`).
 3. **Extents.** A string swallows starts inside it (pointers to a suffix, `"xRET" + 1`); a source offset past an
    address name (`DAT_x + 8` in verified code, read from the relocation addends of the last tree build's objects)
    makes one item of the range. An item ends at the next start, or earlier where the evidence says so: the FPU

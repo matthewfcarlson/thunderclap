@@ -1,12 +1,52 @@
 {
  "_doc": "Words of initialized data that hold pointers although their bytes also read as text (tools/data_inventory.py drops a word whose first three bytes are printable as text, e.g. \"RSU\\0\"). The inventory and tools/data_gen.py take them as pointers. Byte offsets inside the item; reviewed by hand (the mirror of config/data-not-pointers.json).",
  "items": {
+  "0x0049ed3c": {
+   "offsets": [
+    "0x0"
+   ],
+   "why": "points at the string at 0x00405740 (bytes 40 57 40 00); 0x000a8400 (FUN_0027b040, a name)"
+  },
+  "0x0049f3c4": {
+   "offsets": [
+    "0x0"
+   ],
+   "why": "points at the string at 0x00407638 (bytes 38 76 40 00); 0x000bf0e0 (FUN_000befc0)"
+  },
+  "0x004a06a4": {
+   "offsets": [
+    "0x0"
+   ],
+   "why": "points at the string at 0x00405e68 (bytes 68 5e 40 00); 0x000d3f10 (strstr / strlen)"
+  },
+  "0x004c5cf8": {
+   "offsets": [
+    "0x0"
+   ],
+   "why": "points at the string at 0x00422474 (bytes 74 24 42 00); 0x001d1740, 0x001d2890, 0x001d29b0 (FUN_002133d0, a Lua string)"
+  },
+  "0x004ca248": {
+   "offsets": [
+    "0x0"
+   ],
+   "why": "points at the string at 0x00427834 (bytes 34 78 42 00); 0x0035efb0 (FUN_002672f0), 0x00233460 (a format argument), 0x00233580 / 0x00233650 (its first char)"
+  },
+  "0x004ca254": {
+   "offsets": [
+    "0x0"
+   ],
+   "why": "points at the string at 0x00427824 (bytes 24 78 42 00); 0x0035f010, 0x0023b570 (FUN_002672f0)"
+  },
   "0x004ca298": {
-   "offsets": ["0x0"],
+   "offsets": [
+    "0x0"
+   ],
    "why": "points at the string at 0x0042777c (bytes 7c 77 42 00); 0x0035f230 hashes it as a name (FUN_002672f0)"
   },
   "0x004ca29c": {
-   "offsets": ["0x0"],
+   "offsets": [
+    "0x0"
+   ],
    "why": "points at the string at 0x00427770 (bytes 70 77 42 00); 0x0035f250, 0x00233c50 and 0x0023b570 hash it as a name (FUN_002672f0)"
   }
  }

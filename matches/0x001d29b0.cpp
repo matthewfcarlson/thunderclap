@@ -3,7 +3,7 @@
 #include "gen/owners.h"
 
 extern "C" {
-void FUN_002133d0(int h, int v);
+void FUN_002133d0(int h, const char* v);
 void FUN_00213600(int h, int v);
 void FUN_00213640(int h, int idx, int v);
 int FUN_00213290(int h, int idx);
