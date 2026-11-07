@@ -5,7 +5,7 @@
 
 struct Vec3_30c440 {
     float x, y, z;
-    void FUN_0022d110();
+    float FUN_0022d110();
 };
 
 

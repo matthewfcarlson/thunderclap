@@ -101,7 +101,7 @@ public:
 
 struct Dir_1050d0 {
     virtual void d0(); virtual void d1(); virtual void d2(); virtual void d3();
-    virtual float vfunc_4(V3_1050d0 *target, V3_1050d0 *pos, Body_1050d0 *b, Ctx_1050d0 *a1, float dt, V3_1050d0 *fbc, V3_1050d0 *w);
+    virtual bool vfunc_4(V3_1050d0 *target, V3_1050d0 *pos, Body_1050d0 *b, Ctx_1050d0 *a1, float dt, V3_1050d0 *fbc, V3_1050d0 *w);
 };
 
 float __cdecl FUN_00018710(float *a, float *b);
@@ -138,7 +138,7 @@ struct Frame_1050d0 {
 class CPathAgent {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-    virtual float vfunc_4(Ctx_1050d0 *a1, float a2, int a3);
+    virtual bool vfunc_4(Ctx_1050d0 *a1, float a2, int a3);
     char pad04[0x58 - 4];
     Part_1050d0 *part;
     char pad5c[4];
@@ -174,7 +174,7 @@ public:
 };
 
 
-float CPathAgent::vfunc_4(Ctx_1050d0 *a1, float a2, int a3)
+bool CPathAgent::vfunc_4(Ctx_1050d0 *a1, float a2, int a3)
 {
     Frame_1050d0 f;
     FUN_000fc550(a1, a2, a3);

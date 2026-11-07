@@ -8,7 +8,7 @@
 
 struct V3_1b05a0 {
     float x, y, z;
-    float FUN_0022d180();
+    void FUN_0022d180();
 };
 extern "C" float __cdecl FUN_000186b0(float* v, float* lo, float* hi);
 void __cdecl FUN_00224d70(float angle, V3_1b05a0* axis);

@@ -14,7 +14,7 @@ struct Mat_c72e0 {
 
 struct V3_c72e0 {
     float x, y, z;
-    void FUN_0022d110();
+    float FUN_0022d110();
 };
 
 struct V4_c72e0 { float x, y, z, w; };

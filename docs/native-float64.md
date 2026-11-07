@@ -224,9 +224,39 @@ that the Wine build's x87 code leaves behind; without that, the leaks pile up un
 response is the default NaN) and play3 leaves the recording (6,090-6,150 and from 12,060 with softx87 alone: job 65010;
 8,850 with all of soft x87: job 65011). In the original the dB conversion never meets a NaN: an xemu log of
 FUN_00262270's argument during play3 frames 5,907-6,403 (job 65006, `rl4p.py --fn 0x262270:10`, the checkpoints
-matching the recording) has 105,154 calls from the seven ToDb sites, 4,027 distinct values, none NaN. Where the Wine
-build leaks is not found yet (a function result in st(0) that a caller declared otherwise never pops, the likely kind);
-until it is, the Wine build's `log10` frees the registers the way msvcrt's did.
+matching the recording) has 105,154 calls from the seven ToDb sites, 4,027 distinct values, none NaN. The leaks were
+found later (x87leak, next section); the Wine build's `log10` still frees the registers the way msvcrt's did.
+
+## The x87 leaks themselves (x87leak, 2026-11-07)
+
+**How they were found.** A measurement-only Wine build (not committed: `tools/wine_link.py` with an entry check in front of
+each of the 27,635 game functions and XDK stand-ins, every reference pointed at it the way the trace probes are; the
+check compares the x87 TOP (`fnstsw`) with the thread's last value and runs `fxam` on st(0), which must be empty at a
+cdecl/thiscall entry, and logs the function, its caller and the function entered before; a later version also saved
+`ebp` at each entry to print the returned frames). A cdecl call starts with an empty x87 stack, so the first entry
+after the stack goes wrong brackets the code that did it. Four type errors in equivalent/ sources, all in one of two
+shapes:
+
+| source | declared | the original | in the Wine build |
+|---|---|---|---|
+| equivalent/0x000c72e0 (and 0x0030c440, not on play3's path) | `void` V3::FUN_0022d110() (normalize) | 0x0022d110 returns the length in st(0); the caller pops it (`fstp st(0)` after the call) | clang never pops: one register leaked per call (TOP -1; about 90,000 times in play3) |
+| equivalent/0x001b05a0, 0x001d8350 | `float` FUN_0022d180() (normalize in place) | 0x0022d180 returns nothing; the callers pop nothing | clang's `fstp st(0)` pops an empty register: stack underflow (IE+SF set, a NaN stored and popped, TOP +1) |
+| equivalent/0x001050d0 CPathAgent::vfunc_4 | `float`, and the behaviour's vfunc_4 it tail-returns `float` | it returns the behaviour's bool (CAvoidBehaviour::vfunc_4 0x00109c00 is `_N`) in al, and its caller COccupationAgent::vfunc_4 0x00103c30 ignores it | `fstps` of an empty st(0) (underflow) then `flds` of the "result", which the void-declared caller never pops: TOP unchanged, st(0) left full, from frame 6,018 on. This is the register flt2's job 65013 saw at log10's entry from call 317,094 (tag word fffe, status 0x0061) |
+
+The first and third leave a register full; the second only moves TOP. Fixed by the declarations (`float` / `void` / `bool`); the MSVC objects
+of matches/ are untouched, and the four equivalents re-pass `equiv.py` (3,000 inputs; 0x000c72e0 runs out of time budget
+at 1,032 / 742 with `--wine`, equivalent; 0x001050d0's `--wine` run faults at input 0 (`Invalid_instruction`) before and
+after the change alike, a harness gap, its default run is EQUIVALENT at 3,022). `equiv.py` passed all of them before the
+fix: a callee's x87 return is modelled from the source's own declaration, so a wrong declaration on both sides agrees
+with itself (a checker gap: comparing the x87 stack depth after each call with the original's would catch it).
+
+**Proof** (base b4ff21f77 + HEAD's build_tree.py/clang_probe.py, `--gfx`, play3, data from that commit's own data_gen,
+all on the Mac Studio, one lineage): control 65245; fix with `emms` in log10 (65271), fix without it (65272), soft x87
+without it (65273, `HULK_SOFT_X87=1`): `ckpt_gate.py` GATE ok for all three, only the known transients 5880 5910 34260
+52620 52650, prng hashes identical at every common frame. Before the fix the same build without the `emms` failed (65259:
+6,090-6,150 and from 12,060, as flt2's) and soft x87 without it too (65260: from 37,140). The measurement build with the
+fixes and no `emms` (65274) found no entry with a wrong TOP or a full st(0) through 60,360, and `log10` saw an empty tag
+word at all of its 3.67 million entries.
 
 **Implementation.** softx87's `hulk_x87_log10_ext` (`src/platform/sdl/crt/softx87.cpp`: fyl2x with FLDLG2, integer
 arithmetic only) already computes the model; an independent implementation written for this (192-bit fixed-point atanh

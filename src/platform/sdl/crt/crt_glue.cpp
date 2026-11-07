@@ -154,10 +154,10 @@ int HULK_HOST_CDECL hulk_crt_fprintf(void* f, const char* fmt, ...) {
 // fxch; fyl2x` at both sites, so tools/wine_host.py binds the tree's log10 to hulk_crt_log10_x87 in every Wine build
 // (HULK_WINE_LOG10=msvcrt: msvcrt's again). The value is softx87's fyl2x with FLDLG2, what xemu's fyl2x gives at the
 // game's arguments, left in st(0) as all 80 bits. On entry it frees every x87 register (emms: tag word all empty, control
-// and status words kept): a cdecl call starts with an empty x87 stack, but the Wine build's x87 code sometimes leaves a
-// value behind (the leak is not found yet), and msvcrt's log10, which the default build used until now, frees them the
-// same way (measured: the tag word before and after the call); play3 depends on it (without, the leaks pile up and the
-// replay leaves the recording at 6,090 / 12,060).
+// and status words kept): a cdecl call starts with an empty x87 stack, and msvcrt's log10, which the default build used
+// until now, freed leaked registers the same way. The leaks were wrongly declared returns in equivalent/ sources
+// (x87leak: 0x000c72e0, 0x0030c440, 0x001b05a0, 0x001d8350, 0x001050d0; docs/native-float64.md "The x87 leaks
+// themselves"); with them fixed play3 replays the same without the emms, which stays as a guard.
 #include "softx87.h"
 double HULK_HOST_CDECL hulk_crt_log10_c(double x) {
     hulk_x87_ext r = hulk_x87_log10_ext(x);

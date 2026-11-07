@@ -7,7 +7,7 @@
 struct V3_1d8350 {
     float x, y, z;
     hulk_freg FUN_000259c0();
-    float FUN_0022d180();
+    void FUN_0022d180();
 };
 
 struct Id64 {
