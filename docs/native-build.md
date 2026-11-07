@@ -718,6 +718,21 @@ strict link rc 0, Wine unbound 1,319, the x87 keep list identical, and the check
 frames. The fix is left out of this batch because these mode changes are not removals of invented-name conflicts.
 Taking it is a decision for the user.
 
+**Taken (dec1, 2026-11-07, user-approved).** The fix is in `tools/gen_tree.py`. A fresh build on the control's host,
+with and without it on the same sources (HEAD 3234e788e plus dec1's B2 batch, mac2, fresh state, full map, `--gfx`,
+play3 to 60000): control 65100, proof 65216. Both strict-link rc 0 with 1,314 Wine-unbound names (identical lists),
+the x87 keep list is identical, and the checkpoints are identical at all 2,016 common frames (to 60450). Trees made
+from the two proofs' own build_tree states differ in **365 merge modes**:
+- 312 C2732 wraps are gone (311 wrapped -> merged, 1 isolated -> merged): the C definitions whose callers' shared
+  declarations had been forced to `extern "C++"` (equivalent/ 0x0026..., 0x0021..., 0x002d..., 0x0022...; matches/
+  0x0036... the init TU's atexit handlers).
+- 53 are the cascade of the fresh convergence: 45 merged -> wrapped (24 "code differs from its standalone build",
+  7 "lost its match in the tree", 6 conflicts on a stub type: `physics::CollisionVolume` x3, `CollisionOBB`, `Stream`,
+  `Result`, and 6 with no reason recorded), 4 other wrapped -> merged, 2 merged -> isolated, 2 isolated -> merged.
+- The 64-bit front end over the 78 TUs holding the 365 sources: 0 errors before and after.
+The port onto build2's faster gen_tree (feb1354fc) generates a byte-identical tree to the proven version (same
+sources and state). Lists: `build/dec1/realmodes-a.txt` (local).
+
 ### Addresses written as integers
 
 0x0035d720's `push 0x400488` was an integer literal in the source: the same bytes as the original, but no

@@ -1301,6 +1301,16 @@ class Generator:
             seen = dict(self.c_seen.get(tu.header, self.c_seen.get("common.h", {}))) if merged else {}
             seen.update({it.name: _c_shape(it)[0] for b in tu.blocks if b.mode in ("merged", "wrapped")
                          for it in b.items if it.kind == "funcdef" and it.c_linkage and it.name and not it.is_inline})
+            # (unb4) a merged C definition is emitted in the same scope as these declarations: a declaration of the
+            # same name and type (spelled with its closing `;`) keeps C linkage, else clang rejects the definition
+            # ("different language linkage"). Wrapped definitions live in their own namespace and keep the rule.
+            for b in tu.blocks:
+                if b.mode == "merged":
+                    for it in b.defs:
+                        if it.kind == "funcdef" and it.c_linkage and it.name and not it.is_inline:
+                            sh = _c_shape(it)[0]
+                            if sh[0] == "f" and len(sh) == 4:
+                                seen[it.name] = sh[:3] + (sh[3] + ";",)
             declared = set(self.header_declared.get(tu.header if merged and os.path.exists(
                 os.path.join(TREE, "include", tu.header)) else "common.h", set())) if merged else set()
             for k, norm, it, addr in self.order(tu.local):
