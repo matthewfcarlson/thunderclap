@@ -153,20 +153,17 @@ int HULK_HOST_CDECL hulk_crt_fprintf(void* f, const char* fmt, ...) {
 // log10 (flt2, docs/native-float64.md "log10"). The original calls no library log10: MSVC 7.1 inlined `fld v; fldlg2;
 // fxch; fyl2x` at both sites, so tools/wine_host.py binds the tree's log10 to hulk_crt_log10_x87 in every Wine build
 // (HULK_WINE_LOG10=msvcrt: msvcrt's again). The value is softx87's fyl2x with FLDLG2, what xemu's fyl2x gives at the
-// game's arguments, left in st(0) as all 80 bits. On entry it frees every x87 register (emms: tag word all empty, control
-// and status words kept): a cdecl call starts with an empty x87 stack, and msvcrt's log10, which the default build used
-// until now, freed leaked registers the same way. The leaks were wrongly declared returns in equivalent/ sources
-// (x87leak: 0x000c72e0, 0x0030c440, 0x001b05a0, 0x001d8350, 0x001050d0; docs/native-float64.md "The x87 leaks
-// themselves"); with them fixed play3 replays the same without the emms, which stays as a guard.
+// game's arguments, left in st(0) as all 80 bits. Like the inlined instructions it leaves the rest of the x87 stack
+// alone. (Until x87b it began with an emms, freeing every register the way msvcrt's log10 did: registers leaked by
+// wrongly declared returns in equivalent/ sources reached it. Those are fixed at their source (x87leak; docs/native-
+// float64.md "The x87 leaks themselves"), and HULK_X87CHK=1 builds check that none is left: "Checking for x87 leaks".)
 #include "softx87.h"
-double HULK_HOST_CDECL hulk_crt_log10_c(double x) {
+double HULK_HOST_CDECL hulk_crt_log10_x87(double x) {
     hulk_x87_ext r = hulk_x87_log10_ext(x);
     double d;
     __asm__("fldt %1" : "=t"(d) : "m"(r));
     return d;
 }
-double HULK_HOST_CDECL hulk_crt_log10_x87(double x);
-__asm__(".text\n.globl _hulk_crt_log10_x87\n_hulk_crt_log10_x87:\n\temms\n\tjmp _hulk_crt_log10_c\n");
 #endif
 #if defined(HULK_SOFT_X87)
 // soft-intrinsics (docs/soft-x87.md): the same functions computed by softx87.cpp, integer arithmetic only, what real x87

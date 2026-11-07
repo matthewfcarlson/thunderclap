@@ -24,6 +24,7 @@ build/venv/bin/python tools/wine_run.py               # run the image under Wine
 build/venv/bin/python tools/wine_link.py --reuse-map --gfx   # with the pddi/bgfx graphics backend (docs/graphics-backend.md 8)
 build/venv/bin/python tools/native64.py --bindings build/native/bindings.json   # 64-bit probe: msvc64/arm64 compile, x64 link (64-bit section)
 build/venv/bin/python tools/layout64.py [--check]   # 32- vs 64-bit record layouts; file-format static_asserts (config/layout64.json)
+build/venv/bin/python tools/x87chk.py submit --host H; tools/x87chk.py check ID   # HULK_X87CHK=1: x87 stack check at every function entry (docs/native-float64.md "Checking for x87 leaks")
 HULK_WINE_SANITIZE=float-cast build/venv/bin/python tools/clang_probe.py --configs msvc   # then wine_link.py: float -> int overflow log (docs/wine-float.md section 10)
 # beside another agent's runs: HULK_CLANG_PROBE_DIR=build/native5/clang-probe HULK_CLANG_PROBE_CACHE=build/clang-probe/cache
 #   HULK_WINE_DIR=build/native5 ... clang_probe.py --snapshot --configs msvc; wine_link.py --tree build/native5/clang-probe/snap

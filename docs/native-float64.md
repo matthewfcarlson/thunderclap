@@ -225,11 +225,12 @@ response is the default NaN) and play3 leaves the recording (6,090-6,150 and fro
 8,850 with all of soft x87: job 65011). In the original the dB conversion never meets a NaN: an xemu log of
 FUN_00262270's argument during play3 frames 5,907-6,403 (job 65006, `rl4p.py --fn 0x262270:10`, the checkpoints
 matching the recording) has 105,154 calls from the seven ToDb sites, 4,027 distinct values, none NaN. The leaks were
-found later (x87leak, next section); the Wine build's `log10` still frees the registers the way msvcrt's did.
+found later (x87leak, next section) and fixed at their source; the Wine build's `log10` freed the registers the way
+msvcrt's did until x87b took that out (section "Checking for x87 leaks").
 
 ## The x87 leaks themselves (x87leak, 2026-11-07)
 
-**How they were found.** A measurement-only Wine build (not committed: `tools/wine_link.py` with an entry check in front of
+**How they were found.** A measurement-only Wine build (committed since as `HULK_X87CHK=1`, next section: `tools/wine_link.py` with an entry check in front of
 each of the 27,635 game functions and XDK stand-ins, every reference pointed at it the way the trace probes are; the
 check compares the x87 TOP (`fnstsw`) with the thread's last value and runs `fxam` on st(0), which must be empty at a
 cdecl/thiscall entry, and logs the function, its caller and the function entered before; a later version also saved
@@ -266,8 +267,10 @@ tree keeps the one routine. It is used by:
 - the native builds, as before: the native CRT table's `log10` row (`hulk_ncrt_log10` -> `hulk_x87_log10`) and the x87ext
   slot (`hulk_x87e_log10`); they have no x87 stack, so nothing leaks there;
 - the Wine build **by default** (it used msvcrt's until now): `tools/wine_host.py` binds the tree's `log10` to
-  `hulk_crt_log10_x87` (crt_glue.cpp: `emms`, which empties the tag word and keeps the control and status words, then
-  softx87's 80-bit value in st(0), the way the inlined `fyl2x` leaves it); `HULK_WINE_LOG10=msvcrt` binds msvcrt's again.
+  `hulk_crt_log10_x87` (crt_glue.cpp: softx87's 80-bit value in st(0), the way the inlined `fyl2x` leaves it, the rest of
+  the x87 stack untouched); `HULK_WINE_LOG10=msvcrt` binds msvcrt's again. Until x87b it began with an `emms` (tag word
+  all empty, control and status words kept), the way msvcrt's `log10` freed the registers the leaks left; with the leaks
+  fixed at their source it is gone (the original has no such cleanup), proof in "Checking for x87 leaks" below.
 
 Test: `tests/native_host/native_float_test.py` check `log10` (powers of two against exact integer arithmetic, random and
 special arguments against the documented rounding in decimal arithmetic, x86-64 == arm64, and, when the local probe
@@ -282,6 +285,61 @@ builds' math table (all soft x87) is no longer expected to leave play3 for this 
 (A first control built from the laptop's `build/data/src`, generated before reg3's commit, hung at the audio start-up
 on both studio and mac2 with no checkpoint; with `--data-src` from HEAD's own data_gen it ran clean.)
 
+
+## Checking for x87 leaks (HULK_X87CHK, x87b, 2026-11-07)
+
+x87leak's measurement build is an off-by-default switch of the Wine link. With `HULK_X87CHK=1` in the build's environment
+`tools/wine_link.py` (`x87chk_asm`) puts an entry stub in front of every game function and XDK stand-in (27,635 on
+play3's tree; not the host CRT or the library code), outside every other wrapper, and points every reference at it
+the way the trace probes are. The stub calls `_hulk_xc_chk`, which keeps every register and flag but the x87's: a
+cdecl or thiscall entry finds the x87 stack empty, so TOP must be the thread's last value and `fxam` must call st(0)
+empty. A difference calls `hulk_xc_event` (`src/platform/sdl/xdk/startup.cpp`, compiled only with `-DHULK_X87CHK=1`,
+which `platform_shim` adds), which writes trace lines:
+
+```
+x87chk armed: 27635 entry checks                    (at start-up: the checks are in the image)
+x87chk N f=FRAME tid=T sw=SW top A->B fn=XBE site=RET caller=XBE+OFF prev=XBE prevsite=RET prevcaller=XBE+OFF
+x87chain N XBE+OFF x6                               (full st(0) only: the frames the previous entry has returned from)
+```
+
+`fn` is the function entered, `caller` the one its return address is in (by the link's table `_hulk_xc_tab`), `prev`
+the function entered before on that thread and its caller: the code between the two entries left the stack wrong.
+`sw` bit 31 marks a full st(0) (then the low half is the status word: IE+SF, 0x0041, set after an underflow); without it TOP moved
+(`top A->B`) and B is the new reference. A full st(0) is freed after the event (each leak logged once), so a
+measurement replay can drift from the recording; it is a diagnostic, never a proof image. The first 6,000 events are
+logged, then every 10,000th.
+
+```sh
+J=build/venv/bin/python
+id=$($J tools/x87chk.py submit --host studio --lineage ME-x87chk [--workspace DIR --data-src DIR/src])   # play3 to 60000, --gfx
+$J tools/wine_build_job.py wait $id
+$J tools/x87chk.py check $id --frames 60000      # X87CHK ok: armed, no event, replay reached the frame (exit 1 otherwise)
+```
+
+`submit` is `wine_build_job.py submit` with `--env HULK_X87CHK=1` and the defaults `--name x87chk --gfx --replay play3
+--frames 60000`. On its own lineage it costs a fresh build; after a proof on the proof's lineage it reuses the build state
+and relinks (about 7.5 minutes on the Mac Studio, the replay 230 s: 68257 below). Run it after a batch that changes float returns or
+the declarations of float callees: `equiv.py` cannot see a wrong x87 return declared the same way on both sides.
+
+**The stand-in pass after the wrappers (fixed with this).** native9's stand-in bodies (`wine_link.standin_bodies`) treat
+a `local_code` symbol that is not the tree's definition of an address as a stand-in and alias it to that address's
+definition. They ran after the wrappers were installed and looked only at `by_addr_def`'s values, where a wrapper has
+replaced the definition it wraps: a wrapped definition listed in `local_code` (its verified calls go to its own
+address) was aliased to its own wrapper, whose `jmp` to the definition then jumped to itself (x87leak's first
+measurement build hung at start-up, job 65246). The pass now also counts the definitions from before the wrappers and
+every wrapped one as the tree's (`tests/jobq/test_wrap_rebind.py` `Standin`); `HULK_TRACE_FUNCS` / `HULK_TRACE_EXIT`
+probes and the hooks could hit it the same way. The link report counts what the old rule would have taken
+(`stand-in pass: wrapped definitions kept as themselves (x87b)`): 0 in the default build (its few wrappers wrap no
+`local_code` symbol, so it links as before), 125 in the HULK_X87CHK build.
+
+**Proof** (HEAD edaf49b8e, `--gfx`, play3 to 60,000, data from HEAD's own data_gen, all on the Mac Studio): control
+65298 (HEAD as it was, log10 with the `emms`), proof 68255 (no `emms`, the stand-in fix, the switch off;
+`--state seed:65298`): `ckpt_gate.py` GATE ok, the checkpoint hashes identical at all 2,003 common frames, prng hashes
+identical, only the known transients 5880 5910 34260 52620 52650. Soft x87 on the proof tree (68261,
+`HULK_SOFT_X87=1`): GATE ok, checkpoints identical at all 2,003 common frames (its replay takes about 370 s, more than
+wine_build_job's default `--replay-timeout` of 300: 68256 stopped at 48,480, ok to there). The measurement build
+(68257, `tools/x87chk.py submit` on the proof's lineage): 27,635 entry checks armed, **0 events** to frame 60,030, and
+its checkpoints still GATE ok against the control (`tools/x87chk.py check 68257 --frames 60000`: X87CHK ok).
 
 ## The `float` callers of `hulk_freg` functions (unb1's 676 names)
 

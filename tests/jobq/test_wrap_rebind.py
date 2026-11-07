@@ -2,7 +2,8 @@
 (HULK_TRACE_FUNCS / HULK_TRACE_EXIT), an entry or exit hook or the GameClock::Update wrapper must see every call of
 the wrapped definition, also calls that name the definition itself (a C name such as `_FUN_000964d0` after x64-8's
 name unification, a member called from its own merged TU). Before the fix only references bound by address went
-through the wrapper, and native traces caught a few of the RNG accessor's callers.
+through the wrapper, and native traces caught a few of the RNG accessor's callers. Also (x87b) the stand-in pass after
+the wrappers and HULK_X87CHK's entry stubs.
 
   build/venv/bin/python -m unittest tests.jobq.test_wrap_rebind     (from the repo root)
 
@@ -36,6 +37,33 @@ class Plan(unittest.TestCase):
         self.assertEqual(plan["def.obj"], {"_FUN_000964d0": ("_hulk_tr_000964d0", 0)})
         self.assertEqual(plan["caller.obj"], {"_FUN_000964d0": ("_hulk_tr_000964d0", 0)})
         self.assertNotIn("unrelated.obj", plan)
+
+
+class Standin(unittest.TestCase):
+    """x87b: native9's stand-in bodies (wine_link.standin_bodies) after the wrappers are installed. A wrapped definition
+    that bindings.json's local_code also lists (its verified calls go to its own address) must stay itself; before the
+    fix the stand-in pass saw only by_addr_def's values, where the wrapper has replaced it, aliased the definition to
+    its own wrapper, and the wrapper's `jmp` to the definition jumped to itself (the HULK_X87CHK build hung)."""
+
+    def test_wrapped_definition_is_not_a_standin(self):
+        by_addr_def = {0x1000: "_hulk_xc_00001000", 0x2000: "_real2"}      # 0x1000's _def1 wrapped
+        local_code = {"_def1": "0x1000", "_stub": "0x2000"}
+        defined = {"_def1", "_real2", "_stub", "_hulk_xc_00001000"}
+        before = {0x1000: "_def1", 0x2000: "_real2"}
+        wrapped = {"_def1": "_hulk_xc_00001000"}
+        tree = set(by_addr_def.values()) | set(before.values()) | set(wrapped)
+        self.assertEqual(wl.standin_bodies(local_code, defined, by_addr_def, tree), {"_stub": "_real2"})
+        # (the old set: the wrapped definition becomes its own wrapper's alias)
+        self.assertEqual(wl.standin_bodies(local_code, defined, by_addr_def, set(by_addr_def.values())),
+                         {"_def1": "_hulk_xc_00001000", "_stub": "_real2"})
+
+    def test_x87chk_stub_jumps_to_the_definition(self):
+        asm = wl.x87chk_asm([(0x1000, "_hulk_xc_00001000", "_def1", "_def1")])
+        self.assertIn('_hulk_xc_00001000:\n\tpushl\t$4096\n\tcalll\t_hulk_xc_chk\n\tleal\t4(%esp), %esp\n'
+                      '\tjmp\t"_def1"\n', asm)
+        self.assertIn('_hulk_xc_tab:\n\t.long\t"_def1"\n\t.long\t4096\n', asm)
+        self.assertIn("_hulk_xc_n:\n\t.long\t1\n", asm)
+        self.assertEqual(asm.count("calll\t_hulk_xc_event"), 2)
 
 
 SRC = """extern "C" int g_dat;

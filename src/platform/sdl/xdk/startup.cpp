@@ -579,6 +579,84 @@ extern "C" hulk_u32 HULK_CDECL hulk_trace_exit(const hulk_u32* regs, const doubl
     return t.ret;
 }
 
+#if defined(HULK_X87CHK)
+// HULK_X87CHK=1 (x87leak; measurement builds only: docs/native-float64.md "Checking for x87 leaks"): tools/wine_link.py
+// (x87chk_asm) puts a check in front of every game function and XDK stand-in, and it calls this when the x87 TOP at an
+// entry differs from the thread's last value or st(0) is full (sw bit 31). One trace line `x87chk` per event (the first
+// 6,000, then every 10,000th): the frame, the function entered (its XBE address), the caller (the function holding the
+// return address, + offset), and the function entered before with its caller; for a full st(0) also `x87chain`: the
+// frames the previous entry has returned from since. A slot is a TEB thread id / 4 mod 64.
+extern "C" hulk_u32 hulk_xc_base[64], hulk_xc_prev[64], hulk_xc_prevsite[64], hulk_xc_prevebp[64], hulk_xc_chain[8];
+hulk_u32 hulk_xc_base[64], hulk_xc_prev[64], hulk_xc_prevsite[64], hulk_xc_prevebp[64], hulk_xc_chain[8];
+extern "C" const hulk_u32 hulk_xc_tab[], hulk_xc_n;   // (the link's: definition address, XBE address; by definition)
+static const hulk_u32 hulk_xc_max_ = 40000;
+static hulk_u32 hulk_xc_sorted_[2 * hulk_xc_max_], hulk_xc_ns_, hulk_xc_events_;
+
+static void hulk_xc_sort() {    // the table by image address (shell sort)
+    hulk_u32 n = hulk_xc_n < hulk_xc_max_ ? hulk_xc_n : hulk_xc_max_;
+    for (hulk_u32 i = 0; i < 2 * n; i++)
+        hulk_xc_sorted_[i] = hulk_xc_tab[i];
+    for (hulk_u32 gap = n / 2; gap > 0; gap /= 2)
+        for (hulk_u32 i = gap; i < n; i++) {
+            hulk_u32 a = hulk_xc_sorted_[2 * i], b = hulk_xc_sorted_[2 * i + 1], j = i;
+            for (; j >= gap && hulk_xc_sorted_[2 * (j - gap)] > a; j -= gap) {
+                hulk_xc_sorted_[2 * j] = hulk_xc_sorted_[2 * (j - gap)];
+                hulk_xc_sorted_[2 * j + 1] = hulk_xc_sorted_[2 * (j - gap) + 1];
+            }
+            hulk_xc_sorted_[2 * j] = a;
+            hulk_xc_sorted_[2 * j + 1] = b;
+        }
+    hulk_xc_ns_ = n;
+}
+
+static hulk_u32 hulk_xc_owner(hulk_u32 site, hulk_u32* off) {   // the XBE address of the function holding `site`
+    hulk_u32 lo = 0, hi = hulk_xc_ns_;
+    while (hi - lo > 1) {
+        hulk_u32 m = (lo + hi) / 2;
+        if (hulk_xc_sorted_[2 * m] <= site)
+            lo = m;
+        else
+            hi = m;
+    }
+    if (!hulk_xc_ns_ || hulk_xc_sorted_[2 * lo] > site) {
+        *off = site;
+        return 0;
+    }
+    *off = site - hulk_xc_sorted_[2 * lo];
+    return hulk_xc_sorted_[2 * lo + 1];
+}
+
+extern "C" void HULK_CDECL hulk_xc_event(hulk_u32 addr, hulk_u32 site, hulk_u32 sw, hulk_u32 slot4) {
+    hulk_u32 slot = (slot4 >> 2) & 63, old = hulk_xc_base[slot];
+    if (!(sw & 0x80000000u))
+        hulk_xc_base[slot] = sw;    // (TOP moved: the new TOP is the reference from here on)
+    if (!hulk_xc_ns_)
+        hulk_xc_sort();
+    hulk_u32 n = ++hulk_xc_events_;
+    if (n <= 6000 || n % 10000 == 0) {
+        hulk_u32 o1, o2;
+        hulk_u32 c1 = hulk_xc_owner(site, &o1), c2 = hulk_xc_owner(hulk_xc_prevsite[slot], &o2);
+        hulk_trace_line("x87chk %u f=%u tid=%u sw=%08x top %u->%u fn=0x%08x site=0x%08x caller=0x%08x+0x%x prev=0x%08x "
+                        "prevsite=0x%08x prevcaller=0x%08x+0x%x", n, hulk_native_frame_no, hulk_host_GetCurrentThreadId(),
+                        sw, (old >> 11) & 7, (sw >> 11) & 7, addr, site, c1, o1, hulk_xc_prev[slot], hulk_xc_prevsite[slot],
+                        c2, o2);
+    }
+    if ((sw & 0x80000000u) && (n <= 3000 || n % 10000 == 0)) {
+        hulk_u32 o[6], c[6];
+        for (int k = 0; k < 6; k++) {
+            o[k] = 0;
+            c[k] = hulk_xc_chain[k] ? hulk_xc_owner(hulk_xc_chain[k], &o[k]) : 0;
+        }
+        hulk_trace_line("x87chain %u 0x%08x+0x%x 0x%08x+0x%x 0x%08x+0x%x 0x%08x+0x%x 0x%08x+0x%x 0x%08x+0x%x", n, c[0], o[0],
+                        c[1], o[1], c[2], o[2], c[3], o[3], c[4], o[4], c[5], o[5]);
+    }
+    for (int k = 0; k < 8; k++)
+        hulk_xc_chain[k] = 0;
+    hulk_xc_prev[slot] = addr;
+    hulk_xc_prevsite[slot] = site;
+}
+#endif
+
 // HULK_HANG=n (seconds): a watchdog thread that, n seconds into the run, samples the main thread (its current fiber)
 // HULK_HANG_SAMPLES times (default 4, 250 ms apart): registers, frame chain and stack scan as for a crash, then
 // ends the run (summary "hang"). For runs that stop making progress without crashing.
@@ -742,6 +820,9 @@ extern "C" void HULK_CDECL hulk_native_entry(void) {
     hulk_map_xbe_window();
     hulk_main_tid_ = hulk_host_GetCurrentThreadId();
     hulk_x87_init();
+#if defined(HULK_X87CHK)
+    hulk_trace_line("x87chk armed: %u entry checks", hulk_xc_n);   // (tools/x87chk.py: proof the checks ran)
+#endif
     if (hulk_u32 hang = hulk_env_u32("HULK_HANG", 0))
         hulk_host_CreateThread(0, 0, (void*)hulk_watchdog, (void*)hang, 0, 0);
     hulk_trace_line("start initializers=%u", hulk_game_initializer_count);

@@ -745,6 +745,25 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
         by_addr_def[t] = lab
         defined.add(lab)
         how["exit hook (native11) 0x%08x -> %s" % (t, hook)] += 1
+    # HULK_X87CHK=1 (x87leak; measurement builds only, off by default; docs/native-float64.md "Checking for x87 leaks"):
+    # an entry check in front of every game function and XDK stand-in, outside every other wrapper (x87chk_asm)
+    if os.environ.get("HULK_X87CHK") == "1" and "_hulk_xc_event" in shim["defined"]:
+        skip = set(host["by_addr"]) | set(lib["by_addr"])       # (host CRT and library code: not the game's)
+        checks = []
+        for t in sorted(a_ for a_ in by_addr_def if (a_ in defs or a_ in shim["by_addr"]) and a_ not in skip):
+            d = by_addr_def[t]
+            if d not in defined:
+                continue
+            lab = "_hulk_xc_%08x" % t
+            checks.append((t, lab, d, def_before_wrappers.get(t, d)))
+            wrapped[d] = lab
+            by_addr_def[t] = lab
+            defined.add(lab)
+        clock_asm += x87chk_asm(checks)
+        for s_ in ("_hulk_xc_tab", "_hulk_xc_n", "_hulk_xc_chk"):
+            undef.discard(s_)
+            defined.add(s_)
+        how["x87chk entry check (HULK_X87CHK)"] = len(checks)
     # native11: a forwarder re-emitted by jump_shapes before the wrappers existed (`mov ecx, [ecx+0xb8]; jmp
     # 0x272fc0`, the drive's post: request H's exit hook was never reached) jumps to the wrapper too
     # div6: a wrapper over a wrapper (a trace probe on GameClock::Update, an entry hook under a probe): every
@@ -766,15 +785,11 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
     # defines). Every such symbol (bindings.json local_code: the address each verified call of it goes to) that is
     # not itself the tree's definition of some address is renamed away in the objects defining it, their own calls
     # are pointed at the definition of that address, and every other reference is aliased to it.
-    standin = {}
-    def_values = set(by_addr_def.values())
-    for s_, a_ in (local_code or {}).items():
-        if s_ not in defined or s_ in def_values:
-            continue
-        a_ = int(a_, 16)
-        d = by_addr_def.get(a_) or by_addr_def.get(final_target(a_))
-        if d and d != s_:
-            standin[s_] = d
+    # (x87b) "the tree's definition of some address" includes the definitions the wrappers above now stand in front of
+    standin = standin_bodies(local_code, defined, by_addr_def,
+                             set(by_addr_def.values()) | set(def_before_wrappers.values()) | set(wrapped))
+    how["stand-in pass: wrapped definitions kept as themselves (x87b)"] = len(
+        set(standin_bodies(local_code, defined, by_addr_def, set(by_addr_def.values()))) - set(standin))
     standin_objs = collections.defaultdict(dict)
     for o, (d_, u) in syms.items():
         for s_ in d_ & set(standin):
@@ -1542,7 +1557,9 @@ def platform_shim(cp):  # noqa: C901
     out["objects"] = wine_host.compile_dir(cp, SHIM_DIR, os.path.join(OUT, "link", "platform"), st,
                                              (("HULK_NATIVE_SDL=1",) if SDL_LIBS else ())
                                              + (("HULK_UBSAN_FLOAT=1",)      # ubsan1: clang_probe.py SANITIZE
-                                                if os.environ.get("HULK_WINE_SANITIZE") == "float-cast" else ()))
+                                                if os.environ.get("HULK_WINE_SANITIZE") == "float-cast" else ())
+                                             + (("HULK_X87CHK=1",)           # startup.cpp's hulk_xc_event (x87chk_asm)
+                                                if os.environ.get("HULK_X87CHK") == "1" else ()))
     st["SDL3 audio/input backends (HULK_NATIVE_SDL)"] = 1 if SDL_LIBS else 0
     for dset, _u in cp.nm(out["objects"]).values():
         out["defined"] |= dset
@@ -1608,6 +1625,64 @@ def deleting_destructors(defs, defined):
         refs |= {dtor, delete}
         st["synthesized"] += 1
     return {"symbols": out, "references": refs, "asm": "\n".join(asm) + "\n", "stats": dict(st)}
+
+
+def standin_bodies(local_code, defined, by_addr_def, tree_defs):
+    """native9's stand-in bodies: {stand-in symbol: the definition of the address its verified calls go to}.
+
+    local_code: {symbol: "0xADDR"} (bindings.json); tree_defs: every symbol that is the tree's definition of some
+    address. That must include a definition a wrapper (probe, hook, x87chk) stands in front of: by_addr_def then maps
+    its address to the wrapper, and a wrapped definition taken for a stand-in would be aliased to its own wrapper,
+    which jumps to it: a jump to itself (x87b; the HULK_X87CHK build hung at start-up before this)."""
+    standin = {}
+    for s_, a_ in (local_code or {}).items():
+        if s_ not in defined or s_ in tree_defs:
+            continue
+        a_ = int(a_, 16)
+        d = by_addr_def.get(a_) or by_addr_def.get(final_target(a_))
+        if d and d != s_:
+            standin[s_] = d
+    return standin
+
+
+def x87chk_asm(checks):
+    """HULK_X87CHK's assembly (docs/native-float64.md "Checking for x87 leaks"); checks: [(XBE address, entry label,
+    the definition it jumps to, the definition that names the address in the table)].
+
+    Each entry stub pushes the XBE address and calls _hulk_xc_chk, which keeps every register and flag but the x87's:
+    a cdecl or thiscall entry finds the x87 stack empty, so TOP (fnstsw) must equal the thread's last value
+    (hulk_xc_base, per TEB thread id / 4 mod 64) and st(0) must be empty (fxam). Otherwise it calls
+    hulk_xc_event(address, return address, status word, slot * 4) (src/platform/sdl/xdk/startup.cpp), which logs
+    the function, its caller and the function entered before; for a full st(0) the status word carries bit 31,
+    up to six return addresses of the frames the previous entry left (its saved ebp's chain: frames that have
+    returned, below esp) go in hulk_xc_chain, and st(0) is freed afterwards so that one leak is logged once. A clean
+    entry records the function, its return address and ebp for the next event."""
+    # _hulk_xc_chk's frame after `push eax; push ecx`: 8(%esp) the stub, 12 the XBE address, 16 the caller's return
+    # address. The event calls push edx, ecx (slot * 4), eax (status word) and then the two (at 28(%esp) twice).
+    event = ("\tpushl\t%edx\n\tpushl\t%ecx\n\tpushl\t%eax\n\tpushl\t28(%esp)\n\tpushl\t28(%esp)\n"
+             "\tcalll\t_hulk_xc_event\n\taddl\t$16, %esp\n")
+    walk = "".join("\tcmpl\t%%ecx, %%eax\n\tjb\t4f\n\tleal\t0x100000(%%ecx), %%edx\n\tcmpl\t%%edx, %%eax\n\tja\t4f\n"
+                   "\tmovl\t4(%%eax), %%edx\n\tmovl\t%%edx, _hulk_xc_chain+%d\n\tmovl\t(%%eax), %%eax\n" % (4 * k)
+                   for k in range(6))      # (each saved ebp within [esp - 128 KB, esp + 896 KB])
+    asm = ("\t.text\n\t.globl\t_hulk_xc_chk\n\t.p2align\t4\n_hulk_xc_chk:\n\tpushl\t%eax\n\tpushl\t%ecx\n"
+           "\tmovl\t%fs:0x24, %ecx\n\tandl\t$0xfc, %ecx\n"                     # the slot (TEB thread id)
+           "\tfnstsw\t%ax\n\tandl\t$0x3800, %eax\n\tcmpl\t_hulk_xc_base(%ecx), %eax\n\tjne\t1f\n"     # TOP moved
+           "\tfxam\n\tfnstsw\t%ax\n\tandl\t$0x4500, %eax\n\tcmpl\t$0x4100, %eax\n\tjne\t3f\n"       # st(0) full
+           "\tmovl\t12(%esp), %eax\n\tmovl\t%eax, _hulk_xc_prev(%ecx)\n\tmovl\t16(%esp), %eax\n"
+           "\tmovl\t%eax, _hulk_xc_prevsite(%ecx)\n\tmovl\t%ebp, _hulk_xc_prevebp(%ecx)\n"
+           "\tpopl\t%ecx\n\tpopl\t%eax\n\tretl\n"
+           "1:\n" + event + "\tpopl\t%edx\n\tpopl\t%ecx\n\tpopl\t%eax\n\tretl\n"
+           "3:\n\tpushl\t%edx\n\tpushl\t%ecx\n\tmovl\t_hulk_xc_prevebp(%ecx), %eax\n\tleal\t-0x20000(%esp), %ecx\n"
+           + walk + "4:\n\tpopl\t%ecx\n\tpopl\t%edx\n"
+           "\tfnstsw\t%ax\n\tandl\t$0xffff, %eax\n\torl\t$0x80000000, %eax\n" + event
+           + "\tffree\t%st(0)\n\tpopl\t%edx\n\tpopl\t%ecx\n\tpopl\t%eax\n\tretl\n")
+    for t, lab, d, _ in checks:
+        asm += ("\t.text\n\t.globl\t%s\n\t.p2align\t4\n%s:\n\tpushl\t$%d\n\tcalll\t_hulk_xc_chk\n"
+                "\tleal\t4(%%esp), %%esp\n\tjmp\t\"%s\"\n" % (lab, lab, t, d))
+    asm += "\t.section\t.rdata,\"dr\"\n\t.globl\t_hulk_xc_tab\n\t.p2align\t2\n_hulk_xc_tab:\n"
+    asm += "".join("\t.long\t\"%s\"\n\t.long\t%d\n" % (n, t) for t, _, _, n in checks)
+    asm += "\t.globl\t_hulk_xc_n\n_hulk_xc_n:\n\t.long\t%d\n\t.text\n" % len(checks)
+    return asm
 
 
 def wrapper_outer(wrapped, d):
