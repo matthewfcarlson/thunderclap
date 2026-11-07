@@ -490,7 +490,7 @@ class ReplayFeeder:
         if self.avail >= len(self.entries):
             return
         end = min(len(self.entries), st["replay_pos"] + self.max - 64)
-        if end - self.avail < 1024:
+        if end - self.avail < 1024 and end < len(self.entries):     # (always the tail: the guest waits for it)
             return
         self.g.interrupt()
         self.g._recv_packet()
@@ -522,7 +522,7 @@ def replay(args):
     hooks = {"seed": data.get("seed", SEED), "flags": [f for f in data["flags"] if f != "record"] + ["replay"],
              "dt_us": 33333, "ckpt_interval": 30, "replay": data["inputs"], "mask": data.get("mask", []),
              "skip": data.get("skip", []), "vpad_count": data.get("vpad_count", 0)}
-    if args.syncio and "syncio" not in hooks["flags"]:     # a recording made before the flag: build the wait in
+    if getattr(args, "syncio", False) and "syncio" not in hooks["flags"]:     # a recording made before the flag: build the wait in
         hooks["flags"].append("syncio")
     if getattr(args, "drawlog", None):
         hooks["drawlog"] = patch_xbe.parse_drawlog(args.drawlog)
@@ -539,6 +539,7 @@ def replay(args):
     seen["t0"] = x.t0
     feeder = ReplayFeeder(man, data["inputs"]) if long else None
     dl = {"seen": 0, "records": [], "lost": 0} if hooks.get("drawlog") else None
+    stall = {}
     try:
         stop = min(want, args.until_frame or want)
         while x.alive() and time.time() - x.t0 < limit and rec["frames"] < stop:
@@ -558,6 +559,8 @@ def replay(args):
                 print("  monitor: %r" % e, file=sys.stderr)
                 break
             print("  %4ds frame %d / %d" % (time.time() - x.t0, rec["frames"], want), file=sys.stderr)
+            if _stalled(stall, rec["frames"], args):
+                break
         if dl and x.alive():
             try:
                 hdr, new = hybrid_run.read_drawlog(x, man, dl["seen"])
@@ -590,8 +593,22 @@ def replay(args):
             "common": common_frames(a, b, 0), "divergence": d,
             "matching": sum(1 for f, h in b if ma.get(f) == h),
             "checkpoints": [[f, h] for f, h in b], "polls": rec["polls"], "pads": rec.get("pads"),
-            "timeline": rec.get("timeline", []), "syncio": rec.get("syncio"),
+            "timeline": rec.get("timeline", []), "syncio": rec.get("syncio"), "stalled_at": stall.get("at"),
             "identical": d is None and common_frames(a, b, 0) > 0}, **extra)
+
+
+def _stalled(stall, frame, args):
+    """True once the frame counter has stood still for --stall seconds (play3's longest load is ~90 s): the replay
+    has left the recording (e.g. a screen that waits for a press the recording doesn't have); stop and compare."""
+    now = time.time()
+    if stall.get("frame") != frame:
+        stall.update(frame=frame, t=now)
+        return False
+    if getattr(args, "stall", 0) and now - stall["t"] > args.stall:
+        print("  the frame has stood at %d for %.0f s: stopping" % (frame, now - stall["t"]), file=sys.stderr)
+        stall["at"] = frame
+        return True
+    return False
 
 
 def write_drawlog(path, records, meta):
@@ -614,6 +631,7 @@ def replay_from_snapshot(args, data):
     seen = {"inputs": snap.get("inputs", 0), "t0": x.t0, "ckpts": res["ckpt_count"]}
     feeder = ReplayFeeder(man, data["inputs"], g=res["g"], avail=res["avail"])        # (this starts the VM)
     t_run = time.time()
+    stall = {}
     limit = args.seconds or ((want - snap["frame"]) / 8 + 120)
     try:
         stop = min(want, args.until_frame or want)
@@ -629,6 +647,8 @@ def replay_from_snapshot(args, data):
                 print("  monitor: %r" % e, file=sys.stderr)
                 break
             print("  %4ds frame %d / %d" % (time.time() - x.t0, rec["frames"], want), file=sys.stderr)
+            if _stalled(stall, rec["frames"], args):
+                break
     finally:
         feeder.close()
         close_resumed(res)
@@ -639,7 +659,7 @@ def replay_from_snapshot(args, data):
     return {"recording": args.recording, "snapshot": {k: snap.get(k) for k in ("tag", "frame", "polls", "ckpt")},
             "resume_s": res["resume_s"], "syncio": dict(io, on=not args.no_syncio), "recorded_frames": want, "replayed_frames": rec["frames"],
             "common": common_frames(a, b, 0), "divergence": d, "matching": sum(1 for f, h in b if ma.get(f) == h),
-            "checkpoints": [[f, h] for f, h in b], "timeline": rec.get("timeline", []),
+            "checkpoints": [[f, h] for f, h in b], "timeline": rec.get("timeline", []), "stalled_at": stall.get("at"),
             "identical": d is None and common_frames(a, b, 0) > 0}
 
 
@@ -1047,6 +1067,8 @@ def main(argv):
     p.add_argument("--until-frame", type=int, default=0, help="stop once the game reaches this frame")
     p.add_argument("--from-snapshot", type=int, help="resume the recording's VM snapshot K (negative: from the end)")
     p.add_argument("--from-frame", type=int, help="resume the latest snapshot at or before this frame")
+    p.add_argument("--stall", type=float, default=300, help="stop when the frame stands still this many seconds "
+                   "(0: never; the longest load in play3 is ~90 s)")
     p.add_argument("--syncio", action="store_true", help="from boot: build the streaming-I/O wait (HF_SYNCIO) into the "
                    "replay build even if the recording's flags lack it (recordings made before the flag, e.g. play3)")
     p.add_argument("--no-syncio", action="store_true", help="with --from-snapshot/--from-frame: let the game's file "

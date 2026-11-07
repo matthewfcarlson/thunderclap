@@ -191,6 +191,8 @@ build/venv/bin/python tools/hybrid_test.py replay build/replays/play3.json      
 - Press START at the loading screens yourself.
 - The terminal prints the frame and fps every 30 s (0 fps on a loading screen is normal). If gameplay shows well
   under 25 fps, the host is busy.
+- To go on from where play3 stopped instead of from boot: `record play4 --continue play3` ("Continuing a
+  recording" below).
 
 ## VM snapshots: start a replay or a trace part-way through a recording
 
@@ -294,6 +296,139 @@ the shards used `--shard 0/2` and `1/2`.
   `-snapshot` as before.
 - **Host:** snapshots are tied to this xemu (0.8.136) and to the machine setup (64 MB, the pad topology).
 - **Trace targets:** a recording's trampolines cover the trace targets as of recording time.
+
+## Continuing a recording: play4 from play3's last snapshot
+
+`record NAME --continue PARENT` resumes one of PARENT's VM snapshots and records **live play from there**. PARENT's
+inputs after the snapshot aren't replayed. The result is two files:
+- `NAME.json`, the new part on its own;
+- the combined recording (`play3+4.json`): an ordinary recording that every tool takes as it is.
+
+### For the user: recording play4
+
+```sh
+build/venv/bin/python tools/hybrid_test.py record play4 --continue play3
+#   resumes play3's s10 (frame 52,260); play from there; Ctrl-C in the terminal when done
+build/venv/bin/python tools/hybrid_test.py replay build/replays/play4.json          # check it: "identical": true
+build/venv/bin/python tools/hybrid_test.py replay build/replays/play3+4.json --syncio   # from boot (~1 h, an xemu host)
+build/venv/bin/python tools/replay_pack.py pack build/replays/play3+4.json build/rp1/play3+4.hrp   # for the Wine build
+```
+
+- Run it from the repo root on the machine you play on. It needs:
+  - `build/replays/play3.{json,disk.qcow2,rec.xbe,rec.json}`;
+  - xemu 0.8.136 (snapshots load only in the release that saved them);
+  - a screen and the pad.
+
+  The laptop (where play3 was recorded) has all of it. mac2 and the Mac Studio have xemu 0.8.136 and play3's files
+  in `~/hulk-tr1` too (run it there at the console). Their `play3.json` predates `prng_checkpoints`, so a combined
+  file written there has none of those.
+- It is interactive, so it is not a queue job. Don't run it while an xemu job is running on the same host.
+- The game starts paused in the middle of play3 (s10, after about 55 minutes of play). It takes a few seconds to
+  appear, then it runs. Hulk is wherever play3 left him at that snapshot.
+- Use the same setup as play3: the keyboard is port 1 and the gamepad is auto-bound by xemu. The snapshot has
+  both pads; if one is missing, it is added without a binding, and the keyboard still works.
+- Make the Mac fast, as for play3:
+  - AC power, Low Power Mode off;
+  - no other xemu, trace, compile or lane job;
+  - the xemu window on screen.
+
+  The terminal prints the frame and fps every 30 s. Gameplay should show about 25 fps or more; well under that, the
+  game plays in slow motion for you (it still replays exactly).
+- Press START at the loading screens yourself.
+- A snapshot is taken every 5 min (`s11`, `s12`, ...). Type `s` + Enter in the terminal for one now.
+- End with **Ctrl-C in the terminal**. Closing the xemu window loses the last 2 s.
+- `--from-snapshot K` continues from play3's snapshot K instead of the last one. `--out PATH` and `--combined PATH`
+  name the files.
+
+### Files
+
+| File | What |
+|---|---|
+| `play4.disk.qcow2` | play4's disk: an APFS clone (`cp -c`) of `play3.disk.qcow2`, made read-only when the recording ends |
+| `play4.rec.xbe`, `play4.rec.json` | clones of play3's (the build is play3's: it is in the snapshot's memory) |
+| `play4.json` | play4's own inputs, checkpoints, timeline and snapshots, plus `parent` (below) |
+| `play3+4.json` | the combined recording, rewritten at every save |
+
+**The disks.**
+- The clone holds play3's snapshots s0–s10 and still has the base image as its backing file, so `assert_overlay`
+  accepts it.
+- QEMU opens only the clone. play3's disk is never opened: it stays read-only and unchanged, and so does the base.
+- play4's own snapshots get tags after the highest in the disk (`s11`, ...), so they never collide with play3's.
+
+**The resume** is `resume_snapshot(mode="record")`:
+- the same steps as for a replay: install the XBE, start paused, add pads, `loadvm`;
+- then it leaves the build in record mode. The snapshot was taken while recording, so the record flag, the record
+  ring, the real-pad handles and `record_count` (= the snapshot's `inputs`) are already in memory;
+- it checks that `record_count` matches the snapshot's `inputs`;
+- it installs the GDB syncio wait (`syncio_resume: "gdb"`; play3's build has no built-in hook), the same as a
+  replay from a snapshot does. `--no-syncio` turns it off.
+
+**`play4.json` `parent`:**
+
+```
+{recording, snapshot (play3's entry: tag, frame, polls, inputs, ckpt, t, usb), frame, polls, input_count, checkpoints}
+```
+
+What else `play4.json` holds:
+- `inputs` are only the entries recorded after the snapshot, keyed by the absolute poll;
+- the snapshots' `inputs` are absolute counts;
+- `combined` names the combined file.
+
+`hybrid_test.load_recording` puts a continued recording together with its parent, recursively (a play5 continued from
+play4 gives `play3+4+5.json`).
+
+**The combined file** (`hybrid_test.combine`):
+- the version, flags, seed, tweaks and mask are play3's;
+- inputs: play3's first `input_count`, then play4's. Index i is still the build's `record_count` i;
+- checkpoints: play3's through the snapshot's last drained one (`ckpt[0]`), then play4's;
+- `timeline`: play3's through the snapshot's frame, then play4's, shifted by the snapshot's `t`;
+- `snapshots`: play3's s0..sK, then play4's;
+- `snapshot_files`: play4's. Its disk holds all of them;
+- `prng_checkpoints`: play3's up to the snapshot;
+- `parts`: where each part starts (frame, poll, input, snapshot, syncio).
+
+How the tools take the files:
+- `replay`, `replay --from-snapshot K` (K indexes the combined list), `tools/replay_pack.py pack` (the `.hrp` for the
+  Wine build) and `trace_gate.py --script` take the combined file unchanged.
+- `replay play4.json` resumes play3's snapshot (the parent) from play4's disk and replays play4 from there.
+- `replay_pack.py` and `hooks_cfg` (the trace tools) refuse a bare continued recording and name its combined file.
+
+### Test (stand-in, 2026-11-07)
+
+`record rec1t --continue play3 --script standin.json --minutes 5 --snap-every 1.5`, run on the Mac Studio as a queue
+job.
+- The stand-in script is play3's inputs from s7 to s9 (2,049 entries), shifted to start at s10's poll. The game
+  takes a different path from play3's own: the checkpoints part from play3's at 52,290, the first after the snapshot.
+- 5,205 frames (52,260 → 57,465) and 1,196 inputs, every one an entry of the script.
+- 173 checkpoints. Snapshots s11, s12, s13 (0.05–0.13 s paused). The resume took 6.8 s.
+- 661 syncio sleeps, no timeouts.
+- The base HDD's and play3's files' sha256 were unchanged after the run.
+
+| Check | Result |
+|---|---|
+| `replay rec1t.json` (from play3's s10 on rec1t's disk, syncio) | **173 of 173, identical** (551 sleeps, no timeouts) |
+| `replay play3+rec1t.json --from-snapshot 12` (rec1t's own s12) | **65 of 65, identical** |
+| `replay play3+rec1t.json` from boot (studio, no syncio: play3's flags) | to the end (57,509). It parts at **51,570**, the play3 race above, and rejoins at the 52,069 load: 16 checkpoints differ (51,570–52,020), 1,900 of 1,916 match, and **all 173 of rec1t's** match |
+| `replay play3+rec1t.json --syncio` from boot (mac2) | **1,916 of 1,916, identical to the end**, 51,570 included (232,294 sleeps, 111 timeouts: about 50 min against about 48 without) |
+| `replay_pack.py pack play3+rec1t.json` → Wine replay (image of job 64089, mac2, headless) | 1,916 checkpoints in common; all of rec1t's 173 match. The 3 that differ (5880, 5910, 34260) are play3's known Wine transients |
+
+Notes:
+- A combined file made on a host whose `play3.json` predates `prng_checkpoints` (mac2, studio) has none. One made on
+  the laptop carries play3's 430.
+- Snapshots taken by a continued recording already hold the GDB syncio patch. The first resume of s12 stopped at
+  "syncio: unexpected bytes at 0x27303f". `install_syncio` now accepts its own patch, and `trace_gate` resumes go
+  through the same function.
+- **The feeder dropped the tail (fixed).** `ReplayFeeder.feed` wrote nothing while fewer than 1,024 new entries
+  were due, so it never wrote the last few hundred of a long recording. When the game reached the last entry fed, it
+  waited in the hooks' replay-starved loop forever: frames and polls both stopped. Three from-boot replays of the
+  combined file stalled that way at frames 53,087–53,172 (input ~16,611 of 17,559). It now always writes the tail,
+  as `trace_capture.feed_ring` already did. Resumes from s10 didn't hit it: they write everything left at once.
+- `replay` stops once the frame has stood still for `--stall` seconds (default 300; play3's longest load is
+  ~90 s). It then compares what it has and reports `stalled_at`, instead of waiting out the time limit.
+- `replay --syncio` builds the HF_SYNCIO wait into a from-boot replay of a recording whose flags lack it (play3, and
+  so play3+4). Resumes from a snapshot already get the GDB wait. So the exact check of a combined file from boot is
+  `replay build/replays/play3+4.json --syncio`.
+- The stand-in's files on studio (`rec1t.*`, `play3+rec1t.json`) were deleted after the test.
 
 ## Snapshot resumes that diverged at frame 51570 (play3)
 
