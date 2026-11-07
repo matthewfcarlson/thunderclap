@@ -1,9 +1,10 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 4/4)
 // FUN_002605e0 @ 0x002605e0
 // audio::SeqEventType constructor: base type registration, own vtable, then insertion into the global type tree.
-// equiv-map: ??0Type@om@@QAE@PAX0HH@Z = 0x002584d0
+// equiv-map: ??0FUN_002584d0@@QAE@PAUKey_2605e0@@PAXHH@Z = 0x002584d0
 #include "decls/address.h"
 #include "decls/data/engine/audio.h"
+#include "decls/data/records.h"
 inline void *operator new(unsigned int, void *p) { return p; }
 
 struct Key_2605e0 {
@@ -11,21 +12,7 @@ struct Key_2605e0 {
 };
 
 struct String {
-    char data[8];
     void FUN_00240170(const char *s);
-};
-
-struct Node {
-    Node *left;
-    Node *right;
-    Node *parent;
-    int color;
-    String key;
-};
-
-struct Tree_2605e0 {
-    Node *root;
-    Node nil;
 };
 
 extern "C" char __cdecl FUN_002601d0(void *, void *, void *);
@@ -37,15 +24,20 @@ public:
     virtual void v0();
     char data[0x44];
     Type() throw() {}
-    Type(Key_2605e0 *key, void *b, int c, int d) throw();
 };
 }
+// om::Type's constructor (0x002584d0), on a stand-in class named by its address for the native links.
+class FUN_002584d0 {
+public:
+    FUN_002584d0(Key_2605e0 *key, void *b, int c, int d) throw();
+};
 
 namespace audio {
 class SeqEventType : public om::Type {
 public:
     virtual void v0();
-    Node node;
+    OmTreeNode node;   // records.h SeqEventTypeHead: the node, then the name
+    OmString name;
     SeqEventType() throw() {}
     SeqEventType *FUN_002605e0(const char *name, void *b, int c, int d);
 };
@@ -56,20 +48,20 @@ SeqEventType *SeqEventType::FUN_002605e0(const char *name, void *b, int c, int d
     unsigned __int64 k = FUN_002672f0("Data_Sequence", 0, 0);
     key.lo = (unsigned int)k;
     key.hi = (unsigned int)(k >> 32);
-    new (this) om::Type(&key, b, c, d);
+    new (this) FUN_002584d0(&key, b, c, d);
     new (this) SeqEventType;
-    node.key.FUN_00240170(name);
-    Tree_2605e0 *tree = (*(Tree_2605e0**)&DAT_004cd380);
-    if ((*(int*)&DAT_004e7a2c) == 0 && tree) {
-        Node *nil = &tree->nil;
+    ((String *)&this->name)->FUN_00240170(name);
+    OmTree *tree = (*(OmTree**)&DAT_004cd380);
+    if (DAT_004e7a18.count == 0 && tree) {
+        OmTreeNode *nil = &tree->nil;
         nil->left = nil;
         tree->nil.right = nil;
         tree->nil.parent = nil;
         tree->nil.color = 0;
         tree->root = nil;
     }
-    FUN_002601d0((Tree_2605e0 *)tree, this, (String *)(&node.key));
-    (*(int*)&DAT_004e7a2c)++;
+    FUN_002601d0(tree, this, &this->name);
+    DAT_004e7a18.count++;
     return this;
 }
 }

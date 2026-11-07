@@ -1,5 +1,5 @@
 #include "gen/owners.h"
-extern "C" __int64 __cdecl Lookup(const char*, int, int) throw();
+extern "C" __int64 __cdecl FUN_002672f0(const char*, int, int) throw();
 class Key {
     __int64 n;
 
@@ -7,21 +7,21 @@ class Key {
     Key(__int64 v) : n(v) {}
     operator void*() { return &n; }
 };
-class Data {
+class FUN_00240060 {
     char pad[12];
 
   public:
-    ~Data() throw();
+    ~FUN_00240060() throw();
 };
-class SeqEventType_24ed10 {
+class FUN_002605e0 {
   public:
-    SeqEventType_24ed10(Data*, void*, int, int) throw();
+    FUN_002605e0(FUN_00240060*, void*, int, int) throw();
     virtual void f();
 };
-class SeqEventChannelSendVolumesType_24ed10 : public SeqEventType_24ed10 {
+class SeqEventChannelSendVolumesType_24ed10 : public FUN_002605e0 {
   public:
     SeqEventChannelSendVolumesType_24ed10() throw();
     virtual void f();
 };
 SeqEventChannelSendVolumesType_24ed10::SeqEventChannelSendVolumesType_24ed10() throw()
-    : SeqEventType_24ed10(((Data *)((owners::String_23fc40 *)&(Data()))->FUN_0023fc40("ChSendVol", (hulk_intptr)0)), Key(Lookup("SeqEventChannelSendVolumes", 0, 0)), 0x50, 4) {}
+    : FUN_002605e0(((FUN_00240060 *)((owners::String_23fc40 *)&(FUN_00240060()))->FUN_0023fc40("ChSendVol", (hulk_intptr)0)), Key(FUN_002672f0("SeqEventChannelSendVolumes", 0, 0)), 0x50, 4) {}

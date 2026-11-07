@@ -127,4 +127,58 @@ extern "C" hulk_uintptr DAT_00527c4c;
 extern "C" hulk_uintptr DAT_00527c50;
 extern "C" hulk_uintptr DAT_00527c54;
 
+// om::MetaType (0x0025fa00 constructs one, 0x0025fa80 / 0x0025fc30 destroy it) and the red-black tree of meta types
+// by name (0x004e79b8; 0x004cd360 points at it). The tree is the om trees' layout: the root, then the sentinel node
+// `nil` that every leaf link points at (0x0025e900 / 0x0025e950 rotate, 0x0025f170 inserts, 0x0025f390 removes).
+// A meta type is a node of the global tree and keeps a tree of its own (set up empty by the constructor); its key is
+// the name (0x0025f170 compares names with strcmp). Static meta types live in .bss: 0x004e6360, 0x004e6394,
+// 0x004e63c8, 0x004e63fc, 0x004e6430 (the audio listener effects' types, 0x0035fa20-0x0035faa0).
+struct OmTreeNode {
+    OmTreeNode* left;                       // +0x00
+    OmTreeNode* right;                      // +0x04
+    OmTreeNode* parent;                     // +0x08
+    int color;                              // +0x0c 1 red, 0 black
+};
+
+struct OmTree {
+    OmTreeNode* root;                       // +0x00 (nil when empty)
+    OmTreeNode nil;                         // +0x04
+    int count;                              // +0x14
+};
+
+struct OmMetaType {
+    const void* vftable;                    // +0x00 om::MetaType's (0x0042aa40)
+    OmTreeNode node;                        // +0x04 the node in the tree of meta types
+    OmTree children;                        // +0x14 (the constructor leaves count alone)
+    const char* name;                       // +0x2c the key
+    int flags;                              // +0x30
+};
+
+extern "C" OmTree DAT_004e79b8;             // the meta types by name (count: the number constructed)
+extern "C" OmMetaType DAT_004e6360;
+extern "C" OmMetaType DAT_004e6394;
+extern "C" OmMetaType DAT_004e63c8;
+extern "C" OmMetaType DAT_004e63fc;
+extern "C" OmMetaType DAT_004e6430;
+
+// audio::SeqEventType (0x002605e0 constructs one, 0x00260680 / 0x00260950 destroy it): an om::Type, then its node
+// in the tree of sequence event types by name (0x004e7a18, an OmTree; 0x004cd380 points at it; 0x002601d0 inserts,
+// 0x002603e0 removes, 0x0025fca0 compares a name with an entry's). om::Type's own fields are kept as its 32-bit
+// bytes here (its layout is not recovered), so on 64-bit the node follows them at the next 8-byte boundary.
+struct OmString {
+    char* data;                             // +0x00 the text (0x0023fc40 sets it, 0x00240060 releases it)
+    unsigned short capacity;                // +0x04
+    unsigned short pad;                     // +0x06
+    unsigned short length;                  // +0x08
+};
+
+struct SeqEventTypeHead {
+    const void* vftable;                    // +0x00 the derived type's
+    unsigned char type[0x44];               // +0x04 the rest of om::Type
+    OmTreeNode node;                        // +0x48
+    OmString name;                          // +0x58 the key
+};
+
+extern "C" OmTree DAT_004e7a18;             // the sequence event types by name (count: the number constructed)
+
 #endif

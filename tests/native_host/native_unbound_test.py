@@ -114,6 +114,22 @@ def _plan():
     assert not bound0 and why0[r_ok][0].startswith("not verified")
 
 
+@case("plan_link: special members of a class named by address")
+def _plan_special():
+    a, b = "/x/a.o", "/x/b.o"
+    d = "??0EntityType@fn_f215d331@@QEAA@AEB_K0HHH@Z"          # the constructor at 0x00243310
+    r_ctor = "??0FUN_00243310@fn_f58f7e9f@@QEAA@AEB_K0HHH@Z"   # a derived class's base, named by that address
+    r_dtor = "??1FUN_00243310@fn_f58f7e9f@@QEAA@XZ"            # its destructor is elsewhere: the map vetoes it
+    syms = {a: ({d}, set()), b: (set(), {r_ctor, r_dtor})}
+    sigs = {a: {d: "ptr(ptr, ptr, ptr, i32, i32, i32)"},
+            b: {r_ctor: "ptr(ptr, ptr, ptr, i32, i32, i32)", r_dtor: "void(ptr)"}}
+    ver = FakeVerify({r_ctor: ("position", "0x00243310", d), r_dtor: ("position", "0x00243350", None)})
+    nu.cp.undname = lambda names: {n: n for n in names}
+    ren, why, bound = nu.plan_link([a, b], syms, FakeDefs({0x243310: d}), set(), (), sigs, verify=ver)
+    assert ren == {b: {r_ctor: d}}, ren
+    assert why[r_dtor][0] == "the name's address is not where the Wine build binds it", why[r_dtor]
+
+
 def main():
     bad = 0
     for name, f in CASES:

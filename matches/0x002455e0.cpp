@@ -4,16 +4,16 @@ struct Pair {
 };
 extern "C" Pair __cdecl FUN_002672f0(const char*, int, int);
 namespace audio {
-class Base {
+class FUN_00243310 {
   public:
     virtual void FUN_002455d0();
-    Base(const Pair*, const Pair*, int, int, int);
+    FUN_00243310(const Pair*, const Pair*, int, int, int);
 };
-class ClipType : public Base {
+class ClipType : public FUN_00243310 {
   public:
     virtual void FUN_002455d0();
     ClipType();
 };
 } // namespace audio
 audio::ClipType::ClipType()
-    : Base(&FUN_002672f0("Data_Clip", 0, 0), &FUN_002672f0("Clip", 0, 0), 0x1000000, 0x30, 8) {}
+    : FUN_00243310(&FUN_002672f0("Data_Clip", 0, 0), &FUN_002672f0("Clip", 0, 0), 0x1000000, 0x30, 8) {}

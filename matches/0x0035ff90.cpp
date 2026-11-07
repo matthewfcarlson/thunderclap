@@ -2,11 +2,10 @@
 // data: hulk_at_004e68f8 = DAT_004e68f8
 
 #include "compat/ptr.h"
-extern "C" int __stdcall FUN_0024fd10(void*);
 extern "C" int atexit(void (*)(void));
 class Holder_35ff90 {
   public:
-    int FUN_0024fd10();
+    void FUN_0024fd10();
 };
 extern "C" void __cdecl FUN_003643c0();
 extern "C" void __cdecl FUN_0035ff90() {

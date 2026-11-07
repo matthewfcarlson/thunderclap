@@ -48,6 +48,12 @@ import addr_names  # noqa: E402
 import clang_probe as cp  # noqa: E402
 import native_unbound as nu  # noqa: E402
 
+
+def main_definition(defs):
+    """The 64-bit symbol of the tree's definition of the game's main (wine_host.MAIN_ADDR), or None."""
+    import wine_host
+    return defs.sym64(wine_host.MAIN_ADDR) if defs is not None else None
+
 ROOT = cp.ROOT
 OUT = os.environ.get("HULK_NATIVE_MAC_DIR") or os.path.join(ROOT, "build/native-mac")
 CACHE = os.path.join(OUT, "cache")
@@ -849,6 +855,11 @@ def ld64(objs, aliases, unbound, extra_asm=()):
             a_ = int(nb.ORIG.match(n_).group(1), 16)
             if not f_:
                 thunks[n_] = table.addrs.get(a_) or table.xdk.funcs.get(a_, (None,))[0]
+        # (reg3) the entry calls the game's main (hulk_game_main): the tree's definition at its address, as the Wine
+        # link aliases it (wine_link.py); without one it stays a missing stub
+        main_ = main_definition(LINK_STATE["defs"])
+        if main_:
+            thunks["hulk_game_main"] = main_
         th = os.path.join(d, "hook_thunks.s")
         with open(th, "w") as f:
             f.write(nb.thunk_asm(thunks, "macho", "arm64"))

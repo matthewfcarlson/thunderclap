@@ -10,5 +10,5 @@ class Obj_364710 : public Base_364710 {
     void Fn();
 };
 void Obj_364710::Fn() {
-    ((Base_364710*)&(*(Base_364710*)((char*)&DAT_004e7a2c + 76)))->Fn();
+    ((Base_364710*)&DAT_004e7a78)->Fn();
 }

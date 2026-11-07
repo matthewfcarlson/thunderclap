@@ -1,15 +1,15 @@
-extern "C" __int64 __cdecl MakeId(const char*, int, int) throw();
-struct Temp {
+extern "C" __int64 __cdecl FUN_002672f0(const char*, int, int) throw();
+struct FUN_00240060 {
     char data[12];
-    Temp* Init(const char*, int) throw();
-    ~Temp() throw();
+    FUN_00240060* FUN_0023fc40(const char*, int) throw();
+    ~FUN_00240060() throw();
 };
-struct SeqEventType_2540a0 {
-    SeqEventType_2540a0(Temp*, const __int64&, int, int) throw();
+struct FUN_002605e0 {
+    FUN_002605e0(FUN_00240060*, const __int64&, int, int) throw();
     virtual void foo();
 };
-struct SeqEventStreamType : SeqEventType_2540a0 {
+struct SeqEventStreamType : FUN_002605e0 {
     SeqEventStreamType();
     virtual void foo();
 };
-SeqEventStreamType::SeqEventStreamType() : SeqEventType_2540a0(Temp().Init("Stream", 0), MakeId("SeqEventStream", 0, 0), 32, 8) {}
+SeqEventStreamType::SeqEventStreamType() : FUN_002605e0(FUN_00240060().FUN_0023fc40("Stream", 0), FUN_002672f0("SeqEventStream", 0, 0), 32, 8) {}

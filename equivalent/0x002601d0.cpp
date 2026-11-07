@@ -1,45 +1,39 @@
-// STATUS: equivalent (tools/equiv.py level 3: 144 inputs, branch coverage 43/48, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3126 inputs, branch coverage 48/48)
 // FUN_002601d0 @ 0x002601d0
+#include "decls/data/records.h"
 struct String {
     const char* FUN_0023fb00();
 };
 
-struct Node {
-    Node* left;
-    Node* right;
-    Node* parent;
-    int color;
-    String key;
-};
+// The tree of sequence event types (records.h: OmTree, the entries SeqEventTypeHead, keyed by name).
+typedef OmTreeNode Node_2601d0;
+static inline SeqEventTypeHead* entry_of(Node_2601d0* n)
+{
+    return (SeqEventTypeHead*)((char*)n - (hulk_intptr)&((SeqEventTypeHead*)0)->node);
+}
 
-struct Elem_2601d0 {
-    char pad00[0x48];
-    Node node;
+// C functions of this TU, declared at class scope (gen_tree gives TU-mates' extern "C" declarations of a merged C
+// definition C++ linkage)
+struct SeqEventTree_2601d0 {
+    static int __cdecl FUN_0025fca0(void *, void *);
+    static void __cdecl FUN_0025fdd0(void *, void *);
 };
-
-struct Tree_2601d0 {
-    Node* root;
-    Node nil;
-};
-
-extern "C" int __cdecl FUN_0025fca0(void *, void *);
-extern "C" void __cdecl FUN_0025fdd0(void *, void *);
-void FUN_0025fe20(Tree_2601d0* tree, Node* x);
+void FUN_0025fe20(OmTree* tree, Node_2601d0* x);
 
 // Unique-key insertion into a red-black tree keyed by string. Returns whether
 // the element was inserted.
 extern "C" char FUN_002601d0(void * tree_, void * elem_, void * key)
 {
-    Tree_2601d0 * tree = (Tree_2601d0 *)tree_;
-    Elem_2601d0 * elem = (Elem_2601d0 *)elem_;
-    Node* x = &elem->node;
-    Node* nil = &tree->nil;
-    Node* cur = tree->root;
-    Node* parent = nil;
+    OmTree * tree = (OmTree *)tree_;
+    SeqEventTypeHead * elem = (SeqEventTypeHead *)elem_;
+    Node_2601d0* x = &elem->node;
+    Node_2601d0* nil = &tree->nil;
+    Node_2601d0* cur = tree->root;
+    Node_2601d0* parent = nil;
 
     while (cur != nil) {
         parent = cur;
-        const char* a = cur->key.FUN_0023fb00();
+        const char* a = ((String *)&entry_of(cur)->name)->FUN_0023fb00();
         const char* b = ((String *)key)->FUN_0023fb00();
         int cmp = 0;
         for (;;) {
@@ -64,7 +58,7 @@ extern "C" char FUN_002601d0(void * tree_, void * elem_, void * key)
     x->parent = parent;
     if (parent == nil) {
         tree->root = x;
-    } else if (FUN_0025fca0((String *)((String *)key), (Elem_2601d0 *)((Elem_2601d0*)((char*)parent - 0x48))) < 0) {
+    } else if (SeqEventTree_2601d0::FUN_0025fca0((String *)((String *)key), entry_of(parent)) < 0) {
         parent->left = x;
     } else {
         parent->right = x;
@@ -74,10 +68,10 @@ extern "C" char FUN_002601d0(void * tree_, void * elem_, void * key)
     x->color = 1;
 
     while (x != tree->root && x->parent->color == 1) {
-        Node* p = x->parent;
-        Node* g = p->parent;
+        Node_2601d0* p = x->parent;
+        Node_2601d0* g = p->parent;
         if (p == g->left) {
-            Node* uncle = g->right;
+            Node_2601d0* uncle = g->right;
             if (uncle->color == 1) {
                 p->color = 0;
                 uncle->color = 0;
@@ -86,17 +80,17 @@ extern "C" char FUN_002601d0(void * tree_, void * elem_, void * key)
             } else {
                 if (x == p->right) {
                     x = p;
-                    FUN_0025fdd0((Tree_2601d0 *)tree, (Node *)x);
+                    SeqEventTree_2601d0::FUN_0025fdd0(tree, x);
                 }
                 x->parent->color = 0;
                 x->parent->parent->color = 1;
-                Node* gp = x->parent->parent;
-                Node* top = gp->left;
+                Node_2601d0* gp = x->parent->parent;
+                Node_2601d0* top = gp->left;
                 gp->left = top->right;
                 if (top->right != &tree->nil)
                     top->right->parent = gp;
                 top->parent = gp->parent;
-                Node* ggp = gp->parent;
+                Node_2601d0* ggp = gp->parent;
                 if (ggp == &tree->nil) {
                     tree->root = top;
                 } else if (gp == ggp->left) {
@@ -108,7 +102,7 @@ extern "C" char FUN_002601d0(void * tree_, void * elem_, void * key)
                 gp->parent = top;
             }
         } else {
-            Node* uncle = g->left;
+            Node_2601d0* uncle = g->left;
             if (uncle->color == 1) {
                 p->color = 0;
                 uncle->color = 0;
@@ -121,13 +115,13 @@ extern "C" char FUN_002601d0(void * tree_, void * elem_, void * key)
                 }
                 x->parent->color = 0;
                 x->parent->parent->color = 1;
-                Node* gp = x->parent->parent;
-                Node* top = gp->right;
+                Node_2601d0* gp = x->parent->parent;
+                Node_2601d0* top = gp->right;
                 gp->right = top->left;
                 if (top->left != &tree->nil)
                     top->left->parent = gp;
                 top->parent = gp->parent;
-                Node* ggp = gp->parent;
+                Node_2601d0* ggp = gp->parent;
                 if (ggp == &tree->nil) {
                     tree->root = top;
                 } else if (gp == ggp->left) {

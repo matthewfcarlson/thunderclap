@@ -1,43 +1,36 @@
+// om::MetaType's constructor: the vftable, an empty tree of its own, the key (the name), then the insertion into the
+// tree of meta types (0x004e79b8, set up on the first construction; 0x004cd360 points at it). records.h's OmMetaType.
 #include "compat/ptr.h"
 #include "decls/data/engine/om.h"
+#include "decls/data/records.h"
 
 extern "C" char DAT_0042aa40[];
-struct Pair_25fa00 {
-    int a;
-    int b;
+// the insertion (0x0025f170), declared at class scope: its definition merges into this TU (gen_tree)
+struct MetaTypeTree_25fa00 {
+    static bool FUN_0025f170(OmTree*, OmMetaType*, const char**);
 };
-struct MetaType {
-    hulk_intptr vptr;
-    char pad04[0x10];
-    int* m14;
-    int* m18;
-    int* m1c;
-    int* m20;
-    int m24;
-    int pad28;
-    Pair_25fa00 key;
-    MetaType* Init(int, int);
+struct MetaType : OmMetaType {
+    MetaType* FUN_0025fa00(const char*, int);
 };
-extern void Register(int*, MetaType*, Pair_25fa00*);
-MetaType* MetaType::Init(int a, int b) {
-    int* p = (int*)((char*)this + 0x18);
-    vptr = ((hulk_intptr)DAT_0042aa40);
-    *(hulk_intptr*)p = (hulk_intptr)p;
-    m1c = p;
-    m20 = p;
-    m14 = p;
-    m24 = 0;
-    Pair_25fa00* k = &key;
-    k->a = a;
-    key.b = b;
-    if (*(int*)((hulk_intptr)DAT_004e79cc) == 0) {
-        *(hulk_intptr*)((hulk_intptr)DAT_004e79bc) = ((hulk_intptr)DAT_004e79bc);
-        *(hulk_intptr*)((hulk_intptr)DAT_004e79c0) = ((hulk_intptr)DAT_004e79bc);
-        *(hulk_intptr*)((hulk_intptr)DAT_004e79c4) = ((hulk_intptr)DAT_004e79bc);
-        *(int*)((hulk_intptr)DAT_004e79c8) = 0;
-        *(hulk_intptr*)((hulk_intptr)DAT_004e79b8) = ((hulk_intptr)DAT_004e79bc);
+MetaType* MetaType::FUN_0025fa00(const char* n, int f) {
+    OmTreeNode* nil = &children.nil;
+    vftable = DAT_0042aa40;
+    nil->left = nil;
+    children.nil.right = nil;
+    children.nil.parent = nil;
+    children.root = nil;
+    children.nil.color = 0;
+    const char** k = &name;
+    *k = n;
+    flags = f;
+    if (DAT_004e79b8.count == 0) {
+        DAT_004e79b8.nil.left = &DAT_004e79b8.nil;
+        DAT_004e79b8.nil.right = &DAT_004e79b8.nil;
+        DAT_004e79b8.nil.parent = &DAT_004e79b8.nil;
+        DAT_004e79b8.nil.color = 0;
+        DAT_004e79b8.root = &DAT_004e79b8.nil;
     }
-    Register(*(int**)((hulk_intptr)((char*)&DAT_004cd360)), this, k);
-    ++*(int*)((hulk_intptr)DAT_004e79cc);
+    MetaTypeTree_25fa00::FUN_0025f170((OmTree*)DAT_004cd360, this, k);
+    ++DAT_004e79b8.count;
     return this;
 }

@@ -90,27 +90,29 @@ extern "C" unsigned char DAT_0051de40[40424];
 extern "C" const char DAT_004294e0[17];  // s_ListenerEffectGc_004294e0
 extern "C" const unsigned int DAT_00480fcc[1];  // zero_00480fcc
 extern "C" const unsigned int DAT_0048101c[1];  // zero_0048101c
-extern "C" unsigned char DAT_004e63fc[108];
+// DAT_004e63fc: typed by decls/data/records.h (include it)
 extern "C" unsigned char DAT_004e64d8[112];
 
 // audio/ListenerEffectPs2Type.cpp
 extern "C" const char DAT_00429530[18];  // s_ListenerEffectPs2_00429530
 extern "C" const unsigned int DAT_0048106c[1];  // zero_0048106c
 extern "C" const unsigned int DAT_004810bc[1];  // zero_004810bc
-extern "C" unsigned char DAT_004e63c8[52];
+// DAT_004e63c8: typed by decls/data/records.h (include it)
 extern "C" char DAT_004e6548[112];
 
 // audio/ListenerEffectPspType.cpp
 extern "C" const char DAT_004295d0[18];  // s_ListenerEffectPsp_004295d0
 extern "C" const unsigned int DAT_004811ac[1];  // zero_004811ac
 extern "C" const unsigned int DAT_004811f8[1];  // zero_004811f8
+// DAT_004e6430: typed by decls/data/records.h (include it)
+extern "C" unsigned char DAT_004e6464[4];
 extern "C" unsigned char DAT_004e6628[112];
 
 // audio/ListenerEffectWin32Type.cpp
 extern "C" const char DAT_00429580[20];  // s_ListenerEffectWin32_00429580
 extern "C" const unsigned int DAT_0048110c[1];  // zero_0048110c
 extern "C" const unsigned int DAT_0048115c[1];  // zero_0048115c
-extern "C" unsigned char DAT_004e6394[52];
+// DAT_004e6394: typed by decls/data/records.h (include it)
 extern "C" unsigned char DAT_004e65b8[112];
 
 // audio/ListenerEffectXBoxType.cpp
@@ -122,6 +124,7 @@ extern "C" char DAT_004e6320[4];
 extern "C" char DAT_004e6328[4];
 extern "C" char DAT_004e6330[4];
 extern "C" char DAT_004e6338[4];
+// DAT_004e6360: typed by decls/data/records.h (include it)
 
 // audio/Mix.cpp
 extern "C" const char DAT_0042a708[6];  // s_mName_0042a708
@@ -254,8 +257,9 @@ extern "C" unsigned char DAT_004e7410[176];
 
 // audio/SeqEvent.cpp
 extern "C" const void* DAT_004cd380;  // PTR_004cd380
-extern "C" unsigned char DAT_004e7a18[20];
-extern "C" unsigned char DAT_004e7a2c[148];
+// DAT_004e7a18: typed by decls/data/records.h (include it)
+extern "C" unsigned char DAT_004e7a30[72];
+extern "C" unsigned char DAT_004e7a78[72];
 
 // audio/SeqEventChannelSends.cpp
 extern "C" const char DAT_00429a3c[8];  // s_ChSends_00429a3c

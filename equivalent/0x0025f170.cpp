@@ -1,39 +1,27 @@
-// STATUS: equivalent (tools/equiv.py level 3: 212 inputs, branch coverage 50/56, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 822 inputs, branch coverage 54/56, incomplete)
 // FUN_0025f170 @ 0x0025f170
+#include "decls/data/records.h"
 extern "C" int __cdecl strcmp(const char *a, const char *b);
 
-struct Node {
-    Node *left;
-    Node *right;
-    Node *parent;
-    int color;
-    char pad10[24];
-    const char *key;
-};
-
-struct Item_25f170 {
-    void *vptr;
-    Node node;
-};
-
-struct Tree_25f170 {
-    Node *root;
-    Node nil;
-};
-
-void __cdecl FUN_0025e900(Tree_25f170 *t, Node *n);
-void __cdecl FUN_0025e950(Tree_25f170 *t, Node *n);
-
-bool FUN_0025f170(Tree_25f170 *t, Item_25f170 *item, const char **pkey)
+// The tree of meta types (records.h's OmTree; 0x0025fa00 inserts each om::MetaType by its name).
+static inline const char *key_of(OmTreeNode *n)
 {
-    Node *z = &item->node;
-    Node *y = &t->nil;
-    Node *x = t->root;
+    return ((OmMetaType *)((char *)n - (hulk_intptr)&((OmMetaType *)0)->node))->name;
+}
+
+void __cdecl FUN_0025e900(OmTree *t, OmTreeNode *n);
+void __cdecl FUN_0025e950(OmTree *t, OmTreeNode *n);
+
+bool FUN_0025f170(OmTree *t, OmMetaType *item, const char **pkey)
+{
+    OmTreeNode *z = &item->node;
+    OmTreeNode *y = &t->nil;
+    OmTreeNode *x = t->root;
     if (x != &t->nil) {
         const char *key = *pkey;
         do {
             y = x;
-            int c = strcmp(key, x->key);
+            int c = strcmp(key, key_of(x));
             if (c < 0)
                 x = x->left;
             else if (c == 0)
@@ -46,7 +34,7 @@ bool FUN_0025f170(Tree_25f170 *t, Item_25f170 *item, const char **pkey)
     if (y == &t->nil) {
         t->root = z;
     } else {
-        if (strcmp(*pkey, y->key) < 0)
+        if (strcmp(*pkey, key_of(y)) < 0)
             y->left = z;
         else
             y->right = z;
@@ -56,11 +44,11 @@ bool FUN_0025f170(Tree_25f170 *t, Item_25f170 *item, const char **pkey)
     z->color = 1;
 
     while (z != t->root) {
-        Node *p = z->parent;
+        OmTreeNode *p = z->parent;
         if (p->color != 1)
             break;
-        Node *g = p->parent;
-        Node *u;
+        OmTreeNode *g = p->parent;
+        OmTreeNode *u;
         if (p == g->left) {
             u = g->right;
             if (u->color != 1) {
@@ -70,13 +58,13 @@ bool FUN_0025f170(Tree_25f170 *t, Item_25f170 *item, const char **pkey)
                 }
                 z->parent->color = 0;
                 z->parent->parent->color = 1;
-                Node *gp = z->parent->parent;
-                Node *pp = gp->left;
+                OmTreeNode *gp = z->parent->parent;
+                OmTreeNode *pp = gp->left;
                 gp->left = pp->right;
                 if (pp->right != &t->nil)
                     pp->right->parent = gp;
                 pp->parent = gp->parent;
-                Node *ggp = gp->parent;
+                OmTreeNode *ggp = gp->parent;
                 if (ggp == &t->nil) {
                     t->root = pp;
                     pp->right = gp;
@@ -99,13 +87,13 @@ bool FUN_0025f170(Tree_25f170 *t, Item_25f170 *item, const char **pkey)
                 }
                 z->parent->color = 0;
                 z->parent->parent->color = 1;
-                Node *gp = z->parent->parent;
-                Node *pp = gp->right;
+                OmTreeNode *gp = z->parent->parent;
+                OmTreeNode *pp = gp->right;
                 gp->right = pp->left;
                 if (pp->left != &t->nil)
                     pp->left->parent = gp;
                 pp->parent = gp->parent;
-                Node *ggp = gp->parent;
+                OmTreeNode *ggp = gp->parent;
                 if (ggp == &t->nil)
                     t->root = pp;
                 else if (gp == ggp->left)

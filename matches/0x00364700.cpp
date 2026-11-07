@@ -5,5 +5,5 @@ class Obj_364700 {
     void Run();
 };
 extern "C" void __cdecl FUN_00364700() {
-    (*(Obj_364700*)((char*)&DAT_004e7a2c + 4)).Run();
+    (*(Obj_364700*)&DAT_004e7a30).Run();
 }

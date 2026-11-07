@@ -11,6 +11,6 @@ extern "C" void __cdecl FUN_00364700();
 void __cdecl target() {
     __int64 a = FUN_002672f0(DAT_0042ab20, 0, 0);
     __int64 b = FUN_002672f0(DAT_0042a620, 0, 0);
-    (*(Object*)((char*)&DAT_004e7a2c + 4)).FUN_002584d0(&b, &a, 8, 4);
+    (*(Object*)&DAT_004e7a30).FUN_002584d0(&b, &a, 8, 4);
     atexit(FUN_00364700);
 }

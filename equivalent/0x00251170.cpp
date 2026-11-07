@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19377 inputs, branch coverage 26/26)
+// STATUS: equivalent (tools/equiv.py level 3: 2971 inputs, branch coverage 26/26)
 // audio::SeqActionStopTrack::vfunc_1 @ 0x00251170
 #include "gen/audio.h"
 #include "gen/owners.h"
@@ -12,7 +12,6 @@ struct Str_251170 {
     Str_251170* FUN_0023fac0();
     const char* FUN_0023fb00();
 };
-extern "C" void __fastcall FUN_00240060(Str_251170* s);
 struct Table_251170 { char pad[0x10]; };
 struct Node_251170;
 struct Item;
@@ -50,7 +49,7 @@ void audio::SeqActionStopTrack::vfunc_1(void* __p0) { Ctx_251170 * ctx = (Ctx_25
     Str_251170 src;
     ((Str_251170 *)((owners::Thing_240170 *)&src)->FUN_00240170((hulk_intptr)(const Str_251170 *)(&(*(StopData * *)&this->f_08)->name)));
     FUN_002613b0(&ctx->mgr->table, &track, &src);
-    FUN_00240060(&src);
+    ((owners::Str_240060 *)&src)->FUN_00240060();
     int key = FUN_002673a0(track.FUN_0023fb00(), 0);
     Node_251170* target = FUN_0024a370(ctx->mgr, &key);
     if (target != 0) {
@@ -86,5 +85,5 @@ void audio::SeqActionStopTrack::vfunc_1(void* __p0) { Ctx_251170 * ctx = (Ctx_25
         }
     }
     this->f_0c = 0;
-    FUN_00240060(&track);
+    ((owners::Str_240060 *)&track)->FUN_00240060();
 }

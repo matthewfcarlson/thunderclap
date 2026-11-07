@@ -534,7 +534,8 @@ change. It shields the COMDATs from the Mach-O step and then adds the ELF steps:
   are told apart by the demangled form: native_mac's `DATA_LIKE` pattern takes `?f@ns@@YA?AUPair@1@...` for data
   because of its `@1` back reference.
 - **Shim hooks.** The ones the host glue calls but nothing links yet (`hulk_xdk_called`,
-  `hulk_xdk_first_call_sink`) are null stubs. `hulk_game_main` is a reporting stub.
+  `hulk_xdk_first_call_sink`) are null stubs. `hulk_game_main` is a thunk to the tree's main (0x0008ee30, as the
+  Wine link aliases it; reg3), or a reporting stub when the tree has no definition there.
 
 Host side:
 - `rtti_msabi.cpp` spells its MS aliases through `HULK_MS(at, hash)`: `#` on ELF, `@` elsewhere. On macOS the

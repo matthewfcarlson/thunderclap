@@ -6,11 +6,12 @@ struct Obj {
     char pad[8];
     int count;
     Key** items;
-    Key* find(int x);
+    Key* find(const char* name);
 };
-extern "C" unsigned __int64 __cdecl FUN_0027afb0(int);
-Key* Obj::find(int x) {
-    unsigned __int64 k = FUN_0027afb0(x);
+extern "C" unsigned __int64 __cdecl FUN_0027afb0(const char* name);
+// the entry whose key is the name's hash key (0x0027afb0)
+Key* Obj::find(const char* name) {
+    unsigned __int64 k = FUN_0027afb0(name);
     for (int i = 0; i < count; ++i) {
         Key* p = items[i];
         if (p->key == k)

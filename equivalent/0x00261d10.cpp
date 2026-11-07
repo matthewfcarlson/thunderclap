@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2019 inputs, branch coverage 7/7)
+// STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 7/7)
 // FUN_00261d10 @ 0x00261d10
 // The original searches for the node's predecessor by walking from the head, but the node it removes
 // is always the head (item is derived from list->head), so the search never runs and prev is always 0.
@@ -34,6 +34,6 @@ extern "C" void FUN_00261d10(void * list)
         ((List *)list)->head = node->next;
         if (node->next == 0)
             ((List *)list)->tail = 0;
-        FUN_00247550(((Pool*)((char*)&DAT_004e7a2c + 4)), item);
+        FUN_00247550(((Pool*)&DAT_004e7a30), item);
     }
 }

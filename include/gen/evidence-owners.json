@@ -55704,7 +55704,7 @@
     "unsigned short capacity;",
     "char pad[2];",
     "unsigned short extra;",
-    "String_23fc40 * FUN_0023fc40(const char *text, hulk_intptr option);",
+    "String_23fc40 * FUN_0023fc40(const char *text, int option);",
     "void FUN_0023fb20(const char *text, hulk_intptr length, hulk_intptr capacity, int option);"
    ],
    "offsets": {
@@ -55726,9 +55726,7 @@
     ]
    },
    "reconciled": {
-    "params": [
-     1
-    ],
+    "params": [],
     "return": false
    },
    "size": [
@@ -60914,7 +60912,7 @@
    "addr": "0x00240170",
    "aliases": 6,
    "members": [
-    "void Helper(int);",
+    "void FUN_00240090(const void*);",
     "Thing_240170* FUN_00240170(hulk_intptr);"
    ],
    "offsets": {},

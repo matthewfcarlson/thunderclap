@@ -1,11 +1,14 @@
-class EntityType_25e6c0 {
+// om::MetaEntityType's constructor: om::EntityType's (0x00243310), named by its address for the native links.
+typedef unsigned __int64 U64_25e6c0;
+class FUN_00243310 {
   public:
-    EntityType_25e6c0(int, int, int, int, int);
+    FUN_00243310(const U64_25e6c0*, const U64_25e6c0*, int, int, int);
     virtual void f();
 };
-class MetaEntityType : public EntityType_25e6c0 {
+class MetaEntityType : public FUN_00243310 {
   public:
-    MetaEntityType(int, int, int, int, int);
+    MetaEntityType(const U64_25e6c0*, const U64_25e6c0*, int, int, int);
     virtual void f();
 };
-MetaEntityType::MetaEntityType(int a, int b, int c, int d, int e) : EntityType_25e6c0(a, b, c, d, e) {}
+MetaEntityType::MetaEntityType(const U64_25e6c0* a, const U64_25e6c0* b, int c, int d, int e)
+    : FUN_00243310(a, b, c, d, e) {}

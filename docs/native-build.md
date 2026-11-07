@@ -1017,3 +1017,75 @@ from the tree TUs compiled with MSVC (`treesym_patch.py`).
 Both proofs build their data TUs from a private `HULK_DATA_DIR` (`--data-src`). The shared build/data/src was stale
 (2026-10-26, before reg1's inventory change: a 4-byte `DAT_00527f40` that no longer matched config/data.json, so a
 fresh-HEAD Wine link of it failed on `_DAT_00527f40`); it is now regenerated from HEAD 50dd6fb59.
+
+## Start-up past 260: the om type constructors and the type trees (reg3, 2026-11-06)
+
+reg2 stopped in initializer 260 on `DAT_004ca248`, a name pointer the inventory typed `int` (dec1's change, taken here
+only as a private data tweak for the survey runs). Past it, the macOS start-up now runs **every initializer** (0-465;
+the normal run prints `initializers done`), enters the game's main and stops in **0x0026f070**, the platform set-up
+main calls first.
+
+### The stops
+
+Each iteration as reg2 (scripts `build/reg3/scripts/`), with reg2's proof as the base and the private data step
+(`dgen.sh`: HEAD's inventory plus this change, plus dec1's five pointer words for the survey only).
+
+| initializers | stop | class | fix |
+|---|---|---|---|
+| 284-317 | the om type constructors: a derived type calls its base constructor under an invented name (`EntityType_242010`, `Base`, `MetaEntityType_24d7d0`, `ListenerEffectGcBase`, ...), the hasher as `lookup` / `findThing` / `getid`; om::EntityType's constructor (0x00243310) and om::MetaEntityType's (0x0025e6c0) took the two type keys as `int` | invented names (D6) + B | the bases are classes named by their constructor's address (`class FUN_00243310`, `FUN_0025e6c0`, `FUN_002584d0` for om::Type), the hasher decls/address.h's; 0x00243310 / 0x0025e6c0 take the keys by address (`const unsigned __int64*`, the callers' references: the same IR), and the leaf types pass `&(const U64&)hash` |
+| (all) | the native link never bound a constructor or destructor of a class named by address (`??0FUN_00243310@...`: "special member of a class named by address"), so unb4's recipe could not work | link | `native_unbound.plan_link` binds them like a `FUN_` name, under the same checks (the Wine binding map's address, the IR signature): a destructor of a class named by its constructor is bound by the Wine link elsewhere, and the map vetoes it. tests/native_host/native_unbound_test.py has the case. 142 such names were left unbound in the first iteration's link |
+| 308-312 | `om::MetaType` (0x0025fa00) stored its name in an `int` key and laid its tree out with 32-bit offsets; the tree of meta types (0x004e79b8) was six 4-byte items; the five static meta types were raw `.bss` arrays (two inside one 108-byte item and one inside 0x004e635c) | layout | records.h: `OmTreeNode`, `OmTree` (root, sentinel, count) and `OmMetaType` (vftable, its node, a tree of its own, the name, flags); `DAT_004e79b8` is one 24-byte `OmTree`, the meta types `DAT_004e6360` / `6394` / `63c8` / `63fc` / `6430` are `OmMetaType` (0x004e635c 56 -> 4 bytes, 0x004e63fc 108 -> 52 + `DAT_004e6430` + the unreferenced word 0x004e6464). 0x0025fa00 / 0x0025fa80 / 0x0025fc30 / 0x0025f170 (insert) and the initializers, accessors and exit handlers by the records |
+| 326-337 | the sequence event types (audio::SeqEventType, 0x002605e0): the same invented bases and name temporaries (`Temp::Init` = 0x0023fc40, `~Temp` = 0x00240060); 0x0023fc40's option was `hulk_intptr` (owner_classes reconciled it for one caller's pointer), so the 67 `int` callers could not bind; 0x00240170 called `Helper` (0x00240090); 0x0035ff90 read a constructor's result as `int` | D6 + B | the temporary is `class FUN_00240060` with `FUN_0023fc40`, the base `FUN_002605e0`; 0x0023fc40 takes `int` (include/gen/evidence-owners.json, owners.h regenerated); 0x00240170 calls `FUN_00240090` |
+| 329 | the tree of sequence event types: 0x002605e0 put the node after om::Type's 0x44 bytes (0x50 on 64-bit), 0x002601d0 / 0x002603e0 / 0x0025fca0 / 0x00260680 / 0x00260950 used 0x48 / 0x58; the tree (0x004e7a18, 20 bytes) and its count (the first word of 0x004e7a2c) were separate items | layout | records.h: `OmString` and `SeqEventTypeHead` (vftable, om::Type's bytes, the node, the name); `DAT_004e7a18` is an `OmTree`, 0x004e7a2c's two om::Type objects are `DAT_004e7a30` / `DAT_004e7a78`. The users of the tree go by the record (`entry_of`), the three C functions of the TU that merged sources call are declared at class scope (gen_tree's linkage bug, reg2) |
+| 340-375, 390 | the other sequence event types (13 constructors), 0x00256c20 (`EntityType_256c20`), 0x003604b0 (0x002673a0 returns an `int`), 0x00361510 (`AtExit`) | D6 + B | as above |
+| 456, 457 | 0x00337d20 took its buffer as `int` | B | `void*`, the buffer pointers `char*` |
+| main | `hulk_game_main` was a reporting stub on the native links | link | native_mac / native_elf: a thunk to the tree's definition at 0x0008ee30 (wine_host.MAIN_ADDR), as the Wine link aliases it |
+| **main, 0x0026f070** | `InitPlatform` (invented) and `XAPILIB::XInitDevices` (an XDK call in an invented namespace, not the XDK table's name) | invented names | next |
+
+Also: 0x00023d30 and 0x00106230 pass the name to 0x0027afb0 as `const char*` (reg2's leftovers; 0x00106230's callers
+0x00175060, 0x00106440 and 0x001df400 still declare an `int` key).
+
+**Survey run** (`HULK_NATIVE_MISSING=continue`): main goes on to `thunk_FUN_002709b0` / `thunk_FUN_00270f10` (Ghidra
+thunk names carry no address), `Obj_265b70::Init`, and crashes in 0x0008fca0 on a skipped `thunk_FUN_002710d0` (a file
+open). The exit handlers (`atexit`) are mostly invented names (`f`, `Run`, `Cleanup`, `wrapper`) and only run at exit.
+
+### Static objects in .bss
+
+The om type objects (about 60 initializers construct one: om::Type 72 bytes, the effect and sequence event types
+104-280) are `.bss` byte arrays of their 32-bit size, several carved into one item (`(char*)&DAT_004e5cf8 + 112`). On
+64-bit each has a pointer-sized vftable and tree links, so it is larger and the next object's constructor writes over
+its tail. The start-up gets through all initializers without more room (no constructor reads a neighbour's tail before
+main), but the objects are corrupt. Typed records were given here only where the start-up needed them (the meta types
+and the sequence event tree).
+
+The general fallback, measured (not implemented: a data-step policy change): `.bss` items of 8 bytes or more that code
+takes the address of (`mov` / `push` / `lea` of the address: static objects and buffers) or that config/data-ptrs.json
+has pointer evidence for, and that records.h does not type: **390 items, 502,838 bytes** of 604,404 `.bss` bytes; 379
+of them are 4 KB or less (52,158 bytes). Defining those twice as large on the 64-bit builds costs about 0.5 MB and stops
+the overflow; it does not fix objects packed into one item, whose 64-bit offsets are still the 32-bit ones. A private
+run with every untyped `.bss` array of 8+ bytes doubled (`build/reg3/scripts/headroom.py`, a patch of data_gen's
+definitions only, headers unchanged) ran every initializer in survey mode, as the run without it did.
+
+### Method, batch and proof
+
+As reg2, with reg2's proof as the base (its build_tree state, report and binding map) and the iteration reports'
+symbols of the changed definitions from the tree TUs compiled with MSVC. Iterations x0-x4 (`build/reg3/`): x0 HEAD (260
+passes with dec1's words, stops in 284), x1 the om constructors and meta types (stops in 329), x2-x3 the sequence event
+tree and types, x4 everything without the private `.bss` headroom (all initializers, then main).
+
+| | control | batch (reg3) |
+|---|---|---|
+| sources | HEAD a42c96d86 | 62 (54 matches/, 8 equivalent/) + records.h, 3 regenerated data headers, config/data.json, include/gen/evidence-owners.json + owners.h, tools/native_unbound.py (+ test), tools/native_mac.py, tools/native_elf.py |
+| gates | - | 54 / 54 MATCH + verify_relocs ok (address_as_integer on); 8 equivalents equivalent at 3,000 inputs and `--wine` (0x0023fc40 2,999, 0x0024df00 2,918, 0x0025f170 822 (54/56 edges, as before incomplete), 0x002601d0 3,126 (now complete), 0x002603e0 2,947, 0x002605e0 2,995, 0x00261d10 3,015, 0x00251170 2,971) |
+| `--x64` (HEAD -> batch, 124 sources: the batch and the gen classes' users) | - | 81 equivalent -> equivalent, 23 unsupported, 12 fail -> fail; 7 better (0x00242010, 0x0024d7d0 unsupported -> equivalent; 0x0024d8e0, 0x0024d9e0, 0x0024dae0, 0x0025fa00, 0x003604b0 fail -> equivalent); 1 equivalent -> fail by design: 0x00260950 releases the name at the record's 64-bit offset (0x70; HEAD's view 0x5c) |
+| merge modes (one build_tree state, HEAD vs batch) | - | 4, all wrapped -> merged: 0x0025f170, 0x002601d0, 0x002603e0 (their `Node` conflicts are gone), 0x003604b0 (its `void*` 0x002673a0); 64-bit front end of the 33 TUs: 0 errors. The proofs' own build_tree states: the same wrap / isolate sets |
+| Wine proof (`--gfx`, play3 to 60,000, limit 14,400; both on mac2) | 64239 | 64283 |
+| strict link rc / Wine unbound | 0 / 1,314 | 0 / 1,314 (identical lists) |
+| x87 keep list | 268 | identical |
+| play3 checkpoints | 2,006 to 60,150 | `ckpt_gate.py`: ok at all 2,002 common frames (to 60,030; the known transients only), PRNG hashes identical |
+| arm64 macOS / x86-64 Linux / arm64 Android unbound (proof's own snapshot and map) | 31,928 / 31,919 / 31,920 (reg2) | **31,741 / 31,732 / 31,733**, all rc 0 |
+| macOS start-up | 260 (`DAT_004ca248`) | 260 until dec1's pointer words land; with them (x4): every initializer, then main to 0x0026f070 |
+
+The proof's inventory also carried dec1's six `kind: pointer` lines (they were in the working copy it was taken
+from); the committed inventory is HEAD's plus this change only. data_gen output from the two differs in those six
+items' declarations only (`unsigned int X[1]` / `int X`, the same bytes).

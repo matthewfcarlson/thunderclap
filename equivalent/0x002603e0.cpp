@@ -1,22 +1,24 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1043 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 2947 inputs, branch coverage 24/24)
 // FUN_002603e0 @ 0x002603e0
-struct Node { Node *left; Node *right; Node *parent; int color; };
-struct Tree_2603e0 { Node *root; Node sentinel; };
-struct Item_2603e0 { char pad[0x48]; Node node; };
-Node *__cdecl FUN_0025fe80(Tree_2603e0 *, Node *);
-extern "C" void __cdecl FUN_0025fec0(void *, void *);
+#include "decls/data/records.h"
+// The tree of sequence event types (records.h: OmTree of SeqEventTypeHead entries).
+typedef OmTreeNode Node_2603e0;
+Node_2603e0 *__cdecl FUN_0025fe80(OmTree *, Node_2603e0 *);
+struct SeqEventTree_2603e0 {     // class scope: FUN_0025fec0 is a C definition of this TU (gen_tree)
+    static void __cdecl FUN_0025fec0(void *, void *);
+};
 extern "C" void __cdecl FUN_002603e0(void * tree_, void * item_) {
-    Tree_2603e0 * tree = (Tree_2603e0 *)tree_;
-    Item_2603e0 * item = (Item_2603e0 *)item_;
- Node *s = &item->node;
- Node *nil = &tree->sentinel;
- Node *n;
+    OmTree * tree = (OmTree *)tree_;
+    SeqEventTypeHead * item = (SeqEventTypeHead *)item_;
+ Node_2603e0 *s = &item->node;
+ Node_2603e0 *nil = &tree->nil;
+ Node_2603e0 *n;
  if (s->left != nil && s->right != nil) n = FUN_0025fe80(tree,s);
  else n = s;
- Node *child = n->left;
+ Node_2603e0 *child = n->left;
  if (child == nil) child = n->right;
  child->parent = n->parent;
- Node *p = n->parent;
+ Node_2603e0 *p = n->parent;
  if (p == nil) tree->root = child;
  else if (p->left == n) p->left = child;
  else p->right = child;
@@ -30,10 +32,10 @@ extern "C" void __cdecl FUN_002603e0(void * tree_, void * item_) {
  if (p == nil) tree->root = n;
  else if (p->left == s) p->left = n;
  else p->right = n;
- Node *l = n->left;
+ Node_2603e0 *l = n->left;
  if (l != nil) l->parent = n;
- Node *r = n->right;
+ Node_2603e0 *r = n->right;
  if (r->parent != nil) r->parent = n;
  }
- if (black) FUN_0025fec0((Tree_2603e0 *)tree,(Node *)child);
+ if (black) SeqEventTree_2603e0::FUN_0025fec0((OmTree *)tree,(Node_2603e0 *)child);
 }

@@ -1,16 +1,16 @@
-extern "C" __int64 __cdecl lookup(const char*, int, int) throw();
-struct Temp {
+extern "C" __int64 __cdecl FUN_002672f0(const char*, int, int) throw();
+struct FUN_00240060 {
     char data[12];
-    Temp* Init(const char*, int) throw();
-    ~Temp() throw();
+    FUN_00240060* FUN_0023fc40(const char*, int) throw();
+    ~FUN_00240060() throw();
 };
-struct SeqEventType_2506d0 {
+struct FUN_002605e0 {
     virtual void vf();
-    SeqEventType_2506d0(Temp*, const __int64&, int, int) throw();
+    FUN_002605e0(FUN_00240060*, const __int64&, int, int) throw();
 };
-struct SeqEventWaitBeatType : SeqEventType_2506d0 {
+struct SeqEventWaitBeatType : FUN_002605e0 {
     SeqEventWaitBeatType();
     virtual void vf();
 };
 SeqEventWaitBeatType::SeqEventWaitBeatType()
-    : SeqEventType_2506d0(Temp().Init("Beat", 0), lookup("SeqEventWaitBeat", 0, 0), 20, 4) {}
+    : FUN_002605e0(FUN_00240060().FUN_0023fc40("Beat", 0), FUN_002672f0("SeqEventWaitBeat", 0, 0), 20, 4) {}

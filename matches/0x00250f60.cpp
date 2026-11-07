@@ -1,23 +1,23 @@
 #include "compat/ptr.h"
-extern "C" __int64 __cdecl make(const char*, int, hulk_intptr);
+extern "C" __int64 __cdecl FUN_002672f0(const char*, int, int);
 struct Arg {
     __int64 val;
-    Arg() throw() : val(make("SeqEventStopTrack", 0, 0)) {}
+    Arg() throw() : val(FUN_002672f0("SeqEventStopTrack", 0, 0)) {}
 };
-class Name {
+class FUN_00240060 {
   public:
     char pad[12];
-    Name* Init(const char*, int) throw();
-    ~Name() throw();
+    FUN_00240060* FUN_0023fc40(const char*, int) throw();
+    ~FUN_00240060() throw();
 };
-class SeqEventType_250f60 {
+class FUN_002605e0 {
   public:
-    SeqEventType_250f60(Name*, const Arg&, int, int) throw();
+    FUN_002605e0(FUN_00240060*, const Arg&, int, int) throw();
     virtual void f();
 };
-class SeqEventStopTrackType_250f60 : public SeqEventType_250f60 {
+class SeqEventStopTrackType_250f60 : public FUN_002605e0 {
   public:
     SeqEventStopTrackType_250f60();
     virtual void f();
 };
-SeqEventStopTrackType_250f60::SeqEventStopTrackType_250f60() : SeqEventType_250f60(Name().Init("Stop", 0), Arg(), 32, 4) {}
+SeqEventStopTrackType_250f60::SeqEventStopTrackType_250f60() : FUN_002605e0(FUN_00240060().FUN_0023fc40("Stop", 0), Arg(), 32, 4) {}

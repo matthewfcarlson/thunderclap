@@ -297,7 +297,7 @@ extern "C" unsigned char DAT_004e634c[4];
 extern "C" unsigned char DAT_004e6350[4];
 extern "C" unsigned char DAT_004e6354[4];
 extern "C" unsigned char DAT_004e6358[4];
-extern "C" unsigned char DAT_004e635c[56];
+extern "C" unsigned char DAT_004e635c[4];
 extern "C" char DAT_004e6468[112];
 
 // unknown/unk_262230.cpp

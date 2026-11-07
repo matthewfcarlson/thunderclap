@@ -559,6 +559,9 @@ def lld(tc, d, objs, unbound, extra_asm):
         if not f_:
             a_ = int(nb.ORIG.match(n_).group(1), 16)
             thunks[n_] = table.addrs.get(a_) or table.xdk.funcs.get(a_, (None,))[0]
+    main_ = nmac.main_definition(defs)   # (reg3) the game's main for the entry, as the macOS link
+    if main_:
+        thunks["hulk_game_main"] = main_
     if hook_rep is not None:
         hook_rep["thunks"] = {n: f for n, f in sorted(thunks.items())}
     if any(thunks.values()):
@@ -573,7 +576,8 @@ def lld(tc, d, objs, unbound, extra_asm):
         asm_def |= defined_syms(tc.nm, [th + ".o"])
     objs, bind_st = nb.apply(objs, binding, game_syms, os.path.join(d, "bound"), "elf",
                              extra=renames)   # (+ the address bindings: native_unbound.py, and the replay hooks)
-    # the shim's hooks the host glue calls (null stubs); the game's main is a missing stub (reported) like any other
+    # the shim's hooks the host glue calls (null stubs); the game's main is a thunk to its definition (above) or a
+    # missing stub (reported) like any other
     hooks = host_undef - game_def - asm_def - host_def - sys_def - {"hulk_game_main"}
     dem = cp.undname(sorted(s for s in set(unbound) if s.startswith("?")))
     want = (((set(unbound) - set(binding)) | (host_undef - game_def - asm_def)) - host_def - sys_def) - hooks

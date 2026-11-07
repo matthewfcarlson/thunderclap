@@ -1,4 +1,5 @@
 #include "decls/data/engine/audio.h"
+#include "decls/data/records.h"
 // data: gRegistry = DAT_004e6394
 
 typedef void (*AtExitFn)();

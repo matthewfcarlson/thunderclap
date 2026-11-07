@@ -91,12 +91,7 @@ extern "C" const char DAT_0042aa4c[3];  // s_om_0042aa4c
 extern "C" const char DAT_0042aa50[9];  // s_MetaType_0042aa50
 extern "C" const void* DAT_004cd360;  // PTR_004cd360
 extern "C" unsigned int DAT_004cd384[1];  // zero_004cd384
-extern "C" char DAT_004e79b8[4];
-extern "C" char DAT_004e79bc[4];
-extern "C" char DAT_004e79c0[4];
-extern "C" char DAT_004e79c4[4];
-extern "C" char DAT_004e79c8[4];
-extern "C" char DAT_004e79cc[4];
+// DAT_004e79b8: typed by decls/data/records.h (include it)
 extern "C" char DAT_004e79d0[72];
 
 // om/NullStream.cpp

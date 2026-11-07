@@ -1,7 +1,8 @@
 // Same code shape as 0x0008ceb0 (propagated; names are from that function)
 #include "decls/data/game/unknown.h"
-#include "decls/data/engine/audio.h"
+#include "decls/data/records.h"
 
-extern "C" int* FUN_0024da40() {
-    return &(*(int*)&DAT_004e63c8);
+// the om::MetaType of an audio listener effect type (records.h)
+extern "C" OmMetaType* FUN_0024da40() {
+    return &DAT_004e63c8;
 }

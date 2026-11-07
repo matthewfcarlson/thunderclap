@@ -214,7 +214,13 @@ def leaf(sym):
 
 def name_address(sym):
     """(address, how) the name carries, or (None, None): FUN_/LAB_ (`fun`), the suffix convention (`suffix`),
-    DAT_/PTR_/hulk_at_ (`data`). `thunk_FUN_x` carries none (the thunk's own address is not in its name)."""
+    DAT_/PTR_/hulk_at_ (`data`). `thunk_FUN_x` carries none (the thunk's own address is not in its name).
+
+    A constructor or destructor of a class named by an address (`??0FUN_002605e0@...`, `??1FUN_00240060@...`:
+    `class named fun`) carries the address of that special member: sources name a base class by its constructor's
+    address and a temporary's class by its destructor's. plan_link binds it like a `FUN_` name, so the binding map's
+    veto applies (a destructor of a class named by its constructor is bound by the Wine link elsewhere) and the IR
+    signatures must agree; address_bindings() (no sidecars, no map) leaves it unbound."""
     lf, special = leaf(sym)
     if not lf:
         return None, None
@@ -619,8 +625,6 @@ def plan_link(objs, syms, defs, data_defined, label_defined=(), sigs=None, verif
                     target = t
                 else:
                     cls = "data address without an item (interior / outside the inventory)"
-            elif how.startswith("class named"):
-                cls = "special member of a class named by address"
             elif not (TEXT_LO <= a < TEXT_HI):
                 cls = "outside .text"
             else:

@@ -14554,7 +14554,7 @@ struct String_23fc40 {
     unsigned short capacity; // +0x04 (+0x08)
     char pad[2]; // +0x06 (+0x0a)
     unsigned short extra; // +0x08 (+0x0c)
-    String_23fc40 * FUN_0023fc40(const char *text, hulk_intptr option);
+    String_23fc40 * FUN_0023fc40(const char *text, int option);
     void FUN_0023fb20(const char *text, hulk_intptr length, hulk_intptr capacity, int option);
 };
 // matches/0x0023fc90.cpp (stub Obj_23fc90), size 0xc (0x10)
@@ -14606,7 +14606,7 @@ struct Handle_240090 {
 };
 // matches/0x00240170.cpp (stub Thing_240170), size 0x1
 struct Thing_240170 {
-    void Helper(int);
+    void FUN_00240090(const void*);
     Thing_240170* FUN_00240170(hulk_intptr);
 };
 // equivalent/0x00240190.cpp (stub Text), size 0x8 (0x10)

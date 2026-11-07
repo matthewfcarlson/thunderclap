@@ -1,4 +1,5 @@
 #include "decls/data/engine/audio.h"
+#include "decls/data/records.h"
 // data: gEffect = DAT_004e63c8
 
 class Effect {
