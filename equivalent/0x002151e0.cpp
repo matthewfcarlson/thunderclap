@@ -6,7 +6,7 @@ extern "C" void _ReadWriteBarrier();
 extern "C" {
 void __cdecl FUN_00219660(hulk_intptr, int);
 unsigned int __cdecl FUN_002165c0(void *, int);
-int __cdecl FUN_002152f0(hulk_intptr, void*, int);
+int __cdecl FUN_002152f0(hulk_intptr, void*, void*);
 // equiv-conv: FUN_00214f90 esi
 void __cdecl FUN_00214f90(void *);
 void __cdecl LAB_002151d0(void);

@@ -2,7 +2,7 @@
 // data: g_heap = DAT_004c5cfc
 
 extern "C" void* memcpy(void*, const void*, unsigned);
-void* Alloc(int, unsigned);
+extern "C" void* FUN_00266e00(int heap, int size);
 extern "C" void FUN_00267090(void*);
 void* Realloc(int unused, void* p, unsigned oldSize, unsigned newSize) {
     if (newSize == 0) {
@@ -10,7 +10,7 @@ void* Realloc(int unused, void* p, unsigned oldSize, unsigned newSize) {
             FUN_00267090(p);
         return 0;
     }
-    void* n = Alloc(DAT_004c5cfc, newSize);
+    void* n = FUN_00266e00(DAT_004c5cfc, (int)newSize);
     if (!n)
         return 0;
     if (p) {

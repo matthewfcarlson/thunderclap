@@ -19,7 +19,8 @@ struct State_215de0 {
  char pad32[34];
  unsigned int context;
 };
-extern "C" unsigned int __cdecl FUN_002152f0(State_215de0*, unsigned int, unsigned int);
+// the protected call (0x002152f0: the state, the function, its argument)
+extern int __cdecl FUN_002152f0(State_215de0*, void (__cdecl*)(), void*);
 extern "C" void __cdecl FUN_00219660(State_215de0*, char*);
 // equiv-conv: FUN_00215240 eax ecx edi
 extern "C" void __cdecl FUN_00215240(int, void *, void *);
@@ -30,7 +31,7 @@ unsigned int __cdecl FUN_00215de0(State_215de0* s, hulk_uintptr a, hulk_uintptr 
  hulk_uintptr displacement = (hulk_uintptr)s->current - (hulk_uintptr)s->base;
  unsigned int oldContext = s->context;
  s->context = context;
- unsigned int result = FUN_002152f0(s,a,b);
+ unsigned int result = (unsigned int)FUN_002152f0(s,(void (__cdecl*)())a,(void*)b);
  if(result) {
   char* position = s->entries + offset;
   FUN_00219660(s,position);

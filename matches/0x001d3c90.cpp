@@ -1,11 +1,13 @@
 #include "decls/data/game/global.h"
 struct State;
 typedef int(__cdecl* Callback_1d3c90)(State*);
-extern int __cdecl FUN_001d0990(State*);
+// the Lua state's allocator (0x001d0990: unused context, block, old size, new size)
+typedef void*(__cdecl* Allocator_1d3c90)(int, void*, unsigned, unsigned);
+extern void* __cdecl FUN_001d0990(int, void*, unsigned, unsigned);
 extern int __cdecl FUN_001d2000(State*);
 extern "C" int __cdecl FUN_001d2020(State*);
 extern void __cdecl FUN_002151e0(State*);
-extern State* __cdecl FUN_002150e0(Callback_1d3c90, void*);
+extern State* __cdecl FUN_002150e0(Allocator_1d3c90, void*);
 extern "C" void __cdecl FUN_0033eb30(State*);
 extern void __cdecl FUN_00212d80(State*, int);
 extern "C" void __cdecl FUN_0033d6c0(State*);

@@ -1327,6 +1327,14 @@ callers pass the drive in ecx), the XboxSaveDrive forwards (0x002786a0 / 0x00278
 returns the semaphore release's result on 64-bit (the 32-bit spelling with a result does not match in 11
 variants, so `Result_272fc0` is `int` only under `HULK_PTR64`).
 
+**Then (batch D, proof 68765 vs control 68764):** the Lua state's allocator 0x001d0990 (`Realloc`'s `Alloc` is
+FUN_00266e00) and its type in 0x001d3c90, the protected call 0x002152f0's argument as a pointer in its callers
+(0x002150e0 / 0x002151e0 / 0x00215de0), the luaopen callback 0x00214e80 declared with its parameter, and its
+luaM_realloc 0x0021add0 declared as defined. The start-up now runs into luaopen's table creation. The Lua VM is the next
+subsystem and needs one batch for all of it: a TObject is 8 bytes on 32-bit and 16 on 64-bit, 38 VM sources index the
+stack by `n * 8`, luaM_realloc has about 35 different declarations, and sizes are written as `stacksize * 8`, so the
+records (TObject, lua_State, CallInfo, Table / Node, Closure) have to replace every user at once.
+
 ### Rules this batch found
 
 - **Unique names for layout classes.** gen_tree merges same-named classes of one TU by their 32-bit layout; a record

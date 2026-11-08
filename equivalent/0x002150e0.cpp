@@ -3,8 +3,8 @@
 // FUN_002150e0 @ 0x002150e0
 struct Object;
 typedef void* (__cdecl *Allocator)(void*, unsigned, unsigned, unsigned);
-extern void __cdecl FUN_00214e80();
-extern int __cdecl FUN_002152f0(Object*, void (__cdecl*)(), int);
+extern void __cdecl FUN_00214e80(Object*);
+extern int __cdecl FUN_002152f0(Object*, void (__cdecl*)(), void*);
 // equiv-conv: FUN_00214f90 esi
 extern "C" void __cdecl FUN_00214f90(void *);
 struct Internal {
@@ -51,6 +51,6 @@ Object* __cdecl FUN_002150e0(Allocator alloc, void* context) {
  q->owner=p;q->a24=0;q->link=&q->owner;q->a1c=0;
  q->a28=0;q->a2c=0;q->a30=0;q->a34=0;
  q->a60=0;q->a68=0;q->a70=0;q->size=0x108;
- if (FUN_002152f0(p,FUN_00214e80,0)) { FUN_00214f90((Object *)p); p=0; }
+ if (FUN_002152f0(p,(void (__cdecl*)())FUN_00214e80,0)) { FUN_00214f90((Object *)p); p=0; }
  return p;
 }

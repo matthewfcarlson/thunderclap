@@ -7,7 +7,7 @@ struct Node { char pad0[5]; unsigned char flags; char pad6[2]; unsigned int a; u
 struct Value_214e80 { unsigned int tag; void* data; };
 struct Detail_214e80 { char pad0[0x1c]; Node* node; char pad20[0x28]; unsigned int bytes; unsigned int count; char pad50[4]; Value_214e80 value; };
 struct State_214e80 { char pad0[5]; unsigned char flags; char pad6[10]; Detail_214e80* detail; char pad14[0x2c]; Value_214e80 value; };
-extern Node* __cdecl FUN_0021add0(State_214e80*,int,int,int);
+extern Node* __cdecl FUN_0021add0(State_214e80*,void*,int,unsigned);
 extern void __cdecl FUN_00217130(State_214e80*,Node*,int);
 // equiv-conv: FUN_00214dd0 edi esi
 extern void FUN_00214dd0(State_214e80*, State_214e80*);
