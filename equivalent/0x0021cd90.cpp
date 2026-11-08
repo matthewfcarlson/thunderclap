@@ -1,41 +1,42 @@
-// STATUS: equivalent (tools/equiv.py level 3: 8353 inputs, branch coverage 4/4)
-// FUN_0021cd90 @ 0x0021cd90
-// FUN_0021cd90 @ 0x0021cd90
-// FUN_0021cd90 @ 0x0021cd90
-struct Context { char pad[0x24]; int saved; };
-struct Node { char pad[0xc]; int kind; char pad2[0xc]; Context* context; };
-struct Info_21cd90 { int unused; int value; };
-struct State_21cd90 { char pad[0x14]; Info_21cd90* info; int count; };
-struct Value_21cd90 { int type; int value; int extra; int a; int b; };
+// STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 4/4)
+// recfield: name = exp or [exp] = exp in a table constructor (OP_SETTABLE); returns the instruction's pc.
+#include "decls/data/lua.h"
+
 // equiv-conv: FUN_0021c240 esi ecx edx
-void FUN_0021c240(Context*, const char*, int);
+extern "C" void FUN_0021c240(LuaVMFuncState* fs, const char* what, int limit);
 // equiv-conv: FUN_0021c3d0 esi
-int FUN_0021c3d0(Node*);
-int __cdecl FUN_002209b0(Context*, int);
+extern "C" LuaVMString* FUN_0021c3d0(LuaVMLexState* ls);
+extern "C" int __cdecl FUN_002209b0(LuaVMFuncState* fs, LuaVMString* s);
 // equiv-conv: FUN_0021cd30 eax edi
-void FUN_0021cd30(Node*, Value_21cd90*);
+extern "C" void FUN_0021cd30(LuaVMLexState* ls, LuaVMExpDesc* v);
 // equiv-conv: FUN_0021c2e0 esi eax
-extern "C" void __cdecl FUN_0021c2e0(void *, int);
-int __cdecl FUN_00221200(Context*, Value_21cd90*);
-extern "C" int __cdecl FUN_0021ded0(void *, void *, unsigned int);
-extern "C" int __cdecl FUN_00220bd0(void *, unsigned int, int, unsigned int, unsigned int);
-int __cdecl target(Node* node, State_21cd90* state) {
- Context* context = node->context;
- int saved = context->saved;
- Value_21cd90 left, right;
- if(node->kind == 0x116) {
-  if(state->count > 0x7ffffffd) FUN_0021c240(context, "items in a constructor", 0x7ffffffd);
-  ++state->count;
-  int v = FUN_0021c3d0(node);
-  int result = FUN_002209b0(node->context,v);
-  left.a = -1; left.b = -1; left.type = 4; left.value = result;
- } else FUN_0021cd30(node, &left);
- FUN_0021c2e0((Node *)node, 0x3d);
- FUN_00221200(context,&left);
- FUN_0021ded0((Node *)node,(Value_21cd90 *)(&right),0);
- int r = FUN_00221200(context,&right);
- int l = FUN_00221200(context,&left);
- int result = FUN_00220bd0((Context *)context,9,state->info->value,(int)l,(int)r);
- context->saved=saved;
- return result;
+extern "C" void FUN_0021c2e0(LuaVMLexState* ls, int c);
+extern "C" int __cdecl FUN_00221200(LuaVMFuncState* fs, LuaVMExpDesc* e);
+extern "C" int __cdecl FUN_0021ded0(LuaVMLexState* ls, LuaVMExpDesc* v, unsigned int limit);
+extern "C" int __cdecl FUN_00220bd0(LuaVMFuncState* fs, unsigned int o, int a, unsigned int b,
+                                    unsigned int c);
+extern "C" int __cdecl FUN_0021cd90(LuaVMLexState* ls, LuaVMConsControl* cc) {
+    LuaVMFuncState* fs = ls->fs;
+    int reg = fs->freereg;
+    LuaVMExpDesc key, val;
+    if (ls->t.token == 0x116) {
+        if (cc->nh > 0x7ffffffd)
+            FUN_0021c240(fs, "items in a constructor", 0x7ffffffd);
+        ++cc->nh;
+        LuaVMString* name = FUN_0021c3d0(ls);
+        int info = FUN_002209b0(ls->fs, name);
+        key.t = -1;
+        key.f = -1;
+        key.k = 4; // VK
+        key.info = info;
+    } else
+        FUN_0021cd30(ls, &key);
+    FUN_0021c2e0(ls, 0x3d);
+    FUN_00221200(fs, &key);
+    FUN_0021ded0(ls, &val, 0);
+    int rkval = FUN_00221200(fs, &val);
+    int rkkey = FUN_00221200(fs, &key);
+    int pc = FUN_00220bd0(fs, 9, cc->t->info, (unsigned int)rkkey, (unsigned int)rkval); // OP_SETTABLE
+    fs->freereg = reg;
+    return pc;
 }

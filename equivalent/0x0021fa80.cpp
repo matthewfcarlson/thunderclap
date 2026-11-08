@@ -1,35 +1,23 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 4/4)
-// FUN_0021fa80 @ 0x0021fa80
-// FUN_0021fa80 @ 0x0021fa80
-#include "compat/ptr.h"
-struct State;
-struct Zio;
-struct Buffer;
-struct Str;
-
-struct Reader {
-    State *L;
-    Zio *zio;
-    Buffer *buf;
-};
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// LoadString: a size_t length (32 bits in the chunk, counting the NUL), then the characters; 0 is no string.
+#include "decls/data/lua.h"
 
 // equiv-conv: FUN_0021f8c0 ecx eax edx
-extern "C" void __cdecl FUN_0021f8c0(char *, unsigned int, void *);
+extern "C" void __cdecl FUN_0021f8c0(char* b, unsigned int size, LuaVMLoadState* S);
 // equiv-conv: FUN_0021f800 esi stack
-void FUN_0021f800(Reader *r, const char *msg, ...);
-extern "C" void * __cdecl FUN_0021a6b0(void *, void **, hulk_uintptr);
-extern "C" unsigned int __cdecl FUN_0021a610(void *, void *, unsigned int);
-Str *FUN_00219430(State *L, const char *s, unsigned int len);
+extern "C" void __cdecl FUN_0021f800(LuaVMLoadState* S, const char* fmt, ...);
+extern "C" char* __cdecl FUN_0021a6b0(LuaVMState* L, LuaVMBuffer* buff, unsigned int n);
+extern "C" unsigned int __cdecl FUN_0021a610(LuaVMZio* z, void* b, unsigned int n);
+extern "C" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
 
 // equiv-conv: FUN_0021fa80 eax
-extern "C" Str *FUN_0021fa80(Reader *r)
-{
+extern "C" LuaVMString* __cdecl FUN_0021fa80(LuaVMLoadState* S) {
     unsigned int size;
-    FUN_0021f8c0((char *)(void *)(&size), 4, (Reader *)r);
+    FUN_0021f8c0((char*)(void*)(&size), 4, S);
     if (size == 0)
         return 0;
-    char *s = ((char *)FUN_0021a6b0((State *)(r->L), (void **)(Buffer *)(r->buf), size));
-    if (((int)FUN_0021a610((Zio *)(r->zio), (char *)s, (hulk_uintptr)size)))
-        FUN_0021f800(r, "unexpected end of file");
-    return FUN_00219430(r->L, s, size - 1);
+    char* s = FUN_0021a6b0(S->L, S->b, size);
+    if (((int)FUN_0021a610(S->Z, s, size)))
+        FUN_0021f800(S, "unexpected end of file");
+    return FUN_00219430(S->L, s, size - 1);
 }

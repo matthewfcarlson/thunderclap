@@ -1,25 +1,25 @@
-// STATUS: equivalent (tools/equiv.py level 3: 7688 inputs, branch coverage 17/20, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 17/20, incomplete)
 // FUN_001d3960 @ 0x001d3960
 // cl-flags: /GS
 
-struct LuaState;
+#include "decls/data/lua.h"
 
-int __cdecl FUN_00212d70(LuaState *L);
-void __cdecl FUN_00212d80(LuaState *L, int index);
-const char *__cdecl FUN_00213190(LuaState *L, int index);
-void __cdecl FUN_00213380(LuaState *L, const char *s, int len);
-void __cdecl FUN_002133d0(LuaState *L, const char *s);
-void __cdecl FUN_00213600(LuaState *L, int index);
-int __cdecl FUN_002139f0(LuaState *L, int a, int b, int c);
-int __cdecl FUN_00339a60(LuaState *L, const char *buf, int len, const char *name);
+extern "C" int __cdecl FUN_00212d70(LuaVMState *L);
+extern "C" void __cdecl FUN_00212d80(LuaVMState *L, int index);
+extern "C" const char *__cdecl FUN_00213190(LuaVMState *L, int index);
+extern "C" void __cdecl FUN_00213380(LuaVMState *L, const char *s, unsigned int len);
+extern "C" void __cdecl FUN_002133d0(LuaVMState *L, const char *s);
+extern "C" void __cdecl FUN_00213600(LuaVMState *L, int index);
+extern "C" int __cdecl FUN_002139f0(LuaVMState *L, int a, int b, int c);
+extern "C" int __cdecl FUN_00339a60(LuaVMState *L, const char *buf, unsigned int len, const char *name);
+unsigned char __stdcall FUN_001d1080(const char *name, LuaVMState *L);
+const char *__stdcall FUN_001d10e0(const char *name, LuaVMState *L);
 
 class ScriptHandler {
 public:
     char pad0[4];
     int resumeState;         // 0x04
-    LuaState *L;             // 0x08
-    char FUN_001d1080(const char *name, LuaState *L);
-    void FUN_001d10e0(const char *name, LuaState *L);
+    LuaVMState *L;             // 0x08
     int FUN_001d3960();
 };
 
@@ -33,7 +33,7 @@ int ScriptHandler::FUN_001d3960()
     while (script[len] != 0)
         len++;
 
-    LuaState *state = L;
+    LuaVMState *state = L;
     int top = FUN_00212d70(state);
     if (len == -1) {
         len = 0;

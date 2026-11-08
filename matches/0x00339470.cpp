@@ -1,20 +1,14 @@
-#include "compat/ptr.h"
-typedef unsigned int uint;
-extern void __cdecl CopyThing(void*, void*, hulk_intptr);
-struct Thing_339470 {
-    uint* mPtr;
-    int mCount;
-    void* mArg;
-    int mData;
-};
-extern void __cdecl Finish(Thing_339470*);
-int* __cdecl Target(Thing_339470* p) {
-    hulk_intptr n = (hulk_intptr)p->mPtr - (hulk_intptr)p - 12;
+// luaL_prepbuffer: empties the buffer onto the stack and returns its start.
+#include "decls/data/lua.h"
+extern "C" void __cdecl FUN_00213380(LuaVMState* L, const char* s, unsigned int len);
+extern "C" void __cdecl FUN_003393f0(LuaVMLBuffer* B);
+extern "C" char* __cdecl FUN_00339470(LuaVMLBuffer* B) {
+    unsigned int n = (unsigned int)(B->p - B->buffer);
     if (n != 0) {
-        CopyThing(p->mArg, &p->mData, n);
-        p->mPtr = (uint*)&p->mData;
-        ++p->mCount;
-        Finish(p);
+        FUN_00213380(B->L, B->buffer, n);
+        B->p = B->buffer;
+        ++B->lvl;
+        FUN_003393f0(B);
     }
-    return (int*)&p->mData;
+    return B->buffer;
 }

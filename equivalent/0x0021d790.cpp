@@ -1,47 +1,20 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20012 inputs, branch coverage 6/6)
-// FUN_0021d790 @ 0x0021d790
-// FUN_0021d790 @ 0x0021d790
-// Lua 5.0 lparser primaryexp (with luaX_next inlined)
-struct expdesc_21d790 {
-    int k;
-    int info;
-    int aux;
-    int t;
-    int f;
-};
+// STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 6/6)
+// prefixexp: a name or a parenthesized expression.
+#include "decls/data/lua.h"
 
-struct FuncState_21d790 {
-    char pad0[1];
-};
-
-struct Token_21d790 {
-    int token;
-    int seminfo;
-};
-
-struct LexState_21d790 {
-    int current;
-    int linenumber;
-    int lastline;
-    Token_21d790 t;                // 0xc
-    Token_21d790 lookahead;        // 0x14
-    FuncState_21d790 *fs;          // 0x1c
-};
-
-extern "C" int __cdecl FUN_0021bbc0(void *, void *);                       // llex
-void __cdecl FUN_0021b060(LexState_21d790 *ls, const char *msg);                   // luaX_syntaxerror
-extern "C" int __cdecl FUN_0021ded0(void *, void *, unsigned int);             // subexpr
+extern "C" int __cdecl FUN_0021bbc0(LuaVMLexState* ls, LuaVMSemInfo* seminfo); // llex
+extern "C" void __cdecl FUN_0021b060(LuaVMLexState* ls, const char* msg);      // luaX_syntaxerror
+extern "C" int __cdecl FUN_0021ded0(LuaVMLexState* ls, LuaVMExpDesc* v, unsigned int limit); // subexpr
 // equiv-conv: FUN_0021c340 eax esi edi stack
-void FUN_0021c340(int line, LexState_21d790 *ls, int what, int who);               // check_match
+extern "C" void FUN_0021c340(int where, LuaVMLexState* ls, int what, int who); // check_match
 // equiv-conv: FUN_0021c3d0 esi
-int FUN_0021c3d0(LexState_21d790 *ls);                                             // str_checkname
-void __cdecl FUN_0021c790(FuncState_21d790 *fs, int name, expdesc_21d790 *v, int base);   // singlevar
-void __cdecl FUN_00220d90(FuncState_21d790 *fs, expdesc_21d790 *v);                       // luaK_dischargevars
+extern "C" LuaVMString* FUN_0021c3d0(LuaVMLexState* ls); // str_checkname
+extern "C" void __cdecl FUN_0021c790(LuaVMFuncState* fs, LuaVMString* n, LuaVMExpDesc* var,
+                                     int base);                            // singlevar
+extern "C" void __cdecl FUN_00220d90(LuaVMFuncState* fs, LuaVMExpDesc* e); // luaK_dischargevars
 
 // equiv-conv: FUN_0021d790 eax ebx
-extern "C" void FUN_0021d790(void * ls_, void *v)
-{
-    LexState_21d790 * ls = (LexState_21d790 *)ls_;
+extern "C" void FUN_0021d790(LuaVMLexState* ls, LuaVMExpDesc* v) {
     switch (ls->t.token) {
     case '(': {
         int line = ls->linenumber;
@@ -51,15 +24,15 @@ extern "C" void FUN_0021d790(void * ls_, void *v)
             ls->t = ls->lookahead;
             ls->lookahead.token = 0x11f;
         } else {
-            ls->t.token = FUN_0021bbc0((LexState_21d790 *)ls, (int *)(&ls->t.seminfo));
+            ls->t.token = FUN_0021bbc0(ls, &ls->t.seminfo);
         }
-        FUN_0021ded0((LexState_21d790 *)ls, (expdesc_21d790 *)((expdesc_21d790 *)v), 0);
+        FUN_0021ded0(ls, v, 0);
         FUN_0021c340(line, ls, ')', '(');
-        FUN_00220d90(ls->fs, ((expdesc_21d790 *)v));
+        FUN_00220d90(ls->fs, v);
         return;
     }
     case 0x116:
-        FUN_0021c790(ls->fs, FUN_0021c3d0(ls), ((expdesc_21d790 *)v), 1);
+        FUN_0021c790(ls->fs, FUN_0021c3d0(ls), v, 1);
         return;
     default:
         FUN_0021b060(ls, "unexpected symbol");

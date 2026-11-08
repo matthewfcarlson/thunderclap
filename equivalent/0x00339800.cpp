@@ -1,45 +1,31 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20037 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 3033 inputs, branch coverage 24/24)
 // FUN_00339800 @ 0x00339800
 // cl-flags: /GS
-// FUN_00339800 @ 0x00339800
 // equiv-conv: FUN_003397c0 edi ebx
-#include "compat/ptr.h"
-struct lua_State;
+#include "decls/data/lua.h"
 
-struct File {
-    char pad0[0x0c];
-    unsigned int flag;
-};
+extern "C" LuaVMFile DAT_004d99f0;  // stdin (the CRT's _iob[0])
 
-struct LoadF {
-    int extraline;
-    File *f;
-    char buff[512];
-};
-
-extern File DAT_004d99f0;
-
-int __cdecl FUN_00212d70(lua_State *L);
-void __cdecl FUN_00212d80(lua_State *L, int idx);
-void __cdecl FUN_00212de0(lua_State *L, int idx);
-const char *__cdecl FUN_00213190(lua_State *L, int idx);
-void __cdecl FUN_00213380(lua_State *L, const char *s, hulk_uintptr len);
-const char *__cdecl FUN_00213470(lua_State *L, const char *fmt, ...);
-int __cdecl FUN_00213b20(lua_State *L, const char *(__cdecl *reader)(lua_State *, void *, unsigned int *),
-                         void *data, const char *chunkname);
-const char *__cdecl FUN_00339770(lua_State *L, void *ud, unsigned int *size);
-int __cdecl FUN_003397c0(lua_State *L, int fnameindex);
-File *__cdecl FUN_003465b3(const char *name, const char *mode);
-int *__cdecl FUN_00347ba4();
-const char *__cdecl FUN_00347b53(int err);
-extern int __cdecl _getc(File *f);
-extern int __cdecl _ungetc(int c, File *f);
-extern int __cdecl _fclose(File *f);
+extern "C" int __cdecl FUN_00212d70(LuaVMState *L);
+extern "C" void __cdecl FUN_00212d80(LuaVMState *L, int idx);
+extern "C" void __cdecl FUN_00212de0(LuaVMState *L, int idx);
+extern "C" const char *__cdecl FUN_00213190(LuaVMState *L, int idx);
+extern "C" void __cdecl FUN_00213380(LuaVMState *L, const char *s, unsigned int len);
+extern "C" const char *__cdecl FUN_00213470(LuaVMState *L, const char *fmt, ...);
+extern "C" int __cdecl FUN_00213b20(LuaVMState *L, LuaVMReader reader, void *data, const char *chunkname);
+extern "C" const char *__cdecl FUN_00339770(LuaVMState *L, void *ud, unsigned int *size);
+extern "C" int __cdecl FUN_003397c0(LuaVMState *L, int fnameindex);
+extern "C" LuaVMFile *__cdecl FUN_003465b3(const char *name, const char *mode);  // fopen
+extern "C" int *__cdecl FUN_00347ba4();                                           // _errno
+extern "C" const char *__cdecl FUN_00347b53(int err);                             // strerror
+extern "C" int __cdecl _getc(LuaVMFile *f);
+extern "C" int __cdecl _ungetc(int c, LuaVMFile *f);
+extern "C" int __cdecl _fclose(LuaVMFile *f);
 
 // Lua 5.0 luaL_loadfile
-int luaL_loadfile(lua_State *L, const char *filename)
+extern "C" int __cdecl FUN_00339800(LuaVMState *L, const char *filename)
 {
-    LoadF lf;
+    LuaVMLoadF lf;
     int status;
     int readstatus;
     int c;
@@ -82,7 +68,7 @@ int luaL_loadfile(lua_State *L, const char *filename)
     }
     _ungetc(c, lf.f);
     status = FUN_00213b20(L, FUN_00339770, &lf, FUN_00213190(L, -1));
-    readstatus = lf.f->flag & 0x20;
+    readstatus = (unsigned int)lf.f->flag & 0x20;
     if (lf.f != &DAT_004d99f0) {
         _fclose(lf.f);
     }

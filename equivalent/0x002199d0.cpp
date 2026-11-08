@@ -1,14 +1,15 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1948 inputs, branch coverage 14/14)
-// FUN_002199d0 @ 0x002199d0
+// STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 14/14)
+// computesizes: the array size (a power of 2 more than half used) for the integer keys counted per power of 2.
+#include "decls/data/lua.h"
+
 // equiv-conv: FUN_002199d0 edx stack stack stack
-void FUN_002199d0(int *nums, int total, int *narray, int *diff)
-{
+extern "C" void __cdecl FUN_002199d0(int* nums, int ntotal, int* narray, int* nhash) {
     int a = nums[0];
-    int kept = a;
-    int best = (a != 0) ? 0 : -1;
+    int na = a;
+    int n = (a != 0) ? 0 : -1;
     int limit = *narray;
     if (a < limit) {
-        const int *p = nums + 1;
+        const int* p = nums + 1;
         int i = 0;
         do {
             int twotoi = 1 << i;
@@ -18,17 +19,17 @@ void FUN_002199d0(int *nums, int total, int *narray, int *diff)
             if (count > 0) {
                 a += count;
                 if (a >= twotoi) {
-                    best = i + 1;
-                    kept = a;
+                    n = i + 1;
+                    na = a;
                 }
             }
             p++;
             i++;
         } while (a < *narray);
     }
-    *diff = total - kept;
-    if (best == -1)
+    *nhash = ntotal - na;
+    if (n == -1)
         *narray = 0;
     else
-        *narray = 1 << best;
+        *narray = 1 << n;
 }

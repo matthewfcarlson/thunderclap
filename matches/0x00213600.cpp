@@ -1,13 +1,13 @@
-// Forward declarations
-#include "compat/ptr.h"
-void* __fastcall FUN_00212bb0(void* a, void* b);
-void* __cdecl FUN_00219e90(void* src, void* dest);
+// lua_rawget: replace the key on top with t[key] for the table at idx (no metamethods).
+#include "decls/data/lua.h"
 
-extern "C" void __cdecl FUN_00213600(void* p1, void* p2) {
-    void* result = FUN_00212bb0(p2, p1);
-    void* pair = FUN_00219e90(*(void**)((char*)result + 4), (void*)(*(hulk_intptr*)((char*)p1 + 8) - 8));
-    int* dest = (int*)(*(hulk_intptr*)((char*)p1 + 8) - 8);
-    int* pair_int = (int*)pair;
-    dest[0] = pair_int[0];
-    dest[1] = pair_int[1];
+extern "C" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
+extern "C" const LuaVMTObject* __cdecl FUN_00219e90(LuaVMTable* t, const LuaVMTObject* key);
+
+extern "C" void __cdecl FUN_00213600(LuaVMState* L, int idx) {
+    LuaVMTObject* t = FUN_00212bb0(idx, L);
+    const LuaVMTObject* v = FUN_00219e90((LuaVMTable*)t->value.gc, L->top - 1);
+    LuaVMTObject* o = L->top - 1;
+    o->tt = v->tt;
+    o->value = v->value;
 }

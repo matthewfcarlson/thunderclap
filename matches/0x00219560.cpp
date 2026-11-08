@@ -1,25 +1,23 @@
-#include "compat/ptr.h"
-extern "C" int __cdecl FUN_0021add0(void*, int, hulk_intptr, hulk_intptr);
-extern "C" void __cdecl FUN_00217130(void*, hulk_intptr, int);
-struct Pair_219560 {
-    unsigned int a;
-    unsigned int b;
-};
-extern "C" hulk_intptr __cdecl FUN_00219560(void* p1, int count, Pair_219560* pair) {
-    int size = count * 4 + 0x18;
-    hulk_intptr r = FUN_0021add0(p1, 0, 0, size);
-    FUN_00217130(p1, r, 6);
-    *(char*)(r + 6) = 0;
-    *(unsigned int*)(r + 0x10) = pair->a;
-    *(unsigned int*)(r + 0x14) = pair->b;
-    *(char*)(r + 7) = (char)count;
-    if (count != 0) {
-        unsigned int* p = (unsigned int*)r + count + 6;
+// luaF_newLclosure: a Lua closure with nelems (cleared) upvalue pointers and the globals table e.
+#include "decls/data/lua.h"
+
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
+extern "C" void __cdecl FUN_00217130(LuaVMState* L, LuaVMGCObject* o, unsigned char tt);
+
+extern "C" LuaVMClosure* __cdecl FUN_00219560(LuaVMState* L, int nelems, const LuaVMTObject* e) {
+    int size = LUAVM_SIZELCLOSURE(nelems);
+    LuaVMClosure* c = (LuaVMClosure*)FUN_0021add0(L, 0, 0, size);
+    FUN_00217130(L, (LuaVMGCObject*)c, LUAVM_TFUNCTION);
+    c->l.isC = 0;
+    LUAVM_SETOBJ(&c->l.g, e);
+    c->l.nupvalues = (unsigned char)nelems;
+    if (nelems != 0) {
+        LuaVMUpVal** p = c->l.upvals + nelems;
         do {
             --p;
-            --count;
+            --nelems;
             *p = 0;
-        } while (count != 0);
+        } while (nelems != 0);
     }
-    return r;
+    return c;
 }

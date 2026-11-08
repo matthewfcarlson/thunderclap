@@ -1,32 +1,33 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19682 inputs, branch coverage 23/24, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3081 inputs, branch coverage 23/24, incomplete)
 // FUN_0033e5e0 @ 0x0033e5e0
-// FUN_0033e5e0 @ 0x0033e5e0
-struct LuaState;
+// luaB_require
+#include "decls/data/lua.h"
+
+extern "C" char* __cdecl strchr(const char*, int);
 extern "C" {
-void __cdecl FUN_00339df0(LuaState*,int,int);
-void __cdecl FUN_00212d80(LuaState*,int);
-void __cdecl FUN_002135a0(LuaState*,int,const char*);
-int __cdecl FUN_00212f00(LuaState*,int);
-int __cdecl FUN_00338e20(LuaState*,const char*,...);
-const char* __cdecl FUN_00213190(LuaState*,int);
-void __cdecl FUN_00212ed0(LuaState*,int);
-void __cdecl FUN_00213600(LuaState*,int);
-int __cdecl FUN_00213160(LuaState*,int);
-char* __cdecl strchr(const char*,int);
-void __cdecl FUN_00213380(LuaState*,const char*,unsigned);
-// equiv-conv: FUN_0033e570 ebx
-void __cdecl FUN_0033e570(LuaState*);
-int __cdecl FUN_00339800(LuaState*,const char*);
-// equiv-conv: FUN_0033e4d0 esi
-const char* __cdecl FUN_0033e4d0(LuaState*);
-void __cdecl FUN_00212e20(LuaState*,int);
-void __cdecl FUN_00213790(LuaState*,int,const char*);
-void __cdecl FUN_002139a0(LuaState*,int,int);
-void __cdecl FUN_00213520(LuaState*,int);
-void __cdecl FUN_00212e60(LuaState*,int);
-void __cdecl FUN_00213800(LuaState*,int);
+const char* __cdecl FUN_00339df0(LuaVMState* L, int narg, unsigned int* len);
+void __cdecl FUN_00212d80(LuaVMState* L, int idx);
+void __cdecl FUN_002135a0(LuaVMState* L, int idx, const char* k);
+int __cdecl FUN_00212f00(LuaVMState* L, int idx);
+int __cdecl FUN_00338e20(LuaVMState* L, const char* fmt, ...);
+const char* __cdecl FUN_00213190(LuaVMState* L, int idx);
+void __cdecl FUN_00212ed0(LuaVMState* L, int idx);
+void __cdecl FUN_00213600(LuaVMState* L, int idx);
+int __cdecl FUN_00213160(LuaVMState* L, int idx);
+void __cdecl FUN_00213380(LuaVMState* L, const char* s, unsigned int len);
+int __cdecl FUN_00339800(LuaVMState* L, const char* filename);
+void __cdecl FUN_00212e20(LuaVMState* L, int idx);
+void __cdecl FUN_00213790(LuaVMState* L, int idx, const char* k);
+void __cdecl FUN_002139a0(LuaVMState* L, int nargs, int nresults);
+void __cdecl FUN_00213520(LuaVMState* L, int b);
+void __cdecl FUN_00212e60(LuaVMState* L, int idx);
+void __cdecl FUN_00213800(LuaVMState* L, int idx);
 }
-extern "C" int __cdecl FUN_0033e5e0(LuaState* state) {
+// equiv-conv: FUN_0033e570 ebx
+void FUN_0033e570(LuaVMState* L);
+// equiv-conv: FUN_0033e4d0 esi
+const char* FUN_0033e4d0(LuaVMState* L);
+extern "C" int __cdecl FUN_0033e5e0(LuaVMState* state) {
  int status=2;
  FUN_00339df0(state,1,0);
  FUN_00212d80(state,1);

@@ -3,21 +3,23 @@
 // cl-flags: /GS
 extern "C" int sprintf(char* buf, const char* fmt, ...);
 
-struct lua_State;
-void FUN_00339dc0(lua_State* L, int idx);
-extern "C" int FUN_00339070(lua_State* L, int idx, const char* event);
-int FUN_00212f00(lua_State* L, int idx);
-extern "C" const char* FUN_00213190(lua_State* L, int idx);
-void FUN_002133d0(lua_State* L, const char* s);
-void FUN_00212ed0(lua_State* L, int idx);
-extern "C" int FUN_00213160(lua_State* L, int idx);
-void FUN_00213380(lua_State* L, const char* s, int len);
-extern "C" const void* FUN_002132b0(lua_State* L, int idx);
-extern "C" void* FUN_00213260(lua_State* L, int idx);
-lua_State* FUN_00213290(lua_State* L, int idx);
-extern "C" const char* FUN_00213470(lua_State* L, const char* fmt, ...);
+// luaB_tostring
+#include "decls/data/lua.h"
 
-extern "C" int FUN_0033e250(lua_State* L)
+extern "C" void __cdecl FUN_00339dc0(LuaVMState* L, int narg);
+extern "C" int __cdecl FUN_00339070(LuaVMState* L, int obj, const char* event);
+extern "C" int __cdecl FUN_00212f00(LuaVMState* L, int idx);
+extern "C" const char* __cdecl FUN_00213190(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_002133d0(LuaVMState* L, const char* s);
+extern "C" void __cdecl FUN_00212ed0(LuaVMState* L, int idx);
+extern "C" int __cdecl FUN_00213160(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_00213380(LuaVMState* L, const char* s, unsigned int len);
+extern "C" const void* __cdecl FUN_002132b0(LuaVMState* L, int idx);
+extern "C" void* __cdecl FUN_00213260(LuaVMState* L, int idx);
+extern "C" LuaVMState* __cdecl FUN_00213290(LuaVMState* L, int idx);
+extern "C" const char* __cdecl FUN_00213470(LuaVMState* L, const char* fmt, ...);
+
+extern "C" int __cdecl FUN_0033e250(LuaVMState* L)
 {
     char buff[20];
     const char* name = "";

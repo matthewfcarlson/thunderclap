@@ -1,56 +1,73 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 20/20)
 // FUN_0033cc10 @ 0x0033cc10
-// FUN_0033cc10 @ 0x0033cc10
-struct MatchState_33cc10 { const char* begin; const char* end; void* state; unsigned depth; char captures[256]; };
-struct Locals_33cc10 { unsigned length; const char* pattern; unsigned patternLength; int anchored; MatchState_33cc10 match; };
-extern "C" const char* __cdecl FUN_00339df0(void*, int, unsigned*);
-extern "C" int __cdecl FUN_00339fe0(void*, int, int);
-extern "C" int __cdecl FUN_00213160(void*, int);
+// lstrlib str_find
+#include "decls/data/lua.h"
+
+extern "C" const char* __cdecl FUN_00339df0(LuaVMState* L, int narg, unsigned int* len);
+extern "C" int __cdecl FUN_00339fe0(LuaVMState* L, int narg, int def);
+extern "C" int __cdecl FUN_00213160(LuaVMState* L, int idx);
 extern "C" char* __cdecl strpbrk(const char*, const char*);
-extern "C" const char* __cdecl FUN_0033c7e0(MatchState_33cc10*, const char*, const char*);
+extern "C" const char* __cdecl FUN_0033c7e0(LuaVMMatchState* ms, const char* s, const char* p);
 // equiv-conv: FUN_0033caa0 eax stack stack stack
-extern "C" const char* __cdecl FUN_0033caa0(const char*, unsigned, const char*, unsigned);
-extern "C" void __cdecl FUN_00213360(void*, unsigned);
-extern "C" void __cdecl FUN_00213320(void*);
+const char* FUN_0033caa0(const char* s1, unsigned int l1, const char* s2, unsigned int l2);
+extern "C" void __cdecl FUN_00213360(LuaVMState* L, int n);
+extern "C" void __cdecl FUN_00213320(LuaVMState* L);
 // equiv-conv: FUN_0033cb70 esi ecx eax
-extern "C" int __cdecl FUN_0033cb70(MatchState_33cc10*, int, int);
-extern "C" int __cdecl FUN_0033cc10(void* state) {
- Locals_33cc10 local;
- const char* text = FUN_00339df0(state,1,&local.length);
- const char* pattern = FUN_00339df0(state,2,&local.patternLength);
- local.pattern = pattern;
- unsigned oldLength = local.length;
- int requested = FUN_00339fe0(state,3,1);
- if(requested < 0) requested = (int)((unsigned)requested + oldLength + 1);
- unsigned start = (unsigned)requested - 1;
- if((int)start < 0) start=0;
- else if(start > local.length) start=local.length;
- if(!FUN_00213160(state,4) && strpbrk(pattern,"^$*+?.([%-")) {
-  local.anchored = (*pattern == '^');
-  if(local.anchored) { ++pattern; local.pattern=pattern; }
-  local.match.begin=text; local.match.end=text+local.length; local.match.state=state;
-  const char* position=text+start;
-  for(;;) {
-   local.match.depth=0;
-   const char* end=FUN_0033c7e0(&local.match,position,pattern);
-   if(end) {
-    FUN_00213360(state,(unsigned)(position-text)+1);
-    FUN_00213360(state,(unsigned)(end-text));
-    return FUN_0033cb70(&local.match, 0, 0)+2;
-   }
-   const char* previous=position++;
-   if(previous >= local.match.end || local.anchored) break;
-   pattern=local.pattern;
-  }
- } else {
-  const char* found=FUN_0033caa0(text+start,local.length-start,pattern,local.patternLength);
-  if(found) {
-   unsigned offset=(unsigned)(found-text);
-   FUN_00213360(state,offset+1);
-   FUN_00213360(state,offset+local.patternLength);
-   return 2;
-  }
- }
- FUN_00213320(state);
- return 1;
+int FUN_0033cb70(LuaVMMatchState* ms, const char* s, const char* e);
+
+extern "C" int __cdecl FUN_0033cc10(LuaVMState* L) {
+    // the original's frame order (the harness compares the uninitialized locals passed by address)
+    struct {
+        unsigned int l1;
+        const char* pattern;
+        unsigned int l2;
+        int anchor;
+        LuaVMMatchState ms;
+    } f;
+    const char* s = FUN_00339df0(L, 1, &f.l1);
+    const char* p = FUN_00339df0(L, 2, &f.l2);
+    f.pattern = p;
+    unsigned int oldLength = f.l1;
+    int requested = FUN_00339fe0(L, 3, 1);
+    if (requested < 0)
+        requested = (int)((unsigned)requested + oldLength + 1);
+    unsigned int init = (unsigned)requested - 1;
+    if ((int)init < 0)
+        init = 0;
+    else if (init > f.l1)
+        init = f.l1;
+    if (!FUN_00213160(L, 4) && strpbrk(p, "^$*+?.([%-")) {
+        f.anchor = (*p == '^');
+        if (f.anchor) {
+            ++p;
+            f.pattern = p;
+        }
+        f.ms.src_init = s;
+        f.ms.src_end = s + f.l1;
+        f.ms.L = L;
+        const char* s1 = s + init;
+        for (;;) {
+            f.ms.level = 0;
+            const char* e = FUN_0033c7e0(&f.ms, s1, p);
+            if (e) {
+                FUN_00213360(L, (int)(s1 - s) + 1);
+                FUN_00213360(L, (int)(e - s));
+                return FUN_0033cb70(&f.ms, 0, 0) + 2;
+            }
+            const char* previous = s1++;
+            if (previous >= f.ms.src_end || f.anchor)
+                break;
+            p = f.pattern;
+        }
+    } else {
+        const char* s2 = FUN_0033caa0(s + init, f.l1 - init, p, f.l2);
+        if (s2) {
+            unsigned int offset = (unsigned int)(s2 - s);
+            FUN_00213360(L, (int)(offset + 1));
+            FUN_00213360(L, (int)(offset + f.l2));
+            return 2;
+        }
+    }
+    FUN_00213320(L);
+    return 1;
 }

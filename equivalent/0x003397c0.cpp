@@ -1,19 +1,20 @@
-// STATUS: equivalent (tools/equiv.py level 3: 14225 inputs, branch coverage 0/0)
+// STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 0/0)
 // FUN_003397c0 @ 0x003397c0
-// FUN_003397c0 @ 0x003397c0
-extern "C" int __cdecl FUN_00213190(void*, void*);
-extern "C" int* __cdecl FUN_00347ba4();
-extern "C" const char* __cdecl FUN_00347b53(int);
-extern "C" void __cdecl FUN_00213470(void*, const char*, ...);
-extern "C" void __cdecl FUN_00212de0(void*, void*);
+// errfile: "cannot read <file name>: <strerror(errno)>" in place of the chunk name.
+#include "decls/data/lua.h"
+extern "C" const char* __cdecl FUN_00213190(LuaVMState* L, int idx);
+extern "C" int* __cdecl FUN_00347ba4();               // _errno
+extern "C" const char* __cdecl FUN_00347b53(int);     // strerror
+extern "C" const char* __cdecl FUN_00213470(LuaVMState* L, const char* fmt, ...);
+extern "C" void __cdecl FUN_00212de0(LuaVMState* L, int idx);
 
 // equiv-conv: FUN_003397c0 edi ebx
-int FUN_003397c0(void* stream, void* context)
+extern "C" int __cdecl FUN_003397c0(LuaVMState* L, int fnameindex)
 {
-    int error = FUN_00213190(stream, context) + 1;
+    const char* filename = FUN_00213190(L, fnameindex) + 1;
     int code = *FUN_00347ba4();
     const char* description = FUN_00347b53(code);
-    FUN_00213470(stream, "cannot read %s: %s", error, description);
-    FUN_00212de0(stream, context);
+    FUN_00213470(L, "cannot read %s: %s", filename, description);
+    FUN_00212de0(L, fnameindex);
     return 2;
 }

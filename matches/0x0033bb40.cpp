@@ -1,17 +1,17 @@
 // FUN_0033bb40 @ 0x0033bb40
-struct lua_State;
+#include "decls/data/lua.h"
 
 extern "C" int rand(void);
 extern "C" double floor(double);
 
-int FUN_00212d70(lua_State *L);
-int FUN_00339f70(lua_State *L, int arg);
-int FUN_00339c30(lua_State *L, int arg, const char *msg);
-void FUN_00213340(lua_State *L, float n);
-int FUN_00338e20(lua_State *L, const char *msg, ...);
+extern "C" int __cdecl FUN_00212d70(LuaVMState* L);
+extern "C" int __cdecl FUN_00339f70(LuaVMState* L, int narg);
+extern "C" int __cdecl FUN_00339c30(LuaVMState* L, int narg, const char* extramsg);
+extern "C" void __cdecl FUN_00213340(LuaVMState* L, float n);
+extern "C" int __cdecl FUN_00338e20(LuaVMState* L, const char* fmt, ...);
 
 // math.random
-extern "C" int FUN_0033bb40(lua_State *L)
+extern "C" int __cdecl FUN_0033bb40(LuaVMState* L)
 {
     float r = (float)(rand() % 0x7fff) * 3.0518509e-05f;
     switch (FUN_00212d70(L)) {

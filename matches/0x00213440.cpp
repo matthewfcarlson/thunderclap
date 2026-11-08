@@ -1,23 +1,12 @@
-#include "compat/ptr.h"
-class Obj_213440 {
-  public:
-    // lua_State's head: CommonHeader (next, tt, marked), top, base, then l_G (pointers: +0x10 on i386, +0x20 on x64)
-    void* next;
-    unsigned char tt, marked;
-    void* top;
-    void* base;
-    void* state;
-};
-struct State_213440 {
-    char pad[0x48];
-    unsigned int a;
-    unsigned int b;
-};
-void __cdecl helper1(Obj_213440*);
-extern "C" const char * __cdecl FUN_002160c0(void *, const char *, char *);
-extern "C" void __cdecl FUN_00213440(Obj_213440* self, hulk_intptr x, hulk_intptr y) {
-    State_213440* s = (State_213440*)self->state;
-    if (s->b >= s->a)
-        helper1(self);
-    FUN_002160c0((Obj_213440 *)self, (const char *)(hulk_uintptr)x, (char *)(hulk_uintptr)y);
+// lua_pushvfstring: push the formatted string (a GC step first when due).
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_00217440(LuaVMState* L);
+extern "C" const char* __cdecl FUN_002160c0(LuaVMState* L, const char* fmt, char* argp);
+
+extern "C" const char* __cdecl FUN_00213440(LuaVMState* L, const char* fmt, char* argp) {
+    LuaVMGlobal* g = L->l_G;
+    if (g->totalbytes >= g->GCthreshold)
+        FUN_00217440(L);
+    return FUN_002160c0(L, fmt, argp);
 }

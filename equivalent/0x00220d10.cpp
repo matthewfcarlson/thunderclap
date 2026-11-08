@@ -1,18 +1,19 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
-// FUN_00220d10 @ 0x00220d10
-struct ContextData { char pad[8]; int value; };
-struct Context { char pad0[12]; ContextData* data; char pad1[16]; int previous; };
-extern "C" int __cdecl FUN_00220b20(void *, unsigned int, unsigned int);
-void __cdecl FUN_002207c0(Context* context, unsigned int* result, int previous);
+// STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 0/0)
+// condjump: emit op A B C, then a jump; returns the jump.
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_00220b20(LuaVMFuncState* fs, LuaVMInstruction i, int line);
+extern "C" void __cdecl FUN_002207c0(LuaVMFuncState* fs, int* l1, int l2);
+
 // equiv-conv: FUN_00220d10 eax esi stack stack stack
-extern "C" unsigned int FUN_00220d10(unsigned int index, void * context, unsigned int low, unsigned int middle, unsigned int high)
-{
-    unsigned int code = ((((index << 9) | middle) << 9 | high) << 6) | low;
-    FUN_00220b20((Context *)((Context *)context), code, (int)(((Context *)context)->data->value));
-    int previous = ((Context *)context)->previous;
-    ((Context *)context)->previous = -1;
-    unsigned int result = FUN_00220b20((Context *)((Context *)context), 0x7fff94, (int)(((Context *)context)->data->value));
-    middle = result;
-    FUN_002207c0(((Context *)context), &middle, previous);
-    return middle;
+extern "C" unsigned int __cdecl FUN_00220d10(unsigned int a, LuaVMFuncState* fs, unsigned int op, unsigned int b,
+                                             unsigned int c) {
+    unsigned int code = ((((a << 9) | b) << 9 | c) << 6) | op;
+    FUN_00220b20(fs, code, fs->ls->lastline);
+    int previous = fs->jpc;
+    fs->jpc = -1;
+    unsigned int result = FUN_00220b20(fs, 0x7fff94, fs->ls->lastline);
+    b = result;
+    FUN_002207c0(fs, (int*)&b, previous);
+    return b;
 }

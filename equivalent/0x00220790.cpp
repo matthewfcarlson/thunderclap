@@ -1,13 +1,15 @@
-// STATUS: equivalent (tools/equiv.py level 3: 18290 inputs, branch coverage 0/0)
-// FUN_00220790 @ 0x00220790
-// FUN_00220790 @ 0x00220790
-struct Object { char pad[0x18]; int value; char pad2[4]; int state; };
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// luaK_dischargejpc: patch the pending jumps to the current pc.
+#include "decls/data/lua.h"
+
 // equiv-conv: FUN_00220650 edx ebx stack stack stack stack stack
-extern "C" void __cdecl FUN_00220650(int, void *, int, int, int, int, int);
+extern "C" void __cdecl FUN_00220650(int list, LuaVMFuncState* fs, int ttarget, int treg, int ftarget, int freg,
+                                     int dtarget);
+
 // equiv-conv: FUN_00220790 eax
-void FUN_00220790(Object* object) {
-    int value = object->value;
-    int state = object->state;
-    FUN_00220650(state, (Object *)object, value, 0xff, value, 0xff, value);
-    object->state = -1;
+extern "C" void __cdecl FUN_00220790(LuaVMFuncState* fs) {
+    int pc = fs->pc;
+    int jpc = fs->jpc;
+    FUN_00220650(jpc, fs, pc, 0xff, pc, 0xff, pc);
+    fs->jpc = -1;
 }

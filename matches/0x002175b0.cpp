@@ -1,24 +1,22 @@
+// luaT_gettmbyobj: the event's metamethod of a table or userdata's metatable, or luaO_nilobject.
 #include "decls/data/engine/unknown.h"
+#include "decls/data/lua.h"
 
-#include "compat/ptr.h"
-extern float* FUN_00219e50(int a, int b);
+extern "C" LuaVMTObject* __cdecl FUN_00219e50(LuaVMTable* t, LuaVMString* key);
 
-float* FUN_002175b0(hulk_intptr object, int* desc, int index) {
-    int key;
-    switch (*desc) {
-    case 5:
-        key = ((int*)desc[1])[2];
+extern "C" const LuaVMTObject* __cdecl FUN_002175b0(LuaVMState* L, const LuaVMTObject* o, int event) {
+    LuaVMTable* mt;
+    switch (o->tt) {
+    case LUAVM_TTABLE:
+        mt = ((LuaVMTable*)o->value.gc)->metatable;
         break;
-    case 7:
-        key = ((int*)desc[1])[2];
+    case LUAVM_TUSERDATA:
+        mt = ((LuaVMUdata*)o->value.gc)->metatable;
         break;
     default:
-        return (float*)&(*(const float*)&DAT_00426824);
+        return LUAVM_NILOBJECT;
     }
-    if (key != 0) {
-        int* arr = *(int**)((char*)object + 0x10);
-        int elem = *(int*)((char*)arr + index * 4 + 0x74);
-        return FUN_00219e50(key, elem);
-    }
-    return (float*)&(*(const float*)&DAT_00426824);
+    if (mt != 0)
+        return FUN_00219e50(mt, L->l_G->tmname[event]);
+    return LUAVM_NILOBJECT;
 }

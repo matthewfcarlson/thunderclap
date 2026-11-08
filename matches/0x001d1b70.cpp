@@ -1,11 +1,12 @@
+#include "decls/data/lua.h"
 typedef unsigned int U32_1d1b70;
-extern int __cdecl FUN_00212f00(U32_1d1b70, int);
-extern void __cdecl FUN_00212d80(U32_1d1b70, int);
-extern "C" int __cdecl FUN_00339650(int, int);
+extern "C" int __cdecl FUN_00212f00(LuaVMState*, int);
+extern "C" void __cdecl FUN_00212d80(LuaVMState*, int);
+extern "C" int __cdecl FUN_00339650(LuaVMState*, int);
 class Obj_1d1b70 {
   public:
     char pad[8];
-    U32_1d1b70 value;
+    LuaVMState* value;
     bool Target(U32_1d1b70* out);
 };
 bool Obj_1d1b70::Target(U32_1d1b70* out) {
@@ -14,7 +15,7 @@ bool Obj_1d1b70::Target(U32_1d1b70* out) {
         r = false;
         FUN_00212d80(value, -2);
     } else {
-        *out = ((unsigned int)FUN_00339650((unsigned int)value, -10000));
+        *out = ((unsigned int)FUN_00339650(value, -10000));
     }
     return r;
 }

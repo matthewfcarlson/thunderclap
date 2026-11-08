@@ -1,31 +1,31 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2199 inputs, branch coverage 2/2)
-// FUN_002151e0 @ 0x002151e0
-// FUN_002151e0 @ 0x002151e0
-#include "compat/ptr.h"
+// STATUS: equivalent (tools/equiv.py level 3: 2548 inputs, branch coverage 2/2)
+// lua_close: on the main thread: close the upvalues, separate the udata, run the finalizers (until none errs),
+// then close_state.
+#include "decls/data/lua.h"
+
 extern "C" void _ReadWriteBarrier();
-extern "C" {
-void __cdecl FUN_00219660(hulk_intptr, int);
-unsigned int __cdecl FUN_002165c0(void *, int);
-int __cdecl FUN_002152f0(hulk_intptr, void*, void*);
+extern "C" void __cdecl FUN_00219660(LuaVMState* L, LuaVMStkId level);
+extern "C" unsigned int __cdecl FUN_002165c0(LuaVMState* L, int all);
+extern "C" int __cdecl FUN_002152f0(LuaVMState* L, void(__cdecl* f)(LuaVMState* L, void* ud), void* ud);
 // equiv-conv: FUN_00214f90 esi
-void __cdecl FUN_00214f90(void *);
-void __cdecl LAB_002151d0(void);
-}
-extern "C" void __cdecl FUN_002151e0(hulk_intptr L) {
-    hulk_intptr esi = *(int*)(*(hulk_intptr*)(L + 0x10) + 0x5c);
-    FUN_00219660(esi, *(int*)(esi + 0x1c));
-    FUN_002165c0((void *)(hulk_uintptr)(hulk_intptr)esi, 1);
-    *(int*)(esi + 0x54) = 0;
+extern "C" void __cdecl FUN_00214f90(LuaVMState* L);
+extern "C" void __cdecl FUN_002151d0(LuaVMState* L, void* ud);
+
+extern "C" void __cdecl FUN_002151e0(LuaVMState* L) {
+    L = L->l_G->mainthread;
+    FUN_00219660(L, L->stack);
+    FUN_002165c0(L, 1);
+    L->errfunc = 0;
     int r;
     do {
-        hulk_intptr eax = *(int*)(esi + 0x28);
-        *(hulk_intptr*)(esi + 0x14) = eax;
-        eax = *(int*)eax;
-        *(hulk_intptr*)(esi + 8) = eax;
-        *(hulk_intptr*)(esi + 0xc) = eax;
-        *(short*)(esi + 0x2e) = 0;
-        r = FUN_002152f0(esi, (void*)LAB_002151d0, 0);
+        LuaVMCallInfo* ci = L->base_ci;
+        L->ci = ci;
+        LuaVMStkId base = ci->base;
+        L->top = base;
+        L->base = base;
+        L->nCcalls = 0;
+        r = FUN_002152f0(L, FUN_002151d0, 0);
     } while (r != 0);
-    FUN_00214f90((void *)(hulk_uintptr)(hulk_intptr)esi);
+    FUN_00214f90(L);
     _ReadWriteBarrier();
 }

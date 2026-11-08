@@ -1,8 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 192 inputs, branch coverage 8/8)
-// FUN_00215ff0 @ 0x00215ff0
+// STATUS: equivalent (tools/equiv.py level 3: 2576 inputs, branch coverage 8/8)
+// luaO_str2d: a whole string (trailing spaces allowed) as a number.
 extern "C" int __cdecl _isspace(int);
 double __cdecl FUN_003472cb(const char*, const char**);
-int FUN_00215ff0(const char* str, float* out) {
+extern "C" int __cdecl FUN_00215ff0(const char* str, float* out) {
     const char* end = str;
     float value = (float)FUN_003472cb(str, &end);
     if (end != str) {

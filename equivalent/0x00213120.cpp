@@ -1,22 +1,14 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20005 inputs, branch coverage 4/4)
-// FUN_00213120 @ 0x00213120
-// FUN_00213120 @ 0x00213120
-// Lua 5.0 lua_tointeger
-struct lua_State;
+// STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 4/4)
+// lua_tointeger: the number at idx truncated to an integer (converted from a string when it can be); 0 otherwise.
+#include "decls/data/lua.h"
 
-struct TObject {
-    int tt;
-    float n;
-};
+extern "C" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
+extern "C" const LuaVMTObject* __cdecl FUN_00217600(const LuaVMTObject* obj, LuaVMTObject* n);
 
-const TObject* __fastcall FUN_00212bb0(int idx, lua_State* L);
-extern "C" void * __cdecl FUN_00217600(void *, void *);
-
-extern "C" int FUN_00213120(lua_State* L, int idx)
-{
-    TObject n;
-    const TObject* o = FUN_00212bb0(idx, L);
-    if (o->tt == 3 || (o = ((const TObject *)FUN_00217600((void *)(const TObject *)o, (TObject *)(&n)))) != 0)
-        return (int)(__int64)o->n;
+extern "C" int __cdecl FUN_00213120(LuaVMState* L, int idx) {
+    LuaVMTObject n;
+    const LuaVMTObject* o = FUN_00212bb0(idx, L);
+    if (o->tt == LUAVM_TNUMBER || (o = FUN_00217600(o, &n)) != 0)
+        return (int)(__int64)o->value.n;
     return 0;
 }

@@ -1,9 +1,7 @@
-typedef unsigned int u32_213320;
-struct Thing_213320 {
-    char pad[8];
-    u32_213320* ptr;
-};
-extern "C" void FUN_00213320(Thing_213320* p) {
-    *p->ptr = 0;
-    p->ptr = (u32_213320*)((char*)p->ptr + 8);
+// lua_pushnil.
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_00213320(LuaVMState* L) {
+    L->top->tt = LUAVM_TNIL;
+    L->top++;
 }

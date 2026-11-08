@@ -1,22 +1,14 @@
-#include "compat/ptr.h"
-struct Item {
-    hulk_intptr a, b;
-};
-struct Buf {
-    char pad[8];
-    Item* cur;
-    Item* start;
-};
-extern "C" Buf* __cdecl FUN_00212d80(Buf* p, int n) {
-    if (n >= 0) {
-        n <<= 3;
-        while ((hulk_uintptr)p->cur < (hulk_uintptr)((char*)p->start + n)) {
-            p->cur->a = 0;
-            p->cur = (Item*)((char*)p->cur + 8);
+// lua_settop: idx >= 0 sets the top to base + idx (new slots nil); idx < 0 drops -idx - 1 values.
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_00212d80(LuaVMState* L, int idx) {
+    if (idx >= 0) {
+        while (L->top < L->base + idx) {
+            L->top->tt = LUAVM_TNIL;
+            L->top++;
         }
-        p->cur = (Item*)((char*)p->start + n);
-        return p;
+        L->top = L->base + idx;
+        return;
     }
-    p->cur += n + 1;
-    return p;
+    L->top += idx + 1;
 }

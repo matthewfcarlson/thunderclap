@@ -1,33 +1,27 @@
-// STATUS: equivalent (tools/equiv.py level 3: 12443 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 2000 inputs, branch coverage 30/30)
 // FUN_0033d400 @ 0x0033d400
 // checked with equiv.py --time-budget 3600 (at the defaults most inputs hit the time budget)
 // cl-flags: /GS
 extern "C" int __cdecl isdigit(int c);
 extern "C" int __cdecl _sprintf(char *buf, const char *fmt, ...);
 
-struct lua_State;
+// lstrlib str_format
+#include "decls/data/lua.h"
 
-struct luaL_Buffer_33d400 {
-    char *p;
-    int lvl;
-    lua_State *L;
-    char buffer[0x200];
-};
-
-const char *FUN_00339df0(lua_State *L, int arg, unsigned int *len);
-void FUN_00339630(lua_State *L, luaL_Buffer_33d400 *b);
-char *FUN_00339470(luaL_Buffer_33d400 *b);
+extern "C" const char *__cdecl FUN_00339df0(LuaVMState *L, int narg, unsigned int *len);
+extern "C" void __cdecl FUN_00339630(LuaVMState *L, LuaVMLBuffer *B);
+extern "C" char *__cdecl FUN_00339470(LuaVMLBuffer *B);
 // equiv-conv: FUN_0033d310 ebx stack stack stack
-const char *FUN_0033d310(const char *fmt, lua_State *L, char *form, int *hasprecision);
-double FUN_00339ec0(lua_State *L, int arg);
-int FUN_00339f70(lua_State *L, int arg);
-// equiv-conv: FUN_0033d1c0 ecx esi edx
-void FUN_0033d1c0(int arg, luaL_Buffer_33d400 *b, lua_State *L);
-void FUN_00212ed0(lua_State *L, int arg);
-void FUN_00339590(luaL_Buffer_33d400 *b);
-void FUN_003394b0(luaL_Buffer_33d400 *b, const char *s, unsigned int len);
-void FUN_00339540(luaL_Buffer_33d400 *b);
-int FUN_00338e20(lua_State *L, const char *fmt, ...);
+const char *FUN_0033d310(const char *strfrmt, LuaVMState *L, char *form, int *hasprecision);
+extern "C" float __cdecl FUN_00339ec0(LuaVMState *L, int narg);
+extern "C" int __cdecl FUN_00339f70(LuaVMState *L, int narg);
+// equiv-conv: FUN_0033d1c0 esi edx ecx
+void FUN_0033d1c0(LuaVMLBuffer *b, LuaVMState *L, int arg);
+extern "C" void __cdecl FUN_00212ed0(LuaVMState *L, int idx);
+extern "C" void __cdecl FUN_00339590(LuaVMLBuffer *B);
+extern "C" void __cdecl FUN_003394b0(LuaVMLBuffer *B, const char *s, unsigned int l);
+extern "C" void __cdecl FUN_00339540(LuaVMLBuffer *B);
+extern "C" int __cdecl FUN_00338e20(LuaVMState *L, const char *fmt, ...);
 
 struct Frame_33d400 {
     int unused;
@@ -37,12 +31,12 @@ struct Frame_33d400 {
     unsigned int sfl;
     unsigned int l;
     char form[20];
-    luaL_Buffer_33d400 b;
+    LuaVMLBuffer b;
     int gap;
     char buff[512];  // Lua 5.0 MAX_ITEM; the old source had 120, which %99.99f overflows
 };
 
-int FUN_0033d400(lua_State *L)
+extern "C" int __cdecl FUN_0033d400(LuaVMState *L)
 {
     Frame_33d400 f;
     f.arg = 1;
@@ -83,10 +77,10 @@ int FUN_0033d400(lua_State *L)
             case 'f':
             case 'g':
             case 'G':
-                _sprintf(f.buff, f.form, FUN_00339ec0(L, f.arg));
+                _sprintf(f.buff, f.form, (double)FUN_00339ec0(L, f.arg));
                 break;
             case 'q':
-                FUN_0033d1c0(f.arg, &f.b, L);
+                FUN_0033d1c0(&f.b, L, f.arg);
                 continue;
             case 's': {
                 const char *s = FUN_00339df0(L, f.arg, &f.l);

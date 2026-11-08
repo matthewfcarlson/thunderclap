@@ -1,44 +1,39 @@
-// STATUS: equivalent (tools/equiv.py level 3: 534 inputs, branch coverage 12/12)
-// FUN_0021a020 @ 0x0021a020
-// FUN_0021a020 @ 0x0021a020
-#include "compat/ptr.h"
-struct Value_21a020 { int type; union { int bits; float number; } data; };
-struct Entry_21a020 { Value_21a020 key; Value_21a020 value; int extra; };
-struct Table_21a020 { char pad[7]; unsigned char shift; char pad8[4]; Value_21a020* array; Entry_21a020* entries; char pad14[8]; int count; };
+// STATUS: equivalent (tools/equiv.py level 3: 1449 inputs, branch coverage 12/12)
+// luaH_next: the key and value after key (in key[0], key[1]); 0 at the end.
+#include "decls/data/lua.h"
+
 // equiv-conv: FUN_00219fb0 eax edi stack
-extern "C" hulk_intptr __cdecl FUN_00219fb0(int *, void *, void *);
-int __cdecl FUN_0021a020(void* context, Table_21a020* table, Value_21a020* output) {
- int index = ((int)FUN_00219fb0((int *)(Value_21a020 *)output, (Table_21a020 *)table, context)) + 1;
- int count = table->count;
- if(index < count) {
-  Value_21a020* slot = table->array + index;
-  while(index < count) {
-   if(slot->type != 0) {
-    output[0].type = 3;
-    output[0].data.number = (float)(index + 1);
-    Value_21a020* source = table->array + index;
-    output[1].type = source->type;
-    output[1].data.bits = source->data.bits;
-    return 1;
-   }
-   ++index; ++slot;
-  }
- }
- index -= count;
- int limit = (int)(1u << (table->shift & 31));
- if(index < limit) {
-  Entry_21a020* entry = table->entries + index;
-  while(index < limit) {
-   if(entry->value.type != 0) {
-    output[0].type = entry->key.type;
-    output[0].data.bits = entry->key.data.bits;
-    Value_21a020* source = &table->entries[index].value;
-    output[1].type = source->type;
-    output[1].data.bits = source->data.bits;
-    return 1;
-   }
-   ++index; ++entry;
-  }
- }
- return 0;
+extern "C" int __cdecl FUN_00219fb0(const LuaVMTObject* key, LuaVMTable* t, LuaVMState* L);
+
+extern "C" int __cdecl FUN_0021a020(LuaVMState* L, LuaVMTable* t, LuaVMTObject* key) {
+    int i = FUN_00219fb0(key, t, L) + 1;
+    int sizearray = t->sizearray;
+    if (i < sizearray) {
+        LuaVMTObject* slot = t->array + i;
+        while (i < sizearray) {
+            if (slot->tt != LUAVM_TNIL) {
+                key[0].tt = LUAVM_TNUMBER;
+                key[0].value.n = (float)(i + 1);
+                LUAVM_SETOBJ(key + 1, &t->array[i]);
+                return 1;
+            }
+            ++i;
+            ++slot;
+        }
+    }
+    i -= sizearray;
+    int sizenode = (int)(1u << (t->lsizenode & 31));
+    if (i < sizenode) {
+        LuaVMNode* n = t->node + i;
+        while (i < sizenode) {
+            if (n->i_val.tt != LUAVM_TNIL) {
+                LUAVM_SETOBJ(key, &n->i_key);
+                LUAVM_SETOBJ(key + 1, &t->node[i].i_val);
+                return 1;
+            }
+            ++i;
+            ++n;
+        }
+    }
+    return 0;
 }

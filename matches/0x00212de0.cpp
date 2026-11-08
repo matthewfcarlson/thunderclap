@@ -1,18 +1,16 @@
-#include "compat/ptr.h"
-class Thing_212de0 {
-  public:
-    char pad[8];
-    hulk_intptr end;
-};
-int* __fastcall Find(int, Thing_212de0*);
-extern "C" void __cdecl FUN_00212de0(Thing_212de0* a, int b) {
-    int* p = Find(b, a);
-    p += 2;
-    while (p < (int*)a->end) {
-        int* q = p - 2;
-        *q = p[0];
-        q[1] = p[1];
-        p += 2;
+// lua_remove: remove the value at idx, shifting the ones above it down.
+#include "decls/data/lua.h"
+
+extern "C" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
+
+extern "C" void __cdecl FUN_00212de0(LuaVMState* L, int idx) {
+    LuaVMTObject* p = FUN_00212bb0(idx, L);
+    p++;
+    while (p < L->top) {
+        LuaVMTObject* q = p - 1;
+        q->tt = p->tt;
+        q->value = p->value;
+        p++;
     }
-    a->end -= 8;
+    L->top--;
 }

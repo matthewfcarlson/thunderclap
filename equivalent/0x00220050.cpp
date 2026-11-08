@@ -1,72 +1,38 @@
-// STATUS: equivalent (tools/equiv.py level 3: 11901 inputs, branch coverage 24/24)
-// FUN_00220050 @ 0x00220050
-// FUN_00220050 @ 0x00220050
-struct Str;
+// STATUS: equivalent (tools/equiv.py level 3: 2915 inputs, branch coverage 24/24)
+// LoadFunction: a prototype (anchored on the stack while it loads): source, line, sizes, then its parts.
+#include "decls/data/lua.h"
 
-struct Zio_220050 {
-    unsigned int n;
-    unsigned char *p;
-};
-
-struct TValue_220050 {
-    int tt;
-    void *val;
-};
-
-struct State_220050 {
-    char pad0[8];
-    TValue_220050 *top;
-    char pad1[0x18 - 0xc];
-    TValue_220050 *stack_last;
-};
-
-struct Reader {
-    State_220050 *L;
-    Zio_220050 *zio;
-    int unused8;
-    int swap;
-};
-
-struct Proto_220050 {
-    char pad0[0x20];
-    Str *source;
-    char pad1[0x3c - 0x24];
-    int lineDefined;
-    char pad2[4];
-    unsigned char b44, b45, b46, b47;
-};
-
-Proto_220050 *FUN_002196d0(State_220050 *L);
-extern "C" void __cdecl FUN_00215460(void *, int);
+extern "C" LuaVMProto* __cdecl FUN_002196d0(LuaVMState* L);
+extern "C" void __cdecl FUN_00215460(LuaVMState* L, int n);
 // equiv-conv: FUN_0021fa80 eax
-extern "C" Str *FUN_0021fa80(Reader *S);
+extern "C" LuaVMString* __cdecl FUN_0021fa80(LuaVMLoadState* S);
 // equiv-conv: FUN_0021f8c0 ecx eax edx
-extern "C" void __cdecl FUN_0021f8c0(char *, unsigned int, void *);
+extern "C" void __cdecl FUN_0021f8c0(char* b, unsigned int size, LuaVMLoadState* S);
 // equiv-conv: FUN_0021f800 esi stack
-void FUN_0021f800(Reader *r, const char *msg, ...);
-int FUN_0021a550(Zio_220050 *z);
+extern "C" void __cdecl FUN_0021f800(LuaVMLoadState* S, const char* fmt, ...);
+extern "C" int __cdecl FUN_0021a550(LuaVMZio* z);
 // equiv-conv: FUN_0021fcb0 eax ebx
-extern "C" void __cdecl FUN_0021fcb0(void *, void *);
+extern "C" void __cdecl FUN_0021fcb0(LuaVMLoadState* S, LuaVMProto* f);
 // equiv-conv: FUN_0021faf0 eax ebx
-extern "C" void __cdecl FUN_0021faf0(void *, void *);
+extern "C" void __cdecl FUN_0021faf0(LuaVMLoadState* S, LuaVMProto* f);
 // equiv-conv: FUN_0021fb50 eax stack
-extern "C" void __cdecl FUN_0021fb50(void *, void *);
+extern "C" void __cdecl FUN_0021fb50(LuaVMLoadState* S, LuaVMProto* p);
 // equiv-conv: FUN_0021fd10 eax stack
-extern "C" void __cdecl FUN_0021fd10(void *, void *);
+extern "C" void __cdecl FUN_0021fd10(LuaVMLoadState* S, LuaVMProto* f);
 // equiv-conv: FUN_0021fe20 eax stack
-extern "C" void __cdecl FUN_0021fe20(void *, void *);
-extern "C" int __cdecl FUN_002146a0(void *);
+extern "C" void __cdecl FUN_0021fe20(LuaVMLoadState* S, LuaVMProto* f);
+extern "C" int __cdecl FUN_002146a0(const LuaVMProto* pt);
 
-static int LoadByte(Reader *S)
-{
-    Zio_220050 *z = S->zio;
+// LoadByte (inlined in the original).
+static int LoadByte(LuaVMLoadState* S) {
+    LuaVMZio* z = S->Z;
     unsigned int n = z->n;
     z->n = n - 1;
-    z = S->zio;
+    z = S->Z;
     int ch;
     if (n != 0) {
-        unsigned char *p = z->p;
-        ch = *p;
+        const char* p = z->p;
+        ch = *(const unsigned char*)p;
         z->p = p + 1;
     } else {
         ch = FUN_0021a550(z);
@@ -76,36 +42,35 @@ static int LoadByte(Reader *S)
     return ch;
 }
 
-extern "C" void *FUN_00220050(void *S, void *parent)
-{
+extern "C" LuaVMProto* __cdecl FUN_00220050(LuaVMLoadState* S, LuaVMString* p) {
     int v;
-    Proto_220050 *f = FUN_002196d0(((Reader *)S)->L);
-    State_220050 *L = ((Reader *)S)->L;
-    TValue_220050 *t = L->top;
-    t->val = f;
-    t->tt = 9;
-    L = ((Reader *)S)->L;
-    if ((char *)L->stack_last - (char *)L->top <= 8)
-        FUN_00215460((State_220050 *)L, 1);
-    ((Reader *)S)->L->top++;
-    f->source = FUN_0021fa80(((Reader *)S));
+    LuaVMProto* f = FUN_002196d0(S->L);
+    LuaVMState* L = S->L;
+    LuaVMTObject* t = L->top;
+    t->value.gc = (LuaVMGCObject*)f;
+    t->tt = LUAVM_TPROTO;
+    L = S->L;
+    if ((char*)L->stack_last - (char*)L->top <= (int)sizeof(LuaVMTObject))
+        FUN_00215460(L, 1);
+    S->L->top++;
+    f->source = FUN_0021fa80(S);
     if (f->source == 0)
-        f->source = ((Str *)parent);
-    FUN_0021f8c0((char *)(void *)(&v), 4, (Reader *)((Reader *)S));
+        f->source = p;
+    FUN_0021f8c0((char*)(void*)(&v), 4, S);
     if (v < 0)
-        FUN_0021f800(((Reader *)S), "bad integer");
+        FUN_0021f800(S, "bad integer");
     f->lineDefined = v;
-    f->b44 = (unsigned char)LoadByte(((Reader *)S));
-    f->b45 = (unsigned char)LoadByte(((Reader *)S));
-    f->b46 = (unsigned char)LoadByte(((Reader *)S));
-    f->b47 = (unsigned char)LoadByte(((Reader *)S));
-    FUN_0021fcb0((Reader *)((Reader *)S), (Proto_220050 *)f);
-    FUN_0021fb50((Reader *)((Reader *)S), (Proto_220050 *)f);
-    FUN_0021fd10((Reader *)((Reader *)S), (Proto_220050 *)f);
-    FUN_0021fe20((Reader *)((Reader *)S), (Proto_220050 *)f);
-    FUN_0021faf0((Reader *)((Reader *)S), (Proto_220050 *)f);
-    if (FUN_002146a0((Proto_220050 *)f) == 0)
-        FUN_0021f800(((Reader *)S), "bad code");
-    ((Reader *)S)->L->top--;
-    return (Proto_220050 *)f;
+    f->nups = (unsigned char)LoadByte(S);
+    f->numparams = (unsigned char)LoadByte(S);
+    f->is_vararg = (unsigned char)LoadByte(S);
+    f->maxstacksize = (unsigned char)LoadByte(S);
+    FUN_0021fcb0(S, f);
+    FUN_0021fb50(S, f);
+    FUN_0021fd10(S, f);
+    FUN_0021fe20(S, f);
+    FUN_0021faf0(S, f);
+    if (FUN_002146a0(f) == 0)
+        FUN_0021f800(S, "bad code");
+    S->L->top--;
+    return f;
 }

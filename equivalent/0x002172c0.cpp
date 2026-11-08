@@ -1,41 +1,23 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19915 inputs, branch coverage 2/2)
-// FUN_002172c0 @ 0x002172c0
-// FUN_002172c0 @ 0x002172c0
-struct Node;
-struct Node2_2172c0 { unsigned char pad4; unsigned char flags; };
-struct State_2172c0;
-struct Object { char pad[16]; State_2172c0 *state; };
-
-struct Marker_2172c0 { char pad[5]; unsigned char flags; };
-
-struct State_2172c0 {
-    char pad00[0x14];
-    unsigned int mode;
-    Node *head;
-    int f1c;
-    Node **tail;
-    int f24;
-    char pad28[0x5c - 0x28];
-    Marker_2172c0 *marker;
-};
+// STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 2/2)
+// luaC_sweepall: sweep everything twice (the second time with the other white), keeping the main thread.
+#include "decls/data/lua.h"
 
 // equiv-conv: FUN_00216e10 stack stack ebx
-extern "C" int __cdecl FUN_00216e10(int, int, void *);
-Node **__cdecl FUN_002171c0(Object *object, Node **link, int mode, int *budget, int *count);
-extern "C" void __cdecl FUN_002164b0(void *, void *);
+extern "C" int __cdecl FUN_00216e10(int all, int lim, LuaVMState* L);
+extern "C" LuaVMGCObject** __cdecl FUN_002171c0(LuaVMState* L, LuaVMGCObject** p, int all, int* lim, int* count);
+extern "C" void __cdecl FUN_002164b0(LuaVMGlobal* g, LuaVMGCObject* o);
 
-extern "C" void __cdecl FUN_002172c0(void *object)
-{
-    State_2172c0 *s = ((Object *)object)->state;
-    int budget = 0x7fffffff;
-    FUN_00216e10(0, 0x7fffffff, (Object *)((Object *)object));
-    FUN_002171c0(((Object *)object), &s->head, 0, &budget, 0);
-    Marker_2172c0 *marker = s->marker;
-    if (marker->flags & 3)
-        FUN_002164b0((State_2172c0 *)s, (Marker_2172c0 *)marker);
-    s->mode ^= 3;
-    s->tail = &s->head;
-    s->f24 = 0;
-    FUN_00216e10(0, 0x7fffffff, (Object *)((Object *)object));
-    FUN_002171c0(((Object *)object), &s->head, 0, &budget, 0);
+extern "C" void __cdecl FUN_002172c0(LuaVMState* L) {
+    LuaVMGlobal* g = L->l_G;
+    int lim = 0x7fffffff;
+    FUN_00216e10(0, 0x7fffffff, L);
+    FUN_002171c0(L, &g->rootgc, 0, &lim, 0);
+    LuaVMGCObject* mainthread = (LuaVMGCObject*)g->mainthread;
+    if (mainthread->marked & 3)
+        FUN_002164b0(g, mainthread);
+    g->currentwhite ^= 3;
+    g->sweepgc = &g->rootgc;
+    g->sweepstrgc = 0;
+    FUN_00216e10(0, 0x7fffffff, L);
+    FUN_002171c0(L, &g->rootgc, 0, &lim, 0);
 }

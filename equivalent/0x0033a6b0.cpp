@@ -1,8 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0033a6b0 @ 0x0033a6b0
+// makemask
+#include "decls/data/lua.h"
 extern "C" char* __cdecl strchr(const char*, int);
 // equiv-conv: FUN_0033a6b0 edi stack
-int __cdecl FUN_0033a6b0(const char* text, int count)
+extern "C" int __cdecl FUN_0033a6b0(const char* text, int count)
 {
     int flags = 0;
     if (strchr(text, 'c')) flags |= 1;

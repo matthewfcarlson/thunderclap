@@ -1,20 +1,15 @@
-#include "compat/ptr.h"
-typedef unsigned int u32_213380;
-struct Context {
-    char pad0[8];
-    u32_213380* output;
-    char pad0c[4];
-    u32_213380* state;
-};
-void __cdecl Ensure(Context*);
-u32_213380 __cdecl Build(Context*, u32_213380, u32_213380);
-extern "C" void __cdecl FUN_00213380(Context* self, hulk_uintptr a, u32_213380 b) {
-    u32_213380* state = self->state;
-    if (state[19] >= state[18])
-        Ensure(self);
-    u32_213380* out = self->output;
-    u32_213380 value = Build(self, a, b);
-    out[1] = value;
-    out[0] = 4;
-    self->output += 2;
+// lua_pushlstring: push a new string of len bytes (a GC step first when due).
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_00217440(LuaVMState* L);
+extern "C" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
+
+extern "C" void __cdecl FUN_00213380(LuaVMState* L, const char* s, unsigned int len) {
+    LuaVMGlobal* g = L->l_G;
+    if (g->totalbytes >= g->GCthreshold)
+        FUN_00217440(L);
+    LuaVMTObject* o = L->top;
+    o->value.gc = (LuaVMGCObject*)FUN_00219430(L, s, len);
+    o->tt = LUAVM_TSTRING;
+    L->top++;
 }

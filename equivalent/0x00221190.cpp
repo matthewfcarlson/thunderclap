@@ -1,35 +1,22 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 6/6)
-// FUN_00221190 @ 0x00221190
-// Lua 5.0 luaK_exp2anyreg
-struct FuncState {
-    char pad[0x34];
-    unsigned char nactvar;
-};
+// STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 6/6)
+// luaK_exp2anyreg: put the expression into some register; returns it.
+#include "decls/data/lua.h"
 
-struct ExpDesc {
-    int k;
-    int info;
-    int aux;
-    int t;
-    int f;
-};
-
-void __cdecl FUN_00220d90(FuncState* fs, ExpDesc* e);
-extern "C" void __cdecl FUN_00221110(void *, void *);
+extern "C" void __cdecl FUN_00220d90(LuaVMFuncState* fs, LuaVMExpDesc* e);
+extern "C" void __cdecl FUN_00221110(LuaVMFuncState* fs, LuaVMExpDesc* e);
 // equiv-conv: FUN_00220fe0 eax stack stack
-void FUN_00220fe0(FuncState* fs, ExpDesc* e, int reg);
+extern "C" int __cdecl FUN_00220fe0(LuaVMFuncState* fs, LuaVMExpDesc* e, int reg);
 
-extern "C" int __cdecl FUN_00221190(void * fs, void * e)
-{
-    FUN_00220d90(((FuncState *)fs), ((ExpDesc *)e));
-    if (((ExpDesc *)e)->k == 11) {
-        if (((ExpDesc *)e)->t == ((ExpDesc *)e)->f)
-            return ((ExpDesc *)e)->info;
-        if (((ExpDesc *)e)->info >= ((FuncState *)fs)->nactvar) {
-            FUN_00220fe0(((FuncState *)fs), ((ExpDesc *)e), ((ExpDesc *)e)->info);
-            return ((ExpDesc *)e)->info;
+extern "C" int __cdecl FUN_00221190(LuaVMFuncState* fs, LuaVMExpDesc* e) {
+    FUN_00220d90(fs, e);
+    if (e->k == 11) {
+        if (e->t == e->f)
+            return e->info;
+        if (e->info >= fs->nactvar) {
+            FUN_00220fe0(fs, e, e->info);
+            return e->info;
         }
     }
-    FUN_00221110((FuncState *)((FuncState *)fs), (ExpDesc *)((ExpDesc *)e));
-    return ((ExpDesc *)e)->info;
+    FUN_00221110(fs, e);
+    return e->info;
 }

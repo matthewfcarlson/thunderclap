@@ -1,8 +1,9 @@
-extern "C" double __cdecl FUN_00339ec0(void*, int);
-extern "C" void __cdecl FUN_00213340(void*, float);
+// lmathlib
+#include "decls/data/lua.h"
+extern "C" float __cdecl FUN_00339ec0(LuaVMState* L, int narg);
+extern "C" void __cdecl FUN_00213340(LuaVMState* L, float n);
 extern "C" double __cdecl atan(double);
-extern "C" int __cdecl FUN_0033b730(void* object) {
-    double angle = FUN_00339ec0(object, 1);
-    FUN_00213340(object, (float)atan(angle));
+extern "C" int __cdecl FUN_0033b730(LuaVMState* L) {
+    FUN_00213340(L, (float)atan(FUN_00339ec0(L, 1)));
     return 1;
 }

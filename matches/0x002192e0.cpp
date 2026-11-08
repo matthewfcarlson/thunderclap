@@ -1,38 +1,27 @@
-struct Node {
-    Node* next;
-    unsigned unknown;
-    unsigned hash;
-};
-struct Table_2192e0 {
-    Node** buckets;
-    int unknown;
-    int count;
-    char pad[0x18];
-    int locked;
-};
-struct Owner_2192e0 {
-    char pad[0x10];
-    Table_2192e0* table;
-};
-extern void* __cdecl FUN_0021add0(Owner_2192e0*, void*, unsigned, unsigned);
-extern "C" void __cdecl FUN_002192e0(void * owner, int count) {
-    if (((Owner_2192e0 *)owner)->table->locked > 0)
+// luaS_resize: rehash the string table into newsize buckets (not while the collector sweeps the strings).
+#include "decls/data/lua.h"
+
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
+
+extern "C" void __cdecl FUN_002192e0(LuaVMState* L, int newsize) {
+    if (L->l_G->sweepstrgc > 0)
         return;
-    Node** buckets = (Node**)FUN_0021add0(((Owner_2192e0 *)owner), 0, 0, (unsigned)count * 4);
-    Table_2192e0* table = ((Owner_2192e0 *)owner)->table;
-    for (int i = 0; i < count; ++i)
-        buckets[i] = 0;
-    for (int i = 0; i < table->count; ++i) {
-        Node* node = table->buckets[i];
-        while (node) {
-            unsigned index = node->hash & ((unsigned)count - 1);
-            Node* next = node->next;
-            node->next = buckets[index];
-            buckets[index] = node;
-            node = next;
+    LuaVMString** newhash =
+        (LuaVMString**)FUN_0021add0(L, 0, 0, (unsigned int)newsize * (unsigned int)sizeof(LuaVMString*));
+    LuaVMStringTable* tb = &L->l_G->strt;
+    for (int i = 0; i < newsize; ++i)
+        newhash[i] = 0;
+    for (int i = 0; i < tb->size; ++i) {
+        LuaVMString* p = tb->hash[i];
+        while (p) {
+            unsigned int h = p->hash & ((unsigned int)newsize - 1);
+            LuaVMString* next = (LuaVMString*)p->next;
+            p->next = (LuaVMGCObject*)newhash[h];
+            newhash[h] = p;
+            p = next;
         }
     }
-    FUN_0021add0(((Owner_2192e0 *)owner), table->buckets, (unsigned)table->count * 4, 0);
-    table->buckets = buckets;
-    table->count = count;
+    FUN_0021add0(L, tb->hash, (unsigned int)tb->size * (unsigned int)sizeof(LuaVMString*), 0);
+    tb->hash = newhash;
+    tb->size = newsize;
 }

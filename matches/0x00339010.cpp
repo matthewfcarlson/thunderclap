@@ -1,17 +1,19 @@
-extern "C" int __cdecl Check(int, int);
-extern "C" void __cdecl StepA(int, int, int);
-extern "C" int __cdecl StepB(int, int);
-extern "C" void __cdecl StepC(int, int);
-extern "C" void __cdecl StepD(int, int);
+// luaL_getmetafield: pushes the metatable's field event of obj; 0 (nothing pushed) when absent.
+#include "decls/data/lua.h"
+extern "C" int __cdecl FUN_002136d0(LuaVMState* L, int objindex);
+extern "C" void __cdecl FUN_002135a0(LuaVMState* L, int idx, const char* k);
+extern "C" int __cdecl FUN_00212f00(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_00212d80(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_00212de0(LuaVMState* L, int idx);
 
-int __cdecl Target(int a, int b, int c) {
-    if (!Check(a, b))
+extern "C" int __cdecl FUN_00339010(LuaVMState* L, int obj, const char* event) {
+    if (!FUN_002136d0(L, obj))
         return 0;
-    StepA(a, -1, c);
-    if (!StepB(a, -1)) {
-        StepC(a, -3);
+    FUN_002135a0(L, -1, event);
+    if (!FUN_00212f00(L, -1)) {
+        FUN_00212d80(L, -3);
         return 0;
     }
-    StepD(a, -2);
+    FUN_00212de0(L, -2);
     return 1;
 }

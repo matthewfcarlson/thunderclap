@@ -1,19 +1,22 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 2/2)
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_0033dad0 @ 0x0033dad0
+// luaB_getfenv
+#include "decls/data/lua.h"
+
 // equiv-conv: FUN_0033d9e0 esi
-extern "C" void init(void*);
-extern "C" void a(void*, int);
-extern "C" void b(void*, const char*, int);
-extern "C" void c(void*, int);
-extern "C" int d(void*, int);
-extern "C" void e(void*, int);
-int target(void* volatile p) {
-    void* q = p;
-    init(q);
-    a(q, -1);
-    b(q, "__fenv", 6);
-    c(q, -2);
-    if (d(q, -1) == 0)
-        e(q, -2);
+void __cdecl FUN_0033d9e0(LuaVMState* L);
+extern "C" void __cdecl FUN_00213720(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_00213380(LuaVMState* L, const char* s, unsigned int len);
+extern "C" void __cdecl FUN_00213600(LuaVMState* L, int idx);
+extern "C" int __cdecl FUN_00212f00(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_00212d80(LuaVMState* L, int idx);
+
+extern "C" int __cdecl FUN_0033dad0(LuaVMState* L) {
+    FUN_0033d9e0(L);
+    FUN_00213720(L, -1);
+    FUN_00213380(L, "__fenv", 6);
+    FUN_00213600(L, -2);
+    if (FUN_00212f00(L, -1) == LUAVM_TNIL)
+        FUN_00212d80(L, -2);
     return 1;
 }

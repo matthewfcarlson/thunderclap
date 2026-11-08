@@ -1,7 +1,20 @@
-// STATUS: equivalent (tools/equiv.py level 3: 12546 inputs, branch coverage 2/2)
-// FUN_00217790 @ 0x00217790
-// FUN_00217790 @ 0x00217790
-#include "compat/ptr.h"
-struct Buffer { char pad0[8]; char* cursor; char pad1[12]; char* end; char* base; }; extern "C" void __cdecl FUN_00215460(void *, int); void __cdecl FUN_002159e0(Buffer*, char*, int);
+// STATUS: equivalent (tools/equiv.py level 3: 2866 inputs, branch coverage 2/2)
+// callTMres: call the metamethod pushed at the top (3 slots) for one result and store it in res.
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_00215460(LuaVMState* L, int n);
+extern "C" void __cdecl FUN_002159e0(LuaVMState* L, LuaVMTObject* func, int nresults);
+
 // equiv-conv: FUN_00217790 ecx eax
-void FUN_00217790(Buffer* self, char* dest) { hulk_uintptr offset = (hulk_uintptr)dest - (hulk_uintptr)self->base; if ((int)((hulk_uintptr)self->end - (hulk_uintptr)self->cursor) <= 24) FUN_00215460((Buffer *)self, 3); char* old = self->cursor; self->cursor = old + 24; FUN_002159e0(self, old, 1); char* source = self->cursor - 8; self->cursor = source; char* target = self->base + offset; *(unsigned*)target = *(unsigned*)source; *(unsigned*)(target + 4) = *(unsigned*)(source + 4); }
+extern "C" void __cdecl FUN_00217790(LuaVMState* L, LuaVMTObject* res) {
+    hulk_intptr result = (char*)res - (char*)L->stack;  // savestack
+    if ((char*)L->stack_last - (char*)L->top <= 3 * (int)sizeof(LuaVMTObject))
+        FUN_00215460(L, 3);
+    LuaVMTObject* func = L->top;
+    L->top = func + 3;
+    FUN_002159e0(L, func, 1);
+    LuaVMTObject* src = L->top - 1;
+    L->top = src;
+    res = (LuaVMTObject*)((char*)L->stack + result);  // restorestack
+    LUAVM_SETOBJ(res, src);
+}

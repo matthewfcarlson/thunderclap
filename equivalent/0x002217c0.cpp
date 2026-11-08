@@ -1,45 +1,32 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 6/6)
-// FUN_002217c0 @ 0x002217c0
-// FUN_002217c0: dispatch on a mode value
-struct Item_2217c0 {
-    char pad00[0xc];
-    int idA;
-    int idB;
-};
+// STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 6/6)
+// luaK_infix: prepare the first operand of a binary operator (and / or / concat / RK operand).
+#include "decls/data/lua.h"
 
-struct Ctx_2217c0 {
-    char pad00[0x18];
-    int f18;
-    int f1c;
-    char buf[1];
-};
+extern "C" void __cdecl FUN_00221110(LuaVMFuncState* fs, LuaVMExpDesc* e);
+extern "C" int __cdecl FUN_00221200(LuaVMFuncState* fs, LuaVMExpDesc* e);
+extern "C" void __cdecl FUN_00221560(LuaVMFuncState* fs, LuaVMExpDesc* e);
+extern "C" void __cdecl FUN_002214b0(LuaVMFuncState* fs, LuaVMExpDesc* e);
+extern "C" void __cdecl FUN_002207c0(LuaVMFuncState* fs, int* l1, int l2);
 
-extern "C" void __cdecl FUN_00221110(void *, void *);
-void __cdecl FUN_00221200(Ctx_2217c0 *c, Item_2217c0 *i);
-extern "C" void __cdecl FUN_00221560(void *, void *);
-extern "C" void __cdecl FUN_002214b0(void *, void *);
-void __cdecl FUN_002207c0(Ctx_2217c0 *c, char *buf, int id);
-
-extern "C" void __cdecl FUN_002217c0(void *c, int mode, void *item)
-{
-    switch (mode) {
+extern "C" void __cdecl FUN_002217c0(LuaVMFuncState* fs, int op, LuaVMExpDesc* v) {
+    switch (op) {
     case 5:
-        FUN_00221110((Ctx_2217c0 *)((Ctx_2217c0 *)c), (Item_2217c0 *)((Item_2217c0 *)item));
+        FUN_00221110(fs, v);
         break;
     case 12:
-        FUN_002214b0((Ctx_2217c0 *)((Ctx_2217c0 *)c), (Item_2217c0 *)((Item_2217c0 *)item));
-        ((Ctx_2217c0 *)c)->f1c = ((Ctx_2217c0 *)c)->f18;
-        FUN_002207c0(((Ctx_2217c0 *)c), ((Ctx_2217c0 *)c)->buf, ((Item_2217c0 *)item)->idA);
-        ((Item_2217c0 *)item)->idA = -1;
+        FUN_002214b0(fs, v);
+        fs->lasttarget = fs->pc;
+        FUN_002207c0(fs, &fs->jpc, v->t);
+        v->t = -1;
         break;
     case 13:
-        FUN_00221560((Ctx_2217c0 *)((Ctx_2217c0 *)c), (Item_2217c0 *)((Item_2217c0 *)item));
-        ((Ctx_2217c0 *)c)->f1c = ((Ctx_2217c0 *)c)->f18;
-        FUN_002207c0(((Ctx_2217c0 *)c), ((Ctx_2217c0 *)c)->buf, ((Item_2217c0 *)item)->idB);
-        ((Item_2217c0 *)item)->idB = -1;
+        FUN_00221560(fs, v);
+        fs->lasttarget = fs->pc;
+        FUN_002207c0(fs, &fs->jpc, v->f);
+        v->f = -1;
         break;
     default:
-        FUN_00221200(((Ctx_2217c0 *)c), ((Item_2217c0 *)item));
+        FUN_00221200(fs, v);
         break;
     }
 }

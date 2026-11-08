@@ -1,18 +1,18 @@
-#include "compat/ptr.h"
-typedef unsigned int U_338e20;
-extern void __cdecl F1(hulk_uintptr, int);
-extern void __cdecl F2(hulk_uintptr, hulk_uintptr, U_338e20*);
-extern void __cdecl F3(hulk_uintptr, int);
-extern int __cdecl F4(hulk_uintptr);
-int __cdecl target(hulk_uintptr a, hulk_uintptr b, ...) {
-    F1(a, 1);
+// luaL_error: "where" + the formatted message, then lua_error.
+#include "decls/data/lua.h"
+extern "C" void __cdecl FUN_00338d90(LuaVMState* L, int level);
+extern "C" const char* __cdecl FUN_00213440(LuaVMState* L, const char* fmt, char* argp);
+extern "C" void __cdecl FUN_00213c90(LuaVMState* L, int n);
+extern "C" int __cdecl FUN_00213c40(LuaVMState* L);
+extern "C" int __cdecl FUN_00338e20(LuaVMState* L, const char* fmt, ...) {
+    FUN_00338d90(L, 1);
 #if defined(HULK_PTR64)
     __builtin_va_list args;
-    __builtin_va_start(args, b);
-    F2(a, b, (U_338e20*)args);
+    __builtin_va_start(args, fmt);
+    FUN_00213440(L, fmt, (char*)args);
 #else
-    F2(a, b, (U_338e20*)&b + 1);
+    FUN_00213440(L, fmt, (char*)&fmt + sizeof(fmt));
 #endif
-    F3(a, 2);
-    return F4(a);
+    FUN_00213c90(L, 2);
+    return FUN_00213c40(L);
 }

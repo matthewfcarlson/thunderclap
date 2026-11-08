@@ -307,53 +307,27 @@
       [
        4,
        "value",
-       "union (unnamed at /Users/matthewcarlson/git/hulk-ultimate-destruction-decomp/build/x64-5/r3/w/equivalent/0x00219dc0.cpp:7:5)",
-       "record",
+       "void *",
+       "pointer",
        4,
-       1,
-       [
-        [
-         0,
-         "n",
-         "float",
-         "float",
-         4,
-         1
-        ],
-        [
-         0,
-         "bits",
-         "void *",
-         "pointer",
-         4,
-         1
-        ],
-        [
-         0,
-         "p",
-         "void *",
-         "pointer",
-         4,
-         1
-        ]
-       ]
+       1
       ]
      ],
      "sources": [
-      "equivalent/0x00219dc0.cpp",
-      "equivalent/0x0021a0f0.cpp"
+      "matches/0x00212bb0.cpp"
      ],
      "stride": 8,
      "types": [
-      "TObject_219dc0",
-      "TValue_21a0f0"
+      "LuaVMTObject"
      ]
     }
    ],
-   "size": 1,
+   "size": 8,
    "sources": [
-    "equivalent/0x00219dc0.cpp",
-    "equivalent/0x0021a0f0.cpp"
+    "matches/0x00212bb0.cpp"
+   ],
+   "pointers": [
+    "0x4"
    ]
   },
   "0x00426948": {

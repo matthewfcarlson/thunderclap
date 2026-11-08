@@ -1,25 +1,20 @@
-class B_1d2110 {
-    char pad[8];
-
-  public:
-    int m;
-};
-extern void FUN_00213550(B_1d2110*, int);
-extern void FUN_002134a0(B_1d2110*, void*, int);
-extern void FUN_00213790(B_1d2110*, int, int*);
-extern char FUN_001d0cf0;
-extern char FUN_001d0d30;
+#include "decls/data/lua.h"
+extern "C" void __cdecl FUN_00213550(LuaVMState*, void*);
+extern "C" void __cdecl FUN_002134a0(LuaVMState*, LuaVMCFunction, int);
+extern "C" void __cdecl FUN_00213790(LuaVMState*, int, const char*);
+int __cdecl FUN_001d0cf0(LuaVMState*);
+int __cdecl FUN_001d0d30(LuaVMState*);
 struct Arg_1d2110 {
-    int x;
-    char pad[0x80];
-    int value;
+    void* x;
+    char name[0x80];
+    void* value;
     unsigned char flag;
 };
 class A_1d2110 {
     char pad[8];
 
   public:
-    B_1d2110* b;
+    LuaVMState* b;
     void f(Arg_1d2110*);
 };
 void A_1d2110::f(Arg_1d2110* arg) {
@@ -30,5 +25,5 @@ void A_1d2110::f(Arg_1d2110* arg) {
     } else {
         FUN_002134a0(b, &FUN_001d0cf0, 1);
     }
-    FUN_00213790(b, 0xffffd8ef, (int*)((char*)arg + 4));
+    FUN_00213790(b, 0xffffd8ef, arg->name);
 }

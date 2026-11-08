@@ -1,7 +1,9 @@
-#include "compat/ptr.h"
-extern "C" void FUN_00213550(int* p, hulk_intptr value) {
-    int* q = *(int**)((char*)p + 8);
-    q[1] = value;
-    q[0] = 2;
-    *(int*)((char*)p + 8) += 8;
+// lua_pushlightuserdata.
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_00213550(LuaVMState* L, void* p) {
+    LuaVMTObject* o = L->top;
+    o->value.p = p;
+    o->tt = LUAVM_TLIGHTUSERDATA;
+    L->top++;
 }

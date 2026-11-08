@@ -1,21 +1,20 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
-// FUN_0021af60 @ 0x0021af60
-#include "compat/ptr.h"
-struct Buffer { char *data; unsigned count; unsigned capacity; };
-struct Context { char pad[0x20]; void *allocator; char pad2[4]; Buffer *buffer; };
-extern "C" void *FUN_0021add0(void *, void *, hulk_uintptr, hulk_uintptr);
-extern "C" void *FUN_0021af00(Context *, int);
+// STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 8/8)
+// txtToken: a name, string or number token as the buffer's text (NUL-terminated), any other by luaX_token2str.
+#include "decls/data/lua.h"
+
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
+extern "C" const char* __cdecl FUN_0021af00(LuaVMLexState* ls, int token);
 // equiv-conv: FUN_0021af60 eax edi
-extern "C" void *FUN_0021af60(int code, Context *ctx) {
-    if (code != 0x116 && (code <= 0x11c || code > 0x11e))
-        return FUN_0021af00(ctx, code);
-    Buffer *buf = ctx->buffer;
-    if (buf->count + 1 > buf->capacity) {
-        unsigned cap = buf->capacity;
-        buf->data = (char *)FUN_0021add0(ctx->allocator, buf->data, cap, cap * 2 + 0x20);
-        buf->capacity = buf->capacity * 2 + 0x20;
+extern "C" const char* FUN_0021af60(int token, LuaVMLexState* ls) {
+    if (token != 0x116 && (token <= 0x11c || token > 0x11e))
+        return FUN_0021af00(ls, token);
+    LuaVMBuffer* b = ls->buff;
+    if (b->n + 1 > b->buffsize) {
+        unsigned int size = b->buffsize;
+        b->buffer = (char*)FUN_0021add0(ls->L, b->buffer, size, size * 2 + 0x20);
+        b->buffsize = b->buffsize * 2 + 0x20;
     }
-    buf->data[buf->count] = 0;
-    ++buf->count;
-    return ctx->buffer->data;
+    b->buffer[b->n] = 0;
+    ++b->n;
+    return ls->buff->buffer;
 }

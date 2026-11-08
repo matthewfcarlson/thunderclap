@@ -1,20 +1,15 @@
 // FUN_003393f0 @ 0x003393f0
 // Lua 5.0 lauxlib adjuststack: concatenates the buffer's pending strings on the stack.
-struct lua_State;
-struct luaL_Buffer_3393f0 {
-    char* p;
-    int lvl;
-    lua_State* L;
-};
+#include "decls/data/lua.h"
 
-extern "C" unsigned int __cdecl FUN_002131f0(lua_State* L, int idx);   // lua_strlen
-extern "C" void __cdecl FUN_00213c90(lua_State* L, int n);             // lua_concat
+extern "C" unsigned int __cdecl FUN_002131f0(LuaVMState* L, int idx);   // lua_strlen
+extern "C" void __cdecl FUN_00213c90(LuaVMState* L, int n);             // lua_concat
 
 #define LIMIT 10
 
-void FUN_003393f0(luaL_Buffer_3393f0* B) {
+extern "C" void __cdecl FUN_003393f0(LuaVMLBuffer* B) {
     if (B->lvl > 1) {
-        lua_State* L = B->L;
+        LuaVMState* L = B->L;
         int toget = 1;
         unsigned int toplen = FUN_002131f0(L, -1);
         do {

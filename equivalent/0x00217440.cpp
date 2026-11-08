@@ -1,26 +1,17 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2580 inputs, branch coverage 6/6)
-// FUN_00217440 @ 0x00217440
-struct BufferState {
-    char padding0[0x34];
-    int flag;
-    int mode;
-    char padding1[0x0c];
-    int start;
-    int end;
-};
-struct Owner {
-    char padding[0x10];
-    BufferState* state;
-};
+// STATUS: equivalent (tools/equiv.py level 3: 2592 inputs, branch coverage 6/6)
+// luaC_step: run collector steps for the bytes allocated past the threshold; set the next threshold.
+#include "decls/data/lua.h"
+
 // equiv-conv: FUN_00217350 eax stack
-int FUN_00217350(Owner* owner, int amount);
-void FUN_00217440(Owner* owner) {
-    BufferState* state = owner->state;
-    int result = (state->end - state->start) * 8 + 0xa00;
+extern "C" int __cdecl FUN_00217350(LuaVMState* L, int lim);
+
+extern "C" void __cdecl FUN_00217440(LuaVMState* L) {
+    LuaVMGlobal* g = L->l_G;
+    int lim = (int)(g->totalbytes - g->GCthreshold) * 8 + 0xa00;
     do {
-        result = FUN_00217350(owner, result);
-        if (state->mode == 3 && state->flag == 0)
+        lim = FUN_00217350(L, lim);
+        if (g->gcstate == 3 && g->tmudata == 0)
             break;
-    } while (result > 0);
-    state->start = state->end - (result / 8) + 0x140;
+    } while (lim > 0);
+    g->GCthreshold = g->totalbytes - (lim / 8) + 0x140;
 }

@@ -1,20 +1,17 @@
-#include "compat/ptr.h"
-typedef unsigned int uint;
-struct Item_213190 {
-    int type;
-    int value;
-};
-Item_213190* __fastcall GetItem(int, hulk_intptr);
-int __cdecl Check(hulk_intptr, Item_213190*);
-void __cdecl Update(hulk_intptr);
-extern "C" hulk_intptr __cdecl FUN_00213190(hulk_intptr a, int b) {
-    Item_213190* p = GetItem(b, a);
-    if (p->type == 4)
-        return p->value + 0x10;
-    int result = Check(a, p) ? p->value + 0x10 : 0;
-    volatile uint* q = (volatile uint*)(*(hulk_uintptr*)(a + 0x10));
-    uint high = q[19];
-    if (high >= q[18])
-        Update(a);
-    return result;
+// lua_tostring: the string at idx (a number is converted in place); NULL otherwise. A GC step when due.
+#include "decls/data/lua.h"
+
+extern "C" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
+extern "C" int __cdecl FUN_00217640(LuaVMState* L, LuaVMTObject* obj);
+extern "C" void __cdecl FUN_00217440(LuaVMState* L);
+
+extern "C" const char* __cdecl FUN_00213190(LuaVMState* L, int idx) {
+    LuaVMTObject* o = FUN_00212bb0(idx, L);
+    if (o->tt == LUAVM_TSTRING)
+        return LUAVM_GETSTR(o->value.gc);
+    const char* s = FUN_00217640(L, o) ? LUAVM_GETSTR(o->value.gc) : 0;
+    LuaVMGlobal* g = L->l_G;
+    if (g->totalbytes >= g->GCthreshold)
+        FUN_00217440(L);
+    return s;
 }

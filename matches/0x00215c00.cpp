@@ -1,61 +1,31 @@
-#include "compat/ptr.h"
-struct Arena_215c00 {
-    char pad[0x48];
-    unsigned limit;
-    unsigned used;
-};
-struct Record_215c00;
-struct Command_215c00 {
-    unsigned kind;
-    Record_215c00* record;
-};
-struct Context {
-    char pad0[8];
-    Command_215c00* current;
-    char padC[4];
-    Arena_215c00* arena;
-    char pad14[4];
-    Command_215c00* end;
-    char pad1C[0x24];
-    unsigned state;
-};
-struct Input_215c00 {
-    unsigned type;
-    unsigned payload[3];
-    unsigned extra;
-};
-struct Object {
-    char pad[0x44];
-    unsigned char count;
-};
-struct Record_215c00 {
-    char pad[0xc];
-    Object* object;
-    char pad10[8];
-    unsigned entries[1];
-};
-extern "C" unsigned int __cdecl FUN_0021a590(void *);
-extern void __cdecl FUN_00217440(Context*);
-extern Object* __cdecl FUN_00220480(Context*, unsigned, unsigned*, unsigned);
-extern "C" Object* __cdecl FUN_0021f710(Context*, unsigned, unsigned*, unsigned);
-extern Record_215c00* __cdecl FUN_00219560(Context*, unsigned, unsigned*);
-extern unsigned __cdecl FUN_002195d0(Context*);
-extern "C" void __cdecl FUN_00215460(void *, int);
-void __cdecl FUN_00215c00(Context* context, Input_215c00* input) {
-    unsigned type = ((unsigned)FUN_0021a590((void *)(hulk_uintptr)(unsigned)(input->type)));
-    if (context->arena->used >= context->arena->limit)
-        FUN_00217440(context);
-    typedef Object*(__cdecl * Factory)(Context*, unsigned, unsigned*, unsigned);
-    Factory factory = type == 0x1b ? &FUN_00220480 : &FUN_0021f710;
-    Object* object = factory(context, input->type, input->payload, input->extra);
-    Record_215c00* record = FUN_00219560(context, object->count, &context->state);
-    record->object = object;
-    for (int i = 0; i < object->count; ++i)
-        record->entries[i] = FUN_002195d0(context);
-    Command_215c00* command = context->current;
-    command->record = record;
-    command->kind = 6;
-    if ((int)((char*)context->end - (char*)context->current) <= 8)
-        FUN_00215460((Context *)context, 1);
-    context->current = context->current + 1;
+// f_parser: the protected body of luaD_protectedparser: undump a binary chunk or parse the source, then push
+// its main function as a closure with fresh upvalues.
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_0021a590(LuaVMZio* z);
+extern "C" void __cdecl FUN_00217440(LuaVMState* L);
+extern "C" LuaVMProto* __cdecl FUN_00220480(LuaVMState* L, LuaVMZio* Z, LuaVMBuffer* buff, const char* name);
+extern "C" LuaVMProto* __cdecl FUN_0021f710(LuaVMState* L, LuaVMZio* z, LuaVMBuffer* buff, const char* name);
+extern "C" LuaVMClosure* __cdecl FUN_00219560(LuaVMState* L, int nelems, const LuaVMTObject* e);
+extern "C" LuaVMUpVal* __cdecl FUN_002195d0(LuaVMState* L);
+extern "C" void __cdecl FUN_00215460(LuaVMState* L, int n);
+
+extern "C" void __cdecl FUN_00215c00(LuaVMState* L, void* ud) {
+    LuaVMSParser* p = (LuaVMSParser*)ud;
+    unsigned int c = (unsigned int)FUN_0021a590(p->z);
+    if (L->l_G->totalbytes >= L->l_G->GCthreshold)
+        FUN_00217440(L);
+    typedef LuaVMProto*(__cdecl * Loader)(LuaVMState*, LuaVMZio*, LuaVMBuffer*, const char*);
+    Loader loader = c == 0x1b ? &FUN_00220480 : &FUN_0021f710;
+    LuaVMProto* tf = loader(L, p->z, &p->buff, p->name);
+    LuaVMClosure* cl = FUN_00219560(L, tf->nups, &L->_gt);
+    cl->l.p = tf;
+    for (int i = 0; i < tf->nups; ++i)
+        cl->l.upvals[i] = FUN_002195d0(L);
+    LuaVMTObject* o = L->top;
+    o->value.gc = (LuaVMGCObject*)cl;
+    o->tt = LUAVM_TFUNCTION;
+    if ((int)((char*)L->stack_last - (char*)L->top) <= (int)sizeof(LuaVMTObject))
+        FUN_00215460(L, 1);
+    L->top = L->top + 1;
 }

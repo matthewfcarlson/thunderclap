@@ -1,31 +1,14 @@
+// luaH_getstr: the value under a string key, or luaO_nilobject.
 #include "decls/data/engine/unknown.h"
+#include "decls/data/lua.h"
 
-typedef unsigned int uint;
-typedef unsigned char byte;
-struct A_219e50 {
-    char pad[7];
-    byte shift;
-    char pad2[8];
-    void* buckets;
-};
-struct B_219e50 {
-    char pad[8];
-    uint mask;
-};
-struct Node {
-    int type;
-    B_219e50* owner;
-    int unused;
-    int gap;
-    Node* next;
-};
-int* find(A_219e50* a, B_219e50* b) {
-    uint x = 1u << a->shift;
-    Node* p = (Node*)a->buckets + ((x - 1) & b->mask);
-    while (p->type != 4 || p->owner != b) {
-        p = p->next;
-        if (!p)
-            return ((int*)&DAT_00426824);
+extern "C" LuaVMTObject* __cdecl FUN_00219e50(LuaVMTable* t, LuaVMString* key) {
+    unsigned int size = 1u << t->lsizenode;
+    LuaVMNode* n = t->node + ((size - 1) & key->hash);
+    while (n->i_key.tt != LUAVM_TSTRING || (LuaVMString*)n->i_key.value.gc != key) {
+        n = n->next;
+        if (!n)
+            return LUAVM_NILOBJECT;
     }
-    return (int*)p + 2;
+    return &n->i_val;
 }

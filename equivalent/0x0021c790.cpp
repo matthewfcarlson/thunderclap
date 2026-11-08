@@ -1,25 +1,48 @@
-// STATUS: equivalent (tools/equiv.py level 3: 4583 inputs, branch coverage 21/22, incomplete)
-// FUN_0021c790 @ 0x0021c790
-// FUN_0021c790 @ 0x0021c790
-#include "compat/ptr.h"
-struct Entry_21c790 { unsigned key; unsigned a,b; };
-struct Table_21c790 { char pad[24]; Entry_21c790* entries; };
-struct Node { Node* next; unsigned other; unsigned char limit, marked; };
-struct Object { Table_21c790* table; unsigned pad4; Object* parent; char padc[8]; Node* nodes; char pad18[28]; unsigned char count; char pad35[65]; unsigned short indices[256]; };
-struct Result_21c790 { int type; int index; unsigned extra; int a,b; };
-int __cdecl FUN_002209b0(Object*,unsigned);
+// STATUS: equivalent (tools/equiv.py level 3: 3114 inputs, branch coverage 21/22, incomplete)
+// singlevaraux: resolve the name n as a local of fs (marking its block as having an upvalue unless base), an
+// upvalue of an enclosing function, or a global (its name constant when base).
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_002209b0(LuaVMFuncState* fs, LuaVMString* s);
 // equiv-conv: FUN_0021c5f0 edi stack stack
-extern "C" int __cdecl FUN_0021c5f0(void *, void *, void *);
-void __cdecl target(Object* object,unsigned key,Result_21c790* result,int flag) {
- if (!object) { result->a=-1; result->b=-1; result->type=7; result->index=255; return; }
- int i=(int)object->count-1;
- for (;i>=0;--i) { if(object->table->entries[object->indices[i]].key==key) break; }
- if(i>=0) {
- result->a=-1; result->b=-1; result->type=5; result->index=i;
- if(!flag) { Node* node=object->nodes; while(node) { if((int)node->limit<=i) { node->marked=1; break; } node=node->next; } }
- return;
- }
- target(object->parent,key,result,0);
- if(result->type==7) { if(flag) result->index=FUN_002209b0(object,key); }
- else { int index=FUN_0021c5f0((Object *)object,(void *)(hulk_uintptr)(unsigned)key,(Result_21c790 *)result); result->type=6; result->index=index; }
+extern "C" int FUN_0021c5f0(LuaVMFuncState* fs, LuaVMString* name, LuaVMExpDesc* v);
+extern "C" void __cdecl FUN_0021c790(LuaVMFuncState* fs, LuaVMString* n, LuaVMExpDesc* var, int base) {
+    if (!fs) {
+        var->t = -1;
+        var->f = -1;
+        var->k = 7;      // VGLOBAL
+        var->info = 255; // NO_REG
+        return;
+    }
+    int i = (int)fs->nactvar - 1;
+    for (; i >= 0; --i) {
+        if (fs->f->locvars[fs->actvar[i]].varname == n)
+            break;
+    }
+    if (i >= 0) {
+        var->t = -1;
+        var->f = -1;
+        var->k = 5; // VLOCAL
+        var->info = i;
+        if (!base) {
+            LuaVMBlockCnt* bl = fs->bl;
+            while (bl) {
+                if ((int)bl->nactvar <= i) {
+                    bl->upval = 1;
+                    break;
+                }
+                bl = bl->previous;
+            }
+        }
+        return;
+    }
+    FUN_0021c790(fs->prev, n, var, 0);
+    if (var->k == 7) {
+        if (base)
+            var->info = FUN_002209b0(fs, n);
+    } else {
+        int index = FUN_0021c5f0(fs, n, var);
+        var->k = 6; // VUPVAL
+        var->info = index;
+    }
 }

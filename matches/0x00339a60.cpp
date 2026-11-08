@@ -1,10 +1,10 @@
-#include "compat/ptr.h"
-extern "C" void __cdecl FUN_00339a40();
-typedef unsigned int U_339a60;
-extern int __cdecl FUN_00213b20(U_339a60, hulk_uintptr, U_339a60*, U_339a60);
-int __cdecl FUN_00339a60(hulk_uintptr a, hulk_uintptr b, U_339a60 c, hulk_uintptr d) {
-    U_339a60 locals[2];
-    locals[0] = b;
-    locals[1] = c;
-    return FUN_00213b20(a, ((hulk_intptr)(void (__cdecl*)())&FUN_00339a40), locals, d);
+// luaL_loadbuffer
+#include "decls/data/lua.h"
+extern "C" const char* __cdecl FUN_00339a40(LuaVMState* L, void* ud, unsigned int* size);
+extern "C" int __cdecl FUN_00213b20(LuaVMState* L, LuaVMReader reader, void* data, const char* chunkname);
+extern "C" int __cdecl FUN_00339a60(LuaVMState* L, const char* buff, unsigned int size, const char* name) {
+    LuaVMLoadS ls;
+    ls.s = buff;
+    ls.size = size;
+    return FUN_00213b20(L, FUN_00339a40, &ls, name);
 }

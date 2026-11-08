@@ -1,77 +1,54 @@
-// STATUS: equivalent (tools/equiv.py level 3: 16564 inputs, branch coverage 18/18)
-// FUN_002160c0 @ 0x002160c0
-#include "compat/ptr.h"
-extern "C" char *__cdecl strchr(const char *, int);
-static inline hulk_uintptr strlen_inline(const char *s)
-{
-    const char *p = s;
+// STATUS: equivalent (tools/equiv.py level 3: 2297 inputs, branch coverage 18/18)
+// luaO_pushvfstring: fmt supports %s %c %d %f %%, the arguments come from the va_list pointer
+// (4-byte slots on the 32-bit builds; va_arg over the 64-bit builds' 8-byte slots, HULK_PTR64).
+#include "decls/data/lua.h"
+
+extern "C" char* __cdecl strchr(const char*, int);
+static inline int strlen_inline(const char* s) {
+    const char* p = s;
     while (*p)
         p++;
-    return p - s;
+    return (int)(p - s);
 }
 
-struct TString_2160c0 {
-    char hdr[0x10];
-    char str[1];
-};
-
-struct TValue_2160c0 {
-    int tt;
-    union {
-        TString_2160c0 *ts;
-        float n;
-    } value;
-};
-
-struct lua_State_2160c0 {
-    char pad0[8];
-    TValue_2160c0 *top;
-    TValue_2160c0 *base;
-    char pad10[8];
-    TValue_2160c0 *stack_last;
-};
-
-TString_2160c0 *__cdecl FUN_00219430(lua_State_2160c0 *L, const char *s, unsigned int len);
-extern "C" void __cdecl FUN_00215460(void *, int);
-extern "C" void __cdecl FUN_00217f20(void *, int, int);
+extern "C" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
+extern "C" void __cdecl FUN_00215460(LuaVMState* L, int n);
+extern "C" void __cdecl FUN_00217f20(LuaVMState* L, int total, int last);
 // equiv-conv: FUN_00216060 esi edx
-extern "C" void __cdecl FUN_00216060(void *, const char *);
+extern "C" void __cdecl FUN_00216060(LuaVMState* L, const char* str);
 
-// Lua 5.0 luaO_pushvfstring: fmt supports %s %c %d %f %%, arguments come from the va_list pointer
-// (4-byte slots on the 32-bit builds; va_arg over the 64-bit builds' 8-byte slots, HULK_PTR64).
-extern "C" const char *FUN_002160c0(void *L, const char *fmt, char *argp)
-{
+extern "C" const char* __cdecl FUN_002160c0(LuaVMState* L, const char* fmt, char* argp) {
     struct Frame {
         char buff[4];
-        char *ap2;      // second copy of the va_list cursor (minus 8) that the original keeps in this slot
-        const char *e;
+        char* ap2;  // second copy of the va_list cursor (minus 8) that the original keeps in this slot
+        const char* e;
         int n;
     } f;
 
     f.n = 1;
-    FUN_00216060((lua_State_2160c0 *)((lua_State_2160c0 *)L), "");
+    FUN_00216060(L, "");
     f.e = strchr(fmt, '%');
     if (f.e != 0) {
         f.ap2 = argp - 8;
         while (f.e != 0) {
-            TValue_2160c0 *o = ((lua_State_2160c0 *)L)->top;
-            TString_2160c0 *ts = FUN_00219430(((lua_State_2160c0 *)L), fmt, f.e - fmt);
-            o->value.ts = ts;
-            o->tt = 4;
-            if ((char *)((lua_State_2160c0 *)L)->stack_last - (char *)((lua_State_2160c0 *)L)->top <= 8)
-                FUN_00215460((lua_State_2160c0 *)((lua_State_2160c0 *)L), 1);
-            ((lua_State_2160c0 *)L)->top++;
-            TValue_2160c0 *slot = ((lua_State_2160c0 *)L)->top;
+            LuaVMTObject* o = L->top;
+            LuaVMString* ts = FUN_00219430(L, fmt, (unsigned int)(f.e - fmt));
+            o->value.gc = (LuaVMGCObject*)ts;
+            o->tt = LUAVM_TSTRING;
+            if ((char*)L->stack_last - (char*)L->top <= (int)sizeof(LuaVMTObject))
+                FUN_00215460(L, 1);
+            L->top++;
+            LuaVMTObject* slot = L->top;
             switch (f.e[1]) {
             case 's': {
 #if defined(HULK_PTR64)
-                const char *s = __builtin_va_arg(argp, const char *);
+                const char* s = __builtin_va_arg(argp, const char*);
 #else
-                const char *s = *(const char **)argp;
+                const char* s = *(const char**)argp;
                 argp += 4;
                 f.ap2 += 4;
 #endif
-                FUN_00216060((lua_State_2160c0 *)((lua_State_2160c0 *)L), s);
+                FUN_00216060(L, s);
                 break;
             }
             case 'c': {
@@ -79,55 +56,55 @@ extern "C" const char *FUN_002160c0(void *L, const char *fmt, char *argp)
 #if defined(HULK_PTR64)
                 buff[0] = (char)__builtin_va_arg(argp, int);
 #else
-                buff[0] = (char)*(int *)argp;
+                buff[0] = (char)*(int*)argp;
                 argp += 4;
                 f.ap2 += 4;
 #endif
                 buff[1] = 0;
-                FUN_00216060((lua_State_2160c0 *)((lua_State_2160c0 *)L), buff);
+                FUN_00216060(L, buff);
                 break;
             }
             case 'd': {
 #if defined(HULK_PTR64)
                 slot->value.n = (hulk_freg)__builtin_va_arg(argp, int);
 #else
-                slot->value.n = (hulk_freg)*(int *)argp;
+                slot->value.n = (hulk_freg)*(int*)argp;
                 argp += 4;
                 f.ap2 += 4;
 #endif
-                slot->tt = 3;
-                if ((char *)((lua_State_2160c0 *)L)->stack_last - (char *)((lua_State_2160c0 *)L)->top <= 8)
-                    FUN_00215460((lua_State_2160c0 *)((lua_State_2160c0 *)L), 1);
-                ((lua_State_2160c0 *)L)->top++;
+                slot->tt = LUAVM_TNUMBER;
+                if ((char*)L->stack_last - (char*)L->top <= (int)sizeof(LuaVMTObject))
+                    FUN_00215460(L, 1);
+                L->top++;
                 break;
             }
             case 'f': {
 #if defined(HULK_PTR64)
                 slot->value.n = (hulk_freg)__builtin_va_arg(argp, double);
 #else
-                slot->value.n = (hulk_freg)*(double *)(f.ap2 + 8);
+                slot->value.n = (hulk_freg)*(double*)(f.ap2 + 8);
                 argp += 8;
                 f.ap2 += 8;
 #endif
-                slot->tt = 3;
-                if ((char *)((lua_State_2160c0 *)L)->stack_last - (char *)((lua_State_2160c0 *)L)->top <= 8)
-                    FUN_00215460((lua_State_2160c0 *)((lua_State_2160c0 *)L), 1);
-                ((lua_State_2160c0 *)L)->top++;
+                slot->tt = LUAVM_TNUMBER;
+                if ((char*)L->stack_last - (char*)L->top <= (int)sizeof(LuaVMTObject))
+                    FUN_00215460(L, 1);
+                L->top++;
                 break;
             }
             case '%':
-                FUN_00216060((lua_State_2160c0 *)((lua_State_2160c0 *)L), "%");
+                FUN_00216060(L, "%");
                 break;
             default: {
                 f.buff[0] = '%';
                 f.buff[1] = f.e[1];
                 f.buff[2] = 0;
-                TString_2160c0 *ds = FUN_00219430(((lua_State_2160c0 *)L), f.buff, strlen_inline(f.buff));
-                slot->value.ts = ds;
-                slot->tt = 4;
-                if ((char *)((lua_State_2160c0 *)L)->stack_last - (char *)((lua_State_2160c0 *)L)->top <= 8)
-                    FUN_00215460((lua_State_2160c0 *)((lua_State_2160c0 *)L), 1);
-                ((lua_State_2160c0 *)L)->top++;
+                LuaVMString* ds = FUN_00219430(L, f.buff, (unsigned int)strlen_inline(f.buff));
+                slot->value.gc = (LuaVMGCObject*)ds;
+                slot->tt = LUAVM_TSTRING;
+                if ((char*)L->stack_last - (char*)L->top <= (int)sizeof(LuaVMTObject))
+                    FUN_00215460(L, 1);
+                L->top++;
                 break;
             }
             }
@@ -136,8 +113,8 @@ extern "C" const char *FUN_002160c0(void *L, const char *fmt, char *argp)
             f.e = strchr(fmt, '%');
         }
     }
-    FUN_00216060((lua_State_2160c0 *)((lua_State_2160c0 *)L), fmt);
-    FUN_00217f20((lua_State_2160c0 *)((lua_State_2160c0 *)L), f.n + 1, (int)(((lua_State_2160c0 *)L)->top - ((lua_State_2160c0 *)L)->base) - 1);
-    ((lua_State_2160c0 *)L)->top -= f.n;
-    return ((lua_State_2160c0 *)L)->top[-1].value.ts->str;
+    FUN_00216060(L, fmt);
+    FUN_00217f20(L, f.n + 1, (int)(L->top - L->base) - 1);
+    L->top -= f.n;
+    return LUAVM_GETSTR(L->top[-1].value.gc);
 }

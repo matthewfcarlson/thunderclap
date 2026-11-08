@@ -1,14 +1,14 @@
+// lua_equal: the values at index1 and index2 are equal (primitive equality; 0 when either is absent).
+#include "decls/data/lua.h"
 #include "decls/data/engine/unknown.h"
-// data: zero_213010 = DAT_00426824
 
-#include "compat/ptr.h"
-typedef unsigned int U_213010;
-U_213010* __fastcall helper(U_213010, hulk_uintptr);
-extern "C" int __cdecl FUN_00215fa0(const void *, const void *);
-extern "C" hulk_uintptr __cdecl FUN_00213010(hulk_uintptr a, U_213010 b, U_213010 c) {
-    U_213010* x = helper(b, a);
-    U_213010* y = helper(c, a);
-    if (x != ((U_213010*)&DAT_00426824) && y != ((U_213010*)&DAT_00426824))
-        return ((unsigned int)FUN_00215fa0((unsigned int *)x, (unsigned int *)y));
+extern "C" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
+extern "C" int __cdecl FUN_00215fa0(const LuaVMTObject* t1, const LuaVMTObject* t2);
+
+extern "C" int __cdecl FUN_00213010(LuaVMState* L, int index1, int index2) {
+    LuaVMTObject* o1 = FUN_00212bb0(index1, L);
+    LuaVMTObject* o2 = FUN_00212bb0(index2, L);
+    if (o1 != LUAVM_NILOBJECT && o2 != LUAVM_NILOBJECT)
+        return FUN_00215fa0(o1, o2);
     return 0;
 }

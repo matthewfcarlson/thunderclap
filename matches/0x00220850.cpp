@@ -1,21 +1,14 @@
-struct Obj_220850 {
-    char pad0[0x47];
-    unsigned char value;
-};
-struct State_220850 {
-    Obj_220850* obj;
-    char pad4[8];
-    const char* context;
-    char pad10[0x14];
-    int level;
-};
-void __cdecl FUN_0021b060(const char*, const char*);
-extern "C" void __cdecl FUN_00220850(void * s, int amount) {
-    int sum = ((State_220850 *)s)->level + amount;
-    if (sum > (int)((State_220850 *)s)->obj->value) {
+// luaK_reserveregs: checkstack, then take n registers.
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_0021b060(LuaVMLexState* ls, const char* msg);
+
+extern "C" void __cdecl FUN_00220850(LuaVMFuncState* fs, int n) {
+    int sum = fs->freereg + n;
+    if (sum > (int)fs->f->maxstacksize) {
         if (sum >= 0xfa)
-            FUN_0021b060(((State_220850 *)s)->context, "function or expression too complex");
-        ((State_220850 *)s)->obj->value = (unsigned char)sum;
+            FUN_0021b060(fs->ls, "function or expression too complex");
+        fs->f->maxstacksize = (unsigned char)sum;
     }
-    ((State_220850 *)s)->level += amount;
+    fs->freereg += n;
 }

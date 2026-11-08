@@ -1,19 +1,55 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19135 inputs, branch coverage 14/14)
-// FUN_00217350 @ 0x00217350
-// FUN_00217350 @ 0x00217350
-struct Node { int value; }; struct State_217350 { char pad0[8]; int limit; char padC[12]; Node fallback; int pad1C; Node* cursor; int count; int active; char pad2C[8]; int pending; unsigned mode; }; struct Object { char pad[16]; State_217350* state; };
+// STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 14/14)
+// singlestep: one step of the collector's state machine (propagate, sweep strings, sweep, finalize); the budget left.
+#include "decls/data/lua.h"
+
 // equiv-conv: FUN_00216ac0 eax stack
-extern "C" int __cdecl FUN_00216ac0(int, void *);
+extern "C" int __cdecl FUN_00216ac0(int lim, LuaVMGlobal* g);
 // equiv-conv: FUN_00217050 eax
-extern "C" void __cdecl FUN_00217050(void *);
+extern "C" void __cdecl FUN_00217050(LuaVMState* L);
 // equiv-conv: FUN_00216e10 stack stack ebx
-extern "C" int __cdecl FUN_00216e10(int, int, void *);
-Node* __cdecl FUN_002171c0(Object*, Node*, int, int*, int);
+extern "C" int __cdecl FUN_00216e10(int all, int lim, LuaVMState* L);
+extern "C" LuaVMGCObject** __cdecl FUN_002171c0(LuaVMState* L, LuaVMGCObject** p, int all, int* lim, int* count);
 // equiv-conv: FUN_00216e70 ebx
-extern "C" void __cdecl FUN_00216e70(void *);
+extern "C" void __cdecl FUN_00216e70(LuaVMState* L);
 // equiv-conv: FUN_00216ed0 esi
-void __cdecl FUN_00216ed0(Object* object);
+extern "C" void __cdecl FUN_00216ed0(LuaVMState* L);
 // equiv-conv: FUN_00216f90 edi
-void __cdecl FUN_00216f90(Object* object);
+extern "C" void __cdecl FUN_00216f90(LuaVMState* L);
 // equiv-conv: FUN_00217350 eax stack
-int __cdecl FUN_00217350(Object* object, int amount) { State_217350* s=object->state; switch(s->mode) { case 0: if(s->active) return FUN_00216ac0(amount,(State_217350 *)s); FUN_00217050((Object *)object); return 0; case 1: { int result=FUN_00216e10(1,amount,(Object *)object); if(s->count>=s->limit) {s->count=0; s->mode=2;} return result; } case 2: { Node* p=FUN_002171c0(object,s->cursor,1,&amount,0); s->cursor=p; if(!p->value) { FUN_00216e70((Object *)object); s->cursor=&s->fallback; s->mode=3; } return amount; } case 3: if(s->pending) {FUN_00216ed0(object); return amount-80;} FUN_00216f90(object); return 0; default: return amount; } }
+extern "C" int __cdecl FUN_00217350(LuaVMState* L, int lim) {
+    LuaVMGlobal* g = L->l_G;
+    switch (g->gcstate) {
+    case 0:
+        if (g->gray)
+            return FUN_00216ac0(lim, g);
+        FUN_00217050(L);
+        return 0;
+    case 1: {
+        int result = FUN_00216e10(1, lim, L);
+        if (g->sweepstrgc >= g->strt.size) {
+            g->sweepstrgc = 0;
+            g->gcstate = 2;
+        }
+        return result;
+    }
+    case 2: {
+        LuaVMGCObject** p = FUN_002171c0(L, g->sweepgc, 1, &lim, 0);
+        g->sweepgc = p;
+        if (*p == 0) {
+            FUN_00216e70(L);
+            g->sweepgc = &g->rootgc;
+            g->gcstate = 3;
+        }
+        return lim;
+    }
+    case 3:
+        if (g->tmudata) {
+            FUN_00216ed0(L);
+            return lim - 80;
+        }
+        FUN_00216f90(L);
+        return 0;
+    default:
+        return lim;
+    }
+}

@@ -1,25 +1,17 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
-// FUN_0021a550 @ 0x0021a550
-#include "compat/ptr.h"
-struct Stream;
-typedef unsigned char * (__cdecl *Refill)(int, int, Stream **);
-struct Stream {
-    hulk_uintptr remaining;
-    unsigned char *cursor;
-    Refill refill;
-    int context;
-    int request;
-};
-int __cdecl FUN_0021a550(Stream *stream)
-{
-    Stream *available = stream;
-    unsigned char *data = stream->refill(stream->request, stream->context, &available);
-    if (data && available) {
-        stream->cursor = data;
-        stream->remaining = (hulk_uintptr)available - 1;
-        unsigned int result = *data;
-        stream->cursor = data + 1;
-        return result;
+// STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 4/4)
+// luaZ_fill: refill the stream's buffer from its reader; the first byte, or -1 at the end.
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_0021a550(LuaVMZio* z) {
+    // the original keeps size in z's argument slot: a reader that does not write it leaves z's address there
+    unsigned int size = (unsigned int)(hulk_uintptr)z;
+    const char* buff = z->reader(z->L, z->data, &size);
+    if (buff && size) {
+        z->p = buff;
+        z->n = size - 1;
+        unsigned int c = *(const unsigned char*)buff;
+        z->p = buff + 1;
+        return (int)c;
     }
     return -1;
 }

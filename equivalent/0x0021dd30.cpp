@@ -1,8 +1,7 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3078 inputs, branch coverage 17/17)
+// STATUS: equivalent (tools/equiv.py level 3: 3038 inputs, branch coverage 17/17)
 // FUN_0021dd30 @ 0x0021dd30
 // equiv-conv: FUN_0021dd30 eax
-extern "C" int FUN_0021dd30(int op)
-{
+extern "C" int FUN_0021dd30(int op) {
     switch (op) {
     case '+':
         return 0;

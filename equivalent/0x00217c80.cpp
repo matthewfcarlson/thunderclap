@@ -1,24 +1,21 @@
-// STATUS: equivalent (tools/equiv.py level 3: 301 inputs, branch coverage 12/12)
-// FUN_00217c80 @ 0x00217c80
-#include "compat/ptr.h"
+// STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 12/12)
+// l_strcmp: compare two strings by strcoll, part by part across embedded NULs.
 extern "C" unsigned int __cdecl strlen(const char*);
-int __cdecl FUN_003473c6(const char* a, const char* b);
-struct TString_217c80 {
-    char pad0[0xc];
-    unsigned int len;
-    char str[1];
-};
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_003473c6(const char* a, const char* b);
+
 // equiv-conv: FUN_00217c80 ecx eax
-extern "C" int FUN_00217c80(const void * ls, const void * rs) {
-    const char* l = ((const TString_217c80 *)ls)->str;
-    unsigned int ll = ((const TString_217c80 *)ls)->len;
-    const char* r = ((const TString_217c80 *)rs)->str;
-    unsigned int lr = ((const TString_217c80 *)rs)->len;
+extern "C" int __cdecl FUN_00217c80(const LuaVMString* ls, const LuaVMString* rs) {
+    const char* l = LUAVM_GETSTR(ls);
+    unsigned int ll = ls->len;
+    const char* r = LUAVM_GETSTR(rs);
+    unsigned int lr = rs->len;
     for (;;) {
         int temp = FUN_003473c6(l, r);
         if (temp != 0)
             return temp;
-        hulk_uintptr len = strlen(l);
+        unsigned int len = (unsigned int)strlen(l);
         if (len == lr)
             return len != ll;
         if (len == ll)

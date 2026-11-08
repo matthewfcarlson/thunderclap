@@ -1,30 +1,36 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 30/30)
-// FUN_002169e0 @ 0x002169e0
-struct Value_2169e0 { int type; unsigned char* data; };
-struct Entry_2169e0 { int unused; Value_2169e0* value; int rest[2]; };
-struct State_2169e0 { char pad0[8]; Value_2169e0* boundary; char padC[8]; Entry_2169e0* last; char pad18[4]; Value_2169e0* first; int capacity; char pad24[4]; Entry_2169e0* entries; unsigned short entryCapacity; char pad2E[18]; int type; unsigned char* data; };
-extern "C" void __cdecl FUN_002164b0(void *, void *);
-extern "C" void __cdecl FUN_00215410(void *, unsigned int);
-extern "C" int __cdecl FUN_002153d0(void *, int);
+// STATUS: equivalent (tools/equiv.py level 3: 145 inputs, branch coverage 30/30)
+// traversestack: mark a thread's globals and live stack, clear the slots above, and shrink the CallInfo array and
+// the stack when little is used.
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_002164b0(LuaVMGlobal* g, LuaVMGCObject* o);
+extern "C" void __cdecl FUN_00215410(LuaVMState* L, int newsize);
+extern "C" void __cdecl FUN_002153d0(LuaVMState* L, int newsize);
+
 // equiv-conv: FUN_002169e0 edi stack
-extern "C" void __cdecl FUN_002169e0(void * s, void* context) {
- if(((State_2169e0 *)s)->type >= 4 && (((State_2169e0 *)s)->data[5]&3)) FUN_002164b0(context,(unsigned char *)(((State_2169e0 *)s)->data));
- Value_2169e0* end=((State_2169e0 *)s)->boundary;
- Value_2169e0* maximum=end;
- for(Entry_2169e0* e=((State_2169e0 *)s)->entries; e<=((State_2169e0 *)s)->last; ++e) if(maximum<e->value) maximum=e->value;
- Value_2169e0* v=((State_2169e0 *)s)->first;
- if(v<end) {
- do {
- if(v->type>=4 && (v->data[5]&3)) FUN_002164b0(context,(unsigned char *)(v->data));
- ++v;
- } while(v<((State_2169e0 *)s)->boundary);
- }
- for(;v<=maximum;++v) v->type=0;
- int used=(int)((char*)((State_2169e0 *)s)->last-(char*)((State_2169e0 *)s)->entries);
- used=(used>>4)<<2;
- unsigned int cap=((State_2169e0 *)s)->entryCapacity;
- if(used<(int)cap && cap>16) FUN_00215410((State_2169e0 *)((State_2169e0 *)s),cap>>1);
- int count=(int)((char*)maximum-(char*)((State_2169e0 *)s)->first);
- count=(count>>3)<<2;
- if(count<((State_2169e0 *)s)->capacity && ((State_2169e0 *)s)->capacity>90) FUN_002153d0((State_2169e0 *)((State_2169e0 *)s),((State_2169e0 *)s)->capacity/2);
+extern "C" void __cdecl FUN_002169e0(LuaVMState* L, LuaVMGlobal* g) {
+    if (L->_gt.tt >= LUAVM_TSTRING && (L->_gt.value.gc->marked & 3))
+        FUN_002164b0(g, L->_gt.value.gc);
+    LuaVMTObject* top = L->top;
+    LuaVMTObject* lim = top;
+    for (LuaVMCallInfo* ci = L->base_ci; ci <= L->ci; ++ci)
+        if (lim < ci->top)
+            lim = ci->top;
+    LuaVMTObject* o = L->stack;
+    if (o < top) {
+        do {
+            if (o->tt >= LUAVM_TSTRING && (o->value.gc->marked & 3))
+                FUN_002164b0(g, o->value.gc);
+            ++o;
+        } while (o < L->top);
+    }
+    for (; o <= lim; ++o)
+        o->tt = LUAVM_TNIL;
+    int ci_used = (int)(L->ci - L->base_ci) * 4;
+    unsigned int size_ci = L->size_ci;
+    if (ci_used < (int)size_ci && size_ci > 16)
+        FUN_00215410(L, (int)(size_ci >> 1));
+    int s_used = (int)(lim - L->stack) * 4;
+    if (s_used < L->stacksize && L->stacksize > 90)
+        FUN_002153d0(L, L->stacksize / 2);
 }

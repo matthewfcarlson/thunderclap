@@ -1,20 +1,20 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 7/7)
-// FUN_00215240 @ 0x00215240
-struct ErrorValue { int kind; int detail; };
-struct ErrorContext { char pad[8]; ErrorValue* next; };
-int __cdecl FUN_00219430(ErrorContext*, const char*, int);
+// seterrorobj: the error object of a failed protected call at oldtop (the message, or the fixed memory /
+// error-handler messages), and the top just above it.
+#include "decls/data/lua.h"
+
+extern "C" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
+
 // equiv-conv: FUN_00215240 eax ecx edi
-extern "C" void FUN_00215240(int code, void * output_, void * context)
-{
-    ErrorValue * output = (ErrorValue *)output_;
-    if (code == 1 || code == 3) {
-        *output = ((ErrorContext *)context)->next[-1];
-    } else if (code == 4) {
-        output->detail = FUN_00219430(((ErrorContext *)context), "not enough memory", 0x11);
-        output->kind = 4;
-    } else if (code == 5) {
-        output->detail = FUN_00219430(((ErrorContext *)context), "error in error handling", 0x17);
-        output->kind = 4;
+extern "C" void __cdecl FUN_00215240(int errcode, LuaVMTObject* oldtop, LuaVMState* L) {
+    if (errcode == 1 || errcode == 3) {
+        LUAVM_SETOBJ(oldtop, L->top - 1);
+    } else if (errcode == 4) {
+        oldtop->value.gc = (LuaVMGCObject*)FUN_00219430(L, "not enough memory", 0x11);
+        oldtop->tt = LUAVM_TSTRING;
+    } else if (errcode == 5) {
+        oldtop->value.gc = (LuaVMGCObject*)FUN_00219430(L, "error in error handling", 0x17);
+        oldtop->tt = LUAVM_TSTRING;
     }
-    ((ErrorContext *)context)->next = output + 1;
+    L->top = oldtop + 1;
 }

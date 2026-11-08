@@ -1,18 +1,20 @@
-typedef unsigned int u32_33e200;
-struct Obj_33e200 {};
-void __cdecl f1(Obj_33e200*, int);
-void __cdecl f2(Obj_33e200*, int);
-void __cdecl f3(Obj_33e200*, int);
-int __cdecl f4(Obj_33e200*, int, int, int);
-void __cdecl f5(Obj_33e200*, int);
-void __cdecl f6(Obj_33e200*, int);
-void __cdecl f7(Obj_33e200*);
-void __cdecl target(Obj_33e200* p) {
-    f1(p, 2);
-    f2(p, 2);
-    f3(p, 1);
-    int x = f4(p, 0, -1, 1);
-    f5(p, x == 0);
-    f6(p, 1);
-    f7(p);
+// luaB_xpcall
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_00339dc0(LuaVMState* L, int narg);
+extern "C" void __cdecl FUN_00212d80(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_00212e20(LuaVMState* L, int idx);
+extern "C" int __cdecl FUN_002139f0(LuaVMState* L, int nargs, int nresults, int errfunc);
+extern "C" void __cdecl FUN_00213520(LuaVMState* L, int b);
+extern "C" void __cdecl FUN_00212e60(LuaVMState* L, int idx);
+extern "C" int __cdecl FUN_00212d70(LuaVMState* L);
+
+extern "C" int __cdecl FUN_0033e200(LuaVMState* L) {
+    FUN_00339dc0(L, 2);
+    FUN_00212d80(L, 2);
+    FUN_00212e20(L, 1);
+    int status = FUN_002139f0(L, 0, -1, 1);
+    FUN_00213520(L, status == 0);
+    FUN_00212e60(L, 1);
+    return FUN_00212d70(L);
 }

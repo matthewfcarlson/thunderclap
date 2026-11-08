@@ -1,22 +1,17 @@
-struct Thing_213720 {
-    char pad[8];
-    unsigned int* out;
-    char pad2[0x34];
-};
-struct Result_213720 {
-    int tag;
-    char* data;
-};
-Result_213720* __fastcall FUN_00212bb0(void* other, Thing_213720* self);
-extern "C" void __cdecl FUN_00213720(Thing_213720* self, void* other) {
-    Result_213720* r = FUN_00212bb0(other, self);
-    unsigned int* src;
-    if (r->tag == 6 && r->data[6] == 0)
-        src = (unsigned int*)(r->data + 0x10);
+// lua_getfenv: push the globals of the Lua function at idx (the thread's globals otherwise).
+#include "decls/data/lua.h"
+
+extern "C" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
+
+extern "C" void __cdecl FUN_00213720(LuaVMState* L, int idx) {
+    LuaVMTObject* o = FUN_00212bb0(idx, L);
+    LuaVMTObject* src;
+    if (o->tt == LUAVM_TFUNCTION && ((LuaVMClosure*)o->value.gc)->c.isC == 0)
+        src = &((LuaVMClosure*)o->value.gc)->l.g;
     else
-        src = (unsigned int*)((char*)self + 0x40);
-    unsigned int* dst = self->out;
-    dst[0] = src[0];
-    dst[1] = src[1];
-    self->out += 2;
+        src = &L->_gt;
+    LuaVMTObject* dst = L->top;
+    dst->tt = src->tt;
+    dst->value = src->value;
+    L->top++;
 }

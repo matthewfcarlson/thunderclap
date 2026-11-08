@@ -1,34 +1,20 @@
-// STATUS: equivalent (tools/equiv.py level 3: 12241 inputs, branch coverage 6/6)
-// FUN_00213870 @ 0x00213870
-// FUN_00213870 @ 0x00213870
-struct TObject_213870 {
-    int tt;
-    void *gc;
-};
-struct GCObject_213870 {
-    char pad[5];
-    unsigned char marked;
-};
-struct lua_State_213870 {
-    char pad[8];
-    TObject_213870 *top;
-};
+// STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 6/6)
+// lua_rawseti: t[n] = the top value for the table at idx (no metamethods; the write barrier); pops it.
+#include "decls/data/lua.h"
 
-// index2adr: edx = L, ecx = idx
-TObject_213870 *__fastcall FUN_00212bb0(int idx, lua_State_213870 *L);
-TObject_213870 *__cdecl FUN_00219f60(lua_State_213870 *L, void *h, int key);
-void __cdecl FUN_00217100(lua_State_213870 *L, void *h, void *v);
+extern "C" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
+extern "C" LuaVMTObject* __cdecl FUN_00219f60(LuaVMState* L, LuaVMTable* t, int key);
+extern "C" void __cdecl FUN_00217100(LuaVMState* L, LuaVMGCObject* o, LuaVMGCObject* v);
 
-extern "C" void FUN_00213870(lua_State_213870 *L, int idx, int key)
-{
-    TObject_213870 *t = FUN_00212bb0(idx, L);
-    TObject_213870 *val = L->top - 1;
-    TObject_213870 *slot = FUN_00219f60(L, t->gc, key);
+extern "C" void __cdecl FUN_00213870(LuaVMState* L, int idx, int n) {
+    LuaVMTObject* t = FUN_00212bb0(idx, L);
+    LuaVMTObject* val = L->top - 1;
+    LuaVMTObject* slot = FUN_00219f60(L, (LuaVMTable*)t->value.gc, n);
     *slot = *val;
-    if (L->top[-1].tt >= 4) {
-        GCObject_213870 *v = (GCObject_213870 *)L->top[-1].gc;
+    if (L->top[-1].tt >= LUAVM_TSTRING) {
+        LuaVMGCObject* v = L->top[-1].value.gc;
         if ((v->marked & 3) != 0) {
-            GCObject_213870 *h = (GCObject_213870 *)t->gc;
+            LuaVMGCObject* h = t->value.gc;
             if ((h->marked & 4) != 0)
                 FUN_00217100(L, h, v);
         }

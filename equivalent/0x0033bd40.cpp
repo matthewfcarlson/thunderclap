@@ -1,15 +1,14 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 10/10)
 // FUN_0033bd40 @ 0x0033bd40
 // FUN_0033bd40: Lua string.sub
-#include "compat/ptr.h"
-struct lua_State;
+#include "decls/data/lua.h"
 
-const char *__cdecl FUN_00339df0(lua_State *L, int arg, unsigned int *len);
-int __cdecl FUN_00339f70(lua_State *L, int arg);
-int __cdecl FUN_00339fe0(lua_State *L, int arg, int def);
-void __cdecl FUN_00213380(lua_State *L, const char *s, hulk_uintptr len);
+extern "C" const char *__cdecl FUN_00339df0(LuaVMState *L, int narg, unsigned int *len);
+extern "C" int __cdecl FUN_00339f70(LuaVMState *L, int narg);
+extern "C" int __cdecl FUN_00339fe0(LuaVMState *L, int narg, int def);
+extern "C" void __cdecl FUN_00213380(LuaVMState *L, const char *s, unsigned int len);
 
-extern "C" int __cdecl FUN_0033bd40(lua_State *L)
+extern "C" int __cdecl FUN_0033bd40(LuaVMState *L)
 {
     unsigned int l;
     const char *s = FUN_00339df0(L, 1, &l);
@@ -24,7 +23,7 @@ extern "C" int __cdecl FUN_0033bd40(lua_State *L)
     if (end > (int)l)
         end = (int)l;
     if (start <= end)
-        FUN_00213380(L, s + start - 1, end - start + 1);
+        FUN_00213380(L, s + start - 1, (unsigned int)(end - start + 1));
     else
         FUN_00213380(L, "", 0);
     return 1;

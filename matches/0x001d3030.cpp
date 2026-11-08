@@ -1,21 +1,22 @@
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
+#include "decls/data/lua.h"
 
-extern "C" void FUN_002133d0(void*, int);
-extern "C" void FUN_00213600(void*, int);
-extern "C" int FUN_00213190(void*, int);
-extern "C" void FUN_00212d80(void*, int);
+extern "C" void __cdecl FUN_002133d0(LuaVMState*, const char*);
+extern "C" void __cdecl FUN_00213600(LuaVMState*, int);
+extern "C" const char* __cdecl FUN_00213190(LuaVMState*, int);
+extern "C" void __cdecl FUN_00212d80(LuaVMState*, int);
 
 class Obj_1d3030 {
   public:
     char pad[8];
-    void* ptr;
+    LuaVMState* ptr;
     char Check(const char*, int, int);
-    hulk_intptr Run(const char*, hulk_intptr);
+    const char* Run(const char*, const char*);
 };
 
-hulk_intptr Obj_1d3030::Run(const char* a, hulk_intptr b) {
-    int result = 0;
+const char* Obj_1d3030::Run(const char* a, const char* b) {
+    const char* result = 0;
     if (Check(DAT_003f6378, 1, 1)) {
         if (Check(a, 0, 1)) {
             if (Check(DAT_00422618, 0, 1)) {

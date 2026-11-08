@@ -1,35 +1,38 @@
-// STATUS: equivalent (tools/equiv.py level 3: 14847 inputs, branch coverage 12/12)
-// FUN_00215d10 @ 0x00215d10
-// FUN_00215d10 @ 0x00215d10
-struct Entry_215d10 { unsigned int a,b; };
-struct Frame_215d10 { Entry_215d10* base; char pad[12]; };
-struct State_215d10 { char pad0[8]; Entry_215d10* top; Entry_215d10* base; char pad10[4]; Frame_215d10* current; Entry_215d10* limit; Entry_215d10* storage; int count; char pad24[4]; Frame_215d10* frames; unsigned short size; unsigned short zero; char pad30; unsigned char flag; unsigned char active; };
-extern void __cdecl FUN_00215a60();
+// STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 12/12)
+// lua_resume: resume a suspended coroutine (or start it); on an error the thread is reset to its base.
+// The suspended flag is the byte at 0x32 (LuaVMState.status in the records).
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_00215a60(LuaVMState* L, void* ud);
 // equiv-conv: FUN_00215b00 esi edx
-extern "C" int __cdecl FUN_00215b00(void *, const char *);
-extern int __cdecl FUN_002152f0(State_215d10*, void (__cdecl*)(), int*);
-extern void __cdecl FUN_00219660(State_215d10*, Entry_215d10*);
+extern "C" int __cdecl FUN_00215b00(LuaVMState* L, const char* msg);
+extern "C" int __cdecl FUN_002152f0(LuaVMState* L, void(__cdecl* f)(LuaVMState* L, void* ud), void* ud);
+extern "C" void __cdecl FUN_00219660(LuaVMState* L, LuaVMStkId level);
 // equiv-conv: FUN_00215240 eax ecx edi
-extern "C" void __cdecl FUN_00215240(int, void *, void *);
-extern "C" void __cdecl FUN_00215410(void *, unsigned int);
-extern "C" int __cdecl FUN_00215d10(State_215d10* s, int n) {
- if (!s->active) {
-  if (s->current != s->frames) return FUN_00215b00((State_215d10 *)s, "cannot resume non-suspended coroutine");
-  if(n >= s->top-s->base) return FUN_00215b00((State_215d10 *)s, "cannot resume dead coroutine");
- }
- unsigned char old = s->flag;
- int result=FUN_002152f0(s,FUN_00215a60,&n);
- if(result) {
-  s->current=s->frames;
-  Entry_215d10* base=s->current->base;
-  s->base=base;
-  s->zero=0;
-  FUN_00219660(s,base);
-  FUN_00215240(result,(Entry_215d10 *)(s->base),(State_215d10 *)s);
-  bool grow=s->size>0x1000;
-  s->flag=old;
-  s->limit=s->storage+s->count-1;
-  if(grow && (s->current-s->frames)+1<0x1000) FUN_00215410((State_215d10 *)s,0x1000);
- }
- return result;
+extern "C" void __cdecl FUN_00215240(int errcode, LuaVMTObject* oldtop, LuaVMState* L);
+extern "C" void __cdecl FUN_00215410(LuaVMState* L, int newsize);
+
+extern "C" int __cdecl FUN_00215d10(LuaVMState* L, int nargs) {
+    if (!L->status) {
+        if (L->ci != L->base_ci)
+            return FUN_00215b00(L, "cannot resume non-suspended coroutine");
+        if (nargs >= L->top - L->base)
+            return FUN_00215b00(L, "cannot resume dead coroutine");
+    }
+    unsigned char old_allowhooks = L->allowhook;
+    int status = FUN_002152f0(L, FUN_00215a60, &nargs);
+    if (status) {
+        L->ci = L->base_ci;
+        LuaVMStkId base = L->ci->base;
+        L->base = base;
+        L->nCcalls = 0;
+        FUN_00219660(L, base);
+        FUN_00215240(status, L->base, L);
+        bool grow = L->size_ci > 0x1000;
+        L->allowhook = old_allowhooks;
+        L->stack_last = L->stack + L->stacksize - 1;
+        if (grow && (L->ci - L->base_ci) + 1 < 0x1000)
+            FUN_00215410(L, 0x1000);
+    }
+    return status;
 }

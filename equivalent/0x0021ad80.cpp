@@ -1,19 +1,18 @@
-// STATUS: equivalent (tools/equiv.py level 3: 18271 inputs, branch coverage 0/0)
-// FUN_0021ad80 @ 0x0021ad80
-// FUN_0021ad80 @ 0x0021ad80
-#include "compat/ptr.h"
-struct Values { unsigned int a,b,c,d; };
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// luaU_dump: dump a function as a precompiled chunk through w.
+#include "decls/data/lua.h"
+
 // equiv-conv: FUN_0021acc0 esi
-extern "C" void __cdecl FUN_0021acc0(void *);
-void __cdecl FUN_0021ab30(unsigned int, unsigned int, Values *);
-int __cdecl FUN_0021ad80(hulk_uintptr p1, unsigned int p2, unsigned int p3, unsigned int p4, unsigned int p5)
-{
-    Values v;
-    v.a = p1;
-    v.b = p3;
-    v.c = p4;
-    v.d = p5;
-    FUN_0021acc0((Values *)(&v));
-    FUN_0021ab30(p2, 0, &v);
+extern "C" void __cdecl FUN_0021acc0(LuaVMDumpState* D);
+extern "C" void __cdecl FUN_0021ab30(const LuaVMProto* f, const LuaVMString* p, LuaVMDumpState* D);
+
+extern "C" int __cdecl FUN_0021ad80(LuaVMState* L, const LuaVMProto* f, LuaVMWriter w, void* data, int strip) {
+    LuaVMDumpState D;
+    D.L = L;
+    D.writer = w;
+    D.data = data;
+    D.strip = strip;
+    FUN_0021acc0(&D);
+    FUN_0021ab30(f, 0, &D);
     return 1;
 }

@@ -1,16 +1,16 @@
-#include "compat/ptr.h"
-typedef unsigned int U_339d70;
-extern int __cdecl GetType(int, int);
-extern int __cdecl GetName(int, int);
-extern int __cdecl Format(int, const char*, ...);
-extern void __cdecl Report(int, int, int);
-void __cdecl Target(hulk_intptr a, int b, int c) {
-    int x = GetType(a, b);
+// luaL_checktype
+#include "decls/data/lua.h"
+extern "C" int __cdecl FUN_00212f00(LuaVMState* L, int idx);
+extern "C" const char* __cdecl FUN_00212f20(LuaVMState* L, int t);
+extern "C" const char* __cdecl FUN_00213470(LuaVMState* L, const char* fmt, ...);
+extern "C" int __cdecl FUN_00339c30(LuaVMState* L, int narg, const char* extramsg);
+extern "C" void __cdecl FUN_00339d70(LuaVMState* a, int b, int c) {
+    int x = FUN_00212f00(a, b);
     if (x != c) {
-        int y = GetName(a, c);
-        int z = GetType(a, b);
-        z = GetName(a, z);
-        z = Format(a, "%s expected, got %s", y, z);
-        Report(a, b, z);
+        const char* y = FUN_00212f20(a, c);
+        int t = FUN_00212f00(a, b);
+        const char* z = FUN_00212f20(a, t);
+        z = FUN_00213470(a, "%s expected, got %s", y, z);
+        FUN_00339c30(a, b, z);
     }
 }

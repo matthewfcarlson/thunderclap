@@ -1,28 +1,14 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 6/6)
-// FUN_0021c340 @ 0x0021c340
-// Lua 5.0 check_match: expect token `what`, else report an error (mentioning `who` and its line).
-struct Token_21c340 {
-    int token;
-    int seminfo;
-};
+// STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 6/6)
+// check_match: expect token what, else report an error (mentioning who and its line when it is another line).
+#include "decls/data/lua.h"
 
-struct LexState_21c340 {
-    int current;
-    int linenumber;
-    int lastline;
-    Token_21c340 t;                    // 0x0c
-    Token_21c340 lookahead;            // 0x14
-    void *fs;                   // 0x1c
-    void *L;                    // 0x20
-};
-
-extern "C" int __cdecl FUN_0021bbc0(void *, void *);                // llex
-const char *__cdecl FUN_0021af00(LexState_21c340 *ls, int token);           // token2str
-const char *__cdecl FUN_00216320(void *L, const char *fmt, ...);     // luaO_pushfstring
-void __cdecl FUN_0021b060(LexState_21c340 *ls, const char *msg);            // lexerror
+extern "C" int __cdecl FUN_0021bbc0(LuaVMLexState* ls, LuaVMSemInfo* seminfo);    // llex
+extern "C" const char* __cdecl FUN_0021af00(LuaVMLexState* ls, int token);        // luaX_token2str
+extern "C" const char* __cdecl FUN_00216320(LuaVMState* L, const char* fmt, ...); // luaO_pushfstring
+extern "C" void __cdecl FUN_0021b060(LuaVMLexState* ls, const char* msg);         // luaX_syntaxerror
 
 // equiv-conv: FUN_0021c340 eax esi edi stack
-void FUN_0021c340(int where, LexState_21c340 *ls, int what, int who) {
+extern "C" void FUN_0021c340(int where, LuaVMLexState* ls, int what, int who) {
     if (ls->t.token == what) {
         ls->lastline = ls->linenumber;
         if (ls->lookahead.token != 287) {
@@ -30,7 +16,7 @@ void FUN_0021c340(int where, LexState_21c340 *ls, int what, int who) {
             ls->t.seminfo = ls->lookahead.seminfo;
             ls->lookahead.token = 287;
         } else {
-            ls->t.token = FUN_0021bbc0((LexState_21c340 *)ls, (int *)(&ls->t.seminfo));
+            ls->t.token = FUN_0021bbc0(ls, &ls->t.seminfo);
         }
         return;
     }

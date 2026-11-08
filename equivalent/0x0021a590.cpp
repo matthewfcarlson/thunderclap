@@ -1,19 +1,19 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 7/8, incomplete)
-// FUN_0021a590 @ 0x0021a590
-#include "compat/ptr.h"
-struct Stream { hulk_uintptr remaining; unsigned char *cursor; unsigned char *(__cdecl *refill)(void *, void *, unsigned int *); void *arg1; void *arg2; };
-extern "C" unsigned int __cdecl FUN_0021a590(void *stream)
-{
-    if (((Stream *)stream)->remaining == 0) {
-        unsigned int count = (unsigned int)((Stream *)stream);
-        unsigned char *data = ((Stream *)stream)->refill(((Stream *)stream)->arg2, ((Stream *)stream)->arg1, &count);
-        if (data == 0 || count == 0)
-            return 0xffffffff;
-        ((Stream *)stream)->cursor = data;
-        ((Stream *)stream)->remaining = count - 1;
-        ((Stream *)stream)->cursor = data + 1;
-        ((Stream *)stream)->remaining = count;
-        ((Stream *)stream)->cursor = data;
+// STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 7/8, incomplete)
+// luaZ_lookahead: the next byte without consuming it (refilling an empty buffer), or -1 at the end.
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_0021a590(LuaVMZio* z) {
+    if (z->n == 0) {
+        // the original keeps size in z's argument slot: a reader that does not write it leaves z's address there
+        unsigned int size = (unsigned int)(hulk_uintptr)z;
+        const char* buff = z->reader(z->L, z->data, &size);
+        if (buff == 0 || size == 0)
+            return -1;
+        z->p = buff;
+        z->n = size - 1;
+        z->p = buff + 1;
+        z->n = size;
+        z->p = buff;
     }
-    return *((Stream *)stream)->cursor;
+    return *(const unsigned char*)z->p;
 }

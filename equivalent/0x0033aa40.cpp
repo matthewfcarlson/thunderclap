@@ -1,45 +1,30 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1519 inputs, branch coverage 32/32)
+// STATUS: equivalent (tools/equiv.py level 3: 2615 inputs, branch coverage 32/32)
 // FUN_0033aa40 @ 0x0033aa40
 // cl-flags: /GS
-#include "compat/ptr.h"
+#include "decls/data/lua.h"
 
-struct lua_State;
-
-struct lua_Debug_33aa40 {
-    int event;
-    const char* name;
-    const char* namewhat;
-    const char* what;
-    const char* source;
-    int currentline;
-    int nups;
-    int linedefined;
-    char short_src[60];
-    int i_ci;
-};
-
-int __cdecl FUN_00212d70(lua_State* L);
-int __cdecl FUN_00212f00(lua_State* L, int idx);
-lua_State* __cdecl FUN_00213290(lua_State* L, int idx);
-int __cdecl FUN_00212fb0(lua_State* L, int idx);
-void __cdecl FUN_00213380(lua_State* L, const char* s, hulk_uintptr len);
-extern "C" const char* __cdecl FUN_00213470(lua_State* L, const char* fmt, ...);
-extern "C" void __cdecl FUN_00213c90(lua_State* L, int n);
-int __cdecl FUN_00213fc0(lua_State* L, int level, lua_Debug_33aa40* ar);
-int __cdecl FUN_00214bd0(lua_State* L, const char* what, lua_Debug_33aa40* ar);
+extern "C" int __cdecl FUN_00212d70(LuaVMState* L);
+extern "C" int __cdecl FUN_00212f00(LuaVMState* L, int idx);
+extern "C" LuaVMState* __cdecl FUN_00213290(LuaVMState* L, int idx);
+extern "C" int __cdecl FUN_00212fb0(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_00213380(LuaVMState* L, const char* s, unsigned int len);
+extern "C" const char* __cdecl FUN_00213470(LuaVMState* L, const char* fmt, ...);
+extern "C" void __cdecl FUN_00213c90(LuaVMState* L, int n);
+extern "C" int __cdecl FUN_00213fc0(LuaVMState* L, int level, LuaVMDebug* ar);
+extern "C" int __cdecl FUN_00214bd0(LuaVMState* L, const char* what, LuaVMDebug* ar);
 
 struct Frame_33aa40 {
     int arg;
     int firstpart;
-    lua_Debug_33aa40 ar;
+    LuaVMDebug ar;
 };
 
 // Lua 5.0 errorfb (stack traceback builder)
-extern "C" int FUN_0033aa40(lua_State* L)
+extern "C" int __cdecl FUN_0033aa40(LuaVMState* L)
 {
     Frame_33aa40 f;
     int level = 1;
-    lua_State* L1;
+    LuaVMState* L1;
 
     f.firstpart = 1;
     if (FUN_00212f00(L, 1) == 8) {

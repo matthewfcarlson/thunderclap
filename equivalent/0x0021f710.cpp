@@ -1,33 +1,38 @@
-// STATUS: equivalent (tools/equiv.py level 3: 9112 inputs, branch coverage 6/6)
-// FUN_0021f710 @ 0x0021f710
+// STATUS: equivalent (tools/equiv.py level 3: 3022 inputs, branch coverage 6/6)
+// luaY_parser: compile the stream z (named name) into the main function's prototype.
 // cl-flags: /GS
-#include "compat/ptr.h"
-struct State_21f710 { unsigned int a, value, savedValue, result, savedToken, token, tokenData; char pad[12]; unsigned int option; unsigned int pad2; unsigned int zero; char buffer[520]; };
-extern "C" void * __cdecl FUN_00219430(void *, const char *, unsigned);
-extern "C" void __cdecl FUN_0021b160(void*, State_21f710*, unsigned int, int);
+#include "decls/data/lua.h"
+
+extern "C" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
+extern "C" void __cdecl FUN_0021b160(LuaVMState* L, LuaVMLexState* ls, LuaVMZio* z, LuaVMString* source);
 // equiv-conv: FUN_0021cac0 ecx eax
-extern "C" void FUN_0021cac0(State_21f710*, char*);
-extern "C" unsigned int __cdecl FUN_0021bbc0(State_21f710*, unsigned int*);
-extern "C" void __cdecl FUN_0021f640(State_21f710*);
-extern "C" void __cdecl FUN_0021b060(State_21f710*, const char*);
-extern "C" void __cdecl FUN_0021cb80(State_21f710*);
-extern "C" unsigned int __cdecl FUN_0021f710(void* context, unsigned int arg2, unsigned int option, const char* text) {
- State_21f710 s;
- s.option = option;
- s.zero = 0;
- unsigned int length = 0;
- while(text[length]) ++length;
- int v = ((int)(hulk_uintptr)FUN_00219430(context, text, (unsigned int)length));
- FUN_0021b160(context, &s, arg2, v);
- FUN_0021cac0(&s, s.buffer);
- s.savedValue = s.value;
- unsigned int token = s.token;
- if(token != 0x11f) { s.savedToken = s.tokenData; s.token = 0x11f; }
- else token = FUN_0021bbc0(&s, &s.savedToken);
- s.result = token;
- FUN_0021f640(&s);
- if(s.result != 0x11f) FUN_0021b060(&s, "<eof> expected");
- FUN_0021cb80(&s);
- unsigned int result = *(unsigned int*)s.buffer;
- return result;
+extern "C" void FUN_0021cac0(LuaVMLexState* ls, LuaVMFuncState* fs);
+extern "C" int __cdecl FUN_0021bbc0(LuaVMLexState* ls, LuaVMSemInfo* seminfo);
+extern "C" void __cdecl FUN_0021f640(LuaVMLexState* ls);
+extern "C" void __cdecl FUN_0021b060(LuaVMLexState* ls, const char* msg);
+extern "C" void __cdecl FUN_0021cb80(LuaVMLexState* ls);
+extern "C" LuaVMProto* __cdecl FUN_0021f710(LuaVMState* L, LuaVMZio* z, LuaVMBuffer* buff, const char* name) {
+    LuaVMLexState lexstate;
+    LuaVMFuncState funcstate;
+    lexstate.buff = buff;
+    lexstate.nestlevel = 0;
+    unsigned int length = 0;
+    while (name[length])
+        ++length;
+    LuaVMString* source = FUN_00219430(L, name, length);
+    FUN_0021b160(L, &lexstate, z, source);
+    FUN_0021cac0(&lexstate, &funcstate);
+    lexstate.lastline = lexstate.linenumber;
+    int token = lexstate.lookahead.token;
+    if (token != 0x11f) {
+        lexstate.t.seminfo = lexstate.lookahead.seminfo;
+        lexstate.lookahead.token = 0x11f;
+    } else
+        token = FUN_0021bbc0(&lexstate, &lexstate.t.seminfo);
+    lexstate.t.token = token;
+    FUN_0021f640(&lexstate);
+    if (lexstate.t.token != 0x11f)
+        FUN_0021b060(&lexstate, "<eof> expected");
+    FUN_0021cb80(&lexstate);
+    return funcstate.f;
 }

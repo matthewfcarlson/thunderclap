@@ -1,17 +1,12 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 16/16)
 // FUN_0033c520 @ 0x0033c520
-struct State;
+// lstrlib matchbalance
+#include "decls/data/lua.h"
 
-struct MatchState_33c520 {
-    char pad0[4];
-    const char *src_end;    // 0x4
-    State *L;               // 0x8
-};
-
-void FUN_00338e20(State *L, const char *msg, ...);
+extern "C" int __cdecl FUN_00338e20(LuaVMState* L, const char* fmt, ...);
 
 // equiv-conv: FUN_0033c520 eax ecx ebx
-const char *FUN_0033c520(const char *p, const char *s, MatchState_33c520 *ms)
+const char *FUN_0033c520(const char *p, const char *s, LuaVMMatchState *ms)
 {
     if (*p == 0 || p[1] == 0)
         FUN_00338e20(ms->L, "unbalanced pattern");

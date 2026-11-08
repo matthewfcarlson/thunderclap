@@ -1,40 +1,30 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 13/13)
-// FUN_00213ba0 @ 0x00213ba0
-struct Global_213ba0 {
-    char pad0[0x48];
-    unsigned threshold;
-    unsigned total;
-};
+// STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 13/13)
+// lua_gc: stop, restart, collect, count (KB) or step the collector.
+#include "decls/data/lua.h"
 
-struct lua_State_213ba0 {
-    char pad0[0x10];
-    Global_213ba0 *g;
-};
+extern "C" void __cdecl FUN_00217490(LuaVMState* L);
+extern "C" void __cdecl FUN_00217440(LuaVMState* L);
 
-void __cdecl FUN_00217490(lua_State_213ba0 *L);
-void __cdecl FUN_00217440(lua_State_213ba0 *L);
-
-extern "C" int __cdecl FUN_00213ba0(lua_State_213ba0 *L, int what, int data)
-{
-    Global_213ba0 *g = L->g;
+extern "C" int __cdecl FUN_00213ba0(LuaVMState* L, int what, int data) {
+    LuaVMGlobal* g = L->l_G;
     switch (what) {
     case 0:
-        g->threshold = 0x7fffffff;
+        g->GCthreshold = 0x7fffffff;
         return 0;
     case 1:
-        g->threshold = g->total;
+        g->GCthreshold = g->totalbytes;
         return 0;
     case 2:
         FUN_00217490(L);
         return 0;
     case 3:
-        return g->total >> 10;
+        return g->totalbytes >> 10;
     case 4:
         if (data > 0) {
             int n = data;
             do {
-                if (g->total < g->threshold)
-                    g->threshold = g->total;
+                if (g->totalbytes < g->GCthreshold)
+                    g->GCthreshold = g->totalbytes;
                 FUN_00217440(L);
                 n--;
             } while (n != 0);

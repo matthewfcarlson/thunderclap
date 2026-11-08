@@ -1,25 +1,22 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3042 inputs, branch coverage 19/20, incomplete)
-// FUN_002146f0 @ 0x002146f0
-#include "compat/ptr.h"
-struct Constant_2146f0 { unsigned tag; char* object; };
-struct Proto_2146f0 { char pad0[8]; Constant_2146f0* constants; unsigned* code; char pad1[12]; char** upvalues; };
-struct Closure_2146f0 { char pad0[6]; unsigned char native; char pad1[5]; Proto_2146f0* proto; };
-struct Slot_2146f0 { unsigned type; Closure_2146f0* closure; };
-struct Frame_2146f0 { Slot_2146f0* base; unsigned unused; unsigned* pc; };
-extern char* __cdecl FUN_00219820(Proto_2146f0*, unsigned, int);
-extern unsigned __cdecl FUN_002142d0(Proto_2146f0*, int, unsigned);
+// STATUS: equivalent (tools/equiv.py level 3: 3053 inputs, branch coverage 19/20, incomplete)
+// getobjname: what register reg of ci's Lua function holds ("local", "global", "field", "upvalue", "method") and its name.
+#include "decls/data/lua.h"
+
+extern "C" const char* __cdecl FUN_00219820(const LuaVMProto* f, int local_number, int pc);
+extern "C" LuaVMInstruction __cdecl FUN_002142d0(const LuaVMProto* pt, int lastpc, int reg);
 // equiv-conv: FUN_002146c0 eax ecx
-extern "C" void * __cdecl FUN_002146c0(int, void *);
+extern "C" const char* FUN_002146c0(int c, const LuaVMProto* p);
+
 // equiv-conv: FUN_002146f0 eax stack stack
-extern "C" const char* __cdecl FUN_002146f0(unsigned reg, void * frame, char** name) {
+extern "C" const char* __cdecl FUN_002146f0(unsigned reg, LuaVMCallInfo* ci, const char** name) {
  for (;;) {
-  Slot_2146f0* slot = ((Frame_2146f0 *)frame)->base - 1;
-  if (slot->type != 6) return 0;
-  Closure_2146f0* closure = slot->closure;
-  if (closure->native) return 0;
-  Proto_2146f0* proto = closure->proto;
-  int pc = ((int)((hulk_uintptr)((Frame_2146f0 *)frame)->pc - (hulk_uintptr)proto->code) >> 2) - 1;
-  char* local = FUN_00219820(proto, reg + 1, pc);
+  LuaVMTObject* slot = ci->base - 1;
+  if (slot->tt != LUAVM_TFUNCTION) return 0;
+  LuaVMClosure* closure = (LuaVMClosure*)slot->value.gc;
+  if (closure->c.isC) return 0;
+  LuaVMProto* proto = closure->l.p;
+  int pc = (int)(ci->savedpc - proto->code) - 1;
+  const char* local = FUN_00219820(proto, reg + 1, pc);
   *name = local;
   if (local) return "local";
   unsigned instruction = FUN_002142d0(proto, pc, reg);
@@ -31,16 +28,16 @@ extern "C" const char* __cdecl FUN_002146f0(unsigned reg, void * frame, char** n
     break;
    }
    case 5:
-    *name = proto->constants[(instruction >> 6) & 0x3ffff].object + 16;
+    *name = LUAVM_GETSTR(proto->k[(instruction >> 6) & 0x3ffff].value.gc);
     return "global";
    case 6:
-    *name = ((char *)FUN_002146c0((unsigned)((instruction >> 6) & 511), (Proto_2146f0 *)proto));
+    *name = FUN_002146c0((int)((instruction >> 6) & 511), proto);
     return "field";
    case 4:
-    *name = proto->upvalues[(instruction >> 15) & 511] + 16;
+    *name = LUAVM_GETSTR(proto->upvalues[(instruction >> 15) & 511]);
     return "upvalue";
    case 11:
-    *name = ((char *)FUN_002146c0((unsigned)((instruction >> 6) & 511), (Proto_2146f0 *)proto));
+    *name = FUN_002146c0((int)((instruction >> 6) & 511), proto);
     return "method";
    default: return 0;
   }

@@ -1,45 +1,23 @@
-#include "compat/ptr.h"
-struct Info_214050 {
-    char pad[6];
-    char flag;
-    char pad2[5];
-    struct Rec_214050* rec;
-};
-struct Rec_214050 {
-    char pad[0xc];
-    int* arr;
-};
-struct Slot_214050 {
-    int* base;
-    int pad;
-    int* end;
-    int pad2;
-};
-struct A_214050 {
-    char pad[0x28];
-    Slot_214050* mSlots;
-    Slot_214050* Get(int i) { return &mSlots[i]; }
-};
-struct B_214050 {
-    char pad[0x5c];
-    int mIdx;
-};
-int Lookup(Rec_214050* r, int x, hulk_intptr y);
-extern "C" void __cdecl FUN_00212c10(void *, unsigned int *);
-extern "C" int FUN_00214050(A_214050* a, B_214050* b, int x) {
-    int n = 0;
-    Slot_214050* s = a->Get(b->mIdx);
-    if (s->base[-2] == 6) {
-        Info_214050* inf = ((Info_214050**)s->base)[-1];
-        if (inf->flag == 0) {
-            Rec_214050* r = inf->rec;
-            if (r) {
-                hulk_intptr cnt = ((char*)s->end - (char*)r->arr >> 2) - 1;
-                n = Lookup(r, x, cnt);
-                if (n)
-                    FUN_00212c10((A_214050 *)a, (unsigned int *)(int *)(s->base + x * 2 - 2));
+// lua_getlocal: push local n of the activation ar names; its name or NULL.
+#include "decls/data/lua.h"
+
+extern "C" const char* __cdecl FUN_00219820(const LuaVMProto* f, int local_number, int pc);
+extern "C" void __cdecl FUN_00212c10(LuaVMState* L, const LuaVMTObject* o);
+
+extern "C" const char* __cdecl FUN_00214050(LuaVMState* L, LuaVMDebug* ar, int n) {
+    const char* name = 0;
+    LuaVMCallInfo* ci = &L->base_ci[ar->i_ci];
+    if (ci->base[-1].tt == LUAVM_TFUNCTION) {
+        LuaVMClosure* cl = (LuaVMClosure*)ci->base[-1].value.gc;
+        if (cl->c.isC == 0) {
+            LuaVMProto* p = cl->l.p;
+            if (p) {
+                int pc = (int)(ci->savedpc - p->code) - 1;
+                name = FUN_00219820(p, n, pc);
+                if (name)
+                    FUN_00212c10(L, ci->base + (n - 1));
             }
         }
     }
-    return n;
+    return name;
 }

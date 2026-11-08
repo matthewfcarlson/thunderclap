@@ -1,15 +1,15 @@
-// STATUS: equivalent (tools/equiv.py level 3: 14752 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 4/4)
 // FUN_00339270 @ 0x00339270
-// FUN_00339270 @ 0x00339270
-typedef unsigned int U_339270;
-extern int FUN_00212d70(void*);
+// luaL_setn
+#include "decls/data/lua.h"
+extern "C" int __cdecl FUN_00212d70(LuaVMState*);
 // equiv-conv: FUN_003391f0 esi
-extern void FUN_003391f0(void*);
-extern void FUN_00212ed0(void*, int);
-extern void FUN_00213360(void*, U_339270);
-extern void FUN_00213800(void*, int);
-extern void FUN_00212d80(void*, int);
-void FUN_00339270(void* a, int b, U_339270 c) {
+extern "C" void __cdecl FUN_003391f0(LuaVMState*);
+extern "C" void __cdecl FUN_00212ed0(LuaVMState*, int);
+extern "C" void __cdecl FUN_00213360(LuaVMState*, int);
+extern "C" void __cdecl FUN_00213800(LuaVMState*, int);
+extern "C" void __cdecl FUN_00212d80(LuaVMState*, int);
+extern "C" void __cdecl FUN_00339270(LuaVMState* a, int b, int c) {
     if (b <= 0 && b > -10000)
         b = b + 1 + FUN_00212d70(a);
     FUN_003391f0(a);

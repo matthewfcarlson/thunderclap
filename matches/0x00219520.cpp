@@ -1,12 +1,13 @@
-typedef unsigned char u8;
-struct Owner;
-void* __cdecl FUN_0021add0(Owner*, int, int, int);
-void __cdecl FUN_00217130(Owner*, void*, int);
+// luaF_newCclosure: a C closure with nelems upvalues.
+#include "decls/data/lua.h"
 
-extern "C" void* __cdecl FUN_00219520(void * owner, int count) {
-    void* p = FUN_0021add0(((Owner *)owner), 0, 0, count * 8 + 0x10);
-    FUN_00217130(((Owner *)owner), p, 6);
-    ((u8*)p)[7] = (u8)count;
-    ((u8*)p)[6] = 1;
-    return p;
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
+extern "C" void __cdecl FUN_00217130(LuaVMState* L, LuaVMGCObject* o, unsigned char tt);
+
+extern "C" LuaVMClosure* __cdecl FUN_00219520(LuaVMState* L, int nelems) {
+    LuaVMClosure* c = (LuaVMClosure*)FUN_0021add0(L, 0, 0, LUAVM_SIZECCLOSURE(nelems));
+    FUN_00217130(L, (LuaVMGCObject*)c, LUAVM_TFUNCTION);
+    c->c.nupvalues = (unsigned char)nelems;
+    c->c.isC = 1;
+    return c;
 }

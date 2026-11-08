@@ -1,16 +1,17 @@
-// STATUS: equivalent (tools/equiv.py level 3: 166 inputs, branch coverage 35/36, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 315 inputs, branch coverage 35/36, incomplete)
 // FUN_0033b110 @ 0x0033b110
-struct lua_State;
+// auxsort
+#include "decls/data/lua.h"
 
-extern "C" void __cdecl FUN_00213640(lua_State *L, int idx, int n);
-extern "C" int __cdecl FUN_00212f00(lua_State *L, int idx);
-extern "C" void __cdecl FUN_00212ed0(lua_State *L, int idx);
-extern "C" void __cdecl FUN_002139a0(lua_State *L, int nargs, int nresults);
-extern "C" int __cdecl FUN_00213160(lua_State *L, int idx);
-extern "C" void __cdecl FUN_00212d80(lua_State *L, int idx);
-extern "C" int __cdecl FUN_002130a0(lua_State *L, int a, int b);
-extern "C" void __cdecl FUN_00213870(lua_State *L, int idx, int n);
-extern "C" int FUN_00338e20(lua_State *L, const char *fmt, ...);
+extern "C" void __cdecl FUN_00213640(LuaVMState *L, int idx, int n);
+extern "C" int __cdecl FUN_00212f00(LuaVMState *L, int idx);
+extern "C" void __cdecl FUN_00212ed0(LuaVMState *L, int idx);
+extern "C" void __cdecl FUN_002139a0(LuaVMState *L, int nargs, int nresults);
+extern "C" int __cdecl FUN_00213160(LuaVMState *L, int idx);
+extern "C" void __cdecl FUN_00212d80(LuaVMState *L, int idx);
+extern "C" int __cdecl FUN_002130a0(LuaVMState *L, int a, int b);
+extern "C" void __cdecl FUN_00213870(LuaVMState *L, int idx, int n);
+extern "C" int __cdecl FUN_00338e20(LuaVMState *L, const char *fmt, ...);
 
 #define SORT_COMP(res, L, a, b) \
     do { \
@@ -26,7 +27,7 @@ extern "C" int FUN_00338e20(lua_State *L, const char *fmt, ...);
         } \
     } while (0)
 
-void __cdecl FUN_0033b110(lua_State *L, int l, int u)
+extern "C" void __cdecl FUN_0033b110(LuaVMState *L, int l, int u)
 {
     while (l < u) {
         int i, j, r;

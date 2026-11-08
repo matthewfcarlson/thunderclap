@@ -1,78 +1,55 @@
-// STATUS: equivalent (tools/equiv.py level 3: 121 inputs, branch coverage 16/16)
-// FUN_0021ded0 @ 0x0021ded0
+// STATUS: equivalent (tools/equiv.py level 3: 2751 inputs, branch coverage 16/16)
+// subexpr: (simpleexp | unop subexpr) { binop subexpr } while the operator's left priority exceeds limit;
+// returns the first operator not handled.
+#include "decls/data/lua.h"
 #include "decls/data/engine/unknown.h"
+// data: priority = DAT_00426e00 ({left, right} per binary operator)
 
-struct ExpDesc_21ded0 {
-    int k;
-    int info;
-    int aux;
-    int t;
-    int f;
-};
-
-struct FuncState;
-
-struct LexState_21ded0 {
-    char pad0[4];
-    int linenumber;
-    int lastline;
-    int token;
-    int seminfo;
-    int lookaheadToken;
-    int lookaheadSeminfo;
-    FuncState *fs;
-    char pad20[0x30 - 0x20];
-    int nestlevel;
-};
-
-extern "C" int __cdecl FUN_0021bbc0(void *, void *);
-void FUN_0021afd0(LexState_21ded0 *ls, const char *msg, int token);
+extern "C" int __cdecl FUN_0021bbc0(LuaVMLexState* ls, LuaVMSemInfo* seminfo);
+extern "C" void __cdecl FUN_0021afd0(LuaVMLexState* ls, const char* msg, int token);
 // equiv-conv: FUN_0021db50 eax edi
-extern "C" void __cdecl FUN_0021db50(void *, void *);
+extern "C" void FUN_0021db50(LuaVMLexState* ls, LuaVMExpDesc* v);
 // equiv-conv: FUN_0021dd30 eax
-extern "C" int FUN_0021dd30(int token);
-extern "C" void __cdecl FUN_00221700(void *, int, void *);
-extern "C" void __cdecl FUN_002217c0(void *, int, void *);
-extern "C" void __cdecl FUN_002218d0(void *, int, void *, void *);
+extern "C" int FUN_0021dd30(int op);
+extern "C" void __cdecl FUN_00221700(LuaVMFuncState* fs, int op, LuaVMExpDesc* e);
+extern "C" void __cdecl FUN_002217c0(LuaVMFuncState* fs, int op, LuaVMExpDesc* v);
+extern "C" void __cdecl FUN_002218d0(LuaVMFuncState* fs, int op, LuaVMExpDesc* e1, LuaVMExpDesc* e2);
 
-
-static void next(LexState_21ded0 *ls)
-{
+static void next(LuaVMLexState* ls) {
     ls->lastline = ls->linenumber;
-    if (ls->lookaheadToken != 0x11f) {
-        ls->token = ls->lookaheadToken;
-        ls->seminfo = ls->lookaheadSeminfo;
-        ls->lookaheadToken = 0x11f;
+    if (ls->lookahead.token != 0x11f) {
+        ls->t.token = ls->lookahead.token;
+        ls->t.seminfo = ls->lookahead.seminfo;
+        ls->lookahead.token = 0x11f;
     } else {
-        ls->token = FUN_0021bbc0((LexState_21ded0 *)ls, (int *)(&ls->seminfo));
+        ls->t.token = FUN_0021bbc0(ls, &ls->t.seminfo);
     }
 }
 
-extern "C" int FUN_0021ded0(void *ls, void *v, unsigned int limit)
-{
-    ExpDesc_21ded0 v2;
+extern "C" int __cdecl FUN_0021ded0(LuaVMLexState* ls, LuaVMExpDesc* v, unsigned int limit) {
+    LuaVMExpDesc v2;
     int op;
 
-    ((LexState_21ded0 *)ls)->nestlevel++;
-    if (((LexState_21ded0 *)ls)->nestlevel > 200)
-        FUN_0021afd0(((LexState_21ded0 *)ls), "chunk has too many syntax levels", 0);
+    ls->nestlevel++;
+    if (ls->nestlevel > 200)
+        FUN_0021afd0(ls, "chunk has too many syntax levels", 0);
 
-    if (((LexState_21ded0 *)ls)->token == '-' || ((LexState_21ded0 *)ls)->token == 0x10e) {
-        int uop = (((LexState_21ded0 *)ls)->token == 0x10e);
-        next(((LexState_21ded0 *)ls));
-        FUN_0021ded0((LexState_21ded0 *)((LexState_21ded0 *)ls), (ExpDesc_21ded0 *)((ExpDesc_21ded0 *)v), 8);
-        FUN_00221700((FuncState *)(((LexState_21ded0 *)ls)->fs), uop, (ExpDesc_21ded0 *)((ExpDesc_21ded0 *)v));
+    if (ls->t.token == '-' || ls->t.token == 0x10e) {
+        int uop = (ls->t.token == 0x10e); // OPR_NOT : OPR_MINUS
+        next(ls);
+        FUN_0021ded0(ls, v, 8); // UNARY_PRIORITY
+        FUN_00221700(ls->fs, uop, v);
     } else {
-        FUN_0021db50((LexState_21ded0 *)((LexState_21ded0 *)ls), (ExpDesc_21ded0 *)((ExpDesc_21ded0 *)v));
+        FUN_0021db50(ls, v);
     }
-    op = FUN_0021dd30(((LexState_21ded0 *)ls)->token);
+    op = FUN_0021dd30(ls->t.token);
     while (op != 0xe && DAT_00426e00[op * 2] > limit) {
-        next(((LexState_21ded0 *)ls));
-        FUN_002217c0((FuncState *)(((LexState_21ded0 *)ls)->fs), op, (ExpDesc_21ded0 *)((ExpDesc_21ded0 *)v));
-        int nextop = FUN_0021ded0((LexState_21ded0 *)((LexState_21ded0 *)ls), (ExpDesc_21ded0 *)(&v2), DAT_00426e00[op * 2 + 1]);
-        FUN_002218d0((FuncState *)(((LexState_21ded0 *)ls)->fs), op, (ExpDesc_21ded0 *)((ExpDesc_21ded0 *)v), (ExpDesc_21ded0 *)(&v2));
+        next(ls);
+        FUN_002217c0(ls->fs, op, v);
+        int nextop = FUN_0021ded0(ls, &v2, DAT_00426e00[op * 2 + 1]);
+        FUN_002218d0(ls->fs, op, v, &v2);
         op = nextop;
     }
-    ((LexState_21ded0 *)ls)->nestlevel--;
+    ls->nestlevel--;
     return op;
 }

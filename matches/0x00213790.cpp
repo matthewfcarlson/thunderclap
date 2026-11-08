@@ -1,17 +1,16 @@
-#include "compat/ptr.h"
-struct Obj_213790 {
-    char pad[8];
-    int n;
-};
-extern "C" int __fastcall FUN_00212bb0(Obj_213790*, Obj_213790*);
-extern "C" int __cdecl FUN_00219430(Obj_213790*, const char*, int);
-extern "C" void __cdecl FUN_00217980(void *, void *, void *, void *);
+// lua_setfield: t[k] = the top value for the table at idx (metamethods apply); pops it.
 extern "C" unsigned int __cdecl strlen(const char*);
-extern "C" void __cdecl FUN_00213790(Obj_213790* o, Obj_213790* a, const char* s) {
-    int v = FUN_00212bb0(a, o);
-    int pair[2];
-    pair[1] = FUN_00219430(o, s, strlen(s));
-    pair[0] = 4;
-    FUN_00217980((Obj_213790 *)o, (void *)(hulk_uintptr)(int)v, (int *)pair, (void *)(hulk_uintptr)(int)(o->n - 8));
-    o->n -= 8;
+#include "decls/data/lua.h"
+
+extern "C" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
+extern "C" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
+extern "C" void __cdecl FUN_00217980(LuaVMState* L, const LuaVMTObject* t, LuaVMTObject* key, LuaVMTObject* val);
+
+extern "C" void __cdecl FUN_00213790(LuaVMState* L, int idx, const char* k) {
+    LuaVMTObject* t = FUN_00212bb0(idx, L);
+    LuaVMTObject key;
+    key.value.gc = (LuaVMGCObject*)FUN_00219430(L, k, (unsigned int)strlen(k));
+    key.tt = LUAVM_TSTRING;
+    FUN_00217980(L, t, &key, L->top - 1);
+    L->top--;
 }

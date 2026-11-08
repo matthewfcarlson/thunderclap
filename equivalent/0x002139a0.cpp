@@ -1,7 +1,9 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20002 inputs, branch coverage 0/0)
-// FUN_002139a0 @ 0x002139a0
-struct Record { char pad[8]; char *end; };
-void __cdecl FUN_002159e0(Record *record, char *position, int nresults);
-extern "C" void __cdecl FUN_002139a0(Record *record, int index, int nresults) {
-    FUN_002159e0(record, record->end - (index * 8 + 8), nresults);
+// STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 0/0)
+// lua_call: call the function below the nargs top values.
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_002159e0(LuaVMState* L, LuaVMTObject* func, int nresults);
+
+extern "C" void __cdecl FUN_002139a0(LuaVMState* L, int nargs, int nresults) {
+    FUN_002159e0(L, L->top - (nargs + 1), nresults);
 }

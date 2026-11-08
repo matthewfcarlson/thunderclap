@@ -1,15 +1,13 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2720 inputs, branch coverage 4/4)
-// FUN_00220ab0 @ 0x00220ab0
+// STATUS: equivalent (tools/equiv.py level 3: 2722 inputs, branch coverage 4/4)
+// invertjump: flip the condition (A) of the jump's control instruction.
+#include "decls/data/lua.h"
 #include "decls/data/engine/unknown.h"
 
-struct WordBuffer { char pad[12]; unsigned int *words; };
-struct Cursor { int unused; int index; };
 // equiv-conv: FUN_00220ab0 ecx eax
-void FUN_00220ab0(WordBuffer **buffer, Cursor *cursor)
-{
-    unsigned int *word = (*buffer)->words + cursor->index;
-    if (cursor->index > 0 && ((signed char*)&DAT_00426ba4)[word[-1] & 63] < 0)
+extern "C" void __cdecl FUN_00220ab0(LuaVMFuncState* fs, LuaVMExpDesc* e) {
+    LuaVMInstruction* word = fs->f->code + e->info;
+    if (e->info > 0 && ((signed char*)&DAT_00426ba4)[word[-1] & 63] < 0)
         --word;
-    unsigned int value = *word;
+    LuaVMInstruction value = *word;
     *word = (value & 0x00ffffff) | ((value & 0xff000000) == 0 ? 0x01000000 : 0);
 }

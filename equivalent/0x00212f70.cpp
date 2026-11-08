@@ -1,14 +1,14 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 4/4)
-// FUN_00212f70 @ 0x00212f70
-// FUN_00212f70 @ 0x00212f70
-#include "compat/ptr.h"
-struct Result { int value; };
-Result* __fastcall FUN_00212bb0(void* first, void* second);
-extern "C" void * __cdecl FUN_00217600(void *, void *);
-extern "C" int __cdecl FUN_00212f70(void* first, void* second) {
-    char scratch[8];
-    Result* result = FUN_00212bb0(second, first);
-    if (result->value != 3 && ((int)(hulk_uintptr)FUN_00217600((Result *)result, scratch)) == 0)
+// STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 4/4)
+// lua_isnumber: the value at idx is a number or converts to one.
+#include "decls/data/lua.h"
+
+extern "C" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
+extern "C" const LuaVMTObject* __cdecl FUN_00217600(const LuaVMTObject* obj, LuaVMTObject* n);
+
+extern "C" int __cdecl FUN_00212f70(LuaVMState* L, int idx) {
+    LuaVMTObject n;
+    LuaVMTObject* o = FUN_00212bb0(idx, L);
+    if (o->tt != LUAVM_TNUMBER && FUN_00217600(o, &n) == 0)
         return 0;
     return 1;
 }

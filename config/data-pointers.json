@@ -48,6 +48,23 @@
     "0x0"
    ],
    "why": "points at the string at 0x00427770 (bytes 70 77 42 00); 0x0035f250, 0x00233c50 and 0x0023b570 hash it as a name (FUN_002672f0)"
+  },
+  "0x00426948": {
+   "offsets": [
+    "0x24",
+    "0x28"
+   ],
+   "why": "luaT_typenames[9..10] point at the strings at 0x0042697c / 0x00426974 (bytes 7c 69 42 00, 74 69 42 00); 0x00214c90 (luaG_typeerror) indexes the table by tt"
+  },
+  "0x00426bf0": {
+   "offsets": [
+    "0x2c",
+    "0x5c",
+    "0x70",
+    "0x74",
+    "0x78"
+   ],
+   "why": "luaX_tokens[11], [23], [28..30] point at 0x00426664, 0x00426944, 0x00426c7c, 0x00426c74, 0x00426c6c (bytes read as text); 0x0021aeb0 (luaX_init) makes the reserved words from the table, 0x0021af00 (token2str) indexes it"
   }
  }
 }

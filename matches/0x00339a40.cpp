@@ -1,13 +1,11 @@
-#include "compat/ptr.h"
-struct Item {
-    hulk_intptr a;
-    int b;
-};
-int* __cdecl FUN_00339a40(int dummy, Item* p, int* out) {
-    int b = p->b;
+// getS: luaL_loadbuffer's reader (a LuaVMReader; ud is the LuaVMLoadS): the whole buffer once.
+#include "decls/data/lua.h"
+extern "C" const char* __cdecl FUN_00339a40(LuaVMState* L, void* ud, unsigned int* out) {
+    LuaVMLoadS* p = (LuaVMLoadS*)ud;
+    unsigned int b = p->size;
     if (!b)
         return 0;
     *out = b;
-    p->b = 0;
-    return (int*)p->a;
+    p->size = 0;
+    return p->s;
 }

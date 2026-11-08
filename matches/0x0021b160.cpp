@@ -1,36 +1,24 @@
-struct Stream {
-    unsigned count;
-    unsigned char* pos;
-};
-struct State_21b160 {
-    unsigned code, a, b;
-    char gap[8];
-    unsigned mode;
-    char gap2[4];
-    unsigned zero;
-    unsigned first;
-    Stream* stream;
-    char gap3[4];
-    unsigned extra;
-};
-extern "C" unsigned readSlow(Stream*);
-extern "C" void FUN_0021b160(unsigned x, State_21b160* s, Stream* p, unsigned y) {
-    s->first = x;
-    s->stream = p;
-    s->a = 1;
-    s->b = 1;
-    s->mode = 0x11f;
-    s->zero = 0;
-    s->extra = y;
-    unsigned n = p->count;
-    p->count = n - 1;
-    Stream* q = s->stream;
+// luaX_setinput: start the lexer on a stream (line 1, no lookahead, no function) and read the first character.
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_0021a550(LuaVMZio* z);
+extern "C" void __cdecl FUN_0021b160(LuaVMState* L, LuaVMLexState* ls, LuaVMZio* z, LuaVMString* source) {
+    ls->L = L;
+    ls->z = z;
+    ls->linenumber = 1;
+    ls->lastline = 1;
+    ls->lookahead.token = 0x11f;  // TK_EOS
+    ls->fs = 0;
+    ls->source = source;
+    unsigned int n = z->n;
+    z->n = n - 1;
+    LuaVMZio* q = ls->z;
     if (n > 0) {
-        unsigned char* t = q->pos;
-        unsigned v = *t++;
-        q->pos = t;
-        s->code = v;
+        const char* t = q->p;
+        int v = (unsigned char)*t++;
+        q->p = t;
+        ls->current = v;
         return;
     }
-    s->code = readSlow(q);
+    ls->current = FUN_0021a550(q);
 }

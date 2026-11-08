@@ -1,17 +1,13 @@
-#include "compat/ptr.h"
-extern "C" void* __cdecl FUN_0021add0(void*, int, hulk_intptr, hulk_intptr);
-extern "C" void __cdecl FUN_00217130(void*, void*, int);
+// luaF_newupval: a closed upvalue holding nil.
+#include "decls/data/lua.h"
 
-struct Obj_2195d0 {
-    char pad[8];
-    int* ptr;
-    int value;
-};
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
+extern "C" void __cdecl FUN_00217130(LuaVMState* L, LuaVMGCObject* o, unsigned char tt);
 
-extern "C" Obj_2195d0* __cdecl FUN_002195d0(void* param) {
-    Obj_2195d0* p = (Obj_2195d0*)FUN_0021add0(param, 0, 0, 0x14);
-    FUN_00217130(param, p, 10);
-    p->ptr = &p->value;
-    p->value = 0;
-    return p;
+extern "C" LuaVMUpVal* __cdecl FUN_002195d0(LuaVMState* L) {
+    LuaVMUpVal* uv = (LuaVMUpVal*)FUN_0021add0(L, 0, 0, sizeof(LuaVMUpVal));
+    FUN_00217130(L, (LuaVMGCObject*)uv, LUAVM_TUPVAL);
+    uv->v = &uv->value;
+    uv->value.tt = LUAVM_TNIL;
+    return uv;
 }

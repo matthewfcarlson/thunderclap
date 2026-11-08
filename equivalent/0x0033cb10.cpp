@@ -1,19 +1,21 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 4/4)
 // FUN_0033cb10 @ 0x0033cb10
-struct CaptureEntry { int start; int end; };
-struct CaptureState { int base; int reserved; int context; int pad; CaptureEntry entries[1]; };
-void __cdecl FUN_00338e20(int context, const char* message, ...);
-void __cdecl FUN_00213360(int context, int count);
-void __cdecl FUN_00213380(int context, int start, int end);
+// lstrlib push_onecapture
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_00338e20(LuaVMState* L, const char* fmt, ...);
+extern "C" void __cdecl FUN_00213360(LuaVMState* L, int n);
+extern "C" void __cdecl FUN_00213380(LuaVMState* L, const char* s, unsigned int len);
+
 // equiv-conv: FUN_0033cb10 eax esi
-void FUN_0033cb10(int index, CaptureState* state)
+void FUN_0033cb10(int i, LuaVMMatchState* ms)
 {
-    int end = state->entries[index].end;
-    if (end == -1)
-        FUN_00338e20(state->context, "unfinished capture");
-    else if (end == -2) {
-        FUN_00213360(state->context, state->entries[index].start - state->base + 1);
+    int l = ms->capture[i].len;
+    if (l == LUAVM_CAP_UNFINISHED)
+        FUN_00338e20(ms->L, "unfinished capture");
+    else if (l == LUAVM_CAP_POSITION) {
+        FUN_00213360(ms->L, (int)(ms->capture[i].init - ms->src_init) + 1);
         return;
     }
-    FUN_00213380(state->context, state->entries[index].start, end);
+    FUN_00213380(ms->L, ms->capture[i].init, (unsigned int)l);
 }

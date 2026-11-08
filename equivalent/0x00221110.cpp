@@ -1,29 +1,15 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
-// FUN_00221110 @ 0x00221110
-// Lua 5.0 luaK_exp2nextreg
-struct Proto_221110 { char pad0[0x47]; unsigned char maxstacksize; };
-struct LexState;
-struct FuncState_221110 {
-    Proto_221110 *f;
-    char pad4[8];
-    LexState *ls;
-    char pad10[0x14];
-    int freereg;
-    char pad28[0xc];
-    unsigned char nactvar;
-};
-struct expdesc_221110 { int k; int info; };
+// STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 10/10)
+// luaK_exp2nextreg: put the expression into the next free register.
+#include "decls/data/lua.h"
 
-void __cdecl FUN_00220d90(FuncState_221110 *fs, expdesc_221110 *e);
-void __cdecl FUN_0021b060(LexState *ls, const char *msg);
+extern "C" void __cdecl FUN_00220d90(LuaVMFuncState* fs, LuaVMExpDesc* e);
+extern "C" void __cdecl FUN_0021b060(LuaVMLexState* ls, const char* msg);
 // equiv-conv: FUN_00220fe0 eax stack stack
-void __cdecl FUN_00220fe0(FuncState_221110 *fs, expdesc_221110 *e, int reg);
+extern "C" int __cdecl FUN_00220fe0(LuaVMFuncState* fs, LuaVMExpDesc* e, int reg);
 
-extern "C" void FUN_00221110(void * fs_, void *e)
-{
-    FuncState_221110 * fs = (FuncState_221110 *)fs_;
-    FUN_00220d90(fs, ((expdesc_221110 *)e));
-    if (((expdesc_221110 *)e)->k == 0xb && ((expdesc_221110 *)e)->info >= fs->nactvar && ((expdesc_221110 *)e)->info < 0xfa)
+extern "C" void __cdecl FUN_00221110(LuaVMFuncState* fs, LuaVMExpDesc* e) {
+    FUN_00220d90(fs, e);
+    if (e->k == 0xb && e->info >= fs->nactvar && e->info < 0xfa)
         fs->freereg--;
     int newstack = fs->freereg + 1;
     if (newstack > fs->f->maxstacksize) {
@@ -32,5 +18,5 @@ extern "C" void FUN_00221110(void * fs_, void *e)
         fs->f->maxstacksize = (unsigned char)newstack;
     }
     fs->freereg = fs->freereg + 1;
-    FUN_00220fe0(fs, ((expdesc_221110 *)e), fs->freereg - 1);
+    FUN_00220fe0(fs, e, fs->freereg - 1);
 }

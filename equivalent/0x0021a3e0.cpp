@@ -1,58 +1,54 @@
 // STATUS: equivalent (tools/equiv.py level 3: 441 inputs, branch coverage 20/20)
-// FUN_0021a3e0 @ 0x0021a3e0
-// FUN_0021a3e0 @ 0x0021a3e0
-struct Node { int type; void* key; int value; int aux; Node* next; };
-struct Table_21a3e0 { char pad[5]; unsigned char flags; char pad2[10]; Node* begin; Node* freeNode; };
-struct KeyObject { char pad[5]; unsigned char flags; };
-extern "C" void * __cdecl FUN_002198b0(void *, const void *);
-extern void __cdecl FUN_00217100(void*, Table_21a3e0*, void*);
-extern void __cdecl FUN_00219a60(Table_21a3e0*, Table_21a3e0**, Node**);
-extern int __cdecl FUN_00215f70(Node*);
+// newkey: insert a key into its main position (moving a colliding node that is not in its own main position to
+// a free node), with the barrier; when no free node is left, rehash and look the key up again.
+#include "decls/data/lua.h"
+
+extern "C" LuaVMNode* __cdecl FUN_002198b0(const LuaVMTable* t, const LuaVMTObject* key);
+extern "C" void __cdecl FUN_00217100(LuaVMState* L, LuaVMGCObject* o, LuaVMGCObject* v);
+extern "C" void __cdecl FUN_00219a60(const LuaVMTable* t, int* narray, int* nhash);
+extern "C" int __cdecl FUN_00215f70(unsigned int x);
 // equiv-conv: FUN_0021a0f0 eax ecx stack stack
-extern void __cdecl FUN_0021a0f0(Table_21a3e0*, Table_21a3e0*, void*, int);
-extern int* __cdecl FUN_00219e90(Table_21a3e0*, Node*);
-extern "C" int* __cdecl FUN_0021a3e0(void* context, void * table_, void * key) {
-    Table_21a3e0 * table = (Table_21a3e0 *)table_;
- Node* node = ((Node *)FUN_002198b0((Table_21a3e0 *)table,((Node *)key)));
- if(node->value != 0) {
-  Node* head = ((Node *)FUN_002198b0((Table_21a3e0 *)table,node));
-  Node* spare = table->freeNode;
-  if(head != node) {
-   while(head->next != node) head=head->next;
-   head->next=spare;
-   spare->type=node->type;
-   spare->key=node->key;
-   spare->value=node->value;
-   spare->aux=node->aux;
-   spare->next=node->next;
-   node->next=0;
-   node->value=0;
-  } else {
-   spare->next=node->next;
-   node->next=spare;
-   node=spare;
-  }
- }
- node->type=((Node *)key)->type;
- node->key=((Node *)key)->key;
- if(((Node *)key)->type>=4 && (((KeyObject*)((Node *)key)->key)->flags & 3) && (table->flags & 4))
-  FUN_00217100(context,table,((Node *)key)->key);
- if(table->freeNode->type != 0) {
-  Node* first=table->begin;
-  while(table->freeNode != first) {
-   --table->freeNode;
-   if(table->freeNode->type == 0) return &node->value;
-  }
-  node->aux=0;
-  node->value=1;
-  Table_21a3e0* newTable=table;
-  Node* newKey=((Node *)key);
-  FUN_00219a60(table,&newTable,&newKey);
-  int n=FUN_00215f70(newKey);
-  FUN_0021a0f0(newTable, table, context, n+1);
-  int* result=FUN_00219e90(table,((Node *)key));
-  *result=0;
-  return result;
- }
- return &node->value;
+extern "C" void __cdecl FUN_0021a0f0(int nasize, LuaVMTable* t, LuaVMState* L, int lsize);
+extern "C" LuaVMTObject* __cdecl FUN_00219e90(LuaVMTable* t, const LuaVMTObject* key);
+
+extern "C" LuaVMTObject* __cdecl FUN_0021a3e0(LuaVMState* L, LuaVMTable* t, const LuaVMTObject* key) {
+    LuaVMNode* mp = FUN_002198b0(t, key);
+    if (mp->i_val.tt != LUAVM_TNIL) {
+        LuaVMNode* othern = FUN_002198b0(t, &mp->i_key);
+        LuaVMNode* n = t->firstfree;
+        if (othern != mp) {
+            while (othern->next != mp)
+                othern = othern->next;
+            othern->next = n;
+            *n = *mp;
+            mp->next = 0;
+            mp->i_val.tt = LUAVM_TNIL;
+        } else {
+            n->next = mp->next;
+            mp->next = n;
+            mp = n;
+        }
+    }
+    LUAVM_SETOBJ(&mp->i_key, key);
+    if (key->tt >= LUAVM_TSTRING && (key->value.gc->marked & 3) && (t->marked & 4))
+        FUN_00217100(L, (LuaVMGCObject*)t, key->value.gc);
+    if (t->firstfree->i_key.tt != LUAVM_TNIL) {
+        LuaVMNode* first = t->node;
+        while (t->firstfree != first) {
+            --t->firstfree;
+            if (t->firstfree->i_key.tt == LUAVM_TNIL)
+                return &mp->i_val;
+        }
+        mp->i_val.value.b = 0;
+        mp->i_val.tt = LUAVM_TBOOLEAN;
+        int nasize;
+        int nhsize;
+        FUN_00219a60(t, &nasize, &nhsize);
+        int lsize = FUN_00215f70((unsigned int)nhsize);
+        FUN_0021a0f0(nasize, t, L, lsize + 1);
+        LuaVMTObject* v = FUN_00219e90(t, key);
+        v->tt = LUAVM_TNIL;
+        return v;
+    }
+    return &mp->i_val;
 }

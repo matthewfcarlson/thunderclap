@@ -1,17 +1,20 @@
+// luaX_token2str: a single-character token as "%c" (or "char(%d)" when it is a control character), a reserved
+// word or other token by the token2string table.
+#include "decls/data/lua.h"
 #include "decls/data/engine/unknown.h"
+// data: token2string = DAT_00426bf0 (const char* [], indexed by token - 257)
 
-#include "compat/ptr.h"
 extern "C" int __cdecl iscntrl(int);
-extern int __cdecl FUN_00216320(int, const char*, ...);
-hulk_intptr __cdecl FUN_0021af00(hulk_intptr a, int b) {
-    int r;
-    if (b < 0x101) {
-        if (iscntrl(b))
-            r = FUN_00216320(*(int*)(a + 0x20), "char(%d)", b);
+extern "C" const char* __cdecl FUN_00216320(LuaVMState* L, const char* fmt, ...);
+extern "C" const char* __cdecl FUN_0021af00(LuaVMLexState* ls, int token) {
+    const char* r;
+    if (token < 0x101) {
+        if (iscntrl(token))
+            r = FUN_00216320(ls->L, "char(%d)", token);
         else
-            r = FUN_00216320(*(int*)(a + 0x20), "%c", b);
+            r = FUN_00216320(ls->L, "%c", token);
     } else {
-        r = ((int*)((char*)&DAT_004267dc + 16))[b];
+        r = (const char*)DAT_00426bf0[token - 0x101];
     }
     return r;
 }

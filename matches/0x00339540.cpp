@@ -1,19 +1,15 @@
-#include "compat/ptr.h"
-extern void __cdecl CopyThing(int, void*, hulk_intptr);
-extern void __cdecl FinishThing(int, int);
-struct Thing_339540 {
-    hulk_intptr base;
-    int count;
-    int value;
-};
-extern "C" void __cdecl FUN_00339540(Thing_339540* p) {
-    hulk_intptr diff = p->base - (hulk_intptr)p - 12;
+// luaL_pushresult
+#include "decls/data/lua.h"
+extern "C" void __cdecl FUN_00213380(LuaVMState* L, const char* s, unsigned int len);
+extern "C" void __cdecl FUN_00213c90(LuaVMState* L, int n);
+extern "C" void __cdecl FUN_00339540(LuaVMLBuffer* p) {
+    unsigned int diff = (unsigned int)(p->p - p->buffer);
     if (diff != 0) {
-        char* dst = (char*)p + 12;
-        CopyThing(p->value, dst, diff);
-        p->base = (hulk_intptr)dst;
-        p->count = p->count + 1;
+        char* dst = p->buffer;
+        FUN_00213380(p->L, dst, diff);
+        p->p = dst;
+        p->lvl = p->lvl + 1;
     }
-    FinishThing(p->value, p->count);
-    p->count = 1;
+    FUN_00213c90(p->L, p->lvl);
+    p->lvl = 1;
 }

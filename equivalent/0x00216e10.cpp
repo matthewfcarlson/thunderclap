@@ -1,33 +1,23 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2982 inputs, branch coverage 8/8)
-// FUN_00216e10 @ 0x00216e10
-struct Entries {
-    int *items;
-    int auxiliary;
-    int count;
-    char unused[0x18];
-    int index;
-};
-struct Context {
-    char unused[0x10];
-    Entries *entries;
-};
-extern "C" void __cdecl FUN_002171c0(Context *, int *, int, int *, int *);
+// STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 8/8)
+// sweepstrings: sweep the string table's buckets from g->sweepstrgc until lim bytes are done; the budget left.
+#include "decls/data/lua.h"
+
+extern "C" LuaVMGCObject** __cdecl FUN_002171c0(LuaVMState* L, LuaVMGCObject** p, int all, int* lim, int* count);
+
 // equiv-conv: FUN_00216e10 stack stack ebx
-extern "C" int __cdecl FUN_00216e10(int value, int remaining, void * context_)
-{
-    Context * context = (Context *)context_;
-    Entries *entries = context->entries;
-    int index = entries->index;
-    while (index < entries->count) {
-        int *item = &context->entries->items[index];
-        int amount = 0x7fffffff;
-        if (*item != 0)
-            FUN_002171c0(context, item, value, &amount, &entries->auxiliary);
-        remaining += amount - 0x7fffffff;
-        if (remaining <= 0)
+extern "C" int __cdecl FUN_00216e10(int all, int lim, LuaVMState* L) {
+    LuaVMGlobal* g = L->l_G;
+    int i = g->sweepstrgc;
+    while (i < g->strt.size) {
+        LuaVMGCObject** p = (LuaVMGCObject**)&L->l_G->strt.hash[i];
+        int dead = 0x7fffffff;
+        if (*p != 0)
+            FUN_002171c0(L, p, all, &dead, (int*)&g->strt.nuse);
+        lim += dead - 0x7fffffff;
+        if (lim <= 0)
             break;
-        ++index;
+        ++i;
     }
-    entries->index = index + 1;
-    return remaining;
+    g->sweepstrgc = i + 1;
+    return lim;
 }

@@ -1,15 +1,14 @@
-typedef unsigned int u32_2131f0;
-struct Result_2131f0 {
-    int type;
-    char* data;
-};
-extern Result_2131f0* __fastcall GetResult(void* b, void* a);
-extern int __cdecl Check(void* a, Result_2131f0* b);
-extern "C" u32_2131f0 __cdecl FUN_002131f0(void* a, void* b) {
-    Result_2131f0* r = GetResult(b, a);
-    if (r->type == 4)
-        return *(u32_2131f0*)(r->data + 0x0c);
-    if (Check(a, r))
-        return *(u32_2131f0*)(r->data + 0x0c);
+// lua_strlen: the length of the string at idx (a number is converted in place); 0 otherwise.
+#include "decls/data/lua.h"
+
+extern "C" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
+extern "C" int __cdecl FUN_00217640(LuaVMState* L, LuaVMTObject* obj);
+
+extern "C" unsigned int __cdecl FUN_002131f0(LuaVMState* L, int idx) {
+    LuaVMTObject* o = FUN_00212bb0(idx, L);
+    if (o->tt == LUAVM_TSTRING)
+        return ((LuaVMString*)o->value.gc)->len;
+    if (FUN_00217640(L, o))
+        return ((LuaVMString*)o->value.gc)->len;
     return 0;
 }

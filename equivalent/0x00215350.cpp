@@ -1,44 +1,15 @@
-// STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 8/8)
-// FUN_00215350 @ 0x00215350
+// STATUS: equivalent (tools/equiv.py level 3: 102 inputs, branch coverage 8/8)
+// correctstack: after the stack moved from oldstack, move top, the open upvalues and every CallInfo with it.
 // equiv-conv: FUN_00215350 eax edx
-struct Elem_215350 {
-    int a, b;
-};
+#include "decls/data/lua.h"
 
-struct Chain_215350 {
-    Chain_215350 *next;
-    int f4;
-    Elem_215350 *p;
-};
-
-struct Pair_215350 {
-    Elem_215350 *a;
-    Elem_215350 *b;
-    char pad8[8];
-};
-
-struct Heap_215350 {
-    char pad0[8];
-    Elem_215350 *f8;
-    int fc;
-    char pad10[4];
-    Pair_215350 *last;
-    char pad18[4];
-    Elem_215350 *base;
-    char pad20[8];
-    Pair_215350 *first;
-    char pad2c[0x48 - 0x2c];
-    Chain_215350 *chain;
-};
-
-void __cdecl FUN_00215350(Heap_215350 *h, Elem_215350 *old)
-{
-    h->f8 = h->base + (h->f8 - old);
-    for (Chain_215350 *c = h->chain; c != 0; c = c->next)
-        c->p = h->base + (c->p - old);
-    for (Pair_215350 *p = h->first; p <= h->last; p++) {
-        p->b = h->base + (p->b - old);
-        p->a = h->base + (p->a - old);
+extern "C" void __cdecl FUN_00215350(LuaVMState* L, LuaVMTObject* oldstack) {
+    L->top = L->stack + (L->top - oldstack);
+    for (LuaVMGCObject* up = L->openupval; up != 0; up = up->next)
+        ((LuaVMUpVal*)up)->v = L->stack + (((LuaVMUpVal*)up)->v - oldstack);
+    for (LuaVMCallInfo* ci = L->base_ci; ci <= L->ci; ci++) {
+        ci->top = L->stack + (ci->top - oldstack);
+        ci->base = L->stack + (ci->base - oldstack);
     }
-    h->fc = *(int *)h->last;
+    L->base = L->ci->base;
 }

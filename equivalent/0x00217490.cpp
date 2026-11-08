@@ -1,18 +1,22 @@
-// STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 12/12)
-// FUN_00217490 @ 0x00217490
-struct State_217490 { char pad0[0x34]; unsigned int pending; unsigned int status; char pad1[0x0c]; unsigned int cursor; unsigned int base; };
-struct Context { char pad[0x10]; State_217490* state; };
+// STATUS: equivalent (tools/equiv.py level 3: 8 inputs, branch coverage 11/12, incomplete)
+// luaC_fullgc: finish the current cycle, run a whole one, set the threshold and call the finalizers.
+#include "decls/data/lua.h"
+
 // equiv-conv: FUN_00217350 eax stack
-void __cdecl FUN_00217350(Context*, int);
+extern "C" int __cdecl FUN_00217350(LuaVMState* L, int lim);
 // equiv-conv: FUN_00216f90 edi
-void __cdecl FUN_00216f90(Context*);
+extern "C" void __cdecl FUN_00216f90(LuaVMState* L);
 // equiv-conv: FUN_00216ed0 esi
-void __cdecl FUN_00216ed0(Context*);
-void __cdecl FUN_00217490(Context* context) {
- State_217490* state = context->state;
- while (state->status != 3) FUN_00217350(context, 0x7fffffff);
- FUN_00216f90(context);
- while (state->status != 3) FUN_00217350(context, 0x7fffffff);
- state->cursor = state->base + 0x140;
- while (context->state->pending != 0) FUN_00216ed0(context);
+extern "C" void __cdecl FUN_00216ed0(LuaVMState* L);
+
+extern "C" void __cdecl FUN_00217490(LuaVMState* L) {
+    LuaVMGlobal* g = L->l_G;
+    while (g->gcstate != 3)
+        FUN_00217350(L, 0x7fffffff);
+    FUN_00216f90(L);
+    while (g->gcstate != 3)
+        FUN_00217350(L, 0x7fffffff);
+    g->GCthreshold = g->totalbytes + 0x140;
+    while (L->l_G->tmudata != 0)
+        FUN_00216ed0(L);
 }

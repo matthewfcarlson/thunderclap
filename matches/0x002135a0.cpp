@@ -1,18 +1,16 @@
-#include "compat/ptr.h"
-struct Obj_2135a0 {
-    char pad[8];
-    int offset;
-};
-typedef unsigned int size_t;
-extern "C" size_t strlen(const char*);
-extern "C" int __fastcall find(int, Obj_2135a0*);
-extern "C" int FUN_00219430(Obj_2135a0*, const char*, hulk_intptr);
-extern "C" void __cdecl FUN_00217830(void *, void *, void *, void *);
-extern "C" void FUN_002135a0(Obj_2135a0* obj, int type, const char* str) {
-    int tmp[2];
-    int id = find(type, obj);
-    tmp[1] = FUN_00219430(obj, str, strlen(str));
-    tmp[0] = 4;
-    FUN_00217830((Obj_2135a0 *)obj, (void *)(hulk_uintptr)(int)id, (int *)tmp, (void *)(hulk_uintptr)(int)(obj->offset));
-    obj->offset += 8;
+// lua_getfield: push t[k] for the table at idx (metamethods apply).
+extern "C" unsigned int __cdecl strlen(const char*);
+#include "decls/data/lua.h"
+
+extern "C" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
+extern "C" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
+extern "C" void __cdecl FUN_00217830(LuaVMState* L, const LuaVMTObject* t, LuaVMTObject* key, LuaVMTObject* val);
+
+extern "C" void __cdecl FUN_002135a0(LuaVMState* L, int idx, const char* k) {
+    LuaVMTObject key;
+    LuaVMTObject* t = FUN_00212bb0(idx, L);
+    key.value.gc = (LuaVMGCObject*)FUN_00219430(L, k, (unsigned int)strlen(k));
+    key.tt = LUAVM_TSTRING;
+    FUN_00217830(L, t, &key, L->top);
+    L->top++;
 }

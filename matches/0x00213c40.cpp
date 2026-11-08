@@ -1,6 +1,9 @@
-#include "compat/ptr.h"
-extern "C" void __cdecl FUN_002149b0(void *);
-extern "C" int FUN_00213c40(hulk_intptr value) {
-    FUN_002149b0((void *)(hulk_uintptr)(int)value);
+// lua_error: raise the error on top of the stack (luaG_errormsg does not return).
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_002149b0(LuaVMState* L);
+
+extern "C" int __cdecl FUN_00213c40(LuaVMState* L) {
+    FUN_002149b0(L);
     return 0;
 }

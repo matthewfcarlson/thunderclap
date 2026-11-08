@@ -1,8 +1,6 @@
-struct Obj {
-    char pad[0x18];
-    int a;
-    int b;
-};
-extern "C" int __cdecl FUN_00220530(void * p) {
-    return ((Obj *)p)->b = ((Obj *)p)->a;
+// luaK_getlabel: mark the current pc as a jump target.
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_00220530(LuaVMFuncState* fs) {
+    return fs->lasttarget = fs->pc;
 }

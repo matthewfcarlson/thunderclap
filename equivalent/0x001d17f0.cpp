@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_001d17f0 @ 0x001d17f0
+#include "decls/data/lua.h"
 #include "gen/owners.h"
 extern "C" {
-int __cdecl FUN_00213290(void*, int);
-void __cdecl FUN_00213380(void*, const char*, int);
+LuaVMState* __cdecl FUN_00213290(void*, int);
+void __cdecl FUN_00213380(void*, const char*, unsigned int);
 void __cdecl FUN_00213600(void*, int);
 void __cdecl FUN_002133d0(void*, const char*);
 void __cdecl FUN_00212ed0(void*, int);

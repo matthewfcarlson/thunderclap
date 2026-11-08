@@ -1,18 +1,21 @@
+// luaB_cocreate
+#include "decls/data/lua.h"
 #include "decls/data/engine/unknown.h"
 // data: luaerr = DAT_00435268
 
-extern "C" int __cdecl FUN_00212d30(void*);
-extern int __cdecl F00212f00(void*, int);
-extern int __cdecl F00212f40(void*, int);
-extern void __cdecl F00339c30(void*, int, const char*);
-extern void __cdecl F00212ed0(void*, int);
-extern void __cdecl F00212cb0(void*, int, int);
-int __cdecl target(void* p) {
-    int saved = FUN_00212d30(p);
-    int t = F00212f00(p, 1);
-    if (t != 6 || F00212f40(p, 1) != 0)
-        F00339c30(p, 1, DAT_00435268);
-    F00212ed0(p, 1);
-    F00212cb0(p, saved, 1);
+extern "C" LuaVMState* __cdecl FUN_00212d30(LuaVMState* L);
+extern "C" int __cdecl FUN_00212f00(LuaVMState* L, int idx);
+extern "C" int __cdecl FUN_00212f40(LuaVMState* L, int idx);
+extern "C" int __cdecl FUN_00339c30(LuaVMState* L, int narg, const char* extramsg);
+extern "C" void __cdecl FUN_00212ed0(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_00212cb0(LuaVMState* from, LuaVMState* to, int n);
+
+extern "C" int __cdecl FUN_0033e950(LuaVMState* L) {
+    LuaVMState* NL = FUN_00212d30(L);
+    int t = FUN_00212f00(L, 1);
+    if (t != LUAVM_TFUNCTION || FUN_00212f40(L, 1) != 0)
+        FUN_00339c30(L, 1, DAT_00435268);
+    FUN_00212ed0(L, 1);
+    FUN_00212cb0(L, NL, 1);
     return 1;
 }

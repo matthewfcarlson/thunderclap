@@ -1,13 +1,14 @@
+#include "decls/data/lua.h"
 typedef unsigned int uint;
 struct Obj_1d1cb0 {
     char pad[8];
-    void* m;
+    LuaVMState* m;
 };
-extern int __cdecl FUN_00212d70(void*);
-extern void __cdecl FUN_00213380(void*, const char*, int);
-extern void __cdecl FUN_00213600(void*, int);
-extern int __cdecl FUN_00212f00(void*, int);
-extern int __cdecl FUN_00212d80(void*, int);
+extern "C" int __cdecl FUN_00212d70(LuaVMState*);
+extern "C" void __cdecl FUN_00213380(LuaVMState*, const char*, unsigned int);
+extern "C" void __cdecl FUN_00213600(LuaVMState*, int);
+extern "C" int __cdecl FUN_00212f00(LuaVMState*, int);
+extern "C" void __cdecl FUN_00212d80(LuaVMState*, int);
 
 bool __fastcall Target(Obj_1d1cb0* self) {
     int x = FUN_00212d70(self->m);

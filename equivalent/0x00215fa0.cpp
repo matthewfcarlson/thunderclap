@@ -1,15 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 10/10)
-// FUN_00215fa0 @ 0x00215fa0
-struct Value { unsigned int kind; union { unsigned int bits; float number; } data; };
-extern "C" int __cdecl FUN_00215fa0(const void *a, const void *b)
-{
-    if (((const Value *)a)->kind != ((const Value *)b)->kind) return 0;
-    switch (((const Value *)a)->kind) {
-    case 0:
+// luaO_rawequalObj: same type and the same value (numbers compare as floats).
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_00215fa0(const LuaVMTObject* t1, const LuaVMTObject* t2) {
+    if ((unsigned int)t1->tt != (unsigned int)t2->tt)
+        return 0;
+    switch ((unsigned int)t1->tt) {
+    case LUAVM_TNIL:
         return 1;
-    case 3:
-        return ((const Value *)a)->data.number == ((const Value *)b)->data.number;
+    case LUAVM_TNUMBER:
+        return t1->value.n == t2->value.n;
+    case LUAVM_TBOOLEAN:
+        return t1->value.b == t2->value.b;
     default:
-        return ((const Value *)a)->data.bits == ((const Value *)b)->data.bits;
+        return t1->value.p == t2->value.p;  // light userdata, or the same collectable object
     }
 }

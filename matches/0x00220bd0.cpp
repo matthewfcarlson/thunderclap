@@ -1,13 +1,8 @@
-typedef unsigned int uint_220bd0;
-struct Obj_220bd0 {
-    char pad[12];
-    void* p;
-};
-struct Inner_220bd0 {
-    char pad[8];
-    int value;
-};
-extern "C" int __cdecl FUN_00220b20(void *, unsigned int, unsigned int);
-extern "C" int FUN_00220bd0(void * a, unsigned int b, int c, unsigned int d, unsigned int e) {
-    return FUN_00220b20((Obj_220bd0 *)((Obj_220bd0 *)a), ((c << 9 | d) << 9 | e) << 6 | b, (int)(*(int*)((char*)((Obj_220bd0 *)a)->p + 8)));
+// luaK_codeABC.
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_00220b20(LuaVMFuncState* fs, LuaVMInstruction i, int line);
+
+extern "C" int __cdecl FUN_00220bd0(LuaVMFuncState* fs, unsigned int o, int a, unsigned int b, unsigned int c) {
+    return FUN_00220b20(fs, ((a << 9 | b) << 9 | c) << 6 | o, fs->ls->lastline);
 }

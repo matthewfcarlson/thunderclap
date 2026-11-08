@@ -1,33 +1,29 @@
-// STATUS: equivalent (tools/equiv.py level 3: 11558 inputs, branch coverage 12/12)
-// FUN_0021e110 @ 0x0021e110
-// FUN_0021e110 @ 0x0021e110
-struct Resource { char pad[0x24]; int replacement; };
-struct Owner { char pad[0x1c]; Resource* resource; };
-struct Entry { Entry* next; int type; int first; int second; };
-struct Source { int unused; int value; };
-extern "C" int __cdecl FUN_00220bd0(void *, unsigned int, int, unsigned int, unsigned int);
-extern "C" void __cdecl FUN_00220850(void *, int);
+// STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 12/12)
+// check_conflict: when an earlier target of the assignment indexes with the local v, use a copy of v instead.
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_00220bd0(LuaVMFuncState* fs, unsigned int o, int a, unsigned int b,
+                                    unsigned int c);
+extern "C" void __cdecl FUN_00220850(LuaVMFuncState* fs, int n);
 // equiv-conv: FUN_0021e110 ecx eax edi
-extern "C" void FUN_0021e110(void * owner, void * entry_, void * source)
-{
-    Entry * entry = (Entry *)entry_;
-    Resource* resource = ((Owner *)owner)->resource;
-    int replacement = resource->replacement;
-    bool changed = false;
-    for (; entry; entry = entry->next) {
-        if (entry->type == 8) {
-            if (entry->first == ((Source *)source)->value) {
-                changed = true;
-                entry->first = replacement;
+extern "C" void FUN_0021e110(LuaVMLexState* ls, LuaVMLHSAssign* lh, LuaVMExpDesc* v) {
+    LuaVMFuncState* fs = ls->fs;
+    int extra = fs->freereg;
+    bool conflict = false;
+    for (; lh; lh = lh->prev) {
+        if (lh->v.k == 8) { // VINDEXED
+            if (lh->v.info == v->info) {
+                conflict = true;
+                lh->v.info = extra;
             }
-            if (entry->second == ((Source *)source)->value) {
-                changed = true;
-                entry->second = replacement;
+            if (lh->v.aux == v->info) {
+                conflict = true;
+                lh->v.aux = extra;
             }
         }
     }
-    if (changed) {
-        FUN_00220bd0((Resource *)resource, 0, resource->replacement, (int)(((Source *)source)->value), 0);
-        FUN_00220850((Resource *)resource, 1);
+    if (conflict) {
+        FUN_00220bd0(fs, 0, fs->freereg, (unsigned int)v->info, 0); // OP_MOVE
+        FUN_00220850(fs, 1);
     }
 }

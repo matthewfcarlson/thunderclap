@@ -1,53 +1,38 @@
-// STATUS: equivalent (tools/equiv.py level 3: 11162 inputs, branch coverage 6/6)
-// FUN_00215de0 @ 0x00215de0
-// FUN_00215de0 @ 0x00215de0
-#include "compat/ptr.h"
-struct State_215de0 {
- char pad0[12];
- unsigned int value;
- char pad10[4];
- char* current;
- char* last;
- char* entries;
- unsigned int count;
- char pad24[4];
- char* base;
- unsigned short capacity;
- unsigned short savedWord;
- char pad30;
- unsigned char savedByte;
- char pad32[34];
- unsigned int context;
-};
-// the protected call (0x002152f0: the state, the function, its argument)
-extern int __cdecl FUN_002152f0(State_215de0*, void (__cdecl*)(), void*);
-extern "C" void __cdecl FUN_00219660(State_215de0*, char*);
+// STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 6/6)
+// luaD_pcall: call func(L, u) protected with error function ef; on an error restore the stack (to the byte
+// offset oldtop), the call depth, the CallInfo and the hooks, and set the error object.
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_002152f0(LuaVMState* L, void(__cdecl* f)(LuaVMState* L, void* ud), void* ud);
+extern "C" void __cdecl FUN_00219660(LuaVMState* L, LuaVMStkId level);
 // equiv-conv: FUN_00215240 eax ecx edi
-extern "C" void __cdecl FUN_00215240(int, void *, void *);
-extern "C" void __cdecl FUN_00215410(void *, unsigned int);
-unsigned int __cdecl FUN_00215de0(State_215de0* s, hulk_uintptr a, hulk_uintptr b, unsigned int offset, unsigned int context) {
- unsigned short oldWord = s->savedWord;
- unsigned char oldByte = s->savedByte;
- hulk_uintptr displacement = (hulk_uintptr)s->current - (hulk_uintptr)s->base;
- unsigned int oldContext = s->context;
- s->context = context;
- unsigned int result = (unsigned int)FUN_002152f0(s,(void (__cdecl*)())a,(void*)b);
- if(result) {
-  char* position = s->entries + offset;
-  FUN_00219660(s,position);
-  FUN_00215240((unsigned int)result,(char *)position,(State_215de0 *)s);
-  bool large = s->capacity > 0x1000;
-  char* base = s->base;
-  char* entries = s->entries;
-  s->savedWord = oldWord;
-  char* current = base + displacement;
-  s->current = current;
-  s->value = *(unsigned int*)current;
-  s->savedByte = oldByte;
-  s->last = entries + s->count * 8 - 8;
-  if (large && (((int)displacement >> 4) + 1 < 0x1000))
-   FUN_00215410((State_215de0 *)s,0x1000);
- }
- s->context = oldContext;
- return result;
+extern "C" void __cdecl FUN_00215240(int errcode, LuaVMTObject* oldtop, LuaVMState* L);
+extern "C" void __cdecl FUN_00215410(LuaVMState* L, int newsize);
+
+extern "C" int __cdecl FUN_00215de0(LuaVMState* L, void(__cdecl* func)(LuaVMState* L, void* ud), void* u, int oldtop,
+                                    int ef) {
+    unsigned short oldnCcalls = L->nCcalls;
+    unsigned char old_allowhooks = L->allowhook;
+    int old_ci = (int)((char*)L->ci - (char*)L->base_ci);
+    int old_errfunc = L->errfunc;
+    L->errfunc = ef;
+    int status = FUN_002152f0(L, func, u);
+    if (status) {
+        LuaVMTObject* oldtopp = (LuaVMTObject*)((char*)L->stack + oldtop);
+        FUN_00219660(L, oldtopp);
+        FUN_00215240(status, oldtopp, L);
+        bool large = L->size_ci > 0x1000;
+        LuaVMCallInfo* base_ci = L->base_ci;
+        LuaVMTObject* stack = L->stack;
+        L->nCcalls = oldnCcalls;
+        LuaVMCallInfo* ci = (LuaVMCallInfo*)((char*)base_ci + old_ci);
+        L->ci = ci;
+        L->base = ci->base;
+        L->allowhook = old_allowhooks;
+        L->stack_last = stack + L->stacksize - 1;
+        if (large && (int)(ci - base_ci) + 1 < 0x1000)
+            FUN_00215410(L, 0x1000);
+    }
+    L->errfunc = old_errfunc;
+    return status;
 }

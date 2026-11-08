@@ -1,15 +1,17 @@
+// luaL_ref
+#include "decls/data/lua.h"
 extern "C" {
-int FUN_00212d70(int L);
-int FUN_00212f00(int L, int i);
-void FUN_00212d80(int L, int i);
-void FUN_00213640(int L, int a, int b);
-int FUN_00213120(int L, int i);
-void FUN_00213870(int L, int a, int b);
-int FUN_003392c0(int L, int a);
-void FUN_00339270(int L, int a, int b);
+int __cdecl FUN_00212d70(LuaVMState* L);
+int __cdecl FUN_00212f00(LuaVMState* L, int i);
+void __cdecl FUN_00212d80(LuaVMState* L, int i);
+void __cdecl FUN_00213640(LuaVMState* L, int a, int b);
+int __cdecl FUN_00213120(LuaVMState* L, int i);
+void __cdecl FUN_00213870(LuaVMState* L, int a, int b);
+int __cdecl FUN_003392c0(LuaVMState* L, int a);
+void __cdecl FUN_00339270(LuaVMState* L, int a, int b);
 }
 
-int FUN_00339650(int L, int idx) {
+extern "C" int __cdecl FUN_00339650(LuaVMState* L, int idx) {
     if (idx <= 0 && idx > -10000) {
         idx = idx + FUN_00212d70(L) + 1;
     }

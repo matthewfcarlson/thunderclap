@@ -1,22 +1,27 @@
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 6/6)
 // FUN_0033bea0 @ 0x0033bea0
 // cl-flags: /GS
-struct Work_33bea0 { unsigned count; unsigned char *cursor; unsigned char buffer[512]; };
-extern unsigned char * __cdecl FUN_00339df0(void *, int, Work_33bea0 *);
-extern void __cdecl FUN_00339630(void *, unsigned char **);
-extern void __cdecl FUN_00339470(unsigned char **);
-extern int __cdecl FUN_00345475(int);
-extern void __cdecl FUN_00339540(unsigned char **);
-extern "C" int __cdecl FUN_0033bea0(void *input) {
- Work_33bea0 work;
- unsigned char *source = FUN_00339df0(input, 1, &work);
- FUN_00339630(input, &work.cursor);
- for (unsigned i = 0; i < work.count; ++i) {
-  if (work.cursor >= work.buffer + 512) FUN_00339470(&work.cursor);
-  int c = FUN_00345475(source[i]);
-  *work.cursor = (unsigned char)c;
-  ++work.cursor;
- }
- FUN_00339540(&work.cursor);
- return 1;
+// string.lower
+#include "decls/data/lua.h"
+
+extern "C" const char* __cdecl FUN_00339df0(LuaVMState* L, int narg, unsigned int* len);
+extern "C" void __cdecl FUN_00339630(LuaVMState* L, LuaVMLBuffer* B);
+extern "C" char* __cdecl FUN_00339470(LuaVMLBuffer* B);
+extern "C" int __cdecl FUN_00345475(int);
+extern "C" void __cdecl FUN_00339540(LuaVMLBuffer* B);
+
+extern "C" int __cdecl FUN_0033bea0(LuaVMState* L) {
+    unsigned int l;
+    LuaVMLBuffer b;
+    const unsigned char* s = (const unsigned char*)FUN_00339df0(L, 1, &l);
+    FUN_00339630(L, &b);
+    for (unsigned i = 0; i < l; ++i) {
+        if (b.p >= b.buffer + LUAVM_BUFFERSIZE)
+            FUN_00339470(&b);
+        int c = FUN_00345475(s[i]);
+        *b.p = (char)c;
+        ++b.p;
+    }
+    FUN_00339540(&b);
+    return 1;
 }

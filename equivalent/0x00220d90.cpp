@@ -1,3 +1,36 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 18/18)
-// FUN_00220d90 @ 0x00220d90
-struct Context { char pad[0x24]; int count; char pad2[0xc]; unsigned char limit; }; struct Value_220d90 { int type; int a; int b; }; extern "C" int __cdecl FUN_00220c10(void *, unsigned int, int, unsigned int); extern "C" int __cdecl FUN_00220bd0(void *, unsigned int, int, unsigned int, unsigned int); extern "C" void __cdecl FUN_00220a50(void *, void *, int); void __cdecl target(Context* c, Value_220d90* v) { switch(v->type) { case 5: v->type=11; break; case 6: v->a=FUN_00220bd0((Context *)c,4,0,(int)(v->a),0); v->type=10; break; case 7: v->a=FUN_00220c10((Context *)c,5,0,(int)(v->a)); v->type=10; break; case 8: { int limit=c->limit; if(v->b>=limit && v->b<250) --c->count; if(v->a>=limit && v->a<250) --c->count; v->a=FUN_00220bd0((Context *)c,6,0,(int)(v->a),(int)(v->b)); v->type=10; break; } case 12: FUN_00220a50((Context *)c,(Value_220d90 *)v,1); break; } }
+// luaK_dischargevars: turn a variable expression (local, upvalue, global, indexed, call) into a value.
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_00220c10(LuaVMFuncState* fs, unsigned int o, int a, unsigned int bc);
+extern "C" int __cdecl FUN_00220bd0(LuaVMFuncState* fs, unsigned int o, int a, unsigned int b, unsigned int c);
+extern "C" void __cdecl FUN_00220a50(LuaVMFuncState* fs, LuaVMExpDesc* e, int nresults);
+
+extern "C" void __cdecl FUN_00220d90(LuaVMFuncState* fs, LuaVMExpDesc* e) {
+    switch (e->k) {
+    case 5:
+        e->k = 11;
+        break;
+    case 6:
+        e->info = FUN_00220bd0(fs, 4, 0, (unsigned int)e->info, 0);
+        e->k = 10;
+        break;
+    case 7:
+        e->info = FUN_00220c10(fs, 5, 0, (unsigned int)e->info);
+        e->k = 10;
+        break;
+    case 8: {
+        int limit = fs->nactvar;
+        if (e->aux >= limit && e->aux < 250)
+            --fs->freereg;
+        if (e->info >= limit && e->info < 250)
+            --fs->freereg;
+        e->info = FUN_00220bd0(fs, 6, 0, (unsigned int)e->info, (unsigned int)e->aux);
+        e->k = 10;
+        break;
+    }
+    case 12:
+        FUN_00220a50(fs, e, 1);
+        break;
+    }
+}

@@ -1,88 +1,59 @@
-// STATUS: equivalent (tools/equiv.py level 3: 6772 inputs, branch coverage 8/8)
-// FUN_0021ab30 @ 0x0021ab30
-// FUN_0021ab30 @ 0x0021ab30
-struct Dump {
-    void* L;
-    int (*writer)(void* L, const void* buf, int size, void* ud);
-    void* ud;
-    int strip;
-};
-struct Proto {
-    char pad0[0xc];
-    void* k;           // 0x0c
-    void* code;        // 0x10 (unused)
-    void* lines;       // 0x14
-    char pad18[8];
-    Proto* source;     // 0x20
-    char pad24[8];
-    int sizek;         // 0x2c
-    int sizelines;     // 0x30
-    char pad34[8];
-    int linedefined;   // 0x3c
-    char pad40[4];
-    unsigned char nups;       // 0x44
-    unsigned char numparams;  // 0x45
-    unsigned char is_vararg;  // 0x46
-    unsigned char maxstack;   // 0x47
-};
+// STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 8/8)
+// DumpFunction: a prototype (its source unless the parent's, header bytes, lines, locals, upvalue names (none when
+// stripped), constants and code).
+#include "decls/data/lua.h"
 
 // equiv-conv: FUN_0021a790 eax esi
-extern "C" void __cdecl FUN_0021a790(void *, void *);
+extern "C" void __cdecl FUN_0021a790(const LuaVMString* s, LuaVMDumpState* D);
 // equiv-conv: FUN_0021a830 esi stack
-extern "C" void __cdecl FUN_0021a830(void *, void *);
+extern "C" void __cdecl FUN_0021a830(LuaVMDumpState* D, const LuaVMProto* f);
 // equiv-conv: FUN_0021a960 esi stack
-extern "C" void __cdecl FUN_0021a960(void *, void *);
+extern "C" void __cdecl FUN_0021a960(LuaVMDumpState* D, const LuaVMProto* f);
 // equiv-conv: FUN_0021aa00 esi stack
-void FUN_0021aa00(Dump* D, Proto* f);
-
-static void put(Dump* D, const void* p, int n)
-{
-    D->writer(D->L, p, n, D->ud);
-}
+extern "C" void __cdecl FUN_0021aa00(LuaVMDumpState* D, const LuaVMProto* f);
 
 // One scratch slot serves every value handed to the writer, as in the original (it lives in a dead
 // argument slot, so the bytes around a one-byte value are stale).
-union Scratch {
+union LuaVMDumpScratch_21ab30 {
     int i;
     unsigned char c;
 };
 
-void FUN_0021ab30(Proto* f, Proto* p, Dump* D)
-{
-    Scratch v;
-    FUN_0021a790((Proto *)(f->source == p ? 0 : f->source), (Dump *)D);
-    v.i = f->linedefined;
-    put(D, &v, 4);
+extern "C" void __cdecl FUN_0021ab30(const LuaVMProto* f, const LuaVMString* p, LuaVMDumpState* D) {
+    LuaVMDumpScratch_21ab30 v;
+    FUN_0021a790(f->source == p ? 0 : f->source, D);
+    v.i = f->lineDefined;
+    D->writer(D->L, &v, 4, D->data);
     v.c = f->nups;
-    put(D, &v, 1);
+    D->writer(D->L, &v, 1, D->data);
     v.c = f->numparams;
-    put(D, &v, 1);
+    D->writer(D->L, &v, 1, D->data);
     v.c = f->is_vararg;
-    put(D, &v, 1);
-    v.c = f->maxstack;
-    put(D, &v, 1);
+    D->writer(D->L, &v, 1, D->data);
+    v.c = f->maxstacksize;
+    D->writer(D->L, &v, 1, D->data);
     if (D->strip) {
         v.i = 0;
-        put(D, &v, 4);
+        D->writer(D->L, &v, 4, D->data);
     } else {
-        v.i = f->sizelines;
-        put(D, &v, 4);
-        put(D, f->lines, f->sizelines * 4);
+        v.i = f->sizelineinfo;
+        D->writer(D->L, &v, 4, D->data);
+        D->writer(D->L, f->lineinfo, f->sizelineinfo * 4, D->data);
     }
     if (D->strip) {
         v.i = 0;
-        put(D, &v, 4);
+        D->writer(D->L, &v, 4, D->data);
     } else {
-        FUN_0021a830((Dump *)D, (Proto *)f);
+        FUN_0021a830(D, f);
     }
     if (D->strip) {
         v.i = 0;
-        put(D, &v, 4);
+        D->writer(D->L, &v, 4, D->data);
     } else {
-        FUN_0021a960((Dump *)D, (Proto *)f);
+        FUN_0021a960(D, f);
     }
     FUN_0021aa00(D, f);
-    v.i = f->sizek;
-    put(D, &v, 4);
-    put(D, f->k, f->sizek * 4);
+    v.i = f->sizecode;
+    D->writer(D->L, &v, 4, D->data);
+    D->writer(D->L, f->code, f->sizecode * 4, D->data);
 }

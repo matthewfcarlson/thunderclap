@@ -1,20 +1,11 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 0/0)
-// FUN_00217750 @ 0x00217750
-// Lua 5.0 callTM prologue: push f, p1, p2 on the Lua stack
-struct TObject {
-    int tt;
-    int value;
-};
-
-struct lua_State {
-    char pad[8];
-    TObject* top;
-};
+// STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 0/0)
+// callTM's pushes: the metamethod f and its operands p1, p2 at the top of the stack (the caller moves top).
+#include "decls/data/lua.h"
 
 // equiv-conv: FUN_00217750 ecx stack eax edx
-extern "C" void FUN_00217750(void * L, const void * f, const void * p1, const void * p2)
-{
-    ((lua_State *)L)->top[0] = *((const TObject *)f);
-    ((lua_State *)L)->top[1] = *((const TObject *)p1);
-    ((lua_State *)L)->top[2] = *((const TObject *)p2);
+extern "C" void __cdecl FUN_00217750(LuaVMState* L, const LuaVMTObject* f, const LuaVMTObject* p1,
+                                     const LuaVMTObject* p2) {
+    L->top[0] = *f;
+    L->top[1] = *p1;
+    L->top[2] = *p2;
 }

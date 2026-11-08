@@ -1,25 +1,28 @@
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 7/8, incomplete)
-// FUN_002207c0 @ 0x002207c0
-// FUN_002207c0 @ 0x002207c0
-struct NodeList { char pad[12]; unsigned int *entries; };
+// luaK_concat: append the jump list l2 to the list *l1.
+#include "decls/data/lua.h"
+
 // equiv-conv: FUN_002204e0 eax ecx ebx
-void FUN_002204e0(int item, int index, NodeList **list);
-void __cdecl FUN_002207c0(NodeList **list, int *head, int item)
-{
-    if (item == -1) return;
-    int index = *head;
-    if (index == -1) {
-        *head = item;
+extern "C" void __cdecl FUN_002204e0(int dest, int pc, LuaVMFuncState* fs);
+
+extern "C" void __cdecl FUN_002207c0(LuaVMFuncState* fs, int* l1, int l2) {
+    if (l2 == -1)
+        return;
+    int list = *l1;
+    if (list == -1) {
+        *l1 = l2;
         return;
     }
-    unsigned int *entries = (*list)->entries;
+    LuaVMInstruction* code = fs->f->code;
     for (;;) {
-        int offset = ((entries[index] >> 6) & 0x3ffff) - 0x1ffff;
-        if (offset == -1) break;
-        index += offset + 1;
-        if (index == -1) break;
+        int offset = ((code[list] >> 6) & 0x3ffff) - 0x1ffff;
+        if (offset == -1)
+            break;
+        list += offset + 1;
+        if (list == -1)
+            break;
     }
-    FUN_002204e0(item, index, list);
+    FUN_002204e0(l2, list, fs);
     volatile int barrier = 0;
     (void)barrier;
 }

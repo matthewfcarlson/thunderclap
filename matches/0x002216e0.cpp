@@ -1,12 +1,9 @@
-#include "compat/ptr.h"
-extern "C" int __cdecl FUN_00221200(int, int);
+// luaK_indexed: t[k] (VINDEXED, the key as an RK operand).
+#include "decls/data/lua.h"
 
-struct Output_2216e0 {
-    int pad[2];
-    int value;
-};
+extern "C" int __cdecl FUN_00221200(LuaVMFuncState* fs, LuaVMExpDesc* e);
 
-void __cdecl target(hulk_intptr a, Output_2216e0* out, hulk_intptr c) {
-    out->value = FUN_00221200(a, c);
-    *(int*)out = 8;
+extern "C" void __cdecl FUN_002216e0(LuaVMFuncState* fs, LuaVMExpDesc* t, LuaVMExpDesc* k) {
+    t->aux = FUN_00221200(fs, k);
+    t->k = 8;
 }

@@ -1,36 +1,15 @@
-// STATUS: equivalent (tools/equiv.py level 3: 4477 inputs, branch coverage 92/120, incomplete)
-// FUN_002142d0 @ 0x002142d0
+// STATUS: equivalent (tools/equiv.py level 3: 4660 inputs, branch coverage 88/120, incomplete)
+// symbexec (with precheck): check pt's code up to lastpc; the last instruction that wrote reg (the final one when
+// reg is NO_REG 0xff); 0 when the code is invalid.
+#include "decls/data/lua.h"
 #include "decls/data/engine/unknown.h"
 
-struct TValue {
-    int tt;
-    int value;
-};
-
-struct Proto {
-    char pad0[8];
-    TValue *k;
-    unsigned int *code;
-    Proto **p;
-    char pad14[0x28 - 0x14];
-    int sizek;
-    int sizecode;
-    int sizelineinfo;
-    int sizep;
-    char pad38[0x44 - 0x38];
-    unsigned char nups;
-    char pad45[2];
-    unsigned char maxstacksize;
-};
-
-
 // equiv-conv: FUN_00214280 ecx edx eax
-int FUN_00214280(int r, Proto *pt, int mode);
+extern "C" int FUN_00214280(int r, const LuaVMProto* pt, int mode);
 // equiv-conv: FUN_00214250 eax edx
-int FUN_00214250(Proto *pt, int pc);
+extern "C" int FUN_00214250(const LuaVMProto* pt, int pc);
 
-// Lua 5.0 luaG_symbexec (with precheck)
-unsigned int __cdecl FUN_002142d0(Proto *pt, int lastpc, int reg)
+extern "C" LuaVMInstruction __cdecl FUN_002142d0(const LuaVMProto* pt, int lastpc, int reg)
 {
     int sizecode = pt->sizecode;
     int last = sizecode - 1;
@@ -41,7 +20,7 @@ unsigned int __cdecl FUN_002142d0(Proto *pt, int lastpc, int reg)
         return 0;
     if (pt->sizelineinfo != sizecode && pt->sizelineinfo != 0)
         return 0;
-    unsigned int *code = pt->code;
+    const LuaVMInstruction* code = pt->code;
     if ((code[sizecode - 1] & 0x3f) != 0x1b)
         return 0;
 
@@ -59,7 +38,7 @@ unsigned int __cdecl FUN_002142d0(Proto *pt, int lastpc, int reg)
         maxs = maxstack;
         if (a >= maxs)
             return 0;
-        m = ((unsigned char*)&DAT_00426ba4)[op];
+        m = ((const unsigned char*)DAT_00426ba4)[op];
         switch (m & 3) {
         case 0:
             b = (i >> 15) & 0x1ff;
@@ -86,7 +65,7 @@ unsigned int __cdecl FUN_002142d0(Proto *pt, int lastpc, int reg)
             break;
         }
 
-        m = ((unsigned char*)&DAT_00426ba4)[op];
+        m = ((const unsigned char*)DAT_00426ba4)[op];
         if (m & 0x40) {
             if (a == reg)
                 last = pc;

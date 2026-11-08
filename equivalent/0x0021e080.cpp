@@ -1,44 +1,18 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 2/2)
-// FUN_0021e080 @ 0x0021e080
-// 0x0021e080: Lua parser block(ls): enter a block, parse the chunk, then leave the block
-// equiv-conv: FUN_0021e080 eax
+// STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 2/2)
+// block: enter a block, parse the chunk, then leave the block (close its locals and upvalues, patch its breaks).
+#include "decls/data/lua.h"
+
 // equiv-conv: FUN_0021c5b0 eax edx
-struct LexState_21e080;
-struct BlockCnt_21e080;
+extern "C" void FUN_0021c5b0(LuaVMLexState* ls, int tolevel);
+extern "C" void __cdecl FUN_0021f640(LuaVMLexState* ls);
+extern "C" int __cdecl FUN_00220bd0(LuaVMFuncState* fs, unsigned int o, int a, unsigned int b,
+                                    unsigned int c);
+extern "C" void __cdecl FUN_00220d70(LuaVMFuncState* fs, int list);
 
-struct FuncState_21e080 {
-    char pad00[0xc];
-    LexState_21e080* ls;
-    char pad10[4];
-    BlockCnt_21e080* bl;
-    char pad18[0xc];
-    int freereg;
-    char pad28[0xc];
-    unsigned char nactvar;
-};
-
-struct LexState_21e080 {
-    char pad00[0x1c];
-    FuncState_21e080* fs;
-};
-
-struct BlockCnt_21e080 {
-    BlockCnt_21e080* previous;
-    int breaklist;
-    unsigned char nactvar;
-    unsigned char upval;
-    unsigned char isbreakable;
-};
-
-extern "C" void __cdecl FUN_0021f640(void *);
-extern "C" void __cdecl FUN_0021c5b0(void *, int);
-extern "C" int __cdecl FUN_00220bd0(void *, unsigned int, int, unsigned int, unsigned int);
-void __cdecl FUN_00220d70(FuncState_21e080* fs, int list);
-
-extern "C" void FUN_0021e080(void * ls)
-{
-    FuncState_21e080* fs = ((LexState_21e080 *)ls)->fs;
-    BlockCnt_21e080 bl;
+// equiv-conv: FUN_0021e080 eax
+extern "C" void FUN_0021e080(LuaVMLexState* ls) {
+    LuaVMFuncState* fs = ls->fs;
+    LuaVMBlockCnt bl;
 
     bl.breaklist = -1;
     bl.isbreakable = 0;
@@ -47,13 +21,13 @@ extern "C" void FUN_0021e080(void * ls)
     bl.previous = fs->bl;
     fs->bl = &bl;
 
-    FUN_0021f640((LexState_21e080 *)((LexState_21e080 *)ls));
+    FUN_0021f640(ls);
 
-    BlockCnt_21e080* b = fs->bl;
+    LuaVMBlockCnt* b = fs->bl;
     fs->bl = b->previous;
-    FUN_0021c5b0((LexState_21e080 *)(fs->ls), b->nactvar);
+    FUN_0021c5b0(fs->ls, b->nactvar);
     if (b->upval)
-        FUN_00220bd0((FuncState_21e080 *)fs, 0x22, b->nactvar, 0, 0);
+        FUN_00220bd0(fs, 0x22, b->nactvar, 0, 0); // OP_CLOSE
     fs->freereg = fs->nactvar;
     FUN_00220d70(fs, b->breaklist);
 }

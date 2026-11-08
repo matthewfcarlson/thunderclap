@@ -1,34 +1,33 @@
-// STATUS: equivalent (tools/equiv.py level 3: 10073 inputs, branch coverage 12/12)
+// STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 12/12)
 // FUN_0033a880 @ 0x0033a880
-// FUN_0033a880 @ 0x0033a880
-struct State;
-typedef void (__cdecl *Hook_33a880)();
-extern unsigned int DAT_004d9968;
+// db_gethook
+#include "decls/data/lua.h"
+extern "C" unsigned int DAT_004d9968;
 extern "C" {
-int __cdecl FUN_00212f00(State*, int);
-State* __cdecl FUN_00213290(State*, int);
-int __cdecl FUN_00213fa0(State*);
-Hook_33a880 __cdecl FUN_00213f90(State*);
-void __cdecl FUN_0033a620();
-void __cdecl FUN_00213380(State*, const char*, int);
+int __cdecl FUN_00212f00(LuaVMState*, int);
+LuaVMState* __cdecl FUN_00213290(LuaVMState*, int);
+int __cdecl FUN_00213fa0(LuaVMState*);
+LuaVMHook __cdecl FUN_00213f90(LuaVMState*);
+void __cdecl FUN_0033a620(LuaVMState* L, LuaVMDebug* ar);
+void __cdecl FUN_00213380(LuaVMState*, const char*, unsigned int);
 // equiv-conv: FUN_0033a740 esi
-void __cdecl FUN_0033a740(State*);
-void __cdecl FUN_00213550(State*, State*);
-void __cdecl FUN_00213600(State*, int);
-void __cdecl FUN_00212de0(State*, int);
-void __cdecl FUN_00212cb0(State*, State*, int);
-void __cdecl FUN_002133d0(State*, const char*);
-int __cdecl FUN_00213fb0(State*);
-void __cdecl FUN_00213360(State*, int);
+void __cdecl FUN_0033a740(LuaVMState*);
+void __cdecl FUN_00213550(LuaVMState*, void*);
+void __cdecl FUN_00213600(LuaVMState*, int);
+void __cdecl FUN_00212de0(LuaVMState*, int);
+void __cdecl FUN_00212cb0(LuaVMState*, LuaVMState*, int);
+void __cdecl FUN_002133d0(LuaVMState*, const char*);
+int __cdecl FUN_00213fb0(LuaVMState*);
+void __cdecl FUN_00213360(LuaVMState*, int);
 void __fastcall __security_check_cookie(unsigned int);
 }
-extern "C" int __cdecl FUN_0033a880(State* state) {
+extern "C" int __cdecl FUN_0033a880(LuaVMState* state) {
 unsigned int cookie=DAT_004d9968;
-State* source = state;
+LuaVMState* source = state;
 if (FUN_00212f00(state,1)==8) source=FUN_00213290(state,1);
 int flags=FUN_00213fa0(source);
-Hook_33a880 hook=FUN_00213f90(source);
-if(hook && hook != (Hook_33a880)FUN_0033a620) {
+LuaVMHook hook=FUN_00213f90(source);
+if(hook && hook != FUN_0033a620) {
 FUN_00213380(state,"external hook",13);
 } else {
 FUN_0033a740(source);

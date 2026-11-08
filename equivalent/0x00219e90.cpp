@@ -1,21 +1,19 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20004 inputs, branch coverage 6/6)
-// FUN_00219e90 @ 0x00219e90
-// FUN_00219e90 @ 0x00219e90
-#include "compat/ptr.h"
-struct Value { int type; union { float real; int integer; } data; };
-extern int* __cdecl FUN_00219dc0(int, int);
-extern int* __cdecl FUN_00219e50(int, int);
+// STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 6/6)
+// luaH_get: the value under a key (integers and strings by their fast paths), or luaO_nilobject.
+#include "decls/data/lua.h"
+
+extern "C" LuaVMTObject* __cdecl FUN_00219dc0(LuaVMTable* t, int key);
+extern "C" LuaVMTObject* __cdecl FUN_00219e50(LuaVMTable* t, LuaVMString* key);
 // equiv-conv: FUN_00219d80 edi stack
-extern "C" int * __cdecl FUN_00219d80(int *, int);
-int* __cdecl FUN_00219e90(hulk_intptr context, const Value *value)
-{
-    if (value->type == 3) {
-        int integer = (int)value->data.real;
-        if (value->data.real == (float)integer) {
-            return FUN_00219dc0(context, integer);
-        }
-    } else if (value->type == 4) {
-        return FUN_00219e50(context, value->data.integer);
+extern "C" LuaVMTObject* __cdecl FUN_00219d80(const LuaVMTObject* key, LuaVMTable* t);
+
+extern "C" LuaVMTObject* __cdecl FUN_00219e90(LuaVMTable* t, const LuaVMTObject* key) {
+    if (key->tt == LUAVM_TNUMBER) {
+        int k = (int)key->value.n;
+        if (key->value.n == (float)k)
+            return FUN_00219dc0(t, k);
+    } else if (key->tt == LUAVM_TSTRING) {
+        return FUN_00219e50(t, (LuaVMString*)key->value.gc);
     }
-    return FUN_00219d80((int *)(const Value *)value, context);
+    return FUN_00219d80(key, t);
 }

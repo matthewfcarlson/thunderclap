@@ -1,37 +1,41 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20001 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 8/8)
 // FUN_0033db20 @ 0x0033db20
-extern "C" void __cdecl f339d70(void*, int, int);
+// luaB_setfenv
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_00339d70(LuaVMState* L, int narg, int t);
 // equiv-conv: FUN_0033d9e0 esi
-extern "C" void __cdecl f33d9e0(void*);
-extern "C" int __cdecl f213720(void*, int);
-extern "C" void __cdecl f213380(void*, const char*, int);
-extern "C" void __cdecl f213600(void*, int);
-extern "C" int __cdecl f212f00(void*, int);
-extern "C" void __cdecl f338e20(void*, const char*, ...);
-extern "C" void __cdecl f212d80(void*, int);
-extern "C" void __cdecl f212ed0(void*, int);
-extern "C" int __cdecl f212f70(void*, int);
-extern "C" float __cdecl f2130e0(void*, int);
-extern "C" void __cdecl f212e60(void*, int);
-extern "C" int __cdecl f213950(void*, int);
-int __cdecl target(void* state, void*) {
-    f339d70(state, 2, 5);
-    f33d9e0(state);
-    f213720(state, -1);
-    f213380(state, "__fenv", 6);
-    f213600(state, -2);
-    if (f212f00(state, -1))
-        f338e20(state, "`setfenv' cannot change a protected environment");
+void __cdecl FUN_0033d9e0(LuaVMState* L);
+extern "C" void __cdecl FUN_00213720(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_00213380(LuaVMState* L, const char* s, unsigned int len);
+extern "C" void __cdecl FUN_00213600(LuaVMState* L, int idx);
+extern "C" int __cdecl FUN_00212f00(LuaVMState* L, int idx);
+extern "C" int __cdecl FUN_00338e20(LuaVMState* L, const char* fmt, ...);
+extern "C" void __cdecl FUN_00212d80(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_00212ed0(LuaVMState* L, int idx);
+extern "C" int __cdecl FUN_00212f70(LuaVMState* L, int idx);
+extern "C" float __cdecl FUN_002130e0(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_00212e60(LuaVMState* L, int idx);
+extern "C" int __cdecl FUN_00213950(LuaVMState* L, int idx);
+
+extern "C" int __cdecl FUN_0033db20(LuaVMState* L) {
+    FUN_00339d70(L, 2, LUAVM_TTABLE);
+    FUN_0033d9e0(L);
+    FUN_00213720(L, -1);
+    FUN_00213380(L, "__fenv", 6);
+    FUN_00213600(L, -2);
+    if (FUN_00212f00(L, -1))
+        FUN_00338e20(L, "`setfenv' cannot change a protected environment");
     else
-        f212d80(state, -3);
-    f212ed0(state, 2);
-    if (f212f70(state, 1)) {
-        if (f2130e0(state, 1) == 0.0f) {
-            f212e60(state, -10001);
+        FUN_00212d80(L, -3);
+    FUN_00212ed0(L, 2);
+    if (FUN_00212f70(L, 1)) {
+        if (FUN_002130e0(L, 1) == 0.0f) {
+            FUN_00212e60(L, -10001);
             return 0;
         }
     }
-    if (!f213950(state, -2))
-        f338e20(state, "`setfenv' cannot change environment of given function");
+    if (!FUN_00213950(L, -2))
+        FUN_00338e20(L, "`setfenv' cannot change environment of given function");
     return 0;
 }

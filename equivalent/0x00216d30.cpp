@@ -1,44 +1,36 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 9/9)
-// FUN_00216d30 @ 0x00216d30
+// freeobj: free a collectable object by its type.
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_00219730(LuaVMState* L, LuaVMProto* f);
+extern "C" void __cdecl FUN_002197d0(LuaVMState* L, LuaVMClosure* c);
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
+extern "C" void __cdecl FUN_00219d20(LuaVMState* L, LuaVMTable* t);
+extern "C" void __cdecl FUN_00215090(LuaVMState* L, LuaVMState* L1);
+
 // equiv-conv: FUN_00216d30 ecx eax
-struct Ctx;
-
-struct Op {
-    char pad0[4];
-    unsigned char kind;
-    char pad5[7];
-    int arg;
-};
-
-extern "C" void __cdecl FUN_00219730(void *, void *);
-extern "C" void __cdecl FUN_002197d0(void *, void *);
-void __cdecl FUN_0021add0(Ctx *c, Op *o, int a, int b);
-extern "C" void __cdecl FUN_00219d20(void *, void *);
-extern "C" void __cdecl FUN_00215090(void *, void *);
-
-extern "C" void __cdecl FUN_00216d30(void *c, void *o)
-{
-    switch (((Op *)o)->kind) {
-    case 4:
-        FUN_0021add0(((Ctx *)c), ((Op *)o), ((Op *)o)->arg + 0x11, 0);
+extern "C" void __cdecl FUN_00216d30(LuaVMState* L, LuaVMGCObject* o) {
+    switch (o->tt) {
+    case LUAVM_TSTRING:
+        FUN_0021add0(L, o, ((LuaVMString*)o)->len + (unsigned int)sizeof(LuaVMString) + 1, 0);
         break;
-    case 5:
-        FUN_00219d20((Ctx *)((Ctx *)c), (Op *)((Op *)o));
+    case LUAVM_TTABLE:
+        FUN_00219d20(L, (LuaVMTable*)o);
         break;
-    case 6:
-        FUN_002197d0((Ctx *)((Ctx *)c), (Op *)((Op *)o));
+    case LUAVM_TFUNCTION:
+        FUN_002197d0(L, (LuaVMClosure*)o);
         break;
-    case 7:
-        FUN_0021add0(((Ctx *)c), ((Op *)o), ((Op *)o)->arg + 0x10, 0);
+    case LUAVM_TUSERDATA:
+        FUN_0021add0(L, o, ((LuaVMUdata*)o)->len + (unsigned int)sizeof(LuaVMUdata), 0);
         break;
-    case 8:
-        FUN_00215090((Ctx *)((Ctx *)c), (Op *)((Op *)o));
+    case LUAVM_TTHREAD:
+        FUN_00215090(L, (LuaVMState*)o);
         break;
-    case 9:
-        FUN_00219730((Ctx *)((Ctx *)c), (Op *)((Op *)o));
+    case LUAVM_TPROTO:
+        FUN_00219730(L, (LuaVMProto*)o);
         break;
-    case 10:
-        FUN_0021add0(((Ctx *)c), ((Op *)o), 0x14, 0);
+    case LUAVM_TUPVAL:
+        FUN_0021add0(L, o, sizeof(LuaVMUpVal), 0);
         break;
     }
 }

@@ -1,43 +1,19 @@
-// STATUS: equivalent (tools/equiv.py level 3: 138 inputs, branch coverage 6/6)
-// FUN_002134a0 @ 0x002134a0
-struct TObject_2134a0 {
-    int tt;                 // 0x00
-    void* value;            // 0x04
-};
+// STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 6/6)
+// lua_pushcclosure: push a C closure of fn with the n top values as its upvalues (a GC step first when due).
+#include "decls/data/lua.h"
 
-struct GlobalState_2134a0 {
-    char pad0[0x48];
-    unsigned int GCthreshold;   // 0x48
-    unsigned int nblocks;       // 0x4c
-};
+extern "C" void __cdecl FUN_00217440(LuaVMState* L);
+extern "C" LuaVMClosure* __cdecl FUN_00219520(LuaVMState* L, int nelems);
 
-struct lua_State_2134a0 {
-    char pad0[8];
-    TObject_2134a0* top;           // 0x08
-    char pad0c[4];
-    GlobalState_2134a0* l_G;       // 0x10
-};
-
-struct CClosure {
-    char pad0[0xc];
-    int (__cdecl *f)(lua_State_2134a0*);   // 0x0c
-    TObject_2134a0 upvalue[1];     // 0x10
-};
-
-void __cdecl FUN_00217440(lua_State_2134a0* L);
-extern "C" void * __cdecl FUN_00219520(void *, int);
-
-// lua_pushcclosure
-void FUN_002134a0(lua_State_2134a0* L, int (__cdecl *fn)(lua_State_2134a0*), int n)
-{
-    if (L->l_G->nblocks >= L->l_G->GCthreshold)
+extern "C" void __cdecl FUN_002134a0(LuaVMState* L, LuaVMCFunction fn, int n) {
+    if (L->l_G->totalbytes >= L->l_G->GCthreshold)
         FUN_00217440(L);
-    CClosure* cl = ((CClosure *)FUN_00219520((lua_State_2134a0 *)L, n));
-    cl->f = fn;
+    LuaVMClosure* cl = FUN_00219520(L, n);
+    cl->c.f = fn;
     L->top -= n;
     while (n--)
-        cl->upvalue[n] = L->top[n];
-    L->top->value = cl;
-    L->top->tt = 6;
+        cl->c.upvalue[n] = L->top[n];
+    L->top->value.gc = (LuaVMGCObject*)cl;
+    L->top->tt = LUAVM_TFUNCTION;
     L->top++;
 }

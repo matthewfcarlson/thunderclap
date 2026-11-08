@@ -1,21 +1,17 @@
-typedef unsigned int u32_212e20;
-struct Pair_212e20 {
-    u32_212e20 a, b;
-};
-struct Obj_212e20 {
-    char pad[8];
-    Pair_212e20* end;
-};
-Pair_212e20* __fastcall FUN_00212bb0(Obj_212e20*, Obj_212e20*);
-extern "C" void FUN_00212e20(Obj_212e20* self, Obj_212e20* x) {
-    Pair_212e20* p = FUN_00212bb0(x, self);
-    Pair_212e20* q = self->end;
+// lua_insert: move the top value to idx, shifting the ones above idx up.
+#include "decls/data/lua.h"
+
+extern "C" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
+
+extern "C" void __cdecl FUN_00212e20(LuaVMState* L, int idx) {
+    LuaVMTObject* p = FUN_00212bb0(idx, L);
+    LuaVMTObject* q = L->top;
     while (q > p) {
-        q->a = (q - 1)->a;
-        q->b = (q - 1)->b;
+        q->tt = (q - 1)->tt;
+        q->value = (q - 1)->value;
         --q;
     }
-    q = self->end;
-    p->a = q->a;
-    p->b = q->b;
+    q = L->top;
+    p->tt = q->tt;
+    p->value = q->value;
 }

@@ -1388,3 +1388,85 @@ the link's per-name binding reasons. Iterations it1-it9 with reg6's proof 68254 
 
 A first proof (68566, without 0x002741d0's fix) stopped at the Wine start-up: 0x002741d0 defined its own `CoreFile`,
 the name clash isolated it, and its member object's devirtualized call `FileIface::f0` was unbound.
+
+## The Lua VM on records (lua1 / lua2, 2026-11-08)
+
+boot1 left the macOS start-up in CGame's start-up creating the Lua state. The game embeds a Lua VM (0x00212bb0-
+0x00221ae0 core, 0x00338d90-0x0033eb6f lauxlib and the libraries): a Lua 5.1 work version (lua_newstate with an
+allocator callback, the incremental collector's white/black bits and barriers, a ZIO that carries the state, upvalue
+descriptors as byte pairs) that keeps Lua 5.0's lua_State, the pseudo-indices (registry -10000, globals -10001) and
+the Node layout, with a `float` lua_Number. The version was identified from the game's code (allocation sizes,
+constructors, accessors, the error strings), not from any Lua source. A TObject is 8 bytes on 32-bit and 16 on
+64-bit, and the sources viewed every VM object through per-source pad structs with 32-bit offsets, indexed the stack
+by `n * 8`, copied TObjects as two 32-bit words, held pointers in ints and called invented names (`getData`, `Alloc`,
+`target`): every VM source moved onto one set of records in one batch.
+
+### The records
+
+`include/decls/data/lua.h` (new): `LuaVMTObject` / `LuaVMValue`, `LuaVMGCObject`, `LuaVMString` (+ `LUAVM_GETSTR`),
+`LuaVMUdata`, `LuaVMProto` / `LuaVMLocVar`, `LuaVMUpVal`, `LuaVMCClosure` / `LuaVMLClosure` / `LuaVMClosure`
+(`LUAVM_SIZECCLOSURE` / `LUAVM_SIZELCLOSURE`), `LuaVMNode` / `LuaVMTable`, `LuaVMCallInfo`, `LuaVMLongjmp`,
+`LuaVMBuffer`, `LuaVMZio`, `LuaVMState` (0x58), `LuaVMStringTable`, `LuaVMGlobal` (0xb0), `LuaVMLG`, `LuaVMDebug`;
+the compiler's `LuaVMSemInfo`, `LuaVMToken`, `LuaVMLexState`, `LuaVMExpDesc`, `LuaVMUpvalDesc`, `LuaVMFuncState`,
+`LuaVMBlockCnt`, `LuaVMConsControl`, `LuaVMLHSAssign`; the loader's `LuaVMSParser`, `LuaVMLoadState`,
+`LuaVMDumpState`; ldo's `LuaVMCallS` / `LuaVMCCallS`; the libraries' `LuaVMLBuffer`, `LuaVMReg`, `LuaVMCapture`,
+`LuaVMMatchState`, `LuaVMLoadRefs`, `LuaVMFile`, `LuaVMLoadF`, `LuaVMLoadS`. Every field carries its 32-bit offset and
+a function that uses it; `LuaVMLayout32` checks the XBE's offsets and sizes on the 32-bit builds (`LUAVM_CHECK32`).
+`LUAVM_NILOBJECT` is `DAT_00426824` (now an 8-byte struct item), `LUAVM_SETOBJ` copies tt then value. The data:
+`DAT_00426948` (luaT_typenames, `const char*[11]`) and `DAT_00426bf0` (luaX_tokens, `void*[31]`) are pointer tables
+with their strings split out (config/data.json, the forced pointer words in config/data-pointers.json, the nil object's
+record in config/data-ptrs.json).
+
+Rules the batch kept: strides and sizes by `sizeof` (slot counts stay counts: `L->top + 20` for LUA_MINSTACK); the
+on-disk chunk format's sizes (lundump / ldump header checks) stay 32-bit literals; every callee `FUN_<addr>` with the
+definition's record-typed signature (`extern "C"`, every lua_CFunction `int __cdecl (LuaVMState*)`); casts at the use
+where a record field's signedness changed MSVC's code.
+
+### Batch
+
+- 241 matches/ and 296 equivalent/ sources: the core (lapi, ldebug, ldo, lgc, lmem, lfunc, lobject, lstate,
+  lstring, ltable, ltm, lvm, llex, lparser, lcode, lundump, ldump, lzio), lauxlib and the libraries (base, string,
+  table, math, the loaders), and the game's callers (ScriptHandler 0x001d0990 / 0x001d1080 / 0x001d10e0 /
+  0x001d2020 / 0x001d29b0 / 0x001d36f0 / 0x001d3960 / 0x001d3c90 ..., 0x001d17f0, 0x001d0a40 ...).
+- 0x0033b7d0 (math.floor) now calls floor: HEAD called `__ceil_default`, the original calls `__floor_default`
+  (0x0034557c). The proof's play3 checkpoints are unchanged, and `___ceil_default` left the Wine unbound list.
+- gen_tree merges the Lua TU: two declarations of one `FUN_` name with different C++ types (an `unsigned int` vs
+  `int` parameter) become two `extern "C++"` overloads and the call is ambiguous (0x0021c490 / 0x0021c5f0 /
+  0x0021c9b0 declared luaM_growaux 0x0021ae40's element size `unsigned int`; unk_212bb0.cpp failed the 64-bit front
+  end). The IR check (`build/lua1/scripts/sigcheck.py`) cannot see this: declare the definition's exact types.
+- 0x001d2020 pushes a name 0x001d0c60 does not take (cdecl: the caller pops it): the 64-bit build declares and calls
+  the one-argument form under `HULK_PTR64`.
+
+### Gates
+
+| | |
+|---|---|
+| matches | 241 / 241 compare.py MATCH + verify_relocs ok (queue, with the batch's headers) |
+| equivalents, 3,000 inputs | 296 / 296 equivalent; 199 at 3,000+; the rest at their own ceilings (slow or stale-coverage inputs), each at or above the original source's STATUS count, or (0x0021d4b0 at `--inputs 3200`, 0x00217830, 0x0021b720) within 2 inputs of the original run on the same host; except 0x002134a0 (lua_pushcclosure: 79 inputs, 6/6 branches; the original 150 on the same host: the record-typed inputs end its random phase earlier; time budget does not change it) |
+| equivalents, `--wine` | 287 / 296; the 9 others fail identically on the untouched originals: 0x00216340, 0x00219a60, 0x0021aa00, 0x0021b230, 0x0021b720, 0x0021fb50, 0x0033d400, 0x001d36f0 (fail), 0x002142d0 (inconclusive) |
+| `--x64` (informational) | 227 equivalent, 42 fail (by design: the realloc sizes, stack strides, 16-byte TObjects past 32-bit allocations, pointer-sized fields read by 32-bit views), 23 unsupported (no input completes on the 32-bit side), 4 inconclusive |
+| sigcheck (64-bit IR, declarations vs definitions) | 0 in the Lua set; left: 0x001d29b0 -> 0x001d17f0 (gen owners.h holds the lua_State in an `int`), 0x00278ef0 -> 0x00278180 (not Lua), 0x0033ed20 -> 0x0033eb90 (the aligned allocator, below) |
+
+### Proof
+
+| | control 68765 (boot1's proof, studio) | proof 69769 (studio, HEAD c459a542a + the batch) |
+|---|---|---|
+| data_gen | 18,856 items | 18,861 items, 1,078 TUs (dg-n2) |
+| strict link rc / Wine unbound | 0 / 1,254 | 0 / 1,253 (`___ceil_default` gone) |
+| x87 keep list | 268 | 268, the same functions (0x00222180's namespace and 0x0033b880's `extern "C"` name changed) |
+| play3 checkpoints | 2,002 to 60,030 | `ckpt_gate.py` GATE ok at 2,002 common frames (the known transients only), PRNG hashes identical; 2,016 to 60,450 |
+| arm64 macOS / x86-64 Linux / arm64 Android unbound | 30,248 / 23,676 / 30,240 | **29,654 / 23,556 / 29,646**, all rc 0 |
+| macOS start-up | luaM_realloc | lua_newstate, the allocator and luaopen run; stops in luaL_openlib (0x003390d0) at lua_setfield (0x00213790): the luaL_reg tables' names are 32-bit XBE addresses (`strlen(0x434f60)`) |
+
+### Follow-ups
+
+- The luaL_reg tables (`DAT_00434970`, `DAT_00434af8`, `DAT_00434d90`, `DAT_00434e68`) and `DAT_004350b4`
+  (`const char*[]`) as typed pointer data (`LuaVMReg[]`): the next start-up stop.
+- getF 0x00339770 / luaL_loadfile 0x00339800 read the Xbox FILE's `_flag` directly (`LuaVMFile`): the native build
+  needs a feof / ferror shim in src/platform/sdl.
+- 0x001d22a0 packs its arguments into 4-byte slots; gen owners.h classes hold the lua_State in an `int` at +0x08
+  (0x001d29b0's cast, 0x001d17f0's `void*` context).
+- The aligned allocator 0x0033eb70 / 0x0033eb90 / 0x0033ec00 / 0x0033ec30 / 0x0033ed10 / 0x0033ed20 (about 32
+  callers, not Lua): a function-pointer hook in a 4-byte header slot at user-8 and pointer tables (`DAT_004d9858` /
+  `DAT_004d985c`) as `unsigned int`; needs a header-layout decision.
+- Game bug kept: generic_reader and luaB_load call luaL_unref 0x00339710 with (ref, LUA_REGISTRYINDEX) swapped.

@@ -1,25 +1,20 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
-// FUN_00219d80 @ 0x00219d80
+// STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 6/6)
+// luaH_getany: the value under a key of any type (by raw equality along its chain), or luaO_nilobject.
 #include "decls/data/engine/unknown.h"
-#include "compat/ptr.h"
+#include "decls/data/lua.h"
 
-struct Node {
-    char unused[8];
-    int value;
-    char padding[4];
-    Node *next;
-};
-extern "C" void * __cdecl FUN_002198b0(void *, const void *);
-extern "C" int __cdecl FUN_00215fa0(const void *, const void *);
+extern "C" LuaVMNode* __cdecl FUN_002198b0(const LuaVMTable* t, const LuaVMTObject* key);
+extern "C" int __cdecl FUN_00215fa0(const LuaVMTObject* t1, const LuaVMTObject* t2);
+
 // equiv-conv: FUN_00219d80 edi stack
-extern "C" int * __cdecl FUN_00219d80(int *list, int key) {
-    if (*list != 0) {
-        Node *node = ((Node *)FUN_002198b0((void *)(hulk_uintptr)(int)key, (int *)list));
+extern "C" LuaVMTObject* __cdecl FUN_00219d80(const LuaVMTObject* key, LuaVMTable* t) {
+    if (key->tt != LUAVM_TNIL) {
+        LuaVMNode* n = FUN_002198b0(t, key);
         do {
-            if (FUN_00215fa0((Node *)node, (int *)list) != 0)
-                return &node->value;
-            node = node->next;
-        } while (node != 0);
+            if (FUN_00215fa0(&n->i_key, key) != 0)
+                return &n->i_val;
+            n = n->next;
+        } while (n != 0);
     }
-    return ((int*)&DAT_00426824);
+    return LUAVM_NILOBJECT;
 }

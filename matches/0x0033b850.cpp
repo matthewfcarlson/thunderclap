@@ -1,8 +1,9 @@
-extern double __cdecl FUN_00339ec0(int, int);
-extern void __cdecl FUN_00213340(int, float);
+// lmathlib
+#include "decls/data/lua.h"
+extern "C" float __cdecl FUN_00339ec0(LuaVMState* L, int narg);
+extern "C" void __cdecl FUN_00213340(LuaVMState* L, float n);
 extern "C" double sqrt(double);
-extern "C" int __cdecl FUN_0033b850(int L) {
-    double x = FUN_00339ec0(L, 1);
-    FUN_00213340(L, (float)sqrt(x));
+extern "C" int __cdecl FUN_0033b850(LuaVMState* L) {
+    FUN_00213340(L, (float)sqrt(FUN_00339ec0(L, 1)));
     return 1;
 }

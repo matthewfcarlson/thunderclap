@@ -1,18 +1,14 @@
-#include "compat/ptr.h"
-hulk_intptr Find(int* a, int b, int c) {
-    int n = *(int*)((char*)a + 0x38), i = 0;
-    if (n > 0) {
-        int* p = (int*)(*(hulk_intptr*)((char*)a + 0x18) + 8);
-        do {
-            if (p[-1] > c)
-                return 0;
-            if (c < *p && --b == 0) {
-                int* q = (int*)*(hulk_intptr*)((char*)a + 0x18);
-                return q[i * 3] + 16;
-            }
-            ++i;
-            p += 3;
-        } while (i < n);
+// luaF_getlocalname: the name of the local_number-th local variable active at pc, or 0.
+#include "decls/data/lua.h"
+
+extern "C" const char* __cdecl FUN_00219820(const LuaVMProto* f, int local_number, int pc) {
+    int i;
+    for (i = 0; i < f->sizelocvars && f->locvars[i].startpc <= pc; i++) {
+        if (pc < f->locvars[i].endpc) {
+            local_number--;
+            if (local_number == 0)
+                return LUAVM_GETSTR(f->locvars[i].varname);
+        }
     }
     return 0;
 }

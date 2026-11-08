@@ -1,79 +1,32 @@
-// STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 44/46, incomplete)
-// FUN_0021a0f0 @ 0x0021a0f0
-#include "compat/ptr.h"
+// STATUS: equivalent (tools/equiv.py level 3: 8 inputs, branch coverage 25/46, incomplete)
+// resize: give a table nasize array slots and 2^lsize nodes, re-inserting the values that moved.
 #include "decls/data/engine/unknown.h"
-
-union Value_21a0f0 {
-    float n;
-    void *p;
-    int i;
-};
-
-struct TValue_21a0f0 {
-    int tt;
-    Value_21a0f0 value;
-};
-
-struct Node {
-    TValue_21a0f0 key;
-    TValue_21a0f0 val;
-    Node *next;
-};
-
-struct TString_21a0f0 {
-    char pad0[8];
-    unsigned int hash;
-};
-
-struct Global_21a0f0 {
-    char pad0[0x60];
-    Node dummynode;             // 0x60
-};
-
-struct lua_State_21a0f0 {
-    char pad0[0x10];
-    Global_21a0f0 *g;                  // 0x10
-};
-
-struct Table_21a0f0 {
-    char pad0[6];
-    unsigned char flags;        // 0x6
-    unsigned char lsizenode;    // 0x7
-    char pad8[4];
-    TValue_21a0f0 *array;              // 0xc
-    Node *node;                 // 0x10
-    char pad14[8];
-    int sizearray;              // 0x1c
-};
-
-     // nil object
+#include "decls/data/lua.h"
 
 // equiv-conv: FUN_00219be0 esi edi stack
-void FUN_00219be0(Table_21a0f0 *t, int nasize, lua_State_21a0f0 *L);
+extern "C" void __cdecl FUN_00219be0(LuaVMTable* t, int size, LuaVMState* L);
 // equiv-conv: FUN_00219c30 ebx esi stack
-void FUN_00219c30(lua_State_21a0f0 *L, Table_21a0f0 *t, int lsize);
-TValue_21a0f0 *__cdecl FUN_00219dc0(Table_21a0f0 *t, int n);
-extern "C" int * __cdecl FUN_0021a3e0(void *, void *, void *);
-void *__cdecl FUN_0021add0(lua_State_21a0f0 *L, void *block, unsigned int oldsize, unsigned int newsize);
-extern "C" void * __cdecl FUN_002198b0(void *, const void *);
-extern "C" int __cdecl FUN_00215fa0(const void *, const void *);
-void __cdecl FUN_00214a90(lua_State_21a0f0 *L, const char *msg, ...);
+extern "C" void __cdecl FUN_00219c30(LuaVMState* L, LuaVMTable* t, int lsize);
+extern "C" LuaVMTObject* __cdecl FUN_00219dc0(LuaVMTable* t, int key);
+extern "C" LuaVMTObject* __cdecl FUN_0021a3e0(LuaVMState* L, LuaVMTable* t, const LuaVMTObject* key);
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
+extern "C" LuaVMNode* __cdecl FUN_002198b0(const LuaVMTable* t, const LuaVMTObject* key);
+extern "C" int __cdecl FUN_00215fa0(const LuaVMTObject* t1, const LuaVMTObject* t2);
+extern "C" void __cdecl FUN_00214a90(LuaVMState* L, const char* fmt, ...);
 
-// Lua 5.0 luaH_resize: nasize arrives in eax, the table in ecx.
 // equiv-conv: FUN_0021a0f0 eax ecx stack stack
-void FUN_0021a0f0(hulk_intptr nasize, Table_21a0f0 *t, lua_State_21a0f0 *L, int lsize)
-{
+extern "C" void __cdecl FUN_0021a0f0(int nasize, LuaVMTable* t, LuaVMState* L, int lsize) {
     int oldasize = t->sizearray;
     int oldlsize = t->lsizenode;
-    Node *nold;
-    Node dummy;
-    TValue_21a0f0 key;
+    LuaVMNode* nold;
+    LuaVMNode temp[1];
+    LuaVMTObject key;
 
     if (oldlsize == 0) {
-        dummy = *t->node;
-        L->g->dummynode.key.tt = 0;
-        nold = &dummy;
-        L->g->dummynode.val.tt = 0;
+        temp[0] = *t->node;
+        L->l_G->dummynode->i_key.tt = LUAVM_TNIL;
+        nold = temp;
+        L->l_G->dummynode->i_val.tt = LUAVM_TNIL;
     } else {
         nold = t->node;
     }
@@ -85,72 +38,71 @@ void FUN_0021a0f0(hulk_intptr nasize, Table_21a0f0 *t, lua_State_21a0f0 *L, int 
     if (nasize < oldasize) {
         t->sizearray = nasize;
         for (int i = nasize; i < oldasize; i++) {
-            TValue_21a0f0 *arr = &t->array[i];
-            if (arr->tt != 0) {
-                TValue_21a0f0 *slot = FUN_00219dc0(t, i + 1);
-                if (slot == ((TValue_21a0f0*)&DAT_00426824)) {
-                    key.tt = 3;
+            LuaVMTObject* arr = &t->array[i];
+            if (arr->tt != LUAVM_TNIL) {
+                LuaVMTObject* slot = FUN_00219dc0(t, i + 1);
+                if (slot == LUAVM_NILOBJECT) {
+                    key.tt = LUAVM_TNUMBER;
                     key.value.n = (float)(i + 1);
-                    slot = ((TValue_21a0f0 *)FUN_0021a3e0((lua_State_21a0f0 *)L, (Table_21a0f0 *)t, (TValue_21a0f0 *)(&key)));
+                    slot = FUN_0021a3e0(L, t, &key);
                 }
-                slot->tt = arr->tt;
-                slot->value = arr->value;
+                LUAVM_SETOBJ(slot, arr);
             }
         }
-        t->array = (TValue_21a0f0 *)FUN_0021add0(L, t->array, oldasize * 8, nasize * 8);
+        t->array = (LuaVMTObject*)FUN_0021add0(L, t->array, oldasize * (unsigned int)sizeof(LuaVMTObject),
+                                               nasize * (unsigned int)sizeof(LuaVMTObject));
     }
 
     int oldhsize = 1 << oldlsize;
     for (int i = oldhsize - 1; i >= 0; i--) {
-        Node *old = &nold[i];
-        if (old->val.tt == 0)
+        LuaVMNode* old = &nold[i];
+        if (old->i_val.tt == LUAVM_TNIL)
             continue;
-        TValue_21a0f0 *k = &old->key;
+        LuaVMTObject* k = &old->i_key;
         int ktt = k->tt;
-        TValue_21a0f0 *p = ((TValue_21a0f0*)&DAT_00426824);
+        LuaVMTObject* p = LUAVM_NILOBJECT;
         bool generic = true;
-        if (ktt == 3) {
+        if (ktt == LUAVM_TNUMBER) {
             float f = k->value.n;
             int ik = (int)f;
             if ((double)ik == (double)f) {
                 p = FUN_00219dc0(t, ik);
                 generic = false;
             }
-        } else if (ktt == 4) {
-            TString_21a0f0 *ts = (TString_21a0f0 *)k->value.p;
-            Node *n = &t->node[ts->hash & ((1 << t->lsizenode) - 1)];
+        } else if (ktt == LUAVM_TSTRING) {
+            LuaVMString* ts = (LuaVMString*)k->value.gc;
+            LuaVMNode* n = &t->node[ts->hash & ((1 << t->lsizenode) - 1)];
             do {
-                if (n->key.tt == 4 && n->key.value.p == ts) {
-                    p = &n->val;
+                if (n->i_key.tt == LUAVM_TSTRING && (LuaVMString*)n->i_key.value.gc == ts) {
+                    p = &n->i_val;
                     break;
                 }
                 n = n->next;
             } while (n);
             generic = false;
         }
-        if (generic && ktt != 0) {
-            Node *n = ((Node *)FUN_002198b0((Table_21a0f0 *)t, (TValue_21a0f0 *)k));
+        if (generic && ktt != LUAVM_TNIL) {
+            LuaVMNode* n = FUN_002198b0(t, k);
             do {
-                if (FUN_00215fa0((Node *)n, (TValue_21a0f0 *)k)) {
-                    p = &n->val;
+                if (FUN_00215fa0(&n->i_key, k)) {
+                    p = &n->i_val;
                     break;
                 }
                 n = n->next;
             } while (n);
         }
         t->flags = 0;
-        if (p == ((TValue_21a0f0*)&DAT_00426824)) {
-            if (k->tt == 0) {
+        if (p == LUAVM_NILOBJECT) {
+            if (k->tt == LUAVM_TNIL) {
                 FUN_00214a90(L, "table index is nil");
-            } else if (k->tt == 3 && !(k->value.n == k->value.n)) {
+            } else if (k->tt == LUAVM_TNUMBER && !(k->value.n == k->value.n)) {
                 FUN_00214a90(L, "table index is NaN");
             }
-            p = ((TValue_21a0f0 *)FUN_0021a3e0((lua_State_21a0f0 *)L, (Table_21a0f0 *)t, (TValue_21a0f0 *)k));
+            p = FUN_0021a3e0(L, t, k);
         }
-        p->tt = old->val.tt;
-        p->value = old->val.value;
+        LUAVM_SETOBJ(p, &old->i_val);
     }
 
     if (oldlsize != 0)
-        FUN_0021add0(L, nold, oldhsize * 20, 0);
+        FUN_0021add0(L, nold, oldhsize * (unsigned int)sizeof(LuaVMNode), 0);
 }

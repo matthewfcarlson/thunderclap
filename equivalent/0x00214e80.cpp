@@ -1,39 +1,40 @@
-// STATUS: equivalent (tools/equiv.py level 3: 7435 inputs, branch coverage 0/0)
-// FUN_00214e80 @ 0x00214e80
-// FUN_00214e80 @ 0x00214e80
-#include "compat/ptr.h"
-struct State_214e80;
-struct Node { char pad0[5]; unsigned char flags; char pad6[2]; unsigned int a; unsigned int b; };
-struct Value_214e80 { unsigned int tag; void* data; };
-struct Detail_214e80 { char pad0[0x1c]; Node* node; char pad20[0x28]; unsigned int bytes; unsigned int count; char pad50[4]; Value_214e80 value; };
-struct State_214e80 { char pad0[5]; unsigned char flags; char pad6[10]; Detail_214e80* detail; char pad14[0x2c]; Value_214e80 value; };
-extern Node* __cdecl FUN_0021add0(State_214e80*,void*,int,unsigned);
-extern void __cdecl FUN_00217130(State_214e80*,Node*,int);
+// STATUS: equivalent (tools/equiv.py level 3: 2965 inputs, branch coverage 0/0)
+// f_luaopen: the protected part of lua_newstate: the udata list's dummy, the stack, the globals and registry tables,
+// the string table, the tag-method names, the reserved words and the fixed memory-error message.
+#include "decls/data/lua.h"
+
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
+extern "C" void __cdecl FUN_00217130(LuaVMState* L, LuaVMGCObject* o, unsigned char tt);
 // equiv-conv: FUN_00214dd0 edi esi
-extern void FUN_00214dd0(State_214e80*, State_214e80*);
-extern "C" void * __cdecl FUN_00219cc0(void *, void *, void *);
-extern "C" void __cdecl FUN_002192e0(void *, int);
-extern "C" void __cdecl FUN_00217520(void *);
-extern "C" void __cdecl FUN_0021aeb0(void *);
-extern Node* __cdecl FUN_00219430(State_214e80*,const char*,int);
-void __cdecl FUN_00214e80(State_214e80* s) {
- Node* n=FUN_0021add0(s,0,0,16);
- n->b=0; n->a=0;
- s->detail->node=n;
- FUN_00217130(s,n,7);
- n->flags |= 0x20;
- s->flags |= 0x20;
- FUN_00214dd0(s, s);
- void* p=FUN_00219cc0((State_214e80 *)s,(void *)(hulk_uintptr)(int)0,(void *)(hulk_uintptr)(int)4);
- s->value.data=p; s->value.tag=5;
- Value_214e80* v=&s->detail->value;
- p=FUN_00219cc0((State_214e80 *)s,(void *)(hulk_uintptr)(int)4,(void *)(hulk_uintptr)(int)4);
- v->data=p; v->tag=5;
- FUN_002192e0((State_214e80 *)s,0x2000);
- FUN_00217520((State_214e80 *)s);
- FUN_0021aeb0((State_214e80 *)s);
- n=FUN_00219430(s,"not enough memory",17);
- n->flags |= 0x20;
- Detail_214e80* d=s->detail;
- d->bytes=d->count<<2;
+extern "C" void __cdecl FUN_00214dd0(LuaVMState* L, LuaVMState* L1);
+extern "C" LuaVMTable* __cdecl FUN_00219cc0(LuaVMState* L, int narray, int lnhash);
+extern "C" void __cdecl FUN_002192e0(LuaVMState* L, int newsize);
+extern "C" void __cdecl FUN_00217520(LuaVMState* L);
+extern "C" void __cdecl FUN_0021aeb0(LuaVMState* L);
+extern "C" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
+
+extern "C" void __cdecl FUN_00214e80(LuaVMState* L, void* ud) {
+    HULK_SIZE32(LuaVMUdata, 0x10);
+    LuaVMUdata* u = (LuaVMUdata*)FUN_0021add0(L, 0, 0, sizeof(LuaVMUdata));
+    u->len = 0;
+    u->metatable = 0;
+    L->l_G->firstudata = (LuaVMGCObject*)u;
+    FUN_00217130(L, (LuaVMGCObject*)u, LUAVM_TUSERDATA);
+    u->marked |= 0x20;  // fixed
+    L->marked |= 0x20;
+    FUN_00214dd0(L, L);
+    LuaVMTable* t = FUN_00219cc0(L, 0, 4);
+    L->_gt.value.gc = (LuaVMGCObject*)t;
+    L->_gt.tt = LUAVM_TTABLE;
+    LuaVMTObject* registry = &L->l_G->l_registry;
+    t = FUN_00219cc0(L, 4, 4);
+    registry->value.gc = (LuaVMGCObject*)t;
+    registry->tt = LUAVM_TTABLE;
+    FUN_002192e0(L, 0x2000);
+    FUN_00217520(L);
+    FUN_0021aeb0(L);
+    LuaVMString* s = FUN_00219430(L, "not enough memory", 17);
+    s->marked |= 0x20;
+    LuaVMGlobal* g = L->l_G;
+    g->GCthreshold = g->totalbytes << 2;
 }

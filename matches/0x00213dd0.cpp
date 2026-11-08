@@ -1,64 +1,33 @@
+// lua_getupvalue: push upvalue n of the function at funcindex; its name ("" for a C function) or NULL.
+#include "decls/data/lua.h"
 #include "decls/data/game/global.h"
-// data: gZero_213dd0 = DAT_003f335c
 
-#include "compat/ptr.h"
-struct R_213dd0 {
-    int type;
-    void* data;
-};
-R_213dd0* __fastcall GetR(int, hulk_intptr);
-struct Ent_213dd0 {
-    char pad[8];
-    int* v;
-};
-struct Out_213dd0 {
-    char pad[8];
-    int* pos;
-};
-struct Inner_213dd0 {
-    char pad[0x1c];
-    int* arr;
-    char pad2[4];
-    int count;
-};
-struct Item_213dd0 {
-    char pad[8];
-    int a;
-    int b;
-};
-struct Data_213dd0 {
-    char pad[6];
-    unsigned char isArray;
-    unsigned char n;
-    char pad2[4];
-    Inner_213dd0* inner;
-    char pad3[4];
-    Ent_213dd0* items[1];
-};
-extern "C" char* FUN_00213dd0(Out_213dd0* out, int x, int index) {
-    R_213dd0* r = GetR(x, (hulk_intptr)out);
-    if (r->type != 6)
+extern "C" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
+
+extern "C" const char* __cdecl FUN_00213dd0(LuaVMState* L, int funcindex, int n) {
+    LuaVMTObject* fi = FUN_00212bb0(funcindex, L);
+    if (fi->tt != LUAVM_TFUNCTION)
         return 0;
-    Data_213dd0* d = (Data_213dd0*)r->data;
-    int* p;
-    char* ret;
-    if (d->isArray) {
-        if (index > d->n)
+    LuaVMClosure* f = (LuaVMClosure*)fi->value.gc;
+    LuaVMTObject* val;
+    const char* name;
+    if (f->c.isC) {
+        if (n > f->c.nupvalues)
             return 0;
-        p = (int*)((char*)d + 8 + index * 8);
-        ret = ((char*)&DAT_003f335c);
+        val = &f->c.upvalue[n - 1];
+        name = (const char*)&DAT_003f335c;
     } else {
-        Inner_213dd0* in = d->inner;
-        if (index > in->count)
+        LuaVMProto* p = f->l.p;
+        if (n > p->sizeupvalues)
             return 0;
-        p = d->items[index]->v;
-        ret = (char*)in->arr[index - 1] + 16;
+        val = f->l.upvals[n - 1]->v;
+        name = LUAVM_GETSTR(p->upvalues[n - 1]);
     }
-    if (ret) {
-        int* q = out->pos;
-        q[0] = p[0];
-        q[1] = p[1];
-        out->pos += 2;
+    if (name) {
+        LuaVMTObject* o = L->top;
+        o->tt = val->tt;
+        o->value = val->value;
+        L->top++;
     }
-    return ret;
+    return name;
 }

@@ -1,21 +1,21 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 4/4)
-// FUN_0021c3d0 @ 0x0021c3d0
-struct Parser { char pad0[4]; int current; int previous; int type; int value; int nextType; int nextValue; };
-void __cdecl FUN_0021b060(Parser*, const char*);
-extern "C" int __cdecl FUN_0021bbc0(void *, void *);
+// STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 4/4)
+// str_checkname: expect a name token, return its string and advance.
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_0021b060(LuaVMLexState* ls, const char* msg);
+extern "C" int __cdecl FUN_0021bbc0(LuaVMLexState* ls, LuaVMSemInfo* seminfo);
 // equiv-conv: FUN_0021c3d0 esi
-int FUN_0021c3d0(Parser* parser)
-{
-    if (parser->type != 0x116)
-        FUN_0021b060(parser, "<name> expected");
-    parser->previous = parser->current;
-    int result = parser->value;
-    if (parser->nextType != 0x11f) {
-        parser->value = parser->nextValue;
-        parser->type = parser->nextType;
-        parser->nextType = 0x11f;
+extern "C" LuaVMString* FUN_0021c3d0(LuaVMLexState* ls) {
+    if (ls->t.token != 0x116)
+        FUN_0021b060(ls, "<name> expected");
+    ls->lastline = ls->linenumber;
+    LuaVMString* ts = ls->t.seminfo.ts;
+    if (ls->lookahead.token != 0x11f) {
+        ls->t.seminfo = ls->lookahead.seminfo;
+        ls->t.token = ls->lookahead.token;
+        ls->lookahead.token = 0x11f;
     } else {
-        parser->type = FUN_0021bbc0((Parser *)parser, (int *)(&parser->value));
+        ls->t.token = FUN_0021bbc0(ls, &ls->t.seminfo);
     }
-    return result;
+    return ts;
 }

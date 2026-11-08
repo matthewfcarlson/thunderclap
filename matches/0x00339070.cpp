@@ -1,13 +1,15 @@
-extern int f212d70(int);
-extern int f339010(int, int, int);
-extern void f212ed0(int, int);
-extern void f2139a0(int, int, int);
-extern "C" int FUN_00339070(int a, int b, int c) {
-    if (b <= 0 && b > -10000)
-        b = b + 1 + f212d70(a);
-    if (f339010(a, b, c) == 0)
+// luaL_callmeta
+#include "decls/data/lua.h"
+extern "C" int __cdecl FUN_00212d70(LuaVMState* L);
+extern "C" int __cdecl FUN_00339010(LuaVMState* L, int obj, const char* event);
+extern "C" void __cdecl FUN_00212ed0(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_002139a0(LuaVMState* L, int nargs, int nresults);
+extern "C" int FUN_00339070(LuaVMState* L, int obj, const char* event) {
+    if (obj <= 0 && obj > -10000)
+        obj = obj + 1 + FUN_00212d70(L);
+    if (FUN_00339010(L, obj, event) == 0)
         return 0;
-    f212ed0(a, b);
-    f2139a0(a, 1, 1);
+    FUN_00212ed0(L, obj);
+    FUN_002139a0(L, 1, 1);
     return 1;
 }

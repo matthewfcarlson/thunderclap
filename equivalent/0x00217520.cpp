@@ -1,17 +1,17 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2766 inputs, branch coverage 4/4)
-// FUN_00217520 @ 0x00217520
+// STATUS: equivalent (tools/equiv.py level 3: 2768 inputs, branch coverage 4/4)
+// luaT_init: intern the event names (luaT_eventname, DAT_00426a24) into the global state's tmname, fixed.
 #include "decls/data/engine/unknown.h"
+#include "decls/data/lua.h"
 
-struct Entry { char pad[5]; unsigned char flags; };
-struct Context { char pad[16]; Entry **entries; };
-extern "C" Entry * __cdecl FUN_00219430(Context *, const char *, int);
-extern "C" void __cdecl FUN_00217520(void *context)
-{
-    for (int i = 0; i < 15; ++i) {
-        const char *text = ((const char**)&DAT_00426a24)[i];
-        const char *end = text;
-        while (*end) ++end;
-        ((Context *)context)->entries[0x74 / 4 + i] = FUN_00219430(((Context *)context), text, (int)(end - text));
-        ((Context *)context)->entries[0x74 / 4 + i]->flags |= 0x20;
+extern "C" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
+
+extern "C" void __cdecl FUN_00217520(LuaVMState* L) {
+    for (int i = 0; i < LUAVM_TM_N; ++i) {
+        const char* name = DAT_00426a24[i];
+        const char* end = name;
+        while (*end)
+            ++end;
+        L->l_G->tmname[i] = FUN_00219430(L, name, (unsigned int)(end - name));
+        L->l_G->tmname[i]->marked |= 0x20;
     }
 }

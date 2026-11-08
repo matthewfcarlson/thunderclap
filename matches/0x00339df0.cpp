@@ -1,18 +1,19 @@
-#include "compat/ptr.h"
-extern int __cdecl F213190(void*, void*);
-extern int __cdecl F212f20(void*, int);
-extern int __cdecl F212f00(void*, void*);
-extern int __cdecl F213470(void*, const char*, ...);
-extern void __cdecl F339c30(void*, void*, int);
-extern int __cdecl F2131f0(void*, void*);
-hulk_intptr __cdecl Target(void* a, void* b, int* out) {
-    int r = F213190(a, b);
+// luaL_checklstring
+#include "decls/data/lua.h"
+extern "C" const char* __cdecl FUN_00213190(LuaVMState* L, int idx);
+extern "C" const char* __cdecl FUN_00212f20(LuaVMState* L, int t);
+extern "C" int __cdecl FUN_00212f00(LuaVMState* L, int idx);
+extern "C" const char* __cdecl FUN_00213470(LuaVMState* L, const char* fmt, ...);
+extern "C" int __cdecl FUN_00339c30(LuaVMState* L, int narg, const char* extramsg);
+extern "C" unsigned int __cdecl FUN_002131f0(LuaVMState* L, int idx);
+extern "C" const char* __cdecl FUN_00339df0(LuaVMState* a, int b, unsigned int* out) {
+    const char* r = FUN_00213190(a, b);
     if (!r) {
-        int x = F212f20(a, 4);
-        int y = F212f20(a, F212f00(a, b));
-        F339c30(a, b, F213470(a, "%s expected, got %s", x, y));
+        const char* x = FUN_00212f20(a, 4);
+        const char* y = FUN_00212f20(a, FUN_00212f00(a, b));
+        FUN_00339c30(a, b, FUN_00213470(a, "%s expected, got %s", x, y));
     }
     if (out)
-        *out = F2131f0(a, b);
+        *out = FUN_002131f0(a, b);
     return r;
 }

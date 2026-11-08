@@ -1,11 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
-// FUN_00219870 @ 0x00219870
-struct Sample { char padding[7]; unsigned char bits; char unused[8]; int base; };
+// hashnum: the main position of a number key (the bits of n + 1 modulo the odd node count).
+#include "decls/data/lua.h"
+
 // equiv-conv: FUN_00219870 esi stack
-int __cdecl FUN_00219870(Sample* sample, float value) {
-    unsigned int mask = (1u << (sample->bits & 31)) - 1u;
+extern "C" LuaVMNode* __cdecl FUN_00219870(const LuaVMTable* t, float n) {
+    unsigned int mask = (1u << (t->lsizenode & 31)) - 1u;
     mask |= 1u;
-    union { float f; unsigned int u; } bits;
-    bits.f = value + 1.0f;
-    return sample->base + (bits.u % mask) * 20;
+    union {
+        float f;
+        unsigned int u;
+    } bits;
+    bits.f = n + 1.0f;
+    return t->node + bits.u % mask;
 }

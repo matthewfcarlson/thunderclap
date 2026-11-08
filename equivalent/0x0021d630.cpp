@@ -1,112 +1,81 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20022 inputs, branch coverage 15/16, incomplete)
-// FUN_0021d630 @ 0x0021d630
-// FUN_0021d630 @ 0x0021d630
-struct FuncState_21d630 {
-    char pad0[0x24];
-    int freereg;
-};
+// STATUS: equivalent (tools/equiv.py level 3: 3039 inputs, branch coverage 15/16, incomplete)
+// funcargs: a call's arguments: ( explist ), a table constructor or a string; f becomes the CALL (VCALL).
+#include "decls/data/lua.h"
 
-struct LexState_21d630 {
-    char pad0[4];
-    int linenumber;
-    int lastline;
-    int token;
-    int seminfo;
-    int lookahead_token;
-    int lookahead_seminfo;
-    FuncState_21d630 *fs;
-};
-
-struct ExpDesc_21d630 {
-    int k;
-    int info;
-    int aux;
-    int t;
-    int f;
-};
-
-struct Frame_21d630 {
-    int line;
-    ExpDesc_21d630 args;
-};
-
-void __cdecl FUN_0021b060(LexState_21d630 *ls, const char *msg);
-extern "C" int __cdecl FUN_0021bbc0(void *, void *);
+extern "C" void __cdecl FUN_0021b060(LuaVMLexState* ls, const char* msg);
+extern "C" int __cdecl FUN_0021bbc0(LuaVMLexState* ls, LuaVMSemInfo* seminfo);
 // equiv-conv: FUN_0021c190 esi
-extern "C" void __cdecl FUN_0021c190(void *);
+extern "C" void FUN_0021c190(LuaVMLexState* ls);
 // equiv-conv: FUN_0021c340 eax esi edi stack
-void FUN_0021c340(int line, LexState_21d630 *ls, int what, int who);
+extern "C" void FUN_0021c340(int where, LuaVMLexState* ls, int what, int who);
 // equiv-conv: FUN_0021cf70 ecx eax
-extern "C" void __cdecl FUN_0021cf70(void *, void *);
+extern "C" void FUN_0021cf70(LuaVMLexState* ls, LuaVMExpDesc* t);
 // equiv-conv: FUN_0021d5c0 esi edi
-extern "C" int __cdecl FUN_0021d5c0(void *, void *);
-int __cdecl FUN_002209b0(FuncState_21d630 *fs, int ts);
-extern "C" void __cdecl FUN_00220a50(void *, void *, int);
-extern "C" int __cdecl FUN_00220bd0(void *, unsigned int, int, unsigned int, unsigned int);
-extern "C" void __cdecl FUN_00220b00(void *, int);
-extern "C" void __cdecl FUN_00221110(void *, void *);
+extern "C" int FUN_0021d5c0(LuaVMLexState* ls, LuaVMExpDesc* v);
+extern "C" int __cdecl FUN_002209b0(LuaVMFuncState* fs, LuaVMString* s);
+extern "C" void __cdecl FUN_00220a50(LuaVMFuncState* fs, LuaVMExpDesc* e, int nresults);
+extern "C" int __cdecl FUN_00220bd0(LuaVMFuncState* fs, unsigned int o, int a, unsigned int b,
+                                    unsigned int c);
+extern "C" void __cdecl FUN_00220b00(LuaVMFuncState* fs, int line);
+extern "C" void __cdecl FUN_00221110(LuaVMFuncState* fs, LuaVMExpDesc* e);
 
-// funcargs(ls, f): ls arrives in eax, f on the stack.
+// ls arrives in eax, f on the stack.
 // equiv-conv: FUN_0021d630 eax stack
-extern "C" void FUN_0021d630(void * ls_, void *f)
-{
-    LexState_21d630 * ls = (LexState_21d630 *)ls_;
-    FuncState_21d630 *fs = ls->fs;
-    Frame_21d630 fr;
-    int line;
-    fr.line = ls->linenumber;
-    line = fr.line;
+extern "C" void FUN_0021d630(LuaVMLexState* ls, LuaVMExpDesc* f) {
+    LuaVMFuncState* fs = ls->fs;
+    LuaVMExpDesc args;
+    int line = ls->linenumber;
     int nparams;
     int base;
 
-    switch (ls->token) {
+    switch (ls->t.token) {
     case '(':
         if (line != ls->lastline)
             FUN_0021b060(ls, "ambiguous syntax (function call x new statement)");
         ls->lastline = ls->linenumber;
-        if (ls->lookahead_token != 0x11f) {
-            ls->token = ls->lookahead_token;
-            ls->seminfo = ls->lookahead_seminfo;
-            ls->lookahead_token = 0x11f;
+        if (ls->lookahead.token != 0x11f) {
+            ls->t.token = ls->lookahead.token;
+            ls->t.seminfo = ls->lookahead.seminfo;
+            ls->lookahead.token = 0x11f;
         } else {
-            ls->token = FUN_0021bbc0((LexState_21d630 *)ls, (int *)(&ls->seminfo));
+            ls->t.token = FUN_0021bbc0(ls, &ls->t.seminfo);
         }
-        if (ls->token == ')') {
-            fr.args.k = 0;
+        if (ls->t.token == ')') {
+            args.k = 0; // VVOID
         } else {
-            FUN_0021d5c0((LexState_21d630 *)ls, &fr.args);
-            FUN_00220a50((FuncState_21d630 *)fs, (ExpDesc_21d630 *)(&fr.args), -1);
+            FUN_0021d5c0(ls, &args);
+            FUN_00220a50(fs, &args, -1);
         }
         FUN_0021c340(line, ls, ')', '(');
         break;
     case '{':
-        FUN_0021cf70((LexState_21d630 *)ls, &fr.args);
+        FUN_0021cf70(ls, &args);
         break;
-    case 0x11e:
-        fr.args.k = 4;
-        fr.args.info = FUN_002209b0(fs, ls->seminfo);
-        fr.args.t = -1;
-        fr.args.f = -1;
-        fr.args.aux = -1;
-        FUN_0021c190((LexState_21d630 *)ls);
+    case 0x11e:     // TK_STRING
+        args.k = 4; // VK
+        args.info = FUN_002209b0(fs, ls->t.seminfo.ts);
+        args.t = -1;
+        args.f = -1;
+        args.aux = -1;
+        FUN_0021c190(ls);
         break;
     default:
         FUN_0021b060(ls, "function arguments expected");
         return;
     }
 
-    base = ((ExpDesc_21d630 *)f)->info;
-    if (fr.args.k == 12) {
+    base = f->info;
+    if (args.k == 12) { // VCALL
         nparams = -1;
     } else {
-        if (fr.args.k != 0)
-            FUN_00221110((FuncState_21d630 *)fs, &fr.args);
+        if (args.k != 0)
+            FUN_00221110(fs, &args);
         nparams = fs->freereg - base - 1;
     }
-    ((ExpDesc_21d630 *)f)->info = FUN_00220bd0((FuncState_21d630 *)fs, 0x19, base, (int)(nparams + 1), 2);
-    ((ExpDesc_21d630 *)f)->t = -1;
-    ((ExpDesc_21d630 *)f)->f = -1;
-    ((ExpDesc_21d630 *)f)->k = 12;
-    FUN_00220b00((FuncState_21d630 *)fs, line);
+    f->info = FUN_00220bd0(fs, 0x19, base, (unsigned int)(nparams + 1), 2); // OP_CALL
+    f->t = -1;
+    f->f = -1;
+    f->k = 12;
+    FUN_00220b00(fs, line);
     fs->freereg = base + 1;
 }

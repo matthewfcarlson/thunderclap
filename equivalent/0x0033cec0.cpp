@@ -1,53 +1,58 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1899 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 2485 inputs, branch coverage 22/22)
 // FUN_0033cec0 @ 0x0033cec0
-// FUN_0033cec0 @ 0x0033cec0
-#include "compat/ptr.h"
-struct Capture_33cec0 { int value; int index; };
-struct Context { char pad[8]; void* state; int count; Capture_33cec0 captures[1]; };
-struct Buffer_33cec0 { char* cursor; char storage[0x208]; };
-extern int __cdecl FUN_00212fb0(void*, int);
-extern unsigned char* __cdecl FUN_00213190(void*, int);
-extern unsigned int __cdecl FUN_002131f0(void*, int);
-extern void __cdecl FUN_00339470(Buffer_33cec0*);
-extern int __cdecl _isdigit(int);
-extern int __cdecl FUN_00338e20(void*, const char*, ...);
+// lstrlib add_s (gsub's replacement: a string with %n captures, or a function)
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_00212fb0(LuaVMState* L, int idx);
+extern "C" const char* __cdecl FUN_00213190(LuaVMState* L, int idx);
+extern "C" unsigned int __cdecl FUN_002131f0(LuaVMState* L, int idx);
+extern "C" char* __cdecl FUN_00339470(LuaVMLBuffer* B);
+extern "C" int __cdecl _isdigit(int);
+extern "C" int __cdecl FUN_00338e20(LuaVMState* L, const char* fmt, ...);
 // equiv-conv: FUN_0033cb10 eax esi
-extern void* FUN_0033cb10(int, Context*);
-extern void FUN_00339590(Buffer_33cec0*);
-extern void __cdecl FUN_00212ed0(void*, int);
+void FUN_0033cb10(int i, LuaVMMatchState* ms);
+extern "C" void __cdecl FUN_00339590(LuaVMLBuffer* B);
+extern "C" void __cdecl FUN_00212ed0(LuaVMState* L, int idx);
 // equiv-conv: FUN_0033cb70 esi ecx eax
-extern void* FUN_0033cb70(Context*, int, int);
-extern void __cdecl FUN_002139a0(void*, void*, int);
-extern void __cdecl FUN_00212d80(void*, int);
+int FUN_0033cb70(LuaVMMatchState* ms, const char* s, const char* e);
+extern "C" void __cdecl FUN_002139a0(LuaVMState* L, int nargs, int nresults);
+extern "C" void __cdecl FUN_00212d80(LuaVMState* L, int idx);
+
 // equiv-conv: FUN_0033cec0 eax ebx stack stack
-void target(Context* context, Buffer_33cec0* buffer, hulk_intptr a, hulk_intptr b) {
- void* state = context->state;
- if (FUN_00212fb0(state,3)) {
-  unsigned char* text=FUN_00213190(state,3);
-  unsigned int length=FUN_002131f0(state,3);
-  for(unsigned int i=0;i<length;++i) {
-   if(text[i]!='%') {
-    if(buffer->cursor >= buffer->storage+sizeof(buffer->storage)) FUN_00339470(buffer);
-    *buffer->cursor=text[i]; ++buffer->cursor;
-   } else {
-    ++i;
-    if(!_isdigit(text[i])) {
-     if(buffer->cursor >= buffer->storage+sizeof(buffer->storage)) FUN_00339470(buffer);
-     *buffer->cursor=text[i]; ++buffer->cursor;
+void FUN_0033cec0(LuaVMMatchState* ms, LuaVMLBuffer* b, const char* s, const char* e) {
+    LuaVMState* L = ms->L;
+    if (FUN_00212fb0(L, 3)) {
+        const unsigned char* news = (const unsigned char*)FUN_00213190(L, 3);
+        unsigned int l = FUN_002131f0(L, 3);
+        for (unsigned int i = 0; i < l; ++i) {
+            if (news[i] != '%') {
+                if (b->p >= b->buffer + LUAVM_BUFFERSIZE)
+                    FUN_00339470(b);
+                *b->p = news[i];
+                ++b->p;
+            } else {
+                ++i;
+                if (!_isdigit(news[i])) {
+                    if (b->p >= b->buffer + LUAVM_BUFFERSIZE)
+                        FUN_00339470(b);
+                    *b->p = news[i];
+                    ++b->p;
+                } else {
+                    int index = (signed char)news[i] - '1';
+                    if (index < 0 || index >= ms->level || ms->capture[index].len == LUAVM_CAP_UNFINISHED)
+                        index = FUN_00338e20(ms->L, "invalid capture index");
+                    FUN_0033cb10(index, ms);
+                    FUN_00339590(b);
+                }
+            }
+        }
     } else {
-     int index=(signed char)text[i]-'1';
-     if(index<0 || index>=context->count || context->captures[index].index==-1) index=FUN_00338e20(context->state,"invalid capture index");
-     void* value=FUN_0033cb10(index,context);
-     FUN_00339590(buffer); (void)value;
+        FUN_00212ed0(L, 3);
+        int n = FUN_0033cb70(ms, s, e);
+        FUN_002139a0(L, n, 1);
+        if (FUN_00212fb0(L, -1))
+            FUN_00339590(b);
+        else
+            FUN_00212d80(L, -2);
     }
-   }
-  }
- } else {
-  FUN_00212ed0(state,3);
-  void* v=FUN_0033cb70(context,a,b);
-  FUN_002139a0(state,v,1);
-  int result=FUN_00212fb0(state,-1);
-  if(result) FUN_00339590(buffer);
-  else FUN_00212d80(state,-2);
- }
 }

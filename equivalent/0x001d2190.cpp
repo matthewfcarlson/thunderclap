@@ -1,23 +1,23 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20044 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 3046 inputs, branch coverage 20/20)
 // FUN_001d2190 @ 0x001d2190
-struct lua_State;
+#include "decls/data/lua.h"
 
-extern void __cdecl FUN_002133d0(lua_State *L, const char *s);
-extern void __cdecl FUN_00213340(lua_State *L, int value);
-extern "C" void __cdecl FUN_00213570(lua_State *L, int index);
-extern void __cdecl FUN_002135a0(lua_State *L, int index, const char *key);
-extern int __cdecl FUN_00212f00(lua_State *L, int index);
-extern void __cdecl FUN_00212d80(lua_State *L, int index);
-extern int __cdecl FUN_002139f0(lua_State *L, int nargs, int nresults, int errfunc);
+extern void __cdecl FUN_002133d0(LuaVMState *L, const char *s);
+extern void __cdecl FUN_00213340(LuaVMState *L, float value);
+extern "C" void __cdecl FUN_00213570(LuaVMState *L, int index);
+extern void __cdecl FUN_002135a0(LuaVMState *L, int index, const char *key);
+extern int __cdecl FUN_00212f00(LuaVMState *L, int index);
+extern void __cdecl FUN_00212d80(LuaVMState *L, int index);
+extern int __cdecl FUN_002139f0(LuaVMState *L, int nargs, int nresults, int errfunc);
 
 // A call description passed by value: function name, argument count and up to ten typed arguments.
 struct ScriptCall {
     const char *function;
     int count;
     char strings[10][0x40];
-    int numbers[10];
+    float numbers[10];  // the arguments' bits, passed to lua_pushnumber as they are
     char types[12];
-    lua_State *L;
+    LuaVMState *L;
 };
 
 class ScriptRunner {
@@ -33,7 +33,7 @@ public:
 // a Lua error, 0 on success.
 int ScriptRunner::FUN_001d2190(ScriptCall call)
 {
-    lua_State *L = call.L;
+    LuaVMState *L = call.L;
     const char *name = call.function;
     FUN_002133d0(L, name);
     FUN_00213570(L, -10001);

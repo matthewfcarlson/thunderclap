@@ -1,20 +1,16 @@
-struct State;
-typedef int(__cdecl* Callback_3390d0)(State*);
-struct Registration_3390d0 {
-    const char* name;
-    Callback_3390d0 function;
-};
+// luaL_openlib
+#include "decls/data/lua.h"
 extern "C" {
-void __cdecl FUN_002135a0(State*, int, const char*);
-int __cdecl FUN_00212f00(State*, int);
-void __cdecl FUN_00212d80(State*, int);
-void __cdecl FUN_00213680(State*, int, int);
-void __cdecl FUN_00212ed0(State*, int);
-void __cdecl FUN_00213790(State*, int, const char*);
-void __cdecl FUN_00212e20(State*, int);
-void __cdecl FUN_002134a0(State*, Callback_3390d0, int);
+void __cdecl FUN_002135a0(LuaVMState*, int, const char*);
+int __cdecl FUN_00212f00(LuaVMState*, int);
+void __cdecl FUN_00212d80(LuaVMState*, int);
+void __cdecl FUN_00213680(LuaVMState*, int, int);
+void __cdecl FUN_00212ed0(LuaVMState*, int);
+void __cdecl FUN_00213790(LuaVMState*, int, const char*);
+void __cdecl FUN_00212e20(LuaVMState*, int);
+void __cdecl FUN_002134a0(LuaVMState*, LuaVMCFunction, int);
 }
-void __cdecl FUN_003390d0(State* state, const char* name, const Registration_3390d0* entries, int upvalueCount) {
+extern "C" void __cdecl FUN_003390d0(LuaVMState* state, const char* name, const LuaVMReg* entries, int upvalueCount) {
     if (name) {
         FUN_002135a0(state, -10001, name);
         if (!FUN_00212f00(state, -1)) {
@@ -30,7 +26,7 @@ void __cdecl FUN_003390d0(State* state, const char* name, const Registration_339
         do {
             for (int i = 0; i < upvalueCount; ++i)
                 FUN_00212ed0(state, -upvalueCount);
-            FUN_002134a0(state, entries->function, upvalueCount);
+            FUN_002134a0(state, entries->func, upvalueCount);
             FUN_00213790(state, destination, entries->name);
             ++entries;
         } while (entries->name);

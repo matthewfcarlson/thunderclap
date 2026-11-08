@@ -1,41 +1,32 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20158 inputs, branch coverage 56/57, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3164 inputs, branch coverage 53/57, incomplete)
 // FUN_0033c7e0 @ 0x0033c7e0
-// FUN_0033c7e0 @ 0x0033c7e0
+// lstrlib match
+#include "decls/data/lua.h"
+
 extern "C" int isdigit(int c);
 
-struct MatchState_33c7e0 {
-    const char *src_init;
-    const char *src_end;
-    void *L;
-    int level;
-    struct {
-        const char *init;
-        int len;
-    } capture[32];
-};
-
-int FUN_00338e20(void *L, const char *fmt, ...);
+extern "C" int __cdecl FUN_00338e20(LuaVMState* L, const char* fmt, ...);
 
 // equiv-conv: FUN_0033c790 eax ecx ebx
-const char *FUN_0033c790(int l, MatchState_33c7e0 *ms, const char *s);
+const char *FUN_0033c790(int l, LuaVMMatchState *ms, const char *s);
 // equiv-conv: FUN_0033c2b0 edi eax
-const char *FUN_0033c2b0(MatchState_33c7e0 *ms, const char *p);
+const char *FUN_0033c2b0(LuaVMMatchState *ms, const char *p);
 // equiv-conv: FUN_0033c430 ebx eax stack
 int FUN_0033c430(int c, const char *p, const char *ec);
 // equiv-conv: FUN_0033c520 eax ecx ebx
-const char *FUN_0033c520(const char *p, const char *s, MatchState_33c7e0 *ms);
+const char *FUN_0033c520(const char *p, const char *s, LuaVMMatchState *ms);
 // equiv-conv: FUN_0033c320 eax edi
 int FUN_0033c320(int c, int cl);
 // equiv-conv: FUN_0033c6e0 esi ebx stack stack
-const char *FUN_0033c6e0(MatchState_33c7e0 *ms, const char *s, const char *p, int what);
+const char *FUN_0033c6e0(LuaVMMatchState *ms, const char *s, const char *p, int what);
 // equiv-conv: FUN_0033c730 esi ebx stack
-const char *FUN_0033c730(MatchState_33c7e0 *ms, const char *s, const char *p);
+const char *FUN_0033c730(LuaVMMatchState *ms, const char *s, const char *p);
 // equiv-conv: FUN_0033c590 eax stack stack stack
-const char *FUN_0033c590(const char *p, MatchState_33c7e0 *ms, const char *s, const char *ep);
+const char *FUN_0033c590(const char *p, LuaVMMatchState *ms, const char *s, const char *ep);
 // equiv-conv: FUN_0033c640 eax stack stack stack
-const char *FUN_0033c640(const char *s, MatchState_33c7e0 *ms, const char *p, const char *ep);
+const char *FUN_0033c640(const char *s, LuaVMMatchState *ms, const char *p, const char *ep);
 
-const char *FUN_0033c7e0(MatchState_33c7e0 *ms, const char *s, const char *p)
+extern "C" const char *__cdecl FUN_0033c7e0(LuaVMMatchState *ms, const char *s, const char *p)
 {
     for (;;) {
         bool deflt = false;

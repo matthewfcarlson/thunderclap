@@ -1,112 +1,74 @@
-// STATUS: equivalent (tools/equiv.py level 3: 116 inputs, branch coverage 31/32, incomplete)
-// FUN_00217f20 @ 0x00217f20
-#include "compat/ptr.h"
-extern "C" void* memcpy(void* dst, const void* src, unsigned int n);
+// STATUS: equivalent (tools/equiv.py level 3: 399 inputs, branch coverage 31/32, incomplete)
+// luaV_concat: concatenate the total values ending at base[last] (strings and numbers, else by __concat).
+extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
+#include "decls/data/lua.h"
 
-struct TString_217f20 {
-    char pad00[0xc];
-    unsigned int len;           // 0x0c
-    char data[1];               // 0x10
-};
+extern "C" int __cdecl FUN_00217640(LuaVMState* L, LuaVMTObject* obj);
+extern "C" const LuaVMTObject* __cdecl FUN_002175b0(LuaVMState* L, const LuaVMTObject* o, int event);
+extern "C" void __cdecl FUN_00214d20(LuaVMState* L, LuaVMTObject* p1, LuaVMTObject* p2);
+extern "C" void __cdecl FUN_00214a90(LuaVMState* L, const char* fmt, ...);
+extern "C" void __cdecl FUN_00215460(LuaVMState* L, int n);
+extern "C" void __cdecl FUN_002159e0(LuaVMState* L, LuaVMTObject* func, int nresults);
+extern "C" char* __cdecl FUN_0021a6b0(LuaVMState* L, LuaVMBuffer* buff, unsigned int n);
+extern "C" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
 
-struct TObject_217f20 {
-    int tt;
-    void* value;
-};
-
-struct Mbuffer_217f20 {
-    char data[8];
-};
-
-struct Global_217f20 {
-    char pad00[0x3c];
-    Mbuffer_217f20 buff;               // 0x3c
-};
-
-struct lua_State_217f20 {
-    char pad00[8];
-    TObject_217f20* top;               // 0x08
-    TObject_217f20* base;              // 0x0c
-    Global_217f20* G;                  // 0x10
-    char pad14[4];
-    TObject_217f20* stack_last;        // 0x18
-    TObject_217f20* stack;             // 0x1c
-};
-
-extern "C" int FUN_00217640(lua_State_217f20* L, TObject_217f20* o);
-TObject_217f20* FUN_002175b0(lua_State_217f20* L, TObject_217f20* o, int event);
-extern "C" void __cdecl FUN_00214d20(void *, void *, const char *);
-void FUN_00214a90(lua_State_217f20* L, const char* fmt, ...);
-extern "C" void __cdecl FUN_00215460(void *, int);
-void FUN_002159e0(lua_State_217f20* L, TObject_217f20* func, int nresults);
-extern "C" void * __cdecl FUN_0021a6b0(void *, void **, hulk_uintptr);
-TString_217f20* FUN_00219430(lua_State_217f20* L, const char* str, unsigned int len);
-
-extern "C" void FUN_00217f20(void * L_, int total, int last)
-{
-    lua_State_217f20 * L = (lua_State_217f20 *)L_;
+extern "C" void __cdecl FUN_00217f20(LuaVMState* L, int total, int last) {
     int n;
     do {
-        TObject_217f20* top = L->base + last + 1;
+        LuaVMTObject* top = L->base + last + 1;
         n = 2;
-        if ((top[-2].tt == 4 || FUN_00217640(L, top - 2)) &&
-            (top[-1].tt == 4 || FUN_00217640(L, top - 1))) {
-            TString_217f20* s1 = (TString_217f20*)top[-1].value;
+        if ((top[-2].tt == LUAVM_TSTRING || FUN_00217640(L, top - 2)) &&
+            (top[-1].tt == LUAVM_TSTRING || FUN_00217640(L, top - 1))) {
+            LuaVMString* s1 = (LuaVMString*)top[-1].value.gc;
             if (s1->len != 0) {
-                unsigned int tl = ((TString_217f20*)top[-2].value)->len + s1->len;
+                unsigned int tl = ((LuaVMString*)top[-2].value.gc)->len + s1->len;
                 if (total > n) {
-                    TObject_217f20* p = top - 3;
+                    LuaVMTObject* p = top - 3;
                     do {
-                        if (p->tt != 4 && !FUN_00217640(L, p))
+                        if (p->tt != LUAVM_TSTRING && !FUN_00217640(L, p))
                             break;
-                        tl += ((TString_217f20*)p->value)->len;
+                        tl += ((LuaVMString*)p->value.gc)->len;
                         n++;
                         p--;
                     } while (n < total);
                 }
                 if (tl > 0xfffffffdu)
                     FUN_00214a90(L, "string size overflow");
-                char* buffer = ((char *)FUN_0021a6b0((lua_State_217f20 *)L, (void **)(Mbuffer_217f20 *)(&L->G->buff), (unsigned int)tl));
+                char* buffer = FUN_0021a6b0(L, &L->l_G->buff, tl);
                 tl = 0;
                 for (int i = n; i > 0; i--) {
-                    TString_217f20* s = (TString_217f20*)top[-i].value;
+                    LuaVMString* s = (LuaVMString*)top[-i].value.gc;
                     unsigned int len = s->len;
-                    memcpy(buffer + tl, s->data, len);
+                    memcpy(buffer + tl, LUAVM_GETSTR(s), len);
                     tl += len;
                 }
-                top[-n].value = FUN_00219430(L, buffer, tl);
-                top[-n].tt = 4;
+                top[-n].value.gc = (LuaVMGCObject*)FUN_00219430(L, buffer, tl);
+                top[-n].tt = LUAVM_TSTRING;
             }
         } else {
-            TObject_217f20* a = top - 2;
-            TObject_217f20* b = top - 1;
-            TObject_217f20* tm = FUN_002175b0(L, a, 0xd);
-            if (tm->tt == 0)
-                tm = FUN_002175b0(L, b, 0xd);
-            if (tm->tt != 6) {
-                FUN_00214d20((lua_State_217f20 *)L, (TObject_217f20 *)a, (const char *)(TObject_217f20 *)b);
+            LuaVMTObject* p1 = top - 2;
+            LuaVMTObject* p2 = top - 1;
+            const LuaVMTObject* tm = FUN_002175b0(L, p1, 0xd);  // call_binTM(TM_CONCAT), inlined
+            if (tm->tt == LUAVM_TNIL)
+                tm = FUN_002175b0(L, p2, 0xd);
+            if (tm->tt != LUAVM_TFUNCTION) {
+                FUN_00214d20(L, p1, p2);
             } else {
-                TObject_217f20* t = L->top;
-                t->tt = 6;
-                t->value = tm->value;
-                t = L->top;
-                t[1].tt = a->tt;
-                t[1].value = a->value;
-                t = L->top;
-                t[2].tt = b->tt;
-                t[2].value = b->value;
-                int offset = (int)((char*)top - (char*)L->stack) - 0x10;
-                if ((char*)L->stack_last - (char*)L->top <= 0x18)
-                    FUN_00215460((lua_State_217f20 *)L, 3);
-                TObject_217f20* func = L->top;
+                L->top->tt = LUAVM_TFUNCTION;
+                L->top->value = tm->value;
+                LUAVM_SETOBJ(L->top + 1, p1);
+                LUAVM_SETOBJ(L->top + 2, p2);
+                hulk_intptr result = (char*)(top - 2) - (char*)L->stack;
+                if ((char*)L->stack_last - (char*)L->top <= 3 * (int)sizeof(LuaVMTObject))
+                    FUN_00215460(L, 3);
+                LuaVMTObject* func = L->top;
                 L->top = func + 3;
                 FUN_002159e0(L, func, 1);
-                TObject_217f20* res = L->top - 1;
-                TObject_217f20* base = L->stack;
+                LuaVMTObject* res = L->top - 1;
+                LuaVMTObject* stack = L->stack;
                 L->top = res;
-                TObject_217f20* dst = (TObject_217f20*)((char*)base + offset);
-                dst->tt = res->tt;
-                dst->value = res->value;
+                LuaVMTObject* dst = (LuaVMTObject*)((char*)stack + result);
+                LUAVM_SETOBJ(dst, res);
             }
         }
         total -= n - 1;

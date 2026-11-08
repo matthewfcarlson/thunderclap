@@ -1,34 +1,20 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2987 inputs, branch coverage 0/0)
-// FUN_002141d0 @ 0x002141d0
+// STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 0/0)
+// info_tailcall: fill ar for a tail call's lost activation; push nil as its function.
+#include "decls/data/lua.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 
-void __cdecl FUN_00216340(char *destination, const char *source, int length);
-struct TailRecord {
-    char reserved[4];
-    char *first;
-    char *second;
-    const char *name;
-    const char *description;
-    int index;
-    int state;
-    int next;
-    char text[60];
-};
-struct TailArgument {
-    char reserved[8];
-    int *result;
-};
+extern "C" void __cdecl FUN_00216340(char* out, const char* source, int bufflen);
+
 // equiv-conv: FUN_002141d0 esi stack
-extern "C" void __cdecl FUN_002141d0(void *record, void *argument)
-{
-    ((TailRecord *)record)->first = ((char*)&DAT_003f335c);
-    ((TailRecord *)record)->second = ((char*)&DAT_003f335c);
-    ((TailRecord *)record)->index = -1;
-    ((TailRecord *)record)->next = -1;
-    ((TailRecord *)record)->name = ((char*)&DAT_0042662c);
-    ((TailRecord *)record)->description = ((char*)&DAT_00426634);
-    FUN_00216340(((TailRecord *)record)->text, ((char*)&DAT_00426634), 60);
-    ((TailRecord *)record)->state = 0;
-    *((TailArgument *)argument)->result = 0;
+extern "C" void __cdecl FUN_002141d0(LuaVMDebug* ar, LuaVMState* L) {
+    ar->name = (const char*)&DAT_003f335c;
+    ar->namewhat = (const char*)&DAT_003f335c;
+    ar->currentline = -1;
+    ar->linedefined = -1;
+    ar->what = DAT_0042662c;
+    ar->source = DAT_00426634;
+    FUN_00216340(ar->short_src, DAT_00426634, 60);
+    ar->nups = 0;
+    L->top->tt = LUAVM_TNIL;
 }

@@ -1,19 +1,11 @@
-#include "compat/ptr.h"
-typedef unsigned int u32_219d20;
-typedef unsigned char u8;
-extern void* Copy(void*, void*, u32_219d20, u32_219d20);
-struct Data_219d20 {
-    char pad0[7];
-    u8 count;
-    char pad8[4];
-    hulk_uintptr ptrC;
-    hulk_uintptr ptr10;
-    char pad14[8];
-    u32_219d20 count1C;
-};
-extern "C" void FUN_00219d20(void* a, void * b) {
-    if (((Data_219d20 *)b)->count)
-        Copy(a, (void*)((Data_219d20 *)b)->ptr10, (1 << ((Data_219d20 *)b)->count) * 20, 0);
-    Copy(a, (void*)((Data_219d20 *)b)->ptrC, ((Data_219d20 *)b)->count1C << 3, 0);
-    Copy(a, ((Data_219d20 *)b), 32, 0);
+// luaH_free: free a table's hash part (unless it is the dummy node), its array part and the table.
+#include "decls/data/lua.h"
+
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
+
+extern "C" void __cdecl FUN_00219d20(LuaVMState* L, LuaVMTable* t) {
+    if (t->lsizenode)
+        FUN_0021add0(L, t->node, (1 << t->lsizenode) * (unsigned int)sizeof(LuaVMNode), 0);
+    FUN_0021add0(L, t->array, t->sizearray * (unsigned int)sizeof(LuaVMTObject), 0);
+    FUN_0021add0(L, t, sizeof(LuaVMTable), 0);
 }

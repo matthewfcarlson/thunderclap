@@ -1,8 +1,8 @@
-#include "compat/ptr.h"
-typedef unsigned int u32_338fe0;
-extern int __cdecl Check(u32_338fe0, u32_338fe0);
-extern void __cdecl Report(u32_338fe0, const char*, ...);
-void __cdecl FUN_00338fe0(hulk_uintptr a, u32_338fe0 b, hulk_uintptr c) {
-    if (!Check(a, b))
-        Report(a, "stack overflow (%s)", c);
+// luaL_checkstack
+#include "decls/data/lua.h"
+extern "C" int __cdecl FUN_00212c50(LuaVMState* L, int size);
+extern "C" int __cdecl FUN_00338e20(LuaVMState* L, const char* fmt, ...);
+extern "C" void __cdecl FUN_00338fe0(LuaVMState* L, int space, const char* mes) {
+    if (!FUN_00212c50(L, space))
+        FUN_00338e20(L, "stack overflow (%s)", mes);
 }

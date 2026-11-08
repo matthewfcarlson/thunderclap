@@ -1,126 +1,91 @@
 // STATUS: equivalent (tools/equiv.py level 3: 122 inputs, branch coverage 34/34)
-// FUN_0021fe20 @ 0x0021fe20
-// FUN_0021fe20 @ 0x0021fe20
-// FUN_0021fe20 @ 0x0021fe20
-#include "compat/ptr.h"
-struct Proto_21fe20;
-
-struct Zio_21fe20 {
-    unsigned int n;                 // 0x0
-    unsigned char *p;               // 0x4
-};
-
-struct LoadState_21fe20 {
-    void *L;                        // 0x0
-    Zio_21fe20 *z;                         // 0x4
-    void *buff;                     // 0x8
-};
-
-struct TValue_21fe20 {
-    int tt;                         // 0x0
-    void *value;                    // 0x4
-};
-
-struct Proto_21fe20 {
-    char pad0[8];
-    TValue_21fe20 *k;                      // 0x08
-    char pad0c[4];
-    Proto_21fe20 **p;                      // 0x10
-    char pad14[0x20 - 0x14];
-    void *source;                   // 0x20
-    char pad24[4];
-    int sizek;                      // 0x28
-    char pad2c[0x34 - 0x2c];
-    int sizep;                      // 0x34
-};
+// LoadConstants (nil, number, string constants), then the nested functions.
+#include "decls/data/lua.h"
 
 // equiv-conv: FUN_0021f800 esi stack
-void __cdecl FUN_0021f800(LoadState_21fe20 *S, const char *fmt, ...);
+extern "C" void __cdecl FUN_0021f800(LuaVMLoadState* S, const char* fmt, ...);
 // equiv-conv: FUN_0021f8c0 ecx eax edx
-extern "C" void __cdecl FUN_0021f8c0(char *, unsigned int, void *);
-void *__cdecl FUN_0021add0(void *L, void *block, int oldsize, int newsize);
-int __cdecl FUN_0021a550(Zio_21fe20 *z);
-extern "C" void * __cdecl FUN_0021a6b0(void *, void **, hulk_uintptr);
-extern "C" unsigned int __cdecl FUN_0021a610(void *, void *, unsigned int);
-void *__cdecl FUN_00219430(void *L, void *str, int len);
-extern "C" void * __cdecl FUN_00220050(void *, void *);
+extern "C" void __cdecl FUN_0021f8c0(char* b, unsigned int size, LuaVMLoadState* S);
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
+extern "C" int __cdecl FUN_0021a550(LuaVMZio* z);
+extern "C" char* __cdecl FUN_0021a6b0(LuaVMState* L, LuaVMBuffer* buff, unsigned int n);
+extern "C" unsigned int __cdecl FUN_0021a610(LuaVMZio* z, void* b, unsigned int n);
+extern "C" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
+extern "C" LuaVMProto* __cdecl FUN_00220050(LuaVMLoadState* S, LuaVMString* p);
 
-// Lua 5.0 undump: LoadConstants(S, f) followed by LoadFunctions
 // equiv-conv: FUN_0021fe20 eax stack
-extern "C" void FUN_0021fe20(void *S, void * f_)
-{
-    Proto_21fe20 * f = (Proto_21fe20 *)f_;
+extern "C" void __cdecl FUN_0021fe20(LuaVMLoadState* S, LuaVMProto* f) {
     struct Frame {
         int n;
-        int index;      // constant index, later reused for the function count
+        int index;  // constant index, later reused for the function count
         int size;
-        int num;
-    } fr;
+        int num;    // a number constant's 32 bits
+    } fr;           // the integers read from the chunk (32 bits each)
 
-    FUN_0021f8c0((char *)(void *)(&fr.n), 4, (LoadState_21fe20 *)((LoadState_21fe20 *)S));
+    FUN_0021f8c0((char*)(void*)(&fr.n), 4, S);
     if (fr.n < 0)
-        FUN_0021f800(((LoadState_21fe20 *)S), "bad integer");
+        FUN_0021f800(S, "bad integer");
 
     int n = fr.n;
-    f->k = (TValue_21fe20 *)FUN_0021add0(((LoadState_21fe20 *)S)->L, 0, 0, n * 8);
+    f->k = (LuaVMTObject*)FUN_0021add0(S->L, 0, 0, n * (unsigned int)sizeof(LuaVMTObject));
     f->sizek = n;
     for (int i = 0; i < n; ++i)
-        f->k[i].tt = 0;
+        f->k[i].tt = LUAVM_TNIL;
 
     for (fr.index = 0; fr.index < n; ++fr.index) {
-        TValue_21fe20 *o = &f->k[fr.index];
-        Zio_21fe20 *z = ((LoadState_21fe20 *)S)->z;
+        LuaVMTObject* o = &f->k[fr.index];
+        LuaVMZio* z = S->Z;
         unsigned int left = z->n;
         z->n = left - 1;
-        z = ((LoadState_21fe20 *)S)->z;
+        z = S->Z;
         int c;
         if (left != 0)
-            c = *z->p++;
+            c = *(const unsigned char*)z->p++;
         else
             c = FUN_0021a550(z);
         if (c == -1)
-            FUN_0021f800(((LoadState_21fe20 *)S), "unexpected end of file");
+            FUN_0021f800(S, "unexpected end of file");
 
         switch (c & 0xff) {
         case 0:
-            o->tt = 0;
+            o->tt = LUAVM_TNIL;
             break;
         case 3:
-            FUN_0021f8c0((char *)(void *)(&fr.num), 4, (LoadState_21fe20 *)((LoadState_21fe20 *)S));
-            o->value = (void *)fr.num;
-            o->tt = 3;
+            FUN_0021f8c0((char*)(void*)(&fr.num), 4, S);
+            o->value.b = fr.num;  // the lua_Number's bits, copied as the original does (no float load)
+            o->tt = LUAVM_TNUMBER;
             break;
         case 4:
-            FUN_0021f8c0((char *)(void *)(&fr.size), 4, (LoadState_21fe20 *)((LoadState_21fe20 *)S));
+            FUN_0021f8c0((char*)(void*)(&fr.size), 4, S);
             if (fr.size == 0) {
                 n = fr.n;
-                o->value = 0;
-                o->tt = 4;
+                o->value.gc = 0;
+                o->tt = LUAVM_TSTRING;
             } else {
                 int size = fr.size;
-                void *buff = FUN_0021a6b0(((LoadState_21fe20 *)S)->L, (void **)(void *)(((LoadState_21fe20 *)S)->buff), (int)size);
-                if (((int)FUN_0021a610((Zio_21fe20 *)(((LoadState_21fe20 *)S)->z), buff, (int)size)) != 0)
-                    FUN_0021f800(((LoadState_21fe20 *)S), "unexpected end of file");
-                o->value = FUN_00219430(((LoadState_21fe20 *)S)->L, buff, size - 1);
+                char* buff = FUN_0021a6b0(S->L, S->b, (unsigned int)size);
+                if (((int)FUN_0021a610(S->Z, buff, (unsigned int)size)) != 0)
+                    FUN_0021f800(S, "unexpected end of file");
+                o->value.gc = (LuaVMGCObject*)FUN_00219430(S->L, buff, (unsigned int)(size - 1));
                 n = fr.n;
-                o->tt = 4;
+                o->tt = LUAVM_TSTRING;
             }
             break;
         default:
-            FUN_0021f800(((LoadState_21fe20 *)S), "bad constant type (%d)", c & 0xff);
+            FUN_0021f800(S, "bad constant type (%d)", c & 0xff);
             break;
         }
     }
 
-    FUN_0021f8c0((char *)(void *)(&fr.index), 4, (LoadState_21fe20 *)((LoadState_21fe20 *)S));
+    FUN_0021f8c0((char*)(void*)(&fr.index), 4, S);
     if (fr.index < 0)
-        FUN_0021f800(((LoadState_21fe20 *)S), "bad integer");
+        FUN_0021f800(S, "bad integer");
 
     int np = fr.index;
-    f->p = (Proto_21fe20 **)FUN_0021add0(((LoadState_21fe20 *)S)->L, 0, 0, np * 4);
+    f->p = (LuaVMProto**)FUN_0021add0(S->L, 0, 0, np * (unsigned int)sizeof(LuaVMProto*));
     f->sizep = np;
     for (int i = 0; i < np; ++i)
         f->p[i] = 0;
     for (int i = 0; i < np; ++i)
-        f->p[i] = ((Proto_21fe20 *)FUN_00220050((LoadState_21fe20 *)((LoadState_21fe20 *)S), f->source));
+        f->p[i] = FUN_00220050(S, f->source);
 }

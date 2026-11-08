@@ -1,12 +1,14 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 4/4)
-// FUN_00213260 @ 0x00213260
-// FUN_00213260 @ 0x00213260
-#include "compat/ptr.h"
-struct Result { int kind; int value; };
-Result* __fastcall FUN_00212bb0(int second, int first);
-extern "C" hulk_intptr __cdecl FUN_00213260(hulk_intptr first, int second) {
-    Result* result = FUN_00212bb0(second, first);
-    if (result->kind == 2) return result->value;
-    if (result->kind == 7) return result->value + 16;
+// STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 4/4)
+// lua_touserdata: the block of the full userdata or the light userdata at idx; NULL otherwise.
+#include "decls/data/lua.h"
+
+extern "C" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
+
+extern "C" void* __cdecl FUN_00213260(LuaVMState* L, int idx) {
+    LuaVMTObject* o = FUN_00212bb0(idx, L);
+    if (o->tt == LUAVM_TLIGHTUSERDATA)
+        return o->value.p;
+    if (o->tt == LUAVM_TUSERDATA)
+        return (LuaVMUdata*)o->value.gc + 1;
     return 0;
 }

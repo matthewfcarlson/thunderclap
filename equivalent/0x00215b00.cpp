@@ -1,25 +1,21 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2972 inputs, branch coverage 4/4)
-// FUN_00215b00 @ 0x00215b00
-struct Record { int type; int value; };
-struct Context {
-    char reserved[8];
-    Record* cursor;
-    char reserved2[8];
-    Record** source;
-    Record* end;
-};
-int __cdecl FUN_00219430(Context*, const char*, int);
-extern "C" void __cdecl FUN_00215460(void *, int);
+// STATUS: equivalent (tools/equiv.py level 3: 2976 inputs, branch coverage 4/4)
+// resume_error: the error message as lua_resume's only result.
+#include "decls/data/lua.h"
+
+extern "C" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
+extern "C" void __cdecl FUN_00215460(LuaVMState* L, int n);
+
 // equiv-conv: FUN_00215b00 esi edx
-extern "C" int FUN_00215b00(void * self, const char* text) {
-    Record* output = *((Context *)self)->source;
-    ((Context *)self)->cursor = output;
-    const char* p = text;
-    while (*p) ++p;
-    output->value = FUN_00219430(((Context *)self), text, (int)(p - text));
-    output->type = 4;
-    if ((char*)((Context *)self)->end - (char*)((Context *)self)->cursor <= 8)
-        FUN_00215460((Context *)((Context *)self), 1);
-    ((Context *)self)->cursor = (Record*)((char*)((Context *)self)->cursor + 8);
+extern "C" int __cdecl FUN_00215b00(LuaVMState* L, const char* msg) {
+    LuaVMTObject* o = L->ci->base;
+    L->top = o;
+    const char* p = msg;
+    while (*p)
+        ++p;
+    o->value.gc = (LuaVMGCObject*)FUN_00219430(L, msg, (unsigned int)(p - msg));
+    o->tt = LUAVM_TSTRING;
+    if ((char*)L->stack_last - (char*)L->top <= (int)sizeof(LuaVMTObject))
+        FUN_00215460(L, 1);
+    L->top++;
     return 1;
 }

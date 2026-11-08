@@ -1,19 +1,20 @@
-typedef unsigned int U_33a560;
-extern U_33a560 __cdecl F339f70(U_33a560, int);
-extern void __cdecl F339d70(U_33a560, int, int);
-extern U_33a560 __cdecl F212f40(U_33a560, int);
-extern "C" U_33a560 __cdecl FUN_00213dd0(U_33a560, int, U_33a560);
-extern void __cdecl F2133d0(U_33a560, U_33a560);
-extern void __cdecl F212e20(U_33a560, int);
-extern "C" int __cdecl FUN_0033a560(U_33a560 p) {
-    U_33a560 v = F339f70(p, 2);
-    F339d70(p, 1, 6);
-    if (F212f40(p, 1) != 0)
+// db_getupvalue
+#include "decls/data/lua.h"
+extern "C" int __cdecl FUN_00339f70(LuaVMState* L, int narg);
+extern "C" void __cdecl FUN_00339d70(LuaVMState* L, int narg, int t);
+extern "C" int __cdecl FUN_00212f40(LuaVMState* L, int idx);
+extern "C" const char* __cdecl FUN_00213dd0(LuaVMState* L, int funcindex, int n);
+extern "C" void __cdecl FUN_002133d0(LuaVMState* L, const char* s);
+extern "C" void __cdecl FUN_00212e20(LuaVMState* L, int idx);
+extern "C" int __cdecl FUN_0033a560(LuaVMState* p) {
+    int v = FUN_00339f70(p, 2);
+    FUN_00339d70(p, 1, 6);
+    if (FUN_00212f40(p, 1) != 0)
         return 0;
-    U_33a560 r = FUN_00213dd0(p, 1, v);
+    const char* r = FUN_00213dd0(p, 1, v);
     if (r == 0)
         return 0;
-    F2133d0(p, r);
-    F212e20(p, -2);
+    FUN_002133d0(p, r);
+    FUN_00212e20(p, -2);
     return 2;
 }

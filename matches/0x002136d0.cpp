@@ -1,37 +1,26 @@
-struct Payload_2136d0 {
-    char pad[8];
-    int v;
-};
-struct Node {
-    int type;
-    Payload_2136d0* payload;
-};
-struct Buf_2136d0 {
-    char pad[8];
-    int* cursor;
-};
+// lua_getmetatable: push the metatable of the table or userdata at objindex; 0 when it has none.
+#include "decls/data/lua.h"
 
-Node* __fastcall readNode(void* a, int* b);
+extern "C" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
 
-extern "C" int __cdecl FUN_002136d0(Buf_2136d0* p1, void* p2) {
-    Node* node = readNode(p2, (int*)p1);
-    int val;
-    switch (node->type) {
-    case 5:
-        val = node->payload->v;
+extern "C" int __cdecl FUN_002136d0(LuaVMState* L, int objindex) {
+    LuaVMTObject* obj = FUN_00212bb0(objindex, L);
+    LuaVMTable* mt;
+    switch (obj->tt) {
+    case LUAVM_TTABLE:
+        mt = ((LuaVMTable*)obj->value.gc)->metatable;
         break;
-    case 7:
-        val = node->payload->v;
+    case LUAVM_TUSERDATA:
+        mt = ((LuaVMUdata*)obj->value.gc)->metatable;
         break;
     default:
         return 0;
     }
-    if (val == 0) {
+    if (mt == 0)
         return 0;
-    }
-    int* cur = p1->cursor;
-    cur[1] = val;
-    cur[0] = 5;
-    p1->cursor += 2;
+    LuaVMTObject* o = L->top;
+    o->value.gc = (LuaVMGCObject*)mt;
+    o->tt = LUAVM_TTABLE;
+    L->top++;
     return 1;
 }

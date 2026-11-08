@@ -1,13 +1,13 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 16/16)
-// FUN_00214280 @ 0x00214280
-// FUN_00214280 @ 0x00214280
-struct Data { char pad0[0x28]; int length; char pad1[0x47-0x2c]; unsigned char minimum; };
+// STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 16/16)
+// checkArgMode: operand r is valid for argument mode mode (0 unused, 2 register, 3 register or constant).
+#include "decls/data/lua.h"
+
 // equiv-conv: FUN_00214280 ecx edx eax
-int FUN_00214280(int value, Data *data, int mode) {
-    if (mode == 0) return value == 0 ? 1 : 0;
-    if (mode == 2) return value < data->minimum ? 1 : 0;
-    if (mode == 3 && value >= data->minimum) {
-        if (value < 250 || value - 250 >= data->length) return 0;
+extern "C" int FUN_00214280(int r, const LuaVMProto* pt, int mode) {
+    if (mode == 0) return r == 0 ? 1 : 0;
+    if (mode == 2) return r < pt->maxstacksize ? 1 : 0;
+    if (mode == 3 && r >= pt->maxstacksize) {
+        if (r < 250 || r - 250 >= pt->sizek) return 0;
     }
     return 1;
 }

@@ -1,10 +1,9 @@
-struct S_213340 {
-    char pad[8];
-    int* p;
-};
-extern "C" void FUN_00213340(S_213340* a, int b) {
-    int* p = a->p;
-    p[1] = b;
-    p[0] = 3;
-    a->p = (int*)((char*)a->p + 8);
+// lua_pushnumber.
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_00213340(LuaVMState* L, float n) {
+    LuaVMTObject* o = L->top;
+    o->value.n = n;
+    o->tt = LUAVM_TNUMBER;
+    L->top++;
 }

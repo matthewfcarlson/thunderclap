@@ -1,32 +1,22 @@
-#include "compat/ptr.h"
-typedef unsigned int uint_219610;
-struct Owner_219610;
-void* Alloc(Owner_219610*, int, int, int);
-struct Owner_219610 {
-    char pad[0x10];
-    void* source;
-    char pad2[0x34];
-    void* list;
-};
-struct Node {
-    Node* next;
-    char data[4];
-    uint_219610 key;
-};
-Node* FUN_00219610(Owner_219610* self, hulk_uintptr key) {
-    Node* current = (Node*)self->list;
-    Node** link = (Node**)&self->list;
-    while (current != 0 && current->key >= key) {
-        if (current->key == key)
-            return current;
-        link = &current->next;
-        current = current->next;
+// luaF_findupval: the open upvalue for stack slot level (the list is ordered by level, highest first), made if absent.
+#include "decls/data/lua.h"
+
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
+
+extern "C" LuaVMUpVal* __cdecl FUN_00219610(LuaVMState* L, LuaVMTObject* level) {
+    LuaVMUpVal* p = (LuaVMUpVal*)L->openupval;
+    LuaVMGCObject** pp = &L->openupval;
+    while (p != 0 && p->v >= level) {
+        if (p->v == level)
+            return p;
+        pp = &p->next;
+        p = (LuaVMUpVal*)p->next;
     }
-    Node* node = (Node*)Alloc(self, 0, 0, 0x14);
-    ((char*)node)[4] = 10;
-    ((char*)node)[5] = *((char*)self->source + 0x14);
-    node->key = key;
-    node->next = *link;
-    *link = node;
-    return node;
+    LuaVMUpVal* v = (LuaVMUpVal*)FUN_0021add0(L, 0, 0, sizeof(LuaVMUpVal));
+    v->tt = LUAVM_TUPVAL;
+    v->marked = (unsigned char)L->l_G->currentwhite;
+    v->v = level;
+    v->next = *pp;
+    *pp = (LuaVMGCObject*)v;
+    return v;
 }

@@ -4,7 +4,7 @@
 extern "C" void* memcpy(void*, const void*, unsigned);
 extern "C" void* FUN_00266e00(int heap, int size);
 extern "C" void FUN_00267090(void*);
-void* Realloc(int unused, void* p, unsigned oldSize, unsigned newSize) {
+extern "C" void* __cdecl FUN_001d0990(void* ud, void* p, unsigned oldSize, unsigned newSize) {
     if (newSize == 0) {
         if (p)
             FUN_00267090(p);

@@ -1,15 +1,13 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19904 inputs, branch coverage 0/0)
-// FUN_002209b0 @ 0x002209b0
-// FUN_002209b0 @ 0x002209b0
-// FUN_002209b0 @ 0x002209b0
-#include "compat/ptr.h"
-struct Args { int kind; int value; };
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// luaK_stringK: the constant index of string s.
+#include "decls/data/lua.h"
+
 // equiv-conv: FUN_002208e0 ebx ecx stack
-int __cdecl FUN_002208e0(int fs, Args *k, Args *v);
-int __cdecl FUN_002209b0(hulk_intptr unused, int value)
-{
-    Args args;
-    args.kind = 4;
-    args.value = value;
-    return FUN_002208e0(unused, &args, &args);
+extern "C" int __cdecl FUN_002208e0(LuaVMFuncState* fs, LuaVMTObject* k, LuaVMTObject* v);
+
+extern "C" int __cdecl FUN_002209b0(LuaVMFuncState* fs, LuaVMString* s) {
+    LuaVMTObject o;
+    o.tt = LUAVM_TSTRING;
+    o.value.gc = (LuaVMGCObject*)s;
+    return FUN_002208e0(fs, &o, &o);
 }

@@ -1,17 +1,18 @@
-extern void F1(int, int, int);
-extern int F2(int, int);
-extern void F3(int, int);
-extern "C" int FUN_00213160(int, int);
-unsigned char __stdcall Target(int p1, int p2) {
+#include "decls/data/lua.h"
+extern "C" void __cdecl FUN_002135a0(LuaVMState*, int, const char*);
+extern "C" int __cdecl FUN_00212f00(LuaVMState*, int);
+extern "C" void __cdecl FUN_00212d80(LuaVMState*, int);
+extern "C" int __cdecl FUN_00213160(LuaVMState*, int);
+unsigned char __stdcall FUN_001d1080(const char* p1, LuaVMState* p2) {
     if (p1 == 0)
         return 0;
-    F1(p2, (int)0xffffd8ef, p1);
-    int r = F2(p2, -1);
+    FUN_002135a0(p2, (int)0xffffd8ef, p1);
+    int r = FUN_00212f00(p2, -1);
     if (r != 1) {
-        F3(p2, -2);
+        FUN_00212d80(p2, -2);
         return 0;
     }
     int q = FUN_00213160(p2, -1);
-    F3(p2, -2);
+    FUN_00212d80(p2, -2);
     return q != 0;
 }

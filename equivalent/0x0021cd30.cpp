@@ -1,24 +1,23 @@
-// STATUS: equivalent (tools/equiv.py level 3: 14531 inputs, branch coverage 2/2)
-// FUN_0021cd30 @ 0x0021cd30
-// FUN_0021cd30 @ 0x0021cd30
-#include "compat/ptr.h"
-struct State { int unknown; int value4; int value8; int valueC; int value10; int value14; int value18; int value1C; };
-extern "C" int __cdecl FUN_0021bbc0(void *, void *);
-extern "C" int __cdecl FUN_0021ded0(void *, void *, unsigned int);
-extern "C" void __cdecl FUN_002211e0(void *, void *);
+// STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 2/2)
+// yindex: [ exp ] (the key as a value).
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_0021bbc0(LuaVMLexState* ls, LuaVMSemInfo* seminfo);
+extern "C" int __cdecl FUN_0021ded0(LuaVMLexState* ls, LuaVMExpDesc* v, unsigned int limit);
+extern "C" void __cdecl FUN_002211e0(LuaVMFuncState* fs, LuaVMExpDesc* e);
 // equiv-conv: FUN_0021c2e0 esi eax
-extern "C" void __cdecl FUN_0021c2e0(void *, int);
+extern "C" void FUN_0021c2e0(LuaVMLexState* ls, int c);
 // equiv-conv: FUN_0021cd30 eax edi
-void FUN_0021cd30(State *state, hulk_intptr edi) {
-    state->value8 = state->value4;
-    if (state->value14 == 0x11f) {
-        state->valueC = FUN_0021bbc0((State *)state, (int *)(&state->value10));
+extern "C" void FUN_0021cd30(LuaVMLexState* ls, LuaVMExpDesc* v) {
+    ls->lastline = ls->linenumber;
+    if (ls->lookahead.token == 0x11f) {
+        ls->t.token = FUN_0021bbc0(ls, &ls->t.seminfo);
     } else {
-        state->valueC = state->value14;
-        state->value10 = state->value18;
-        state->value14 = 0x11f;
+        ls->t.token = ls->lookahead.token;
+        ls->t.seminfo = ls->lookahead.seminfo;
+        ls->lookahead.token = 0x11f;
     }
-    FUN_0021ded0((State *)state, (void *)(hulk_uintptr)(int)edi, 0);
-    FUN_002211e0((void *)(hulk_uintptr)(int)(state->value1C), (void *)(hulk_uintptr)(int)edi);
-    FUN_0021c2e0((State *)state, 0x5d);
+    FUN_0021ded0(ls, v, 0);
+    FUN_002211e0(ls->fs, v);
+    FUN_0021c2e0(ls, 0x5d);
 }

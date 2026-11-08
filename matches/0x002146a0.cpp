@@ -1,5 +1,8 @@
-typedef unsigned int uint;
-extern int FUN_002142d0(void*, int, int);
-extern "C" int FUN_002146a0(void* object) {
-    return FUN_002142d0(object, *(int*)((char*)object + 0x2c), 0xff) != 0;
+// luaG_checkcode: the whole of pt's code passes symbexec.
+#include "decls/data/lua.h"
+
+extern "C" LuaVMInstruction __cdecl FUN_002142d0(const LuaVMProto* pt, int lastpc, int reg);
+
+extern "C" int __cdecl FUN_002146a0(const LuaVMProto* pt) {
+    return FUN_002142d0(pt, pt->sizecode, 0xff) != 0;
 }

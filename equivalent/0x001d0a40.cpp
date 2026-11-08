@@ -1,35 +1,22 @@
-// STATUS: equivalent (tools/equiv.py level 3: 1513 inputs, branch coverage 30/30)
+// STATUS: equivalent (tools/equiv.py level 3: 2606 inputs, branch coverage 30/30)
 // FUN_001d0a40 @ 0x001d0a40
 // cl-flags: /GS
-struct lua_State;
-
-struct lua_Debug_1d0a40 {
-    int event;
-    const char* name;
-    const char* namewhat;
-    const char* what;
-    const char* source;
-    int currentline;
-    int nups;
-    int linedefined;
-    char short_src[60];
-    int i_ci;
-};
+#include "decls/data/lua.h"
 
 
-int FUN_00212d70(lua_State* L);
-extern "C" int FUN_00212fb0(lua_State* L, int idx);
-void FUN_00212e20(lua_State* L, int idx);
-void FUN_00213380(lua_State* L, const char* s, int len);
-extern "C" const char* FUN_00213470(lua_State* L, const char* fmt, ...);
-extern "C" void FUN_00213c90(lua_State* L, int n);
-int FUN_00213fc0(lua_State* L, int level, lua_Debug_1d0a40* ar);
-int FUN_00214bd0(lua_State* L, const char* what, lua_Debug_1d0a40* ar);
+extern "C" int FUN_00212d70(LuaVMState* L);
+extern "C" int FUN_00212fb0(LuaVMState* L, int idx);
+extern "C" void FUN_00212e20(LuaVMState* L, int idx);
+extern "C" void FUN_00213380(LuaVMState* L, const char* s, unsigned int len);
+extern "C" const char* FUN_00213470(LuaVMState* L, const char* fmt, ...);
+extern "C" void FUN_00213c90(LuaVMState* L, int n);
+extern "C" int FUN_00213fc0(LuaVMState* L, int level, LuaVMDebug* ar);
+extern "C" int FUN_00214bd0(LuaVMState* L, const char* what, LuaVMDebug* ar);
 
 // Lua error handler: pushes the "LUA SCRIPT ERROR" banner and a stack traceback.
-extern "C" int FUN_001d0a40(lua_State* L)
+extern "C" int FUN_001d0a40(LuaVMState* L)
 {
-    lua_Debug_1d0a40 ar;
+    LuaVMDebug ar;
     int level = 1;
     int firstpart = 1;
     int proceed = 1;

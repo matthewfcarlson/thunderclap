@@ -1,17 +1,18 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
+// STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 8/8)
 // FUN_001d2ba0 @ 0x001d2ba0
-extern "C" int __cdecl FUN_00212d70(void*);
-extern "C" void __cdecl FUN_002133d0(void*, int);
-extern "C" void __cdecl FUN_00213600(void*, int);
-extern "C" int __cdecl FUN_00212f00(void*, int);
-extern "C" void __cdecl FUN_00212d80(void*, int);
+#include "decls/data/lua.h"
+extern "C" int __cdecl FUN_00212d70(LuaVMState*);
+extern "C" void __cdecl FUN_002133d0(LuaVMState*, const char*);
+extern "C" void __cdecl FUN_00213600(LuaVMState*, int);
+extern "C" int __cdecl FUN_00212f00(LuaVMState*, int);
+extern "C" void __cdecl FUN_00212d80(LuaVMState*, int);
 struct Object {
  char padding[8];
- void* context;
- void FUN_001d1980(int key, int mode);
- bool target(int key, int mode, bool retry);
+ LuaVMState* context;
+ void FUN_001d1980(const char* key, int mode);
+ bool target(const char* key, int mode, bool retry);
 };
-bool Object::target(int key, int mode, bool retry) {
+bool Object::target(const char* key, int mode, bool retry) {
  int index = (unsigned char)mode ? -10001 : -2;
  int saved = FUN_00212d70(context);
  FUN_002133d0(context, key);

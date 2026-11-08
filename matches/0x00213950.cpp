@@ -1,30 +1,20 @@
-typedef unsigned int u32_213950;
-struct Obj_213950 {
-    u32_213950 pad[2];
-    u32_213950* stack;
-};
-struct Sub_213950 {
-    char pad[6];
-    unsigned char flag;
-};
-struct Result_213950 {
-    int kind;
-    Sub_213950* sub;
-};
-struct Helper_213950 {};
-Result_213950* __fastcall FUN_00212bb0(Helper_213950*, Obj_213950*);
-extern "C" int __cdecl FUN_00213950(Obj_213950* p, Helper_213950* h) {
-    int ret = 0;
-    Result_213950* r = FUN_00212bb0(h, p);
-    p->stack = p->stack - 2;
-    u32_213950* q = p->stack;
-    if (r->kind == 6) {
-        Sub_213950* s = r->sub;
-        if (0 == s->flag) {
-            ret = 1;
-            *(u32_213950*)((char*)s + 0x10) = q[0];
-            *(u32_213950*)((char*)s + 0x14) = q[1];
+// lua_setfenv: pop the top value into the globals of the Lua function at idx; 0 when idx is not one.
+#include "decls/data/lua.h"
+
+extern "C" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
+
+extern "C" int __cdecl FUN_00213950(LuaVMState* L, int idx) {
+    int res = 0;
+    LuaVMTObject* o = FUN_00212bb0(idx, L);
+    L->top--;
+    LuaVMTObject* v = L->top;
+    if (o->tt == LUAVM_TFUNCTION) {
+        LuaVMClosure* cl = (LuaVMClosure*)o->value.gc;
+        if (0 == cl->c.isC) {
+            res = 1;
+            cl->l.g.tt = v->tt;
+            cl->l.g.value = v->value;
         }
     }
-    return ret;
+    return res;
 }

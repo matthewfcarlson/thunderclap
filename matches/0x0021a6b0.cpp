@@ -1,12 +1,14 @@
-#include "compat/ptr.h"
-typedef unsigned int uint_21a6b0;
-extern "C" void* FUN_0021add0(void* a, void* b, hulk_uintptr c, hulk_uintptr d);
-extern "C" void* FUN_0021a6b0(void* p1, void** p2, hulk_uintptr p3) {
-    if (p3 > (hulk_uintptr)p2[2]) {
-        if (p3 < 0x20)
-            p3 = 0x20;
-        p2[0] = FUN_0021add0(p1, p2[0], (hulk_uintptr)p2[2], p3);
-        p2[2] = (void*)p3;
+// luaZ_openspace: make the buffer at least n bytes (32 at least); its characters.
+#include "decls/data/lua.h"
+
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
+
+extern "C" char* __cdecl FUN_0021a6b0(LuaVMState* L, LuaVMBuffer* buff, unsigned int n) {
+    if (n > buff->buffsize) {
+        if (n < 32)
+            n = 32;
+        buff->buffer = (char*)FUN_0021add0(L, buff->buffer, buff->buffsize, n);
+        buff->buffsize = n;
     }
-    return p2[0];
+    return buff->buffer;
 }

@@ -1,13 +1,14 @@
 // FUN_0033aef0 @ 0x0033aef0
-struct lua_State;
-void __cdecl FUN_00339d70(lua_State* L, int idx, int type);
-int __cdecl FUN_003392c0(lua_State* L, int idx);
-int __cdecl FUN_00339fe0(lua_State* L, int idx, int def);
-void __cdecl FUN_00339270(lua_State* L, int idx, int n);
-void __cdecl FUN_00213640(lua_State* L, int idx, int n);
-void __cdecl FUN_00213870(lua_State* L, int idx, int n);
-void __cdecl FUN_00213320(lua_State* L);
-int tremove(lua_State* L) {
+#include "decls/data/lua.h"
+extern "C" void __cdecl FUN_00339d70(LuaVMState* L, int idx, int type);
+extern "C" int __cdecl FUN_003392c0(LuaVMState* L, int idx);
+extern "C" int __cdecl FUN_00339fe0(LuaVMState* L, int idx, int def);
+extern "C" void __cdecl FUN_00339270(LuaVMState* L, int idx, int n);
+extern "C" void __cdecl FUN_00213640(LuaVMState* L, int idx, int n);
+extern "C" void __cdecl FUN_00213870(LuaVMState* L, int idx, int n);
+extern "C" void __cdecl FUN_00213320(LuaVMState* L);
+// tremove
+extern "C" int __cdecl FUN_0033aef0(LuaVMState* L) {
     FUN_00339d70(L, 1, 5);
     int n = FUN_003392c0(L, 1);
     int pos = FUN_00339fe0(L, 2, n);

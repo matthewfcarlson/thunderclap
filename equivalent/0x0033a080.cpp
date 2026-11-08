@@ -1,45 +1,31 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20020 inputs, branch coverage 24/24)
+// STATUS: equivalent (tools/equiv.py level 3: 3098 inputs, branch coverage 23/24, incomplete)
 // FUN_0033a080 @ 0x0033a080
 // cl-flags: /GS
-#include "compat/ptr.h"
+// db_getinfo
+#include "decls/data/lua.h"
 
-struct lua_State;
+extern "C" int __cdecl FUN_00212f00(LuaVMState *L, int idx);
+extern "C" LuaVMState *__cdecl FUN_00213290(LuaVMState *L, int idx);
+extern "C" const char *__cdecl FUN_00339e60(LuaVMState *L, int narg, const char *def, unsigned int *len);
+extern "C" int __cdecl FUN_00212f70(LuaVMState *L, int idx);
+extern "C" int __cdecl FUN_00213120(LuaVMState *L, int idx);
+extern "C" int __cdecl FUN_00213fc0(LuaVMState *L, int level, LuaVMDebug *ar);
+extern "C" void __cdecl FUN_00213320(LuaVMState *L);
+extern "C" const char *__cdecl FUN_00213470(LuaVMState *L, const char *fmt, ...);
+extern "C" const char *__cdecl FUN_00213190(LuaVMState *L, int idx);
+extern "C" void __cdecl FUN_00212ed0(LuaVMState *L, int idx);
+extern "C" void __cdecl FUN_00212cb0(LuaVMState *from, LuaVMState *to, int n);
+extern "C" int __cdecl FUN_00214bd0(LuaVMState *L, const char *what, LuaVMDebug *ar);
+extern "C" int __cdecl FUN_00339c30(LuaVMState *L, int narg, const char *msg);
+extern "C" void __cdecl FUN_00213680(LuaVMState *L, int narr, int nrec);
+extern "C" void __cdecl FUN_002133d0(LuaVMState *L, const char *s);
+extern "C" void __cdecl FUN_00213360(LuaVMState *L, int n);
+extern "C" void __cdecl FUN_00213790(LuaVMState *L, int idx, const char *k);
 
-struct lua_Debug_33a080 {
-    int event;
-    const char *name;
-    const char *namewhat;
-    const char *what;
-    const char *source;
-    int currentline;
-    int nups;
-    int linedefined;
-    char short_src[60];
-    int i_ci;
-};
-
-int FUN_00212f00(lua_State *L, int idx);
-lua_State *FUN_00213290(lua_State *L, int idx);
-const char *FUN_00339e60(lua_State *L, int narg, const char *def, unsigned int *len);
-extern "C" int FUN_00212f70(lua_State *L, int idx);
-extern "C" int FUN_00213120(lua_State *L, int idx);
-int FUN_00213fc0(lua_State *L, int level, lua_Debug_33a080 *ar);
-void FUN_00213320(lua_State *L);
-extern "C" const char *FUN_00213470(lua_State *L, const char *fmt, ...);
-extern "C" const char *FUN_00213190(lua_State *L, int idx);
-void FUN_00212ed0(lua_State *L, int idx);
-void FUN_00212cb0(lua_State *from, lua_State *to, int n);
-int FUN_00214bd0(lua_State *L, const char *what, lua_Debug_33a080 *ar);
-int FUN_00339c30(lua_State *L, int narg, const char *msg);
-extern "C" void FUN_00213680(lua_State *L, int narr, int nrec);
-void FUN_002133d0(lua_State *L, const char *s);
-void FUN_00213360(lua_State *L, int n);
-extern "C" void FUN_00213790(lua_State *L, int idx, const char *k);
-
-extern "C" int FUN_0033a080(lua_State *L)
+extern "C" int __cdecl FUN_0033a080(LuaVMState *L)
 {
-    lua_Debug_33a080 ar;
-    lua_State *L1;
+    LuaVMDebug ar;
+    LuaVMState *L1;
     int arg;
     if (FUN_00212f00(L, 1) == 8) {
         arg = 1;

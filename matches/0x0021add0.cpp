@@ -1,23 +1,16 @@
-struct Alloc_21add0 {
-    char pad[0xc];
-    void* (*fn)(void*, void*, int, unsigned);
-    void* ud;
-    char pad2[0x38];
-    int total;
-};
-struct State_21add0 {
-    char pad[0x10];
-    Alloc_21add0* g;
-};
-void Error(State_21add0* L, const char* msg, ...);
-void ErrMem(State_21add0* L, int code);
-void* Realloc(State_21add0* L, void* block, int osize, unsigned nsize) {
-    Alloc_21add0* g = L->g;
+// luaM_realloc: (re)allocate through the state's allocator and count the bytes.
+#include "decls/data/lua.h"
+
+void __cdecl FUN_00214a90(LuaVMState* L, const char* fmt, ...);
+LuaVMState* __cdecl FUN_002152b0(LuaVMState* L, int errcode);
+
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize) {
+    LuaVMGlobal* g = L->l_G;
     if (nsize >= 0xfffffffd)
-        Error(L, "memory allocation error: block too big");
-    void* r = g->fn(g->ud, block, osize, nsize);
+        FUN_00214a90(L, "memory allocation error: block too big");
+    void* r = g->frealloc(g->ud, block, osize, nsize);
     if (r == 0 && nsize > 0)
-        ErrMem(L, 4);
-    g->total += nsize - osize;
+        FUN_002152b0(L, 4);
+    g->totalbytes += nsize - osize;
     return r;
 }

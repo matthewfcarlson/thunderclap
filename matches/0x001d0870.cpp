@@ -1,8 +1,9 @@
-extern void* __cdecl FUN_00213d30(void*, unsigned int);
-extern void __cdecl FUN_00338f30(void*, const char*);
-extern void __cdecl FUN_002138e0(void*, int);
+#include "decls/data/lua.h"
+extern "C" void* __cdecl FUN_00213d30(LuaVMState*, unsigned int);
+extern "C" void __cdecl FUN_00338f30(LuaVMState*, const char*);
+extern "C" void __cdecl FUN_002138e0(LuaVMState*, int);
 
-int __cdecl FUN_001d0870(void* L, unsigned int* vec) {
+int __cdecl FUN_001d0870(LuaVMState* L, unsigned int* vec) {
     unsigned int* dst = (unsigned int*)FUN_00213d30(L, 0xc);
     FUN_00338f30(L, "Vector");
     FUN_002138e0(L, -2);

@@ -1,6 +1,7 @@
-#include "compat/ptr.h"
-typedef unsigned int u32_21b060;
-void target(hulk_uintptr, u32_21b060, u32_21b060);
-void FUN_0021b060(hulk_uintptr object, hulk_uintptr value) {
-    target(object, value, *(u32_21b060*)(object + 0xc));
+// luaX_syntaxerror: a lexer error near the current token.
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_0021afd0(LuaVMLexState* ls, const char* msg, int token);
+extern "C" void __cdecl FUN_0021b060(LuaVMLexState* ls, const char* msg) {
+    FUN_0021afd0(ls, msg, ls->t.token);
 }

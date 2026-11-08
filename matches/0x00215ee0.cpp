@@ -1,28 +1,18 @@
-struct S_215ee0 {
-    char p0[8];
-    int a;
-    char p1[0x10];
-    int b;
-    char p2[0x34];
-    int c;
-};
-struct L_215ee0 {
-    int a;
-    int b;
-    int c;
-    int d;
-    int e;
-};
-int FUN_00215de0(S_215ee0*, void (*)(), L_215ee0*, int, int);
-void FUN_0021add0(S_215ee0*, int, int, int);
-void FUN_00215c00();
-int G(S_215ee0* s, int a, int b) {
-    L_215ee0 l;
-    l.a = a;
-    l.e = b;
-    l.b = 0;
-    l.d = 0;
-    int r = FUN_00215de0(s, FUN_00215c00, &l, s->a - s->b, s->c);
-    FUN_0021add0(s, l.b, l.d, 0);
-    return r;
+// luaD_protectedparser: run f_parser protected over an SParser on the stack, then free its buffer.
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_00215de0(LuaVMState* L, void(__cdecl* func)(LuaVMState* L, void* ud), void* u, int oldtop,
+                                    int ef);
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
+extern "C" void __cdecl FUN_00215c00(LuaVMState* L, void* ud);
+
+extern "C" int __cdecl FUN_00215ee0(LuaVMState* L, LuaVMZio* z, const char* name) {
+    LuaVMSParser p;
+    p.z = z;
+    p.name = name;
+    p.buff.buffer = 0;
+    p.buff.buffsize = 0;
+    int status = FUN_00215de0(L, FUN_00215c00, &p, (int)((char*)L->top - (char*)L->stack), L->errfunc);
+    FUN_0021add0(L, p.buff.buffer, p.buff.buffsize, 0);
+    return status;
 }

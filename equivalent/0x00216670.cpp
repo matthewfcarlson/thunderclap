@@ -1,70 +1,29 @@
-// STATUS: equivalent (tools/equiv.py level 3: 53 inputs, branch coverage 44/54, incomplete)
-// FUN_00216670 @ 0x00216670
-extern "C" char *__cdecl strchr(const char *s, int c);
+// STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 44/54, incomplete)
+// traversetable: mark a table's metatable, keys and values (weak tables by __mode go onto g->weak); 1 when weak.
+extern "C" char* __cdecl strchr(const char*, int);
+#include "decls/data/lua.h"
 
-struct GCHeader {
-    void *next;              // 0x00
-    unsigned char tt;        // 0x04
-    unsigned char marked;    // 0x05
-    unsigned char flags;     // 0x06
-    unsigned char lsizenode; // 0x07
-};
-
-struct TString_216670 : GCHeader {
-    char pad08[8];
-    char str[1];             // 0x10
-};
-
-struct TValue_216670 {
-    int tt;
-    GCHeader *value;
-};
-
-struct Node {
-    TValue_216670 key;
-    TValue_216670 val;
-    Node *next;
-};
-
-struct Table_216670 : GCHeader {
-    Table_216670 *metatable;        // 0x08
-    TValue_216670 *array;           // 0x0c
-    Node *node;              // 0x10
-    Node *lastfree;          // 0x14
-    GCHeader *gclist;        // 0x18
-    int sizearray;           // 0x1c
-};
-
-struct GlobalState_216670 {
-    char pad00[0x30];
-    Table_216670 *gray;             // 0x30
-    char pad34[0x80 - 0x34];
-    void *tmname;            // 0x80
-};
-
-extern "C" void __cdecl FUN_002164b0(void *, void *);
-TValue_216670 *__cdecl FUN_00217580(Table_216670 *mt, int event, void *name);
+extern "C" void __cdecl FUN_002164b0(LuaVMGlobal* g, LuaVMGCObject* o);
+extern "C" const LuaVMTObject* __cdecl FUN_00217580(LuaVMTable* events, int event, LuaVMString* ename);
 
 // equiv-conv: FUN_00216670 edi stack
-extern "C" int FUN_00216670(void * t_, void *g)
-{
-    Table_216670 * t = (Table_216670 *)t_;
+extern "C" int __cdecl FUN_00216670(LuaVMTable* h, LuaVMGlobal* g) {
     int weakkey = 0;
     int weakvalue = 0;
 
-    if (t->metatable && (t->metatable->marked & 3))
-        FUN_002164b0((GlobalState_216670 *)((GlobalState_216670 *)g), (GCHeader *)(t->metatable));
+    if (h->metatable && (h->metatable->marked & 3))
+        FUN_002164b0(g, (LuaVMGCObject*)h->metatable);
 
-    Table_216670 *mt = t->metatable;
+    LuaVMTable* mt = h->metatable;
     if (mt && !(mt->flags & 8)) {
-        TValue_216670 *mode = FUN_00217580(mt, 3, ((GlobalState_216670 *)g)->tmname);
-        if (mode && mode->tt == 4) {
-            weakkey = strchr(static_cast<TString_216670 *>(mode->value)->str, 'k') != 0;
-            weakvalue = strchr(static_cast<TString_216670 *>(mode->value)->str, 'v') != 0;
+        const LuaVMTObject* mode = FUN_00217580(mt, 3, g->tmname[3]);
+        if (mode && mode->tt == LUAVM_TSTRING) {
+            weakkey = strchr(LUAVM_GETSTR(mode->value.gc), 'k') != 0;
+            weakvalue = strchr(LUAVM_GETSTR(mode->value.gc), 'v') != 0;
             if (weakkey || weakvalue) {
-                t->marked = (t->marked & 0xe7) | (((weakvalue << 1) | weakkey) << 3);
-                t->gclist = ((GlobalState_216670 *)g)->gray;
-                ((GlobalState_216670 *)g)->gray = t;
+                h->marked = (h->marked & 0xe7) | (((weakvalue << 1) | weakkey) << 3);
+                h->gclist = g->weak;
+                g->weak = (LuaVMGCObject*)h;
             }
             if (weakkey && weakvalue)
                 return 1;
@@ -72,29 +31,29 @@ extern "C" int FUN_00216670(void * t_, void *g)
     }
 
     if (!weakvalue) {
-        int i = t->sizearray;
+        int i = h->sizearray;
         while (i != 0) {
             i--;
-            TValue_216670 *v = &t->array[i];
-            if (v->tt >= 4 && (v->value->marked & 3))
-                FUN_002164b0((GlobalState_216670 *)((GlobalState_216670 *)g), (GCHeader *)(v->value));
+            LuaVMTObject* v = &h->array[i];
+            if (v->tt >= LUAVM_TSTRING && (v->value.gc->marked & 3))
+                FUN_002164b0(g, v->value.gc);
         }
     }
 
-    int n = 1 << t->lsizenode;
+    int n = 1 << h->lsizenode;
     while (n != 0) {
         n--;
-        Node *nd = &t->node[n];
-        if (nd->val.tt == 0) {
-            int keytt = nd->key.tt;
-            nd->val.tt = 0;
-            if (keytt >= 4)
-                nd->key.tt = -1;
+        LuaVMNode* nd = &h->node[n];
+        if (nd->i_val.tt == LUAVM_TNIL) {
+            int keytt = nd->i_key.tt;
+            nd->i_val.tt = LUAVM_TNIL;
+            if (keytt >= LUAVM_TSTRING)
+                nd->i_key.tt = -1;
         } else {
-            if (!weakkey && nd->key.tt >= 4 && (nd->key.value->marked & 3))
-                FUN_002164b0((GlobalState_216670 *)((GlobalState_216670 *)g), (GCHeader *)(nd->key.value));
-            if (!weakvalue && nd->val.tt >= 4 && (nd->val.value->marked & 3))
-                FUN_002164b0((GlobalState_216670 *)((GlobalState_216670 *)g), (GCHeader *)(nd->val.value));
+            if (!weakkey && nd->i_key.tt >= LUAVM_TSTRING && (nd->i_key.value.gc->marked & 3))
+                FUN_002164b0(g, nd->i_key.value.gc);
+            if (!weakvalue && nd->i_val.tt >= LUAVM_TSTRING && (nd->i_val.value.gc->marked & 3))
+                FUN_002164b0(g, nd->i_val.value.gc);
         }
     }
     return weakkey || weakvalue;

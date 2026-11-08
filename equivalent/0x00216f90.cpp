@@ -1,41 +1,28 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 10/10)
-// FUN_00216f90 @ 0x00216f90
-struct Item {
-    char pad0[5];
-    unsigned char flags;
-    char pad6[0x40-6];
-    int count;
-    Item *next;
-};
-struct State {
-    char pad0[0x2c];
-    int value2c;
-    int value30;
-    char pad34[4];
-    int value38;
-    char pad3c[0x54-0x3c];
-    int count;
-    Item *alternate;
-    Item *primary;
-};
-struct Owner { char pad0[0x10]; State *state; };
-extern "C" void __cdecl FUN_002164b0(void *, void *);
+// STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 10/10)
+// markroot: start a collection: mark the main thread, its globals and the registry.
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_002164b0(LuaVMGlobal* g, LuaVMGCObject* o);
+
 // equiv-conv: FUN_00216f90 edi
-void FUN_00216f90(Owner *owner) {
-    State *state = owner->state;
-    state->value2c = 0;
-    state->value30 = 0;
-    Item *item = state->primary;
-    if (item->flags & 3) FUN_002164b0((State *)state, (Item *)item);
-    item = state->primary;
-    if (item->count >= 4) {
-        Item *next = item->next;
-        if (next->flags & 3) FUN_002164b0((State *)state, (Item *)next);
+extern "C" void __cdecl FUN_00216f90(LuaVMState* L) {
+    LuaVMGlobal* g = L->l_G;
+    g->grayagain = 0;
+    g->weak = 0;
+    LuaVMGCObject* o = (LuaVMGCObject*)g->mainthread;
+    if (o->marked & 3)
+        FUN_002164b0(g, o);
+    LuaVMState* th = g->mainthread;
+    if (th->_gt.tt >= LUAVM_TSTRING) {
+        o = th->_gt.value.gc;
+        if (o->marked & 3)
+            FUN_002164b0(g, o);
     }
-    State *current = owner->state;
-    if (current->count >= 4) {
-        Item *alternate = current->alternate;
-        if (alternate->flags & 3) FUN_002164b0((State *)state, (Item *)alternate);
+    LuaVMGlobal* g2 = L->l_G;
+    if (g2->l_registry.tt >= LUAVM_TSTRING) {
+        o = g2->l_registry.value.gc;
+        if (o->marked & 3)
+            FUN_002164b0(g, o);
     }
-    state->value38 = 0;
+    g->gcstate = 0;
 }

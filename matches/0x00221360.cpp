@@ -1,47 +1,29 @@
-struct Header_221360 {
-    char pad[0x47];
-    unsigned char maximum;
-};
-struct Context {
-    char pad[8];
-    unsigned int value;
-};
-struct State_221360 {
-    Header_221360* header;
-    char pad4[8];
-    Context* context;
-    char pad10[0x14];
-    int depth;
-    char pad28[0xc];
-    unsigned char minimum;
-};
-struct Operand_221360 {
-    int type;
-    int value;
-};
-extern "C" int __cdecl FUN_00221190(void *, void *);
-void __cdecl FUN_0021b060(Context*, const char*);
-unsigned int __cdecl FUN_00221200(State_221360*, Operand_221360*);
-extern "C" int __cdecl FUN_00220b20(void *, unsigned int, unsigned int);
-void __cdecl FUN_00221360(State_221360* state, Operand_221360* destination, Operand_221360* source) {
-    FUN_00221190((State_221360 *)state, (Operand_221360 *)destination);
-    if (destination->type == 11 && destination->value >= state->minimum && destination->value < 250)
-        --state->depth;
-    int oldDepth = state->depth;
-    int required = oldDepth + 2;
-    if (required > state->header->maximum) {
+// luaK_self: e:key(...) puts the function and the object in two consecutive registers (OP_SELF).
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_00221190(LuaVMFuncState* fs, LuaVMExpDesc* e);
+extern "C" void __cdecl FUN_0021b060(LuaVMLexState* ls, const char* msg);
+extern "C" int __cdecl FUN_00221200(LuaVMFuncState* fs, LuaVMExpDesc* e);
+extern "C" int __cdecl FUN_00220b20(LuaVMFuncState* fs, LuaVMInstruction i, int line);
+
+extern "C" void __cdecl FUN_00221360(LuaVMFuncState* fs, LuaVMExpDesc* e, LuaVMExpDesc* key) {
+    FUN_00221190(fs, e);
+    if (e->k == 11 && e->info >= fs->nactvar && e->info < 250)
+        --fs->freereg;
+    int func = fs->freereg;
+    int required = func + 2;
+    if (required > fs->f->maxstacksize) {
         if (required >= 250)
-            FUN_0021b060(state->context, "function or expression too complex");
-        state->header->maximum = (unsigned char)required;
+            FUN_0021b060(fs->ls, "function or expression too complex");
+        fs->f->maxstacksize = (unsigned char)required;
     }
-    state->depth += 2;
-    unsigned int result = FUN_00221200(state, source);
-    unsigned int contextValue = state->context->value;
-    unsigned int instruction =
-        ((((unsigned int)oldDepth << 9) | (unsigned int)destination->value) << 9 | result) << 6 | 11;
-    FUN_00220b20((State_221360 *)state, instruction, contextValue);
-    if (source->type == 11 && source->value >= state->minimum && source->value < 250)
-        --state->depth;
-    destination->value = oldDepth;
-    destination->type = 11;
+    fs->freereg += 2;
+    unsigned int result = (unsigned int)FUN_00221200(fs, key);
+    int line = fs->ls->lastline;
+    LuaVMInstruction instruction = ((((unsigned int)func << 9) | (unsigned int)e->info) << 9 | result) << 6 | 11;
+    FUN_00220b20(fs, instruction, line);
+    if (key->k == 11 && key->info >= fs->nactvar && key->info < 250)
+        --fs->freereg;
+    e->info = func;
+    e->k = 11;
 }

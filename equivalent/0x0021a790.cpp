@@ -1,19 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 3/3)
-// FUN_0021a790 @ 0x0021a790
-struct Record { char pad[12]; unsigned int length; char data[1]; };
-struct Writer { void *context; void (__cdecl *write)(void *, const void *, unsigned int, void *); void *user; };
+// DumpString: a string as its size (with the NUL; 0 for none) and its characters.
+#include "decls/data/lua.h"
+
 // equiv-conv: FUN_0021a790 eax esi
-extern "C" void FUN_0021a790(void * record_, void *writer)
-{
-    Record * record = (Record *)record_;
-    unsigned int header = 0;
-    if (record && &record->data[0]) {
-        const unsigned int payloadLength = record->length + 1;
-        header = payloadLength;
-        ((Writer *)writer)->write(((Writer *)writer)->context, &header, 4, ((Writer *)writer)->user);
-        ((Writer *)writer)->write(((Writer *)writer)->context, record->data, payloadLength, ((Writer *)writer)->user);
+extern "C" void __cdecl FUN_0021a790(const LuaVMString* s, LuaVMDumpState* D) {
+    unsigned int size = 0;  // the chunk's size_t: 4 bytes
+    if (s && LUAVM_GETSTR(s)) {
+        const unsigned int len = s->len + 1;
+        size = len;
+        D->writer(D->L, &size, 4, D->data);
+        D->writer(D->L, LUAVM_GETSTR(s), len, D->data);
     } else {
-        unsigned int * volatile address = &header;
-        ((Writer *)writer)->write(((Writer *)writer)->context, address, 4, ((Writer *)writer)->user);
+        unsigned int* volatile address = &size;
+        D->writer(D->L, address, 4, D->data);
     }
 }

@@ -1,30 +1,29 @@
-#include "compat/ptr.h"
-typedef unsigned int u32_2196d0;
-struct Obj_2196d0 {
-    char pad[0x48];
-};
-extern Obj_2196d0* __cdecl alloc_obj(u32_2196d0, u32_2196d0, u32_2196d0, u32_2196d0);
-extern void __cdecl init_obj(u32_2196d0, Obj_2196d0*, int);
-Obj_2196d0* __cdecl target(hulk_uintptr p) {
-    Obj_2196d0* x = alloc_obj(p, 0, 0, 0x48);
-    init_obj(p, x, 9);
-    *(u32_2196d0*)(x->pad + 8) = 0;
-    *(u32_2196d0*)(x->pad + 0x28) = 0;
-    *(u32_2196d0*)(x->pad + 0x10) = 0;
-    *(u32_2196d0*)(x->pad + 0x34) = 0;
-    *(u32_2196d0*)(x->pad + 0xc) = 0;
-    *(u32_2196d0*)(x->pad + 0x2c) = 0;
-    *(u32_2196d0*)(x->pad + 0x30) = 0;
-    *(u32_2196d0*)(x->pad + 0x24) = 0;
-    x->pad[0x44] = 0;
-    *(u32_2196d0*)(x->pad + 0x1c) = 0;
-    x->pad[0x45] = 0;
-    x->pad[0x46] = 0;
-    x->pad[0x47] = 0;
-    *(u32_2196d0*)(x->pad + 0x14) = 0;
-    *(u32_2196d0*)(x->pad + 0x38) = 0;
-    *(u32_2196d0*)(x->pad + 0x18) = 0;
-    *(u32_2196d0*)(x->pad + 0x3c) = 0;
-    *(u32_2196d0*)(x->pad + 0x20) = 0;
-    return x;
+// luaF_newproto: an empty function prototype.
+#include "decls/data/lua.h"
+
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
+extern "C" void __cdecl FUN_00217130(LuaVMState* L, LuaVMGCObject* o, unsigned char tt);
+
+extern "C" LuaVMProto* __cdecl FUN_002196d0(LuaVMState* L) {
+    LuaVMProto* f = (LuaVMProto*)FUN_0021add0(L, 0, 0, sizeof(LuaVMProto));
+    FUN_00217130(L, (LuaVMGCObject*)f, LUAVM_TPROTO);
+    f->k = 0;
+    f->sizek = 0;
+    f->p = 0;
+    f->sizep = 0;
+    f->code = 0;
+    f->sizecode = 0;
+    f->sizelineinfo = 0;
+    f->sizeupvalues = 0;
+    f->nups = 0;
+    f->upvalues = 0;
+    f->numparams = 0;
+    f->is_vararg = 0;
+    f->maxstacksize = 0;
+    f->lineinfo = 0;
+    f->sizelocvars = 0;
+    f->locvars = 0;
+    f->lineDefined = 0;
+    f->source = 0;
+    return f;
 }

@@ -1,26 +1,15 @@
-#include "compat/ptr.h"
-struct Owner_2194d0;
-struct Result_2194d0 {
-    unsigned char pad[16];
-};
-Result_2194d0* __cdecl Create(Owner_2194d0*, int, int, void*);
-struct Node {
-    unsigned char pad[0x14];
-    unsigned char flag;
-    unsigned char pad2[7];
-    int* slot;
-};
-struct Owner_2194d0 {
-    unsigned char pad[0x10];
-    Node* node;
-};
-extern "C" void * __cdecl FUN_002194d0(void * p, void * x) {
-    Result_2194d0* r = Create(((Owner_2194d0 *)p), 0, 0, (char*)((Result_2194d0 *)x) + 0x10);
-    r->pad[5] = ((Owner_2194d0 *)p)->node->flag;
-    *(Result_2194d0**)(r->pad + 12) = ((Result_2194d0 *)x);
-    r->pad[4] = 7;
-    *(int*)(r->pad + 8) = 0;
-    *(int*)r->pad = *((Owner_2194d0 *)p)->node->slot;
-    *(hulk_intptr*)((Owner_2194d0 *)p)->node->slot = (hulk_intptr)r;
-    return (Result_2194d0 *)r;
+// luaS_newudata: a userdata of s bytes, linked after the global state's dummy udata.
+#include "decls/data/lua.h"
+
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
+
+extern "C" LuaVMUdata* __cdecl FUN_002194d0(LuaVMState* L, unsigned int s) {
+    LuaVMUdata* u = (LuaVMUdata*)FUN_0021add0(L, 0, 0, s + (unsigned int)sizeof(LuaVMUdata));
+    u->marked = (unsigned char)L->l_G->currentwhite;
+    u->len = s;
+    u->tt = LUAVM_TUSERDATA;
+    u->metatable = 0;
+    u->next = L->l_G->firstudata->next;
+    L->l_G->firstudata->next = (LuaVMGCObject*)u;
+    return u;
 }

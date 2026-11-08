@@ -1,31 +1,21 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20003 inputs, branch coverage 4/4)
-// FUN_00217640 @ 0x00217640
+// STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 4/4)
 // cl-flags: /GS
-// 0x00217640: Lua tostring conversion of a number value in place (lua_Number is a float here)
-struct State;
-struct TValue_217640 {
-    int tt;
-    union {
-        float n;
-        void* p;
-        int i;
-    } value;
-};
+// luaV_tostring: convert a number in place to its string ("%.7g"); 0 when obj is not a number.
+#include "decls/data/lua.h"
 
 extern int __cdecl _sprintf(char*, const char*, ...);
-extern "C" void * __cdecl FUN_00219430(void *, const char *, unsigned);
+extern "C" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
 
-extern "C" int FUN_00217640(State* L, TValue_217640* o)
-{
-    char buf[32];
-    if (o->tt != 3) {
+extern "C" int __cdecl FUN_00217640(LuaVMState* L, LuaVMTObject* obj) {
+    char s[32];
+    if (obj->tt != LUAVM_TNUMBER) {
         return 0;
     }
-    _sprintf(buf, "%.7g", (double)o->value.n);
-    const char* e = buf;
+    _sprintf(s, "%.7g", (double)obj->value.n);
+    const char* e = s;
     while (*e != 0)
         e++;
-    o->value.p = FUN_00219430((State *)L, buf, (unsigned int)((unsigned int)(e - buf)));
-    o->tt = 4;
+    obj->value.gc = (LuaVMGCObject*)FUN_00219430(L, s, (unsigned int)(e - s));
+    obj->tt = LUAVM_TSTRING;
     return 1;
 }

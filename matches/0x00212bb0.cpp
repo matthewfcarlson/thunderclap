@@ -1,35 +1,24 @@
-#include "compat/ptr.h"
+// index2adr: the stack slot, pseudo-index (registry, globals) or C upvalue an API index names.
+#include "decls/data/lua.h"
 #include "decls/data/engine/unknown.h"
 
-struct Item_212bb0 {
-    char pad[7];
-    unsigned char count;
-    char more[8];
-};
-struct Obj_212bb0 {
-    char pad[8];
-    char* first;
-    char* last;
-    char* other;
-    char pad2[44];
-};
-extern "C" char* __fastcall FUN_00212bb0(hulk_intptr n, Obj_212bb0* o) {
-    if (n > 0) {
-        char* p = o->last + n * 8 - 8;
-        if (p < o->first)
-            return p;
-        return ((char*)&DAT_00426824);
+extern "C" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L) {
+    if (idx > 0) {
+        LuaVMTObject* o = L->base + (idx - 1);
+        if (o < L->top)
+            return o;
+        return LUAVM_NILOBJECT;
     }
-    if (n > -10000)
-        return o->first + n * 8;
-    if (n != -10001) {
-        if (n != -10000) {
-            Item_212bb0* a = *(Item_212bb0**)(o->last - 4);
-            int i = -10001 - n;
-            char* p = (char*)a + i * 8 + 8;
-            return i <= a->count ? p : ((char*)&DAT_00426824);
+    if (idx > -10000)
+        return L->top + idx;
+    if (idx != -10001) {
+        if (idx != -10000) {
+            LuaVMCClosure* func = (LuaVMCClosure*)(L->base - 1)->value.gc;
+            int i = -10001 - idx;
+            LuaVMTObject* o = &func->upvalue[i - 1];
+            return i <= func->nupvalues ? o : LUAVM_NILOBJECT;
         }
-        return o->other + 0x54;
+        return &L->l_G->l_registry;
     }
-    return (char*)o + 0x40;
+    return &L->_gt;
 }

@@ -1,18 +1,15 @@
-#include "compat/ptr.h"
-struct Obj_21b080 {
-    char pad[0x1c];
-    int* mValue;
-    int mContext;
-};
-extern int __cdecl FUN_00219430(int, int, int);
-extern int* __cdecl FUN_0021a500(int, int, int);
-int __cdecl FUN_0021b080(Obj_21b080* self, hulk_intptr a, int b) {
-    int context = self->mContext;
-    int result = FUN_00219430(context, a, b);
-    int* p = FUN_0021a500(context, self->mValue[1], result);
-    if (*p == 0) {
-        p[1] = 1;
-        p[0] = 1;
+// luaX_newstring: intern a string and anchor it in the function's constant table (set to true when new).
+#include "decls/data/lua.h"
+
+extern "C" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
+extern "C" LuaVMTObject* __cdecl FUN_0021a500(LuaVMState* L, LuaVMTable* t, LuaVMString* key);
+extern "C" LuaVMString* __cdecl FUN_0021b080(LuaVMLexState* ls, const char* str, unsigned int l) {
+    LuaVMState* L = ls->L;
+    LuaVMString* ts = FUN_00219430(L, str, l);
+    LuaVMTObject* o = FUN_0021a500(L, ls->fs->h, ts);
+    if (o->tt == LUAVM_TNIL) {
+        o->value.b = 1;
+        o->tt = LUAVM_TBOOLEAN;
     }
-    return result;
+    return ts;
 }

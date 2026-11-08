@@ -1,9 +1,12 @@
-#include "compat/ptr.h"
-extern "C" void __cdecl FUN_0033e8f0();
-extern "C" void FUN_0033e950(int);
-extern "C" void FUN_002134a0(int, const void*, int);
-extern "C" int FUN_0033e9b0(int L) {
+// luaB_cowrap
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_0033e8f0(LuaVMState* L);
+extern "C" int __cdecl FUN_0033e950(LuaVMState* L);
+extern "C" void __cdecl FUN_002134a0(LuaVMState* L, LuaVMCFunction fn, int n);
+
+extern "C" int __cdecl FUN_0033e9b0(LuaVMState* L) {
     FUN_0033e950(L);
-    FUN_002134a0(L, (const void*)((hulk_intptr)(void (__cdecl*)())&FUN_0033e8f0), 1);
+    FUN_002134a0(L, FUN_0033e8f0, 1);
     return 1;
 }

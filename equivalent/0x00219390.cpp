@@ -1,60 +1,38 @@
 // STATUS: equivalent (tools/equiv.py level 3: 134 inputs, branch coverage 4/4)
-// FUN_00219390 @ 0x00219390
-extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
+// newlstr: a new string of l bytes with hash h, linked into the string table (which doubles when over full).
+#include "decls/data/lua.h"
 
-struct TString_219390 {
-    TString_219390 *next;
-    unsigned char tt;
-    unsigned char marked;
-    unsigned char reserved;
-    unsigned char pad;
-    unsigned int hash;
-    unsigned int len;
-};
-struct StringTable_219390 {
-    TString_219390 **hash;
-    unsigned int nuse;
-    int size;
-};
-struct GlobalState_219390 {
-    StringTable_219390 strt;
-    char pad[8];
-    unsigned char currentwhite;
-};
-struct lua_State_219390 {
-    char pad[0x10];
-    GlobalState_219390 *l_G;
-};
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
+extern "C" void __cdecl FUN_002192e0(LuaVMState* L, int newsize);
 
-void *__cdecl FUN_0021add0(lua_State_219390 *L, void *block, unsigned int oldSize, unsigned int newSize);
-extern "C" void __cdecl FUN_002192e0(void *, int);
-
-// Lua 5.0 newlstr: allocates a TString, copies the bytes and links it into the string table.
 // equiv-conv: FUN_00219390 stack stack stack eax
-extern "C" void *__cdecl FUN_00219390(void * L_, const char *str, unsigned int l, unsigned int h)
-{
-    lua_State_219390 * L = (lua_State_219390 *)L_;
-    TString_219390 *ts = (TString_219390 *)FUN_0021add0(L, 0, 0, l + 17);
+extern "C" LuaVMString* __cdecl FUN_00219390(LuaVMState* L, const char* str, unsigned int l, unsigned int h) {
+    LuaVMString* ts = (LuaVMString*)FUN_0021add0(L, 0, 0, l + (unsigned int)sizeof(LuaVMString) + 1);
     ts->len = l;
     ts->hash = h;
-    ts->marked = L->l_G->currentwhite;
-    ts->tt = 4;
+    ts->marked = (unsigned char)L->l_G->currentwhite;
+    ts->tt = LUAVM_TSTRING;
     ts->reserved = 0;
     // the original copies with an inline rep movs; a plain forward loop keeps clang from emitting a memcpy call
     {
-        char *dst = (char *)(ts + 1);
-        const char *src = str;
-        unsigned int w = l >> 2;          // rep movsd, then rep movsb
-        while (w--) { *(unsigned int *)dst = *(const unsigned int *)src; dst += 4; src += 4; }
-        for (unsigned int k = l & 3; k; k--) *dst++ = *src++;
+        char* dst = LUAVM_GETSTR(ts);
+        const char* src = str;
+        unsigned int w = l >> 2;  // rep movsd, then rep movsb
+        while (w--) {
+            *(unsigned int*)dst = *(const unsigned int*)src;
+            dst += 4;
+            src += 4;
+        }
+        for (unsigned int k = l & 3; k; k--)
+            *dst++ = *src++;
     }
-    ((char *)(ts + 1))[l] = 0;
-    StringTable_219390 *tb = &L->l_G->strt;
+    LUAVM_GETSTR(ts)[l] = 0;
+    LuaVMStringTable* tb = &L->l_G->strt;
     h &= tb->size - 1;
-    ts->next = tb->hash[h];
+    ts->next = (LuaVMGCObject*)tb->hash[h];
     tb->hash[h] = ts;
     tb->nuse++;
     if (tb->nuse > (unsigned int)tb->size && tb->size <= 0x3ffffffe)
-        FUN_002192e0((lua_State_219390 *)L, tb->size * 2);
-    return (TString_219390 *)ts;
+        FUN_002192e0(L, tb->size * 2);
+    return ts;
 }

@@ -1,42 +1,36 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3047 inputs, branch coverage 16/18, incomplete)
-// FUN_00214840 @ 0x00214840
-// Lua 5.0 ldebug.c getfuncname(ci, &name): name the function that is running in `ci` from the
-// OP_CALL / OP_TAILCALL instruction of its calling Lua function.
-#include "compat/ptr.h"
-struct Proto_214840 { char pad0[8]; void* constants; unsigned* code; };
-struct Closure_214840 { char pad0[6]; unsigned char native; char pad1[5]; Proto_214840* proto; };
-struct Slot_214840 { unsigned type; Closure_214840* closure; };
-struct CallInfo_214840 { Slot_214840* base; unsigned top; unsigned* pc; int tailcalls; };
+// STATUS: equivalent (tools/equiv.py level 3: 3061 inputs, branch coverage 16/18, incomplete)
+// getfuncname: name the function running in ci from the OP_CALL / OP_TAILCALL of its calling Lua function.
+#include "decls/data/lua.h"
 
 // equiv-conv: FUN_002146f0 eax stack stack
-extern "C" const char * __cdecl FUN_002146f0(unsigned, void *, char **);
+extern "C" const char* __cdecl FUN_002146f0(unsigned reg, LuaVMCallInfo* ci, const char** name);
 
 // equiv-conv: FUN_00214840 ecx stack
-extern "C" const char* __cdecl FUN_00214840(void * ci, char** name)
+extern "C" const char* __cdecl FUN_00214840(LuaVMCallInfo* ci, const char** name)
 {
-    Slot_214840* func = ((CallInfo_214840 *)ci)->base - 1;
-    if (func->type == 6 && !func->closure->native && ((CallInfo_214840 *)ci)->tailcalls > 0) {
+    LuaVMTObject* func = ci->base - 1;
+    if (func->tt == LUAVM_TFUNCTION && !((LuaVMClosure*)func->value.gc)->c.isC && ci->tailcalls > 0) {
         return 0;
     }
 
-    CallInfo_214840* caller = ((CallInfo_214840 *)ci) - 1;
-    Slot_214840* callerFunc = caller->base - 1;
-    if (callerFunc->type != 6 || callerFunc->closure->native) {
+    LuaVMCallInfo* caller = ci - 1;
+    LuaVMTObject* callerFunc = caller->base - 1;
+    if (callerFunc->tt != LUAVM_TFUNCTION || ((LuaVMClosure*)callerFunc->value.gc)->c.isC) {
         return 0;
     }
 
     int pc;
     callerFunc = caller->base - 1;
-    if (callerFunc->type == 6 && !callerFunc->closure->native) {
-        pc = ((int)((hulk_uintptr)caller->pc - (hulk_uintptr)callerFunc->closure->proto->code) >> 2) - 1;
+    if (callerFunc->tt == LUAVM_TFUNCTION && !((LuaVMClosure*)callerFunc->value.gc)->c.isC) {
+        pc = (int)(caller->savedpc - ((LuaVMClosure*)callerFunc->value.gc)->l.p->code) - 1;
     } else {
         pc = -1;
     }
 
-    unsigned instruction = caller->base[-1].closure->proto->code[pc];
+    unsigned instruction = ((LuaVMClosure*)caller->base[-1].value.gc)->l.p->code[pc];
     unsigned op = instruction & 0x3f;
     if (op == 0x19 || op == 0x1a) {
-        return FUN_002146f0(instruction >> 24, (CallInfo_214840 *)caller, name);
+        return FUN_002146f0(instruction >> 24, caller, name);
     }
     return 0;
 }

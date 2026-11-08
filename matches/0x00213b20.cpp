@@ -1,11 +1,14 @@
-typedef unsigned int u32_213b20;
-extern void __cdecl Build(u32_213b20, void*, u32_213b20, u32_213b20);
-extern int __cdecl Finish(u32_213b20, void*, const u32_213b20*);
-int __cdecl Target(u32_213b20 a, u32_213b20 b, u32_213b20 c, const u32_213b20* d) {
-    char local[20];
-    static const u32_213b20 fallback = 0x3f;
-    if (!d)
-        d = &fallback;
-    Build(a, local, b, c);
-    return Finish(a, local, d);
+// lua_load: load a chunk through reader (chunkname "?" when NULL).
+#include "decls/data/lua.h"
+#include "decls/data/engine/unknown.h"
+
+extern "C" void __cdecl FUN_0021a5e0(LuaVMState* L, LuaVMZio* z, LuaVMReader reader, void* data);
+extern "C" int __cdecl FUN_00215ee0(LuaVMState* L, LuaVMZio* z, const char* name);
+
+extern "C" int __cdecl FUN_00213b20(LuaVMState* L, LuaVMReader reader, void* data, const char* chunkname) {
+    LuaVMZio z;
+    if (!chunkname)
+        chunkname = DAT_00426608;
+    FUN_0021a5e0(L, &z, reader, data);
+    return FUN_00215ee0(L, &z, chunkname);
 }

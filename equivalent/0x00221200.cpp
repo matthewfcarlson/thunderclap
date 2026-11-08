@@ -1,35 +1,21 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
-// FUN_00221200 @ 0x00221200
-// Lua 5.0 luaK_exp2RK
-struct FuncState_221200 {
-    char pad[0x28];
-    int nk;
-};
+// STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 10/10)
+// luaK_exp2RK: a register or a constant index (+ 250) for the expression.
+#include "decls/data/lua.h"
 
-struct expdesc_221200 {
-    int k;          // VNIL = 1, VK = 4
-    int info;
-    int aux;
-    int t;
-    int f;
-};
-
-void __cdecl FUN_00220d90(FuncState_221200* fs, expdesc_221200* e);       // luaK_dischargevars
-extern "C" int __cdecl FUN_00221190(void *, void *);        // luaK_exp2anyreg
-// nil_constant(fs)
+extern "C" void __cdecl FUN_00220d90(LuaVMFuncState* fs, LuaVMExpDesc* e);
+extern "C" int __cdecl FUN_00221190(LuaVMFuncState* fs, LuaVMExpDesc* e);
 // equiv-conv: FUN_00220a10 eax
-extern "C" int __cdecl FUN_00220a10(void *);
+extern "C" int __cdecl FUN_00220a10(LuaVMFuncState* fs);
 
-int FUN_00221200(FuncState_221200* fs, expdesc_221200* e)
-{
+extern "C" int __cdecl FUN_00221200(LuaVMFuncState* fs, LuaVMExpDesc* e) {
     if (e->t == e->f)
         FUN_00220d90(fs, e);
     else
-        FUN_00221190((FuncState_221200 *)fs, (expdesc_221200 *)e);
+        FUN_00221190(fs, e);
     switch (e->k) {
     case 1:
         if (fs->nk + 250 <= 511) {
-            e->info = FUN_00220a10((FuncState_221200 *)fs);
+            e->info = FUN_00220a10(fs);
             e->k = 4;
             return e->info + 250;
         }
@@ -39,5 +25,5 @@ int FUN_00221200(FuncState_221200* fs, expdesc_221200* e)
             return e->info + 250;
         break;
     }
-    return FUN_00221190((FuncState_221200 *)fs, (expdesc_221200 *)e);
+    return FUN_00221190(fs, e);
 }

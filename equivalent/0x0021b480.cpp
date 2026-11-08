@@ -1,51 +1,31 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 10/10)
-// FUN_0021b480 @ 0x0021b480
-struct ZIO_21b480 {
-    unsigned int n;
-    const unsigned char *p;
-};
+// STATUS: equivalent (tools/equiv.py level 3: 3061 inputs, branch coverage 10/10)
+// skip_sep: count the run of '*' after a long bracket's opening character (-count - 1 when the closing one differs).
+#include "decls/data/lua.h"
 
-struct Mbuffer_21b480 {
-    char *buffer;
-    unsigned int n;
-    unsigned int buffsize;
-};
+extern "C" int __cdecl FUN_0021a550(LuaVMZio* z);
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
 
-struct LexState_21b480 {
-    int current;            // 0x00
-    char pad04[0x1c];
-    void *L;                // 0x20
-    ZIO_21b480 *z;                 // 0x24
-    Mbuffer_21b480 *buff;          // 0x28
-};
-
-int __cdecl FUN_0021a550(ZIO_21b480 *z);
-char *__cdecl FUN_0021add0(void *L, char *p, unsigned int oldsize, unsigned int newsize);
-
-// save_and_next with the lexer state in edi
 // equiv-conv: FUN_0021b1c0 edi
-void FUN_0021b1c0(LexState_21b480 *ls);
+extern "C" void FUN_0021b1c0(LuaVMLexState* ls);
 
-// skip_sep: counts the run of '*' after the opening character; the lexer state is passed in eax
 // equiv-conv: FUN_0021b480 eax
-extern "C" int FUN_0021b480(void *ls)
-{
+extern "C" int FUN_0021b480(LuaVMLexState* ls) {
     int count = 0;
-    int s = ((LexState_21b480 *)ls)->current;
-    FUN_0021b1c0(((LexState_21b480 *)ls));
-    while (((LexState_21b480 *)ls)->current == '*') {
-        Mbuffer_21b480 *b = ((LexState_21b480 *)ls)->buff;
+    int s = ls->current;
+    FUN_0021b1c0(ls);
+    while (ls->current == '*') {
+        LuaVMBuffer* b = ls->buff;
         if (b->n + 1 > b->buffsize) {
-            b->buffer = FUN_0021add0(((LexState_21b480 *)ls)->L, b->buffer, b->buffsize, b->buffsize * 2 + 0x20);
+            b->buffer = (char*)FUN_0021add0(ls->L, b->buffer, b->buffsize, b->buffsize * 2 + 0x20);
             b->buffsize = b->buffsize * 2 + 0x20;
         }
-        b->buffer[b->n] = (char)((LexState_21b480 *)ls)->current;
+        b->buffer[b->n] = (char)ls->current;
         b->n++;
-        if (((LexState_21b480 *)ls)->z->n-- > 0)
-            ((LexState_21b480 *)ls)->current = *((LexState_21b480 *)ls)->z->p++;
+        if (ls->z->n-- > 0)
+            ls->current = (unsigned char)*ls->z->p++;
         else
-            ((LexState_21b480 *)ls)->current = FUN_0021a550(((LexState_21b480 *)ls)->z);
+            ls->current = FUN_0021a550(ls->z);
         count++;
     }
-    return ((LexState_21b480 *)ls)->current == s ? count : -count - 1;
+    return ls->current == s ? count : -count - 1;
 }

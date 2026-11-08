@@ -1,59 +1,34 @@
-// STATUS: equivalent (tools/equiv.py level 3: 835 inputs, branch coverage 40/40)
-// FUN_0021b230 @ 0x0021b230
+// STATUS: equivalent (tools/equiv.py level 3: 1803 inputs, branch coverage 40/40)
+// read_numeral: lex the digits of a number (fraction, exponent) into the token buffer and convert it.
+#include "decls/data/lua.h"
+
 extern "C" int __cdecl isdigit(int c);
 
-struct lua_State;
-
-struct Zio {
-    unsigned int n;             // bytes left
-    const unsigned char* p;     // next byte
-};
-
-struct Mbuffer {
-    char* buffer;               // 0x00
-    unsigned int n;             // 0x04
-    unsigned int buffsize;      // 0x08
-};
-
-struct LexState {
-    int current;                // 0x00
-    char pad04[0x1c];
-    lua_State* L;               // 0x20
-    Zio* z;                     // 0x24
-    Mbuffer* buff;              // 0x28
-};
-
-union SemInfo {
-    double r;
-};
-
-char* FUN_0021add0(lua_State* L, void* block, unsigned int oldsize, unsigned int newsize);
-int FUN_0021a550(Zio* z);
-int FUN_00215ff0(const char* s, double* result);
-void FUN_0021afd0(LexState* LS, const char* msg, int token);
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
+extern "C" int __cdecl FUN_0021a550(LuaVMZio* z);
+extern "C" int __cdecl FUN_00215ff0(const char* s, float* result);
+extern "C" void __cdecl FUN_0021afd0(LuaVMLexState* ls, const char* msg, int token);
 
 // save_and_next out of line: the lexer state arrives in edi
 // equiv-conv: FUN_0021b1c0 edi
-void FUN_0021b1c0(LexState* LS);
+extern "C" void FUN_0021b1c0(LuaVMLexState* ls);
 
 // grow the token buffer when full, then append one character
-#define SAVE(LS, c)                                                                          \
-    do {                                                                                     \
-        Mbuffer* b = (LS)->buff;                                                             \
-        if (b->n + 1 > b->buffsize) {                                                        \
-            b->buffer = FUN_0021add0((LS)->L, b->buffer, b->buffsize, b->buffsize * 2 + 0x20); \
-            b->buffsize = b->buffsize * 2 + 0x20;                                            \
-        }                                                                                    \
-        b->buffer[b->n++] = (char)(c);                                                       \
+#define SAVE(LS, c)                                                                                          \
+    do {                                                                                                     \
+        LuaVMBuffer* b = (LS)->buff;                                                                         \
+        if (b->n + 1 > b->buffsize) {                                                                        \
+            b->buffer = (char*)FUN_0021add0((LS)->L, b->buffer, b->buffsize, b->buffsize * 2 + 0x20);        \
+            b->buffsize = b->buffsize * 2 + 0x20;                                                            \
+        }                                                                                                    \
+        b->buffer[b->n++] = (char)(c);                                                                       \
     } while (0)
 
-#define NEXT(LS) \
+#define NEXT(LS)                                                                                             \
     ((LS)->current = ((LS)->z->n-- > 0) ? (int)(unsigned char)(*(LS)->z->p++) : FUN_0021a550((LS)->z))
 
-// Lex the digits of a number into the token buffer and convert it.
 // equiv-conv: FUN_0021b230 eax stack
-void FUN_0021b230(LexState* LS, SemInfo* seminfo)
-{
+extern "C" void FUN_0021b230(LuaVMLexState* LS, LuaVMSemInfo* seminfo) {
     while (isdigit(LS->current)) {
         SAVE(LS, LS->current);
         NEXT(LS);

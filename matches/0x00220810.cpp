@@ -1,20 +1,15 @@
+// luaK_checkstack: grow the prototype's maxstacksize to cover n more registers.
+#include "decls/data/lua.h"
 #include "decls/data/engine/unknown.h"
 // data: msg = DAT_004271d4
 
-class A_220810 {
-  public:
-    void* p0;
-    int pad[2];
-    int m3;
-    int pad2[5];
-    int m9;
-};
-void err(int, const char*);
-extern "C" void FUN_00220810(void * a, int n) {
-    int x = ((A_220810 *)a)->m9 + n;
-    if (x > (int)*(unsigned char*)((char*)((A_220810 *)a)->p0 + 0x47)) {
+extern "C" void __cdecl FUN_0021b060(LuaVMLexState* ls, const char* msg);
+
+extern "C" void __cdecl FUN_00220810(LuaVMFuncState* fs, int n) {
+    int x = fs->freereg + n;
+    if (x > (int)fs->f->maxstacksize) {
         if (x >= 250)
-            err(((A_220810 *)a)->m3, DAT_004271d4);
-        *(unsigned char*)((char*)((A_220810 *)a)->p0 + 0x47) = (unsigned char)x;
+            FUN_0021b060(fs->ls, DAT_004271d4);
+        fs->f->maxstacksize = (unsigned char)x;
     }
 }

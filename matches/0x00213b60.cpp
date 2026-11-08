@@ -1,15 +1,14 @@
-typedef unsigned int u32_213b60;
-struct Obj_213b60 {
-    char pad[8];
-    char* p;
-};
-extern int FUN_0021ad80(Obj_213b60*, u32_213b60, u32_213b60, u32_213b60, u32_213b60);
-extern "C" int FUN_00213b60(Obj_213b60* self, u32_213b60 a, u32_213b60 b) {
-    char* base = self->p - 8;
-    if (*(int*)base == 6) {
-        char* item = *(char**)(base + 4);
-        if (item[6] == 0)
-            return FUN_0021ad80(self, *(u32_213b60*)(item + 12), a, b, 0);
+// lua_dump: dump the Lua function on top through writer; 0 when it is not one.
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_0021ad80(LuaVMState* L, LuaVMProto* f, LuaVMWriter w, void* data, int strip);
+
+extern "C" int __cdecl FUN_00213b60(LuaVMState* L, LuaVMWriter writer, void* data) {
+    LuaVMTObject* o = L->top - 1;
+    if (o->tt == LUAVM_TFUNCTION) {
+        LuaVMClosure* cl = (LuaVMClosure*)o->value.gc;
+        if (cl->c.isC == 0)
+            return FUN_0021ad80(L, cl->l.p, writer, data, 0);
     }
     return 0;
 }

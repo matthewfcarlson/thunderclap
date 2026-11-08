@@ -1,67 +1,36 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2534 inputs, branch coverage 14/14)
-// FUN_002208e0 @ 0x002208e0
-// Lua 5.1 addk (float-number build): find or append constant v, keyed by k, in the function prototype's constant table.
+// STATUS: equivalent (tools/equiv.py level 3: 2872 inputs, branch coverage 14/14)
+// addk (float-number build): find or append constant v, keyed by k, in the prototype's constant table.
 // fs arrives in ebx and k in ecx; v is on the stack.
-struct GCObject {
-    char pad0[5];
-    unsigned char marked;           // 5
-};
+#include "decls/data/lua.h"
 
-struct TObject {
-    int tt;
-    union {
-        float n;
-        GCObject *gc;
-    } value;
-};
-
-struct Proto : GCObject {
-    char pad6[2];
-    TObject *k;                     // 8
-    char pad0c[0x28 - 0xc];
-    int sizek;                      // 0x28
-};
-
-struct Table;
-struct lua_State;
-
-struct FuncState_2208e0 {
-    Proto *f;                       // 0
-    Table *h;                       // 4
-    char pad8[8];
-    lua_State *L;                   // 0x10
-    char pad14[0x28 - 0x14];
-    int nk;                         // 0x28
-};
-
-TObject *__cdecl FUN_00219ef0(lua_State *L, Table *h, TObject *key);
-TObject *__cdecl FUN_0021ae40(lua_State *L, TObject *block, int *size, int elemSize, int limit, const char *msg);
-void __cdecl FUN_00217100(lua_State *L, Proto *f, GCObject *v);
+extern "C" LuaVMTObject* __cdecl FUN_00219ef0(LuaVMState* L, LuaVMTable* t, const LuaVMTObject* key);
+extern "C" void* __cdecl FUN_0021ae40(LuaVMState* L, void* block, int* size, int size_elem, int limit,
+                                      const char* errormsg);
+extern "C" void __cdecl FUN_00217100(LuaVMState* L, LuaVMGCObject* o, LuaVMGCObject* v);
 
 // equiv-conv: FUN_0034483c
 // equiv-conv: FUN_002208e0 ebx ecx stack
-int __cdecl FUN_002208e0(FuncState_2208e0 *fs, TObject *k, TObject *v)
-{
-    lua_State *L = fs->L;
-    TObject *idx = FUN_00219ef0(L, fs->h, k);
-    Proto *f = fs->f;
+extern "C" int __cdecl FUN_002208e0(LuaVMFuncState* fs, LuaVMTObject* k, LuaVMTObject* v) {
+    LuaVMState* L = fs->L;
+    LuaVMTObject* idx = FUN_00219ef0(L, fs->h, k);
+    LuaVMProto* f = fs->f;
     int oldsize = f->sizek;
-    if (idx->tt == 3) {
+    if (idx->tt == LUAVM_TNUMBER) {
         return (int)idx->value.n;
     } else {
-        idx->tt = 3;
+        idx->tt = LUAVM_TNUMBER;
         idx->value.n = (float)fs->nk;
         if (fs->nk + 1 > f->sizek)
-            f->k = FUN_0021ae40(L, f->k, &f->sizek, 8, 0x3ffff, "constant table overflow");
+            f->k = (LuaVMTObject*)FUN_0021ae40(L, f->k, &f->sizek, (int)sizeof(LuaVMTObject), 0x3ffff,
+                                               "constant table overflow");
         while (oldsize < f->sizek) {
-            f->k[oldsize].tt = 0;
+            f->k[oldsize].tt = LUAVM_TNIL;
             oldsize++;
         }
-        TObject *slot = &f->k[fs->nk];
-        slot->tt = v->tt;
-        slot->value.n = v->value.n;
-        if (v->tt >= 4 && (v->value.gc->marked & 3) && (f->marked & 4))
-            FUN_00217100(L, f, v->value.gc);
+        LuaVMTObject* slot = &f->k[fs->nk];
+        LUAVM_SETOBJ(slot, v);
+        if (v->tt >= LUAVM_TSTRING && (v->value.gc->marked & 3) && (f->marked & 4))
+            FUN_00217100(L, (LuaVMGCObject*)f, v->value.gc);
         return fs->nk++;
     }
 }

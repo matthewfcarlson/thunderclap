@@ -1,6 +1,7 @@
-#include "compat/ptr.h"
+// lua_dostring
+#include "decls/data/lua.h"
 extern "C" unsigned int __cdecl strlen(const char*);
-void __cdecl helper(void*, const char*, hulk_uintptr, const char*);
-extern "C" void __cdecl FUN_00339c00(void* p, const char* s) {
-    helper(p, s, strlen(s), s);
+extern "C" int __cdecl FUN_00339ba0(LuaVMState* L, const char* buff, unsigned int size, const char* name);
+extern "C" int __cdecl FUN_00339c00(LuaVMState* p, const char* s) {
+    return FUN_00339ba0(p, s, strlen(s), s);
 }

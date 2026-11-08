@@ -1,19 +1,21 @@
-typedef int(__cdecl* F_33d8b0)(int, int, int);
-int __cdecl A(int, int, int);
-int __cdecl B(int, int);
-int __cdecl C(int, int);
-int __cdecl D(int, int);
-int __cdecl E(int, int);
-int __cdecl G(int, int);
-int __cdecl H(int);
-extern "C" void __cdecl FUN_0033d8b0(int p) {
-    int x = A(p, 2, 1);
-    B(p, 1);
-    int y = C(p, 1);
-    if (y && x > 0) {
-        D(p, x);
-        E(p, 1);
-        G(p, 2);
+// luaB_error
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_00339fe0(LuaVMState* L, int narg, int def);
+extern "C" void __cdecl FUN_00212d80(LuaVMState* L, int idx);
+extern "C" int __cdecl FUN_00212fb0(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_00338d90(LuaVMState* L, int level);
+extern "C" void __cdecl FUN_00212ed0(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_00213c90(LuaVMState* L, int n);
+extern "C" int __cdecl FUN_00213c40(LuaVMState* L);
+
+extern "C" int __cdecl FUN_0033d8b0(LuaVMState* L) {
+    int level = FUN_00339fe0(L, 2, 1);
+    FUN_00212d80(L, 1);
+    if (FUN_00212fb0(L, 1) && level > 0) {
+        FUN_00338d90(L, level);
+        FUN_00212ed0(L, 1);
+        FUN_00213c90(L, 2);
     }
-    H(p);
+    return FUN_00213c40(L);
 }

@@ -1,54 +1,64 @@
-// STATUS: equivalent (tools/equiv.py level 3: 8226 inputs, branch coverage 22/22)
+// STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 22/22)
 // FUN_0033cff0 @ 0x0033cff0
 // cl-flags: /GS
-struct State;
-struct Capture_33cff0 { const char* start; int length; };
-struct MatchState_33cff0 { const char* start; const char* end; State* state; int level; Capture_33cff0 captures[32]; };
-struct Buffer_33cff0 { char* cursor; int level; State* state; char data[512]; };
-extern const char* __cdecl FUN_00339df0(State*,int,unsigned*);
-extern int __cdecl FUN_00339fe0(State*,int,unsigned);
-extern int __cdecl FUN_00212d70(State*);
-extern int __cdecl FUN_00212fb0(State*,int);
-extern int __cdecl FUN_00212f00(State*,int);
-extern void __cdecl FUN_00339c30(State*,int,const char*);
-extern void __cdecl FUN_00339630(State*,Buffer_33cff0*);
-extern "C" const char* __cdecl FUN_0033c7e0(MatchState_33cff0*,const char*,const char*);
+// lstrlib str_gsub
+#include "decls/data/lua.h"
+
+extern "C" const char* __cdecl FUN_00339df0(LuaVMState* L, int narg, unsigned int* len);
+extern "C" int __cdecl FUN_00339fe0(LuaVMState* L, int narg, int def);
+extern "C" int __cdecl FUN_00212d70(LuaVMState* L);
+extern "C" int __cdecl FUN_00212fb0(LuaVMState* L, int idx);
+extern "C" int __cdecl FUN_00212f00(LuaVMState* L, int idx);
+extern "C" int __cdecl FUN_00339c30(LuaVMState* L, int narg, const char* extramsg);
+extern "C" void __cdecl FUN_00339630(LuaVMState* L, LuaVMLBuffer* B);
+extern "C" const char* __cdecl FUN_0033c7e0(LuaVMMatchState* ms, const char* s, const char* p);
 // equiv-conv: FUN_0033cec0 eax ebx stack stack
-extern void __cdecl FUN_0033cec0(MatchState_33cff0*,Buffer_33cff0*,const char*,const char*);
-extern void __cdecl FUN_00339470(Buffer_33cff0*);
-extern void __cdecl FUN_003394b0(Buffer_33cff0*,const char*,unsigned);
-extern void __cdecl FUN_00339540(Buffer_33cff0*);
-extern void __cdecl FUN_00213360(State*,int);
-extern "C" int __cdecl FUN_0033cff0(State* state) {
- unsigned length;
- const char* source=FUN_00339df0(state,1,&length);
- const char* pattern=FUN_00339df0(state,2,0);
- int maximum=FUN_00339fe0(state,4,length+1);
- bool anchored=(*pattern=='^');
- if(anchored) ++pattern;
- int count=0;
- if(FUN_00212d70(state)<3 || (!FUN_00212fb0(state,3) && FUN_00212f00(state,3)!=6))
- FUN_00339c30(state,3,"string or function expected");
- Buffer_33cff0 buffer;
- FUN_00339630(state,&buffer);
- MatchState_33cff0 match;
- match.state=state; match.start=source; match.end=source+length;
- if(maximum>0) {
- do {
- match.level=0;
- const char* result=FUN_0033c7e0(&match,source,pattern);
- if(result) { ++count; FUN_0033cec0(&match,&buffer,source,result); }
- if(result && result>source) source=result;
- else {
- if(source>=match.end) break;
- if(buffer.cursor>=buffer.data+512) FUN_00339470(&buffer);
- *buffer.cursor=*source;
- ++buffer.cursor; ++source;
- }
- } while(!anchored && count<maximum);
- }
- FUN_003394b0(&buffer,source,(unsigned)(match.end-source));
- FUN_00339540(&buffer);
- FUN_00213360(state,count);
- return 2;
+void FUN_0033cec0(LuaVMMatchState* ms, LuaVMLBuffer* b, const char* s, const char* e);
+extern "C" char* __cdecl FUN_00339470(LuaVMLBuffer* B);
+extern "C" void __cdecl FUN_003394b0(LuaVMLBuffer* B, const char* s, unsigned int l);
+extern "C" void __cdecl FUN_00339540(LuaVMLBuffer* B);
+extern "C" void __cdecl FUN_00213360(LuaVMState* L, int n);
+
+extern "C" int __cdecl FUN_0033cff0(LuaVMState* L) {
+    unsigned int srcl;
+    const char* src = FUN_00339df0(L, 1, &srcl);
+    const char* p = FUN_00339df0(L, 2, 0);
+    int max_s = FUN_00339fe0(L, 4, (int)(srcl + 1));
+    bool anchor = (*p == '^');
+    if (anchor)
+        ++p;
+    int n = 0;
+    if (FUN_00212d70(L) < 3 || (!FUN_00212fb0(L, 3) && FUN_00212f00(L, 3) != LUAVM_TFUNCTION))
+        FUN_00339c30(L, 3, "string or function expected");
+    LuaVMLBuffer b;
+    FUN_00339630(L, &b);
+    LuaVMMatchState ms;
+    ms.L = L;
+    ms.src_init = src;
+    ms.src_end = src + srcl;
+    if (max_s > 0) {
+        do {
+            ms.level = 0;
+            const char* e = FUN_0033c7e0(&ms, src, p);
+            if (e) {
+                ++n;
+                FUN_0033cec0(&ms, &b, src, e);
+            }
+            if (e && e > src)
+                src = e;
+            else {
+                if (src >= ms.src_end)
+                    break;
+                if (b.p >= b.buffer + LUAVM_BUFFERSIZE)
+                    FUN_00339470(&b);
+                *b.p = *src;
+                ++b.p;
+                ++src;
+            }
+        } while (!anchor && n < max_s);
+    }
+    FUN_003394b0(&b, src, (unsigned int)(ms.src_end - src));
+    FUN_00339540(&b);
+    FUN_00213360(L, n);
+    return 2;
 }

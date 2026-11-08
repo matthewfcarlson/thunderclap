@@ -1,26 +1,14 @@
-extern "C" void __cdecl Copy(void*, void*, unsigned int, unsigned int);
-struct S_219730 {
-    char pad0[8];
-    void* p8;
-    void* pc;
-    void* p10;
-    void* p14;
-    void* p18;
-    void* p1c;
-    void* p20;
-    int n24;
-    int n28;
-    int n2c;
-    int n30;
-    int n34;
-    int n38;
-};
-extern "C" void FUN_00219730(void* dst, void * src) {
-    Copy(dst, ((S_219730 *)src)->pc, ((S_219730 *)src)->n2c * 4, 0);
-    Copy(dst, ((S_219730 *)src)->p10, ((S_219730 *)src)->n34 * 4, 0);
-    Copy(dst, ((S_219730 *)src)->p8, ((S_219730 *)src)->n28 * 8, 0);
-    Copy(dst, ((S_219730 *)src)->p14, ((S_219730 *)src)->n30 * 4, 0);
-    Copy(dst, ((S_219730 *)src)->p18, ((S_219730 *)src)->n38 * 12, 0);
-    Copy(dst, ((S_219730 *)src)->p1c, ((S_219730 *)src)->n24 * 4, 0);
-    Copy(dst, ((S_219730 *)src), 0x48, 0);
+// luaF_freeproto: free a prototype's arrays and the prototype.
+#include "decls/data/lua.h"
+
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
+
+extern "C" void __cdecl FUN_00219730(LuaVMState* L, LuaVMProto* f) {
+    FUN_0021add0(L, f->code, f->sizecode * (unsigned int)sizeof(LuaVMInstruction), 0);
+    FUN_0021add0(L, f->p, f->sizep * (unsigned int)sizeof(LuaVMProto*), 0);
+    FUN_0021add0(L, f->k, f->sizek * (unsigned int)sizeof(LuaVMTObject), 0);
+    FUN_0021add0(L, f->lineinfo, f->sizelineinfo * (unsigned int)sizeof(int), 0);
+    FUN_0021add0(L, f->locvars, f->sizelocvars * (unsigned int)sizeof(LuaVMLocVar), 0);
+    FUN_0021add0(L, f->upvalues, f->sizeupvalues * (unsigned int)sizeof(LuaVMString*), 0);
+    FUN_0021add0(L, f, sizeof(LuaVMProto), 0);
 }

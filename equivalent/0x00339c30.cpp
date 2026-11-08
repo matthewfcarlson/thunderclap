@@ -1,18 +1,13 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20008 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 6/6)
 // FUN_00339c30 @ 0x00339c30
 // cl-flags: /GS
-struct DebugInfo_339c30 {
-    int event;
-    const char* name;
-    const char* namewhat;
-    char rest[84];
-};
-struct State;
-extern "C" int __cdecl FUN_00213fc0(State*, int, DebugInfo_339c30*);
-extern "C" int __cdecl FUN_00214bd0(State*, const char*, DebugInfo_339c30*);
-extern "C" int __cdecl FUN_00338e20(State*, const char*, ...);
-int __cdecl FUN_00339c30(State* state, int argument, const char* message) {
-    DebugInfo_339c30 info;
+// luaL_argerror
+#include "decls/data/lua.h"
+extern "C" int __cdecl FUN_00213fc0(LuaVMState* L, int level, LuaVMDebug* ar);
+extern "C" int __cdecl FUN_00214bd0(LuaVMState* L, const char* what, LuaVMDebug* ar);
+extern "C" int __cdecl FUN_00338e20(LuaVMState* L, const char* fmt, ...);
+extern "C" int __cdecl FUN_00339c30(LuaVMState* state, int argument, const char* message) {
+    LuaVMDebug info;
     FUN_00213fc0(state, 0, &info);
     FUN_00214bd0(state, "n", &info);
     const char* kind = info.namewhat;

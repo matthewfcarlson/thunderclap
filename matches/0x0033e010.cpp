@@ -1,32 +1,28 @@
 // FUN_0033e010 @ 0x0033e010
-struct lua_State;
+// luaB_load
+#include "decls/data/lua.h"
 
-const char *FUN_00339e60(lua_State *L, int narg, const char *def, unsigned int *len);
-void FUN_00339d70(lua_State *L, int narg, int type);
-void FUN_00212d80(lua_State *L, int idx);
-int FUN_00339650(lua_State *L, int t);
-void FUN_00339710(lua_State *L, int ref, int t);
-void FUN_00213320(lua_State *L);
-void FUN_00212e20(lua_State *L, int idx);
-const char *FUN_0033df70(lua_State *L, void *ud, unsigned int *size);
-int FUN_00213b20(lua_State *L, const char *(*reader)(lua_State *, void *, unsigned int *), void *ud, const char *chunkname);
+extern "C" const char* __cdecl FUN_00339e60(LuaVMState* L, int narg, const char* def, unsigned int* len);
+extern "C" void __cdecl FUN_00339d70(LuaVMState* L, int narg, int t);
+extern "C" void __cdecl FUN_00212d80(LuaVMState* L, int idx);
+extern "C" int __cdecl FUN_00339650(LuaVMState* L, int t);
+extern "C" void __cdecl FUN_00339710(LuaVMState* L, int t, int ref);
+extern "C" void __cdecl FUN_00213320(LuaVMState* L);
+extern "C" void __cdecl FUN_00212e20(LuaVMState* L, int idx);
+extern "C" const char* __cdecl FUN_0033df70(LuaVMState* L, void* ud, unsigned int* size);
+extern "C" int __cdecl FUN_00213b20(LuaVMState* L, LuaVMReader reader, void* data, const char* chunkname);
 
-struct LoadState_33e010 {
-    int ref;
-    int pending;
-};
-
-extern "C" int FUN_0033e010(lua_State *L)
+extern "C" int __cdecl FUN_0033e010(LuaVMState* L)
 {
-    LoadState_33e010 ls;
-    const char *chunkname = FUN_00339e60(L, 2, "=(load)", 0);
-    FUN_00339d70(L, 1, 6);
+    LuaVMLoadRefs ls;
+    const char* chunkname = FUN_00339e60(L, 2, "=(load)", 0);
+    FUN_00339d70(L, 1, LUAVM_TFUNCTION);
     FUN_00212d80(L, 1);
-    ls.ref = FUN_00339650(L, -10000);
-    ls.pending = -1;
+    ls.func = FUN_00339650(L, -10000);
+    ls.res = -1;
     int status = FUN_00213b20(L, FUN_0033df70, &ls, chunkname);
-    FUN_00339710(L, ls.ref, -10000);
-    FUN_00339710(L, ls.pending, -10000);
+    FUN_00339710(L, ls.func, -10000);
+    FUN_00339710(L, ls.res, -10000);
     if (status == 0)
         return 1;
     FUN_00213320(L);

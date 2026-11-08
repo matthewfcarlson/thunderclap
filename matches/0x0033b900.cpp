@@ -1,7 +1,9 @@
-extern "C" double __cdecl calc(int, int);
+// lmathlib
+#include "decls/data/lua.h"
+extern "C" float __cdecl FUN_00339ec0(LuaVMState* L, int narg);
+extern "C" void __cdecl FUN_00213340(LuaVMState* L, float n);
 extern "C" double __cdecl log10(double);
-extern "C" void __cdecl output(int, float);
-extern "C" int __cdecl FUN_0033b900(int x) {
-    output(x, (float)log10(calc(x, 1)));
+extern "C" int __cdecl FUN_0033b900(LuaVMState* L) {
+    FUN_00213340(L, (float)log10(FUN_00339ec0(L, 1)));
     return 1;
 }

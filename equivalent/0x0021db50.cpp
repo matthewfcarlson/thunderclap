@@ -1,29 +1,52 @@
-// STATUS: equivalent (tools/equiv.py level 3: 20026 inputs, branch coverage 10/10)
-// FUN_0021db50 @ 0x0021db50
-// FUN_0021db50 @ 0x0021db50
-struct Input_21db50 { char pad0[4]; unsigned int value; char pad8[4]; unsigned int kind; unsigned int data; char pad14[8]; unsigned int context; };
-struct Output_21db50 { unsigned int type; unsigned int value; unsigned int reserved; int a; int b; };
-extern unsigned int __cdecl FUN_002209e0(unsigned int, unsigned int);
+// STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 10/10)
+// simpleexp: a number, string, nil, true, false, table constructor, function or primary expression.
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_002209e0(LuaVMFuncState* fs, float r);
 // equiv-conv: FUN_0021c190 esi
-extern "C" void __cdecl FUN_0021c190(void *);
+extern "C" void FUN_0021c190(LuaVMLexState* ls);
 // equiv-conv: FUN_0021c440 ecx eax esi
-extern "C" void __cdecl FUN_0021c440(void *, int, void *);
+extern "C" void FUN_0021c440(LuaVMLexState* ls, LuaVMString* s, LuaVMExpDesc* e);
 // equiv-conv: FUN_0021cf70 ecx eax
-extern "C" void __cdecl FUN_0021cf70(void *, void *);
+extern "C" void FUN_0021cf70(LuaVMLexState* ls, LuaVMExpDesc* t);
 // equiv-conv: FUN_0021d4b0 ebx stack stack stack
-extern void __cdecl FUN_0021d4b0(Input_21db50*, Output_21db50*, int, unsigned int);
+extern "C" void __cdecl FUN_0021d4b0(LuaVMLexState* ls, LuaVMExpDesc* e, int needself, int line);
 // equiv-conv: FUN_0021d830 eax esi
-extern "C" void __cdecl FUN_0021d830(void *, void *);
+extern "C" void FUN_0021d830(LuaVMExpDesc* v, LuaVMLexState* ls);
 // equiv-conv: FUN_0021db50 eax edi
-extern "C" void FUN_0021db50(void * input, void * output) {
- unsigned int k=((Input_21db50 *)input)->kind-0x7b;
- unsigned int branch=k==0 ? 0 : k==140 ? 1 : k==142 ? 2 : k==146 ? 3 : k==152 ? 4 : k==162 ? 5 : k==163 ? 6 : 7;
- switch(branch) {
- case 5: { unsigned int v=FUN_002209e0(((Input_21db50 *)input)->context,((Input_21db50 *)input)->data); ((Output_21db50 *)output)->a=-1;((Output_21db50 *)output)->b=-1;((Output_21db50 *)output)->type=4;((Output_21db50 *)output)->value=v;FUN_0021c190((Input_21db50 *)((Input_21db50 *)input));break; }
- case 6: FUN_0021c440((Input_21db50 *)((Input_21db50 *)input),(unsigned int)(((Input_21db50 *)input)->data),(Output_21db50 *)((Output_21db50 *)output));FUN_0021c190((Input_21db50 *)((Input_21db50 *)input));break;
- case 3: case 4: case 1: ((Output_21db50 *)output)->a=-1;((Output_21db50 *)output)->b=-1;((Output_21db50 *)output)->type=branch==1?3:branch==3?1:2;((Output_21db50 *)output)->value=0;FUN_0021c190((Input_21db50 *)((Input_21db50 *)input));break;
- case 0: FUN_0021cf70((Input_21db50 *)((Input_21db50 *)input),(Output_21db50 *)((Output_21db50 *)output));break;
- case 2: FUN_0021c190((Input_21db50 *)((Input_21db50 *)input));FUN_0021d4b0(((Input_21db50 *)input),((Output_21db50 *)output),0,((Input_21db50 *)input)->value);break;
- default: FUN_0021d830((Output_21db50 *)((Output_21db50 *)output),(Input_21db50 *)((Input_21db50 *)input));break;
- }
+extern "C" void FUN_0021db50(LuaVMLexState* ls, LuaVMExpDesc* v) {
+    switch (ls->t.token) {
+    case 0x11d: { // TK_NUMBER
+        int info = FUN_002209e0(ls->fs, ls->t.seminfo.r);
+        v->t = -1;
+        v->f = -1;
+        v->k = 4; // VK
+        v->info = info;
+        FUN_0021c190(ls);
+        break;
+    }
+    case 0x11e: // TK_STRING
+        FUN_0021c440(ls, ls->t.seminfo.ts, v);
+        FUN_0021c190(ls);
+        break;
+    case 0x10d: // TK_NIL
+    case 0x113: // TK_TRUE
+    case 0x107: // TK_FALSE
+        v->t = -1;
+        v->f = -1;
+        v->k = ls->t.token == 0x107 ? 3 : ls->t.token == 0x10d ? 1 : 2; // VFALSE, VNIL, VTRUE
+        v->info = 0;
+        FUN_0021c190(ls);
+        break;
+    case '{':
+        FUN_0021cf70(ls, v);
+        break;
+    case 0x109: // TK_FUNCTION
+        FUN_0021c190(ls);
+        FUN_0021d4b0(ls, v, 0, ls->linenumber);
+        break;
+    default:
+        FUN_0021d830(v, ls);
+        break;
+    }
 }

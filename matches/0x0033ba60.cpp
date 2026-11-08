@@ -1,14 +1,18 @@
-extern "C" int __cdecl Count(void*);
-extern "C" float __cdecl Score(void*, int);
-extern "C" void __cdecl Set(void*, float);
-extern "C" int __cdecl FUN_0033ba60(void* p) {
-    int n = Count(p);
-    float best = Score(p, 1);
+// math.min
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_00212d70(LuaVMState* L);
+extern "C" float __cdecl FUN_00339ec0(LuaVMState* L, int narg);
+extern "C" void __cdecl FUN_00213340(LuaVMState* L, float n);
+
+extern "C" int __cdecl FUN_0033ba60(LuaVMState* L) {
+    int n = FUN_00212d70(L);
+    float dmin = FUN_00339ec0(L, 1);
     for (int i = 2; i <= n; ++i) {
-        float v = Score(p, i);
-        if (v < best)
-            best = v;
+        float d = FUN_00339ec0(L, i);
+        if (d < dmin)
+            dmin = d;
     }
-    Set(p, best);
+    FUN_00213340(L, dmin);
     return 1;
 }

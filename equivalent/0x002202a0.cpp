@@ -1,28 +1,27 @@
-// STATUS: equivalent (tools/equiv.py level 3: 14807 inputs, branch coverage 6/6)
-// FUN_002202a0 @ 0x002202a0
-// FUN_002202a0 @ 0x002202a0
-struct InputBuffer { int remaining; unsigned char *cursor; };
-struct Reader { int unused; InputBuffer *buffer; };
-extern int __cdecl FUN_0021a550(InputBuffer *buffer);
+// STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 6/6)
+// TestSize: the chunk's size byte for a type must be the expected one (the chunk format's sizes).
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_0021a550(LuaVMZio* z);
 // equiv-conv: FUN_0021f800 esi stack
-extern void __cdecl FUN_0021f800(Reader *reader, const char *format, ...);
+extern "C" void __cdecl FUN_0021f800(LuaVMLoadState* S, const char* fmt, ...);
+
 // equiv-conv: FUN_002202a0 eax edi stack
-extern "C" void __cdecl FUN_002202a0(void *reader, unsigned int expected, const char *name)
-{
-    InputBuffer *buffer = ((Reader *)reader)->buffer;
-    unsigned int count = buffer->remaining;
-    buffer->remaining = count - 1;
+extern "C" void __cdecl FUN_002202a0(LuaVMLoadState* S, unsigned int expected, const char* what) {
+    LuaVMZio* z = S->Z;
+    unsigned int count = z->n;
+    z->n = count - 1;
     int value;
     if (count == 0) {
-        value = FUN_0021a550(((Reader *)reader)->buffer);
+        value = FUN_0021a550(S->Z);
     } else {
-        unsigned char *cursor = ((Reader *)reader)->buffer->cursor;
-        value = *cursor;
-        ((Reader *)reader)->buffer->cursor = cursor + 1;
+        const char* cursor = S->Z->p;
+        value = *(const unsigned char*)cursor;
+        S->Z->p = cursor + 1;
     }
     if (value == -1)
-        FUN_0021f800(((Reader *)reader), "unexpected end of file");
+        FUN_0021f800(S, "unexpected end of file");
     unsigned int byteValue = (unsigned char)value;
     if (byteValue != expected)
-        FUN_0021f800(((Reader *)reader), "bad size of %s (read %d; expected %d)", name, byteValue, expected);
+        FUN_0021f800(S, "bad size of %s (read %d; expected %d)", what, byteValue, expected);
 }

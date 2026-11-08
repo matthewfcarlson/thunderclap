@@ -1,13 +1,16 @@
-typedef unsigned int u32_33dd90;
-extern void __cdecl f339d70(u32_33dd90, int, int);
-extern void __cdecl f212d80(u32_33dd90, int);
-extern int __cdecl f213c50(u32_33dd90, int);
-extern void __cdecl f213320(u32_33dd90);
-extern "C" int __cdecl FUN_0033dd90(u32_33dd90 p) {
-    f339d70(p, 1, 5);
-    f212d80(p, 2);
-    if (f213c50(p, 1))
+// luaB_next
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_00339d70(LuaVMState* L, int narg, int t);
+extern "C" void __cdecl FUN_00212d80(LuaVMState* L, int idx);
+extern "C" int __cdecl FUN_00213c50(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_00213320(LuaVMState* L);
+
+extern "C" int __cdecl FUN_0033dd90(LuaVMState* L) {
+    FUN_00339d70(L, 1, LUAVM_TTABLE);
+    FUN_00212d80(L, 2);
+    if (FUN_00213c50(L, 1))
         return 2;
-    f213320(p);
+    FUN_00213320(L);
     return 1;
 }

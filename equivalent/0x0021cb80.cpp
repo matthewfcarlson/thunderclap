@@ -1,91 +1,52 @@
-// STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 4/4)
-// FUN_0021cb80 @ 0x0021cb80
-struct lua_State_21cb80 {
-    char pad[8];
-    char *top;
-};
-
-struct Proto_21cb80 {
-    char pad0[8];
-    void *k;
-    void *code;
-    void *p;
-    void *lineinfo;
-    void *locvars;
-    void *upvalues;
-    char pad1[4];
-    int sizeupvalues;
-    int sizek;
-    int sizecode;
-    int sizelineinfo;
-    int sizep;
-    int sizelocvars;
-    char pad2[0x44 - 0x3c];
-    unsigned char nups;
-};
-
-struct FuncState_21cb80 {
-    Proto_21cb80 *f;
-    char pad0[4];
-    FuncState_21cb80 *prev;
-    char pad1[0x18 - 0xc];
-    int pc;
-    char pad2[0x28 - 0x1c];
-    int nk;
-    int np;
-    int nlocvars;
-};
-
-struct TokenInfo {
-    char pad[0xc];
-    int length;
-};
-
-struct LexState_21cb80 {
-    char pad0[0xc];
-    int token;
-    TokenInfo *seminfo;
-    char pad1[0x1c - 0x14];
-    FuncState_21cb80 *fs;
-    lua_State_21cb80 *L;
-};
+// STATUS: equivalent (tools/equiv.py level 3: 2971 inputs, branch coverage 4/4)
+// close_func: finish a function: close its locals, code the final RETURN, shrink the prototype's vectors to their
+// use, unlink the FuncState and pop its anchors (re-anchoring the current name or string token).
+#include "decls/data/lua.h"
 
 // equiv-conv: FUN_0021c5b0 eax edx
-extern "C" void __cdecl FUN_0021c5b0(void *, int);
-extern "C" int __cdecl FUN_00220bd0(void *, unsigned int, int, unsigned int, unsigned int);
-void *FUN_0021add0(lua_State_21cb80 *L, void *block, unsigned oldsize, unsigned newsize);
-void FUN_0021b080(LexState_21cb80 *ls, void *str, int len);
+extern "C" void FUN_0021c5b0(LuaVMLexState* ls, int tolevel);
+extern "C" int __cdecl FUN_00220bd0(LuaVMFuncState* fs, unsigned int o, int a, unsigned int b,
+                                    unsigned int c);
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
+extern "C" LuaVMString* __cdecl FUN_0021b080(LuaVMLexState* ls, const char* str, unsigned int l);
 
-extern "C" void FUN_0021cb80(void *ls)
-{
-    lua_State_21cb80 *L = ((LexState_21cb80 *)ls)->L;
-    FuncState_21cb80 *fs = ((LexState_21cb80 *)ls)->fs;
-    Proto_21cb80 *f = fs->f;
+extern "C" void __cdecl FUN_0021cb80(LuaVMLexState* ls) {
+    LuaVMState* L = ls->L;
+    LuaVMFuncState* fs = ls->fs;
+    LuaVMProto* f = fs->f;
 
-    FUN_0021c5b0((LexState_21cb80 *)((LexState_21cb80 *)ls), 0);
-    FUN_00220bd0((FuncState_21cb80 *)fs, 0x1b, 0, 1, 0);
+    FUN_0021c5b0(ls, 0);
+    FUN_00220bd0(fs, 0x1b, 0, 1, 0); // OP_RETURN 0 1
 
-    f->code = FUN_0021add0(L, f->code, f->sizecode * 4, fs->pc * 4);
+    f->code =
+        (LuaVMInstruction*)FUN_0021add0(L, f->code, f->sizecode * (unsigned int)sizeof(LuaVMInstruction),
+                                        fs->pc * (unsigned int)sizeof(LuaVMInstruction));
     f->sizecode = fs->pc;
 
-    f->lineinfo = FUN_0021add0(L, f->lineinfo, f->sizelineinfo * 4, fs->pc * 4);
+    f->lineinfo = (int*)FUN_0021add0(L, f->lineinfo, f->sizelineinfo * (unsigned int)sizeof(int),
+                                     fs->pc * (unsigned int)sizeof(int));
     f->sizelineinfo = fs->pc;
 
-    f->k = FUN_0021add0(L, f->k, f->sizek * 8, fs->nk * 8);
+    f->k = (LuaVMTObject*)FUN_0021add0(L, f->k, f->sizek * (unsigned int)sizeof(LuaVMTObject),
+                                       fs->nk * (unsigned int)sizeof(LuaVMTObject));
     f->sizek = fs->nk;
 
-    f->p = FUN_0021add0(L, f->p, f->sizep * 4, fs->np * 4);
+    f->p = (LuaVMProto**)FUN_0021add0(L, f->p, f->sizep * (unsigned int)sizeof(LuaVMProto*),
+                                      fs->np * (unsigned int)sizeof(LuaVMProto*));
     f->sizep = fs->np;
 
-    f->locvars = FUN_0021add0(L, f->locvars, f->sizelocvars * 12, fs->nlocvars * 12);
+    f->locvars = (LuaVMLocVar*)FUN_0021add0(L, f->locvars, f->sizelocvars * (unsigned int)sizeof(LuaVMLocVar),
+                                            fs->nlocvars * (unsigned int)sizeof(LuaVMLocVar));
     f->sizelocvars = fs->nlocvars;
 
-    f->upvalues = FUN_0021add0(L, f->upvalues, f->sizeupvalues * 4, f->nups * 4);
+    f->upvalues =
+        (LuaVMString**)FUN_0021add0(L, f->upvalues, f->sizeupvalues * (unsigned int)sizeof(LuaVMString*),
+                                    f->nups * (unsigned int)sizeof(LuaVMString*));
     f->sizeupvalues = f->nups;
 
-    ((LexState_21cb80 *)ls)->fs = fs->prev;
-    L->top -= 16;
+    ls->fs = fs->prev;
+    L->top -= 2;
 
-    if (((LexState_21cb80 *)ls)->token == 0x116 || ((LexState_21cb80 *)ls)->token == 0x11e)
-        FUN_0021b080(((LexState_21cb80 *)ls), (char *)((LexState_21cb80 *)ls)->seminfo + 0x10, ((LexState_21cb80 *)ls)->seminfo->length);
+    if (ls->t.token == 0x116 || ls->t.token == 0x11e)
+        FUN_0021b080(ls, LUAVM_GETSTR(ls->t.seminfo.ts), ls->t.seminfo.ts->len);
 }

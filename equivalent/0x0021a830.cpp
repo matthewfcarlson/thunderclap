@@ -1,34 +1,37 @@
-// STATUS: equivalent (tools/equiv.py level 3: 130 inputs, branch coverage 7/7)
-// FUN_0021a830 @ 0x0021a830
-typedef void (__cdecl *WriteCallback)(void*, const void*, int, void*);
-struct Writer_21a830 { void* handle; WriteCallback write; void* context; };
-struct Text_21a830 { char pad[12]; int length; char bytes[1]; };
-struct Entry_21a830 { Text_21a830* text; int first; int second; };
-struct Table_21a830 { char pad[24]; Entry_21a830* entries; char pad2[28]; int count; };
-struct Scratch_21a830 { int length; union { const char* bytes; int value; }; };
+// STATUS: equivalent (tools/equiv.py level 3: 576 inputs, branch coverage 7/7)
+// DumpLocals: the local variables' count, then each one's name, startpc and endpc.
+#include "decls/data/lua.h"
+
 // equiv-conv: FUN_0021a830 esi stack
-extern "C" void __cdecl FUN_0021a830(void * writer, void * table) {
- const int count = ((Table_21a830 *)table)->count;
- int storedCount = count;
- Scratch_21a830 scratch;
- ((Writer_21a830 *)writer)->write(((Writer_21a830 *)writer)->handle, &storedCount, 4, ((Writer_21a830 *)writer)->context);
- if (count <= 0) return;
- int remaining = count;
- for (int i = 0; remaining; ++i, --remaining) {
-  Text_21a830* text = ((Table_21a830 *)table)->entries[i].text;
-  if (text && text->bytes) {
-   scratch.bytes = text->bytes;
-   const int length = text->length + 1;
-   scratch.length = length;
-   ((Writer_21a830 *)writer)->write(((Writer_21a830 *)writer)->handle, &scratch.length, 4, ((Writer_21a830 *)writer)->context);
-   ((Writer_21a830 *)writer)->write(((Writer_21a830 *)writer)->handle, scratch.bytes, length, ((Writer_21a830 *)writer)->context);
-  } else {
-   scratch.value = 0;
-   ((Writer_21a830 *)writer)->write(((Writer_21a830 *)writer)->handle, &scratch.value, 4, ((Writer_21a830 *)writer)->context);
-  }
-  scratch.value = ((Table_21a830 *)table)->entries[i].first;
-  ((Writer_21a830 *)writer)->write(((Writer_21a830 *)writer)->handle, &scratch.value, 4, ((Writer_21a830 *)writer)->context);
-  scratch.value = ((Table_21a830 *)table)->entries[i].second;
-  ((Writer_21a830 *)writer)->write(((Writer_21a830 *)writer)->handle, &scratch.value, 4, ((Writer_21a830 *)writer)->context);
- }
+extern "C" void __cdecl FUN_0021a830(LuaVMDumpState* D, const LuaVMProto* f) {
+    const int n = f->sizelocvars;
+    int x = n;
+    struct {
+        int len;
+        union {
+            const char* str;
+            int value;
+        };
+    } scratch;  // the original's slots: a string's size next to its characters' address, the integers in the second
+    D->writer(D->L, &x, 4, D->data);
+    if (n <= 0)
+        return;
+    int remaining = n;
+    for (int i = 0; remaining; ++i, --remaining) {
+        const LuaVMString* s = f->locvars[i].varname;
+        if (s && LUAVM_GETSTR(s)) {
+            scratch.str = LUAVM_GETSTR(s);
+            const int len = s->len + 1;
+            scratch.len = len;
+            D->writer(D->L, &scratch.len, 4, D->data);
+            D->writer(D->L, scratch.str, len, D->data);
+        } else {
+            scratch.value = 0;
+            D->writer(D->L, &scratch.value, 4, D->data);
+        }
+        scratch.value = f->locvars[i].startpc;
+        D->writer(D->L, &scratch.value, 4, D->data);
+        scratch.value = f->locvars[i].endpc;
+        D->writer(D->L, &scratch.value, 4, D->data);
+    }
 }

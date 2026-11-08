@@ -1,21 +1,15 @@
-#include "compat/ptr.h"
-struct S_212c50 {
-    char pad0[8];
-    int a;
-    int b;
-    char pad10[4];
-    hulk_intptr e;
-    int c;
-    int d;
-};
-extern void Grow(S_212c50*, int);
-extern "C" int __cdecl FUN_00212c50(S_212c50* p, int n) {
-    if (((p->a - p->b) >> 3) + n > 0x800)
+// lua_checkstack: room for size more slots (at most 2048 in the frame); raises the frame's top.
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_00215460(LuaVMState* L, int n);
+
+extern "C" int __cdecl FUN_00212c50(LuaVMState* L, int size) {
+    if ((L->top - L->base) + size > 0x800)
         return 0;
-    if (p->c - p->a <= n * 8)
-        Grow(p, n);
-    unsigned int v = p->a + n * 8;
-    if ((unsigned int)*(int*)(p->e + 4) < v)
-        *(int*)(p->e + 4) = v;
+    if ((char*)L->stack_last - (char*)L->top <= size * (int)sizeof(LuaVMTObject))
+        FUN_00215460(L, size);
+    LuaVMTObject* t = L->top + size;
+    if (L->ci->top < t)
+        L->ci->top = t;
     return 1;
 }

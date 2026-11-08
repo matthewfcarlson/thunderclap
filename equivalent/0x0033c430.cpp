@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 327 inputs, branch coverage 21/22, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 2752 inputs, branch coverage 22/22)
 // FUN_0033c430 @ 0x0033c430
 // Lua 5.0 lstrlib matchbracketclass
 // equiv-conv: FUN_0033c320 eax edi

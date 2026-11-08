@@ -1,53 +1,48 @@
-// STATUS: equivalent (tools/equiv.py level 3: 4674 inputs, branch coverage 4/4)
-// FUN_0021d4b0 @ 0x0021d4b0
-// FUN_0021d4b0 @ 0x0021d4b0
-// FUN_0021d4b0 @ 0x0021d4b0
-#include "compat/ptr.h"
-struct Item_21d4b0 { char pad[0x3c]; int value; };
-struct Buffer_21d4b0 { Item_21d4b0* item; char pad[516]; };
-struct Entry_21d4b0 { int a; int value; int c; };
-struct Root_21d4b0 { char pad[0x18]; Entry_21d4b0* entries; };
-struct State_21d4b0 { Root_21d4b0* root; char pad0[0x14]; int value; char pad1[0x18]; unsigned char count; char pad2[0x3f]; unsigned short indices[256]; };
-struct Context { char pad[0x1c]; State_21d4b0* state; };
+// STATUS: equivalent (tools/equiv.py level 3: 2847 inputs, branch coverage 4/4)
+// body: a function body ( parlist ) chunk end, compiled in a new FuncState (with `self' first when needself);
+// e is the closure.
+#include "decls/data/lua.h"
+
 extern unsigned int DAT_004d9968;
-void __fastcall __security_check_cookie(unsigned int);
+extern "C" void __fastcall __security_check_cookie(unsigned int);
 // equiv-conv: FUN_0021cac0 ecx eax
-extern "C" void __cdecl FUN_0021cac0(void *, void *);
+extern "C" void FUN_0021cac0(LuaVMLexState* ls, LuaVMFuncState* fs);
 // equiv-conv: FUN_0021c2e0 esi eax
-extern "C" void __cdecl FUN_0021c2e0(void *, int);
-int __cdecl FUN_0021b080(Context*, const char*, int);
+extern "C" void FUN_0021c2e0(LuaVMLexState* ls, int c);
+extern "C" LuaVMString* __cdecl FUN_0021b080(LuaVMLexState* ls, const char* str, unsigned int l);
 // equiv-conv: FUN_0021c240 esi ecx edx
-void FUN_0021c240(State_21d4b0*, const char*, int);
-unsigned short __cdecl FUN_0021c490(Context*, int);
+extern "C" void FUN_0021c240(LuaVMFuncState* fs, const char* what, int limit);
+extern "C" int __cdecl FUN_0021c490(LuaVMLexState* ls, LuaVMString* varname);
 // equiv-conv: FUN_0021d210 eax
-extern "C" void __cdecl FUN_0021d210(void *);
-extern "C" void __cdecl FUN_0021f640(void *);
+extern "C" void FUN_0021d210(LuaVMLexState* ls);
+extern "C" void __cdecl FUN_0021f640(LuaVMLexState* ls);
 // equiv-conv: FUN_0021c340 eax esi edi stack
-void __cdecl FUN_0021c340(int, Context*, int, int);
-extern "C" void __cdecl FUN_0021cb80(void *);
-extern "C" void __cdecl FUN_0021c9b0(void *, void *, void *);
+extern "C" void FUN_0021c340(int where, LuaVMLexState* ls, int what, int who);
+extern "C" void __cdecl FUN_0021cb80(LuaVMLexState* ls);
+extern "C" void __cdecl FUN_0021c9b0(LuaVMLexState* ls, LuaVMFuncState* func, LuaVMExpDesc* v);
 // equiv-conv: FUN_0021d4b0 ebx stack stack stack
-void __cdecl FUN_0021d4b0(Context* ctx, hulk_intptr arg1, int arg2, int arg3) {
- unsigned int cookie = DAT_004d9968;
- Buffer_21d4b0 buffer;
- FUN_0021cac0((Context *)ctx, (Buffer_21d4b0 *)(&buffer));
- buffer.item->value = arg3;
- FUN_0021c2e0((Context *)ctx, 0x28);
- if (arg2) {
-  int id = FUN_0021b080(ctx, "self", 4);
-  State_21d4b0* state = ctx->state;
-  if ((int)state->count + 1 > 200) FUN_0021c240(state, "local variables", 200);
-  unsigned short index = FUN_0021c490(ctx, id);
-  state->indices[(unsigned int)state->count + 1] = index;
-  state = ctx->state;
-  state->count = (unsigned char)(state->count + 1);
-  state->root->entries[state->indices[state->count]].value = state->value;
- }
- FUN_0021d210((Context *)ctx);
- FUN_0021c2e0((Context *)ctx, 0x29);
- FUN_0021f640((Context *)ctx);
- FUN_0021c340(arg3, ctx, 0x106, 0x109);
- FUN_0021cb80((Context *)ctx);
- FUN_0021c9b0((Context *)ctx, (Buffer_21d4b0 *)(&buffer), (void *)(hulk_uintptr)(int)arg1);
- __security_check_cookie(cookie);
+extern "C" void __cdecl FUN_0021d4b0(LuaVMLexState* ls, LuaVMExpDesc* e, int needself, int line) {
+    unsigned int cookie = DAT_004d9968;
+    LuaVMFuncState new_fs;
+    FUN_0021cac0(ls, &new_fs);
+    new_fs.f->lineDefined = line;
+    FUN_0021c2e0(ls, 0x28);
+    if (needself) {
+        LuaVMString* name = FUN_0021b080(ls, "self", 4);
+        LuaVMFuncState* fs = ls->fs;
+        if ((int)fs->nactvar + 1 > LUAVM_MAXVARS)
+            FUN_0021c240(fs, "local variables", 200);
+        unsigned short index = (unsigned short)FUN_0021c490(ls, name);
+        fs->actvar[fs->nactvar] = index;
+        fs = ls->fs;
+        fs->nactvar = (unsigned char)(fs->nactvar + 1);
+        fs->f->locvars[fs->actvar[fs->nactvar - 1]].startpc = fs->pc;
+    }
+    FUN_0021d210(ls);
+    FUN_0021c2e0(ls, 0x29);
+    FUN_0021f640(ls);
+    FUN_0021c340(line, ls, 0x106, 0x109); // TK_END, TK_FUNCTION
+    FUN_0021cb80(ls);
+    FUN_0021c9b0(ls, &new_fs, e);
+    __security_check_cookie(cookie);
 }

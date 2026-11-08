@@ -1,78 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 509 inputs, branch coverage 228/230, incomplete)
-// FUN_00218350 @ 0x00218350
-#include "compat/ptr.h"
-struct Table;
-struct lua_State;
-
-struct TObject {
-    int tt;
-    union {
-        Table* h;
-        void* gc;
-        int b;
-        float n;
-    } value;
-};
-
-typedef TObject* StkId;
-typedef unsigned int Instruction;
-
-struct GCHeader {
-    char pad0[4];
-    unsigned char tt;
-    unsigned char marked;
-};
-
-struct UpVal {
-    char pad0[8];
-    TObject* v;
-};
-
-struct Proto {
-    char pad0[8];
-    TObject* k;
-    char padc[4];
-    Proto** p;
-    char pad14[0x44 - 0x14];
-    unsigned char nups;
-};
-
-struct LClosure {
-    char pad0[0xc];
-    Proto* p;
-    TObject g;
-    UpVal* upvals[1];
-};
-
-struct CallInfo {
-    StkId base;
-    StkId top;
-    const Instruction* savedpc;
-    int tailcalls;
-};
-
-struct global_State {
-    char pad0[0x48];
-    unsigned int GCthreshold;
-    unsigned int nblocks;
-};
-
-struct lua_State {
-    char pad0[8];
-    StkId top;
-    StkId base;
-    global_State* l_G;
-    CallInfo* ci;
-    char pad18[0x30 - 0x18];
-    unsigned char hookmask;
-    char pad31;
-    unsigned char status;
-    char pad33[5];
-    int hookcount;
-    char pad3c[4];
-    TObject l_gt;
-    TObject* openupval_pad;
-};
+// STATUS: equivalent (tools/equiv.py level 3: 958 inputs, branch coverage 228/230, incomplete)
+// luaV_execute: the interpreter loop (calls and returns of Lua functions stay inside the loop, nexeccalls deep).
+#include "decls/data/lua.h"
 
 #define LUA_MASKCALL 1
 #define LUA_MASKLINE 4
@@ -100,26 +28,26 @@ struct lua_State {
 #define l_isfalse(o) (ttisnil(o) || ((o)->tt == 1 && (o)->value.b == 0))
 
 #define tonumber(o, tmp)                                                                                     \
-    ((o)->tt == 3 || (((o) = ((o)->tt == 4 && FUN_00215ff0((const char*)(o)->value.gc + 0x10, &num_))        \
+    ((o)->tt == 3 || (((o) = ((o)->tt == 4 && FUN_00215ff0(LUAVM_GETSTR((o)->value.gc), &num_))        \
                                  ? (((tmp)->value.n = num_), ((tmp)->tt = 3), (tmp))                         \
                                  : 0) != 0))
 
 #define luaC_checkGC(L)                                                                                      \
     {                                                                                                        \
-        if ((L)->l_G->nblocks >= (L)->l_G->GCthreshold)                                                      \
+        if ((L)->l_G->totalbytes >= (L)->l_G->GCthreshold)                                                      \
             FUN_00217440(L);                                                                                 \
     }
 
 #define luaC_barrier(L, p, v)                                                                                \
     {                                                                                                        \
-        if ((v)->tt >= 4 && (((GCHeader*)(v)->value.gc)->marked & 3) && (((GCHeader*)(p))->marked & 4))      \
-            FUN_00217100(L, (GCHeader*)(p), (GCHeader*)(v)->value.gc);                                       \
+        if ((v)->tt >= 4 && ((v)->value.gc->marked & 3) && (((LuaVMGCObject*)(p))->marked & 4))              \
+            FUN_00217100(L, (LuaVMGCObject*)(p), (v)->value.gc);                                             \
     }
 
 #define Arith_inline(op, expr, tm)                                                                           \
     {                                                                                                        \
-        StkId rb_ = RKB(i);                                                                                  \
-        StkId rc_ = RKC(i);                                                                                  \
+        LuaVMTObject* rb_ = RKB(i);                                                                                  \
+        LuaVMTObject* rc_ = RKC(i);                                                                                  \
         if (ttisnumber(rb_) && ttisnumber(rc_)) {                                                            \
             ra->tt = 3;                                                                                      \
             ra->value.n = expr;                                                                              \
@@ -127,63 +55,64 @@ struct lua_State {
             base = FUN_00218170(rc_, rb_, pc, L, ra, tm);                                                    \
     }
 
-void __cdecl FUN_00215520(lua_State* L, int event, int line);
+extern "C" void __cdecl FUN_00215520(LuaVMState* L, int event, int line);
 // equiv-conv: FUN_002176c0 ebx edi
-extern "C" void __cdecl FUN_002176c0(void *, unsigned int *);
-extern "C" void __cdecl FUN_00217830(void *, void *, void *, void *);
-extern "C" void __cdecl FUN_00217980(void *, void *, void *, void *);
-void __cdecl FUN_00217100(lua_State* L, GCHeader* p, GCHeader* v);
-extern "C" void * __cdecl FUN_00219cc0(void *, void *, void *);
-void __cdecl FUN_00217440(lua_State* L);
+extern "C" void __cdecl FUN_002176c0(LuaVMState* L, const LuaVMInstruction* pc);
+extern "C" void __cdecl FUN_00217830(LuaVMState* L, const LuaVMTObject* t, LuaVMTObject* key, LuaVMTObject* val);
+extern "C" void __cdecl FUN_00217980(LuaVMState* L, const LuaVMTObject* t, LuaVMTObject* key, LuaVMTObject* val);
+extern "C" void __cdecl FUN_00217100(LuaVMState* L, LuaVMGCObject* o, LuaVMGCObject* v);
+extern "C" LuaVMTable* __cdecl FUN_00219cc0(LuaVMState* L, int narray, int lnhash);
+extern "C" void __cdecl FUN_00217440(LuaVMState* L);
 // equiv-conv: FUN_00218170 eax ecx edx stack stack stack
-StkId FUN_00218170(TObject* rc, TObject* rb, const Instruction* pc, lua_State* L, StkId ra, int op);
-int __cdecl FUN_00215ff0(const char* s, float* result);
-TObject* __cdecl FUN_002175b0(lua_State* L, const TObject* o, int event);
+extern "C" LuaVMTObject* __cdecl FUN_00218170(const LuaVMTObject* rc, const LuaVMTObject* rb, const LuaVMInstruction* pc,
+                                          LuaVMState* L, LuaVMTObject* ra, int op);
+extern "C" int __cdecl FUN_00215ff0(const char* s, float* result);
+extern "C" const LuaVMTObject* __cdecl FUN_002175b0(LuaVMState* L, const LuaVMTObject* o, int event);
 // equiv-conv: FUN_00217790 ecx eax
-void FUN_00217790(lua_State* L, StkId res);
-void __cdecl FUN_00214d40(lua_State* L, const TObject* p1, const TObject* p2);
-extern "C" void __cdecl FUN_00217f20(void *, int, int);
-extern "C" int __cdecl FUN_00217e20(void *, void *, void *);
-extern "C" int __cdecl FUN_00217cf0(void *, const void *, const void *);
+extern "C" void __cdecl FUN_00217790(LuaVMState* L, LuaVMTObject* res);
+extern "C" void __cdecl FUN_00214d40(LuaVMState* L, const LuaVMTObject* p1, const LuaVMTObject* p2);
+extern "C" void __cdecl FUN_00217f20(LuaVMState* L, int total, int last);
+extern "C" int __cdecl FUN_00217e20(LuaVMState* L, const LuaVMTObject* t1, const LuaVMTObject* t2);
+extern "C" int __cdecl FUN_00217cf0(LuaVMState* L, const LuaVMTObject* l, const LuaVMTObject* r);
 // equiv-conv: FUN_00217d80 edi esi stack
-extern "C" int __cdecl FUN_00217d80(const void *, const void *, void *);
-StkId __cdecl FUN_00215790(lua_State* L, StkId func);
-void __cdecl FUN_00215970(lua_State* L, int nresults, StkId firstResult);
-void __cdecl FUN_00214a90(lua_State* L, const char* msg, ...);
-void __cdecl FUN_002159e0(lua_State* L, StkId func, int nresults);
-void* __cdecl FUN_00219430(lua_State* L, const char* str, int l);
-TObject* __cdecl FUN_00219e50(Table* t, void* key);
-void* __cdecl FUN_00219f60(lua_State* L, void* h, hulk_intptr key);
-void __cdecl FUN_00219660(lua_State* L, StkId level);
-LClosure* __cdecl FUN_00219560(lua_State* L, int nelems, TObject* e);
-UpVal* __cdecl FUN_00219610(lua_State* L, StkId level);
+extern "C" int __cdecl FUN_00217d80(const LuaVMTObject* l, const LuaVMTObject* r, LuaVMState* L);
+extern "C" LuaVMTObject* __cdecl FUN_00215790(LuaVMState* L, LuaVMTObject* func);
+extern "C" void __cdecl FUN_00215970(LuaVMState* L, int wanted, LuaVMTObject* firstResult);
+extern "C" void __cdecl FUN_00214a90(LuaVMState* L, const char* fmt, ...);
+extern "C" void __cdecl FUN_002159e0(LuaVMState* L, LuaVMTObject* func, int nresults);
+extern "C" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
+extern "C" LuaVMTObject* __cdecl FUN_00219e50(LuaVMTable* t, LuaVMString* key);
+extern "C" LuaVMTObject* __cdecl FUN_00219f60(LuaVMState* L, LuaVMTable* t, int key);
+extern "C" void __cdecl FUN_00219660(LuaVMState* L, LuaVMTObject* level);
+extern "C" LuaVMClosure* __cdecl FUN_00219560(LuaVMState* L, int nelems, const LuaVMTObject* e);
+extern "C" LuaVMUpVal* __cdecl FUN_00219610(LuaVMState* L, LuaVMTObject* level);
 
-StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
+extern "C" LuaVMTObject* __cdecl FUN_00218350(LuaVMState* L, int nexeccalls) {
     // A call installs a new frame and runs its hook; a return resumes a frame
     // without running the call hook again.
     bool enteringCall = true;
     for (;;) {
-        LClosure* cl;
-        StkId base;
-        TObject* k;
-        const Instruction* pc;
+        LuaVMLClosure* cl;
+        LuaVMTObject* base;
+        LuaVMTObject* k;
+        const LuaVMInstruction* pc;
         bool switchFrame = false;
 
         if (enteringCall && (L->hookmask & LUA_MASKCALL))
             FUN_00215520(L, 0, -1);
         enteringCall = false;
         pc = L->ci->savedpc;
-        cl = (LClosure*)(L->base - 1)->value.gc;
+        cl = (LuaVMLClosure*)(L->base - 1)->value.gc;
         base = L->base;
         k = cl->p->k;
 
         while (!switchFrame) {
-            const Instruction i = *pc++;
-            StkId ra;
+            const LuaVMInstruction i = *pc++;
+            LuaVMTObject* ra;
             if ((L->hookmask & (LUA_MASKLINE | LUA_MASKCOUNT)) &&
                 (--L->hookcount == 0 || L->hookmask & LUA_MASKLINE)) {
-                FUN_002176c0((lua_State *)L, (unsigned int *)(const unsigned int *)pc);
-                if (L->status) {
+                FUN_002176c0(L, pc);
+                if (L->status) {  // +0x32: the thread's status here (a hook yielded)
                     L->ci->savedpc = pc - 1;
                     return 0;
                 }
@@ -207,7 +136,7 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
                 break;
             }
             case 3: { /* OP_LOADNIL */
-                TObject* rb = RB(i);
+                LuaVMTObject* rb = RB(i);
                 do {
                     (rb--)->tt = 0;
                 } while (rb >= ra);
@@ -220,37 +149,37 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
             }
             case 5: { /* OP_GETGLOBAL */
                 L->ci->savedpc = pc;
-                FUN_00217830((lua_State *)L, (TObject *)(&cl->g), (TObject *)(KBx(i)), (TObject *)ra);
+                FUN_00217830(L, &cl->g, KBx(i), ra);
                 base = L->base;
                 break;
             }
             case 6: { /* OP_GETTABLE */
                 L->ci->savedpc = pc;
-                FUN_00217830((lua_State *)L, (TObject *)(RB(i)), (TObject *)(RKC(i)), (TObject *)ra);
+                FUN_00217830(L, RB(i), RKC(i), ra);
                 base = L->base;
                 break;
             }
             case 7: { /* OP_SETGLOBAL */
                 L->ci->savedpc = pc;
-                FUN_00217980((lua_State *)L, (TObject *)(&cl->g), (TObject *)(KBx(i)), (TObject *)ra);
+                FUN_00217980(L, &cl->g, KBx(i), ra);
                 base = L->base;
                 break;
             }
             case 8: { /* OP_SETUPVAL */
-                UpVal* uv = cl->upvals[GETARG_B(i)];
+                LuaVMUpVal* uv = cl->upvals[GETARG_B(i)];
                 *uv->v = *ra;
                 luaC_barrier(L, uv, ra);
                 break;
             }
             case 9: { /* OP_SETTABLE */
                 L->ci->savedpc = pc;
-                FUN_00217980((lua_State *)L, (TObject *)ra, (TObject *)(RKB(i)), (TObject *)(RKC(i)));
+                FUN_00217980(L, ra, RKB(i), RKC(i));
                 base = L->base;
                 break;
             }
             case 10: { /* OP_NEWTABLE */
                 int b = GETARG_B(i);
-                ra->value.gc = FUN_00219cc0((lua_State *)L, (void *)(hulk_uintptr)(int)((b & 7) << (b >> 3)), (void *)(hulk_uintptr)(int)(GETARG_C(i)));
+                ra->value.gc = (LuaVMGCObject*)FUN_00219cc0(L, (b & 7) << (b >> 3), GETARG_C(i));
                 ra->tt = 5;
                 L->ci->savedpc = pc;
                 luaC_checkGC(L);
@@ -258,10 +187,10 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
                 break;
             }
             case 11: { /* OP_SELF */
-                StkId rb = RB(i);
+                LuaVMTObject* rb = RB(i);
                 ra[1] = *rb;
                 L->ci->savedpc = pc;
-                FUN_00217830((lua_State *)L, (TObject *)rb, (TObject *)(RKC(i)), (TObject *)ra);
+                FUN_00217830(L, rb, RKC(i), ra);
                 base = L->base;
                 break;
             }
@@ -282,14 +211,14 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
                 break;
             }
             case 17: { /* OP_UNM */
-                StkId rb = RB(i);
-                TObject temp;
+                LuaVMTObject* rb = RB(i);
+                LuaVMTObject temp;
                 float num_;
                 if (tonumber(rb, &temp)) {
                     ra->tt = 3;
                     ra->value.n = -rb->value.n;
                 } else {
-                    TObject* tm;
+                    const LuaVMTObject* tm;
                     temp.tt = 0;
                     L->ci->savedpc = pc;
                     tm = FUN_002175b0(L, RB(i), 10);
@@ -307,7 +236,7 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
                 break;
             }
             case 18: { /* OP_NOT */
-                StkId rb = RB(i);
+                LuaVMTObject* rb = RB(i);
                 ra->value.b = l_isfalse(rb) ? 1 : 0;
                 ra->tt = 1;
                 break;
@@ -316,7 +245,7 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
                 int b = GETARG_B(i);
                 int c = GETARG_C(i);
                 L->ci->savedpc = pc;
-                FUN_00217f20((lua_State *)L, c - b + 1, c);
+                FUN_00217f20(L, c - b + 1, c);
                 luaC_checkGC(L);
                 base = L->base;
                 *RA(i) = base[b];
@@ -328,7 +257,7 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
             }
             case 21: { /* OP_EQ */
                 L->ci->savedpc = pc;
-                if (((RKB(i)->tt == RKC(i)->tt) && FUN_00217e20((lua_State *)L, (void *)(const TObject *)(RKB(i)), (void *)(const TObject *)(RKC(i)))) != GETARG_A(i))
+                if (((RKB(i)->tt == RKC(i)->tt) && FUN_00217e20(L, RKB(i), RKC(i))) != GETARG_A(i))
                     pc++;
                 else
                     pc += GETARG_sBx(*pc) + 1;
@@ -337,7 +266,7 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
             }
             case 22: { /* OP_LT */
                 L->ci->savedpc = pc;
-                if (FUN_00217cf0((lua_State *)L, (const TObject *)(RKB(i)), (const TObject *)(RKC(i))) != GETARG_A(i))
+                if (FUN_00217cf0(L, RKB(i), RKC(i)) != GETARG_A(i))
                     pc++;
                 else
                     pc += GETARG_sBx(*pc) + 1;
@@ -346,7 +275,7 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
             }
             case 23: { /* OP_LE */
                 L->ci->savedpc = pc;
-                if (FUN_00217d80((const TObject *)(RKB(i)), (const TObject *)(RKC(i)), (lua_State *)L) != GETARG_A(i))
+                if (FUN_00217d80(RKB(i), RKC(i), L) != GETARG_A(i))
                     pc++;
                 else
                     pc += GETARG_sBx(*pc) + 1;
@@ -354,7 +283,7 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
                 break;
             }
             case 24: { /* OP_TEST */
-                StkId rb = RB(i);
+                LuaVMTObject* rb = RB(i);
                 if (l_isfalse(rb) == GETARG_C(i))
                     pc++;
                 else {
@@ -365,7 +294,7 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
             }
             case 25:   /* OP_CALL */
             case 26: { /* OP_TAILCALL */
-                StkId firstResult;
+                LuaVMTObject* firstResult;
                 int b = GETARG_B(i);
                 int nresults;
                 if (b != 0)
@@ -391,11 +320,11 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
                     int count;
                     base = (L->ci - 1)->base;
                     ra = RA(i);
-                    if (L->openupval_pad)
+                    if (L->openupval)
                         FUN_00219660(L, base);
                     for (count = 0; ra + count < L->top; count++)
                         (base - 1)[count] = ra[count];
-                    StkId newTop = base + count;
+                    LuaVMTObject* newTop = base + count;
                     L->top = newTop;
                     (L->ci - 1)->top = newTop;
                     (L->ci - 1)->savedpc = L->ci->savedpc;
@@ -408,12 +337,12 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
                 break;
             }
             case 27: { /* OP_RETURN */
-                CallInfo* ci = L->ci - 1;
+                LuaVMCallInfo* ci = L->ci - 1;
                 int b = GETARG_B(i);
                 int nresults;
                 if (b != 0)
                     L->top = ra + b - 1;
-                if (L->openupval_pad)
+                if (L->openupval)
                     FUN_00219660(L, base);
                 L->ci->savedpc = pc;
                 if (--nexeccalls == 0)
@@ -438,9 +367,9 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
                 break;
             }
             case 29: { /* OP_FORPREP */
-                TObject* init = ra;
-                TObject* plimit = ra + 1;
-                TObject* pstep = ra + 2;
+                LuaVMTObject* init = ra;
+                LuaVMTObject* plimit = ra + 1;
+                LuaVMTObject* pstep = ra + 2;
                 float num_;
                 L->ci->savedpc = pc;
                 if (!tonumber(init, ra))
@@ -455,7 +384,7 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
                 break;
             }
             case 30: { /* OP_TFORLOOP */
-                StkId cb = ra + 3;
+                LuaVMTObject* cb = ra + 3;
                 cb[2] = ra[2];
                 cb[1] = ra[1];
                 cb[0] = ra[0];
@@ -476,7 +405,7 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
             case 31: { /* OP_TFORPREP */
                 if (ra->tt == 5) {
                     ra[1] = ra[0];
-                    *ra = *FUN_00219e50(L->l_gt.value.h, FUN_00219430(L, "next", 4));
+                    *ra = *FUN_00219e50((LuaVMTable*)L->_gt.value.gc, FUN_00219430(L, "next", 4));
                 }
                 pc += GETARG_sBx(i);
                 break;
@@ -484,21 +413,21 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
             case 32:
             case 33: { /* OP_SETLIST, OP_SETLISTO */
                 int bc;
-                hulk_intptr n;
-                void* h;
+                int n;
+                LuaVMTable* h;
                 if (ra->tt != 5)
                     return 0;
-                h = ra->value.h;
+                h = (LuaVMTable*)ra->value.gc;
                 bc = GETARG_Bx(i);
                 if (GET_OPCODE(i) == 32)
                     n = (bc & 31) + 1;
                 else {
-                    n = L->top - ra - 1;
+                    n = (int)(L->top - ra) - 1;
                     L->top = L->ci->top;
                 }
                 bc &= ~31;
                 for (; n > 0; n--) {
-                    TObject* o = (TObject*)FUN_00219f60(L, h, bc + n);
+                    LuaVMTObject* o = FUN_00219f60(L, h, bc + n);
                     *o = ra[n];
                     luaC_barrier(L, h, &ra[n]);
                 }
@@ -509,9 +438,9 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
                 break;
             }
             case 35: { /* OP_CLOSURE */
-                Proto* p = cl->p->p[GETARG_Bx(i)];
+                LuaVMProto* p = cl->p->p[GETARG_Bx(i)];
                 int nup = p->nups;
-                LClosure* ncl = FUN_00219560(L, nup, &cl->g);
+                LuaVMLClosure* ncl = &FUN_00219560(L, nup, &cl->g)->l;
                 int j;
                 ncl->p = p;
                 for (j = 0; j < nup; j++, pc++) {
@@ -520,7 +449,7 @@ StkId __cdecl FUN_00218350(lua_State* L, int nexeccalls) {
                     else
                         ncl->upvals[j] = FUN_00219610(L, base + GETARG_B(*pc));
                 }
-                ra->value.gc = ncl;
+                ra->value.gc = (LuaVMGCObject*)ncl;
                 ra->tt = 6;
                 L->ci->savedpc = pc;
                 luaC_checkGC(L);

@@ -1,25 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 2/2)
-// FUN_0021c190 @ 0x0021c190
-struct State {
-    int unused;
-    int previous;
-    int current;
-    int result;
-    int value;
-    int kind;
-    int nextValue;
-};
-extern "C" int __cdecl FUN_0021bbc0(void *, void *);
+// next: advance to the lookahead token when there is one, else lex the next token.
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_0021bbc0(LuaVMLexState* ls, LuaVMSemInfo* seminfo);
 // equiv-conv: FUN_0021c190 esi
-extern "C" void FUN_0021c190(void * state_)
-{
-    State * state = (State *)state_;
-    state->current = state->previous;
-    if (state->kind != 0x11f) {
-        state->result = state->kind;
-        state->value = state->nextValue;
-        state->kind = 0x11f;
+extern "C" void FUN_0021c190(LuaVMLexState* ls) {
+    ls->lastline = ls->linenumber;
+    if (ls->lookahead.token != 0x11f) {
+        ls->t.token = ls->lookahead.token;
+        ls->t.seminfo = ls->lookahead.seminfo;
+        ls->lookahead.token = 0x11f;
     } else {
-        state->result = FUN_0021bbc0((State *)state, (int *)(&state->value));
+        ls->t.token = FUN_0021bbc0(ls, &ls->t.seminfo);
     }
 }

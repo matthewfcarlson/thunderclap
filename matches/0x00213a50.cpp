@@ -1,59 +1,26 @@
 // cl-flags: /O2 /GR /GX
-#include "compat/ptr.h"
+// f_Ccall: the protected body of lua_cpcall: push a C closure of the CCallS's function and its light userdata, call.
+#include "decls/data/lua.h"
 
-struct BufferHeader {
-    int field_0;
-    int field_4;
-    hulk_intptr field_8;
-    int field_C;
-    int field_10;
-    int field_14;
-    int field_18;
-};
+extern "C" LuaVMClosure* __cdecl FUN_00219520(LuaVMState* L, int nelems);
+extern "C" void __cdecl FUN_00215460(LuaVMState* L, int n);
+extern "C" void __cdecl FUN_002159e0(LuaVMState* L, LuaVMTObject* func, int nresults);
 
-struct DataItem {
-    int* ptr0;
-    int* ptr4;
-};
-
-struct Entry_213a50 {
-    int type;
-    int next;
-    char pad[4];
-    hulk_intptr data;
-};
-
-extern "C" void * __cdecl FUN_00219520(void *, int);
-extern "C" void __cdecl FUN_00215460(void *, int);
-extern "C" void __cdecl FUN_002159e0(BufferHeader* buf, Entry_213a50* entry, int zero);
-
-void FUN_00213a50(BufferHeader* buf, DataItem* item) {
-    Entry_213a50* entry = ((Entry_213a50 *)FUN_00219520((BufferHeader *)buf, 0));
-
-    entry->data = (hulk_intptr)item->ptr0;
-
-    int* writePtr = (int*)buf->field_8;
-    writePtr[1] = (hulk_intptr)entry;
-    *writePtr = 6;
-
-    hulk_intptr available = buf->field_18 - buf->field_8;
-    if (available <= 8) {
-        FUN_00215460((BufferHeader *)buf, 1);
-    }
-
-    buf->field_8 += 8;
-
-    int* slot2 = (int*)buf->field_8;
-    slot2[1] = (hulk_intptr)item->ptr4;
-    *slot2 = 2;
-
-    available = buf->field_18 - buf->field_8;
-    if (available <= 8) {
-        FUN_00215460((BufferHeader *)buf, 1);
-    }
-
-    buf->field_8 += 8;
-
-    Entry_213a50* entry3 = (Entry_213a50*)(buf->field_8 - 0x10);
-    FUN_002159e0(buf, entry3, 0);
+extern "C" void __cdecl FUN_00213a50(LuaVMState* L, void* ud) {
+    LuaVMCCallS* c = (LuaVMCCallS*)ud;
+    LuaVMClosure* cl = FUN_00219520(L, 0);
+    cl->c.f = c->func;
+    LuaVMTObject* o = L->top;
+    o->value.gc = (LuaVMGCObject*)cl;
+    o->tt = LUAVM_TFUNCTION;
+    if ((char*)L->stack_last - (char*)L->top <= (int)sizeof(LuaVMTObject))
+        FUN_00215460(L, 1);
+    L->top++;
+    o = L->top;
+    o->value.p = c->ud;
+    o->tt = LUAVM_TLIGHTUSERDATA;
+    if ((char*)L->stack_last - (char*)L->top <= (int)sizeof(LuaVMTObject))
+        FUN_00215460(L, 1);
+    L->top++;
+    FUN_002159e0(L, L->top - 2, 0);
 }

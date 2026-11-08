@@ -1,19 +1,14 @@
-struct Obj_213f60 {
-    char pad[0x30];
-    unsigned char flag;
-    char gap[3];
-    int a;
-    int b;
-    int c;
-};
-extern "C" int FUN_00213f60(Obj_213f60* self, int p2, int p3, int p4) {
-    if (p2 == 0 || p3 == 0) {
-        p3 = 0;
-        p2 = 0;
+// lua_sethook: install func for the events in mask (no hook when either is 0), count for the count hook.
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_00213f60(LuaVMState* L, LuaVMHook func, int mask, int count) {
+    if (func == 0 || mask == 0) {
+        mask = 0;
+        func = 0;
     }
-    self->c = p2;
-    self->a = p4;
-    self->b = p4;
-    self->flag = (unsigned char)p3;
+    L->hook = func;
+    L->basehookcount = count;
+    L->hookcount = count;
+    L->hookmask = (unsigned char)mask;
     return 1;
 }

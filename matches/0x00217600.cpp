@@ -1,23 +1,18 @@
-#include "compat/ptr.h"
-extern "C" int __cdecl Fetch(void* p, float* out);
-struct Input_217600 {
-    int type;
-    hulk_intptr data;
-};
-struct Output_217600 {
-    int type;
-    float value;
-};
-extern "C" void * __cdecl FUN_00217600(void * p, void * q) {
-    if (((Input_217600 *)p)->type == 3)
-        return (Output_217600 *)((Output_217600*)((Input_217600 *)p));
-    if (((Input_217600 *)p)->type == 4) {
-        float value;
-        if (Fetch((char*)((Input_217600 *)p)->data + 0x10, &value)) {
-            ((Output_217600 *)q)->value = value;
-            ((Output_217600 *)q)->type = 3;
-            return (Output_217600 *)((Output_217600 *)q);
+// luaV_tonumber: obj itself when a number; a string converted into n; else 0.
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_00215ff0(const char* s, float* result);
+
+extern "C" const LuaVMTObject* __cdecl FUN_00217600(const LuaVMTObject* obj, LuaVMTObject* n) {
+    if (obj->tt == LUAVM_TNUMBER)
+        return obj;
+    if (obj->tt == LUAVM_TSTRING) {
+        float num;
+        if (FUN_00215ff0(LUAVM_GETSTR(obj->value.gc), &num)) {
+            n->value.n = num;
+            n->tt = LUAVM_TNUMBER;
+            return n;
         }
     }
-    return (Output_217600 *)0;
+    return 0;
 }

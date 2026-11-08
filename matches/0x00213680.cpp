@@ -1,27 +1,17 @@
-#include "compat/ptr.h"
-class C_213680 {
-  public:
-    char pad0[8];
-    int* mOut;
-    char pad1[4];
-    struct A_213680* mA;
-};
-struct A_213680 {
-    char pad[0x48];
-    unsigned int m48;
-    unsigned int m4c;
-};
-void f17440(C_213680*);
-int f15f70(int);
-extern "C" void * __cdecl FUN_00219cc0(void *, void *, void *);
-extern "C" void FUN_00213680(C_213680* self, int p2, int p3) {
-    A_213680* a = self->mA;
-    if (a->m4c >= a->m48)
-        f17440(self);
-    int* out = self->mOut;
-    int x = f15f70(p3);
-    int y = ((int)(hulk_uintptr)FUN_00219cc0((C_213680 *)self, (void *)(hulk_uintptr)(int)p2, (void *)(hulk_uintptr)(int)(x + 1)));
-    out[1] = y;
-    out[0] = 5;
-    self->mOut = (int*)((char*)self->mOut + 8);
+// lua_createtable: push a new table with narray array slots and room for nrec hash entries.
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_00217440(LuaVMState* L);
+extern "C" int __cdecl FUN_00215f70(unsigned int x);
+extern "C" LuaVMTable* __cdecl FUN_00219cc0(LuaVMState* L, int narray, int lnhash);
+
+extern "C" void __cdecl FUN_00213680(LuaVMState* L, int narray, int nrec) {
+    LuaVMGlobal* g = L->l_G;
+    if (g->totalbytes >= g->GCthreshold)
+        FUN_00217440(L);
+    LuaVMTObject* o = L->top;
+    int lnhash = FUN_00215f70(nrec);
+    o->value.gc = (LuaVMGCObject*)FUN_00219cc0(L, narray, lnhash + 1);
+    o->tt = LUAVM_TTABLE;
+    L->top++;
 }

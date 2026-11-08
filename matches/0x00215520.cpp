@@ -1,48 +1,26 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 8/8)
-// FUN_00215520 @ 0x00215520
+// luaD_callhook: call the debug hook (a lua_Debug on the stack) with LUA_MINSTACK slots and hooks off.
 // cl-flags: /GS
-#include "compat/ptr.h"
-struct Context;
-struct Packet_215520 {
-    int kind;
-    char unused04[16];
-    int value;
-    char unused18[68];
-    int index;
-};
-typedef void (__cdecl *Callback_215520)(Context *, Packet_215520 *);
-struct Entry_215520 { int unused; char *end; };
-struct Context {
-    char unused00[8];
-    char *cursor;
-    char unused0c[8];
-    Entry_215520 *entry;
-    char *limit;
-    char *base;
-    char unused20[8];
-    Entry_215520 *entries;
-    char unused2c[5];
-    unsigned char enabled;
-    char unused32[10];
-    Callback_215520 callback;
-};
-extern "C" void __cdecl FUN_00215460(Context *, int);
-extern "C" void __cdecl FUN_00215520(Context *self, int kind, int value) {
-    Callback_215520 callback = self->callback;
-    if (callback && self->enabled) {
-        hulk_intptr cursorOffset = self->cursor - self->base;
-        hulk_intptr endOffset = self->entry->end - self->base;
-        Packet_215520 packet;
-        packet.kind = kind;
-        packet.value = value;
-        packet.index = kind == 4 ? 0 : ((char *)self->entry - (char *)self->entries) >> 4;
-        if (self->limit - self->cursor <= 160)
-            FUN_00215460(self, 20);
-        self->entry->end = self->cursor + 160;
-        self->enabled = 0;
-        callback(self, &packet);
-        self->enabled = 1;
-        self->entry->end = self->base + endOffset;
-        self->cursor = self->base + cursorOffset;
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_00215460(LuaVMState* L, int n);
+
+extern "C" void __cdecl FUN_00215520(LuaVMState* L, int event, int line) {
+    LuaVMHook hook = L->hook;
+    if (hook && L->allowhook) {
+        int top = (int)((char*)L->top - (char*)L->stack);
+        int ci_top = (int)((char*)L->ci->top - (char*)L->stack);
+        LuaVMDebug ar;
+        ar.event = event;
+        ar.currentline = line;
+        ar.i_ci = event == 4 ? 0 : (int)(L->ci - L->base_ci);
+        if ((char*)L->stack_last - (char*)L->top <= 20 * (int)sizeof(LuaVMTObject))
+            FUN_00215460(L, 20);
+        L->ci->top = L->top + 20;
+        L->allowhook = 0;
+        hook(L, &ar);
+        L->allowhook = 1;
+        L->ci->top = (LuaVMTObject*)((char*)L->stack + ci_top);
+        L->top = (LuaVMTObject*)((char*)L->stack + top);
     }
 }

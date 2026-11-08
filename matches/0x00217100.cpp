@@ -1,18 +1,13 @@
-#include "compat/ptr.h"
-extern "C" void __cdecl FUN_002164b0(void *, void *);
-struct Obj_217100 {
-    char pad[0x38];
-    int field;
-};
-struct Holder_217100 {
-    char pad[0x10];
-    Obj_217100* obj;
-};
-void __cdecl FUN_00217100(Holder_217100* a, unsigned char* b, hulk_intptr c) {
-    Obj_217100* p = a->obj;
-    if (p->field != 0) {
-        b[5] &= 0xfb;
+// luaC_barrierf: a black object o now points at the white v: mark v while propagating, else make o not black.
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_002164b0(LuaVMGlobal* g, LuaVMGCObject* o);
+
+extern "C" void __cdecl FUN_00217100(LuaVMState* L, LuaVMGCObject* o, LuaVMGCObject* v) {
+    LuaVMGlobal* g = L->l_G;
+    if (g->gcstate != 0) {
+        o->marked &= 0xfb;
         return;
     }
-    FUN_002164b0(p, (void *)(hulk_uintptr)(int)c);
+    FUN_002164b0(g, v);
 }

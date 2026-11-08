@@ -1,28 +1,27 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
+// STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 10/10)
 // FUN_001d2810 @ 0x001d2810
-#include "compat/ptr.h"
-struct lua_State;
+#include "decls/data/lua.h"
 
-int __cdecl FUN_00212d70(lua_State *L);
-int __cdecl FUN_00339a60(lua_State *L, const char *buf, hulk_intptr len, const char *name);
-int __cdecl FUN_002139f0(lua_State *L, int nargs, int nresults, int errfunc);
-void __cdecl FUN_00212d80(lua_State *L, int top);
+extern "C" int __cdecl FUN_00212d70(LuaVMState *L);
+extern "C" int __cdecl FUN_00339a60(LuaVMState *L, const char *buf, unsigned int len, const char *name);
+extern "C" int __cdecl FUN_002139f0(LuaVMState *L, int nargs, int nresults, int errfunc);
+extern "C" void __cdecl FUN_00212d80(LuaVMState *L, int top);
 
 class ScriptHandler {
 public:
     char pad0[8];
-    lua_State *main;
-    int FUN_001d2810(lua_State *L, const char *buf, hulk_intptr len, const char *name);
+    LuaVMState *main;
+    int FUN_001d2810(LuaVMState *L, const char *buf, int len, const char *name);
 };
 
-int ScriptHandler::FUN_001d2810(lua_State *L, const char *buf, hulk_intptr len, const char *name)
+int ScriptHandler::FUN_001d2810(LuaVMState *L, const char *buf, int len, const char *name)
 {
     int top = FUN_00212d70(main);
     if (len == -1) {
         const char *e = buf;
         while (*e != 0)
             e++;
-        len = e - buf;
+        len = (int)(e - buf);
     }
     if (name == 0)
         name = "=ScriptHandler::DoLuaBuffer";

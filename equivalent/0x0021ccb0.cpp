@@ -1,53 +1,31 @@
-// STATUS: equivalent (tools/equiv.py level 3: 11158 inputs, branch coverage 2/2)
-// FUN_0021ccb0 @ 0x0021ccb0
-// FUN_0021ccb0 @ 0x0021ccb0
-#include "compat/ptr.h"
-struct FuncState;
+// STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 2/2)
+// field: v.name (v into a register, the name as a string constant key, VINDEXED).
+#include "decls/data/lua.h"
 
-struct LexState_21ccb0 {
-    int current;            // 0x00
-    int linenumber;         // 0x04
-    int lastline;           // 0x08
-    int token;              // 0x0c
-    int seminfo;            // 0x10
-    int lookaheadToken;     // 0x14
-    int lookaheadSeminfo;   // 0x18
-    FuncState* fs;          // 0x1c
-};
-
-struct ExpDesc_21ccb0 {
-    int k;
-    int info;
-    int aux;
-    int t;
-    int f;
-};
-
-extern "C" int __cdecl FUN_00221190(void *, void *);
-extern "C" int __cdecl FUN_0021bbc0(void *, void *);
+extern "C" int __cdecl FUN_00221190(LuaVMFuncState* fs, LuaVMExpDesc* e);
+extern "C" int __cdecl FUN_0021bbc0(LuaVMLexState* ls, LuaVMSemInfo* seminfo);
 // equiv-conv: FUN_0021c3d0 esi
-int __cdecl FUN_0021c3d0(LexState_21ccb0* ls);
-int __cdecl FUN_002209b0(FuncState* fs, int v);
-int __cdecl FUN_002216e0(FuncState* fs, int x, ExpDesc_21ccb0* e, FuncState* fs2, int v);
+extern "C" LuaVMString* FUN_0021c3d0(LuaVMLexState* ls);
+extern "C" int __cdecl FUN_002209b0(LuaVMFuncState* fs, LuaVMString* s);
+extern "C" void __cdecl FUN_002216e0(LuaVMFuncState* fs, LuaVMExpDesc* t, LuaVMExpDesc* k);
 
 // equiv-conv: FUN_0021ccb0 eax ebx
-int FUN_0021ccb0(LexState_21ccb0* ls, int x)
-{
-    FuncState* fs = ls->fs;
-    FUN_00221190((FuncState *)fs, (void *)(hulk_uintptr)(int)x);
+extern "C" void FUN_0021ccb0(LuaVMLexState* ls, LuaVMExpDesc* v) {
+    LuaVMFuncState* fs = ls->fs;
+    FUN_00221190(fs, v);
     ls->lastline = ls->linenumber;
-    if (ls->lookaheadToken != 0x11f) {
-        ls->token = ls->lookaheadToken;
-        ls->seminfo = ls->lookaheadSeminfo;
-        ls->lookaheadToken = 0x11f;
+    if (ls->lookahead.token != 0x11f) {
+        ls->t.token = ls->lookahead.token;
+        ls->t.seminfo = ls->lookahead.seminfo;
+        ls->lookahead.token = 0x11f;
     } else {
-        ls->token = FUN_0021bbc0((LexState_21ccb0 *)ls, (int *)(&ls->seminfo));
+        ls->t.token = FUN_0021bbc0(ls, &ls->t.seminfo);
     }
-    ExpDesc_21ccb0 e;
-    int v = FUN_0021c3d0(ls);
-    e.info = FUN_002209b0(ls->fs, v);
-    e.k = 4;
-    e.t = -1;
-    e.f = -1;
-    return FUN_002216e0(fs, x, &e, ls->fs, v);
+    LuaVMExpDesc key;
+    LuaVMString* name = FUN_0021c3d0(ls);
+    key.info = FUN_002209b0(ls->fs, name);
+    key.k = 4; // VK
+    key.t = -1;
+    key.f = -1;
+    FUN_002216e0(fs, v, &key);
 }

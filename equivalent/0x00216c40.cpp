@@ -1,43 +1,49 @@
-// STATUS: equivalent (tools/equiv.py level 3: 114 inputs, branch coverage 43/44, incomplete)
-// FUN_00216c40 @ 0x00216c40
-struct Object { char pad[5]; unsigned char flags; };
-struct Value_216c40 { int type; Object* object; };
-struct Entry_216c40 { Value_216c40 key; Value_216c40 value; int extra; };
-struct Table_216c40 { char pad0[5]; unsigned char flags; char pad6; unsigned char logSize; char pad8[4]; Value_216c40* array; Entry_216c40* entries; char pad14[4]; Table_216c40* next; unsigned int arraySize; };
+// STATUS: equivalent (tools/equiv.py level 3: 131 inputs, branch coverage 43/44, incomplete)
+// cleartable: remove the collected keys and values from the weak tables on the list l (by gclist).
+#include "decls/data/lua.h"
+
 // equiv-conv: FUN_00216c40 eax
-extern "C" void FUN_00216c40(void * table_) {
-    Table_216c40 * table = (Table_216c40 *)table_;
-    while (table) {
-        if (table->flags & 0x10) {
-            unsigned int i = table->arraySize;
+extern "C" void __cdecl FUN_00216c40(LuaVMGCObject* l) {
+    while (l) {
+        LuaVMTable* h = (LuaVMTable*)l;
+        if (h->marked & 0x10) {
+            unsigned int i = (unsigned int)h->sizearray;
             while (i) {
-                Value_216c40& v = table->array[--i];
-                if (v.type == 4) v.object->flags &= 0xfc;
-                else if (v.type > 4) {
-                    unsigned char flags = v.object->flags;
-                    if ((flags & 3) || (v.type == 7 && (flags & 8))) v.type = 0;
+                LuaVMTObject* o = &h->array[--i];
+                if (o->tt == LUAVM_TSTRING)
+                    o->value.gc->marked &= 0xfc;
+                else if (o->tt > LUAVM_TSTRING) {
+                    unsigned char m = o->value.gc->marked;
+                    if ((m & 3) || (o->tt == LUAVM_TUSERDATA && (m & 8)))
+                        o->tt = LUAVM_TNIL;
                 }
             }
         }
-        unsigned int count = 1u << (table->logSize & 31);
-        while (count) {
-            Entry_216c40& e = table->entries[--count];
-            if (!e.value.type) continue;
+        unsigned int n = 1u << (h->lsizenode & 31);
+        while (n) {
+            LuaVMNode* nd = &h->node[--n];
+            if (!nd->i_val.tt)
+                continue;
             bool remove = false;
-            if (e.key.type == 4) e.key.object->flags &= 0xfc;
-            else if (e.key.type > 4 && (e.key.object->flags & 3)) remove = true;
+            if (nd->i_key.tt == LUAVM_TSTRING)
+                nd->i_key.value.gc->marked &= 0xfc;
+            else if (nd->i_key.tt > LUAVM_TSTRING && (nd->i_key.value.gc->marked & 3))
+                remove = true;
             if (!remove) {
-                if (e.value.type == 4) e.value.object->flags &= 0xfc;
-                else if (e.value.type > 4) {
-                    unsigned char flags = e.value.object->flags;
-                    if ((flags & 3) || (e.value.type == 7 && (flags & 8))) remove = true;
+                if (nd->i_val.tt == LUAVM_TSTRING)
+                    nd->i_val.value.gc->marked &= 0xfc;
+                else if (nd->i_val.tt > LUAVM_TSTRING) {
+                    unsigned char m = nd->i_val.value.gc->marked;
+                    if ((m & 3) || (nd->i_val.tt == LUAVM_TUSERDATA && (m & 8)))
+                        remove = true;
                 }
             }
             if (remove) {
-                e.value.type = 0;
-                if (e.key.type >= 4) e.key.type = -1;
+                nd->i_val.tt = LUAVM_TNIL;
+                if (nd->i_key.tt >= LUAVM_TSTRING)
+                    nd->i_key.tt = -1;
             }
         }
-        table = table->next;
+        l = h->gclist;
     }
 }

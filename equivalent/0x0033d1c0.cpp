@@ -1,37 +1,40 @@
-// STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 19/19)
+// STATUS: equivalent (tools/equiv.py level 3: 151 inputs, branch coverage 19/19)
 // FUN_0033d1c0 @ 0x0033d1c0
-struct Writer_33d1c0 { char* current; char buffer[0x208]; };
-extern "C" char* __cdecl FUN_00339df0(void*, void*, unsigned*);
-extern "C" void __cdecl FUN_00339470(Writer_33d1c0*);
-extern "C" void __cdecl FUN_003394b0(Writer_33d1c0*, const char*, unsigned);
+// lstrlib addquoted (format's %q)
+#include "decls/data/lua.h"
+
+extern "C" const char* __cdecl FUN_00339df0(LuaVMState* L, int narg, unsigned int* len);
+extern "C" char* __cdecl FUN_00339470(LuaVMLBuffer* B);
+extern "C" void __cdecl FUN_003394b0(LuaVMLBuffer* B, const char* s, unsigned int l);
+
 // equiv-conv: FUN_0033d1c0 esi edx ecx
-void FUN_0033d1c0(Writer_33d1c0* writer, void* a, void* b) {
- unsigned count;
- char* text = FUN_00339df0(a,b,&count);
- char* end = writer->buffer + sizeof(writer->buffer);
- if (writer->current >= end) FUN_00339470(writer);
- *writer->current = '"';
- ++writer->current;
- while (count) {
- --count;
- signed char ch = *text;
- if (ch == '"' || ch == '\\' || ch == '\n') {
- if (writer->current >= end) FUN_00339470(writer);
- *writer->current = '\\';
- ++writer->current;
- if (writer->current >= end) FUN_00339470(writer);
- *writer->current = *text;
- ++writer->current;
- } else if (ch == 0) {
- FUN_003394b0(writer,"\\000",4);
- } else {
- if (writer->current >= end) FUN_00339470(writer);
- *writer->current = *text;
- ++writer->current;
- }
- ++text;
- }
- if (writer->current >= end) FUN_00339470(writer);
- *writer->current = '"';
- ++writer->current;
+void FUN_0033d1c0(LuaVMLBuffer* b, LuaVMState* L, int arg) {
+    unsigned l;
+    const char* s = FUN_00339df0(L, arg, &l);
+    char* end = b->buffer + LUAVM_BUFFERSIZE;
+    if (b->p >= end) FUN_00339470(b);
+    *b->p = '"';
+    ++b->p;
+    while (l) {
+        --l;
+        signed char ch = *s;
+        if (ch == '"' || ch == '\\' || ch == '\n') {
+            if (b->p >= end) FUN_00339470(b);
+            *b->p = '\\';
+            ++b->p;
+            if (b->p >= end) FUN_00339470(b);
+            *b->p = *s;
+            ++b->p;
+        } else if (ch == 0) {
+            FUN_003394b0(b, "\\000", 4);
+        } else {
+            if (b->p >= end) FUN_00339470(b);
+            *b->p = *s;
+            ++b->p;
+        }
+        ++s;
+    }
+    if (b->p >= end) FUN_00339470(b);
+    *b->p = '"';
+    ++b->p;
 }

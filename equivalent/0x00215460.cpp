@@ -1,27 +1,21 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
-// FUN_00215460 @ 0x00215460
-// luaD_growstack
-struct lua_State_215460 {
-    char pad0[0x18];
-    char *stack_last;
-    char *stack;
-    int stacksize;
-};
+// STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 2/2)
+// luaD_growstack: grow the stack by at least n slots, then fix the pointers into it (correctstack).
+#include "decls/data/lua.h"
 
-void *__cdecl FUN_0021add0(lua_State_215460 *L, void *block, unsigned int osize, unsigned int nsize);  // luaM_realloc
+extern "C" void* __cdecl FUN_0021add0(LuaVMState* L, void* block, unsigned int osize, unsigned int nsize);
 // equiv-conv: FUN_00215350 eax edx
-void __cdecl FUN_00215350(lua_State_215460 *L, char *oldstack);  // correctstack
+extern "C" void __cdecl FUN_00215350(LuaVMState* L, LuaVMTObject* oldstack);
 
-extern "C" void __cdecl FUN_00215460(void *L, int n) {
+extern "C" void __cdecl FUN_00215460(LuaVMState* L, int n) {
     int newsize;
-    if (n <= ((lua_State_215460 *)L)->stacksize) {
-        newsize = 2 * ((lua_State_215460 *)L)->stacksize;
-    } else {
-        newsize = ((lua_State_215460 *)L)->stacksize + n + 5;
-    }
-    char *oldstack = ((lua_State_215460 *)L)->stack;
-    ((lua_State_215460 *)L)->stack = (char *)FUN_0021add0(((lua_State_215460 *)L), oldstack, ((lua_State_215460 *)L)->stacksize * 8, newsize * 8);
-    ((lua_State_215460 *)L)->stacksize = newsize;
-    ((lua_State_215460 *)L)->stack_last = ((lua_State_215460 *)L)->stack + newsize * 8 - 0x30;
-    FUN_00215350(((lua_State_215460 *)L), oldstack);
+    if (n <= L->stacksize)
+        newsize = 2 * L->stacksize;
+    else
+        newsize = L->stacksize + n + 5;
+    LuaVMTObject* oldstack = L->stack;
+    L->stack = (LuaVMTObject*)FUN_0021add0(L, oldstack, L->stacksize * (unsigned int)sizeof(LuaVMTObject),
+                                           newsize * (unsigned int)sizeof(LuaVMTObject));
+    L->stacksize = newsize;
+    L->stack_last = L->stack + newsize - 6;  // EXTRA_STACK 5
+    FUN_00215350(L, oldstack);
 }

@@ -1,4 +1,6 @@
-typedef unsigned char u8;
-extern "C" unsigned int __cdecl FUN_00213fa0(void* object) {
-    return *((u8*)object + 0x30);
+// lua_gethookmask.
+#include "decls/data/lua.h"
+
+extern "C" int __cdecl FUN_00213fa0(LuaVMState* L) {
+    return L->hookmask;
 }

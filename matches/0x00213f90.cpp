@@ -1,8 +1,6 @@
-typedef unsigned int u32_213f90;
-struct S_213f90 {
-    char pad[0x3c];
-    u32_213f90 value;
-};
-extern "C" u32_213f90 __cdecl FUN_00213f90(S_213f90* p) {
-    return p->value;
+// lua_gethook.
+#include "decls/data/lua.h"
+
+extern "C" LuaVMHook __cdecl FUN_00213f90(LuaVMState* L) {
+    return L->hook;
 }

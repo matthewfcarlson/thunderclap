@@ -1,18 +1,18 @@
-#include "compat/ptr.h"
-extern hulk_intptr __cdecl FUN_00213260(void*, int);
-extern void __cdecl FUN_002136d0(void*, int);
-extern void __cdecl FUN_00212ed0(void*, int);
-extern void __cdecl FUN_00213600(void*, int);
-extern int __cdecl FUN_00212f00(void*, int);
-extern int __cdecl FUN_00212f70(void*, int);
-extern double __cdecl FUN_002130e0(void*, int);
-extern void __cdecl FUN_00213340(void*, int);
-extern void __cdecl FUN_002133d0(void*, const char*);
-extern void __cdecl FUN_00213c40(void*);
-extern "C" int __cdecl FUN_001d06a0(void* p) {
-    int* a;
+#include "decls/data/lua.h"
+extern "C" void* __cdecl FUN_00213260(LuaVMState*, int);
+extern "C" void __cdecl FUN_002136d0(LuaVMState*, int);
+extern "C" void __cdecl FUN_00212ed0(LuaVMState*, int);
+extern "C" void __cdecl FUN_00213600(LuaVMState*, int);
+extern "C" int __cdecl FUN_00212f00(LuaVMState*, int);
+extern "C" int __cdecl FUN_00212f70(LuaVMState*, int);
+extern "C" float __cdecl FUN_002130e0(LuaVMState*, int);
+extern "C" void __cdecl FUN_00213340(LuaVMState*, float);
+extern "C" void __cdecl FUN_002133d0(LuaVMState*, const char*);
+extern "C" void __cdecl FUN_00213c40(LuaVMState*);
+extern "C" int __cdecl FUN_001d06a0(LuaVMState* p) {
+    float* a;
     int x;
-    a = (int*)FUN_00213260(p, 1);
+    a = (float*)FUN_00213260(p, 1);
     FUN_002136d0(p, 1);
     FUN_00212ed0(p, 2);
     FUN_00213600(p, -2);

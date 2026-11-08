@@ -1,10 +1,13 @@
+// lua_isstring: the value at idx is a string or a number.
+#include "decls/data/lua.h"
 #include "decls/data/engine/unknown.h"
 
-int* __fastcall FUN_00212bb0(void* second, void* first);
-extern "C" int __cdecl FUN_00212fb0(void* first, void* second) {
-    void* s = *(void* volatile*)&second;
-    int* value = FUN_00212bb0(s, first);
-    if (value == ((int*)&DAT_00426824))
+extern "C" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
+
+extern "C" int __cdecl FUN_00212fb0(LuaVMState* L, int idx) {
+    int i = *(volatile int*)&idx;  // idx loaded first (ecx), as the original
+    LuaVMTObject* o = FUN_00212bb0(i, L);
+    if (o == LUAVM_NILOBJECT)
         return 0;
-    return *value == 4 || *value == 3;
+    return o->tt == LUAVM_TSTRING || o->tt == LUAVM_TNUMBER;
 }

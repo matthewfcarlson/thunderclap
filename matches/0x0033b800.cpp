@@ -1,9 +1,11 @@
-extern "C" float __cdecl getval(int, int);
+// lmathlib
+#include "decls/data/lua.h"
+extern "C" float __cdecl FUN_00339ec0(LuaVMState* L, int narg);
+extern "C" void __cdecl FUN_00213340(LuaVMState* L, float n);
 extern "C" double __cdecl fmod(double, double);
-extern "C" void __cdecl send(int, float);
-extern "C" int __cdecl FUN_0033b800(int x) {
-    float a = getval(x, 2);
-    float b = getval(x, 1);
-    send(x, (float)fmod(b, a));
+extern "C" int __cdecl FUN_0033b800(LuaVMState* L) {
+    float a = FUN_00339ec0(L, 2);
+    float b = FUN_00339ec0(L, 1);
+    FUN_00213340(L, (float)fmod(b, a));
     return 1;
 }

@@ -1,13 +1,10 @@
-class Thing_212ed0 {
-  public:
-    char pad[8];
-    unsigned int* cursor;
-};
-extern unsigned int* __fastcall getData(int, Thing_212ed0*);
-extern "C" void __cdecl FUN_00212ed0(Thing_212ed0* self, int a) {
-    unsigned int* src = getData(a, self);
-    unsigned int* dst = self->cursor;
-    dst[0] = src[0];
-    dst[1] = src[1];
-    self->cursor += 2;
+// lua_pushvalue: push a copy of the value at idx.
+#include "decls/data/lua.h"
+
+extern "C" LuaVMTObject* __fastcall FUN_00212bb0(int idx, LuaVMState* L);
+
+extern "C" void __cdecl FUN_00212ed0(LuaVMState* L, int idx) {
+    LuaVMTObject* o = FUN_00212bb0(idx, L);
+    *L->top = *o;
+    L->top++;
 }

@@ -1,19 +1,19 @@
 // FUN_001d0730 @ 0x001d0730
 // 0x001d0730: Lua C function: array[(int)arg] = number (arg 3), with a subscript error
-struct lua_State;
-float* __cdecl FUN_00213260(lua_State* L, int idx);
-extern "C" void __cdecl FUN_00339d70(lua_State* L, int a, int b);
-void __cdecl FUN_002136d0(lua_State* L, int idx);
-void __cdecl FUN_00212ed0(lua_State* L, int idx);
-void __cdecl FUN_00213600(lua_State* L, int idx);
-int __cdecl FUN_00212f70(lua_State* L, int idx);
-float __cdecl FUN_002130e0(lua_State* L, int idx);
-void __cdecl FUN_00213380(lua_State* L, const char* msg, int len);
-void __cdecl FUN_00213c40(lua_State* L);
+#include "decls/data/lua.h"
+extern "C" void* __cdecl FUN_00213260(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_00339d70(LuaVMState* L, int a, int b);
+extern "C" void __cdecl FUN_002136d0(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_00212ed0(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_00213600(LuaVMState* L, int idx);
+extern "C" int __cdecl FUN_00212f70(LuaVMState* L, int idx);
+extern "C" float __cdecl FUN_002130e0(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_00213380(LuaVMState* L, const char* msg, unsigned int len);
+extern "C" void __cdecl FUN_00213c40(LuaVMState* L);
 
-extern "C" int FUN_001d0730(lua_State* L)
+extern "C" int FUN_001d0730(LuaVMState* L)
 {
-    float* array = FUN_00213260(L, 1);
+    float* array = (float*)FUN_00213260(L, 1);
     FUN_00339d70(L, 3, 3);
     FUN_002136d0(L, 1);
     FUN_00212ed0(L, 2);

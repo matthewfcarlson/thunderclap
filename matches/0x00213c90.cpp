@@ -1,35 +1,24 @@
+// lua_concat: concatenate the n top values (n == 0 pushes ""); a GC step first when due.
+#include "decls/data/lua.h"
 #include "decls/data/game/global.h"
-// data: zero_213c90 = DAT_003f335c
 
-struct Inner_213c90 {
-    char pad[0x48];
-    unsigned int a;
-    unsigned int b;
-};
-struct C_213c90 {
-    char pad0[8];
-    char* p;
-    char* low;
-    Inner_213c90* obj;
-};
-extern void __cdecl FUN_00217440(C_213c90*);
-extern "C" void __cdecl FUN_00217f20(void *, int, int);
-extern int __cdecl FUN_00219430(C_213c90*, const float*, int);
-extern "C" void __cdecl FUN_00213c90(C_213c90* self, int n) {
-    Inner_213c90* o = self->obj;
-    if (o->b >= o->a)
-        FUN_00217440(self);
+extern "C" void __cdecl FUN_00217440(LuaVMState* L);
+extern "C" void __cdecl FUN_00217f20(LuaVMState* L, int total, int last);
+extern "C" LuaVMString* __cdecl FUN_00219430(LuaVMState* L, const char* str, unsigned int l);
+
+extern "C" void __cdecl FUN_00213c90(LuaVMState* L, int n) {
+    LuaVMGlobal* g = L->l_G;
+    if (g->totalbytes >= g->GCthreshold)
+        FUN_00217440(L);
     if (n >= 2) {
-        int d = ((int)(self->p - self->low) >> 3) - 1;
-        FUN_00217f20((C_213c90 *)self, n, d);
-        self->p += 8 - n * 8;
+        FUN_00217f20(L, n, (int)(L->top - L->base) - 1);
+        L->top -= n - 1;
         return;
     }
     if (n == 0) {
-        int* q = (int*)self->p;
-        int x = FUN_00219430(self, &DAT_003f335c, 0);
-        q[1] = x;
-        q[0] = 4;
-        self->p += 8;
+        LuaVMTObject* o = L->top;
+        o->value.gc = (LuaVMGCObject*)FUN_00219430(L, (const char*)&DAT_003f335c, 0);
+        o->tt = LUAVM_TSTRING;
+        L->top++;
     }
 }

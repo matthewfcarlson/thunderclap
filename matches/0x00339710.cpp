@@ -1,8 +1,10 @@
-extern int FUN_00212d70(void*);
-extern void FUN_00213640(void*, int, int);
-extern void FUN_00213870(void*, int, int);
-extern void FUN_00213360(void*, int);
-void __cdecl FUN_00339710(void* L, int index, int n) {
+// luaL_unref
+#include "decls/data/lua.h"
+extern "C" int __cdecl FUN_00212d70(LuaVMState*);
+extern "C" void __cdecl FUN_00213640(LuaVMState*, int, int);
+extern "C" void __cdecl FUN_00213870(LuaVMState*, int, int);
+extern "C" void __cdecl FUN_00213360(LuaVMState*, int);
+extern "C" void __cdecl FUN_00339710(LuaVMState* L, int index, int n) {
     if (n >= 0) {
         if (index <= 0 && index > -10000)
             index = index + 1 + FUN_00212d70(L);

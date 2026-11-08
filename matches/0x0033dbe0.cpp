@@ -1,11 +1,14 @@
-typedef unsigned int U_33dbe0;
-extern void __cdecl f339(U_33dbe0, int);
-extern "C" U_33dbe0 __cdecl FUN_00213010(U_33dbe0, int, int);
-extern void __cdecl f2135(U_33dbe0, U_33dbe0);
-extern "C" int __cdecl FUN_0033dbe0(U_33dbe0 p) {
-    f339(p, 1);
-    f339(p, 2);
-    U_33dbe0 x = FUN_00213010(p, 1, 2);
-    f2135(p, x);
+// luaB_rawequal
+#include "decls/data/lua.h"
+
+extern "C" void __cdecl FUN_00339dc0(LuaVMState* L, int narg);
+extern "C" int __cdecl FUN_00213010(LuaVMState* L, int index1, int index2);
+extern "C" void __cdecl FUN_00213520(LuaVMState* L, int b);
+
+extern "C" int __cdecl FUN_0033dbe0(LuaVMState* L) {
+    FUN_00339dc0(L, 1);
+    FUN_00339dc0(L, 2);
+    int x = FUN_00213010(L, 1, 2);
+    FUN_00213520(L, x);
     return 1;
 }

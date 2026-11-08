@@ -1,22 +1,21 @@
-// STATUS: equivalent (tools/equiv.py level 3: 18536 inputs, branch coverage 0/0)
-// FUN_00214a90 @ 0x00214a90
-// FUN_00214a90 @ 0x00214a90
-#include "compat/ptr.h"
-extern "C" const char * __cdecl FUN_002160c0(void *, const char *, char *);
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// luaG_runerror: raise the formatted message with the "chunk:line:" prefix.
+#include "decls/data/lua.h"
+
+extern "C" const char* __cdecl FUN_002160c0(LuaVMState* L, const char* fmt, char* argp);
 // equiv-conv: FUN_00214900 ebx stack
-extern "C" void __cdecl FUN_00214900(int, int);
-extern "C" void __cdecl FUN_002149b0(void *);
-void __cdecl FUN_00214a90(hulk_intptr first, hulk_intptr second, ...)
+extern "C" void FUN_00214900(LuaVMState* L, const char* msg);
+extern "C" void __cdecl FUN_002149b0(LuaVMState* L);
+
+extern "C" void __cdecl FUN_00214a90(LuaVMState* L, const char* fmt, ...)
 {
 #if defined(HULK_PTR64)
     __builtin_va_list args;
-    __builtin_va_start(args, second);
-    int result = ((int)(hulk_uintptr)FUN_002160c0((void *)first, (const char *)second, args));
-    FUN_00214900((int)first, result);
-    FUN_002149b0((void *)first);
+    __builtin_va_start(args, fmt);
+    const char* msg = FUN_002160c0(L, fmt, args);
 #else
-    int result = ((int)(hulk_uintptr)FUN_002160c0((void *)(hulk_uintptr)(int)first, (const char *)(hulk_uintptr)(int)second, (char *)(void *)((int *)(&second) + 1)));
-    FUN_00214900(first, result);
-    FUN_002149b0((void *)(hulk_uintptr)(int)first);
+    const char* msg = FUN_002160c0(L, fmt, (char*)(&fmt + 1));
 #endif
+    FUN_00214900(L, msg);
+    FUN_002149b0(L);
 }
