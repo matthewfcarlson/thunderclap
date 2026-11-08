@@ -85,8 +85,18 @@ def render():
     return "\n".join(out) + "\n"
 
 
+NOTES = "## Notes (hand-written)"
+
+
+def notes():
+    """The hand-written section at the end of docs/tech-debt.md (from its heading on), kept as it is."""
+    old = open(OUT).read() if os.path.exists(OUT) else ""
+    i = old.find(NOTES)
+    return "\n" + old[i:] if i >= 0 else ""
+
+
 def main():
-    text = render()
+    text = render() + notes()
     if "--check" in sys.argv:
         old = open(OUT).read() if os.path.exists(OUT) else ""
         sys.exit(0 if old == text else 1)

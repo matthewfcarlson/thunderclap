@@ -22,3 +22,13 @@ equivalent/).
 | `equivalent/0x00341660.cpp` | 1379 |  | volatile | 0 | 43 |
 | `matches/0x002d6cb0.cpp` | 72 |  | goto | 1 | 0 |
 | `matches/0x0026cb40.cpp` | 28 | core::MemoryDlAllocator::vfunc_8 | goto | 1 | 0 |
+
+## Notes (hand-written)
+
+Kept by `tools/tech_debt.py` as written (everything from this heading on).
+
+- `equivalent/0x002731d0.cpp` (core::DriveThread's worker loop, boot1): its equivalence runs reach only 8 inputs.
+  Queue jobs 68737 (`--inputs 3000`) and 68738 (`--wine`) each ran 4,250 s on studio and stopped at 8 inputs
+  (branch coverage 15/36, incomplete): every input runs the worker's wait-and-dispatch loop until the harness's
+  step limit. The STATUS line's 91 inputs (29/36) are from an older run. Needs a harness bound on the loop (or
+  directed inputs that leave it) before the source can count as checked at 3,000 inputs.
