@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 19917 inputs, branch coverage 131/132, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 3022 inputs, branch coverage 130/132, incomplete)
 // CPathAgent::vfunc_4 @ 0x001050d0
 // equiv-map: ?Del340@@YAXPAX@Z = 0x0008d340
 // equiv-map: ?Del330@@YAXPAX@Z = 0x0008d330
@@ -138,7 +138,7 @@ struct Frame_1050d0 {
 class CPathAgent {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-    virtual bool vfunc_4(Ctx_1050d0 *a1, float a2, int a3);
+    virtual char vfunc_4(Ctx_1050d0 *a1, float a2, int a3);
     char pad04[0x58 - 4];
     Part_1050d0 *part;
     char pad5c[4];
@@ -174,12 +174,18 @@ public:
 };
 
 
-bool CPathAgent::vfunc_4(Ctx_1050d0 *a1, float a2, int a3)
+char CPathAgent::vfunc_4(Ctx_1050d0 *a1, float a2, int a3)
 {
     Frame_1050d0 f;
     FUN_000fc550(a1, a2, a3);
-    // The early exits fall off the end without a value: the original leaves the x87 stack empty there.
-    if (b88 && !(part && part->vfunc_9() == 4)) {
+    if (!b88)
+        return b88;                 // (0: the flag the original tested is what it leaves in al)
+    if (part) {
+        int state = part->vfunc_9();
+        if (state == 4)
+            return (char)state;     // (the original returns with vfunc_9's 4 still in eax)
+    }
+    {
         Body_1050d0 *b = part->vfunc_6();
         f.bsave = b;
         b->locator->FUN_00059a50(&f.pos);
@@ -453,7 +459,7 @@ bool CPathAgent::vfunc_4(Ctx_1050d0 *a1, float a2, int a3)
         if (!(r < 0.0f) && !(r > f.L)) {
             part->b129 = 1;
             f.v3.FUN_0022d110();
-            float m = (f.L - f.g.gy) / f.L;
+            hulk_freg m = (f.L - f.g.gy) / f.L;
             if (1.0f < m)
                 m = 1.0f;
             f.v3.x = f.v3.x * m;

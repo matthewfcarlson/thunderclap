@@ -1811,6 +1811,11 @@ Wine/replay checks cover them).
 
 ## Limits
 
+- **Known issue, 0x001b05a0 (not investigated).** With `seeds=[0]` or `[3]` the directed inputs 0+patch and 3+patch fail
+  with "call #9 went to 0x0027d4f0 instead of 0x001d72e0" (equivalent/0x001b05a0.cpp, which passes 3,000 random inputs).
+  It fails the same way with `EQUIV_OFF=x87conv`, so it predates round 28; whether the source or the checker is wrong is
+  open (eqx87, 2026-11-07).
+
 - **Loops kept going by callees.** A loop that ends only through a callee's side effect (a teardown
   `while (head) remove(head)` over a global) still runs out of steps: 0x0024ad20 stays unsupported. (A
   fixed 2048-slot loop with several calls per slot now gets the long step budget: 0x001dec10 completes.)
