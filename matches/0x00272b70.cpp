@@ -1,14 +1,15 @@
-// Same code shape as 0x00272b60 (propagated; names are from that function)
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+
 class B_272b70 {
   public:
-    void f(int, int);
+    void FUN_00273050(int, int);
 };
-class A_272b70 {
+// core::Drive (records.h CoreDrive): forwards to its drive thread (0x00273050)
+class A_272b70 : public CoreDrive {
   public:
-    char pad[0xb8];
-    B_272b70* p;
     void run(int, int);
 };
 void A_272b70::run(int a0, int a1) {
-    p->f(a0, a1);
+    ((B_272b70*)driveThread)->FUN_00273050(a0, a1);
 }

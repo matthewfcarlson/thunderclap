@@ -1,16 +1,18 @@
 #include "compat/ptr.h"
-struct FileRequest_275390 {
-    virtual void Run();
-    int dummy;
-    FileRequest_275390(int x);
+#include "decls/data/records.h"
+extern "C" char DAT_0042bae0[];
+extern "C" int* FUN_002705f0();
+// core::FileSetPositionRequest (records.h CoreRequest, then position): core::FileRequest's constructor 0x00274e60 first, then its own vftable
+class FileSetPositionRequest_275390 : public CoreRequest {
+  public:
+    unsigned int position;
+    CoreRequest* FUN_00274e60(hulk_uintptr);
+    FileSetPositionRequest_275390* Init(void*, unsigned int);
 };
-struct FileSetPositionRequest : FileRequest_275390 {
-    int b;
-    int value;
-    FileSetPositionRequest(hulk_intptr x, int y);
-};
-void FinishInit();
-FileSetPositionRequest::FileSetPositionRequest(hulk_intptr x, int y) : FileRequest_275390(x) {
-    value = y;
-    FinishInit();
+FileSetPositionRequest_275390* FileSetPositionRequest_275390::Init(void* file, unsigned int position_) {
+    FUN_00274e60((hulk_uintptr)file);
+    vftable = DAT_0042bae0;
+    position = position_;
+    FUN_002705f0();
+    return this;
 }

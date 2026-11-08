@@ -5,13 +5,15 @@ class X_272f70 {
     virtual void g();
     int n;
 };
-namespace core { class DriveThread {
+// core::DriveThread's AddRef: the reference count under its IMutable base (+0xc; records.h CoreDriveThread)
+class DriveThread_272f70 {
   public:
     virtual void vfunc_0();
-    char pad[8];
+    const void* vftableObject;
+    int heap;
     X_272f70 x;
-}; }
-void core::DriveThread::vfunc_0() {
+};
+void DriveThread_272f70::vfunc_0() {
     X_272f70* p = &x;
     p->f();
     ++p->n;

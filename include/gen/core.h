@@ -182,7 +182,7 @@ public:
     virtual ~Request(); // slot 0
     virtual int vfunc_1() = 0; // slot 1
     virtual bool vfunc_2(int) = 0; // slot 2
-    virtual int vfunc_3() = 0; // slot 3
+    virtual hulk_intptr vfunc_3() = 0; // slot 3
     virtual int vfunc_4() = 0; // slot 4
     virtual void* vfunc_5() = 0; // slot 5
     virtual int vfunc_6() = 0; // slot 6
@@ -204,13 +204,13 @@ public:
     virtual ~CompletionEventRequest(); // overrides core::Request slot 0
     virtual int vfunc_1(); // overrides core::Request slot 1
     virtual bool vfunc_2(int); // overrides core::Request slot 2
-    virtual int vfunc_3(); // overrides core::Request slot 3
+    virtual hulk_intptr vfunc_3(); // overrides core::Request slot 3
     virtual int vfunc_4(); // overrides core::Request slot 4
     virtual void* vfunc_5(); // overrides core::Request slot 5
     virtual int vfunc_6(); // overrides core::Request slot 6
-    int f_04;
-    int f_08;
-    unsigned int f_0c;
+    hulk_intptr f_04;
+    hulk_intptr f_08;
+    hulk_uintptr f_0c;
 };
 
 // .?AVRefCount@core@@  vftable 0x42b3a4 (1)
@@ -547,7 +547,7 @@ class DriveRequest : public ::core::Request {
 public:
     virtual ~DriveRequest(); // overrides core::Request slot 0
     virtual bool vfunc_2(int); // overrides core::Request slot 2
-    virtual int vfunc_3(); // overrides core::Request slot 3
+    virtual hulk_intptr vfunc_3(); // overrides core::Request slot 3
     virtual int vfunc_4(); // overrides core::Request slot 4
     virtual void* vfunc_5(); // overrides core::Request slot 5
     void FUN_00274350(); // non-virtual
@@ -577,11 +577,11 @@ class DriveCompletionRequest : public ::core::CompletionCallbackRequest {
 public:
     virtual ~DriveCompletionRequest(); // overrides core::Request slot 0
     virtual int vfunc_1(); // overrides core::Request slot 1
-    virtual int vfunc_3(); // overrides core::Request slot 3
+    virtual hulk_intptr vfunc_3(); // overrides core::Request slot 3
     virtual int vfunc_6(); // overrides core::Request slot 6
     virtual void vfunc_7(); // overrides core::CompletionCallbackRequest slot 7
-    int f_04;
-    int f_08;
+    hulk_intptr f_04;
+    hulk_intptr f_08;
     void* f_0c;
     void* f_10;
     int f_14;
@@ -782,7 +782,8 @@ public:
     unsigned int f_120;
     char _pad_124[0x4];
     int f_128;
-    char _pad_12c[0x30];
+    void* f_12c;
+    char _pad_130[0x2c];
     unsigned int f_15c;
     unsigned char f_160;
     char _pad_161[0x3];
@@ -794,7 +795,7 @@ class FileRequest : public ::core::Request {
 public:
     virtual ~FileRequest(); // overrides core::Request slot 0
     virtual bool vfunc_2(int); // overrides core::Request slot 2
-    virtual int vfunc_3(); // overrides core::Request slot 3
+    virtual hulk_intptr vfunc_3(); // overrides core::Request slot 3
     virtual int vfunc_4(); // overrides core::Request slot 4
     virtual void* vfunc_5(); // overrides core::Request slot 5
     char _pad_04[0x4];
@@ -832,11 +833,11 @@ class FileCompletionRequest : public ::core::CompletionCallbackRequest {
 public:
     virtual ~FileCompletionRequest(); // overrides core::Request slot 0
     virtual int vfunc_1(); // overrides core::Request slot 1
-    virtual int vfunc_3(); // overrides core::Request slot 3
+    virtual hulk_intptr vfunc_3(); // overrides core::Request slot 3
     virtual int vfunc_6(); // overrides core::Request slot 6
     virtual void vfunc_7(); // overrides core::CompletionCallbackRequest slot 7
-    int f_04;
-    int f_08;
+    hulk_intptr f_04;
+    hulk_intptr f_08;
     void* f_0c;
     void* f_10;
     int f_14;
@@ -1170,7 +1171,7 @@ public:
     int f_0c;
     void* f_10;
     unsigned int f_14;
-    unsigned int f_18;
+    hulk_uintptr f_18;
     int f_1c;
     int f_20;
     unsigned int f_24;

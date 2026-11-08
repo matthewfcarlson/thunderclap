@@ -4,7 +4,7 @@
 // FUN_0008fca0 @ 0x0008fca0
 struct File { virtual void slot0(); virtual void release(); virtual void slot2(); virtual void read(char*,int,int); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void size(int*); virtual void slot8(); virtual void slot9(); virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15(); virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19(); virtual void slot20(); virtual void sync(); virtual void slot22(); virtual bool ready(); };
 extern void __cdecl thunk_FUN_002710d0(File**,const char*,int,int,int,int,int,int);
-extern int __cdecl _isspace(int);
+extern "C" int __cdecl _isspace(int);
 extern void __cdecl FUN_0008f880(int,char**);
 extern "C" void __cdecl FUN_0008fca0() {
  struct Frame { File* file; int length; char* args[256]; char buffer[2048]; int pad;  } f;

@@ -1,25 +1,14 @@
-#include "gen/core.h"
-
-struct Callee_2736e0 {
-    void f(core::FileCompletionRequest*);
+#include "decls/data/records.h"
+// the drive's pending list (0x002728e0 appends)
+struct Drive_2736e0 {
+    void FUN_002728e0(void* request);
 };
-struct Inner_2736e0 {
-    char pad[12];
-    Callee_2736e0* callee;
+// core::FileCompletionRequest::vfunc_1 (records.h CoreCompletionRequest): runs on the drive thread: hands itself to
+// the file's drive (its pending list; the queuing thread's vfunc_3 0x00272df0 calls back)
+struct FileCompletionRequest_2736e0 : CoreCompletionRequest {
+    int vfunc_1();
 };
-class CompletionCallbackRequest_2736e0 {
-  public:
-    virtual void v0();
-    virtual int v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-};
-
-int core::FileCompletionRequest::vfunc_1() {
-    (*(Inner_2736e0 * *)&this->f_0c)->callee->f(this);
+int FileCompletionRequest_2736e0::vfunc_1() {
+    ((Drive_2736e0*)((CoreFile*)file)->provider)->FUN_002728e0(this);
     return 3;
 }

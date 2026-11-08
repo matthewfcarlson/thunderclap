@@ -1,19 +1,19 @@
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+
 class Sub_272880 {
   public:
     virtual void A();
     virtual void B();
 };
-class Obj_272880 {
+// core::Drive (records.h CoreDrive): the last error, under the IMutable lock at +0xc
+class Obj_272880 : public CoreDrive {
   public:
-    char pad[0x0c];
-    Sub_272880 sub;
-    char pad2[0xa4];
-    int value;
     int Run();
 };
 int Obj_272880::Run() {
-    sub.A();
-    int v = value;
-    sub.B();
+    ((Sub_272880*)&vftableMutable)->A();
+    int v = error;
+    ((Sub_272880*)&vftableMutable)->B();
     return v;
 }

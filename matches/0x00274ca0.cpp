@@ -1,49 +1,41 @@
 #include "compat/ptr.h"
+#include "decls/data/records.h"
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b954[];
 extern "C" char DAT_0042b9dc[];
-void init();
+extern "C" int* FUN_002705f0();
 class Intf {
   public:
     virtual void f0();
     virtual void f1();
 };
-class Obj_274ca0 {
+class Ref_274ca0 {
   public:
     virtual void v0();
-    Intf sub;
-    char pad[0x10];
-    int count;
 };
-class Target_274ca0 {
+// core::FileCompletionRequest's constructor (records.h CoreCompletionRequest): core::Request, then
+// core::CompletionCallbackRequest (the queuing thread), then its own (the file, a callback, its context); a
+// reference to the callback and to the file, and one more pending request on the file (CoreFile field18)
+class FileCompletionRequest_274ca0 : public CoreCompletionRequest {
   public:
-    virtual void Go();
+    FileCompletionRequest_274ca0* Init(void* x, void* y, void* z, unsigned int w);
 };
-class FileCompletionRequest {
-  public:
-    hulk_intptr v;
-    int a;
-    int b;
-    Obj_274ca0* c;
-    Target_274ca0* d;
-    int e;
-    FileCompletionRequest(int x, Obj_274ca0* y, Target_274ca0* z, int w);
-};
-FileCompletionRequest::FileCompletionRequest(int x, Obj_274ca0* y, Target_274ca0* z, int w) {
-    v = ((hulk_intptr)DAT_0042b914);
-    a = 0;
-    init();
-    v = ((hulk_intptr)DAT_0042b9dc);
-    b = x;
-    init();
-    v = ((hulk_intptr)DAT_0042b954);
-    c = y;
-    d = z;
-    e = w;
-    init();
-    d->Go();
-    c->sub.f0();
-    c->count++;
-    c->sub.f1();
-    c->v0();
+FileCompletionRequest_274ca0* FileCompletionRequest_274ca0::Init(void* x, void* y, void* z, unsigned int w) {
+    vftable = DAT_0042b914;
+    next = 0;
+    FUN_002705f0();
+    vftable = DAT_0042b9dc;
+    thread = x;
+    FUN_002705f0();
+    vftable = DAT_0042b954;
+    file = y;
+    callback = z;
+    context = w;
+    FUN_002705f0();
+    ((Ref_274ca0*)callback)->v0();
+    ((Intf*)&((CoreFile*)file)->vftableMutable)->f0();
+    ((CoreFile*)file)->field18++;
+    ((Intf*)&((CoreFile*)file)->vftableMutable)->f1();
+    ((Ref_274ca0*)file)->v0();
+    return this;
 }

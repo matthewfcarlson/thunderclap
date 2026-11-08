@@ -1,54 +1,18 @@
-#include "gen/core.h"
-
-class IRefCount_276210 {
-  public:
-    virtual void c();
-    virtual void d();
-};
+#include "decls/data/records.h"
 class IMutable_276210 {
   public:
     virtual void e();
     virtual void f();
 };
-class File_276210 : public core::IFile, public IRefCount_276210, public IMutable_276210 {
+// core::File::vfunc_20 (records.h CoreFile): no request pending (field18), under the IMutable lock (+4)
+class File_276210 : public CoreFile {
   public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    virtual void v13();
-    virtual void v14();
-    virtual void v15();
-    virtual void v16();
-    virtual void v17();
-    virtual void v18();
-    virtual void v19();
-    virtual bool vfunc_20();
-    virtual void v21();
-    virtual void v22();
-    virtual void v23();
-    virtual void v24();
-    virtual void v25();
-    virtual void v26();
-    virtual void v27();
-    virtual void v28();
-    virtual void v29();
-    virtual void v30();
-    virtual void v31();
+    bool vfunc_20();
 };
 bool File_276210::vfunc_20() {
-    core::IFile* p = (core::IFile*)((char*)this + 4);
-    p->vfunc_0();
-    bool r = (*(int*)((char*)this + 0x18) == 0);
-    p->vfunc_1();
+    IMutable_276210* p = (IMutable_276210*)&vftableMutable;
+    p->e();
+    bool r = (field18 == 0);
+    p->f();
     return r;
 }

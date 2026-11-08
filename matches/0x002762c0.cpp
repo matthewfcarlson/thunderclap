@@ -1,21 +1,7 @@
+#include "decls/data/records.h"
 #include "gen/core.h"
 
-class IFile_2762c0 {
-  public:
-    virtual void a();
-    virtual void b();
-};
-class IRefCount_2762c0 {
-  public:
-    virtual void c();
-    virtual void d();
-};
-class IMutable_2762c0 {
-  public:
-    virtual void e();
-    virtual void f();
-};
-
+// the file's name (records.h CoreFile)
 void* core::File::vfunc_25() {
-    return (void*)((core::File*)((char*)this + 0x1e));
+    return ((CoreFile*)this)->filename;
 }

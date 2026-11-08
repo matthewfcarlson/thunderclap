@@ -6,7 +6,7 @@ typedef unsigned char u8_278a80;
 extern "C" void __cdecl FUN_00266f00(int, void*);
 class XboxSaveDrive_278a80 {
   public:
-    void cleanup();
+    void FUN_00278740();
     virtual void f0();
     virtual void f1();
     virtual XboxSaveDrive_278a80* f2(u8_278a80);
@@ -22,7 +22,7 @@ class XboxSaveDrive_278a80 {
     virtual void f12();
 };
 XboxSaveDrive_278a80* XboxSaveDrive_278a80::f2(u8_278a80 flag) {
-    cleanup();
+    FUN_00278740();
     if (flag & 1)
         FUN_00266f00(DAT_004cdbb0, this);
     return this;

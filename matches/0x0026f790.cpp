@@ -1,4 +1,6 @@
-class Drive {
+#include "decls/data/records.h"
+
+class Drive_26f790 {
   public:
     virtual void f0();
     virtual void f1();
@@ -8,30 +10,15 @@ class Drive {
     virtual void f5();
     virtual void f6();
     virtual int f7();
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
-    virtual void f11();
-    virtual void f12();
-    virtual void f13();
-    virtual void f14();
-    virtual void f15();
-    virtual void f16();
-    virtual void f17();
-    virtual void f18();
-    virtual void f19();
-    virtual void f20();
-    virtual void f21();
 };
-class XboxDrive : public Drive {
+// core::XboxDrive::vfunc_7 (records.h CoreXboxDrive): reads the medium's size (0x0026f290), clears the error
+class XboxDrive_26f790 : public Drive_26f790 {
   public:
-    char pad[0xb0];
-    int field;
-    void helper();
+    void FUN_0026f290();
     virtual int f7();
 };
-int XboxDrive::f7() {
-    helper();
-    field = 0;
+int XboxDrive_26f790::f7() {
+    FUN_0026f290();
+    ((CoreXboxDrive*)this)->drive.error = 0;
     return 1;
 }

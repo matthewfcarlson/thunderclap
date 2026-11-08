@@ -1,27 +1,26 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19878 inputs, branch coverage 8/8)
 // FUN_00273140 @ 0x00273140
+#include "decls/data/records.h"
+
 struct Lock_273140 {
     virtual void acquire();
     virtual void release();
 };
 struct Node {
-    unsigned int value;
+    hulk_uintptr value;
     Node* next;
 };
-struct Queue_273140 {
-    char reserved0[12];
-    Lock_273140 lock;
-    char reserved1[92];
-    Node* heads[3];
-    Node* tails[3];
+// core::DriveThread (records.h CoreDriveThread): pops the first request by priority; the lock is its IMutable base
+struct Queue_273140 : CoreDriveThread {
     Node* FUN_00273140(unsigned int* index);
 };
 Node* Queue_273140::FUN_00273140(unsigned int* index) {
-    (&lock)->acquire();
+    Lock_273140* lock = (Lock_273140*)&vftableMutable;
+    lock->acquire();
     Node* result = 0;
     for (unsigned int i = 0; i < 3; ++i) {
         if (heads[i]) {
-            result = heads[i];
+            result = (Node*)heads[i];
             if (result == tails[i]) tails[i] = 0;
             heads[i] = result->next;
             result->next = 0;
@@ -29,6 +28,6 @@ Node* Queue_273140::FUN_00273140(unsigned int* index) {
             break;
         }
     }
-    (&lock)->release();
+    lock->release();
     return result;
 }

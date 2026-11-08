@@ -2,15 +2,11 @@
 // FUN_0026f290 @ 0x0026f290
 #include "decls/data/engine/unknown.h"
 
+#include "decls/data/records.h"
 extern void __stdcall FUN_00208b9c(char *, unsigned int *, unsigned char *, unsigned char *);
 extern unsigned int __stdcall FUN_00209a8e(char *);
-struct XboxDrive_26f290 {
-    char pad0[0x64];
-    unsigned int size;
-    unsigned int count;
-    unsigned int blockSize;
-    char pad1[0x54];
-    char name[1];
+// core::XboxDrive (records.h CoreXboxDrive): the medium's size and sector size, by the drive's name
+struct XboxDrive_26f290 : CoreXboxDrive {
     void FUN_0026f290();
 };
 void XboxDrive_26f290::FUN_0026f290()
@@ -33,10 +29,10 @@ void XboxDrive_26f290::FUN_0026f290()
     out[0] = (char)((*(unsigned short*)&DAT_0042ab54) >> 8);
     FUN_00208b9c(local.path, &local.foundSize, local.second, local.first);
     if (local.error)
-        size = 0xffffffff;
+        drive.size = 0xffffffff;
     else
-        size = local.foundSize;
+        drive.size = local.foundSize;
     unsigned int n = FUN_00209a8e(local.path);
-    blockSize = n ? n : 0x200;
-    count = size / blockSize;
+    drive.sectorSize = n ? n : 0x200;
+    drive.count = drive.size / drive.sectorSize;
 }

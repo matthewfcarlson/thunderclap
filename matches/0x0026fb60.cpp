@@ -1,39 +1,25 @@
+#include "decls/data/records.h"
+
 extern "C" __stdcall unsigned long GetLastError();
 int __stdcall FUN_00355c13(char* path, int flag);
 
 namespace core {
-class XboxDrive {
+// core::XboxDrive::vfunc_15 (records.h CoreXboxDrive): creates a directory (0x0026f330 makes the device path,
+// 0x0026f3e0 converts the XAPI error)
+class XboxDrive_26fb60 : public CoreXboxDrive {
   public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    virtual void v13();
-    virtual void v14();
-    virtual int vfunc_15(const char* p);
-    void MakePath(const char* p, char* out, int n);
-    int Translate(unsigned long e);
-    char pad[0xb4 - 4];
-    int mErr;
+    int vfunc_15(const char* p);
+    void FUN_0026f330(const char* p, char* out, int n);
+    unsigned int FUN_0026f3e0(unsigned int e);
 };
-
-int XboxDrive::vfunc_15(const char* p) {
+int XboxDrive_26fb60::vfunc_15(const char* p) {
     char buf[0x101];
-    MakePath(p, buf, 0x101);
+    FUN_0026f330(p, buf, 0x101);
     if (FUN_00355c13(buf, 0)) {
-        mErr = 0;
+        drive.error = 0;
         return 1;
     }
-    mErr = Translate(GetLastError());
+    drive.error = FUN_0026f3e0(GetLastError());
     return 0;
 }
 } // namespace core

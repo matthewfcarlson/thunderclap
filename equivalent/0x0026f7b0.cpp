@@ -8,21 +8,23 @@ extern "C" int __stdcall FUN_003559b9(int, int);
 extern "C" int __stdcall FUN_002109f1(const char *, unsigned int, unsigned int, int, unsigned int, int, int);
 extern "C" int __stdcall FUN_002109b6(int, int);
 namespace XAPILIB { extern "C" hulk_uintptr __stdcall GetLastError(); }
+#include "decls/data/records.h"
 namespace core {
-struct XboxDrive {
- char pad[0xb4]; int status; char gap[8]; int count;
+// core::XboxDrive::vfunc_8 (records.h CoreXboxDrive): opens a file of the drive; the handles are the file shim's
+// small indices
+struct XboxDrive_26f7b0 : CoreXboxDrive {
  void FUN_0026f330(const char *, char *, unsigned int);
- int FUN_0026f3e0(hulk_uintptr);
+ unsigned int FUN_0026f3e0(unsigned int);
  int vfunc_8(const char *path, int mode, unsigned char write, int *handle, int *result);
 };
-int XboxDrive::vfunc_8(const char *path, int mode, unsigned char write, int *handle, int *result) {
+int XboxDrive_26f7b0::vfunc_8(const char *path, int mode, unsigned char write, int *handle, int *result) {
  char buffer[257];
  unsigned int first, second;
  int local0, localc;
  FUN_0026f330(path, buffer, 257);
  int h;
  if (_strncmp(buffer, "W:", 2) == 0) {
-  if (FUN_00345804(buffer, "W:\\%u\\%u", &first, &second) != 2) { status = 1; return 0; }
+  if (FUN_00345804(buffer, "W:\\%u\\%u", &first, &second) != 2) { drive.error = 1; return 0; }
   h = FUN_00355791(first, second, &local0, &localc, 0, 0);
   h = FUN_003559b9(local0, 0);
  } else {
@@ -35,12 +37,12 @@ int XboxDrive::vfunc_8(const char *path, int mode, unsigned char write, int *han
  }
  *handle = h;
  if (h != -1) {
-  ++count;
+  ++openFiles;
   *result = FUN_002109b6(h, 0);
-  status = 0;
+  drive.error = 0;
   return 1;
  }
- status = FUN_0026f3e0(XAPILIB::GetLastError());
+ drive.error = FUN_0026f3e0((unsigned int)XAPILIB::GetLastError());
  return 0;
 }
 }

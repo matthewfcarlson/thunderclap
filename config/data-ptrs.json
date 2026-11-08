@@ -8685,59 +8685,6 @@
     "matches/0x00270d40.cpp"
    ]
   },
-  "0x0052842c": {
-   "name": "DAT_0052842c",
-   "records": [
-    {
-     "base": "0x0",
-     "fields": [
-      [
-       0,
-       "resource",
-       "Resource_270f90 *",
-       "pointer",
-       4,
-       1
-      ],
-      [
-       4,
-       "rest",
-       "char",
-       "int",
-       1,
-       280
-      ]
-     ],
-     "merged": "leaves",
-     "sources": [
-      "equivalent/0x002709b0.cpp",
-      "equivalent/0x00270f90.cpp",
-      "equivalent/0x002710d0.cpp",
-      "equivalent/0x00271410.cpp",
-      "equivalent/0x00271560.cpp"
-     ],
-     "stride": 284,
-     "types": [
-      "Entry_270f90",
-      "Entry_271410",
-      "Entry_271560",
-      "Record_2709b0",
-      "Slot_2710d0"
-     ]
-    }
-   ],
-   "size": 7392,
-   "sources": [
-    "equivalent/0x002709b0.cpp",
-    "equivalent/0x00270f90.cpp",
-    "equivalent/0x002710d0.cpp",
-    "equivalent/0x00271410.cpp",
-    "equivalent/0x00271560.cpp"
-   ],
-   "table_from": [
-    "0x0"
-   ]
-  },
   "0x0052a140": {
    "name": "DAT_0052a140",
    "pointee": {

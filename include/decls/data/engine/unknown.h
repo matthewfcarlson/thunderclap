@@ -349,8 +349,8 @@ extern "C" const unsigned int DAT_00483960[1];  // zero_00483960
 extern "C" int DAT_004cdc00;
 extern "C" unsigned char DAT_004cdc04;
 extern "C" short DAT_004cdc08[16];  // tbl_004cdc08
-extern "C" unsigned char DAT_00528418[20];
-extern "C" void* DAT_0052842c[1848];
+// DAT_00528418: typed by decls/data/records.h (included above)
+extern "C" char DAT_0052a0f0[28];
 extern "C" char DAT_0052a10c[16];
 extern "C" unsigned char DAT_0052a11c[1];
 extern "C" unsigned char DAT_0052a11d[3];

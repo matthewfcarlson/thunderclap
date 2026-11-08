@@ -1,18 +1,18 @@
-struct X_277c00 {
-    int a[11];
-};
+#include "decls/data/records.h"
+
+// core::File's view of its cement library entry (records.h CoreFileView): cleared
+typedef CoreFileView X_277c00;
 X_277c00* __fastcall FUN_00277c00(X_277c00* p) {
-    int* q = (int*)p;
-    q[0] = 0;
-    q[1] = 0;
-    q[2] = 0;
-    q[3] = 0;
-    q[4] = 0;
-    q[5] = 0;
-    q[6] = 0;
-    q[7] = 0;
-    q[8] = 0;
-    q[9] = 0;
-    q[10] = 0;
+    p->resource = 0;
+    p->words[0] = 0;
+    p->words[1] = 0;
+    p->words[2] = 0;
+    p->words[3] = 0;
+    p->words[4] = 0;
+    p->words[5] = 0;
+    p->words[6] = 0;
+    p->words[7] = 0;
+    p->words[8] = 0;
+    p->words[9] = 0;
     return p;
 }

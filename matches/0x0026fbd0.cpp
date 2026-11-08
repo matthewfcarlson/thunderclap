@@ -1,42 +1,22 @@
 #include "compat/ptr.h"
-class XboxDrive {
+#include "decls/data/records.h"
+// core::XboxDrive::vfunc_16 (records.h CoreXboxDrive): checks a path (0x0026f330 makes the device path, 0x0026f3e0
+// converts the XAPI error)
+class XboxDrive_26fbd0 : public CoreXboxDrive {
   public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    virtual void v13();
-    virtual void v14();
-    virtual void v15();
-    virtual int v16(const char*);
-    virtual void v17();
-    virtual void v18();
-    virtual void v19();
-    virtual void v20();
-    virtual void v21();
-    void MakePath(const char*, char*, unsigned int);
-    int MapError(hulk_ulongptr);
-    char pad[0xb0];
-    int lastError;
+    int v16(const char*);
+    void FUN_0026f330(const char*, char*, int);
+    unsigned int FUN_0026f3e0(unsigned int);
 };
-extern "C" int __stdcall CheckFn(const char*);
+extern "C" int __stdcall FUN_00355c7f(const char*);
 extern "C" hulk_ulongptr __stdcall GetLastError();
-int XboxDrive::v16(const char* path) {
+int XboxDrive_26fbd0::v16(const char* path) {
     char buf[0x101];
-    MakePath(path, buf, 0x101);
-    if (CheckFn(buf)) {
-        lastError = 0;
+    FUN_0026f330(path, buf, 0x101);
+    if (FUN_00355c7f(buf)) {
+        drive.error = 0;
         return 1;
     }
-    lastError = MapError(GetLastError());
+    drive.error = FUN_0026f3e0((unsigned int)GetLastError());
     return 0;
 }

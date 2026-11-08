@@ -1,5 +1,6 @@
+#include "decls/data/records.h"
 #include "gen/core.h"
-
+// the file's drive: slot 10 closes a handle (core::XboxDrive 0x0026f1d0)
 struct Sink_273da0 {
     virtual void v0();
     virtual void v1();
@@ -17,37 +18,22 @@ struct Sub_273da0 {
     virtual void Fin();
     virtual void Rel();
 };
-struct Ev_273da0 {
-    char pad[0x12c];
+// the file's cement library view (records.h CoreFileView): 0x00277ca0 has one, 0x00277ce0 releases it
+struct View_273da0 {
+    bool FUN_00277ca0();
+    void FUN_00277ce0();
 };
-struct Inner_273da0 {
-    char pad0[4];
-    Sub_273da0 sub;
-    char pad1[4];
-    Sink_273da0* sink;
-    char pad2[4];
-    int f14;
-    char pad3[4];
-    char f1c;
-    char pad4;
-    char name[0x10e];
-    char ev[0x30];
-    int h;
-};
-struct Ev2 {
-    bool Test();
-    void Run();
-};
-
+// core::FileCloseRequest::vfunc_1 (records.h CoreFile): closes the drive's handle (the view's word 11) or the view,
+// then the file is closed (flag1c) and its error cleared (field14, under its IMutable lock)
 int core::FileCloseRequest::vfunc_1() {
-    Sink_273da0* s = (*(Inner_273da0 * *)&this->f_08)->sink;
-    if (!((Ev2*)((char*)(*(Inner_273da0 * *)&this->f_08) + 0x12c))->Test())
-        s->Do(*(int*)((char*)(*(Inner_273da0 * *)&this->f_08) + 0x15c), (char*)(*(Inner_273da0 * *)&this->f_08) + 0x1e);
+    Sink_273da0* s = (Sink_273da0*)((CoreFile*)this->f_08)->provider;
+    if (!((View_273da0*)&((CoreFile*)this->f_08)->view)->FUN_00277ca0())
+        s->Do((int)((CoreFile*)this->f_08)->view.words[11], ((CoreFile*)this->f_08)->filename);
     else
-        ((Ev2*)((char*)(*(Inner_273da0 * *)&this->f_08) + 0x12c))->Run();
-    (*(Inner_273da0 * *)&this->f_08)->f1c = 0;
-    (*(Inner_273da0 * *)&this->f_08)->sub.Fin();
-    (*(Inner_273da0 * *)&this->f_08)->f14 = 0;
-    (*(Inner_273da0 * *)&this->f_08)->sub.Rel();
+        ((View_273da0*)&((CoreFile*)this->f_08)->view)->FUN_00277ce0();
+    ((CoreFile*)this->f_08)->flag1c = 0;
+    ((Sub_273da0*)&((CoreFile*)this->f_08)->vftableMutable)->Fin();
+    ((CoreFile*)this->f_08)->field14 = 0;
+    ((Sub_273da0*)&((CoreFile*)this->f_08)->vftableMutable)->Rel();
     return 1;
 }

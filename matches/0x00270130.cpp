@@ -6,7 +6,7 @@ typedef unsigned char u8_270130;
 extern "C" void __cdecl FUN_00266f00(int, void*);
 class MemoryPool_270130 {
   public:
-    void cleanup();
+    void FUN_0026ff90();
     virtual void f0();
     virtual void f1();
     virtual MemoryPool_270130* f2(u8_270130);
@@ -22,7 +22,7 @@ class MemoryPool_270130 {
     virtual void f12();
 };
 MemoryPool_270130* MemoryPool_270130::f2(u8_270130 flag) {
-    cleanup();
+    FUN_0026ff90();
     if (flag & 1)
         FUN_00266f00(DAT_004cdbb0, this);
     return this;

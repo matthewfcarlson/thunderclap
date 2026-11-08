@@ -17,10 +17,10 @@ extern "C" char __cdecl FUN_00270ad0(char* param) {
         c = *p;
     }
     if (FUN_002771b0(local)) {
-        FUN_0026d850(((char*)((char*)&DAT_0052842c + 7364)));
+        FUN_0026d850(((char*)DAT_0052a0f0));
         strncpy(DAT_0052a10c, local, 16);
         (*(char*)&DAT_0052a11c) = 0;
-        FUN_0026d840(((char*)((char*)&DAT_0052842c + 7364)));
+        FUN_0026d840(((char*)DAT_0052a0f0));
         return 1;
     }
     return 0;

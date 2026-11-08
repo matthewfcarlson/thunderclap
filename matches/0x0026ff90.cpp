@@ -1,4 +1,5 @@
 #include "decls/data/engine/core.h"
+#include "decls/data/records.h"
 // data: g_value_26ff90 = DAT_004cdbb0
 
 #include "compat/ptr.h"
@@ -11,32 +12,24 @@ class Ref_26ff90 {
     virtual void X();
     virtual void A();
 };
-extern "C" void FUN_00266f20(int, int);
-class MemoryPool_26ff90 {
+extern "C" void FUN_00266f20(int, void*);
+// core::MemoryPool's destructor body (records.h CoreMemoryPool): releases the child pool, frees the items' block
+class MemoryPool_26ff90 : public CoreMemoryPool {
   public:
-    virtual void v0();
-    virtual void v1();
-    char pad4[4];
-    volatile int field8;
-    char padc[8];
-    int field14;
-    volatile int field18;
-    char pad1c[0x14];
-    Ref_26ff90* field30;
     void Destroy();
 };
 void MemoryPool_26ff90::Destroy() {
-    Ref_26ff90* p = field30;
-    *(hulk_intptr*)this = ((hulk_intptr)DAT_0042b5b4);
-    *((int*)this + 1) = ((hulk_intptr)DAT_0042b5ac);
+    Ref_26ff90* p = (Ref_26ff90*)child;
+    vftable = DAT_0042b5b4;
+    object.vftable = DAT_0042b5ac;
     if (p) {
         p->A();
-        field30 = 0;
+        child = 0;
     }
-    if (field14 >= 0)
-        FUN_00266f20(field14, field18);
-    field18 = 0;
-    (*(volatile int*)&DAT_004cdbb0) = field8;
-    *((int*)this + 1) = ((hulk_intptr)DAT_0042af64);
-    *(hulk_intptr*)this = ((hulk_intptr)DAT_003f6098);
+    if (heap >= 0)
+        FUN_00266f20(heap, blocks);
+    *(char* volatile*)&blocks = 0;
+    DAT_004cdbb0 = *(volatile int*)&object.heap;
+    object.vftable = DAT_0042af64;
+    vftable = DAT_003f6098;
 }

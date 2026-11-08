@@ -1,31 +1,21 @@
-namespace core {
-class File {
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+// core::File::vfunc_8 (records.h CoreFile): a commit request (0x002751a0) queued on the file's drive
+class File_275e70 : public CoreFile {
   public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    virtual void vfunc_7();
-    virtual void vfunc_8();
-    char pad[8];
-    void* context;
-    int value;
+    void vfunc_8();
 };
-} // namespace core
 class FileCommitRequest_275e70 {
   public:
-    int Init(core::File*);
+    void* FUN_002751a0(void*);
 };
-extern "C" void* __cdecl Allocate(int);
-class Context {
+void* __cdecl FUN_00273560(unsigned int);
+class Drive_275e70 {
   public:
-    void Set(int, int, int);
+    int FUN_00272b60(void*, int, int);
 };
-void core::File::vfunc_8() {
-    FileCommitRequest_275e70* a = (FileCommitRequest_275e70*)Allocate(12);
-    int x = a ? a->Init(this) : 0;
-    ((Context*)context)->Set(x, value, 0);
+void File_275e70::vfunc_8() {
+    FileCommitRequest_275e70* a = (FileCommitRequest_275e70*)FUN_00273560(12);
+    void* x = a ? a->FUN_002751a0(this) : 0;
+    ((Drive_275e70*)provider)->FUN_00272b60(x, (int)key, 0);
 }

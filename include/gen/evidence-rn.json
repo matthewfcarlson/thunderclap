@@ -3106,7 +3106,8 @@
    "0x90": "int"
   },
   "core::File": {
-   "0x10": "int"
+   "0x10": "int",
+   "0x12c": "void*"
   },
   "core::FileCompletionRequest": {
    "0x4": "int",
@@ -8316,6 +8317,10 @@
     "int",
     "int"
    ]
+  ],
+  "core::Request::vfunc_3": [
+   "hulk_intptr",
+   []
   ]
  },
  "members": {
@@ -9594,6 +9599,22 @@
   },
   "fight::ParamStringConstList": {
    "0x10": "member-function pointer (ptr1: the setter the parameter calls, `*(R (T::**)(A))&this->f_10`; 8 bytes on the 64-bit MS ABI)"
+  },
+  "core::MemoryPool": {
+   "0x18": "pointer pun (boot1: the items' block, 0x00266eb0's result; 0x002700b0 / 0x002700f0 compare an address with it, 0x0026ff90 frees it: records.h CoreMemoryPool)"
+  },
+  "core::CompletionEventRequest": {
+   "0x04": "pointer pun (boot1: the request queue's link, 0x00272fc0 / 0x00273140)",
+   "0x08": "pointer pun (boot1: the semaphore's address, 0x00274ba0 stores it, vfunc_1 0x002735f0 releases it)",
+   "0x0c": "pointer pun (boot1: the drive, 0x00274ba0 stores it; vfunc_3 0x00273620 returns it)"
+  },
+  "core::FileCompletionRequest": {
+   "0x04": "pointer pun (boot1: the request queue's link)",
+   "0x08": "pointer pun (boot1: the queuing thread's CoreThread*, records.h CoreCompletionRequest)"
+  },
+  "core::DriveCompletionRequest": {
+   "0x04": "pointer pun (boot1: the request queue's link)",
+   "0x08": "pointer pun (boot1: the queuing thread's CoreThread*, records.h CoreCompletionRequest)"
   }
  }
 }

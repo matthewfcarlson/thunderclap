@@ -4,13 +4,15 @@ class X_26f130 {
     virtual void g();
     int n;
 };
-class Drive {
+// core::Drive's AddRef: the reference count under its IMutable base (+0xc; records.h CoreDrive)
+class Drive_26f130 {
   public:
     virtual void vfunc_0();
-    char pad[8];
+    const void* vftableObject;
+    int heap;
     X_26f130 x;
 };
-void Drive::vfunc_0() {
+void Drive_26f130::vfunc_0() {
     X_26f130* p = &x;
     p->f();
     ++p->n;

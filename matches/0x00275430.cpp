@@ -1,17 +1,18 @@
-// Same code shape as 0x00275390 (propagated; names are from that function)
 #include "compat/ptr.h"
-struct FileRequest_275430 {
-    virtual void Run();
-    int dummy;
-    FileRequest_275430(int x);
+#include "decls/data/records.h"
+extern "C" char DAT_0042bb00[];
+extern "C" int* FUN_002705f0();
+// core::FileGetPositionRequest (records.h CoreRequest, then result): core::FileRequest's constructor 0x00274e60 first, then its own vftable
+class FileGetPositionRequest_275430 : public CoreRequest {
+  public:
+    unsigned int* result;
+    CoreRequest* FUN_00274e60(hulk_uintptr);
+    FileGetPositionRequest_275430* Init(void*, unsigned int*);
 };
-struct FileGetPositionRequest_275430 : FileRequest_275430 {
-    int b;
-    int value;
-    FileGetPositionRequest_275430(hulk_intptr x, int y);
-};
-void FinishInit();
-FileGetPositionRequest_275430::FileGetPositionRequest_275430(hulk_intptr x, int y) : FileRequest_275430(x) {
-    value = y;
-    FinishInit();
+FileGetPositionRequest_275430* FileGetPositionRequest_275430::Init(void* file, unsigned int* result_) {
+    FUN_00274e60((hulk_uintptr)file);
+    vftable = DAT_0042bb00;
+    result = result_;
+    FUN_002705f0();
+    return this;
 }

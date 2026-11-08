@@ -7,7 +7,7 @@ int __cdecl FUN_00345b90(int);
 void __cdecl FUN_0026d850(void *);
 void __cdecl FUN_0026d840(void *);
 extern "C" int __cdecl FUN_00270c10(const char *);
-struct Record_270e60 { char name[0x11c]; };
+// the drive registry (records.h CoreDriveRegistryEntry)
 
 void __cdecl FUN_00270e60(const char *key, char *output)
 {
@@ -16,17 +16,17 @@ void __cdecl FUN_00270e60(const char *key, char *output)
     buffer[16] = 0;
     for (char *p = buffer; *p; ++p)
         *p = (char)FUN_00345b90((int)*p);
-    FUN_0026d850(((char*)((char*)&DAT_0052842c + 7364)));
+    FUN_0026d850(((char*)DAT_0052a0f0));
     int index = FUN_00270c10(buffer);
     if (index == -1) {
         output[0] = 0;
     } else {
-        const char *source = ((Record_270e60*)((char*)&DAT_0052842c + 4))[index].name;
+        const char *source = DAT_00528418[index].details;
         char value;
         do {
             value = *source++;
             *output++ = value;
         } while (value);
     }
-    FUN_0026d840(((char*)((char*)&DAT_0052842c + 7364)));
+    FUN_0026d840(((char*)DAT_0052a0f0));
 }

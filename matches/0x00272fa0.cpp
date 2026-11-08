@@ -1,10 +1,12 @@
-namespace core { class DriveThread {
+// core::DriveThread's IMutable base (+0xc of records.h CoreDriveThread): enters the device's critical section
+class DriveThreadMutable_272fa0 {
   public:
-    char pad[8];
-    int mValue;
+    const void* vftableMutable;
+    int refs;
+    void* lock;
     void vfunc_0_adjc();
-}; }
-extern "C" void __cdecl FUN_0026d850(int);
-void core::DriveThread::vfunc_0_adjc() {
-    FUN_0026d850(mValue);
+};
+extern "C" void __cdecl FUN_0026d850(void*);
+void DriveThreadMutable_272fa0::vfunc_0_adjc() {
+    FUN_0026d850(lock);
 }

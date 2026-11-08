@@ -1,32 +1,28 @@
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+
 struct Node {
-    int a;
+    hulk_uintptr a;
     Node* next;
 };
-
 class SubObj_2728e0 {
   public:
     virtual void Fn0();
     virtual void Fn1();
 };
-
-class Container_2728e0 {
+// core::Drive (records.h CoreDrive): appends a request to the pending list, under the IMutable lock at +0xc
+class Container_2728e0 : public CoreDrive {
   public:
-    char pad[0xc];
-    SubObj_2728e0 mSub;
-    char pad2[0x38 - 0xc - 4];
-    Node* mHead;
-    Node* mTail;
     void Add(Node* p);
 };
-
 void Container_2728e0::Add(Node* p) {
-    mSub.Fn0();
-    if (mHead == 0) {
-        mHead = p;
+    ((SubObj_2728e0*)&vftableMutable)->Fn0();
+    if (requests == 0) {
+        requests = p;
     } else {
-        mTail->next = p;
+        ((Node*)lastRequest)->next = p;
     }
     p->next = 0;
-    mTail = p;
-    mSub.Fn1();
+    lastRequest = p;
+    ((SubObj_2728e0*)&vftableMutable)->Fn1();
 }

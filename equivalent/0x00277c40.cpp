@@ -19,22 +19,23 @@ struct Resource_277c40 {
  virtual void slot15();
  virtual unsigned int slot16();
 };
-struct State_277c40 {
- Resource_277c40* resource;
- unsigned int field04, field08, field0c, field10, field14, field18, field1c, field20, field24, field28;
+#include "decls/data/records.h"
+// core::File's view of its cement library entry (records.h CoreFileView): the library (a reference) and the entry's
+// offsets; words[7] is the library's slot 16
+struct State_277c40 : CoreFileView {
  void FUN_00277c40(Resource_277c40*, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int);
 };
 void State_277c40::FUN_00277c40(Resource_277c40* object, unsigned int a, unsigned int b, unsigned int c, unsigned int d, unsigned int e, unsigned int f, unsigned int g) {
  object->slot0();
- field04 = a;
- field08 = 0;
- field10 = 0;
- field14 = 0;
- field1c = d;
+ words[0] = a;
+ words[1] = 0;
+ words[3] = 0;
+ words[4] = 0;
+ words[6] = d;
  resource = object;
- field0c = b;
- field18 = c;
- field20 = object->slot16();
- field24 = e;
- field28 = f;
+ words[2] = b;
+ words[5] = c;
+ words[7] = object->slot16();
+ words[8] = e;
+ words[9] = f;
 }

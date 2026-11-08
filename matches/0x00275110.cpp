@@ -1,17 +1,16 @@
 #include "compat/ptr.h"
+#include "decls/data/records.h"
 extern "C" char DAT_0042ba60[];
-struct Request_275110 {
-    Request_275110* FUN_00274e60(void* p);
-};
-void __cdecl FUN_002705f0();
-class FileCloseRequest {
+extern "C" int* FUN_002705f0();
+// core::FileCloseRequest (records.h CoreRequest): core::FileRequest's constructor 0x00274e60 first, then its own vftable
+class FileCloseRequest_275110 : public CoreRequest {
   public:
-    FileCloseRequest* Init(void* p);
-    int m;
+    CoreRequest* FUN_00274e60(hulk_uintptr);
+    FileCloseRequest_275110* Init(void*);
 };
-FileCloseRequest* FileCloseRequest::Init(void* p) {
-    ((Request_275110*)this)->FUN_00274e60(p);
-    *(volatile hulk_intptr*)this = ((hulk_intptr)DAT_0042ba60);
+FileCloseRequest_275110* FileCloseRequest_275110::Init(void* file) {
+    FUN_00274e60((hulk_uintptr)file);
+    vftable = DAT_0042ba60;
     FUN_002705f0();
     return this;
 }

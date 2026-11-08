@@ -2,38 +2,28 @@
 // FUN_002733c0 @ 0x002733c0
 #include "compat/ptr.h"
 #include "decls/data/engine/core.h"
+#include "decls/data/records.h"
 
-extern const unsigned int DAT_003f6098[], DAT_0042afa8[], DAT_0042b85c[], DAT_0042b8e0[], DAT_0042b8f0[], DAT_0042b8f8[];
-extern void __cdecl FUN_002705f0();
-extern void __cdecl FUN_0026d860(void*, int);
-extern void __cdecl FUN_002731d0();
-extern "C" void __cdecl FUN_0026dce0(void*, void (__cdecl*)(), void*, int, int, unsigned int);
-struct DriveThread {
- const unsigned int* refTable;
- const unsigned int* objectTable;
- unsigned int objectValue;
- const unsigned int* safeTable;
- unsigned int count;
- unsigned int owner;
- char thread[0x4c];
- unsigned char flag;
- char pad65[3];
- unsigned int a68,a6c,a70,a74,a78,a7c,a80,a84;
- unsigned char flag88;
- char pad89[3];
- unsigned int a8c,a90;
- DriveThread* FUN_002733c0(hulk_uintptr, hulk_uintptr);
+extern "C" char DAT_003f6098[], DAT_0042afa8[], DAT_0042b85c[], DAT_0042b8e0[], DAT_0042b8f0[], DAT_0042b8f8[];
+extern "C" int* FUN_002705f0();
+extern "C" void __cdecl FUN_0026d860(hulk_uintptr*, int);
+extern "C" int __cdecl FUN_002731d0(hulk_intptr);
+// the game passes a sixth argument (the heap id) that 0x0026dce0 does not read
+extern "C" void __cdecl FUN_0026dce0(CoreThread*, int (__cdecl*)(hulk_intptr), hulk_intptr, int, unsigned long, hulk_uintptr);
+// core::DriveThread (records.h CoreDriveThread): the bases' vftables, then its own; the worker thread runs 0x002731d0
+struct DriveThread_2733c0 : CoreDriveThread {
+ DriveThread_2733c0* FUN_002733c0(hulk_uintptr, hulk_uintptr);
 };
-DriveThread* DriveThread::FUN_002733c0(hulk_uintptr arg1, hulk_uintptr arg2) {
- refTable=DAT_003f6098; objectTable=DAT_0042afa8; objectValue=(*(unsigned int*)&DAT_004cdbb0);
+DriveThread_2733c0* DriveThread_2733c0::FUN_002733c0(hulk_uintptr arg1, hulk_uintptr arg2) {
+ vftable=DAT_003f6098; vftableObject=DAT_0042afa8; heap=DAT_004cdbb0;
  FUN_002705f0();
- safeTable=DAT_0042b85c; count=1;
- refTable=DAT_0042b8f8; objectTable=DAT_0042b8f0; safeTable=DAT_0042b8e0;
- owner=arg1; flag=0; flag88=0; a8c=0; a90=0;
+ vftableMutable=DAT_0042b85c; refs=1;
+ vftable=DAT_0042b8f8; vftableObject=DAT_0042b8f0; vftableMutable=DAT_0042b8e0;
+ lock=(void*)arg1; stopped=0; requeue=0; count=0; unknown90=0;
  FUN_002705f0();
- a6c=0; a78=0; a70=0; a7c=0; a74=0; a80=0;
- FUN_0026d860(&a68,0);
- FUN_0026d860(&a84,0);
- FUN_0026dce0(thread,FUN_002731d0,this,4,0x2000,arg2);
+ heads[0]=0; tails[0]=0; heads[1]=0; tails[1]=0; heads[2]=0; tails[2]=0;
+ FUN_0026d860(&ready,0);
+ FUN_0026d860(&done,0);
+ FUN_0026dce0(&worker,FUN_002731d0,(hulk_intptr)this,4,0x2000,arg2);
  return this;
 }

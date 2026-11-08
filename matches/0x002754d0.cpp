@@ -1,17 +1,18 @@
-// Same code shape as 0x00275390 (propagated; names are from that function)
 #include "compat/ptr.h"
-struct FileRequest_2754d0 {
-    virtual void Run();
-    int dummy;
-    FileRequest_2754d0(int x);
+#include "decls/data/records.h"
+extern "C" char DAT_0042bb20[];
+extern "C" int* FUN_002705f0();
+// core::FileGetSizeRequest (records.h CoreRequest, then result): core::FileRequest's constructor 0x00274e60 first, then its own vftable
+class FileGetSizeRequest_2754d0 : public CoreRequest {
+  public:
+    unsigned int* result;
+    CoreRequest* FUN_00274e60(hulk_uintptr);
+    FileGetSizeRequest_2754d0* Init(void*, unsigned int*);
 };
-struct FileGetSizeRequest_2754d0 : FileRequest_2754d0 {
-    int b;
-    int value;
-    FileGetSizeRequest_2754d0(hulk_intptr x, int y);
-};
-void FinishInit();
-FileGetSizeRequest_2754d0::FileGetSizeRequest_2754d0(hulk_intptr x, int y) : FileRequest_2754d0(x) {
-    value = y;
-    FinishInit();
+FileGetSizeRequest_2754d0* FileGetSizeRequest_2754d0::Init(void* file, unsigned int* result_) {
+    FUN_00274e60((hulk_uintptr)file);
+    vftable = DAT_0042bb20;
+    result = result_;
+    FUN_002705f0();
+    return this;
 }

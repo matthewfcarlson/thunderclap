@@ -1,18 +1,22 @@
 #include "compat/ptr.h"
-struct FileRequest_2752e0 {
-    FileRequest_2752e0(int) throw();
-    virtual void V0();
-    char pad[8];
+#include "decls/data/records.h"
+extern "C" char DAT_0042bac0[];
+extern "C" int* FUN_002705f0();
+// core::FileWriteRequest (records.h CoreRequest, then buffer, count, flags): core::FileRequest's constructor 0x00274e60 first, then its own vftable
+class FileWriteRequest_2752e0 : public CoreRequest {
+  public:
+    void* buffer;
+    unsigned int count;
+    unsigned int flags;
+    CoreRequest* FUN_00274e60(hulk_uintptr);
+    FileWriteRequest_2752e0* Init(void*, void*, unsigned int, unsigned int);
 };
-void After();
-struct FileWriteRequest_2752e0 : FileRequest_2752e0 {
-    int m0c, m10, m14;
-    FileWriteRequest_2752e0(hulk_intptr a, int b, int c, int d);
-    virtual void V0();
-};
-FileWriteRequest_2752e0::FileWriteRequest_2752e0(hulk_intptr a, int b, int c, int d) : FileRequest_2752e0(a) {
-    m0c = b;
-    m10 = c;
-    m14 = d;
-    After();
+FileWriteRequest_2752e0* FileWriteRequest_2752e0::Init(void* file, void* buffer_, unsigned int count_, unsigned int flags_) {
+    FUN_00274e60((hulk_uintptr)file);
+    vftable = DAT_0042bac0;
+    buffer = buffer_;
+    count = count_;
+    flags = flags_;
+    FUN_002705f0();
+    return this;
 }

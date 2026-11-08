@@ -1,6 +1,9 @@
 #include "decls/data/platform/xbox/core.h"
+#include "decls/data/records.h"
 
-void __stdcall cleanup(int);
+// CloseHandle (the XDK row 0x0020bbc2)
+extern "C" int __stdcall FUN_0020bbc2(int);
+// core::XboxSaveDrive::vfunc_10 (records.h CoreXboxSaveDrive): commits (slot 11) and closes a file
 class XboxSaveDrive {
   public:
     virtual void f0();
@@ -25,14 +28,12 @@ class XboxSaveDrive {
     virtual void f19();
     virtual void f20();
     virtual void f21();
-    char pad[0xc4];
-    int refs;
 };
 int XboxSaveDrive::f10(int a, int b) {
     f11(a, b);
     if ((*(int*)((char*)&DAT_0052c270 + 4)) == a)
         (*(int*)((char*)&DAT_0052c270 + 12)) = 0;
-    cleanup(a);
-    refs = refs - 1;
+    FUN_0020bbc2(a);
+    --((CoreXboxSaveDrive*)this)->openFiles;
     return 1;
 }

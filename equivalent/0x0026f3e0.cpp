@@ -2,7 +2,9 @@
 // FUN_0026f3e0 @ 0x0026f3e0
 #include "decls/data/platform/xbox/core.h"
 
-unsigned int __stdcall FUN_0026f3e0(unsigned int code)
+// core::XboxDrive: an XAPI error code as the drive's error (the callers pass the drive; it is not read)
+struct XboxDrive_26f3e0 { unsigned int FUN_0026f3e0(unsigned int code); };
+unsigned int XboxDrive_26f3e0::FUN_0026f3e0(unsigned int code)
 {
     (*(unsigned int*)&DAT_00528404) = 0;
     if (code <= 17) {

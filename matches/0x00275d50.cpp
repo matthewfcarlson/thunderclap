@@ -2,7 +2,6 @@
 #include "decls/data/engine/core.h"
 // data: gObjStorage = DAT_0052a1e8
 
-typedef unsigned int u32_275d50;
 struct Obj_275d50 {
     virtual void f0();
     virtual void f1();
@@ -17,13 +16,15 @@ struct Obj_275d50 {
     virtual void f10();
     virtual void f11();
     virtual void f12();
-    virtual u32_275d50 f13();
+    virtual void* f13();
 };
-extern void FUN_0026d850(void*);
-extern void FUN_0026d840(void*);
-extern "C" u32_275d50 FUN_00275d50() {
+extern "C" void FUN_0026d850(void*);
+extern "C" void FUN_0026d840(void*);
+// pops an item of the core memory pool (slot 13) under the lock; the item is a pointer on every target; the callers
+// pass the item's size, which the pool's item size already is
+extern "C" void* FUN_00275d50(unsigned int size) {
     FUN_0026d850(((char*)&DAT_0052a1e8));
-    u32_275d50 r = (*(Obj_275d50**)&DAT_0052a204)->f13();
+    void* r = (*(Obj_275d50**)&DAT_0052a204)->f13();
     FUN_0026d840(((char*)&DAT_0052a1e8));
     return r;
 }

@@ -1,20 +1,18 @@
+#include "decls/data/records.h"
 class Sub_276270 {
   public:
     virtual void f0();
     virtual void f1();
 };
-class File {
+// core::File::vfunc_22 (records.h CoreFile): field14, under the IMutable lock (+4)
+class File_276270 : public CoreFile {
   public:
-    char pad0[4];
-    Sub_276270 sub;
-    char pad8[12];
-    int value;
     int vfunc_22();
 };
-int File::vfunc_22() {
-    Sub_276270* p = &sub;
+int File_276270::vfunc_22() {
+    Sub_276270* p = (Sub_276270*)&vftableMutable;
     p->f0();
-    int r = value;
+    int r = field14;
     p->f1();
     return r;
 }

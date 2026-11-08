@@ -1,18 +1,20 @@
-class Thing_277a40 {
+#include "decls/data/records.h"
+
+// core::Drive's library list (records.h CoreDriveLibraryList), constructed in place by core::Drive's constructor
+class Thing_277a40 : public CoreDriveLibraryList {
   public:
-    int a[9];
     Thing_277a40();
 };
 extern "C" int* FUN_002705f0();
 Thing_277a40::Thing_277a40() {
-    a[4] = 0;
-    a[5] = 0;
-    a[6] = 0;
-    a[7] = 0;
-    a[8] = 0;
+    cursor = 0;
+    buffer = 0;
+    size = 0;
+    refs = 0;
+    heap = 0;
     FUN_002705f0();
-    a[0] = 0;
-    a[2] = 0;
-    a[1] = 0;
-    a[3] = 0;
+    heads[0] = 0;
+    tails[0] = 0;
+    heads[1] = 0;
+    tails[1] = 0;
 }

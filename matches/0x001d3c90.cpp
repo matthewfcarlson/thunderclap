@@ -5,7 +5,7 @@ extern int __cdecl FUN_001d0990(State*);
 extern int __cdecl FUN_001d2000(State*);
 extern "C" int __cdecl FUN_001d2020(State*);
 extern void __cdecl FUN_002151e0(State*);
-extern State* __cdecl FUN_002150e0(Callback_1d3c90, int);
+extern State* __cdecl FUN_002150e0(Callback_1d3c90, void*);
 extern "C" void __cdecl FUN_0033eb30(State*);
 extern void __cdecl FUN_00212d80(State*, int);
 extern "C" void __cdecl FUN_0033d6c0(State*);

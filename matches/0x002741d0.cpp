@@ -1,3 +1,5 @@
+#include "compat/ptr.h"
+#include "decls/data/records.h"
 #include "gen/core.h"
 
 class FileIface {
@@ -5,19 +7,12 @@ class FileIface {
     virtual void f0();
     virtual void f1();
 };
-struct CoreFile {
-    char a[4];
-    FileIface iface;
-    char b[0xc];
-    int state;
-    char c[0x10c];
-    int position;
-};
-
+// core::FileGetPositionRequest::vfunc_1 (records.h CoreFile): the file's position (field124) into the caller's
+// word, the file's field14 cleared (under its IMutable lock)
 int core::FileGetPositionRequest::vfunc_1() {
-    *(*(int * *)&this->f_0c) = (*(CoreFile * *)&this->f_08)->position;
-    (*(CoreFile * *)&this->f_08)->iface.f0();
-    (*(CoreFile * *)&this->f_08)->state = 0;
-    (*(CoreFile * *)&this->f_08)->iface.f1();
+    *(*(int * *)&this->f_0c) = ((CoreFile*)this->f_08)->field124;
+    ((FileIface*)&((CoreFile*)this->f_08)->vftableMutable)->f0();
+    ((CoreFile*)this->f_08)->field14 = 0;
+    ((FileIface*)&((CoreFile*)this->f_08)->vftableMutable)->f1();
     return 1;
 }

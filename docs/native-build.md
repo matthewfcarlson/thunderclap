@@ -1293,3 +1293,82 @@ XBE's size with `HULK_SIZE32`:
 | x87 keep list | 268 | 268 (identical) |
 | play3 checkpoints | 2,011 to 60,300 | `ckpt_gate.py` ok at 2,006 common frames (the known transients only), PRNG hashes identical |
 | arm64 macOS / x86-64 Linux / arm64 Android unbound | 30,469 / 30,460 / 23,893 | 30,468 / 30,459 / 23,892, all rc 0 |
+
+## Start-up through the file system: drives, requests and the args.txt read (boot1, 2026-11-07)
+
+reg4 left main at core::Drive's constructor (vftables stored under invented names) and saw a corrupted malloc free
+list once; reg6's proof binary crashed on that corruption every time. The macOS start-up now gets through the
+platform set-up, the drive registry, the save and D: drives with their worker thread, the content loader's fiber and
+the open of `args.txt` through the drive thread's request queue: with the proof's own binding map the normal run opens,
+sizes, reads and closes args.txt (CreateFileA, GetFileSize, SetFilePointer, ReadFile, CloseHandle on the drive
+thread), parses it and enters CGame's start-up, where it stops creating the Lua state: 0x002150e0 calls the allocator
+callback 0x001d0990, which the native link leaves unbound (the callback's declared type is not the allocator's). The
+survey run (`HULK_NATIVE_MISSING=continue`) stops next in the Lua VM (0x00212ed0, `getData`: below).
+
+### The stops
+
+| run | where | cause | fix |
+|---|---|---|---|
+| reg6 proof | malloc (0x00270540): free list corrupt | core::MemoryPool was allocated as 0x002702a0's stand-in (two pointers, 11 words: 60 bytes on 64-bit) while 0x00270020's owners view wrote to +0x40; gen's core::MemoryPool kept its block (+0x18) as `unsigned int` | records.h `CoreMemoryPool` (with `CoreObjectBase`: on the 64-bit MS ABI a base class's members end at its rounded size, so gen's f_0c is at +0x18, not +0x14); gen f_18 pointer-sized (evidence-rn ptr_fields), owners `Pool_270020` on the record, 0x00270170 / 0x0026ff90 / 0x002702a0 / 0x002701d0 on it, 0x002700f0 onto gen's class; 0x002701d0's child pool by address names (`gTag`, `Alloc`, `Init`, `Setup` were invented) |
+| 1 | FUN_0026fcf0: slot 21 of the new XboxDrive jumps to 0x4000000000 | core::Drive's constructor stored invented vftable names; 0x0026f570 / 0x00278500 let the compiler emit stub vftables | the constructors on records.h `CoreDrive` / `CoreXboxDrive` / `CoreXboxSaveDrive` with explicit `DAT_` vftable stores; the library list 0x00277a40 on `CoreDriveLibraryList`; the label `DAT_00445644`, not the literal 0x445644 |
+| 1 | the drive thread misses FUN_002731d0 | a wrapped C++ declaration | the worker (0x002731d0, `extern "C"`), the thread object (0x002733c0) and its queue (0x00272fc0 push, 0x00273140 pop, 0x00272f70, 0x00272fa0 / 0x00272fb0, 0x00273120) on `CoreDriveThread`; semaphores pointer-sized (0x0026d860 / 0x0026d880 / 0x0026d890 / 0x0026d8a0: the shim returns host pointers), the XDK rows by address |
+| 2 | `?FUN_0026f570@XboxDrive_nv_26fcf0` unbound | the callers' IR signature (the heap as `const char*`) differs from the definition's (`int`) | 0x0026fcf0 / 0x00278a40 pass `int` |
+| 3 | 0x0026dd10: the content loader's fiber has no thread | 0x0026dbb0 *defined* `DAT_0052a180` / `DAT_0052a188` itself; the tree wraps the TU, so they became `fn_0026dbb0` C++ variables: a private, always empty thread list | the shared declarations (decls/data/platform/xbox/core.h) |
+| 4 | 0x0008fca0: no file for args.txt | the drive registry was two inventory items (0x00528418 20 bytes, 0x0052842c 7,392) that each source indexed with its own 32-bit stride view (0x11c, 0x120 on 64-bit) | records.h `CoreDriveRegistryEntry DAT_00528418[26]`, the critical section its own item `DAT_0052a0f0` (config/data.json; config/data-ptrs.json's 0x0052842c record dropped); 14 sources on it (0x00271070 also wrote the flag 0x0052a11d as lock + 0x2d) |
+| 5 | core::Drive's AddRef reads the wrong word | gen_tree **merges** two classes of one TU that have the same name (`Drive` in 0x0026f130 and 0x0026f790) into one with `char _m_pad_4[0x8]`: a 32-bit-offset union that drops the pointer members | layout classes get unique names (`Drive_26f130`, `DriveThread_272f70`, ...: 23 sources) |
+| 6 | the File slots call invented or devirtualized names | `init`, `Sub_275db0::F0` (a member object's virtual call is direct), `Allocate`, `Set`, base constructors of invented classes | core::File on records.h `CoreFile` (gen's core::File agrees: its +0x12c word is the library view's pointer, evidence-rn fields); the File slots (0x00275db0-0x002762f0, 0x002765d0), the request constructors (0x00274e60 core::FileRequest, 0x00274f20 / 0x002751a0 / 0x00275110 / 0x00275230 / 0x002752e0 / 0x00275390 / 0x00275430 / 0x002754d0 / 0x00275570) on `CoreRequest` with buffer and result pointers as pointers, the completion requests (0x00274ca0 / 0x00274ba0, `CoreCompletionRequest`), the nine FileRequest deleting destructors (one template), the pool allocators 0x00273560 / 0x00276680 / 0x00275d50 return `void*` and take the callers' size, the pools' item sizes by `sizeof` (0x00273530 core::DriveFindFirstRequest, 0x00276650 core::InstanceDrive, 0x00275d20 `CoreFile`) |
+| 7 | the drive thread's slot 3 call reaches `hulk_x_00273880` | core::Request's slot 3 returns the drive: widened to `hulk_intptr` (evidence-rn sigs), but `native_mac.TreeDefs` keyed the slot's definition by its demangled form, `int` on i686 and `__int64` on 64-bit | tools/native_mac.py: `loose()` fallback key when the exact form matches nothing (tests/native_host/treedefs_test.py); every slot ptr_slots widened had this gap |
+| proof map | CGame start-up: 0x002150e0's allocator callback FUN_001d0990 unbound | the Lua state's allocator: 0x001d3c90 passes FUN_001d0990 (`int (State*)`) where 0x002150e0 calls an allocator | next (and the survey's 0x00212ed0 `getData`: the Lua VM's invented names, TObjects copied as two 32-bit words) |
+
+Also on the way: the request processes on the drive thread (open 0x00273920, read 0x00273f00, get-size 0x00274260,
+close 0x00273da0, FileRequest::vfunc_4 0x00273890, FileCompletionRequest 0x002736e0 / 0x00273700 / 0x00274d20),
+the XboxDrive slots on `CoreXboxDrive` (0x0026f130-0x0026fcb0; the error converter 0x0026f3e0 is a member: its
+callers pass the drive in ecx), the XboxSaveDrive forwards (0x002786a0 / 0x002786c0 / 0x002786e0), 0x00272fc0
+returns the semaphore release's result on 64-bit (the 32-bit spelling with a result does not match in 11
+variants, so `Result_272fc0` is `int` only under `HULK_PTR64`).
+
+### Rules this batch found
+
+- **Unique names for layout classes.** gen_tree merges same-named classes of one TU by their 32-bit layout; a record
+  view must not share its name with another source's class in the TU.
+- **MS-ABI bases round up.** A record that flattens a class with a polymorphic base (core::Object: vftable + heap)
+  must keep the base as a member struct (`CoreObjectBase`), or its 64-bit offsets differ from gen's class; checked
+  with static_asserts of gen against the record on i686 / x86_64 / aarch64 (build/boot1/lay.cpp: MemoryPool, File;
+  core::Drive's gen class is still 32-bit-padded, so the drive sources go by the record only).
+- **The native link's IR rule.** A name binds by its address only when the reference's IR signature equals the
+  definition's (`ptr` and `i64` alike; `i8` vs `i32` parameters, a read result vs `void` are mismatches).
+- **Equivalence and caching.** A rewrite that keeps a member in a local across calls fails level 3 when the original
+  re-reads it (the stubs may write the object): read through `this` as the original does.
+
+### Not done (follow-ups)
+
+0x002786f0 (XboxSaveDrive's IMutable slot 2: HEAD's source is a compiler-generated adjustor thunk of an invented
+class, byte-matching but adjusting by the invented layout on 64-bit; a user-written `this - 0xc` compiles to `add
+ecx, -0xc`: a candidate to move to equivalent/, which needs the user's OK); DriveCompletionRequest 0x00273780 /
+0x002737a0; the cement read 0x00278010 (owners `Obj_278010`, pointers through `int`); FileRequest::vfunc_2
+0x00273860 (compares a file pointer with an `int`); core::ConsoleClient's record (reg6) has the RefCount base
+flattened (64-bit offsets differ from the MS ABI's); XboxSaveDrive's save state `DAT_0052c270` is a packed DataRec the
+sources index by 32-bit offsets.
+
+### Method, batch and proof
+
+Iterations as reg4's, but every MSVC step on the queue (the laptop's Rosetta was wedged: x86_64 processes hung in
+state U): one queue job per iteration runs gen_tree with the base proof's state, the iteration report and the arm64
+compile (build/boot1/scripts/iterjob.sh); the link and the runs are local. build/boot1/scripts/native_mac_why.py dumps
+the link's per-name binding reasons. Iterations it1-it9 with reg6's proof 68254 as the base.
+
+| | control 68254 (HEAD caa806d0a, studio) | proof 68701 (studio, HEAD 3655ceb29 + the batch) |
+|---|---|---|
+| sources | - | 121 matches/, 35 equivalent/, records.h, gen core.h / owners.h + evidence-rn / evidence-owners, config/data.json + data-ptrs.json, engine/unknown.h, tools/native_mac.py + tests/native_host/treedefs_test.py |
+| gates | - | 121 / 121 MATCH + verify_relocs ok (and the 16 other core::MemoryPool users, 22 gen core::File users); 35 / 35 equivalent at 3,000 inputs and `--wine` (0x0008fca0 50 inputs and 0x002731d0 as at HEAD: slow loops) |
+| `--x64` (HEAD -> batch) | - | matches: 45 eq -> eq, 11 fail / unsupported -> eq, 25 eq -> unsupported (virtual calls through a record's `const void*` vftable field: the harness), 11 eq -> fail by design (pool item sizes, pointer-sized handles and slot 3, gen views of the drives vs the record); equivalents: 16 eq -> eq, 5 fail -> eq, 3 eq -> unsupported, 1 eq -> fail by design (0x002733c0's pointer-sized argument) |
+| data_gen | 18,856 items | 18,856 items verified, 1,078 TUs |
+| merge modes | - | 25 wrapped -> merged (the renamed classes), 0x002761c0 isolated -> merged, 0x00272fc0 merged -> wrapped (macros) |
+| strict link rc / Wine unbound | 0 / 1,314 | 0 / 1,254 (68 fewer; 8 new: the stub-vftable members of 0x0026f540's invented classes, now merged into XboxDrive.cpp) |
+| x87 keep list | 268 | identical |
+| arm64 macOS / x86-64 Linux / arm64 Android unbound | 30,468 / 30,459 / 23,892 | **30,263 / 30,254 / 23,688**, all rc 0 |
+| macOS start-up | stops at the malloc corruption (0x00270540) | args.txt read; stops in CGame's start-up at the Lua state's allocator (above) |
+| play3 checkpoints | 2,006 to 60,150 | `ckpt_gate.py`: ok at 2,006 common frames (the known transients only), PRNG hashes identical |
+
+A first proof (68566, without 0x002741d0's fix) stopped at the Wine start-up: 0x002741d0 defined its own `CoreFile`,
+the name clash isolated it, and its member object's devirtualized call `FileIface::f0` was unbound.

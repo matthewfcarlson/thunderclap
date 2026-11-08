@@ -6,7 +6,7 @@
 // buffer, whose result is the function's
 extern "C" void* FUN_00266e00(int a, int b);
 struct XboxDrive_nv_26fcf0 {
-    core::XboxDrive* FUN_0026f570(const char* name, const char* source);
+    core::XboxDrive* FUN_0026f570(const char* name, int heap);
 };
 struct DriveSlots_26fcf0 {
     virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5();
@@ -18,7 +18,7 @@ int __cdecl FUN_0026fcf0(core::XboxDrive** result, const char* path, int heap, c
     HULK_SIZE32(CoreXboxDrive, 0x1e4);
     DAT_004cdbb0 = heap;
     void* allocated = FUN_00266e00(heap, (int)sizeof(CoreXboxDrive));
-    core::XboxDrive* object = allocated ? ((XboxDrive_nv_26fcf0*)allocated)->FUN_0026f570(path, (const char*)(hulk_intptr)heap) : 0;
+    core::XboxDrive* object = allocated ? ((XboxDrive_nv_26fcf0*)allocated)->FUN_0026f570(path, heap) : 0;
     *result = object;
     return ((DriveSlots_26fcf0*)object)->s21(details);
 }

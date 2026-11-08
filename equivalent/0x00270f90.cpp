@@ -7,7 +7,7 @@ struct Resource_270f90 {
     virtual void release();
     char FUN_00272b80();
 };
-struct Entry_270f90 { Resource_270f90 *resource; char rest[0x118]; };
+// the drive registry (records.h CoreDriveRegistryEntry)
 void __cdecl FUN_0026d850(void *);
 void __cdecl FUN_0026d840(void *);
 extern "C" void __cdecl FUN_0026d6d0(int);
@@ -19,7 +19,7 @@ extern "C" char * __cdecl strncpy(char *, const char *, unsigned int);
 
 extern "C" bool __cdecl FUN_00270f90(const char *name) {
     char buffer[17];
-    FUN_0026d850(((char*)((char*)&DAT_0052842c + 7364)));
+    FUN_0026d850(((char*)DAT_0052a0f0));
     if (name) {
         strncpy(buffer, name, 16);
         buffer[16] = 0;
@@ -34,16 +34,16 @@ extern "C" bool __cdecl FUN_00270f90(const char *name) {
     }
     int index = FUN_00270c10(buffer);
     if (index == -1) {
-        FUN_0026d840(((char*)((char*)&DAT_0052842c + 7364)));
+        FUN_0026d840(((char*)DAT_0052a0f0));
         return false;
     }
-    Resource_270f90 *resource = ((Entry_270f90*)&DAT_0052842c)[index].resource;
+    Resource_270f90 *resource = (Resource_270f90 *)DAT_00528418[index].drive;
     if (!resource) {
-        FUN_0026d840(((char*)((char*)&DAT_0052842c + 7364)));
+        FUN_0026d840(((char*)DAT_0052a0f0));
         return false;
     }
-    ((Entry_270f90*)&DAT_0052842c)[index].resource = 0;
-    FUN_0026d840(((char*)((char*)&DAT_0052842c + 7364)));
+    DAT_00528418[index].drive = 0;
+    FUN_0026d840(((char*)DAT_0052a0f0));
     while (resource->FUN_00272b80()) {
         thunk_FUN_00270a50();
         FUN_0026d6d0(0);

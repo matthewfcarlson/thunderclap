@@ -1,45 +1,43 @@
 #include "decls/data/engine/core.h"
-// data: g_lock_275320 = DAT_0052a1c8, g_mgr_275320 = DAT_0052a1e4
+#include "decls/data/records.h"
+// data: the "FileRequest" pool = DAT_0052a1e4, its lock = DAT_0052a1c8
 
-extern void* g_vftableA[];
-extern void* g_vftableB[];
-class Inner_275320 {
-  public:
-    virtual void a();
-    virtual void b();
+struct Lock_275320 {
+    virtual void lock();
+    virtual void unlock();
 };
-class Root_275320 {
-  public:
-    virtual void a();
-    virtual void b();
+struct Ref_275320 {
+    virtual void v0();
+    virtual void release();
 };
+struct Alloc_275320 {
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void free(void*);
+};
+extern "C" char DAT_0042b914[];
+extern "C" char DAT_0042b99c[];
 extern "C" void __cdecl FUN_0026d850(void*);
 extern "C" void __cdecl FUN_0026d840(void*);
-struct Manager_275320 {
-    virtual void x();
-    virtual void y();
-    virtual void z();
-    virtual void q();
-    virtual void add(void*);
-};
-namespace core { class FileWriteRequest {
+// core::FileWriteRequest's deleting destructor (records.h CoreRequest): core::FileRequest's part (one request less pending
+// on the file, CoreFile field18, under its IMutable lock; the file's reference released), then core::Request's; the
+// memory goes back to the "FileRequest" pool
+class FileWriteRequest_275320 : public CoreRequest {
   public:
-    void* vt;
-    int pad;
-    Inner_275320* inner;
-    FileWriteRequest* vfunc_0(int flags);
-}; }
-core::FileWriteRequest* core::FileWriteRequest::vfunc_0(int flags) {
-    Inner_275320* p = inner;
-    vt = g_vftableA;
-    ((Inner_275320*)((char*)p + 4))->a();
-    --*(int*)((char*)inner + 0x18);
-    ((Inner_275320*)((char*)inner + 4))->b();
-    ((Root_275320*)inner)->b();
-    vt = g_vftableB;
+    FileWriteRequest_275320* f0(unsigned char flags);
+};
+FileWriteRequest_275320* FileWriteRequest_275320::f0(unsigned char flags) {
+    vftable = DAT_0042b99c;
+    ((Lock_275320*)&((CoreFile*)file)->vftableMutable)->lock();
+    --((CoreFile*)file)->field18;
+    ((Lock_275320*)&((CoreFile*)file)->vftableMutable)->unlock();
+    ((Ref_275320*)file)->release();
+    vftable = DAT_0042b914;
     if (flags & 1) {
         FUN_0026d850(((char*)&DAT_0052a1c8));
-        (*(Manager_275320**)&DAT_0052a1e4)->add(this);
+        (*(Alloc_275320**)&DAT_0052a1e4)->free(this);
         FUN_0026d840(((char*)&DAT_0052a1c8));
     }
     return this;

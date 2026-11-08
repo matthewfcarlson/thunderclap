@@ -1,20 +1,19 @@
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+
 class Inner_2729c0 {
   public:
     virtual void First();
     virtual void Second();
 };
-class Target_2729c0 {
+// core::Drive (records.h CoreDrive): clears the state with a semaphore to release, under the IMutable lock at +0xc
+class Target_2729c0 : public CoreDrive {
   public:
-    char pad[0x0c];
-    Inner_2729c0 inner;
-    char pad2[0x30];
-    int value40;
-    int value44;
-    void run(int);
+    void run(hulk_uintptr*);
 };
-void Target_2729c0::run(int x) {
-    inner.First();
-    value44 = x;
-    value40 = 0;
-    inner.Second();
+void Target_2729c0::run(hulk_uintptr* x) {
+    ((Inner_2729c0*)&vftableMutable)->First();
+    signal = x;
+    state = 0;
+    ((Inner_2729c0*)&vftableMutable)->Second();
 }

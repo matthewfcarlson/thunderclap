@@ -12,7 +12,7 @@ unsigned char __cdecl FUN_00270c80(void **result, const char *name, unsigned int
 extern "C" int __cdecl FUN_00270f10(const char *name, void *argument)
 {
     struct Local { void *result; char text[20]; } local;
-    FUN_0026d850(((char*)((char*)&DAT_0052842c + 7364)));
+    FUN_0026d850(((char*)DAT_0052a0f0));
     if (name) {
         strncpy(local.text, name, 16);
         local.text[16] = 0;
@@ -21,6 +21,6 @@ extern "C" int __cdecl FUN_00270f10(const char *name, void *argument)
         strncpy(local.text, DAT_0052a10c, 16);
     }
     FUN_00270c80(&local.result, local.text, (unsigned int)(hulk_uintptr)argument);
-    FUN_0026d840(((char*)((char*)&DAT_0052842c + 7364)));
+    FUN_0026d840(((char*)DAT_0052a0f0));
     return local.result != 0;
 }

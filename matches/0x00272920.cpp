@@ -1,26 +1,22 @@
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+
 class Sub_272920 {
   public:
     virtual void Begin();
     virtual void End();
 };
-int FUN_0026dbb0();
-class Owner_272920 {
+extern "C" CoreThread* __cdecl FUN_0026dbb0();
+// core::Drive (records.h CoreDrive): waits for a callback on the calling thread (state 2), under the IMutable lock
+class Owner_272920 : public CoreDrive {
   public:
-    char pad0[12];
-    Sub_272920 sub;
-    char pad10[0x30];
-    int state;
-    char pad44[4];
-    int value;
-    int arg1;
-    int arg2;
-    void Run(int a, int b);
+    void Run(hulk_intptr a, int b);
 };
-void Owner_272920::Run(int a, int b) {
-    sub.Begin();
-    value = FUN_0026dbb0();
-    arg1 = a;
-    arg2 = b;
+void Owner_272920::Run(hulk_intptr a, int b) {
+    ((Sub_272920*)&vftableMutable)->Begin();
+    thread = FUN_0026dbb0();
+    callback = (void*)a;
+    argument = b;
     state = 2;
-    sub.End();
+    ((Sub_272920*)&vftableMutable)->End();
 }

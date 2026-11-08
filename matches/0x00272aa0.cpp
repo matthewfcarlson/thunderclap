@@ -1,30 +1,26 @@
 #include "compat/ptr.h"
+#include "decls/data/records.h"
+
 class Inner_272aa0 {
   public:
     virtual void A();
     virtual void B();
 };
-class Obj_272aa0 {
+// core::Drive (records.h CoreDrive): the drive thread completed a request: keep it, mark the drive active and
+// release the waiting thread's semaphore if there is one (under the IMutable lock at +0xc)
+class Obj_272aa0 : public CoreDrive {
   public:
-    char pad0[0x0c];
-    Inner_272aa0 mInner;
-    char pad10[0x44 - 0x10];
-    int mValue;
-    char pad48[0x54 - 0x48];
-    unsigned char mFlag;
-    char pad55[3];
-    int mArg;
     void Run(hulk_intptr);
 };
-extern "C" void __cdecl FUN_0026d8a0(int);
+extern "C" void __cdecl FUN_0026d8a0(hulk_uintptr*);
 void Obj_272aa0::Run(hulk_intptr arg) {
-    mInner.A();
-    mArg = arg;
-    mFlag = 1;
-    if (mValue != 0) {
-        mInner.B();
-        FUN_0026d8a0(mValue);
+    ((Inner_272aa0*)&vftableMutable)->A();
+    request = (void*)arg;
+    active = 1;
+    if (signal != 0) {
+        ((Inner_272aa0*)&vftableMutable)->B();
+        FUN_0026d8a0(signal);
     } else {
-        mInner.B();
+        ((Inner_272aa0*)&vftableMutable)->B();
     }
 }

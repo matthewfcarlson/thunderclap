@@ -1,5 +1,4 @@
-#include "gen/core.h"
-
+#include "decls/data/records.h"
 struct I0 {
     virtual void f();
     virtual void g();
@@ -8,18 +7,16 @@ struct I3 {
     virtual void a();
     virtual void b();
     virtual void c();
-    virtual void d(int);
+    virtual void d(unsigned int);
 };
-struct Obj_273700 {
-    void* v;
-    I0 sub;
-    char pad[0x10];
-    int count;
+// core::FileCompletionRequest::vfunc_7 (records.h CoreCompletionRequest): one request less pending on the file
+// (CoreFile field18, under its IMutable lock), then the callback's slot 3 with the context
+struct FileCompletionRequest_273700 : CoreCompletionRequest {
+    void vfunc_7();
 };
-
-void core::FileCompletionRequest::vfunc_7() {
-    (*(Obj_273700 * *)&this->f_0c)->sub.f();
-    --(*(Obj_273700 * *)&this->f_0c)->count;
-    (*(Obj_273700 * *)&this->f_0c)->sub.g();
-    (*(I3 * *)&this->f_10)->d(this->f_14);
+void FileCompletionRequest_273700::vfunc_7() {
+    ((I0*)&((CoreFile*)file)->vftableMutable)->f();
+    --((CoreFile*)file)->field18;
+    ((I0*)&((CoreFile*)file)->vftableMutable)->g();
+    ((I3*)callback)->d(context);
 }

@@ -1,24 +1,21 @@
 #include "compat/ptr.h"
-namespace core {
-class File {
+#include "decls/data/records.h"
+// core::File::vfunc_17 (records.h CoreFile): a cancel request (0x00275570) queued at the front of the drive's queue
+class File_276120 : public CoreFile {
   public:
-    virtual void vfunc_17();
-    char pad[8];
-    void* ptr;
-    int size;
+    void vfunc_17();
 };
-} // namespace core
-extern "C" void* __cdecl alloc(hulk_intptr);
+void* __cdecl FUN_00273560(unsigned int);
 class FileCancelRequest_276120 {
   public:
-    int init(core::File*);
+    void* FUN_00275570(void*);
 };
-class Manager {
+class Drive_276120 {
   public:
-    void finish(int, int, int);
+    int FUN_00272b60(void*, int, int);
 };
-void core::File::vfunc_17() {
-    FileCancelRequest_276120* p = (FileCancelRequest_276120*)alloc(12);
-    int v = p ? p->init(this) : 0;
-    ((Manager*)ptr)->finish(v, size, 1);
+void File_276120::vfunc_17() {
+    FileCancelRequest_276120* p = (FileCancelRequest_276120*)FUN_00273560(12);
+    void* v = p ? p->FUN_00275570(this) : 0;
+    ((Drive_276120*)provider)->FUN_00272b60(v, (int)key, 1);
 }

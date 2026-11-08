@@ -1,68 +1,50 @@
 #include "decls/data/engine/core.h"
+#include "decls/data/records.h"
 
 extern "C" void _ReadWriteBarrier();
-extern void* vt0_272d00[];
-extern void* vt4[];
-extern void* vtc[];
-extern void* vtD_272d00[];
-extern void* vtD4[];
-extern void* vtDc[];
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_0042afa8[];
+extern "C" char DAT_0042b85c[];
+extern "C" char DAT_0042b86c[];
+extern "C" char DAT_0042b87c[];
+extern "C" char DAT_0042b884[];
 extern "C" int* FUN_002705f0();
-// the member 0x00277a40 constructs (called as a member named by that address)
+// the library list's constructor 0x00277a40 (called as a member named by that address)
 class Sub_272d00 {
   public:
     void FUN_00277a40();
 };
-class Drive {
+// core::Drive (records.h CoreDrive): the bases' vftables (core::IRefCount, core::Object, core::SafeRefCount), then
+// core::Drive's own (0x0042b884 / +4 0x0042b87c / +0xc 0x0042b86c)
+class Drive : public CoreDrive {
   public:
-    void* vptr;
-    void* v4;
-    int m8;
-    void* vc;
-    int m10;
-    Sub_272d00 s14;
-    char pad[0x23];
-    int m38;
-    int m3c;
-    int m40;
-    int m44;
-    int m48;
-    int m4c;
-    int m50;
-    char m54;
-    int m58;
-    char m5c;
-    char m5d;
-    char pad2[0x56];
-    int mb4;
-    int mb8;
     Drive();
 };
 Drive::Drive() {
-    vptr = vt0_272d00;
-    v4 = vt4;
-    m8 = DAT_004cdbb0;
+    vftable = DAT_003f6098;
+    vftableObject = DAT_0042afa8;
+    heap = DAT_004cdbb0;
     FUN_002705f0();
-    vc = vtc;
+    vftableMutable = DAT_0042b85c;
     _ReadWriteBarrier();
-    m10 = 1;
+    refs = 1;
     _ReadWriteBarrier();
-    vptr = vtD_272d00;
-    v4 = vtD4;
-    vc = vtDc;
-    s14.FUN_00277a40();
-    m38 = 0;
-    m3c = 0;
-    m40 = 0;
-    m44 = 0;
-    m48 = 0;
-    m4c = 0;
-    m50 = 0;
-    m54 = 0;
-    m58 = 0;
-    m5c = 1;
-    m5d = 0;
-    mb4 = 3;
-    mb8 = 0;
+    vftable = DAT_0042b884;
+    vftableObject = DAT_0042b87c;
+    vftableMutable = DAT_0042b86c;
+    ((Sub_272d00*)&libraries)->FUN_00277a40();
+    requests = 0;
+    lastRequest = 0;
+    state = 0;
+    signal = 0;
+    thread = 0;
+    callback = 0;
+    argument = 0;
+    active = 0;
+    request = 0;
+    flag5c = 1;
+    busy = 0;
+    error = 3;
+    driveThread = 0;
     FUN_002705f0();
 }

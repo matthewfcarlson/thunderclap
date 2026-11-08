@@ -1,20 +1,19 @@
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+
 class V {
   public:
     virtual void A();
     virtual void B();
 };
-class C_272990 {
+// core::Drive (records.h CoreDrive): state 2 with a semaphore to release, under the IMutable lock at +0xc
+class C_272990 : public CoreDrive {
   public:
-    char pad[0xc];
-    V v;
-    char pad2[0x30];
-    int state;
-    int value;
-    void F(int);
+    void F(hulk_uintptr*);
 };
-void C_272990::F(int x) {
-    v.A();
-    value = x;
+void C_272990::F(hulk_uintptr* x) {
+    ((V*)&vftableMutable)->A();
+    signal = x;
     state = 2;
-    v.B();
+    ((V*)&vftableMutable)->B();
 }

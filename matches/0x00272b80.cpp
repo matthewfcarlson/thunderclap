@@ -1,14 +1,15 @@
-// Same code shape as 0x00272b60 (propagated; names are from that function)
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+
 class B_272b80 {
   public:
-    int f();
+    int FUN_002730c0();
 };
-class A_272b80 {
+// core::Drive (records.h CoreDrive): asks its drive thread whether requests are queued (0x002730c0)
+class A_272b80 : public CoreDrive {
   public:
-    char pad[0xb8];
-    B_272b80* p;
     int run();
 };
 int A_272b80::run() {
-    return p->f();
+    return ((B_272b80*)driveThread)->FUN_002730c0();
 }

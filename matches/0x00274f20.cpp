@@ -1,20 +1,21 @@
 #include "compat/ptr.h"
+#include "decls/data/records.h"
 extern "C" char DAT_0042ba00[];
-class FileOpenRequest {
+extern "C" int* FUN_002705f0();
+// core::FileOpenRequest (records.h CoreRequest, then the open's mode and flag): core::FileRequest's constructor
+// 0x00274e60 first
+class FileOpenRequest : public CoreRequest {
   public:
-    hulk_intptr v;
-    char pad[8];
     int field;
     unsigned char flag;
-    void init(int);
-    FileOpenRequest* target(int, int, unsigned char);
+    CoreRequest* FUN_00274e60(hulk_uintptr);
+    FileOpenRequest* target(void*, int, unsigned char);
 };
-extern void post();
-FileOpenRequest* FileOpenRequest::target(int a, int b, unsigned char c) {
-    init(a);
-    v = ((hulk_intptr)DAT_0042ba00);
+FileOpenRequest* FileOpenRequest::target(void* a, int b, unsigned char c) {
+    FUN_00274e60((hulk_uintptr)a);
+    vftable = DAT_0042ba00;
     field = b;
     flag = c;
-    post();
+    FUN_002705f0();
     return this;
 }

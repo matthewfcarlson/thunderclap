@@ -1,43 +1,50 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19905 inputs, branch coverage 10/10)
 // core::FileReadRequest::vfunc_1 @ 0x00273f00
 #include "compat/ptr.h"
+#include "decls/data/records.h"
+#include "gen/owners.h"
+
 typedef unsigned int uint;
 struct Info_273f00 { char pad[12]; uint limit; };
+// the file's drive: slot 12 reads (core::XboxDrive 0x0026f920: the handle, the name, ..., the position, the buffer,
+// the count, the count read, the flags)
 struct Device_273f00 {
- virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual void slot9(); virtual void slot10(); virtual void slot11();
+ virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5();
+ virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11();
  virtual int read(uint, char*, uint, uint, void*, uint, uint*, uint);
  Info_273f00* FUN_002728d0(); uint FUN_00272880();
 };
 struct Lock_273f00 { virtual void enter(); virtual void leave(); };
-struct Reader { bool FUN_00277ca0(); int FUN_00278010(Device_273f00*,uint,char*,uint,uint,void*,hulk_uintptr,uint*,uint); char pad[0x30]; };
-struct File { uint unknown; Lock_273f00 lock; uint x8; Device_273f00* device; uint x10; uint status; char gap[6]; char name[0x102]; uint handle; uint position; uint length; Reader reader; uint extra; };
 extern "C" hulk_uintptr __cdecl FUN_0026fd50(hulk_uintptr,uint);
-namespace core {
-struct FileReadRequest {
- virtual void vfunc_0(); virtual int vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6();
- uint unknown; File* file; void* buffer; uint size; uint flags;
+extern bool __fastcall FUN_00277ca0(int* ptr);
+// core::FileReadRequest (records.h CoreRequest: the file, then the buffer, the count, the flags; 0x00275230)
+struct FileReadRequest_273f00 : CoreRequest {
+ void* buffer; uint size; uint flags;
+ int vfunc_1();
 };
-int FileReadRequest::vfunc_1() {
- uint length=file->length;
+// core::FileReadRequest::vfunc_1 (records.h CoreFile): reads at the file's position (field124) up to its length
+// (field128) and the drive's limit, through the cement library view when the file has one (0x00277ca0 /
+// 0x00278010), else the drive's slot 12; the drive's error goes to the file's field14
+int FileReadRequest_273f00::vfunc_1() {
+ uint length=((CoreFile*)file)->field128;
  hulk_uintptr count=size;
- Device_273f00* device=file->device;
- if(file->position>=length) count=0;
+ Device_273f00* device=(Device_273f00*)((CoreFile*)file)->provider;
+ if(((CoreFile*)file)->field124>=length) count=0;
  hulk_uintptr maximum=FUN_0026fd50(length,device->FUN_002728d0()->limit);
- uint position=file->position;
+ uint position=((CoreFile*)file)->field124;
  if(position+count>maximum) count=maximum-position;
  int result;
  if(count) {
   uint transferred;
-  bool useReader=file->reader.FUN_00277ca0();
-  File* current=file;
-  if(useReader) result=current->reader.FUN_00278010(device,current->extra,current->name,current->handle,current->position,buffer,count,&transferred,flags);
-  else result=device->read(current->extra,current->name,current->handle,current->position,buffer,count,&transferred,flags);
-  if(result==1) file->position+=transferred;
+  bool useReader=FUN_00277ca0((int*)&((CoreFile*)file)->view);
+  CoreFile* current=(CoreFile*)file;
+  if(useReader) result=((owners::Obj_278010*)&current->view)->FUN_00278010((hulk_intptr)device,current->view.words[11],(hulk_intptr)current->filename,current->field120,current->field124,(hulk_intptr)buffer,(int)count,(hulk_intptr)&transferred,flags);
+  else result=device->read(current->view.words[11],current->filename,current->field120,current->field124,buffer,(uint)count,&transferred,flags);
+  if(result==1) ((CoreFile*)file)->field124+=transferred;
  } else result=1;
  uint status=device->FUN_00272880();
- (&file->lock)->enter();
- file->status=status;
- (&file->lock)->leave();
+ ((Lock_273f00*)&((CoreFile*)file)->vftableMutable)->enter();
+ ((CoreFile*)file)->field14=status;
+ ((Lock_273f00*)&((CoreFile*)file)->vftableMutable)->leave();
  return result;
-}
 }

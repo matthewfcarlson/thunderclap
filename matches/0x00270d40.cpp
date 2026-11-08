@@ -30,35 +30,30 @@ struct Receiver_270d40 {
     virtual void slot20();
     virtual void slot21(const char*);
 };
-struct Entry_270d40 {
-    char name[17];
-    char pad[3];
-    Receiver_270d40* receiver;
-    char path[256];
-    char tail[4];
-};
+// the drive registry (records.h CoreDriveRegistryEntry)
+typedef CoreDriveRegistryEntry Entry_270d40;
 void __cdecl FUN_00270d40(const char* name, const char* path) {
     char lower[20];
     strncpy(lower, name, 16);
     lower[16] = 0;
     for (char* p = lower; *p; ++p)
         *p = (char)FUN_00345b90((signed char)*p);
-    FUN_0026d850(((char*)((char*)&DAT_0052842c + 7364)));
+    FUN_0026d850(((char*)DAT_0052a0f0));
     int index = FUN_00270c10(lower);
     if (index == -1) {
         if (FUN_002771b0(lower) && (*(unsigned int*)&DAT_0052a128) < 26) {
-            Entry_270d40& entry = ((Entry_270d40*)&DAT_00528418)[(*(unsigned int*)&DAT_0052a128)];
+            Entry_270d40& entry = DAT_00528418[(*(unsigned int*)&DAT_0052a128)];
             strncpy(entry.name, lower, 16);
             entry.name[16] = 0;
-            strncpy(entry.path, path, 256);
+            strncpy(entry.details, path, 256);
             ++(*(unsigned int*)&DAT_0052a128);
-            FUN_0026d840(((char*)((char*)&DAT_0052842c + 7364)));
+            FUN_0026d840(((char*)DAT_0052a0f0));
         }
     } else {
-        Entry_270d40& entry = ((Entry_270d40*)&DAT_00528418)[index];
-        strncpy(entry.path, path, 256);
-        Receiver_270d40* receiver = entry.receiver;
-        FUN_0026d840(((char*)((char*)&DAT_0052842c + 7364)));
+        Entry_270d40& entry = DAT_00528418[index];
+        strncpy(entry.details, path, 256);
+        Receiver_270d40* receiver = (Receiver_270d40*)entry.drive;
+        FUN_0026d840(((char*)DAT_0052a0f0));
         receiver->slot21(path);
     }
 }

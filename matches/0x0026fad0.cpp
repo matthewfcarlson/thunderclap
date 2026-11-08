@@ -1,46 +1,30 @@
-namespace core {
-class Drive {
-  public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
-    virtual void v12();
-    virtual void v13();
-    virtual void v14();
-    virtual void v15();
-    virtual void v16();
-    virtual void v17();
-    virtual void v18();
-    virtual int vfunc_19(int* a, int b);
-    char pad[0xb4 - 4];
-    int mErr;
-    int Helper(int b, int* buf, int* c);
-};
-int __stdcall Conv(int a, int* b);
-} // namespace core
+#include "compat/ptr.h"
+#include "decls/data/records.h"
 
-int core::Drive::vfunc_19(int* a, int b) {
+namespace core {
+// core::Drive::vfunc_19 (records.h CoreXboxDrive's drive): finds the next file of a directory (0x00355bc2, the XAPI
+// find-next), 0x0026f4b0 fills the caller's result
+class Drive_26fad0 : public CoreDrive {
+  public:
+    int vfunc_19(int* a, int b);
+    int FUN_0026f4b0(void* result, void* entry, int* handle);
+};
+} // namespace core
+extern "C" int __stdcall FUN_00355bc2(int a, int* b);
+
+int core::Drive_26fad0::vfunc_19(int* a, int b) {
     int t;
     char buf[0x140];
     int v = *a;
     if (v == -1) {
-        mErr = 1;
+        error = 1;
         return 0;
     }
-    if (core::Conv(v, (int*)buf) == 0) {
+    if (FUN_00355bc2(v, (int*)buf) == 0) {
         t = -1;
-        mErr = Helper(b, (int*)buf, &t);
+        error = FUN_0026f4b0((void*)(hulk_intptr)b, buf, &t);
     } else {
-        mErr = Helper(b, (int*)buf, a);
+        error = FUN_0026f4b0((void*)(hulk_intptr)b, buf, a);
     }
-    return mErr == 0;
+    return error == 0;
 }

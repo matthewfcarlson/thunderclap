@@ -1,3 +1,4 @@
+#include "decls/data/records.h"
 namespace core {
 class Source {
   public:
@@ -9,18 +10,14 @@ class Source {
     virtual void f5();
     virtual signed char f6();
 };
-class File {
+}
+// core::File::vfunc_24 (records.h CoreFile): the file's name, unless the drive's type (slot 6) has bit 7 set
+class File_2762a0 : public CoreFile {
   public:
-    virtual void vfunc_24();
-    char pad[8];
-    Source* source;
-    char gap[14];
-    char rest[18];
     void* access();
 };
-void* File::access() {
-    if (source->f6() & 0x80)
+void* File_2762a0::access() {
+    if (((core::Source*)provider)->f6() & 0x80)
         return 0;
-    return this->rest;
+    return this->filename;
 }
-} // namespace core

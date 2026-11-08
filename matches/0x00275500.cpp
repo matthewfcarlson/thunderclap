@@ -1,51 +1,44 @@
-#include "compat/ptr.h"
 #include "decls/data/engine/core.h"
-// data: gObject_275500 = DAT_0052a1e4
+#include "decls/data/records.h"
+// data: the "FileRequest" pool = DAT_0052a1e4, its lock = DAT_0052a1c8
 
+struct Lock_275500 {
+    virtual void lock();
+    virtual void unlock();
+};
+struct Ref_275500 {
+    virtual void v0();
+    virtual void release();
+};
+struct Alloc_275500 {
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void free(void*);
+};
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b99c[];
-struct Owner_275500 {
-    virtual void A();
-    virtual void B();
-    virtual void C();
-    virtual void D();
-    virtual void E(void*);
-    virtual void F();
-    virtual void G();
-};
-struct Inner_275500 {
-    virtual void A();
-    virtual void B();
-    virtual void C();
-    virtual void D();
-    virtual void E();
-    virtual void F();
-    virtual void G();
-};
 extern "C" void __cdecl FUN_0026d850(void*);
 extern "C" void __cdecl FUN_0026d840(void*);
-namespace core { struct FileGetSizeRequest {
-    virtual FileGetSizeRequest* vfunc_0(int);
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual void vfunc_6();
-    char pad[4];
-    Owner_275500* owner;
-}; }
-core::FileGetSizeRequest* core::FileGetSizeRequest::vfunc_0(int flag) {
-    ((hulk_intptr*)this)[0] = ((hulk_intptr)DAT_0042b99c);
-    ((Inner_275500*)((char*)owner + 4))->A();
-    --(*(int*)((char*)owner + 0x18));
-    ((Inner_275500*)((char*)owner + 4))->B();
-    owner->B();
-    ((hulk_intptr*)this)[0] = ((hulk_intptr)DAT_0042b914);
-    if (flag & 1) {
-        FUN_0026d850((void*)((hulk_intptr)((char*)&DAT_0052a1c8)));
-        (*(Owner_275500**)&DAT_0052a1e4)->E(this);
-        FUN_0026d840((void*)((hulk_intptr)((char*)&DAT_0052a1c8)));
+// core::FileGetSizeRequest's deleting destructor (records.h CoreRequest): core::FileRequest's part (one request less pending
+// on the file, CoreFile field18, under its IMutable lock; the file's reference released), then core::Request's; the
+// memory goes back to the "FileRequest" pool
+class FileGetSizeRequest_275500 : public CoreRequest {
+  public:
+    FileGetSizeRequest_275500* f0(unsigned char flags);
+};
+FileGetSizeRequest_275500* FileGetSizeRequest_275500::f0(unsigned char flags) {
+    vftable = DAT_0042b99c;
+    ((Lock_275500*)&((CoreFile*)file)->vftableMutable)->lock();
+    --((CoreFile*)file)->field18;
+    ((Lock_275500*)&((CoreFile*)file)->vftableMutable)->unlock();
+    ((Ref_275500*)file)->release();
+    vftable = DAT_0042b914;
+    if (flags & 1) {
+        FUN_0026d850(((char*)&DAT_0052a1c8));
+        (*(Alloc_275500**)&DAT_0052a1e4)->free(this);
+        FUN_0026d840(((char*)&DAT_0052a1c8));
     }
     return this;
 }

@@ -1,21 +1,22 @@
 #include "compat/ptr.h"
+#include "decls/data/records.h"
 extern "C" char DAT_0042baa0[];
-typedef unsigned int u32_275230;
-class FileRequest_275230 {
+extern "C" int* FUN_002705f0();
+// core::FileReadRequest (records.h CoreRequest, then buffer, count, flags): core::FileRequest's constructor 0x00274e60 first, then its own vftable
+class FileReadRequest_275230 : public CoreRequest {
   public:
-    int pad[3];
-    FileRequest_275230(u32_275230);
+    void* buffer;
+    unsigned int count;
+    unsigned int flags;
+    CoreRequest* FUN_00274e60(hulk_uintptr);
+    FileReadRequest_275230* Init(void*, void*, unsigned int, unsigned int);
 };
-extern void Finish();
-class FileReadRequest : public FileRequest_275230 {
-  public:
-    int a, b, c;
-    FileReadRequest(hulk_uintptr, u32_275230, u32_275230, u32_275230);
-};
-FileReadRequest::FileReadRequest(hulk_uintptr x, u32_275230 y, u32_275230 z, u32_275230 w) : FileRequest_275230(x) {
-    *(hulk_uintptr*)this = ((hulk_intptr)DAT_0042baa0);
-    a = y;
-    b = z;
-    c = w;
-    Finish();
+FileReadRequest_275230* FileReadRequest_275230::Init(void* file, void* buffer_, unsigned int count_, unsigned int flags_) {
+    FUN_00274e60((hulk_uintptr)file);
+    vftable = DAT_0042baa0;
+    buffer = buffer_;
+    count = count_;
+    flags = flags_;
+    FUN_002705f0();
+    return this;
 }

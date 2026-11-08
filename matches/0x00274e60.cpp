@@ -1,35 +1,30 @@
 #include "compat/ptr.h"
+#include "decls/data/records.h"
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b99c[];
-typedef unsigned int u32_274e60;
 struct Inner_274e60 {
     virtual void a();
     virtual void b();
 };
 struct File {
     virtual void a();
-    char pad[0x14];
-    int count;
 };
-struct Request {
-    hulk_uintptr vf;
-    u32_274e60 field;
-    File* file;
+extern "C" int* FUN_002705f0();
+// core::FileRequest's constructor (records.h CoreRequest): a reference to the file (slot 0) and one more pending
+// request on it (CoreFile field18, under its IMutable lock)
+struct FileRequest_274e60 : CoreRequest {
+    CoreRequest* run(hulk_uintptr arg);
 };
-void init();
-struct FileRequest_274e60 : Request {
-    Request* run(hulk_uintptr arg);
-};
-Request* FileRequest_274e60::run(hulk_uintptr arg) {
-    vf = ((hulk_intptr)DAT_0042b914);
-    field = 0;
-    init();
-    vf = ((hulk_intptr)DAT_0042b99c);
-    file = (File*)arg;
-    init();
-    ((Inner_274e60*)((char*)file + 4))->a();
-    ++file->count;
-    ((Inner_274e60*)((char*)file + 4))->b();
-    file->a();
+CoreRequest* FileRequest_274e60::run(hulk_uintptr arg) {
+    vftable = DAT_0042b914;
+    next = 0;
+    FUN_002705f0();
+    vftable = DAT_0042b99c;
+    file = (void*)arg;
+    FUN_002705f0();
+    ((Inner_274e60*)&((CoreFile*)file)->vftableMutable)->a();
+    ++((CoreFile*)file)->field18;
+    ((Inner_274e60*)&((CoreFile*)file)->vftableMutable)->b();
+    ((File*)file)->a();
     return this;
 }

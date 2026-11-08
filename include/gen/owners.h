@@ -14918,18 +14918,20 @@ struct C_26e470 {
     void helper(void*, unsigned int);
     void FUN_0026e470(hulk_uintptr, char*);
 };
-// equivalent/0x00270020.cpp (stub Pool_270020), size 0x34 (0x48)
+// equivalent/0x00270020.cpp (stub Pool_270020), size 0x34 (0x58)
 struct Pool_270020 {
-    char pad0[0x10]; // +0x00
-    void* freeHead; // +0x10
-    void* owner; // +0x14 (+0x18)
-    void* blocks; // +0x18 (+0x20)
-    hulk_uintptr stride; // +0x1c (+0x28)
-    unsigned count; // +0x20 (+0x30)
-    unsigned flags; // +0x24 (+0x34)
-    unsigned zero28; // +0x28 (+0x38)
-    unsigned zero2c; // +0x2c (+0x3c)
-    unsigned zero30; // +0x30 (+0x40)
+    const void* vftable; // +0x00
+    struct { const void* vftable; int heap; } object; // +0x00
+    int refs; // +0x0c (+0x18)
+    void* freeHead; // +0x10 (+0x20)
+    void* owner; // +0x14 (+0x28)
+    void* blocks; // +0x18 (+0x30)
+    unsigned stride; // +0x1c (+0x38)
+    unsigned count; // +0x20 (+0x3c)
+    unsigned flags; // +0x24 (+0x40)
+    unsigned zero28; // +0x28 (+0x44)
+    unsigned zero2c; // +0x2c (+0x48)
+    void* zero30; // +0x30 (+0x50)
     void FUN_00270020(void* buffer, unsigned itemSize, unsigned itemCount, unsigned flagsValue, void* allocator, hulk_uintptr unused6, unsigned itemAdjustment);
 };
 // matches/0x002728d0.cpp (stub ProjectileMissile), size 0x60

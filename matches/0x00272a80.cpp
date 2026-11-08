@@ -1,19 +1,19 @@
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+
 class Inner_272a80 {
   public:
     virtual void A();
     virtual void B();
 };
-class Obj_272a80 {
+// core::Drive (records.h CoreDrive): the active flag, under the IMutable lock at +0xc
+class Obj_272a80 : public CoreDrive {
   public:
-    char pad[0xc];
-    Inner_272a80 p;
-    char pad2[0x54 - 0x10];
-    unsigned char value;
     unsigned char target();
 };
 unsigned char Obj_272a80::target() {
-    p.A();
-    unsigned char v = value;
-    p.B();
+    ((Inner_272a80*)&vftableMutable)->A();
+    unsigned char v = active;
+    ((Inner_272a80*)&vftableMutable)->B();
     return v;
 }

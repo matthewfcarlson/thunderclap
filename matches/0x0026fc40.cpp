@@ -1,41 +1,22 @@
-class XboxDrive {
+#include "decls/data/records.h"
+
+// core::XboxDrive::vfunc_17 (records.h CoreXboxDrive): opens a directory (0x0026f330 makes the device path,
+// 0x0026f3e0 converts the XAPI error)
+class XboxDrive_26fc40 : public CoreXboxDrive {
   public:
-    virtual int f0();
-    virtual int f1();
-    virtual int f2();
-    virtual int f3();
-    virtual int f4();
-    virtual int f5();
-    virtual int f6();
-    virtual int f7();
-    virtual int f8();
-    virtual int f9();
-    virtual int f10();
-    virtual int f11();
-    virtual int f12();
-    virtual int f13();
-    virtual int f14();
-    virtual int f15();
-    virtual int f16();
-    virtual int vfunc_17(const char*);
-    virtual int f18();
-    virtual int f19();
-    virtual int f20();
-    virtual int f21();
-    char pad[0xb0];
-    int err;
-    int helper(const char*, char*, int);
-    int seterr(unsigned int);
+    int vfunc_17(const char*);
+    void FUN_0026f330(const char*, char*, int);
+    unsigned int FUN_0026f3e0(unsigned int);
 };
 extern int __stdcall FUN_0021257d(char*);
 extern unsigned int __stdcall GetLastError();
-int XboxDrive::vfunc_17(const char* path) {
+int XboxDrive_26fc40::vfunc_17(const char* path) {
     char buf[0x101];
-    int r = helper(path, buf, 0x101);
+    FUN_0026f330(path, buf, 0x101);
     if (FUN_0021257d(buf)) {
-        err = 0;
+        drive.error = 0;
         return 1;
     }
-    err = seterr(GetLastError());
+    drive.error = FUN_0026f3e0(GetLastError());
     return 0;
 }

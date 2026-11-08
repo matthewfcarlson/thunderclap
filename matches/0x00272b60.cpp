@@ -1,14 +1,17 @@
 #include "compat/ptr.h"
+#include "decls/data/records.h"
+
+// the drive thread's queue (0x00272fc0: the request, its priority, to the front; its result is the semaphore
+// release's, which the requests return)
 class B_272b60 {
   public:
-    int f(int, int, int);
+    int FUN_00272fc0(void*, int, char);
 };
-class A_272b60 {
+// core::Drive (records.h CoreDrive): queues a request on its drive thread
+class A_272b60 : public CoreDrive {
   public:
-    char pad[0xb8];
-    B_272b60* p;
-    int run(hulk_intptr, int, int);
+    int run(void*, int, int);
 };
-int A_272b60::run(hulk_intptr a0, int a1, int a2) {
-    return p->f(a0, a1, a2);
+int A_272b60::run(void* a0, int a1, int a2) {
+    return ((B_272b60*)driveThread)->FUN_00272fc0(a0, a1, (char)a2);
 }

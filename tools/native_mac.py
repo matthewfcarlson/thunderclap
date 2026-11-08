@@ -336,6 +336,12 @@ def norm(d):
     return re.sub(r"\s+", " ", CC_RX.sub("", d)).replace(" ,", ",").replace(" )", ")").replace("( ", "(").strip()
 
 
+def loose(d):
+    """A normalized demangled name with the pointer-sized integers of include/compat/ptr.h said as the i686 build
+    says them (`__int64` -> `int`): TreeDefs' fallback key, used only when the exact form matches nothing."""
+    return d.replace("unsigned __int64", "unsigned int").replace("__int64", "int")
+
+
 def c_plain32(s):
     """An i686 C symbol -> the C identifier (cdecl `_f`, stdcall `_f@8`, fastcall `@f@8`)."""
     m = re.match(r"^[_@]?([A-Za-z_$][\w$]*?)(@\d+)?$", s)
@@ -577,8 +583,11 @@ class TreeDefs:
         self.dem32 = cp.undname(sorted({v[0] for v in self.by_addr.values() if v[0].startswith("?")}))
         dem64 = cp.undname(sorted(s for s in defined64 if s.startswith("?")))
         self.by_key64 = collections.defaultdict(set)
+        self.by_loose64 = collections.defaultdict(set)
         for s_ in defined64:
             self.by_key64[norm(dem64.get(s_, s_)) if s_.startswith("?") else s_].add(s_)
+            if s_.startswith("?"):
+                self.by_loose64[loose(norm(dem64.get(s_, s_)))].add(s_)
 
     def sym64(self, addr):
         sym, _tu = self.by_addr.get(addr, (None, None))
@@ -586,6 +595,10 @@ class TreeDefs:
             return None
         k = norm(self.dem32.get(sym, sym)) if sym.startswith("?") else c_plain32(sym)
         c = self.by_key64.get(k, set())
+        if not c and sym.startswith("?"):
+            # (boot1) a definition whose signature spells a pointer-sized integer (hulk_intptr / hulk_uintptr:
+            # `int` on i686, `__int64` on 64-bit) has another demangled form on each side
+            c = self.by_loose64.get(loose(k), set())
         return next(iter(c)) if len(c) == 1 else None
 
 

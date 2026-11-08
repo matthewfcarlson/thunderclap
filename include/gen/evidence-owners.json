@@ -53204,58 +53204,68 @@
    "addr": "0x00270020",
    "aliases": 2,
    "members": [
-    "char pad0[0x10];",
+    "const void* vftable;",
+    "struct { const void* vftable; int heap; } object;",
+    "int refs;",
     "void* freeHead;",
     "void* owner;",
     "void* blocks;",
-    "hulk_uintptr stride;",
+    "unsigned stride;",
     "unsigned count;",
     "unsigned flags;",
     "unsigned zero28;",
     "unsigned zero2c;",
-    "unsigned zero30;",
+    "void* zero30;",
     "void FUN_00270020(void* buffer, unsigned itemSize, unsigned itemCount, unsigned flagsValue, void* allocator, hulk_uintptr unused6, unsigned itemAdjustment);"
    ],
    "offsets": {
     "blocks": [
      24,
-     32
+     48
     ],
     "count": [
      32,
-     48
+     60
     ],
     "flags": [
      36,
-     52
+     64
     ],
     "freeHead": [
      16,
-     16
+     32
+    ],
+    "object": [
+     4,
+     8
     ],
     "owner": [
      20,
-     24
+     40
     ],
-    "pad0": [
-     0,
-     0
+    "refs": [
+     12,
+     24
     ],
     "stride": [
      28,
-     40
+     56
+    ],
+    "vftable": [
+     0,
+     0
     ],
     "zero28": [
      40,
-     56
+     68
     ],
     "zero2c": [
      44,
-     60
+     72
     ],
     "zero30": [
      48,
-     64
+     80
     ]
    },
    "reconciled": {
@@ -53266,7 +53276,7 @@
    },
    "size": [
     52,
-    72
+    88
    ],
    "source": "equivalent/0x00270020.cpp",
    "stub": "Pool_270020"

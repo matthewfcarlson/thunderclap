@@ -13,7 +13,7 @@ class PoolOther {
 void core::MemoryPool::vfunc_4(void* __p0) { unsigned int * p = (unsigned int *)__p0;
 
     hulk_uintptr a = (hulk_uintptr)p;
-    unsigned int b = this->f_18;
+    hulk_uintptr b = this->f_18;
     if (a >= b && a < (*(unsigned int *)&this->f_20) * (*(unsigned int *)&this->f_1c) + b) {
         *(hulk_uintptr*)p = (hulk_uintptr)(*(unsigned int * *)&this->f_10);
         (*(unsigned int * *)&this->f_10) = p;

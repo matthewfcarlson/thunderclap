@@ -1,10 +1,6 @@
-// Same code shape as 0x00059a30 (propagated; names are from that function)
-class Obj_2762f0 {
-    char pad[0x10];
-
-  public:
-    unsigned int value;
-};
+#include "decls/data/records.h"
+// core::File (records.h CoreFile): its key
+typedef CoreFile Obj_2762f0;
 unsigned int __fastcall FUN_002762f0(Obj_2762f0* self) {
-    return self->value;
+    return self->key;
 }

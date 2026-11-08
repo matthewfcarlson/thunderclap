@@ -1,19 +1,19 @@
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+
 class Inner_272a20 {
   public:
     virtual void A();
     virtual void B();
 };
-class Obj_272a20 {
+// core::Drive (records.h CoreDrive): the state, under the IMutable lock at +0xc
+class Obj_272a20 : public CoreDrive {
   public:
-    char pad[0xc];
-    Inner_272a20 inner;
-    char pad2[0x30];
-    int value;
     int target();
 };
 int Obj_272a20::target() {
-    inner.A();
-    int v = value;
-    inner.B();
+    ((Inner_272a20*)&vftableMutable)->A();
+    int v = state;
+    ((Inner_272a20*)&vftableMutable)->B();
     return v;
 }

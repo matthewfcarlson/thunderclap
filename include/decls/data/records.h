@@ -1569,4 +1569,95 @@ struct MoviePlayerBink {
     MoviePlayerBinkTrack tracks[6];         // +0x044
 };
 
+// core::MemoryPool (0x00270170 constructs it, 0x0026ff90 destroys it; vftables 0x0042b5b4 / +4 0x0042b5ac): a pool
+// of equal-sized items. 0x002702a0 allocates one (0x34 bytes) and 0x00270020 sets it up: the items are carved out
+// of one block of the heap and linked through their first word; vfunc_13 0x002701d0 pops one (and creates a child
+// pool of growCount items when the pool is empty), vfunc_4 0x002700b0 pushes it back (or hands it to the child).
+// include/gen/core.h's core::MemoryPool (f_04 .. f_30) and owners::Pool_270020 have this layout on every target.
+struct CoreObjectBase {
+    const void* vftable;                    // +0x00 core::BaseObject / core::Object / core::RefCount
+    int heap;                               // +0x04 DAT_004cdbb0 at construction (the destructors restore it)
+};
+struct CoreMemoryPool {
+    const void* vftable;                    // +0x00 core::IRefCount / core::IMemoryPool / core::MemoryPool
+    CoreObjectBase object;                  // +0x04 the core::RefCount base (a base class: on the 64-bit MS ABI the
+                                            //       members after it start past its rounded size, as gen's f_0c)
+    int refs;                               // +0x0c (vfunc_0 0x0026fff0 increments)
+    void* freeHead;                         // +0x10 the first free item (0x00270020 links them, 0x002701d0 / 0x002700b0)
+    int heap;                               // +0x14 the heap id the block and the child come from (0x00270020;
+                                            //       0x0026ff90 frees the block with 0x00266f20)
+    char* blocks;                           // +0x18 the items' block (0x00266eb0's result; 0x002700b0 / 0x002700f0
+                                            //       compare an address with it)
+    unsigned int stride;                    // +0x1c the item size rounded up to the alignment (0x0026fd50)
+    unsigned int count;                     // +0x20 items in the block
+    unsigned int growCount;                 // +0x24 items of a child pool (0: the pool does not grow)
+    unsigned int live;                      // +0x28 items handed out (0x002701d0 increments, 0x002700b0 decrements)
+    unsigned int peak;                      // +0x2c the most items handed out at once
+    void* child;                            // +0x30 the child core::MemoryPool (0x002701d0 creates it)
+};
+
+// The file system's drive registry (0x002709b0 clears it, 0x00270c10 finds a drive by name, 0x00270c80 / 0x00270d40
+// add one, 0x002710d0 opens a file through one, 0x00270f90 / 0x00271070 unmount): 26 entries, the count at
+// 0x0052a128, the current drive's name at 0x0052a10c, all under the critical section 0x0052a0f0.
+struct CoreDriveRegistryEntry {
+    char name[16];                          // +0x000 the drive's name, lower case
+    char terminator;                        // +0x010
+    char pad11[3];                          // +0x011
+    void* drive;                            // +0x014 the core::Drive mounted (0x00277260's result; 0 unmounted)
+    char details[0x104];                    // +0x018 the drive's source directory (0x00270d40 copies 0x100 bytes;
+                                            //        0x00270e60 returns it; 0x002709b0 clears its first byte)
+};
+extern "C" CoreDriveRegistryEntry DAT_00528418[26];
+
+// core::File's view of its cement library entry (0x00277c00 clears the first 11 words, 0x00277c40 sets it up with
+// the library it references, 0x00277d00 reads through it)
+struct CoreFileView {
+    void* resource;                         // +0x00 the core::CementLibrary (0x00277c40 adds a reference, slot 0)
+    unsigned int words[12];                 // +0x04 offsets, sizes and positions (0x00277c40, 0x00277d00)
+};
+
+// core::File (0x002764d0 constructs it; vftables 0x0042bd3c / +4 0x0042bd30): an open file, from the "File" pool
+// (0x00275d20 creates it with this item size, 0x00275d50 allocates). include/gen/core.h's core::File has this layout
+// on every target (its +0x12c word is the view's pointer: include/gen/evidence-rn.json "fields").
+struct CoreFile {
+    const void* vftable;                    // +0x000 core::IFile / core::File
+    const void* vftableMutable;             // +0x004 core::IMutable
+    unsigned int refs;                      // +0x008 (1 at construction)
+    void* provider;                         // +0x00c the core::Drive it was opened on
+    unsigned int key;                       // +0x010
+    unsigned int field14;                   // +0x014
+    unsigned int field18;                   // +0x018
+    unsigned char flag1c;                   // +0x01c
+    unsigned char flag1d;                   // +0x01d the open mode
+    char filename[0x101];                   // +0x01e
+    char pad11f;                            // +0x11f
+    unsigned int field120;                  // +0x120
+    unsigned int field124;                  // +0x124
+    unsigned int field128;                  // +0x128
+    CoreFileView view;                      // +0x12c
+    unsigned char field160;                 // +0x160
+    char pad161[3];                         // +0x161
+    unsigned int field164;                  // +0x164 (0x800 at construction)
+};
+
+// core::Request (vftable 0x0042b914): the base of every request a drive thread runs (0x00273560 allocates them from
+// the "FileRequest" pool). The drive thread's queues link them through `next` (0x00272fc0, 0x00273140, 0x002731d0);
+// core::FileRequest (0x00274e60) adds the core::File it works on (a reference, and one more pending request on it).
+struct CoreRequest {
+    const void* vftable;                    // +0x00
+    void* next;                             // +0x04 the queue link (0 at construction)
+    void* file;                             // +0x08 core::FileRequest: the core::File (core::DriveRequest: its drive)
+};
+
+// core::CompletionCallbackRequest (vftable 0x0042b9dc) and core::FileCompletionRequest (0x00274ca0 constructs it,
+// vftable 0x0042b954): a request that calls back on the thread that queued it, after the requests before it
+struct CoreCompletionRequest {
+    const void* vftable;                    // +0x00
+    void* next;                             // +0x04 the queue link (CoreRequest)
+    void* thread;                           // +0x08 the queuing thread's CoreThread (0x0026dbb0's result)
+    void* file;                             // +0x0c the core::File (a reference; one more pending request on it)
+    void* callback;                         // +0x10 the callback object (a reference, slot 0)
+    unsigned int context;                   // +0x14 passed back to the callback
+};
+
 #endif
