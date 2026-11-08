@@ -1342,9 +1342,17 @@ variants, so `Result_272fc0` is `int` only under `HULK_PTR64`).
 
 ### Not done (follow-ups)
 
-0x002786f0 (XboxSaveDrive's IMutable slot 2: HEAD's source is a compiler-generated adjustor thunk of an invented
-class, byte-matching but adjusting by the invented layout on 64-bit; a user-written `this - 0xc` compiles to `add
-ecx, -0xc`: a candidate to move to equivalent/, which needs the user's OK); DriveCompletionRequest 0x00273780 /
+**0x002786f0** (XboxSaveDrive's IMutable slot 2) byte-matches only as a compiler-generated adjustor thunk of an
+invented class (a written `this - 0xc` compiles to `add ecx, -0xc`), which on 64-bit adjusts by the invented layout and
+jumps to an unbound name. The source keeps that form under `#if !defined(HULK_PTR64)` (the MSVC and clang i686
+objects are unchanged: compare MATCH, the i686 object's code, relocations and symbols identical) and on 64-bit defines
+the thunk explicitly as `Thunk_2786f0::FUN_002786f0`: back from the IMutable sub-object by
+`offsetof(CoreXboxSaveDrive, drive.vftableMutable)`, then the deleting destructor `FUN_00278a80`. The top-level `#if`
+makes gen_tree wrap the TU ("macros"). The vftable slot binds through a third `TreeDefs` key in tools/native_mac.py:
+a definition named by its own address (`FUN_<addr>`), when neither demangled form matches.
+
+
+DriveCompletionRequest 0x00273780 /
 0x002737a0; the cement read 0x00278010 (owners `Obj_278010`, pointers through `int`); FileRequest::vfunc_2
 0x00273860 (compares a file pointer with an `int`); core::ConsoleClient's record (reg6) has the RefCount base
 flattened (64-bit offsets differ from the MS ABI's); XboxSaveDrive's save state `DAT_0052c270` is a packed DataRec the

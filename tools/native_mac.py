@@ -584,10 +584,14 @@ class TreeDefs:
         dem64 = cp.undname(sorted(s for s in defined64 if s.startswith("?")))
         self.by_key64 = collections.defaultdict(set)
         self.by_loose64 = collections.defaultdict(set)
+        self.by_own_addr = collections.defaultdict(set)   # definitions named by their own address (FUN_<addr>)
         for s_ in defined64:
             self.by_key64[norm(dem64.get(s_, s_)) if s_.startswith("?") else s_].add(s_)
             if s_.startswith("?"):
                 self.by_loose64[loose(norm(dem64.get(s_, s_)))].add(s_)
+            m_ = re.match(r"^\??FUN_(00[0-9a-f]{6})(?:@|$)", s_)
+            if m_:
+                self.by_own_addr[int(m_.group(1), 16)].add(s_)
 
     def sym64(self, addr):
         sym, _tu = self.by_addr.get(addr, (None, None))
@@ -599,6 +603,10 @@ class TreeDefs:
             # (boot1) a definition whose signature spells a pointer-sized integer (hulk_intptr / hulk_uintptr:
             # `int` on i686, `__int64` on 64-bit) has another demangled form on each side
             c = self.by_loose64.get(loose(k), set())
+        if not c:
+            # (boot1) a source whose 64-bit branch defines the function under its own address (0x002786f0: the 32-bit
+            # object is a compiler-generated adjustor thunk, which no explicit 64-bit function can be named as)
+            c = self.by_own_addr.get(addr, set())
         return next(iter(c)) if len(c) == 1 else None
 
 
