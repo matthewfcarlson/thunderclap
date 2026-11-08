@@ -1,15 +1,15 @@
-struct L;
-float __cdecl GetNum(L* l, int idx, int def);
-float* __cdecl NewUData(L* l, int size);
-void __cdecl SetMeta(L* l, const char* name);
-void __cdecl Pop(L* l, int n);
-extern "C" int FUN_001d0620(L* l) {
-    float x = GetNum(l, 1, 0);
-    float y = GetNum(l, 2, 0);
-    float z = GetNum(l, 3, 0);
-    float* v = NewUData(l, 12);
-    SetMeta(l, "Vector");
-    Pop(l, -2);
+#include "decls/data/lua.h"
+extern "C" float __cdecl FUN_00339f40(LuaVMState* L, int narg, float def);
+extern "C" void* __cdecl FUN_00213d30(LuaVMState* L, unsigned int size);
+extern "C" void __cdecl FUN_00338f30(LuaVMState* L, const char* tname);
+extern "C" int __cdecl FUN_002138e0(LuaVMState* L, int objindex);
+extern "C" int __cdecl FUN_001d0620(LuaVMState* L) {
+    float x = FUN_00339f40(L, 1, 0.0f);
+    float y = FUN_00339f40(L, 2, 0.0f);
+    float z = FUN_00339f40(L, 3, 0.0f);
+    float* v = (float*)FUN_00213d30(L, 12);
+    FUN_00338f30(L, "Vector");
+    FUN_002138e0(L, -2);
     v[0] = x;
     v[1] = y;
     v[2] = z;

@@ -7106,9 +7106,7 @@ extern "C" const char DAT_00422404[7];  // s_Vector_00422404
 extern "C" const char DAT_0042240c[14];  // s_invalid_index_0042240c
 extern "C" const char DAT_0042241c[32];  // s_invalid_subscript_in_0042241c
 extern "C" const float DAT_0042243c[7];  // fltTbl_0042243c
-extern "C" const char DAT_00422458[4];  // s_h_B_00422458
-extern "C" hulk_code_ptr const DAT_0042245c;  // PTR_0042245c
-extern "C" const unsigned int DAT_00422460[2];  // zero_00422460
+extern "C" const void* const DAT_00422458[4];  // struct_00422458
 extern "C" const char DAT_00422474[24];  // s_HC_ANONYMOUS_COROUTI_00422474
 extern "C" const char DAT_0042248c[3];  // s_empty_0042248c
 extern "C" const char DAT_00422490[21];  // s_in_function_s_d_00422490

@@ -1,37 +1,37 @@
+#include "compat/ptr.h"
+#include "decls/data/lua.h"
 #include "gen/owners.h"
-struct Obj;
-void* __cdecl Alloc(int n);
-struct Closure1_1d45f0 {
-    Closure1_1d45f0* Init(int a, int b, int c);
+extern "C" void* __cdecl FUN_0008d690(int x);
+extern "C" int __cdecl FUN_001d22a0(LuaVMState* L);
+extern "C" void __cdecl FUN_00213550(LuaVMState* L, void* p);
+extern "C" void __cdecl FUN_002134a0(LuaVMState* L, LuaVMCFunction fn, int n);
+extern "C" void __cdecl FUN_00213790(LuaVMState* L, int idx, const char* k);
+inline void* operator new(hulk_uintptr, void* p) throw() {
+    return p;
+}
+// 0x001d4170 (matches/0x001d4170.cpp): the closure's constructor.
+class Closure1_1d4170 {
+  public:
+    Closure1_1d4170(void* x, void* y, void* z);
 };
-struct List_1d45f0 {
-    void Add(Closure1_1d45f0* n);
+// 0x001d1180 (equivalent/0x001d1180.cpp): the handler's sorted list of closures.
+struct Entry_1d1180;
+class SortedList {
+  public:
+    bool FUN_001d1180(Entry_1d1180* e);
 };
-void __cdecl FnA(int a, Closure1_1d45f0* n);
-void __cdecl FnB(int a, void* f, int c);
-void __cdecl FnC(int a, int b, int c);
-void Cb();
-
 struct Owner_1d45f0 {
-    int pad0;
-    int pad1;
-    int mHandle;
-    List_1d45f0 mList;
-    void Create(int a, int b, int c);
+    char pad[8];
+    LuaVMState* L;    // 0x08
+    SortedList list;  // 0x0c
+    void FUN_001d45f0(const char* a, void* b, void* c);
 };
-
-void Owner_1d45f0::Create(int a, int b, int c) {
-    Closure1_1d45f0* mem = (Closure1_1d45f0*)Alloc(0x24);
-    Closure1_1d45f0* n;
-    if (mem) {
-        n = mem->Init(a, b, c);
-    } else {
-        n = 0;
-    }
-    ((owners::CAgent_1d04b0 *)n)->FUN_001d04b0((hulk_intptr)a);
-    mList.Add(n);
-    int h = mHandle;
-    FnA(h, n);
-    FnB(h, (void*)Cb, 1);
-    FnC(h, -10001, a);
+void Owner_1d45f0::FUN_001d45f0(const char* a, void* b, void* c) {
+    Closure1_1d4170* n = new (FUN_0008d690(0x24)) Closure1_1d4170((void*)a, b, c);  // 0x24: 32-bit size of Closure1_1d4170
+    ((owners::CAgent_1d04b0*)n)->FUN_001d04b0((hulk_intptr)a);
+    list.FUN_001d1180((Entry_1d1180*)n);
+    LuaVMState* m = L;
+    FUN_00213550(m, n);
+    FUN_002134a0(m, FUN_001d22a0, 1);
+    FUN_00213790(m, -10001, a);
 }

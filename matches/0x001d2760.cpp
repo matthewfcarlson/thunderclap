@@ -1,18 +1,18 @@
-typedef unsigned char u8;
-typedef unsigned int u32_1d2760;
-struct Object {
+#include "decls/data/lua.h"
+extern "C" void __cdecl FUN_002151e0(LuaVMState* L);
+struct Object_1d2760 {
     char pad[8];
-    u32_1d2760 member;
+    LuaVMState* L;  // 0x08
     char pad2[0x1064 - 12];
-    u8 flag;
+    unsigned char flag;  // 0x1064
+    void FUN_001d2760();
 };
-void ReleaseThing(u32_1d2760);
-void __fastcall FUN_001d2760(Object* self) {
-    if (self->flag) {
-        if (self->member) {
-            ReleaseThing(self->member);
-            self->member = 0;
+void Object_1d2760::FUN_001d2760() {
+    if (flag) {
+        if (L) {
+            FUN_002151e0(L);
+            L = 0;
         }
-        self->flag = 0;
+        flag = 0;
     }
 }

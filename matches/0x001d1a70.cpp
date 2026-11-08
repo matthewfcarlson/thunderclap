@@ -1,18 +1,19 @@
+#include "decls/data/lua.h"
+extern "C" int __cdecl FUN_00212f00(LuaVMState* L, int idx);
+extern "C" float __cdecl FUN_002130e0(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_00212d80(LuaVMState* L, int idx);
 struct Owner_1d1a70 {
     char pad[8];
-    int value;
-    bool Target(float*);
+    LuaVMState* L;  // 0x08
+    bool FUN_001d1a70(float*);
 };
-int __cdecl ReadState(int, int);
-float __cdecl ReadAmount(int, int);
-void __cdecl FinishState(int, int);
-bool Owner_1d1a70::Target(float* out) {
+bool Owner_1d1a70::FUN_001d1a70(float* out) {
     bool result = true;
-    int state = ReadState(value, -1);
+    int state = FUN_00212f00(L, -1);
     if (state != 3)
         result = false;
     else
-        *out = ReadAmount(value, -1);
-    FinishState(value, -2);
+        *out = FUN_002130e0(L, -1);
+    FUN_00212d80(L, -2);
     return result;
 }

@@ -1,14 +1,15 @@
-void ReleaseThing(void*);
+#include "decls/data/lua.h"
+extern "C" void __cdecl FUN_002151e0(LuaVMState* L);
 class Obj_1d2700 {
     char pad[8];
-    void* mPtr;
+    LuaVMState* mL;  // 0x08
 
   public:
-    void Clear();
+    void FUN_001d2700();
 };
-void Obj_1d2700::Clear() {
-    if (mPtr) {
-        ReleaseThing(mPtr);
-        mPtr = 0;
+void Obj_1d2700::FUN_001d2700() {
+    if (mL) {
+        FUN_002151e0(mL);
+        mL = 0;
     }
 }

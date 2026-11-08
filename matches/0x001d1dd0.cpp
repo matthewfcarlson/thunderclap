@@ -1,10 +1,13 @@
+#include "decls/data/lua.h"
 #include "gen/owners.h"
-extern "C" void __cdecl F1(int, int);
-extern "C" void __cdecl F2(int, float);
-extern "C" void __cdecl F3(int, int);
+extern "C" void __cdecl FUN_002133d0(LuaVMState* L, const char* s);
+extern "C" void __cdecl FUN_00213340(LuaVMState* L, float n);
+extern "C" void __cdecl FUN_00213800(LuaVMState* L, int idx);
+// field (include/gen/owners.h Obj_1d1dd0 +0x08) is the lua_State, an int member there, and a (the key string) a
+// hulk_intptr there: cast at the use.
 bool owners::Obj_1d1dd0::FUN_001d1dd0(hulk_intptr a, int b) {
-    F1(field, ((int)a));
-    F2(field, (float)b);
-    F3(field, -3);
+    FUN_002133d0((LuaVMState*)(hulk_intptr)field, (const char*)a);
+    FUN_00213340((LuaVMState*)(hulk_intptr)field, (float)b);
+    FUN_00213800((LuaVMState*)(hulk_intptr)field, -3);
     return true;
 }

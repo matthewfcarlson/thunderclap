@@ -1,33 +1,37 @@
+#include "compat/ptr.h"
+#include "decls/data/lua.h"
 #include "gen/owners.h"
-void* Alloc(int n);
-struct Node {
-    Node* Init_001d43b0(int a, int b, int c);
+extern "C" void* __cdecl FUN_0008d690(int x);
+extern "C" int __cdecl FUN_001d22a0(LuaVMState* L);
+extern "C" void __cdecl FUN_00213550(LuaVMState* L, void* p);
+extern "C" void __cdecl FUN_002134a0(LuaVMState* L, LuaVMCFunction fn, int n);
+extern "C" void __cdecl FUN_00213790(LuaVMState* L, int idx, const char* k);
+inline void* operator new(hulk_uintptr, void* p) throw() {
+    return p;
+}
+// 0x001d43b0 (matches/0x001d43b0.cpp): the closure's constructor.
+class Closure1_1d43b0 {
+  public:
+    Closure1_1d43b0(void* a, void* b, void* c);
 };
-struct Q_1d47c0 {
-    void Add(Node* n);
+// 0x001d1180 (equivalent/0x001d1180.cpp): the handler's sorted list of closures.
+struct Entry_1d1180;
+class SortedList {
+  public:
+    bool FUN_001d1180(Entry_1d1180* e);
 };
-struct Mgr_1d47c0 {};
-void Reg(Mgr_1d47c0*, Node*);
-void Cb(Mgr_1d47c0*, void (*)(), int);
-void Post(Mgr_1d47c0*, int, int);
-void Handler();
 struct Owner_1d47c0 {
     char pad[8];
-    Mgr_1d47c0* mgr;
-    Q_1d47c0 q;
-    void Fn(int a, int b, int c);
+    LuaVMState* L;    // 0x08
+    SortedList list;  // 0x0c
+    void FUN_001d47c0(const char* a, void* b, void* c);
 };
-void Owner_1d47c0::Fn(int a, int b, int c) {
-    Node* p = (Node*)Alloc(0x24);
-    Node* n;
-    if (p)
-        n = p->Init_001d43b0(a, b, c);
-    else
-        n = 0;
-    ((owners::CAgent_1d04b0 *)n)->FUN_001d04b0((hulk_intptr)a);
-    q.Add(n);
-    Mgr_1d47c0* m = mgr;
-    Reg(m, n);
-    Cb(m, (void (*)())Handler, 1);
-    Post(m, -10001, a);
+void Owner_1d47c0::FUN_001d47c0(const char* a, void* b, void* c) {
+    Closure1_1d43b0* n = new (FUN_0008d690(0x24)) Closure1_1d43b0((void*)a, b, c);  // 0x24: 32-bit size of Closure1_1d43b0
+    ((owners::CAgent_1d04b0*)n)->FUN_001d04b0((hulk_intptr)a);
+    list.FUN_001d1180((Entry_1d1180*)n);
+    LuaVMState* m = L;
+    FUN_00213550(m, n);
+    FUN_002134a0(m, FUN_001d22a0, 1);
+    FUN_00213790(m, -10001, a);
 }

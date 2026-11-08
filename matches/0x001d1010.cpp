@@ -1,18 +1,19 @@
+#include "decls/data/lua.h"
 float gZero_1d1010 = 0.0f;
-extern "C" void F135a0(int, int, int);
-extern "C" int F12f00(int, int);
-extern "C" void F12d80(int, int);
-extern "C" float F130e0(int, int);
-float __stdcall FUN_001d1010(int a, int b) {
-    if (a == 0)
+extern "C" void __cdecl FUN_002135a0(LuaVMState* L, int idx, const char* k);
+extern "C" int __cdecl FUN_00212f00(LuaVMState* L, int idx);
+extern "C" void __cdecl FUN_00212d80(LuaVMState* L, int idx);
+extern "C" float __cdecl FUN_002130e0(LuaVMState* L, int idx);
+float __stdcall FUN_001d1010(const char* name, LuaVMState* L) {
+    if (name == 0)
         return gZero_1d1010;
-    F135a0(b, -10001, a);
-    int r = F12f00(b, -1);
+    FUN_002135a0(L, -10001, name);
+    int r = FUN_00212f00(L, -1);
     if (r != 3) {
-        F12d80(b, -2);
+        FUN_00212d80(L, -2);
         return gZero_1d1010;
     }
-    float x = F130e0(b, -1);
-    F12d80(b, -2);
+    float x = FUN_002130e0(L, -1);
+    FUN_00212d80(L, -2);
     return x;
 }

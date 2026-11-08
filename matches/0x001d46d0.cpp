@@ -1,38 +1,52 @@
 #include "compat/ptr.h"
+#include "decls/data/lua.h"
 #include "gen/owners.h"
-extern "C" void __cdecl FUN_001d22a0();
+extern "C" void* __cdecl FUN_0008d690(int x);
+extern "C" int __cdecl FUN_001d22a0(LuaVMState* L);
+extern "C" void __cdecl FUN_00213550(LuaVMState* L, void* p);
+extern "C" void __cdecl FUN_002134a0(LuaVMState* L, LuaVMCFunction fn, int n);
+extern "C" void __cdecl FUN_00213790(LuaVMState* L, int idx, const char* k);
 extern "C" char DAT_00422810[];
+// 0x001d3250 (matches/0x001d3250.cpp): the base closure's initializer (name, function); returns this.
+class Method4_1d3250 {
+  public:
+    Method4_1d3250* Create(const char*, const char*);
+};
+// the closure this function builds (0x24 bytes on 32-bit): vftable DAT_00422810, the object at +0x20.
 struct Closure4_1d46d0 {
     void* vftable;
     char pad[0x1c];
-    int field20;
-    void init(int, int);
+    void* field20;  // 0x20
 };
-void* __cdecl alloc(hulk_uintptr);
-void __cdecl taskC(int, Closure4_1d46d0*);
-void __cdecl taskD(int, void*, int);
-void __cdecl taskE(int, int, int);
-struct List_1d46d0 {
-    void attach(Closure4_1d46d0*);
+// 0x001d1180 (equivalent/0x001d1180.cpp): the handler's sorted list of closures.
+struct Entry_1d1180;
+class SortedList {
+  public:
+    bool FUN_001d1180(Entry_1d1180* e);
 };
-struct ScriptHandler_1d46d0 {
+struct ScriptHandlerView_1d46d0 {
     char pad[8];
-    int x8;
-    List_1d46d0 list;
-    void target(hulk_intptr, hulk_intptr, hulk_intptr);
+    LuaVMState* L;    // 0x08
+    SortedList list;  // 0x0c
 };
-void ScriptHandler_1d46d0::target(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    Closure4_1d46d0* p = (Closure4_1d46d0*)alloc(0x24);
+// 0x001d4830 calls it as ScriptHandler::FUN_001d46d0("sh_CallFuncInGlobalState", this, FUN_001d4460).
+class ScriptHandler {
+  public:
+    void FUN_001d46d0(const char* name, ScriptHandler* obj, LuaVMCFunction fn);
+};
+void ScriptHandler::FUN_001d46d0(const char* name, ScriptHandler* obj, LuaVMCFunction fn) {
+    ScriptHandlerView_1d46d0* self = (ScriptHandlerView_1d46d0*)this;
+    Closure4_1d46d0* p = (Closure4_1d46d0*)FUN_0008d690(0x24);  // 0x24: 32-bit size of the closure (Closure4_1d46d0)
     if (p) {
-        p->init(a, c);
-        p->vftable = (void*)((hulk_intptr)DAT_00422810);
-        p->field20 = b;
+        ((Method4_1d3250*)p)->Create(name, (const char*)fn);
+        p->vftable = (void*)DAT_00422810;
+        p->field20 = obj;
     } else
         p = 0;
-    ((owners::CAgent_1d04b0 *)p)->FUN_001d04b0((hulk_intptr)a);
-    list.attach(p);
-    int x = x8;
-    taskC(x, p);
-    taskD(x, (void*)((hulk_intptr)(void (__cdecl*)())&FUN_001d22a0), 1);
-    taskE(x, 0xffffd8ef, a);
+    ((owners::CAgent_1d04b0*)p)->FUN_001d04b0((hulk_intptr)name);
+    self->list.FUN_001d1180((Entry_1d1180*)p);
+    LuaVMState* x = self->L;
+    FUN_00213550(x, p);
+    FUN_002134a0(x, FUN_001d22a0, 1);
+    FUN_00213790(x, -10001, name);
 }

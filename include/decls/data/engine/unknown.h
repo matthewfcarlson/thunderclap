@@ -18,12 +18,9 @@ typedef const void* const* hulk_vftable_ptr;  // a pointer to a vftable
 #endif
 
 struct DataLayout_0042ab5c;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_00434710;  // packed layout (bytes and pointers), defined in the data TU
 struct DataLayout_00434864;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_00434970;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_00434af8;  // packed layout (bytes and pointers), defined in the data TU
-struct DataLayout_00434d90;  // packed layout (bytes and pointers), defined in the data TU
 struct DataRec_00426824;  // packed layout (bytes and pointers), defined in the data TU
+struct DataRec_00434d90;  // packed layout (bytes and pointers), defined in the data TU
 #include "decls/data/records.h"
 
 // unknown/unk_212bb0.cpp
@@ -491,7 +488,10 @@ extern "C" const char DAT_004346e4[20];  // s_s_expected_got_s_004346e4
 extern "C" const char DAT_004346f8[15];  // s_value_expected_004346f8
 extern "C" const char DAT_00434708[2];  // s_h_00434708
 extern "C" const unsigned char DAT_0043470a[6];  // zero_0043470a
-extern "C" const DataLayout_00434710 DAT_00434710;  // struct_00434710
+extern "C" const void* const DAT_00434710[20];  // struct_00434710
+extern "C" const char DAT_00434760[10];  // s_traceback_00434760
+extern "C" const char DAT_0043476c[11];  // s_setupvalue_0043476c
+extern "C" const char DAT_00434778[9];  // s_setlocal_00434778
 extern "C" const char DAT_00434784[8];  // s_sethook_00434784
 extern "C" const char DAT_0043478c[11];  // s_getupvalue_0043478c
 extern "C" const char DAT_00434798[8];  // s_gethook_00434798
@@ -517,9 +517,7 @@ extern "C" const char DAT_00434878[14];  // s_external_hook_00434878
 extern "C" const char DAT_00434888[6];  // s_cont_00434888
 extern "C" const char DAT_00434890[12];  // s_lua_debug_00434890
 extern "C" const unsigned int DAT_0043489c[1];  // zero_0043489c
-extern "C" const char DAT_004348a0[4];  // s_IC_004348a0
-extern "C" const void* const DAT_004348a4[15];  // ptrTbl_004348a4
-extern "C" const unsigned int DAT_004348e0[2];  // zero_004348e0
+extern "C" const void* const DAT_004348a0[18];  // struct_004348a0
 extern "C" const char DAT_004348e8[7];  // s_remove_004348e8
 extern "C" const char DAT_004348f0[7];  // s_insert_004348f0
 extern "C" const char DAT_004348f8[5];  // s_sort_004348f8
@@ -531,7 +529,18 @@ extern "C" const char DAT_00434924[7];  // s_concat_00434924
 extern "C" const char DAT_0043492c[27];  // s_table_contains_non_s_0043492c
 extern "C" const char DAT_00434948[35];  // s_invalid_order_functi_00434948
 extern "C" const unsigned char DAT_0043496b[5];  // zero_0043496b
-extern "C" const DataLayout_00434970 DAT_00434970;  // struct_00434970
+extern "C" const void* const DAT_00434970[50];  // struct_00434970
+extern "C" const char DAT_00434a38[11];  // s_randomseed_00434a38
+extern "C" const char DAT_00434a44[4];  // s_rad_00434a44
+extern "C" const char DAT_00434a48[4];  // s_pow_00434a48
+extern "C" const char DAT_00434a4c[4];  // s_exp_00434a4c
+extern "C" const char DAT_00434a50[6];  // s_log10_00434a50
+extern "C" const char DAT_00434a58[5];  // s_sqrt_00434a58
+extern "C" const char DAT_00434a60[6];  // s_ldexp_00434a60
+extern "C" const char DAT_00434a68[6];  // s_frexp_00434a68
+extern "C" const char DAT_00434a70[4];  // s_mod_00434a70
+extern "C" const char DAT_00434a74[6];  // s_floor_00434a74
+extern "C" const char DAT_00434a7c[5];  // s_ceil_00434a7c
 extern "C" const char DAT_00434a84[6];  // s_atan2_00434a84
 extern "C" const char DAT_00434a8c[5];  // s_atan_00434a8c
 extern "C" const char DAT_00434a94[5];  // s_acos_00434a94
@@ -546,7 +555,10 @@ extern "C" const char DAT_00434acc[26];  // s_wrong_number_of_argu_00434acc
 extern "C" const float DAT_00434ae8;  // flt_00434ae8
 extern "C" const char DAT_00434aec[3];  // s_pi_00434aec
 extern "C" const char DAT_00434af0[5];  // s_math_00434af0
-extern "C" const DataLayout_00434af8 DAT_00434af8;  // struct_00434af8
+extern "C" const void* const DAT_00434af8[28];  // struct_00434af8
+extern "C" const char DAT_00434b68[5];  // s_gsub_00434b68
+extern "C" const char DAT_00434b70[6];  // s_gfind_00434b70
+extern "C" const char DAT_00434b78[5];  // s_find_00434b78
 extern "C" const char DAT_00434b80[5];  // s_dump_00434b80
 extern "C" const char DAT_00434b88[7];  // s_format_00434b88
 extern "C" const char DAT_00434b90[5];  // s_byte_00434b90
@@ -574,7 +586,7 @@ extern "C" const char DAT_00434d44[6];  // s_0_00434d44
 extern "C" const char DAT_00434d4c[27];  // s_invalid_option_to_fo_00434d4c
 extern "C" const char DAT_00434d68[33];  // s_obsolete_option_d_to_00434d68
 extern "C" const unsigned char DAT_00434d89[7];  // zero_00434d89
-extern "C" const DataLayout_00434d90 DAT_00434d90;  // struct_00434d90
+extern "C" const DataRec_00434d90 DAT_00434d90[27];  // struct_00434d90
 extern "C" const void* const DAT_00434e68[12];  // ptrTbl_00434e68
 extern "C" const char DAT_00434e98[6];  // s_yield_00434e98
 extern "C" const char DAT_00434ea0[7];  // s_resume_00434ea0

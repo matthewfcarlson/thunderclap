@@ -1,13 +1,12 @@
+#include "decls/data/lua.h"
 #include "gen/owners.h"
-struct Obj_1d1d50 {
-    char pad[8];
-    void* m;
-};
-extern void __cdecl f(void*, unsigned int);
-extern void __cdecl g(void*, int);
+extern "C" void __cdecl FUN_002133d0(LuaVMState* L, const char* s);
+extern "C" void __cdecl FUN_00213800(LuaVMState* L, int idx);
+// m (include/gen/owners.h Thing_1d1d50 +0x08) is the lua_State, a void* there, and a, b (key and value strings)
+// are hulk_uintptr there: cast at the use.
 bool owners::Thing_1d1d50::FUN_001d1d50(hulk_uintptr a, hulk_uintptr b) {
-    f(m, ((unsigned int)a));
-    f(m, ((unsigned int)b));
-    g(m, -3);
+    FUN_002133d0((LuaVMState*)m, (const char*)a);
+    FUN_002133d0((LuaVMState*)m, (const char*)b);
+    FUN_00213800((LuaVMState*)m, -3);
     return true;
 }

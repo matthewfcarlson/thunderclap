@@ -65,6 +65,63 @@
     "0x78"
    ],
    "why": "luaX_tokens[11], [23], [28..30] point at 0x00426664, 0x00426944, 0x00426c7c, 0x00426c74, 0x00426c6c (bytes read as text); 0x0021aeb0 (luaX_init) makes the reserved words from the table, 0x0021af00 (token2str) indexes it"
+  },
+  "0x00434970": {
+   "offsets": [
+    "0x40",
+    "0x48",
+    "0x50",
+    "0x58",
+    "0x60",
+    "0x68",
+    "0x88",
+    "0x90",
+    "0xa0",
+    "0xa8",
+    "0xb8"
+   ],
+   "why": "luaL_reg names (name / function pairs, 8 bytes each) point at the strings 0x00434a7c, 0x00434a74, 0x00434a70, 0x00434a68, 0x00434a60, 0x00434a58, 0x00434a50, 0x00434a4c, 0x00434a48, 0x00434a44, 0x00434a38 (bytes read as text); 0x0033bca0 (luaopen_math) passes the table to luaL_openlib 0x003390d0, which reads each name"
+  },
+  "0x00434af8": {
+   "offsets": [
+    "0x50",
+    "0x58",
+    "0x60"
+   ],
+   "why": "luaL_reg names (name / function pairs, 8 bytes each) point at the strings 0x00434b78, 0x00434b70, 0x00434b68 (bytes read as text); 0x0033d6c0 (luaopen_string) passes the table to luaL_openlib 0x003390d0, which reads each name"
+  },
+  "0x00434d90": {
+   "offsets": [
+    "0x8",
+    "0x10",
+    "0x18",
+    "0x20",
+    "0x30",
+    "0x38",
+    "0x48",
+    "0x50"
+   ],
+   "why": "luaL_reg names (name / function pairs, 8 bytes each) point at the strings 0x00434f60, 0x00434f50, 0x00434f48, 0x00434f40, 0x00434f38, 0x00434f30, 0x00434f24, 0x00422548 (bytes read as text); 0x0033ea90 (base_open) passes the table to luaL_openlib 0x003390d0, which reads each name"
+  },
+  "0x00434710": {
+   "offsets": [
+    "0x28",
+    "0x30",
+    "0x40"
+   ],
+   "why": "luaL_reg names (name / function pairs, 8 bytes each) point at the strings 0x00434778, 0x0043476c, 0x00434760 (bytes read as text); 0x0033ac90 (luaopen_debug) passes the table to luaL_openlib 0x003390d0, which reads each name"
+  },
+  "0x00422458": {
+   "offsets": [
+    "0x0"
+   ],
+   "why": "luaL_reg names (name / function pairs, 8 bytes each) point at the strings 0x00422468 (bytes read as text); 0x001d3c90 (ScriptHandler) passes the table to luaL_openlib 0x003390d0, which reads each name"
+  },
+  "0x004348a0": {
+   "offsets": [
+    "0x0"
+   ],
+   "why": "luaL_reg names (name / function pairs, 8 bytes each) point at the strings 0x00434924 (bytes read as text); 0x0033b560 (luaopen_table) passes the table to luaL_openlib 0x003390d0, which reads each name"
   }
  }
 }

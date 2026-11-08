@@ -1460,8 +1460,7 @@ where a record field's signedness changed MSVC's code.
 
 ### Follow-ups
 
-- The luaL_reg tables (`DAT_00434970`, `DAT_00434af8`, `DAT_00434d90`, `DAT_00434e68`) and `DAT_004350b4`
-  (`const char*[]`) as typed pointer data (`LuaVMReg[]`): the next start-up stop.
+- The luaL_reg tables: done (below).
 - getF 0x00339770 / luaL_loadfile 0x00339800 read the Xbox FILE's `_flag` directly (`LuaVMFile`): the native build
   needs a feof / ferror shim in src/platform/sdl.
 - 0x001d22a0 packs its arguments into 4-byte slots; gen owners.h classes hold the lua_State in an `int` at +0x08
@@ -1470,3 +1469,46 @@ where a record field's signedness changed MSVC's code.
   callers, not Lua): a function-pointer hook in a 4-byte header slot at user-8 and pointer tables (`DAT_004d9858` /
   `DAT_004d985c`) as `unsigned int`; needs a header-layout decision.
 - Game bug kept: generic_reader and luaB_load call luaL_unref 0x00339710 with (ref, LUA_REGISTRYINDEX) swapped.
+
+### The library tables, the heap's free and ScriptHandler's Lua callers (lua2, 2026-11-08)
+
+- **luaL_reg tables as pointer data.** luaL_openlib (0x003390d0) reads name / function pairs; the inventory had
+  dropped every name word whose bytes read as text (`60 4f 43 00`), so the data TUs emitted 32-bit addresses
+  (`strlen(0x434f60)` on 64-bit). config/data-pointers.json forces the name words of the six tables (math
+  0x00434970, string 0x00434af8, base 0x00434d90, debug 0x00434710, table 0x004348a0, ScriptHandler 0x00422458);
+  config/data.json ends the math, string and debug tables at their terminators (the strings after them, e.g.
+  "randomseed", "gsub", "traceback", are their own items now) and makes 0x004348a0 and 0x00422458 one 72- and
+  16-byte item each (they were a 4-byte "string", a pointer table and zeros). The data step types them
+  `const void* const[2n]`, the 64-bit LuaVMReg layout.
+- **Library-owned strings.** Eight of the math names (0x00434a4c-0x00434a7c, "exp" .. "ceil", "mod") were owned by
+  library/xgrph.obj (an XGraphics string shares "exp"); once the table pointed at them they were unbound library data
+  in the Wine build and play3 diverged at frame 24,450 (proof 69780; the sound RNG count moved first). They belong to
+  unk_338d90 now (`data` / `data-shared`). 0x00434b9c "char" and 0x00434bbc "sub" (string library) stay library-owned
+  and unbound as at HEAD.
+- **The heap's free took the block as an int.** 0x00267090 passed the pointer as `hulk_intptr` to the heap tree's
+  lookup 0x00266f50 and as `int` to the owner's slot 4 (core::IMemoryAllocator's free): a truncated free of the first
+  block the Lua allocator released (macOS: "pointer being freed was not allocated"). Both take `void*` now (the tree
+  node is `Node_266f50`, the name `Node` collided in merged TUs).
+- **ScriptHandler's Lua callers.** 33 matches (0x001d0620-0x001d47c0) called the Lua API under invented names (`A`,
+  `F2133d0`, `Reg`, `Post`, ...), with the state as `const char*` and lua_pushnumber's float as an int bit pattern:
+  all on `FUN_<addr>` with the definitions' types (`1.0f`), the luaL_reg tables as `LuaVMReg`, the closures built by
+  placement new on the callees' real constructors. 0x001d3c90 (`target` -> `FUN_001d3c90`) calls 0x001d1740 as
+  `void` on 64-bit (MS mangling carries the return type; the 32-bit source returns what 0x001d1740 left in eax).
+
+| | control 69769 (HEAD 741fd13b2) | proof 69791 (studio) |
+|---|---|---|
+| gates | - | 41 / 41 matches MATCH + verify_relocs ok (queue, the batch's headers); 0x0033ea90 equivalent at 3,000 inputs and `--wine` |
+| data_gen | 18,861 items | 18,874 items, all verified (dg-n4) |
+| strict link rc / Wine unbound | 0 / 1,253 | 0 / 1,252 (the invented `_Check` gone) |
+| x87 keep list | 268 | identical |
+| play3 checkpoints | 2,016 to 60,450 | `ckpt_gate.py` GATE ok at 2,012 common frames (the known transients only), PRNG hashes identical |
+| bisect of 69780's divergence | - | 69784 (heap + 0x001d3c90 only): ok; 69783 (data with the ownership fix): ok |
+| arm64 macOS / x86-64 Linux / arm64 Android unbound | 29,654 / 23,556 / 29,646 | **29,556 / 23,559 / 29,548**, all rc 0 (Linux +3: the ScriptHandler callers now name real members the Linux link does not bind yet, e.g. `SortedList::FUN_001d1180`) |
+| macOS start-up | luaL_openlib's names | the Lua state, every luaopen and ScriptHandler's registrations run; stops in ScriptHandler's constructor (0x001d4830) at SortedList::FUN_001d1180: ScriptHandler is a 32-bit view (`HandlerTable data[0x1000]` for 0x400 entry pointers, `WatchList data[0x4404]`), allocated by 0x001d4c90 with its 32-bit size |
+
+Next: ScriptHandler (0x001d4830's view, SortedList 0x001d1180, WatchList 0x001d27d0, the closures' 0x24-byte
+literal sizes in 0x001d4580-0x001d47c0) as records; then the rest of reg6's CGame literal-size list
+(build/reg6/lit-startup.txt). Found on the way: the closure constructors 0x001d40d0 / 0x001d4320 and 0x001d4210 /
+0x001d3250 take object and function pointers as `int` / `const char*` and keep them in `hulk_intptr` members; gen
+owners.h holds the lua_State as an `int` at +0x08 in ten ScriptHandler-area classes; 0x001d3410 names the
+ScriptHandler vftable 0x00422684 by an invented data name.

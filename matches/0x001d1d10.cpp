@@ -1,13 +1,13 @@
-typedef unsigned int uint;
-void __cdecl DoThing(uint, int);
+#include "decls/data/lua.h"
+extern "C" void __cdecl FUN_00212d80(LuaVMState* L, int idx);
 class Target_1d1d10 {
     char pad[8];
-    uint value;
+    LuaVMState* L;  // 0x08
 
   public:
-    unsigned char __fastcall Run();
+    unsigned char FUN_001d1d10();
 };
-unsigned char __fastcall Target_1d1d10::Run() {
-    DoThing(value, -3);
+unsigned char Target_1d1d10::FUN_001d1d10() {
+    FUN_00212d80(L, -3);
     return 1;
 }
