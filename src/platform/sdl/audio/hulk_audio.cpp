@@ -574,12 +574,70 @@ static inline float limit_sample(float x, int soft)
     return x < 0 ? -y : y;
 }
 
+// opt1: HULK_AUDIO_NOMIX=1 (headless replays): the voices advance exactly as mix_voice / mix_stream move them (cursor,
+// loop wrap, one-shot end, stream consumption: all the game can observe, through positions and status) but no sample is
+// computed, resampled, reverberated or limited; the output is silence. Mixing was 13-15% of a headless play3 replay
+// (HULK_PROF). Ignored while capturing or logging levels, which need the samples.
+static void advance_voice(HulkVoice* v, unsigned n)
+{
+    if (v->stream) {
+        if (!v->playing)
+            return;
+        unsigned long long step = ((unsigned long long)v->freq << 32) / HULK_AUDIO_RATE;
+        for (unsigned f = 0; f < n; f++) {
+            if ((v->cursor >> 32) >= v->scount)
+                break;              // underrun
+            v->cursor += step;
+        }
+        unsigned long long used = v->cursor >> 32;
+        if (used > v->scount)
+            used = v->scount;
+        v->shead = (unsigned)((v->shead + used) % v->scap);
+        v->scount -= (unsigned)used;
+        v->splayed += used;
+        v->cursor -= used << 32;
+        return;
+    }
+    if (!v->playing || !v->data || v->frames == 0)
+        return;
+    unsigned long long step = ((unsigned long long)v->freq << 32) / HULK_AUDIO_RATE;
+    unsigned long long end = v->frames << 32;
+    for (unsigned f = 0; f < n; f++) {
+        v->cursor += step;
+        if (v->cursor >= end) {
+            if (v->looping) {
+                v->cursor %= end;
+            } else {
+                v->cursor = 0;
+                v->playing = 0;
+                return;
+            }
+        }
+    }
+}
+
 static void render_locked(float* out, unsigned frames)
 {
-    static int soft = -1;
+    static int soft = -1, nomix = -1;
     if (soft < 0) {
         const char* e = SDL_getenv("HULK_AUDIO_LIMIT");
         soft = !(e && *e == '0');
+        const char* m = SDL_getenv("HULK_AUDIO_NOMIX");
+        const char* l = SDL_getenv("HULK_AUDIO_LOG");
+        nomix = m && *m == '1' && !(l && *l && *l != '0');
+        if (nomix)
+            alog("no mixing (HULK_AUDIO_NOMIX): voices advance, the output is silence");
+    }
+    if (nomix && !g_audio.cap) {
+        for (unsigned done = 0; done < frames;) {
+            unsigned n = frames - done > 1024 ? 1024 : frames - done;
+            for (HulkVoice* v = g_audio.voices; v; v = v->next)
+                advance_voice(v, n);
+            done += n;
+        }
+        SDL_memset(out, 0, (size_t)frames * 2 * sizeof(float));
+        g_audio.rendered += frames;
+        return;
     }
     // the send buffer: reuse scratch space in chunks
     unsigned done = 0;

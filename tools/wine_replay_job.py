@@ -38,7 +38,10 @@ CKPT = re.compile(r"ckpt frame (\d+) hash ([0-9a-f]+)")
 PY = os.path.join(ROOT, "build/venv/bin/python")
 JOBQ = os.path.join(ROOT, "tools/jobq.py")
 JOBS = os.environ.get("JOBQ_DIR") or os.path.join(ROOT, "build/jobs")
-DEFAULT_ENV = {"HULK_CKPT": "1", "HULK_CKPT_ALL": "1", "HULK_AUDIO_CLOCK": "frame", "HULK_CKPT_REGIONS": "0"}
+# HULK_AUDIO_NOMIX (opt1): the headless replay advances the voices without mixing samples (src/platform/sdl/audio/
+# hulk_audio.cpp; play3 checkpoints identical, 12% faster); `--env HULK_AUDIO_NOMIX=0` mixes again
+DEFAULT_ENV = {"HULK_CKPT": "1", "HULK_CKPT_ALL": "1", "HULK_AUDIO_CLOCK": "frame", "HULK_CKPT_REGIONS": "0",
+               "HULK_AUDIO_NOMIX": "1"}
 
 
 def wpath(p):

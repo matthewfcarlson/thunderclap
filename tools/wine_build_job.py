@@ -58,6 +58,10 @@ def local_dir(d):
     build/data/src with a private set of data TUs (a data_gen change under test), shipped under the same name."""
     if d == "build/data/src" and os.environ.get("HULK_NB_DATA_SRC"):
         return os.path.abspath(os.environ["HULK_NB_DATA_SRC"])
+    # (opt1) `--sdl-src DIR`: a private build of the audio/input backends (tools/wine_sdl.py backends --target win32
+    # with HULK_TP_OUT=<private out>; DIR is its sdl-backends/win32), shipped as the shared one's name
+    if d == TP_OUT + "sdl-backends/win32" and os.environ.get("HULK_NB_SDL_SRC"):
+        return os.path.abspath(os.environ["HULK_NB_SDL_SRC"])
     return os.path.join(ROOT, d)
 
 
@@ -268,6 +272,8 @@ def cmd_prep(a):
     that has them can still take the job)."""
     if a.data_src:
         os.environ["HULK_NB_DATA_SRC"] = a.data_src
+    if a.sdl_src:
+        os.environ["HULK_NB_SDL_SRC"] = a.sdl_src
     cfg = host_cfg(a.host)
     if cfg.get("local"):
         return 0
@@ -375,6 +381,8 @@ def cmd_submit(a):
                 seed[1]["job"], seed[1]["host"], seed[1]["host"]), file=sys.stderr)
     if a.data_src:
         os.environ["HULK_NB_DATA_SRC"] = a.data_src
+    if a.sdl_src:
+        os.environ["HULK_NB_SDL_SRC"] = a.sdl_src
     ws = os.path.abspath(a.workspace or ROOT)
     for d in ("tools", "matches", "include"):
         if not os.path.isdir(os.path.join(ws, d)):
@@ -434,7 +442,8 @@ def cmd_submit(a):
     store = {dest: [jobq.store_file(p), os.stat(p).st_mode & 0o777] for dest, p in ov.items()}
     os.unlink(tf.name)
     prep = None if local else (["python", "tools/wine_build_job.py", "prep", "--host", "{host}", "--stamp", stamp] +
-                               (["--data-src", os.path.abspath(a.data_src)] if a.data_src else []))
+                               (["--data-src", os.path.abspath(a.data_src)] if a.data_src else []) +
+                               (["--sdl-src", os.path.abspath(a.sdl_src)] if a.sdl_src else []))
     job = jobq.make_job(a.name, ["python", "nbrun/wine_build_run.py"], "msvc" if not a.replay else "wine", store, ["nb-out"],
                         a.limit, slots, a.attempts, a.prio, jobq.head_commit(), SRC_DIRS, host, prep=prep,
                         affinity=affinity, affinity_wait=max(0, a.affinity_wait))
@@ -527,6 +536,8 @@ def main():
     s.add_argument("--gfx", action="store_true", help="link with the pddi/bgfx backend (wine_link.py --gfx)")
     s.add_argument("--stages", help="comma list of build,probe,link,replay (default: all requested)")
     s.add_argument("--data-src", help="a private build/data/src (data TUs of a data_gen change under test)")
+    s.add_argument("--sdl-src", help="a private build/third_party/out/sdl-backends/win32 (hulk_sdl.lib of an audio/input "
+                   "change under test: HULK_TP_OUT=OUT tools/wine_sdl.py backends --target win32)")
     s.add_argument("--state", default="auto", type=state_arg, metavar="auto|fresh|resume|seed:JOB",
                    help="build_tree --resume policy; seed:JOB starts from control JOB's final state (docs/compute.md)")
     s.add_argument("--map", choices=["auto", "full", "reuse"], default="auto", help="wine_link --reuse-map policy")
@@ -554,6 +565,7 @@ def main():
     s.add_argument("--host", required=True)
     s.add_argument("--stamp", required=True)
     s.add_argument("--data-src")
+    s.add_argument("--sdl-src")
     a = ap.parse_args()
     return {"submit": cmd_submit, "wait": cmd_wait, "compare": cmd_compare, "sync": cmd_sync,
             "lineages": cmd_lineages, "prep": cmd_prep}[a.c](a) or 0
