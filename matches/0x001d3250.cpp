@@ -15,9 +15,9 @@ class Method4_1d3250 {
     ScriptFunctionFields f;
     Fn_1d3250 fn;
     void Init(const char*, int);
-    Method4_1d3250* Create(const char*, Fn_1d3250);
+    Method4_1d3250* FUN_001d3250(const char*, Fn_1d3250);
 };
-Method4_1d3250* Method4_1d3250::Create(const char* a, Fn_1d3250 b) {
+Method4_1d3250* Method4_1d3250::FUN_001d3250(const char* a, Fn_1d3250 b) {
     Init(a, 4);
     vft = (void*)DAT_00422654;
     fn = b;

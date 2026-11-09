@@ -16,7 +16,7 @@ typedef void (ScriptHandlerFn_1d46d0::*Fn_1d46d0)(const char*, const char*, cons
 // 0x001d3250 (matches/0x001d3250.cpp): Method4's initializer (name, member function); returns this.
 class Method4_1d3250 {
   public:
-    Method4_1d3250* Create(const char*, Fn_1d46d0);
+    Method4_1d3250* FUN_001d3250(const char*, Fn_1d46d0);
 };
 // Closure4<ScriptHandler, void, const char* x4> (include/decls/data/script.h): Function's fields, the
 // member-function pointer, the object; vftable DAT_00422810.
@@ -41,7 +41,7 @@ void ScriptHandler::FUN_001d46d0(const char* name, ScriptHandler* obj, Fn_1d46d0
     HULK_SIZE32(Closure4_1d46d0, 0x24);
     Closure4_1d46d0* p = (Closure4_1d46d0*)FUN_0008d690((int)sizeof(Closure4_1d46d0));
     if (p) {
-        ((Method4_1d3250*)p)->Create(name, fn);
+        ((Method4_1d3250*)p)->FUN_001d3250(name, fn);
         p->vftable = (void*)DAT_00422810;
         p->owner = obj;
     } else
