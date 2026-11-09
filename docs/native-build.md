@@ -1616,3 +1616,44 @@ this batch's files.
 - The aligned allocator 0x0033eb70-0x0033ed20 (task left open): every caller except 0x00333b50 (which installs the
   hooks) is in the BINK section (0x00364880-0x0036e6f0), so these look like RAD's allocator linked into .text, not
   game code. Decision needed before giving them a 64-bit branch (clean-room rule).
+
+## Library names must hit their table address (libname1, 2026-11-09)
+
+0x0033b7d0 (Lua's math.floor) had been propagated from math.ceil 0x0033b7a0 and called floor under the name
+`__ceil_default`. compare.py masks the call and verify_relocs.py only held names that carry an address (`FUN_`, `DAT_`,
+the `Foo_000480a0` suffix) to their target, so the wrong name passed (fixed in 741fd13b2).
+
+**The check.** `verify_relocs.check` now reports `libname_address_mismatch` when a C-linkage symbol (`_floor`,
+`___ceil_default`, `_x@8`) or a global C++ function (`?floor@@YANN@Z`) has a plain name that the CRT tables
+(src/platform/sdl/crt/host_crt_table.h and native_crt_table.h) list in a row with a nonzero address, and the
+relocation reaches another address. Rows with address 0 constrain nothing (`malloc` stays the game's allocator in
+some sources). `RELOC_OFF=libname` turns it off. Regression: tests/test_verify_relocs.py (the old 0x0033b7d0 fails,
+the current one and 0x0033b7a0 pass).
+
+**Table fixes.** A row's address is the entry the game's calls reach: ceil's tree names (`ceil __ceil_default`)
+moved from an address-0 row onto 0x003481ba; `_CIpow` 0x00346672 -> 0x00346670 (all 31 calls go to 0x00346670,
+two bytes before the body Ghidra split off; nothing calls 0x00346672); the tree name `_atol` moved from 0x003454a6
+(no game caller) to 0x003454fe, the 5-byte stub the calls reach. Binding is unchanged: each row's target is the
+same host function. tools/wine_conv_check.py's x87-argument helpers gained 0x00346670.
+
+**The scan.** `verify_relocs.py --names OUT --src-root DIR --shard K/N` writes every external name of each source
+with the address it reaches (matches/: the relocation map; equivalent/: equiv.py's level-2 mapping). The sweep
+over 22,342 matches and 5,138 equivalents (24 queue shards) found 290 names that reach two or more addresses:
+
+| class | count | outcome |
+|---|---|---|
+| invented per-source names (`Alloc`, `Free`, `g1`, `?Apply@Obj@@`, vftable stand-ins) | 280 | legitimate: each source's own stub; the tree keeps them apart (`fn_` namespaces, per-TU binding) |
+| `thunk_FUN_x` reaching another thunk of x (`thunk_FUN_00267090_a`/`_b`, 0x003eba7c for XInitDevices, fastcall spelling) | 6 | legitimate |
+| `FUN_0008d690` reaching its thunk 0x00263ea0 (equivalent/0x0013e070, 0x002b3340, through an `equiv-map` line) | 1 | renamed `thunk_FUN_0008d690` |
+| `thunk_FUN_00267090` reaching 0x0024e460 / 0x0024e4c0 (matches/0x0024e440, 0x0024e4a0, a propagated deleting-destructor shape) | 2 | renamed `FUN_0024e460` / `FUN_0024e4c0` |
+| `free` reaching the game's free thunk 0x0008d340 (matches/0x0012e4d0, 0x001a3e60) | 1 | renamed `thunk_FUN_00267090` |
+
+Library names against the tables: `free` above, and `_CIpow` / `_atol`, fixed in the tables. The wine_link binding
+map of control 69791 shows the same set (plus families of `FUN_x(const char*, ...)` calls that are ambiguous only
+inside a merged TU, a binding artefact: each source's own relocations are right). The renamed sources bind by
+address as before; the matches still MATCH with verify_relocs ok, the two equivalents pass at 3,090 and 2,550
+inputs, and `--wine` / `--x64` give the same results as the old sources.
+
+**Proof.** Control 69828 (HEAD 8310fb004, fresh) and proof 70239 (fresh: the tools changed) on studio, play3 to
+60000: `ckpt_gate.py` GATE ok, 0 of 2005 common frames differ (the control also gates ok against 69791); Wine unbound
+1252 before and after; the link's conv_check report unchanged.

@@ -178,6 +178,10 @@
 // termination routine, flags (0,0): run the atexit table and end the process; Lua's luaD_throw calls it as
 // exit(EXIT_FAILURE) when no handler is set), not _fcloseall, and 0x00347eed is fputs (two arguments, the stream
 // the second: Lua's `fputs("lua_debug> ", stderr)` and print's `fputs("\t", stdout)`), not puts.
+// tools/verify_relocs.py holds the tree names of an address row to that address (libname_address_mismatch), so
+// a row's address is the entry the game's calls reach (libname1): _CIpow is called at 0x00346670 (31 calls; the
+// split at 0x00346672 is two bytes into it and no game code calls it), atol at the 5-byte stub 0x003454fe
+// (0x003454a6 has no game caller), ceil (`__ceil_default`) at 0x003481ba.
 #define HULK_HOST_CRT(C) \
     C(0x00344913, type_info_eq, "") \
     C(0x003449e4, __RTtypeid, "__RTtypeid") \
@@ -189,8 +193,8 @@
     C(0x003442bc, _CIasin, "_CIasin") \
     C(0x0034476f, _isnan, "__isnan _isnan") \
     C(0x0034483c, _ftol, "_ftol") \
-    C(0x003454a6, atol, "_atol") \
-    C(0x003454fe, atol, "atol") \
+    C(0x003454a6, atol, "") \
+    C(0x003454fe, atol, "_atol atol") \
     C(0x0034557c, floor, "__floor_default floor") \
     C(0x00345130, memmove, "_memmove memmove") \
     C(0x00345475, tolower, "tolower") \
@@ -236,7 +240,7 @@
     C(0x00347792, hulk_crt_fprintf, "_fwprintf fprintf") \
     C(0x003479aa, hulk_crt_malloc, "") \
     C(0x003479bc, free, "free") \
-    C(0x003481ba, ceil, "") \
+    C(0x003481ba, ceil, "ceil __ceil_default") \
     C(0x00347a14, bsearch, "_bsearch bsearch") \
     C(0x00347aa0, calloc, "calloc") \
     C(0x00347b53, strerror, "strerror") \
@@ -250,7 +254,7 @@
     C(0x00348290, memchr, "_memchr memchr") \
     C(0x00348340, strpbrk, "_strpbrk strpbrk") \
     C(0x00348380, _strlwr, "_strlwr") \
-    C(0x00346672, _CIpow, "_CIpow") \
+    C(0x00346670, _CIpow, "_CIpow") \
     C(0x0034777a, _CIfmod, "_CIfmod") \
     C(0x00356734, sprintf, "") \
     C(0, memcpy, "memcpy") \
@@ -274,7 +278,6 @@
     C(0, log10, "log10") \
     C(0, pow, "pow") \
     C(0, fmod, "fmod") \
-    C(0, ceil, "ceil __ceil_default") \
     C(0, _allmul, "_allmul") \
     C(0, _alldiv, "_alldiv") \
     C(0, _allrem, "_allrem") \

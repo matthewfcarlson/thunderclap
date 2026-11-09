@@ -30,8 +30,8 @@
     N(0x003442bc, math, hulk_ncrt_asin, "_CIasin") \
     N(0x0034476f, glue, hulk_ncrt_isnan, "__isnan _isnan") \
     N(0x0034483c, glue, hulk_ncrt_ftol, "_ftol") \
-    N(0x003454a6, libc, atol, "_atol") \
-    N(0x003454fe, libc, atol, "atol") \
+    N(0x003454a6, libc, atol, "") \
+    N(0x003454fe, libc, atol, "_atol atol") \
     N(0x0034557c, libc, floor, "__floor_default floor") \
     N(0x00345130, libc, memmove, "_memmove memmove") \
     N(0x00345475, libc, tolower, "tolower") \
@@ -77,7 +77,7 @@
     N(0x00347792, glue, hulk_ncrt_fprintf, "_fwprintf fprintf") \
     N(0x003479aa, glue, hulk_ncrt_malloc, "") \
     N(0x003479bc, libc, free, "free") \
-    N(0x003481ba, libc, ceil, "") \
+    N(0x003481ba, libc, ceil, "ceil __ceil_default") \
     N(0x00347a14, libc, bsearch, "_bsearch bsearch") \
     N(0x00347aa0, libc, calloc, "calloc") \
     N(0x00347b53, libc, strerror, "strerror") \
@@ -91,7 +91,7 @@
     N(0x00348290, libc, memchr, "_memchr memchr") \
     N(0x00348340, libc, strpbrk, "_strpbrk strpbrk") \
     N(0x00348380, glue, hulk_ncrt_strlwr, "_strlwr") \
-    N(0x00346672, math, hulk_ncrt_pow, "_CIpow") \
+    N(0x00346670, math, hulk_ncrt_pow, "_CIpow") \
     N(0x0034777a, math, hulk_ncrt_fmod, "_CIfmod") \
     N(0x00356734, libc, sprintf, "") \
     N(0, libc, memcpy, "memcpy") \
@@ -115,7 +115,6 @@
     N(0, math, hulk_ncrt_log10, "log10") \
     N(0, math, hulk_ncrt_pow, "pow") \
     N(0, math, hulk_ncrt_fmod, "fmod") \
-    N(0, libc, ceil, "ceil __ceil_default") \
     N(0, na, _allmul, "_allmul") \
     N(0, na, _alldiv, "_alldiv") \
     N(0, na, _allrem, "_allrem") \

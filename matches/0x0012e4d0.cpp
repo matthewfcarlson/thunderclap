@@ -1,4 +1,4 @@
-extern "C" void __cdecl free(void*);
+extern "C" void __cdecl thunk_FUN_00267090(void*);
 extern "C" void* __cdecl malloc(unsigned int);
 extern "C" char* __cdecl strcpy(char*, const char*);
 extern "C" unsigned int __cdecl strlen(const char*);
@@ -10,7 +10,7 @@ class Obj {
     bool Set(const char* s);
 };
 bool Obj::Set(const char* s) {
-    free(str);
+    thunk_FUN_00267090(str);
     if (!s) {
         str = 0;
         return true;

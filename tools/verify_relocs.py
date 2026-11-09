@@ -12,6 +12,8 @@ is then checked:
   call / jmp      REL32        target is a function start
   data            DIR32        target is inside .rdata/.data/.bss
   consistency                  one symbol -> one target within the function; two symbols -> one target is a warning
+  library name                 a C runtime name the CRT tables list at an address (src/platform/sdl/crt/
+                               host_crt_table.h, native_crt_table.h) hits that address (RELOC_OFF=libname)
   address as integer           an operand with no relocation that the original's instruction uses as an address
                                (tools/addr_literal.py; RELOC_OFF=addrlit switches it off)
 
@@ -233,6 +235,50 @@ def placeholder_address(sym):
     return int(m.group(1), 16) if m else None
 
 
+# (libname1) the C runtime tables: a library name the sources spell (`floor`, `__ceil_default`, `_sprintf`) is the
+# function at the XBE address the tables list for it. The byte match masks the call and the name carries no address,
+# so a name copied from a function of the same shape (math.floor called `__ceil_default`) passed every check
+CRT_TABLES = ("src/platform/sdl/crt/host_crt_table.h", "src/platform/sdl/crt/native_crt_table.h")
+_CRT_ROW = re.compile(r'\b[CN]\((0x[0-9a-fA-F]+|0), (?:\w+, )?\w+, "([^"]*)"\)')
+
+
+_crt_names = {}
+
+
+def crt_name_addresses():
+    """{tree name: {XBE addresses}} of the CRT tables' rows that carry an address (rows with address 0 give none)."""
+    if not _crt_names:
+        out = {}
+        for rel in CRT_TABLES:
+            path = os.path.join(ROOT, rel)
+            if not os.path.exists(path):
+                continue
+            for a, names in _CRT_ROW.findall(open(path).read()):
+                if int(a, 16):
+                    for n in names.split():
+                        out.setdefault(n, set()).add(int(a, 16))
+        _crt_names.update(out)
+    return _crt_names
+
+
+def library_plain_name(sym):
+    """The C identifier of a C-linkage symbol (`_floor`, `_x@8`) or of a global C++ function (`?floor@@YANN@Z`),
+    else None (members, data, special names)."""
+    m = re.fullmatch(r"_(\w+?)(?:@\d+)?", sym) or re.match(r"\?([A-Za-z_]\w*)@@[YZ]", sym)
+    return m.group(1) if m else None
+
+
+def libname_address_issue(name, target):
+    """A library name listed in the CRT tables at other addresses than `target`: ("libname_address_mismatch", name).
+    RELOC_OFF=libname switches it off."""
+    if "libname" in os.environ.get("RELOC_OFF", ""):
+        return None
+    want = crt_name_addresses().get(library_plain_name(name) or "")
+    if want and target not in want:
+        return ("libname_address_mismatch", name)
+    return None
+
+
 def check(src, addr):
     st = state()
     xbe = st["xbe"]
@@ -284,6 +330,9 @@ def check(src, addr):
             else None
         if pa is not None and pa != target and xbe.section_of(pa) is not None:
             issues.append(("name_address_mismatch", name))
+        li = libname_address_issue(name, target) if kind == "symbol" else None
+        if li:
+            issues.append(li)
         if kind == "string":
             ours = literal_bytes(coff, target_sym)
             o = xbe.offset(target)
@@ -467,6 +516,26 @@ def addrlit_job(path):
         return path, "error", [{"error": repr(e)[:200]}]
 
 
+def names_job(path):
+    """(libname1) {name: address} of one matches/ (relocation map) or equivalent/ (tools/equiv.py's level-2 mapping)
+    source, for the tree-wide one-name-one-address scan: (path, how, {name: [address, how]}, [libname issues])."""
+    addr = int(os.path.basename(path)[2:10], 16)
+    try:
+        if os.path.basename(os.path.dirname(os.path.abspath(path))) == "matches":
+            r = check(path, addr)
+            if r.get("status") not in ("not_matching", "compile_error"):
+                return path, "relocs", {n: [a, "reloc"] for n, a in r["map"].items()}, \
+                    [i for i in r.get("issues", []) if i[0] == "libname_address_mismatch"]
+        import equiv
+        r = equiv.verify(path, addr, max_level=2)
+        m = {n: [v["addr"], ",".join(v["how"]) if isinstance(v["how"], list) else str(v["how"])]
+             for n, v in ((r.get("level2") or {}).get("mapping") or {}).items() if v.get("addr")}
+        iss = [li for n, (a_, _h) in m.items() for li in [libname_address_issue(n, int(a_, 16))] if li]
+        return path, "equiv", m, iss
+    except Exception as e:  # noqa: BLE001
+        return path, "error", {}, [("error", repr(e)[:200])]
+
+
 def _job(path):
     try:
         return check(path, int(os.path.basename(path)[:-4], 16))
@@ -489,10 +558,28 @@ def main():
                    "embedded NULs) of every matches/ and equivalent/ source that has one; violations to OUT (JSON)")
     p.add_argument("--addrlits", metavar="OUT", help="(adr1) check every matches/ and equivalent/ source for game "
                    "addresses written as integers (no relocation); violations to OUT (JSON)")
+    p.add_argument("--names", metavar="OUT", help="(libname1) every external name of every matches/ and equivalent/ "
+                   "source with the address it hits (sharded like --addrlits); one JSON line per source to OUT")
     p.add_argument("--src-root", help="the directory holding matches/ and equivalent/ (with --addrlits; default: the "
                    "checkout; a queue job's own copy, since a host's checkout has its own sources)")
     p.add_argument("--shard", default="0/1", help="K/N: only every N-th source from the K-th (with --addrlits)")
     a = p.parse_args()
+    if a.names:
+        sr = os.path.abspath(a.src_root or ROOT)
+        files = sorted(os.path.join(sr, d, f) for d in ("matches", "equivalent")
+                       for f in os.listdir(os.path.join(sr, d)) if f.endswith(".cpp"))
+        k, n = map(int, a.shard.split("/"))
+        files = files[k::n]
+        counts = Counter()
+        with open(a.names, "w") as out, Pool(a.jobs) as pool:
+            for i, (path, how, m, iss) in enumerate(pool.imap_unordered(names_job, files, chunksize=8)):
+                counts[how] += 1
+                counts["with libname issues"] += bool(iss)
+                out.write(json.dumps({"file": os.path.relpath(path, sr), "how": how, "map": m, "issues": iss}) + "\n")
+                if (i + 1) % 1000 == 0:
+                    print("  %d/%d %s" % (i + 1, len(files), dict(counts)), flush=True)
+        print("results:", dict(counts))
+        return
     if a.addrlits:
         sr = os.path.abspath(a.src_root or ROOT)
         files = sorted(os.path.join(sr, d, f) for d in ("matches", "equivalent")

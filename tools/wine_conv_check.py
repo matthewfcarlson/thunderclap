@@ -538,8 +538,9 @@ X87_NEUTRAL = {"fldcw", "fnstcw", "fstcw", "fnstsw", "fstsw", "fwait", "wait", "
 EAX_PARTS = {"eax", "ax", "al", "ah"}
 # library functions whose argument is on the x87 stack (st0), not on the call stack: the CRT's float-to-int and
 # the `_CI` math helpers (host_crt_table.h rows by XBE address)
-X87_ARG_ADDRS = {0x0034483c: "_ftol", 0x003441f0: "_CIacos", 0x003442bc: "_CIasin", 0x00346672: "_CIpow",
-                 0x0034777a: "_CIfmod"}
+# (libname1: the game calls _CIpow at 0x00346670, two bytes before the body Ghidra splits at 0x00346672)
+X87_ARG_ADDRS = {0x0034483c: "_ftol", 0x003441f0: "_CIacos", 0x003442bc: "_CIasin", 0x00346670: "_CIpow",
+                 0x00346672: "_CIpow", 0x0034777a: "_CIfmod"}
 # (0x00348010 is ldexp: its callers push a double and an int, host_crt_table.h)
 
 

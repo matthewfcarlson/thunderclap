@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3290 inputs, branch coverage 37/40, incomplete; Wine build 745 inputs, 37/40)
 // hulkfight::motion::AnimationLinkedAction::vfunc_3 @ 0x0013e070
-// equiv-map: ?FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+// equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
 inline void *operator new(unsigned int, void *p) { return p; }
 
@@ -115,7 +115,7 @@ public:
     V3_13e070 posB;                // 0x38
 };
 
-void *__cdecl FUN_0008d690(unsigned int size);
+void *__cdecl thunk_FUN_0008d690(unsigned int size);
 
 class AnimationLinkedAction {
 public:
@@ -172,7 +172,7 @@ bool AnimationLinkedAction::vfunc_3(int a, int b)
             bestKey = key;
         }
     }
-    choreo2::AnimationDriver *nd = (choreo2::AnimationDriver *)FUN_0008d690((int)sizeof(choreo2::AnimationDriver));
+    choreo2::AnimationDriver *nd = (choreo2::AnimationDriver *)thunk_FUN_0008d690((int)sizeof(choreo2::AnimationDriver));
     if (nd != 0)
         nd = nd->FUN_00225950(rig, anim);
     if (nd != 0)

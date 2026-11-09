@@ -14,10 +14,10 @@ class NonCopyable_24e4a0 : public MetaTypeAttribBase_24e4a0 {
     virtual NonCopyable_24e4a0* f2(unsigned char);
 };
 } // namespace pure3d
-void thunk_FUN_00267090(pure3d::NonCopyable_24e4a0*);
+void FUN_0024e4c0(pure3d::NonCopyable_24e4a0*);
 pure3d::NonCopyable_24e4a0* pure3d::NonCopyable_24e4a0::f2(unsigned char param) {
     *(void**)this = refcount_vftable;
     if ((param & 1) != 0)
-        thunk_FUN_00267090(this);
+        FUN_0024e4c0(this);
     return this;
 }
