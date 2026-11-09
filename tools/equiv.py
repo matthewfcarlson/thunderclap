@@ -192,6 +192,13 @@ class Program:
     def u32(self, va):
         return struct.unpack("<I", self.read(va, 4))[0]
 
+    def rdata_ranges(self):
+        """(wine1, rowrite) [(lo, hi)] of the XBE's .rdata sections (cached)."""
+        r = self.__dict__.get("_rdata_r")
+        if r is None:
+            r = self._rdata_r = [(s.va, s.va + s.vsize) for s in self.xbe.sections if s.name == ".rdata"]
+        return r
+
     def section_name(self, va):
         s = self.xbe.section_of(va)
         return s.name if s else None
@@ -3398,6 +3405,7 @@ NATIVE_CI = {}              # (round 18, native) math name -> original address o
 # the original's budget in --native (the original's budget is unchanged); 12 of 23 nf2 timeouts passed with --steps 400000.
 NATIVE_STEP_MULT = 8
 NATIVE_MODE = False         # (round 18) verify(native=True) is running
+NATIVE_FRAME = {}           # (wine1, natobj) the clang object's function under test, for its frame's variables (lazy)
 NATIVE_NARROW = {}        # (round 19, natnarrow) original address -> {stack word index: bit width} of declared bool/char/short parameters
 NATIVE_BOOL = set()         # (round 18, native) original addresses of callees our source declares to return bool
 NATIVE_F64 = set()          # (round 24, fretwide) original addresses of callees our clang object declares to return double
@@ -3783,6 +3791,9 @@ class Run:
         self.fault = None
         self.bool_ub = False        # (round 18) a `testb $1` over a byte that is neither 0 nor 1
         self.code_write = None      # first store into code (ours or the original's .text): self-modifying
+        self.copy_ub = None         # (wine1, intrub) an inlined strcpy/strcat call whose strings overlap
+        self.ro_write = None        # (wine1, rowrite) first store into the original's .rdata (a string literal)
+        self.frame_escape = None    # (wine1, fescape) a frame array indexed out of the whole stack region
         self.cur_insn = None
         self.edges = set()
         self.executed = set()
@@ -4046,6 +4057,11 @@ class Run:
             return
         if self.code_write is None and (OURS <= addr < OURS + OURS_SIZE or self.prog.text[0] <= addr < self.prog.text[1]):
             self.code_write = addr      # a fuzzed pointer into code: the store changes one side's instructions
+        if self.ro_write is None and NATIVE_MODE and IMAGE_LO <= addr < IMAGE_HI and "rowrite" not in EQUIV_OFF and \
+                any(lo_ <= addr < hi_ for lo_, hi_ in self.prog.rdata_ranges()):
+            # (wine1, rowrite) a store through a fuzzed pointer into read-only data (an argument the input points at a
+            # string literal the function references, `out` of luaO_chunkid): no real input writes a literal
+            self.ro_write = addr
         if self.cur_insn is not None and self.cur_insn.is_fpu_store and size in (4, 8):
             self.cur_fpu[addr] = size
 
@@ -4158,6 +4174,17 @@ class Run:
             out += chunk
         raise Fault("intrinsic_access")
 
+    def _str_overlap(self, n, d, s_):
+        """(wine1, intrub) Whether strcpy/strcat(d, s_) reads source bytes it also reads or writes as the destination, from
+        the memory as it is at the call (the source string with its terminator against the destination string, for strcat,
+        and the bytes written after it)."""
+        try:
+            ls = len(self._cstr(s_)) + 1
+            ld = len(self._cstr(d)) if n == "strcat" else 0
+        except Fault:
+            return False
+        return s_ < d + ld + ls and d < s_ + ls
+
     def _note_stack_write(self, dst, n):
         """(round 25, nf5, intrwrite) bytes an inlined CRT routine (memcpy, memset) wrote into the frame count as written, as the
         original's `rep movsd` does through the write hook: a local the function filled that way is not free room a later
@@ -4198,6 +4225,11 @@ class Run:
             if os.environ.get("X87DBG"):
                 print("intrinsic", n, a_, b_, eax, file=sys.stderr)
         elif n in ("strcpy", "strcat"):
+            if self.copy_ub is None and NATIVE_MODE and "intrub" not in EQUIV_OFF and self._str_overlap(n, w[0], w[1]):
+                # (wine1, intrub) the source's own strcpy/strcat with overlapping strings (C99 7.21.3: undefined; the
+                # original inlines it as `repne scasb; rep movs` over the length it measured first, a byte loop goes
+                # on through what it writes): the input proves nothing about either side (see run_input)
+                self.copy_ub = insn.addr
             s_ = self._cstr(w[1]) + b"\0"
             dst = w[0] + (len(self._cstr(w[0])) if n == "strcat" else 0)
             self._mem(dst, len(s_), s_)
@@ -4720,6 +4752,7 @@ class Run:
                            "float_ret": fret, "fret_view": fret_view, "at": insn.addr, "tail": tail, "pointees": pointees, "known": known,
                            "ret_to": insn.addr + insn.size,
                            "conv": bool(conv), "argw": argw, "esp": esp, "arg_unw": arg_unw, "cpop": self.cpop,
+                           "in_body": self.view.in_body(insn.addr),
                            "via_object": self._is_virtual_on_ecx(insn), "cdecl_site": self.cdecl_site,
                            "x87args": x87a})
         self._close_segment()
@@ -4817,6 +4850,14 @@ class Run:
                     word = bytearray(struct.pack("<f", _stub_float(self.inp["stub_floats"], order)))
                 for (k_, j_, off_, bi, sz), val in self.inp.get("fill_override", {}).items():
                     if (k_, j_, off_) == (k, j, off):           # a directed input's value for this word
+                        if NATIVE_MODE and "fillrel" not in EQUIV_OFF and bi == 0 and sz == 4:
+                            # (wine1, fillrel) a directed value that points into the object the original passed (the
+                            # bound of a compare `p >= b.buffer + sizeof b.buffer` is the original's frame address,
+                            # luaL_Buffer in str_format's frame): the callee wrote a pointer into what it was given, so
+                            # ours gets the same offset into ours (clang's frame keeps the local elsewhere)
+                            vo_ = self.inp.get("fill_ptr", {}).get((k, j))
+                            if self.view.is_ours and vo_ is not None and vo_ <= val < ENTRY_ESP:
+                                val = (val - vo_ + owner) & M32
                         word[bi:bi + sz] = (val & ((1 << (8 * sz)) - 1)).to_bytes(sz, "little")[:4 - bi]
                 uc.mem_write(w, bytes(word))
                 self.fmem.pop(w, None)
@@ -4824,6 +4865,9 @@ class Run:
                 self.stack_written.update(range(w, w + 4))
                 self.fill_owner[w] = owner
                 self.fill_src[w] = (k, j, off)
+            if not self.view.is_ours:
+                for j, v, hi, exact_size in outs:
+                    self.inp.setdefault("fill_ptr", {})[(k, j)] = v
             for j, v, hi, exact_size in outs:
                 put(v, j, 0, v)
             firsts = {v for _, v, _, _ in outs}
@@ -4999,6 +5043,15 @@ class Run:
             top = ENTRY_ESP if v < ENTRY_ESP else arg_hi
             stop = min([top] + [x for x in self.save_slots if x > v] + [x for x in self.addr_taken if x > v] +
                        [x for x in sp if x > v])
+            vo_ = self.inp.get("fill_ptr", {}).get((k, j))
+            if vo_ is not None and "fillrel" not in EQUIV_OFF:
+                # (wine1, fillrel) a filled word that points into the object the original passed: the same offset into ours
+                offs = dict(offs)
+                for off in [o_ for o_ in offs if o_ % 4 == 0 and all(o_ + i in offs for i in range(1, 4))]:
+                    w_ = int.from_bytes(bytes(offs[off + i] for i in range(4)), "little")
+                    if vo_ <= w_ < ENTRY_ESP:
+                        for i, b2_ in enumerate(((w_ - vo_ + v) & M32).to_bytes(4, "little")):
+                            offs[off + i] = b2_
             for off, b_ in sorted(offs.items()):
                 a_ = v + off
                 if a_ >= stop:
@@ -6318,6 +6371,19 @@ class Run:
             self.cur_insn = insn
             if insn is not None and insn.mnemonic in ("fyl2x", "fyl2xp1") and "fyl2x" not in EQUIV_OFF:
                 self._fyl2x_fix(insn.mnemonic)
+            if insn is not None and insn.mem is not None and insn.mem[2] and insn.mem[1] and self.frame_escape is None \
+                    and NATIVE_MODE and not self.view.is_ours and insn.mnemonic not in ("lea", "nop") and "fescape" not in EQUIV_OFF:
+                # (wine1, fescape) an access whose base is a frame address and whose index carries it out of the whole
+                # stack region (`mov ecx, [esp+eax*4+0x2c]` with eax from a stubbed callee: numuse's nums[luaO_log2(k)+1]).
+                # No frame object reaches that far: an out-of-bounds index, undefined behaviour whose address is the frame
+                # layout's (clang's frame puts the array elsewhere, so ours writes another wild address)
+                try:
+                    b_ = self.reg(insn.mem[1])
+                    ea_ = self._ea(insn.mem) if STACK_LO <= b_ < STACK_HI else None
+                except Exception:   # noqa: BLE001
+                    ea_ = None
+                if ea_ is not None and not STACK_LO <= ea_ < STACK_HI:
+                    self.frame_escape = addr
             if insn is not None and insn.mem is not None and insn.mem[1] in ("esp", "ebp") and \
                     not insn.mem[2] and "uninitmask" not in EQUIV_OFF and \
                     insn.mnemonic not in ("lea", "nop", "ret", "call") and not insn.mnemonic.startswith(("rep", "movs", "stos")) \
@@ -7666,7 +7732,13 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
         # contents of locals passed by pointer, matched by argument position
         for j, ((ov, _), (rv, _)) in enumerate(zip(oa, ra)):
             if ov in a.get("pointees", {}) and rv in b.get("pointees", {}):
-                d_ = _pointee_diff(a["pointees"][ov], b["pointees"][rv], cap=_callee_ext(prog, a, j))
+                cap_ = _callee_ext(prog, a, j)
+                if cap_ is None and NATIVE_MODE and b.get("in_body") and "natobj" not in EQUIV_OFF:
+                    # (wine1, natobj) a callee whose reach is unknown (a function pointer: DumpConstants' D->writer(L, &x,
+                    # 4, ud)): it can reach no further than the object ours passed, a C object of the size clang's
+                    # debug information gives it. Past it lie other locals of each frame, laid out differently
+                    cap_ = _native_obj_room(rv, b["regs"]["ebp"])
+                d_ = _pointee_diff(a["pointees"][ov], b["pointees"][rv], cap=cap_)
                 if d_ is not None:
                     path, off, rwv, owv = d_
                     out.append("call #%d to %s: the local passed as argument %d differs at %s+0x%x (%s, expected %s)" % (
@@ -7964,6 +8036,19 @@ def _callee_ext(prog, call, loc):
         if rdm is not None:
             return min(e, rdm.get(loc, 0))
     return e
+
+
+def _native_obj_room(v, ebp):
+    """(wine1, natobj) Bytes from v to the end of the frame variable of clang's function under test that holds it
+    (_native_frame_vars; ebp: the frame base at the call), or None."""
+    vars_ = _native_frame_vars()
+    if not vars_:
+        return None
+    off = ((v - ebp + 0x80000000) & M32) - 0x80000000
+    for vo, sz in vars_:
+        if vo <= off < vo + sz:
+            return vo + sz - off
+    return None
 
 
 def _pointee_diff(o, r, path="", cap=None):
@@ -8630,6 +8715,128 @@ def compile_native(src, outdir, extra=(), tail_asm=None):
     if r.returncode:
         raise CompileError((r.stderr or "")[-1500:])
     return obj
+
+
+def _dwarf_frame_vars(obj_path, sym):
+    """(wine1, natobj) [(ebp offset, bytes)] of every parameter and local of `sym` in a clang object compiled with
+    -gdwarf-4 (llvm-dwarfdump's text: DW_OP_fbreg locations, the frame base EBP, the types' sizes followed through
+    typedefs, qualifiers and arrays), or None when it can't say."""
+    import clang_probe as cp
+    dd = cp.tool("llvm-dwarfdump")
+    if not dd:
+        return None
+    txt = subprocess.run([dd, "--debug-info", obj_path], capture_output=True, text=True, errors="replace").stdout
+    dies, stack = {}, []
+    cur = None
+    for line in txt.split("\n"):
+        m = re.match(r"^(0x[0-9a-f]+):(\s+)(DW_TAG_\w+|NULL)", line)
+        if m:
+            depth = len(m.group(2))
+            while stack and stack[-1][0] >= depth:
+                stack.pop()
+            off = int(m.group(1), 16)
+            cur = {"tag": m.group(3), "at": {}, "kids": [], "parent": stack[-1][1] if stack else None}
+            if m.group(3) != "NULL":
+                dies[off] = cur
+                if stack:
+                    dies[stack[-1][1]]["kids"].append(off)
+                stack.append((depth, off))
+            continue
+        m = re.match(r"^\s+(DW_AT_\w+)\s+\((.*)\)\s*$", line)
+        if m and cur is not None:
+            cur["at"][m.group(1)] = m.group(2)
+
+    def tref(d):
+        m_ = re.match(r"(0x[0-9a-f]+)", d["at"].get("DW_AT_type", ""))
+        return int(m_.group(1), 16) if m_ else None
+
+    def num(v):
+        m_ = re.match(r"(0x[0-9a-f]+|\d+)", v or "")
+        return int(m_.group(1), 0) if m_ else None
+
+    def size(off, depth=0):
+        d = dies.get(off)
+        if d is None or depth > 32:
+            return None
+        if "DW_AT_byte_size" in d["at"]:
+            return num(d["at"]["DW_AT_byte_size"])
+        if d["tag"] in ("DW_TAG_pointer_type", "DW_TAG_reference_type", "DW_TAG_rvalue_reference_type"):
+            return 4
+        if d["tag"] in ("DW_TAG_typedef", "DW_TAG_const_type", "DW_TAG_volatile_type", "DW_TAG_restrict_type"):
+            return size(tref(d), depth + 1) if tref(d) is not None else None
+        if d["tag"] == "DW_TAG_array_type":
+            el = size(tref(d), depth + 1)
+            n = 1
+            for k in d["kids"]:
+                sr = dies[k]
+                if sr["tag"] != "DW_TAG_subrange_type":
+                    continue
+                if "DW_AT_count" in sr["at"]:
+                    c = num(sr["at"]["DW_AT_count"])
+                elif "DW_AT_upper_bound" in sr["at"]:
+                    c = num(sr["at"]["DW_AT_upper_bound"])
+                    c = None if c is None else c + 1
+                else:
+                    c = None
+                if c is None:
+                    return None
+                n *= c
+            return None if el is None else el * n
+        return None
+
+    plain = sym[1:] if sym.startswith("_") else sym
+    subs = [o for o, d in dies.items() if d["tag"] == "DW_TAG_subprogram" and "DW_AT_low_pc" in d["at"] and
+            (d["at"].get("DW_AT_linkage_name", "").strip('"') == sym or
+             ("DW_AT_linkage_name" not in d["at"] and d["at"].get("DW_AT_name", "").strip('"') == plain))]
+    if len(subs) != 1 or "DW_OP_reg5" not in dies[subs[0]]["at"].get("DW_AT_frame_base", ""):
+        return None
+    out = []
+    todo = list(dies[subs[0]]["kids"])
+    while todo:
+        o = todo.pop()
+        d = dies[o]
+        if d["tag"] == "DW_TAG_lexical_block":
+            todo.extend(d["kids"])
+            continue
+        if d["tag"] not in ("DW_TAG_variable", "DW_TAG_formal_parameter"):
+            continue
+        m = re.match(r"DW_OP_fbreg ([+-]?\d+)$", d["at"].get("DW_AT_location", ""))
+        if not m:
+            continue        # a static, an optimised-out or register variable: not a frame object we can bound
+        sz = size(tref(d)) if tref(d) is not None else None
+        if sz is None:
+            return None     # a frame object of unknown size: no bound for anything near it
+        out.append((int(m.group(1)), sz))
+    return out
+
+
+def _native_frame_vars():
+    """(wine1, natobj) The frame variables of the clang object's function under test (_dwarf_frame_vars), compiled once
+    more with -gdwarf-4 on first use; None unless that object's code is byte for byte the one being checked."""
+    nf = NATIVE_FRAME
+    if not nf or "natobj" in EQUIV_OFF:
+        return None
+    if "vars" not in nf:
+        nf["vars"] = None
+        tmp = tempfile.TemporaryDirectory(dir=os.path.join(ROOT, "build") if os.path.isdir(os.path.join(ROOT, "build")) else None)
+        try:
+            path = compile_native(nf["src"], tmp.name, list(nf["flags"]) + ["-gdwarf-4"])
+            g = Obj(path)
+
+            def body(o):
+                s_ = [x for x in o.functions() if x[0] == nf["sym"]]
+                if len(s_) != 1:
+                    return None
+                sec, lo, hi = o.func_extent(s_[0])
+                return (o.sections[sec - 1]["raw"] or b"")[lo:hi]
+            b0 = body(nf["obj"])
+            if b0 is not None and b0 == body(g):
+                nf["vars"] = _dwarf_frame_vars(path, nf["sym"])
+        except Exception:       # noqa: BLE001 - an aid: without it the comparison stays as it was
+            nf["vars"] = None
+        finally:
+            tmp.cleanup()
+    return nf["vars"]
 
 
 def clang_check(src):
@@ -9416,6 +9623,9 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
                 NATIVE_CI[n_[4:]] = a_
     global NATIVE_MODE
     NATIVE_MODE = bool(native)
+    NATIVE_FRAME.clear()
+    if native:
+        NATIVE_FRAME.update(src=src, flags=list(flags), sym=fsym[0], obj=obj)
     global NATIVE_CTOR
     NATIVE_CTOR = bool(native) and fsym[0].startswith("??0")
     global NATIVE_DTOR
@@ -10052,6 +10262,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             inp["fret_unit"] = frozenset(unit_targets)
         inp.setdefault("wext_by_call", {})
         inp.setdefault("extra_by_call", {})
+        inp.setdefault("fill_ptr", {})      # (wine1, fillrel) (call, argument) -> the original's out-parameter pointer
         inp.setdefault("tail_arity", {})
         inp.setdefault("fret_by_call", {})      # (round 28, x87conv) the original's float result per call, for ours
         if "convshare" not in EQUIV_OFF:
@@ -10388,6 +10599,18 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         if not diffs and r.get("nan_sign"):
             res["inputs_inconclusive"] += 1         # (round 19) the only differences are NaN signs, see _nan_sign_only
             res["statuses"]["nan_sign"] += 1
+            return None
+        if diffs and NATIVE_MODE and rrun.copy_ub is not None and "intrub" not in EQUIV_OFF:
+            res["inputs_inconclusive"] += 1         # (wine1, intrub) overlapping strcpy/strcat strings, see _intrinsic
+            res["statuses"]["copy_overlap"] += 1
+            return None
+        if diffs and NATIVE_MODE and orun.ro_write is not None and "rowrite" not in EQUIV_OFF:
+            res["inputs_inconclusive"] += 1         # (wine1, rowrite) the original stored into a literal, see _on_write
+            res["statuses"]["ro_write"] += 1
+            return None
+        if diffs and NATIVE_MODE and orun.frame_escape is not None and "fescape" not in EQUIV_OFF:
+            res["inputs_inconclusive"] += 1         # (wine1, fescape) a frame index beyond the stack, see _on_code
+            res["statuses"]["frame_escape"] += 1
             return None
         if diffs and r.get("bool_ub") and "boolub" not in EQUIV_OFF:
             res["inputs_inconclusive"] += 1         # (round 18) native bool read of a non-bool byte: undefined, see _on_code

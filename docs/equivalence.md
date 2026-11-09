@@ -990,6 +990,37 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   `0x000354c0_native_tail_fret_off` also switches x87conv off: with the original's answer shared, switching tailfret off no
   longer splits the two sides. The Wine build can't fall back on "both sides agree" either: it links our callers with our
   callees, so a convention our declaration gets wrong shows up there even when the two declarations agree with each other.
+- (round 29, wine1) **Wine-mode gaps in the Lua VM's sources** (the nine Lua sources failing `--wine` after the records
+  batch; docs/native-build.md "The nine `--wine` exceptions"). Each is switchable with `EQUIV_OFF=name` and has a passing
+  case and an `_off` case (the old failure); all are `--wine` only, where clang's frame and literals are laid out
+  differently (in MSVC mode the same out-of-bounds store lands on the same address on both sides and a wrong value there
+  is still caught: `0x000dcae0_fill_index_wrong`). Three are inputs no real caller makes, made inconclusive only when the
+  runs differ (as `boolub`); two bound a comparison by what the C object is:
+  - `rowrite`: the original's run stored into its `.rdata` (the input pointed an argument at a string literal the
+    function references: `out` of luaO_chunkid 0x00216340, `buffer[length] = 0` landing in the initializer of a
+    ScriptHandler local, 0x001d36f0). A store into a literal is undefined, and clang's code may keep the literal elsewhere.
+  - `fescape`: the original's run accessed memory through a frame address plus an index register at an address
+    outside the whole stack region (`mov ecx, [esp+eax*4+0x2c]` with eax from a stubbed luaO_log2, numuse 0x00219a60).
+    No frame object reaches that far: the index is out of bounds, and where it lands depends on the frame layout.
+    `0x0008e880_native_xlocal_elem0`'s difference at seed 11 is one of these (`f_text[f_n] = 0`, f_n fuzzed): that case now
+    runs with fescape off, to keep testing xlocal.
+  - `intrub`: ours's strcpy / strcat (an intrinsic the checker performs) got overlapping strings, from the
+    memory at the call (C99 7.21.3; luaO_chunkid with `out == source`). The original inlines them as `repne scasb; rep
+    movs` over the length it measured first, a byte loop reads what it writes. Judged on ours's run: the call is our
+    source's own and the original has no call to look at.
+  - `natobj`: a pointer to a local passed to a callee whose reach is unknown (`_callee_ext` None: a
+    function pointer, DumpConstants' `D->writer(L, &x, 4, ud)` 0x0021aa00) is compared up to the end of the C object
+    ours passed, from clang's debug information: the function is compiled once more with `-gdwarf-4` on first need
+    (used only when its code is byte for byte the checked object's), and `llvm-dwarfdump` gives each parameter and
+    local's frame offset and size (typedefs, qualifiers and arrays followed). The bytes behind it are other locals in
+    each frame. A wrong value inside the object still fails (`0x0021aa00_wine_natobj_wrong`).
+  - `fillrel`: a stub's fill word that points into the object the original passed (a directed input that
+    flips `p >= b.buffer + sizeof b.buffer` plants the original's frame address in a luaL_Buffer's `p`, str_format
+    0x0033d400) is written to ours at the same offset into ours's object, in the fill itself and in the `fillsame` replay;
+    the absolute address meant another byte of clang's frame.
+  Cases `0x00219a60_wine_fescape[_off]`, `0x00216340_wine_rowrite[_off]`, `0x0021aa00_wine_natobj[_off,_wrong]`,
+  `0x0033d400_wine_fillrel[_off]`, and `0x0021b230_wine_order[_wrong]` (a source fix: clang orders `b->buffer[b->n++] = c`
+  and `*z->p++` store-first, which a buffer overlapping its header tells apart; the sources now spell the original's order).
 
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check

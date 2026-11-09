@@ -617,7 +617,10 @@ CASES = {
     # xlocal must not fire on a local reached through its own address (`lea ebx, [esp+0x10]; mov [ebx], esi`, 0x002165c0: all 98 inputs were
     # marked) or on element 0 of a frame array set by name (0x0008e880: 21 of 72 marked, hiding a real difference at seed 11)
     "0x002165c0_xlocal_ptr": ("equivalent", None, 0, {"n_inputs": 100}),
-    "0x0008e880_native_xlocal_elem0": ("fail", "unexpected write to 0xbe7ef6d4", 0, {"native": True, "n_inputs": 60}),
+    # (wine1) the difference at seed 11 is `f_text[f_n] = 0` with a fuzzed f_n beyond the whole stack, where each frame layout puts
+    # the byte elsewhere: since fescape that input is inconclusive in Wine mode, so the case keeps testing xlocal with fescape off
+    "0x0008e880_native_xlocal_elem0": ("fail", "unexpected write to 0xbe7ef6d4", 0, {"native": True, "n_inputs": 60,
+                                                                                   "equiv_off": "fescape"}),
     # cintrin + tailx87: `jmp __CIfmod` (mov edx, <descriptor>; jmp __cintrindisp2) takes st0 and st1 and no stack word; the original calls it
     "0x00261bb0_tail_fmod": ("equivalent", None, 0.9, {"n_inputs": 300}),
     "0x00261bb0_tail_fmod_off": ("fail", "argument words", 0, {"src": "0x00261bb0_tail_fmod", "n_inputs": 100, "equiv_off": "cintrin"}),
@@ -860,6 +863,30 @@ CASES = {
     "0x001050d0_x87_vslot": ("equivalent", None, 0, {"native": True, "seeds": list(range(8))}),
     # all eight x87 registers in use (`fld st(2); fmul st(3)` at depth 8): TOP alone reads as an empty stack, not an underflow
     "0x0024ce50_x87_full_stack": ("equivalent", None, 0, {"seeds": [0]}),
+    # (wine1) Wine-mode inputs no real caller makes, each turned inconclusive (the _off cases: the old failure):
+    # numuse's nums[luaO_log2(k)+1] with a stubbed log2 indexes out of the whole stack (fescape);
+    "0x00219a60_wine_fescape": ("equivalent", None, 0, {"native": True, "seeds": [55]}),
+    "0x00219a60_wine_fescape_off": ("fail", "unexpected write", 0, {"src": "0x00219a60_wine_fescape", "native": True,
+                                                                      "seeds": [55], "equiv_off": "fescape"}),
+    # luaO_chunkid with `out` at a literal it copies from (rowrite) or `out` == `source` (strcat of overlapping strings: intrub)
+    "0x00216340_wine_rowrite": ("equivalent", None, 0, {"native": True, "seeds": [14, 17, 26, 45, 112]}),
+    "0x00216340_wine_rowrite_off": ("fail", "write to", 0, {"src": "0x00216340_wine_rowrite", "native": True,
+                                                            "seeds": [14, 17, 26, 45, 112], "equiv_off": "rowrite,intrub"}),
+    # DumpConstants passes &bits (an int) to D->writer, a callee of unknown reach: the word behind it is another local in
+    # each frame (natobj: clang's debug information bounds the object); a wrong value inside the object still fails
+    "0x0021aa00_wine_natobj": ("equivalent", None, 0, {"native": True, "seeds": [1, 9, 44]}),
+    "0x0021aa00_wine_natobj_off": ("fail", "differs at +0x4", 0, {"src": "0x0021aa00_wine_natobj", "native": True,
+                                                                  "seeds": [1, 9, 44], "equiv_off": "natobj"}),
+    "0x0021aa00_wine_natobj_wrong": ("fail", "differs at +0x0", 0, {"native": True, "seeds": [1, 9, 44]}),
+    # str_format: a directed input plants the original's frame address (its buffer's end - 1) in the luaL_Buffer's p: ours
+    # gets the same offset into its own buffer (fillrel)
+    "0x0033d400_wine_fillrel": ("equivalent", None, 0, {"native": True, "seeds": [5]}),
+    "0x0033d400_wine_fillrel_off": ("fail", None, 0, {"src": "0x0033d400_wine_fillrel", "native": True, "seeds": [5],
+                                                      "equiv_off": "fillrel"}),
+    # read_numeral: `b->buffer[b->n++] = c` and `*z->p++` that clang orders store-first, against a buffer overlapping its
+    # header (a source fix, not a checker rule: the order the original has)
+    "0x0021b230_wine_order": ("equivalent", None, 0, {"native": True, "seeds": [8, 24, 54]}),
+    "0x0021b230_wine_order_wrong": ("fail", "write to", 0, {"native": True, "seeds": [8, 24, 54]}),
 }
 
 # verify_relocs.py cases: name -> (expected status, issue kind it must report or None)
