@@ -42,6 +42,12 @@ HULK_LIB_STUB(XapiCheckPath, (hulk_uptr path), (void)path; return 0)
 HULK_LIB_STUB(Bink_367610, (hulk_uptr a, hulk_u32 b, hulk_u32 c), (void)a; (void)b; (void)c; return 0)
 HULK_LIB_STUB(Bink_367660, (hulk_uptr a, hulk_u32 b, hulk_uptr c, hulk_u32 d), (void)a; (void)b; (void)c; (void)d; return 0)
 #endif
+// Bink's memory hooks (bink1): the game installs its heap's alloc / free (0x003338a0 / 0x003338c0) for the Bink
+// library's aligned allocator 0x0033eb90-0x0033ed20, which only the BINK section called. Movies decode through FFmpeg
+// (src/platform/sdl/movies/), so the pair is kept for the trace and never called.
+hulk_uptr hulk_lib_bink_memory_hooks[2];
+HULK_LIB_STUB_R(void, BinkSetMemory, (hulk_uptr alloc, hulk_uptr release),
+                hulk_lib_bink_memory_hooks[0] = alloc; hulk_lib_bink_memory_hooks[1] = release)
 HULK_LIB_STUB_R(hulk_uptr, Direct3D_Object, (hulk_u32 a), (void)a; return 0)
 HULK_LIB_STUB_R(hulk_uptr, D3DDevice_CreateIndexBuffer2, (hulk_u32 n), (void)n; return 0)
 HULK_LIB_STUB(D3DDevice_SetRenderState_FogColor, (hulk_u32 v), (void)v; return 0)

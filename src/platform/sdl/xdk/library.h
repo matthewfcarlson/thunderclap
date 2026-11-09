@@ -15,6 +15,7 @@
     X(0x00355bc2, DriveFindNextFile, "XAPI find-next file: stdcall (handle, find data 0x140) -> 0 = no more; core::Drive::vfunc_19 (sa1: was named XapiConvertTime)") \
     X(0x00355c13, XapiCreatePath, "XAPI (saves/soundtracks): stdcall (char* path, int flag) -> int, 0 then GetLastError") \
     X(0x00355c7f, XapiCheckPath, "XAPI (saves/soundtracks): stdcall (const char* path) -> int") \
+    X(0x0033eb70, BinkSetMemory, "Bink (linked in .text, before the CRT): stdcall (alloc hook, free hook), once from the movie player's init 0x00333b50; the hooks are the game's 0x003338a0 / 0x003338c0") \
     X(0x00367610, Bink_367610, "Bink: stdcall (void*, void*, unsigned) from movie::PlayerBink") \
     X(0x00367660, Bink_367660, "Bink: stdcall (int, int, void*, int), once per track (0x44-byte records)") \
     X(0x0037d240, Direct3D_Object, "D3D: stdcall (int) -> object handed to a wrapper's Init (pddi device set-up)") \
@@ -36,6 +37,7 @@ extern "C" {
 hulk_u32 HULK_STDCALL hulk_lib_DriveFindNextFile(hulk_uptr, hulk_uptr);                        // 0x00355bc2
 hulk_u32 HULK_STDCALL hulk_lib_XapiCreatePath(hulk_uptr, hulk_u32);                         // 0x00355c13
 hulk_u32 HULK_STDCALL hulk_lib_XapiCheckPath(hulk_uptr);                                    // 0x00355c7f
+void HULK_STDCALL hulk_lib_BinkSetMemory(hulk_uptr, hulk_uptr);                             // 0x0033eb70
 hulk_u32 HULK_STDCALL hulk_lib_Bink_367610(hulk_uptr, hulk_u32, hulk_u32);                  // 0x00367610
 hulk_u32 HULK_STDCALL hulk_lib_Bink_367660(hulk_uptr, hulk_u32, hulk_uptr, hulk_u32);        // 0x00367660
 hulk_uptr HULK_STDCALL hulk_lib_Direct3D_Object(hulk_u32);                                  // 0x0037d240

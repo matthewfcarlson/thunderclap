@@ -773,7 +773,7 @@ class GapScan:
 
 
 # --- pass 2 driver ------------------------------------------------------------------------------------------------
-LIB_SPAN_NAMES = [(0x208B9C, 0x212BB0, "XAPILIB"), (0x3440E0, 0x356BF0, "LIBCMT+XAPILIB"), (0x35A7B0, 0x35BE88, "LIBCMT EH runtime")]
+LIB_SPAN_NAMES = [(0x208B9C, 0x212BB0, "XAPILIB"), (0x33EB70, 0x33ED90, "Bink memory"), (0x3440E0, 0x356BF0, "LIBCMT+XAPILIB"), (0x35A7B0, 0x35BE88, "LIBCMT EH runtime")]
 GAME_TEXT_END = 0x364840
 
 

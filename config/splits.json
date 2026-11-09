@@ -40932,7 +40932,7 @@
   },
   {
    "start": "0x00338d90",
-   "end": "0x0033ed90",
+   "end": "0x0033eb70",
    "file": "unknown/unk_338d90.cpp",
    "kind": "game",
    "layer": "engine",
@@ -40943,8 +40943,22 @@
    "layer_evidence": [
     "link order: Radical library code (after the XAPILIB span)"
    ],
-   "functions": 167,
+   "functions": 161,
    "named": 0
+  },
+  {
+   "start": "0x0033eb70",
+   "end": "0x0033ed90",
+   "file": "library/bink_mem.obj",
+   "kind": "library",
+   "layer": "library",
+   "confidence": "high",
+   "evidence": [
+    "docs/platform-boundary.md: Bink's memory hooks and aligned allocator (BinkSetMemory 0x0033eb70, called once by the movie player 0x00333b50; the allocator the BINK section calls)"
+   ],
+   "layer_evidence": [
+    "XDK/CRT/Bink code, replaced and never decompiled"
+   ]
   },
   {
    "start": "0x0033ed90",

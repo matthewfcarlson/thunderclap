@@ -1465,9 +1465,7 @@ where a record field's signedness changed MSVC's code.
   needs a feof / ferror shim in src/platform/sdl.
 - 0x001d22a0 packs its arguments into 4-byte slots; gen owners.h classes hold the lua_State in an `int` at +0x08
   (0x001d29b0's cast, 0x001d17f0's `void*` context).
-- The aligned allocator 0x0033eb70 / 0x0033eb90 / 0x0033ec00 / 0x0033ec30 / 0x0033ed10 / 0x0033ed20 (about 32
-  callers, not Lua): a function-pointer hook in a 4-byte header slot at user-8 and pointer tables (`DAT_004d9858` /
-  `DAT_004d985c`) as `unsigned int`; needs a header-layout decision.
+- The aligned allocator 0x0033eb70-0x0033ed20: Bink's, replaced (bink1, "The Bink allocator is library code" below).
 - Game bug kept: generic_reader and luaB_load call luaL_unref 0x00339710 with (ref, LUA_REGISTRYINDEX) swapped.
 
 ### The library tables, the heap's free and ScriptHandler's Lua callers (lua2, 2026-11-08)
@@ -1613,9 +1611,7 @@ this batch's files.
 - 0x001a16b0 (LuaAction) passes a chunk pointer to 0x001d2890 through an `int` field and takes the ScriptHandler
   from an `int`-returning 0x001d4c90 declaration.
 - 0x001d4530 names its globals `g1_1d4530` / `g2_1d4530` (DAT_004dd6ec / DAT_004dd700) and views +0xc of the latter.
-- The aligned allocator 0x0033eb70-0x0033ed20 (task left open): every caller except 0x00333b50 (which installs the
-  hooks) is in the BINK section (0x00364880-0x0036e6f0), so these look like RAD's allocator linked into .text, not
-  game code. Decision needed before giving them a 64-bit branch (clean-room rule).
+- The aligned allocator 0x0033eb70-0x0033ed20: confirmed Bink's and replaced (bink1, below).
 
 ## Library names must hit their table address (libname1, 2026-11-09)
 
@@ -1657,3 +1653,74 @@ inputs, and `--wine` / `--x64` give the same results as the old sources.
 **Proof.** Control 69828 (HEAD 8310fb004, fresh) and proof 70239 (fresh: the tools changed) on studio, play3 to
 60000: `ckpt_gate.py` GATE ok, 0 of 2005 common frames differ (the control also gates ok against 69791); Wine unbound
 1252 before and after; the link's conv_check report unchanged.
+
+## The Bink allocator is library code (bink1, 2026-11-09)
+
+The "aligned allocator" 0x0033eb70 / 0x0033eb90 / 0x0033ec00 / 0x0033ec30 / 0x0033ed10 / 0x0033ed20 (481 bytes,
+six sources, in the low-confidence object `unknown/unk_338d90.cpp` with the Lua libraries) is Bink's, not the
+game's. The user approved replacing the Bink library (2026-11-09), so the range is a library span now, like
+XAPILIB and LIBCMT: `library/bink_mem.obj` 0x0033eb70-0x0033ed90 in config/splits.json, in every `LIB_SPANS`
+table (tools/packet.py, wine_host.py, clang_probe.py, x87_scan.py, fix_function_list.py, platform_map.py,
+infer_splits.py, farm/src/farm.ts) and in docs/platform-boundary.md "Where library code lives". Nothing of
+the span's code was read beyond identifying its callers.
+
+**Evidence** (link layout, the XBE's call graph and the one game call site only):
+
+- Callers. A scan of every executable section for immediates naming the six functions: 0x0033eb90, 0x0033ec00,
+  0x0033ec30, 0x0033ed10 and 0x0033ed20 are called only from the BINK section (0x00364880, 0x00364fe0, 0x003677c0,
+  0x00368530, 0x003689d0, 0x00368ae0, 0x00368c20, 0x00368d70, 0x00369810, 0x00369b10, 0x0036a4a0, 0x0036a510) and
+  from each other; no game function, data word or vtable names them. 0x0033eb70 is called once, from the movie
+  player's init 0x00333b50 (`platform/xbox/movie`), which passes two of the game's own `__stdcall` hooks:
+  0x003338a0 (an allocation from the movie heap `DAT_00555ba0`, 16-aligned) and 0x003338c0 (free).
+- Shape. All six are `__stdcall` (RAD's convention on x86; the game's own libraries are `__cdecl` / `__thiscall`):
+  "store two hooks", then an allocator that calls the first hook (or `malloc`) and records the second in the block's
+  header for the free. That is Bink's public `BinkSetMemory(alloc, free)` interface, exactly as the game uses it.
+- Layout. The span's `.bss` (`DAT_005660d8` / `DAT_005660dc`, the tables `DAT_00566100` / `DAT_00566180`,
+  `DAT_00566200` / `DAT_00566204`) lies between `.bss` words referenced only from the BINK section (0x00565fd8 from
+  0x003648a0; 0x005660e0-0x005660f8 from 0x00368660; 0x00566208 from 0x0036ec50): the allocator's object was
+  linked with Bink's objects, its code in `.text` (the memory hooks must be callable before the BINK section is
+  loaded) while the rest went to the named section. In `.text` the span starts right after Lua's last function
+  (luaopen_base 0x0033eb30, game code) and ends at the FFT object `unk_33ed90`.
+- Neighbours checked: 0x0033eb30 is luaopen_base (Lua, game); 0x0033ed90 is an FFT twiddle table in
+  `unknown/unk_33ed90.cpp` (30 functions, 0x0033ed90-0x003440e0), untouched here. Note for a decision: none of
+  those 30 functions has a game caller; the only external callers (of 0x00343e10 and 0x00343f50) are in the BINK
+  section (0x00369550). The object is probably Bink's audio transform and would fall under the same rule.
+
+**What changed.**
+
+- Removed (library code is never in the tree): matches/0x0033eb70.cpp, matches/0x0033ec00.cpp,
+  matches/0x0033ed10.cpp, equivalent/0x0033eb90.cpp, equivalent/0x0033ec30.cpp, equivalent/0x0033ed20.cpp.
+  tools/progress.py counts 6 functions / 481 bytes less game code (27,467 functions; still 100.0% verified).
+  docs/game-functions.csv is not regenerated here (another agent holds uncommitted changes to it), so the treemap
+  lists the six as game until the next `progress.py --readme`.
+- The game's one call, `FUN_0033eb70(alloc, free)` in matches/0x00333b50.cpp, binds like every other library call:
+  a row `X(0x0033eb70, BinkSetMemory, ...)` in src/platform/sdl/xdk/library.h and a stand-in
+  `hulk_lib_BinkSetMemory` in library.cpp that records the pair (`hulk_lib_bink_memory_hooks`) and never calls
+  it: movies decode through FFmpeg (src/platform/sdl/movies/). The Wine link binds the address to the stand-in
+  (wine_host.library_shim), the 64-bit links by the address in the name (native_bind;
+  tests/native_host/xdk_bind_test.py --target mac: 901 names bound right with the new row).
+- The span's statics are library data now (config/data.json: the nine items above owned by `library/bink_mem.obj`,
+  so data_gen leaves them out and include/decls/data/engine/unknown.h loses their declarations). No remaining
+  source names them.
+- gen_tree skips library objects ("verified functions in library objects (not in the tree)"); the hybrid build's
+  patch set is matches/ + equivalent/, so the six leave it with their files; hybrid/exclude.txt needs no entry.
+
+**Proof** (studio, play3 to 60,000, limit 14,400). The control is HEAD 5d4b7e82c with its own private data
+(`build/bink1/data-ctl`); the proof is the same HEAD plus this change (workspace overlay; HEAD moved to c6b3cbee0 /
+96b18cb18 during the runs, neither touching these files).
+
+| | control 70413 | proof 70448 (seed 70413) |
+|---|---|---|
+| build / map / probe / link stages | 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 (fresh: data.json, splits.json and unknown.h differ) |
+| strict link rc / Wine unbound | 0 / 1,252 | 0 / 1,252 (the same symbols; `_FUN_0033eb70@8` is bound, not unbound) |
+| library.h code rows bound (wine_host.library_shim) | 9 | 10 (BinkSetMemory) |
+| play3 checkpoints | 2,014 to 60,390 | 2,002 to 60,030; `ckpt_gate.py 70413 70448` GATE ok: 0 of 2,002 common frames differ (the known transients 5880, 5910, 34260, 52620, 52650 on both), PRNG hashes identical |
+| arm64 macOS / x86-64 Linux / arm64 Android unbound (each side's own snapshot and binding map; compiles 70457 / 70450 / 70451 and 70497 / 70498 / 70508) | 29,485 / 23,295 / 29,477 | **29,481 / 23,294 / 29,473**, all links rc 0 (macOS: 4 fewer `FUN_` by address) |
+
+Notes from the runs: the Linux compile (mac2 / mac1) has 226 retarget failures (`FileNotFoundError`, a host
+environment issue, the same set on both sides; the Android compile on mac2 shows them too, so the Android proof
+compile was re-run on studio, the control's host, where both sides fail only the 3 known front-end TUs). The proof's
+tree has one TU more than the control's, `physics/unk_2e6780.iso_002e9c60.cpp` (a build_tree fallback-round
+placement, unrelated to this change). tools/native_mac.py's compile reads src/platform/sdl/crt/native_crt_table.h,
+which a queue job's clone lacks: ship it with `--files src/platform/sdl/crt/native_crt_table.h=src/platform/sdl/crt/native_crt_table.h`
+(build/bink1/scripts/native_jobs.sh).

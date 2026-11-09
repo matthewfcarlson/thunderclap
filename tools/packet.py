@@ -26,7 +26,7 @@ B = lambda *p: os.path.join(ROOT, "build", *p)
 XBE_PATH = os.path.join(ROOT, "isos/extracted/default.xbe")
 GAME_TEXT_END = 0x364840  # .text end; BINK/XDK sections follow
 # Library code linked inside .text (see docs/platform-boundary.md): replaced by the port, not decompiled.
-LIB_SPANS = [(0x208B9C, 0x212BB0), (0x3440E0, 0x356BF0), (0x35A7B0, 0x35BE88)]  # XAPILIB; LIBCMT+XAPI; LIBCMT EH
+LIB_SPANS = [(0x208B9C, 0x212BB0), (0x33EB70, 0x33ED90), (0x3440E0, 0x356BF0), (0x35A7B0, 0x35BE88)]  # XAPILIB; Bink memory; LIBCMT+XAPI; LIBCMT EH
 
 
 class Db:

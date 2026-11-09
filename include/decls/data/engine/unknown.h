@@ -650,15 +650,6 @@ extern "C" const char DAT_00435284[9];  // s_newproxy_00435284
 extern "C" const char DAT_00435290[9];  // s_VERSION_00435290
 extern "C" const char DAT_0043529c[15];  // s_Out_of_memory_0043529c
 extern "C" const char DAT_004352ac[52];  // s_The_file_doesn_t_con_004352ac
-extern "C" const void* DAT_004d9858;  // PTR_004d9858
-extern "C" const void* DAT_004d985c;  // PTR_004d985c
-extern "C" int DAT_004d9860;
-extern "C" void* DAT_005660d8[1];
-extern "C" unsigned int DAT_005660dc;
-extern "C" unsigned char DAT_00566100[128];
-extern "C" unsigned char DAT_00566180[128];
-extern "C" unsigned char DAT_00566200[4];
-extern "C" unsigned char DAT_00566204[4];
 
 // unknown/unk_357740.cpp
 extern "C" const float DAT_0043c024;  // flt_0043c024

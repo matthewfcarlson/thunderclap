@@ -122,7 +122,7 @@ Confidence: `high` = a core with at least 3 named functions, `medium` = a core w
 | `global/CFEManager.cpp` | `0x0be230`..`0x0c4ec0` (27 KB) | 127 | 42 | CFEManager |
 | `pure3d/unk_2d6bb0.cpp` | `0x2d6bb0`..`0x2dd760` (26 KB) | 57 | 0 | - |
 | `physics/unk_2e6780.cpp` | `0x2e6780`..`0x2ecd50` (25 KB) | 92 | 0 | - |
-| `unknown/unk_338d90.cpp` | `0x338d90`..`0x33ed90` (24 KB) | 167 | 0 | - |
+| `unknown/unk_338d90.cpp` | `0x338d90`..`0x33eb70` (24 KB) | 161 | 0 | - |
 | `unknown/unk_3137f0.cpp` | `0x3137f0`..`0x319580` (23 KB) | 23 | 0 | - |
 | `pure3d/d3dExtFramebufferEffects.cpp` | `0x320160`..`0x325ee0` (23 KB) | 114 | 87 | pure3d::d3dExtFramebufferEffects |
 
@@ -137,7 +137,7 @@ Confidence: `high` = a core with at least 3 named functions, `medium` = a core w
 | `global/unk_0b4cf0.cpp` | `0x0b4cf0`..`0x0bba40` | 84 | call partners |
 | `pure3d/unk_2d6bb0.cpp` | `0x2d6bb0`..`0x2dd760` | 57 | call partners |
 | `physics/unk_2e6780.cpp` | `0x2e6780`..`0x2ecd50` | 92 | call partners |
-| `unknown/unk_338d90.cpp` | `0x338d90`..`0x33ed90` | 167 | none (no majority) |
+| `unknown/unk_338d90.cpp` | `0x338d90`..`0x33eb70` | 161 | none (no majority) |
 | `unknown/unk_3137f0.cpp` | `0x3137f0`..`0x319580` | 23 | none (no majority) |
 | `unknown/unk_33ed90.cpp` | `0x33ed90`..`0x3440e0` | 30 | none (no majority) |
 | `unknown/unk_22baf0.cpp` | `0x22baf0`..`0x230800` | 71 | none (no majority) |

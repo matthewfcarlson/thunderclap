@@ -48,12 +48,13 @@ callers and call counts, the seams, the leaks, the priority list with match stat
 
 ## Where library code lives
 
-The XBE's `.text` (`0x11000`–`0x364840`) is not all game code. Three library spans are linked into it;
+The XBE's `.text` (`0x11000`–`0x364840`) is not all game code. Four library spans are linked into it;
 `tools/packet.py` currently counts them as game code because their unnamed functions are `FUN_`:
 
 | Span | Contents | Evidence |
 |---|---|---|
 | `0x208b9c`–`0x212bb0` | XAPILIB (files, threads, heap, MU, launch, signatures) and `xboxkrnl` jump stubs | XbSymbolDatabase names, unaligned `/O1 /Oy-` code, `call [kernel thunk]` |
+| `0x33eb70`–`0x33ed90` | Bink's memory hooks and aligned allocator (`BinkSetMemory` and the alloc / free the BINK section calls; bink1, 2026-11-09) | `__stdcall`; every caller but the movie player's one `BinkSetMemory` call is in the BINK section; its `.bss` sits among the BINK section's |
 | `0x3440e0`–`0x356bf0` | LIBCMT plus more XAPILIB (fibers, save games, soundtracks, `XGetVideoFlags`) | same |
 | `0x35a7b0`–`0x35be88` | LIBCMT EH runtime, `itoa`, 64-bit helpers | Ghidra FID names |
 
@@ -62,7 +63,7 @@ The XBE's `.text` (`0x11000`–`0x364840`) is not all game code. Three library s
 `0x35be88`–`0x364840` is `.text$yc`/`.text$yd` (dynamic initializers and `atexit` thunks of game
 translation units): also game. Everything after `.text` (BINK*, D3D, XGRPH, DSOUND, XPP) is library.
 
-`tools/packet.py`'s `is_game` excludes the three spans and everything after `.text` (`Db.is_library` is
+`tools/packet.py`'s `is_game` excludes the four spans and everything after `.text` (`Db.is_library` is
 the complement), so library functions are never queued, never counted as unverified game code, and
 `tools/progress.py` reports them on a separate line. `farm/src/farm.ts` also skips library addresses, because
 older queue files in `build/farm/` still list them. The library spans are replaced, never decompiled.
