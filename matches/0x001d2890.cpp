@@ -1,3 +1,4 @@
+#include "decls/data/script.h"
 #include "decls/data/game/global.h"
 #include "decls/data/lua.h"
 #include "gen/owners.h"
@@ -15,9 +16,10 @@ LuaVMState* __cdecl FUN_00213290(LuaVMState*, int);
 void __cdecl FUN_00212e20(LuaVMState*, int);
 void __cdecl FUN_00213870(LuaVMState*, int, int);
 }
-// state is a void* member of include/gen/owners.h Object_1d2890; a (the chunk's buffer) is an unsigned int
-// parameter there: cast at the use.
-U_1d2890 owners::Object_1d2890::FUN_001d2890(U_1d2890 a, U_1d2890 b, U_1d2890 c) {
+// state is a void* member of include/gen/owners.h Object_1d2890; a (the chunk's buffer) a hulk_uintptr parameter
+// there: cast at the use.
+U_1d2890 owners::Object_1d2890::FUN_001d2890(hulk_uintptr a, U_1d2890 b, U_1d2890 c) {
+    ScriptHandlerFields& h = ((ScriptHandlerView*)this)->f;  // the coroutine reference counter
     FUN_00213380((LuaVMState*)state, "coroutine", 9);
     FUN_00213600((LuaVMState*)state, -10001);
     FUN_002133d0((LuaVMState*)state, "create");
@@ -35,10 +37,10 @@ U_1d2890 owners::Object_1d2890::FUN_001d2890(U_1d2890 a, U_1d2890 b, U_1d2890 c)
     FUN_002133d0((LuaVMState*)state, (*(const char**)&DAT_004c5cf8));
     FUN_00213600((LuaVMState*)state, -10000);
     FUN_00212e20((LuaVMState*)state, -2);
-    ++counter;
-    if (!counter)
-        counter = 1;
-    U_1d2890 result = counter;
+    ++h.coroutineId;
+    if (!h.coroutineId)
+        h.coroutineId = 1;
+    U_1d2890 result = h.coroutineId;
     FUN_00213870((LuaVMState*)state, -2, result);
     FUN_00212d80((LuaVMState*)state, -3);
     return result;

@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_00203490 @ 0x00203490
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+#include "decls/data/script.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
@@ -7,7 +10,7 @@ namespace math { class Vector; }
 
 extern char DAT_0048e10c;
 extern "C" void* FUN_0008d690(unsigned size);
-inline void* operator new(unsigned int, void* p) throw() { return p; }
+inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 
 template <class T> struct TypeTag;
 template <> struct TypeTag<void> { static const void* get() { return ((char*)&DAT_0048e100); } };
@@ -15,14 +18,10 @@ template <> struct TypeTag<float> { static const void* get() { return ((char*)&D
 template <> struct TypeTag<const char*> { static const void* get() { return ((char*)&DAT_0048e0f0); } };
 template <> struct TypeTag<math::Vector> { static const void* get() { return &DAT_0048e10c; } };
 
-class __declspec(novtable) MethodBase_203490 {
+// Function (include/decls/data/script.h): the vftable, then Function's fields.
+class __declspec(novtable) MethodBase_203490 : public ScriptFunctionFields {
   public:
     virtual void m0();
-    char pad_04[0xc];
-    char argType;
-    char pad_11[7];
-    char retType;
-    char pad_19[3];
     void FUN_001d0480(const char*, int);
     MethodBase_203490(const char* n, int k) { FUN_001d0480(n, k); }
 };
@@ -34,7 +33,7 @@ class Method1 : public MethodBase_203490 {
     Method1(const char* name, Fn f) : MethodBase_203490(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
-        argType = FUN_001d04d0(TypeTag<A>::get());
+        argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
     }
     Fn fn;
 };
@@ -70,12 +69,14 @@ void CWorldCollisionManager::FUN_00203490()
     if (reg) {
         void* mem;
 
+        { typedef Closure1<CWorldCollisionManager, math::Vector, math::Vector> Sized; HULK_SIZE32(Sized, 0x24); }
         mem = FUN_0008d690((int)sizeof(Closure1<CWorldCollisionManager, math::Vector, math::Vector>));
         Closure1<CWorldCollisionManager, math::Vector, math::Vector>* c1 = 0;
         if (mem)
             c1 = new (mem) Closure1<CWorldCollisionManager, math::Vector, math::Vector>("wcm_IntersectGround", this, &CWorldCollisionManager::FUN_00202500);
         reg->FUN_001d3b70("wcm_IntersectGround", c1);
 
+        { typedef Closure1<CWorldCollisionManager, void, float> Sized; HULK_SIZE32(Sized, 0x24); }
         mem = FUN_0008d690((int)sizeof(Closure1<CWorldCollisionManager, void, float>));
         Closure1<CWorldCollisionManager, void, float>* c2 = 0;
         if (mem)
@@ -84,12 +85,14 @@ void CWorldCollisionManager::FUN_00203490()
 
         reg->FUN_002033d0("wcm_GetWaterHeight", this, &CWorldCollisionManager::FUN_00034e60);
 
+        { typedef Closure1<CWorldCollisionManager, void, const char*> Sized; HULK_SIZE32(Sized, 0x24); }
         mem = FUN_0008d690((int)sizeof(Closure1<CWorldCollisionManager, void, const char*>));
         Closure1<CWorldCollisionManager, void, const char*>* c3 = 0;
         if (mem)
             c3 = new (mem) Closure1<CWorldCollisionManager, void, const char*>("wcm_SetWaterEffectName", this, &CWorldCollisionManager::FUN_00201bd0);
         reg->FUN_001d3b70("wcm_SetWaterEffectName", c3);
 
+        { typedef Closure1<CWorldCollisionManager, void, const char*> Sized; HULK_SIZE32(Sized, 0x24); }
         mem = FUN_0008d690((int)sizeof(Closure1<CWorldCollisionManager, void, const char*>));
         Closure1<CWorldCollisionManager, void, const char*>* c4 = 0;
         if (mem)

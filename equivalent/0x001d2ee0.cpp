@@ -1,17 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 13662 inputs, branch coverage 4/4)
 // FUN_001d2ee0 @ 0x001d2ee0
 // cl-flags: /GS
+#include "decls/data/script.h"
 #include "gen/owners.h"
 
-struct LuaState;
+
 struct Vec3 {
     float x, y, z;
 };
 
-void __cdecl FUN_002133d0(LuaState *L, const char *s);
-extern "C" void __cdecl FUN_00213800(LuaState *L, int index);
-void __cdecl FUN_00212d80(LuaState *L, int index);
-extern "C" void __cdecl FUN_001d0870(LuaState *L, Vec3 *v);
+void __cdecl FUN_002133d0(LuaVMState *L, const char *s);
+extern "C" void __cdecl FUN_00213800(LuaVMState *L, int index);
+void __cdecl FUN_00212d80(LuaVMState *L, int index);
+extern "C" void __cdecl FUN_001d0870(LuaVMState *L, Vec3 *v);
 
 struct NodeName {
 };
@@ -37,10 +38,9 @@ struct Stats { char pad[4]; };
 extern "C" Stats *__fastcall FUN_00059a30(Context *ctx);
 extern "C" char *__fastcall FUN_00036d00(Stats *stats);
 
-class ScriptTable {
+class ScriptTable : public ScriptHandlerFields {
 public:
-    char pad0[8];
-    LuaState *L;
+    virtual void v0();
     void FUN_001d1cb0();
     void FUN_001d2ba0(const char *name, int a, int b);
     char FUN_001d2ee0(Actor *actor);

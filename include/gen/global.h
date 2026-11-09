@@ -6416,8 +6416,8 @@ public:
     virtual ~Function(); // slot 0
     virtual bool vfunc_1(int, int); // slot 1
     virtual void vfunc_2(void*, void*, void*) = 0; // slot 2
-    int f_04;
-    int f_08;
+    hulk_intptr f_04;
+    hulk_intptr f_08;
     int f_0c;
     char f_10;
     char f_11;

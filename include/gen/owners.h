@@ -12988,112 +12988,123 @@ struct Obj_1ce020 {
     void Second(float);
     void FUN_001ce020(float);
 };
-// matches/0x001d04b0.cpp (stub CAgent), size 0xc
+// matches/0x001d04b0.cpp (stub CAgent), size 0xc (0x18)
 struct CAgent_1d04b0 {
-    char pad[8]; // +0x00
-    int field; // +0x08
+    void* vftable; // +0x00
+    hulk_intptr name; // +0x04 (+0x08)
+    hulk_intptr field; // +0x08 (+0x10)
     void FUN_001d04b0(hulk_intptr);
 };
-// matches/0x001d15d0.cpp (stub Obj_1d15d0), size 0xc
+// matches/0x001d15d0.cpp (stub Obj_1d15d0), size 0xc (0x18)
 struct Obj_1d15d0 {
-    char pad[8]; // +0x00
-    int value; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_intptr value; // +0x08 (+0x10)
     void FUN_001d15d0(char flag);
 };
-// equivalent/0x001d17f0.cpp (stub Object), size 0xc (0x10)
+// equivalent/0x001d17f0.cpp (stub Object), size 0xc (0x18)
 struct Object_1d17f0 {
-    char padding[8]; // +0x00
-    void* state; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    void* state; // +0x08 (+0x10)
     int FUN_001d17f0(void* context);
 };
-// matches/0x001d1900.cpp (stub Obj_1d1900), size 0xc
+// matches/0x001d1900.cpp (stub Obj_1d1900), size 0xc (0x18)
 struct Obj_1d1900 {
-    char pad[8]; // +0x00
-    int field; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_intptr field; // +0x08 (+0x10)
     bool FUN_001d1900(hulk_intptr n);
 };
-// matches/0x001d1930.cpp (stub C_1d1930), size 0xc
+// matches/0x001d1930.cpp (stub C_1d1930), size 0xc (0x18)
 struct C_1d1930 {
-    char pad[8]; // +0x00
-    int m; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_intptr m; // +0x08 (+0x10)
     bool FUN_001d1930(int n);
 };
-// matches/0x001d1980.cpp (stub Obj_1d1980), size 0xc
+// matches/0x001d1980.cpp (stub Obj_1d1980), size 0xc (0x18)
 struct Obj_1d1980 {
-    char pad[8]; // +0x00
-    int member; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_intptr member; // +0x08 (+0x10)
     bool FUN_001d1980(hulk_uintptr arg, unsigned char flag);
 };
-// matches/0x001d19d0.cpp (stub Obj_1d19d0), size 0xc
+// matches/0x001d19d0.cpp (stub Obj_1d19d0), size 0xc (0x18)
 struct Obj_1d19d0 {
-    char pad[8]; // +0x00
-    unsigned int value; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_uintptr value; // +0x08 (+0x10)
     unsigned char FUN_001d19d0(unsigned int arg);
 };
-// matches/0x001d19f0.cpp (stub Obj_1d19f0), size 0xc
+// matches/0x001d19f0.cpp (stub Obj_1d19f0), size 0xc (0x18)
 struct Obj_1d19f0 {
-    char pad[8]; // +0x00
-    int field; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_intptr field; // +0x08 (+0x10)
     bool FUN_001d19f0(hulk_intptr a, int b, char flag);
 };
-// matches/0x001d1a50.cpp (stub C_1d1a50), size 0xc
+// matches/0x001d1a50.cpp (stub C_1d1a50), size 0xc (0x18)
 struct C_1d1a50 {
-    char pad[8]; // +0x00
-    unsigned int member; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_uintptr member; // +0x08 (+0x10)
     bool FUN_001d1a50(hulk_uintptr arg);
 };
-// matches/0x001d1ac0.cpp (stub C_1d1ac0), size 0xc
+// matches/0x001d1ac0.cpp (stub C_1d1ac0), size 0xc (0x18)
 struct C_1d1ac0 {
-    char pad[8]; // +0x00
-    unsigned int member; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_uintptr member; // +0x08 (+0x10)
     bool FUN_001d1ac0(unsigned int arg);
 };
-// matches/0x001d1ae0.cpp (stub Owner_1d1ae0), size 0xc
+// matches/0x001d1ae0.cpp (stub Owner_1d1ae0), size 0xc (0x18)
 struct Owner_1d1ae0 {
-    char pad[8]; // +0x00
-    int value; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_intptr value; // +0x08 (+0x10)
     unsigned char FUN_001d1ae0(unsigned char*);
 };
-// matches/0x001d1bc0.cpp (stub Obj_1d1bc0), size 0x5494
+// matches/0x001d1bc0.cpp (stub Obj_1d1bc0), size 0xc (0x18)
 struct Obj_1d1bc0 {
-    char pad0[8]; // +0x00
-    int value; // +0x08
-    char padc[0x5470 - 12]; // +0x0c
-    int items[8]; // +0x5470
-    int index; // +0x5490
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_intptr value; // +0x08 (+0x10)
     bool FUN_001d1bc0();
 };
-// matches/0x001d1c10.cpp (stub C_1d1c10), size 0x5494
+// matches/0x001d1c10.cpp (stub C_1d1c10), size 0xc (0x18)
 struct C_1d1c10 {
-    char a[8]; // +0x00
-    int obj; // +0x08
-    char b[0x5464]; // +0x0c
-    int vals[8]; // +0x5470
-    int idx; // +0x5490
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_intptr obj; // +0x08 (+0x10)
     bool FUN_001d1c10(int);
 };
-// matches/0x001d1d50.cpp (stub Thing_1d1d50), size 0xc (0x10)
+// matches/0x001d1d50.cpp (stub Thing_1d1d50), size 0xc (0x18)
 struct Thing_1d1d50 {
     bool FUN_001d1d50(hulk_uintptr a, hulk_uintptr b);
-    char pad[8]; // +0x00
-    void* m; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    void* m; // +0x08 (+0x10)
 };
-// matches/0x001d1d90.cpp (stub Obj_1d1d90), size 0xc
+// matches/0x001d1d90.cpp (stub Obj_1d1d90), size 0xc (0x18)
 struct Obj_1d1d90 {
-    int pad[2]; // +0x00
-    int member; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_intptr member; // +0x08 (+0x10)
     bool FUN_001d1d90(hulk_intptr, int);
 };
-// matches/0x001d1dd0.cpp (stub Obj_1d1dd0), size 0xc
+// matches/0x001d1dd0.cpp (stub Obj_1d1dd0), size 0xc (0x18)
 struct Obj_1d1dd0 {
-    char pad[8]; // +0x00
-    int field; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_intptr field; // +0x08 (+0x10)
     bool FUN_001d1dd0(hulk_intptr a, int b);
 };
-// matches/0x001d1e10.cpp (stub Obj_1d1e10), size 0xc (0x10)
+// matches/0x001d1e10.cpp (stub Obj_1d1e10), size 0xc (0x18)
 struct Obj_1d1e10 {
-    char pad[8]; // +0x00
-    void* member; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    void* member; // +0x08 (+0x10)
     bool FUN_001d1e10(hulk_intptr a, unsigned char b);
 };
 // matches/0x001d1f30.cpp (stub C_1d1f30), size 0x4 (0x8)
@@ -13101,43 +13112,47 @@ struct C_1d1f30 {
     unsigned int* p; // +0x00
     void FUN_001d1f30(unsigned int a, unsigned int b, unsigned int c);
 };
-// matches/0x001d2890.cpp (stub Object), size 0x5470 (0x5478)
+// matches/0x001d2890.cpp (stub Object), size 0xc (0x18)
 struct Object_1d2890 {
-    char pad[8]; // +0x00
-    void* state; // +0x08
-    char pad2[0x546c - 12]; // +0x0c (+0x10)
-    unsigned int counter; // +0x546c (+0x5470)
-    unsigned int FUN_001d2890(unsigned int a, unsigned int b, unsigned int c);
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    void* state; // +0x08 (+0x10)
+    unsigned int FUN_001d2890(hulk_uintptr a, unsigned int b, unsigned int c);
 };
-// matches/0x001d29b0.cpp (stub Runner_1d29b0), size 0xc
+// matches/0x001d29b0.cpp (stub Runner_1d29b0), size 0xc (0x18)
 struct Runner_1d29b0 {
-    char pad0[8]; // +0x00
-    int handle; // +0x08
-    int FUN_001d17f0(int h);
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_intptr handle; // +0x08 (+0x10)
+    int FUN_001d17f0(hulk_intptr h);
     char FUN_001d29b0(hulk_intptr arg, char *failed);
 };
-// matches/0x001d2b10.cpp (stub Obj_1d2b10), size 0xc (0x10)
+// matches/0x001d2b10.cpp (stub Obj_1d2b10), size 0xc (0x18)
 struct Obj_1d2b10 {
-    char pad[8]; // +0x00
-    void* data; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    void* data; // +0x08 (+0x10)
     int FUN_001d2b10(int, int);
 };
-// matches/0x001d2c60.cpp (stub K_1d2c60), size 0xc
+// matches/0x001d2c60.cpp (stub K_1d2c60), size 0xc (0x18)
 struct K_1d2c60 {
-    int pad[2]; // +0x00
-    int state; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_intptr state; // +0x08 (+0x10)
     bool FUN_001d2c60(hulk_intptr a, hulk_intptr b, int c);
 };
-// matches/0x001d2cd0.cpp (stub C_1d2cd0), size 0xc
+// matches/0x001d2cd0.cpp (stub C_1d2cd0), size 0xc (0x18)
 struct C_1d2cd0 {
-    char pad[8]; // +0x00
-    int field; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_intptr field; // +0x08 (+0x10)
     bool FUN_001d2cd0(int, hulk_intptr, int);
 };
-// matches/0x001d2d40.cpp (stub Obj_1d2d40), size 0xc
+// matches/0x001d2d40.cpp (stub Obj_1d2d40), size 0xc (0x18)
 struct Obj_1d2d40 {
-    char pad[8]; // +0x00
-    int field; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_intptr field; // +0x08 (+0x10)
     bool FUN_001d2d40(hulk_intptr arg, float* out);
 };
 // matches/0x001d2da0.cpp (stub Converter), size 0x1
@@ -13145,47 +13160,51 @@ struct Converter_1d2da0 {
     unsigned char FUN_001d2d40(unsigned int, float*);
     unsigned char FUN_001d2da0(hulk_uintptr value, int* result);
 };
-// matches/0x001d2de0.cpp (stub C_1d2de0), size 0xc
+// matches/0x001d2de0.cpp (stub C_1d2de0), size 0xc (0x18)
 struct C_1d2de0 {
-    char pad[8]; // +0x00
-    int member; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_intptr member; // +0x08 (+0x10)
     int FUN_001d2de0(hulk_intptr a, hulk_intptr b);
     int finish(int);
 };
-// matches/0x001d2e10.cpp (stub C_1d2e10), size 0xc
+// matches/0x001d2e10.cpp (stub C_1d2e10), size 0xc (0x18)
 struct C_1d2e10 {
-    char pad[8]; // +0x00
-    int L; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_intptr L; // +0x08 (+0x10)
     bool FUN_001d2e10(hulk_intptr a, int* out);
 };
-// matches/0x001d2e80.cpp (stub Obj_1d2e80), size 0xc (0x10)
+// matches/0x001d2e80.cpp (stub Obj_1d2e80), size 0xc (0x18)
 struct Obj_1d2e80 {
-    char pad[8]; // +0x00
-    void* m; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    void* m; // +0x08 (+0x10)
     void F1d1cb0();
     bool FUN_001d2e80();
 };
-// matches/0x001d35a0.cpp (stub Obj_1d35a0), size 0xc
+// matches/0x001d35a0.cpp (stub Obj_1d35a0), size 0xc (0x18)
 struct Obj_1d35a0 {
-    char pad[4]; // +0x00
-    int state; // +0x04
-    int handle; // +0x08
+    void* vftable; // +0x00
+    int state; // +0x04 (+0x08)
+    hulk_intptr handle; // +0x08 (+0x10)
     int FUN_001d35a0(const char* text, hulk_intptr x, hulk_intptr len);
     int Do(int h, const char* text, hulk_intptr len, int x);
 };
-// equivalent/0x001d3600.cpp (stub Object), size 0xc
+// equivalent/0x001d3600.cpp (stub Object), size 0xc (0x18)
 struct Object_1d3600 {
-    int unknown; // +0x00
-    int status; // +0x04
-    unsigned int context; // +0x08
-    int FUN_001d2810(unsigned int, char*, unsigned int, const char*);
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_uintptr context; // +0x08 (+0x10)
+    int FUN_001d2810(hulk_uintptr, char*, unsigned int, const char*);
     int FUN_001d3600(const char* name, unsigned int unused);
 };
-// matches/0x001d3b70.cpp (stub Obj_1d3b70), size 0x10 (0x18)
+// matches/0x001d3b70.cpp (stub Obj_1d3b70), size 0x10 (0x20)
 struct Obj_1d3b70 {
-    char pad[8]; // +0x00
-    void* field8; // +0x08
-    char pad2[4]; // +0x0c (+0x10)
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    void* field8; // +0x08 (+0x10)
+    char pad2[4]; // +0x0c (+0x18)
     void FUN_001d3b70(hulk_uintptr a, hulk_intptr b);
 };
 // matches/0x001d3c50.cpp (stub Thing_1d3c50), size 0x1
@@ -13193,10 +13212,11 @@ struct Thing_1d3c50 {
     void Load(const char*, int);
     void FUN_001d3c50();
 };
-// matches/0x001d40b0.cpp (stub Obj_1d40b0), size 0xc
+// matches/0x001d40b0.cpp (stub Obj_1d40b0), size 0xc (0x18)
 struct Obj_1d40b0 {
-    char pad[8]; // +0x00
-    int value; // +0x08
+    void* vftable; // +0x00
+    int status; // +0x04 (+0x08)
+    hulk_intptr value; // +0x08 (+0x10)
     void Init();
     void FUN_001d40b0();
 };

@@ -3,29 +3,28 @@
 
 #include "compat/ptr.h"
 #include "decls/address.h"
-class HUDOverlay {
+#include "decls/data/script.h"
+// Method3<HUDOverlay, int, const char*, const char*, float>'s constructor (name, member function): Function's fields
+// (include/decls/data/script.h), then the member-function pointer.
+class HUDOverlay {};
+class Function_ceb80 : public ScriptFunctionFields {
   public:
-    HUDOverlay(int, int);
+    Function_ceb80(const char*, int);
     virtual void f();
 };
-template <class T, class U, class V, class W, class X> class Method3 : public HUDOverlay {
+template <class T, class U, class V, class W, class X> class Method3 : public Function_ceb80 {
   public:
-    Method3(int, const char*);
+    Method3(const char*, U (T::*)(V, W, X));
     virtual void f();
-    char pad[12];
-    char a;
-    char b;
-    char c;
-    char pad2[5];
-    char d;
-    char pad3[3];
-    int id;
+    U (T::*id)(V, W, X);
 };
 template <>
-Method3<HUDOverlay, int, const char*, const char*, float>::Method3(int x, const char* y) : HUDOverlay(x, 3) {
-    id = (hulk_intptr)y;
-    d = FUN_001d04d0(((const char*)&DAT_0048e134));
-    a = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    b = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    c = FUN_001d04d0(((const char*)&DAT_0048e128));
+Method3<HUDOverlay, int, const char*, const char*, float>::Method3(const char* x,
+                                                                   int (HUDOverlay::*y)(const char*, const char*, float))
+    : Function_ceb80(x, 3) {
+    id = y;
+    retType = FUN_001d04d0(((const char*)&DAT_0048e134));
+    argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    argTypes[1] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    argTypes[2] = FUN_001d04d0(((const char*)&DAT_0048e128));
 }

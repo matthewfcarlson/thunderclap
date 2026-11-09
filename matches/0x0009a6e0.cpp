@@ -2,27 +2,30 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/script.h"
 extern "C" char DAT_00404c00[];
+// Method6<Owner, void, float x6>'s initializer (name, member function): Function's fields
+// (include/decls/data/script.h), then the member-function pointer; returns this.
+class Owner_9a6e0 {};
+typedef void (Owner_9a6e0::*Fn_9a6e0)(float, float, float, float, float, float);
 class Method6_9a6e0 {
   public:
-    hulk_intptr v;
-    char pad4[0xc];
-    unsigned char b10, b11, b12, b13, b14, b15, b16, b17, b18;
-    char pad19[3];
-    int m1c;
-    void Init(int, int);
-    Method6_9a6e0* Run(hulk_intptr, hulk_intptr);
+    void* v;
+    ScriptFunctionFields f;
+    Fn_9a6e0 m1c;
+    void Init(const char*, int);
+    Method6_9a6e0* Run(const char*, Fn_9a6e0);
 };
-Method6_9a6e0* Method6_9a6e0::Run(hulk_intptr a, hulk_intptr b) {
+Method6_9a6e0* Method6_9a6e0::Run(const char* a, Fn_9a6e0 b) {
     Init(a, 6);
-    v = ((hulk_intptr)DAT_00404c00);
+    v = (void*)DAT_00404c00;
     m1c = b;
-    b18 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
-    b10 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
-    b11 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
-    b12 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
-    b13 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
-    b14 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
-    b15 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    f.retType = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
+    f.argTypes[0] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    f.argTypes[1] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    f.argTypes[2] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    f.argTypes[3] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    f.argTypes[4] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    f.argTypes[5] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
     return this;
 }

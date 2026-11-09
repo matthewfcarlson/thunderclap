@@ -3,15 +3,13 @@
 // cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "decls/data/script.h"
 class CFEManager { public: float FUN_dummy(); };
 
-class Base_c0a20 {
+// Function's fields: include/decls/data/script.h (ScriptFunctionFields).
+class Base_c0a20 : public ScriptFunctionFields {
 public:
     virtual void v();
-    char p[12];
-    char a[8];
-    char result;
-    char z[3];
     Base_c0a20(const char*, int) throw();
     void FUN_001d04a0();
 };
@@ -21,7 +19,7 @@ public:
     typedef R (T::*Fn)();
     Method0(const char* name, Fn f) : Base_c0a20(name, 0) {
         fn = f;
-        result = FUN_001d04d0(((char*)&DAT_0048e100));
+        retType = FUN_001d04d0(((char*)&DAT_0048e100));
     }
     virtual void v();
     Fn fn;

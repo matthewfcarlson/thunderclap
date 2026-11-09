@@ -1,8 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
 // FUN_001f6990 @ 0x001f6990
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+#include "decls/data/script.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-inline void *operator new(unsigned int, void *p) throw() { return p; }
+inline void *operator new(hulk_uintptr, void *p) throw() { return p; }
 
 extern "C" void *FUN_0008d690(unsigned int size);
 extern "C" void *FUN_0008d710(unsigned int size, int tag);
@@ -13,15 +16,11 @@ template <> struct TypeName<bool> { static const char *get() { return ((const ch
 template <> struct TypeName<char *> { static const char *get() { return ((const char*)&DAT_0049cad8); } };
 template <> struct TypeName<int> { static const char *get() { return ((const char*)&DAT_0048e134); } };
 
-class __declspec(novtable) Function {
+// Function (include/decls/data/script.h): the vftable, then Function's fields.
+class __declspec(novtable) Function : public ScriptFunctionFields {
 public:
     virtual void f0();
     virtual void f1();
-    char pad04[0x0c];
-    char args[4];
-    char pad14[4];
-    char ret;
-    char pad19[3];
     void FUN_001d0480(const char *name, int arity);
     Function(const char *name, int arity) { FUN_001d0480(name, arity); }
 };
@@ -34,7 +33,7 @@ public:
     typedef R (T::*Fn)();
     Method0(const char *name, Fn f) : Function(name, 0) {
         fn = f;
-        ret = FUN_001d04d0(TypeName<R>::get());
+        retType = FUN_001d04d0(TypeName<R>::get());
     }
     Fn fn;
 };
@@ -45,10 +44,10 @@ public:
     typedef R (T::*Fn)(A, B, C);
     Method3(const char *name, Fn f) : Function(name, 3) {
         fn = f;
-        ret = FUN_001d04d0(TypeName<R>::get());
-        args[0] = FUN_001d04d0(TypeName<A>::get());
-        args[1] = FUN_001d04d0(TypeName<B>::get());
-        args[2] = FUN_001d04d0(TypeName<C>::get());
+        retType = FUN_001d04d0(TypeName<R>::get());
+        argTypes[0] = FUN_001d04d0(TypeName<A>::get());
+        argTypes[1] = FUN_001d04d0(TypeName<B>::get());
+        argTypes[2] = FUN_001d04d0(TypeName<C>::get());
     }
     Fn fn;
 };
@@ -59,11 +58,11 @@ public:
     typedef R (T::*Fn)(A, B, C, D);
     Method4(const char *name, Fn f) : Function(name, 4) {
         fn = f;
-        ret = FUN_001d04d0(TypeName<R>::get());
-        args[0] = FUN_001d04d0(TypeName<A>::get());
-        args[1] = FUN_001d04d0(TypeName<B>::get());
-        args[2] = FUN_001d04d0(TypeName<C>::get());
-        args[3] = FUN_001d04d0(TypeName<D>::get());
+        retType = FUN_001d04d0(TypeName<R>::get());
+        argTypes[0] = FUN_001d04d0(TypeName<A>::get());
+        argTypes[1] = FUN_001d04d0(TypeName<B>::get());
+        argTypes[2] = FUN_001d04d0(TypeName<C>::get());
+        argTypes[3] = FUN_001d04d0(TypeName<D>::get());
     }
     Fn fn;
 };
@@ -155,18 +154,21 @@ void CSoundVoiceManager::FUN_001f6990()
     }
 
     Registry_1f6990 *reg = FUN_001d4c90();
+    { typedef Closure3<CSoundVoiceManager, void, bool, bool, bool> Sized; HULK_SIZE32(Sized, 0x24); }
     void *mem = FUN_0008d690((int)sizeof(Closure3<CSoundVoiceManager, void, bool, bool, bool>));
     Closure3<CSoundVoiceManager, void, bool, bool, bool> *pause = 0;
     if (mem)
         pause = new (mem) Closure3<CSoundVoiceManager, void, bool, bool, bool>("snd_Pause", this, &CSoundVoiceManager::FUN_001f4610);
     reg->FUN_001d3b70("snd_Pause", pause);
 
+    { typedef Closure0<CSoundVoiceManager, void> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure0<CSoundVoiceManager, void>));
     Closure0<CSoundVoiceManager, void> *unpause = 0;
     if (mem)
         unpause = new (mem) Closure0<CSoundVoiceManager, void>("snd_UnPause", this, &CSoundVoiceManager::FUN_001f46a0);
     reg->FUN_001d3b70("snd_UnPause", unpause);
 
+    { typedef Closure4<CSoundVoiceManager, void, char *, char *, char *, int> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure4<CSoundVoiceManager, void, char *, char *, char *, int>));
     Closure4<CSoundVoiceManager, void, char *, char *, char *, int> *mapInst = 0;
     if (mem)

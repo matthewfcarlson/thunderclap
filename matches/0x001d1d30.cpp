@@ -1,9 +1,8 @@
-#include "decls/data/lua.h"
+#include "decls/data/script.h"
 extern "C" void __cdecl FUN_00212d80(LuaVMState* L, int idx);
-class Target_1d1d30 {
+class Target_1d1d30 : public ScriptHandlerFields {
   public:
-    char pad[8];
-    LuaVMState* L;  // 0x08
+    virtual void v0();
     unsigned char FUN_001d1d30();
 };
 unsigned char Target_1d1d30::FUN_001d1d30() {

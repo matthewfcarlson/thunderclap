@@ -1,26 +1,28 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "decls/data/script.h"
 extern "C" char DAT_003ffb80[];
 extern "C" char DAT_0048e10c[];
 struct Ctor_001d0480 {
-    Ctor_001d0480(void*, int);
+    Ctor_001d0480(const char*, int);
 };
+// Function4's constructor (name, function): Function's fields (include/decls/data/script.h), then the bound
+// function pointer.
+typedef bool (*Fn_86fc0)();
 class Function4_86fc0 : public Ctor_001d0480 {
   public:
-    hulk_intptr vt;
-    char pad04[12];
-    unsigned char b10, b11, b12, b13, b14, b15, b16, b17, b18;
-    char pad19[3];
-    void* member1c;
-    Function4_86fc0(void*, void*);
+    void* vt;
+    ScriptFunctionFields f;
+    Fn_86fc0 member1c;
+    Function4_86fc0(const char*, Fn_86fc0);
 };
-Function4_86fc0::Function4_86fc0(void* a, void* b) : Ctor_001d0480(a, 4) {
-    vt = ((hulk_intptr)DAT_003ffb80);
+Function4_86fc0::Function4_86fc0(const char* a, Fn_86fc0 b) : Ctor_001d0480(a, 4) {
+    vt = (void*)DAT_003ffb80;
     member1c = b;
-    b18 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
-    b10 = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
-    b11 = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
-    b12 = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
-    b13 = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
+    f.retType = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
+    f.argTypes[0] = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
+    f.argTypes[1] = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
+    f.argTypes[2] = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
+    f.argTypes[3] = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
 }

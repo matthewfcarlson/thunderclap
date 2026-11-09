@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3046 inputs, branch coverage 20/20)
 // FUN_001d2190 @ 0x001d2190
-#include "decls/data/lua.h"
+#include "decls/data/script.h"
 
 extern void __cdecl FUN_002133d0(LuaVMState *L, const char *s);
 extern void __cdecl FUN_00213340(LuaVMState *L, float value);
@@ -10,31 +10,17 @@ extern int __cdecl FUN_00212f00(LuaVMState *L, int index);
 extern void __cdecl FUN_00212d80(LuaVMState *L, int index);
 extern int __cdecl FUN_002139f0(LuaVMState *L, int nargs, int nresults, int errfunc);
 
-// A call description passed by value: function name, argument count and up to ten typed arguments.
-struct ScriptCall {
-    const char *function;
-    int count;
-    char strings[10][0x40];
-    float numbers[10];  // the arguments' bits, passed to lua_pushnumber as they are
-    char types[12];
-    LuaVMState *L;
-};
-
-class ScriptRunner {
+// ScriptHandler (include/decls/data/script.h).
+class ScriptRunner : public ScriptHandlerFields {
 public:
-    char pad00[4];
-    int status;
-
-    int FUN_001d2190(ScriptCall call);
+    virtual void v0();
+    int FUN_001d2190(const char *function, ScriptCallArgs call, LuaVMState *L);
 };
-
-// Calls a global Lua function with the 's' / 'f' / 'b' / 'i' typed arguments of `call`.
+// Calls a global Lua function with the 's' / 'f' / 'b' / 'i' typed arguments of `call` on the state L.
 // Returns the new status: 0 when the function is missing or an argument type is unknown, 3 on
 // a Lua error, 0 on success.
-int ScriptRunner::FUN_001d2190(ScriptCall call)
+int ScriptRunner::FUN_001d2190(const char *name, ScriptCallArgs call, LuaVMState *L)
 {
-    LuaVMState *L = call.L;
-    const char *name = call.function;
     FUN_002133d0(L, name);
     FUN_00213570(L, -10001);
     bool found = FUN_00212f00(L, -1) != 0;

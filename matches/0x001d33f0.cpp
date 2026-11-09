@@ -1,13 +1,13 @@
+#include "decls/data/script.h"
 class ScriptHandler {
   public:
     bool Do(const char*);
 };
-class Function {
+class Function : public ScriptFunctionFields {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2(ScriptHandler*, const char**, bool*);
-    char pad[24];
 };
 class Method1 : public Function {
   public:

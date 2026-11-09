@@ -1,8 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_000b0500 @ 0x000b0500
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/records.h"
+#include "decls/data/script.h"
 class CHapticControllerManager;
 
 
@@ -13,18 +16,14 @@ template <> struct TypeTag<float> { static const void* get() { return ((char*)&D
 template <> struct TypeTag<bool> { static const void* get() { return &DAT_0048e0e4; } };
 
 struct HeapObj {
-    static void* operator new(unsigned size) throw();
+    static void* operator new(hulk_uintptr size) throw();
 };
 
-class MethodBase_b0500 : public HeapObj {
+// Function's fields (include/decls/data/script.h); Method<N> adds the member-function pointer, Closure<N> the object.
+class MethodBase_b0500 : public HeapObj, public ScriptFunctionFields {
   public:
     MethodBase_b0500(const char* name, int argCount) throw();
     virtual void m0();
-    char pad_04[0x10 - 4];
-    char argType[4];
-    char pad_14[4];
-    char retType;
-    char pad_19[3];
 };
 
 template <class T, class R>
@@ -43,7 +42,7 @@ class Method1 : public MethodBase_b0500 {
     typedef R (T::*Fn)(A);
     Method1(const char* name, Fn f) throw() : MethodBase_b0500(name, 1), fn(f) {
         retType = FUN_001d04d0(TypeTag<R>::get());
-        argType[0] = FUN_001d04d0(TypeTag<A>::get());
+        argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
     }
     Fn fn;
 };
@@ -54,10 +53,10 @@ class Method4 : public MethodBase_b0500 {
     typedef R (T::*Fn)(A, B, C, D);
     Method4(const char* name, Fn f) throw() : MethodBase_b0500(name, 4), fn(f) {
         retType = FUN_001d04d0(TypeTag<R>::get());
-        argType[0] = FUN_001d04d0(TypeTag<A>::get());
-        argType[1] = FUN_001d04d0(TypeTag<B>::get());
-        argType[2] = FUN_001d04d0(TypeTag<C>::get());
-        argType[3] = FUN_001d04d0(TypeTag<D>::get());
+        argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
+        argTypes[1] = FUN_001d04d0(TypeTag<B>::get());
+        argTypes[2] = FUN_001d04d0(TypeTag<C>::get());
+        argTypes[3] = FUN_001d04d0(TypeTag<D>::get());
     }
     Fn fn;
 };
@@ -136,6 +135,12 @@ CHapticControllerManager::CHapticControllerManager(Source_b0500* source) {
     device = dev;
     dev->FUN_000afb80(field_05);
 
+    typedef Closure4<CHapticControllerManager, void, int, float, float, float> Closure4_t;
+    typedef Closure0<CHapticControllerManager, void> Closure0_t;
+    typedef Closure1<CHapticControllerManager, void, bool> Closure1_t;
+    HULK_SIZE32(Closure4_t, 0x24);
+    HULK_SIZE32(Closure0_t, 0x24);
+    HULK_SIZE32(Closure1_t, 0x24);
     Registry_b0500* reg = FUN_001d4c90();
 
     Closure4<CHapticControllerManager, void, int, float, float, float>* playRumble =

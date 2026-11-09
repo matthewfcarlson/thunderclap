@@ -1,21 +1,17 @@
-#include "decls/data/lua.h"
+#include "decls/data/script.h"
 extern "C" int __cdecl FUN_00212d70(LuaVMState* L);
 extern "C" void __cdecl FUN_00212d80(LuaVMState* L, int idx);
-class Obj_1d1c70 {
+class Obj_1d1c70 : public ScriptHandlerFields {
   public:
-    char pad0[8];
-    LuaVMState* L;  // 0x08
-    char pad1[0x5470 - 12];
-    int items[8];  // 0x5470
-    int index;     // 0x5490
+    virtual void v0();
     void FUN_001d1c70();
 };
 void Obj_1d1c70::FUN_001d1c70() {
-    if (index >= 0) {
+    if (topIndex >= 0) {
         int v = FUN_00212d70(L);
-        int x = items[index];
+        int x = tops[topIndex];
         if (v != x)
             FUN_00212d80(L, x);
-        --index;
+        --topIndex;
     }
 }

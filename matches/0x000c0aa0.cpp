@@ -3,6 +3,7 @@
 // cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "decls/data/script.h"
 #include "decls/data/game/unknown.h"
 
 template <class T> struct TypeTag;
@@ -17,14 +18,10 @@ public:
     virtual void vfn0();
 };
 
-class MethodBase_c0aa0 {
+// Function's fields: include/decls/data/script.h (ScriptFunctionFields).
+class MethodBase_c0aa0 : public ScriptFunctionFields {
 public:
     virtual void m0();
-    char pad_04[0xc];
-    char argType;
-    char pad_11[7];
-    char retType;
-    char pad_19[3];
     MethodBase_c0aa0(const char *n, int k) throw();
     void FUN_001d04a0();
 };
@@ -36,7 +33,7 @@ public:
     Method1(const char *name, Fn f) throw() : MethodBase_c0aa0(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
-        argType = FUN_001d04d0(TypeTag<A>::get());
+        argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
     }
     virtual void m0();
     Fn fn;

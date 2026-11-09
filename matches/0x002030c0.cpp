@@ -1,7 +1,9 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "decls/data/script.h"
 class CWorldCollisionManager;
-struct CtorV_001d0480 {
+// Function (include/decls/data/script.h): the vftable, then Function's fields.
+struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
@@ -12,24 +14,19 @@ class Function_2030c0 : public CtorV_001d0480 {
 class Method1 : public Function_2030c0 {
   public:
     virtual void Invoke();
-    char pad[0xc];
-    unsigned char b10;
-    char pad2[7];
-    unsigned char b18;
-    char pad3[3];
-    CWorldCollisionManager* obj;
-    Method1(const char* s, CWorldCollisionManager* o) : Function_2030c0(s) {
-        obj = o;
-        b18 = FUN_001d04d0(((int*)&DAT_0048e100));
-        b10 = FUN_001d04d0(((int*)&DAT_0048e0f0));
+    ScriptMemberFn fn;  // 0x1c
+    Method1(const char* s, ScriptMemberFn o) : Function_2030c0(s) {
+        fn = o;
+        retType = FUN_001d04d0(((int*)&DAT_0048e100));
+        argTypes[0] = FUN_001d04d0(((int*)&DAT_0048e0f0));
     }
 };
 class Closure1 : public Method1 {
   public:
     virtual void Invoke();
-    int data;
-    Closure1(const char*, int, CWorldCollisionManager*);
+    CWorldCollisionManager* owner;  // 0x20
+    Closure1(const char*, CWorldCollisionManager*, ScriptMemberFn);
 };
-Closure1::Closure1(const char* s, int d, CWorldCollisionManager* o) : Method1(s, o) {
-    data = d;
+Closure1::Closure1(const char* s, CWorldCollisionManager* d, ScriptMemberFn o) : Method1(s, o) {
+    owner = d;
 }

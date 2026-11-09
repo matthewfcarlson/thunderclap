@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3202 inputs, branch coverage 48/51, incomplete)
 // FUN_001d22a0 @ 0x001d22a0
 // cl-flags: /GS
+#include "decls/data/script.h"
 extern "C" void* memset(void*, int, unsigned int);
 
 struct Vec3 {
     float x, y, z;
 };
 
-struct LuaState;
 
 struct ArgBuffer {
     char* cur;
@@ -15,15 +15,12 @@ struct ArgBuffer {
     void FUN_001d1f30(Vec3 v);
 };
 
-class Binding {
+// Function (include/decls/data/script.h): argc, the argument type codes and the return type code.
+class Binding : public ScriptFunctionFields {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(int zero, void* args, void* out);
-    char pad04[0xc - 4];
-    int count;
-    char sig[8];
-    char ret;
 };
 
 struct Frame {
@@ -45,20 +42,20 @@ struct Frame {
     ArgBuffer args;
 };
 
-extern "C" int FUN_00212fe0(LuaState* L, int idx);
-extern "C" Binding* FUN_00213260(LuaState* L, int idx);
-int FUN_00212d70(LuaState* L);
-extern "C" int FUN_00212f00(LuaState* L, int idx);
-extern "C" float FUN_002130e0(LuaState* L, int idx);
-char* FUN_00213190(LuaState* L, int idx);
-extern "C" int FUN_00213160(LuaState* L, int idx);
-extern "C" void FUN_00213340(LuaState* L, float f);
-extern "C" void FUN_00213320(LuaState* L);
-void FUN_002133d0(LuaState* L, char* s);
-extern "C" void FUN_00213550(LuaState* L, void* p);
-extern "C" void FUN_001d0870(LuaState* L, Vec3* v);
+extern "C" int FUN_00212fe0(LuaVMState* L, int idx);
+extern "C" Binding* FUN_00213260(LuaVMState* L, int idx);
+int FUN_00212d70(LuaVMState* L);
+extern "C" int FUN_00212f00(LuaVMState* L, int idx);
+extern "C" float FUN_002130e0(LuaVMState* L, int idx);
+char* FUN_00213190(LuaVMState* L, int idx);
+extern "C" int FUN_00213160(LuaVMState* L, int idx);
+extern "C" void FUN_00213340(LuaVMState* L, float f);
+extern "C" void FUN_00213320(LuaVMState* L);
+void FUN_002133d0(LuaVMState* L, char* s);
+extern "C" void FUN_00213550(LuaVMState* L, void* p);
+extern "C" void FUN_001d0870(LuaVMState* L, Vec3* v);
 
-extern "C" int FUN_001d22a0(LuaState* L)
+extern "C" int FUN_001d22a0(LuaVMState* L)
 {
     Frame f;
 
@@ -66,7 +63,7 @@ extern "C" int FUN_001d22a0(LuaState* L)
         return 0;
     }
     Binding* bind = FUN_00213260(L, -10002);
-    int expected = bind->count;
+    int expected = bind->argc;
     if (expected != FUN_00212d70(L)) {
         return 0;
     }
@@ -74,11 +71,11 @@ extern "C" int FUN_001d22a0(LuaState* L)
     f.args.cur = f.args.data;
     memset(f.args.data, 0, sizeof(f.args.data));
 
-    for (int i = 1; i <= bind->count; i++) {
+    for (int i = 1; i <= bind->argc; i++) {
         int type = FUN_00212f00(L, i);
         char c;
-        if ((unsigned int)(i - 1) < (unsigned int)bind->count)
-            c = bind->sig[i - 1];
+        if ((unsigned int)(i - 1) < (unsigned int)bind->argc)
+            c = bind->argTypes[i - 1];
         else
             c = 'v';
 
@@ -164,7 +161,7 @@ extern "C" int FUN_001d22a0(LuaState* L)
         }
     }
 
-    switch (bind->ret) {
+    switch (bind->retType) {
     case 'V':
         bind->vfunc_2(0, f.args.data, &f.vec);
         FUN_001d0870(L, &f.vec);

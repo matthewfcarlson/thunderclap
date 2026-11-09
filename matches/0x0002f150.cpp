@@ -1,31 +1,31 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-class Function_2f150 {
+#include "decls/data/script.h"
+// Closure1's constructor (name, object, member function): Function's fields (include/decls/data/script.h), then
+// Method1's member-function pointer and Closure1's object.
+class Function_2f150 : public ScriptFunctionFields {
   public:
-    Function_2f150(void*, int);
+    Function_2f150(const char*, int);
     virtual void v();
 };
+class Owner_2f150 {};
+typedef void (Owner_2f150::*Fn_2f150)();
 class Method1 : public Function_2f150 {
   public:
-    char pad0[12];
-    char a;
-    char pad1[7];
-    char b;
-    char pad2[3];
-    int value;
-    Method1(void* p, int x) : Function_2f150(p, 1) {
+    Fn_2f150 value;
+    Method1(const char* p, Fn_2f150 x) : Function_2f150(p, 1) {
         value = x;
-        b = FUN_001d04d0(((char*)&DAT_0048e100));
-        a = FUN_001d04d0(((char*)&DAT_0048e134));
+        retType = FUN_001d04d0(((char*)&DAT_0048e100));
+        argTypes[0] = FUN_001d04d0(((char*)&DAT_0048e134));
     }
     virtual void v();
 };
 class Closure1 : public Method1 {
   public:
-    int value2;
-    Closure1(void* p, int n, int x);
+    Owner_2f150* value2;
+    Closure1(const char* p, Owner_2f150* n, Fn_2f150 x);
     virtual void v();
 };
-Closure1::Closure1(void* p, int n, int x) : Method1(p, x) {
+Closure1::Closure1(const char* p, Owner_2f150* n, Fn_2f150 x) : Method1(p, x) {
     value2 = n;
 }

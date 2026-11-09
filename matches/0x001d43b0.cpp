@@ -3,21 +3,29 @@
 
 #include "compat/ptr.h"
 #include "decls/address.h"
+#include "decls/data/script.h"
 extern "C" char DAT_00422674[];
 extern "C" char DAT_00422830[];
+// Closure1<ScriptHandler, bool, const char*>'s constructor (name, object, member function): Function's fields
+// (include/decls/data/script.h), then Method1's member-function pointer and Closure1's object.
 class ScriptHandler {};
+typedef bool (ScriptHandler::*Fn_1d43b0)(const char*);
 struct Ctor_001d0480 {
-    Ctor_001d0480(void*, int);
+    Ctor_001d0480(const char*, int);
 };
 class Closure1_1d43b0 : public Ctor_001d0480 {
   public:
-    Closure1_1d43b0(void*, void*, void*);
+    void* vftable;
+    ScriptFunctionFields f;
+    Fn_1d43b0 fn;
+    ScriptHandler* owner;
+    Closure1_1d43b0(const char*, ScriptHandler*, Fn_1d43b0);
 };
-Closure1_1d43b0::Closure1_1d43b0(void* a, void* b, void* c) : Ctor_001d0480(a, 1) {
-    *(hulk_intptr*)this = ((hulk_intptr)DAT_00422674);
-    *(hulk_intptr*)((char*)this + 0x1c) = (hulk_intptr)c;
-    *(char*)((char*)this + 0x18) = (char)FUN_001d04d0((const char*)&(*(int*)&DAT_0048e0e4));
-    *(char*)((char*)this + 0x10) = (char)FUN_001d04d0((const char*)&(*(int*)&DAT_0048e0f0));
-    *(hulk_intptr*)this = ((hulk_intptr)DAT_00422830);
-    *(hulk_intptr*)((char*)this + 0x20) = (hulk_intptr)b;
+Closure1_1d43b0::Closure1_1d43b0(const char* a, ScriptHandler* b, Fn_1d43b0 c) : Ctor_001d0480(a, 1) {
+    vftable = (void*)DAT_00422674;
+    fn = c;
+    f.retType = (char)FUN_001d04d0((const char*)&(*(int*)&DAT_0048e0e4));
+    f.argTypes[0] = (char)FUN_001d04d0((const char*)&(*(int*)&DAT_0048e0f0));
+    vftable = (void*)DAT_00422830;
+    owner = b;
 }

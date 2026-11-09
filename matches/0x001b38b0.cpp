@@ -1,29 +1,29 @@
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/script.h"
+// Method5's constructor (name, member function): Function's fields (include/decls/data/script.h), then the
+// member-function pointer.
 
 extern "C" char DAT_0041d9a4[];
 struct Ctor_001d0480 {
-    Ctor_001d0480(int, int);
+    Ctor_001d0480(const char*, int);
 };
 extern char __cdecl FUN_001d04d0(hulk_intptr);
 class Function5_1b38b0 : public Ctor_001d0480 {
   public:
-    char pad0[0x10];
-    char b10, b11, b12, b13, b14;
-    char pad15[3];
-    char b18;
-    char pad19[3];
-    int field1c;
-    Function5_1b38b0(hulk_intptr, hulk_intptr);
+    void* vftable;
+    ScriptFunctionFields f;
+    ScriptMemberFn field1c;
+    Function5_1b38b0(const char*, ScriptMemberFn);
 };
-Function5_1b38b0::Function5_1b38b0(hulk_intptr a, hulk_intptr b) : Ctor_001d0480(a, 5) {
+Function5_1b38b0::Function5_1b38b0(const char* a, ScriptMemberFn b) : Ctor_001d0480(a, 5) {
     *(volatile hulk_intptr*)this = ((hulk_intptr)DAT_0041d9a4);
     field1c = b;
-    b18 = FUN_001d04d0(((hulk_intptr)((char*)&DAT_0048e100)));
-    b10 = FUN_001d04d0(((hulk_intptr)((char*)&DAT_0048e134)));
-    b11 = FUN_001d04d0(((hulk_intptr)((char*)&DAT_0048e134)));
-    b12 = FUN_001d04d0(((hulk_intptr)((char*)&DAT_0048e128)));
-    b13 = FUN_001d04d0(((hulk_intptr)((char*)&DAT_0048e128)));
-    b14 = FUN_001d04d0(((hulk_intptr)((char*)&DAT_0048e128)));
+    f.retType = FUN_001d04d0(((hulk_intptr)((char*)&DAT_0048e100)));
+    f.argTypes[0] = FUN_001d04d0(((hulk_intptr)((char*)&DAT_0048e134)));
+    f.argTypes[1] = FUN_001d04d0(((hulk_intptr)((char*)&DAT_0048e134)));
+    f.argTypes[2] = FUN_001d04d0(((hulk_intptr)((char*)&DAT_0048e128)));
+    f.argTypes[3] = FUN_001d04d0(((hulk_intptr)((char*)&DAT_0048e128)));
+    f.argTypes[4] = FUN_001d04d0(((hulk_intptr)((char*)&DAT_0048e128)));
 }

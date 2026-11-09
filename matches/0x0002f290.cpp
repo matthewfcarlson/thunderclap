@@ -1,33 +1,33 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "decls/data/script.h"
 extern char DAT_0048e10c[];
-class Function_2f290 {
+// Closure1's constructor (name, object, member function): Function's fields (include/decls/data/script.h), then
+// Method1's member-function pointer and Closure1's object.
+class Function_2f290 : public ScriptFunctionFields {
   public:
     virtual void f();
-    char pad[12];
     Function_2f290(const char*, int);
 };
+class Owner_2f290 {};
+typedef void (Owner_2f290::*Fn_2f290)();
 class Method1_2f290 : public Function_2f290 {
   public:
     virtual void f();
-    char a;
-    char pad1[7];
-    char b;
-    char pad2[3];
-    int c;
-    Method1_2f290(const char* s, int x) : Function_2f290(s, 1) {
+    Fn_2f290 c;
+    Method1_2f290(const char* s, Fn_2f290 x) : Function_2f290(s, 1) {
         c = x;
-        b = FUN_001d04d0(((char*)&DAT_0048e0f0));
-        a = FUN_001d04d0(DAT_0048e10c);
+        retType = FUN_001d04d0(((char*)&DAT_0048e0f0));
+        argTypes[0] = FUN_001d04d0(DAT_0048e10c);
     }
 };
 class Closure1_2f290 : public Method1_2f290 {
   public:
     virtual void f();
-    int d;
-    Closure1_2f290(const char*, hulk_intptr, hulk_intptr);
+    Owner_2f290* d;
+    Closure1_2f290(const char*, Owner_2f290*, Fn_2f290);
 };
-Closure1_2f290::Closure1_2f290(const char* s, hulk_intptr x, hulk_intptr y) : Method1_2f290(s, y) {
+Closure1_2f290::Closure1_2f290(const char* s, Owner_2f290* x, Fn_2f290 y) : Method1_2f290(s, y) {
     d = x;
 }

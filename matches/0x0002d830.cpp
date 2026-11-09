@@ -3,27 +3,28 @@
 
 #include "compat/ptr.h"
 #include "decls/address.h"
+#include "decls/data/script.h"
 extern "C" char DAT_003f421c[];
 struct Ctor_001d0480 {
     Ctor_001d0480(const char*, int);
 };
+// Method4's constructor (name, member function): Function's fields (include/decls/data/script.h), then the
+// member-function pointer.
+class Owner_2d830 {};
+typedef void (Owner_2d830::*Fn_2d830)();
 class Method4_2d830 : public Ctor_001d0480 {
   public:
-    hulk_intptr vptr;
-    char pad4[0xc];
-    unsigned char b10, b11, b12, b13;
-    char pad14[4];
-    unsigned char b18;
-    char pad19[3];
-    int m1c;
-    Method4_2d830(const char*, hulk_intptr);
+    void* vptr;
+    ScriptFunctionFields f;
+    Fn_2d830 m1c;
+    Method4_2d830(const char*, Fn_2d830);
 };
-Method4_2d830::Method4_2d830(const char* a, hulk_intptr b) : Ctor_001d0480(a, 4) {
-    vptr = ((hulk_intptr)DAT_003f421c);
+Method4_2d830::Method4_2d830(const char* a, Fn_2d830 b) : Ctor_001d0480(a, 4) {
+    vptr = (void*)DAT_003f421c;
     m1c = b;
-    b18 = FUN_001d04d0(((const char*)&DAT_0048e100));
-    b10 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    b11 = FUN_001d04d0(((const char*)&DAT_0048e128));
-    b12 = FUN_001d04d0(((const char*)&DAT_0048e128));
-    b13 = FUN_001d04d0(((const char*)&DAT_0048e128));
+    f.retType = FUN_001d04d0(((const char*)&DAT_0048e100));
+    f.argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    f.argTypes[1] = FUN_001d04d0(((const char*)&DAT_0048e128));
+    f.argTypes[2] = FUN_001d04d0(((const char*)&DAT_0048e128));
+    f.argTypes[3] = FUN_001d04d0(((const char*)&DAT_0048e128));
 }

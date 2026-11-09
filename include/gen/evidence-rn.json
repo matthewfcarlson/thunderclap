@@ -9406,6 +9406,10 @@
   "Closure3": {
    "0x20": "pointer pun (pointer 1)"
   },
+  "Function": {
+   "0x4": "the name (0x001d0480; include/decls/data/script.h ScriptFunctionFields)",
+   "0x8": "the key (0x001d04b0; include/decls/data/script.h ScriptFunctionFields)"
+  },
   "Closure4": {
    "0x20": "pointer pun (pointer 1)"
   },

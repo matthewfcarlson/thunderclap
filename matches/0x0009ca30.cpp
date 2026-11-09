@@ -1,38 +1,37 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-class CCameraManager;
-struct CtorV_001d0480 {
-    CtorV_001d0480(void*, int);
+#include "decls/data/script.h"
+// Closure2<CCameraManager, void, A1, A1>'s constructor (name, object, member function): Function's fields
+// (include/decls/data/script.h), then Method2's member-function pointer and Closure2's object.
+class CCameraManager {};
+typedef void (CCameraManager::*Fn_9ca30)(int, int);
+struct CtorV_001d0480 : public ScriptFunctionFields {
+    CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
 extern int g2;
 class Base_9ca30 : public CtorV_001d0480 {
   public:
-    Base_9ca30(void* a) : CtorV_001d0480(a, 2) { }
+    Base_9ca30(const char* a) : CtorV_001d0480(a, 2) { }
 };
 class Closure2_9ca30 : public Base_9ca30 {
   public:
     virtual void invoke();
-    char pad[12];
-    unsigned char b1, b2;
-    char pad2[6];
-    unsigned char b3;
-    char pad3[3];
-    CCameraManager* mgr;
-    Closure2_9ca30(void*, void*, CCameraManager*);
+    Fn_9ca30 mgr;
+    Closure2_9ca30(const char*, CCameraManager*, Fn_9ca30);
 };
-Closure2_9ca30::Closure2_9ca30(void* a, void* p, CCameraManager* m) : Base_9ca30(a) {
+Closure2_9ca30::Closure2_9ca30(const char* a, CCameraManager* p, Fn_9ca30 m) : Base_9ca30(a) {
     mgr = m;
-    b3 = FUN_001d04d0(((int*)&DAT_0048e100));
-    b1 = FUN_001d04d0(&g2);
-    b2 = FUN_001d04d0(&g2);
+    retType = FUN_001d04d0(((int*)&DAT_0048e100));
+    argTypes[0] = FUN_001d04d0(&g2);
+    argTypes[1] = FUN_001d04d0(&g2);
 }
 class Closure2 : public Closure2_9ca30 {
   public:
-    void* extra;
-    Closure2(void*, void*, CCameraManager*);
+    CCameraManager* extra;
+    Closure2(const char*, CCameraManager*, Fn_9ca30);
     virtual void invoke();
 };
-Closure2::Closure2(void* a, void* p, CCameraManager* m) : Closure2_9ca30(a, p, m) {
+Closure2::Closure2(const char* a, CCameraManager* p, Fn_9ca30 m) : Closure2_9ca30(a, p, m) {
     extra = p;
 }

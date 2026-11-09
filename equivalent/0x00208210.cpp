@@ -1,26 +1,25 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 24/24)
 // FUN_00208210 @ 0x00208210
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+#include "decls/data/script.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 class CWorldStreamManager;
 
 extern "C" void* FUN_0008d690(unsigned size);
-extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
-inline void* operator new(unsigned int, void* p) throw() { return p; }
+extern "C" char* __cdecl strncpy(char*, const char*, hulk_uintptr);
+inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 
 template <class T> struct TypeTag;
 template <> struct TypeTag<void> { static const void* get() { return ((char*)&DAT_0048e100); } };
 template <> struct TypeTag<bool> { static const void* get() { return &DAT_0048e0e4; } };
 template <> struct TypeTag<int> { static const void* get() { return ((char*)&DAT_0048e134); } };
 
-class __declspec(novtable) MethodBase_208210 {
+// Function (include/decls/data/script.h): the vftable, then Function's fields.
+class __declspec(novtable) MethodBase_208210 : public ScriptFunctionFields {
   public:
     virtual void m0();
-    char pad_04[0xc];
-    char argType;
-    char pad_11[7];
-    char retType;
-    char pad_19[3];
     void FUN_001d0480(const char*, int);
     MethodBase_208210(const char* n, int k) { FUN_001d0480(n, k); }
 };
@@ -32,7 +31,7 @@ class Method1 : public MethodBase_208210 {
     Method1(const char* name, Fn f) : MethodBase_208210(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
-        argType = FUN_001d04d0(TypeTag<A>::get());
+        argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
     }
     Fn fn;
 };
@@ -164,6 +163,7 @@ CWorldStreamManager::CWorldStreamManager()
     if (reg) {
         void* mem;
 
+        { typedef Closure1<CWorldStreamManager, void, int> Sized; HULK_SIZE32(Sized, 0x24); }
         mem = FUN_0008d690((int)sizeof(Closure1<CWorldStreamManager, void, int>));
         Closure1<CWorldStreamManager, void, int>* setSync = 0;
         if (mem)
@@ -176,12 +176,14 @@ CWorldStreamManager::CWorldStreamManager()
 
         reg->FUN_00206d50("wm_GetUniqueName", this, &CWorldStreamManager::FUN_00203740);
 
-        mem = FUN_0008d690(0x24);
+        { HULK_SIZE32(ScriptClosureView, 0x24); }
+        mem = FUN_0008d690((int)sizeof(ScriptClosureView));
         Closure2_208210* adjacent = 0;
         if (mem)
             adjacent = ((Closure2_208210*)mem)->FUN_00205e30("wm_GetAdjacentRoom", this, &CWorldStreamManager::FUN_002042a0);
         reg->FUN_001d3b70("wm_GetAdjacentRoom", adjacent);
 
+        { typedef Closure1<CWorldStreamManager, int, int> Sized; HULK_SIZE32(Sized, 0x24); }
         mem = FUN_0008d690((int)sizeof(Closure1<CWorldStreamManager, int, int>));
         Closure1<CWorldStreamManager, int, int>* numAdjacent = 0;
         if (mem)
@@ -190,12 +192,14 @@ CWorldStreamManager::CWorldStreamManager()
 
         reg->FUN_00206e60("wm_GetNumRoomsLoaded", this, &CWorldStreamManager::FUN_002043e0);
 
+        { typedef Closure1<CWorldStreamManager, int, int> Sized; HULK_SIZE32(Sized, 0x24); }
         mem = FUN_0008d690((int)sizeof(Closure1<CWorldStreamManager, int, int>));
         Closure1<CWorldStreamManager, int, int>* loadedNum = 0;
         if (mem)
             loadedNum = new (mem) Closure1<CWorldStreamManager, int, int>("wm_GetLoadedRoomNum", this, &CWorldStreamManager::FUN_00204410);
         reg->FUN_001d3b70("wm_GetLoadedRoomNum", loadedNum);
 
+        { typedef Closure1<CWorldStreamManager, bool, int> Sized; HULK_SIZE32(Sized, 0x24); }
         mem = FUN_0008d690((int)sizeof(Closure1<CWorldStreamManager, bool, int>));
         Closure1<CWorldStreamManager, bool, int>* roomLoaded = 0;
         if (mem)
@@ -204,12 +208,14 @@ CWorldStreamManager::CWorldStreamManager()
 
         reg->FUN_00206f20("wsm_IsLoading", this, &CWorldStreamManager::FUN_001e8710);
 
+        { typedef Closure1<CWorldStreamManager, void, int> Sized; HULK_SIZE32(Sized, 0x24); }
         mem = FUN_0008d690((int)sizeof(Closure1<CWorldStreamManager, void, int>));
         Closure1<CWorldStreamManager, void, int>* setRoom = 0;
         if (mem)
             setRoom = new (mem) Closure1<CWorldStreamManager, void, int>("wsm_SetCurrentRoom", this, &CWorldStreamManager::FUN_002036e0);
         reg->FUN_001d3b70("wsm_SetCurrentRoom", setRoom);
 
+        { typedef Closure1<CWorldStreamManager, void, int> Sized; HULK_SIZE32(Sized, 0x24); }
         mem = FUN_0008d690((int)sizeof(Closure1<CWorldStreamManager, void, int>));
         Closure1<CWorldStreamManager, void, int>* loadRoom = 0;
         if (mem)
@@ -222,6 +228,7 @@ CWorldStreamManager::CWorldStreamManager()
 
         reg->FUN_00207000("wsm_LoadTempFile", this, &CWorldStreamManager::FUN_00207960);
 
+        { typedef Closure1<CWorldStreamManager, void, int> Sized; HULK_SIZE32(Sized, 0x24); }
         mem = FUN_0008d690((int)sizeof(Closure1<CWorldStreamManager, void, int>));
         Closure1<CWorldStreamManager, void, int>* unloadTemp = 0;
         if (mem)
@@ -230,6 +237,7 @@ CWorldStreamManager::CWorldStreamManager()
 
         reg->FUN_00206f90("wsm_SetupTempMemory", this, &CWorldStreamManager::FUN_00207b90);
 
+        { typedef Closure1<CWorldStreamManager, void, int> Sized; HULK_SIZE32(Sized, 0x24); }
         mem = FUN_0008d690((int)sizeof(Closure1<CWorldStreamManager, void, int>));
         Closure1<CWorldStreamManager, void, int>* setupTempEx = 0;
         if (mem)
@@ -242,6 +250,7 @@ CWorldStreamManager::CWorldStreamManager()
 
         reg->FUN_00206e60("wsm_GetLastRoom", this, &CWorldStreamManager::FUN_002036f0);
 
+        { typedef Closure1<CWorldStreamManager, int, int> Sized; HULK_SIZE32(Sized, 0x24); }
         mem = FUN_0008d690((int)sizeof(Closure1<CWorldStreamManager, int, int>));
         Closure1<CWorldStreamManager, int, int>* districtFromRoom = 0;
         if (mem)

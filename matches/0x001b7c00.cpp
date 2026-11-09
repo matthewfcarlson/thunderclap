@@ -2,30 +2,25 @@
 #include "compat/ptr.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/script.h"
+// Method4's constructor (name, member function): Function's fields (include/decls/data/script.h), then the
+// member-function pointer.
 
 class CFMVManager;
 
-class Function_1b7c00 {
+class Function_1b7c00 : public ScriptFunctionFields {
   public:
     virtual ~Function_1b7c00() throw() {}
     virtual void VFunc1() throw() {}
     virtual void VFunc2() throw() {}
-    int m_data[3];
-    Function_1b7c00(int a, int b); // defined externally (FUN_001d0480)
+    Function_1b7c00(const char* a, int b); // defined externally (FUN_001d0480)
 };
 
 class Method4_1b7c00 : public Function_1b7c00 {
   public:
-    unsigned char m_b10; // 0x10
-    unsigned char m_b11; // 0x11
-    unsigned char m_b12; // 0x12
-    unsigned char m_b13; // 0x13
-    char m_pad2[4];      // 0x14-0x17
-    unsigned char m_b18; // 0x18
-    char m_pad3[3];      // 0x19-0x1b
-    void* m_ptr1c;       // 0x1c
+    ScriptMemberFn m_fn; // 0x1c
 
-    Method4_1b7c00(hulk_intptr a1, void* a2);
+    Method4_1b7c00(const char* a1, ScriptMemberFn a2);
     virtual void Invoke(float, float, float, float) throw() {}
     virtual ~Method4_1b7c00() throw() {}
 };
@@ -33,11 +28,11 @@ class Method4_1b7c00 : public Function_1b7c00 {
 extern "C" unsigned char __cdecl FUN_001d04d0(void*);
 
 
-Method4_1b7c00::Method4_1b7c00(hulk_intptr a1, void* a2) : Function_1b7c00(a1, 4) {
-    m_ptr1c = a2;
-    m_b18 = FUN_001d04d0(((char*)&DAT_0048e100));
-    m_b10 = FUN_001d04d0(((char*)&DAT_0048e128));
-    m_b11 = FUN_001d04d0(((char*)&DAT_0048e128));
-    m_b12 = FUN_001d04d0(((char*)&DAT_0048e128));
-    m_b13 = FUN_001d04d0(((char*)&DAT_0048e128));
+Method4_1b7c00::Method4_1b7c00(const char* a1, ScriptMemberFn a2) : Function_1b7c00(a1, 4) {
+    m_fn = a2;
+    retType = FUN_001d04d0(((char*)&DAT_0048e100));
+    argTypes[0] = FUN_001d04d0(((char*)&DAT_0048e128));
+    argTypes[1] = FUN_001d04d0(((char*)&DAT_0048e128));
+    argTypes[2] = FUN_001d04d0(((char*)&DAT_0048e128));
+    argTypes[3] = FUN_001d04d0(((char*)&DAT_0048e128));
 }

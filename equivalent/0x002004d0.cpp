@@ -3,5 +3,12 @@
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 #include "decls/address.h"
+#include "decls/data/script.h"
 
-struct CTriggerVolumeManager {}; struct BaseInit { virtual void invoke(float); BaseInit(int,int); }; template<class T,class R,class A> struct Method1 : BaseInit { virtual void invoke(A); char pad0[0xc]; unsigned char flag10; char pad1[7]; unsigned char flag18; char pad2[3]; int value; Method1(int a,int b):BaseInit(a,b) {} }; template<class T,class R,class A> struct Closure1 : Method1<T,R,A> { virtual void invoke(A); int other; Closure1(int a,int otherArg,int valueArg); };    extern "C" void* DAT_0042551c; template<> Closure1<CTriggerVolumeManager,void,float>::Closure1(int arg,int otherArg,int valueArg) : Method1<CTriggerVolumeManager,void,float>(arg,1) { this->value=valueArg; this->flag18=FUN_001d04d0(((char*)&DAT_0048e100)); this->flag10=FUN_001d04d0(((char*)&DAT_0048e128)); this->other=otherArg; *(void**)this=&DAT_0042551c; }
+struct CTriggerVolumeManager {};
+// Function (include/decls/data/script.h): the vftable, then Function's fields.
+struct BaseInit : public ScriptFunctionFields { virtual void invoke(float); BaseInit(const char*, int); };
+template<class T,class R,class A> struct Method1 : BaseInit { virtual void invoke(A); ScriptMemberFn value; Method1(const char* a,int b):BaseInit(a,b) {} };
+template<class T,class R,class A> struct Closure1 : Method1<T,R,A> { virtual void invoke(A); void* other; Closure1(const char* a,void* otherArg,ScriptMemberFn valueArg); };
+extern "C" void* DAT_0042551c;
+template<> Closure1<CTriggerVolumeManager,void,float>::Closure1(const char* arg,void* otherArg,ScriptMemberFn valueArg) : Method1<CTriggerVolumeManager,void,float>(arg,1) { this->value=valueArg; this->retType=FUN_001d04d0(((char*)&DAT_0048e100)); this->argTypes[0]=FUN_001d04d0(((char*)&DAT_0048e128)); this->other=otherArg; *(void**)this=&DAT_0042551c; }

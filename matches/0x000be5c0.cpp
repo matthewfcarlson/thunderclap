@@ -1,25 +1,28 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-class Function_be5c0 {
+#include "decls/data/script.h"
+// Method6<Owner, void, const char* x4, int, int>'s constructor (name, member function): Function's fields
+// (include/decls/data/script.h), then the member-function pointer.
+class Owner_be5c0 {};
+typedef void (Owner_be5c0::*Fn_be5c0)(const char*, const char*, const char*, const char*, int, int);
+class Function_be5c0 : public ScriptFunctionFields {
   public:
     Function_be5c0(const char*, int);
     virtual void v0();
-    char pad[0xc];
 };
 class Method6_be5c0 : public Function_be5c0 {
   public:
-    Method6_be5c0(const char*, hulk_intptr);
-    char c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c1a, c1b;
-    int m1c;
+    Method6_be5c0(const char*, Fn_be5c0);
+    Fn_be5c0 m1c;
 };
-Method6_be5c0::Method6_be5c0(const char* p, hulk_intptr x) : Function_be5c0(p, 6) {
+Method6_be5c0::Method6_be5c0(const char* p, Fn_be5c0 x) : Function_be5c0(p, 6) {
     m1c = x;
-    c18 = FUN_001d04d0(((char*)&DAT_0048e100));
-    c10 = FUN_001d04d0(((char*)&DAT_0048e0f0));
-    c11 = FUN_001d04d0(((char*)&DAT_0048e0f0));
-    c12 = FUN_001d04d0(((char*)&DAT_0048e0f0));
-    c13 = FUN_001d04d0(((char*)&DAT_0048e0f0));
-    c14 = FUN_001d04d0(((char*)&DAT_0048e134));
-    c15 = FUN_001d04d0(((char*)&DAT_0048e134));
+    retType = FUN_001d04d0(((char*)&DAT_0048e100));
+    argTypes[0] = FUN_001d04d0(((char*)&DAT_0048e0f0));
+    argTypes[1] = FUN_001d04d0(((char*)&DAT_0048e0f0));
+    argTypes[2] = FUN_001d04d0(((char*)&DAT_0048e0f0));
+    argTypes[3] = FUN_001d04d0(((char*)&DAT_0048e0f0));
+    argTypes[4] = FUN_001d04d0(((char*)&DAT_0048e134));
+    argTypes[5] = FUN_001d04d0(((char*)&DAT_0048e134));
 }

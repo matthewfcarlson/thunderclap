@@ -1,13 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 314/314)
 // FUN_00031310 @ 0x00031310
-typedef unsigned int size_t;
-void* operator new(size_t) throw();
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+#include "decls/data/script.h"
+void* operator new(hulk_uintptr) throw();
 extern "C" void* FUN_0008d690(unsigned int);
 class CActorManager;
 extern char DAT_0048e128,DAT_0048e0e4,DAT_0048e0f0,DAT_0048e134,DAT_0048e100,DAT_0048e10c;
 char FUN_001d04d0(const void*) throw();
-class Base {public: virtual void v(); char p[12]; char arg; char q[7]; char result; char z[3]; Base(const char*,int) throw();};
-template<class C,class R,class A> class Method1:public Base {public: void (*f)(); Method1(const char*n,void(*x)(),const void*r,const void*a):Base(n,1){f=x;result=FUN_001d04d0(r);arg=FUN_001d04d0(a);} virtual void v();};
+class Base : public ScriptFunctionFields {public: virtual void v(); Base(const char*,int) throw();};
+template<class C,class R,class A> class Method1:public Base {public: void (*f)(); Method1(const char*n,void(*x)(),const void*r,const void*a):Base(n,1){f=x;retType=FUN_001d04d0(r);argTypes[0]=FUN_001d04d0(a);} virtual void v();};
 template<class C,class R,class A> class Closure1:public Method1<C,R,A> {public:C* owner; Closure1(const char*n,C*o,void(*f)(),const void*r,const void*a):Method1<C,R,A>(n,f,r,a){owner=o;} virtual void v();};
 #define D(a) void* FUN_##a(const char*,CActorManager*,void(*)());
 class Entry {public: D(0002e4f0) D(0002e5a0) D(0002e650) D(0002e6f0) D(0002ebe0) D(0002ec80) D(0002ef40) D(0002eff0) D(0002f3b0) D(0002f450) D(0002f500) D(0002f9c0) D(0002fb60) D(0002fc10) D(0002fcc0) D(0002fe90) D(0002ff20) };
@@ -16,7 +18,7 @@ D(000303d0) D(00030430) D(00030530) D(00030590) D(000306e0) D(00030750) D(000309
 };
 extern "C" Registry* FUN_001d4c90();
 class CActorManager {public:void Register();};
-#define E(n,a,b) {extern void FUN_##b(); Entry*e=(Entry*)FUN_0008d690(36);void*x=0;if(e)x=e->FUN_##a("am_" #n,this,FUN_##b);r->FUN_001d3b70("am_" #n,x);}
+#define E(n,a,b) {extern void FUN_##b(); HULK_SIZE32(ScriptClosureView,0x24);Entry*e=(Entry*)FUN_0008d690((unsigned int)sizeof(ScriptClosureView));void*x=0;if(e)x=e->FUN_##a("am_" #n,this,FUN_##b);r->FUN_001d3b70("am_" #n,x);}
 #define G(n,R,A,b) {extern void FUN_##b(); r->FUN_001d3b70("am_" #n,new Closure1<CActorManager,R,A>("am_" #n,this,FUN_##b,&t##R,&t##A));}
 #define O(n,a,b) {extern void FUN_##b(); r->FUN_##a("am_" #n,this,FUN_##b);}
 #define tFloat DAT_0048e128

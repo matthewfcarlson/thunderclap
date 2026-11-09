@@ -1,29 +1,31 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "decls/data/script.h"
 extern "C" char DAT_003f432c[];
 class Function_2e350 {
   public:
-    void Init(int, int);
+    void Init(const char*, int);
 };
+// Method3's constructor (name, member function): Function's fields (include/decls/data/script.h), then the
+// member-function pointer.
+class Owner_2e350 {};
+typedef void (Owner_2e350::*Fn_2e350)();
 class Method3 : public Function_2e350 {
   public:
-    hulk_intptr v;
-    char p[0x0c];
-    unsigned char b10, b11, b12;
-    char q[5];
-    unsigned char b18;
-    int m1c;
-    Method3(hulk_intptr, hulk_intptr);
+    void* v;
+    ScriptFunctionFields f;
+    Fn_2e350 m1c;
+    Method3(const char*, Fn_2e350);
 };
 extern const char s2_2e350[];
 extern const char DAT_0048e10c[];
-Method3::Method3(hulk_intptr a, hulk_intptr x) {
+Method3::Method3(const char* a, Fn_2e350 x) {
     Init(a, 3);
-    v = ((hulk_intptr)DAT_003f432c);
+    v = (void*)DAT_003f432c;
     m1c = x;
-    b18 = FUN_001d04d0(((const char*)&DAT_0048e0e4));
-    b10 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    b11 = FUN_001d04d0(DAT_0048e10c);
-    b12 = FUN_001d04d0(DAT_0048e10c);
+    f.retType = FUN_001d04d0(((const char*)&DAT_0048e0e4));
+    f.argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    f.argTypes[1] = FUN_001d04d0(DAT_0048e10c);
+    f.argTypes[2] = FUN_001d04d0(DAT_0048e10c);
 }

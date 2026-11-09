@@ -1,60 +1,49 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_000aef10 @ 0x000aef10
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "decls/data/records.h"
+#include "decls/data/script.h"
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 extern "C" void FUN_000af480();
 
-class Function {
+// Function (include/decls/data/script.h): its fields; Method<N> adds the member-function pointer, Closure<N> the object.
+class Function : public ScriptFunctionFields {
 public:
     Function(const char* name, int count) throw();
     virtual void vf0();
     virtual void vf1();
-    static void* operator new(unsigned int size) { return FUN_0008d690(size); }
-    int nameRef;
-    int owner8;
-    int count;
+    static void* operator new(hulk_uintptr size) { return FUN_0008d690((unsigned int)size); }
 };
 
 template <class T, class R> class Method0 : public Function {
 public:
-    char flag10;
-    char flag11;
-    char pad12[6];
-    char flag18;
     R (T::*fn)();
     Method0(const char* name, R (T::*f)()) : Function(name, 0) {
         fn = f;
-        flag18 = FUN_001d04d0(((const char**)&DAT_0048e0e4));
+        retType = FUN_001d04d0(((const char**)&DAT_0048e0e4));
     }
 };
 
 template <class T, class R, class A, class B> class Method2 : public Function {
 public:
-    char flag10;
-    char flag11;
-    char pad12[6];
-    char flag18;
     void (T::*fn)(int, bool);
     Method2(const char* name, void (T::*f)(int, bool)) : Function(name, 2) {
         fn = f;
-        flag18 = FUN_001d04d0(((const char**)&DAT_0048e100));
-        flag10 = FUN_001d04d0(((const char**)&DAT_0048e134));
-        flag11 = FUN_001d04d0(((const char**)&DAT_0048e0e4));
+        retType = FUN_001d04d0(((const char**)&DAT_0048e100));
+        argTypes[0] = FUN_001d04d0(((const char**)&DAT_0048e134));
+        argTypes[1] = FUN_001d04d0(((const char**)&DAT_0048e0e4));
     }
 };
 
 template <class T, class R, class A> class Method1 : public Function {
 public:
-    char flag10;
-    char flag11;
-    char pad12[6];
-    char flag18;
     void (T::*fn)(bool);
     Method1(const char* name, void (T::*f)(bool)) : Function(name, 1) {
         fn = f;
-        flag18 = FUN_001d04d0(((const char**)&DAT_0048e100));
-        flag10 = FUN_001d04d0(((const char**)&DAT_0048e0e4));
+        retType = FUN_001d04d0(((const char**)&DAT_0048e100));
+        argTypes[0] = FUN_001d04d0(((const char**)&DAT_0048e0e4));
     }
 };
 
@@ -117,6 +106,12 @@ CControllerManager::CControllerManager() {
     FUN_000af480();
     for (int i = 2; i < 9; i++)
         flags[i] = 0;
+    typedef Closure0<CControllerManager, bool> Closure0_t;
+    typedef Closure2<CControllerManager, void, int, bool> Closure2_t;
+    typedef Closure1<CControllerManager, void, bool> Closure1_t;
+    HULK_SIZE32(Closure0_t, 0x24);
+    HULK_SIZE32(Closure2_t, 0x24);
+    HULK_SIZE32(Closure1_t, 0x24);
     Registry_aef10* reg = FUN_001d4c90();
     reg->FUN_001d3b70("ctrl_IsButtonPressed",
         new Closure0<CControllerManager, bool>("ctrl_IsButtonPressed", &CControllerManager::FUN_000ae9f0, this));

@@ -1,14 +1,12 @@
 #include "gen/global.h"
 #include "gen/owners.h"
-struct A_1d4530 {
-    char pad[8];
-};
+#include "decls/data/script.h"
 struct R_1d4530 {
-    void Middle();
+    void FUN_00092410();
 };
 struct ScriptHandler_nv_1d4530 {
-    void Init(A_1d4530*);
-    void Run();
+    int FUN_001d3c90(LuaVMState** state);
+    void FUN_001d3bc0();
 };
 struct H {
 };
@@ -17,16 +15,17 @@ struct T_1d4530 {
     R_1d4530* r;
 };
 struct End_1d4530 {
-    void Finish();
+    void FUN_001dbd50();
 };
 extern H* g1_1d4530;
 extern T_1d4530* g2_1d4530;
-void __fastcall target(ScriptHandler* self) {
-    if (!(*(unsigned char *)&self->f_1064)) {
-        (*(unsigned char *)&self->f_1064) = 1;
-        ((ScriptHandler_nv_1d4530*)(self))->Init((A_1d4530*)((char*)self + 8));
-        ((ScriptHandler_nv_1d4530*)(self))->Run();
-        ((R_1d4530 *)((owners::A_86340 *)g1_1d4530)->FUN_00086340())->Middle();
-        ((End_1d4530*)g2_1d4530->r)->Finish();
+// ScriptHandler (include/decls/data/script.h): (re)creates the Lua state once, then registers the functions.
+void __fastcall target(ScriptHandlerView* self) {
+    if (!self->f.ownsState) {
+        self->f.ownsState = 1;
+        ((ScriptHandler_nv_1d4530*)(self))->FUN_001d3c90(&self->f.L);
+        ((ScriptHandler_nv_1d4530*)(self))->FUN_001d3bc0();
+        ((R_1d4530 *)((owners::A_86340 *)g1_1d4530)->FUN_00086340())->FUN_00092410();
+        ((End_1d4530*)g2_1d4530->r)->FUN_001dbd50();
     }
 }

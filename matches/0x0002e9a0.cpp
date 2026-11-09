@@ -1,28 +1,29 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-struct Function_2e9a0 {
+#include "decls/data/script.h"
+// Closure1's constructor (name, object, member function): Function's fields (include/decls/data/script.h), then
+// Method1's member-function pointer and Closure1's object.
+struct Function_2e9a0 : public ScriptFunctionFields {
     virtual void f0();
-    Function_2e9a0(int, int);
-    char pad[12];
-    char b10;
-    char p11[7];
-    char b18;
+    Function_2e9a0(const char*, int);
 };
+class Owner_2e9a0 {};
+typedef void (Owner_2e9a0::*Fn_2e9a0)();
 struct Method1 : Function_2e9a0 {
-    Method1(int a, int b) : Function_2e9a0(a, 1) {
+    Method1(const char* a, Fn_2e9a0 b) : Function_2e9a0(a, 1) {
         m1c = b;
-        b18 = FUN_001d04d0(((const char*)&DAT_0048e134));
-        b10 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+        retType = FUN_001d04d0(((const char*)&DAT_0048e134));
+        argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
     }
     virtual void f0();
-    int m1c;
+    Fn_2e9a0 m1c;
 };
 struct Closure1 : Method1 {
-    Closure1(hulk_intptr a, hulk_intptr c, hulk_intptr b);
+    Closure1(const char* a, Owner_2e9a0* c, Fn_2e9a0 b);
     virtual void f0();
-    int m20;
+    Owner_2e9a0* m20;
 };
-Closure1::Closure1(hulk_intptr a, hulk_intptr c, hulk_intptr b) : Method1(a, b) {
+Closure1::Closure1(const char* a, Owner_2e9a0* c, Fn_2e9a0 b) : Method1(a, b) {
     m20 = c;
 }

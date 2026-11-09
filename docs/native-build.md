@@ -1541,3 +1541,78 @@ the original has it.
 Not done: the other lexer sources (save_and_next 0x0021b1c0, llex) spell `*z->p++` the clang-ambiguous way too; fuzzing
 did not reach an aliasing input there. natobj finds the function by its DWARF name; a C++ member's definition DIE
 carries its name through DW_AT_specification, which the parser does not follow (such a call is compared as before).
+
+## ScriptHandler and the script-binding closures on records (sh1, 2026-11-09)
+
+lua2 left the macOS start-up in ScriptHandler's constructor (0x001d4830) at the function list's insert (0x001d1180):
+ScriptHandler was a 32-bit view (`char data[0x1000]` for 0x400 pointers), and the script-binding objects it keeps
+(RTTI `Function`, the base of every `Method<N>` / `Closure<N>`) held their name and key in `int`s, were viewed
+through per-source pad structs with 32-bit offsets and were allocated with the literal 0x24.
+
+### The records
+
+`include/decls/data/script.h` (new): `ScriptFunctionFields` (Function's fields after the vftable: name, key, argc,
+argTypes[8], retType), `ScriptFunctionView`, `ScriptClosureView` (the fields, the bound member-function pointer at
++0x1c, the object at +0x20; `sizeof` is the 0x24 the game allocates), `ScriptBoundClass` / `ScriptMemberFn`,
+`ScriptFunctionList` (ScriptHandler's 0x400 sorted pointers), `ScriptWatchList`, `ScriptCallArgs` (0x001d2190's
+by-value arguments), `ScriptHandlerFields` / `ScriptHandlerView` (0x5494 bytes on 32-bit), with 32-bit layout
+checks. A class that has the vftable derives from a `*Fields` record (MSVC and clang's MS ABI put the vfptr at 0,
+before a base without one); a source that only reads through a pointer uses the `*View`. include/gen follows:
+`Function`'s f_04 / f_08 are `hulk_intptr` (evidence-rn ptr_fields), so the gen `Method<N>` / `Closure<N>` that
+~1,200 Invoke sources use agree with the records on i686, x86-64 and arm64 (checked with static_asserts); 30
+ScriptHandler-area owners.h stubs (evidence-owners) are `void* vftable; int status;` and a pointer-sized state.
+
+Pitfall: a class that derives from a `*Fields` record and declares a pointer to its own member function before it
+is complete gets MSVC's general member-pointer form (16 bytes; 0x001d4830's Method<N> slots grew to 0x30). 0x001d4830
+keeps the fields as a member (`ScriptHandlerFields h`) instead; clang rejects `__single_inheritance` there.
+
+### Batch
+
+- ScriptHandler: 0x001d4830 (constructor), 0x001d4c90 (allocation `sizeof(ScriptHandlerView)`), the list
+  0x001d1180 / 0x001d1220 / 0x001d1360, 0x001d3410 (destructor), 0x001d22a0 (dispatcher: argc / types from the
+  record; its 4-byte argument slots remain), 0x001d2190 (`(name, ScriptCallArgs, L)` instead of one struct with
+  the state at the end) with its callers 0x001d3b00 / 0x001d4460, the AddFunction helpers 0x001d4580-0x001d47c0
+  (sizeof), the closure constructors 0x001d40d0 / 0x001d4170 / 0x001d4210 / 0x001d3250 / 0x001d4320 / 0x001d43b0
+  (name, object and member-function pointer typed), 0x001d0480 / 0x001d04b0 (the name and key as pointers), and
+  ~30 members that read the state at +8; 0x001d2790 / 0x001d27b0 call the `__stdcall` 0x001d1010 / 0x001d10e0 on
+  64-bit (the 32-bit source keeps the member call that leaves ecx alone).
+- The closure family game-wide (helpers cf0-cf3): 316 sources (231 matches, 85 equivalents), every manager's
+  registration function and the Method / Closure / Function constructors and initializers: records, typed
+  member-function pointers, allocations by sizeof with `HULK_SIZE32`.
+
+### Gates
+
+| | |
+|---|---|
+| matches | 298 / 298 compare.py MATCH + verify_relocs ok (queue, the batch's headers) |
+| equivalents, 3,000 inputs | 100 / 100 equivalent; each at or above its STATUS count, or (0x001e7470 50, 0x001f6990 56, 0x00094fb0 14) equal to the untouched original on the same host |
+| `--wine` | 98 / 100; 0x0008e880 and 0x00094fb0 fail identically on the originals |
+| `--x64` (informational) | 88 equivalent; fail by design: 0x001d1180 / 0x001d1220 / 0x001d1360 / 0x001d16a0 (pointer-sized list and watch entries past the 32-bit object), 0x000b0500 / 0x001c0cd0 / 0x001ea8b0 (allocation sizes); 4 unsupported, 1 inconclusive |
+
+### Proof
+
+| | control 69791 (HEAD 8310fb004, studio) | proof 70226 (studio, the batch) |
+|---|---|---|
+| strict link / Wine unbound | 0 / 1,252 | 0 / 1,252 (the same symbols) |
+| x87 keep list | 268 | 268, identical |
+| play3 checkpoints | 2,012 to 60,330 | `ckpt_gate.py` GATE ok at 2,006 common frames (the known transients only), PRNG hashes identical |
+| arm64 macOS / x86-64 Linux / arm64 Android unbound | 29,556 / 23,559 / 29,548 | **29,488 / 23,297 / 29,480**, all rc 0 |
+| macOS start-up | ScriptHandler's constructor at 0x001d1180 (the 32-bit list) | the constructor registers sh_DoString .. sh_GetString and stops in 0x001d46d0 at 0x001d3250, which its source calls by the invented name `Create` (next batch: `FUN_001d3250`); with missing calls continued, CGame's start-up runs through every manager's script registrations to 0x0008ee30 |
+
+HEAD moved during the proof (wine1's d80351e06 / b7354686b: Lua lexer and undump sources, equiv.py); none of
+this batch's files.
+
+### Follow-ups
+
+- 0x001d22a0 still packs Lua arguments into 4-byte slots that the Invoke bodies read as `const char**` / `int*`:
+  pointer arguments need pointer-width slots on 64-bit (and the vector arguments a layout decision).
+- Manager classes in the registration sources keep 32-bit pads (CScenarioManager 0x001cf690 / 0x001cfb20,
+  MessageOverlay 0x000d6640, CRenderManager 0x001bb990, CUnlockablesManager 0x00094fb0's `memset(this, 0, 0x2fe * 4)`
+  over a pointer array, CFEManager, CControllerManager, CPlatformManager); 0x001c0cd0 allocates its subtitle
+  callback (vftable + owner) with the literal 8.
+- 0x001a16b0 (LuaAction) passes a chunk pointer to 0x001d2890 through an `int` field and takes the ScriptHandler
+  from an `int`-returning 0x001d4c90 declaration.
+- 0x001d4530 names its globals `g1_1d4530` / `g2_1d4530` (DAT_004dd6ec / DAT_004dd700) and views +0xc of the latter.
+- The aligned allocator 0x0033eb70-0x0033ed20 (task left open): every caller except 0x00333b50 (which installs the
+  hooks) is in the BINK section (0x00364880-0x0036e6f0), so these look like RAD's allocator linked into .text, not
+  game code. Decision needed before giving them a 64-bit branch (clean-room rule).

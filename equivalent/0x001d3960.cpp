@@ -2,7 +2,7 @@
 // FUN_001d3960 @ 0x001d3960
 // cl-flags: /GS
 
-#include "decls/data/lua.h"
+#include "decls/data/script.h"
 
 extern "C" int __cdecl FUN_00212d70(LuaVMState *L);
 extern "C" void __cdecl FUN_00212d80(LuaVMState *L, int index);
@@ -15,11 +15,9 @@ extern "C" int __cdecl FUN_00339a60(LuaVMState *L, const char *buf, unsigned int
 unsigned char __stdcall FUN_001d1080(const char *name, LuaVMState *L);
 const char *__stdcall FUN_001d10e0(const char *name, LuaVMState *L);
 
-class ScriptHandler {
+class ScriptHandler : public ScriptHandlerFields {
 public:
-    char pad0[4];
-    int resumeState;         // 0x04
-    LuaVMState *L;             // 0x08
+    virtual void v0();
     int FUN_001d3960();
 };
 
@@ -45,7 +43,7 @@ int ScriptHandler::FUN_001d3960()
         err = FUN_002139f0(state, 0, -1, 0);
     if (err != 0)
         FUN_00212d80(state, top);
-    resumeState = (err == 0) ? 3 : 0;
+    status = (err == 0) ? 3 : 0;
 
     if (FUN_001d1080("__RESUME_RC__", L)) {
         FUN_00213380(L, "coroutine", 9);
@@ -66,10 +64,10 @@ int ScriptHandler::FUN_001d3960()
                 break;
             }
         }
-        if (differs && resumeState == 3)
-            resumeState = 4;
+        if (differs && this->status == 3)
+            this->status = 4;
     } else {
         FUN_001d10e0("__RESUME_ERR__", L);
     }
-    return resumeState;
+    return status;
 }

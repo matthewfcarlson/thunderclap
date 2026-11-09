@@ -1,12 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_001b3c50 @ 0x001b3c50
+#include "compat/ptr.h"
 #include "decls/address.h"
+#include "decls/data/records.h"
+#include "decls/data/script.h"
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 extern "C" void* __cdecl FUN_001d4c90();
 extern "C" const char DAT_0048e100[];
 extern "C" const char DAT_0048e10c[];
 extern "C" const char DAT_0048e134[];
-inline void* operator new(unsigned int, void* p) throw() { return p; }
+inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 
 namespace math {
 class Vector;
@@ -17,16 +20,11 @@ template <> struct TypeName<void> { static const char* get() { return DAT_0048e1
 template <> struct TypeName<int> { static const char* get() { return DAT_0048e134; } };
 template <> struct TypeName<math::Vector> { static const char* get() { return DAT_0048e10c; } };
 
-class __declspec(novtable) Function {
+// Function's fields (include/decls/data/script.h) after the vftable.
+class __declspec(novtable) Function : public ScriptFunctionFields {
   public:
     virtual void f0();
     virtual void f1();
-    char pad_04[0x0c];
-    char argA;
-    char argB;
-    char pad_12[6];
-    char ret;
-    char pad_19[3];
     void FUN_001d0480(const char*, int);
     Function(const char* n, int k) { FUN_001d0480(n, k); }
 };
@@ -37,17 +35,18 @@ class Function2 : public Function {
     typedef R (__cdecl *Fn)(A, B);
     Function2(const char* name, Fn f) : Function(name, 2) {
         fn = f;
-        ret = FUN_001d04d0(TypeName<R>::get());
-        argA = FUN_001d04d0(TypeName<A>::get());
-        argB = FUN_001d04d0(TypeName<B>::get());
+        retType = FUN_001d04d0(TypeName<R>::get());
+        argTypes[0] = FUN_001d04d0(TypeName<A>::get());
+        argTypes[1] = FUN_001d04d0(TypeName<B>::get());
     }
     Fn fn;
 };
 
 struct Registry_1b3c50 { void FUN_001d3b70(const char*, void*); };
 
-struct Function4_1b3c50 { Function4_1b3c50* FUN_001b3810(const char*, void (*)()); };
-struct Function5_1b3c50 { Function5_1b3c50* FUN_001b38b0(const char*, void (*)()); };
+// Method4 / Method5 (matches/0x001b3810.cpp, 0x001b38b0.cpp): Function's fields, then the bound function.
+struct Function4_1b3c50 { void* vftable; ScriptFunctionFields f; void (*fn)(); Function4_1b3c50* FUN_001b3810(const char*, void (*)()); };
+struct Function5_1b3c50 { void* vftable; ScriptFunctionFields f; void (*fn)(); Function5_1b3c50* FUN_001b38b0(const char*, void (*)()); };
 
 void FUN_001b3360();
 void FUN_001b33d0();
@@ -86,18 +85,22 @@ extern "C" void FUN_001b3c50()
 
     Registry_1b3c50* reg = (Registry_1b3c50*)FUN_001d4c90();
     if (reg) {
-        void* mem = FUN_0008d690(0x20);
+        typedef Function2<void, int, math::Vector> FunctionIV;
+        HULK_SIZE32(FunctionIV, 0x20);
+        void* mem = FUN_0008d690((int)sizeof(FunctionIV));
         Function2<void, int, math::Vector>* trigger = 0;
         if (mem)
             trigger = new (mem) Function2<void, int, math::Vector>("exp_Trigger", FUN_001b3320);
         reg->FUN_001d3b70("exp_Trigger", trigger);
 
-        Function4_1b3c50* profile = (Function4_1b3c50*)FUN_0008d690(0x20);
+        HULK_SIZE32(Function4_1b3c50, 0x20);
+        Function4_1b3c50* profile = (Function4_1b3c50*)FUN_0008d690((int)sizeof(Function4_1b3c50));
         if (profile)
             profile = profile->FUN_001b3810("exp_DefineProfile", FUN_001b3360);
         reg->FUN_001d3b70("exp_DefineProfile", profile);
 
-        Function5_1b3c50* damage = (Function5_1b3c50*)FUN_0008d690(0x20);
+        HULK_SIZE32(Function5_1b3c50, 0x20);
+        Function5_1b3c50* damage = (Function5_1b3c50*)FUN_0008d690((int)sizeof(Function5_1b3c50));
         if (damage) {
             damage = damage->FUN_001b38b0("exp_DefineProfileDamage", FUN_001b33d0);
             reg->FUN_001d3b70("exp_DefineProfileDamage", damage);

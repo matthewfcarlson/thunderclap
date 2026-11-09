@@ -1,9 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/18)
 // FUN_001f81c0 @ 0x001f81c0
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+#include "decls/data/script.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
-inline void *operator new(unsigned int, void *p) throw() { return p; }
+inline void *operator new(hulk_uintptr, void *p) throw() { return p; }
 
 void *FUN_0008d690(unsigned int size);
 
@@ -21,15 +24,11 @@ template <> struct TypeName<bool> { static const char *get() { return ((const ch
 template <> struct TypeName<unsigned int> { static const char *get() { return ((const char*)&DAT_0049b95c); } };
 template <> struct TypeName<char *> { static const char *get() { return ((const char*)&DAT_0049cad8); } };
 
-class __declspec(novtable) Function {
+// Function (include/decls/data/script.h): the vftable, then Function's fields.
+class __declspec(novtable) Function : public ScriptFunctionFields {
 public:
     virtual void f0();
     virtual void f1();
-    char pad04[0x0c];
-    char args[4];
-    char pad14[4];
-    char ret;
-    char pad19[3];
     void FUN_001d0480(const char *name, int arity);
     Function() {}
     __forceinline Function(const char *name, int arity) { FUN_001d0480(name, arity); }
@@ -56,9 +55,9 @@ public:
     typedef R (*Fn)(A, B);
     __forceinline Function2(const char *name, Fn f) : Function(name, 2) {
         fn = f;
-        ret = FUN_001d04d0(TypeName<R>::get());
-        args[0] = FUN_001d04d0(TypeName<A>::get());
-        args[1] = FUN_001d04d0(TypeName<B>::get());
+        retType = FUN_001d04d0(TypeName<R>::get());
+        argTypes[0] = FUN_001d04d0(TypeName<A>::get());
+        argTypes[1] = FUN_001d04d0(TypeName<B>::get());
     }
     Fn fn;
 };
@@ -69,8 +68,8 @@ public:
     typedef R (T::*Fn)(A);
     __forceinline Method1(const char *name, Fn f) : Function(name, 1) {
         fn = f;
-        ret = FUN_001d04d0(TypeName<R>::get());
-        args[0] = FUN_001d04d0(TypeName<A>::get());
+        retType = FUN_001d04d0(TypeName<R>::get());
+        argTypes[0] = FUN_001d04d0(TypeName<A>::get());
     }
     Fn fn;
 };
@@ -143,18 +142,21 @@ void CEffectManager::FUN_001f81c0()
     Registry_1f81c0 *reg = FUN_001d4c90();
     reg->FUN_001e12b0("SetXBoxGamma", thunk_FUN_001b8750);
 
+    { typedef Function2<void, float, float> Sized; HULK_SIZE32(Sized, 0x20); }
     void *mem = FUN_0008d690((int)sizeof(Function2<void, float, float>));
     Function2<void, float, float> *blur = 0;
     if (mem)
         blur = new (mem) Function2<void, float, float>("em_SetMotionBlur", FUN_001f7120);
     reg->FUN_001d3b70("em_SetMotionBlur", blur);
 
-    mem = FUN_0008d690(0x24);
+    { HULK_SIZE32(ScriptClosureView, 0x24); }
+    mem = FUN_0008d690((int)sizeof(ScriptClosureView));
     ClosureWorld *world = 0;
     if (mem)
         world = ((ClosureWorld *)mem)->FUN_001f7b20("em_AddWorldEffect", this, &CEffectManager::FUN_001f7200);
     reg->FUN_001d3b70("em_AddWorldEffect", world);
 
+    { typedef Closure3<CEffectManager, int, const char *, math::Vector, math::Vector> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure3<CEffectManager, int, const char *, math::Vector, math::Vector>));
     Closure3<CEffectManager, int, const char *, math::Vector, math::Vector> *oriented = 0;
     if (mem)
@@ -162,12 +164,14 @@ void CEffectManager::FUN_001f81c0()
             "em_AddWorldEffectOriented", this, &CEffectManager::FUN_001f7150);
     reg->FUN_001d3b70("em_AddWorldEffectOriented", oriented);
 
-    mem = FUN_0008d690(0x24);
+    { HULK_SIZE32(ScriptClosureView, 0x24); }
+    mem = FUN_0008d690((int)sizeof(ScriptClosureView));
     Closure2_1f81c0 *setpos = 0;
     if (mem)
         setpos = ((Closure2_1f81c0 *)mem)->FUN_001f7c40("em_SetPositionWorldEffect", this, &CEffectManager::FUN_001f7280);
     reg->FUN_001d3b70("em_SetPositionWorldEffect", setpos);
 
+    { typedef Closure3<CEffectManager, unsigned int, char *, float, float> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure3<CEffectManager, unsigned int, char *, float, float>));
     Closure3<CEffectManager, unsigned int, char *, float, float> *decal = 0;
     if (mem)
@@ -177,24 +181,28 @@ void CEffectManager::FUN_001f81c0()
 
     reg->FUN_001f80b0("CDQ_Nearest", this, &CEffectManager::FUN_001f6fc0);
 
+    { typedef Closure1<CEffectManager, unsigned int, char *> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure1<CEffectManager, unsigned int, char *>));
     Closure1<CEffectManager, unsigned int, char *> *addps = 0;
     if (mem)
         addps = new (mem) Closure1<CEffectManager, unsigned int, char *>("CPS_AddPS", this, &CEffectManager::FUN_001f6e60);
     reg->FUN_001d3b70("CPS_AddPS", addps);
 
+    { typedef Closure1<CEffectManager, bool, bool> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure1<CEffectManager, bool, bool>));
     Closure1<CEffectManager, bool, bool> *rain = 0;
     if (mem)
         rain = new (mem) Closure1<CEffectManager, bool, bool>("em_EnableRain", this, &CEffectManager::FUN_001f6ff0);
     reg->FUN_001d3b70("em_EnableRain", rain);
 
+    { typedef Closure1<CEffectManager, bool, bool> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure1<CEffectManager, bool, bool>));
     Closure1<CEffectManager, bool, bool> *dust = 0;
     if (mem)
         dust = new (mem) Closure1<CEffectManager, bool, bool>("em_EnableDust", this, &CEffectManager::FUN_001f7080);
     reg->FUN_001d3b70("em_EnableDust", dust);
 
+    { typedef Closure1<CEffectManager, bool, bool> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure1<CEffectManager, bool, bool>));
     Closure1<CEffectManager, bool, bool> *debris = 0;
     if (mem)

@@ -3,24 +3,26 @@
 
 #include "compat/ptr.h"
 #include "decls/address.h"
+#include "decls/data/script.h"
 extern int VTable_2dc60;
 struct Function_2dc60 {
     Function_2dc60(const char*, int);
 };
+// Method3's constructor (name, member function): Function's fields (include/decls/data/script.h), then the
+// member-function pointer.
+class Owner_2dc60 {};
+typedef void (Owner_2dc60::*Fn_2dc60)();
 struct Method3_2dc60 : Function_2dc60 {
-    char pad0[16];
-    unsigned char b10, b11, b12;
-    char pad13[5];
-    unsigned char b18;
-    char pad19[3];
-    int field1c;
-    Method3_2dc60(const char*, hulk_intptr);
+    void* vftable;
+    ScriptFunctionFields f;
+    Fn_2dc60 field1c;
+    Method3_2dc60(const char*, Fn_2dc60);
 };
-Method3_2dc60::Method3_2dc60(const char* a, hulk_intptr x) : Function_2dc60(a, 3) {
-    *(hulk_intptr*)this = (hulk_intptr)&VTable_2dc60;
+Method3_2dc60::Method3_2dc60(const char* a, Fn_2dc60 x) : Function_2dc60(a, 3) {
+    *(void**)this = (void*)&VTable_2dc60;
     field1c = x;
-    b18 = FUN_001d04d0(((const char*)&DAT_0048e100));
-    b10 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    b11 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    b12 = FUN_001d04d0(((const char*)&DAT_0048e128));
+    f.retType = FUN_001d04d0(((const char*)&DAT_0048e100));
+    f.argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    f.argTypes[1] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    f.argTypes[2] = FUN_001d04d0(((const char*)&DAT_0048e128));
 }

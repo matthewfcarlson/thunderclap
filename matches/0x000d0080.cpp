@@ -1,36 +1,36 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-struct CtorV_001d0480 {
-    CtorV_001d0480(void*, int);
+#include "decls/data/script.h"
+// Closure2<Owner, void, int, int>'s constructor (name, object, member function): Function's fields
+// (include/decls/data/script.h), then Method2's member-function pointer and Closure2's object.
+class Owner_d0080 {};
+typedef void (Owner_d0080::*Fn_d0080)(int, int);
+struct CtorV_001d0480 : public ScriptFunctionFields {
+    CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
 class Base_d0080 : public CtorV_001d0480 {
   public:
-    Base_d0080(void* p) : CtorV_001d0480(p, 2) { }
+    Base_d0080(const char* p) : CtorV_001d0480(p, 2) { }
 };
 class Closure2_d0080 : public Base_d0080 {
   public:
     virtual void f();
-    char pad[12];
-    unsigned char b10, b11;
-    char pad2[6];
-    unsigned char b18;
-    char pad3[3];
-    int m1;
-    Closure2_d0080(void*, int, int);
+    Fn_d0080 m1;
+    Closure2_d0080(const char*, Owner_d0080*, Fn_d0080);
 };
-Closure2_d0080::Closure2_d0080(void* p, int a, int b) : Base_d0080(p) {
+Closure2_d0080::Closure2_d0080(const char* p, Owner_d0080* a, Fn_d0080 b) : Base_d0080(p) {
     m1 = b;
-    b18 = FUN_001d04d0(((int*)&DAT_0048e100));
-    b10 = FUN_001d04d0(((int*)&DAT_0048e134));
-    b11 = FUN_001d04d0(((int*)&DAT_0048e134));
+    retType = FUN_001d04d0(((int*)&DAT_0048e100));
+    argTypes[0] = FUN_001d04d0(((int*)&DAT_0048e134));
+    argTypes[1] = FUN_001d04d0(((int*)&DAT_0048e134));
 }
 class Closure2 : public Closure2_d0080 {
   public:
     virtual void f();
-    int m2;
-    Closure2(void*, int, int);
+    Owner_d0080* m2;
+    Closure2(const char*, Owner_d0080*, Fn_d0080);
 };
-Closure2::Closure2(void* p, int a, int b) : Closure2_d0080(p, a, b) {
+Closure2::Closure2(const char* p, Owner_d0080* a, Fn_d0080 b) : Closure2_d0080(p, a, b) {
     m2 = a;
 }

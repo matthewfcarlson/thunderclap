@@ -4,6 +4,9 @@
 
 #include "compat/ptr.h"
 #include "decls/address.h"
+#include "decls/data/script.h"
+// Method3's constructor (name, member function): Function's fields (include/decls/data/script.h), then the
+// member-function pointer.
 extern "C" char DAT_0041da1c[];
 struct This_FUN_001d0480 {
     int FUN_001d0480(const char*, int);
@@ -11,20 +14,16 @@ struct This_FUN_001d0480 {
 class Method3_1b5bc0 {
   public:
     hulk_intptr vtable;
-    char pad04[12];
-    char value10, value11, value12;
-    char pad13[5];
-    char value18;
-    char pad19[3];
-    int value1c;
-    Method3_1b5bc0(hulk_intptr, hulk_intptr);
+    ScriptFunctionFields f;
+    ScriptMemberFn value1c;
+    Method3_1b5bc0(const char*, ScriptMemberFn);
 };
-Method3_1b5bc0::Method3_1b5bc0(hulk_intptr a, hulk_intptr b) {
-    ((This_FUN_001d0480*)this)->FUN_001d0480((const char*)a, 3);
+Method3_1b5bc0::Method3_1b5bc0(const char* a, ScriptMemberFn b) {
+    ((This_FUN_001d0480*)this)->FUN_001d0480(a, 3);
     vtable = ((hulk_intptr)DAT_0041da1c);
     value1c = b;
-    value18 = FUN_001d04d0(((char*)&DAT_0048e100));
-    value10 = FUN_001d04d0(((char*)&DAT_0048e128));
-    value11 = FUN_001d04d0(((char*)&DAT_0048e128));
-    value12 = FUN_001d04d0(((char*)&DAT_0048e128));
+    f.retType = FUN_001d04d0(((char*)&DAT_0048e100));
+    f.argTypes[0] = FUN_001d04d0(((char*)&DAT_0048e128));
+    f.argTypes[1] = FUN_001d04d0(((char*)&DAT_0048e128));
+    f.argTypes[2] = FUN_001d04d0(((char*)&DAT_0048e128));
 }

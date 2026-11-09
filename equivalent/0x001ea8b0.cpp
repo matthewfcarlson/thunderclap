@@ -1,11 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1920 inputs, branch coverage 10/10)
 // FUN_001ea8b0 @ 0x001ea8b0
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+#include "decls/data/script.h"
 #include "decls/address.h"
 #include "decls/data/engine/content.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
 extern "C" void *FUN_0008d690(unsigned int size);
-inline void *operator new(unsigned int, void *p) throw() { return p; }
+inline void *operator new(hulk_uintptr, void *p) throw() { return p; }
 
 template <class T> struct TypeTag;
 template <> struct TypeTag<void> { static const void *get() { return ((char*)&DAT_0048e100); } };
@@ -13,14 +16,10 @@ template <> struct TypeTag<const char *> { static const void *get() { return ((c
 template <> struct TypeTag<char *> { static const void *get() { return ((char*)&DAT_0049cad8); } };
 template <> struct TypeTag<int> { static const void *get() { return ((char*)&DAT_0048e134); } };
 
-class __declspec(novtable) MethodBase_1ea8b0 {
+// Function (include/decls/data/script.h): the vftable, then Function's fields.
+class __declspec(novtable) MethodBase_1ea8b0 : public ScriptFunctionFields {
 public:
     virtual void m0();
-    char pad_04[0xc];
-    char argType;
-    char pad_11[7];
-    char retType;
-    char pad_19[3];
     void FUN_001d0480(const char *, int);
     MethodBase_1ea8b0(const char *n, int k) { FUN_001d0480(n, k); }
 };
@@ -32,7 +31,7 @@ public:
     Method1(const char *name, Fn f) : MethodBase_1ea8b0(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
-        argType = FUN_001d04d0(TypeTag<A>::get());
+        argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
     }
     Fn fn;
 };
@@ -115,24 +114,28 @@ int CSoundResourceManager::FUN_001ea8b0(int arg)
     Registry_1ea8b0 *reg = FUN_001d4c90();
     void *mem;
 
+    { typedef Closure1<CSoundResourceManager, void, const char *> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure1<CSoundResourceManager, void, const char *>));
     Closure1<CSoundResourceManager, void, const char *> *c1 = 0;
     if (mem)
         c1 = new (mem) Closure1<CSoundResourceManager, void, const char *>("snd_PreloadSequenceOfRankN", this, &CSoundResourceManager::FUN_001ea0c0);
     reg->FUN_001d3b70("snd_PreloadSequenceOfRankN", c1);
 
+    { typedef Closure1<CSoundResourceManager, void, const char *> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure1<CSoundResourceManager, void, const char *>));
     Closure1<CSoundResourceManager, void, const char *> *c2 = 0;
     if (mem)
         c2 = new (mem) Closure1<CSoundResourceManager, void, const char *>("snd_PrepareSequence", this, &CSoundResourceManager::FUN_001ea050);
     reg->FUN_001d3b70("snd_PrepareSequence", c2);
 
+    { typedef Closure1<CSoundResourceManager, void, char *> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure1<CSoundResourceManager, void, char *>));
     Closure1<CSoundResourceManager, void, char *> *c3 = 0;
     if (mem)
         c3 = new (mem) Closure1<CSoundResourceManager, void, char *>("snd_SetDefaultMix", this, &CSoundResourceManager::FUN_001e9b00);
     reg->FUN_001d3b70("snd_SetDefaultMix", c3);
 
+    { typedef Closure1<CSoundResourceManager, void, int> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure1<CSoundResourceManager, void, int>));
     Closure1<CSoundResourceManager, void, int> *c4 = 0;
     if (mem)

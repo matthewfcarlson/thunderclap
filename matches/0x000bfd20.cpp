@@ -3,15 +3,13 @@
 // cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "decls/data/script.h"
 
-class __declspec(novtable) MethodBase_bfd20 {
+// Function1<R, A> (a static function bound to Lua): Function's fields (include/decls/data/script.h), then the
+// function pointer.
+class __declspec(novtable) MethodBase_bfd20 : public ScriptFunctionFields {
   public:
     virtual void m0();
-    char pad_04[0xc];
-    char retType;
-    char pad_11[7];
-    char argType;
-    char pad_19[3];
     MethodBase_bfd20(const char* n, int k) throw();
     void FUN_001d04a0();
 };
@@ -22,8 +20,8 @@ class Function1 : public MethodBase_bfd20 {
     typedef R (*Fn)(A);
     Function1(const char* name, Fn f) throw() : MethodBase_bfd20(name, 1) {
         fn = f;
-        argType = FUN_001d04d0(((char*)&DAT_0048e100));
-        retType = FUN_001d04d0(((char*)&DAT_0048e0f0));
+        retType = FUN_001d04d0(((char*)&DAT_0048e100));
+        argTypes[0] = FUN_001d04d0(((char*)&DAT_0048e0f0));
     }
     Fn fn;
 };

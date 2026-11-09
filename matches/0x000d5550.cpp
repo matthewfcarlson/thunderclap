@@ -3,32 +3,33 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "decls/data/script.h"
 extern "C" char DAT_0040b1a8[];
 
+// Method7<Owner, void, const char*, const char*, const char*, const char*, const char*, const char*, const char*>'s initializer (name, member function): Function's
+// fields (include/decls/data/script.h), then the member-function pointer.
+class Owner_d5550 {};
+typedef void (Owner_d5550::*Fn_d5550)(const char*, const char*, const char*, const char*, const char*, const char*, const char*);
 class Method7_d5550 {
   public:
-    hulk_intptr vptr;
-    char pad4[12];
-    char arg[7];
-    char pad17;
-    char result;
-    char pad19[3];
-    void* owner;
-    void FUN_001d0480(void*, int);
-    Method7_d5550* Init(void*, void*);
+    void* vptr;
+    ScriptFunctionFields f;
+    Fn_d5550 owner;
+    void FUN_001d0480(const char*, int);
+    Method7_d5550* Init(const char*, Fn_d5550);
 };
 
-Method7_d5550* Method7_d5550::Init(void* name, void* value) {
+Method7_d5550* Method7_d5550::Init(const char* name, Fn_d5550 value) {
     FUN_001d0480(name, 7);
-    vptr = (hulk_intptr)DAT_0040b1a8;
+    vptr = (void*)DAT_0040b1a8;
     owner = value;
-    result = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e100)));
-    arg[0] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    arg[1] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    arg[2] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    arg[3] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    arg[4] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    arg[5] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    arg[6] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    f.retType = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e100)));
+    f.argTypes[0] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    f.argTypes[1] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    f.argTypes[2] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    f.argTypes[3] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    f.argTypes[4] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    f.argTypes[5] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    f.argTypes[6] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
     return this;
 }

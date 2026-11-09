@@ -1,18 +1,17 @@
 // FUN_000d75c0 @ 0x000d75c0
 #include "decls/data/game/global.h"
 
+#include "compat/ptr.h"
+#include "decls/data/script.h"
 typedef unsigned int size_t;
 void *operator new(size_t) throw();
 char FUN_001d04d0(const void *) throw();
 
-class Base_d75c0 {
+// Function's fields (include/decls/data/script.h) after the vftable; Method1 keeps the bound function as a plain
+// function pointer (one code pointer, like the game's member-function pointer).
+class Base_d75c0 : public ScriptFunctionFields {
 public:
     virtual void v();
-    char p[12];
-    char arg;
-    char q[7];
-    char result;
-    char z[3];
     Base_d75c0(const char *, int) throw();
 };
 
@@ -23,8 +22,8 @@ public:
     Method1(const char *n, void (*x)(), const void *r, const void *a) : Base_d75c0(n, 1)
     {
         f = x;
-        result = FUN_001d04d0(r);
-        arg = FUN_001d04d0(a);
+        retType = FUN_001d04d0(r);
+        argTypes[0] = FUN_001d04d0(a);
     }
     virtual void v();
 };

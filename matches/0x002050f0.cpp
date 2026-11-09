@@ -2,28 +2,26 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/script.h"
 extern "C" char DAT_00425b54[];
 class Function_2050f0 {
   public:
-    void Init(int, int);
+    void Init(const char*, int);
 };
+// Function's fields (include/decls/data/script.h) after the vftable, then the member-function pointer.
 class Method3_2050f0 : public Function_2050f0 {
   public:
-    Method3_2050f0(hulk_intptr, hulk_intptr);
+    Method3_2050f0(const char*, ScriptMemberFn);
     void* vf;
-    char pad04[0x0c];
-    unsigned char b10, b11, b12;
-    char pad13[5];
-    unsigned char b18;
-    char pad19[3];
-    int mgr;
+    ScriptFunctionFields f;  // 0x04
+    ScriptMemberFn mgr;      // 0x1c
 };
-Method3_2050f0::Method3_2050f0(hulk_intptr a, hulk_intptr b) {
+Method3_2050f0::Method3_2050f0(const char* a, ScriptMemberFn b) {
     Init(a, 3);
     vf = (void*)((hulk_intptr)DAT_00425b54);
     mgr = b;
-    b18 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
-    b10 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
-    b11 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
-    b12 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    f.retType = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0e4)));
+    f.argTypes[0] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    f.argTypes[1] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    f.argTypes[2] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
 }

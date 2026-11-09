@@ -1,7 +1,10 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "decls/data/script.h"
+// Closure1's constructor (name, object, member function): Function's fields (include/decls/data/script.h), then
+// Method1's member-function pointer and Closure1's object.
 class CScenarioManager;
-struct CtorV_001d0480 {
+struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
@@ -11,25 +14,20 @@ struct Function_1ce730 : public CtorV_001d0480 {
 class Method1 : public Function_1ce730 {
   public:
     virtual void fn();
-    char pad[12];
-    unsigned char b10;
-    char pad2[7];
-    unsigned char b18;
-    char pad3[3];
-    int arg;
-    Method1(const char*, int);
+    ScriptMemberFn arg;
+    Method1(const char*, ScriptMemberFn);
 };
 class Closure1 : public Method1 {
   public:
     virtual void fn();
-    int extra;
-    Closure1(const char*, int, int);
+    void* extra;
+    Closure1(const char*, void*, ScriptMemberFn);
 };
-inline Method1::Method1(const char* a, int c) : Function_1ce730(a) {
+inline Method1::Method1(const char* a, ScriptMemberFn c) : Function_1ce730(a) {
     arg = c;
-    b18 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    b10 = FUN_001d04d0(((const char*)&DAT_0048e134));
+    retType = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e134));
 }
-Closure1::Closure1(const char* a, int b, int c) : Method1(a, c) {
+Closure1::Closure1(const char* a, void* b, ScriptMemberFn c) : Method1(a, c) {
     extra = b;
 }

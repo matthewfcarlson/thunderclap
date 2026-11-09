@@ -1,33 +1,32 @@
 #include "compat/ptr.h"
+#include "decls/data/script.h"
 #include "decls/data/game/global.h"
 
 extern void* VT_Method1[2];
 extern void* VT_Closure1[2];
 
+// Closure1's fields (include/decls/data/script.h): Function's fields, the bound member-function pointer, the object.
+class Owner_2ea30 {};
+typedef void (Owner_2ea30::*Fn_2ea30)();
 struct Ctor_001d0480 {
-    Ctor_001d0480(void* a1, int b);
+    Ctor_001d0480(const char* a1, int b);
 };
 char __cdecl LookupFlag(const void* tbl);
 
 class Closure1 : public Ctor_001d0480 {
   public:
-    void* vfptr;
-    char pad04[12];
-    char mFlag10;
-    char pad11[7];
-    char mFlag18;
-    char pad19[3];
-    int mA3;
-    int mA2;
-
-    Closure1(void* a1, hulk_intptr a2, hulk_intptr a3);
+    void* vfptr;             // 0x00
+    ScriptFunctionFields f;  // 0x04
+    Fn_2ea30 fn;            // 0x1c
+    Owner_2ea30* owner;     // 0x20
+    Closure1(const char* a1, Owner_2ea30* a2, Fn_2ea30 a3);
 };
 
-Closure1::Closure1(void* a1, hulk_intptr a2, hulk_intptr a3) : Ctor_001d0480(a1, 1) {
+Closure1::Closure1(const char* a1, Owner_2ea30* a2, Fn_2ea30 a3) : Ctor_001d0480(a1, 1) {
     vfptr = (void*)VT_Method1;
-    mA3 = a3;
-    mFlag18 = LookupFlag(((void**)&DAT_0048e0f0));
-    mFlag10 = LookupFlag(((void**)&DAT_0048e0f0));
+    fn = a3;
+    f.retType = LookupFlag(((void**)&DAT_0048e0f0));
+    f.argTypes[0] = LookupFlag(((void**)&DAT_0048e0f0));
     vfptr = (void*)VT_Closure1;
-    mA2 = a2;
+    owner = a2;
 }

@@ -2,16 +2,15 @@
 // FUN_001cec40 @ 0x001cec40
 // cl-flags: /GS
 #include "decls/address.h"
+#include "decls/data/script.h"
 #include "decls/data/game/global.h"
 
 class CScenarioManager { public: bool FUN_dummy(); };
 
-class __declspec(novtable) MethodBase_1cec40 {
+// Function's fields (include/decls/data/script.h) after the vftable.
+class __declspec(novtable) MethodBase_1cec40 : public ScriptFunctionFields {
   public:
     virtual void m0();
-    char pad_04[0x14];
-    char retType;
-    char pad_19[3];
     MethodBase_1cec40(const char* n, int k) throw();
     void FUN_001d04a0();
 };

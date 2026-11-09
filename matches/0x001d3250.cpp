@@ -3,27 +3,28 @@
 
 #include "compat/ptr.h"
 #include "decls/address.h"
+#include "decls/data/script.h"
 extern "C" char DAT_00422654[];
+// Method4<ScriptHandler, void, const char* x4>'s initializer (name, member function), inlined by 0x001d46d0:
+// Function's fields (include/decls/data/script.h), then the member-function pointer; returns this.
+class ScriptHandler_1d3250 {};
+typedef void (ScriptHandler_1d3250::*Fn_1d3250)(const char*, const char*, const char*, const char*);
 class Method4_1d3250 {
   public:
-    hulk_intptr vft;
-    char pad4[0x0c];
-    char b10, b11, b12, b13;
-    char pad14[4];
-    char b18;
-    char pad19[3];
-    void* p1c;
+    void* vft;
+    ScriptFunctionFields f;
+    Fn_1d3250 fn;
     void Init(const char*, int);
-    Method4_1d3250* Create(const char*, const char*);
+    Method4_1d3250* Create(const char*, Fn_1d3250);
 };
-Method4_1d3250* Method4_1d3250::Create(const char* a, const char* b) {
+Method4_1d3250* Method4_1d3250::Create(const char* a, Fn_1d3250 b) {
     Init(a, 4);
-    vft = ((hulk_intptr)DAT_00422654);
-    p1c = (void*)b;
-    b18 = FUN_001d04d0(((const char*)&DAT_0048e100));
-    b10 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    b11 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    b12 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    b13 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    vft = (void*)DAT_00422654;
+    fn = b;
+    f.retType = FUN_001d04d0(((const char*)&DAT_0048e100));
+    f.argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    f.argTypes[1] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    f.argTypes[2] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    f.argTypes[3] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
     return this;
 }

@@ -1,6 +1,8 @@
 #include "decls/data/game/global.h"
+#include "decls/data/script.h"
 
-struct CtorV_001d0480 {
+// Function (include/decls/data/script.h): the vftable, then Function's fields.
+struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
@@ -12,25 +14,20 @@ class InitBase : public CtorV_001d0480 {
 class Closure1_1ffd80 : public InitBase {
   public:
     virtual void f();
-    char pad[12];
-    unsigned char x;
-    char pad2[7];
-    unsigned char y;
-    char pad3[3];
-    int z;
-    Closure1_1ffd80(const char*, int);
+    ScriptMemberFn z;  // 0x1c
+    Closure1_1ffd80(const char*, ScriptMemberFn);
 };
-Closure1_1ffd80::Closure1_1ffd80(const char* name, int v) : InitBase(name) {
+Closure1_1ffd80::Closure1_1ffd80(const char* name, ScriptMemberFn v) : InitBase(name) {
     z = v;
-    y = Get(((const char*)&DAT_0048e0f0));
-    x = Get(((const char*)&DAT_0048e134));
+    retType = Get(((const char*)&DAT_0048e0f0));
+    argTypes[0] = Get(((const char*)&DAT_0048e134));
 }
 class Closure1 : public Closure1_1ffd80 {
   public:
     virtual void f();
-    int val;
-    Closure1(const char*, int, int);
+    void* val;  // 0x20
+    Closure1(const char*, void*, ScriptMemberFn);
 };
-Closure1::Closure1(const char* name, int v, int w) : Closure1_1ffd80(name, w) {
+Closure1::Closure1(const char* name, void* v, ScriptMemberFn w) : Closure1_1ffd80(name, w) {
     val = v;
 }

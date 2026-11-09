@@ -1,24 +1,23 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_001cc360 @ 0x001cc360
+#include "compat/ptr.h"
 #include "decls/address.h"
+#include "decls/data/records.h"
+#include "decls/data/script.h"
 #include "decls/data/game/global.h"
 extern "C" void *FUN_0008d690(unsigned int size);
 extern "C" void *FUN_0008d6d0(unsigned int size);
-inline void *operator new(unsigned int, void *p) throw() { return p; }
+inline void *operator new(hulk_uintptr, void *p) throw() { return p; }
 
 template <class T> struct TypeTag;
 template <> struct TypeTag<void> { static const void *get() { return ((char*)&DAT_0048e100); } };
 template <> struct TypeTag<bool> { static const void *get() { return &DAT_0048e0e4; } };
 template <> struct TypeTag<const char *> { static const void *get() { return ((char*)&DAT_0048e0f0); } };
 
-class __declspec(novtable) MethodBase_1cc360 {
+// Function's fields (include/decls/data/script.h) after the vftable.
+class __declspec(novtable) MethodBase_1cc360 : public ScriptFunctionFields {
   public:
     virtual void m0();
-    char pad_04[0xc];
-    char argType;
-    char pad_11[7];
-    char retType;
-    char pad_19[3];
     void FUN_001d0480(const char *, int);
     MethodBase_1cc360(const char *n, int k) { FUN_001d0480(n, k); }
 };
@@ -30,7 +29,7 @@ class Method1 : public MethodBase_1cc360 {
     Method1(const char *name, Fn f) : MethodBase_1cc360(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
-        argType = FUN_001d04d0(TypeTag<A>::get());
+        argTypes[0] = FUN_001d04d0(TypeTag<A>::get());
     }
     Fn fn;
 };
@@ -98,6 +97,12 @@ CEventManager::CEventManager()
 
     Registry_1cc360 *reg = FUN_001d4c90();
     if (reg) {
+        typedef Closure1<CEventManager, bool, const char *> ClosureBS;
+        HULK_SIZE32(ClosureBS, 0x24);
+        typedef Closure1<CEventManager, void, bool> ClosureVB;
+        HULK_SIZE32(ClosureVB, 0x24);
+        typedef Closure1<CEventManager, void, const char *> ClosureVS;
+        HULK_SIZE32(ClosureVS, 0x24);
         void *mem;
 
         mem = FUN_0008d690((int)sizeof(Closure1<CEventManager, bool, const char *>));

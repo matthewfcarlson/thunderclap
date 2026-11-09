@@ -3989,16 +3989,21 @@
    "addr": "0x001d04b0",
    "aliases": 6,
    "members": [
-    "char pad[8];",
-    "int field;",
+    "void* vftable;",
+    "hulk_intptr name;",
+    "hulk_intptr field;",
     "void FUN_001d04b0(hulk_intptr);"
    ],
    "offsets": {
     "field": [
      8,
+     16
+    ],
+    "name": [
+     4,
      8
     ],
-    "pad": [
+    "vftable": [
      0,
      0
     ]
@@ -4011,7 +4016,7 @@
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "matches/0x001d04b0.cpp",
    "stub": "CAgent"
@@ -7002,23 +7007,28 @@
    "addr": "0x001d1930",
    "aliases": 2,
    "members": [
-    "char pad[8];",
-    "int m;",
+    "void* vftable;",
+    "int status;",
+    "hulk_intptr m;",
     "bool FUN_001d1930(int n);"
    ],
    "offsets": {
     "m": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
     ],
-    "pad": [
+    "vftable": [
      0,
      0
     ]
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "matches/0x001d1930.cpp",
    "stub": "C_1d1930"
@@ -7027,16 +7037,21 @@
    "addr": "0x001d1a50",
    "aliases": 1,
    "members": [
-    "char pad[8];",
-    "unsigned int member;",
+    "void* vftable;",
+    "int status;",
+    "hulk_uintptr member;",
     "bool FUN_001d1a50(hulk_uintptr arg);"
    ],
    "offsets": {
     "member": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
     ],
-    "pad": [
+    "vftable": [
      0,
      0
     ]
@@ -7049,7 +7064,7 @@
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "matches/0x001d1a50.cpp",
    "stub": "C_1d1a50"
@@ -7058,23 +7073,28 @@
    "addr": "0x001d1ac0",
    "aliases": 1,
    "members": [
-    "char pad[8];",
-    "unsigned int member;",
+    "void* vftable;",
+    "int status;",
+    "hulk_uintptr member;",
     "bool FUN_001d1ac0(unsigned int arg);"
    ],
    "offsets": {
     "member": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
     ],
-    "pad": [
+    "vftable": [
      0,
      0
     ]
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "matches/0x001d1ac0.cpp",
    "stub": "C_1d1ac0"
@@ -7083,38 +7103,28 @@
    "addr": "0x001d1c10",
    "aliases": 1,
    "members": [
-    "char a[8];",
-    "int obj;",
-    "char b[0x5464];",
-    "int vals[8];",
-    "int idx;",
+    "void* vftable;",
+    "int status;",
+    "hulk_intptr obj;",
     "bool FUN_001d1c10(int);"
    ],
    "offsets": {
-    "a": [
-     0,
-     0
-    ],
-    "b": [
-     12,
-     12
-    ],
-    "idx": [
-     21648,
-     21648
-    ],
     "obj": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
     ],
-    "vals": [
-     21616,
-     21616
+    "vftable": [
+     0,
+     0
     ]
    },
    "size": [
-    21652,
-    21652
+    12,
+    24
    ],
    "source": "matches/0x001d1c10.cpp",
    "stub": "C_1d1c10"
@@ -7143,16 +7153,21 @@
    "addr": "0x001d2cd0",
    "aliases": 1,
    "members": [
-    "char pad[8];",
-    "int field;",
+    "void* vftable;",
+    "int status;",
+    "hulk_intptr field;",
     "bool FUN_001d2cd0(int, hulk_intptr, int);"
    ],
    "offsets": {
     "field": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
     ],
-    "pad": [
+    "vftable": [
      0,
      0
     ]
@@ -7165,7 +7180,7 @@
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "matches/0x001d2cd0.cpp",
    "stub": "C_1d2cd0"
@@ -7174,17 +7189,22 @@
    "addr": "0x001d2de0",
    "aliases": 1,
    "members": [
-    "char pad[8];",
-    "int member;",
+    "void* vftable;",
+    "int status;",
+    "hulk_intptr member;",
     "int FUN_001d2de0(hulk_intptr a, hulk_intptr b);",
     "int finish(int);"
    ],
    "offsets": {
     "member": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
     ],
-    "pad": [
+    "vftable": [
      0,
      0
     ]
@@ -7198,7 +7218,7 @@
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "matches/0x001d2de0.cpp",
    "stub": "C_1d2de0"
@@ -7207,16 +7227,21 @@
    "addr": "0x001d2e10",
    "aliases": 1,
    "members": [
-    "char pad[8];",
-    "int L;",
+    "void* vftable;",
+    "int status;",
+    "hulk_intptr L;",
     "bool FUN_001d2e10(hulk_intptr a, int* out);"
    ],
    "offsets": {
     "L": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
     ],
-    "pad": [
+    "vftable": [
      0,
      0
     ]
@@ -7229,7 +7254,7 @@
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "matches/0x001d2e10.cpp",
    "stub": "C_1d2e10"
@@ -15726,18 +15751,23 @@
    "addr": "0x001d2c60",
    "aliases": 2,
    "members": [
-    "int pad[2];",
-    "int state;",
+    "void* vftable;",
+    "int status;",
+    "hulk_intptr state;",
     "bool FUN_001d2c60(hulk_intptr a, hulk_intptr b, int c);"
    ],
    "offsets": {
-    "pad": [
-     0,
-     0
-    ],
     "state": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
+    ],
+    "vftable": [
+     0,
+     0
     ]
    },
    "reconciled": {
@@ -15749,7 +15779,7 @@
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "matches/0x001d2c60.cpp",
    "stub": "K_1d2c60"
@@ -38314,23 +38344,28 @@
    "addr": "0x001d15d0",
    "aliases": 3,
    "members": [
-    "char pad[8];",
-    "int value;",
+    "void* vftable;",
+    "int status;",
+    "hulk_intptr value;",
     "void FUN_001d15d0(char flag);"
    ],
    "offsets": {
-    "pad": [
-     0,
-     0
+    "status": [
+     4,
+     8
     ],
     "value": [
      8,
-     8
+     16
+    ],
+    "vftable": [
+     0,
+     0
     ]
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "matches/0x001d15d0.cpp",
    "stub": "Obj_1d15d0"
@@ -38339,16 +38374,21 @@
    "addr": "0x001d1900",
    "aliases": 7,
    "members": [
-    "char pad[8];",
-    "int field;",
+    "void* vftable;",
+    "int status;",
+    "hulk_intptr field;",
     "bool FUN_001d1900(hulk_intptr n);"
    ],
    "offsets": {
     "field": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
     ],
-    "pad": [
+    "vftable": [
      0,
      0
     ]
@@ -38361,7 +38401,7 @@
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "matches/0x001d1900.cpp",
    "stub": "Obj_1d1900"
@@ -38370,16 +38410,21 @@
    "addr": "0x001d1980",
    "aliases": 2,
    "members": [
-    "char pad[8];",
-    "int member;",
+    "void* vftable;",
+    "int status;",
+    "hulk_intptr member;",
     "bool FUN_001d1980(hulk_uintptr arg, unsigned char flag);"
    ],
    "offsets": {
     "member": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
     ],
-    "pad": [
+    "vftable": [
      0,
      0
     ]
@@ -38392,7 +38437,7 @@
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "matches/0x001d1980.cpp",
    "stub": "Obj_1d1980"
@@ -38401,23 +38446,28 @@
    "addr": "0x001d19d0",
    "aliases": 9,
    "members": [
-    "char pad[8];",
-    "unsigned int value;",
+    "void* vftable;",
+    "int status;",
+    "hulk_uintptr value;",
     "unsigned char FUN_001d19d0(unsigned int arg);"
    ],
    "offsets": {
-    "pad": [
-     0,
-     0
+    "status": [
+     4,
+     8
     ],
     "value": [
      8,
-     8
+     16
+    ],
+    "vftable": [
+     0,
+     0
     ]
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "matches/0x001d19d0.cpp",
    "stub": "Obj_1d19d0"
@@ -38426,16 +38476,21 @@
    "addr": "0x001d19f0",
    "aliases": 2,
    "members": [
-    "char pad[8];",
-    "int field;",
+    "void* vftable;",
+    "int status;",
+    "hulk_intptr field;",
     "bool FUN_001d19f0(hulk_intptr a, int b, char flag);"
    ],
    "offsets": {
     "field": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
     ],
-    "pad": [
+    "vftable": [
      0,
      0
     ]
@@ -38448,7 +38503,7 @@
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "matches/0x001d19f0.cpp",
    "stub": "Obj_1d19f0"
@@ -38457,38 +38512,28 @@
    "addr": "0x001d1bc0",
    "aliases": 1,
    "members": [
-    "char pad0[8];",
-    "int value;",
-    "char padc[0x5470 - 12];",
-    "int items[8];",
-    "int index;",
+    "void* vftable;",
+    "int status;",
+    "hulk_intptr value;",
     "bool FUN_001d1bc0();"
    ],
    "offsets": {
-    "index": [
-     21648,
-     21648
-    ],
-    "items": [
-     21616,
-     21616
-    ],
-    "pad0": [
-     0,
-     0
-    ],
-    "padc": [
-     12,
-     12
+    "status": [
+     4,
+     8
     ],
     "value": [
      8,
-     8
+     16
+    ],
+    "vftable": [
+     0,
+     0
     ]
    },
    "size": [
-    21652,
-    21652
+    12,
+    24
    ],
    "source": "matches/0x001d1bc0.cpp",
    "stub": "Obj_1d1bc0"
@@ -38497,16 +38542,21 @@
    "addr": "0x001d1d90",
    "aliases": 3,
    "members": [
-    "int pad[2];",
-    "int member;",
+    "void* vftable;",
+    "int status;",
+    "hulk_intptr member;",
     "bool FUN_001d1d90(hulk_intptr, int);"
    ],
    "offsets": {
     "member": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
     ],
-    "pad": [
+    "vftable": [
      0,
      0
     ]
@@ -38519,7 +38569,7 @@
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "matches/0x001d1d90.cpp",
    "stub": "Obj_1d1d90"
@@ -38528,16 +38578,21 @@
    "addr": "0x001d1dd0",
    "aliases": 12,
    "members": [
-    "char pad[8];",
-    "int field;",
+    "void* vftable;",
+    "int status;",
+    "hulk_intptr field;",
     "bool FUN_001d1dd0(hulk_intptr a, int b);"
    ],
    "offsets": {
     "field": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
     ],
-    "pad": [
+    "vftable": [
      0,
      0
     ]
@@ -38550,7 +38605,7 @@
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "matches/0x001d1dd0.cpp",
    "stub": "Obj_1d1dd0"
@@ -38559,16 +38614,21 @@
    "addr": "0x001d1e10",
    "aliases": 2,
    "members": [
-    "char pad[8];",
+    "void* vftable;",
+    "int status;",
     "void* member;",
     "bool FUN_001d1e10(hulk_intptr a, unsigned char b);"
    ],
    "offsets": {
     "member": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
     ],
-    "pad": [
+    "vftable": [
      0,
      0
     ]
@@ -38581,7 +38641,7 @@
    },
    "size": [
     12,
-    16
+    24
    ],
    "source": "matches/0x001d1e10.cpp",
    "stub": "Obj_1d1e10"
@@ -38590,23 +38650,28 @@
    "addr": "0x001d2b10",
    "aliases": 2,
    "members": [
-    "char pad[8];",
+    "void* vftable;",
+    "int status;",
     "void* data;",
     "int FUN_001d2b10(int, int);"
    ],
    "offsets": {
     "data": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
     ],
-    "pad": [
+    "vftable": [
      0,
      0
     ]
    },
    "size": [
     12,
-    16
+    24
    ],
    "source": "matches/0x001d2b10.cpp",
    "stub": "Obj_1d2b10"
@@ -38615,16 +38680,21 @@
    "addr": "0x001d2d40",
    "aliases": 3,
    "members": [
-    "char pad[8];",
-    "int field;",
+    "void* vftable;",
+    "int status;",
+    "hulk_intptr field;",
     "bool FUN_001d2d40(hulk_intptr arg, float* out);"
    ],
    "offsets": {
     "field": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
     ],
-    "pad": [
+    "vftable": [
      0,
      0
     ]
@@ -38637,7 +38707,7 @@
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "matches/0x001d2d40.cpp",
    "stub": "Obj_1d2d40"
@@ -38646,7 +38716,8 @@
    "addr": "0x001d2e80",
    "aliases": 26,
    "members": [
-    "char pad[8];",
+    "void* vftable;",
+    "int status;",
     "void* m;",
     "void F1d1cb0();",
     "bool FUN_001d2e80();"
@@ -38654,16 +38725,20 @@
    "offsets": {
     "m": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
     ],
-    "pad": [
+    "vftable": [
      0,
      0
     ]
    },
    "size": [
     12,
-    16
+    24
    ],
    "source": "matches/0x001d2e80.cpp",
    "stub": "Obj_1d2e80"
@@ -38672,24 +38747,24 @@
    "addr": "0x001d35a0",
    "aliases": 2,
    "members": [
-    "char pad[4];",
+    "void* vftable;",
     "int state;",
-    "int handle;",
+    "hulk_intptr handle;",
     "int FUN_001d35a0(const char* text, hulk_intptr x, hulk_intptr len);",
     "int Do(int h, const char* text, hulk_intptr len, int x);"
    ],
    "offsets": {
     "handle": [
      8,
-     8
-    ],
-    "pad": [
-     0,
-     0
+     16
     ],
     "state": [
      4,
-     4
+     8
+    ],
+    "vftable": [
+     0,
+     0
     ]
    },
    "reconciled": {
@@ -38700,7 +38775,7 @@
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "matches/0x001d35a0.cpp",
    "stub": "Obj_1d35a0"
@@ -38709,7 +38784,8 @@
    "addr": "0x001d3b70",
    "aliases": 214,
    "members": [
-    "char pad[8];",
+    "void* vftable;",
+    "int status;",
     "void* field8;",
     "char pad2[4];",
     "void FUN_001d3b70(hulk_uintptr a, hulk_intptr b);"
@@ -38717,15 +38793,19 @@
    "offsets": {
     "field8": [
      8,
-     8
-    ],
-    "pad": [
-     0,
-     0
+     16
     ],
     "pad2": [
      12,
-     16
+     24
+    ],
+    "status": [
+     4,
+     8
+    ],
+    "vftable": [
+     0,
+     0
     ]
    },
    "reconciled": {
@@ -38737,7 +38817,7 @@
    },
    "size": [
     16,
-    24
+    32
    ],
    "source": "matches/0x001d3b70.cpp",
    "stub": "Obj_1d3b70"
@@ -38746,24 +38826,29 @@
    "addr": "0x001d40b0",
    "aliases": 1,
    "members": [
-    "char pad[8];",
-    "int value;",
+    "void* vftable;",
+    "int status;",
+    "hulk_intptr value;",
     "void Init();",
     "void FUN_001d40b0();"
    ],
    "offsets": {
-    "pad": [
-     0,
-     0
+    "status": [
+     4,
+     8
     ],
     "value": [
      8,
-     8
+     16
+    ],
+    "vftable": [
+     0,
+     0
     ]
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "matches/0x001d40b0.cpp",
    "stub": "Obj_1d40b0"
@@ -51539,23 +51624,28 @@
    "addr": "0x001d17f0",
    "aliases": 1,
    "members": [
-    "char padding[8];",
+    "void* vftable;",
+    "int status;",
     "void* state;",
     "int FUN_001d17f0(void* context);"
    ],
    "offsets": {
-    "padding": [
-     0,
-     0
-    ],
     "state": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
+    ],
+    "vftable": [
+     0,
+     0
     ]
    },
    "size": [
     12,
-    16
+    24
    ],
    "source": "equivalent/0x001d17f0.cpp",
    "stub": "Object"
@@ -51564,33 +51654,28 @@
    "addr": "0x001d2890",
    "aliases": 1,
    "members": [
-    "char pad[8];",
+    "void* vftable;",
+    "int status;",
     "void* state;",
-    "char pad2[0x546c - 12];",
-    "unsigned int counter;",
-    "unsigned int FUN_001d2890(unsigned int a, unsigned int b, unsigned int c);"
+    "unsigned int FUN_001d2890(hulk_uintptr a, unsigned int b, unsigned int c);"
    ],
    "offsets": {
-    "counter": [
-     21612,
-     21616
-    ],
-    "pad": [
-     0,
-     0
-    ],
-    "pad2": [
-     12,
-     16
-    ],
     "state": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
+    ],
+    "vftable": [
+     0,
+     0
     ]
    },
    "size": [
-    21616,
-    21624
+    12,
+    24
    ],
    "source": "matches/0x001d2890.cpp",
    "stub": "Object"
@@ -51599,29 +51684,29 @@
    "addr": "0x001d3600",
    "aliases": 9,
    "members": [
-    "int unknown;",
+    "void* vftable;",
     "int status;",
-    "unsigned int context;",
-    "int FUN_001d2810(unsigned int, char*, unsigned int, const char*);",
+    "hulk_uintptr context;",
+    "int FUN_001d2810(hulk_uintptr, char*, unsigned int, const char*);",
     "int FUN_001d3600(const char* name, unsigned int unused);"
    ],
    "offsets": {
     "context": [
      8,
-     8
+     16
     ],
     "status": [
      4,
-     4
+     8
     ],
-    "unknown": [
+    "vftable": [
      0,
      0
     ]
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "equivalent/0x001d3600.cpp",
    "stub": "Object"
@@ -52496,23 +52581,28 @@
    "addr": "0x001d1ae0",
    "aliases": 2,
    "members": [
-    "char pad[8];",
-    "int value;",
+    "void* vftable;",
+    "int status;",
+    "hulk_intptr value;",
     "unsigned char FUN_001d1ae0(unsigned char*);"
    ],
    "offsets": {
-    "pad": [
-     0,
-     0
+    "status": [
+     4,
+     8
     ],
     "value": [
      8,
-     8
+     16
+    ],
+    "vftable": [
+     0,
+     0
     ]
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "matches/0x001d1ae0.cpp",
    "stub": "Owner_1d1ae0"
@@ -54184,17 +54274,22 @@
    "addr": "0x001d29b0",
    "aliases": 1,
    "members": [
-    "char pad0[8];",
-    "int handle;",
-    "int FUN_001d17f0(int h);",
+    "void* vftable;",
+    "int status;",
+    "hulk_intptr handle;",
+    "int FUN_001d17f0(hulk_intptr h);",
     "char FUN_001d29b0(hulk_intptr arg, char *failed);"
    ],
    "offsets": {
     "handle": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
     ],
-    "pad0": [
+    "vftable": [
      0,
      0
     ]
@@ -54207,7 +54302,7 @@
    },
    "size": [
     12,
-    12
+    24
    ],
    "source": "matches/0x001d29b0.cpp",
    "stub": "Runner_1d29b0"
@@ -60559,15 +60654,20 @@
    "aliases": 26,
    "members": [
     "bool FUN_001d1d50(hulk_uintptr a, hulk_uintptr b);",
-    "char pad[8];",
+    "void* vftable;",
+    "int status;",
     "void* m;"
    ],
    "offsets": {
     "m": [
      8,
+     16
+    ],
+    "status": [
+     4,
      8
     ],
-    "pad": [
+    "vftable": [
      0,
      0
     ]
@@ -60581,7 +60681,7 @@
    },
    "size": [
     12,
-    16
+    24
    ],
    "source": "matches/0x001d1d50.cpp",
    "stub": "Thing_1d1d50"

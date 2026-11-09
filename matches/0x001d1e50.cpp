@@ -1,11 +1,10 @@
-#include "decls/data/lua.h"
+#include "decls/data/script.h"
 // b: a vector passed by value (FUN_001d0870 copies its three words).
 struct Vec3_1d1e50 {
     float x, y, z;
 };
-struct Obj_1d1e50 {
-    char pad[8];
-    LuaVMState* L;  // 0x08
+struct Obj_1d1e50 : public ScriptHandlerFields {
+    virtual void v0();
     bool FUN_001d1e50(const char* a, Vec3_1d1e50 b);
 };
 extern "C" void __cdecl FUN_002133d0(LuaVMState* L, const char* s);

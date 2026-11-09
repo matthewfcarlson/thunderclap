@@ -1,7 +1,10 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-struct CtorV_001d0480 {
+#include "decls/data/script.h"
+// Method3's constructor (name, member function): Function's fields (include/decls/data/script.h), then the
+// member-function pointer.
+struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
@@ -13,18 +16,13 @@ class Function_106af0 : public CtorV_001d0480 {
 class Method3 : public Function_106af0 {
   public:
     virtual void f();
-    char pad[12];
-    unsigned char a, b, c;
-    char pad2[5];
-    unsigned char d;
-    char pad3[3];
-    int value;
-    Method3(const char*, hulk_intptr);
+    ScriptMemberFn value;
+    Method3(const char*, ScriptMemberFn);
 };
-Method3::Method3(const char* name, hulk_intptr v) : Function_106af0(name) {
+Method3::Method3(const char* name, ScriptMemberFn v) : Function_106af0(name) {
     value = v;
-    d = FUN_001d04d0(((const char*)&DAT_0048e0e4));
-    a = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    b = FUN_001d04d0(((const char*)&DAT_0048e134));
-    c = FUN_001d04d0(DAT_0048e10c);
+    retType = FUN_001d04d0(((const char*)&DAT_0048e0e4));
+    argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    argTypes[1] = FUN_001d04d0(((const char*)&DAT_0048e134));
+    argTypes[2] = FUN_001d04d0(DAT_0048e10c);
 }

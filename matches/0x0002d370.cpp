@@ -3,32 +3,33 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/script.h"
 extern "C" char DAT_003f41ac[];
 struct ThisCall_001d0480 {
-    void FUN_001d0480(void*, int);
+    void FUN_001d0480(const char*, int);
 };
+// Method7's initializer (name, member function): Function's fields (include/decls/data/script.h), then the
+// member-function pointer; returns this.
+class Owner_2d370 {};
+typedef void (Owner_2d370::*Fn_2d370)();
 class Method7_2d370 {
   public:
-    hulk_intptr vptr;
-    char pad4[12];
-    char arg[7];
-    char pad17;
-    char result;
-    char pad19[3];
-    void* func;
-    Method7_2d370* Init(void* name, void* fn);
+    void* vptr;
+    ScriptFunctionFields f;
+    Fn_2d370 func;
+    Method7_2d370* Init(const char* name, Fn_2d370 fn);
 };
-Method7_2d370* Method7_2d370::Init(void* name, void* fn) {
+Method7_2d370* Method7_2d370::Init(const char* name, Fn_2d370 fn) {
     ((ThisCall_001d0480*)(this))->FUN_001d0480(name, 7);
-    vptr = (hulk_intptr)DAT_003f41ac;
+    vptr = (void*)DAT_003f41ac;
     func = fn;
-    result = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e100)));
-    arg[0] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    arg[1] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
-    arg[2] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
-    arg[3] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
-    arg[4] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
-    arg[5] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
-    arg[6] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    f.retType = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e100)));
+    f.argTypes[0] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    f.argTypes[1] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
+    f.argTypes[2] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
+    f.argTypes[3] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
+    f.argTypes[4] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
+    f.argTypes[5] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e128)));
+    f.argTypes[6] = FUN_001d04d0((void*)((hulk_intptr)((char*)&DAT_0048e0f0)));
     return this;
 }

@@ -1,32 +1,34 @@
 #include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-class Function_be840 {
+#include "decls/data/script.h"
+// Method7<Owner, void, const char* x7>'s constructor (name, member function): Function's fields
+// (include/decls/data/script.h), then the member-function pointer.
+class Owner_be840 {};
+typedef void (Owner_be840::*Fn_be840)(const char*, const char*, const char*, const char*, const char*, const char*,
+                                      const char*);
+class Function_be840 : public ScriptFunctionFields {
   public:
-    Function_be840(void* a, int n);
+    Function_be840(const char* a, int n);
     virtual void Call();
-    char pad[0x0c];
 };
 
 class Method7 : public Function_be840 {
   public:
-    Method7(void* a, hulk_intptr b);
+    Method7(const char* a, Fn_be840 b);
     virtual void Call();
-    char m10, m11, m12, m13, m14, m15, m16, m17;
-    char m18;
-    char pad2[3];
-    int m1c;
+    Fn_be840 m1c;
 };
 
 
-Method7::Method7(void* a, hulk_intptr b) : Function_be840(a, 7) {
+Method7::Method7(const char* a, Fn_be840 b) : Function_be840(a, 7) {
     m1c = b;
-    m18 = FUN_001d04d0(((const char*)&DAT_0048e100));
-    m10 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    m11 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    m12 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    m13 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    m14 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    m15 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    m16 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    retType = FUN_001d04d0(((const char*)&DAT_0048e100));
+    argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    argTypes[1] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    argTypes[2] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    argTypes[3] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    argTypes[4] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    argTypes[5] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    argTypes[6] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
 }

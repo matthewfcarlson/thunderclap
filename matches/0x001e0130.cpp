@@ -2,28 +2,27 @@
 #include "decls/data/game/unknown.h"
 
 #include "compat/ptr.h"
+#include "decls/data/script.h"
 #include "decls/address.h"
 extern "C" char DAT_00423398[];
 class CSPManager {};
 struct Ctor_001d0480 {
     Ctor_001d0480(const char*, int);
 };
+// Method3's constructor (name, member function): Function's fields (include/decls/data/script.h), then the
+// member-function pointer.
 class Method3_1e0130 : public Ctor_001d0480 {
   public:
     void* vf;
-    char p4[12];
-    unsigned char b10, b11, b12;
-    char p13[5];
-    unsigned char b18;
-    char p19[3];
-    CSPManager* mgr;
-    Method3_1e0130(const char*, CSPManager*);
+    ScriptFunctionFields f;
+    ScriptMemberFn mgr;
+    Method3_1e0130(const char*, ScriptMemberFn);
 };
-Method3_1e0130::Method3_1e0130(const char* a, CSPManager* c) : Ctor_001d0480(a, 3) {
+Method3_1e0130::Method3_1e0130(const char* a, ScriptMemberFn c) : Ctor_001d0480(a, 3) {
     vf = (void*)((hulk_intptr)DAT_00423398);
     mgr = c;
-    b18 = FUN_001d04d0(((const char*)&DAT_0048e100));
-    b10 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-    b11 = FUN_001d04d0(((const char*)&DAT_0048e0e4));
-    b12 = FUN_001d04d0(((const char*)&DAT_0048e128));
+    f.retType = FUN_001d04d0(((const char*)&DAT_0048e100));
+    f.argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+    f.argTypes[1] = FUN_001d04d0(((const char*)&DAT_0048e0e4));
+    f.argTypes[2] = FUN_001d04d0(((const char*)&DAT_0048e128));
 }

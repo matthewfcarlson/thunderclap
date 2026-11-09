@@ -3,15 +3,14 @@
 // cl-flags: /GS
 #include "decls/address.h"
 #include "decls/data/game/global.h"
+#include "decls/data/script.h"
 
 class CFEManager { public: int FUN_dummy(); };
 
-class __declspec(novtable) MethodBase_c0c40 {
+// Function's fields: include/decls/data/script.h (ScriptFunctionFields).
+class __declspec(novtable) MethodBase_c0c40 : public ScriptFunctionFields {
   public:
     virtual void m0();
-    char pad_04[0x14];
-    char retType;
-    char pad_19[3];
     MethodBase_c0c40(const char* n, int k) throw();
     void FUN_001d04a0();
 };

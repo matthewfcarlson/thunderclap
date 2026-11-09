@@ -1,6 +1,11 @@
 #include "decls/data/game/global.h"
+#include "decls/data/script.h"
 
-struct CtorV_001d0480 {
+// Closure1<Owner, void, const char*>'s constructor (name, object, member function): Function's fields
+// (include/decls/data/script.h), then Method1's member-function pointer and Closure1's object.
+class Owner_bffa0 {};
+typedef void (Owner_bffa0::*Fn_bffa0)(const char*);
+struct CtorV_001d0480 : public ScriptFunctionFields {
     CtorV_001d0480(const char*, int);
     virtual void v_001d0480();
 };
@@ -12,25 +17,20 @@ class Base : public CtorV_001d0480 {
 class Closure1_bffa0 : public Base {
   public:
     virtual void f();
-    char pad[12];
-    unsigned char x;
-    char pad2[7];
-    unsigned char y;
-    char pad3[3];
-    const char* name;
-    Closure1_bffa0(const char*, const char*);
+    Fn_bffa0 name;
+    Closure1_bffa0(const char*, Fn_bffa0);
 };
 class Closure1 : public Closure1_bffa0 {
   public:
     virtual void g();
-    void* p;
-    Closure1(const char*, void*, const char*);
+    Owner_bffa0* p;
+    Closure1(const char*, Owner_bffa0*, Fn_bffa0);
 };
-Closure1_bffa0::Closure1_bffa0(const char* n, const char* s) : Base(n) {
+Closure1_bffa0::Closure1_bffa0(const char* n, Fn_bffa0 s) : Base(n) {
     name = s;
-    y = lookup(((int*)&DAT_0048e100));
-    x = lookup(((int*)&DAT_0048e0f0));
+    retType = lookup(((int*)&DAT_0048e100));
+    argTypes[0] = lookup(((int*)&DAT_0048e0f0));
 }
-Closure1::Closure1(const char* n, void* v, const char* s) : Closure1_bffa0(n, s) {
+Closure1::Closure1(const char* n, Owner_bffa0* v, Fn_bffa0 s) : Closure1_bffa0(n, s) {
     p = v;
 }

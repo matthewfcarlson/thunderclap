@@ -1,8 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 485 inputs, branch coverage 66/66)
 // FUN_00200c10 @ 0x00200c10
-typedef unsigned int size_t;
-void* operator new(size_t) throw();
-inline void* operator new(size_t, void* p) throw() { return p; }
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+#include "decls/data/script.h"
+void* operator new(hulk_uintptr) throw();
+inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int);
 char FUN_001d04d0(const void*) throw();
 class CTriggerVolumeManager;
@@ -16,34 +18,75 @@ extern char DAT_0048e0e4, DAT_0048e0f0, DAT_0048e100, DAT_0048e10c, DAT_0048e128
 #define tVector DAT_0048e10c
 #define tFloat DAT_0048e128
 #define tInt DAT_0048e134
-class Base { public: virtual void v(); char p[12]; char a[8]; char result; char z[3]; Base(const char*, int) throw(); };
-template<class C, class R, class A1> class Method1 : public Base { public: void (*f)(); Method1(const char* n, void (*x)(), const void* r, const void* a1) : Base(n, 1) { f = x; result = FUN_001d04d0(r); a[0] = FUN_001d04d0(a1); } virtual void v(); };
-template<class C, class R, class A1> class Closure1 : public Method1<C, R, A1> { public: C* owner; Closure1(const char* n, C* o, void (*f)(), const void* r, const void* a1) : Method1<C, R, A1>(n, f, r, a1) { owner = o; } virtual void v(); };
+// Function (include/decls/data/script.h): the vftable, then Function's fields; Method<N> adds the member-function
+// pointer, Closure<N> the object.
+class Base : public ScriptFunctionFields { public: virtual void v(); Base(const char*, int) throw(); };
+template<class C, class R, class A1> class Method1 : public Base { public: ScriptMemberFn f; Method1(const char* n, ScriptMemberFn x, const void* r, const void* a1) : Base(n, 1) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); } virtual void v(); };
+template<class C, class R, class A1> class Closure1 : public Method1<C, R, A1> { public: C* owner; Closure1(const char* n, C* o, ScriptMemberFn f, const void* r, const void* a1) : Method1<C, R, A1>(n, f, r, a1) { owner = o; } virtual void v(); };
 class Registry { public:
     void FUN_001d3b70(const char*, void*);
-    void FUN_002006f0(const char*, CTriggerVolumeManager*, void (*)());
-    void FUN_002007b0(const char*, CTriggerVolumeManager*, void (*)());
-    void FUN_00200950(const char*, CTriggerVolumeManager*, void (*)());
-    void FUN_00200a00(const char*, CTriggerVolumeManager*, void (*)());
-    void FUN_00200ab0(const char*, CTriggerVolumeManager*, void (*)());
-    void FUN_00200b10(const char*, CTriggerVolumeManager*, void (*)());
+    void FUN_002006f0(const char*, CTriggerVolumeManager*, ScriptMemberFn);
+    void FUN_002007b0(const char*, CTriggerVolumeManager*, ScriptMemberFn);
+    void FUN_00200950(const char*, CTriggerVolumeManager*, ScriptMemberFn);
+    void FUN_00200a00(const char*, CTriggerVolumeManager*, ScriptMemberFn);
+    void FUN_00200ab0(const char*, CTriggerVolumeManager*, ScriptMemberFn);
+    void FUN_00200b10(const char*, CTriggerVolumeManager*, ScriptMemberFn);
 };
 class Entry { public:
-    void* FUN_001ffb00(const char*, CTriggerVolumeManager*, void (*)());
-    void* FUN_001ffbc0(const char*, CTriggerVolumeManager*, void (*)());
-    void* FUN_001ffe70(const char*, CTriggerVolumeManager*, void (*)());
-    void* FUN_001fffa0(const char*, CTriggerVolumeManager*, void (*)());
-    void* FUN_00200050(const char*, CTriggerVolumeManager*, void (*)());
-    void* FUN_00200190(const char*, CTriggerVolumeManager*, void (*)());
+    void* FUN_001ffb00(const char*, CTriggerVolumeManager*, ScriptMemberFn);
+    void* FUN_001ffbc0(const char*, CTriggerVolumeManager*, ScriptMemberFn);
+    void* FUN_001ffe70(const char*, CTriggerVolumeManager*, ScriptMemberFn);
+    void* FUN_001fffa0(const char*, CTriggerVolumeManager*, ScriptMemberFn);
+    void* FUN_00200050(const char*, CTriggerVolumeManager*, ScriptMemberFn);
+    void* FUN_00200190(const char*, CTriggerVolumeManager*, ScriptMemberFn);
 };
 Registry* FUN_001d4c90();
-#define FN(b) extern void FUN_##b();
-#define G1(n, b, R, A1) { FN(b) r->FUN_001d3b70(n, new Closure1<CTriggerVolumeManager, R, A1>(n, this, FUN_##b, &t##R, &t##A1)); }
-#define E(n, c, b) { FN(b) Entry* e = (Entry*)FUN_0008d690(0x24); void* x = 0; if (e) x = e->FUN_##c(n, this, FUN_##b); r->FUN_001d3b70(n, x); }
-#define O(n, c, b) { FN(b) r->FUN_##c(n, this, FUN_##b); }
+#define MF(b) reinterpret_cast<ScriptMemberFn>(&CTriggerVolumeManager::FUN_##b)
+#define G1(n, b, R, A1) { r->FUN_001d3b70(n, new Closure1<CTriggerVolumeManager, R, A1>(n, this, MF(b), &t##R, &t##A1)); }
+#define E(n, c, b) { HULK_SIZE32(ScriptClosureView, 0x24); Entry* e = (Entry*)FUN_0008d690((unsigned int)sizeof(ScriptClosureView)); void* x = 0; if (e) x = e->FUN_##c(n, this, MF(b)); r->FUN_001d3b70(n, x); }
+#define O(n, c, b) { r->FUN_##c(n, this, MF(b)); }
 
 class CTriggerVolumeManager {
 public:
+    // The member functions bound to Lua below.
+    void FUN_001fd7d0();
+    void FUN_001fd830();
+    void FUN_001fd7a0();
+    void FUN_001fc9a0();
+    void FUN_001fc9d0();
+    void FUN_001fc9f0();
+    void FUN_001fca40();
+    void FUN_001fca90();
+    void FUN_001fcb70();
+    void FUN_001fcb90();
+    void FUN_001fcc40();
+    void FUN_001fcc60();
+    void FUN_001fcbe0();
+    void FUN_001fd8f0();
+    void FUN_001fd9a0();
+    void FUN_001fdfc0();
+    void FUN_001fdf10();
+    void FUN_001fdf90();
+    void FUN_001fd980();
+    void FUN_001fccb0();
+    void FUN_001fe280();
+    void FUN_001fd4c0();
+    void FUN_001fd4d0();
+    void FUN_001fd870();
+    void FUN_001fd8b0();
+    void FUN_001fc480();
+    void FUN_001fcab0();
+    void FUN_001fcb30();
+    void FUN_001fcbc0();
+    void FUN_001fcc00();
+    void FUN_001fcc80();
+    void FUN_001fcdb0();
+    void FUN_001fce50();
+    void FUN_001fdc90();
+    void FUN_001fdeb0();
+    void FUN_001fdf50();
+    void FUN_001fd920();
+    void FUN_001ff950();
     void Register(int a);
     int i0;
     int i4;

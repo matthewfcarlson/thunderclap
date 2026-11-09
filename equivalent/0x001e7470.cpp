@@ -1,8 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 934 inputs, branch coverage 102/102)
 // FUN_001e7470 @ 0x001e7470
-typedef unsigned int size_t;
-void* operator new(size_t) throw();
-inline void* operator new(size_t, void* p) throw() { return p; }
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+#include "decls/data/script.h"
+void* operator new(hulk_uintptr) throw();
+inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int);
 char FUN_001d04d0(const void*) throw();
 class CSPManager;
@@ -16,49 +18,54 @@ extern char DAT_0048e0e4, DAT_0048e0f0, DAT_0048e100, DAT_0048e10c, DAT_0048e128
 #define tVector DAT_0048e10c
 #define tFloat DAT_0048e128
 #define tInt DAT_0048e134
-class Base { public: virtual void v(); char p[12]; char a[8]; char result; char z[3]; Base(const char*, int) throw(); };
-template<class C, class R, class A1> class Method1 : public Base { public: void (*f)(); Method1(const char* n, void (*x)(), const void* r, const void* a1) : Base(n, 1) { f = x; result = FUN_001d04d0(r); a[0] = FUN_001d04d0(a1); } virtual void v(); };
-template<class C, class R, class A1> class Closure1 : public Method1<C, R, A1> { public: C* owner; Closure1(const char* n, C* o, void (*f)(), const void* r, const void* a1) : Method1<C, R, A1>(n, f, r, a1) { owner = o; } virtual void v(); };
+// Function (include/decls/data/script.h): the vftable, then Function's fields; Method<N> adds the member-function
+// pointer, Closure<N> the object.
+class Base : public ScriptFunctionFields { public: virtual void v(); Base(const char*, int) throw(); };
+template<class C, class R, class A1> class Method1 : public Base { public: ScriptMemberFn f; Method1(const char* n, ScriptMemberFn x, const void* r, const void* a1) : Base(n, 1) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); } virtual void v(); };
+template<class C, class R, class A1> class Closure1 : public Method1<C, R, A1> { public: C* owner; Closure1(const char* n, C* o, ScriptMemberFn f, const void* r, const void* a1) : Method1<C, R, A1>(n, f, r, a1) { owner = o; } virtual void v(); };
+// Function<N> (a free function, no object): Function's fields and the function pointer.
+struct FunctionN_1e7470 { void* vftable; ScriptFunctionFields f; void (*fn)(); };
 class Registry { public:
     void FUN_001d3b70(const char*, void*);
     void FUN_001e12b0(const char*, void (*)());
-    void FUN_001e35a0(const char*, CSPManager*, void (*)());
-    void FUN_001e3790(const char*, CSPManager*, void (*)());
-    void FUN_001e3930(const char*, CSPManager*, void (*)());
-    void FUN_001e3990(const char*, CSPManager*, void (*)());
-    void FUN_001e39f0(const char*, CSPManager*, void (*)());
-    void FUN_001e3a50(const char*, CSPManager*, void (*)());
-    void FUN_001e3ba0(const char*, CSPManager*, void (*)());
-    void FUN_001e3c50(const char*, CSPManager*, void (*)());
-    void FUN_001e3cb0(const char*, CSPManager*, void (*)());
-    void FUN_001e3d10(const char*, CSPManager*, void (*)());
-    void FUN_001e3dc0(const char*, CSPManager*, void (*)());
-    void FUN_001e3e20(const char*, CSPManager*, void (*)());
-    void FUN_001e3ee0(const char*, CSPManager*, void (*)());
-    void FUN_001e3f40(const char*, CSPManager*, void (*)());
-    void FUN_001e3ff0(const char*, CSPManager*, void (*)());
-    void FUN_001e40f0(const char*, CSPManager*, void (*)());
+    void FUN_001e35a0(const char*, CSPManager*, ScriptMemberFn);
+    void FUN_001e3790(const char*, CSPManager*, ScriptMemberFn);
+    void FUN_001e3930(const char*, CSPManager*, ScriptMemberFn);
+    void FUN_001e3990(const char*, CSPManager*, ScriptMemberFn);
+    void FUN_001e39f0(const char*, CSPManager*, ScriptMemberFn);
+    void FUN_001e3a50(const char*, CSPManager*, ScriptMemberFn);
+    void FUN_001e3ba0(const char*, CSPManager*, ScriptMemberFn);
+    void FUN_001e3c50(const char*, CSPManager*, ScriptMemberFn);
+    void FUN_001e3cb0(const char*, CSPManager*, ScriptMemberFn);
+    void FUN_001e3d10(const char*, CSPManager*, ScriptMemberFn);
+    void FUN_001e3dc0(const char*, CSPManager*, ScriptMemberFn);
+    void FUN_001e3e20(const char*, CSPManager*, ScriptMemberFn);
+    void FUN_001e3ee0(const char*, CSPManager*, ScriptMemberFn);
+    void FUN_001e3f40(const char*, CSPManager*, ScriptMemberFn);
+    void FUN_001e3ff0(const char*, CSPManager*, ScriptMemberFn);
+    void FUN_001e40f0(const char*, CSPManager*, ScriptMemberFn);
 };
 class Entry { public:
     void* FUN_001df560(const char*, void (*)());
-    void* FUN_001e1430(const char*, CSPManager*, void (*)());
-    void* FUN_001e14e0(const char*, CSPManager*, void (*)());
-    void* FUN_001e1620(const char*, CSPManager*, void (*)());
-    void* FUN_001e16c0(const char*, CSPManager*, void (*)());
-    void* FUN_001e17d0(const char*, CSPManager*, void (*)());
-    void* FUN_001e1880(const char*, CSPManager*, void (*)());
-    void* FUN_001e1930(const char*, CSPManager*, void (*)());
-    void* FUN_001e1d40(const char*, CSPManager*, void (*)());
-    void* FUN_001e2150(const char*, CSPManager*, void (*)());
-    void* FUN_001e24c0(const char*, CSPManager*, void (*)());
-    void* FUN_001e26a0(const char*, CSPManager*, void (*)());
+    void* FUN_001e1430(const char*, CSPManager*, ScriptMemberFn);
+    void* FUN_001e14e0(const char*, CSPManager*, ScriptMemberFn);
+    void* FUN_001e1620(const char*, CSPManager*, ScriptMemberFn);
+    void* FUN_001e16c0(const char*, CSPManager*, ScriptMemberFn);
+    void* FUN_001e17d0(const char*, CSPManager*, ScriptMemberFn);
+    void* FUN_001e1880(const char*, CSPManager*, ScriptMemberFn);
+    void* FUN_001e1930(const char*, CSPManager*, ScriptMemberFn);
+    void* FUN_001e1d40(const char*, CSPManager*, ScriptMemberFn);
+    void* FUN_001e2150(const char*, CSPManager*, ScriptMemberFn);
+    void* FUN_001e24c0(const char*, CSPManager*, ScriptMemberFn);
+    void* FUN_001e26a0(const char*, CSPManager*, ScriptMemberFn);
 };
 Registry* FUN_001d4c90();
 #define FN(b) extern void FUN_##b();
-#define G1(n, b, R, A1) { FN(b) r->FUN_001d3b70(n, new Closure1<CSPManager, R, A1>(n, this, FUN_##b, &t##R, &t##A1)); }
-#define E(n, c, b) { FN(b) Entry* e = (Entry*)FUN_0008d690(0x24); void* x = 0; if (e) x = e->FUN_##c(n, this, FUN_##b); r->FUN_001d3b70(n, x); }
-#define EF(n, c, b) { FN(b) Entry* e = (Entry*)FUN_0008d690(0x20); void* x = 0; if (e) x = e->FUN_##c(n, FUN_##b); r->FUN_001d3b70(n, x); }
-#define O(n, c, b) { FN(b) r->FUN_##c(n, this, FUN_##b); }
+#define MF(b) reinterpret_cast<ScriptMemberFn>(&CSPManager::FUN_##b)
+#define G1(n, b, R, A1) { r->FUN_001d3b70(n, new Closure1<CSPManager, R, A1>(n, this, MF(b), &t##R, &t##A1)); }
+#define E(n, c, b) { HULK_SIZE32(ScriptClosureView, 0x24); Entry* e = (Entry*)FUN_0008d690((unsigned int)sizeof(ScriptClosureView)); void* x = 0; if (e) x = e->FUN_##c(n, this, MF(b)); r->FUN_001d3b70(n, x); }
+#define EF(n, c, b) { FN(b) HULK_SIZE32(FunctionN_1e7470, 0x20); Entry* e = (Entry*)FUN_0008d690((unsigned int)sizeof(FunctionN_1e7470)); void* x = 0; if (e) x = e->FUN_##c(n, FUN_##b); r->FUN_001d3b70(n, x); }
+#define O(n, c, b) { r->FUN_##c(n, this, MF(b)); }
 #define OF(n, c, b) { FN(b) r->FUN_##c(n, FUN_##b); }
 
 class Link { public: char b[8]; void FUN_0027af00(); void FUN_0027b040(int); };
@@ -83,6 +90,67 @@ struct Vec4 { float x, y, z, w; };
 
 class CSPManager {
 public:
+    // The member functions bound to Lua below.
+    void FUN_001dde30();
+    void FUN_001df130();
+    void FUN_001dde20();
+    void FUN_001dc350();
+    void FUN_001dc940();
+    void FUN_001dca00();
+    void FUN_001dde00();
+    void FUN_001df190();
+    void FUN_001dc4a0();
+    void FUN_001dc660();
+    void FUN_001dc810();
+    void FUN_001dc8d0();
+    void FUN_001e32b0();
+    void FUN_001e3360();
+    void FUN_001df350();
+    void FUN_001e7440();
+    void FUN_001df370();
+    void FUN_001dba80();
+    void FUN_001dba90();
+    void FUN_001ddcc0();
+    void FUN_001ddda0();
+    void FUN_001dde50();
+    void FUN_001dc100();
+    void FUN_001df160();
+    void FUN_001e30f0();
+    void FUN_001defe0();
+    void FUN_001df010();
+    void FUN_001df100();
+    void FUN_001e3230();
+    void FUN_001dc9a0();
+    void FUN_001df400();
+    void FUN_001e4fc0();
+    void FUN_001e5070();
+    void FUN_001e5110();
+    void FUN_001dca40();
+    void FUN_001df2e0();
+    void FUN_001dccf0();
+    void FUN_001df1e0();
+    void FUN_001dc550();
+    void FUN_001dc720();
+    void FUN_001df320();
+    void FUN_001df330();
+    void FUN_001e54b0();
+    void FUN_001e57e0();
+    void FUN_001e5860();
+    void FUN_001e5540();
+    void FUN_001dcdf0();
+    void FUN_001dcf00();
+    void FUN_001dcf50();
+    void FUN_001df3a0();
+    void FUN_001dd030();
+    void FUN_001dd090();
+    void FUN_001dd110();
+    void FUN_001dd1e0();
+    void FUN_001ddc20();
+    void FUN_001ddd50();
+    void FUN_001ddb80();
+    void FUN_001ddb30();
+    void FUN_001ddbd0();
+    void FUN_001e4e50();
     CSPManager();
     virtual void v0();
     char pad_04[4];

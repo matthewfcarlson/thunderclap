@@ -2,29 +2,25 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/script.h"
+// Method4's constructor (name, member function): Function's fields (include/decls/data/script.h), then the
+// member-function pointer.
 extern "C" char DAT_00420e84[];
 extern "C" char DAT_0048e10c[];
 struct Method4_1ba090 {
     hulk_intptr v;
-    char pad4[0xc];
-    char b10;
-    char b11;
-    char b12;
-    char b13;
-    char pad14[4];
-    char b18;
-    char pad19[3];
-    int p1c;
+    ScriptFunctionFields f;
+    ScriptMemberFn p1c;
     void Init(const char*, int);
-    Method4_1ba090(const char*, hulk_intptr);
+    Method4_1ba090(const char*, ScriptMemberFn);
 };
-Method4_1ba090::Method4_1ba090(const char* x, hulk_intptr y) {
+Method4_1ba090::Method4_1ba090(const char* x, ScriptMemberFn y) {
     Init(x, 4);
     v = ((hulk_intptr)DAT_00420e84);
     p1c = y;
-    b18 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0049b95c)));
-    b10 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
-    b11 = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
-    b12 = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
-    b13 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    f.retType = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0049b95c)));
+    f.argTypes[0] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e0f0)));
+    f.argTypes[1] = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
+    f.argTypes[2] = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
+    f.argTypes[3] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
 }

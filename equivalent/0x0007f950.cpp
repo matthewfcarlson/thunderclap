@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 479 inputs, branch coverage 74/74)
 // FUN_0007f950 @ 0x0007f950
-typedef unsigned int size_t;
-void* operator new(size_t) throw();
-inline void* operator new(size_t, void* p) throw() { return p; }
+#include "compat/ptr.h"
+#include "decls/data/script.h"
+void* operator new(hulk_uintptr) throw();
+inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int);
 char FUN_001d04d0(const void*) throw();
 class CAmbientsManager;
@@ -20,18 +21,18 @@ extern char DAT_0048e0e4, DAT_0048e0f0, DAT_0048e100, DAT_0048e10c, DAT_0048e128
 #define tFloat DAT_0048e128
 #define tInt DAT_0048e134
 #define tUnsignedInt DAT_0049b95c
-class Base { public: virtual void v(); char p[12]; char a[8]; char result; char z[3]; Base(const char*, int) throw(); };
-template<class C, class R> class Method0 : public Base { public: void (*f)(); Method0(const char* n, void (*x)(), const void* r) : Base(n, 0) { f = x; result = FUN_001d04d0(r); } virtual void v(); };
+class Base : public ScriptFunctionFields { public: virtual void v(); Base(const char*, int) throw(); };
+template<class C, class R> class Method0 : public Base { public: void (*f)(); Method0(const char* n, void (*x)(), const void* r) : Base(n, 0) { f = x; retType = FUN_001d04d0(r); } virtual void v(); };
 template<class C, class R> class Closure0 : public Method0<C, R> { public: C* owner; Closure0(const char* n, C* o, void (*f)(), const void* r) : Method0<C, R>(n, f, r) { owner = o; } virtual void v(); };
-template<class C, class R, class A1> class Method1 : public Base { public: void (*f)(); Method1(const char* n, void (*x)(), const void* r, const void* a1) : Base(n, 1) { f = x; result = FUN_001d04d0(r); a[0] = FUN_001d04d0(a1); } virtual void v(); };
+template<class C, class R, class A1> class Method1 : public Base { public: void (*f)(); Method1(const char* n, void (*x)(), const void* r, const void* a1) : Base(n, 1) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); } virtual void v(); };
 template<class C, class R, class A1> class Closure1 : public Method1<C, R, A1> { public: C* owner; Closure1(const char* n, C* o, void (*f)(), const void* r, const void* a1) : Method1<C, R, A1>(n, f, r, a1) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2> class Method2 : public Base { public: void (*f)(); Method2(const char* n, void (*x)(), const void* r, const void* a1, const void* a2) : Base(n, 2) { f = x; result = FUN_001d04d0(r); a[0] = FUN_001d04d0(a1); a[1] = FUN_001d04d0(a2); } virtual void v(); };
+template<class C, class R, class A1, class A2> class Method2 : public Base { public: void (*f)(); Method2(const char* n, void (*x)(), const void* r, const void* a1, const void* a2) : Base(n, 2) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); } virtual void v(); };
 template<class C, class R, class A1, class A2> class Closure2 : public Method2<C, R, A1, A2> { public: C* owner; Closure2(const char* n, C* o, void (*f)(), const void* r, const void* a1, const void* a2) : Method2<C, R, A1, A2>(n, f, r, a1, a2) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3> class Method3 : public Base { public: void (*f)(); Method3(const char* n, void (*x)(), const void* r, const void* a1, const void* a2, const void* a3) : Base(n, 3) { f = x; result = FUN_001d04d0(r); a[0] = FUN_001d04d0(a1); a[1] = FUN_001d04d0(a2); a[2] = FUN_001d04d0(a3); } virtual void v(); };
+template<class C, class R, class A1, class A2, class A3> class Method3 : public Base { public: void (*f)(); Method3(const char* n, void (*x)(), const void* r, const void* a1, const void* a2, const void* a3) : Base(n, 3) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); } virtual void v(); };
 template<class C, class R, class A1, class A2, class A3> class Closure3 : public Method3<C, R, A1, A2, A3> { public: C* owner; Closure3(const char* n, C* o, void (*f)(), const void* r, const void* a1, const void* a2, const void* a3) : Method3<C, R, A1, A2, A3>(n, f, r, a1, a2, a3) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4> class Method4 : public Base { public: void (*f)(); Method4(const char* n, void (*x)(), const void* r, const void* a1, const void* a2, const void* a3, const void* a4) : Base(n, 4) { f = x; result = FUN_001d04d0(r); a[0] = FUN_001d04d0(a1); a[1] = FUN_001d04d0(a2); a[2] = FUN_001d04d0(a3); a[3] = FUN_001d04d0(a4); } virtual void v(); };
+template<class C, class R, class A1, class A2, class A3, class A4> class Method4 : public Base { public: void (*f)(); Method4(const char* n, void (*x)(), const void* r, const void* a1, const void* a2, const void* a3, const void* a4) : Base(n, 4) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); argTypes[3] = FUN_001d04d0(a4); } virtual void v(); };
 template<class C, class R, class A1, class A2, class A3, class A4> class Closure4 : public Method4<C, R, A1, A2, A3, A4> { public: C* owner; Closure4(const char* n, C* o, void (*f)(), const void* r, const void* a1, const void* a2, const void* a3, const void* a4) : Method4<C, R, A1, A2, A3, A4>(n, f, r, a1, a2, a3, a4) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4, class A5> class Method5 : public Base { public: void (*f)(); Method5(const char* n, void (*x)(), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5) : Base(n, 5) { f = x; result = FUN_001d04d0(r); a[0] = FUN_001d04d0(a1); a[1] = FUN_001d04d0(a2); a[2] = FUN_001d04d0(a3); a[3] = FUN_001d04d0(a4); a[4] = FUN_001d04d0(a5); } virtual void v(); };
+template<class C, class R, class A1, class A2, class A3, class A4, class A5> class Method5 : public Base { public: void (*f)(); Method5(const char* n, void (*x)(), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5) : Base(n, 5) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); argTypes[3] = FUN_001d04d0(a4); argTypes[4] = FUN_001d04d0(a5); } virtual void v(); };
 template<class C, class R, class A1, class A2, class A3, class A4, class A5> class Closure5 : public Method5<C, R, A1, A2, A3, A4, A5> { public: C* owner; Closure5(const char* n, C* o, void (*f)(), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5) : Method5<C, R, A1, A2, A3, A4, A5>(n, f, r, a1, a2, a3, a4, a5) { owner = o; } virtual void v(); };
 class Registry { public:
     void FUN_001d3b70(const char*, void*);

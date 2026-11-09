@@ -1,31 +1,29 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/script.h"
+// Closure1's constructor (name, object, member function): Function's fields (include/decls/data/script.h), then
+// Method1's member-function pointer and Closure1's object.
 struct MessageOverlay;
-struct Function_d6290 {
+struct Function_d6290 : public ScriptFunctionFields {
     virtual void f();
-    Function_d6290(void*, int);
+    Function_d6290(const char*, int);
 };
 struct Method1 : Function_d6290 {
-    char pad[0xc];
-    unsigned char b;
-    char pad2[7];
-    unsigned char a;
-    char pad3[3];
-    void* p;
-    Method1(void*, void*);
+    ScriptMemberFn p;
+    Method1(const char*, ScriptMemberFn);
     virtual void f();
 };
 struct Closure1 : Method1 {
     void* q;
-    Closure1(void*, void*, void*);
+    Closure1(const char*, void*, ScriptMemberFn);
     virtual void f();
 };
-inline Method1::Method1(void* x, void* y) : Function_d6290(x, 1) {
+inline Method1::Method1(const char* x, ScriptMemberFn y) : Function_d6290(x, 1) {
     p = y;
-    a = FUN_001d04d0(((int*)&DAT_0048e100));
-    b = FUN_001d04d0(((int*)&DAT_0048e128));
+    retType = FUN_001d04d0(((int*)&DAT_0048e100));
+    argTypes[0] = FUN_001d04d0(((int*)&DAT_0048e128));
 }
-Closure1::Closure1(void* a, void* b, void* c) : Method1(a, c) {
+Closure1::Closure1(const char* a, void* b, ScriptMemberFn c) : Method1(a, c) {
     q = b;
 }

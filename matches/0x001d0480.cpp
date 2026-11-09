@@ -1,14 +1,12 @@
-#include "compat/ptr.h"
-class Function {
+// Function's constructor (include/decls/data/script.h ScriptFunctionFields): the name and the argument count.
+#include "decls/data/script.h"
+class Function : public ScriptFunctionFields {
   public:
     virtual void f();
-    int a;
-    int b;
-    int c;
-    Function(hulk_intptr x, int y);
+    Function(const char* n, int count);
 };
-Function::Function(hulk_intptr x, int y) {
-    a = x;
-    c = y;
-    b = 0;
+Function::Function(const char* n, int count) {
+    name = n;
+    argc = count;
+    key = 0;
 }

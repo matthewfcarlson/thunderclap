@@ -1,10 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 7663 inputs, branch coverage 2/2)
 // FUN_001cf690 @ 0x001cf690
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/address.h"
+#include "decls/data/script.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
-inline void *operator new(unsigned int, void *p) throw() { return p; }
+inline void *operator new(hulk_uintptr, void *p) throw() { return p; }
 
 template <class T> struct Tid;
 template <> struct Tid<void> { static const char *p() { return ((const char*)&DAT_0048e100); } };
@@ -12,10 +14,10 @@ template <> struct Tid<int> { static const char *p() { return ((const char*)&DAT
 template <> struct Tid<float> { static const char *p() { return ((const char*)&DAT_0048e128); } };
 template <> struct Tid<const char *> { static const char *p() { return ((const char*)&DAT_0048e0f0); } };
 
-class __declspec(novtable) MethodBase_1cf690 {
+// Function's fields (include/decls/data/script.h) after the vftable.
+class __declspec(novtable) MethodBase_1cf690 : public ScriptFunctionFields {
 public:
     virtual void m0();
-    char pad_04[0xc];
     MethodBase_1cf690(const char *n, int k) { FUN_001d0480(n, k); }
     void FUN_001d0480(const char *, int);
     void FUN_001d04a0();
@@ -27,15 +29,10 @@ public:
     typedef R (T::*Fn)(A, B);
     Method2(const char *name, Fn f) : MethodBase_1cf690(name, 2) {
         fn = f;
-        c18 = FUN_001d04d0(Tid<R>::p());
-        c10 = FUN_001d04d0(Tid<A>::p());
-        c11 = FUN_001d04d0(Tid<B>::p());
+        this->retType = FUN_001d04d0(Tid<R>::p());
+        this->argTypes[0] = FUN_001d04d0(Tid<A>::p());
+        this->argTypes[1] = FUN_001d04d0(Tid<B>::p());
     }
-    char c10;
-    char c11;
-    char pad12[6];
-    char c18;
-    char pad19[3];
     Fn fn;
 };
 

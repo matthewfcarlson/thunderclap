@@ -1,11 +1,11 @@
+#include "decls/data/script.h"
 struct ScriptHandler {
     enum script_state { initial_state };
 };
-struct Closure1 {
+struct Closure1 : public ScriptFunctionFields {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual int vfunc_2(void* unused, const char** argument, int* result);
-    char reserved[0x18];
     int (ScriptHandler::*method)(const char*);
     ScriptHandler* object;
 };

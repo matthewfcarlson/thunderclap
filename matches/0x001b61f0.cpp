@@ -1,5 +1,7 @@
 // Same code shape as 0x00090eb0 (propagated; names are from that function)
 #include "compat/ptr.h"
+#include "decls/address.h"
+#include "decls/data/script.h"
 #include "decls/data/game/global.h"
 
 extern void* VT_Method2[2];
@@ -7,31 +9,27 @@ extern void* VT_Closure2[2];
 extern void* TAB_48e0f0;
 
 struct Ctor_001d0480 {
-    Ctor_001d0480(void* a1, int b);
+    Ctor_001d0480(const char* a1, int b);
 };
-char __cdecl LookupFlag(const void* tbl);
 
+// Closure2's constructor (name, object, member function): Function's fields (include/decls/data/script.h), then
+// Method2's member-function pointer and Closure2's object.
 class Closure2 : public Ctor_001d0480 {
   public:
-    void* vfptr;    // 0x00
-    char pad04[12]; // 0x04
-    char mFlag10;   // 0x10
-    char mFlag11;   // 0x11
-    char pad12[6];  // 0x12
-    char mFlag18;   // 0x18
-    char pad19[3];  // 0x19
-    int mA3;        // 0x1c
-    int mA2;        // 0x20
+    void* vfptr;             // 0x00
+    ScriptFunctionFields f;  // 0x04
+    ScriptMemberFn fn;       // 0x1c
+    void* owner;             // 0x20
 
-    Closure2(void* a1, hulk_intptr a2, hulk_intptr a3);
+    Closure2(const char* a1, void* a2, ScriptMemberFn a3);
 };
 
-Closure2::Closure2(void* a1, hulk_intptr a2, hulk_intptr a3) : Ctor_001d0480(a1, 2) {
+Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : Ctor_001d0480(a1, 2) {
     vfptr = (void*)VT_Method2;
-    mA3 = a3;
-    mFlag18 = LookupFlag(((void**)&DAT_0048e0e4));
-    mFlag10 = LookupFlag(&TAB_48e0f0);
-    mFlag11 = LookupFlag(((void**)&DAT_0048e134));
+    fn = a3;
+    f.retType = FUN_001d04d0(((void**)&DAT_0048e0e4));
+    f.argTypes[0] = FUN_001d04d0(&TAB_48e0f0);
+    f.argTypes[1] = FUN_001d04d0(((void**)&DAT_0048e134));
     vfptr = (void*)VT_Closure2;
-    mA2 = a2;
+    owner = a2;
 }

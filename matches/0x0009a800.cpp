@@ -2,27 +2,29 @@
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
+#include "decls/data/script.h"
 extern "C" char DAT_00404c10[];
 extern "C" char DAT_0048e10c[];
+// Method4<Owner, void, float, float, ?, float>'s constructor (name, member function): Function's fields
+// (include/decls/data/script.h), then the member-function pointer.
+class Owner_9a800 {};
+typedef void (Owner_9a800::*Fn_9a800)(float, float, int, float);
 struct Ctor_001d0480 {
-    Ctor_001d0480(int, int);
+    Ctor_001d0480(const char*, int);
 };
 class Method4_9a800 : public Ctor_001d0480 {
   public:
-    char pad00[0x10];
-    unsigned char b10, b11, b12, b13;
-    char pad14[4];
-    unsigned char b18;
-    char pad19[3];
-    int value1c;
-    Method4_9a800(hulk_intptr a, hulk_intptr b);
+    void* vftable;
+    ScriptFunctionFields f;
+    Fn_9a800 value1c;
+    Method4_9a800(const char* a, Fn_9a800 b);
 };
-Method4_9a800::Method4_9a800(hulk_intptr a, hulk_intptr b) : Ctor_001d0480(a, 4) {
-    *(hulk_intptr*)this = ((hulk_intptr)DAT_00404c10);
+Method4_9a800::Method4_9a800(const char* a, Fn_9a800 b) : Ctor_001d0480(a, 4) {
+    *(void**)this = (void*)DAT_00404c10;
     value1c = b;
-    b18 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
-    b10 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
-    b11 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
-    b12 = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
-    b13 = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    f.retType = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e100)));
+    f.argTypes[0] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    f.argTypes[1] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
+    f.argTypes[2] = FUN_001d04d0((const char*)((hulk_intptr)DAT_0048e10c));
+    f.argTypes[3] = FUN_001d04d0((const char*)((hulk_intptr)((char*)&DAT_0048e128)));
 }

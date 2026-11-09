@@ -1,15 +1,13 @@
-#include "decls/data/lua.h"
+#include "decls/data/script.h"
 extern "C" void __cdecl FUN_002151e0(LuaVMState* L);
-class Obj_1d2700 {
-    char pad[8];
-    LuaVMState* mL;  // 0x08
-
+class Obj_1d2700 : public ScriptHandlerFields {
   public:
+    virtual void v0();
     void FUN_001d2700();
 };
 void Obj_1d2700::FUN_001d2700() {
-    if (mL) {
-        FUN_002151e0(mL);
-        mL = 0;
+    if (L) {
+        FUN_002151e0(L);
+        L = 0;
     }
 }

@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00087dc0 @ 0x00087dc0
+#include "compat/ptr.h"
 #include "decls/address.h"
+#include "decls/data/records.h"
+#include "decls/data/script.h"
 #include "decls/data/game/global.h"
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
-inline void* operator new(unsigned int, void* p) throw() { return p; }
+inline void* operator new(hulk_uintptr, void* p) throw() { return p; }
 
 class CGame { public: void FUN_dummy(); };
 
-class __declspec(novtable) MethodBase_87dc0 {
+class __declspec(novtable) MethodBase_87dc0 : public ScriptFunctionFields {
   public:
     virtual void m0();
-    char pad_04[0x14];
-    char enabled;
-    char pad_19[3];
     void FUN_001d0480(const char*, int);
     MethodBase_87dc0(const char* n, int k) { FUN_001d0480(n, k); }
 };
@@ -23,7 +23,7 @@ class Method0 : public MethodBase_87dc0 {
     typedef R (T::*Fn)();
     Method0(const char* name, Fn f) : MethodBase_87dc0(name, 0) {
         fn = f;
-        enabled = FUN_001d04d0(((const char*)&DAT_0048e100));
+        retType = FUN_001d04d0(((const char*)&DAT_0048e100));
     }
     Fn fn;
 };
@@ -41,6 +41,8 @@ struct Registry_87dc0 {
 };
 
 void Registry_87dc0::FUN_00087dc0(const char* name, CGame* owner, void (CGame::*fn)()) {
+    typedef Closure0<CGame, void> Alloc_87dc0;
+    HULK_SIZE32(Alloc_87dc0, 0x24);
     void* mem = FUN_0008d690((int)sizeof(Closure0<CGame, void>));
     Closure0<CGame, void>* c = 0;
     if (mem)

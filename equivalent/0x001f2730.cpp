@@ -1,9 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 455 inputs, branch coverage 38/38)
 // FUN_001f2730 @ 0x001f2730
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+#include "decls/data/script.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
 #include "decls/data/game/unknown.h"
-inline void *operator new(unsigned int, void *p) throw() { return p; }
+inline void *operator new(hulk_uintptr, void *p) throw() { return p; }
 
 extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 
@@ -11,15 +14,11 @@ template <class T> struct TypeName;
 template <> struct TypeName<void> { static const char *get() { return ((const char*)&DAT_0048e100); } };
 template <> struct TypeName<float> { static const char *get() { return ((const char*)&DAT_0048e128); } };
 
-class __declspec(novtable) Function {
+// Function (include/decls/data/script.h): the vftable, then Function's fields.
+class __declspec(novtable) Function : public ScriptFunctionFields {
 public:
     virtual void f0();
     virtual void f1();
-    char pad04[0x0c];
-    char args[4];
-    char pad14[4];
-    char ret;
-    char pad19[3];
     void FUN_001d0480(const char *name, int arity);
     Function() {}
     __forceinline Function(const char *name, int arity) { FUN_001d0480(name, arity); }
@@ -56,8 +55,8 @@ public:
     typedef R (T::*Fn)(A);
     __forceinline Method1(const char *name, Fn f) : Function(name, 1) {
         fn = f;
-        ret = FUN_001d04d0(TypeName<R>::get());
-        args[0] = FUN_001d04d0(TypeName<A>::get());
+        retType = FUN_001d04d0(TypeName<R>::get());
+        argTypes[0] = FUN_001d04d0(TypeName<A>::get());
     }
     Fn fn;
 };
@@ -181,12 +180,14 @@ void CSoundSystem::FUN_001f2730()
     Registry_1f2730 *reg = FUN_001d4c90();
     void *mem;
 
-    mem = FUN_0008d690(0x24);
+    { HULK_SIZE32(ScriptClosureView, 0x24); }
+    mem = FUN_0008d690((int)sizeof(ScriptClosureView));
     Closure2_1f2730 *obj = 0;
     if (mem)
         obj = ((Closure2_1f2730 *)mem)->FUN_001f1cf0("snd_CreateObject", this, &CSoundSystem::FUN_001f13b0);
     reg->FUN_001d3b70("snd_CreateObject", obj);
 
+    { typedef Closure3<CSoundSystem, void, char *, char *, float> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure3<CSoundSystem, void, char *, char *, float>));
     Closure3<CSoundSystem, void, char *, char *, float> *trig = 0;
     if (mem)
@@ -195,103 +196,120 @@ void CSoundSystem::FUN_001f2730()
 
     reg->FUN_001f23f0("snd_StopAllTriggers", this, &CSoundSystem::FUN_001eef00);
 
+    { typedef Closure3<CSoundSystem, void, char *, char *, float> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure3<CSoundSystem, void, char *, char *, float>));
     Closure3<CSoundSystem, void, char *, char *, float> *seq = 0;
     if (mem)
         seq = new (mem) Closure3<CSoundSystem, void, char *, char *, float>("snd_AddCommand_PlaySequenceEvent", this, &CSoundSystem::FUN_001f1540);
     reg->FUN_001d3b70("snd_AddCommand_PlaySequenceEvent", seq);
 
+    { typedef Closure3<CSoundSystem, void, char *, char *, float> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure3<CSoundSystem, void, char *, char *, float>));
     Closure3<CSoundSystem, void, char *, char *, float> *intr = 0;
     if (mem)
         intr = new (mem) Closure3<CSoundSystem, void, char *, char *, float>("snd_AddCommand_PlayInterruptEvent", this, &CSoundSystem::FUN_001f15a0);
     reg->FUN_001d3b70("snd_AddCommand_PlayInterruptEvent", intr);
 
+    { typedef Closure6<CSoundSystem, void, char *, char *, float, float, float, float> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure6<CSoundSystem, void, char *, char *, float, float, float, float>));
     Closure6<CSoundSystem, void, char *, char *, float, float, float, float> *tun = 0;
     if (mem)
         tun = new (mem) Closure6<CSoundSystem, void, char *, char *, float, float, float, float>("snd_AddCommand_PlayTunableEvent", this, &CSoundSystem::FUN_001f1600);
     reg->FUN_001d3b70("snd_AddCommand_PlayTunableEvent", tun);
 
+    { typedef Closure4<CSoundSystem, void, char *, char *, float, float> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure4<CSoundSystem, void, char *, char *, float, float>));
     Closure4<CSoundSystem, void, char *, char *, float, float> *stoptun = 0;
     if (mem)
         stoptun = new (mem) Closure4<CSoundSystem, void, char *, char *, float, float>("snd_AddCommand_StopTunableEvent", this, &CSoundSystem::FUN_001f16e0);
     reg->FUN_001d3b70("snd_AddCommand_StopTunableEvent", stoptun);
 
+    { typedef Closure5<CSoundSystem, void, char *, char *, float, float, float> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure5<CSoundSystem, void, char *, char *, float, float, float>));
     Closure5<CSoundSystem, void, char *, char *, float, float, float> *pitch = 0;
     if (mem)
         pitch = new (mem) Closure5<CSoundSystem, void, char *, char *, float, float, float>("snd_AddCommand_SetLoopPitchEvent", this, &CSoundSystem::FUN_001f1670);
     reg->FUN_001d3b70("snd_AddCommand_SetLoopPitchEvent", pitch);
 
+    { typedef Closure4<CSoundSystem, void, char *, char *, float, float> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure4<CSoundSystem, void, char *, char *, float, float>));
     Closure4<CSoundSystem, void, char *, char *, float, float> *dlg = 0;
     if (mem)
         dlg = new (mem) Closure4<CSoundSystem, void, char *, char *, float, float>("snd_AddCommand_PlayDialogueEvent", this, &CSoundSystem::FUN_001f1740);
     reg->FUN_001d3b70("snd_AddCommand_PlayDialogueEvent", dlg);
 
+    { typedef Closure6<CSoundSystem, void, char *, char *, char *, float, float, float> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure6<CSoundSystem, void, char *, char *, char *, float, float, float>));
     Closure6<CSoundSystem, void, char *, char *, char *, float, float, float> *mdlg = 0;
     if (mem)
         mdlg = new (mem) Closure6<CSoundSystem, void, char *, char *, char *, float, float, float>("snd_AddCommand_PlayMissionDialogueEvent", this, &CSoundSystem::FUN_001f17f0);
     reg->FUN_001d3b70("snd_AddCommand_PlayMissionDialogueEvent", mdlg);
 
+    { typedef Closure5<CSoundSystem, void, char *, char *, float, float, float> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure5<CSoundSystem, void, char *, char *, float, float, float>));
     Closure5<CSoundSystem, void, char *, char *, float, float, float> *fdlg = 0;
     if (mem)
         fdlg = new (mem) Closure5<CSoundSystem, void, char *, char *, float, float, float>("snd_AddCommand_PlayFightDialogueEvent", this, &CSoundSystem::FUN_001f18b0);
     reg->FUN_001d3b70("snd_AddCommand_PlayFightDialogueEvent", fdlg);
 
+    { typedef Closure3<CSoundSystem, void, char *, char *, float> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure3<CSoundSystem, void, char *, char *, float>));
     Closure3<CSoundSystem, void, char *, char *, float> *music = 0;
     if (mem)
         music = new (mem) Closure3<CSoundSystem, void, char *, char *, float>("snd_AddCommand_PlayMusicEvent", this, &CSoundSystem::FUN_001f1970);
     reg->FUN_001d3b70("snd_AddCommand_PlayMusicEvent", music);
 
+    { typedef Closure3<CSoundSystem, void, char *, char *, float> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure3<CSoundSystem, void, char *, char *, float>));
     Closure3<CSoundSystem, void, char *, char *, float> *amb = 0;
     if (mem)
         amb = new (mem) Closure3<CSoundSystem, void, char *, char *, float>("snd_AddCommand_PlayAmbienceEvent", this, &CSoundSystem::FUN_001f1a20);
     reg->FUN_001d3b70("snd_AddCommand_PlayAmbienceEvent", amb);
 
+    { typedef Closure3<CSoundSystem, void, char *, char *, float> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure3<CSoundSystem, void, char *, char *, float>));
     Closure3<CSoundSystem, void, char *, char *, float> *sfx = 0;
     if (mem)
         sfx = new (mem) Closure3<CSoundSystem, void, char *, char *, float>("snd_AddCommand_PlaySFXEvent", this, &CSoundSystem::FUN_001f1ad0);
     reg->FUN_001d3b70("snd_AddCommand_PlaySFXEvent", sfx);
 
+    { typedef Closure3<CSoundSystem, void, char *, char *, float> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure3<CSoundSystem, void, char *, char *, float>));
     Closure3<CSoundSystem, void, char *, char *, float> *cue = 0;
     if (mem)
         cue = new (mem) Closure3<CSoundSystem, void, char *, char *, float>("snd_AddCommand_CueNISEvent", this, &CSoundSystem::FUN_001f1b80);
     reg->FUN_001d3b70("snd_AddCommand_CueNISEvent", cue);
 
+    { typedef Closure1<CSoundSystem, void, float> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure1<CSoundSystem, void, float>));
     Closure1<CSoundSystem, void, float> *play = 0;
     if (mem)
         play = new (mem) Closure1<CSoundSystem, void, float>("snd_AddCommand_PlayCuedNISEvent", this, &CSoundSystem::FUN_001efca0);
     reg->FUN_001d3b70("snd_AddCommand_PlayCuedNISEvent", play);
 
+    { typedef Closure1<CSoundSystem, void, float> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure1<CSoundSystem, void, float>));
     Closure1<CSoundSystem, void, float> *stop = 0;
     if (mem)
         stop = new (mem) Closure1<CSoundSystem, void, float>("snd_AddCommand_StopNISEvent", this, &CSoundSystem::FUN_001efd00);
     reg->FUN_001d3b70("snd_AddCommand_StopNISEvent", stop);
 
+    { typedef Closure3<CSoundSystem, void, char *, float, float> Sized; HULK_SIZE32(Sized, 0x24); }
     mem = FUN_0008d690((int)sizeof(Closure3<CSoundSystem, void, char *, float, float>));
     Closure3<CSoundSystem, void, char *, float, float> *mixer = 0;
     if (mem)
         mixer = new (mem) Closure3<CSoundSystem, void, char *, float, float>("snd_AddCommand_InstallMixer", this, &CSoundSystem::FUN_001efd60);
     reg->FUN_001d3b70("snd_AddCommand_InstallMixer", mixer);
 
-    mem = FUN_0008d690(0x24);
+    { HULK_SIZE32(ScriptClosureView, 0x24); }
+    mem = FUN_0008d690((int)sizeof(ScriptClosureView));
     ClosureDefaultMix *mix = 0;
     if (mem)
         mix = ((ClosureDefaultMix *)mem)->FUN_001f21b0("snd_AddCommand_ReturnToDefaultMix", this, &CSoundSystem::FUN_001efdc0);
     reg->FUN_001d3b70("snd_AddCommand_ReturnToDefaultMix", mix);
 
-    mem = FUN_0008d690(0x24);
+    { HULK_SIZE32(ScriptClosureView, 0x24); }
+    mem = FUN_0008d690((int)sizeof(ScriptClosureView));
     ClosureInstallEffect *fx = 0;
     if (mem)
         fx = ((ClosureInstallEffect *)mem)->FUN_001f2250("snd_AddCommand_InstallEffect", this, &CSoundSystem::FUN_001f1c30);

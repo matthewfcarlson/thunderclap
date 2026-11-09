@@ -1,9 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1176 inputs, branch coverage 26/26)
 // FUN_000c1430 @ 0x000c1430
 // cl-flags: /GS
+#include "compat/ptr.h"
 #include "decls/address.h"
 #include "decls/data/game/global.h"
-inline void *operator new(unsigned int, void *p) throw() { return p; }
+#include "decls/data/script.h"
+inline void *operator new(hulk_uintptr, void *p) throw() { return p; }
 void __cdecl FUN_0008d340(void *p);
 
 struct Id64_c1430 {
@@ -48,10 +50,10 @@ struct Done {
     void FUN_00092be0();
 };
 
-class __declspec(novtable) MethodBase_c1430 {
+// Function's fields (include/decls/data/script.h); Method2 adds the member-function pointer, Closure2 the object.
+class __declspec(novtable) MethodBase_c1430 : public ScriptFunctionFields {
 public:
     virtual void m0();
-    char pad_04[0xc];
     MethodBase_c1430(const char *n, int k) { FUN_001d0480(n, k); }
     void FUN_001d0480(const char *, int);
     void FUN_001d04a0();
@@ -63,15 +65,10 @@ public:
     typedef R (T::*Fn)(A, B);
     Method2(const char *name, Fn f) : MethodBase_c1430(name, 2) {
         fn = f;
-        c18 = FUN_001d04d0(((const char*)&DAT_0048e100));
-        c10 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
-        c11 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+        retType = FUN_001d04d0(((const char*)&DAT_0048e100));
+        argTypes[0] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+        argTypes[1] = FUN_001d04d0(((const char*)&DAT_0048e0f0));
     }
-    char c10;
-    char c11;
-    char pad12[6];
-    char c18;
-    char pad19[3];
     Fn fn;
 };
 

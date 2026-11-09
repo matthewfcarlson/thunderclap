@@ -2,35 +2,31 @@
 #include "decls/data/game/unknown.h"
 
 #include "compat/ptr.h"
+#include "decls/data/script.h"
 extern "C" char DAT_003f423c[];
 struct ThisCall_001d0480 {
-    void Init(void*, int);
+    void Init(const char*, int);
 };
 extern "C" unsigned char __cdecl Get(void*);
-class Method5 {
+// Method5's initializer (name, member function): Function's fields (include/decls/data/script.h), then the
+// member-function pointer; returns this.
+class Owner_2d960 {};
+typedef void (Owner_2d960::*Fn_2d960)();
+class Method5 : public ScriptFunctionFields {
   public:
     virtual void Dummy();
-    char pad4[12];
-    unsigned char x10;
-    unsigned char x11;
-    unsigned char x12;
-    unsigned char x13;
-    unsigned char x14;
-    char pad15[3];
-    unsigned char x18;
-    char pad19[3];
-    int arg;
-    Method5* Build(void* p2, hulk_intptr p3);
+    Fn_2d960 arg;
+    Method5* Build(const char* p2, Fn_2d960 p3);
 };
-Method5* Method5::Build(void* p2, hulk_intptr p3) {
+Method5* Method5::Build(const char* p2, Fn_2d960 p3) {
     ((ThisCall_001d0480*)(this))->Init(p2, 5);
-    *(void**)this = (void*)((hulk_intptr)DAT_003f423c);
+    *(void**)this = (void*)DAT_003f423c;
     arg = p3;
-    x18 = Get(((char*)&DAT_0048e100));
-    x10 = Get(((char*)&DAT_0048e0f0));
-    x11 = Get(((char*)&DAT_0048e0f0));
-    x12 = Get(((char*)&DAT_0048e128));
-    x13 = Get(((char*)&DAT_0048e128));
-    x14 = Get(((char*)&DAT_0048e128));
+    retType = Get(((char*)&DAT_0048e100));
+    argTypes[0] = Get(((char*)&DAT_0048e0f0));
+    argTypes[1] = Get(((char*)&DAT_0048e0f0));
+    argTypes[2] = Get(((char*)&DAT_0048e128));
+    argTypes[3] = Get(((char*)&DAT_0048e128));
+    argTypes[4] = Get(((char*)&DAT_0048e128));
     return this;
 }

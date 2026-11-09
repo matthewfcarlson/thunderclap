@@ -1,11 +1,11 @@
+#include "decls/data/script.h"
 struct ScriptHandler {
     const char* invoke(const char*);
 };
-struct Closure1_ScriptHandler {
+struct Closure1_ScriptHandler : public ScriptFunctionFields {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual const char* vfunc_2(void* unused, const char** argument, const char** result);
-    char padding[0x18];
     const char* (ScriptHandler::*callback)(const char*);
     ScriptHandler* handler;
 };
