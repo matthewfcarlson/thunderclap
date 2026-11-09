@@ -39,10 +39,13 @@ extern "C" void FUN_0021b0d0(LuaVMLexState* ls);
 
 #define NEXT()                                                                                               \
     do {                                                                                                     \
-        if (ls->z->n-- > 0)                                                                                  \
-            ls->current = (unsigned char)*ls->z->p++;                                                        \
-        else                                                                                                 \
+        if (ls->z->n-- > 0) {                                                                                \
+            int ch_ = (unsigned char)*ls->z->p; /* read before the pointer moves on, as the original */      \
+            ls->z->p++;                                                                                      \
+            ls->current = ch_;                                                                               \
+        } else {                                                                                             \
             ls->current = FUN_0021a550(ls->z);                                                               \
+        }                                                                                                    \
     } while (0)
 
 // Lexer: read a quoted string up to the delimiter del, handling escapes; the lexer state arrives in ecx.

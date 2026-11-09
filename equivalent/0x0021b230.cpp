@@ -21,11 +21,23 @@ extern "C" void FUN_0021b1c0(LuaVMLexState* ls);
             b->buffer = (char*)FUN_0021add0((LS)->L, b->buffer, b->buffsize, b->buffsize * 2 + 0x20);        \
             b->buffsize = b->buffsize * 2 + 0x20;                                                            \
         }                                                                                                    \
-        b->buffer[b->n++] = (char)(c);                                                                       \
+        b->buffer[b->n] = (char)(c);                                                                         \
+        b->n++;                                                                                              \
     } while (0)
 
+// The character is stored before the count goes up and read before the pointer moves on, in the original's
+// order: clang orders `b->buffer[b->n++] = c` and `*z->p++` the other way round, which a buffer overlapping
+// its own header (a fuzzed input, undefined behaviour) tells apart (tools/equiv.py --wine).
 #define NEXT(LS)                                                                                             \
-    ((LS)->current = ((LS)->z->n-- > 0) ? (int)(unsigned char)(*(LS)->z->p++) : FUN_0021a550((LS)->z))
+    do {                                                                                                     \
+        if ((LS)->z->n-- > 0) {                                                                              \
+            int ch_ = (unsigned char)*(LS)->z->p;                                                            \
+            (LS)->z->p++;                                                                                    \
+            (LS)->current = ch_;                                                                             \
+        } else {                                                                                             \
+            (LS)->current = FUN_0021a550((LS)->z);                                                           \
+        }                                                                                                    \
+    } while (0)
 
 // equiv-conv: FUN_0021b230 eax stack
 extern "C" void FUN_0021b230(LuaVMLexState* LS, LuaVMSemInfo* seminfo) {

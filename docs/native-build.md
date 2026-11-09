@@ -1443,7 +1443,7 @@ where a record field's signedness changed MSVC's code.
 |---|---|
 | matches | 241 / 241 compare.py MATCH + verify_relocs ok (queue, with the batch's headers) |
 | equivalents, 3,000 inputs | 296 / 296 equivalent; 199 at 3,000+; the rest at their own ceilings (slow or stale-coverage inputs), each at or above the original source's STATUS count, or (0x0021d4b0 at `--inputs 3200`, 0x00217830, 0x0021b720) within 2 inputs of the original run on the same host; except 0x002134a0 (lua_pushcclosure: 79 inputs, 6/6 branches; the original 150 on the same host: the record-typed inputs end its random phase earlier; time budget does not change it) |
-| equivalents, `--wine` | 287 / 296; the 9 others fail identically on the untouched originals: 0x00216340, 0x00219a60, 0x0021aa00, 0x0021b230, 0x0021b720, 0x0021fb50, 0x0033d400, 0x001d36f0 (fail), 0x002142d0 (inconclusive) |
+| equivalents, `--wine` | 287 / 296; the 9 others fail identically on the untouched originals: 0x00216340, 0x00219a60, 0x0021aa00, 0x0021b230, 0x0021b720, 0x0021fb50, 0x0033d400, 0x001d36f0 (fail), 0x002142d0 (inconclusive). Since wine1 (below, "The nine `--wine` exceptions"): 296 / 296 |
 | `--x64` (informational) | 227 equivalent, 42 fail (by design: the realloc sizes, stack strides, 16-byte TObjects past 32-bit allocations, pointer-sized fields read by 32-bit views), 23 unsupported (no input completes on the 32-bit side), 4 inconclusive |
 | sigcheck (64-bit IR, declarations vs definitions) | 0 in the Lua set; left: 0x001d29b0 -> 0x001d17f0 (gen owners.h holds the lua_State in an `int`), 0x00278ef0 -> 0x00278180 (not Lua), 0x0033ed20 -> 0x0033eb90 (the aligned allocator, below) |
 
@@ -1512,3 +1512,32 @@ literal sizes in 0x001d4580-0x001d47c0) as records; then the rest of reg6's CGam
 0x001d3250 take object and function pointers as `int` / `const char*` and keep them in `hulk_intptr` members; gen
 owners.h holds the lua_State as an `int` at +0x08 in ten ScriptHandler-area classes; 0x001d3410 names the
 ScriptHandler vftable 0x00422684 by an invented data name.
+
+### The nine `--wine` exceptions (wine1, 2026-11-09)
+
+The nine Lua sources that failed `equiv.py --wine` after the records batch (and before it): two kinds of cause, three
+source fixes and five checker rules (docs/equivalence.md round 29, `EQUIV_OFF=rowrite,fescape,intrub,natobj,fillrel`).
+None of them is a difference a real input reaches; the three source changes put clang's order of two stores where
+the original has it.
+
+| function | cause | kind | fix |
+|---|---|---|---|
+| 0x00216340 luaO_chunkid | a fuzzed `out` at the literal `"[string \""` it copies (`out` overlaps the literal pool) or `out == source` (an overlapping strcat) | checker | rowrite, intrub |
+| 0x00219a60 numuse | `nums[luaO_log2(k - 1) + 1]++` with the stubbed log2's fuzzed result: an index beyond the whole stack, landing where each frame layout puts it | checker | fescape |
+| 0x0021aa00 DumpConstants | `D->writer(L, &bits, 4, ud)`: a function pointer, so the 8 bytes behind `bits` were compared, another local in each frame (the original's loop counter) | checker | natobj (clang's DWARF bounds the object) |
+| 0x0021b230 read_numeral | `b->buffer[b->n++] = c` and `*z->p++`: clang stores n + 1 / p + 1 before the character store / load, MSVC after; a buffer overlapping its own LuaVMBuffer / Zio header (undefined behaviour) tells them apart | source | the statements in the original's order |
+| 0x0021b720 read_string | `*z->p++` in NEXT, as above (its SAVE already had the original's order) | source | the same |
+| 0x0021fb50 LoadLocals | the original keeps the locals still to read in the frame word behind `f.w` (`dec` per loop); the source's frame struct set `f.count = n` once | source | `f.count--` per local |
+| 0x0033d400 str_format | a directed input planted the original's frame address (its luaL_Buffer's end - 1) in the stub-filled `b.p`; clang's buffer is 4 bytes lower | checker | fillrel (the same offset into ours's object) |
+| 0x001d36f0 ScriptHandler::DoLuaBuffer | `buffer[length] = 0` with fuzzed buffer/length lands in the original's `.rdata` initializer of `script[]`, which the original then copies | checker | rowrite (source unchanged; sh1's area) |
+| 0x002142d0 symbexec | none: `--wine` at 600 inputs is equivalent (2,095 inputs, 89/120); inconclusive only at a low input count | - | - |
+
+| | control 69791 (lua2's proof, studio, HEAD 8310fb004) | proof 69964 (studio, HEAD + the three sources, seed:69791) |
+|---|---|---|
+| gates | - | `--wine` 600: 9 / 9 equivalent (with the round-29 checker); MSVC mode: 0x0021b230 1,806 inputs 40/40, 0x0021b720 5,851 (`--inputs 8000 --time-budget 1500`) 46/48, 0x0021fb50 106 (its STATUS count) 17/18; regress 466 / 467 (0x001fe380_tiny_counts at 70% coverage, the same with HEAD's equiv.py) |
+| strict link rc / Wine unbound | 0 / 1,252 | 0 / 1,252 |
+| play3 checkpoints | 2,012 to 60,330 | `ckpt_gate.py` GATE ok at 2,012 common frames (the known transients only), PRNG hashes identical; 2,014 to 60,390 |
+
+Not done: the other lexer sources (save_and_next 0x0021b1c0, llex) spell `*z->p++` the clang-ambiguous way too; fuzzing
+did not reach an aliasing input there. natobj finds the function by its DWARF name; a C++ member's definition DIE
+carries its name through DW_AT_specification, which the parser does not follow (such a call is compared as before).

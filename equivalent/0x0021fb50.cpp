@@ -20,7 +20,7 @@ extern "C" void __cdecl FUN_0021fb50(LuaVMLoadState* S, LuaVMProto* p) {
         char* s;
         int pad;
         int v;
-    } f;  // the original's frame: the integers read from the chunk (32 bits each) and the string buffer
+    } f; // the original's frame: the integers read from the chunk (32 bits each) and the string buffer
     FUN_0021f8c0((char*)(void*)(&f.v), 4, S);
     if (f.v < 0) {
         FUN_0021f800(S, "bad integer");
@@ -50,5 +50,6 @@ extern "C" void __cdecl FUN_0021fb50(LuaVMLoadState* S, LuaVMProto* p) {
         if (f.w < 0)
             FUN_0021f800(S, "bad integer");
         p->locvars[i].endpc = f.w;
+        f.count--; // the original counts the locals left in this frame word (a neighbour of f.w)
     }
 }
