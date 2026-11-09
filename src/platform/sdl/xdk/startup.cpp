@@ -661,6 +661,9 @@ extern "C" void HULK_CDECL hulk_xc_event(hulk_u32 addr, hulk_u32 site, hulk_u32 
 // HULK_HANG_SAMPLES times (default 4, 250 ms apart): registers, frame chain and stack scan as for a crash, then
 // ends the run (summary "hang"). For runs that stop making progress without crashing.
 static hulk_u32 hulk_main_tid_;
+#if defined(__i386__) || defined(_M_IX86)
+extern "C" hulk_u32 hulk_crt_memo_tid;     // crt_glue.cpp
+#endif
 
 static hulk_u32 hulk_env_u32(const char* name, hulk_u32 dflt) {
     const char* v = hulk_host_getenv(name);
@@ -868,6 +871,13 @@ extern "C" void HULK_CDECL hulk_native_entry(void) {
     hulk_host_SetUnhandledExceptionFilter((void*)hulk_crash_filter);
     hulk_map_xbe_window();
     hulk_main_tid_ = hulk_host_GetCurrentThreadId();
+#if defined(__i386__) || defined(_M_IX86)
+    {   // opt1: crt_glue.cpp's math memo serves this thread only (HULK_CRT_MEMO=0: off)
+        const char* m = hulk_host_getenv("HULK_CRT_MEMO");
+        if (!(m && *m == '0'))
+            hulk_crt_memo_tid = hulk_main_tid_;
+    }
+#endif
     hulk_x87_init();
 #if defined(HULK_X87CHK)
     hulk_trace_line("x87chk armed: %u entry checks", hulk_xc_n);   // (tools/x87chk.py: proof the checks ran)

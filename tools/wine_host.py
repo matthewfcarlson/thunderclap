@@ -163,6 +163,9 @@ def host_crt(cp, outdir):
     if os.environ.get("HULK_WINE_SQRT", "sse") != "msvcrt":    # (opt1) sqrtsd, the same double as msvcrt's fsqrt (crt_glue.cpp)
         crt = [(a, "hulk_crt_sqrt" if t == "sqrt" else t, n) for a, t, n in crt]
         st["sqrt sse"] = 1
+    if os.environ.get("HULK_WINE_MEMO", "1") != "0" and not soft:     # (opt1) msvcrt's acos behind crt_glue's memo
+        crt = [(a, "hulk_crt_acos_memo" if t == "acos" else t, n) for a, t, n in crt]
+        st["acos memo"] = 1
     if soft:
         crt = [(a, SOFT_X87_REMAP.get(t, t), n) for a, t, n in crt]
         st["soft x87 math"] = 1

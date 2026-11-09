@@ -158,10 +158,81 @@ int HULK_HOST_CDECL hulk_crt_fprintf(void* f, const char* fmt, ...) {
 // wrongly declared returns in equivalent/ sources reached it. Those are fixed at their source (x87leak; docs/native-
 // float64.md "The x87 leaks themselves"), and HULK_X87CHK=1 builds check that none is left: "Checking for x87 leaks".)
 #include "softx87.h"
+// Memo (opt1). The x87 math below is a pure function of its argument bits and the control word, and it is expensive
+// under Rosetta 2 (fsin / fcos / fpatan emulated in software, log10 in softx87's integer arithmetic, msvcrt's acos):
+// 15-19% of a headless play3 replay (HULK_PROF). The game asks for the same arguments again and again (constant
+// volumes, angles of things standing still), so each function keeps a small direct-mapped table of argument bits ->
+// the 80-bit st(0) it returned, given back with fldt: bit for bit what recomputing gives. The main thread only (the
+// TEB's thread id against hulk_crt_memo_tid, which startup.cpp sets unless HULK_CRT_MEMO=0): no other thread reads or
+// writes the tables, so there is nothing to tear.
+hulk_u32 hulk_crt_memo_tid;
+#define HULK_MEMO_BITS 12
+typedef struct hulk_memo {
+    unsigned long long a, b;    // argument bits (b: atan2's second)
+    unsigned short cw, used;
+    unsigned char st0[10];      // the result as fstpt stores it
+} hulk_memo;
+static inline int hulk_memo_on(void) {
+    hulk_u32 t;
+    __asm__("movl %%fs:0x24, %0" : "=r"(t));
+    return t == hulk_crt_memo_tid && t != 0;
+}
+static inline unsigned short hulk_memo_cw(void) {
+    unsigned short c;
+    __asm__ volatile("fnstcw %0" : "=m"(c));
+    return c;
+}
+static inline unsigned long long hulk_memo_bits(double x) {
+    unsigned long long u;
+    __builtin_memcpy(&u, &x, 8);
+    return u;
+}
+static inline hulk_memo* hulk_memo_slot(hulk_memo* t, unsigned long long a, unsigned long long b) {
+    unsigned long long h = (a ^ (b * 0x9e3779b97f4a7c15ull)) * 0xff51afd7ed558ccdull;
+    return &t[(hulk_u32)(h >> (64 - HULK_MEMO_BITS))];
+}
+// result in st(0) -> the slot (st(0) stays)
+#define HULK_MEMO_PUT(e, r) __asm__("fld %%st(0)\n\tfstpt %0" : "=m"((e)->st0) : "t"(r))
+static inline double hulk_memo_get(const hulk_memo* e) {
+    double d;
+    __asm__("fldt %1" : "=t"(d) : "m"(e->st0));
+    return d;
+}
+// look up (a, b); on a hit return the stored st(0)
+#define HULK_MEMO_LOOKUP(table, x_, y_)                                                                            \
+    static hulk_memo table[1 << HULK_MEMO_BITS];                                                                   \
+    hulk_memo* e_ = 0;                                                                                             \
+    unsigned short cw_ = 0;                                                                                        \
+    if (hulk_memo_on()) {                                                                                          \
+        unsigned long long a_ = hulk_memo_bits(x_), b_ = hulk_memo_bits(y_);                                        \
+        cw_ = hulk_memo_cw();                                                                                      \
+        e_ = hulk_memo_slot(table, a_, b_);                                                                        \
+        if (e_->used && e_->a == a_ && e_->b == b_ && e_->cw == cw_)                                               \
+            return hulk_memo_get(e_);                                                                              \
+        e_->used = 0;                                                                                              \
+        e_->a = a_;                                                                                                \
+        e_->b = b_;                                                                                                \
+        e_->cw = cw_;                                                                                              \
+    }
+#define HULK_MEMO_STORE(r)          \
+    if (e_) {                       \
+        HULK_MEMO_PUT(e_, r);       \
+        e_->used = 1;               \
+    }
 double HULK_HOST_CDECL hulk_crt_log10_x87(double x) {
+    HULK_MEMO_LOOKUP(memo, x, 0.0)
     hulk_x87_ext r = hulk_x87_log10_ext(x);
     double d;
     __asm__("fldt %1" : "=t"(d) : "m"(r));
+    HULK_MEMO_STORE(d)
+    return d;
+}
+// msvcrt's acos, memoised (tools/wine_host.py binds the tree's acos here unless HULK_WINE_MEMO=0)
+double HULK_HOST_CDECL hulk_host_acos(double);
+double HULK_HOST_CDECL hulk_crt_acos_memo(double x) {
+    HULK_MEMO_LOOKUP(memo, x, 0.0)
+    double d = hulk_host_acos(x);
+    HULK_MEMO_STORE(d)
     return d;
 }
 // sqrt (opt1). msvcrt.dll's sqrt runs fsqrt, which Rosetta 2 emulates in software: 10-12% of a headless play3 replay
@@ -311,13 +382,17 @@ __asm__(".text\n"
 #endif
 #elif defined(__i386__) || defined(_M_IX86)
 double HULK_HOST_CDECL hulk_crt_sin(double x) {
+    HULK_MEMO_LOOKUP(memo, x, 0.0)
     double r;
     __asm__("fsin" : "=t"(r) : "0"(x));
+    HULK_MEMO_STORE(r)
     return r;
 }
 double HULK_HOST_CDECL hulk_crt_cos(double x) {
+    HULK_MEMO_LOOKUP(memo, x, 0.0)
     double r;
     __asm__("fcos" : "=t"(r) : "0"(x));
+    HULK_MEMO_STORE(r)
     return r;
 }
 double HULK_HOST_CDECL hulk_crt_tan(double x) {
@@ -331,8 +406,10 @@ double HULK_HOST_CDECL hulk_crt_atan(double x) {
     return r;
 }
 double HULK_HOST_CDECL hulk_crt_atan2(double y, double x) {
+    HULK_MEMO_LOOKUP(memo, y, x)
     double r;
     __asm__("fpatan" : "=t"(r) : "0"(x), "u"(y) : "st(1)");  // atan(st1 / st0), pops
+    HULK_MEMO_STORE(r)
     return r;
 }
 // exp: MSVC 7.1's inline sequence (the game's only exp: fldl2e, frndint, f2xm1, fscale; 8 functions)
