@@ -103,6 +103,41 @@ X87 = ["-mno-sse", "-mfpmath=387", "-ffp-eval-method=double", "-ffp-contract=off
 FLOAT_SSE = os.environ.get("HULK_WINE_FLOAT", "sse") != "x87"
 if FLOAT_SSE:
     X87 = ["-msse2", "-mfpmath=sse", "-ffp-eval-method=double", "-ffp-contract=off"]
+# opt1 (docs/wine-build.md "Optimised objects"): HULK_WINE_OPT=O1|O2 compiles the game's TUs (msvc configuration, SSE
+# build only) with LLVM's optimisation pipeline: the front end runs as -O<n> -Xclang -disable-llvm-passes (no optnone),
+# the IR passes below run on that IR and the IR -> object step optimises. Kept from the -O0 build: frame pointers in
+# every function (crash reports, hang samples), no inlining (-fno-inline: every hook and binding still sees each call),
+# no sibling-call jumps (-fno-optimize-sibling-calls: the stack-word hooks see a real frame); the x87-keep functions
+# stay optnone (their x87 code is the -O0 code, rounding at the same stores). Decompiled code's undefined behaviour is
+# kept as -O0 has it where a switch exists: falling off a value-returning function is not `unreachable`
+# (-fno-strict-return), loops without side effects are not deleted (-fno-finite-loops), and library calls stay calls
+# (-fno-builtin: no constant-folded sin/pow, no pow(x, 2) -> x*x, no loop -> memset; the image's math shims return
+# the x87 results the original computes). HULK_WINE_OPT_EXCLUDE=FILE names TUs
+# (snapshot-relative paths, one a line) that stay -O0 (bisection, known-bad TUs); HULK_WINE_OPT_ONLY=FILE optimises
+# only the TUs it names. Unset: the -O0 build, its cache keys and objects unchanged.
+WINE_OPT = os.environ.get("HULK_WINE_OPT", "")
+if WINE_OPT not in ("", "O0", "O1", "O2", "O3", "Os"):
+    sys.exit("HULK_WINE_OPT must be O1, O2, O3 or Os")
+WINE_OPT = "" if WINE_OPT == "O0" else WINE_OPT
+OPT_FRONT = ["-fno-omit-frame-pointer", "-fno-inline", "-fno-optimize-sibling-calls", "-fno-strict-return",
+             "-fno-finite-loops", "-fno-builtin"]
+
+
+def _tu_list(var):
+    p = os.environ.get(var)
+    return set(l.strip() for l in open(p) if l.strip() and not l.startswith("#")) if p else None
+
+
+_OPT_EXCLUDE, _OPT_ONLY = _tu_list("HULK_WINE_OPT_EXCLUDE"), _tu_list("HULK_WINE_OPT_ONLY")
+
+
+def tu_opt(rel):
+    """The optimisation level ("O1"...) for snapshot TU rel, or "" for -O0."""
+    if not WINE_OPT or (_OPT_EXCLUDE and rel in _OPT_EXCLUDE) or (_OPT_ONLY is not None and rel not in _OPT_ONLY):
+        return ""
+    return WINE_OPT
+
+
 # the functions that stay x87 code in the SSE build: written by main() after the snapshot (compute_x87_keep), or the file
 # HULK_WINE_X87_KEEP names (then used as is)
 X87_KEEP = os.environ.get("HULK_WINE_X87_KEEP") or os.path.join(OUT, "x87_keep.txt")
@@ -308,7 +343,7 @@ def _x87_list():
     return _X87_LIST
 
 
-def sse_x87fn_ir(ll):
+def sse_x87fn_ir(ll, keep_optnone=False):
     """The Wine build's sin/cos/tan/atan/atan2/exp/asin/acos/log/log10/pow return the 80-bit x87 result in st(0) (as
     the original's inlined fsin/fpatan/... leave it); x87 code computes on with it, SSE code stores it to a double
     first (a second rounding). Functions that call one of them are compiled for x87 (target features -sse,-sse2)."""
@@ -343,6 +378,8 @@ def sse_x87fn_ir(ll):
     for g, ng in newg.items():
         a = groups[g].replace('"target-cpu"="pentium4"', '"target-cpu"="pentiumpro"')
         a = re.sub(r'"target-features"="[^"]*"', '"target-features"="+cmov,+cx8,+x87,-sse,-sse2,-mmx,-fxsr"', a)
+        if keep_optnone and "optnone" not in a.split():
+            a = " noinline optnone " + a.replace(" noinline ", " ").replace(" alwaysinline ", " ")
         out.append("attributes %s = {%s}" % (ng, a))
     return "\n".join(out), n
 
@@ -441,21 +478,26 @@ def compute_x87_keep(jobs, clang, bindings=None):
         keep |= more
 
 
-def sse_compile(cmd, out_obj):
-    """cmd compiles to an object: compile to IR instead, apply sse_castfix_ir, then IR -> object."""
+def sse_compile(cmd, out_obj, opt=""):
+    """cmd compiles to an object: compile to IR instead, apply sse_castfix_ir, then IR -> object. opt ("O1"...): the
+    optimised mode (WINE_OPT above); "" is the -O0 build."""
     ll = out_obj + ".ll"
     c1 = [x for x in cmd]
     i = c1.index("-o")
     c1[i + 1] = ll
     c1 = [x for x in c1 if x != "-c"] + ["-S", "-emit-llvm"]
+    if opt:
+        c1 = [("-" + opt if x == "-O0" else x) for x in c1] + OPT_FRONT + ["-Xclang", "-disable-llvm-passes"]
     p = subprocess.run(c1, capture_output=True, text=True, errors="replace", timeout=900)
     if p.returncode:
         return p.returncode, p.stderr
     txt, n = sse_castfix_ir(open(ll).read())
     txt, n3 = sse_retfix_ir(txt)
-    txt, n2 = sse_x87fn_ir(txt)
+    txt, n2 = sse_x87fn_ir(txt, keep_optnone=bool(opt))
     open(ll, "w").write(txt)
     tgt = [x for x in cmd[1:] if x.startswith(("--target", "-m", "-O")) and not x.startswith("-mllvm")]
+    if opt:
+        tgt = [("-" + opt if x == "-O0" else x) for x in tgt]
     p2 = subprocess.run([cmd[0]] + tgt + ["-Wno-everything", "-c", ll, "-o", out_obj], capture_output=True, text=True,
                         errors="replace", timeout=900)
     os.unlink(ll)
@@ -470,11 +512,12 @@ def compile_one(cfg, rel, digest, clang):
     text = open(src, "rb").read()
     flags = spec["flags"] + COMMON
     sse = cfg == "msvc" and FLOAT_SSE
+    opt = tu_opt(rel) if sse and spec["obj"] else ""
     if not spec.get("root"):
         digest = tu_digest(src, base, digest)
     key = hashlib.sha1(text + digest.encode() + repr(flags).encode() + clang.encode()
                        + (b"ssefix1" + "\n".join(_KEEP_BY_TU.get(rel, []) if _KEEP_BY_TU is not None else sorted(_x87_list())).encode()
-                          if sse else b"")).hexdigest()[:20]
+                          if sse else b"") + (("opt1:%s:%r" % (opt, OPT_FRONT)).encode() if opt else b"")).hexdigest()[:20]
     d = os.path.join(CACHE, cfg)
     os.makedirs(d, exist_ok=True)
     res_p = os.path.join(d, key + ".json")
@@ -490,7 +533,7 @@ def compile_one(cfg, rel, digest, clang):
         cmd += ["-o", tmp]
     try:
         if sse and spec["obj"]:
-            rc, out = sse_compile(cmd, tmp)
+            rc, out = sse_compile(cmd, tmp, opt)
         else:
             p = subprocess.run(cmd, capture_output=True, text=True, errors="replace", timeout=900)
             rc, out = p.returncode, p.stderr
@@ -785,7 +828,7 @@ def scans(man, tus):
 
 # ---------------------------------------------------------------------------------------------
 # Link probe
-LIB_SPANS = [(0x208b9c, 0x212bb0), (0x3440e0, 0x356bf0), (0x35a7b0, 0x35be88), (0x364840, 0x3f2be0)]
+LIB_SPANS = [(0x208b9c, 0x212bb0), (0x33eb70, 0x33ed90), (0x3440e0, 0x356bf0), (0x35a7b0, 0x35be88), (0x364840, 0x3f2be0)]
 CRT_NAMES = set("""memcpy memset memmove memcmp strlen strcpy strncpy strcat strcmp strncmp stricmp _stricmp strnicmp
 _strnicmp strchr strrchr strstr strtok sprintf _snprintf vsprintf _vsnprintf sscanf printf atoi atof atol strtol strtoul
 strtod toupper tolower isspace isdigit isalpha malloc free calloc realloc fopen fclose fread fwrite fseek ftell fprintf

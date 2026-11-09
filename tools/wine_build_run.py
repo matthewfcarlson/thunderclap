@@ -636,6 +636,8 @@ def main():
         summ["replay"] = r
         for n in ("trace.txt", "ckpt.txt", "result.json"):
             shutil.copyfile(os.path.join(out, "replay", n), os.path.join(out, n))
+        if os.path.exists(os.path.join(out, "replay", "trace.txt.prof")):     # (opt1: HULK_PROF's sample histogram)
+            shutil.copyfile(os.path.join(out, "replay", "trace.txt.prof"), os.path.join(out, "trace.txt.prof"))
         shutil.rmtree(os.path.join(out, "replay"), ignore_errors=True)
         if not ck or (rpl.get("frames") and ck[-1][0] < rpl["frames"]):
             finish(5, "the replay reached frame %s, wanted %s" % (ck[-1][0] if ck else None, rpl.get("frames")))

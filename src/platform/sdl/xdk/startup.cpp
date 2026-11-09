@@ -719,6 +719,55 @@ static hulk_u32 HULK_STDCALL hulk_watchdog(void* arg) {
     return 0;
 }
 
+// HULK_PROF=n (opt1): a sampling profiler. A thread suspends the main thread every n ms (Sleep granularity), reads its
+// eip and counts it; every HULK_PROF_DUMP samples (default 4000) the whole histogram (`eip count` lines after a
+// `prof samples S frame F` header) is rewritten to HULK_TRACE_FILE + ".prof" (the run may be killed at any time, so
+// the last dump is what is kept). tools/opt_prof.py maps the eips to functions with the link's .map. Off when unset.
+static hulk_u32 hulk_prof_eip_[1 << 16], hulk_prof_cnt_[1 << 16];
+
+static void hulk_prof_dump(hulk_u32 samples) {
+    const char* tp = hulk_host_getenv("HULK_TRACE_FILE");
+    char path[600], line[64];
+    hulk_host__snprintf(path, sizeof(path), "%s.prof", tp && *tp ? tp : "hulk-startup-trace.txt");
+    hulk_host_file* f = hulk_host_fopen(path, "w");
+    if (!f)
+        return;
+    hulk_host__snprintf(line, sizeof(line), "prof samples %u frame %u\n", samples, hulk_native_frame_no);
+    hulk_host_fputs(line, f);
+    for (hulk_u32 i = 0; i < (1u << 16); i++)
+        if (hulk_prof_cnt_[i]) {
+            hulk_host__snprintf(line, sizeof(line), "%08x %u\n", hulk_prof_eip_[i], hulk_prof_cnt_[i]);
+            hulk_host_fputs(line, f);
+        }
+    hulk_host_fclose(f);
+}
+
+static hulk_u32 HULK_STDCALL hulk_profiler(void* arg) {
+    hulk_u32 ms = (hulk_u32)arg, every = hulk_env_u32("HULK_PROF_DUMP", 4000), samples = 0;
+    static hulk_u32 ctx[0x2cc / 4 + 4];
+    void* h = hulk_host_OpenThread(0x1fffff /* THREAD_ALL_ACCESS */, 0, hulk_main_tid_);
+    if (!h)
+        return 0;
+    for (;;) {
+        hulk_host_Sleep(ms);
+        if (hulk_host_SuspendThread(h) == 0xffffffffu)
+            break;
+        ctx[0] = 0x10001;  // CONTEXT_i386 | CONTROL
+        hulk_u32 eip = hulk_host_GetThreadContext(h, ctx) ? ctx[0xb8 / 4] : 0;
+        hulk_host_ResumeThread(h);
+        hulk_u32 k = (eip * 2654435761u) >> 16;
+        for (hulk_u32 n = 0; n < (1u << 16); n++, k = (k + 1) & 0xffff)
+            if (hulk_prof_cnt_[k] == 0 || hulk_prof_eip_[k] == eip) {
+                hulk_prof_eip_[k] = eip;
+                hulk_prof_cnt_[k]++;
+                break;
+            }
+        if (++samples % every == 0)
+            hulk_prof_dump(samples);
+    }
+    return 0;
+}
+
 // The XBE's data at its own addresses. Verified sources pass XBE data addresses as integer literals: a string in
 // .rdata (`FUN_0027b020((const char*)0x3f3fd8)`), and above all the RTTI type descriptors of every dynamic_cast
 // (`__RTDynamicCast(p, 0, (void*)0x491ca8, (void*)0x492238, 0)`). MSVC 7.1 emits the same immediate whether the
@@ -825,6 +874,8 @@ extern "C" void HULK_CDECL hulk_native_entry(void) {
 #endif
     if (hulk_u32 hang = hulk_env_u32("HULK_HANG", 0))
         hulk_host_CreateThread(0, 0, (void*)hulk_watchdog, (void*)hang, 0, 0);
+    if (hulk_u32 prof = hulk_env_u32("HULK_PROF", 0))
+        hulk_host_CreateThread(0, 0, (void*)hulk_profiler, (void*)prof, 0, 0);
     hulk_trace_line("start initializers=%u", hulk_game_initializer_count);
     static char phase[32];  // (static: a smashed stack must not take the crash report's phase with it)
     // clang's own dynamic initializers: the isolated `.text$yc` sources define their global with its constructor
