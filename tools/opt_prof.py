@@ -15,6 +15,10 @@ import json
 import re
 
 
+# the game's TU objects in the link: content-hash names, plain or with wine_link's prefixes (vtables, rebinds, ...)
+GAME_OBJ = re.compile(r"^(?:[a-z]{2}_)?[0-9a-f]{20}\.obj$")
+
+
 def load_map(path):
     syms = []
     rx = re.compile(r"^\s*0001:[0-9a-f]+\s+(\S+)\s+([0-9a-f]{16})\s+(?:f\s+)?(?:i\s+)?(\S+)\s*$")
@@ -56,7 +60,7 @@ def main():
             continue
         i = bisect.bisect_right(addrs, eip) - 1
         _, name, o = syms[i]
-        if name in game:
+        if name in game or GAME_OBJ.match(o):
             k = "game function"
         elif o.startswith(("bgfx:", "bx:")):
             k = "bgfx/bx"

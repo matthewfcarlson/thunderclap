@@ -164,6 +164,19 @@ double HULK_HOST_CDECL hulk_crt_log10_x87(double x) {
     __asm__("fldt %1" : "=t"(d) : "m"(r));
     return d;
 }
+// sqrt (opt1). msvcrt.dll's sqrt runs fsqrt, which Rosetta 2 emulates in software: 10-12% of a headless play3 replay
+// sat on that one instruction (HULK_PROF, docs/wine-build.md "Replay speed"). SSE2's sqrtsd gives the same double: both
+// are the correctly rounded square root at 53 bits (the game's precision control, round to nearest), and the value
+// comes back in st(0) as before. Negative arguments and NaNs still go to msvcrt's (its NaN and errno). tools/wine_host.py
+// binds the tree's sqrt here unless HULK_WINE_SQRT=msvcrt.
+double HULK_HOST_CDECL hulk_host_sqrt(double);
+__attribute__((target("sse2"))) double HULK_HOST_CDECL hulk_crt_sqrt(double x) {
+    if (!(x >= 0.0))
+        return hulk_host_sqrt(x);
+    double r;
+    __asm__("sqrtsd %1, %0" : "=x"(r) : "x"(x));
+    return r;
+}
 #endif
 #if defined(HULK_SOFT_X87)
 // soft-intrinsics (docs/soft-x87.md): the same functions computed by softx87.cpp, integer arithmetic only, what real x87

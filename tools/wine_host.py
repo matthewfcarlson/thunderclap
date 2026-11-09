@@ -35,7 +35,7 @@ LIB_TABLE = os.path.join(ROOT, "src/platform/sdl/xdk/library.h")
 # start-up's _initterm call). Null words are linker padding between the `.CRT$XCU` contributions.
 XC_A, XC_Z = 0x0048ca90, 0x0048d4f4
 # game code reaches library code in these spans (docs/platform-boundary.md "Where library code lives")
-LIB_SPANS = [(0x208b9c, 0x212bb0), (0x3440e0, 0x356bf0), (0x35a7b0, 0x35be88), (0x364840, 0x3f2be0)]
+LIB_SPANS = [(0x208b9c, 0x212bb0), (0x33eb70, 0x33ed90), (0x3440e0, 0x356bf0), (0x35a7b0, 0x35be88), (0x364840, 0x3f2be0)]
 MAIN_ADDR = 0x0008ee30          # the game's main (Ghidra label `main`; matches/0x0008ee30.cpp)
 
 
@@ -160,6 +160,9 @@ def host_crt(cp, outdir):
     if os.environ.get("HULK_WINE_LOG10", "x87") != "msvcrt":   # (flt2) the original's inlined fldlg2/fyl2x (crt_glue.cpp)
         crt = [(a, "hulk_crt_log10_x87" if t == "log10" else t, n) for a, t, n in crt]
         st["log10 x87"] = 1
+    if os.environ.get("HULK_WINE_SQRT", "sse") != "msvcrt":    # (opt1) sqrtsd, the same double as msvcrt's fsqrt (crt_glue.cpp)
+        crt = [(a, "hulk_crt_sqrt" if t == "sqrt" else t, n) for a, t, n in crt]
+        st["sqrt sse"] = 1
     if soft:
         crt = [(a, SOFT_X87_REMAP.get(t, t), n) for a, t, n in crt]
         st["soft x87 math"] = 1
