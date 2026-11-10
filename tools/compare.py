@@ -55,7 +55,11 @@ def compile_obj(src, flags, out_dir):
     env = dict(os.environ, INCLUDE=os.path.join(MSVC, "Include") + ";" + os.path.join(ROOT, "include"))
     # cl parses a leading "/" as a switch, so pass the source relative to its own directory.
     src_dir, src_name = os.path.split(os.path.abspath(src))
-    cmd = [WIBO, os.path.join(MSVC, "Bin/cl.exe")] + list(flags) + file_flags(src) + ["/Fo" + obj, src_name]
+    import tree_tu
+    # (merge-once) a tree TU, or a temporary copy of one (equiv.py's probes): /I its tree's include/ (tools/tree_tu.py)
+    with tree_tu.active(src) if not tree_tu.ACTIVE else _nullcontext():
+        inc = tree_tu.msvc_include_flags(src_dir)
+    cmd = [WIBO, os.path.join(MSVC, "Bin/cl.exe")] + list(flags) + file_flags(src) + inc + ["/Fo" + obj, src_name]
     r = subprocess.run(cmd, env=env, capture_output=True, text=True, cwd=src_dir)
     if r.returncode != 0 or not os.path.exists(obj):
         # Drop the echoed file name; keep paths short for the model.
@@ -67,6 +71,14 @@ def compile_obj(src, flags, out_dir):
 
 class CompileError(Exception):
     pass
+
+
+class _nullcontext:
+    def __enter__(self):
+        return None
+
+    def __exit__(self, *a):
+        return False
 
 
 class Coff:
@@ -233,11 +245,29 @@ def thiscall_decls(coff, sym, addr, target):
 def compare(src, addr, symbol=None, flags=()):
     """Compile src and compare against the function at addr. Returns a result dict."""
     tname, target = target_bytes(addr)
-    with tempfile.TemporaryDirectory() as tmp:
-        try:
-            coff = Coff(compile_obj(src, DEFAULT_FLAGS + list(flags), tmp))
-        except CompileError as e:
-            return {"status": "compile_error", "target": tname, "error": str(e)}
+    import tree_tu
+    if tree_tu.is_tree_tu(src):
+        # (merge-once) SRC is a tree TU: the function at ADDR inside the TU's object (cached by content), found the way
+        # tools/build_tree.py's verification finds it (a pinned `// sym:` line, the definition's mangled-name prefix,
+        # its fn_<addr> namespace: tools/tree_tu.py). Extra cl flags don't apply (the TU's object is the build's).
+        objp, err = tree_tu.compile_tu(src)
+        if objp is None:
+            return {"status": "compile_error", "target": tname, "error": err}
+        coff = Coff(objp)
+        if not symbol:
+            try:
+                rec = tree_tu.record(src, addr)
+            except KeyError as e:
+                return {"status": "no_function", "target": tname, "error": str(e)}
+            if not rec.get("symbol"):
+                return {"status": "no_function", "target": tname, "error": "no function of the TU is this block's"}
+            symbol = rec["symbol"]
+    else:
+        with tempfile.TemporaryDirectory() as tmp:
+            try:
+                coff = Coff(compile_obj(src, DEFAULT_FLAGS + list(flags), tmp))
+            except CompileError as e:
+                return {"status": "compile_error", "target": tname, "error": str(e)}
     syms = coff.function_symbols()
     if symbol:
         syms = [s for s in syms if s[0] == symbol] or [s for s in syms if symbol in s[0]]

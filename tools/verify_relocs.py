@@ -280,18 +280,31 @@ def libname_address_issue(name, target):
 
 
 def check(src, addr):
-    st = state()
-    xbe = st["xbe"]
     r = compare(src, addr)
     if r["status"] not in ("match", "thiscall_decl"):       # (cl5: thiscall_decl is reported as an issue below)
         return {"addr": "0x%08x" % addr, "status": "not_matching", "detail": r["status"]}
-    with tempfile.TemporaryDirectory() as tmp:
-        try:
-            objp = compile_obj(src, DEFAULT_FLAGS, tmp)
-            coff = Coff(objp)
-        except CompileError as e:
-            return {"addr": "0x%08x" % addr, "status": "compile_error", "detail": str(e)[:200]}
+    import tree_tu
+    if tree_tu.is_tree_tu(src):
+        # (merge-once) a tree TU: the function inside the TU's object (cached; tools/tree_tu.py)
+        objp, err = tree_tu.compile_tu(src)
+        if objp is None:
+            return {"addr": "0x%08x" % addr, "status": "compile_error", "detail": err[:200]}
+        coff = Coff(objp)
+    else:
+        with tempfile.TemporaryDirectory() as tmp:
+            try:
+                objp = compile_obj(src, DEFAULT_FLAGS, tmp)
+                coff = Coff(objp)
+            except CompileError as e:
+                return {"addr": "0x%08x" % addr, "status": "compile_error", "detail": str(e)[:200]}
     sym = next(s for s in coff.function_symbols() if s[0] == r["symbol"])
+    return check_object(coff, sym, addr)
+
+
+def check_object(coff, sym, addr):
+    """The relocation checks of function SYM of COFF, which byte-matches the original at ADDR."""
+    st = state()
+    xbe = st["xbe"]
     issues, mapping = [], {}
     calls, thisdecls = {}, []
     for off, target_sym, typ, addend_bytes in coff.function_relocs(sym):
@@ -350,6 +363,9 @@ def check(src, addr):
                 issues.append(("not_a_vftable", name))
             else:
                 ours_cls = name[len("??_7"):].split("@6B")[0]
+                # (merge-once) a tree TU's namespaces (a wrapped block's fn_<addr>, the TU's fn_f<7 hex>) are not part
+                # of the class the vftable belongs to
+                ours_cls = re.sub(r"fn_f?[0-9a-f]{7,8}@", "", ours_cls)
                 if ".?AV" + ours_cls + "@" != owner and ".?AU" + ours_cls + "@" != owner \
                         and ours_cls + "@" not in owner:
                     issues.append(("vftable_of_other_class", name))  # names may be invented: warning

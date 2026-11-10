@@ -128,6 +128,12 @@ def front_flags(target):
             "-std=c++14", "-O0"] + cp.NATIVE + ["-fcheck-new", "-ffp-eval-method=double", "-ffp-contract=off"]
 
 
+def tree_inc():
+    """(merge-once) -I the tree's include/ while a tree TU is checked (tools/tree_tu.py)."""
+    import tree_tu
+    return tree_tu.clang_include_flags()
+
+
 def clangxx():
     c = cp.tool("clang++")
     if not c:
@@ -139,7 +145,7 @@ def compile64(wrapper, d):
     """x86_64-pc-windows-msvc object + the vftable dump (slot -> method) of every class whose layout codegen used."""
     obj = os.path.join(d, "x64.obj")
     cmd = [clangxx()] + front_flags("x86_64-pc-windows-msvc") + [
-        "-c", "-w", "-Xclang", "-fdump-vtable-layouts", "-I" + d, "-I" + os.path.join(ROOT, "include"), wrapper, "-o", obj]
+        "-c", "-w", "-Xclang", "-fdump-vtable-layouts", "-I" + d] + tree_inc() + ["-I" + os.path.join(ROOT, "include"), wrapper, "-o", obj]
     r = subprocess.run(cmd, capture_output=True, text=True, errors="replace", timeout=600)
     if r.returncode:
         raise CompileError((r.stderr or "")[-1500:])
@@ -369,7 +375,7 @@ class TU:
     def __init__(self, wrapper, d, target, bits):
         m = ci()
         self.bits, self.ptr = bits, bits // 8
-        args = [a for a in front_flags(target) if a not in ("-O0",)] + ["-w", "-I" + d, "-I" + os.path.join(ROOT, "include")]
+        args = [a for a in front_flags(target) if a not in ("-O0",)] + ["-w", "-I" + d] + tree_inc() + ["-I" + os.path.join(ROOT, "include")]
         self.tu = m.Index.create().parse(wrapper, args=args)
         errs = [str(x) for x in self.tu.diagnostics if x.severity >= 3]
         if errs:
@@ -2881,6 +2887,21 @@ def classify(a, b, s64):
 
 # ------------------------------------------------------------------------------------------------- driver
 def verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120, verbose=False):
+    import tree_tu
+    if src and tree_tu.is_tree_tu(src):
+        # (merge-once) a tree TU: its whole text is the source; the function at ADDR is the one the tree's rules name
+        # (tools/tree_tu.py), the tree's include/ is on every compile's path
+        with tree_tu.active(src):
+            if symbol is None:
+                try:
+                    symbol = tree_tu.record(src, addr).get("symbol")
+                except KeyError as e:
+                    return {"addr": "0x%08x" % addr, "src": src, "mode": "x64", "status": "no_function", "error": str(e)}
+            return _verify64(src, addr, symbol, n_inputs, seeds, time_budget, verbose)
+    return _verify64(src, addr, symbol, n_inputs, seeds, time_budget, verbose)
+
+
+def _verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120, verbose=False):
     t0 = time.time()
     rep = {"addr": "0x%08x" % addr, "src": src, "mode": "x64", "status": "fail"}
     try:

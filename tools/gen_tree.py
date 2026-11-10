@@ -91,6 +91,30 @@ import stub_layout  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 GEN_OFF = set(os.environ.get("HULK_GEN_TREE_OFF", "").split(","))     # switch named changes off (A/B: cdefsig, defsig)
+# (merge-once, docs/merge-once.md) HULK_GEN_TREE_NOTES=1: a merged block keeps its source's notes (the leading comment
+# block: `// STATUS:`, provenance, and every `// equiv-*` directive) after its `// 0xADDR` line, so the tree can stand on
+# its own (tools/tree_tu.py reads a block's directives from them). Wrapped and isolated blocks are verbatim anyway.
+# Comments only: the code is the same; off by default (the tree's text, and so its object cache keys, stay as they are).
+KEEP_NOTES = os.environ.get("HULK_GEN_TREE_NOTES") == "1"
+NOTE_LINE = re.compile(r"^\s*//")
+DIRECTIVE_LINE = re.compile(r"^\s*//\s*equiv-[a-z]+:")
+
+
+def source_notes(text):
+    """A source's notes: its leading comment lines (before the first line of code; preprocessor lines and blank lines
+    don't end the block) and every `// equiv-*:` line elsewhere. Not the `// cl-flags:` line (the TU carries it)."""
+    out, lead = [], True
+    for l in text.splitlines():
+        s = l.strip()
+        if lead and (not s or s.startswith("#")):
+            continue
+        if lead and NOTE_LINE.match(l):
+            out.append(l.rstrip())
+            continue
+        lead = False
+        if DIRECTIVE_LINE.match(l):
+            out.append(l.rstrip())
+    return [l for l in out if "cl-flags:" not in l]
 SPLITS = os.path.join(ROOT, "config/splits.json")
 FUNCS_CSV = os.path.join(ROOT, "build/functions.csv")
 TREE = os.path.join(ROOT, "build/tree")
@@ -1361,6 +1385,8 @@ class Generator:
                 d = b.defs[0]
                 lead = d.lead.strip("\n")
                 lead_lines = [l for l in lead.splitlines() if l.strip().startswith("//") and "cl-flags" not in l]
+                if KEEP_NOTES:
+                    lines += [l for l in source_notes(b.text) if l not in lead_lines and l not in d.text]
                 lines += lead_lines
                 lines += emit_item(d)
             elif b.mode == "wrapped":

@@ -3047,6 +3047,11 @@ _DECL_KINDS = {"void": "void", "bool": "b8", "char": "i8", "unsigned char": "i8"
                "unsigned long": "i32", "long int": "i32", "unsigned long int": "i32"}
 
 
+TREE_EXTERNAL = set()   # (merge-once) the other functions of a tree TU: separate functions, never run as part of ours
+TREE_ADDR = []      # (merge-once) the address of the function under test while a tree TU is checked
+TREE_TEXT = {}      # (merge-once) tree TU -> the text a function's own declarations are read from (tools/tree_tu.py)
+
+
 def decl_c_signature(src, symbol, types=False):
     """(round 27, cdeclret) (return kind, [parameter kinds] or None) of a C-linkage function (`_name`, `_name@N`,
     `@name@N`: the symbol carries no types) from our own source's top-level declarations or definition of it, as a
@@ -3060,7 +3065,7 @@ def decl_c_signature(src, symbol, types=False):
         return none
     try:
         import cxx_items
-        items = cxx_items.parse(open(src, errors="replace").read())
+        items = cxx_items.parse(TREE_TEXT.get(src) or open(src, errors="replace").read())
     except (OSError, ValueError, ImportError):
         return none
     td, classes, enums = {}, set(), set()
@@ -3305,6 +3310,12 @@ def _tree_names(obj, names):
     out = {}
     for n in want:
         hits = keyed.get(_tree_key(n)) or []
+        if len(hits) > 1 and TREE_ADDR:
+            # (merge-once) a tree TU: several wrapped blocks declare the name in their own fn_<addr> namespace; the
+            # function's own block's is the one its line means
+            own = [h for h in hits if "@fn_%08x@" % TREE_ADDR[-1] in h] or \
+                [h for h in hits if re.search(r"@fn_f[0-9a-f]{7}@", h)]     # (else the TU namespace's, a merged block's)
+            hits = own or hits
         if len(hits) == 1:
             out[n] = hits[0]
     return out
@@ -6860,7 +6871,7 @@ class Ours:
     def local_relocs(self):
         """[(offset, sym, type, addend)] of functions defined in our object that our function reaches."""
         out, seen = [], {self.func_sym[0]}
-        work = [s for _, s, _, _ in self.relocs if s is not None and s[2] > 0 and s[3] == 0x20]
+        work = [s for _, s, _, _ in self.relocs if s is not None and s[2] > 0 and s[3] == 0x20 and s[0] not in TREE_EXTERNAL]
         while work:
             fs = work.pop()
             if fs[0] in seen:
@@ -6875,7 +6886,7 @@ class Ours:
                     if sym is None or (sym[2] == secnum and not sym[0].startswith(("?", "_"))):
                         continue
                     out.append((va - value, sym, typ, struct.unpack_from("<i", raw, va)[0]))
-                    if sym[2] > 0 and sym[3] == 0x20:
+                    if sym[2] > 0 and sym[3] == 0x20 and sym[0] not in TREE_EXTERNAL:
                         work.append(sym)
         return out
 
@@ -7071,6 +7082,11 @@ def name_address(prog, name):
     if len(prog.names.get(name, [])) == 1:          # functions.csv keeps some names mangled (the CRT's undname)
         return prog.names[name][0], "name"
     q = _qualified(name)
+    if q and TREE_ADDR and "treens" not in EQUIV_OFF:
+        # (merge-once) a tree TU's namespaces (fn_<addr> of a wrapped block, fn_f<7 hex> of the TU) are not part of the
+        # name: `fn_001bb0b0::thunk_FUN_000fc1b0` is the thunk the functions table names, not FUN_000fc1b0. Only while a
+        # tree TU is checked: the Wine build's binding map (wine_link) reads names its own way and must not move
+        q = re.sub(r"(?:^|(?<=::))fn_f?[0-9a-f]{7,8}::", "", q)
     base = q or re.sub(r"^[_@]|@\d+$", "", name)
     if len(prog.names.get(base, [])) == 1:          # exact Ghidra/RTTI name (thunk_FUN_x is not FUN_x)
         return prog.names[base][0], "name"
@@ -8704,7 +8720,10 @@ def compile_native(src, outdir, extra=(), tail_asm=None):
         with open(wrap, "w") as f_:
             f_.write('#include "%s"\n__asm__("%s");\n' % (os.path.abspath(src).replace("\\", "/"), tail_asm.replace("\t", "\\t").replace('"', '\\"')))
         src = wrap
-    cmd_ = [clang] + flags + list(extra) + ["-I" + os.path.join(ROOT, "include"), src, "-o", obj]
+    import tree_tu
+    # (merge-once) a tree TU (or a wrapper of one): its tree's include/ first, as clang_probe compiles it
+    cmd_ = [clang] + flags + list(extra) + tree_tu.clang_include_flags() + ["-I" + os.path.join(ROOT, "include"), src,
+                                                                           "-o", obj]
     if sse:
         # (perf1) the SSE build (HULK_WINE_FLOAT=sse) compiles through clang_probe's IR passes: check the same code
         rc_, err_ = cp.sse_compile(cmd_, obj)
@@ -9197,7 +9216,7 @@ def _reached_functions(obj, fsym):
         for va, si, typ in obj.sections[secnum - 1]["relocs"]:
             if value <= va < end:
                 s_ = obj.syms.get(si)
-                if s_ is not None and s_[0] in fns and s_[0] not in seen:
+                if s_ is not None and s_[0] in fns and s_[0] not in seen and s_[0] not in TREE_EXTERNAL:
                     work.append(fns[s_[0]])
     return out
 
@@ -9332,6 +9351,55 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
            conventions=None, level3_fn=None, seeds=None, native=False):
     """Run levels 1-3 for SRC against the original function at ADDR. Returns the report dict.
 
+    (merge-once) SRC may be a tree TU (tools/tree_tu.py): the function at ADDR is checked inside the TU's object (the
+    MSVC object from the tree's cache, or the TU compiled with clang under --wine), found by the tree's rules, with the
+    directives of its own block only."""
+    import tree_tu
+    if src and tree_tu.is_tree_tu(src):
+        with tree_tu.active(src):
+            try:
+                recs_ = tree_tu.check_tu(src)
+            except Exception as e:      # noqa: BLE001
+                return {"addr": "0x%08x" % addr, "src": src, "level": 0, "status": "compile_error", "error": repr(e)[:300]}
+            r_ = next((x for x in recs_ if int(x["addr"], 16) == addr), None)
+            if r_ is None:
+                return {"addr": "0x%08x" % addr, "src": src, "level": 0, "status": "no_function",
+                        "error": "%s has no block for 0x%08x" % (src, addr)}
+            symbol = symbol or r_.get("symbol")
+            # the TU's other verified functions are separate functions of the original: a call to one is a call to its
+            # address, as when the function is checked from its own source (where they are declared, not defined), not
+            # our copy run in place. Bound by name (MSVC's mangling; clang's where it is the same); explicit lines win
+            if "treeext" not in EQUIV_OFF:
+                ext_ = {x["symbol"]: int(x["addr"], 16) for x in recs_
+                        if x.get("symbol") and int(x["addr"], 16) != addr and x.get("symbol") != symbol}
+                mapping = dict(ext_, **(mapping or {}))
+                TREE_EXTERNAL.clear()
+                TREE_EXTERNAL.update(ext_)
+            if obj_path is None and not native:
+                obj_path, err_ = tree_tu.compile_tu(src)
+                if obj_path is None:
+                    return {"addr": "0x%08x" % addr, "src": src, "level": 0, "status": "compile_error", "error": err_}
+            # (a TU declares one name differently in different wrapped blocks: the function's own declarations are the
+            # TU's shared part, before its first block, and its block)
+            TREE_TEXT[src] = tree_tu.unit_text(src, addr)
+            TREE_ADDR.append(addr)
+            try:
+                return _verify(src, addr, symbol, flags, n_inputs, max_inputs, mapping, max_level, max_steps, use_names,
+                               clang, obj_path, keep_runs, time_budget, conventions, level3_fn, seeds, native,
+                               src_lines=tree_tu.block_lines(src, addr))
+            finally:
+                TREE_TEXT.pop(src, None)
+                TREE_ADDR.pop()
+                TREE_EXTERNAL.clear()
+    return _verify(src, addr, symbol, flags, n_inputs, max_inputs, mapping, max_level, max_steps, use_names, clang,
+                   obj_path, keep_runs, time_budget, conventions, level3_fn, seeds, native)
+
+
+def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mapping=None, max_level=3,
+            max_steps=50000, use_names=True, clang=False, obj_path=None, keep_runs=False, time_budget=120,
+            conventions=None, level3_fn=None, seeds=None, native=False, src_lines=None):
+    """verify() (SRC_LINES: the lines its directives are read from, default all of SRC).
+
     seeds: run only these random seeds (a regression case for one input out of thousands); EQUIV_SEEDS=1,2 too.
     level3_fn: run this instead of the fuzzing level 3 (tools/equiv_replay.py replays recorded game states);
     it gets the same setup as level3() as keyword arguments and its result is returned as rep["replay"]."""
@@ -9347,8 +9415,8 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     explicit = dict(mapping or {})
     conv_lines = list(conventions or [])
     dead_lines = []             # `// equiv-dead: +0x52 taken, +0x61 not taken: why` (hand-reviewed)
-    if src and os.path.exists(src):
-        for line in open(src, errors="replace"):
+    if src_lines is not None or src and os.path.exists(src):
+        for line in (src_lines if src_lines is not None else open(src, errors="replace")):
             m = re.match(r"\s*//\s*equiv-map:\s*(\S+)\s*=\s*(0x[0-9a-fA-F]+)", line)
             if m:
                 explicit.setdefault(m.group(1), int(m.group(2), 16))

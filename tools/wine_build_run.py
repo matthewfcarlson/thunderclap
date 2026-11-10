@@ -563,7 +563,19 @@ def main():
                         "why": why}
     log("decision: %s" % json.dumps(summ["decision"]))
     ok = True
-    if "build" in stages:
+    tree_source = env.get("HULK_TREE_SOURCE") == "1"
+    if "build" in stages and tree_source:
+        # (merge-once, docs/merge-once.md) the committed tree is the source: no build_tree rounds, one verification pass
+        # over its TUs (tools/tree_tu.py materialize: compiles what the object cache lacks) into build/tree
+        argv = [py, "tools/tree_tu.py", "materialize", "--out", os.path.join(lin, "build/tree"), "--jobs", jobs]
+        rc, wall = stage("build", argv, env, lin, out)
+        summ["wall"]["build"], summ["stages"]["build"] = wall, rc
+        summ["decision"]["why"]["state"] = "tree source: materialize (no fallback rounds)"
+        if rc == 0:
+            jsave(os.path.join(lin, ".nb/built.json"), manifest)
+        else:
+            ok = False
+    elif "build" in stages:
         if not resume:
             shutil.rmtree(os.path.join(lin, "build/tree"), ignore_errors=True)
         argv = [py, "tools/build_tree.py", "--jobs", jobs, "--rounds", "16", "--regression-rounds", "4"] + (["--resume"] if resume else [])
