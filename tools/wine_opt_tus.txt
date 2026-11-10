@@ -1,0 +1,35 @@
+# Game TUs the Wine build compiles at -O1 with wine_build_job.py --opt hot (clang_probe HULK_WINE_OPT_ONLY; docs/wine-build.md
+# "Replay speed"): the TUs with the most HULK_PROF samples in a headless play3 replay. Each must keep play3's checkpoints
+# identical to the -O0 build (ckpt_gate GATE ok, every hash equal). Never listed: ProjectileEffect.cpp (crashes at -O1).
+src/engine/audio/HalRadicalAdpcmDecodeStream.cpp
+src/platform/xbox/audio/unk_258f40.cpp
+src/engine/unknown/unk_22baf0.cpp
+src/game/unknown/unk_08ed50.cpp
+src/engine/pure3d/SpriteParticleUpdater.cpp
+src/engine/pure3d/pddiBaseContext.cpp
+src/engine/choreo2/AnimationDriver.cpp
+src/engine/pure3d/ShadowSkinLoader.cpp
+src/game/global/CController.cpp
+src/engine/audio/OmHalStream.cpp
+src/engine/pure3d/OldCompositeDrawableLoader.cpp
+src/engine/pure3d/SpriteParticleRenderer.cpp
+src/engine/pure3d/TextureFontLoader.cpp
+src/engine/audio/StreamPlayerAllocator.cpp
+src/game/hulkfight/unk_0185f0.cpp
+src/engine/pure3d/OpaqueTraversal.cpp
+src/platform/xbox/core/ControllerXBox.cpp
+src/engine/pure3d/TranslucentTraversal.cpp
+src/engine/unknown/unk_24cc00.cpp
+src/engine/physics/CollisionMesh.cpp
+src/engine/unknown/unk_22b650.cpp
+src/engine/pure3d/unk_289ed0.cpp
+src/game/Render/Canvas/HulkShaderCallback.cpp
+src/engine/unknown/unk_212bb0.cpp
+src/engine/unknown/unk_2ed240.cpp
+src/engine/pure3d/DisplayList.cpp
+src/engine/unknown/unk_357740.cpp
+src/game/global/FEThingsBase_3.cpp
+src/engine/physics/CollisionSphere.cpp
+src/engine/physics/unk_2e6780.cpp
+src/engine/physics/CollisionObjectLoader.cpp
+src/engine/physics/unk_2fa6b0.cpp

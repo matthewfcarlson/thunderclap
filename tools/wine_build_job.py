@@ -53,6 +53,12 @@ HASHCACHE = os.path.join(jobq.JOBS, "nb-hashcache.json")
 RECS = {"play3": "build/rp1/play3.hrp"}
 
 
+# --opt (opt1, docs/wine-build.md "Replay speed"): which game TUs clang_probe compiles optimised. o0 is the reference
+# build (every TU -O0); hot compiles the TUs tools/wine_opt_tus.txt names at -O1 (the replay's hottest, each gated
+# against o0 on play3). An explicit --env HULK_WINE_OPT... wins.
+OPT_ENV = {"o0": {}, "hot": {"HULK_WINE_OPT": "O1", "HULK_WINE_OPT_ONLY": "tools/wine_opt_tus.txt"}}
+
+
 def local_dir(d):
     """Where an input directory comes from on this machine: `--data-src DIR` (HULK_NB_DATA_SRC) replaces the shared
     build/data/src with a private set of data TUs (a data_gen change under test), shipped under the same name."""
@@ -422,7 +428,7 @@ def cmd_submit(a):
     else:
         slots = a.slots or 8
     spec = {"lineage": lineage, "stages": stages, "gfx": bool(a.gfx), "state": "seed" if seed else a.state, "map": a.map, "jobs": slots,
-            "inputs_stamp": stamp, "deletions": dele, "env": dict(e.split("=", 1) for e in a.env or []),
+            "inputs_stamp": stamp, "deletions": dele, "env": dict(OPT_ENV[a.opt], **dict(e.split("=", 1) for e in a.env or [])),
             "fetch": a.fetch or [], "slots_low": a.slots_low}
     ov = {"nbrun/wine_build_run.py": os.path.join(ROOT, "tools/wine_build_run.py"),
           "nbrun/wine_replay_job.py": os.path.join(ROOT, "tools/wine_replay_job.py")}
@@ -536,6 +542,8 @@ def main():
     s.add_argument("--gfx", action="store_true", help="link with the pddi/bgfx backend (wine_link.py --gfx)")
     s.add_argument("--stages", help="comma list of build,probe,link,replay (default: all requested)")
     s.add_argument("--data-src", help="a private build/data/src (data TUs of a data_gen change under test)")
+    s.add_argument("--opt", choices=sorted(OPT_ENV), default="o0",
+                   help="optimised game objects: o0 (the reference, default) or hot (tools/wine_opt_tus.txt at -O1)")
     s.add_argument("--sdl-src", help="a private build/third_party/out/sdl-backends/win32 (hulk_sdl.lib of an audio/input "
                    "change under test: HULK_TP_OUT=OUT tools/wine_sdl.py backends --target win32)")
     s.add_argument("--state", default="auto", type=state_arg, metavar="auto|fresh|resume|seed:JOB",
