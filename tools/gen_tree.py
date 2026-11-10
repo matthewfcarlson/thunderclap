@@ -1408,7 +1408,7 @@ class Generator:
                 text, n_cdefs = c_var_declarations(text)
                 if n_cdefs:
                     self.stats["C-linkage variable definitions in wrapped sources emitted as declarations"] += n_cdefs
-                for nm in pinned:
+                for nm in sorted(pinned):     # (build6: in name order, not set order: PYTHONHASHSEED)
                     if nm not in clink.global_names and nm not in pin_declared:
                         # the one global C declaration the source's typed views read (see pin_views)
                         lines.append('extern "C" { extern void* %s; }   // (pinned global: one C name for every view)' % nm)

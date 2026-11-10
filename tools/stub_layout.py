@@ -788,7 +788,7 @@ def merge_variants(variants):
     become one virtual plus inline forwarders."""
     v0 = variants[0]
     cname = v0.cls.name
-    keys = {v.cls.key for v in variants}
+    keys = sorted({v.cls.key for v in variants})     # (build6: sorted, so a tie is broken by name, not set order)
     key = max(keys, key=lambda k: sum(v.users for v in variants if v.cls.key == k))
     for v in variants:
         if v.cls.scope != v0.cls.scope:
