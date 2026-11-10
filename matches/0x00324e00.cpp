@@ -1,7 +1,10 @@
 // FUN_00324e00 @ 0x00324e00
 // FUN_00324e00 @ 0x00324e00
+#include "compat/ptr.h"
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
+// The pddi objects below live on the game's heap (the original's inlined operator new is the allocator call).
 struct HeapObj {
-    static void* operator new(unsigned size) throw();
+    static void* operator new(hulk_uintptr size) throw() { return FUN_0008d690((unsigned int)size); }
 };
 struct Matrix {
     float m[16];
@@ -100,13 +103,14 @@ class d3dExtFrameBufferTexture : public HeapObj {
 extern "C" void FUN_00328690(d3dContext*);
 struct LargeInt { unsigned int lo; int hi; };
 void __stdcall FUN_00354ce2(LargeInt*);
-class pddiBaseContext {
+// pddiBaseContext, named by its constructor's address (0x0031f410) so that the native link binds the base-constructor call.
+class FUN_0031f410 {
   public:
-    pddiBaseContext(AssetSource* a, Allocator* b) throw();
+    FUN_0031f410(AssetSource* a, Allocator* b) throw();
     virtual void f0();
     char pad[0x14c - 4];
 };
-class d3dContext : public pddiBaseContext {
+class d3dContext : public FUN_0031f410 {
   public:
     int counter;
     StateCache* stateCache;
@@ -146,7 +150,7 @@ class d3dContext : public pddiBaseContext {
     virtual void f1();
     d3dContext(AssetSource* a, Allocator* b) throw();
 };
-d3dContext::d3dContext(AssetSource* a, Allocator* b) throw() : pddiBaseContext(a, b) {
+d3dContext::d3dContext(AssetSource* a, Allocator* b) throw() : FUN_0031f410(a, b) {
     counter = 0;
     f168 = 0;
     f204 = 0;

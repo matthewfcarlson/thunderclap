@@ -1,11 +1,17 @@
 namespace D3D8 {
 void __stdcall D3D_GetDeviceCaps(int, int, void*);
 }
+#include "compat/ptr.h"
+#include "decls/data/records.h"
+extern "C" char DAT_0043242c[];  // pure3d::d3dDisplay's vftable
 namespace pure3d {
-class pddiObject {
+// pddiObject (0x0031bac0 constructs it: its vftable, then two words). The class is named by its constructor's address
+// so that the native link binds the base-constructor call; the vftables are stored by address (a local class's own
+// vftable would be the 64-bit link's stub).
+class FUN_0031bac0 {
   public:
-    pddiObject() throw();
-    virtual void p0();
+    FUN_0031bac0() throw();
+    void* vftable;
     int field4;
     int field8;
 };
@@ -13,10 +19,9 @@ struct DisplayMode_31b520 {
     void FUN_00292330();
     char data[0x34];
 };
-class d3dDisplay : public pddiObject {
+class d3dDisplay : public FUN_0031bac0 {
   public:
     d3dDisplay(int arg) throw();
-    virtual void v1();
     int field_c;
     int field_10;
     char pad14[0x58 - 0x14];
@@ -30,6 +35,8 @@ class d3dDisplay : public pddiObject {
     int field498;
 };
 d3dDisplay::d3dDisplay(int arg) throw() {
+    HULK_SIZE32(d3dDisplay, 0x49c);
+    vftable = (void*)DAT_0043242c;
     mode.FUN_00292330();
     field_c = arg;
     field_10 = 0;

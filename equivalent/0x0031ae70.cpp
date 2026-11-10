@@ -3,7 +3,7 @@
 #include "decls/data/engine/unknown.h"
 
 typedef unsigned long DWORD;
-extern "C" void* memset(void*, int, unsigned int);
+extern "C" void* memset(void*, int, hulk_uintptr);
 struct PresentParams {
     DWORD BackBufferWidth;
     DWORD BackBufferHeight;
@@ -62,7 +62,12 @@ Texture* __stdcall D3DDevice_CreateTexture2(DWORD, DWORD, DWORD, DWORD, DWORD, D
 void __stdcall D3DResource_Release(void*);
 void __stdcall D3DDevice_SetVerticalBlankCallback(void (__cdecl*)(void*));
 }
+#if defined(HULK_PTR64)
+int __cdecl FUN_0031adf0(int index);   // the definition's type (equivalent/0x0031adf0.cpp returns the mode flags | 1): the
+                                      // native link checks the IR signatures agree
+#else
 bool FUN_0031adf0(int index);
+#endif
 extern "C" void __cdecl FUN_0031c230(int);
 unsigned char FUN_00356667();
 void __stdcall FUN_0037d8e0(int, int);

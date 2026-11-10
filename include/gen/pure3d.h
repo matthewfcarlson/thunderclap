@@ -325,7 +325,7 @@ public:
     virtual void vfunc_4(int) = 0; // slot 4
     virtual void vfunc_5(int) = 0; // slot 5
     virtual unsigned int vfunc_6() = 0; // slot 6
-    virtual int vfunc_7(int) = 0; // slot 7
+    virtual void* vfunc_7(int) = 0; // slot 7
     virtual void* vfunc_8(void*) = 0; // slot 8
     virtual void* vfunc_9(hulk_intptr) = 0; // slot 9
     virtual void* vfunc_10(void*) = 0; // slot 10
@@ -3700,7 +3700,7 @@ public:
     virtual void vfunc_4(int); // overrides pure3d::pddiDevice slot 4
     virtual void vfunc_5(int); // overrides pure3d::pddiDevice slot 5
     virtual unsigned int vfunc_6(); // overrides pure3d::pddiDevice slot 6
-    virtual int vfunc_7(int); // overrides pure3d::pddiDevice slot 7
+    virtual void* vfunc_7(int); // overrides pure3d::pddiDevice slot 7
     virtual void* vfunc_8(void*); // overrides pure3d::pddiDevice slot 8
     virtual void* vfunc_9(hulk_intptr); // overrides pure3d::pddiDevice slot 9
     virtual void* vfunc_10(void*); // overrides pure3d::pddiDevice slot 10

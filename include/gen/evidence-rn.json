@@ -8321,6 +8321,18 @@
   "core::Request::vfunc_3": [
    "hulk_intptr",
    []
+  ],
+  "pure3d::pddiDevice::vfunc_7": [
+   "void*",
+   [
+    "int"
+   ]
+  ],
+  "pure3d::d3dDevice::vfunc_7": [
+   "void*",
+   [
+    "int"
+   ]
   ]
  },
  "members": {

@@ -1910,3 +1910,29 @@ batch's files, so the batch is committed on top of them with the control's base 
   vftable. The batch stored the game's vftable by address where the start-up tripped (0x00087e80, 0x00266480,
   0x0031b520); the general fix is the link's (bind a source's local vftable to the game's by the Wine map's pairing).
 
+
+### Batch 2: into the pddi device (sh2, 2026-11-09)
+
+With the proof's own map the start-up ran through every registration and the device probe and stopped in
+pddiDevice::newDisplay (0x0031b830, `Helper_31b830::f`); the iterations i5-i9 followed it into the pddi D3D layer:
+
+- 0x0031b830 (d3dDevice::newDisplay) calls the d3dDisplay constructor by its address (`FUN_0031b520`) and allocates
+  by a 0x49c-byte layout copy; its slot returns a pointer: include/gen/evidence-rn.json `sigs` gives
+  pure3d::pddiDevice::vfunc_7 / d3dDevice::vfunc_7 `void* (int)` (pure3d.h regenerated).
+- 0x0031b520 (the d3dDisplay constructor): pddiObject named by its constructor's address (`FUN_0031bac0`), the
+  display's vftable stored by address (DAT_0043242c), `HULK_SIZE32(d3dDisplay, 0x49c)`.
+- 0x0031b860 (newContext): `make` / `done` are FUN_00324e00 / FUN_00320d30. 0x00324e00 (the d3dContext
+  constructor): pddiBaseContext is `FUN_0031f410` (its constructor's address) and HeapObj's operator new is the
+  allocator call inline (the original's). 0x0031ae70 declares FUN_0031adf0 with the definition's `int` return under
+  `HULK_PTR64` (it returns the mode flags | 1; the 32-bit source keeps `bool`). 0x001d3250's base call is
+  `FUN_001d0480` (it said `Init`, which the fresh map does not bind; this rename went into 50104be67 after proof
+  70588's submission: a byte-matching source whose relocations reach the same addresses, so the Wine image is
+  unchanged).
+- Gates: the six matches MATCH + verify_relocs ok; 0x0031ae70 equivalent at 3,031 inputs, `--wine` 116, `--x64` 47.
+  Proof 70651 (studio, bc937de44 + batches 1 and 2, seed:70588) vs proof 70588: `ckpt_gate.py` GATE ok, 0 of 2,009 common
+  frames differ, PRNG hashes identical; Wine unbound 1,251, x87 keep list identical.
+- Start-up with the fresh map (i9): stops in pddiBaseContext's constructor 0x0031f410 at its members' invented names
+  (`vfunc_100` / `vfunc_101` / `vfunc_103`); continued, 0x00324e00's StateCache / LightPool / ext constructors
+  (invented class names) and a null in the d3dContext constructor. The pddi layer (devices, displays, contexts, the
+  ext objects) needs its names by address and records for its layouts (the D3D object word, the 0x14 / 0x49c sizes):
+  the next batch.
