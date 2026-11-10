@@ -90,6 +90,16 @@ STRICT_CASTS = None     # --strict-casts [target|all] (HULK_WINE_STRICT_CASTS): 
 ADDR_RX = re.compile(r"(?:^|[^0-9A-Za-z])(?:FUN|DAT|thunk_FUN|PTR|LAB|hulk_at|vtbl|rttiTD)_(00[0-9a-fA-F]{6})(?![0-9a-fA-F])")
 
 
+_T = [time.time()]
+
+
+def _tmark(label):
+    """`[time]` lines on stderr (the stage log, nb-out/link.log): where a link run's time goes (build3)."""
+    now = time.time()
+    print("  [time] %s %.1f s" % (label, now - _T[0]), file=sys.stderr, flush=True)
+    _T[0] = now
+
+
 def is_undefined(sym):
     return sym is not None and sym[2] == 0 and sym[4] == 2      # IMAGE_SYM_UNDEFINED, external
 
@@ -530,6 +540,7 @@ def clang_objects():
 def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None, amb_fn=None, local_data=None,
                    local_code=None):
     cp, tus, res = clang_objects()
+    _tmark("link: clang objects")
     man = cp.Manifest()
     objs = {p: r["obj"] for p, r in res.items() if r.get("obj")}
     syms = cp.nm(sorted(objs.values()))
@@ -581,6 +592,7 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
             how["definition with a hulk_freg (double) return (native16)"] += 1
     # fix 6b: the verified scalar deleting destructors clang doesn't emit (build/native/link/deleting.s)
     dd = deleting_destructors(defs, defined)
+    _tmark("link: deleting destructors")
     for s, addrs in dd["symbols"].items():
         defined.add(s)
         for a in addrs:
@@ -592,6 +604,7 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
     # fix 7 (first part): the XDK import shim (src/platform/sdl/xdk/), whose stand-ins define the platform imports
     # by address and name
     shim = platform_shim(cp)
+    _tmark("link: platform shim")
     if SDL_LIBS:        # (the backends' and SDL3's own symbols: never stubbed, the libraries define them)
         r_ = subprocess.run([wine_host.LLVM + "/llvm-nm", "--defined-only", "-g"] + SDL_LIBS,
                             capture_output=True, text=True)
@@ -623,6 +636,7 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
     # d3dCreateDevice gets our device, so every pddi object the game creates from then on is ours; the pddi
     # objects' references to the portable bases' functions are bound by address like the tree's own
     gfx = graphics_backend(os.path.join(OUT, "link")) if GFX else None
+    _tmark("link: graphics backend")
     if gfx and gfx["objects"]:
         for s in gfx["game_refs"]:
             refs[s] += 1
@@ -632,6 +646,7 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
     # native9: adjustor thunks and pure forwarders re-emitted from the original's bytes (jump_shapes), in place of
     # whatever the tree defines at their addresses (a thunk named by bytes can jump to a source's own stand-in)
     js = jump_shapes(by_addr_def)
+    _tmark("link: jump shapes")
     for a, lab in js["labels"].items():
         by_addr_def[a] = lab
         defined.add(lab)
@@ -776,6 +791,7 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
             how["re-emitted forwarders pointed at a wrapper (native11)"] += n_
     # fix 6a: the game's vftables and RTTI structures as data (build/native/link/vtables.s), named by address
     vt = code_owned_data(by_addr_def)
+    _tmark("link: code-owned data (vftables/RTTI)")
     vt["asm"] += js["asm"] + clock_asm
     for a, lab in vt["labels"].items():
         by_addr_def.setdefault(a, lab)
@@ -788,6 +804,7 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
     # (x87b) "the tree's definition of some address" includes the definitions the wrappers above now stand in front of
     standin = standin_bodies(local_code, defined, by_addr_def,
                              set(by_addr_def.values()) | set(def_before_wrappers.values()) | set(wrapped))
+    _tmark("link: stand-in bodies")
     how["stand-in pass: wrapped definitions kept as themselves (x87b)"] = len(
         set(standin_bodies(local_code, defined, by_addr_def, set(by_addr_def.values()))) - set(standin))
     standin_objs = collections.defaultdict(dict)
@@ -849,6 +866,7 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
     slot_how = collections.Counter()
     slot_of = {}
     slot_aliases = stub_slot_aliases(sorted(objs.values()), binding, by_addr_def, undef - set(aliases), slot_how, slot_of)
+    _tmark("link: stub slot aliases")
     for s, d in slot_aliases.items():
         aliases[s] = d
         how["stub vftable slot"] += 1
@@ -913,6 +931,7 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
     # native10: call sites bound to a platform function of their own (SITE_REBIND): the calls one function makes to
     # one callee go to another definition (the pad constructor's reads that are not polls, ...)
     site_stats = site_rebind(syms, binding, aliases, def_before_wrappers, defined, rebind)
+    _tmark("link: site rebind")
     how.update(site_stats)
     after = undef - set(aliases) - renamed_all
     # an address inside a data item another object defines (a global at +0x4c of a data TU's `DAT_<start>`, an
@@ -1001,6 +1020,7 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
     # namespace (`choreo2_AnimationDriver_13ab50` for choreo2::AnimationDriver, 81eb9d86f) made a frame condition
     # never true and split the play3 replay at 4170. Listed in link/unmapped_casts.json; --strict-casts fails the link
     n_cast, unmapped_casts = cast_descriptors(objs, vt_map, vt["names"])
+    _tmark("link: cast descriptors")
     how["dynamic_cast descriptor references"] += n_cast
     for u in unmapped_casts:
         how["dynamic_cast %s descriptors to no game descriptor (link/unmapped_casts.json)" % u["role"]] += 1
@@ -1157,7 +1177,9 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
                 continue
             link_objs.append(o2)
         # the data TUs' items at the XBE's distances (build/native/link/data.s) instead of the data TU objects
+        _tmark("link: objects renamed and retargeted")
         blk = wine_host.data_block(xbe(), data_objs, want=after | vt["undefined"])
+        _tmark("link: data block")
         link_objs += [o for o in data_objs if o not in set(blk["objects_used"])]
         inv["data_block"] = blk["stats"]
         if blk["mismatch"]:
@@ -1177,6 +1199,7 @@ def link_inventory(binding, defs, data_defs, do_link, ambiguous=(), amb_tu=None,
                                    vt["asm"], dd["asm"], startup,
                                    host["libs"] + (gfx["libs"] if gfx and gfx["objects"] else []) + SDL_LIBS,
                                    data_asm=blk["asm"], vthunks=vthunks)
+        _tmark("link: lld-link")
     return inv
 
 
@@ -2026,14 +2049,56 @@ def lld_link(objects, aliases, undefined, vt_asm=None, dd_asm=None, startup_asm=
     return out
 
 
+def conv_check_key(wcc):
+    """(build3) sha1 of everything wine_conv_check.run() reads for the report wine_link asks for: its own code (and
+    compare.py's), the stand-in tables, every source under matches/ and equivalent/, the binding map, the XBE and
+    build/functions.csv. The report took 138 s on mac1 (60-70 s on studio) in both the map and the link stage of every
+    job; with the same inputs it is the same report."""
+    h = hashlib.sha1(b"conv_check1\0")
+    files = [wcc.__file__, compare.__file__] + [t for t in wcc.TABLES if os.path.exists(t)]
+    for root in ("matches", "equivalent"):
+        for dp, dns, fns in sorted(os.walk(os.path.join(ROOT, root))):
+            dns.sort()
+            files += [os.path.join(dp, fn) for fn in sorted(fns)]
+    files += [os.path.join(OUT, "bindings.json"), wcc.XBE, os.path.join(ROOT, "build/functions.csv")]
+    for f in files:
+        h.update(os.path.relpath(f, ROOT).encode() + b"\0")
+        try:
+            with open(f, "rb") as fh:
+                h.update(hashlib.sha1(fh.read()).hexdigest().encode() + b"\0")
+        except OSError:
+            h.update(b"missing\0")
+    return h.hexdigest()[:24]
+
+
 def conv_check():
     """tools/wine_conv_check.py (report only): calling conventions of the sources' and the binding map's
-    declarations of library imports against the stand-in tables and the XBE's `ret N`."""
+    declarations of library imports against the stand-in tables and the XBE's `ret N`. Cached by its inputs
+    (conv_check_key) under CACHE/conv_check/; HULK_WINE_CONV_CHECK_CACHE=0 recomputes."""
     import wine_conv_check
+    cp = None
+    if os.environ.get("HULK_WINE_CONV_CHECK_CACHE", "1") != "0":
+        try:
+            cp = os.path.join(CACHE, "conv_check", conv_check_key(wine_conv_check) + ".json")
+            with open(cp) as f:
+                return json.load(f)
+        except (OSError, ValueError):
+            pass
     try:
         r = wine_conv_check.run(bindings_path=os.path.join(OUT, "bindings.json"))
     except Exception as e:  # noqa: BLE001 - a report, never a reason to fail the link
         return {"error": "%s: %s" % (type(e).__name__, e)}
+    rep = _conv_check_report(r)
+    if cp:
+        os.makedirs(os.path.dirname(cp), exist_ok=True)
+        tmp = "%s.%d.tmp" % (cp, os.getpid())
+        with open(tmp, "w") as f:
+            json.dump(rep, f)
+        os.replace(tmp, cp)
+    return rep
+
+
+def _conv_check_report(r):
     return {"findings": r["findings"], "imports": r["imports"],
             "sources": {"declarations": r["sources"]["declarations"], "disagreeing": len(r["sources"]["disagreeing"])},
             "bindings": {"symbols": r["bindings"]["symbols"], "disagreeing": len(r["bindings"]["disagreeing"])},
@@ -2080,6 +2145,7 @@ def main(argv=None):
         print("map key %s (%d parts)" % (k["key"], len(k["parts"])))
         return 0
     refresh_platform_libs()          # play2: stale hulk_sdl / hulk_movies / hulk_fs libraries are rebuilt first
+    _tmark("link: platform libraries checked")
     SDL_LIBS = _sdl_libs()
     if a.tree:
         TREE = os.path.abspath(a.tree)
@@ -2092,6 +2158,7 @@ def main(argv=None):
         rep["link"] = link_inventory(binding, defs, {}, not a.no_link, set(amb), bj.get("ambiguous_by_tu"),
                                      bj.get("ambiguous_by_function"), bj.get("local_data"), bj.get("local_code"))
         rep["conv_check"] = conv_check()
+        _tmark("link: conv_check")
         rep["platform_libs"] = dict(REFRESH)
         with open(os.path.join(OUT, "report.json"), "w") as f:
             json.dump(rep, f, indent=1)
@@ -2100,9 +2167,11 @@ def main(argv=None):
     if os.path.exists(os.path.join(OUT, "mapkey.json")):
         os.unlink(os.path.join(OUT, "mapkey.json"))     # (the key belongs to the map it was saved with)
     defs, refs, users, stats, per_tu, per_fn = build_map(a.jobs)
+    _tmark("map: build_map (positions + equiv.py level 2 bindings)")
     with open(os.path.join(OUT, "tree-explicit.json"), "w") as f:
         json.dump(tree_explicit.changed, f, indent=0)
     binding, amb = bind(defs, {}, refs)
+    _tmark("map: bind")
     # native9: a stub class's vftable bound to two addresses because a check took a same-named function of the TU
     # (build_tree's loose symbol lookup: 0x0023d710 was compared as 0x0023d420's `Func`): the address from the one
     # source that declares the class is the vftable
@@ -2157,6 +2226,7 @@ def main(argv=None):
                    "definitions": {"0x%08x" % k: v for k, v in sorted(defs.items())},
                    "references": dict(users)}, f, indent=0)
     save_map_key()
+    _tmark("map: bindings.json + map key")
     with open(os.path.join(OUT, "alternatename.rsp"), "w") as f:
         for s, b in sorted(binding.items()):
             if b["def"] and b["def"] != s:
@@ -2169,6 +2239,7 @@ def main(argv=None):
         rep["link"] = link_inventory(binding, defs, {}, not a.no_link, set(amb), amb_tu, amb_fn,
                                      getattr(build_map, "local_data", {}), getattr(build_map, "local_code", {}))
     rep["conv_check"] = conv_check()
+    _tmark("conv_check")
     rep["platform_libs"] = dict(REFRESH)
     with open(os.path.join(OUT, "report.json"), "w") as f:
         json.dump(rep, f, indent=1)

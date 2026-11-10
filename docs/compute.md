@@ -227,6 +227,21 @@ $J $N sync | lineages   # inputs on the hosts (submit does it) | lineage workspa
   mac2). A divergence that only an optimised build shows: rebuild with `--opt o0`. The replay is 6-20% of a proof; the tree build is the rest when the lineage cannot resume. `HULK_PROF=1`
   (`--replay-env`) profiles a replay (`nb-out/trace.txt.prof`, `tools/opt_prof.py` with `--fetch image`'s map);
   `--sdl-src DIR` ships a private hulk_sdl.lib build.
+- **Build speed: recorded inputs, the verify cache, cache-sync (build3, 2026-11-09; [wine-build.md](wine-build.md#build-speed-build3-2026-11-09)).**
+  `--state auto` and `--state seed:CONTROL` decide from what the last build *recorded* loading (`build/tree/inputs.json`,
+  copied to `nb-out/tree-inputs.json`: the tools/ modules the build and its verify workers imported, 9 files, and the
+  config/ files it reads, `config/splits.json`) instead of build_tree's static import closure (21 files: equiv.py, jobq.py,
+  clang_probe.py, data_gen.py, verify_relocs.py and others are imported lazily by features a Wine build never runs); under
+  include/ only headers count. Of the 14 fresh builds in jobs 69769-70644, 9 were forced by such inputs (70239: equiv.py
+  and verify_relocs.py, 2,269 s instead of about 60 s resumed). A lineage or control built before the record exists falls
+  back to the closure; `decision.why.state` says which (`recorded inputs` / `static import closure`). build_tree caches
+  each TU's check records in `tree-cache/verify/` (key: the object's content key, the manifest record, the standalone keys
+  of its sources, the XBE, functions.csv and the verifier's code; `HULK_BUILD_TREE_VERIFY_CACHE=0` switches it off; the
+  records are identical, tests/test_verify_cache.py); the `[time] verify` line counts the hits. `wine_build_job.py
+  cache-sync SRC DST` copies the content-addressed entries one host has and another lacks (tree-cache/obj, tree-cache/verify,
+  native-cache/equiv; each written under a temporary name and renamed into place; the compilers and disc are checked to be
+  the same binaries) so a host that has not built the current sources skips its cold compile rounds. `wine_link.py` prints
+  `[time]` phase marks into `map.log`/`link.log`.
 - **SSE float (default since perf1, 2026-10-26; [wine-float.md](wine-float.md) section 13).** The game's TUs are built with
   SSE2 scalar float; `--env HULK_WINE_FLOAT=x87` builds the x87 image (checkpoint-identical, about 6x slower under Rosetta).
   An SSE build adds a `map` stage before the probe when the binding map is not reused (`wine_link.py --no-inventory --no-link`,

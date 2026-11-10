@@ -415,12 +415,17 @@ def block_names(gen):
     return out
 
 
-def standalone_obj(src):
-    """Object of a verified source compiled on its own (cached by content), or None if it doesn't compile."""
+def standalone_key(src):
+    """Cache key of a verified source's standalone object: its text, flags and the headers it can read."""
     text = open(os.path.join(ROOT, src), "rb").read()
     flags = compare.DEFAULT_FLAGS + compare.file_flags(os.path.join(ROOT, src))
     # (compare.compile_obj: no /I, INCLUDE = the compiler's headers and include/)
-    h = _key(os.path.join(ROOT, src), text, flags, compile_include_env())
+    return _key(os.path.join(ROOT, src), text, flags, compile_include_env())
+
+
+def standalone_obj(src):
+    """Object of a verified source compiled on its own (cached by content), or None if it doesn't compile."""
+    h = standalone_key(src)
     obj = os.path.join(OBJ_CACHE, "sa-" + h + ".obj")
     err = os.path.join(OBJ_CACHE, "sa-" + h + ".err")
     if os.path.exists(obj):
@@ -648,10 +653,72 @@ def regressions(checks):
 
 def verify(gen, manifest, results, jobs=4):
     t = time.time()
+    VERIFY_STATS.clear()
     try:
         return _verify(gen, manifest, results, jobs)
     finally:
-        print("  [time] verify %.1f s" % (time.time() - t), flush=True)
+        print("  [time] verify %.1f s%s" % (time.time() - t, (": %d of %d TUs from the verify cache" % (
+            VERIFY_STATS["hits"], VERIFY_STATS["hits"] + VERIFY_STATS["misses"])) if VERIFY_CACHE_ON else ""), flush=True)
+
+
+# ---------------------------------------------------------------------------------------------
+# Verify cache (build3). A TU's check records are a function of its object (content-keyed: the TU's text, flags and
+# headers), its manifest record (blocks, modes, the names block_names() derived from the parsed sources), the standalone
+# objects of its blocks' sources (content-keyed), the XBE, the function table and the verifier's own code. Every build
+# re-verifies every TU in every round, but after the first round most TUs' objects are the ones just checked, and a
+# rebuild of the same sources (a proof after its control, a fresh build after a tool change outside the tree build)
+# checks the same objects again: tree-cache/verify/KEY.json keeps the records. HULK_BUILD_TREE_VERIFY_CACHE=0 switches
+# it off; the records are the same either way (tests/test_verify_cache.py).
+VERIFY_CACHE = os.path.join(CACHE, "verify")
+VERIFY_CACHE_ON = os.environ.get("HULK_BUILD_TREE_VERIFY_CACHE", "1") != "0"
+VERIFY_STATS = collections.Counter()
+_VERIFY_BASE = []
+
+
+def verify_key_base(v):
+    """What every TU's verification depends on besides its object and blocks: the XBE, the function table
+    (build/functions.csv: sizes) and the code of the verifier (this file, compare, xbe, disasm)."""
+    if not _VERIFY_BASE:
+        h = hashlib.sha1(b"verify1\0")
+        h.update(hashlib.sha1(v.xbe.data).hexdigest().encode() + b"\0")
+        with open(gen_tree.FUNCS_CSV, "rb") as f:
+            h.update(hashlib.sha1(f.read()).hexdigest().encode() + b"\0")
+        import disasm
+        for m in (sys.modules[__name__], compare, sys.modules["xbe"], disasm):
+            with open(m.__file__, "rb") as f:
+                h.update(hashlib.sha1(f.read()).hexdigest().encode() + b"\0")
+        _VERIFY_BASE.append(h.hexdigest())
+    return _VERIFY_BASE[0]
+
+
+def verify_key(v, rec, obj):
+    h = hashlib.sha1(verify_key_base(v).encode())
+    h.update(b"\0" + (os.path.basename(obj) if obj else "none").encode())
+    h.update(b"\0" + json.dumps(rec, sort_keys=True).encode())
+    for src in sorted({b["src"] for b in rec["blocks"]}):
+        h.update(b"\0" + src.encode() + b"=" + standalone_key(src).encode())
+    return h.hexdigest()[:24]
+
+
+def verify_tu_cached(v, rec, obj):
+    if not VERIFY_CACHE_ON:
+        return verify_tu(v, rec, obj)
+    p = os.path.join(VERIFY_CACHE, verify_key(v, rec, obj) + ".json")
+    try:
+        with open(p) as f:
+            out = json.load(f)
+        VERIFY_STATS["hits"] += 1
+        return out
+    except (OSError, ValueError):
+        pass
+    out = verify_tu(v, rec, obj)
+    VERIFY_STATS["misses"] += 1
+    os.makedirs(VERIFY_CACHE, exist_ok=True)
+    tmp = "%s.%d.tmp" % (p, os.getpid())
+    with open(tmp, "w") as f:
+        json.dump(out, f)
+    os.replace(tmp, p)
+    return out
 
 
 def _verify(gen, manifest, results, jobs=4):
@@ -664,6 +731,8 @@ def _verify(gen, manifest, results, jobs=4):
             pre, cn, sa = names.get(int(b["addr"], 16), ([], [], []))
             b["prefixes"], b["cnames"], b["sa_prefixes"] = pre, cn, sa
     n = workers(jobs) if os.environ.get("HULK_BUILD_TREE_VERIFY_PROCS", "1") != "0" else 1
+    if VERIFY_CACHE_ON:
+        verify_key_base(v)          # (once, before the workers are forked)
     if n > 1 and len(tus) > 50 and "fork" in multiprocessing.get_all_start_methods():
         # (build2) the TUs are independent: forked workers check slices of them (each with the parent's Verifier and
         # results, copy-on-write) and send back their records, in TU order. The same records as the loop below.
@@ -674,22 +743,55 @@ def _verify(gen, manifest, results, jobs=4):
                 parts = pool.map(_verify_slice, [(i, min(i + step, len(tus))) for i in range(0, len(tus), step)])
         finally:
             _VERIFY_CTX[:] = []
-        return [r for part in parts for r in part]
+        for _, used, st in parts:
+            TOOLS_USED.update(used)
+            VERIFY_STATS.update(st)
+        return [r for part, _, _ in parts for r in part]
     out = []
     for rec in tus:
-        out += verify_tu(v, rec, results[rec["path"]][0])
+        out += verify_tu_cached(v, rec, results[rec["path"]][0])
     return out
 
 
 _VERIFY_CTX = []
+TOOLS_DIR = os.path.join(ROOT, "tools")
+TOOLS_USED = set()      # tools/ modules the build loaded (this process and the forked verify workers): inputs.json
+
+
+def tools_loaded():
+    """The tools/ modules in sys.modules, as `tools/NAME.py` (what this build's result can depend on among the tools;
+    the static import closure tools/wine_build_run.py used to assume is twice as large: equiv.py, jobq.py, data_gen.py,
+    clang_probe.py are imported lazily by features a Wine build never runs)."""
+    out = set()
+    for m in list(sys.modules.values()):
+        f = getattr(m, "__file__", None)
+        if f and os.path.dirname(os.path.abspath(f)) == TOOLS_DIR:
+            out.add("tools/" + os.path.basename(f))
+    return out
+
+
+def tree_inputs():
+    """What a build's result depends on besides the sources it reads anyway (matches/, equivalent/, include/*.h) and the
+    toolchain: the tools/ modules it loaded and the config/ files it reads. build/tree/inputs.json, read by
+    tools/wine_build_run.py to decide whether a later build may resume (or seed from) this one's state."""
+    return {"version": 1, "tools": sorted(TOOLS_USED | tools_loaded()),
+            "config": sorted({os.path.relpath(gen_tree.SPLITS, ROOT)})}
+
+
+def save_tree_inputs():
+    p = os.path.join(TREE, "inputs.json")
+    with open(p + ".tmp", "w") as f:
+        json.dump(tree_inputs(), f, indent=1)
+    os.replace(p + ".tmp", p)
 
 
 def _verify_slice(span):
     v, tus, results = _VERIFY_CTX
     out = []
+    VERIFY_STATS.clear()
     for rec in tus[span[0]:span[1]]:
-        out += verify_tu(v, rec, results[rec["path"]][0])
-    return out
+        out += verify_tu_cached(v, rec, results[rec["path"]][0])
+    return out, sorted(tools_loaded()), dict(VERIFY_STATS)
 
 
 def verify_tu(v, rec, obj):
@@ -1103,6 +1205,7 @@ def main(argv=None):
         rep["data"] = run_data(manifest, results, a.jobs)
     with open(os.path.join(TREE, "report.json"), "w") as f:
         json.dump(dict(rep, checks=checks), f, indent=1)
+    save_tree_inputs()
     rep.pop("generator")
     print(json.dumps(rep, indent=1))
     return 0

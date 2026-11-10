@@ -90,6 +90,150 @@ Cold, the first run takes 10-15 minutes (4 compiler processes); a warm run takes
 `report.json` (counts, categories with example sites, scans, link probe), `undefined.txt` (every undefined symbol with
 its group and demangled name), `cache/` (per-TU results and objects) and `snap/` (the tree being probed).
 
+## Build speed (build3, 2026-11-09)
+
+Two cases: one clean build (a fresh lineage, or `--state fresh`), and many builds in a row sharing the caches (a proof
+after its control, an agent's iterations, several lineages on several hosts). The numbers are `summary.json` wall seconds
+and the `[time]` lines of `build.log` (jobs 69769-70668 on studio; 64299-65292 on mac1/mac2).
+
+**Where the time goes.** Studio, play3 to 60000, `--gfx`:
+
+| case | build | map | probe | link | replay | total | build = generate / compile / verify |
+|---|---|---|---|---|---|---|---|
+| fresh, warm object cache (69828, 70413, 70495, 70622) | 710-735 | 118-124 | 23-25 | 114-125 | 136-195 | 1,140-1,180 | 17 rounds: 377-392 / 28-33 / 283-296 |
+| fresh, sources changed since the cached build (70226, 70239, 70588) | 2,030-2,850 | 162-186 | 45-55 | 138-160 | 148-169 | 2,550-3,400 | 350-400 / 1,030-1,990 / 275-634 |
+| seeded proof (69784, 69964) | 500-794 | 118-126 | 23-25 | 112-115 | 178-194 | 974-1,238 | 9-10 rounds: 200-234 / 33-424 / 162-224 |
+| resume, one TU changed (70242) | 59 | 108 | 21 | 103 | 178 | 474 | 1 round: 32 / 1 / 19 |
+| probe + link only (opt1's ~100 iteration jobs) | - | - | 22-30 | 108-127 | 6-45 | 150-200 | |
+
+mac1 (after build2): generate about 30 s a round, verify 20-25 s, a 1,937-TU compile round 800-850 s; map 275-298 s, link
+211-284 s. Cold caches (mac1 64299): build 9,629 s (generate 2,675, compile 3,510, verify 3,405 with the standalone objects).
+
+Four things made builds slower than they need to be:
+
+1. *Fresh builds forced by a too-coarse decision.* `wine_build_run.decide()` / `seed_decision()` took the static import
+   closure of build_tree as the tree build's tool inputs: 21 files, among them equiv.py, jobq.py, jobq_equiv.py, equiv64.py,
+   clang_probe.py, data_gen.py, data_inventory.py, verify_relocs.py and vcall_scan.py, which only `--equiv`, `--data` and
+   compare.py's `thiscall_decls` import lazily; a Wine build loads 9 (addr_names, build_tree, compare, cxx_items, disasm,
+   gen_tree, include_keys, stub_layout, xbe). Any file under config/ or include/ counted too, although the tree build reads
+   only config/splits.json and the headers (config/data*.json feed data_gen and the link; include/gen/evidence*.json feed
+   gen_headers). 9 of the 14 fresh builds in jobs 69769-70644 were "N inputs of the tree build differ": 70239 (equiv.py,
+   verify_relocs.py) took 2,269 s where a resume takes about 60 s; 70644 (clang_probe.py, jobq.py); 69769-69791 and
+   70448/70588 (config/data*.json with a data header).
+2. *common.h churn.* A fallback round changes which declarations at least two TUs or directories share, so common.h (10.8 KB,
+   reached by 2,636 of 2,652 TUs through the <dir>.h headers) changes and about 1,937 TUs recompile: 70239 did that three
+   times after round 1 (round 2: 278 fallbacks; the regression round: 418; a "first fallbacks" trial: 20), 1,100 s of its
+   2,269 s. With 70239's final state, 1 of 6 random single flips (one function merged again) changed common.h and five
+   directory headers (1,935 TUs to recompile); 20 functions wrapped at once changed none (build/build3/scripts/hoist_churn.py).
+   The headers depend on the fallback state because `Generator.hoist()` counts only merged blocks as users and variants.
+3. *Per-round fixed cost.* 17-20 rounds of generate (20 s) + verify (15-19 s) = 600-750 s per fresh build on studio when every
+   compile is cached, which is all of a warm fresh build's 710 s. Verify re-checked every TU every round although after the
+   first round nearly every object is one it had just checked.
+4. *Map and link on every job* (108-165 and 103-125 s on studio), including the probe+link iteration jobs, where the link
+   is 60-80% of the job. wine_link had no phase timing.
+
+**Done (build3).**
+
+- *Recorded inputs.* build_tree writes `build/tree/inputs.json` (the tools/ modules in `sys.modules` of the main process and
+  of the forked verify workers, and the config/ files it reads); `wine_build_run.py` copies it to `nb-out/tree-inputs.json`,
+  `wine_build_job.py --state seed:JOB` ships it as `nbrun/seed-inputs.json`. `decide()` and `seed_decision()` count a changed
+  file as a tree-build input when it is a header under include/, a recorded config/ file or a recorded tool; without a
+  record (a lineage or control built before this) the static closure and all of include/ config/ apply as before. The
+  recorded set from an old build is sound for the new one: a tool the old build never imported can only come to be imported
+  through a module that was, and that module's change is seen. Tests: tests/jobq/test_native_build.py.
+- *Verify cache.* `tree-cache/verify/KEY.json` holds a TU's check records; the key is the object's content key (the TU's
+  text, flags and headers), the manifest record (blocks, modes, the name prefixes derived from the parsed sources), the
+  standalone object keys of the blocks' sources, the XBE, build/functions.csv and the verifier's code (build_tree, compare,
+  xbe, disasm). The records are what verify_tu() computes (tests/test_verify_cache.py: keys; `HULK_TEST_VERIFY_COMPILE=25`
+  compiled 25 TUs and compared 208 records with and without the cache: identical). `HULK_BUILD_TREE_VERIFY_CACHE=0`
+  switches it off. The `[time] verify` line reports the hits.
+- *cache-sync.* `wine_build_job.py cache-sync SRC DST [--cache tree-cache/obj] [--dry-run]` copies the entries SRC has and
+  DST lacks of tree-cache/obj (MSVC objects of tree TUs, standalone objects, failed-compile logs), tree-cache/verify and
+  native-cache/equiv (the map's equiv.py level-2 results, keyed by object bytes: the MSVC objects embed their output path
+  in a debug record, so an object compiled elsewhere never hits that cache unless it travels with its entries, as here).
+  The compilers and the disc must be the same binaries on both hosts (checked). Files land under a temporary name and are
+  renamed into place. The clang cache is not synced (file names embed the compiler's path).
+- `wine_link.py` prints `[time]` marks per phase (clang objects, deleting destructors, platform shim, graphics backend,
+  jump shapes, code-owned data, stand-ins, slot aliases, site rebind, cast descriptors, renames, data block, lld-link,
+  conv_check; the map: build_map, bind, bindings.json) into map.log and link.log.
+
+- *conv_check cached.* wine_link ran `wine_conv_check.run()` (a report, never a reason to fail) in both the map and the
+  link stage of every job: 138-143 s each on mac1, 276 of the 486 s of map + link. It is now cached under
+  `HULK_WINE_CACHE/conv_check/` by a key over everything it reads (wine_conv_check.py, compare.py, the stand-in tables
+  `src/platform/sdl/xdk/{imports,library}.h`, every file under matches/ and equivalent/, bindings.json, the XBE,
+  build/functions.csv; computing the key is about 2 s). The same inputs give the same report (checked locally: 78 s, then
+  2.0 s, equal). `HULK_WINE_CONV_CHECK_CACHE=0` recomputes.
+
+**Measured (build3 proof pair, mac1, lineage build3, same sources = HEAD a29a7f0b0, play3 to 60000, `--gfx`).**
+
+| job | tools | state | build (generate / compile / verify) | map | probe | link | replay | total |
+|---|---|---|---|---|---|---|---|---|
+| 70677 control | HEAD | fresh, caches cold for these sources | 7,130 (503 / 4,887 in five ~2,000-TU rounds / 1,730, the first verify 1,315 building the standalone objects) | 300 | 99 | 273 | 199 | 8,050 |
+| 70684 proof | build3 | fresh, caches warm from the control | 860 (528 / 34 / 288; 31,809 of 39,122 TU checks from the verify cache) | 192 | 43 | 186 | 155 | 1,461 |
+| 70734 proof | build3 | `--state auto --map auto`: resumed and map reused by the recorded inputs | 57 (43 / 1.5 / 4.8: 2,646 of 2,646 from the verify cache) | 9 (key) | 40 | 187 | 184 | 503 |
+
+Identity: `tree-state.json` identical for all three; `unbound.txt` identical; `ckpt_gate.py 70677 70684` and `70677 70734`
+GATE ok (2,011 common frames, 0 differ); the image of 70734 is byte-identical to the control's (129dc486), 70684's differed
+only because the checkout's `wine_build_job.py` had meanwhile made `--opt hot` the proof default (32 TUs at -O1; c5044eecf),
+not because of a cache. A fresh verify of 2,646 TUs is 34-47 s a round on mac1 without the cache and 4.8 s with it.
+(The 70684 numbers are the many-builds case: the second fresh build of the same sources on a host; the control is the one
+clean cold build.)
+
+**Should the hosts hold the git repo, and should the objects travel instead of being rebuilt?** (user question, 2026-11-09)
+
+*Sources.* Today a job's base tree is `git archive COMMIT` of `matches equivalent include src tools config` (65 MB,
+9.4 MB gzipped; the generic queue ships `tools include tests config src`), keyed by the ls-tree hash, shipped once per
+distinct key to each host (`~/hulk-jobs/ws/base-KEY`, the 4 newest kept, installed in 1-2 s), cloned per run with an APFS
+clone, plus a tar of the overlay (the checkout's or workspace's files that differ from HEAD). At 19 commits a day that is
+about 180 MB a day per host; a job's shipping is seconds either way. A per-host git mirror (41 MB pack) would replace that
+with `git push host:repo COMMIT` (deltas, KBs) and a worktree or `git archive` on the host; the overlay stays as it is
+(agents' uncommitted files and private workspaces are not commits). The gain is not bandwidth, it is completeness: a
+worktree at a commit has every path, where a path list can be wrong (bink2 found jobs without src/ and a stale snapshot on
+studio; 2500a5528 added src/). Costs: git and a mirror on every host, a push per submit over the same ssh routes, and a
+full checkout write per run (1-3 s) instead of the clone. Ranked low: the path list is fixed, the tarball is cached and
+small, and the hashes of the files a job saw (`sources.json.gz`) are what the decisions compare, not a commit.
+
+*Objects.* The MSVC objects are the big win, and they are already content-addressed: `tree-cache/obj/KEY.obj`, KEY = sha1
+of the TU's text, its flags and the contents of every header its `#include`s can reach (paths relative to the checkout, so
+every lineage and host computes the same key: build1, `tools/include_keys.py`). Not in the key: the compiler binaries
+(cl.exe, c1xx.dll, wibo) and the compiler's own headers, which are the same installation on every host (`cache-sync`
+checks their hashes before copying; adding them to the key would invalidate every cache once). A hit is the bytes the
+same compiler produced from the same preprocessed input; the only bytes that differ between two compiles of one key are
+the COFF time stamp and the output path MSVC writes into a debug record (`Z:\...\KEY.obj.PID.tmp`), which the link drops
+(images are byte-identical across hosts except the PE time stamp) and which `cache-sync` carries along with the entries
+keyed on them (native-cache/equiv). Numbers: mac1's control 70677 compiled 3,185 tree objects (35.5 MB) in its first
+rounds, 1,093 s for the first 2,236 at 8 workers; 3,082 of the 3,185 (97%) already existed on studio, which had built the
+same sources (bink2's jobs). Shipping 35 MB over the LAN is 1-5 s including the per-file overhead: 200-1,000 times cheaper
+than compiling, on every host type. The clang objects (the probe: 10-15 min cold, 21-49 s warm; cache names embed the
+compiler's path, so they are not synced) and the native objects (tools/native_mac.py, similar keys) are the next candidates.
+
+*Where the store lives.* Per-host caches plus a pull of the missing entries (`wine_build_job.py cache-sync SRC DST`,
+relayed through the laptop over the existing ssh routes; `submit --cache-from HOST` runs it in the job's `prep` step before
+the build, best effort). After the first full copy (118,003 objects, 1.4 GB studio -> mac1) each pull is the delta of the
+sources built since: a few thousand entries, tens of MB, seconds. One serving host (studio, the host every proof runs on)
+is the natural source; a shared mount would put 260k small files behind network latency on every compile. *Eviction:*
+the caches grow without bound today (mac1: 259k objects 3.0 GB, clang 2.1 GB, native 0.7 GB); a hit does not touch the
+entry, so a prune by last use needs `utime` on hit first (planned: keep 30 days). *Private workspaces and overlays:* keys
+are workspace-independent (texts and relative paths), so a proof in one agent's lineage hits the objects another agent's
+build compiled; only the TUs whose text or headers differ are compiled, exactly as between two lineages on one host.
+
+**Remaining plan, ranked.**
+
+1. Headers independent of the fallback state (hoist from every block's declarations, not only the merged ones):
+   -1,000..-1,500 s per fresh build with changed sources on studio (-2,400 s on mac1). Changes the tree once (every lineage
+   builds fresh once), needs a proof pair.
+2. Incremental generate: every round re-merges every TU (merge_tu / choose_variants 22 of a 40 s profiled generate on the
+   laptop, stub_layout.layout 15 s, write 11.5 s) although only the TUs whose blocks changed mode differ; memoise merge_tu
+   per TU by its blocks' texts and modes. Byte-identical by construction (tests/gen_tree_identity.py checks it): about
+   -300 s per fresh build on studio, -400 s on mac1.
+3. The remaining link phases: objects renamed and retargeted (llvm-objcopy per object, 30 s mac1) by (object, renames)
+   key; build_map 46 s mac1; a probe+link iteration job would then be about 60 s.
+4. Compile workers beyond the 8-slot reservation on the 22-core studio for the big rounds (1,937 TUs: 350 s at 8 workers,
+   about 175 s at 16); a submit default sized by the host. `submit --cache-from studio` before a build elsewhere.
+5. Cache eviction: `utime` on hit, then prune entries unused for 30 days (mac1 holds 259k objects, 3.0 GB, since October).
+6. Fewer rounds: the escalation and first-fallback rechecks are 6-8 of a fresh build's 17-20 rounds (40 s each on studio).
+7. The git mirror on the hosts (above): completeness, not speed; after the above.
+
 ## Replay speed and optimised objects (opt1, 2026-11-09)
 
 **Where a proof's time goes.** Studio, `wine_build_job.py ... --gfx --replay play3 --frames 60000`, `summary.json` wall seconds:

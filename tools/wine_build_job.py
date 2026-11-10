@@ -287,13 +287,22 @@ def cmd_prep(a):
     if cfg.get("local"):
         return 0
     opts, dest = ssh_parts(cfg)
-    if subprocess.run(jobq.SSH + opts + [dest, "test -f ~/hulk-jobs/nb/inputs-%s/.complete" % a.stamp], capture_output=True).returncode == 0:
-        return 0
-    now = inputs_stamp()
-    if now != a.stamp:
-        print("inputs %s are not on %s and this checkout's are now %s" % (a.stamp, a.host, now), file=sys.stderr)
-        return 2
-    sync_host(a.host, a.stamp, quiet=True)
+    if subprocess.run(jobq.SSH + opts + [dest, "test -f ~/hulk-jobs/nb/inputs-%s/.complete" % a.stamp], capture_output=True).returncode != 0:
+        now = inputs_stamp()
+        if now != a.stamp:
+            print("inputs %s are not on %s and this checkout's are now %s" % (a.stamp, a.host, now), file=sys.stderr)
+            return 2
+        sync_host(a.host, a.stamp, quiet=True)
+    if a.cache_from and a.cache_from != a.host:
+        # (build3) `submit --cache-from SRC`: the content-addressed objects SRC has and this host lacks, before the build
+        # (a host that has not built these sources skips its cold compile rounds). Best effort: a failed sync is logged,
+        # the job still runs (it compiles what it lacks).
+        try:
+            t0 = time.time()
+            cache_sync(a.cache_from, a.host, ["tree-cache/obj", "tree-cache/verify"])
+            print("prep: cache-sync %s -> %s in %.0f s" % (a.cache_from, a.host, time.time() - t0), file=sys.stderr)
+        except (SystemExit, OSError, subprocess.SubprocessError) as e:
+            print("prep: cache-sync %s -> %s failed (%s); the build compiles what it lacks" % (a.cache_from, a.host, e), file=sys.stderr)
     return 0
 
 
@@ -370,6 +379,9 @@ def seed_files(job):
     for p in files.values():
         if not os.path.exists(p):
             sys.exit("seed: %s is missing (a control built before seeding support cannot seed: rebuild it)" % p)
+    if os.path.exists(os.path.join(d, "tree-inputs.json")):
+        # (build3) the tools the control's build loaded: seed_decision checks those instead of the static import closure
+        files["nbrun/seed-inputs.json"] = os.path.join(d, "tree-inputs.json")
     return files, {"job": str(job), "host": summ.get("host"), "toolchain": summ.get("toolchain")}
 
 
@@ -452,7 +464,8 @@ def cmd_submit(a):
     os.unlink(tf.name)
     prep = None if local else (["python", "tools/wine_build_job.py", "prep", "--host", "{host}", "--stamp", stamp] +
                                (["--data-src", os.path.abspath(a.data_src)] if a.data_src else []) +
-                               (["--sdl-src", os.path.abspath(a.sdl_src)] if a.sdl_src else []))
+                               (["--sdl-src", os.path.abspath(a.sdl_src)] if a.sdl_src else []) +
+                               (["--cache-from", a.cache_from] if a.cache_from else []))
     job = jobq.make_job(a.name, ["python", "nbrun/wine_build_run.py"], "msvc" if not a.replay else "wine", store, ["nb-out"],
                         a.limit, slots, a.attempts, a.prio, jobq.head_commit(), SRC_DIRS, host, prep=prep,
                         affinity=affinity, affinity_wait=max(0, a.affinity_wait))
@@ -531,6 +544,82 @@ def cmd_lineages(a):
     return 0
 
 
+# (build3) the content-addressed caches a host keeps under ~/hulk-jobs/nb/cache that another host can use as they are:
+# a key names every input of the entry (the TU's text, flags and headers; the object's bytes, symbol and source for the
+# map's equiv results; the verify cache's object, manifest record, standalone keys and XBE), and the compilers are the
+# same binaries on every host (checked). The clang cache is not among them: its file names embed the compiler's path.
+SHARED_CACHES = ["tree-cache/obj", "tree-cache/verify", "native-cache/equiv"]
+COMPILER_FILES = ["build/compilers/msvc7.1/compilers/win32/msvc7.1/Bin/cl.exe",
+                  "build/compilers/msvc7.1/compilers/win32/msvc7.1/Bin/c1xx.dll", "build/tools/wibo",
+                  "isos/extracted/default.xbe"]
+
+
+def _host_shell(cfg):
+    """(argv prefix that runs a shell command on the host, '~' expanded there)."""
+    if cfg.get("local"):
+        return ["sh", "-c"], os.path.expanduser("~")
+    opts, dest = ssh_parts(cfg)
+    return jobq.SSH + opts + [dest], "~"
+
+
+def cmd_cache_sync(a):
+    return cache_sync(a.src, a.dst, a.cache, a.dry_run)
+
+
+def cache_sync(src_name, dst_name, caches=None, dry_run=False):
+    """Copy the cache entries SRC has and DST lacks (SHARED_CACHES). A host whose cache lacks the current sources' objects
+    (a new host, or one that has not built since the sources changed) otherwise compiles ~1,900 TUs in each of a fresh
+    build's big rounds (350 s on studio, 800 s on mac1). Each file is written under a temporary name in the destination
+    directory and renamed into place, so a build running there never reads a half-copied entry; an entry both have is
+    left alone (same key, same content). Lists what it would copy with --dry-run."""
+    src, dst = host_cfg(src_name), host_cfg(dst_name)
+    if src["name"] == dst["name"]:
+        return 0
+    ssrc, hsrc = _host_shell(src)
+    sdst, hdst = _host_shell(dst)
+
+    def sh(prefix, cmd, **kw):
+        return subprocess.run(prefix + [cmd], capture_output=True, text=True, **kw)
+    # the same compilers (and disc) on both: the keys do not name them
+    stamp = "cd %s/%s && shasum -a 1 %s 2>/dev/null | cut -d' ' -f1" % ("%s", src.get("dir", "hulk-permute"), " ".join(COMPILER_FILES))
+    s1 = sh(ssrc, stamp % hsrc).stdout.split()
+    s2 = sh(sdst, (stamp % hdst).replace(src.get("dir", "hulk-permute"), dst.get("dir", "hulk-permute"), 1)).stdout.split()
+    if len(s1) != len(COMPILER_FILES) or s1 != s2:
+        sys.exit("cache-sync: the compilers or the disc differ between %s and %s (%s vs %s): not synced" % (src_name, dst_name, s1, s2))
+    total_n, total_kb = 0, 0
+    for d in caches or SHARED_CACHES:
+        lst = "cd %s/hulk-jobs/nb/cache/%s 2>/dev/null && ls -1" % ("%s", d)
+        have_src = {n for n in sh(ssrc, lst % hsrc).stdout.split("\n") if n and not n.startswith(".") and ".tmp" not in n}
+        have_dst = set(sh(sdst, lst % hdst).stdout.split("\n"))
+        missing = sorted(have_src - have_dst)
+        print("%s: %s has %d entries, %s %d; %d to copy" % (d, src_name, len(have_src), dst_name, len(have_dst) - (1 if "" in have_dst else 0),
+                                                           len(missing)), flush=True)
+        if not missing or dry_run:
+            continue
+        t0 = time.time()
+        # SRC tars the missing names (read from stdin) -> DST untars into .incoming-PID and renames each into place
+        incoming = ".incoming-%d" % os.getpid()
+        tar_in = "cd %s/hulk-jobs/nb/cache/%s && tar cf - -T -" % (hsrc, d)
+        tar_out = ("mkdir -p %s/hulk-jobs/nb/cache/%s/%s && cd %s/hulk-jobs/nb/cache/%s/%s && tar xf - && %s - <<'EOF'\n"
+                   "import os\nn = k = 0\nfor f in os.listdir('.'):\n    if os.path.exists(os.path.join('..', f)):\n        os.unlink(f)\n"
+                   "        continue\n    k += os.path.getsize(f) // 1024\n    os.replace(f, os.path.join('..', f))\n    n += 1\n"
+                   "os.chdir('..')\nos.rmdir('%s')\nprint(n, k)\nEOF") % (hdst, d, incoming, hdst, d, incoming, dst.get("python", "python3"), incoming)
+        p1 = subprocess.Popen(ssrc + [tar_in], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+        p2 = subprocess.Popen(sdst + [tar_out], stdin=p1.stdout, stdout=subprocess.PIPE, text=True)
+        p1.stdout.close()
+        p1.stdin.write(("\n".join(missing) + "\n").encode())
+        p1.stdin.close()
+        out, _ = p2.communicate()
+        p1.wait()
+        if p1.returncode or p2.returncode:
+            sys.exit("cache-sync: %s failed (tar exit %s, %s exit %s)" % (d, p1.returncode, dst_name, p2.returncode))
+        n, kb = (int(x) for x in out.split()[-2:])
+        total_n, total_kb = total_n + n, total_kb + kb
+        print("  copied %d entries, %.1f MB in %.0f s" % (n, kb / 1024, time.time() - t0), flush=True)
+    print("cache-sync %s -> %s: %d entries, %.1f MB" % (src_name, dst_name, total_n, total_kb / 1024))
+    return 0
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sp = ap.add_subparsers(dest="c", required=True)
@@ -545,6 +634,8 @@ def main():
     s.add_argument("--gfx", action="store_true", help="link with the pddi/bgfx backend (wine_link.py --gfx)")
     s.add_argument("--stages", help="comma list of build,probe,link,replay (default: all requested)")
     s.add_argument("--data-src", help="a private build/data/src (data TUs of a data_gen change under test)")
+    s.add_argument("--cache-from", metavar="HOST", help="before the build, copy the MSVC objects HOST has and the build host "
+                   "lacks (cache-sync tree-cache/obj, tree-cache/verify; build3)")
     s.add_argument("--opt", choices=sorted(OPT_ENV), default="hot",
                    help="optimised game objects: o0 (the reference: every TU -O0), hot (default: tools/wine_opt_tus.txt at -O1) or all "
                    "(every game TU at -O1 but tools/wine_opt_exclude.txt's)")
@@ -573,14 +664,20 @@ def main():
     s.add_argument("--host", action="append")
     s = sp.add_parser("lineages")
     s.add_argument("--host", action="append")
+    s = sp.add_parser("cache-sync", help="copy the content-addressed cache entries SRC has and DST lacks (build3)")
+    s.add_argument("src")
+    s.add_argument("dst")
+    s.add_argument("--cache", action="append", help="one of %s (default all)" % " ".join(SHARED_CACHES))
+    s.add_argument("--dry-run", action="store_true")
     s = sp.add_parser("prep", help="(queue daemon) make the inputs STAMP complete on HOST")
     s.add_argument("--host", required=True)
     s.add_argument("--stamp", required=True)
     s.add_argument("--data-src")
     s.add_argument("--sdl-src")
+    s.add_argument("--cache-from")
     a = ap.parse_args()
     return {"submit": cmd_submit, "wait": cmd_wait, "compare": cmd_compare, "sync": cmd_sync,
-            "lineages": cmd_lineages, "prep": cmd_prep}[a.c](a) or 0
+            "lineages": cmd_lineages, "prep": cmd_prep, "cache-sync": cmd_cache_sync}[a.c](a) or 0
 
 
 if __name__ == "__main__":

@@ -95,6 +95,25 @@ class Decide(unittest.TestCase):
         r, m, why = self.d(self.base, built=None, mapped=None)
         self.assertEqual((r, m), (False, False))
 
+    def test_recorded_inputs_decide_instead_of_the_closure(self):
+        # (build3) build_tree records the tools it loaded (build/tree/inputs.json): a tool the closure names but the
+        # build never imported (a lazy import of an optional feature) may change; the recorded ones, headers and the
+        # recorded config/ files still force a fresh build; a non-header under include/ and other config/ files do not
+        put(self.lin, "tools/build_tree.py", "import gen_tree\nimport lazy_opt\n")
+        put(self.lin, "tools/lazy_opt.py", "")
+        base = dict(self.base, **{"tools/lazy_opt.py": "l", "config/splits.json": "s", "config/data.json": "d",
+                                  "include/gen/evidence.json": "e"})
+        self.base = base
+        r, m, why = self.d(dict(base, **{"tools/lazy_opt.py": "l2"}))
+        self.assertEqual(r, False)          # no record: the closure counts lazy_opt
+        put(self.lin, "build/tree/inputs.json", '{"version": 1, "tools": ["tools/build_tree.py", "tools/gen_tree.py"], '
+                                                '"config": ["config/splits.json"]}')
+        for k, expect in (("tools/lazy_opt.py", True), ("config/data.json", True), ("include/gen/evidence.json", True),
+                          ("tools/gen_tree.py", False), ("include/x.h", False), ("config/splits.json", False)):
+            r, m, why = self.d(dict(base, **{k: "x"}))
+            self.assertEqual(r, expect, (k, why))
+            self.assertIn("recorded inputs", why["state"])
+
 
 class Seed(unittest.TestCase):
     """--state seed:JOB (seed_decision): only function sources may differ from the control's."""
@@ -131,6 +150,27 @@ class Seed(unittest.TestCase):
     def test_other_toolchain_refuses(self):
         st, addrs, why = self.d(self.base, {"cl": "other"})
         self.assertIsNone(st)
+
+    def test_recorded_inputs_of_the_control(self):
+        # (build3) with the control's tree-inputs.json (nbrun/seed-inputs.json): tools outside its recorded set,
+        # non-header files under include/ and config/ files it does not read may differ; the rest still refuses
+        put(self.lin, "tools/build_tree.py", "import gen_tree\nimport lazy_opt\n")
+        put(self.lin, "tools/lazy_opt.py", "")
+        base = dict(self.base, **{"tools/lazy_opt.py": "l", "config/splits.json": "s", "config/data.json": "d",
+                                  "include/gen/evidence.json": "e"})
+        import gzip
+        import json
+        with gzip.open(os.path.join(self.run, "nbrun/seed-sources.json.gz"), "wt") as f:
+            json.dump(base, f)
+        st, _, why = self.d(dict(base, **{"tools/lazy_opt.py": "l2"}))
+        self.assertIsNone(st, why)          # no record: the closure counts lazy_opt
+        put(self.run, "nbrun/seed-inputs.json", '{"version": 1, "tools": ["tools/build_tree.py", "tools/gen_tree.py"], '
+                                                '"config": ["config/splits.json"]}')
+        for k, expect in (("tools/lazy_opt.py", True), ("config/data.json", True), ("include/gen/evidence.json", True),
+                          ("tools/gen_tree.py", False), ("include/x.h", False), ("config/splits.json", False),
+                          ("matches/helper.h", False)):
+            st, _, why = self.d(dict(base, **{k: "x"}))
+            self.assertEqual(st is not None, expect, (k, why))
 
 
 if __name__ == "__main__":
