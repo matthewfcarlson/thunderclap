@@ -40,6 +40,7 @@ GAME_TEXT_END = 0x364840
 LIB_SPANS = [  # (start, end, label) library code linked inside .text
     (0x208b9c, 0x212bb0, "XAPI"),   # XAPILIB (+ xboxkrnl jmp stubs at the end)
     (0x33eb70, 0x33ed90, "BINK"),   # Bink's memory hooks and aligned allocator (bink1)
+    (0x33ed90, 0x3440e0, "BINK"),   # Bink's audio transform: FFT twiddles, butterflies, plans (bink2)
     (0x3440e0, 0x356bf0, "LIBC+XAPI"),  # LIBCMT + more XAPILIB (/O1 /Oy-, unaligned)
     (0x35a7b0, 0x35be88, "LIBC"),   # LIBCMT EH runtime, itoa, 64-bit helpers
 ]

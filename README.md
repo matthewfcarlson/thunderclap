@@ -18,10 +18,10 @@ The goal is a **native port**: C++ source we can build for the supported targets
 <!-- status -->
 | | Functions | Bytes |
 |---|---|---|
-| Game code (`.text`, excluding XDK/CRT/Bink) | 27,467 | 2.75 MB |
-| Byte-matched (`matches/`) | 22,337 (81.3%) | 892 KB (32.4%) |
-| Proven equivalent (`equivalent/`) | 5,129 (18.7%) | 1857 KB (67.5%) |
-| **Verified source, total** | 27,466 (100.0%) | 2748 KB (**100.0%**) |
+| Game code (`.text`, excluding XDK/CRT/Bink) | 27,437 | 2.73 MB |
+| Byte-matched (`matches/`) | 22,337 (81.4%) | 892 KB (32.7%) |
+| Proven equivalent (`equivalent/`) | 5,099 (18.6%) | 1836 KB (67.3%) |
+| **Verified source, total** | 27,436 (100.0%) | 2727 KB (**100.0%**) |
 <!-- /status -->
 
 ![Treemap of game code in address order, one box per function sized by its bytes: blue is byte-matched, green is proven equivalent, grey is not yet verified](docs/progress-map.svg)

@@ -9,17 +9,13 @@ equivalent/).
 |---|---|---|
 | lift | machine-generated from the asm (frame array, register variables) | 1 |
 | goto | control flow copied from the asm with goto | 2 |
-| volatile | 20+ volatile declarations pinning x87 rounding | 7 |
+| volatile | 20+ volatile declarations pinning x87 rounding | 3 |
 
 | Source | Size | Name | Flags | gotos | volatiles |
 |---|---|---|---|---|---|
 | `equivalent/0x00314f50.cpp` | 1739 |  | lift, volatile | 0 | 48 |
-| `equivalent/0x003401b0.cpp` | 2138 |  | volatile | 0 | 62 |
 | `equivalent/0x000fd0f0.cpp` | 1968 | CControllerAgent::vfunc_4 | volatile | 0 | 30 |
 | `equivalent/0x00358b10.cpp` | 1869 |  | volatile | 0 | 49 |
-| `equivalent/0x00342180.cpp` | 1657 |  | volatile | 0 | 93 |
-| `equivalent/0x00341bd0.cpp` | 1447 |  | volatile | 0 | 77 |
-| `equivalent/0x00341660.cpp` | 1379 |  | volatile | 0 | 43 |
 | `matches/0x002d6cb0.cpp` | 72 |  | goto | 1 | 0 |
 | `matches/0x0026cb40.cpp` | 28 | core::MemoryDlAllocator::vfunc_8 | goto | 1 | 0 |
 

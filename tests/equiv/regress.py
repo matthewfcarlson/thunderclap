@@ -539,10 +539,9 @@ CASES = {
     # a char out-parameter at an odd frame offset: the bytes behind it are other locals in the original's frame (natwin)
     "0x0025c490_native_scalar_window": ("equivalent", None, 0.9, {"native": True, "n_inputs": 100}),
     "0x0025c490_native_scalar_window_wrong": ("fail", None, 0, {"native": True, "n_inputs": 100}),
-    # the point of native mode: MSVC 7.1 drops an explicit `(float)` cast of an x87 register value (`x = (float)x * 3.0f`),
-    # clang rounds. The same source is EQUIVALENT in MSVC mode (3000 inputs earlier) and fails natively by 1 ulp
-    "0x0033ed90_msvc_cast": ("equivalent", None, 0.9, {"n_inputs": 100}),
-    "0x0033ed90_native_cast": ("fail", "write to arg2", 0, {"native": True, "n_inputs": 100}),
+    # (the pair 0x0033ed90_msvc_cast / 0x0033ed90_native_cast, MSVC 7.1 dropping an explicit `(float)` cast of an x87
+    # register value that clang rounds, left with the Bink FFT object 0x0033ed90-0x003440e0 (library code, bink2);
+    # a game-code case for that rule is still wanted)
     # a tail jump to a callee that reads a stack word of the original's own caller: MSVC's `jmp` passes it on, clang's
     # `call` has nothing there (the callee reads 2 words, the source declares 1)
     "0x0024b0c0_tail_thunk": ("equivalent", None),

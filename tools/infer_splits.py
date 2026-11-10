@@ -58,6 +58,7 @@ INIT_START = 0x35BE88             # .text$yc/.text$yd: dynamic initializers + at
 LIB_SPANS = [                     # docs/platform-boundary.md "Where library code lives"
     (0x208B9C, 0x212BB0, "xapilib", "XAPILIB and xboxkrnl jump stubs"),
     (0x33EB70, 0x33ED90, "bink_mem", "Bink's memory hooks and aligned allocator (BinkSetMemory 0x0033eb70, called once by the movie player 0x00333b50; the allocator the BINK section calls)"),
+    (0x33ED90, 0x3440E0, "bink_fft", "Bink's audio transform (FFT twiddle tables, butterflies and plans; called only from the BINK section, 0x00369550)"),
     (0x3440E0, 0x356BF0, "libcmt_xapi", "LIBCMT plus more XAPILIB"),
     (0x35A7B0, 0x35BE88, "libcmt_eh", "LIBCMT EH runtime, itoa, 64-bit helpers"),
 ]

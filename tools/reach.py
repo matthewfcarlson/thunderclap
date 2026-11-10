@@ -379,7 +379,7 @@ TRIGGERS = [
     ("image-formats", "Image / asset format loaders (BMP, Targa, PNG, 32-bit): only if shipped data uses them",
      r"Image32|ImageConverter|BMPHandler|TargaHandler|PNGHandler|ImageHandler|ImageBuilder|unk_2d6bb0|unk_2e6780|unk_2e1960"),
     ("script-libs", "Scripting-engine and C-library internals (Lua VM / libs, printf, memory)",
-     r"unk_212bb0|unk_338d90|unk_33ed90|unk_2699f0|unk_2708e0|unk_2719a0|\bString\b|dynamic_initializers|MetaType|unk_302fa0|unk_312d50|"
+     r"unk_212bb0|unk_338d90|unk_2699f0|unk_2708e0|unk_2719a0|\bString\b|dynamic_initializers|MetaType|unk_302fa0|unk_312d50|"
      r"unk_2f90c0|unk_308a30|unk_319c80|RDLReader|Memory(Dl|TwoWay)Allocator|NonCopyable|ControllerPoller|ControllerBuffer|"
      r"ControllerXBox|TimerList|BinkCallback|PlayerBink|CRadMovie|ShaderCallback|unk_27b0b0|unk_258b40|unk_25e230|unk_261a80|"
      r"unk_26d480|unk_2f8d90|Param|MultiControllerLoader|CompressedQuaternion"),

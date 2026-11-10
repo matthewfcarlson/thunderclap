@@ -1725,6 +1725,67 @@ placement, unrelated to this change). tools/native_mac.py's compile reads src/pl
 which a queue job's clone lacks: ship it with `--files src/platform/sdl/crt/native_crt_table.h=src/platform/sdl/crt/native_crt_table.h`
 (build/bink1/scripts/native_jobs.sh).
 
+## The Bink audio transform is library code (bink2, 2026-11-09)
+
+bink1 left a note: the object after its allocator, `unknown/unk_33ed90.cpp` (0x0033ed90-0x003440e0, 30 functions,
+20,897 bytes, all in equivalent/), starts with an FFT twiddle-table builder and seemed to have no game caller. The same
+evidence as bink1's (the XBE's call graph, the data it names, link layout, calling convention; nothing of the span's
+code read beyond identifying callers; build/bink2/scripts/scan.py) confirms it is Bink's audio transform, and the
+user had approved treating it like the allocator ("Yes please", 2026-11-09): `library/bink_fft.obj` is a library
+span now, in config/splits.json, every `LIB_SPANS` table (tools/packet.py, wine_host.py, clang_probe.py, x87_scan.py,
+fix_function_list.py, platform_map.py, infer_splits.py, farm/src/farm.ts; the range-only tables carry one Bink span
+0x0033eb70-0x003440e0, the labelled ones a row each) and docs/platform-boundary.md "Where library code lives".
+
+**Evidence.**
+
+- Callers. A scan of every XBE section for `call` / `jmp` rel32 targets and 4-byte immediates naming any of the 30:
+  every reference but two is from inside the span (the object calls itself: twiddles -> butterflies -> plans);
+  the two external ones are `call 0x00343e10` and `call 0x00343f50` from BINK's 0x00369550. No game function,
+  data word or vtable names any of the 30; nothing in `include/`, `src/`, `hybrid/` or another source declared them.
+- Data. The span owns no statics (config/data.json has no item for it); its code names only three shared `.rdata`
+  constants (`flt_00427608`, `dbl_0042c508`, `dbl_0042d9d0`, each also used by game and XDK code) and nothing in
+  `.data` / `.bss`. Nothing to re-own in data.json, nothing for data_gen to drop.
+- Shape. The functions take their arguments in registers (`eax`, `ecx`, `edi`; `eax`, `edx`, `esi`; `eax`, `esi`,
+  `edx`, `ebx`, ...: the `equiv-conv` lines of the removed sources), not MSVC's `__cdecl` / `__thiscall` /
+  `__fastcall`: RAD's hand-scheduled x86. The code is sin/cos twiddle generation, radix-4/8 butterflies and plan
+  builders (`FftPlan`, `TwiddleTable` in the removed sources' own names), Bink's audio decoder's transform.
+- Layout. In `.text` the span sits between Bink's allocator (0x0033eb70-0x0033ed90, bink1) and LIBCMT
+  (0x003440e0-), i.e. among the library objects linked after the game's. 0x00343154-0x003431d0 (124 bytes) is
+  code the function list never had (unreached from the game, it calls the span's own helpers): inside the span, so
+  it goes with it.
+
+**What changed.**
+
+- Removed (library code is never in the tree; the user approved replacing the Bink library): the 30 sources
+  equivalent/0x0033ed90 0x0033eef0 0x0033ef80 0x0033f6d0 0x0033fed0 0x0033ffb0 0x003400e0 0x00340130 0x003401b0
+  0x00340a10 0x00341290 0x00341660 0x00341bd0 0x00342180 0x00342800 0x003429f0 0x00342c20 0x00342cc0 0x00342d90
+  0x00342e50 0x00342f10 0x003430f0 0x003431d0 0x003435d0 0x00343a70 0x00343b10 0x00343bb0 0x00343ce0 0x00343e10
+  0x00343f50 (.cpp), and the two checker regression cases built on 0x0033ed90's source
+  (tests/equiv/cases/0x0033ed90_msvc_cast.cpp, 0x0033ed90_native_cast.cpp, with their rows in tests/equiv/regress.py:
+  the "MSVC drops an explicit `(float)` cast" rule has no regression case now; 0x00150a10, the other example in
+  docs/equivalence.md, passes `--wine` as it stands, so a game-code case is still wanted).
+- tools/progress.py: 27,437 game functions / 2.73 MB (30 functions, 20,897 bytes less), 100.0% verified; README
+  table by hand (progress.py --readme would rewrite docs/game-functions.csv, which another agent holds), docs/tech-debt.md
+  regenerated (four `volatile`-heavy sources of the span leave it), docs/splits.md's unattached list, tools/reach.py's
+  script-libs group.
+- No platform replacement: no game code calls into the span (the BINK section, whose 0x00369550 does, is replaced
+  by the FFmpeg movie player). gen_tree skips library objects; the hybrid build's patch set is matches/ +
+  equivalent/, so the 30 leave it with their files.
+
+**Proof** (studio, play3 to 60,000, limit 14,400; control = HEAD 00b141941 with its own private data,
+proof = the same HEAD plus this change; the data TUs of both are byte-identical, 1,078 TUs / 18,865 items).
+
+| | control 70622 | proof 70644 (seed 70622) |
+|---|---|---|
+| build / map / probe / link stages | 0 / 0 / 0 / 0 | 0 / 0 / 0 / 0 (fresh: splits.json differs) |
+| strict link rc / Wine unbound | 0 / 1,252 | 0 / 1,252 (the same symbols) |
+| tree TUs | 2,652 (3 known front-end failures) | 2,651 (`unknown/unk_33ed90.cpp` gone; the same 3) |
+| play3 checkpoints | 2,012 to 60,330 | 2,010 to 60,270; `ckpt_gate.py 70622 70644` GATE ok: 0 of 2,010 common frames differ (the known transients 5880, 5910, 34260, 52620, 52650 on both), PRNG hashes identical |
+| arm64 macOS / x86-64 Linux / arm64 Android unbound (each side's own snapshot and binding map; compiles 70645 / 70646 / 70647 and 70661 / 70662 / 70663 on studio, linked locally with `--bindings`) | 29,284 / 29,275 / 29,276 | **29,284 / 29,275 / 29,276**, all links rc 0 |
+
+The native totals are not comparable to bink1's table (its Linux / Android links ran without `--bindings`; these all
+pass each side's `bindings.json`). The same control snapshot compiled on mac2 and mac1 gives the same reports and
+totals as on studio once the queue ships `src/` (docs/compute.md "Workspaces", task 2 of this session).
 
 ## Member-function pointers in the script closures, and the start-up past CGame's registrations (sh2, 2026-11-09)
 

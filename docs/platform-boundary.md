@@ -55,6 +55,7 @@ The XBE's `.text` (`0x11000`–`0x364840`) is not all game code. Four library sp
 |---|---|---|
 | `0x208b9c`–`0x212bb0` | XAPILIB (files, threads, heap, MU, launch, signatures) and `xboxkrnl` jump stubs | XbSymbolDatabase names, unaligned `/O1 /Oy-` code, `call [kernel thunk]` |
 | `0x33eb70`–`0x33ed90` | Bink's memory hooks and aligned allocator (`BinkSetMemory` and the alloc / free the BINK section calls; bink1, 2026-11-09) | `__stdcall`; every caller but the movie player's one `BinkSetMemory` call is in the BINK section; its `.bss` sits among the BINK section's |
+| `0x33ed90`–`0x3440e0` | Bink's audio transform: FFT twiddle tables, butterflies and plans (30 functions, 20,897 bytes, plus 124 bytes of unlisted code at `0x343154`; bink2, 2026-11-09) | register calling conventions (`eax`/`ecx`/`edi`, not MSVC's); no game code or data names any of them: the two entry points `0x343e10` / `0x343f50` are called only from the BINK section (`0x369550`); no statics of its own |
 | `0x3440e0`–`0x356bf0` | LIBCMT plus more XAPILIB (fibers, save games, soundtracks, `XGetVideoFlags`) | same |
 | `0x35a7b0`–`0x35be88` | LIBCMT EH runtime, `itoa`, 64-bit helpers | Ghidra FID names |
 

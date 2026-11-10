@@ -614,7 +614,7 @@ async function main() {
 	};
 	// Library code (XAPILIB/LIBCMT spans inside .text, everything after .text) is replaced by the port, never
 	// decompiled (docs/platform-boundary.md). Older queue files still list it, so skip it here as well.
-	const LIB_SPANS: [number, number][] = [[0x208b9c, 0x212bb0], [0x33eb70, 0x33ed90], [0x3440e0, 0x356bf0], [0x35a7b0, 0x35be88], [0x364840, 0x100000000]];
+	const LIB_SPANS: [number, number][] = [[0x208b9c, 0x212bb0], [0x33eb70, 0x3440e0], [0x3440e0, 0x356bf0], [0x35a7b0, 0x35be88], [0x364840, 0x100000000]];
 	const isLibrary = (a: string) => LIB_SPANS.some(([lo, hi]) => parseInt(a, 16) >= lo && parseInt(a, 16) < hi);
 	let queue = values.only
 		? values.only.split(",")

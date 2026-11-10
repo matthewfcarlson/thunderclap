@@ -139,7 +139,6 @@ Confidence: `high` = a core with at least 3 named functions, `medium` = a core w
 | `physics/unk_2e6780.cpp` | `0x2e6780`..`0x2ecd50` | 92 | call partners |
 | `unknown/unk_338d90.cpp` | `0x338d90`..`0x33eb70` | 161 | none (no majority) |
 | `unknown/unk_3137f0.cpp` | `0x3137f0`..`0x319580` | 23 | none (no majority) |
-| `unknown/unk_33ed90.cpp` | `0x33ed90`..`0x3440e0` | 30 | none (no majority) |
 | `unknown/unk_22baf0.cpp` | `0x22baf0`..`0x230800` | 71 | none (no majority) |
 | `pure3d/unk_2e1960.cpp` | `0x2e1960`..`0x2e5330` | 14 | call partners |
 | `hulkfight/unk_034ca0.cpp` | `0x034ca0`..`0x038290` | 140 | call partners |

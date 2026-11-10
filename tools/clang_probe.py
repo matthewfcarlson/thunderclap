@@ -828,7 +828,7 @@ def scans(man, tus):
 
 # ---------------------------------------------------------------------------------------------
 # Link probe
-LIB_SPANS = [(0x208b9c, 0x212bb0), (0x33eb70, 0x33ed90), (0x3440e0, 0x356bf0), (0x35a7b0, 0x35be88), (0x364840, 0x3f2be0)]
+LIB_SPANS = [(0x208b9c, 0x212bb0), (0x33eb70, 0x3440e0), (0x3440e0, 0x356bf0), (0x35a7b0, 0x35be88), (0x364840, 0x3f2be0)]
 CRT_NAMES = set("""memcpy memset memmove memcmp strlen strcpy strncpy strcat strcmp strncmp stricmp _stricmp strnicmp
 _strnicmp strchr strrchr strstr strtok sprintf _snprintf vsprintf _vsnprintf sscanf printf atoi atof atol strtol strtoul
 strtod toupper tolower isspace isdigit isalpha malloc free calloc realloc fopen fclose fread fwrite fseek ftell fprintf

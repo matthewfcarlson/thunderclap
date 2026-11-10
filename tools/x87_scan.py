@@ -45,7 +45,7 @@ from xbe import Xbe  # noqa: E402
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 XBE_PATH = os.path.join(ROOT, "isos/extracted/default.xbe")
 GAME_TEXT_END = 0x364840
-LIB_SPANS = [(0x208B9C, 0x212BB0), (0x33EB70, 0x33ED90), (0x3440E0, 0x356BF0), (0x35A7B0, 0x35BE88)]
+LIB_SPANS = [(0x208B9C, 0x212BB0), (0x33EB70, 0x3440E0), (0x3440E0, 0x356BF0), (0x35A7B0, 0x35BE88)]  # XAPILIB; Bink (memory + audio FFT); LIBCMT+XAPI; LIBCMT EH
 
 ARITH = {"fadd", "faddp", "fsub", "fsubp", "fsubr", "fsubrp", "fmul", "fmulp", "fdiv", "fdivp", "fdivr", "fdivrp",
          "fiadd", "fisub", "fisubr", "fimul", "fidiv", "fidivr", "fsqrt", "fprem", "fprem1", "fscale", "frndint",

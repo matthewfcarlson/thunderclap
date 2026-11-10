@@ -40963,18 +40963,16 @@
   {
    "start": "0x0033ed90",
    "end": "0x003440e0",
-   "file": "unknown/unk_33ed90.cpp",
-   "kind": "game",
-   "layer": "engine",
-   "confidence": "low",
+   "file": "library/bink_fft.obj",
+   "kind": "library",
+   "layer": "library",
+   "confidence": "high",
    "evidence": [
-    "unattached run: no call affinity to neighbouring objects"
+    "docs/platform-boundary.md: Bink's audio transform (FFT twiddle tables, butterflies and plans; every caller of the object's two entry points 0x00343e10 / 0x00343f50 is in the BINK section, 0x00369550)"
    ],
    "layer_evidence": [
-    "link order: Radical library code (after the XAPILIB span)"
-   ],
-   "functions": 30,
-   "named": 0
+    "XDK/CRT/Bink code, replaced and never decompiled"
+   ]
   },
   {
    "start": "0x003440e0",
