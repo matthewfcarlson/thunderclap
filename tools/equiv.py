@@ -8643,7 +8643,15 @@ def coverage_of(view, edges):
 def pick_symbol(obj, addr, target_bytes, symbol=None):
     funcs = obj.functions()
     if symbol:
-        c = [s for s in funcs if s[0] == symbol] or [s for s in funcs if symbol in s[0]]
+        c = [s for s in funcs if s[0] == symbol]
+        if not c and "mnret" not in EQUIV_OFF:
+            # (build6, mnret) MSVC's name with a `float` return where clang's (the Wine object's: hulk_freg is double)
+            # has `double`, M <-> N: a tree TU names its function by the MSVC symbol, and the TU's other functions
+            # must not win the byte-similarity fallback below
+            c = [s for s in funcs if len(s[0]) == len(symbol) and s[0] != symbol and
+                 all(x == y or {x, y} == {"M", "N"} for x, y in zip(s[0], symbol))]
+            c = c if len(c) == 1 else []
+        c = c or [s for s in funcs if symbol in s[0]]
         if c:
             return c[0]
     hexa = "%08x" % addr
@@ -9488,6 +9496,9 @@ def _verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappi
     fsym = pick_symbol(obj, addr, target, symbol)
     if msym is not None:
         same = [s_ for s_ in obj.functions() if s_[0] == msym[0]]
+        if not same and "mnret" not in EQUIV_OFF:
+            same_ = pick_symbol(obj, addr, b"", msym[0]) if native else None   # (the M <-> N float return only)
+            same = [same_] if same_ is not None and same_[0] != msym[0] and len(same_[0]) == len(msym[0]) else []
         if same:
             fsym = same[0]
     if fsym is None:
