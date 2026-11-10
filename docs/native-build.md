@@ -1724,3 +1724,128 @@ tree has one TU more than the control's, `physics/unk_2e6780.iso_002e9c60.cpp` (
 placement, unrelated to this change). tools/native_mac.py's compile reads src/platform/sdl/crt/native_crt_table.h,
 which a queue job's clone lacks: ship it with `--files src/platform/sdl/crt/native_crt_table.h=src/platform/sdl/crt/native_crt_table.h`
 (build/bink1/scripts/native_jobs.sh).
+
+
+## Member-function pointers in the script closures, and the start-up past CGame's registrations (sh2, 2026-11-09)
+
+sh1 left the macOS start-up in 0x001d46d0 at its call to 0x001d3250 under the invented name `Create` (fixed first:
+96b18cb18, both MATCH). The user then flagged the registration sources that declare the bound game functions as
+`extern void FUN_x()` and store a plain function pointer where the game stores a C++ member-function pointer as tech
+debt. This batch types them end to end and continues the start-up.
+
+### The member-function-pointer decision
+
+The game binds `R Owner::f(A...)` to Lua through `Method<N>` / `Closure<N>` objects whose slot at +0x1c holds a
+pointer to member function (`T1 (T0::*f_1c)(T2)` in include/gen/global.h) and whose Invoke (vftable slot 2) calls
+`(owner->*f)(args)`; a `Function<N>` binds a free function and its Invoke calls the slot `__cdecl`. What a pointer to
+member function is depends on the C++ ABI and on what the compiler knows about the class when the pointer type is
+first formed (clang, `sizeof`):
+
+| class | i686 MS | x86-64 / arm64 MS | Itanium (x86-64 Linux, arm64 macOS triples) |
+|---|---|---|---|
+| complete, single inheritance | 4 | 8 | 16 |
+| incomplete (forward-declared) | 16 | 24 | 16 |
+| multiple inheritance | 8 | 16 | 16 |
+| plain function pointer | 4 | 8 | 8 |
+
+Every build of this tree compiles through the MS C++ ABI: MSVC 7.1 and the 32-bit clang Wine build on i686, and the
+three native targets through the `*-pc-windows-msvc` front ends of tools/native_mac.py (FRONT) and tools/native_elf.py
+(TARGETS front) before the IR is retargeted. So the slot is one code pointer on every build (4 / 8 bytes, the size of
+a plain function pointer), `ScriptClosureView`'s `ScriptMemberFn fn` and the gen `Method<N>::f_1c` agree with the
+Invoke bodies, and the Invoke's `(obj->*fn)(args)` passes `this` in the first register. The Itanium 16-byte form never
+arises; it would if a source were ever compiled for a native triple directly. The plain-pointer sources therefore
+worked by that coincidence; the debt was the type: a free function declared where the definition is a member (bound
+by the address in the name only), and the helpers' closure views with 32-bit pads (`char pad[0x1c]` + owner, 0x30
+bytes on 64-bit for a 0x38 object: the owner written at +0x28, read by Invoke at +0x30).
+
+The rule now: the bound functions are declared as members of their owner with the game's types (`bool
+CActorManager::FUN_00024480(const char*, bool)`: the `Closure2<CActorManager, bool, const char*, bool>` instantiation
+the original stores, read off the vftable names with tools/packet.py), taken as `&Owner::FUN_x`; the helpers and the
+closure constructors take `R (Owner::*)(A...)` (or a source's `Fn_x` typedef of a complete empty `class Owner_x {}`),
+the templates keep `R (C::*f)(A...)`; the owner class is complete before any pointer to its members is formed (an
+incomplete class would give the 16 / 24-byte form: sh1's pitfall). `Function<N>` bindings keep plain function
+pointers, typed `R (__cdecl*)(A...)` where the source was edited (0x000436f0, 0x001b3c50, 0x00087e80); 0x000c0e40's
+`StaticFn`, 0x001e7470's EF / OF and 0x001f81c0's 0x001e12b0 are unchanged. include/decls/data/script.h gains
+`ScriptMethodView` (a Method<N> alone, 0x20) and `ScriptStaticFn` / `ScriptStaticFunctionView` (a Function<N>, 0x20).
+
+MSVC pushes `&Owner::FUN_x` of a complete single-inheritance class as the function's address, so every match in the
+family still matches; verify_relocs sees `function_address_as_data` relocations to the members' mangled names, which
+carry the address.
+
+### Batch
+
+- 123 helpers (`Registry::FUN_x(name, owner, fn)`, 12 matches + 111 equivalents; build/sh2/scripts/conv_helpers.py from
+  the vftable table build/sh2/helpers.json): the member-function type from the original's closure instantiation, the
+  closure specializations on `ScriptFunctionFields` (`Fn fn; Owner* owner;`), allocations `(int)sizeof` with
+  `HULK_SIZE32`, `operator new(hulk_uintptr)`.
+- 14 registration functions: matches 0x00087e30 (also `Register` -> `FUN_00087d50`, and FUN_001d4c90 returns a pointer),
+  0x000d75c0, 0x00106e90; equivalents 0x00031310 (217 members), 0x0007f950, 0x0009dd20, 0x00094fb0, 0x001e7470
+  (build/sh2/scripts/conv_gstyle.py: the macro arguments and the helpers' types), 0x0008bf80, 0x000d1720, 0x00087e80,
+  0x000d6640, 0x000436f0, 0x001b3c50 by hand. 0x000d6640 binds hud_MessageEx to the `jmp` thunk at 0x000d5f90
+  (Ghidra's `thunk_FUN_000d4b60`): as a member it carries an `equiv-map` line for the checker; the native link binds
+  the thunk_ name to 0x000d4b60's definition.
+- 0x00087e80 (CGame's constructor) stores the game's vftables (DAT_003ffab4, DAT_003ffb50, DAT_003ffb70) instead of
+  local classes' virtuals: a local class's vftable is a stub in the 64-bit link (`?dummy@CGame@...` was the start-up's
+  slot-0 call).
+
+### Start-up fixes on the way (the continue-mode misses sh1 listed)
+
+- 80 matches named Function's base constructor `Ctor_001d0480`: a constructor of a class named by an address binds only
+  as `FUN_<addr>` (native_unbound.name_address "class named fun"), so the class is `FUN_001d0480` now.
+- 0x00088530 (CGame's start): owners.h stub `Obj_88530` had `A` / `B` / `D` for FUN_00088020 / FUN_000879c0 / FUN_00087940
+  (evidence-owners.json and owners.h edited alike).
+- 0x00265c40 calls two `jmp` thunks to the heap's free as `thunk_FUN_00267090_a` / `_b` (0x000fa300's spelling: one name
+  for two addresses is an inconsistent relocation); native_unbound.thunk_address now reads the `_a` / `_b` suffix.
+- 0x0008ee30 declares `thunk_FUN_00270f90` with the definition's signature (`bool (const char*)`; it was `void (int)`,
+  which the IR signature check refuses).
+- 0x00270000 (`IB_270000::helper` -> FUN_0026d280), 0x00272b80 / 0x00270f90 (the drive thread's "requests queued" is
+  `bool`, as 0x002730c0 returns; the caller said `char`).
+- 0x0026f540 and 0x0026f530 (core::XboxDrive's adjustor thunks to its deleting destructor 0x0026f760): explicit 64-bit
+  definitions under their own address names, as 0x002786f0 (a compiler-generated adjustor thunk cannot be named).
+
+### Gates
+
+| | |
+|---|---|
+| matches | 12 helpers + 3 registration functions + 80 `FUN_001d0480` constructors + 0x00265c40, 0x0008ee30, 0x00270000, 0x00088530, 0x00272b80, 0x0026f540, 0x0026f530, 0x0008ecd0, 0x0031ba60, 0x0031ba30, 0x0031ba00, 0x002c3230, 0x00292410: all compare.py MATCH + verify_relocs ok (build/sh2/*lc*.log) |
+| helper equivalents (111), 3,000 inputs | 111 / 111 equivalent, 2,991-3,000 inputs each (the originals' STATUS counts: 2,991 / 3,000); `--wine` 111 / 111; `--x64` 111 / 111 fail by design (`[intwidth]`: the member-function-pointer argument is pointer-wide) |
+| registration equivalents (11) + 0x00270f90, 0x00266480 | all equivalent at 3,000 inputs or at the untouched original's count on the same host (0x00094fb0 17 / 17, 0x001e7470 50 / 50, 0x0009dd20 1,521 / 1,527, 0x0008bf80 1,107 on mac1 vs the original's 1,502 on mac2); `--wine` 13 / 13 at the originals' counts; `--x64` 11 equivalent, 0x001e7470 unsupported (`type too large: int`, the tool), 0x00270f90 fails identically on the original (a pointer read from 32-bit data) |
+| 0x000d6640 | its first run failed level 2: the game binds hud_MessageEx to the `jmp` thunk at 0x000d5f90 and the checker reads a member named `thunk_FUN_000d4b60` as 0x000d4b60; an `equiv-map` line gives the thunk's address; 2,992 inputs |
+| iteration (macOS, base sh1's p2 snapshot + map) | i1: the sh1 misses as before (the base map predates 96b18cb18); i2: all of them gone, the `jmp`-thunk allocator 0x00263ea0, `Init`, an `__int64` allocator declaration and a device pointer through `int*` (0x0031ba60 / 0x0031ba00: the crash in 0x002c3230) next; i3: content::LoadInventory's local vftable, 0x00292410's `alloc` / `init`, the D3D object's width; i4: see below |
+
+
+### Proof
+
+| | control 70495 (bc937de44, studio, fresh) | proof 70588 (studio, bc937de44 + the batch, seed:70495) |
+|---|---|---|
+| data_gen | 18,874 items (the lua2 data) | 18,874 items, all verified (dg-d2: config/data-ptrs.json + 0x005554a4, 0x00554bd8, 0x0052c2c4 as pointer words; the three data headers regenerate identically on HEAD b2a35cc05, dg-d3) |
+| strict link rc / Wine unbound | 0 / 1,252 | 0 / 1,251 (`?dummy@Function4_87e80` gone; the XboxDrive stub names moved namespace) |
+| x87 keep list | 268 | 268, identical |
+| play3 checkpoints | 2,004 to 60,090 | `ckpt_gate.py` GATE ok: 0 of 2,004 common frames differ, PRNG hashes identical; 2,021 to 60,600 |
+| arm64 macOS / x86-64 Linux / arm64 Android unbound | 29,488 / 23,297 / 29,480 (sh1's p2) | **29,055 / 29,040 / 29,047** (bound 15,502 / 15,516 / 15,509), all rc 0; the Linux link now binds by address like the others (sh1's 23,297 / 6,781 bound was the older link) |
+| macOS start-up | 0x001d46d0 at `Create` | with the proof's own map: every registration runs (0x001d3250's own base call still said `Init`: batch 2), CGame starts, 0x0026f000 and the pddi device probe run; the start-up stops in pddiDevice::newDisplay (0x0031b830, `Helper_31b830::f`) and, continued, crashes on the null context in 0x00292560; the iterations i5-i8 with batch 2 reach the d3dContext constructor (0x00324e00) and pddiBaseContext (0x0031f410), see below |
+
+HEAD moved during the proof (opt1's 3fb8c284e / b2a35cc05, bink1's fa450f451: the Bink allocator as library code); none of this
+batch's files, so the batch is committed on top of them with the control's base as the proof pair's.
+
+
+### Follow-ups
+
+- The pddi D3D layer (0x0031b520 d3dDisplay, 0x0031b830 / 0x0031b860 / 0x00324e00 d3dDevice::newDisplay / newContext and
+  the d3dContext constructor, 0x0031f410 pddiBaseContext): invented class and member names throughout (`Helper::f`,
+  `make`, `done`, `StateCache::StateCache`, `vfunc_100`), local classes with their own vftables (stubs in the 64-bit
+  link), the D3D object kept in a 32-bit word (d3dDevice +0x10, d3dDisplay +0x0c; the native Direct3D_Object stand-in
+  returns 0 today), object sizes as literals (0x14, 0x49c). A pddi record set is the next layout batch: the start-up
+  stops there now (below).
+- `FUN_001d3250` stays "unbound" in the iteration runs only: the iteration's base map (sh1's p2) still names
+  0x001d3250 `Create`, and native_mac.TreeDefs finds the definition through the Wine map's 32-bit symbol; a fresh
+  map (the proof's) binds it.
+- 0x001d22a0's 4-byte Lua argument slots, the manager classes' 32-bit pads (CScenarioManager, MessageOverlay 0x810,
+  HUDOverlay 0x510 in 0x000d75c0, CRenderManager, CFEManager, CControllerManager, CPlatformManager,
+  CUnlockablesManager's memset), 0x001c0cd0's literal 8, 0x001a16b0's chunk pointer, 0x001d4530's g1 / g2: untouched
+  (not on the start-up path this batch reached).
+- Local vftables: the 64-bit link reports 1,776 `unbound: vftable` (per-source `Foo_vftable` stand-ins and the
+  vftables of local classes with declared-only virtuals); an object built by such a source carries a zero stub as its
+  vftable. The batch stored the game's vftable by address where the start-up tripped (0x00087e80, 0x00266480,
+  0x0031b520); the general fix is the link's (bind a source's local vftable to the game's by the Wine map's pairing).
+

@@ -22,38 +22,24 @@ extern char DAT_0048e0e4, DAT_0048e0f0, DAT_0048e100, DAT_0048e10c, DAT_0048e128
 // Function's fields (include/decls/data/script.h); Method<N> adds the member-function pointer (CCameraManager's,
 // held as ScriptMemberFn), Closure<N> the object.
 class Base : public ScriptFunctionFields { public: virtual void v(); Base(const char*, int) throw(); };
-template<class C, class R> class Method0 : public Base { public: ScriptMemberFn f; Method0(const char* n, ScriptMemberFn x, const void* r) : Base(n, 0) { f = x; retType = FUN_001d04d0(r); } virtual void v(); };
-template<class C, class R> class Closure0 : public Method0<C, R> { public: C* owner; Closure0(const char* n, C* o, ScriptMemberFn f, const void* r) : Method0<C, R>(n, f, r) { owner = o; } virtual void v(); };
-template<class C, class R, class A1> class Method1 : public Base { public: ScriptMemberFn f; Method1(const char* n, ScriptMemberFn x, const void* r, const void* a1) : Base(n, 1) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); } virtual void v(); };
-template<class C, class R, class A1> class Closure1 : public Method1<C, R, A1> { public: C* owner; Closure1(const char* n, C* o, ScriptMemberFn f, const void* r, const void* a1) : Method1<C, R, A1>(n, f, r, a1) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2> class Method2 : public Base { public: ScriptMemberFn f; Method2(const char* n, ScriptMemberFn x, const void* r, const void* a1, const void* a2) : Base(n, 2) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); } virtual void v(); };
-template<class C, class R, class A1, class A2> class Closure2 : public Method2<C, R, A1, A2> { public: C* owner; Closure2(const char* n, C* o, ScriptMemberFn f, const void* r, const void* a1, const void* a2) : Method2<C, R, A1, A2>(n, f, r, a1, a2) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3> class Method3 : public Base { public: ScriptMemberFn f; Method3(const char* n, ScriptMemberFn x, const void* r, const void* a1, const void* a2, const void* a3) : Base(n, 3) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3> class Closure3 : public Method3<C, R, A1, A2, A3> { public: C* owner; Closure3(const char* n, C* o, ScriptMemberFn f, const void* r, const void* a1, const void* a2, const void* a3) : Method3<C, R, A1, A2, A3>(n, f, r, a1, a2, a3) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4> class Method4 : public Base { public: ScriptMemberFn f; Method4(const char* n, ScriptMemberFn x, const void* r, const void* a1, const void* a2, const void* a3, const void* a4) : Base(n, 4) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); argTypes[3] = FUN_001d04d0(a4); } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4> class Closure4 : public Method4<C, R, A1, A2, A3, A4> { public: C* owner; Closure4(const char* n, C* o, ScriptMemberFn f, const void* r, const void* a1, const void* a2, const void* a3, const void* a4) : Method4<C, R, A1, A2, A3, A4>(n, f, r, a1, a2, a3, a4) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4, class A5> class Method5 : public Base { public: ScriptMemberFn f; Method5(const char* n, ScriptMemberFn x, const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5) : Base(n, 5) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); argTypes[3] = FUN_001d04d0(a4); argTypes[4] = FUN_001d04d0(a5); } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4, class A5> class Closure5 : public Method5<C, R, A1, A2, A3, A4, A5> { public: C* owner; Closure5(const char* n, C* o, ScriptMemberFn f, const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5) : Method5<C, R, A1, A2, A3, A4, A5>(n, f, r, a1, a2, a3, a4, a5) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4, class A5, class A6> class Method6 : public Base { public: ScriptMemberFn f; Method6(const char* n, ScriptMemberFn x, const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5, const void* a6) : Base(n, 6) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); argTypes[3] = FUN_001d04d0(a4); argTypes[4] = FUN_001d04d0(a5); argTypes[5] = FUN_001d04d0(a6); } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4, class A5, class A6> class Closure6 : public Method6<C, R, A1, A2, A3, A4, A5, A6> { public: C* owner; Closure6(const char* n, C* o, ScriptMemberFn f, const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5, const void* a6) : Method6<C, R, A1, A2, A3, A4, A5, A6>(n, f, r, a1, a2, a3, a4, a5, a6) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4, class A5, class A6, class A7> class Method7 : public Base { public: ScriptMemberFn f; Method7(const char* n, ScriptMemberFn x, const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5, const void* a6, const void* a7) : Base(n, 7) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); argTypes[3] = FUN_001d04d0(a4); argTypes[4] = FUN_001d04d0(a5); argTypes[5] = FUN_001d04d0(a6); argTypes[6] = FUN_001d04d0(a7); } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4, class A5, class A6, class A7> class Closure7 : public Method7<C, R, A1, A2, A3, A4, A5, A6, A7> { public: C* owner; Closure7(const char* n, C* o, ScriptMemberFn f, const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5, const void* a6, const void* a7) : Method7<C, R, A1, A2, A3, A4, A5, A6, A7>(n, f, r, a1, a2, a3, a4, a5, a6, a7) { owner = o; } virtual void v(); };
-template<> class Closure6<CCameraManager, bool, float, float, float, float, float, float> { public: virtual void v(); ScriptFunctionFields fields; ScriptMemberFn fn; CCameraManager* owner; Closure6(CCameraManager* o) { owner = o; } };
-template<> class Closure6<CCameraManager, void, float, float, float, float, float, float> { public: virtual void v(); ScriptFunctionFields fields; ScriptMemberFn fn; CCameraManager* owner; Closure6(CCameraManager* o) { owner = o; } };
-template<> class Closure6<CCameraManager, void, int, int, float, int, int, float> { public: virtual void v(); ScriptFunctionFields fields; ScriptMemberFn fn; CCameraManager* owner; Closure6(CCameraManager* o) { owner = o; } };
-template<> class Closure7<CCameraManager, void, bool, bool, bool, bool, bool, bool, float> { public: virtual void v(); ScriptFunctionFields fields; ScriptMemberFn fn; CCameraManager* owner; Closure7(CCameraManager* o) { owner = o; } };
-class Registry { public:
-    void FUN_001d3b70(const char*, void*);
-};
-class Entry { public:
-};
-class Raw_0009a6e0 { public: void FUN_0009a6e0(const char*, ScriptMemberFn); };
-class Raw_0009ae50 { public: void FUN_0009ae50(const char*, ScriptMemberFn); };
-class Raw_0009b080 { public: void FUN_0009b080(const char*, ScriptMemberFn); };
-class Raw_0009b4a0 { public: void FUN_0009b4a0(const char*, ScriptMemberFn); };
-Registry* FUN_001d4c90();
+template<class C, class R> class Method0 : public Base { public: R (C::*f)(); Method0(const char* n, R (C::*x)(), const void* r) : Base(n, 0) { f = x; retType = FUN_001d04d0(r); } virtual void v(); };
+template<class C, class R> class Closure0 : public Method0<C, R> { public: C* owner; Closure0(const char* n, C* o, R (C::*f)(), const void* r) : Method0<C, R>(n, f, r) { owner = o; } virtual void v(); };
+template<class C, class R, class A1> class Method1 : public Base { public: R (C::*f)(A1); Method1(const char* n, R (C::*x)(A1), const void* r, const void* a1) : Base(n, 1) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); } virtual void v(); };
+template<class C, class R, class A1> class Closure1 : public Method1<C, R, A1> { public: C* owner; Closure1(const char* n, C* o, R (C::*f)(A1), const void* r, const void* a1) : Method1<C, R, A1>(n, f, r, a1) { owner = o; } virtual void v(); };
+template<class C, class R, class A1, class A2> class Method2 : public Base { public: R (C::*f)(A1, A2); Method2(const char* n, R (C::*x)(A1, A2), const void* r, const void* a1, const void* a2) : Base(n, 2) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); } virtual void v(); };
+template<class C, class R, class A1, class A2> class Closure2 : public Method2<C, R, A1, A2> { public: C* owner; Closure2(const char* n, C* o, R (C::*f)(A1, A2), const void* r, const void* a1, const void* a2) : Method2<C, R, A1, A2>(n, f, r, a1, a2) { owner = o; } virtual void v(); };
+template<class C, class R, class A1, class A2, class A3> class Method3 : public Base { public: R (C::*f)(A1, A2, A3); Method3(const char* n, R (C::*x)(A1, A2, A3), const void* r, const void* a1, const void* a2, const void* a3) : Base(n, 3) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); } virtual void v(); };
+template<class C, class R, class A1, class A2, class A3> class Closure3 : public Method3<C, R, A1, A2, A3> { public: C* owner; Closure3(const char* n, C* o, R (C::*f)(A1, A2, A3), const void* r, const void* a1, const void* a2, const void* a3) : Method3<C, R, A1, A2, A3>(n, f, r, a1, a2, a3) { owner = o; } virtual void v(); };
+template<class C, class R, class A1, class A2, class A3, class A4> class Method4 : public Base { public: R (C::*f)(A1, A2, A3, A4); Method4(const char* n, R (C::*x)(A1, A2, A3, A4), const void* r, const void* a1, const void* a2, const void* a3, const void* a4) : Base(n, 4) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); argTypes[3] = FUN_001d04d0(a4); } virtual void v(); };
+template<class C, class R, class A1, class A2, class A3, class A4> class Closure4 : public Method4<C, R, A1, A2, A3, A4> { public: C* owner; Closure4(const char* n, C* o, R (C::*f)(A1, A2, A3, A4), const void* r, const void* a1, const void* a2, const void* a3, const void* a4) : Method4<C, R, A1, A2, A3, A4>(n, f, r, a1, a2, a3, a4) { owner = o; } virtual void v(); };
+template<class C, class R, class A1, class A2, class A3, class A4, class A5> class Method5 : public Base { public: R (C::*f)(A1, A2, A3, A4, A5); Method5(const char* n, R (C::*x)(A1, A2, A3, A4, A5), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5) : Base(n, 5) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); argTypes[3] = FUN_001d04d0(a4); argTypes[4] = FUN_001d04d0(a5); } virtual void v(); };
+template<class C, class R, class A1, class A2, class A3, class A4, class A5> class Closure5 : public Method5<C, R, A1, A2, A3, A4, A5> { public: C* owner; Closure5(const char* n, C* o, R (C::*f)(A1, A2, A3, A4, A5), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5) : Method5<C, R, A1, A2, A3, A4, A5>(n, f, r, a1, a2, a3, a4, a5) { owner = o; } virtual void v(); };
+template<class C, class R, class A1, class A2, class A3, class A4, class A5, class A6> class Method6 : public Base { public: R (C::*f)(A1, A2, A3, A4, A5, A6); Method6(const char* n, R (C::*x)(A1, A2, A3, A4, A5, A6), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5, const void* a6) : Base(n, 6) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); argTypes[3] = FUN_001d04d0(a4); argTypes[4] = FUN_001d04d0(a5); argTypes[5] = FUN_001d04d0(a6); } virtual void v(); };
+template<class C, class R, class A1, class A2, class A3, class A4, class A5, class A6> class Closure6 : public Method6<C, R, A1, A2, A3, A4, A5, A6> { public: C* owner; Closure6(const char* n, C* o, R (C::*f)(A1, A2, A3, A4, A5, A6), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5, const void* a6) : Method6<C, R, A1, A2, A3, A4, A5, A6>(n, f, r, a1, a2, a3, a4, a5, a6) { owner = o; } virtual void v(); };
+template<class C, class R, class A1, class A2, class A3, class A4, class A5, class A6, class A7> class Method7 : public Base { public: R (C::*f)(A1, A2, A3, A4, A5, A6, A7); Method7(const char* n, R (C::*x)(A1, A2, A3, A4, A5, A6, A7), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5, const void* a6, const void* a7) : Base(n, 7) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); argTypes[3] = FUN_001d04d0(a4); argTypes[4] = FUN_001d04d0(a5); argTypes[5] = FUN_001d04d0(a6); argTypes[6] = FUN_001d04d0(a7); } virtual void v(); };
+template<class C, class R, class A1, class A2, class A3, class A4, class A5, class A6, class A7> class Closure7 : public Method7<C, R, A1, A2, A3, A4, A5, A6, A7> { public: C* owner; Closure7(const char* n, C* o, R (C::*f)(A1, A2, A3, A4, A5, A6, A7), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5, const void* a6, const void* a7) : Method7<C, R, A1, A2, A3, A4, A5, A6, A7>(n, f, r, a1, a2, a3, a4, a5, a6, a7) { owner = o; } virtual void v(); };
 #define FN(b) void FUN_##b();
-#define CB(b) reinterpret_cast<ScriptMemberFn>(&CCameraManager::FUN_##b)
+#define CB(b) (&CCameraManager::FUN_##b)
 #define G0(n, b, R) { typedef Closure0<CCameraManager, R> Built_t; HULK_SIZE32(Built_t, 0x24); r->FUN_001d3b70(n, new Built_t(n, this, CB(b), &t##R)); }
 #define G1(n, b, R, A1) { typedef Closure1<CCameraManager, R, A1> Built_t; HULK_SIZE32(Built_t, 0x24); r->FUN_001d3b70(n, new Built_t(n, this, CB(b), &t##R, &t##A1)); }
 #define G2(n, b, R, A1, A2) { typedef Closure2<CCameraManager, R, A1, A2> Built_t; HULK_SIZE32(Built_t, 0x24); r->FUN_001d3b70(n, new Built_t(n, this, CB(b), &t##R, &t##A1, &t##A2)); }
@@ -82,8 +68,83 @@ public:
     int ia0, ia4, ia8, iac, ib0, ib4, ib8, ibc, ic0, ic4;
     void FUN_0009a220();
     // The member functions bound to Lua below.
-    FN(00099570) FN(00099500) FN(000995c0) FN(00099600) FN(00099640) FN(00099680) FN(000996c0) FN(0009c170) FN(0009c1a0) FN(0009c1d0) FN(0009c200) FN(0009c230) FN(00099710) FN(00099760) FN(000997b0) FN(000997e0) FN(00099810) FN(000993f0) FN(00099860) FN(00099880) FN(000998a0) FN(00099840) FN(000998c0) FN(000998f0) FN(00099960) FN(00099980) FN(000999b0) FN(000999f0) FN(00099a10) FN(00099a20) FN(00099a30) FN(00098f40) FN(00099330) FN(00099bf0) FN(00099730) FN(00099740) FN(00099750) FN(00099790) FN(000997a0) FN(00099c60) FN(00099c80) FN(00099ca0) FN(00099cc0) FN(00099ce0) FN(0009a5d0) FN(00099a50) FN(00099a70) FN(00099ae0) FN(00099b00) FN(00099d60) FN(00099000) FN(00099030) FN(00099040) FN(0009d1b0) FN(00099b30) FN(00099b50) FN(0009a480) FN(0009a500) FN(00099b70) FN(00099b90) FN(00099bb0) FN(00099bd0)
+    void FUN_00098f40(bool);
+    void FUN_00099000(math::Vector, float);
+    void FUN_00099030(float);
+    void FUN_00099040(float);
+    void FUN_00099330(int, float, float, float);
+    void FUN_000993f0(int, int, float, int, int, float);
+    void FUN_00099500(float, float, math::Vector, float);
+    void FUN_00099570(float, float, float, float, float, float);
+    void FUN_000995c0(float, float, bool);
+    void FUN_00099600(float, float);
+    void FUN_00099640(float, float);
+    void FUN_00099680(float, float);
+    void FUN_000996c0(float, float, float, float);
+    void FUN_00099710();
+    bool FUN_00099730();
+    bool FUN_00099740();
+    bool FUN_00099750();
+    bool FUN_00099760();
+    bool FUN_00099790();
+    bool FUN_000997a0();
+    void FUN_000997b0(float, float);
+    void FUN_000997e0(float, float);
+    void FUN_00099810(float, float);
+    void FUN_00099840(float);
+    void FUN_00099860(float, float);
+    void FUN_00099880(float, float);
+    void FUN_000998a0(float, float);
+    void FUN_000998c0(float, float);
+    void FUN_000998f0(math::Vector, math::Vector);
+    void FUN_00099960(float, float);
+    void FUN_00099980(float, float);
+    void FUN_000999b0(float, float);
+    void FUN_000999f0(float, float);
+    void FUN_00099a10(float);
+    void FUN_00099a20(float);
+    void FUN_00099a30(bool);
+    void FUN_00099a50(const char*);
+    const char* FUN_00099a70();
+    void FUN_00099ae0(bool);
+    void FUN_00099b00(math::Vector, bool);
+    float FUN_00099b30();
+    float FUN_00099b50();
+    float FUN_00099b70();
+    void FUN_00099b90(float);
+    float FUN_00099bb0();
+    void FUN_00099bd0(float);
+    math::Vector FUN_00099bf0();
+    void FUN_00099c60(float);
+    void FUN_00099c80(float);
+    void FUN_00099ca0(float);
+    void FUN_00099cc0(float);
+    void FUN_00099ce0(float);
+    bool FUN_00099d60(float, float, float, float, bool);
+    void FUN_0009a480(float);
+    void FUN_0009a500(float, float);
+    bool FUN_0009a5d0(float, float, float, float, float, float);
+    void FUN_0009c170(bool, bool, bool);
+    void FUN_0009c1a0(bool, bool, bool, float);
+    void FUN_0009c1d0(bool, bool, bool, bool);
+    void FUN_0009c200(bool, bool, bool, bool, float);
+    void FUN_0009c230(bool, bool, bool, bool, bool, bool, float);
+    void FUN_0009d1b0(char*, char*, char*, char*);
 };
+template<> class Closure6<CCameraManager, bool, float, float, float, float, float, float> { public: virtual void v(); ScriptFunctionFields fields; bool (CCameraManager::*fn)(float, float, float, float, float, float); CCameraManager* owner; Closure6(CCameraManager* o) { owner = o; } };
+template<> class Closure6<CCameraManager, void, float, float, float, float, float, float> { public: virtual void v(); ScriptFunctionFields fields; void (CCameraManager::*fn)(float, float, float, float, float, float); CCameraManager* owner; Closure6(CCameraManager* o) { owner = o; } };
+template<> class Closure6<CCameraManager, void, int, int, float, int, int, float> { public: virtual void v(); ScriptFunctionFields fields; void (CCameraManager::*fn)(int, int, float, int, int, float); CCameraManager* owner; Closure6(CCameraManager* o) { owner = o; } };
+template<> class Closure7<CCameraManager, void, bool, bool, bool, bool, bool, bool, float> { public: virtual void v(); ScriptFunctionFields fields; void (CCameraManager::*fn)(bool, bool, bool, bool, bool, bool, float); CCameraManager* owner; Closure7(CCameraManager* o) { owner = o; } };
+class Registry { public:
+    void FUN_001d3b70(const char*, void*);
+};
+class Entry { public:
+};
+class Raw_0009a6e0 { public: void FUN_0009a6e0(const char*, void (CCameraManager::*)(float, float, float, float, float, float)); };
+class Raw_0009ae50 { public: void FUN_0009ae50(const char*, void (CCameraManager::*)(bool, bool, bool, bool, bool, bool, float)); };
+class Raw_0009b080 { public: void FUN_0009b080(const char*, void (CCameraManager::*)(int, int, float, int, int, float)); };
+class Raw_0009b4a0 { public: void FUN_0009b4a0(const char*, bool (CCameraManager::*)(float, float, float, float, float, float)); };
+Registry* FUN_001d4c90();
 
 CCameraManager::CCameraManager() {
     i04 = 1;

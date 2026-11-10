@@ -8940,6 +8940,18 @@
     "equivalent/0x001baab0.cpp"
    ]
   },
+  "0x0052c2c4": {
+   "name": "DAT_0052c2c4",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x00292410.cpp",
+    "matches/0x00292520.cpp",
+    "matches/0x00292530.cpp"
+   ]
+  },
   "0x0052c398": {
    "name": "DAT_0052c398",
    "size": 2048,
@@ -8960,6 +8972,16 @@
     "equivalent/0x002b3c70.cpp",
     "equivalent/0x002b4210.cpp",
     "equivalent/0x002b6930.cpp"
+   ]
+  },
+  "0x00554bd8": {
+   "name": "DAT_00554bd8",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x002c3230.cpp"
    ]
   },
   "0x00554c10": {
@@ -9114,6 +9136,17 @@
    "sources": [
     "equivalent/0x002ece90.cpp",
     "equivalent/0x003010a0.cpp"
+   ]
+  },
+  "0x005554a4": {
+   "name": "DAT_005554a4",
+   "pointers": [
+    "0x0"
+   ],
+   "size": 4,
+   "sources": [
+    "matches/0x0031ba30.cpp",
+    "matches/0x0031ba60.cpp"
    ]
   },
   "0x005555c8": {

@@ -3483,10 +3483,10 @@ struct Thing_87940 {
 };
 // matches/0x00088530.cpp (stub Obj_88530), size 0x1
 struct Obj_88530 {
-    void A();
-    void B();
+    void FUN_00088020();
+    void FUN_000879c0();
     void FUN_00088530();
-    void D();
+    void FUN_00087940();
 };
 // matches/0x00088e40.cpp (stub A_88e40), size 0x9d
 struct A_88e40 {

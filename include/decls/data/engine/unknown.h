@@ -376,7 +376,7 @@ extern "C" const unsigned int DAT_00485cfc[1];  // zero_00485cfc
 extern "C" const unsigned int DAT_00485d34[1];  // zero_00485d34
 extern "C" const unsigned int DAT_00485d90[1];  // zero_00485d90
 extern "C" float DAT_004cf0c0[12];  // fltTbl_004cf0c0
-extern "C" unsigned char DAT_0052c2c4[4];
+extern "C" void* DAT_0052c2c4[1];
 
 // unknown/unk_29c240.cpp
 extern "C" unsigned char DAT_0052cba0[8];

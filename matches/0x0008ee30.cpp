@@ -15,7 +15,8 @@ extern "C" void* FUN_0008d690(int);
 void FUN_00333b80();
 extern "C" void FUN_00268490();
 extern "C" void FUN_00265c40();
-void thunk_FUN_00270f90(int);
+// a `jmp` thunk to 0x00270f90 (the drive registry's remove, `bool (const char*)`: the definition's signature).
+extern "C" bool __cdecl thunk_FUN_00270f90(const char*);
 void thunk_FUN_00271070();
 extern "C" void FUN_0026f000();
 extern "C" void FUN_0026eeb0();
@@ -57,7 +58,7 @@ int FUN_0008ee30() {
     FUN_00333b80();
     FUN_00268490();
     FUN_00265c40();
-    thunk_FUN_00270f90(0);
+    thunk_FUN_00270f90((const char*)0);
     thunk_FUN_00271070();
     FUN_0026f000();
     FUN_0026eeb0();

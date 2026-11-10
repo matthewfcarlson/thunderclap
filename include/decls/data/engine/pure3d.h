@@ -462,7 +462,7 @@ extern "C" const float DAT_0042edc8[7];  // fltTbl_0042edc8
 extern "C" const unsigned int DAT_00488820[1];  // zero_00488820
 extern "C" const unsigned int DAT_00488864[1];  // zero_00488864
 extern "C" float DAT_004d0b5c[8];  // fltTbl_004d0b5c
-extern "C" unsigned char DAT_00554bd8[4];
+extern "C" void* DAT_00554bd8[1];
 extern "C" unsigned char DAT_00554bdc[4];
 
 // pure3d/PointLight.cpp

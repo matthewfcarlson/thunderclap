@@ -22,31 +22,25 @@ extern char DAT_0048e0e4, DAT_0048e0f0, DAT_0048e100, DAT_0048e10c, DAT_0048e128
 #define tInt DAT_0048e134
 #define tUnsignedInt DAT_0049b95c
 class Base : public ScriptFunctionFields { public: virtual void v(); Base(const char*, int) throw(); };
-template<class C, class R> class Method0 : public Base { public: void (*f)(); Method0(const char* n, void (*x)(), const void* r) : Base(n, 0) { f = x; retType = FUN_001d04d0(r); } virtual void v(); };
-template<class C, class R> class Closure0 : public Method0<C, R> { public: C* owner; Closure0(const char* n, C* o, void (*f)(), const void* r) : Method0<C, R>(n, f, r) { owner = o; } virtual void v(); };
-template<class C, class R, class A1> class Method1 : public Base { public: void (*f)(); Method1(const char* n, void (*x)(), const void* r, const void* a1) : Base(n, 1) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); } virtual void v(); };
-template<class C, class R, class A1> class Closure1 : public Method1<C, R, A1> { public: C* owner; Closure1(const char* n, C* o, void (*f)(), const void* r, const void* a1) : Method1<C, R, A1>(n, f, r, a1) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2> class Method2 : public Base { public: void (*f)(); Method2(const char* n, void (*x)(), const void* r, const void* a1, const void* a2) : Base(n, 2) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); } virtual void v(); };
-template<class C, class R, class A1, class A2> class Closure2 : public Method2<C, R, A1, A2> { public: C* owner; Closure2(const char* n, C* o, void (*f)(), const void* r, const void* a1, const void* a2) : Method2<C, R, A1, A2>(n, f, r, a1, a2) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3> class Method3 : public Base { public: void (*f)(); Method3(const char* n, void (*x)(), const void* r, const void* a1, const void* a2, const void* a3) : Base(n, 3) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3> class Closure3 : public Method3<C, R, A1, A2, A3> { public: C* owner; Closure3(const char* n, C* o, void (*f)(), const void* r, const void* a1, const void* a2, const void* a3) : Method3<C, R, A1, A2, A3>(n, f, r, a1, a2, a3) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4> class Method4 : public Base { public: void (*f)(); Method4(const char* n, void (*x)(), const void* r, const void* a1, const void* a2, const void* a3, const void* a4) : Base(n, 4) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); argTypes[3] = FUN_001d04d0(a4); } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4> class Closure4 : public Method4<C, R, A1, A2, A3, A4> { public: C* owner; Closure4(const char* n, C* o, void (*f)(), const void* r, const void* a1, const void* a2, const void* a3, const void* a4) : Method4<C, R, A1, A2, A3, A4>(n, f, r, a1, a2, a3, a4) { owner = o; } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4, class A5> class Method5 : public Base { public: void (*f)(); Method5(const char* n, void (*x)(), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5) : Base(n, 5) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); argTypes[3] = FUN_001d04d0(a4); argTypes[4] = FUN_001d04d0(a5); } virtual void v(); };
-template<class C, class R, class A1, class A2, class A3, class A4, class A5> class Closure5 : public Method5<C, R, A1, A2, A3, A4, A5> { public: C* owner; Closure5(const char* n, C* o, void (*f)(), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5) : Method5<C, R, A1, A2, A3, A4, A5>(n, f, r, a1, a2, a3, a4, a5) { owner = o; } virtual void v(); };
-class Registry { public:
-    void FUN_001d3b70(const char*, void*);
-};
-class Entry { public:
-};
-Registry* FUN_001d4c90();
+template<class C, class R> class Method0 : public Base { public: R (C::*f)(); Method0(const char* n, R (C::*x)(), const void* r) : Base(n, 0) { f = x; retType = FUN_001d04d0(r); } virtual void v(); };
+template<class C, class R> class Closure0 : public Method0<C, R> { public: C* owner; Closure0(const char* n, C* o, R (C::*f)(), const void* r) : Method0<C, R>(n, f, r) { owner = o; } virtual void v(); };
+template<class C, class R, class A1> class Method1 : public Base { public: R (C::*f)(A1); Method1(const char* n, R (C::*x)(A1), const void* r, const void* a1) : Base(n, 1) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); } virtual void v(); };
+template<class C, class R, class A1> class Closure1 : public Method1<C, R, A1> { public: C* owner; Closure1(const char* n, C* o, R (C::*f)(A1), const void* r, const void* a1) : Method1<C, R, A1>(n, f, r, a1) { owner = o; } virtual void v(); };
+template<class C, class R, class A1, class A2> class Method2 : public Base { public: R (C::*f)(A1, A2); Method2(const char* n, R (C::*x)(A1, A2), const void* r, const void* a1, const void* a2) : Base(n, 2) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); } virtual void v(); };
+template<class C, class R, class A1, class A2> class Closure2 : public Method2<C, R, A1, A2> { public: C* owner; Closure2(const char* n, C* o, R (C::*f)(A1, A2), const void* r, const void* a1, const void* a2) : Method2<C, R, A1, A2>(n, f, r, a1, a2) { owner = o; } virtual void v(); };
+template<class C, class R, class A1, class A2, class A3> class Method3 : public Base { public: R (C::*f)(A1, A2, A3); Method3(const char* n, R (C::*x)(A1, A2, A3), const void* r, const void* a1, const void* a2, const void* a3) : Base(n, 3) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); } virtual void v(); };
+template<class C, class R, class A1, class A2, class A3> class Closure3 : public Method3<C, R, A1, A2, A3> { public: C* owner; Closure3(const char* n, C* o, R (C::*f)(A1, A2, A3), const void* r, const void* a1, const void* a2, const void* a3) : Method3<C, R, A1, A2, A3>(n, f, r, a1, a2, a3) { owner = o; } virtual void v(); };
+template<class C, class R, class A1, class A2, class A3, class A4> class Method4 : public Base { public: R (C::*f)(A1, A2, A3, A4); Method4(const char* n, R (C::*x)(A1, A2, A3, A4), const void* r, const void* a1, const void* a2, const void* a3, const void* a4) : Base(n, 4) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); argTypes[3] = FUN_001d04d0(a4); } virtual void v(); };
+template<class C, class R, class A1, class A2, class A3, class A4> class Closure4 : public Method4<C, R, A1, A2, A3, A4> { public: C* owner; Closure4(const char* n, C* o, R (C::*f)(A1, A2, A3, A4), const void* r, const void* a1, const void* a2, const void* a3, const void* a4) : Method4<C, R, A1, A2, A3, A4>(n, f, r, a1, a2, a3, a4) { owner = o; } virtual void v(); };
+template<class C, class R, class A1, class A2, class A3, class A4, class A5> class Method5 : public Base { public: R (C::*f)(A1, A2, A3, A4, A5); Method5(const char* n, R (C::*x)(A1, A2, A3, A4, A5), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5) : Base(n, 5) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); argTypes[1] = FUN_001d04d0(a2); argTypes[2] = FUN_001d04d0(a3); argTypes[3] = FUN_001d04d0(a4); argTypes[4] = FUN_001d04d0(a5); } virtual void v(); };
+template<class C, class R, class A1, class A2, class A3, class A4, class A5> class Closure5 : public Method5<C, R, A1, A2, A3, A4, A5> { public: C* owner; Closure5(const char* n, C* o, R (C::*f)(A1, A2, A3, A4, A5), const void* r, const void* a1, const void* a2, const void* a3, const void* a4, const void* a5) : Method5<C, R, A1, A2, A3, A4, A5>(n, f, r, a1, a2, a3, a4, a5) { owner = o; } virtual void v(); };
 #define FN(b) extern void FUN_##b();
-#define G0(n, b, R) { FN(b) r->FUN_001d3b70(n, new Closure0<CAmbientsManager, R>(n, this, FUN_##b, &t##R)); }
-#define G1(n, b, R, A1) { FN(b) r->FUN_001d3b70(n, new Closure1<CAmbientsManager, R, A1>(n, this, FUN_##b, &t##R, &t##A1)); }
-#define G2(n, b, R, A1, A2) { FN(b) r->FUN_001d3b70(n, new Closure2<CAmbientsManager, R, A1, A2>(n, this, FUN_##b, &t##R, &t##A1, &t##A2)); }
-#define G3(n, b, R, A1, A2, A3) { FN(b) r->FUN_001d3b70(n, new Closure3<CAmbientsManager, R, A1, A2, A3>(n, this, FUN_##b, &t##R, &t##A1, &t##A2, &t##A3)); }
-#define G4(n, b, R, A1, A2, A3, A4) { FN(b) r->FUN_001d3b70(n, new Closure4<CAmbientsManager, R, A1, A2, A3, A4>(n, this, FUN_##b, &t##R, &t##A1, &t##A2, &t##A3, &t##A4)); }
-#define G5(n, b, R, A1, A2, A3, A4, A5) { FN(b) r->FUN_001d3b70(n, new Closure5<CAmbientsManager, R, A1, A2, A3, A4, A5>(n, this, FUN_##b, &t##R, &t##A1, &t##A2, &t##A3, &t##A4, &t##A5)); }
+#define G0(n, b, R) { r->FUN_001d3b70(n, new Closure0<CAmbientsManager, R>(n, this, &CAmbientsManager::FUN_##b, &t##R)); }
+#define G1(n, b, R, A1) { r->FUN_001d3b70(n, new Closure1<CAmbientsManager, R, A1>(n, this, &CAmbientsManager::FUN_##b, &t##R, &t##A1)); }
+#define G2(n, b, R, A1, A2) { r->FUN_001d3b70(n, new Closure2<CAmbientsManager, R, A1, A2>(n, this, &CAmbientsManager::FUN_##b, &t##R, &t##A1, &t##A2)); }
+#define G3(n, b, R, A1, A2, A3) { r->FUN_001d3b70(n, new Closure3<CAmbientsManager, R, A1, A2, A3>(n, this, &CAmbientsManager::FUN_##b, &t##R, &t##A1, &t##A2, &t##A3)); }
+#define G4(n, b, R, A1, A2, A3, A4) { r->FUN_001d3b70(n, new Closure4<CAmbientsManager, R, A1, A2, A3, A4>(n, this, &CAmbientsManager::FUN_##b, &t##R, &t##A1, &t##A2, &t##A3, &t##A4)); }
+#define G5(n, b, R, A1, A2, A3, A4, A5) { r->FUN_001d3b70(n, new Closure5<CAmbientsManager, R, A1, A2, A3, A4, A5>(n, this, &CAmbientsManager::FUN_##b, &t##R, &t##A1, &t##A2, &t##A3, &t##A4, &t##A5)); }
 
 class Link16 { public: char b[16]; void FUN_0027af00(); };
 class Link8 { public: char b[8]; void FUN_0027af00(); };
@@ -84,7 +78,43 @@ public:
     int i37fc;
     int z3800[10];
     int i3828, i382c, i3830;
+    // The member functions bound to Lua below (types: the game's Closure<N> instantiations).
+    void FUN_000788e0();
+    void FUN_00078d00(bool);
+    void FUN_00079290();
+    void FUN_000792a0(const char*, int, bool);
+    void FUN_00079310();
+    void FUN_00079320(const char*);
+    void FUN_00079370(int);
+    void FUN_00079390(int);
+    void FUN_000793a0(float);
+    void FUN_000793c0(float, float);
+    void FUN_00079400(float, float);
+    void FUN_00079420(int);
+    void FUN_00079440(int);
+    void FUN_000794a0(const char*, unsigned int, float);
+    void FUN_00079550(float);
+    void FUN_000795a0(float);
+    void FUN_000795f0(float);
+    void FUN_00079640(float, float);
+    void FUN_00079660(float);
+    void FUN_000796a0(float);
+    void FUN_0007ab60(int);
+    void FUN_0007aba0(float, float);
+    void FUN_0007abc0(int);
+    void FUN_0007b480();
+    void FUN_0007d640(const char*, bool);
+    void FUN_0007d680(const char*, float);
+    void FUN_0007d6c0(const char*, float);
+    void FUN_0007de00(const char*, int, const math::Vector, const math::Vector);
+    void FUN_0007f450(const char*, int, bool, math::Vector, math::Vector);
 };
+class Registry { public:
+    void FUN_001d3b70(const char*, void*);
+};
+class Entry { public:
+};
+Registry* FUN_001d4c90();
 
 CAmbientsManager::CAmbientsManager() {
     int i, k;

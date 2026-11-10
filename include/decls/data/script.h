@@ -43,6 +43,20 @@ struct ScriptClosureView {
     ScriptMemberFn fn;  // 0x1c
     void* owner;        // 0x20 (Closure<N> only)
 };
+// A Method<N> built alone (no object): the same without the owner, 0x20 bytes on 32-bit (0x001d4580's allocation).
+struct ScriptMethodView {
+    void* vftable;
+    ScriptFunctionFields f;
+    ScriptMemberFn fn;  // 0x1c
+};
+// A Function<N> (a free function bound to Lua; 0x00086fa0's Invoke calls it __cdecl): Function's fields, then the
+// function pointer; 0x20 bytes on 32-bit. A source's own `R (__cdecl*)(A...)` type converts with reinterpret_cast.
+typedef void (__cdecl *ScriptStaticFn)();
+struct ScriptStaticFunctionView {
+    void* vftable;
+    ScriptFunctionFields f;
+    ScriptStaticFn fn;  // 0x1c
+};
 
 // ScriptHandler's sorted list of the functions it registered (0x001d1180 inserts by key, 0x001d1360 deletes,
 // 0x001d1220 completes a prefix, 0x001d3410 releases them): pointers to Function objects.
@@ -95,6 +109,8 @@ struct ScriptLayout32 {
                                  SCRIPT_OFFSETOF(ScriptFunctionView, f.retType) == 0x18);
     SCRIPT_CHECK32(closure, sizeof(ScriptClosureView) == 0x24 && SCRIPT_OFFSETOF(ScriptClosureView, fn) == 0x1c &&
                                 SCRIPT_OFFSETOF(ScriptClosureView, owner) == 0x20);
+    SCRIPT_CHECK32(method, sizeof(ScriptMethodView) == 0x20 && sizeof(ScriptStaticFunctionView) == 0x20 &&
+                               SCRIPT_OFFSETOF(ScriptStaticFunctionView, fn) == 0x1c);
     SCRIPT_CHECK32(list, sizeof(ScriptFunctionList) == 0x1004);
     SCRIPT_CHECK32(watches, sizeof(ScriptWatchList) == 0x4404);
     SCRIPT_CHECK32(callargs, sizeof(ScriptCallArgs) == 0x2b8);

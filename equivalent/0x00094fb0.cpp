@@ -21,25 +21,10 @@ extern char DAT_0048e0e4, DAT_0048e0f0, DAT_0048e134;
 // Function's fields (include/decls/data/script.h); Method<N> adds the member-function pointer (CUnlockablesManager's,
 // held as ScriptMemberFn), Closure<N> the object.
 class Base : public ScriptFunctionFields { public: virtual void v(); Base(const char*, int) throw(); };
-template<class C, class R, class A1> class Method1 : public Base { public: ScriptMemberFn f; Method1(const char* n, ScriptMemberFn x, const void* r, const void* a1) : Base(n, 1) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); } virtual void v(); };
-template<class C, class R, class A1> class Closure1 : public Method1<C, R, A1> { public: C* owner; Closure1(const char* n, C* o, ScriptMemberFn f, const void* r, const void* a1) : Method1<C, R, A1>(n, f, r, a1) { owner = o; } virtual void v(); };
-class Registry { public:
-    void FUN_001d3b70(const char*, void*);
-    void FUN_00094d20(const char*, CUnlockablesManager*, ScriptMemberFn);
-    void FUN_00094d80(const char*, CUnlockablesManager*, ScriptMemberFn);
-    void FUN_00094de0(const char*, CUnlockablesManager*, ScriptMemberFn);
-    void FUN_00094e40(const char*, CUnlockablesManager*, ScriptMemberFn);
-    void FUN_00094ef0(const char*, CUnlockablesManager*, ScriptMemberFn);
-    void FUN_00094f50(const char*, CUnlockablesManager*, ScriptMemberFn);
-};
-class Entry { public:
-    void* FUN_00094650(const char*, CUnlockablesManager*, ScriptMemberFn);
-    void* FUN_000946f0(const char*, CUnlockablesManager*, ScriptMemberFn);
-    void* FUN_00094790(const char*, CUnlockablesManager*, ScriptMemberFn);
-};
-Registry* FUN_001d4c90();
+template<class C, class R, class A1> class Method1 : public Base { public: R (C::*f)(A1); Method1(const char* n, R (C::*x)(A1), const void* r, const void* a1) : Base(n, 1) { f = x; retType = FUN_001d04d0(r); argTypes[0] = FUN_001d04d0(a1); } virtual void v(); };
+template<class C, class R, class A1> class Closure1 : public Method1<C, R, A1> { public: C* owner; Closure1(const char* n, C* o, R (C::*f)(A1), const void* r, const void* a1) : Method1<C, R, A1>(n, f, r, a1) { owner = o; } virtual void v(); };
 #define FN(b) void FUN_##b();
-#define CB(b) reinterpret_cast<ScriptMemberFn>(&CUnlockablesManager::FUN_##b)
+#define CB(b) (&CUnlockablesManager::FUN_##b)
 #define G1(n, b, R, A1) { typedef Closure1<CUnlockablesManager, R, A1> Built_t; HULK_SIZE32(Built_t, 0x24); r->FUN_001d3b70(n, new Built_t(n, this, CB(b), &t##R, &t##A1)); }
 #define E(n, c, b) { HULK_SIZE32(ScriptClosureView, 0x24); Entry* e = (Entry*)FUN_0008d690((unsigned int)sizeof(ScriptClosureView)); void* x = 0; if (e) x = e->FUN_##c(n, this, CB(b)); r->FUN_001d3b70(n, x); }
 #define O(n, c, b) { r->FUN_##c(n, this, CB(b)); }
@@ -202,8 +187,37 @@ public:
     int padd8c;
     Slot slots[32];
     // The member functions bound to Lua below.
-    FN(00092dc0) FN(00092de0) FN(00093db0) FN(00092e00) FN(00092e20) FN(00092c80) FN(00092e50) FN(00092ef0) FN(00092f70) FN(00092fd0) FN(00093020) FN(00093110) FN(00093150) FN(000931f0) FN(00093260)
+    void FUN_00092c80(const char*, int);
+    bool FUN_00092dc0(int);
+    bool FUN_00092de0(int);
+    void FUN_00092e00(int, bool);
+    void FUN_00092e20(int, int);
+    void FUN_00092e50(const char*, int, const char*, const char*, const char*, const char*);
+    void FUN_00092ef0(int, const char*, const char*, const char*, const char*, int);
+    void FUN_00092f70(int, int, bool);
+    void FUN_00092fd0(int, const char*, const char*);
+    void FUN_00093020(int, const char*, const char*);
+    const char* FUN_00093110(int);
+    void FUN_00093150(const char*, int, const char*, const char*, const char*, const char*, int);
+    void FUN_000931f0(const char*, int, const char*, const char*);
+    const char* FUN_00093260(int);
+    void FUN_00093db0(int, bool);
 };
+class Registry { public:
+    void FUN_001d3b70(const char*, void*);
+    void FUN_00094d20(const char*, CUnlockablesManager*, void (CUnlockablesManager::*)(const char*, int, const char*, const char*, const char*, const char*));
+    void FUN_00094d80(const char*, CUnlockablesManager*, void (CUnlockablesManager::*)(int, const char*, const char*, const char*, const char*, int));
+    void FUN_00094de0(const char*, CUnlockablesManager*, void (CUnlockablesManager::*)(int, int, bool));
+    void FUN_00094e40(const char*, CUnlockablesManager*, void (CUnlockablesManager::*)(int, const char*, const char*));
+    void FUN_00094ef0(const char*, CUnlockablesManager*, void (CUnlockablesManager::*)(const char*, int, const char*, const char*, const char*, const char*, int));
+    void FUN_00094f50(const char*, CUnlockablesManager*, void (CUnlockablesManager::*)(const char*, int, const char*, const char*));
+};
+class Entry { public:
+    void* FUN_00094650(const char*, CUnlockablesManager*, void (CUnlockablesManager::*)(int, bool));
+    void* FUN_000946f0(const char*, CUnlockablesManager*, void (CUnlockablesManager::*)(int, int));
+    void* FUN_00094790(const char*, CUnlockablesManager*, void (CUnlockablesManager::*)(const char*, int));
+};
+Registry* FUN_001d4c90();
 
 CUnlockablesManager::CUnlockablesManager() {
     Frame f;

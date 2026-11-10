@@ -4,7 +4,7 @@
 extern "C" char DAT_004324a8[];
 typedef unsigned char u8_31ba30;
 extern "C" void __fastcall FUN_0031bae0(void*);
-void CleanupDevice(void*);
+extern "C" void __cdecl thunk_FUN_00267090(void*);  // the heap's free through its `jmp` thunk
 class d3dDevice_31ba30 {
   public:
     virtual void f0();
@@ -13,10 +13,10 @@ class d3dDevice_31ba30 {
     virtual d3dDevice_31ba30* f3(u8_31ba30);
 };
 d3dDevice_31ba30* d3dDevice_31ba30::f3(u8_31ba30 param) {
-    *(volatile int*)((hulk_intptr)DAT_005554a4) = 0;
+    *(void* volatile*)&DAT_005554a4 = 0;  // the device slot (a pointer word: config/data-ptrs.json)
     *(void**)this = (void*)((hulk_intptr)DAT_004324a8);
     FUN_0031bae0((void*)(this));
     if (param & 1)
-        CleanupDevice(this);
+        thunk_FUN_00267090(this);
     return this;
 }

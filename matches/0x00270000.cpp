@@ -3,7 +3,7 @@
 
 class IB_270000 {
   public:
-    void helper();
+    void FUN_0026d280();
 };
 class MemoryPool_270000 : public core::IMemoryPool, public IB_270000 {
   public:
@@ -11,5 +11,5 @@ class MemoryPool_270000 : public core::IMemoryPool, public IB_270000 {
     virtual void vfunc_1();
 };
 void MemoryPool_270000::vfunc_1() {
-    IB_270000::helper();
+    IB_270000::FUN_0026d280();
 }

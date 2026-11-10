@@ -23,7 +23,7 @@ extern "C" void FUN_002c3230(Caller_2c3230* p) {
     unsigned int one = 1;
     if ((((unsigned char)(*(unsigned int*)&DAT_00554bdc)) & one) == 0) {
         (*(unsigned int*)&DAT_00554bdc) |= one;
-        (*(unsigned int*)&DAT_00554bd8) = ((hulk_intptr)DAT_0042ed30);
+        (*(void**)&DAT_00554bd8) = (void*)DAT_0042ed30;  // a pointer slot (config/data-ptrs.json): 8 bytes on 64-bit
     }
     p->n((void*)&(*(unsigned int*)&DAT_00554bd8));
 }

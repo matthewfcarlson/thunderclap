@@ -6,18 +6,18 @@
 // member-function pointer.
 
 extern "C" char DAT_0041d9a4[];
-struct Ctor_001d0480 {
-    Ctor_001d0480(const char*, int);
+struct FUN_001d0480 {
+    FUN_001d0480(const char*, int);
 };
 extern char __cdecl FUN_001d04d0(hulk_intptr);
-class Function5_1b38b0 : public Ctor_001d0480 {
+class Function5_1b38b0 : public FUN_001d0480 {
   public:
     void* vftable;
     ScriptFunctionFields f;
     ScriptMemberFn field1c;
     Function5_1b38b0(const char*, ScriptMemberFn);
 };
-Function5_1b38b0::Function5_1b38b0(const char* a, ScriptMemberFn b) : Ctor_001d0480(a, 5) {
+Function5_1b38b0::Function5_1b38b0(const char* a, ScriptMemberFn b) : FUN_001d0480(a, 5) {
     *(volatile hulk_intptr*)this = ((hulk_intptr)DAT_0041d9a4);
     field1c = b;
     f.retType = FUN_001d04d0(((hulk_intptr)((char*)&DAT_0048e100)));

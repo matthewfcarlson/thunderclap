@@ -6,14 +6,14 @@
 extern void* VT_Method2[2];
 extern void* VT_Closure2[2];
 
-struct Ctor_001d0480 {
-    Ctor_001d0480(const char* a1, int b);
+struct FUN_001d0480 {
+    FUN_001d0480(const char* a1, int b);
 };
 char __cdecl LookupFlag(const void* tbl);
 
 // Closure2's constructor (name, object, member function): Function's fields (include/decls/data/script.h),
 // then Method2's member-function pointer and Closure2's object.
-class Closure2 : public Ctor_001d0480 {
+class Closure2 : public FUN_001d0480 {
   public:
     void* vfptr;             // 0x00
     ScriptFunctionFields f;  // 0x04
@@ -23,7 +23,7 @@ class Closure2 : public Ctor_001d0480 {
     Closure2(const char* a1, void* a2, ScriptMemberFn a3);
 };
 
-Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : Ctor_001d0480(a1, 2) {
+Closure2::Closure2(const char* a1, void* a2, ScriptMemberFn a3) : FUN_001d0480(a1, 2) {
     vfptr = (void*)VT_Method2;
     fn = a3;
     f.retType = LookupFlag(((void**)&DAT_0048e100));

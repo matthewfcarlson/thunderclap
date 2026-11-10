@@ -10,10 +10,10 @@ extern "C" char DAT_00422830[];
 // (include/decls/data/script.h), then Method1's member-function pointer and Closure1's object.
 class ScriptHandler {};
 typedef bool (ScriptHandler::*Fn_1d43b0)(const char*);
-struct Ctor_001d0480 {
-    Ctor_001d0480(const char*, int);
+struct FUN_001d0480 {
+    FUN_001d0480(const char*, int);
 };
-class Closure1_1d43b0 : public Ctor_001d0480 {
+class Closure1_1d43b0 : public FUN_001d0480 {
   public:
     void* vftable;
     ScriptFunctionFields f;
@@ -21,7 +21,7 @@ class Closure1_1d43b0 : public Ctor_001d0480 {
     ScriptHandler* owner;
     Closure1_1d43b0(const char*, ScriptHandler*, Fn_1d43b0);
 };
-Closure1_1d43b0::Closure1_1d43b0(const char* a, ScriptHandler* b, Fn_1d43b0 c) : Ctor_001d0480(a, 1) {
+Closure1_1d43b0::Closure1_1d43b0(const char* a, ScriptHandler* b, Fn_1d43b0 c) : FUN_001d0480(a, 1) {
     vftable = (void*)DAT_00422674;
     fn = c;
     f.retType = (char)FUN_001d04d0((const char*)&(*(int*)&DAT_0048e0e4));

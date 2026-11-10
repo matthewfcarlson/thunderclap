@@ -8,7 +8,7 @@
 #include "decls/data/script.h"
 inline void* operator new(hulk_uintptr,void* p){return p;}
 namespace math {struct Vector{float x,y,z;};}
-#define TYPES(N,PARAMS,USE) template<PARAMS> struct Method##N:Base{virtual void v0();}; template<PARAMS> struct Closure##N:Method##N<USE>{C* owner;virtual void v0();};
+#define TYPES(N,PARAMS,USE,ARGS) template<PARAMS> struct Method##N:Base{virtual void v0();R (C::*callback)(ARGS);}; template<PARAMS> struct Closure##N:Method##N<USE>{C* owner;virtual void v0();};
 #define P0 class C,class R
 #define P1 P0,class A
 #define P2 P1,class B
@@ -22,13 +22,18 @@ namespace math {struct Vector{float x,y,z;};}
 #define U4 U3,E
 #define U5 U4,F
 struct Sub54{char data[48];void FUN_000f7930();};struct Sub94{char data[36];void FUN_000dee40();};
-#define CB(n) void FUN_##n();
 struct HUDOverlay{virtual void v0();unsigned char active;char p5[7];int f0c,f10,f14,f18;char p1c[12];int slots[10],f50;Sub54 sub54;int f84,f88,f8c,f90;Sub94 sub94;int fb8;unsigned char fbc;char pbd[127];int f13c;float f140;int f144,f148,zeros14c[5],f160,zeros164[6],f17c,zeros180[16],zeros1c0[24];float f220;unsigned char f224,f225;char p226[2];int zeros228[5],f23c,f240,zeros244[8];struct Entry{unsigned char used;char rest[63];}entries[8];int zeros464[12],f494,f498;float f49c;int zeros4a0[6];char p4b8[12];unsigned char f4c4;char p4c5[63];int f504,f508;HUDOverlay();
-CB(000ca850) CB(000ca860) CB(000ce590) CB(000cabf0) CB(000cac30) CB(000cac40) CB(000cac50) CB(000cac60) CB(000cacc0) CB(000cacd0) CB(000cad40) CB(000cad80) CB(000ce700) CB(000cad60) CB(000cad70) CB(000cae80) CB(000caea0) CB(000caee0) CB(000caf10) CB(000caf30) CB(000caf40) CB(000caf60) CB(000cafa0) CB(000cafd0) CB(000caff0) CB(000cb010) CB(000cb030) CB(000cb050) CB(000cb060) CB(000cb080) CB(000cb090) CB(000cb0f0) CB(000cb130) CB(000cb170) CB(000cb190) CB(000cb200) CB(000cb230) CB(000cb260) CB(000cb280) CB(000cb2a0) CB(000cb2e0) CB(000cb310) CB(000cb330) CB(000ce750)};
+void FUN_000ca850(); void FUN_000ca860(); void FUN_000cabf0(const char*); void FUN_000cac30(int); void FUN_000cac40(int); void FUN_000cac50(float); void FUN_000cac60(); void FUN_000cacc0(float); void FUN_000cacd0(const char*); void FUN_000cad40(const char*); void FUN_000cad60(); int FUN_000cad70(); void FUN_000cad80(const char*,float,float,math::Vector); void FUN_000cae80(const char*); void FUN_000caea0(math::Vector); void FUN_000caee0(int); void FUN_000caf10(int); void FUN_000caf30(); void FUN_000caf40(float); int FUN_000caf60(int,math::Vector); void FUN_000cafa0(int,math::Vector); int FUN_000cafd0(int,const char*); void FUN_000caff0(bool,float); void FUN_000cb010(int,bool); void FUN_000cb030(int); void FUN_000cb050(); void FUN_000cb060(int); void FUN_000cb080(); int FUN_000cb090(int,int,math::Vector,math::Vector); void FUN_000cb0f0(int,int,math::Vector); void FUN_000cb130(int,int,math::Vector); void FUN_000cb170(int,int); int FUN_000cb190(int,const char*,math::Vector,math::Vector,math::Vector); void FUN_000cb200(int,math::Vector); void FUN_000cb230(int,math::Vector); void FUN_000cb260(int); void FUN_000cb280(bool); int FUN_000cb2a0(int,math::Vector); void FUN_000cb2e0(int,math::Vector); int FUN_000cb310(int,const char*); void FUN_000cb330(int); void FUN_000ce590(const char*); int FUN_000ce700(const char*,const char*,float); void FUN_000ce750(int);};
 // The bound member functions (CB) are HUDOverlay's. Base is Function's fields (include/decls/data/script.h), then
 // Method<N>'s member-function pointer; Closure<N> adds the object.
-struct Base:ScriptFunctionFields{virtual void v0();virtual void v1();virtual void v2();virtual void v3();void(HUDOverlay::*callback)();void FUN_001d0480(const char*,int);};
-TYPES(0,P0,U0) TYPES(1,P1,U1) TYPES(2,P2,U2) TYPES(3,P3,U3) TYPES(4,P4,U4) TYPES(5,P5,U5)
+struct Base:ScriptFunctionFields{virtual void v0();virtual void v1();virtual void v2();virtual void v3();void FUN_001d0480(const char*,int);};
+#define Q0
+#define Q1 A
+#define Q2 A,B
+#define Q3 A,B,D
+#define Q4 A,B,D,E
+#define Q5 A,B,D,E,F
+TYPES(0,P0,U0,Q0) TYPES(1,P1,U1,Q1) TYPES(2,P2,U2,Q2) TYPES(3,P3,U3,Q3) TYPES(4,P4,U4,Q4) TYPES(5,P5,U5,Q5)
 struct Registry{void FUN_001d3b70(const char*,Base*);};extern "C" Registry* FUN_001d4c90();extern "C" void* FUN_0008d690(int);
 extern int DAT_0048e10c;
 #define T0(R) HUDOverlay,R
@@ -37,7 +42,7 @@ extern int DAT_0048e10c;
 #define T3(R,A,B,C) HUDOverlay,R,A,B,C
 #define T4(R,A,B,C,D) HUDOverlay,R,A,B,C,D
 #define T5(R,A,B,C,D,E) HUDOverlay,R,A,B,C,D,E
-#define REG(K,T,N,NAME,CBODY,RET,ARGS) {typedef Closure##K<T> Built_t;HULK_SIZE32(Built_t,0x24);void* mem=FUN_0008d690((int)sizeof(Built_t));Base* b=0;if(mem){b=(Base*)mem;b->FUN_001d0480(NAME,N);new(mem) Method##K<T>;b->callback=&HUDOverlay::FUN_##CBODY;b->retType=FUN_001d04d0(&DAT_##RET);ARGS Closure##K<T>* c=new(mem) Closure##K<T>;c->owner=this;}registry->FUN_001d3b70(NAME,b);}
+#define REG(K,T,N,NAME,CBODY,RET,ARGS) {typedef Closure##K<T> Built_t;HULK_SIZE32(Built_t,0x24);void* mem=FUN_0008d690((int)sizeof(Built_t));Base* b=0;if(mem){b=(Base*)mem;b->FUN_001d0480(NAME,N);Method##K<T>* m=new(mem) Method##K<T>;m->callback=&HUDOverlay::FUN_##CBODY;b->retType=FUN_001d04d0(&DAT_##RET);ARGS Closure##K<T>* c=new(mem) Closure##K<T>;c->owner=this;}registry->FUN_001d3b70(NAME,b);}
 #define A1(T) b->argTypes[0]=FUN_001d04d0(&DAT_##T);
 #define A2(T,U) A1(T) b->argTypes[1]=FUN_001d04d0(&DAT_##U);
 #define A3(T,U,V) A2(T,U) b->argTypes[2]=FUN_001d04d0(&DAT_##V);

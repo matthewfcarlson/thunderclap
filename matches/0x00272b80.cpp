@@ -3,13 +3,13 @@
 
 class B_272b80 {
   public:
-    int FUN_002730c0();
+    bool FUN_002730c0();
 };
 // core::Drive (records.h CoreDrive): asks its drive thread whether requests are queued (0x002730c0)
 class A_272b80 : public CoreDrive {
   public:
-    int run();
+    bool run();
 };
-int A_272b80::run() {
+bool A_272b80::run() {
     return ((B_272b80*)driveThread)->FUN_002730c0();
 }

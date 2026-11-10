@@ -44,12 +44,13 @@ class Function2 : public Function {
 
 struct Registry_1b3c50 { void FUN_001d3b70(const char*, void*); };
 
-// Method4 / Method5 (matches/0x001b3810.cpp, 0x001b38b0.cpp): Function's fields, then the bound function.
-struct Function4_1b3c50 { void* vftable; ScriptFunctionFields f; void (*fn)(); Function4_1b3c50* FUN_001b3810(const char*, void (*)()); };
-struct Function5_1b3c50 { void* vftable; ScriptFunctionFields f; void (*fn)(); Function5_1b3c50* FUN_001b38b0(const char*, void (*)()); };
+// Function4 / Function5 (matches/0x001b3810.cpp, 0x001b38b0.cpp): Function's fields, then the bound free function
+// (its type is the game's Function<N> instantiation; 0x00086fa0's Invoke calls it __cdecl).
+struct Function4_1b3c50 { void* vftable; ScriptFunctionFields f; void (__cdecl* fn)(int, const char*, const char*, float); Function4_1b3c50* FUN_001b3810(const char*, void (__cdecl*)(int, const char*, const char*, float)); };
+struct Function5_1b3c50 { void* vftable; ScriptFunctionFields f; void (__cdecl* fn)(int, int, float, float, float); Function5_1b3c50* FUN_001b38b0(const char*, void (__cdecl*)(int, int, float, float, float)); };
 
-void FUN_001b3360();
-void FUN_001b33d0();
+void __cdecl FUN_001b3360(int, const char*, const char*, float);
+void __cdecl FUN_001b33d0(int, int, float, float, float);
 void __cdecl FUN_001b3320(int, math::Vector);
 
 /* 180-byte records starting at 0x4e1830; this view starts at each record's +0x40 byte. */

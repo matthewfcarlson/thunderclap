@@ -6,19 +6,19 @@
 #include "decls/address.h"
 extern "C" char DAT_00423398[];
 class CSPManager {};
-struct Ctor_001d0480 {
-    Ctor_001d0480(const char*, int);
+struct FUN_001d0480 {
+    FUN_001d0480(const char*, int);
 };
 // Method3's constructor (name, member function): Function's fields (include/decls/data/script.h), then the
 // member-function pointer.
-class Method3_1e0130 : public Ctor_001d0480 {
+class Method3_1e0130 : public FUN_001d0480 {
   public:
     void* vf;
     ScriptFunctionFields f;
     ScriptMemberFn mgr;
     Method3_1e0130(const char*, ScriptMemberFn);
 };
-Method3_1e0130::Method3_1e0130(const char* a, ScriptMemberFn c) : Ctor_001d0480(a, 3) {
+Method3_1e0130::Method3_1e0130(const char* a, ScriptMemberFn c) : FUN_001d0480(a, 3) {
     vf = (void*)((hulk_intptr)DAT_00423398);
     mgr = c;
     f.retType = FUN_001d04d0(((const char*)&DAT_0048e100));

@@ -14,11 +14,11 @@ class Method4_1d3250 {
     void* vft;
     ScriptFunctionFields f;
     Fn_1d3250 fn;
-    void Init(const char*, int);
+    void FUN_001d0480(const char*, int);  // Function::Function(name, argc)
     Method4_1d3250* FUN_001d3250(const char*, Fn_1d3250);
 };
 Method4_1d3250* Method4_1d3250::FUN_001d3250(const char* a, Fn_1d3250 b) {
-    Init(a, 4);
+    FUN_001d0480(a, 4);
     vft = (void*)DAT_00422654;
     fn = b;
     f.retType = FUN_001d04d0(((const char*)&DAT_0048e100));

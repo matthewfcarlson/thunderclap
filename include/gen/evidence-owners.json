@@ -49381,10 +49381,10 @@
    "addr": "0x00088530",
    "aliases": 1,
    "members": [
-    "void A();",
-    "void B();",
+    "void FUN_00088020();",
+    "void FUN_000879c0();",
     "void FUN_00088530();",
-    "void D();"
+    "void FUN_00087940();"
    ],
    "offsets": {},
    "size": [

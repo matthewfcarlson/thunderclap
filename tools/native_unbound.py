@@ -241,9 +241,11 @@ def name_address(sym):
 
 def thunk_address(sym):
     """x of Ghidra's `thunk_FUN_x` (the function a `jmp` thunk elsewhere goes to), or None. plan_link binds such a
-    name to x's definition when the Wine binding map has its relocations reach x itself or a `jmp` thunk to x."""
+    name to x's definition when the Wine binding map has its relocations reach x itself or a `jmp` thunk to x.
+    (sh2) `thunk_FUN_x_a` / `thunk_FUN_x_b` name two different `jmp` thunks to x in one source (matches/0x000fa300.cpp,
+    0x00265c40.cpp: verify_relocs holds each to its own thunk); both carry x."""
     lf, special = leaf(sym)
-    m = ADDR_LEAF.match(lf or "")
+    m = ADDR_LEAF.match(re.sub(r"_[a-z]$", "", lf or ""))
     return int(m.group(1), 16) if m and lf.startswith("thunk_") and not special else None
 
 
@@ -670,6 +672,12 @@ def plan_link(objs, syms, defs, data_defined, label_defined=(), sigs=None, verif
                 cls = "outside .text"
             else:
                 target = defs.sym.get(a)
+                if target is None and how in ("fun", "class named fun", "suffix") and a not in defs.all_addr:
+                    # (sh2) `FUN_x` where x is a `jmp` thunk with no definition of its own (0x00263ea0 -> the allocator
+                    # 0x0008d690, 0x0008d340 -> free): calling the thunk is calling its target
+                    j = jmp_target(a)
+                    if j is not None and defs.sym.get(j) is not None:
+                        target, det = defs.sym[j], "jmp thunk %#x -> %#x" % (a, j)
                 if target is None:
                     cls = ("definition without a unique 64-bit symbol" if a in defs.by_addr else
                            "definition not verified in this tree" if a in defs.all_addr else

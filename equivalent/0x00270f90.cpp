@@ -5,7 +5,7 @@
 struct Resource_270f90 {
     virtual void unused();
     virtual void release();
-    char FUN_00272b80();
+    bool FUN_00272b80();  // 0x00272b80: the drive thread's "requests queued" (0x002730c0) through the drive
 };
 // the drive registry (records.h CoreDriveRegistryEntry)
 void __cdecl FUN_0026d850(void *);

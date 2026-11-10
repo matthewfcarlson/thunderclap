@@ -14,13 +14,12 @@ class Pool_266480 {
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 extern "C" unsigned int __cdecl FUN_00356c30(unsigned int n);
 
+extern "C" char DAT_0042aec8[];  // content::LoadInventory's vftable (stored by address: a local class's own vftable
+                                  // would be the 64-bit link's stub)
 namespace content {
 class LoadInventory {
   public:
-    virtual void l0();
-    virtual void l1();
-    virtual void l2();
-    virtual void l3();
+    void* vftable;
     LoadInventory(unsigned int capacity);
     int field4;
     char flag8;
@@ -32,6 +31,7 @@ class LoadInventory {
 }
 
 content::LoadInventory::LoadInventory(unsigned int capacity) {
+    vftable = (void*)DAT_0042aec8;
     field4 = 0;
     flag8 = 1;
     flag9 = 1;

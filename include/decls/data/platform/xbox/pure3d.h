@@ -139,7 +139,7 @@ extern "C" int DAT_004d3678;
 extern "C" int DAT_004d367c;
 extern "C" float DAT_004d3680[4];  // fltTbl_004d3680
 extern "C" float DAT_004d36dc[4];  // fltTbl_004d36dc
-extern "C" char DAT_005554a4[4];
+extern "C" void* DAT_005554a4[1];
 
 // pure3d/d3dDisplay.cpp
 extern "C" const unsigned int DAT_00432474[1];  // zero_00432474

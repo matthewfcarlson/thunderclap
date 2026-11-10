@@ -1,7 +1,7 @@
 #include "decls/data/game/global.h"
 // data: gFlag_8ecd0 = DAT_004dd839, gHeight = DAT_0049ca20, gWidth = DAT_0049ca1c
 
-extern "C" void __cdecl Init();
+extern "C" void __cdecl FUN_00292410();
 
 struct Obj_8ecd0 {
     int a, b, c, pad, mode;
@@ -12,7 +12,7 @@ struct Obj_8ecd0 {
     int x, y;
 };
 extern "C" void __cdecl FUN_0008ecd0(void * p) {
-    Init();
+    FUN_00292410();
     if ((*(unsigned char*)&DAT_004dd839)) {
         DAT_0049ca1c = 0x280;
         DAT_0049ca20 = 0x240;
