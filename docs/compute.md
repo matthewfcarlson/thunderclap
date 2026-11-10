@@ -206,6 +206,13 @@ $J $N sync | lineages   # inputs on the hosts (submit does it) | lineage workspa
   build 7,318 / 743 s; map 187 / 125, probe 52 / 25, link 122 / 121, replay 198 / 192; total about 7,900 / 1,216 s.
   A warm control would have been about 3,400 s of build. The proof held 8 slots for its first 60 s, then 2, then 1
   for the replay: about 2,600 slot-seconds where 8 slots for the whole job would be 8,400.
+- **Replay speed (opt1, 2026-11-09; [wine-build.md](wine-build.md#replay-speed-and-optimised-objects-opt1-2026-11-09)).**
+  A headless play3 replay to 60000 went from 168 s to 94-106 s on mac2 (357 -> 566-636 fps) with checkpoints identical:
+  sqrt as `sqrtsd`, no audio mixing in headless replays (`HULK_AUDIO_NOMIX=1`, wine_replay_job's default), a memo of the
+  x87 math, and `--opt hot` (the 32 hottest game TUs at -O1, `tools/wine_opt_tus.txt`; the default stays `--opt o0`, the
+  reference). The replay is 6-20% of a proof; the tree build is the rest when the lineage cannot resume. `HULK_PROF=1`
+  (`--replay-env`) profiles a replay (`nb-out/trace.txt.prof`, `tools/opt_prof.py` with `--fetch image`'s map);
+  `--sdl-src DIR` ships a private hulk_sdl.lib build.
 - **SSE float (default since perf1, 2026-10-26; [wine-float.md](wine-float.md) section 13).** The game's TUs are built with
   SSE2 scalar float; `--env HULK_WINE_FLOAT=x87` builds the x87 image (checkpoint-identical, about 6x slower under Rosetta).
   An SSE build adds a `map` stage before the probe when the binding map is not reused (`wine_link.py --no-inventory --no-link`,
