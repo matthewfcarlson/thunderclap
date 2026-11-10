@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_002411b0 @ 0x002411b0
+#include "compat/ptr.h"
 #include "decls/data/platform/xbox/unknown.h"
 
-extern "C" void * __cdecl _alloca(unsigned int);
+extern "C" void * __cdecl _alloca(hulk_uintptr);
 extern "C" void __cdecl thunk_FUN_002710d0(void **, const char *, int, int, int, int, int, int);
 namespace DSOUND { extern "C" void __stdcall IDirectSound_DownloadEffectsImage(void *, void *, unsigned int, void *, void *); extern "C" void __cdecl DirectSoundUseFullHRTF(); }
 struct SoundGlobal { char pad[0x34]; void *device; };
