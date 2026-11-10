@@ -142,14 +142,27 @@ TUs at -O1 (job 70244; the image is 8.7 MB instead of 11.2, the probe 49 s): pla
 3000 per step) found `src/game/hulkfight/motion/ProjectileEffect.cpp` (the crash: `Sweeper::FUN_001f6cd0` reads
 `0x3f800000`) and the frame-630 divergence among `CTriggerVolumeManager` / `CWorldCollisionManager` (the latter is the
 `FUN_00201e00` the x87 agent's o1dyn images also tripped over, [wine-float.md](wine-float.md) section 4). All of the
-first 1,428 TUs (minus ProjectileEffect) pass to 3000 together, and so do all TUs but those two (70586); to 60000
-that image (70590) is 3x faster than -O0 on studio (replay 45 s against 137 s) but diverges from frame 10200, so the
-search goes on with longer replays (state in `build/opt1/bisect/`). Until it ends, `--opt hot` is the gated subset and
-`o0` the default and the reference.
+first 1,428 TUs (minus ProjectileEffect) pass to 3000 together, and so do all TUs but those two (70586). Longer
+replays found two more (the search restarts from a full -O1 image's first divergence: `--final 60000`):
+`CChaseCamera.cpp` (frame 10200) and `CDramaticCamera.cpp` (13860; `-fno-strict-float-cast-overflow`, added since, did
+not change the first). With those four at -O0 (`tools/wine_opt_exclude.txt`) every other game TU at -O1 replays play3
+identically to the -O0 control: studio 70668 against 70580 (to 60450), image 70669 against 70496 on mac2 (70670/70671,
+to 220500) and mac1 (70672/70673, to 133830). Why those four differ is not known yet (none is in the UB lint's rows; an
+uninitialised read or a stack-layout source bug, as wine-float.md section 4 found at -O1 before, is the likely class).
 
-Studio, the whole flow (`wine_build_job --state resume --stages probe,link,replay`, same lineage, HEAD with the changes
-above): `--opt o0` 70580 replay 137.5 s, `--opt hot` 70581 116.7 s, GATE ok, all 2,016 common checkpoints identical
-(the host was busy; 70242, the same lineage before opt1, took 178 s).
+**Modes** (`wine_build_job.py --opt`; the summary's `opt` says which): `o0` every TU -O0, the reference; `hot` (the
+default since opt1) the 32 TUs of `tools/wine_opt_tus.txt` at -O1; `all` every game TU at -O1 except
+`tools/wine_opt_exclude.txt`. Time to frame 60000, same hosts and hour (all with sqrt/nomix/memo):
+
+| host | o0 | hot | all |
+|---|---|---|---|
+| mac2 | 127.6 s (70670) | 107.2 s (70675) | 95.0 s (70671) |
+| mac1 | 174.3 s (70672) | 159.4 s (70676) | 141.1 s (70673) |
+
+Studio, the whole flow (`--state resume --stages probe,link,replay`, one lineage): o0 70580 replay 137.5 s, hot 70581
+116.7 s, GATE ok, all 2,016 common checkpoints identical (the host was busy; 70242, the same lineage before opt1, took
+178 s). If a source change diverges only in an optimised build, rebuild with `--opt o0`: when that matches, the source
+has undefined behaviour the optimiser uses (or belongs in `wine_opt_exclude.txt` / out of `wine_opt_tus.txt`).
 , the gap by class and what replaces each bridge (x64-1, 2026-10-20)
 
 The port's targets are x86-64 (SteamOS/Linux, Windows) and arm64 macOS from one tree. A 64-bit image can't use

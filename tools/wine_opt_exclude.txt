@@ -1,0 +1,11 @@
+# Game TUs that stay -O0 when the Wine build optimises everything else (wine_build_job.py --opt all; clang_probe
+# HULK_WINE_OPT_EXCLUDE; docs/wine-build.md "Replay speed"). Found by a k-ary prefix search over the probe's TUs (opt1,
+# build/opt1/scripts/bisect.py): with any one of these at -O1, play3 leaves the -O0 build's checkpoints.
+# crash at frame 1230: Sweeper::FUN_001f6cd0 reads 0x3f800000 (called from ProjectileEffect::vfunc_4, 0x00195bb0)
+src/game/hulkfight/motion/ProjectileEffect.cpp
+# checkpoints differ from frame 630
+src/game/global/CWorldCollisionManager.cpp
+# from frame 10200
+src/game/global/CChaseCamera.cpp
+# from frame 13860
+src/game/global/CDramaticCamera.cpp

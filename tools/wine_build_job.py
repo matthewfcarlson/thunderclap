@@ -54,9 +54,12 @@ RECS = {"play3": "build/rp1/play3.hrp"}
 
 
 # --opt (opt1, docs/wine-build.md "Replay speed"): which game TUs clang_probe compiles optimised. o0 is the reference
-# build (every TU -O0); hot compiles the TUs tools/wine_opt_tus.txt names at -O1 (the replay's hottest, each gated
-# against o0 on play3). An explicit --env HULK_WINE_OPT... wins.
-OPT_ENV = {"o0": {}, "hot": {"HULK_WINE_OPT": "O1", "HULK_WINE_OPT_ONLY": "tools/wine_opt_tus.txt"}}
+# build (every TU -O0; a divergence that only an optimised build shows is checked against it); hot, the default since
+# opt1, compiles the TUs tools/wine_opt_tus.txt names at -O1 (the replay's hottest; play3 identical to o0 on mac2, mac1
+# and studio); all compiles every game TU at -O1 except those tools/wine_opt_exclude.txt names. An explicit
+# --env HULK_WINE_OPT... wins.
+OPT_ENV = {"o0": {}, "hot": {"HULK_WINE_OPT": "O1", "HULK_WINE_OPT_ONLY": "tools/wine_opt_tus.txt"},
+           "all": {"HULK_WINE_OPT": "O1", "HULK_WINE_OPT_EXCLUDE": "tools/wine_opt_exclude.txt"}}
 
 
 def local_dir(d):
@@ -367,6 +370,9 @@ def seed_files(job):
     for p in files.values():
         if not os.path.exists(p):
             sys.exit("seed: %s is missing (a control built before seeding support cannot seed: rebuild it)" % p)
+    if os.path.exists(os.path.join(d, "tree-inputs.json")):
+        # (build3) the tools the control's build loaded: seed_decision checks those instead of the static import closure
+        files["nbrun/seed-inputs.json"] = os.path.join(d, "tree-inputs.json")
     return files, {"job": str(job), "host": summ.get("host"), "toolchain": summ.get("toolchain")}
 
 
@@ -542,8 +548,9 @@ def main():
     s.add_argument("--gfx", action="store_true", help="link with the pddi/bgfx backend (wine_link.py --gfx)")
     s.add_argument("--stages", help="comma list of build,probe,link,replay (default: all requested)")
     s.add_argument("--data-src", help="a private build/data/src (data TUs of a data_gen change under test)")
-    s.add_argument("--opt", choices=sorted(OPT_ENV), default="o0",
-                   help="optimised game objects: o0 (the reference, default) or hot (tools/wine_opt_tus.txt at -O1)")
+    s.add_argument("--opt", choices=sorted(OPT_ENV), default="hot",
+                   help="optimised game objects: o0 (the reference: every TU -O0), hot (default: tools/wine_opt_tus.txt at -O1) or all "
+                   "(every game TU at -O1 but tools/wine_opt_exclude.txt's)")
     s.add_argument("--sdl-src", help="a private build/third_party/out/sdl-backends/win32 (hulk_sdl.lib of an audio/input "
                    "change under test: HULK_TP_OUT=OUT tools/wine_sdl.py backends --target win32)")
     s.add_argument("--state", default="auto", type=state_arg, metavar="auto|fresh|resume|seed:JOB",

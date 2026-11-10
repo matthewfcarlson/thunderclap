@@ -222,8 +222,9 @@ $J $N sync | lineages   # inputs on the hosts (submit does it) | lineage workspa
 - **Replay speed (opt1, 2026-11-09; [wine-build.md](wine-build.md#replay-speed-and-optimised-objects-opt1-2026-11-09)).**
   A headless play3 replay to 60000 went from 168 s to 94-106 s on mac2 (357 -> 566-636 fps) with checkpoints identical:
   sqrt as `sqrtsd`, no audio mixing in headless replays (`HULK_AUDIO_NOMIX=1`, wine_replay_job's default), a memo of the
-  x87 math, and `--opt hot` (the 32 hottest game TUs at -O1, `tools/wine_opt_tus.txt`; the default stays `--opt o0`, the
-  reference). The replay is 6-20% of a proof; the tree build is the rest when the lineage cannot resume. `HULK_PROF=1`
+  x87 math, and `--opt hot` (the default: the 32 hottest game TUs at -O1, `tools/wine_opt_tus.txt`). `--opt o0` is the
+  reference build (every TU -O0); `--opt all` compiles every game TU at -O1 but `tools/wine_opt_exclude.txt`'s (95 s on
+  mac2). A divergence that only an optimised build shows: rebuild with `--opt o0`. The replay is 6-20% of a proof; the tree build is the rest when the lineage cannot resume. `HULK_PROF=1`
   (`--replay-env`) profiles a replay (`nb-out/trace.txt.prof`, `tools/opt_prof.py` with `--fetch image`'s map);
   `--sdl-src DIR` ships a private hulk_sdl.lib build.
 - **SSE float (default since perf1, 2026-10-26; [wine-float.md](wine-float.md) section 13).** The game's TUs are built with
