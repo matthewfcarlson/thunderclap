@@ -178,13 +178,39 @@ def local_data_bindings(obj, symbol, addr):
     return out
 
 
+_CHECKER = {}
+
+
+def _checker_key(src):
+    """sha1 of equiv.py and tools/tree_tu.py (the checker's version) and of SRC's `equiv-*` directive lines."""
+    if "code" not in _CHECKER:
+        h = hashlib.sha1()
+        for f in ("equiv.py", "tree_tu.py"):
+            with open(os.path.join(ROOT, "tools", f), "rb") as fh:
+                h.update(hashlib.sha1(fh.read()).digest())
+        _CHECKER["code"] = h.hexdigest()
+    if src not in _CHECKER:
+        h = hashlib.sha1(_CHECKER["code"].encode())
+        try:
+            with open(os.path.join(ROOT, src), errors="replace") as fh:
+                for l in fh:
+                    if "equiv-" in l and re.match(r"^\s*//\s*equiv-", l):
+                        h.update(l.strip().encode() + b"\0")
+        except OSError:
+            h.update(b"missing")
+        _CHECKER[src] = h.hexdigest()
+    return _CHECKER[src]
+
+
 def _equiv_job(args):
     obj, symbol, src, addr = args
     raw = open(obj, "rb").read()
     # (the COFF header's time stamp, bytes 4-8, left out: the same object built on another machine hits the cache)
     # (v2: the map also keeps the vftables the object defines itself, `??_7Stub@fn_...@@6B@`: where the
     # function stores a stub's vftable, equiv.py binds it to the game's, which fix 3a needs for the stub's slots)
-    key = hashlib.sha1(raw[:4] + raw[8:] + symbol.encode() + src.encode() + b"v2").hexdigest()[:24]
+    # (v3, build6: the checker's version, equiv.py and the tree-TU helper it reads blocks through, and the source's
+    # equiv-* directive lines, which change the map without changing the object: a changed checker recomputes)
+    key = hashlib.sha1(raw[:4] + raw[8:] + symbol.encode() + src.encode() + _checker_key(src).encode() + b"v3").hexdigest()[:24]
     p = os.path.join(CACHE, "equiv", key + ".json")
     if os.path.exists(p):
         return json.load(open(p))
