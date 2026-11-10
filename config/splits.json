@@ -3635,7 +3635,7 @@
   {
    "start": "0x0004e030",
    "end": "0x0004e120",
-   "file": "global/CButtonCondition_2.cpp",
+   "file": "global/CButtonCondition_reg.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -3643,6 +3643,7 @@
     "classes: CButtonCondition (6 fn), fight::ParamValueFloat (1 fn)",
     "vtables 0x3f6dc0..0x427a58 (2)",
     "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CButtonCondition_2.cpp (REGISTRATION_RANGES)",
     "vtable range overlaps the previous object's (may be one file)"
    ],
    "layer_evidence": [
@@ -3655,7 +3656,7 @@
   {
    "start": "0x0004e120",
    "end": "0x0004e200",
-   "file": "global/CButtonValueCondition_2.cpp",
+   "file": "global/CButtonValueCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -3663,6 +3664,7 @@
     "classes: CButtonValueCondition (6 fn)",
     "vtables 0x3f6df0..0x3f6df0 (1)",
     "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CButtonValueCondition_2.cpp (REGISTRATION_RANGES)",
     "vtable range overlaps the previous object's (may be one file)"
    ],
    "layer_evidence": [
@@ -3675,14 +3677,15 @@
   {
    "start": "0x0004e200",
    "end": "0x0004e2e0",
-   "file": "global/CAxisTimeCondition_2.cpp",
+   "file": "global/CAxisTimeCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CAxisTimeCondition (6 fn)",
     "vtables 0x3f6e4c..0x3f6e4c (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CAxisTimeCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -3694,14 +3697,15 @@
   {
    "start": "0x0004e2e0",
    "end": "0x0004e3c0",
-   "file": "global/CAxisSpeedCondition_2.cpp",
+   "file": "global/CAxisSpeedCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CAxisSpeedCondition (6 fn)",
     "vtables 0x3f6e7c..0x3f6e7c (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CAxisSpeedCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -3713,14 +3717,15 @@
   {
    "start": "0x0004e3c0",
    "end": "0x0004e4a0",
-   "file": "global/CAxisValueCondition_2.cpp",
+   "file": "global/CAxisValueCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CAxisValueCondition (6 fn)",
     "vtables 0x3f6ea8..0x3f6ea8 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CAxisValueCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -3732,14 +3737,15 @@
   {
    "start": "0x0004e4a0",
    "end": "0x0004e580",
-   "file": "global/CAxisArcCondition_2.cpp",
+   "file": "global/CAxisArcCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CAxisArcCondition (6 fn)",
     "vtables 0x3f6ed8..0x3f6ed8 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CAxisArcCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -3751,14 +3757,15 @@
   {
    "start": "0x0004e580",
    "end": "0x0004e660",
-   "file": "global/CAxisDoubleTapCondition_2.cpp",
+   "file": "global/CAxisDoubleTapCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CAxisDoubleTapCondition (6 fn)",
     "vtables 0x3f6f08..0x3f6f08 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CAxisDoubleTapCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -3770,14 +3777,15 @@
   {
    "start": "0x0004e660",
    "end": "0x0004e740",
-   "file": "global/CAxisDirectionCondition_2.cpp",
+   "file": "global/CAxisDirectionCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CAxisDirectionCondition (6 fn)",
     "vtables 0x3f6f34..0x3f6f34 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CAxisDirectionCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -3789,14 +3797,15 @@
   {
    "start": "0x0004e740",
    "end": "0x0004e820",
-   "file": "global/CGroundDistanceCondition_2.cpp",
+   "file": "global/CGroundDistanceCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CGroundDistanceCondition (6 fn)",
     "vtables 0x3f6f5c..0x3f6f5c (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CGroundDistanceCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -3903,7 +3912,7 @@
   {
    "start": "0x0004ea70",
    "end": "0x0004ebb0",
-   "file": "global/CCollisionHeightCondition_2.cpp",
+   "file": "global/CCollisionHeightCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -3912,6 +3921,7 @@
     "vtables 0x3f7058..0x3f7058 (1)",
     "2 COMDAT stray(s) from other classes' homes",
     "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CCollisionHeightCondition_2.cpp (REGISTRATION_RANGES)",
     "vtables precede the previous object's in .rdata (order inverted)"
    ],
    "layer_evidence": [
@@ -3936,14 +3946,15 @@
   {
    "start": "0x0004ebb0",
    "end": "0x0004ec90",
-   "file": "global/CCollisionPushbackVelocityCondition_2.cpp",
+   "file": "global/CCollisionPushbackVelocityCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CCollisionPushbackVelocityCondition (6 fn)",
     "vtables 0x3f707c..0x3f707c (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CCollisionPushbackVelocityCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -3955,14 +3966,15 @@
   {
    "start": "0x0004ec90",
    "end": "0x0004ed70",
-   "file": "global/CCollisionPushbackYCondition_2.cpp",
+   "file": "global/CCollisionPushbackYCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CCollisionPushbackYCondition (6 fn)",
     "vtables 0x3f70a0..0x3f70a0 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CCollisionPushbackYCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -3974,14 +3986,15 @@
   {
    "start": "0x0004ed70",
    "end": "0x0004ee50",
-   "file": "global/CCollisionPushbackYAngleCondition_2.cpp",
+   "file": "global/CCollisionPushbackYAngleCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CCollisionPushbackYAngleCondition (6 fn)",
     "vtables 0x3f70c4..0x3f70c4 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CCollisionPushbackYAngleCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -3993,14 +4006,15 @@
   {
    "start": "0x0004ee50",
    "end": "0x0004ef20",
-   "file": "global/CCollisionStunTimeCondition_2.cpp",
+   "file": "global/CCollisionStunTimeCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CCollisionStunTimeCondition (6 fn)",
     "vtables 0x3f70e8..0x3f70e8 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CCollisionStunTimeCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -4012,14 +4026,15 @@
   {
    "start": "0x0004ef20",
    "end": "0x0004f060",
-   "file": "global/CSmartPropAttachedCondition_2.cpp",
+   "file": "global/CSmartPropAttachedCondition_params_04ef20.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CSmartPropAttachedCondition (8 fn)",
     "vtables 0x3f710c..0x3f710c (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CSmartPropAttachedCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -4031,14 +4046,15 @@
   {
    "start": "0x0004f060",
    "end": "0x0004f140",
-   "file": "global/CSmartPropWeaponizableTypeCondition_2.cpp",
+   "file": "global/CSmartPropWeaponizableTypeCondition_params_04f060.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CSmartPropWeaponizableTypeCondition (6 fn)",
     "vtables 0x3f7130..0x3f7130 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CSmartPropWeaponizableTypeCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -4050,14 +4066,15 @@
   {
    "start": "0x0004f140",
    "end": "0x0004f220",
-   "file": "global/CSmartPropWeaponTypeCondition_2.cpp",
+   "file": "global/CSmartPropWeaponTypeCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CSmartPropWeaponTypeCondition (6 fn)",
     "vtables 0x3f7154..0x3f7154 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CSmartPropWeaponTypeCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -4087,14 +4104,15 @@
   {
    "start": "0x0004f2b0",
    "end": "0x0004f380",
-   "file": "global/CSmartPropNameCondition_2.cpp",
+   "file": "global/CSmartPropNameCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CSmartPropNameCondition (6 fn)",
     "vtables 0x3f719c..0x3f719c (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CSmartPropNameCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -4106,7 +4124,7 @@
   {
    "start": "0x0004f380",
    "end": "0x0004f520",
-   "file": "global/CSmartPropDistanceCondition_2.cpp",
+   "file": "global/CSmartPropDistanceCondition_reg_04f380.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -4114,7 +4132,8 @@
     "classes: CSmartPropDistanceCondition (8 fn), fight::ParamValueVector (1 fn)",
     "vtables 0x3f71e4..0x427b94 (2)",
     "2 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CSmartPropDistanceCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -4138,7 +4157,7 @@
   {
    "start": "0x0004f520",
    "end": "0x0004f5b0",
-   "file": "global/CSmartPropGrabbableNameCondition_2.cpp",
+   "file": "global/CSmartPropGrabbableNameCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -4146,6 +4165,7 @@
     "classes: CSmartPropGrabbableNameCondition (4 fn)",
     "vtables 0x3f7208..0x3f7208 (1)",
     "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CSmartPropGrabbableNameCondition_2.cpp (REGISTRATION_RANGES)",
     "vtable range overlaps the previous object's (may be one file)"
    ],
    "layer_evidence": [
@@ -4158,14 +4178,15 @@
   {
    "start": "0x0004f5b0",
    "end": "0x0004f640",
-   "file": "global/CSmartPropCSMableCondition_2.cpp",
+   "file": "global/CSmartPropCSMableCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CSmartPropCSMableCondition (4 fn)",
     "vtables 0x3f722c..0x3f722c (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CSmartPropCSMableCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -4177,14 +4198,15 @@
   {
    "start": "0x0004f640",
    "end": "0x0004f720",
-   "file": "global/CSmartPropStateCondition_2.cpp",
+   "file": "global/CSmartPropStateCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CSmartPropStateCondition (6 fn)",
     "vtables 0x3f7250..0x3f7250 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CSmartPropStateCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -4196,14 +4218,15 @@
   {
    "start": "0x0004f720",
    "end": "0x0004f800",
-   "file": "global/CPropActorStateCondition_2.cpp",
+   "file": "global/CPropActorStateCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CPropActorStateCondition (6 fn)",
     "vtables 0x3f7274..0x3f7274 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CPropActorStateCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -4251,7 +4274,7 @@
   {
    "start": "0x0004f890",
    "end": "0x0004f9d0",
-   "file": "global/CLuaNumberCondition_2.cpp",
+   "file": "global/CLuaNumberCondition_params_04f890.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -4259,6 +4282,7 @@
     "classes: CLuaNumberCondition (8 fn)",
     "vtables 0x3f7304..0x3f7304 (1)",
     "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CLuaNumberCondition_2.cpp (REGISTRATION_RANGES)",
     "vtables precede the previous object's in .rdata (order inverted)"
    ],
    "layer_evidence": [
@@ -4325,14 +4349,15 @@
   {
    "start": "0x0004fb80",
    "end": "0x0004fc10",
-   "file": "global/CMotionStateCondition_2.cpp",
+   "file": "global/CMotionStateCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CMotionStateCondition (4 fn)",
     "vtables 0x3f7394..0x3f7394 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CMotionStateCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -4362,14 +4387,15 @@
   {
    "start": "0x0004fc90",
    "end": "0x0004fd40",
-   "file": "global/CClimbableCondition_2.cpp",
+   "file": "global/CClimbableCondition_params_04fc90.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CClimbableCondition (4 fn)",
     "vtables 0x3f73e0..0x3f73e0 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CClimbableCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -4381,7 +4407,7 @@
   {
    "start": "0x0004fd40",
    "end": "0x00050500",
-   "file": "global/CGrappleTimerCondition_2.cpp",
+   "file": "global/CGrappleTimerCondition_reg.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -4389,7 +4415,8 @@
     "classes: CGrappleTimerCondition (8 fn), CFightNodePrevCondition (7 fn), CInactivityTimerCondition (6 fn), CCharacterFloatCondition (6 fn), CIntentionSpeedCondition (6 fn), CClimbEdgeCondition (6 fn) +4 more",
     "vtables 0x3f7404..0x427c68 (10)",
     "4 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CGrappleTimerCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -4423,14 +4450,15 @@
   {
    "start": "0x00050500",
    "end": "0x00051480",
-   "file": "unknown/unk_050500.cpp",
+   "file": "global/CAxisArcCondition_reg.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "low",
    "evidence": [
     "only template instantiations/unnamed functions; template args: CAxisArcCondition",
     "62 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
+    "unattached run: no call affinity to neighbouring objects",
+    "registration run object, renamed from unknown/unk_050500.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -4753,7 +4781,7 @@
   {
    "start": "0x00051480",
    "end": "0x000514f0",
-   "file": "global/CStageCondition_3.cpp",
+   "file": "global/CStageCondition_params_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -4761,6 +4789,7 @@
     "classes: CStageCondition (3 fn)",
     "vtables 0x3f6d74..0x3f6d74 (1)",
     "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CStageCondition_3.cpp (REGISTRATION_RANGES)",
     "vtables precede the previous object's in .rdata (order inverted)"
    ],
    "layer_evidence": [
@@ -4773,14 +4802,15 @@
   {
    "start": "0x000514f0",
    "end": "0x00051940",
-   "file": "unknown/unk_0514f0.cpp",
+   "file": "global/CButtonCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "low",
    "evidence": [
     "only template instantiations/unnamed functions; template args: CButtonCondition",
     "34 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
+    "unattached run: no call affinity to neighbouring objects",
+    "registration run object, renamed from unknown/unk_0514f0.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -4963,14 +4993,15 @@
   {
    "start": "0x00051940",
    "end": "0x000519a0",
-   "file": "global/CSmartPropAttachedCondition_3.cpp",
+   "file": "global/CSmartPropAttachedCondition_params_051940.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CSmartPropAttachedCondition (3 fn)",
     "vtables 0x3f710c..0x3f710c (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CSmartPropAttachedCondition_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -4982,14 +5013,15 @@
   {
    "start": "0x000519a0",
    "end": "0x00051aa0",
-   "file": "unknown/unk_0519a0.cpp",
+   "file": "global/CSmartPropWeaponizableTypeCondition_params_0519a0.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "low",
    "evidence": [
     "only template instantiations/unnamed functions; template args: CSmartPropWeaponizableTypeCondition",
     "8 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
+    "unattached run: no call affinity to neighbouring objects",
+    "registration run object, renamed from unknown/unk_0519a0.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -5042,14 +5074,15 @@
   {
    "start": "0x00051aa0",
    "end": "0x00051b10",
-   "file": "global/CSmartPropDistanceCondition_3.cpp",
+   "file": "global/CSmartPropDistanceCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CSmartPropDistanceCondition (3 fn)",
     "vtables 0x3f71e4..0x3f71e4 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CSmartPropDistanceCondition_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -5061,7 +5094,7 @@
   {
    "start": "0x00051b10",
    "end": "0x00051c50",
-   "file": "global/CLuaNumberCondition_3.cpp",
+   "file": "global/CLuaNumberCondition_params_051b10.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -5069,7 +5102,8 @@
     "classes: CLuaNumberCondition (3 fn)",
     "vtables 0x3f7304..0x3f7304 (1)",
     "7 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CLuaNumberCondition_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -5118,14 +5152,15 @@
   {
    "start": "0x00051c50",
    "end": "0x00051d70",
-   "file": "unknown/unk_051c50.cpp",
+   "file": "global/CClimbableCondition_params_051c50.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "low",
    "evidence": [
     "only template instantiations/unnamed functions; template args: CClimbableCondition",
     "9 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
+    "unattached run: no call affinity to neighbouring objects",
+    "registration run object, renamed from unknown/unk_051c50.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -5183,14 +5218,15 @@
   {
    "start": "0x00051d70",
    "end": "0x00051dd0",
-   "file": "global/CGrappleTimerCondition_3.cpp",
+   "file": "global/CGrappleTimerCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CGrappleTimerCondition (3 fn)",
     "vtables 0x3f7450..0x3f7450 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CGrappleTimerCondition_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -5440,14 +5476,15 @@
   {
    "start": "0x00052720",
    "end": "0x00055210",
-   "file": "unknown/unk_052720.cpp",
+   "file": "global/CNameFlagConditionBase_reg.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "low",
    "evidence": [
     "only template instantiations/unnamed functions; template args: CNameFlagConditionBase",
     "2 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
+    "unattached run: no call affinity to neighbouring objects",
+    "registration run object, renamed from unknown/unk_052720.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -5488,14 +5525,15 @@
   {
    "start": "0x00055220",
    "end": "0x00056af0",
-   "file": "unknown/unk_055220.cpp",
+   "file": "global/CSmartPropDistanceCondition_reg_055220.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "low",
    "evidence": [
     "only template instantiations/unnamed functions; template args: CSmartPropDistanceCondition",
     "12 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
+    "unattached run: no call affinity to neighbouring objects",
+    "registration run object, renamed from unknown/unk_055220.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -5568,7 +5606,7 @@
   {
    "start": "0x00056af0",
    "end": "0x00056ba0",
-   "file": "global/CAlertStatusCondition_2.cpp",
+   "file": "global/CAlertStatusCondition_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -5576,6 +5614,7 @@
     "classes: CAlertStatusCondition (3 fn)",
     "vtables 0x3f7404..0x3f7404 (1)",
     "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CAlertStatusCondition_2.cpp (REGISTRATION_RANGES)",
     "vtables precede the previous object's in .rdata (order inverted)"
    ],
    "layer_evidence": [
@@ -5588,7 +5627,7 @@
   {
    "start": "0x00056ba0",
    "end": "0x00056c60",
-   "file": "global/CAxisArcCondition_3.cpp",
+   "file": "global/CAxisArcCondition_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -5596,6 +5635,7 @@
     "classes: CAxisArcCondition (3 fn)",
     "vtables 0x3f6ed8..0x3f6ed8 (1)",
     "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CAxisArcCondition_3.cpp (REGISTRATION_RANGES)",
     "vtables precede the previous object's in .rdata (order inverted)"
    ],
    "layer_evidence": [
@@ -5608,14 +5648,15 @@
   {
    "start": "0x00056c60",
    "end": "0x00056d10",
-   "file": "global/CAxisDirectionCondition_3.cpp",
+   "file": "global/CAxisDirectionCondition_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CAxisDirectionCondition (3 fn)",
     "vtables 0x3f6f34..0x3f6f34 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CAxisDirectionCondition_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -5627,7 +5668,7 @@
   {
    "start": "0x00056d10",
    "end": "0x00056dd0",
-   "file": "global/CAxisDoubleTapCondition_3.cpp",
+   "file": "global/CAxisDoubleTapCondition_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -5635,6 +5676,7 @@
     "classes: CAxisDoubleTapCondition (3 fn)",
     "vtables 0x3f6f08..0x3f6f08 (1)",
     "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CAxisDoubleTapCondition_3.cpp (REGISTRATION_RANGES)",
     "vtables precede the previous object's in .rdata (order inverted)"
    ],
    "layer_evidence": [
@@ -7835,7 +7877,7 @@
   {
    "start": "0x0006bd20",
    "end": "0x0006be60",
-   "file": "global/CJointTrack_2.cpp",
+   "file": "global/CJointTrack_params_06bd20.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -7843,6 +7885,7 @@
     "classes: CJointTrack (8 fn)",
     "vtables 0x3fb9c4..0x3fb9c4 (1)",
     "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CJointTrack_2.cpp (REGISTRATION_RANGES)",
     "vtables precede the previous object's in .rdata (order inverted)"
    ],
    "layer_evidence": [
@@ -7855,7 +7898,7 @@
   {
    "start": "0x0006be60",
    "end": "0x0006bff0",
-   "file": "global/CJumpTrack_2.cpp",
+   "file": "global/CJumpTrack_params_06be60.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -7863,7 +7906,8 @@
     "classes: CJumpTrack (6 fn)",
     "vtables 0x3fba74..0x3fba74 (1)",
     "4 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CJumpTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -7897,14 +7941,15 @@
   {
    "start": "0x0006bff0",
    "end": "0x0006c0e0",
-   "file": "global/CDropTrack_2.cpp",
+   "file": "global/CDropTrack_params_06bff0.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CDropTrack (6 fn)",
     "vtables 0x3fbaf8..0x3fbaf8 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CDropTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -7916,14 +7961,15 @@
   {
    "start": "0x0006c0e0",
    "end": "0x0006c1d0",
-   "file": "global/CKeyPoseTrack_2.cpp",
+   "file": "global/CKeyPoseTrack_params_06c0e0.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CKeyPoseTrack (6 fn)",
     "vtables 0x3fbb34..0x3fbb34 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CKeyPoseTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -7935,14 +7981,15 @@
   {
    "start": "0x0006c1d0",
    "end": "0x0006c2c0",
-   "file": "global/CSoundTrack_2.cpp",
+   "file": "global/CSoundTrack_params_06c1d0.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CSoundTrack (6 fn)",
     "vtables 0x3fbb70..0x3fbb70 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CSoundTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -7954,14 +8001,15 @@
   {
    "start": "0x0006c2c0",
    "end": "0x0006c3f0",
-   "file": "global/CComboMessageTrack_2.cpp",
+   "file": "global/CComboMessageTrack_params_06c2c0.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CComboMessageTrack (8 fn)",
     "vtables 0x3fbbac..0x3fbbac (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CComboMessageTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -7973,14 +8021,15 @@
   {
    "start": "0x0006c3f0",
    "end": "0x0006c490",
-   "file": "global/CMoveTrack_2.cpp",
+   "file": "global/CMoveTrack_reg.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CMoveTrack (4 fn)",
     "vtables 0x3fbbe8..0x3fbbe8 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CMoveTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -7992,7 +8041,7 @@
   {
    "start": "0x0006c490",
    "end": "0x0006c5d0",
-   "file": "global/CSweepTrack_2.cpp",
+   "file": "global/CSweepTrack_reg.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -8000,7 +8049,8 @@
     "classes: CSweepTrack (4 fn)",
     "vtables 0x3fbc9c..0x3fbc9c (1)",
     "4 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CSweepTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -8034,14 +8084,15 @@
   {
    "start": "0x0006c5d0",
    "end": "0x0006c6c0",
-   "file": "global/CAutoTargetTrack_2.cpp",
+   "file": "global/CAutoTargetTrack_reg.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CAutoTargetTrack (6 fn)",
     "vtables 0x3fbcd8..0x3fbcd8 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CAutoTargetTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -8053,14 +8104,15 @@
   {
    "start": "0x0006c6c0",
    "end": "0x0006c8f0",
-   "file": "unknown/unk_06c6c0.cpp",
+   "file": "global/CDamageTrack_reg.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "low",
    "evidence": [
     "only template instantiations/unnamed functions; template args: CDamageTrack",
     "14 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
+    "unattached run: no call affinity to neighbouring objects",
+    "registration run object, renamed from unknown/unk_06c6c0.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -8143,14 +8195,15 @@
   {
    "start": "0x0006c8f0",
    "end": "0x0006ca70",
-   "file": "global/CCameraDramaticTrack_2.cpp",
+   "file": "global/CCameraDramaticTrack_params_06c8f0.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CCameraDramaticTrack (10 fn)",
     "vtables 0x3fbeb8..0x3fbeb8 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CCameraDramaticTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -8162,14 +8215,15 @@
   {
    "start": "0x0006ca70",
    "end": "0x0006cb50",
-   "file": "global/CCameraHintTrack_2.cpp",
+   "file": "global/CCameraHintTrack_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CCameraHintTrack (6 fn)",
     "vtables 0x3fbef4..0x3fbef4 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CCameraHintTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -8181,14 +8235,15 @@
   {
    "start": "0x0006cb50",
    "end": "0x0006cc40",
-   "file": "global/CJumpAttackTrack_2.cpp",
+   "file": "global/CJumpAttackTrack_params_06cb50.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CJumpAttackTrack (6 fn)",
     "vtables 0x3fbf30..0x3fbf30 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CJumpAttackTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -8200,14 +8255,15 @@
   {
    "start": "0x0006cc40",
    "end": "0x0006cd10",
-   "file": "global/COrientTrack_2.cpp",
+   "file": "global/COrientTrack_params_06cc40.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: COrientTrack (6 fn)",
     "vtables 0x3fbf68..0x3fbf68 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/COrientTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -8219,7 +8275,7 @@
   {
    "start": "0x0006cd10",
    "end": "0x0006cf00",
-   "file": "global/CRageModeTrack_2.cpp",
+   "file": "global/CRageModeTrack_reg.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -8227,7 +8283,8 @@
     "classes: CRageModeTrack (6 fn)",
     "vtables 0x3fc058..0x3fc058 (1)",
     "6 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CRageModeTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -8271,14 +8328,15 @@
   {
    "start": "0x0006cf00",
    "end": "0x0006cfa0",
-   "file": "global/CStageTrack_2.cpp",
+   "file": "global/CStageTrack_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CStageTrack (4 fn)",
     "vtables 0x3fc094..0x3fc094 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CStageTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -8290,14 +8348,15 @@
   {
    "start": "0x0006cfa0",
    "end": "0x0006d090",
-   "file": "global/CHeadTrackerTrack_2.cpp",
+   "file": "global/CHeadTrackerTrack_params_06cfa0.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CHeadTrackerTrack (6 fn)",
     "vtables 0x3fc0d0..0x3fc0d0 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CHeadTrackerTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -8309,7 +8368,7 @@
   {
    "start": "0x0006d090",
    "end": "0x0006d590",
-   "file": "global/CAlertStatusTrack_2.cpp",
+   "file": "global/CAlertStatusTrack_reg.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -8317,7 +8376,8 @@
     "classes: CAlertStatusTrack (7 fn), CWallSlideTrack (4 fn), CAIHintTrack (3 fn), CClearCollisionStun (3 fn)",
     "vtables 0x3fc10c..0x3fc238 (4)",
     "11 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CAlertStatusTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -8386,14 +8446,15 @@
   {
    "start": "0x0006d590",
    "end": "0x0006e840",
-   "file": "unknown/unk_06d590.cpp",
+   "file": "global/CClimbingTrack_reg.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "low",
    "evidence": [
     "only template instantiations/unnamed functions; template args: CClimbingTrack",
     "75 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
+    "unattached run: no call affinity to neighbouring objects",
+    "registration run object, renamed from unknown/unk_06d590.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -8781,7 +8842,7 @@
   {
    "start": "0x0006e840",
    "end": "0x0006e8c0",
-   "file": "global/CJointTrack_3.cpp",
+   "file": "global/CJointTrack_params_06e840.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -8789,6 +8850,7 @@
     "classes: CJointTrack (4 fn)",
     "vtables 0x3fb9c4..0x3fb9c4 (1)",
     "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CJointTrack_3.cpp (REGISTRATION_RANGES)",
     "vtables precede the previous object's in .rdata (order inverted)"
    ],
    "layer_evidence": [
@@ -8801,7 +8863,7 @@
   {
    "start": "0x0006e8c0",
    "end": "0x0006e960",
-   "file": "global/CJumpTrack_3.cpp",
+   "file": "global/CJumpTrack_params_06e8c0.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -8809,7 +8871,8 @@
     "classes: CJumpTrack (3 fn)",
     "vtables 0x3fba74..0x3fba74 (1)",
     "2 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CJumpTrack_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -8833,14 +8896,15 @@
   {
    "start": "0x0006e960",
    "end": "0x0006e9c0",
-   "file": "global/CDropTrack_3.cpp",
+   "file": "global/CDropTrack_params_06e960.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CDropTrack (3 fn)",
     "vtables 0x3fbaf8..0x3fbaf8 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CDropTrack_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -8852,14 +8916,15 @@
   {
    "start": "0x0006e9c0",
    "end": "0x0006ea20",
-   "file": "global/CKeyPoseTrack_3.cpp",
+   "file": "global/CKeyPoseTrack_params_06e9c0.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CKeyPoseTrack (3 fn)",
     "vtables 0x3fbb34..0x3fbb34 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CKeyPoseTrack_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -8871,14 +8936,15 @@
   {
    "start": "0x0006ea20",
    "end": "0x0006ea80",
-   "file": "global/CSoundTrack_3.cpp",
+   "file": "global/CSoundTrack_params_06ea20.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CSoundTrack (3 fn)",
     "vtables 0x3fbb70..0x3fbb70 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CSoundTrack_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -8890,14 +8956,15 @@
   {
    "start": "0x0006ea80",
    "end": "0x0006eae0",
-   "file": "global/CComboMessageTrack_3.cpp",
+   "file": "global/CComboMessageTrack_params_06ea80.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CComboMessageTrack (3 fn)",
     "vtables 0x3fbbac..0x3fbbac (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CComboMessageTrack_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -8909,7 +8976,7 @@
   {
    "start": "0x0006eae0",
    "end": "0x0006ec00",
-   "file": "global/CAutoTargetTrack_3.cpp",
+   "file": "global/CAutoTargetTrack_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -8917,7 +8984,8 @@
     "classes: CAutoTargetTrack (3 fn)",
     "vtables 0x3fbcd8..0x3fbcd8 (1)",
     "6 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CAutoTargetTrack_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -8961,7 +9029,7 @@
   {
    "start": "0x0006ec00",
    "end": "0x0006ed60",
-   "file": "global/CCameraDramaticTrack_3.cpp",
+   "file": "global/CCameraDramaticTrack_params_06ec00.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -8969,7 +9037,8 @@
     "classes: CCameraDramaticTrack (4 fn)",
     "vtables 0x3fbeb8..0x3fbeb8 (1)",
     "7 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CCameraDramaticTrack_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -9018,7 +9087,7 @@
   {
    "start": "0x0006ed60",
    "end": "0x0006ee00",
-   "file": "global/CJumpAttackTrack_3.cpp",
+   "file": "global/CJumpAttackTrack_params_06ed60.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -9026,7 +9095,8 @@
     "classes: CJumpAttackTrack (3 fn)",
     "vtables 0x3fbf30..0x3fbf30 (1)",
     "2 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CJumpAttackTrack_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -9050,14 +9120,15 @@
   {
    "start": "0x0006ee00",
    "end": "0x0006ee60",
-   "file": "global/COrientTrack_3.cpp",
+   "file": "global/COrientTrack_params_06ee00.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: COrientTrack (3 fn)",
     "vtables 0x3fbf68..0x3fbf68 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/COrientTrack_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -9069,7 +9140,7 @@
   {
    "start": "0x0006ee60",
    "end": "0x0006efa0",
-   "file": "global/CHeadTrackerTrack_3.cpp",
+   "file": "global/CHeadTrackerTrack_params_06ee60.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -9077,7 +9148,8 @@
     "classes: CHeadTrackerTrack (3 fn)",
     "vtables 0x3fc0d0..0x3fc0d0 (1)",
     "7 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CHeadTrackerTrack_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -9126,14 +9198,15 @@
   {
    "start": "0x0006efa0",
    "end": "0x0006f0c0",
-   "file": "unknown/unk_06efa0.cpp",
+   "file": "global/CAlertStatusTrack_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "low",
    "evidence": [
     "only template instantiations/unnamed functions; template args: CAlertStatusTrack",
     "9 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
+    "unattached run: no call affinity to neighbouring objects",
+    "registration run object, renamed from unknown/unk_06efa0.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -9210,7 +9283,7 @@
   {
    "start": "0x0006f150",
    "end": "0x0006f1e0",
-   "file": "global/CCollisionTrack_2.cpp",
+   "file": "global/CCollisionTrack_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -9218,6 +9291,7 @@
     "classes: CCollisionTrack (3 fn)",
     "vtables 0x3fa214..0x3fa214 (1)",
     "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CCollisionTrack_2.cpp (REGISTRATION_RANGES)",
     "vtables precede the previous object's in .rdata (order inverted)"
    ],
    "layer_evidence": [
@@ -9230,14 +9304,15 @@
   {
    "start": "0x0006f1e0",
    "end": "0x0006f270",
-   "file": "global/CEffectTrack_2.cpp",
+   "file": "global/CEffectTrack_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: CEffectTrack (3 fn)",
     "vtables 0x3faa80..0x3faa80 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CEffectTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -9414,7 +9489,7 @@
   {
    "start": "0x0006f810",
    "end": "0x0006f8a0",
-   "file": "global/CGrappleOpportunityTrack_2.cpp",
+   "file": "global/CGrappleOpportunityTrack_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -9422,6 +9497,7 @@
     "classes: CGrappleOpportunityTrack (3 fn)",
     "vtables 0x3f99f8..0x3f99f8 (1)",
     "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CGrappleOpportunityTrack_2.cpp (REGISTRATION_RANGES)",
     "vtables precede the previous object's in .rdata (order inverted)"
    ],
    "layer_evidence": [
@@ -9600,7 +9676,7 @@
   {
    "start": "0x0006fe40",
    "end": "0x0006fed0",
-   "file": "global/CHapticTrack_2.cpp",
+   "file": "global/CHapticTrack_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -9608,6 +9684,7 @@
     "classes: CHapticTrack (3 fn)",
     "vtables 0x3fa034..0x3fa034 (1)",
     "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from global/CHapticTrack_2.cpp (REGISTRATION_RANGES)",
     "vtables precede the previous object's in .rdata (order inverted)"
    ],
    "layer_evidence": [
@@ -17702,14 +17779,15 @@
   {
    "start": "0x001296f0",
    "end": "0x0012a270",
-   "file": "unknown/unk_1296f0.cpp",
+   "file": "hulkfight/ai/TargetArcCondition_reg.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "low",
    "evidence": [
     "only template instantiations/unnamed functions; template args: hulkfight::ai::TargetArcCondition",
     "3 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
+    "unattached run: no call affinity to neighbouring objects",
+    "registration run object, renamed from unknown/unk_1296f0.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -19903,14 +19981,15 @@
   {
    "start": "0x00152ab0",
    "end": "0x00152b80",
-   "file": "hulkfight/motion/CollisionTargetPriorityCondition_2.cpp",
+   "file": "hulkfight/motion/CollisionTargetPriorityCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: hulkfight::motion::CollisionTargetPriorityCondition (6 fn)",
     "vtables 0x414010..0x414010 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/CollisionTargetPriorityCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20004,7 +20083,7 @@
   {
    "start": "0x00152e30",
    "end": "0x00152ff0",
-   "file": "hulkfight/motion/CollisionSourceNodeCondition_2.cpp",
+   "file": "hulkfight/motion/CollisionSourceNodeCondition_reg.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -20012,7 +20091,8 @@
     "classes: hulkfight::motion::CollisionSourceNodeCondition (7 fn)",
     "vtables 0x414130..0x414130 (1)",
     "4 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/CollisionSourceNodeCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20064,14 +20144,15 @@
   {
    "start": "0x00153120",
    "end": "0x001531b0",
-   "file": "hulkfight/motion/CollisionTargetNameCondition_2.cpp",
+   "file": "hulkfight/motion/CollisionTargetNameCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: hulkfight::motion::CollisionTargetNameCondition (4 fn)",
     "vtables 0x414170..0x414170 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/CollisionTargetNameCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20119,14 +20200,15 @@
   {
    "start": "0x00153370",
    "end": "0x00153400",
-   "file": "hulkfight/motion/CollisionInterruptPriorityCondition_2.cpp",
+   "file": "hulkfight/motion/CollisionInterruptPriorityCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: hulkfight::motion::CollisionInterruptPriorityCondition (4 fn)",
     "vtables 0x4141d0..0x4141d0 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/CollisionInterruptPriorityCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20138,14 +20220,15 @@
   {
    "start": "0x00153400",
    "end": "0x00153480",
-   "file": "hulkfight/motion/CollisionSourceNameCondition_2.cpp",
+   "file": "hulkfight/motion/CollisionSourceNameCondition_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: hulkfight::motion::CollisionSourceNameCondition (4 fn)",
     "vtables 0x4141f0..0x4141f0 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/CollisionSourceNameCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20157,7 +20240,7 @@
   {
    "start": "0x00153480",
    "end": "0x001535c0",
-   "file": "hulkfight/motion/HitThrowTrack_2.cpp",
+   "file": "hulkfight/motion/HitThrowTrack_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -20165,7 +20248,8 @@
     "classes: hulkfight::motion::HitThrowTrack (6 fn)",
     "vtables 0x414240..0x414240 (1)",
     "2 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/HitThrowTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20189,14 +20273,15 @@
   {
    "start": "0x001535c0",
    "end": "0x00153720",
-   "file": "hulkfight/motion/HitReactionFloatTrack_3.cpp",
+   "file": "hulkfight/motion/HitReactionFloatTrack_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: hulkfight::motion::HitReactionFloatTrack (10 fn)",
     "vtables 0x414270..0x414270 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/HitReactionFloatTrack_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20208,7 +20293,7 @@
   {
    "start": "0x00153720",
    "end": "0x00153910",
-   "file": "hulkfight/motion/HitReactionTrack_3.cpp",
+   "file": "hulkfight/motion/HitReactionTrack_reg.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -20216,7 +20301,8 @@
     "classes: hulkfight::motion::HitReactionTrack (10 fn)",
     "vtables 0x4142d0..0x4142d0 (1)",
     "2 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/HitReactionTrack_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20240,14 +20326,15 @@
   {
    "start": "0x00153910",
    "end": "0x001539f0",
-   "file": "hulkfight/motion/HitWaitTrack_2.cpp",
+   "file": "hulkfight/motion/HitWaitTrack_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: hulkfight::motion::HitWaitTrack (6 fn)",
     "vtables 0x414300..0x414300 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/HitWaitTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20259,14 +20346,15 @@
   {
    "start": "0x001539f0",
    "end": "0x00153a90",
-   "file": "hulkfight/motion/InterruptPriorityTrack_2.cpp",
+   "file": "hulkfight/motion/InterruptPriorityTrack_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: hulkfight::motion::InterruptPriorityTrack (4 fn)",
     "vtables 0x414330..0x414330 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/InterruptPriorityTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20278,14 +20366,15 @@
   {
    "start": "0x00153a90",
    "end": "0x00153b30",
-   "file": "hulkfight/motion/HitOrientToPushbackTrack_2.cpp",
+   "file": "hulkfight/motion/HitOrientToPushbackTrack_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: hulkfight::motion::HitOrientToPushbackTrack (4 fn)",
     "vtables 0x414360..0x414360 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/HitOrientToPushbackTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20297,14 +20386,15 @@
   {
    "start": "0x00153b30",
    "end": "0x00153c20",
-   "file": "hulkfight/motion/HitFloatTrack_2.cpp",
+   "file": "hulkfight/motion/HitFloatTrack_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: hulkfight::motion::HitFloatTrack (6 fn)",
     "vtables 0x414390..0x414390 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/HitFloatTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20316,7 +20406,7 @@
   {
    "start": "0x00153c20",
    "end": "0x00153d60",
-   "file": "hulkfight/motion/HealthTrack_2.cpp",
+   "file": "hulkfight/motion/HealthTrack_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -20324,7 +20414,8 @@
     "classes: hulkfight::motion::HealthTrack (4 fn)",
     "vtables 0x414420..0x414420 (1)",
     "4 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/HealthTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20358,7 +20449,7 @@
   {
    "start": "0x00153d60",
    "end": "0x00153e50",
-   "file": "hulkfight/motion/GroundSlideTrack_2.cpp",
+   "file": "hulkfight/motion/GroundSlideTrack_reg.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -20366,7 +20457,8 @@
     "classes: hulkfight::motion::GroundSlideTrack (4 fn)",
     "vtables 0x414480..0x414480 (1)",
     "2 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/GroundSlideTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20390,14 +20482,15 @@
   {
    "start": "0x00153e50",
    "end": "0x00153f40",
-   "file": "hulkfight/motion/HitPushbackTrack_2.cpp",
+   "file": "hulkfight/motion/HitPushbackTrack_params.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: hulkfight::motion::HitPushbackTrack (6 fn)",
     "vtables 0x4144b0..0x4144b0 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/HitPushbackTrack_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20459,7 +20552,7 @@
   {
    "start": "0x00154080",
    "end": "0x00154220",
-   "file": "hulkfight/motion/CollisionTargetPriorityCondition_3.cpp",
+   "file": "hulkfight/motion/CollisionTargetPriorityCondition_params_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -20467,7 +20560,8 @@
     "classes: hulkfight::motion::CollisionTargetPriorityCondition (3 fn)",
     "vtables 0x414010..0x414010 (1)",
     "6 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/CollisionTargetPriorityCondition_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20511,14 +20605,15 @@
   {
    "start": "0x00154220",
    "end": "0x00154400",
-   "file": "unknown/unk_154220.cpp",
+   "file": "hulkfight/motion/CollisionDevastatorCondition_params_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "low",
    "evidence": [
     "only template instantiations/unnamed functions; template args: hulkfight::motion::CollisionDevastatorCondition",
     "10 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
+    "unattached run: no call affinity to neighbouring objects",
+    "registration run object, renamed from unknown/unk_154220.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20581,14 +20676,15 @@
   {
    "start": "0x00154400",
    "end": "0x00154480",
-   "file": "hulkfight/motion/HitPushbackVelocityCondition_2.cpp",
+   "file": "hulkfight/motion/HitPushbackVelocityCondition_params_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: hulkfight::motion::HitPushbackVelocityCondition (3 fn)",
     "vtables 0x4140d0..0x4140d0 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/HitPushbackVelocityCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20600,7 +20696,7 @@
   {
    "start": "0x00154480",
    "end": "0x001545e0",
-   "file": "hulkfight/motion/CollisionSourceNodeCondition_3.cpp",
+   "file": "hulkfight/motion/CollisionSourceNodeCondition_params_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -20608,7 +20704,8 @@
     "classes: hulkfight::motion::CollisionSourceNodeCondition (4 fn)",
     "vtables 0x414130..0x414130 (1)",
     "4 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/CollisionSourceNodeCondition_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20642,14 +20739,15 @@
   {
    "start": "0x001545e0",
    "end": "0x00154680",
-   "file": "hulkfight/motion/CollisionChargeCondition_2.cpp",
+   "file": "hulkfight/motion/CollisionChargeCondition_params_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: hulkfight::motion::CollisionChargeCondition (4 fn)",
     "vtables 0x414150..0x414150 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/CollisionChargeCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20661,7 +20759,7 @@
   {
    "start": "0x00154680",
    "end": "0x00154780",
-   "file": "hulkfight/motion/CollisionDamageHealthCompareCondition_2.cpp",
+   "file": "hulkfight/motion/CollisionDamageHealthCompareCondition_params_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -20669,7 +20767,8 @@
     "classes: hulkfight::motion::CollisionDamageHealthCompareCondition (4 fn)",
     "vtables 0x414190..0x414190 (1)",
     "2 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/CollisionDamageHealthCompareCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20693,14 +20792,15 @@
   {
    "start": "0x00154780",
    "end": "0x00154900",
-   "file": "unknown/unk_154780.cpp",
+   "file": "hulkfight/motion/CollisionTargetTypeCondition_params_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "low",
    "evidence": [
     "only template instantiations/unnamed functions; template args: hulkfight::motion::CollisionTargetTypeCondition",
     "8 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
+    "unattached run: no call affinity to neighbouring objects",
+    "registration run object, renamed from unknown/unk_154780.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20753,14 +20853,15 @@
   {
    "start": "0x00154900",
    "end": "0x001549a0",
-   "file": "hulkfight/motion/HitThrowTrack_3.cpp",
+   "file": "hulkfight/motion/HitThrowTrack_params_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: hulkfight::motion::HitThrowTrack (4 fn)",
     "vtables 0x414240..0x414240 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/HitThrowTrack_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20772,14 +20873,15 @@
   {
    "start": "0x001549a0",
    "end": "0x00154a60",
-   "file": "hulkfight/motion/HitReactionFloatTrack_4.cpp",
+   "file": "hulkfight/motion/HitReactionFloatTrack_params_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: hulkfight::motion::HitReactionFloatTrack (5 fn)",
     "vtables 0x414270..0x414270 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/HitReactionFloatTrack_4.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20791,7 +20893,7 @@
   {
    "start": "0x00154a60",
    "end": "0x00154b80",
-   "file": "hulkfight/motion/HitReactionTrack_4.cpp",
+   "file": "hulkfight/motion/HitReactionTrack_params_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -20799,7 +20901,8 @@
     "classes: hulkfight::motion::HitReactionTrack (5 fn)",
     "vtables 0x4142d0..0x4142d0 (1)",
     "2 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/HitReactionTrack_4.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20823,14 +20926,15 @@
   {
    "start": "0x00154b80",
    "end": "0x00154c00",
-   "file": "hulkfight/motion/HitWaitTrack_3.cpp",
+   "file": "hulkfight/motion/HitWaitTrack_params_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: hulkfight::motion::HitWaitTrack (3 fn)",
     "vtables 0x414300..0x414300 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/HitWaitTrack_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -20842,7 +20946,7 @@
   {
    "start": "0x00154c00",
    "end": "0x00156e80",
-   "file": "hulkfight/motion/InterruptPriorityTrack_3.cpp",
+   "file": "hulkfight/motion/InterruptPriorityTrack_reg.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -20850,7 +20954,8 @@
     "classes: hulkfight::motion::InterruptPriorityTrack (4 fn), hulkfight::motion::GroundSlideTrack (4 fn), hulkfight::motion::HitFloatTrack (4 fn), hulkfight::motion::HitPushbackTrack (4 fn), hulkfight::motion::HitOrientToPushbackTrack (3 fn), hulkfight::motion::HealthTrack (3 fn) +2 more",
     "vtables 0x414330..0x41452c (8)",
     "11 COMDAT stray(s) from other classes' homes",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/InterruptPriorityTrack_3.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -21108,14 +21213,15 @@
   {
    "start": "0x00157800",
    "end": "0x00158f00",
-   "file": "unknown/unk_157800.cpp",
+   "file": "hulkfight/motion/CollisionThrownObjectCondition_reg.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "low",
    "evidence": [
     "only template instantiations/unnamed functions; template args: hulkfight::motion::CollisionThrownObjectCondition",
     "10 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
+    "unattached run: no call affinity to neighbouring objects",
+    "registration run object, renamed from unknown/unk_157800.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -21178,7 +21284,7 @@
   {
    "start": "0x00158f00",
    "end": "0x00158fb0",
-   "file": "hulkfight/motion/InterruptAccumulatorCondition_2.cpp",
+   "file": "hulkfight/motion/InterruptAccumulatorCondition_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
@@ -21186,6 +21292,7 @@
     "classes: hulkfight::motion::InterruptAccumulatorCondition (3 fn)",
     "vtables 0x413f70..0x413f70 (1)",
     "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/InterruptAccumulatorCondition_2.cpp (REGISTRATION_RANGES)",
     "vtables precede the previous object's in .rdata (order inverted)"
    ],
    "layer_evidence": [
@@ -21198,14 +21305,15 @@
   {
    "start": "0x00158fb0",
    "end": "0x00159060",
-   "file": "hulkfight/motion/CollisionSourceForceMagnitudeCondition_2.cpp",
+   "file": "hulkfight/motion/CollisionSourceForceMagnitudeCondition_factory.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "high",
    "evidence": [
     "classes: hulkfight::motion::CollisionSourceForceMagnitudeCondition (3 fn)",
     "vtables 0x413f90..0x413f90 (1)",
-    "same dominant class as an earlier object (class split across files)"
+    "same dominant class as an earlier object (class split across files)",
+    "registration run object, renamed from hulkfight/motion/CollisionSourceForceMagnitudeCondition_2.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -29372,14 +29480,15 @@
   {
    "start": "0x001899a0",
    "end": "0x0018b4e0",
-   "file": "unknown/unk_1899a0.cpp",
+   "file": "hulkfight/motion/PropSpawnTrack_reg.cpp",
    "kind": "game",
    "layer": "game",
    "confidence": "low",
    "evidence": [
     "only template instantiations/unnamed functions; template args: hulkfight::motion::PropSpawnTrack",
     "1 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
+    "unattached run: no call affinity to neighbouring objects",
+    "registration run object, renamed from unknown/unk_1899a0.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: game code (.text before the XAPILIB span at 0x208b9c)"
@@ -32075,18 +32184,306 @@
   },
   {
    "start": "0x00212bb0",
-   "end": "0x002222f0",
-   "file": "unknown/unk_212bb0.cpp",
+   "end": "0x00213f20",
+   "file": "lua/lapi.cpp",
    "kind": "game",
    "layer": "engine",
-   "confidence": "low",
+   "confidence": "high",
    "evidence": [
-    "unattached run: no call affinity to neighbouring objects"
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): lua_* API: index2adr .. lua_setupvalue"
    ],
    "layer_evidence": [
     "link order: Radical library code (after the XAPILIB span)"
    ],
-   "functions": 368,
+   "functions": 63,
+   "named": 0
+  },
+  {
+   "start": "0x00213f20",
+   "end": "0x00214dd0",
+   "file": "lua/ldebug.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): luaG_* and the hook API: currentline, lua_sethook .. luaG_ordererror"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 26,
+   "named": 0
+  },
+  {
+   "start": "0x00214dd0",
+   "end": "0x00215240",
+   "file": "lua/lstate.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): luaE_*, lua_newstate: stack_init .. lua_close"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 8,
+   "named": 0
+  },
+  {
+   "start": "0x00215240",
+   "end": "0x00215f50",
+   "file": "lua/ldo.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): luaD_*, lua_resume/yield: seterrorobj .. luaD_protectedparser"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 21,
+   "named": 0
+  },
+  {
+   "start": "0x00215f50",
+   "end": "0x002164b0",
+   "file": "lua/lobject.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): luaO_*: luaO_log2 .. luaO_chunkid (0x00215f50, a leaf of the parser's, opens the file)"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 8,
+   "named": 0
+  },
+  {
+   "start": "0x002164b0",
+   "end": "0x00217520",
+   "file": "lua/lgc.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): luaC_*: reallymarkobject .. luaC_fullgc"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 24,
+   "named": 0
+  },
+  {
+   "start": "0x00217520",
+   "end": "0x00217600",
+   "file": "lua/ltm.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): luaT_*: luaT_init .. luaT_gettmbyobj"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 3,
+   "named": 0
+  },
+  {
+   "start": "0x00217600",
+   "end": "0x002192c0",
+   "file": "lua/lvm.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): luaV_*: luaV_tonumber .. luaV_execute"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 17,
+   "named": 0
+  },
+  {
+   "start": "0x002192c0",
+   "end": "0x00219520",
+   "file": "lua/lstring.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): luaS_*: luaS_freeall .. luaS_newudata"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 5,
+   "named": 0
+  },
+  {
+   "start": "0x00219520",
+   "end": "0x00219870",
+   "file": "lua/lfunc.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): luaF_*: luaF_newCclosure .. luaF_getlocalname"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 9,
+   "named": 0
+  },
+  {
+   "start": "0x00219870",
+   "end": "0x0021a550",
+   "file": "lua/ltable.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): luaH_*: hashnum .. luaH_setstr"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 21,
+   "named": 0
+  },
+  {
+   "start": "0x0021a550",
+   "end": "0x0021a790",
+   "file": "lua/lzio.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): luaZ_*: luaZ_fill .. luaZ_openspace"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 5,
+   "named": 0
+  },
+  {
+   "start": "0x0021a790",
+   "end": "0x0021add0",
+   "file": "lua/ldump.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): the Dump* writers: DumpString .. luaU_dump"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 7,
+   "named": 0
+  },
+  {
+   "start": "0x0021add0",
+   "end": "0x0021aeb0",
+   "file": "lua/lmem.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): luaM_*: luaM_realloc, luaM_growaux"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 2,
+   "named": 0
+  },
+  {
+   "start": "0x0021aeb0",
+   "end": "0x0021c190",
+   "file": "lua/llex.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): luaX_*: luaX_init .. llex"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 14,
+   "named": 0
+  },
+  {
+   "start": "0x0021c190",
+   "end": "0x0021f800",
+   "file": "lua/lparser.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): the parser's statements and expressions: next .. luaY_parser"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 52,
+   "named": 0
+  },
+  {
+   "start": "0x0021f800",
+   "end": "0x002204e0",
+   "file": "lua/lundump.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): the Load* readers: the lundump error helper .. luaU_undump"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 15,
+   "named": 0
+  },
+  {
+   "start": "0x002204e0",
+   "end": "0x00221b30",
+   "file": "lua/lcode.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): luaK_*: fixjump .. luaK_patchlist (the core ends at 0x00221ae0)"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 42,
+   "named": 0
+  },
+  {
+   "start": "0x00221b30",
+   "end": "0x002222f0",
+   "file": "choreo2/unk_221b30.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): not Lua: copy helpers called from choreo2 (0x00223fa0) and game code; 0x002222d0 stores choreo2::PartitionDriver's vftable 0x00427260"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 26,
    "named": 0
   },
   {
@@ -38253,14 +38650,15 @@
   {
    "start": "0x002b2110",
    "end": "0x002b23c0",
-   "file": "unknown/unk_2b2110.cpp",
+   "file": "pure3d/CameraAnimationController_reg.cpp",
    "kind": "game",
    "layer": "engine",
    "confidence": "low",
    "evidence": [
     "only template instantiations/unnamed functions; template args: pure3d::CameraAnimationController",
     "14 COMDAT stray(s) from other classes' homes",
-    "unattached run: no call affinity to neighbouring objects"
+    "unattached run: no call affinity to neighbouring objects",
+    "registration run object, renamed from unknown/unk_2b2110.cpp (REGISTRATION_RANGES)"
    ],
    "layer_evidence": [
     "link order: Radical library code (after the XAPILIB span)"
@@ -40932,18 +41330,98 @@
   },
   {
    "start": "0x00338d90",
-   "end": "0x0033eb70",
-   "file": "unknown/unk_338d90.cpp",
+   "end": "0x0033a080",
+   "file": "lua/lauxlib.cpp",
    "kind": "game",
    "layer": "engine",
-   "confidence": "low",
+   "confidence": "high",
    "evidence": [
-    "unattached run: no call affinity to neighbouring objects"
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): luaL_*: 0x00338d90 (called by luaL_error and luaB_error), luaL_error .. luaL_optint, lua_dostring"
    ],
    "layer_evidence": [
     "link order: Radical library code (after the XAPILIB span)"
    ],
-   "functions": 161,
+   "functions": 40,
+   "named": 0
+  },
+  {
+   "start": "0x0033a080",
+   "end": "0x0033acd0",
+   "file": "lua/ldblib.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): the debug library: db_getupvalue .. luaopen_debug"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 13,
+   "named": 0
+  },
+  {
+   "start": "0x0033acd0",
+   "end": "0x0033b610",
+   "file": "lua/ltablib.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): the table library: foreach, luaB_getn .. luaB_sort, luaopen_table"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 10,
+   "named": 0
+  },
+  {
+   "start": "0x0033b610",
+   "end": "0x0033bd00",
+   "file": "lua/lmathlib.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): the math library .. luaopen_math, with the game's os.exit 0x0033bc80"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 25,
+   "named": 0
+  },
+  {
+   "start": "0x0033bd00",
+   "end": "0x0033d6e0",
+   "file": "lua/lstrlib.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): the string library: string.len .. luaopen_string 0x0033d6c0"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 33,
+   "named": 0
+  },
+  {
+   "start": "0x0033d6e0",
+   "end": "0x0033eb70",
+   "file": "lua/lbaselib.cpp",
+   "kind": "game",
+   "layer": "engine",
+   "confidence": "high",
+   "evidence": [
+    "fixed object (FIXED_OBJECTS, docs/merge-prep.md): the base library with the coroutine functions: luaB_print .. luaopen_base 0x0033eb30"
+   ],
+   "layer_evidence": [
+    "link order: Radical library code (after the XAPILIB span)"
+   ],
+   "functions": 40,
    "named": 0
   },
   {

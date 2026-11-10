@@ -788,6 +788,20 @@ def record_items(model):
     return out
 
 
+def _split_at_flip():
+    """The objects that left unknown/ at the merge-once flip (config/splits.json evidence): the Lua split
+    (tools/infer_splits.py FIXED_OBJECTS) and the registration objects renamed into their class's directory."""
+    try:
+        objs = json.load(open(os.path.join(ROOT, "config/splits.json")))["objects"]
+    except (OSError, ValueError, KeyError):
+        return set()
+    return {o["file"] for o in objs if not o["file"].startswith("unknown/") and any(
+        e.startswith("fixed object") or "renamed from unknown/" in e for e in o.get("evidence", []))}
+
+
+SPLIT_AT_FLIP = _split_at_flip()
+
+
 def write_decls(model, tus):
     """include/decls/data/<layer>/<dir>.h: declarations only (names, types, sizes)."""
     by_hdr = collections.defaultdict(list)
@@ -798,6 +812,11 @@ def write_decls(model, tus):
             if it["cname"] in decl or it["cname"] in typed:
                 d = os.path.dirname(it["object"]) or "root"
                 by_hdr[(it["layer"], d)].append((it, decl.get(it["cname"])))
+                if it["object"] in SPLIT_AT_FLIP:
+                    # (build6) also declared where they were before the flip moved their object out of unknown/
+                    # (the same declaration twice is legal), so the per-function sources that include the old
+                    # directory's header still compile
+                    by_hdr[(it["layer"], "unknown")].append((it, decl.get(it["cname"])))
     written = []
     for (layer, d), rows in sorted(by_hdr.items()):
         path = os.path.join(DECLS, layer, d + ".h")

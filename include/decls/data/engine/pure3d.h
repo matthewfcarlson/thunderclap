@@ -91,6 +91,10 @@ extern "C" const unsigned int DAT_00485e80[1];  // zero_00485e80
 extern "C" float DAT_004cf114[12];  // fltTbl_004cf114
 extern "C" float DAT_004cf160[8];  // fltTbl_004cf160
 
+// pure3d/CameraAnimationController_reg.cpp
+extern "C" float DAT_004cfa08[4];  // fltTbl_004cfa08
+extern "C" float DAT_004cfa48[8];  // fltTbl_004cfa48
+
 // pure3d/CameraLoader.cpp
 extern "C" const float DAT_0042ec00[7];  // fltTbl_0042ec00
 extern "C" const unsigned int DAT_00488640[1];  // zero_00488640

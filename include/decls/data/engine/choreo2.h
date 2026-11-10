@@ -95,4 +95,12 @@ extern "C" float DAT_004c9ef8[5];  // fltTbl_004c9ef8
 extern "C" unsigned int DAT_004c9f0c[2];  // zero_004c9f0c
 extern "C" float DAT_004c9f14[9];  // fltTbl_004c9f14
 
+// choreo2/unk_221b30.cpp
+extern "C" char DAT_004c9d60[1];  // s_empty_004c9d60
+extern "C" unsigned char DAT_004c9d61[7];  // zero_004c9d61
+extern "C" float DAT_004c9d68;  // flt_004c9d68
+extern "C" float DAT_004c9d94[4];  // fltTbl_004c9d94
+extern "C" unsigned int DAT_004c9da4[2];  // zero_004c9da4
+extern "C" float DAT_004c9dac;  // flt_004c9dac
+
 #endif

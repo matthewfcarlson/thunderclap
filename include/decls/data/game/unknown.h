@@ -25,182 +25,7 @@ struct DataLayout_0049ceb0;  // packed layout (bytes and pointers), defined in t
 struct DataLayout_004dd930;  // packed layout (bytes and pointers), defined in the data TU
 #include "decls/data/records.h"
 
-// unknown/unk_011000.cpp
-extern "C" void* DAT_004e5acc[1];
-
-// unknown/unk_0240b0.cpp
-extern "C" const float DAT_003f32b8;  // flt_003f32b8
-extern "C" const char DAT_003f3ed8[9];  // s_Scenario_003f3ed8
-extern "C" const char DAT_003f3ee4[3];  // s_AI_003f3ee4
-extern "C" const char DAT_003f3ee8[7];  // s_Motion_003f3ee8
-extern "C" const float DAT_003f3ef4;  // flt_003f3ef4
-extern "C" const char DAT_003f3ef8[7];  // s_Pelvis_003f3ef8
-extern "C" const char DAT_003f3f00[5];  // s_Head_003f3f00
-extern "C" const float DAT_003f3f08;  // flt_003f3f08
-extern "C" const char DAT_003f3f0c[4];  // s_all_003f3f0c
-extern "C" const float DAT_003f3f10;  // flt_003f3f10
-extern "C" const float DAT_003f3f14;  // flt_003f3f14
-extern "C" const float DAT_003f3f18;  // flt_003f3f18
-extern "C" const float DAT_003f3f1c;  // flt_003f3f1c
-extern "C" const char DAT_003f3f20[8];  // s_harrier_003f3f20
-extern "C" const float DAT_003f3f28;  // flt_003f3f28
-extern "C" const float DAT_003f3f2c;  // flt_003f3f2c
-extern "C" const char DAT_003f3f30[5];  // s_none_003f3f30
-extern "C" const char DAT_003f3f38[3];  // s_s_003f3f38
-extern "C" const char DAT_003f3f44[15];  // s_missilesoldier_003f3f44
-extern "C" const char DAT_003f3f54[7];  // s_apache_003f3f54
-extern "C" const char DAT_003f3f5c[10];  // s_blackhawk_003f3f5c
-extern "C" const char DAT_003f3f68[14];  // s_apache_leader_003f3f68
-extern "C" const char DAT_003f3f78[17];  // s_blackhawk_leader_003f3f78
-extern "C" const char DAT_003f3f8c[10];  // s_commanche_003f3f8c
-extern "C" const int DAT_003fa114;
-extern "C" const char DAT_003fa150[18];  // s_Missile_Punchback_003fa150
-extern "C" const char DAT_003fa164[15];  // s_Tank_Shockwave_003fa164
-extern "C" const char DAT_003fa174[13];  // s_Tank_Crusher_003fa174
-extern "C" const char DAT_003fa184[14];  // s_Blade_Crusher_003fa184
-extern "C" const char DAT_003fa194[16];  // s_Chopper_Crusher_003fa194
-extern "C" const char DAT_003fa1a4[13];  // s_Face_Breaker_003fa1a4
-extern "C" const char DAT_003fa1b4[13];  // s_Mech_Crusher_003fa1b4
-extern "C" const char DAT_003fa1c4[19];  // s_Hulkbuster_Crusher_003fa1c4
-extern "C" const char DAT_003fa1d8[16];  // s_Soldier_Crusher_003fa1d8
-extern "C" const char DAT_003fb994[10];  // s_Hit_Count_003fb994
-extern "C" const char DAT_003fb9a0[11];  // s_Devastator_003fb9a0
-extern "C" const char DAT_003fb9ac[8];  // s_Crusher_003fb9ac
-extern "C" const char DAT_003fb9b4[11];  // s_Combo_Move_003fb9b4
-extern "C" const char* DAT_0048e060;  // PTR_0048e060
-extern "C" const char* DAT_0048e064;  // PTR_0048e064
-extern "C" const char* DAT_0048e068;  // PTR_0048e068
-extern "C" int DAT_0048e06c;
-extern "C" int DAT_0048e070;
-extern "C" float DAT_0048e074[4];  // fltTbl_0048e074
-extern "C" int DAT_0048e084;
-extern "C" int DAT_0048e088;
-extern "C" int DAT_0048e08c;
-extern "C" unsigned char DAT_0048e0e5[2];  // unk_0048e0e5
-extern "C" unsigned char DAT_0048e0e7[5];  // zero_0048e0e7
-extern "C" unsigned int DAT_0048e0ec[1];  // unk_0048e0ec
-extern "C" DataLayout_0048e128 DAT_0048e128;  // struct_0048e128
-extern "C" unsigned char DAT_004dc038[8];
-extern "C" unsigned char DAT_004dc040[4];
-extern "C" unsigned char DAT_004dc044[4];
-extern "C" unsigned char DAT_004dc048[4];
-extern "C" unsigned char DAT_004dc04c[4];
-extern "C" unsigned char DAT_004dc050[4];
-extern "C" unsigned char DAT_004dc054[4];
-extern "C" unsigned char DAT_004dc058[4];
-extern "C" unsigned char DAT_004dc05c[4];
-extern "C" unsigned char DAT_004dc070[4];
-extern "C" unsigned char DAT_004dc074[4];
-extern "C" unsigned char DAT_004dc0d8[8];
-extern "C" unsigned char DAT_004dc0e0[8];
-extern "C" unsigned char DAT_004dc0e8[8];
-extern "C" unsigned char DAT_004dc0f0[8];
-extern "C" unsigned char DAT_004dc0f8[8];
-extern "C" unsigned char DAT_004dc100[8];
-extern "C" unsigned char DAT_004dc108[4];
-extern "C" unsigned int DAT_004dc10c;
-extern "C" unsigned char DAT_004dc110[8];
-extern "C" unsigned char DAT_004dc118[8];
-extern "C" unsigned char DAT_004dc120[8];
-extern "C" unsigned char DAT_004dc128[8];
-extern "C" unsigned char DAT_004dc130[8];
-extern "C" unsigned char DAT_004dc138[8];
-extern "C" unsigned char DAT_004dc140[8];
-extern "C" unsigned char DAT_004dc148[8];
-extern "C" unsigned char DAT_004dc150[8];
-extern "C" unsigned char DAT_004dc158[8];
-extern "C" unsigned char DAT_004dc160[8];
-extern "C" unsigned char DAT_004dc168[256];
-extern "C" unsigned char DAT_004dc268[32];
-extern "C" unsigned char DAT_004dc288[8];
-extern "C" unsigned char DAT_004dc294[12];
-extern "C" unsigned char DAT_004dc2a0[4];
-extern "C" unsigned char DAT_004dc2a4[4];
-
-// unknown/unk_048440.cpp
-extern "C" const unsigned int DAT_0043fadc[1];  // zero_0043fadc
-extern "C" const unsigned int DAT_0043fb30[1];  // zero_0043fb30
-extern "C" const unsigned int DAT_0043fb88[1];  // zero_0043fb88
-extern "C" unsigned char DAT_004dc400[4];
-extern "C" unsigned int DAT_004dc404;
-extern "C" unsigned char DAT_004dc408[4];
-extern "C" int DAT_004dc40c;
-
-// unknown/unk_048680.cpp
-extern "C" const unsigned int DAT_0043fbe0[1];  // zero_0043fbe0
-extern "C" const unsigned int DAT_0043fc98[1];  // zero_0043fc98
-extern "C" unsigned int DAT_004dc410;
-extern "C" unsigned int DAT_004dc414;
-extern "C" int DAT_004dc418;
-extern "C" unsigned int DAT_004dc41c;
-extern "C" unsigned char DAT_004dc420[4];
-extern "C" int DAT_004dc424;
-extern "C" unsigned char DAT_004dc428[4];
-extern "C" int DAT_004dc42c;
-extern "C" unsigned char DAT_004dc430[4];
-extern "C" int DAT_004dc434;
-extern "C" int DAT_004dc438;
-extern "C" int DAT_004dc43c;
-extern "C" unsigned char DAT_004dc440[4];
-extern "C" int DAT_004dc444;
-extern "C" int DAT_004dc448;
-extern "C" int DAT_004dc44c;
-extern "C" unsigned char DAT_004dc450[4];
-extern "C" int DAT_004dc454;
-extern "C" unsigned char DAT_004dc458[4];
-extern "C" int DAT_004dc45c;
-extern "C" unsigned char DAT_004dc460[4];
-extern "C" int DAT_004dc464;
-extern "C" unsigned char DAT_004dc468[4];
-extern "C" int DAT_004dc46c;
-extern "C" unsigned char DAT_004dc470[4];
-extern "C" unsigned char DAT_004dc474[4];
-extern "C" unsigned char DAT_004dc478[4];
-extern "C" int DAT_004dc47c;
-extern "C" unsigned char DAT_004dc480[4];
-extern "C" int DAT_004dc484;
-extern "C" unsigned char DAT_004dc488[4];
-extern "C" int DAT_004dc48c;
-extern "C" unsigned char DAT_004dc490[4];
-extern "C" int DAT_004dc494;
-extern "C" unsigned char DAT_004dc498[4];
-extern "C" int DAT_004dc49c;
-extern "C" int DAT_004dc4a0;
-extern "C" int DAT_004dc4a4;
-
-// unknown/unk_049c80.cpp
-extern "C" int DAT_004dc4f8;
-extern "C" int DAT_004dc4fc;
-extern "C" int DAT_004dc500;
-extern "C" int DAT_004dc504;
-extern "C" unsigned char DAT_004dc508[4];
-extern "C" int DAT_004dc50c;
-extern "C" unsigned char DAT_004dc510[4];
-extern "C" int DAT_004dc514;
-extern "C" unsigned char DAT_004dc518[4];
-extern "C" int DAT_004dc51c;
-extern "C" unsigned char DAT_004dc520[4];
-extern "C" unsigned int DAT_004dc524;
-
-// unknown/unk_04a560.cpp
-extern "C" unsigned char DAT_004dc540[4];
-extern "C" int DAT_004dc544;
-extern "C" unsigned int DAT_004dc548;
-extern "C" unsigned int DAT_004dc54c;
-extern "C" unsigned char DAT_004dc550[4];
-extern "C" int DAT_004dc554;
-extern "C" unsigned char DAT_004dc558[8];
-extern "C" unsigned char DAT_004dc560[8];
-extern "C" int DAT_004dc568;
-extern "C" int DAT_004dc56c;
-extern "C" unsigned char DAT_004dc570[4];
-extern "C" int DAT_004dc574;
-extern "C" unsigned char DAT_004dc578[4];
-extern "C" int DAT_004dc57c;
-extern "C" unsigned char DAT_004dc588[4];
-extern "C" unsigned char DAT_004dc58c[4];
-
-// unknown/unk_050500.cpp
+// global/CAxisArcCondition_reg.cpp
 extern "C" unsigned int DAT_00491dac[1];  // zero_00491dac
 extern "C" unsigned int DAT_00491e4c[1];  // zero_00491e4c
 extern "C" unsigned int DAT_00491eec[1];  // zero_00491eec
@@ -250,7 +75,45 @@ extern "C" unsigned int DAT_004942c4[1];  // zero_004942c4
 extern "C" unsigned int DAT_00494364[1];  // zero_00494364
 extern "C" unsigned int DAT_004943c4[1];  // zero_004943c4
 
-// unknown/unk_052720.cpp
+// global/CClimbingTrack_reg.cpp
+extern "C" unsigned int DAT_004989d4[1];  // zero_004989d4
+extern "C" unsigned int DAT_00498a5c[1];  // zero_00498a5c
+extern "C" unsigned int DAT_00498aec[1];  // zero_00498aec
+extern "C" unsigned int DAT_00498c74[1];  // zero_00498c74
+extern "C" unsigned int DAT_0049908c[1];  // zero_0049908c
+extern "C" unsigned int DAT_004991b4[1];  // zero_004991b4
+extern "C" unsigned int DAT_00499244[1];  // zero_00499244
+extern "C" unsigned int DAT_0049936c[1];  // zero_0049936c
+extern "C" unsigned int DAT_00499664[1];  // zero_00499664
+extern "C" unsigned int DAT_004998c4[1];  // zero_004998c4
+extern "C" unsigned int DAT_00499954[1];  // zero_00499954
+extern "C" unsigned int DAT_004999f4[1];  // zero_004999f4
+extern "C" unsigned int DAT_00499b24[1];  // zero_00499b24
+extern "C" unsigned int DAT_00499c44[1];  // zero_00499c44
+extern "C" unsigned int DAT_00499cd4[1];  // zero_00499cd4
+extern "C" unsigned int DAT_00499f0c[1];  // zero_00499f0c
+extern "C" unsigned int DAT_0049a1ac[1];  // zero_0049a1ac
+extern "C" unsigned int DAT_0049a2b4[1];  // zero_0049a2b4
+extern "C" unsigned int DAT_0049a3bc[1];  // zero_0049a3bc
+extern "C" unsigned int DAT_0049a454[1];  // zero_0049a454
+extern "C" unsigned int DAT_0049a564[1];  // zero_0049a564
+extern "C" unsigned int DAT_0049a71c[1];  // zero_0049a71c
+extern "C" unsigned int DAT_0049a824[1];  // zero_0049a824
+extern "C" unsigned int DAT_0049a8bc[1];  // zero_0049a8bc
+extern "C" unsigned int DAT_0049a954[1];  // zero_0049a954
+extern "C" unsigned int DAT_0049a9e4[1];  // zero_0049a9e4
+extern "C" unsigned int DAT_0049aa7c[1];  // zero_0049aa7c
+extern "C" unsigned int DAT_0049ab24[1];  // zero_0049ab24
+extern "C" unsigned int DAT_0049ac54[1];  // zero_0049ac54
+extern "C" unsigned int DAT_0049acec[1];  // zero_0049acec
+extern "C" unsigned int DAT_0049af34[1];  // zero_0049af34
+extern "C" unsigned int DAT_0049afb4[1];  // zero_0049afb4
+extern "C" unsigned int DAT_0049b044[1];  // zero_0049b044
+extern "C" unsigned int DAT_0049b0c4[1];  // zero_0049b0c4
+extern "C" unsigned int DAT_0049b1dc[1];  // zero_0049b1dc
+extern "C" unsigned int DAT_0049b264[1];  // zero_0049b264
+
+// global/CNameFlagConditionBase_reg.cpp
 extern "C" const int DAT_003f5bb8;
 extern "C" const int DAT_003f5eb4;
 extern "C" const int DAT_003f5ed0;
@@ -468,7 +331,7 @@ extern "C" const char* DAT_0049ee78;  // PTR_0049ee78
 extern "C" float DAT_0049ee7c[4];  // fltTbl_0049ee7c
 extern "C" const char* DAT_004a1ab4;  // PTR_004a1ab4
 
-// unknown/unk_055220.cpp
+// global/CSmartPropDistanceCondition_reg_055220.cpp
 extern "C" const char DAT_003f893c[20];  // s_smartPropWeaponType_003f893c
 extern "C" const char DAT_003f8950[26];  // s_smartPropWeaponizabl_003f8950
 extern "C" const char DAT_003f896c[14];  // s_smartPropType_003f896c
@@ -666,6 +529,470 @@ extern "C" unsigned int DAT_00494124[1];  // zero_00494124
 extern "C" unsigned int DAT_004948cc[1];  // zero_004948cc
 extern "C" unsigned int DAT_0049491c[1];  // zero_0049491c
 
+// hulkfight/ai/TargetArcCondition_reg.cpp
+extern "C" const char DAT_00410830[19];  // s_useCameraDirection_00410830
+extern "C" const char DAT_00410844[19];  // s_projectileDistance_00410844
+extern "C" const char DAT_00410858[16];  // s_targetFirstShot_00410858
+extern "C" const char DAT_00410868[17];  // s_targetInvincible_00410868
+extern "C" const char DAT_0041087c[13];  // s_canSeeTarget_0041087c
+extern "C" const char DAT_0041088c[13];  // s_targetAngleY_0041088c
+extern "C" const char DAT_0041089c[17];  // s_targetDirectionY_0041089c
+extern "C" const char DAT_004108b0[18];  // s_targetDirectionXZ_004108b0
+extern "C" const char DAT_004108c4[16];  // s_targetDirection_004108c4
+extern "C" const char DAT_004108d4[16];  // s_targetVelocityY_004108d4
+extern "C" const char DAT_004108e4[17];  // s_targetVelocityXZ_004108e4
+extern "C" const char DAT_004108f8[15];  // s_targetVelocity_004108f8
+extern "C" const char DAT_00410908[18];  // s_targetOrientation_00410908
+extern "C" const char DAT_0041091c[16];  // s_targetDistanceY_0041091c
+extern "C" const char DAT_0041092c[17];  // s_targetDistanceXZ_0041092c
+extern "C" const char DAT_00410940[11];  // s_targetType_00410940
+extern "C" const unsigned int DAT_0045b060[1];  // zero_0045b060
+extern "C" const unsigned int DAT_0045b0ac[1];  // zero_0045b0ac
+extern "C" const unsigned int DAT_0045b0f8[1];  // zero_0045b0f8
+extern "C" const unsigned int DAT_0045bcd0[1];  // zero_0045bcd0
+extern "C" const unsigned int DAT_0045bd18[1];  // zero_0045bd18
+extern "C" const unsigned int DAT_0045bd60[1];  // zero_0045bd60
+extern "C" const unsigned int DAT_0045bda8[1];  // zero_0045bda8
+extern "C" const unsigned int DAT_0045bdf0[1];  // zero_0045bdf0
+extern "C" const unsigned int DAT_0045be38[1];  // zero_0045be38
+extern "C" const unsigned int DAT_0045be80[1];  // zero_0045be80
+extern "C" const unsigned int DAT_0045bec8[1];  // zero_0045bec8
+extern "C" const unsigned int DAT_0045bf10[1];  // zero_0045bf10
+extern "C" const unsigned int DAT_0045bf58[1];  // zero_0045bf58
+extern "C" const unsigned int DAT_0045bfa0[1];  // zero_0045bfa0
+extern "C" const unsigned int DAT_0045bfe8[1];  // zero_0045bfe8
+extern "C" const unsigned int DAT_0045c030[1];  // zero_0045c030
+extern "C" const unsigned int DAT_0045c078[1];  // zero_0045c078
+extern "C" const unsigned int DAT_0045c0c0[1];  // zero_0045c0c0
+extern "C" const unsigned int DAT_0045c108[1];  // zero_0045c108
+extern "C" const unsigned int DAT_0045c150[1];  // zero_0045c150
+extern "C" const unsigned int DAT_0045c198[1];  // zero_0045c198
+extern "C" const unsigned int DAT_0045c1e0[1];  // zero_0045c1e0
+extern "C" const unsigned int DAT_0045c228[1];  // zero_0045c228
+extern "C" const unsigned int DAT_0045c270[1];  // zero_0045c270
+extern "C" const unsigned int DAT_0045c2c0[1];  // zero_0045c2c0
+extern "C" const unsigned int DAT_0045c314[1];  // zero_0045c314
+extern "C" unsigned int DAT_004a7154[1];  // zero_004a7154
+extern "C" unsigned int DAT_004a8014[1];  // zero_004a8014
+extern "C" unsigned int DAT_004a8184[1];  // zero_004a8184
+extern "C" unsigned int DAT_004a8474[1];  // zero_004a8474
+extern "C" unsigned int DAT_004a8814[1];  // zero_004a8814
+extern "C" unsigned int DAT_004a8bc4[1];  // zero_004a8bc4
+extern "C" unsigned int DAT_004a8c74[1];  // zero_004a8c74
+extern "C" unsigned int DAT_004a8d1c[1];  // zero_004a8d1c
+
+// hulkfight/motion/CollisionDevastatorCondition_params_factory.cpp
+extern "C" unsigned int DAT_004b22bc[1];  // zero_004b22bc
+
+// hulkfight/motion/CollisionTargetTypeCondition_params_factory.cpp
+extern "C" unsigned int DAT_004b2cc4[1];  // zero_004b2cc4
+extern "C" unsigned int DAT_004b2d24[1];  // zero_004b2d24
+extern "C" unsigned int DAT_004b2d7c[1];  // zero_004b2d7c
+
+// hulkfight/motion/CollisionThrownObjectCondition_reg.cpp
+extern "C" const char DAT_004152e4[13];  // s_thrownObject_004152e4
+extern "C" const char DAT_004152f4[16];  // s_ignoreHitRecord_004152f4
+extern "C" const char DAT_00415304[16];  // s_pushbackTimeMax_00415304
+extern "C" const char DAT_00415314[16];  // s_pushbackTimeMin_00415314
+extern "C" const char DAT_00415324[20];  // s_pushbackDistanceMax_00415324
+extern "C" const char DAT_00415338[20];  // s_pushbackDistanceMin_00415338
+extern "C" const char DAT_0041534c[10];  // s_damageMin_0041534c
+extern "C" const char DAT_00415358[20];  // s_collisionDevastator_00415358
+extern "C" const char DAT_0041536c[19];  // s_collisionExplosion_0041536c
+extern "C" const char DAT_00415380[22];  // s_collisionThrownObjec_00415380
+extern "C" const char DAT_00415398[15];  // s_collisionThrow_00415398
+extern "C" const char DAT_004153a8[29];  // s_collisionDamageHealt_004153a8
+extern "C" const char DAT_004153c8[16];  // s_collisionCharge_004153c8
+extern "C" const char DAT_004153d8[20];  // s_hitPushbackVelocity_004153d8
+extern "C" const char DAT_004153ec[20];  // s_collisionTargetSize_004153ec
+extern "C" const char DAT_00415400[20];  // s_collisionSourceSize_00415400
+extern "C" const char DAT_00415414[20];  // s_collisionTargetType_00415414
+extern "C" const char DAT_00415428[24];  // s_collisionTargetIsTar_00415428
+extern "C" const char DAT_00415440[24];  // s_collisionTargetPrior_00415440
+extern "C" const char DAT_00415458[30];  // s_collisionSourceForce_00415458
+extern "C" const char DAT_00415478[20];  // s_collisionSourceNode_00415478
+extern "C" const char DAT_0041548c[25];  // s_collisionSourceIsMis_0041548c
+extern "C" const char DAT_004154a8[20];  // s_collisionTargetName_004154a8
+extern "C" const char DAT_004154bc[20];  // s_collisionSourceName_004154bc
+extern "C" const char DAT_004154d0[20];  // s_collisionSourceType_004154d0
+extern "C" const char DAT_004154e4[27];  // s_collisionInterruptPr_004154e4
+extern "C" const char DAT_00415500[21];  // s_interruptAccumulator_00415500
+extern "C" const unsigned int DAT_00464dd4[1];  // zero_00464dd4
+extern "C" const unsigned int DAT_00465034[1];  // zero_00465034
+extern "C" const unsigned int DAT_00465080[1];  // zero_00465080
+extern "C" const unsigned int DAT_004651fc[1];  // zero_004651fc
+extern "C" const unsigned int DAT_004653c4[1];  // zero_004653c4
+extern "C" const unsigned int DAT_00465410[1];  // zero_00465410
+extern "C" const unsigned int DAT_0046545c[1];  // zero_0046545c
+extern "C" const unsigned int DAT_004654a8[1];  // zero_004654a8
+extern "C" const unsigned int DAT_004654f4[1];  // zero_004654f4
+extern "C" const unsigned int DAT_00465540[1];  // zero_00465540
+extern "C" const unsigned int DAT_0046558c[1];  // zero_0046558c
+extern "C" const unsigned int DAT_004655d8[1];  // zero_004655d8
+extern "C" const unsigned int DAT_00465c0c[1];  // zero_00465c0c
+extern "C" const unsigned int DAT_00465c54[1];  // zero_00465c54
+extern "C" const unsigned int DAT_00465c9c[1];  // zero_00465c9c
+extern "C" const unsigned int DAT_00465ce4[1];  // zero_00465ce4
+extern "C" const unsigned int DAT_00465d2c[1];  // zero_00465d2c
+extern "C" const unsigned int DAT_00465d74[1];  // zero_00465d74
+extern "C" const unsigned int DAT_00465dbc[1];  // zero_00465dbc
+extern "C" const unsigned int DAT_00465e04[1];  // zero_00465e04
+extern "C" const unsigned int DAT_00465e4c[1];  // zero_00465e4c
+extern "C" const unsigned int DAT_00465e94[1];  // zero_00465e94
+extern "C" const unsigned int DAT_00465edc[1];  // zero_00465edc
+extern "C" const unsigned int DAT_00465f24[1];  // zero_00465f24
+extern "C" const unsigned int DAT_00465f6c[1];  // zero_00465f6c
+extern "C" const unsigned int DAT_00465fb4[1];  // zero_00465fb4
+extern "C" const unsigned int DAT_00465ffc[1];  // zero_00465ffc
+extern "C" const unsigned int DAT_00466044[1];  // zero_00466044
+extern "C" const unsigned int DAT_0046608c[1];  // zero_0046608c
+extern "C" const unsigned int DAT_004660d4[1];  // zero_004660d4
+extern "C" const unsigned int DAT_0046611c[1];  // zero_0046611c
+extern "C" const unsigned int DAT_00466164[1];  // zero_00466164
+extern "C" const unsigned int DAT_004661ac[1];  // zero_004661ac
+extern "C" const unsigned int DAT_004661f4[1];  // zero_004661f4
+extern "C" const unsigned int DAT_0046623c[1];  // zero_0046623c
+extern "C" const unsigned int DAT_00466284[1];  // zero_00466284
+extern "C" const unsigned int DAT_004662cc[1];  // zero_004662cc
+extern "C" const unsigned int DAT_00466314[1];  // zero_00466314
+extern "C" const unsigned int DAT_0046635c[1];  // zero_0046635c
+extern "C" const unsigned int DAT_004663a4[1];  // zero_004663a4
+extern "C" const unsigned int DAT_004663ec[1];  // zero_004663ec
+extern "C" const unsigned int DAT_00466434[1];  // zero_00466434
+extern "C" const unsigned int DAT_0046647c[1];  // zero_0046647c
+extern "C" const unsigned int DAT_004664c4[1];  // zero_004664c4
+extern "C" const unsigned int DAT_0046650c[1];  // zero_0046650c
+extern "C" const unsigned int DAT_00466554[1];  // zero_00466554
+extern "C" const unsigned int DAT_0046659c[1];  // zero_0046659c
+extern "C" const unsigned int DAT_004665e4[1];  // zero_004665e4
+extern "C" const unsigned int DAT_00466634[1];  // zero_00466634
+extern "C" const unsigned int DAT_00466684[1];  // zero_00466684
+extern "C" const unsigned int DAT_004666d4[1];  // zero_004666d4
+extern "C" const unsigned int DAT_00466724[1];  // zero_00466724
+extern "C" const unsigned int DAT_00466774[1];  // zero_00466774
+extern "C" const unsigned int DAT_004667c8[1];  // zero_004667c8
+extern "C" unsigned int DAT_004b0be4[1];  // zero_004b0be4
+extern "C" unsigned int DAT_004b0ea4[1];  // zero_004b0ea4
+extern "C" unsigned int DAT_004b0f0c[1];  // zero_004b0f0c
+extern "C" unsigned int DAT_004b10fc[1];  // zero_004b10fc
+extern "C" unsigned int DAT_004b12f4[1];  // zero_004b12f4
+extern "C" unsigned int DAT_004b134c[1];  // zero_004b134c
+extern "C" unsigned int DAT_004b139c[1];  // zero_004b139c
+extern "C" unsigned int DAT_004b2254[1];  // zero_004b2254
+extern "C" unsigned int DAT_004b23f4[1];  // zero_004b23f4
+extern "C" unsigned int DAT_004b27ec[1];  // zero_004b27ec
+extern "C" unsigned int DAT_004b2edc[1];  // zero_004b2edc
+extern "C" unsigned int DAT_004b3244[1];  // zero_004b3244
+extern "C" unsigned int DAT_004b346c[1];  // zero_004b346c
+extern "C" unsigned int DAT_004b386c[1];  // zero_004b386c
+extern "C" unsigned int DAT_004b38bc[1];  // zero_004b38bc
+
+// hulkfight/motion/PropSpawnTrack_reg.cpp
+extern "C" const int DAT_00412ed4;
+extern "C" const char DAT_0041a484[15];  // s_massMultiplier_0041a484
+extern "C" const char DAT_0041a494[10];  // s_massClass_0041a494
+extern "C" const char DAT_0041a4a0[12];  // s_clearCharge_0041a4a0
+extern "C" const char DAT_0041a4ac[10];  // s_hitBranch_0041a4ac
+extern "C" const char DAT_0041a4b8[9];  // s_forceMin_0041a4b8
+extern "C" const char DAT_0041a4c4[10];  // s_bounceMax_0041a4c4
+extern "C" const char DAT_0041a4d0[10];  // s_bounceMin_0041a4d0
+extern "C" const char DAT_0041a4dc[8];  // s_spinMax_0041a4dc
+extern "C" const char DAT_0041a4e4[8];  // s_spinMin_0041a4e4
+extern "C" const char DAT_0041a4ec[22];  // s_beamAttachJointOffse_0041a4ec
+extern "C" const char DAT_0041a504[16];  // s_beamAttachJoint_0041a504
+extern "C" const char DAT_0041a514[11];  // s_beamOffset_0041a514
+extern "C" const char DAT_0041a520[11];  // s_beamEffect_0041a520
+extern "C" const char DAT_0041a52c[9];  // s_propAxis_0041a52c
+extern "C" const char DAT_0041a538[14];  // s_targetYOffset_0041a538
+extern "C" const char DAT_0041a548[12];  // s_damageScale_0041a548
+extern "C" const char DAT_0041a554[13];  // s_initPosition_0041a554
+extern "C" const char DAT_0041a564[14];  // s_impulseOffset_0041a564
+extern "C" const char DAT_0041a574[8];  // s_impulse_0041a574
+extern "C" const char DAT_0041a57c[9];  // s_propName_0041a57c
+extern "C" const char DAT_0041a588[9];  // s_propMass_0041a588
+extern "C" const char DAT_0041a594[20];  // s_propMissionCritical_0041a594
+extern "C" const char DAT_0041a5a8[22];  // s_propGrabbableIsThrow_0041a5a8
+extern "C" const char DAT_0041a5c0[17];  // s_propMissileCount_0041a5c0
+extern "C" const char DAT_0041a5d4[22];  // s_propCollidedWithWorl_0041a5d4
+extern "C" const char DAT_0041a5ec[19];  // s_smartPropGrabbable_0041a5ec
+extern "C" const char DAT_0041a600[17];  // s_smartPropIsCargo_0041a600
+extern "C" const char DAT_0041a614[19];  // s_csmPropIsCharacter_0041a614
+extern "C" const char DAT_0041a628[15];  // s_propIsAttached_0041a628
+extern "C" const char DAT_0041a638[23];  // s_grapplePropStateByNa_0041a638
+extern "C" const char DAT_0041a650[16];  // s_propStateByName_0041a650
+extern "C" const char DAT_0041a660[17];  // s_propStateByIndex_0041a660
+extern "C" const char DAT_0041a674[11];  // s_propAtRest_0041a674
+extern "C" const unsigned int DAT_0046f9b0[1];  // zero_0046f9b0
+extern "C" const unsigned int DAT_0046f9fc[1];  // zero_0046f9fc
+extern "C" const unsigned int DAT_0046fa94[1];  // zero_0046fa94
+extern "C" const unsigned int DAT_0046fae0[1];  // zero_0046fae0
+extern "C" const unsigned int DAT_0046fb2c[1];  // zero_0046fb2c
+extern "C" const unsigned int DAT_0046fc5c[1];  // zero_0046fc5c
+extern "C" const unsigned int DAT_0046fca8[1];  // zero_0046fca8
+extern "C" const unsigned int DAT_00470038[1];  // zero_00470038
+extern "C" const unsigned int DAT_00470084[1];  // zero_00470084
+extern "C" const unsigned int DAT_00470200[1];  // zero_00470200
+extern "C" const unsigned int DAT_0047024c[1];  // zero_0047024c
+extern "C" const unsigned int DAT_00470298[1];  // zero_00470298
+extern "C" const unsigned int DAT_0047037c[1];  // zero_0047037c
+extern "C" const unsigned int DAT_004703c8[1];  // zero_004703c8
+extern "C" const unsigned int DAT_00470414[1];  // zero_00470414
+extern "C" const unsigned int DAT_00470460[1];  // zero_00470460
+extern "C" const unsigned int DAT_004704ac[1];  // zero_004704ac
+extern "C" const unsigned int DAT_004704f8[1];  // zero_004704f8
+extern "C" const unsigned int DAT_00470544[1];  // zero_00470544
+extern "C" const unsigned int DAT_00470590[1];  // zero_00470590
+extern "C" const unsigned int DAT_00470674[1];  // zero_00470674
+extern "C" const unsigned int DAT_004706c0[1];  // zero_004706c0
+extern "C" const unsigned int DAT_0047070c[1];  // zero_0047070c
+extern "C" const unsigned int DAT_00470758[1];  // zero_00470758
+extern "C" const unsigned int DAT_00470ae8[1];  // zero_00470ae8
+extern "C" const unsigned int DAT_00470b34[1];  // zero_00470b34
+extern "C" const unsigned int DAT_00470b80[1];  // zero_00470b80
+extern "C" const unsigned int DAT_00470c5c[1];  // zero_00470c5c
+extern "C" const unsigned int DAT_00470ca4[1];  // zero_00470ca4
+extern "C" const unsigned int DAT_00470cec[1];  // zero_00470cec
+extern "C" const unsigned int DAT_00470d34[1];  // zero_00470d34
+extern "C" const unsigned int DAT_00470d7c[1];  // zero_00470d7c
+extern "C" const unsigned int DAT_00470dc4[1];  // zero_00470dc4
+extern "C" const unsigned int DAT_00470e0c[1];  // zero_00470e0c
+extern "C" const unsigned int DAT_00470e54[1];  // zero_00470e54
+extern "C" const unsigned int DAT_00470e9c[1];  // zero_00470e9c
+extern "C" const unsigned int DAT_00470ee4[1];  // zero_00470ee4
+extern "C" const unsigned int DAT_00470f2c[1];  // zero_00470f2c
+extern "C" const unsigned int DAT_00470f74[1];  // zero_00470f74
+extern "C" const unsigned int DAT_00470fbc[1];  // zero_00470fbc
+extern "C" const unsigned int DAT_00471004[1];  // zero_00471004
+extern "C" const unsigned int DAT_0047104c[1];  // zero_0047104c
+extern "C" const unsigned int DAT_00471094[1];  // zero_00471094
+extern "C" const unsigned int DAT_004710dc[1];  // zero_004710dc
+extern "C" const unsigned int DAT_00471124[1];  // zero_00471124
+extern "C" const unsigned int DAT_0047116c[1];  // zero_0047116c
+extern "C" const unsigned int DAT_004711b4[1];  // zero_004711b4
+extern "C" const unsigned int DAT_004711fc[1];  // zero_004711fc
+extern "C" const unsigned int DAT_00471244[1];  // zero_00471244
+extern "C" const unsigned int DAT_0047128c[1];  // zero_0047128c
+extern "C" const unsigned int DAT_004712d4[1];  // zero_004712d4
+extern "C" const unsigned int DAT_0047131c[1];  // zero_0047131c
+extern "C" const unsigned int DAT_00471364[1];  // zero_00471364
+extern "C" const unsigned int DAT_004713ac[1];  // zero_004713ac
+extern "C" const unsigned int DAT_004713f4[1];  // zero_004713f4
+extern "C" const unsigned int DAT_0047143c[1];  // zero_0047143c
+extern "C" const unsigned int DAT_0047148c[1];  // zero_0047148c
+extern "C" const unsigned int DAT_004714dc[1];  // zero_004714dc
+extern "C" const unsigned int DAT_0047152c[1];  // zero_0047152c
+extern "C" const unsigned int DAT_0047157c[1];  // zero_0047157c
+extern "C" const unsigned int DAT_004715cc[1];  // zero_004715cc
+extern "C" const unsigned int DAT_0047161c[1];  // zero_0047161c
+extern "C" const unsigned int DAT_0047166c[1];  // zero_0047166c
+extern "C" const unsigned int DAT_004716bc[1];  // zero_004716bc
+extern "C" const unsigned int DAT_0047170c[1];  // zero_0047170c
+extern "C" const unsigned int DAT_0047175c[1];  // zero_0047175c
+extern "C" const unsigned int DAT_004717ac[1];  // zero_004717ac
+extern "C" const unsigned int DAT_00471800[1];  // zero_00471800
+extern "C" unsigned int DAT_004bbf74[1];  // zero_004bbf74
+extern "C" unsigned int DAT_004bc724[1];  // zero_004bc724
+extern "C" unsigned int DAT_004bc914[1];  // zero_004bc914
+extern "C" unsigned int DAT_004bc95c[1];  // zero_004bc95c
+extern "C" unsigned int DAT_004bcc4c[1];  // zero_004bcc4c
+extern "C" unsigned int DAT_004bccf4[1];  // zero_004bccf4
+extern "C" unsigned int DAT_004bd41c[1];  // zero_004bd41c
+extern "C" unsigned int DAT_004bd72c[1];  // zero_004bd72c
+extern "C" unsigned int DAT_004bd7f4[1];  // zero_004bd7f4
+extern "C" unsigned int DAT_004bd8bc[1];  // zero_004bd8bc
+extern "C" unsigned int DAT_004bd984[1];  // zero_004bd984
+extern "C" unsigned int DAT_004bdb1c[1];  // zero_004bdb1c
+extern "C" unsigned int DAT_004bdca4[1];  // zero_004bdca4
+extern "C" unsigned int DAT_004bde14[1];  // zero_004bde14
+extern "C" unsigned int DAT_004bdec4[1];  // zero_004bdec4
+extern "C" unsigned int DAT_004be024[1];  // zero_004be024
+extern "C" unsigned int DAT_004be0d4[1];  // zero_004be0d4
+extern "C" unsigned int DAT_004be2f4[1];  // zero_004be2f4
+extern "C" unsigned int DAT_004be3ac[1];  // zero_004be3ac
+extern "C" unsigned int DAT_004be45c[1];  // zero_004be45c
+extern "C" unsigned int DAT_004be724[1];  // zero_004be724
+extern "C" unsigned int DAT_004be874[1];  // zero_004be874
+extern "C" unsigned int DAT_004be964[1];  // zero_004be964
+extern "C" unsigned int DAT_004be9f4[1];  // zero_004be9f4
+extern "C" unsigned int DAT_004bea44[1];  // zero_004bea44
+extern "C" unsigned int DAT_004beaec[1];  // zero_004beaec
+extern "C" unsigned int DAT_004beb44[1];  // zero_004beb44
+
+// unknown/unk_011000.cpp
+extern "C" void* DAT_004e5acc[1];
+
+// unknown/unk_0240b0.cpp
+extern "C" const float DAT_003f32b8;  // flt_003f32b8
+extern "C" const char DAT_003f3ed8[9];  // s_Scenario_003f3ed8
+extern "C" const char DAT_003f3ee4[3];  // s_AI_003f3ee4
+extern "C" const char DAT_003f3ee8[7];  // s_Motion_003f3ee8
+extern "C" const float DAT_003f3ef4;  // flt_003f3ef4
+extern "C" const char DAT_003f3ef8[7];  // s_Pelvis_003f3ef8
+extern "C" const char DAT_003f3f00[5];  // s_Head_003f3f00
+extern "C" const float DAT_003f3f08;  // flt_003f3f08
+extern "C" const char DAT_003f3f0c[4];  // s_all_003f3f0c
+extern "C" const float DAT_003f3f10;  // flt_003f3f10
+extern "C" const float DAT_003f3f14;  // flt_003f3f14
+extern "C" const float DAT_003f3f18;  // flt_003f3f18
+extern "C" const float DAT_003f3f1c;  // flt_003f3f1c
+extern "C" const char DAT_003f3f20[8];  // s_harrier_003f3f20
+extern "C" const float DAT_003f3f28;  // flt_003f3f28
+extern "C" const float DAT_003f3f2c;  // flt_003f3f2c
+extern "C" const char DAT_003f3f30[5];  // s_none_003f3f30
+extern "C" const char DAT_003f3f38[3];  // s_s_003f3f38
+extern "C" const char DAT_003f3f44[15];  // s_missilesoldier_003f3f44
+extern "C" const char DAT_003f3f54[7];  // s_apache_003f3f54
+extern "C" const char DAT_003f3f5c[10];  // s_blackhawk_003f3f5c
+extern "C" const char DAT_003f3f68[14];  // s_apache_leader_003f3f68
+extern "C" const char DAT_003f3f78[17];  // s_blackhawk_leader_003f3f78
+extern "C" const char DAT_003f3f8c[10];  // s_commanche_003f3f8c
+extern "C" const int DAT_003fa114;
+extern "C" const char DAT_003fa150[18];  // s_Missile_Punchback_003fa150
+extern "C" const char DAT_003fa164[15];  // s_Tank_Shockwave_003fa164
+extern "C" const char DAT_003fa174[13];  // s_Tank_Crusher_003fa174
+extern "C" const char DAT_003fa184[14];  // s_Blade_Crusher_003fa184
+extern "C" const char DAT_003fa194[16];  // s_Chopper_Crusher_003fa194
+extern "C" const char DAT_003fa1a4[13];  // s_Face_Breaker_003fa1a4
+extern "C" const char DAT_003fa1b4[13];  // s_Mech_Crusher_003fa1b4
+extern "C" const char DAT_003fa1c4[19];  // s_Hulkbuster_Crusher_003fa1c4
+extern "C" const char DAT_003fa1d8[16];  // s_Soldier_Crusher_003fa1d8
+extern "C" const char DAT_003fb994[10];  // s_Hit_Count_003fb994
+extern "C" const char DAT_003fb9a0[11];  // s_Devastator_003fb9a0
+extern "C" const char DAT_003fb9ac[8];  // s_Crusher_003fb9ac
+extern "C" const char DAT_003fb9b4[11];  // s_Combo_Move_003fb9b4
+extern "C" const char* DAT_0048e060;  // PTR_0048e060
+extern "C" const char* DAT_0048e064;  // PTR_0048e064
+extern "C" const char* DAT_0048e068;  // PTR_0048e068
+extern "C" int DAT_0048e06c;
+extern "C" int DAT_0048e070;
+extern "C" float DAT_0048e074[4];  // fltTbl_0048e074
+extern "C" int DAT_0048e084;
+extern "C" int DAT_0048e088;
+extern "C" int DAT_0048e08c;
+extern "C" unsigned char DAT_0048e0e5[2];  // unk_0048e0e5
+extern "C" unsigned char DAT_0048e0e7[5];  // zero_0048e0e7
+extern "C" unsigned int DAT_0048e0ec[1];  // unk_0048e0ec
+extern "C" DataLayout_0048e128 DAT_0048e128;  // struct_0048e128
+extern "C" unsigned char DAT_004dc038[8];
+extern "C" unsigned char DAT_004dc040[4];
+extern "C" unsigned char DAT_004dc044[4];
+extern "C" unsigned char DAT_004dc048[4];
+extern "C" unsigned char DAT_004dc04c[4];
+extern "C" unsigned char DAT_004dc050[4];
+extern "C" unsigned char DAT_004dc054[4];
+extern "C" unsigned char DAT_004dc058[4];
+extern "C" unsigned char DAT_004dc05c[4];
+extern "C" unsigned char DAT_004dc070[4];
+extern "C" unsigned char DAT_004dc074[4];
+extern "C" unsigned char DAT_004dc0d8[8];
+extern "C" unsigned char DAT_004dc0e0[8];
+extern "C" unsigned char DAT_004dc0e8[8];
+extern "C" unsigned char DAT_004dc0f0[8];
+extern "C" unsigned char DAT_004dc0f8[8];
+extern "C" unsigned char DAT_004dc100[8];
+extern "C" unsigned char DAT_004dc108[4];
+extern "C" unsigned int DAT_004dc10c;
+extern "C" unsigned char DAT_004dc110[8];
+extern "C" unsigned char DAT_004dc118[8];
+extern "C" unsigned char DAT_004dc120[8];
+extern "C" unsigned char DAT_004dc128[8];
+extern "C" unsigned char DAT_004dc130[8];
+extern "C" unsigned char DAT_004dc138[8];
+extern "C" unsigned char DAT_004dc140[8];
+extern "C" unsigned char DAT_004dc148[8];
+extern "C" unsigned char DAT_004dc150[8];
+extern "C" unsigned char DAT_004dc158[8];
+extern "C" unsigned char DAT_004dc160[8];
+extern "C" unsigned char DAT_004dc168[256];
+extern "C" unsigned char DAT_004dc268[32];
+extern "C" unsigned char DAT_004dc288[8];
+extern "C" unsigned char DAT_004dc294[12];
+extern "C" unsigned char DAT_004dc2a0[4];
+extern "C" unsigned char DAT_004dc2a4[4];
+
+// unknown/unk_048440.cpp
+extern "C" const unsigned int DAT_0043fadc[1];  // zero_0043fadc
+extern "C" const unsigned int DAT_0043fb30[1];  // zero_0043fb30
+extern "C" const unsigned int DAT_0043fb88[1];  // zero_0043fb88
+extern "C" unsigned char DAT_004dc400[4];
+extern "C" unsigned int DAT_004dc404;
+extern "C" unsigned char DAT_004dc408[4];
+extern "C" int DAT_004dc40c;
+
+// unknown/unk_048680.cpp
+extern "C" const unsigned int DAT_0043fbe0[1];  // zero_0043fbe0
+extern "C" const unsigned int DAT_0043fc98[1];  // zero_0043fc98
+extern "C" unsigned int DAT_004dc410;
+extern "C" unsigned int DAT_004dc414;
+extern "C" int DAT_004dc418;
+extern "C" unsigned int DAT_004dc41c;
+extern "C" unsigned char DAT_004dc420[4];
+extern "C" int DAT_004dc424;
+extern "C" unsigned char DAT_004dc428[4];
+extern "C" int DAT_004dc42c;
+extern "C" unsigned char DAT_004dc430[4];
+extern "C" int DAT_004dc434;
+extern "C" int DAT_004dc438;
+extern "C" int DAT_004dc43c;
+extern "C" unsigned char DAT_004dc440[4];
+extern "C" int DAT_004dc444;
+extern "C" int DAT_004dc448;
+extern "C" int DAT_004dc44c;
+extern "C" unsigned char DAT_004dc450[4];
+extern "C" int DAT_004dc454;
+extern "C" unsigned char DAT_004dc458[4];
+extern "C" int DAT_004dc45c;
+extern "C" unsigned char DAT_004dc460[4];
+extern "C" int DAT_004dc464;
+extern "C" unsigned char DAT_004dc468[4];
+extern "C" int DAT_004dc46c;
+extern "C" unsigned char DAT_004dc470[4];
+extern "C" unsigned char DAT_004dc474[4];
+extern "C" unsigned char DAT_004dc478[4];
+extern "C" int DAT_004dc47c;
+extern "C" unsigned char DAT_004dc480[4];
+extern "C" int DAT_004dc484;
+extern "C" unsigned char DAT_004dc488[4];
+extern "C" int DAT_004dc48c;
+extern "C" unsigned char DAT_004dc490[4];
+extern "C" int DAT_004dc494;
+extern "C" unsigned char DAT_004dc498[4];
+extern "C" int DAT_004dc49c;
+extern "C" int DAT_004dc4a0;
+extern "C" int DAT_004dc4a4;
+
+// unknown/unk_049c80.cpp
+extern "C" int DAT_004dc4f8;
+extern "C" int DAT_004dc4fc;
+extern "C" int DAT_004dc500;
+extern "C" int DAT_004dc504;
+extern "C" unsigned char DAT_004dc508[4];
+extern "C" int DAT_004dc50c;
+extern "C" unsigned char DAT_004dc510[4];
+extern "C" int DAT_004dc514;
+extern "C" unsigned char DAT_004dc518[4];
+extern "C" int DAT_004dc51c;
+extern "C" unsigned char DAT_004dc520[4];
+extern "C" unsigned int DAT_004dc524;
+
+// unknown/unk_04a560.cpp
+extern "C" unsigned char DAT_004dc540[4];
+extern "C" int DAT_004dc544;
+extern "C" unsigned int DAT_004dc548;
+extern "C" unsigned int DAT_004dc54c;
+extern "C" unsigned char DAT_004dc550[4];
+extern "C" int DAT_004dc554;
+extern "C" unsigned char DAT_004dc558[8];
+extern "C" unsigned char DAT_004dc560[8];
+extern "C" int DAT_004dc568;
+extern "C" int DAT_004dc56c;
+extern "C" unsigned char DAT_004dc570[4];
+extern "C" int DAT_004dc574;
+extern "C" unsigned char DAT_004dc578[4];
+extern "C" int DAT_004dc57c;
+extern "C" unsigned char DAT_004dc588[4];
+extern "C" unsigned char DAT_004dc58c[4];
+
 // unknown/unk_05c6b0.cpp
 extern "C" const char DAT_003f9d6c[17];  // s_rootBlendOutTime_003f9d6c
 extern "C" const char DAT_003f9d80[10];  // s_timeBegin_003f9d80
@@ -757,44 +1084,6 @@ extern "C" const unsigned int DAT_00446934[1];  // zero_00446934
 extern "C" const unsigned int DAT_00446980[1];  // zero_00446980
 extern "C" const unsigned int DAT_004469cc[1];  // zero_004469cc
 extern "C" unsigned int DAT_00495a4c[1];  // zero_00495a4c
-
-// unknown/unk_06d590.cpp
-extern "C" unsigned int DAT_004989d4[1];  // zero_004989d4
-extern "C" unsigned int DAT_00498a5c[1];  // zero_00498a5c
-extern "C" unsigned int DAT_00498aec[1];  // zero_00498aec
-extern "C" unsigned int DAT_00498c74[1];  // zero_00498c74
-extern "C" unsigned int DAT_0049908c[1];  // zero_0049908c
-extern "C" unsigned int DAT_004991b4[1];  // zero_004991b4
-extern "C" unsigned int DAT_00499244[1];  // zero_00499244
-extern "C" unsigned int DAT_0049936c[1];  // zero_0049936c
-extern "C" unsigned int DAT_00499664[1];  // zero_00499664
-extern "C" unsigned int DAT_004998c4[1];  // zero_004998c4
-extern "C" unsigned int DAT_00499954[1];  // zero_00499954
-extern "C" unsigned int DAT_004999f4[1];  // zero_004999f4
-extern "C" unsigned int DAT_00499b24[1];  // zero_00499b24
-extern "C" unsigned int DAT_00499c44[1];  // zero_00499c44
-extern "C" unsigned int DAT_00499cd4[1];  // zero_00499cd4
-extern "C" unsigned int DAT_00499f0c[1];  // zero_00499f0c
-extern "C" unsigned int DAT_0049a1ac[1];  // zero_0049a1ac
-extern "C" unsigned int DAT_0049a2b4[1];  // zero_0049a2b4
-extern "C" unsigned int DAT_0049a3bc[1];  // zero_0049a3bc
-extern "C" unsigned int DAT_0049a454[1];  // zero_0049a454
-extern "C" unsigned int DAT_0049a564[1];  // zero_0049a564
-extern "C" unsigned int DAT_0049a71c[1];  // zero_0049a71c
-extern "C" unsigned int DAT_0049a824[1];  // zero_0049a824
-extern "C" unsigned int DAT_0049a8bc[1];  // zero_0049a8bc
-extern "C" unsigned int DAT_0049a954[1];  // zero_0049a954
-extern "C" unsigned int DAT_0049a9e4[1];  // zero_0049a9e4
-extern "C" unsigned int DAT_0049aa7c[1];  // zero_0049aa7c
-extern "C" unsigned int DAT_0049ab24[1];  // zero_0049ab24
-extern "C" unsigned int DAT_0049ac54[1];  // zero_0049ac54
-extern "C" unsigned int DAT_0049acec[1];  // zero_0049acec
-extern "C" unsigned int DAT_0049af34[1];  // zero_0049af34
-extern "C" unsigned int DAT_0049afb4[1];  // zero_0049afb4
-extern "C" unsigned int DAT_0049b044[1];  // zero_0049b044
-extern "C" unsigned int DAT_0049b0c4[1];  // zero_0049b0c4
-extern "C" unsigned int DAT_0049b1dc[1];  // zero_0049b1dc
-extern "C" unsigned int DAT_0049b264[1];  // zero_0049b264
 
 // unknown/unk_070620.cpp
 extern "C" const char DAT_003fb904[17];  // s_Adrenaline_Surge_003fb904
@@ -2132,58 +2421,6 @@ extern "C" int DAT_004e0dc8;
 extern "C" int DAT_004e0dcc;
 extern "C" int DAT_004e0dd0;
 
-// unknown/unk_1296f0.cpp
-extern "C" const char DAT_00410830[19];  // s_useCameraDirection_00410830
-extern "C" const char DAT_00410844[19];  // s_projectileDistance_00410844
-extern "C" const char DAT_00410858[16];  // s_targetFirstShot_00410858
-extern "C" const char DAT_00410868[17];  // s_targetInvincible_00410868
-extern "C" const char DAT_0041087c[13];  // s_canSeeTarget_0041087c
-extern "C" const char DAT_0041088c[13];  // s_targetAngleY_0041088c
-extern "C" const char DAT_0041089c[17];  // s_targetDirectionY_0041089c
-extern "C" const char DAT_004108b0[18];  // s_targetDirectionXZ_004108b0
-extern "C" const char DAT_004108c4[16];  // s_targetDirection_004108c4
-extern "C" const char DAT_004108d4[16];  // s_targetVelocityY_004108d4
-extern "C" const char DAT_004108e4[17];  // s_targetVelocityXZ_004108e4
-extern "C" const char DAT_004108f8[15];  // s_targetVelocity_004108f8
-extern "C" const char DAT_00410908[18];  // s_targetOrientation_00410908
-extern "C" const char DAT_0041091c[16];  // s_targetDistanceY_0041091c
-extern "C" const char DAT_0041092c[17];  // s_targetDistanceXZ_0041092c
-extern "C" const char DAT_00410940[11];  // s_targetType_00410940
-extern "C" const unsigned int DAT_0045b060[1];  // zero_0045b060
-extern "C" const unsigned int DAT_0045b0ac[1];  // zero_0045b0ac
-extern "C" const unsigned int DAT_0045b0f8[1];  // zero_0045b0f8
-extern "C" const unsigned int DAT_0045bcd0[1];  // zero_0045bcd0
-extern "C" const unsigned int DAT_0045bd18[1];  // zero_0045bd18
-extern "C" const unsigned int DAT_0045bd60[1];  // zero_0045bd60
-extern "C" const unsigned int DAT_0045bda8[1];  // zero_0045bda8
-extern "C" const unsigned int DAT_0045bdf0[1];  // zero_0045bdf0
-extern "C" const unsigned int DAT_0045be38[1];  // zero_0045be38
-extern "C" const unsigned int DAT_0045be80[1];  // zero_0045be80
-extern "C" const unsigned int DAT_0045bec8[1];  // zero_0045bec8
-extern "C" const unsigned int DAT_0045bf10[1];  // zero_0045bf10
-extern "C" const unsigned int DAT_0045bf58[1];  // zero_0045bf58
-extern "C" const unsigned int DAT_0045bfa0[1];  // zero_0045bfa0
-extern "C" const unsigned int DAT_0045bfe8[1];  // zero_0045bfe8
-extern "C" const unsigned int DAT_0045c030[1];  // zero_0045c030
-extern "C" const unsigned int DAT_0045c078[1];  // zero_0045c078
-extern "C" const unsigned int DAT_0045c0c0[1];  // zero_0045c0c0
-extern "C" const unsigned int DAT_0045c108[1];  // zero_0045c108
-extern "C" const unsigned int DAT_0045c150[1];  // zero_0045c150
-extern "C" const unsigned int DAT_0045c198[1];  // zero_0045c198
-extern "C" const unsigned int DAT_0045c1e0[1];  // zero_0045c1e0
-extern "C" const unsigned int DAT_0045c228[1];  // zero_0045c228
-extern "C" const unsigned int DAT_0045c270[1];  // zero_0045c270
-extern "C" const unsigned int DAT_0045c2c0[1];  // zero_0045c2c0
-extern "C" const unsigned int DAT_0045c314[1];  // zero_0045c314
-extern "C" unsigned int DAT_004a7154[1];  // zero_004a7154
-extern "C" unsigned int DAT_004a8014[1];  // zero_004a8014
-extern "C" unsigned int DAT_004a8184[1];  // zero_004a8184
-extern "C" unsigned int DAT_004a8474[1];  // zero_004a8474
-extern "C" unsigned int DAT_004a8814[1];  // zero_004a8814
-extern "C" unsigned int DAT_004a8bc4[1];  // zero_004a8bc4
-extern "C" unsigned int DAT_004a8c74[1];  // zero_004a8c74
-extern "C" unsigned int DAT_004a8d1c[1];  // zero_004a8d1c
-
 // unknown/unk_133010.cpp
 extern "C" unsigned char DAT_004e0ec0[4];
 extern "C" int DAT_004e0ec4;
@@ -2233,112 +2470,6 @@ extern "C" unsigned char DAT_004e10c8[4];
 extern "C" int DAT_004e10cc;
 extern "C" unsigned char DAT_004e10d0[4];
 extern "C" int DAT_004e10d4;
-
-// unknown/unk_154220.cpp
-extern "C" unsigned int DAT_004b22bc[1];  // zero_004b22bc
-
-// unknown/unk_154780.cpp
-extern "C" unsigned int DAT_004b2cc4[1];  // zero_004b2cc4
-extern "C" unsigned int DAT_004b2d24[1];  // zero_004b2d24
-extern "C" unsigned int DAT_004b2d7c[1];  // zero_004b2d7c
-
-// unknown/unk_157800.cpp
-extern "C" const char DAT_004152e4[13];  // s_thrownObject_004152e4
-extern "C" const char DAT_004152f4[16];  // s_ignoreHitRecord_004152f4
-extern "C" const char DAT_00415304[16];  // s_pushbackTimeMax_00415304
-extern "C" const char DAT_00415314[16];  // s_pushbackTimeMin_00415314
-extern "C" const char DAT_00415324[20];  // s_pushbackDistanceMax_00415324
-extern "C" const char DAT_00415338[20];  // s_pushbackDistanceMin_00415338
-extern "C" const char DAT_0041534c[10];  // s_damageMin_0041534c
-extern "C" const char DAT_00415358[20];  // s_collisionDevastator_00415358
-extern "C" const char DAT_0041536c[19];  // s_collisionExplosion_0041536c
-extern "C" const char DAT_00415380[22];  // s_collisionThrownObjec_00415380
-extern "C" const char DAT_00415398[15];  // s_collisionThrow_00415398
-extern "C" const char DAT_004153a8[29];  // s_collisionDamageHealt_004153a8
-extern "C" const char DAT_004153c8[16];  // s_collisionCharge_004153c8
-extern "C" const char DAT_004153d8[20];  // s_hitPushbackVelocity_004153d8
-extern "C" const char DAT_004153ec[20];  // s_collisionTargetSize_004153ec
-extern "C" const char DAT_00415400[20];  // s_collisionSourceSize_00415400
-extern "C" const char DAT_00415414[20];  // s_collisionTargetType_00415414
-extern "C" const char DAT_00415428[24];  // s_collisionTargetIsTar_00415428
-extern "C" const char DAT_00415440[24];  // s_collisionTargetPrior_00415440
-extern "C" const char DAT_00415458[30];  // s_collisionSourceForce_00415458
-extern "C" const char DAT_00415478[20];  // s_collisionSourceNode_00415478
-extern "C" const char DAT_0041548c[25];  // s_collisionSourceIsMis_0041548c
-extern "C" const char DAT_004154a8[20];  // s_collisionTargetName_004154a8
-extern "C" const char DAT_004154bc[20];  // s_collisionSourceName_004154bc
-extern "C" const char DAT_004154d0[20];  // s_collisionSourceType_004154d0
-extern "C" const char DAT_004154e4[27];  // s_collisionInterruptPr_004154e4
-extern "C" const char DAT_00415500[21];  // s_interruptAccumulator_00415500
-extern "C" const unsigned int DAT_00464dd4[1];  // zero_00464dd4
-extern "C" const unsigned int DAT_00465034[1];  // zero_00465034
-extern "C" const unsigned int DAT_00465080[1];  // zero_00465080
-extern "C" const unsigned int DAT_004651fc[1];  // zero_004651fc
-extern "C" const unsigned int DAT_004653c4[1];  // zero_004653c4
-extern "C" const unsigned int DAT_00465410[1];  // zero_00465410
-extern "C" const unsigned int DAT_0046545c[1];  // zero_0046545c
-extern "C" const unsigned int DAT_004654a8[1];  // zero_004654a8
-extern "C" const unsigned int DAT_004654f4[1];  // zero_004654f4
-extern "C" const unsigned int DAT_00465540[1];  // zero_00465540
-extern "C" const unsigned int DAT_0046558c[1];  // zero_0046558c
-extern "C" const unsigned int DAT_004655d8[1];  // zero_004655d8
-extern "C" const unsigned int DAT_00465c0c[1];  // zero_00465c0c
-extern "C" const unsigned int DAT_00465c54[1];  // zero_00465c54
-extern "C" const unsigned int DAT_00465c9c[1];  // zero_00465c9c
-extern "C" const unsigned int DAT_00465ce4[1];  // zero_00465ce4
-extern "C" const unsigned int DAT_00465d2c[1];  // zero_00465d2c
-extern "C" const unsigned int DAT_00465d74[1];  // zero_00465d74
-extern "C" const unsigned int DAT_00465dbc[1];  // zero_00465dbc
-extern "C" const unsigned int DAT_00465e04[1];  // zero_00465e04
-extern "C" const unsigned int DAT_00465e4c[1];  // zero_00465e4c
-extern "C" const unsigned int DAT_00465e94[1];  // zero_00465e94
-extern "C" const unsigned int DAT_00465edc[1];  // zero_00465edc
-extern "C" const unsigned int DAT_00465f24[1];  // zero_00465f24
-extern "C" const unsigned int DAT_00465f6c[1];  // zero_00465f6c
-extern "C" const unsigned int DAT_00465fb4[1];  // zero_00465fb4
-extern "C" const unsigned int DAT_00465ffc[1];  // zero_00465ffc
-extern "C" const unsigned int DAT_00466044[1];  // zero_00466044
-extern "C" const unsigned int DAT_0046608c[1];  // zero_0046608c
-extern "C" const unsigned int DAT_004660d4[1];  // zero_004660d4
-extern "C" const unsigned int DAT_0046611c[1];  // zero_0046611c
-extern "C" const unsigned int DAT_00466164[1];  // zero_00466164
-extern "C" const unsigned int DAT_004661ac[1];  // zero_004661ac
-extern "C" const unsigned int DAT_004661f4[1];  // zero_004661f4
-extern "C" const unsigned int DAT_0046623c[1];  // zero_0046623c
-extern "C" const unsigned int DAT_00466284[1];  // zero_00466284
-extern "C" const unsigned int DAT_004662cc[1];  // zero_004662cc
-extern "C" const unsigned int DAT_00466314[1];  // zero_00466314
-extern "C" const unsigned int DAT_0046635c[1];  // zero_0046635c
-extern "C" const unsigned int DAT_004663a4[1];  // zero_004663a4
-extern "C" const unsigned int DAT_004663ec[1];  // zero_004663ec
-extern "C" const unsigned int DAT_00466434[1];  // zero_00466434
-extern "C" const unsigned int DAT_0046647c[1];  // zero_0046647c
-extern "C" const unsigned int DAT_004664c4[1];  // zero_004664c4
-extern "C" const unsigned int DAT_0046650c[1];  // zero_0046650c
-extern "C" const unsigned int DAT_00466554[1];  // zero_00466554
-extern "C" const unsigned int DAT_0046659c[1];  // zero_0046659c
-extern "C" const unsigned int DAT_004665e4[1];  // zero_004665e4
-extern "C" const unsigned int DAT_00466634[1];  // zero_00466634
-extern "C" const unsigned int DAT_00466684[1];  // zero_00466684
-extern "C" const unsigned int DAT_004666d4[1];  // zero_004666d4
-extern "C" const unsigned int DAT_00466724[1];  // zero_00466724
-extern "C" const unsigned int DAT_00466774[1];  // zero_00466774
-extern "C" const unsigned int DAT_004667c8[1];  // zero_004667c8
-extern "C" unsigned int DAT_004b0be4[1];  // zero_004b0be4
-extern "C" unsigned int DAT_004b0ea4[1];  // zero_004b0ea4
-extern "C" unsigned int DAT_004b0f0c[1];  // zero_004b0f0c
-extern "C" unsigned int DAT_004b10fc[1];  // zero_004b10fc
-extern "C" unsigned int DAT_004b12f4[1];  // zero_004b12f4
-extern "C" unsigned int DAT_004b134c[1];  // zero_004b134c
-extern "C" unsigned int DAT_004b139c[1];  // zero_004b139c
-extern "C" unsigned int DAT_004b2254[1];  // zero_004b2254
-extern "C" unsigned int DAT_004b23f4[1];  // zero_004b23f4
-extern "C" unsigned int DAT_004b27ec[1];  // zero_004b27ec
-extern "C" unsigned int DAT_004b2edc[1];  // zero_004b2edc
-extern "C" unsigned int DAT_004b3244[1];  // zero_004b3244
-extern "C" unsigned int DAT_004b346c[1];  // zero_004b346c
-extern "C" unsigned int DAT_004b386c[1];  // zero_004b386c
-extern "C" unsigned int DAT_004b38bc[1];  // zero_004b38bc
 
 // unknown/unk_15a820.cpp
 extern "C" unsigned char DAT_004e1158[4];
@@ -2613,137 +2744,6 @@ extern "C" unsigned char DAT_004e1460[4];
 extern "C" int DAT_004e1464;
 extern "C" int DAT_004e1468;
 extern "C" int DAT_004e146c;
-
-// unknown/unk_1899a0.cpp
-extern "C" const int DAT_00412ed4;
-extern "C" const char DAT_0041a484[15];  // s_massMultiplier_0041a484
-extern "C" const char DAT_0041a494[10];  // s_massClass_0041a494
-extern "C" const char DAT_0041a4a0[12];  // s_clearCharge_0041a4a0
-extern "C" const char DAT_0041a4ac[10];  // s_hitBranch_0041a4ac
-extern "C" const char DAT_0041a4b8[9];  // s_forceMin_0041a4b8
-extern "C" const char DAT_0041a4c4[10];  // s_bounceMax_0041a4c4
-extern "C" const char DAT_0041a4d0[10];  // s_bounceMin_0041a4d0
-extern "C" const char DAT_0041a4dc[8];  // s_spinMax_0041a4dc
-extern "C" const char DAT_0041a4e4[8];  // s_spinMin_0041a4e4
-extern "C" const char DAT_0041a4ec[22];  // s_beamAttachJointOffse_0041a4ec
-extern "C" const char DAT_0041a504[16];  // s_beamAttachJoint_0041a504
-extern "C" const char DAT_0041a514[11];  // s_beamOffset_0041a514
-extern "C" const char DAT_0041a520[11];  // s_beamEffect_0041a520
-extern "C" const char DAT_0041a52c[9];  // s_propAxis_0041a52c
-extern "C" const char DAT_0041a538[14];  // s_targetYOffset_0041a538
-extern "C" const char DAT_0041a548[12];  // s_damageScale_0041a548
-extern "C" const char DAT_0041a554[13];  // s_initPosition_0041a554
-extern "C" const char DAT_0041a564[14];  // s_impulseOffset_0041a564
-extern "C" const char DAT_0041a574[8];  // s_impulse_0041a574
-extern "C" const char DAT_0041a57c[9];  // s_propName_0041a57c
-extern "C" const char DAT_0041a588[9];  // s_propMass_0041a588
-extern "C" const char DAT_0041a594[20];  // s_propMissionCritical_0041a594
-extern "C" const char DAT_0041a5a8[22];  // s_propGrabbableIsThrow_0041a5a8
-extern "C" const char DAT_0041a5c0[17];  // s_propMissileCount_0041a5c0
-extern "C" const char DAT_0041a5d4[22];  // s_propCollidedWithWorl_0041a5d4
-extern "C" const char DAT_0041a5ec[19];  // s_smartPropGrabbable_0041a5ec
-extern "C" const char DAT_0041a600[17];  // s_smartPropIsCargo_0041a600
-extern "C" const char DAT_0041a614[19];  // s_csmPropIsCharacter_0041a614
-extern "C" const char DAT_0041a628[15];  // s_propIsAttached_0041a628
-extern "C" const char DAT_0041a638[23];  // s_grapplePropStateByNa_0041a638
-extern "C" const char DAT_0041a650[16];  // s_propStateByName_0041a650
-extern "C" const char DAT_0041a660[17];  // s_propStateByIndex_0041a660
-extern "C" const char DAT_0041a674[11];  // s_propAtRest_0041a674
-extern "C" const unsigned int DAT_0046f9b0[1];  // zero_0046f9b0
-extern "C" const unsigned int DAT_0046f9fc[1];  // zero_0046f9fc
-extern "C" const unsigned int DAT_0046fa94[1];  // zero_0046fa94
-extern "C" const unsigned int DAT_0046fae0[1];  // zero_0046fae0
-extern "C" const unsigned int DAT_0046fb2c[1];  // zero_0046fb2c
-extern "C" const unsigned int DAT_0046fc5c[1];  // zero_0046fc5c
-extern "C" const unsigned int DAT_0046fca8[1];  // zero_0046fca8
-extern "C" const unsigned int DAT_00470038[1];  // zero_00470038
-extern "C" const unsigned int DAT_00470084[1];  // zero_00470084
-extern "C" const unsigned int DAT_00470200[1];  // zero_00470200
-extern "C" const unsigned int DAT_0047024c[1];  // zero_0047024c
-extern "C" const unsigned int DAT_00470298[1];  // zero_00470298
-extern "C" const unsigned int DAT_0047037c[1];  // zero_0047037c
-extern "C" const unsigned int DAT_004703c8[1];  // zero_004703c8
-extern "C" const unsigned int DAT_00470414[1];  // zero_00470414
-extern "C" const unsigned int DAT_00470460[1];  // zero_00470460
-extern "C" const unsigned int DAT_004704ac[1];  // zero_004704ac
-extern "C" const unsigned int DAT_004704f8[1];  // zero_004704f8
-extern "C" const unsigned int DAT_00470544[1];  // zero_00470544
-extern "C" const unsigned int DAT_00470590[1];  // zero_00470590
-extern "C" const unsigned int DAT_00470674[1];  // zero_00470674
-extern "C" const unsigned int DAT_004706c0[1];  // zero_004706c0
-extern "C" const unsigned int DAT_0047070c[1];  // zero_0047070c
-extern "C" const unsigned int DAT_00470758[1];  // zero_00470758
-extern "C" const unsigned int DAT_00470ae8[1];  // zero_00470ae8
-extern "C" const unsigned int DAT_00470b34[1];  // zero_00470b34
-extern "C" const unsigned int DAT_00470b80[1];  // zero_00470b80
-extern "C" const unsigned int DAT_00470c5c[1];  // zero_00470c5c
-extern "C" const unsigned int DAT_00470ca4[1];  // zero_00470ca4
-extern "C" const unsigned int DAT_00470cec[1];  // zero_00470cec
-extern "C" const unsigned int DAT_00470d34[1];  // zero_00470d34
-extern "C" const unsigned int DAT_00470d7c[1];  // zero_00470d7c
-extern "C" const unsigned int DAT_00470dc4[1];  // zero_00470dc4
-extern "C" const unsigned int DAT_00470e0c[1];  // zero_00470e0c
-extern "C" const unsigned int DAT_00470e54[1];  // zero_00470e54
-extern "C" const unsigned int DAT_00470e9c[1];  // zero_00470e9c
-extern "C" const unsigned int DAT_00470ee4[1];  // zero_00470ee4
-extern "C" const unsigned int DAT_00470f2c[1];  // zero_00470f2c
-extern "C" const unsigned int DAT_00470f74[1];  // zero_00470f74
-extern "C" const unsigned int DAT_00470fbc[1];  // zero_00470fbc
-extern "C" const unsigned int DAT_00471004[1];  // zero_00471004
-extern "C" const unsigned int DAT_0047104c[1];  // zero_0047104c
-extern "C" const unsigned int DAT_00471094[1];  // zero_00471094
-extern "C" const unsigned int DAT_004710dc[1];  // zero_004710dc
-extern "C" const unsigned int DAT_00471124[1];  // zero_00471124
-extern "C" const unsigned int DAT_0047116c[1];  // zero_0047116c
-extern "C" const unsigned int DAT_004711b4[1];  // zero_004711b4
-extern "C" const unsigned int DAT_004711fc[1];  // zero_004711fc
-extern "C" const unsigned int DAT_00471244[1];  // zero_00471244
-extern "C" const unsigned int DAT_0047128c[1];  // zero_0047128c
-extern "C" const unsigned int DAT_004712d4[1];  // zero_004712d4
-extern "C" const unsigned int DAT_0047131c[1];  // zero_0047131c
-extern "C" const unsigned int DAT_00471364[1];  // zero_00471364
-extern "C" const unsigned int DAT_004713ac[1];  // zero_004713ac
-extern "C" const unsigned int DAT_004713f4[1];  // zero_004713f4
-extern "C" const unsigned int DAT_0047143c[1];  // zero_0047143c
-extern "C" const unsigned int DAT_0047148c[1];  // zero_0047148c
-extern "C" const unsigned int DAT_004714dc[1];  // zero_004714dc
-extern "C" const unsigned int DAT_0047152c[1];  // zero_0047152c
-extern "C" const unsigned int DAT_0047157c[1];  // zero_0047157c
-extern "C" const unsigned int DAT_004715cc[1];  // zero_004715cc
-extern "C" const unsigned int DAT_0047161c[1];  // zero_0047161c
-extern "C" const unsigned int DAT_0047166c[1];  // zero_0047166c
-extern "C" const unsigned int DAT_004716bc[1];  // zero_004716bc
-extern "C" const unsigned int DAT_0047170c[1];  // zero_0047170c
-extern "C" const unsigned int DAT_0047175c[1];  // zero_0047175c
-extern "C" const unsigned int DAT_004717ac[1];  // zero_004717ac
-extern "C" const unsigned int DAT_00471800[1];  // zero_00471800
-extern "C" unsigned int DAT_004bbf74[1];  // zero_004bbf74
-extern "C" unsigned int DAT_004bc724[1];  // zero_004bc724
-extern "C" unsigned int DAT_004bc914[1];  // zero_004bc914
-extern "C" unsigned int DAT_004bc95c[1];  // zero_004bc95c
-extern "C" unsigned int DAT_004bcc4c[1];  // zero_004bcc4c
-extern "C" unsigned int DAT_004bccf4[1];  // zero_004bccf4
-extern "C" unsigned int DAT_004bd41c[1];  // zero_004bd41c
-extern "C" unsigned int DAT_004bd72c[1];  // zero_004bd72c
-extern "C" unsigned int DAT_004bd7f4[1];  // zero_004bd7f4
-extern "C" unsigned int DAT_004bd8bc[1];  // zero_004bd8bc
-extern "C" unsigned int DAT_004bd984[1];  // zero_004bd984
-extern "C" unsigned int DAT_004bdb1c[1];  // zero_004bdb1c
-extern "C" unsigned int DAT_004bdca4[1];  // zero_004bdca4
-extern "C" unsigned int DAT_004bde14[1];  // zero_004bde14
-extern "C" unsigned int DAT_004bdec4[1];  // zero_004bdec4
-extern "C" unsigned int DAT_004be024[1];  // zero_004be024
-extern "C" unsigned int DAT_004be0d4[1];  // zero_004be0d4
-extern "C" unsigned int DAT_004be2f4[1];  // zero_004be2f4
-extern "C" unsigned int DAT_004be3ac[1];  // zero_004be3ac
-extern "C" unsigned int DAT_004be45c[1];  // zero_004be45c
-extern "C" unsigned int DAT_004be724[1];  // zero_004be724
-extern "C" unsigned int DAT_004be874[1];  // zero_004be874
-extern "C" unsigned int DAT_004be964[1];  // zero_004be964
-extern "C" unsigned int DAT_004be9f4[1];  // zero_004be9f4
-extern "C" unsigned int DAT_004bea44[1];  // zero_004bea44
-extern "C" unsigned int DAT_004beaec[1];  // zero_004beaec
-extern "C" unsigned int DAT_004beb44[1];  // zero_004beb44
 
 // unknown/unk_19c050.cpp
 extern "C" const char DAT_0041bb0c[14];  // s_hitDamageType_0041bb0c

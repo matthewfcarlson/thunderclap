@@ -62,6 +62,40 @@ LIB_SPANS = [                     # docs/platform-boundary.md "Where library cod
     (0x3440E0, 0x356BF0, "libcmt_xapi", "LIBCMT plus more XAPILIB"),
     (0x35A7B0, 0x35BE88, "libcmt_eh", "LIBCMT EH runtime, itoa, 64-bit helpers"),
 ]
+# Fixed objects (docs/merge-prep.md "The Lua VM and its libraries", applied at the merge-once flip): the embedded Lua
+# VM and its libraries, identified function by function from the game's own code (allocation sizes, error strings,
+# accessors: the first comment line of each source); in link order the identified functions fall into contiguous runs,
+# one per API prefix and library, and each run is one object. Each group replaces exactly the inferred object(s) it
+# covers. (file, start, end, evidence)
+FIXED_OBJECTS = [
+    ("lua/lapi.cpp", 0x00212BB0, 0x00213F20, "lua_* API: index2adr .. lua_setupvalue"),
+    ("lua/ldebug.cpp", 0x00213F20, 0x00214DD0, "luaG_* and the hook API: currentline, lua_sethook .. luaG_ordererror"),
+    ("lua/lstate.cpp", 0x00214DD0, 0x00215240, "luaE_*, lua_newstate: stack_init .. lua_close"),
+    ("lua/ldo.cpp", 0x00215240, 0x00215F50, "luaD_*, lua_resume/yield: seterrorobj .. luaD_protectedparser"),
+    ("lua/lobject.cpp", 0x00215F50, 0x002164B0, "luaO_*: luaO_log2 .. luaO_chunkid (0x00215f50, a leaf of the parser's, opens the file)"),
+    ("lua/lgc.cpp", 0x002164B0, 0x00217520, "luaC_*: reallymarkobject .. luaC_fullgc"),
+    ("lua/ltm.cpp", 0x00217520, 0x00217600, "luaT_*: luaT_init .. luaT_gettmbyobj"),
+    ("lua/lvm.cpp", 0x00217600, 0x002192C0, "luaV_*: luaV_tonumber .. luaV_execute"),
+    ("lua/lstring.cpp", 0x002192C0, 0x00219520, "luaS_*: luaS_freeall .. luaS_newudata"),
+    ("lua/lfunc.cpp", 0x00219520, 0x00219870, "luaF_*: luaF_newCclosure .. luaF_getlocalname"),
+    ("lua/ltable.cpp", 0x00219870, 0x0021A550, "luaH_*: hashnum .. luaH_setstr"),
+    ("lua/lzio.cpp", 0x0021A550, 0x0021A790, "luaZ_*: luaZ_fill .. luaZ_openspace"),
+    ("lua/ldump.cpp", 0x0021A790, 0x0021ADD0, "the Dump* writers: DumpString .. luaU_dump"),
+    ("lua/lmem.cpp", 0x0021ADD0, 0x0021AEB0, "luaM_*: luaM_realloc, luaM_growaux"),
+    ("lua/llex.cpp", 0x0021AEB0, 0x0021C190, "luaX_*: luaX_init .. llex"),
+    ("lua/lparser.cpp", 0x0021C190, 0x0021F800, "the parser's statements and expressions: next .. luaY_parser"),
+    ("lua/lundump.cpp", 0x0021F800, 0x002204E0, "the Load* readers: the lundump error helper .. luaU_undump"),
+    ("lua/lcode.cpp", 0x002204E0, 0x00221B30, "luaK_*: fixjump .. luaK_patchlist (the core ends at 0x00221ae0)"),
+    ("choreo2/unk_221b30.cpp", 0x00221B30, 0x002222F0, "not Lua: copy helpers called from choreo2 (0x00223fa0) and game code; 0x002222d0 stores choreo2::PartitionDriver's vftable 0x00427260"),
+    ("lua/lauxlib.cpp", 0x00338D90, 0x0033A080, "luaL_*: 0x00338d90 (called by luaL_error and luaB_error), luaL_error .. luaL_optint, lua_dostring"),
+    ("lua/ldblib.cpp", 0x0033A080, 0x0033ACD0, "the debug library: db_getupvalue .. luaopen_debug"),
+    ("lua/ltablib.cpp", 0x0033ACD0, 0x0033B610, "the table library: foreach, luaB_getn .. luaB_sort, luaopen_table"),
+    ("lua/lmathlib.cpp", 0x0033B610, 0x0033BD00, "the math library .. luaopen_math, with the game's os.exit 0x0033bc80"),
+    ("lua/lstrlib.cpp", 0x0033BD00, 0x0033D6E0, "the string library: string.len .. luaopen_string 0x0033d6c0"),
+    ("lua/lbaselib.cpp", 0x0033D6E0, 0x0033EB70, "the base library with the coroutine functions: luaB_print .. luaopen_base 0x0033eb30"),
+]
+# The fight registration runs (docs/merge-prep.md "Registration TUs"): conditions, tracks, motion conditions/tracks
+REGISTRATION_RANGES = [(0x0004E000, 0x00057000), (0x0006A000, 0x00070000), (0x00150000, 0x00159000)]
 LIB_PREFIXES = ("XAPILIB::", "D3D8::", "xboxkrnl.exe::", "DSOUND::", "XGRAPHC::", "LIBCMT::")
 
 # Clustering / cutting parameters (see docs/splits.md "Parameters").
@@ -656,6 +690,7 @@ class Inferrer:
         objs += self.init_objects()
         objs += self.library_objects()
         objs.sort(key=lambda o: o["start"])
+        objs = self.fixed_objects(objs)
         # unique file names
         seen = collections.Counter()
         for o in objs:
@@ -669,10 +704,88 @@ class Inferrer:
                     stem, ext = os.path.splitext(f)
                     o["file"] = "%s_%d%s" % (stem, dup[f], ext)
                     o["evidence"].append("same dominant class as an earlier object (class split across files)")
+        self.registration_names(objs)
         self.vtable_order_check(objs)
         self.assign_layers(objs)
         self.objects = objs
         return objs
+
+    def registration_names(self, objs):
+        """(merge-once flip, docs/merge-prep.md "Registration TUs") The fight registration runs (REGISTRATION_RANGES)
+        hold the COMDAT template instantiations of the condition / track factories and their parameter descriptors,
+        cut into one object per template argument; the unique-name step numbered them `CJointTrack_2`, `_3`, and the
+        ones with no class of their own are `unknown/unk_<addr>` objects labelled by their template argument. They get
+        names that say what they hold: `<Class>_params` (fight::Param*<Class> members only), `_factory`
+        (fight::*Factory*Template<Class>), `_params_factory` (both), `_reg` (anything else), in the directory of
+        Class's own object when there is one; when two objects would get one name, each keeps its start address
+        (`_<6 hex>`). A clean-up pass in the tree can merge them once the registration functions are read."""
+        homes = {}
+        for o in objs:
+            if o["kind"] == "game":
+                homes.setdefault(os.path.basename(o["file"])[:-4], os.path.dirname(o["file"]))
+        new = {}
+        for o in objs:
+            if o["kind"] != "game":
+                continue
+            d, f = os.path.split(o["file"])
+            stem = f[:-4]
+            m = re.match(r"^(.*)_(\d+)$", stem)
+            targ = [x for x in o["evidence"] if "template args:" in x]
+            inr = any(lo <= o["start"] < hi for lo, hi in REGISTRATION_RANGES)
+            if stem.startswith("unk_") and targ:
+                cls = targ[0].split("template args:")[1].strip().split("::")[-1]
+            elif inr and m:
+                cls = m.group(1)
+            else:
+                continue
+            fam = set()
+            for a, size, name, _ in self.funcs[bisect.bisect_left(self.funcs, (o["start"],)):]:
+                if a >= o["end"]:
+                    break
+                fam.add("params" if re.match(r"fight::Param\w*<", name) else
+                        "factory" if re.match(r"fight::\w*Factory\w*Template<", name) else "other")
+            role = {frozenset(["params"]): "params", frozenset(["factory"]): "factory",
+                    frozenset(["params", "factory"]): "params_factory"}.get(frozenset(fam), "reg")
+            new[id(o)] = (homes.get(cls, d), "%s_%s" % (cls, role), o)
+        taken = collections.Counter(os.path.join(d_, s_) for d_, s_, _ in new.values())
+        for d_, s_, o in new.values():
+            if taken[os.path.join(d_, s_)] > 1:
+                s_ = "%s_%06x" % (s_, o["start"])
+            o["evidence"].append("registration run object, renamed from %s (REGISTRATION_RANGES)" % o["file"])
+            o["file"] = os.path.join(d_, s_ + ".cpp")
+        self.stats["registration objects renamed"] = len(new)
+
+    def fixed_objects(self, objs):
+        """Replace the inferred objects that FIXED_OBJECTS covers by its objects. A group must cover the inferred
+        objects it touches exactly (else the inference moved and the table needs a look: an error, not a guess)."""
+        out = list(objs)
+        fixed = sorted(FIXED_OBJECTS, key=lambda f: f[1])
+        groups, cur = [], []
+        for f in fixed:
+            if cur and f[1] != cur[-1][2]:
+                groups.append(cur)
+                cur = []
+            cur.append(f)
+        if cur:
+            groups.append(cur)
+        for g in groups:
+            lo, hi = g[0][1], g[-1][2]
+            hit = [o for o in out if o["start"] < hi and o["end"] > lo]
+            if not hit or hit[0]["start"] != lo or hit[-1]["end"] != hi:
+                raise ValueError("FIXED_OBJECTS 0x%x..0x%x does not cover whole inferred objects: %s" % (
+                    lo, hi, [(o["file"], hex(o["start"]), hex(o["end"])) for o in hit]))
+            for o in hit:
+                out.remove(o)
+            for fn, s, e, why in g:
+                fs = self.funcs[bisect.bisect_left(self.funcs, (s,)):]
+                fs = [f for f in fs if f[0] < e]
+                named = sum(1 for f in fs if not f[2].startswith(("FUN_", "thunk_FUN_")))
+                out.append(dict(start=s, end=e, file=fn, kind="game", confidence="high", dominant=None,
+                                functions=len(fs), named=named, bytes=e - s,
+                                evidence=["fixed object (FIXED_OBJECTS, docs/merge-prep.md): " + why], comdat=[], vtables=[]))
+        out.sort(key=lambda o: o["start"])
+        self.stats["fixed objects"] = sum(len(g) for g in groups)
+        return out
 
     # -- layers ----------------------------------------------------------------------------------
     def assign_layers(self, objs):
