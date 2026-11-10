@@ -28,3 +28,13 @@ Kept by `tools/tech_debt.py` as written (everything from this heading on).
   (branch coverage 15/36, incomplete): every input runs the worker's wait-and-dispatch loop until the harness's
   step limit. The STATUS line's 91 inputs (29/36) are from an older run. Needs a harness bound on the loop (or
   directed inputs that leave it) before the source can count as checked at 3,000 inputs.
+- Four game TUs must stay at -O0 when the Wine build optimises the rest (`tools/wine_opt_exclude.txt`, opt1; docs/wine-build.md
+  "Replay speed and optimised objects (opt1)"): with any one of them at -O1, play3 leaves the -O0 build's checkpoints.
+  `src/game/hulkfight/motion/ProjectileEffect.cpp` crashes at frame 1230 (Sweeper::FUN_001f6cd0 reads 0x3f800000, a
+  float 1.0, as a pointer; called from ProjectileEffect::vfunc_4, 0x00195bb0); `src/game/global/CWorldCollisionManager.cpp`
+  differs from frame 630, and still does with all 64 of its functions `optnone` (job 70705), so the cause is module-level
+  (static initialisation, data layout, an alias or a declaration the optimiser trusts), not one function's code;
+  `src/game/global/CChaseCamera.cpp` from frame 10200; `src/game/global/CDramaticCamera.cpp` from frame 13860. Each is
+  likely undefined behaviour or a wrong declaration in our sources that the native release builds (optimised) will hit
+  too. Clean-up: find each cause on the Wine build (frame-by-frame compare against -O0), fix the source (MSVC MATCH /
+  equivalence kept), and take the TU off the exclude list once its -O1 replay gates ok.
