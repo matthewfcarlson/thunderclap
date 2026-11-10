@@ -140,7 +140,7 @@ elif doit; then
     rsync -a --delete -e "ssh -o BatchMode=yes" "$WHISKY/Wine" "$WHISKY/WhiskyWineVersion.plist" "$DEST:wine-whisky/" && say wine "copied (~/wine-whisky, 850 MB)"
 else say wine MISSING; FAIL=1; fi
 
-# --- tracked sources (what jobs symlink from the host's checkout: matches/ equivalent/ src/ ...)
+# --- tracked sources (what jobs symlink from the host's checkout: matches/ equivalent/ ...; src/ ships in every job's base tree since bink2)
 HEADC=$(git rev-parse --short HEAD)
 HOSTC=$(r "cat ~/$HOME_DIR/.jq-setup-commit 2>/dev/null")
 if [ -n "$HOSTC" ] && [ "$CHECK" = 1 ]; then say sources "from $HOSTC (HEAD $HEADC)"

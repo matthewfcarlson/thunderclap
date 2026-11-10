@@ -223,8 +223,10 @@ def host_float_names():
     global _HOST_FLOAT
     if _HOST_FLOAT is None:
         import os
-        t = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src/platform/sdl/crt/native_crt_table.h"),
-                 errors="replace").read()
+        # the same table native_mac / native_elf read: HULK_NATIVE_CRT_TABLE names another copy (a queue job's)
+        path = os.environ.get("HULK_NATIVE_CRT_TABLE") or os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "..", "src/platform/sdl/crt/native_crt_table.h")
+        t = open(path, errors="replace").read()
         _HOST_FLOAT = set()
         for m in re.finditer(r'N\(\d+, \w+, \w+, "([^"]*)"\)', t):
             for n in m.group(1).split():

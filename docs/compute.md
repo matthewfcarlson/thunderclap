@@ -63,14 +63,27 @@ A host added to `hosts.json` joins the running daemon within 30 s (no restart); 
 
 ## Workspaces
 
-A job runs in a fresh clone (APFS clonefile) of a per-host cached base tree, `git archive HEAD tools include tests config`
+A job runs in a fresh clone (APFS clonefile) of a per-host cached base tree, `git archive HEAD tools include tests config src`
 (keyed by the content hash of those trees, kept under `~/hulk-jobs/ws`, newest 4 kept), plus the job's overlay files.
-`build/ isos/ matches/ equivalent/ src/ farm/ docs/` are symlinks to the host's own checkout (`~/hulk-permute` on the
+`build/ isos/ matches/ equivalent/ farm/ docs/` are symlinks to the host's own checkout (`~/hulk-permute` on the
 Macs), so the jobs share its compilers, venv and caches. Consequences:
 
 - Committed `tools/` and `include/` are what runs. For uncommitted files pass `--files` (or `--dirty`: every modified or
-  untracked file under `tools include tests config`; `jobq_equiv.py` and `regress.py --jobq` do this by default).
+  untracked file under `tools include tests config src`; `jobq_equiv.py` and `regress.py --jobq` do this by default).
 - `matches/` and `equivalent/` on the Macs are whatever was last synced there, not your working tree.
+- `src/` ships in the base tree (bink2, 2026-11-09). Before that it was a symlink to the host's checkout, which is a
+  one-time `git archive` snapshot from the host's onboarding: mac2 and mac1 (onboarded before `jobq_host_setup.sh`
+  existed) had no `src/` at all and studio's was three days stale, so a native compile job (`native_elf.py` /
+  `native_mac.py`) failed its retarget stage on mac2 / mac1 for every TU with a float-returning call
+  (`tools/native_float.py` reads `src/platform/sdl/crt/native_crt_table.h`: `FileNotFoundError`, 226 TUs) and
+  silently used an old table on studio. The tools' only `src/` dependence is that table (`HULK_NATIVE_CRT_TABLE`
+  overrides it in native_elf.py, native_mac.py and native_float.py alike); everything else a job needs from `src/`
+  (the clang probe's platform sources) comes from the base tree, the same bytes on every host.
+  Verified on one clang-probe snapshot (control 70622's): the linux-x64 compile on studio / mac2 / mac1 (jobs 70646 /
+  70648 / 70650) and the android-arm64 compile on studio / mac2 (70647 / 70649) give the same report (2,649 of 2,652
+  TUs, the 3 known front-end failures, identical diagnostic counts) and, linked locally against the same binding map,
+  the same unbound totals (Linux 29,275 on all three hosts, Android 29,276 on both); before the fix mac2 / mac1 failed
+  226 TUs more at the retarget stage.
 - Do not write outside the workspace or into shared `build/` paths another job also writes; put outputs under a path in
   `--out` instead. The workspace and any leftover process group are removed when the job ends or times out.
 

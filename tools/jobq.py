@@ -9,7 +9,7 @@
   jobq.py status [--name AGENT] [--all]   |  result ID [--json]  |  cancel ID... | --name AGENT
   jobq.py hosts | daemon | ensure | gc | init-hosts
 
-A job runs on a host with the needed capability in a fresh clone of "git archive HEAD tools include tests config"
+A job runs on a host with the needed capability in a fresh clone of "git archive HEAD tools include tests config src"
 plus the job's overlay files (uncommitted sources; --dirty overlays every modified/untracked file of those
 directories). build/, isos/, matches/, equivalent/ ... are symlinks to the host's own checkout. The command's
 output, the --out paths and the exit code come back to build/jobs/out/ID/. State and hosts: build/jobs/.
@@ -39,7 +39,7 @@ LOCK = os.path.join(JOBS, "daemon.lock")
 PIDF = os.path.join(JOBS, "daemon.pid")
 DLOG = os.path.join(JOBS, "daemon.log")
 HOSTS_STATE = os.path.join(JOBS, "hosts-state.json")
-BASE_PATHS = ["tools", "include", "tests", "config"]
+BASE_PATHS = ["tools", "include", "tests", "config", "src"]   # (bink2) src too: tools read src/platform/sdl/crt/*.h; the hosts' own src snapshots were stale or missing
 NEEDS = ["any", "equiv", "msvc", "clang", "wine", "wine-gfx", "xemu", "linux-x64"]   # (linux-x64: x86-64 Linux hosts, native replays; flt1)
 TERMINAL = ("done", "failed", "gaveup", "cancelled")
 SSH = ["ssh", "-o", "ConnectTimeout=20", "-o", "ServerAliveInterval=20", "-o", "ServerAliveCountMax=3",
@@ -269,7 +269,7 @@ def add_job_opts(p):
     p.add_argument("--name", required=True, help="submitter (agent) name")
     p.add_argument("--needs", default="any", choices=NEEDS)
     p.add_argument("--files", nargs="*", default=[], help="working-tree files/dirs to overlay (PATH or SRC=DEST)")
-    p.add_argument("--dirty", action="store_true", help="overlay every modified/untracked file under tools include tests config")
+    p.add_argument("--dirty", action="store_true", help="overlay every modified/untracked file under tools include tests config src")
     p.add_argument("--out", nargs="*", default=[], help="paths (relative to the workspace) to fetch")
     p.add_argument("--limit", type=int, default=1800, help="wall-clock seconds per attempt")
     p.add_argument("--slots", type=int, default=1, help="cpu slots the job uses on a host")
