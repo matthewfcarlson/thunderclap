@@ -1,0 +1,32 @@
+// hulk-netplay: ICE credentials and room-code signalling for online co-op (src/index.js; docs/multiplayer.md).
+// Nothing here is deployed by the repo. Deploy steps: docs/multiplayer.md ("The netplay Worker").
+//
+// Secrets (never in this file; set once with wrangler, values from the Cloudflare dashboard,
+// Realtime > TURN Server > create a key):
+//   npx wrangler secret put TURN_KEY_ID           the TURN key's id
+//   npx wrangler secret put TURN_KEY_API_TOKEN    the TURN key's API token
+// Without them the Worker still runs and hands out Cloudflare's free STUN server only.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "hulk-netplay",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": true,
+  "durable_objects": {
+    "bindings": [
+      { "name": "ROOMS", "class_name": "Room" },   // one per room code
+      { "name": "QUOTA", "class_name": "Quota" }   // one, the daily counters
+    ]
+  },
+  // SQLite-backed Durable Objects: the kind the Workers Free plan has
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Room", "Quota"] }],
+  "vars": {
+    "ICE_TTL_S": "14400",          // TURN credential life (4 h; Cloudflare allows up to 48 h)
+    "ICE_DAILY_CAP": "2000",       // TURN credentials minted per UTC day, all players; past it STUN only
+    "ROOM_DAILY_CAP": "5000",      // rooms created per UTC day
+    "ROOM_JOIN_TTL_S": "600",      // a room nobody joined ends after 10 minutes
+    "ROOM_TTL_S": "7200",          // any room ends 2 hours after creation
+    "ROOM_REQUEST_CAP": "200",     // requests one room answers in its life (both players)
+    "ICE_UDP_PORTS": "3478,443"    // STUN/TURN ports handed to the game (UDP only; 53 left out)
+  }
+}
