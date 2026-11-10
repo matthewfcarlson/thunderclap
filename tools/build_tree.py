@@ -684,7 +684,9 @@ def verify_key_base(v):
         with open(gen_tree.FUNCS_CSV, "rb") as f:
             h.update(hashlib.sha1(f.read()).hexdigest().encode() + b"\0")
         import disasm
-        for m in (sys.modules[__name__], compare, sys.modules["xbe"], disasm):
+        import verify_relocs    # (prefer_relocs reads it)
+        h.update(("relocpick-off\0" if "relocpick" in BT_OFF else "").encode())
+        for m in (sys.modules[__name__], compare, sys.modules["xbe"], disasm, verify_relocs):
             with open(m.__file__, "rb") as f:
                 h.update(hashlib.sha1(f.read()).hexdigest().encode() + b"\0")
         _VERIFY_BASE.append(h.hexdigest())
@@ -794,6 +796,39 @@ def _verify_slice(span):
     return out, sorted(tools_loaded()), dict(VERIFY_STATS)
 
 
+BT_OFF = set(os.environ.get("HULK_BUILD_TREE_OFF", "").split(","))   # relocpick: the first exact candidate (before build6)
+
+
+def prefer_relocs(v, obj, b, claimed, c):
+    """Several symbols can byte-match one original with relocations masked (the instantiations of one template member,
+    `?vfunc_2@?$Method7@...`, that differ only in the callee): Verifier.check takes the first. Of the exact candidates,
+    take the one whose relocations hit the original's targets (verify_relocs), so the symbol is this function's own and
+    the Wine link binds the address to its own code, not a sibling's (build4 finding 3: 12 functions; build6 applies it
+    here as tools/tree_tu.py does). HULK_BUILD_TREE_OFF=relocpick: the first exact one."""
+    import verify_relocs
+    if "relocpick" in BT_OFF or c.get("status") != "match" or c.get("how") not in ("name", "loose"):
+        return c
+    coff = v.coff(obj)
+    cands, _ = v.candidates(coff, b, claimed)
+    if len(cands) < 2:
+        return c
+    a = int(b["addr"], 16)
+    target = v.target(a)
+    exact = []
+    for sym in cands:
+        name, ours, mask = coff.function(sym)
+        if compare.diff(target, compare.strip_padding(ours), mask)["exact"]:
+            exact.append(sym)
+    if len(exact) < 2:
+        return c
+    for sym in exact:
+        if verify_relocs.check_object(coff, sym, a)["status"] == "ok":
+            if sym[0] != c.get("symbol"):
+                c = dict(c, symbol=sym[0], how=c["how"] + "+relocs")
+            return c
+    return c
+
+
 def verify_tu(v, rec, obj):
     """The check records of one TU's blocks (obj: its object, or None when it failed to compile)."""
     claimed = set()
@@ -816,7 +851,7 @@ def verify_tu(v, rec, obj):
                 claimed.add(c["symbol"])
                 r["vs_standalone"] = compare_with_standalone(v, obj, c["symbol"], b, a)
         else:
-            c = v.check(obj, b, claimed)
+            c = prefer_relocs(v, obj, b, claimed, v.check(obj, b, claimed))
             r.update({k: c[k] for k in ("status", "symbol", "how", "score") if k in c})
             if c.get("symbol"):
                 claimed.add(c["symbol"])

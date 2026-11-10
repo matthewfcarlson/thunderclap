@@ -350,30 +350,9 @@ def check_tu(path, relocs=False, rec=None, obj=None, vs_standalone=False):
 
 
 def _prefer_relocs(v, obj, b, claimed, c):
-    """Several symbols can byte-match one original with relocations masked (the instantiations of one template member,
-    `?vfunc_2@?$Method7@...`, that differ only in the callee): the Verifier takes the first. Of the exact candidates,
-    take the one whose relocations hit the original's targets (verify_relocs), so the symbol is this function's own."""
-    import compare
-    import verify_relocs
-    coff = v.coff(obj)
-    cands, _ = v.candidates(coff, b, claimed)
-    if len(cands) < 2:
-        return c
-    a = int(b["addr"], 16)
-    target = v.target(a)
-    exact = []
-    for sym in cands:
-        name, ours, mask = coff.function(sym)
-        if compare.diff(target, compare.strip_padding(ours), mask)["exact"]:
-            exact.append(sym)
-    if len(exact) < 2:
-        return c
-    for sym in exact:
-        if verify_relocs.check_object(coff, sym, a)["status"] == "ok":
-            if sym[0] != c.get("symbol"):
-                c = dict(c, symbol=sym[0], how=c["how"] + "+relocs")
-            return c
-    return c
+    """build_tree.prefer_relocs (of several exact candidates, the one whose relocations hit the original's targets)."""
+    import build_tree
+    return build_tree.prefer_relocs(v, obj, b, claimed, c)
 
 
 def _shared(v, obj, pairs):
