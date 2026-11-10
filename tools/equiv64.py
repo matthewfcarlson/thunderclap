@@ -54,6 +54,7 @@ STUB_SLOTS = 0x10000
 GLOBALS = 0x50000000                # extern data symbols (rel32 reach on x64), vtables
 STACK_LO, STACK_HI = 0x0E000000, 0x0F000000
 ENTRY_SP = STACK_HI - 0x10000
+GSLOT, GSLOTS = 0x10000, 0xE00         # global objects: 64 KB slots in GLOBALS..GLOBALS+0x0E000000 (Heap.get)
 SENTINEL = STUBS - 0x1000           # return address of the function under test
 GDT32, TIB32 = 0x5EFE0000, 0x5EFD0000   # i386: fs:[0] is the SEH chain (clang's EH frames register there)
 FSLOT = SENTINEL + 0x100            # float result of a 32-bit stub (loaded by its thunk)
@@ -66,6 +67,34 @@ RAW_SIZE = 0x1000
 STEPS = int(os.environ.get("EQ64_STEPS", "1000000"))
 RUN_TIMEOUT = int(float(os.environ.get("EQ64_RUN_SECONDS", "30")) * 1e6)    # per run (us); a longer run counts as a hang
 OFF = set(os.environ.get("EQ64_OFF", "").split(","))
+# (merge-once) while a tree TU is checked: the TU's other verified functions (MSVC symbols, tools/tree_tu.py records).
+# They are separate functions of the original, stubbed as when the function is checked from its own source (where they
+# are declared, not defined), never run in place as part of ours (equiv.py's TREE_EXTERNAL)
+TREE_EXTERNAL = set()
+TREE_ACTIVE = []        # (merge-once) the address under test while a tree TU is checked
+TREE_PINNED = set()     # (merge-once) the pinned globals the function's block reads through a view (Checker.pinned_views)
+PIN_VIEW = re.compile(r"^#define (\w+) \(\*\(.+ \*\)&::\1\)\s*$")
+TREE_NS = re.compile(r"@fn_f?[0-9a-f]{7,8}(?=@)")
+
+
+def rng_key(key):
+    """(build6) A stub's key as its random stream's seed: without the declaration's position (`decl:FILE:LINE:COL:f` ->
+    `decl:f`) or the tree's namespaces, so the same callee draws the same values whether the function is checked from
+    its own source or from its TU, where the declaration sits elsewhere. EQ64_OFF=rngloc: the key as it is."""
+    if "rngloc" in OFF or not isinstance(key, str):
+        return repr(key)
+    m = re.match(r"^decl:[^:]*:\d+:\d+:(.*)$", key)
+    if m:
+        key = "decl:" + m.group(1)
+    return repr(TREE_NS.sub("", key))
+
+
+def untree(name):
+    """(merge-once) NAME without the tree's namespaces (fn_<addr> of a wrapped block, fn_f<7 hex> of a TU), while a tree
+    TU is checked: `?FUN_0008d690@fn_f62c01b9@@YAPAXI@Z` is the allocator `?FUN_0008d690@@YAPAXI@Z`."""
+    if not TREE_ACTIVE or not name or "treens" in OFF:
+        return name
+    return TREE_NS.sub("", name)
 
 
 class Unsupported(Exception):
@@ -194,11 +223,19 @@ class Image:
         for name, value, secnum, typ, cls in obj.functions():
             if secnum in self.secaddr:
                 self.funcs[name] = self.secaddr[secnum] + value
+        self.ext_names = set()     # (merge-once) defined functions bound as undefined ones (Checker.tree_externalize)
         self.undef = sorted({obj.syms[si][0] for s in obj.sections for va, si, t in s["relocs"]
                              if si in obj.syms and obj.syms[si][2] == 0 and obj.syms[si][4] in (2, 105)})
         byaddr = sorted((a_, n_) for n_, a_ in self.defined.items())
         self.sym_starts = [a_ for a_, _ in byaddr]
         self.sym_names = [n_ for _, n_ in byaddr]
+
+    def externalize(self, names):
+        """(merge-once) Bind references to the defined functions NAMES as references to undefined ones (stubs)."""
+        names = set(names) & set(self.funcs)
+        refd = {self.obj.syms[si][0] for s in self.obj.sections for va, si, t in s["relocs"] if si in self.obj.syms}
+        self.ext_names = names
+        self.undef = sorted(set(self.undef) | (names & refd))
 
     def func_range(self, name):
         import equiv
@@ -224,7 +261,7 @@ class Image:
             base = self.secaddr[sn]
             for va, si, typ in s["relocs"]:
                 name, value, secnum, _, cls = self.obj.syms[si]
-                if secnum > 0:
+                if secnum > 0 and name not in self.ext_names:
                     if secnum not in self.secaddr:
                         continue
                     S = self.secaddr[secnum] + value
@@ -806,10 +843,12 @@ def ret_indirect(sig, bits):
 
 # ------------------------------------------------------------------------------------------------- the object graph
 class Obj:
-    __slots__ = ("id", "ident", "kind", "lay", "count", "a32", "a64", "size32", "size64", "ptrs", "hint", "alloc", "init")
+    __slots__ = ("id", "rid", "ident", "kind", "lay", "count", "a32", "a64", "size32", "size64", "ptrs", "hint", "alloc",
+                 "init")
 
     def __init__(self, oid, ident, kind, lay, count, size32, size64):
         self.id, self.ident, self.kind, self.lay, self.count = oid, ident, kind, lay, count
+        self.rid = oid          # the key of its random contents (Heap.get)
         self.size32, self.size64 = size32, size64
         self.a32 = self.a64 = 0
         self.ptrs = {}
@@ -833,6 +872,8 @@ class Heap:
         self.by_ident = {}
         self.next = {32: HEAP32, 64: HEAP64}
         self.gnext = GLOBALS
+        self.gused = set()
+        self.nheap = 0
         self.starts = {32: [], 64: []}      # sorted region starts -> obj
         self.order = {32: [], 64: []}
         self.by_type = {}
@@ -862,8 +903,28 @@ class Heap:
         else:
             s32, s64 = lay.size32 * count, lay.size64 * count
         o = Obj(len(self.objs), ident, kind, lay, count, s32, s64)
+        if "rngloc" not in OFF:
+            # (build6) contents keyed apart from the global objects made up front: a tree TU's data symbols (all of its
+            # functions') come before the arguments, so by creation index the same argument would draw other values
+            # than when the function is checked from its own source. Globals by name, the rest in creation order
+            if glob:
+                o.rid = ("g", rng_key(ident[1]) if ident[:1] == ("sym",) else repr(ident))
+            else:
+                o.rid = self.nheap
+                self.nheap += 1
         o.alloc = alloc
-        if glob:
+        if glob and "gseq" not in OFF:
+            # (build6) each global at a place its name decides (64 KB slots, probing on), not after the globals made
+            # before it: what lies past a global's end (an index out of range reads there) is then the same whether
+            # the object has this function alone or a whole tree TU of others with their own globals
+            span = (max(s32, s64) + PAGE - 1) & ~(PAGE - 1)
+            need = (span + PAGE + GSLOT - 1) // GSLOT
+            i = h64(repr(o.rid)) % (GSLOTS - need)
+            while any(j in self.gused for j in range(i, i + need)):
+                i = (i + 1) % (GSLOTS - need)
+            self.gused.update(range(i, i + need))
+            o.a32 = o.a64 = GLOBALS + i * GSLOT
+        elif glob:
             a = self.gnext
             span = (max(s32, s64) + PAGE - 1) & ~(PAGE - 1)
             self.gnext = a + span + PAGE
@@ -903,7 +964,7 @@ class Heap:
             buf[:len(b)] = b
             return buf
         if o.lay.raw:
-            r = Rng(self.seed, "raw", o.id)
+            r = Rng(self.seed, "raw", o.rid)
             n = o.size(bits) if o.alloc else span
             # raw bytes: the same on both sides, byte for byte
             for i in range(0, n, 8):
@@ -926,7 +987,7 @@ class Heap:
     def leaf_value(self, o, e, l):
         """The abstract value of leaf L of element E of O: ("i", int) ("f", bits) ("d", bits) ("b", bytes) or a
         pointer ("p", obj or None, 32-bit offset) / ("fn", stub key) / ("vt", vtable obj)."""
-        r = Rng(self.seed, "leaf", o.id, e, l.o32)
+        r = Rng(self.seed, "leaf", o.rid, e, l.o32)
         k = l.kind
         if k == "i" and l.s32 == 4 and l.s64 == 8:
             # a pointer-sized integer (hulk_intptr / hulk_uintptr: a pointer the code keeps in an integer): a small
@@ -1204,7 +1265,78 @@ class Checker:
         if symbol and symbol.startswith("??_G") and symbol not in self.img[32].funcs:
             self.deleting_dtor(symbol, d)
         self.pick(symbol)
+        if TREE_EXTERNAL:
+            self.tree_externalize()
         self.resolve_all()
+
+    def reachable(self, bits, v):
+        """Is address V of our image in a symbol the function under test can reach through relocations? Always outside
+        a tree TU. (merge-once) A tree TU's object holds hundreds of functions, so an integer (a float's bits, a fuzzed
+        value) lands in our code far more often than in a one-function object, and each target's layout puts another
+        symbol there: an integer is read as an address only inside what the function can refer to."""
+        if not TREE_ACTIVE or "treereach" in OFF:
+            return True
+        r = getattr(self, "_reach", {}).get(bits)
+        if r is None:
+            img = self.img[bits]
+            edges = {}
+            for i, s in enumerate(img.obj.sections):
+                sn = i + 1
+                if sn not in img.secaddr:
+                    continue
+                for va, si, typ in s["relocs"]:
+                    if si not in img.obj.syms:
+                        continue
+                    name = img.obj.syms[si][0]
+                    src, _ = img.sym_at(img.secaddr[sn] + va)
+                    if src is not None and name in img.defined and name not in img.ext_names:
+                        edges.setdefault(src, set()).add(name)
+            start = self.sym32 if bits == 32 else self.sym64
+            r, todo = {start}, [start]
+            while todo:
+                for n in edges.get(todo.pop(), ()):
+                    if n not in r:
+                        r.add(n)
+                        todo.append(n)
+            self.__dict__.setdefault("_reach", {})[bits] = r
+        name, _ = self.img[bits].sym_at(v)
+        return name in r
+
+    def tree_externalize(self):
+        """(merge-once) The TU's other functions (TREE_EXTERNAL, MSVC symbols) are stubs on both sides, as in a
+        standalone check where they are only declared: their 32-bit clang names (MSVC's, or with clang's `double` return
+        where MSVC's is `float`: M <-> N) and the 64-bit names of the same declarations."""
+        f32 = self.img[32].funcs
+        by_key = {}
+        for f in f32:
+            by_key.setdefault(f.replace("N", "M"), []).append(f)
+        ext32 = set()
+        for n in TREE_EXTERNAL:
+            if n in f32:
+                ext32.add(n)
+                continue
+            for f in by_key.get(n.replace("N", "M"), ()):
+                if all(x == y or {x, y} == {"M", "N"} for x, y in zip(f, n)):
+                    ext32.add(f)
+        ext32.discard(self.sym32)
+        loc64 = {}
+        for mn, c in self.tu[64].by_mangled.items():
+            if mn in self.img[64].funcs:
+                loc64.setdefault((c.kind, loc_key(c)), []).append(mn)
+        norm64 = {}
+        for f in self.img[64].funcs:
+            norm64.setdefault(norm_mangled(f), []).append(f)
+        ext64 = set()
+        for n in ext32:
+            c = self.tu[32].by_mangled.get(n)
+            hit = loc64.get((c.kind, loc_key(c))) if c is not None else None
+            if not hit:
+                cn = c_name(n, 32)
+                hit = [cn] if cn and cn in self.img[64].funcs else norm64.get(n)
+            ext64.update(hit or ())
+        ext64.discard(self.sym64)
+        self.img[32].externalize(ext32)
+        self.img[64].externalize(ext64)
 
     def deleting_dtor(self, sym32, d):
         """(as equiv.py --wine, round 25) The original is a scalar deleting destructor, which clang does not emit: both
@@ -1296,7 +1428,8 @@ class Checker:
         self.sig = Sig.of(c32, c64, name32)
         self.param_casts = {}
         if "casts" not in OFF:
-            a32, a64 = param_casts(c32), param_casts(c64)
+            # (the definition's body: a TU can declare the function before it defines it, merge-once)
+            a32, a64 = param_casts(c32.get_definition() or c32), param_casts(c64.get_definition() or c64)
             for k in a32:
                 if k in a64:
                     self.param_casts[k] = (a32[k], a64[k])
@@ -1363,6 +1496,7 @@ class Checker:
                         st = self.new_stub(key, None, "func", label=name)
                     st.names[bits] = name
                     self.ext[bits][name] = ("stub", st)
+        self.global_views = self.pinned_views() if TREE_ACTIVE and "pinview" not in OFF else {}
         # signatures of function stubs from both parses
         for st in self.stubs:
             if st.kind != "func":
@@ -1380,6 +1514,48 @@ class Checker:
             elif n32 and n64 and n32.startswith("??1") and n32.endswith("AE@XZ") and n64.endswith("EAA@XZ"):
                 # a destructor of a template instance (no declaration cursor): void (this), thiscall
                 st.sig = Sig((FakeType("VOID", 0), FakeType("VOID", 0)), [], CC_THIS, True, False, None, n32)
+
+    def pinned_views(self):
+        """(merge-once) {data key: (T32, T64)} for the pinned globals the function under test reads through a typed
+        view: gen_tree replaces a wrapped source's `extern World* DAT_004dd700;` by the view `#define DAT_004dd700
+        (*(World* *)&::DAT_004dd700)` of the TU's one declaration (a void*, or the TU's own `World*`, another class).
+        The global is the view's type (the block's World*), as it is where the function is checked from its own
+        source. Only the names the function's block defines such a view for (TREE_PINNED)."""
+        K = ci().CursorKind
+        found = {}
+        if not TREE_PINNED:
+            return {}
+        for bits, sym in ((32, self.sym32), (64, self.sym64)):
+            c = self.tu[bits].by_mangled.get(sym)
+            c = (c.get_definition() or c) if c is not None else None
+            if c is None:
+                return {}
+            for x in c.walk_preorder():
+                if x.kind != K.CSTYLE_CAST_EXPR:
+                    continue
+                ct = x.type.get_canonical()
+                if ct.kind.name != "POINTER":
+                    continue
+                kids = list(x.get_children())
+                while kids and kids[-1].kind in (K.PAREN_EXPR, K.UNEXPOSED_EXPR) and len(list(kids[-1].get_children())) == 1:
+                    kids = list(kids[-1].get_children())
+                if not kids or kids[-1].kind != K.UNARY_OPERATOR:
+                    continue
+                toks = [tk.spelling for tk in kids[-1].get_tokens()]
+                inner = list(kids[-1].get_children())
+                if not toks or toks[0] != "&" or len(inner) != 1 or inner[0].kind != K.DECL_REF_EXPR:
+                    continue
+                v = inner[0].referenced
+                if v is None or v.kind != K.VAR_DECL or v.spelling not in TREE_PINNED:
+                    continue
+                key = "decl:" + loc_key(v)
+                found.setdefault(key, {}).setdefault(bits, set()).add(ct.get_pointee().spelling)
+                found[key].setdefault(("t", bits), ct.get_pointee())
+        out = {}
+        for key, f in found.items():
+            if len(f.get(32, ())) == 1 and len(f.get(64, ())) == 1 and key in self.data_keys:
+                out[key] = (f[("t", 32)], f[("t", 64)])
+        return out
 
     def new_stub(self, key, sig, kind, label=""):
         st = Stub(key, sig, kind, len(self.stubs), label)
@@ -1726,7 +1902,13 @@ class Side:
         ent = self.chk.data_keys.get(key, {})
         c32 = ent.get(32, (None, None))[1]
         c64 = ent.get(64, (None, None))[1]
-        if c32 is not None and c64 is not None:
+        view = getattr(self.chk, "global_views", {}).get(key)
+        if view is not None:
+            try:
+                lay = self.chk.types.layout(view[0], view[1])
+            except Unsupported:
+                lay = RAW
+        elif c32 is not None and c64 is not None:
             try:
                 lay = self.chk.types.layout(c32.type, c64.type)
             except Unsupported:
@@ -1887,7 +2069,8 @@ class Side:
         v = int.from_bytes(data[:n], "little")
         if n >= 4:
             o_, off_ = self.heap.find(self.bits, v)
-            if (o_ is not None and off_ < o_.size(self.bits)) or (STUBS <= v < self.stub_hi) or (CODE <= v < self.code_end):
+            if (o_ is not None and off_ < o_.size(self.bits)) or (STUBS <= v < self.stub_hi) or \
+                    (CODE <= v < self.code_end and self.chk.reachable(self.bits, v)):
                 return self.canon_ptr(v)
             # a pointer-width integer (hulk_intptr) holding the address of a local: its value is the stack's layout
             if ptrwidth and STACK_LO <= v < STACK_HI:
@@ -2148,6 +2331,7 @@ class Side:
         sp = self.reg(spr)
         retaddr = self.read_int(sp, self.ps)
         name = st.names.get(b, st.label) if st.kind == "func" else st.label
+        name = untree(name)
         cname = c_name(name, b) if name else None
         n = self.counts.get(st.key, 0)
         self.counts[st.key] = n + 1
@@ -2313,7 +2497,7 @@ class Side:
         tt = sig.ret
         tc = rt.get_canonical()
         k = tc.kind.name
-        r = Rng(self.seed, "ret", repr(st.key), n)
+        r = Rng(self.seed, "ret", rng_key(st.key), n)
         if k == "VOID":
             return None
         if sret:
@@ -2509,6 +2693,7 @@ class Side:
         sig = st.sig
         at = None
         for bits_, nm in st.names.items():
+            nm = untree(nm)
             at = allocator_at(nm, c_name(nm, bits_))
             if at is not None:
                 break
@@ -2892,12 +3077,34 @@ def verify64(src, addr, symbol=None, n_inputs=200, seeds=None, time_budget=120, 
         # (merge-once) a tree TU: its whole text is the source; the function at ADDR is the one the tree's rules name
         # (tools/tree_tu.py), the tree's include/ is on every compile's path
         with tree_tu.active(src):
-            if symbol is None:
-                try:
-                    symbol = tree_tu.record(src, addr).get("symbol")
-                except KeyError as e:
-                    return {"addr": "0x%08x" % addr, "src": src, "mode": "x64", "status": "no_function", "error": str(e)}
-            return _verify64(src, addr, symbol, n_inputs, seeds, time_budget, verbose)
+            try:
+                recs = tree_tu.check_tu(src)
+            except Exception as e:      # noqa: BLE001
+                return {"addr": "0x%08x" % addr, "src": src, "mode": "x64", "status": "compile_error", "error": repr(e)[:300]}
+            r_ = next((x for x in recs if int(x["addr"], 16) == addr), None)
+            if r_ is None:
+                return {"addr": "0x%08x" % addr, "src": src, "mode": "x64", "status": "no_function",
+                        "error": "%s has no block for 0x%08x" % (src, addr)}
+            symbol = symbol or r_.get("symbol")
+            if "treeext" not in OFF:
+                TREE_EXTERNAL.clear()
+                TREE_EXTERNAL.update(x["symbol"] for x in recs
+                                     if x.get("symbol") and int(x["addr"], 16) != addr and x["symbol"] != symbol)
+            TREE_ACTIVE.append(addr)
+            TREE_PINNED.clear()
+            try:
+                for l in tree_tu.block_lines(src, addr):
+                    m = PIN_VIEW.match(l)
+                    if m:
+                        TREE_PINNED.add(m.group(1))
+            except Exception:   # noqa: BLE001
+                TREE_PINNED.clear()
+            try:
+                return _verify64(src, addr, symbol, n_inputs, seeds, time_budget, verbose)
+            finally:
+                TREE_PINNED.clear()
+                TREE_ACTIVE.pop()
+                TREE_EXTERNAL.clear()
     return _verify64(src, addr, symbol, n_inputs, seeds, time_budget, verbose)
 
 
