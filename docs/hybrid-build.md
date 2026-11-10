@@ -364,3 +364,34 @@ keep a window. `egl-headless` isn't available on macOS.
   player's).
 - `tools/hybrid_test.py` scenario suite and JSON report beyond `determinism`/`compare`; snapshot capture and
   `equiv.py --inputs-from` (task 10 deliverables 2, 4).
+
+## After merge-once: retire function patching, keep the recording build (proposal, build5 2026-11-10)
+
+Read from the code paths (nothing run): the two halves of this tooling depend on different things.
+
+**Recording and replay need no decompiled code.** `hybrid_test.py record` / `replay` / `record_continue` and
+`trace_gate.py` / `trace_capture.py` all call `patch_xbe.build([], ...)`: an empty function list, so the image is the
+original XBE plus the tweaks (`skip-intro`, `no-fmv`), `hybrid/hooks.cpp` (compiled with MSVC 7.1: pad
+record/replay rings, checkpoints, the determinism pins `fixed-dt`, `vclock`, `sound-rng`, `vpad`, `vdate`,
+`seq-rng`, `syncio`) and the hook patch points, which are addresses in the original code. Nothing of `matches/` or
+`equivalent/` is compiled or linked. The one dependency on the per-function files is an **address list**: with
+snapshots on (`--snap-every`, the default), `record` lays out trace trampolines for `trace_gate.default_targets()` =
+`trace_capture.Capture.targets()`, which lists `equivalent/` (every source) plus a sample of 300 `matches/` (>= 24
+bytes) through `equiv_replay.sources()`, i.e. by directory. After the flip that list must come from the tree (the
+functions with status `equivalent` and a sample of `match`, from the tree's per-function status), not from the
+directories; no compiled object is needed. `trace_capture.py` (equivalence inputs from the original game) has the
+same address-list dependency and nothing else.
+
+**Function patching is superseded.** `hybrid_test.py compare`, `bisect_hybrid.py` and `patch_xbe.py --matches /
+--equivalent` compile each `matches/0xADDR.cpp` / `equivalent/0xADDR.cpp` with MSVC 7.1 and jump the original's
+entry to it. That was the behavioural check before the Wine build; the Wine proof (the whole clang image replaying
+play3 to 60,000 frames, `ckpt_gate.py`) has replaced it: no `hybrid/` commit since 2026-10-19 (`hooks.cpp`,
+`b81e153fe`), `patch_xbe.py` last changed 2026-10-19, `bisect_hybrid.py` 2026-10-12. On merged TUs it would need a
+per-function MSVC object out of a TU (compare.py's stage-1 work, build4) plus the `equiv-conv` adapter thunks it
+never had.
+
+**Proposal:** keep `hybrid/hooks.cpp`, `patch_xbe.py`'s image surgery and hooks, `hybrid_run.py`, `hybrid_test.py
+record / replay / determinism / salvage` and the trace tools; switch their target lists to the tree's status
+list at the flip; retire `hybrid_test.py compare`, `bisect_hybrid.py`, `patch_xbe.py --matches / --equivalent /
+--only` (the `select` / `prepare_all` / `check_extent` path) and `hybrid/exclude.txt`. Nothing is deleted until the
+user agrees.

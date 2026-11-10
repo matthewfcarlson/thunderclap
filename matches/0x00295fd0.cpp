@@ -1,20 +1,20 @@
 #include "compat/ptr.h"
 extern "C" void _ReadWriteBarrier();
 extern char vt[];
-class DrawableNode {
+class LeafNode_295fd0 {
   public:
     virtual void Dummy();
     char pad[0x10 - 4];
     int m10;
     int m14;
     int m18;
-    DrawableNode();
+    LeafNode_295fd0();
 };
-class Node : public DrawableNode {
+class DrawableNode_295fd0 : public LeafNode_295fd0 {
   public:
-    Node();
+    DrawableNode_295fd0();
 };
-Node::Node() : DrawableNode() {
+DrawableNode_295fd0::DrawableNode_295fd0() : LeafNode_295fd0() {
     m14 = 0;
     m18 = 0;
     m10 = 6;

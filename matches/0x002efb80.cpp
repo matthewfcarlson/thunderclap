@@ -2,7 +2,7 @@
 #include "decls/data/engine/physics.h"
 // data: gWaypoint = DAT_004d29a8
 
-class CDHGameObjectCreator {
+class SimState_2efb80 {
     char a[4];
 };
 class DataHandler {
@@ -11,13 +11,13 @@ class DataHandler {
         char b[4];
     };
 };
-class CAmbientsManager : public CDHGameObjectCreator, public DataHandler::ObjectCreator {
+class ManualSimState_2efb80 : public SimState_2efb80, public DataHandler::ObjectCreator {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual const char* vfunc_3(void*);
 };
-const char* CAmbientsManager::vfunc_3(void*) {
+const char* ManualSimState_2efb80::vfunc_3(void*) {
     return DAT_004d29a8;
 }
