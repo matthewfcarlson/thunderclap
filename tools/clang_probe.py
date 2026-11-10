@@ -112,8 +112,8 @@ if FLOAT_SSE:
 # kept as -O0 has it where a switch exists: falling off a value-returning function is not `unreachable`
 # (-fno-strict-return), loops without side effects are not deleted (-fno-finite-loops), and library calls stay calls
 # (-fno-builtin: no constant-folded sin/pow, no pow(x, 2) -> x*x, no loop -> memset; the image's math shims return
-# the x87 results the original computes), and an out-of-range float -> int conversion is the instruction's result
-# (0x80000000, as at -O0), not poison (-fno-strict-float-cast-overflow; play3 has two such sites, wine-float.md 14). HULK_WINE_OPT_EXCLUDE=FILE names TUs
+# the x87 results the original computes). Not -fno-strict-float-cast-overflow: it saturates (llvm.fptosi.sat) where
+# -O0's cvttsd2si gives 0x80000000. HULK_WINE_OPT_EXCLUDE=FILE names TUs
 # (snapshot-relative paths, one a line) that stay -O0 (bisection, known-bad TUs); HULK_WINE_OPT_ONLY=FILE optimises
 # only the TUs it names. Unset: the -O0 build, its cache keys and objects unchanged.
 WINE_OPT = os.environ.get("HULK_WINE_OPT", "")
@@ -121,7 +121,7 @@ if WINE_OPT not in ("", "O0", "O1", "O2", "O3", "Os"):
     sys.exit("HULK_WINE_OPT must be O1, O2, O3 or Os")
 WINE_OPT = "" if WINE_OPT == "O0" else WINE_OPT
 OPT_FRONT = ["-fno-omit-frame-pointer", "-fno-inline", "-fno-optimize-sibling-calls", "-fno-strict-return",
-             "-fno-finite-loops", "-fno-builtin", "-fno-strict-float-cast-overflow"]
+             "-fno-finite-loops", "-fno-builtin"]
 
 
 def _tu_list(var):
