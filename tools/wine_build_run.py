@@ -237,28 +237,6 @@ def closure(tools, entry):
     return {"tools/%s.py" % n for n in seen}
 
 
-def tree_input_files(rec, tools):
-    """The tools/ files a tree build's result depends on: the modules the last build recorded loading
-    (build/tree/inputs.json, build_tree.tree_inputs(); build3) or, for a build made before that was recorded, the static
-    import closure of build_tree (twice as many files: equiv.py, jobq.py, clang_probe.py, data_gen.py and others are
-    imported lazily by features a Wine build never runs, and an edit to any of them forced a fresh tree build)."""
-    if rec and rec.get("tools"):
-        return set(rec["tools"])
-    return closure(tools, "build_tree")
-
-
-def is_tree_input(rel, watched, rec):
-    """Is REL (a changed file) an input of the tree build beyond the function sources every build reads anyway? With a
-    recorded inputs.json (REC): headers under include/ (any TU may include one, and a header can change which
-    fallbacks a fresh build finds), the config/ files the build reads, and the tools in WATCHED. Without one, as
-    before: anything under include/ or config/, and WATCHED."""
-    if rel.startswith("include/"):
-        return rec is None or rel.endswith((".h", ".hpp", ".inl"))
-    if rel.startswith("config/"):
-        return rec is None or rec.get("config") is None or rel in rec["config"]
-    return rel in watched
-
-
 def decide(spec, built, mapped, new, lin):
     """(resume the build_tree state?, reuse the binding map?, reasons).
 
@@ -271,14 +249,14 @@ def decide(spec, built, mapped, new, lin):
     by the map key (wine_link.map_key: the symbol names each function's bindings depend on), so a source that changes a
     mangled name (a return type, `extern "C"`) is mapped again."""
     tools = os.path.join(lin, "tools")
-    rec = jload(os.path.join(lin, "build/tree/inputs.json"))
-    tree_files, map_files = tree_input_files(rec, tools), closure(tools, "wine_link")
+    tree_files, map_files = closure(tools, "build_tree"), closure(tools, "wine_link")
 
-    def classify(old, watched, rec=None):
+    def classify(old, watched):
         ch = diff_manifests(old, new)
         n = {k: len(v) for k, v in ch.items()}
         shape = [r for r in ch["added"] + ch["removed"] if r.startswith(("matches/", "equivalent/"))]
-        core = [r for k in ("added", "modified", "removed") for r in ch[k] if is_tree_input(r, watched, rec)]
+        core = [r for k in ("added", "modified", "removed") for r in ch[k]
+                if r.startswith(("include/", "config/")) or r in watched]
         return n, shape, core
     st, mp, why = spec.get("state", "auto"), spec.get("map", "auto"), {}
     have_tree = built is not None and os.path.exists(os.path.join(lin, "build/tree/state.json"))
@@ -292,11 +270,10 @@ def decide(spec, built, mapped, new, lin):
         resume = True
         why["state"] = "resume requested"
     else:
-        n, shape, core = classify(built, tree_files, rec)
+        n, shape, core = classify(built, tree_files)
         resume = not core
-        inputs = "recorded inputs" if rec and rec.get("tools") else "static import closure"
-        why["state"] = ("resume: %s since the last build; none of include/ config/ or the tree build's tools (%s)" % (n, inputs)) \
-            if resume else "fresh: %d inputs of the tree build changed (%s; %s)" % (len(core), ", ".join(core[:3]), inputs)
+        why["state"] = ("resume: %s since the last build; none of include/ config/ or the tree build's tools" % n) if resume else \
+            "fresh: %d inputs of the tree build changed (%s)" % (len(core), ", ".join(core[:3]))
     have_map = mapped is not None and os.path.exists(os.path.join(lin, "build/native/bindings.json"))
     if mp == "full" or not have_map or not resume:
         reuse = False
@@ -331,10 +308,7 @@ def seed_decision(spec, run, new, lin, tc):
     with gzip.open(srcp, "rt") as f:
         old = json.load(f)
     ch = diff_manifests(old, new)
-    # (build3) the control's recorded inputs (nb-out/tree-inputs.json, if it travelled) name the tools its build
-    # loaded; a control built before that was recorded falls back to the static import closure
-    rec = jload(os.path.join(run, "nbrun/seed-inputs.json"))
-    tree_files = tree_input_files(rec, os.path.join(lin, "tools"))
+    tree_files = closure(os.path.join(lin, "tools"), "build_tree")
     fn = re.compile(r"^(?:matches|equivalent)/0x([0-9a-f]{8})\.cpp$")
     core, addrs = [], set()
     for k in ("added", "modified", "removed"):
@@ -342,12 +316,11 @@ def seed_decision(spec, run, new, lin, tc):
             m = fn.match(r)
             if m:
                 addrs.add(m.group(1))
-            elif r.startswith(("matches/", "equivalent/")) or is_tree_input(r, tree_files, rec):
+            elif r.startswith(("include/", "config/", "matches/", "equivalent/")) or r in tree_files:
                 core.append(r)
     if core:
-        return None, [], "fresh: %d inputs of the tree build differ from control %s's (%s; %s)" % (
-            len(core), sd.get("job"), ", ".join(sorted(core)[:3]),
-            "recorded inputs" if rec and rec.get("tools") else "static import closure")
+        return None, [], "fresh: %d inputs of the tree build differ from control %s's (%s)" % (
+            len(core), sd.get("job"), ", ".join(sorted(core)[:3]))
     return stp, sorted(addrs), "seed: control %s's state, %d function sources differ (%s)" % (
         sd.get("job"), len(addrs), {k: len(v) for k, v in ch.items()})
 
@@ -579,8 +552,6 @@ def main():
         if rc == 0 and os.path.exists(os.path.join(lin, "build/tree/report.json")):
             jsave(os.path.join(lin, ".nb/built.json"), manifest)
             shutil.copyfile(os.path.join(lin, "build/tree/state.json"), os.path.join(out, "tree-state.json"))
-            if os.path.exists(os.path.join(lin, "build/tree/inputs.json")):       # (build3: what a seed from this build checks)
-                shutil.copyfile(os.path.join(lin, "build/tree/inputs.json"), os.path.join(out, "tree-inputs.json"))
         else:
             ok = False
     sse = env.get("HULK_WINE_FLOAT", "sse") != "x87"

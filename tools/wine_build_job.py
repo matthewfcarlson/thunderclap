@@ -370,9 +370,6 @@ def seed_files(job):
     for p in files.values():
         if not os.path.exists(p):
             sys.exit("seed: %s is missing (a control built before seeding support cannot seed: rebuild it)" % p)
-    if os.path.exists(os.path.join(d, "tree-inputs.json")):
-        # (build3) the tools the control's build loaded: seed_decision checks those instead of the static import closure
-        files["nbrun/seed-inputs.json"] = os.path.join(d, "tree-inputs.json")
     return files, {"job": str(job), "host": summ.get("host"), "toolchain": summ.get("toolchain")}
 
 
