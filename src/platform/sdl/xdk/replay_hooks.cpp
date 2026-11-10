@@ -11,6 +11,7 @@
 
 #if defined(HULK_NATIVE_SDL)
 #include "../replay/hulk_replay.h"
+#include "../input/hulk_session.h"
 #define HULK_RF_SEQ_RNG (1u << 13)          // the .hrp's seq-rng bit (tools/replay_pack.py HF)
 
 extern "C" char DAT_004e5ad0[];         // the gameplay RNG's two MWC words
@@ -45,6 +46,78 @@ static int hulk_frame_range(const char* v, hulk_u32* from, hulk_u32* to) {
     return 1;
 }
 extern "C" void HULK_CDECL hulk_native_log(const char* line);
+
+// mp2: the session state hash (docs/multiplayer.md "M0"): the checkpoint hash without the camera (each player renders
+// their own view), then the particle RNGs, every actor of the actor manager (life state, controller slot, health,
+// static ground point, position) and the scenario manager's mission state, checkpoint and clocks. Plain reads of the
+// game's objects at their 32-bit offsets (as the bindings read them: CActorManager 0x24280 / 0x59c10 / 0x59ba0,
+// am_GetActorLifeState 0x28c60, am_GetCharacterHealth 0x284c0, am_GetActorStaticGroundPoint 0x26d50,
+// am_GetActorPosition 0x26c30 -> 0x59a50, CScenarioManager 0x1cc620 / 0x1cc900 / 0x1cc860 / 0x1cc8a0); pointer
+// values are never hashed.
+extern "C" char DAT_004dd700[];         // the world (Sim 0x88670): +0x20 the actor manager, +0x2c the scenario manager
+static const char* hs_ptr(const char* p, unsigned off) { return p ? *(const char* const*)(p + off) : 0; }
+static unsigned hulk_session_state_hash(hulk_u32 fno, const HulkCkptState* st0, const unsigned char* pb) {
+    HulkCkptState st = *st0;
+    static const void* const nocam = 0;
+    st.camera_ptr = &nocam;
+    unsigned h = hulk_ckpt_hash(fno, &st);
+    h = hulk_fnv1a(h, pb, HULK_PRNG_BYTES);
+    const char* world = hs_ptr(DAT_004dd700, 0);
+    const char* am = hs_ptr(world, 0x20);
+    hulk_u32 resolved = 0;
+    if (am) {
+        const char* table = hs_ptr(hs_ptr(am, 0), 0x44);     // handle -> actor (0x59c10's receiver)
+        hulk_u32 n = *(const hulk_u32*)(am + 0xc);
+        h = hulk_fnv1a(h, &n, 4);
+        if (n > (0x124 - 0x10) / 4)                         // the inline handle array ends at the main actor (+0x124)
+            n = 0;
+        hulk_u32 tn = table ? *(const hulk_u32*)(table + 4) : 0;
+        const char* items = hs_ptr(table, 8);
+        const char* flags = hs_ptr(table, 0xc);
+        for (hulk_u32 i = 0; i < n; i++) {
+            int handle = ((const int*)(am + 0x10))[i];
+            const char* actor = 0;
+            for (hulk_u32 k = 0; items && flags && k < tn; k++)
+                if (flags[k] && *(const int*)(items + k * 0x24) == handle) {
+                    actor = hs_ptr(items + k * 0x24, 0x10);
+                    break;
+                }
+            hulk_u32 rec[10] = {0};
+            if (actor) {
+                resolved++;
+                rec[0] = 1;
+                rec[1] = *(const hulk_u32*)(actor + 0x20b0);           // life state
+                rec[2] = *(const hulk_u32*)(actor + 0x20a8);           // controller slot
+                rec[3] = *(const hulk_u32*)(actor + 0x1b0c);           // health (float bits)
+                hulk_host_memcpy(rec + 4, actor + 0x1a84, 12);         // static ground point
+                const char* node = hs_ptr(actor, 0x10);
+                const char* d = hs_ptr(node, 0x18);
+                if (d)
+                    hulk_host_memcpy(rec + 7, d + 0x40, 12);           // position (0x59a50)
+                else if (node)
+                    hulk_host_memcpy(rec + 7, node + 4, 12);
+            }
+            h = hulk_fnv1a(h, rec, sizeof(rec));
+        }
+    }
+    // every 900 frames, what the hash covered (so a log shows the actor walk resolves actors at all)
+    if (fno % 900 == 0) {
+        hulk_u32 n = am ? *(const hulk_u32*)(am + 0xc) : 0;
+        const char* sm0 = hs_ptr(world, 0x2c);
+        char line[128];
+        hulk_host__snprintf(line, sizeof(line), "session hash frame %u: %u actors, %u resolved, mission state %d", fno, n,
+                            resolved, sm0 ? *(const int*)(sm0 + 0xc) : -1);
+        hulk_native_log(line);
+    }
+    const char* sm = hs_ptr(world, 0x2c);
+    if (sm) {
+        hulk_u32 m[4];
+        m[0] = *(const hulk_u32*)(sm + 0xc);                       // mission state (sm_SetMissionState)
+        hulk_host_memcpy(m + 1, sm + 0x1194, 12);                  // checkpoint, elapsed time, end time
+        h = hulk_fnv1a(h, m, sizeof(m));
+    }
+    return h;
+}
 
 static hulk_u32 hulk_io_posts, hulk_io_waits, hulk_io_timeouts, hulk_snd_calls;
 extern "C" hulk_u32 hulk_native_frame_no;    // (startup.cpp: the probes' frame number)
@@ -93,6 +166,19 @@ extern "C" void HULK_CDECL hulk_native_frame(const void* clock) {
             hulk_host__snprintf(line, sizeof(line), "prng every f=%u %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x", fno,
                                 w[0], w[1], w[2], w[3], w[4], w[5], w[6], w[7], w[8], w[9]);
             hulk_native_log(line);
+        }
+    }
+    // mp2: the live session (HULK_NET / HULK_CTL_PORT, input/hulk_session.h; off by default): the lockstep gate and the
+    // session's state hash, before the frame's update as the checkpoint sees it
+    {
+        static int sess = -1;
+        if (sess < 0)
+            sess = hulk_session_active();
+        if (sess) {
+            hulk_u32 fno = hulk_native_frame_no - 1;
+            hulk_u32 every = hulk_session_hash_interval();
+            int have = every && fno % every == 0;
+            hulk_session_frame(fno, have, have ? hulk_session_state_hash(fno, &st, pb) : 0);
         }
     }
     int r = hulk_ckpt_update(&st);

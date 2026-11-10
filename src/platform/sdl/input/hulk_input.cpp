@@ -7,6 +7,7 @@
 
 // the recorded-input source and checkpoint hashing are in this translation unit (replay/hulk_replay.cpp)
 #include "../replay/hulk_replay.h"
+#include "hulk_session.h"
 
 // ---------------------------------------------------------------------------------------------
 // conversions
@@ -468,6 +469,8 @@ int hulk_input_init(void)
             g_in.src = &kSdlSource;
         }
     }
+    // the live session (HULK_NET, the control port; input/hulk_session.h): the source unchanged when neither is set
+    g_in.src = hulk_session_wrap(g_in.src);
     g_in.src->update(g_in.src->self);
     SDL_Log("input: source %s, pads 0x%x", g_in.src->name, g_in.src->connected(g_in.src->self));
     return 1;
@@ -564,3 +567,4 @@ unsigned hulk_input_generation(unsigned port)
 }
 
 #include "../replay/hulk_replay.cpp"
+#include "hulk_session.cpp"
