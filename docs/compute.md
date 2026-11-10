@@ -240,7 +240,11 @@ $J $N sync | lineages   # inputs on the hosts (submit does it) | lineage workspa
   records are identical, tests/test_verify_cache.py); the `[time] verify` line counts the hits. `wine_build_job.py
   cache-sync SRC DST` copies the content-addressed entries one host has and another lacks (tree-cache/obj, tree-cache/verify,
   native-cache/equiv; each written under a temporary name and renamed into place; the compilers and disc are checked to be
-  the same binaries) so a host that has not built the current sources skips its cold compile rounds. `wine_link.py` prints
+  the same binaries) so a host that has not built the current sources skips its cold compile rounds (studio -> mac1, first full copy: 105,817
+  objects, 1.3 GB, 153 s; then deltas of seconds; `submit --cache-from HOST` runs it in the job's prep step). wine_link's
+  conv_check report is cached by its inputs (`HULK_WINE_CACHE/conv_check`: a link stage went from 187 to 47 s on mac1). On
+  mac1 a proof of unchanged sources went from 8,050 s (fresh, cold) to 503 s resumed by the recorded inputs, image byte-identical,
+  GATE ok. `wine_link.py` prints
   `[time]` phase marks into `map.log`/`link.log`.
 - **SSE float (default since perf1, 2026-10-26; [wine-float.md](wine-float.md) section 13).** The game's TUs are built with
   SSE2 scalar float; `--env HULK_WINE_FLOAT=x87` builds the x87 image (checkpoint-identical, about 6x slower under Rosetta).

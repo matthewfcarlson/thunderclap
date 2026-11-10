@@ -171,8 +171,9 @@ Four things made builds slower than they need to be:
 | 70677 control | HEAD | fresh, caches cold for these sources | 7,130 (503 / 4,887 in five ~2,000-TU rounds / 1,730, the first verify 1,315 building the standalone objects) | 300 | 99 | 273 | 199 | 8,050 |
 | 70684 proof | build3 | fresh, caches warm from the control | 860 (528 / 34 / 288; 31,809 of 39,122 TU checks from the verify cache) | 192 | 43 | 186 | 155 | 1,461 |
 | 70734 proof | build3 | `--state auto --map auto`: resumed and map reused by the recorded inputs | 57 (43 / 1.5 / 4.8: 2,646 of 2,646 from the verify cache) | 9 (key) | 40 | 187 | 184 | 503 |
+| 70735 proof | build3 + conv_check cache | resumed, `--map full` | 57 | 207 (conv_check 145, a miss) | 39 | 47 (conv_check 3.4, a hit) | 207 | 584 |
 
-Identity: `tree-state.json` identical for all three; `unbound.txt` identical; `ckpt_gate.py 70677 70684` and `70677 70734`
+Identity: `tree-state.json` identical for all four, the images of 70734 and 70735 byte-identical to the control's; `unbound.txt` identical; `ckpt_gate.py 70677 70684` and `70677 70734`
 GATE ok (2,011 common frames, 0 differ); the image of 70734 is byte-identical to the control's (129dc486), 70684's differed
 only because the checkout's `wine_build_job.py` had meanwhile made `--opt hot` the proof default (32 TUs at -O1; c5044eecf),
 not because of a cache. A fresh verify of 2,646 TUs is 34-47 s a round on mac1 without the cache and 4.8 s with it.
@@ -209,8 +210,10 @@ compiler's path, so they are not synced) and the native objects (tools/native_ma
 
 *Where the store lives.* Per-host caches plus a pull of the missing entries (`wine_build_job.py cache-sync SRC DST`,
 relayed through the laptop over the existing ssh routes; `submit --cache-from HOST` runs it in the job's `prep` step before
-the build, best effort). After the first full copy (118,003 objects, 1.4 GB studio -> mac1) each pull is the delta of the
-sources built since: a few thousand entries, tens of MB, seconds. One serving host (studio, the host every proof runs on)
+the build, best effort). Measured, studio -> mac1 through the laptop: the first full copy moved 105,817 objects (1,275 MB) in
+106 s and 67,312 equiv entries (10 MB) in 26 s, 153 s in all (about 12 MB/s, per-file overhead bound); a second run found
+0 to copy in a few seconds. After that each pull is the delta of the sources built since: a few thousand entries, tens
+of MB, seconds, against the 1,000-2,000 s a cold compile round costs on mac1. One serving host (studio, the host every proof runs on)
 is the natural source; a shared mount would put 260k small files behind network latency on every compile. *Eviction:*
 the caches grow without bound today (mac1: 259k objects 3.0 GB, clang 2.1 GB, native 0.7 GB); a hit does not touch the
 entry, so a prune by last use needs `utime` on hit first (planned: keep 30 days). *Private workspaces and overlays:* keys
