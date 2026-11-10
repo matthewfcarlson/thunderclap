@@ -90,7 +90,67 @@ Cold, the first run takes 10-15 minutes (4 compiler processes); a warm run takes
 `report.json` (counts, categories with example sites, scans, link probe), `undefined.txt` (every undefined symbol with
 its group and demangled name), `cache/` (per-TU results and objects) and `snap/` (the tree being probed).
 
-## 64-bit: the probe, the gap by class and what replaces each bridge (x64-1, 2026-10-20)
+## Replay speed and optimised objects (opt1, 2026-11-09)
+
+**Where a proof's time goes.** Studio, `wine_build_job.py ... --gfx --replay play3 --frames 60000`, `summary.json` wall seconds:
+
+| job | kind | build | map | probe | link | replay | total |
+|---|---|---|---|---|---|---|---|
+| 69828 | control, fresh lineage | 715 | 118 | 25 | 114 | 194 | 1,179 |
+| 69964 | proof, seeded | 501 | 126 | 25 | 115 | 194 | 974 |
+| 70239 | proof, fresh (tree-build tools changed) | 2,269 | 165 | 48 | 140 | 169 | 2,797 |
+| 70242 | resumed lineage, sources unchanged | 59 | 108 | 21 | 103 | 178 | 474 |
+
+The replay was already 310-360 fps headless, not 30: a replay has no frame pacing (`platformFramePace` is off with
+`HULK_INPUT_SOURCE=replay:` or the noop renderer), the renderer is bgfx's noop, the audio clock is the frame
+(`HULK_AUDIO_CLOCK=frame`) and lockstep I/O never waited (`waits 0 timeouts 0`). It is 6-20% of a proof; the MSVC tree
+build is most of it whenever the lineage cannot resume (a seeded proof still compiles ~1,100-1,900 TUs per round in the
+rounds whose fallbacks change a shared header). `HULK_FPS_LOG=1` (job 70240): gameplay 2.4-5.6 ms a frame, the level
+loads short; play3 to frame 60000 is 164 s of frames plus ~5 s of Wine start.
+
+**Profile.** `HULK_PROF=ms` (startup.cpp): a thread suspends the main thread every ms and counts its eip; the histogram
+goes to the trace file + `.prof`, which `wine_build_run` keeps in `nb-out/` and `tools/opt_prof.py PROF MAP --bindings
+bindings.json [--by-obj]` maps to functions and objects with the link's `.map` (`--fetch image` brings it). play3 to
+60000 on the -O0 image (job 70415, 132,000 samples): game TUs 47.6%; platform 28.7% (the audio mixer 13-15%:
+`sample_at`, `render_locked`, the reverb; crt_glue's `fsin`/`fcos`/`fpatan` 8%; softx87's log10 5.5%); outside the image
+23.2%: one instruction, the one after `fsqrt` in msvcrt.dll's `_x87_sqrt`, had 9.7% of all samples (Rosetta 2 emulates
+x87 in software), msvcrt's sqrt 2%, acos 4%, ntdll 2-3%.
+
+**Changes** (each checked as image A against image B, or one image with a switch off and on, replayed on mac2 and mac1:
+every play3 checkpoint hash identical, `ckpt_gate` GATE ok; time to frame 60000 from `HULK_FPS_LOG`):
+
+| change | switch | mac2 | mac1 |
+|---|---|---|---|
+| -O0 image before opt1 (70452 / 70454) | | 168.0 s (357 fps) | 234.3 s |
+| `sqrt` -> crt_glue `hulk_crt_sqrt` (`sqrtsd` for x >= 0: the same correctly rounded double as `fsqrt` at 53 bits) | `HULK_WINE_SQRT=msvcrt` at link | 150.7 s | 208.1 s |
+| no mixing in headless replays: the voices advance exactly as when mixed (cursor, wrap, end, stream consumption) | `HULK_AUDIO_NOMIX=1`, default in `wine_replay_job` (`=0` mixes) | 129.7 s | 177.5 s |
+| memo of `sin cos atan2 log10 acos` (main thread, (argument bits, control word) -> 80-bit st(0), 4,096 entries each) | `HULK_CRT_MEMO=0` at run time, `HULK_WINE_MEMO=0` (acos) at link | 118.4 s | 187.4 s (mac1 busy) |
+| the 32 hottest game TUs at -O1 (`tools/wine_opt_tus.txt`) | `wine_build_job --opt hot` (default `o0`) | 94.3 s (636 fps) | 185.2 s |
+
+The nomix change is in hulk_sdl.lib (`src/platform/sdl/audio/`); the shared `build/third_party/out/sdl-backends/win32` was
+rebuilt from HEAD's sources (it was stale; the rebuilt library replays identically: 70453/70478). `wine_build_job
+--sdl-src DIR` ships a private build of it (`HULK_TP_OUT=OUT tools/wine_sdl.py backends --target win32`).
+
+**Optimised game objects.** `HULK_WINE_OPT=O1|O2` (clang_probe, SSE build, `msvc` configuration): the front end runs at
+`-O<n> -Xclang -disable-llvm-passes` (no `optnone`), the three SSE IR passes run, the IR -> object step optimises. Kept as
+at -O0: frame pointers, no inlining (`-fno-inline`: hooks and bindings still see every call), no sibling calls, no
+`unreachable` after a missing return (`-fno-strict-return`), no deleted side-effect-free loops (`-fno-finite-loops`),
+library calls stay calls (`-fno-builtin`); the x87-keep functions stay `optnone`. Unset, the -O0 flags and cache keys are
+unchanged. `HULK_WINE_OPT_ONLY=FILE` / `HULK_WINE_OPT_EXCLUDE=FILE` take TU lists (paths as in the snapshot). All 2,651
+TUs at -O1 (job 70244; the image is 8.7 MB instead of 11.2, the probe 49 s): play3 diverges at frame 630 and crashes at
+1230. A k-ary prefix search over the TUs (`build/opt1/scripts/bisect.py`, four cloned lineages on studio, replay to
+3000 per step) found `src/game/hulkfight/motion/ProjectileEffect.cpp` (the crash: `Sweeper::FUN_001f6cd0` reads
+`0x3f800000`) and the frame-630 divergence among `CTriggerVolumeManager` / `CWorldCollisionManager` (the latter is the
+`FUN_00201e00` the x87 agent's o1dyn images also tripped over, [wine-float.md](wine-float.md) section 4). All of the
+first 1,428 TUs (minus ProjectileEffect) pass to 3000 together, and so do all TUs but those two (70586); to 60000
+that image (70590) is 3x faster than -O0 on studio (replay 45 s against 137 s) but diverges from frame 10200, so the
+search goes on with longer replays (state in `build/opt1/bisect/`). Until it ends, `--opt hot` is the gated subset and
+`o0` the default and the reference.
+
+Studio, the whole flow (`wine_build_job --state resume --stages probe,link,replay`, same lineage, HEAD with the changes
+above): `--opt o0` 70580 replay 137.5 s, `--opt hot` 70581 116.7 s, GATE ok, all 2,016 common checkpoints identical
+(the host was busy; 70242, the same lineage before opt1, took 178 s).
+, the gap by class and what replaces each bridge (x64-1, 2026-10-20)
 
 The port's targets are x86-64 (SteamOS/Linux, Windows) and arm64 macOS from one tree. A 64-bit image can't use
 the 32-bit link's bridges: they take code or layout from the XBE (x86 bytes, 32-bit addresses), so every one of
