@@ -1180,7 +1180,7 @@ void* __cdecl FUN_00247530(void*);
 namespace om { struct EntityType { virtual void vfunc_0(); virtual void vfunc_1(); }; }
 namespace audio {
 struct Sequence : om::EntityType {
-    virtual void vfunc_2();
+    virtual void* vfunc_2_00257c90(char);
     char pad[0x24];
     void* firstEntry;
     void* firstAnchor;

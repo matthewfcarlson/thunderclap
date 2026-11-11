@@ -84,7 +84,7 @@ void thunk_FUN_002710d0(Stream **out, PathRef name, int a, int b, int c, int d, 
 class RDLReader {
 public:
     RDLReader(const char *name);
-    virtual void vfn0();
+    virtual void vfn0_0027adf0(hulk_intptr);
 
     Stream *stream;
     void *data;

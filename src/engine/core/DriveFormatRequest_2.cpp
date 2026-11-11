@@ -14,7 +14,7 @@ namespace fn_fc6c79c4 {} using namespace fn_fc6c79c4;
 namespace fn_fc6c79c4 {
 class DriveRequest_2757f0 {
   public:
-    virtual void V();
+    virtual void* FnV_00275810(char);
     DriveRequest_2757f0(int);
 };
 class DriveFormatRequest : public DriveRequest_2757f0 {

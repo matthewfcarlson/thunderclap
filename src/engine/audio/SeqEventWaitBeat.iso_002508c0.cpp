@@ -17,8 +17,8 @@ __forceinline void* __cdecl operator new(size_t, void* p) { return p; }
 namespace audio {
 
 struct SeqActionWaitBeat_2508c0 {
- virtual void vfunc_0();
- virtual void vfunc_1();
+ virtual void* vfunc_0_00250770(int);
+ virtual void vfunc_1_002505f0(void*);
  unsigned int unknown4;
  audio::SeqEventWaitBeat* event;
  unsigned int unknownC;

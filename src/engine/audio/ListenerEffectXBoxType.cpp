@@ -67,8 +67,8 @@ namespace audio {
 struct ListenerEffectXBox_24d840 {
     virtual void vfunc_0_00243360();
     virtual void vfunc_1_00243370();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
+    virtual void* vfunc_2_0024d8a0(int);
+    virtual int vfunc_3_0025e680(void*);
     void FUN_0025e6f0(EffectRegistry*);
     void FUN_0025fb00(ListenerEffectXBox_24d840*);
 };

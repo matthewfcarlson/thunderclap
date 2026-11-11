@@ -593,10 +593,10 @@ struct Entity_292df0 {
 };
 struct Camera : Entity_292df0 {
     virtual void v1_000382a0();
-    virtual void v2();
+    virtual void* v2_00292dc0(char);
     virtual void v3_0027afe0();
     virtual void v4_0027aff0();
-    virtual void hulk_slot_Set(int a, int b); void Set_002926d0(int a, int b);
+    virtual void hulk_slot_Set_002926d0(float, float); void Set_002926d0(int a, int b);
     Camera(Src_292df0* s);
     float f1c, f20;
     char p[0x28];

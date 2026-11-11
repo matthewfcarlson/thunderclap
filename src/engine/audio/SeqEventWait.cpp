@@ -142,8 +142,8 @@ extern "C" void __cdecl FUN_00247550(void*, void*);
 namespace audio {
 class SeqActionWait_250460 {
   public:
-    virtual void v0();
-    virtual void v1();
+    virtual void* v0_00250430(int);
+    virtual void v1_00250230(void*);
     int pad;
     audio::SeqEventWait* event;
     int zero;

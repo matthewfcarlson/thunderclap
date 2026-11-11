@@ -380,7 +380,7 @@ struct IRefCount { virtual void vfunc_0(); virtual void vfunc_1(); };
 struct BaseObject { virtual void vfunc_0_adj4(); };
 struct MemoryTwoWayAllocator : IRefCount, BaseObject {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual MemoryTwoWayAllocator* vfunc_2(unsigned char);
- virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual void vfunc_11_0026d150(); virtual void vfunc_12_00267060(); virtual void vfunc_13(); virtual void vfunc_14_0026d0c0(); virtual void vfunc_15();
+ virtual void vfunc_3_0026d410(int); virtual void vfunc_4_0026d420(void*); virtual int vfunc_5_0026d2e0(int); virtual void vfunc_6_0026d440(int, int); virtual void vfunc_7_0026d460(void*); virtual int vfunc_8_0026d300(int); virtual bool vfunc_9_0026d100(void*, void*, void*, void*); virtual void vfunc_10(); virtual void vfunc_11_0026d150(); virtual void vfunc_12_00267060(); virtual void vfunc_13_0026d0b0(int); virtual void vfunc_14_0026d0c0(); virtual void vfunc_15_0026d0d0(int);
  virtual void vfunc_0_adj4();
  unsigned int allocator, reserved; void* memory; unsigned int low, high, end;
 };

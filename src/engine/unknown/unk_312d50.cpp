@@ -93,7 +93,7 @@ public:
 };
 class SubCollisionDetector {
   public:
-    virtual void f0();
+    virtual void* f0_003137d0(char);
     virtual void f1();
     virtual void f2();
     virtual void f3();

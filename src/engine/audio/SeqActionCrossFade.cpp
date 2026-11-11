@@ -70,7 +70,7 @@ class SeqActionCrossFade_255660 : public audio::SeqAction {
 };
 class SeqEvent_255690 {
   public:
-    virtual void f();
+    virtual int Fnf_00255870(void*);
     char pad[4];
     SeqEvent_255690();
 };
@@ -96,13 +96,13 @@ class SeqEventCrossFade : public SeqEvent_255690 {
     Ptr name;
     int x, y;
     SeqEventCrossFade();
-    virtual void g();
+    virtual char Fng_00255730(void*);
 };
 extern "C" void* __cdecl FUN_00247530(void*);
 } // namespace fn_fa3ba6ee
 namespace audio {
 struct SeqActionCrossFade_255930 {
-    virtual void vfunc_0();
+    virtual void* vfunc_0_00255660(int);
     char pad[4];
     audio::SeqEventCrossFade* event;
     int valueC, value10, value14, value18;

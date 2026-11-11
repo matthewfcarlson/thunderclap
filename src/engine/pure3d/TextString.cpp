@@ -271,7 +271,7 @@ class TextString {
     virtual void f5_0029b190();
     virtual void f6_0029b210();
     virtual void f7();
-    virtual void f8();
+    virtual void f8_0029b1b0(void*);
     virtual void f9_0029b180();
     virtual void f10();
     virtual void f11_0029b160();

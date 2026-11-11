@@ -17,12 +17,12 @@ namespace fn_fe1510ce {} using namespace fn_fe1510ce;
 namespace fn_fe1510ce {
 class SeqEvent_252fc0 {
   public:
-    virtual void f();
+    virtual int Fnf_00252fe0(void*);
     SeqEvent_252fc0();
 };
 class SeqEventVarPosDist : public SeqEvent_252fc0 {
   public:
-    virtual void g();
+    virtual int Fng_00253210(void*);
     int pad;
     float x;
     float y;
@@ -96,7 +96,7 @@ class SeqEventVarPosDistType_253120 : public FUN_002605e0 {
 namespace audio {
 class Base {
   public:
-    virtual void v0();
+    virtual int v0_00252fe0(void*);
     Base();
 };
 }
@@ -373,9 +373,9 @@ namespace audio {
 class SeqEventVarPosDist;
 class SeqActionVarPosDist {
 public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
+    virtual void* vfunc_0_002532a0(int);
+    virtual void vfunc_1_00253060(void*);
+    virtual void vfunc_2_00253050(int, int);
     char padding[4];
     SeqEventVarPosDist *event;
     int value;

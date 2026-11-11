@@ -151,7 +151,7 @@ struct LoadInventory_2aea70 {
 namespace pure3d {
 class TextureBuilder {
 public:
-    virtual void vfunc_0();
+    virtual bool vfunc_0_002ae2b0(int, int, int, int, int);
     Resource_2aea70* tex;
     int flags;
     void* surface;
@@ -170,7 +170,7 @@ public:
 namespace pure3d {
 class ImageBuilder {
 public:
-    virtual void vfunc_0();
+    virtual bool vfunc_0_002adf20(int, int, int, int, void*);
     Resource_2aea70* image;
     int f08;
     int f0c;
@@ -197,7 +197,7 @@ struct Result_2aecb0 {
 };
 namespace pure3d {
 struct ImageBuilder_2aecb0 {
-    virtual void slot0();
+    virtual bool slot0_002adf20(int, int, int, int, void*);
     Result_2aecb0* result;
     int a, b, c, d;
     int context;
@@ -497,7 +497,7 @@ void* __cdecl FUN_00263ea0(unsigned int);
 struct LoadStream_2aedd0 { virtual void slot0(); virtual void slot1(); LoadStream_2aedd0* FUN_00264430(void*, int, int); void FUN_00263fb0(); };
 struct Link_2aedd0 {  };
 struct Texture { char pad[8]; Link_2aedd0 link; };
-namespace pure3d { struct TextureBuilder_2aedd0 { virtual void slot0(); Texture* result; unsigned int f08,f0c,f10,f14,f18,f1c; unsigned int f20,f24,f28,f2c,f30; }; }
+namespace pure3d { struct TextureBuilder_2aedd0 { virtual bool slot0_002ae2b0(int, int, int, int, int); Texture* result; unsigned int f08,f0c,f10,f14,f18,f1c; unsigned int f20,f24,f28,f2c,f30; }; }
 struct Loader_2aedd0 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(LoadStream_2aedd0*, pure3d::TextureBuilder_2aedd0*); };
 struct Owner_2aedd0 { char pad[0x8c]; unsigned int f8c,f90,f94,f98,f9c,fa0; Loader_2aedd0* FUN_002ae980(void*); Texture* target(void*); };
 Texture* Owner_2aedd0::target(void* arg) {
@@ -542,7 +542,7 @@ public:
         f2c = d;
         f30 = e;
     }
-    virtual void v0();
+    virtual bool v0_002ae2b0(int, int, int, int, int);
 };
 
 class ImageHandler {
@@ -603,7 +603,7 @@ public:
 
 class TextureBuilder {
 public:
-    virtual void v0();
+    virtual bool v0_002ae2b0(int, int, int, int, int);
     int f04;
     int f08, f0c, f10, f14, f18;
     int f1c;
@@ -686,7 +686,7 @@ public:
         f20 = 8;
         f1c = b;
     }
-    virtual void v0();
+    virtual bool v0_002ae2b0(int, int, int, int, int);
 };
 class Builder {
 public:

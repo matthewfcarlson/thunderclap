@@ -318,7 +318,7 @@ typedef unsigned int u32_286470;
 typedef unsigned int u32_2864a0;
 class DynamicCaster_286750 {
   public:
-    virtual void f();
+    virtual void Fnf_00286470(void*);
     DynamicCaster_286750() {}
 };
 class Inventory {
@@ -329,7 +329,7 @@ class Inventory {
     virtual int load(DynamicCaster_286750*, U64);
 };
 struct DynamicCaster_286780 {
-    virtual void cast();
+    virtual void cast_002864a0(void*);
 };
 struct Manager {
     virtual void f0();

@@ -423,7 +423,7 @@ public:
     DisplayTraversal() throw();
     virtual void vfunc_0_00018b30();
     virtual void vfunc_1_00018b40();
-    virtual void vfunc_2();
+    virtual void* vfunc_2_002a24c0(char);
     virtual void vfunc_3_002a2690();
     virtual void vfunc_4_002a1b60();
     virtual void vfunc_5_002a18e0();
@@ -435,7 +435,7 @@ public:
 class TranslucentTraversal : public DisplayTraversal {
 public:
     TranslucentTraversal(unsigned int capacity);
-    virtual void vfunc_6();
+    virtual void vfunc_6_002a1ca0(void*, int, float);
     char pad14[4];
     unsigned int count;         // 0x18
     char *entriesBegin;         // 0x1c  (24-byte entries)

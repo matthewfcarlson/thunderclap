@@ -846,12 +846,12 @@ struct PhysicsJoint_30d590 {
     virtual void v6();
     virtual void v7_0030ca60();
     virtual void v8_0030ca70();
-    virtual void v9();
-    virtual void v10();
+    virtual void v9_003099b0(int, int);
+    virtual void v10_00309a40(hulk_intptr);
     virtual void v11();
     virtual void v12();
-    virtual void v13();
-    virtual void v14();
+    virtual void v13_00309aa0(void*, void*);
+    virtual bool v14_0030a410(void*, void*, void*);
     virtual void v15();
     virtual void v16();
     virtual void v17();
@@ -3167,7 +3167,7 @@ namespace physics {
 
 class PhysicsJoint {
 public:
-    virtual void vfunc_0();
+    virtual void* vfunc_0_0030d320(int);
     unsigned char flag4;
     unsigned char pad5;
     unsigned short word6;
@@ -4054,7 +4054,7 @@ namespace physics {
 class PhysicsJoint {
 public:
     PhysicsJoint(int a, int b, int c) throw();
-    virtual void f0();
+    virtual void* f0_0030d3a0(int);
     virtual void f1();
     virtual void f2();
     virtual void f3();
@@ -4155,8 +4155,8 @@ class PhysicsJoint {
     virtual void vf10();
     virtual void vf11();
     virtual void vf12();
-    virtual void vf13();
-    virtual void vf14();
+    virtual void vf13_00309aa0(void*, void*);
+    virtual bool vf14_0030a410(void*, void*, void*);
     virtual void vf15();
     virtual void vf16();
     virtual void vf17();

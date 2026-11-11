@@ -65,7 +65,7 @@ public:
     bool FUN_00308b20();
 };
 namespace physics {
-struct SimCGSValue { virtual void slot0(); float a; float value; void FUN_002ecca0(); };
+struct SimCGSValue { virtual void* slot0_002ecdc0(char); float a; float value; void FUN_002ecca0(); };
 }
 namespace physics {
 struct SimLength : SimCGSValue { void FUN_002ecf20(int); void vfunc_1_002ecd50(float); };

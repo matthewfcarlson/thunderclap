@@ -230,9 +230,9 @@ public:
     virtual void v3_002b78b0();
     virtual void v4_002b8020();
     virtual void v5_002a3e70();
-    virtual void v6();
+    virtual void v6_002b78c0(int, int);
     virtual void v7_002a4150();
-    virtual void v8();
+    virtual void v8_002b7900(hulk_intptr, int);
     virtual void v9_002a4350();
     virtual void SetInfo(int v);
     SkinInfo *info;

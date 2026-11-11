@@ -21,7 +21,7 @@ namespace audio {
 class MixBuss {
 public:
     MixBuss() : level(1.0f), gain(1.0f), parent(0), child(0), dirty(0) {}
-    virtual void v0();
+    virtual int v0_0025a330(hulk_intptr);
     char pad04[0x14 - 4];
     int key;            // 0x14
     float level;        // 0x18

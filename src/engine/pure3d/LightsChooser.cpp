@@ -44,7 +44,7 @@ class End_29f590 {
 };
 class CacheManager_29f590 {
   public:
-    virtual void V();
+    virtual void* FnV_0029f570(char);
     int pad04[9];
     hulk_intptr m28;
     hulk_intptr m2c;

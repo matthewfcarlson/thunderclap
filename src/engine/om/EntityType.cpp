@@ -1967,12 +1967,12 @@ class Entity {
 public:
     virtual void v0_00243360();
     virtual void v1_00243370();
-    virtual void v2();
+    virtual void* v2_00245270(char);
     virtual void v3();
-    virtual void v4();
+    virtual bool v4_00244f40(int);
     virtual void v5();
     virtual void v6();
-    virtual void v7();
+    virtual bool v7_00244f60(void*);
     virtual Region_244ea0 *GetRegion();
     char pad4[0x14];
     unsigned int keyLo;     // 0x18

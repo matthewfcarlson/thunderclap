@@ -1244,7 +1244,7 @@ struct Base_2dfe80 { char pad[60]; unsigned int f40,kind,width,count,index,f54; 
  Base_2dfe80(Layout_2dfe80* destination,Layout_2dfe80* source) { unsigned int w=source->width,n=source->count; destination->FUN_002a5060(); destination->kind=0; destination->f40=0; destination->width=w; destination->count=n; destination->index=~0u; }
 };
 namespace pure3d {
-struct PrimGroupOptimized : Base_2dfe80 { virtual void v0_00038290(); virtual void v1_000382a0(); virtual void v2(); virtual void v3_0027afe0(); virtual void v4_0027aff0(); virtual void v5_002df510(); virtual void v6_002df540(); virtual void v7_002df520(); virtual void v8(); virtual void v9_002df530(); virtual void v10(); virtual void copy(void*); PrimGroupOptimized(PrimGroupOptimized* source); };
+struct PrimGroupOptimized : Base_2dfe80 { virtual void v0_00038290(); virtual void v1_000382a0(); virtual void* v2_002e14b0(char); virtual void v3_0027afe0(); virtual void v4_0027aff0(); virtual void v5_002df510(); virtual void v6_002df540(); virtual void v7_002df520(); virtual void v8_002dfd70(void*); virtual void v9_002df530(); virtual void v10(); virtual void copy(void*); PrimGroupOptimized(PrimGroupOptimized* source); };
 PrimGroupOptimized::PrimGroupOptimized(PrimGroupOptimized* source) : Base_2dfe80((Layout_2dfe80*)this,(Layout_2dfe80*)source) { buffer=0; kind=source->kind; Descriptor_2dfe80 desc; desc.kind=kind; desc.width=width; for(int i=0;i<7;++i) desc.flags[i]=32; desc.count=count; desc.resource=source->sourceResource ? source->sourceResource->value : 0; desc.a=0; desc.b=0; desc.zero1=0; desc.zero2=0; buffer=(*(Manager_2dfe80**)&DAT_0052c2a0)->create(&desc); void* data=buffer->lock(); source->copy(data); buffer->unlock(data); buffer->s0(); }
 }
 } // namespace fn_002dfe80

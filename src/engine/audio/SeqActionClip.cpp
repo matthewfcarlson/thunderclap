@@ -172,9 +172,9 @@ class Part {
 };
 class Base_2562c0 {
   public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
+    virtual int f0_00255d30(void*);
+    virtual int f1_00256070(void*);
+    virtual void f2_00256320(void*);
     virtual void f3();
     char pad[4];
     Base_2562c0();

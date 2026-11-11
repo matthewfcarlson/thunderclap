@@ -211,7 +211,7 @@ class __declspec(novtable) PrimGroupBase {
   public:
     virtual void p0_00038290();
     virtual void p1_000382a0();
-    virtual void p2();
+    virtual void* p2_002e14b0(char);
     virtual void p3_0027afe0();
     virtual void p4_0027aff0();
     virtual void p5_002df510();
@@ -1413,7 +1413,7 @@ class __declspec(novtable) PrimGroupBase {
 public:
     virtual void p0_00038290();
     virtual void p1_000382a0();
-    virtual void p2();
+    virtual void* p2_002e14b0(char);
     virtual void p3_0027afe0();
     virtual void p4_0027aff0();
     virtual void p5_002df510();

@@ -120,7 +120,7 @@ class Mem_28d750 {
 class RotationChannel_28d750 {
   public:
     RotationChannel_28d750(int, int);
-    virtual void v0();
+    virtual void* v0_0028ded0(char);
     int m4, m8;
     Mem_28d750* mc;
     int m10, m14;

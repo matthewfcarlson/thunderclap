@@ -1178,8 +1178,8 @@ class Sprite : public SpriteBase_2be440 {
 public:
     Sprite(Item_2be440 **items, int w, int h, int count, Shader_2be440 *mgr, int margin, int a7, int a8, int a9);
     virtual void a1_000382a0(); virtual void a2(); virtual void a3_002bd490(); virtual void a4_002bd4a0(); virtual void a5_002bd4b0();
-    virtual void a6_002bdd40(); virtual void a7_002bdce0(); virtual void a8(); virtual void a9_002bdcf0(); virtual void a10();
-    virtual void a11(); virtual void a12();
+    virtual void a6_002bdd40(); virtual void a7_002bdce0(); virtual void a8_002bea10(void*); virtual void a9_002bdcf0(); virtual void a10();
+    virtual void a11_002be3d0(void*); virtual void a12_002be3e0(void*);
     int count;              // 0x40
     void *buf;              // 0x44
     Item_2be440 **items;           // 0x48
@@ -1898,23 +1898,23 @@ class SpriteObject : public DrawableContainer_2bed90 {
 public:
     SpriteObject() : DrawableContainer_2bed90(1) {}
     virtual void v1_000382a0();
-    virtual void v2();
+    virtual void* v2_002bea70(char);
     virtual void v3_002bdf00();
     virtual void v4_002bdf50();
     virtual void v5_002a3e70();
-    virtual void v6();
+    virtual void v6_002a40d0(int, int);
     virtual void v7_002a4150();
     virtual void v8();
     virtual void v9_002a4350();
-    virtual void v10();
+    virtual void v10_002a34c0(hulk_intptr);
     virtual void v11();
     virtual void v12_002a4570();
-    virtual void v13();
+    virtual void v13_002a35a0(void*);
     virtual void v14_002a35d0();
     virtual void v15_002bdf10();
     virtual void v16_002a4410();
-    virtual void v17();
-    virtual void v18();
+    virtual void* v17_002a4440(int, int);
+    virtual void* v18_002a44b0(int);
     virtual void v19_002beaa0();
     virtual void v20_002beab0();
     virtual void v21_002be410();

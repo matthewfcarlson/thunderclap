@@ -126,20 +126,20 @@ struct ParticleController_2a73d0 : SimpleFrameController_2a73d0 {
     virtual void f2();
     virtual void f3_002a6fb0();
     virtual void f4_002a7540();
-    virtual void f5();
-    virtual void f6();
+    virtual void f5_002a7700(void*);
+    virtual void f6_002a6fd0(float, char);
     virtual void f7_002a7150();
-    virtual void f8();
+    virtual void f8_00284b50(int);
     virtual void f9_00284b60();
     virtual void f10_002a6fe0();
     virtual void f11_002a6ff0();
-    virtual void f12();
+    virtual void f12_002858d0(float);
     virtual void f13_00284dc0();
-    virtual void f14();
-    virtual void f15();
-    virtual void f16();
+    virtual void f14_00285930(float, float);
+    virtual void f15_00284dd0(void*, void*);
+    virtual void f16_00284df0(int);
     virtual void f17_00284e50();
-    virtual void f18();
+    virtual void f18_00284e60(int);
     virtual void f19_00284ec0();
     virtual void f20_002a7000();
     virtual void f21_00284ee0();
@@ -462,7 +462,7 @@ void* __cdecl FUN_0008d6d0(uint);
 struct SimpleFrameController_2a7410 { virtual void v0(); char pad[0x3c]; SimpleFrameController_2a7410(const SimpleFrameController_2a7410&); };
 namespace pure3d {
 struct ParticleController : SimpleFrameController_2a7410 {
- virtual void v0(); virtual void v1_000382a0(); virtual void v2(); virtual void v3_002a6fb0(); virtual void v4_002a7540(); virtual void v5(); virtual void v6(); virtual void v7_002a7150(); virtual void v8(); virtual void v9_00284b60(); virtual void v10_002a6fe0(); virtual void v11_002a6ff0(); virtual void v12(); virtual void v13_00284dc0(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17_00284e50(); virtual void v18(); virtual void v19_00284ec0(); virtual void v20_002a7000(); virtual void v21_00284ee0(); virtual void v22_002a71d0(); virtual void vfunc_23_002a7220();
+ virtual void v0(); virtual void v1_000382a0(); virtual void v2(); virtual void v3_002a6fb0(); virtual void v4_002a7540(); virtual void v5_002a7700(void*); virtual void v6_002a6fd0(float, char); virtual void v7_002a7150(); virtual void v8_00284b50(int); virtual void v9_00284b60(); virtual void v10_002a6fe0(); virtual void v11_002a6ff0(); virtual void v12_002858d0(float); virtual void v13_00284dc0(); virtual void v14_00285930(float, float); virtual void v15_00284dd0(void*, void*); virtual void v16_00284df0(int); virtual void v17_00284e50(); virtual void v18_00284e60(int); virtual void v19_00284ec0(); virtual void v20_002a7000(); virtual void v21_00284ee0(); virtual void v22_002a71d0(); virtual void vfunc_23_002a7220();
  unsigned char flag; char gap[3]; uint a,b,c; RefObject_2a7410** begin; RefObject_2a7410** end;
  ParticleController(const ParticleController&);
 };

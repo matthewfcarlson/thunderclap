@@ -13,7 +13,7 @@ namespace fn_f1fd5fb3 {} using namespace fn_f1fd5fb3;
 namespace fn_f1fd5fb3 {
 class ConditionFactoryCasterTemplate_23d220 {
   public:
-    virtual void Cast();
+    virtual bool Cast_0023d030(void*);
 };
 class Obj {
   public:
@@ -22,7 +22,7 @@ class Obj {
 extern "C" void* Get(void*, ConditionFactoryCasterTemplate_23d220*);
 class ConditionFactoryCasterTemplate_23d250 {
   public:
-    virtual void Cast();
+    virtual bool Cast_0023d070(void*);
 };
 class Handler {
   public:

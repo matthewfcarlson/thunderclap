@@ -49,7 +49,7 @@ struct Block { float values[16]; };
 struct Object { char pad[0x3c]; Block *block; hulk_intptr FUN_00251ad0(); };
 int FUN_002477f0();
 Block * __cdecl FUN_00247530(int);
-struct FUN_0025fd00 { virtual void dummy(); FUN_0025fd00(); };
+struct FUN_0025fd00 { virtual int dummy_00252130(void*); FUN_0025fd00(); };
 struct SeqEventChannelVolumes : FUN_0025fd00 { char pad[4]; int a,b,c,d; int duration; int stitched; SeqEventChannelVolumes(); };
 extern "C" int __cdecl FUN_002673a0(const char *, int);
 extern "C" bool __cdecl Check(void*, uint);
@@ -60,9 +60,9 @@ void* __cdecl FUN_00247530(void*);
 } // namespace fn_f5ef859b
 namespace audio {
 struct SeqEventChannelVolumes_252070 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
+    virtual int vfunc_0_00252130(void*);
+    virtual char vfunc_1_002520c0(void*);
+    virtual void vfunc_2_00252190(hulk_intptr);
     virtual void vfunc_3();
     int fields[5];
     int capacity;
@@ -92,8 +92,8 @@ void* __cdecl FUN_00247530(AllocationPool*);
 } // namespace fn_f5ef859b
 namespace audio {
 struct SeqActionChannelVolumes_252190 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
+    virtual void* vfunc_0_00251c50(int);
+    virtual void vfunc_1_00252220(void*);
     char padding[4];
     audio::SeqEventChannelVolumes* source;
     int state;

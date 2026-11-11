@@ -3747,9 +3747,9 @@ struct Chunk {
 class DrawableContainer_2bd300 {
 public:
     DrawableContainer_2bd300(int arg) throw();
-    virtual void v0_00038290(); virtual void v1_000382a0(); virtual void v2(); virtual void v3_002b9650();
-    virtual void v4_002b9660(); virtual void v5_002a3e70(); virtual void v6(); virtual void v7_002a4150();
-    virtual void v8(); virtual void v9_002a4350(); virtual void v10(); virtual void v11();
+    virtual void v0_00038290(); virtual void v1_000382a0(); virtual void* v2_002ba810(char); virtual void v3_002b9650();
+    virtual void v4_002b9660(); virtual void v5_002a3e70(); virtual void v6_002a40d0(int, int); virtual void v7_002a4150();
+    virtual void v8_002ba840(hulk_intptr, int); virtual void v9_002a4350(); virtual void v10_002a34c0(hulk_intptr); virtual void v11();
     virtual void v12_002a4570();
     char pad04[4];
     int idLo;           // 0x8
@@ -3763,7 +3763,7 @@ namespace pure3d {
 class BillboardObject : public DrawableContainer_2bd300 {
 public:
     BillboardObject(int arg) throw() : DrawableContainer_2bd300(arg) { scale = 1.0f; }
-    virtual void v13();
+    virtual void v13_002a35a0(void*);
 };
 }
 

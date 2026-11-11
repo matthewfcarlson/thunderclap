@@ -109,8 +109,8 @@ class SeqEventChannelSends_24fa90 : public SeqEventType_24fa90 {
 }
 namespace audio {
 struct SeqActionChannelSends_24fb80 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
+    virtual void* vfunc_0_0024fa60(int);
+    virtual void vfunc_1_0024f870(void*);
     char pad[4];
     void *event;
     int value;

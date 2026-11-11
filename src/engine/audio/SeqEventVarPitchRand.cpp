@@ -355,7 +355,7 @@ namespace audio {
 class SeqEvent;
 class SeqActionVarPitchRand {
   public:
-    virtual void v0();
+    virtual void* v0_00253650(int);
     char pad[4];
     SeqEvent* ev;
     int n;

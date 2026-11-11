@@ -15,7 +15,7 @@ namespace fn_fd383094 {} using namespace fn_fd383094;
 namespace fn_fd383094 {
 class ConditionFactoryCasterTemplate_23d420 {
   public:
-    virtual void cast();
+    virtual bool cast_0023d330(void*);
 };
 extern "C" void* Find(const char*, ConditionFactoryCasterTemplate_23d420*);
 class Owner {
@@ -77,7 +77,7 @@ class ParamValueEnum_23d580 : public ParamValue_23d580 {
 extern int hulk_at_00491ca8;
 class ConditionFactoryCasterTemplate_23d710 {
   public:
-    virtual void Dummy();
+    virtual bool Dummy_0023d5e0(void*);
 };
 extern "C" void* FUN_002343e0(void*, ConditionFactoryCasterTemplate_23d710*);
 extern "C" char DAT_00428b64[];

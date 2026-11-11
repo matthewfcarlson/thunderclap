@@ -77,7 +77,7 @@ namespace pure3d {
 class Expression_2afba0 : public Entity_2afba0 {
 public:
     virtual void x1_000382a0();
-    virtual void x2();
+    virtual void* x2_002afe40(int);
     virtual void x3_002afb50();
     virtual void x4_002afb60();
     unsigned int count;

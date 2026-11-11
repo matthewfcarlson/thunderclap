@@ -1177,21 +1177,21 @@ class ParticleEmitter : public DrawablePrimitive_2d4a20 {
     virtual void f14();
     virtual void f15();
     virtual void f16_002d3e60();
-    virtual void f17();
+    virtual void f17_002d3e80(int, int);
     virtual float f18_002d3ea0(float);
-    virtual void f19();
+    virtual void f19_002d4bd0(float);
     virtual void f20_002d3ec0();
     virtual void f21();
     virtual void f22();
-    virtual void f23();
+    virtual void f23_002d4d40(void*);
     virtual void f24_002d3fa0();
-    virtual void f25();
+    virtual void f25_002d4d70(void*);
     virtual void f26_002d3fb0();
-    virtual void f27();
+    virtual void f27_002d4db0(void*);
     virtual void f28_002d3fc0();
-    virtual void f29();
+    virtual void f29_002d4de0(void*);
     virtual void f30_002d3fd0();
-    virtual void f31();
+    virtual void f31_002d4e20(void*);
     virtual void f32_002d3fe0();
 
     unsigned matrix[16];

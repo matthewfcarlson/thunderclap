@@ -54,7 +54,7 @@ namespace pure3d {
 class Locator_2c1770 : public Entity_2c1770 {
 public:
     virtual void x1_000382a0();
-    virtual void x2();
+    virtual void* x2_002c1900(char);
     virtual void x3_0027afe0();
     virtual void x4_0027aff0();
     Vec3_2c1770 position;

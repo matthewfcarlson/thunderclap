@@ -34,7 +34,7 @@ class SeqEvent {
 };
 class SeqActionVarVolume {
   public:
-    virtual void v0();
+    virtual void* v0_00252a20(int);
     char pad[4];
     SeqEvent* owner;
     int value;

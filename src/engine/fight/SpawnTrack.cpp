@@ -182,7 +182,7 @@ class SpawnAction_23ef70 {
 };
 class TrackFactoryCasterTemplate_23efe0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_0023edb0(void*);
 };
 extern "C" void* __cdecl Find(void*, TrackFactoryCasterTemplate_23efe0*);
 class Obj {

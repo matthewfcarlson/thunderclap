@@ -247,12 +247,12 @@ namespace fight {
 class Base {
   public:
     Base() throw();
-    virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void f();
+    virtual hulk_intptr Fna_00239420(int);
+    virtual bool Fnb_00234270(void*);
+    virtual bool Fnc_002342b0(int);
+    virtual bool Fnd_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool Fne_00234350(int, int);
+    virtual void* Fnf_00239780(int);
     char pad[8];
 };
 }

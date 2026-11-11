@@ -39,15 +39,15 @@ namespace scenegraph {
 class Scenegraph_297f20 : public DrawableHierarchy_297f20 {
 public:
     virtual void s1_000382a0();
-    virtual void s2();
+    virtual void* s2_002970a0(char);
     virtual void s3_00296110();
     virtual void s4_00297130();
     virtual void s5_00296100();
-    virtual void s6();
+    virtual void s6_00296120(int, int);
     virtual void s7_00296140();
-    virtual void s8();
+    virtual void s8_00296160(hulk_intptr, int);
     virtual void s9_002961c0();
-    virtual void s10();
+    virtual void s10_002a34c0(hulk_intptr);
     virtual void s11();
     virtual void Finish_00296cb0();
     RefObject_297f20 *child;

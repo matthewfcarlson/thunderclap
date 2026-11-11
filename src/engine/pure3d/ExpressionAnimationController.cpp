@@ -134,7 +134,7 @@ class ExpressionAnimationController_2aa0a0 : public SimpleFrameController_2aa0a0
         m[3] = 0;
     }
     virtual void f0_000382a0();
-    virtual void f1();
+    virtual void* f1_002aa000(int);
     virtual void f2_002a9cd0();
     virtual void f3_002aa0a0();
     virtual ExpressionAnimationController_2aa0a0* f4();

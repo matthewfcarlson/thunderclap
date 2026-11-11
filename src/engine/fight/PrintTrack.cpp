@@ -229,12 +229,12 @@ class PrintAction_239150 : public Action_239150 {
 };
 class ConditionFactoryCasterTemplate_2391d0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00238ea0(void*);
 };
 extern "C" void* Find(const char*, ConditionFactoryCasterTemplate_2391d0*);
 class TrackFactoryCasterTemplate_239200 {
   public:
-    virtual void cast();
+    virtual bool cast_00238f00(void*);
 };
 extern "C" void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_239200*);
 extern int hulk_at_004283c4;
@@ -251,8 +251,8 @@ class Base {
   public:
     Base() throw();
     virtual void a();
-    virtual void b();
-    virtual void c();
+    virtual bool Fnb_00234270(void*);
+    virtual bool Fnc_002342b0(int);
     int pad;
     int flag;
 };

@@ -33,7 +33,7 @@ public:
 };
 struct Obj {
   public:
-    virtual void _m_vf0();
+    virtual void* m_vf0_00338010(char);
     Obj();
     void* get_00337980();
     const char* Get_00337980();

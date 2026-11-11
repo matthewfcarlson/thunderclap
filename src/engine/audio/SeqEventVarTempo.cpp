@@ -91,9 +91,9 @@ extern "C" void* __cdecl FUN_00247530(void*);
 } // namespace fn_f0c0637a
 namespace audio {
 struct SeqEventVarTempo_252d80 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
+    virtual int vfunc_0_00252b90(void*);
+    virtual int vfunc_1_00252df0(void*);
+    virtual void vfunc_2_00252ed0(void*);
     virtual void vfunc_3();
     int field4;
     int field8;

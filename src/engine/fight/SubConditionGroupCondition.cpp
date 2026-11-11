@@ -23,14 +23,14 @@ struct Member_23c900 {
     void Release_00236fd0();
 };
 struct Condition_23c900 {
-    virtual void g();
+    virtual hulk_intptr Fng_0023c8d0(int);
     void Shutdown_002345b0();
 };
 struct SubConditionGroupCondition_23c900 : Condition_23c900 {
     char pad[8];
     Member_23c900 m;
     ~SubConditionGroupCondition_23c900();
-    virtual void f();
+    virtual bool Fnf_00234270(void*);
 };
 class Condition {
   public:
@@ -78,7 +78,7 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
 extern int hulk_at_00491ca8;
 class ConditionFactoryCasterTemplate_23ca70 {
   public:
-    virtual void dummy();
+    virtual bool dummy_0023c9a0(void*);
 };
 extern "C" void* __cdecl Find(void*, ConditionFactoryCasterTemplate_23ca70*);
 } // namespace fn_fe0ef8b4

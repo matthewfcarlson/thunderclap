@@ -336,7 +336,7 @@ namespace fn_002517e0 {
 extern "C" void* __cdecl FUN_00247530(void*);
 namespace audio {
 struct SeqEvent { virtual void vfunc_0(); virtual void vfunc_1(); virtual void* vfunc_2(void*); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); };
-struct SeqActionPlayTrack { virtual void vfunc_0(); char pad[4]; SeqEvent* event; int state; };
+struct SeqActionPlayTrack { virtual void* vfunc_0_002516f0(int); char pad[4]; SeqEvent* event; int state; };
 struct SeqEventPlayTrack : SeqEvent { virtual void* vfunc_2(void*); };
 }
 struct TrackPlayer { void* FUN_0025dc20(audio::SeqActionPlayTrack*); };

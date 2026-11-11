@@ -750,7 +750,7 @@ extern void* __cdecl FUN_00241670();
 extern "C" void* __cdecl FUN_00247530(void*);
 namespace audio {
 struct MixBuss {
- virtual void vfunc_0(); virtual bool vfunc_1(void*);
+ virtual int vfunc_0_0025a330(hulk_intptr); virtual bool vfunc_1(void*);
  char pad[0x14-4]; uint link; float volume,pitch; uint a,b; unsigned char flag;
 };
 struct Mix {

@@ -128,9 +128,9 @@ extern "C" void* __cdecl allocate(void*);
 namespace audio {
 class SeqActionExpression_250cd0 {
   public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
+    virtual void* f0_00250ca0(int);
+    virtual void f1_00250a80(void*);
+    virtual void f2_00250a70(int, int);
     char pad[4];
     audio::SeqEventExpression* owner;
     int val;

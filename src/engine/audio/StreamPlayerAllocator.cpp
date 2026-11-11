@@ -288,7 +288,7 @@ struct KeyNode {
 namespace audio {
 class StreamPlayerAllocator_24a5d0 {
 public:
-    virtual void v0();
+    virtual void v0_00247ba0(int, int, int, int);
     unsigned char flags;     // 0x04
     StreamPlayerAllocator_24a5d0() {}
 };

@@ -39,7 +39,7 @@ class Sub_2d20a0 {
 class ParticleGenerator : public Entity_2d20a0 {
   public:
     virtual void m_vf1_000382a0();
-    virtual void _m_vf2();
+    virtual void* m_vf2_002d31b0(char);
     virtual void _m_vf3();
     virtual void _m_vf4();
     virtual void _m_vf5();

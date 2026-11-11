@@ -78,7 +78,7 @@ extern int hulk_at_00491ca8;
 extern int gTypeA_238560;
 class ConditionFactoryCasterTemplate_2386b0 {
   public:
-    virtual void f();
+    virtual bool Fnf_00238500(void*);
 };
 class Owner {
   public:

@@ -15,9 +15,9 @@ extern "C" void _ReadWriteBarrier();
 namespace audio {
 class SeqEvent_250910 {
   public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
+    virtual int v0_00250870(void*);
+    virtual bool v1_00250820(void*);
+    virtual void v2_002508c0(hulk_intptr);
     virtual void v3();
     int x;
     SeqEvent_250910();

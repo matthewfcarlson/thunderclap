@@ -21,7 +21,7 @@ class CCondition_235a20 {
 class FightNodeBaseCondition_235a30 {
   public:
     FightNodeBaseCondition_235a30(int);
-    virtual void V();
+    virtual hulk_intptr FnV_00235a20(int);
 };
 class Elem_235a30 {
   public:
@@ -33,7 +33,7 @@ class FightNodeCondition : public FightNodeBaseCondition_235a30 {
     int field0c;
     char pad10[4];
     FightNodeCondition();
-    virtual void V2();
+    virtual bool V2_00234270(void*);
 };
 extern int hulk_at_00427cf0;
 extern int hulk_at_00427ccc;

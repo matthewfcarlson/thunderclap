@@ -123,11 +123,11 @@ public:
     virtual void v3_00298280();
     virtual void v4_0029a170();
     virtual void v5_00298270();
-    virtual void v6();
+    virtual void v6_00298b30(int, int);
     virtual void v7_00298c00();
-    virtual void v8();
+    virtual void v8_00298cb0(hulk_intptr, int);
     virtual void v9_00298e60();
-    virtual void v10();
+    virtual void v10_00298f00(void*);
     virtual void v11_00298260();
     virtual void v12_002992c0();
     char pad4[4];

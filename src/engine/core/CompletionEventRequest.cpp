@@ -120,7 +120,7 @@ extern "C" void* FUN_00273560(unsigned int size) {
 namespace fn_002735d0 {
 class CompletionEventRequest_2735d0 {
   public:
-    virtual void F0();
+    virtual void* F0_00274be0(char);
     virtual void F1_002735f0();
     virtual ~CompletionEventRequest_2735d0() throw();
 };

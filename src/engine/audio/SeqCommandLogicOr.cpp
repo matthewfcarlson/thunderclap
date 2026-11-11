@@ -66,8 +66,8 @@ inline void* __cdecl operator new(size_t, void* ptr) { return ptr; }
 namespace fn_fee5f112 {
 void* __cdecl FUN_00247530(void*);
 struct SeqCommandLogicOr_255210 {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
+    virtual void vfunc_0_00255250(int);
+    virtual void* vfunc_1_00255060(char);
     char reserved[4];
     audio::SeqEventLogicOr* event;
 };

@@ -24,15 +24,15 @@ class Name_250dc0 {
 class SeqEvent_250dc0 {
   public:
     SeqEvent_250dc0();
-    virtual void Foo();
+    virtual int Foo_00250e00(void*);
     char pad[4];
 };
 class SeqEventStopTrack : public SeqEvent_250dc0 {
   public:
-    virtual void _m_vf1();
-    virtual void _m_vf2();
+    virtual int m_vf1_00251060(void*);
+    virtual void m_vf2_002512e0(void*);
     virtual void _m_vf3();
-    virtual void _m_vf4();
+    virtual void* m_vf4_00251030(char);
     SeqEventStopTrack();
     int b;
     int c;
@@ -473,8 +473,8 @@ class SeqEvent {
 };
 class SeqActionStopTrack {
   public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
+    virtual void* vfunc_0_00251140(int);
+    virtual void vfunc_1_00251170(void*);
     char pad[4];
     SeqEvent* event;
     int field;

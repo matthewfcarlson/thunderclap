@@ -20,7 +20,7 @@ class ParamValue {
 };
 class ParamValueInt {
   public:
-    virtual void F();
+    virtual void* FnF_002352d0(int);
     char pad[4];
     ParamValue value;
     ParamValueInt(hulk_intptr);

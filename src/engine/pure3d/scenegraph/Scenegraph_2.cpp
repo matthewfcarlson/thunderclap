@@ -662,7 +662,7 @@ struct Callback_296c50 {
 extern void FUN_00296220(Ref_296c50*, Callback_296c50*);
 } // namespace fn_f9b7dd8c
 namespace pure3d { namespace scenegraph {
-struct BoundingVolumeUpdater_296cb0 { virtual void vfunc_0(); unsigned char flag; char pad[3]; float bounds[6]; };
+struct BoundingVolumeUpdater_296cb0 { virtual bool vfunc_0_00296e50(void*); unsigned char flag; char pad[3]; float bounds[6]; };
 } }
 namespace fn_f9b7dd8c {
 struct Sphere_296cb0 { float x,y,z,r; };
@@ -1241,7 +1241,7 @@ class Node : public Entity_295f50 {
 class LeafNode : public Node {
   public:
     LeafNode(const LeafNode&);
-    virtual void h();
+    virtual void* Fnh_00296b20(char);
 };
 LeafNode::LeafNode(const LeafNode& other) : Node(other) {}
 } // namespace fn_00295f50

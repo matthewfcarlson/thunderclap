@@ -350,7 +350,7 @@ class ShadowMeshBuffer : public Shadow {
 
   public:
     virtual void f1_000382a0();
-    virtual void f2();
+    virtual void* f2_002df140(char);
     virtual void f3_002df130();
     virtual ShadowMeshBuffer* vfunc_4();
     ShadowMeshBuffer(ShadowMeshBuffer* p) throw() : Shadow(p) {}

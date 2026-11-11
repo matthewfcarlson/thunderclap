@@ -91,8 +91,8 @@ class SeqEvent_253920 {
   public:
     SeqEvent_253920();
     virtual void a();
-    virtual void b();
-    virtual void c();
+    virtual int Fnb_00253980(void*);
+    virtual void Fnc_00253a40(hulk_intptr);
     virtual void d();
     int unknown;
     float pitch;

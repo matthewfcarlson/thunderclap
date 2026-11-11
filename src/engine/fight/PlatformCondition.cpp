@@ -73,7 +73,7 @@ extern int hulk_at_004289c0;
 extern void __cdecl FUN_002343e0(PlatformCondition*, Factory_23cde0*);
 class ConditionFactoryCasterTemplate_23ce00 {
   public:
-    virtual void Cast();
+    virtual bool Cast_0023cc90(void*);
 };
 void* Make_002343e0(void*, ConditionFactoryCasterTemplate_23ce00*);
 } // namespace fn_fe0f08cb

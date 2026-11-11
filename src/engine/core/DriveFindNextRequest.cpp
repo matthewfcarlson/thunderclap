@@ -57,7 +57,7 @@ class DriveFindFirstRequest {
 };
 }
 struct DriveRequest_275aa0 {
-    virtual void Run();
+    virtual void* Run_00275ad0(char);
     int dummy;
     DriveRequest_275aa0(int x);
 };

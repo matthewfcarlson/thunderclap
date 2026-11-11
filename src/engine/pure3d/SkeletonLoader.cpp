@@ -625,7 +625,7 @@ namespace fn_0027be80 {
 namespace pure3d {
 struct Skeleton {
     struct Partition {
-        virtual void Destroy();
+        virtual void* Destroy_0027b510(char);
         char reserved[12];
         int value;
         char tail[4];
@@ -685,7 +685,7 @@ class Skeleton : public Entity {
 public:
     class Partition {
     public:
-        virtual void p0();
+        virtual void* p0_0027b510(char);
         char pad4[0xc];
         unsigned int *bits;
         char pad14[4];
@@ -694,7 +694,7 @@ public:
 
     class Limb {
     public:
-        virtual void l0();
+        virtual void* l0_0027b540(char);
         char pad4[0xc];
         unsigned int *bits;
         char pad14[0x28 - 0x14];
@@ -806,7 +806,7 @@ namespace fn_0027c080 {
 namespace pure3d {
 struct Skeleton {
  struct Partition {
-  virtual void slot0();
+  virtual void* slot0_0027b510(char);
   unsigned int reserved;
   unsigned int key;
   unsigned int value;

@@ -320,8 +320,8 @@ class ImpulseBasedCollisionSolver_2f7fc0 {
   public:
     virtual ~ImpulseBasedCollisionSolver_2f7fc0();
     virtual void vfunc_1_002f8a00();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
+    virtual bool vfunc_2_002f7bd0(void*, int, int, int, int, int);
+    virtual void vfunc_3_002f7c30(void*, int, int, int);
     virtual void vfunc_4_002f8730();
     Ref_2f7fc0* r4;
     char pad1[0x8c];

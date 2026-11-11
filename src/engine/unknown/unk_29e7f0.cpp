@@ -687,7 +687,7 @@ struct Light { virtual void slot0(); Light* FUN_0029e6c0(void*); };
 struct Entry_29f3d0 { char data[12]; Light* light; unsigned int a,b,c; };
 struct EntryArray { int count; Entry_29f3d0 entries[1]; };
 namespace pure3d { struct LightsChooser { struct CacheManager {
- virtual void slot0();
+ virtual void* slot0_0029f570(char);
  Pool_29f3d0 pool;
  Helper_29f3d0* helper;
  Entry_29f3d0* entries;

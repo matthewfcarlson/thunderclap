@@ -20,7 +20,7 @@ extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 namespace fn_f76db007 {
 class DriveRequest_275930 {
   public:
-    virtual void V();
+    virtual void* FnV_00275970(char);
     DriveRequest_275930(int);
 };
 class DriveDestroyDirectoryRequest : public DriveRequest_275930 {

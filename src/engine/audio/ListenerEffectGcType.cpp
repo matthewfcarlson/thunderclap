@@ -63,8 +63,8 @@ namespace audio {
 struct ListenerEffectGc {
     virtual void vfunc_0_00243360();
     virtual void vfunc_1_00243370();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
+    virtual void* vfunc_2_0024d9b0(int);
+    virtual int vfunc_3_0025e680(void*);
     void FUN_0025e6f0(void*);
 };
 struct ListenerEffectGcType {

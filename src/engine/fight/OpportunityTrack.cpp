@@ -314,7 +314,7 @@ public:
 };
 class TrackFactoryCasterTemplate_237ab0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_002377c0(void*);
 };
 class Target {
   public:

@@ -25,7 +25,7 @@ class CommentCondition_23d860 {
     int a, b;
     virtual ~CommentCondition_23d860();
     int d;
-    virtual void hulk_slot_F(); void FnF_002345b0();
+    virtual bool hulk_slot_F_00234270(void*); void FnF_002345b0();
 };
 extern "C" void __cdecl FreeMem_0008d340(void*);
 extern int* hulk_at_004e5c64;
@@ -51,7 +51,7 @@ class CommentTrack_23d950 {
     int a, b;
     virtual ~CommentTrack_23d950();
     int d;
-    virtual void hulk_slot_F(); void FnF_00236d60();
+    virtual bool hulk_slot_F_00234270(void*); void FnF_00236d60();
 };
 extern "C" void __cdecl release(void*);
 extern "C" void* __cdecl FUN_0008d6d0(hulk_uintptr);
@@ -129,7 +129,7 @@ extern int hulk_at_00491ca8;
 extern int hulk_at_0049850c;
 class ConditionFactoryCasterTemplate_23dd90 {
   public:
-    virtual void cast();
+    virtual bool cast_0023dbe0(void*);
 };
 extern "C" void* lookup(void*, ConditionFactoryCasterTemplate_23dd90*);
 } // namespace fn_f40d2254

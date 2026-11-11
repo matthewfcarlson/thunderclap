@@ -486,9 +486,9 @@ namespace fn_0024f230 {
 
 void* __cdecl FUN_00247530(void*);
 struct SeqActionChannelSendVolumes_24f230 {
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
+    virtual void* f0_0024edb0(char);
+    virtual void f1_0024f6a0(void*);
+    virtual void f2_0024ea60(int, int);
     void* unknown;
     void* event;
     int zero;
@@ -650,9 +650,9 @@ namespace fn_0024f540 {
 
 namespace audio {
 struct SeqEventChannelSendVolumes {
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
+    virtual int vfunc_0_0024f600(void*);
+    virtual bool vfunc_1_0024f590(void*);
+    virtual void vfunc_2_0024f230(int);
     virtual void vfunc_3();
     char pad[4];
     unsigned int volumes[16];

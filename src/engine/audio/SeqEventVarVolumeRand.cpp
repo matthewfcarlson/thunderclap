@@ -72,9 +72,9 @@ namespace audio {
 class Base {
   public:
     Base();
-    virtual void a();
-    virtual void b();
-    virtual void c();
+    virtual int Fna_002523a0(void*);
+    virtual int Fnb_002525d0(void*);
+    virtual void Fnc_002526f0(hulk_intptr);
     virtual void d();
     int unk;
 };
@@ -165,8 +165,8 @@ inline void* operator new(size_t, void* p) {
 namespace audio {
 class SeqActionVarVolumeRand_2526f0 {
   public:
-    virtual void v0();
-    virtual void v1();
+    virtual void* v0_00252680(char);
+    virtual void v1_002526b0(void*);
     int unused;
     audio::SeqEventVarVolumeRand* owner;
     int value;

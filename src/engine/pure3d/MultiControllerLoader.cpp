@@ -45,7 +45,7 @@ class Allocated_2b2920 {
 extern Allocated_2b2920* alloc_00263ea0(int);
 class DynamicCaster_2b2c00 {
   public:
-    virtual void cast();
+    virtual void cast_002b2110(void*);
 };
 class Inventory {
   public:
@@ -57,7 +57,7 @@ class Inventory {
 extern __int64 __cdecl getKey_0027b020(void*);
 class DynamicCaster_2b2c30 {
   public:
-    virtual void cast();
+    virtual void cast_002b2140(void*);
 };
 class Obj {
   public:

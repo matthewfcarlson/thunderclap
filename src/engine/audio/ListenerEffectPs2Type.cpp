@@ -31,8 +31,8 @@ struct Factory;
 struct ListenerEffectPs2_24da50 {
     virtual void vfunc_0_00243360();
     virtual void vfunc_1_00243370();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
+    virtual void* vfunc_2_0024dab0(char);
+    virtual int vfunc_3_0025e680(void*);
     void FUN_0025e6f0(Factory*);
 };
 struct Factory {

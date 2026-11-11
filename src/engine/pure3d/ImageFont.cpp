@@ -622,18 +622,18 @@ public:
     Glyph_2bf680 *glyphs;
     ImageFont() : f10(0), f14(0), f18(0), f1c(0), f20(0), f24(-1), image(0), f2c(0), count(0), glyphs(0) {}
     virtual void v1_000382a0();
-    virtual void v2();
+    virtual void* v2_002bfa70(char);
     virtual void v3_002bf1d0();
     virtual void v4_002bf1e0();
     virtual void v5_002bf140();
     virtual void v6_002bf150();
     virtual void v7_002bf160();
     virtual void v8_002bf170();
-    virtual void v9();
-    virtual void v10();
-    virtual void v11();
+    virtual int v9_002bf1f0(hulk_intptr);
+    virtual int v10_002bf230(void*);
+    virtual void v11_002bf2a0(void*, int, int, void*, int);
     virtual void v12_002bf180();
-    virtual void v13();
+    virtual void v13_002bf190(int);
 };
 
 class ImageFontLoader {

@@ -39,7 +39,7 @@ class CDisplayEffect {
   public:
     class DrawableText {
       public:
-        virtual void f1();
+        virtual void* f1_00247680(char);
         virtual void f2();
         void* a;
         void* b;

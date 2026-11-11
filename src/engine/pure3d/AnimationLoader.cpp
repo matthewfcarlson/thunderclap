@@ -191,7 +191,7 @@ struct Alloc_288eb0 {
 namespace pure3d {
 class AnimationGroup_288eb0 {
 public:
-    virtual void v0();
+    virtual void* v0_00289ea0(char);
     char pad4[4];
     StrField_288eb0 name;
     int f10;

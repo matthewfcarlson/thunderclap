@@ -13,7 +13,7 @@ namespace fn_ff8d14c6 {} using namespace fn_ff8d14c6;
 // ---- declarations shared by the functions below
 namespace fn_ff8d14c6 {
 struct DriveRequest_275750 {
-    virtual void Run();
+    virtual void* Run_00275780(char);
     int dummy;
     DriveRequest_275750(int x);
 };
