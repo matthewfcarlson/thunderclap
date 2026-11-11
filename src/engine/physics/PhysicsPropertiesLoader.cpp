@@ -24,7 +24,7 @@ struct Entry_2f27c0 {
 struct Table_2f27c0 {
     Entry_2f27c0 entries[64];
     int count;
-    Entry_2f27c0* FUN_002f27c0(int key1, int key2, int value1, int value2, int value3, int value4);
+    Entry_2f27c0* FUN_002f27c0(unsigned __int64 key, float value1, float value2, float value3, float value4);
 };
 typedef unsigned __int64 U64;
 } // namespace fn_f6d70462
@@ -32,7 +32,7 @@ extern "C" U64 __cdecl FUN_0027b020(int);
 namespace fn_f6d70462 {
 class Manager {
   public:
-    void send_002f27c0(U64, int, int, int, int);
+    void FUN_002f27c0(U64, float, float, float, float);
 };
 struct S_2f2900 {
     char pad[16];
@@ -69,10 +69,14 @@ extern "C" void* __cdecl FUN_0008d690(int);
 
 
 // 0x002f27c0 FUN_002f27c0 (198 B): equivalent/0x002f27c0.cpp
-// sym: ?FUN_002f27c0@Table_2f27c0@fn_f6d70462@@QAEPAUEntry_2f27c0@2@HHHHHH@Z
+// sym: ?FUN_002f27c0@Table_2f27c0@fn_f6d70462@@QAEPAUEntry_2f27c0@2@_KMMMM@Z
 // STATUS: equivalent (tools/equiv.py level 3: 176 inputs, branch coverage 9/10, incomplete)
 // FUN_002f27c0 @ 0x002f27c0
-Entry_2f27c0* Table_2f27c0::FUN_002f27c0(int key1, int key2, int value1, int value2, int value3, int value4) {
+// (x64t4) the key one 64-bit hash and the values floats, as every caller passes them (were six `int`s); the entry keeps
+// the floats' bits
+Entry_2f27c0* Table_2f27c0::FUN_002f27c0(unsigned __int64 key, float f1, float f2, float f3, float f4) {
+    int key1 = (int)key, key2 = (int)(key >> 32);
+    int value1 = *(int*)&f1, value2 = *(int*)&f2, value3 = *(int*)&f3, value4 = *(int*)&f4;
     int originalCount = count;
     for (int i = 0; i < count; ++i) {
         Entry_2f27c0 &e = entries[i];
@@ -106,8 +110,10 @@ Entry_2f27c0* Table_2f27c0::FUN_002f27c0(int key1, int key2, int value1, int val
 // 0x002f28d0 FUN_002f28d0 (47 B): matches/0x002f28d0.cpp
 // sym: _FUN_002f28d0
 // data: gManager = DAT_00554c30
-extern "C" void __cdecl FUN_002f28d0(int a, int b, int c, int d, int e) {
-    (*(Manager**)&DAT_00554c30)->send_002f27c0(FUN_0027b020(a), b, c, d, e);
+// (x64t4) the name a string and the four values floats (were `int`s: natively the name was cut to 32 bits and the
+// values passed in integer registers); the table's insert by address (was `send_002f27c0`)
+extern "C" void __cdecl FUN_002f28d0(const char* a, float b, float c, float d, float e) {
+    (*(Manager**)&DAT_00554c30)->FUN_002f27c0(FUN_0027b020(a), b, c, d, e);
 }
 
 
@@ -239,7 +245,8 @@ void owners::Obj_2f2cb0::FUN_002f2cb0() {
         q += 8;
     } while (--n);
     end = 0;
-    finish();
+    // (x64t4) the defaults table 0x002f2a80 by address (was `finish`, an invented name: unbound natively)
+    ((owners::PhysicsTable_2f2a80*)this)->FUN_002f2a80();
 }
 
 namespace fn_f6d70462 {

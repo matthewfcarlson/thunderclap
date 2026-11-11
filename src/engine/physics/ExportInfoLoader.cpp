@@ -2,6 +2,7 @@
 // object 0x002f4df0..0x002f5130 (kind game, layer engine, confidence medium), dominant class physics::ExportInfoLoader
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/physics_world.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
 #include "gen/physics.h"
@@ -15,7 +16,7 @@ namespace fn_f1098e70 {} using namespace fn_f1098e70;
 // ---- declarations shared by the functions below
 namespace fn_f1098e70 {
 struct Sub_2f4df0 { void FUN_002f7a40(); void FUN_002f7a80(void*); };
-struct G_2f4df0 { char pad[0xb0]; Sub_2f4df0 sub; };
+struct G_2f4df0 { char pad[HULK_PW_SOLVER]; Sub_2f4df0 sub; };  // (x64t4) decls/physics_world.h
 struct Agent_2f4df0 { Agent_2f4df0* FUN_002f8800(); };
 extern "C" void __cdecl FUN_002ecb90(int);
 extern "C" void __cdecl FUN_002f2e20();

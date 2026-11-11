@@ -2329,3 +2329,53 @@ every tree and data TU compiles): **22,121 / 22,101 / 22,112** unbound (control 
 macOS: Pure3D's set-up and the lights' cache manager complete; the start-up stops in the physics set-up:
 0x002f2cb0 (owners::Obj_2f2cb0) calls `finish` (an invented name) and, continued, 0x002ed020 (src/engine/physics/
 SimLength.cpp) calls `Alloc` (an invented name) and dereferences its null result.
+
+## The physics set-up, the lights' hash table and a heap overrun (x64t4, 2026-11-11)
+
+x64t3's follow-up. Control 71638 on studio (HEAD d2275f127, `--gfx --replay play3 --frames 60000`, data TUs and
+hulk_sdl.lib copied privately). Native iteration as x64t3 (a private copy of the proof's binding map, the working
+tree compiled locally against the proof's snapshot).
+
+**Two start-up overruns that only some layouts show.** Builds that differed only in code that runs later crashed
+early (the first free in the Lua parser, or malloc's free list in LightsChooser's cache manager): both were writes
+past an object that land on something live in one image layout and on nothing in another.
+
+- 0x00363230, one of the shader state-table initializers in src/game/init/dynamic_initializers.cpp, stored the
+  table through a `StateBlock` view (an 8-byte callback per entry on 64-bit). The data TU defines the table's words as
+  separate items, so the view wrote past DAT_004d9060's items; in one layout over the allocator registry's root
+  DAT_00527f40 (the root's allocator zeroed: the first free found no owner). It now stores each word by its own item,
+  as the 32-bit code does (absolute stores); re-proved (equiv.py 3,000 inputs and `--wine`). The second entry's
+  callback is an `int` item (truncated on 64-bit; nothing in the tree reads the table). The rest of the family is
+  not fixed: dozens of initializers in that TU write similar tables (callback, three words, a four-character name) through 32-bit views
+  or through items declared `void (*)()` over `int` items; the fix is data_gen typing these tables as records with
+  pointer-sized callbacks (a decision for the data side).
+- LightsChooser's cache manager (0x0029f3d0) allocated its hash-table cursor (0x00231160) as 0x18 bytes, which the
+  cursor's 64-bit constructor overran by 4 (malloc's free list). The cursor and the hash table (0x00231550,
+  0x002310a0) are now declared with their words in 0x0029f3d0 and 0x0029f7c0's mirror (the table was a 0x24-byte pad
+  that its 64-bit constructor overran into the manager's next fields), the cursor allocated by `sizeof`
+  (`HULK_SIZE32` 0x18 / 0x24).
+
+**The physics set-up** (0x002f4df0: the property table, the environment, the world):
+
+| where | change | gate |
+|---|---|---|
+| 0x002f2cb0 (match) | the defaults table 0x002f2a80 by address (was `finish`, an invented name: unbound) | MATCH, relocs ok |
+| 0x002f27c0 (equivalent) | the table's insert takes the key as one 64-bit hash and the values as floats, as every caller passes them (was six `int`s: natively the floats arrived in integer registers) | same code (new pin) |
+| 0x002f28d0 (match) | the name a `const char*` and the values floats (were `int`s: the name cut to 32 bits); the insert by address | MATCH, relocs ok |
+| 0x002ed020 (match) | the allocator thunk by address (`FUN_00263ea0`; was `Alloc`) | MATCH, relocs ok |
+| 0x002ecf60 Environment ctor (equivalent) | pure3d::Entity's words and Environment's vftable stored by address (DAT_00431184): the local classes' own vftables were the native link's stubs (`Entity::v0`, unbound) | same code |
+| include/decls/physics_world.h (new) | the physics world (DAT_00554c14, 0x002ef0b0): its parts' offsets (pool 0, flag 0x6c, collision detector 0x70, solver 0xb0, contact buffer 0x1b0, 0x1c4 bytes) as macros; on 64-bit each offset and the size doubled (room for parts whose words all turn into pointers) | 32-bit offsets unchanged |
+| src/engine/unknown/unk_2ed240.cpp: 0x002ef0b0, 0x002ef050, 0x002ef080, 0x002ef110, 0x002ef150, 0x002ed6e0, 0x002eedd0, 0x002ede00 (matches), 0x002edb20, 0x002edb90 views (equivalents) | the world's parts at those offsets; the allocators by address (`FUN_0008d690` / `FUN_0008d6d0`; one name `Alloc` stood for both) | MATCH, relocs ok; equivalents same code |
+| the world's other views: ExportInfoLoader (0x002f4df0), SimLength, unk_2e6780, CollisionMesh (+ its iso TU), unk_302fa0, unk_2fa6b0 (six) | pads up to a part's offset via the macros | matches MATCH, relocs ok; equivalents same code |
+
+Not done: the world's views that read words inside its parts by 32-bit offsets (unk_2ed240's `Mgr` for
+0x002ed240 / 0x002ed3d0 / 0x002ed730 / 0x002eea80: the detector's words at 0x78 / 0xa0 and the solver's at 0xb4) and
+the pool's own views (the body pool's methods each declare its words differently; natively they disagree): these need
+the parts as records.
+
+Gates: the 12 TUs: 747 matches MATCH with relocations ok, 157 equivalents compile; edited equivalents' listings
+identical to HEAD's (0x002f27c0's symbol changes: new pin) apart from 0x00363230 (re-proved). Proof 71737 vs control
+71638 (studio, seeded): GATE ok (0 of 2,006 common frames differ). Native on 71737's snapshot and map: arm64 macOS /
+x86-64 Linux / arm64 Android unbound **22,116 / 22,096 / 22,107** (before: 22,121 / 22,101 / 22,112), every TU
+compiles. macOS: the property table, the environment and the world's allocation run; the start-up stops in the
+world's collision detector (0x00301290 calls its base constructor 0x00313500 under a local class name, unbound).

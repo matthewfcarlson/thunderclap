@@ -2,6 +2,7 @@
 // object 0x002f32b0..0x002f4df0 (kind game, layer engine, confidence high), dominant class physics::CollisionMesh
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/physics_world.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
@@ -446,7 +447,7 @@ struct Reset_2f36c0 {
     void FUN_003037e0();
 };
 struct Context {
-    char pad[0x1b0];
+    char pad[HULK_PW_BUFFER];  // (x64t4) decls/physics_world.h
     Reset_2f36c0 reset;
 };
 namespace physics {

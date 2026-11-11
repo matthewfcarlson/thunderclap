@@ -10,6 +10,7 @@
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
 #include "gen/physics.h"
+#include "decls/physics_world.h"
 
 struct Vec3_2f47b0 {
     float x, y, z;
@@ -99,7 +100,7 @@ struct Sys_2f47b0 {
 };
 
 struct Root_2f47b0 {
-    char pad0[0x1b0];
+    char pad0[HULK_PW_BUFFER];  // (x64t4) decls/physics_world.h
     Sys_2f47b0 sys;
 };
 

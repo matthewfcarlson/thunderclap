@@ -2,6 +2,7 @@
 // object 0x002e6780..0x002ecd50 (kind game, layer engine, confidence low)
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/physics_world.h"
 #include "decls/data/engine/core.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/engine/pure3d.h"
@@ -539,9 +540,11 @@ struct PA {
     Sub2_2eccd0 s;
 };
 struct PB {
-    char pad0[0x80];
+    // (x64t4) the physics world (DAT_00554c14): a word of its collision detector and its solver at the parts'
+    // offsets (decls/physics_world.h)
+    char pad0[HULK_PW_AT(0x70, 0x80)];
     float f80;
-    char pad1[0x2c];
+    char pad1[HULK_PW_SOLVER - HULK_PW_AT(0x70, 0x80) - 4];
     Sub2_2eccd0 s;
 };
 

@@ -24,9 +24,18 @@ extern "C" void* __cdecl FUN_0008d690(unsigned int);   // (x64t3) the allocator 
 struct CacheManager_nv_29f7c0 {
     CacheManager_nv_29f7c0* FUN_0029f3d0(void* context, int n);
 };
+// (x64t4) the hash table's words (fight/unk_2310a0.cpp 0x00231550; was a 0x24-byte pad, which its 64-bit
+// constructor overran)
+struct CacheManagerPool_29f7c0 {
+    unsigned int capacity, count, used;
+    char padding[12];
+    void* slots;
+    void* entries;
+    int sentinel;
+};
 struct CacheManagerRec_29f7c0 {
     void* vftable;
-    char pool[0x24];
+    CacheManagerPool_29f7c0 pool;
     void* helper;
     void* entries;
     void* pointers;

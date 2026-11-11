@@ -5,6 +5,7 @@
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
+#include "decls/physics_world.h"
 #define TREE_TU_BEGIN namespace fn_f671dae7 {
 #define TREE_TU_END }
 #define TREE_LOCAL_CEffectStopTrack
@@ -176,10 +177,15 @@ struct Sub_2edb20 {
 };
 class Mgr_2edb20 {
   public:
-    char pad00[0x3c];
-    Entry_2edb20** begin;
-    Entry_2edb20** end;
-    char pad44[0x1b0 - 0x44];
+    // (x64t4) the contact buffer at the physics world's part offset (decls/physics_world.h)
+    union {
+        struct {
+            char pad00[0x3c];
+            Entry_2edb20** begin;
+            Entry_2edb20** end;
+        };
+        char pool_[HULK_PW_BUFFER];
+    };
     Sub_2edb20 sub;
     unsigned char FUN_002edb20(int a, int b, int c);
 };
@@ -216,9 +222,14 @@ struct Vec_2edb90 {
     Item_2edb90*& operator[](unsigned i) { return b[i]; }
 };
 struct T_2edb90 {
-    char pad[0x3c];
-    Vec_2edb90 v;
-    char pad2[0x1b0 - 0x44];
+    // (x64t4) the contact buffer at the physics world's part offset (decls/physics_world.h)
+    union {
+        struct {
+            char pad[0x3c];
+            Vec_2edb90 v;
+        };
+        char pool_[HULK_PW_BUFFER];
+    };
     Sub_2edb90 sub;
     bool Run(int a, int b);
 };
@@ -234,7 +245,7 @@ struct Hit_2edce0 { char pad[8]; void* object; };
 struct Entry_2edce0 { char p0[0x20]; void* object; char p1[0x2c]; unsigned char flag50; char p2[0x21]; unsigned char enabled; };
 extern unsigned char __cdecl FUN_002f15a0(Vec_2edce0*, Vec_2edce0*, Vec_2edce0*, float, void*, Hit_2edce0*);
 struct Manager_2edce0 { Entry_2edce0** begin; Entry_2edce0** end; unsigned char FUN_002edce0(Hit_2edce0*, Vec_2edce0*, Vec_2edce0*, unsigned char); };
-extern "C" void* Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_0008d690(unsigned int);  // (x64t4) the allocator by address (was `Alloc`)
 struct Item_2ee0c0 {
     uint a, b, c, d, e;
 };
@@ -557,7 +568,7 @@ class Inner_2eedd0 {
 };
 class Obj_2eedd0 {
   public:
-    char pad[0xb0];
+    char pad[HULK_PW_SOLVER];
     void Run(void*);
 };
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
@@ -597,7 +608,7 @@ struct S3_2ef050 {
     void Fnf_00304300();
 };
 struct C_2ef050 {
-    char pad[0x70];
+    char pad[HULK_PW_DETECTOR];
     void Fnf_002eee10();
     C_2ef050* target();
 };
@@ -611,11 +622,12 @@ struct CollisionDetector_2ef080 {
     void three_003012c0();
 };
 struct Obj_2ef080 {
-    char p70[0x70];
+    // (x64t4) the physics world's parts at their offsets (decls/physics_world.h)
+    char p70[HULK_PW_DETECTOR];
     CollisionDetector_2ef080 c;
-    char p_after_c[0x3f];
+    char p_after_c[HULK_PW_SOLVER - HULK_PW_DETECTOR - 1];
     ImpulseBasedCollisionSolver_2ef080 b;
-    char p_after_b[0xff];
+    char p_after_b[HULK_PW_BUFFER - HULK_PW_SOLVER - 1];
     A_2ef080 a;
     void target();
 };
@@ -645,11 +657,12 @@ struct D {
     void f3_00304350();
 };
 struct C_2ef110 {
-    char p0[0x70];
+    // (x64t4) the physics world's parts at their offsets (decls/physics_world.h)
+    char p0[HULK_PW_DETECTOR];
     CollisionDetector_2ef110 a;
-    char p1[0x3f];
+    char p1[HULK_PW_SOLVER - HULK_PW_DETECTOR - 1];
     ImpulseBasedCollisionSolver_2ef110 b;
-    char p2[0xff];
+    char p2[HULK_PW_BUFFER - HULK_PW_SOLVER - 1];
     D c;
     C_2ef110* target(unsigned char flag);
 };
@@ -657,12 +670,12 @@ void destroy_0008d330(C_2ef110*);
 class CollisionDetector_2ef150 {
   public:
     void Fnf_003012c0();
-    char pad[0x40];
+    char pad[HULK_PW_SOLVER - HULK_PW_DETECTOR];
 };
 class ImpulseBasedCollisionSolver_2ef150 {
   public:
     void Fnf_002f79f0();
-    char pad[0x100];
+    char pad[HULK_PW_BUFFER - HULK_PW_SOLVER];
 };
 class C {
   public:
@@ -670,7 +683,7 @@ class C {
 };
 class Obj {
   public:
-    char p0[0x70];
+    char p0[HULK_PW_DETECTOR];  // (x64t4) the physics world's parts at their offsets (decls/physics_world.h)
     CollisionDetector_2ef150 a;
     ImpulseBasedCollisionSolver_2ef150 b;
     C c;
@@ -915,7 +928,7 @@ void SweepAndPrune::FUN_002ed3d0(unsigned int index)
 // 0x002ed6e0 FUN_002ed6e0 (25 B): matches/0x002ed6e0.cpp
 // sym: ?FUN_002ed6e0@Obj_2ed6e0@owners@@QAEXI@Z
 void owners::Obj_2ed6e0::FUN_002ed6e0(u32_2ed6e0 arg) {
-    ((Sub_2ed6e0*)((char*)this + 0xb0))->Call_002f8020((char*)this + 0x2c, arg, 0);
+    ((Sub_2ed6e0*)((char*)this + HULK_PW_SOLVER))->Call_002f8020((char*)this + 0x2c, arg, 0);
 }
 
 namespace fn_f671dae7 {
@@ -1060,7 +1073,7 @@ unsigned char Manager_2edce0::FUN_002edce0(Hit_2edce0* hit, Vec_2edce0* start, V
 // sym: ?FUN_002ede00@Buffer_2ede00@owners@@QAEXH@Z
 void owners::Buffer_2ede00::FUN_002ede00(int n) {
     if (n != 0) {
-        void* q = Alloc(n * 4);
+        void* q = FUN_0008d6d0(n * 4);  // (x64t4) by address (was `Alloc`, unbound)
         p = q;
         if (q != 0) {
             end = (char*)q + n * 4;
@@ -1471,7 +1484,7 @@ void State_2eecc0::reset() {
 // sym: ?Run@Obj_2eedd0@fn_f671dae7@@QAEXPAX@Z
 void Obj_2eedd0::Run(void* arg) {
     ((Inner_2eedd0*)this)->First_002eea80();
-    ((Inner_2eedd0*)((char*)this + 0xb0))->Second_002f8020((char*)this + 0x2c, arg, 0);
+    ((Inner_2eedd0*)((char*)this + HULK_PW_SOLVER))->Second_002f8020((char*)this + 0x2c, arg, 0);
 }
 
 // 0x002eee00 thunk_FUN_002eecc0 (5 B): not yet verified
@@ -1626,10 +1639,10 @@ namespace fn_f671dae7 {
 // sym: ?target@C_2ef050@fn_f671dae7@@QAEPAU12@XZ
 C_2ef050* C_2ef050::target() {
     Fnf_002eee10();
-    ((CollisionDetector_2ef050*)(pad + 0x70))->Fnf_00301290();
-    ((ImpulseBasedCollisionSolver_2ef050*)(pad + 0xb0))->Fnf_002f7ee0();
-    ((S3_2ef050*)(pad + 0x1b0))->Fnf_00304300();
-    pad[0x6c] = 0;
+    ((CollisionDetector_2ef050*)(pad + HULK_PW_DETECTOR))->Fnf_00301290();
+    ((ImpulseBasedCollisionSolver_2ef050*)(pad + HULK_PW_SOLVER))->Fnf_002f7ee0();
+    ((S3_2ef050*)(pad + HULK_PW_BUFFER))->Fnf_00304300();
+    pad[HULK_PW_FLAG] = 0;
     return this;
 }
 
@@ -1649,13 +1662,15 @@ void Obj_2ef080::target() {
 // data: gObject_2ef0b0 = DAT_00554c14
 extern "C" void FUN_002ef0b0() {
     if ((*(void**)&DAT_00554c14) == 0) {
-        void* p = Alloc(0x1c4);
+        // (x64t4) the allocator by address (FUN_0008d690; was `Alloc`, unbound) and the world's parts at their
+        // offsets (decls/physics_world.h)
+        void* p = FUN_0008d690(HULK_PW_SIZE);
         if (p != 0) {
             ((Obj_2ef0b0*)p)->Init_002eee10();
-            ((CollisionDetector_2ef0b0*)((char*)p + 0x70))->Init_00301290();
-            ((ImpulseBasedCollisionSolver_2ef0b0*)((char*)p + 0xb0))->Init_002f7ee0();
-            ((Obj1B0*)((char*)p + 0x1b0))->Init_00304300();
-            *((char*)p + 0x6c) = 0;
+            ((CollisionDetector_2ef0b0*)((char*)p + HULK_PW_DETECTOR))->Init_00301290();
+            ((ImpulseBasedCollisionSolver_2ef0b0*)((char*)p + HULK_PW_SOLVER))->Init_002f7ee0();
+            ((Obj1B0*)((char*)p + HULK_PW_BUFFER))->Init_00304300();
+            *((char*)p + HULK_PW_FLAG) = 0;
             (*(void**)&DAT_00554c14) = p;
         } else
             (*(void**)&DAT_00554c14) = 0;

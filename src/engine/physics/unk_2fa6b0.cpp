@@ -2,6 +2,7 @@
 // object 0x002fa6b0..0x002fb600 (kind game, layer engine, confidence low)
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/physics_world.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
@@ -34,7 +35,7 @@ struct Shape_2fa7c0 { virtual void v0(); virtual void v1(); virtual void v2(); v
 extern "C" void __cdecl FUN_002fa6b0(const void *, const void *, const void *, void *);
 extern "C" bool __cdecl FUN_0035a4c0(int,void*,Vec_2fa7c0*,Vec_2fa7c0*,Vec_2fa7c0*,Vec_2fa7c0*,float*,Vec_2fa7c0*,Vec_2fa7c0*,bool,bool,bool);
 struct Manager_2fa7c0 { void FUN_00304530(Shape_2fa7c0*,unsigned,float,Vec_2fa7c0*,Vec_2fa7c0*,Context*,int); };
-struct Global_2fa7c0 { char pad[0x1b0]; Manager_2fa7c0 manager; };
+struct Global_2fa7c0 { char pad[HULK_PW_BUFFER]; Manager_2fa7c0 manager; };  // (x64t4) decls/physics_world.h
 struct Face_2fa7c0 { char pad[0x10]; unsigned short a,b,c,flags; bool run(Shape_2fa7c0*,Context*,int); };
 struct V3_2fa8c0 {
     float x, y, z;
@@ -73,7 +74,7 @@ struct Tracker_2fa8c0 {
     void FUN_00304530(Hit_2fa8c0* hit, unsigned int index, float f, V3_2fa8c0* a, V3_2fa8c0* b, Mesh_2fa8c0* mesh, int flags);
 };
 struct Scene_2fa8c0 {
-    char pad00[0x1b0];
+    char pad00[HULK_PW_BUFFER];  // (x64t4) decls/physics_world.h
     Tracker_2fa8c0 tracker;
 };
 extern "C" char FUN_00358b10(void* p38, void* p44, float v1, float v0, V3_2fa8c0* a0, V3_2fa8c0* a1, V3_2fa8c0* a2, V3_2fa8c0* normal, float* out, V3_2fa8c0* l0c, V3_2fa8c0* l18, int b1, int b2, int b4);
@@ -304,7 +305,7 @@ struct Registry_2faa30 {
     char FUN_00304530(Shape_2faa30 *shape, unsigned int index, float depth, V3_2faa30 *o1, V3_2faa30 *o2, Context *ctx, int flags);
 };
 struct Manager_2faa30 {
-    char pad[0x1b0];
+    char pad[HULK_PW_BUFFER];  // (x64t4) decls/physics_world.h
     Registry_2faa30 reg;
 };
 
@@ -531,7 +532,7 @@ public:
 struct Registry_2fb000 {
     char FUN_00304530(Shape_2fb000* shape, unsigned int index, float depth, V3_2fb000* o1, V3_2fb000* o2, Context* ctx, int flags);
 };
-struct Manager_2fb000 { char pad[0x1b0]; Registry_2fb000 reg; };
+struct Manager_2fb000 { char pad[HULK_PW_BUFFER]; Registry_2fb000 reg; };  // (x64t4) decls/physics_world.h
 
 extern "C++" __declspec(nothrow) void __cdecl FUN_002fa6b0(const void *, const void *, const void *, void *);
 extern "C" char FUN_00359260(V3_2fb000* ref, float margin, V3_2fb000* a, V3_2fb000* b, V3_2fb000* c, V3_2fb000* n, float* depth, V3_2fb000* o1, V3_2fb000* o2,
@@ -635,7 +636,7 @@ struct CollisionRay_2fb190 {
 struct Registry_2fb190 {
     char FUN_00304530(CollisionRay_2fb190* shape, unsigned int index, float depth, V3_2fb190* o1, V3_2fb190* o2, Context* ctx, int flags);
 };
-struct Manager_2fb190 { char pad[0x1b0]; Registry_2fb190 reg; };
+struct Manager_2fb190 { char pad[HULK_PW_BUFFER]; Registry_2fb190 reg; };  // (x64t4) decls/physics_world.h
 
 extern "C++" __declspec(nothrow) void __cdecl FUN_002fa6b0(const void *, const void *, const void *, void *);
 
@@ -778,7 +779,7 @@ struct Hitter {
     void FUN_00304530(Ray_2fb440* ray, hulk_uintptr index, float t, V3_2fb440* point, V3_2fb440* normal, Mesh_2fb440* mesh, int flags);
 };
 struct Globals_2fb440 {
-    char pad0[0x1b0];
+    char pad0[HULK_PW_BUFFER];  // (x64t4) decls/physics_world.h
     Hitter hitter;
 };
 extern "C++" __declspec(nothrow) bool __cdecl FUN_002fae50(const void *, const void *, const void *, float *);

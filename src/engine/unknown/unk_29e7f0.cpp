@@ -675,8 +675,14 @@ namespace fn_0029f3d0 {
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
 void* __cdecl FUN_00263ea0(unsigned int);
-struct Pool_29f3d0 { char data[0x24]; void FUN_00231550(int,int,int); };
-struct Helper_29f3d0 { void FUN_00231160(Pool_29f3d0*); };
+// (x64t4) the hash table (fight/unk_2310a0.cpp: 0x00231550 builds it, 0x002310a0 sizes it) and its cursor
+// (0x00231160) with their words, as those constructors write them: the cursor was allocated as 0x18 bytes, which on
+// 64-bit its constructor overran by 4 (the start-up's heap corruption), and the table was a 0x24-byte pad
+struct Pool_29f3d0 {
+ unsigned int capacity, count, used; char padding[12]; void* slots; void* entries; int sentinel;
+ void FUN_00231550(int,int,int);
+};
+struct Helper_29f3d0 { void* table; char pad[4]; int m8, mc, m10, m14; void FUN_00231160(Pool_29f3d0*); };
 struct Light { virtual void slot0(); Light* FUN_0029e6c0(void*); };
 struct Entry_29f3d0 { char data[12]; Light* light; unsigned int a,b,c; };
 struct EntryArray { int count; Entry_29f3d0 entries[1]; };
@@ -693,7 +699,9 @@ namespace pure3d { struct LightsChooser { struct CacheManager {
 pure3d::LightsChooser::CacheManager::CacheManager(void* context,int n) {
  pool.FUN_00231550(n*2,0x50,0x64);
  count=n; available=n;
- Helper_29f3d0* h=(Helper_29f3d0*)FUN_0008d690(0x18);
+ HULK_SIZE32(Helper_29f3d0, 0x18);
+ HULK_SIZE32(Pool_29f3d0, 0x24);
+ Helper_29f3d0* h=(Helper_29f3d0*)FUN_0008d690((unsigned)sizeof(Helper_29f3d0));
  if(h) h->FUN_00231160(&pool);
  helper=h;
  int length=count;

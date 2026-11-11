@@ -2,6 +2,7 @@
 // object 0x00302fa0..0x00304640 (kind game, layer engine, confidence low)
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/physics_world.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
 #include "gen/owners.h"
@@ -116,7 +117,7 @@ struct Renderer_304530 {
     void FUN_00314be0(unsigned int, unsigned int, Object*, unsigned int, unsigned int, unsigned int);
 };
 struct Global_304530 {
-    char pad[0x70];
+    char pad[HULK_PW_DETECTOR];  // (x64t4) decls/physics_world.h
     Renderer_304530 renderer;
 };
 struct Queue_304530 {

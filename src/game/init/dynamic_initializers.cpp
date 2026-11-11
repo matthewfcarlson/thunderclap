@@ -8696,19 +8696,24 @@ void FUN_00363190()
 // sym: ?FUN_00363230@fn_f1ddef39@@YAXXZ
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363230 @ 0x00363230
+// (x64t4) the table's words by their own items, as the 32-bit code stores them (absolute addresses): the data TU
+// defines each word as a separate item, so a 64-bit StateBlock view (8-byte callbacks, 0x20-byte entries) wrote past
+// DAT_004d9060's items into whatever the native link put next (the allocator registry's root DAT_00527f40 in one
+// layout: the start-up's first free crashed). The second entry's callback is an `int` item (a data_gen follow-up:
+// the table as a typed record with pointer-sized callbacks); nothing in the tree reads it.
 void FUN_00363230() {
-    (*(StateBlock*)&DAT_004d9060).entries[0].callback = FUN_00331b90;
-    (*(StateBlock*)&DAT_004d9060).entries[0].a = 0;
-    (*(StateBlock*)&DAT_004d9060).entries[0].b = 0;
-    (*(StateBlock*)&DAT_004d9060).entries[0].c = 0;
-    (*(StateBlock*)&DAT_004d9060).entries[1].callback = FUN_00331bc0;
-    (*(StateBlock*)&DAT_004d9060).entries[1].a = 0;
-    (*(StateBlock*)&DAT_004d9060).entries[1].b = 0;
-    (*(StateBlock*)&DAT_004d9060).entries[1].c = 0;
-    (*(StateBlock*)&DAT_004d9060).entries[2].callback = 0;
-    (*(StateBlock*)&DAT_004d9060).entries[2].a = 0;
-    (*(StateBlock*)&DAT_004d9060).entries[2].b = 0;
-    (*(StateBlock*)&DAT_004d9060).entries[2].c = -1;
+    DAT_004d9060 = (void*)FUN_00331b90;
+    DAT_004d906c = 0;
+    DAT_004d9084 = 0;
+    DAT_004d9078 = (int)(hulk_intptr)FUN_00331bc0;
+    DAT_004d909c = -1;
+    DAT_004d9064 = 0;
+    DAT_004d9068 = 0;
+    DAT_004d907c = 0;
+    DAT_004d9080 = 0;
+    DAT_004d9090 = 0;
+    DAT_004d9094 = 0;
+    DAT_004d9098 = 0;
 }
 
 

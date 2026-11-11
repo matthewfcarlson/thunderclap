@@ -2,6 +2,7 @@
 // object 0x002ecd50..0x002ed240 (kind game, layer engine, confidence high), dominant class physics::SimLength
 #include "tree_prelude.h"
 #include "compat/ptr.h"
+#include "decls/physics_world.h"
 #include "decls/data/engine/physics.h"
 #include "decls/data/engine/unknown.h"
 #include "decls/data/game/global.h"
@@ -57,7 +58,7 @@ struct SystemA {
     Listener_2ece90 listener;
 };
 struct SystemB {
-    char pad00[0xb0];
+    char pad00[HULK_PW_SOLVER];  // (x64t4) decls/physics_world.h
     Listener_2ece90 listener;
 };
 extern void* hulk_at_004311b0;
@@ -76,7 +77,7 @@ struct SimTime {
 struct Environment_nv_2ed020 {
     physics::Environment* Init_002ecf60();
 };
-extern "C" void* __cdecl Alloc(hulk_uintptr);
+extern "C" void* __cdecl FUN_00263ea0(unsigned);  // (x64t4) the allocator's jmp thunk 0x00263ea0 (was `Alloc`, unbound)
 
 } // namespace fn_fae3921a
 
@@ -244,9 +245,12 @@ extern "C" double __cdecl sqrt(double x);
 
 
 
-class __declspec(novtable) Entity {
+// (x64t4) pure3d::Entity's words and Environment's vftable stored by address (DAT_00431184): the local classes' own
+// vftables were the 64-bit link's stubs (`Entity::v0`, unbound)
+extern "C" char DAT_00431184[];  // physics::Environment
+class Entity {
 public:
-    virtual void v0();
+    void* vftable;
     char pad04[0xc];
     void FUN_0027b070();
     Entity() { FUN_0027b070(); }
@@ -269,6 +273,7 @@ public:
 };
 
 Environment::Environment() {
+    vftable = DAT_00431184;
     damping = 2.0f;
     scaledDamping = 2.0f;
     gravityY = -980.0f;
@@ -348,7 +353,7 @@ namespace fn_fae3921a {
 extern "C" void __cdecl FUN_002ed020() {
     physics::Environment* p = (*(physics::Environment**)&DAT_00554c10);
     if (p == 0) {
-        p = (physics::Environment*)Alloc(0x38);
+        p = (physics::Environment*)FUN_00263ea0(0x38);
         if (p != 0)
             p = ((Environment_nv_2ed020*)(((physics::Environment*)(p))))->Init_002ecf60();
         else
