@@ -243,15 +243,18 @@ class Obj_327dd0 {
     virtual void f12();
     virtual void f13();
 };
-class pddiShader_327e00 {
+// pure3d::pddiObject (0x0031bac0 constructs it: its vftable, then two words), named by its constructor's address so
+// that the native link binds the base-constructor call; pddiBaseShader's vftable is stored by address (a local
+// class's own vftable would be the 64-bit link's stub; DAT_0043359c above)
+class FUN_0031bac0 {
   public:
-    pddiShader_327e00();
-    virtual void f();
+    FUN_0031bac0();
+    void* vftable;
+    int a, b;
 };
-class pddiBaseShader_327e00 : public pddiShader_327e00 {
+class pddiBaseShader_327e00 : public FUN_0031bac0 {
   public:
     pddiBaseShader_327e00();
-    int pad[2];
     int id;
 };
 } // namespace fn_fbec554b
@@ -741,6 +744,7 @@ void target() {
 // sym: ??0pddiBaseShader_327e00@fn_fbec554b@@QAE@XZ
 // data: gCounter_327e00 = DAT_005555b8
 pddiBaseShader_327e00::pddiBaseShader_327e00() {
+    vftable = DAT_0043359c;
     id = (*(int*)&DAT_005555b8)++;
 }
 

@@ -2013,3 +2013,17 @@ edit that this TU reaches does the same (3 such pins in the tree). Proof 71454 v
 (44 imports); the start-up stops in 0x00327e00's block at the base constructor `pddiShader_327e00` (an invented class
 name, the d3dShader chain 0x0032a9f0 -> 0x00333520 -> 0x00327e00); continued, pddiBaseContext::vfunc_99 calls
 `hulk_x_0031b500` (no verified definition at 0x0031b500) and vfunc_102 dereferences null.
+
+**Batch 4**: 0x00327e00 (pddiBaseShader's constructor, match) names its base by the constructor's address
+(`FUN_0031bac0`, pure3d::pddiObject: was `pddiShader_327e00`) and stores pddiBaseShader's vftable by address
+(DAT_0043359c); MATCH, relocs ok. tools/native_mac.py `TreeDefs` (the definition behind each slot of the game
+vftables the link emits) now falls back to the one 64-bit function of the same qualified name when the demangled forms
+differ in types (a `hulk_freg` result is float on i686 and double on 64-bit: d3dDisplay::vfunc_16 0x0031b500 was the
+start-up's `hulk_x_0031b500`), the rule native_unbound.Defs already uses for the address bindings: vftable slots bound
+23,102 -> 23,826, `hulk_x_` slots 4,338 -> 3,614 (macOS, same snapshot). Proof 71456 vs control 71429 (studio): image
+2e8232cd, GATE ok (0 of 2,026 common frames).
+
+Native on 71456's snapshot and map: **29,010 / 28,995 / 29,002** unbound (Android metric 29,649; its shim still fails on
+snapshot.cpp). macOS: no missing name on the path any more; the d3dContext's construction completes and
+pddiBaseContext::vfunc_99 (0x0031cb60, wrapped) -> vfunc_102 dereferences null: the context's layout (0x00324e00's and
+0x0031f410's local views vs include/gen/pure3d.h's pddiBaseContext / d3dContext, see above) is the next stop.

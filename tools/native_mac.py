@@ -582,6 +582,7 @@ class TreeDefs:
                         if c.get("symbol") and c["status"] in ("match", "compiled")}
         self.dem32 = cp.undname(sorted({v[0] for v in self.by_addr.values() if v[0].startswith("?")}))
         dem64 = cp.undname(sorted(s for s in defined64 if s.startswith("?")))
+        self._dem64, self._by_name64 = dem64, None
         self.by_key64 = collections.defaultdict(set)
         self.by_loose64 = collections.defaultdict(set)
         self.by_own_addr = collections.defaultdict(set)   # definitions named by their own address (FUN_<addr>)
@@ -607,7 +608,30 @@ class TreeDefs:
             # (boot1) a source whose 64-bit branch defines the function under its own address (0x002786f0: the 32-bit
             # object is a compiler-generated adjustor thunk, which no explicit 64-bit function can be named as)
             c = self.by_own_addr.get(addr, set())
+        if not c and sym.startswith("?"):
+            # (x64t1) the 64-bit form differs in its types in another way (a `hulk_freg` result is float on i686 and
+            # double on 64-bit: d3dDisplay::vfunc_16 0x0031b500, `UAEMXZ` / `UEAANXZ`): the one 64-bit function of
+            # that qualified name, native_unbound.Defs's rule for the address bindings
+            c = self.by_name64().get(self._shape_name(self.dem32.get(sym, sym)), set())
         return next(iter(c)) if len(c) == 1 else None
+
+    @staticmethod
+    def _shape_name(d):
+        import native_unbound as nu_
+        sh = nu_.shape(d)
+        return sh["name"] if sh and sh["kind"] == "func" else None
+
+    def by_name64(self):
+        if getattr(self, "_by_name64", None) is None:
+            self._by_name64 = collections.defaultdict(set)
+            for k, syms in self.by_key64.items():
+                for s_ in syms:
+                    if s_.startswith("?"):
+                        n_ = self._shape_name(self._dem64.get(s_, s_))
+                        if n_:
+                            self._by_name64[n_].add(s_)
+            self._by_name64.pop(None, None)
+        return self._by_name64
 
 
 RTTI64 = {"rtti_col": 24, "rtti_chd": 16}
