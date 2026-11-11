@@ -14,8 +14,8 @@ namespace fn_f5b65867 {
 class Action_11dd10 {
   public:
     Action_11dd10();
-    virtual void Fn();
-    virtual void Release();
+    virtual void Fn_00018b30();
+    virtual void Release_00018b40();
 };
 class StrafeCircleHBAction : public Action_11dd10 {
   public:
@@ -111,9 +111,9 @@ StrafeCircleHBAction::StrafeCircleHBAction(int a, Action_11dd10* b) : Action_11d
     mOther = 0;
     mArg = a;
     if (b)
-        b->Fn();
+        b->Fn_00018b30();
     if (mObj)
-        mObj->Release();
+        mObj->Release_00018b40();
     mObj = b;
 }
 

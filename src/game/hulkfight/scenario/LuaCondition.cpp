@@ -98,8 +98,8 @@ class LuaTrack : public Track_1a13f0 {
     virtual void _m_vf3();
     virtual void _m_vf4();
     virtual LuaTrack* vfunc_5(u8_1a1840 param);
-    virtual void _m_vf6();
-    virtual void _m_vf7();
+    virtual void m_vf6_001a1420();
+    virtual void m_vf7_001a1430();
     virtual void _m_vf8();
     virtual void _m_vf9();
     virtual void _m_vf10();
@@ -280,8 +280,8 @@ namespace fn_fd836fc7 {
 class TrackFactoryTemplate_1a1d50 {
   public:
     TrackFactoryTemplate_1a1d50() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -315,8 +315,8 @@ struct ConditionFactoryTemplate_1a1dd0 {
 class TrackFactoryTemplate_1a1e00 {
   public:
     TrackFactoryTemplate_1a1e00() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };

@@ -248,7 +248,7 @@ class Event_CharacterTemplateVariationCondition {
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual void vfunc_5(int);
+    virtual void vfunc_5_001ab730(int);
     virtual void vfunc_6();
     char pad[0x14];
     Sub_1ab730 sub;

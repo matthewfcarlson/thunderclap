@@ -53,7 +53,7 @@ class RefObj_174700 {
 class Action_174700 {
   public:
     Action_174700();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class IntentionClearAction_174700 : public Action_174700 {
@@ -61,7 +61,7 @@ class IntentionClearAction_174700 : public Action_174700 {
     int mTarget;
     RefObj_174700* mObj;
     IntentionClearAction_174700(int target, RefObj_174700* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_00417e4c[];
 class Ref_174750 {
@@ -88,13 +88,13 @@ class RefCounted_174790 {
 class Action_174790 {
   public:
     Action_174790() throw();
-    virtual void BaseVirtual() throw();
+    virtual void BaseVirtual_00018b30() throw();
     char pad[0x18];
 };
 class ChargeAction : public Action_174790 {
   public:
     ChargeAction(void* a, RefCounted_174790* b) throw();
-    virtual void V1() throw();
+    virtual void V1_00018b40() throw();
     void* mA;
     RefCounted_174790* mB;
     int mC;
@@ -124,7 +124,7 @@ class RefObj_174820 {
 class Action_174820 {
   public:
     Action_174820();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class ChargeClearAction_174820 : public Action_174820 {
@@ -132,7 +132,7 @@ class ChargeClearAction_174820 : public Action_174820 {
     int mTarget;
     RefObj_174820* mObj;
     ChargeClearAction_174820(int target, RefObj_174820* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_00417e84[];
 class Ref_174870 {

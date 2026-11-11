@@ -19,7 +19,7 @@ class Other_116c10 {
 class Action_116c10 {
   public:
     Action_116c10();
-    virtual void X();
+    virtual void FnX_00018b30();
     char pad[0x18];
 };
 struct S_116c10 {
@@ -34,7 +34,7 @@ struct S_116c10 {
 };
 class MotionChaseAction : public Action_116c10 {
   public:
-    virtual void A();
+    virtual void FnA_00018b40();
     S_116c10 s;
     MotionChaseAction(int, Other_116c10*);
 };

@@ -179,8 +179,8 @@ class ThreatDodgeTrack : public Track_12b6a0 {
     virtual void _m_vf3();
     virtual void _m_vf4();
     virtual ThreatDodgeTrack* vfunc_5(unsigned char);
-    virtual void _m_vf6();
-    virtual void _m_vf7();
+    virtual void m_vf6_0012b6e0();
+    virtual void m_vf7_0012b6f0();
     virtual void _m_vf8();
     virtual void _m_vf9();
     virtual void _m_vf10();
@@ -445,7 +445,7 @@ class RefObj_12c080 {
 class Action_12c080 {
   public:
     Action_12c080();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class ThreatDodgeAction_12c080 : public Action_12c080 {
@@ -453,7 +453,7 @@ class ThreatDodgeAction_12c080 : public Action_12c080 {
     int mTarget;
     RefObj_12c080* mObj;
     ThreatDodgeAction_12c080(int target, RefObj_12c080* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_00410cd0[];
 class Ref_12c0d0 {

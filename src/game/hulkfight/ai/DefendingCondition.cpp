@@ -17,8 +17,8 @@ namespace fn_feed8707 {
 class TrackFactoryTemplate_113ea0 {
   public:
     TrackFactoryTemplate_113ea0() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };

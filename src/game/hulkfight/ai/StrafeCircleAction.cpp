@@ -15,8 +15,8 @@ namespace fn_fdd31ee7 {
 class Action_11d860 {
   public:
     Action_11d860();
-    virtual void A();
-    virtual void B();
+    virtual void FnA_00018b30();
+    virtual void FnB_00018b40();
 };
 class StrafeCircleAction_11d860 : public Action_11d860 {
   public:
@@ -156,9 +156,9 @@ StrafeCircleAction_11d860::StrafeCircleAction_11d860(int x, Action_11d860* p) {
     c = 0;
     a = x;
     if (p)
-        p->A();
+        p->FnA_00018b30();
     if (b)
-        ((Action_11d860*)b)->B();
+        ((Action_11d860*)b)->FnB_00018b40();
     b = (hulk_intptr)p;
 }
 

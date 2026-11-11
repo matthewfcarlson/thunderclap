@@ -396,8 +396,8 @@ class TeleportToLocatorTrack {
     virtual void v3();
     virtual void v4();
     virtual ~TeleportToLocatorTrack();
-    virtual void v6();
-    virtual void v7();
+    virtual void v6_00170da0();
+    virtual void v7_00170db0();
     virtual void v8();
     virtual void v9();
     virtual void v10();
@@ -456,7 +456,7 @@ class RefObj_1732f0 {
 class Action_1732f0 {
   public:
     Action_1732f0();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class LocomotionStateAction_1732f0 : public Action_1732f0 {
@@ -464,7 +464,7 @@ class LocomotionStateAction_1732f0 : public Action_1732f0 {
     int mTarget;
     RefObj_1732f0* mObj;
     LocomotionStateAction_1732f0(int target, RefObj_1732f0* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_00417db8[];
 class Ref_173340 {
@@ -491,7 +491,7 @@ class RefObj_173380 {
 class Action_173380 {
   public:
     Action_173380();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class MotionStateAction_173380 : public Action_173380 {
@@ -499,7 +499,7 @@ class MotionStateAction_173380 : public Action_173380 {
     int mTarget;
     RefObj_173380* mObj;
     MotionStateAction_173380(int target, RefObj_173380* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 class Ref_1733d0 {
   public:

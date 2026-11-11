@@ -17,7 +17,7 @@ class RefObj_177430 {
 class Action_177430 {
   public:
     Action_177430();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class CriticalMassDrainAction_177430 : public Action_177430 {
@@ -25,7 +25,7 @@ class CriticalMassDrainAction_177430 : public Action_177430 {
     int mTarget;
     RefObj_177430* mObj;
     CriticalMassDrainAction_177430(int target, RefObj_177430* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_0041804c[];
 class Ref_177480 {
@@ -91,7 +91,7 @@ class RefObj_177550 {
 class Action_177550 {
   public:
     Action_177550();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class VisibilityAction_177550 : public Action_177550 {
@@ -99,7 +99,7 @@ class VisibilityAction_177550 : public Action_177550 {
     int mTarget;
     RefObj_177550* mObj;
     VisibilityAction_177550(int target, RefObj_177550* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_00418084[];
 class Ref_1775a0 {
@@ -126,7 +126,7 @@ class RefObj_1775e0 {
 class Action_1775e0 {
   public:
     Action_1775e0();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class SnapToGroundAction_1775e0 : public Action_1775e0 {
@@ -134,7 +134,7 @@ class SnapToGroundAction_1775e0 : public Action_1775e0 {
     int mTarget;
     RefObj_1775e0* mObj;
     SnapToGroundAction_1775e0(int target, RefObj_1775e0* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_004180a0[];
 class Ref_177630 {

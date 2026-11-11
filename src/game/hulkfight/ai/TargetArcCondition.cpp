@@ -163,7 +163,7 @@ class RefObj_126780 {
 class Action_126780 {
   public:
     Action_126780();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class AcquireTargetAction_126780 : public Action_126780 {
@@ -171,7 +171,7 @@ class AcquireTargetAction_126780 : public Action_126780 {
     int mTarget;
     RefObj_126780* mObj;
     AcquireTargetAction_126780(int target, RefObj_126780* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_00410004[];
 class Ref_1267d0 {
@@ -198,7 +198,7 @@ class RefObj_126810 {
 class Action_126810 {
   public:
     Action_126810();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class ClearProjectileDistanceAction_126810 : public Action_126810 {
@@ -206,7 +206,7 @@ class ClearProjectileDistanceAction_126810 : public Action_126810 {
     int mTarget;
     RefObj_126810* mObj;
     ClearProjectileDistanceAction_126810(int target, RefObj_126810* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_00410020[];
 class Ref_126860 {
@@ -233,7 +233,7 @@ class RefObj_1268a0 {
 class Action_1268a0 {
   public:
     Action_1268a0();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class TargetClearAction_1268a0 : public Action_1268a0 {
@@ -241,7 +241,7 @@ class TargetClearAction_1268a0 : public Action_1268a0 {
     int mTarget;
     RefObj_1268a0* mObj;
     TargetClearAction_1268a0(int target, RefObj_1268a0* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_0041003c[];
 class Ref_1268f0 {

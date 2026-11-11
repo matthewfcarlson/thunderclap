@@ -18,7 +18,7 @@ class Other_1178e0 {
 class Action_1178e0 {
   public:
     Action_1178e0();
-    virtual void X();
+    virtual void FnX_00018b30();
     char pad[0x18];
 };
 struct S_1178e0 {
@@ -33,7 +33,7 @@ struct S_1178e0 {
 };
 class MotionFleeAction : public Action_1178e0 {
   public:
-    virtual void A();
+    virtual void FnA_00018b40();
     S_1178e0 s;
     MotionFleeAction(int, Other_1178e0*);
 };

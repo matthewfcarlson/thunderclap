@@ -188,7 +188,7 @@ class RefObj_10b980 {
 class Action_10b980 {
   public:
     Action_10b980();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class RefObj_10ba10 {
@@ -199,7 +199,7 @@ class RefObj_10ba10 {
 class Action_10ba10 {
   public:
     Action_10ba10();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class FaceMotionAction_10ba10 : public Action_10ba10 {
@@ -207,7 +207,7 @@ class FaceMotionAction_10ba10 : public Action_10ba10 {
     int mTarget;
     RefObj_10ba10* mObj;
     FaceMotionAction_10ba10(int target, RefObj_10ba10* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 class Ref_10ba60 {
   public:
@@ -281,7 +281,7 @@ struct RefCounted_10bd90 {
 };
 class FaceTargetAction : public Action_10b980 {
   public:
-    virtual void _m_vf1();
+    virtual void m_vf1_00018b40();
     virtual void _m_vf2();
     virtual void _m_vf3();
     virtual void _m_vf4();
@@ -327,8 +327,8 @@ namespace fn_f8ed28bc {
 class TrackFactoryTemplate_10bf70 {
   public:
     TrackFactoryTemplate_10bf70() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -358,8 +358,8 @@ struct TrackFactoryTemplate {
 class TrackFactoryTemplate_10c020 {
   public:
     TrackFactoryTemplate_10c020() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };

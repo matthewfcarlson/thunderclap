@@ -18,7 +18,7 @@ class RefObj_176270 {
 class Action_176270 {
   public:
     Action_176270();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class TargetIconDistanceAction_176270 : public Action_176270 {
@@ -26,7 +26,7 @@ class TargetIconDistanceAction_176270 : public Action_176270 {
     int mTarget;
     RefObj_176270* mObj;
     TargetIconDistanceAction_176270(int target, RefObj_176270* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 class Obj_1762c0 {
   public:
@@ -53,7 +53,7 @@ class Ref_176300 {
 class Action_176300 {
   public:
     Action_176300();
-    virtual void V0();
+    virtual void V0_00018b30();
     char pad[0x18];
 };
 class MoveJointAction_176300 : public Action_176300 {
@@ -66,7 +66,7 @@ class MoveJointAction_176300 : public Action_176300 {
     char p[3];
     int f54;
     MoveJointAction_176300(int, Ref_176300*);
-    virtual void V1();
+    virtual void V1_00018b40();
 };
 extern void* hulk_at_00417fb8[];
 class Ref_176370 {
@@ -118,12 +118,12 @@ class Ref_1764d0 {
 };
 class Action_1764d0 {
   public:
-    virtual void V();
+    virtual void FnV_00018b30();
     Action_1764d0();
 };
 class TargetBreakAction_1764d0 : public Action_1764d0 {
   public:
-    virtual void V2();
+    virtual void V2_00018b40();
     char pad[0x18];
     Ref_1764d0* mRef;
     TargetBreakAction_1764d0(Ref_1764d0*);

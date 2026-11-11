@@ -144,7 +144,7 @@ class RefObj_116910 {
 class Action_116910 {
   public:
     Action_116910();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class MotionStopAction_116910 : public Action_116910 {
@@ -152,7 +152,7 @@ class MotionStopAction_116910 : public Action_116910 {
     int mTarget;
     RefObj_116910* mObj;
     MotionStopAction_116910(int target, RefObj_116910* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_0040eca0[];
 class Ref_116960 {
@@ -179,7 +179,7 @@ class RefObj_1169a0 {
 class Action_1169a0 {
   public:
     Action_1169a0();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class MotionFacingAction_1169a0 : public Action_1169a0 {
@@ -187,7 +187,7 @@ class MotionFacingAction_1169a0 : public Action_1169a0 {
     int mTarget;
     RefObj_1169a0* mObj;
     MotionFacingAction_1169a0(int target, RefObj_1169a0* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_0040ecbc[];
 class Ref_1169f0 {

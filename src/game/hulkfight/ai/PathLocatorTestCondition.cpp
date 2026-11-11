@@ -548,8 +548,8 @@ namespace fn_fff5b4af {
 class TrackFactoryTemplate_122cf0 {
   public:
     TrackFactoryTemplate_122cf0() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -568,8 +568,8 @@ struct ConditionFactoryTemplate_122d50 {
 class TrackFactoryTemplate_122d80 {
   public:
     TrackFactoryTemplate_122d80() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -587,8 +587,8 @@ struct TrackFactoryTemplate {
 class TrackFactoryTemplate_122e10 {
   public:
     TrackFactoryTemplate_122e10() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -599,8 +599,8 @@ class Track_122e50 {
 class TrackFactoryTemplate_122ea0 {
   public:
     TrackFactoryTemplate_122ea0() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -611,8 +611,8 @@ class Track_122ee0 {
 class TrackFactoryTemplate_122f30 {
   public:
     TrackFactoryTemplate_122f30() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -629,8 +629,8 @@ class StrafeLateralHBTrack_122f70 {
 class TrackFactoryTemplate_1230b0 {
   public:
     TrackFactoryTemplate_1230b0() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -641,8 +641,8 @@ class Track_1230f0 {
 class TrackFactoryTemplate_123140 {
   public:
     TrackFactoryTemplate_123140() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };

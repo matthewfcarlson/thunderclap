@@ -22,7 +22,7 @@ class RefObj_10f310 {
 class Action_10f310 {
   public:
     Action_10f310();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class HulkAction_10f310 : public Action_10f310 {
@@ -30,7 +30,7 @@ class HulkAction_10f310 : public Action_10f310 {
     int mTarget;
     RefObj_10f310* mObj;
     HulkAction_10f310(int target, RefObj_10f310* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_0040dd50[];
 class Ref_10f360 {
@@ -169,7 +169,7 @@ class RefObj_10f820 {
 class Action_10f820 {
   public:
     Action_10f820();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class TokenAction_10f820 : public Action_10f820 {
@@ -177,7 +177,7 @@ class TokenAction_10f820 : public Action_10f820 {
     int mTarget;
     RefObj_10f820* mObj;
     TokenAction_10f820(int target, RefObj_10f820* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_0040dd88[];
 class Ref_10f870 {
@@ -204,7 +204,7 @@ class RefObj_10f8b0 {
 class Action_10f8b0 {
   public:
     Action_10f8b0();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class AIHistorySetAction_10f8b0 : public Action_10f8b0 {
@@ -212,7 +212,7 @@ class AIHistorySetAction_10f8b0 : public Action_10f8b0 {
     int mTarget;
     RefObj_10f8b0* mObj;
     AIHistorySetAction_10f8b0(int target, RefObj_10f8b0* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 class Ref_10f900 {
   public:
@@ -237,7 +237,7 @@ class RefObj_10f940 {
 class Action_10f940 {
   public:
     Action_10f940();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class SemaphoreWaitAction_10f940 : public Action_10f940 {
@@ -245,7 +245,7 @@ class SemaphoreWaitAction_10f940 : public Action_10f940 {
     int mTarget;
     RefObj_10f940* mObj;
     SemaphoreWaitAction_10f940(int target, RefObj_10f940* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_0040ddc0[];
 class Ref_10f990 {
@@ -272,7 +272,7 @@ class RefObj_10f9d0 {
 class Action_10f9d0 {
   public:
     Action_10f9d0();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class SemaphoreClearAction_10f9d0 : public Action_10f9d0 {
@@ -280,7 +280,7 @@ class SemaphoreClearAction_10f9d0 : public Action_10f9d0 {
     int mTarget;
     RefObj_10f9d0* mObj;
     SemaphoreClearAction_10f9d0(int target, RefObj_10f9d0* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_0040dddc[];
 class Ref_10fa20 {
@@ -307,7 +307,7 @@ class RefObj_10fa60 {
 class Action_10fa60 {
   public:
     Action_10fa60();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class KeywordWaitAction_10fa60 : public Action_10fa60 {
@@ -315,7 +315,7 @@ class KeywordWaitAction_10fa60 : public Action_10fa60 {
     int mTarget;
     RefObj_10fa60* mObj;
     KeywordWaitAction_10fa60(int target, RefObj_10fa60* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_0040ddf8[];
 class Ref_10fab0 {

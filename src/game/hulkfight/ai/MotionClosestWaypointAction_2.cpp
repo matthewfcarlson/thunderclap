@@ -642,8 +642,8 @@ namespace fn_ffc509e9 {
 class TrackFactoryTemplate_11af80 {
   public:
     TrackFactoryTemplate_11af80() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -667,8 +667,8 @@ struct ConditionFactoryTemplate_11aff0 {
 class TrackFactoryTemplate_11b020 {
   public:
     TrackFactoryTemplate_11b020() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -687,8 +687,8 @@ struct ConditionFactoryTemplate_11b0a0 {
 class TrackFactoryTemplate_11b0d0 {
   public:
     TrackFactoryTemplate_11b0d0() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -707,8 +707,8 @@ struct ConditionFactoryTemplate_11b160 {
 class TrackFactoryTemplate_11b190 {
   public:
     TrackFactoryTemplate_11b190() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -758,8 +758,8 @@ struct ConditionFactoryTemplate_11b230 {
 class TrackFactoryTemplate_11b260 {
   public:
     TrackFactoryTemplate_11b260() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -782,8 +782,8 @@ struct TrackFactoryTemplate {
 class TrackFactoryTemplate_11b310 {
   public:
     TrackFactoryTemplate_11b310() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -801,8 +801,8 @@ class MotionStopTrack_11b350 {
 class TrackFactoryTemplate_11b3c0 {
   public:
     TrackFactoryTemplate_11b3c0() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -861,8 +861,8 @@ namespace fn_ffc509e9 {
 class TrackFactoryTemplate_11b480 {
   public:
     TrackFactoryTemplate_11b480() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -874,8 +874,8 @@ struct TrackFactoryTemplate_nv_11b4c0 {
 class TrackFactoryTemplate_11b540 {
   public:
     TrackFactoryTemplate_11b540() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -926,24 +926,24 @@ struct T_11b580 : B_11b580, S1_11b580 {
 class TrackFactoryTemplate_11b600 {
   public:
     TrackFactoryTemplate_11b600() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
 class TrackFactoryTemplate_11b6c0 {
   public:
     TrackFactoryTemplate_11b6c0() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
 class TrackFactoryTemplate_11b750 {
   public:
     TrackFactoryTemplate_11b750() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };

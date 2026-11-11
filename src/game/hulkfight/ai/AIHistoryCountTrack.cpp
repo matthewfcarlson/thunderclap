@@ -17,8 +17,8 @@ namespace fn_f496d4dd {
 class TrackFactoryTemplate_114990 {
   public:
     TrackFactoryTemplate_114990() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };

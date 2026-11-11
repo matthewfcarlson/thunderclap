@@ -356,12 +356,12 @@ class Ref_18af0 {
 };
 class Action_18af0 {
   public:
-    virtual void V();
+    virtual void FnV_00018b30();
     Action_18af0();
 };
 class CAction : public Action_18af0 {
   public:
-    virtual void V2();
+    virtual void V2_00018b40();
     char pad[0x18];
     Ref_18af0* mRef;
     CAction(Ref_18af0*);
@@ -518,7 +518,7 @@ class IRef_18c20 {
 
 class Action_18c20 {
   public:
-    virtual void VFunc();
+    virtual void VFunc_00018b30();
     Action_18c20();
 };
 
@@ -527,7 +527,7 @@ class CAction : public Action_18c20 {
     char m_pad[0x18];
     IRef_18c20* m_pRef;
     int m_param;
-    virtual void Process();
+    virtual void Process_00018b40();
     CAction(int a, IRef_18c20* p) {
         m_pRef = 0;
         if (p)

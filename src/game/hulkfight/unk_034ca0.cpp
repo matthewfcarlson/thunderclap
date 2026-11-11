@@ -2956,7 +2956,7 @@ extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 namespace pure3d {
 class __declspec(novtable) Entity {
 public:
-    virtual void v0();
+    virtual void v0_00038290();
     char pad04[4];
     Name_37860 nameHolder;
     void FUN_0027b070();
@@ -2967,7 +2967,7 @@ public:
 class CCharacter : public pure3d::Entity {
 public:
     CCharacter(hulk_intptr a);
-    virtual void v1();
+    virtual void v1_000382a0();
     virtual void v2();
     int f10;
     Obj222050 o14;

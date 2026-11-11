@@ -523,7 +523,7 @@ class RefObj_12ff10 {
 class Action_12ff10 {
   public:
     Action_12ff10();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 extern void* hulk_at_0041146c[];
@@ -551,7 +551,7 @@ class RefObj_12ffa0 {
 class Action_12ffa0 {
   public:
     Action_12ffa0();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class NISSoundAction_12ffa0 : public Action_12ffa0 {
@@ -559,7 +559,7 @@ class NISSoundAction_12ffa0 : public Action_12ffa0 {
     int mTarget;
     RefObj_12ffa0* mObj;
     NISSoundAction_12ffa0(int target, RefObj_12ffa0* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_00411488[];
 class Ref_12fff0 {
@@ -586,7 +586,7 @@ class RefObj_130030 {
 class Action_130030 {
   public:
     Action_130030();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class StatAction_130030 : public Action_130030 {
@@ -594,7 +594,7 @@ class StatAction_130030 : public Action_130030 {
     int mTarget;
     RefObj_130030* mObj;
     StatAction_130030(int target, RefObj_130030* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_004114a4[];
 class Ref_130080 {
@@ -621,7 +621,7 @@ class RefObj_1300c0 {
 class Action_1300c0 {
   public:
     Action_1300c0();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class StatBeginTrialAction_1300c0 : public Action_1300c0 {
@@ -629,7 +629,7 @@ class StatBeginTrialAction_1300c0 : public Action_1300c0 {
     int mTarget;
     RefObj_1300c0* mObj;
     StatBeginTrialAction_1300c0(int target, RefObj_1300c0* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_004114c0[];
 class Ref_130110 {
@@ -656,7 +656,7 @@ class RefObj_130150 {
 class Action_130150 {
   public:
     Action_130150();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class StatEndTrialAction_130150 : public Action_130150 {
@@ -664,7 +664,7 @@ class StatEndTrialAction_130150 : public Action_130150 {
     int mTarget;
     RefObj_130150* mObj;
     StatEndTrialAction_130150(int target, RefObj_130150* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_004114dc[];
 class Ref_1301a0 {
@@ -692,7 +692,7 @@ class RefObj_1301e0 {
 class Action_1301e0 {
   public:
     Action_1301e0();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class XPAction_1301e0 : public Action_1301e0 {
@@ -700,7 +700,7 @@ class XPAction_1301e0 : public Action_1301e0 {
     int mTarget;
     RefObj_1301e0* mObj;
     XPAction_1301e0(int target, RefObj_1301e0* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_004114f8[];
 class Ref_130230 {
@@ -1286,7 +1286,7 @@ struct RefCounted_131ea0 {
 };
 class FaceTargetAction : public Action_12ff10 {
   public:
-    virtual void _m_vf1();
+    virtual void m_vf1_00018b40();
     FaceTargetAction(int target, RefObj_12ff10* obj);
     union { int mTarget; int m_1c; };
     union { RefObj_12ff10* mObj; RefCounted_131ea0* m_20; };
@@ -3607,7 +3607,7 @@ class StatTrack {
     virtual void v3();
     virtual void v4();
     virtual ~StatTrack();
-    virtual void v6();
+    virtual void v6_0012eff0();
     int pad04[3];
     int m10;
     void trackCall_00236d60();
