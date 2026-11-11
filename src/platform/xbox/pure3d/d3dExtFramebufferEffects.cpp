@@ -227,10 +227,20 @@ struct Viewport_321520 {
     int width;
     int height;
 };
-void __stdcall GetViewport(Viewport_321520*);
-void __stdcall SetViewport(Viewport_321520*);
+// (x64t2) the XDK's viewport calls under their own names (were GetViewport / SetViewport: unbound in the native links)
+namespace D3D8 {
+void __stdcall D3DDevice_GetViewport(Viewport_321520*);
+void __stdcall D3DDevice_SetViewport(Viewport_321520*);
+}
+// the d3dContext (gen's layout: the base, then f_14c..f_168), its viewport at f_16c
 class Thing_321520 {
-    char pad[0x16c];
+    void* vftable;
+    char base[sizeof(::pure3d::pddiBaseContext) - sizeof(void*)];
+    int f14c;
+    void *f150, *f154, *f158;
+    char pad15c[4];
+    hulk_intptr f160;
+    int f164, f168;
 
   public:
     Viewport_321520 vp;
@@ -1726,12 +1736,12 @@ namespace fn_f57e27cb {
 // 0x00321520 FUN_00321520 (83 B): matches/0x00321520.cpp
 // sym: ?f@Thing_321520@fn_f57e27cb@@QAEXMMMM@Z
 void Thing_321520::f(float a, float b, float c, float d) {
-    GetViewport(&vp);
+    D3D8::D3DDevice_GetViewport(&vp);
     vp.x = (int)a;
     vp.y = (int)b;
     vp.width = (int)c;
     vp.height = (int)d;
-    SetViewport(&vp);
+    D3D8::D3DDevice_SetViewport(&vp);
 }
 
 } // namespace fn_f57e27cb
@@ -2120,22 +2130,20 @@ class pddiBaseContext {
     virtual void f52();
     virtual void f53();
     virtual void vfunc_54(int);
+    void FUN_0031def0(int);   // pddiBaseContext::vfunc_54, called directly: named by address for the native link
 };
-struct State_3219f0 {
-    char pad[0x105];
-    char flag;
-};
+// (x64t2) the context in gen's layout up to its state cache f_150 (owners::State_328f10)
 class d3dContext : public pddiBaseContext {
   public:
-    char pad[0x150 - sizeof(pddiBaseContext)];
-    State_3219f0* state;
+    char pad[sizeof(::pure3d::pddiBaseContext) + sizeof(int) - sizeof(pddiBaseContext)];
+    owners::State_328f10* state;
     void vfunc_54(int);
 };
 } // namespace pure3d
 void __stdcall D3DDevice_SetRenderState_CullMode(int);
 void pure3d::d3dContext::vfunc_54(int x) {
-    pddiBaseContext::vfunc_54(x);
-    if (!state->flag)
+    FUN_0031def0(x);
+    if (!state->flag105)
         D3DDevice_SetRenderState_CullMode(((int*)&DAT_004d3a48)[x]);
 }
 } // namespace fn_003219f0

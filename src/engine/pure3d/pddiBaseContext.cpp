@@ -14,6 +14,11 @@
 #define TREE_LOCAL_CEffectStopTrack
 namespace fn_fc049dac {} using namespace fn_fc049dac;
 #include "engine/pure3d.h"
+// (x64t2) the context's current states (f_48 view, f_4c render, f_50 lighting, f_54 fog, f_58 stencil) from any view of
+// the context, in gen's layout; and byte K (a 32-bit offset) of a state record: its vftable pointer first, then 32-bit
+// words, so on 64-bit everything behind the vftable sits 4 bytes further on
+#define HULK_CTX_STATE(self, f) (*(char**)&((::pure3d::pddiBaseContext*)(void*)(self))->f)
+#define HULK_STATE_AT(p, k) ((char*)(p) + (int)(sizeof(void*) - 4) + (k))
 
 // ---- declarations shared by the functions below
 namespace fn_fc049dac {
@@ -697,8 +702,8 @@ class pddiBaseContext_31e930 {
     void Push(int w, void* a);
 };
 struct Stack_31e9b0 {
-    int pad0;
-    int pad1;
+    void* vftable;  // a pddiStack<state> (0x0031ed40...): vftable, capacity, depth, items
+    int capacity;
     int top;
     char* data;
 };
@@ -1242,7 +1247,7 @@ void pure3d::pddiBaseContext::vfunc_5() {
 // 0x0031d4f0 pure3d::pddiBaseContext::vfunc_6 (13 B): matches/0x0031d4f0.cpp
 // sym: ?vfunc_6@pddiBaseContext@pure3d@@UAEXI@Z
 void pure3d::pddiBaseContext::vfunc_6(unsigned int value) {
-    (*(unsigned int * *)&this->f_48)[1] = value;
+    *(unsigned int*)HULK_STATE_AT(*(void**)&this->f_48, 4) = value;
 }
 
 
@@ -1251,7 +1256,7 @@ void pure3d::pddiBaseContext::vfunc_6(unsigned int value) {
  // namespace pure3d
 void* pure3d::pddiBaseContext::vfunc_7(hulk_intptr __p0) { int * out = (int *)__p0;
 
-    *out = (*(State * *)&this->f_48)->value;
+    *out = ((State*)HULK_STATE_AT(*(void**)&this->f_48, 0))->value;
     return (void*)(out);
 }
 
@@ -1269,7 +1274,7 @@ void pure3d::pddiBaseContext::vfunc_8(void* __p0) { void * p = (void *)__p0;
 // sym: ?vfunc_9@pddiBaseContext@pure3d@@UAEMXZ
  // namespace pure3d
 hulk_freg pure3d::pddiBaseContext::vfunc_9() {
-    return *(float*)((char*)(*(void * *)&this->f_48) + 8);
+    return *(float*)HULK_STATE_AT(*(void**)&this->f_48, 8);
 }
 
 
@@ -1286,7 +1291,7 @@ void pure3d::pddiBaseContext::vfunc_10(void* __p0) { void * value = (void *)__p0
 // sym: ?vfunc_11@pddiBaseContext@pure3d@@UAEHXZ
  // namespace pure3d
 int pure3d::pddiBaseContext::vfunc_11() {
-    return *(int*)(*(hulk_intptr*)((char*)this + 0x48) + 0xc);
+    return *(int*)HULK_STATE_AT(*(void**)&this->f_48, 0xc);
 }
 
 
@@ -1670,7 +1675,7 @@ void* pure3d::pddiBaseContext::vfunc_20() {
 // sym: ?vfunc_24@pddiBaseContext@pure3d@@UAEXH@Z
  // namespace pure3d
 void pure3d::pddiBaseContext::vfunc_24(int value) {
-    *(int*)((char*)(*(struct S * *)&this->f_48) + 0x10) = value;
+    *(int*)HULK_STATE_AT(*(void**)&this->f_48, 0x10) = value;
     vfunc_109();
 }
 
@@ -1685,7 +1690,7 @@ unsigned int pure3d::pddiBaseContext::vfunc_25() {
 // 0x0031d720 pure3d::pddiBaseContext::vfunc_26 (44 B): matches/0x0031d720.cpp
 // sym: ?vfunc_26@pddiBaseContext@pure3d@@UAEXIIII@Z
 void pure3d::pddiBaseContext::vfunc_26(unsigned int a, unsigned int b, unsigned int c, unsigned int d) {
-    unsigned* p = (unsigned*)((char*)(*(void ** *)&this->f_48) + 0x14);
+    unsigned* p = (unsigned*)HULK_STATE_AT(*(void**)&this->f_48, 0x14);
     p[0] = a;
     p[1] = b;
     p[2] = c;
@@ -1698,21 +1703,19 @@ void pure3d::pddiBaseContext::vfunc_26(unsigned int a, unsigned int b, unsigned 
 // sym: ?vfunc_27@pddiBaseContext@fn_0031d750@@QAEXPAH000@Z
 namespace fn_0031d750 {
 class pddiBaseContext {
-    char pad[0x48];
-
   public:
     struct Data {
         char pad2[0x14];
         int a, b, c, d;
     };
-    Data* data;
     void vfunc_27(int*, int*, int*, int*);
 };
+// (x64t2) the view state f_48 through gen's context, its words behind the vftable (HULK_STATE_AT)
 void pddiBaseContext::vfunc_27(int* p1, int* p2, int* p3, int* p4) {
-    *p1 = data->a;
-    *p2 = data->b;
-    *p3 = data->c;
-    *p4 = data->d;
+    *p1 = ((Data*)HULK_STATE_AT(HULK_CTX_STATE(this, f_48), 0))->a;
+    *p2 = ((Data*)HULK_STATE_AT(HULK_CTX_STATE(this, f_48), 0))->b;
+    *p3 = ((Data*)HULK_STATE_AT(HULK_CTX_STATE(this, f_48), 0))->c;
+    *p4 = ((Data*)HULK_STATE_AT(HULK_CTX_STATE(this, f_48), 0))->d;
 }
 } // namespace fn_0031d750
 
@@ -1720,7 +1723,7 @@ void pddiBaseContext::vfunc_27(int* p1, int* p2, int* p3, int* p4) {
 // 0x0031d790 pure3d::pddiBaseContext::vfunc_28 (44 B): matches/0x0031d790.cpp
 // sym: ?vfunc_28@pddiBaseContext@pure3d@@UAEXIIII@Z
 void pure3d::pddiBaseContext::vfunc_28(unsigned int a, unsigned int b, unsigned int c, unsigned int d) {
-    unsigned* p = (unsigned*)((char*)(*(unsigned int * *)&this->f_48) + 0x24);
+    unsigned* p = (unsigned*)HULK_STATE_AT(*(void**)&this->f_48, 0x24);
     p[0] = a;
     p[1] = b;
     p[2] = c;
@@ -1734,10 +1737,10 @@ void pure3d::pddiBaseContext::vfunc_28(unsigned int a, unsigned int b, unsigned 
  // namespace pure3d
 void pure3d::pddiBaseContext::vfunc_29(void* __p0, void* __p1, void* __p2, void* __p3) { unsigned int * a = (unsigned int *)__p0; unsigned int * b = (unsigned int *)__p1; unsigned int * c = (unsigned int *)__p2; unsigned int * d = (unsigned int *)__p3;
 
-    *a = *(unsigned int*)((char*)(*(void * *)&this->f_48) + 0x24);
-    *b = *(unsigned int*)((char*)(*(void * *)&this->f_48) + 0x28);
-    *c = *(unsigned int*)((char*)(*(void * *)&this->f_48) + 0x2c);
-    *d = *(unsigned int*)((char*)(*(void * *)&this->f_48) + 0x30);
+    *a = *(unsigned int*)HULK_STATE_AT(*(void**)&this->f_48, 0x24);
+    *b = *(unsigned int*)HULK_STATE_AT(*(void**)&this->f_48, 0x28);
+    *c = *(unsigned int*)HULK_STATE_AT(*(void**)&this->f_48, 0x2c);
+    *d = *(unsigned int*)HULK_STATE_AT(*(void**)&this->f_48, 0x30);
 }
 
 
@@ -1903,7 +1906,7 @@ vfunc_110(index,flags);
 // sym: ?vfunc_38@pddiBaseContext@pure3d@@UAEXHH@Z
 void pure3d::pddiBaseContext::vfunc_38(int i, int v) {
     if (i < 8) {
-        *((u8*)(*(void * *)&this->f_50) + (i + 1) * 0x7c) = (u8)v;
+        *(u8*)HULK_STATE_AT(*(void**)&this->f_50, (i + 1) * 0x7c) = (u8)v;
         vfunc_110(i, 0);
     }
 }
@@ -1913,7 +1916,7 @@ void pure3d::pddiBaseContext::vfunc_38(int i, int v) {
 // sym: ?vfunc_39@pddiBaseContext@pure3d@@UAEEI@Z
 unsigned char pure3d::pddiBaseContext::vfunc_39(unsigned int param) {
     if ((int)param < 8)
-        return ((unsigned char*)(*(int * *)&this->f_50))[(param + 1) * 0x7c];
+        return *(unsigned char*)HULK_STATE_AT(*(void**)&this->f_50, (param + 1) * 0x7c);
     return 0;
 }
 
@@ -1922,7 +1925,7 @@ unsigned char pure3d::pddiBaseContext::vfunc_39(unsigned int param) {
 // sym: ?vfunc_40@pddiBaseContext@pure3d@@UAEXHH@Z
 void pure3d::pddiBaseContext::vfunc_40(int i, int v) {
     if (i < 8) {
-        ((int*)((char*)(*(void * *)&this->f_50) + i * 0x7c + 0x74))[0] = v;
+        ((int*)HULK_STATE_AT(*(void**)&this->f_50, i * 0x7c + 0x74))[0] = v;
         vfunc_110(i, 0);
     }
 }
@@ -1932,7 +1935,7 @@ void pure3d::pddiBaseContext::vfunc_40(int i, int v) {
 // sym: ?vfunc_41@pddiBaseContext@pure3d@@UAEHH@Z
 int pure3d::pddiBaseContext::vfunc_41(int x) {
     if (x < 8)
-        return *(int*)((char*)(*(void * *)&this->f_50) + x * 0x7c + 0x74);
+        return *(int*)HULK_STATE_AT(*(void**)&this->f_50, x * 0x7c + 0x74);
     return 0;
 }
 
@@ -1944,14 +1947,14 @@ int pure3d::pddiBaseContext::vfunc_41(int x) {
 void pure3d::pddiBaseContext::vfunc_42(int index, int __p1) { unsigned int color = (unsigned int)__p1;
 
  if (index < 8) {
- (*(LightState_31db00 * *)&this->f_50)[index].color = color;
+ ((LightState_31db00*)HULK_STATE_AT(*(void**)&this->f_50, 0))[index].color = color;
  int red = (color >> 16) & 255;
  int green = (color >> 8) & 255;
  int blue = color & 255;
- (*(LightState_31db00 * *)&this->f_50)[index].red = (float)red;
- (*(LightState_31db00 * *)&this->f_50)[index].green = (float)green;
- (*(LightState_31db00 * *)&this->f_50)[index].blue = (float)blue;
- (*(LightState_31db00 * *)&this->f_50)[index].average = (float)((red + green + blue) / 3);
+ ((LightState_31db00*)HULK_STATE_AT(*(void**)&this->f_50, 0))[index].red = (float)red;
+ ((LightState_31db00*)HULK_STATE_AT(*(void**)&this->f_50, 0))[index].green = (float)green;
+ ((LightState_31db00*)HULK_STATE_AT(*(void**)&this->f_50, 0))[index].blue = (float)blue;
+ ((LightState_31db00*)HULK_STATE_AT(*(void**)&this->f_50, 0))[index].average = (float)((red + green + blue) / 3);
  vfunc_110(index, 0);
  }
 }
@@ -1964,7 +1967,7 @@ void pure3d::pddiBaseContext::vfunc_42(int index, int __p1) { unsigned int color
 void pure3d::pddiBaseContext::vfunc_43(hulk_intptr __p0, int index) { unsigned int * result = (unsigned int *)__p0;
 
     if (index < 8)
-        *result = (*(TextureStage * *)&this->f_50)[index].value;
+        *result = ((TextureStage*)HULK_STATE_AT(*(void**)&this->f_50, 0))[index].value;
     else
         *result = 0;
 }
@@ -1979,7 +1982,7 @@ void pure3d::pddiBaseContext::vfunc_44(int index, hulk_intptr __p1) { const Vec3
 
     if (index < 8) {
         Vec3_31dbd0 p = *pos;
-        Light_31dbd0 *l = &(*(Light_31dbd0 * *)&this->f_50)[index];
+        Light_31dbd0 *l = &((Light_31dbd0*)HULK_STATE_AT(*(void**)&this->f_50, 0))[index];
         l->pos = p;
         l->w = 1.0f;
         vfunc_110(index, 1);
@@ -1992,7 +1995,7 @@ void pure3d::pddiBaseContext::vfunc_44(int index, hulk_intptr __p1) { const Vec3
 void pure3d::pddiBaseContext::vfunc_45(int index, void* __p1) { V * out = (V *)__p1;
 
     if (index < 8) {
-        char* p = (char*)(*(void ** *)&this->f_50) + index * 0x7c + 4;
+        char* p = HULK_STATE_AT(*(void**)&this->f_50, index * 0x7c + 4);
         int a = *(int*)p;
         V* q = out;
         q->x = a;
@@ -2017,7 +2020,7 @@ void pure3d::pddiBaseContext::vfunc_46(int index, hulk_intptr __p1) { const Vec3
         v.y = direction->y;
         v.z = direction->z;
         v.w = 0.0f;
-        (*(LightState_31dc90 * *)&this->f_50)[index].direction = v;
+        ((LightState_31dc90*)HULK_STATE_AT(*(void**)&this->f_50, 0))[index].direction = v;
         vfunc_110(index, 1);
     }
 }
@@ -2028,7 +2031,7 @@ void pure3d::pddiBaseContext::vfunc_46(int index, hulk_intptr __p1) { const Vec3
 void pure3d::pddiBaseContext::vfunc_47(int i, void* __p1) { unsigned int * out = (unsigned int *)__p1;
 
     if (i < 8) {
-        unsigned int* p = (unsigned int*)((char*)(*(unsigned int * *)&this->f_50) + i * 0x7c + 0x24);
+        unsigned int* p = (unsigned int*)HULK_STATE_AT(*(void**)&this->f_50, i * 0x7c + 0x24);
         out[0] = p[0];
         out[1] = p[1];
         out[2] = p[2];
@@ -2046,7 +2049,7 @@ void pure3d::pddiBaseContext::vfunc_47(int i, void* __p1) { unsigned int * out =
 void pure3d::pddiBaseContext::vfunc_48(int index, float value) {
     if (index < 8) {
         int i = index;
-        char* p = (char*)(*(hulk_intptr *)&this->f_50);
+        char* p = HULK_STATE_AT(*(void**)&this->f_50, 0);
         *(float*)(p + i * 0x7c + 0x58) = value;
         vfunc_110(index, 0);
     }
@@ -2058,7 +2061,7 @@ void pure3d::pddiBaseContext::vfunc_48(int index, float value) {
  // namespace pure3d
 hulk_freg pure3d::pddiBaseContext::vfunc_49(int index) {
     if (index < 8)
-        return *(float*)((char*)(*(struct Data * *)&this->f_50) + index * 0x7c + 0x58);
+        return *(float*)HULK_STATE_AT(*(void**)&this->f_50, index * 0x7c + 0x58);
     return 0.0f;
 }
 
@@ -2068,9 +2071,9 @@ hulk_freg pure3d::pddiBaseContext::vfunc_49(int index) {
  // namespace pure3d
 void pure3d::pddiBaseContext::vfunc_50(int i, float a, float b, float c) {
     if (i < 8) {
-        *(float*)((*(char * *)&this->f_50) + i * 0x7c + 0x5c) = a;
-        *(float*)((*(char * *)&this->f_50) + i * 0x7c + 0x60) = b;
-        *(float*)((*(char * *)&this->f_50) + i * 0x7c + 0x64) = c;
+        *(float*)HULK_STATE_AT(*(void**)&this->f_50, i * 0x7c + 0x5c) = a;
+        *(float*)HULK_STATE_AT(*(void**)&this->f_50, i * 0x7c + 0x60) = b;
+        *(float*)HULK_STATE_AT(*(void**)&this->f_50, i * 0x7c + 0x64) = c;
         vfunc_110(i, 0);
     }
 }
@@ -2081,9 +2084,9 @@ void pure3d::pddiBaseContext::vfunc_50(int i, float a, float b, float c) {
 void pure3d::pddiBaseContext::vfunc_51(int i, void* __p1, void* __p2, void* __p3) { unsigned int * a = (unsigned int *)__p1; unsigned int * b = (unsigned int *)__p2; unsigned int * c = (unsigned int *)__p3;
 
     if (i < 8) {
-        *a = (*(Rec_31ddf0 * *)&this->f_50)[i].x;
-        *b = (*(Rec_31ddf0 * *)&this->f_50)[i].y;
-        *c = (*(Rec_31ddf0 * *)&this->f_50)[i].z;
+        *a = ((Rec_31ddf0*)HULK_STATE_AT(*(void**)&this->f_50, 0))[i].x;
+        *b = ((Rec_31ddf0*)HULK_STATE_AT(*(void**)&this->f_50, 0))[i].y;
+        *c = ((Rec_31ddf0*)HULK_STATE_AT(*(void**)&this->f_50, 0))[i].z;
     } else {
         *c = 0;
         *b = 0;
@@ -2109,14 +2112,13 @@ class pddiBaseContext {
             V(88) V(89) V(90) V(91) V(92) V(93) V(94) V(95) V(96) V(97) V(98) V(99) V(100) V(101) V(102)
                 V(103) V(104) V(105) V(106) V(107) V(108) V(109) virtual void f110(int, int);
 #undef V
-    char pad[0x4c];
-    void* data;
 };
+// (x64t2) the lighting state f_50 through gen's context (HULK_STATE_AT: its words behind the vftable)
 void pddiBaseContext::f52(int i, float a, float b, float c) {
     if (i < 8) {
-        ((float*)((char*)data + i * 0x7c + 0x68))[0] = a;
-        ((float*)((char*)data + i * 0x7c + 0x68))[1] = b;
-        ((float*)((char*)data + i * 0x7c + 0x68))[2] = c;
+        ((float*)HULK_STATE_AT(HULK_CTX_STATE(this, f_50), i * 0x7c + 0x68))[0] = a;
+        ((float*)HULK_STATE_AT(HULK_CTX_STATE(this, f_50), i * 0x7c + 0x68))[1] = b;
+        ((float*)HULK_STATE_AT(HULK_CTX_STATE(this, f_50), i * 0x7c + 0x68))[2] = c;
         f110(i, 0);
     }
 }
@@ -2177,7 +2179,6 @@ class pddiRenderContext {
     virtual void a45();
     virtual void a46();
     virtual void a47();
-    char pad[0x4c];
 };
 class pddiBaseContext : public pddiRenderContext {
   public:
@@ -2186,14 +2187,14 @@ class pddiBaseContext : public pddiRenderContext {
         int x, y, z;
         char rest[8];
     };
-    Entry* entries;
     void vfunc_53(int, int*, int*, int*);
 };
+// (x64t2) the lighting state f_50 through gen's context, its lights behind the vftable (HULK_STATE_AT)
 void pddiBaseContext::vfunc_53(int n, int* a, int* b, int* c) {
     if (n < 8) {
-        *a = entries[n].x;
-        *b = entries[n].y;
-        *c = entries[n].z;
+        *a = ((Entry*)HULK_STATE_AT(HULK_CTX_STATE(this, f_50), 0))[n].x;
+        *b = ((Entry*)HULK_STATE_AT(HULK_CTX_STATE(this, f_50), 0))[n].y;
+        *c = ((Entry*)HULK_STATE_AT(HULK_CTX_STATE(this, f_50), 0))[n].z;
     } else {
         *c = 0;
         *b = 0;
@@ -2206,7 +2207,7 @@ void pddiBaseContext::vfunc_53(int n, int* a, int* b, int* c) {
 // 0x0031def0 pure3d::pddiBaseContext::vfunc_54 (13 B): matches/0x0031def0.cpp
 // sym: ?vfunc_54@pddiBaseContext@pure3d@@UAEXH@Z
 void pure3d::pddiBaseContext::vfunc_54(int x) {
-    *(int*)((char*)(*(int * *)&this->f_4c) + 4) = x;
+    *(int*)HULK_STATE_AT(*(void**)&this->f_4c, 4) = x;
 }
 
 
@@ -2222,10 +2223,10 @@ unsigned int pure3d::pddiBaseContext::vfunc_55() {
 // sym: ?vfunc_56@pddiBaseContext@pure3d@@UAEXDDDD@Z
 void pure3d::pddiBaseContext::vfunc_56(char __p0, char __p1, char __p2, char __p3) { unsigned char a = (unsigned char)__p0; unsigned char b = (unsigned char)__p1; unsigned char c = (unsigned char)__p2; unsigned char d = (unsigned char)__p3;
 
-    (*(unsigned char * *)&this->f_4c)[0x18] = a;
-    (*(unsigned char * *)&this->f_4c)[0x19] = b;
-    (*(unsigned char * *)&this->f_4c)[0x1a] = c;
-    (*(unsigned char * *)&this->f_4c)[0x1b] = d;
+    *(unsigned char*)HULK_STATE_AT(*(void**)&this->f_4c, 0x18) = a;
+    *(unsigned char*)HULK_STATE_AT(*(void**)&this->f_4c, 0x19) = b;
+    *(unsigned char*)HULK_STATE_AT(*(void**)&this->f_4c, 0x1a) = c;
+    *(unsigned char*)HULK_STATE_AT(*(void**)&this->f_4c, 0x1b) = d;
 }
 
 
@@ -2234,18 +2235,18 @@ void pure3d::pddiBaseContext::vfunc_56(char __p0, char __p1, char __p2, char __p
 namespace fn_0031df40 {
 typedef unsigned char u8_31df40;
 struct pddiBaseContext {
-    char pad[0x4c];
     struct Data {
         char pad2[0x18];
         u8_31df40 a, b, c, d;
-    }* mData;
+    };
     void vfunc_57(u8_31df40*, u8_31df40*, u8_31df40*, u8_31df40*);
 };
+// (x64t2) the render state f_4c through gen's context (HULK_STATE_AT: its words behind the vftable)
 void pddiBaseContext::vfunc_57(u8_31df40* p1, u8_31df40* p2, u8_31df40* p3, u8_31df40* p4) {
-    *p1 = mData->a;
-    *p2 = mData->b;
-    *p3 = mData->c;
-    *p4 = mData->d;
+    *p1 = ((Data*)HULK_STATE_AT(HULK_CTX_STATE(this, f_4c), 0))->a;
+    *p2 = ((Data*)HULK_STATE_AT(HULK_CTX_STATE(this, f_4c), 0))->b;
+    *p3 = ((Data*)HULK_STATE_AT(HULK_CTX_STATE(this, f_4c), 0))->c;
+    *p4 = ((Data*)HULK_STATE_AT(HULK_CTX_STATE(this, f_4c), 0))->d;
 }
 } // namespace fn_0031df40
 
@@ -2264,12 +2265,12 @@ class pddiBaseContext {
                     V(68) V(69) V(70) V(71) V(72) V(73) V(74) V(75) V(76) V(77) V(78) V(79) V(80) V(81) V(82)
                         V(83) V(84) V(85) V(86) V(87) V(88) V(89) V(90) V(91) V(92) V(93) V(94) V(95) V(96)
                             V(97) V(98) V(99) V(100) V(101) V(102) V(103) V(104) V(105) V(106) V(107) V(108)
-                                V(109) V(110) char pad[0x48];
-    unsigned char* member;
+                                V(109) V(110)
     void vfunc_58(unsigned char);
 };
+// (x64t2) the render state f_4c through gen's context (HULK_STATE_AT: its words behind the vftable)
 void pddiBaseContext::vfunc_58(unsigned char x) {
-    member[8] = x;
+    *(unsigned char*)HULK_STATE_AT(HULK_CTX_STATE(this, f_4c), 8) = x;
 }
 } // namespace fn_0031df80
 #undef V
@@ -2278,21 +2279,21 @@ void pddiBaseContext::vfunc_58(unsigned char x) {
 // 0x0031df90 pure3d::pddiBaseContext::vfunc_59 (7 B): matches/0x0031df90.cpp
 // sym: ?vfunc_59@pddiBaseContext@pure3d@@UAEEXZ
 unsigned char pure3d::pddiBaseContext::vfunc_59() {
-    return (*(unsigned char * *)&this->f_4c)[8];
+    return *(unsigned char*)HULK_STATE_AT(*(void**)&this->f_4c, 8);
 }
 
 
 // 0x0031dfa0 pure3d::pddiBaseContext::vfunc_60 (13 B): matches/0x0031dfa0.cpp
 // sym: ?vfunc_60@pddiBaseContext@pure3d@@UAEXH@Z
 void pure3d::pddiBaseContext::vfunc_60(int x) {
-    *(int*)((char*)(*(int * *)&this->f_4c) + 0xc) = x;
+    *(int*)HULK_STATE_AT(*(void**)&this->f_4c, 0xc) = x;
 }
 
 
 // 0x0031dfb0 pure3d::pddiBaseContext::vfunc_61 (7 B): matches/0x0031dfb0.cpp
 // sym: ?vfunc_61@pddiBaseContext@pure3d@@UAEIXZ
 unsigned int pure3d::pddiBaseContext::vfunc_61() {
-    return *(unsigned int*)((char*)(*(void * *)&this->f_4c) + 0xc);
+    return *(unsigned int*)HULK_STATE_AT(*(void**)&this->f_4c, 0xc);
 }
 
 
@@ -2300,11 +2301,6 @@ unsigned int pure3d::pddiBaseContext::vfunc_61() {
 // sym: ?vfunc_62@pddiBaseContext@fn_0031dfc0@@UAEXE@Z
 namespace fn_0031dfc0 {
 class pddiBaseContext {
-    char pad[0x48];
-    struct {
-        char pad2[0x10];
-        unsigned char field;
-    }* ptr;
 
   public:
     virtual void f0();
@@ -2371,8 +2367,9 @@ class pddiBaseContext {
     virtual void f61();
     virtual void vfunc_62(unsigned char);
 };
+// (x64t2) the render state f_4c through gen's context (HULK_STATE_AT: its words behind the vftable)
 void pddiBaseContext::vfunc_62(unsigned char x) {
-    ptr->field = x;
+    *(unsigned char*)HULK_STATE_AT(HULK_CTX_STATE(this, f_4c), 0x10) = x;
 }
 } // namespace fn_0031dfc0
 
@@ -2380,7 +2377,7 @@ void pddiBaseContext::vfunc_62(unsigned char x) {
 // 0x0031dfd0 pure3d::pddiBaseContext::vfunc_63 (7 B): matches/0x0031dfd0.cpp
 // sym: ?vfunc_63@pddiBaseContext@pure3d@@UAEEXZ
 unsigned char pure3d::pddiBaseContext::vfunc_63() {
-    return *((unsigned char*)(*(void * *)&this->f_4c) + 0x10);
+    return *(unsigned char*)HULK_STATE_AT(*(void**)&this->f_4c, 0x10);
 }
 
 
@@ -2389,7 +2386,7 @@ unsigned char pure3d::pddiBaseContext::vfunc_63() {
  // namespace pure3d
 void pure3d::pddiBaseContext::vfunc_64(int __p0) { unsigned char value = (unsigned char)__p0;
 
-    *((unsigned char*)(*(void * *)&this->f_58) + 4) = value;
+    *(unsigned char*)HULK_STATE_AT(*(void**)&this->f_58, 4) = value;
 }
 
 
@@ -2398,16 +2395,11 @@ void pure3d::pddiBaseContext::vfunc_64(int __p0) { unsigned char value = (unsign
 namespace fn_0031dff0 {
 class pddiBaseContext {
   public:
-    char pad[0x58];
-    struct Thing {
-        char pad0[4];
-        unsigned char value;
-    };
-    Thing* member;
     unsigned char vfunc_65();
 };
+// (x64t2) the stencil state f_58 through gen's context (HULK_STATE_AT: its words behind the vftable)
 unsigned char pddiBaseContext::vfunc_65() {
-    return member->value;
+    return *(unsigned char*)HULK_STATE_AT(HULK_CTX_STATE(this, f_58), 4);
 }
 } // namespace fn_0031dff0
 
@@ -2416,14 +2408,14 @@ unsigned char pddiBaseContext::vfunc_65() {
 // sym: ?vfunc_66@pddiBaseContext@pure3d@@UAEXH@Z
 void pure3d::pddiBaseContext::vfunc_66(int __p0) { unsigned int x = (unsigned int)__p0;
 
-    *(unsigned int*)((char*)(*(void ** *)&this->f_58) + 8) = x;
+    *(unsigned int*)HULK_STATE_AT(*(void**)&this->f_58, 8) = x;
 }
 
 
 // 0x0031e010 pure3d::pddiBaseContext::vfunc_67 (7 B): matches/0x0031e010.cpp
 // sym: ?vfunc_67@pddiBaseContext@pure3d@@UAEHXZ
 int pure3d::pddiBaseContext::vfunc_67() {
-    return *(int*)((*(char * *)&this->f_58) + 8);
+    return *(int*)HULK_STATE_AT(*(void**)&this->f_58, 8);
 }
 
 
@@ -2501,15 +2493,11 @@ class pddiBaseContext {
     virtual void f66();
     virtual void f67();
     virtual void f68();
-    char pad[0x54];
-    struct Inner {
-        char x[0xc];
-        int value;
-    }* ptr;
     void vfunc_68(int);
 };
+// (x64t2) the stencil state f_58 through gen's context (HULK_STATE_AT: its words behind the vftable)
 void pddiBaseContext::vfunc_68(int value) {
-    ptr->value = value;
+    *(int*)HULK_STATE_AT(HULK_CTX_STATE(this, f_58), 0xc) = value;
 }
 } // namespace fn_0031e020
 
@@ -2518,14 +2506,14 @@ void pddiBaseContext::vfunc_68(int value) {
 // sym: ?vfunc_69@pddiBaseContext@pure3d@@UAEHXZ
  // namespace pure3d
 int pure3d::pddiBaseContext::vfunc_69() {
-    return *(int*)((char*)(*(void * *)&this->f_58) + 0xc);
+    return *(int*)HULK_STATE_AT(*(void**)&this->f_58, 0xc);
 }
 
 
 // 0x0031e040 pure3d::pddiBaseContext::vfunc_70 (13 B): matches/0x0031e040.cpp
 // sym: ?vfunc_70@pddiBaseContext@pure3d@@UAEXH@Z
 void pure3d::pddiBaseContext::vfunc_70(int x) {
-    *(int*)((char*)(*(void * *)&this->f_58) + 0x10) = x;
+    *(int*)HULK_STATE_AT(*(void**)&this->f_58, 0x10) = x;
 }
 
 
@@ -2539,14 +2527,14 @@ int pure3d::pddiBaseContext::vfunc_71() {
 // 0x0031e060 pure3d::pddiBaseContext::vfunc_72 (13 B): matches/0x0031e060.cpp
 // sym: ?vfunc_72@pddiBaseContext@pure3d@@UAEXH@Z
 void pure3d::pddiBaseContext::vfunc_72(int value) {
-    *(int*)((char*)(*(void * *)&this->f_58) + 0x14) = value;
+    *(int*)HULK_STATE_AT(*(void**)&this->f_58, 0x14) = value;
 }
 
 
 // 0x0031e070 pure3d::pddiBaseContext::vfunc_73 (7 B): matches/0x0031e070.cpp
 // sym: ?vfunc_73@pddiBaseContext@pure3d@@UAEHXZ
 int pure3d::pddiBaseContext::vfunc_73() {
-    return *(int*)((char*)(*(int * *)&this->f_58) + 0x14);
+    return *(int*)HULK_STATE_AT(*(void**)&this->f_58, 0x14);
 }
 
 
@@ -2630,17 +2618,16 @@ class pddiBaseContext {
     virtual void f72();
     virtual void f73();
     virtual void vfunc_74(int, int, int);
-    char pad[0x54];
     struct State {
         char pad[0x18];
         int a, b, c;
     };
-    State* state;
 };
+// (x64t2) the stencil state f_58 through gen's context (HULK_STATE_AT: its words behind the vftable)
 void pddiBaseContext::vfunc_74(int a, int b, int c) {
-    state->a = a;
-    state->b = b;
-    state->c = c;
+    ((State*)HULK_STATE_AT(HULK_CTX_STATE(this, f_58), 0))->a = a;
+    ((State*)HULK_STATE_AT(HULK_CTX_STATE(this, f_58), 0))->b = b;
+    ((State*)HULK_STATE_AT(HULK_CTX_STATE(this, f_58), 0))->c = c;
 }
 } // namespace fn_0031e080
 
@@ -2650,9 +2637,9 @@ void pddiBaseContext::vfunc_74(int a, int b, int c) {
  // namespace pure3d
 void pure3d::pddiBaseContext::vfunc_75(void* __p0, void* __p1, void* __p2) { unsigned int * a = (unsigned int *)__p0; unsigned int * b = (unsigned int *)__p1; unsigned int * c = (unsigned int *)__p2;
 
-    *a = *(unsigned*)((char*)(*(unsigned int * *)&this->f_58) + 0x18);
-    *b = *(unsigned*)((char*)(*(unsigned int * *)&this->f_58) + 0x1c);
-    *c = *(unsigned*)((char*)(*(unsigned int * *)&this->f_58) + 0x20);
+    *a = *(unsigned*)HULK_STATE_AT(*(void**)&this->f_58, 0x18);
+    *b = *(unsigned*)HULK_STATE_AT(*(void**)&this->f_58, 0x1c);
+    *c = *(unsigned*)HULK_STATE_AT(*(void**)&this->f_58, 0x20);
 }
 
 
@@ -2660,7 +2647,7 @@ void pure3d::pddiBaseContext::vfunc_75(void* __p0, void* __p1, void* __p2) { uns
 // sym: ?vfunc_76@pddiBaseContext@pure3d@@UAEXK@Z
  // namespace pure3d
 void pure3d::pddiBaseContext::vfunc_76(unsigned long x) {
-    *(unsigned long*)((char*)(*(void * *)&this->f_4c) + 0x14) = x;
+    *(unsigned long*)HULK_STATE_AT(*(void**)&this->f_4c, 0x14) = x;
 }
 
 
@@ -2668,7 +2655,7 @@ void pure3d::pddiBaseContext::vfunc_76(unsigned long x) {
 // sym: ?vfunc_77@pddiBaseContext@pure3d@@UAEHXZ
  // namespace pure3d
 int pure3d::pddiBaseContext::vfunc_77() {
-    return (*(Inner_31e0f0 * *)&this->f_4c)->value;
+    return ((Inner_31e0f0*)HULK_STATE_AT(*(void**)&this->f_4c, 0))->value;
 }
 
 
@@ -2676,14 +2663,14 @@ int pure3d::pddiBaseContext::vfunc_77() {
 // sym: ?vfunc_78@pddiBaseContext@pure3d@@UAEXI@Z
 void pure3d::pddiBaseContext::vfunc_78(unsigned int __p0) { unsigned char value = (unsigned char)__p0;
 
-    *((unsigned char*)(*(void * *)&this->f_54) + 4) = value;
+    *(unsigned char*)HULK_STATE_AT(*(void**)&this->f_54, 4) = value;
 }
 
 
 // 0x0031e110 pure3d::pddiBaseContext::vfunc_79 (7 B): matches/0x0031e110.cpp
 // sym: ?vfunc_79@pddiBaseContext@pure3d@@UAE_NXZ
 bool pure3d::pddiBaseContext::vfunc_79() {
-    return *((bool*)((char*)(*(void * *)&this->f_54) + 4));
+    return *((bool*)HULK_STATE_AT(*(void**)&this->f_54, 4));
 }
 
 
@@ -2806,18 +2793,17 @@ class pddiRenderContext {
 };
 class pddiBaseContext : public pddiRenderContext {
   public:
-    char pad[0x50];
     struct Data {
         char pad[8];
         int a, b, c;
     };
-    Data* data;
     void vfunc_80(int, int, int);
 };
+// (x64t2) the fog state f_54 through gen's context (HULK_STATE_AT: its words behind the vftable)
 void pddiBaseContext::vfunc_80(int a, int b, int c) {
-    data->b = b;
-    data->c = c;
-    data->a = a;
+    ((Data*)HULK_STATE_AT(HULK_CTX_STATE(this, f_54), 0))->b = b;
+    ((Data*)HULK_STATE_AT(HULK_CTX_STATE(this, f_54), 0))->c = c;
+    ((Data*)HULK_STATE_AT(HULK_CTX_STATE(this, f_54), 0))->a = a;
 }
 } // namespace fn_0031e120
 
@@ -2826,9 +2812,9 @@ void pddiBaseContext::vfunc_80(int a, int b, int c) {
 // sym: ?vfunc_81@pddiBaseContext@pure3d@@UAEXPAX00@Z
 void pure3d::pddiBaseContext::vfunc_81(void* __p0, void* __p1, void* __p2) { unsigned int * a = (unsigned int *)__p0; unsigned int * b = (unsigned int *)__p1; unsigned int * c = (unsigned int *)__p2;
 
-    *a = (*(unsigned int * *)&this->f_54)[2];
-    *b = (*(unsigned int * *)&this->f_54)[3];
-    *c = (*(unsigned int * *)&this->f_54)[4];
+    *a = *(unsigned int*)HULK_STATE_AT(*(void**)&this->f_54, 8);
+    *b = *(unsigned int*)HULK_STATE_AT(*(void**)&this->f_54, 12);
+    *c = *(unsigned int*)HULK_STATE_AT(*(void**)&this->f_54, 16);
 }
 
 
@@ -3448,27 +3434,27 @@ void pddiBaseContext_31e930::Push(int w, void* a) {
 void pure3d::pddiBaseContext::vfunc_88(unsigned char mask) {
     if (mask & 1) {
         (*(Stack_31e9b0 * *)&this->f_38)->top--;
-        (*(StateBase * *)&this->f_4c) = (StateBase*)((*(Stack_31e9b0 * *)&this->f_38)->data + (*(Stack_31e9b0 * *)&this->f_38)->top * 0x1c);
+        (*(StateBase * *)&this->f_4c) = (StateBase*)((*(Stack_31e9b0 * *)&this->f_38)->data + (*(Stack_31e9b0 * *)&this->f_38)->top * (int)sizeof(StateA_31f290));
         (*(StateBase * *)&this->f_4c)->Restore(this);
     }
     if (mask & 2) {
         (*(Stack_31e9b0 * *)&this->f_34)->top--;
-        (*(StateBase * *)&this->f_48) = (StateBase*)((*(Stack_31e9b0 * *)&this->f_34)->data + (*(Stack_31e9b0 * *)&this->f_34)->top * 0x34);
+        (*(StateBase * *)&this->f_48) = (StateBase*)((*(Stack_31e9b0 * *)&this->f_34)->data + (*(Stack_31e9b0 * *)&this->f_34)->top * (int)sizeof(StateB_31f290));
         (*(StateBase * *)&this->f_48)->Restore(this);
     }
     if (mask & 4) {
         (*(Stack_31e9b0 * *)&this->f_3c)->top--;
-        (*(StateBase * *)&this->f_50) = (StateBase*)((*(Stack_31e9b0 * *)&this->f_3c)->data + (*(Stack_31e9b0 * *)&this->f_3c)->top * 0x3ec);
+        (*(StateBase * *)&this->f_50) = (StateBase*)((*(Stack_31e9b0 * *)&this->f_3c)->data + (*(Stack_31e9b0 * *)&this->f_3c)->top * (int)sizeof(StateC));
         (*(StateBase * *)&this->f_50)->Restore(this);
     }
     if (mask & 8) {
         (*(Stack_31e9b0 * *)&this->f_40)->top--;
-        (*(StateBase * *)&this->f_54) = (StateBase*)((*(Stack_31e9b0 * *)&this->f_40)->data + (*(Stack_31e9b0 * *)&this->f_40)->top * 20);
+        (*(StateBase * *)&this->f_54) = (StateBase*)((*(Stack_31e9b0 * *)&this->f_40)->data + (*(Stack_31e9b0 * *)&this->f_40)->top * (int)sizeof(StateD));
         (*(StateBase * *)&this->f_54)->Restore(this);
     }
     if (mask & 0x10) {
         (*(Stack_31e9b0 * *)&this->f_44)->top--;
-        (*(StateBase * *)&this->f_58) = (StateBase*)((*(Stack_31e9b0 * *)&this->f_44)->data + (*(Stack_31e9b0 * *)&this->f_44)->top * 36);
+        (*(StateBase * *)&this->f_58) = (StateBase*)((*(Stack_31e9b0 * *)&this->f_44)->data + (*(Stack_31e9b0 * *)&this->f_44)->top * (int)sizeof(StateE));
         (*(StateBase * *)&this->f_58)->Restore(this);
     }
 }

@@ -2109,3 +2109,24 @@ the XDK's D3DDevice_ functions: unbound), and continued, in d3dContext::vfunc_54
 base call by its local name and the state cache at a literal +0x150). The context's state accessors in
 src/engine/pure3d/pddiBaseContext.cpp (vfunc_15..vfunc_90, about 50) read the states at 32-bit offsets behind their
 vftables (`(char*)state + 0xc`): the next sweep.
+
+**Batch 4, the context's state accessors.** pddiBaseContext's accessors read the current states (`f_48` view, `f_4c`
+render, `f_50` lighting, `f_54` fog, `f_58` stencil) at 32-bit offsets (`(char*)state + 0xc`), which on 64-bit land 4
+bytes short (each state starts with its vftable pointer). src/engine/pure3d/pddiBaseContext.cpp now names that once:
+`HULK_STATE_AT(state, k)` (byte `k`, a 32-bit offset, of a state record: `+ sizeof(void*) - 4` on 64-bit, nothing on
+32-bit) and `HULK_CTX_STATE(self, f)` (a current-state pointer through gen's pddiBaseContext from a block's own view
+of the context). 47 accessors (vfunc_6..vfunc_81, matches) use it, 10 wrapped views drop their `char pad[0x48..0x58]`
+for `HULK_CTX_STATE` (re-reading the pointer per access, as the originals do), the pop vfunc_88 (0x0031e9b0) indexes the
+stacks by `sizeof` of the state records and its stack view starts with the vftable. In
+src/platform/xbox/pure3d/d3dExtFramebufferEffects.cpp: the viewport set-up 0x00321520 calls the XDK's
+`D3D8::D3DDevice_GetViewport` / `D3DDevice_SetViewport` (were invented names, unbound natively) on gen's d3dContext
+layout (`f_16c`), and d3dContext::vfunc_54 (0x003219f0) calls its base by address (`FUN_0031def0`) and reads the
+state cache's flag through owners::State_328f10. All 189 matches of the two TUs MATCH with relocations ok; every
+equivalent's listing is identical to before. Left: pddiBaseContext::vfunc_8 / vfunc_10 store a `void*` (gen's
+signature) into the view state's 4-byte depth / colour words: the signatures, not the layout, are wrong there.
+
+Proof 71514 vs control 71466 (studio): image 141d7b7a, GATE ok (0 of 2,021). macOS (unbound 28,975): the projection
+set-up and the context's render-state set-up run (51 imports); the start-up stops at d3dContext::vfunc_56
+(0x00321a30): the d3dContext overrides 0x00321990..0x00321ce0 call their pddiBaseContext bases by local names and the
+render-state setters under invented names (`SetStencilEnable`, `SetFog`, `D3D8_D3DDevice_SetRenderState_Simple`,
+18 names). Continued past those, the start-up leaves the pddi set-up and crashes in 0x0028f800 (`Widget_28f800`).
