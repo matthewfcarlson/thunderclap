@@ -3694,24 +3694,29 @@ pddiStack* pddiStack::vfunc_0(unsigned char flag) {
 // 0x0031eef0 FUN_0031eef0 (116 B): equivalent/0x0031eef0.cpp [wrapped: conflict: pure3d::pddiLightingState; pure3d::pddiStack]
 // sym: ??0?$pddiStack@VpddiLightingState@pure3d@fn_0031eef0@@@pure3d@fn_0031eef0@@QAE@H@Z
 namespace fn_0031eef0 {
-// STATUS: equivalent (tools/equiv.py level 3: 1747 inputs, branch coverage 6/6)
+// STATUS: equivalent (tools/equiv.py level 3: 2752 inputs, branch coverage 6/6; --wine 590 inputs)
 // FUN_0031eef0 @ 0x0031eef0
 void* __cdecl FUN_0008d690(unsigned int size);
 void __stdcall FUN_00011520(void* array, unsigned int elementSize, int count, void* ctor);
-extern char FUN_0031e490;
+// a light's constructor (0x0031e490, returns the light; thiscall: the element is the first argument), which the
+// vector-constructor helper 0x00011520 calls on each of a lighting state's 8 lights
+void* __fastcall FUN_0031e490(void* light);
+// the vftables, stored by address (a local class's own vftable would be the 64-bit link's stub)
+extern "C" char DAT_004329a8[];  // pure3d::pddiLightingState
+extern "C" char DAT_004329dc[];  // pure3d::pddiStack<pure3d::pddiLightingState>
 
 
 namespace pure3d {
 class pddiLightingState {
 public:
-    virtual void dummy();
+    void* vftable;
     char lights[0x3e0];
     char tail[8];
-    pddiLightingState() { FUN_00011520(lights, 0x7c, 8, &FUN_0031e490); }
+    pddiLightingState() { vftable = DAT_004329a8; FUN_00011520(lights, 0x7c, 8, (void*)&FUN_0031e490); }
 };
 template<class T> class pddiStack {
 public:
-    virtual void dummy();
+    void* vftable;
     int capacity;
     int depth;
     T* items;
@@ -3719,6 +3724,7 @@ public:
 };
 template<> pddiStack<pddiLightingState>::pddiStack(int count)
 {
+    vftable = DAT_004329dc;
     pddiLightingState* storage = (pddiLightingState*)FUN_0008d690((unsigned int)count * 0x3ec);
     if (storage && (int)((unsigned int)count - 1) >= 0) {
         unsigned int remaining = (unsigned int)count;

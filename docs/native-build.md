@@ -1984,3 +1984,19 @@ pddiBaseContext is 0x190 bytes on 64-bit, d3dContext's `f_14c` at 0x190; 0x00324
 pddiObject has one int where 0x0031bac0 writes two, so gen d3dDevice's `f_08` / `f_0c` land 4 bytes off the
 constructor's words; d3dShader 0x00333520 reads the context's state cache at a literal +0x150). The pddi record batch
 moves the pddiObject / pddiBaseContext / d3dContext / d3dDevice constructors and readers onto one record per class.
+
+**Batch 2** (one function): 0x0031eef0 (pddiStack<pddiLightingState>'s constructor, equivalent, wrapped) declares the
+light constructor it hands to 0x00011520 as a function (`void* __fastcall FUN_0031e490(void* light)`: thiscall, the
+element first; it was `extern char FUN_0031e490;`) and stores both vftables by address (DAT_004329a8 the lighting
+state's, DAT_004329dc the stack's). 2,752 inputs (the original's 1,747), `--wine` 590, branch coverage 6/6. Proof 71447
+(studio, seeded from nothing, same inputs as control 71429): image 2e8232cd again, GATE ok (0 of 2,026 common frames).
+macOS (71447's snapshot and map, unbound 29,012): the whole d3dContext constructor runs, then the device set-up's first
+texture-stage call crashes in 0x00326b00 (`owners::Obj_326b00::FUN_00326b00`, `this` = 0x100000000) called from
+0x00328bf0: the state cache (0x00328fc0) is one object seen through three layouts that disagree on 64-bit
+(`Obj_328fc0`: context pointer + handle; `owners::State_328f10`: 8 reserved bytes then `unsigned values08[4]`;
+`Material_328bf0`: `Texture* tex[4]` at +8): the reset zeroes four ints and the material reads four pointers. The
+state-cache record (one layout for 0x00328fc0, 0x00328f10, 0x00328bf0 and the setters) is next.
+
+Infra note: from about 20:38 mac2's queue base tree for HEAD 0481a154a (`ws/base-1deab2c21708bbc2`) held symlinks to
+`~/hulk-permute` (no src/, older tools: `equiv.py --wine` unknown, tools/native_mac.py missing); this batch's jobs ran
+pinned to studio.
