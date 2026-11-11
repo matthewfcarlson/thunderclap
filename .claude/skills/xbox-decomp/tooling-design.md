@@ -97,6 +97,13 @@ video decoder, XDK-shaped shims reimplemented from interfaces), run under Wine o
 and compare checkpoint hashes (a cheap hash over RNG state, boot step, camera, game clock every N frames). Headless
 with a null renderer, so it runs on any queue host. Keep per-host incremental build state; make images reproducible.
 
+- **Generate the tree once, then commit it** (SKILL.md section 1): a generator with compile-blame-fallback rounds is
+  right while sources still change per function, too slow per build afterwards. The committed tree then needs a
+  per-TU checker (find each function by its pinned symbol, compare and verify relocations, run the equivalence checker
+  on the function's block), cached by the object's content so only changed TUs are checked again.
+- **A proof gate** compares a proof run's replay checkpoints with a control run's (same host, same inputs), and a
+  **stale-input guard** compares each generated local input's source-hash stamp with the sources the job builds.
+
 ## 7. Shared job queue
 
 One queue, many hosts, many agents.

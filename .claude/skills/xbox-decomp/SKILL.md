@@ -30,6 +30,11 @@ session will see it.
 - **Two kinds of verified source, kept apart**: byte-matched (identical bytes, every reference hits the right
   symbol) and proven-equivalent (differential execution agrees). Separate directories, separate bars, separate
   re-check tools. *Why: the bars differ and must never blur.*
+- **Once every function is verified, merge once.** Generate the per-object translation units one last time, pin each
+  function's symbol in its object, commit that tree as the source of truth and freeze the per-function files. Keep
+  the kind (matched / equivalent) and its bar per function block. *Why: regenerating the merged tree for every build
+  cost 19-55 minutes of fallback rounds per proof in one project, and port work (renames, 64-bit fixes, record
+  types) belongs in one place, not re-merged from tens of thousands of files.*
 - **Count progress in bytes, not functions.** Thousands of tiny getters inflate function counts. Exclude vendor
   library spans and dead code from the denominator, and say so.
 - **Then build the verified source with a modern compiler** (32-bit clang, same memory layout, run under Wine or on
@@ -184,6 +189,14 @@ temp/scratch directory:
   bytes; uninitialised stack slots the original reused.
 - Keep the MSVC proof valid while fixing for clang; if one spelling can't satisfy both, `#if defined(__clang__)`
   twins go on the tech-debt list. Make builds reproducible so images from different hosts compare byte for byte.
+- **Prove shared changes with a control/proof pair**: the same host and the same local inputs, one build without the
+  change and one with it, a long recorded replay on both, and a gate that the proof's checkpoints hold wherever the
+  control's do. *Why: per-host and per-input differences otherwise look like regressions, or hide them.*
+- **Stamp generated local inputs** (data units, prebuilt platform libraries) with the hash of the sources they came
+  from and refuse stale ones at submit and on the build host. *Why: stale data units once crashed an image at start-up
+  with no source change.*
+- **Going 64-bit, fix in source.** Unresolved names and pointer-width problems are fixed at the definition or in shared
+  headers, by root cause, while the 32-bit proofs keep passing; no link-time redirects onto the original's tables.
 
 ## 11. Coordinating agents
 
