@@ -21,8 +21,8 @@ class Thing_1353c0 {
 class Action_1353c0 {
   public:
     Action_1353c0();
-    virtual void X();
-    virtual void Y();
+    virtual void FnX_00018b30();
+    virtual void FnY_00018b40();
 };
 class FlyingBrakeAction : public Action_1353c0 {
   public:

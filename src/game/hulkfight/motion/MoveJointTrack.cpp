@@ -77,8 +77,8 @@ public:
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void v5();
-    virtual void vfunc_6();
+    virtual void v5_00170380();
+    virtual void vfunc_6_00170390();
     virtual void vfunc_7();
 
     int f0c;

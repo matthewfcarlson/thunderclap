@@ -103,7 +103,7 @@ class RefObj_183950 {
 class Action_183950 {
   public:
     Action_183950();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class PropActorToPropAction_183950 : public Action_183950 {
@@ -111,7 +111,7 @@ class PropActorToPropAction_183950 : public Action_183950 {
     int mTarget;
     RefObj_183950* mObj;
     PropActorToPropAction_183950(int target, RefObj_183950* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_00419608[];
 class Ref_1839a0 {
@@ -148,7 +148,7 @@ class RefObj_183a10 {
 class Action_183a10 {
   public:
     Action_183a10();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class PropActorThinkingAction_183a10 : public Action_183a10 {
@@ -156,7 +156,7 @@ class PropActorThinkingAction_183a10 : public Action_183a10 {
     int mTarget;
     RefObj_183a10* mObj;
     PropActorThinkingAction_183a10(int target, RefObj_183a10* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_00419624[];
 class Ref_183a60 {
@@ -182,12 +182,12 @@ class Obj_183aa0 {
 };
 class Action_183aa0 {
   public:
-    virtual void X();
+    virtual void FnX_00018b30();
     Action_183aa0();
 };
 class PropAnimationAction_183aa0 : public Action_183aa0 {
   public:
-    virtual void A();
+    virtual void FnA_00018b40();
     virtual void B();
     char pad[0x18];
     int m1c;
@@ -246,7 +246,7 @@ class RefObj_183b80 {
 class Action_183b80 {
   public:
     Action_183b80();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class PropAddToMissileCountAction_183b80 : public Action_183b80 {
@@ -254,7 +254,7 @@ class PropAddToMissileCountAction_183b80 : public Action_183b80 {
     int mTarget;
     RefObj_183b80* mObj;
     PropAddToMissileCountAction_183b80(int target, RefObj_183b80* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_0041965c[];
 class Ref_183bd0 {
@@ -281,7 +281,7 @@ class RefObj_183c10 {
 class Action_183c10 {
   public:
     Action_183c10();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class PropAddToCollisionAction_183c10 : public Action_183c10 {
@@ -289,7 +289,7 @@ class PropAddToCollisionAction_183c10 : public Action_183c10 {
     int mTarget;
     RefObj_183c10* mObj;
     PropAddToCollisionAction_183c10(int target, RefObj_183c10* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 class Ref_183c60 {
   public:
@@ -315,7 +315,7 @@ class RefObj_183ca0 {
 class Action_183ca0 {
   public:
     Action_183ca0();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class PropSetStateByIndexAction_183ca0 : public Action_183ca0 {
@@ -323,7 +323,7 @@ class PropSetStateByIndexAction_183ca0 : public Action_183ca0 {
     int mTarget;
     RefObj_183ca0* mObj;
     PropSetStateByIndexAction_183ca0(int target, RefObj_183ca0* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_00419694[];
 class Ref_183cf0 {
@@ -350,7 +350,7 @@ class RefObj_183db0 {
 class Action_183db0 {
   public:
     Action_183db0();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class PropSetStateByNameAction_183db0 : public Action_183db0 {
@@ -358,7 +358,7 @@ class PropSetStateByNameAction_183db0 : public Action_183db0 {
     int mTarget;
     RefObj_183db0* mObj;
     PropSetStateByNameAction_183db0(int target, RefObj_183db0* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_004196b0[];
 class Ref_183e00 {
@@ -385,7 +385,7 @@ class RefObj_183e40 {
 class Action_183e40 {
   public:
     Action_183e40();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class PropSpawnAction_183e40 : public Action_183e40 {
@@ -393,7 +393,7 @@ class PropSpawnAction_183e40 : public Action_183e40 {
     int mTarget;
     RefObj_183e40* mObj;
     PropSpawnAction_183e40(int target, RefObj_183e40* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_004196cc[];
 class Ref_183e90 {
@@ -420,7 +420,7 @@ class RefObj_183ed0 {
 class Action_183ed0 {
   public:
     Action_183ed0();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class PropDropAction_183ed0 : public Action_183ed0 {
@@ -428,7 +428,7 @@ class PropDropAction_183ed0 : public Action_183ed0 {
     int mTarget;
     RefObj_183ed0* mObj;
     PropDropAction_183ed0(int target, RefObj_183ed0* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_004196e8[];
 class Ref_183f20 {
@@ -455,7 +455,7 @@ class RefObj_183f60 {
 class Action_183f60 {
   public:
     Action_183f60();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class PropDamageAction_183f60 : public Action_183f60 {
@@ -463,7 +463,7 @@ class PropDamageAction_183f60 : public Action_183f60 {
     int mTarget;
     RefObj_183f60* mObj;
     PropDamageAction_183f60(int target, RefObj_183f60* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_00419704[];
 class Ref_183fb0 {
@@ -490,7 +490,7 @@ class RefObj_183ff0 {
 class Action_183ff0 {
   public:
     Action_183ff0();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class GrapplePropDamageAction_183ff0 : public Action_183ff0 {
@@ -498,7 +498,7 @@ class GrapplePropDamageAction_183ff0 : public Action_183ff0 {
     int mTarget;
     RefObj_183ff0* mObj;
     GrapplePropDamageAction_183ff0(int target, RefObj_183ff0* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_00419720[];
 class Ref_184040 {
@@ -525,7 +525,7 @@ class RefObj_184080 {
 class Action_184080 {
   public:
     Action_184080();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class PropDestroyAction_184080 : public Action_184080 {
@@ -533,7 +533,7 @@ class PropDestroyAction_184080 : public Action_184080 {
     int mTarget;
     RefObj_184080* mObj;
     PropDestroyAction_184080(int target, RefObj_184080* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_0041973c[];
 class Ref_1840d0 {
@@ -560,7 +560,7 @@ class RefObj_184110 {
 class Action_184110 {
   public:
     Action_184110();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class PropThrowAction_184110 : public Action_184110 {
@@ -568,7 +568,7 @@ class PropThrowAction_184110 : public Action_184110 {
     int mTarget;
     RefObj_184110* mObj;
     PropThrowAction_184110(int target, RefObj_184110* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_00419758[];
 class Ref_184160 {
@@ -595,7 +595,7 @@ class RefObj_184750 {
 class Action_184750 {
   public:
     Action_184750();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class ShieldArcAction_184750 : public Action_184750 {
@@ -603,7 +603,7 @@ class ShieldArcAction_184750 : public Action_184750 {
     int mTarget;
     RefObj_184750* mObj;
     ShieldArcAction_184750(int target, RefObj_184750* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern "C" char DAT_00419774[];
 class Ref_1847a0 {

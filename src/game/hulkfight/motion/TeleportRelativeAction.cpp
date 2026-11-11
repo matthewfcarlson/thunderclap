@@ -22,7 +22,7 @@ class RefObj_175890 {
 class Action_175890 {
   public:
     Action_175890();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class TeleportAction_175890 : public Action_175890 {
@@ -30,7 +30,7 @@ class TeleportAction_175890 : public Action_175890 {
     int mTarget;
     RefObj_175890* mObj;
     TeleportAction_175890(int target, RefObj_175890* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_00417f10[];
 class Ref_1758e0 {

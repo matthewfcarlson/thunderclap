@@ -250,7 +250,7 @@ class RefObj_18d3f0 {
 class Action_18d3f0 {
   public:
     Action_18d3f0();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class VarAssignAction_18d3f0 : public Action_18d3f0 {
@@ -258,7 +258,7 @@ class VarAssignAction_18d3f0 : public Action_18d3f0 {
     int mTarget;
     RefObj_18d3f0* mObj;
     VarAssignAction_18d3f0(int target, RefObj_18d3f0* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_0041ab08[];
 class Ref_18d440 {
@@ -326,7 +326,7 @@ class RefObj_18d610 {
 class Action_18d610 {
   public:
     Action_18d610();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class TimerSetAction_18d610 : public Action_18d610 {
@@ -334,7 +334,7 @@ class TimerSetAction_18d610 : public Action_18d610 {
     int mTarget;
     RefObj_18d610* mObj;
     TimerSetAction_18d610(int target, RefObj_18d610* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_0041ab24[];
 class Ref_18d660 {

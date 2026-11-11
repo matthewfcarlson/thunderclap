@@ -243,13 +243,13 @@ class Ref_140100 {
 class Action_140100 {
   public:
     Action_140100();
-    virtual void f0();
+    virtual void f0_00018b30();
     char pad[0x18];
 };
 class WallExitAction : public Action_140100 {
   public:
     WallExitAction(int a, Ref_140100* b);
-    virtual void g0();
+    virtual void g0_00018b40();
     int m1c;
     Ref_140100* m20;
     int m24, m28, m2c, m30, m34, m38;
@@ -611,8 +611,8 @@ namespace fn_f8068520 {
 class TrackFactoryTemplate_142ea0 {
   public:
     TrackFactoryTemplate_142ea0() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -641,8 +641,8 @@ struct ConditionFactoryTemplate_142f20 {
 class TrackFactoryTemplate_142f50 {
   public:
     TrackFactoryTemplate_142f50() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -650,8 +650,8 @@ extern int hulk_at_00412e64;
 class TrackFactoryTemplate_142fe0 {
   public:
     TrackFactoryTemplate_142fe0() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -663,8 +663,8 @@ extern void* __cdecl operator_new(unsigned int);
 class TrackFactoryTemplate_143070 {
   public:
     TrackFactoryTemplate_143070() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -1241,8 +1241,8 @@ public:
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void v5();
-    virtual void vfunc_6();
+    virtual void v5_0013f040();
+    virtual void vfunc_6_0013f050();
     virtual void vfunc_7();
 
     int f0c;

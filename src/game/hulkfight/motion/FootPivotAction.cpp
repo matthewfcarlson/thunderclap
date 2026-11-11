@@ -17,12 +17,12 @@ class Obj_174c10 {
 };
 class Action_174c10 {
   public:
-    virtual void X();
+    virtual void FnX_00018b30();
     Action_174c10();
 };
 class FootPivotAction : public Action_174c10 {
   public:
-    virtual void A();
+    virtual void FnA_00018b40();
     virtual void B();
     char pad[0x18];
     int m1c;

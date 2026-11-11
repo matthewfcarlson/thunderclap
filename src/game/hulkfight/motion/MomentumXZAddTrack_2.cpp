@@ -17,8 +17,8 @@ namespace fn_ffaa2cfd {
 class TrackFactoryTemplate_17e560 {
   public:
     TrackFactoryTemplate_17e560() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };

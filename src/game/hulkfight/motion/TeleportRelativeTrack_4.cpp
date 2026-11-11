@@ -16,8 +16,8 @@ namespace fn_fa4635ce {
 class TrackFactoryTemplate_17ea40 {
   public:
     TrackFactoryTemplate_17ea40() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };

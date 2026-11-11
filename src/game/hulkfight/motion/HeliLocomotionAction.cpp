@@ -88,8 +88,8 @@ class LocomotionSteerTrack {
     virtual void f3();
     virtual void f4();
     virtual ~LocomotionSteerTrack();
-    virtual void f6();
-    virtual void f7();
+    virtual void f6_0015beb0();
+    virtual void f7_0015bec0();
     virtual void f8();
     virtual void f9();
     virtual void f10();
@@ -272,12 +272,12 @@ class Ref_15e730 {
 };
 class Action_15e730 {
   public:
-    virtual void X();
+    virtual void FnX_00018b30();
     Action_15e730();
 };
 class LocomotionSteerAction_15e730 : public Action_15e730 {
   public:
-    virtual void A();
+    virtual void FnA_00018b40();
     virtual void B();
     virtual void C();
     char pad[0x18];
@@ -417,7 +417,7 @@ class Thing_15eb20 {
 };
 class Action_15eb20 {
   public:
-    virtual void X();
+    virtual void FnX_00018b30();
     Action_15eb20();
 };
 extern void* hulk_at_00415bd0[];
@@ -542,10 +542,10 @@ public:
 };
 class ClimbLocomotionAction : public Action_15eb20 {
   public:
-    virtual void A();
+    virtual void FnA_00018b40();
     virtual void _m_vf2();
     virtual bool vfunc_3(int a, int b);
-    virtual void _m_vf4();
+    virtual void m_vf4_0015c940();
     virtual void _m_vf5();
     virtual unsigned long long id6();
     virtual void gather(int x, float *p40, float *p3c, float *p38, float *p34, float *p30, float *p2c,
@@ -609,12 +609,12 @@ class Ref_1606d0 {
 };
 class Action_1606d0 {
   public:
-    virtual void V();
+    virtual void FnV_00018b30();
     Action_1606d0();
 };
 class LocomotingAction_1606d0 : public Action_1606d0 {
   public:
-    virtual void V2();
+    virtual void V2_00018b40();
     char pad[0x18];
     Ref_1606d0* mRef;
     LocomotingAction_1606d0(Ref_1606d0*);
@@ -1080,8 +1080,8 @@ struct RefObj_161420 {
 };
 class LocomotionStrafeAction {
   public:
-    virtual void _m_vf0();
-    virtual void _m_vf1();
+    virtual void m_vf0_00018b30();
+    virtual void m_vf1_00018b40();
     virtual void* vfunc_2(unsigned char flag);
     char _m_pad_4[0x18];
     union { RefObj_161420* volatile m1c; RefObject *object; };
@@ -3158,11 +3158,11 @@ namespace fight {
 class Action {
 public:
     Action() throw();
-    virtual void vfunc_0();
-    virtual void vfunc_1();
+    virtual void vfunc_0_00018b30();
+    virtual void vfunc_1_00018b40();
     virtual void vfunc_2();
-    virtual bool vfunc_3(int, int);
-    virtual void vfunc_4();
+    virtual bool vfunc_3_0015ed10(int, int);
+    virtual void vfunc_4_0015c940();
     virtual bool vfunc_5(int, int);
     char pad4[0x1c - 4];
 };

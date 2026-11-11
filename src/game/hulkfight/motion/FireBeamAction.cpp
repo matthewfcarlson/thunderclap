@@ -20,7 +20,7 @@ class RefObj_196220 {
 class Action_196220 {
   public:
     Action_196220();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class FireMissileAction_196220 : public Action_196220 {
@@ -28,7 +28,7 @@ class FireMissileAction_196220 : public Action_196220 {
     int mTarget;
     RefObj_196220* mObj;
     FireMissileAction_196220(int target, RefObj_196220* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_0041b414[];
 class Ref_196270 {
@@ -224,12 +224,12 @@ struct World {
 class CProjectile {
 public:
     CProjectile();
-    virtual void v0();
-    virtual void v1();
+    virtual void v0_00018b30();
+    virtual void v1_00018b40();
     virtual void v2();
-    virtual void v3();
+    virtual void v3_00196630();
     virtual void v4();
-    virtual void v5();
+    virtual void v5_00194ba0();
 };
 
 extern "C" Rng_1962b0 *__cdecl FUN_000964d0();

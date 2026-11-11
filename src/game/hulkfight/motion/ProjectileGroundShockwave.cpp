@@ -21,7 +21,7 @@ class RefObj_198900 {
 class Action_198900 {
   public:
     Action_198900();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class FireGroundShockwaveAction_198900 : public Action_198900 {
@@ -29,7 +29,7 @@ class FireGroundShockwaveAction_198900 : public Action_198900 {
     int mTarget;
     RefObj_198900* mObj;
     FireGroundShockwaveAction_198900(int target, RefObj_198900* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* g_vftable_198950[];
 class Ref_198950 {

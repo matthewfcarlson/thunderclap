@@ -57,7 +57,7 @@ class RefObj_176ff0 {
 class Action_176ff0 {
   public:
     Action_176ff0();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class SuckAction_176ff0 : public Action_176ff0 {
@@ -65,7 +65,7 @@ class SuckAction_176ff0 : public Action_176ff0 {
     int mTarget;
     RefObj_176ff0* mObj;
     SuckAction_176ff0(int target, RefObj_176ff0* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_00418030[];
 class Ref_177040 {

@@ -24,7 +24,7 @@ class RefObj_199630 {
 class Action_199630 {
   public:
     Action_199630();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class MissilePunchAction_199630 : public Action_199630 {
@@ -32,7 +32,7 @@ class MissilePunchAction_199630 : public Action_199630 {
     int mTarget;
     RefObj_199630* mObj;
     MissilePunchAction_199630(int target, RefObj_199630* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_0041b51c[];
 class Ref_199680 {

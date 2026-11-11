@@ -59,7 +59,7 @@ class RefObj_150fd0 {
 class Action_150fd0 {
   public:
     Action_150fd0();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class InterruptAccumulatorSetAction_150fd0 : public Action_150fd0 {
@@ -67,7 +67,7 @@ class InterruptAccumulatorSetAction_150fd0 : public Action_150fd0 {
     int mTarget;
     RefObj_150fd0* mObj;
     InterruptAccumulatorSetAction_150fd0(int target, RefObj_150fd0* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_00414510[];
 class Ref_151020 {
@@ -94,7 +94,7 @@ class RefObj_151060 {
 class Action_151060 {
   public:
     Action_151060();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class InterruptPriorityAction_151060 : public Action_151060 {
@@ -102,7 +102,7 @@ class InterruptPriorityAction_151060 : public Action_151060 {
     int mTarget;
     RefObj_151060* mObj;
     InterruptPriorityAction_151060(int target, RefObj_151060* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_0041452c[];
 class Ref_1510b0 {
@@ -129,13 +129,13 @@ class RefCounted_1510f0 {
 class Action_1510f0 {
   public:
     Action_1510f0() throw();
-    virtual void BaseVirtual() throw();
+    virtual void BaseVirtual_00018b30() throw();
     char pad[0x18];
 };
 class HitWaitAction : public Action_1510f0 {
   public:
     HitWaitAction(void* a, RefCounted_1510f0* b) throw();
-    virtual void V1() throw();
+    virtual void V1_00018b40() throw();
     void* mA;
     RefCounted_1510f0* mB;
     int mC;
@@ -164,12 +164,12 @@ class Obj_151180 {
 };
 class Action_151180 {
   public:
-    virtual void X();
+    virtual void FnX_00018b30();
     Action_151180();
 };
 class GroundSlideAction_151180 : public Action_151180 {
   public:
-    virtual void A();
+    virtual void FnA_00018b40();
     virtual void B();
     char pad[0x18];
     int m1c;
@@ -259,7 +259,7 @@ class RefObj_151720 {
 class Action_151720 {
   public:
     Action_151720();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class HitPauseAction_151720 : public Action_151720 {
@@ -267,7 +267,7 @@ class HitPauseAction_151720 : public Action_151720 {
     int mTarget;
     RefObj_151720* mObj;
     HitPauseAction_151720(int target, RefObj_151720* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 class Ref_151770 {
   public:
@@ -292,7 +292,7 @@ class Ref_1517b0 {
 };
 class Action_1517b0 {
   public:
-    virtual void V();
+    virtual void FnV_00018b30();
     Action_1517b0();
 };
 class Sub_1517b0 {
@@ -377,7 +377,7 @@ class Ref_1518f0 {
 };
 class Action_1518f0 {
   public:
-    virtual void V();
+    virtual void FnV_00018b30();
     Action_1518f0();
 };
 class Sub_1518f0 {
@@ -459,7 +459,7 @@ class RefObj_151a30 {
 class Action_151a30 {
   public:
     Action_151a30();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class HitPushbackAddAction_151a30 : public Action_151a30 {
@@ -467,7 +467,7 @@ class HitPushbackAddAction_151a30 : public Action_151a30 {
     int mTarget;
     RefObj_151a30* mObj;
     HitPushbackAddAction_151a30(int target, RefObj_151a30* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_004145d4[];
 class Ref_151a80 {
@@ -504,7 +504,7 @@ class RefObj_151b30 {
 class Action_151b30 {
   public:
     Action_151b30();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class NoHitPushbackAction_151b30 : public Action_151b30 {
@@ -512,7 +512,7 @@ class NoHitPushbackAction_151b30 : public Action_151b30 {
     int mTarget;
     RefObj_151b30* mObj;
     NoHitPushbackAction_151b30(int target, RefObj_151b30* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_004145f0[];
 class Ref_151b80 {
@@ -656,7 +656,7 @@ class RefObj_151e90 {
 class Action_151e90 {
   public:
     Action_151e90();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class HitDamageAction_151e90 : public Action_151e90 {
@@ -664,7 +664,7 @@ class HitDamageAction_151e90 : public Action_151e90 {
     int mTarget;
     RefObj_151e90* mObj;
     HitDamageAction_151e90(int target, RefObj_151e90* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_00414644[];
 class Ref_151ee0 {
@@ -691,8 +691,8 @@ class Thing_151f20 {
 class Action_151f20 {
   public:
     Action_151f20();
-    virtual void X();
-    virtual void Y();
+    virtual void FnX_00018b30();
+    virtual void FnY_00018b40();
 };
 class HitThrowAction_151f20 : public Action_151f20 {
   public:
@@ -776,7 +776,7 @@ class RefObj_152630 {
 class Action_152630 {
   public:
     Action_152630();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class HealthAction_152630 : public Action_152630 {
@@ -784,7 +784,7 @@ class HealthAction_152630 : public Action_152630 {
     int mTarget;
     RefObj_152630* mObj;
     HealthAction_152630(int target, RefObj_152630* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_00414698[];
 class Ref_152680 {
@@ -811,7 +811,7 @@ class RefObj_1526c0 {
 class Action_1526c0 {
   public:
     Action_1526c0();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class ClearFightParamsHitRecordAction_1526c0 : public Action_1526c0 {
@@ -819,7 +819,7 @@ class ClearFightParamsHitRecordAction_1526c0 : public Action_1526c0 {
     int mTarget;
     RefObj_1526c0* mObj;
     ClearFightParamsHitRecordAction_1526c0(int target, RefObj_1526c0* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_004146b4[];
 class Ref_152710 {

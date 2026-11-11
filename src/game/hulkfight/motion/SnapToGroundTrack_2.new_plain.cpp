@@ -16,16 +16,16 @@ namespace fn_f31995d4 {
 class TrackFactoryTemplate_17e030 {
   public:
     TrackFactoryTemplate_17e030() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
 class TrackFactoryTemplate_17e0f0 {
   public:
     TrackFactoryTemplate_17e0f0() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };

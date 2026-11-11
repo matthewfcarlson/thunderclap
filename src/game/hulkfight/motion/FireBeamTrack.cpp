@@ -29,8 +29,8 @@ namespace fn_f5715835 {
 class TrackFactoryTemplate_1a0cf0 {
   public:
     TrackFactoryTemplate_1a0cf0() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -49,8 +49,8 @@ struct ConditionFactoryTemplate_1a0d60 {
 class TrackFactoryTemplate_1a0d90 {
   public:
     TrackFactoryTemplate_1a0d90() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -75,8 +75,8 @@ struct ConditionFactoryTemplate_1a0e10 {
 class TrackFactoryTemplate_1a0e40 {
   public:
     TrackFactoryTemplate_1a0e40() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -88,8 +88,8 @@ extern int hulk_at_0041c218;
 class TrackFactoryTemplate_1a0ed0 {
   public:
     TrackFactoryTemplate_1a0ed0() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -111,8 +111,8 @@ struct MPT {
 class TrackFactoryTemplate_1a0f90 {
   public:
     TrackFactoryTemplate_1a0f90() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -148,8 +148,8 @@ extern "C" void* __cdecl Allocator_0008d690(unsigned int size);
 class TrackFactoryTemplate_1a1050 {
   public:
     TrackFactoryTemplate_1a1050() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -184,8 +184,8 @@ class Factory_1a1090 : public TrackFactory_1a1090, public Entity_1a1090, public 
 class TrackFactoryTemplate_1a10e0 {
   public:
     TrackFactoryTemplate_1a10e0() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };

@@ -284,12 +284,12 @@ struct Ref_18f610 {
 };
 struct Action_18f610 {
     Action_18f610();
-    virtual void f0();
+    virtual void f0_00018b30();
     char p[0x18];
 };
 struct TankLocomotionAction_18f610 : Action_18f610 {
     TankLocomotionAction_18f610(int a, Ref_18f610* r);
-    virtual void f1();
+    virtual void f1_00018b40();
     int m1c;
     Ref_18f610* m20;
     int m24, m28;
@@ -324,7 +324,7 @@ class RefObj_190920 {
 class Action_190920 {
   public:
     Action_190920();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class SimulationAction_190920 : public Action_190920 {
@@ -332,7 +332,7 @@ class SimulationAction_190920 : public Action_190920 {
     int mTarget;
     RefObj_190920* mObj;
     SimulationAction_190920(int target, RefObj_190920* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern void* hulk_at_0041af84[];
 class Ref_190970 {
@@ -359,7 +359,7 @@ class RefObj_1909b0 {
 class Action_1909b0 {
   public:
     Action_1909b0();
-    virtual void Update();
+    virtual void Update_00018b30();
     char pad[0x18];
 };
 class ImpulseVelocityAction_1909b0 : public Action_1909b0 {
@@ -367,7 +367,7 @@ class ImpulseVelocityAction_1909b0 : public Action_1909b0 {
     int mTarget;
     RefObj_1909b0* mObj;
     ImpulseVelocityAction_1909b0(int target, RefObj_1909b0* obj);
-    virtual void Execute();
+    virtual void Execute_00018b40();
 };
 extern char hulk_at_0041afa0[];
 class Obj_190a00 {
@@ -668,8 +668,8 @@ namespace fn_fc171dfe {
 class TrackFactoryTemplate_191b40 {
   public:
     TrackFactoryTemplate_191b40() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -692,8 +692,8 @@ extern int hulk_at_0041b1d4;
 class TrackFactoryTemplate_191bf0 {
   public:
     TrackFactoryTemplate_191bf0() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -704,8 +704,8 @@ struct Init_191c30 {
 class TrackFactoryTemplate_191c80 {
   public:
     TrackFactoryTemplate_191c80() {}
-    virtual void vf0();
-    virtual void vf1();
+    virtual void vf0_00038290();
+    virtual void vf1_000382a0();
     int mPad;
     TrackImpl mTrack;
 };
@@ -1137,8 +1137,8 @@ public:
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void v5();
-    virtual void vfunc_6();
+    virtual void v5_0018f320();
+    virtual void vfunc_6_0018f330();
     virtual void vfunc_7();
 
     int f0c;

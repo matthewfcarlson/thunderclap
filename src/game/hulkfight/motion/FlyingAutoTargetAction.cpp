@@ -17,12 +17,12 @@ class Obj_135ef0 {
 };
 class Action_135ef0 {
   public:
-    virtual void X();
+    virtual void FnX_00018b30();
     Action_135ef0();
 };
 class FlyingAutoTargetAction_135ef0 : public Action_135ef0 {
   public:
-    virtual void A();
+    virtual void FnA_00018b40();
     virtual void B();
     char pad[0x18];
     int m1c;
