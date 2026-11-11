@@ -55285,8 +55285,9 @@
    "addr": "0x00328f10",
    "aliases": 2,
    "members": [
-    "char reserved0[8];",
-    "unsigned values08[4];",
+    "void* context;",
+    "int handle;",
+    "void* values08[4];",
     "unsigned indices18[4];",
     "unsigned values28[4];",
     "unsigned values38[4];",

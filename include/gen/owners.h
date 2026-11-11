@@ -16489,8 +16489,9 @@ struct AccumulatorSource_3285d0 {
 };
 // equivalent/0x00328f10.cpp (stub State_328f10), size 0x124
 struct State_328f10 {
-    char reserved0[8]; // +0x00
-    unsigned values08[4]; // +0x08
+    void* context; // +0x00 (the d3dContext: 0x00328fc0)
+    int handle; // +0x04
+    void* values08[4]; // +0x08 (the stages' textures)
     unsigned indices18[4]; // +0x18
     unsigned values28[4]; // +0x28
     unsigned values38[4]; // +0x38

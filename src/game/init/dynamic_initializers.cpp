@@ -1449,7 +1449,7 @@ void __cdecl FUN_0035c3c0() { Obj* object = 0; object->FUN_003b17b0(); }
 // 0x0035c3d6 __ehhandler_0035c3d6 (10 B): not yet verified
 
 // 0x0035c3e0 FUN_0035c3e0 (8 B): matches/0x0035c3e0.cpp
-// sym: $L68214
+// sym: $L68215
 void FUN_0035c3e0(int a, int b, int c, int d, int e, X obj) {
     foo();
 }
@@ -1480,7 +1480,7 @@ void FUN_0035c3e0(int a, int b, int c, int d, int e, X obj) {
 // 0x0035c4b8 __unwindfunclet_0035c4b8 (8 B): not yet verified
 
 // 0x0035c4c0 FUN_0035c4c0 (11 B): matches/0x0035c4c0.cpp
-// sym: $L68227
+// sym: $L68228
 Outer::Outer() {}
 
 // 0x0035c4cb __unwindfunclet_0035c4cb (11 B): not yet verified

@@ -2000,3 +2000,16 @@ state-cache record (one layout for 0x00328fc0, 0x00328f10, 0x00328bf0 and the se
 Infra note: from about 20:38 mac2's queue base tree for HEAD 0481a154a (`ws/base-1deab2c21708bbc2`) held symlinks to
 `~/hulk-permute` (no src/, older tools: `equiv.py --wine` unknown, tools/native_mac.py missing); this batch's jobs ran
 pinned to studio.
+
+**Batch 3, the state cache record**: owners::State_328f10 (include/gen/owners.h and its evidence-owners.json entry)
+starts with the context pointer and the handle (`void* context; int handle;`, were `char reserved0[8]`) and keeps the
+stages' textures as pointers (`void* values08[4]`, were `unsigned`); 0x00328bf0's `Material_328bf0` view starts the same
+way, and 0x00324e00 allocates `sizeof(owners::State_328f10)` (`HULK_SIZE32` 0x124). 32-bit objects unchanged (the two
+TUs: matches MATCH + relocs ok, equivalents `same` as their standalone builds). The owners.h edit renumbered MSVC's
+`$L` labels in src/game/init/dynamic_initializers.cpp, whose two blocks 0x0035c3e0 / 0x0035c4c0 are pinned to `$L`
+symbols: `materialize` refused the first proof (71453, "pinned symbol missing") until they were re-pinned; any header
+edit that this TU reaches does the same (3 such pins in the tree). Proof 71454 vs control 71429 (studio): image
+2e8232cd, GATE ok (0 of 2,002 common frames). macOS (unbound 29,012): the state cache's reset and stage set-up run
+(44 imports); the start-up stops in 0x00327e00's block at the base constructor `pddiShader_327e00` (an invented class
+name, the d3dShader chain 0x0032a9f0 -> 0x00333520 -> 0x00327e00); continued, pddiBaseContext::vfunc_99 calls
+`hulk_x_0031b500` (no verified definition at 0x0031b500) and vfunc_102 dereferences null.

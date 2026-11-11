@@ -5190,7 +5190,7 @@ class Allocator {
 class FUN_00328fc0 : public HeapObj {
   public:
     FUN_00328fc0(d3dContext* ctx, int handle) throw();
-    char pad[0x124];
+    char pad[sizeof(owners::State_328f10)];
 };
 class FUN_00329430 : public HeapObj {
   public:
@@ -5343,6 +5343,7 @@ d3dContext::d3dContext(AssetSource* a, Allocator* b) throw() : FUN_0031f410(a, b
     alloc = b;
     b->AddRef();
     handle = src->handle;
+    HULK_SIZE32(owners::State_328f10, 0x124);
     stateCache = new FUN_00328fc0(this, handle);
     f16c = 0;
     f170 = 0;

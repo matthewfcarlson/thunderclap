@@ -144,8 +144,10 @@ extern unsigned int DAT_0039de0c;
 extern unsigned int DAT_0039de00;
 extern unsigned int DAT_0039ddf8;
 extern unsigned int DAT_0039de04;
+// the d3dContext's state cache (owners::State_328f10's layout: 0x00328fc0 builds it, 0x00328f10 resets it)
 struct Material_328bf0 {
-    char pad0[8];
+    void* context;
+    int handle;
     Texture* tex[4];
     char pad18[0x28 - 0x18];
     int addrMode[4];
