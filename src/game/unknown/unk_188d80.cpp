@@ -8,6 +8,8 @@
 #define TREE_TU_END }
 namespace fn_f437b5d0 {} using namespace fn_f437b5d0;
 #include "game/unknown.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f437b5d0 {
@@ -17,7 +19,6 @@ class Params_188d80 {
 };
 extern Params_188d80 hulk_at_00494b44;
 extern Params_188d80 hulk_at_00494b60;
-int __cdecl Check(void*, int, Params_188d80*, Params_188d80*, int);
 class Object_188d80 {
   public:
     int Init_00183f60(hulkfight::motion::PropDamageTrack*, hulk_intptr);
@@ -45,7 +46,6 @@ class Params_188e20 {
 };
 extern Params_188e20 TypeA_188e20;
 extern Params_188e20 TypeB_188e20;
-int __cdecl Check(void*, int, Params_188e20*, Params_188e20*, int);
 struct GrapplePropDamageAction_nv_188e20 {
     int Init_00183ff0(hulkfight::motion::GrapplePropDamageTrack*, hulk_intptr);
 };
@@ -105,7 +105,7 @@ class PropThrowAction_188fb0 {
 // sym: ?vfunc_10@PropDamageTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropDamageTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
         Object_188d80* p = FUN_0008d690(0x24);
         if (p)
@@ -143,7 +143,7 @@ PropDamageAction_188dd0* PropDamageAction_188dd0::vfunc_2(int flag) {
 // sym: ?vfunc_10@GrapplePropDamageTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::GrapplePropDamageTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_188e20, &TypeB_188e20, 0);
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&TypeA_188e20), (void*)(&TypeB_188e20), 0));
     if (result) {
         hulkfight::motion::GrapplePropDamageAction* p = Alloc_0008d690(0x24);
         if (p)

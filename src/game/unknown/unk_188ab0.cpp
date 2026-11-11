@@ -8,6 +8,8 @@
 #define TREE_TU_END }
 namespace fn_f393ec31 {} using namespace fn_f393ec31;
 #include "game/unknown.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f393ec31 {
@@ -33,7 +35,6 @@ class Params_188b00 {
 };
 extern Params_188b00 hulk_at_00494b44;
 extern Params_188b00 hulk_at_00494b60;
-int __cdecl Check(void*, int, Params_188b00*, Params_188b00*, int);
 class Object_188b00 {
   public:
     int Init_00183ca0(hulkfight::motion::PropSetStateByIndexTrack*, hulk_intptr);
@@ -61,7 +62,6 @@ class Params_188ba0 {
 };
 extern Params_188ba0 TypeA_188ba0;
 extern Params_188ba0 TypeB_188ba0;
-int __cdecl Check(void*, int, Params_188ba0*, Params_188ba0*, int);
 struct PropSetStateByNameAction_nv_188ba0 {
     int Init_00183db0(hulkfight::motion::PropSetStateByNameTrack*, hulk_intptr);
 };
@@ -127,7 +127,7 @@ PropAddToCollisionAction_188ab0* PropAddToCollisionAction_188ab0::vfunc_2(int fl
 // sym: ?vfunc_10@PropSetStateByIndexTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropSetStateByIndexTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
         Object_188b00* p = FUN_0008d690(0x24);
         if (p)
@@ -165,7 +165,7 @@ PropSetStateByIndexAction_188b50* PropSetStateByIndexAction_188b50::vfunc_2(int 
 // sym: ?vfunc_10@PropSetStateByNameTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::PropSetStateByNameTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_188ba0, &TypeB_188ba0, 0);
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&TypeA_188ba0), (void*)(&TypeB_188ba0), 0));
     if (result) {
         hulkfight::motion::PropSetStateByNameAction* p = Alloc_0008d690(0x24);
         if (p)

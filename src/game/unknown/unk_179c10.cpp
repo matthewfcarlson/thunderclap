@@ -11,6 +11,8 @@
 #define TREE_TU_END }
 namespace fn_ff8057c2 {} using namespace fn_ff8057c2;
 #include "game/unknown.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 inline void* operator new(size_t, void* p) throw() { return p; }
@@ -303,7 +305,6 @@ class Params_17af80 {
 };
 extern Params_17af80 hulk_at_00494b44;
 extern Params_17af80 hulk_at_00494b60;
-int __cdecl Check(void*, int, Params_17af80*, Params_17af80*, int);
 class Object_17af80 {
   public:
     int Init_001732f0(hulkfight::motion::LocomotionStateTrack*, hulk_intptr);
@@ -742,7 +743,7 @@ extern "C" void FUN_0017aee0()
 // sym: ?vfunc_10@LocomotionStateTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::LocomotionStateTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
         Object_17af80* p = Alloc_0008d690(0x24);
         if (p)

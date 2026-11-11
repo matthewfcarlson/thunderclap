@@ -2,6 +2,8 @@
 // object 0x0014ea20..0x0014ed50 (kind game, layer game, confidence low)
 // (tree_prelude.h: not needed)
 #include "compat/ptr.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 
 // 0x0014ec10 hulkfight::motion::HitPushbackCondition::vfunc_6 (76 B): matches/0x0014ec10.cpp [isolated: on include/gen/, and its TU merges more functions without the headers; on include/gen/ and not mergeable]
@@ -10,7 +12,6 @@
 
 extern "C" char DAT_00494b44[];
 extern "C" char DAT_00494b60[];
-extern int Cast(void*, int, void*, void*, int);
 struct Obj_14ec10 {
     Obj_14ec10* FnA_000592a0();
     Obj_14ec10* FnB_00059a30();
@@ -19,7 +20,7 @@ struct Obj_14ec10 {
 
 bool hulkfight::motion::HitPushbackCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { void * a = (void *)__p0; void * params = (void *)__p1; void * c = (void *)__p2;
 
-    if (!Cast(params, 0, (void*)((hulk_intptr)DAT_00494b44), (void*)((hulk_intptr)DAT_00494b60), 0))
+    if (!((int)(hulk_uintptr)__RTDynamicCast(params, 0, (void*)((hulk_intptr)DAT_00494b44), (void*)((hulk_intptr)DAT_00494b60), 0)))
         return false;
     Obj_14ec10* x = ((Obj_14ec10*)params)->FnA_000592a0();
     Obj_14ec10* y = x->FnB_00059a30();

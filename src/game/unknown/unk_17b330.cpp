@@ -8,6 +8,8 @@
 #define TREE_TU_END }
 namespace fn_fbea2d00 {} using namespace fn_fbea2d00;
 #include "game/unknown.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fbea2d00 {
@@ -17,7 +19,6 @@ extern int hulk_at_00494b60;
 struct Result_17b330 {
     u32_17b330 Init_00174790(void*, void*);
 };
-extern int Check(void*, int, int*, int*, int);
 extern Result_17b330* Alloc_0008d690(int);
 struct RefCounted_17b380 {
   public:
@@ -133,7 +134,6 @@ typedef unsigned int u32_17b660;
 struct Created_17b660 {
     int init_001755e0(hulkfight::motion::DriftToHulkTrack*, u32_17b660);
 };
-extern int __cdecl check(u32_17b660, int, const void*, const void*, int);
 extern void* __cdecl alloc(hulk_uintptr);
 extern const int typeA_17b660;
 extern const int typeB_17b660;
@@ -310,7 +310,7 @@ class SurfAction_17bc10 {
 // Same code shape as 0x001131c0 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::ChargeTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17b330 a = (u32_17b330)__p0; u32_17b330 b = (u32_17b330)__p1; void * p = (void *)__p2;
 
-    if (Check(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast(p, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0))) {
         Result_17b330* q = Alloc_0008d690(0x28);
         if (q)
             return (int)(q->Init_00174790(this, p));
@@ -468,7 +468,7 @@ DriftToPositionAction* DriftToPositionAction::vfunc_2(unsigned char param) {
 // Same code shape as 0x00138c50 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::DriftToHulkTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17b660 a = (u32_17b660)__p0; u32_17b660 b = (u32_17b660)__p1; u32_17b660 c = (u32_17b660)__p2;
 
-    if (check(c, 0, &typeA_17b660, &typeB_17b660, 0)) {
+    if (((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(c), 0, (void*)(&typeA_17b660), (void*)(&typeB_17b660), 0))) {
         Created_17b660* p = (Created_17b660*)alloc_0008d690(0x38);
         if (p)
             return p->init_001755e0(this, c);

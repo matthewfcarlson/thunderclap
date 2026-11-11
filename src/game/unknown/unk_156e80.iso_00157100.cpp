@@ -2,6 +2,8 @@
 // object 0x00156e80..0x00157150 (kind game, layer game, confidence low)
 // (tree_prelude.h: not needed)
 #include "compat/ptr.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 
 // 0x00157100 hulkfight::motion::NoHitPushbackTrack::vfunc_10 (70 B): matches/0x00157100.cpp [isolated: conflict: Alloc; on include/gen/ and not mergeable]
@@ -15,14 +17,13 @@ class Params_157100 {
 };
 extern Params_157100 hulk_at_00494b44;
 extern Params_157100 hulk_at_00494b60;
-int __cdecl Check(void*, int, Params_157100*, Params_157100*, int);
 struct NoHitPushbackAction_nv_157100 {
     int Init_00151b30(hulkfight::motion::NoHitPushbackTrack*, hulk_intptr);
 };
 hulkfight::motion::NoHitPushbackAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::motion::NoHitPushbackTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
         hulkfight::motion::NoHitPushbackAction* p = Alloc_0008d690(0x24);
         if (p)

@@ -12,6 +12,8 @@
 #define TREE_LOCAL_pure3d
 namespace fn_f9a5903c {} using namespace fn_f9a5903c;
 #include "game/unknown.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f9a5903c {
@@ -140,7 +142,6 @@ struct C_928f0 {
 };
 extern char hulk_at_0049dab8;
 extern char hulk_at_0049db1c;
-extern void* Cast(void*, int, const void*, const void*, int);
 typedef unsigned char u8_92940;
 struct Obj_92940 {
     char pad[32];
@@ -260,7 +261,6 @@ struct Thing_92f70 {
 struct Desc_92f70 {
     int x;
 };
-extern Thing_92f70* Cast(Thing_92f70*, int, const Desc_92f70*, const Desc_92f70*, int);
 class C_92f70 {
   public:
     int values[1];
@@ -318,7 +318,6 @@ struct Owner_93260 {
 };
 extern int typeA_93260;
 extern int typeB_93260;
-extern void* FindType(void*, int, void*, void*, int);
 
 } // namespace fn_f9a5903c
 
@@ -568,7 +567,7 @@ void Container_92870::FUN_00092870(int index, char flag)
 // 0x000928f0 FUN_000928f0 (66 B): matches/0x000928f0.cpp
 // sym: ?f@C_928f0@fn_f9a5903c@@QAEXHH@Z
 void C_928f0::f(int index, int value) {
-    void* p = Cast((void*)*(hulk_uintptr*)((char*)this + index * 4), 0, &hulk_at_0049dab8, &hulk_at_0049db1c, 0);
+    void* p = __RTDynamicCast((void*)*(hulk_uintptr*)((char*)this + index * 4), 0, (void*)(&hulk_at_0049dab8), (void*)(&hulk_at_0049db1c), 0);
     if (p) {
         *(u32_928f0*)((char*)p + 0x28) = value;
         if (member)
@@ -580,9 +579,9 @@ void C_928f0::f(int index, int value) {
 // 0x00092940 FUN_00092940 (81 B): matches/0x00092940.cpp
 // sym: ?Get@Container_92940@fn_f9a5903c@@QAEEH@Z
 u8_92940 Container_92940::Get(int index) {
-    Obj_92940* r = (Obj_92940*)Cast(items[index], 0, TypeUnlockable, hulk_at_0049dafc, 0);
+    Obj_92940* r = (Obj_92940*)__RTDynamicCast(items[index], 0, (void*)(TypeUnlockable), (void*)(hulk_at_0049dafc), 0);
     if (!r)
-        r = (Obj_92940*)Cast(items[index], 0, TypeUnlockable, TypeMove, 0);
+        r = (Obj_92940*)__RTDynamicCast(items[index], 0, (void*)(TypeUnlockable), (void*)(TypeMove), 0);
     if (r)
         return r->value;
     return 0;
@@ -791,7 +790,7 @@ void Table_92ef0::FUN_00092ef0(int index, const char* a, const char* b, const ch
 // sym: ?F@C_92f70@fn_f9a5903c@@QAEXHHE@Z
 void C_92f70::F(int c, int b, u8_92f70 d) {
     if (b < 100 && c >= 0x266 && c <= 0x2c9) {
-        Thing_92f70* t = Cast((Thing_92f70*)values[c], 0, &descA, &descB, 0);
+        Thing_92f70* t = ((Thing_92f70 *)__RTDynamicCast((void*)((Thing_92f70*)values[c]), 0, (void*)(&descA), (void*)(&descB), 0));
         if (t) {
             *(int*)((char*)this + 0xbf8 + b * 4) = c;
             t->field = d;
@@ -941,7 +940,7 @@ namespace fn_f9a5903c {
 // sym: @FUN_00093260@12
 extern "C" int __fastcall FUN_00093260(Owner_93260* self, void*, int id) {
     if (id >= 0x2ca && id <= 0x2dd) {
-        CUnlockable* p = (CUnlockable*)FindType((void*)self->values[id], 0, &typeA_93260, &typeB_93260, 0);
+        CUnlockable* p = (CUnlockable*)__RTDynamicCast((void*)self->values[id], 0, &typeA_93260, &typeB_93260, 0);
         if (p)
             return p->value;
     }

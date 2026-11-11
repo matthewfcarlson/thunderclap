@@ -8,6 +8,8 @@
 #define TREE_TU_END }
 namespace fn_f203b23d {} using namespace fn_f203b23d;
 #include "game/unknown.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f203b23d {
@@ -32,7 +34,6 @@ class Params_156ee0 {
 };
 extern Params_156ee0 hulk_at_00494b44;
 extern Params_156ee0 hulk_at_00494b60;
-int __cdecl Check(void*, int, Params_156ee0*, Params_156ee0*, int);
 class Object_156ee0 {
   public:
     int Init_00151720(hulkfight::motion::HitPauseTrack*, hulk_intptr);
@@ -119,7 +120,7 @@ void* GroundSlideAction_156e80::vfunc_2(unsigned char flag) {
 // sym: ?vfunc_10@HitPauseTrack@motion@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::motion::HitPauseTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
         Object_156ee0* p = Alloc_0008d690(0x24);
         if (p)

@@ -10,6 +10,8 @@
 #define TREE_TU_END }
 namespace fn_fd8937bc {} using namespace fn_fd8937bc;
 #include "game/DollyScript.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_fd8937bc {
@@ -296,7 +298,6 @@ struct Obj_fad90 {
     char pad10[4];
     unsigned char mDone;
 };
-extern hulk_intptr __cdecl GetThing(Base_fad90*, int, void*, void*, int);
 extern int hulk_at_004a13e4;
 extern int hulk_at_004a140c;
 struct Vec3_fae50 {
@@ -314,7 +315,6 @@ struct Obj {
     virtual void a();
     virtual __int64 b();   // returns 64 bits in edx:eax (callers 0x000f0590, 0x000f3270 push both)
 };
-extern Obj* __cdecl cast(Node*, int, void*, void*, int);
 class Iter {
   public:
     char pad[8];
@@ -325,7 +325,6 @@ class Iter {
     __int64 Run();
 };
 typedef unsigned int u32_faf20;
-extern void __cdecl Cast(hulk_uintptr, int, const int*, const int*, int);
 } // namespace fn_fd8937bc
 void* __cdecl operator new(size_t) HULK_NEW_THROW;
 namespace DollyScript {
@@ -353,7 +352,6 @@ namespace fn_fd8937bc {
 struct ThisCall_000f9d70 {
     int GetThing_000f9d70();
 };
-extern "C" int __cdecl Setup(int, int, void*, void*, int);
 extern int hulk_at_004a1934;
 extern int RTTI2_fb110;
 struct Obj_fb110 {
@@ -1447,7 +1445,6 @@ struct Type {
 };
 extern Type tokType;
 extern Type hulk_at_004a13bc;
-Node* __cdecl GetToken(Node*, int, Type*, Type*, int);
 class Obj_fad30 {
   public:
     char pad0[8];
@@ -1476,7 +1473,7 @@ float Obj_fad30::run() {
     current = eax;
     if (!eax)
         done = 1;
-    Node* r = GetToken(eax, 0, &tokType, &hulk_at_004a13bc, 0);
+    Node* r = ((Node *)__RTDynamicCast((void*)(eax), 0, (void*)(&tokType), (void*)(&hulk_at_004a13bc), 0));
     return *(float*)((char*)r + 16);
 }
 } // namespace fn_000fad30
@@ -1505,7 +1502,7 @@ hulk_intptr __fastcall Target(Obj_fad90* self) {
     self->mCur = q;
     if (q == 0)
         self->mDone = 1;
-    return *(int*)((char*)GetThing(self->mCur, 0, &hulk_at_004a13e4, &hulk_at_004a140c, 0) + 16);
+    return *(int*)((char*)((hulk_intptr)(hulk_uintptr)__RTDynamicCast((void*)(self->mCur), 0, &hulk_at_004a13e4, &hulk_at_004a140c, 0)) + 16);
 }
 
 
@@ -1547,7 +1544,7 @@ __int64 Iter::Run() {
     current = n;
     if (!n)
         done = 1;
-    return cast(n, 0, &desc1, &desc2, 0)->b();
+    return ((Obj *)__RTDynamicCast((void*)(n), 0, &desc1, &desc2, 0))->b();
 }
 
 } // namespace fn_fd8937bc
@@ -1557,7 +1554,7 @@ __int64 Iter::Run() {
 // Same code shape as 0x00021650 (propagated; names are from that function)
 template <> void content::LoadInventory::DynamicCaster<DollyScript::CRawScript>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    Cast((hulk_uintptr)p, 0, &type_refcount, &type_animation, 0);
+    __RTDynamicCast((void*)((hulk_uintptr)p), 0, (void*)(&type_refcount), (void*)(&type_animation), 0);
 }
 
 
@@ -1582,7 +1579,7 @@ hulk_intptr __fastcall Target(Obj_fb110* self) {
         self->field15 = 1;
     self->field14 = 0;
     self->fieldc = 0;
-    return Setup(x, 0, &RTTI2_fb110, &hulk_at_004a1934, 0);
+    return ((int)(hulk_uintptr)__RTDynamicCast((void*)(hulk_uintptr)(x), 0, &RTTI2_fb110, &hulk_at_004a1934, 0));
 }
 
 

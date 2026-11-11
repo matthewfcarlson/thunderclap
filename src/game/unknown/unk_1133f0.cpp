@@ -8,6 +8,8 @@
 #define TREE_TU_END }
 namespace fn_f054a7c3 {} using namespace fn_f054a7c3;
 #include "game/unknown.h"
+// (ren2) __RTDynamicCast's own name (CRT, C linkage)
+extern "C" void* __cdecl __RTDynamicCast(void*, long, void*, void*, int);
 
 // ---- declarations shared by the functions below
 namespace fn_f054a7c3 {
@@ -33,7 +35,6 @@ class Params_113440 {
 };
 extern Params_113440 hulk_at_00494b44;
 extern Params_113440 hulk_at_00494b60;
-int __cdecl Check(void*, int, Params_113440*, Params_113440*, int);
 class Object_113440 {
   public:
     int Init_0010f9d0(hulkfight::ai::SemaphoreClearTrack*, hulk_intptr);
@@ -131,7 +132,7 @@ SemaphoreWaitAction_1133f0* SemaphoreWaitAction_1133f0::vfunc_2(int flag) {
 // sym: ?vfunc_10@SemaphoreClearTrack@ai@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::SemaphoreClearTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
+    int result = ((int)(hulk_uintptr)__RTDynamicCast((void*)c, 0, (void*)(&hulk_at_00494b44), (void*)(&hulk_at_00494b60), 0));
     if (result) {
         Object_113440* p = Alloc_0008d690(0x24);
         if (p)
