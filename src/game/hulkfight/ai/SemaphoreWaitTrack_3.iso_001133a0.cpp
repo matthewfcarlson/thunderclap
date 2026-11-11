@@ -10,20 +10,20 @@
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_1133a0;
-extern int TypeA_1133a0;
-extern int TypeB_1133a0;
+extern int hulk_at_00494b44;
+extern int hulk_at_00494b60;
 struct SemaphoreWaitAction_nv_1133a0 {
-    u32_1133a0 Init(void*, void*);
+    u32_1133a0 Init_0010f940(void*, void*);
 };
 extern int Check(void*, int, int*, int*, int);
-extern hulkfight::ai::SemaphoreWaitAction* Alloc(int);
+extern hulkfight::ai::SemaphoreWaitAction* Alloc_0008d690(int);
 
 hulk_intptr hulkfight::ai::SemaphoreWaitTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_1133a0 a = (u32_1133a0)__p0; u32_1133a0 b = (u32_1133a0)__p1; void * p = (void *)__p2;
 
-    if (Check(p, 0, &TypeA_1133a0, &TypeB_1133a0, 0)) {
-        hulkfight::ai::SemaphoreWaitAction* q = Alloc(0x28);
+    if (Check(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+        hulkfight::ai::SemaphoreWaitAction* q = Alloc_0008d690(0x28);
         if (q)
-            return (int)(((SemaphoreWaitAction_nv_1133a0*)(((hulkfight::ai::SemaphoreWaitAction*)(q))))->Init(this, p));
+            return (int)(((SemaphoreWaitAction_nv_1133a0*)(((hulkfight::ai::SemaphoreWaitAction*)(q))))->Init_0010f940(this, p));
     }
     return (int)(0);
 }

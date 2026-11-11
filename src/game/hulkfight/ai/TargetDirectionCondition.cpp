@@ -24,15 +24,15 @@ class TargetDirectionCondition {};
 } // namespace ai
 } // namespace hulkfight
 extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern void* a;
-extern void* b;
+extern void* hulk_at_00491ca8;
+extern void* hulk_at_004a8240;
 class Caster : public fight::ConditionFactoryCaster {
   public:
     virtual bool vfunc_0(void* p);
     virtual void vfunc_1();
 };
 bool Caster::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &hulk_at_00491ca8, &hulk_at_004a8240, 0) != 0;
 }
 } // namespace fn_00127ca0
 

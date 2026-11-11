@@ -10,20 +10,20 @@
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_122210;
-extern int TypeA_122210;
-extern int TypeB_122210;
+extern int hulk_at_00494b44;
+extern int hulk_at_00494b60;
 struct StrafeCircleHBAction_nv_122210 {
-    u32_122210 Init(void*, void*);
+    u32_122210 Init_0011dd10(void*, void*);
 };
 extern int Check(void*, int, int*, int*, int);
-extern hulkfight::ai::StrafeCircleHBAction* Alloc(int);
+extern hulkfight::ai::StrafeCircleHBAction* Alloc_0008d690(int);
 
 hulk_intptr hulkfight::ai::StrafeCircleHBTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_122210 a = (u32_122210)__p0; u32_122210 b = (u32_122210)__p1; void * p = (void *)__p2;
 
-    if (Check(p, 0, &TypeA_122210, &TypeB_122210, 0)) {
-        hulkfight::ai::StrafeCircleHBAction* q = Alloc(0x28);
+    if (Check(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+        hulkfight::ai::StrafeCircleHBAction* q = Alloc_0008d690(0x28);
         if (q)
-            return (int)(((StrafeCircleHBAction_nv_122210*)(((hulkfight::ai::StrafeCircleHBAction*)(q))))->Init(this, p));
+            return (int)(((StrafeCircleHBAction_nv_122210*)(((hulkfight::ai::StrafeCircleHBAction*)(q))))->Init_0011dd10(this, p));
     }
     return (int)(0);
 }

@@ -27,7 +27,7 @@ extern "C" char DAT_0040dca4[];
 extern "C" void* FUN_0008d690(hulk_uintptr);
 class Sub_114cb0 {
   public:
-    void Init();
+    void Init_0027af00();
 };
 class AIHistorySetTrack {
   public:
@@ -40,13 +40,13 @@ class AIHistorySetTrack {
     char pad[3];
     Sub_114cb0 sub;
     int tail;
-    void BaseInit();
+    void BaseInit_00236d40();
 };
-extern int g_vftable_114d00;
+extern int hulk_at_0040ea2c;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0010d400();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -75,12 +75,12 @@ namespace fn_f38dd81c {
 AIHistorySetTrack* Factory() {
     AIHistorySetTrack* p = (AIHistorySetTrack*)FUN_0008d690((int)sizeof(AIHistorySetTrack));
     if (p) {
-        p->BaseInit();
+        p->BaseInit_00236d40();
         *(hulk_intptr*)p = ((hulk_intptr)DAT_0040dca4);
         p->x3 = 0;
         p->val = -1.0f;
         p->flag = 0;
-        p->sub.Init();
+        p->sub.Init_0027af00();
         p->x2 = 1;
         return p;
     }
@@ -92,9 +92,9 @@ AIHistorySetTrack* Factory() {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f38dd81c@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_114d00;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0040ea2c;
+    base1_dtor_0010d400();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

@@ -27,7 +27,7 @@ extern "C" char DAT_0040fe74[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class Init_12a980 {
   public:
-    void Start(int);
+    void Start_00234590(int);
 };
 struct Obj_12a980 {
     hulk_uintptr vt;
@@ -36,11 +36,11 @@ struct Obj_12a980 {
     int c;
     int d;
 };
-extern int g_vftable_12a9c0;
+extern int hulk_at_00410a68;
 struct ConditionFactoryTemplate_12a9c0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00123f90();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -68,7 +68,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetVel
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetVelocityCondition>::vfunc_5() {
     Obj_12a980* p = (Obj_12a980*)FUN_0008d690((int)sizeof(Obj_12a980));
     if (p) {
-        ((Init_12a980*)p)->Start(0);
+        ((Init_12a980*)p)->Start_00234590(0);
         p->vt = ((hulk_intptr)DAT_0040fe74);
         p->c = 0;
         p->d = 0;
@@ -83,9 +83,9 @@ namespace fn_fcb2a3af {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_12a9c0@fn_fcb2a3af@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_12a9c0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_12a9c0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00410a68;
+    base1_dtor_00123f90();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

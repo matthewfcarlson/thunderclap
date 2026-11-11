@@ -10,7 +10,7 @@ namespace fn_fbbea641 {} using namespace fn_fbbea641;
 // ---- declarations shared by the functions below
 namespace fn_fbbea641 {
 extern "C" int __cdecl helper(void*, int, void*, void*, int);
-extern int a, b;
+extern int hulk_at_00491ca8, hulk_at_004a3fb8;
 
 } // namespace fn_fbbea641
 
@@ -18,7 +18,7 @@ extern int a, b;
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VFormationReadyCondition@ai@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::FormationReadyCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return helper(p, 0, &a, &b, 0) != 0;
+    return helper(p, 0, &hulk_at_00491ca8, &hulk_at_004a3fb8, 0) != 0;
 }
 
 

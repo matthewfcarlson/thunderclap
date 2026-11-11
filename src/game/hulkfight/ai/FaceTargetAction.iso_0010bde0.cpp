@@ -13,20 +13,20 @@ class Params_10bde0 {
   public:
     int x;
 };
-extern Params_10bde0 TypeA_10bde0;
-extern Params_10bde0 TypeB_10bde0;
+extern Params_10bde0 hulk_at_00494b44;
+extern Params_10bde0 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_10bde0*, Params_10bde0*, int);
 struct FaceMotionAction_nv_10bde0 {
-    int Init(hulkfight::ai::FaceMotionTrack*, hulk_intptr);
+    int Init_0010ba10(hulkfight::ai::FaceMotionTrack*, hulk_intptr);
 };
-hulkfight::ai::FaceMotionAction* __cdecl Alloc(int);
+hulkfight::ai::FaceMotionAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::ai::FaceMotionTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_10bde0, &TypeB_10bde0, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::ai::FaceMotionAction* p = Alloc(0x24);
+        hulkfight::ai::FaceMotionAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((FaceMotionAction_nv_10bde0*)(((hulkfight::ai::FaceMotionAction*)(p))))->Init(this, c);
+            return ((FaceMotionAction_nv_10bde0*)(((hulkfight::ai::FaceMotionAction*)(p))))->Init_0010ba10(this, c);
     }
     return 0;
 }

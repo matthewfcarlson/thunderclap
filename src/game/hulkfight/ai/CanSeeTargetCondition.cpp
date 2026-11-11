@@ -30,14 +30,14 @@ class CanSeeTargetCondition_12ae30 {
     char pad[8];
     u8 a;
     u8 b;
-    void Init(int);
+    void Init_00234590(int);
 };
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
-extern int g_vftable_12ae60;
+extern int hulk_at_00410b2c;
 struct ConditionFactoryTemplate_12ae60 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00124280();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -65,7 +65,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::ai::CanSeeTar
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::CanSeeTargetCondition>::vfunc_5() {
     CanSeeTargetCondition_12ae30* p = (CanSeeTargetCondition_12ae30*)FUN_0008d690((int)sizeof(CanSeeTargetCondition_12ae30));
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         p->a = 1;
         p->b = 1;
         p->vt = ((hulk_intptr)DAT_0040ff54);
@@ -80,9 +80,9 @@ namespace fn_ff34bed0 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_12ae60@fn_ff34bed0@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_12ae60::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_12ae60;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00410b2c;
+    base1_dtor_00124280();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

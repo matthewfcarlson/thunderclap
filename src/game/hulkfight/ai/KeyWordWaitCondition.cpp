@@ -10,8 +10,8 @@ namespace fn_f74dcadf {} using namespace fn_f74dcadf;
 
 // ---- declarations shared by the functions below
 namespace fn_f74dcadf {
-extern int gA;
-extern int gB;
+extern int hulk_at_00491ca8;
+extern int hulk_at_004a3e50;
 extern "C" int __cdecl Check(void*, int, void*, void*, int);
 } // namespace fn_f74dcadf
 namespace fight {
@@ -33,7 +33,7 @@ extern hulk_intptr FUN_00344e74(hulk_intptr, int, hulk_intptr, hulk_intptr, int)
  // namespace fight
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::LeashedCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return Check(p, 0, &gA, &gB, 0) != 0;
+    return Check(p, 0, &hulk_at_00491ca8, &hulk_at_004a3e50, 0) != 0;
 }
 
 

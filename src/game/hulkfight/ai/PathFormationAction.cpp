@@ -14,7 +14,7 @@ namespace fn_fbabf3f2 {} using namespace fn_fbabf3f2;
 
 // ---- declarations shared by the functions below
 namespace fn_fbabf3f2 {
-extern int* gTable_11c310;
+extern int* hulk_at_004e0cb0;
 class CCondition_11c310 {
   public:
     virtual int vfunc_0(int);
@@ -49,7 +49,7 @@ struct Track_11c390 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern int* gTable_11c3d0;
+extern int* hulk_at_004e0cb8;
 class CCondition_11c3d0 {
   public:
     virtual int vfunc_0(int);
@@ -66,11 +66,11 @@ struct Track_11c440 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern void* g_vftable_11c450[];
+extern void* hulk_at_0040f4a0[];
 class Track_11c450 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00236d60();
 };
 class PathFormationTrack_11c450 : public Track_11c450 {
   public:
@@ -85,7 +85,7 @@ extern "C" void* __cdecl alloc(hulk_uintptr);
 extern "C" unsigned int __cdecl strlen(const char*);
 #endif
 namespace fn_fbabf3f2 {
-extern int* gTable_11c4f0;
+extern int* hulk_at_004e0cc0;
 class CCondition_11c4f0 {
   public:
     virtual int vfunc_0(int);
@@ -102,7 +102,7 @@ struct Track_11c560 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern int* gTable_11c5a0;
+extern int* hulk_at_004e0cc8;
 class CCondition_11c5a0 {
   public:
     virtual int vfunc_0(int);
@@ -134,7 +134,7 @@ struct Track_11c600 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern int* gTable_11c640;
+extern int* hulk_at_004e0cd0;
 class CCondition_11c640 {
   public:
     virtual int vfunc_0(int);
@@ -166,7 +166,7 @@ struct Track_11c6a0 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern int* gTable_11c6e0;
+extern int* hulk_at_004e0cd8;
 class CCondition_11c6e0 {
   public:
     virtual int vfunc_0(int);
@@ -202,7 +202,7 @@ struct Track_11c750 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern int* gTable_11c790;
+extern int* hulk_at_004e0ce0;
 class CCondition_11c790 {
   public:
     virtual int vfunc_0(int);
@@ -220,14 +220,14 @@ struct Track_11c830 {
     virtual void tfunc9();
 };
 class PathTrack;
-void __cdecl thunk(int);
+void __cdecl thunk_0008d340(int);
 class Init_11c840 {
   public:
-    void init();
+    void init_0027af50();
 };
 class Base_11c840 {
   public:
-    void base();
+    void base_00236d60();
 };
 class PathTrack {
   public:
@@ -236,7 +236,7 @@ class PathTrack {
     int m38;
     char pad3c[4];
 };
-extern int gValue_11c900;
+extern int hulk_at_004a5e68;
 typedef unsigned int u32_11c920;
 struct Action_11c920 {
     virtual void a();
@@ -257,9 +257,9 @@ struct Pair_11c920 {
     Pair_11c920(u32_11c920 a, u32_11c920 b) : x(a), y(b) {}
 };
 struct Obj_11c920 {
-    Info_11c920* G();
-    void P1(Pair_11c920*);
-    void P2(Pair_11c920*);
+    Info_11c920* FnG_00059a30();
+    void P1_00065dd0(Pair_11c920*);
+    void P2_00065e20(Pair_11c920*);
 };
 struct Mid_11c920 {
 };
@@ -269,8 +269,8 @@ struct Root_11c920 {
     char pad[0x1c];
     Manager_11c920* m;
 };
-extern Root_11c920* gRoot_11c920;
-Obj_11c920* __stdcall Conv();
+extern Root_11c920* hulk_at_004dd700;
+Obj_11c920* __stdcall Conv_000678d0();
 struct PathFormationAction : Action_11c920 {
     char pad[0x80 - 4];
     Mid_11c920* mid;
@@ -283,17 +283,17 @@ struct ObjC_11ca80 {
 struct ObjA_11ca80 {
     char pad[0x1c];
     float value;
-    ObjC_11ca80* step();
+    ObjC_11ca80* step_00059a30();
 };
 struct ObjB_11ca80 {
     char pad[0x10];
     void* child;
 };
 struct Child_11ca80 {
-    void run(void*);
+    void run_00059a50(void*);
 };
 struct Helper_11cac0 {
-    void Second();
+    void Second_00059a30();
 };
 class PathLocatorTestCondition {
   public:
@@ -304,14 +304,14 @@ class PathLocatorTestCondition {
     virtual void p_vfunc_4();
     void* vfunc_5(unsigned char flag);
     virtual void vfunc_6();
-    void Cleanup();
+    void Cleanup_002345b0();
     char pad[8];
     void* m_p;
 };
-extern void* Track_11cc00_vftable[];
+extern void* hulk_at_0040f470[];
 class Track_11cc00 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class RoutTrack_11cc00 : public Track_11cc00 {
   public:
@@ -334,48 +334,48 @@ struct Track {
 struct PathFormationTrack : Track {
     char pad[0x30];
     void* member;
-    void helper();
+    void helper_00236d60();
     virtual PathFormationTrack* vfunc_5(unsigned char);
 };
 void thunk_FUN_00267090(void*);
-void other_free(void*);
-extern void* Track_11cc70_vftable[];
+void other_free_0008d330(void*);
+extern void* hulk_at_0040f4d0[];
 class Track_11cc70 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class StrafeRunTrack_11cc70 : public Track_11cc70 {
   public:
     StrafeRunTrack_11cc70* vfunc_5(signed char flags);
 };
-extern void* Track_11cca0_vftable[];
+extern void* hulk_at_0040f500[];
 class Track_11cca0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class StrafeLateralHBTrack_11cca0 : public Track_11cca0 {
   public:
     StrafeLateralHBTrack_11cca0* vfunc_5(signed char flags);
 };
-extern void* Track_11ccd0_vftable[];
+extern void* hulk_at_0040f530[];
 class Track_11ccd0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class StrafeCircleHBTrack_11ccd0 : public Track_11ccd0 {
   public:
     StrafeCircleHBTrack_11ccd0* vfunc_5(signed char flags);
 };
-extern void* Track_11cd00_vftable[];
+extern void* hulk_at_0040f560[];
 class Track_11cd00 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 class StrafeCircleTrack_11cd00 : public Track_11cd00 {
   public:
     StrafeCircleTrack_11cd00* vfunc_5(signed char flags);
 };
-extern void* g_vftable_11cdd0[];
+extern void* hulk_at_0040f5c0[];
 class Ref_11cdd0 {
   public:
     virtual void F0();
@@ -400,7 +400,7 @@ class StrafeRunAction_11cdd0 : public Action_11cdd0 {
 // sym: ?vfunc_0@RoutTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::RoutTrack::vfunc_0(int index) {
-    int* p = gTable_11c310;
+    int* p = hulk_at_004e0cb0;
     return p[index];
 }
 
@@ -456,7 +456,7 @@ void FUN_0011c3b0() {
 // sym: ?vfunc_0@PathFormationTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::PathFormationTrack::vfunc_0(int index) {
-    int* p = gTable_11c3d0;
+    int* p = hulk_at_004e0cb8;
     return p[index];
 }
 
@@ -515,9 +515,9 @@ namespace fn_fbabf3f2 {
 // sym: ??1PathFormationTrack_11c450@fn_fbabf3f2@@QAE@XZ
 PathFormationTrack_11c450::~PathFormationTrack_11c450() throw() {
     void* t = m34;
-    vptr = g_vftable_11c450;
+    vptr = hulk_at_0040f4a0;
     Free(t);
-    Fin();
+    Fin_00236d60();
 }
 
 } // namespace fn_fbabf3f2
@@ -550,7 +550,7 @@ void FUN_0011c4d0() {
 // sym: ?vfunc_0@StrafeRunTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::StrafeRunTrack::vfunc_0(int index) {
-    int* p = gTable_11c4f0;
+    int* p = hulk_at_004e0cc0;
     return p[index];
 }
 
@@ -621,7 +621,7 @@ void FUN_0011c580() {
 // sym: ?vfunc_0@StrafeLateralHBTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::StrafeLateralHBTrack::vfunc_0(int index) {
-    int* p = gTable_11c5a0;
+    int* p = hulk_at_004e0cc8;
     return p[index];
 }
 
@@ -667,7 +667,7 @@ void FUN_0011c620() {
 // sym: ?vfunc_0@StrafeCircleHBTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::StrafeCircleHBTrack::vfunc_0(int index) {
-    int* p = gTable_11c640;
+    int* p = hulk_at_004e0cd0;
     return p[index];
 }
 
@@ -710,7 +710,7 @@ void FUN_0011c6c0() {
 // sym: ?vfunc_0@StrafeCircleTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::StrafeCircleTrack::vfunc_0(int index) {
-    int* p = gTable_11c6e0;
+    int* p = hulk_at_004e0cd8;
     return p[index];
 }
 
@@ -754,7 +754,7 @@ void FUN_0011c770() {
 // sym: ?vfunc_0@PathTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::PathTrack::vfunc_0(int index) {
-    int* p = gTable_11c790;
+    int* p = hulk_at_004e0ce0;
     return p[index];
 }
 
@@ -849,9 +849,9 @@ namespace fn_fbabf3f2 {
 // 0x0011c840 FUN_0011c840 (37 B): matches/0x0011c840.cpp
 // sym: ??1PathTrack@fn_fbabf3f2@@UAE@XZ
 PathTrack::~PathTrack() {
-    thunk(m38);
-    ((Init_11c840*)((char*)this + 0x40))->init();
-    ((Base_11c840*)this)->base();
+    thunk_0008d340(m38);
+    ((Init_11c840*)((char*)this + 0x40))->init_0027af50();
+    ((Base_11c840*)this)->base_00236d60();
 }
 
 } // namespace fn_fbabf3f2
@@ -859,11 +859,11 @@ PathTrack::~PathTrack() {
 // 0x0011c900 hulkfight::ai::StrafeRunAction::vfunc_3 (29 B): matches/0x0011c900.cpp
 // sym: ?vfunc_3@StrafeRunAction@ai@hulkfight@@UAE_NHH@Z
 bool hulkfight::ai::StrafeRunAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
-    int value = gValue_11c900;
+    int value = hulk_at_004a5e68;
     if (value > 8)
         value = 1;
     this->f_2c = value;
-    gValue_11c900 = value + 1;
+    hulk_at_004a5e68 = value + 1;
     return true;
 }
 
@@ -873,10 +873,10 @@ namespace fn_fbabf3f2 {
 // sym: ?vfunc_4@PathFormationAction@fn_fbabf3f2@@QAEXXZ
 void PathFormationAction::vfunc_4() {
     if (mid) {
-        Info_11c920* i = ((Obj_11c920 *)((owners::Object_592a0 *)mid)->FUN_000592a0())->G();
-        Conv()->P1(&Pair_11c920(i->x, i->y));
-        Conv()->P2(&Pair_11c920(i->x, i->y));
-        ((owners::Ring_1ae150 *)(gRoot_11c920->m))->FUN_001ae150((hulk_intptr)((char*)this + 0x1c));
+        Info_11c920* i = ((Obj_11c920 *)((owners::Object_592a0 *)mid)->FUN_000592a0())->FnG_00059a30();
+        Conv_000678d0()->P1_00065dd0(&Pair_11c920(i->x, i->y));
+        Conv_000678d0()->P2_00065e20(&Pair_11c920(i->x, i->y));
+        ((owners::Ring_1ae150 *)(hulk_at_004dd700->m))->FUN_001ae150((hulk_intptr)((char*)this + 0x1c));
     }
 }
 
@@ -886,11 +886,11 @@ void PathFormationAction::vfunc_4() {
 // sym: ?vfunc_3@RoutAction@ai@hulkfight@@UAE_NHH@Z
 bool hulkfight::ai::RoutAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     ObjA_11ca80* x = ((ObjA_11ca80 *)((owners::Object_592a0 *)((*(ObjB_11ca80 * *)&this->f_38)))->FUN_000592a0());
-    ObjC_11ca80* y = x->step();
+    ObjC_11ca80* y = x->step_00059a30();
     (*(void * *)&this->f_5c) = y;
     float f = (*(ObjA_11ca80 * *)&this->f_34)->value;
     this->f_70 = f * f;
-    ((Child_11ca80*)y->next)->run((char*)this + 0x28);
+    ((Child_11ca80*)y->next)->run_00059a50((char*)this + 0x28);
     return true;
 }
 
@@ -901,7 +901,7 @@ void hulkfight::ai::RoutAction::vfunc_4() {
     if ((*(Helper_11cac0 * *)&this->f_38)) {
         Helper_11cac0* h = (*(Helper_11cac0 * *)&this->f_38);
         h = (Helper_11cac0*)((owners::Object_592a0 *)h)->FUN_000592a0();
-        h->Second();
+        h->Second_00059a30();
     }
 }
 
@@ -912,7 +912,7 @@ namespace fn_fbabf3f2 {
 void* PathLocatorTestCondition::vfunc_5(unsigned char flag) {
     *(const VFT**)this = &PathLocatorTestCondition_vftable;
     ai_free(m_p);
-    Cleanup();
+    Cleanup_002345b0();
     if (flag & 1) {
         ai_delete(this);
     }
@@ -926,8 +926,8 @@ void* PathLocatorTestCondition::vfunc_5(unsigned char flag) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 RoutTrack_11cc00* RoutTrack_11cc00::vfunc_5(signed char flags) {
-    *(void***)this = Track_11cc00_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040f470;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -940,9 +940,9 @@ RoutTrack_11cc00* RoutTrack_11cc00::vfunc_5(signed char flags) {
 PathFormationTrack* PathFormationTrack::vfunc_5(unsigned char flag) {
     *(void**)this = (void*)((hulk_intptr)DAT_0040f4a0);
     thunk_FUN_00267090(member);
-    helper();
+    helper_00236d60();
     if (flag & 1)
-        other_free(this);
+        other_free_0008d330(this);
     return this;
 }
 
@@ -953,8 +953,8 @@ PathFormationTrack* PathFormationTrack::vfunc_5(unsigned char flag) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 StrafeRunTrack_11cc70* StrafeRunTrack_11cc70::vfunc_5(signed char flags) {
-    *(void***)this = Track_11cc70_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040f4d0;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -968,8 +968,8 @@ StrafeRunTrack_11cc70* StrafeRunTrack_11cc70::vfunc_5(signed char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 StrafeLateralHBTrack_11cca0* StrafeLateralHBTrack_11cca0::vfunc_5(signed char flags) {
-    *(void***)this = Track_11cca0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040f500;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -983,8 +983,8 @@ StrafeLateralHBTrack_11cca0* StrafeLateralHBTrack_11cca0::vfunc_5(signed char fl
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 StrafeCircleHBTrack_11ccd0* StrafeCircleHBTrack_11ccd0::vfunc_5(signed char flags) {
-    *(void***)this = Track_11ccd0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040f530;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -998,8 +998,8 @@ StrafeCircleHBTrack_11ccd0* StrafeCircleHBTrack_11ccd0::vfunc_5(signed char flag
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 StrafeCircleTrack_11cd00* StrafeCircleTrack_11cd00::vfunc_5(signed char flags) {
-    *(void***)this = Track_11cd00_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040f560;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -1011,9 +1011,9 @@ StrafeCircleTrack_11cd00* StrafeCircleTrack_11cd00::vfunc_5(signed char flags) {
 // 0x0011cd30 hulkfight::ai::PathTrack::vfunc_5 (58 B): matches/0x0011cd30.cpp [wrapped: conflict: PathTrack]
 // sym: ?vfunc_5@PathTrack@fn_0011cd30@@UAEPAV12@H@Z
 namespace fn_0011cd30 {
-extern "C++" __declspec(nothrow) void __cdecl opdel1(void*);
-extern "C++" __declspec(nothrow) void __cdecl opdel2(void*);
-extern const char PathTrack_vftable[];
+extern "C++" __declspec(nothrow) void __cdecl opdel1_0008d340(void*);
+extern "C++" __declspec(nothrow) void __cdecl opdel2_0008d330(void*);
+extern const char hulk_at_0040f590[];
 
 class M40 {
   public:
@@ -1033,16 +1033,16 @@ class PathTrack {
     virtual void vf8();
     virtual void vf9();
     virtual void vf10();
-    void BaseDtor();
+    void BaseDtor_00236d60();
 };
 
 PathTrack* PathTrack::vfunc_5(int flag) {
-    *(void**)this = (void*)PathTrack_vftable;
-    opdel1(*(void**)((char*)this + 0x38));
+    *(void**)this = (void*)hulk_at_0040f590;
+    opdel1_0008d340(*(void**)((char*)this + 0x38));
     ((M40*)((char*)this + 0x40))->~M40();
-    this->BaseDtor();
+    this->BaseDtor_00236d60();
     if (flag & 1) {
-        opdel2((void*)this);
+        opdel2_0008d330((void*)this);
     }
     return this;
 }
@@ -1091,7 +1091,7 @@ namespace fn_fbabf3f2 {
 // 0x0011cdd0 FUN_0011cdd0 (69 B): matches/0x0011cdd0.cpp
 // sym: ??1StrafeRunAction_11cdd0@fn_fbabf3f2@@QAE@XZ
 StrafeRunAction_11cdd0::~StrafeRunAction_11cdd0() {
-    vptr = g_vftable_11cdd0;
+    vptr = hulk_at_0040f5c0;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();

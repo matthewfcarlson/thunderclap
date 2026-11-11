@@ -34,8 +34,8 @@ struct Owner {
 };
 class Agent {
   public:
-    Agent* Next();
-    void Clear();
+    Agent* Next_00059a30();
+    void Clear_00037000();
 };
 
 } // namespace fn_fee95b81
@@ -63,10 +63,10 @@ bool hulkfight::ai::SemaphoreClearAction::vfunc_5(hulk_intptr , int ) {
  // namespace hulkfight
 void hulkfight::ai::SemaphoreClearAction::vfunc_4() {
     if ((*(Agent * *)&this->f_20)) {
-        Agent* a = ((Agent *)((owners::Object_592a0 *)((*(Agent * *)&this->f_20)))->FUN_000592a0())->Next();
+        Agent* a = ((Agent *)((owners::Object_592a0 *)((*(Agent * *)&this->f_20)))->FUN_000592a0())->Next_00059a30();
         Owner* o = (*(Owner * *)&this->f_1c);
         if (o->active) {
-            a->Clear();
+            a->Clear_00037000();
             return;
         }
         ((owners::C_37040 *)a)->FUN_00037040((hulk_intptr)(Owner *)((Owner*)((char*)o + 0x18)), 0, 1);

@@ -11,7 +11,7 @@ namespace fn_feefccae {} using namespace fn_feefccae;
 // ---- declarations shared by the functions below
 namespace fn_feefccae {
 extern hulk_intptr __cdecl FUN_00344e74(hulk_intptr, int, hulk_intptr, hulk_intptr, int);
-extern int gTypeA_111160;
+extern int hulk_at_00491ca8;
 
 } // namespace fn_feefccae
 
@@ -20,7 +20,7 @@ extern int gTypeA_111160;
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::HulkActionRecentCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_111160, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_00491ca8, (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 

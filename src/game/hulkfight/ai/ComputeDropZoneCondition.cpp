@@ -20,7 +20,7 @@ class A_115ed0 {
 };
 class B_115ed0 {
   public:
-    void* g();
+    void* Fng_00059a30();
 };
 class Obj_115f00 {
   public:
@@ -188,28 +188,28 @@ public:
     virtual void vfunc_5();
     virtual bool vfunc_6(int a0, Entity *e, int a2);
 };
-extern void* Condition_1166d0_vftable[];
+extern void* hulk_at_0040eaa0[];
 class Condition_1166d0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class HasGroundPointCondition_1166d0 : public Condition_1166d0 {
   public:
     HasGroundPointCondition_1166d0* vfunc_5(signed char flags);
 };
-extern void* Condition_116700_vftable[];
+extern void* hulk_at_0040eac0[];
 class Condition_116700 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class LocatorDistanceCondition_116700 : public Condition_116700 {
   public:
     LocatorDistanceCondition_116700* vfunc_5(signed char flags);
 };
-extern void* Condition_116730_vftable[];
+extern void* hulk_at_0040eae0[];
 class Condition_116730 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class ComputeDropZoneCondition_116730 : public Condition_116730 {
   public:
@@ -224,7 +224,7 @@ bool hulkfight::ai::MotionBoostAction::vfunc_3(hulk_intptr , hulk_intptr ) {
     if (!(*(void * *)&this->f_20))
         return false;
     void* x = ((void *)((owners::Object_592a0 *)(((A_115ed0*)(*(void * *)&this->f_20))))->FUN_000592a0());
-    x = ((B_115ed0*)x)->g();
+    x = ((B_115ed0*)x)->Fng_00059a30();
     ((owners::C_35460 *)(((B_115ed0*)x)))->FUN_00035460((unsigned *)((char*)this + 0x28));
     return true;
 }
@@ -444,8 +444,8 @@ void f(int* p) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 HasGroundPointCondition_1166d0* HasGroundPointCondition_1166d0::vfunc_5(signed char flags) {
-    *(void***)this = Condition_1166d0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040eaa0;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -459,8 +459,8 @@ HasGroundPointCondition_1166d0* HasGroundPointCondition_1166d0::vfunc_5(signed c
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 LocatorDistanceCondition_116700* LocatorDistanceCondition_116700::vfunc_5(signed char flags) {
-    *(void***)this = Condition_116700_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040eac0;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -474,8 +474,8 @@ LocatorDistanceCondition_116700* LocatorDistanceCondition_116700::vfunc_5(signed
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 ComputeDropZoneCondition_116730* ComputeDropZoneCondition_116730::vfunc_5(signed char flags) {
-    *(void***)this = Condition_116730_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040eae0;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

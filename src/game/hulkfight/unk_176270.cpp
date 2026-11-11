@@ -44,7 +44,7 @@ class TargetIconDistanceAction : public Action_1762c0 {
     Obj_1762c0* m20;
     void Clean();
 };
-extern int vt_1762c0;
+extern int hulk_at_00417f9c;
 class Ref_176300 {
   public:
     virtual void A();
@@ -68,7 +68,7 @@ class MoveJointAction_176300 : public Action_176300 {
     MoveJointAction_176300(int, Ref_176300*);
     virtual void V1();
 };
-extern void* g_vftable_176370[];
+extern void* hulk_at_00417fb8[];
 class Ref_176370 {
   public:
     virtual void F0();
@@ -165,7 +165,7 @@ class SurfAction_176540 : public Action_176540 {
     SurfAction_176540(int, Ref_176540*);
     virtual void V0();
 };
-extern void* g_vftable_1765a0[];
+extern void* hulk_at_00417ff0[];
 class Ref_1765a0 {
   public:
     void* vptr;
@@ -207,7 +207,7 @@ TargetIconDistanceAction_176270::TargetIconDistanceAction_176270(int target, Ref
 // 0x001762c0 FUN_001762c0 (50 B): matches/0x001762c0.cpp
 // sym: ?Clean@TargetIconDistanceAction@fn_fb68229a@@QAEXXZ
 void TargetIconDistanceAction::Clean() {
-    vptr = (hulk_intptr)&vt_1762c0;
+    vptr = (hulk_intptr)&hulk_at_00417f9c;
     _ReadWriteBarrier();
     Obj_1762c0* p = m20;
     if (p) {
@@ -255,7 +255,7 @@ MoveJointAction_176300::MoveJointAction_176300(int p, Ref_176300* r) {
 // 0x00176370 FUN_00176370 (74 B): matches/0x00176370.cpp
 // sym: ??1MoveJointAction_176370@fn_fb68229a@@QAE@XZ
 MoveJointAction_176370::~MoveJointAction_176370() throw() {
-    vptr = g_vftable_176370;
+    vptr = hulk_at_00417fb8;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();
@@ -359,7 +359,7 @@ SurfAction_176540::SurfAction_176540(int x, Ref_176540* r) : Action_176540() {
 // 0x001765a0 FUN_001765a0 (69 B): matches/0x001765a0.cpp
 // sym: ?f@SurfAction_1765a0@fn_fb68229a@@QAEXXZ
 void SurfAction_1765a0::f() {
-    vptr = g_vftable_1765a0;
+    vptr = hulk_at_00417ff0;
     _ReadWriteBarrier();
     if (m24) {
         m24->f1();

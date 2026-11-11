@@ -33,13 +33,13 @@ struct Target_12a6d0 {
     float angle;
 };
 struct Init_12a6d0 {
-    void initialize(int);
+    void initialize_00234590(int);
 };
-extern int g_vftable_12a710;
+extern int hulk_at_004109f8;
 struct ConditionFactoryTemplate_12a710 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00123de0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -67,7 +67,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetOri
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetOrientationCondition>::vfunc_5() {
     Target_12a6d0* p = (Target_12a6d0*)FUN_0008d690((int)sizeof(Target_12a6d0));
     if (p) {
-        ((Init_12a6d0*)p)->initialize(0);
+        ((Init_12a6d0*)p)->initialize_00234590(0);
         p->vt = ((hulk_intptr)DAT_0040fdf4);
         p->zero = 0;
         p->angle = 3.1415927f;
@@ -82,9 +82,9 @@ namespace fn_f31675a1 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_12a710@fn_f31675a1@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_12a710::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_12a710;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004109f8;
+    base1_dtor_00123de0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

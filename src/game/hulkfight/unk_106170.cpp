@@ -109,7 +109,7 @@ struct ThisWrap_00106440 {
     bool FUN_00106440(int id, int idx, Vec3_106440 pos);
 };
 extern "C" void* FUN_0008d6d0(hulk_uintptr);
-extern int CPatrolPath_vtable;
+extern int hulk_at_0040d564;
 class CPatrolPath : public Entity_0027b070 {
   public:
     hulk_intptr vt;
@@ -289,7 +289,7 @@ bool ThisWrap_00106440::FUN_00106440(int id, int idx, Vec3_106440 pos) {
 // sym: ??0CPatrolPath@fn_f6c21f8f@@QAE@H@Z
 CPatrolPath::CPatrolPath(int count) : Entity_0027b070() {
     unsigned int size = count * 0x24;
-    vt = (hulk_intptr)&CPatrolPath_vtable;
+    vt = (hulk_intptr)&hulk_at_0040d564;
     *(char*)((char*)this + 0x18) = 0;
     mData = FUN_0008d6d0(size);
     mCount = count;

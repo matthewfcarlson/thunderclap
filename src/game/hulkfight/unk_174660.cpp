@@ -27,7 +27,7 @@ struct JointRelativeAction : Action_174660 {
     unsigned int field60;
     JointRelativeAction * FUN_00174660(unsigned int value, Ref *ref);
 };
-extern void* g_vftable_1746b0[];
+extern void* hulk_at_00417e30[];
 class Ref_1746b0 {
   public:
     virtual void F0();
@@ -63,7 +63,7 @@ class IntentionClearAction_174700 : public Action_174700 {
     IntentionClearAction_174700(int target, RefObj_174700* obj);
     virtual void Execute();
 };
-extern void* g_vftable_174750[];
+extern void* hulk_at_00417e4c[];
 class Ref_174750 {
   public:
     virtual void F0();
@@ -99,7 +99,7 @@ class ChargeAction : public Action_174790 {
     RefCounted_174790* mB;
     int mC;
 };
-extern void* g_vftable_1747e0[];
+extern void* hulk_at_00417e68[];
 class Ref_1747e0 {
   public:
     virtual void F0();
@@ -134,7 +134,7 @@ class ChargeClearAction_174820 : public Action_174820 {
     ChargeClearAction_174820(int target, RefObj_174820* obj);
     virtual void Execute();
 };
-extern void* g_vftable_174870[];
+extern void* hulk_at_00417e84[];
 class Ref_174870 {
   public:
     virtual void F0();
@@ -192,7 +192,7 @@ JointRelativeAction * JointRelativeAction::FUN_00174660(unsigned int value, Ref 
 // 0x001746b0 FUN_001746b0 (69 B): matches/0x001746b0.cpp
 // sym: ??1JointRelativeAction_1746b0@fn_f2f1fd83@@QAE@XZ
 JointRelativeAction_1746b0::~JointRelativeAction_1746b0() {
-    vptr = g_vftable_1746b0;
+    vptr = hulk_at_00417e30;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();
@@ -229,7 +229,7 @@ IntentionClearAction_174700::IntentionClearAction_174700(int target, RefObj_1747
 // 0x00174750 FUN_00174750 (50 B): matches/0x00174750.cpp
 // sym: ??1IntentionClearAction_174750@fn_f2f1fd83@@QAE@XZ
 IntentionClearAction_174750::~IntentionClearAction_174750() {
-    vptr = g_vftable_174750;
+    vptr = hulk_at_00417e4c;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -260,7 +260,7 @@ ChargeAction::ChargeAction(void* a, RefCounted_174790* b) throw() {
 // 0x001747e0 FUN_001747e0 (50 B): matches/0x001747e0.cpp
 // sym: ??1ChargeAction_1747e0@fn_f2f1fd83@@QAE@XZ
 ChargeAction_1747e0::~ChargeAction_1747e0() {
-    vptr = g_vftable_1747e0;
+    vptr = hulk_at_00417e68;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -293,7 +293,7 @@ ChargeClearAction_174820::ChargeClearAction_174820(int target, RefObj_174820* ob
 // 0x00174870 FUN_00174870 (50 B): matches/0x00174870.cpp
 // sym: ??1ChargeClearAction_174870@fn_f2f1fd83@@QAE@XZ
 ChargeClearAction_174870::~ChargeClearAction_174870() {
-    vptr = g_vftable_174870;
+    vptr = hulk_at_00417e84;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();

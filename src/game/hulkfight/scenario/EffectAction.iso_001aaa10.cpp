@@ -9,21 +9,21 @@
 #include "gen/fight.h"
 
 extern "C" char DAT_0041c4f0[];
-extern void* __cdecl Alloc(hulk_uintptr);
+extern void* __cdecl Alloc_0008d690(hulk_uintptr);
 struct Event_StringCondition_1aaa10 {
     int x[6];
-    void Initialize(int);
+    void Initialize_00234590(int);
 };
 struct Sub_1aaa10 {
-    void Init();
+    void Init_0027af00();
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::scenario::Event_StringCondition>::vfunc_5() {
-    Event_StringCondition_1aaa10* p = (Event_StringCondition_1aaa10*)Alloc(0x18);
+    Event_StringCondition_1aaa10* p = (Event_StringCondition_1aaa10*)Alloc_0008d690(0x18);
     if (p) {
-        p->Initialize(0);
+        p->Initialize_00234590(0);
         p->x[0] = ((hulk_intptr)DAT_0041c4f0);
-        ((Sub_1aaa10*)((char*)p + 0x10))->Init();
+        ((Sub_1aaa10*)((char*)p + 0x10))->Init_0027af00();
         return (void*)(p);
     }
     return (void*)(0);

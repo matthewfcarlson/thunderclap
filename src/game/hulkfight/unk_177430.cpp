@@ -27,7 +27,7 @@ class CriticalMassDrainAction_177430 : public Action_177430 {
     CriticalMassDrainAction_177430(int target, RefObj_177430* obj);
     virtual void Execute();
 };
-extern void* g_vftable_177480[];
+extern void* hulk_at_0041804c[];
 class Ref_177480 {
   public:
     virtual void F0();
@@ -55,7 +55,7 @@ class Action_1774c0 {
     char pad[0x18];
     Action_1774c0();
 };
-extern void* g_vft_1774c0;
+extern void* hulk_at_00418068;
 class MomentumXZAddAction_1774c0 : public Action_1774c0 {
   public:
     int a;
@@ -101,7 +101,7 @@ class VisibilityAction_177550 : public Action_177550 {
     VisibilityAction_177550(int target, RefObj_177550* obj);
     virtual void Execute();
 };
-extern void* g_vftable_1775a0[];
+extern void* hulk_at_00418084[];
 class Ref_1775a0 {
   public:
     virtual void F0();
@@ -136,7 +136,7 @@ class SnapToGroundAction_1775e0 : public Action_1775e0 {
     SnapToGroundAction_1775e0(int target, RefObj_1775e0* obj);
     virtual void Execute();
 };
-extern void* g_vftable_177630[];
+extern void* hulk_at_004180a0[];
 class Ref_177630 {
   public:
     virtual void F0();
@@ -176,7 +176,7 @@ CriticalMassDrainAction_177430::CriticalMassDrainAction_177430(int target, RefOb
 // 0x00177480 FUN_00177480 (50 B): matches/0x00177480.cpp
 // sym: ??1CriticalMassDrainAction_177480@fn_f92fa536@@QAE@XZ
 CriticalMassDrainAction_177480::~CriticalMassDrainAction_177480() {
-    vptr = g_vftable_177480;
+    vptr = hulk_at_0041804c;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -191,7 +191,7 @@ CriticalMassDrainAction_177480::~CriticalMassDrainAction_177480() {
 // 0x001774c0 FUN_001774c0 (80 B): matches/0x001774c0.cpp
 // sym: ??0MomentumXZAddAction_1774c0@fn_f92fa536@@QAE@HPAVRef_1774c0@1@@Z
 MomentumXZAddAction_1774c0::MomentumXZAddAction_1774c0(int x, Ref_1774c0* p) {
-    *(void**)this = &g_vft_1774c0;
+    *(void**)this = &hulk_at_00418068;
     int* q = &a;
     *q = 0;
     b = 0;
@@ -244,7 +244,7 @@ VisibilityAction_177550::VisibilityAction_177550(int target, RefObj_177550* obj)
 // 0x001775a0 FUN_001775a0 (50 B): matches/0x001775a0.cpp
 // sym: ??1VisibilityAction_1775a0@fn_f92fa536@@QAE@XZ
 VisibilityAction_1775a0::~VisibilityAction_1775a0() {
-    vptr = g_vftable_1775a0;
+    vptr = hulk_at_00418084;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -277,7 +277,7 @@ SnapToGroundAction_1775e0::SnapToGroundAction_1775e0(int target, RefObj_1775e0* 
 // 0x00177630 FUN_00177630 (50 B): matches/0x00177630.cpp
 // sym: ??1SnapToGroundAction_177630@fn_f92fa536@@QAE@XZ
 SnapToGroundAction_177630::~SnapToGroundAction_177630() {
-    vptr = g_vftable_177630;
+    vptr = hulk_at_004180a0;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();

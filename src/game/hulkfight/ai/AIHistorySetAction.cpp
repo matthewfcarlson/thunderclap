@@ -11,7 +11,7 @@ namespace fn_fe46a1bb {} using namespace fn_fe46a1bb;
 namespace fn_fe46a1bb {
 struct Pair {
     int a, b;
-    void Set(const Pair*);
+    void Set_0027af70(const Pair*);
 };
 struct Actor {
     char pad[0x1b98];
@@ -23,10 +23,10 @@ struct Source {
     Pair p;
 };
 struct Handle {
-    Actor* Get();
+    Actor* Get_00059a30();
 };
 struct Thing {
-    Handle* Get();
+    Handle* Get_000592a0();
 };
 
 } // namespace fn_fe46a1bb
@@ -36,13 +36,13 @@ struct Thing {
  // namespace hulkfight
 void hulkfight::ai::AIHistorySetAction::vfunc_4() {
     if ((*(Thing * *)&this->f_20)) {
-        Actor* a = (*(Thing * *)&this->f_20)->Get()->Get();
+        Actor* a = (*(Thing * *)&this->f_20)->Get_000592a0()->Get_00059a30();
         Pair* p = &(*(Source * *)&this->f_1c)->p;
         Pair* q = &a->p;
         if (q->a == p->a && q->b == p->b)
             ++a->count;
         else {
-            q->Set(p);
+            q->Set_0027af70(p);
             a->count = 1;
         }
     }

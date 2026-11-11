@@ -32,7 +32,7 @@ class HulkAction_10f310 : public Action_10f310 {
     HulkAction_10f310(int target, RefObj_10f310* obj);
     virtual void Execute();
 };
-extern void* g_vftable_10f360[];
+extern void* hulk_at_0040dd50[];
 class Ref_10f360 {
   public:
     virtual void F0();
@@ -129,8 +129,8 @@ class RefObj_10f780 {
     virtual void AddRef();
     virtual void Release();
 };
-extern "C" int __cdecl GetSingleton();
-extern char g_vftable_10f780[];
+extern "C" int __cdecl GetSingleton_000678d0();
+extern char hulk_at_0040dd6c[];
 class Action_10f780 {
   public:
     void* vptr;
@@ -179,7 +179,7 @@ class TokenAction_10f820 : public Action_10f820 {
     TokenAction_10f820(int target, RefObj_10f820* obj);
     virtual void Execute();
 };
-extern void* g_vftable_10f870[];
+extern void* hulk_at_0040dd88[];
 class Ref_10f870 {
   public:
     virtual void F0();
@@ -225,9 +225,9 @@ class Action_10f900 {
     virtual void B();
     void Finish();
 };
-extern void* vtable_10f900[];
+extern void* hulk_at_0040dda4[];
 struct AIHistorySetAction_nv_10f900 {
-    void Finish();
+    void Finish_002326a0();
 };
 class RefObj_10f940 {
   public:
@@ -247,7 +247,7 @@ class SemaphoreWaitAction_10f940 : public Action_10f940 {
     SemaphoreWaitAction_10f940(int target, RefObj_10f940* obj);
     virtual void Execute();
 };
-extern void* g_vftable_10f990[];
+extern void* hulk_at_0040ddc0[];
 class Ref_10f990 {
   public:
     virtual void F0();
@@ -282,7 +282,7 @@ class SemaphoreClearAction_10f9d0 : public Action_10f9d0 {
     SemaphoreClearAction_10f9d0(int target, RefObj_10f9d0* obj);
     virtual void Execute();
 };
-extern void* g_vftable_10fa20[];
+extern void* hulk_at_0040dddc[];
 class Ref_10fa20 {
   public:
     virtual void F0();
@@ -317,7 +317,7 @@ class KeywordWaitAction_10fa60 : public Action_10fa60 {
     KeywordWaitAction_10fa60(int target, RefObj_10fa60* obj);
     virtual void Execute();
 };
-extern void* g_vftable_10fab0[];
+extern void* hulk_at_0040ddf8[];
 class Ref_10fab0 {
   public:
     virtual void F0();
@@ -652,7 +652,7 @@ HulkAction_10f310::HulkAction_10f310(int target, RefObj_10f310* obj) {
 // 0x0010f360 FUN_0010f360 (50 B): matches/0x0010f360.cpp
 // sym: ??1HulkAction_10f360@fn_f49cf0cf@@QAE@XZ
 HulkAction_10f360::~HulkAction_10f360() {
-    vptr = g_vftable_10f360;
+    vptr = hulk_at_0040dd50;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -769,7 +769,7 @@ bool KeyWordWaitCondition::FUN_0010f630(int a1, fight::Params_10f630 *params, in
 // 0x0010f780 FUN_0010f780 (86 B): matches/0x0010f780.cpp
 // sym: ??0TokenSupressAction@fn_f49cf0cf@@QAE@HPAVRefObj_10f780@1@@Z
 TokenSupressAction::TokenSupressAction(int a, RefObj_10f780* b) {
-    vptr = g_vftable_10f780;
+    vptr = hulk_at_0040dd6c;
     int* q = &m1c;
     *q = 0;
     m20 = 0;
@@ -779,7 +779,7 @@ TokenSupressAction::TokenSupressAction(int a, RefObj_10f780* b) {
     if (m20 != 0)
         m20->Release();
     m20 = b;
-    hulk_intptr mgr = GetSingleton();
+    hulk_intptr mgr = GetSingleton_000678d0();
     m24 = *(int*)(mgr + 0x368);
 }
 
@@ -820,7 +820,7 @@ TokenAction_10f820::TokenAction_10f820(int target, RefObj_10f820* obj) {
 // 0x0010f870 FUN_0010f870 (50 B): matches/0x0010f870.cpp
 // sym: ??1TokenAction_10f870@fn_f49cf0cf@@QAE@XZ
 TokenAction_10f870::~TokenAction_10f870() {
-    vptr = g_vftable_10f870;
+    vptr = hulk_at_0040dd88;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -854,7 +854,7 @@ AIHistorySetAction_10f8b0::AIHistorySetAction_10f8b0(int target, RefObj_10f8b0* 
 // 0x0010f900 FUN_0010f900 (50 B): matches/0x0010f900.cpp
 // sym: ?FUN_0010f900@AIHistorySetAction@ai@hulkfight@@QAEXXZ
 void hulkfight::ai::AIHistorySetAction::FUN_0010f900() {
-    *(void**)this = vtable_10f900;
+    *(void**)this = hulk_at_0040dda4;
     _ReadWriteBarrier();
     if ((*(Ref_10f900 * *)&this->f_20)) {
         (*(Ref_10f900 * *)&this->f_20)->Release();
@@ -862,7 +862,7 @@ void hulkfight::ai::AIHistorySetAction::FUN_0010f900() {
     }
     if ((*(Ref_10f900 * *)&this->f_1c))
         (*(Ref_10f900 * *)&this->f_1c) = 0;
-    ((AIHistorySetAction_nv_10f900*)(((Action_10f900*)this)))->Finish();
+    ((AIHistorySetAction_nv_10f900*)(((Action_10f900*)this)))->Finish_002326a0();
 }
 
 namespace fn_f49cf0cf {
@@ -888,7 +888,7 @@ SemaphoreWaitAction_10f940::SemaphoreWaitAction_10f940(int target, RefObj_10f940
 // 0x0010f990 FUN_0010f990 (50 B): matches/0x0010f990.cpp
 // sym: ??1SemaphoreWaitAction_10f990@fn_f49cf0cf@@QAE@XZ
 SemaphoreWaitAction_10f990::~SemaphoreWaitAction_10f990() {
-    vptr = g_vftable_10f990;
+    vptr = hulk_at_0040ddc0;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -921,7 +921,7 @@ SemaphoreClearAction_10f9d0::SemaphoreClearAction_10f9d0(int target, RefObj_10f9
 // 0x0010fa20 FUN_0010fa20 (50 B): matches/0x0010fa20.cpp
 // sym: ??1SemaphoreClearAction_10fa20@fn_f49cf0cf@@QAE@XZ
 SemaphoreClearAction_10fa20::~SemaphoreClearAction_10fa20() {
-    vptr = g_vftable_10fa20;
+    vptr = hulk_at_0040dddc;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -954,7 +954,7 @@ KeywordWaitAction_10fa60::KeywordWaitAction_10fa60(int target, RefObj_10fa60* ob
 // 0x0010fab0 FUN_0010fab0 (50 B): matches/0x0010fab0.cpp
 // sym: ??1KeywordWaitAction_10fab0@fn_f49cf0cf@@QAE@XZ
 KeywordWaitAction_10fab0::~KeywordWaitAction_10fab0() {
-    vptr = g_vftable_10fab0;
+    vptr = hulk_at_0040ddf8;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();

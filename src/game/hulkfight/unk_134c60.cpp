@@ -10,10 +10,10 @@ namespace fn_fea6dcf4 {} using namespace fn_fea6dcf4;
 
 // ---- declarations shared by the functions below
 namespace fn_fea6dcf4 {
-extern void* Track_134c60_vftable[];
+extern void* hulk_at_00411c18[];
 class Track_134c60 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_fea6dcf4
 namespace hulkfight { namespace motion {
@@ -23,10 +23,10 @@ class FlyingBrakeTrack : public Track_134c60 {
 };
 } }
 namespace fn_fea6dcf4 {
-extern void* Track_134c90_vftable[];
+extern void* hulk_at_00411c48[];
 class Track_134c90 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_fea6dcf4
 namespace hulkfight { namespace motion {
@@ -36,10 +36,10 @@ class BounceTrack : public Track_134c90 {
 };
 } }
 namespace fn_fea6dcf4 {
-extern void* Track_134cc0_vftable[];
+extern void* hulk_at_00411c78[];
 class Track_134cc0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_fea6dcf4
 namespace hulkfight { namespace motion {
@@ -49,10 +49,10 @@ class AirToGroundTargetTrack : public Track_134cc0 {
 };
 } }
 namespace fn_fea6dcf4 {
-extern void* Track_134cf0_vftable[];
+extern void* hulk_at_00411ca8[];
 class Track_134cf0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_fea6dcf4
 namespace hulkfight { namespace motion {
@@ -62,10 +62,10 @@ class HoverTrack : public Track_134cf0 {
 };
 } }
 namespace fn_fea6dcf4 {
-extern void* Track_134d20_vftable[];
+extern void* hulk_at_00411cd8[];
 class Track_134d20 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_fea6dcf4
 namespace hulkfight { namespace motion {
@@ -75,10 +75,10 @@ class FallTrack : public Track_134d20 {
 };
 } }
 namespace fn_fea6dcf4 {
-extern void* Track_134d50_vftable[];
+extern void* hulk_at_00411d08[];
 class Track_134d50 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_fea6dcf4
 namespace hulkfight { namespace motion {
@@ -88,10 +88,10 @@ class FlyingAutoTargetTrack : public Track_134d50 {
 };
 } }
 namespace fn_fea6dcf4 {
-extern void* Track_134d80_vftable[];
+extern void* hulk_at_00411d38[];
 class Track_134d80 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_fea6dcf4
 namespace hulkfight { namespace motion {
@@ -107,9 +107,9 @@ class Ref_134db0 {
     virtual void Release();
 };
 struct ThisCall_00232660 {
-    void BaseCtor();
+    void BaseCtor_00232660();
 };
-extern int hoverVftable;
+extern int hulk_at_00411d68;
 class HoverAction {
   public:
     virtual void V();
@@ -157,7 +157,7 @@ class FallAction : public Action_134e30 {
     FallAction(int, Ref*);
     virtual void fn();
 };
-extern void* g_vftable_134e90[];
+extern void* hulk_at_00411d84[];
 class Ref_134e90 {
   public:
     virtual void F0();
@@ -184,8 +184,8 @@ class FallAction_134e90 : public Action_134e90 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::FlyingBrakeTrack* hulkfight::motion::FlyingBrakeTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_134c60_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00411c18;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -199,8 +199,8 @@ hulkfight::motion::FlyingBrakeTrack* hulkfight::motion::FlyingBrakeTrack::vfunc_
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::BounceTrack* hulkfight::motion::BounceTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_134c90_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00411c48;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -214,8 +214,8 @@ hulkfight::motion::BounceTrack* hulkfight::motion::BounceTrack::vfunc_5(signed c
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::AirToGroundTargetTrack* hulkfight::motion::AirToGroundTargetTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_134cc0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00411c78;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -229,8 +229,8 @@ hulkfight::motion::AirToGroundTargetTrack* hulkfight::motion::AirToGroundTargetT
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::HoverTrack* hulkfight::motion::HoverTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_134cf0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00411ca8;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -244,8 +244,8 @@ hulkfight::motion::HoverTrack* hulkfight::motion::HoverTrack::vfunc_5(signed cha
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::FallTrack* hulkfight::motion::FallTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_134d20_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00411cd8;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -259,8 +259,8 @@ hulkfight::motion::FallTrack* hulkfight::motion::FallTrack::vfunc_5(signed char 
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::FlyingAutoTargetTrack* hulkfight::motion::FlyingAutoTargetTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_134d50_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00411d08;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -274,8 +274,8 @@ hulkfight::motion::FlyingAutoTargetTrack* hulkfight::motion::FlyingAutoTargetTra
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::motion::FlyingAttackTrack* hulkfight::motion::FlyingAttackTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_134d80_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00411d38;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -287,8 +287,8 @@ namespace fn_fea6dcf4 {
 // 0x00134db0 FUN_00134db0 (65 B): matches/0x00134db0.cpp
 // sym: ?Init@HoverAction@fn_fea6dcf4@@QAEPAV12@HPAVRef_134db0@2@@Z
 HoverAction* HoverAction::Init(int a, Ref_134db0* r) {
-    ((ThisCall_00232660*)(this))->BaseCtor();
-    *(hulk_intptr*)this = (hulk_intptr)&hoverVftable;
+    ((ThisCall_00232660*)(this))->BaseCtor_00232660();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00411d68;
     field1c = a;
     field20 = 0;
     if (r)
@@ -328,7 +328,7 @@ FallAction::FallAction(int v, Ref* p) : Action_134e30(), fields() {
 // 0x00134e90 FUN_00134e90 (69 B): matches/0x00134e90.cpp
 // sym: ??1FallAction_134e90@fn_fea6dcf4@@QAE@XZ
 FallAction_134e90::~FallAction_134e90() {
-    vptr = g_vftable_134e90;
+    vptr = hulk_at_00411d84;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();

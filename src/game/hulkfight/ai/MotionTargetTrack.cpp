@@ -12,18 +12,18 @@ namespace fn_f6fbeb49 {} using namespace fn_f6fbeb49;
 
 // ---- declarations shared by the functions below
 namespace fn_f6fbeb49 {
-extern char vftable_115b70;
+extern char hulk_at_0040ebe0;
 class MotionTargetTrack_115b70 {
   public:
-    void Init();
-    void Finish();
+    void Init_0027af50();
+    void Finish_00236d60();
 };
 class MotionLocatorTrack {
   public:
     virtual ~MotionLocatorTrack();
     char pad[0x2c];
 };
-extern int* gTable_115bb0;
+extern int* hulk_at_004e0c6c;
 class CCondition_115bb0 {
   public:
     virtual int vfunc_0(int);
@@ -45,9 +45,9 @@ struct Track_115c10 {
 // 0x00115b70 FUN_00115b70 (25 B): matches/0x00115b70.cpp
 // sym: ??1MotionLocatorTrack@fn_f6fbeb49@@UAE@XZ
 MotionLocatorTrack::~MotionLocatorTrack() {
-    *(void**)this = &vftable_115b70;
-    ((MotionTargetTrack_115b70*)((char*)this + 0x30))->Init();
-    ((MotionTargetTrack_115b70*)this)->Finish();
+    *(void**)this = &hulk_at_0040ebe0;
+    ((MotionTargetTrack_115b70*)((char*)this + 0x30))->Init_0027af50();
+    ((MotionTargetTrack_115b70*)this)->Finish_00236d60();
 }
 
 
@@ -64,7 +64,7 @@ void FUN_00115b90() {
 // sym: ?vfunc_0@MotionTargetTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::MotionTargetTrack::vfunc_0(int index) {
-    int* p = gTable_115bb0;
+    int* p = hulk_at_004e0c6c;
     return p[index];
 }
 

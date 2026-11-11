@@ -29,14 +29,14 @@ class Condition_1147b0 {
     hulk_intptr vt;
     char pad[8];
     int m;
-    void Init(int);
+    void Init_00234590(int);
 };
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
-extern int g_vftable_1147e0;
+extern int hulk_at_0040e968;
 struct ConditionFactoryTemplate_1147e0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0010d000();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -64,7 +64,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::ai::FightingO
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::FightingOtherNPCCondition>::vfunc_5() {
     Condition_1147b0* p = (Condition_1147b0*)FUN_0008d690((int)sizeof(Condition_1147b0));
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         p->vt = ((hulk_intptr)DAT_0040db64);
         p->m = 0;
         return (void*)(p);
@@ -78,9 +78,9 @@ namespace fn_f4f2cc84 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_1147e0@fn_f4f2cc84@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_1147e0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1147e0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0040e968;
+    base1_dtor_0010d000();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

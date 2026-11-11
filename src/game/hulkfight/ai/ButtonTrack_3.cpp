@@ -35,14 +35,14 @@ struct ButtonTrack_114bf0 {
     u32_114bf0 d;
     u32_114bf0 e;
     u32_114bf0 f;
-    void Init();
+    void Init_00236d40();
 };
 extern "C" void* FUN_0008d690(unsigned int);
-extern int g_vftable_114c40;
+extern int hulk_at_0040ea10;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0010d370();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -70,7 +70,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::ButtonTrack>:
 template <> void* fight::TrackFactoryTemplate<hulkfight::ai::ButtonTrack>::vfunc_5() {
     ButtonTrack_114bf0* p = (ButtonTrack_114bf0*)FUN_0008d690((int)sizeof(ButtonTrack_114bf0));
     if (p != 0) {
-        p->Init();
+        p->Init_00236d40();
         p->a = 0;
         p->c = 0;
         p->d = 0;
@@ -89,9 +89,9 @@ namespace fn_f459dd82 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f459dd82@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_114c40;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0040ea10;
+    base1_dtor_0010d370();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

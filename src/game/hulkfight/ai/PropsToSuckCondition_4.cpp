@@ -24,7 +24,7 @@ class TrackFactoryTemplate_114560 {
 };
 extern "C" void FUN_001123a0();
 struct PropsToSuckCondition {
-    void InitBase(int flag);
+    void InitBase_00234590(int flag);
     char pad[0xc];
     int m_c;
     float m_f;
@@ -32,12 +32,12 @@ struct PropsToSuckCondition {
     int m_i;
 };
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
-extern int g_PropsToSuckVftable;
-extern int g_vftable_1145f0;
+extern int hulk_at_0040db04;
+extern int hulk_at_0040e914;
 struct ConditionFactoryTemplate_1145f0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0010cec0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -66,8 +66,8 @@ namespace fn_f60a7f8c {
 void* __cdecl Factory_vfunc_5(void* self) {
     PropsToSuckCondition* p = (PropsToSuckCondition*)FUN_0008d690((int)sizeof(PropsToSuckCondition));
     if (p != 0) {
-        p->InitBase(0);
-        *(void**)p = (void*)&g_PropsToSuckVftable;
+        p->InitBase_00234590(0);
+        *(void**)p = (void*)&hulk_at_0040db04;
         p->m_c = 0;
         p->m_f = 10.0f;
         p->m_b = 0;
@@ -82,9 +82,9 @@ void* __cdecl Factory_vfunc_5(void* self) {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_1145f0@fn_f60a7f8c@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_1145f0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1145f0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0040e914;
+    base1_dtor_0010cec0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

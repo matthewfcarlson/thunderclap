@@ -173,7 +173,7 @@ class AcquireTargetAction_126780 : public Action_126780 {
     AcquireTargetAction_126780(int target, RefObj_126780* obj);
     virtual void Execute();
 };
-extern void* g_vftable_1267d0[];
+extern void* hulk_at_00410004[];
 class Ref_1267d0 {
   public:
     virtual void F0();
@@ -208,7 +208,7 @@ class ClearProjectileDistanceAction_126810 : public Action_126810 {
     ClearProjectileDistanceAction_126810(int target, RefObj_126810* obj);
     virtual void Execute();
 };
-extern void* g_vftable_126860[];
+extern void* hulk_at_00410020[];
 class Ref_126860 {
   public:
     virtual void F0();
@@ -243,7 +243,7 @@ class TargetClearAction_1268a0 : public Action_1268a0 {
     TargetClearAction_1268a0(int target, RefObj_1268a0* obj);
     virtual void Execute();
 };
-extern void* g_vftable_1268f0[];
+extern void* hulk_at_0041003c[];
 class Ref_1268f0 {
   public:
     virtual void F0();
@@ -1415,7 +1415,7 @@ AcquireTargetAction_126780::AcquireTargetAction_126780(int target, RefObj_126780
 // 0x001267d0 FUN_001267d0 (50 B): matches/0x001267d0.cpp
 // sym: ??1AcquireTargetAction_1267d0@fn_f038364c@@QAE@XZ
 AcquireTargetAction_1267d0::~AcquireTargetAction_1267d0() {
-    vptr = g_vftable_1267d0;
+    vptr = hulk_at_00410004;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1448,7 +1448,7 @@ ClearProjectileDistanceAction_126810::ClearProjectileDistanceAction_126810(int t
 // 0x00126860 FUN_00126860 (50 B): matches/0x00126860.cpp
 // sym: ??1ClearProjectileDistanceAction_126860@fn_f038364c@@QAE@XZ
 ClearProjectileDistanceAction_126860::~ClearProjectileDistanceAction_126860() {
-    vptr = g_vftable_126860;
+    vptr = hulk_at_00410020;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1481,7 +1481,7 @@ TargetClearAction_1268a0::TargetClearAction_1268a0(int target, RefObj_1268a0* ob
 // 0x001268f0 FUN_001268f0 (50 B): matches/0x001268f0.cpp
 // sym: ??1TargetClearAction_1268f0@fn_f038364c@@QAE@XZ
 TargetClearAction_1268f0::~TargetClearAction_1268f0() {
-    vptr = g_vftable_1268f0;
+    vptr = hulk_at_0041003c;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();

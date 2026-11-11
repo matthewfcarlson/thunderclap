@@ -10,20 +10,20 @@
 #include "gen/hulkfight.h"
 
 typedef unsigned int u32_11a100;
-extern int TypeA_11a100;
-extern int TypeB_11a100;
+extern int hulk_at_00494b44;
+extern int hulk_at_00494b60;
 struct MotionFleeAction_nv_11a100 {
-    u32_11a100 Init(void*, void*);
+    u32_11a100 Init_001178e0(void*, void*);
 };
 extern int Check(void*, int, int*, int*, int);
-extern hulkfight::ai::MotionFleeAction* Alloc(int);
+extern hulkfight::ai::MotionFleeAction* Alloc_0008d690(int);
 
 hulk_intptr hulkfight::ai::MotionFleeTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_11a100 a = (u32_11a100)__p0; u32_11a100 b = (u32_11a100)__p1; void * p = (void *)__p2;
 
-    if (Check(p, 0, &TypeA_11a100, &TypeB_11a100, 0)) {
-        hulkfight::ai::MotionFleeAction* q = Alloc(0x28);
+    if (Check(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+        hulkfight::ai::MotionFleeAction* q = Alloc_0008d690(0x28);
         if (q)
-            return (int)(((MotionFleeAction_nv_11a100*)(((hulkfight::ai::MotionFleeAction*)(q))))->Init(this, p));
+            return (int)(((MotionFleeAction_nv_11a100*)(((hulkfight::ai::MotionFleeAction*)(q))))->Init_001178e0(this, p));
     }
     return (int)(0);
 }

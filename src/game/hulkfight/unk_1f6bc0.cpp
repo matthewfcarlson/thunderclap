@@ -26,7 +26,7 @@ struct Mgr_1f6c50 {
     char pad[0x54];
     Sub_1f6c50* s;
 };
-extern Mgr_1f6c50* gManager_1f6c50;
+extern Mgr_1f6c50* hulk_at_004dd700;
 struct Obj_1f6c50 {
     char pad[0x4c];
     unsigned char a;
@@ -35,13 +35,13 @@ struct Obj_1f6c50 {
     char pad2[1];
     int x;
     int y;
-    void Init(void* v);
+    void Init_002833a0(void* v);
 };
 struct Obj_1f6c90 {
-    void DoThing();
-    void Finish();
+    void DoThing_00283340();
+    void Finish_002833f0();
 };
-Obj_1f6c90* __cdecl GetObj();
+Obj_1f6c90* __cdecl GetObj_0027f250();
 extern "C" int __cdecl FUN_0027f250();
 class C_1f6cb0 {
   public:
@@ -77,13 +77,13 @@ public:
 };
 class Item {
   public:
-    float Apply(float*);
+    float Apply_0027ffe0(float*);
 };
 class Obj {
   public:
     char _m_pad_0[0x24];
     float val;
-    Item* GetItem();
+    Item* GetItem_0027f250();
     hulk_freg Run();
     void FUN_001c3830(void*, void*);
 };
@@ -101,17 +101,17 @@ struct A_1f7200 {
     A_1f7200() throw();
 };
 struct S_1f7200 {
-    void* Do(T_1f7200* t, A_1f7200* a, float lo, float hi) throw();
+    void* Do_00283a40(T_1f7200* t, A_1f7200* a, float lo, float hi) throw();
 };
-S_1f7200* GetS() throw();
+S_1f7200* GetS_0027f250() throw();
 struct Vec3_1f7280 {
     float x, y, z;
 };
 class Obj_1f7280 {
   public:
-    void Act(int, Vec3_1f7280*);
+    void Act_0027ffd0(int, Vec3_1f7280*);
 };
-Obj_1f7280* Get();
+Obj_1f7280* Get_0027f250();
 class Host_1f7280 {
   public:
     unsigned char target(int a, Vec3_1f7280 b);
@@ -138,10 +138,10 @@ void* __fastcall FUN_001f6c30(void* self) {
 // 0x001f6c50 FUN_001f6c50 (52 B): matches/0x001f6c50.cpp
 // sym: ?FUN_001f6c50@fn_f90a56c8@@YIXPAUObj_1f6c50@1@PAXH@Z
 void __fastcall FUN_001f6c50(Obj_1f6c50* self, void*, int unused) {
-    Sub_1f6c50* a = gManager_1f6c50->s;
+    Sub_1f6c50* a = hulk_at_004dd700->s;
     Sub_1f6c50* b = ((Sub_1f6c50 *)((owners::Target_862a0 *)a)->FUN_000862a0());
     void* v = ((void *)((owners::Target_203d70 *)b)->FUN_00203d70());
-    self->Init(v);
+    self->Init_002833a0(v);
     self->a = 0;
     self->x = 0;
     self->b = 0;
@@ -154,10 +154,10 @@ void __fastcall FUN_001f6c50(Obj_1f6c50* self, void*, int unused) {
 // sym: _FUN_001f6c90
 // Same code shape as 0x001bc510 (propagated; names are from that function)
 extern "C" void FUN_001f6c90(void) {
-    Obj_1f6c90* p = GetObj();
-    p->DoThing();
-    p = GetObj();
-    p->Finish();
+    Obj_1f6c90* p = GetObj_0027f250();
+    p->DoThing_00283340();
+    p = GetObj_0027f250();
+    p->Finish_002833f0();
 }
 
 
@@ -221,9 +221,9 @@ void *Spawner_1f6f30::FUN_001f6f30(const char *name, float scale, int arg)
 // sym: ?Run@Obj@fn_f90a56c8@@QAEMXZ
 hulk_freg Obj::Run() {
     volatile float f = 10000.0f;
-    Item* p = GetItem();
+    Item* p = GetItem_0027f250();
     if (p)
-        return p->Apply(&val);
+        return p->Apply_0027ffe0(&val);
     return f;
 }
 
@@ -303,10 +303,10 @@ void* __stdcall F(int a1, V3_1f7200 v) throw() {
     void* r = 0;
     A_1f7200 a;
     ((owners::Target_22be40 *)&a)->FUN_0022be40((const int *)(V3_1f7200 *)(&v));
-    S_1f7200* s = GetS();
+    S_1f7200* s = GetS_0027f250();
     if (s) {
         T_1f7200 t(a1);
-        r = s->Do(&t, &a, -1.0f, 1.0f);
+        r = s->Do_00283a40(&t, &a, -1.0f, 1.0f);
     }
     return r;
 }
@@ -318,9 +318,9 @@ void* __stdcall F(int a1, V3_1f7200 v) throw() {
 unsigned char Host_1f7280::target(int a, Vec3_1f7280 b) {
     if (a < 0)
         return 0;
-    Obj_1f7280* p = Get();
+    Obj_1f7280* p = Get_0027f250();
     if (p)
-        p->Act(a, &b);
+        p->Act_0027ffd0(a, &b);
     return 1;
 }
 

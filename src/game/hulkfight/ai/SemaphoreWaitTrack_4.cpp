@@ -35,16 +35,16 @@ class SemaphoreWaitTrack_114e20 {
 };
 extern "C" void* __cdecl alloc(hulk_uintptr);
 struct BaseInit {
-    void go();
+    void go_00236d40();
 };
 struct MemberInit {
-    void go();
+    void go_0027af00();
 };
-extern int g_vftable_114e70;
+extern int hulk_at_0040ea64;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0010d520();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -72,11 +72,11 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::SemaphoreWait
 template <> void* fight::TrackFactoryTemplate<hulkfight::ai::SemaphoreWaitTrack>::vfunc_5() {
     SemaphoreWaitTrack_114e20* p = (SemaphoreWaitTrack_114e20*)alloc(0x28);
     if (p != 0) {
-        ((BaseInit*)p)->go();
+        ((BaseInit*)p)->go_00236d40();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0040dd04);
         *(unsigned int*)((char*)p + 0xc) = 0;
         *(unsigned int*)((char*)p + 0x10) = 0xbf800000;
-        ((MemberInit*)((char*)p + 0x18))->go();
+        ((MemberInit*)((char*)p + 0x18))->go_0027af00();
         *((char*)p + 0x20) = 1;
         *((char*)p + 0x21) = 1;
         *(unsigned int*)((char*)p + 0x24) = 0;
@@ -91,9 +91,9 @@ namespace fn_f9e09596 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f9e09596@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_114e70;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0040ea64;
+    base1_dtor_0010d520();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

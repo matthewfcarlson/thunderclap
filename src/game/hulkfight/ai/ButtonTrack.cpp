@@ -13,16 +13,16 @@ namespace fn_f5040848 {} using namespace fn_f5040848;
 // ---- declarations shared by the functions below
 namespace fn_f5040848 {
 struct Tail_10d350 {
-    void Init();
+    void Init_0027af50();
 };
 struct KeywordWaitTrack_10d350 {
     void* vptr;
     char pad[0x14];
-    void Finish();
+    void Finish_00236d60();
     void Run();
 };
-extern void* vftable_10d350;
-extern int* gTable_10d390;
+extern void* hulk_at_0040dc44;
+extern int* hulk_at_004e0b88;
 class CCondition_10d390 {
   public:
     virtual int vfunc_0(int);
@@ -62,9 +62,9 @@ struct Track_10d3e0 {
 // sym: ?Run@KeywordWaitTrack_10d350@fn_f5040848@@QAEXXZ
 // Same code shape as 0x0010d0f0 (propagated; names are from that function)
 void KeywordWaitTrack_10d350::Run() {
-    vptr = &vftable_10d350;
-    ((Tail_10d350*)((char*)this + 0x18))->Init();
-    Finish();
+    vptr = &hulk_at_0040dc44;
+    ((Tail_10d350*)((char*)this + 0x18))->Init_0027af50();
+    Finish_00236d60();
 }
 
 
@@ -81,7 +81,7 @@ void FUN_0010d370() {
 // sym: ?vfunc_0@ButtonTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::ButtonTrack::vfunc_0(int index) {
-    int* p = gTable_10d390;
+    int* p = hulk_at_004e0b88;
     return p[index];
 }
 

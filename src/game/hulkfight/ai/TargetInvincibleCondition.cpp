@@ -37,11 +37,11 @@ class TargetInvincibleCondition_12ad90 {
     char pad[8];
     unsigned char flag;
 };
-extern int g_vftable_12adc0;
+extern int hulk_at_00410b10;
 struct ConditionFactoryTemplate_12adc0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00124220();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -83,9 +83,9 @@ namespace fn_f89653d6 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_12adc0@fn_f89653d6@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_12adc0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_12adc0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00410b10;
+    base1_dtor_00124220();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

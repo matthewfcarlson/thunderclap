@@ -10,7 +10,7 @@ namespace fn_f31cf280 {} using namespace fn_f31cf280;
 
 // ---- declarations shared by the functions below
 namespace fn_f31cf280 {
-extern int* gTable_10d080;
+extern int* hulk_at_004e0b60;
 class CCondition_10d080 {
   public:
     virtual int vfunc_0(int);
@@ -56,7 +56,7 @@ struct Track_10d0e0 {
 // sym: ?vfunc_0@SemaphoreClearTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::SemaphoreClearTrack::vfunc_0(int index) {
-    int* p = gTable_10d080;
+    int* p = hulk_at_004e0b60;
     return p[index];
 }
 

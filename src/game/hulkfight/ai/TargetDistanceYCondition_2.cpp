@@ -28,7 +28,7 @@ typedef unsigned int u32_12a620;
 extern "C" void* FUN_0008d690(hulk_uintptr);
 class InitBase_12a620 {
   public:
-    void Init(int);
+    void Init_00234590(int);
 };
 struct TargetDistanceYCondition_12a620 : InitBase_12a620 {
     hulk_uintptr vptr;
@@ -38,11 +38,11 @@ struct TargetDistanceYCondition_12a620 : InitBase_12a620 {
     int b;
     u8 c, d, e;
 };
-extern int g_vftable_12a660;
+extern int hulk_at_004109dc;
 struct ConditionFactoryTemplate_12a660 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00123d70();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -70,7 +70,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetDis
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::TargetDistanceYCondition>::vfunc_5() {
     TargetDistanceYCondition_12a620* p = (TargetDistanceYCondition_12a620*)FUN_0008d690((int)sizeof(TargetDistanceYCondition_12a620));
     if (p != 0) {
-        p->Init(0);
+        p->Init_00234590(0);
         p->a = 0;
         p->b = 0;
         p->c = 0;
@@ -88,9 +88,9 @@ namespace fn_fa44f589 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_12a660@fn_fa44f589@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_12a660::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_12a660;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004109dc;
+    base1_dtor_00123d70();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

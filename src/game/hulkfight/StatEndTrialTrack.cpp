@@ -24,7 +24,7 @@ class TrackFactoryTemplate_132e00 {
 };
 extern "C" void FUN_00131c90();
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
-extern char statVftable[];
+extern char hulk_at_004113a4[];
 class TrackFactory_132e40 {
   public:
     virtual void* v0();
@@ -41,7 +41,7 @@ class StatEndTrialTrack_132e40 {
     int b;
     StatEndTrialTrack_132e40();
 };
-extern int g_vftable_132e80;
+extern int hulk_at_00411b38;
 
 } // namespace fn_fd12af91
 
@@ -68,7 +68,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::StatEndTrialTrack>::vfu
     StatEndTrialTrack_132e40* p = (StatEndTrialTrack_132e40*)FUN_0008d690((int)sizeof(StatEndTrialTrack_132e40));
     if (p) {
         p->StatEndTrialTrack_132e40::StatEndTrialTrack_132e40();
-        *(hulk_intptr*)p = (hulk_intptr)statVftable;
+        *(hulk_intptr*)p = (hulk_intptr)hulk_at_004113a4;
         p->a = 0;
         p->b = 0;
         return (void*)(p);
@@ -82,7 +82,7 @@ namespace fn_fd12af91 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fd12af91@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_132e80;
+    m_vptr = (void*)&hulk_at_00411b38;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

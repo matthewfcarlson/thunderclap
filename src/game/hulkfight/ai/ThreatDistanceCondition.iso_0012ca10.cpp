@@ -13,20 +13,20 @@ class Params_12ca10 {
   public:
     int x;
 };
-extern Params_12ca10 TypeA_12ca10;
-extern Params_12ca10 TypeB_12ca10;
+extern Params_12ca10 hulk_at_00494b44;
+extern Params_12ca10 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_12ca10*, Params_12ca10*, int);
 struct ThreatDodgeAction_nv_12ca10 {
-    int Init(hulkfight::ai::ThreatDodgeTrack*, hulk_intptr);
+    int Init_0012c080(hulkfight::ai::ThreatDodgeTrack*, hulk_intptr);
 };
-hulkfight::ai::ThreatDodgeAction* __cdecl Alloc(int);
+hulkfight::ai::ThreatDodgeAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::ai::ThreatDodgeTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_12ca10, &TypeB_12ca10, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::ai::ThreatDodgeAction* p = Alloc(0x24);
+        hulkfight::ai::ThreatDodgeAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((ThreatDodgeAction_nv_12ca10*)(((hulkfight::ai::ThreatDodgeAction*)(p))))->Init(this, c);
+            return ((ThreatDodgeAction_nv_12ca10*)(((hulkfight::ai::ThreatDodgeAction*)(p))))->Init_0012c080(this, c);
     }
     return 0;
 }

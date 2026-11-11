@@ -328,7 +328,7 @@ class Obj_48220 {
 };
 class C {
   public:
-    C* Second();
+    C* Second_00059a30();
     char pad[0x330];
     int a;
     int b;
@@ -1288,7 +1288,7 @@ char Obj::SetMinVelocity_00048240(int x) {
 extern "C" int FUN_00048260(C* p) {
     if (!p)
         return 0;
-    C* q = ((C *)((owners::Object_592a0 *)p)->FUN_000592a0())->Second();
+    C* q = ((C *)((owners::Object_592a0 *)p)->FUN_000592a0())->Second_00059a30();
     int r = q->b;
     if (!r)
         r = q->a;

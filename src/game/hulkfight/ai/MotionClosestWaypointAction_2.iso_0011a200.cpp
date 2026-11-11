@@ -15,7 +15,7 @@ struct RefObj_11a200 {
 
 struct Sub60 {
   public:
-    void Dtor();
+    void Dtor_0027af50();
 };
 
 class MotionClosestWaypointAction {
@@ -30,11 +30,11 @@ class MotionClosestWaypointAction {
     void* vfunc_2(unsigned char flag);
 };
 
-extern int dummy_vftable;
+extern int hulk_at_0040ed74;
 void operator delete(void*);
 
 void* MotionClosestWaypointAction::vfunc_2(unsigned char flag) {
-    *(volatile hulk_intptr*)this = (hulk_intptr)&dummy_vftable;
+    *(volatile hulk_intptr*)this = (hulk_intptr)&hulk_at_0040ed74;
     RefObj_11a200* p = m20;
     if (p) {
         p->Release();
@@ -43,7 +43,7 @@ void* MotionClosestWaypointAction::vfunc_2(unsigned char flag) {
     if (m1c) {
         m1c = 0;
     }
-    m60.Dtor();
+    m60.Dtor_0027af50();
     ((fight::Action *)this)->FUN_002326a0();
     if (flag & 1) {
         operator delete(this);

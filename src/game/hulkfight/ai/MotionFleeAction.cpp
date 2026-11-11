@@ -37,7 +37,7 @@ class MotionFleeAction : public Action_1178e0 {
     S_1178e0 s;
     MotionFleeAction(int, Other_1178e0*);
 };
-extern void* g_vftable_117930[];
+extern void* hulk_at_0040ed48[];
 class Ref_117930 {
   public:
     virtual void F0();
@@ -116,7 +116,7 @@ MotionFleeAction::MotionFleeAction(int value, Other_1178e0* other) {
 // 0x00117930 FUN_00117930 (69 B): matches/0x00117930.cpp
 // sym: ??1MotionFleeAction_117930@fn_fa726a27@@QAE@XZ
 MotionFleeAction_117930::~MotionFleeAction_117930() {
-    vptr = g_vftable_117930;
+    vptr = hulk_at_0040ed48;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();

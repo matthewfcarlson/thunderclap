@@ -40,11 +40,11 @@ struct Obj_10dee0 {
     u8 flag;
 };
 struct H {
-    void f2();
+    void f2_00059a30();
     H* f3();
-    void f4();
+    void f4_000661f0();
 };
-H* g();
+H* Fng_000678d0();
 
 } // namespace fn_f3421e5e
 
@@ -79,9 +79,9 @@ bool hulkfight::ai::TokenSupressAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
 bool hulkfight::ai::TokenSupressAction::vfunc_5(hulk_intptr a, int b) {
     if (!(*(H * *)&this->f_20))
         return false;
-    ((H *)((owners::Object_592a0 *)((*(H * *)&this->f_20)))->FUN_000592a0())->f2();
+    ((H *)((owners::Object_592a0 *)((*(H * *)&this->f_20)))->FUN_000592a0())->f2_00059a30();
     if ((*(Obj_10dee0 * *)&this->f_1c)->flag)
-        g()->f4();
+        Fng_000678d0()->f4_000661f0();
     return true;
 }
 

@@ -32,13 +32,13 @@ class TDC_12a780 {
     int y;
     unsigned char a;
     unsigned char b;
-    void init(int);
+    void init_00234590(int);
 };
-extern int g_vftable_12a7c0;
+extern int hulk_at_00410a14;
 struct ConditionFactoryTemplate_12a7c0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00123e50();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -69,7 +69,7 @@ TDC_12a780* __cdecl target() {
     TDC_12a780* p = (TDC_12a780*)alloc(0x18);
     int z = 0;
     if (p) {
-        p->init(z);
+        p->init_00234590(z);
         p->x = z;
         p->y = z;
         p->a = (unsigned char)z;
@@ -85,9 +85,9 @@ TDC_12a780* __cdecl target() {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_12a7c0@fn_fec170fd@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_12a7c0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_12a7c0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00410a14;
+    base1_dtor_00123e50();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

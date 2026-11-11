@@ -10,7 +10,7 @@ namespace fn_f9ffd634 {} using namespace fn_f9ffd634;
 
 // ---- declarations shared by the functions below
 namespace fn_f9ffd634 {
-extern int* gTable_10d230;
+extern int* hulk_at_004e0b78;
 class CCondition_10d230 {
   public:
     virtual int vfunc_0(int);
@@ -56,7 +56,7 @@ struct Track_10d290 {
 // sym: ?vfunc_0@HulkActionTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::HulkActionTrack::vfunc_0(int index) {
-    int* p = gTable_10d230;
+    int* p = hulk_at_004e0b78;
     return p[index];
 }
 

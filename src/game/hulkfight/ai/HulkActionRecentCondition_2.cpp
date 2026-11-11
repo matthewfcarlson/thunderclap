@@ -45,11 +45,11 @@ struct Cond_114190 : Base_114190 {
     virtual void e();
     virtual Base_114190* f();
 };
-extern int g_vftable_1141d0;
+extern int hulk_at_0040e86c;
 struct ConditionFactoryTemplate_1141d0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0010ca80();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -84,9 +84,9 @@ namespace fn_f4bd8044 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_1141d0@fn_f4bd8044@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_1141d0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1141d0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0040e86c;
+    base1_dtor_0010ca80();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

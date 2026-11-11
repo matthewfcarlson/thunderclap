@@ -24,14 +24,14 @@ class TrackFactoryTemplate_114af0 {
 };
 extern "C" void FUN_00112aa0();
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
-extern int KeywordWaitVtable;
+extern int hulk_at_0040dc44;
 class Helper_114b30 {
   public:
-    void Init();
+    void Init_00236d40();
 };
 class SetupObj_114b30 {
   public:
-    void Setup();
+    void Setup_0027af00();
 };
 struct KeywordWaitTrack {
     hulk_uintptr vptr;
@@ -43,11 +43,11 @@ struct KeywordWaitTrack {
     char field18[8];
     char field20;
 };
-extern int g_vftable_114b80;
+extern int hulk_at_0040e9f4;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0010d2c0();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -76,11 +76,11 @@ namespace fn_f01c5110 {
 KeywordWaitTrack* __cdecl target() {
     KeywordWaitTrack* p = (KeywordWaitTrack*)FUN_0008d690(0x28);
     if (p) {
-        ((Helper_114b30*)p)->Init();
-        p->vptr = (hulk_uintptr)&KeywordWaitVtable;
+        ((Helper_114b30*)p)->Init_00236d40();
+        p->vptr = (hulk_uintptr)&hulk_at_0040dc44;
         p->field0c = 0;
         p->field10 = -1.0f;
-        ((SetupObj_114b30*)((char*)p + 0x18))->Setup();
+        ((SetupObj_114b30*)((char*)p + 0x18))->Setup_0027af00();
         p->field20 = 0;
         p->field08 = 1;
         return p;
@@ -93,9 +93,9 @@ KeywordWaitTrack* __cdecl target() {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f01c5110@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_114b80;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0040e9f4;
+    base1_dtor_0010d2c0();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

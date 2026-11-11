@@ -10,17 +10,17 @@
 #include "gen/fight.h"
 #include "gen/hulkfight.h"
 
-extern void* __cdecl Alloc(hulk_uintptr);
+extern void* __cdecl Alloc_0008d690(hulk_uintptr);
 struct GameStateCondition_nv_132740 {
-    void Init(int);
+    void Init_00234590(int);
 };
 extern int AIHistoryNameCondition_vftable;
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::MissionProgressCondition>::vfunc_5() {
-    hulkfight::GameStateCondition* p = (hulkfight::GameStateCondition*)Alloc(0x18);
+    hulkfight::GameStateCondition* p = (hulkfight::GameStateCondition*)Alloc_0008d690(0x18);
     void* result;
     if (p) {
-        ((GameStateCondition_nv_132740*)(p))->Init(0);
+        ((GameStateCondition_nv_132740*)(p))->Init_00234590(0);
         *(int**)p = &AIHistoryNameCondition_vftable;
         (*(int *)&p->f_0c) = 0;
         p->compare = 0;

@@ -106,9 +106,9 @@ struct Id64_96e50 {
 extern "C" unsigned __int64 __cdecl FUN_00096d80(const char* hex);
 extern "C" unsigned __int64 f1(unsigned int);
 extern "C" unsigned __int64 f2(unsigned int, unsigned __int64);
-extern "C" int f3(char*, unsigned int, const char*, ...);
-extern "C" unsigned __int64 __cdecl getval(int, int, int);
-extern "C" int __cdecl fmt(char*, int, const char*, ...);
+extern "C" int f3_00267760(char*, unsigned int, const char*, ...);
+extern "C" unsigned __int64 __cdecl getval_002672f0(int, int, int);
+extern "C" int __cdecl fmt_00267760(char*, int, const char*, ...);
 struct Vec3_96f40 {
     float x, y, z;
 };
@@ -203,11 +203,11 @@ struct Helper_98380 {
 };
 class CamInit {
   public:
-    void InitBase();
+    void InitBase_000a9400();
 };
 class CamSetup {
   public:
-    void SetupPart();
+    void SetupPart_000a9050();
 };
 class CamCfg {
   public:
@@ -362,7 +362,7 @@ extern "C" Id64_96e50* FUN_00096e50(Id64_96e50* result, const char* text)
 // data: buf = DAT_004dd948, fmt = DAT_00404adc
 extern "C" char* FUN_00096ed0(unsigned int a, unsigned int b) {
     unsigned __int64 n = f2(b, f1(a));
-    f3(((char*)&DAT_004dd948), 64, DAT_00404adc, (unsigned int)(n >> 32), (unsigned int)n);
+    f3_00267760(((char*)&DAT_004dd948), 64, DAT_00404adc, (unsigned int)(n >> 32), (unsigned int)n);
     return ((char*)&DAT_004dd948);
 }
 
@@ -371,8 +371,8 @@ extern "C" char* FUN_00096ed0(unsigned int a, unsigned int b) {
 // sym: _FUN_00096f10
 // data: buf = DAT_004dd988
 extern "C" char* __cdecl FUN_00096f10(int x) {
-    unsigned __int64 v = getval(x, 0, 0);
-    fmt(((char*)&DAT_004dd988), 64, "0x%08x%08x", (unsigned)(v >> 32), (unsigned)v);
+    unsigned __int64 v = getval_002672f0(x, 0, 0);
+    fmt_00267760(((char*)&DAT_004dd988), 64, "0x%08x%08x", (unsigned)(v >> 32), (unsigned)v);
     return ((char*)&DAT_004dd988);
 }
 
@@ -881,10 +881,10 @@ namespace fn_fe8da7f1 {
 extern "C" Blend_983d0* __fastcall FUN_000983d0(Blend_983d0* self) {
     char* p;
     CamCfg* c;
-    ((CamInit*)self)->InitBase();
+    ((CamInit*)self)->InitBase_000a9400();
     self->vft = ((hulk_intptr)DAT_00404b3c);
     p = (char*)&self->field1a8;
-    ((CamSetup*)p)->SetupPart();
+    ((CamSetup*)p)->SetupPart_000a9050();
     c = (CamCfg*)self->cfg08;
     const char* n = DAT_0049e108;
     self->fieldd0 = 5;

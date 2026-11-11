@@ -27,17 +27,17 @@ extern "C" char DAT_0040db84[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class TrackBase_114850 {
   public:
-    void Init();
+    void Init_00236d40();
 };
 class TrackTail {
   public:
-    void Init();
+    void Init_0027af00();
 };
-extern int g_vftable_1148a0;
+extern int hulk_at_0040e984;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0010d060();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -65,11 +65,11 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::ai::SemaphoreClea
 template <> void* fight::TrackFactoryTemplate<hulkfight::ai::SemaphoreClearTrack>::vfunc_5() {
     char* p = (char*)FUN_0008d690(0x28);
     if (p) {
-        ((TrackBase_114850*)p)->Init();
+        ((TrackBase_114850*)p)->Init_00236d40();
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0040db84);
         *(unsigned int*)(p + 0xc) = 0;
         *(unsigned int*)(p + 0x10) = 0xbf800000;
-        ((TrackTail*)(p + 0x18))->Init();
+        ((TrackTail*)(p + 0x18))->Init_0027af00();
         p[0x20] = 0;
         p[0x21] = 0;
         *(unsigned int*)(p + 8) = 1;
@@ -84,9 +84,9 @@ namespace fn_f7e6d7b9 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f7e6d7b9@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1148a0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0040e984;
+    base1_dtor_0010d060();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

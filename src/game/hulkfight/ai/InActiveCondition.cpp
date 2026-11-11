@@ -115,17 +115,17 @@ class KeywordWaitAction {
 struct Mixer {
     float FUN_00037290(int a, int b);
 };
-extern void* Condition_10e6f0_vftable[];
+extern void* hulk_at_0040d984[];
 class Condition_10e6f0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class OnBlockedTriangleCondition_10e6f0 : public Condition_10e6f0 {
   public:
     OnBlockedTriangleCondition_10e6f0* vfunc_5(signed char flags);
 };
 struct Sub_10e720 {
-    void init();
+    void init_00234150();
 };
 class AIFightNodeCondition {
   public:
@@ -136,21 +136,21 @@ class AIFightNodeCondition {
     virtual void v4();
     virtual AIFightNodeCondition* vfunc_5(unsigned char param);
     virtual void v6();
-    void baseInit();
+    void baseInit_002345b0();
     char pad[0x0c];
 };
 extern void thunk_FUN_00267090(AIFightNodeCondition*);
-extern void* Condition_10e750_vftable[];
+extern void* hulk_at_0040d9c4[];
 class Condition_10e750 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class DefendingCondition_10e750 : public Condition_10e750 {
   public:
     DefendingCondition_10e750* vfunc_5(signed char flags);
 };
 extern "C" void __cdecl thunk_FUN_00267090(void* p);
-extern int g_vftable_10e780;
+extern int hulk_at_0040d9e4;
 class AIHistoryNameCondition {
   public:
     virtual void vfunc_0();
@@ -164,12 +164,12 @@ class AIHistoryNameCondition {
     int pad8;
     int padc;
     void* m10;
-    void reset();
+    void reset_002345b0();
 };
 class Condition_10e7c0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002345b0();
 };
 class HulkActionLargestCondition_10e7c0 : public Condition_10e7c0 {
   public:
@@ -177,16 +177,16 @@ class HulkActionLargestCondition_10e7c0 : public Condition_10e7c0 {
     void* m10;
     HulkActionLargestCondition_10e7c0* f5(unsigned char flags);
 };
-extern void* Condition_10e800_vftable[];
+extern void* hulk_at_0040da24[];
 class Condition_10e800 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class PropsToChuckCondition_10e800 : public Condition_10e800 {
   public:
     PropsToChuckCondition_10e800* vfunc_5(signed char flags);
 };
-extern int g_vftable_10e830;
+extern int hulk_at_0040da44;
 class HulkActionRecentCondition {
   public:
     virtual void vfunc_0();
@@ -198,22 +198,22 @@ class HulkActionRecentCondition {
     virtual void vfunc_6();
     char pad[12];
     void* m10;
-    void Finish();
+    void Finish_002345b0();
 };
-extern void* Condition_10e870_vftable[];
+extern void* hulk_at_0040da64[];
 class Condition_10e870 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class LeashedCondition_10e870 : public Condition_10e870 {
   public:
     LeashedCondition_10e870* vfunc_5(signed char flags);
 };
-extern void* g_vftable_10e8a0[];
+extern void* hulk_at_0040da84[];
 class Condition_10e8a0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002345b0();
 };
 class KeyWordWaitCondition_10e8a0 : public Condition_10e8a0 {
   public:
@@ -235,15 +235,15 @@ class FormationReadyCondition {
     int padc;
     int m10;
     FormationReadyCondition* vfunc_5(int);
-    void Cleanup();
+    void Cleanup_002345b0();
 };
 extern "C" void __cdecl helper(hulk_intptr);
-extern "C" void __cdecl helper2(FormationReadyCondition*);
-extern int formation_vtable;
-extern void* Condition_10e920_vftable[];
+extern "C" void __cdecl helper2_0008d330(FormationReadyCondition*);
+extern int hulk_at_0040daa4;
+extern void* hulk_at_0040dac4[];
 class Condition_10e920 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class InActiveCondition_10e920 : public Condition_10e920 {
   public:
@@ -341,8 +341,8 @@ bool hulkfight::ai::KeywordWaitAction::vfunc_5(int skip, float dt)
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 OnBlockedTriangleCondition_10e6f0* OnBlockedTriangleCondition_10e6f0::vfunc_5(signed char flags) {
-    *(void***)this = Condition_10e6f0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040d984;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -354,8 +354,8 @@ OnBlockedTriangleCondition_10e6f0* OnBlockedTriangleCondition_10e6f0::vfunc_5(si
 // sym: ?vfunc_5@AIFightNodeCondition@fn_fad6e2b1@@UAEPAV12@E@Z
 AIFightNodeCondition* AIFightNodeCondition::vfunc_5(unsigned char param) {
     *(void**)this = (void*)((hulk_intptr)DAT_0040d9a4);
-    ((Sub_10e720*)((char*)this + 0xc))->init();
-    baseInit();
+    ((Sub_10e720*)((char*)this + 0xc))->init_00234150();
+    baseInit_002345b0();
     if (param & 1)
         thunk_FUN_00267090(this);
     return this;
@@ -368,8 +368,8 @@ AIFightNodeCondition* AIFightNodeCondition::vfunc_5(unsigned char param) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 DefendingCondition_10e750* DefendingCondition_10e750::vfunc_5(signed char flags) {
-    *(void***)this = Condition_10e750_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040d9c4;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -381,9 +381,9 @@ DefendingCondition_10e750* DefendingCondition_10e750::vfunc_5(signed char flags)
 // sym: ?vfunc_5@AIHistoryNameCondition@fn_fad6e2b1@@UAEPAV12@H@Z
 AIHistoryNameCondition* AIHistoryNameCondition::vfunc_5(int flag) {
     void* x = m10;
-    *(void**)this = &g_vftable_10e780;
+    *(void**)this = &hulk_at_0040d9e4;
     thunk_FUN_00267090(x);
-    reset();
+    reset_002345b0();
     if (flag & 1)
         operator delete(this);
     return this;
@@ -396,7 +396,7 @@ HulkActionLargestCondition_10e7c0* HulkActionLargestCondition_10e7c0::f5(unsigne
     void* a = m10;
     vptr = g_vA;
     operator delete[](a);
-    Fin();
+    Fin_002345b0();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -409,8 +409,8 @@ HulkActionLargestCondition_10e7c0* HulkActionLargestCondition_10e7c0::f5(unsigne
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 PropsToChuckCondition_10e800* PropsToChuckCondition_10e800::vfunc_5(signed char flags) {
-    *(void***)this = Condition_10e800_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040da24;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -422,9 +422,9 @@ PropsToChuckCondition_10e800* PropsToChuckCondition_10e800::vfunc_5(signed char 
 // sym: ?vfunc_5@HulkActionRecentCondition@fn_fad6e2b1@@UAEPAV12@D@Z
 HulkActionRecentCondition* HulkActionRecentCondition::vfunc_5(char a) {
     void* x = m10;
-    *(void**)this = &g_vftable_10e830;
+    *(void**)this = &hulk_at_0040da44;
     thunk_FUN_00267090(x);
-    Finish();
+    Finish_002345b0();
     if (a & 1)
         operator delete(this);
     return this;
@@ -437,8 +437,8 @@ HulkActionRecentCondition* HulkActionRecentCondition::vfunc_5(char a) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 LeashedCondition_10e870* LeashedCondition_10e870::vfunc_5(signed char flags) {
-    *(void***)this = Condition_10e870_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040da64;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -450,9 +450,9 @@ LeashedCondition_10e870* LeashedCondition_10e870::vfunc_5(signed char flags) {
 // sym: ?f5@KeyWordWaitCondition_10e8a0@fn_fad6e2b1@@QAEPAV12@E@Z
 KeyWordWaitCondition_10e8a0* KeyWordWaitCondition_10e8a0::f5(unsigned char flags) {
     void* p = m10;
-    vptr = g_vftable_10e8a0;
+    vptr = hulk_at_0040da84;
     operator delete[](p);
-    Fin();
+    Fin_002345b0();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -462,11 +462,11 @@ KeyWordWaitCondition_10e8a0* KeyWordWaitCondition_10e8a0::f5(unsigned char flags
 // 0x0010e8e0 hulkfight::ai::FormationReadyCondition::vfunc_5 (50 B): matches/0x0010e8e0.cpp
 // sym: ?vfunc_5@FormationReadyCondition@fn_fad6e2b1@@QAEPAV12@H@Z
 FormationReadyCondition* FormationReadyCondition::vfunc_5(int flag) {
-    *(volatile hulk_intptr*)this = (hulk_intptr)&formation_vtable;
+    *(volatile hulk_intptr*)this = (hulk_intptr)&hulk_at_0040daa4;
     helper(m10);
-    Cleanup();
+    Cleanup_002345b0();
     if (flag & 1)
-        helper2(this);
+        helper2_0008d330(this);
     return this;
 }
 
@@ -477,8 +477,8 @@ FormationReadyCondition* FormationReadyCondition::vfunc_5(int flag) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 InActiveCondition_10e920* InActiveCondition_10e920::vfunc_5(signed char flags) {
-    *(void***)this = Condition_10e920_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040dac4;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

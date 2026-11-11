@@ -28,16 +28,16 @@ struct AIFightNodeCondition_113e40 {
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct InitObj_113e40 {
-    void InitCondition(int);
+    void InitCondition_00234590(int);
 };
 struct EntityObj {
-    void InitEntity();
+    void InitEntity_00233dd0();
 };
-extern int g_vftable_113e70;
+extern int hulk_at_0040e7e0;
 struct ConditionFactoryTemplate_113e70 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0010c780();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -65,9 +65,9 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::ai::AIFightNo
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::AIFightNodeCondition>::vfunc_5() {
     AIFightNodeCondition_113e40* p = (AIFightNodeCondition_113e40*)FUN_0008d690(0x18);
     if (p) {
-        ((InitObj_113e40*)p)->InitCondition(0);
+        ((InitObj_113e40*)p)->InitCondition_00234590(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_0040d9a4);
-        ((EntityObj*)((char*)p + 0xc))->InitEntity();
+        ((EntityObj*)((char*)p + 0xc))->InitEntity_00233dd0();
         return (void*)(p);
     }
     return (void*)(0);
@@ -79,9 +79,9 @@ namespace fn_f0666ec3 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_113e70@fn_f0666ec3@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_113e70::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_113e70;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0040e7e0;
+    base1_dtor_0010c780();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

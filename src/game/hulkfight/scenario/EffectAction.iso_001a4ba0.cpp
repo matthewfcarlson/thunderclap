@@ -8,8 +8,8 @@
 #include "gen/hulkfight.h"
 
 extern "C" void* FUN_00344e74(void*, int, void*, void*, int);
-extern int g_params;
-extern int g_scen;
+extern int hulk_at_00494b44;
+extern int hulk_at_004c13d0;
 
 struct Rec_1a4ba0 {
     char pad0[4];
@@ -19,14 +19,14 @@ struct Rec_1a4ba0 {
     int b;
 };
 struct Getter_1a4ba0 {
-    Rec_1a4ba0* get();
+    Rec_1a4ba0* get_001d03c0();
 };
 
 bool hulkfight::scenario::Event_StringCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { void * p1 = (void *)__p0; void * p2 = (void *)__p1; void * p3 = (void *)__p2;
 
-    Getter_1a4ba0* g = (Getter_1a4ba0*)FUN_00344e74(p2, 0, &g_params, &g_scen, 0);
+    Getter_1a4ba0* g = (Getter_1a4ba0*)FUN_00344e74(p2, 0, &hulk_at_00494b44, &hulk_at_004c13d0, 0);
     if (g) {
-        Rec_1a4ba0* r = g->get();
+        Rec_1a4ba0* r = g->get_001d03c0();
         if (r->type == 0x1b && r->a == this->f_10 && r->b == this->f_14)
             return true;
     }

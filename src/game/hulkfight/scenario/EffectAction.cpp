@@ -577,19 +577,19 @@ class T_1a2d40 {
     int Value;
     bool Set(int x);
 };
-extern int* gTable_1a2d70;
+extern int* hulk_at_004e1708;
 class CCondition_1a2d70 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_1a2dd0;
+extern int* hulk_at_004e1710;
 class CCondition_1a2dd0 {
   public:
     virtual int vfunc_0(int);
 };
-extern void* g_vt_1a2e00[];
+extern void* hulk_at_0041c4f0[];
 struct Sub_1a2e00 {
-    void Fin() throw();
+    void Fin_0027af50() throw();
 };
 class Condition_1a2e00 {
   public:
@@ -602,27 +602,27 @@ class Event_StringCondition_1a2e00 : public Condition_1a2e00 {
     Sub_1a2e00 sub;
     ~Event_StringCondition_1a2e00() throw();
 };
-extern int* gTable_1a2e40;
+extern int* hulk_at_004e1718;
 class CCondition_1a2e40 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_1a2ea0;
+extern int* hulk_at_004e1720;
 class CCondition_1a2ea0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_1a2f10;
+extern int* hulk_at_004e1728;
 class CCondition_1a2f10 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_1a2f80;
+extern int* hulk_at_004e1730;
 class CCondition_1a2f80 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_1a2fe0;
+extern int* hulk_at_004e1738;
 class CCondition_1a2fe0 {
   public:
     virtual int vfunc_0(int);
@@ -644,35 +644,35 @@ class Event_PropTypeCondition : public Condition_1a2ff0 {
     Event_PropTypeCondition();
     virtual void f();
 };
-extern void* g_vftable_1a3010[];
+extern void* hulk_at_0041c590[];
 class Str_1a3010 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class Condition_1a3010 {
   public:
     void* vptr;
     char pad[12];
     Str_1a3010 s;
-    void Fin();
+    void Fin_002345b0();
 };
 class Event_PropTypeCondition_1a3010 : public Condition_1a3010 {
   public:
     ~Event_PropTypeCondition_1a3010();
 };
-extern int* gTable_1a3050;
+extern int* hulk_at_004e1740;
 class CCondition_1a3050 {
   public:
     virtual int vfunc_0(int);
 };
-extern void* g_vftable_1a3080[];
+extern void* hulk_at_0041c5b0[];
 struct Sub_1a3080 {
-    void Fin();
+    void Fin_0027af50();
 };
 class Condition_1a3080 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002345b0();
 };
 class Event_PropStateNameCondition_1a3080 : public Condition_1a3080 {
   public:
@@ -680,14 +680,14 @@ class Event_PropStateNameCondition_1a3080 : public Condition_1a3080 {
     Sub_1a3080 sub;
     void f();
 };
-extern int* gTable_1a30c0;
+extern int* hulk_at_004e1748;
 class CCondition_1a30c0 {
   public:
     virtual int vfunc_0(int);
 };
-extern void* g_vt_1a30f0[];
+extern void* hulk_at_0041c5d0[];
 struct Sub_1a30f0 {
-    void Fin() throw();
+    void Fin_0027af50() throw();
 };
 class Condition_1a30f0 {
   public:
@@ -700,7 +700,7 @@ class Event_PropNameCondition_1a30f0 : public Condition_1a30f0 {
     Sub_1a30f0 sub;
     ~Event_PropNameCondition_1a30f0() throw();
 };
-extern int* gTable_1a3130;
+extern int* hulk_at_004e1750;
 class CCondition_1a3130 {
   public:
     virtual int vfunc_0(int);
@@ -717,7 +717,7 @@ struct Track_1a31c0 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern int* gTable_1a3230;
+extern int* hulk_at_004e1758;
 class CCondition_1a3230 {
   public:
     virtual int vfunc_0(int);
@@ -773,7 +773,7 @@ class Obj_1a3bc0 {
     char Set(const char* p);
 };
 struct Holder { char pad[0xb0]; char *text; hulk_intptr FUN_001a3c30(const char *source); };
-extern "C" void freeMem(void*);
+extern "C" void freeMem_0008d340(void*);
 class Obj_1a3df0 {
     char pad[0xd0];
     char* text;
@@ -812,8 +812,8 @@ class Obj_1a4020 {
   public:
     bool set(const char* s);
 };
-extern "C" void freeBuf(void*);
-extern "C" void* allocBuf(hulk_uintptr);
+extern "C" void freeBuf_0008d340(void*);
+extern "C" void* allocBuf_0008d6d0(hulk_uintptr);
 class X_1a41e0 {
     char pad[0x11c];
     char* str;
@@ -870,7 +870,7 @@ class Obj_1a44f0 {
   public:
     unsigned char Set(const char* s);
 };
-extern "C" void __cdecl FreeMem(void*);
+extern "C" void __cdecl FreeMem_0008d340(void*);
 class Obj_1a45d0 {
     char pad[0x160];
     char* name;
@@ -902,14 +902,14 @@ class Holder_1a4990 {
 };
 typedef unsigned int u32_1a4a10;
 struct Inner_1a4a10 {
-    void run(hulk_uintptr);
+    void run_001cb770(hulk_uintptr);
 };
 struct GlobalObj_1a4a10 {
     char pad[0x30];
     Inner_1a4a10* inner;
 };
-extern GlobalObj_1a4a10* gObj_1a4a10;
-extern int RTTI1_1a4ac0, RTTI2;
+extern GlobalObj_1a4a10* hulk_at_004dd700;
+extern int hulk_at_00494b44, hulk_at_004c13d0;
 extern hulk_intptr FUN_00344e74(hulk_intptr, int, hulk_intptr, hulk_intptr, int);
 struct Result_1a4ac0 {
     int pad;
@@ -918,7 +918,7 @@ struct Result_1a4ac0 {
     int state;
 };
 struct Obj_1a4ac0 {
-    Result_1a4ac0* get();
+    Result_1a4ac0* get_001d03c0();
 };
 extern char DAT_00494b44;
 extern char DAT_004c13d0;
@@ -1049,12 +1049,12 @@ struct Object {
 extern char DAT_0049e11c;
 extern char DAT_004a0a40;
 struct Obj_1a5700 {
-    void M1(void*);
-    void M2();
-    void M3();
+    void M1_00222f40(void*);
+    void M2_00223fa0();
+    void M3_00223060();
 };
 struct Other_1a5700 {
-    void Call();
+    void Call_0003be00();
 };
 extern const float gScale_1a5750;
 class Animation {
@@ -1095,9 +1095,9 @@ class NISAnimationAction {
     Animation* first;
     char pad2[0x1e8];
     Animation* second;
-    void F1();
-    void F2(float);
-    char F3();
+    void F1_001a55d0();
+    void F2_001a5700(float);
+    char F3_001a5290();
 };
 struct Entry_1a57d0 {
     Node* n0;
@@ -1133,10 +1133,10 @@ class Ref {
     virtual void AddRef();
     virtual void Release();
 };
-extern void* Condition_1a5aa0_vftable[];
+extern void* hulk_at_0041c4d0[];
 class Condition_1a5aa0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class NodeIsNotRunningCondition_1a5aa0 : public Condition_1a5aa0 {
   public:
@@ -1145,8 +1145,8 @@ class NodeIsNotRunningCondition_1a5aa0 : public Condition_1a5aa0 {
 extern char threat_vftable_1a5ad0;
 struct Obj_1a5ad0 {
     int x;
-    void f1();
-    void f2();
+    void f1_0027af50();
+    void f2_002345b0();
 };
 extern void thunk_FUN_00267090(Obj_1a5ad0*);
 class Event_StringCondition_1a5ad0 {
@@ -1155,37 +1155,37 @@ class Event_StringCondition_1a5ad0 {
     char pad[0x0c];
     Event_StringCondition_1a5ad0* vfunc_5(unsigned char);
 };
-extern void* Condition_1a5b00_vftable[];
+extern void* hulk_at_0041c510[];
 class Condition_1a5b00 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class NodeShouldRunImmediatelyCondition_1a5b00 : public Condition_1a5b00 {
   public:
     NodeShouldRunImmediatelyCondition_1a5b00* vfunc_5(signed char flags);
 };
-extern void* Condition_1a5b30_vftable[];
+extern void* hulk_at_0041c530[];
 class Condition_1a5b30 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class Event_LocomotionStateNamePreviousCondition_1a5b30 : public Condition_1a5b30 {
   public:
     Event_LocomotionStateNamePreviousCondition_1a5b30* vfunc_5(signed char flags);
 };
-extern void* Condition_1a5b60_vftable[];
+extern void* hulk_at_0041c550[];
 class Condition_1a5b60 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class Event_LocomotionStateNameCondition_1a5b60 : public Condition_1a5b60 {
   public:
     Event_LocomotionStateNameCondition_1a5b60* vfunc_5(signed char flags);
 };
-extern void* Condition_1a5b90_vftable[];
+extern void* hulk_at_0041c570[];
 class Condition_1a5b90 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class Event_PropStateDescCondition_1a5b90 : public Condition_1a5b90 {
   public:
@@ -1194,8 +1194,8 @@ class Event_PropStateDescCondition_1a5b90 : public Condition_1a5b90 {
 extern char threat_vftable_1a5bc0;
 struct Obj_1a5bc0 {
     int x;
-    void f1();
-    void f2();
+    void f1_0027af50();
+    void f2_002345b0();
 };
 extern void thunk_FUN_00267090(Obj_1a5bc0*);
 class Event_PropTypeCondition_1a5bc0 {
@@ -1207,8 +1207,8 @@ class Event_PropTypeCondition_1a5bc0 {
 extern char threat_vftable_1a5bf0;
 struct Obj_1a5bf0 {
     int x;
-    void f1();
-    void f2();
+    void f1_0027af50();
+    void f2_002345b0();
 };
 extern void thunk_FUN_00267090(Obj_1a5bf0*);
 class Event_PropStateNameCondition_1a5bf0 {
@@ -1220,8 +1220,8 @@ class Event_PropStateNameCondition_1a5bf0 {
 extern char threat_vftable_1a5c20;
 struct Obj_1a5c20 {
     int x;
-    void f1();
-    void f2();
+    void f1_0027af50();
+    void f2_002345b0();
 };
 extern void thunk_FUN_00267090(Obj_1a5c20*);
 class Event_PropNameCondition_1a5c20 {
@@ -1232,10 +1232,10 @@ class Event_PropNameCondition_1a5c20 {
 };
 extern "C" char DAT_0041c5f0[];
 struct Helper_1a5c50 {
-    void Init();
+    void Init_0027af50();
 };
 struct TrackBase_1a5c50 {
-    void InitTrack();
+    void InitTrack_00236d60();
 };
 class EffectTrack {
   public:
@@ -1252,7 +1252,7 @@ class EffectTrack {
     virtual void v10();
     char pad[0x58 - 4];
 };
-void __cdecl Destroy(EffectTrack*);
+void __cdecl Destroy_0008d330(EffectTrack*);
 class X_1a5e20 {
   public:
     char pad[0x24];
@@ -1265,7 +1265,7 @@ class Y_1a5e20 {
     virtual void a();
     virtual void b();
 };
-extern void* g_vftable_1a5eb0[];
+extern void* hulk_at_0041c668[];
 class Ref_1a5eb0 {
   public:
     virtual void F0();
@@ -1537,8 +1537,8 @@ extern "C" char DAT_004a15cc[];
 extern "C" char DAT_004c26a4[];
 extern int __cdecl Find(owners::Obj_1a6e50*, int, const char*, const char*, int);
 extern "C" int Compare(void*, int, const char*, const char*, int);
-extern const char g1_1a6e90[];
-extern const char g2_1a6e90[];
+extern const char hulk_at_0048d5bc[];
+extern const char hulk_at_0049e11c[];
 typedef unsigned int u32_1a6ee0;
 extern void __cdecl Cast(hulk_uintptr, int, const int*, const int*, int);
 typedef unsigned int u32_1a6f10;
@@ -1555,17 +1555,17 @@ class Obj_1a8cb0 {
     Item_1a8cb0* c;
     Item_1a8cb0* d;
     Item_1a8cb0* e;
-    void Init();
+    void Init_001a5d50();
     void Clear();
 };
-extern void* g_vt_1a8db0[];
+extern void* hulk_at_0041cf24[];
 class Ref_1a8db0 {
   public:
     virtual void F0();
     virtual void Release();
 };
 struct El {
-    void Fin() throw();
+    void Fin_001a5d50() throw();
     int p0;
     Ref_1a8db0* r1;
     Ref_1a8db0* r2;
@@ -1595,14 +1595,14 @@ struct Obj31 {
 struct Mgr_1a8ee0 {
 };
 struct Hnd {
-    void Rel();
+    void Rel_002080b0();
 };
 struct Ent_1a8ee0 {
     char p[0xa8];
     char f;
 };
 struct Hulk {
-    void Fn2(int);
+    void Fn2_0003dd00(int);
 };
 struct Sub_1a8ee0 {
     char p[0x124];
@@ -1616,7 +1616,7 @@ struct Gl {
 };
 extern Gl* g_1a8ee0;
 struct NISAnimationAction_nv_1a8ee0 {
-    void Inner();
+    void Inner_001a8e60();
 };
 class Track_1a8f50 {
   public:
@@ -1635,9 +1635,9 @@ class Track_1a8f50 {
 class Param_1a8f50 {};
 class EffectAction_1a8f50 {
   public:
-    int Call(hulkfight::scenario::EffectTrack*, hulk_intptr);
+    int Call_001a5e50(hulkfight::scenario::EffectTrack*, hulk_intptr);
 };
-extern EffectAction_1a8f50* GetThing(int);
+extern EffectAction_1a8f50* GetThing_0008d690(int);
 extern void* g_vftable_1a8f80[];
 class Ref_1a8f80 {
   public:
@@ -1660,19 +1660,19 @@ class EffectAction_1a8f80 {
 };
 extern void __cdecl thunk_FUN_00267090(EffectAction*);
 struct Obj_1a9260 {
-    Obj_1a9260* Get();
+    Obj_1a9260* Get_00231640();
     Obj_1a9260* Target();
 };
 extern int __cdecl FUN_00344e74(Obj_1a9260*, int, void*, void*, int);
 extern void* g1_1a9260;
-extern void* g2_1a9260;
+extern void* hulk_at_004a15cc;
 struct Obj_1a92a0 {
-    Obj_1a92a0* Get();
+    Obj_1a92a0* Get_00231640();
     Obj_1a92a0* Target();
 };
 extern int __cdecl FUN_00344e74(Obj_1a92a0*, int, void*, void*, int);
 extern void* g1_1a92a0;
-extern void* g2_1a92a0;
+extern void* hulk_at_004c26a4;
 extern int __cdecl FUN_00344e74(owners::Obj_1a92e0*, int, void*, void*, int);
 extern void* g1_1a92e0;
 extern void* g2_1a92e0;
@@ -1703,33 +1703,33 @@ class ConditionFactoryCasterTemplate_1a9560 {
 };
 class Owner {
   public:
-    void Apply(void*);
-    void Use(void*);
-    void accept(void*);
+    void Apply_00236760(void*);
+    void Use_00236760(void*);
+    void accept_002367c0(void*);
 };
 extern "C" void* __cdecl FUN_002343e0(void*, ConditionFactoryCasterTemplate_1a9560*);
 class ConditionFactoryCasterTemplate_1a9590 {
   public:
     virtual void Cast();
 };
-void* __cdecl Find(void*, ConditionFactoryCasterTemplate_1a9590*);
+void* __cdecl Find_002343e0(void*, ConditionFactoryCasterTemplate_1a9590*);
 class ConditionFactoryCasterTemplate_1a95c0 {
   public:
     virtual void Cast();
 };
-void* __cdecl Find(void*, ConditionFactoryCasterTemplate_1a95c0*);
+void* __cdecl Find_002343e0(void*, ConditionFactoryCasterTemplate_1a95c0*);
 class ConditionFactoryCasterTemplate_1a9620 {
   public:
     virtual void F();
 };
-void* __cdecl Find(char*, ConditionFactoryCasterTemplate_1a9620*);
+void* __cdecl Find_002343e0(char*, ConditionFactoryCasterTemplate_1a9620*);
 class ConditionFactoryCasterTemplate_1a96b0 {
   public:
     virtual void Cast();
 };
 class Receiver {
   public:
-    void Apply(void*);
+    void Apply_00236760(void*);
 };
 extern "C++" __declspec(nothrow) void* FUN_002343e0(void*, ConditionFactoryCasterTemplate_1a96b0*);
 class ConditionFactoryCasterTemplate_1a9740 {
@@ -1749,13 +1749,13 @@ class Obj {
     unsigned int FUN_001a2060(const Angles *angles);
     char Set(float);
     bool Set(int x);
-    void set(void*);
-    void Apply(void*);
-    void Do(void*);
-    void* Get(ConditionFactoryCasterTemplate_1a9740*);
-    void Find(void*);
+    void set_00236760(void*);
+    void Apply_00236760(void*);
+    void Do_00236760(void*);
+    void* Get_00236760(ConditionFactoryCasterTemplate_1a9740*);
+    void Find_002367c0(void*);
 };
-extern ConditionFactoryCasterTemplate_1a9740* __cdecl Lookup(void*, ConditionFactoryCasterTemplate_1a9740*);
+extern ConditionFactoryCasterTemplate_1a9740* __cdecl Lookup_002343e0(void*, ConditionFactoryCasterTemplate_1a9740*);
 class TrackFactoryCasterTemplate_1a97d0 {
   public:
     virtual void Cast();
@@ -1783,7 +1783,7 @@ class Track_1a9ac0 {
 class Param_1a9ac0 {};
 class NISAnimationAction_1a9ac0 {
   public:
-    int helper(hulk_intptr, hulk_intptr);
+    int helper_001a8d10(hulk_intptr, hulk_intptr);
 };
 extern "C" void* __cdecl FUN_0008d690(int);
 } // namespace fn_fc5dbd2a
@@ -1811,13 +1811,13 @@ class Factory_1aa440 {
 };
 class Node_1aa440 {
   public:
-    void Init(int);
+    void Init_00234590(int);
 };
-extern int g_vftable_1aa470;
+extern int hulk_at_0041d05c;
 struct ConditionFactoryTemplate_1aa470 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_001a2d50();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 class TrackFactoryTemplate_1aa4a0 {
@@ -1848,11 +1848,11 @@ struct Cond_1aa4e0 : Base_1aa4e0 {
     virtual void e();
     virtual Base_1aa4e0* f();
 };
-extern int g_vftable_1aa510;
+extern int hulk_at_0041d078;
 struct ConditionFactoryTemplate_1aa510 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_001a2e20();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 class TrackFactoryTemplate_1aa540 {
@@ -1863,11 +1863,11 @@ class TrackFactoryTemplate_1aa540 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_1aa5c0;
+extern int hulk_at_0041d094;
 struct ConditionFactoryTemplate_1aa5c0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_001a2e80();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 class TrackFactoryTemplate_1aa5f0 {
@@ -1888,17 +1888,17 @@ class Event_1aa630 {
     virtual void V3();
     virtual void V4();
     virtual void V5();
-    void Init(int);
+    void Init_00234590(int);
     int a;
     int b;
     int c;
     int d;
 };
-extern int g_vftable_1aa670;
+extern int hulk_at_0041d0b0;
 struct ConditionFactoryTemplate_1aa670 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_001a2ef0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 class TrackFactoryTemplate_1aa6a0 {
@@ -1926,11 +1926,11 @@ class Event_PropStateDescCondition_1aa6e0 : public Condition_1aa6e0 {
     Event_PropStateDescCondition_1aa6e0() throw() : Condition_1aa6e0(0) { val = 0; }
     virtual void a();
 };
-extern int g_vftable_1aa710;
+extern int hulk_at_0041d0cc;
 struct ConditionFactoryTemplate_1aa710 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_001a2f60();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 class TrackFactoryTemplate_1aa740 {
@@ -1943,9 +1943,9 @@ class TrackFactoryTemplate_1aa740 {
 };
 class Track_1aa780 {
   public:
-    hulk_intptr make();
+    hulk_intptr make_001a3240();
 };
-extern int g_vftable_1aa7a0;
+extern int hulk_at_0041d0e8;
 class TrackFactoryTemplate_1aa9d0 {
   public:
     TrackFactoryTemplate_1aa9d0() {}
@@ -1954,11 +1954,11 @@ class TrackFactoryTemplate_1aa9d0 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_1aaa40;
+extern int hulk_at_0041d10c;
 struct ConditionFactoryTemplate_1aaa40 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_001a2db0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 class TrackFactoryTemplate_1aaa70 {
@@ -1972,7 +1972,7 @@ class TrackFactoryTemplate_1aaa70 {
 extern char VT_1aaab0[];
 class Sub_1aaab0 {
   public:
-    void Init();
+    void Init_0027af00();
 };
 class Event_PropTypeCondition_1aaab0 {
   public:
@@ -1986,11 +1986,11 @@ class Event_PropTypeCondition_1aaab0 {
     Sub_1aaab0 sub;
     Event_PropTypeCondition_1aaab0(int);
 };
-extern int g_vftable_1aaae0;
+extern int hulk_at_0041d128;
 struct ConditionFactoryTemplate_1aaae0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_001a2fc0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 class TrackFactoryTemplate_1aab10 {
@@ -2003,16 +2003,16 @@ class TrackFactoryTemplate_1aab10 {
 };
 extern "C" char DAT_0041c5b0[];
 struct Event_1aab50 {
-    void Init(int);
+    void Init_00234590(int);
 };
 struct Tail_1aab50 {
-    void Run();
+    void Run_0027af00();
 };
-extern int g_vftable_1aab80;
+extern int hulk_at_0041d144;
 struct ConditionFactoryTemplate_1aab80 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_001a3030();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 class TrackFactoryTemplate_1aabb0 {
@@ -2023,11 +2023,11 @@ class TrackFactoryTemplate_1aabb0 {
     int mPad;
     TrackImpl mTrack;
 };
-extern int g_vftable_1aac20;
+extern int hulk_at_0041d160;
 struct ConditionFactoryTemplate_1aac20 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_001a30a0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 class TrackFactoryTemplate_1aac50 {
@@ -2956,7 +2956,7 @@ void FUN_001a2d50() {
 // sym: ?vfunc_0@NodeIsNotRunningCondition@scenario@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::scenario::NodeIsNotRunningCondition::vfunc_0(int index) {
-    int* p = gTable_1a2d70;
+    int* p = hulk_at_004e1708;
     return p[index];
 }
 
@@ -2975,7 +2975,7 @@ void FUN_001a2db0() {
 // sym: ?vfunc_0@Event_StringCondition@scenario@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::scenario::Event_StringCondition::vfunc_0(int index) {
-    int* p = gTable_1a2dd0;
+    int* p = hulk_at_004e1710;
     return p[index];
 }
 
@@ -2984,8 +2984,8 @@ namespace fn_fc5dbd2a {
 // 0x001a2e00 FUN_001a2e00 (25 B): matches/0x001a2e00.cpp
 // sym: ??1Event_StringCondition_1a2e00@fn_fc5dbd2a@@QAE@XZ
 Event_StringCondition_1a2e00::~Event_StringCondition_1a2e00() throw() {
-    vptr = g_vt_1a2e00;
-    sub.Fin();
+    vptr = hulk_at_0041c4f0;
+    sub.Fin_0027af50();
 }
 
 
@@ -3002,7 +3002,7 @@ void FUN_001a2e20() {
 // sym: ?vfunc_0@NodeShouldRunImmediatelyCondition@scenario@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::scenario::NodeShouldRunImmediatelyCondition::vfunc_0(int index) {
-    int* p = gTable_1a2e40;
+    int* p = hulk_at_004e1718;
     return p[index];
 }
 
@@ -3021,7 +3021,7 @@ void FUN_001a2e80() {
 // sym: ?vfunc_0@Event_LocomotionStateNamePreviousCondition@scenario@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::scenario::Event_LocomotionStateNamePreviousCondition::vfunc_0(int index) {
-    int* p = gTable_1a2ea0;
+    int* p = hulk_at_004e1720;
     return p[index];
 }
 
@@ -3040,7 +3040,7 @@ void FUN_001a2ef0() {
 // sym: ?vfunc_0@Event_LocomotionStateNameCondition@scenario@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::scenario::Event_LocomotionStateNameCondition::vfunc_0(int index) {
-    int* p = gTable_1a2f10;
+    int* p = hulk_at_004e1728;
     return p[index];
 }
 
@@ -3059,7 +3059,7 @@ void FUN_001a2f60() {
 // sym: ?vfunc_0@Event_PropStateDescCondition@scenario@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::scenario::Event_PropStateDescCondition::vfunc_0(int index) {
-    int* p = gTable_1a2f80;
+    int* p = hulk_at_004e1730;
     return p[index];
 }
 
@@ -3078,7 +3078,7 @@ void FUN_001a2fc0() {
 // sym: ?vfunc_0@Event_PropTypeCondition@scenario@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::scenario::Event_PropTypeCondition::vfunc_0(int index) {
-    int* p = gTable_1a2fe0;
+    int* p = hulk_at_004e1738;
     return p[index];
 }
 
@@ -3092,9 +3092,9 @@ Event_PropTypeCondition::Event_PropTypeCondition() : Condition_1a2ff0(0), part()
 // 0x001a3010 FUN_001a3010 (25 B): matches/0x001a3010.cpp
 // sym: ??1Event_PropTypeCondition_1a3010@fn_fc5dbd2a@@QAE@XZ
 Event_PropTypeCondition_1a3010::~Event_PropTypeCondition_1a3010() {
-    vptr = g_vftable_1a3010;
-    s.Init();
-    Fin();
+    vptr = hulk_at_0041c590;
+    s.Init_0027af50();
+    Fin_002345b0();
 }
 
 
@@ -3111,7 +3111,7 @@ void FUN_001a3030() {
 // sym: ?vfunc_0@Event_PropStateNameCondition@scenario@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::scenario::Event_PropStateNameCondition::vfunc_0(int index) {
-    int* p = gTable_1a3050;
+    int* p = hulk_at_004e1740;
     return p[index];
 }
 
@@ -3120,9 +3120,9 @@ namespace fn_fc5dbd2a {
 // 0x001a3080 FUN_001a3080 (25 B): matches/0x001a3080.cpp
 // sym: ?f@Event_PropStateNameCondition_1a3080@fn_fc5dbd2a@@QAEXXZ
 void Event_PropStateNameCondition_1a3080::f() {
-    vptr = g_vftable_1a3080;
-    sub.Fin();
-    Fin();
+    vptr = hulk_at_0041c5b0;
+    sub.Fin_0027af50();
+    Fin_002345b0();
 }
 
 
@@ -3139,7 +3139,7 @@ void FUN_001a30a0() {
 // sym: ?vfunc_0@Event_PropNameCondition@scenario@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::scenario::Event_PropNameCondition::vfunc_0(int index) {
-    int* p = gTable_1a30c0;
+    int* p = hulk_at_004e1748;
     return p[index];
 }
 
@@ -3148,8 +3148,8 @@ namespace fn_fc5dbd2a {
 // 0x001a30f0 FUN_001a30f0 (25 B): matches/0x001a30f0.cpp
 // sym: ??1Event_PropNameCondition_1a30f0@fn_fc5dbd2a@@QAE@XZ
 Event_PropNameCondition_1a30f0::~Event_PropNameCondition_1a30f0() throw() {
-    vptr = g_vt_1a30f0;
-    sub.Fin();
+    vptr = hulk_at_0041c5d0;
+    sub.Fin_0027af50();
 }
 
 
@@ -3166,7 +3166,7 @@ void FUN_001a3110() {
 // sym: ?vfunc_0@EffectTrack@scenario@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::scenario::EffectTrack::vfunc_0(int index) {
-    int* p = gTable_1a3130;
+    int* p = hulk_at_004e1750;
     return p[index];
 }
 
@@ -3303,7 +3303,7 @@ void FUN_001a3210() {
 // sym: ?vfunc_0@NISAnimationTrack@scenario@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::scenario::NISAnimationTrack::vfunc_0(int index) {
-    int* p = gTable_1a3230;
+    int* p = hulk_at_004e1758;
     return p[index];
 }
 
@@ -3407,7 +3407,7 @@ void FUN_0008d340(void*) throw();
 class Track_1a34f0 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00236d60();
 };
 class NISAnimationTrack_1a34f0 : public Track_1a34f0 {
   public:
@@ -3521,7 +3521,7 @@ NISAnimationTrack_1a34f0::~NISAnimationTrack_1a34f0() throw() {
     FUN_0008d340(m180);
     FUN_0008d340(m18c);
     FUN_0008d340(m190);
-    Fin();
+    Fin_00236d60();
 }
 } // namespace fn_001a34f0
 
@@ -3629,8 +3629,8 @@ char Obj::set(const char* s) {
 // 0x001a3930 FUN_001a3930 (82 B): matches/0x001a3930.cpp [wrapped: conflict: Obj]
 // sym: ?Set@Obj@fn_001a3930@@QAEDPBD@Z
 namespace fn_001a3930 {
-extern "C++" __declspec(nothrow) void release(void*);
-extern "C++" __declspec(nothrow) void* alloc(hulk_uintptr);
+extern "C++" __declspec(nothrow) void release_0008d340(void*);
+extern "C++" __declspec(nothrow) void* alloc_0008d6d0(hulk_uintptr);
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" unsigned int strlen(const char*);
@@ -3649,12 +3649,12 @@ class Obj {
     char Set(const char* s);
 };
 char Obj::Set(const char* s) {
-    release(text);
+    release_0008d340(text);
     if (!s) {
         text = 0;
         return 1;
     }
-    text = (char*)alloc(strlen(s) + 1);
+    text = (char*)alloc_0008d6d0(strlen(s) + 1);
     strcpy(text, s);
     return 1;
 }
@@ -3881,7 +3881,7 @@ namespace fn_fc5dbd2a {
 // 0x001a3df0 FUN_001a3df0 (97 B): matches/0x001a3df0.cpp
 // sym: ?SetText@Obj_1a3df0@fn_fc5dbd2a@@QAEDPBD@Z
 char Obj_1a3df0::SetText(const char* s) {
-    freeMem(text);
+    freeMem_0008d340(text);
     if (!s) {
         text = 0;
         return 1;
@@ -4065,12 +4065,12 @@ namespace fn_fc5dbd2a {
 // 0x001a41e0 FUN_001a41e0 (97 B): matches/0x001a41e0.cpp
 // sym: ?Set@X_1a41e0@fn_fc5dbd2a@@QAEEPBD@Z
 unsigned char X_1a41e0::Set(const char* s) {
-    freeBuf(str);
+    freeBuf_0008d340(str);
     if (!s) {
         str = 0;
         return 1;
     }
-    str = (char*)allocBuf(strlen(s) + 1);
+    str = (char*)allocBuf_0008d6d0(strlen(s) + 1);
     strcpy(str, s);
     return 1;
 }
@@ -4226,7 +4226,7 @@ namespace fn_fc5dbd2a {
 // 0x001a45d0 FUN_001a45d0 (97 B): matches/0x001a45d0.cpp
 // sym: ?SetName@Obj_1a45d0@fn_fc5dbd2a@@QAEEPBD@Z
 unsigned char Obj_1a45d0::SetName(const char* s) {
-    FreeMem(name);
+    FreeMem_0008d340(name);
     if (!s) {
         name = 0;
         return 1;
@@ -4452,7 +4452,7 @@ struct NodeIsNotRunningCondition {
 };
 extern int FUN_00344e74(void*, int, const void*, const void*, int);
 struct Runner_1a49c0 {
-    bool run(int);
+    bool run_001cb930(int);
 };
 struct World {
     char pad[0x30];
@@ -4464,7 +4464,7 @@ bool NodeIsNotRunningCondition::vfunc_6(void* arg, void*, void*) {
     bool result = false;
     int value = FUN_00344e74(arg, 0, &DAT_0048e090, &DAT_0048e0ac, 0);
     if (value)
-        result = DAT_004dd700->runner->run(value);
+        result = DAT_004dd700->runner->run_001cb930(value);
     return result != mValue;
 }
 } // namespace fn_001a49c0
@@ -4478,7 +4478,7 @@ bool NodeIsNotRunningCondition::vfunc_6(void* arg, void*, void*) {
  // namespace hulkfight
 bool hulkfight::scenario::NodeShouldRunImmediatelyCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_uintptr a = (hulk_uintptr)__p0; hulk_uintptr b = (hulk_uintptr)__p1; hulk_uintptr c = (hulk_uintptr)__p2;
 
-    gObj_1a4a10->inner->run(a);
+    hulk_at_004dd700->inner->run_001cb770(a);
     return true;
 }
 
@@ -4544,10 +4544,10 @@ bool hulkfight::scenario::Event_PropNameCondition::vfunc_6(int a, fight::Params 
 // sym: ?vfunc_6@Event_PropStateDescCondition@scenario@hulkfight@@UAE_NPAX00@Z
 bool hulkfight::scenario::Event_PropStateDescCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; hulk_intptr b = (hulk_intptr)__p1; hulk_intptr c = (hulk_intptr)__p2;
 
-    Obj_1a4ac0* x = (Obj_1a4ac0*)FUN_00344e74(b, 0, (hulk_intptr)&RTTI1_1a4ac0, (hulk_intptr)&RTTI2, 0);
+    Obj_1a4ac0* x = (Obj_1a4ac0*)FUN_00344e74(b, 0, (hulk_intptr)&hulk_at_00494b44, (hulk_intptr)&hulk_at_004c13d0, 0);
     if (!x)
         return false;
-    Result_1a4ac0* r = x->get();
+    Result_1a4ac0* r = x->get_001d03c0();
     if (r->type != 0x17)
         return false;
     if (r->state == this->f_0c)
@@ -4751,12 +4751,12 @@ void owners::Item_1a5700::FUN_001a5700(void* arg) {
     unsigned char* p = (unsigned char*)this + 0x34;
     for (int i = 0; i < 20; i++, p += 0x18) {
         if (*(p - 8) && *(Obj_1a5700**)p) {
-            (*(Obj_1a5700**)p)->M1(arg);
-            (*(Obj_1a5700**)p)->M2();
+            (*(Obj_1a5700**)p)->M1_00222f40(arg);
+            (*(Obj_1a5700**)p)->M2_00223fa0();
             Other_1a5700* o = *(Other_1a5700**)(p + 4);
             if (o)
-                o->Call();
-            (*(Obj_1a5700**)p)->M3();
+                o->Call_0003be00();
+            (*(Obj_1a5700**)p)->M3_00223060();
         }
     }
 }
@@ -4768,12 +4768,12 @@ namespace fn_fc5dbd2a {
 char NISAnimationAction::vfunc_5(float unused, float dt) {
     if (first && !first->Ready()) {
         first->Play(dt * 1000.0f, 1);
-        F1();
+        F1_001a55d0();
     }
     if (second)
         second->Play(dt * 1000.0f, 1);
-    F2(dt);
-    return !F3();
+    F2_001a5700(dt);
+    return !F3_001a5290();
 }
 
 
@@ -4938,8 +4938,8 @@ void Set(Ref** slot, Ref* value) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 NodeIsNotRunningCondition_1a5aa0* NodeIsNotRunningCondition_1a5aa0::vfunc_5(signed char flags) {
-    *(void***)this = Condition_1a5aa0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041c4d0;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -4953,8 +4953,8 @@ NodeIsNotRunningCondition_1a5aa0* NodeIsNotRunningCondition_1a5aa0::vfunc_5(sign
 Event_StringCondition_1a5ad0* Event_StringCondition_1a5ad0::vfunc_5(unsigned char param) {
     Event_StringCondition_1a5ad0* p = this;
     *(char**)p = &threat_vftable_1a5ad0;
-    ((Obj_1a5ad0*)((char*)p + 0x10))->f1();
-    ((Obj_1a5ad0*)p)->f2();
+    ((Obj_1a5ad0*)((char*)p + 0x10))->f1_0027af50();
+    ((Obj_1a5ad0*)p)->f2_002345b0();
     if (param & 1)
         thunk_FUN_00267090((Obj_1a5ad0*)p);
     return p;
@@ -4967,8 +4967,8 @@ Event_StringCondition_1a5ad0* Event_StringCondition_1a5ad0::vfunc_5(unsigned cha
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 NodeShouldRunImmediatelyCondition_1a5b00* NodeShouldRunImmediatelyCondition_1a5b00::vfunc_5(signed char flags) {
-    *(void***)this = Condition_1a5b00_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041c510;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -4982,8 +4982,8 @@ NodeShouldRunImmediatelyCondition_1a5b00* NodeShouldRunImmediatelyCondition_1a5b
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 Event_LocomotionStateNamePreviousCondition_1a5b30* Event_LocomotionStateNamePreviousCondition_1a5b30::vfunc_5(signed char flags) {
-    *(void***)this = Condition_1a5b30_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041c530;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -4997,8 +4997,8 @@ Event_LocomotionStateNamePreviousCondition_1a5b30* Event_LocomotionStateNamePrev
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 Event_LocomotionStateNameCondition_1a5b60* Event_LocomotionStateNameCondition_1a5b60::vfunc_5(signed char flags) {
-    *(void***)this = Condition_1a5b60_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041c550;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -5012,8 +5012,8 @@ Event_LocomotionStateNameCondition_1a5b60* Event_LocomotionStateNameCondition_1a
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 Event_PropStateDescCondition_1a5b90* Event_PropStateDescCondition_1a5b90::vfunc_5(signed char flags) {
-    *(void***)this = Condition_1a5b90_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0041c570;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -5027,8 +5027,8 @@ Event_PropStateDescCondition_1a5b90* Event_PropStateDescCondition_1a5b90::vfunc_
 Event_PropTypeCondition_1a5bc0* Event_PropTypeCondition_1a5bc0::vfunc_5(unsigned char param) {
     Event_PropTypeCondition_1a5bc0* p = this;
     *(char**)p = &threat_vftable_1a5bc0;
-    ((Obj_1a5bc0*)((char*)p + 0x10))->f1();
-    ((Obj_1a5bc0*)p)->f2();
+    ((Obj_1a5bc0*)((char*)p + 0x10))->f1_0027af50();
+    ((Obj_1a5bc0*)p)->f2_002345b0();
     if (param & 1)
         thunk_FUN_00267090((Obj_1a5bc0*)p);
     return p;
@@ -5041,8 +5041,8 @@ Event_PropTypeCondition_1a5bc0* Event_PropTypeCondition_1a5bc0::vfunc_5(unsigned
 Event_PropStateNameCondition_1a5bf0* Event_PropStateNameCondition_1a5bf0::vfunc_5(unsigned char param) {
     Event_PropStateNameCondition_1a5bf0* p = this;
     *(char**)p = &threat_vftable_1a5bf0;
-    ((Obj_1a5bf0*)((char*)p + 0x10))->f1();
-    ((Obj_1a5bf0*)p)->f2();
+    ((Obj_1a5bf0*)((char*)p + 0x10))->f1_0027af50();
+    ((Obj_1a5bf0*)p)->f2_002345b0();
     if (param & 1)
         thunk_FUN_00267090((Obj_1a5bf0*)p);
     return p;
@@ -5055,8 +5055,8 @@ Event_PropStateNameCondition_1a5bf0* Event_PropStateNameCondition_1a5bf0::vfunc_
 Event_PropNameCondition_1a5c20* Event_PropNameCondition_1a5c20::vfunc_5(unsigned char param) {
     Event_PropNameCondition_1a5c20* p = this;
     *(char**)p = &threat_vftable_1a5c20;
-    ((Obj_1a5c20*)((char*)p + 0x10))->f1();
-    ((Obj_1a5c20*)p)->f2();
+    ((Obj_1a5c20*)((char*)p + 0x10))->f1_0027af50();
+    ((Obj_1a5c20*)p)->f2_002345b0();
     if (param & 1)
         thunk_FUN_00267090((Obj_1a5c20*)p);
     return p;
@@ -5067,13 +5067,13 @@ Event_PropNameCondition_1a5c20* Event_PropNameCondition_1a5c20::vfunc_5(unsigned
 // sym: ?vfunc_5@EffectTrack@fn_fc5dbd2a@@UAEPAV12@E@Z
 EffectTrack* EffectTrack::vfunc_5(unsigned char flag) {
     *(hulk_ulongptr*)this = ((hulk_intptr)DAT_0041c5f0);
-    ((Helper_1a5c50*)((char*)this + 0x58))->Init();
-    ((Helper_1a5c50*)((char*)this + 0x30))->Init();
-    ((Helper_1a5c50*)((char*)this + 0x20))->Init();
-    ((Helper_1a5c50*)((char*)this + 0x18))->Init();
-    ((TrackBase_1a5c50*)this)->InitTrack();
+    ((Helper_1a5c50*)((char*)this + 0x58))->Init_0027af50();
+    ((Helper_1a5c50*)((char*)this + 0x30))->Init_0027af50();
+    ((Helper_1a5c50*)((char*)this + 0x20))->Init_0027af50();
+    ((Helper_1a5c50*)((char*)this + 0x18))->Init_0027af50();
+    ((TrackBase_1a5c50*)this)->InitTrack_00236d60();
     if (flag & 1)
-        Destroy(this);
+        Destroy_0008d330(this);
     return this;
 }
 
@@ -5328,7 +5328,7 @@ namespace fn_fc5dbd2a {
 // 0x001a5eb0 FUN_001a5eb0 (69 B): matches/0x001a5eb0.cpp
 // sym: ??1EffectAction_1a5eb0@fn_fc5dbd2a@@QAE@XZ
 EffectAction_1a5eb0::~EffectAction_1a5eb0() {
-    vptr = g_vftable_1a5eb0;
+    vptr = hulk_at_0041c668;
     _ReadWriteBarrier();
     if (m28) {
         m28->Release();
@@ -6019,7 +6019,7 @@ template <> fight::ParamBool<hulkfight::scenario::NodeShouldRunImmediatelyCondit
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VEvent_LocomotionStateNamePreviousCondition@scenario@hulkfight@fn_001a6ac0@@@fight@fn_001a6ac0@@UAE_NPAX@Z
 namespace fn_001a6ac0 {
 extern int __cdecl castCheck(void*, int, void*, void*, int);
-extern int a, b;
+extern int hulk_at_00491ca8, hulk_at_004c20d0;
 namespace fight {
 class ConditionFactoryCaster {
   public:
@@ -6040,7 +6040,7 @@ class Event_LocomotionStateNamePreviousCondition;
 template <>
 bool fight::ConditionFactoryCasterTemplate<
     hulkfight::scenario::Event_LocomotionStateNamePreviousCondition>::vfunc_0(void* p) {
-    return castCheck(p, 0, &a, &b, 0) != 0;
+    return castCheck(p, 0, &hulk_at_00491ca8, &hulk_at_004c20d0, 0) != 0;
 }
 } // namespace fn_001a6ac0
 
@@ -6073,11 +6073,11 @@ class Event_LocomotionStateNameCondition {};
 } // namespace scenario
 } // namespace hulkfight
 extern void* g1;
-extern void* g2;
+extern void* hulk_at_004c21b0;
 template <>
 bool fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Event_LocomotionStateNameCondition>::vfunc_0(
     void* p) {
-    return FUN_00344e74(p, 0, &g1, &g2, 0) != 0;
+    return FUN_00344e74(p, 0, &g1, &hulk_at_004c21b0, 0) != 0;
 }
 } // namespace fn_001a6b20
 
@@ -6151,11 +6151,11 @@ namespace scenario {
 class EffectTrack {};
 } // namespace scenario
 } // namespace hulkfight
-extern int A;
-extern int B;
+extern int hulk_at_0049850c;
+extern int hulk_at_004c25a0;
 extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(void*, int, int*, int*, int);
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::scenario::EffectTrack>::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &A, &B, 0) != 0;
+    return FUN_00344e74(p, 0, &hulk_at_0049850c, &hulk_at_004c25a0, 0) != 0;
 }
 } // namespace fn_001a6ca0
 
@@ -6250,7 +6250,7 @@ owners::Obj_1a6e50* owners::Obj_1a6e50::FUN_001a6e50() {
 void* owners::Obj_1a6e90::FUN_001a6e90() {
     void* p = Get();
     while (p) {
-        if (Compare(p, 0, g1_1a6e90, g2_1a6e90, 0))
+        if (Compare(p, 0, hulk_at_0048d5bc, hulk_at_0049e11c, 0))
             break;
         p = Get();
     }
@@ -6402,17 +6402,17 @@ class ParamEnumConstList_1a7170 : public ParamValueEnum_1a7170 {
     void* fn;
     int pad2;
 };
-extern char gFunc[];
-extern void __cdecl Register(void*, void**, int) throw();
+extern char hulk_at_001a1f40[];
+extern void __cdecl Register_002347b0(void*, void**, int) throw();
 ParamEnumConstList_1a7170::ParamEnumConstList_1a7170(const char* n) throw() : ParamValueEnum_1a7170(n) {
     tbl = ((char*)&DAT_004c165c);
     count = 8;
-    fn = gFunc;
+    fn = hulk_at_001a1f40;
 }
 void target() {
     if (!(*(int*)&DAT_004e1734)) {
         ParamEnumConstList_1a7170* p = new ParamEnumConstList_1a7170("stateDesc");
-        Register(((char*)&DAT_004e1730), (void**)&p, 1);
+        Register_002347b0(((char*)&DAT_004e1730), (void**)&p, 1);
     }
     ++(*(int*)&DAT_004e1734);
 }
@@ -6515,7 +6515,7 @@ namespace fn_fc5dbd2a {
 // 0x001a8cb0 FUN_001a8cb0 (89 B): matches/0x001a8cb0.cpp
 // sym: ?Clear@Obj_1a8cb0@fn_fc5dbd2a@@QAEXXZ
 void Obj_1a8cb0::Clear() {
-    Init();
+    Init_001a5d50();
     if (a) {
         a->B();
         a = 0;
@@ -6644,7 +6644,7 @@ namespace fn_fc5dbd2a {
 // sym: ??1NISAnimationAction_1a8db0@fn_fc5dbd2a@@QAE@XZ
 // data: g_cur_1a8db0 = DAT_004e1760
 NISAnimationAction_1a8db0::~NISAnimationAction_1a8db0() throw() {
-    vptr = g_vt_1a8db0;
+    vptr = hulk_at_0041cf24;
     if ((*(NISAnimationAction_1a8db0**)&DAT_004e1760) == this)
         (*(NISAnimationAction_1a8db0**)&DAT_004e1760) = 0;
     if (m20) {
@@ -6657,7 +6657,7 @@ NISAnimationAction_1a8db0::~NISAnimationAction_1a8db0() throw() {
     int n = 20;
     do {
         p--;
-        p->Fin();
+        p->Fin_001a5d50();
         if (p->r1) {
             p->r1->Release();
             p->r1 = 0;
@@ -6780,15 +6780,15 @@ void Owner_1a8e60::FUN_001a8e60()
 // sym: ?vfunc_4@NISAnimationAction@scenario@hulkfight@@UAEXXZ
 void hulkfight::scenario::NISAnimationAction::vfunc_4() {
     ((Obj31 *)((owners::Obj_86290 *)(g_1a8ee0->m))->FUN_00086290())->f = 1;
-    ((NISAnimationAction_nv_1a8ee0*)this)->Inner();
+    ((NISAnimationAction_nv_1a8ee0*)this)->Inner_001a8e60();
     if (this->f_214) {
-        (*(Hnd * *)&this->f_20c)->Rel();
+        (*(Hnd * *)&this->f_20c)->Rel_002080b0();
         this->f_214 = 0;
     }
     Hulk* x = g_1a8ee0->s->h;
     if (x) {
         ((Ent_1a8ee0 *)((owners::Obj_36a80 *)x)->FUN_00036a80(1))->f = 1;
-        x->Fn2(0);
+        x->Fn2_0003dd00(0);
     }
 }
 
@@ -6796,9 +6796,9 @@ void hulkfight::scenario::NISAnimationAction::vfunc_4() {
 // 0x001a8f50 hulkfight::scenario::EffectTrack::vfunc_10 (40 B): matches/0x001a8f50.cpp
 // sym: ?vfunc_10@EffectTrack@scenario@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::scenario::EffectTrack::vfunc_10(hulk_intptr x, hulk_intptr , hulk_intptr ) {
-    EffectAction_1a8f50* p = GetThing(0x6c);
+    EffectAction_1a8f50* p = GetThing_0008d690(0x6c);
     if (p)
-        return p->Call(this, x);
+        return p->Call_001a5e50(this, x);
     return 0;
 }
 
@@ -6969,8 +6969,8 @@ namespace fn_fc5dbd2a {
 // 0x001a9260 FUN_001a9260 (52 B): matches/0x001a9260.cpp
 // sym: ?Target@Obj_1a9260@fn_fc5dbd2a@@QAEPAU12@XZ
 Obj_1a9260* Obj_1a9260::Target() {
-    Obj_1a9260* p = Get();
-    if (FUN_00344e74(p, 0, &g1_1a9260, &g2_1a9260, 0))
+    Obj_1a9260* p = Get_00231640();
+    if (FUN_00344e74(p, 0, &g1_1a9260, &hulk_at_004a15cc, 0))
         return p;
     return ((Obj_1a9260 *)((owners::Owner_1a6e10 *)this)->FUN_001a6e10());
 }
@@ -6980,8 +6980,8 @@ Obj_1a9260* Obj_1a9260::Target() {
 // sym: ?Target@Obj_1a92a0@fn_fc5dbd2a@@QAEPAU12@XZ
 // Same code shape as 0x001a9260 (propagated; names are from that function)
 Obj_1a92a0* Obj_1a92a0::Target() {
-    Obj_1a92a0* p = Get();
-    if (FUN_00344e74(p, 0, &g1_1a92a0, &g2_1a92a0, 0))
+    Obj_1a92a0* p = Get_00231640();
+    if (FUN_00344e74(p, 0, &g1_1a92a0, &hulk_at_004c26a4, 0))
         return p;
     return ((Obj_1a92a0 *)((owners::Obj_1a6e50 *)this)->FUN_001a6e50());
 }
@@ -7055,7 +7055,7 @@ hulk_intptr LoadInventory::Load(void* p) {
 extern "C" void FUN_001a94a0(Obj* obj, void* value) {
     ConditionFactoryCasterTemplate_1a94a0 caster;
     void* p = find(value, &caster);
-    obj->set(p);
+    obj->set_00236760(p);
 }
 
 } // namespace fn_fc5dbd2a
@@ -7067,14 +7067,14 @@ class ConditionFactoryCasterTemplate_1a94d0 {
   public:
     virtual void Cast();
 };
-extern "C++" __declspec(nothrow) void* __cdecl Find(void*, ConditionFactoryCasterTemplate_1a94d0*);
+extern "C++" __declspec(nothrow) void* __cdecl Find_002343e0(void*, ConditionFactoryCasterTemplate_1a94d0*);
 class Factory {
   public:
-    void Use(void*);
+    void Use_00236760(void*);
 };
 extern "C" void __cdecl FUN_001a94d0(Factory* factory, void* item) {
     ConditionFactoryCasterTemplate_1a94d0 caster;
-    factory->Use(Find(item, &caster));
+    factory->Use_00236760(Find_002343e0(item, &caster));
 }
 } // namespace fn_001a94d0
 
@@ -7085,7 +7085,7 @@ namespace fn_fc5dbd2a {
 extern "C" void FUN_001a9560(Owner* owner, void* value) {
     ConditionFactoryCasterTemplate_1a9560 caster;
     void* result = FUN_002343e0(value, &caster);
-    owner->Apply(result);
+    owner->Apply_00236760(result);
 }
 
 
@@ -7093,8 +7093,8 @@ extern "C" void FUN_001a9560(Owner* owner, void* value) {
 // sym: _FUN_001a9590
 extern "C" void __cdecl FUN_001a9590(Obj* obj, void* value) {
     ConditionFactoryCasterTemplate_1a9590 caster;
-    void* p = Find(value, &caster);
-    obj->Apply(p);
+    void* p = Find_002343e0(value, &caster);
+    obj->Apply_00236760(p);
 }
 
 
@@ -7102,7 +7102,7 @@ extern "C" void __cdecl FUN_001a9590(Obj* obj, void* value) {
 // sym: _FUN_001a95c0
 extern "C" void __cdecl FUN_001a95c0(Obj* obj, void* p) {
     ConditionFactoryCasterTemplate_1a95c0 caster;
-    obj->Do(Find(p, &caster));
+    obj->Do_00236760(Find_002343e0(p, &caster));
 }
 
 } // namespace fn_fc5dbd2a
@@ -7115,15 +7115,15 @@ class ConditionFactoryCasterTemplate_1a95f0 {
     virtual void f();
 };
 class Desc;
-extern Desc* __cdecl lookup(const char*, ConditionFactoryCasterTemplate_1a95f0*);
+extern Desc* __cdecl lookup_002343e0(const char*, ConditionFactoryCasterTemplate_1a95f0*);
 class Owner {
   public:
-    void use(Desc*);
+    void use_00236760(Desc*);
 };
 extern "C" void FUN_001a95f0(Owner* p, const char* s) {
     ConditionFactoryCasterTemplate_1a95f0 c;
-    Desc* d = lookup(s, &c);
-    p->use(d);
+    Desc* d = lookup_002343e0(s, &c);
+    p->use_00236760(d);
 }
 } // namespace fn_001a95f0
 
@@ -7133,8 +7133,8 @@ namespace fn_fc5dbd2a {
 // sym: _FUN_001a9620
 extern "C" void __cdecl FUN_001a9620(Owner* owner, char* name) {
     ConditionFactoryCasterTemplate_1a9620 c;
-    void* p = Find(name, &c);
-    owner->Use(p);
+    void* p = Find_002343e0(name, &c);
+    owner->Use_00236760(p);
 }
 
 
@@ -7142,7 +7142,7 @@ extern "C" void __cdecl FUN_001a9620(Owner* owner, char* name) {
 // sym: _FUN_001a96b0
 extern "C" void FUN_001a96b0(Receiver* r, void* p) {
     ConditionFactoryCasterTemplate_1a96b0 c;
-    r->Apply(FUN_002343e0(p, &c));
+    r->Apply_00236760(FUN_002343e0(p, &c));
 }
 
 
@@ -7150,7 +7150,7 @@ extern "C" void FUN_001a96b0(Receiver* r, void* p) {
 // sym: _FUN_001a9740
 extern "C" void* FUN_001a9740(Obj* o, void* p) {
     ConditionFactoryCasterTemplate_1a9740 c;
-    return o->Get(Lookup(p, &c));
+    return o->Get_00236760(Lookup_002343e0(p, &c));
 }
 
 
@@ -7158,7 +7158,7 @@ extern "C" void* FUN_001a9740(Obj* o, void* p) {
 // sym: _FUN_001a97d0
 extern "C" void FUN_001a97d0(Obj* obj, void* name) {
     TrackFactoryCasterTemplate_1a97d0 caster;
-    obj->Find(FindTrack(name, &caster));
+    obj->Find_002367c0(FindTrack(name, &caster));
 }
 
 
@@ -7166,7 +7166,7 @@ extern "C" void FUN_001a97d0(Obj* obj, void* name) {
 // sym: _FUN_001a9a90
 extern "C" void __cdecl FUN_001a9a90(Owner* owner, const char* name) {
     TrackFactoryCasterTemplate_1a9a90 caster;
-    owner->accept(FUN_00236ac0(name, &caster));
+    owner->accept_002367c0(FUN_00236ac0(name, &caster));
 }
 
 } // namespace fn_fc5dbd2a
@@ -7176,7 +7176,7 @@ extern "C" void __cdecl FUN_001a9a90(Owner* owner, const char* name) {
 hulk_intptr hulkfight::scenario::NISAnimationTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
     void* x = FUN_0008d690(0x218);
     if (x)
-        return ((NISAnimationAction_1a9ac0*)x)->helper((hulk_intptr)this, c);
+        return ((NISAnimationAction_1a9ac0*)x)->helper_001a8d10((hulk_intptr)this, c);
     return 0;
 }
 
@@ -7566,7 +7566,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Nod
 template <> void* fight::ConditionFactoryTemplate<hulkfight::scenario::NodeIsNotRunningCondition>::vfunc_5() {
     Node_1aa440* p = (Node_1aa440*)Alloc(0x10);
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         *(hulk_uintptr*)p = (hulk_uintptr)&NodeVtable;
         *((unsigned char*)p + 0xc) = 1;
         return (void*)(p);
@@ -7580,9 +7580,9 @@ namespace fn_fc5dbd2a {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_1aa470@fn_fc5dbd2a@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_1aa470::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1aa470;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041d05c;
+    base1_dtor_001a2d50();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -7619,9 +7619,9 @@ namespace fn_fc5dbd2a {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_1aa510@fn_fc5dbd2a@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_1aa510::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1aa510;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041d078;
+    base1_dtor_001a2e20();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -7651,9 +7651,9 @@ namespace fn_fc5dbd2a {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_1aa5c0@fn_fc5dbd2a@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_1aa5c0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1aa5c0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041d094;
+    base1_dtor_001a2e80();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -7683,7 +7683,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Eve
 template <> void* fight::ConditionFactoryTemplate<hulkfight::scenario::Event_LocomotionStateNameCondition>::vfunc_5() {
     Event_1aa630* p = (Event_1aa630*)FUN_0008d690((int)sizeof(Event_1aa630));
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0041c550);
         p->c = 0;
         p->d = 0;
@@ -7698,9 +7698,9 @@ namespace fn_fc5dbd2a {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_1aa670@fn_fc5dbd2a@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_1aa670::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1aa670;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041d0b0;
+    base1_dtor_001a2ef0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -7737,9 +7737,9 @@ namespace fn_fc5dbd2a {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_1aa710@fn_fc5dbd2a@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_1aa710::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1aa710;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041d0cc;
+    base1_dtor_001a2f60();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -7769,7 +7769,7 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::scenario::NISAnim
 template <> void* fight::TrackFactoryTemplate<hulkfight::scenario::NISAnimationTrack>::vfunc_5() {
     Track_1aa780* p = (Track_1aa780*)operator new(0x198);
     if (p)
-        return (void*)(p->make());
+        return (void*)(p->make_001a3240());
     return (void*)(0);
 }
 
@@ -7779,7 +7779,7 @@ namespace fn_fc5dbd2a {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fc5dbd2a@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1aa7a0;
+    m_vptr = (void*)&hulk_at_0041d0e8;
     base1_dtor();
     base2_dtor();
     if (flags & 1)
@@ -7864,9 +7864,9 @@ namespace fn_fc5dbd2a {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_1aaa40@fn_fc5dbd2a@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_1aaa40::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1aaa40;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041d10c;
+    base1_dtor_001a2db0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -7898,7 +7898,7 @@ template <> void* fight::ConditionFactoryTemplate<hulkfight::scenario::Event_Pro
     if (p) {
         p->Event_PropTypeCondition_1aaab0::Event_PropTypeCondition_1aaab0(0);
         *(void**)p = VT_1aaab0;
-        p->sub.Init();
+        p->sub.Init_0027af00();
         return (void*)(p);
     }
     return (void*)(0);
@@ -7910,9 +7910,9 @@ namespace fn_fc5dbd2a {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_1aaae0@fn_fc5dbd2a@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_1aaae0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1aaae0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041d128;
+    base1_dtor_001a2fc0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -7942,9 +7942,9 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::scenario::Eve
 template <> void* fight::ConditionFactoryTemplate<hulkfight::scenario::Event_PropStateNameCondition>::vfunc_5() {
     Event_1aab50* p = (Event_1aab50*)FUN_0008d690(0x18);
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_0041c5b0);
-        ((Tail_1aab50*)((char*)p + 0x10))->Run();
+        ((Tail_1aab50*)((char*)p + 0x10))->Run_0027af00();
         return (void*)(p);
     }
     return (void*)(0);
@@ -7956,9 +7956,9 @@ namespace fn_fc5dbd2a {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_1aab80@fn_fc5dbd2a@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_1aab80::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1aab80;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041d144;
+    base1_dtor_001a3030();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -7988,9 +7988,9 @@ namespace fn_fc5dbd2a {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_1aac20@fn_fc5dbd2a@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_1aac20::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1aac20;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041d160;
+    base1_dtor_001a30a0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -8030,23 +8030,23 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::scenario::EffectTrack>:
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_001aacb0@@QAEPAXE@Z
 namespace fn_001aacb0 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_1aacb0;
+extern int hulk_at_0041d17c;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_001a3110();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1aacb0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041d17c;
+    base1_dtor_001a3110();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_001aacb0

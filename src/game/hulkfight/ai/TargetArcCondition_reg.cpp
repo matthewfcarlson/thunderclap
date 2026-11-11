@@ -16,7 +16,7 @@ struct RefCounted_1296f0 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_1296f0[];
+extern char hulk_at_0041003c[];
 class TargetClearAction_1296f0 {
   public:
     TargetClearAction_1296f0* vfunc_2(int flag);
@@ -89,7 +89,7 @@ class TrackFactoryCasterTemplate_129f50 {
 };
 class Object {
   public:
-    void Use(void*);
+    void Use_002367c0(void*);
 };
 extern "C" void* Find(void*, TrackFactoryCasterTemplate_129f50*);
 class TrackFactoryCasterTemplate_129f80 {
@@ -98,7 +98,7 @@ class TrackFactoryCasterTemplate_129f80 {
 };
 class Track {
   public:
-    void Add(void*);
+    void Add_002367c0(void*);
 };
 extern "C" void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_129f80*);
 class TrackFactoryCasterTemplate_129fb0 {
@@ -107,7 +107,7 @@ class TrackFactoryCasterTemplate_129fb0 {
 };
 class Target {
   public:
-    void Run(void*);
+    void Run_002367c0(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_129fb0*);
 
@@ -117,7 +117,7 @@ extern "C++" __declspec(nothrow) void* __cdecl FUN_00236ac0(void*, TrackFactoryC
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 TargetClearAction_1296f0* TargetClearAction_1296f0::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_1296f0;
+    *p = (hulk_intptr)&hulk_at_0041003c;
     RefCounted_1296f0* q = *(RefCounted_1296f0* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -195,7 +195,7 @@ extern "C" void FUN_00129ab0()
 // sym: _FUN_00129f50
 extern "C" void FUN_00129f50(Object* obj, void* name) {
     TrackFactoryCasterTemplate_129f50 caster;
-    obj->Use(Find(name, &caster));
+    obj->Use_002367c0(Find(name, &caster));
 }
 
 
@@ -203,7 +203,7 @@ extern "C" void FUN_00129f50(Object* obj, void* name) {
 // sym: _FUN_00129f80
 extern "C" void FUN_00129f80(Track* track, const char* name) {
     TrackFactoryCasterTemplate_129f80 caster;
-    track->Add(FUN_00236ac0(name, &caster));
+    track->Add_002367c0(FUN_00236ac0(name, &caster));
 }
 
 
@@ -212,7 +212,7 @@ extern "C" void FUN_00129f80(Track* track, const char* name) {
 extern "C" void FUN_00129fb0(Target* target, void* name) {
     TrackFactoryCasterTemplate_129fb0 caster;
     void* p = FUN_00236ac0(name, &caster);
-    target->Run(p);
+    target->Run_002367c0(p);
 }
 
 } // namespace fn_f63a58e9

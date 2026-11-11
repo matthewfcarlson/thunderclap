@@ -27,7 +27,7 @@ class Obj_1aabf0 {
     virtual void d();
     virtual void e();
     virtual void f();
-    void init(int);
+    void init_00234590(int);
 };
 class Sub_1aabf0 {
   public:
@@ -37,15 +37,15 @@ class Sub_1aabf0 {
     virtual void d();
     virtual void e();
     virtual void f();
-    void init();
+    void init_0027af00();
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::scenario::Event_PropNameCondition>::vfunc_5() {
     Obj_1aabf0* p = (Obj_1aabf0*)alloc(0x18);
     if (p) {
-        p->init(0);
+        p->init_00234590(0);
         *((hulk_intptr*)p) = ((hulk_intptr)DAT_0041c5d0);
-        ((Sub_1aabf0*)((char*)p + 0x10))->init();
+        ((Sub_1aabf0*)((char*)p + 0x10))->init_0027af00();
         return (void*)(p);
     }
     return (void*)(0);

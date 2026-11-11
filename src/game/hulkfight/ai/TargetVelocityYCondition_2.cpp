@@ -38,11 +38,11 @@ class TargetVelocityYCondition_12a8d0 {
     int b;
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern int g_vftable_12a910;
+extern int hulk_at_00410a4c;
 struct ConditionFactoryTemplate_12a910 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00123f20();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -85,9 +85,9 @@ namespace fn_f85d66a1 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_12a910@fn_f85d66a1@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_12a910::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_12a910;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00410a4c;
+    base1_dtor_00123f20();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

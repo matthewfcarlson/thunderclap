@@ -40,7 +40,7 @@ struct Obj_348f0 {
     char value;
 };
 struct X_34ad0 {
-    void Call();
+    void Call_0027af00();
     X_34ad0* Target();
 };
 class Obj_34b70 {
@@ -117,7 +117,7 @@ extern "C" char __fastcall FUN_000348f0(Obj_348f0* self) {
 // 0x00034ad0 FUN_00034ad0 (12 B): matches/0x00034ad0.cpp
 // sym: ?Target@X_34ad0@fn_fbb41d57@@QAEPAU12@XZ
 X_34ad0* X_34ad0::Target() {
-    Call();
+    Call_0027af00();
     return this;
 }
 

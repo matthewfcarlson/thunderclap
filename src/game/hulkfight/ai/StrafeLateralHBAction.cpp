@@ -27,7 +27,7 @@ struct StrafeLateralHBAction_11e100 : Action_11e100 {
     StrafeLateralHBAction_11e100(int a, Ref_11e100* r);
     virtual void V0();
 };
-extern void* g_vftable_11e150[];
+extern void* hulk_at_0040f614[];
 class Ref_11e150 {
   public:
     virtual void F0();
@@ -121,7 +121,7 @@ StrafeLateralHBAction_11e100::StrafeLateralHBAction_11e100(int a, Ref_11e100* r)
 // 0x0011e150 FUN_0011e150 (69 B): matches/0x0011e150.cpp
 // sym: ??1StrafeLateralHBAction_11e150@fn_f2baa6cd@@QAE@XZ
 StrafeLateralHBAction_11e150::~StrafeLateralHBAction_11e150() {
-    vptr = g_vftable_11e150;
+    vptr = hulk_at_0040f614;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();

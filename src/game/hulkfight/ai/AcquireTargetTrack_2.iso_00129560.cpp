@@ -13,20 +13,20 @@ class Params_129560 {
   public:
     int x;
 };
-extern Params_129560 TypeA_129560;
-extern Params_129560 TypeB_129560;
+extern Params_129560 hulk_at_00494b44;
+extern Params_129560 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_129560*, Params_129560*, int);
 struct AcquireTargetAction_nv_129560 {
-    int Init(hulkfight::ai::AcquireTargetTrack*, hulk_intptr);
+    int Init_00126780(hulkfight::ai::AcquireTargetTrack*, hulk_intptr);
 };
-hulkfight::ai::AcquireTargetAction* __cdecl Alloc(int);
+hulkfight::ai::AcquireTargetAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::ai::AcquireTargetTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_129560, &TypeB_129560, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::ai::AcquireTargetAction* p = Alloc(0x24);
+        hulkfight::ai::AcquireTargetAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((AcquireTargetAction_nv_129560*)(((hulkfight::ai::AcquireTargetAction*)(p))))->Init(this, c);
+            return ((AcquireTargetAction_nv_129560*)(((hulkfight::ai::AcquireTargetAction*)(p))))->Init_00126780(this, c);
     }
     return 0;
 }

@@ -22,11 +22,11 @@ class TrackFactoryTemplate_114620 {
     TrackImpl mTrack;
 };
 extern "C" void FUN_001124c0();
-extern int g_vftable_1146a0;
+extern int hulk_at_0040e930;
 struct ConditionFactoryTemplate_1146a0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0010cf30();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -54,9 +54,9 @@ namespace fn_f5d71f01 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_1146a0@fn_f5d71f01@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_1146a0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1146a0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0040e930;
+    base1_dtor_0010cf30();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

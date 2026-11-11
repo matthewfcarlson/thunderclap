@@ -70,7 +70,7 @@ class Item_1b6d00 {
 };
 class Owner_1b6d00 {
   public:
-    void Remove(Item_1b6d00*);
+    void Remove_001b69f0(Item_1b6d00*);
     int Set(int index, Item_1b6d00* item);
 };
 class Data_1b6d60 {
@@ -326,7 +326,7 @@ int Owner_1b6d00::Set(int index, Item_1b6d00* item) {
         return -1;
     Item_1b6d00* old = ((Item_1b6d00**)this)[index];
     if (old)
-        Remove(old);
+        Remove_001b69f0(old);
     item->Release();
     old = ((Item_1b6d00**)this)[index];
     if (old)

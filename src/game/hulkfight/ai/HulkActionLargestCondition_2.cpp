@@ -43,11 +43,11 @@ class HulkActionLargestCondition_114030 : public Base {
     int b;
 };
 inline HulkActionLargestCondition_114030::HulkActionLargestCondition_114030() throw() : Base(0), a(0), b(0) {}
-extern int g_vftable_114070;
+extern int hulk_at_0040e834;
 struct ConditionFactoryTemplate_114070 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0010c930();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -82,9 +82,9 @@ namespace fn_f3343a7f {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_114070@fn_f3343a7f@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_114070::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_114070;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0040e834;
+    base1_dtor_0010c930();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

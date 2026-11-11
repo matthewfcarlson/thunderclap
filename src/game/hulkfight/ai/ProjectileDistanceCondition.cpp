@@ -17,8 +17,8 @@ class ConditionFactoryCaster_127dc0 {
 }
 namespace fn_f9d94b3f {
 extern int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-extern int g1, g2;
-extern TypeInfo a, b;
+extern int hulk_at_00491ca8, g2;
+extern TypeInfo a, hulk_at_004a8478;
 extern "C" int __cdecl FUN_00344e74(void*, int, TypeInfo*, TypeInfo*, int);
 } // namespace fn_f9d94b3f
 namespace fight {
@@ -37,7 +37,7 @@ class ProjectileDistanceCondition_127e20 {};
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VTargetOrientationCondition@ai@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetOrientationCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74(p, 0, &g1, &g2, 0) != 0;
+    return FUN_00344e74(p, 0, &hulk_at_00491ca8, &g2, 0) != 0;
 }
 
 
@@ -53,7 +53,7 @@ template <> fight::ParamFloatConstRange<hulkfight::ai::TargetOrientationConditio
  // namespace hulkfight
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::ProjectileDistanceCondition>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &a, &hulk_at_004a8478, 0) != 0;
 }
 
 

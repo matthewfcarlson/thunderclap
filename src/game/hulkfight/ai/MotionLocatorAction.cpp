@@ -17,9 +17,9 @@ struct Ref_117350 {
     virtual void Release();
 };
 struct ThisCall_00232660 {
-    void Init();
+    void Init_00232660();
 };
-extern void* g_vftable_1173b0[];
+extern void* hulk_at_0040ed2c[];
 class Ref_1173b0 {
   public:
     virtual void F0();
@@ -141,7 +141,7 @@ class MotionLocatorAction {
 // 0x00117350 FUN_00117350 (90 B): matches/0x00117350.cpp
 // sym: ?Build@MotionLocatorAction@fn_fdfac53b@@QAEPAV12@IPAURef_117350@2@@Z
 MotionLocatorAction* MotionLocatorAction::Build(unsigned int a, Ref_117350* r) {
-    ((ThisCall_00232660*)(this))->Init();
+    ((ThisCall_00232660*)(this))->Init_00232660();
     mMin1 = 0x7f7fffff;
     mMin2 = 0x7f7fffff;
     *(volatile hulk_uintptr*)this = ((hulk_intptr)DAT_0040ed2c);
@@ -161,7 +161,7 @@ MotionLocatorAction* MotionLocatorAction::Build(unsigned int a, Ref_117350* r) {
 // 0x001173b0 FUN_001173b0 (50 B): matches/0x001173b0.cpp
 // sym: ??1MotionLocatorAction_1173b0@fn_fdfac53b@@QAE@XZ
 MotionLocatorAction_1173b0::~MotionLocatorAction_1173b0() {
-    vptr = g_vftable_1173b0;
+    vptr = hulk_at_0040ed2c;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();

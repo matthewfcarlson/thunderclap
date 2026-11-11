@@ -25,7 +25,7 @@ class StrafeCircleAction_11d860 : public Action_11d860 {
     virtual void C();
     StrafeCircleAction_11d860(int x, Action_11d860* p);
 };
-extern void* g_vftable_11d8b0[];
+extern void* hulk_at_0040f5dc[];
 extern void* g_vftable2[];
 class Ref_11d8b0 {
   public:
@@ -166,7 +166,7 @@ StrafeCircleAction_11d860::StrafeCircleAction_11d860(int x, Action_11d860* p) {
 // 0x0011d8b0 FUN_0011d8b0 (69 B): matches/0x0011d8b0.cpp
 // sym: ??1StrafeCircleAction_11d8b0@fn_fdd31ee7@@QAE@XZ
 StrafeCircleAction_11d8b0::~StrafeCircleAction_11d8b0() {
-    vptr = g_vftable_11d8b0;
+    vptr = hulk_at_0040f5dc;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();

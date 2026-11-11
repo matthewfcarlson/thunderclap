@@ -13,16 +13,16 @@ namespace fn_f8109a4a {} using namespace fn_f8109a4a;
 // ---- declarations shared by the functions below
 namespace fn_f8109a4a {
 struct Tail_10d480 {
-    void Init();
+    void Init_0027af50();
 };
 struct AIHistorySetTrack_10d480 {
     void* vptr;
     char pad[0x14];
-    void Finish();
+    void Finish_00236d60();
     void Run();
 };
-extern void* vftable_10d480;
-extern int* gTable_10d4c0;
+extern void* hulk_at_0040dca4;
+extern int* hulk_at_004e0b98;
 class CCondition_10d4c0 {
   public:
     virtual int vfunc_0(int);
@@ -42,7 +42,7 @@ class TokenTrack : public Track_10d4d0 {
     float c;
     char d;
 };
-extern int* gTable_10d540;
+extern int* hulk_at_004e0ba0;
 class CCondition_10d540 {
   public:
     virtual int vfunc_0(int);
@@ -89,9 +89,9 @@ struct Track_10d5a0 {
 // sym: ?Run@AIHistorySetTrack_10d480@fn_f8109a4a@@QAEXXZ
 // Same code shape as 0x0010d0f0 (propagated; names are from that function)
 void AIHistorySetTrack_10d480::Run() {
-    vptr = &vftable_10d480;
-    ((Tail_10d480*)((char*)this + 0x18))->Init();
-    Finish();
+    vptr = &hulk_at_0040dca4;
+    ((Tail_10d480*)((char*)this + 0x18))->Init_0027af50();
+    Finish_00236d60();
 }
 
 
@@ -108,7 +108,7 @@ void FUN_0010d4a0() {
 // sym: ?vfunc_0@TokenTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::TokenTrack::vfunc_0(int index) {
-    int* p = gTable_10d4c0;
+    int* p = hulk_at_004e0b98;
     return p[index];
 }
 
@@ -146,7 +146,7 @@ void FUN_0010d520() {
 // sym: ?vfunc_0@SemaphoreWaitTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::SemaphoreWaitTrack::vfunc_0(int index) {
-    int* p = gTable_10d540;
+    int* p = hulk_at_004e0ba0;
     return p[index];
 }
 

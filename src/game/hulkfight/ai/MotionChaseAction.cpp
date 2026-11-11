@@ -38,7 +38,7 @@ class MotionChaseAction : public Action_116c10 {
     S_116c10 s;
     MotionChaseAction(int, Other_116c10*);
 };
-extern void* g_vftable_116c60[];
+extern void* hulk_at_0040ecf4[];
 class Ref_116c60 {
   public:
     virtual void F0();
@@ -146,7 +146,7 @@ MotionChaseAction::MotionChaseAction(int value, Other_116c10* other) {
 // 0x00116c60 FUN_00116c60 (69 B): matches/0x00116c60.cpp
 // sym: ??1MotionChaseAction_116c60@fn_fae0ed28@@QAE@XZ
 MotionChaseAction_116c60::~MotionChaseAction_116c60() {
-    vptr = g_vftable_116c60;
+    vptr = hulk_at_0040ecf4;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();

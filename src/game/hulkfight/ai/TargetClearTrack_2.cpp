@@ -24,20 +24,20 @@ class TrackFactoryTemplate_12ae90 {
 };
 extern "C" void FUN_00129270();
 extern "C" void* __cdecl alloc(hulk_uintptr);
-extern "C" void* g_TargetClearTrackVtable;
+extern "C" void* hulk_at_0040ff74;
 struct Obj_12aed0 {
     void* vptr;
     int pad;
     int x;
     int y;
     unsigned char z;
-    void initBase();
+    void initBase_00236d40();
 };
-extern int g_vftable_12af10;
+extern int hulk_at_00410b48;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_001242e0();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -66,8 +66,8 @@ namespace fn_f06dc002 {
 Obj_12aed0* factory() {
     Obj_12aed0* p = (Obj_12aed0*)alloc(0x14);
     if (p) {
-        p->initBase();
-        p->vptr = &g_TargetClearTrackVtable;
+        p->initBase_00236d40();
+        p->vptr = &hulk_at_0040ff74;
         p->y = 0;
         p->z = 0;
         p->x = 1;
@@ -81,9 +81,9 @@ Obj_12aed0* factory() {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f06dc002@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_12af10;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00410b48;
+    base1_dtor_001242e0();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

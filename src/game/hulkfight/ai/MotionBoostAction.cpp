@@ -45,7 +45,7 @@ class MotionBoostAction : public Action_1170b0 {
     int d;
     int e;
 };
-extern void* g_vftable_117100[];
+extern void* hulk_at_0040ed10[];
 class Ref_117100 {
   public:
     virtual void F0();
@@ -79,7 +79,7 @@ MotionBoostAction::MotionBoostAction(int x, Ref* r) : Action_1170b0() {
 // 0x00117100 FUN_00117100 (69 B): matches/0x00117100.cpp
 // sym: ??1MotionBoostAction_117100@fn_fac5522d@@QAE@XZ
 MotionBoostAction_117100::~MotionBoostAction_117100() {
-    vptr = g_vftable_117100;
+    vptr = hulk_at_0040ed10;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();

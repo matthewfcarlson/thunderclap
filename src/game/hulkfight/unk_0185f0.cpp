@@ -49,10 +49,10 @@ struct Obj_185f0 {
     Inner_185f0* p;
 };
 struct Actor_185f0 {
-    Obj_185f0* get();
+    Obj_185f0* get_000592a0();
 };
 struct Obj2_185f0 {
-    Obj_185f0* get();
+    Obj_185f0* get_00059a30();
 };
 struct State_185f0 {
     char pad[0x10];
@@ -61,10 +61,10 @@ struct State_185f0 {
 struct ObjA_18620 {
 };
 struct ObjB_18620 {
-    void* Next();
+    void* Next_00059a30();
 };
 struct ObjC_18620 {
-    int Run();
+    int Run_00035cd0();
 };
 class Arr_18650 {
   public:
@@ -113,7 +113,7 @@ class IRefCount_18b30 {
     virtual void vfunc_2();
     int mRefCount;
 };
-extern void* gA_18b60[];
+extern void* hulk_at_003f3390[];
 class Ref_18b60 {
   public:
     virtual void F0();
@@ -151,8 +151,8 @@ class CAction_18c70 : public Action_18c70 {
 // 0x000185f0 CPropActorSetStateAction::vfunc_7 (48 B): matches/0x000185f0.cpp
 // sym: ?vfunc_7@CPropActorSetStateAction@@UAE_NH@Z
 bool CPropActorSetStateAction::vfunc_7(int ) {
-    Obj_185f0* o = (*(Actor_185f0 * *)&this->f_1c)->get();
-    o = ((Obj2_185f0*)o)->get();
+    Obj_185f0* o = (*(Actor_185f0 * *)&this->f_1c)->get_000592a0();
+    o = ((Obj2_185f0*)o)->get_00059a30();
     if (o->p)
         o->p->set((*(struct State_185f0 * *)&this->f_20)->value, 1);
     return false;
@@ -164,9 +164,9 @@ bool CPropActorSetStateAction::vfunc_7(int ) {
 bool CClearHitRecordsAction::vfunc_6(int x) {
     ObjA_18620* a = (*(ObjA_18620 * *)&this->f_1c);
     void* r = ((void *)((owners::Object_592a0 *)a)->FUN_000592a0());
-    void* b = ((ObjB_18620*)r)->Next();
+    void* b = ((ObjB_18620*)r)->Next_00059a30();
     if (b)
-        ((ObjC_18620*)b)->Run();
+        ((ObjC_18620*)b)->Run_00035cd0();
     return false;
 }
 
@@ -412,7 +412,7 @@ namespace fn_f7aff818 {
 // 0x00018b60 FUN_00018b60 (36 B): matches/0x00018b60.cpp
 // sym: ??1CAction_18b60@fn_f7aff818@@QAE@XZ
 CAction_18b60::~CAction_18b60() {
-    vptr = gA_18b60;
+    vptr = hulk_at_003f3390;
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();
@@ -434,7 +434,7 @@ class Ref_18b90 {
     virtual void Release();
 };
 struct ThisCall_00232660 {
-    void BaseInit();
+    void BaseInit_00232660();
 };
 class CJointAction {
   public:
@@ -446,7 +446,7 @@ class CJointAction {
     CJointAction* Init(int, Ref_18b90*);
 };
 CJointAction* CJointAction::Init(int v, Ref_18b90* r) {
-    ((ThisCall_00232660*)(this))->BaseInit();
+    ((ThisCall_00232660*)(this))->BaseInit_00232660();
     *(hulk_intptr*)this = ((hulk_intptr)DAT_003f3390);
     ref = 0;
     if (r)
@@ -466,7 +466,7 @@ CJointAction* CJointAction::Init(int v, Ref_18b90* r) {
 // sym: ?Shutdown@CSmartPropUpdateAttachmentAction@fn_00018be0@@QAEXXZ
 namespace fn_00018be0 {
 // Same code shape as 0x0001ecb0 (propagated; names are from that function)
-extern char vftableD[];
+extern char hulk_at_003f33b8[];
 extern char vftableA[];
 
 class RefObj_18be0 {
@@ -476,7 +476,7 @@ class RefObj_18be0 {
 };
 
 struct Tidier {
-    void Tidy();
+    void Tidy_002326a0();
 };
 
 class CSmartPropUpdateAttachmentAction {
@@ -489,7 +489,7 @@ class CSmartPropUpdateAttachmentAction {
 };
 
 void CSmartPropUpdateAttachmentAction::Shutdown() {
-    *(void* volatile*)this = (void*)vftableD;
+    *(void* volatile*)this = (void*)hulk_at_003f33b8;
     RefObj_18be0* b = mB;
     if (b) {
         b->Release();
@@ -501,7 +501,7 @@ void CSmartPropUpdateAttachmentAction::Shutdown() {
         a->Release();
         mA = 0;
     }
-    ((Tidier*)this)->Tidy();
+    ((Tidier*)this)->Tidy_002326a0();
 }
 } // namespace fn_00018be0
 
@@ -604,7 +604,7 @@ CJumpAction* CJumpAction::FUN_00018ca0(unsigned val, Ref* ref) {
 // sym: ?Shutdown@CSmartPropUpdateAttachmentAction@fn_00018d00@@QAEXXZ
 namespace fn_00018d00 {
 // Same code shape as 0x0001ecb0 (propagated; names are from that function)
-extern char vftableD[];
+extern char hulk_at_003f3408[];
 extern char vftableA[];
 
 class RefObj_18d00 {
@@ -614,7 +614,7 @@ class RefObj_18d00 {
 };
 
 struct Tidier {
-    void Tidy();
+    void Tidy_002326a0();
 };
 
 class CSmartPropUpdateAttachmentAction {
@@ -627,7 +627,7 @@ class CSmartPropUpdateAttachmentAction {
 };
 
 void CSmartPropUpdateAttachmentAction::Shutdown() {
-    *(void* volatile*)this = (void*)vftableD;
+    *(void* volatile*)this = (void*)hulk_at_003f3408;
     RefObj_18d00* b = mB;
     if (b) {
         b->Release();
@@ -639,7 +639,7 @@ void CSmartPropUpdateAttachmentAction::Shutdown() {
         a->Release();
         mA = 0;
     }
-    ((Tidier*)this)->Tidy();
+    ((Tidier*)this)->Tidy_002326a0();
 }
 } // namespace fn_00018d00
 

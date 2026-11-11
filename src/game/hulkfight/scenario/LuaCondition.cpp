@@ -24,7 +24,7 @@ class X_1a12a0 {
     int mValue;
     char SetTimeEnd_001a12a0(int v);
 };
-extern int* gTable_1a12f0;
+extern int* hulk_at_004e16f4;
 class CCondition_1a12f0 {
   public:
     virtual int vfunc_0(int);
@@ -34,7 +34,7 @@ class LuaCondition_1a1330 {
     int a, b;
     virtual ~LuaCondition_1a1330();
     int d;
-    virtual void hulk_slot_F(); void F();
+    virtual void hulk_slot_F(); void FnF_002345b0();
 };
 } // namespace fn_fd836fc7
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -49,7 +49,7 @@ public:
     int length;
     bool FUN_001a1350(const char* src, int len);
 };
-extern int* gTable_1a13e0;
+extern int* hulk_at_004e16fc;
 class CCondition_1a13e0 {
   public:
     virtual int vfunc_0(int);
@@ -73,8 +73,8 @@ struct Script_1a16b0 {
 };
 struct Provider_1a16b0 {
 };
-int GetThing();
-extern const VFT LuaCondition_1a1800_vftable;
+int GetThing_001d4c90();
+extern const VFT hulk_at_0041c2f8;
 class LuaCondition_1a1800 {
   public:
     virtual void vfunc_0();
@@ -84,7 +84,7 @@ class LuaCondition_1a1800 {
     virtual void p_vfunc_4();
     void* vfunc_5(unsigned char flag);
     virtual void vfunc_6();
-    void Cleanup();
+    void Cleanup_002345b0();
     char pad[8];
     void* m_p;
 };
@@ -107,11 +107,11 @@ class LuaTrack : public Track_1a13f0 {
     float b;
     union { int c; hulk_intptr m14; };
     int d;
-    void helper();
+    void helper_00236d60();
 };
-extern int LuaTrack_vftable;
-void ReleaseA(void* p);
-void ReleaseB(void* p);
+extern int hulk_at_0041c318;
+void ReleaseA_0008d340(void* p);
+void ReleaseB_0008d330(void* p);
 class ParamValueScript_1a1930 {
   public:
     ParamValueScript_1a1930(int);
@@ -214,7 +214,7 @@ class Base_1a1b00 {
 };
 class ParamScript : public Base_1a1b00 {
   public:
-    void Init(const char*);
+    void Init_00234c00(const char*);
     char pad[8];
     void* mFn;
 };
@@ -233,10 +233,10 @@ struct Track_1a1c40 {
 };
 struct Param_1a1c40 {};
 struct LuaAction_1a1c40 {
-    u32_1a1c40 call(u32_1a1c40, hulk_uintptr, u32_1a1c40);
+    u32_1a1c40 call_001a1880(u32_1a1c40, hulk_uintptr, u32_1a1c40);
 };
 extern "C++" __declspec(nothrow) void* __cdecl FUN_0008d690(int);
-extern void* g_vftable_1a1c70[];
+extern void* hulk_at_0041c390[];
 class Ref_1a1c70 {
   public:
     virtual void F0();
@@ -258,7 +258,7 @@ class ConditionFactoryCasterTemplate_1a1cf0 {
 };
 class Obj {
   public:
-    void apply(void*);
+    void apply_00236760(void*);
 };
 extern "C" void* __cdecl lookup(const char*, ConditionFactoryCasterTemplate_1a1cf0*);
 class TrackFactoryCasterTemplate_1a1d20 {
@@ -267,7 +267,7 @@ class TrackFactoryCasterTemplate_1a1d20 {
 };
 class Track {
   public:
-    void* get(void*);
+    void* get_002367c0(void*);
 };
 extern "C" void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_1a1d20*);
 } // namespace fn_fd836fc7
@@ -303,11 +303,11 @@ class LuaCondition_1a1d90 : public Base {
     int a;
     int b;
 };
-extern int g_vftable_1a1dd0;
+extern int hulk_at_0041c42c;
 struct ConditionFactoryTemplate_1a1dd0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_001a12d0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 class TrackFactoryTemplate_1a1e00 {
@@ -326,10 +326,10 @@ struct LuaTrack_1a1e40 {
     int y;
     int z;
     int q;
-    void initialize();
+    void initialize_00236d40();
 };
-extern void* alloc(hulk_uintptr);
-extern int g_vftable_1a1e90;
+extern void* alloc_0008d690(hulk_uintptr);
+extern int hulk_at_0041c448;
 
 
 // 0x001a1290 FUN_001a1290 (12 B): matches/0x001a1290.cpp
@@ -361,7 +361,7 @@ void FUN_001a12d0() {
 // sym: ?vfunc_0@LuaCondition@scenario@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::scenario::LuaCondition::vfunc_0(int index) {
-    int* p = gTable_1a12f0;
+    int* p = hulk_at_004e16f4;
     return p[index];
 }
 
@@ -372,7 +372,7 @@ namespace fn_fd836fc7 {
 // Same code shape as 0x0011c270 (propagated; names are from that function)
 LuaCondition_1a1330::~LuaCondition_1a1330() {
     Cleanup(d);
-    F();
+    FnF_002345b0();
 }
 
 
@@ -408,7 +408,7 @@ void FUN_001a13c0() {
 // sym: ?vfunc_0@LuaTrack@scenario@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::scenario::LuaTrack::vfunc_0(int index) {
-    int* p = gTable_1a13e0;
+    int* p = hulk_at_004e16fc;
     return p[index];
 }
 
@@ -473,18 +473,18 @@ hulk_freg LuaTrack_1a1430::GetExtent() {
 namespace fn_001a1440 {
 typedef unsigned int u32_1a1440;
 extern void* LuaTrack_vft;
-void __cdecl cleanup(u32_1a1440);
+void __cdecl cleanup_0008d340(u32_1a1440);
 struct LuaTrack {
     void* vft;
     char pad[0x10];
     u32_1a1440 field14;
-    void Tail();
+    void Tail_00236d60();
     void Run();
 };
 void LuaTrack::Run() {
     vft = &LuaTrack_vft;
-    cleanup(field14);
-    Tail();
+    cleanup_0008d340(field14);
+    Tail_00236d60();
 }
 } // namespace fn_001a1440
 
@@ -513,7 +513,7 @@ bool StrHolder_1a1460::SetScript_001a1460(const char* src, int len) {
 // 0x001a16b0 hulkfight::scenario::LuaAction::vfunc_3 (71 B): matches/0x001a16b0.cpp
 // sym: ?vfunc_3@LuaAction@scenario@hulkfight@@UAE_NHH@Z
 bool hulkfight::scenario::LuaAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
-    hulk_intptr x = GetThing();
+    hulk_intptr x = GetThing_001d4c90();
     if (!x)
         return false;
     Script_1a16b0* s = (*(Script_1a16b0 * *)&this->f_1c);
@@ -560,9 +560,9 @@ void FUN_001a17f0() {}
 // sym: ?vfunc_5@LuaCondition_1a1800@fn_fd836fc7@@QAEPAXE@Z
 // Same code shape as 0x0011cbc0 (propagated; names are from that function)
 void* LuaCondition_1a1800::vfunc_5(unsigned char flag) {
-    *(const VFT**)this = &LuaCondition_1a1800_vftable;
+    *(const VFT**)this = &hulk_at_0041c2f8;
     ai_free(m_p);
-    Cleanup();
+    Cleanup_002345b0();
     if (flag & 1) {
         ai_delete(this);
     }
@@ -573,11 +573,11 @@ void* LuaCondition_1a1800::vfunc_5(unsigned char flag) {
 // 0x001a1840 hulkfight::scenario::LuaTrack::vfunc_5 (50 B): matches/0x001a1840.cpp
 // sym: ?vfunc_5@LuaTrack@fn_fd836fc7@@UAEPAV12@E@Z
 LuaTrack* LuaTrack::vfunc_5(u8_1a1840 param) {
-    *(hulk_intptr*)this = (hulk_intptr)&LuaTrack_vftable;
-    ReleaseA((void*)m14);
-    helper();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_0041c318;
+    ReleaseA_0008d340((void*)m14);
+    helper_00236d60();
     if (param & 1)
-        ReleaseB(this);
+        ReleaseB_0008d330(this);
     return this;
 }
 
@@ -595,7 +595,7 @@ class Sub_1a1880 {
 };
 class Result_1a1880 {
   public:
-    Sub_1a1880* Convert();
+    Sub_1a1880* Convert_001d03c0();
 };
 struct Action_1a1880 {
     virtual void V();
@@ -628,7 +628,7 @@ LuaAction::LuaAction(int a, int b, Sub_1a1880* arg) : m20(0), m24(0) {
     m20 = arg;
     Result_1a1880* r = MakeResult(arg, 0, &DAT_00494b44, &DAT_004c13d0, 0);
     if (r)
-        memcpy(&sub, r->Convert(), 0xe0);
+        memcpy(&sub, r->Convert_001d03c0(), 0xe0);
 }
 } // namespace fn_001a1880
 
@@ -796,7 +796,7 @@ void FUN_001a1b00() {
     if ((*(int*)&DAT_004e16f8) == 0) {
         ParamScript* p = (ParamScript*)FUN_0008d690(0x18);
         if (p) {
-            p->Init((const char*)((hulk_intptr)((char*)&DAT_0041c420)));
+            p->Init_00234c00((const char*)((hulk_intptr)((char*)&DAT_0041c420)));
             *(hulk_uintptr*)p = ((hulk_intptr)DAT_0041c3ac);
             *(hulk_uintptr*)((char*)p + 0x10) = ((hulk_intptr)(void (__cdecl*)())&FUN_001a1350);
             tmp = p;
@@ -865,7 +865,7 @@ hulk_intptr hulkfight::scenario::LuaTrack::vfunc_10(hulk_intptr __p0, hulk_intpt
 
     LuaAction_1a1c40* p = (LuaAction_1a1c40*)FUN_0008d690(0x108);
     if (p)
-        return (int)(p->call(a, (hulk_uintptr)this, c));
+        return (int)(p->call_001a1880(a, (hulk_uintptr)this, c));
     return (int)(0);
 }
 
@@ -874,7 +874,7 @@ namespace fn_fd836fc7 {
 // 0x001a1c70 hulkfight::scenario::LuaAction::vfunc_2 (57 B): matches/0x001a1c70.cpp
 // sym: ?f2@LuaAction_1a1c70@fn_fd836fc7@@QAEPAV12@E@Z
 LuaAction_1a1c70* LuaAction_1a1c70::f2(unsigned char flags) {
-    vptr = g_vftable_1a1c70;
+    vptr = hulk_at_0041c390;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -891,7 +891,7 @@ LuaAction_1a1c70* LuaAction_1a1c70::f2(unsigned char flags) {
 // sym: _FUN_001a1cf0
 extern "C" void __cdecl FUN_001a1cf0(Obj* obj, const char* name) {
     ConditionFactoryCasterTemplate_1a1cf0 caster;
-    obj->apply(lookup(name, &caster));
+    obj->apply_00236760(lookup(name, &caster));
 }
 
 
@@ -899,7 +899,7 @@ extern "C" void __cdecl FUN_001a1cf0(Obj* obj, const char* name) {
 // sym: _FUN_001a1d20
 extern "C" void* FUN_001a1d20(Track* t, const char* name) {
     TrackFactoryCasterTemplate_1a1d20 c;
-    return t->get(FUN_00236ac0(name, &c));
+    return t->get_002367c0(FUN_00236ac0(name, &c));
 }
 
 } // namespace fn_fd836fc7
@@ -933,9 +933,9 @@ namespace fn_fd836fc7 {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_1a1dd0@fn_fd836fc7@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_1a1dd0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1a1dd0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041c42c;
+    base1_dtor_001a12d0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -963,9 +963,9 @@ template <> void* fight::TrackFactoryCasterTemplate<hulkfight::scenario::LuaTrac
 // 0x001a1e40 fight::TrackFactoryTemplate<hulkfight::scenario::LuaTrack>::vfunc_5 (66 B): matches/0x001a1e40.cpp
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VLuaTrack@scenario@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::TrackFactoryTemplate<hulkfight::scenario::LuaTrack>::vfunc_5() {
-    LuaTrack_1a1e40* p = (LuaTrack_1a1e40*)alloc(0x1c);
+    LuaTrack_1a1e40* p = (LuaTrack_1a1e40*)alloc_0008d690(0x1c);
     if (p) {
-        p->initialize();
+        p->initialize_00236d40();
         p->vf = (void*)((hulk_intptr)DAT_0041c318);
         p->x = 0;
         p->y = (int)0xbf800000;
@@ -982,7 +982,7 @@ namespace fn_fd836fc7 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_fd836fc7@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1a1e90;
+    m_vptr = (void*)&hulk_at_0041c448;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

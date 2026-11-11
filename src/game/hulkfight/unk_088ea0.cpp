@@ -20,7 +20,7 @@ class Obj_88ec0 {
     char pad[0xc];
     char mValue;
     void Set(char x);
-    void Callback();
+    void Callback_001be490();
 };
 struct Obj_88ee0 {
     char pad[0xc];
@@ -48,7 +48,7 @@ struct Glob_88fe0 {
     char pad[0x54];
     Svc_88fe0* svc;
 };
-extern Glob_88fe0* gGlob_88fe0;
+extern Glob_88fe0* hulk_at_004dd700;
 struct Slot_89160 {
     bool on;
     char pad[3];
@@ -97,7 +97,7 @@ class Data_891e0 {
 typedef unsigned int u32_892c0;
 class Callee_892c0 {
   public:
-    int Run(int a, int b);
+    int Run_0008cd80(int a, int b);
 };
 class Obj_892c0 {
   public:
@@ -116,7 +116,7 @@ class Obj_89300 {
     char pad2[1];
     Manager_89300* mgr;
     void Target(const char*);
-    void Prepare();
+    void Prepare_001d4c90();
 };
 class Target_89380 {
   public:
@@ -145,7 +145,7 @@ namespace fn_f9371648 {
 // sym: ?Set@Obj_88ec0@fn_f9371648@@QAEXD@Z
 void Obj_88ec0::Set(char x) {
     if (mValue != x) {
-        Callback();
+        Callback_001be490();
     }
     mValue = x;
 }
@@ -180,7 +180,7 @@ unsigned int __fastcall FUN_00088fb0(X_88fb0* p) {
 void owners::Obj_88fe0::FUN_00088fe0(unsigned int arg) {
     Scan(arg, "c%dm%d", &a, &b);
     FUN_00267760(buf, 32, "c%02dm%02d", a, b);
-    ((owners::K_b4c10 *)(gGlob_88fe0->svc->Run()))->FUN_000b4c10((const char *)(hulk_uintptr)(unsigned int)arg);
+    ((owners::K_b4c10 *)(hulk_at_004dd700->svc->Run()))->FUN_000b4c10((const char *)(hulk_uintptr)(unsigned int)arg);
     if (a > 1) {
         if (Check(((CO*)&DAT_004dd830)) != (*(CO*)&DAT_004dd830).val) {
             do {
@@ -242,14 +242,14 @@ int Obj_892c0::Target(int param2, int index) {
     for (int i = 0; i < 0x2fa; ++i)
         ((u32_892c0*)p)[i] = 0;
     p[4] = 0;
-    return mArg->Run(param2, index);
+    return mArg->Run_0008cd80(param2, index);
 }
 
 
 // 0x00089300 FUN_00089300 (119 B): matches/0x00089300.cpp
 // sym: ?Target@Obj_89300@fn_f9371648@@QAEXPBD@Z
 void Obj_89300::Target(const char* s) {
-    Prepare();
+    Prepare_001d4c90();
     int a = strcmp(s, "story");
     if (a == 0) {
         flag = 1;

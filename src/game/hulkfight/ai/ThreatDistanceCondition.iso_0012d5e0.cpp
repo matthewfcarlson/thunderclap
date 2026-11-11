@@ -14,7 +14,7 @@ typedef unsigned char u8;
 extern void* __cdecl alloc(hulk_uintptr);
 struct Sub_12d5e0 {
     char pad[8];
-    void init();
+    void init_0027af00();
 };
 struct ThreatDistanceCondition_12d5e0 {
     hulk_uintptr vptr;
@@ -23,16 +23,16 @@ struct ThreatDistanceCondition_12d5e0 {
     char padD[3];
     Sub_12d5e0 sub;
     u8 flag18;
-    void init(int);
+    void init_00234590(int);
 };
 
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::ThreatCondition>::vfunc_5() {
     ThreatDistanceCondition_12d5e0* p = (ThreatDistanceCondition_12d5e0*)alloc(0x20);
     if (p) {
-        p->init(0);
+        p->init_00234590(0);
         p->vptr = ((hulk_intptr)DAT_00410bd4);
         p->flagC = 1;
-        p->sub.init();
+        p->sub.init_0027af00();
         p->flag18 = 1;
         return (void*)(p);
     }

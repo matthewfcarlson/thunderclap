@@ -10,10 +10,10 @@ namespace fn_f72f4502 {} using namespace fn_f72f4502;
 
 // ---- declarations shared by the functions below
 namespace fn_f72f4502 {
-extern void* Track_116790_vftable[];
+extern void* hulk_at_0040eb20[];
 class Track_116790 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_f72f4502
 namespace hulkfight { namespace ai {
@@ -23,10 +23,10 @@ class MotionFleeTrack : public Track_116790 {
 };
 } }
 namespace fn_f72f4502 {
-extern void* Track_1167c0_vftable[];
+extern void* hulk_at_0040eb50[];
 class Track_1167c0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_f72f4502
 namespace hulkfight { namespace ai {
@@ -36,10 +36,10 @@ class MotionStopTrack : public Track_1167c0 {
 };
 } }
 namespace fn_f72f4502 {
-extern void* Track_1167f0_vftable[];
+extern void* hulk_at_0040eb80[];
 class Track_1167f0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_f72f4502
 namespace hulkfight { namespace ai {
@@ -49,10 +49,10 @@ class MotionFacingTrack : public Track_1167f0 {
 };
 } }
 namespace fn_f72f4502 {
-extern void* Track_116820_vftable[];
+extern void* hulk_at_0040ebb0[];
 class Track_116820 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_f72f4502
 namespace hulkfight { namespace ai {
@@ -89,18 +89,18 @@ class MotionLocatorTrack : public Track, public Param {
 namespace fn_f72f4502 {
 class Sub_116850 {
   public:
-    void f();
+    void Fnf_0027af50();
 };
 class Main_116850 {
   public:
-    void f();
+    void Fnf_00236d60();
 };
-void __cdecl Destroy(hulkfight::ai::MotionLocatorTrack*);
-extern void* vf_116850;
-extern void* Track_116880_vftable[];
+void __cdecl Destroy_0008d330(hulkfight::ai::MotionLocatorTrack*);
+extern void* hulk_at_0040ebe0;
+extern void* hulk_at_0040ec10[];
 class Track_116880 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_f72f4502
 namespace hulkfight { namespace ai {
@@ -110,10 +110,10 @@ class MotionTargetTrack : public Track_116880 {
 };
 } }
 namespace fn_f72f4502 {
-extern void* Track_1168b0_vftable[];
+extern void* hulk_at_0040ec40[];
 class Track_1168b0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_f72f4502
 namespace hulkfight { namespace ai {
@@ -123,10 +123,10 @@ class MotionChaseTrack : public Track_1168b0 {
 };
 } }
 namespace fn_f72f4502 {
-extern void* Track_1168e0_vftable[];
+extern void* hulk_at_0040ec70[];
 class Track_1168e0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_00236d60(); // FUN_00236d60, __thiscall, this in ecx
 };
 } // namespace fn_f72f4502
 namespace hulkfight { namespace ai {
@@ -154,7 +154,7 @@ class MotionStopAction_116910 : public Action_116910 {
     MotionStopAction_116910(int target, RefObj_116910* obj);
     virtual void Execute();
 };
-extern void* g_vftable_116960[];
+extern void* hulk_at_0040eca0[];
 class Ref_116960 {
   public:
     virtual void F0();
@@ -189,7 +189,7 @@ class MotionFacingAction_1169a0 : public Action_1169a0 {
     MotionFacingAction_1169a0(int target, RefObj_1169a0* obj);
     virtual void Execute();
 };
-extern void* g_vftable_1169f0[];
+extern void* hulk_at_0040ecbc[];
 class Ref_1169f0 {
   public:
     virtual void F0();
@@ -225,7 +225,7 @@ class MotionTargetAction : public Action_116a30 {
     int c;
     MotionTargetAction(int x, Ref_116a30* r);
 };
-extern void* g_vftable_116a80[];
+extern void* hulk_at_0040ecd8[];
 class Ref_116a80 {
   public:
     virtual void F0();
@@ -254,12 +254,12 @@ extern "C" char DAT_0040eb00[];
 namespace fight {
 class Condition {
   public:
-    void munge();
+    void munge_002345b0();
 };
 class Param {};
 } // namespace fight
 
-void __cdecl opDelete(void* p);
+void __cdecl opDelete_0008d330(void* p);
 
 namespace hulkfight {
 namespace ai {
@@ -271,9 +271,9 @@ class HasGroundPointExtendedCondition : public fight::Condition, public fight::P
 void* HasGroundPointExtendedCondition::vfunc_5(char flag) {
     HasGroundPointExtendedCondition* self = this;
     *(void**)self = DAT_0040eb00;
-    this->fight::Condition::munge();
+    this->fight::Condition::munge_002345b0();
     if (flag & 1) {
-        opDelete(self);
+        opDelete_0008d330(self);
     }
     return self;
 }
@@ -288,8 +288,8 @@ void* HasGroundPointExtendedCondition::vfunc_5(char flag) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::ai::MotionFleeTrack* hulkfight::ai::MotionFleeTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_116790_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040eb20;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -303,8 +303,8 @@ hulkfight::ai::MotionFleeTrack* hulkfight::ai::MotionFleeTrack::vfunc_5(signed c
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::ai::MotionStopTrack* hulkfight::ai::MotionStopTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_1167c0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040eb50;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -318,8 +318,8 @@ hulkfight::ai::MotionStopTrack* hulkfight::ai::MotionStopTrack::vfunc_5(signed c
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::ai::MotionFacingTrack* hulkfight::ai::MotionFacingTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_1167f0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040eb80;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -333,8 +333,8 @@ hulkfight::ai::MotionFacingTrack* hulkfight::ai::MotionFacingTrack::vfunc_5(sign
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::ai::MotionBoostTrack* hulkfight::ai::MotionBoostTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_116820_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040ebb0;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -345,11 +345,11 @@ hulkfight::ai::MotionBoostTrack* hulkfight::ai::MotionBoostTrack::vfunc_5(signed
 // 0x00116850 hulkfight::ai::MotionLocatorTrack::vfunc_5 (46 B): matches/0x00116850.cpp
 // sym: ?vfunc_5@MotionLocatorTrack@ai@hulkfight@@UAEPAV123@E@Z
 hulkfight::ai::MotionLocatorTrack* hulkfight::ai::MotionLocatorTrack::vfunc_5(u8_116850 flag) {
-    ((void**)this)[0] = &vf_116850;
-    ((Sub_116850*)((char*)this + 0x30))->f();
-    ((Main_116850*)this)->f();
+    ((void**)this)[0] = &hulk_at_0040ebe0;
+    ((Sub_116850*)((char*)this + 0x30))->Fnf_0027af50();
+    ((Main_116850*)this)->Fnf_00236d60();
     if (flag & 1)
-        Destroy(this);
+        Destroy_0008d330(this);
     return this;
 }
 
@@ -360,8 +360,8 @@ hulkfight::ai::MotionLocatorTrack* hulkfight::ai::MotionLocatorTrack::vfunc_5(u8
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::ai::MotionTargetTrack* hulkfight::ai::MotionTargetTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_116880_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040ec10;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -375,8 +375,8 @@ hulkfight::ai::MotionTargetTrack* hulkfight::ai::MotionTargetTrack::vfunc_5(sign
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::ai::MotionChaseTrack* hulkfight::ai::MotionChaseTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_1168b0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040ec40;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -390,8 +390,8 @@ hulkfight::ai::MotionChaseTrack* hulkfight::ai::MotionChaseTrack::vfunc_5(signed
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 hulkfight::ai::MotionClosestWaypointTrack* hulkfight::ai::MotionClosestWaypointTrack::vfunc_5(signed char flags) {
-    *(void***)this = Track_1168e0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040ec70;
+    Destroy_00236d60();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -421,7 +421,7 @@ MotionStopAction_116910::MotionStopAction_116910(int target, RefObj_116910* obj)
 // 0x00116960 FUN_00116960 (50 B): matches/0x00116960.cpp
 // sym: ??1MotionStopAction_116960@fn_f72f4502@@QAE@XZ
 MotionStopAction_116960::~MotionStopAction_116960() {
-    vptr = g_vftable_116960;
+    vptr = hulk_at_0040eca0;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -454,7 +454,7 @@ MotionFacingAction_1169a0::MotionFacingAction_1169a0(int target, RefObj_1169a0* 
 // 0x001169f0 FUN_001169f0 (50 B): matches/0x001169f0.cpp
 // sym: ??1MotionFacingAction_1169f0@fn_f72f4502@@QAE@XZ
 MotionFacingAction_1169f0::~MotionFacingAction_1169f0() {
-    vptr = g_vftable_1169f0;
+    vptr = hulk_at_0040ecbc;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -485,7 +485,7 @@ MotionTargetAction::MotionTargetAction(int x, Ref_116a30* r) : Action_116a30() {
 // 0x00116a80 FUN_00116a80 (69 B): matches/0x00116a80.cpp
 // sym: ??1MotionTargetAction_116a80@fn_f72f4502@@QAE@XZ
 MotionTargetAction_116a80::~MotionTargetAction_116a80() {
-    vptr = g_vftable_116a80;
+    vptr = hulk_at_0040ecd8;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();

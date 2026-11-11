@@ -15,37 +15,37 @@ namespace fn_f712cb17 {} using namespace fn_f712cb17;
 
 // ---- declarations shared by the functions below
 namespace fn_f712cb17 {
-extern int* gTable_124090;
+extern int* hulk_at_004e0dcc;
 class CCondition_124090 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_124100;
+extern int* hulk_at_004e0dd4;
 class CCondition_124100 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_124170;
+extern int* hulk_at_004e0ddc;
 class CCondition_124170 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_1241e0;
+extern int* hulk_at_004e0de4;
 class CCondition_1241e0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_124240;
+extern int* hulk_at_004e0dec;
 class CCondition_124240 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_1242a0;
+extern int* hulk_at_004e0df4;
 class CCondition_1242a0 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_124300;
+extern int* hulk_at_004e0dfc;
 class CCondition_124300 {
   public:
     virtual int vfunc_0(int);
@@ -63,7 +63,7 @@ class TargetClearTrack : public Track_124310 {
     int m_c;
     char m_10;
 };
-extern int* gTable_124390;
+extern int* hulk_at_004e0e04;
 class CCondition_124390 {
   public:
     virtual int vfunc_0(int);
@@ -80,7 +80,7 @@ struct Track_1243f0 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern int* gTable_124430;
+extern int* hulk_at_004e0e0c;
 class CCondition_124430 {
   public:
     virtual int vfunc_0(int);
@@ -131,10 +131,10 @@ struct T1 {
 struct T2 {
     virtual void f();
 };
-extern T1 t1_124540;
-extern T2 t2;
-Holder_124540* __fastcall G1(Params_124540*);
-Ent_124540* __fastcall G2(Holder_124540*);
+extern T1 hulk_at_00494b44;
+extern T2 hulk_at_00494b60;
+Holder_124540* __fastcall G1_000592a0(Params_124540*);
+Ent_124540* __fastcall G2_00059a30(Holder_124540*);
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
@@ -275,16 +275,16 @@ struct ActorRef {
 };
 struct B_124cb0 {
     int h();
-    void j();
+    void Fnj_0003ee50();
 };
 struct A_124cb0 {
-    B_124cb0* g();
+    B_124cb0* Fng_00059a30();
 };
 class Helper_124ce0 {
   public:
-    Helper_124ce0* Next();
+    Helper_124ce0* Next_00059a30();
     int Check();
-    void Act();
+    void Act_0003ee50();
 };
 class Obj_124d20;
 class Actor_124d20 {
@@ -294,15 +294,15 @@ class Actor_124d20 {
 };
 class Obj_124d20 {
   public:
-    Obj_124d20* Check();
-    void Apply(int a, int b);
+    Obj_124d20* Check_00059a30();
+    void Apply_0003ffa0(int a, int b);
     char pad[0x32c];
     char flag;
 };
-extern void* Condition_124dd0_vftable[];
+extern void* hulk_at_0040fd14[];
 class Condition_124dd0 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class TargetDirectionYCondition_124dd0 : public Condition_124dd0 {
   public:
@@ -310,12 +310,12 @@ class TargetDirectionYCondition_124dd0 : public Condition_124dd0 {
 };
 struct Sub_124e00 {
     void* v;
-    void Fin();
+    void Fin_0027af50();
 };
 class Condition_124e00 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_002345b0();
 };
 class TargetArcCondition_124e00 : public Condition_124e00 {
   public:
@@ -323,10 +323,10 @@ class TargetArcCondition_124e00 : public Condition_124e00 {
     Sub_124e00 sub;
     TargetArcCondition_124e00* f5(unsigned char flags);
 };
-extern void* Condition_124e30_vftable[];
+extern void* hulk_at_0040fd54[];
 class Condition_124e30 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class TargetTypeCondition_124e30 : public Condition_124e30 {
   public:
@@ -339,7 +339,7 @@ class TargetTypeCondition_124e30 : public Condition_124e30 {
 // sym: ?vfunc_0@AcquireTargetCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::AcquireTargetCondition::vfunc_0(int index) {
-    int* p = gTable_124090;
+    int* p = hulk_at_004e0dcc;
     return p[index];
 }
 
@@ -358,7 +358,7 @@ void FUN_001240e0() {
 // sym: ?vfunc_0@TargetVelocityXZCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::TargetVelocityXZCondition::vfunc_0(int index) {
-    int* p = gTable_124100;
+    int* p = hulk_at_004e0dd4;
     return p[index];
 }
 
@@ -377,7 +377,7 @@ void FUN_00124150() {
 // sym: ?vfunc_0@TargetDirectionXZCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::TargetDirectionXZCondition::vfunc_0(int index) {
-    int* p = gTable_124170;
+    int* p = hulk_at_004e0ddc;
     return p[index];
 }
 
@@ -396,7 +396,7 @@ void FUN_001241c0() {
 // sym: ?vfunc_0@TargetFirstShotCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::TargetFirstShotCondition::vfunc_0(int index) {
-    int* p = gTable_1241e0;
+    int* p = hulk_at_004e0de4;
     return p[index];
 }
 
@@ -415,7 +415,7 @@ void FUN_00124220() {
 // sym: ?vfunc_0@TargetInvincibleCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::TargetInvincibleCondition::vfunc_0(int index) {
-    int* p = gTable_124240;
+    int* p = hulk_at_004e0dec;
     return p[index];
 }
 
@@ -434,7 +434,7 @@ void FUN_00124280() {
 // sym: ?vfunc_0@CanSeeTargetCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::CanSeeTargetCondition::vfunc_0(int index) {
-    int* p = gTable_1242a0;
+    int* p = hulk_at_004e0df4;
     return p[index];
 }
 
@@ -453,7 +453,7 @@ void FUN_001242e0() {
 // sym: ?vfunc_0@TargetClearTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::TargetClearTrack::vfunc_0(int index) {
-    int* p = gTable_124300;
+    int* p = hulk_at_004e0dfc;
     return p[index];
 }
 
@@ -500,7 +500,7 @@ void FUN_00124370() {
 // sym: ?vfunc_0@AcquireTargetTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::AcquireTargetTrack::vfunc_0(int index) {
-    int* p = gTable_124390;
+    int* p = hulk_at_004e0e04;
     return p[index];
 }
 
@@ -574,7 +574,7 @@ void FUN_00124410() {
 // sym: ?vfunc_0@ClearProjectileDistanceTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::ClearProjectileDistanceTrack::vfunc_0(int index) {
-    int* p = gTable_124430;
+    int* p = hulk_at_004e0e0c;
     return p[index];
 }
 
@@ -621,9 +621,9 @@ void owners::X_124500::FUN_00124500(int* out) {
 // sym: ?vfunc_6@HasTargetCondition@ai@hulkfight@@UAE_NPAX00@Z
 bool hulkfight::ai::HasTargetCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { int a = (int)__p0; Params_124540 * p = (Params_124540 *)__p1; int b = (int)__p2;
 
-    if (!DynCast(p, 0, &t1_124540, &t2, 0))
+    if (!DynCast(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0))
         return false;
-    int t = G2(G1(p))->target;
+    int t = G2_00059a30(G1_000592a0(p))->target;
     if (this->f_0c)
         return t != 0;
     return t == 0;
@@ -917,9 +917,9 @@ unsigned char TargetFirstShotCondition::vfunc_6(void* a, void* b, void* c) {
 // 0x00124cb0 hulkfight::ai::ClearProjectileDistanceAction::vfunc_4 (39 B): matches/0x00124cb0.cpp
 // sym: ?vfunc_4@ClearProjectileDistanceAction@ai@hulkfight@@UAEXXZ
 void hulkfight::ai::ClearProjectileDistanceAction::vfunc_4() {
-    B_124cb0* x = ((A_124cb0 *)((owners::Object_592a0 *)((*(A_124cb0 * *)&this->f_20)))->FUN_000592a0())->g();
+    B_124cb0* x = ((A_124cb0 *)((owners::Object_592a0 *)((*(A_124cb0 * *)&this->f_20)))->FUN_000592a0())->Fng_00059a30();
     if (x->h())
-        x->j();
+        x->Fnj_0003ee50();
 }
 
 
@@ -929,9 +929,9 @@ bool hulkfight::ai::ClearProjectileDistanceAction::vfunc_5(hulk_intptr a, int b)
     if (a != 0)
         return true;
     Helper_124ce0* x = ((Helper_124ce0 *)((owners::Object_592a0 *)((*(Helper_124ce0 * *)&this->f_20)))->FUN_000592a0());
-    x = x->Next();
+    x = x->Next_00059a30();
     if ((*(char * *)&this->f_1c)[0x14] && x->Check())
-        x->Act();
+        x->Act_0003ee50();
     return true;
 }
 
@@ -944,11 +944,11 @@ bool hulkfight::ai::TargetClearAction::vfunc_3(hulk_intptr a, hulk_intptr b) {
     Obj_124d20* r = ((Obj_124d20 *)((owners::Object_592a0 *)((*(Obj_124d20 * *)&this->f_20)))->FUN_000592a0());
     if (!r)
         return false;
-    Obj_124d20* r2 = r->Check();
+    Obj_124d20* r2 = r->Check_00059a30();
     if (!r2)
         return false;
     if ((*(Actor_124d20 * *)&this->f_1c)->flag != 0 || r2->flag == 0)
-        r2->Apply(0, 0);
+        r2->Apply_0003ffa0(0, 0);
     return true;
 }
 
@@ -960,8 +960,8 @@ namespace fn_f712cb17 {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 TargetDirectionYCondition_124dd0* TargetDirectionYCondition_124dd0::vfunc_5(signed char flags) {
-    *(void***)this = Condition_124dd0_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040fd14;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -973,8 +973,8 @@ TargetDirectionYCondition_124dd0* TargetDirectionYCondition_124dd0::vfunc_5(sign
 // sym: ?f5@TargetArcCondition_124e00@fn_f712cb17@@QAEPAV12@E@Z
 TargetArcCondition_124e00* TargetArcCondition_124e00::f5(unsigned char flags) {
     vptr = g_vA;
-    sub.Fin();
-    Fin();
+    sub.Fin_0027af50();
+    Fin_002345b0();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -987,8 +987,8 @@ TargetArcCondition_124e00* TargetArcCondition_124e00::f5(unsigned char flags) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 TargetTypeCondition_124e30* TargetTypeCondition_124e30::vfunc_5(signed char flags) {
-    *(void***)this = Condition_124e30_vftable;
-    Destroy();
+    *(void***)this = hulk_at_0040fd54;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }

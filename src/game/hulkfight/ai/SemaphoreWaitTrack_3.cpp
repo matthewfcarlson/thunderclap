@@ -29,7 +29,7 @@ class TokenSupressTrack_111720;
 } }
 namespace fn_fee140f0 {
 extern hulk_intptr __cdecl FUN_00344e74(hulk_intptr, int, hulk_intptr, hulk_intptr, int);
-extern int gTypeA_1117a0;
+extern int hulk_at_0049850c;
 extern char DAT_004a46a8;
 int __cdecl FUN_00344e74(const char*, int, const char*, const char*, int);
 class TrackFactoryCaster_111800 {
@@ -320,20 +320,20 @@ class Params_113080 {
   public:
     int x;
 };
-extern Params_113080 TypeA_113080;
-extern Params_113080 TypeB_113080;
+extern Params_113080 hulk_at_00494b44;
+extern Params_113080 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_113080*, Params_113080*, int);
 class Object_113080 {
   public:
-    int Init(hulkfight::ai::ButtonTrack*, hulk_intptr);
+    int Init_0010ec00(hulkfight::ai::ButtonTrack*, hulk_intptr);
 };
-Object_113080* __cdecl Alloc(int);
+Object_113080* __cdecl Alloc_0008d690(int);
 struct RefCounted_1130d0 {
   public:
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_1130d0[];
+extern char hulk_at_0040dd34[];
 class ButtonAction_1130d0 {
   public:
     ButtonAction_1130d0* vfunc_2(int flag);
@@ -349,7 +349,7 @@ struct RefCounted_113170 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_113170[];
+extern char hulk_at_0040dd50[];
 class HulkAction_113170 {
   public:
     HulkAction_113170* vfunc_2(int flag);
@@ -365,7 +365,7 @@ struct RefCounted_113210 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_113210[];
+extern char hulk_at_0040dd6c[];
 class TokenSupressAction_113210 {
   public:
     TokenSupressAction_113210* vfunc_2(int flag);
@@ -381,7 +381,7 @@ struct RefCounted_1132b0 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_1132b0[];
+extern char hulk_at_0040dd88[];
 class TokenAction_1132b0 {
   public:
     TokenAction_1132b0* vfunc_2(int flag);
@@ -397,7 +397,7 @@ struct RefCounted_113350 {
     virtual void f0();
     virtual void Release();
 };
-extern char g_vt_113350[];
+extern char hulk_at_0040dda4[];
 class AIHistorySetAction_113350 {
   public:
     AIHistorySetAction_113350* vfunc_2(int flag);
@@ -439,7 +439,7 @@ template <> fight::ParamBool<hulkfight::ai::TokenSupressTrack>::~ParamBool() {}
 // Same code shape as 0x000508c0 (propagated; names are from that function)
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::AIHistoryCountTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&gTypeA_1117a0, (hulk_intptr)&gTypeB, 0) != 0;
+    return FUN_00344e74((hulk_intptr)p, 0, (hulk_intptr)&hulk_at_0049850c, (hulk_intptr)&gTypeB, 0) != 0;
 }
 
 
@@ -1384,11 +1384,11 @@ extern "C" void FUN_00112f10()
 // sym: ?vfunc_10@ButtonTrack@ai@hulkfight@@UAEHHHH@Z
 // Same code shape as 0x0010bd40 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::ButtonTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_113080, &TypeB_113080, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        Object_113080* p = Alloc(0x24);
+        Object_113080* p = Alloc_0008d690(0x24);
         if (p)
-            return p->Init(this, c);
+            return p->Init_0010ec00(this, c);
     }
     return 0;
 }
@@ -1400,7 +1400,7 @@ namespace fn_fee140f0 {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 ButtonAction_1130d0* ButtonAction_1130d0::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_1130d0;
+    *p = (hulk_intptr)&hulk_at_0040dd34;
     RefCounted_1130d0* q = *(RefCounted_1130d0* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -1422,7 +1422,7 @@ ButtonAction_1130d0* ButtonAction_1130d0::vfunc_2(int flag) {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 HulkAction_113170* HulkAction_113170::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_113170;
+    *p = (hulk_intptr)&hulk_at_0040dd50;
     RefCounted_113170* q = *(RefCounted_113170* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -1444,7 +1444,7 @@ HulkAction_113170* HulkAction_113170::vfunc_2(int flag) {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 TokenSupressAction_113210* TokenSupressAction_113210::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_113210;
+    *p = (hulk_intptr)&hulk_at_0040dd6c;
     RefCounted_113210* q = *(RefCounted_113210* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -1466,7 +1466,7 @@ TokenSupressAction_113210* TokenSupressAction_113210::vfunc_2(int flag) {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 TokenAction_1132b0* TokenAction_1132b0::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_1132b0;
+    *p = (hulk_intptr)&hulk_at_0040dd88;
     RefCounted_1132b0* q = *(RefCounted_1132b0* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -1488,7 +1488,7 @@ TokenAction_1132b0* TokenAction_1132b0::vfunc_2(int flag) {
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
 AIHistorySetAction_113350* AIHistorySetAction_113350::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_113350;
+    *p = (hulk_intptr)&hulk_at_0040dda4;
     RefCounted_113350* q = *(RefCounted_113350* volatile*)&m_20;
     if (q != 0) {
         q->Release();

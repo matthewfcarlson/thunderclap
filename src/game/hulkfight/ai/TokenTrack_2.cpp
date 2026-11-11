@@ -46,16 +46,16 @@ class TokenTrack_114d70 : public BaseTrack {
 };
 } }
 namespace fn_fe1f4182 {
-extern char TrackFactoryTemplate_vftable_obj;
+extern char hulk_at_0040ea48;
 class TokenTrack;
 class TrackFactoryTemplate {
   public:
     void* mVptr;
-    void Dtor_Base1();
-    void Dtor_Base2();
+    void Dtor_Base1_0010d4a0();
+    void Dtor_Base2_00236ab0();
     void* DeletingDtor(unsigned char flags);
 };
-void DeallocateObject(void* p);
+void DeallocateObject_00263f30(void* p);
 
 } // namespace fn_fe1f4182
 
@@ -88,11 +88,11 @@ namespace fn_fe1f4182 {
 // 0x00114db0 fight::TrackFactoryTemplate<hulkfight::ai::TokenTrack>::vfunc_2 (43 B): matches/0x00114db0.cpp
 // sym: ?DeletingDtor@TrackFactoryTemplate@fn_fe1f4182@@QAEPAXE@Z
 void* TrackFactoryTemplate::DeletingDtor(unsigned char flags) {
-    mVptr = &TrackFactoryTemplate_vftable_obj;
-    Dtor_Base1();
-    Dtor_Base2();
+    mVptr = &hulk_at_0040ea48;
+    Dtor_Base1_0010d4a0();
+    Dtor_Base2_00236ab0();
     if (flags & 1) {
-        DeallocateObject(this);
+        DeallocateObject_00263f30(this);
     }
     return this;
 }

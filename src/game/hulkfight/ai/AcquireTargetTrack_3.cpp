@@ -26,13 +26,13 @@ class Child {
   public:
     Child();
 };
-extern char VT_12af80[];
+extern char hulk_at_0040ffa4[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern int g_vftable_12afe0;
+extern int hulk_at_00410b64;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_00124370();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -65,7 +65,7 @@ template <> void* fight::TrackFactoryTemplate<hulkfight::ai::AcquireTargetTrack>
         _ReadWriteBarrier();
         *(float*)((char*)p + 0x10) = -1.0f;
         *(char*)((char*)p + 0x1c) = 0;
-        *(void**)p = VT_12af80;
+        *(void**)p = hulk_at_0040ffa4;
         *(float*)((char*)p + 0x14) = 6.2831855f;
         *(float*)((char*)p + 0x18) = 100.0f;
         *(int*)((char*)p + 0x20) = 0;
@@ -84,9 +84,9 @@ namespace fn_f92a9ee4 {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f92a9ee4@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_12afe0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00410b64;
+    base1_dtor_00124370();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;

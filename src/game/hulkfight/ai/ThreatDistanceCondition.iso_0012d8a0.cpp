@@ -18,7 +18,7 @@ class ThreatDodgeTrack_12d8a0 {
     char e[4];
     int f;
 };
-extern void* __cdecl Alloc(int);
+extern void* __cdecl Alloc_0008d690(int);
 struct Base {
     Base();
 };
@@ -27,7 +27,7 @@ struct Tail {
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::ai::ThreatDodgeTrack>::vfunc_5() {
-    ThreatDodgeTrack_12d8a0* p = (ThreatDodgeTrack_12d8a0*)Alloc(0x28);
+    ThreatDodgeTrack_12d8a0* p = (ThreatDodgeTrack_12d8a0*)Alloc_0008d690(0x28);
     if (p) {
         Base* b = (Base*)p;
         b->Base::Base();

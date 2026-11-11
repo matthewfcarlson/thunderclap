@@ -13,15 +13,15 @@ namespace fn_fb3863ec {} using namespace fn_fb3863ec;
 // ---- declarations shared by the functions below
 namespace fn_fb3863ec {
 struct Tail_10d5b0 {
-    void Init();
+    void Init_0027af50();
 };
 struct SemaphoreWaitTrack_10d5b0 {
     void* vptr;
     char pad[0x14];
-    void Finish();
+    void Finish_00236d60();
     void Run();
 };
-extern void* vftable_10d5b0;
+extern void* hulk_at_0040dd04;
 extern "C" char DAT_00494b44[];
 extern "C" char DAT_00494b60[];
 class P_10d6b0 {
@@ -29,17 +29,17 @@ class P_10d6b0 {
 };
 class Q_10d6b0 {
   public:
-    void* query();
+    void* query_00059a30();
 };
 extern int __cdecl FUN_00344e74(void*, int, hulk_intptr, hulk_intptr, int);
 extern int cast(void*, int, const void*, const void*, int);
-extern char type1_10d710[];
-extern char type2_10d710[];
+extern char hulk_at_00494b44[];
+extern char hulk_at_00494b60[];
 struct Helper1_10d710 {
-    void* Get();
+    void* Get_000592a0();
 };
 struct Helper2_10d710 {
-    void* Get();
+    void* Get_00059a30();
 };
 class DefendingCondition_10d710 {
   public:
@@ -54,7 +54,7 @@ class DefendingCondition_10d710 {
     u8 value;
 };
 struct A_10d770 {
-    int f1();
+    int f1_00059a30();
 };
 struct B_10d770 {
     char pad[0x14];
@@ -83,7 +83,7 @@ class State_10d7d0 {
 };
 class Manager_10d7d0 {
   public:
-    char* Second();
+    char* Second_00059a30();
 };
 
 
@@ -91,9 +91,9 @@ class Manager_10d7d0 {
 // sym: ?Run@SemaphoreWaitTrack_10d5b0@fn_fb3863ec@@QAEXXZ
 // Same code shape as 0x0010d0f0 (propagated; names are from that function)
 void SemaphoreWaitTrack_10d5b0::Run() {
-    vptr = &vftable_10d5b0;
-    ((Tail_10d5b0*)((char*)this + 0x18))->Init();
-    Finish();
+    vptr = &hulk_at_0040dd04;
+    ((Tail_10d5b0*)((char*)this + 0x18))->Init_0027af50();
+    Finish_00236d60();
 }
 
 } // namespace fn_fb3863ec
@@ -106,7 +106,7 @@ bool hulkfight::ai::LeashedCondition::vfunc_6(void* __p0, void* __p1, void* __p2
     if (!ok)
         return false;
     void* a = ((void *)((owners::Object_592a0 *)(((P_10d6b0*)params)))->FUN_000592a0());
-    void* b = ((Q_10d6b0*)a)->query();
+    void* b = ((Q_10d6b0*)a)->query_00059a30();
     if (!b)
         return false;
     void* c = *(void**)((char*)b + 0x1ca0);
@@ -120,9 +120,9 @@ namespace fn_fb3863ec {
 // 0x0010d710 hulkfight::ai::DefendingCondition::vfunc_6 (96 B): matches/0x0010d710.cpp
 // sym: ?vfunc_6@DefendingCondition_10d710@fn_fb3863ec@@UAE_NPAX00@Z
 bool DefendingCondition_10d710::vfunc_6(void* a, void* p, void* b) {
-    if (cast(p, 0, type1_10d710, type2_10d710, 0)) {
-        void* x = ((Helper1_10d710*)p)->Get();
-        void* q = ((Helper2_10d710*)x)->Get();
+    if (cast(p, 0, hulk_at_00494b44, hulk_at_00494b60, 0)) {
+        void* x = ((Helper1_10d710*)p)->Get_000592a0();
+        void* q = ((Helper2_10d710*)x)->Get_00059a30();
         if (q) {
             void* v = *(void**)((char*)q + 0x1ca0);
             if (v) {
@@ -144,7 +144,7 @@ bool hulkfight::ai::ButtonAction::vfunc_5(hulk_intptr p, int q) {
         if (!(*(A_10d770 * *)&this->f_20))
             return (bool)(0);
         A_10d770* r = ((A_10d770 *)((owners::Object_592a0 *)((*(A_10d770 * *)&this->f_20)))->FUN_000592a0());
-        hulk_intptr base = r->f1();
+        hulk_intptr base = r->f1_00059a30();
         int* d = (int*)(base + 0x1f58);
         d = d + (*(B_10d770 * *)&this->f_1c)->a14 * 3;
         d[0] = (*(B_10d770 * *)&this->f_1c)->a18;
@@ -163,7 +163,7 @@ void hulkfight::ai::ButtonAction::vfunc_4() {
         float f = (*(Action_10d7d0 * *)&this->f_1c)->Get();
         if (f < DAT_003f32e0 || f > DAT_003f32e0) {
             Manager_10d7d0* m = (Manager_10d7d0*)(*(State_10d7d0 * *)&this->f_20);
-            char* v = ((Manager_10d7d0*)((void *)((owners::Object_592a0 *)m)->FUN_000592a0()))->Second() + 0x1f58;
+            char* v = ((Manager_10d7d0*)((void *)((owners::Object_592a0 *)m)->FUN_000592a0()))->Second_00059a30() + 0x1f58;
             *(int*)(v + (*(Action_10d7d0 * *)&this->f_1c)->m14 * 12) = 0;
         }
     }

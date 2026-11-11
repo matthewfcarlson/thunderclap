@@ -18,7 +18,7 @@ struct R_1a4c50 {
 };
 extern void* Find(void*, int, void*, void*, int);
 struct Obj_1a4c50 {
-    R_1a4c50* Get();
+    R_1a4c50* Get_001d03c0();
 };
 
 bool hulkfight::scenario::Event_LocomotionStateNamePreviousCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { void * x = (void *)__p0; void * y = (void *)__p1; void * z = (void *)__p2;
@@ -26,7 +26,7 @@ bool hulkfight::scenario::Event_LocomotionStateNamePreviousCondition::vfunc_6(vo
     void* p = Find(y, 0, (void*)((hulk_intptr)DAT_00494b44), (void*)((hulk_intptr)DAT_004c13d0), 0);
     if (!p)
         return false;
-    R_1a4c50* q = ((Obj_1a4c50*)p)->Get();
+    R_1a4c50* q = ((Obj_1a4c50*)p)->Get_001d03c0();
     if (q->type != 15)
         return false;
     int n = q->name;

@@ -29,15 +29,15 @@ class InActiveCondition_114440 {
     char pad4[8];
     int fieldC;
     char field10;
-    void Init(int);
+    void Init_00234590(int);
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern int g_InActiveVftable;
-extern int g_vftable_114480;
+extern int hulk_at_0040dac4;
+extern int hulk_at_0040e8dc;
 struct ConditionFactoryTemplate_114480 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0010cd80();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -65,8 +65,8 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::ai::InActiveC
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::InActiveCondition>::vfunc_5() {
     InActiveCondition_114440* p = (InActiveCondition_114440*)FUN_0008d690((int)sizeof(InActiveCondition_114440));
     if (p) {
-        p->Init(0);
-        p->vptr = (hulk_uintptr)&g_InActiveVftable;
+        p->Init_00234590(0);
+        p->vptr = (hulk_uintptr)&hulk_at_0040dac4;
         p->fieldC = 0;
         p->field10 = 0;
         return (void*)(p);
@@ -80,9 +80,9 @@ namespace fn_fc88775a {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_114480@fn_fc88775a@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_114480::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_114480;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0040e8dc;
+    base1_dtor_0010cd80();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

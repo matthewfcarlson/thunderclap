@@ -7,7 +7,7 @@
 // sym: ?vfunc_5@?$TrackFactoryTemplate@VDebugPrintTrack@hulkfight@@@fight@@UAEPAXXZ
 #include "gen/fight.h"
 
-extern void* __cdecl Allocate(unsigned int);
+extern void* __cdecl Allocate_0008d690(unsigned int);
 HULK_NATIVE_INLINE void* operator new(size_t, void* p) {
     return p;
 }
@@ -53,7 +53,7 @@ class TrackFactory_132d80 {
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::DebugPrintTrack>::vfunc_5() {
-    DebugPrintTrack_132d80* p = (DebugPrintTrack_132d80*)Allocate(0x1c);
+    DebugPrintTrack_132d80* p = (DebugPrintTrack_132d80*)Allocate_0008d690(0x1c);
     if (p) {
         new (p) DebugPrintTrack_132d80();
         return (void*)(p);

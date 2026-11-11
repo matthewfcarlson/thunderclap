@@ -13,20 +13,20 @@ class Params_113120 {
   public:
     int x;
 };
-extern Params_113120 TypeA_113120;
-extern Params_113120 TypeB_113120;
+extern Params_113120 hulk_at_00494b44;
+extern Params_113120 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_113120*, Params_113120*, int);
 struct HulkAction_nv_113120 {
-    int Init(hulkfight::ai::HulkActionTrack*, hulk_intptr);
+    int Init_0010f310(hulkfight::ai::HulkActionTrack*, hulk_intptr);
 };
-hulkfight::ai::HulkAction* __cdecl Alloc(int);
+hulkfight::ai::HulkAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::ai::HulkActionTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_113120, &TypeB_113120, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::ai::HulkAction* p = Alloc(0x24);
+        hulkfight::ai::HulkAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((HulkAction_nv_113120*)(((hulkfight::ai::HulkAction*)(p))))->Init(this, c);
+            return ((HulkAction_nv_113120*)(((hulkfight::ai::HulkAction*)(p))))->Init_0010f310(this, c);
     }
     return 0;
 }

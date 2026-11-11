@@ -27,13 +27,13 @@ extern "C" char DAT_0040daa4[];
 extern "C" void* __cdecl FUN_0008d690(int);
 class FormationReadyCondition {
   public:
-    void Init(int);
+    void Init_00234590(int);
 };
-extern int g_vftable_1143d0;
+extern int hulk_at_0040e8c0;
 struct ConditionFactoryTemplate_1143d0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0010cca0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -62,7 +62,7 @@ namespace fn_fc50ae1d {
 void* ConditionFactory_vfunc5() {
     FormationReadyCondition* p = (FormationReadyCondition*)FUN_0008d690(0x14);
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         *(hulk_intptr*)p = ((hulk_intptr)DAT_0040daa4);
         *(int*)((char*)p + 0xc) = 0;
         *(int*)((char*)p + 0x10) = 0;
@@ -76,9 +76,9 @@ void* ConditionFactory_vfunc5() {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_1143d0@fn_fc50ae1d@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_1143d0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_1143d0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0040e8c0;
+    base1_dtor_0010cca0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

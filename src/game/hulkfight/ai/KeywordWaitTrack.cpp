@@ -13,16 +13,16 @@ namespace fn_f14b3cf2 {} using namespace fn_f14b3cf2;
 // ---- declarations shared by the functions below
 namespace fn_f14b3cf2 {
 struct Tail_10d2a0 {
-    void Init();
+    void Init_0027af50();
 };
 struct HulkActionTrack_10d2a0 {
     void* vptr;
     char pad[0x14];
-    void Finish();
+    void Finish_00236d60();
     void Run();
 };
-extern void* vftable_10d2a0;
-extern int* gTable_10d2e0;
+extern void* hulk_at_0040dc14;
+extern int* hulk_at_004e0b80;
 class CCondition_10d2e0 {
   public:
     virtual int vfunc_0(int);
@@ -68,9 +68,9 @@ struct Track_10d340 {
 // sym: ?Run@HulkActionTrack_10d2a0@fn_f14b3cf2@@QAEXXZ
 // Same code shape as 0x0010d0f0 (propagated; names are from that function)
 void HulkActionTrack_10d2a0::Run() {
-    vptr = &vftable_10d2a0;
-    ((Tail_10d2a0*)((char*)this + 0x18))->Init();
-    Finish();
+    vptr = &hulk_at_0040dc14;
+    ((Tail_10d2a0*)((char*)this + 0x18))->Init_0027af50();
+    Finish_00236d60();
 }
 
 
@@ -87,7 +87,7 @@ void FUN_0010d2c0() {
 // sym: ?vfunc_0@KeywordWaitTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::KeywordWaitTrack::vfunc_0(int index) {
-    int* p = gTable_10d2e0;
+    int* p = hulk_at_004e0b80;
     return p[index];
 }
 

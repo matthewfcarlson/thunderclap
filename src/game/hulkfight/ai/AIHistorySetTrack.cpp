@@ -12,7 +12,7 @@ namespace fn_fd391c0c {} using namespace fn_fd391c0c;
 
 // ---- declarations shared by the functions below
 namespace fn_fd391c0c {
-extern int* gTable_10d420;
+extern int* hulk_at_004e0b90;
 class CCondition_10d420 {
   public:
     virtual int vfunc_0(int);
@@ -64,7 +64,7 @@ void FUN_0010d400() {
 // sym: ?vfunc_0@AIHistorySetTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::AIHistorySetTrack::vfunc_0(int index) {
-    int* p = gTable_10d420;
+    int* p = hulk_at_004e0b90;
     return p[index];
 }
 

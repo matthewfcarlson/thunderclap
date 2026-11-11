@@ -20,7 +20,7 @@ struct InitHelper {
 struct TrackImpl {
     int m0;
     int m1;
-    void setup(void* arg);
+    void setup_0027b040(void* arg);
 };
 
 class ConditionFactoryTemplate_12d650 {
@@ -40,7 +40,7 @@ template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::ai::ThreatDis
     if (mem) {
         ((InitHelper*)mem)->init();
         ConditionFactoryTemplate_12d650* t = new (mem) ConditionFactoryTemplate_12d650();
-        t->mTrack.setup(arg);
+        t->mTrack.setup_0027b040(arg);
         postInit();
         return (void*)(t);
     }

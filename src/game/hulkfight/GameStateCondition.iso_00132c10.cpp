@@ -9,8 +9,8 @@
 // Same code shape as 0x00075e70 (propagated; names are from that function)
 #include "gen/fight.h"
 
-extern void* __cdecl Alloc(hulk_uintptr);
-extern int shakeVtable;
+extern void* __cdecl Alloc_0008d690(hulk_uintptr);
+extern int hulk_at_00411314;
 class CCameraShakeTrack_132c10 {
   public:
     virtual void f0();
@@ -25,18 +25,18 @@ class CCameraShakeTrack_132c10 {
     int y;
     int z;
     int w;
-    void Init();
+    void Init_00236d40();
 };
 
 template <> void* fight::TrackFactoryTemplate<hulkfight::NISSoundTrack>::vfunc_5() {
-    CCameraShakeTrack_132c10* p = (CCameraShakeTrack_132c10*)Alloc(0x1c);
+    CCameraShakeTrack_132c10* p = (CCameraShakeTrack_132c10*)Alloc_0008d690(0x1c);
     if (p) {
-        p->Init();
+        p->Init_00236d40();
         p->x = 0;
         p->y = 0;
         p->z = 0;
         p->w = 0;
-        *(hulk_ulongptr*)p = (hulk_ulongptr)&shakeVtable;
+        *(hulk_ulongptr*)p = (hulk_ulongptr)&hulk_at_00411314;
         p->flag = 1;
         return (void*)(p);
     }

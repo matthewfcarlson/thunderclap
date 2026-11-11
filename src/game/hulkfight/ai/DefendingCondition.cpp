@@ -29,14 +29,14 @@ class DefendingCondition {
     hulk_intptr vptr;
     char pad4[8];
     unsigned char flag;
-    void Init(int);
+    void Init_00234590(int);
 };
 extern "C" void* __cdecl FUN_0008d690(hulk_uintptr);
-extern int g_vftable_113f10;
+extern int hulk_at_0040e7fc;
 struct ConditionFactoryTemplate_113f10 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0010c7f0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -65,7 +65,7 @@ namespace fn_feed8707 {
 void* FactoryVfunc5() {
     DefendingCondition* p = (DefendingCondition*)FUN_0008d690((int)sizeof(DefendingCondition));
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         p->vptr = ((hulk_intptr)DAT_0040d9c4);
         p->flag = 1;
         return p;
@@ -78,9 +78,9 @@ void* FactoryVfunc5() {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_113f10@fn_feed8707@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_113f10::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_113f10;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0040e7fc;
+    base1_dtor_0010c7f0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;

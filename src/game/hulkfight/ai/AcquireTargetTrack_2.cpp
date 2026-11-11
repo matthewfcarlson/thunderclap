@@ -17,7 +17,7 @@ extern char DAT_00491ca8;
 extern char DAT_004a8a50;
 extern "C" int Check(void*, int, hulk_intptr, hulk_intptr, int);
 extern "C" int FUN_00344e74(hulk_intptr, int, hulk_intptr, hulk_intptr, int);
-extern int g1;
+extern int hulk_at_004a8b08;
 extern "C++" __declspec(nothrow) int __cdecl FUN_00344e74(void*, int, void*, void*, int);
 extern char DAT_004a8bc8;
 } // namespace fn_f253994b
@@ -55,7 +55,7 @@ class TrackFactoryCaster_1283e0 {
 struct Info {
     int x;
 };
-extern Info a, b;
+extern Info hulk_at_0049850c, hulk_at_004a8dd0;
 extern "C" void* __cdecl lookup(void*, int, Info*, Info*, int);
 } // namespace fn_f253994b
 namespace fight {
@@ -444,7 +444,7 @@ template <> fight::ParamBool<hulkfight::ai::TargetFirstShotCondition>::~ParamBoo
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VTargetInvincibleCondition@ai@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::TargetInvincibleCondition>::vfunc_0(void* __p0) { hulk_intptr x = (hulk_intptr)__p0;
 
-    return FUN_00344e74(x, 0, (hulk_intptr)&g2, (hulk_intptr)&g1, 0) != 0;
+    return FUN_00344e74(x, 0, (hulk_intptr)&g2, (hulk_intptr)&hulk_at_004a8b08, 0) != 0;
 }
 
 
@@ -528,7 +528,7 @@ template <> fight::ParamVector<hulkfight::ai::AcquireTargetTrack>::~ParamVector(
  // namespace fight
 template <> bool fight::TrackFactoryCasterTemplate<hulkfight::ai::ClearProjectileDistanceTrack>::vfunc_0(void* __p0) { void * p = (void *)__p0;
 
-    return lookup(p, 0, &a, &b, 0) != 0;
+    return lookup(p, 0, &hulk_at_0049850c, &hulk_at_004a8dd0, 0) != 0;
 }
 
 
@@ -980,12 +980,12 @@ struct RefCounted_1295b0 {
     virtual void Release();
 };
 
-extern char g_vt_1295b0[];
-extern "C++" __declspec(nothrow) void opdel(void*);
+extern char hulk_at_00410004[];
+extern "C++" __declspec(nothrow) void opdel_0008d330(void*);
 
 namespace hulkfight { namespace ai { class AcquireTargetAction {
   public:
-    void Cleanup();
+    void Cleanup_002326a0();
     AcquireTargetAction* vfunc_2(int flag);
 
   private:
@@ -997,7 +997,7 @@ namespace hulkfight { namespace ai { class AcquireTargetAction {
 
 hulkfight::ai::AcquireTargetAction* hulkfight::ai::AcquireTargetAction::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_1295b0;
+    *p = (hulk_intptr)&hulk_at_00410004;
     RefCounted_1295b0* q = *(RefCounted_1295b0* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -1006,9 +1006,9 @@ hulkfight::ai::AcquireTargetAction* hulkfight::ai::AcquireTargetAction::vfunc_2(
     if (m_1c != 0) {
         m_1c = 0;
     }
-    Cleanup();
+    Cleanup_002326a0();
     if (flag & 1) {
-        opdel(this);
+        opdel_0008d330(this);
     }
     return this;
 }
@@ -1025,12 +1025,12 @@ struct RefCounted_129650 {
     virtual void Release();
 };
 
-extern char g_vt_129650[];
+extern char hulk_at_00410020[];
 extern "C++" __declspec(nothrow) void opdel(void*);
 
 namespace hulkfight { namespace ai { class ClearProjectileDistanceAction {
   public:
-    void Cleanup();
+    void Cleanup_002326a0();
     ClearProjectileDistanceAction* vfunc_2(int flag);
 
   private:
@@ -1042,7 +1042,7 @@ namespace hulkfight { namespace ai { class ClearProjectileDistanceAction {
 
 hulkfight::ai::ClearProjectileDistanceAction* hulkfight::ai::ClearProjectileDistanceAction::vfunc_2(int flag) {
     volatile hulk_intptr* p = (volatile hulk_intptr*)this;
-    *p = (hulk_intptr)&g_vt_129650;
+    *p = (hulk_intptr)&hulk_at_00410020;
     RefCounted_129650* q = *(RefCounted_129650* volatile*)&m_20;
     if (q != 0) {
         q->Release();
@@ -1051,7 +1051,7 @@ hulkfight::ai::ClearProjectileDistanceAction* hulkfight::ai::ClearProjectileDist
     if (m_1c != 0) {
         m_1c = 0;
     }
-    Cleanup();
+    Cleanup_002326a0();
     if (flag & 1) {
         opdel(this);
     }

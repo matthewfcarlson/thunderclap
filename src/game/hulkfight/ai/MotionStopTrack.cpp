@@ -12,12 +12,12 @@ namespace fn_f2c145d4 {} using namespace fn_f2c145d4;
 
 // ---- declarations shared by the functions below
 namespace fn_f2c145d4 {
-extern int* gTable_115930;
+extern int* hulk_at_004e0c4c;
 class CCondition_115930 {
   public:
     virtual int vfunc_0(int);
 };
-extern void* g_vftable[];
+extern void* hulk_at_0040eb50[];
 class Track_115940 {
   public:
     Track_115940();
@@ -58,7 +58,7 @@ void FUN_00115910() {
 // sym: ?vfunc_0@MotionStopTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::MotionStopTrack::vfunc_0(int index) {
-    int* p = gTable_115930;
+    int* p = hulk_at_004e0c4c;
     return p[index];
 }
 
@@ -67,7 +67,7 @@ namespace fn_f2c145d4 {
 // 0x00115940 FUN_00115940 (32 B): matches/0x00115940.cpp
 // sym: ??0MotionStopTrack@fn_f2c145d4@@QAE@XZ
 MotionStopTrack::MotionStopTrack() : Track_115940() {
-    *(void**)((char*)this + 0) = g_vftable;
+    *(void**)((char*)this + 0) = hulk_at_0040eb50;
     m0c = 0;
     m10 = -1.0f;
 }

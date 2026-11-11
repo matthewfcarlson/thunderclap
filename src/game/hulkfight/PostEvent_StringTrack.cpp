@@ -40,9 +40,9 @@ class Obj {
     char _m_pad_0[0x19];
     char flag;
     bool SetFlag(char v);
-    void Use(void*);
+    void Use_002367c0(void*);
 };
-extern int* gTable_12d9a0;
+extern int* hulk_at_004e0e44;
 class CCondition_12d9a0 {
   public:
     virtual int vfunc_0(int);
@@ -66,17 +66,17 @@ class PostEvent_StringTrack : public Track_12d9b0 {
     char pad[7];
     char a, b;
 };
-extern void* g_vftable_12da00[];
+extern void* hulk_at_004110e0[];
 class Str_12da00 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class Track_12da00 {
   public:
     void* vptr;
     char pad[12];
     Str_12da00 s;
-    void Fin();
+    void Fin_00236d60();
 };
 class PostEvent_StringTrack_12da00 : public Track_12da00 {
   public:
@@ -132,8 +132,8 @@ public:
 };
 extern char threat_vftable_12db20;
 struct PostEvent_StringTrack_nv_12db20 {
-    void f1();
-    void f2();
+    void f1_0027af50();
+    void f2_00236d60();
 };
 extern void thunk_FUN_00267090(hulkfight::PostEvent_StringTrack*);
 class PostEvent_StringTrack_12db20 {
@@ -154,7 +154,7 @@ class Action_12dba0 {
     void Finish();
 };
 struct PostEvent_StringAction_nv_12dba0 {
-    void Finish();
+    void Finish_002326a0();
 };
 class CStageCondition_12dc10;
 class ParamValue_12dc10 {
@@ -193,11 +193,11 @@ struct Ref_12dcf0 {
     virtual void f0();
     virtual void f1();
 };
-extern void* Alloc(hulk_uintptr);
+extern void* Alloc_0008d690(hulk_uintptr);
 struct Memory_12dcf0 {
-    void Init();
+    void Init_00232660();
 };
-extern void* g_vt_12dd50[];
+extern void* hulk_at_00411110[];
 class Ref_12dd50 {
   public:
     virtual void F0();
@@ -260,7 +260,7 @@ struct Helper_12df70 {
 struct SubHelper {
     void FUN_0027af00();
 };
-extern int g_vftable_12dfb0;
+extern int hulk_at_004111b8;
 
 
 // 0x0012d920 FUN_0012d920 (12 B): matches/0x0012d920.cpp
@@ -307,7 +307,7 @@ void FUN_0012d980() {
 // sym: ?vfunc_0@PostEvent_StringTrack@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::PostEvent_StringTrack::vfunc_0(int index) {
-    int* p = gTable_12d9a0;
+    int* p = hulk_at_004e0e44;
     return p[index];
 }
 
@@ -340,9 +340,9 @@ namespace fn_facdac2a {
 // 0x0012da00 FUN_0012da00 (25 B): matches/0x0012da00.cpp
 // sym: ??1PostEvent_StringTrack_12da00@fn_facdac2a@@QAE@XZ
 PostEvent_StringTrack_12da00::~PostEvent_StringTrack_12da00() {
-    vptr = g_vftable_12da00;
-    s.Init();
-    Fin();
+    vptr = hulk_at_004110e0;
+    s.Init_0027af50();
+    Fin_00236d60();
 }
 
 } // namespace fn_facdac2a
@@ -395,8 +395,8 @@ void FUN_0012dac0() {}
 PostEvent_StringTrack_12db20* PostEvent_StringTrack_12db20::vfunc_5(unsigned char param) {
     PostEvent_StringTrack_12db20* p = this;
     *(char**)p = &threat_vftable_12db20;
-    ((PostEvent_StringTrack_nv_12db20*)(((hulkfight::PostEvent_StringTrack*)((char*)p + 0x10))))->f1();
-    ((PostEvent_StringTrack_nv_12db20*)(((hulkfight::PostEvent_StringTrack*)p)))->f2();
+    ((PostEvent_StringTrack_nv_12db20*)(((hulkfight::PostEvent_StringTrack*)((char*)p + 0x10))))->f1_0027af50();
+    ((PostEvent_StringTrack_nv_12db20*)(((hulkfight::PostEvent_StringTrack*)p)))->f2_00236d60();
     if (param & 1)
         thunk_FUN_00267090((hulkfight::PostEvent_StringTrack*)p);
     return p;
@@ -417,11 +417,11 @@ struct PostEvent_StringAction {
     int pad[6];
     int arg;
     Obj_12db50* object;
-    void Init();
+    void Init_00232660();
     PostEvent_StringAction* Build(int, Obj_12db50*);
 };
 PostEvent_StringAction* PostEvent_StringAction::Build(int a, Obj_12db50* p) {
-    Init();
+    Init_00232660();
     vf = &PostEvent_StringAction_vftable;
     object = 0;
     arg = a;
@@ -444,7 +444,7 @@ void hulkfight::PostEvent_StringAction::FUN_0012dba0() {
         (*(Ref_12dba0 * *)&this->f_20)->Release();
         (*(Ref_12dba0 * *)&this->f_20) = 0;
     }
-    ((PostEvent_StringAction_nv_12dba0*)this)->Finish();
+    ((PostEvent_StringAction_nv_12dba0*)this)->Finish_002326a0();
 }
 
 
@@ -512,9 +512,9 @@ template <> fight::ParamBool<hulkfight::PostEvent_StringTrack>::~ParamBool() {}
 // sym: ?vfunc_10@PostEvent_StringTrack@hulkfight@@UAEHHHH@Z
 hulk_intptr hulkfight::PostEvent_StringTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr __p2) { Ref_12dcf0 * param = (Ref_12dcf0 *)__p2;
 
-    char* p = (char*)Alloc(0x24);
+    char* p = (char*)Alloc_0008d690(0x24);
     if (p) {
-        ((Memory_12dcf0*)p)->Init();
+        ((Memory_12dcf0*)p)->Init_00232660();
         *(void**)(p + 0x1c) = this;
         *(hulk_uintptr*)p = ((hulk_intptr)DAT_00411110);
         *(unsigned int*)(p + 0x20) = 0;
@@ -534,7 +534,7 @@ namespace fn_facdac2a {
 // 0x0012dd50 hulkfight::PostEvent_StringAction::vfunc_2 (57 B): matches/0x0012dd50.cpp
 // sym: ?f2@PostEvent_StringAction_12dd50@fn_facdac2a@@QAEPAV12@E@Z
 PostEvent_StringAction_12dd50* PostEvent_StringAction_12dd50::f2(unsigned char flags) {
-    vptr = g_vt_12dd50;
+    vptr = hulk_at_00411110;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
@@ -568,7 +568,7 @@ namespace fn_facdac2a {
 // sym: _FUN_0012de00
 extern "C" void __cdecl FUN_0012de00(Obj* obj, void* key) {
     TrackFactoryCasterTemplate_12de00 caster;
-    obj->Use(FUN_00236ac0(key, &caster));
+    obj->Use_002367c0(FUN_00236ac0(key, &caster));
 }
 
 } // namespace fn_facdac2a
@@ -701,7 +701,7 @@ namespace fn_facdac2a {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_facdac2a@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_12dfb0;
+    m_vptr = (void*)&hulk_at_004111b8;
     base1_dtor();
     base2_dtor();
     if (flags & 1)

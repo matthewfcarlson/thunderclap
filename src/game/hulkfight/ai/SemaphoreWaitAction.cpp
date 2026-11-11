@@ -45,13 +45,13 @@ struct Data {
     unsigned char flag;
 };
 struct Result {
-    void send(int*, int, unsigned char);
+    void send_00037040(int*, int, unsigned char);
 };
 struct Getter {
-    Result* get();
+    Result* get_00059a30();
 };
 struct Semaphore {
-    Getter* get();
+    Getter* get_000592a0();
 };
 namespace hulkfight {
 namespace ai {
@@ -73,9 +73,9 @@ class SemaphoreWaitAction {
 char hulkfight::ai::SemaphoreWaitAction::vfunc_3(int, int) {
     if (!sem)
         return 0;
-    Result* r = sem->get()->get();
+    Result* r = sem->get_000592a0()->get_00059a30();
     state = 0;
-    r->send(&data->value, 1, data->flag);
+    r->send_00037040(&data->value, 1, data->flag);
     return 1;
 }
 } // namespace fn_0010e280

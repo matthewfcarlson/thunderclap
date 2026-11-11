@@ -16,22 +16,22 @@ extern "C" void __fastcall FUN_00059a30(void*);
 extern void* FUN_000678d0();
 extern void __fastcall FUN_00067730(void*);
 extern void* __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
-extern const int RTTI_Params_10dbb0;
-extern const int RTTI_CFightParams_10dbb0;
+extern const int hulk_at_00494b44;
+extern const int hulk_at_00494b60;
 struct Holder_10dbb0 {
     char pad[0x14];
     Holder_10dbb0* next;
 };
 struct Sub_10dbb0 {
     Holder_10dbb0* h;
-    bool Valid();
+    bool Valid_00231ee0();
 };
 struct Owner_10dbb0 {
     char pad[0xb4];
     Sub_10dbb0 sub;
 };
 struct Mid_10dbb0 {
-    Owner_10dbb0* GetOwner();
+    Owner_10dbb0* GetOwner_00059a30();
 };
 struct P_10dbb0 {
 };
@@ -61,8 +61,8 @@ bool hulkfight::ai::HulkAction::vfunc_5(hulk_intptr arg, int unused) {
 // sym: ?vfunc_6@AIFightNodeCondition@ai@hulkfight@@UAE_NPAX00@Z
 bool hulkfight::ai::AIFightNodeCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { P_10dbb0 * p = (P_10dbb0 *)__p1;
 
-    if (FUN_00344e74(p, 0, &RTTI_Params_10dbb0, &RTTI_CFightParams_10dbb0, 0)) {
-        Owner_10dbb0* o = ((Mid_10dbb0 *)((owners::Object_592a0 *)p)->FUN_000592a0())->GetOwner();
+    if (FUN_00344e74(p, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0)) {
+        Owner_10dbb0* o = ((Mid_10dbb0 *)((owners::Object_592a0 *)p)->FUN_000592a0())->GetOwner_00059a30();
         if (o) {
             Holder_10dbb0* n = (*(Holder_10dbb0 * *)&this->f_0c);
             if (n) {
@@ -70,7 +70,7 @@ bool hulkfight::ai::AIFightNodeCondition::vfunc_6(void* __p0, void* __p1, void* 
                 if (s) {
                     Holder_10dbb0* h = s->h;
                     if (h) {
-                        if (s->Valid()) {
+                        if (s->Valid_00231ee0()) {
                             Holder_10dbb0* c = h->next;
                             while (c) {
                                 if (c == n)

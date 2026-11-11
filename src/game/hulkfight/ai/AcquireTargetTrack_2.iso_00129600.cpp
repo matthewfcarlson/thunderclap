@@ -13,20 +13,20 @@ class Params_129600 {
   public:
     int x;
 };
-extern Params_129600 TypeA_129600;
-extern Params_129600 TypeB_129600;
+extern Params_129600 hulk_at_00494b44;
+extern Params_129600 hulk_at_00494b60;
 int __cdecl Check(void*, int, Params_129600*, Params_129600*, int);
 struct ClearProjectileDistanceAction_nv_129600 {
-    int Init(hulkfight::ai::ClearProjectileDistanceTrack*, hulk_intptr);
+    int Init_00126810(hulkfight::ai::ClearProjectileDistanceTrack*, hulk_intptr);
 };
-hulkfight::ai::ClearProjectileDistanceAction* __cdecl Alloc(int);
+hulkfight::ai::ClearProjectileDistanceAction* __cdecl Alloc_0008d690(int);
 
 hulk_intptr hulkfight::ai::ClearProjectileDistanceTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
-    int result = Check((void*)c, 0, &TypeA_129600, &TypeB_129600, 0);
+    int result = Check((void*)c, 0, &hulk_at_00494b44, &hulk_at_00494b60, 0);
     if (result) {
-        hulkfight::ai::ClearProjectileDistanceAction* p = Alloc(0x24);
+        hulkfight::ai::ClearProjectileDistanceAction* p = Alloc_0008d690(0x24);
         if (p)
-            return ((ClearProjectileDistanceAction_nv_129600*)(((hulkfight::ai::ClearProjectileDistanceAction*)(p))))->Init(this, c);
+            return ((ClearProjectileDistanceAction_nv_129600*)(((hulkfight::ai::ClearProjectileDistanceAction*)(p))))->Init_00126810(this, c);
     }
     return 0;
 }

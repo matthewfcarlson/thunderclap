@@ -12,7 +12,7 @@ namespace fn_f3172cab {} using namespace fn_f3172cab;
 
 // ---- declarations shared by the functions below
 namespace fn_f3172cab {
-extern int* gTable_115af0;
+extern int* hulk_at_004e0c64;
 class CCondition_115af0 {
   public:
     virtual int vfunc_0(int);
@@ -25,7 +25,7 @@ class Track_115b00 {
 };
 class Sub {
   public:
-    void Init();
+    void Init_0027af00();
 };
 class MotionLocatorTrack : public Track_115b00 {
   public:
@@ -66,7 +66,7 @@ void FUN_00115ad0() {
 // sym: ?vfunc_0@MotionLocatorTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::MotionLocatorTrack::vfunc_0(int index) {
-    int* p = gTable_115af0;
+    int* p = hulk_at_004e0c64;
     return p[index];
 }
 
@@ -86,7 +86,7 @@ MotionLocatorTrack::MotionLocatorTrack() : Track_115b00() {
     i = 0;
     j = 0;
     k = 0;
-    sub.Init();
+    sub.Init_0027af00();
 }
 
 } // namespace fn_f3172cab

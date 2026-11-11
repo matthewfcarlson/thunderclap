@@ -184,8 +184,8 @@ void FUN_001aeae0();
 void FUN_001aea70();
 class T_1aecb0 {
   public:
-    void Reg(Obj_1aecb0*, void (*)(), int);
-    int Make(void (*)(), Src_1aecb0*);
+    void Reg_00230c30(Obj_1aecb0*, void (*)(), int);
+    int Make_00230be0(void (*)(), Src_1aecb0*);
     void Run(Out_1aecb0* out, Src_1aecb0* s);
 };
 
@@ -952,7 +952,7 @@ struct This_FUN_00230be0 {
 void* FUN_0008d6d0(unsigned n);
 struct O_1ae9e0 {
     Pair_1ae9e0* F(Pair_1ae9e0* out, const Src_1ae9e0* s);
-    void G(Node* n, void* a, void* b);
+    void FnG_00230c30(Node* n, void* a, void* b);
 };
 Pair_1ae9e0* O_1ae9e0::F(Pair_1ae9e0* out, const Src_1ae9e0* s) {
     void* p = ((This_FUN_00230be0*)this)->FUN_00230be0((void*)((hulk_intptr)(void (__cdecl*)())&FUN_001ad4f0), s);
@@ -968,7 +968,7 @@ Pair_1ae9e0* O_1ae9e0::F(Pair_1ae9e0* out, const Src_1ae9e0* s) {
         n = r;
     } else
         n = 0;
-    G(n, (void*)((hulk_intptr)(void (__cdecl*)())&FUN_001ad4d0), p);
+    FnG_00230c30(n, (void*)((hulk_intptr)(void (__cdecl*)())&FUN_001ad4d0), p);
     out->n = n;
     out->o = this;
     return out;
@@ -1043,7 +1043,7 @@ CPathManager_1aec00::CPathManager_1aec00() {
 // 0x001aecb0 FUN_001aecb0 (101 B): matches/0x001aecb0.cpp
 // sym: ?Run@T_1aecb0@fn_f54565b1@@QAEXPAUOut_1aecb0@2@PAUSrc_1aecb0@2@@Z
 void T_1aecb0::Run(Out_1aecb0* out, Src_1aecb0* s) {
-    int r = Make(FUN_001aeae0, s);
+    int r = Make_00230be0(FUN_001aeae0, s);
     if (!r) {
         out->o = 0;
         out->t = 0;
@@ -1057,7 +1057,7 @@ void T_1aecb0::Run(Out_1aecb0* out, Src_1aecb0* s) {
         o = p;
     } else
         o = 0;
-    Reg(o, FUN_001aea70, r);
+    Reg_00230c30(o, FUN_001aea70, r);
     out->t = this;
     out->o = o;
 }

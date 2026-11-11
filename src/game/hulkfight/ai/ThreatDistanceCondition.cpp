@@ -85,7 +85,7 @@ struct Obj_12b2c0 {
     char pad[0x18];
     void* m18;
 };
-extern int* gTable_12b3d0;
+extern int* hulk_at_004e0e14;
 class CCondition_12b3d0 {
   public:
     virtual int vfunc_0(int);
@@ -93,48 +93,48 @@ class CCondition_12b3d0 {
 extern "C" char DAT_00410bd4[];
 class Sub_12b410 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class ThreatDistanceCondition_12b410 {
   public:
-    void Finish();
+    void Finish_002345b0();
 };
-extern int* gTable_12b450;
+extern int* hulk_at_004e0e1c;
 class CCondition_12b450 {
   public:
     virtual int vfunc_0(int);
 };
 struct Tail_12b490 {
-    void Init();
+    void Init_0027af50();
 };
 struct ThreatDistanceCondition_12b490 {
     void* vptr;
     char pad[0x14];
-    void Finish();
+    void Finish_002345b0();
     void Run();
 };
-extern void* vftable_12b490;
-extern int* gTable_12b4d0;
+extern void* hulk_at_00410bf4;
+extern int* hulk_at_004e0e24;
 class CCondition_12b4d0 {
   public:
     virtual int vfunc_0(int);
 };
 struct Tail_12b510 {
-    void Init();
+    void Init_0027af50();
 };
 struct ThreatAngleCondition_12b510 {
     void* vptr;
     char pad[0x14];
-    void Finish();
+    void Finish_002345b0();
     void Run();
 };
-extern void* vftable_12b510;
-extern int* gTable_12b550;
+extern void* hulk_at_00410c14;
+extern int* hulk_at_004e0e2c;
 class CCondition_12b550 {
   public:
     virtual int vfunc_0(int);
 };
-extern int* gTable_12b5c0;
+extern int* hulk_at_004e0e34;
 class CCondition_12b5c0 {
   public:
     virtual int vfunc_0(int);
@@ -151,12 +151,12 @@ struct Track_12b630 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern int vtable_12b640;
+extern int hulk_at_00410c54;
 class Helper_12b640 {
   public:
-    void Init();
+    void Init_0027af50();
 };
-extern int* gTable_12b690;
+extern int* hulk_at_004e0e3c;
 class CCondition_12b690 {
   public:
     virtual int vfunc_0(int);
@@ -204,7 +204,7 @@ struct Track_12b6f0 {
     virtual void tfunc8();
     virtual void tfunc9();
 };
-extern void* g_vftable_12b700[];
+extern void* hulk_at_00410c84[];
 struct Sub_12b700 {
     char c;
 };
@@ -212,7 +212,7 @@ void __fastcall Fin(Sub_12b700*) throw();
 class Track_12b700 {
   public:
     void* vptr;
-    void Fin();
+    void Fin_00236d60();
 };
 class ThreatDodgeTrack_12b700 : public Track_12b700 {
   public:
@@ -222,19 +222,19 @@ class ThreatDodgeTrack_12b700 : public Track_12b700 {
     ~ThreatDodgeTrack_12b700() throw();
 };
 extern "C" void __fastcall FUN_0027af50(Sub_12b700*) throw();
-extern const char kRttiA[];
-extern const char kRttiB[];
+extern const char hulk_at_00494b44[];
+extern const char hulk_at_00494b60[];
 int CheckFn(hulk_intptr a, int b, const void* c, const void* d, int e);
 class Obj2_12b780 {
   public:
-    unsigned char Test(void* a, unsigned char b);
+    unsigned char Test_00037080(void* a, unsigned char b);
 };
 class Obj_12b780 {
   public:
-    Obj2_12b780* Next();
+    Obj2_12b780* Next_00059a30();
 };
 struct Obj_12b8e0 {
-    int Fn(hulk_intptr);
+    int Fn_00067b00(hulk_intptr);
 };
 struct Inner_12b8e0 {
     char pad[8];
@@ -244,7 +244,7 @@ struct Outer_12b8e0 {
     char pad[0x20];
     Inner_12b8e0* inner;
 };
-extern Outer_12b8e0* gGlobal_12b8e0;
+extern Outer_12b8e0* hulk_at_004dd700;
 struct Vec3_12b910 { float x, y, z; };
 struct Mat_12b910 {
     float m[16];
@@ -320,8 +320,8 @@ struct Data_12b910 {
     float f2c;
 };
 struct Obj_12ba80 {
-    void call(int);
-    void tail();
+    void call_00067c80(int);
+    void tail_00065c10();
 };
 struct Inner_12ba80 {
     char pad[8];
@@ -339,11 +339,11 @@ struct Actor_12bab0 { char pad0[0x10]; Position_12bab0* position; char pad1[0x20
 struct Link2_12bab0 { Actor_12bab0* FUN_00059a30(); };
 struct Link_12bab0 {  };
 struct Settings_12bab0 { char pad[0x14]; unsigned int mode; unsigned char flag; char pad2[7]; char data[1]; };
-extern char threat_vftable_12bc00;
+extern char hulk_at_00410bd4;
 struct ThreatDistanceCondition_12bc00 {
     int x;
-    void f1();
-    void f2();
+    void f1_0027af50();
+    void f2_002345b0();
 };
 extern void thunk_FUN_00267090(ThreatDistanceCondition_12bc00*);
 class ThreatCondition {
@@ -355,35 +355,35 @@ class ThreatCondition {
 extern void* g_vftable_12bc30[];
 class Str_12bc30 {
   public:
-    void Init();
+    void Init_0027af50();
 };
 class Condition_12bc30 {
   public:
     void* vptr;
     char pad[20];
     Str_12bc30 s;
-    void Fin();
+    void Fin_002345b0();
 };
 class ThreatDistanceCondition_12bc30 : public Condition_12bc30 {
   public:
     void* Del(unsigned char flags);
 };
 struct Sub_12bc60 {
-    void F();
+    void FnF_0027af50();
 };
 struct ThreatAngleCondition {
     void* vf;
     char pad[0x14];
     Sub_12bc60 sub;
     ThreatAngleCondition* vfunc_5(int);
-    void Second();
+    void Second_002345b0();
 };
-void Cleanup(ThreatAngleCondition*);
+void Cleanup_0008d330(ThreatAngleCondition*);
 extern char vtable_12bc60[];
-extern void* Condition_12bc90_vftable[];
+extern void* hulk_at_00410c34[];
 class Condition_12bc90 {
   public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
+    void Destroy_002345b0(); // FUN_00236d60, __thiscall, this in ecx
 };
 class ShotFailCountCondition_12bc90 : public Condition_12bc90 {
   public:
@@ -392,8 +392,8 @@ class ShotFailCountCondition_12bc90 : public Condition_12bc90 {
 extern "C" char DAT_00410c84[];
 class Helper_12bd00 {
   public:
-    void call1();
-    void call2();
+    void call1_0027af50();
+    void call2_00236d60();
 };
 void FUN_0008d330(ThreatDodgeTrack*);
 class Ref {
@@ -419,7 +419,7 @@ class ThreatBallAction : public Action_12bff0 {
     virtual void f();
     Fields m;
 };
-extern void* g_vftable_12c040[];
+extern void* hulk_at_00410cb4[];
 class Ref_12c040 {
   public:
     virtual void F0();
@@ -454,7 +454,7 @@ class ThreatDodgeAction_12c080 : public Action_12c080 {
     ThreatDodgeAction_12c080(int target, RefObj_12c080* obj);
     virtual void Execute();
 };
-extern void* g_vftable_12c0d0[];
+extern void* hulk_at_00410cd0[];
 class Ref_12c0d0 {
   public:
     virtual void F0();
@@ -649,8 +649,8 @@ class ConditionFactoryCaster_12c5b0 {
     virtual void vfunc_1();
 };
 class ThreatCondition_12c5b0 {};
-extern void* a;
-extern void* b;
+extern void* hulk_at_00491ca8;
+extern void* hulk_at_004a9438;
 } // namespace fn_f9c2e0ac
 namespace fight {
 class ConditionFactoryCaster_12c6b0 {
@@ -672,10 +672,10 @@ typedef unsigned int u32_12c970;
 extern int TypeA_12c970;
 extern int TypeB_12c970;
 struct Result_12c970 {
-    u32_12c970 Init(void*, void*);
+    u32_12c970 Init_0012bff0(void*, void*);
 };
 extern int Check(void*, int, int*, int*, int);
-extern Result_12c970* Alloc(int);
+extern Result_12c970* Alloc_0008d690(int);
 struct RefCounted_12c9c0 {
   public:
     virtual void f0();
@@ -745,7 +745,7 @@ extern "C" char DAT_00410ec0[];
 typedef unsigned int u32_12d0e0;
 extern u32_12d0e0 __cdecl FUN_002343e0(u32_12d0e0, void*);
 struct Obj_12d0e0 {
-    void Fn(u32_12d0e0);
+    void Fn_00236760(u32_12d0e0);
 };
 struct Factory_12d0e0 {
     hulk_uintptr vft;
@@ -757,8 +757,8 @@ class TrackFactoryCasterTemplate_12d110 {
 extern "C" void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_12d110*);
 class Obj {
   public:
-    void* finish(void*);
-    void apply(int);
+    void* finish_002367c0(void*);
+    void apply_002367c0(int);
 };
 class TrackFactoryCasterTemplate_12d2e0 {
   public:
@@ -773,27 +773,27 @@ struct ThreatDistanceCondition_12d530 {
     unsigned int b;
     unsigned int c;
     float d;
-    void Init(int x);
+    void Init_00234590(int x);
 };
-extern int g_vftable_12d570;
+extern int hulk_at_0041101c;
 struct ConditionFactoryTemplate_12d570 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0012b530();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
-extern int g_vftable_12d620;
+extern int hulk_at_00411038;
 struct ConditionFactoryTemplate_12d620 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0012b3b0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 extern "C" char DAT_00410bf4[];
 typedef unsigned int u32_12d690;
 extern void* Alloc(hulk_uintptr);
 struct Sub_12d690 {
-    void Setup();
+    void Setup_0027af00();
 };
 struct ThreatDistanceCondition_12d690 {
     hulk_uintptr vf;
@@ -804,24 +804,24 @@ struct ThreatDistanceCondition_12d690 {
     Sub_12d690 sub;
     char pad1c[7];
     char flag;
-    void Init(int);
+    void Init_00234590(int);
 };
-extern int g_vftable_12d6e0;
+extern int hulk_at_00411054;
 struct ConditionFactoryTemplate_12d6e0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0012b430();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 extern "C" char DAT_00410c14[];
-void* __cdecl alloc28(unsigned int);
+void* __cdecl alloc28_0008d690(unsigned int);
 struct Sub_12d750 {
     int a;
     int b;
-    void Init();
+    void Init_0027af00();
 };
 struct ThreatDistanceCondition_nv_12d750 {
-    void Init(int);
+    void Init_00234590(int);
 };
 class ThreatAngleCondition_12d750 {
   public:
@@ -834,22 +834,22 @@ class ThreatAngleCondition_12d750 {
     char enabled;
     char pad21[7];
 };
-extern int g_vftable_12d7a0;
+extern int hulk_at_00411070;
 struct ConditionFactoryTemplate_12d7a0 {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0012b4b0();
+    void base2_dtor_002343d0();
     void* scalar_dtor(unsigned char flags);
 };
 class Track_12d810 {
   public:
-    hulk_intptr method();
+    hulk_intptr method_0012b5d0();
 };
-extern int g_vftable_12d830;
+extern int hulk_at_0041108c;
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0012b5a0();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
@@ -1077,7 +1077,7 @@ void FUN_0012b3b0() {
 // sym: ?vfunc_0@ThreatCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::ThreatCondition::vfunc_0(int index) {
-    int* p = gTable_12b3d0;
+    int* p = hulk_at_004e0e14;
     return p[index];
 }
 
@@ -1086,8 +1086,8 @@ hulk_intptr hulkfight::ai::ThreatCondition::vfunc_0(int index) {
 // sym: ?FUN_0012b410@ThreatCondition@ai@hulkfight@@QAEXXZ
 void hulkfight::ai::ThreatCondition::FUN_0012b410() {
     *(void**)this = (void*)((hulk_intptr)DAT_00410bd4);
-    ((Sub_12b410*)((char*)this + 0x10))->Init();
-    ((ThreatDistanceCondition_12b410*)this)->Finish();
+    ((Sub_12b410*)((char*)this + 0x10))->Init_0027af50();
+    ((ThreatDistanceCondition_12b410*)this)->Finish_002345b0();
 }
 
 namespace fn_f9c2e0ac {
@@ -1105,7 +1105,7 @@ void FUN_0012b430() {
 // sym: ?vfunc_0@ThreatDistanceCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::ThreatDistanceCondition::vfunc_0(int index) {
-    int* p = gTable_12b450;
+    int* p = hulk_at_004e0e1c;
     return p[index];
 }
 
@@ -1115,9 +1115,9 @@ namespace fn_f9c2e0ac {
 // sym: ?Run@ThreatDistanceCondition_12b490@fn_f9c2e0ac@@QAEXXZ
 // Same code shape as 0x0010d0f0 (propagated; names are from that function)
 void ThreatDistanceCondition_12b490::Run() {
-    vptr = &vftable_12b490;
-    ((Tail_12b490*)((char*)this + 0x18))->Init();
-    Finish();
+    vptr = &hulk_at_00410bf4;
+    ((Tail_12b490*)((char*)this + 0x18))->Init_0027af50();
+    Finish_002345b0();
 }
 
 
@@ -1134,7 +1134,7 @@ void FUN_0012b4b0() {
 // sym: ?vfunc_0@ThreatAngleCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::ThreatAngleCondition::vfunc_0(int index) {
-    int* p = gTable_12b4d0;
+    int* p = hulk_at_004e0e24;
     return p[index];
 }
 
@@ -1144,9 +1144,9 @@ namespace fn_f9c2e0ac {
 // sym: ?Run@ThreatAngleCondition_12b510@fn_f9c2e0ac@@QAEXXZ
 // Same code shape as 0x0010d0f0 (propagated; names are from that function)
 void ThreatAngleCondition_12b510::Run() {
-    vptr = &vftable_12b510;
-    ((Tail_12b510*)((char*)this + 0x18))->Init();
-    Finish();
+    vptr = &hulk_at_00410c14;
+    ((Tail_12b510*)((char*)this + 0x18))->Init_0027af50();
+    Finish_002345b0();
 }
 
 
@@ -1163,7 +1163,7 @@ void FUN_0012b530() {
 // sym: ?vfunc_0@ShotFailCountCondition@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::ShotFailCountCondition::vfunc_0(int index) {
-    int* p = gTable_12b550;
+    int* p = hulk_at_004e0e2c;
     return p[index];
 }
 
@@ -1182,7 +1182,7 @@ void FUN_0012b5a0() {
 // sym: ?vfunc_0@ThreatBallTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::ThreatBallTrack::vfunc_0(int index) {
-    int* p = gTable_12b5c0;
+    int* p = hulk_at_004e0e34;
     return p[index];
 }
 
@@ -1242,9 +1242,9 @@ hulk_freg hulkfight::ai::ThreatBallTrack::vfunc_7() {
 // 0x0012b640 FUN_0012b640 (33 B): matches/0x0012b640.cpp
 // sym: ?FUN_0012b640@ThreatBallTrack@ai@hulkfight@@QAEXXZ
 void hulkfight::ai::ThreatBallTrack::FUN_0012b640() {
-    *(hulk_intptr*)this = (hulk_intptr)&vtable_12b640;
-    ((Helper_12b640*)((char*)this + 0x30))->Init();
-    ((Helper_12b640*)((char*)this + 0x18))->Init();
+    *(hulk_intptr*)this = (hulk_intptr)&hulk_at_00410c54;
+    ((Helper_12b640*)((char*)this + 0x30))->Init_0027af50();
+    ((Helper_12b640*)((char*)this + 0x18))->Init_0027af50();
     ((Ender*)this)->Finish();
 }
 
@@ -1263,7 +1263,7 @@ void FUN_0012b670() {
 // sym: ?vfunc_0@ThreatDodgeTrack@ai@hulkfight@@UAEHH@Z
 // Same code shape as 0x00048300 (propagated; names are from that function)
 hulk_intptr hulkfight::ai::ThreatDodgeTrack::vfunc_0(int index) {
-    int* p = gTable_12b690;
+    int* p = hulk_at_004e0e3c;
     return p[index];
 }
 
@@ -1296,9 +1296,9 @@ namespace fn_f9c2e0ac {
 // 0x0012b700 FUN_0012b700 (25 B): matches/0x0012b700.cpp
 // sym: ??1ThreatDodgeTrack_12b700@fn_f9c2e0ac@@QAE@XZ
 ThreatDodgeTrack_12b700::~ThreatDodgeTrack_12b700() throw() {
-    vptr = g_vftable_12b700;
+    vptr = hulk_at_00410c84;
     FUN_0027af50(&sub);
-    Fin();
+    Fin_00236d60();
 }
 
 } // namespace fn_f9c2e0ac
@@ -1307,11 +1307,11 @@ ThreatDodgeTrack_12b700::~ThreatDodgeTrack_12b700() throw() {
 // sym: ?vfunc_6@ThreatCondition@ai@hulkfight@@UAE_NPAX00@Z
 bool hulkfight::ai::ThreatCondition::vfunc_6(void* __p0, void* __p1, void* __p2) { hulk_intptr a = (hulk_intptr)__p0; hulk_intptr c = (hulk_intptr)__p1; hulk_intptr d = (hulk_intptr)__p2;
 
-    if (!CheckFn(c, 0, kRttiA, kRttiB, 0))
+    if (!CheckFn(c, 0, hulk_at_00494b44, hulk_at_00494b60, 0))
         return false;
     Obj_12b780* o = ((Obj_12b780 *)((owners::Object_592a0 *)(((Obj_12b780*)c)))->FUN_000592a0());
-    Obj2_12b780* x = o->Next();
-    unsigned char r = x->Test((*(char (*)[8])&this->threatName), this->threatRespondOnlyOnce);
+    Obj2_12b780* x = o->Next_00059a30();
+    unsigned char r = x->Test_00037080((*(char (*)[8])&this->threatName), this->threatRespondOnlyOnce);
     unsigned char m = this->threat;
     return r == m;
 }
@@ -1355,8 +1355,8 @@ bool ShotFailCountCondition::vfunc_6(void*, Agent_12b7e0* agent, void*) {
 bool hulkfight::ai::ThreatBallAction::vfunc_3(hulk_intptr __p0, hulk_intptr __p1) {
     if (!this->f_20)
         return false;
-    Obj_12b8e0* o = gGlobal_12b8e0->inner->obj8;
-    this->f_24 = o->Fn(this->f_1c + 0x30);
+    Obj_12b8e0* o = hulk_at_004dd700->inner->obj8;
+    this->f_24 = o->Fn_00067b00(this->f_1c + 0x30);
     return true;
 }
 
@@ -1412,9 +1412,9 @@ bool hulkfight::ai::ThreatBallAction::vfunc_5(hulk_intptr msg, int unused) {
 // 0x0012ba80 hulkfight::ai::ThreatBallAction::vfunc_4 (44 B): matches/0x0012ba80.cpp
 // sym: ?vfunc_4@ThreatBallAction@ai@hulkfight@@UAEXXZ
 void hulkfight::ai::ThreatBallAction::vfunc_4() {
-    g_12ba80->inner->p->call(this->f_24);
+    g_12ba80->inner->p->call_00067c80(this->f_24);
     this->f_24 = 0;
-    FUN_000678d0()->tail();
+    FUN_000678d0()->tail_00065c10();
 }
 
 
@@ -1447,9 +1447,9 @@ namespace fn_f9c2e0ac {
 // sym: ?vfunc_5@ThreatCondition@fn_f9c2e0ac@@QAEPAV12@E@Z
 ThreatCondition* ThreatCondition::vfunc_5(unsigned char param) {
     ThreatCondition* p = this;
-    *(char**)p = &threat_vftable_12bc00;
-    ((ThreatDistanceCondition_12bc00*)((char*)p + 0x10))->f1();
-    ((ThreatDistanceCondition_12bc00*)p)->f2();
+    *(char**)p = &hulk_at_00410bd4;
+    ((ThreatDistanceCondition_12bc00*)((char*)p + 0x10))->f1_0027af50();
+    ((ThreatDistanceCondition_12bc00*)p)->f2_002345b0();
     if (param & 1)
         thunk_FUN_00267090((ThreatDistanceCondition_12bc00*)p);
     return p;
@@ -1460,8 +1460,8 @@ ThreatCondition* ThreatCondition::vfunc_5(unsigned char param) {
 // sym: ?Del@ThreatDistanceCondition_12bc30@fn_f9c2e0ac@@QAEPAXE@Z
 void* ThreatDistanceCondition_12bc30::Del(unsigned char flags) {
     vptr = g_vftable_12bc30;
-    s.Init();
-    Fin();
+    s.Init_0027af50();
+    Fin_002345b0();
     if (flags & 1)
         operator delete(this);
     return this;
@@ -1472,10 +1472,10 @@ void* ThreatDistanceCondition_12bc30::Del(unsigned char flags) {
 // sym: ?vfunc_5@ThreatAngleCondition@fn_f9c2e0ac@@QAEPAU12@H@Z
 ThreatAngleCondition* ThreatAngleCondition::vfunc_5(int flag) {
     vf = vtable_12bc60;
-    sub.F();
-    Second();
+    sub.FnF_0027af50();
+    Second_002345b0();
     if (flag & 1)
-        Cleanup(this);
+        Cleanup_0008d330(this);
     return this;
 }
 
@@ -1486,8 +1486,8 @@ ThreatAngleCondition* ThreatAngleCondition::vfunc_5(int flag) {
 // Target: CSweepTrack::vfunc_5 (slot 5)
  // thunk_FUN_00267090
 ShotFailCountCondition_12bc90* ShotFailCountCondition_12bc90::vfunc_5(signed char flags) {
-    *(void***)this = Condition_12bc90_vftable;
-    Destroy();
+    *(void***)this = hulk_at_00410c34;
+    Destroy_002345b0();
     if (flags & 1) {
         SweepTrack_DeleteThis(this);
     }
@@ -1500,7 +1500,7 @@ ShotFailCountCondition_12bc90* ShotFailCountCondition_12bc90::vfunc_5(signed cha
 // sym: ?vfunc_5@ThreatBallTrack@fn_0012bcc0@@QAEPAU12@I@Z
 namespace fn_0012bcc0 {
 struct Helper_12bcc0 {
-    void run();
+    void run_0027af50();
 };
 struct ThreatBallTrack {
     void* vptr;
@@ -1508,18 +1508,18 @@ struct ThreatBallTrack {
     Helper_12bcc0 h18;
     char pad1d[0x17];
     Helper_12bcc0 h30;
-    ThreatBallTrack* other();
+    ThreatBallTrack* other_00236d60();
     ThreatBallTrack* vfunc_5(unsigned int);
 };
 extern void* threat_vftable_12bcc0;
-void destroy(ThreatBallTrack*);
+void destroy_0008d330(ThreatBallTrack*);
 ThreatBallTrack* ThreatBallTrack::vfunc_5(unsigned int flags) {
     vptr = &threat_vftable_12bcc0;
-    h30.run();
-    h18.run();
-    other();
+    h30.run_0027af50();
+    h18.run_0027af50();
+    other_00236d60();
     if (flags & 1)
-        destroy(this);
+        destroy_0008d330(this);
     return this;
 }
 } // namespace fn_0012bcc0
@@ -1530,8 +1530,8 @@ namespace fn_f9c2e0ac {
 // sym: ?vfunc_5@ThreatDodgeTrack@fn_f9c2e0ac@@UAEPAV12@E@Z
 ThreatDodgeTrack* ThreatDodgeTrack::vfunc_5(unsigned char flags) {
     *(void**)this = (void*)((hulk_intptr)DAT_00410c84);
-    ((Helper_12bd00*)((char*)this + 0x20))->call1();
-    ((Helper_12bd00*)this)->call2();
+    ((Helper_12bd00*)((char*)this + 0x20))->call1_0027af50();
+    ((Helper_12bd00*)this)->call2_00236d60();
     if (flags & 1)
         FUN_0008d330(this);
     return this;
@@ -1686,7 +1686,7 @@ ThreatBallAction::ThreatBallAction(int v, Ref* q) : Action_12bff0() {
 // 0x0012c040 FUN_0012c040 (50 B): matches/0x0012c040.cpp
 // sym: ??1ThreatBallAction_12c040@fn_f9c2e0ac@@QAE@XZ
 ThreatBallAction_12c040::~ThreatBallAction_12c040() {
-    vptr = g_vftable_12c040;
+    vptr = hulk_at_00410cb4;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -1719,7 +1719,7 @@ ThreatDodgeAction_12c080::ThreatDodgeAction_12c080(int target, RefObj_12c080* ob
 // 0x0012c0d0 FUN_0012c0d0 (50 B): matches/0x0012c0d0.cpp
 // sym: ??1ThreatDodgeAction_12c0d0@fn_f9c2e0ac@@QAE@XZ
 ThreatDodgeAction_12c0d0::~ThreatDodgeAction_12c0d0() {
-    vptr = g_vftable_12c0d0;
+    vptr = hulk_at_00410cd0;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();
@@ -2008,7 +2008,7 @@ template <> bool fight::ParamBool<hulkfight::ai::ThreatDodgeTrack>::vfunc_2() {
 // sym: ?vfunc_0@?$ConditionFactoryCasterTemplate@VThreatCondition@ai@hulkfight@@@fight@@UAE_NPAX@Z
 template <> bool fight::ConditionFactoryCasterTemplate<hulkfight::ai::ThreatCondition>::vfunc_0(void* __p0) { Object_12c5b0 * p = (Object_12c5b0 *)__p0;
 
-    return DynamicCast(p, 0, &a, &b, 0) != 0;
+    return DynamicCast(p, 0, &hulk_at_00491ca8, &hulk_at_004a9438, 0) != 0;
 }
 
 
@@ -2030,7 +2030,7 @@ class ConditionFactoryCaster {
 };
 } // namespace fight
 extern "C++" __declspec(nothrow) int FUN_00344e74(void*, int, void*, void*, int);
-extern int a, b;
+extern int a, hulk_at_004a94e8;
 namespace fight {
 class ThreatCaster : public ConditionFactoryCaster {
   public:
@@ -2038,7 +2038,7 @@ class ThreatCaster : public ConditionFactoryCaster {
     virtual void vfunc_1();
 };
 int ThreatCaster::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &a, &hulk_at_004a94e8, 0) != 0;
 }
 } // namespace fight
 } // namespace fn_0012c610
@@ -2114,8 +2114,8 @@ template <> fight::ParamFloatConstRange<hulkfight::ai::ShotFailCountCondition>::
 // sym: ?vfunc_0@?$TrackFactoryCasterTemplate@VThreatBallTrack@ai@hulkfight@fn_0012c7b0@@@fight@fn_0012c7b0@@UAEHPAX@Z
 namespace fn_0012c7b0 {
 extern "C++" __declspec(nothrow) int __cdecl helper(void*, int, void*, void*, int);
-extern void* a;
-extern void* b;
+extern void* hulk_at_0049850c;
+extern void* hulk_at_004a9708;
 namespace fight {
 class TrackFactoryCaster {
   public:
@@ -2134,7 +2134,7 @@ class ThreatBallTrack;
 }
 } // namespace hulkfight
 template <> int fight::TrackFactoryCasterTemplate<hulkfight::ai::ThreatBallTrack>::vfunc_0(void* x) {
-    return helper(x, 0, &a, &b, 0) != 0;
+    return helper(x, 0, &hulk_at_0049850c, &hulk_at_004a9708, 0) != 0;
 }
 } // namespace fn_0012c7b0
 
@@ -2170,13 +2170,13 @@ class TrackFactoryCaster {
 };
 class ThreatDodgeTrack;
 extern "C++" __declspec(nothrow) int FUN_00344e74(void*, void*, void*, void*, void*);
-extern int a, b;
+extern int a, hulk_at_004a97b0;
 class Caster : public TrackFactoryCaster {
   public:
     virtual bool vfunc_0(void*);
 };
 bool Caster::vfunc_0(void* p) {
-    return FUN_00344e74(p, 0, &a, &b, 0) != 0;
+    return FUN_00344e74(p, 0, &a, &hulk_at_004a97b0, 0) != 0;
 }
 } // namespace fn_0012c850
 
@@ -2201,9 +2201,9 @@ template <> fight::ParamBool<hulkfight::ai::ThreatDodgeTrack>::~ParamBool() {}
 hulk_intptr hulkfight::ai::ThreatBallTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_12c970 a = (u32_12c970)__p0; u32_12c970 b = (u32_12c970)__p1; void * p = (void *)__p2;
 
     if (Check(p, 0, &TypeA_12c970, &TypeB_12c970, 0)) {
-        Result_12c970* q = Alloc(0x28);
+        Result_12c970* q = Alloc_0008d690(0x28);
         if (q)
-            return (int)(q->Init(this, p));
+            return (int)(q->Init_0012bff0(this, p));
     }
     return (int)(0);
 }
@@ -2522,7 +2522,7 @@ void __cdecl target(Obj_12d0e0* a, u32_12d0e0 b) {
     Factory_12d0e0 local;
     local.vft = ((hulk_intptr)DAT_00410ec0);
     u32_12d0e0 x = FUN_002343e0(b, &local);
-    a->Fn(x);
+    a->Fn_00236760(x);
 }
 
 
@@ -2531,7 +2531,7 @@ void __cdecl target(Obj_12d0e0* a, u32_12d0e0 b) {
 extern "C" void* __cdecl FUN_0012d110(Obj* obj, void* name) {
     TrackFactoryCasterTemplate_12d110 caster;
     void* found = FUN_00236ac0(name, &caster);
-    return obj->finish(found);
+    return obj->finish_002367c0(found);
 }
 
 
@@ -2539,7 +2539,7 @@ extern "C" void* __cdecl FUN_0012d110(Obj* obj, void* name) {
 // sym: _FUN_0012d2e0
 extern "C" void FUN_0012d2e0(Obj* o, void* p) {
     TrackFactoryCasterTemplate_12d2e0 c;
-    o->apply(find(p, &c));
+    o->apply_002367c0(find(p, &c));
 }
 
 } // namespace fn_f9c2e0ac
@@ -2580,7 +2580,7 @@ namespace fn_f9c2e0ac {
 ThreatDistanceCondition_12d530* target() {
     ThreatDistanceCondition_12d530* p = (ThreatDistanceCondition_12d530*)alloc(0x14);
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         p->vt = (void*)((hulk_intptr)DAT_00410c34);
         p->c = 0;
         p->d = 1.0f;
@@ -2594,9 +2594,9 @@ ThreatDistanceCondition_12d530* target() {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_12d570@fn_f9c2e0ac@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_12d570::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_12d570;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041101c;
+    base1_dtor_0012b530();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -2607,9 +2607,9 @@ void* ConditionFactoryTemplate_12d570::scalar_dtor(unsigned char flags) {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_12d620@fn_f9c2e0ac@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_12d620::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_12d620;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00411038;
+    base1_dtor_0012b3b0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -2620,13 +2620,13 @@ void* ConditionFactoryTemplate_12d620::scalar_dtor(unsigned char flags) {
 // 0x0012d690 fight::ConditionFactoryTemplate<hulkfight::ai::ThreatDistanceCondition>::vfunc_5 (66 B): matches/0x0012d690.cpp
 // sym: ?vfunc_5@?$ConditionFactoryTemplate@VThreatDistanceCondition@ai@hulkfight@@@fight@@UAEPAXXZ
 template <> void* fight::ConditionFactoryTemplate<hulkfight::ai::ThreatDistanceCondition>::vfunc_5() {
-    ThreatDistanceCondition_12d690* p = (ThreatDistanceCondition_12d690*)Alloc(0x28);
+    ThreatDistanceCondition_12d690* p = (ThreatDistanceCondition_12d690*)Alloc_0008d690(0x28);
     if (p) {
-        p->Init(0);
+        p->Init_00234590(0);
         p->vf = ((hulk_intptr)DAT_00410bf4);
         p->mC = 0;
         p->mD = 0;
-        p->sub.Setup();
+        p->sub.Setup_0027af00();
         p->flag = 1;
         return (void*)(p);
     }
@@ -2639,9 +2639,9 @@ namespace fn_f9c2e0ac {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_12d6e0@fn_f9c2e0ac@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_12d6e0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_12d6e0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00411054;
+    base1_dtor_0012b430();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -2651,13 +2651,13 @@ void* ConditionFactoryTemplate_12d6e0::scalar_dtor(unsigned char flags) {
 // 0x0012d750 fight::ConditionFactoryTemplate<hulkfight::ai::ThreatAngleCondition>::vfunc_5 (66 B): matches/0x0012d750.cpp
 // sym: ?factory_vfunc5@fn_f9c2e0ac@@YAPAVThreatAngleCondition_12d750@1@XZ
 ThreatAngleCondition_12d750* factory_vfunc5() {
-    ThreatAngleCondition_12d750* p = (ThreatAngleCondition_12d750*)alloc28(0x28);
+    ThreatAngleCondition_12d750* p = (ThreatAngleCondition_12d750*)alloc28_0008d690(0x28);
     if (p) {
-        ((ThreatDistanceCondition_nv_12d750*)(((hulkfight::ai::ThreatDistanceCondition*)(((hulkfight::ai::ThreatDistanceCondition*)p)))))->Init(0);
+        ((ThreatDistanceCondition_nv_12d750*)(((hulkfight::ai::ThreatDistanceCondition*)(((hulkfight::ai::ThreatDistanceCondition*)p)))))->Init_00234590(0);
         p->vtable = ((hulk_intptr)DAT_00410c14);
         p->c = 0;
         p->f = 0x3fc90fdb;
-        p->sub.Init();
+        p->sub.Init_0027af00();
         p->enabled = 1;
         return p;
     }
@@ -2669,9 +2669,9 @@ ThreatAngleCondition_12d750* factory_vfunc5() {
 // sym: ?scalar_dtor@ConditionFactoryTemplate_12d7a0@fn_f9c2e0ac@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* ConditionFactoryTemplate_12d7a0::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_12d7a0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_00411070;
+    base1_dtor_0012b4b0();
+    base2_dtor_002343d0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -2685,7 +2685,7 @@ void* ConditionFactoryTemplate_12d7a0::scalar_dtor(unsigned char flags) {
 template <> void* fight::TrackFactoryTemplate<hulkfight::ai::ThreatBallTrack>::vfunc_5() {
     Track_12d810* p = (Track_12d810*)operator_new(0x38);
     if (p)
-        return (void*)(p->method());
+        return (void*)(p->method_0012b5d0());
     return (void*)(0);
 }
 
@@ -2695,9 +2695,9 @@ namespace fn_f9c2e0ac {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_f9c2e0ac@@QAEPAXE@Z
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_12d830;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_0041108c;
+    base1_dtor_0012b5a0();
+    base2_dtor_00236ab0();
     if (flags & 1)
         thunk_delete(this);
     return this;
@@ -2709,23 +2709,23 @@ void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
 // sym: ?scalar_dtor@TrackFactoryTemplate@fn_0012d8f0@@QAEPAXE@Z
 namespace fn_0012d8f0 {
 // Same code shape as 0x0006fb50 (propagated; names are from that function)
-extern int g_vftable_12d8f0;
+extern int hulk_at_004110a8;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
-    void base1_dtor();
-    void base2_dtor();
+    void base1_dtor_0012b670();
+    void base2_dtor_00236ab0();
     void* scalar_dtor(unsigned char flags);
 };
 
-void thunk_delete(void*);
+void thunk_delete_00263f30(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
-    m_vptr = (void*)&g_vftable_12d8f0;
-    base1_dtor();
-    base2_dtor();
+    m_vptr = (void*)&hulk_at_004110a8;
+    base1_dtor_0012b670();
+    base2_dtor_00236ab0();
     if (flags & 1)
-        thunk_delete(this);
+        thunk_delete_00263f30(this);
     return this;
 }
 } // namespace fn_0012d8f0
