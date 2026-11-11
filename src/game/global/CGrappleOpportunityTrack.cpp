@@ -802,7 +802,7 @@ struct Sub8_5aa00 {
 
 class __declspec(novtable) CTrack_5aa00 {
 public:
-    virtual void b0();
+    virtual hulk_intptr b0_0005a9f0(int);
     int pad04;
     int pad08;
     void FUN_00236d40();
@@ -811,14 +811,14 @@ public:
 
 class CGrappleAttachTrack : public CTrack_5aa00 {
 public:
-    virtual unsigned int vfunc_0(unsigned int);
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
+    virtual bool vfunc_0_00234270(void*);
+    virtual bool v1_002342b0(int);
+    virtual bool v2_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool v3_00234350(int, int);
+    virtual void* v4_0005b790(char);
     virtual void v5_0005aa80();
     virtual void vfunc_6_0005aa90();
-    virtual void vfunc_7();
+    virtual int vfunc_7_00068c80(int, int);
 
     int f0c;
     Sub8_5aa00 s10;
@@ -986,10 +986,10 @@ namespace fn_0005ac40 {
 class CTrack_5ac40 {
   public:
     virtual ~CTrack_5ac40();
-    virtual void F0();
-    virtual void F1();
-    virtual void F2();
-    virtual void F3();
+    virtual bool F0_00234270(void*);
+    virtual bool F1_002342b0(int);
+    virtual bool F2_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool F3_00234350(int, int);
     CTrack_5ac40();
     char pad[8];
 };
@@ -1057,7 +1057,7 @@ hulk_intptr CGrappleOpportunityTrack::vfunc_0(int index) {
 namespace fn_0005ad00 {
 class Track_5ad00 {
   public:
-    virtual void B0();
+    virtual hulk_intptr B0_0005acf0(int);
     Track_5ad00();
 };
 
@@ -1075,7 +1075,7 @@ class Sub2_5ad00 {
 
 class CGrappleOpportunityTrack : public Track_5ad00 {
   public:
-    virtual void Fn();
+    virtual bool Fn_00234270(void*);
     char pad4[4];
     int m8;
     int m0c;
@@ -1215,7 +1215,7 @@ namespace fn_0005af30 {
 class Track_5af30 {
   public:
     Track_5af30();
-    virtual void f0();
+    virtual hulk_intptr f0_0005af20(int);
 };
 class SubC_5af30 {
   public:
@@ -1231,7 +1231,7 @@ class Sub1C {
 class CGrappleSequenceTrack : public Track_5af30 {
   public:
     CGrappleSequenceTrack();
-    virtual void g0();
+    virtual bool g0_00234270(void*);
 
   private:
     char pad[4];
@@ -1418,7 +1418,7 @@ hulk_freg CGrabTrack::vfunc_7() {
 namespace fn_0005b170 {
 class CGrabTrack {
   public:
-    virtual void v();
+    virtual hulk_intptr Fnv_0005b0d0(int);
     ~CGrabTrack();
     char pad[0x14];
     char a[0x20];
@@ -1698,7 +1698,7 @@ struct Name8_5b6f0 {
 
 class CGrappleLocoStrafe4Track {
 public:
-    virtual void vfunc_0();
+    virtual hulk_intptr vfunc_0_0005a820(int);
     int f04;
     int f08;
     int f0c;

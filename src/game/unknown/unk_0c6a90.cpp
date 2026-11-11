@@ -20,7 +20,7 @@ struct Size { unsigned x, y, z; };
 union FloatBits_c6a90 { float f; unsigned u; };
 class DynamicCaster {
   public:
-    virtual void f();
+    virtual void Fnf_0007ce10(void*);
 };
 class Obj {
   public:

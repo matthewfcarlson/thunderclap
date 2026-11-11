@@ -69,7 +69,7 @@ struct Sub_91da0 {
 };
 class CUnlockable {
   public:
-    virtual void _m_vf0();
+    virtual void* m_vf0_000933a0(int);
     CUnlockable();
     char _m_pad_4[0x4];
     union { u8 f8; u8 member8; };

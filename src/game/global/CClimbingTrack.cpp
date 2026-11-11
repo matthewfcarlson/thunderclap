@@ -53,17 +53,17 @@ hulk_intptr CClimbingTrack::vfunc_0(int index) {
 namespace fn_00068f00 {
 class CTrack_68f00 {
   public:
-    virtual void b0();
-    virtual void b1();
+    virtual hulk_intptr b0_00068ef0(int);
+    virtual bool b1_00234270(void*);
     CTrack_68f00();
 };
 
 class CClimbingTrack : public CTrack_68f00 {
   public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
+    virtual bool v0_002342b0(int);
+    virtual bool v1_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool v2_00234350(int, int);
+    virtual void* v3_0006b4e0(char);
     virtual void v4_00068f30();
     CClimbingTrack();
     char pad[4]; // offset 4

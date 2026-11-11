@@ -295,7 +295,7 @@ public:
         b8 = 0;
         b9 = 0;
     }
-    virtual void v0();
+    virtual void v0_0008dbb0(void*);
     char b4;
     char b5;
     char b6;

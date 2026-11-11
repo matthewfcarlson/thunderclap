@@ -176,7 +176,7 @@ namespace fn_000e1b90 {
 // FUN_000e1b90 @ 0x000e1b90
 extern "C" int __cdecl FUN_000dfcc0(char*, int, const char*, ...);
 struct FEDoPushDialog {
- virtual void placeholder();
+ virtual void* placeholder_000e8be0(char);
  int unused;
  int stateA;
  int stateB;

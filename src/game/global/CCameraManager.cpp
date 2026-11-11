@@ -6381,7 +6381,7 @@ template<class C, class R, class A1, class A2, class A3, class A4, class A5, cla
 class CCameraManager {
 public:
     CCameraManager();
-    virtual void v0();
+    virtual void* v0_0009a070(char);
     int i04;
     int i08;
     int i0c;

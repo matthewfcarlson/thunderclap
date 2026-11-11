@@ -2180,7 +2180,7 @@ struct Emitter_1f54c0 {
 
 class CSoundSequenceVoice {
 public:
-    virtual void v0();
+    virtual void v0_00247ba0(int, int, int, int);
     void* handle;
     Emitter_1f54c0* emitter;
     int pad0c;
@@ -3279,7 +3279,7 @@ struct Buffer_1f6990 {
 class CSoundSequenceVoice {
 public:
     CSoundSequenceVoice(CSoundVoiceManager *o) : owner(o), f04(0), f08(0), f10(0), f18(0), f1c(0), f1d(0), f20(0), f24(0), gain(1.0f) {}
-    virtual void v0();
+    virtual void v0_00247ba0(int, int, int, int);
     int f04;
     int f08;
     CSoundVoiceManager *owner;

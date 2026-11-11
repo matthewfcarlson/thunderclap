@@ -348,7 +348,7 @@ class TargetCharacterTemplateCondition_166210 {
     int a, b;
     virtual ~TargetCharacterTemplateCondition_166210();
     int d;
-    virtual void hulk_slot_F(); void FnF_002345b0();
+    virtual bool hulk_slot_F_00234270(void*); void FnF_002345b0();
 };
 extern "C" void __cdecl FUN_0008d340(void *);
 extern "C" void * __cdecl FUN_0008d6d0(unsigned int);

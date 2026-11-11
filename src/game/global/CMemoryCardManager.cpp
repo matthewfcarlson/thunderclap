@@ -191,7 +191,7 @@ bool CMemoryCardManager::vfunc_0(void* __p0, void* __p1, void* __p2, void* __p3,
 namespace fn_0008c7f0 {
 class CMemoryCardManager {
   public:
-    virtual void f();
+    virtual bool Fnf_0008c7c0(void*, void*, void*, void*, void*);
     int a;
     int b;
     CMemoryCardManager();

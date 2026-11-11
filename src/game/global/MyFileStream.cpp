@@ -70,7 +70,7 @@ struct CGameDataHandler_1fae80 {
     CGameDataHandler_1fae80() throw();
 };
 struct MyFileStream_1faf70 {
-    virtual void v0();
+    virtual void* v0_001fae40(char);
     int a, b, c;
 };
 struct Failure {
@@ -175,7 +175,7 @@ namespace fn_001faa80 {
 // FUN_001faa80 @ 0x001faa80
 class MyBufferStream {
 public:
-    virtual void v0();
+    virtual void* v0_001fae60(int);
     int arg0;
     int arg1;
     int zero;
@@ -223,10 +223,10 @@ namespace fn_001fab00 {
 // FUN_001fab00 @ 0x001fab00
 class MyBufferStream {
 public:
-    virtual void v0();
-    virtual void v1();
+    virtual void* v0_001fae60(int);
+    virtual bool v1_001fa9c0(void*);
     virtual void v2();
-    virtual void v3();
+    virtual void v3_001fa9e0(void*, int);
     virtual bool vfunc_4_001faa30();
     void* buffer;
     int size;
@@ -687,7 +687,7 @@ namespace fn_001faff0 {
 class Host_1faff0;
 class MyFileStream {
   public:
-    virtual void vf();
+    virtual void* vf_001fae40(char);
     int a, b, c;
     MyFileStream() : a(0), b(0), c(0) {}
 };

@@ -233,9 +233,9 @@ class Dummy_46360 {
 };
 class DynamicCaster_463a0 {
   public:
-    virtual void A();
+    virtual void FnA_00046280(void*);
     virtual void B();
-    virtual void C();
+    virtual void FnC_000462b0(void*);
     virtual void D(void*, int, int);
 };
 class X_463a0 {
@@ -249,10 +249,10 @@ class X_463a0 {
 class DynamicCaster_46400 {
   public:
     DynamicCaster_46400() {}
-    virtual void a();
+    virtual void Fna_000462e0(void*);
     virtual void b();
     virtual void c();
-    virtual void d();
+    virtual bool Fnd_001d04c0(int, int);
 };
 class Loader {
   public:
@@ -1130,7 +1130,7 @@ struct Registry_47890 { void FUN_001d3b70(const char*,void*); };
 extern "C" Registry_47890* __cdecl FUN_001d4c90();
 class CCharacterTemplateManager {
 public:
- virtual void slot0();
+ virtual void slot0_00047770(void*, void*);
  uint_47890 owner,count,used;
  uint_47890* entries;
  void FUN_00046140(const char*);

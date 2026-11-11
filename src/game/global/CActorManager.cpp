@@ -1095,7 +1095,7 @@ class Owner_2c790 {};
 typedef void (Owner_2c790::*Fn_2c790)();
 class Method1 : public Function_2c790 {
   public:
-    virtual void fn();
+    virtual bool fn_001d04c0(int, int);
     Fn_2c790 c;
     Method1(const char*, Fn_2c790);
 };
@@ -2994,14 +2994,14 @@ class Owner_2e790 {};
 typedef void (Owner_2e790::*Fn_2e790)();
 class Method : public Base {
   public:
-    virtual void f();
+    virtual bool Fnf_001d04c0(int, int);
     Fn_2e790 name;
     Owner_2e790* val;
     Method(const char*, Owner_2e790*, Fn_2e790);
 };
 class Closure1_2e790 : public Method {
   public:
-    virtual void g();
+    virtual void Fng_0002e800(void*, void*, void*);
     Closure1_2e790(const char*, Owner_2e790*, Fn_2e790);
 };
 Closure1_2e790::Closure1_2e790(const char* x, Owner_2e790* y, Fn_2e790 z) : Method(x, y, z) {

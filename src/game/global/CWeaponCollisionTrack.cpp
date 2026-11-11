@@ -212,12 +212,12 @@ class CCondition_62990 {
 class CTrack_629a0 {
   public:
     CTrack_629a0();
-    virtual void baseMethod();
+    virtual hulk_intptr baseMethod_00062990(int);
     char pad[4];
 };
 class CSmartPropThrowingTrack_629a0 : public CTrack_629a0 {
   public:
-    virtual void method1();
+    virtual bool method1_00234270(void*);
     int m8;
     int mC;
     float m10;
@@ -2370,7 +2370,7 @@ struct Name_62360 {
 
 class __declspec(novtable) CTrack_62360 {
 public:
-    virtual void b0();
+    virtual hulk_intptr b0_00062350(int);
     int pad04;
     int pad08;
     void FUN_00236d40();
@@ -2379,14 +2379,14 @@ public:
 
 class CSmartPropUpdateAttachmentTrack : public CTrack_62360 {
 public:
-    virtual unsigned int vfunc_0(unsigned int);
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
+    virtual bool vfunc_0_00234270(void*);
+    virtual bool v1_002342b0(int);
+    virtual bool v2_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool v3_00234350(int, int);
+    virtual void* v4_00062e80(void*, char);
     virtual void v5_000623e0();
     virtual void vfunc_6_000623f0();
-    virtual void vfunc_7();
+    virtual int vfunc_7_00068c80(int, int);
 
     int f0c, f10, f14;
     Name_62360 bone;
@@ -2514,7 +2514,7 @@ struct Name_62510 {
 
 class __declspec(novtable) CTrack_62510 {
 public:
-    virtual void b0();
+    virtual hulk_intptr b0_00062500(int);
     int pad04;
     int pad08;
     void FUN_00236d40();
@@ -2523,14 +2523,14 @@ public:
 
 class CSmartPropSpawnTrack : public CTrack_62510 {
 public:
-    virtual unsigned int vfunc_0(unsigned int);
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
+    virtual bool vfunc_0_00234270(void*);
+    virtual bool v1_002342b0(int);
+    virtual bool v2_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool v3_00234350(int, int);
+    virtual void* v4_00062ec0(char);
     virtual void v5_000625c0();
     virtual void vfunc_6_000625d0();
-    virtual void vfunc_7();
+    virtual int vfunc_7_00068c80(int, int);
 
     int f0c;
     char f10;
@@ -2759,8 +2759,8 @@ hulk_intptr CSmartPropDetachTrack::vfunc_0(int index) {
 namespace fn_00062800 {
 class CTrack_62800 {
   public:
-    virtual void BaseFn0();
-    virtual void BaseFn1();
+    virtual hulk_intptr BaseFn0_000627f0(int);
+    virtual bool BaseFn1_00234270(void*);
     CTrack_62800();
 
   private:
@@ -2770,8 +2770,8 @@ class CTrack_62800 {
 
 class CSmartPropDetachTrack : public CTrack_62800 {
   public:
-    virtual void TrackFn0();
-    virtual void TrackFn1();
+    virtual bool TrackFn0_002342b0(int);
+    virtual bool TrackFn1_00236c50(hulk_intptr, int, hulk_intptr);
     CSmartPropDetachTrack();
 
   private:
@@ -2845,7 +2845,7 @@ hulk_intptr CSmartPropThrowTrack::vfunc_0(int index) {
 namespace fn_000628b0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000628b0 @ 0x000628b0
-struct FUN_00236d40 { virtual void slot0(); char pad[8]; int fieldC; FUN_00236d40(); }; struct CSmartPropThrowTrack : FUN_00236d40 { int field10,field14; float field18; int field1c,field20,field24; float field28; int field2c; float field30,field34,field38; unsigned char field3c; char pad3d[3]; int field40; CSmartPropThrowTrack(); }; CSmartPropThrowTrack::CSmartPropThrowTrack() { fieldC=0; field10=0; field14=0; field18=-1.0f; field1c=0; field20=0; field24=0; field2c=0; field40=0; field28=1.5707964f; field30=10.0f; field34=20.0f; field38=10.0f; field3c=1; }
+struct FUN_00236d40 { virtual hulk_intptr slot0_000628a0(int); char pad[8]; int fieldC; FUN_00236d40(); }; struct CSmartPropThrowTrack : FUN_00236d40 { int field10,field14; float field18; int field1c,field20,field24; float field28; int field2c; float field30,field34,field38; unsigned char field3c; char pad3d[3]; int field40; CSmartPropThrowTrack(); }; CSmartPropThrowTrack::CSmartPropThrowTrack() { fieldC=0; field10=0; field14=0; field18=-1.0f; field1c=0; field20=0; field24=0; field2c=0; field40=0; field28=1.5707964f; field30=10.0f; field34=20.0f; field38=10.0f; field3c=1; }
 } // namespace fn_000628b0
 
 
@@ -3055,13 +3055,13 @@ namespace fn_00062b50 {
 class CTrack_62b50 {
   public:
     CTrack_62b50();
-    virtual void BaseFn();
+    virtual hulk_intptr BaseFn_00062b40(int);
 };
 
 class CSmartPropEventTrack : public CTrack_62b50 {
   public:
     CSmartPropEventTrack();
-    virtual void Fn();
+    virtual bool Fn_00234270(void*);
     char pad0[8];
     int m_c;
     int m_10;
@@ -3326,7 +3326,7 @@ struct Name_62db0 {
 
 class __declspec(novtable) CTrack_62db0 {
 public:
-    virtual void b0();
+    virtual hulk_intptr b0_00062210(int);
     int pad04;
     int pad08;
     void FUN_00236d40();
@@ -3335,14 +3335,14 @@ public:
 
 class CSmartPropAttachTrack : public CTrack_62db0 {
 public:
-    virtual unsigned int vfunc_0(unsigned int);
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
+    virtual bool vfunc_0_00234270(void*);
+    virtual bool v1_002342b0(int);
+    virtual bool v2_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool v3_00234350(int, int);
+    virtual void* v4_00062e40(char);
     virtual void v5_00062260();
     virtual void vfunc_6_00062270();
-    virtual void vfunc_7();
+    virtual int vfunc_7_00068c80(int, int);
 
     int f0c, f10, f14;
     Name_62db0 bone;

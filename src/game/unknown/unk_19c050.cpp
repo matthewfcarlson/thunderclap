@@ -13,7 +13,7 @@ namespace fn_fdcf800c {} using namespace fn_fdcf800c;
 namespace fn_fdcf800c {
 class TrackFactoryCasterTemplate_19c050 {
   public:
-    virtual void Cast();
+    virtual bool Cast_0019a260(void*);
     TrackFactoryCasterTemplate_19c050() {}
 };
 class Owner {
@@ -180,7 +180,7 @@ namespace fn_fdcf800c {
 extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 class TrackFactoryCasterTemplate_19c690 {
   public:
-    virtual void dummy();
+    virtual bool dummy_0019a360(void*);
 };
 class Obj {
   public:
@@ -190,22 +190,22 @@ class Obj {
 void* Cast_00236ac0(void*, TrackFactoryCasterTemplate_19c690*);
 class TrackFactoryCasterTemplate_19c6c0 {
   public:
-    virtual void cast();
+    virtual bool cast_0019a400(void*);
 };
 void* __cdecl Find_00236ac0(void*, TrackFactoryCasterTemplate_19c6c0*);
 class TrackFactoryCasterTemplate_19c6f0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_0019a480(void*);
 };
 extern void* Find_00236ac0(void*, TrackFactoryCasterTemplate_19c6f0*);
 class TrackFactoryCasterTemplate_19c720 {
   public:
-    virtual void Cast();
+    virtual bool Cast_0019a4e0(void*);
 };
 void* __cdecl Find_00236ac0(void*, TrackFactoryCasterTemplate_19c720*);
 class TrackFactoryCasterTemplate_19d130 {
   public:
-    virtual void Cast();
+    virtual bool Cast_0019a5e0(void*);
 };
 void* Find_00236ac0(const char*, TrackFactoryCasterTemplate_19d130*);
 } // namespace fn_fdcf800c
@@ -463,11 +463,11 @@ public:
 namespace fn_fdcf800c {
 struct CasterA {
     CasterA() {}
-    virtual void Cast();
+    virtual bool Cast_0019a180(void*);
 };
 struct CasterB {
     CasterB() {}
-    virtual void Cast();
+    virtual bool Cast_0019a1e0(void*);
 };
 extern "C" void* __cdecl FUN_002343e0(const char*, void*);
 class Registry {
@@ -916,7 +916,7 @@ namespace fn_0019de20 {
 namespace fight {
 class TrackFactoryCasterTemplate {
   public:
-    virtual void Cast();
+    virtual bool Cast_0019a700(void*);
 };
 } // namespace fight
 class Obj {

@@ -298,7 +298,7 @@ class CAction : public Action_20bc0 {
 
 class CAIHintAction_20bc0 : public CAction {
   public:
-    virtual void ProcessDrift();
+    virtual void* ProcessDrift_00022690(char);
     CAIHintAction_20bc0(int a, IRef_20bc0* p);
 };
 

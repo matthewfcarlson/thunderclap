@@ -214,7 +214,7 @@ class CAction : public Action_1fde0 {
 
 class CDriftAction : public CAction {
   public:
-    virtual void ProcessDrift();
+    virtual void* ProcessDrift_00022460(char);
     CDriftAction(int a, IRef_1fde0* p);
 };
 

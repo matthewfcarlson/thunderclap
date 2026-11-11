@@ -5778,7 +5778,7 @@ class Function_1e0650 {
 };
 class Method3 : public Function_1e0650 {
   public:
-    virtual void dummy();
+    virtual bool dummy_001d04c0(int, int);
     Method3(const char*, void*);
     char pad[0x0c];
     char a, b, c;

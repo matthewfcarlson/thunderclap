@@ -1164,7 +1164,7 @@ template <> struct TypeName<math::Vector> { static const char* get() { return DA
 class __declspec(novtable) Function : public ScriptFunctionFields {
   public:
     virtual void f0();
-    virtual void f1();
+    virtual bool f1_001d04c0(int, int);
     void FUN_001d0480(const char*, int);
     Function(const char* n, int k) { FUN_001d0480(n, k); }
 };

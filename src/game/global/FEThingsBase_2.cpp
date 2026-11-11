@@ -1826,7 +1826,7 @@ public:
 class FEScreenBase : public FEContainer_ef180 {
 public:
     FEScreenBase(ScreenSource* src, hulk_intptr arg);
-    virtual void v1();
+    virtual bool v1_000e5620(int, int);
 
     int f990;  // 0x990
     int a994[4];  // 0x994
@@ -2605,8 +2605,8 @@ namespace fn_000efca0 {
 void* __cdecl FUN_0008d690(unsigned int);
 struct Manager_efca0;
 struct FEMenuBase {
- virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4_000ef100(); virtual void v5_000ef030(); virtual void v6_000ef120(); virtual void v7_000ef160(); virtual const char* v8_000ef890();
- virtual void v9_000e4c30(); virtual void v10_000ef4f0(); virtual void v11_000e5220(); virtual void v12(); virtual void v13(); virtual void v14_000ef6e0(); virtual void v15_000e5600(); virtual void v16(); virtual void v17_000e45d0(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33(); virtual void v34_000ef8a0(); virtual void v35_000ef8b0(); virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39(); virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43(); virtual void v44(); virtual void v45(); virtual void v46(); virtual void v47(); virtual void v48(); virtual void v49(); virtual void v50(); virtual void v51_000e45f0(); virtual void v52(); virtual void v53(); virtual void v54(int);
+ virtual void* v0_000f1d70(char); virtual bool v1_000e5620(int, int); virtual char v2_000e56a0(int, int); virtual char v3_000e6050(int, int); virtual void v4_000ef100(); virtual void v5_000ef030(); virtual void v6_000ef120(); virtual void v7_000ef160(); virtual const char* v8_000ef890();
+ virtual void v9_000e4c30(); virtual void v10_000ef4f0(); virtual void v11_000e5220(); virtual void v12_000e4b70(int); virtual void v13_000e4bd0(int); virtual void v14_000ef6e0(); virtual void v15_000e5600(); virtual void v16_000f2ba0(void*); virtual void v17_000e45d0(); virtual void v18_000e4e00(int, int); virtual void v19_000e4e70(int); virtual void v20_000e4960(int); virtual void v21_000e4f40(int); virtual int v22_000e4f70(int); virtual void* v23_000e4fc0(void*, void*); virtual int v24_000e4b50(int, int); virtual void* v25_000eeba0(void*, void*); virtual int v26_000eec20(int, int); virtual hulk_intptr v27_000eec80(int, int); virtual int v28_000eece0(int, int); virtual void* v29_000eed40(void*, void*); virtual int v30_000eee10(int, int); virtual void* v31_000eee70(int, int); virtual void* v32_000eeed0(int, int); virtual int v33_000eedb0(int, int); virtual void v34_000ef8a0(); virtual void v35_000ef8b0(); virtual int v36_000e46f0(int); virtual void* v37_000e4750(int); virtual void v38_000e47b0(int); virtual void v39_000e47e0(int); virtual void v40_000e4810(int); virtual void v41_000e4900(void*); virtual void v42_000e4840(int); virtual void v43_000e4870(int); virtual void v44_000e48a0(void*); virtual void v45_000e48d0(void*); virtual void v46_000e4930(int); virtual void v47_000e4330(void*, void*); virtual void v48_000e43c0(void*, void*); virtual int v49_000e4470(void*, void*); virtual void v50_000ee9b0(void*, int); virtual void v51_000e45f0(); virtual void v52_000e4cc0(void*, int); virtual void v53_000f2fc0(void*); virtual void v54(int);
  char pad[0x98c]; int field990; char tail[0x230];
  void FUN_000ef180(Manager_efca0*,const char*);
 };
@@ -3495,7 +3495,7 @@ public:
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual void v4();
+    virtual bool v4_000e1700(int, hulk_intptr, int, int);
     int type;
     int id1;
     int id2;

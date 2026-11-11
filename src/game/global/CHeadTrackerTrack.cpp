@@ -85,7 +85,7 @@ struct Name_6ac20 {
 
 class __declspec(novtable) CTrack_6ac20 {
 public:
-    virtual void b0();
+    virtual hulk_intptr b0_0006ac10(int);
     int pad04;
     int pad08;
     void FUN_00236d40();
@@ -94,14 +94,14 @@ public:
 
 class CHeadTrackerTrack : public CTrack_6ac20 {
 public:
-    virtual unsigned int vfunc_0(unsigned int);
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
+    virtual bool vfunc_0_00234270(void*);
+    virtual bool v1_002342b0(int);
+    virtual bool v2_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool v3_00234350(int, int);
+    virtual void* v4_0006bb60(void*, char);
     virtual void v5_0006acd0();
     virtual void vfunc_6_0006ace0();
-    virtual void vfunc_7();
+    virtual int vfunc_7_00068c80(int, int);
 
     int f0c;
     float f10;

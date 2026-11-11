@@ -2578,7 +2578,7 @@ template <> void Closure3<CSubtitleManager, void, const char *, const char *, fl
 namespace fn_001c0250 {
 // STATUS: equivalent (tools/equiv.py level 3: 2181 inputs, branch coverage 22/22)
 // FUN_001c0250 @ 0x001c0250
-struct sSubtitleManagerCallback { virtual void slot0(); unsigned value; };
+struct sSubtitleManagerCallback { virtual void slot0_001c06f0(int, int); unsigned value; };
 
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
 extern "C" void* __cdecl memcpy(void*,const void*,unsigned);

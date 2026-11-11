@@ -64,7 +64,7 @@ class FEControllerSystem_c4ef0 {
 };
 class CFESoundManager_c4ef0 {
   public:
-    virtual void v0();
+    virtual void* v0_000bbb20(char);
     int field_04;
     CFESoundManager_c4ef0() : field_04(0) {}
 };

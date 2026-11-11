@@ -53,7 +53,7 @@ namespace fn_0006b0a0 {
 class CTrack_6b0a0 {
   public:
     CTrack_6b0a0();
-    virtual void v();
+    virtual hulk_intptr Fnv_0006b090(int);
     int baseField;
 };
 class CMotionHitGroundHeightTrack : public CTrack_6b0a0 {

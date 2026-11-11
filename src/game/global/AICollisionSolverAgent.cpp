@@ -2410,7 +2410,7 @@ class Function_1b15f0 : public CtorV_001d0480 {
 };
 class Function2 : public Function_1b15f0 {
   public:
-    virtual void f();
+    virtual bool Fnf_001d04c0(int, int);
     ScriptMemberFn data;
     Function2(const char*, ScriptMemberFn);
 };
@@ -2445,7 +2445,7 @@ class Function_1b1660 {
 };
 class Function2 : public Function_1b1660 {
   public:
-    virtual void g();
+    virtual bool Fng_001d04c0(int, int);
     Function2(void*, void*);
     char flag18[4];
     void* target;
@@ -2870,16 +2870,16 @@ class AICollisionSolverAgent : public CollisionSolverAgent_1b2e50 {
   public:
     AICollisionSolverAgent();
     virtual void f1_00018b40();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
+    virtual void* f2_001b02e0(char);
+    virtual void f3_002f7d00(int, int);
+    virtual void f4_002f7d20(int, int);
+    virtual int f5_001b2560(void*, void*);
+    virtual int f6_001b0120(hulk_intptr, int, hulk_intptr, int, int, int, int, hulk_intptr, hulk_intptr);
+    virtual int f7_001b2c90(void*, hulk_intptr);
+    virtual int f8_002f8850(void*, int);
+    virtual int f9_001b0fb0(void*, void*);
     virtual bool vfunc_10_001b0180(void*, void*);
-    virtual void f11();
+    virtual char f11_001b0210(void*);
 };
 
 AICollisionSolverAgent::AICollisionSolverAgent() {

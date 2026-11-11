@@ -69,7 +69,7 @@ class CSoundTrack : public CTrack_696c0 {
   public:
     CSoundTrack();
     virtual void v0();
-    virtual void v1();
+    virtual bool v1_00234270(void*);
     int m8;
     int mC;
     char m10;

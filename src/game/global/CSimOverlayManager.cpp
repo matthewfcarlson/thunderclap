@@ -489,7 +489,7 @@ struct HUDOverlay_d75c0 {
 class CSimOverlayManager {
 public:
     CSimOverlayManager();
-    virtual void v0();
+    virtual void* v0_000d7010(char);
     MessageOverlay_d75c0 *panel;
     HUDOverlay_d75c0 *overlays;
     int f0c;

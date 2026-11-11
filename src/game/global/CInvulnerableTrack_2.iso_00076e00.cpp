@@ -13,11 +13,11 @@ class CTrack_76e00 {
   public:
     CTrack_76e00() throw();
     virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
+    virtual bool f1_00234270(void*);
+    virtual bool f2_002342b0(int);
+    virtual bool f3_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool f4_00234350(int, int);
+    virtual void* f5_0006bad0(char);
     int x;
     int flag;
 };

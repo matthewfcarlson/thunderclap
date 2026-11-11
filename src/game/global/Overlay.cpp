@@ -115,7 +115,7 @@ struct Frame_c9810 {
 };
 class DynamicCaster_c9ba0 {
   public:
-    virtual void cast();
+    virtual void cast_000c96e0(void*);
 };
 class Obj {
   public:

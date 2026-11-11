@@ -120,7 +120,7 @@ class CAction : public Action_213b0 {
 
 class CTargetAction_213b0 : public CAction {
   public:
-    virtual void ProcessDrift();
+    virtual void* ProcessDrift_000227d0(char);
     CTargetAction_213b0(int a, IRef_213b0* p);
 };
 
@@ -240,7 +240,7 @@ class CAction : public Action_214d0 {
 
 class CExplosionAction_214d0 : public CAction {
   public:
-    virtual void ProcessDrift();
+    virtual void* ProcessDrift_00022870(char);
     CExplosionAction_214d0(int a, IRef_214d0* p);
 };
 
@@ -298,7 +298,7 @@ class CAction : public Action_21550 {
 
 class CPropActorSetStateAction_21550 : public CAction {
   public:
-    virtual void ProcessDrift();
+    virtual void* ProcessDrift_000228b0(char);
     CPropActorSetStateAction_21550(int a, IRef_21550* p);
 };
 

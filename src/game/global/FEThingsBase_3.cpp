@@ -202,7 +202,7 @@ class TextLabel_f1e00 {
 };
 class DynamicCaster_f20f0 {
   public:
-    virtual void a();
+    virtual void Fna_000f1030(void*);
 };
 struct HSlider_nv_f2150 {
     void Change2_000f1570();
@@ -216,7 +216,7 @@ struct ThisCall_000f17b0 {
 };
 class DynamicCaster_f2340 {
   public:
-    virtual void Cast();
+    virtual void Cast_000f0f70(void*);
 };
 class Inventory {
   public:
@@ -229,9 +229,9 @@ extern "C" __int64 __cdecl Lookup(void*);
 extern "C" __int64 __cdecl Convert(int);
 class DynamicCaster_f2370 {
   public:
-    virtual void f0();
+    virtual void f0_000f0fa0(void*);
     virtual void f1();
-    virtual void f2();
+    virtual void f2_000f0fd0(void*);
     virtual int f3();
 };
 class Obj {
@@ -243,7 +243,7 @@ class Obj {
 };
 class DynamicCaster_f23d0 {
   public:
-    virtual void f();
+    virtual void Fnf_000f1000(void*);
 };
 class Inv {
   public:
@@ -267,7 +267,7 @@ struct Obj_f26e0 {
 __int64 __cdecl fun_p2_0027b020(int p);
 struct DynamicCaster {
   public:
-    virtual void f0();
+    virtual void f0_0007ce10(void*);
 };
 struct FEAnimation_f26e0 {
     virtual void bv();
@@ -305,7 +305,7 @@ class Obj_f2d40 {
     virtual void F();
 };
 struct DynamicCaster_f2d40 {
-    virtual void C();
+    virtual void FnC_000f1000(void*);
 };
 class Manager_f2d40 {
   public:
@@ -1541,7 +1541,7 @@ struct Owner_f1e50 {
  void FUN_000f1e50(Context*, void*, void*, Node*);
 };
 struct FEThingsBase::ParseFunctor {
- virtual void slot0();
+ virtual void slot0_000e02d0(int, int);
  Owner_f1e50* owner;
  void (Owner_f1e50::*method)(Context*, void*, void*, Node*);
  void* arg;
@@ -1680,7 +1680,7 @@ extern "C" hulk_intptr FUN_000f2370(Obj* o, hulk_intptr x) {
 namespace fn_000f23a0 {
 typedef unsigned __int64 U64;
 struct DynamicCaster_f23a0 {
-    virtual void Cast();
+    virtual void Cast_000f0fd0(void*);
 };
 struct Object {
     virtual void a();
@@ -1792,7 +1792,7 @@ class Drawable {
 };
 class DynamicCaster_f24d0 {
   public:
-    virtual void fn();
+    virtual void fn_0007ce10(void*);
 };
 class Inventory {
   public:
@@ -1864,7 +1864,7 @@ __int64 __cdecl fun_p2_0027b020(int p);
 
 struct DynamicCaster {
   public:
-    virtual void f0();
+    virtual void f0_0007ce10(void*);
 };
 
 struct FEAnimation_f2560 {
@@ -1921,7 +1921,7 @@ struct Particle {
     virtual void AddRef();
 };
 struct DynamicCaster_f2680 {
-    virtual void cast();
+    virtual void cast_000f0fa0(void*);
 };
 struct Loader {
     virtual void v0();
@@ -2735,7 +2735,7 @@ public:
 class FEThingsBase {
 public:
     FEThingsBase();
-    virtual void v0();
+    virtual bool v0_000e6280(int, int);
 
     PoolA* poolA;                   // 0x4
     PoolB* poolB;                   // 0x8
@@ -3389,7 +3389,7 @@ public:
     virtual int v36(Token_f3940 *a0, Parser_f3940 *a1, FEControl *a2, Node *a3);
     class ParseFunctor {
     public:
-        virtual void call();
+        virtual void call_000e02d0(int, int);
         FEThingsBase *owner;
         void (FEThingsBase::*fn)(Token_f3940 *a0, Parser_f3940 *a1, FEControl *a2, Node *a3);
         Parser_f3940 *a1;
@@ -4657,7 +4657,7 @@ public:
             zero = 0;
             target = obj;
         }
-        virtual void run();
+        virtual void run_000e02d0(int, int);
         FEThingsBase *owner;
         ParseFn fn;
         int zero;

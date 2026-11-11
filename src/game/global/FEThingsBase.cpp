@@ -1237,7 +1237,7 @@ extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 struct CGlowDisplayEffect_e4510 { char data[28]; void FUN_000dee10(); };
 struct CDropShadowDisplayEffect_e4510 { void FUN_000dee40(); };
 struct FEContainer {
- virtual void slot0();
+ virtual void* slot0_000f1cf0(char);
  unsigned int owner;
  char name[32];
  unsigned int values[8];
@@ -2056,21 +2056,21 @@ public:
     virtual void f0_000e1ff0();
     virtual void f1_000e2000();
     virtual void f2_000e2010();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
+    virtual void f3_000e1f80(int);
+    virtual void f4_000e1f90(int);
+    virtual bool f5_000e2020(int, int);
+    virtual bool f6_000e2040(int, int);
+    virtual bool f7_000e2060(int, int);
+    virtual void f8_000e20d0(int);
+    virtual void f9_000e20f0(int);
+    virtual void f10_000e8cb0(int);
     virtual void f11_000e21d0();
     virtual void f12_000e21c0();
-    virtual void f13();
-    virtual void f14();
-    virtual void f15();
-    virtual void f16();
-    virtual void f17();
+    virtual bool f13_000e2110(int);
+    virtual int f14_000e2160(int, int);
+    virtual void* f15_000e2180(void*, int);
+    virtual double f16_000e21a0(int);
+    virtual double f17_000e21b0(int);
     virtual void AttachObject_000e2130(FEObject* obj);
     virtual bool IsPrimary();
     virtual void f20_000e1fa0();
@@ -2087,7 +2087,7 @@ public:
 class SingleLayout : public FELayout {
 public:
     SingleLayout(FEContainer* p, const char* n) throw() : FELayout(p, n) { field44 = 0; mLayout = 0; }
-    virtual void vfunc_0();
+    virtual void* vfunc_0_000e8c90(char);
     virtual void vfunc_1_000e20b0();
     virtual void vfunc_2();
     FELayout* mLayout;
@@ -2643,21 +2643,21 @@ public:
     virtual void f0_000e1ff0();
     virtual void f1_000e2000();
     virtual void f2_000e2010();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
+    virtual void f3_000e1f80(int);
+    virtual void f4_000e1f90(int);
+    virtual bool f5_000e2020(int, int);
+    virtual bool f6_000e2040(int, int);
+    virtual bool f7_000e2060(int, int);
+    virtual void f8_000e20d0(int);
+    virtual void f9_000e20f0(int);
+    virtual void f10_000e8cb0(int);
     virtual void f11_000e21d0();
     virtual void f12_000e21c0();
-    virtual void f13();
-    virtual void f14();
-    virtual void f15();
-    virtual void f16();
-    virtual void f17();
+    virtual bool f13_000e2110(int);
+    virtual int f14_000e2160(int, int);
+    virtual void* f15_000e2180(void*, int);
+    virtual double f16_000e21a0(int);
+    virtual double f17_000e21b0(int);
     virtual void AttachObject_000e2130(FEObject* obj);
     virtual bool IsPrimary();
     virtual void f20_000e1fa0();
@@ -2674,7 +2674,7 @@ public:
 class SingleLayout : public FELayout {
 public:
     SingleLayout(FEScreenBase_e4fc0* p, const char* n) throw() : FELayout(p, n) { field44 = 0; mLayout = 0; }
-    virtual void vfunc_0();
+    virtual void* vfunc_0_000e8c90(char);
     virtual void vfunc_1_000e20b0();
     virtual void vfunc_2();
     FELayout* mLayout;
@@ -5524,7 +5524,7 @@ struct Reader { void FUN_000fa0a0(); bool FUN_000f9e90(); };
 struct Item_e7ad0 { virtual void slot0(); virtual unsigned int type(); };
 struct FEThingsBase {
  struct ParseFunctor {
-  virtual void invoke();
+  virtual void invoke_000e02d0(int, int);
   FEThingsBase* owner;
   void (FEThingsBase::*method)(Reader*,void*,void*,Item_e7ad0*);
   void* context;
@@ -5796,7 +5796,7 @@ struct FEThingsBase {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33(); virtual bool parse(Reader*,Tag_e7f60*,ParseFunctor*);
  void FUN_000e7f60(Reader*,void*,Values_e7f60*,Tag_e7f60*);
  struct ParseFunctor {
- virtual void invoke();
+ virtual void invoke_000e02d0(int, int);
  FEThingsBase* owner;
  void (FEThingsBase::*callback)(Reader*,void*,Values_e7f60*,Tag_e7f60*);
  int adjustment;
@@ -5825,7 +5825,7 @@ struct Token_e8070 { virtual void slot0(); virtual unsigned int slot1(); };
 struct Object;
 struct FEThingsBase {
  struct ParseFunctor {
-  virtual void invoke();
+  virtual void invoke_000e02d0(int, int);
   FEThingsBase* owner;
   void (FEThingsBase::*function)(Input_e8070*, unsigned int, Object*, Token_e8070*);
   unsigned int context;
@@ -5871,7 +5871,7 @@ struct Node {
 };
 struct FEThingsBase {
  struct ParseFunctor {
- virtual void invoke();
+ virtual void invoke_000e02d0(int, int);
  FEThingsBase* owner;
  void (FEThingsBase::*callback)(Item_e8180*, unsigned int, Node*, Node*);
  unsigned int second;

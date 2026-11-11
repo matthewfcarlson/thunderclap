@@ -215,7 +215,7 @@ class CEncounterGenerator : public core::IRefCount {
 public:
     class CEncounter {
     public:
-        virtual void v0() throw();
+        virtual void* v0_001f94e0(int);
         __forceinline ~CEncounter() throw() {}
         char pad04[0x30 - 4];
         Name name;
@@ -704,7 +704,7 @@ public:
     class CEncounter {
     public:
         CEncounter();
-        virtual void v0();
+        virtual void* v0_001f94e0(int);
         char pad04[4];
         int f8;
         char name[0x20];
@@ -722,7 +722,7 @@ public:
 
     CEncounterGenerator();
     virtual void v1_000382a0();
-    virtual void v2();
+    virtual void* v2_001fc600(char);
     virtual void v3_0027afe0();
     virtual void v4_0027aff0();
 

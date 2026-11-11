@@ -239,14 +239,14 @@ struct Member_10c7d0 {
     void Release_00234150();
 };
 struct Condition_10c7d0 {
-    virtual void g();
+    virtual hulk_intptr Fng_0010c7a0(int);
     void Shutdown_002345b0();
 };
 struct AIFightNodeCondition_10c7d0 : Condition_10c7d0 {
     char pad[8];
     Member_10c7d0 m;
     ~AIFightNodeCondition_10c7d0();
-    virtual void f();
+    virtual bool Fnf_00234270(void*);
 };
 extern int* hulk_at_004e0af0;
 class CCondition_10c810 {

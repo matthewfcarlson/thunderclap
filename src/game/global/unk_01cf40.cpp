@@ -457,7 +457,7 @@ class CAction : public Action_1d190 {
 
 class CSoundAction_1d190 : public CAction {
   public:
-    virtual void ProcessDrift();
+    virtual void* ProcessDrift_00021a20(char);
     CSoundAction_1d190(hulk_intptr a, IRef_1d190* p);
 };
 
@@ -515,7 +515,7 @@ class CAction : public Action_1d210 {
 
 class CComboMessageAction_1d210 : public CAction {
   public:
-    virtual void ProcessDrift();
+    virtual void* ProcessDrift_00021a60(char);
     CComboMessageAction_1d210(int a, IRef_1d210* p);
 };
 
@@ -655,7 +655,7 @@ class CAction : public Action_1d320 {
 
 class CMoveAddAction_1d320 : public CAction {
   public:
-    virtual void ProcessDrift();
+    virtual void* ProcessDrift_00021b00(char);
     CMoveAddAction_1d320(int a, IRef_1d320* p);
 };
 
@@ -713,7 +713,7 @@ class CAction : public Action_1d3a0 {
 
 class CMoveAddYAction_1d3a0 : public CAction {
   public:
-    virtual void ProcessDrift();
+    virtual void* ProcessDrift_00021b40(char);
     CMoveAddYAction_1d3a0(int a, IRef_1d3a0* p);
 };
 
@@ -833,7 +833,7 @@ CAutoTargetAction_1d4c0::CAutoTargetAction_1d4c0(Obj_1d4c0* o) : Base_1d4c0() {
 class CAutoTargetAction : public CAutoTargetAction_1d4c0 {
   public:
     CAutoTargetAction(Helper_1d4c0* h, Obj_1d4c0* o);
-    virtual void C();
+    virtual bool FnC_00013940(hulk_intptr, hulk_intptr);
     virtual void FnD_00015270();
     Helper_1d4c0* x;
     int y;

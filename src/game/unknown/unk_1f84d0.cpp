@@ -289,7 +289,7 @@ class Obj_1f9460 {
 };
 class CEncounter {
   public:
-    virtual void V();
+    virtual void* FnV_001f94e0(int);
     char pad[0x30 - 4];
     class Sub {
       public:

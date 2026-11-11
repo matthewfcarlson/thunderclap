@@ -35,7 +35,7 @@ public:
 };
 struct CSoundCommand_PlayCuedNISEvent {
     static void* operator new(size_t, void* place) { return place; }
-    virtual void method();
+    virtual void* method_001ef6b0(char);
     int next;
     int previous;
     int eventId;
@@ -68,7 +68,7 @@ class Manager {
 struct CSoundCommand_InstallMixer_1efd60 { int FUN_001ef730(int, int, int); };
 void* __cdecl FUN_0008d710(unsigned int, unsigned int);
 struct CSoundCommand_ReturnToDefaultMix {
-    virtual void command();
+    virtual void* command_001ef7e0(char);
     int field4;
     int field8;
     int fieldC;
@@ -140,7 +140,7 @@ struct Pair {
     }
 };
 struct CSoundCommand_PlayInterruptEvent : CSoundCommand_1f01c0 {
-    virtual void dummy();
+    virtual void* dummy_001f0210(char);
     Pair pair;
     int field18;
     CSoundCommand_PlayInterruptEvent(hulk_intptr a, hulk_intptr b, hulk_intptr c);

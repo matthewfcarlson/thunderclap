@@ -37,13 +37,13 @@ namespace fn_00068e20 {
 class CTrack_68e20 {
   public:
     CTrack_68e20();
-    virtual void VFn();
+    virtual hulk_intptr VFn_00068e10(int);
 };
 
 class CScrubberTrack : public CTrack_68e20 {
   public:
     CScrubberTrack();
-    virtual void VFn2();
+    virtual bool VFn2_00234270(void*);
 };
 
 CScrubberTrack::CScrubberTrack() : CTrack_68e20() {}

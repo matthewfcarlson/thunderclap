@@ -60,38 +60,38 @@ hulk_intptr CDrainHealthTrack::vfunc_0(int index) {
 namespace fn_00069ea0 {
 class CTrack_69ea0 {
   public:
-    virtual void g0();
-    virtual void g1();
-    virtual void g2();
-    virtual void g3();
-    virtual void g4();
-    virtual void g5();
+    virtual hulk_intptr g0_00069e90(int);
+    virtual bool g1_00234270(void*);
+    virtual bool g2_002342b0(int);
+    virtual bool g3_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool g4_00234350(int, int);
+    virtual void* g5_0006b870(char);
     virtual void g6_00069ee0();
     virtual void g7_00069ef0();
-    virtual void g8();
-    virtual void g9();
+    virtual int g8_00068c80(int, int);
+    virtual int g9_00236bb0(hulk_intptr, hulk_intptr, hulk_intptr);
     CTrack_69ea0();
     int m4;
 };
 
 class CDrainHealthTrack : public CTrack_69ea0 {
   public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
+    virtual int f0_00068cb0(int, int, int);
+    virtual int f1_00068ca0(int);
+    virtual hulk_intptr f2_00069f10(hulk_intptr);
+    virtual void f3_00069ed0(void*);
     virtual void f4();
-    virtual void f5();
-    virtual void f6();
-    virtual void f7();
-    virtual void f8();
-    virtual void f9();
-    virtual void fA();
+    virtual hulk_intptr f5_00069f90(int);
+    virtual bool f6_00234270(void*);
+    virtual bool f7_002342b0(int);
+    virtual bool f8_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool f9_00234350(int, int);
+    virtual void* fA_0006b8a0(char);
     virtual void fB_00069fe0();
     virtual void fC_00069ff0();
-    virtual void fD();
-    virtual void fE();
-    virtual void fF();
+    virtual int fD_00068c80(int, int);
+    virtual int fE_00236bb0(hulk_intptr, hulk_intptr, hulk_intptr);
+    virtual int fF_00068cb0(int, int, int);
     int m8;
     int mC;
     float m10;

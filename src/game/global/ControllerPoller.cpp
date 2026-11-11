@@ -211,7 +211,7 @@ struct Block_dd710 {
 
 class ControllerState {
 public:
-    virtual void v0();
+    virtual void* v0_000ddb80(char);
     int a;                   // 0x04
     int b;                   // 0x08
     Block_dd710 *first;            // 0x0c
@@ -359,7 +359,7 @@ class ControllerPollerBase_dd940 {
 };
 class ControllerPoller : public ControllerPollerBase_dd940 {
   public:
-    virtual void Poll();
+    virtual double Poll_000de590(int, int);
     char pad[4];
     int m8;
     char pad2[0x2c];

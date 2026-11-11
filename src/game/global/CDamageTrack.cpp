@@ -47,8 +47,8 @@ namespace fn_00069dd0 {
 class CTrack_69dd0 {
   public:
     CTrack_69dd0();
-    virtual void f0();
-    virtual void f1();
+    virtual hulk_intptr f0_00069dc0(int);
+    virtual bool f1_00234270(void*);
     int m4;
 };
 

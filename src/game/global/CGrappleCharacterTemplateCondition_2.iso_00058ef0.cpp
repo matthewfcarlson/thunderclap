@@ -13,8 +13,8 @@ class Base {
   public:
     Base(int) throw();
     virtual void f0();
-    virtual void f1();
-    virtual void f2();
+    virtual bool f1_00234270(void*);
+    virtual bool f2_002342b0(int);
     int a;
     int b;
 };

@@ -83,8 +83,8 @@ hulk_intptr CJumpTrack::vfunc_0(int index) {
 namespace fn_00068fc0 {
 class CTrack_68fc0 {
   public:
-    virtual void F0();
-    virtual void F1();
+    virtual hulk_intptr F0_00068fb0(int);
+    virtual bool F1_00234270(void*);
     CTrack_68fc0();
     int mBase0;
     int mBase1;
@@ -92,8 +92,8 @@ class CTrack_68fc0 {
 
 class CJumpTrack : public CTrack_68fc0 {
   public:
-    virtual void F2();
-    virtual void F3();
+    virtual bool F2_002342b0(int);
+    virtual bool F3_00236c50(hulk_intptr, int, hulk_intptr);
     CJumpTrack();
     int m0c;
     float m10;

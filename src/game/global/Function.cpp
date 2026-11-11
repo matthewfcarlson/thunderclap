@@ -27,7 +27,7 @@ namespace fn_001d0480 {
 // Function's constructor (include/decls/data/script.h ScriptFunctionFields): the name and the argument count.
 class Function : public ScriptFunctionFields {
   public:
-    virtual void f();
+    virtual void* Fnf_001d05a0(char);
     Function(const char* n, int count);
 };
 Function::Function(const char* n, int count) {

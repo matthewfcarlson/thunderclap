@@ -47,7 +47,7 @@ struct Stream { virtual void s0(); virtual void s1(); virtual void s2(); virtual
 struct Shader_1c0cd0 { virtual void start(); char pad[12]; Stream* stream; Shader_1c0cd0* FUN_0028edb0(); };
 struct Event_1c0cd0 { float begin,end; unsigned data[2]; };
 struct Entry_1c0cd0 { unsigned data[4]; float time; unsigned tail; };
-struct sSubtitleManagerCallback { virtual void invoke(); CSubtitleManager* owner; };
+struct sSubtitleManagerCallback { virtual void invoke_001c06f0(int, int); CSubtitleManager* owner; };
 struct CSubtitleManager { float time; unsigned count; Event_1c0cd0* events; unsigned char enabled,flag; char pad[2]; unsigned a,b,c,mode,d; unsigned char ready; char pad2[3]; void** buffers; CSubtitleOverlay_1c0cd0* table; sSubtitleManagerCallback* callback; CSubtitleOverlay_1c0cd0* resource1; CSubtitleOverlay_1c0cd0* resource2; Entry_1c0cd0* entries; unsigned e,f,g,h,i; unsigned char j,k; char pad3[2]; Shader_1c0cd0* loader; CSubtitleManager* FUN_001c0cd0(); };
 
 

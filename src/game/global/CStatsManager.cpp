@@ -1296,7 +1296,7 @@ class Function_910f0 : public CtorV_001d0480 {
 };
 class Method1 : public Function_910f0 {
   public:
-    virtual void f();
+    virtual bool Fnf_001d04c0(int, int);
     Fn_910f0 z;
     Method1(const char* s, Fn_910f0 n) : Function_910f0(s) {
         z = n;
@@ -1306,7 +1306,7 @@ class Method1 : public Function_910f0 {
 };
 class Closure1 : public Method1 {
   public:
-    virtual void g();
+    virtual void Fng_00091160(void*, void*, void*);
     Owner_910f0* w;
     Closure1(const char*, Owner_910f0*, Fn_910f0);
 };

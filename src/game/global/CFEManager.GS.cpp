@@ -224,7 +224,7 @@ struct Done {
 };
 class CFEManager {
   public:
-    virtual void _m_vf0();
+    virtual void* m_vf0_000c1f50(char);
     char _m_pad_4[0x18];
     Releasable_c1430 *f1c;
     Releasable_c1430 *f20;

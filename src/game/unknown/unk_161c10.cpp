@@ -12,7 +12,7 @@ namespace fn_f95ed483 {} using namespace fn_f95ed483;
 namespace fn_f95ed483 {
 class TrackFactoryCasterTemplate_161d20 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00160ed0(void*);
 };
 class Owner {
   public:
@@ -21,7 +21,7 @@ class Owner {
 };
 void* __cdecl Find_00236ac0(void*, TrackFactoryCasterTemplate_161d20*);
 struct TrackFactoryCasterTemplate_161d50 {
-    virtual void cast();
+    virtual bool cast_00160f30(void*);
 };
 extern "C" void* __cdecl findTrack_00236ac0(void*, TrackFactoryCasterTemplate_161d50*);
 } // namespace fn_f95ed483
@@ -106,7 +106,7 @@ namespace fn_f95ed483 {
 extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 class TrackFactoryCasterTemplate_162280 {
   public:
-    virtual void f();
+    virtual bool Fnf_00160fb0(void*);
 };
 class Obj {
   public:
@@ -198,7 +198,7 @@ public:
 namespace fn_f95ed483 {
 class TrackFactoryCasterTemplate_162820 {
   public:
-    virtual void f();
+    virtual bool Fnf_00161050(void*);
 };
 void* Find_00236ac0(void*, TrackFactoryCasterTemplate_162820*);
 } // namespace fn_f95ed483
@@ -348,7 +348,7 @@ public:
 namespace fn_f95ed483 {
 class TrackFactoryCasterTemplate_1633c0 {
   public:
-    virtual void Cast();
+    virtual int Cast_00161190(void*);
 };
 extern void* Find_00236ac0(void*, TrackFactoryCasterTemplate_1633c0*);
 } // namespace fn_f95ed483
@@ -406,7 +406,7 @@ public:
 namespace fn_f95ed483 {
 class TrackFactoryCasterTemplate_163760 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00161210(void*);
 };
 class Receiver {
   public:
@@ -892,7 +892,7 @@ extern "C" void FUN_00162850()
 namespace fn_00163020 {
 class TrackFactoryCasterTemplate_163020 {
   public:
-    virtual void cast();
+    virtual bool cast_001610f0(void*);
 };
 class Track {
   public:

@@ -53,15 +53,15 @@ hulk_intptr CIntangibleToActorsTrack::vfunc_0(int i) {
 namespace fn_0006a210 {
 class CTrack_6a210 {
   public:
-    virtual void FnBase0();
-    virtual void FnBase1();
+    virtual hulk_intptr FnBase0_0006a200(int);
+    virtual bool FnBase1_00234270(void*);
     CTrack_6a210();
 };
 
 class CIntangibleToActorsTrack : public CTrack_6a210 {
   public:
-    virtual void Fn0();
-    virtual void Fn1();
+    virtual bool Fn0_002342b0(int);
+    virtual bool Fn1_00236c50(hulk_intptr, int, hulk_intptr);
     CIntangibleToActorsTrack();
 
   private:

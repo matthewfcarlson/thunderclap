@@ -60,8 +60,8 @@ class CCondition_58750 {
   public:
     CCondition_58750(int) throw();
     virtual void f0();
-    virtual void f1();
-    virtual void f2();
+    virtual bool f1_00234270(void*);
+    virtual bool f2_002342b0(int);
     char pad[8];
 };
 class CSmartPropAngleCondition : public CCondition_58750 {

@@ -1030,7 +1030,7 @@ struct Registry_1b84f0 {
 class CFMVManager {
   public:
     CFMVManager();
-    virtual void v0();
+    virtual void* v0_001b7cd0(char);
     int field_04;
     char field_08;
     char field_09;

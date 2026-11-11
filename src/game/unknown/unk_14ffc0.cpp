@@ -275,17 +275,17 @@ class Sub_150690 {
 };
 class HitReactionTrack {
   public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
+    virtual hulk_intptr v0_0014ddf0(int);
+    virtual bool v1_00234270(void*);
+    virtual bool v2_002342b0(int);
+    virtual bool v3_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool v4_00234350(int, int);
+    virtual void* v5_00150690(int);
     virtual void v6_0014de60();
     virtual void v7_0014de70();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
+    virtual void* v8_00236ba0(void*, void*);
+    virtual int v9_0014f110(void*, void*, void*);
+    virtual hulk_intptr v10_00156f80(hulk_intptr, hulk_intptr, hulk_intptr);
     char pad[0x14];
     Sub_150690 sub;
     void BaseCall_00236d60();

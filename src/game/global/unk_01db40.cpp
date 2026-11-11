@@ -329,7 +329,7 @@ class CAction : public Action_1dcd0 {
 
 class CGrappleAttachAction_1dcd0 : public CAction {
   public:
-    virtual void ProcessDrift();
+    virtual void* ProcessDrift_00021d20(char);
     CGrappleAttachAction_1dcd0(int a, IRef_1dcd0* p);
 };
 
@@ -387,7 +387,7 @@ class CAction : public Action_1dd50 {
 
 class CGrappleSwapAction_1dd50 : public CAction {
   public:
-    virtual void ProcessDrift();
+    virtual void* ProcessDrift_00021d60(char);
     CGrappleSwapAction_1dd50(int a, IRef_1dd50* p);
 };
 
@@ -445,7 +445,7 @@ class CAction : public Action_1ddd0 {
 
 class CGrappleDetachAction_1ddd0 : public CAction {
   public:
-    virtual void ProcessDrift();
+    virtual void* ProcessDrift_00021da0(char);
     CGrappleDetachAction_1ddd0(int a, IRef_1ddd0* p);
 };
 

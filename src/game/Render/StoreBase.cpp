@@ -227,7 +227,7 @@ public:
 };
 class Store {
   public:
-    virtual void f();
+    virtual void* Fnf_001c7dc0(char);
     void Cleanup2_001c7500();
     ~Store();
     int mData;

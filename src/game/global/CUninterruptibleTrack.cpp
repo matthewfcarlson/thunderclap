@@ -57,13 +57,13 @@ namespace fn_0006a8c0 {
 class CTrack_6a8c0 {
   public:
     CTrack_6a8c0();
-    virtual void BaseFn();
+    virtual hulk_intptr BaseFn_0006a8b0(int);
 };
 
 class CUninterruptibleTrack : public CTrack_6a8c0 {
   public:
     CUninterruptibleTrack();
-    virtual void Fn();
+    virtual bool Fn_00234270(void*);
     char pad4[4];
     int m8;
     int m_c;

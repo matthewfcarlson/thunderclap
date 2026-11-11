@@ -255,7 +255,7 @@ struct ThisCall_001c5d30 {
 extern void thunk_FUN_00267090(CCollisionAction*);
 class Store {
   public:
-    virtual void f();
+    virtual void* Fnf_001c57c0(char);
     void Cleanup2_001c7500();
     ~Store();
     int mData;

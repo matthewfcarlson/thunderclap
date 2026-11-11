@@ -1235,7 +1235,7 @@ struct Shader_1c9030 { virtual void init(); char pad[12]; Stream* stream; Shader
 struct ShadowData { char data[12]; void FUN_002a30a0(); };
 namespace pure3d { struct ShadowGenerator { virtual void init_00018b30(); unsigned value; ShadowData data; }; }
 namespace Render { struct World {
-virtual void slot0(); unsigned pad4,field8,fieldC; Small_1c9030 first; StoreBase rooms; unsigned entries[256]; unsigned field538; unsigned fields53c[4]; unsigned field54c; char pad550[0x200]; Shader_1c9030* resource; unsigned pad754; Small_1c9030 last; pure3d::ShadowGenerator* shadow; World();
+virtual void* slot0_001c9140(char); unsigned pad4,field8,fieldC; Small_1c9030 first; StoreBase rooms; unsigned entries[256]; unsigned field538; unsigned fields53c[4]; unsigned field54c; char pad550[0x200]; Shader_1c9030* resource; unsigned pad754; Small_1c9030 last; pure3d::ShadowGenerator* shadow; World();
 }; }
 Render::World::World() {
 first.FUN_0027af00(); rooms.FUN_001c77e0(250,1); new (&rooms) Store<Room>;

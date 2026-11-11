@@ -113,16 +113,16 @@ namespace fn_0005d230 {
 class CTrack_5d230 {
   public:
     CTrack_5d230();
-    virtual void Fn();
+    virtual hulk_intptr Fn_0005d190(int);
 };
 
 class CHapticTrack : public CTrack_5d230 {
   public:
     CHapticTrack();
-    virtual void Fn0();
-    virtual void Fn1();
-    virtual void Fn2();
-    virtual void Fn3();
+    virtual bool Fn0_00234270(void*);
+    virtual bool Fn1_002342b0(int);
+    virtual bool Fn2_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool Fn3_00234350(int, int);
 
   private:
     char pad[4];

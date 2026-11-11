@@ -261,7 +261,7 @@ class Function_1cbe20 {
 };
 class Method1_1cbe20 : public Function_1cbe20 {
   public:
-    virtual void f1();
+    virtual bool f1_001d04c0(int, int);
     Method1_1cbe20(void* p, void* h) : Function_1cbe20(p, 1) {
         handler = h;
         b = getFlag_001d04d0(((const char*)&DAT_0048e100));
@@ -270,7 +270,7 @@ class Method1_1cbe20 : public Function_1cbe20 {
 };
 class Closure1_1cbe20 : public Method1_1cbe20 {
   public:
-    virtual void f2();
+    virtual void f2_001cbe90(void*, void*, void*);
     void* extra;
     Closure1_1cbe20(void* p, void* q, void* h);
 };
@@ -1752,7 +1752,7 @@ struct EventSlot {
 class CEventManager {
   public:
     CEventManager();
-    virtual void vfn0();
+    virtual void* vfn0_001cc570(char);
 
     bool FUN_001cbd10(const char *name);
     void FUN_001cb540(bool enabled);

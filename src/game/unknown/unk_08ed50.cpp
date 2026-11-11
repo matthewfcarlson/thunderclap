@@ -98,7 +98,7 @@ extern "C" int FUN_00266da0(int);
 extern "C" void* FUN_0008d690(hulk_uintptr);
 class CStaticAllocator {
   public:
-    virtual void f0();
+    virtual void* f0_0008ff70(char);
     CStaticAllocator(unsigned a, unsigned b, int c, int d);
     unsigned mA, mB;
     int mC;

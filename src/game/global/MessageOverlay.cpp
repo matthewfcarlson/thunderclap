@@ -260,7 +260,7 @@ class Function_d5660 : public CtorV_001d0480 {
 };
 class Method3_d5660 : public Function_d5660 {
   public:
-    virtual void f();
+    virtual bool Fnf_001d04c0(int, int);
     Fn_d5660 value;
     Method3_d5660(const char*, Fn_d5660);
 };
@@ -2019,7 +2019,7 @@ struct Device_d6970 {
  virtual float v16();
 };
 struct COverlayManager {
- virtual void slot0();
+ virtual void* slot0_000d6e70(char);
  unsigned int field4, field8;
  unsigned int entries[8];
  unsigned int field2c;

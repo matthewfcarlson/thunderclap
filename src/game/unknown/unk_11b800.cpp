@@ -105,7 +105,7 @@ class PathLocatorTestCondition {
     int a, b;
     virtual ~PathLocatorTestCondition();
     int d;
-    virtual void hulk_slot_F(); void FnF_002345b0();
+    virtual bool hulk_slot_F_00234270(void*); void FnF_002345b0();
 };
 extern "C" unsigned int __cdecl FUN_0008d340(void *);
 extern "C" void * __cdecl FUN_0008d6d0(unsigned int);
@@ -904,7 +904,7 @@ namespace fn_0011c220 {
 namespace hulkfight { namespace ai {
 struct FUN_00234590 {
     FUN_00234590(int);
-    virtual void virtualMethod();
+    virtual hulk_intptr virtualMethod_0011c210(int);
     char padding[8];
 };
 struct PathLocatorTestCondition : FUN_00234590 {

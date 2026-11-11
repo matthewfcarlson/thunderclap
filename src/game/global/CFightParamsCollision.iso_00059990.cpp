@@ -22,7 +22,7 @@ struct CollisionData {
 struct CFightParamsCollision {
     virtual void vfunc_0_00018b30();
     virtual void vfunc_1_00018b40();
-    virtual void vfunc_2();
+    virtual void* vfunc_2_00059930(char);
     virtual void vfunc_3_00059810();
     virtual CFightParamsCollision* vfunc_4();
     unsigned int unknown4;

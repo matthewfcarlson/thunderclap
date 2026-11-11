@@ -42,13 +42,13 @@ namespace fn_0006ad90 {
 class CTrack_6ad90 {
   public:
     CTrack_6ad90();
-    virtual void B();
+    virtual hulk_intptr FnB_0006ad80(int);
 };
 
 class CAlertStatusTrack : public CTrack_6ad90 {
   public:
     CAlertStatusTrack();
-    virtual void Dummy();
+    virtual bool Dummy_00234270(void*);
     int pad4;
     int mCount;
     int mX;

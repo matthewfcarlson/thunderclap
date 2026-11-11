@@ -16,7 +16,7 @@ typedef unsigned __int64 Key_1f0630;
 extern int __cdecl FUN_002673a0(const char*, int);
 class CSoundCommand_PlayDialogueEvent {
 public:
-    virtual void vfunc_0();
+    virtual void* vfunc_0_001f06a0(char);
     virtual void vfunc_1_001ef4f0(unsigned int, unsigned int);
     int f04;
     int f08;
@@ -46,7 +46,7 @@ void thunk_FUN_00267090(pure3d::NonCopyable*);
 typedef unsigned __int64 Key_1f06c0;
 class CSoundCommand_PlayFightDialogueEvent {
 public:
-    virtual void vfunc_0();
+    virtual void* vfunc_0_001f0740(char);
     virtual void vfunc_1_001ef530(unsigned int, unsigned int);
     int f04;
     int f08;
@@ -62,7 +62,7 @@ public:
 typedef unsigned __int64 Key_1f0760;
 class CSoundCommand_PlayMissionDialogueEvent {
 public:
-    virtual void vfunc_0();
+    virtual void* vfunc_0_001f07f0(char);
     virtual void vfunc_1_001ef570(unsigned int, unsigned int);
     int f04;
     int f08;
@@ -99,7 +99,7 @@ class CSoundCommand_PlayMusicEvent : public CSoundCommand_1f0810 {
     Pair p;
     int f;
     CSoundCommand_PlayMusicEvent(hulk_intptr x, int y, int z);
-    virtual void g();
+    virtual void Fng_001ef5b0(int, int);
 };
 struct Bits {
     int lo, hi;
@@ -115,7 +115,7 @@ class CSoundCommand_1f0880 {
 };
 class CSoundCommand_PlayAmbienceEvent : public CSoundCommand_1f0880 {
   public:
-    virtual void Fn();
+    virtual void* Fn_001f08d0(char);
     Pair pair;
     int f;
     CSoundCommand_PlayAmbienceEvent(hulk_intptr x, int y, int z);
@@ -370,7 +370,7 @@ int __cdecl FUN_002673a0(int, int);
 
 class CSoundCommand_PlaySFXEvent {
 public:
-    virtual void unused();
+    virtual void* unused_001f0940(char);
     int field04;
     int field08;
     int field0c;

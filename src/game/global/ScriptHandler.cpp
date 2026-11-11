@@ -2668,7 +2668,7 @@ struct WatchList : public ScriptWatchList {
 class ScriptHandler {
   public:
     enum script_state { state0 };
-    virtual void v0();
+    virtual void* v0_001d4440(char);
     ScriptHandlerFields h;
 
     void FUN_001d3f00(const char *, const char *);

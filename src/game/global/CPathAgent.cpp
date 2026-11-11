@@ -1117,12 +1117,12 @@ public:
     CPathGraphAgent(Owner_105f50 *o);
     virtual void v1_00018b40();
     virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
-    virtual void v6();
-    virtual void v7();
-    virtual void v8();
+    virtual double v3_00104930(hulk_intptr, int);
+    virtual void v4_00104d00(int, int, int);
+    virtual void v5_000fc4a0(int, int);
+    virtual void v6_000fc4b0(int);
+    virtual void v7_000fc4c0(int);
+    virtual void v8_000fc600(int, int, int);
     virtual void v9();
     virtual void v10();
 

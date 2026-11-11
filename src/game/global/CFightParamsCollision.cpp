@@ -577,7 +577,7 @@ class CFightParams : public Params_592c0 {
         field10 = 0;
     }
     virtual void v1_00018b40();
-    virtual void v2();
+    virtual void* v2_00059890(char);
     virtual void v3();
     virtual CFightParams* vfunc_4();
     int pad4;

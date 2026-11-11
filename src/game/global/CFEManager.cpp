@@ -413,7 +413,7 @@ class Inventory {
 extern unsigned __int64 findShader_0027b020(const char*);
 class DynamicCaster_c0de0 {
   public:
-    virtual void Cast();
+    virtual void Cast_00046280(void*);
 };
 struct Sub_c1f00 {
     void Fn_000c1790(int);
@@ -1734,13 +1734,13 @@ class Base : public CtorV_001d0480 {
 };
 class Closure1_bffa0 : public Base {
   public:
-    virtual void f();
+    virtual bool Fnf_001d04c0(int, int);
     Fn_bffa0 name;
     Closure1_bffa0(const char*, Fn_bffa0);
 };
 class Closure1 : public Closure1_bffa0 {
   public:
-    virtual void g();
+    virtual void Fng_000c0010(void*, void*, void*);
     Owner_bffa0* p;
     Closure1(const char*, Owner_bffa0*, Fn_bffa0);
 };

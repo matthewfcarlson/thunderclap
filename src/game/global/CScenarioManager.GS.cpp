@@ -1489,7 +1489,7 @@ public:
 class CScenarioManager {
 public:
     CScenarioManager() {}
-    virtual void v0();
+    virtual void* v0_001d0340(char);
     char pad04[0x1c];
     int FUN_001cc5e0();
     void FUN_001cc620(int);

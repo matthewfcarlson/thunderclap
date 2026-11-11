@@ -56,7 +56,7 @@ hulk_intptr CKeyPoseTrack::vfunc_0(int index) {
 namespace fn_00069520 {
 class CTrack_69520 {
   public:
-    virtual void Fn();
+    virtual hulk_intptr Fn_00069510(int);
     CTrack_69520();
     char pad[0x0c];
 };

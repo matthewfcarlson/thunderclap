@@ -42,13 +42,13 @@ namespace fn_0006aa80 {
 class CTrack_6aa80 {
   public:
     virtual void f0();
-    virtual void f1();
+    virtual bool f1_00234270(void*);
     CTrack_6aa80();
 };
 class CRageModeTrack : public CTrack_6aa80 {
   public:
-    virtual void g0();
-    virtual void g1();
+    virtual bool g0_002342b0(int);
+    virtual bool g1_00236c50(hulk_intptr, int, hulk_intptr);
     CRageModeTrack();
     char pad[4];
     int mFlag;

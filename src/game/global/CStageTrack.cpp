@@ -69,7 +69,7 @@ class Base_6ab50 : public CTrack_00236d40 {
 class CStageTrack : public Base_6ab50 {
   public:
     CStageTrack();
-    virtual void SomeVirtual();
+    virtual bool SomeVirtual_00234270(void*);
     char pad[4];
     int m8;
     int mC;

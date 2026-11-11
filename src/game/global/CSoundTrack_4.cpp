@@ -25,7 +25,7 @@ class TrackFactoryTemplate_77530 {
 class Base_77570 {
   public:
     Base_77570();
-    virtual void bv();
+    virtual hulk_intptr bv_000696b0(int);
     int bx;
 };
 class CSoundTrack_77570 : public Base_77570 {
@@ -36,11 +36,11 @@ class CSoundTrack_77570 : public Base_77570 {
         flag2 = 0;
         one = 1;
     }
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
+    virtual bool v0_00234270(void*);
+    virtual bool v1_002342b0(int);
+    virtual bool v2_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool v3_00234350(int, int);
+    virtual void* v4_0006b660(char);
     virtual void v5_00069700();
     int one;
     int zero;

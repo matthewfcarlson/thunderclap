@@ -14,7 +14,7 @@ namespace fn_f4b6f30b {} using namespace fn_f4b6f30b;
 namespace fn_f4b6f30b {
 class TrackFactoryCasterTemplate_72c40 {
   public:
-    virtual void cast();
+    virtual int cast_0006d690(void*);
 };
 } // namespace fn_f4b6f30b
 struct CDamageTrack;

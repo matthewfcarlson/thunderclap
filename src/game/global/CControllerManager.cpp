@@ -95,7 +95,7 @@ class Closure1_aed70 : public Method1_aed70 {
   public:
     Closure1_aed70(void*, void*, void*);
     virtual void v();
-    virtual void v2();
+    virtual bool v2_001d04c0(int, int);
 };
 class Actor_aede0 {
   public:
@@ -449,7 +449,7 @@ class Function : public ScriptFunctionFields {
 public:
     Function(const char* name, int count) throw();
     virtual void vf0();
-    virtual void vf1();
+    virtual bool vf1_001d04c0(int, int);
     static void* operator new(hulk_uintptr size) { return FUN_0008d690((unsigned int)size); }
 };
 
@@ -515,7 +515,7 @@ extern "C" Registry_aef10* __cdecl FUN_001d4c90();
 class CControllerManager {
 public:
     CControllerManager();
-    virtual void vf0();
+    virtual void* vf0_000aeaa0(char);
     DeviceManager_aef10* devices;
     int field8;
     int fieldC;

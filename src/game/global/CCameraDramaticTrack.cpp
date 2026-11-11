@@ -75,7 +75,7 @@ struct Name_6a3a0 {
 
 class __declspec(novtable) CTrack_6a3a0 {
 public:
-    virtual void b0();
+    virtual hulk_intptr b0_0006a390(int);
     int pad04;
     int mode;
     void FUN_00236d40();
@@ -84,9 +84,9 @@ public:
 
 class CCameraDramaticTrack : public CTrack_6a3a0 {
 public:
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
+    virtual bool v1_00234270(void*);
+    virtual bool v2_002342b0(int);
+    virtual bool v3_00236c50(hulk_intptr, int, hulk_intptr);
     int f0c;
     float f10;
     int f14, f18, f1c;

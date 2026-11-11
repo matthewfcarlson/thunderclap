@@ -28,7 +28,7 @@ struct Registry_8e880 { void FUN_001d3b70(const char*,void*); };
 Registry_8e880* FUN_001d4c90();
 template<class T,class R,class A> class Method1 : public ScriptFunctionFields { public: virtual void v0(); void(T::*method)(A); };
 template<class T,class R,class A> class Closure1 : public Method1<T,R,A> { public: virtual void v0(); T* owner; };
-struct MyControllerCallback { virtual void v0(); unsigned char flags[6]; };
+struct MyControllerCallback { virtual void v0_0008dbb0(void*); unsigned char flags[6]; };
 void FUN_0022e340();
 void FUN_00269640(MyControllerCallback*,int,int);
 void FUN_00333b50(int);

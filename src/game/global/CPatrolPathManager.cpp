@@ -554,7 +554,7 @@ class Function_106af0 : public CtorV_001d0480 {
 };
 class Method3 : public Function_106af0 {
   public:
-    virtual void f();
+    virtual bool Fnf_001d04c0(int, int);
     ScriptMemberFn value;
     Method3(const char*, ScriptMemberFn);
 };
@@ -721,7 +721,7 @@ extern char DAT_0048e0e4, DAT_0048e0f0;
 class CPatrolPathManager {
 public:
     CPatrolPathManager(int a);
-    virtual void v0();
+    virtual void* v0_00106f80(char);
     int f4;
     int f8;
     void* fc;

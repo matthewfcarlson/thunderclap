@@ -32,7 +32,7 @@ class CSoundCommand_1f03a0 {
 };
 class CSoundCommand_SetLoopPitchEvent : public CSoundCommand_1f03a0 {
   public:
-    virtual void Fn();
+    virtual void* Fn_001f0400(char);
     Pair value;
     int mid, arg1, arg2;
     CSoundCommand_SetLoopPitchEvent(int, int, int, int, int);

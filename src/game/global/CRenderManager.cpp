@@ -3045,7 +3045,7 @@ class Method4;
 class CRenderManager {
   public:
     CRenderManager();
-    virtual void vfn0();
+    virtual void* vfn0_001bc020(char);
 
     void FUN_001b8770(bool);
     void FUN_001b8780(bool);

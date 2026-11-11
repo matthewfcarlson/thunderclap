@@ -80,12 +80,12 @@ class KeywordWaitAction_113530 {
 };
 class Caster_1136e0 {
   public:
-    virtual void f();
+    virtual bool Fnf_001113e0(void*);
 };
 void other_002343e0(void*, Caster_1136e0*);
 class Caster_113900 {
   public:
-    virtual void cast();
+    virtual bool cast_00110f60(void*);
 };
 class Obj {
   public:
@@ -95,12 +95,12 @@ class Obj {
 extern "C" void* find(const char*, Caster_113900*);
 class Caster_1139f0 {
   public:
-    virtual void cast();
+    virtual bool cast_001111e0(void*);
 };
 extern void* lookup_002343e0(const char*, Caster_1139f0*);
 class Caster {
   public:
-    virtual void cast();
+    virtual bool cast_001113e0(void*);
 };
 extern "C" void* Find(const char*, Caster*);
 
@@ -215,7 +215,7 @@ void target(void* p) {
 namespace fn_001138a0 {
 class Caster_1138a0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00110e60(void*);
 };
 class Target {
   public:
@@ -234,7 +234,7 @@ extern "C" void FUN_001138a0(Target* target, void* value) {
 namespace fn_001138d0 {
 class Caster {
   public:
-    virtual void Dummy();
+    virtual bool Dummy_00110f00(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl Lookup_002343e0(void*, Caster*);
 class Object {
@@ -265,7 +265,7 @@ extern "C" void FUN_00113900(Obj* obj, const char* name) {
 namespace fn_00113930 {
 class Caster_113930 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00110fc0(void*);
 };
 void* __cdecl Find_002343e0(void*, Caster_113930*);
 class Obj {
@@ -323,7 +323,7 @@ extern "C" void FUN_001139f0(Obj* obj, const char* name) {
 namespace fn_00113a20 {
 class Caster {
   public:
-    virtual void Cast();
+    virtual bool Cast_00111240(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl find_002343e0(void*, Caster*);
 class Factory {
@@ -342,7 +342,7 @@ extern "C" void __cdecl FUN_00113a20(Factory* f, void* p) {
 namespace fn_00113a50 {
 class Caster {
   public:
-    virtual void Cast();
+    virtual bool Cast_001112e0(void*);
 };
 class Factory {
   public:
@@ -361,7 +361,7 @@ void Function(Factory* factory, const char* name) {
 namespace fn_00113a80 {
 class Caster {
   public:
-    virtual void Cast();
+    virtual bool Cast_00111360(void*);
 };
 class Obj {
   public:
@@ -416,7 +416,7 @@ extern "C" void FUN_00113ae0(Obj* obj, void* b) {
 namespace fn_00113b10 {
 class Caster {
   public:
-    virtual void dummy();
+    virtual bool dummy_00111540(void*);
 };
 class Owner {
   public:
@@ -436,7 +436,7 @@ extern "C" void __cdecl FUN_00113b10(Owner* o, void* key) {
 namespace fn_00113b40 {
 class Caster {
   public:
-    virtual void cast();
+    virtual bool cast_001115c0(void*);
 };
 class Factory {
   public:
@@ -478,7 +478,7 @@ extern "C" void __cdecl FUN_00113b70(Owner* owner, void* key) {
 // sym: ?Target@fn_00113ba0@@YAXPAUOwner@1@PBD@Z
 namespace fn_00113ba0 {
 struct Caster {
-    virtual void Cast();
+    virtual bool Cast_00111680(void*);
 };
 struct Owner {
     void Apply_002367c0(void*);
@@ -497,7 +497,7 @@ void __cdecl Target(Owner* owner, const char* name) {
 namespace fn_00113bd0 {
 class Caster_113bd0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00111720(void*);
 };
 class Obj {
   public:
@@ -516,7 +516,7 @@ extern "C" void FUN_00113bd0(Obj* obj, void* arg) {
 namespace fn_00113c30 {
 class Caster {
   public:
-    virtual void cast();
+    virtual bool cast_00111800(void*);
 };
 class Obj {
   public:
@@ -536,7 +536,7 @@ extern "C" void FUN_00113c30(Obj* obj, const char* name) {
 namespace fn_00113c60 {
 class Caster {
   public:
-    virtual void cast();
+    virtual bool cast_00111880(void*);
 };
 class Owner {
   public:
@@ -556,7 +556,7 @@ extern "C" void FUN_00113c60(Owner* owner, void* value) {
 namespace fn_00113c90 {
 class Caster {
   public:
-    virtual void Cast();
+    virtual bool Cast_00111920(void*);
 };
 void* __cdecl Find_00236ac0(void*, Caster*);
 class Owner {
@@ -576,7 +576,7 @@ extern "C" void* __cdecl FUN_00113c90(Owner* owner, void* p) {
 namespace fn_00113cc0 {
 class Caster {
   public:
-    virtual void f();
+    virtual bool Fnf_001119a0(void*);
 };
 class Obj {
   public:
@@ -595,7 +595,7 @@ extern "C" void FUN_00113cc0(Obj* obj, void* name) {
 namespace fn_00113cf0 {
 class Caster {
   public:
-    virtual void cast();
+    virtual bool cast_00111a40(void*);
 };
 class Token {};
 class Factory {
@@ -615,7 +615,7 @@ extern "C" void FUN_00113cf0(Factory* f, void* p) {
 namespace fn_00113d20 {
 class Caster {
   public:
-    virtual void Cast();
+    virtual bool Cast_00111ac0(void*);
 };
 class Owner {
   public:

@@ -48,13 +48,13 @@ hulk_intptr CComboMessageTrack::vfunc_0(int index) {
 namespace fn_000697c0 {
 class CTrack_697c0 {
   public:
-    virtual void B0();
+    virtual hulk_intptr B0_000697b0(int);
     CTrack_697c0();
 };
 
 class CComboMessageTrack : public CTrack_697c0 {
   public:
-    virtual void Fn0();
+    virtual bool Fn0_00234270(void*);
     int m4;
     int m8;
     int mC;

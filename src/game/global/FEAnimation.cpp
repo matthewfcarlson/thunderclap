@@ -949,7 +949,7 @@ extern "C" void* __cdecl FUN_0008d6d0(unsigned int size);
 
 class FEAnimation {
 public:
-    virtual void v0();
+    virtual void* v0_000f1160(char);
     char* name;
     int f08;
     int f0c;

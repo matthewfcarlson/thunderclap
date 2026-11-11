@@ -63,7 +63,7 @@ struct Shader_d6640 { virtual void v0(); char pad[12]; Inner_d6640* inner; Shade
 // MessageOverlay (its 32-bit layout) and the members it binds to Lua, typed by the game's Closure<N> instantiations
 // (the helpers 0x000d6410 / 0x000d6470 / 0x000d6520 / 0x000d65e0 and the inline Method1s); complete before any
 // pointer to a member is formed (one code pointer on every build).
-struct MessageOverlay { virtual void slot0(); unsigned char busy; char pad5[3]; uint f8,fc,f10; char pad14[0x248-0x14]; unsigned char f248; char pad249[0x484-0x249]; unsigned char f484; char pad485[0x7b0-0x485]; uint f7b0; char pad7b4[12]; Shader_d6640* resource; unsigned char f7c4; char pad7c5[3]; uint f7c8,f7cc; char pad7d0[4]; CDropShadowDisplayEffect_d6640 a; CGlowDisplayEffect_d6640 b; char pad7fc[16]; unsigned char f80c; MessageOverlay();
+struct MessageOverlay { virtual void* slot0_000d6900(char); unsigned char busy; char pad5[3]; uint f8,fc,f10; char pad14[0x248-0x14]; unsigned char f248; char pad249[0x484-0x249]; unsigned char f484; char pad485[0x7b0-0x485]; uint f7b0; char pad7b4[12]; Shader_d6640* resource; unsigned char f7c4; char pad7c5[3]; uint f7c8,f7cc; char pad7d0[4]; CDropShadowDisplayEffect_d6640 a; CGlowDisplayEffect_d6640 b; char pad7fc[16]; unsigned char f80c; MessageOverlay();
     void FUN_000d5fa0(const char*);                                                                                    // hud_Message
     void thunk_FUN_000d4b60(const char*, const char*, const char*, const char*, const char*, const char*, const char*);  // hud_MessageEx
     void FUN_000d4780(const char*, int, math::Vector_d6640);                                                             // hud_ComboMessage

@@ -143,7 +143,7 @@ namespace fn_fbdb5a92 {
 class CAlertStatusTrack_6d3d0 {};
 class TrackFactoryCasterTemplate {
   public:
-    virtual void Cast();
+    virtual bool Cast_0006d410(void*);
     TrackFactoryCasterTemplate();
 };
 extern char DAT_00498640;

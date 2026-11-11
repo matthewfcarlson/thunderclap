@@ -111,7 +111,7 @@ struct Storage {
 };
 class CPlatformManager {
   public:
-    virtual void v0();
+    virtual void* v0_0008de70(char);
     int a;
     int b;
     int c;

@@ -75,8 +75,8 @@ namespace fn_0006af10 {
 class CTrack_6af10 {
   public:
     CTrack_6af10();
-    virtual void A();
-    virtual void B();
+    virtual hulk_intptr FnA_0006af00(int);
+    virtual bool FnB_00234270(void*);
 };
 
 class Elem_6af10 {

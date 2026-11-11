@@ -865,7 +865,7 @@ class Method1_1ff9a0 : public Function_1ff9a0 {
         y = check_001d04d0(hulk_at_0048e10c);
         x = check_001d04d0(((char*)&DAT_0048e0f0));
     }
-    virtual void h();
+    virtual bool Fnh_001d04c0(int, int);
     char pad[0x0c];
     char x;
     char p1[7];
@@ -877,7 +877,7 @@ class Method1_1ff9a0 : public Function_1ff9a0 {
 class Closure1_1ff9a0 : public Method1_1ff9a0 {
   public:
     Closure1_1ff9a0(const char*, void*, void*);
-    virtual void g();
+    virtual void Fng_001ffa10(void*, void*, void*);
 };
 struct Vector_1ffa10 { float x,y,z; };
 struct CTriggerVolumeManager_1ffa10 { char padding[28]; };
@@ -932,13 +932,13 @@ class Method1_2002d0 : public Function_2002d0 {
         retType = FUN_001d04d0(((char*)&DAT_0048e134));
         argTypes[0] = FUN_001d04d0(((char*)&DAT_0048e0f0));
     }
-    virtual void f1();
+    virtual bool f1_001d04c0(int, int);
 };
 class Closure1_2002d0 : public Method1_2002d0 {
   public:
     void* v20;  // 0x20
     Closure1_2002d0(const char* a, void* b, ScriptMemberFn c);
-    virtual void f2();
+    virtual void f2_00200340(void*, void*, void*);
 };
 class CTriggerVolumeManager_200340 { public: int FUN_00200340(const char *); };
 class Function_200420 {
@@ -2833,7 +2833,7 @@ struct CLocator_1ff580 { char data[64]; void FUN_001fbf40(); };
 struct CEncounterGenerator_1ff580 { char data[0xc70]; void FUN_001fa630(); };
 struct Entry_1ff580 { unsigned count; CLocator_1ff580* volumes; };
 struct CTriggerVolumeManager {
- virtual void slot0();
+ virtual void* slot0_001ff750(char);
  unsigned untouched;
  unsigned count;
  unsigned table[128];

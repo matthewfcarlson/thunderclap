@@ -59,13 +59,13 @@ namespace fn_0006a6b0 {
 class CTrack_6a6b0 {
   public:
     CTrack_6a6b0();
-    virtual void B();
+    virtual hulk_intptr FnB_0006a6a0(int);
 };
 class COrientTrack : public CTrack_6a6b0 {
   public:
     COrientTrack();
     virtual ~COrientTrack() throw();
-    virtual void F();
+    virtual bool FnF_002342b0(int);
     char pad4[4];
     int m8;
     int m0c;

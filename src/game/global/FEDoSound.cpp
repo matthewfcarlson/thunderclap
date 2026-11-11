@@ -60,7 +60,7 @@ public:
 class FEDoAnimation {
 public:
     FEDoAnimation(FEContainer* container, const char* name);
-    virtual void v0();
+    virtual void* v0_000e8b20(char);
     char pad4[4];
     int field8;
     int fieldC;

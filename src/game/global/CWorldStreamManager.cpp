@@ -2245,7 +2245,7 @@ class Closure1 : public Method1 {
   public:
     Closure1(int x, int y, int z);
     virtual void v0();
-    virtual void v1();
+    virtual bool v1_001d04c0(int, int);
     int n20;
 };
 Closure1::Closure1(int x, int y, int z) : Method1(x, z) {
@@ -3548,7 +3548,7 @@ struct Closure2_208210 {
 class CWorldStreamManager {
   public:
     CWorldStreamManager();
-    virtual void vfn0();
+    virtual void* vfn0_00207060(char);
 
     class CMemoryPool {
       public:
@@ -3561,7 +3561,7 @@ class CWorldStreamManager {
             f34 = 0x80;
             f38 = 0;
         }
-        virtual void vfn0();
+        virtual void* vfn0_00206c10(char);
         char state;
         char flagA;
         char pad6[0x26 - 6];

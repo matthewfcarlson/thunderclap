@@ -382,7 +382,7 @@ class CAction : public Action_1f170 {
 
 class CSmartPropSetStateAction_1f170 : public CAction {
   public:
-    virtual void ProcessDrift();
+    virtual void* ProcessDrift_00021f20(char);
     CSmartPropSetStateAction_1f170(int a, IRef_1f170* p);
 };
 
@@ -491,7 +491,7 @@ class CAction : public Action_1f260 {
 
 class CSmartPropThrowAction_1f260 : public CAction {
   public:
-    virtual void ProcessDrift();
+    virtual void* ProcessDrift_00021fa0(char);
     CSmartPropThrowAction_1f260(int a, IRef_1f260* p);
 };
 
@@ -549,7 +549,7 @@ class CAction : public Action_1f2e0 {
 
 class CSmartPropThrowingAction_1f2e0 : public CAction {
   public:
-    virtual void ProcessDrift();
+    virtual void* ProcessDrift_00021fe0(int);
     CSmartPropThrowingAction_1f2e0(int a, IRef_1f2e0* p);
 };
 
@@ -607,7 +607,7 @@ class CAction : public Action_1f360 {
 
 class CSmartPropDropAction_1f360 : public CAction {
   public:
-    virtual void ProcessDrift();
+    virtual void* ProcessDrift_00022020(int);
     CSmartPropDropAction_1f360(hulk_intptr a, IRef_1f360* p);
 };
 
@@ -1058,7 +1058,7 @@ class CAction : public Action_1f780 {
 
 class CEffectStopAction_1f780 : public CAction {
   public:
-    virtual void ProcessDrift();
+    virtual void* ProcessDrift_00022240(char);
     CEffectStopAction_1f780(int a, IRef_1f780* p);
 };
 
@@ -1116,7 +1116,7 @@ class CAction : public Action_1f800 {
 
 class CCameraShakeAction_1f800 : public CAction {
   public:
-    virtual void ProcessDrift();
+    virtual void* ProcessDrift_00022280(char);
     CCameraShakeAction_1f800(int a, IRef_1f800* p);
 };
 
@@ -1227,7 +1227,7 @@ class CAction : public Action_1f900 {
 
 class CCameraHintAction_1f900 : public CAction {
   public:
-    virtual void ProcessDrift();
+    virtual void* ProcessDrift_00022300(char);
     CCameraHintAction_1f900(int a, IRef_1f900* p);
 };
 

@@ -3087,7 +3087,7 @@ class Function_cfe50 : public ScriptFunctionFields {
 };
 class Method2 : public Function_cfe50 {
   public:
-    virtual void g();
+    virtual bool Fng_001d04c0(int, int);
     Fn_cfe50 obj;
     Method2(const char* p, Fn_cfe50 q) : Function_cfe50(p, 2) {
         obj = q;
@@ -3098,7 +3098,7 @@ class Method2 : public Function_cfe50 {
 };
 class Closure2 : public Method2 {
   public:
-    virtual void h();
+    virtual void Fnh_000cfed0(void*, void*, void*);
     Owner_cfe50* extra;
     Closure2(const char* p, Owner_cfe50* q, Fn_cfe50 r);
 };
@@ -3175,7 +3175,7 @@ class Base_cfef0 : public CtorV_001d0480 {
 };
 class Closure2_cfef0 : public Base_cfef0 {
   public:
-    virtual void f();
+    virtual bool Fnf_001d04c0(int, int);
     Fn_cfef0 arg;
     Closure2_cfef0(const char*, Fn_cfef0);
 };

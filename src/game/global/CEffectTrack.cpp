@@ -91,14 +91,14 @@ class CCondition_608c0 {
 class CTrack_608d0 {
   public:
     CTrack_608d0();
-    virtual void A();
-    virtual void B();
+    virtual hulk_intptr FnA_000608c0(int);
+    virtual bool FnB_00234270(void*);
     int m4;
 };
 class CEffectStopTrack_608d0 : public CTrack_608d0 {
   public:
     CEffectStopTrack_608d0();
-    virtual void C();
+    virtual bool FnC_002342b0(int);
     int m8;
     int mC;
     int m10;
@@ -459,7 +459,7 @@ struct Name8_60660 {
 
 class CEffectTrack {
 public:
-    virtual void vfunc_0();
+    virtual hulk_intptr vfunc_0_00060650(int);
     int f04;
     int f08;
     int f0c;
@@ -732,7 +732,7 @@ struct Trio_60a00 {
 
 class CMotionTrailTrack {
 public:
-    virtual void vfunc_0();
+    virtual hulk_intptr vfunc_0_00060520(int);
     char pad04[4];
     int f08;
     int f0c;

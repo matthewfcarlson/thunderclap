@@ -139,7 +139,7 @@ public:
 class FEControl : public FEObject_e9240 {
 public:
     FEControl(int arg) throw();
-    virtual void c0();
+    virtual void c0_000d79f0(int);
     int slots[10];
     bool flag0;
     bool flag1;

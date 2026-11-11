@@ -26,7 +26,7 @@ struct Name12 {
 };
 class CCollisionTrack {
 public:
-    virtual void vfunc_0();
+    virtual hulk_intptr vfunc_0_0005d920(int);
     char pad4[4];
     int f8;
     int fc;

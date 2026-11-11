@@ -14,7 +14,7 @@ namespace fn_fad3cf42 {
 class CTrack_6b410 {
   public:
     CTrack_6b410();
-    virtual void f();
+    virtual hulk_intptr Fnf_00068ce0(int);
     char pad[4];
     int n;
 };

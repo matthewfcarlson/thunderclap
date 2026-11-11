@@ -825,7 +825,7 @@ namespace fn_0005dcb0 {
 class CTrack_5dcb0 {
   public:
     CTrack_5dcb0();
-    virtual void f();
+    virtual hulk_intptr Fnf_0005dca0(int);
     char pad[4];
 };
 class Sub {
@@ -1001,7 +1001,7 @@ class Part_5de80 {
 };
 class CStunAnimationTrack {
   public:
-    virtual void V();
+    virtual hulk_intptr FnV_0005ddf0(int);
     char pad[0xC];
     Part_5de80 p10;
     Part_5de80 p30;

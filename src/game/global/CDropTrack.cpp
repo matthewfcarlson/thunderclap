@@ -54,7 +54,7 @@ namespace fn_00069430 {
 class CTrack_69430 {
   public:
     virtual void F0();
-    virtual void F1();
+    virtual bool F1_00234270(void*);
     virtual ~CTrack_69430() throw();
     CTrack_69430();
     char pad[8];

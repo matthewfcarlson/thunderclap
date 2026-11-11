@@ -448,7 +448,7 @@ struct Device_b1c90 {
  virtual Point_b1c90* point(const char*, int);
 };
 struct sControllerInputPointCallback {
- virtual void callback();
+ virtual void callback_000b0f20(int, float);
  Point_b1c90* point;
  Controller_b1c90* controller;
  State_b1c90* state;

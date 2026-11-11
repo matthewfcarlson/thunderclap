@@ -54,7 +54,7 @@ hulk_intptr CInvulnerableTrack::vfunc_0(int index) {
 namespace fn_0006a9a0 {
 class CTrack_6a9a0 {
   public:
-    virtual void BPlaceholder();
+    virtual hulk_intptr BPlaceholder_0006a990(int);
     CTrack_6a9a0();
 };
 

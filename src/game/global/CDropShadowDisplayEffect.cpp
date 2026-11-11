@@ -37,7 +37,7 @@ class CDisplayEffect_dee40 {
 class CDropShadowDisplayEffect : public CDisplayEffect_dee40 {
   public:
     CDropShadowDisplayEffect();
-    virtual void f();
+    virtual void Fnf_000dee60(void*);
     float c;
     unsigned int d;
 };

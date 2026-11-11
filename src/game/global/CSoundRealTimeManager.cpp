@@ -2252,7 +2252,7 @@ class Function_1ee120 {
 extern "C++" __declspec(nothrow) unsigned char Check_001d04d0(const char*);
 class Method1 : public Function_1ee120 {
   public:
-    virtual void F();
+    virtual bool FnF_001d04c0(int, int);
     char pad[12];
     unsigned char x;
     char pad2[7];
@@ -2266,7 +2266,7 @@ class Method1 : public Function_1ee120 {
 };
 class Closure1 : public Method1 {
   public:
-    virtual void G();
+    virtual void FnG_001ee190(void*, void*, void*);
     void* r;
     Closure1(int v, void* r0, void* q);
 };

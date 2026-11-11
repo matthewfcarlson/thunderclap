@@ -508,13 +508,13 @@ class CCollisionHitLocationCondition {};
 namespace fn_f3623cd7 {
 class ConditionFactoryCasterTemplate_54c30 {
   public:
-    virtual void cast();
+    virtual bool cast_00050a00(void*);
     ConditionFactoryCasterTemplate_54c30() {}
 };
 void __cdecl findCondition_002343e0(void*, ConditionFactoryCasterTemplate_54c30*);
 class ConditionFactoryCasterTemplate_54c90 {
   public:
-    virtual void cast();
+    virtual bool cast_00050ac0(void*);
 };
 void __cdecl fun_002343e0(void*, ConditionFactoryCasterTemplate_54c90*);
 class ParamBranch : public ParamValueBranch, public ParamValue {
@@ -1169,7 +1169,7 @@ void target(void* p) {
 namespace fn_00055090 {
 class ConditionFactoryCasterTemplate_55090 {
   public:
-    virtual void cast();
+    virtual bool cast_000512c0(void*);
 };
 void __cdecl helper_002343e0(void*, ConditionFactoryCasterTemplate_55090*);
 void __cdecl target(void* p) {

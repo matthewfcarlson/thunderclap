@@ -374,7 +374,7 @@ struct Obj_fb150 {
 extern "C" __int64 FUN_0027b020(hulk_intptr);
 namespace fn_fd8937bc {
 struct DynamicCaster_fb1c0 {
-    virtual void cast();
+    virtual void cast_000faf20(void*);
 };
 struct Inventory {
     virtual void a();
@@ -953,7 +953,7 @@ namespace DollyScript {
 class CScriptToken {
   public:
     CScriptToken(CScriptToken const&) throw();
-    virtual void f0();
+    virtual void* f0_000fa430(char);
     virtual void f1_000f9910();
     virtual CScriptToken* f2();
 };
@@ -1064,7 +1064,7 @@ public:
 class CTokenStatement {
 public:
     CTokenStatement(char *t, int a_, int b_) : next(0), a(a_), b(b_), text(t) {}
-    virtual void vfunc_0();
+    virtual void* vfunc_0_000fa370(int);
     virtual unsigned long long vfunc_1_000f9c10();
     virtual void vfunc_2_000fa940();
     int next;
@@ -1076,7 +1076,7 @@ public:
 class CTokenString {
 public:
     CTokenString(char *t, int a_, int b_) : next(0), a(a_), b(b_), text(t) {}
-    virtual void vfunc_0();
+    virtual void* vfunc_0_000fa300(char);
     virtual unsigned long long vfunc_1_000f9870();
     virtual void vfunc_2_000fa940();
     int next;
@@ -1088,7 +1088,7 @@ public:
 class CTokenSectionStart {
 public:
     CTokenSectionStart(int b_) : next(0), a(0), b(b_) {}
-    virtual void vfunc_0();
+    virtual void* vfunc_0_000fa430(char);
     virtual unsigned long long vfunc_1_000f9910();
     virtual void vfunc_2_000fa3f0();
     int next;
@@ -1099,7 +1099,7 @@ public:
 class CTokenSectionEnd {
 public:
     CTokenSectionEnd(int b_) : next(0), a(0), b(b_) {}
-    virtual void vfunc_0();
+    virtual void* vfunc_0_000fa490(char);
     virtual unsigned long long vfunc_1_000f9940();
     virtual void vfunc_2_000fa450();
     int next;

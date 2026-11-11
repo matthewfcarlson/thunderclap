@@ -352,7 +352,7 @@ class CHapticController_b0500 : public IDevice_b0500 {
 class CHapticControllerManager {
   public:
     CHapticControllerManager(Source_b0500* source);
-    virtual void v0();
+    virtual void* v0_000b0060(char);
     char field_04;
     unsigned char field_05;
     char pad_06[2];

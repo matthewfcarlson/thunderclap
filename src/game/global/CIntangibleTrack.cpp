@@ -60,7 +60,7 @@ namespace fn_0006a150 {
 class CTrack_6a150 {
   public:
     virtual void f0();
-    virtual void f1();
+    virtual bool f1_00234270(void*);
     CTrack_6a150();
 };
 
