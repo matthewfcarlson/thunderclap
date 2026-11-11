@@ -6,13 +6,17 @@ Writes an SVG (light and dark via prefers-color-scheme) shown in the README. The
 an ordered strip treemap (Bederson et al.): rows fill left to right, each row takes items in address order
 for as long as that improves the row's average aspect ratio, so boxes stay close to square.
 
+Status comes from the merged tree's block headers (`: matches` / `: equivalent`, tools/tree_tu.py); matches/ and
+equivalent/ are frozen at the merge-once flip and not read.
+
 Usage:
+  tools/progress.py --readme                             # the usual way: README table, this SVG and the function list
   tools/progress_map.py OUT.svg                          # local: function list from build/ (needs the XBE)
-  tools/progress_map.py OUT.svg --functions FUNCS.csv    # CI: committed list of game functions (address,size)
+  tools/progress_map.py OUT.svg --functions FUNCS.csv    # from the committed list of game functions (address,size)
   tools/progress_map.py --write-functions FUNCS.csv      # refresh that list from build/
 
-CI (.github/workflows/progress-map.yml) runs the second form on every push to main and commits
-docs/progress-map.svg when it changed. Boxes are drawn as one path per status to keep the file and its diffs small.
+(The CI workflow that drew it was removed on 2026-10-21.) Boxes are drawn as one path per status to keep the file and
+its diffs small.
 """
 import os
 import sys
@@ -57,7 +61,7 @@ def game_functions(path=None):
     return [(int(r["address"], 16), int(r["size"])) for r in db.funcs.values() if db.is_game(r)]
 
 
-def main(argv=None):
+def main(argv=None, kinds=None):
     argv = sys.argv[1:] if argv is None else argv
     if "--write-functions" in argv:
         path = argv[argv.index("--write-functions") + 1]
@@ -70,13 +74,13 @@ def main(argv=None):
     src = argv[argv.index("--functions") + 1] if "--functions" in argv else None
     outs = [a for a in argv if a.endswith(".svg")]
     out = outs[0] if outs else os.path.join(ROOT, "build/progress-map.svg")
-    matched = {f[:-4] for f in os.listdir(os.path.join(ROOT, "matches")) if f.endswith(".cpp")}
-    equiv = {f[:-4] for f in os.listdir(os.path.join(ROOT, "equivalent")) if f.endswith(".cpp")}
+    if kinds is None:
+        from progress import tree_kinds
+        kinds = tree_kinds()
     groups = {"matched": [], "equivalent": [], "unverified": []}
     funcs = []
     for a, n in game_functions(src):
-        name = "0x%08x" % a
-        k = "matched" if name in matched else "equivalent" if name in equiv else "unverified"
+        k = {"matches": "matched", "equivalent": "equivalent"}.get(kinds.get(a), "unverified")
         groups[k].append(n)
         funcs.append((a, n, k))
     funcs.sort()
