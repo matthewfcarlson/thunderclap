@@ -1,5 +1,7 @@
 # Matching subagent brief
 
+> **Frozen (merge-once flip, 2026-11-10, freeze point F = e68debc9d).** matches/ and equivalent/ are final: don't add, edit or promote per-function sources. The merged tree under src/{game,engine,platform/xbox} is the source: edit a function's block in its TU and check it with `compare.py TU 0xADDR`, `verify_relocs.py TU --addr 0xADDR`, `equiv.py TU 0xADDR [--wine|--x64]` ([merge-once.md](../merge-once.md)). This brief describes the per-function workflow as it was.
+
 You match decompiled functions for a byte-exact decompilation of an original Xbox game (2005): for each assigned function, write C++ that compiles with MSVC 7.1 (cl 13.10.3077, /O2 /GR /GX, x86-32, x87, frame pointers omitted) to byte-identical machine code.
 
 Work ONLY in REPO. Start every Bash command with `cd REPO && `. Your batch name B and list file `build/farm/agents/B.txt` (8 addresses) are given in your prompt.

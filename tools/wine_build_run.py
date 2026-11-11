@@ -563,7 +563,10 @@ def main():
                         "why": why}
     log("decision: %s" % json.dumps(summ["decision"]))
     ok = True
-    tree_source = env.get("HULK_TREE_SOURCE") == "1"
+    # (merge-once flip, build6) the committed tree (src/{game,engine,platform/xbox}, src/link-order.txt) is the default
+    # source; HULK_TREE_SOURCE=0, or a checkout from before the flip (no src/link-order.txt), runs build_tree's rounds
+    # over matches/ and equivalent/
+    tree_source = env.get("HULK_TREE_SOURCE", "1") != "0" and os.path.exists(os.path.join(lin, "src", "link-order.txt"))
     if "build" in stages and tree_source:
         # (merge-once, docs/merge-once.md) the committed tree is the source: no build_tree rounds, one verification pass
         # over its TUs (tools/tree_tu.py materialize: compiles what the object cache lacks) into build/tree

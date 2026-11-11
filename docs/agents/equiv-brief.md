@@ -1,5 +1,7 @@
 # Brief: equivalent decomp of large functions
 
+> **Frozen (merge-once flip, 2026-11-10, freeze point F = e68debc9d).** matches/ and equivalent/ are final: don't add, edit or promote per-function sources. The merged tree under src/{game,engine,platform/xbox} is the source: edit a function's block in its TU and check it with `compare.py TU 0xADDR`, `verify_relocs.py TU --addr 0xADDR`, `equiv.py TU 0xADDR [--wine|--x64]` ([merge-once.md](../merge-once.md)). This brief describes the per-function workflow as it was.
+
 Write C++ for each function in your batch file that **behaves** exactly like the original, proven by
 `tools/equiv.py`. A byte-match is not required. This source is for a native PC port, so it must be correct
 and readable.

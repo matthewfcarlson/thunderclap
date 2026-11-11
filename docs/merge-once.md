@@ -1,7 +1,8 @@
 # Merge once: the merged tree as the source of truth
 
-Status: stage 1 (tools) done, stage 2 (design + private prototype) in this document, stage 3 (the flip) a proposal that
-needs the user's explicit OK. Plan approved 2026-11-09 (build4). Background: [source-tree.md](source-tree.md) (how the
+Status: stages 1 and 2 done (build4). Stage 3: the user approved (a)-(c) on 2026-11-10 and build6 carried them out (see
+[The flip](#the-flip-build6-2026-11-10)): freeze point F = e68debc9d, the tree committed under src/ and include/, the
+Wine build's default source. (d), removing matches/ and equivalent/, is not approved. Plan approved 2026-11-09 (build4). Background: [source-tree.md](source-tree.md) (how the
 tree is generated and verified today), [consolidation-plan.md](consolidation-plan.md) (why functions are wrapped),
 [wine-build.md](wine-build.md) "Build speed (build3)" (where a proof's time goes).
 
@@ -263,14 +264,14 @@ wrapped, and verify). The retargeted x64 tools (ptr1, ptr_fields, name_unify, re
 at once). After step 5: revert the removal commit too; the tree commits stay in history and can be dropped. Any edits
 made in the tree meanwhile would have to be carried back by hand, which is the reason for the grace period.
 
-**Before F (prerequisites, no approval needed):** equiv64's tree mode (the 23 x64 differences of the sample: neighbours
+**Before F (prerequisites, no approval needed; all done by build6, see [The flip](#the-flip-build6-2026-11-10)):** equiv64's tree mode (the 23 x64 differences of the sample: neighbours
 bound to their addresses and namespaced names, as equiv.py has them); same-object neighbours reached through a vftable
 the TU defines (the one `--wine` difference); `src/link-order.txt` written by the flip's gen_tree run (the TU order is the
 link order); wine_link's equiv cache key with the checker's hash; and the 12 corrected template-instantiation symbols
 (finding 3) either accepted (they gate ok) or pinned to build_tree's choice for a byte-identical first image.
 
-**Risks.** (1) The x64 checker is not yet tree-identical (177/200 on the sample): until it is, 64-bit work in the tree
-has a weaker check than on per-function files. (2) Equivalent functions whose code changes in a TU edit need a new
+**Risks.** (1) The x64 checker was not tree-identical (177/200 on the sample; 198/200 after build6's tree mode, the two
+left are tool limits). (2) Equivalent functions whose code changes in a TU edit need a new
 equiv run in tree mode; the code-hash rule keeps that to changed functions, but equiv's tree mode has had only a
 200-function sample (100% identical for MSVC, 99.5% for `--wine`). (3) The tree is 30 MB of text in ~2,650 files with
 long TUs (the largest are tens of thousands of lines); merges of concurrent edits to one TU are ordinary git merges
@@ -281,3 +282,127 @@ image-identity or gate check, as here.
 **What the user approves:** (a) the freeze point and the announcement to agents; (b) committing ~30 MB of generated-then-
 owned TUs and headers under src/ and include/; (c) changing the Wine build default to the tree source; (d) the later
 removal of matches/ and equivalent/ (a separate OK after the grace period).
+
+## The flip (build6, 2026-11-10)
+
+The user approved (a) the freeze point, (b) committing the tree and (c) the tree as the Wine build's default source
+("Yes A-c seems sane"). (d), deleting or moving matches/ and equivalent/, needs a separate OK and was not done. The
+decisions folded in from merge-prep: the Lua/choreo2 split at the flip, sensible names for the registration TUs,
+hybrid function patching and the farm retired, the x64 tools retargeted later, no dataset export.
+
+### Pre-freeze fixes (each its own commit)
+
+| fix | commit | what |
+|---|---|---|
+| wine_link equiv cache key | 0a78ca376 | key v3 = object, symbol, source path + sha1(equiv.py, tree_tu.py) + the source's `equiv-*` lines |
+| gen_tree PYTHONHASHSEED | f9460984f | two set-order ties: the struct/class keyword of a merged stub class (stub_layout.merge_variants) and a wrapped source's pinned-global declarations. Seven runs (seeds 0, 2, 3, 7, 11, two random) on control 70736's state give one tree; before, three different ones |
+| template-sibling pick | c59cc5632 | build_tree.prefer_relocs (moved from tree_tu): of several byte-exact candidates, the one whose relocations hit the original's targets. **Kept** (the 12 corrected symbols, image 60d78357 in build4): each address is bound to its own instantiation's code; build4's proofs with them gated ok on both hosts; and now a build_tree control and a tree proof pick the same symbols, so their images compare byte for byte |
+| link-order.txt | e72df1f82 | `tree_tu.py layout` lays a generated tree out as the committed tree and writes `src/link-order.txt` from the manifest's TU order |
+| `--wine` 0x002b1c40 | 4038b3486 | not a vftable neighbour: the TU's function arrives with its MSVC name (`...UAEMXZ`, float return), clang's is `...UAENXZ` (hulk_freg = double), and pick_symbol's byte-similarity fallback picked the neighbour vfunc_15. pick_symbol / natmap take the one M <-> N variant (`EQUIV_OFF=mnret`) |
+| equiv64 tree mode | 5f7763157 | the TU's other functions are stubs; allocator names without tree namespaces; param_casts on the definition; pin views type their globals; integers decoded as our addresses only inside what the function reaches; input streams independent of source position (stub returns by callee name, heap contents by creation order apart from globals, globals in name-hashed 64 KB slots). `EQ64_OFF=treeext,treens,pinview,treereach,rngloc,gseq` |
+
+Regress after the equiv/equiv64 changes: 465/465 three times (queue batches 71120-71197, 71201-71278, 71293-71370).
+
+**Identity with the standalone tools** (build4's 400-function sample; tree generated from f607f8708 with control 70736's
+state and the fixed generator; queue jobs 71108-71119, x64 71285-71292):
+
+| checker | merged | wrapped | isolated | identical |
+|---|---|---|---|---|
+| `compare.py` (200 matches) | 100/100 | 70/70 | 30/30 | **200/200** |
+| `verify_relocs.py` (200 matches) | 100/100 | 70/70 | 30/30 | **200/200** |
+| `equiv.py` (200 equivalents) | 100/100 | 70/70 | 30/30 | **200/200** |
+| `equiv.py --wine` | 100/100 | 70/70 | 30/30 | **200/200** (was 199) |
+| `equiv.py --x64` | 99/100 | 69/70 | 30/30 | **198/200** (was 177) |
+
+The two x64 differences are tool limits, not opposite verdicts: 0x0027de50 inconclusive standalone (6 of 9 inputs
+completed in the time budget) vs equivalent in the TU (30 of 35); 0x00207080 a CRT `_sprintf` that neither side has a
+signature for (unsupported vs fail class tool).
+
+**Start-up failures at HEAD were stale local inputs** (asked by mp3: a plain 1febf1140 build, studio 71106, crashed at
+init 332 in the audio type-tree insert): the laptop's build/data/src was from 11-06, older than three data.json commits,
+so the OmType .bss items were unbound; with fresh data TUs the build reached main and then stopped (71282) because the
+prebuilt hulk_sdl.lib predates 23ae2f213's `hulk_session_*`. With both rebuilt from a clean archive, HEAD e72df1f82
+(71374) gates ok against build4's control 70736 (2,003 frames, PRNG 0 differ). No commit broke the build; see
+[compute.md](compute.md) "Local inputs must be current".
+
+### F and the split
+
+F = **e68debc9d**: config/splits.json gets the Lua split (unk_212bb0 and unk_338d90 become 24 `lua/` objects and
+`choreo2/unk_221b30`; `tools/infer_splits.py` FIXED_OBJECTS) and the registration names (110 objects of the three
+registration runs and the 15 template-only `unk_` objects become `<Class>_params`, `_factory`, `_params_factory` or `_reg`
+in their class's directory; REGISTRATION_RANGES). Only these changes: infer_splits' drift of the unk_357740 / unk_35a640
+boundary on HEAD is left out (it predates build6). config/data.json: the Lua objects' 352 items re-owned by where their
+code references fall, the renamed objects' 3,265 items follow the rename. The data headers are regenerated; items whose
+object left `unknown/` stay declared in `<layer>/unknown.h` too (data_gen SPLIT_AT_FLIP), so the per-function sources
+compile unchanged (18 sources that name a moved item: identical compare results). The agent briefs carry a freeze notice.
+
+### The tree from F
+
+Control 71377 (studio; F through build_tree, `--state fresh --map full --opt o0`, the F data TUs and a clean hulk_sdl.lib
+built from an archive; play3 to 60000) gates ok against build4's control 70736 (2,020 frames, PRNG 0 differ): F's split
+and renames change no behaviour. Its final fallback state gave the tree: `PYTHONHASHSEED=0 HULK_GEN_TREE_NOTES=1
+tools/gen_tree.py` in an archive of F, `tools/tree_tu.py layout` into a second archive (which writes `src/link-order.txt`),
+then one queue job (71419, studio, 306 s): `tree_tu.py verify . --relocs --vs-standalone`, `pin`, verify again.
+
+**2,675 TUs** (2,021 under src/game, 616 under src/engine, 38 under src/platform/xbox; 2,674 with functions), **25 tree
+headers** (include/common.h, include/tree_prelude.h, 11 under include/game, 11 under include/engine, 3 under
+include/platform/xbox) and src/link-order.txt: 2,702 files, 26.5 MB of text. **27,438 functions: 22,661 merged, 4,082
+wrapped, 695 isolated** (build4's prototype: 22,504 / 4,238 / 696). Verification: 22,339 / 22,339 matches byte-match in their
+TU's object with relocations ok, 5,099 / 5,099 equivalent functions compile to their proven standalone code (`same`),
+0 errors; after `pin` every function is found by its pinned `// sym:` (27,438 `pinned`, 0 `pin_missing`), with the same
+counts. 118 symbols came from the relocation pick (`name+relocs`), as in build4.
+
+**No game data in the tree** (build/build6/scripts/datascan.py over all 2,702 files): no data_gen output or marker, no
+`#include` of build/, no numeric initializer of 64 or more elements, and the 13 string literals of 200+ characters are
+all verbatim in committed matches/ / equivalent/ sources. The tree's text is a function of committed inputs (the sources,
+config/splits.json, the function table's names): gen_tree turns variable definitions into `extern` declarations, the data
+TUs stay local (`tools/data_gen.py` from the player's XBE into build/data/src) and include/decls/data stays as it is.
+
+### Proofs
+
+Each proof is the committed-tree candidate (notes and pins) built with `HULK_TREE_SOURCE=1` (`tree_tu.py materialize`,
+no fallback rounds). Its control is F built through build_tree on the same host. Both use one source snapshot: git-archive
+workspaces of F, F's data TUs (`--data-src`) and a hulk_sdl.lib built from a clean archive (`--sdl-src`). Settings:
+`--gfx --replay play3 --frames 60000 --opt o0 --map full`, gated with `tools/ckpt_gate.py CONTROL PROOF`.
+
+| host | control (build_tree) | proof (tree) | image | gate | proof time |
+|---|---|---|---|---|---|
+| studio | 71377: 3,255 s (build 2,825), GATE ok vs 70736 | 71420 (`--state seed:71377`) | f4d5cedca2c8 = control's, **byte-identical** | **GATE ok**, 2,005 common frames, PRNG 0 differ | 1,101 s (materialize 675 s, MSVC objects cold for the noted TUs) |
+| mac2 | 71378: 5,620 s (build 5,129), GATE ok vs 70737 | 71421 (`--state fresh`, submitted while the control ran; state is unused on the tree path) | f4d5cedca2c8 = control's = studio's, **byte-identical** | **GATE ok**, 2,021 common frames, PRNG 0 differ | 3,650 s (materialize 3,228 s cold) |
+
+The images are byte-identical, and not just gate-equal, because build_tree now picks the same relocation-correct
+symbols as tree_tu (c59cc5632) and because comments (notes, pins, the header line) don't change objects.
+
+### What was committed and what was not
+
+- **79e737139** (b): the tree, 2,703 files (the TUs, the 27 tree headers, src/link-order.txt), built with a private
+  index from the proven workspace and nothing else.
+- (c): `tools/wine_build_run.py` defaults to the tree source when the lineage has `src/link-order.txt`
+  (`HULK_TREE_SOURCE=0` restores build_tree). Docs: this page, compute.md, wine-build.md and the freeze notice in
+  docs/agents/.
+- **Excluded**: no generated data TUs or data headers were added (include/decls/data is F's; the data TUs under
+  build/data/src stay local and generated from the player's XBE). No game bytes, shader bytes, Lua script content or
+  disassembly are in the tree (scan above). CLAUDE.md is not edited; the proposed text is in build6's report.
+- Not done in this flip, by decision: removing matches/ and equivalent/ ((d), below), the tool retargets (progress.py,
+  packet.py, the x64 tools, conv_check's key), and a pre-commit check refusing new files in matches/ / equivalent/.
+  The briefs announce the freeze.
+
+### What (d) involves (not done)
+
+(d) removes matches/ and equivalent/ after a grace period, with the user's separate OK. What it involves:
+
+1. Every block already carries its pinned symbol, so the shared-symbol tie-break no longer needs the standalone sources.
+   The block lines can name the kind only (`: matches` / `: equivalent`; tree_tu's BLOCK pattern accepts both) and the
+   `--vs-standalone` check retires; equivalent code is then guarded by the code-hash rule (stage 2) or a new equiv run.
+2. Retarget what reads per-function paths. That means one address -> TU helper over `tree_tu.scan` for packet.py,
+   progress.py (count blocks by kind), tech_debt.py, reach.py, data_inventory.py (source names and offsets), wine_link's
+   conv_check key (TUs under src/ instead of matches/ + equivalent/), equiv_batch / jobq_equiv / promote_dispatch, and the
+   regress and test inputs that read sources. Most of the ~80 tools that name matches/ are finished campaigns and go to
+   tools/legacy/.
+3. Retarget the x64 tools (ptr1, ptr_fields, name_unify, rename_ids) and a tree formatter to TU blocks. The 64-bit work
+   needs these even before (d).
+4. Retire the per-function generators: build_tree.py and gen_tree.py stay only as the regeneration path from history,
+   and hybrid's function patching and the farm are removed (both already decided).
+5. One commit deletes matches/ (22,339 files) and equivalent/ (5,099). `git show e68debc9d:matches/0x....cpp` restores
+   any one, and reverting that commit restores all of them.
+6. Rewrite CLAUDE.md, docs/agents and the README status (progress.py) for "edit the block in its TU".

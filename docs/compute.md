@@ -131,8 +131,13 @@ $J tools/wine_replay_job.py compare ID1 ID2 ...           # common checkpoint fr
 
 ## Wine builds
 
-`tools/wine_build_job.py` runs a whole Wine build as one queue job: MSVC tree build (`build_tree`), clang probe, Wine
-link, and optionally a headless replay on the host. The queue picks the host when the job starts (any remote with the caps
+`tools/wine_build_job.py` runs a whole Wine build as one queue job: the build stage, clang probe, Wine link, and
+optionally a headless replay on the host. **Since the merge-once flip (build6, 2026-11-10) the build stage reads the
+committed tree** (`src/{game,engine,platform/xbox}`, `src/link-order.txt`; [merge-once.md](merge-once.md)):
+`tools/tree_tu.py materialize` copies it into build/tree and verifies every function from the object and verification
+caches, with no build_tree fallback rounds. `--env HULK_TREE_SOURCE=0` (or a commit from before the flip, which has no
+`src/link-order.txt`) runs build_tree's rounds over matches/ and equivalent/ as before; `--state` then applies as
+described below. The queue picks the host when the job starts (any remote with the caps
 and room; see "Placement" below); `--host H` pins it, `--host local` only on purpose; graphics and screenshot runs stay on
 the laptop (`wine-gfx`).
 
@@ -184,6 +189,14 @@ $J $N sync | lineages   # inputs on the hosts (submit does it) | lineage workspa
   generate ~120-160 s (single-threaded), verify ~80 s warm (mostly single-threaded; 2,240 s on a cold standalone cache),
   compile ~850 s when `common.h` changed (a new fallback moves hoisted declarations; 1,937 TUs include it), seconds
   otherwise. A fresh warm build stage is ~95% single-threaded time while it holds 8 slots.
+- **Local inputs must be current (build6).** The shipped `build/data/src` (data TUs, `tools/data_gen.py --gen-only`) and
+  `build/third_party/out/sdl-backends/win32/hulk_sdl.lib` (`tools/wine_sdl.py backends --target win32`) are the laptop's
+  local builds. When they lag the commit being built the image breaks without a source change: on 2026-11-10 data TUs from
+  11-06 (before 741fd13b2 / 8310fb004 / fa450f451 changed config/data.json) left the audio OmType .bss items unbound and
+  crashed at init 332 (job 71106), and a hulk_sdl.lib from before 23ae2f213 lacked `hulk_session_*` and stopped the
+  replay in main (71282). Regenerate them, or build a private copy from a clean `git archive` and pass `--data-src DIR`
+  / `--sdl-src DIR` (with uncommitted platform edits in the checkout, a rebuild there would carry them in). A control
+  and a proof meant to be compared byte for byte take the same inputs.
 - **Seeding a proof from its control (build1, opt-in).** `--state seed:CONTROL` starts the proof's build_tree from the
   control job's final fallback state (`nb-out/tree-state.json`) instead of empty, so it skips the ~18 rounds that rediscover
   the same fallbacks. Measured on mac1 (batch: f9e1c9f1a's 125 renamed sources; control 64299 fresh, proof fresh 64300,
