@@ -143,10 +143,18 @@ class IRefCount_31baf0 {
 };
 extern "C" char DAT_00432578[];
 extern void __stdcall ReleaseResource(void*);
+// pure3d::d3dPrimStream (0x0031bfa0 constructs it): the views below keep one layout, the record's pointers as pointers
+// (x64t2): +4 stride, +8..+0x14 the vertex component pointers, +0x24 0x100 bytes of pending vertices, +0x124 the
+// context, +0x12c the vertex buffers, +0x130 the current one, +0x150 the input, +0x154 / +0x158 the resources
 class d3dPrimStream {
   public:
     hulk_intptr vtable;
-    char pad[0x128];
+    int stride;
+    char* components[4];
+    int f18, f1c, f20;
+    char pending[0x100];
+    void* owner;
+    int f128;
     void** resources;
 };
 struct Resource_31bd30 { char pad[16]; unsigned divisor; };
@@ -157,9 +165,9 @@ struct Input_31bd30 {
 struct Manager_31bd30 { Resource_31bd30* FUN_00321da0(unsigned*,unsigned,unsigned,unsigned); void FUN_00324270(Input_31bd30*); };
 struct Target_31bd30 {
  virtual void v0(unsigned);
- char p04[0x14]; unsigned count; unsigned zero; unsigned value;
+ int p04; char* p08[4]; unsigned count; unsigned zero; unsigned value;
  char p24[0x100]; Manager_31bd30* manager;
- char p128[0x10]; unsigned kindValue; unsigned kind; unsigned flags; unsigned unknown144; unsigned mode; unsigned lowFlags; Input_31bd30* input; Resource_31bd30* existing; Resource_31bd30* resource; unsigned extra;
+ int p128; void** p12c; void* p130; char p134[4]; unsigned kindValue; unsigned kind; unsigned flags; unsigned unknown144; unsigned mode; unsigned lowFlags; Input_31bd30* input; Resource_31bd30* existing; Resource_31bd30* resource; unsigned extra;
  void FUN_0031bd30(unsigned,unsigned,Input_31bd30*,unsigned,unsigned);
 };
 class A_31bf50 {
@@ -555,13 +563,18 @@ class d3dPrimStream : public d3dBasePrimStream {
     char pad18[4];
     int vertCount;
     int pendingCount;
-    char pending[0x130 - 0x24];
+    char pending[0x100];
+    void* owner;
+    int f128;
+    void** buffers;
     void* vbuf;
     char locked;
-    char pad135[0x148 - 0x135];
+    char pad135[3];
+    int f138, f13c, f140, f144;
     int colorCount;
     int uvCount;
-    char pad150[0x158 - 0x150];
+    void* input;
+    void* existing;
     ShaderInfo_31be40* shader;
     int total;
     virtual void vfunc_0(bool copyPending);
@@ -630,39 +643,48 @@ namespace fn_0031bfa0 {
 // FUN_0031bfa0 @ 0x0031bfa0
 
 namespace D3D8 {
-int __stdcall D3DDevice_CreateVertexBuffer2(int);
+void* __stdcall D3DDevice_CreateVertexBuffer2(int);
 }
 extern void* __cdecl FUN_0008d690(int);
 extern "C++" __declspec(nothrow) void __cdecl FUN_0031c230(int);
+// (x64t2) the display (a d3dDisplay: vftable, then words) and the context in gen's d3dContext layout (its display f_154)
 struct OwnerInner {
-    char pad[0x10];
+    void* vftable;
+    int f04, f08, f0c;
     int value;
 };
 struct Owner_31bfa0 {
-    char pad[0x154];
+    void* vftable;
+    char base[sizeof(::pure3d::pddiBaseContext) - sizeof(void*)];
+    int f14c;
+    void* f150;
     OwnerInner* inner;
 };
 namespace pure3d {
 class d3dPrimStream {
   public:
     d3dPrimStream(Owner_31bfa0* owner) throw();
-    virtual void v0();
-    int f4, f8, fc, f10, f14;
+    void* vftable;   // stored by address (a local class's own vftable would be the 64-bit link's stub)
+    int f4;
+    char *f8, *fc, *f10, *f14;
     char pad18[4];
     int f1c;
     char pad20[0x124 - 0x20];
     Owner_31bfa0* owner;
     int f128;
-    int* buffers;
-    int current;
+    void** buffers;
+    void* current;
     char f134;
-    char pad135[0x140 - 0x135];
+    char pad135[3];
+    int f138, f13c;
     int f140;
     int f144;
-    char pad148[0x154 - 0x148];
-    int f154;
+    int f148, f14c;
+    void* f150;
+    void* f154;
 };
 d3dPrimStream::d3dPrimStream(Owner_31bfa0* o) throw() {
+    vftable = DAT_00432578;
     owner = o;
     f128 = 0;
     f134 = 0;
@@ -675,10 +697,10 @@ d3dPrimStream::d3dPrimStream(Owner_31bfa0* o) throw() {
     f154 = 0;
     f128 = o->inner->value;
     f144 = 0;
-    buffers = (int*)FUN_0008d690(DAT_004d367c * 4);
+    buffers = (void**)FUN_0008d690(DAT_004d367c * (int)sizeof(void*));
     for (int i = 0; i < DAT_004d367c; i++) {
-        int* slot = &buffers[i];
-        int vb = D3D8::D3DDevice_CreateVertexBuffer2(DAT_004d3678);
+        void** slot = &buffers[i];
+        void* vb = D3D8::D3DDevice_CreateVertexBuffer2(DAT_004d3678);
         *slot = vb;
         FUN_0031c230((vb != 0) - 1 & 0x8007000e);
     }
@@ -721,9 +743,13 @@ class d3dBasePrimStream {
 class d3dPrimStream : public d3dBasePrimStream {
   public:
     DWORD stride;
-    char pad8[0x1c - 8];
+    char* components[4];
+    char pad18[4];
     int vertCount;
-    char pad20[0x12c - 0x20];
+    int pendingCount;
+    char pendingVerts[0x100];
+    void* owner;
+    int f128;
     void** buffers;
     void* curBuffer;
     char flag134;
@@ -732,7 +758,9 @@ class d3dPrimStream : public d3dBasePrimStream {
     int shapeKind;
     char pad140[0x144 - 0x140];
     int bufIndex;
-    char pad148[0x158 - 0x148];
+    int colorCount, uvCount;
+    void* input;
+    void* existing;
     ShaderInfo_31c080* shader;
     int pending;
     virtual void vfunc_0();

@@ -2091,3 +2091,21 @@ changed), GATE ok (0 of 2,022 common frames differ), x87 keep list 266. Native o
 (its owner view reads the display through a 32-bit offset). Many more local views of the d3dContext keep a literal
 `char pad[0x154]` before the display (d3dExtFramebufferEffects.cpp, d3dRefractVertexShader.cpp: about 15): each needs
 gen's offsets (a base of `sizeof(pure3d::pddiBaseContext)`) as it comes up.
+
+**Batch 3, the d3dPrimStream record.** The prim stream's five views in src/platform/xbox/pure3d/d3dDevice.cpp
+(0x0031bfa0 the constructor, a match; 0x0031bcf0 its release, a match; 0x0031bd30, 0x0031be40 vfunc_0, 0x0031c080
+vfunc_1, equivalents) keep one layout with the record's pointers as pointers: +8..+0x14 the vertex component pointers,
++0x124 the context, +0x12c the vertex buffers (`void**`: the XDK's CreateVertexBuffer2 returns a pointer-sized handle),
++0x130 the current buffer, +0x150 the input, +0x154 / +0x158 the resources (were `int`s and pads in some views). The
+constructor stores the vftable by address (DAT_00432578) and its owner view follows gen's d3dContext (the display at
+`f_154`, the display's word +0x10 behind its vftable). gen d3dPrimStream follows (evidence-rn.json). 32-bit code
+unchanged (the matches MATCH with relocations ok, the equivalents' listings identical to before); gen's 32-bit layout
+of d3dPrimStream unchanged (clang record dump); the 156 gen/pure3d.h TUs verify as before.
+
+Proof 71512 vs control 71466 (studio): image 141d7b7a (= batch 2's), GATE ok (0 of 2,006). macOS (unbound 28,979):
+the prim stream is built and its vertex buffers created (48 imports); the start-up now stops in the projection set-up's
+viewport call 0x00321520 (`GetViewport` / `SetViewport` declared under invented names in the shared namespace, not as
+the XDK's D3DDevice_ functions: unbound), and continued, in d3dContext::vfunc_54 (0x003219f0, a local view with the
+base call by its local name and the state cache at a literal +0x150). The context's state accessors in
+src/engine/pure3d/pddiBaseContext.cpp (vfunc_15..vfunc_90, about 50) read the states at 32-bit offsets behind their
+vftables (`(char*)state + 0xc`): the next sweep.

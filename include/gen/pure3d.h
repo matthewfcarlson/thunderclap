@@ -4274,25 +4274,26 @@ public:
     virtual void vfunc_0(int); // overrides pure3d::d3dBasePrimStream slot 0
     virtual void vfunc_1(); // overrides pure3d::d3dBasePrimStream slot 1
     char _pad_04[0x4];
-    int f_08;
-    int f_0c;
-    int f_10;
-    int f_14;
+    void* f_08;  // (x64t2) the vertex component pointers (0x0031be40)
+    void* f_0c;
+    void* f_10;
+    void* f_14;
     char _pad_18[0x4];
     int f_1c;
     char _pad_20[0x104];
     void* f_124;
     int f_128;
     void* f_12c;
-    char _pad_130[0x4];
+    void* f_130;  // (x64t2) the current vertex buffer
     char f_134;
     char _pad_135[0x3];
     int f_138;
     int f_13c;
     int f_140;
     int f_144;
-    char _pad_148[0xc];
-    int f_154;
+    char _pad_148[0x8];
+    void* f_150;  // (x64t2) the input, then the two resources (0x0031bd30)
+    void* f_154;
     void* f_158;
     int f_15c;
 };

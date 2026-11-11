@@ -6753,10 +6753,10 @@
    "0x50": "void*"
   },
   "pure3d::d3dPrimStream": {
-   "0x8": "int",
-   "0xc": "int",
-   "0x10": "int",
-   "0x14": "int",
+   "0x8": "void*",
+   "0xc": "void*",
+   "0x10": "void*",
+   "0x14": "void*",
    "0x1c": "int",
    "0x124": "void*",
    "0x128": "int",
@@ -6766,9 +6766,11 @@
    "0x13c": "int",
    "0x140": "int",
    "0x144": "int",
-   "0x154": "int",
+   "0x154": "void*",
    "0x158": "void*",
-   "0x15c": "int"
+   "0x15c": "int",
+   "0x130": "void*",
+   "0x150": "void*"
   },
   "pure3d::d3dProjectedTextureShader": {
    "0x14": "void*",
