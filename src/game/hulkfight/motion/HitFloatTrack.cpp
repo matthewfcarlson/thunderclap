@@ -20,7 +20,7 @@ class CCondition_14e060 {
 class Track_14e070 {
   public:
     Track_14e070();
-    virtual void f();
+    virtual hulk_intptr Fnf_0014e060(int);
     char pad[8];
 };
 class HitFloatTrack : public Track_14e070 {

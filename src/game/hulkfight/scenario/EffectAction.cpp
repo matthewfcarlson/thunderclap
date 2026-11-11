@@ -1678,9 +1678,9 @@ extern void* g1_1a92e0;
 extern void* g2_1a92e0;
 class DynamicCaster_1a9420 {
   public:
-    virtual void a();
+    virtual void Fna_001a6ee0(void*);
     virtual void b();
-    virtual void c();
+    virtual void Fnc_001a6f10(void*);
     virtual int d();
 };
 extern "C" __int64 __cdecl lookup(void*, int, int);
@@ -1694,12 +1694,12 @@ class LoadInventory {
 };
 class ConditionFactoryCasterTemplate_1a94a0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001a69c0(void*);
 };
 extern "C" void* find(void*, ConditionFactoryCasterTemplate_1a94a0*);
 class ConditionFactoryCasterTemplate_1a9560 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001a6a60(void*);
 };
 class Owner {
   public:
@@ -1710,22 +1710,22 @@ class Owner {
 extern "C" void* __cdecl FUN_002343e0(void*, ConditionFactoryCasterTemplate_1a9560*);
 class ConditionFactoryCasterTemplate_1a9590 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001a6ac0(void*);
 };
 void* __cdecl Find_002343e0(void*, ConditionFactoryCasterTemplate_1a9590*);
 class ConditionFactoryCasterTemplate_1a95c0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001a6b20(void*);
 };
 void* __cdecl Find_002343e0(void*, ConditionFactoryCasterTemplate_1a95c0*);
 class ConditionFactoryCasterTemplate_1a9620 {
   public:
-    virtual void F();
+    virtual bool FnF_001a6be0(void*);
 };
 void* __cdecl Find_002343e0(char*, ConditionFactoryCasterTemplate_1a9620*);
 class ConditionFactoryCasterTemplate_1a96b0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001a6c20(void*);
 };
 class Receiver {
   public:
@@ -1734,7 +1734,7 @@ class Receiver {
 extern "C++" __declspec(nothrow) void* FUN_002343e0(void*, ConditionFactoryCasterTemplate_1a96b0*);
 class ConditionFactoryCasterTemplate_1a9740 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001a6c60(void*);
 };
 class Obj {
   public:
@@ -1758,12 +1758,12 @@ class Obj {
 extern ConditionFactoryCasterTemplate_1a9740* __cdecl Lookup_002343e0(void*, ConditionFactoryCasterTemplate_1a9740*);
 class TrackFactoryCasterTemplate_1a97d0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001a6ca0(void*);
 };
 extern "C" void* FindTrack(void*, TrackFactoryCasterTemplate_1a97d0*);
 class TrackFactoryCasterTemplate_1a9a90 {
   public:
-    virtual void dummy();
+    virtual bool dummy_001a6d40(void*);
 };
 extern "C" void* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_1a9a90*);
 class Track_1a9ac0 {
@@ -1912,11 +1912,11 @@ class TrackFactoryTemplate_1aa6a0 {
 class Condition_1aa6e0 {
   public:
     virtual void a();
-    virtual void b();
-    virtual void c();
-    virtual void d();
-    virtual void e();
-    virtual void f();
+    virtual bool Fnb_00234270(void*);
+    virtual bool Fnc_002342b0(int);
+    virtual bool Fnd_002344d0(hulk_intptr, int, hulk_intptr);
+    virtual bool Fne_00234350(int, int);
+    virtual void* Fnf_001a5b90(char);
     char pad[8];
     int val;
     Condition_1aa6e0(int) throw();
@@ -3183,7 +3183,7 @@ struct Sub8_1a3140 {
 
 class __declspec(novtable) Track_1a3140 {
 public:
-    virtual void b0();
+    virtual hulk_intptr b0_001a3130(int);
     int pad04;
     int pad08;
     void FUN_00236d40();
@@ -3194,14 +3194,14 @@ namespace hulkfight {
 namespace scenario {
 class EffectTrack : public Track_1a3140 {
 public:
-    virtual unsigned int vfunc_0(unsigned int);
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
+    virtual bool vfunc_0_00234270(void*);
+    virtual bool v1_002342b0(int);
+    virtual bool v2_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool v3_00234350(int, int);
+    virtual void* v4_001a5c50(char);
     virtual void v5_001a31b0();
     virtual void vfunc_6_001a31c0();
-    virtual void vfunc_7();
+    virtual void* vfunc_7_00236ba0(void*, void*);
 
     int f0c;
     float f10;
@@ -3271,7 +3271,7 @@ namespace scenario {
 
 struct EffectTrack : Track_1a31d0 {
     virtual ~EffectTrack();
-    virtual void f();
+    virtual bool Fnf_00234270(void*);
     char p4[0x18 - 4];
     Helper_1a31d0 h18;
     char p1c[0x20 - 0x1c];
@@ -7121,7 +7121,7 @@ extern "C" void FUN_001a94a0(Obj* obj, void* value) {
 namespace fn_001a94d0 {
 class ConditionFactoryCasterTemplate_1a94d0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001a6a20(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl Find_002343e0(void*, ConditionFactoryCasterTemplate_1a94d0*);
 class Factory {
@@ -7168,7 +7168,7 @@ extern "C" void __cdecl FUN_001a95c0(Obj* obj, void* p) {
 namespace fn_001a95f0 {
 class ConditionFactoryCasterTemplate_1a95f0 {
   public:
-    virtual void f();
+    virtual bool Fnf_001a6b80(void*);
 };
 class Desc;
 extern Desc* __cdecl lookup_002343e0(const char*, ConditionFactoryCasterTemplate_1a95f0*);

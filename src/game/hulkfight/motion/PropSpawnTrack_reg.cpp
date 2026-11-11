@@ -13,7 +13,7 @@ namespace fn_f6684e61 {} using namespace fn_f6684e61;
 namespace fn_f6684e61 {
 class TrackFactoryCasterTemplate_189f30 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00186ca0(void*);
 };
 class Obj {
   public:
@@ -22,7 +22,7 @@ class Obj {
 extern "C" void* Find(void*, TrackFactoryCasterTemplate_189f30*);
 class TrackFactoryCasterTemplate_18a0d0 {
   public:
-    virtual void cast();
+    virtual bool cast_00186ec0(void*);
 };
 class Track {
   public:
@@ -75,7 +75,7 @@ public:
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 class TrackFactoryCasterTemplate_18a310 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00186fe0(void*);
 };
 class Owner {
   public:
@@ -267,7 +267,7 @@ public:
 namespace fn_f6684e61 {
 class TrackFactoryCasterTemplate_18ab70 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00187160(void*);
 };
 class Host {
   public:
@@ -366,12 +366,12 @@ public:
 namespace fn_f6684e61 {
 class TrackFactoryCasterTemplate_18b050 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00187340(void*);
 };
 void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_18b050*);
 class TrackFactoryCasterTemplate_18b080 {
   public:
-    virtual void cast();
+    virtual bool cast_001873a0(void*);
 };
 extern void* findTrack_00236ac0(int, TrackFactoryCasterTemplate_18b080*);
 class Holder {
@@ -380,13 +380,13 @@ class Holder {
 };
 class TrackFactoryCasterTemplate_18b0e0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001874c0(void*);
     TrackFactoryCasterTemplate_18b0e0() {}
 };
 Track* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_18b0e0*);
 class TrackFactoryCasterTemplate_18b110 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00187540(void*);
 };
 class Target {
   public:
@@ -414,7 +414,7 @@ public:
 };
 class TrackFactoryCasterTemplate_18b2e0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001875e0(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_18b2e0*);
 
@@ -445,7 +445,7 @@ extern "C" void FUN_00189f30(Obj* o, void* p) {
 namespace fn_00189f60 {
 class TrackFactoryCasterTemplate_189f60 {
   public:
-    virtual void cast();
+    virtual bool cast_00186d40(void*);
 };
 class Obj {
   public:
@@ -464,7 +464,7 @@ extern "C" int FUN_00189f60(Obj* obj, int name) {
 namespace fn_0018a070 {
 class TrackFactoryCasterTemplate_18a070 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00186dc0(void*);
 };
 class Owner {
   public:
@@ -483,7 +483,7 @@ extern "C" void FUN_0018a070(Owner* owner, const char* name) {
 namespace fn_0018a0a0 {
 class TrackFactoryCasterTemplate_18a0a0 {
   public:
-    virtual void* Cast(void*);
+    virtual bool Cast_00186e40(void*);
 };
 class Owner {
   public:
@@ -560,7 +560,7 @@ extern "C" void FUN_0018a100()
 namespace fn_0018a2e0 {
 class TrackFactoryCasterTemplate_18a2e0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00186f60(void*);
 };
 class Obj {
   public:
@@ -701,7 +701,7 @@ extern "C" void FUN_0018a340()
 namespace fn_0018a840 {
 class TrackFactoryCasterTemplate_18a840 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001870c0(void*);
 };
 class Obj {
   public:
@@ -803,7 +803,7 @@ extern "C" void __cdecl FUN_0018ab70(Host* host, void* key) {
 namespace fn_0018aba0 {
 class TrackFactoryCasterTemplate_18aba0 {
   public:
-    virtual void cast();
+    virtual bool cast_001871e0(void*);
 };
 class Owner {
   public:
@@ -919,7 +919,7 @@ extern "C" void FUN_0018abd0()
 namespace fn_0018b020 {
 class TrackFactoryCasterTemplate_18b020 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001872a0(void*);
 };
 class Receiver {
   public:
@@ -958,7 +958,7 @@ extern "C" void FUN_0018b080(Holder* h, int n) {
 namespace fn_0018b0b0 {
 class TrackFactoryCasterTemplate_18b0b0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00187440(void*);
 };
 class Owner {
   public:

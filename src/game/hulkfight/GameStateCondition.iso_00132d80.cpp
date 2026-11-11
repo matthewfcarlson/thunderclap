@@ -15,17 +15,17 @@ HULK_NATIVE_INLINE void* operator new(size_t, void* p) {
 class Track_132d80 {
   public:
     Track_132d80();
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
+    virtual hulk_intptr f0_0012ed60(int);
+    virtual bool f1_00234270(void*);
+    virtual bool f2_002342b0(int);
+    virtual bool f3_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool f4_00234350(int, int);
 };
 
 class DebugPrintTrack_132d80 : public Track_132d80 {
   public:
     DebugPrintTrack_132d80();
-    virtual void f5();
+    virtual void* f5_0012fe20(char);
     int unused;
     int x;
     int a;

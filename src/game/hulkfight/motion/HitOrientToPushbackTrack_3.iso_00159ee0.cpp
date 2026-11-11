@@ -9,11 +9,11 @@
 
 void* operator new(size_t);
 struct Base_159ee0 {
-    virtual void g();
+    virtual hulk_intptr Fng_0014dfd0(int);
     Base_159ee0();
 };
 struct Track_159ee0 : Base_159ee0 {
-    virtual void f();
+    virtual bool Fnf_00234270(void*);
     int x4, x8, xC;
     float x10;
     int x14, x18, x1C, x20;

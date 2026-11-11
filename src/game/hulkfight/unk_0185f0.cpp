@@ -541,7 +541,7 @@ class CAction : public Action_18c20 {
 
 class CClimbingAction_18c20 : public CAction {
   public:
-    virtual void ProcessDrift();
+    virtual void* ProcessDrift_00021740(char);
     CClimbingAction_18c20(int a, IRef_18c20* p);
 };
 

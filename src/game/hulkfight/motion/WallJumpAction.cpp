@@ -570,7 +570,7 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
 class Track {};
 class TrackFactoryCasterTemplate_1424e0 {
   public:
-    virtual Track* Cast(void*);
+    virtual bool Cast_00141930(void*);
     TrackFactoryCasterTemplate_1424e0() {}
 };
 Track* __cdecl Find_00236ac0(const char*, TrackFactoryCasterTemplate_1424e0*);
@@ -581,7 +581,7 @@ class Owner {
 };
 class TrackFactoryCasterTemplate_1428b0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001419d0(void*);
 };
 class Obj {
   public:
@@ -590,12 +590,12 @@ class Obj {
 void* __cdecl Find_00236ac0(void*, TrackFactoryCasterTemplate_1428b0*);
 class TrackFactoryCasterTemplate_1428e0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00141a70(void*);
 };
 extern "C" void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_1428e0*);
 class ConditionFactoryCasterTemplate_142910 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001418b0(void*);
 };
 struct Result;
 extern "C" Result* FUN_002343e0(const char*, ConditionFactoryCasterTemplate_142910*);
@@ -1128,7 +1128,7 @@ namespace hulkfight {
 namespace motion {
 class WallRunTrack {
 public:
-    virtual void vfunc_0();
+    virtual hulk_intptr vfunc_0_0013eeb0(int);
     int f04;
     int f08;
     int f0c;
@@ -1225,7 +1225,7 @@ namespace fn_0013efd0 {
 // FUN_0013efd0 @ 0x0013efd0
 class __declspec(novtable) Track_13efd0 {
 public:
-    virtual void b0();
+    virtual hulk_intptr b0_0013efc0(int);
     int pad04;
     int pad08;
     void FUN_00236d40();
@@ -1236,14 +1236,14 @@ namespace hulkfight {
 namespace motion {
 class WallJumpTrack : public Track_13efd0 {
 public:
-    virtual unsigned int vfunc_0(unsigned int);
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
+    virtual bool vfunc_0_00234270(void*);
+    virtual bool v1_002342b0(int);
+    virtual bool v2_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool v3_00234350(int, int);
+    virtual void* v4_0013f790(char);
     virtual void v5_0013f040();
     virtual void vfunc_6_0013f050();
-    virtual void vfunc_7();
+    virtual void* vfunc_7_00236ba0(void*, void*);
 
     int f0c;
     float f10;

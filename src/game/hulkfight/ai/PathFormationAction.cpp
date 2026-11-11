@@ -770,7 +770,7 @@ struct Name_11c7a0 {
 
 class __declspec(novtable) Track_11c7a0 {
 public:
-    virtual void b0();
+    virtual hulk_intptr b0_0011c790(int);
     int pad04;
     int pad08;
     void FUN_00236d40();
@@ -781,14 +781,14 @@ namespace hulkfight {
 namespace ai {
 class PathTrack : public Track_11c7a0 {
 public:
-    virtual unsigned int vfunc_0(unsigned int);
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
+    virtual bool vfunc_0_00234270(void*);
+    virtual bool v1_002342b0(int);
+    virtual bool v2_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool v3_00234350(int, int);
+    virtual void* v4_0011cd30(int);
     virtual void v5_0011c820();
     virtual void vfunc_6_0011c830();
-    virtual void vfunc_7();
+    virtual void* vfunc_7_00236ba0(void*, void*);
 
     int f0c;
     float f10;

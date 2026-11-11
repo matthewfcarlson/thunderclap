@@ -53,7 +53,7 @@ class CCondition_124300 {
 class Track_124310 {
   public:
     Track_124310();
-    virtual void A();
+    virtual hulk_intptr FnA_00124300(int);
     char pad[4];
     int m8;
 };
@@ -88,7 +88,7 @@ class CCondition_124430 {
 class Track_124440 {
   public:
     Track_124440();
-    virtual void f();
+    virtual hulk_intptr Fnf_00124430(int);
     char pad[4];
 };
 class ClearProjectileDistanceTrack : public Track_124440 {
@@ -511,7 +511,7 @@ namespace fn_001243a0 {
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001243a0 @ 0x001243a0
 struct FUN_00236d40 {
-    virtual void slot0();
+    virtual hulk_intptr slot0_00124390(int);
     char data[8];
     FUN_00236d40();
 };

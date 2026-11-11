@@ -14,11 +14,11 @@ namespace scenario {
 class Base {
   public:
     virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
-    virtual void v5();
+    virtual bool v1_00234270(void*);
+    virtual bool v2_002342b0(int);
+    virtual bool v3_002344d0(hulk_intptr, int, hulk_intptr);
+    virtual bool v4_00234350(int, int);
+    virtual void* v5_001a5b30(char);
     char pad[8];
     Base(int) throw();
 };

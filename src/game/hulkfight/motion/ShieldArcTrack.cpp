@@ -20,7 +20,7 @@ class CCondition_181380 {
 };
 class Track_181390 {
   public:
-    virtual void f();
+    virtual hulk_intptr Fnf_00181380(int);
     Track_181390();
 };
 class ShieldArcTrack : public Track_181390 {

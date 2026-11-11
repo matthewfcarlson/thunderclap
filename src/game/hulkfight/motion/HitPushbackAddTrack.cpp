@@ -21,7 +21,7 @@ class CCondition_14e180 {
 class Track_14e190 {
   public:
     Track_14e190();
-    virtual void f();
+    virtual hulk_intptr Fnf_0014e180(int);
     char pad[4];
 };
 class HitPushbackAddTrack : public Track_14e190 {

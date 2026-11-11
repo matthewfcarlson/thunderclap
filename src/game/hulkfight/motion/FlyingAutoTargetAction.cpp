@@ -23,7 +23,7 @@ class Action_135ef0 {
 class FlyingAutoTargetAction_135ef0 : public Action_135ef0 {
   public:
     virtual void FnA_00018b40();
-    virtual void B();
+    virtual void* FnB_00138f60(char);
     char pad[0x18];
     int m1c;
     Obj_135ef0* m20;

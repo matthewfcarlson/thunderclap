@@ -580,7 +580,7 @@ public:
 namespace fn_f45cd32f {
 class ConditionFactoryCasterTemplate_16c000 {
   public:
-    virtual void f();
+    virtual bool Fnf_0016a050(void*);
 };
 extern "C" void __cdecl FUN_002343e0(void*, ConditionFactoryCasterTemplate_16c000*);
 class ParamBranch : public ParamValueBranch, public ParamValue {

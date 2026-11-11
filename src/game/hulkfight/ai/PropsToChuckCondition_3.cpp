@@ -58,9 +58,9 @@ namespace hulkfight {
 namespace ai {
 class BaseCondition {
   public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
+    virtual hulk_intptr v0_0010ca30(int);
+    virtual bool v1_00234270(void*);
+    virtual bool v2_002342b0(int);
     char pad[8];
     BaseCondition(int) throw();
 };

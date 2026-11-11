@@ -85,7 +85,7 @@ class CCondition_193ee0 {
 class Track_193ef0 {
   public:
     Track_193ef0();
-    virtual void dummy();
+    virtual hulk_intptr dummy_00193ee0(int);
     char pad[4];
 };
 class Part {
@@ -131,7 +131,7 @@ class CCondition_193f90 {
 class Track_193fa0 {
   public:
     Track_193fa0();
-    virtual void f();
+    virtual hulk_intptr Fnf_00193f90(int);
 };
 class AccuracyLatencyTrack : public Track_193fa0 {
   public:
@@ -489,7 +489,7 @@ namespace hulkfight {
 namespace motion {
 class FireProjectileTrack {
 public:
-    virtual void vfunc_0();
+    virtual hulk_intptr vfunc_0_00193c80(int);
     char pad4[4];
     int f8;
     int fc;
@@ -652,7 +652,7 @@ namespace hulkfight {
 namespace motion {
 class MissileThrowTrack {
 public:
-    virtual void vfunc_0();
+    virtual hulk_intptr vfunc_0_00193e10(int);
     int f04;
     int f08;
     int f0c;
@@ -856,7 +856,7 @@ namespace hulkfight {
 namespace motion {
 class FireBeamTrack {
 public:
-    virtual void vfunc_0();
+    virtual hulk_intptr vfunc_0_00194020(int);
     int f04;
     int f08;
     int f0c;
@@ -1052,7 +1052,7 @@ struct Sub0C_194290 {
 
 class __declspec(novtable) Track_194290 {
 public:
-    virtual void b0();
+    virtual hulk_intptr b0_00194280(int);
     int pad04;
     int pad08;
     void FUN_00236d40();
@@ -1063,14 +1063,14 @@ namespace hulkfight {
 namespace motion {
 class FireMissileTrack : public Track_194290 {
 public:
-    virtual unsigned int vfunc_0(unsigned int);
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
+    virtual bool vfunc_0_00234270(void*);
+    virtual bool v1_002342b0(int);
+    virtual bool v2_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool v3_00234350(int, int);
     virtual void v4();
     virtual void v5_00194470();
     virtual void vfunc_6_00194480();
-    virtual void vfunc_7();
+    virtual void* vfunc_7_00236ba0(void*, void*);
 
     int f0c;
     Sub8_194290 s10;
@@ -1255,7 +1255,7 @@ struct Handle_1945b0 {
 
 class __declspec(novtable) Track_1945b0 {
 public:
-    virtual void b0();
+    virtual hulk_intptr b0_001945a0(int);
     int pad04;
     int mode;
     void FUN_00236d40();
@@ -1265,9 +1265,9 @@ public:
 namespace hulkfight { namespace motion {
 class FireGroundShockwaveTrack : public Track_1945b0 {
 public:
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
+    virtual bool v1_00234270(void*);
+    virtual bool v2_002342b0(int);
+    virtual bool v3_00236c50(hulk_intptr, int, hulk_intptr);
     int f0c;
     float f10, f14, f18;
     int f1c, f20;

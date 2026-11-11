@@ -633,7 +633,7 @@ class AirToGroundTargetAction_1390c0 : public Action_1390c0 {
 };
 class TrackFactoryCasterTemplate_139240 {
   public:
-    virtual void cast();
+    virtual bool cast_001374e0(void*);
 };
 class Manager {
   public:
@@ -642,12 +642,12 @@ class Manager {
 extern void* find_00236ac0(const char*, TrackFactoryCasterTemplate_139240*);
 class TrackFactoryCasterTemplate_1392a0 {
   public:
-    virtual void f();
+    virtual bool Fnf_001375e0(void*);
 };
 extern void* __cdecl Cast_00236ac0(void*, TrackFactoryCasterTemplate_1392a0*);
 class TrackFactoryCasterTemplate_1392d0 {
   public:
-    virtual void cast();
+    virtual bool cast_00137660(void*);
 };
 class Recipient {
   public:
@@ -656,7 +656,7 @@ class Recipient {
 extern void* lookup_00236ac0(void*, TrackFactoryCasterTemplate_1392d0*);
 class TrackFactoryCasterTemplate_139330 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00137760(void*);
 };
 class Track {
   public:
@@ -665,7 +665,7 @@ class Track {
 extern "C" void* GetTrack_00236ac0(void*, TrackFactoryCasterTemplate_139330*);
 class TrackFactoryCasterTemplate_139390 {
   public:
-    virtual void cast();
+    virtual int cast_001378a0(void*);
 };
 extern "C" int __cdecl first(int, TrackFactoryCasterTemplate_139390*);
 extern "C" char DAT_00411bb8[];
@@ -1805,7 +1805,7 @@ extern "C" void* FUN_00139240(Manager* m, const char* name) {
 namespace fn_00139270 {
 class TrackFactoryCasterTemplate_139270 {
   public:
-    virtual void f();
+    virtual bool Fnf_00137560(void*);
     TrackFactoryCasterTemplate_139270() {}
 };
 class Owner {
@@ -1844,7 +1844,7 @@ extern "C" void FUN_001392d0(Recipient* r, void* name) {
 namespace fn_00139300 {
 class TrackFactoryCasterTemplate_139300 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001376e0(void*);
 };
 extern int __cdecl Find_00236ac0(int, TrackFactoryCasterTemplate_139300*);
 class Owner {
@@ -1875,7 +1875,7 @@ extern "C" void* FUN_00139330(Track* t, void* p) {
 namespace fn_00139360 {
 class TrackFactoryCasterTemplate_139360 {
   public:
-    virtual void Dummy();
+    virtual bool Dummy_001377e0(void*);
 };
 class Owner {
   public:
@@ -1905,7 +1905,7 @@ extern "C" void FUN_00139390(Obj* o, int n) {
 namespace fn_001393c0 {
 class TrackFactoryCasterTemplate_1393c0 {
   public:
-    virtual void cast();
+    virtual bool cast_00137940(void*);
 };
 class Manager {
   public:

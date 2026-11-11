@@ -141,7 +141,7 @@ class CCondition_133cd0 {
 class Track_133ce0 {
   public:
     Track_133ce0();
-    virtual void f();
+    virtual hulk_intptr Fnf_00133cd0(int);
 };
 class HoverTrack : public Track_133ce0 {
   public:
@@ -513,7 +513,7 @@ namespace motion {
 class Base {
   public:
     Base();
-    virtual void f();
+    virtual hulk_intptr Fnf_00133c10(int);
     int x;
     int flag;
 };
@@ -625,7 +625,7 @@ namespace fn_00133d70 {
 namespace hulkfight { namespace motion {
 class FUN_00236d40 {
 public:
-    virtual void dummy();
+    virtual hulk_intptr dummy_00133d60(int);
     char padding[8];
     FUN_00236d40();
 };

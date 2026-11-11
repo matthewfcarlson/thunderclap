@@ -27,11 +27,11 @@ void* operator new(size_t);
 namespace hulkfight { namespace motion {
 class BaseCondition {
   public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
+    virtual hulk_intptr f0_00165ec0(int);
+    virtual bool f1_00234270(void*);
+    virtual bool f2_002342b0(int);
+    virtual bool f3_002344d0(hulk_intptr, int, hulk_intptr);
+    virtual bool f4_00234350(int, int);
     BaseCondition(int) throw();
     char pad[8];
 };
@@ -40,7 +40,7 @@ namespace hulkfight { namespace motion {
 class GrappleReactionTypeCondition_16d910 : public BaseCondition {
   public:
     GrappleReactionTypeCondition_16d910() throw() : BaseCondition(0), a(0), b(0) {}
-    virtual void f5();
+    virtual void* f5_001675f0(char);
     int a, b;
 };
 } }

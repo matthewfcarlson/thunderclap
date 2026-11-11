@@ -638,11 +638,11 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
 };
 class VarCaster {
   public:
-    virtual void f();
+    virtual bool Fnf_0018de50(void*);
 };
 class TrackFactoryCasterTemplate_18e8d0 {
   public:
-    virtual void f();
+    virtual bool Fnf_0018ddd0(void*);
 };
 extern "C" void* FUN_00236ac0(const char*, void*);
 class Factory {

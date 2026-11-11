@@ -24,7 +24,7 @@ class TrackFactoryTemplate_17e310 {
 extern "C" void FUN_00179fe0();
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct DriftToPositionTrack_17e350 {
-    virtual void vfunc_0();
+    virtual hulk_intptr vfunc_0_001703f0(int);
     char pad04[4];
     int count;
     int field0c;

@@ -29,9 +29,9 @@ class BaseCondition {
   public:
     BaseCondition(int) throw();
     virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
+    virtual bool f1_00234270(void*);
+    virtual bool f2_002342b0(int);
+    virtual bool f3_002344d0(hulk_intptr, int, hulk_intptr);
     char pad[8];
     int value;
 };

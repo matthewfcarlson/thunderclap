@@ -166,7 +166,7 @@ class CCondition_12b690 {
 class Track_12b6a0 {
   public:
     Track_12b6a0();
-    virtual void f();
+    virtual hulk_intptr Fnf_0012b690(int);
 };
 class Sub {
   public:
@@ -174,16 +174,16 @@ class Sub {
 };
 class ThreatDodgeTrack : public Track_12b6a0 {
   public:
-    virtual void _m_vf1();
-    virtual void _m_vf2();
-    virtual void _m_vf3();
-    virtual void _m_vf4();
+    virtual bool m_vf1_00234270(void*);
+    virtual bool m_vf2_002342b0(int);
+    virtual bool m_vf3_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool m_vf4_00234350(int, int);
     virtual ThreatDodgeTrack* vfunc_5(unsigned char);
     virtual void m_vf6_0012b6e0();
     virtual void m_vf7_0012b6f0();
-    virtual void _m_vf8();
-    virtual void _m_vf9();
-    virtual void _m_vf10();
+    virtual void* m_vf8_00236ba0(void*, void*);
+    virtual int m_vf9_00236bb0(hulk_intptr, hulk_intptr, hulk_intptr);
+    virtual hulk_intptr m_vf10_0012ca10(hulk_intptr, hulk_intptr, hulk_intptr);
     ThreatDodgeTrack();
     char _m_pad_4[0x8];
     int a;
@@ -752,7 +752,7 @@ struct Factory_12d0e0 {
 };
 class TrackFactoryCasterTemplate_12d110 {
   public:
-    virtual void cast();
+    virtual int cast_0012c7b0(void*);
 };
 extern "C" void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_12d110*);
 class Obj {
@@ -762,7 +762,7 @@ class Obj {
 };
 class TrackFactoryCasterTemplate_12d2e0 {
   public:
-    virtual void f();
+    virtual bool Fnf_0012c850(void*);
 };
 extern "C" int __cdecl find(void*, TrackFactoryCasterTemplate_12d2e0*);
 extern "C" char DAT_00410c34[];

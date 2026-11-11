@@ -156,7 +156,7 @@ class CCondition_143a10 {
 class Track_143a20 {
   public:
     Track_143a20();
-    virtual void f();
+    virtual hulk_intptr Fnf_00143a10(int);
     char pad[4];
 };
 class MotionBlurTrack : public Track_143a20 {
@@ -175,7 +175,7 @@ class CCondition_143ab0 {
 class Track_143ac0 {
   public:
     Track_143ac0();
-    virtual void f();
+    virtual hulk_intptr Fnf_00143ab0(int);
     char pad[4];
 };
 class MotionTrailStopTrack : public Track_143ac0 {
@@ -480,9 +480,9 @@ class MotionBlurAction : public Action_144b30 {
   public:
     virtual void m_vf1_00018b40();
     virtual MotionBlurAction* vfunc_2(int);
-    virtual void _m_vf3();
+    virtual bool m_vf3_00144310(hulk_intptr, hulk_intptr);
     virtual void m_vf4_00144570();
-    virtual void _m_vf5();
+    virtual bool m_vf5_00144360(int, float);
     MotionBlurAction(int);
     union { int mObject; int value; };
 };
@@ -906,7 +906,7 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
 };
 class TrackFactoryCasterTemplate_146130 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00145290(void*);
 };
 extern void* __cdecl Find_00236ac0(const char*, TrackFactoryCasterTemplate_146130*);
 class Factory {
@@ -915,7 +915,7 @@ class Factory {
 };
 class TrackFactoryCasterTemplate_146370 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001453b0(void*);
 };
 extern void* Find_00236ac0(const char*, TrackFactoryCasterTemplate_146370*);
 } // namespace fn_f3c8e3e3
@@ -1506,7 +1506,7 @@ namespace hulkfight {
 namespace motion {
 struct FUN_00236d40 {
     FUN_00236d40();
-    virtual void unknown();
+    virtual hulk_intptr unknown_001437e0(int);
 };
 struct SlowMotionTrack : FUN_00236d40 {
     int field04;
@@ -1664,7 +1664,7 @@ namespace hulkfight {
 namespace motion {
 class WorldConeDamageTrack {
 public:
-    virtual void vfunc_0();
+    virtual hulk_intptr vfunc_0_00143940(int);
     int f04;
     int f08;
     int f0c, f10, f14, f18, f1c, f20;
@@ -3210,7 +3210,7 @@ void FUN_00146370(Obj* obj, const char* name) {
 namespace fn_001463a0 {
 class TrackFactoryCasterTemplate_1463a0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00145470(void*);
 };
 struct Target {
     int Get_002367c0(void*);

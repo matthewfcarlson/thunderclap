@@ -20,7 +20,7 @@ class CCondition_170730 {
 class Track_170740 {
   public:
     Track_170740();
-    virtual void f();
+    virtual hulk_intptr Fnf_00170730(int);
     char pad[4];
 };
 class Part {

@@ -170,7 +170,7 @@ class Action_151180 {
 class GroundSlideAction_151180 : public Action_151180 {
   public:
     virtual void FnA_00018b40();
-    virtual void B();
+    virtual void* FnB_00156e80(char);
     char pad[0x18];
     int m1c;
     Obj_151180* m20;

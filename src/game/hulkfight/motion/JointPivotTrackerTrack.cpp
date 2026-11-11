@@ -70,7 +70,7 @@ namespace hulkfight {
 namespace motion {
 class JointPivotTrackerTrack {
 public:
-    virtual void vfunc_0();
+    virtual hulk_intptr vfunc_0_00170890(int);
     int f04;
     int f08;
     int f0c;

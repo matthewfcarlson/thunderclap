@@ -23,7 +23,7 @@ class Action_174c10 {
 class FootPivotAction : public Action_174c10 {
   public:
     virtual void FnA_00018b40();
-    virtual void B();
+    virtual void* FnB_0017b560(char);
     char pad[0x18];
     int m1c;
     Obj_174c10* m20;

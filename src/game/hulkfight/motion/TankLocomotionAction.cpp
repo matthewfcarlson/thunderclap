@@ -118,7 +118,7 @@ class CCondition_18f210 {
 class Track_18f220 {
   public:
     Track_18f220();
-    virtual void f();
+    virtual hulk_intptr Fnf_0018f210(int);
 };
 class SimulationTrack : public Track_18f220 {
   public:
@@ -648,12 +648,12 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
 };
 class TrackFactoryCasterTemplate_191910 {
   public:
-    virtual void cast();
+    virtual bool cast_00190f40(void*);
 };
 void* __cdecl Find_00236ac0(const char*, TrackFactoryCasterTemplate_191910*);
 class TrackFactoryCasterTemplate_191b10 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00191040(void*);
 };
 class Owner {
   public:
@@ -1121,7 +1121,7 @@ namespace fn_0018f2a0 {
 // FUN_0018f2a0 @ 0x0018f2a0
 class __declspec(novtable) Track_18f2a0 {
 public:
-    virtual void b0();
+    virtual hulk_intptr b0_0018f290(int);
     int pad04;
     int pad08;
     void FUN_00236d40();
@@ -1132,14 +1132,14 @@ namespace hulkfight {
 namespace motion {
 class TankLocomotionTrack : public Track_18f2a0 {
 public:
-    virtual unsigned int vfunc_0(unsigned int);
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
+    virtual bool vfunc_0_00234270(void*);
+    virtual bool v1_002342b0(int);
+    virtual bool v2_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool v3_00234350(int, int);
+    virtual void* v4_0018f5e0(char);
     virtual void v5_0018f320();
     virtual void vfunc_6_0018f330();
-    virtual void vfunc_7();
+    virtual void* vfunc_7_00236ba0(void*, void*);
 
     int f0c;
     float f10;
@@ -2459,7 +2459,7 @@ extern "C" void __cdecl FUN_00191910(Obj* obj, const char* name) {
 namespace fn_00191ae0 {
 class TrackFactoryCasterTemplate_191ae0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00190fe0(void*);
 };
 class Obj {
   public:

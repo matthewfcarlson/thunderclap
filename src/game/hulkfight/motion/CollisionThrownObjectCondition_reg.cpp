@@ -22,7 +22,7 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
 class TrackFactoryCasterTemplate_157b10 {
   public:
     TrackFactoryCasterTemplate_157b10() {}
-    virtual void cast();
+    virtual bool cast_00154e00(void*);
 };
 extern "C" void __cdecl Use_00236ac0(void*, TrackFactoryCasterTemplate_157b10*);
 } // namespace fn_f4e72ed8
@@ -145,7 +145,7 @@ public:
 namespace fn_f4e72ed8 {
 class TrackFactoryCasterTemplate_158260 {
   public:
-    virtual Track* Cast(void*);
+    virtual bool Cast_001548a0(void*);
 };
 Track* FindTrack_00236ac0(const char*, TrackFactoryCasterTemplate_158260*);
 class TrackFactoryCasterTemplate_158290 {
@@ -164,7 +164,7 @@ class Obj {
 extern void* __cdecl find_00236ac0(void*, TrackFactoryCasterTemplate_158290*);
 class TrackFactoryCasterTemplate_1582c0 {
   public:
-    virtual void cast();
+    virtual bool cast_001549a0(void*);
 };
 class Track {
   public:
@@ -265,7 +265,7 @@ public:
 namespace fn_f4e72ed8 {
 class TrackFactoryCasterTemplate_1586a0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00154a60(void*);
 };
 class Receiver {
   public:
@@ -274,7 +274,7 @@ class Receiver {
 void* Find_00236ac0(void*, TrackFactoryCasterTemplate_1586a0*);
 class TrackFactoryCasterTemplate_1586d0 {
   public:
-    virtual void cast();
+    virtual bool cast_00154ac0(void*);
 };
 void* lookup_00236ac0(void*, TrackFactoryCasterTemplate_1586d0*);
 } // namespace fn_f4e72ed8
@@ -353,47 +353,47 @@ public:
 namespace fn_f4e72ed8 {
 class TrackFactoryCasterTemplate_158a10 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00154b80(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_158a10*);
 class TrackFactoryCasterTemplate_158a40 {
   public:
-    virtual void f();
+    virtual bool Fnf_00154c00(void*);
 };
 void* __cdecl find_00236ac0(const char*, TrackFactoryCasterTemplate_158a40*);
 class TrackFactoryCasterTemplate_158aa0 {
   public:
-    virtual void Dummy();
+    virtual bool Dummy_00154d00(void*);
 };
 Track* Find_00236ac0(const char*, TrackFactoryCasterTemplate_158aa0*);
 class TrackFactoryCasterTemplate_158ad0 {
   public:
-    virtual void cast();
+    virtual bool cast_00154da0(void*);
 };
 Track* __cdecl lookup_00236ac0(void*, TrackFactoryCasterTemplate_158ad0*);
 class TrackFactoryCasterTemplate_158b00 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00154e00(void*);
 };
 void* __cdecl Find_00236ac0(void*, TrackFactoryCasterTemplate_158b00*);
 class TrackFactoryCasterTemplate_158b30 {
   public:
-    virtual void cast();
+    virtual bool cast_00154e60(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_158b30*);
 class TrackFactoryCasterTemplate_158b60 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00154ee0(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_158b60*);
 class TrackFactoryCasterTemplate_158b90 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00154f40(void*);
 };
 void* Find_00236ac0(void*, TrackFactoryCasterTemplate_158b90*);
 class TrackFactoryCasterTemplate_158bc0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00154fc0(void*);
 };
 extern void* Find_00236ac0(void*, TrackFactoryCasterTemplate_158bc0*);
 class Factory {
@@ -874,7 +874,7 @@ extern "C" void __cdecl FUN_00158a40(Obj* obj, const char* name) {
 namespace fn_00158a70 {
 class TrackFactoryCasterTemplate_158a70 {
   public:
-    virtual void cast();
+    virtual bool cast_00154c80(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl find_00236ac0(void*, TrackFactoryCasterTemplate_158a70*);
 class Object {
@@ -955,7 +955,7 @@ extern "C" void FUN_00158bc0(Factory* f, void* name) {
 namespace fn_00158bf0 {
 class TrackFactoryCasterTemplate_158bf0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00155060(void*);
 };
 class Obj {
   public:

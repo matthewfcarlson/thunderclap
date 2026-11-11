@@ -626,12 +626,12 @@ class Obj {
 void* find_002343e0(const char*, ConditionFactoryCaster_11a9b0*);
 class ConditionFactoryCasterTemplate_11a9e0 {
   public:
-    virtual void cast();
+    virtual bool cast_001189b0(void*);
 };
 extern "C" void* FUN_002343e0(void*, ConditionFactoryCasterTemplate_11a9e0*);
 class ConditionFactoryCasterTemplate_11aa10 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00118a30(void*);
 };
 void* Find_002343e0(void*, ConditionFactoryCasterTemplate_11aa10*);
 } // namespace fn_ffc509e9

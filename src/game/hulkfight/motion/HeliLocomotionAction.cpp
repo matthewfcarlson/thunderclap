@@ -82,17 +82,17 @@ class Part_15ce20 {
 };
 class LocomotionSteerTrack {
   public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
+    virtual hulk_intptr f0_0015be20(int);
+    virtual bool f1_00234270(void*);
+    virtual bool f2_002342b0(int);
+    virtual bool f3_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool f4_00234350(int, int);
     virtual ~LocomotionSteerTrack();
     virtual void f6_0015beb0();
     virtual void f7_0015bec0();
-    virtual void f8();
-    virtual void f9();
-    virtual void f10();
+    virtual void* f8_00236ba0(void*, void*);
+    virtual int f9_00236bb0(hulk_intptr, hulk_intptr, hulk_intptr);
+    virtual hulk_intptr f10_00161590(hulk_intptr, hulk_intptr, hulk_intptr);
     char pad[0x50];
 };
 typedef unsigned char byte_15cec0;
@@ -278,8 +278,8 @@ class Action_15e730 {
 class LocomotionSteerAction_15e730 : public Action_15e730 {
   public:
     virtual void FnA_00018b40();
-    virtual void B();
-    virtual void C();
+    virtual void* FnB_001615c0(char);
+    virtual bool FnC_00164270(int, int);
     char pad[0x18];
     int m1;
     Ref_15e730* m2;
@@ -543,10 +543,10 @@ public:
 class ClimbLocomotionAction : public Action_15eb20 {
   public:
     virtual void FnA_00018b40();
-    virtual void _m_vf2();
+    virtual void* m_vf2_001616c0(char);
     virtual bool vfunc_3(int a, int b);
     virtual void m_vf4_0015c940();
-    virtual void _m_vf5();
+    virtual char m_vf5_0015f070(int, float);
     virtual unsigned long long id6();
     virtual void gather(int x, float *p40, float *p3c, float *p38, float *p34, float *p30, float *p2c,
                         float *p28, float *pa, int *p4c, int *p24, float *p20, float *p1c);
@@ -1091,7 +1091,7 @@ class LocomotionStrafeAction {
 struct LocomotionStrafe4Action : LocomotionStrafeAction {
     char pad2[0x44-0x24];
     unsigned int value;
-    virtual void v0();
+    virtual bool v0_0015d640(int, int);
     LocomotionStrafe4Action *FUN_0015e100(unsigned int initial, RefObject *replacement);
 };
 extern int g_vt_161420;
@@ -3163,7 +3163,7 @@ public:
     virtual void vfunc_2();
     virtual bool vfunc_3_0015ed10(int, int);
     virtual void vfunc_4_0015c940();
-    virtual bool vfunc_5(int, int);
+    virtual char vfunc_5_0015f070(int, float);
     char pad4[0x1c - 4];
 };
 }

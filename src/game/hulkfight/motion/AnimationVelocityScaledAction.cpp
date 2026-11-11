@@ -311,7 +311,7 @@ class CCondition_13a490 {
 };
 class Track_13a4a0 {
   public:
-    virtual void f();
+    virtual hulk_intptr Fnf_0013a490(int);
     Track_13a4a0();
     char pad[8];
 };
@@ -378,7 +378,7 @@ struct AnimationSource {
 class AnimationTrack_13a640 {
   public:
     AnimationTrack_13a640();
-    virtual void F();
+    virtual hulk_intptr FnF_0013a120(int);
 };
 class GrappleAnimationTrack : public AnimationTrack_13a640 {
   public:
@@ -1036,7 +1036,7 @@ class ParamBranch : public ParamValueBranch, public ParamValue {
 };
 class TrackFactoryCasterTemplate_13c1f0 {
   public:
-    virtual void cast();
+    virtual bool cast_0013bb40(void*);
 };
 void __cdecl use_00236ac0(void*, TrackFactoryCasterTemplate_13c1f0*);
 class ParamValueName_13c260 {
@@ -1053,17 +1053,17 @@ class ParamName : public ParamValueName_13c260 {
 };
 class TrackFactoryCasterTemplate_13c620 {
   public:
-    virtual void cast();
+    virtual int cast_0013ba80(void*);
 };
 extern "C" void* find(void*, TrackFactoryCasterTemplate_13c620*);
 class TrackFactoryCasterTemplate_13cb60 {
   public:
-    virtual void Cast();
+    virtual int Cast_0013bbc0(void*);
 };
 extern void* Find_00236ac0(const char*, TrackFactoryCasterTemplate_13cb60*);
 class TrackFactoryCasterTemplate_13cdd0 {
   public:
-    virtual void Cast();
+    virtual int Cast_0013bc40(void*);
 };
 class Track {};
 class Owner {
@@ -1076,7 +1076,7 @@ class Owner {
 Track* Find_00236ac0(const char*, TrackFactoryCasterTemplate_13cdd0*);
 class TrackFactoryCasterTemplate_13d040 {
   public:
-    virtual void cast();
+    virtual int cast_0013bcc0(void*);
 };
 extern "C" void* lookup(void*, TrackFactoryCasterTemplate_13d040*);
 class ConditionFactoryCaster_13d3c0 {
@@ -4174,7 +4174,7 @@ void ParamBranch::vfunc_6(void* p) {
 namespace fn_0013c290 {
 class TrackFactoryCasterTemplate_13c290 {
   public:
-    virtual void f();
+    virtual int Fnf_0013bc40(void*);
 };
 extern void fun_00236ac0(void*, TrackFactoryCasterTemplate_13c290*);
 void target(void* p) {
@@ -4357,7 +4357,7 @@ extern "C" void FUN_0013c620(Owner* owner, void* name) {
 namespace fn_0013c930 {
 class TrackFactoryCasterTemplate_13c930 {
   public:
-    virtual void cast();
+    virtual bool cast_0013bb40(void*);
 };
 class Obj {
   public:
@@ -4705,7 +4705,7 @@ bool AnimationAction::vfunc_3(int a, int b)
 namespace fn_0013d780 {
 class TrackFactoryCasterTemplate_13d780 {
   public:
-    virtual void Cast();
+    virtual bool Cast_0013bd60(void*);
 };
 class Target {
   public:

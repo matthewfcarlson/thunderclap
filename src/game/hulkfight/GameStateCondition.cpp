@@ -257,7 +257,7 @@ class CCondition_12ed60 {
 class Track_12ed70 {
   public:
     Track_12ed70();
-    virtual void fn();
+    virtual hulk_intptr fn_0012ed60(int);
     char pad[4];
 };
 class DebugPrintTrack : public Track_12ed70 {
@@ -301,7 +301,7 @@ class CCondition_12f0b0 {
 class Track_12f0c0 {
   public:
     Track_12f0c0();
-    virtual void f();
+    virtual hulk_intptr Fnf_0012f0b0(int);
     char pad[8];
 };
 class XPTrack : public Track_12f0c0 {
@@ -1457,7 +1457,7 @@ class DebugPrintAction_1321d0 : public Action_1321d0 {
 };
 class TrackFactoryCasterTemplate_1324d0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00130f40(void*);
 };
 extern void* __cdecl Find_00236ac0(const char*, TrackFactoryCasterTemplate_1324d0*);
 class Owner {
@@ -1466,22 +1466,22 @@ class Owner {
 };
 class TrackFactoryCasterTemplate_132530 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00131040(void*);
 };
 extern "C" void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_132530*);
 class TrackFactoryCasterTemplate_132560 {
   public:
-    virtual void f();
+    virtual bool Fnf_00131100(void*);
 };
 void* __cdecl find_00236ac0(const char*, TrackFactoryCasterTemplate_132560*);
 class TrackFactoryCasterTemplate_1325c0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00131200(void*);
 };
 extern "C++" __declspec(nothrow) void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_1325c0*);
 class TrackFactoryCasterTemplate_1325f0 {
   public:
-    virtual Track* Cast(void*);
+    virtual bool Cast_00131280(void*);
 };
 extern "C++" __declspec(nothrow) void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_1325f0*);
 extern int hulk_at_00411a20;
@@ -3601,11 +3601,11 @@ StatEndTrialTrack* StatEndTrialTrack::vfunc_5(int flag) {
 namespace fn_0012fea0 {
 class StatTrack {
   public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
+    virtual hulk_intptr v0_0012efc0(int);
+    virtual bool v1_00234270(void*);
+    virtual bool v2_002342b0(int);
+    virtual bool v3_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool v4_00234350(int, int);
     virtual ~StatTrack();
     virtual void v6_0012eff0();
     int pad04[3];
@@ -5354,7 +5354,7 @@ extern "C" void __cdecl FUN_00132560(Obj* obj, const char* name) {
 namespace fn_00132590 {
 class TrackFactoryCasterTemplate_132590 {
   public:
-    virtual void f();
+    virtual bool Fnf_00131180(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl Find_00236ac0(char*, TrackFactoryCasterTemplate_132590*);
 class Owner {

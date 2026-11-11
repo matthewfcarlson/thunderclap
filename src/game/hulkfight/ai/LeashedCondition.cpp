@@ -57,8 +57,8 @@ namespace fn_00114240 {
 class Condition_114240 {
   public:
     virtual void v0();
-    virtual void v1();
-    virtual void v2();
+    virtual bool v1_00234270(void*);
+    virtual bool v2_002342b0(int);
     char pad[8];
     Condition_114240(int) throw();
 };

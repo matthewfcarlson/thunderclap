@@ -74,7 +74,7 @@ namespace hulkfight {
 namespace motion {
 class PropThrowTrack {
 public:
-    virtual void vfunc_0();
+    virtual hulk_intptr vfunc_0_00180ef0(int);
     int f04;
     int f08;
     int f0c;

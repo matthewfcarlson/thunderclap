@@ -26,7 +26,7 @@ extern "C" void* __cdecl FUN_0008d690(unsigned int);
 } // namespace fn_f25bec20
 namespace hulkfight { namespace ai {
 struct TokenSupressTrack_114910 {
-    virtual void vfunc_0();
+    virtual hulk_intptr vfunc_0_0010d130(int);
     char pad4[4];
     int count;
     int valueC;

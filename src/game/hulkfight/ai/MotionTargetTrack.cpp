@@ -76,7 +76,7 @@ namespace fn_00115bc0 {
 // FUN_00115bc0 @ 0x00115bc0
 namespace hulkfight { namespace ai {
 struct MotionTargetTrackBase {
-    virtual void FUN_00236d40_virtual();
+    virtual hulk_intptr FUN_00236d40_virtual_00115bb0(int);
     char unused[8];
     MotionTargetTrackBase();
 };
@@ -88,7 +88,7 @@ struct MotionTargetTrack : MotionTargetTrackBase {
     int value1C;
     float value20;
     float value24;
-    virtual void FUN_00115bc0_virtual();
+    virtual bool FUN_00115bc0_virtual_00234270(void*);
     MotionTargetTrack();
 };
 MotionTargetTrack::MotionTargetTrack() : MotionTargetTrackBase() {

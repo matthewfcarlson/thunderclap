@@ -226,9 +226,9 @@ public:
     CProjectile();
     virtual void v0_00018b30();
     virtual void v1_00018b40();
-    virtual void v2();
+    virtual void* v2_0019e8e0(char);
     virtual void v3_00196630();
-    virtual void v4();
+    virtual void v4_0019e910(float);
     virtual void v5_00194ba0();
 };
 

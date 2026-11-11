@@ -85,7 +85,7 @@ public:
 extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 class TrackFactoryCasterTemplate_129f50 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00128360(void*);
 };
 class Object {
   public:
@@ -94,7 +94,7 @@ class Object {
 extern "C" void* Find(void*, TrackFactoryCasterTemplate_129f50*);
 class TrackFactoryCasterTemplate_129f80 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001283e0(void*);
 };
 class Track {
   public:
@@ -103,7 +103,7 @@ class Track {
 extern "C" void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_129f80*);
 class TrackFactoryCasterTemplate_129fb0 {
   public:
-    virtual void f();
+    virtual bool Fnf_00128480(void*);
 };
 class Target {
   public:

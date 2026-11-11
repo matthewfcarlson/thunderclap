@@ -491,12 +491,12 @@ struct NewObj_1224b0 {
 extern NewObj_1224b0* Allocate_0008d690(int);
 class TrackFactoryCasterTemplate_122ab0 {
   public:
-    virtual void fn();
+    virtual bool fn_00120780(void*);
 };
 void call_00236ac0(void*, TrackFactoryCasterTemplate_122ab0*);
 class ConditionFactoryCasterTemplate_122b70 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00120620(void*);
 };
 class Factory {
   public:
@@ -518,7 +518,7 @@ class Receiver {
 void* find_00236ac0(void*, TrackFactoryCaster_122ba0*);
 class TrackFactoryCasterTemplate_122c30 {
   public:
-    virtual void cast();
+    virtual bool cast_001208a0(void*);
 };
 class Obj {
   public:
@@ -528,12 +528,12 @@ class Obj {
 Track* find_00236ac0(void*, TrackFactoryCasterTemplate_122c30*);
 class TrackFactoryCasterTemplate_122c60 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00120900(void*);
 };
 extern "C" void* Lookup(void*, TrackFactoryCasterTemplate_122c60*);
 class TrackFactoryCasterTemplate_122cc0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001209e0(void*);
 };
 class Owner {
   public:
@@ -2662,7 +2662,7 @@ extern "C" void FUN_00122ba0(Receiver* r, void* obj) {
 namespace fn_00122bd0 {
 class TrackFactoryCasterTemplate_122bd0 {
   public:
-    virtual void Check();
+    virtual bool Check_00120780(void*);
 };
 class Obj {
   public:
@@ -2681,7 +2681,7 @@ extern "C" void FUN_00122bd0(Obj* obj, void* name) {
 namespace fn_00122c00 {
 class TrackFactoryCasterTemplate_122c00 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00120820(void*);
 };
 class Owner {
   public:
@@ -2720,7 +2720,7 @@ extern "C" void FUN_00122c60(Obj* obj, void* key) {
 namespace fn_00122c90 {
 class TrackFactoryCasterTemplate_122c90 {
   public:
-    virtual void Cast();
+    virtual int Cast_00120960(void*);
 };
 extern "C++" __declspec(nothrow) void* Lookup_00236ac0(void*, TrackFactoryCasterTemplate_122c90*);
 class Target {

@@ -25,7 +25,7 @@ class CCondition_10b430 {
 class Track_10b440 {
   public:
     Track_10b440();
-    virtual void f();
+    virtual hulk_intptr Fnf_0010b430(int);
 };
 class FaceTargetTrack : public Track_10b440 {
   public:
@@ -55,7 +55,7 @@ class CCondition_10b4c0 {
 class Track_10b4d0 {
   public:
     Track_10b4d0();
-    virtual void f();
+    virtual hulk_intptr Fnf_0010b4c0(int);
 };
 class FaceMotionTrack : public Track_10b4d0 {
   public:
@@ -282,8 +282,8 @@ struct RefCounted_10bd90 {
 class FaceTargetAction : public Action_10b980 {
   public:
     virtual void m_vf1_00018b40();
-    virtual void _m_vf2();
-    virtual void _m_vf3();
+    virtual void* m_vf2_0010bd90(int);
+    virtual bool m_vf3_00232630(hulk_intptr, hulk_intptr);
     virtual void _m_vf4();
     virtual bool vfunc_5(int a, int b);
     FaceTargetAction(int target, RefObj_10b980* obj);

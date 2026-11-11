@@ -20,7 +20,7 @@ class CCondition_170cd0 {
 class Track_170ce0 {
   public:
     Track_170ce0();
-    virtual void f();
+    virtual hulk_intptr Fnf_00170cd0(int);
 };
 class IntentionClearTrack : public Track_170ce0 {
   public:

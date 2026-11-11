@@ -243,13 +243,13 @@ class Sub_1ab730 {
 };
 class Event_CharacterTemplateVariationCondition {
   public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
+    virtual hulk_intptr vfunc_0_001ab000(int);
+    virtual bool vfunc_1_00234270(void*);
+    virtual bool vfunc_2_002342b0(int);
+    virtual bool vfunc_3_002344d0(hulk_intptr, int, hulk_intptr);
+    virtual bool vfunc_4_00234350(int, int);
     virtual void vfunc_5_001ab730(int);
-    virtual void vfunc_6();
+    virtual bool vfunc_6_001ab270(void*, void*, void*);
     char pad[0x14];
     Sub_1ab730 sub;
     Event_CharacterTemplateVariationCondition(int);
@@ -458,7 +458,7 @@ extern "C" char DAT_0041d5f4[];
 extern void __cdecl Init_002343e0(void*, void*);
 class ConditionFactoryCasterTemplate_1ac220 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001abbb0(void*);
 };
 class Owner {
   public:
@@ -468,7 +468,7 @@ class Owner {
 void* __cdecl FUN_002343e0(const char*, ConditionFactoryCasterTemplate_1ac220*);
 class ConditionFactoryCasterTemplate_1ac2b0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001abbf0(void*);
 };
 class Arg {
   public:
@@ -477,22 +477,22 @@ class Arg {
 extern void* Search_002343e0(void*, ConditionFactoryCasterTemplate_1ac2b0*);
 class ConditionFactoryCasterTemplate_1ac2e0 {
   public:
-    virtual void f();
+    virtual bool Fnf_001abc50(void*);
 };
 int __cdecl FUN_002343e0(int, ConditionFactoryCasterTemplate_1ac2e0*);
 class ConditionFactoryCasterTemplate_1ac310 {
   public:
-    virtual void cast();
+    virtual bool cast_001abcb0(void*);
 };
 extern "C" void* __cdecl find(void*, ConditionFactoryCasterTemplate_1ac310*);
 class ConditionFactoryCasterTemplate_1ac460 {
   public:
-    virtual void cast();
+    virtual bool cast_001abdb0(void*);
 };
 void* __cdecl lookup_002343e0(const char*, ConditionFactoryCasterTemplate_1ac460*);
 class ConditionFactoryCasterTemplate_1ac580 {
   public:
-    virtual void Cast();
+    virtual int Cast_001abe30(void*);
 };
 class Target {
   public:
@@ -1962,7 +1962,7 @@ extern "C" void FUN_001ac310(Obj* obj, void* arg) {
 namespace fn_001ac340 {
 class ConditionFactoryCasterTemplate_1ac340 {
   public:
-    virtual void cast();
+    virtual bool cast_001abd30(void*);
 };
 class Factory {
   public:

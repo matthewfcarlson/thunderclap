@@ -390,17 +390,17 @@ class IntentionClearTrack : public Track_1731f0 {
 namespace fn_ff4cbdc8 {
 class TeleportToLocatorTrack {
   public:
-    virtual void v0();
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
-    virtual void v4();
+    virtual hulk_intptr v0_00170d60(int);
+    virtual bool v1_00234270(void*);
+    virtual bool v2_002342b0(int);
+    virtual bool v3_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool v4_00234350(int, int);
     virtual ~TeleportToLocatorTrack();
     virtual void v6_00170da0();
     virtual void v7_00170db0();
-    virtual void v8();
-    virtual void v9();
-    virtual void v10();
+    virtual void* v8_00236ba0(void*, void*);
+    virtual int v9_00236bb0(hulk_intptr, hulk_intptr, hulk_intptr);
+    virtual hulk_intptr v10_0017b840(hulk_intptr, hulk_intptr, hulk_intptr);
     int pad04[3];
     int m10;
     void trackCall_00236d60();

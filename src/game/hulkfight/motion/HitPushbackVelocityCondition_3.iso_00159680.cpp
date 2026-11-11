@@ -12,8 +12,8 @@ void* operator new(size_t);
 class Base {
   public:
     virtual void a();
-    virtual void b();
-    virtual void c();
+    virtual bool Fnb_00234270(void*);
+    virtual bool Fnc_002342b0(int);
     int x;
     int y;
     Base(int) throw();

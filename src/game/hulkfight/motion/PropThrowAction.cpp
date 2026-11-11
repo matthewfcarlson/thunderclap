@@ -188,7 +188,7 @@ class Action_183aa0 {
 class PropAnimationAction_183aa0 : public Action_183aa0 {
   public:
     virtual void FnA_00018b40();
-    virtual void B();
+    virtual int FnB_00188960(char);
     char pad[0x18];
     int m1c;
     Obj_183aa0* m20;

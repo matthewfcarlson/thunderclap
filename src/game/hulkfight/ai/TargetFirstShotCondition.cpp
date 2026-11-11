@@ -58,8 +58,8 @@ class Condition_12acf0 {
   public:
     Condition_12acf0(int) throw();
     virtual void v0();
-    virtual void v1();
-    virtual void v2();
+    virtual bool v1_00234270(void*);
+    virtual bool v2_002342b0(int);
     char pad[8];
 };
 class TargetFirstShotCondition : public Condition_12acf0 {

@@ -2667,7 +2667,7 @@ struct Ref_19b500 { virtual void AddRef(); virtual void Release(); };
 struct FUN_00232660 { virtual void baseSlot(); char pad[24]; FUN_00232660(); };
 namespace hulkfight { namespace motion {
 struct BeamEffect {
- virtual void slot0();
+ virtual void* slot0_0019b830(char);
  int owner; int a8,aC,a10,a14,a18,a1C,a20,a24,a28; float a2C; int a30;
 };
 struct FireBeamAction : FUN_00232660 {

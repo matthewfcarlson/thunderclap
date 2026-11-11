@@ -35,11 +35,11 @@ struct Sub_18c5f0 {
 struct PropMassCondition_18c5f0 : Condition_18c5f0 {
     PropMassCondition_18c5f0() : Condition_18c5f0(0), a(0), b(0), s(), mass(1.0f) {}
     virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
-    virtual void f5();
+    virtual bool f1_00234270(void*);
+    virtual bool f2_002342b0(int);
+    virtual bool f3_002344d0(hulk_intptr, int, hulk_intptr);
+    virtual bool f4_00234350(int, int);
+    virtual void* f5_00182fd0(char);
     int a;
     int b;
     char gap[4];

@@ -49,7 +49,7 @@ struct Name_1811b0 {
 
 class __declspec(novtable) Track_1811b0 {
 public:
-    virtual void b0();
+    virtual hulk_intptr b0_001811a0(int);
     int pad04;
     int pad08;
     void FUN_00236d40();
@@ -59,9 +59,9 @@ public:
 namespace hulkfight { namespace motion {
 class BallAndChainShootTrack : public Track_1811b0 {
 public:
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
+    virtual bool v1_00234270(void*);
+    virtual bool v2_002342b0(int);
+    virtual bool v3_00236c50(hulk_intptr, int, hulk_intptr);
     int f0c;
     float f10;
     int f14, f18, f1c, f20, f24, f28;

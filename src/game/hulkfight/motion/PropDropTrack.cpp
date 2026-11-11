@@ -21,7 +21,7 @@ class CCondition_180d10 {
 class Track_180d20 {
   public:
     Track_180d20();
-    virtual void f();
+    virtual hulk_intptr Fnf_00180d10(int);
 };
 class PropDropTrack : public Track_180d20 {
   public:

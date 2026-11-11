@@ -274,7 +274,7 @@ public:
 };
 class Caster_17cbd0 {
   public:
-    virtual void Dummy();
+    virtual bool Dummy_00178f00(void*);
 };
 class Obj {
   public:
@@ -288,7 +288,7 @@ class Obj {
 void* __cdecl Find_00236ac0(const char*, Caster_17cbd0*);
 class Caster_17cc00 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00178f60(void*);
 };
 extern void* Find_00236ac0(const char*, Caster_17cc00*);
 class Track {
@@ -452,12 +452,12 @@ public:
 namespace fn_f05a6271 {
 class Caster_17d180 {
   public:
-    virtual void cast();
+    virtual bool cast_00179100(void*);
 };
 void* __cdecl find_00236ac0(const char*, Caster_17d180*);
 class Caster {
   public:
-    virtual void* Cast(void*);
+    virtual bool Cast_00179160(void*);
 };
 class Owner {
   public:
@@ -467,7 +467,7 @@ class Owner {
 Track* Find_00236ac0(const char*, Caster*);
 class Caster_17d1e0 {
   public:
-    virtual void f();
+    virtual bool Fnf_001791e0(void*);
 };
 int first_00236ac0(int, Caster_17d1e0*);
 } // namespace fn_f05a6271
@@ -547,22 +547,22 @@ extern ParamRegistry hulk_at_004e1328;
 extern int hulk_at_004e132c;
 class Caster_17d5b0 {
   public:
-    virtual void cast();
+    virtual bool cast_00179360(void*);
 };
 extern void* __cdecl Find_00236ac0(const char*, Caster_17d5b0*);
 class Caster_17d610 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00179460(void*);
 };
 extern int __cdecl Find_00236ac0(int, Caster_17d610*);
 class Caster_17d640 {
   public:
-    virtual void cast();
+    virtual bool cast_001794c0(void*);
 };
 void* find_00236ac0(const char*, Caster_17d640*);
 class Caster_17d670 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00179520(void*);
 };
 void* Find_00236ac0(void*, Caster_17d670*);
 class PushOutTrack {
@@ -594,7 +594,7 @@ public:
 };
 class Caster_17d8a0 {
   public:
-    virtual void f();
+    virtual bool Fnf_00179640(void*);
 };
 void* __cdecl resolve_00236ac0(void*, Caster_17d8a0*);
 } // namespace fn_f05a6271
@@ -684,7 +684,7 @@ public:
 namespace fn_f05a6271 {
 class Caster_17dc10 {
   public:
-    virtual void Cast();
+    virtual int Cast_00179720(void*);
 };
 class Target {
   public:
@@ -693,7 +693,7 @@ class Target {
 void* Find_00236ac0(void*, Caster_17dc10*);
 class Caster_17dc40 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001797a0(void*);
 };
 extern void* Find_00236ac0(void*, Caster_17dc40*);
 class FootPivotTrack {
@@ -1223,7 +1223,7 @@ namespace fn_0017c620 {
 namespace fight {
 class TrackFactoryCasterTemplate {
   public:
-    virtual void Cast();
+    virtual bool Cast_00178d00(void*);
 };
 } // namespace fight
 class Thing {
@@ -1328,7 +1328,7 @@ extern "C" void FUN_0017c650()
 namespace fn_0017ca00 {
 class Caster_17ca00 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00178de0(void*);
 };
 class Obj {
   public:
@@ -1348,7 +1348,7 @@ extern "C" void __cdecl FUN_0017ca00(Obj* obj, void* value) {
 namespace fn_0017ca30 {
 class Caster_17ca30 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00178e80(void*);
 };
 class Obj {
   public:
@@ -1485,7 +1485,7 @@ extern "C" void FUN_0017cc30()
 namespace fn_0017cea0 {
 class Caster {
   public:
-    virtual void Cast();
+    virtual bool Cast_00179020(void*);
 };
 class Obj {
   public:
@@ -1675,7 +1675,7 @@ extern "C" void FUN_0017d210()
 namespace fn_0017d580 {
 class Caster_17d580 {
   public:
-    virtual void Cast();
+    virtual bool Cast_001792a0(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl Find_00236ac0(void*, Caster_17d580*);
 class Obj {
@@ -1705,7 +1705,7 @@ extern "C" void FUN_0017d5b0(Obj* obj, const char* name) {
 namespace fn_0017d5e0 {
 class Caster {
   public:
-    virtual void f();
+    virtual bool Fnf_001793e0(void*);
 };
 class Holder {
   public:
@@ -1799,7 +1799,7 @@ extern "C" void FUN_0017d6a0()
 namespace fn_0017d870 {
 class Caster_17d870 {
   public:
-    virtual void f();
+    virtual bool Fnf_001795c0(void*);
 };
 class Track {
   public:
@@ -1920,7 +1920,7 @@ extern "C" void FUN_0017dc40(Target* target, void* name) {
 namespace fn_0017dc70 {
 class Caster_17dc70 {
   public:
-    virtual void foo();
+    virtual bool foo_00179800(void*);
 };
 class Track {
   public:
@@ -1939,7 +1939,7 @@ extern "C" void __cdecl FUN_0017dc70(Track* track, void* name) {
 namespace fn_0017dca0 {
 class Caster {
   public:
-    virtual void Cast();
+    virtual bool Cast_00179860(void*);
 };
 class Obj {
   public:
@@ -1958,7 +1958,7 @@ extern "C" void FUN_0017dca0(Obj* obj, const char* name) {
 namespace fn_0017dcd0 {
 class Caster {
   public:
-    virtual void cast();
+    virtual bool cast_001798e0(void*);
 };
 struct Owner {
     void add_002367c0(void*);
@@ -1976,7 +1976,7 @@ extern "C" void __cdecl FUN_0017dcd0(Owner* owner, hulk_intptr id) {
 namespace fn_0017dd00 {
 class Caster {
   public:
-    virtual void Cast();
+    virtual bool Cast_00179960(void*);
 };
 class Obj {
   public:
@@ -1995,7 +1995,7 @@ void __cdecl Target(Obj* obj, void* p) {
 namespace fn_0017dd30 {
 class Caster {
   public:
-    virtual void Cast();
+    virtual bool Cast_001799c0(void*);
 };
 extern "C++" __declspec(nothrow) void* Find_00236ac0(void*, Caster*);
 class Obj {
@@ -2014,7 +2014,7 @@ extern "C" void FUN_0017dd30(Obj* obj, void* name) {
 namespace fn_0017dd60 {
 class Caster {
   public:
-    virtual void Fn();
+    virtual bool Fn_00179a60(void*);
 };
 class Obj {
   public:
@@ -2033,7 +2033,7 @@ void Target(Obj* obj, void* key) {
 namespace fn_0017dd90 {
 class Caster {
   public:
-    virtual void f();
+    virtual bool Fnf_00179ae0(void*);
 };
 class Obj {
   public:
@@ -2053,7 +2053,7 @@ extern "C" void FUN_0017dd90(Obj* obj, void* name) {
 namespace fn_0017ddc0 {
 class Caster {
   public:
-    virtual void cast();
+    virtual bool cast_00179b60(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl lookup_00236ac0(void*, Caster*);
 class Obj {

@@ -18,7 +18,7 @@ class CCondition_10d230 {
 class Track_10d240 {
   public:
     Track_10d240();
-    virtual void f();
+    virtual hulk_intptr Fnf_0010d230(int);
     char pad[4];
 };
 class Sub {
@@ -35,7 +35,7 @@ class HulkActionTrack : public Track_10d240 {
     char p2[4];
     char sub[8];
     int c;
-    virtual void g();
+    virtual bool Fng_00234270(void*);
 };
 struct Param_10d290 {
   public:

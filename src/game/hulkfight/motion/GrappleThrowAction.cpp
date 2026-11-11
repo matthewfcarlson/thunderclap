@@ -242,7 +242,7 @@ class CCondition_147790 {
 class Track_1477a0 {
   public:
     Track_1477a0();
-    virtual void f();
+    virtual hulk_intptr Fnf_00147790(int);
     char pad[8];
 };
 struct Param_1477f0 {
@@ -593,16 +593,16 @@ class GrappleHitReactionTrack_1482f0 : public Track_1482f0 {
 typedef unsigned char u8_148320;
 class GrappleExecuteTrack : public Track_1477a0 {
   public:
-    virtual void _m_vf1();
-    virtual void _m_vf2();
-    virtual void _m_vf3();
-    virtual void _m_vf4();
+    virtual bool m_vf1_00234270(void*);
+    virtual bool m_vf2_002342b0(int);
+    virtual bool m_vf3_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool m_vf4_00234350(int, int);
     virtual GrappleExecuteTrack* vfunc_5(u8_148320);
     virtual void m_vf6_001477e0();
     virtual void m_vf7_001477f0();
-    virtual void _m_vf8();
-    virtual void _m_vf9();
-    virtual void _m_vf10();
+    virtual int m_vf8_00147b10(int, int);
+    virtual int m_vf9_00236bb0(hulk_intptr, hulk_intptr, hulk_intptr);
+    virtual int m_vf10_00147b20(int, int, int);
     GrappleExecuteTrack();
     int a;
     float b;
@@ -843,8 +843,8 @@ class Sub_148a60 {
 class GrappleThrowAction : public Action_148a60 {
   public:
     virtual void m_vf1_00018b40();
-    virtual void _m_vf2();
-    virtual void _m_vf3();
+    virtual void* m_vf2_0014adb0(char);
+    virtual char m_vf3_00148b00(int, int);
     virtual void m_vf4_00147da0();
     virtual int vfunc_5(int, int);
     GrappleThrowAction(int a, Ref_148a60* p);
@@ -1536,7 +1536,7 @@ class CivilianAnimationAction_14b030 {
 };
 class ConditionFactoryCasterTemplate_14b3f0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00149c30(void*);
 };
 class Target {
   public:
@@ -1545,7 +1545,7 @@ class Target {
 void* FUN_002343e0(void*, ConditionFactoryCasterTemplate_14b3f0*);
 class TrackFactoryCasterTemplate_14b4b0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00149db0(void*);
 };
 class Owner {
   public:
@@ -1556,12 +1556,12 @@ class Owner {
 extern "C" void* __cdecl FUN_00236ac0(const char*, TrackFactoryCasterTemplate_14b4b0*);
 class TrackFactoryCasterTemplate_14b4e0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00149e30(void*);
 };
 void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_14b4e0*);
 class TrackFactoryCasterTemplate_14b510 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00149eb0(void*);
 };
 extern "C++" __declspec(nothrow) void* FUN_00236ac0(const char*, TrackFactoryCasterTemplate_14b510*);
 class Factory {
@@ -1571,12 +1571,12 @@ class Factory {
 };
 class TrackFactoryCasterTemplate_14b540 {
   public:
-    virtual void f();
+    virtual bool Fnf_00149f10(void*);
 };
 extern "C" void* __cdecl findTrack_00236ac0(const char*, TrackFactoryCasterTemplate_14b540*);
 class TrackFactoryCasterTemplate_14b570 {
   public:
-    virtual void dummy();
+    virtual int dummy_00149f90(void*);
 };
 class Obj {
   public:
@@ -1587,17 +1587,17 @@ class Obj {
 void* __cdecl find_00236ac0(void*, TrackFactoryCasterTemplate_14b570*);
 class TrackFactoryCasterTemplate_14b5a0 {
   public:
-    virtual void Cast();
+    virtual bool Cast_00149ff0(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_14b5a0*);
 class TrackFactoryCasterTemplate_14b960 {
   public:
-    virtual void Cast();
+    virtual bool Cast_0014a0b0(void*);
 };
 Track* FUN_00236ac0(void*, TrackFactoryCasterTemplate_14b960*);
 class TrackFactoryCasterTemplate_14b990 {
   public:
-    virtual void cast();
+    virtual bool cast_0014a170(void*);
 };
 extern "C++" __declspec(nothrow) void* __cdecl FUN_00236ac0(void*, TrackFactoryCasterTemplate_14b990*);
 } // namespace fn_f1739f6f
@@ -1705,8 +1705,8 @@ class BaseCondition {
   public:
     BaseCondition(int) throw();
     virtual void v0();
-    virtual void v1();
-    virtual void v2();
+    virtual bool v1_00234270(void*);
+    virtual bool v2_002342b0(int);
     char pad[8];
 };
 class GrappleOrientationCondition_14be40 : public BaseCondition {
@@ -2565,7 +2565,7 @@ class Mid : public Base {
 class CivilianDetachTrack : public Mid {
   public:
     CivilianDetachTrack();
-    virtual void g();
+    virtual bool Fng_00234270(void*);
     int a, b, c, d, e, f0;
 };
 CivilianDetachTrack::CivilianDetachTrack() : Mid() {

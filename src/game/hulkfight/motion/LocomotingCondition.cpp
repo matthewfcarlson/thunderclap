@@ -55,7 +55,7 @@ class CCondition_15b8d0 {
 class Track_15b8e0 {
   public:
     Track_15b8e0();
-    virtual void f();
+    virtual hulk_intptr Fnf_0015b8d0(int);
 };
 class LocomotingTrack : public Track_15b8e0 {
   public:
@@ -659,7 +659,7 @@ struct Name_15b970 {
 
 class __declspec(novtable) Track_15b970 {
 public:
-    virtual void b0();
+    virtual hulk_intptr b0_0015b960(int);
     int pad04;
     int pad08;
     void FUN_00236d40();
@@ -669,9 +669,9 @@ public:
 namespace hulkfight { namespace motion {
 class ClimbLocomotion4Track : public Track_15b970 {
 public:
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
+    virtual bool v1_00234270(void*);
+    virtual bool v2_002342b0(int);
+    virtual bool v3_00236c50(hulk_intptr, int, hulk_intptr);
     int f0c;
     float f10;
     float f14;
@@ -755,7 +755,7 @@ struct Name_15baf0 {
 
 class __declspec(novtable) Track_15baf0 {
 public:
-    virtual void b0();
+    virtual hulk_intptr b0_0015bae0(int);
     int pad04;
     int pad08;
     void FUN_00236d40();
@@ -765,9 +765,9 @@ public:
 namespace hulkfight { namespace motion {
 class LocomotionStrafe4Track : public Track_15baf0 {
 public:
-    virtual void v1();
-    virtual void v2();
-    virtual void v3();
+    virtual bool v1_00234270(void*);
+    virtual bool v2_002342b0(int);
+    virtual bool v3_00236c50(hulk_intptr, int, hulk_intptr);
     int f0c;
     float f10;
     float f14;
@@ -954,7 +954,7 @@ namespace hulkfight {
 namespace motion {
 class LocomotionSteerTrack {
 public:
-    virtual void vfunc_0();
+    virtual hulk_intptr vfunc_0_0015be20(int);
     int f04;
     int f08;
     int f0c;
@@ -1066,7 +1066,7 @@ namespace hulkfight {
 namespace motion {
 class LocomotionSprintTrack {
 public:
-    virtual void vfunc_0();
+    virtual hulk_intptr vfunc_0_0015bf30(int);
     int f04;
     int f08;
     int f0c;

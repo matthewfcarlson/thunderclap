@@ -22,7 +22,7 @@ class StrafeCircleAction_11d860 : public Action_11d860 {
   public:
     char pad[0x18];
     int a, b, c;
-    virtual void C();
+    virtual void* FnC_001221b0(char);
     StrafeCircleAction_11d860(int x, Action_11d860* p);
 };
 extern void* hulk_at_0040f5dc[];

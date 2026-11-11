@@ -36,7 +36,7 @@ class LuaCondition_1a1330 {
     int a, b;
     virtual ~LuaCondition_1a1330();
     int d;
-    virtual void hulk_slot_F(); void FnF_002345b0();
+    virtual bool hulk_slot_F_00234270(void*); void FnF_002345b0();
 };
 } // namespace fn_fd836fc7
 #if !defined(HULK_COMPAT_CRT)   // (native builds: include/compat/crt.h)
@@ -59,7 +59,7 @@ class CCondition_1a13e0 {
 class Track_1a13f0 {
   public:
     Track_1a13f0();
-    virtual void f();
+    virtual hulk_intptr Fnf_001a13e0(int);
 };
 class StrHolder_1a1460 {
 public:
@@ -93,16 +93,16 @@ class LuaCondition_1a1800 {
 typedef unsigned char u8_1a1840;
 class LuaTrack : public Track_1a13f0 {
   public:
-    virtual void _m_vf1();
-    virtual void _m_vf2();
-    virtual void _m_vf3();
-    virtual void _m_vf4();
+    virtual bool m_vf1_00234270(void*);
+    virtual bool m_vf2_002342b0(int);
+    virtual bool m_vf3_00236c50(hulk_intptr, int, hulk_intptr);
+    virtual bool m_vf4_00234350(int, int);
     virtual LuaTrack* vfunc_5(u8_1a1840 param);
     virtual void m_vf6_001a1420();
     virtual void m_vf7_001a1430();
-    virtual void _m_vf8();
-    virtual void _m_vf9();
-    virtual void _m_vf10();
+    virtual void* m_vf8_00236ba0(void*, void*);
+    virtual int m_vf9_00236bb0(hulk_intptr, hulk_intptr, hulk_intptr);
+    virtual hulk_intptr m_vf10_001a1c40(hulk_intptr, hulk_intptr, hulk_intptr);
     LuaTrack();
     char _m_pad_4[0x8];
     int a;
@@ -256,7 +256,7 @@ class LuaAction_1a1c70 : public Action_1a1c70 {
 };
 class ConditionFactoryCasterTemplate_1a1cf0 {
   public:
-    virtual void cast();
+    virtual bool cast_001a1a30(void*);
 };
 class Obj {
   public:
@@ -265,7 +265,7 @@ class Obj {
 extern "C" void* __cdecl lookup(const char*, ConditionFactoryCasterTemplate_1a1cf0*);
 class TrackFactoryCasterTemplate_1a1d20 {
   public:
-    virtual void cast();
+    virtual bool cast_001a1a90(void*);
 };
 class Track {
   public:

@@ -27,11 +27,11 @@ void* __cdecl operator new(size_t) HULK_NEW_THROW;
 namespace fn_fe77683c {
 class Condition_16e270 {
   public:
-    virtual void f0();
-    virtual void f1();
-    virtual void f2();
-    virtual void f3();
-    virtual void f4();
+    virtual hulk_intptr f0_00166640(int);
+    virtual bool f1_00234270(void*);
+    virtual bool f2_002342b0(int);
+    virtual bool f3_002344d0(hulk_intptr, int, hulk_intptr);
+    virtual bool f4_00234350(int, int);
     virtual void f5();
     Condition_16e270(int) throw();
     char pad[8];
