@@ -2027,3 +2027,13 @@ Native on 71456's snapshot and map: **29,010 / 28,995 / 29,002** unbound (Androi
 snapshot.cpp). macOS: no missing name on the path any more; the d3dContext's construction completes and
 pddiBaseContext::vfunc_99 (0x0031cb60, wrapped) -> vfunc_102 dereferences null: the context's layout (0x00324e00's and
 0x0031f410's local views vs include/gen/pure3d.h's pddiBaseContext / d3dContext, see above) is the next stop.
+
+**Batch 5**: the pddiStack views of 0x0031f190 (vfunc_101: `StackA`..`StackE`) and 0x0031f290 (`StateStack_31f290`)
+start with the vftable pointer and the capacity (were `char pad[8]` / `int field_00`): on 64-bit they read the
+capacity as the depth and the items 4 bytes off. 32-bit objects unchanged (matches MATCH + relocs ok, equivalents
+`same`). Proof 71460 vs control 71429 (studio): image 2e8232cd, GATE ok (0 of 2,026). Native: 29,010 / 28,995 / 29,002.
+macOS still stops in pddiBaseContext::vfunc_102 (0x0031d2b0), now on a 32-bit-looking address read through a state's
+vftable: the states are built by 0x0031ed40 / 0x0031ee00 / 0x0031efd0 / 0x0031f0a0 with local classes' own vftables
+(stubs in the 64-bit link) and indexed with 32-bit strides (`index * 0x34` etc. in 0x0031f190). Next: those four
+constructors store the game's vftables by address (as 0x0031eef0 does), the strides become `sizeof` of shared state
+records.

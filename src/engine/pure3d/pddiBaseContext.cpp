@@ -706,11 +706,12 @@ struct StateBase {
 };
 typedef unsigned int u32_31ed10;
 void* __cdecl FUN_0008d690(unsigned int);
-struct StackA { char pad[8]; unsigned int index; char* data; StackA* FUN_0031ed40(int); };
-struct StackB { char pad[8]; unsigned int index; char* data; StackB* FUN_0031ee00(int); };
-struct StackC { char pad[8]; unsigned int index; char* data; StackC* FUN_0031eef0(int); };
-struct StackD { char pad[8]; unsigned int index; char* data; StackD* FUN_0031efd0(int); };
-struct StackE { char pad[8]; unsigned int index; char* data; StackE* FUN_0031f0a0(int); };
+// the pddiStack<T> objects (0x0031ed40...0x0031f0a0 construct them): vftable, capacity, depth, items
+struct StackA { void* vftable; int capacity; unsigned int index; char* data; StackA* FUN_0031ed40(int); };
+struct StackB { void* vftable; int capacity; unsigned int index; char* data; StackB* FUN_0031ee00(int); };
+struct StackC { void* vftable; int capacity; unsigned int index; char* data; StackC* FUN_0031eef0(int); };
+struct StackD { void* vftable; int capacity; unsigned int index; char* data; StackD* FUN_0031efd0(int); };
+struct StackE { void* vftable; int capacity; unsigned int index; char* data; StackE* FUN_0031f0a0(int); };
 } // namespace fn_fc049dac
 namespace pure3d {
 struct StateA_31f290 {
@@ -763,8 +764,8 @@ struct StateE {
 namespace pure3d {
 template <class T>
 struct StateStack_31f290 {
-    int field_00;
-    int field_04;
+    void* field_00;  // the vftable (a pddiStack<T>: 0x0031ed40...)
+    int field_04;    // the capacity
     int top;
     T* items;
 };
