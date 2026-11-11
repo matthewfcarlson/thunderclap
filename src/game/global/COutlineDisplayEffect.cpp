@@ -1,0 +1,102 @@
+// Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// object 0x000def60..0x000df0b0 (kind game, layer game, confidence medium), dominant class COutlineDisplayEffect
+#include "tree_prelude.h"
+#include "decls/data/engine/pure3d/prop.h"
+#define TREE_TU_BEGIN namespace fn_fa4fa35c {
+#define TREE_TU_END }
+#define TREE_LOCAL_CCollisionTrack
+#define TREE_LOCAL_CSPHulkProp
+#define TREE_LOCAL_pure3d
+namespace fn_fa4fa35c {} using namespace fn_fa4fa35c;
+#include "game/global.h"
+
+// ---- declarations shared by the functions below
+namespace fn_fa4fa35c {
+struct Target_def60 {
+    virtual void vfunc_0();
+    virtual void vfunc_1(int v);
+    virtual void vfunc_2(int *out);
+    virtual float vfunc_3();
+};
+struct Union0;
+union Slot_def60 {
+    Target_def60 *obj;
+    int value;
+};
+struct Pen_def60 {
+    virtual void s0();
+    virtual void s1();
+    virtual void s2();
+    virtual void s3();
+    virtual void s4();
+    virtual void s5();
+    virtual void s6();
+    virtual void s7();
+    virtual void s8();
+    virtual void s9();
+    virtual void s10();
+    virtual void s11();
+    virtual void s12();
+    virtual void s13();
+    virtual void s14();
+    virtual void vfunc_15(int a);
+    virtual void vfunc_16(int a);
+};
+struct Renderer_def60 {
+    Pen_def60 *pen;
+    void FUN_00293d40(float x, float y, float z);
+};
+class COutlineDisplayEffect {
+public:
+    virtual void vfunc_0(Slot_def60 arg);
+    int mode;
+    char pad8[4];
+    float scale;
+    int colour;
+};
+
+
+// 0x000def60 COutlineDisplayEffect::vfunc_0 (326 B): equivalent/0x000def60.cpp
+// sym: ?vfunc_0@COutlineDisplayEffect@fn_fa4fa35c@@UAEXTSlot_def60@2@@Z
+// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
+// COutlineDisplayEffect::vfunc_0 @ 0x000def60
+void COutlineDisplayEffect::vfunc_0(Slot_def60 arg)
+{
+    Target_def60 *t = arg.obj;
+    float f;
+    float pts[8][2];
+    int i;
+
+    if (mode == 0)
+        f = t->vfunc_3() * scale;
+    else if (mode == 1)
+        f = scale;
+    else
+        f = 0.0f;
+
+    t->vfunc_2(&arg.value);
+    t->vfunc_1(colour);
+    (*(Renderer_def60**)&DAT_0052c2ac)->pen->vfunc_15(0);
+    (*(Renderer_def60**)&DAT_0052c2ac)->FUN_00293d40(0.0f, 0.0f, 0.01f);
+
+    float g = f * 0.70710677f;
+    pts[0][0] = f;  pts[0][1] = 0.0f;
+    pts[1][0] = g;  pts[1][1] = g;
+    pts[2][0] = 0.0f; pts[2][1] = f;
+    pts[3][0] = -g; pts[3][1] = g;
+    pts[4][0] = -f; pts[4][1] = 0.0f;
+    pts[5][0] = -g; pts[5][1] = -g;
+    pts[6][0] = 0.0f; pts[6][1] = -f;
+    pts[7][0] = g;  pts[7][1] = -g;
+
+    for (i = 0; i < 8; i++) {
+        (*(Renderer_def60**)&DAT_0052c2ac)->pen->vfunc_15(0);
+        (*(Renderer_def60**)&DAT_0052c2ac)->FUN_00293d40(pts[i][0], pts[i][1], 0.0f);
+        t->vfunc_0();
+        (*(Renderer_def60**)&DAT_0052c2ac)->pen->vfunc_16(0);
+    }
+    (*(Renderer_def60**)&DAT_0052c2ac)->pen->vfunc_16(0);
+    t->vfunc_1(arg.value);
+}
+
+} // namespace fn_fa4fa35c

@@ -1,0 +1,65 @@
+// Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// object 0x00114620..0x001146d0 (kind game, layer game, confidence high), dominant class hulkfight::ai::RandomKeyWordWaitCondition
+#include "tree_prelude.h"
+#include "gen/fight.h"
+#include "gen/owners.h"
+#define TREE_TU_BEGIN namespace fn_f5d71f01 {
+#define TREE_TU_END }
+namespace fn_f5d71f01 {} using namespace fn_f5d71f01;
+#include "game/hulkfight/ai.h"
+
+// ---- declarations shared by the functions below
+inline void* __cdecl operator new(size_t, void* where) {
+    return where;
+}
+namespace fn_f5d71f01 {
+class TrackFactoryTemplate_114620 {
+  public:
+    TrackFactoryTemplate_114620() {}
+    virtual void vf0();
+    virtual void vf1();
+    int mPad;
+    TrackImpl mTrack;
+};
+extern "C" void FUN_001124c0();
+extern int g_vftable_1146a0;
+struct ConditionFactoryTemplate_1146a0 {
+    void* m_vptr;
+    void base1_dtor();
+    void base2_dtor();
+    void* scalar_dtor(unsigned char flags);
+};
+
+} // namespace fn_f5d71f01
+
+// 0x00114620 fight::ConditionFactoryCasterTemplate<hulkfight::ai::RandomKeyWordWaitCondition>::vfunc_1 (60 B): matches/0x00114620.cpp
+// sym: ?vfunc_1@?$ConditionFactoryCasterTemplate@VRandomKeyWordWaitCondition@ai@hulkfight@@@fight@@UAEPAXPAX@Z
+// Same code shape as 0x00122f30 (propagated; names are from that function)
+template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::ai::RandomKeyWordWaitCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
+
+    void* mem = operator new(sizeof(TrackFactoryTemplate_114620));
+    if (mem) {
+        ((InitHelper*)mem)->init();
+        TrackFactoryTemplate_114620* t = new (mem) TrackFactoryTemplate_114620();
+        ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
+        FUN_001124c0();
+        return (void*)(t);
+    }
+    return (void*)(0);
+}
+
+namespace fn_f5d71f01 {
+
+// 0x001146a0 fight::ConditionFactoryTemplate<hulkfight::ai::RandomKeyWordWaitCondition>::vfunc_2 (43 B): matches/0x001146a0.cpp
+// sym: ?scalar_dtor@ConditionFactoryTemplate_1146a0@fn_f5d71f01@@QAEPAXE@Z
+// Same code shape as 0x0006fb50 (propagated; names are from that function)
+void* ConditionFactoryTemplate_1146a0::scalar_dtor(unsigned char flags) {
+    m_vptr = (void*)&g_vftable_1146a0;
+    base1_dtor();
+    base2_dtor();
+    if (flags & 1)
+        thunk_delete(this);
+    return this;
+}
+
+} // namespace fn_f5d71f01

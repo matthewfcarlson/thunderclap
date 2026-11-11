@@ -1,0 +1,163 @@
+// cl-flags: /GS
+// Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// object 0x000de140..0x000ded90 (kind game, layer game, confidence medium), dominant class ControllerPollerBase
+#include "tree_prelude.h"
+#include "decls/data/game/global.h"
+#define TREE_TU_BEGIN namespace fn_f6230dba {
+#define TREE_TU_END }
+#define TREE_LOCAL_CCollisionTrack
+#define TREE_LOCAL_CSPHulkProp
+#define TREE_LOCAL_pure3d
+namespace fn_f6230dba {} using namespace fn_f6230dba;
+#include "game/global.h"
+
+// ---- declarations shared by the functions below
+namespace fn_f6230dba {
+struct KeyBinding {
+    int key;
+    int value;
+};
+struct Sector {
+    float lo;
+    float hi;
+    int key;
+};
+float __cdecl FUN_000de800(float x, float y);
+class Sink_de9a0 {
+public:
+    virtual void vfunc_0(int key, int pad);
+    virtual void vfunc_1(int key, int pad);
+    virtual void vfunc_2(int key, int pad);
+};
+class Pad_de9a0 {
+public:
+    virtual void vfunc_0();
+    virtual void vfunc_1();
+    virtual void vfunc_2();
+    virtual void vfunc_3();
+    virtual float vfunc_4(int key);
+    virtual float vfunc_5(int key);
+    virtual int vfunc_6();
+    virtual float vfunc_7(int axis);
+    virtual void vfunc_8();
+    virtual int vfunc_9();
+    virtual float vfunc_10(int axis);
+};
+struct Frame_de9a0 {
+    float ang;
+    int p;
+    Pad_de9a0* pad;
+    float x;
+    float y;
+    Pad_de9a0** padSlot;
+    int axis;
+    int spill;
+    unsigned char flags[8];
+};
+class InputMapper {
+public:
+    char pad00[8];
+    Sink_de9a0* sink;
+    char pad0c[4];
+    Pad_de9a0* pads[1];
+    unsigned char prev[3][8];
+    float f2c;
+    int lastKey;
+    float f34;
+
+    void FUN_000de1f0(int v);
+    void FUN_000de9a0(char skip);
+};
+
+
+// 0x000de9a0 FUN_000de9a0 (958 B): equivalent/0x000de9a0.cpp
+// sym: ?FUN_000de9a0@InputMapper@fn_f6230dba@@QAEXD@Z
+// STATUS: equivalent (tools/equiv.py level 3: 3191 inputs, branch coverage 75/76, incomplete)
+// FUN_000de9a0 @ 0x000de9a0
+void InputMapper::FUN_000de9a0(char skip)
+{
+    Frame_de9a0 f;
+    unsigned char (*prevRow)[8] = prev;
+    f.padSlot = &pads[0];
+    for (f.p = 0; f.p < 1; f.p++) {
+        f.pad = *f.padSlot;
+        f.pad->vfunc_2();
+        if (skip)
+            break;
+
+        bool found = false;
+        for (int i = 0; i < (*(int*)&DAT_004de8c0); i++) {
+            if (f.pad->vfunc_5(((KeyBinding*)&DAT_004de800)[i].key) <= DAT_004a0e68 &&
+                f.pad->vfunc_4(((KeyBinding*)&DAT_004de800)[i].key) > DAT_004a0e68) {
+                found = true;
+                FUN_000de1f0(0);
+                if (sink)
+                    sink->vfunc_0(((KeyBinding*)&DAT_004de800)[i].value, f.p);
+                if (sink)
+                    sink->vfunc_2(((KeyBinding*)&DAT_004de800)[i].value, f.p);
+                f2c = 0;
+            }
+            if (f.pad->vfunc_5(((KeyBinding*)&DAT_004de800)[i].key) > DAT_004a0e68 &&
+                f.pad->vfunc_4(((KeyBinding*)&DAT_004de800)[i].key) <= DAT_004a0e68) {
+                if (sink)
+                    sink->vfunc_1(((KeyBinding*)&DAT_004de800)[i].value, f.p);
+            }
+        }
+        if (!found)
+            FUN_000de1f0(1);
+
+        for (f.axis = 0; f.axis < 3; f.axis++) {
+            Pad_de9a0* pad = f.pad;
+            f.x = 0;
+            f.y = 0;
+            int axis = f.axis;
+            if (axis < pad->vfunc_9())
+                f.y = pad->vfunc_10(axis);
+            if (axis < pad->vfunc_6())
+                f.x = pad->vfunc_7(axis);
+            *(unsigned int*)&f.flags[0] = 0;
+            *(unsigned int*)&f.flags[4] = 0;
+            f.ang = -DAT_004a0e68;
+            if (f.x > DAT_004a0e68 || f.x < f.ang || f.y > DAT_004a0e68 || f.y < f.ang) {
+                FUN_000de1f0(1);
+                f.ang = 6.28318548f - FUN_000de800(f.x, f.y) * 0.0174532924f;
+                while (f.ang < 0.0f)
+                    f.ang = f.ang + 6.28318548f;
+                while (f.ang > 6.28318548f)
+                    f.ang = f.ang - 6.28318548f;
+                for (int s = 0; s < 9; s++) {
+                    if (f.ang >= ((Sector*)&DAT_004de8d0)[s].lo && f.ang < ((Sector*)&DAT_004de8d0)[s].hi) {
+                        int key = ((Sector*)&DAT_004de8d0)[s].key;
+                        if (!prevRow[f.axis][key]) {
+                            if (sink)
+                                sink->vfunc_0(key, f.p);
+                            if (sink)
+                                sink->vfunc_2(((Sector*)&DAT_004de8d0)[s].key, f.p);
+                            lastKey = ((Sector*)&DAT_004de8d0)[s].key;
+                            f34 = 0;
+                            f2c = 0;
+                        }
+                        f.flags[((Sector*)&DAT_004de8d0)[s].key] = 1;
+                    }
+                }
+            }
+            if (lastKey != 14 && f.flags[lastKey] && f34 > DAT_004a0e60 && f2c > DAT_004a0e64) {
+                if (sink)
+                    sink->vfunc_2(lastKey, f.p);
+                f2c = 0;
+            }
+            for (int k = 0; k < 8; k++) {
+                if (!f.flags[k] && prevRow[f.axis][k]) {
+                    if (sink)
+                        sink->vfunc_1(k, f.p);
+                    lastKey = 14;
+                }
+            }
+            *(unsigned int*)&prevRow[f.axis][0] = *(unsigned int*)&f.flags[0];
+            *(unsigned int*)&prevRow[f.axis][4] = *(unsigned int*)&f.flags[4];
+        }
+        f.padSlot++;
+    }
+}
+
+} // namespace fn_f6230dba

@@ -1,0 +1,103 @@
+// Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// object 0x0014e300..0x0014e3b0 (kind game, layer game, confidence high), dominant class hulkfight::motion::GroundSlideTrack
+#include "tree_prelude.h"
+#include "compat/ptr.h"
+#include "decls/data/game/hulkfight.h"
+#include "decls/data/game/hulkfight/motion.h"
+#include "gen/hulkfight.h"
+#define TREE_TU_BEGIN namespace fn_f126326a {
+#define TREE_TU_END }
+namespace fn_f126326a {} using namespace fn_f126326a;
+#include "game/hulkfight/motion.h"
+
+// ---- declarations shared by the functions below
+namespace fn_f126326a {
+extern int* gTable_14e320;
+class CCondition_14e320 {
+  public:
+    virtual int vfunc_0(int);
+};
+class Track_14e330 {
+  public:
+    Track_14e330();
+    virtual void func();
+};
+class GroundSlideTrack : public Track_14e330 {
+  public:
+    GroundSlideTrack();
+    virtual void func();
+    char pad4[8];
+    int a;
+    float b;
+    int c;
+    float d;
+    float e;
+    int f;
+    float g;
+    float h;
+    int i;
+    int j;
+    int k;
+};
+struct Param_14e390 {
+  public:
+    virtual void vfunc1();
+    virtual void vfunc2();
+    virtual void vfunc4();
+};
+struct Track_14e390 {
+  public:
+    virtual void tfunc3();
+    virtual void tfunc8();
+    virtual void tfunc9();
+};
+
+
+// 0x0014e300 FUN_0014e300 (19 B): matches/0x0014e300.cpp
+// sym: ?FUN_0014e300@fn_f126326a@@YAXXZ
+// Same code shape as 0x000482e0 (propagated; names are from that function)
+void FUN_0014e300() {
+    FUN_00234810(((char*)&DAT_004e1138), ((char*)&DAT_004e113c));
+}
+
+} // namespace fn_f126326a
+
+// 0x0014e320 hulkfight::motion::GroundSlideTrack::vfunc_0 (16 B): matches/0x0014e320.cpp
+// sym: ?vfunc_0@GroundSlideTrack@motion@hulkfight@@UAEHH@Z
+// Same code shape as 0x00048300 (propagated; names are from that function)
+hulk_intptr hulkfight::motion::GroundSlideTrack::vfunc_0(int index) {
+    int* p = gTable_14e320;
+    return p[index];
+}
+
+namespace fn_f126326a {
+
+// 0x0014e330 FUN_0014e330 (77 B): matches/0x0014e330.cpp
+// sym: ??0GroundSlideTrack@fn_f126326a@@QAE@XZ
+GroundSlideTrack::GroundSlideTrack() : a(0), c(0), f(0), j(0), k(0) {
+    b = -1.0f;
+    d = 0.5f;
+    e = 20.0f;
+    g = 10.0f;
+    h = 100.0f;
+    i = -5;
+}
+
+} // namespace fn_f126326a
+
+// 0x0014e380 hulkfight::motion::GroundSlideTrack::vfunc_6 (4 B): matches/0x0014e380.cpp
+// sym: ?vfunc_6@GroundSlideTrack@motion@hulkfight@@UAEMXZ
+// Same code shape as 0x0010d280 (propagated; names are from that function)
+ // namespace hulkfight
+hulk_freg hulkfight::motion::GroundSlideTrack::vfunc_6() {
+    return this->f_0c;
+}
+
+
+// 0x0014e390 hulkfight::motion::GroundSlideTrack::vfunc_7 (7 B): matches/0x0014e390.cpp
+// sym: ?vfunc_7@GroundSlideTrack@motion@hulkfight@@UAEMXZ
+// Same code shape as 0x0012b630 (propagated; names are from that function)
+hulk_freg hulkfight::motion::GroundSlideTrack::vfunc_7() {
+    return (hulk_freg)this->f_10 - this->f_0c;
+}
+

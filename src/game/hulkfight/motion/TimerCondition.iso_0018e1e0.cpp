@@ -1,0 +1,33 @@
+// Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// object 0x0018cab0..0x0018ecb0 (kind game, layer game, confidence high), dominant class hulkfight::motion::TimerCondition
+// (tree_prelude.h: not needed)
+#include "compat/ptr.h"
+
+
+// 0x0018e1e0 hulkfight::motion::TimerSetTrack::vfunc_10 (70 B): matches/0x0018e1e0.cpp [isolated: conflict: Alloc; Check; on include/gen/ and not mergeable]
+// sym: ?vfunc_10@TimerSetTrack@motion@hulkfight@@UAEHHHH@Z
+// Same code shape as 0x0010bd40 (propagated; names are from that function)
+#include "gen/hulkfight.h"
+
+class Params_18e1e0 {
+  public:
+    int x;
+};
+extern Params_18e1e0 TypeA_18e1e0;
+extern Params_18e1e0 TypeB_18e1e0;
+int __cdecl Check(void*, int, Params_18e1e0*, Params_18e1e0*, int);
+struct TimerSetAction_nv_18e1e0 {
+    int Init(hulkfight::motion::TimerSetTrack*, hulk_intptr);
+};
+hulkfight::motion::TimerSetAction* __cdecl Alloc(int);
+
+hulk_intptr hulkfight::motion::TimerSetTrack::vfunc_10(hulk_intptr a, hulk_intptr b, hulk_intptr c) {
+    int result = Check((void*)c, 0, &TypeA_18e1e0, &TypeB_18e1e0, 0);
+    if (result) {
+        hulkfight::motion::TimerSetAction* p = Alloc(0x24);
+        if (p)
+            return ((TimerSetAction_nv_18e1e0*)(((hulkfight::motion::TimerSetAction*)(p))))->Init(this, c);
+    }
+    return 0;
+}
+

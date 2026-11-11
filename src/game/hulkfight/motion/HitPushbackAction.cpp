@@ -1,0 +1,241 @@
+// Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// object 0x0014f630..0x0014f980 (kind game, layer game, confidence medium), dominant class hulkfight::motion::HitPushbackAction
+#include "tree_prelude.h"
+#include "compat/ptr.h"
+#include "gen/hulkfight.h"
+#include "gen/owners.h"
+#define TREE_TU_BEGIN namespace fn_fd4cb946 {
+#define TREE_TU_END }
+namespace fn_fd4cb946 {} using namespace fn_fd4cb946;
+#include "game/hulkfight/motion.h"
+
+// ---- declarations shared by the functions below
+namespace fn_fd4cb946 {
+struct X_14f630 {
+    void* a();
+    void* b();
+    void c(int);
+};
+class Obj_14f660 {
+  public:
+    Obj_14f660* B();
+    void C(int);
+};
+struct V3_14f680 {
+    float x, y, z;
+    hulk_freg FUN_0022d110();
+    void FUN_000111b0(const V3_14f680 *a, const V3_14f680 *b);
+};
+struct Str_14f680 {
+};
+struct Sub18_14f680 {
+    void FUN_00221d20(float f);
+};
+struct JointDriver_14f680 {
+    virtual void v0();
+    char pad04[0x8 - 0x4];
+    Str_14f680 name;               // 0x8
+    char pad09[0x14 - 0x9];
+    int flags;              // 0x14
+    Sub18_14f680 sub;              // 0x18
+    char pad19[0x70 - 0x19];
+    JointDriver_14f680 *FUN_002248f0(int a);
+};
+struct Params {
+    virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
+    virtual void v4(); virtual void v5(); virtual void v6();
+    virtual float v7();
+    char pad04[0x14 - 0x4];
+    float f14;
+    float f18;
+    char flag;              // 0x1c
+    char pad1d[3];
+    float f20;
+    float f24;
+    float w2;               // 0x28
+    float w1;               // 0x2c
+    float w0;               // 0x30
+};
+struct Hit_14f680 {
+    char pad0[0x8];
+    float x8;
+    char pad0c[4];
+    float x10;
+    char pad14[0x28 - 0x14];
+    V3_14f680 vec;                 // 0x28
+    char pad34[0x5c - 0x34];
+    float f5c;
+};
+struct Player_14f680 {
+    char pad0[0x140];
+    int mode;               // 0x140
+    hulk_freg FUN_000354c0();
+};
+struct Body_14f680 {
+    char pad0[0x40];
+    V3_14f680 pos;                 // 0x40
+    void FUN_00222890(JointDriver_14f680 *p, float a, float b, float c, float d, float e, float f);
+};
+struct Owner_14f680 {
+    Player_14f680 *FUN_00059a30();
+    Body_14f680 *FUN_00059a40();
+};
+struct Link_14f680 {
+    virtual void v0(); virtual void v1(); virtual void v2();
+    virtual Hit_14f680 *v3();
+};
+extern hulk_freg __cdecl FUN_00224f10(V3_14f680 *v);
+class HitPushbackAction {
+public:
+    virtual void vfunc_0();
+    virtual void vfunc_1();
+    virtual void vfunc_2();
+    virtual bool vfunc_3(void *a, void *b);
+    virtual void vfunc_4();
+    virtual void vfunc_5();
+    char pad04[0x18];
+    Params *params;         // 0x1c
+    Link_14f680 *link;             // 0x20
+    JointDriver_14f680 *push;             // 0x24
+    float f28;
+    V3_14f680 v;                   // 0x2c
+    float f38;
+    float f3c;
+    float f40;
+};
+struct Two_14f950 {
+    void* f();
+};
+
+} // namespace fn_fd4cb946
+
+// 0x0014f630 hulkfight::motion::NoHitPushbackAction::vfunc_3 (33 B): matches/0x0014f630.cpp
+// sym: ?vfunc_3@NoHitPushbackAction@motion@hulkfight@@UAE_NHH@Z
+bool hulkfight::motion::NoHitPushbackAction::vfunc_3(hulk_intptr __p0, hulk_intptr __p1) {
+    X_14f630* p = (*(X_14f630 * *)&this->f_20);
+    if (p) {
+        X_14f630* a = (X_14f630*)p->a();
+        X_14f630* b = (X_14f630*)a->b();
+        b->c(1);
+    }
+    return true;
+}
+
+
+// 0x0014f660 hulkfight::motion::NoHitPushbackAction::vfunc_4 (29 B): matches/0x0014f660.cpp
+// sym: ?vfunc_4@NoHitPushbackAction@motion@hulkfight@@UAEXXZ
+void hulkfight::motion::NoHitPushbackAction::vfunc_4() {
+    Obj_14f660* p = (*(Obj_14f660 * *)&this->f_20);
+    if (p) {
+        p = ((Obj_14f660 *)((owners::Object_592a0 *)p)->FUN_000592a0());
+        p = p->B();
+        p->C(0);
+    }
+}
+
+namespace fn_fd4cb946 {
+
+// 0x0014f680 hulkfight::motion::HitPushbackAction::vfunc_3 (718 B): equivalent/0x0014f680.cpp
+// sym: ?vfunc_3@HitPushbackAction@fn_fd4cb946@@UAE_NPAX0@Z
+// STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 29/30, incomplete)
+// hulkfight::motion::HitPushbackAction::vfunc_3 @ 0x0014f680
+// equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+bool HitPushbackAction::vfunc_3(void *a, void *b)
+{
+    if (link == 0)
+        return false;
+    Owner_14f680 *own = ((Owner_14f680 *)((owners::Object_592a0 *)link)->FUN_000592a0());
+    Player_14f680 *pl = own->FUN_00059a30();
+    Body_14f680 *body = own->FUN_00059a40();
+    if (body == 0)
+        return false;
+    Hit_14f680 *hit = link->v3();
+    if (hit == 0)
+        return false;
+    Params *pa = params;
+    float f24 = pa->f24;
+    float w2 = pa->w2;
+    int mode = pl->mode;
+    float w1 = pa->w1;
+    float w0 = pa->w0;
+    void *mem = thunk_FUN_0008d690((int)sizeof(JointDriver_14f680));
+    JointDriver_14f680 *o;
+    if (mem != 0)
+        o = ((JointDriver_14f680 *)mem)->FUN_002248f0(0);
+    else
+        o = 0;
+    push = o;
+    ((owners::Target_27b040 *)&(o->name))->FUN_0027b040((hulk_uintptr)"hitPushback");
+    int flag = 1;
+    if (params->flag != 0 || (mode == 2 && f24 > 0.0f))
+        flag = 3;
+    push->flags = flag;
+    push->v0();
+    V3_14f680 *bp = &body->pos;
+    ((owners::Target_22be40 *)&(push->sub))->FUN_0022be40((const int *)(V3_14f680 *)bp);
+    float arg;
+    if (params->flag != 0)
+        arg = FUN_00224f10(&hit->vec) + params->f20;
+    else
+        arg = pl->FUN_000354c0();
+    push->sub.FUN_00221d20(arg);
+    body->FUN_00222890(push, -1.0f, w2, 1.0f, w1, w0, -1.0f);
+    float h5c = hit->f5c;
+    f28 = h5c;
+    if (h5c <= 0.0f)
+        f28 = params->v7();
+    v = hit->vec;
+    v.y = 0.0f;
+    double len = v.FUN_0022d110();
+    f38 = (float)len;
+    Params *pp = params;
+    double p1 = len * pp->f14;
+    f38 = (float)p1;
+    double X;
+    if (f28 > 0.0f) {
+        float c = pp->f18;
+        X = p1 * f28;
+        if (c >= 0.0f && X > c) {
+            f38 = c / f28;
+            X = c;
+        }
+        double D = f38;
+        D = D + D;
+        f38 = (float)D;
+        double fm = f28;
+        double N = X - D * fm;
+        N = N + N;
+        f3c = (float)(N / (fm * fm));
+    } else {
+        f3c = 0.0f;
+    }
+    if (mode == 2 && f24 > 0.0f) {
+        f40 = f24 * f38;
+        V3_14f680 w;
+        w.x = bp->x;
+        w.z = bp->z;
+        w.x = w.x - hit->x8;
+        w.y = 0.0f;
+        w.z = w.z - hit->x10;
+        w.FUN_0022d110();
+        V3_14f680 vc = v;
+        V3_14f680 cr;
+        cr.FUN_000111b0(&vc, &w);
+        if (cr.y < 0.0f)
+            f40 = -f40;
+    }
+    return true;
+}
+
+} // namespace fn_fd4cb946
+
+// 0x0014f950 hulkfight::motion::HitPushbackAction::vfunc_4 (37 B): matches/0x0014f950.cpp
+// sym: ?vfunc_4@HitPushbackAction@motion@hulkfight@@UAEXXZ
+// Same code shape as 0x00134160 (propagated; names are from that function)
+void hulkfight::motion::HitPushbackAction::vfunc_4() {
+    void* x = (*(One * *)&this->f_20)->f();
+    void* y = ((Two_14f950*)x)->f();
+    if (y)
+        ((Three*)y)->f((*(void * *)&this->f_24), 0);
+}
+

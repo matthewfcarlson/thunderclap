@@ -1,0 +1,65 @@
+// Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// object 0x001594f0..0x001595a0 (kind game, layer game, confidence high), dominant class hulkfight::motion::CollisionTargetSizeCondition
+#include "tree_prelude.h"
+#include "gen/fight.h"
+#include "gen/owners.h"
+#define TREE_TU_BEGIN namespace fn_f4c96b13 {
+#define TREE_TU_END }
+namespace fn_f4c96b13 {} using namespace fn_f4c96b13;
+#include "game/hulkfight/motion.h"
+
+// ---- declarations shared by the functions below
+inline void* __cdecl operator new(size_t, void* where) {
+    return where;
+}
+namespace fn_f4c96b13 {
+class TrackFactoryTemplate_1594f0 {
+  public:
+    TrackFactoryTemplate_1594f0() {}
+    virtual void vf0();
+    virtual void vf1();
+    int mPad;
+    TrackImpl mTrack;
+};
+extern "C" void FUN_001555c0();
+extern int g_vftable_159570;
+struct ConditionFactoryTemplate_159570 {
+    void* m_vptr;
+    void base1_dtor();
+    void base2_dtor();
+    void* scalar_dtor(unsigned char flags);
+};
+
+} // namespace fn_f4c96b13
+
+// 0x001594f0 fight::ConditionFactoryCasterTemplate<hulkfight::motion::CollisionTargetSizeCondition>::vfunc_1 (60 B): matches/0x001594f0.cpp
+// sym: ?vfunc_1@?$ConditionFactoryCasterTemplate@VCollisionTargetSizeCondition@motion@hulkfight@@@fight@@UAEPAXPAX@Z
+// Same code shape as 0x00122f30 (propagated; names are from that function)
+template <> void* fight::ConditionFactoryCasterTemplate<hulkfight::motion::CollisionTargetSizeCondition>::vfunc_1(void* __p0) { void * arg = (void *)__p0;
+
+    void* mem = operator new(sizeof(TrackFactoryTemplate_1594f0));
+    if (mem) {
+        ((InitHelper*)mem)->init();
+        TrackFactoryTemplate_1594f0* t = new (mem) TrackFactoryTemplate_1594f0();
+        ((owners::Target_27b040 *)&(t->mTrack))->FUN_0027b040((hulk_uintptr)arg);
+        FUN_001555c0();
+        return (void*)(t);
+    }
+    return (void*)(0);
+}
+
+namespace fn_f4c96b13 {
+
+// 0x00159570 fight::ConditionFactoryTemplate<hulkfight::motion::CollisionTargetSizeCondition>::vfunc_2 (43 B): matches/0x00159570.cpp
+// sym: ?scalar_dtor@ConditionFactoryTemplate_159570@fn_f4c96b13@@QAEPAXE@Z
+// Same code shape as 0x0006fb50 (propagated; names are from that function)
+void* ConditionFactoryTemplate_159570::scalar_dtor(unsigned char flags) {
+    m_vptr = (void*)&g_vftable_159570;
+    base1_dtor();
+    base2_dtor();
+    if (flags & 1)
+        thunk_delete(this);
+    return this;
+}
+
+} // namespace fn_f4c96b13

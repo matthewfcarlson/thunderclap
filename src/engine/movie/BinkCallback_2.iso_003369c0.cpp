@@ -1,0 +1,193 @@
+// Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// object 0x00335270..0x00338d90 (kind game, layer engine, confidence medium), dominant class movie::BinkCallback
+// (tree_prelude.h: not needed)
+#include "compat/ptr.h"
+
+
+// 0x003369c0 FUN_003369c0 (896 B): equivalent/0x003369c0.cpp [isolated: macros; code differs from its standalone build]
+// sym: ?FUN_003369c0@Relocator@fn_fb99ca0b@@QAEXD@Z
+#include "gen/owners.h"
+namespace fn_fb99ca0b {} using namespace fn_fb99ca0b;
+namespace fn_fb99ca0b {
+// STATUS: equivalent (tools/equiv.py level 3: 2829 inputs, branch coverage 78/83, incomplete)
+// FUN_003369c0 @ 0x003369c0
+struct Entry {
+    char pad0[8];
+    int type;
+    unsigned int* desc;
+    char pad10[8];
+};
+struct Header {
+    char pad0[4];
+    char name[0x40];
+    int count;
+    Entry entries[1];
+};
+struct Pool {
+};
+extern Pool DAT_0055dbb0;
+extern unsigned int DAT_0055dbb4;
+hulk_uintptr __cdecl FUN_00335270(hulk_uintptr v);
+#define SWAP(v) (swap ? FUN_00335270(v) : (v))
+#define REBASE(v) ((v) ? (v) - DAT_0055dbb4 : 0)
+class Relocator {
+  public:
+    char pad0[4];
+    Header* hdr;
+    unsigned int* arr;
+    hulk_uintptr data2;
+    void FUN_003369c0(char swap);
+};
+void Relocator::FUN_003369c0(char swap) {
+    int count = hdr->count;
+    for (int i = 0; i < count; i++) {
+        Entry* e = ((Entry *)((owners::Thing_337090 *)hdr)->FUN_00337090(i));
+        unsigned int* p;
+        hulk_uintptr v;
+        switch (e->type) {
+        case 1:
+        case 2:
+        case 3:
+            p = &arr[i];
+            v = SWAP(arr[i]);
+            *(hulk_uintptr*)p = v;
+            break;
+        case 5:
+        case 7: {
+            unsigned int* q = (unsigned int*)arr[i];
+            v = SWAP(*q);
+            *(hulk_uintptr*)q = v;
+            q++;
+            v = SWAP(*q);
+            *(hulk_uintptr*)q = v;
+            v = arr[i];
+            arr[i] = REBASE(v);
+            p = &arr[i];
+            v = SWAP(arr[i]);
+            *(hulk_uintptr*)p = v;
+            break;
+        }
+        case 6:
+        case 8: {
+            unsigned int* q = (unsigned int*)arr[i];
+            v = SWAP(*q);
+            *(hulk_uintptr*)q = v;
+            q++;
+            v = SWAP(*q);
+            *(hulk_uintptr*)q = v;
+            q++;
+            v = SWAP(*q);
+            *(hulk_uintptr*)q = v;
+            v = arr[i];
+            arr[i] = REBASE(v);
+            p = &arr[i];
+            v = SWAP(arr[i]);
+            *(hulk_uintptr*)p = v;
+            break;
+        }
+        case 4:
+        case 10:
+            v = arr[i];
+            arr[i] = REBASE(v);
+            p = &arr[i];
+            v = SWAP(arr[i]);
+            *(hulk_uintptr*)p = v;
+            break;
+        case 9: {
+            unsigned int* q = (unsigned int*)arr[i];
+            if (q == 0)
+                break;
+            unsigned int* desc = e->desc;
+            int n = (int)*q;
+            v = SWAP(n);
+            *(hulk_uintptr*)q = v;
+            q++;
+            if (n > 0) {
+                for (; n != 0; n--) {
+                    switch (*desc) {
+                    case 1:
+                    case 2:
+                    case 3:
+                        v = SWAP(*q);
+                        *(hulk_uintptr*)q = v;
+                        q++;
+                        break;
+                    case 4:
+                    case 10:
+                        v = *q;
+                        v = REBASE(v);
+                        *(hulk_uintptr*)q = v;
+                        v = SWAP(v);
+                        *(hulk_uintptr*)q = v;
+                        break;
+                    case 5:
+                    case 7:
+                        v = SWAP(*q);
+                        *(hulk_uintptr*)q = v;
+                        q++;
+                        v = SWAP(*q);
+                        *(hulk_uintptr*)q = v;
+                        q++;
+                        break;
+                    case 6:
+                    case 8:
+                        v = SWAP(*q);
+                        *(hulk_uintptr*)q = v;
+                        q++;
+                        v = SWAP(*q);
+                        *(hulk_uintptr*)q = v;
+                        q++;
+                        v = SWAP(*q);
+                        *(hulk_uintptr*)q = v;
+                        q++;
+                        break;
+                    default:
+                        break;
+                    }
+                }
+            }
+            v = arr[i];
+            arr[i] = REBASE(v);
+            p = &arr[i];
+            v = SWAP(arr[i]);
+            *(hulk_uintptr*)p = v;
+            break;
+        }
+        default:
+            break;
+        }
+    }
+    hulk_uintptr a = (hulk_uintptr)arr;
+    a = REBASE(a);
+    arr = (unsigned int*)a;
+    a = SWAP(a);
+    arr = (unsigned int*)a;
+    hulk_uintptr b = data2;
+    b = REBASE(b);
+    data2 = b;
+    b = SWAP(b);
+    data2 = b;
+    const char* s = hdr->name;
+    const char* t = s;
+    while (*t++ != 0) {
+    }
+    unsigned int len = (unsigned int)(t - s - 1);
+    char* dst = ((char *)((owners::Allocator_337d60 *)&DAT_0055dbb0)->FUN_00337d60(len + 1, 4));
+    char* d = dst;
+    const char* r = hdr->name;
+    char c;
+    do {
+        c = *r++;
+        *d++ = c;
+    } while (c != 0);
+    hulk_uintptr off = (hulk_uintptr)dst;
+    off = REBASE(off);
+    if (swap)
+        off = FUN_00335270(off);
+    unsigned int* out = (unsigned int*)((char *)((owners::Allocator_337d60 *)&DAT_0055dbb0)->FUN_00337d60(0xc, 4));
+    out[0] = (hulk_uintptr)arr;
+    out[1] = data2;
+    out[2] = off;
+}
+} // namespace fn_fb99ca0b
+

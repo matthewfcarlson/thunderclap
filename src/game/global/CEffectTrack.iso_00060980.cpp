@@ -1,0 +1,47 @@
+// Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// object 0x000604d0..0x00061b40 (kind game, layer game, confidence high), dominant class CEffectTrack
+// (tree_prelude.h: not needed)
+#include "compat/ptr.h"
+
+
+// 0x00060980 CGrappleEffectStopTrack::vfunc_12 (60 B): matches/0x00060980.cpp [isolated: conflict: FUN_0005a430; FUN_0008d690; on include/gen/ and not mergeable]
+// sym: ?vfunc_12@CGrappleEffectStopTrack@@UAEHH@Z
+#include "gen/global.h"
+
+class CEffectStopTrack_60980 {
+  public:
+    virtual int f0();
+    virtual int f1();
+    virtual int f2();
+    virtual int f3();
+    virtual int f4();
+    virtual int f5();
+    virtual int f6();
+    virtual int f7();
+    virtual int f8();
+    virtual int f9();
+    virtual int f10();
+    virtual int f11();
+    virtual int vfunc_12(int);
+    virtual int f13();
+};
+struct Obj_60980 {
+    char pad[0x104];
+    int field;
+};
+struct CEffectStopAction_nv_60980 {
+    int method(hulk_intptr, int);
+};
+extern void* FUN_0008d690(int);
+extern Obj_60980* FUN_0005a430(int);
+
+hulk_intptr CGrappleEffectStopTrack::vfunc_12(hulk_intptr arg) {
+    CEffectStopAction* p = (CEffectStopAction*)FUN_0008d690(0x24);
+    if (p) {
+        Obj_60980* o = FUN_0005a430(arg);
+        int v = o->field;
+        return ((CEffectStopAction_nv_60980*)(p))->method((hulk_intptr)this, v);
+    }
+    return 0;
+}
+

@@ -1,0 +1,60 @@
+// Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// object 0x00335270..0x00338d90 (kind game, layer engine, confidence medium), dominant class movie::BinkCallback
+// (tree_prelude.h: not needed)
+
+
+// 0x00335ef0 FUN_00335ef0 (123 B): equivalent/0x00335ef0.cpp [isolated: code differs from its standalone build]
+// sym: ?FUN_00335ef0@Table_335ef0@fn_fdfeb107@@QAE_NHHPAD@Z
+#include "gen/owners.h"
+namespace fn_fdfeb107 {} using namespace fn_fdfeb107;
+namespace fn_fdfeb107 {
+// STATUS: equivalent (tools/equiv.py level 3: 3031 inputs, branch coverage 12/12)
+// FUN_00335ef0 @ 0x00335ef0
+struct Column {
+    char pad0[8];
+    int type;
+    int *kind;
+};
+
+struct Schema_335ef0 {
+
+    char pad0[0x44];
+    int count;
+};
+
+int __cdecl FUN_00337f20(int kind);
+
+class Table_335ef0 {
+public:
+    bool FUN_00335ef0(int index, int column, char *out);
+
+    char pad0[4];
+    Schema_335ef0 *schema;
+    char **rows;
+};
+
+// Copies the string stored in a string-typed cell of a row into `out`.
+bool Table_335ef0::FUN_00335ef0(int index, int column, char *out) {
+    if (index < 0 || index >= schema->count) {
+        return false;
+    }
+    if (((Column *)((owners::Thing_337090 *)schema)->FUN_00337090(index))->type != 9) {
+        return false;
+    }
+    char *row = rows[index] + 4;
+    if (*((Column *)((owners::Thing_337090 *)schema)->FUN_00337090(index))->kind != 0xa) {
+        return false;
+    }
+    char *src = *(char **)(row + FUN_00337f20(0xa) * column);
+    if (src == 0) {
+        return false;
+    }
+    char c;
+    do {
+        c = *src++;
+        *out++ = c;
+    } while (c);
+    return true;
+}
+} // namespace fn_fdfeb107
+

@@ -1,0 +1,205 @@
+// Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// object 0x00017630..0x00017870 (kind game, layer game, confidence medium), dominant class CHeadTrackerAction
+#include "tree_prelude.h"
+#include "compat/ptr.h"
+#include "gen/global.h"
+#include "gen/owners.h"
+#define TREE_TU_BEGIN namespace fn_f443bc33 {
+#define TREE_TU_END }
+namespace fn_f443bc33 {} using namespace fn_f443bc33;
+#include "game/global.h"
+
+// ---- declarations shared by the functions below
+namespace fn_f443bc33 {
+class CAction_17630 {
+  public:
+    virtual void a0();
+    virtual void a1();
+    virtual void a2();
+    virtual void a3();
+    virtual void a4();
+    virtual void a5();
+    virtual bool vfunc_6(int);
+    virtual void a7();
+    virtual void a8();
+};
+class Obj_17630 {
+  public:
+    void* first();
+    void* second();
+};
+class H {
+  public:
+    void* g();
+};
+
+} // namespace fn_f443bc33
+
+// 0x00017630 CRageModeAction::vfunc_6 (35 B): matches/0x00017630.cpp
+// sym: ?vfunc_6@CRageModeAction@@UAE_NH@Z
+bool CRageModeAction::vfunc_6(int arg) {
+    Obj_17630* x = (Obj_17630*)(*(Obj_17630 * *)&this->f_1c)->first();
+    x = (Obj_17630*)x->second();
+    ((owners::C_36250 *)x)->FUN_00036250(this->f_20);
+    return true;
+}
+
+
+// 0x00017660 CStageAction::vfunc_7 (33 B): matches/0x00017660.cpp
+// sym: ?vfunc_7@CStageAction@@UAE_NH@Z
+bool CStageAction::vfunc_7(int ) {
+    H* x = (H*)(*(void * *)&this->f_1c);
+    void* t = ((void *)((owners::Object_592a0 *)x)->FUN_000592a0());
+    H* y = (H*)t;
+    void* z = y->g();
+    *(void**)((char*)z + 0x1e44) = (*(void * *)&this->f_20);
+    return false;
+}
+
+
+// 0x00017690 CHeadTrackerAction::vfunc_6 (471 B): equivalent/0x00017690.cpp [wrapped: conflict: CHeadTrackerAction]
+// sym: ?vfunc_6@CHeadTrackerAction@fn_00017690@@UAE_NH@Z
+namespace fn_00017690 {
+// STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 6/6)
+// CHeadTrackerAction::vfunc_6 @ 0x00017690
+struct V3_17690 {
+    float x, y, z;
+    hulk_freg FUN_0022d110();
+};
+
+struct Matrix {
+    char data[0x40];
+    void FUN_0022b980();
+    void FUN_0022c0b0();
+};
+
+struct NameField_17690 {
+    void FUN_0027b040(const char* s);
+};
+
+class JointDriver_17690 {
+public:
+    virtual void v0();
+    char pad4[4];
+    NameField_17690 name;
+    char pad9[0x10 - 0x9];
+    unsigned int index;
+    int mode;
+    char pad18[0x70 - 0x18];
+    JointDriver_17690* FUN_002248a0();
+};
+
+struct Table_17690 {
+    unsigned int FUN_0027b200(int a, int b);
+};
+
+struct Pair_17690 {
+    char pad[8];
+    Table_17690* table;
+};
+
+struct Mgr_17690 {
+    Pair_17690* FUN_00059a40();
+};
+
+struct Cfg_17690 {
+    char pad0[0x18];
+    int f18;
+    int f1c;
+    V3_17690 dirSrc;
+    V3_17690 upSrc;
+};
+
+struct Holder_17690 {
+    Mgr_17690* FUN_000592a0();
+};
+
+struct Tracker_17690 {
+    char pad[0x64];
+    Pair_17690* pair;
+};
+
+struct Mgr2_17690 {
+    Tracker_17690* FUN_00059a40();
+};
+
+struct Holder2_17690 {
+    Mgr2_17690* FUN_000592a0();
+};
+
+void* FUN_00263ea0(unsigned int size);
+extern "C" int __cdecl FUN_000113e0(int lo, int hi);
+
+class CHeadTrackerAction {
+public:
+    virtual void vfunc_0();
+    virtual void vfunc_1();
+    virtual void vfunc_2();
+    virtual void vfunc_3();
+    virtual void vfunc_4();
+    virtual void vfunc_5();
+    virtual bool vfunc_6(int arg);
+    virtual void vfunc_7();
+    virtual void vfunc_8();
+    char pad04[0x1c - 4];
+    Holder2_17690* holder;
+    Cfg_17690* cfg;
+    JointDriver_17690* tracker;
+    V3_17690 dir;
+    Matrix basis;
+    char pad74[0x8c - 0x74];
+    int rnd;
+};
+
+bool CHeadTrackerAction::vfunc_6(int arg)
+{
+    struct Frame {
+        V3_17690 b;
+        V3_17690 c;
+        V3_17690 d;
+    } fr;
+    Tracker_17690* tr = holder->FUN_000592a0()->FUN_00059a40();
+    if (tr == 0)
+        return false;
+    unsigned int idx = tr->pair->table->FUN_0027b200(cfg->f18, cfg->f1c);
+    if (idx == 0xffff)
+        return false;
+    void* mem = FUN_00263ea0(0x70);
+    JointDriver_17690* o = 0;
+    if (mem)
+        o = ((JointDriver_17690*)mem)->FUN_002248a0();
+    tracker = o;
+    o->name.FUN_0027b040("headTracker");
+    tracker->v0();
+    tracker->mode = 2;
+    tracker->index = idx;
+    fr.d = cfg->dirSrc;
+    dir = fr.d;
+    dir.FUN_0022d110();
+    fr.b = cfg->upSrc;
+    fr.b.FUN_0022d110();
+    fr.c.x = fr.b.z * dir.y - fr.b.y * dir.z;
+    fr.c.y = fr.b.x * dir.z - fr.b.z * dir.x;
+    fr.c.z = fr.b.y * dir.x - fr.b.x * dir.y;
+    fr.c.FUN_0022d110();
+    fr.b.x = fr.c.y * dir.z - fr.c.z * dir.y;
+    fr.b.y = fr.c.z * dir.x - fr.c.x * dir.z;
+    fr.b.z = fr.c.x * dir.y - fr.c.y * dir.x;
+    fr.b.FUN_0022d110();
+    basis.FUN_0022b980();
+    float* m = (float*)&basis;
+    m[0] = fr.b.x;
+    m[1] = fr.b.y;
+    m[2] = fr.b.z;
+    m[4] = fr.c.x;
+    m[5] = fr.c.y;
+    m[6] = fr.c.z;
+    m[8] = dir.x;
+    m[9] = dir.y;
+    m[10] = dir.z;
+    basis.FUN_0022c0b0();
+    rnd = FUN_000113e0(0, 9);
+    return true;
+}
+} // namespace fn_00017690
+

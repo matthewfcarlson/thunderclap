@@ -1,0 +1,69 @@
+// cl-flags: /GS
+// Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// object 0x0011c310..0x0011d860 (kind game, layer game, confidence high), dominant class hulkfight::ai::PathFormationAction
+#include "tree_prelude.h"
+#include "decls/address.h"
+#define TREE_TU_BEGIN namespace fn_fb164a00 {
+#define TREE_TU_END }
+#define TREE_LOCAL_CSPHulkProp
+#define TREE_LOCAL_pure3d
+namespace fn_fb164a00 {} using namespace fn_fb164a00;
+#include "game/hulkfight/ai.h"
+
+// ---- declarations shared by the functions below
+namespace fn_fb164a00 {
+struct Token_11c9a0 {};
+struct EventPart { void FUN_001ca2e0(Token_11c9a0*, int, int, int); char storage[0x5c]; };
+struct Event_11c9a0 { EventPart part; };
+struct Listener_11c9a0 { void FUN_001cbc20(Event_11c9a0*); };
+struct PathPoint_11c9a0 {};
+struct Navigation { void FUN_001ae150(PathPoint_11c9a0*); };
+} // namespace fn_fb164a00
+struct World { char pad[0x1c]; Navigation* navigation; char pad2[0x10]; Listener_11c9a0* listener; };
+namespace fn_fb164a00 {
+struct Request { char pad[0xb4]; int previous; int current; Token_11c9a0* FUN_001034d0(); };
+struct RequestOwner { Request* FUN_000fdc40(); };
+struct ActorState_11c9a0 { char pad[0x1f1]; unsigned char active; void FUN_00060170(); };
+struct Actor_11c9a0 { char pad[0x10]; int* identity; char pad2[0x1ca0-0x14]; RequestOwner* owner; char pad3[0x1f58-0x1ca4]; ActorState_11c9a0 state; };
+struct Handle2 { Actor_11c9a0* FUN_00059a30(); };
+struct Handle_11c9a0 { Handle2* FUN_000592a0(); };
+namespace hulkfight { namespace ai {
+struct PathAction {
+ virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5();
+ char pad[0x18]; PathPoint_11c9a0 point; char pad2[0x90-0x1d]; Handle_11c9a0* handle; char pad3[0xec-0x94]; int value;
+};
+} }
+
+
+// 0x0011c9a0 hulkfight::ai::PathAction::vfunc_4 (213 B): equivalent/0x0011c9a0.cpp
+// sym: ?vfunc_4@PathAction@ai@hulkfight@fn_fb164a00@@UAEXXZ
+// STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 9/10, incomplete)
+// hulkfight::ai::PathAction::vfunc_4 @ 0x0011c9a0
+namespace hulkfight { namespace ai {
+void PathAction::vfunc_4() {
+ if (handle) {
+ Actor_11c9a0* actor=handle->FUN_000592a0()->FUN_00059a30();
+ if (actor) {
+ DAT_004dd700->navigation->FUN_001ae150(&point);
+ if(actor->state.active) {
+ Request* request=actor->owner->FUN_000fdc40();
+ if(request) {
+ World* manager=DAT_004dd700;
+ int v=value;
+ int identity=*actor->identity;
+ Token_11c9a0* token=request->FUN_001034d0();
+ Event_11c9a0 event;
+ event.part.FUN_001ca2e0(token,identity,v,1);
+ manager->listener->FUN_001cbc20(&event);
+ request->current=value;
+ request->previous=value;
+ }
+ }
+ actor->state.active=0;
+ actor->state.FUN_00060170();
+ }
+ }
+}
+} }
+
+} // namespace fn_fb164a00

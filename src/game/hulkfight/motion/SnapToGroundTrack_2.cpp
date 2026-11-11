@@ -1,0 +1,2205 @@
+// Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// object 0x0017bc70..0x0017e1a0 (kind game, layer game, confidence high), dominant class hulkfight::motion::SnapToGroundTrack
+#include "tree_prelude.h"
+#include "compat/ptr.h"
+#include "decls/data/game/hulkfight.h"
+#include "decls/data/game/hulkfight/motion.h"
+#include "gen/fight.h"
+#include "gen/hulkfight.h"
+#define TREE_TU_BEGIN namespace fn_f05a6271 {
+#define TREE_TU_END }
+namespace fn_f05a6271 {} using namespace fn_f05a6271;
+#include "game/hulkfight/motion.h"
+
+// ---- declarations shared by the functions below
+namespace fn_f05a6271 {
+typedef unsigned int u32_17bc70;
+extern int TypeA_17bc70;
+extern int TypeB_17bc70;
+struct Result_17bc70 {
+    u32_17bc70 Init(void*, void*);
+};
+extern int Check(void*, int, int*, int*, int);
+extern Result_17bc70* Alloc(int);
+extern int g_vftable_17bcc0;
+class RefObj_17bcc0 {
+  public:
+    virtual void vfunc_0();
+    virtual void Release();
+};
+class RestPoseAction_17bcc0 {
+  public:
+    void* mVptr;
+    char pad[0x18];
+    int m1;
+    RefObj_17bcc0* m2;
+    RefObj_17bcc0* m3;
+    void* vfunc_2(unsigned char flag);
+};
+struct RefCounted_17bd70 {
+  public:
+    virtual void f0();
+    virtual void Release();
+};
+extern char g_vt_17bd70[];
+class SuckAction_17bd70 {
+  public:
+    SuckAction_17bd70* vfunc_2(int flag);
+
+  private:
+    hulk_intptr vtable;
+    char pad[0x1c - 4];
+    int m_1c;
+    RefCounted_17bd70* m_20;
+};
+struct RefCounted_17be10 {
+  public:
+    virtual void f0();
+    virtual void Release();
+};
+extern char g_vt_17be10[];
+class CriticalMassDrainAction_17be10 {
+  public:
+    CriticalMassDrainAction_17be10* vfunc_2(int flag);
+
+  private:
+    hulk_intptr vtable;
+    char pad[0x1c - 4];
+    int m_1c;
+    RefCounted_17be10* m_20;
+};
+typedef unsigned int u32_17be60;
+extern int TypeA_17be60, TypeB;
+struct Params_17be60 {
+    int Init(hulkfight::motion::MomentumXZAddTrack*, void*);
+};
+extern void* Alloc(hulk_uintptr);
+struct RefCounted_17beb0 {
+  public:
+    virtual void f0();
+    virtual void Release();
+};
+extern char g_vt_17beb0[];
+class MomentumXZAddAction_17beb0 {
+  public:
+    MomentumXZAddAction_17beb0* vfunc_2(int flag);
+
+  private:
+    hulk_intptr vtable;
+    char pad[0x1c - 4];
+    int m_1c;
+    RefCounted_17beb0* m_20;
+};
+struct RefCounted_17bf50 {
+  public:
+    virtual void f0();
+    virtual void Release();
+};
+extern char g_vt_17bf50[];
+class VisibilityAction_17bf50 {
+  public:
+    VisibilityAction_17bf50* vfunc_2(int flag);
+
+  private:
+    hulk_intptr vtable;
+    char pad[0x1c - 4];
+    int m_1c;
+    RefCounted_17bf50* m_20;
+};
+struct RefCounted_17bff0 {
+  public:
+    virtual void f0();
+    virtual void Release();
+};
+extern char g_vt_17bff0[];
+class SnapToGroundAction_17bff0 {
+  public:
+    SnapToGroundAction_17bff0* vfunc_2(int flag);
+
+  private:
+    hulk_intptr vtable;
+    char pad[0x1c - 4];
+    int m_1c;
+    RefCounted_17bff0* m_20;
+};
+class ParamBranch : public ParamValueBranch, public ParamValue {
+  public:
+    char pad[0x10 - sizeof(void*)];
+    void(__fastcall* fn)(void*);
+    virtual void vfunc_6(void*);
+};
+} // namespace fn_f05a6271
+inline void* operator new(size_t, void* p) throw() { return p; }
+namespace fn_f05a6271 {
+void* FUN_0008d690(unsigned int size);
+} // namespace fn_f05a6271
+namespace hulkfight { namespace motion {
+class JointTrackerTrack_17c650 {
+public:
+    void FUN_0016e720();
+    void FUN_0016e730();
+    void FUN_0016e740();
+    void FUN_0016e770();
+    void FUN_0016e7b0();
+    void FUN_0016e7e0();
+    void FUN_0016e810();
+    void FUN_0016e840();
+    void FUN_0016e870();
+    void FUN_0016e8a0();
+    void FUN_0016e8d0();
+    void FUN_0016e8f0();
+    void FUN_0016e920();
+    void FUN_0016e940();
+    void FUN_0016e960();
+    void FUN_0016e980();
+    void FUN_0016e9a0();
+};
+} }
+namespace fn_f05a6271 {
+class __declspec(novtable) ParamBoolBase {
+public:
+    virtual void v0();
+    char pad04[0xc];
+    ParamBoolBase(const char* name) { ((fight::ParamValueBool *)this)->FUN_00234860(name); }
+};
+class __declspec(novtable) ParamFloatConstRangeBase {
+public:
+    virtual void v0();
+    char pad04[0xc];
+    ParamFloatConstRangeBase(const char* name) { ((fight::ParamValueFloat *)this)->FUN_00234960(name); }
+};
+class __declspec(novtable) ParamNameConstListBase {
+public:
+    virtual void v0();
+    char pad04[0xc];
+    ParamNameConstListBase(const char* name) { ((fight::ParamValueNameList *)this)->FUN_00234ba0(name); }
+};
+} // namespace fn_f05a6271
+namespace fight {
+template <class T>
+class ParamBool_17c650 : public ParamBoolBase {
+public:
+    ParamBool_17c650(const char* name, void (T::*s)()) : ParamBoolBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamEnumConstList_17c650 : public ParamEnumConstListBase {
+public:
+    ParamEnumConstList_17c650(const char* name, const char** n, int c, void (T::*s)())
+        : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
+    virtual void v0();
+    const char** names;
+    int count;
+    void (T::*setter)();
+    int unused1c;
+};
+}
+namespace fight {
+template <class T>
+class ParamFloatConstRange_17c650 : public ParamFloatConstRangeBase {
+public:
+    ParamFloatConstRange_17c650(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamIntConstRange_17c650 : public ParamIntConstRangeBase {
+public:
+    ParamIntConstRange_17c650(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamNameConstList_17c650 : public ParamNameConstListBase {
+public:
+    ParamNameConstList_17c650(const char* name, void (T::*s)()) : ParamNameConstListBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamVector_17c650 : public ParamVectorBase {
+public:
+    ParamVector_17c650(const char* name, void (T::*s)()) : ParamVectorBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fn_f05a6271 {
+extern "C" void FUN_002347b0(ParamRegistry* reg, void** params, int count);
+class RestPoseTrack {
+public:
+    void FUN_0016ea30();
+    void FUN_0016ea40();
+    void FUN_0016ea50();
+    void FUN_0016ea70();
+    void FUN_0016ea90();
+    void FUN_0016eab0();
+};
+template <class T>
+class ParamFloatConstRange : public ParamFloatConstRangeBase {
+public:
+    ParamFloatConstRange(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+class __declspec(novtable) ParamNameBase {
+public:
+    virtual void v0();
+    char pad04[0xc];
+    ParamNameBase(const char* name) { ((fight::ParamValueName *)this)->FUN_00234a90(name); }
+};
+template <class T>
+class ParamName : public ParamNameBase {
+public:
+    ParamName(const char* name, void (T::*s)()) : ParamNameBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+class Caster_17cbd0 {
+  public:
+    virtual void Dummy();
+};
+class Obj {
+  public:
+    void use(void*);
+    void Apply(void*);
+    void set(void*);
+    void second(int);
+    void Process(void*);
+    void Apply(int);
+};
+void* __cdecl Find(const char*, Caster_17cbd0*);
+class Caster_17cc00 {
+  public:
+    virtual void Cast();
+};
+extern void* Find(const char*, Caster_17cc00*);
+class Track {
+  public:
+    void Set(void*);
+};
+class JointRelativeTrack {
+public:
+    void FUN_0016ead0();
+    void FUN_0016eae0();
+    void FUN_0016eaf0();
+    void FUN_0016eb10();
+    void FUN_0016eb30();
+    void FUN_0016eb60();
+    void FUN_0016eb90();
+    void FUN_0016ebc0();
+    void FUN_0016ec10();
+    void FUN_0016ec30();
+    void FUN_0016ec50();
+};
+} // namespace fn_f05a6271
+namespace fight {
+template <class T>
+class ParamBool_17cc30 : public ParamBoolBase {
+public:
+    ParamBool_17cc30(const char* name, void (T::*s)()) : ParamBoolBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamFloatConstRange_17cc30 : public ParamFloatConstRangeBase {
+public:
+    ParamFloatConstRange_17cc30(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamIntConstRange_17cc30 : public ParamIntConstRangeBase {
+public:
+    ParamIntConstRange_17cc30(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamNameConstList_17cc30 : public ParamNameConstListBase {
+public:
+    ParamNameConstList_17cc30(const char* name, void (T::*s)()) : ParamNameConstListBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamVector_17cc30 : public ParamVectorBase {
+public:
+    ParamVector_17cc30(const char* name, void (T::*s)()) : ParamVectorBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace hulkfight { namespace motion {
+class SyncToLocatorTrack_17ced0 {
+public:
+    void FUN_0016ec60();
+    void FUN_0016ec70();
+    void FUN_0016ec90();
+    void FUN_0016ecb0();
+    void FUN_0016ecc0();
+    void FUN_00170130();
+    void FUN_0016ed00();
+    void FUN_0016ed20();
+    void FUN_0016ed60();
+    void FUN_0016ed90();
+    void FUN_0016edb0();
+    void FUN_0016edd0();
+};
+} }
+namespace fn_f05a6271 {
+class __declspec(novtable) ParamScriptBase {
+public:
+    virtual void v0();
+    char pad04[0xc];
+    void FUN_00234c00(const char* name);
+    ParamScriptBase(const char* name) { FUN_00234c00(name); }
+};
+} // namespace fn_f05a6271
+namespace fight {
+template <class T>
+class ParamEnumConstList_17ced0 : public ParamEnumConstListBase {
+public:
+    ParamEnumConstList_17ced0(const char* name, const char** n, int c, void (T::*s)())
+        : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
+    virtual void v0();
+    const char** names;
+    int count;
+    void (T::*setter)();
+    int unused1c;
+};
+}
+namespace fight {
+template <class T>
+class ParamFloatConstRange_17ced0 : public ParamFloatConstRangeBase {
+public:
+    ParamFloatConstRange_17ced0(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamIntConstRange_17ced0 : public ParamIntConstRangeBase {
+public:
+    ParamIntConstRange_17ced0(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamName_17ced0 : public ParamNameBase {
+public:
+    ParamName_17ced0(const char* name, void (T::*s)()) : ParamNameBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamScript_17ced0 : public ParamScriptBase {
+public:
+    ParamScript_17ced0(const char* name, void (T::*s)()) : ParamScriptBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamVector_17ced0 : public ParamVectorBase {
+public:
+    ParamVector_17ced0(const char* name, void (T::*s)()) : ParamVectorBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fn_f05a6271 {
+class Caster_17d180 {
+  public:
+    virtual void cast();
+};
+void* __cdecl find(const char*, Caster_17d180*);
+class Caster {
+  public:
+    virtual void* Cast(void*);
+};
+class Owner {
+  public:
+    void Attach(Track*);
+    void Apply(void*);
+};
+Track* Find(const char*, Caster*);
+class Caster_17d1e0 {
+  public:
+    virtual void f();
+};
+int first(int, Caster_17d1e0*);
+} // namespace fn_f05a6271
+namespace hulkfight { namespace motion {
+class MoveJointTrack_17d210 {
+public:
+    void FUN_0016eeb0();
+    void FUN_0016eed0();
+    void FUN_0016eef0();
+    void FUN_0016ef00();
+    void FUN_0016ef10();
+    void FUN_0016ef40();
+    void FUN_0016ef80();
+    void FUN_0016efb0();
+    void FUN_0016efd0();
+    void FUN_0016eff0();
+    void FUN_0016f010();
+    void FUN_0016f030();
+    void FUN_0016f050();
+    void FUN_0016f060();
+    void FUN_0016f070();
+    void FUN_0016f080();
+};
+} }
+namespace fight {
+template <class T>
+class ParamBool_17d210 : public ParamBoolBase {
+public:
+    ParamBool_17d210(const char* name, void (T::*s)()) : ParamBoolBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamFloatConstRange_17d210 : public ParamFloatConstRangeBase {
+public:
+    ParamFloatConstRange_17d210(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamIntConstRange_17d210 : public ParamIntConstRangeBase {
+public:
+    ParamIntConstRange_17d210(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamNameConstList_17d210 : public ParamNameConstListBase {
+public:
+    ParamNameConstList_17d210(const char* name, void (T::*s)()) : ParamNameConstListBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamVector_17d210 : public ParamVectorBase {
+public:
+    ParamVector_17d210(const char* name, void (T::*s)()) : ParamVectorBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fn_f05a6271 {
+extern ParamRegistry DAT_4e1328;
+extern int DAT_4e132c;
+class Caster_17d5b0 {
+  public:
+    virtual void cast();
+};
+extern void* __cdecl Find(const char*, Caster_17d5b0*);
+class Caster_17d610 {
+  public:
+    virtual void Cast();
+};
+extern int __cdecl Find(int, Caster_17d610*);
+class Caster_17d640 {
+  public:
+    virtual void cast();
+};
+void* find(const char*, Caster_17d640*);
+class Caster_17d670 {
+  public:
+    virtual void Cast();
+};
+void* Find(void*, Caster_17d670*);
+class PushOutTrack {
+public:
+    void FUN_0016f250();
+    void FUN_0016f260();
+    void FUN_0016f270();
+    void FUN_0016f2a0();
+    void FUN_0016f2e0();
+    void FUN_0016f310();
+    void FUN_0016f330();
+    void FUN_0016f350();
+};
+template <class T>
+class ParamBool : public ParamBoolBase {
+public:
+    ParamBool(const char* name, void (T::*s)()) : ParamBoolBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+template <class T>
+class ParamNameConstList : public ParamNameConstListBase {
+public:
+    ParamNameConstList(const char* name, void (T::*s)()) : ParamNameConstListBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+class Caster_17d8a0 {
+  public:
+    virtual void f();
+};
+void* __cdecl resolve(void*, Caster_17d8a0*);
+} // namespace fn_f05a6271
+namespace hulkfight { namespace motion {
+class JointPivotTrackerTrack_17d8d0 {
+public:
+    void FUN_0016f3b0();
+    void FUN_0016f3c0();
+    void FUN_0016f3d0();
+    void FUN_0016f400();
+    void FUN_0016f440();
+    void FUN_0016f470();
+    void FUN_0016f4a0();
+    void FUN_0016f4d0();
+    void FUN_0016f500();
+    void FUN_0016f520();
+    void FUN_0016f550();
+    void FUN_0016f570();
+    void FUN_0016f590();
+    void FUN_0016f5b0();
+    void FUN_0016f5d0();
+};
+} }
+namespace fight {
+template <class T>
+class ParamBool_17d8d0 : public ParamBoolBase {
+public:
+    ParamBool_17d8d0(const char* name, void (T::*s)()) : ParamBoolBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamEnumConstList_17d8d0 : public ParamEnumConstListBase {
+public:
+    ParamEnumConstList_17d8d0(const char* name, const char** n, int c, void (T::*s)())
+        : ParamEnumConstListBase(name) { count = c; names = n; setter = s; }
+    virtual void v0();
+    const char** names;
+    int count;
+    void (T::*setter)();
+    int unused1c;
+};
+}
+namespace fight {
+template <class T>
+class ParamFloatConstRange_17d8d0 : public ParamFloatConstRangeBase {
+public:
+    ParamFloatConstRange_17d8d0(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamIntConstRange_17d8d0 : public ParamIntConstRangeBase {
+public:
+    ParamIntConstRange_17d8d0(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamNameConstList_17d8d0 : public ParamNameConstListBase {
+public:
+    ParamNameConstList_17d8d0(const char* name, void (T::*s)()) : ParamNameConstListBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamVector_17d8d0 : public ParamVectorBase {
+public:
+    ParamVector_17d8d0(const char* name, void (T::*s)()) : ParamVectorBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fn_f05a6271 {
+class Caster_17dc10 {
+  public:
+    virtual void Cast();
+};
+class Target {
+  public:
+    void Set(void*);
+};
+void* Find(void*, Caster_17dc10*);
+class Caster_17dc40 {
+  public:
+    virtual void Cast();
+};
+extern void* Find(void*, Caster_17dc40*);
+class FootPivotTrack {
+public:
+    void FUN_0016fad0();
+    void FUN_0016fae0();
+    void FUN_0016faf0();
+    void FUN_0016fb20();
+    void FUN_0016fb50();
+    void FUN_0016fb80();
+    void FUN_0016fbb0();
+    void FUN_0016fbd0();
+    void FUN_0016fbf0();
+    void FUN_0016fc10();
+};
+} // namespace fn_f05a6271
+namespace fight {
+template <class T>
+class ParamBool_17ddf0 : public ParamBoolBase {
+public:
+    ParamBool_17ddf0(const char* name, void (T::*s)()) : ParamBoolBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamFloatConstRange_17ddf0 : public ParamFloatConstRangeBase {
+public:
+    ParamFloatConstRange_17ddf0(const char* name, void (T::*s)()) : ParamFloatConstRangeBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamIntConstRange_17ddf0 : public ParamIntConstRangeBase {
+public:
+    ParamIntConstRange_17ddf0(const char* name, void (T::*s)()) : ParamIntConstRangeBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamNameConstList_17ddf0 : public ParamNameConstListBase {
+public:
+    ParamNameConstList_17ddf0(const char* name, void (T::*s)()) : ParamNameConstListBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fight {
+template <class T>
+class ParamVector_17ddf0 : public ParamVectorBase {
+public:
+    ParamVector_17ddf0(const char* name, void (T::*s)()) : ParamVectorBase(name) { setter = s; }
+    virtual void v0();
+    void (T::*setter)();
+    int unused14;
+};
+}
+namespace fn_f05a6271 {
+struct ChargeTrack_17e070 {
+    hulk_intptr vt;
+    int pad4;
+    int enabled;
+    float padc;
+    float value10;
+    int pad14;
+    char flag18;
+    char pad19[3];
+    float value1c;
+    void Init();
+};
+extern int chargeVtable;
+extern int g_vftable_17e0c0;
+
+} // namespace fn_f05a6271
+
+// 0x0017bc70 hulkfight::motion::RestPoseTrack::vfunc_10 (70 B): matches/0x0017bc70.cpp
+// sym: ?vfunc_10@RestPoseTrack@motion@hulkfight@@UAEHHHH@Z
+// Same code shape as 0x001131c0 (propagated; names are from that function)
+hulk_intptr hulkfight::motion::RestPoseTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17bc70 a = (u32_17bc70)__p0; u32_17bc70 b = (u32_17bc70)__p1; void * p = (void *)__p2;
+
+    if (Check(p, 0, &TypeA_17bc70, &TypeB_17bc70, 0)) {
+        Result_17bc70* q = Alloc(0x28);
+        if (q)
+            return (int)(q->Init(this, p));
+    }
+    return (int)(0);
+}
+
+namespace fn_f05a6271 {
+
+// 0x0017bcc0 hulkfight::motion::RestPoseAction::vfunc_2 (90 B): matches/0x0017bcc0.cpp
+// sym: ?vfunc_2@RestPoseAction_17bcc0@fn_f05a6271@@QAEPAXE@Z
+// Same code shape as 0x00119ea0 (propagated; names are from that function)
+void* RestPoseAction_17bcc0::vfunc_2(unsigned char flag) {
+    volatile RestPoseAction_17bcc0* self = this;
+    self->mVptr = &g_vftable_17bcc0;
+    RefObj_17bcc0* t3 = self->m3;
+    if (t3) {
+        t3->Release();
+        self->m3 = 0;
+    }
+    RefObj_17bcc0* t2 = self->m2;
+    if (t2) {
+        t2->Release();
+        self->m2 = 0;
+    }
+    int v1 = self->m1;
+    if (v1) {
+        self->m1 = 0;
+    }
+    BaseDtor(this);
+    if (flag & 1)
+        operator_delete(this);
+    return this;
+}
+
+
+// 0x0017bd70 hulkfight::motion::SuckAction::vfunc_2 (71 B): matches/0x0017bd70.cpp
+// sym: ?vfunc_2@SuckAction_17bd70@fn_f05a6271@@QAEPAV12@H@Z
+// Same code shape as 0x0010bd90 (propagated; names are from that function)
+SuckAction_17bd70* SuckAction_17bd70::vfunc_2(int flag) {
+    volatile hulk_intptr* p = (volatile hulk_intptr*)this;
+    *p = (hulk_intptr)&g_vt_17bd70;
+    RefCounted_17bd70* q = *(RefCounted_17bd70* volatile*)&m_20;
+    if (q != 0) {
+        q->Release();
+        m_20 = 0;
+    }
+    if (m_1c != 0) {
+        m_1c = 0;
+    }
+    ((fight::Action *)this)->FUN_002326a0();
+    if (flag & 1) {
+        opdel(this);
+    }
+    return this;
+}
+
+
+// 0x0017be10 hulkfight::motion::CriticalMassDrainAction::vfunc_2 (71 B): matches/0x0017be10.cpp
+// sym: ?vfunc_2@CriticalMassDrainAction_17be10@fn_f05a6271@@QAEPAV12@H@Z
+// Same code shape as 0x0010bd90 (propagated; names are from that function)
+CriticalMassDrainAction_17be10* CriticalMassDrainAction_17be10::vfunc_2(int flag) {
+    volatile hulk_intptr* p = (volatile hulk_intptr*)this;
+    *p = (hulk_intptr)&g_vt_17be10;
+    RefCounted_17be10* q = *(RefCounted_17be10* volatile*)&m_20;
+    if (q != 0) {
+        q->Release();
+        m_20 = 0;
+    }
+    if (m_1c != 0) {
+        m_1c = 0;
+    }
+    ((fight::Action *)this)->FUN_002326a0();
+    if (flag & 1) {
+        opdel(this);
+    }
+    return this;
+}
+
+} // namespace fn_f05a6271
+
+// 0x0017be60 hulkfight::motion::MomentumXZAddTrack::vfunc_10 (70 B): matches/0x0017be60.cpp
+// sym: ?vfunc_10@MomentumXZAddTrack@motion@hulkfight@@UAEHHHH@Z
+// Same code shape as 0x00119fb0 (propagated; names are from that function)
+hulk_intptr hulkfight::motion::MomentumXZAddTrack::vfunc_10(hulk_intptr __p0, hulk_intptr __p1, hulk_intptr __p2) { u32_17be60 a = (u32_17be60)__p0; u32_17be60 b = (u32_17be60)__p1; void * p = (void *)__p2;
+
+    if (IsKindOf(p, 0, &TypeA_17be60, &TypeB, 0)) {
+        Params_17be60* q = (Params_17be60*)Alloc(0x34);
+        if (q)
+            return q->Init(this, p);
+    }
+    return 0;
+}
+
+namespace fn_f05a6271 {
+
+// 0x0017beb0 hulkfight::motion::MomentumXZAddAction::vfunc_2 (71 B): matches/0x0017beb0.cpp
+// sym: ?vfunc_2@MomentumXZAddAction_17beb0@fn_f05a6271@@QAEPAV12@H@Z
+// Same code shape as 0x0010bd90 (propagated; names are from that function)
+MomentumXZAddAction_17beb0* MomentumXZAddAction_17beb0::vfunc_2(int flag) {
+    volatile hulk_intptr* p = (volatile hulk_intptr*)this;
+    *p = (hulk_intptr)&g_vt_17beb0;
+    RefCounted_17beb0* q = *(RefCounted_17beb0* volatile*)&m_20;
+    if (q != 0) {
+        q->Release();
+        m_20 = 0;
+    }
+    if (m_1c != 0) {
+        m_1c = 0;
+    }
+    ((fight::Action *)this)->FUN_002326a0();
+    if (flag & 1) {
+        opdel(this);
+    }
+    return this;
+}
+
+
+// 0x0017bf50 hulkfight::motion::VisibilityAction::vfunc_2 (71 B): matches/0x0017bf50.cpp
+// sym: ?vfunc_2@VisibilityAction_17bf50@fn_f05a6271@@QAEPAV12@H@Z
+// Same code shape as 0x0010bd90 (propagated; names are from that function)
+VisibilityAction_17bf50* VisibilityAction_17bf50::vfunc_2(int flag) {
+    volatile hulk_intptr* p = (volatile hulk_intptr*)this;
+    *p = (hulk_intptr)&g_vt_17bf50;
+    RefCounted_17bf50* q = *(RefCounted_17bf50* volatile*)&m_20;
+    if (q != 0) {
+        q->Release();
+        m_20 = 0;
+    }
+    if (m_1c != 0) {
+        m_1c = 0;
+    }
+    ((fight::Action *)this)->FUN_002326a0();
+    if (flag & 1) {
+        opdel(this);
+    }
+    return this;
+}
+
+
+// 0x0017bff0 hulkfight::motion::SnapToGroundAction::vfunc_2 (71 B): matches/0x0017bff0.cpp
+// sym: ?vfunc_2@SnapToGroundAction_17bff0@fn_f05a6271@@QAEPAV12@H@Z
+// Same code shape as 0x0010bd90 (propagated; names are from that function)
+SnapToGroundAction_17bff0* SnapToGroundAction_17bff0::vfunc_2(int flag) {
+    volatile hulk_intptr* p = (volatile hulk_intptr*)this;
+    *p = (hulk_intptr)&g_vt_17bff0;
+    RefCounted_17bff0* q = *(RefCounted_17bff0* volatile*)&m_20;
+    if (q != 0) {
+        q->Release();
+        m_20 = 0;
+    }
+    if (m_1c != 0) {
+        m_1c = 0;
+    }
+    ((fight::Action *)this)->FUN_002326a0();
+    if (flag & 1) {
+        opdel(this);
+    }
+    return this;
+}
+
+
+// 0x0017c080 fight::ParamNameConstList<hulkfight::motion::JointTrackerTrack>::vfunc_7 (12 B): matches/0x0017c080.cpp
+// sym: ?vfunc_6@ParamBranch@fn_f05a6271@@UAEXPAX@Z
+// Same code shape as 0x00050240 (propagated; names are from that function)
+void ParamBranch::vfunc_6(void* p) {
+    fn(p);
+}
+
+} // namespace fn_f05a6271
+
+// 0x0017c0f0 fight::ParamName<hulkfight::motion::RestPoseTrack>::vfunc_7 (12 B): matches/0x0017c0f0.cpp [wrapped: same definition as 0x0017c080 in this TU]
+// sym: ?vfunc_6@ParamBranch@fn_0017c0f0@@UAEXPAX@Z
+namespace fn_0017c0f0 {
+// Same code shape as 0x00050240 (propagated; names are from that function)
+class ParamValueBranch {
+  public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+};
+class ParamValue {};
+class ParamBranch : public ParamValueBranch, public ParamValue {
+  public:
+    char pad[0x10 - sizeof(void*)];
+    void(__fastcall* fn)(void*);
+    virtual void vfunc_6(void*);
+};
+void ParamBranch::vfunc_6(void* p) {
+    fn(p);
+}
+} // namespace fn_0017c0f0
+
+
+// 0x0017c160 fight::ParamNameConstList<hulkfight::motion::JointRelativeTrack>::vfunc_7 (12 B): matches/0x0017c160.cpp [wrapped: same definition as 0x0017c080 in this TU]
+// sym: ?vfunc_6@ParamBranch@fn_0017c160@@UAEXPAX@Z
+namespace fn_0017c160 {
+// Same code shape as 0x00050240 (propagated; names are from that function)
+class ParamValueBranch {
+  public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+};
+class ParamValue {};
+class ParamBranch : public ParamValueBranch, public ParamValue {
+  public:
+    char pad[0x10 - sizeof(void*)];
+    void(__fastcall* fn)(void*);
+    virtual void vfunc_6(void*);
+};
+void ParamBranch::vfunc_6(void* p) {
+    fn(p);
+}
+} // namespace fn_0017c160
+
+
+// 0x0017c1b0 fight::ParamName<hulkfight::motion::SyncToLocatorTrack>::vfunc_7 (12 B): matches/0x0017c1b0.cpp [wrapped: same definition as 0x0017c080 in this TU]
+// sym: ?vfunc_6@ParamBranch@fn_0017c1b0@@UAEXPAX@Z
+namespace fn_0017c1b0 {
+// Same code shape as 0x00050240 (propagated; names are from that function)
+class ParamValueBranch {
+  public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+};
+class ParamValue {};
+class ParamBranch : public ParamValueBranch, public ParamValue {
+  public:
+    char pad[0x10 - sizeof(void*)];
+    void(__fastcall* fn)(void*);
+    virtual void vfunc_6(void*);
+};
+void ParamBranch::vfunc_6(void* p) {
+    fn(p);
+}
+} // namespace fn_0017c1b0
+
+
+// 0x0017c240 fight::ParamNameConstList<hulkfight::motion::MoveJointTrack>::vfunc_7 (12 B): matches/0x0017c240.cpp [wrapped: same definition as 0x0017c080 in this TU]
+// sym: ?vfunc_6@ParamBranch@fn_0017c240@@UAEXPAX@Z
+namespace fn_0017c240 {
+// Same code shape as 0x00050240 (propagated; names are from that function)
+class ParamValueBranch {
+  public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+};
+class ParamValue {};
+class ParamBranch : public ParamValueBranch, public ParamValue {
+  public:
+    char pad[0x10 - sizeof(void*)];
+    void(__fastcall* fn)(void*);
+    virtual void vfunc_6(void*);
+};
+void ParamBranch::vfunc_6(void* p) {
+    fn(p);
+}
+} // namespace fn_0017c240
+
+
+// 0x0017c330 fight::ParamNameConstList<hulkfight::motion::PushOutTrack>::vfunc_7 (12 B): matches/0x0017c330.cpp [wrapped: same definition as 0x0017c080 in this TU]
+// sym: ?vfunc_6@ParamBranch@fn_0017c330@@UAEXPAX@Z
+namespace fn_0017c330 {
+// Same code shape as 0x00050240 (propagated; names are from that function)
+class ParamValueBranch {
+  public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+};
+class ParamValue {};
+class ParamBranch : public ParamValueBranch, public ParamValue {
+  public:
+    char pad[0x10 - sizeof(void*)];
+    void(__fastcall* fn)(void*);
+    virtual void vfunc_6(void*);
+};
+void ParamBranch::vfunc_6(void* p) {
+    fn(p);
+}
+} // namespace fn_0017c330
+
+
+// 0x0017c3a0 fight::ParamNameConstList<hulkfight::motion::JointPivotTrackerTrack>::vfunc_7 (12 B): matches/0x0017c3a0.cpp [wrapped: same definition as 0x0017c080 in this TU]
+// sym: ?vfunc_6@ParamBranch@fn_0017c3a0@@UAEXPAX@Z
+namespace fn_0017c3a0 {
+// Same code shape as 0x00050240 (propagated; names are from that function)
+class ParamValueBranch {
+  public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+};
+class ParamValue {};
+class ParamBranch : public ParamValueBranch, public ParamValue {
+  public:
+    char pad[0x10 - sizeof(void*)];
+    void(__fastcall* fn)(void*);
+    virtual void vfunc_6(void*);
+};
+void ParamBranch::vfunc_6(void* p) {
+    fn(p);
+}
+} // namespace fn_0017c3a0
+
+
+// 0x0017c510 fight::ParamNameConstList<hulkfight::motion::FootPivotTrack>::vfunc_7 (12 B): matches/0x0017c510.cpp [wrapped: same definition as 0x0017c080 in this TU]
+// sym: ?vfunc_6@ParamBranch@fn_0017c510@@UAEXPAX@Z
+namespace fn_0017c510 {
+// Same code shape as 0x00050240 (propagated; names are from that function)
+class ParamValueBranch {
+  public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+};
+class ParamValue {};
+class ParamBranch : public ParamValueBranch, public ParamValue {
+  public:
+    char pad[0x10 - sizeof(void*)];
+    void(__fastcall* fn)(void*);
+    virtual void vfunc_6(void*);
+};
+void ParamBranch::vfunc_6(void* p) {
+    fn(p);
+}
+} // namespace fn_0017c510
+
+
+// 0x0017c520 fight::ParamNameConstList<hulkfight::motion::JointTrackerTrack>::vfunc_0 (30 B): matches/0x0017c520.cpp
+// sym: ??_G?$ParamNameConstList@VJointTrackerTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamNameConstList<hulkfight::motion::JointTrackerTrack>::~ParamNameConstList() {}
+
+
+// 0x0017c540 fight::ParamName<hulkfight::motion::RestPoseTrack>::vfunc_0 (30 B): matches/0x0017c540.cpp
+// sym: ??_G?$ParamName@VRestPoseTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamName<hulkfight::motion::RestPoseTrack>::~ParamName() {}
+
+
+// 0x0017c560 fight::ParamNameConstList<hulkfight::motion::JointRelativeTrack>::vfunc_0 (30 B): matches/0x0017c560.cpp
+// sym: ??_G?$ParamNameConstList@VJointRelativeTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamNameConstList<hulkfight::motion::JointRelativeTrack>::~ParamNameConstList() {}
+
+
+// 0x0017c580 fight::ParamName<hulkfight::motion::SyncToLocatorTrack>::vfunc_0 (30 B): matches/0x0017c580.cpp
+// sym: ??_G?$ParamName@VSyncToLocatorTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamName<hulkfight::motion::SyncToLocatorTrack>::~ParamName() {}
+
+
+// 0x0017c5a0 fight::ParamNameConstList<hulkfight::motion::MoveJointTrack>::vfunc_0 (30 B): matches/0x0017c5a0.cpp
+// sym: ??_G?$ParamNameConstList@VMoveJointTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamNameConstList<hulkfight::motion::MoveJointTrack>::~ParamNameConstList() {}
+
+
+// 0x0017c5c0 fight::ParamNameConstList<hulkfight::motion::PushOutTrack>::vfunc_0 (30 B): matches/0x0017c5c0.cpp
+// sym: ??_G?$ParamNameConstList@VPushOutTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamNameConstList<hulkfight::motion::PushOutTrack>::~ParamNameConstList() {}
+
+
+// 0x0017c5e0 fight::ParamNameConstList<hulkfight::motion::JointPivotTrackerTrack>::vfunc_0 (30 B): matches/0x0017c5e0.cpp
+// sym: ??_G?$ParamNameConstList@VJointPivotTrackerTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamNameConstList<hulkfight::motion::JointPivotTrackerTrack>::~ParamNameConstList() {}
+
+
+// 0x0017c600 fight::ParamNameConstList<hulkfight::motion::FootPivotTrack>::vfunc_0 (30 B): matches/0x0017c600.cpp
+// sym: ??_G?$ParamNameConstList@VFootPivotTrack@motion@hulkfight@@@fight@@UAEPAXI@Z
+// Same code shape as 0x00021840 (propagated; names are from that function)
+// scalar deleting destructor: FUN_00019420() is the base destructor, thunk_FUN_00267090() operator delete
+template <> fight::ParamNameConstList<hulkfight::motion::FootPivotTrack>::~ParamNameConstList() {}
+
+
+// 0x0017c620 FUN_0017c620 (38 B): matches/0x0017c620.cpp [wrapped: conflict: Find; fight::TrackFactoryCasterTemplate]
+// sym: _FUN_0017c620
+namespace fn_0017c620 {
+namespace fight {
+class TrackFactoryCasterTemplate {
+  public:
+    virtual void Cast();
+};
+} // namespace fight
+class Thing {
+  public:
+    void Set(void*);
+};
+extern "C++" __declspec(nothrow) void* Find(const char*, fight::TrackFactoryCasterTemplate*);
+extern "C" void FUN_0017c620(Thing* thing, const char* name) {
+    fight::TrackFactoryCasterTemplate caster;
+    thing->Set(Find(name, &caster));
+}
+} // namespace fn_0017c620
+
+namespace fn_f05a6271 {
+
+// 0x0017c650 FUN_0017c650 (933 B): equivalent/0x0017c650.cpp
+// sym: _FUN_0017c650
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 36/36)
+// FUN_0017c650 @ 0x0017c650
+extern "C" void FUN_0017c650()
+{
+    if (DAT_004e12ec == 0) {
+        void* params[17];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("timeBegin", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e720);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("timeEnd", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e730);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
+        params[2] = 0;
+        if (mem)
+            params[2] = new (mem) fight::ParamNameConstList_17c650<hulkfight::motion::JointTrackerTrack_17c650>("joint", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e740);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
+        params[3] = 0;
+        if (mem)
+            params[3] = new (mem) fight::ParamVector_17c650<hulkfight::motion::JointTrackerTrack_17c650>("north", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e770);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
+        params[4] = 0;
+        if (mem)
+            params[4] = new (mem) fight::ParamVector_17c650<hulkfight::motion::JointTrackerTrack_17c650>("east", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e7b0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
+        params[5] = 0;
+        if (mem)
+            params[5] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("turnRate", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e7e0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
+        params[6] = 0;
+        if (mem)
+            params[6] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("vertMinAngle", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e810);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
+        params[7] = 0;
+        if (mem)
+            params[7] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("vertMaxAngle", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e840);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
+        params[8] = 0;
+        if (mem)
+            params[8] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("horzMinAngle", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e870);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
+        params[9] = 0;
+        if (mem)
+            params[9] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("horzMaxAngle", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e8a0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
+        params[10] = 0;
+        if (mem)
+            params[10] = new (mem) fight::ParamBool_17c650<hulkfight::motion::JointTrackerTrack_17c650>("targetRequired", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e8d0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
+        params[11] = 0;
+        if (mem)
+            params[11] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("targetArc", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e8f0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
+        params[12] = 0;
+        if (mem)
+            params[12] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("targetDistance", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e920);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
+        params[13] = 0;
+        if (mem)
+            params[13] = new (mem) fight::ParamEnumConstList_17c650<hulkfight::motion::JointTrackerTrack_17c650>("targetLocation", ((const char**)&DAT_004b7cf0), 3, &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e940);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
+        params[14] = 0;
+        if (mem)
+            params[14] = new (mem) fight::ParamIntConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("priority", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e960);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
+        params[15] = 0;
+        if (mem)
+            params[15] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("blendInTime", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e980);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>));
+        params[16] = 0;
+        if (mem)
+            params[16] = new (mem) fight::ParamFloatConstRange_17c650<hulkfight::motion::JointTrackerTrack_17c650>("blendOutTime", &hulkfight::motion::JointTrackerTrack_17c650::FUN_0016e9a0);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e12e8), params, 17);
+    }
+    DAT_004e12ec++;
+}
+
+} // namespace fn_f05a6271
+
+// 0x0017ca00 FUN_0017ca00 (38 B): matches/0x0017ca00.cpp [wrapped: conflict: Find]
+// sym: _FUN_0017ca00
+namespace fn_0017ca00 {
+class Caster_17ca00 {
+  public:
+    virtual void Cast();
+};
+class Obj {
+  public:
+    void Apply(void*);
+};
+extern "C++" __declspec(nothrow) void* __cdecl Find(void*, Caster_17ca00*);
+extern "C" void __cdecl FUN_0017ca00(Obj* obj, void* value) {
+    Caster_17ca00 caster;
+    void* p = Find(value, &caster);
+    obj->Apply(p);
+}
+} // namespace fn_0017ca00
+
+
+// 0x0017ca30 FUN_0017ca30 (38 B): matches/0x0017ca30.cpp [wrapped: conflict: Find]
+// sym: _FUN_0017ca30
+namespace fn_0017ca30 {
+class Caster_17ca30 {
+  public:
+    virtual void Cast();
+};
+class Obj {
+  public:
+    void Set(void*);
+};
+extern "C++" __declspec(nothrow) void* __cdecl Find(void*, Caster_17ca30*);
+extern "C" void __cdecl FUN_0017ca30(Obj* obj, void* name) {
+    Caster_17ca30 caster;
+    obj->Set(Find(name, &caster));
+}
+} // namespace fn_0017ca30
+
+namespace fn_f05a6271 {
+
+// 0x0017ca60 FUN_0017ca60 (358 B): equivalent/0x0017ca60.cpp
+// sym: _FUN_0017ca60
+// STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 14/14)
+// FUN_0017ca60 @ 0x0017ca60
+extern "C" void FUN_0017ca60()
+{
+    if (DAT_004e12fc == 0) {
+        void* params[6];
+        void* mem;
+
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RestPoseTrack>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) ParamFloatConstRange<RestPoseTrack>("timeBegin", &RestPoseTrack::FUN_0016ea30);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RestPoseTrack>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) ParamFloatConstRange<RestPoseTrack>("timeEnd", &RestPoseTrack::FUN_0016ea40);
+        mem = FUN_0008d690((int)sizeof(ParamName<RestPoseTrack>));
+        params[2] = 0;
+        if (mem)
+            params[2] = new (mem) ParamName<RestPoseTrack>("partition", &RestPoseTrack::FUN_0016ea50);
+        mem = FUN_0008d690((int)sizeof(ParamIntConstRange<RestPoseTrack>));
+        params[3] = 0;
+        if (mem)
+            params[3] = new (mem) ParamIntConstRange<RestPoseTrack>("priority", &RestPoseTrack::FUN_0016ea70);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RestPoseTrack>));
+        params[4] = 0;
+        if (mem)
+            params[4] = new (mem) ParamFloatConstRange<RestPoseTrack>("blendInTime", &RestPoseTrack::FUN_0016ea90);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<RestPoseTrack>));
+        params[5] = 0;
+        if (mem)
+            params[5] = new (mem) ParamFloatConstRange<RestPoseTrack>("blendOutTime", &RestPoseTrack::FUN_0016eab0);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e12f8), params, 6);
+    }
+    DAT_004e12fc++;
+}
+
+
+// 0x0017cbd0 FUN_0017cbd0 (38 B): matches/0x0017cbd0.cpp
+// sym: _FUN_0017cbd0
+extern "C" void __cdecl FUN_0017cbd0(Obj* obj, const char* name) {
+    Caster_17cbd0 caster;
+    obj->Apply(Find(name, &caster));
+}
+
+
+// 0x0017cc00 FUN_0017cc00 (38 B): matches/0x0017cc00.cpp
+// sym: _FUN_0017cc00
+extern "C" void FUN_0017cc00(Track* track, const char* name) {
+    Caster_17cc00 caster;
+    void* found = Find(name, &caster);
+    track->Set(found);
+}
+
+
+// 0x0017cc30 FUN_0017cc30 (613 B): equivalent/0x0017cc30.cpp
+// sym: _FUN_0017cc30
+// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 24/24)
+// FUN_0017cc30 @ 0x0017cc30
+extern "C" void FUN_0017cc30()
+{
+    if (DAT_004e130c == 0) {
+        void* params[11];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17cc30<JointRelativeTrack>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamFloatConstRange_17cc30<JointRelativeTrack>("timeBegin", &JointRelativeTrack::FUN_0016ead0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17cc30<JointRelativeTrack>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) fight::ParamFloatConstRange_17cc30<JointRelativeTrack>("timeEnd", &JointRelativeTrack::FUN_0016eae0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_17cc30<JointRelativeTrack>));
+        params[2] = 0;
+        if (mem)
+            params[2] = new (mem) fight::ParamNameConstList_17cc30<JointRelativeTrack>("joint", &JointRelativeTrack::FUN_0016eaf0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17cc30<JointRelativeTrack>));
+        params[3] = 0;
+        if (mem)
+            params[3] = new (mem) fight::ParamBool_17cc30<JointRelativeTrack>("useRestPose", &JointRelativeTrack::FUN_0016eb10);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17cc30<JointRelativeTrack>));
+        params[4] = 0;
+        if (mem)
+            params[4] = new (mem) fight::ParamBool_17cc30<JointRelativeTrack>("hasTranslation", &JointRelativeTrack::FUN_0016eb30);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17cc30<JointRelativeTrack>));
+        params[5] = 0;
+        if (mem)
+            params[5] = new (mem) fight::ParamVector_17cc30<JointRelativeTrack>("translation", &JointRelativeTrack::FUN_0016eb60);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17cc30<JointRelativeTrack>));
+        params[6] = 0;
+        if (mem)
+            params[6] = new (mem) fight::ParamBool_17cc30<JointRelativeTrack>("hasRotation", &JointRelativeTrack::FUN_0016eb90);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17cc30<JointRelativeTrack>));
+        params[7] = 0;
+        if (mem)
+            params[7] = new (mem) fight::ParamVector_17cc30<JointRelativeTrack>("rotation", &JointRelativeTrack::FUN_0016ebc0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_17cc30<JointRelativeTrack>));
+        params[8] = 0;
+        if (mem)
+            params[8] = new (mem) fight::ParamIntConstRange_17cc30<JointRelativeTrack>("priority", &JointRelativeTrack::FUN_0016ec10);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17cc30<JointRelativeTrack>));
+        params[9] = 0;
+        if (mem)
+            params[9] = new (mem) fight::ParamFloatConstRange_17cc30<JointRelativeTrack>("blendInTime", &JointRelativeTrack::FUN_0016ec30);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17cc30<JointRelativeTrack>));
+        params[10] = 0;
+        if (mem)
+            params[10] = new (mem) fight::ParamFloatConstRange_17cc30<JointRelativeTrack>("blendOutTime", &JointRelativeTrack::FUN_0016ec50);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1308), params, 11);
+    }
+    DAT_004e130c++;
+}
+
+} // namespace fn_f05a6271
+
+// 0x0017cea0 FUN_0017cea0 (38 B): matches/0x0017cea0.cpp [wrapped: conflict: Find]
+// sym: _FUN_0017cea0
+namespace fn_0017cea0 {
+class Caster {
+  public:
+    virtual void Cast();
+};
+class Obj {
+  public:
+    void Use(int);
+};
+extern int Find(void*, Caster*);
+extern "C" void FUN_0017cea0(Obj* obj, void* name) {
+    Caster c;
+    int x = Find(name, &c);
+    obj->Use(x);
+}
+} // namespace fn_0017cea0
+
+namespace fn_f05a6271 {
+
+// 0x0017ced0 FUN_0017ced0 (678 B): equivalent/0x0017ced0.cpp
+// sym: _FUN_0017ced0
+// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 26/26)
+// FUN_0017ced0 @ 0x0017ced0
+extern "C" void FUN_0017ced0()
+{
+    if (DAT_004e1314 == 0) {
+        void* params[12];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("timeBegin", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ec60);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("timeEnd", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ec70);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
+        params[2] = 0;
+        if (mem)
+            params[2] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("rotationEnd", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ec90);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
+        params[3] = 0;
+        if (mem)
+            params[3] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("translationEnd", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ecb0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamName_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
+        params[4] = 0;
+        if (mem)
+            params[4] = new (mem) fight::ParamName_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("locatorName", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ecc0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamScript_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
+        params[5] = 0;
+        if (mem)
+            params[5] = new (mem) fight::ParamScript_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("locatorInitScript", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_00170130);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
+        params[6] = 0;
+        if (mem)
+            params[6] = new (mem) fight::ParamEnumConstList_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("rotationOverride", ((const char**)&DAT_004b7cfc), 3, &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ed00);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
+        params[7] = 0;
+        if (mem)
+            params[7] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("orientOffset", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ed20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
+        params[8] = 0;
+        if (mem)
+            params[8] = new (mem) fight::ParamVector_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("positionOffset", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ed60);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
+        params[9] = 0;
+        if (mem)
+            params[9] = new (mem) fight::ParamIntConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("priority", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016ed90);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
+        params[10] = 0;
+        if (mem)
+            params[10] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("blendInTime", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016edb0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>));
+        params[11] = 0;
+        if (mem)
+            params[11] = new (mem) fight::ParamFloatConstRange_17ced0<hulkfight::motion::SyncToLocatorTrack_17ced0>("blendOutTime", &hulkfight::motion::SyncToLocatorTrack_17ced0::FUN_0016edd0);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1310), params, 12);
+    }
+    DAT_004e1314++;
+}
+
+
+// 0x0017d180 FUN_0017d180 (38 B): matches/0x0017d180.cpp
+// sym: _FUN_0017d180
+extern "C" void __cdecl FUN_0017d180(Obj* obj, const char* name) {
+    Caster_17d180 caster;
+    obj->set(find(name, &caster));
+}
+
+
+// 0x0017d1b0 FUN_0017d1b0 (38 B): matches/0x0017d1b0.cpp
+// sym: _FUN_0017d1b0
+extern "C" void FUN_0017d1b0(Owner* owner, const char* name) {
+    Caster caster;
+    Track* t = Find(name, &caster);
+    owner->Attach(t);
+}
+
+
+// 0x0017d1e0 FUN_0017d1e0 (38 B): matches/0x0017d1e0.cpp
+// sym: _FUN_0017d1e0
+extern "C" void FUN_0017d1e0(Obj* obj, int n) {
+    Caster_17d1e0 caster;
+    int x = first(n, &caster);
+    obj->second(x);
+}
+
+
+// 0x0017d210 FUN_0017d210 (868 B): equivalent/0x0017d210.cpp
+// sym: _FUN_0017d210
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 34/34)
+// FUN_0017d210 @ 0x0017d210
+extern "C" void FUN_0017d210()
+{
+    if (DAT_4e132c == 0) {
+        void* params[16];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("timeBegin", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016eeb0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("timeEnd", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016eed0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
+        params[2] = 0;
+        if (mem)
+            params[2] = new (mem) fight::ParamIntConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("attachmentIndex", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016eef0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_17d210<hulkfight::motion::MoveJointTrack_17d210>));
+        params[3] = 0;
+        if (mem)
+            params[3] = new (mem) fight::ParamNameConstList_17d210<hulkfight::motion::MoveJointTrack_17d210>("moveJoint", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016ef00);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_17d210<hulkfight::motion::MoveJointTrack_17d210>));
+        params[4] = 0;
+        if (mem)
+            params[4] = new (mem) fight::ParamNameConstList_17d210<hulkfight::motion::MoveJointTrack_17d210>("startJoint", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016ef10);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17d210<hulkfight::motion::MoveJointTrack_17d210>));
+        params[5] = 0;
+        if (mem)
+            params[5] = new (mem) fight::ParamVector_17d210<hulkfight::motion::MoveJointTrack_17d210>("offset", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016ef40);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17d210<hulkfight::motion::MoveJointTrack_17d210>));
+        params[6] = 0;
+        if (mem)
+            params[6] = new (mem) fight::ParamVector_17d210<hulkfight::motion::MoveJointTrack_17d210>("direction", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016ef80);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
+        params[7] = 0;
+        if (mem)
+            params[7] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("distanceStart", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016efb0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
+        params[8] = 0;
+        if (mem)
+            params[8] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("distanceEnd", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016efd0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
+        params[9] = 0;
+        if (mem)
+            params[9] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("initVelocity", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016eff0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
+        params[10] = 0;
+        if (mem)
+            params[10] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("maxVelocity", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016f010);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
+        params[11] = 0;
+        if (mem)
+            params[11] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("acceleration", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016f030);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17d210<hulkfight::motion::MoveJointTrack_17d210>));
+        params[12] = 0;
+        if (mem)
+            params[12] = new (mem) fight::ParamBool_17d210<hulkfight::motion::MoveJointTrack_17d210>("simulateMotion", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016f050);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
+        params[13] = 0;
+        if (mem)
+            params[13] = new (mem) fight::ParamIntConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("priority", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016f060);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
+        params[14] = 0;
+        if (mem)
+            params[14] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("blendInTime", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016f070);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>));
+        params[15] = 0;
+        if (mem)
+            params[15] = new (mem) fight::ParamFloatConstRange_17d210<hulkfight::motion::MoveJointTrack_17d210>("blendOutTime", &hulkfight::motion::MoveJointTrack_17d210::FUN_0016f080);
+        FUN_002347b0(&DAT_4e1328, params, 16);
+    }
+    DAT_4e132c++;
+}
+
+} // namespace fn_f05a6271
+
+// 0x0017d580 FUN_0017d580 (38 B): matches/0x0017d580.cpp [wrapped: conflict: Find]
+// sym: _FUN_0017d580
+namespace fn_0017d580 {
+class Caster_17d580 {
+  public:
+    virtual void Cast();
+};
+extern "C++" __declspec(nothrow) void* __cdecl Find(void*, Caster_17d580*);
+class Obj {
+  public:
+    void Take(void*);
+};
+extern "C" void __cdecl FUN_0017d580(Obj* obj, void* value) {
+    Caster_17d580 caster;
+    obj->Take(Find(value, &caster));
+}
+} // namespace fn_0017d580
+
+namespace fn_f05a6271 {
+
+// 0x0017d5b0 FUN_0017d5b0 (38 B): matches/0x0017d5b0.cpp
+// sym: _FUN_0017d5b0
+extern "C" void FUN_0017d5b0(Obj* obj, const char* name) {
+    Caster_17d5b0 caster;
+    void* p = Find(name, &caster);
+    obj->Process(p);
+}
+
+} // namespace fn_f05a6271
+
+// 0x0017d5e0 FUN_0017d5e0 (38 B): matches/0x0017d5e0.cpp [wrapped: conflict: Target]
+// sym: ?Target@fn_0017d5e0@@YAXPAVHolder@1@PAX@Z
+namespace fn_0017d5e0 {
+class Caster {
+  public:
+    virtual void f();
+};
+class Holder {
+  public:
+    void Set(void*);
+};
+void* Find(void*, Caster*);
+void Target(Holder* h, void* x) {
+    Caster c;
+    void* p = Find(x, &c);
+    h->Set(p);
+}
+} // namespace fn_0017d5e0
+
+namespace fn_f05a6271 {
+
+// 0x0017d610 FUN_0017d610 (38 B): matches/0x0017d610.cpp
+// sym: _FUN_0017d610
+extern "C" void FUN_0017d610(Obj* obj, int id) {
+    Caster_17d610 caster;
+    obj->Apply(Find(id, &caster));
+}
+
+
+// 0x0017d640 FUN_0017d640 (38 B): matches/0x0017d640.cpp
+// sym: _FUN_0017d640
+extern "C" void FUN_0017d640(Obj* obj, const char* name) {
+    Caster_17d640 c;
+    obj->use(find(name, &c));
+}
+
+
+// 0x0017d670 FUN_0017d670 (38 B): matches/0x0017d670.cpp
+// sym: _FUN_0017d670
+extern "C" void FUN_0017d670(Owner* owner, void* key) {
+    Caster_17d670 c;
+    void* result = Find(key, &c);
+    owner->Apply(result);
+}
+
+
+// 0x0017d6a0 FUN_0017d6a0 (460 B): equivalent/0x0017d6a0.cpp
+// sym: _FUN_0017d6a0
+// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/18)
+// FUN_0017d6a0 @ 0x0017d6a0
+extern "C" void FUN_0017d6a0()
+{
+    if (DAT_004e135c == 0) {
+        void* params[8];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PushOutTrack>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) ParamFloatConstRange<PushOutTrack>("timeBegin", &PushOutTrack::FUN_0016f250);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PushOutTrack>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) ParamFloatConstRange<PushOutTrack>("timeEnd", &PushOutTrack::FUN_0016f260);
+        mem = FUN_0008d690((int)sizeof(ParamNameConstList<PushOutTrack>));
+        params[2] = 0;
+        if (mem)
+            params[2] = new (mem) ParamNameConstList<PushOutTrack>("joint", &PushOutTrack::FUN_0016f270);
+        mem = FUN_0008d690((int)sizeof(ParamVector<PushOutTrack>));
+        params[3] = 0;
+        if (mem)
+            params[3] = new (mem) ParamVector<PushOutTrack>("offset", &PushOutTrack::FUN_0016f2a0);
+        mem = FUN_0008d690((int)sizeof(ParamVector<PushOutTrack>));
+        params[4] = 0;
+        if (mem)
+            params[4] = new (mem) ParamVector<PushOutTrack>("direction", &PushOutTrack::FUN_0016f2e0);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PushOutTrack>));
+        params[5] = 0;
+        if (mem)
+            params[5] = new (mem) ParamFloatConstRange<PushOutTrack>("distance", &PushOutTrack::FUN_0016f310);
+        mem = FUN_0008d690((int)sizeof(ParamFloatConstRange<PushOutTrack>));
+        params[6] = 0;
+        if (mem)
+            params[6] = new (mem) ParamFloatConstRange<PushOutTrack>("velocity", &PushOutTrack::FUN_0016f330);
+        mem = FUN_0008d690((int)sizeof(ParamBool<PushOutTrack>));
+        params[7] = 0;
+        if (mem)
+            params[7] = new (mem) ParamBool<PushOutTrack>("allowY", &PushOutTrack::FUN_0016f350);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1358), params, 8);
+    }
+    DAT_004e135c++;
+}
+
+} // namespace fn_f05a6271
+
+// 0x0017d870 FUN_0017d870 (38 B): matches/0x0017d870.cpp [wrapped: conflict: find]
+// sym: _FUN_0017d870
+namespace fn_0017d870 {
+class Caster_17d870 {
+  public:
+    virtual void f();
+};
+class Track {
+  public:
+    void get(void*);
+};
+extern "C++" __declspec(nothrow) void* __cdecl find(void*, Caster_17d870*);
+extern "C" void FUN_0017d870(Track* t, void* name) {
+    Caster_17d870 c;
+    t->get(find(name, &c));
+}
+} // namespace fn_0017d870
+
+namespace fn_f05a6271 {
+
+// 0x0017d8a0 FUN_0017d8a0 (38 B): matches/0x0017d8a0.cpp
+// sym: _FUN_0017d8a0
+extern "C" void FUN_0017d8a0(Obj* obj, void* id) {
+    Caster_17d8a0 caster;
+    void* p = resolve(id, &caster);
+    obj->use(p);
+}
+
+
+// 0x0017d8d0 FUN_0017d8d0 (831 B): equivalent/0x0017d8d0.cpp
+// sym: _FUN_0017d8d0
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 32/32)
+// FUN_0017d8d0 @ 0x0017d8d0
+extern "C" void FUN_0017d8d0()
+{
+    if (DAT_004e136c == 0) {
+        void* params[15];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("timeBegin", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f3b0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("timeEnd", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f3c0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
+        params[2] = 0;
+        if (mem)
+            params[2] = new (mem) fight::ParamNameConstList_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("joint", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f3d0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
+        params[3] = 0;
+        if (mem)
+            params[3] = new (mem) fight::ParamVector_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("trackAxis", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f400);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
+        params[4] = 0;
+        if (mem)
+            params[4] = new (mem) fight::ParamVector_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("pivotAxis", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f440);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
+        params[5] = 0;
+        if (mem)
+            params[5] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("turnRate", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f470);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
+        params[6] = 0;
+        if (mem)
+            params[6] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("angleMin", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f4a0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
+        params[7] = 0;
+        if (mem)
+            params[7] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("angleMax", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f4d0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
+        params[8] = 0;
+        if (mem)
+            params[8] = new (mem) fight::ParamBool_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("targetRequired", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f500);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
+        params[9] = 0;
+        if (mem)
+            params[9] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("targetArc", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f520);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
+        params[10] = 0;
+        if (mem)
+            params[10] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("targetDistance", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f550);
+        mem = FUN_0008d690((int)sizeof(fight::ParamEnumConstList_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
+        params[11] = 0;
+        if (mem)
+            params[11] = new (mem) fight::ParamEnumConstList_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("targetLocation", ((const char**)&DAT_004b7cf0), 3, &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f570);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
+        params[12] = 0;
+        if (mem)
+            params[12] = new (mem) fight::ParamIntConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("priority", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f590);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
+        params[13] = 0;
+        if (mem)
+            params[13] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("blendInTime", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f5b0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>));
+        params[14] = 0;
+        if (mem)
+            params[14] = new (mem) fight::ParamFloatConstRange_17d8d0<hulkfight::motion::JointPivotTrackerTrack_17d8d0>("blendOutTime", &hulkfight::motion::JointPivotTrackerTrack_17d8d0::FUN_0016f5d0);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1368), params, 15);
+    }
+    DAT_004e136c++;
+}
+
+
+// 0x0017dc10 FUN_0017dc10 (38 B): matches/0x0017dc10.cpp
+// sym: _FUN_0017dc10
+extern "C" void FUN_0017dc10(Target* obj, void* name) {
+    Caster_17dc10 caster;
+    obj->Set(Find(name, &caster));
+}
+
+
+// 0x0017dc40 FUN_0017dc40 (38 B): matches/0x0017dc40.cpp
+// sym: _FUN_0017dc40
+extern "C" void FUN_0017dc40(Target* target, void* name) {
+    Caster_17dc40 caster;
+    target->Set(Find(name, &caster));
+}
+
+} // namespace fn_f05a6271
+
+// 0x0017dc70 FUN_0017dc70 (38 B): matches/0x0017dc70.cpp [wrapped: conflict: find]
+// sym: _FUN_0017dc70
+namespace fn_0017dc70 {
+class Caster_17dc70 {
+  public:
+    virtual void foo();
+};
+class Track {
+  public:
+    void apply(void*);
+};
+extern "C++" __declspec(nothrow) void* __cdecl find(void*, Caster_17dc70*);
+extern "C" void __cdecl FUN_0017dc70(Track* track, void* name) {
+    Caster_17dc70 caster;
+    track->apply(find(name, &caster));
+}
+} // namespace fn_0017dc70
+
+
+// 0x0017dca0 FUN_0017dca0 (38 B): matches/0x0017dca0.cpp [wrapped: conflict: Find]
+// sym: _FUN_0017dca0
+namespace fn_0017dca0 {
+class Caster {
+  public:
+    virtual void Cast();
+};
+class Obj {
+  public:
+    void Set(void*);
+};
+void* __cdecl Find(const char*, Caster*);
+extern "C" void FUN_0017dca0(Obj* obj, const char* name) {
+    Caster caster;
+    obj->Set(Find(name, &caster));
+}
+} // namespace fn_0017dca0
+
+
+// 0x0017dcd0 FUN_0017dcd0 (38 B): matches/0x0017dcd0.cpp [wrapped: conflict: find]
+// sym: _FUN_0017dcd0
+namespace fn_0017dcd0 {
+class Caster {
+  public:
+    virtual void cast();
+};
+struct Owner {
+    void add(void*);
+};
+extern "C++" __declspec(nothrow) void* __cdecl find(int, Caster*);
+extern "C" void __cdecl FUN_0017dcd0(Owner* owner, hulk_intptr id) {
+    Caster caster;
+    owner->add(find(id, &caster));
+}
+} // namespace fn_0017dcd0
+
+
+// 0x0017dd00 FUN_0017dd00 (38 B): matches/0x0017dd00.cpp [wrapped: conflict: Target]
+// sym: ?Target@fn_0017dd00@@YAXPAVObj@1@PAX@Z
+namespace fn_0017dd00 {
+class Caster {
+  public:
+    virtual void Cast();
+};
+class Obj {
+  public:
+    void Act(void*);
+};
+void* __cdecl Find(void*, Caster*);
+void __cdecl Target(Obj* obj, void* p) {
+    Caster caster;
+    obj->Act(Find(p, &caster));
+}
+} // namespace fn_0017dd00
+
+
+// 0x0017dd30 FUN_0017dd30 (38 B): matches/0x0017dd30.cpp [wrapped: conflict: Find]
+// sym: _FUN_0017dd30
+namespace fn_0017dd30 {
+class Caster {
+  public:
+    virtual void Cast();
+};
+extern "C++" __declspec(nothrow) void* Find(void*, Caster*);
+class Obj {
+  public:
+    void Use(void*);
+};
+extern "C" void FUN_0017dd30(Obj* obj, void* name) {
+    Caster caster;
+    obj->Use(Find(name, &caster));
+}
+} // namespace fn_0017dd30
+
+
+// 0x0017dd60 FUN_0017dd60 (38 B): matches/0x0017dd60.cpp [wrapped: conflict: Target]
+// sym: ?Target@fn_0017dd60@@YAXPAVObj@1@PAX@Z
+namespace fn_0017dd60 {
+class Caster {
+  public:
+    virtual void Fn();
+};
+class Obj {
+  public:
+    void Do(void*);
+};
+void* Find(void*, Caster*);
+void Target(Obj* obj, void* key) {
+    Caster caster;
+    obj->Do(Find(key, &caster));
+}
+} // namespace fn_0017dd60
+
+
+// 0x0017dd90 FUN_0017dd90 (38 B): matches/0x0017dd90.cpp [wrapped: conflict: Find]
+// sym: _FUN_0017dd90
+namespace fn_0017dd90 {
+class Caster {
+  public:
+    virtual void f();
+};
+class Obj {
+  public:
+    void Set(void*);
+};
+extern "C++" __declspec(nothrow) void* __cdecl Find(void*, Caster*);
+extern "C" void FUN_0017dd90(Obj* obj, void* name) {
+    Caster caster;
+    void* p = Find(name, &caster);
+    obj->Set(p);
+}
+} // namespace fn_0017dd90
+
+
+// 0x0017ddc0 FUN_0017ddc0 (38 B): matches/0x0017ddc0.cpp [wrapped: conflict: Obj]
+// sym: _FUN_0017ddc0
+namespace fn_0017ddc0 {
+class Caster {
+  public:
+    virtual void cast();
+};
+extern "C++" __declspec(nothrow) void* __cdecl lookup(void*, Caster*);
+class Obj {
+  public:
+    void* use(void*);
+};
+extern "C" void* FUN_0017ddc0(Obj* obj, void* key) {
+    Caster caster;
+    void* result = lookup(key, &caster);
+    return obj->use(result);
+}
+} // namespace fn_0017ddc0
+
+namespace fn_f05a6271 {
+
+// 0x0017ddf0 FUN_0017ddf0 (562 B): equivalent/0x0017ddf0.cpp
+// sym: _FUN_0017ddf0
+// STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 22/22)
+// FUN_0017ddf0 @ 0x0017ddf0
+extern "C" void FUN_0017ddf0()
+{
+    if (DAT_004e13bc == 0) {
+        void* params[10];
+        void* mem;
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ddf0<FootPivotTrack>));
+        params[0] = 0;
+        if (mem)
+            params[0] = new (mem) fight::ParamFloatConstRange_17ddf0<FootPivotTrack>("timeBegin", &FootPivotTrack::FUN_0016fad0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ddf0<FootPivotTrack>));
+        params[1] = 0;
+        if (mem)
+            params[1] = new (mem) fight::ParamFloatConstRange_17ddf0<FootPivotTrack>("timeEnd", &FootPivotTrack::FUN_0016fae0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamNameConstList_17ddf0<FootPivotTrack>));
+        params[2] = 0;
+        if (mem)
+            params[2] = new (mem) fight::ParamNameConstList_17ddf0<FootPivotTrack>("joint", &FootPivotTrack::FUN_0016faf0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamVector_17ddf0<FootPivotTrack>));
+        params[3] = 0;
+        if (mem)
+            params[3] = new (mem) fight::ParamVector_17ddf0<FootPivotTrack>("offset", &FootPivotTrack::FUN_0016fb20);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ddf0<FootPivotTrack>));
+        params[4] = 0;
+        if (mem)
+            params[4] = new (mem) fight::ParamFloatConstRange_17ddf0<FootPivotTrack>("facing", &FootPivotTrack::FUN_0016fb50);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ddf0<FootPivotTrack>));
+        params[5] = 0;
+        if (mem)
+            params[5] = new (mem) fight::ParamFloatConstRange_17ddf0<FootPivotTrack>("turningVelocity", &FootPivotTrack::FUN_0016fb80);
+        mem = FUN_0008d690((int)sizeof(fight::ParamBool_17ddf0<FootPivotTrack>));
+        params[6] = 0;
+        if (mem)
+            params[6] = new (mem) fight::ParamBool_17ddf0<FootPivotTrack>("useTarget", &FootPivotTrack::FUN_0016fbb0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamIntConstRange_17ddf0<FootPivotTrack>));
+        params[7] = 0;
+        if (mem)
+            params[7] = new (mem) fight::ParamIntConstRange_17ddf0<FootPivotTrack>("priority", &FootPivotTrack::FUN_0016fbd0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ddf0<FootPivotTrack>));
+        params[8] = 0;
+        if (mem)
+            params[8] = new (mem) fight::ParamFloatConstRange_17ddf0<FootPivotTrack>("blendInTime", &FootPivotTrack::FUN_0016fbf0);
+        mem = FUN_0008d690((int)sizeof(fight::ParamFloatConstRange_17ddf0<FootPivotTrack>));
+        params[9] = 0;
+        if (mem)
+            params[9] = new (mem) fight::ParamFloatConstRange_17ddf0<FootPivotTrack>("blendOutTime", &FootPivotTrack::FUN_0016fc10);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e13b8), params, 10);
+    }
+    DAT_004e13bc++;
+}
+
+} // namespace fn_f05a6271
+
+// 0x0017e070 fight::TrackFactoryTemplate<hulkfight::motion::ChargeTrack>::vfunc_5 (77 B): matches/0x0017e070.cpp
+// sym: ?vfunc_5@?$TrackFactoryTemplate@VChargeTrack@motion@hulkfight@@@fight@@UAEPAXXZ
+template <> void* fight::TrackFactoryTemplate<hulkfight::motion::ChargeTrack>::vfunc_5() {
+    ChargeTrack_17e070* p = (ChargeTrack_17e070*)operator new(sizeof(ChargeTrack_17e070));
+    if (p) {
+        p->Init();
+        p->vt = (hulk_intptr)&chargeVtable;
+        p->padc = 0.0f;
+        p->value10 = -1.0f;
+        p->pad14 = 0;
+        p->flag18 = 0;
+        p->value1c = 1.0f;
+        p->enabled = 1;
+        return (void*)(p);
+    }
+    return (void*)(0);
+}
+
+namespace fn_f05a6271 {
+
+// 0x0017e0c0 fight::TrackFactoryTemplate<hulkfight::motion::ChargeTrack>::vfunc_2 (43 B): matches/0x0017e0c0.cpp
+// sym: ?scalar_dtor@TrackFactoryTemplate@fn_f05a6271@@QAEPAXE@Z
+// Same code shape as 0x0006fb50 (propagated; names are from that function)
+void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
+    m_vptr = (void*)&g_vftable_17e0c0;
+    base1_dtor();
+    base2_dtor();
+    if (flags & 1)
+        thunk_delete(this);
+    return this;
+}
+
+} // namespace fn_f05a6271
+
+// 0x0017e130 fight::TrackFactoryTemplate<hulkfight::motion::SnapToGroundTrack>::vfunc_5 (52 B): matches/0x0017e130.cpp [wrapped: helper definitions (2 out-of-line function bodies)]
+// sym: ?vfunc_5@TrackFactory@fight@fn_0017e130@@UAEPAXXZ
+void* __cdecl operator new(size_t) HULK_NEW_THROW;
+namespace fn_0017e130 {
+/* size_t: tree_prelude.h */
+
+namespace fight {
+class TrackFactory {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual void d();
+    virtual void e();
+    virtual void* vfunc_5();
+};
+} // namespace fight
+namespace hulkfight {
+namespace motion {
+class BaseTrack {
+  public:
+    BaseTrack() throw();
+    virtual void a();
+    int x;
+    int y;
+    int z;
+};
+class SnapToGroundTrack : public BaseTrack {
+  public:
+    SnapToGroundTrack() throw();
+    virtual void a();
+};
+SnapToGroundTrack::SnapToGroundTrack() throw() {
+    z = 0;
+    y = 1;
+}
+} // namespace motion
+} // namespace hulkfight
+void* fight::TrackFactory::vfunc_5() {
+    return new hulkfight::motion::SnapToGroundTrack;
+}
+} // namespace fn_0017e130
+
+
+// 0x0017e170 fight::TrackFactoryTemplate<hulkfight::motion::SnapToGroundTrack>::vfunc_2 (43 B): matches/0x0017e170.cpp [wrapped: same definition as 0x0017e0c0 in this TU]
+// sym: ?scalar_dtor@TrackFactoryTemplate@fn_0017e170@@QAEPAXE@Z
+namespace fn_0017e170 {
+// Same code shape as 0x0006fb50 (propagated; names are from that function)
+extern int g_vftable_17e170;
+
+struct TrackFactoryTemplate {
+    void* m_vptr;
+    void base1_dtor();
+    void base2_dtor();
+    void* scalar_dtor(unsigned char flags);
+};
+
+void thunk_delete(void*);
+
+void* TrackFactoryTemplate::scalar_dtor(unsigned char flags) {
+    m_vptr = (void*)&g_vftable_17e170;
+    base1_dtor();
+    base2_dtor();
+    if (flags & 1)
+        thunk_delete(this);
+    return this;
+}
+} // namespace fn_0017e170
+

@@ -1,0 +1,55 @@
+// Merged source tree (docs/merge-once.md): one TU per recovered object; the functions are edited here.
+// object 0x00052720..0x00055210 (kind game, layer game, confidence low)
+#include "tree_prelude.h"
+
+
+// 0x00053ef0 FUN_00053ef0 (231 B): equivalent/0x00053ef0.cpp [isolated: compile error C2264: 'operator new' : error in function definition or declaration; function not called]
+// sym: _FUN_00053ef0
+#include "gen/owners.h"
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/unknown.h"
+namespace fn_fe9f288b {} using namespace fn_fe9f288b;
+namespace fn_fe9f288b {
+// STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 8/8)
+// FUN_00053ef0 @ 0x00053ef0
+
+
+} // namespace fn_fe9f288b
+inline void* __cdecl operator new(size_t, void* p) { return p; }
+namespace fn_fe9f288b {
+
+extern "C" void* __cdecl FUN_0008d690(unsigned int);
+extern "C" void FUN_00049ed0();
+extern "C" void FUN_00047fc0();
+extern "C" void FUN_00047fd0();
+struct FUN_002349e0 { virtual void slot0(); char data[12]; void (*callback)(); char tail[4]; FUN_002349e0(const char* = "variableName"); };
+struct FUN_00234cc0 { virtual void slot0(); char data[12]; const char* names; int count; void (*callback)(); char tail[4]; FUN_00234cc0(const char* = "compare"); };
+struct FUN_00234960 { virtual void slot0(); char data[12]; void (*callback)(); char tail[4]; FUN_00234960(const char* = "luaValue"); };
+class CLuaNumberCondition;
+namespace fight {
+template<class T> struct ParamString : FUN_002349e0 { virtual void slot0(); };
+template<class T> struct ParamEnumConstList : FUN_00234cc0 { virtual void slot0(); };
+template<class T> struct ParamFloatConstRange : FUN_00234960 { virtual void slot0(); };
+}
+extern "C" void __cdecl FUN_002347b0(int*, void**, int);
+extern "C" void FUN_00053ef0() {
+ if (!DAT_004dc504) {
+ void* params[3];
+ void* mem=FUN_0008d690((int)sizeof(fight::ParamString<CLuaNumberCondition>));
+ fight::ParamString<CLuaNumberCondition>* a = mem ? new(mem) fight::ParamString<CLuaNumberCondition> : 0;
+ params[0]=a;
+ if(a) a->callback=FUN_00049ed0;
+ mem=FUN_0008d690((int)sizeof(fight::ParamEnumConstList<CLuaNumberCondition>));
+ fight::ParamEnumConstList<CLuaNumberCondition>* b=0;
+ if(mem) { int count=(*(int*)&DAT_00427754); b=new(mem) fight::ParamEnumConstList<CLuaNumberCondition>; b->count=count; b->names="lwB"; b->callback=FUN_00047fc0; }
+ params[1]=b;
+ mem=FUN_0008d690((int)sizeof(fight::ParamFloatConstRange<CLuaNumberCondition>));
+ fight::ParamFloatConstRange<CLuaNumberCondition>* c = mem ? new(mem) fight::ParamFloatConstRange<CLuaNumberCondition> : 0;
+ params[2]=c;
+ if(c) c->callback=FUN_00047fd0;
+ FUN_002347b0(&DAT_004dc500,params,3);
+ }
+ ++DAT_004dc504;
+}
+} // namespace fn_fe9f288b
+
