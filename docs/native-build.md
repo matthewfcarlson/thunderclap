@@ -2379,3 +2379,121 @@ identical to HEAD's (0x002f27c0's symbol changes: new pin) apart from 0x00363230
 x86-64 Linux / arm64 Android unbound **22,116 / 22,096 / 22,107** (before: 22,121 / 22,101 / 22,112), every TU
 compiles. macOS: the property table, the environment and the world's allocation run; the start-up stops in the
 world's collision detector (0x00301290 calls its base constructor 0x00313500 under a local class name, unbound).
+
+## CRT names, deleting destructors and slot names (ren2, 2026-11-11)
+
+docs/native-unbound-plan.md's B1 (CRT part), B4 and B3 / B3b, in that order. Base HEAD d2275f127; control 71640 (studio,
+fresh, `--gfx --replay play3 --frames 60000`, private copies of the fresh data TUs and hulk_sdl.lib): image 34136c65.
+Native on that tree (arm64 macOS / x86-64 Linux / arm64 Android): **22,121 / 22,101 / 22,112** unbound. Every proof
+below is seeded from 71640 on studio and gated with `tools/ckpt_gate.py` against it. The native counts are compile +
+link queue jobs (build/ren2/scripts/natq.sh / natq2.sh; studio, later any clang host), not the laptop: the unbound count
+is the link report's, made before ld64 (mac1 has no Xcode tools, so its ld64 step reports `host glue failed`). The
+code-hash pins (hash1) landed while this
+ran; the batches were rebased onto them (build/ren2/scripts/rebase.py: `git merge-file` per stage) and the 32-bit
+gate rerun on the rebased TUs with tree_tu's code-hash check (below).
+
+**The 32-bit gate (every edited TU; build/ren2/scripts/objcmp.py, ren1's, extended).** The TU's MSVC object before and
+after: byte-identical sections, the same relocations, targets paired as renames (several invented names may become
+one CRT name), and every block's tree_tu check status (matches: MATCH and relocations; equivalents: compiled and the
+code-hash verdict) as before.
+
+**B4: the scalar deleting destructors (4 commits).** clang (MS ABI) emits a class's `??_G` only beside the class's
+vftable, and the vftable only where a constructor is emitted; MSVC emits `??_G` beside the destructor. 1,888 tree
+blocks are `??_G`; 1,871 had no 64-bit symbol (1,680 class-template specializations, 191 plain classes). The user's
+choice is source, not the link: after the last member definition of each specialization in the TU,
+
+```cpp
+#if defined(HULK_PTR64)
+template class Method6<CCameraManager, void, float, float, float, float, float, float>; // (ren2) native only: ...
+#endif
+```
+
+An explicit instantiation definition marks the vftable used, so clang emits the vftable and the `??_G` there; MSVC and
+the 32-bit clang build never see it. build/ren2/scripts/dtorinst.py (libclang): 1,671 instantiations in 321 TUs, each
+TU compiled natively and checked to define the wanted `??_G` (by demangled form, as native_unbound.Defs matches);
+all MSVC objects identical. Effect on the link (macOS): the game vftables' `hulk_x_` slots **2,958 -> 1,287**, vftable
+slots bound 24,482 -> 26,153, code stubs 22,160 -> 20,697. The unbound-name count rises (+279 on macOS): the newly
+emitted local vftables reference slot functions no TU defines (gen base virtuals such as `pure3d::NonCopyable::vfunc_1`,
+`ClosureN<struct X>` members whose class/struct spelling differs from the tree's). Not done: the 191 plain classes
+(no template to instantiate; a native-only constructor would have to be declared in each class, many of them gen
+classes) and the TUs of x64t3/x64t4's start-up path and the replay pins.
+
+| commit | TUs / instantiations | proof (image) | native unbound macOS / Linux / Android | `hulk_x_` (macOS) |
+|---|---|---|---|---|
+| (before) | | 71640 (34136c65) | 22,121 / 22,101 / 22,112 | 2,958 |
+| B4 1/4 src/engine, src/game/global AI..CR | 108 / 556 | 71657, GATE ok (34136c65) | 22,251 / 22,231 / 22,242 | 2,402 |
+| B4 2/4 src/game/global, the rest | 96 / 425 | 71658, GATE ok (34136c65) | 22,301 / 22,281 / 22,292 | 1,977 |
+| B4 3/4 src/game/hulkfight/motion | 80 / 465 | 71659, GATE ok (34136c65) | 22,371 / 22,351 / 22,362 | 1,512 |
+| B4 4/4 src/game/hulkfight, the rest | 37 / 225 | 71660, GATE ok (34136c65) | 22,400 / 22,380 / 22,391 | 1,287 |
+
+**CRT names (B1's CRT part, 3 commits).** 253 unbound invented names were CRT routines under names the Wine binding
+map binds to a native CRT table row: 233 `__RTDynamicCast` callers (`Cast`, `check`, `DoCast`, ...), `__RTtypeid`,
+`sprintf` / `sscanf` / `fprintf` declared C++ in TU namespaces, `strncpy`, `fclose`, `isalnum`, `floor`, `atol`
+(ren1's `Fnatol_003454fe`). build/ren2/scripts/crtname.py (libclang): each call becomes the CRT name with its arguments
+cast to the real prototype's parameter types (pointer-sized through hulk_uintptr) and its result to the old
+declaration's result type (as the source spelled it: the canonical `long long` of hulk_intptr changed the 32-bit
+clang code); the TU's own declarations are removed and one global `extern "C"` prototype goes after the includes
+(MSVC 7.1 takes extern "C" declarations in two namespaces as two overloads: C2668), under `#if
+!defined(HULK_COMPAT_CRT)`
+where compat/crt.h declares the name. `__declspec(nothrow)` is kept where every replaced declaration had it (a first
+run dropped it from `fclose` and clang gave StdStream's destructor an unwind funclet in the Wine image). Left: 37
+names declared in a shared header (game/unknown.h), 18 where nothrow and plain declarations mix, the atof caller
+(`float Conv(int)`: `(float)atof()` changes the code), CTriggerVolume.GS.cpp (sprintf), `type_info::operator==`
+(0x00344913, a member). 227 names in 168 TUs. verify_relocs' library-name rule holds each call to its row's address.
+Seven equivalent blocks' code hashes (hash1) keyed the old callee by name, so they were re-proven at the new names
+(equiv.py 3,000 inputs and `--wine` 600, `tree_tu.py hash --proven`): 0x00226a70, 0x00339ad0, 0x0021bbc0, 0x00217640,
+0x001d5c70, 0x001d5d20, 0x000b9930. The Wine image becomes 37ae77af: the code is the same, the import thunks (floor,
+atol, ...) come in another order and the calls to them are displaced (build/ren2/scripts/imgdiff.py; floor's 19
+calls reach msvcrt's floor through `_floor` where they reached it through the old name).
+
+| commit | TUs / names | proof (image) | native unbound macOS / Linux / Android |
+|---|---|---|---|
+| CRT names 1/3 src/engine, src/game/global | 41 / 58 | 71734, GATE ok (37ae77af) | 22,344 / 22,324 / 22,335 |
+| CRT names 2/3 src/game/hulkfight | 96 / 128 | 71735, GATE ok (37ae77af) | 22,243 / 22,223 / 22,234 |
+| CRT names 3/3 src/game/unknown, DollyScript, pure3d | 31 / 41 | 71736, GATE ok (37ae77af) | 22,204 / 22,184 / 22,195 |
+
+**Slot names (B3, 4 commits; B3b, 3 commits and a second pass).** A stub virtual member takes the address of its game
+vftable slot,
+`<leaf>_<address>` (`v0` -> `v0_00038290`, content::LoadObject's slot 0), where the Wine map pairs its local vftable
+with a game vftable and every slot that holds it has that address (plan1's slotsim.py on 71640's objects). ren1's
+SlotProof rule (3b99b93f1) verifies such a name by its vftable slots and the link binds it to the tree's definition
+when the IR signatures agree. build/ren2/scripts/slotname.py (ren1's rename2.py): 1,858 names in 585 TUs. A virtual
+that overrides a base's, or that a class of the TU overrides, keeps its name: a rename would add a slot. B3b
+(slotname2.py): where the stub declared the member `()` and the definition takes arguments, the declaration also takes
+the definition's IR signature (`virtual void f0();` -> `virtual void* f0_0024edb0(char);`), only for members the TU
+spells once; 1,224 names in 280 TUs. After B4 the deleting destructors' slots are definitions too; a second pass on a
+new classification (after B3b 3/3) found 2,365 such slots, but nearly all are overrides (the stub base's
+`virtual void v0()` overridden in each derived stub): 50 names in 20 TUs (the second pass). 0x002a7410
+(ParticleController.cpp)
+calls a renamed slot by name: its code hash re-proven as above.
+
+| commit | TUs / names | proof (image) | native unbound macOS / Linux / Android |
+|---|---|---|---|
+| slot names 1/4 src/engine | 114 / 536 | 71750, GATE ok (37ae77af) | 21,668 / 21,648 / 21,659 |
+| slot names 2/4 src/game outside hulkfight | 203 / 491 | 71751, GATE ok (37ae77af) | 21,179 / 21,159 / 21,170 |
+| slot names 3/4 src/game/hulkfight/motion | 172 / 527 | 71752, GATE ok (37ae77af) | 20,652 / 20,632 / 20,643 |
+| slot names 4/4 src/game/hulkfight, the rest | 96 / 304 | 71753, GATE ok (37ae77af) | 20,348 / 20,328 / 20,339 |
+| slot names with signatures 1/3 src/engine | 91 / 353 | 71817, GATE ok (37ae77af) | 19,997 / 19,977 / 19,988 |
+| slot names with signatures 2/3 src/game outside hulkfight | 121 / 488 | 71818, GATE ok (37ae77af) | 19,521 / 19,501 / 19,512 |
+| slot names with signatures 3/3 src/game/hulkfight | 68 / 383 | 71819, GATE ok (37ae77af) | 19,141 / 19,121 / 19,132 |
+
+**Pure slots.** 57 stub virtuals in 20 TUs whose game slot is `_purecall` (0x00344f51). A plain `= 0` changed the
+MSVC object in all 20 TUs (MSVC emits those stub vftables there and the slot became `__purecall`), so they are
+declared `virtual void f() HULK_PURE64;`: include/compat/ptr.h defines it as `= 0` on a 64-bit target and as nothing
+on the 32-bit builds. The local vftable slot then holds the native CRT table's `_purecall`.
+build/ren2/scripts/purecall.py
+(MemoryTwoWayAllocator.cpp left: the TU allocates the class). Proof 71906 GATE ok (37ae77af); native 19,084 / 19,064 /
+19,075.
+
+**The last commit and the whole.** The second pass (the 50 destructor-slot names) and a proof of HEAD
+a9b5f322a (all of the above and x64t4's batches 1-2) with them: proof 72053 vs control 71640, GATE ok (0 of 2,013
+common frames differ; image 2fc587ca, x64t4's code changes included); native unbound **19,029 / 19,009 / 19,020**.
+
+**Totals.** 22,121 / 22,101 / 22,112 -> **19,029 / 19,009 / 19,020** (-3,092 / -3,092 / -3,092; the game vftables'
+`hulk_x_` slots 2,958 -> 1,287 besides). Left for later batches: the 191 plain classes' `??_G` (a native-only
+constructor per class, many of them in include/gen); the override chains of stub virtuals (2,300 destructor slots and
+~800 others: deriving the stubs from include/gen's classes, plan1's batch 4, or naming the base and every override by
+one address where the game slots agree); the new local-vftable names B4 brings (gen virtuals the tree does not
+define, ClosureN<struct X> vs class X); header-declared CRT callers (game/unknown.h); x64t3/x64t4's start-up TUs and
+the replay-pin TUs, which every batch here left alone.
+
